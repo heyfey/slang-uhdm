@@ -1,0 +1,32 @@
+r10uvm147 — ARMS: the census score of every grid, golden vs pristine and golden vs patched, in BOTH views.
+Scorer: ct147cen --sel + join147.py.  LHS is ALWAYS golden.  MEASUREMENT-ONLY.
+
+== arm a  (g147_a.sv) ==
+  DEF  pris: CELLS shared-equal=13 DIFFER=21 GOLDEN-ONLY=0 OURS-ONLY=0 wrong=21
+  DEF  patc: CELLS shared-equal=34 DIFFER=0 GOLDEN-ONLY=0 OURS-ONLY=0 wrong=0
+  ELAB pris: CELLS shared-equal=26 DIFFER=44 GOLDEN-ONLY=0 OURS-ONLY=0 wrong=44
+  ELAB patc: CELLS shared-equal=70 DIFFER=0 GOLDEN-ONLY=0 OURS-ONLY=0 wrong=0
+
+== arm b  (g147_b.sv) ==
+  DEF  pris: CELLS shared-equal=7 DIFFER=13 GOLDEN-ONLY=0 OURS-ONLY=0 wrong=13
+  DEF  patc: CELLS shared-equal=20 DIFFER=0 GOLDEN-ONLY=0 OURS-ONLY=0 wrong=0
+  ELAB pris: CELLS shared-equal=14 DIFFER=28 GOLDEN-ONLY=0 OURS-ONLY=0 wrong=28
+  ELAB patc: CELLS shared-equal=42 DIFFER=0 GOLDEN-ONLY=0 OURS-ONLY=0 wrong=0
+
+== arm c  (g147_c.sv) ==
+  DEF  pris: CELLS shared-equal=1 DIFFER=13 GOLDEN-ONLY=0 OURS-ONLY=0 wrong=13
+  DEF  patc: CELLS shared-equal=12 DIFFER=2 GOLDEN-ONLY=0 OURS-ONLY=0 wrong=2
+  ELAB pris: CELLS shared-equal=2 DIFFER=36 GOLDEN-ONLY=0 OURS-ONLY=0 wrong=36
+  ELAB patc: CELLS shared-equal=34 DIFFER=4 GOLDEN-ONLY=0 OURS-ONLY=0 wrong=4
+
+== arm d  (g147_d.sv) ==
+  DEF  pris: CELLS shared-equal=13 DIFFER=14 GOLDEN-ONLY=5 OURS-ONLY=4 wrong=23
+  DEF  patc: CELLS shared-equal=30 DIFFER=0 GOLDEN-ONLY=2 OURS-ONLY=2 wrong=4
+  ELAB pris: CELLS shared-equal=26 DIFFER=28 GOLDEN-ONLY=10 OURS-ONLY=8 wrong=46
+  ELAB patc: CELLS shared-equal=60 DIFFER=0 GOLDEN-ONLY=4 OURS-ONLY=4 wrong=8
+
+== arm e  (g147_e.sv) ==
+  DEF  pris: CELLS shared-equal=12 DIFFER=13 GOLDEN-ONLY=0 OURS-ONLY=0 wrong=13
+  DEF  patc: CELLS shared-equal=25 DIFFER=0 GOLDEN-ONLY=0 OURS-ONLY=0 wrong=0
+  ELAB pris: CELLS shared-equal=19 DIFFER=29 GOLDEN-ONLY=0 OURS-ONLY=5 wrong=34
+  ELAB patc: CELLS shared-equal=48 DIFFER=0 GOLDEN-ONLY=0 OURS-ONLY=5 wrong=5

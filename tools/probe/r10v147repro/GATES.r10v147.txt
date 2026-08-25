@@ -1,0 +1,65 @@
+r10v147 — the VERIFIER's own gate battery, run from its own worktrees and its own binaries.
+Worktrees /tmp/wt_v147 (patched) and /tmp/wt_v147pris (pristine), both at c67afc7.
+Binaries built by the verifier, frozen chmod 555 BEFORE any sweep:
+  pristine md5 055ba5e17d0118cad5274d6a24a34f1e
+  patched  md5 d87a326362a1c93405a6fce3e4dd28d0
+  -> BOTH md5s are BIT-FOR-BIT the implementer's reported md5s (independent rebuild).
+
+GATE 2 goldens (SLANG_UHDM exported EXPLICITLY to each binary):
+  patched  PASS=23 FAIL=0
+  pristine PASS=23 FAIL=0
+  SLANG_UHDM=/bin/false PASS=0 FAIL=23   (negative control)
+
+GATE 3 uhdm2rtlil, both modes, both binaries: 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+GATE 4 surelog corpus --mode both: status histograms IDENTICAL pristine vs patched
+  default   CMP_EQUAL 471  SLANG_REJECT 283  SURELOG_FAIL 25  CMP_NOTEQUAL 10  DEFERRED 5
+  testflags CMP_EQUAL 466  SLANG_REJECT 284  SURELOG_FAIL 23  CMP_NOTEQUAL 9   DEFERRED 5
+            NO_DATABASE 3  UNTRANSLATABLE 2  TIMEOUT 1  NO_UHDM 1
+
+ct8rows (WHOLE ROW, dump column included):
+  surelog committed-baseline vs my PATCHED : PASS: every row byte-identical to the committed baseline
+  surelog committed-baseline vs my PRISTINE: PASS: every row byte-identical to the committed baseline
+  surelog my PRISTINE vs my PATCHED       : PASS: every row byte-identical to the committed baseline
+  u2r/tf  committed-baseline vs my PATCHED : PASS: every row byte-identical to the committed baseline
+  u2r/tf  my PRISTINE vs my PATCHED       : PASS: every row byte-identical to the committed baseline
+  u2r/def my PRISTINE vs my PATCHED       : PASS: every row byte-identical to the committed baseline
+  NO ROW CONVERTED.  results/*.csv were only READ, never written.
+
+CMDS.TXT AUDIT BY BINARY PATH (every file, both corpora, both workdirs):
+  patched  surelog: 1573 files, 1523 name /tmp/v147_bin/pat_v147.bin,  0 name any other
+  patched  u2r    : 1462 files, 1458 name /tmp/v147_bin/pat_v147.bin,  0 name any other
+  pristine surelog: 1573 files, 1523 name /tmp/v147_bin/pris_v147.bin, 0 name any other
+  pristine u2r    : 1462 files, 1458 name /tmp/v147_bin/pris_v147.bin, 0 name any other
+  GOLDEN_DEFER UNSET; git stash never used; slang not patched; fenced tests never dispatched.
+
+GATE 5 byteverify SELFCHECK=1 (verifier's own pristine control):
+  surelog databases: patched=956 pristine=956
+  surelog PATH_SETS_IDENTICAL (956 paths)
+  surelog MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm  patched=06e6a25261ad pristine=ee653e0c773f
+  surelog MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  patched=06e6a25261ad pristine=ee653e0c773f
+  surelog MOVERS: 2 / 956
+  surelog SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+  u2r     databases: patched=1358 pristine=1358
+  u2r     PATH_SETS_IDENTICAL (1358 paths)
+  u2r     MOVERS: 0 / 1358
+  u2r     SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+  The verifier's run flipped NO Scoreboard coin, so the mover set is EXACTLY the predicted set.
+
+CANARIES
+  surelog ---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+  u2r     ---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+  ctcan2 surelog: PASS: every supplementary canary row is byte-identical to the baseline.
+  ctcan2 u2r    : PASS: every supplementary canary row is byte-identical to the baseline.
+  canaudit      : PASS: every brief-protected name and family is carried by a script that RUNS here.
+
+PROTECTED DATABASES (md5 patched vs the verifier's own pristine control)
+  InterfaceModPort     default   pris=59a365f3ce2c pat=59a365f3ce2c SAME
+  InterfaceModPort     testflags pris=59a365f3ce2c pat=59a365f3ce2c SAME
+  BlackParrotComplex   default   pris=e3e354129d5a pat=e3e354129d5a SAME
+  BlackParrotComplex   testflags pris=73a10e8217e5 pat=73a10e8217e5 SAME
+  YosysOldOr           default   pris=d68e0796d62c pat=d68e0796d62c SAME
+  YosysOldOr           testflags pris=d68e0796d62c pat=d68e0796d62c SAME
+  SVSwitch             default   pris=4842211c4030 pat=4842211c4030 SAME
+  SVSwitch             testflags pris=4842211c4030 pat=4842211c4030 SAME
+  YosysVerx            default   pris=6ccda350c24a pat=6ccda350c24a SAME
+  YosysVerx            testflags pris=6ccda350c24a pat=6ccda350c24a SAME

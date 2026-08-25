@@ -1,0 +1,109 @@
+r10v147 — HEADS, MOVERS, CENSUS, BOUNDARY: the verifier's independent re-measurement.
+
+== HEADS (rowheads.sh on the verifier's own workdirs) ==
+-- PRISTINE
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         62      1 cmp rc=255
+SeqDriver      testflags       62      1 cmp rc=255
+SimpleUVM      default         62      1 cmp rc=255
+SimpleUVM      testflags       62      1 cmp rc=255
+Scoreboard     default         62      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default         62      1 cmp rc=255
+MiniAmiq       testflags       62      1 cmp rc=255
+BuildUVMPkg    default        174      1 cmp rc=255
+BuildUVMPkg    testflags      174      1 cmp rc=255
+Earlgrey_0_1   default         64      1 cmp rc=255
+Earlgrey_0_1   testflags       64      1 cmp rc=255
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+-- PATCHED
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         62      1 cmp rc=255
+SeqDriver      testflags       62      1 cmp rc=255
+SimpleUVM      default         62      1 cmp rc=255
+SimpleUVM      testflags       62      1 cmp rc=255
+Scoreboard     default         62      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default         62      1 cmp rc=255
+MiniAmiq       testflags       62      1 cmp rc=255
+BuildUVMPkg    default         68      1 cmp rc=255
+BuildUVMPkg    testflags       68      1 cmp rc=255
+Earlgrey_0_1   default         64      1 cmp rc=255
+Earlgrey_0_1   testflags       64      1 cmp rc=255
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+
+cmp-log identity, pristine vs patched, per row:
+  CHANGED   BuildUVMPkg.default.cmp
+  CHANGED   BuildUVMPkg.testflags.cmp
+  IDENTICAL Earlgrey_0_1.default.cmp
+  IDENTICAL Earlgrey_0_1.testflags.cmp
+  IDENTICAL MiniAmiq.default.cmp
+  IDENTICAL MiniAmiq.testflags.cmp
+  IDENTICAL Rggen.default.cmp
+  IDENTICAL Scoreboard.default.cmp
+  IDENTICAL SeqDriver.default.cmp
+  IDENTICAL SeqDriver.testflags.cmp
+  IDENTICAL SimpleUVM.default.cmp
+  IDENTICAL SimpleUVM.testflags.cmp
+  patched BuildUVMPkg.default vs .testflags: BYTE-IDENTICAL
+
+Every one of the 12 committed head_pris_*/head_pat_*.cmp logs in r10uvm147repro reproduced
+BYTE-FOR-BYTE by the verifier (modulo the workdir path embedded in the dump).
+
+PRISTINE head object: var_select uvm_pkg.sv 76967:20-38  (the briefed head)
+PATCHED  head object: func_call uvm_root::get 29217:10-18 vs our method_func_call
+                      uvm_report_enabled 29217:26-44 — a DIFFERENT object; the head CLEARED.
+
+== A-PRIORI PREDICTION, run on the verifier's PRISTINE databases BEFORE any patched read ==
+  CAND default/BuildUVMPkg-bf853d43 count=4
+  CAND testflags/BuildUVMPkg-bf853d43 count=4
+  -- surelog    databases=956  candidates=2
+  -- uhdm2rtlil databases=1358 candidates=0
+  objects named: 76967:20 value[idx] (x2), 77065:10 value[idx] (x2)
+  MEASURED MOVERS: exactly that set (2/956, 0/1358).  No coin flipped in this run.
+
+== MOVER ATTRIBUTION — sorted, path-normalised, id-stripped whole-dump diff ==
+  default/BuildUVMPkg: 1077443 -> 1077489 lines, 66 removed / 112 added
+  every changed object carries uvm_pkg.sv line 76965, 76966, 76967, 77063 or 77065 — nothing else
+  SUBTREE vs GOLDEN, object multiset at each site (vpiFullName is dump-only, not read by Compare):
+    site 76967 — IDENTICAL to golden
+    site 77065 — one line differs: golden has 6 'operation 77065:21-25' parent lines, ours 4
+                 (the R2.1 vpiParent residue the implementer declared; no Compare reads vpiParent)
+
+== CENSUS over the UVM corpus rows, both modes (calibrated golden-vs-golden FIRST) ==
+  calibration: each of the 9 golden censuses joined to itself -> 0 wrong; a re-restore of
+  BuildUVMPkg's golden is BYTE-STABLE and joins 0 wrong.
+  PRISTINE                                     PATCHED
+  default_BuildUVMPkg   996/DIFFER 4/0/0        1000/DIFFER 0/0/0   <-- the only row that moved
+  testflags_BuildUVMPkg 996/DIFFER 4/0/0        1000/DIFFER 0/0/0
+  default_MiniAmiq     1909/0/124/123          1909/0/124/123
+  testflags_MiniAmiq   1909/0/124/123          1909/0/124/123
+  default_SeqDriver    1808/0/121/121          1808/0/121/121
+  testflags_SeqDriver  1808/0/121/121          1808/0/121/121
+  default_SimpleUVM     957/0/77/77             957/0/77/77
+  testflags_SimpleUVM   957/0/77/77             957/0/77/77
+  default_Scoreboard    957/0/77/77             957/0/77/77
+  (testflags_Scoreboard SKIP-NOFILE, expected)
+
+== WIDE BOUNDARY GATE (verifier's own run, over a COPY of the WHOLE probe tree ==
+   PLUS the verifier's own grids as extra positive controls) ==
+  LISTED=4190 PROCESSED=4190 PRODUCED_DBS=4045 MOVED_ARMS=11 RC_DIFFS=0
+  the 11 movers:
+    r10uvm147repro/g147_a.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+    r10uvm147repro/g147_b.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+    r10uvm147repro/g147_c.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+    r10uvm147repro/g147_d.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+    r10uvm147repro/g147_e.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+    v147_h.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+    v147_i.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+    v147_j.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+    v147_k.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+    v147_p.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+    v147_s.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+  i.e. this pass's five grids + six of the verifier's own — and NOTHING ELSE.
+  No r10uvm77-79 / 82-91 / 84 / 85 / 89 / 92 / 113 / 143 / 144, no r10buvm3-15, no r10sd8-12 arm moved.
+  RC_DIFFS=0: the 14 pre-existing --elabuhdm segfaults occur identically under BOTH binaries.

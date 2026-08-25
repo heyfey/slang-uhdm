@@ -1,0 +1,174 @@
+LHS:
+decompile:
+var_select: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value), id:54682, line:76967:20, endln:76967:38
+|vpiParent:
+\_hier_path: (rw.value[idx][8 * i+:8]), id:54680, line:76967:17, endln:76967:38
+|vpiName:value
+|vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value
+|vpiIndex:
+\_ref_obj: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value::idx), id:54683, line:76967:26, endln:76967:29
+  |vpiParent:
+  \_var_select: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value), id:54682, line:76967:20, endln:76967:38
+  |vpiName:idx
+  |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value::idx
+  |vpiActual:
+  \_array_var: (uvm_pkg::uvm_reg_map::do_bus_access::idx), id:192750, line:76965:20, endln:76965:23
+|vpiIndex:
+\_indexed_part_select: value (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value::value), id:54684, line:76967:31, endln:76967:37
+  |vpiParent:
+  \_var_select: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value), id:54682, line:76967:20, endln:76967:38
+  |vpiName:value
+  |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value::value
+  |vpiDefName:value
+  |vpiConstantSelect:1
+  |vpiIndexedPartSelectType:1
+  |vpiBaseExpr:
+  \_operation: , id:54686, line:76967:31, endln:76967:34
+    |vpiParent:
+    \_indexed_part_select: value (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value::value), id:54684, line:76967:31, endln:76967:37
+    |vpiOpType:25
+    |vpiOperand:
+    \_constant: , id:54685, line:76967:31, endln:76967:32
+      |vpiParent:
+      \_operation: , id:54686, line:76967:31, endln:76967:34
+      |vpiDecompile:8
+      |vpiSize:64
+      |UINT:8
+      |vpiConstType:9
+    |vpiOperand:
+    \_ref_obj: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value::value::i), id:54687, line:76967:33, endln:76967:34
+      |vpiParent:
+      \_operation: , id:54686, line:76967:31, endln:76967:34
+      |vpiName:i
+      |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value::value::i
+      |vpiActual:
+      \_int_var: (uvm_pkg::uvm_reg_map::do_bus_access::i), id:54670, line:76966:12, endln:76966:13
+  |vpiWidthExpr:
+  \_constant: , id:54688, line:76967:36, endln:76967:37
+    |vpiDecompile:8
+    |vpiSize:64
+    |UINT:8
+    |vpiConstType:9
+
+decompile:
+var_select: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value), id:54682, line:76967:20, endln:76967:38
+|vpiParent:
+\_hier_path: (rw.value[idx][8 * i+:8]), id:54680, line:76967:17, endln:76967:38
+|vpiName:value
+|vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value
+|vpiIndex:
+\_ref_obj: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value::idx), id:54683, line:76967:26, endln:76967:29
+  |vpiParent:
+  \_var_select: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value), id:54682, line:76967:20, endln:76967:38
+  |vpiName:idx
+  |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value::idx
+  |vpiActual:
+  \_array_var: (uvm_pkg::uvm_reg_map::do_bus_access::idx), id:192750, line:76965:20, endln:76965:23
+|vpiIndex:
+\_indexed_part_select: value (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value::value), id:54684, line:76967:31, endln:76967:37
+  |vpiParent:
+  \_var_select: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value), id:54682, line:76967:20, endln:76967:38
+  |vpiName:value
+  |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value::value
+  |vpiDefName:value
+  |vpiConstantSelect:1
+  |vpiIndexedPartSelectType:1
+  |vpiBaseExpr:
+  \_operation: , id:54686, line:76967:31, endln:76967:34
+    |vpiParent:
+    \_indexed_part_select: value (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value::value), id:54684, line:76967:31, endln:76967:37
+    |vpiOpType:25
+    |vpiOperand:
+    \_constant: , id:54685, line:76967:31, endln:76967:32
+      |vpiParent:
+      \_operation: , id:54686, line:76967:31, endln:76967:34
+      |vpiDecompile:8
+      |vpiSize:64
+      |UINT:8
+      |vpiConstType:9
+    |vpiOperand:
+    \_ref_obj: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value::value::i), id:54687, line:76967:33, endln:76967:34
+      |vpiParent:
+      \_operation: , id:54686, line:76967:31, endln:76967:34
+      |vpiName:i
+      |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value::value::i
+      |vpiActual:
+      \_int_var: (uvm_pkg::uvm_reg_map::do_bus_access::i), id:54670, line:76966:12, endln:76966:13
+  |vpiWidthExpr:
+  \_constant: , id:54688, line:76967:36, endln:76967:37
+    |vpiDecompile:8
+    |vpiSize:64
+    |UINT:8
+    |vpiConstType:9
+RHS:
+decompile:
+indexed_part_select: (rw.value[idx][8 * i+:8]), id:79702, line:76967:20, endln:76967:37
+|vpiParent:
+\_hier_path: (rw.value[idx][8 * i+:8]), id:79700, line:76967:17, endln:76967:38
+|vpiName:value[idx]
+|vpiFullName:rw.value[idx][8 * i+:8]
+|vpiConstantSelect:1
+|vpiIndexedPartSelectType:1
+|vpiBaseExpr:
+\_operation: , id:79703, line:76967:31, endln:76967:34
+  |vpiParent:
+  \_indexed_part_select: (rw.value[idx][8 * i+:8]), id:79702, line:76967:20, endln:76967:37
+  |vpiOpType:25
+  |vpiOperand:
+  \_constant: , id:79704, line:76967:31, endln:76967:32
+    |vpiParent:
+    \_operation: , id:79703, line:76967:31, endln:76967:34
+    |vpiDecompile:8
+    |vpiSize:64
+    |UINT:8
+    |vpiConstType:9
+  |vpiOperand:
+  \_ref_obj: (uvm_pkg::uvm_reg_map::do_bus_access.rw.value[idx][8 * i+:8].value[idx]::i), id:79705, line:76967:33, endln:76967:34
+    |vpiParent:
+    \_operation: , id:79703, line:76967:31, endln:76967:34
+    |vpiName:i
+    |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access.rw.value[idx][8 * i+:8].value[idx]::i
+    |vpiActual:
+    \_int_var: (uvm_pkg::uvm_reg_map::do_bus_access::i), id:79688, line:76966:12, endln:76966:13
+|vpiWidthExpr:
+\_constant: , id:79706, line:76967:36, endln:76967:37
+  |vpiDecompile:8
+  |vpiSize:64
+  |UINT:8
+  |vpiConstType:9
+
+decompile:
+indexed_part_select: (rw.value[idx][8 * i+:8]), id:79702, line:76967:20, endln:76967:37
+|vpiParent:
+\_hier_path: (rw.value[idx][8 * i+:8]), id:79700, line:76967:17, endln:76967:38
+|vpiName:value[idx]
+|vpiFullName:rw.value[idx][8 * i+:8]
+|vpiConstantSelect:1
+|vpiIndexedPartSelectType:1
+|vpiBaseExpr:
+\_operation: , id:79703, line:76967:31, endln:76967:34
+  |vpiParent:
+  \_indexed_part_select: (rw.value[idx][8 * i+:8]), id:79702, line:76967:20, endln:76967:37
+  |vpiOpType:25
+  |vpiOperand:
+  \_constant: , id:79704, line:76967:31, endln:76967:32
+    |vpiParent:
+    \_operation: , id:79703, line:76967:31, endln:76967:34
+    |vpiDecompile:8
+    |vpiSize:64
+    |UINT:8
+    |vpiConstType:9
+  |vpiOperand:
+  \_ref_obj: (uvm_pkg::uvm_reg_map::do_bus_access.rw.value[idx][8 * i+:8].value[idx]::i), id:79705, line:76967:33, endln:76967:34
+    |vpiParent:
+    \_operation: , id:79703, line:76967:31, endln:76967:34
+    |vpiName:i
+    |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access.rw.value[idx][8 * i+:8].value[idx]::i
+    |vpiActual:
+    \_int_var: (uvm_pkg::uvm_reg_map::do_bus_access::i), id:79688, line:76966:12, endln:76966:13
+|vpiWidthExpr:
+\_constant: , id:79706, line:76967:36, endln:76967:37
+  |vpiDecompile:8
+  |vpiSize:64
+  |UINT:8
+  |vpiConstType:9

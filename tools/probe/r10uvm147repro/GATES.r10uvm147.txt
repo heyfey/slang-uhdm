@@ -1,0 +1,86 @@
+r10uvm147 — GATES, all green.  Base commit c67afc7.
+
+binaries (frozen chmod 555 before ANY sweep):
+  pristine /tmp/r10uvm147_pris.bin  md5 055ba5e17d0118cad5274d6a24a34f1e
+  patched  /tmp/r10uvm147_pat.bin   md5 d87a326362a1c93405a6fce3e4dd28d0
+
+GATE 1 — build both, md5s: DONE (above); production surface src/ExprEmit.cpp only,
+  66 inserted / 5 deleted, ONE added line of code.
+
+GATE 2 — goldens
+  pristine: PASS=23 FAIL=0
+  patched : PASS=23 FAIL=0
+  SLANG_UHDM=/bin/false negative control: PASS=0 FAIL=23
+  (SLANG_UHDM exported EXPLICITLY to each binary on every invocation)
+
+GATE 3 — uhdm2rtlil, both modes
+  PRISTINE tf   {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+  PRISTINE def  {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+  PATCHED  tf   {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+  PATCHED  def  {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+  ct8rows committed-baseline vs patched/testflags: PASS: every row byte-identical to the committed baseline
+  ct8rows my pristine  vs patched/testflags: PASS: every row byte-identical to the committed baseline
+  ct8rows my pristine  vs patched/default  : PASS: every row byte-identical to the committed baseline
+
+GATE 4 — surelog corpus, --mode both (1588 rows)
+  ct8rows committed-baseline vs my PRISTINE: PASS: every row byte-identical to the committed baseline
+  ct8rows committed-baseline vs my PATCHED : PASS: every row byte-identical to the committed baseline
+  ct8rows my PRISTINE        vs my PATCHED : PASS: every row byte-identical to the committed baseline
+  NO ROW CONVERTED.  results/*.csv were only READ.
+  status default    {'CMP_EQUAL': 471, 'SLANG_REJECT': 283, 'SURELOG_FAIL': 25, 'CMP_NOTEQUAL': 10, 'DEFERRED': 5}
+  status testflags  {'CMP_EQUAL': 466, 'SLANG_REJECT': 284, 'SURELOG_FAIL': 23, 'NO_DATABASE': 3, 'CMP_NOTEQUAL': 9, 'UNTRANSLATABLE': 2, 'DEFERRED': 5, 'TIMEOUT': 1, 'NO_UHDM': 1}
+
+GATE 5 — byteverify SELFCHECK=1 (see MOVERS.r10uvm147.txt for the attribution)
+  PATH_SETS_IDENTICAL (956 paths)
+  MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm  patched=06e6a25261ad pristine=ee653e0c773f
+  MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=5dcb6a96a2ab pristine=9740ea5bb6b6
+  MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  patched=06e6a25261ad pristine=ee653e0c773f
+  MOVERS: 3 / 956
+  SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+  databases: patched=1358 pristine=1358
+  PATH_SETS_IDENTICAL (1358 paths)
+  MOVERS: 0 / 1358
+  SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+
+CANARIES
+  surelog ---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+  u2r     ---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+  ctcan2 surelog: PASS: every supplementary canary row is byte-identical to the baseline.
+  ctcan2 u2r    : PASS: every supplementary canary row is byte-identical to the baseline.
+  canaudit      : PASS: every brief-protected name and family is carried by a script that RUNS here.
+
+PROTECTED DATABASES (md5 patched vs my pristine control)
+  InterfaceModPort     default   pris=59a365f3ce2c pat=59a365f3ce2c SAME
+  InterfaceModPort     testflags pris=59a365f3ce2c pat=59a365f3ce2c SAME
+  BlackParrotComplex   default   pris=e3e354129d5a pat=e3e354129d5a SAME
+  BlackParrotComplex   testflags pris=73a10e8217e5 pat=73a10e8217e5 SAME
+  YosysOldOr           default   pris=d68e0796d62c pat=d68e0796d62c SAME
+  YosysOldOr           testflags pris=d68e0796d62c pat=d68e0796d62c SAME
+  SVSwitch             default   pris=4842211c4030 pat=4842211c4030 SAME
+  SVSwitch             testflags pris=4842211c4030 pat=4842211c4030 SAME
+  YosysVerx            default   pris=6ccda350c24a pat=6ccda350c24a SAME
+  YosysVerx            testflags pris=6ccda350c24a pat=6ccda350c24a SAME
+
+HEADS (rowheads.sh: cmp lines, ^LHS: head count)
+  TEST           MODE        pristine        patched
+  SeqDriver      default       62 / 1          62 / 1     cmp log BYTE-IDENTICAL
+  SeqDriver      testflags     62 / 1          62 / 1     cmp log BYTE-IDENTICAL
+  SimpleUVM      default       62 / 1          62 / 1     cmp log BYTE-IDENTICAL
+  SimpleUVM      testflags     62 / 1          62 / 1     cmp log BYTE-IDENTICAL
+  Scoreboard     default       62 / 1          62 / 1     cmp log BYTE-IDENTICAL
+  Scoreboard     testflags      SKIP-NOFILE     SKIP-NOFILE   (expected)
+  MiniAmiq       default       62 / 1          62 / 1     cmp log BYTE-IDENTICAL
+  MiniAmiq       testflags     62 / 1          62 / 1     cmp log BYTE-IDENTICAL
+  BuildUVMPkg    default      174 / 1          68 / 1     <-- THE HEAD, object CLEARED
+  BuildUVMPkg    testflags    174 / 1          68 / 1     <-- the two patched heads are
+                                                              byte-identical to each other
+  Earlgrey_0_1   default       64 / 1          64 / 1     cmp log BYTE-IDENTICAL
+  Earlgrey_0_1   testflags     64 / 1          64 / 1     cmp log BYTE-IDENTICAL
+  Rggen          default        0 / 0           0 / 0     cmp log BYTE-IDENTICAL
+  Rggen          testflags      SKIP-NOFILE     SKIP-NOFILE   (expected)
+
+CMDS.TXT AUDIT BY BINARY PATH
+  surelog patched workdir: total=1573 naming /tmp/r10uvm147_pat.bin=1523 naming any other binary=0
+  (the 50 without a binary are rows where slang never ran: SURELOG_FAIL / cache-only)
+  u2r     patched workdir: total=1462 naming /tmp/r10uvm147_pat.bin=1458
+  GOLDEN_DEFER: UNSET.  git stash: never used.  slang: not patched.

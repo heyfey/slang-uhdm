@@ -1,0 +1,89 @@
+r10uvm147 — THE CENSUS: every hier_path whose element list carries a SELECT
+element, across the UVM row set x both modes, keyed by (hier_path span |
+hier_path VpiName) and payload (element SHAPE SIGNATURE, element count, total
+index STEP count, trailing select kind).  ct147cen --sel + join147.py.
+LHS is ALWAYS golden.  MEASUREMENT-ONLY.
+
+== GOLDEN-vs-GOLDEN CALIBRATION (must be 0 wrong) ==
+default_BuildUVMPkg      CELLS shared-equal=1000 DIFFER=0 GOLDEN-ONLY=0 OURS-ONLY=0 wrong=0
+default_MiniAmiq         CELLS shared-equal=2033 DIFFER=0 GOLDEN-ONLY=0 OURS-ONLY=0 wrong=0
+default_SeqDriver        CELLS shared-equal=1929 DIFFER=0 GOLDEN-ONLY=0 OURS-ONLY=0 wrong=0
+default_SimpleUVM        CELLS shared-equal=1034 DIFFER=0 GOLDEN-ONLY=0 OURS-ONLY=0 wrong=0
+default_Scoreboard       CELLS shared-equal=1034 DIFFER=0 GOLDEN-ONLY=0 OURS-ONLY=0 wrong=0
+BuildUVMPkg 2nd restore  CELLS shared-equal=1000 DIFFER=0 GOLDEN-ONLY=0 OURS-ONLY=0 wrong=0
+
+== PRISTINE ==
+SKIP-NOFILE default_AmiqEth
+SKIP-NOFILE default_AmiqSimpleTestSuite
+default_BuildUVMPkg            CELLS shared-equal=996 DIFFER=4 GOLDEN-ONLY=0 OURS-ONLY=0 wrong=4
+SKIP-NOFILE default_Driver
+default_MiniAmiq               CELLS shared-equal=1909 DIFFER=0 GOLDEN-ONLY=124 OURS-ONLY=123 wrong=247
+default_Scoreboard             CELLS shared-equal=957 DIFFER=0 GOLDEN-ONLY=77 OURS-ONLY=77 wrong=154
+default_SeqDriver              CELLS shared-equal=1808 DIFFER=0 GOLDEN-ONLY=121 OURS-ONLY=121 wrong=242
+default_SequenceInst           CELLS shared-equal=0 DIFFER=0 GOLDEN-ONLY=0 OURS-ONLY=0 wrong=0
+SKIP-NOFILE default_SeqUseNonTemp
+default_SimpleUVM              CELLS shared-equal=957 DIFFER=0 GOLDEN-ONLY=77 OURS-ONLY=77 wrong=154
+SKIP-NOFILE default_UnitAmiqEth
+SKIP-NOFILE default_UVMNestedSeq
+SKIP-NOFILE default_UVMSwitch
+SKIP-NOFILE testflags_AmiqEth
+SKIP-NOFILE testflags_AmiqSimpleTestSuite
+testflags_BuildUVMPkg          CELLS shared-equal=996 DIFFER=4 GOLDEN-ONLY=0 OURS-ONLY=0 wrong=4
+SKIP-NOFILE testflags_Driver
+testflags_MiniAmiq             CELLS shared-equal=1909 DIFFER=0 GOLDEN-ONLY=124 OURS-ONLY=123 wrong=247
+SKIP-NOFILE testflags_Scoreboard
+testflags_SeqDriver            CELLS shared-equal=1808 DIFFER=0 GOLDEN-ONLY=121 OURS-ONLY=121 wrong=242
+testflags_SequenceInst         CELLS shared-equal=0 DIFFER=0 GOLDEN-ONLY=0 OURS-ONLY=0 wrong=0
+SKIP-NOFILE testflags_SeqUseNonTemp
+testflags_SimpleUVM            CELLS shared-equal=957 DIFFER=0 GOLDEN-ONLY=77 OURS-ONLY=77 wrong=154
+SKIP-NOFILE testflags_UnitAmiqEth
+SKIP-NOFILE testflags_UVMNestedSeq
+SKIP-NOFILE testflags_UVMSwitch
+-- measured=11 SKIP-NOFILE=15
+
+== PATCHED ==
+SKIP-NOFILE default_AmiqEth
+SKIP-NOFILE default_AmiqSimpleTestSuite
+default_BuildUVMPkg            CELLS shared-equal=1000 DIFFER=0 GOLDEN-ONLY=0 OURS-ONLY=0 wrong=0
+SKIP-NOFILE default_Driver
+default_MiniAmiq               CELLS shared-equal=1909 DIFFER=0 GOLDEN-ONLY=124 OURS-ONLY=123 wrong=247
+default_Scoreboard             CELLS shared-equal=957 DIFFER=0 GOLDEN-ONLY=77 OURS-ONLY=77 wrong=154
+default_SeqDriver              CELLS shared-equal=1808 DIFFER=0 GOLDEN-ONLY=121 OURS-ONLY=121 wrong=242
+default_SequenceInst           CELLS shared-equal=0 DIFFER=0 GOLDEN-ONLY=0 OURS-ONLY=0 wrong=0
+SKIP-NOFILE default_SeqUseNonTemp
+default_SimpleUVM              CELLS shared-equal=957 DIFFER=0 GOLDEN-ONLY=77 OURS-ONLY=77 wrong=154
+SKIP-NOFILE default_UnitAmiqEth
+SKIP-NOFILE default_UVMNestedSeq
+SKIP-NOFILE default_UVMSwitch
+SKIP-NOFILE testflags_AmiqEth
+SKIP-NOFILE testflags_AmiqSimpleTestSuite
+testflags_BuildUVMPkg          CELLS shared-equal=1000 DIFFER=0 GOLDEN-ONLY=0 OURS-ONLY=0 wrong=0
+SKIP-NOFILE testflags_Driver
+testflags_MiniAmiq             CELLS shared-equal=1909 DIFFER=0 GOLDEN-ONLY=124 OURS-ONLY=123 wrong=247
+SKIP-NOFILE testflags_Scoreboard
+testflags_SeqDriver            CELLS shared-equal=1808 DIFFER=0 GOLDEN-ONLY=121 OURS-ONLY=121 wrong=242
+testflags_SequenceInst         CELLS shared-equal=0 DIFFER=0 GOLDEN-ONLY=0 OURS-ONLY=0 wrong=0
+SKIP-NOFILE testflags_SeqUseNonTemp
+testflags_SimpleUVM            CELLS shared-equal=957 DIFFER=0 GOLDEN-ONLY=77 OURS-ONLY=77 wrong=154
+SKIP-NOFILE testflags_UnitAmiqEth
+SKIP-NOFILE testflags_UVMNestedSeq
+SKIP-NOFILE testflags_UVMSwitch
+-- measured=11 SKIP-NOFILE=15
+
+== THE FOUR CELLS, pristine ==
+DIFFER	76967:17-76967:38|rw.value[idx][8 * i+:8]
+   G: ref_obj/rw>var_select/value{ref_obj,indexed_part_select}@TRAIL
+   O: ref_obj/rw>indexed_part_select/value[idx]{indexed_part_select}@TRAIL
+DIFFER	76967:17-76967:38|rw.value[idx][8 * i+:8]
+   G: ref_obj/rw>var_select/value{ref_obj,indexed_part_select}@TRAIL
+   O: ref_obj/rw>indexed_part_select/value[idx]{indexed_part_select}@TRAIL
+DIFFER	77065:7-77065:29|rw.value[idx][i0 * 8+:8]
+   G: ref_obj/rw>bit_select/value{ref_obj}@MID>indexed_part_select/<anon>{indexed_part_select}@TRAIL
+   O: ref_obj/rw>indexed_part_select/value[idx]{indexed_part_select}@TRAIL
+DIFFER	77065:7-77065:29|rw.value[idx][i0 * 8+:8]
+   G: ref_obj/rw>bit_select/value{ref_obj}@MID>indexed_part_select/<anon>{indexed_part_select}@TRAIL
+   O: ref_obj/rw>indexed_part_select/value[idx]{indexed_part_select}@TRAIL
+CELLS shared-equal=996 DIFFER=4 GOLDEN-ONLY=0 OURS-ONLY=0 wrong=4
+
+== THE SAME KEYS, patched ==
+CELLS shared-equal=1000 DIFFER=0 GOLDEN-ONLY=0 OURS-ONLY=0 wrong=0

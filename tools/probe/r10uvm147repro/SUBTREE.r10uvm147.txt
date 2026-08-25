@@ -1,0 +1,231 @@
+r10uvm147 — SUBTREE EVIDENCE: the two corpus sites, GOLDEN vs PATCHED, taken
+from the uhdm-dump of the ACTUAL corpus databases (default/BuildUVMPkg).
+vpiFullName is STRIPPED on both sides: no generated Compare reads it (the dump
+SYNTHESIZES it from the parent chain on golden's side and we set it explicitly
+on ours, so the two spellings differ by construction and by nothing else).
+
+############ SITE 1 — uvm_pkg.sv:76967, the ARGUMENT (rvalue) ############
+--- golden vs patched, fullname-stripped:
+    IDENTICAL
+
+--- golden vs PRISTINE, fullname-stripped (what it was):
+10c10
+<   \_var_select: , line:76967:20, endln:76967:38
+---
+>   \_indexed_part_select: , line:76967:20, endln:76967:37
+13,15c13,17
+<     |vpiName:value
+<     |vpiIndex:
+<     \_ref_obj: , line:76967:26, endln:76967:29
+---
+>     |vpiName:value[idx]
+>     |vpiConstantSelect:1
+>     |vpiIndexedPartSelectType:1
+>     |vpiBaseExpr:
+>     \_operation: , line:76967:31, endln:76967:34
+17,28c19,22
+<       \_var_select: , line:76967:20, endln:76967:38
+<       |vpiName:idx
+<     |vpiIndex:
+<     \_indexed_part_select: value , line:76967:31, endln:76967:37
+<       |vpiParent:
+<       \_var_select: , line:76967:20, endln:76967:38
+<       |vpiName:value
+<       |vpiDefName:value
+<       |vpiConstantSelect:1
+<       |vpiIndexedPartSelectType:1
+<       |vpiBaseExpr:
+<       \_operation: , line:76967:31, endln:76967:34
+---
+>       \_indexed_part_select: , line:76967:20, endln:76967:37
+>       |vpiOpType:25
+>       |vpiOperand:
+>       \_constant: , line:76967:31, endln:76967:32
+30,48c24
+<         \_indexed_part_select: value , line:76967:31, endln:76967:37
+<         |vpiOpType:25
+<         |vpiOperand:
+<         \_constant: , line:76967:31, endln:76967:32
+<           |vpiParent:
+<           \_operation: , line:76967:31, endln:76967:34
+<           |vpiDecompile:8
+<           |vpiSize:64
+<           |UINT:8
+<           |vpiConstType:9
+<         |vpiOperand:
+<         \_ref_obj: , line:76967:33, endln:76967:34
+<           |vpiParent:
+<           \_operation: , line:76967:31, endln:76967:34
+<           |vpiName:i
+<           |vpiActual:
+<           \_int_var: , line:76966:12, endln:76966:13
+<       |vpiWidthExpr:
+<       \_constant: , line:76967:36, endln:76967:37
+---
+>         \_operation: , line:76967:31, endln:76967:34
+52a29,41
+>       |vpiOperand:
+>       \_ref_obj: , line:76967:33, endln:76967:34
+>         |vpiParent:
+>         \_operation: , line:76967:31, endln:76967:34
+>         |vpiName:i
+>         |vpiActual:
+>         \_int_var: , line:76966:12, endln:76966:13
+>     |vpiWidthExpr:
+>     \_constant: , line:76967:36, endln:76967:37
+>       |vpiDecompile:8
+>       |vpiSize:64
+>       |UINT:8
+>       |vpiConstType:9
+
+############ SITE 2 — uvm_pkg.sv:77065, the LVALUE ############
+--- golden vs patched, fullname-stripped:
+39,40d38
+<         |vpiParent:
+<         \_operation: , line:77065:21, endln:77065:25
+    ^ the ONLY residue is a vpiParent line on the constant 8 nested inside the
+      base operation i0*8 (README R2.1).  No generated Compare reads vpiParent.
+
+--- golden vs PRISTINE, fullname-stripped (what it was):
+5c5
+<   \_ref_obj: , line:77065:10, endln:77065:15
+---
+>   \_ref_obj: , line:77065:7, endln:77065:9
+10,20c10
+<   \_bit_select: , line:77065:10, endln:77065:20
+<     |vpiParent:
+<     \_hier_path: , line:77065:7, endln:77065:29
+<     |vpiName:value
+<     |vpiIndex:
+<     \_ref_obj: , line:77065:16, endln:77065:19
+<       |vpiParent:
+<       \_bit_select: , line:77065:10, endln:77065:20
+<       |vpiName:idx
+<   |vpiActual:
+<   \_indexed_part_select: , line:77065:21, endln:77065:28
+---
+>   \_indexed_part_select: value[idx] , line:77065:10, endln:77065:28
+22a13,14
+>     |vpiName:value[idx]
+>     |vpiDefName:value[idx]
+28c20
+<       \_indexed_part_select: , line:77065:21, endln:77065:28
+---
+>       \_indexed_part_select: value[idx] , line:77065:10, endln:77065:28
+
+############ GOLDEN's OWN SUBTREES, verbatim ############
+=== 76967 ===
+\_hier_path: (rw.value[idx][8 * i+:8]), line:76967:17, endln:76967:38
+  |vpiParent:
+  \_method_func_call: (push_back), line:76967:7, endln:76967:16
+  |vpiActual:
+  \_ref_obj: (rw), line:76967:17, endln:76967:19
+    |vpiParent:
+    \_hier_path: (rw.value[idx][8 * i+:8]), line:76967:17, endln:76967:38
+    |vpiName:rw
+  |vpiActual:
+  \_var_select: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value), line:76967:20, endln:76967:38
+    |vpiParent:
+    \_hier_path: (rw.value[idx][8 * i+:8]), line:76967:17, endln:76967:38
+    |vpiName:value
+    |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value
+    |vpiIndex:
+    \_ref_obj: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value::idx), line:76967:26, endln:76967:29
+      |vpiParent:
+      \_var_select: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value), line:76967:20, endln:76967:38
+      |vpiName:idx
+      |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value::idx
+    |vpiIndex:
+    \_indexed_part_select: value (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value::value), line:76967:31, endln:76967:37
+      |vpiParent:
+      \_var_select: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value), line:76967:20, endln:76967:38
+      |vpiName:value
+      |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value::value
+      |vpiDefName:value
+      |vpiConstantSelect:1
+      |vpiIndexedPartSelectType:1
+      |vpiBaseExpr:
+      \_operation: , line:76967:31, endln:76967:34
+        |vpiParent:
+        \_indexed_part_select: value (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value::value), line:76967:31, endln:76967:37
+        |vpiOpType:25
+        |vpiOperand:
+        \_constant: , line:76967:31, endln:76967:32
+          |vpiParent:
+          \_operation: , line:76967:31, endln:76967:34
+          |vpiDecompile:8
+          |vpiSize:64
+          |UINT:8
+          |vpiConstType:9
+        |vpiOperand:
+        \_ref_obj: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value::value::i), line:76967:33, endln:76967:34
+          |vpiParent:
+          \_operation: , line:76967:31, endln:76967:34
+          |vpiName:i
+          |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8]::value::value::i
+          |vpiActual:
+          \_int_var: (uvm_pkg::uvm_reg_map::do_bus_access::i), line:76966:12, endln:76966:13
+      |vpiWidthExpr:
+      \_constant: , line:76967:36, endln:76967:37
+        |vpiDecompile:8
+        |vpiSize:64
+        |UINT:8
+        |vpiConstType:9
+  |vpiName:rw.value[idx][8 * i+:8]
+
+=== 77065 ===
+\_hier_path: (rw.value[idx][i0 * 8+:8]), line:77065:7, endln:77065:29
+  |vpiParent:
+  \_assignment: , line:77065:7, endln:77065:56
+  |vpiActual:
+  \_ref_obj: (rw), line:77065:10, endln:77065:15
+    |vpiParent:
+    \_hier_path: (rw.value[idx][i0 * 8+:8]), line:77065:7, endln:77065:29
+    |vpiName:rw
+  |vpiActual:
+  \_bit_select: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8]::value), line:77065:10, endln:77065:20
+    |vpiParent:
+    \_hier_path: (rw.value[idx][i0 * 8+:8]), line:77065:7, endln:77065:29
+    |vpiName:value
+    |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8]::value
+    |vpiIndex:
+    \_ref_obj: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8]::idx), line:77065:16, endln:77065:19
+      |vpiParent:
+      \_bit_select: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8]::value), line:77065:10, endln:77065:20
+      |vpiName:idx
+      |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8]::idx
+  |vpiActual:
+  \_indexed_part_select: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8]), line:77065:21, endln:77065:28
+    |vpiParent:
+    \_hier_path: (rw.value[idx][i0 * 8+:8]), line:77065:7, endln:77065:29
+    |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8]
+    |vpiConstantSelect:1
+    |vpiIndexedPartSelectType:1
+    |vpiBaseExpr:
+    \_operation: , line:77065:21, endln:77065:25
+      |vpiParent:
+      \_indexed_part_select: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8]), line:77065:21, endln:77065:28
+      |vpiOpType:25
+      |vpiOperand:
+      \_ref_obj: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8]::i0), line:77065:21, endln:77065:23
+        |vpiParent:
+        \_operation: , line:77065:21, endln:77065:25
+        |vpiName:i0
+        |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8]::i0
+        |vpiActual:
+        \_int_var: (uvm_pkg::uvm_reg_map::do_bus_access::i0), line:77064:14, endln:77064:16
+      |vpiOperand:
+      \_constant: , line:77065:24, endln:77065:25
+        |vpiParent:
+        \_operation: , line:77065:21, endln:77065:25
+        |vpiDecompile:8
+        |vpiSize:64
+        |UINT:8
+        |vpiConstType:9
+    |vpiWidthExpr:
+    \_constant: , line:77065:27, endln:77065:28
+      |vpiDecompile:8
+      |vpiSize:64
+      |UINT:8
+      |vpiConstType:9
+  |vpiName:rw.value[idx][i0 * 8+:8]

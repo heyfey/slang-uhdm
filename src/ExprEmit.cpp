@@ -25037,11 +25037,72 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     mchain.push_back(mb);
                     mb = &mb->as<MemberAccessExpression>().value();
                 }
-                if (!mchain.empty() && mb->kind == ExpressionKind::NamedValue &&
-                    (mb->as<NamedValueExpression>().symbol.kind ==
-                         SymbolKind::Variable ||
-                     mb->as<NamedValueExpression>().symbol.kind ==
-                         SymbolKind::Net)) {
+                // § selChainElemShapeIsSyntactic147 — THE SHAPE OF THIS
+                // ELEMENT IS DECIDED BY THE WRITTEN SELECT CHAIN ALONE.  The
+                // `symbol.kind == Variable || Net` test this gate carried came
+                // in with wave-32 as a conservative guess and models NOTHING in
+                // Surelog: `CompileHelper::compileSelectExpression`
+                // (Surelog src/DesignCompile/CompileExpression.cpp:1258), the
+                // function that mints every hier_path select element, never
+                // looks at what the base NAME resolves to.  It reads the
+                // SELECT GRAMMAR under the member and nothing else:
+                //
+                //   :1272  `fC->Child(Bit_select) && fC->Sibling(Bit_select)`
+                //          — MORE THAN ONE select step on this member — mints a
+                //          `var_select` named after the MEMBER, whose Exprs()
+                //          take ONE ENTRY PER STEP in source order;
+                //   :1310  a plain index step pushes the compiled index
+                //          EXPRESSION itself (ref_obj / constant / operation);
+                //   :1350  a part-select step pushes what
+                //          `compilePartSelectRange` builds, called WITH THE
+                //          MEMBER NAME, so the (indexed_)part_select carries
+                //          that name in BOTH VpiName and VpiDefName (:4251,
+                //          :4276) and VpiConstantSelect (:4256, :4281);
+                //   :1330 / :1368  a SINGLE step yields the flat object instead
+                //          (a `bit_select` for an index, the bare
+                //          part_select / indexed_part_select for a range).
+                //
+                // The caller (`compileExpression`'s hier_path element loop,
+                // :5535-5547) then spans the minted object from the MEMBER NAME
+                // token to the end of the select chain — `populateCoreMembers
+                // (name, dotedName, select)` — which is golden's 76967:20-38 on
+                // the head, while the trailing part-select keeps its own
+                // `Constant_range` span (76967:31-37).
+                //
+                // MEASURED, GOLDEN, arms B and C: EVERY base kind a
+                // `<base>.<member>[i]…[range]` reference can have gets the SAME
+                // var_select — an input / `ref` / `const ref` FORMAL ARGUMENT,
+                // a CLASS PROPERTY (instance and static, read from an instance
+                // method, a static method and a task), a LOCAL VARIABLE, a
+                // MODULE variable, a package-free function's formal, a
+                // STRUCT-typed localparam, a MODPORT port and an INTERFACE
+                // INSTANCE.  Not one of them is shaped differently, in either
+                // view.  The gate was therefore not modelling a Surelog rule;
+                // it was hiding this arm from every base that is not a plain
+                // variable, and those references fell through to the
+                // DOTTED-INTERFACE arm below, which flattens the whole chain
+                // into ONE (indexed_)part_select named `member[idx]`.
+                //
+                // THE HEAD, `uvm_pkg.sv:76967`
+                // `p.push_back(rw.value[idx][8*i+:8])` in
+                // `uvm_reg_map::do_bus_access`, is exactly that: `rw` is a
+                // FORMAL ARGUMENT, so `symbol.kind` is `FormalArgument` and the
+                // gate refused.  Its LVALUE twin at 77065
+                // (`rw.value[idx][i0*8+:8] = p[…]`) is the same cell in the
+                // other position and takes the `inLhs` branch below, which
+                // already models Surelog's split shape (bit_select @MID + an
+                // ANONYMOUS trailing part-select element).
+                //
+                // WHAT IS DELIBERATELY *NOT* WIDENED: the base must still be a
+                // `NamedValue`.  An `ArbitrarySymbol` / `HierarchicalValue`
+                // base (an interface instance, a modport port, a cross-module
+                // path) keeps the dotted-interface arm below, whose elaborated
+                // `High_conn` folds (§ connIpsPkgParamBoundNoTs65,
+                // § connMpRootIpsBoundKeepsTs65v, § connHpIpsBaseNonOvParamFold84,
+                // § hpConnElemIdxFold17) live there and have their own arms.
+                // Golden shapes those as var_selects too (arm C cells c06/c07)
+                // — that is README residue R1, not this pass.
+                if (!mchain.empty() && mb->kind == ExpressionKind::NamedValue) {
                     auto& bnv = mb->as<NamedValueExpression>();
                     if (refCollector && (!inProcessEmit || callArgDepth > 0 || inLhs))
                         refCollector->insert(&bnv.symbol);

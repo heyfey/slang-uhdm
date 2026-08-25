@@ -1,0 +1,19 @@
+r10uvm147 — THE WIDE BOUNDARY GATE (bound147.sh), run from a COPY of the whole
+probe tree, subdirectories included, file list on fd 3, children </dev/null,
+PROCESSED asserted against LISTED, scratch keyed on the RELATIVE path, BOTH
+views, BOTH frozen binaries.  An arm is a MOVER when its DATABASE BYTES differ.
+
+LISTED=4184 PROCESSED=4184 PRODUCED_DBS=4039 MOVED_ARMS=5 RC_DIFFS=0
+
+== THE MOVERS ==
+r10uvm147repro/g147_a.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm147repro/g147_b.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm147repro/g147_c.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm147repro/g147_d.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm147repro/g147_e.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+All five are THIS PASS'S OWN GRIDS — the POSITIVE CONTROL that proves the gate
+can see.  NOT ONE earlier-pass arm moved: no r10uvm77-79, r10uvm82-91,
+r10uvm84/85, r10uvm89, r10buvm3-15, r10sd8-12, r10uvm92/113/143/144 arm is in
+the list, and RC_DIFFS=0 (the segfaults printed by the driver are PRE-EXISTING
+and occur identically under both binaries, which is what RC_DIFFS=0 asserts).

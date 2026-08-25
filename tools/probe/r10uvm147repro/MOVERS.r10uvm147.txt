@@ -1,0 +1,295 @@
+r10uvm147 — MOVERS: byteverify SELFCHECK=1, patched vs my own pristine control.
+
+== surelog corpus ==
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm  patched=06e6a25261ad pristine=ee653e0c773f
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=5dcb6a96a2ab pristine=9740ea5bb6b6
+MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  patched=06e6a25261ad pristine=ee653e0c773f
+MOVERS: 3 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+
+== uhdm2rtlil corpus ==
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+
+== ATTRIBUTION, order-blind path-normalised whole-dump diff ==
+Scoreboard/default (the ~50/50 vpiTaskFunc-order COIN): sorted-dump diff lines =
+0
+  -> 0 lines: the coin flipped, NOT this pass.
+
+BuildUVMPkg/default: sorted-dump diff, removed / added =
+66
+112
+  Every changed line carries line 76967 or 77065 of uvm_pkg.sv
+  (uvm_reg_map::do_bus_access), the two sites the law names:
+72
+  of
+178
+
+== the full order-blind diff ==
+3628a3629
+>                         \_array_var: (uvm_pkg::uvm_reg_map::do_bus_access::idx), line:76965:20, endln:76965:23
+3636a3638
+>                             \_array_var: (uvm_pkg::uvm_reg_map::do_bus_access::idx), line:77063:22, endln:77063:25
+60939a60942,60945
+>                             \_bit_select: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8].value), line:77065:10, endln:77065:20
+>                         \_bit_select: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8].value), line:77065:10, endln:77065:20
+>                         \_bit_select: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8].value), line:77065:10, endln:77065:20
+>                     \_bit_select: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8].value), line:77065:10, endln:77065:20
+129259,129262c129265,129268
+<                         \_constant: , line:76967:31, endln:76967:32
+<                     \_constant: , line:76967:31, endln:76967:32
+<                       \_constant: , line:76967:36, endln:76967:37
+<                   \_constant: , line:76967:36, endln:76967:37
+---
+>                           \_constant: , line:76967:31, endln:76967:32
+>                       \_constant: , line:76967:31, endln:76967:32
+>                         \_constant: , line:76967:36, endln:76967:37
+>                     \_constant: , line:76967:36, endln:76967:37
+199597a199604,199605
+>                           \_hier_path: (rw.value[idx][i0 * 8+:8]), line:77065:7, endln:77065:29
+>                       \_hier_path: (rw.value[idx][i0 * 8+:8]), line:77065:7, endln:77065:29
+216467,216474c216475,216482
+<                         \_indexed_part_select: (rw.value[idx][8 * i+:8]), line:76967:20, endln:76967:37
+<                     \_indexed_part_select: (rw.value[idx][8 * i+:8]), line:76967:20, endln:76967:37
+<                     \_indexed_part_select: (rw.value[idx][8 * i+:8]), line:76967:20, endln:76967:37
+<                 \_indexed_part_select: (rw.value[idx][8 * i+:8]), line:76967:20, endln:76967:37
+<                             \_indexed_part_select: value[idx] (uvm_pkg::uvm_reg_map::do_bus_access.rw.value[idx][i0 * 8+:8].value[idx]), line:77065:10, endln:77065:28
+<                         \_indexed_part_select: value[idx] (uvm_pkg::uvm_reg_map::do_bus_access.rw.value[idx][i0 * 8+:8].value[idx]), line:77065:10, endln:77065:28
+<                         \_indexed_part_select: value[idx] (uvm_pkg::uvm_reg_map::do_bus_access.rw.value[idx][i0 * 8+:8].value[idx]), line:77065:10, endln:77065:28
+<                     \_indexed_part_select: value[idx] (uvm_pkg::uvm_reg_map::do_bus_access.rw.value[idx][i0 * 8+:8].value[idx]), line:77065:10, endln:77065:28
+---
+>                             \_indexed_part_select: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8]), line:77065:21, endln:77065:28
+>                         \_indexed_part_select: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8]), line:77065:21, endln:77065:28
+>                         \_indexed_part_select: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8]), line:77065:21, endln:77065:28
+>                     \_indexed_part_select: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8]), line:77065:21, endln:77065:28
+>                           \_indexed_part_select: value (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8].value.value), line:76967:31, endln:76967:37
+>                       \_indexed_part_select: value (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8].value.value), line:76967:31, endln:76967:37
+>                       \_indexed_part_select: value (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8].value.value), line:76967:31, endln:76967:37
+>                   \_indexed_part_select: value (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8].value.value), line:76967:31, endln:76967:37
+224491,224492c224499,224500
+<                           \_int_var: (uvm_pkg::uvm_reg_map::do_bus_access::i), line:76966:12, endln:76966:13
+<                       \_int_var: (uvm_pkg::uvm_reg_map::do_bus_access::i), line:76966:12, endln:76966:13
+---
+>                             \_int_var: (uvm_pkg::uvm_reg_map::do_bus_access::i), line:76966:12, endln:76966:13
+>                         \_int_var: (uvm_pkg::uvm_reg_map::do_bus_access::i), line:76966:12, endln:76966:13
+289635,289640c289643,289648
+<                           \_operation: , line:76967:31, endln:76967:34
+<                           \_operation: , line:76967:31, endln:76967:34
+<                       \_operation: , line:76967:31, endln:76967:34
+<                       \_operation: , line:76967:31, endln:76967:34
+<                       \_operation: , line:76967:31, endln:76967:34
+<                   \_operation: , line:76967:31, endln:76967:34
+---
+>                             \_operation: , line:76967:31, endln:76967:34
+>                             \_operation: , line:76967:31, endln:76967:34
+>                         \_operation: , line:76967:31, endln:76967:34
+>                         \_operation: , line:76967:31, endln:76967:34
+>                         \_operation: , line:76967:31, endln:76967:34
+>                     \_operation: , line:76967:31, endln:76967:34
+289824,289825d289831
+<                               \_operation: , line:77065:21, endln:77065:25
+<                           \_operation: , line:77065:21, endln:77065:25
+311226,311227c311232,311233
+<                         \_ref_obj: (rw), line:77065:7, endln:77065:9
+<                     \_ref_obj: (rw), line:77065:7, endln:77065:9
+---
+>                         \_ref_obj: (rw), line:77065:10, endln:77065:15
+>                     \_ref_obj: (rw), line:77065:10, endln:77065:15
+332256a332263,332264
+>                       \_ref_obj: (uvm_pkg::uvm_reg_map::do_bus_access::idx), line:76967:26, endln:76967:29
+>                   \_ref_obj: (uvm_pkg::uvm_reg_map::do_bus_access::idx), line:76967:26, endln:76967:29
+332262a332271,332272
+>                           \_ref_obj: (uvm_pkg::uvm_reg_map::do_bus_access::idx), line:77065:16, endln:77065:19
+>                       \_ref_obj: (uvm_pkg::uvm_reg_map::do_bus_access::idx), line:77065:16, endln:77065:19
+332391,332394c332401,332404
+<                         \_ref_obj: (uvm_pkg::uvm_reg_map::do_bus_access.rw.value[idx][8 * i+:8].value[idx]::i), line:76967:33, endln:76967:34
+<                     \_ref_obj: (uvm_pkg::uvm_reg_map::do_bus_access.rw.value[idx][8 * i+:8].value[idx]::i), line:76967:33, endln:76967:34
+<                             \_ref_obj: (uvm_pkg::uvm_reg_map::do_bus_access.rw.value[idx][i0 * 8+:8].value[idx]::i0), line:77065:21, endln:77065:23
+<                         \_ref_obj: (uvm_pkg::uvm_reg_map::do_bus_access.rw.value[idx][i0 * 8+:8].value[idx]::i0), line:77065:21, endln:77065:23
+---
+>                           \_ref_obj: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8].value.value::i), line:76967:33, endln:76967:34
+>                       \_ref_obj: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8].value.value::i), line:76967:33, endln:76967:34
+>                             \_ref_obj: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8]::i0), line:77065:21, endln:77065:23
+>                         \_ref_obj: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8]::i0), line:77065:21, endln:77065:23
+414815a414826
+>                             |UINT:8
+414898d414908
+<                     |UINT:8
+417416a417427,417432
+>                         \_var_select: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8].value), line:76967:20, endln:76967:38
+>                         \_var_select: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8].value), line:76967:20, endln:76967:38
+>                     \_var_select: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8].value), line:76967:20, endln:76967:38
+>                     \_var_select: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8].value), line:76967:20, endln:76967:38
+>                     \_var_select: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8].value), line:76967:20, endln:76967:38
+>                 \_var_select: (uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8].value), line:76967:20, endln:76967:38
+421267c421283,421284
+<                           |vpiActual:
+---
+>                             |vpiActual:
+>                             |vpiActual:
+424663c424680,424682
+<                       |vpiActual:
+---
+>                         |vpiActual:
+>                         |vpiActual:
+>                         |vpiActual:
+431511a431531
+>                     |vpiActual:
+494954c494974
+<                       |vpiBaseExpr:
+---
+>                         |vpiBaseExpr:
+494971c494991
+<                   |vpiBaseExpr:
+---
+>                     |vpiBaseExpr:
+518148c518168
+<                       |vpiConstantSelect:1
+---
+>                         |vpiConstantSelect:1
+518165c518185
+<                   |vpiConstantSelect:1
+---
+>                     |vpiConstantSelect:1
+533557a533578
+>                             |vpiConstType:9
+535948d535968
+<                     |vpiConstType:9
+555820a555841
+>                             |vpiDecompile:8
+555903d555923
+<                     |vpiDecompile:8
+565272,565273c565292,565293
+<                           |vpiDefName:value[idx]
+<                       |vpiDefName:value[idx]
+---
+>                         |vpiDefName:value
+>                     |vpiDefName:value
+578676,578677d578695
+<                       |vpiFullName:rw.value[idx][8 * i+:8]
+<                   |vpiFullName:rw.value[idx][8 * i+:8]
+623666a623685
+>                             |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access::idx
+623671a623691,623692
+>                         |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access::idx
+>                         |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access::idx
+623678a623700
+>                     |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access::idx
+623878,623883c623900,623911
+<                           |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access.rw.value[idx][8 * i+:8].value[idx]::i
+<                       |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access.rw.value[idx][8 * i+:8].value[idx]::i
+<                           |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access.rw.value[idx][i0 * 8+:8].value[idx]
+<                       |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access.rw.value[idx][i0 * 8+:8].value[idx]
+<                               |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access.rw.value[idx][i0 * 8+:8].value[idx]::i0
+<                           |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access.rw.value[idx][i0 * 8+:8].value[idx]::i0
+---
+>                       |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8].value
+>                   |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8].value
+>                         |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8].value.value
+>                     |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8].value.value
+>                             |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8].value.value::i
+>                         |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][8 * i+:8].value.value::i
+>                           |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8]
+>                       |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8]
+>                               |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8]::i0
+>                           |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8]::i0
+>                           |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8].value
+>                       |vpiFullName:uvm_pkg::uvm_reg_map::do_bus_access::rw.value[idx][i0 * 8+:8].value
+656935a656964
+>                           |vpiIndex:
+657402a657432,657434
+>                       |vpiIndex:
+>                       |vpiIndex:
+>                       |vpiIndex:
+657902a657935,657936
+>                   |vpiIndex:
+>                   |vpiIndex:
+658507c658541
+<                       |vpiIndexedPartSelectType:1
+---
+>                         |vpiIndexedPartSelectType:1
+658524c658558
+<                   |vpiIndexedPartSelectType:1
+---
+>                     |vpiIndexedPartSelectType:1
+710749c710783
+<                           |vpiName:i
+---
+>                             |vpiName:i
+711008c711042
+<                       |vpiName:i
+---
+>                         |vpiName:i
+712853a712888
+>                             |vpiName:idx
+712892a712928,712929
+>                         |vpiName:idx
+>                         |vpiName:idx
+712957a712995
+>                     |vpiName:idx
+776258a776297
+>                           |vpiName:value
+776292a776332,776333
+>                         |vpiName:value
+>                       |vpiName:value
+776354a776396,776397
+>                       |vpiName:value
+>                     |vpiName:value
+776533a776577
+>                   |vpiName:value
+777264,777267d777307
+<                           |vpiName:value[idx]
+<                       |vpiName:value[idx]
+<                       |vpiName:value[idx]
+<                   |vpiName:value[idx]
+780762,780763c780802,780803
+<                         |vpiOperand:
+<                         |vpiOperand:
+---
+>                           |vpiOperand:
+>                           |vpiOperand:
+783277,783278c783317,783318
+<                     |vpiOperand:
+<                     |vpiOperand:
+---
+>                       |vpiOperand:
+>                       |vpiOperand:
+804086c804126
+<                         |vpiOpType:25
+---
+>                           |vpiOpType:25
+804122c804162
+<                     |vpiOpType:25
+---
+>                       |vpiOpType:25
+821545d821584
+<                               |vpiParent:
+824174c824213,824215
+<                           |vpiParent:
+---
+>                             |vpiParent:
+>                             |vpiParent:
+>                             |vpiParent:
+834235a834277,834280
+>                         |vpiParent:
+>                         |vpiParent:
+>                         |vpiParent:
+>                         |vpiParent:
+854976a855022
+>                     |vpiParent:
+1001134a1001181
+>                             |vpiSize:64
+1004480d1004526
+<                     |vpiSize:64
+1076970a1077017
+>                         |vpiWidthExpr:
+1076978d1077024
+<                       |vpiWidthExpr:
+1076988c1077034
+<                   |vpiWidthExpr:
+---
+>                     |vpiWidthExpr:

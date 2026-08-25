@@ -1,0 +1,28 @@
+r10uvm147 — PREDICTION, made from the PRISTINE databases BEFORE the patched sweep.
+Signature (pred147.cpp): a hier_path PATH ELEMENT that is a part_select or an
+indexed_part_select whose own VpiName CONTAINS '[' — the FLAT shape the emitter
+minted when a member's whole select chain collapsed into one object named
+'member[idx]'.  Deliberately an OVER-APPROXIMATION (it also names the cells the
+law leaves alone: an ArbitrarySymbol / HierarchicalValue base, README R1).
+
+== surelog corpus (pristine workdir) ==
+CAND default/BuildUVMPkg-bf853d43 count=4
+CAND testflags/BuildUVMPkg-bf853d43 count=4
+-- surelog databases=956 candidates=2
+
+== uhdm2rtlil corpus (pristine workdir) ==
+-- uhdm2rtlil databases=1358 candidates=0
+
+== the objects named, default/BuildUVMPkg ==
+76967:20	value[idx]	rw.value[idx][8 * i+:8]
+76967:20	value[idx]	rw.value[idx][8 * i+:8]
+77065:10	value[idx]	rw.value[idx][i0 * 8+:8]
+77065:10	value[idx]	rw.value[idx][i0 * 8+:8]
+COUNT 4
+
+== the objects named, testflags/BuildUVMPkg ==
+76967:20	value[idx]	rw.value[idx][8 * i+:8]
+76967:20	value[idx]	rw.value[idx][8 * i+:8]
+77065:10	value[idx]	rw.value[idx][i0 * 8+:8]
+77065:10	value[idx]	rw.value[idx][i0 * 8+:8]
+COUNT 4
