@@ -4920,6 +4920,253 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             }
                     }
                 }
+                // § pkgRetBareEnumConstFold138 (r10uvm138) — THE RETURNED
+                // ENUMERATOR IS FOLDED TO THE ENUM'S OWN REGISTERED VALUE, in
+                // the SAME window § negLitPkgRetFold86 opened one law further
+                // in.
+                //
+                // THE HEAD (SimpleUVM x2, Scoreboard/default, BuildUVMPkg x2 —
+                // 32 cmp lines, ONE head each): uvm-1.2 `reg/uvm_reg_block.svh`
+                // :1914 (the 1800.2 `pp_output`'s :79314) —
+                //
+                //     function uvm_path_e uvm_reg_block::get_default_path();
+                //        ...
+                //        return UVM_FRONTDOOR;
+                //
+                // golden holds ONE constant (vpiDecompile "0", vpiSize 64,
+                // INT:0, vpiConstType 7, NO typespec, UNPARENTED, spanned over
+                // the REFERENCE text); ours held the bound `ref_obj`.  It is
+                // an OUT-OF-BODY class method written at package scope — the
+                // home `pkgRetFoldHome86` already names.
+                //
+                // SURELOG.  `compileStmt`'s `paRETURN` arm threads the
+                // elaborated package compile's `Reduce::Yes` into
+                // `compileExpression` (CompileStmt.cpp:838), whose tail runs
+                // `ExprEval::reduceExpr` over the whole result
+                // (CompileExpression.cpp:3648).  reduceExpr answers a `ref_obj`
+                // through `CompileHelper::getValue`, whose COMPONENT arm
+                // (CompileExpression.cpp:1074-1090) mints
+                //     c->VpiValue(sval->uhdmValue());
+                //     c->VpiDecompile(sval->decompiledValue());
+                //     c->VpiConstType(sval->vpiValType());
+                //     c->VpiSize(sval->getSize());
+                // from the `Value` that `compileTypeDef` registered for the
+                // enumerator with `scope->setValue(enumName, value)`
+                // (CompileHelper.cpp:849).  That is the SAME `Value` the
+                // `enum_const` object publishes as its VpiValue / VpiDecompile
+                // / VpiSize — which is why this fold is a copy of the
+                // enum_const we already emit and not a value re-render.
+                // Measured over 22 enum declarations (arm b, one function
+                // each): no base type -> size 64, `enum int` -> 32,
+                // `enum bit [3:0]` -> 4, `byte` -> 8, `shortint` -> 16,
+                // `longint` -> 64; an IMPLICIT member is INT:<n> / ct 7
+                // whatever the base's signedness (`int unsigned` included) and
+                // an EXPLICIT one is its literal VERBATIM (`= 9` -> UINT:9
+                // ct 9, `4'hB` -> HEX:B ct 5, `2'b10` -> BIN:10 ct 3,
+                // `8'd9` -> INT:9 ct 7 with the base DROPPED from the
+                // decompile, `= -3` -> INT:-3), and a member that merely
+                // FOLLOWS an explicit one resumes the counter at the base
+                // width (`{B8_A = 2, B8_B}` -> INT:3, `{BA_A = 1 << 2, BA_B}`
+                // -> INT:5).  `enumMemberSubstConst` already builds exactly
+                // that object for the qualified-pattern substitution, so it
+                // is what mints this one.
+                //
+                // FENCES, each with an arm cell that fails without it:
+                //   * the WINDOW is § pkgRetFoldHome86's — the home package's
+                //     DEF view, an IN-BODY class method, a module function and
+                //     a `$unit` function all keep golden's `ref_obj`
+                //     (arm c inb_ret / mf_ret / mu_ret / u_ret), while an
+                //     OUT-OF-BODY class method at package scope and every
+                //     WILDCARD-IMPORT CLONE (in BOTH of the importer's views)
+                //     fold (arm c oob_ret, p138c2::*);
+                //   * DIRECT STATEMENT OF THE BODY — a return nested in an
+                //     `if`, an explicit `begin/end` or a `for` keeps the
+                //     `ref_obj` (arm a f_ifret / f_begret / f_forret, arm c
+                //     oob_if), and a multi-statement body's SYNTHETIC begin is
+                //     not such a nesting (arm a f_two, arm a f_ifret's second
+                //     return);
+                //   * the read must BE the whole returned expression.  An
+                //     assignment rhs, a case-item expression, a variable
+                //     initialiser and a call argument are not folded at all
+                //     (arm a f_rhs / f_case / f_init), and an OPERAND inside
+                //     the returned expression is golden's too but arrives with
+                //     the ENCLOSING operation reduced whole where it can be
+                //     (`A_ONE + 1` -> ONE constant INT:2 at the reference's
+                //     span) — left as measured residue R3 rather than guessed
+                //     (arm a f_cmp / f_tern / f_op);
+                //   * the value must be one `compileTypeDef` REGISTERED ON THE
+                //     PACKAGE: a CLASS-SCOPE enum typedef registers on the
+                //     class (arm c oob_cls / inb_cls), a FUNCTION-LOCAL one on
+                //     the function (arm b f_loc), and an ANONYMOUS package
+                //     enum (`enum { BB_A, BB_B } bb_var;`) takes no
+                //     compileTypeDef at all (arm b f_bb) — golden keeps the
+                //     `ref_obj` on all three;
+                //   * a WRITTEN-QUALIFIED `pkg::NAME` read is § r10fsv3 S7's
+                //     arm, not this one (residue R2);
+                //   * an OCTAL-based member is fenced out because OUR
+                //     `enum_const` for it already disagrees with golden
+                //     (ours OCT:20, golden UINT:16 — arm b f_bc), and a fold
+                //     that copied it would carry that disagreement into a new
+                //     place instead of leaving it where it is (residue R1).
+                if (pkgRetFoldHome86 && tfBodyStmt9) {
+                    auto* b138 = (const Statement*)tfBodyStmt9;
+                    bool direct138 = b138 == &stmt;
+                    if (!direct138 && b138->kind == StatementKind::List)
+                        for (auto st138 : b138->as<StatementList>().list)
+                            if (st138 == &stmt) {
+                                direct138 = true;
+                                break;
+                            }
+                    auto& rx138 = stripImplicitConv(*rs.expr);
+                    if (direct138 &&
+                        rx138.kind == ExpressionKind::NamedValue &&
+                        rx138.syntax &&
+                        rx138.syntax->kind != syntax::SyntaxKind::ScopedName) {
+                        auto& sy138 =
+                            rx138.as<NamedValueExpression>().symbol;
+                        bool fold138 = sy138.kind == SymbolKind::EnumValue;
+                        // A TYPEDEF, and one homed in the PACKAGE: those are
+                        // the two things `compileTypeDef`'s `setValue` needs.
+                        if (fold138) {
+                            auto& ty138 = sy138.as<EnumValueSymbol>()
+                                              .getType()
+                                              .getCanonicalType();
+                            auto* esy138 = ty138.kind == SymbolKind::EnumType
+                                               ? ty138.getSyntax()
+                                               : nullptr;
+                            fold138 =
+                                esy138 && esy138->parent &&
+                                esy138->parent->kind ==
+                                    syntax::SyntaxKind::TypedefDeclaration;
+                        }
+                        if (fold138) {
+                            fold138 = false;
+                            for (auto sc138 = sy138.getParentScope(); sc138;
+                                 sc138 = sc138->asSymbol().getParentScope()) {
+                                auto k138 = sc138->asSymbol().kind;
+                                if (k138 == SymbolKind::Package) {
+                                    fold138 = true;
+                                    break;
+                                }
+                                if (k138 == SymbolKind::ClassType ||
+                                    k138 == SymbolKind::InstanceBody ||
+                                    k138 == SymbolKind::CompilationUnit ||
+                                    k138 == SymbolKind::Subroutine ||
+                                    k138 == SymbolKind::StatementBlock)
+                                    break;
+                            }
+                        }
+                        // CLAUSE ADDED BY THE VERIFIER (r10v138), from a
+                        // pristine-CLOSER -> patched-FURTHER cell:
+                        // § enumNameRangeIsNeverRegistered138v — AN ENUM NAME
+                        // RANGE IS NEVER REGISTERED UNDER THE NAME THAT IS
+                        // WRITTEN, so it NEVER folds.
+                        //
+                        // `compileTypeDef` walks the enum's members AS
+                        // WRITTEN and does NOT expand a name range: for
+                        // `typedef enum { RA_A[3] } ra_t;` golden's
+                        // `enum_typespec` holds EXACTLY ONE `enum_const`,
+                        // named `RA_A` (measured on all three spellings —
+                        // `RA_A[3]`, `RB_A[2:0]` and `RC_A[2] = 5`, whose one
+                        // const is `UINT:5`), so the `scope->setValue` beside
+                        // it registers only `RA_A` and
+                        // `component->getValue("RA_A1")` MISSES.  reduceExpr
+                        // then leaves the `ref_obj` — and that is why golden's
+                        // `ref_obj` for `RA_A1` also carries NO `vpiActual`:
+                        // there is no object of that name to bind to.
+                        //
+                        // slang DOES expand the range (`RA_A0`..`RA_A2`, all
+                        // sharing the ONE `DeclaratorSyntax`), so the fold
+                        // fired and made a `constant` where golden holds a
+                        // `ref_obj`.  `BaseClass::Compare` reads `UhdmType()`
+                        // FIRST, so the cell went from a matching KIND and
+                        // NAME to a KIND mismatch.  On the WILDCARD-IMPORT
+                        // CLONE, where our `ref_obj` carries no `vpiActual`
+                        // either, pristine was byte-for-byte GOLDEN and the
+                        // fold made it WRONG (arm v7 `v7b::f_rng` /
+                        // `v7b::RC::m_rng`, in BOTH views).
+                        //
+                        // The refusal is per ENUM, not per member, because the
+                        // un-expanded range also DESYNCHRONISES the counter
+                        // for every member after it: in
+                        // `typedef enum { QR_A[2], QR_B } qr_t;` Surelog
+                        // counts QR_A=0 then QR_B=1 while slang counts
+                        // QR_A0=0, QR_A1=1, QR_B=2, so golden's folded
+                        // constant for `return QR_B;` is INT:1 and our
+                        // enum_const says 2 (arm v7 `v7a::f_plain` /
+                        // `v7b::f_plain`).  Folding it would carry that
+                        // disagreement into a new place, which is exactly what
+                        // the enum_const fence below exists to prevent — the
+                        // fence reads the VALUE TAG and cannot see a wrong
+                        // COUNT, so the shape is refused here instead.
+                        // Positive controls that still fold: `v6a::g_rd`,
+                        // `v7a::f_macro`, `v7a::f_paramb` (a member following
+                        // a PARAMETER-valued one, where the counters agree).
+                        if (fold138)
+                            if (auto* ety138 = sy138.as<EnumValueSymbol>()
+                                                   .getType()
+                                                   .getCanonicalType()
+                                                   .getSyntax();
+                                ety138 &&
+                                ety138->kind == syntax::SyntaxKind::EnumType)
+                                for (auto md138 :
+                                     ety138->as<syntax::EnumTypeSyntax>()
+                                         .members)
+                                    if (md138 && !md138->dimensions.empty()) {
+                                        fold138 = false;
+                                        break;
+                                    }
+                        // THE FOLD REFUSES TO CARRY A DISAGREEMENT INTO A NEW
+                        // PLACE.  Golden's constant and golden's `enum_const`
+                        // publish the SAME `Value`, so this fold is a copy of
+                        // the `enum_const` we already emit — and it is only
+                        // sound where OUR enum_const carries the form the
+                        // decode predicts:
+                        //   * an IMPLICIT member is `set(val, Type::Integer,
+                        //     baseSize)`, i.e. ALWAYS the `INT:` tag.  Ours
+                        //     writes `UINT:` for an `int unsigned`-based enum
+                        //     (arm b f_bh: ours UINT:1, golden INT:1, both at
+                        //     size 32) — an enum_const defect, and the fold
+                        //     leaves it where it is;
+                        //   * an EXPLICIT member is `fromVpiValue` over the
+                        //     COMPILED INITIALISER, which we reproduce only
+                        //     for an INTEGER LITERAL: for `= -3` (a unary
+                        //     minus, not a literal) golden holds INT:-3 at the
+                        //     LITERAL's size 64 while our enum_const holds BIN
+                        //     at the base's 32 (arm b f_b7 / f_b7b), and for
+                        //     an OCTAL literal ours holds OCT:20 where golden
+                        //     holds UINT:16 (arm b f_bc).
+                        // The tag is read off the enum_const BEFORE anything is
+                        // minted: a constant built and then thrown away still
+                        // lands in the Serializer and shifts every id after it.
+                        if (fold138) {
+                            fold138 = false;
+                            if (auto eit138 = enumConstMap.find(&sy138);
+                                eit138 != enumConstMap.end() &&
+                                eit138->second &&
+                                eit138->second->UhdmType() ==
+                                    UHDM::uhdmenum_const) {
+                                auto tag138 =
+                                    ((UHDM::enum_const*)eit138->second)
+                                        ->VpiValue();
+                                if (auto* ein138 = sy138.as<EnumValueSymbol>()
+                                                       .getInitializer())
+                                    fold138 =
+                                        stripImplicitConv(*ein138).kind ==
+                                            ExpressionKind::IntegerLiteral &&
+                                        tag138.rfind("OCT:", 0) != 0;
+                                else
+                                    fold138 = tag138.rfind("INT:", 0) == 0;
+                            }
+                        }
+                        if (fold138)
+                            if (auto* c138 = enumMemberSubstConst(sy138)) {
+                                setLoc(c138, rx138.sourceRange);
+                                r->VpiCondition(c138);
+                                return r;
+                            }
+                    }
+                }
                 // § pkgRetTopCallArgFormalTs8 (r10buvm8) — THE ONE WINDOW.
                 // Surelog compiles the ELABORATED package with Reduce::Yes and
                 // `compileStmt`'s paRETURN arm is the only arm that threads that

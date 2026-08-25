@@ -173,7 +173,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-25 07:25, HEAD = the uvm137 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-25 08:05, HEAD = the uvm138 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 471/481 comparable
 equal (10 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -183,14 +183,15 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 | row-mode(s) | head (official cmp lines = head-object DEPTH, not distance) | family / next law |
 |---|---|---|
 | SeqDriver×2 + MiniAmiq×2 (uvm-1.2 tree) | 58 (depth, the same object on all four) | a vpiAutomatic FLAG cell on a class-method local: the subroutine-local `string values[$]` in uvm_component::m_set_cl_verb (uvm_component.svh:3380) — golden's string_var carries no vpiAutomatic, ours vpiAutomatic:1 (Surelog's lifetime-flag policy for a class-method local vs ours stamping every automatic local) — uvm139's target (uvm137 landed: 56→58 on all four, § dottedForeachLoopVarBaseMustDrill137 — a dotted foreach loop list is typed by drilling from its base object (an enclosing loop variable included), only a class_var or struct_var base reaches the member, and the gate is a HOME list because golden takes the INDEX for package/program/generate-block/statement-block arrays; the verifier excluded struct_var bases from the fallback — three grid cells, zero corpus cells) |
-| SimpleUVM×2 + Scoreboard/default + BuildUVMPkg×2 | 32 (depth, the same statement on all five: pp_output 79314 in BuildUVMPkg) | a RETURNED ENUM CONSTANT not folded: `return UVM_FRONTDOOR;` (uvm_reg_block.svh:1914) — golden a constant (ct 7, sz 64, INT:0, decompile 0), ours a ref_obj named after the enumerator — uvm138's target (uvm136 landed: 64→32 on all five row-modes, § classPropPackedStructIsStructVar136 — Surelog's variable class for a class property follows the TYPESPEC KIND (getSimpleVarFromTypespec's closed dispatch: struct_typespec → struct_var, union → union_var); ours asked slang's canonical type, where a packed struct is integral; the declaration-order hypothesis was refuted by measurement) |
+| SimpleUVM×2 + Scoreboard/default | 334 (depth) | a TYPESPEC-IDENTITY head: the CLASS-LOCAL COPY of a package enum typedef at uvm_sequence_base.svh:399 — golden mints a second enum_typespec named after the typedef (uvm_pkg::uvm_sequence_state_enum), parented at the class_defn, linked to the package's enum through Typedef_alias; we hand out the package's own object under the top module and the base name with no alias (typespec::Compare walks Typedef_alias before Instance; the enum_const values agree) — uvm140's target (uvm138 landed: 32→334/83 on the five row-modes, § pkgRetBareEnumConstFold138 — the return arm threads Reduce::Yes and reduceExpr folds a bare enumerator from the same Value the enum_const publishes, in the pkgRetFoldHome86 window only; the verifier's § enumNameRangeIsNeverRegistered138v refuses enums with a NAME RANGE member, which Surelog never expands — six moved-wrong grid cells, zero corpus cells) |
+| BuildUVMPkg×2 | 83 (depth) | a SURPLUS object on our side: LHS null against our function uvm_pkg::uvm_reg_map's `ceil` (pp_output :75228) — a method listing count/owner cell (uvm127's residue R2 family) — uvm141's target |
 | Earlgrey_0_1×2 (both modes) | 17 (depth, one object) | a MISSING TYPESPEC on a folded parameter leaf in an UNPACKED-dimension bound: `logic [AllPagesW-1:0] region_end[TotalRegions];` (flash_mp.sv:54, u_flash_mp) — golden's folded TotalRegions constant (UINT:9 sz32, the left operand of the opType-11 bound) carries ref_typespec → int_typespec, ours none (a singular SafeCompare; the sibling literal is bare on both sides) — earl85's leaf-typespec law at the dimension-bound consumer — earl89's target (earl88 landed: 21302/21926→17/17, § pkgScopedPaStructStrictNetVar88 — with written packed dimensions Surelog's LOOSE struct-member scan is unreachable and the STRICT scan (Struct::isNet: every member a plain logic) decides net vs var; the strict scan predicts golden's container with 0 exceptions over both corpora) |
 | Rggen/default | **CMP_EQUAL** (converted by rgg18) | Rggen's one comparable mode passes the official uhdm-cmp; its dump column stays `differ` (phase-3 residues R-N3 103 golden-only ELAB hier_paths / R-A 810 symbolic range bounds / R-D / R-N4 / R-N5 / R-E hold byte-identity, block nothing); the Rggen slot now refills on the next-largest surelog NE family (rgg18 landed: gen-scope localparam fold digits = the mathematical value, pre-truncation, own sign + the verifier's 64-bit-word and stored-value refusals) |
 
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 85 verifier fix-before-landing re-cuts (190 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 86 verifier fix-before-landing re-cuts (191 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

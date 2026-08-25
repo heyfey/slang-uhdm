@@ -1,0 +1,32 @@
+LHS:
+decompile:
+constant: , id:58255, line:79314:11, endln:79314:24
+|vpiDecompile:0
+|vpiSize:64
+|INT:0
+|vpiConstType:7
+
+decompile:
+constant: , id:58255, line:79314:11, endln:79314:24
+|vpiDecompile:0
+|vpiSize:64
+|INT:0
+|vpiConstType:7
+RHS:
+decompile:
+ref_obj: (uvm_pkg::uvm_reg_block::get_default_door::UVM_FRONTDOOR), id:66345, line:79314:11, endln:79314:24
+|vpiParent:
+\_return_stmt: , id:66344, line:79314:4, endln:79314:10
+|vpiName:UVM_FRONTDOOR
+|vpiFullName:uvm_pkg::uvm_reg_block::get_default_door::UVM_FRONTDOOR
+|vpiActual:
+\_enum_const: (UVM_FRONTDOOR), id:520, line:60819:7, endln:60819:20
+
+decompile:
+ref_obj: (uvm_pkg::uvm_reg_block::get_default_door::UVM_FRONTDOOR), id:66345, line:79314:11, endln:79314:24
+|vpiParent:
+\_return_stmt: , id:66344, line:79314:4, endln:79314:10
+|vpiName:UVM_FRONTDOOR
+|vpiFullName:uvm_pkg::uvm_reg_block::get_default_door::UVM_FRONTDOOR
+|vpiActual:
+\_enum_const: (UVM_FRONTDOOR), id:520, line:60819:7, endln:60819:20

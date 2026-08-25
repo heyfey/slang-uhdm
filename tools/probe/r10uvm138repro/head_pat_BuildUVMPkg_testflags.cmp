@@ -1,0 +1,83 @@
+LHS: <null>
+RHS:
+decompile:
+function: (uvm_pkg::uvm_reg_map), id:74836, line:75228:1, endln:75228:6
+|vpiParent:
+\_class_defn: (uvm_pkg::uvm_reg_map), id:74268, file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:74828:1, endln:75332:22
+|vpiFullName:uvm_pkg::uvm_reg_map
+|vpiVariables:
+\_int_var: (uvm_pkg::uvm_reg_map::ceil::r), id:74845, line:75229:6, endln:75229:7
+  |vpiParent:
+  \_function: (uvm_pkg::uvm_reg_map), id:74836, line:75228:1, endln:75228:6
+  |vpiTypespec:
+  \_ref_typespec: (uvm_pkg::uvm_reg_map::ceil::r), id:74846
+    |vpiParent:
+    \_int_var: (uvm_pkg::uvm_reg_map::ceil::r), id:74845, line:75229:6, endln:75229:7
+    |vpiFullName:uvm_pkg::uvm_reg_map::ceil::r
+    |vpiActual:
+    \_int_typespec: , id:74844, line:75229:2, endln:75229:5
+  |vpiName:r
+  |vpiFullName:uvm_pkg::uvm_reg_map::ceil::r
+  |vpiSigned:1
+|vpiVariables:
+\_int_var: (uvm_pkg::uvm_reg_map::ceil::r0), id:74848, line:75230:6, endln:75230:8
+  |vpiParent:
+  \_function: (uvm_pkg::uvm_reg_map), id:74836, line:75228:1, endln:75228:6
+  |vpiTypespec:
+  \_ref_typespec: (uvm_pkg::uvm_reg_map::ceil::r0), id:74849
+    |vpiParent:
+    \_int_var: (uvm_pkg::uvm_reg_map::ceil::r0), id:74848, line:75230:6, endln:75230:8
+    |vpiFullName:uvm_pkg::uvm_reg_map::ceil::r0
+    |vpiActual:
+    \_int_typespec: , id:74847, line:75230:2, endln:75230:5
+  |vpiName:r0
+  |vpiFullName:uvm_pkg::uvm_reg_map::ceil::r0
+  |vpiSigned:1
+|vpiMethod:1
+|vpiVisibility:3
+|vpiReturn:
+\_logic_var: (uvm_pkg::uvm_reg_map), id:74837
+  |vpiParent:
+  \_function: (uvm_pkg::uvm_reg_map), id:74836, line:75228:1, endln:75228:6
+  |vpiFullName:uvm_pkg::uvm_reg_map
+
+decompile:
+function: (uvm_pkg::uvm_reg_map), id:74836, line:75228:1, endln:75228:6
+|vpiParent:
+\_class_defn: (uvm_pkg::uvm_reg_map), id:74268, file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:74828:1, endln:75332:22
+|vpiFullName:uvm_pkg::uvm_reg_map
+|vpiVariables:
+\_int_var: (uvm_pkg::uvm_reg_map::ceil::r), id:74845, line:75229:6, endln:75229:7
+  |vpiParent:
+  \_function: (uvm_pkg::uvm_reg_map), id:74836, line:75228:1, endln:75228:6
+  |vpiTypespec:
+  \_ref_typespec: (uvm_pkg::uvm_reg_map::ceil::r), id:74846
+    |vpiParent:
+    \_int_var: (uvm_pkg::uvm_reg_map::ceil::r), id:74845, line:75229:6, endln:75229:7
+    |vpiFullName:uvm_pkg::uvm_reg_map::ceil::r
+    |vpiActual:
+    \_int_typespec: , id:74844, line:75229:2, endln:75229:5
+  |vpiName:r
+  |vpiFullName:uvm_pkg::uvm_reg_map::ceil::r
+  |vpiSigned:1
+|vpiVariables:
+\_int_var: (uvm_pkg::uvm_reg_map::ceil::r0), id:74848, line:75230:6, endln:75230:8
+  |vpiParent:
+  \_function: (uvm_pkg::uvm_reg_map), id:74836, line:75228:1, endln:75228:6
+  |vpiTypespec:
+  \_ref_typespec: (uvm_pkg::uvm_reg_map::ceil::r0), id:74849
+    |vpiParent:
+    \_int_var: (uvm_pkg::uvm_reg_map::ceil::r0), id:74848, line:75230:6, endln:75230:8
+    |vpiFullName:uvm_pkg::uvm_reg_map::ceil::r0
+    |vpiActual:
+    \_int_typespec: , id:74847, line:75230:2, endln:75230:5
+  |vpiName:r0
+  |vpiFullName:uvm_pkg::uvm_reg_map::ceil::r0
+  |vpiSigned:1
+|vpiMethod:1
+|vpiVisibility:3
+|vpiReturn:
+\_logic_var: (uvm_pkg::uvm_reg_map), id:74837
+  |vpiParent:
+  \_function: (uvm_pkg::uvm_reg_map), id:74836, line:75228:1, endln:75228:6
+  |vpiFullName:uvm_pkg::uvm_reg_map

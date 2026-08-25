@@ -1,0 +1,119 @@
+r10v138 — THE VERIFIER'S GATE LOG.  LHS IS ALWAYS GOLDEN.  MEASUREMENT ONLY;
+the judge is the official ~/git-repos/UHDM/build/bin/uhdm-cmp.
+
+BASE 11643b6.  Three binaries, each frozen chmod 555 BEFORE any sweep:
+  pristine  fa055a33c4129c1689fa5ebba677261b   (my own worktree, own configure)
+  patched   c066e38a3d509b98d16dbffff2ddc860   (= the implementer's md5, reproduced)
+  verified  86eaffb70c5faac40f54e5c709ac8795   (patched + the verifier clause)
+
+(1) BUILD.  Both -j 2, md5 separately.  git apply --check clean on a FRESH
+    11643b6, no fuzz.  Fence scan of the patch for the four slang-fenced
+    names: 0 0 0 0.
+
+(2) GOLDENS, SLANG_UHDM exported explicitly to EACH binary.
+    pristine PASS=23 FAIL=0 | patched PASS=23 FAIL=0 | verified PASS=23 FAIL=0
+    negative control SLANG_UHDM=/bin/false : PASS=0 FAIL=23
+
+(3) cmds.txt AUDIT BY BINARY PATH (not by name).
+    v138_wd_pris/sl  1573 files -> /tmp/v138_bin/pris.bin   (one path only)
+    v138_wd_pris/u2r 1462 files -> /tmp/v138_bin/pris.bin
+    v138_wd_pat/sl   1573 files -> /tmp/v138_bin/pat.bin
+    v138_wd_pat/u2r  1462 files -> /tmp/v138_bin/pat.bin
+    v138_wd_fix/sl   1573 files -> /tmp/v138_bin/fix.bin
+    v138_wd_fix/u2r  1462 files -> /tmp/v138_bin/fix.bin
+
+(4) uhdm2rtlil, testflags AND default, all three binaries:
+    679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+    ct8rows vs results/gate_uhdm2rtlil.csv          PASS (patched and verified)
+    ct8rows vs my own pristine sweep, testflags     PASS
+    ct8rows vs my own pristine sweep, default       PASS
+
+(5) surelog --mode both, 1588 rows over 956 databases:
+    ct8rows vs results/golden_surelog.csv           PASS  0 differing ROWS
+    ct8rows vs my own pristine sweep                PASS  0 differing ROWS
+    status histogram, patched and verified, IDENTICAL to pristine:
+      default    471 CMP_EQUAL  10 CMP_NOTEQUAL  5 DEFERRED  283 SLANG_REJECT  25 SURELOG_FAIL
+      testflags  466 CMP_EQUAL   9 CMP_NOTEQUAL  5 DEFERRED    3 NO_DATABASE    1 NO_UHDM
+                 284 SLANG_REJECT  23 SURELOG_FAIL  1 TIMEOUT  2 UNTRANSLATABLE
+    NO ROW CONVERTED in either direction, either binary.
+
+(6) BYTE MOVERS, SELFCHECK=1.
+    patched  vs pristine : surelog 9/956 (selfcheck 955/956), u2r 0/1358 (1357/1358)
+    verified vs pristine : surelog 9/956 (selfcheck 955/956), u2r 0/1358 (1357/1358)
+    verified vs patched  : surelog 0/956,  u2r 0/1358   <-- the fix is corpus-invisible
+    The nine, by name (both modes unless stated):
+      SeqDriver, SimpleUVM, MiniAmiq, BuildUVMPkg, Scoreboard/default
+    = exactly PREDICT.r10uvm138.txt.  FunctionReturnEnum (the law's negative
+    control, a MODULE function) byte-identical.
+
+(7) ORDER-BLIND ATTRIBUTION (sorted, id- and path-stripped dumps).
+    SimpleUVM/default      12 lines = 1 cell   uvm_reg_block.svh:1914
+    Scoreboard/default     12 lines = 1 cell   (the COIN did not flip)
+    BuildUVMPkg/default    12 lines = 1 cell   pp_output:79314
+    SeqDriver/default      32 lines = 3 cells  uvm_pkg TOP + adpcm_pkg clone x2
+    MiniAmiq/default       32 lines = 3 cells  uvm_pkg TOP + svaunit_pkg clone x2
+    Nothing else moves in any of them.
+
+(8) INDEPENDENT TO-GOLDEN CHECK, straight off the golden cache
+    (SeqDriver/default, span 1914:11-1914:24):
+      golden    3 constant + 1 ref_obj(uvm_pkg…UVM_FRONTDOOR)
+      pristine  4 ref_obj
+      patched   3 constant + 1 ref_obj(uvm_pkg…UVM_FRONTDOOR)   EXACT
+
+(9) HEADS (rowheads.sh; DEPTH, not distance)   pristine -> patched/verified
+    SeqDriver     17 -> 17     head log BYTE-IDENTICAL
+    SimpleUVM     32 -> 334    HEAD CLEARED
+    Scoreboard/d  32 -> 334    HEAD CLEARED
+    MiniAmiq      56 -> 56     head log BYTE-IDENTICAL
+    BuildUVMPkg   32 -> 83     HEAD CLEARED
+    Earlgrey   21302/21926 unchanged, head logs BYTE-IDENTICAL
+    Rggen/default  0 (CMP_EQUAL) both
+    UVM_FRONTDOOR: 5 pristine head logs, 0 patched, 0 verified.
+    Every patched and verified head log is byte-identical to the other.
+
+(10) CANARIES.  canaries.sh surelog ok=52 changed=0 ; u2r ok=8 changed=0
+     ctcan2 PASS (EXPECT_UNKNOWN=1 / =6) ; canaudit audited=29 UNCOVERED=0
+     FENCE-BREACH=0.  Byte pins vs pristine, patched AND verified:
+       SVSwitch 4842211c4030 | YosysVerx 6ccda350c24a
+       InterfaceModPort 59a365f3ce2c | YosysOldOr d68e0796d62c
+       BlackParrotComplex e3e354129d5a (default) / 73a10e8217e5 (testflags)
+
+(11) BOUNDARY, pristine vs VERIFIED, over a COPY of tools/probe PLUS my seven
+     arms:  LISTED=4021 PROCESSED=4021 PRODUCED_DBS=3877 MOVED_ARMS=16 RC_DIFFS=0
+     Campaign arms among the movers: g138 x4 (32 TOGOLD), g120_d_shapes (1
+     TOGOLD = uvm120 R6), r10uvm12repro/t13/t.sv (4), g86_a2_ctx (1),
+     gv28_d_reach (2), g22.sv (uvm120 R7, +4096 address shift only)
+     = 40 TOGOLD, 0 MOVED-WRONG, 0 AWAY.
+
+(12) MUST-STAY CONTROLS, byte identity in BOTH views, pristine vs verified:
+     r10uvm120repro  4 arms  (g120_d_shapes MOVED, 1 TOGOLD 0 MOVED-WRONG)
+     r10uvm76repro  12 arms  ALL byte-identical
+     r10earl66repro  3 arms  ALL byte-identical
+     r10buvm30repro  8 arms  ALL byte-identical
+
+(13) THE BREAK AND THE FIX — § enumNameRangeIsNeverRegistered138v.
+     ARM GRID, 7 arms x 2 views (golden x pristine x ours):
+       implementer's patch : 138 TOGOLD,  6 MOVED-WRONG, 31 AWAY
+       verified            : 136 TOGOLD,  0 MOVED-WRONG,  2 AWAY
+     The 6 MOVED-WRONG are a range member reached from a WILDCARD-IMPORT
+     CLONE (v7b::f_rng, v7b::RC::m_rng), where pristine was byte-for-byte
+     golden.  The 2 surviving AWAY are R-V1, the typedef-BASED enum's
+     enum_const size (64 vs golden's 4) — a PRE-EXISTING defect, and the
+     patched cell is CLOSER (expr::Compare reads VpiDecompile then VpiSize;
+     pristine failed at UhdmType).
+     The 2 TOGOLD given up are duplicate-count coincidences of the multiset
+     key in the ELAB tree, not real gains.
+
+(14) THE CLAUSE'S OWN SAFETY GATE.  The cast to EnumTypeSyntax is guarded on
+     `kind == syntax::SyntaxKind::EnumType`, the convention the emitter
+     already uses (ExprEmit.cpp:7800, TypeEmit.cpp:5605).  The guarded build
+     (86eaffb70c5faac40f54e5c709ac8795) was re-swept in full and is
+     BYTE-IDENTICAL to the unguarded one everywhere it was measured:
+       surelog   0 / 956 movers   |  uhdm2rtlil  0 / 1358 movers
+       boundary  LISTED=4021 PROCESSED=4021 PRODUCED_DBS=3877
+                 MOVED_ARMS=0 RC_DIFFS=0
+       all 12 head logs byte-identical to the implementer's patched run
+       all 7 verifier arms byte-identical in BOTH views
+     ...and byte-identical to the IMPLEMENTER's patched binary on all 956
+     surelog and all 1358 uhdm2rtlil databases: the fix costs the pass
+     nothing and the name-range shape has ZERO corpus population.

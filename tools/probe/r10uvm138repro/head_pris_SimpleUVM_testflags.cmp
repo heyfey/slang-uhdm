@@ -1,0 +1,32 @@
+LHS:
+decompile:
+constant: , id:57941, line:1914:11, endln:1914:24
+|vpiDecompile:0
+|vpiSize:64
+|INT:0
+|vpiConstType:7
+
+decompile:
+constant: , id:57941, line:1914:11, endln:1914:24
+|vpiDecompile:0
+|vpiSize:64
+|INT:0
+|vpiConstType:7
+RHS:
+decompile:
+ref_obj: (uvm_pkg::uvm_reg_block::get_default_path::UVM_FRONTDOOR), id:65618, line:1914:11, endln:1914:24
+|vpiParent:
+\_return_stmt: , id:65617, line:1914:4, endln:1914:10
+|vpiName:UVM_FRONTDOOR
+|vpiFullName:uvm_pkg::uvm_reg_block::get_default_path::UVM_FRONTDOOR
+|vpiActual:
+\_enum_const: (UVM_FRONTDOOR), id:685, line:166:7, endln:166:20
+
+decompile:
+ref_obj: (uvm_pkg::uvm_reg_block::get_default_path::UVM_FRONTDOOR), id:65618, line:1914:11, endln:1914:24
+|vpiParent:
+\_return_stmt: , id:65617, line:1914:4, endln:1914:10
+|vpiName:UVM_FRONTDOOR
+|vpiFullName:uvm_pkg::uvm_reg_block::get_default_path::UVM_FRONTDOOR
+|vpiActual:
+\_enum_const: (UVM_FRONTDOOR), id:685, line:166:7, endln:166:20

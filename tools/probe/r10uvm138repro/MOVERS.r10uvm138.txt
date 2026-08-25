@@ -1,0 +1,42 @@
+r10uvm138 — THE BYTE MOVERS AND THEIR ATTRIBUTION.
+
+byteverify.sh SELFCHECK=1, both corpora, patched vs this pass's OWN pristine
+sweep (never a carried-forward control):
+  uhdm2rtlil  PATH_SETS_IDENTICAL (1358)  MOVERS 0 / 1358   SELFCHECK 1357/1358
+  surelog     PATH_SETS_IDENTICAL (956)   MOVERS 9 / 956    SELFCHECK 955/956
+
+The nine are EXACTLY the nine PREDICTED BY NAME (PREDICT.r10uvm138.txt)
+from the PRISTINE databases, before the patched sweep ran.
+
+ORDER-BLIND ATTRIBUTION (attr138.sh: dumps sorted, ids and paths stripped).
+Scoreboard/default is a ~50/50 COIN (a vpiTaskFunc order flip worth ~92
+dump lines), so it is attributed ORDER-BLIND and only order-blind.  Its
+ENTIRE delta is this law's ONE cell — the coin did not flip and it hides
+nothing.
+
+DATABASE                               ORDERBLIND    CONST-ADDED    REFOBJ-GONE  CELLS
+default/SimpleUVM-1dc93a62                     14              1              1  1
+testflags/SimpleUVM-1dc93a62                   14              1              1  1
+default/Scoreboard-59431470                    14              1              1  1
+default/SeqDriver-32af76aa                     34              3              3  3
+testflags/SeqDriver-32af76aa                   34              3              3  3
+default/MiniAmiq-544c7f61                      34              3              3  3
+testflags/MiniAmiq-544c7f61                    34              3              3  3
+default/BuildUVMPkg-bf853d43                   14              1              1  1
+testflags/BuildUVMPkg-bf853d43                 14              1              1  1
+
+  (orderblind_lines counts the two dump HEADER lines too: 14 lines = 2
+  header + 12 for one cell, 34 = 2 header + 32 for three.)
+
+EVERY moved cell is the same statement:
+  <   \_ref_obj: (<pkg>::uvm_reg_block::get_default_path::UVM_FRONTDOOR), line:1914:11, endln:1914:24
+  <     |vpiParent: \_return_stmt: , line:1914:4, endln:1914:10
+  <     |vpiActual: \_enum_const: (UVM_FRONTDOOR)
+  <     |vpiName / |vpiFullName
+  >   \_constant: , line:1914:11, endln:1914:24
+  >     |INT:0  |vpiDecompile:0  |vpiSize:64  |vpiConstType:7
+
+SimpleUVM / Scoreboard / BuildUVMPkg move ONE cell (the home package's TOP
+view).  SeqDriver and MiniAmiq move THREE: the same TOP-view cell plus BOTH
+views of the adpcm_pkg / svaunit_pkg WILDCARD-IMPORT CLONE, which
+pkgRetFoldHome86 also names.

@@ -1,0 +1,88 @@
+r10uvm138 — THE LANDING GATES.  All five, all green.
+
+BASE            11643b6 (= UVM pass 136)
+pristine binary built in a clean worktree at 11643b6, frozen chmod 555
+                md5 fa055a33c4129c1689fa5ebba677261b
+patched binary  frozen chmod 555
+                md5 c066e38a3d509b98d16dbffff2ddc860
+production      src/StmtEmit.cpp ONLY (ONE block in StatementKind::Return)
+probe           tools/probe/r10uvm138repro/ ONLY
+slang           NOT patched.  results/*.csv READ ONLY.  Nothing promoted.
+                NO CORPUS ROW CONVERTED.
+
+(1) BUILD.  Both binaries built -j 2, md5'd separately (above).
+    REPRODUCIBILITY: /tmp/r10uvm138.patch applied to a FRESH worktree at
+    11643b6 (git apply --check clean, no fuzz) and rebuilt -j 2 produces a
+    BYTE-IDENTICAL binary, md5 c066e38a3d509b98d16dbffff2ddc860, and that
+    fresh build passes tests/check_goldens.sh 23/23.
+
+(2) GOLDENS.  SLANG_UHDM exported explicitly to EACH binary.
+    pristine  PASS=23 FAIL=0
+    patched   PASS=23 FAIL=0
+    negative control  SLANG_UHDM=/bin/false  FAIL=23
+
+(3) uhdm2rtlil, testflags AND default.
+    status histogram (testflags): 679 CMP_EQUAL, 50 SLANG_REJECT, 2 SURELOG_FAIL
+    ct8rows vs committed baseline results/gate_uhdm2rtlil.csv : PASS
+    ct8rows vs this pass's OWN pristine sweep (testflags)     : PASS
+    ct8rows vs this pass's OWN pristine sweep (default)       : PASS
+    cmds.txt binary audit: /tmp/r10uvm138_bin/pat.bin (by PATH, not by name)
+
+(4) surelog corpus, --mode both (1588 rows over 956 databases).
+    status histogram: 937 CMP_EQUAL, 567 SLANG_REJECT, 48 SURELOG_FAIL,
+                      19 CMP_NOTEQUAL, 10 DEFERRED, 3 NO_DATABASE,
+                      2 UNTRANSLATABLE, 1 TIMEOUT, 1 NO_UHDM
+                      — IDENTICAL to the pristine sweep's histogram.
+    ct8rows vs committed baseline results/golden_surelog.csv : PASS
+    ct8rows vs this pass's OWN pristine sweep                : PASS
+    NO row converted in either direction.
+    cmds.txt binary audit: /tmp/r10uvm138_bin/pat.bin
+
+(5) BYTE MOVERS, SELFCHECK=1, both corpora.
+    uhdm2rtlil : PATH_SETS_IDENTICAL (1358)  MOVERS 0 / 1358
+                 SELFCHECK 1357 / 1358 flagged (the instrument sees)
+    surelog    : PATH_SETS_IDENTICAL (956)   MOVERS 9 / 956
+                 SELFCHECK 955 / 956 flagged
+    The NINE movers are EXACTLY the nine PREDICTED BY NAME from the
+    PRISTINE databases before the patched sweep ran
+    (PREDICT.r10uvm138.txt): SeqDriver/SimpleUVM/MiniAmiq/BuildUVMPkg in
+    both modes and Scoreboard/default.
+    uhdm2rtlil FunctionReturnEnum — the only uhdm2rtlil candidate and the
+    law's NEGATIVE CONTROL (a MODULE function) — stayed byte-identical.
+
+BOUNDARY (bound138.sh; not one of the five, but the gate that convicts a
+corpus-invisible regression)
+    LISTED=4014 PROCESSED=4014 PRODUCED_DBS=3870 MOVED_ARMS=9 RC_DIFFS=0
+    40 TOGOLD, 0 MOVED-WRONG, 0 AWAY over the moved arms — see
+    BOUNDARY.r10uvm138.txt.
+
+CANARIES
+    canaries.sh surelog     ok=52 changed=0 absent=0
+    canaries.sh uhdm2rtlil  ok=8  changed=0 absent=0
+    ctcan2.sh   surelog     PASS (EXPECT_UNKNOWN=1)
+    ctcan2.sh   uhdm2rtlil  PASS (EXPECT_UNKNOWN=6)
+    canaudit.sh canaries.sh ctcan2.sh : audited=29 UNCOVERED=0 FENCE-BREACH=0
+    protected databases, md5 patched vs pristine:
+      InterfaceModPort   default/testflags  59a365f3ce2c  SAME
+      BlackParrotComplex default e3e354129d5a / testflags 73a10e8217e5  SAME
+      YosysOldOr         default/testflags  d68e0796d62c  SAME
+      SVSwitch           4842211c4030  (the pin)
+      YosysVerx          6ccda350c24a  (the pin)
+
+ROW HEADS (rowheads.sh; counts are DEPTH, not distance)
+TEST           MODE         PRISTINE    PATCHED  NOTE
+SeqDriver      default            17         17  head log BYTE-IDENTICAL
+SeqDriver      testflags          17         17  head log BYTE-IDENTICAL
+SimpleUVM      default            32        334  HEAD CLEARED — new head is a different family
+SimpleUVM      testflags          32        334  HEAD CLEARED
+Scoreboard     default            32        334  HEAD CLEARED
+Scoreboard     testflags           -          -  SKIP-NOFILE (expected)
+MiniAmiq       default            56         56  head log BYTE-IDENTICAL
+MiniAmiq       testflags          56         56  head log BYTE-IDENTICAL
+BuildUVMPkg    default            32         83  HEAD CLEARED
+BuildUVMPkg    testflags          32         83  HEAD CLEARED
+Earlgrey_0_1   default         21302      21302  head log BYTE-IDENTICAL
+Earlgrey_0_1   testflags       21926      21926  head log BYTE-IDENTICAL
+Rggen          default             0          0  CMP_EQUAL, byte-identical
+Rggen          testflags           -          -  SKIP-NOFILE (expected)
+  UVM_FRONTDOOR appears in FIVE pristine head logs and in ZERO patched ones.

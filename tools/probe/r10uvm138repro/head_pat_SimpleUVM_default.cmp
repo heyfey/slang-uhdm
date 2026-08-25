@@ -1,0 +1,334 @@
+LHS:
+decompile:
+enum_typespec: (uvm_pkg::uvm_sequence_state_enum), id:2341, line:399:1, endln:410:22
+|vpiParent:
+\_class_defn: (work@env), id:325, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:7:1, endln:39:9
+|vpiName:uvm_pkg::uvm_sequence_state_enum
+|vpiTypedefAlias:
+\_ref_typespec: (work@env::uvm_pkg::uvm_sequence_state_enum), id:2351
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state_enum), id:2341, line:399:1, endln:410:22
+  |vpiFullName:work@env::uvm_pkg::uvm_sequence_state_enum
+  |vpiActual:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state), id:2313, line:399:1, endln:410:22
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+|vpiEnumConst:
+\_enum_const: (UVM_CREATED), id:2342, line:401:3, endln:401:20
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state_enum), id:2341, line:399:1, endln:410:22
+  |vpiName:UVM_CREATED
+  |UINT:1
+  |vpiDecompile:1
+  |vpiSize:64
+|vpiEnumConst:
+\_enum_const: (UVM_PRE_START), id:2343, line:402:3, endln:402:20
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state_enum), id:2341, line:399:1, endln:410:22
+  |vpiName:UVM_PRE_START
+  |UINT:2
+  |vpiDecompile:2
+  |vpiSize:64
+|vpiEnumConst:
+\_enum_const: (UVM_PRE_BODY), id:2344, line:403:3, endln:403:20
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state_enum), id:2341, line:399:1, endln:410:22
+  |vpiName:UVM_PRE_BODY
+  |UINT:4
+  |vpiDecompile:4
+  |vpiSize:64
+|vpiEnumConst:
+\_enum_const: (UVM_BODY), id:2345, line:404:3, endln:404:20
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state_enum), id:2341, line:399:1, endln:410:22
+  |vpiName:UVM_BODY
+  |UINT:8
+  |vpiDecompile:8
+  |vpiSize:64
+|vpiEnumConst:
+\_enum_const: (UVM_POST_BODY), id:2346, line:405:3, endln:405:21
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state_enum), id:2341, line:399:1, endln:410:22
+  |vpiName:UVM_POST_BODY
+  |UINT:16
+  |vpiDecompile:16
+  |vpiSize:64
+|vpiEnumConst:
+\_enum_const: (UVM_POST_START), id:2347, line:406:3, endln:406:21
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state_enum), id:2341, line:399:1, endln:410:22
+  |vpiName:UVM_POST_START
+  |UINT:32
+  |vpiDecompile:32
+  |vpiSize:64
+|vpiEnumConst:
+\_enum_const: (UVM_ENDED), id:2348, line:407:3, endln:407:21
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state_enum), id:2341, line:399:1, endln:410:22
+  |vpiName:UVM_ENDED
+  |UINT:64
+  |vpiDecompile:64
+  |vpiSize:64
+|vpiEnumConst:
+\_enum_const: (UVM_STOPPED), id:2349, line:408:3, endln:408:22
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state_enum), id:2341, line:399:1, endln:410:22
+  |vpiName:UVM_STOPPED
+  |UINT:128
+  |vpiDecompile:128
+  |vpiSize:64
+|vpiEnumConst:
+\_enum_const: (UVM_FINISHED), id:2350, line:409:3, endln:409:22
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state_enum), id:2341, line:399:1, endln:410:22
+  |vpiName:UVM_FINISHED
+  |UINT:256
+  |vpiDecompile:256
+  |vpiSize:64
+
+decompile:
+enum_typespec: (uvm_pkg::uvm_sequence_state_enum), id:2341, line:399:1, endln:410:22
+|vpiParent:
+\_class_defn: (work@env), id:325, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:7:1, endln:39:9
+|vpiName:uvm_pkg::uvm_sequence_state_enum
+|vpiTypedefAlias:
+\_ref_typespec: (work@env::uvm_pkg::uvm_sequence_state_enum), id:2351
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state_enum), id:2341, line:399:1, endln:410:22
+  |vpiFullName:work@env::uvm_pkg::uvm_sequence_state_enum
+  |vpiActual:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state), id:2313, line:399:1, endln:410:22
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+|vpiEnumConst:
+\_enum_const: (UVM_CREATED), id:2342, line:401:3, endln:401:20
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state_enum), id:2341, line:399:1, endln:410:22
+  |vpiName:UVM_CREATED
+  |UINT:1
+  |vpiDecompile:1
+  |vpiSize:64
+|vpiEnumConst:
+\_enum_const: (UVM_PRE_START), id:2343, line:402:3, endln:402:20
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state_enum), id:2341, line:399:1, endln:410:22
+  |vpiName:UVM_PRE_START
+  |UINT:2
+  |vpiDecompile:2
+  |vpiSize:64
+|vpiEnumConst:
+\_enum_const: (UVM_PRE_BODY), id:2344, line:403:3, endln:403:20
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state_enum), id:2341, line:399:1, endln:410:22
+  |vpiName:UVM_PRE_BODY
+  |UINT:4
+  |vpiDecompile:4
+  |vpiSize:64
+|vpiEnumConst:
+\_enum_const: (UVM_BODY), id:2345, line:404:3, endln:404:20
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state_enum), id:2341, line:399:1, endln:410:22
+  |vpiName:UVM_BODY
+  |UINT:8
+  |vpiDecompile:8
+  |vpiSize:64
+|vpiEnumConst:
+\_enum_const: (UVM_POST_BODY), id:2346, line:405:3, endln:405:21
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state_enum), id:2341, line:399:1, endln:410:22
+  |vpiName:UVM_POST_BODY
+  |UINT:16
+  |vpiDecompile:16
+  |vpiSize:64
+|vpiEnumConst:
+\_enum_const: (UVM_POST_START), id:2347, line:406:3, endln:406:21
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state_enum), id:2341, line:399:1, endln:410:22
+  |vpiName:UVM_POST_START
+  |UINT:32
+  |vpiDecompile:32
+  |vpiSize:64
+|vpiEnumConst:
+\_enum_const: (UVM_ENDED), id:2348, line:407:3, endln:407:21
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state_enum), id:2341, line:399:1, endln:410:22
+  |vpiName:UVM_ENDED
+  |UINT:64
+  |vpiDecompile:64
+  |vpiSize:64
+|vpiEnumConst:
+\_enum_const: (UVM_STOPPED), id:2349, line:408:3, endln:408:22
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state_enum), id:2341, line:399:1, endln:410:22
+  |vpiName:UVM_STOPPED
+  |UINT:128
+  |vpiDecompile:128
+  |vpiSize:64
+|vpiEnumConst:
+\_enum_const: (UVM_FINISHED), id:2350, line:409:3, endln:409:22
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state_enum), id:2341, line:399:1, endln:410:22
+  |vpiName:UVM_FINISHED
+  |UINT:256
+  |vpiDecompile:256
+  |vpiSize:64
+RHS:
+decompile:
+enum_typespec: (uvm_pkg::uvm_sequence_state), id:3418, line:399:1, endln:410:22
+|vpiParent:
+\_module_inst: work@top (work@top), id:179431, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+|vpiName:uvm_pkg::uvm_sequence_state
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:146, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+|vpiEnumConst:
+\_enum_const: (UVM_CREATED), id:3419, line:401:3, endln:401:20
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state), id:3418, line:399:1, endln:410:22
+  |vpiName:UVM_CREATED
+  |UINT:1
+  |vpiDecompile:1
+  |vpiSize:64
+|vpiEnumConst:
+\_enum_const: (UVM_PRE_START), id:3420, line:402:3, endln:402:20
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state), id:3418, line:399:1, endln:410:22
+  |vpiName:UVM_PRE_START
+  |UINT:2
+  |vpiDecompile:2
+  |vpiSize:64
+|vpiEnumConst:
+\_enum_const: (UVM_PRE_BODY), id:3421, line:403:3, endln:403:20
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state), id:3418, line:399:1, endln:410:22
+  |vpiName:UVM_PRE_BODY
+  |UINT:4
+  |vpiDecompile:4
+  |vpiSize:64
+|vpiEnumConst:
+\_enum_const: (UVM_BODY), id:3422, line:404:3, endln:404:20
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state), id:3418, line:399:1, endln:410:22
+  |vpiName:UVM_BODY
+  |UINT:8
+  |vpiDecompile:8
+  |vpiSize:64
+|vpiEnumConst:
+\_enum_const: (UVM_POST_BODY), id:3423, line:405:3, endln:405:21
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state), id:3418, line:399:1, endln:410:22
+  |vpiName:UVM_POST_BODY
+  |UINT:16
+  |vpiDecompile:16
+  |vpiSize:64
+|vpiEnumConst:
+\_enum_const: (UVM_POST_START), id:3424, line:406:3, endln:406:21
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state), id:3418, line:399:1, endln:410:22
+  |vpiName:UVM_POST_START
+  |UINT:32
+  |vpiDecompile:32
+  |vpiSize:64
+|vpiEnumConst:
+\_enum_const: (UVM_ENDED), id:3425, line:407:3, endln:407:21
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state), id:3418, line:399:1, endln:410:22
+  |vpiName:UVM_ENDED
+  |UINT:64
+  |vpiDecompile:64
+  |vpiSize:64
+|vpiEnumConst:
+\_enum_const: (UVM_STOPPED), id:3426, line:408:3, endln:408:22
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state), id:3418, line:399:1, endln:410:22
+  |vpiName:UVM_STOPPED
+  |UINT:128
+  |vpiDecompile:128
+  |vpiSize:64
+|vpiEnumConst:
+\_enum_const: (UVM_FINISHED), id:3427, line:409:3, endln:409:22
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state), id:3418, line:399:1, endln:410:22
+  |vpiName:UVM_FINISHED
+  |UINT:256
+  |vpiDecompile:256
+  |vpiSize:64
+
+decompile:
+enum_typespec: (uvm_pkg::uvm_sequence_state), id:3418, line:399:1, endln:410:22
+|vpiParent:
+\_module_inst: work@top (work@top), id:179431, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+|vpiName:uvm_pkg::uvm_sequence_state
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:146, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+|vpiEnumConst:
+\_enum_const: (UVM_CREATED), id:3419, line:401:3, endln:401:20
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state), id:3418, line:399:1, endln:410:22
+  |vpiName:UVM_CREATED
+  |UINT:1
+  |vpiDecompile:1
+  |vpiSize:64
+|vpiEnumConst:
+\_enum_const: (UVM_PRE_START), id:3420, line:402:3, endln:402:20
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state), id:3418, line:399:1, endln:410:22
+  |vpiName:UVM_PRE_START
+  |UINT:2
+  |vpiDecompile:2
+  |vpiSize:64
+|vpiEnumConst:
+\_enum_const: (UVM_PRE_BODY), id:3421, line:403:3, endln:403:20
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state), id:3418, line:399:1, endln:410:22
+  |vpiName:UVM_PRE_BODY
+  |UINT:4
+  |vpiDecompile:4
+  |vpiSize:64
+|vpiEnumConst:
+\_enum_const: (UVM_BODY), id:3422, line:404:3, endln:404:20
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state), id:3418, line:399:1, endln:410:22
+  |vpiName:UVM_BODY
+  |UINT:8
+  |vpiDecompile:8
+  |vpiSize:64
+|vpiEnumConst:
+\_enum_const: (UVM_POST_BODY), id:3423, line:405:3, endln:405:21
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state), id:3418, line:399:1, endln:410:22
+  |vpiName:UVM_POST_BODY
+  |UINT:16
+  |vpiDecompile:16
+  |vpiSize:64
+|vpiEnumConst:
+\_enum_const: (UVM_POST_START), id:3424, line:406:3, endln:406:21
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state), id:3418, line:399:1, endln:410:22
+  |vpiName:UVM_POST_START
+  |UINT:32
+  |vpiDecompile:32
+  |vpiSize:64
+|vpiEnumConst:
+\_enum_const: (UVM_ENDED), id:3425, line:407:3, endln:407:21
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state), id:3418, line:399:1, endln:410:22
+  |vpiName:UVM_ENDED
+  |UINT:64
+  |vpiDecompile:64
+  |vpiSize:64
+|vpiEnumConst:
+\_enum_const: (UVM_STOPPED), id:3426, line:408:3, endln:408:22
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state), id:3418, line:399:1, endln:410:22
+  |vpiName:UVM_STOPPED
+  |UINT:128
+  |vpiDecompile:128
+  |vpiSize:64
+|vpiEnumConst:
+\_enum_const: (UVM_FINISHED), id:3427, line:409:3, endln:409:22
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_sequence_state), id:3418, line:399:1, endln:410:22
+  |vpiName:UVM_FINISHED
+  |UINT:256
+  |vpiDecompile:256
+  |vpiSize:64

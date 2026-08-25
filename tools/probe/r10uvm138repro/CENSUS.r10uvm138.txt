@@ -1,0 +1,56 @@
+r10uvm138 — THE CORPUS CENSUS.  LHS IS ALWAYS GOLDEN.
+
+cen138.py walks the uhdm-dump TREE (never Serializer::AllObjects, which
+can name objects that are not in the tree at all) and emits one CELL per
+constant / ref_obj, keyed by (VIEW, SITE, SPAN).  The SPAN is the only key
+that can join a FOLDED constant — which carries no name at all — to the
+ref_obj it replaced; it is a MEASUREMENT key, never a judge.  pop138.py
+then reports the law's population and asks the same question a SECOND
+time with the span dropped, so no cell can hide behind the macro span
+shifts the uvm report macros produce.
+
+GOLDEN-VS-GOLDEN CALIBRATION FIRST: the DEF listing of every UVM database
+holds golden's own UNFOLDED ref_obj at 1914:11 and ours holds the same
+ref_obj there — the cell the law must NOT touch, and it does not.
+
+ROW-MODE                       PRIS-POP    PATCHED-POP    OVER-FOLD
+SeqDriver.default                     4              1            0
+SeqDriver.testflags                   4              1            0
+SimpleUVM.default                     1              0            0
+SimpleUVM.testflags                   1              0            0
+Scoreboard.default                    1              0            0
+MiniAmiq.default                      4              1            0
+MiniAmiq.testflags                    4              1            0
+BuildUVMPkg.default                   1              0            0
+BuildUVMPkg.testflags                 1              0            0
+
+SeqDriver and MiniAmiq keep ONE cell each, and it is NOT this law's:
+  DEF | package/function(adpcm_pkg::uvm_revision_string)/return_stmt
+      G: constant dc="UVM.1.2" sz=56 STRING:UVM.1.2 ct=6
+      O: ref_obj  nm=uvm_revision
+  (svaunit_pkg on MiniAmiq) — the WILDCARD-IMPORT CLONE's DEF view of a
+  PACKAGE PARAMETER substitution, which is § pkgRetParamSubstIsRhsClone120's
+  own residue R2 and stays it.
+
+SITE COUNTS.  A blunter, key-free control on the same question: how many
+return_stmt#vpiCondition cells in the WHOLE database are still a ref_obj
+(bound or not — inside a wildcard-import clone OUR ref_obj carries no
+Actual_group at all, so the binding cannot be part of the question)?
+ROW-MODE                     GOLDEN  OURS-PRIS   OURS-PAT
+SimpleUVM.default               777        778        777
+SimpleUVM.testflags             777        778        777
+Scoreboard.default              788        789        788
+SeqDriver.default              1070       1074       1071
+SeqDriver.testflags            1070       1074       1071
+MiniAmiq.default               1168       1172       1169
+MiniAmiq.testflags             1168       1172       1169
+BuildUVMPkg.default             819        820        819
+BuildUVMPkg.testflags           819        820        819
+
+NESTED-IN-A-RETURN enumerator references (residue R3's corpus population):
+  SimpleUVM.default      golden=0 ours=0
+  SeqDriver.default      golden=0 ours=0
+  MiniAmiq.default       golden=0 ours=0
+  BuildUVMPkg.default    golden=0 ours=0
+  ZERO on both sides — the corpus has no nested cell at all, which is why
+  the law is fenced to the whole returned expression.

@@ -1,0 +1,43 @@
+r10uvm138 — A-PRIORI MOVER PREDICTION, made from the PRISTINE databases
+BEFORE the patched sweep ran.  Instrument: pred138.cpp + pred138.sh.
+
+RULE: § pkgRetBareEnumConstFold138 rewrites ONLY the vpiCondition of a
+return_stmt.  A database with no 'return_stmt -> ref_obj' cell at all
+cannot move; one whose ref_obj is not bound to an enum_const cannot move
+through this law.  pred138 counts both, over every database of a workdir.
+
+== surelog corpus (956 databases, both modes) ==
+  CANDIDATE  default/BuildUVMPkg-bf853d43  enumcands=6
+  CANDIDATE  default/MiniAmiq-544c7f61  enumcands=16
+  CANDIDATE  default/Scoreboard-59431470  enumcands=6
+  CANDIDATE  default/SeqDriver-32af76aa  enumcands=6
+  CANDIDATE  default/SimpleUVM-1dc93a62  enumcands=6
+  CANDIDATE  testflags/BuildUVMPkg-bf853d43  enumcands=6
+  CANDIDATE  testflags/MiniAmiq-544c7f61  enumcands=16
+  CANDIDATE  testflags/SeqDriver-32af76aa  enumcands=6
+  CANDIDATE  testflags/SimpleUVM-1dc93a62  enumcands=6
+  candidates=9  of  956 databases
+
+== uhdm2rtlil corpus (1358 databases, both modes) ==
+  CANDIDATE  default/FunctionReturnEnum-17efa1fc  enumcands=1
+  CANDIDATE  testflags/FunctionReturnEnum-17efa1fc  enumcands=1
+  candidates=2  of  1358 databases
+
+== THE PREDICTION ==
+
+MOVERS, BY NAME: the NINE surelog UVM databases —
+  SeqDriver default+testflags, SimpleUVM default+testflags,
+  Scoreboard default, MiniAmiq default+testflags,
+  BuildUVMPkg default+testflags
+— each by EXACTLY ONE cell, the `return UVM_FRONTDOOR;` of
+`uvm_pkg::uvm_reg_block::get_default_path` (uvm-1.2 reg/uvm_reg_block.svh:1914;
+the 1800.2 pp_output's `get_default_door` at :79314).  The corpus census
+(pop138.py over all nine golden/ours pairs) reports OURS-REF=1 and OVER-FOLD=0
+on every one of them, and the span-free control agrees cell for cell.
+
+NON-MOVERS, BY NAME:
+  * uhdm2rtlil `FunctionReturnEnum` (both modes) — the only uhdm2rtlil
+    candidate, and a NEGATIVE CONTROL: its `return MuBi4Hi;` is in a MODULE
+    function, where `pkgRetFoldHome86` is false and golden keeps the ref_obj.
+    It is CMP_EQUAL pristine and MUST STAY byte-identical.
+  * every other database of both corpora: zero candidate cells.

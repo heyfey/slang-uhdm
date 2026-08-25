@@ -1,0 +1,17 @@
+r10buvm22repro/g22.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10uvm120repro/g120_d_shapes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm12repro/t13/t.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm138repro/g138_a_ctx.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm138repro/g138_b_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm138repro/g138_c_homes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm138repro/g138_d_inst.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm86repro/g86_a2_ctx.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v138arms/v1_xpkg.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v138arms/v2_shadow.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v138arms/v3_faces.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v138arms/v4_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v138arms/v5_homes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v138arms/v6_more.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v138arms/v7_extra.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10vbuvm28repro/gv28_d_reach.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+LISTED=4021 PROCESSED=4021 PRODUCED_DBS=3877 MOVED_ARMS=16 RC_DIFFS=0

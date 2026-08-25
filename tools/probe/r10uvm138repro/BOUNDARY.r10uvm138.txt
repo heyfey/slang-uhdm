@@ -1,0 +1,46 @@
+r10uvm138 — THE BOUNDARY GATE (bound138.sh).
+
+Every .sv and .v in a COPY of tools/probe (top level AND subdirectories),
+compiled in BOTH views with the pristine and the patched binary.  The test
+is DATABASE BYTE IDENTITY plus rc equality — strictly stronger than a
+cmp-line count.  The file list is read on fd 3, every child gets
+</dev/null, scratch is keyed on the RELATIVE path (three arms in this tree
+are all named dut.sv), and PROCESSED is asserted against LISTED.
+
+POSITIVE CONTROL: this pass's own g138_*.sv.  A first cut of the gate
+passed a '-sv' flag our binary does not accept and produced NO databases
+at all while printing MOVED_ARMS=0; the g138 arms failing to appear is what
+convicted it.  PRODUCED_DBS is now counted and printed, and it is what a
+reader should check before believing any of the numbers below.
+
+LISTED=4014 PROCESSED=4014 PRODUCED_DBS=3870 MOVED_ARMS=9 RC_DIFFS=0
+
+MOVED ARMS AND THEIR ATTRIBUTION (uhdm-cmp is the judge of each; the
+census is cen138.py + score138.py against the arm's OWN Surelog golden):
+
+ARM                                 PRIS_CMP   PAT_CMP  VERDICT
+r10uvm138repro/g138_a_ctx.sv            8800      8792  own arm (positive control): 4 TOGOLD
+r10uvm138repro/g138_b_kinds.sv         11650     11618  own arm: 16 TOGOLD
+r10uvm138repro/g138_c_homes.sv          6578      6558  own arm: 10 TOGOLD
+r10uvm138repro/g138_d_inst.sv           4874      4866  own arm: 2 TOGOLD
+r10uvm120repro/g120_d_shapes.sv         7096      7092  1 TOGOLD — p120d::f_enum, uvm120's RESIDUE R6, now cleared
+r10uvm12repro/t13/t.sv                  5466      5458  4 TOGOLD — p1::pkgf, p2::pkgf (both views), p2::q
+r10uvm86repro/g86_a2_ctx.sv             8228      8224  1 TOGOLD — pg2::pf_enum
+r10vbuvm28repro/gv28_d_reach.sv         7726      7718  2 TOGOLD — pd::retbare, pd::retbased
+r10buvm22repro/g22.sv                  17506     17506  NOT this law — uvm120's documented R7
+
+  r10buvm22repro/g22.sv is the campaign's known non-build-reproducible arm:
+  its class-scope associative-array typedef synthesizes a [0 : N-1] range
+  whose N is an IMAGE-RELATIVE ADDRESS.  Its ONLY order-blind delta is
+  22481665/22482521 -> 22485761/22486617, a shift of exactly +4096 — the
+  text-size change of the binary.  Its cen138 census is identical on both
+  binaries (SAME-WRONG=17, 0 TOGOLD, 0 MOVED-WRONG, 0 AWAY) and its
+  cmp-line count is unchanged at 17506.
+
+TOTAL over the 9 moved arms: 40 TOGOLD, 0 MOVED-WRONG, 0 AWAY, 0 RC diffs.
+Every rc=139 line in the run log is an arm that segfaults on BOTH binaries
+and they appear in PAIRS; RC_DIFFS=0 is the assertion that covers them.
+
+(An earlier run of the same gate over the tree BEFORE g138_d_inst.sv was
+written reported LISTED=4013 PROCESSED=4013 PRODUCED_DBS=3869
+MOVED_ARMS=8 RC_DIFFS=0 — the same set minus that one arm.)

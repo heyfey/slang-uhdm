@@ -1,0 +1,342 @@
+r10uvm138 — THE ARM GRID.  LHS IS ALWAYS GOLDEN (Surelog).  The score is
+score138.py over cen138.py censuses of the SAME arm built three ways:
+golden, ours-PATCHED, ours-PRISTINE.  Tags: TOGOLD (pristine wrong,
+patched right), MOVED-WRONG (pristine right, patched wrong), AWAY
+(wrong before and after but CHANGED), SAME-WRONG (residue), SAME-OK.
+One-sided sets are printed too — a multiset join drops unmatched rows.
+
+SUMMARY  (the ELAB half repeats every arm against a golden of its own,
+built by a SECOND Surelog run with -elabuhdm)
+ARM            TOGOLD MOVED-WR     AWAY  SAME-WR  SAME-OK
+DEF a_ctx           4        0        0        5       62
+DEF b_kinds        16        0        0        5       23
+DEF c_homes        10        0        0        0       34
+DEF d_inst          2        0        0        0       30
+ELAB a_ctx          4        0        0        5       61
+ELAB b_kinds       16        0        0        5       23
+ELAB c_homes       10        0        0        0       53
+ELAB d_inst         2        0        0        0       32
+
+TOTAL DEF view: 32 TOGOLD, 0 MOVED-WRONG, 0 AWAY.
+TOTAL ELAB view: 32 TOGOLD, 0 MOVED-WRONG, 0 AWAY.
+
+ONE-SIDED SETS, accounted for (they are NOT the law's):
+  * work@mailbox / work@semaphore io_decl defaults — golden runs with
+    -nobuiltin and we emit the builtin classes.  Same on both binaries.
+  * bit_typespec/logic_typespec range constants — equal counts on both
+    sides at different SITE strings (the weaklyReferenced re-listing).
+  * arm b f_loc — golden wraps a function whose body declares a LOCAL
+    enum typedef in a begin/end block and we do not, so the same unfolded
+    ref_obj joins one-sided in both directions (residue R4).
+  * the ELAB view's extra listings (module instances) carry longer SITE
+    paths on the golden side.  pop138.py's SPAN-FREE control over the
+    same arms reports the law's population directly: arm a keeps its 3
+    NESTED cells (residue R3) before AND after, arms b/c/d report zero
+    on both binaries.
+
+== arm a_ctx (DEF view) ==
+ONLY-OURS    DEF | class_defn(work@mailbox)/function(work@mailbox::new)/io_decl(bound)#vpiExpr | 3:31-3:32
+    G: -
+    O: ['constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-']
+ONLY-OURS    DEF | class_defn(work@semaphore)/function(work@semaphore::new)/io_decl(keyCount)#vpiExpr | 57:33-57:34
+    G: -
+    O: ['constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-']
+ONLY-OURS    DEF | class_defn(work@semaphore)/function(work@semaphore::try_get)/io_decl(keyCount)#vpiExpr | 66:41-66:42
+    G: -
+    O: ['constant\tdc=1|sz=64|v=UINT:1|ct=9|ts=-']
+ONLY-OURS    DEF | class_defn(work@semaphore)/task(work@semaphore::get)/io_decl(keyCount)#vpiExpr | 63:29-63:30
+    G: -
+    O: ['constant\tdc=1|sz=64|v=UINT:1|ct=9|ts=-']
+ONLY-OURS    DEF | class_defn(work@semaphore)/task(work@semaphore::put)/io_decl(keyCount)#vpiExpr | 60:29-60:30
+    G: -
+    O: ['constant\tdc=1|sz=64|v=UINT:1|ct=9|ts=-']
+SAME-WRONG   DEF | package/function(p138a::f_qual)/return_stmt#vpiCondition | 88:12-88:24
+    G: constant	dc=1|sz=64|v=INT:1|ct=7|ts=-
+    O: constant	dc=1|sz=64|v=UINT:1|ct=9|ts=- <- constant	dc=1|sz=64|v=UINT:1|ct=9|ts=-
+ONLY-OURS    TOP | package/function(p138a::f_callarg)/return_stmt/func_call(f_help)#vpiArgument | 53:19-53:24
+    G: -
+    O: ['ref_obj\tnm=A_ONE|act=enum_const(A_ONE)']
+SAME-WRONG   TOP | package/function(p138a::f_cmp)/return_stmt/operation#vpiOperand | 58:18-58:23
+    G: constant	dc=1|sz=64|v=INT:1|ct=7|ts=-
+    O: ref_obj	nm=A_ONE|act=enum_const(A_ONE) <- ref_obj	nm=A_ONE|act=enum_const(A_ONE)
+TOGOLD       TOP | package/function(p138a::f_forret)/begin(p138a::f_forret)/return_stmt#vpiCondition | 32:12-32:18
+    G: constant	dc=0|sz=64|v=INT:0|ct=7|ts=-
+    O: constant	dc=0|sz=64|v=INT:0|ct=7|ts=- <- ref_obj	nm=A_ZERO|act=enum_const(A_ZERO)
+TOGOLD       TOP | package/function(p138a::f_ifret)/begin(p138a::f_ifret)/return_stmt#vpiCondition | 18:12-18:18
+    G: constant	dc=0|sz=64|v=INT:0|ct=7|ts=-
+    O: constant	dc=0|sz=64|v=INT:0|ct=7|ts=- <- ref_obj	nm=A_ZERO|act=enum_const(A_ZERO)
+ONLY-GOLDEN  TOP | package/function(p138a::f_op)/return_stmt#vpiCondition | 83:12-83:17
+    G: ['constant\tdc=2|sz=64|v=INT:2|ct=7|ts=-']
+    O: -
+ONLY-OURS    TOP | package/function(p138a::f_op)/return_stmt/operation#vpiOperand | 83:12-83:17
+    G: -
+    O: ['ref_obj\tnm=A_ONE|act=enum_const(A_ONE)']
+ONLY-OURS    TOP | package/function(p138a::f_op)/return_stmt/operation#vpiOperand | 83:20-83:21
+    G: -
+    O: ['constant\tdc=1|sz=64|v=UINT:1|ct=9|ts=-']
+SAME-WRONG   TOP | package/function(p138a::f_qual)/return_stmt#vpiCondition | 88:12-88:24
+    G: constant	dc=1|sz=64|v=INT:1|ct=7|ts=-
+    O: constant	dc=1|sz=64|v=UINT:1|ct=9|ts=- <- constant	dc=1|sz=64|v=UINT:1|ct=9|ts=-
+TOGOLD       TOP | package/function(p138a::f_ret)/return_stmt#vpiCondition | 11:12-11:17
+    G: constant	dc=1|sz=64|v=INT:1|ct=7|ts=-
+    O: constant	dc=1|sz=64|v=INT:1|ct=7|ts=- <- ref_obj	nm=A_ONE|act=enum_const(A_ONE)
+SAME-WRONG   TOP | package/function(p138a::f_tern)/return_stmt/operation#vpiOperand | 78:22-78:27
+    G: constant	dc=1|sz=64|v=INT:1|ct=7|ts=-
+    O: ref_obj	nm=A_ONE|act=enum_const(A_ONE) <- ref_obj	nm=A_ONE|act=enum_const(A_ONE)
+SAME-WRONG   TOP | package/function(p138a::f_tern)/return_stmt/operation#vpiOperand | 78:30-78:35
+    G: constant	dc=2|sz=64|v=INT:2|ct=7|ts=-
+    O: ref_obj	nm=A_TWO|act=enum_const(A_TWO) <- ref_obj	nm=A_TWO|act=enum_const(A_TWO)
+TOGOLD       TOP | package/function(p138a::f_two)/begin(p138a::f_two)/return_stmt#vpiCondition | 38:12-38:17
+    G: constant	dc=1|sz=64|v=INT:1|ct=7|ts=-
+    O: constant	dc=1|sz=64|v=INT:1|ct=7|ts=- <- ref_obj	nm=A_ONE|act=enum_const(A_ONE)
+--- ONLY-GOLDEN=1  ONLY-OURS=8  SAME-OK=62  SAME-WRONG=5  TOGOLD=4
+
+== arm b_kinds (DEF view) ==
+ONLY-OURS    DEF | bit_typespec/range#vpiLeftRange | 12:21-12:22
+    G: -
+    O: ['constant\tdc=3|sz=64|v=UINT:3|ct=9|ts=-', 'constant\tdc=3|sz=64|v=UINT:3|ct=9|ts=-']
+ONLY-OURS    DEF | bit_typespec/range#vpiLeftRange | 15:21-15:22
+    G: -
+    O: ['constant\tdc=1|sz=64|v=UINT:1|ct=9|ts=-', 'constant\tdc=1|sz=64|v=UINT:1|ct=9|ts=-']
+ONLY-OURS    DEF | bit_typespec/range#vpiLeftRange | 18:21-18:22
+    G: -
+    O: ['constant\tdc=7|sz=64|v=UINT:7|ct=9|ts=-', 'constant\tdc=7|sz=64|v=UINT:7|ct=9|ts=-']
+ONLY-OURS    DEF | bit_typespec/range#vpiLeftRange | 19:21-19:22
+    G: -
+    O: ['constant\tdc=7|sz=64|v=UINT:7|ct=9|ts=-', 'constant\tdc=7|sz=64|v=UINT:7|ct=9|ts=-']
+ONLY-OURS    DEF | bit_typespec/range#vpiLeftRange | 8:21-8:22
+    G: -
+    O: ['constant\tdc=3|sz=64|v=UINT:3|ct=9|ts=-', 'constant\tdc=3|sz=64|v=UINT:3|ct=9|ts=-']
+ONLY-OURS    DEF | bit_typespec/range#vpiRightRange | 12:23-12:24
+    G: -
+    O: ['constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-', 'constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-']
+ONLY-OURS    DEF | bit_typespec/range#vpiRightRange | 15:23-15:24
+    G: -
+    O: ['constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-', 'constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-']
+ONLY-OURS    DEF | bit_typespec/range#vpiRightRange | 18:23-18:24
+    G: -
+    O: ['constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-', 'constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-']
+ONLY-OURS    DEF | bit_typespec/range#vpiRightRange | 19:23-19:24
+    G: -
+    O: ['constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-', 'constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-']
+ONLY-OURS    DEF | bit_typespec/range#vpiRightRange | 8:23-8:24
+    G: -
+    O: ['constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-', 'constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-']
+ONLY-OURS    DEF | class_defn(work@mailbox)/function(work@mailbox::new)/io_decl(bound)#vpiExpr | 3:31-3:32
+    G: -
+    O: ['constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-']
+ONLY-OURS    DEF | class_defn(work@semaphore)/function(work@semaphore::new)/io_decl(keyCount)#vpiExpr | 57:33-57:34
+    G: -
+    O: ['constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-']
+ONLY-OURS    DEF | class_defn(work@semaphore)/function(work@semaphore::try_get)/io_decl(keyCount)#vpiExpr | 66:41-66:42
+    G: -
+    O: ['constant\tdc=1|sz=64|v=UINT:1|ct=9|ts=-']
+ONLY-OURS    DEF | class_defn(work@semaphore)/task(work@semaphore::get)/io_decl(keyCount)#vpiExpr | 63:29-63:30
+    G: -
+    O: ['constant\tdc=1|sz=64|v=UINT:1|ct=9|ts=-']
+ONLY-OURS    DEF | class_defn(work@semaphore)/task(work@semaphore::put)/io_decl(keyCount)#vpiExpr | 60:29-60:30
+    G: -
+    O: ['constant\tdc=1|sz=64|v=UINT:1|ct=9|ts=-']
+ONLY-OURS    DEF | logic_typespec/range#vpiLeftRange | 21:23-21:24
+    G: -
+    O: ['constant\tdc=3|sz=64|v=UINT:3|ct=9|ts=-', 'constant\tdc=3|sz=64|v=UINT:3|ct=9|ts=-']
+ONLY-OURS    DEF | logic_typespec/range#vpiLeftRange | 9:23-9:24
+    G: -
+    O: ['constant\tdc=7|sz=64|v=UINT:7|ct=9|ts=-', 'constant\tdc=7|sz=64|v=UINT:7|ct=9|ts=-']
+ONLY-OURS    DEF | logic_typespec/range#vpiRightRange | 21:25-21:26
+    G: -
+    O: ['constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-', 'constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-']
+ONLY-OURS    DEF | logic_typespec/range#vpiRightRange | 9:25-9:26
+    G: -
+    O: ['constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-', 'constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-']
+ONLY-GOLDEN  DEF | package/function(p138b::f_loc)/begin(p138b::f_loc)/return_stmt#vpiCondition | 55:12-55:16
+    G: ['ref_obj\tnm=BL_B|act=-']
+    O: -
+ONLY-OURS    DEF | package/function(p138b::f_loc)/return_stmt#vpiCondition | 55:12-55:16
+    G: -
+    O: ['ref_obj\tnm=BL_B|act=-']
+ONLY-GOLDEN  TOP | bit_typespec/range#vpiLeftRange | 12:21-12:22
+    G: ['constant\tdc=3|sz=64|v=UINT:3|ct=9|ts=-', 'constant\tdc=3|sz=64|v=UINT:3|ct=9|ts=-']
+    O: -
+ONLY-GOLDEN  TOP | bit_typespec/range#vpiLeftRange | 15:21-15:22
+    G: ['constant\tdc=1|sz=64|v=UINT:1|ct=9|ts=-', 'constant\tdc=1|sz=64|v=UINT:1|ct=9|ts=-']
+    O: -
+ONLY-GOLDEN  TOP | bit_typespec/range#vpiLeftRange | 18:21-18:22
+    G: ['constant\tdc=7|sz=64|v=UINT:7|ct=9|ts=-', 'constant\tdc=7|sz=64|v=UINT:7|ct=9|ts=-']
+    O: -
+ONLY-GOLDEN  TOP | bit_typespec/range#vpiLeftRange | 19:21-19:22
+    G: ['constant\tdc=7|sz=64|v=UINT:7|ct=9|ts=-', 'constant\tdc=7|sz=64|v=UINT:7|ct=9|ts=-']
+    O: -
+ONLY-GOLDEN  TOP | bit_typespec/range#vpiLeftRange | 8:21-8:22
+    G: ['constant\tdc=3|sz=64|v=UINT:3|ct=9|ts=-', 'constant\tdc=3|sz=64|v=UINT:3|ct=9|ts=-']
+    O: -
+ONLY-GOLDEN  TOP | bit_typespec/range#vpiRightRange | 12:23-12:24
+    G: ['constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-', 'constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-']
+    O: -
+ONLY-GOLDEN  TOP | bit_typespec/range#vpiRightRange | 15:23-15:24
+    G: ['constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-', 'constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-']
+    O: -
+ONLY-GOLDEN  TOP | bit_typespec/range#vpiRightRange | 18:23-18:24
+    G: ['constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-', 'constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-']
+    O: -
+ONLY-GOLDEN  TOP | bit_typespec/range#vpiRightRange | 19:23-19:24
+    G: ['constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-', 'constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-']
+    O: -
+ONLY-GOLDEN  TOP | bit_typespec/range#vpiRightRange | 8:23-8:24
+    G: ['constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-', 'constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-']
+    O: -
+ONLY-GOLDEN  TOP | logic_typespec/range#vpiLeftRange | 21:23-21:24
+    G: ['constant\tdc=3|sz=64|v=UINT:3|ct=9|ts=-', 'constant\tdc=3|sz=64|v=UINT:3|ct=9|ts=-']
+    O: -
+ONLY-GOLDEN  TOP | logic_typespec/range#vpiLeftRange | 9:23-9:24
+    G: ['constant\tdc=7|sz=64|v=UINT:7|ct=9|ts=-', 'constant\tdc=7|sz=64|v=UINT:7|ct=9|ts=-']
+    O: -
+ONLY-GOLDEN  TOP | logic_typespec/range#vpiRightRange | 21:25-21:26
+    G: ['constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-', 'constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-']
+    O: -
+ONLY-GOLDEN  TOP | logic_typespec/range#vpiRightRange | 9:25-9:26
+    G: ['constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-', 'constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-']
+    O: -
+TOGOLD       TOP | package/function(p138b::f_b0)/return_stmt#vpiCondition | 29:33-29:37
+    G: constant	dc=1|sz=64|v=INT:1|ct=7|ts=-
+    O: constant	dc=1|sz=64|v=INT:1|ct=7|ts=- <- ref_obj	nm=B0_B|act=enum_const(B0_B)
+TOGOLD       TOP | package/function(p138b::f_b0z)/return_stmt#vpiCondition | 42:34-42:38
+    G: constant	dc=0|sz=64|v=INT:0|ct=7|ts=-
+    O: constant	dc=0|sz=64|v=INT:0|ct=7|ts=- <- ref_obj	nm=B0_A|act=enum_const(B0_A)
+TOGOLD       TOP | package/function(p138b::f_b1)/return_stmt#vpiCondition | 30:33-30:37
+    G: constant	dc=1|sz=32|v=INT:1|ct=7|ts=-
+    O: constant	dc=1|sz=32|v=INT:1|ct=7|ts=- <- ref_obj	nm=B1_B|act=enum_const(B1_B)
+TOGOLD       TOP | package/function(p138b::f_b2)/return_stmt#vpiCondition | 31:33-31:37
+    G: constant	dc=1|sz=4|v=INT:1|ct=7|ts=-
+    O: constant	dc=1|sz=4|v=INT:1|ct=7|ts=- <- ref_obj	nm=B2_B|act=enum_const(B2_B)
+TOGOLD       TOP | package/function(p138b::f_b3)/return_stmt#vpiCondition | 32:33-32:37
+    G: constant	dc=1|sz=8|v=INT:1|ct=7|ts=-
+    O: constant	dc=1|sz=8|v=INT:1|ct=7|ts=- <- ref_obj	nm=B3_B|act=enum_const(B3_B)
+TOGOLD       TOP | package/function(p138b::f_b4)/return_stmt#vpiCondition | 33:33-33:37
+    G: constant	dc=1|sz=8|v=INT:1|ct=7|ts=-
+    O: constant	dc=1|sz=8|v=INT:1|ct=7|ts=- <- ref_obj	nm=B4_B|act=enum_const(B4_B)
+TOGOLD       TOP | package/function(p138b::f_b5)/return_stmt#vpiCondition | 34:33-34:37
+    G: constant	dc=9|sz=64|v=UINT:9|ct=9|ts=-
+    O: constant	dc=9|sz=64|v=UINT:9|ct=9|ts=- <- ref_obj	nm=B5_B|act=enum_const(B5_B)
+TOGOLD       TOP | package/function(p138b::f_b6)/return_stmt#vpiCondition | 35:33-35:37
+    G: constant	dc=4'hB|sz=4|v=HEX:B|ct=5|ts=-
+    O: constant	dc=4'hB|sz=4|v=HEX:B|ct=5|ts=- <- ref_obj	nm=B6_B|act=enum_const(B6_B)
+SAME-WRONG   TOP | package/function(p138b::f_b7)/return_stmt#vpiCondition | 36:33-36:37
+    G: constant	dc=-3|sz=64|v=INT:-3|ct=7|ts=-
+    O: ref_obj	nm=B7_A|act=enum_const(B7_A) <- ref_obj	nm=B7_A|act=enum_const(B7_A)
+SAME-WRONG   TOP | package/function(p138b::f_b7b)/return_stmt#vpiCondition | 37:34-37:38
+    G: constant	dc=-1|sz=64|v=INT:-1|ct=7|ts=-
+    O: ref_obj	nm=B7_B|act=enum_const(B7_B) <- ref_obj	nm=B7_B|act=enum_const(B7_B)
+TOGOLD       TOP | package/function(p138b::f_b8)/return_stmt#vpiCondition | 38:33-38:37
+    G: constant	dc=3|sz=64|v=INT:3|ct=7|ts=-
+    O: constant	dc=3|sz=64|v=INT:3|ct=7|ts=- <- ref_obj	nm=B8_B|act=enum_const(B8_B)
+TOGOLD       TOP | package/function(p138b::f_b9)/return_stmt#vpiCondition | 39:33-39:37
+    G: constant	dc=2'b10|sz=2|v=BIN:10|ct=3|ts=-
+    O: constant	dc=2'b10|sz=2|v=BIN:10|ct=3|ts=- <- ref_obj	nm=B9_A|act=enum_const(B9_A)
+TOGOLD       TOP | package/function(p138b::f_ba)/return_stmt#vpiCondition | 40:33-40:37
+    G: constant	dc=5|sz=64|v=INT:5|ct=7|ts=-
+    O: constant	dc=5|sz=64|v=INT:5|ct=7|ts=- <- ref_obj	nm=BA_B|act=enum_const(BA_B)
+SAME-WRONG   TOP | package/function(p138b::f_bc)/return_stmt#vpiCondition | 43:33-43:37
+    G: constant	dc=16|sz=8|v=UINT:16|ct=9|ts=-
+    O: ref_obj	nm=BC_B|act=enum_const(BC_B) <- ref_obj	nm=BC_B|act=enum_const(BC_B)
+TOGOLD       TOP | package/function(p138b::f_bd)/return_stmt#vpiCondition | 44:33-44:37
+    G: constant	dc=9|sz=8|v=INT:9|ct=7|ts=-
+    O: constant	dc=9|sz=8|v=INT:9|ct=7|ts=- <- ref_obj	nm=BD_B|act=enum_const(BD_B)
+TOGOLD       TOP | package/function(p138b::f_be)/return_stmt#vpiCondition | 45:33-45:37
+    G: constant	dc=1'b1|sz=1|v=BIN:1|ct=3|ts=-
+    O: constant	dc=1'b1|sz=1|v=BIN:1|ct=3|ts=- <- ref_obj	nm=BE_B|act=enum_const(BE_B)
+TOGOLD       TOP | package/function(p138b::f_bf)/return_stmt#vpiCondition | 46:33-46:37
+    G: constant	dc=4'b0101|sz=4|v=BIN:0101|ct=3|ts=-
+    O: constant	dc=4'b0101|sz=4|v=BIN:0101|ct=3|ts=- <- ref_obj	nm=BF_B|act=enum_const(BF_B)
+SAME-WRONG   TOP | package/function(p138b::f_bg)/return_stmt#vpiCondition | 47:33-47:37
+    G: constant	dc=6|sz=-1|v=INT:6|ct=7|ts=-
+    O: ref_obj	nm=BG_B|act=enum_const(BG_B) <- ref_obj	nm=BG_B|act=enum_const(BG_B)
+SAME-WRONG   TOP | package/function(p138b::f_bh)/return_stmt#vpiCondition | 48:33-48:37
+    G: constant	dc=1|sz=32|v=INT:1|ct=7|ts=-
+    O: ref_obj	nm=BH_B|act=enum_const(BH_B) <- ref_obj	nm=BH_B|act=enum_const(BH_B)
+TOGOLD       TOP | package/function(p138b::f_bi)/return_stmt#vpiCondition | 49:33-49:37
+    G: constant	dc=1|sz=16|v=INT:1|ct=7|ts=-
+    O: constant	dc=1|sz=16|v=INT:1|ct=7|ts=- <- ref_obj	nm=BI_B|act=enum_const(BI_B)
+TOGOLD       TOP | package/function(p138b::f_bj)/return_stmt#vpiCondition | 50:33-50:37
+    G: constant	dc=1|sz=64|v=INT:1|ct=7|ts=-
+    O: constant	dc=1|sz=64|v=INT:1|ct=7|ts=- <- ref_obj	nm=BJ_B|act=enum_const(BJ_B)
+ONLY-GOLDEN  TOP | package/function(p138b::f_loc)/begin(p138b::f_loc)/return_stmt#vpiCondition | 55:12-55:16
+    G: ['ref_obj\tnm=BL_B|act=-']
+    O: -
+ONLY-OURS    TOP | package/function(p138b::f_loc)/return_stmt#vpiCondition | 55:12-55:16
+    G: -
+    O: ['ref_obj\tnm=BL_B|act=-']
+--- ONLY-GOLDEN=30  ONLY-OURS=35  SAME-OK=23  SAME-WRONG=5  TOGOLD=16
+
+== arm c_homes (DEF view) ==
+ONLY-OURS    DEF | class_defn(work@mailbox)/function(work@mailbox::new)/io_decl(bound)#vpiExpr | 3:31-3:32
+    G: -
+    O: ['constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-']
+ONLY-OURS    DEF | class_defn(work@semaphore)/function(work@semaphore::new)/io_decl(keyCount)#vpiExpr | 57:33-57:34
+    G: -
+    O: ['constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-']
+ONLY-OURS    DEF | class_defn(work@semaphore)/function(work@semaphore::try_get)/io_decl(keyCount)#vpiExpr | 66:41-66:42
+    G: -
+    O: ['constant\tdc=1|sz=64|v=UINT:1|ct=9|ts=-']
+ONLY-OURS    DEF | class_defn(work@semaphore)/task(work@semaphore::get)/io_decl(keyCount)#vpiExpr | 63:29-63:30
+    G: -
+    O: ['constant\tdc=1|sz=64|v=UINT:1|ct=9|ts=-']
+ONLY-OURS    DEF | class_defn(work@semaphore)/task(work@semaphore::put)/io_decl(keyCount)#vpiExpr | 60:29-60:30
+    G: -
+    O: ['constant\tdc=1|sz=64|v=UINT:1|ct=9|ts=-']
+TOGOLD       DEF | package/function(p138c2::c138c::oob_if)/begin(p138c2::c138c::oob_if)/return_stmt#vpiCondition | 45:12-45:15
+    G: constant	dc=0|sz=64|v=INT:0|ct=7|ts=-
+    O: constant	dc=0|sz=64|v=INT:0|ct=7|ts=- <- ref_obj	nm=C_A|act=-
+TOGOLD       DEF | package/function(p138c2::c138c::oob_ret)/return_stmt#vpiCondition | 35:12-35:15
+    G: constant	dc=1|sz=64|v=INT:1|ct=7|ts=-
+    O: constant	dc=1|sz=64|v=INT:1|ct=7|ts=- <- ref_obj	nm=C_B|act=-
+TOGOLD       DEF | package/function(p138c2::pf_ret)/return_stmt#vpiCondition | 14:12-14:15
+    G: constant	dc=1|sz=64|v=INT:1|ct=7|ts=-
+    O: constant	dc=1|sz=64|v=INT:1|ct=7|ts=- <- ref_obj	nm=C_B|act=-
+TOGOLD       TOP | package/class_defn(p138c1::c138c)/function(p138c1::c138c::oob_if)/begin(p138c1::c138c::oob_if)/return_stmt#vpiCondition | 45:12-45:15
+    G: constant	dc=0|sz=64|v=INT:0|ct=7|ts=-
+    O: constant	dc=0|sz=64|v=INT:0|ct=7|ts=- <- ref_obj	nm=C_A|act=enum_const(C_A)
+TOGOLD       TOP | package/class_defn(p138c1::c138c)/function(p138c1::c138c::oob_ret)/return_stmt#vpiCondition | 35:12-35:15
+    G: constant	dc=1|sz=64|v=INT:1|ct=7|ts=-
+    O: constant	dc=1|sz=64|v=INT:1|ct=7|ts=- <- ref_obj	nm=C_B|act=enum_const(C_B)
+TOGOLD       TOP | package/function(p138c1::pf_ret)/return_stmt#vpiCondition | 14:12-14:15
+    G: constant	dc=1|sz=64|v=INT:1|ct=7|ts=-
+    O: constant	dc=1|sz=64|v=INT:1|ct=7|ts=- <- ref_obj	nm=C_B|act=enum_const(C_B)
+TOGOLD       TOP | package/function(p138c2::c138c::oob_if)/begin(p138c2::c138c::oob_if)/return_stmt#vpiCondition | 45:12-45:15
+    G: constant	dc=0|sz=64|v=INT:0|ct=7|ts=-
+    O: constant	dc=0|sz=64|v=INT:0|ct=7|ts=- <- ref_obj	nm=C_A|act=-
+TOGOLD       TOP | package/function(p138c2::c138c::oob_ret)/return_stmt#vpiCondition | 35:12-35:15
+    G: constant	dc=1|sz=64|v=INT:1|ct=7|ts=-
+    O: constant	dc=1|sz=64|v=INT:1|ct=7|ts=- <- ref_obj	nm=C_B|act=-
+TOGOLD       TOP | package/function(p138c2::if_ret)/return_stmt#vpiCondition | 53:12-53:15
+    G: constant	dc=1|sz=64|v=INT:1|ct=7|ts=-
+    O: constant	dc=1|sz=64|v=INT:1|ct=7|ts=- <- ref_obj	nm=C_B|act=enum_const(C_B)
+TOGOLD       TOP | package/function(p138c2::pf_ret)/return_stmt#vpiCondition | 14:12-14:15
+    G: constant	dc=1|sz=64|v=INT:1|ct=7|ts=-
+    O: constant	dc=1|sz=64|v=INT:1|ct=7|ts=- <- ref_obj	nm=C_B|act=-
+--- ONLY-OURS=5  SAME-OK=34  TOGOLD=10
+
+== arm d_inst (DEF view) ==
+ONLY-OURS    DEF | class_defn(work@mailbox)/function(work@mailbox::new)/io_decl(bound)#vpiExpr | 3:31-3:32
+    G: -
+    O: ['constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-']
+ONLY-OURS    DEF | class_defn(work@semaphore)/function(work@semaphore::new)/io_decl(keyCount)#vpiExpr | 57:33-57:34
+    G: -
+    O: ['constant\tdc=0|sz=64|v=UINT:0|ct=9|ts=-']
+ONLY-OURS    DEF | class_defn(work@semaphore)/function(work@semaphore::try_get)/io_decl(keyCount)#vpiExpr | 66:41-66:42
+    G: -
+    O: ['constant\tdc=1|sz=64|v=UINT:1|ct=9|ts=-']
+ONLY-OURS    DEF | class_defn(work@semaphore)/task(work@semaphore::get)/io_decl(keyCount)#vpiExpr | 63:29-63:30
+    G: -
+    O: ['constant\tdc=1|sz=64|v=UINT:1|ct=9|ts=-']
+ONLY-OURS    DEF | class_defn(work@semaphore)/task(work@semaphore::put)/io_decl(keyCount)#vpiExpr | 60:29-60:30
+    G: -
+    O: ['constant\tdc=1|sz=64|v=UINT:1|ct=9|ts=-']
+TOGOLD       TOP | package/class_defn(p138d::c138d)/function(p138d::c138d::d_oob)/return_stmt#vpiCondition | 15:12-15:15
+    G: constant	dc=2|sz=64|v=INT:2|ct=7|ts=-
+    O: constant	dc=2|sz=64|v=INT:2|ct=7|ts=- <- ref_obj	nm=D_C|act=enum_const(D_C)
+TOGOLD       TOP | package/function(p138d::d_ret)/return_stmt#vpiCondition | 9:12-9:15
+    G: constant	dc=1|sz=64|v=INT:1|ct=7|ts=-
+    O: constant	dc=1|sz=64|v=INT:1|ct=7|ts=- <- ref_obj	nm=D_B|act=enum_const(D_B)
+--- ONLY-OURS=5  SAME-OK=30  TOGOLD=2
+
