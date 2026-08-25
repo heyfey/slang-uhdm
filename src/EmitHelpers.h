@@ -581,6 +581,49 @@ inline bool assocIdxIsTypeParam51(const Type& idx) {
     return syn && syn->kind == syntax::SyntaxKind::TypeAssignment;
 }
 
+// NOTE § assocIdxNameHoistNet135 — WHICH bracket name Surelog fails to resolve,
+// and therefore compiles as an EXPRESSION that joins the late-binding pool and
+// mints the importing module's implicit wire.
+//
+// `CompileHelper::compileRanges`'s `paConstant_expression` arm
+// (Surelog src/DesignCompile/CompileExpression.cpp:4166-4196) hands the bracket
+// text to `compileExpression`, whose first stop is `getObject`
+// (`CompileExpression.cpp:237-260`):
+//     const DataType *dtype = component->getDataType(name);
+//     if ((result == nullptr) && dtype) { ... result = dtype->getTypespec(); }
+// A `typedef` — of anything: an int, a vector, an enum, even a CLASS HANDLE —
+// is in that map, so the name comes back AS A TYPESPEC and no `ref_obj` is ever
+// minted.  A CLASS NAME is not (classes live in the class-definition map), and
+// neither is a TYPE PARAMETER's name, so both fall through to the identifier
+// arm at `:5769-5788`, take `needLateBinding` and hoist.  A SCOPED name
+// (`pkg::T`) is resolved by the class-scope arm (`:4463-4519`,
+// `p->getDataType(typeName)`) and never reaches the identifier arm either.
+//
+// MEASURED, grid arm `g135_a1.sv` (ONE home, ONE position, twelve spellings),
+// golden `work@topKindBeta135`:
+//   [baseGammaCls135]                        a CLASS name           -> WIRE
+//   [fwdRhoCls135]                           a FORWARD-typedef'd class -> WIRE
+//   [KEYBRAVO135] (arm a4)                   a TYPE PARAMETER       -> WIRE
+//   [tdEtaHandle135]  typedef of a class handle                     -> none
+//   [tdLambdaInt135]  typedef of `int`                              -> none
+//   [tdNuVec135]      typedef of a vector                           -> none
+//   [enumIotaKind135] an enum typedef                               -> none
+//   [pkgScopedSigma135::scopedTauCls135]  a SCOPED class name       -> none
+//   [pkgScopedSigma135::scopedUpsEnum135] a SCOPED enum typedef     -> none
+//   [string] [int] [*] [paramMuCls135#(int)]  never a name at all   -> none
+// so the gate is NOT "written as a NAME" (which is § assocIoRange9's RANGE-SHAPE
+// question, and stays exactly as it was): it is "written as a BARE IDENTIFIER
+// THAT IS NOT A TYPEDEF".  A first cut that used the shape test minted six
+// wires golden does not have.
+inline bool assocIdxNameHoistable135(const Type& idx,
+                                     const syntax::ExpressionSyntax* sx) {
+    if (!sx || sx->kind != syntax::SyntaxKind::IdentifierName)
+        return false;
+    if (idx.kind != SymbolKind::TypeAlias)
+        return true;
+    return assocIdxIsTypeParam51(idx);
+}
+
 // § assocPropPatternInitRidesElem31, CLAUSE (3)'s GATE — the predicate that
 // decides WHICH direct constant operand of an unsized array's declaration
 // initializer takes the ELEMENT width.  Clause (3) says "wherever emitExpr

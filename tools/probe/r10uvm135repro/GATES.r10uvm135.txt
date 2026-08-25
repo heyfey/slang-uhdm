@@ -1,0 +1,84 @@
+r10uvm135 — GATES.  Every number here was produced by the SHIPPED instruments.
+The official uhdm-cmp (~/git-repos/UHDM/build/bin/uhdm-cmp) and
+scripts/verify_golden.py are the sole authorities.  slang was NOT patched;
+results/*.csv were READ ONLY; NOTHING was promoted and NO CORPUS ROW CONVERTED.
+GOLDEN_DEFER unset throughout.
+
+BASE f08eee05.  worktree /tmp/wt_r10uvm135.
+pristine binary md5 583b10a735e405dcfaeb2f49695d6632  (chmod 555 before any sweep)
+patched  binary md5 a8d181a5efe5cb64ae89d780f8ebadd2  (chmod 555 before any sweep)
+
+(1) BUILD -- both binaries built with -j 2, md5 taken separately, 0 compiler errors.
+
+(2) GOLDENS (SLANG_UHDM exported EXPLICITLY to each binary)
+    patched   PASS=23 FAIL=0
+    pristine  PASS=23
+    /bin/false FAIL=23 PASS=0   (negative control)
+
+(3) uhdm2rtlil, BOTH modes, BOTH binaries
+    testflags  CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2   (pristine and patched)
+    default    CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2   (pristine and patched)
+    ct8rows results/gate_uhdm2rtlil.csv vs patched testflags  -> PASS (0 differing rows)
+    ct8rows this pass's OWN pristine testflags vs patched      -> PASS
+    ct8rows this pass's OWN pristine default   vs patched      -> PASS
+    byteverify SELFCHECK=1  MOVERS 0 / 1358, PATH_SETS_IDENTICAL, SELFCHECK 1357/1358
+
+(4) surelog corpus, --mode both, BOTH binaries: 1588 rows, CMP_NOTEQUAL 19
+    (default 10 + testflags 9) on BOTH binaries -- UNCHANGED, no row converted.
+    default   CMP_EQUAL 471 SLANG_REJECT 283 SURELOG_FAIL 25 CMP_NOTEQUAL 10 DEFERRED 5
+    testflags CMP_EQUAL 466 SLANG_REJECT 284 SURELOG_FAIL 23 CMP_NOTEQUAL 9 DEFERRED 5
+              NO_DATABASE 3 UNTRANSLATABLE 2 TIMEOUT 1 NO_UHDM 1
+    ct8rows results/golden_surelog.csv vs patched          -> PASS (0 differing rows)
+    ct8rows this pass's OWN pristine sweep vs patched      -> PASS
+
+(5) BYTE MOVERS, surelog: 4 / 956 -- and all four were PREDICTED BY NAME from the
+    PRISTINE databases before the patched sweep ran (FENCE.pristine.surelog.tsv,
+    HIT 4, OTHER 0, MIRROR 6 none of them an associative-index name):
+      ./default/SeqDriver-32af76aa/slang.uhdm
+      ./default/SimpleUVM-1dc93a62/slang.uhdm
+      ./testflags/SeqDriver-32af76aa/slang.uhdm
+      ./testflags/SimpleUVM-1dc93a62/slang.uhdm
+    PATH_SETS_IDENTICAL (956 paths); SELFCHECK 955/956.
+    Order-blind whole-dump attribution (attrib135.sh) on EVERY mover:
+      ADDED 13 lines, REMOVED 0 -- the logic_net, its vpiParent/vpiName/
+      vpiFullName/vpiNetType/vpiNet lines, and the three vpiActual edges.
+    The PATCHED fence reads HIT 0 (the family closed corpus-wide) with MIRROR
+    still 6 and unchanged.
+
+(6) HEADS (rowheads.sh, this pass's OWN pristine and patched sweeps)
+    TEST           MODE          PRIS      PAT
+    SeqDriver      default        17       80   NEW head, a DIFFERENT object
+    SeqDriver      testflags      17       80   NEW head, a DIFFERENT object
+    SimpleUVM      default        64       64   head text BYTE-IDENTICAL
+    SimpleUVM      testflags      64       64   head text BYTE-IDENTICAL
+    Scoreboard     default        64       64   head text BYTE-IDENTICAL
+    MiniAmiq       default        80       80   head text BYTE-IDENTICAL
+    MiniAmiq       testflags      80       80   head text BYTE-IDENTICAL
+    BuildUVMPkg    default        60       60   head text BYTE-IDENTICAL
+    BuildUVMPkg    testflags      60       60   head text BYTE-IDENTICAL
+    Earlgrey_0_1   default       150      150   head text BYTE-IDENTICAL
+    Earlgrey_0_1   testflags     150      150   head text BYTE-IDENTICAL
+    Rggen          default         0        0   CMP_EQUAL
+    (Scoreboard/testflags and Rggen/testflags print SKIP-NOFILE, as always.)
+
+(7) CANARIES
+    canaries.sh surelog     ok=52 changed=0 absent=0
+    canaries.sh uhdm2rtlil  ok=8  changed=0 absent=0
+    ctcan2 EXPECT_UNKNOWN=1 surelog     PASS
+    ctcan2 EXPECT_UNKNOWN=6 uhdm2rtlil  PASS
+    canaudit.sh canaries.sh ctcan2.sh   audited=29 UNCOVERED=0 FENCE-BREACH=0
+    protected databases, patched vs this pass's own pristine:
+      InterfaceModPort   default/testflags  59a365f3ce2c  SAME
+      BlackParrotComplex default e3e354129d5a / testflags 73a10e8217e5  SAME
+      YosysOldOr         default/testflags  d68e0796d62c  SAME
+      SVSwitch           4842211c4030  (the pin)
+      YosysVerx          6ccda350c24a  (the pin)
+
+(8) cmds.txt BINARY AUDIT BY PATH -- every cmds.txt in the patched sweeps names
+    /tmp/r10uvm135_bin/slang-uhdm-pat and every one in the pristine sweeps names
+    /tmp/r10uvm135_bin/slang-uhdm-pris; NO cmds.txt anywhere names a main-tree or
+    worktree build/slang-uhdm.
+
+(9) BOUNDARY -- see BOUNDARY.r10uvm135.txt.  Four runs (file/dir x def/elab),
+    PROCESSED == LISTED (3934/3934 twice, 1580/1580 twice), PRIS_REJECT ==
+    PATCHED_REJECT in all four, no asymmetric reject.

@@ -1301,6 +1301,28 @@ UHDM::array_var* UhdmExporter::makeQueueDynArrayVar(const Symbol& vs,
 // Returns null for anything that is not an all-associative declaration; a
 // MIXED shape (`int a[string][2]`) is deliberately left to the old path
 // because no golden measures it.
+// § assocIdxNameHoistNet135 — ONE pool push for ONE associative dimension whose
+// index type was written as a NAME.  `ref` is the visible `ref_obj` of the SIZE
+// model, or NULL for a dimension the elaborated listing promoted to the
+// associative form (Surelog's own reference for that site is orphaned by
+// `CompileHelper::compileRanges` and never reaches its database — it still
+// mints and spans the wire, and that is the whole reason a ref-less entry
+// exists).  The gate is `hoistHomePkg117()` and nothing else: an in-body class
+// member's names belong to the CLASS component, whose late-binding list
+// `UhdmWriter.cpp:1067` never walks.  The two-vector choice and the staging
+// flush are § pkgFreeSubRefVarHoistNet117's own, unchanged.
+void UhdmExporter::hoistAssocIdxName135(UHDM::ref_obj* ref,
+                                        std::string_view name,
+                                        slang::SourceRange range) {
+    const Symbol* home135 = hoistHomePkg117();
+    if (!home135 || name.empty())
+        return;
+    auto& pool135 = (inClassBodyEmit && classBodyHomePkg75)
+                        ? classPropRefs
+                        : pkgFreeSubPropRefs117;
+    pool135.push_back({ref, std::string(name), range, home135});
+}
+
 UHDM::array_var* UhdmExporter::makeAssocArrayVar(const Symbol& vs,
                                                  const std::string& afull,
                                                  UHDM::any* parent,
@@ -1356,6 +1378,26 @@ UHDM::array_var* UhdmExporter::makeAssocArrayVar(const Symbol& vs,
         auto* e0 = selOf(i);
         return e0 && (e0->kind == syntax::SyntaxKind::IdentifierName ||
                       e0->kind == syntax::SyntaxKind::ScopedName);
+    };
+    // § assocIdxNameHoistNet135 — the index NAME exactly as written, which is
+    // the name Surelog's `compileExpression` gives the `ref_obj` it mints for
+    // the bracket text and therefore the name of the implicit wire.
+    auto idxName135 = [&](size_t i) {
+        std::string n135;
+        auto* e0 = selOf(i);
+        if (!e0)
+            return n135;
+        if (e0->kind == syntax::SyntaxKind::IdentifierName)
+            n135 = std::string(
+                e0->as<syntax::IdentifierNameSyntax>().identifier.valueText());
+        else {
+            n135 = e0->toString();
+            while (!n135.empty() && std::isspace((unsigned char)n135.front()))
+                n135.erase(n135.begin());
+            while (!n135.empty() && std::isspace((unsigned char)n135.back()))
+                n135.pop_back();
+        }
+        return n135;
     };
     // Is dimension i compiled as an ASSOCIATIVE dimension here?  A keyword
     // always is; a NAME only in the promoted (elaborated-listing) view.
@@ -1485,6 +1527,10 @@ UHDM::array_var* UhdmExporter::makeAssocArrayVar(const Symbol& vs,
                 }
             }
             ro0->VpiName(in0);
+            // § assocIdxNameHoistNet135 — the SIZE model keeps the reference,
+            // so this entry BINDS it to the hoisted wire.
+            if (sx0 && aidx[i0] && assocIdxNameHoistable135(*aidx[i0], sx0))
+                hoistAssocIdxName135(ro0, in0, sx0->sourceRange());
             ops0->push_back(ro0);
             auto* one0 = s.MakeConstant();
             one0->VpiValue("INT:1");
@@ -1495,6 +1541,12 @@ UHDM::array_var* UhdmExporter::makeAssocArrayVar(const Symbol& vs,
             r0->Right_expr(op0);
         }
         else {
+            // § assocIdxNameHoistNet135 — the elaborated listing PROMOTED this
+            // dimension, so Surelog's reference for it is orphaned: a REF-LESS
+            // pool entry, which mints and spans the wire and binds nothing.
+            if (sx0 && aidx[i0] && assocIdxNameHoistable135(*aidx[i0], sx0))
+                hoistAssocIdxName135(nullptr, idxName135(i0),
+                                     sx0->sourceRange());
             auto* rc0 = s.MakeConstant();
             rc0->VpiParent(r0);
             rc0->VpiDecompile("associative");
@@ -2252,9 +2304,15 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
     // `get_severity_set`, `uvm_reg_transaction_order_policy::order` and
     // `uvm_structure_proxy::get_immediate_children`, every one of them a
     // `pure virtual` with a queue formal.
+    // `hoist135` — § assocIdxNameHoistNet135.  An io_decl range NEVER takes the
+    // promoted associative form, so a NAME-spelled index here always carries a
+    // visible `ref_obj`; it enters the hoist pool only from the OUT-OF-BODY
+    // DEFINITION's own listing.  The `extern` PROTOTYPE listing runs this same
+    // lambda over the SAME formal symbols and must NOT push: golden leaves the
+    // prototype's reference unbound (`uvm_phase.svh:593:86`).
     auto emitIoRanges34 = [&](const slang::ast::FormalArgumentSymbol& arg0,
                               UHDM::io_decl* io0, const std::string& ioFull,
-                              UHDM::instance* tsInst0) {
+                              UHDM::instance* tsInst0, bool hoist135 = false) {
         const slang::ast::FormalArgumentSymbol* arg = &arg0;
         UHDM::io_decl* io = io0;
         // Unpacked-array formals carry one range per unpacked dimension;
@@ -2452,6 +2510,10 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     ro9->VpiName(in9);
                     ro9->VpiFullName(ioFull + "::" + in9);
                     setLoc(ro9, sx9->sourceRange());
+                    // § assocIdxNameHoistNet135
+                    if (hoist135 && aidx[i9] &&
+                        assocIdxNameHoistable135(*aidx[i9], sx9))
+                        hoistAssocIdxName135(ro9, in9, sx9->sourceRange());
                     ops9->push_back(ro9);
                     auto* one9 = s.MakeConstant();
                     one9->VpiValue("INT:1");
@@ -4806,7 +4868,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             io->Typespec(rt);
             deferForeignTopTs(*arg, rt, (const UHDM::typespec*)ts);
             emitIoRanges34(*arg, io, fullName + sep + std::string(arg->name),
-                           tsInst);
+                           tsInst, !protoOf);
             ios->push_back(io);
             // A class-method formal IS reachable from the body, but only an
             // if/case CONDITION ref actually binds it (classMethodNoBind).

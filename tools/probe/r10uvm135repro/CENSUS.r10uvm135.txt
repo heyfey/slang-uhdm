@@ -1,0 +1,366 @@
+r10uvm135 — CENSUS.  MEASUREMENT ONLY; the official uhdm-cmp is the judge.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+== GOLDEN-VS-GOLDEN CALIBRATION FIRST (goldcen135.sh, FAM=NET, the cells this
+   pass adds).  `default` and `testflags` are two independent Surelog runs of
+   the same design.
+SeqDriver CALIBRATED rows=224
+SimpleUVM CALIBRATED rows=235
+Scoreboard CALIBRATED rows=12
+MiniAmiq CALIBRATED rows=0
+BuildUVMPkg CALIBRATED rows=0
+-- pairs=5 SKIP=0 DIFFER=0 rows=471  EXPM_N=0
+
+   Earlgrey_0_1 is NOT calibratable and is excluded: its two goldens are two
+   DIFFERENT elaborations (the testflags run carries padring generate-block
+   instances -- work@padring.gen_dio_pads[1..14].* -- the default run does not),
+   a golden-vs-golden difference in another family.  Rggen has one golden only.
+   The corpus fence finds ZERO cells of this family in either.
+
+== DIRECTION over the NINE UVM databases (cen135.sh: golden vs PRISTINE vs
+   PATCHED, every implicit-net cell and every associative-index-name cell).
+   A cell's DISTANCE from golden is |count - golden|; MOVED-WRONG counts the
+   cells that CHANGED and got FURTHER away.
+######## SeqDriver/default
+=== IMPLICIT NETS  (module | name | span)
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | clp | 339:3-339:6
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | default_hdl_path | 2085:7-2085:23
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | default_hdl_path | 388:7-388:23
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_access | 814:4-814:12
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_access | 969:8-969:16
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_backdoor | 1322:8-1322:18
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_backdoor | 2021:4-2021:14
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_cover_on | 1407:7-1407:17
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_cover_on | 816:4-816:14
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_fname | 1121:4-1121:11
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_fname | 1581:4-1581:11
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_has_cover | 1392:4-1392:15
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_has_cover | 1883:4-1883:15
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_inst_count | 1763:15-1763:27
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_inst_count | 845:10-845:22
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_lineno | 1122:4-1122:12
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_lineno | 1582:4-1582:12
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_locked | 1026:4-1026:12
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_locked | 1215:8-1215:16
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_max_size | 1016:4-1016:14
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_max_size | 1362:11-1362:21
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_n_bits | 1242:24-1242:32
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_n_bits | 977:28-977:36
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_parent | 1001:10-1001:18
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_parent | 1925:11-1925:19
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_read_in_progress | 1621:4-1621:22
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_read_in_progress | 1694:4-1694:22
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_sequencer | 1099:4-1099:15
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_sequencer | 624:11-624:22
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_size | 812:4-812:10
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_size | 979:26-979:32
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_wait_for_item_sequence_id | 1108:3-1108:30
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_wait_for_item_sequence_id | 288:5-288:32
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_wait_for_item_transaction_id | 1109:3-1109:33
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_wait_for_item_transaction_id | 289:5-289:35
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_write_in_progress | 1478:4-1478:23
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_write_in_progress | 1587:4-1587:23
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | parent | 1130:8-1130:14
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | parent | 360:16-360:22
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | sequence_count | 118:7-118:21
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | sequence_count | 663:19-663:33
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | this | 152:45-152:49
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | this | 902:36-902:40
+  g=1 pris=0 pat=1  TO-GOLDEN   work@top_tb | uvm_phase | 1664:21-1664:30
+  -- cells 180  TO-GOLDEN 1  AWAY-GOLDEN 0  STILL-WRONG 43  AGREE 136
+=== ASSOC INDEX NAME CELLS  (shape | owner | span | name | actual-is-implicit-wire)
+  g=4 pris=0 pat=0  STILL-WRONG PROM | adpcm_pkg::uvm_phase::get_adjacent_predecessor_nodes | 1664:20-1664:31 | uvm_phase | -
+  g=4 pris=0 pat=0  STILL-WRONG PROM | adpcm_pkg::uvm_phase::get_adjacent_successor_nodes | 1693:18-1693:29 | uvm_phase | -
+  g=4 pris=0 pat=0  STILL-WRONG PROM | adpcm_pkg::uvm_phase::m_wait_for_pred | 1758:21-1758:32 | uvm_phase | -
+  g=4 pris=0 pat=0  STILL-WRONG PROM | adpcm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop | 2131:15-2131:26 | uvm_phase | -
+  g=1 pris=3 pat=3  STILL-WRONG SIZE | - | 1664:21-1664:30 | uvm_phase | -
+  g=1 pris=3 pat=3  STILL-WRONG SIZE | - | 1693:19-1693:28 | uvm_phase | -
+  g=1 pris=3 pat=3  STILL-WRONG SIZE | - | 1758:22-1758:31 | uvm_phase | -
+  g=1 pris=4 pat=3  STILL-WRONG SIZE | - | 1896:17-1896:26 | uvm_phase | -
+  g=1 pris=0 pat=1  TO-GOLDEN   SIZE | - | 1896:17-1896:26 | uvm_phase | IMPL
+  g=1 pris=4 pat=3  STILL-WRONG SIZE | - | 1946:17-1946:26 | uvm_phase | -
+  g=1 pris=0 pat=1  TO-GOLDEN   SIZE | - | 1946:17-1946:26 | uvm_phase | IMPL
+  g=1 pris=3 pat=3  STILL-WRONG SIZE | - | 2131:16-2131:25 | uvm_phase | -
+  g=13 pris=12 pat=12  STILL-WRONG SIZE | - | 49:23-49:37 | UVM_STREAMBITS | -
+  g=2 pris=0 pat=0  STILL-WRONG SIZE | adpcm_pkg::uvm_phase::sync | 1896:17-1896:26 | uvm_phase | -
+  g=2 pris=0 pat=0  STILL-WRONG SIZE | adpcm_pkg::uvm_phase::unsync | 1946:17-1946:26 | uvm_phase | -
+  g=1 pris=3 pat=2  STILL-WRONG SIZE | uvm_pkg::uvm_phase::get_predecessors_for_successors | 1722:82-1722:91 | uvm_phase | -
+  g=1 pris=0 pat=1  TO-GOLDEN   SIZE | uvm_pkg::uvm_phase::get_predecessors_for_successors | 1722:82-1722:91 | uvm_phase | IMPL
+  g=1 pris=0 pat=0  STILL-WRONG SIZE | uvm_pkg::uvm_phase::get_predecessors_for_successors | 593:86-593:95 | uvm_phase | -
+  -- cells 26  TO-GOLDEN 3  AWAY-GOLDEN 0  STILL-WRONG 15  AGREE 8
+TOTALS: TO-GOLDEN 4  AWAY-GOLDEN 0  STILL-WRONG 58
+  PARTIAL     AIDX g=1 pris=4 pat=3  SIZE | - | 1896:17-1896:26 | uvm_phase | -
+  PARTIAL     AIDX g=1 pris=4 pat=3  SIZE | - | 1946:17-1946:26 | uvm_phase | -
+  PARTIAL     AIDX g=1 pris=3 pat=2  SIZE | uvm_pkg::uvm_phase::get_predecessors_for_successors | 1722:82-1722:91 | uvm_phase | -
+MOVED-WRONG 0
+######## SeqDriver/testflags
+=== IMPLICIT NETS  (module | name | span)
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | clp | 339:3-339:6
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | default_hdl_path | 2085:7-2085:23
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | default_hdl_path | 388:7-388:23
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_access | 814:4-814:12
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_access | 969:8-969:16
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_backdoor | 1322:8-1322:18
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_backdoor | 2021:4-2021:14
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_cover_on | 1407:7-1407:17
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_cover_on | 816:4-816:14
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_fname | 1121:4-1121:11
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_fname | 1581:4-1581:11
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_has_cover | 1392:4-1392:15
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_has_cover | 1883:4-1883:15
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_inst_count | 1763:15-1763:27
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_inst_count | 845:10-845:22
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_lineno | 1122:4-1122:12
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_lineno | 1582:4-1582:12
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_locked | 1026:4-1026:12
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_locked | 1215:8-1215:16
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_max_size | 1016:4-1016:14
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_max_size | 1362:11-1362:21
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_n_bits | 1242:24-1242:32
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_n_bits | 977:28-977:36
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_parent | 1001:10-1001:18
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_parent | 1925:11-1925:19
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_read_in_progress | 1621:4-1621:22
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_read_in_progress | 1694:4-1694:22
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_sequencer | 1099:4-1099:15
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_sequencer | 624:11-624:22
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_size | 812:4-812:10
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_size | 979:26-979:32
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_wait_for_item_sequence_id | 1108:3-1108:30
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_wait_for_item_sequence_id | 288:5-288:32
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_wait_for_item_transaction_id | 1109:3-1109:33
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_wait_for_item_transaction_id | 289:5-289:35
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | m_write_in_progress | 1478:4-1478:23
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | m_write_in_progress | 1587:4-1587:23
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | parent | 1130:8-1130:14
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | parent | 360:16-360:22
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | sequence_count | 118:7-118:21
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | sequence_count | 663:19-663:33
+  g=0 pris=1 pat=1  STILL-WRONG work@top_tb | this | 152:45-152:49
+  g=1 pris=0 pat=0  STILL-WRONG work@top_tb | this | 902:36-902:40
+  g=1 pris=0 pat=1  TO-GOLDEN   work@top_tb | uvm_phase | 1664:21-1664:30
+  -- cells 180  TO-GOLDEN 1  AWAY-GOLDEN 0  STILL-WRONG 43  AGREE 136
+=== ASSOC INDEX NAME CELLS  (shape | owner | span | name | actual-is-implicit-wire)
+  g=4 pris=0 pat=0  STILL-WRONG PROM | adpcm_pkg::uvm_phase::get_adjacent_predecessor_nodes | 1664:20-1664:31 | uvm_phase | -
+  g=4 pris=0 pat=0  STILL-WRONG PROM | adpcm_pkg::uvm_phase::get_adjacent_successor_nodes | 1693:18-1693:29 | uvm_phase | -
+  g=4 pris=0 pat=0  STILL-WRONG PROM | adpcm_pkg::uvm_phase::m_wait_for_pred | 1758:21-1758:32 | uvm_phase | -
+  g=4 pris=0 pat=0  STILL-WRONG PROM | adpcm_pkg::uvm_phase::wait_for_self_and_siblings_to_drop | 2131:15-2131:26 | uvm_phase | -
+  g=1 pris=3 pat=3  STILL-WRONG SIZE | - | 1664:21-1664:30 | uvm_phase | -
+  g=1 pris=3 pat=3  STILL-WRONG SIZE | - | 1693:19-1693:28 | uvm_phase | -
+  g=1 pris=3 pat=3  STILL-WRONG SIZE | - | 1758:22-1758:31 | uvm_phase | -
+  g=1 pris=4 pat=3  STILL-WRONG SIZE | - | 1896:17-1896:26 | uvm_phase | -
+  g=1 pris=0 pat=1  TO-GOLDEN   SIZE | - | 1896:17-1896:26 | uvm_phase | IMPL
+  g=1 pris=4 pat=3  STILL-WRONG SIZE | - | 1946:17-1946:26 | uvm_phase | -
+  g=1 pris=0 pat=1  TO-GOLDEN   SIZE | - | 1946:17-1946:26 | uvm_phase | IMPL
+  g=1 pris=3 pat=3  STILL-WRONG SIZE | - | 2131:16-2131:25 | uvm_phase | -
+  g=13 pris=12 pat=12  STILL-WRONG SIZE | - | 49:23-49:37 | UVM_STREAMBITS | -
+  g=2 pris=0 pat=0  STILL-WRONG SIZE | adpcm_pkg::uvm_phase::sync | 1896:17-1896:26 | uvm_phase | -
+  g=2 pris=0 pat=0  STILL-WRONG SIZE | adpcm_pkg::uvm_phase::unsync | 1946:17-1946:26 | uvm_phase | -
+  g=1 pris=3 pat=2  STILL-WRONG SIZE | uvm_pkg::uvm_phase::get_predecessors_for_successors | 1722:82-1722:91 | uvm_phase | -
+  g=1 pris=0 pat=1  TO-GOLDEN   SIZE | uvm_pkg::uvm_phase::get_predecessors_for_successors | 1722:82-1722:91 | uvm_phase | IMPL
+  g=1 pris=0 pat=0  STILL-WRONG SIZE | uvm_pkg::uvm_phase::get_predecessors_for_successors | 593:86-593:95 | uvm_phase | -
+  -- cells 26  TO-GOLDEN 3  AWAY-GOLDEN 0  STILL-WRONG 15  AGREE 8
+TOTALS: TO-GOLDEN 4  AWAY-GOLDEN 0  STILL-WRONG 58
+  PARTIAL     AIDX g=1 pris=4 pat=3  SIZE | - | 1896:17-1896:26 | uvm_phase | -
+  PARTIAL     AIDX g=1 pris=4 pat=3  SIZE | - | 1946:17-1946:26 | uvm_phase | -
+  PARTIAL     AIDX g=1 pris=3 pat=2  SIZE | uvm_pkg::uvm_phase::get_predecessors_for_successors | 1722:82-1722:91 | uvm_phase | -
+MOVED-WRONG 0
+######## SimpleUVM/default
+=== IMPLICIT NETS  (module | name | span)
+  g=0 pris=1 pat=1  STILL-WRONG work@top | clp | 339:3-339:6
+  g=0 pris=1 pat=1  STILL-WRONG work@top | default_hdl_path | 2085:7-2085:23
+  g=1 pris=0 pat=0  STILL-WRONG work@top | default_hdl_path | 388:7-388:23
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_access | 814:4-814:12
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_access | 969:8-969:16
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_backdoor | 1322:8-1322:18
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_backdoor | 2021:4-2021:14
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_cover_on | 1407:7-1407:17
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_cover_on | 816:4-816:14
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_fname | 1121:4-1121:11
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_fname | 1581:4-1581:11
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_has_cover | 1392:4-1392:15
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_has_cover | 1883:4-1883:15
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_inst_count | 1763:15-1763:27
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_inst_count | 845:10-845:22
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_lineno | 1122:4-1122:12
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_lineno | 1582:4-1582:12
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_locked | 1026:4-1026:12
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_locked | 1215:8-1215:16
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_max_size | 1016:4-1016:14
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_max_size | 1362:11-1362:21
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_n_bits | 1242:24-1242:32
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_n_bits | 977:28-977:36
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_parent | 1001:10-1001:18
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_parent | 1925:11-1925:19
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_read_in_progress | 1621:4-1621:22
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_read_in_progress | 1694:4-1694:22
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_sequencer | 1099:4-1099:15
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_sequencer | 624:11-624:22
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_size | 812:4-812:10
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_size | 979:26-979:32
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_wait_for_item_sequence_id | 1108:3-1108:30
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_wait_for_item_sequence_id | 288:5-288:32
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_wait_for_item_transaction_id | 1109:3-1109:33
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_wait_for_item_transaction_id | 289:5-289:35
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_write_in_progress | 1478:4-1478:23
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_write_in_progress | 1587:4-1587:23
+  g=0 pris=1 pat=1  STILL-WRONG work@top | parent | 1130:8-1130:14
+  g=1 pris=0 pat=0  STILL-WRONG work@top | parent | 360:16-360:22
+  g=1 pris=0 pat=0  STILL-WRONG work@top | sequence_count | 118:7-118:21
+  g=0 pris=1 pat=1  STILL-WRONG work@top | sequence_count | 663:19-663:33
+  g=0 pris=1 pat=1  STILL-WRONG work@top | this | 152:45-152:49
+  g=1 pris=0 pat=0  STILL-WRONG work@top | this | 902:36-902:40
+  g=0 pris=1 pat=1  STILL-WRONG work@top | top | 67:18-67:21
+  g=1 pris=0 pat=1  TO-GOLDEN   work@top | uvm_phase | 1664:21-1664:30
+  -- cells 180  TO-GOLDEN 1  AWAY-GOLDEN 0  STILL-WRONG 44  AGREE 135
+=== ASSOC INDEX NAME CELLS  (shape | owner | span | name | actual-is-implicit-wire)
+  g=1 pris=2 pat=1  TO-GOLDEN   SIZE | - | 1896:17-1896:26 | uvm_phase | -
+  g=1 pris=0 pat=1  TO-GOLDEN   SIZE | - | 1896:17-1896:26 | uvm_phase | IMPL
+  g=1 pris=2 pat=1  TO-GOLDEN   SIZE | - | 1946:17-1946:26 | uvm_phase | -
+  g=1 pris=0 pat=1  TO-GOLDEN   SIZE | - | 1946:17-1946:26 | uvm_phase | IMPL
+  g=13 pris=12 pat=12  STILL-WRONG SIZE | - | 49:23-49:37 | UVM_STREAMBITS | -
+  g=1 pris=3 pat=2  STILL-WRONG SIZE | uvm_pkg::uvm_phase::get_predecessors_for_successors | 1722:82-1722:91 | uvm_phase | -
+  g=1 pris=0 pat=1  TO-GOLDEN   SIZE | uvm_pkg::uvm_phase::get_predecessors_for_successors | 1722:82-1722:91 | uvm_phase | IMPL
+  g=1 pris=0 pat=0  STILL-WRONG SIZE | uvm_pkg::uvm_phase::get_predecessors_for_successors | 593:86-593:95 | uvm_phase | -
+  -- cells 19  TO-GOLDEN 5  AWAY-GOLDEN 0  STILL-WRONG 3  AGREE 11
+TOTALS: TO-GOLDEN 6  AWAY-GOLDEN 0  STILL-WRONG 47
+  PARTIAL     AIDX g=1 pris=3 pat=2  SIZE | uvm_pkg::uvm_phase::get_predecessors_for_successors | 1722:82-1722:91 | uvm_phase | -
+MOVED-WRONG 0
+######## SimpleUVM/testflags
+=== IMPLICIT NETS  (module | name | span)
+  g=0 pris=1 pat=1  STILL-WRONG work@top | clp | 339:3-339:6
+  g=0 pris=1 pat=1  STILL-WRONG work@top | default_hdl_path | 2085:7-2085:23
+  g=1 pris=0 pat=0  STILL-WRONG work@top | default_hdl_path | 388:7-388:23
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_access | 814:4-814:12
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_access | 969:8-969:16
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_backdoor | 1322:8-1322:18
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_backdoor | 2021:4-2021:14
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_cover_on | 1407:7-1407:17
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_cover_on | 816:4-816:14
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_fname | 1121:4-1121:11
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_fname | 1581:4-1581:11
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_has_cover | 1392:4-1392:15
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_has_cover | 1883:4-1883:15
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_inst_count | 1763:15-1763:27
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_inst_count | 845:10-845:22
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_lineno | 1122:4-1122:12
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_lineno | 1582:4-1582:12
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_locked | 1026:4-1026:12
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_locked | 1215:8-1215:16
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_max_size | 1016:4-1016:14
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_max_size | 1362:11-1362:21
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_n_bits | 1242:24-1242:32
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_n_bits | 977:28-977:36
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_parent | 1001:10-1001:18
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_parent | 1925:11-1925:19
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_read_in_progress | 1621:4-1621:22
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_read_in_progress | 1694:4-1694:22
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_sequencer | 1099:4-1099:15
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_sequencer | 624:11-624:22
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_size | 812:4-812:10
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_size | 979:26-979:32
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_wait_for_item_sequence_id | 1108:3-1108:30
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_wait_for_item_sequence_id | 288:5-288:32
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_wait_for_item_transaction_id | 1109:3-1109:33
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_wait_for_item_transaction_id | 289:5-289:35
+  g=1 pris=0 pat=0  STILL-WRONG work@top | m_write_in_progress | 1478:4-1478:23
+  g=0 pris=1 pat=1  STILL-WRONG work@top | m_write_in_progress | 1587:4-1587:23
+  g=0 pris=1 pat=1  STILL-WRONG work@top | parent | 1130:8-1130:14
+  g=1 pris=0 pat=0  STILL-WRONG work@top | parent | 360:16-360:22
+  g=1 pris=0 pat=0  STILL-WRONG work@top | sequence_count | 118:7-118:21
+  g=0 pris=1 pat=1  STILL-WRONG work@top | sequence_count | 663:19-663:33
+  g=0 pris=1 pat=1  STILL-WRONG work@top | this | 152:45-152:49
+  g=1 pris=0 pat=0  STILL-WRONG work@top | this | 902:36-902:40
+  g=0 pris=1 pat=1  STILL-WRONG work@top | top | 67:18-67:21
+  g=1 pris=0 pat=1  TO-GOLDEN   work@top | uvm_phase | 1664:21-1664:30
+  -- cells 180  TO-GOLDEN 1  AWAY-GOLDEN 0  STILL-WRONG 44  AGREE 135
+=== ASSOC INDEX NAME CELLS  (shape | owner | span | name | actual-is-implicit-wire)
+  g=1 pris=2 pat=1  TO-GOLDEN   SIZE | - | 1896:17-1896:26 | uvm_phase | -
+  g=1 pris=0 pat=1  TO-GOLDEN   SIZE | - | 1896:17-1896:26 | uvm_phase | IMPL
+  g=1 pris=2 pat=1  TO-GOLDEN   SIZE | - | 1946:17-1946:26 | uvm_phase | -
+  g=1 pris=0 pat=1  TO-GOLDEN   SIZE | - | 1946:17-1946:26 | uvm_phase | IMPL
+  g=13 pris=12 pat=12  STILL-WRONG SIZE | - | 49:23-49:37 | UVM_STREAMBITS | -
+  g=1 pris=3 pat=2  STILL-WRONG SIZE | uvm_pkg::uvm_phase::get_predecessors_for_successors | 1722:82-1722:91 | uvm_phase | -
+  g=1 pris=0 pat=1  TO-GOLDEN   SIZE | uvm_pkg::uvm_phase::get_predecessors_for_successors | 1722:82-1722:91 | uvm_phase | IMPL
+  g=1 pris=0 pat=0  STILL-WRONG SIZE | uvm_pkg::uvm_phase::get_predecessors_for_successors | 593:86-593:95 | uvm_phase | -
+  -- cells 19  TO-GOLDEN 5  AWAY-GOLDEN 0  STILL-WRONG 3  AGREE 11
+TOTALS: TO-GOLDEN 6  AWAY-GOLDEN 0  STILL-WRONG 47
+  PARTIAL     AIDX g=1 pris=3 pat=2  SIZE | uvm_pkg::uvm_phase::get_predecessors_for_successors | 1722:82-1722:91 | uvm_phase | -
+MOVED-WRONG 0
+######## Scoreboard/default
+=== IMPLICIT NETS  (module | name | span)
+  -- cells 4  TO-GOLDEN 0  AWAY-GOLDEN 0  STILL-WRONG 0  AGREE 4
+=== ASSOC INDEX NAME CELLS  (shape | owner | span | name | actual-is-implicit-wire)
+  g=13 pris=12 pat=12  STILL-WRONG SIZE | - | 49:23-49:37 | UVM_STREAMBITS | -
+  g=2 pris=3 pat=3  STILL-WRONG SIZE | uvm_pkg::uvm_phase::get_predecessors_for_successors | 1722:82-1722:91 | uvm_phase | -
+  g=1 pris=0 pat=0  STILL-WRONG SIZE | uvm_pkg::uvm_phase::get_predecessors_for_successors | 593:86-593:95 | uvm_phase | -
+  -- cells 16  TO-GOLDEN 0  AWAY-GOLDEN 0  STILL-WRONG 3  AGREE 13
+TOTALS: TO-GOLDEN 0  AWAY-GOLDEN 0  STILL-WRONG 3
+MOVED-WRONG 0
+######## Scoreboard/testflags  SKIP-NOFILE
+######## MiniAmiq/default
+=== IMPLICIT NETS  (module | name | span)
+  -- cells 0  TO-GOLDEN 0  AWAY-GOLDEN 0  STILL-WRONG 0  AGREE 0
+=== ASSOC INDEX NAME CELLS  (shape | owner | span | name | actual-is-implicit-wire)
+  g=4 pris=0 pat=0  STILL-WRONG PROM | svaunit_pkg::uvm_phase::get_adjacent_predecessor_nodes | 1664:20-1664:31 | uvm_phase | -
+  g=4 pris=0 pat=0  STILL-WRONG PROM | svaunit_pkg::uvm_phase::get_adjacent_successor_nodes | 1693:18-1693:29 | uvm_phase | -
+  g=4 pris=0 pat=0  STILL-WRONG PROM | svaunit_pkg::uvm_phase::m_wait_for_pred | 1758:21-1758:32 | uvm_phase | -
+  g=4 pris=0 pat=0  STILL-WRONG PROM | svaunit_pkg::uvm_phase::wait_for_self_and_siblings_to_drop | 2131:15-2131:26 | uvm_phase | -
+  g=1 pris=3 pat=3  STILL-WRONG SIZE | - | 1664:21-1664:30 | uvm_phase | -
+  g=1 pris=3 pat=3  STILL-WRONG SIZE | - | 1693:19-1693:28 | uvm_phase | -
+  g=1 pris=3 pat=3  STILL-WRONG SIZE | - | 1758:22-1758:31 | uvm_phase | -
+  g=2 pris=4 pat=4  STILL-WRONG SIZE | - | 1896:17-1896:26 | uvm_phase | -
+  g=2 pris=4 pat=4  STILL-WRONG SIZE | - | 1946:17-1946:26 | uvm_phase | -
+  g=1 pris=3 pat=3  STILL-WRONG SIZE | - | 2131:16-2131:25 | uvm_phase | -
+  g=13 pris=12 pat=12  STILL-WRONG SIZE | - | 49:23-49:37 | UVM_STREAMBITS | -
+  g=2 pris=0 pat=0  STILL-WRONG SIZE | svaunit_pkg::uvm_phase::sync | 1896:17-1896:26 | uvm_phase | -
+  g=2 pris=0 pat=0  STILL-WRONG SIZE | svaunit_pkg::uvm_phase::unsync | 1946:17-1946:26 | uvm_phase | -
+  g=2 pris=3 pat=3  STILL-WRONG SIZE | uvm_pkg::uvm_phase::get_predecessors_for_successors | 1722:82-1722:91 | uvm_phase | -
+  g=1 pris=0 pat=0  STILL-WRONG SIZE | uvm_pkg::uvm_phase::get_predecessors_for_successors | 593:86-593:95 | uvm_phase | -
+  -- cells 23  TO-GOLDEN 0  AWAY-GOLDEN 0  STILL-WRONG 15  AGREE 8
+TOTALS: TO-GOLDEN 0  AWAY-GOLDEN 0  STILL-WRONG 15
+MOVED-WRONG 0
+######## MiniAmiq/testflags
+=== IMPLICIT NETS  (module | name | span)
+  -- cells 0  TO-GOLDEN 0  AWAY-GOLDEN 0  STILL-WRONG 0  AGREE 0
+=== ASSOC INDEX NAME CELLS  (shape | owner | span | name | actual-is-implicit-wire)
+  g=4 pris=0 pat=0  STILL-WRONG PROM | svaunit_pkg::uvm_phase::get_adjacent_predecessor_nodes | 1664:20-1664:31 | uvm_phase | -
+  g=4 pris=0 pat=0  STILL-WRONG PROM | svaunit_pkg::uvm_phase::get_adjacent_successor_nodes | 1693:18-1693:29 | uvm_phase | -
+  g=4 pris=0 pat=0  STILL-WRONG PROM | svaunit_pkg::uvm_phase::m_wait_for_pred | 1758:21-1758:32 | uvm_phase | -
+  g=4 pris=0 pat=0  STILL-WRONG PROM | svaunit_pkg::uvm_phase::wait_for_self_and_siblings_to_drop | 2131:15-2131:26 | uvm_phase | -
+  g=1 pris=3 pat=3  STILL-WRONG SIZE | - | 1664:21-1664:30 | uvm_phase | -
+  g=1 pris=3 pat=3  STILL-WRONG SIZE | - | 1693:19-1693:28 | uvm_phase | -
+  g=1 pris=3 pat=3  STILL-WRONG SIZE | - | 1758:22-1758:31 | uvm_phase | -
+  g=2 pris=4 pat=4  STILL-WRONG SIZE | - | 1896:17-1896:26 | uvm_phase | -
+  g=2 pris=4 pat=4  STILL-WRONG SIZE | - | 1946:17-1946:26 | uvm_phase | -
+  g=1 pris=3 pat=3  STILL-WRONG SIZE | - | 2131:16-2131:25 | uvm_phase | -
+  g=13 pris=12 pat=12  STILL-WRONG SIZE | - | 49:23-49:37 | UVM_STREAMBITS | -
+  g=2 pris=0 pat=0  STILL-WRONG SIZE | svaunit_pkg::uvm_phase::sync | 1896:17-1896:26 | uvm_phase | -
+  g=2 pris=0 pat=0  STILL-WRONG SIZE | svaunit_pkg::uvm_phase::unsync | 1946:17-1946:26 | uvm_phase | -
+  g=2 pris=3 pat=3  STILL-WRONG SIZE | uvm_pkg::uvm_phase::get_predecessors_for_successors | 1722:82-1722:91 | uvm_phase | -
+  g=1 pris=0 pat=0  STILL-WRONG SIZE | uvm_pkg::uvm_phase::get_predecessors_for_successors | 593:86-593:95 | uvm_phase | -
+  -- cells 23  TO-GOLDEN 0  AWAY-GOLDEN 0  STILL-WRONG 15  AGREE 8
+TOTALS: TO-GOLDEN 0  AWAY-GOLDEN 0  STILL-WRONG 15
+MOVED-WRONG 0
+######## BuildUVMPkg/default
+=== IMPLICIT NETS  (module | name | span)
+  -- cells 0  TO-GOLDEN 0  AWAY-GOLDEN 0  STILL-WRONG 0  AGREE 0
+=== ASSOC INDEX NAME CELLS  (shape | owner | span | name | actual-is-implicit-wire)
+  g=7 pris=6 pat=6  STILL-WRONG SIZE | - | 7840:23-7840:37 | UVM_STREAMBITS | -
+  g=30 pris=28 pat=28  STILL-WRONG SIZE | - | 7859:14-7859:42 | UVM_FIELD_FLAG_RESERVED_BITS | -
+  g=1 pris=0 pat=0  STILL-WRONG SIZE | uvm_pkg::uvm_phase::get_predecessors_for_successors | 32947:86-32947:95 | uvm_phase | -
+  g=2 pris=3 pat=3  STILL-WRONG SIZE | uvm_pkg::uvm_phase::get_predecessors_for_successors | 34602:82-34602:91 | uvm_phase | -
+  -- cells 25  TO-GOLDEN 0  AWAY-GOLDEN 0  STILL-WRONG 4  AGREE 21
+TOTALS: TO-GOLDEN 0  AWAY-GOLDEN 0  STILL-WRONG 4
+MOVED-WRONG 0
+######## BuildUVMPkg/testflags
+=== IMPLICIT NETS  (module | name | span)
+  -- cells 0  TO-GOLDEN 0  AWAY-GOLDEN 0  STILL-WRONG 0  AGREE 0
+=== ASSOC INDEX NAME CELLS  (shape | owner | span | name | actual-is-implicit-wire)
+  g=7 pris=6 pat=6  STILL-WRONG SIZE | - | 7840:23-7840:37 | UVM_STREAMBITS | -
+  g=30 pris=28 pat=28  STILL-WRONG SIZE | - | 7859:14-7859:42 | UVM_FIELD_FLAG_RESERVED_BITS | -
+  g=1 pris=0 pat=0  STILL-WRONG SIZE | uvm_pkg::uvm_phase::get_predecessors_for_successors | 32947:86-32947:95 | uvm_phase | -
+  g=2 pris=3 pat=3  STILL-WRONG SIZE | uvm_pkg::uvm_phase::get_predecessors_for_successors | 34602:82-34602:91 | uvm_phase | -
+  -- cells 25  TO-GOLDEN 0  AWAY-GOLDEN 0  STILL-WRONG 4  AGREE 21
+TOTALS: TO-GOLDEN 0  AWAY-GOLDEN 0  STILL-WRONG 4
+MOVED-WRONG 0

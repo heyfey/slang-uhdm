@@ -1,0 +1,82 @@
+r10uvm135 — BOUNDARY.  MEASUREMENT ONLY.  bound135.sh over a COPY of the WHOLE
+probe tree (NO path filter), both MODEs and both VIEWs, PRISTINE vs PATCHED.
+Every run asserts PROCESSED == LISTED and PRIS_REJECT == PATCHED_REJECT.
+
+== r10uvm135_bound_file_def
+PROCESSED=3934 LISTED=3934 DIFFER=6 PRIS_REJECT=151 PATCHED_REJECT=151
+   differing arms:
+     ./r10buvm22repro/g22.sv
+     ./r10uvm135repro/g135_a1.sv
+     ./r10uvm135repro/g135_a2.sv
+     ./r10uvm135repro/g135_a3.sv
+     ./r10uvm135repro/g135_a4.sv
+     ./r10uvm40repro/t57a/dut.sv
+   ASYM: none
+
+== r10uvm135_bound_file_elab
+PROCESSED=3934 LISTED=3934 DIFFER=6 PRIS_REJECT=165 PATCHED_REJECT=165
+   differing arms:
+     ./r10buvm22repro/g22.sv
+     ./r10uvm135repro/g135_a1.sv
+     ./r10uvm135repro/g135_a2.sv
+     ./r10uvm135repro/g135_a3.sv
+     ./r10uvm135repro/g135_a4.sv
+     ./r10uvm40repro/t57a/dut.sv
+   ASYM: none
+
+== r10uvm135_bound_dir_def
+PROCESSED=1580 LISTED=1580 DIFFER=10 PRIS_REJECT=128 PATCHED_REJECT=128
+   differing arms:
+     ./r10buvm22repro
+     ./r10uvm130repro
+     ./r10uvm135repro
+     ./r10uvm40repro/t57a
+     ./r10uvm75repro
+     ./r10uvm76repro
+     ./r10uvm88repro
+     ./r10v109repro
+     ./r10v117repro
+     ./r10v130repro
+   ASYM: none
+
+== r10uvm135_bound_dir_elab
+PROCESSED=1580 LISTED=1580 DIFFER=11 PRIS_REJECT=134 PATCHED_REJECT=134
+   differing arms:
+     ./r10buvm22repro
+     ./r10uvm117repro
+     ./r10uvm130repro
+     ./r10uvm135repro
+     ./r10uvm40repro/t57a
+     ./r10uvm75repro
+     ./r10uvm76repro
+     ./r10uvm88repro
+     ./r10v109repro
+     ./r10v117repro
+     ./r10v130repro
+   ASYM: none
+
+== READING OF EVERY DIFFERING ARM
+
+  r10uvm135repro/g135_a1..a4.sv  -- THIS pass's OWN arms (GRID.r10uvm135.txt).
+
+  r10uvm40repro/t57a/dut.sv  -- an EARLIER pass's arm that MOVED, and it moves
+  TOWARD golden.  The whole file-mode diff is 11 lines and they are one wire and
+  its binding: golden's own database (Surelog, run here) carries
+      logic_net: (work@top57.key57), line:31:14, endln:31:19
+  in work@top57 and the PRISTINE binary carried none.  Scored in
+  GRID.r10uvm135.txt: 3 TO-GOLDEN, 0 AWAY-GOLDEN, 0 MOVED-WRONG.
+
+  r10buvm22repro/g22.sv  -- residue R-ADDRCONST, § newArrayArgHoistNet130's own,
+  and NOT this law.  The whole diff is 24 lines of |vpiDecompile:/|UINT: values
+  inside the array_typespec our emitter mints for an associative TYPEDEF; the
+  values are .bss ADDRESSES of the emitting binary and every one of them shifts
+  by exactly 0x1000 (22478425 -> 22482521, 22477569 -> 22481665), the section's
+  shift between the two non-PIE binaries.  g22.sv's only associative dimension is
+  written [string] -- a type KEYWORD, which this law never touches.
+
+  r10uvm130repro, r10uvm75repro, r10uvm76repro, r10uvm88repro, r10uvm117repro,
+  r10v109repro, r10v117repro, r10v130repro (MODE=dir ONLY, not one of their files
+  differs alone)  -- ORDER-ONLY, and the coin is the PRISTINE binary's.  Sorting
+  both dumps makes every one of these 15 arm/view pairs BYTE-EQUAL, and the
+  pristine binary run FOUR times over r10uvm75repro's own directory produced FOUR
+  DIFFERENT dumps by itself (the macro-buffer SourceLocation coin, RESUME §9).

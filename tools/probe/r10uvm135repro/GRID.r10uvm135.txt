@@ -1,0 +1,82 @@
+r10uvm135 — GRID.  MEASUREMENT ONLY; the official uhdm-cmp is the judge.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+Binaries: pristine md5 583b10a735e405dcfaeb2f49695d6632, patched md5 a8d181a5efe5cb64ae89d780f8ebadd2 (both chmod 555 before any run).
+Each arm builds SIX databases (golden/pristine/patched x def/elab); every command
+and its own rc is echoed into the arm's cmds.txt, and every arm below ran 12/12 rc=0.
+
+######## ARM g135_a1.sv   (cmds rc!=0: 0)
+=== IMPLICIT NETS  (module | name | span)
+  g=2 pris=0 pat=2  TO-GOLDEN   work@topKindBeta135 | baseGammaCls135 | 39:25-39:40
+  g=2 pris=0 pat=2  TO-GOLDEN   work@topKindBeta135 | fwdRhoCls135 | 45:25-45:37
+  -- cells 2  TO-GOLDEN 2  AWAY-GOLDEN 0  STILL-WRONG 0  AGREE 0
+=== ASSOC INDEX NAME CELLS  (shape | owner | span | name | actual-is-implicit-wire)
+  g=0 pris=2 pat=2  STILL-WRONG PROM | - | 43:24-43:40 | baseGammaCls135 | -
+  g=2 pris=0 pat=0  STILL-WRONG PROM | - | 43:24-43:40 | tdEtaHandle135 | -
+  g=2 pris=0 pat=0  STILL-WRONG PROM | - | 44:24-44:60 | pkgScopedSigma135::scopedTauCls135 | -
+  g=0 pris=2 pat=2  STILL-WRONG PROM | - | 44:24-44:60 | scopedTauCls135 | -
+  -- cells 19  TO-GOLDEN 0  AWAY-GOLDEN 0  STILL-WRONG 4  AGREE 15
+TOTALS: TO-GOLDEN 2  AWAY-GOLDEN 0  STILL-WRONG 4
+MOVED-WRONG 0
+
+######## ARM g135_a2.sv   (cmds rc!=0: 0)
+=== IMPLICIT NETS  (module | name | span)
+  g=2 pris=0 pat=2  TO-GOLDEN   work@topHomeEps135 | idxPhiCls135 | 23:65-23:77
+  -- cells 1  TO-GOLDEN 1  AWAY-GOLDEN 0  STILL-WRONG 0  AGREE 0
+=== ASSOC INDEX NAME CELLS  (shape | owner | span | name | actual-is-implicit-wire)
+  g=2 pris=4 pat=2  TO-GOLDEN   SIZE | - | 26:29-26:41 | idxPhiCls135 | -
+  g=2 pris=0 pat=2  TO-GOLDEN   SIZE | - | 26:29-26:41 | idxPhiCls135 | IMPL
+  g=2 pris=0 pat=0  STILL-WRONG SIZE | - | 51:23-51:35 | idxPhiCls135 | -
+  g=0 pris=2 pat=2  STILL-WRONG SIZE | - | 66:27-66:39 | idxPhiCls135 | -
+  g=2 pris=0 pat=0  STILL-WRONG SIZE | - | 66:27-66:39 | idxPhiCls135 | IMPL
+  g=3 pris=7 pat=3  TO-GOLDEN   SIZE | pkgHomeDelta135::freeJjFn135 | 38:56-38:68 | idxPhiCls135 | -
+  g=4 pris=0 pat=4  TO-GOLDEN   SIZE | pkgHomeDelta135::freeJjFn135 | 38:56-38:68 | idxPhiCls135 | IMPL
+  g=3 pris=0 pat=0  STILL-WRONG SIZE | pkgHomeDelta135::propHomeChiCls135::oobCcFn135 | 19:55-19:67 | idxPhiCls135 | -
+  g=3 pris=10 pat=6  STILL-WRONG SIZE | pkgHomeDelta135::propHomeChiCls135::oobCcFn135 | 23:65-23:77 | idxPhiCls135 | -
+  g=4 pris=0 pat=4  TO-GOLDEN   SIZE | pkgHomeDelta135::propHomeChiCls135::oobCcFn135 | 23:65-23:77 | idxPhiCls135 | IMPL
+  -- cells 21  TO-GOLDEN 5  AWAY-GOLDEN 0  STILL-WRONG 5  AGREE 11
+TOTALS: TO-GOLDEN 6  AWAY-GOLDEN 0  STILL-WRONG 5
+  PARTIAL     AIDX g=3 pris=10 pat=6  SIZE | pkgHomeDelta135::propHomeChiCls135::oobCcFn135 | 23:65-23:77 | idxPhiCls135 | -
+MOVED-WRONG 0
+
+######## ARM g135_a3.sv   (cmds rc!=0: 0)
+=== IMPLICIT NETS  (module | name | span)
+  g=2 pris=0 pat=2  TO-GOLDEN   work@kidMnoMulti135 | keyAbcCls135 | 14:25-14:37
+  g=0 pris=2 pat=2  STILL-WRONG work@topStuMulti135 | ctlSizeZab135 | 30:24-30:37
+  g=0 pris=0 pat=2  AWAY        work@topStuMulti135 | keyAbcCls135 | 14:25-14:37
+  g=0 pris=2 pat=2  STILL-WRONG work@topYzaMulti135 | ctlSizeZab135 | 30:24-30:37
+  g=0 pris=0 pat=2  AWAY        work@topYzaMulti135 | keyAbcCls135 | 14:25-14:37
+  -- cells 6  TO-GOLDEN 1  AWAY-GOLDEN 2  STILL-WRONG 2  AGREE 1
+=== ASSOC INDEX NAME CELLS  (shape | owner | span | name | actual-is-implicit-wire)
+  -- cells 2  TO-GOLDEN 0  AWAY-GOLDEN 0  STILL-WRONG 0  AGREE 2
+TOTALS: TO-GOLDEN 1  AWAY-GOLDEN 2  STILL-WRONG 2
+  MOVED-WRONG NET g=0 pris=0 pat=2  work@topStuMulti135 | keyAbcCls135 | 14:25-14:37
+  MOVED-WRONG NET g=0 pris=0 pat=2  work@topYzaMulti135 | keyAbcCls135 | 14:25-14:37
+MOVED-WRONG 2
+
+######## ARM g135_a4.sv   (cmds rc!=0: 0)
+=== IMPLICIT NETS  (module | name | span)
+  g=2 pris=0 pat=2  TO-GOLDEN   work@topKiloParam135 | KEYBRAVO135 | 15:25-15:36
+  g=0 pris=0 pat=2  AWAY        work@topNovemberFree135 | KEYBRAVO135 | 15:25-15:36
+  g=0 pris=2 pat=2  STILL-WRONG work@topNovemberFree135 | ctlRomeoSize135 | 36:27-36:42
+  g=2 pris=0 pat=2  TO-GOLDEN   work@topNovemberFree135 | shadowGolfCls135 | 28:26-28:42
+  -- cells 5  TO-GOLDEN 2  AWAY-GOLDEN 1  STILL-WRONG 1  AGREE 1
+=== ASSOC INDEX NAME CELLS  (shape | owner | span | name | actual-is-implicit-wire)
+  g=2 pris=0 pat=0  STILL-WRONG PROM | - | 15:24-15:37 | KEYBRAVO135 | -
+  -- cells 5  TO-GOLDEN 0  AWAY-GOLDEN 0  STILL-WRONG 1  AGREE 4
+TOTALS: TO-GOLDEN 2  AWAY-GOLDEN 1  STILL-WRONG 2
+  MOVED-WRONG NET g=0 pris=0 pat=2  work@topNovemberFree135 | KEYBRAVO135 | 15:25-15:36
+MOVED-WRONG 1
+
+######## BOUNDARY ARM r10uvm40repro/t57a/dut.sv (an EARLIER pass's arm that MOVED)
+  (cmds rc!=0: 0)
+=== IMPLICIT NETS  (module | name | span)
+  g=2 pris=0 pat=2  TO-GOLDEN   work@top57 | key57 | 31:14-31:19
+  -- cells 1  TO-GOLDEN 1  AWAY-GOLDEN 0  STILL-WRONG 0  AGREE 0
+=== ASSOC INDEX NAME CELLS  (shape | owner | span | name | actual-is-implicit-wire)
+  g=2 pris=4 pat=2  TO-GOLDEN   SIZE | - | 114:17-114:22 | key57 | -
+  g=2 pris=0 pat=2  TO-GOLDEN   SIZE | - | 114:17-114:22 | key57 | IMPL
+  g=0 pris=2 pat=2  STILL-WRONG SIZE | - | 125:16-125:21 | key57 | -
+  g=2 pris=0 pat=0  STILL-WRONG SIZE | - | 125:16-125:21 | key57 | IMPL
+  -- cells 11  TO-GOLDEN 2  AWAY-GOLDEN 0  STILL-WRONG 2  AGREE 7
+TOTALS: TO-GOLDEN 3  AWAY-GOLDEN 0  STILL-WRONG 2
+MOVED-WRONG 0

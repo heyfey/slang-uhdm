@@ -5939,6 +5939,84 @@ private:
     // net pool: a class's home for an out-of-body method (§ 75 / § 107), the
     // package ITSELF for a free package subroutine (§ 117).  Null when the
     // body being emitted hoists nothing.
+    // § assocIdxNameHoistNet135 (r10uvm135) — AN ASSOCIATIVE-ARRAY INDEX TYPE
+    // WRITTEN AS A NAME IS COMPILED AS AN EXPRESSION, AND THAT EXPRESSION JOINS
+    // THE LATE-BINDING POOL — WHETHER OR NOT THE COMPILED RANGE KEEPS IT.
+    //
+    // THE SURELOG DECODE.  Surelog's grammar orders the dimension alternatives
+    // `unsized | unpacked | associative | queue`
+    // (`grammar/SV3_1aParser.g4:1212-1216`), and `unpacked_dimension` has an
+    // `OPEN_BRACKET constant_expression CLOSE_BRACKET` alternative (`:1195-1199`)
+    // that a bare IDENTIFIER matches — so `[uvm_phase]` parses as
+    // `paConstant_expression` and only a type KEYWORD (`[string]`, `[int]`, `[*]`)
+    // ever reaches `paAssociative_dimension`.  That is already
+    // § `assocIoRange9`'s decode (src/TaskFuncEmit.cpp), and this law adds the
+    // half § 9 did not read: `CompileHelper::compileRanges`'s
+    // `paConstant_expression` arm
+    // (`src/DesignCompile/CompileExpression.cpp:4166-4196`) compiles the
+    // bracket text AS AN EXPRESSION FIRST —
+    //   `expr *rexp = compileExpression(component, fC, rexpr, compileDesign,
+    //                                   reduce, range, instance, muteErrors);`
+    // — and `compileExpression`'s identifier arm mints a `ref_obj`, tries
+    // `bindVariable` and, on failure, calls
+    // `component->needLateBinding(ref)` (`CompileExpression.cpp:5769-5788`).
+    // ONLY THEN, and only when `reduce == Reduce::Yes`, does the code notice the
+    // name is a TYPE (`compileTypespec` succeeds, `:4096-4133`), build a FRESH
+    // `[UINT:0 : STRING:associative]` range and `continue` — DISCARDING the
+    // first range and the `ref_obj` inside it.  The discarded reference is
+    // already in the pool.  So:
+    //   * a dimension whose range keeps the SIZE model (`<name> - 1`: every
+    //     io_decl range, and every body local outside the elaborated listing)
+    //     carries a VISIBLE `ref_obj` that `UhdmWriter::lateBinding` binds to
+    //     the implicit wire;
+    //   * a dimension the elaborated listing PROMOTES to the associative form
+    //     carries an ORPHANED one — invisible in the dump, but it still MINTS
+    //     the wire and still stamps it with ITS OWN SPAN.
+    // The mint itself is the shared one (`UhdmWriter.cpp:3982-4004`,
+    // § `oobRefVarLocalHoistNet107` / § `pkgFreeSubRefVarHoistNet117` /
+    // § `newArrayArgHoistNet130`): a `logic_net`, `VpiNetType(1)`, the
+    // REFERENCE's span, parent the top module, ONE wire per NAME per module.
+    //
+    // WHICH BODIES — `hoistHomePkg117()`, unchanged.  A class's IN-BODY member
+    // (a property, an in-body method's formal or local, an `extern` PROTOTYPE
+    // listing) belongs to the CLASS component, whose late-binding list
+    // `UhdmWriter.cpp:1067` never walks (`// lateBinding(s, classDef, c);`), so
+    // it hoists NOTHING; an OUT-OF-BODY definition's own listing and a free
+    // package subroutine's belong to the PACKAGE and hoist.  MEASURED in
+    // SeqDriver/SimpleUVM, `uvm-1.2 base/uvm_phase.svh`, class `uvm_phase`:
+    //   :575/:576/:579  `bit m_predecessors[uvm_phase]` etc, CLASS PROPERTIES
+    //                                                        -> golden NONE
+    //   :593:86         the `extern` PROTOTYPE's formal       -> golden NONE
+    //   :635:44         `m_aa2string`, an IN-BODY method's formal
+    //                                                        -> golden NONE
+    //   :1664:21        `bit predecessors[uvm_phase]`, an OOB body local,
+    //                   PROMOTED (orphan)   -> golden MINTS the wire HERE, and
+    //                                          the wire keeps THIS span
+    //   :1693 :1758 :1896 :1946 :2131  the other OOB body locals, promoted
+    //                                                        -> orphans
+    //   :1722:82        `output bit pred_of_succ[uvm_phase]`, the OOB
+    //                   definition's FORMAL, size model      -> golden BINDS
+    //                                          the visible ref to that wire
+    // and the package-clone / def-listing copies of the same bodies stay
+    // unbound, exactly as § 117 already models for its own reference kind.
+    //
+    // WHICH BRACKET NAMES — `assocIdxNameHoistable135` (src/EmitHelpers.h), and
+    // it is NOT § `assocIoRange9`'s range-SHAPE question.  `compileExpression`
+    // opens with `getObject` (`CompileExpression.cpp:237-260`), which returns a
+    // TYPESPEC for any name in `component->getDataType(...)` — every `typedef`,
+    // including a typedef of a CLASS HANDLE — so no `ref_obj` is minted and no
+    // wire follows.  A CLASS NAME and a TYPE PARAMETER's name are in neither
+    // map and fall through to the identifier arm; a SCOPED name (`pkg::T`) is
+    // resolved by the class-scope arm (`:4463-4519`) and never reaches it.  Grid
+    // arm `g135_a1.sv` measures all twelve spellings.
+    //
+    // A REF-LESS POOL ENTRY.  The promoted sites have no `ref_obj` of ours to
+    // bind — Surelog's is orphaned and never reaches its database either — so
+    // their pool entry carries `ref == nullptr`: it mints and spans the wire and
+    // binds nothing.  `bindHoistedClassPropRefs` skips the `Actual_group` write
+    // for those.
+    void hoistAssocIdxName135(UHDM::ref_obj* ref, std::string_view name,
+                              slang::SourceRange range);
     const slang::ast::Symbol* hoistHomePkg117() const {
         return (inClassBodyEmit && classBodyHomePkg75) ? classBodyHomePkg75
                                                        : pkgFreeSubHomePkg117;

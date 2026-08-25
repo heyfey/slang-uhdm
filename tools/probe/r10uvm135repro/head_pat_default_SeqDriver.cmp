@@ -1,0 +1,80 @@
+LHS:
+decompile:
+ref_var: (uvm_pkg::uvm_phase::get_predecessors_for_successors::successors), id:14510, line:1730:16, endln:1730:26
+|vpiParent:
+\_foreach_stmt: (uvm_pkg::uvm_phase::get_predecessors_for_successors), id:14508, line:1730:7, endln:1730:14
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_phase::get_predecessors_for_successors::successors), id:14511
+  |vpiParent:
+  \_ref_var: (uvm_pkg::uvm_phase::get_predecessors_for_successors::successors), id:14510, line:1730:16, endln:1730:26
+  |vpiFullName:uvm_pkg::uvm_phase::get_predecessors_for_successors::successors
+  |vpiActual:
+  \_array_typespec: , id:14495, line:1724:15, endln:1724:27
+|vpiName:successors
+|vpiFullName:uvm_pkg::uvm_phase::get_predecessors_for_successors::successors
+
+decompile:
+ref_var: (uvm_pkg::uvm_phase::get_predecessors_for_successors::successors), id:14510, line:1730:16, endln:1730:26
+|vpiParent:
+\_foreach_stmt: (uvm_pkg::uvm_phase::get_predecessors_for_successors), id:14508, line:1730:7, endln:1730:14
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_phase::get_predecessors_for_successors::successors), id:14511
+  |vpiParent:
+  \_ref_var: (uvm_pkg::uvm_phase::get_predecessors_for_successors::successors), id:14510, line:1730:16, endln:1730:26
+  |vpiFullName:uvm_pkg::uvm_phase::get_predecessors_for_successors::successors
+  |vpiActual:
+  \_array_typespec: , id:14495, line:1724:15, endln:1724:27
+|vpiName:successors
+|vpiFullName:uvm_pkg::uvm_phase::get_predecessors_for_successors::successors
+RHS:
+decompile:
+hier_path: (successors[s].m_predecessors), id:50490, line:1730:16, endln:1730:44
+|vpiParent:
+\_foreach_stmt: (uvm_pkg::uvm_phase::get_predecessors_for_successors), id:50489, line:1730:7, endln:1730:14
+|vpiActual:
+\_bit_select: (successors[s]), id:50491, line:1730:16, endln:1730:26
+  |vpiParent:
+  \_hier_path: (successors[s].m_predecessors), id:50490, line:1730:16, endln:1730:44
+  |vpiName:successors
+  |vpiFullName:successors[s]
+  |vpiIndex:
+  \_ref_obj: (uvm_pkg::uvm_phase::get_predecessors_for_successors::s), id:50492, line:1730:27, endln:1730:28
+    |vpiParent:
+    \_hier_path: (successors[s].m_predecessors), id:50490, line:1730:16, endln:1730:44
+    |vpiName:s
+    |vpiFullName:uvm_pkg::uvm_phase::get_predecessors_for_successors::s
+    |vpiActual:
+    \_array_var: (uvm_pkg::uvm_phase::get_predecessors_for_successors::s), id:50487, line:1729:25, endln:1729:26
+|vpiActual:
+\_ref_obj: (uvm_pkg::uvm_phase::get_predecessors_for_successors::m_predecessors), id:50493, line:1730:30, endln:1730:44
+  |vpiParent:
+  \_hier_path: (successors[s].m_predecessors), id:50490, line:1730:16, endln:1730:44
+  |vpiName:m_predecessors
+  |vpiFullName:uvm_pkg::uvm_phase::get_predecessors_for_successors::m_predecessors
+|vpiFullName:successors[s].m_predecessors
+
+decompile:
+hier_path: (successors[s].m_predecessors), id:50490, line:1730:16, endln:1730:44
+|vpiParent:
+\_foreach_stmt: (uvm_pkg::uvm_phase::get_predecessors_for_successors), id:50489, line:1730:7, endln:1730:14
+|vpiActual:
+\_bit_select: (successors[s]), id:50491, line:1730:16, endln:1730:26
+  |vpiParent:
+  \_hier_path: (successors[s].m_predecessors), id:50490, line:1730:16, endln:1730:44
+  |vpiName:successors
+  |vpiFullName:successors[s]
+  |vpiIndex:
+  \_ref_obj: (uvm_pkg::uvm_phase::get_predecessors_for_successors::s), id:50492, line:1730:27, endln:1730:28
+    |vpiParent:
+    \_hier_path: (successors[s].m_predecessors), id:50490, line:1730:16, endln:1730:44
+    |vpiName:s
+    |vpiFullName:uvm_pkg::uvm_phase::get_predecessors_for_successors::s
+    |vpiActual:
+    \_array_var: (uvm_pkg::uvm_phase::get_predecessors_for_successors::s), id:50487, line:1729:25, endln:1729:26
+|vpiActual:
+\_ref_obj: (uvm_pkg::uvm_phase::get_predecessors_for_successors::m_predecessors), id:50493, line:1730:30, endln:1730:44
+  |vpiParent:
+  \_hier_path: (successors[s].m_predecessors), id:50490, line:1730:16, endln:1730:44
+  |vpiName:m_predecessors
+  |vpiFullName:uvm_pkg::uvm_phase::get_predecessors_for_successors::m_predecessors
+|vpiFullName:successors[s].m_predecessors

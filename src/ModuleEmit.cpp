@@ -5779,7 +5779,13 @@ void UhdmExporter::bindHoistedClassPropRefs(const InstanceBodySymbol& body,
             nets->push_back(inet9);
             bind9 = inet9;
         }
-        cpr.ref->Actual_group(bind9);
+        // § assocIdxNameHoistNet135 — a REF-LESS entry (an associative index
+        // name whose range the elaborated listing PROMOTED to the associative
+        // form) mints and spans the wire and binds nothing: Surelog's own
+        // reference for that site is orphaned by
+        // `CompileHelper::compileRanges` and never reaches its database.
+        if (cpr.ref)
+            cpr.ref->Actual_group(bind9);
     }
 }
 
