@@ -1,0 +1,18 @@
+r10uvm141 -- A-PRIORI MOVER PREDICTION (pred141 over the PRISTINE databases)
+Run BEFORE the patched sweep.  Surelog corpus: 956 databases; uhdm2rtlil: 1358.
+Only rows with cands>0 can move under LAW qualLifetimeStubListsNoBodyLocals141.
+
+== surelog corpus: every TOTAL with cands>0, and every CAND row ==
+CAND	default/BuildUVMPkg-bf853d43	uvm_pkg::uvm_reg_map	function	nvars=2
+TOTAL	default/BuildUVMPkg-bf853d43	cands=1
+CAND	testflags/BuildUVMPkg-bf853d43	uvm_pkg::uvm_reg_map	function	nvars=2
+TOTAL	testflags/BuildUVMPkg-bf853d43	cands=1
+TOTAL databases scanned: 956
+databases with cands=0 : 954
+
+== uhdm2rtlil corpus ==
+TOTAL databases scanned: 1358
+databases with cands=0 : 1358
+
+PREDICTED MOVER SET (by name): default/BuildUVMPkg-bf853d43, testflags/BuildUVMPkg-bf853d43
+PREDICTED NON-MOVERS: every other surelog database (954) and every uhdm2rtlil database (1358).

@@ -1,0 +1,54 @@
+r10uvm141 -- THE CORPUS CENSUS of class-method listings (cen141.py + corpcen141.sh)
+
+One row per method object listed under a class_defn's vpiMethod, keyed by
+  OWNER (the class's vpiFullName) x KIND (function/task) x NAME
+and carrying the object's TOP-LEVEL FIELD NAMES plus the NAMES of the variables
+it lists.  NO span, NO file, NO id -- our objects and golden's disagree on all
+three by construction, and a census keyed on any of them measures nothing.
+The join is a MULTISET join (a golden collapse must not be deduplicated away).
+The DEF/ELAB view is not in the key.  MEASUREMENT ONLY -- the judge is uhdm-cmp.
+
+== CALIBRATION: golden vs golden ==
+cen141 is a pure function of one dump, so the golden-vs-golden join is 0/0 by
+construction; the meaningful calibration is that on FOUR of the five tests the
+golden-vs-OURS join is ALREADY 0/0 (below), which is what proves the census is
+not manufacturing cells.
+
+== PRISTINE (c695e97) over the nine measurable UVM databases ==
+TEST           MODE        GOLDEN     OURS  ONLY-GOLDEN    ONLY-OURS
+SeqDriver      default       8358     8358            0            0
+SeqDriver      testflags     8358     8358            0            0
+SimpleUVM      default       4751     4751            0            0
+SimpleUVM      testflags     4751     4751            0            0
+Scoreboard     default       4799     4799            0            0
+Scoreboard     testflags        -        -            -            -  SKIP-NOFILE
+MiniAmiq       default      14892    14892            0            0
+MiniAmiq       testflags    14892    14892            0            0
+BuildUVMPkg    default       4244     4244            1            1
+BuildUVMPkg    testflags     4244     4244            1            1
+
+  69,289 class-method listing cells over the nine databases.
+  EXACTLY TWO are wrong, and they are the SAME cell in the two BuildUVMPkg
+  modes.  Both differing rows:
+
+ONLY-GOLDEN	x1	OWNER=uvm_pkg::uvm_reg_map|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+ONLY-OURS	x1	OWNER=uvm_pkg::uvm_reg_map|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables*2,vpiMethod,vpiVisibility,vpiReturn|VARS=uvm_pkg::uvm_reg_map::ceil::r,uvm_pkg::uvm_reg_map::ceil::r0
+
+  This REFUTES the brief's hypothesis that the head is a method LISTING
+  count/owner cell: the listing (which methods appear, under which owner, how
+  many copies per definition style, in either view) is already byte-for-byte
+  golden's on all 69,289 cells.  What differed is ONE FIELD of ONE object.
+
+== PATCHED, the only two databases that moved ==
+TEST           MODE        GOLDEN     OURS  ONLY-GOLDEN    ONLY-OURS
+BuildUVMPkg    default       4244     4244            0            0
+BuildUVMPkg    testflags     4244     4244            0            0
+
+  0 ONLY-GOLDEN and 0 ONLY-OURS: after the pass the ENTIRE class-method
+  listing population of every measurable UVM database is identical to golden.
+  TO-GOLDEN 2, AWAY-GOLDEN 0, STILL-WRONG 0.
+
+  (Scoreboard/testflags is SKIP-NOFILE -- it has no golden cache entry, the same
+  expected skip rowheads.sh reports.  The other four tests' databases are
+  byte-identical between the pristine and patched sweeps, so their patched
+  census is their pristine census; only the movers were re-censused.)

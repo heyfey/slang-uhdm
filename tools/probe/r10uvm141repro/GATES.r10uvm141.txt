@@ -1,0 +1,81 @@
+r10uvm141 -- THE LANDING GATE BATTERY, all five, run in this worktree with both
+binaries FROZEN at immutable paths before any sweep and every cmds.txt audited
+by BINARY PATH.
+
+(1) BUILD
+    pristine  (c695e97, no edit)  md5 3e74edcd1880a7142b25e7fa2e0f92e1
+    patched   (this pass)         md5 0647faa1f2ddbc93c9b390ea1badce25
+    Both built -j 2; md5summed separately; both copied to chmod 555 paths
+    BEFORE any sweep ran.  The pristine md5 reproduces the campaign's own
+    c695e97 binary, so the control side is the real baseline.
+
+(2) GOLDENS
+    patched : PASS=23 FAIL=0   (SLANG_UHDM exported explicitly to the patched binary)
+    pristine: PASS=23          (control)
+    SLANG_UHDM=/bin/false: PASS=0 FAIL=23   (negative control -- the harness
+                                             silently defaults to the MAIN-TREE
+                                             binary if this is not exported)
+
+(3) uhdm2rtlil, testflags AND default
+    testflags: CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+    default  : CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+    ct8rows vs results/gate_uhdm2rtlil.csv          : PASS (byte-identical rows)
+    ct8rows vs this pass's OWN pristine control     : PASS (both modes)
+    cmds.txt audit: 729/729 name /tmp/<pass>/bin/patched, none the main tree
+    byteverify SELFCHECK=1: MOVERS 0 / 1358, PATH_SETS_IDENTICAL,
+                            SELFCHECK 1357/1358 flagged
+
+(4) surelog corpus, --mode both
+    default  : CMP_EQUAL 471 SLANG_REJECT 283 SURELOG_FAIL 25 CMP_NOTEQUAL 10 DEFERRED 5
+    testflags: CMP_EQUAL 466 SLANG_REJECT 284 SURELOG_FAIL 23 CMP_NOTEQUAL 9
+               DEFERRED 5 NO_DATABASE 3 UNTRANSLATABLE 2 TIMEOUT 1 NO_UHDM 1
+    ct8rows vs results/golden_surelog.csv : PASS -- 0 differing rows over 1588
+                                            (status AND dump column)
+    ct8rows vs this pass's OWN pristine control : PASS
+    NO ROW CONVERTED.  results/*.csv untouched.
+    cmds.txt audit: 1523/1523 name the patched binary.
+    The pristine control itself was first checked against the committed
+    baseline and was byte-identical, so the control is not stale.
+
+(5) BYTE MOVERS -- see MOVERS.r10uvm141.txt
+    surelog   : MOVERS 2 / 956, EXACTLY the two names pred141 predicted a priori
+                from the PRISTINE databases (default/BuildUVMPkg-bf853d43 and
+                testflags/BuildUVMPkg-bf853d43); attributed line by line by an
+                order-blind whole-dump diff -- 32 removed lines, 0 added, every
+                one of them uvm_reg_map::ceil's two body locals.
+    uhdm2rtlil: MOVERS 0 / 1358, as predicted (0 candidates).
+
+CANARIES
+    canaries.sh surelog   : ok=52 changed=0 absent=0
+    canaries.sh uhdm2rtlil: ok=8  changed=0 absent=0
+    ctcan2.sh EXPECT_UNKNOWN=1 (surelog)   : PASS
+    ctcan2.sh EXPECT_UNKNOWN=6 (uhdm2rtlil): PASS
+    canaudit.sh canaries.sh ctcan2.sh: audited=29 UNCOVERED=0 FENCE-BREACH=0
+    protected databases, md5 vs the pristine control:
+      InterfaceModPort   default/testflags 59a365f3ce2c  SAME
+      BlackParrotComplex default e3e354129d5a / testflags 73a10e8217e5  SAME
+      YosysOldOr         default/testflags d68e0796d62c  SAME
+      SVSwitch           default/testflags 4842211c4030  PIN HELD
+      YosysVerx          default/testflags 6ccda350c24a  PIN HELD
+
+HEADS (rowheads.sh, official uhdm-cmp, cmp lines / ^LHS: count)
+    TEST           MODE       PRISTINE  PATCHED
+    SeqDriver      default          26       26
+    SeqDriver      testflags        26       26
+    SimpleUVM      default         334      334
+    SimpleUVM      testflags       334      334
+    Scoreboard     default         334      334
+    Scoreboard     testflags   SKIP-NOFILE (expected)
+    MiniAmiq       default          26       26
+    MiniAmiq       testflags        26       26
+    BuildUVMPkg    default          83       55   <-- head CLEARED, new object
+    BuildUVMPkg    testflags        83       55   <-- head CLEARED, new object
+    Earlgrey_0_1   default          15       15
+    Earlgrey_0_1   testflags        15       15
+    Rggen          default           0        0
+    Rggen          testflags   SKIP-NOFILE (expected)
+    One head per run everywhere (grep -c '^LHS:' == 1; Rggen has none).
+
+FENCE: the four slang-fenced tests are never dispatched by any driver here and
+are not spelled individually in any artifact of this pass (canaudit.sh's own
+fence list is the only place their names occur).

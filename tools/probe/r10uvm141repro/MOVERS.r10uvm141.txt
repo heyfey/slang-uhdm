@@ -1,0 +1,70 @@
+r10uvm141 -- BYTE MOVERS, predicted then measured, then attributed line by line.
+
+== byteverify.sh SELFCHECK=1, surelog corpus (patched vs pristine control) ==
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm    patched=7fad711ca2ea pristine=f08ac22ae273
+MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  patched=7fad711ca2ea pristine=f08ac22ae273
+MOVERS: 2 / 956   -- EXACTLY the predicted set, by name
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+
+== byteverify.sh SELFCHECK=1, uhdm2rtlil corpus ==
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358  -- pred141 found no candidate in this corpus
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+
+== ATTRIBUTION: order-blind whole-dump diff (uhdm-dump, workdir path normalised, sorted) ==
+default : pristine 1077585 lines, patched 1077553 lines, 32 differing lines
+testflags: pristine 1077585 lines, patched 1077553 lines, 32 differing lines
+ALL 32 are REMOVALS (zero added lines), and every one of them names the two
+body locals of uvm_pkg::uvm_reg_map::ceil or their typespec chain:
+
+172823,172824d172822
+<           \_function: (uvm_pkg::uvm_reg_map), line:75228:1, endln:75228:6
+<           \_function: (uvm_pkg::uvm_reg_map), line:75228:1, endln:75228:6
+221348,221351d221345
+<             \_int_typespec: , line:75229:2, endln:75229:5
+< \_int_typespec: , line:75229:2, endln:75229:5
+<             \_int_typespec: , line:75230:2, endln:75230:5
+< \_int_typespec: , line:75230:2, endln:75230:5
+224400,224403d224393
+<             \_int_var: (uvm_pkg::uvm_reg_map::ceil::r0), line:75230:6, endln:75230:8
+<         \_int_var: (uvm_pkg::uvm_reg_map::ceil::r0), line:75230:6, endln:75230:8
+<             \_int_var: (uvm_pkg::uvm_reg_map::ceil::r), line:75229:6, endln:75229:7
+<         \_int_var: (uvm_pkg::uvm_reg_map::ceil::r), line:75229:6, endln:75229:7
+357188,357189d357177
+<           \_ref_typespec: (uvm_pkg::uvm_reg_map::ceil::r)
+<           \_ref_typespec: (uvm_pkg::uvm_reg_map::ceil::r0)
+456900,456901d456887
+<             |vpiActual:
+<             |vpiActual:
+623101,623104d623086
+<             |vpiFullName:uvm_pkg::uvm_reg_map::ceil::r
+<           |vpiFullName:uvm_pkg::uvm_reg_map::ceil::r
+<             |vpiFullName:uvm_pkg::uvm_reg_map::ceil::r0
+<           |vpiFullName:uvm_pkg::uvm_reg_map::ceil::r0
+741900d741881
+<           |vpiName:r
+741922d741902
+<           |vpiName:r0
+926494,926497d926473
+<             |vpiParent:
+<             |vpiParent:
+<           |vpiParent:
+<           |vpiParent:
+990491,990492d990466
+<           |vpiSigned:1
+<           |vpiSigned:1
+993149,993150d993122
+<   |vpiSigned:1
+<   |vpiSigned:1
+1057864,1057865d1057835
+<           |vpiTypespec:
+<           |vpiTypespec:
+1065248,1065249d1065217
+<         |vpiVariables:
+<         |vpiVariables:
+
+Scoreboard/default -- the ~50/50 vpiTaskFunc-order COIN -- did NOT move this run
+(byteverify names it in neither corpus), so no coin attribution was needed.

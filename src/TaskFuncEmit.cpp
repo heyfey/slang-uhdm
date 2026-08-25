@@ -5959,7 +5959,38 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // which was that arm's own cmp head.
             bool ctorNoVars71 =
                 (sub.flags & MethodFlags::Constructor) != MethodFlags::None;
-            if (!fvars->empty() && !ctorNoVars71)
+            // § qualLifetimeStubListsNoBodyLocals141 — the LAST vector the
+            // pass-46 stub was still carrying.  When a class method is written
+            // with a QUALIFIER *and* a written LIFETIME,
+            // `CompileClass::compile_class_method_` hands `compileFunction`
+            // the unadvanced qualifier node, so `Child()` of it is the
+            // LIFETIME node instead of the `Function_body_declaration`
+            // (CompileStmt.cpp:1844's unwrap `if` never fires) and EVERY node
+            // derived from there is invalid: the name, the `Tf_port_list`,
+            // and the `Statement_or_null` the body's declarations are
+            // compiled from.  § qualifiedLifetimeMethodLosesNamePortsBody46
+            // already drops the name (:3104), the io_decls (:4938) and the
+            // body (:6125/:6240) for exactly this predicate; the BODY LOCALS
+            // are the same casualty and were the only thing left.
+            //
+            // MEASURED on arm A (g141_a_vars.sv), eleven single-method classes
+            // in both views: golden's stub prints vpiParent, vpiFullName,
+            // vpiMethod, vpiVisibility, [vpiVirtual] and — for a FUNCTION —
+            // vpiReturn, and NOTHING else, whether the locals are
+            // initialised (ca1/ca3/ca4/ca5), bare (ca8), inside a named begin
+            // block (ca7) or absent (ca2), and whether the subroutine is a
+            // function or a TASK (ca6).  The three controls that write only
+            // ONE of the two features (cb1 lifetime-only, cb2 qualifier-only,
+            // cb3 neither) keep their locals on BOTH sides and are untouched.
+            //
+            // Corpus reach is the SAME single object pass 46 named:
+            // `uvm_pkg.sv:75228 local function automatic int unsigned ceil`
+            // in `uvm_reg_map`, whose `int r`/`int r0` are BuildUVMPkg's whole
+            // remaining head (`scope::Compare` reaches Variables at
+            // generated/src/scope.cpp:340, well before Return/Io_decls/Stmt,
+            // and golden's vector is null — hence `LHS: <null>` with the
+            // FUNCTION as RHS, the vector overload's lhs-null branch).
+            if (!fvars->empty() && !ctorNoVars71 && !qualLifetime46)
                 tf->Variables(fvars);
         }
 

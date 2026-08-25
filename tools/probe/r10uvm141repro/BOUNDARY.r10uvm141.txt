@@ -1,0 +1,71 @@
+r10uvm141 -- THE BOUNDARY GATE (bound141.sh, run from a COPY of the probe tree)
+
+Every .sv/.v in tools/probe, top level AND subdirectories, compiled in BOTH
+views with the pristine and the patched binary; an arm MOVES when its database
+bytes or its rc differ.  The file list is read on fd 3, children get </dev/null,
+PROCESSED is asserted against LISTED, and scratch is keyed on the RELATIVE path.
+
+LISTED=4079 PROCESSED=4079 PRODUCED_DBS=3935 MOVED_ARMS=5 RC_DIFFS=0
+
+MOVED ARMS:
+r10uvm141repro/g141_a_vars.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm141repro/g141_b_styles.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm141repro/g141_c_names.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm46repro/t64a/dut.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm47repro/t64a/dut.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+READING:
+  * g141_a_vars.sv / g141_b_styles.sv / g141_c_names.sv are THIS pass's own arms.
+    They are the POSITIVE CONTROL: a boundary gate that reported zero movers over
+    them could not see.
+  * r10uvm46repro/t64a/dut.sv and r10uvm47repro/t64a/dut.sv are the SAME source
+    (pass 47 copied pass 46's arm).  They are pass 46's own arms for
+    LAW qualifiedLifetimeMethodLosesNamePortsBody46 -- the law this pass extends --
+    so they are precisely the earlier-pass cells this law is allowed to move.
+    RE-MEASURED AGAINST GOLDEN below: they move TOWARD it.
+
+  Nothing under r10uvm77-79, r10uvm82-91, r10uvm84/85, r10uvm89, r10buvm3-15,
+  r10sd8-12 or any other committed boundary family moved at all.
+
+== r10uvm46repro/t64a re-measured against golden (arm141.sh + score141.sh) ==
+cmp lines vs golden, DEF : pristine 3930 -> patched 3874 (head object UNCHANGED:
+  the design-level Task_funcs size mismatch of pass 46's recorded, deliberately
+  unimplemented COLLAPSE; its decompile shrank by the 56 lines of the two surplus
+  stubs' body locals)
+cmp lines vs golden, ELAB: pristine 4546 -> patched 4490 (same object)
+
+DEF-pristine   goldencells=5    ourcells=10   ONLY-GOLDEN=1    ONLY-OURS=6   
+    ONLY-GOLDEN x1 OWNER=p64::c64|KIND=function|NAME=f_auto_2tok|FIELDS=vpiParent,vpiName,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiAutomatic,vpiReturn,vpiIODecl*2,vpiStmt|VARS=p64::c64::f_auto_2tok::r
+    ONLY-OURS   x1 OWNER=p64::c64|KIND=function|NAME=f_auto_2tok|FIELDS=vpiParent,vpiName,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn,vpiIODecl*2,vpiStmt|VARS=p64::c64::f_auto_2tok::r
+    ONLY-OURS   x2 OWNER=p64::c64|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-OURS   x1 OWNER=p64::c64|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=p64::c64::f_loc_auto_1tok::r
+    ONLY-OURS   x1 OWNER=p64::c64|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=p64::c64::f_loc_auto_2tok::r
+    ONLY-OURS   x1 OWNER=p64::c64|KIND=task|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility|VARS=
+DEF-patched    goldencells=5    ourcells=10   ONLY-GOLDEN=1    ONLY-OURS=6   
+    ONLY-GOLDEN x1 OWNER=p64::c64|KIND=function|NAME=f_auto_2tok|FIELDS=vpiParent,vpiName,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiAutomatic,vpiReturn,vpiIODecl*2,vpiStmt|VARS=p64::c64::f_auto_2tok::r
+    ONLY-OURS   x1 OWNER=p64::c64|KIND=function|NAME=f_auto_2tok|FIELDS=vpiParent,vpiName,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn,vpiIODecl*2,vpiStmt|VARS=p64::c64::f_auto_2tok::r
+    ONLY-OURS   x4 OWNER=p64::c64|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-OURS   x1 OWNER=p64::c64|KIND=task|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility|VARS=
+ELAB-pristine  goldencells=5    ourcells=10   ONLY-GOLDEN=1    ONLY-OURS=6   
+    ONLY-GOLDEN x1 OWNER=p64::c64|KIND=function|NAME=f_auto_2tok|FIELDS=vpiParent,vpiName,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiAutomatic,vpiReturn,vpiIODecl*2,vpiStmt|VARS=p64::c64::f_auto_2tok::r
+    ONLY-OURS   x1 OWNER=p64::c64|KIND=function|NAME=f_auto_2tok|FIELDS=vpiParent,vpiName,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn,vpiIODecl*2,vpiStmt|VARS=p64::c64::f_auto_2tok::r
+    ONLY-OURS   x2 OWNER=p64::c64|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-OURS   x1 OWNER=p64::c64|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=p64::c64::f_loc_auto_1tok::r
+    ONLY-OURS   x1 OWNER=p64::c64|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=p64::c64::f_loc_auto_2tok::r
+    ONLY-OURS   x1 OWNER=p64::c64|KIND=task|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility|VARS=
+ELAB-patched   goldencells=5    ourcells=10   ONLY-GOLDEN=1    ONLY-OURS=6   
+    ONLY-GOLDEN x1 OWNER=p64::c64|KIND=function|NAME=f_auto_2tok|FIELDS=vpiParent,vpiName,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiAutomatic,vpiReturn,vpiIODecl*2,vpiStmt|VARS=p64::c64::f_auto_2tok::r
+    ONLY-OURS   x1 OWNER=p64::c64|KIND=function|NAME=f_auto_2tok|FIELDS=vpiParent,vpiName,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn,vpiIODecl*2,vpiStmt|VARS=p64::c64::f_auto_2tok::r
+    ONLY-OURS   x4 OWNER=p64::c64|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-OURS   x1 OWNER=p64::c64|KIND=task|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility|VARS=
+
+  ONLY-GOLDEN 1 -> 1 (UNCHANGED; it is the class-method vpiAutomatic residue,
+  a DIFFERENT and pre-existing gap -- see the README's residues).
+  ONLY-OURS   6 -> 6 (UNCHANGED IN COUNT: pass 46's collapse surplus).  What
+  changed is their SHAPE: the two surplus stubs that used to carry
+  vpiVariables (f_loc_auto_1tok::r, f_loc_auto_2tok::r) now print golden's exact
+  stub field list.  MOVED-WRONG 0, AWAY-GOLDEN 0.
+
+== r10uvm47repro/t64a ==
+  Byte-identical source to r10uvm46repro/t64a; identical numbers
+  (DEF 3930 -> 3874, ELAB 4546 -> 4490).

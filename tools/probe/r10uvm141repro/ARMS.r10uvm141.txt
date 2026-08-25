@@ -1,0 +1,206 @@
+r10uvm141 -- THE GRIDS.  Every cell built with Surelog in BOTH views (-parse and
+-parse -elabuhdm) and with the frozen pristine and patched binaries; scored by
+cen141's MULTISET join over class-method listings and judged by the official
+uhdm-cmp.  LHS IS ALWAYS GOLDEN.  Every child rc is printed (rc=139 is a
+SEGFAULT that verify_golden would have mislabelled SLANG_REJECT).
+
+==================== ARM A -- g141_a_vars.sv ====================
+qualifier x written lifetime x body-local SHAPE, one affected method per class
+so nothing collapses; three controls writing only ONE of the two features.
+
+SL    rc=0
+SLe   rc=0
+pris  rc=0
+prisE rc=0
+patc  rc=0
+patcE rc=0
+g-vs-o cmp rc=255 lines=4176 heads=1
+g-vs-q cmp rc=255 lines=3924 heads=1
+ge-vs-oe cmp rc=255 lines=5904 heads=1
+ge-vs-qe cmp rc=255 lines=5652 heads=1
+WD=/tmp/r10uvm141_arms/A
+
+DEF-pristine   goldencells=11   ourcells=11   ONLY-GOLDEN=8    ONLY-OURS=8   
+    ONLY-GOLDEN x1 OWNER=p141a::ca1|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-GOLDEN x1 OWNER=p141a::ca3|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-GOLDEN x1 OWNER=p141a::ca4|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiVirtual,vpiReturn|VARS=
+    ONLY-GOLDEN x1 OWNER=p141a::ca5|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-GOLDEN x1 OWNER=p141a::ca6|KIND=task|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility|VARS=
+    ONLY-GOLDEN x1 OWNER=p141a::ca7|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-GOLDEN x1 OWNER=p141a::ca8|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-GOLDEN x1 OWNER=p141a::cb1|KIND=function|NAME=g1|FIELDS=vpiParent,vpiName,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiAutomatic,vpiReturn,vpiIODecl,vpiStmt|VARS=p141a::cb1::g1::q
+    ONLY-OURS   x1 OWNER=p141a::ca1|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables*2,vpiMethod,vpiVisibility,vpiReturn|VARS=p141a::ca1::f1::r,p141a::ca1::f1::r0
+    ONLY-OURS   x1 OWNER=p141a::ca3|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=p141a::ca3::f3::q
+    ONLY-OURS   x1 OWNER=p141a::ca4|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiVirtual,vpiReturn|VARS=p141a::ca4::f4::q
+    ONLY-OURS   x1 OWNER=p141a::ca5|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=p141a::ca5::f5::q
+    ONLY-OURS   x1 OWNER=p141a::ca6|KIND=task|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility|VARS=p141a::ca6::t6::q
+    ONLY-OURS   x1 OWNER=p141a::ca7|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=p141a::ca7::f7::top
+    ONLY-OURS   x1 OWNER=p141a::ca8|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables*2,vpiMethod,vpiVisibility,vpiReturn|VARS=p141a::ca8::f8::u,p141a::ca8::f8::v
+    ONLY-OURS   x1 OWNER=p141a::cb1|KIND=function|NAME=g1|FIELDS=vpiParent,vpiName,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn,vpiIODecl,vpiStmt|VARS=p141a::cb1::g1::q
+DEF-patched    goldencells=11   ourcells=11   ONLY-GOLDEN=1    ONLY-OURS=1   
+    ONLY-GOLDEN x1 OWNER=p141a::cb1|KIND=function|NAME=g1|FIELDS=vpiParent,vpiName,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiAutomatic,vpiReturn,vpiIODecl,vpiStmt|VARS=p141a::cb1::g1::q
+    ONLY-OURS   x1 OWNER=p141a::cb1|KIND=function|NAME=g1|FIELDS=vpiParent,vpiName,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn,vpiIODecl,vpiStmt|VARS=p141a::cb1::g1::q
+ELAB-pristine  goldencells=11   ourcells=11   ONLY-GOLDEN=8    ONLY-OURS=8   
+    ONLY-GOLDEN x1 OWNER=p141a::ca1|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-GOLDEN x1 OWNER=p141a::ca3|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-GOLDEN x1 OWNER=p141a::ca4|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiVirtual,vpiReturn|VARS=
+    ONLY-GOLDEN x1 OWNER=p141a::ca5|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-GOLDEN x1 OWNER=p141a::ca6|KIND=task|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility|VARS=
+    ONLY-GOLDEN x1 OWNER=p141a::ca7|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-GOLDEN x1 OWNER=p141a::ca8|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-GOLDEN x1 OWNER=p141a::cb1|KIND=function|NAME=g1|FIELDS=vpiParent,vpiName,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiAutomatic,vpiReturn,vpiIODecl,vpiStmt|VARS=p141a::cb1::g1::q
+    ONLY-OURS   x1 OWNER=p141a::ca1|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables*2,vpiMethod,vpiVisibility,vpiReturn|VARS=p141a::ca1::f1::r,p141a::ca1::f1::r0
+    ONLY-OURS   x1 OWNER=p141a::ca3|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=p141a::ca3::f3::q
+    ONLY-OURS   x1 OWNER=p141a::ca4|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiVirtual,vpiReturn|VARS=p141a::ca4::f4::q
+    ONLY-OURS   x1 OWNER=p141a::ca5|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=p141a::ca5::f5::q
+    ONLY-OURS   x1 OWNER=p141a::ca6|KIND=task|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility|VARS=p141a::ca6::t6::q
+    ONLY-OURS   x1 OWNER=p141a::ca7|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=p141a::ca7::f7::top
+    ONLY-OURS   x1 OWNER=p141a::ca8|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables*2,vpiMethod,vpiVisibility,vpiReturn|VARS=p141a::ca8::f8::u,p141a::ca8::f8::v
+    ONLY-OURS   x1 OWNER=p141a::cb1|KIND=function|NAME=g1|FIELDS=vpiParent,vpiName,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn,vpiIODecl,vpiStmt|VARS=p141a::cb1::g1::q
+ELAB-patched   goldencells=11   ourcells=11   ONLY-GOLDEN=1    ONLY-OURS=1   
+    ONLY-GOLDEN x1 OWNER=p141a::cb1|KIND=function|NAME=g1|FIELDS=vpiParent,vpiName,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiAutomatic,vpiReturn,vpiIODecl,vpiStmt|VARS=p141a::cb1::g1::q
+    ONLY-OURS   x1 OWNER=p141a::cb1|KIND=function|NAME=g1|FIELDS=vpiParent,vpiName,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn,vpiIODecl,vpiStmt|VARS=p141a::cb1::g1::q
+
+  8 wrong cells -> 1, in BOTH views.  The 7 fixed are ca1 ca3 ca4 ca5 ca6 ca7 ca8
+  (ca2 has no body locals and already agreed).  The 1 left is cb1, the
+  QUALIFIER-LESS control: golden stamps vpiAutomatic on a class method written
+  automatic and we do not.  PRE-EXISTING, UNTOUCHED, and a different mechanism
+  (setFuncTaskQualifiers reaches its Lifetime_Automatic branch only when the
+  lifetime is a SIBLING at the qualifier level, which is exactly the case that
+  does NOT produce a stub) -- see the README's residues.
+
+==================== ARM B -- g141_b_styles.sv ====================
+DEFINITION STYLES x OWNERS: compilation-unit class, module-owned class, nested
+class, out-of-body definition, multi-method collapse, referenced vs unreferenced.
+
+SL    rc=0
+SLe   rc=0
+pris  rc=0
+prisE rc=0
+patc  rc=0
+patcE rc=0
+g-vs-o cmp rc=255 lines=4028 heads=1
+g-vs-q cmp rc=255 lines=3804 heads=1
+ge-vs-oe cmp rc=255 lines=5672 heads=1
+ge-vs-qe cmp rc=255 lines=5392 heads=1
+WD=/tmp/r10uvm141_arms/B
+
+DEF-pristine   goldencells=10   ourcells=12   ONLY-GOLDEN=7    ONLY-OURS=9   
+    ONLY-GOLDEN x1 OWNER=p141b::cb_ext2|KIND=function|NAME=e2|FIELDS=vpiParent,vpiName,vpiFullName,vpiVariables,vpiVisibility,vpiAutomatic,vpiReturn,vpiIODecl,vpiStmt,vpiInstance|VARS=p141b::cb_ext2::e2::q
+    ONLY-GOLDEN x1 OWNER=p141b::cb_multi|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-GOLDEN x1 OWNER=p141b::cb_outer::cb_inner|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-GOLDEN x1 OWNER=p141b::cb_outer|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-GOLDEN x1 OWNER=work@cu141|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-GOLDEN x1 OWNER=work@t141b::cm1|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-GOLDEN x1 OWNER=work@t141b::cm2|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-OURS   x1 OWNER=p141b::cb_ext2|KIND=function|NAME=e2|FIELDS=vpiParent,vpiName,vpiFullName,vpiVariables,vpiVisibility,vpiReturn,vpiIODecl,vpiStmt,vpiInstance|VARS=p141b::cb_ext2::e2::q
+    ONLY-OURS   x1 OWNER=p141b::cb_multi|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=p141b::cb_multi::m1::q
+    ONLY-OURS   x1 OWNER=p141b::cb_multi|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=p141b::cb_multi::m2::w
+    ONLY-OURS   x1 OWNER=p141b::cb_multi|KIND=task|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility|VARS=p141b::cb_multi::m3::z
+    ONLY-OURS   x1 OWNER=p141b::cb_outer::cb_inner|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=p141b::cb_outer::cb_inner::n1::q
+    ONLY-OURS   x1 OWNER=p141b::cb_outer|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=p141b::cb_outer::o1::q
+    ONLY-OURS   x1 OWNER=work@cu141|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=work@cu141::u1::q
+    ONLY-OURS   x1 OWNER=work@t141b::cm1|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=work@t141b::cm1::q1::q
+    ONLY-OURS   x1 OWNER=work@t141b::cm2|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=work@t141b::cm2::q2::q
+DEF-patched    goldencells=10   ourcells=12   ONLY-GOLDEN=1    ONLY-OURS=3   
+    ONLY-GOLDEN x1 OWNER=p141b::cb_ext2|KIND=function|NAME=e2|FIELDS=vpiParent,vpiName,vpiFullName,vpiVariables,vpiVisibility,vpiAutomatic,vpiReturn,vpiIODecl,vpiStmt,vpiInstance|VARS=p141b::cb_ext2::e2::q
+    ONLY-OURS   x1 OWNER=p141b::cb_ext2|KIND=function|NAME=e2|FIELDS=vpiParent,vpiName,vpiFullName,vpiVariables,vpiVisibility,vpiReturn,vpiIODecl,vpiStmt,vpiInstance|VARS=p141b::cb_ext2::e2::q
+    ONLY-OURS   x1 OWNER=p141b::cb_multi|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-OURS   x1 OWNER=p141b::cb_multi|KIND=task|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility|VARS=
+ELAB-pristine  goldencells=14   ourcells=16   ONLY-GOLDEN=9    ONLY-OURS=11  
+    ONLY-GOLDEN x1 OWNER=p141b::cb_ext2|KIND=function|NAME=e2|FIELDS=vpiParent,vpiName,vpiFullName,vpiVariables,vpiVisibility,vpiAutomatic,vpiReturn,vpiIODecl,vpiStmt,vpiInstance|VARS=p141b::cb_ext2::e2::q
+    ONLY-GOLDEN x1 OWNER=p141b::cb_multi|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-GOLDEN x1 OWNER=p141b::cb_outer::cb_inner|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-GOLDEN x1 OWNER=p141b::cb_outer|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-GOLDEN x1 OWNER=work@cu141|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-GOLDEN x2 OWNER=work@t141b::cm1|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-GOLDEN x2 OWNER=work@t141b::cm2|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-OURS   x1 OWNER=p141b::cb_ext2|KIND=function|NAME=e2|FIELDS=vpiParent,vpiName,vpiFullName,vpiVariables,vpiVisibility,vpiReturn,vpiIODecl,vpiStmt,vpiInstance|VARS=p141b::cb_ext2::e2::q
+    ONLY-OURS   x1 OWNER=p141b::cb_multi|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=p141b::cb_multi::m1::q
+    ONLY-OURS   x1 OWNER=p141b::cb_multi|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=p141b::cb_multi::m2::w
+    ONLY-OURS   x1 OWNER=p141b::cb_multi|KIND=task|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility|VARS=p141b::cb_multi::m3::z
+    ONLY-OURS   x1 OWNER=p141b::cb_outer::cb_inner|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=p141b::cb_outer::cb_inner::n1::q
+    ONLY-OURS   x1 OWNER=p141b::cb_outer|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=p141b::cb_outer::o1::q
+    ONLY-OURS   x1 OWNER=work@cu141|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=work@cu141::u1::q
+    ONLY-OURS   x2 OWNER=work@t141b::cm1|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=work@t141b::cm1::q1::q
+    ONLY-OURS   x2 OWNER=work@t141b::cm2|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=work@t141b::cm2::q2::q
+ELAB-patched   goldencells=14   ourcells=16   ONLY-GOLDEN=1    ONLY-OURS=3   
+    ONLY-GOLDEN x1 OWNER=p141b::cb_ext2|KIND=function|NAME=e2|FIELDS=vpiParent,vpiName,vpiFullName,vpiVariables,vpiVisibility,vpiAutomatic,vpiReturn,vpiIODecl,vpiStmt,vpiInstance|VARS=p141b::cb_ext2::e2::q
+    ONLY-OURS   x1 OWNER=p141b::cb_ext2|KIND=function|NAME=e2|FIELDS=vpiParent,vpiName,vpiFullName,vpiVariables,vpiVisibility,vpiReturn,vpiIODecl,vpiStmt,vpiInstance|VARS=p141b::cb_ext2::e2::q
+    ONLY-OURS   x1 OWNER=p141b::cb_multi|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-OURS   x1 OWNER=p141b::cb_multi|KIND=task|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility|VARS=
+
+  DEF 7/9 wrong cells -> 1/3; ELAB 9/11 -> 1/3, and the SAME three residues in
+  both views:
+    * cb_ext2::e2 -- the vpiAutomatic residue again (an OUT-OF-BODY definition
+      written automatic).  It also PROVES pass 46's exclusion of out-of-body
+      definitions is right: golden NAMES e2 and KEEPS its body local, and so do
+      we; only vpiAutomatic differs.  (Surelog's grammar rejects a lifetime on
+      the extern PROTOTYPE itself -- PA0207 -- so that cell is unreachable.)
+    * cb_multi x2 -- pass 46's recorded, deliberately unimplemented COLLAPSE:
+      golden fuses THREE affected methods in one class into ONE object, we emit
+      three.  The count is unchanged by this pass; what changed is that all
+      three now print golden's exact stub field list.  No corpus source has
+      two such methods in one class.
+  FIXED by this pass and identical to golden in both views: the
+  COMPILATION-UNIT-owned class (work@cu141::u1), the MODULE-owned classes
+  (work@t141b::cm1 REFERENCED, work@t141b::cm2 UNREFERENCED -- the same result,
+  so reachability is not a distinguisher), the NESTED class
+  (p141b::cb_outer::cb_inner::n1) and its outer class (p141b::cb_outer::o1).
+
+==================== ARM C -- g141_c_names.sv ====================
+NAME COLLISIONS x INSTANCE COUNTS: a stub named like a package free function
+(ceil), like built-in methods (size, num), like a system function without the
+dollar (clog2); a class instantiated 3x vs 1x; a parameterized class with 3
+specializations.
+
+SL    rc=0
+SLe   rc=0
+pris  rc=0
+prisE rc=0
+patc  rc=0
+patcE rc=0
+g-vs-o cmp rc=255 lines=4514 heads=1
+g-vs-q cmp rc=255 lines=4290 heads=1
+ge-vs-oe cmp rc=255 lines=5562 heads=1
+ge-vs-qe cmp rc=255 lines=5338 heads=1
+WD=/tmp/r10uvm141_arms/C
+
+DEF-pristine   goldencells=6    ourcells=7    ONLY-GOLDEN=6    ONLY-OURS=7   
+    ONLY-GOLDEN x1 OWNER=p141c::Dollarish|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-GOLDEN x1 OWNER=p141c::Kollide|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-GOLDEN x1 OWNER=p141c::Onceonly|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-GOLDEN x1 OWNER=p141c::Parm|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-GOLDEN x1 OWNER=p141c::Sizey|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-GOLDEN x1 OWNER=p141c::Threepeat|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-OURS   x1 OWNER=p141c::Dollarish|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=p141c::Dollarish::clog2::lg
+    ONLY-OURS   x1 OWNER=p141c::Kollide|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables*2,vpiMethod,vpiVisibility,vpiReturn|VARS=p141c::Kollide::ceil::r,p141c::Kollide::ceil::r0
+    ONLY-OURS   x1 OWNER=p141c::Onceonly|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=p141c::Onceonly::weigh::scale
+    ONLY-OURS   x1 OWNER=p141c::Parm|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=p141c::Parm::span::held
+    ONLY-OURS   x1 OWNER=p141c::Sizey|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=p141c::Sizey::num::tally
+    ONLY-OURS   x1 OWNER=p141c::Sizey|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=p141c::Sizey::size::acc
+    ONLY-OURS   x1 OWNER=p141c::Threepeat|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=p141c::Threepeat::weigh::scale
+DEF-patched    goldencells=6    ourcells=7    ONLY-GOLDEN=0    ONLY-OURS=1   
+    ONLY-OURS   x1 OWNER=p141c::Sizey|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+ELAB-pristine  goldencells=6    ourcells=7    ONLY-GOLDEN=6    ONLY-OURS=7   
+    ONLY-GOLDEN x1 OWNER=p141c::Dollarish|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-GOLDEN x1 OWNER=p141c::Kollide|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-GOLDEN x1 OWNER=p141c::Onceonly|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-GOLDEN x1 OWNER=p141c::Parm|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-GOLDEN x1 OWNER=p141c::Sizey|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-GOLDEN x1 OWNER=p141c::Threepeat|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+    ONLY-OURS   x1 OWNER=p141c::Dollarish|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=p141c::Dollarish::clog2::lg
+    ONLY-OURS   x1 OWNER=p141c::Kollide|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables*2,vpiMethod,vpiVisibility,vpiReturn|VARS=p141c::Kollide::ceil::r,p141c::Kollide::ceil::r0
+    ONLY-OURS   x1 OWNER=p141c::Onceonly|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=p141c::Onceonly::weigh::scale
+    ONLY-OURS   x1 OWNER=p141c::Parm|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=p141c::Parm::span::held
+    ONLY-OURS   x1 OWNER=p141c::Sizey|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=p141c::Sizey::num::tally
+    ONLY-OURS   x1 OWNER=p141c::Sizey|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=p141c::Sizey::size::acc
+    ONLY-OURS   x1 OWNER=p141c::Threepeat|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiVariables,vpiMethod,vpiVisibility,vpiReturn|VARS=p141c::Threepeat::weigh::scale
+ELAB-patched   goldencells=6    ourcells=7    ONLY-GOLDEN=0    ONLY-OURS=1   
+    ONLY-OURS   x1 OWNER=p141c::Sizey|KIND=function|NAME=|FIELDS=vpiParent,vpiFullName,vpiMethod,vpiVisibility,vpiReturn|VARS=
+
+  6/7 wrong cells -> 0/1 in BOTH views.  The single residue is Sizey, the
+  two-affected-methods COLLAPSE again (golden 1 object, ours 2), unchanged in
+  count and now identical in shape.  NOTHING moved away: neither the name
+  collisions nor the instance/specialization counts change the object -- one
+  class_defn stub per class in both views, whatever the instance count.
