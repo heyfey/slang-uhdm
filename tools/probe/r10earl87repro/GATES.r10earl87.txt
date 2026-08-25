@@ -1,0 +1,93 @@
+r10earl87 — THE FULL GATE BATTERY, as run.  Base commit 8877c49.
+MEASUREMENT NOTE: the official ~/git-repos/UHDM/build/bin/uhdm-cmp is the sole
+acceptance judge; every census/score here is measurement only.
+
+(0) BINARIES FROZEN BEFORE ANY SWEEP (chmod 555, immutable paths)
+    pristine  md5 58e40a645b33f5b6a09322e71a884033
+    patched   md5 c0c6be0ea94c54d9e0b1bed0fe986801
+    cmds.txt AUDIT BY BINARY PATH (not by the string "slang-uhdm", which also
+    matches the golden cache):
+      pristine sweeps   2981 cmds.txt, 2981 name the pristine path, 0 other
+      patched  sweeps   2673 cmds.txt, 2673 name the patched  path, 0 other
+
+(1) BUILD.  cmake --build build -j 2 -> "Built target slang_uhdm", 0 errors.
+
+(2) GOLDEN DUMPS (SLANG_UHDM exported EXPLICITLY to each binary)
+      patched   23 PASS / 0 FAIL
+      pristine  23 PASS / 0 FAIL
+      /bin/false 0 PASS / 23 FAIL      <- negative control
+
+(3) uhdm2rtlil  (verify_golden.py --jobs 2, own --out/--workdir)
+      status, testflags: CMP_EQUAL 679 / SLANG_REJECT 50 / SURELOG_FAIL 2
+      status, default  : CMP_EQUAL 679 / SLANG_REJECT 50 / SURELOG_FAIL 2
+      dump  , testflags: match 496 / differ 183 / (blank) 52
+      dump  , default  : match 492 / differ 187 / (blank) 52
+      ct8rows vs results/gate_uhdm2rtlil.csv        PASS (0 differing rows)
+      ct8rows vs this pass's pristine, testflags    PASS (0 differing rows)
+      ct8rows vs this pass's pristine, default      PASS (0 differing rows)
+      byteverify SELFCHECK=1: PATH_SETS_IDENTICAL (1358), MOVERS 0 / 1358,
+                              SELFCHECK 1357/1358 flagged
+
+(4) surelog     (verify_golden.py --mode both --jobs 2)
+      1588 comparable rows, 956 databases
+      status: CMP_EQUAL 937, SLANG_REJECT 567, SURELOG_FAIL 48,
+              CMP_NOTEQUAL 19, DEFERRED 10, NO_DATABASE 3, UNTRANSLATABLE 2,
+              TIMEOUT 1, NO_UHDM 1      -- IDENTICAL to pristine
+      ct8rows vs results/golden_surelog.csv         PASS (0 differing rows)
+      ct8rows vs this pass's pristine               PASS (0 differing rows)
+      NO ROW CONVERTED.  results/*.csv NOT TOUCHED (they are read-only here).
+      byteverify SELFCHECK=1: PATH_SETS_IDENTICAL (956), MOVERS 2 / 956,
+                              SELFCHECK 955/956 flagged
+        ./default/Earlgrey_0_1-71da2fd7/slang.uhdm    feb743d6f254 <- PREDICTED
+        ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm  22dc13775f8d <- PREDICTED
+        (pristine bbcfbcd412a6 / a8e579ba7375)
+
+(5) THE RUN-TIME A/B KILL SWITCH (Earlgrey, both modes, run standalone)
+      patched + R10E87_OFF=1  ==  pristine, BYTE FOR BYTE
+        default   bbcfbcd412a6 == bbcfbcd412a6
+        testflags a8e579ba7375 == a8e579ba7375
+      => 100 % of each mover's byte delta is this law.
+
+(6) OURS vs OURS through the OFFICIAL JUDGE (pristine vs patched Earlgrey)
+      default   rc=255, 150 lines, 1 head  -> the head cell, vpiOverriden
+      testflags rc=255, 150 lines, 1 head  -> the head cell, vpiOverriden
+
+(7) HEADS (rowheads.sh on the patched sweep; DEPTH, not distance)
+      SeqDriver 17/17, SimpleUVM 64/64, Scoreboard 64/SKIP-NOFILE,
+      MiniAmiq 294/294, BuildUVMPkg 60/60, Rggen 0/SKIP-NOFILE  (all unchanged)
+      Earlgrey_0_1 default   150 -> 21302   (1 head, NEW OBJECT)
+      Earlgrey_0_1 testflags 150 -> 21926   (1 head, the SAME new object)
+
+(8) CANARIES
+      canaries.sh surelog    ok=52 changed=0 absent=0
+      canaries.sh uhdm2rtlil ok=8  changed=0 absent=0
+      EXPECT_UNKNOWN=1 ctcan2.sh surelog     PASS
+      EXPECT_UNKNOWN=6 ctcan2.sh uhdm2rtlil  PASS
+      canaudit.sh canaries.sh ctcan2.sh      audited=29 UNCOVERED=0
+                                             FENCE-BREACH=0  PASS
+      protected databases (md5, patched vs pristine):
+        InterfaceModPort     59a365f3ce2c == 59a365f3ce2c  (both modes)
+        BlackParrotComplex   e3e354129d5a / 73a10e8217e5, both == pristine
+        YosysOldOr           d68e0796d62c == d68e0796d62c  (both modes)
+        SVSwitch             4842211c4030  <- pin matched
+        YosysVerx            6ccda350c24a  <- pin matched
+
+(9) CORPUS CENSUS, fixed universe (cencount87.py / cen3way87.py)
+      surelog     FAMILY-OVSTAMP 16 -> 0, BOTH-SAME 45428 -> 45444,
+                  every other bucket unchanged
+      uhdm2rtlil  every bucket unchanged
+      3-way CELL  surelog WRONG->RIGHT 16, RIGHT->WRONG 0, WRONG->OTHER 0
+                  uhdm2rtlil nothing moved
+      3-way FIELD surelog TO-GOLDEN 16, AWAY-GOLDEN 0, MOVED-WRONG 0 (all OV)
+
+(10) WIDE BOUNDARY (vwide87.sh, tools/probe copy, ANY depth, both views)
+      PROCESSED=3907 (== LISTED)  identical=7474  DIFFERING=26  no_output=314
+      rc=0 14350  rc=3 600  rc=4 650  rc=139 28 (14 files x BOTH binaries:
+                                                 symmetric, pre-existing)
+      26 differing = 13 files x 2 views; 12 cells are this pass's own arms and
+      all 14 others were re-measured against golden:
+        RIGHT->WRONG 0, AWAY-GOLDEN 0, MOVED-WRONG 0; 34 OV fields moved,
+        every one TO golden.
+
+(11) FENCE.  The four slang-fenced tests were never dispatched and are named
+     only inside canaudit.sh's own fence list; canaudit reports FENCE-BREACH=0.

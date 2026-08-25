@@ -1,0 +1,54 @@
+r10earl87 — HEAD AFTER, Earlgrey_0_1 testflags.
+The FULL cmp log is 21926 lines (the head object is a whole module_inst,
+so uhdm-cmp prints its entire decompile on both sides); it is NOT committed.
+This extract is the DECODE: the head object, the vector that differs, and the
+one object whose CLASS differs.  Reproduce with rowheads.sh on a patched sweep.
+
+== LHS head object (first 3 lines)
+LHS:
+decompile:
+module_inst: work@flash_mp (work@top_earlgrey.u_flash_ctrl.u_flash_mp), id:1008545, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_flash_ctrl_0.1/rtl/flash_ctrl.sv, line:323:3, endln:360:5
+
+== top-level field-marker counts (each marker appears twice: header + backref)
+-- LHS (golden)
+     32 |vpiContAssign
+      2 |vpiDefFile
+      2 |vpiDefLineNo
+      2 |vpiDefName
+      2 |vpiFullName
+     16 |vpiGenScopeArray
+      2 |vpiInstance
+      2 |vpiName
+     50 |vpiNet
+     46 |vpiParamAssign
+     46 |vpiParameter
+      2 |vpiParent
+     52 |vpiPort
+      6 |vpiProcess
+     12 |vpiTypedef
+     30 |vpiVariables
+-- RHS (ours)
+     32 |vpiContAssign
+      2 |vpiDefFile
+      2 |vpiDefLineNo
+      2 |vpiDefName
+      2 |vpiFullName
+     16 |vpiGenScopeArray
+      2 |vpiInstance
+      2 |vpiName
+     52 |vpiNet
+     46 |vpiParamAssign
+     46 |vpiParameter
+      2 |vpiParent
+     52 |vpiPort
+      6 |vpiProcess
+     12 |vpiTypedef
+     28 |vpiVariables
+
+== the object whose CLASS differs (golden vs ours)
+40c40
+< \_packed_array_var: region_cfgs_i
+---
+> \_packed_array_net: region_cfgs_i
+
+flash_mp.sv:21  input flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t [TotalRegions-1:0] region_cfgs_i

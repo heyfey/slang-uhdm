@@ -1,0 +1,110 @@
+g1_ovimp87_elab JUDGE rows g=36 o=36 q=36 :: SAME=24 WRONG->RIGHT=0 RIGHT->WRONG=0 WRONG->OTHER=3 STILL-WRONG=9 ONLY-GOLDEN=0 ONLY-OURS=0
+g1_ovimp87_elab FIELD :: TO-GOLDEN=3 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: OVx3
+g1_ovimp87_plain JUDGE rows g=36 o=36 q=36 :: SAME=24 WRONG->RIGHT=0 RIGHT->WRONG=0 WRONG->OTHER=3 STILL-WRONG=9 ONLY-GOLDEN=0 ONLY-OURS=0
+g1_ovimp87_plain FIELD :: TO-GOLDEN=3 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: OVx3
+g2_kinds87_elab JUDGE rows g=28 o=28 q=28 :: SAME=24 WRONG->RIGHT=2 RIGHT->WRONG=0 WRONG->OTHER=0 STILL-WRONG=2 ONLY-GOLDEN=0 ONLY-OURS=0
+g2_kinds87_elab FIELD :: TO-GOLDEN=2 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: OVx2
+g2_kinds87_plain JUDGE rows g=28 o=28 q=28 :: SAME=24 WRONG->RIGHT=2 RIGHT->WRONG=0 WRONG->OTHER=0 STILL-WRONG=2 ONLY-GOLDEN=0 ONLY-OURS=0
+g2_kinds87_plain FIELD :: TO-GOLDEN=2 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: OVx2
+g3_decl87_elab JUDGE rows g=45 o=45 q=45 :: SAME=25 WRONG->RIGHT=0 RIGHT->WRONG=0 WRONG->OTHER=5 STILL-WRONG=15 ONLY-GOLDEN=0 ONLY-OURS=0
+g3_decl87_elab FIELD :: TO-GOLDEN=5 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: OVx5
+g3_decl87_plain JUDGE rows g=45 o=45 q=45 :: SAME=25 WRONG->RIGHT=0 RIGHT->WRONG=0 WRONG->OTHER=5 STILL-WRONG=15 ONLY-GOLDEN=0 ONLY-OURS=0
+g3_decl87_plain FIELD :: TO-GOLDEN=5 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: OVx5
+g4_homes87_elab JUDGE rows g=49 o=49 q=49 :: SAME=35 WRONG->RIGHT=2 RIGHT->WRONG=0 WRONG->OTHER=8 STILL-WRONG=4 ONLY-GOLDEN=0 ONLY-OURS=0
+g4_homes87_elab FIELD :: TO-GOLDEN=10 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: OVx10
+g4_homes87_plain JUDGE rows g=40 o=40 q=40 :: SAME=26 WRONG->RIGHT=2 RIGHT->WRONG=0 WRONG->OTHER=5 STILL-WRONG=7 ONLY-GOLDEN=0 ONLY-OURS=0
+g4_homes87_plain FIELD :: TO-GOLDEN=7 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: OVx7
+g5_earl85shadow87_elab JUDGE rows g=20 o=20 q=20 :: SAME=16 WRONG->RIGHT=2 RIGHT->WRONG=0 WRONG->OTHER=0 STILL-WRONG=2 ONLY-GOLDEN=0 ONLY-OURS=0
+g5_earl85shadow87_elab FIELD :: TO-GOLDEN=2 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: OVx2
+g5_earl85shadow87_plain JUDGE rows g=20 o=20 q=20 :: SAME=16 WRONG->RIGHT=2 RIGHT->WRONG=0 WRONG->OTHER=0 STILL-WRONG=2 ONLY-GOLDEN=0 ONLY-OURS=0
+g5_earl85shadow87_plain FIELD :: TO-GOLDEN=2 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: OVx2
+g6_earl85noshadow87_elab JUDGE rows g=20 o=20 q=20 :: SAME=18 WRONG->RIGHT=1 RIGHT->WRONG=0 WRONG->OTHER=0 STILL-WRONG=1 ONLY-GOLDEN=0 ONLY-OURS=0
+g6_earl85noshadow87_elab FIELD :: TO-GOLDEN=1 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: OVx1
+g6_earl85noshadow87_plain JUDGE rows g=20 o=20 q=20 :: SAME=18 WRONG->RIGHT=1 RIGHT->WRONG=0 WRONG->OTHER=0 STILL-WRONG=1 ONLY-GOLDEN=0 ONLY-OURS=0
+g6_earl85noshadow87_plain FIELD :: TO-GOLDEN=1 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: OVx1
+g7_earl85parentimp87_elab JUDGE rows g=16 o=16 q=16 :: SAME=16 WRONG->RIGHT=0 RIGHT->WRONG=0 WRONG->OTHER=0 STILL-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0
+g7_earl85parentimp87_elab FIELD :: TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: 
+g7_earl85parentimp87_plain JUDGE rows g=16 o=16 q=16 :: SAME=16 WRONG->RIGHT=0 RIGHT->WRONG=0 WRONG->OTHER=0 STILL-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0
+g7_earl85parentimp87_plain FIELD :: TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: 
+va10_arr87_elab JUDGE rows g=43 o=43 q=43 :: SAME=25 WRONG->RIGHT=0 RIGHT->WRONG=0 WRONG->OTHER=11 STILL-WRONG=7 ONLY-GOLDEN=0 ONLY-OURS=0
+va10_arr87_elab FIELD :: TO-GOLDEN=11 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: OVx11
+va10_arr87_plain JUDGE rows g=31 o=31 q=31 :: SAME=17 WRONG->RIGHT=0 RIGHT->WRONG=0 WRONG->OTHER=7 STILL-WRONG=7 ONLY-GOLDEN=0 ONLY-OURS=0
+va10_arr87_plain FIELD :: TO-GOLDEN=7 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: OVx7
+va11_bodyparam87_elab JUDGE rows g=16 o=16 q=16 :: SAME=12 WRONG->RIGHT=0 RIGHT->WRONG=0 WRONG->OTHER=1 STILL-WRONG=3 ONLY-GOLDEN=0 ONLY-OURS=0
+va11_bodyparam87_elab FIELD :: TO-GOLDEN=1 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: OVx1
+va11_bodyparam87_plain JUDGE rows g=16 o=16 q=16 :: SAME=12 WRONG->RIGHT=0 RIGHT->WRONG=0 WRONG->OTHER=1 STILL-WRONG=3 ONLY-GOLDEN=0 ONLY-OURS=0
+va11_bodyparam87_plain FIELD :: TO-GOLDEN=1 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: OVx1
+va12_implicit87_elab JUDGE rows g=16 o=16 q=16 :: SAME=12 WRONG->RIGHT=0 RIGHT->WRONG=0 WRONG->OTHER=1 STILL-WRONG=3 ONLY-GOLDEN=0 ONLY-OURS=0
+va12_implicit87_elab FIELD :: TO-GOLDEN=1 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: OVx1
+va12_implicit87_plain JUDGE rows g=16 o=16 q=16 :: SAME=12 WRONG->RIGHT=0 RIGHT->WRONG=0 WRONG->OTHER=1 STILL-WRONG=3 ONLY-GOLDEN=0 ONLY-OURS=0
+va12_implicit87_plain FIELD :: TO-GOLDEN=1 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: OVx1
+va13_genimport87_elab JUDGE rows g=32 o=18 q=18 :: SAME=14 WRONG->RIGHT=0 RIGHT->WRONG=0 WRONG->OTHER=1 STILL-WRONG=11 ONLY-GOLDEN=6 ONLY-OURS=0
+va13_genimport87_elab FIELD :: TO-GOLDEN=0 AWAY-GOLDEN=1 MOVED-WRONG=0  fields moved: OVx1
+va13_genimport87_plain JUDGE rows g=26 o=16 q=16 :: SAME=10 WRONG->RIGHT=0 RIGHT->WRONG=1 WRONG->OTHER=0 STILL-WRONG=9 ONLY-GOLDEN=6 ONLY-OURS=0
+va13_genimport87_plain FIELD :: TO-GOLDEN=0 AWAY-GOLDEN=1 MOVED-WRONG=0  fields moved: OVx1
+va1_nodefault87_elab JUDGE rows g=16 o=16 q=16 :: SAME=12 WRONG->RIGHT=0 RIGHT->WRONG=0 WRONG->OTHER=0 STILL-WRONG=4 ONLY-GOLDEN=0 ONLY-OURS=0
+va1_nodefault87_elab FIELD :: TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: 
+va1_nodefault87_plain JUDGE rows g=16 o=16 q=16 :: SAME=12 WRONG->RIGHT=0 RIGHT->WRONG=0 WRONG->OTHER=0 STILL-WRONG=4 ONLY-GOLDEN=0 ONLY-OURS=0
+va1_nodefault87_plain FIELD :: TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: 
+va2_defparam87_elab JUDGE rows g=16 o=16 q=16 :: SAME=12 WRONG->RIGHT=0 RIGHT->WRONG=0 WRONG->OTHER=0 STILL-WRONG=4 ONLY-GOLDEN=0 ONLY-OURS=0
+va2_defparam87_elab FIELD :: TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: 
+va2_defparam87_plain JUDGE rows g=16 o=16 q=16 :: SAME=12 WRONG->RIGHT=0 RIGHT->WRONG=0 WRONG->OTHER=0 STILL-WRONG=4 ONLY-GOLDEN=0 ONLY-OURS=0
+va2_defparam87_plain FIELD :: TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: 
+va3_positional87_elab JUDGE rows g=22 o=22 q=22 :: SAME=14 WRONG->RIGHT=0 RIGHT->WRONG=0 WRONG->OTHER=3 STILL-WRONG=5 ONLY-GOLDEN=0 ONLY-OURS=0
+va3_positional87_elab FIELD :: TO-GOLDEN=3 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: OVx3
+va3_positional87_plain JUDGE rows g=22 o=22 q=22 :: SAME=14 WRONG->RIGHT=0 RIGHT->WRONG=0 WRONG->OTHER=3 STILL-WRONG=5 ONLY-GOLDEN=0 ONLY-OURS=0
+va3_positional87_plain FIELD :: TO-GOLDEN=3 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: OVx3
+va4_typeparam87_elab JUDGE rows g=13 o=13 q=13 :: SAME=8 WRONG->RIGHT=0 RIGHT->WRONG=0 WRONG->OTHER=2 STILL-WRONG=3 ONLY-GOLDEN=0 ONLY-OURS=0
+va4_typeparam87_elab FIELD :: TO-GOLDEN=2 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: OVx2
+va4_typeparam87_plain JUDGE rows g=13 o=13 q=13 :: SAME=8 WRONG->RIGHT=0 RIGHT->WRONG=0 WRONG->OTHER=2 STILL-WRONG=3 ONLY-GOLDEN=0 ONLY-OURS=0
+va4_typeparam87_plain FIELD :: TO-GOLDEN=2 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: OVx2
+va5_portwidth87_elab JUDGE rows g=16 o=16 q=16 :: SAME=12 WRONG->RIGHT=0 RIGHT->WRONG=0 WRONG->OTHER=1 STILL-WRONG=3 ONLY-GOLDEN=0 ONLY-OURS=0
+va5_portwidth87_elab FIELD :: TO-GOLDEN=1 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: OVx1
+va5_portwidth87_plain JUDGE rows g=16 o=16 q=16 :: SAME=12 WRONG->RIGHT=0 RIGHT->WRONG=0 WRONG->OTHER=1 STILL-WRONG=3 ONLY-GOLDEN=0 ONLY-OURS=0
+va5_portwidth87_plain FIELD :: TO-GOLDEN=1 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: OVx1
+va6_typedefparam87_elab JUDGE rows g=24 o=24 q=24 :: SAME=12 WRONG->RIGHT=0 RIGHT->WRONG=0 WRONG->OTHER=3 STILL-WRONG=9 ONLY-GOLDEN=0 ONLY-OURS=0
+va6_typedefparam87_elab FIELD :: TO-GOLDEN=3 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: OVx3
+va6_typedefparam87_plain JUDGE rows g=24 o=24 q=24 :: SAME=12 WRONG->RIGHT=0 RIGHT->WRONG=0 WRONG->OTHER=3 STILL-WRONG=9 ONLY-GOLDEN=0 ONLY-OURS=0
+va6_typedefparam87_plain FIELD :: TO-GOLDEN=3 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: OVx3
+va7_sameval87_elab JUDGE rows g=18 o=18 q=18 :: SAME=14 WRONG->RIGHT=0 RIGHT->WRONG=0 WRONG->OTHER=2 STILL-WRONG=2 ONLY-GOLDEN=0 ONLY-OURS=0
+va7_sameval87_elab FIELD :: TO-GOLDEN=2 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: OVx2
+va7_sameval87_plain JUDGE rows g=18 o=18 q=18 :: SAME=14 WRONG->RIGHT=0 RIGHT->WRONG=0 WRONG->OTHER=2 STILL-WRONG=2 ONLY-GOLDEN=0 ONLY-OURS=0
+va7_sameval87_plain FIELD :: TO-GOLDEN=2 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: OVx2
+va8_structpat87_elab JUDGE rows g=13 o=13 q=13 :: SAME=9 WRONG->RIGHT=0 RIGHT->WRONG=0 WRONG->OTHER=1 STILL-WRONG=3 ONLY-GOLDEN=0 ONLY-OURS=0
+va8_structpat87_elab FIELD :: TO-GOLDEN=1 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: OVx1
+va8_structpat87_plain JUDGE rows g=13 o=13 q=13 :: SAME=9 WRONG->RIGHT=0 RIGHT->WRONG=0 WRONG->OTHER=1 STILL-WRONG=3 ONLY-GOLDEN=0 ONLY-OURS=0
+va8_structpat87_plain FIELD :: TO-GOLDEN=1 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: OVx1
+va9_reexport87_elab JUDGE rows g=35 o=29 q=29 :: SAME=21 WRONG->RIGHT=0 RIGHT->WRONG=0 WRONG->OTHER=2 STILL-WRONG=12 ONLY-GOLDEN=0 ONLY-OURS=0
+va9_reexport87_elab FIELD :: TO-GOLDEN=2 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: OVx2
+va9_reexport87_plain JUDGE rows g=35 o=29 q=29 :: SAME=21 WRONG->RIGHT=0 RIGHT->WRONG=0 WRONG->OTHER=2 STILL-WRONG=12 ONLY-GOLDEN=0 ONLY-OURS=0
+va9_reexport87_plain FIELD :: TO-GOLDEN=2 AWAY-GOLDEN=0 MOVED-WRONG=0  fields moved: OVx2
+
+================================================================================
+NOTE ON va13_genimport87 — THE ONE `RIGHT->WRONG` LINE ABOVE IS A CENSUS
+ARTIFACT, NOT A REGRESSION.  DECODED FROM THE GOLDEN uhdm-dump.
+
+va13 writes a wildcard `import pg13::*` at MODULE level AND a second one inside
+a `if (1) begin : g_in` generate block that also declares its own `localparam
+int GA`.  Golden therefore materializes the import copy TWICE: once in the
+module instance and once in the GENERATE-SCOPE instance.  pacen87's INST key
+resolves a gen-scope object to its enclosing MODULE instance, so both land on
+the same census key and the multiset pairing compares OUR single row against
+golden's FIRST sorted row.
+
+The uhdm-dump says which row is which (golden, plain view):
+
+  work@top87.u_ov          \_param_assign 5:18-5:26  |vpiOverriden:1   <- module level
+  work@top87.u_ov.g_in     \_param_assign 5:18-5:26  (no vpiOverriden) <- gen scope
+
+We emit ONE 5:18 row and it is the MODULE-LEVEL one.  PATCHED gives it
+vpiOverriden:1 -- which is what golden's module-level row carries.  PRISTINE's
+0 matched golden's GEN-SCOPE row by accident of sort order.  So the patched
+value is RIGHT for the row it is; the real residue here is that we never
+materialize the GEN-SCOPE import copies at all (6 ONLY-GOLDEN rows, pristine ==
+patched).  Corpus reach of this shape: ZERO (verifier's all-cell field audit:
+0 rows where we stamp and golden does not, either corpus, either view).
+
+THE INSTRUMENT LESSON (for the next pass): a census whose INST key collapses a
+generate-scope instance onto its enclosing module instance can manufacture a
+phantom RIGHT->WRONG whenever golden holds more rows at that key than we do.
+Read the dump before believing an R2W on an arm with ONLY-GOLDEN rows.

@@ -1,0 +1,213 @@
+r10earl87 — THE MOVER PREDICTION (made from PRISTINE databases, BEFORE any
+            patched sweep was read) and THE NEXT HEAD (R0).
+
+========================================================================
+PART 1 — THE MOVER PREDICTION
+========================================================================
+`cen87.sh` + `cencount87.py` were run over the PRISTINE sweep workdirs (golden
+from the immutable cache path named in each test's OWN `cmds.txt`, ours from
+this pass's own pristine sweep).  They READ databases and DISPATCH NOTHING, so
+no test — fenced or otherwise — is run by them; the FENCED list is supplied by
+the operator at run time and appears in a count, never as names.
+
+THE SHAPE THE GATE CAN FIRE ON is measured, not argued, and it is measured
+WITHOUT asking whether the row already agrees with golden (earl66's lesson: a
+census keyed on the shape you intend to CHANGE is blind to the rows you would
+change by ACCIDENT).
+
+  GATE-REACHABLE — every ELAB `param_assign` whose Lhs `parameter` carries a
+  `vpiImported` package name, i.e. every materialized import copy inside an
+  elaborated instance.  This is the whole population § impOvNameSetShadow87
+  can reach at all.
+
+  GATE-COLLIDE — the subset whose PNAME also names a parameter that the SAME
+  elaborated instance carries an OVERRIDDEN (`OV=1`, non-imported) row for.
+  That is exactly the predicate the law tests, read off OUR OWN pristine rows.
+
+    databases holding a param_assign     uhdm2rtlil 504 / 1358
+                                         surelog    461 /  956
+    cells joined BOTH-SAME               uhdm2rtlil 68 714
+                                         surelog    45 428
+    GATE-REACHABLE                       uhdm2rtlil     28
+                                         surelog      6 528
+    GATE-COLLIDE                         uhdm2rtlil      0
+                                         surelog        16
+    FAMILY-OVSTAMP (vpiOverriden the
+      ONLY disagreement with golden)     uhdm2rtlil      0
+                                         surelog        16
+
+  GATE-COLLIDE AND FAMILY-OVSTAMP ARE THE SAME SIXTEEN CELLS, cell for cell
+  (compare the two lists in CENSUS.before.surelog.txt).  The law's reachable
+  set and the family it is meant to clear coincide exactly, so there is no
+  row it can move by accident and no row of the family it cannot reach.
+
+  The 16 cells are 8 sites x 2 modes, all in `Earlgrey_0_1`:
+      flash_ctrl_pkg.sv:12:18 PagesPerBank   u_flash_ctrl.u_flash_erase_ctrl  <- THE HEAD
+      flash_ctrl_pkg.sv:13:18 WordsPerPage   u_flash_ctrl.u_flash_erase_ctrl
+      flash_ctrl_pkg.sv:18:18 AddrW          u_flash_ctrl.u_flash_erase_ctrl
+      flash_ctrl_pkg.sv:11:18 NumBanks       u_flash_ctrl.u_flash_mp
+      flash_ctrl_pkg.sv:22:18 AllPagesW      u_flash_ctrl.u_flash_mp
+      flash_ctrl_pkg.sv:28:18 MpRegions      u_flash_ctrl.u_flash_mp
+      rstmgr_pkg.sv:7:18      PowerDomains   u_rstmgr.i_lc_src
+      rstmgr_pkg.sv:7:18      PowerDomains   u_rstmgr.i_sys_src
+
+  PREDICTION: EXACTLY TWO databases move — `Earlgrey_0_1` **default** and
+  `Earlgrey_0_1` **testflags** — and NOTHING ELSE in either corpus.  Both are
+  byte-deterministic per binary, so neither is a coin.  In each, exactly 8
+  `param_assign` rows flip `vpiOverriden` 0 -> 1 and no other field of any row
+  changes.
+
+  The largest reachable populations that are NOT taken are named here, because
+  a prediction that does not say what it is excluding is not a prediction:
+  6 528 - 16 = 6 512 surelog and all 28 uhdm2rtlil GATE-REACHABLE rows carry a
+  materialized import name that this instance did NOT override, so the
+  name-set lookup misses and they must stay put.
+
+MEASURED AFTER THE PATCHED SWEEPS — see PART 1b.
+
+========================================================================
+PART 1b — WHAT THE PATCHED SWEEPS ACTUALLY MOVED
+========================================================================
+`byteverify.sh SELFCHECK=1`, patched sweep vs THIS PASS'S OWN pristine sweep
+(both binaries frozen at immutable paths before any sweep; every `cmds.txt`
+audited BY BINARY PATH):
+
+  uhdm2rtlil  MOVERS 0 / 1358        SELFCHECK 1357/1358 flagged
+  surelog     MOVERS 2 /  956        SELFCHECK  955/ 956 flagged
+      ./default/Earlgrey_0_1-71da2fd7/slang.uhdm    <- PREDICTED
+      ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm  <- PREDICTED
+
+  NOTHING UNPREDICTED MOVED.  Both databases are byte-deterministic per binary
+  (re-run standalone outside the sweep, the same md5s come back), so neither is
+  a coin and no order-blind attribution is needed.
+
+  (a) THE RUN-TIME A/B GATE.  The PATCHED binary run with `R10E87_OFF=1` (the
+      law disabled, everything else identical) reproduces the PRISTINE database
+      BYTE FOR BYTE in BOTH modes (default bbcfbcd412a6, testflags a8e579ba7375
+      on both binaries), so 100 % of each mover's delta is this law.
+      Law ON: feb743d6f254 / 22dc13775f8d — the md5s the sweep produced.
+  (b) THE OFFICIAL JUDGE, ours against ours.  `uhdm-cmp <pristine> <patched>`
+      prints exactly ONE head per mode and it IS the head cell: `param_assign`
+      12:18-12:65 `PagesPerBank`, `vpiOverriden` absent on the left and `:1` on
+      the right.  (`OURS_vs_OURS_{default,testflags}.cmp`.)
+  (c) THE CORPUS CENSUS re-scored on the patched sweep, fixed universe
+      (`cen3way87.py` asserts the golden side did not move: 0 changed keys):
+        surelog     BOTH-SAME       45 428 -> 45 444
+                    FAMILY-OVSTAMP      16 -> 0        <- the family, cleared
+                    FAMILY-IMPID        28 -> 28       (R1)
+                    FAMILY-OPKEPT        2 -> 2        (R3)
+                    OTHER-DIFF / TREE-OTHER / ONLY-GOLDEN / ONLY-OURS unchanged
+        uhdm2rtlil  every bucket unchanged
+      Per-cell 3-way: WRONG->RIGHT 16, RIGHT->WRONG 0, WRONG->OTHER 0.
+      Per-FIELD 3-way: TO-GOLDEN 16, AWAY-GOLDEN 0, MOVED-WRONG 0, and every
+      moved field is `OV`.  MOVED-WRONG 0 / AWAY 0.
+  (d) THE WIDE BOUNDARY moved 26 cells (13 files x 2 views), 12 of them this
+      pass's own arms.  All 14 others were re-measured AGAINST GOLDEN:
+      RIGHT->WRONG 0, AWAY-GOLDEN 0, MOVED-WRONG 0; 34 `OV` fields moved
+      across the whole boundary and every one moved TO golden.
+
+========================================================================
+PART 2 — R0: THE NEW HEAD, AND ITS DECODE
+========================================================================
+BEFORE (8877c49, this pass's own pristine build):
+  Earlgrey_0_1 default   150 cmp lines, 1 head   flash_ctrl_pkg.sv:12:18
+  Earlgrey_0_1 testflags 150 cmp lines, 1 head   PagesPerBank vpiOverriden
+                                                 (the two logs byte-identical)
+AFTER:
+  Earlgrey_0_1 default   21 302 cmp lines, 1 head
+  Earlgrey_0_1 testflags 21 926 cmp lines, 1 head
+  (counts are DEPTH, not distance; the line count rose because the new head
+  object is a whole `module_inst` whose entire decompile uhdm-cmp prints on
+  both sides.  THE OLD HEAD OBJECT IS GONE.)
+
+R0 (BOTH MODES) — `work@top_earlgrey.u_flash_ctrl.u_flash_mp`, a
+`module_inst` head: THE `Variables` VECTOR IS ONE ELEMENT SHORT IN OURS, and
+the missing element is sitting in `Nets` instead.
+
+    LHS (golden)                          RHS (ours)
+      module_inst work@flash_mp             module_inst work@flash_mp
+      |vpiVariables ... packed_array_var    |vpiNets ... packed_array_net
+      \_ region_cfgs_i                      \_ region_cfgs_i
+
+  `flash_mp.sv:21`
+      input flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t
+            [TotalRegions-1:0] region_cfgs_i
+
+  DECODE OF THE HEAD FIELD.  `module_inst : instance : scope`, and
+  `scope::Compare` (scope.cpp:340) walks `Variables()` while
+  `instance::Compare` (instance.cpp:336) walks `Nets()` — the BASE runs first,
+  so the judge hits `Variables` first.  The VECTOR SafeCompare overload sets
+  BOTH containers to the OWNER on a size mismatch (RESUME.md sec 9), which is
+  why the printed head is the whole `module_inst` and not the object itself.
+  Golden's marker counts on this instance are Variables 30 / Nets 50 against
+  ours 28 / 52 — one object crossed, and the object-by-object diff of the two
+  decompiles names exactly one: `region_cfgs_i`.
+
+  THE QUESTION FOR THE NEXT PASS: an INPUT PORT whose type is a PACKED ARRAY
+  over a package STRUCT TYPEDEF is a `packed_array_var` in golden and a
+  `packed_array_net` in ours.  Decide the rule from Surelog
+  (`NetlistElaboration::elab_ports_nets_` / `Signal`'s var-vs-net choice) on a
+  purpose-built grid: port direction x element type (struct typedef / packed
+  vector / enum) x packed-array-ness x `wire`/`logic`/implicit spelling x home,
+  then census `Variables`/`Nets` membership corpus-wide.  `bank_cfgs_i` on the
+  same module (line 22, the same shape) is the second witness to check.
+
+========================================================================
+RANKED RESIDUES this pass MEASURED and deliberately did not take
+========================================================================
+R0  THE VAR-VS-NET CLASS OF A PACKED-ARRAY-OF-STRUCT-TYPEDEF PORT — the new
+    head above, both modes.
+
+R1  THE SHADOWED-Lhs IDENTITY (census FAMILY-IMPID, 28 corpus cells = 14 sites
+    x 2 modes, all Earlgrey).  When a module parameter is SHADOWED by a
+    same-named wildcard-import copy, golden's ELAB row for the module's OWN
+    parameter carries the IMPORTED clone's `vpiImported` AND `vpiLocalParam:1`,
+    while ours keeps the own declaration's (`IMP=-`, `LLP=0`).  Both fields are
+    read by `parameter::Compare` (parameter.cpp:182 and the LocalParam line
+    above it), so this is judge-visible.  PRODUCER, DECODED:
+    `UhdmWriter::writeInstance` (UhdmWriter.cpp:542-551) re-points EVERY
+    elaborated `param_assign`'s Lhs through a NAME-KEYED `paramSet`:
+        for (auto ps : *m->Param_assigns()) {
+          auto itr = paramSet.find(ps->Lhs()->VpiName());
+          if (itr != paramSet.end()) ps->Lhs((*itr).second);
+        }
+    Two same-named rows -- the module's own and the wildcard-import copy --
+    therefore end up SHARING ONE `parameter` object, and the survivor is the
+    imported clone (`CompileHelper::importPackage` inserts it during the
+    FUNCTION pass, before the module's own declaration is compiled, and
+    `DesignComponent::insertParameter` uses `m_parameterMap.emplace`, which
+    does NOT overwrite an existing key).  That clone carries
+    `VpiImported(pack_name)` and the package member's `VpiLocalParam`.
+    THE SAME NAME-KEYED CONFUSION AS THIS PASS'S HEAD, one layer later.
+    Reproduced on every arm of
+    this pass (`g1` 6 cells, `g2` 2, `g3` 10, `g4` 7, `g5` 2, `g6` 1) — the
+    whole of this pass's arm STILL-WRONG, unchanged pristine vs patched.
+    Corpus sites: flash_erase_ctrl AddrW/WordsPerPage/PagesPerBank, flash_mp
+    MpRegions/NumBanks/AllPagesW/BankW, rstmgr_ctrl PowerDomains/OffDomains
+    (x2 instances), rv_timer N_HARTS/N_TIMERS, usbdev NEndpoints.
+
+R2  THE ELAB Rhs SPAN of a materialized import copy — golden spans the WHOLE
+    written Rhs, ours the first sub-expression.  Measured on all 8 sites in
+    README sec 8.  JUDGE-INVISIBLE (no generated Compare reads a span) and the
+    correct rule is a general folded-constant span law reaching 6 528+ rows,
+    not these 16.  A different pass.
+
+R3  AN ASSIGNMENT-PATTERN OVERRIDE ACTUAL ON A SCALAR FORMAL —
+    `prim_flop_2sync.sv:9 parameter bit ResetValue`, 2 corpus cells, the whole
+    remaining FAMILY-OPKEPT.  earl85's R3 / earl86's R6, unmoved.
+
+R4  THE SHADOWED-IMPORT Rhs VALUE.  Where a module parameter shadows a
+    same-named import copy, Surelog answers the IMPORTED row's Rhs from the
+    instance's NAME-KEYED value map, so the copy carries the FORMAL's value
+    (its override, or its declaration default) instead of the package member's.
+    Arm cells only: `g1` PA/PB (6), `g3` RA..RE (10), `g4` SA (5) — 21 arm
+    cells, ZERO corpus cells (Earlgrey's colliding formals are all overridden
+    WITH the package member itself, so the two values coincide there, which is
+    exactly why the corpus family is `vpiOverriden`-only).  Not reachable from
+    the corpus today; it becomes a real head only if a design overrides a
+    shadowed formal with something other than the package member.
+
+R5  earl86's R2 (the gen-scope home never reaches the earl85 bail), R3 (the
+    concat fence), R4 (`$clog2` operand stays a sys_func_call), R5
+    (`logic signed` declaration typespec), R7 (the package home), R8 — all
+    untouched and unmeasured by this pass.

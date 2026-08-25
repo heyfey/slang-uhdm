@@ -1,0 +1,19 @@
+databases joined: 504
+BOTH-SAME        68714
+FAMILY-SUBFOLD   0
+FAMILY-OPKEPT    0
+FAMILY-OVSTAMP   0
+FAMILY-IMPID     0
+TREE-OTHER       0
+OTHER-DIFF       6
+ONLY-GOLDEN      70
+ONLY-OURS        24
+GATE-REACHABLE   28
+GATE-COLLIDE     0
+
+-- FAMILY-SUBFOLD cells (golden folded an operand subtree, we did not):
+-- FAMILY-OPKEPT cells (golden keeps the operation, we fold):
+-- FAMILY-OVSTAMP cells:
+-- FAMILY-IMPID cells (IMP/LLP only -- the shadowed-Lhs identity residue):
+-- TREE-OTHER cells:
+-- GATE-COLLIDE rows (ELAB import copy whose name is overridden here):

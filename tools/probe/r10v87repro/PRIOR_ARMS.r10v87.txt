@@ -1,0 +1,31 @@
+r10v87 — EVERY EARLIER-PASS ARM THAT MOVES IN THE WIDE BOUNDARY, RE-MEASURED
+AGAINST GOLDEN (Surelog) with arm87.sh + score87.py, both views.
+A moving arm is only acceptable if it moves TOWARD golden.
+
+file                                   view   CELL                                      FIELD
+r10earl85repro/g4_shadow85.sv          plain  SAME16 W2R2 R2W0 W2O0 STILL2   TO-GOLDEN 2 AWAY 0 MW 0 (OVx2)
+r10earl85repro/g4_shadow85.sv          elab   SAME16 W2R2 R2W0 W2O0 STILL2   TO-GOLDEN 2 AWAY 0 MW 0 (OVx2)
+r10earl85repro/g5_noshadow85.sv        plain  SAME18 W2R1 R2W0 W2O0 STILL1   TO-GOLDEN 1 AWAY 0 MW 0 (OVx1)
+r10earl85repro/g5_noshadow85.sv        elab   SAME18 W2R1 R2W0 W2O0 STILL1   TO-GOLDEN 1 AWAY 0 MW 0 (OVx1)
+r10earl60repro/v60b_earl60.sv          plain  SAME41 W2R1 R2W0 W2O1 STILL11  TO-GOLDEN 2 AWAY 0 MW 0 (OVx2)
+r10earl60repro/v60b_earl60.sv          elab   SAME41 W2R1 R2W0 W2O1 STILL11  TO-GOLDEN 2 AWAY 0 MW 0 (OVx2)
+r10v81repro/v8_shape2_81.sv            plain  SAME6  W2R0 R2W0 W2O1 STILL1   TO-GOLDEN 1 AWAY 0 MW 0 (OVx1)
+r10v81repro/v8_shape2_81.sv            elab   SAME6  W2R0 R2W0 W2O1 STILL1   TO-GOLDEN 1 AWAY 0 MW 0 (OVx1)
+r10v85repro/arms/va3_shadow85.sv       plain  SAME39 W2R0 R2W0 W2O1 STILL5   TO-GOLDEN 1 AWAY 0 MW 0 (OVx1)
+r10v85repro/arms/va3_shadow85.sv       elab   SAME39 W2R0 R2W0 W2O1 STILL5   TO-GOLDEN 1 AWAY 0 MW 0 (OVx1)
+r10v85repro/arms/va8_ov85.sv           plain  SAME38 W2R0 R2W0 W2O5 STILL31  TO-GOLDEN 5 AWAY 0 MW 0 (OVx5)
+r10v85repro/arms/va8_ov85.sv           elab   SAME44 W2R0 R2W0 W2O5 STILL31  TO-GOLDEN 5 AWAY 0 MW 0 (OVx5)
+r10v85repro/arms/va9_ovedge85.sv       plain  SAME16 W2R0 R2W0 W2O2 STILL16  TO-GOLDEN 2 AWAY 0 MW 0 (OVx2)
+r10v85repro/arms/va9_ovedge85.sv       elab   SAME16 W2R0 R2W0 W2O2 STILL16  TO-GOLDEN 2 AWAY 0 MW 0 (OVx2)
+
+TOTALS over the 14 earlier-pass cells:
+  RIGHT->WRONG 0   AWAY-GOLDEN 0   MOVED-WRONG 0
+  28 fields moved, EVERY ONE `OV`, EVERY ONE TOWARD GOLDEN.
+  (The implementer's README says 34; the direction is identical, the count is
+   not -- 28 is what these 14 cells sum to when re-measured here.)
+
+earl85's PARENT-ONLY-IMPORT negative control does not appear in the differing
+list at all, and its two committed controls (g4_shadow85 / g5_noshadow85) both
+KEEP golden's vpiOverriden:1 -- § paOvFoldedRangeNoStamp85 only ever REMOVES a
+stamp and is reached through the `derivedOv9` disjunct, so the two laws cannot
+interfere.

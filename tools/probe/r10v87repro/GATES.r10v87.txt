@@ -1,0 +1,116 @@
+r10v87 — THE ADVERSARIAL VERIFIER'S OWN FULL BATTERY, as run.
+Base commit 8877c49; worktrees /tmp/wt_v87 (patched) and /tmp/wt_v87pris.
+The official ~/git-repos/UHDM/build/bin/uhdm-cmp (md5 2ad8015175758e918de1789b86ef1ea5,
+== ~/.local/bin/uhdm-cmp) is the sole acceptance judge; every census is measurement only.
+
+(0) BINARIES BUILT FROM SCRATCH BY THE VERIFIER, then FROZEN (chmod 555)
+      pristine  /tmp/v87_bin/pris.bin     58e40a645b33f5b6a09322e71a884033
+      patched   /tmp/v87_bin/patched.bin  c0c6be0ea94c54d9e0b1bed0fe986801
+    BOTH REPRODUCE THE IMPLEMENTER'S MD5s EXACTLY.  0 compile errors.
+    Patch /tmp/r10earl87.patch md5 b4bc3ee9e3d4761ebfbb7a0af133b7da, 41 files,
+    applies clean on a fresh 8877c49; production surface = src/ParamEmit.cpp only
+    (+62/-1); fence check on the four slang-fenced names: 0 hits outside
+    canaudit.sh's own fence list.
+
+(1) GOLDEN DUMPS (SLANG_UHDM exported EXPLICITLY per binary)
+      patched 23 PASS / 0 FAIL ; pristine 23 PASS / 0 FAIL ; /bin/false 0 / 23.
+
+(2) cmds.txt AUDIT BY BINARY PATH (not by the string "slang-uhdm")
+      pristine u2r 1462 cmds.txt, 1458 name /tmp/v87_bin/pris.bin, 0 name any
+                   other binary (the 4 are the 2 SURELOG_FAIL tests x 2 modes,
+                   where slang never ran)
+      pristine sl  1573 cmds.txt, 1523 name pris.bin, 0 other
+      patched  u2r 1462 / 1458 patched.bin / 0 other
+      patched  sl  1573 / 1523 patched.bin / 0 other
+
+(3) uhdm2rtlil, both modes, own --out/--workdir, --jobs 2
+      CMP_EQUAL 679 / SLANG_REJECT 50 / SURELOG_FAIL 2 in BOTH modes, both binaries
+      ct8rows vs results/gate_uhdm2rtlil.csv               PASS
+      ct8rows patched vs verifier's own pristine, tf + def PASS / PASS
+      byteverify SELFCHECK=1  MOVERS 0 / 1358, SELFCHECK 1357/1358 flagged
+
+(4) surelog, --mode both, 1588 rows / 956 databases
+      CMP_EQUAL 937, SLANG_REJECT 567, SURELOG_FAIL 48, CMP_NOTEQUAL 19,
+      DEFERRED 10, NO_DATABASE 3, UNTRANSLATABLE 2, TIMEOUT 1, NO_UHDM 1
+      -- identical on both binaries.  NO ROW CONVERTED; results/*.csv untouched.
+      ct8rows vs results/golden_surelog.csv                PASS
+      ct8rows patched vs verifier's own pristine           PASS
+      byteverify SELFCHECK=1  MOVERS 3 / 956:
+        ./default/Earlgrey_0_1   feb743d6f254 <- PREDICTED (pristine bbcfbcd412a6)
+        ./testflags/Earlgrey_0_1 22dc13775f8d <- PREDICTED (pristine a8e579ba7375)
+        ./default/Scoreboard     850e321dd6c0 vs 92b96bbc11c5 -- THE DOCUMENTED
+            COIN: uhdm-dump path-normalised ORDER-BLIND diff = 0 LINES.
+      (the two Earlgrey md5s are byte-identical to the implementer's.)
+
+(5) RUN-TIME A/B KILL SWITCH, Earlgrey standalone, both modes
+      patched + R10E87_OFF=1  ==  pristine sweep DB, BYTE FOR BYTE
+        default   bbcfbcd412a6 == bbcfbcd412a6
+        testflags a8e579ba7375 == a8e579ba7375
+
+(6) OURS vs OURS THROUGH THE OFFICIAL JUDGE (pristine vs patched Earlgrey)
+      default   rc=255, 150 lines, 1 head ; testflags rc=255, 150 lines, 1 head
+      head = param_assign 12:18-12:65 PagesPerBank, vpiOverriden ABSENT on the
+      pristine side and :1 on the patched side.  Nothing else moved.
+
+(7) HEADS (rowheads.sh, patched sweep) -- DEPTH not distance
+      SeqDriver 17/17, SimpleUVM 64/64, Scoreboard 64/SKIP-NOFILE,
+      MiniAmiq 294/294, BuildUVMPkg 60/60, Rggen 0/SKIP-NOFILE   (unchanged)
+      Earlgrey_0_1 default 150 -> 21302 (1 head, NEW OBJECT)
+      Earlgrey_0_1 testflags 150 -> 21926 (1 head, the same new object)
+      The PRISTINE head file is byte-identical to the committed
+      HEAD_BEFORE_Earlgrey_default.cmp (0 diff lines).
+
+(8) CANARIES
+      canaries.sh surelog ok=52 changed=0 absent=0
+      canaries.sh u2r     ok=8  changed=0 absent=0
+      EXPECT_UNKNOWN=1 ctcan2.sh surelog PASS ; EXPECT_UNKNOWN=6 u2r PASS
+      canaudit.sh canaries.sh ctcan2.sh  audited=29 UNCOVERED=0 FENCE-BREACH=0
+      InterfaceModPort 59a365f3ce2c, YosysOldOr d68e0796d62c,
+      BlackParrotComplex e3e354129d5a / 73a10e8217e5 -- all == pristine;
+      SVSwitch 4842211c4030 PIN MATCHED ; YosysVerx 6ccda350c24a PIN MATCHED.
+
+(9) CENSUS, fixed universe (cencount87 / cen3way87, verifier's own sweeps)
+      surelog  BOTH-SAME 45428 -> 45444 ; FAMILY-OVSTAMP 16 -> 0 ;
+               FAMILY-IMPID 28 -> 28 ; FAMILY-OPKEPT 2 -> 2 ;
+               OTHER-DIFF 1810 -> 1810 ; ONLY-GOLDEN/OURS 8898/9628 unchanged ;
+               GATE-REACHABLE 6528 ; GATE-COLLIDE 16 (== FAMILY-OVSTAMP cell
+               for cell, verified by set equality)
+      u2r      every bucket unchanged (BOTH-SAME 68714, OTHER-DIFF 6,
+               GATE-REACHABLE 28, GATE-COLLIDE 0)
+      3-way surelog CELL W2R=16 R2W=0 W2O=0 ; FIELD TO-GOLDEN=16 AWAY=0
+               MOVED-WRONG=0 (OV x16); golden-side keys that changed: 0
+      3-way u2r     nothing moved.
+
+(10) THE VERIFIER'S OWN INDEPENDENT FIELD AUDIT (not in the pass's evidence)
+      Over EVERY joinable param_assign cell of BOTH corpora, DEF and ELAB:
+        pristine  golden-stamped/ours-not = 16   ours-stamped/golden-not = 0
+        patched   golden-stamped/ours-not =  0   ours-stamped/golden-not =  0
+      => after the patch vpiOverriden is CORRECT ON EVERY COMPARABLE CELL of
+      both corpora, and the law adds no stamp golden does not have anywhere.
+      Golden's ELAB rows carrying vpiImported number 6102, of which 32 are
+      stamped: the 16 this pass clears plus 16 MODULE-OWN rows that golden
+      mis-tags with vpiImported (the FAMILY-IMPID / R1 residue), already
+      stamped correctly on our side.
+
+(11) WIDE BOUNDARY (vwide87.sh, verifier's own COPY of tools/probe incl. the
+      13 new arms; ANY depth, both views, both frozen binaries, workdir-
+      normalised whole-dump byte compare; list on fd 3, children </dev/null,
+      PROCESSED asserted, every rc recorded)
+      LISTED=3920  PROCESSED=3920 (EQUAL)  identical=7478  DIFFERING=48
+      no_output=314 ;  rc=0 14402, rc=3 600, rc=4 650, rc=139 28
+      (15680 = 3920 files x 2 views x 2 binaries -- every invocation accounted)
+      rc=139: 14 FILES, EACH SEGFAULTING ON *BOTH* BINARIES in the elab view
+      (14 A + 14 B) -- symmetric and PRE-EXISTING, listed in BOUNDARY_WIDE.signals.
+      48 DIFFERING = 24 files x 2 views:
+        22 cells  this verifier's OWN new arms (va1_nodefault87 and
+                  va2_defparam87 correctly do NOT differ)
+        12 cells  the implementer's own g1-g6
+        14 cells  SEVEN EARLIER-PASS ARMS, EVERY ONE RE-MEASURED AGAINST
+                  GOLDEN with Surelog: RIGHT->WRONG 0, AWAY-GOLDEN 0,
+                  MOVED-WRONG 0; 28 OV fields moved, all TOWARD golden
+                  (PRIOR_ARMS.r10v87.txt has the per-cell table).
+      This is the implementer's 26 differing over 3907 files PLUS exactly the
+      22 cells the 13 new arms add: 26 + 22 = 48, 3907 + 13 = 3920.
+
+(12) FENCE.  The four slang-fenced tests were never dispatched; the wide list
+      of 3920 files contains 0 of their names; canaudit FENCE-BREACH=0.

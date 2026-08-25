@@ -27,6 +27,17 @@ static bool r10e85Off85() {
     return off;
 }
 
+// § impOvNameSetShadow87 (r10earl87) — THE KILL SWITCH for this pass.  Default
+// is the LAW BEING ON; `R10E87_OFF=1` restores the pre-pass-87 path exactly,
+// which is what the run-time A/B gate in the pass README compares against.
+static bool r10e87Off87() {
+    static const bool off = [] {
+        const char* v = getenv("R10E87_OFF");
+        return v && *v && *v != '0';
+    }();
+    return off;
+}
+
 // A parameter declared with packed dimensions WRITTEN ON A TYPEDEF NAME
 // (`parameter bp_proc_param_s [max_cfgs-1:0] all_cfgs_gp`).  Surelog compiles
 // that declaration into a packed_array_typespec over the element typedef's
@@ -5296,8 +5307,58 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         }
                 }
         }
+        // § impOvNameSetShadow87 (r10earl87) — THE MATERIALIZED-IMPORT STAMP
+        // IS A NAME-SET HIT, NOT A PROPERTY OF THE PARAMETER.
+        //
+        // Surelog's `CompileHelper::importPackage` (CompileHelper.cpp:240-280)
+        // clones every param_assign of a WILDCARD-imported package into the
+        // IMPORTING module's own `ParamAssignVec`.  `NetlistElaboration::
+        // elab_parameters_` then walks that one vector per elaborated instance
+        // and opens every row with
+        //     inst_assign->VpiOverriden(instance->isOverridenParam(paramName));
+        // (NetlistElaboration.cpp:327), where `paramName` is the row's own
+        // name and `ModuleInstance::isOverridenParam` is a lookup in a bare
+        // `std::set<std::string>` (ModuleInstance.cpp:388-395) filled with the
+        // FORMAL names this instantiation overrode (DesignElaboration.cpp:
+        // 2176-2363).  The set knows nothing about which row it is answering,
+        // so a materialized import copy whose name COLLIDES with an overridden
+        // formal of the instantiated module inherits that formal's stamp.
+        //
+        // Only a WILDCARD import can produce the collision: an explicit
+        // `import p::N;` beside a local `N` is a redefinition error (measured,
+        // g2_kinds87.sv).  A collision with a module LOCALPARAM does not stamp
+        // (a localparam cannot be overridden — g3_decl87.sv `RE`), and neither
+        // does a materialized name with no local twin (g1 `PC`/`PD`, g3 `RF`,
+        // g4 `SB`).  Package `parameter` vs `localparam`, typed vs implicit vs
+        // packed-range declarations all behave identically (g3), and the home
+        // is irrelevant — module, interface, gen-if, gen-for and instances one
+        // to three deep all stamp (g4).
+        //
+        // ELAB ONLY.  The physical DEF listing leaves every row unstamped even
+        // when § modDefImportShape has flipped `topView` to borrow the
+        // elaborated SHAPE for the import copies, so the gate reads
+        // `!defViewOrig9`, never `topView`.
+        //
+        // Corpus witnesses: Earlgrey's `u_flash_erase_ctrl` / `u_flash_mp`
+        // (`import flash_ctrl_pkg::*` beside overridden formals AddrW,
+        // WordsPerPage, PagesPerBank / MpRegions, NumBanks, AllPagesW) and
+        // `rstmgr_ctrl`'s header import in `i_lc_src` / `i_sys_src`
+        // (`rstmgr_pkg::PowerDomains` beside the overridden formal
+        // `PowerDomains`).
+        bool impNameOv87 = false;
+        if (!defViewOrig9 && isImported && !inPackage && !funcScope &&
+            !overridden && !r10e87Off87())
+            for (auto& om7 : body.members()) {
+                if (om7.kind != SymbolKind::Parameter || om7.name != ps.name)
+                    continue;
+                if (isOverriddenParam(om7)) {
+                    impNameOv87 = true;
+                    break;
+                }
+            }
         if (topView && !cliOv &&
-            (overridden || derivedOv9 || (!hasDefault && boundInit)))
+            (overridden || derivedOv9 || impNameOv87 ||
+             (!hasDefault && boundInit)))
             pa->VpiOverriden(true);
         // The ELAB Rhs of a -P'd parameter is fromString's constant, built from
         // the raw command-line STRING with no reference to the declared type.

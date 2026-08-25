@@ -1,0 +1,19 @@
+golden-side keys that changed between the two censuses: 0 (must be 0 -- the universe is fixed)
+CELL  SAME=45428 WRONG->RIGHT=16 RIGHT->WRONG=0 WRONG->OTHER=0 STILL-WRONG=1840 UNJOINED=18526
+FIELD TO-GOLDEN=16 AWAY-GOLDEN=0 MOVED-WRONG=0   fields moved: OVx16
+   W2R  default/Earlgrey_0_1-71da2fd7              SPAN=11:18-11:56 VIEW=ELAB HOME=MODULE PNAME=NumBanks INST=work@top_earlgrey.u_flash_ctrl.u_flash_mp
+   W2R  default/Earlgrey_0_1-71da2fd7              SPAN=12:18-12:65 VIEW=ELAB HOME=MODULE PNAME=PagesPerBank INST=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl
+   W2R  default/Earlgrey_0_1-71da2fd7              SPAN=13:18-13:65 VIEW=ELAB HOME=MODULE PNAME=WordsPerPage INST=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl
+   W2R  default/Earlgrey_0_1-71da2fd7              SPAN=18:18-18:57 VIEW=ELAB HOME=MODULE PNAME=AddrW INST=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl
+   W2R  default/Earlgrey_0_1-71da2fd7              SPAN=22:18-22:49 VIEW=ELAB HOME=MODULE PNAME=AllPagesW INST=work@top_earlgrey.u_flash_ctrl.u_flash_mp
+   W2R  default/Earlgrey_0_1-71da2fd7              SPAN=28:18-28:37 VIEW=ELAB HOME=MODULE PNAME=MpRegions INST=work@top_earlgrey.u_flash_ctrl.u_flash_mp
+   W2R  default/Earlgrey_0_1-71da2fd7              SPAN=7:18-7:60 VIEW=ELAB HOME=MODULE PNAME=PowerDomains INST=work@top_earlgrey.u_rstmgr.i_lc_src
+   W2R  default/Earlgrey_0_1-71da2fd7              SPAN=7:18-7:60 VIEW=ELAB HOME=MODULE PNAME=PowerDomains INST=work@top_earlgrey.u_rstmgr.i_sys_src
+   W2R  testflags/Earlgrey_0_1-71da2fd7            SPAN=11:18-11:56 VIEW=ELAB HOME=MODULE PNAME=NumBanks INST=work@top_earlgrey.u_flash_ctrl.u_flash_mp
+   W2R  testflags/Earlgrey_0_1-71da2fd7            SPAN=12:18-12:65 VIEW=ELAB HOME=MODULE PNAME=PagesPerBank INST=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl
+   W2R  testflags/Earlgrey_0_1-71da2fd7            SPAN=13:18-13:65 VIEW=ELAB HOME=MODULE PNAME=WordsPerPage INST=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl
+   W2R  testflags/Earlgrey_0_1-71da2fd7            SPAN=18:18-18:57 VIEW=ELAB HOME=MODULE PNAME=AddrW INST=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl
+   W2R  testflags/Earlgrey_0_1-71da2fd7            SPAN=22:18-22:49 VIEW=ELAB HOME=MODULE PNAME=AllPagesW INST=work@top_earlgrey.u_flash_ctrl.u_flash_mp
+   W2R  testflags/Earlgrey_0_1-71da2fd7            SPAN=28:18-28:37 VIEW=ELAB HOME=MODULE PNAME=MpRegions INST=work@top_earlgrey.u_flash_ctrl.u_flash_mp
+   W2R  testflags/Earlgrey_0_1-71da2fd7            SPAN=7:18-7:60 VIEW=ELAB HOME=MODULE PNAME=PowerDomains INST=work@top_earlgrey.u_rstmgr.i_lc_src
+   W2R  testflags/Earlgrey_0_1-71da2fd7            SPAN=7:18-7:60 VIEW=ELAB HOME=MODULE PNAME=PowerDomains INST=work@top_earlgrey.u_rstmgr.i_sys_src
