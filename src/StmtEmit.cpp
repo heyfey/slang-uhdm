@@ -2948,17 +2948,68 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // (Surelog resolves the loop list as an expression before it
             // decides the iterated object). LocalScopeHierPath.
             bool arrMember9 = arrDotted21;
+            // § dottedForeachLoopVarBaseMustDrill137 — the BASE segment of the
+            // written loop list, i.e. the very name `UHDM::ExprEval::getObject`
+            // is handed when `UhdmWriter::swapForSpecifiedVar` feeds this
+            // hier_path to `decodeHierPath` (`Path_elems()->at(0)->VpiName()`,
+            // ExprEval.cpp:2233).  Read off the object we just built, so it is
+            // the same string by construction.
+            std::string dotBase137;
             if (arrMember9) {
                 if (auto* hp9 = emitExpr(*arrRef134, fs, prefix, netMap)) {
                     hp9->VpiParent(fs);
                     // The loop-list hier_path carries no name of its own
                     // (an expression-context one would be `path.slices`).
-                    if (hp9->UhdmType() == UHDM::uhdmhier_path)
-                        ((UHDM::hier_path*)hp9)->VpiName(std::string());
+                    if (hp9->UhdmType() == UHDM::uhdmhier_path) {
+                        auto* hpa137 = (UHDM::hier_path*)hp9;
+                        hpa137->VpiName(std::string());
+                        if (auto* pe137 = hpa137->Path_elems();
+                            pe137 && !pe137->empty())
+                            dotBase137 = pe137->at(0)->VpiName();
+                    }
                     fs->Variable((UHDM::variables*)(UHDM::any*)hp9);
                 }
                 else
                     arrMember9 = arrDotted21 = false;
+            }
+            if (!arrMember9)
+                dotBase137.clear();
+            // ... and the other half of the same law: whether the loop variable
+            // THIS foreach declares is one whose kind provably equals golden's.
+            // Surelog types it from what `decodeHierPath` answers for the array
+            // reference, and the two answers differ by HOME:
+            //   * a subroutine FORMAL is an `io_decl` whose typespec IS the
+            //     element type (§ foreachFormalArrayTs9), and a module- or
+            //     interface-level variable answers the same way — golden DRILLS
+            //     to the element, exactly as we do;
+            //   * a subroutine local, a class property, a PACKAGE-level, a
+            //     PROGRAM-level or a GENERATE-BLOCK variable answers the whole
+            //     `array_typespec`, so golden recurses into `Index_typespec()`
+            //     and an associative array's loop variable is the INDEX — which
+            //     our own typing does not yet take for the last three (arm B
+            //     `zf/zh/zj/zn/zp/zr`, arm C `hp`, arm D `e1`: pre-existing
+            //     residues of § foreachAssocIdxLocalOnly20, not of this law);
+            //   * a STATEMENT-BLOCK automatic local answers an `array_typespec`
+            //     with no index at all and golden mints an `array_var`
+            //     (arm C `ht`/`hv`).
+            // Only the first bullet is admitted below, so an unlisted home can
+            // only cost this law a cell, never move one off golden.
+            bool elemDrilledHome137 = false;
+            if (arrSym && !arrMember9 && !arrThis21) {
+                if (arrSym->kind == SymbolKind::FormalArgument)
+                    elemDrilledHome137 = true;
+                else if (arrSym->kind == SymbolKind::Variable)
+                    if (const Scope* eh137 = arrSym->getParentScope();
+                        eh137 &&
+                        eh137->asSymbol().kind == SymbolKind::InstanceBody) {
+                        auto dk137 = eh137->asSymbol()
+                                         .as<slang::ast::InstanceBodySymbol>()
+                                         .getDefinition()
+                                         .definitionKind;
+                        elemDrilledHome137 =
+                            dk137 == slang::ast::DefinitionKind::Module ||
+                            dk137 == slang::ast::DefinitionKind::Interface;
+                    }
             }
             // A foreach over a CLASS PROPERTY stays unresolved in the
             // ELABORATED listing too: that listing is the copy Surelog
@@ -3415,10 +3466,82 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // and the loop variable takes the bare int default.
                 UHDM::typespec* lts = nullptr;
                 UHDM::variables* lv = nullptr;
+                // § dottedForeachLoopVarBaseMustDrill137 fired for this slot.
+                bool intFallback137 = false;
                 // A pass-22 arm that RESOLVED the loop variable: golden binds
                 // such an object in the body exactly as it binds an int_var
                 // (§ foreachLoopVarObjs9's registration test at the return).
                 bool res22 = shadowFormal22;
+                // § dottedForeachLoopVarBaseMustDrill137 — a DOTTED loop list
+                // whose BASE is an enclosing foreach's loop variable is typed
+                // by WALKING THE WRITTEN PATH from that variable, and the walk
+                // has a rule for exactly ONE variable kind.
+                //
+                // `UhdmWriter::swapForSpecifiedVar` (UhdmWriter.cpp:2507) hands
+                // the loop list's `hier_path` to `decodeHierPath` AS WRITTEN.
+                // `UHDM::ExprEval::decodeHierPath` (ExprEval.cpp:2233) resolves
+                // its FIRST path element with `ExprEval::getObject`, whose
+                // walk up `VpiParent` reads an enclosing `foreach_stmt`'s
+                // `VpiLoopVars()` by name (ExprEval.cpp:417-427) — so the base
+                // of `foreach (pred.m_predecessors[next_pred])` is the object
+                // the ENCLOSING `foreach (pred_of_succ[pred])` lists, AS
+                // `lateTypedefBinding` HAS ALREADY SWAPPED IT (registration is
+                // source order, outer before inner).  `hierarchicalSelector`
+                // then drills that object, and of the variable kinds only
+                // `uhdmclass_var` has an arm that finds a MEMBER and lets the
+                // walk continue (ExprEval.cpp:2357-2385); `uhdmstruct_var`
+                // searches struct members and `uhdmarray_var` consumes the
+                // level, and every other kind has no arm at all.  A walk that
+                // answers nothing leaves `indexTypespec` null and
+                // UhdmWriter.cpp:2550 mints the bare
+                // `int_var` + `int_typespec` — the same fallback
+                // § foreachScopedArrayLoopVarIntFallback34 decoded for the
+                // `::`-written spelling.
+                //
+                // Measured cell by cell on arm `g137_b_kinds`, ONE dotted loop
+                // list under thirteen bases: a `class_var` base RESOLVES (and
+                // keeps the member's own answer — `class_var` for a
+                // class-keyed member, `string_var` for a string-keyed one),
+                // while `bit_var` / `int_var` / `string_var` / `enum_var` /
+                // `struct_var` / `real_var` / `array_var` bases ALL fall to
+                // golden's bare `int_var`, whatever the member's type is.
+                //
+                // The gate is `foreachElemDrilledLV137`, not the raw kind: a
+                // base loop variable typed in a home where OUR kind and
+                // golden's are known to agree may be judged; one typed in a
+                // home where our own § foreachAssocIdxLocalOnly20 gate still
+                // differs from golden may not (arm B's package-level `zg`..`zs`
+                // and arm D's generate-block `e2` are golden `class_var` cells
+                // that this law must NOT touch).
+                if (!lv && !dotBase137.empty() &&
+                    foreachElemDrilledLV137.count(dotBase137)) {
+                    auto ob137 = openForeachVars.find(dotBase137);
+                    // VERIFIER FIX (r10v137) — a `struct_var` base DRILLS TOO.
+                    // `ExprEval::hierarchicalSelector`'s FIRST variables arm
+                    // (`ExprEval.cpp:2331-2355`) is `uhdmstruct_var`, and it
+                    // searches the base's `struct_typespec` Members() for the
+                    // element name exactly as the `class_var` arm searches a
+                    // `class_defn`'s Variables() — and, unlike it, RECURSES on
+                    // a non-last element.  At level 0 the name it looks for is
+                    // the BASE's own name, which is not a member of the base's
+                    // own struct, so the arm returns nothing and the
+                    // `level == 0` re-entry (`:2708-2710`) retries the real
+                    // member at level 1, the same fall-through the `class_var`
+                    // arm gets.  Measured on `v137_a_structbase.sv`: a FORMAL
+                    // `ref lode137_s f[Wraith137]` gives golden a `struct_var`
+                    // base (ours too), and golden then answers `array_var` for
+                    // `f1.veins137[.]` and `bit_var` for `f1.tile137.hi137[.]`
+                    // — never the bare `int_var` this arm would mint.  Shipping
+                    // the raw `!= class_var` test moved that last cell
+                    // RIGHT->WRONG (`bit_var` -> `int_var`) in BOTH views.
+                    if (ob137 != openForeachVars.end() && ob137->second &&
+                        ob137->second->UhdmType() != UHDM::uhdmclass_var &&
+                        ob137->second->UhdmType() != UHDM::uhdmstruct_var) {
+                        lv = s.MakeInt_var();
+                        lts = s.MakeInt_typespec();
+                        intFallback137 = true;
+                    }
+                }
                 // § foreachScopedArrayLoopVarIntFallback34 — a `::`-WRITTEN
                 // array reference gives the loop variable Surelog's BARE
                 // int_var fallback, whatever the array's real type is.
@@ -3715,6 +3838,14 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 lv->Typespec(lrt);
                 lvars->push_back(lv);
                 openForeachVars[lvn] = lv;
+                // § dottedForeachLoopVarBaseMustDrill137 — this name may be
+                // judged as the base of a dotted loop list nested inside: its
+                // kind is golden's, either because the home drills the element
+                // or because the law itself minted the int_var.
+                if (elemDrilledHome137 || intFallback137)
+                    foreachElemDrilledLV137.insert(lvn);
+                else
+                    foreachElemDrilledLV137.erase(lvn);
                 declaredHere.push_back(lvn);
                 // Only the INT_VAR shape is registered as bindable.  Widening
                 // it to every resolved kind is measurably wrong: on SeqDriver
@@ -3843,8 +3974,10 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 if (auto* b = emitStmt(fe.body, fs, prefix, netMap))
                     fs->VpiStmt(b);
             }
-            for (auto& n : declaredHere)
+            for (auto& n : declaredHere) {
                 openForeachVars.erase(n);
+                foreachElemDrilledLV137.erase(n);
+            }
             for (auto& [sy9, prev9] : lvSaved9) {
                 if (prev9)
                     foreachLoopVarObjs9[sy9] = prev9;

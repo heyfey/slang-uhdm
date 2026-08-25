@@ -3915,6 +3915,13 @@ private:
     // NESTED foreach re-lists the enclosing loop's variable OBJECT (Surelog's
     // late-binding swap), it does not declare a second one.
     std::map<std::string, UHDM::variables*> openForeachVars;
+    // § dottedForeachLoopVarBaseMustDrill137 — the subset of `openForeachVars`
+    // whose KIND we can prove equals Surelog's own, because the enclosing
+    // foreach's array is one of the ELEMENT-DRILL homes (a subroutine FORMAL,
+    // a module- or interface-level variable) or because THIS law minted the
+    // object.  A dotted loop list rooted at such a name may be judged; one
+    // rooted at any other loop variable may not (see the law).
+    std::set<std::string> foreachElemDrilledLV137;
     // The foreach LOOP VARIABLES currently in scope, by declaring symbol, and
     // the object each one is listed as in vpiLoopVars.  A body reference to a
     // loop variable binds THAT object — the only binding a class-method body

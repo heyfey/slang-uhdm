@@ -1,0 +1,58 @@
+# r10uvm137 — A-PRIORI MOVER PREDICTION, from the PRISTINE databases only,
+# written before the patched sweep was run.  pred137 + predsweep137.sh.
+#
+# surelog corpus:
+CAN-MOVE default BuildUVMPkg candidates=4 dottedpaths=82 foreach=773
+          1 CAND base=p kind=ref_var at=34558:13
+          1 CAND base=pred kind=bit_var at=34620:11
+          1 CAND base=pred kind=ref_var at=34620:11
+          1 CAND base=s kind=ref_var at=34587:13
+CAN-MOVE default MiniAmiq candidates=10 dottedpaths=139 foreach=1458
+          3 CAND base=p kind=ref_var at=1678:13
+          1 CAND base=pred kind=bit_var at=1740:11
+          3 CAND base=pred kind=ref_var at=1740:11
+          3 CAND base=s kind=ref_var at=1707:13
+CAN-MOVE default Scoreboard candidates=4 dottedpaths=73 foreach=739
+          1 CAND base=p kind=ref_var at=1678:13
+          1 CAND base=pred kind=bit_var at=1740:11
+          1 CAND base=pred kind=ref_var at=1740:11
+          1 CAND base=s kind=ref_var at=1707:13
+CAN-MOVE default SeqDriver candidates=10 dottedpaths=133 foreach=1345
+          3 CAND base=p kind=ref_var at=1678:13
+          1 CAND base=pred kind=bit_var at=1740:11
+          3 CAND base=pred kind=ref_var at=1740:11
+          3 CAND base=s kind=ref_var at=1707:13
+CAN-MOVE default SimpleUVM candidates=4 dottedpaths=73 foreach=737
+          1 CAND base=p kind=ref_var at=1678:13
+          1 CAND base=pred kind=bit_var at=1740:11
+          1 CAND base=pred kind=ref_var at=1740:11
+          1 CAND base=s kind=ref_var at=1707:13
+CAN-MOVE testflags BuildUVMPkg candidates=4 dottedpaths=82 foreach=773
+          1 CAND base=p kind=ref_var at=34558:13
+          1 CAND base=pred kind=bit_var at=34620:11
+          1 CAND base=pred kind=ref_var at=34620:11
+          1 CAND base=s kind=ref_var at=34587:13
+CAN-MOVE testflags MiniAmiq candidates=10 dottedpaths=139 foreach=1458
+          3 CAND base=p kind=ref_var at=1678:13
+          1 CAND base=pred kind=bit_var at=1740:11
+          3 CAND base=pred kind=ref_var at=1740:11
+          3 CAND base=s kind=ref_var at=1707:13
+CAN-MOVE testflags SeqDriver candidates=10 dottedpaths=133 foreach=1345
+          3 CAND base=p kind=ref_var at=1678:13
+          1 CAND base=pred kind=bit_var at=1740:11
+          3 CAND base=pred kind=ref_var at=1740:11
+          3 CAND base=s kind=ref_var at=1707:13
+CAN-MOVE testflags SimpleUVM candidates=4 dottedpaths=73 foreach=737
+          1 CAND base=p kind=ref_var at=1678:13
+          1 CAND base=pred kind=bit_var at=1740:11
+          1 CAND base=pred kind=ref_var at=1740:11
+          1 CAND base=s kind=ref_var at=1707:13
+SCANNED=956 CENSUS-FAIL=0 CAN-MOVE=9
+
+# uhdm2rtlil corpus:
+SCANNED=1358 CENSUS-FAIL=0 CAN-MOVE=0
+
+# PREDICTED MOVERS, BY NAME (9):
+#   default/{BuildUVMPkg, MiniAmiq, Scoreboard, SeqDriver, SimpleUVM}
+#   testflags/{BuildUVMPkg, MiniAmiq, SeqDriver, SimpleUVM}
+# PREDICTED uhdm2rtlil movers: ZERO, both modes.

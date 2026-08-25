@@ -1,0 +1,33 @@
+r10v137 — WIDE BOUNDARY GATE (verifier's own list), verbatim tail.
+
+list = every .sv/.svh in every probe directory containing a foreach, PLUS the
+brief's must-stay trees whole, PLUS this verifier's arms; ABSOLUTE paths.
+pristine 47e01d321420bd9bef7d64b46068997e  vs  fixed 586b8aecec27e616d93eea03fca71f1d
+
+MOVED tmp/v137_btree/probe/r10uvm137repro/g137_a_base.sv def dumplines=11 cenlines=2
+MOVED tmp/v137_btree/probe/r10uvm137repro/g137_a_base.sv elab dumplines=17 cenlines=4
+MOVED tmp/v137_btree/probe/r10uvm137repro/g137_b_kinds.sv def dumplines=85 cenlines=16
+MOVED tmp/v137_btree/probe/r10uvm137repro/g137_b_kinds.sv elab dumplines=133 cenlines=32
+MOVED tmp/v137_btree/probe/r10uvm137repro/g137_c_homes.sv def dumplines=66 cenlines=12
+MOVED tmp/v137_btree/probe/r10uvm137repro/g137_c_homes.sv elab dumplines=96 cenlines=22
+MOVED tmp/v137_btree/probe/r10uvm137repro/g137_d_shapes.sv def dumplines=131 cenlines=24
+MOVED tmp/v137_btree/probe/r10uvm137repro/g137_d_shapes.sv elab dumplines=209 cenlines=46
+MOVED tmp/v137_btree/probe/r10uvm137repro/g137_e_mult.sv def dumplines=22 cenlines=4
+MOVED tmp/v137_btree/probe/r10uvm137repro/g137_e_mult.sv elab dumplines=64 cenlines=18
+MOVED tmp/v137_btree/probe/r10v137repro/v137_a_structbase.sv def dumplines=11 cenlines=2
+MOVED tmp/v137_btree/probe/r10v137repro/v137_a_structbase.sv elab dumplines=17 cenlines=4
+MOVED tmp/v137_btree/probe/r10v137repro/v137_b_homes.sv def dumplines=38 cenlines=8
+MOVED tmp/v137_btree/probe/r10v137repro/v137_b_homes.sv elab dumplines=50 cenlines=12
+LISTED=990 PROCESSED=990 MOVED=14 BREACH=0 RC-MISMATCH=0 NORUN=30
+PROCESSED-ASSERT-OK
+BOUNDARY PASS
+
+positive control (CTRL=1 over this directory's own arms, arm F included):
+LISTED=6 PROCESSED=6 MOVED=6 BREACH=0 RC-MISMATCH=0 NORUN=0
+POSITIVE-CONTROL-OK (gate can see: 6 arm-views moved)
+
+The fourteen moved file-views are the pass's own five arms and this
+verifier's v137_a_structbase / v137_b_homes (v137_f_more was written after
+the 990-file list was frozen and is covered by the positive control).
+No FOREIGN arm moved: every buvm33/34, uvm84/85, uvm89, buvm14, uvm134 and
+sd8-12 file is byte-identical between the two binaries in both views.

@@ -1,0 +1,19 @@
+r10uvm137 — WIDE BOUNDARY GATE, verbatim tail.
+
+MOVED tmp/r10uvm137_btree/probe/r10uvm137repro/g137_a_base.sv def dumplines=11 cenlines=2
+MOVED tmp/r10uvm137_btree/probe/r10uvm137repro/g137_a_base.sv elab dumplines=17 cenlines=4
+MOVED tmp/r10uvm137_btree/probe/r10uvm137repro/g137_b_kinds.sv def dumplines=96 cenlines=18
+MOVED tmp/r10uvm137_btree/probe/r10uvm137repro/g137_b_kinds.sv elab dumplines=150 cenlines=36
+MOVED tmp/r10uvm137_btree/probe/r10uvm137repro/g137_c_homes.sv def dumplines=66 cenlines=12
+MOVED tmp/r10uvm137_btree/probe/r10uvm137repro/g137_c_homes.sv elab dumplines=96 cenlines=22
+MOVED tmp/r10uvm137_btree/probe/r10uvm137repro/g137_d_shapes.sv def dumplines=131 cenlines=24
+MOVED tmp/r10uvm137_btree/probe/r10uvm137repro/g137_d_shapes.sv elab dumplines=209 cenlines=46
+MOVED tmp/r10uvm137_btree/probe/r10uvm137repro/g137_e_mult.sv def dumplines=22 cenlines=4
+MOVED tmp/r10uvm137_btree/probe/r10uvm137repro/g137_e_mult.sv elab dumplines=64 cenlines=18
+LISTED=982 PROCESSED=982 MOVED=10 BREACH=0 RC-MISMATCH=0 NORUN=24
+PROCESSED-ASSERT-OK
+BOUNDARY PASS
+
+positive control (CTRL=1 over this pass's own arm directory):
+LISTED=5 PROCESSED=5 MOVED=10 BREACH=0 RC-MISMATCH=0 NORUN=0
+POSITIVE-CONTROL-OK (gate can see: 10 arm-views moved)
