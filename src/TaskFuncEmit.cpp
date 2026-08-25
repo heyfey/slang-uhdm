@@ -108,6 +108,60 @@ const Type* unpackedTdElem9(
                ? e0
                : nullptr;
 }
+// § tfItemLocalAutomaticIsNotWrittenStatic139 — THE TF-ITEM PRODUCTION'S OWN
+// LIFETIME RULE, and the WRITTEN lifetime it reads.
+//
+// Surelog compiles a subroutine's declaration section in ONE of two places, and
+// the two stamp `vpiAutomatic` by DIFFERENT rules:
+//
+//   * TF-ITEM production — `CompileHelper::compileTfPortDecl`
+//     (CompileStmt.cpp:1576).  Its `paBlock_item_declaration` arm opens with
+//     `bool is_static = false`, sets it true at a `paLifetime_Static` node and
+//     leaves it false at `paLifetime_Automatic` or at no lifetime node at all
+//     (:1663-1673), and then writes, for EVERY declarator of the declaration,
+//         var->VpiAutomatic(!is_static);                    // :1690
+//     It never looks at an initialiser, never looks at the declared type, and
+//     never looks at the SUBROUTINE's own lifetime.
+//   * BLOCK-ITEM production — the statement-level
+//     `CompileHelper::compileDataDeclaration` (CompileStmt.cpp:1127), whose
+//     `automatic_status` starts FALSE and is set only by a written `automatic`
+//     (:1196).  That is § blockDeclAutomaticIsWrittenKw80 (StmtEmit.cpp) and
+//     § r10fsv3 (the `else` arm below), and this pass does not touch it.
+//
+// `blockItems9` is already exactly the production selector (a FUNCTION takes
+// the block shape iff its header carries a port-list paren; a TASK takes it
+// unless the body declares io), so the law is a two-line transcription on the
+// face it already names.
+//
+// MEASURED, golden, both views, every declaration kind
+// (`g139_b_kinds.sv` `a1..q3`, 26 tf-item cells): with NO lifetime written the
+// flag is 1 on int / logic / bit / real / enum / packed-struct / typedef'd /
+// string-queue / dynamic-array / fixed-array / associative / class-handle
+// locals alike, WITH `static` written it is 0 on every one of them, WITH
+// `automatic` written it is 1 — with or without an initialiser in each case,
+// and whether the subroutine is written `function f;`, `function static f;` or
+// `function automatic f;` (`g139_a_homes.sv`).
+enum class WrittenLife139 { None, Automatic, Static };
+static WrittenLife139 writtenLife139(const slang::ast::Symbol& mv) {
+    const syntax::SyntaxNode* dsyn = mv.getSyntax();
+    if (!dsyn || dsyn->kind != syntax::SyntaxKind::Declarator)
+        return WrittenLife139::None;
+    // The declarator's parent is the whole data_declaration and the lifetime
+    // keyword is one of ITS modifiers — so a MULTI-DECLARATOR declaration
+    // (`static int a, b;`) answers Static for every declarator, which is what
+    // Surelog does (the keyword is read once, off the shared declaration node,
+    // and `!is_static` is written on each `Variable_decl_assignment`).
+    const syntax::SyntaxNode* par = dsyn->parent;
+    if (!par || par->kind != syntax::SyntaxKind::DataDeclaration)
+        return WrittenLife139::None;
+    for (auto md : par->as<syntax::DataDeclarationSyntax>().modifiers) {
+        if (md.kind == parsing::TokenKind::AutomaticKeyword)
+            return WrittenLife139::Automatic;
+        if (md.kind == parsing::TokenKind::StaticKeyword)
+            return WrittenLife139::Static;
+    }
+    return WrittenLife139::None;
+}
 }  // namespace
 
 bool UhdmExporter::elabInvoked(const SubroutineSymbol& sub) {
@@ -5826,23 +5880,29 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     vrt->Actual_typespec(vts);
                     deferForeignTopTs(fmv, vrt, vts);
                 }
-                if (!hasInit && !blockLocal && !blockItems9)
-                    v->VpiAutomatic(true);
-                // § r10fsv3.  A body local written with the `automatic`
-                // KEYWORD carries vpiAutomatic even in the block-item form
+                const WrittenLife139 wlife139 = writtenLife139(fmv);
+                if (!blockLocal && !blockItems9) {
+                    // § tfItemLocalAutomaticIsNotWrittenStatic139 — the
+                    // TF-ITEM production, Surelog CompileStmt.cpp:1690
+                    // `var->VpiAutomatic(!is_static)`.  An INITIALISER is not
+                    // part of that rule (it used to gate this arm, so every
+                    // initialised tf-item local read 0 against golden's 1 —
+                    // MiniAmiq's `uvm_cmdline_processor clp = ...` at
+                    // uvm_component.svh:3383), and neither is a written
+                    // `static`, which used to be ignored here (the head:
+                    // `static string values[$]` at :3380 read 1 against
+                    // golden's absent flag).
+                    if (wlife139 != WrittenLife139::Static)
+                        v->VpiAutomatic(true);
+                }
+                // § r10fsv3.  A BLOCK-ITEM body local written with the
+                // `automatic` KEYWORD carries vpiAutomatic even in the form
                 // that otherwise drops it — the flag follows the written
                 // lifetime, not the position (golden FuncStructVal:
                 // is_inside_cacheable_regions' `automatic logic [..] pass` has
                 // it, its two initializer-less siblings at 437/447 do not).
-                else if (auto* dsyn9 = fmv.getSyntax()) {
-                    const syntax::SyntaxNode* par9 = dsyn9->parent;
-                    if (par9 &&
-                        par9->kind == syntax::SyntaxKind::DataDeclaration)
-                        for (auto md9 : par9->as<syntax::DataDeclarationSyntax>()
-                                            .modifiers)
-                            if (md9.kind == parsing::TokenKind::AutomaticKeyword)
-                                v->VpiAutomatic(true);
-                }
+                else if (wlife139 == WrittenLife139::Automatic)
+                    v->VpiAutomatic(true);
                 if (blockLocal)
                     fnBlockLocalPav.push_back(v);
                 funcMap[&fmv] = v;

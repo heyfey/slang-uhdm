@@ -1,0 +1,39 @@
+MOVED tools/probe/r10uvm139repro/g139_a_homes.sv def dumplines=17 cenlines=34 predcells=17
+MOVED tools/probe/r10uvm139repro/g139_a_homes.sv elab dumplines=19 cenlines=38 predcells=17
+MOVED tools/probe/r10uvm139repro/g139_b_kinds.sv def dumplines=44 cenlines=88 predcells=44
+MOVED tools/probe/r10uvm139repro/g139_b_kinds.sv elab dumplines=48 cenlines=96 predcells=44
+MOVED tools/probe/r10uvm139repro/g139_c_shapes.sv def dumplines=24 cenlines=48 predcells=24
+MOVED tools/probe/r10uvm139repro/g139_c_shapes.sv elab dumplines=38 cenlines=76 predcells=24
+MOVED tools/probe/r10uvm139repro/g139_d_mult.sv def dumplines=10 cenlines=20 predcells=10
+MOVED tools/probe/r10uvm139repro/g139_d_mult.sv elab dumplines=57 cenlines=114 predcells=10
+MOVED tools/probe/r10uvm139repro/g139_e_carveout.sv def dumplines=5 cenlines=10 predcells=5
+MOVED tools/probe/r10uvm139repro/g139_e_carveout.sv elab dumplines=5 cenlines=10 predcells=5
+MOVED tools/probe/r10uvm66repro/a2_slots.sv def dumplines=1 cenlines=2 predcells=1
+MOVED tools/probe/r10uvm66repro/a2_slots.sv elab dumplines=2 cenlines=4 predcells=1
+MOVED tools/probe/r10uvm66repro/a3_count.sv def dumplines=4 cenlines=8 predcells=4
+MOVED tools/probe/r10uvm66repro/a3_count.sv elab dumplines=9 cenlines=18 predcells=4
+LISTED=3993 PROCESSED=3993 MOVED=14 BREACH=0 RC-MISMATCH=0 NORUN=306
+PROCESSED-ASSERT-OK
+BOUNDARY PASS
+
+POSITIVE CONTROL (CTRL=1 over this pass's own arm directory, taken before
+g139_e_carveout.sv was added):
+  LISTED=4 PROCESSED=4 MOVED=8 BREACH=0 RC-MISMATCH=0 NORUN=0
+  POSITIVE-CONTROL-OK (gate can see: 8 file-views moved)
+
+THE TWO FOREIGN ARM FILES, RE-MEASURED AGAINST GOLDEN (r10uvm66's a2_slots.sv
+and a3_count.sv, both views): they move TOWARD golden and nowhere else —
+  a2_slots def   AUTO TOTAL=56  RIGHT->RIGHT=55  WRONG->RIGHT=1   RIGHT->WRONG=0
+  a2_slots elab  AUTO TOTAL=116 RIGHT->RIGHT=114 WRONG->RIGHT=2   RIGHT->WRONG=0
+  a3_count def   AUTO TOTAL=18  RIGHT->RIGHT=14  WRONG->RIGHT=4   RIGHT->WRONG=0
+  a3_count elab  AUTO TOTAL=37  RIGHT->RIGHT=26  WRONG->RIGHT=8   RIGHT->WRONG=0
+  (a3_count's ONLY-GOLDEN 2 / ONLY-OURS 1 in the elab view are IDENTICAL in
+   pristine and patched — AWAY is 0.)
+
+  the five foreign cells, all initialised TF-ITEM locals:
+    a2mod.n24_tfitems::ce   a3mod.p03_tfint::x   a3mod.p07_tfdyn::d
+    a3mod.p08_tfonly::q     a3mod.p09_tfintonly::x
+
+NORUN=306 are file-views that produce no database on EITHER binary with the
+SAME rc (fragments, include-only .svh, and pre-existing segfaults that crash
+both binaries identically); RC-MISMATCH=0 asserts pris and pat never differ.

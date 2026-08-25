@@ -1,0 +1,60 @@
+r10uvm139 — THE PREDICTOR INSTRUMENTATION (not shipped; applied to a COPY of
+the tree at the pass's BASE COMMIT to build /tmp/r10uvm139_pred.bin).
+
+It is inert unless the environment names PRED139, and its databases are
+byte-identical to the pristine binary's — verified md5-for-md5 on MiniAmiq's
+own command line at the SAME output path (a database embeds the -o path, so
+two different paths differ for that reason alone).
+
+Applied at src/TaskFuncEmit.cpp, immediately BEFORE the pristine
+
+    if (!hasInit && !blockLocal && !blockItems9)
+        v->VpiAutomatic(true);
+
+--------------------------------------------------------------------------
+                // ---- r10uvm139 PREDICTOR INSTRUMENTATION (not shipped) ----
+                // Inert unless PRED139 names a file.  Reports, from the
+                // PRISTINE code path, every cell whose vpiAutomatic the
+                // proposed § tfItemLocalAutomaticIsNotWrittenStatic139 would
+                // change — a priori, before the patched sweep exists.
+                if (const char* pd139 = getenv("PRED139")) {
+                    int life139 = 0;  // 0 none, 1 automatic, 2 static
+                    if (auto* ds139 = fmv.getSyntax())
+                        if (ds139->kind == syntax::SyntaxKind::Declarator)
+                            if (const syntax::SyntaxNode* pa139 = ds139->parent)
+                                if (pa139->kind ==
+                                    syntax::SyntaxKind::DataDeclaration)
+                                    for (auto md139 :
+                                         pa139->as<syntax::DataDeclarationSyntax>()
+                                             .modifiers) {
+                                        if (md139.kind ==
+                                            parsing::TokenKind::AutomaticKeyword) {
+                                            life139 = 1; break; }
+                                        if (md139.kind ==
+                                            parsing::TokenKind::StaticKeyword) {
+                                            life139 = 2; break; }
+                                    }
+                    bool tf139 = !blockLocal && !blockItems9;
+                    bool oldA139 = (!hasInit && tf139) ||
+                                   ((hasInit || !tf139) && life139 == 1);
+                    bool newA139 = tf139 ? (life139 != 2) : (life139 == 1);
+                    if (oldA139 != newA139)
+                        if (FILE* f139 = fopen(pd139, "a")) {
+                            auto sl139 = fmv.location;
+                            fprintf(f139,
+                                    "PRED139|SUB=%s|VAR=%s|OLD=%d|NEW=%d"
+                                    "|FACE=%s|INIT=%d|LIFE=%d|LINE=%u\n",
+                                    fullName.c_str(),
+                                    std::string(fmv.name).c_str(),
+                                    oldA139 ? 1 : 0, newA139 ? 1 : 0,
+                                    tf139 ? "TFITEM" : "BLOCK",
+                                    hasInit ? 1 : 0, life139,
+                                    (unsigned)(comp.getSourceManager()
+                                                   ? comp.getSourceManager()
+                                                         ->getLineNumber(sl139)
+                                                   : 0u));
+                            fclose(f139);
+                        }
+                }
+                // ---- end predictor instrumentation ----
+--------------------------------------------------------------------------

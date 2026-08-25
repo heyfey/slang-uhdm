@@ -173,7 +173,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-25 08:45, HEAD = the earl89 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-25 08:30, HEAD = the uvm139 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 471/481 comparable
 equal (10 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -182,7 +182,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 
 | row-mode(s) | head (official cmp lines = head-object DEPTH, not distance) | family / next law |
 |---|---|---|
-| SeqDriver×2 + MiniAmiq×2 (uvm-1.2 tree) | 58 (depth, the same object on all four) | a vpiAutomatic FLAG cell on a class-method local: the subroutine-local `string values[$]` in uvm_component::m_set_cl_verb (uvm_component.svh:3380) — golden's string_var carries no vpiAutomatic, ours vpiAutomatic:1 (Surelog's lifetime-flag policy for a class-method local vs ours stamping every automatic local) — uvm139's target (uvm137 landed: 56→58 on all four, § dottedForeachLoopVarBaseMustDrill137 — a dotted foreach loop list is typed by drilling from its base object (an enclosing loop variable included), only a class_var or struct_var base reaches the member, and the gate is a HOME list because golden takes the INDEX for package/program/generate-block/statement-block arrays; the verifier excluded struct_var bases from the fallback — three grid cells, zero corpus cells) |
+| SeqDriver×2 + MiniAmiq×2 (uvm-1.2 tree) | 26 (depth, the same object on all four) | a nameless, uninstanced class_typespec: the tf-item local `uvm_cmdline_processor clp` in uvm_component::m_set_cl_verb (uvm_component.svh:3383) — golden's class_typespec carries vpiName uvm_cmdline_processor and vpiInstance → package uvm_pkg (plus vpiClassDefn), ours only vpiClassDefn (the vpiInstance family of § scopedTdUnsupTsHomePkgInstance83 / § pkgVarBindsOnlyThroughInstance88) — uvm142's target (uvm139 landed: 58→26 on all four, § tfItemLocalAutomaticIsNotWrittenStatic139 — a subroutine local compiled under the TF-ITEM production carries vpiAutomatic iff `static` is NOT written on its declaration (not the initializer, the kind, or the subroutine's lifetime); the block-item production keeps its opposite rule; after the pass every paired variable in every UVM database agrees with golden on vpiAutomatic; verifier ACCEPT as shipped) |
 | SimpleUVM×2 + Scoreboard/default | 334 (depth) | a TYPESPEC-IDENTITY head: the CLASS-LOCAL COPY of a package enum typedef at uvm_sequence_base.svh:399 — golden mints a second enum_typespec named after the typedef (uvm_pkg::uvm_sequence_state_enum), parented at the class_defn, linked to the package's enum through Typedef_alias; we hand out the package's own object under the top module and the base name with no alias (typespec::Compare walks Typedef_alias before Instance; the enum_const values agree) — uvm140's target (uvm138 landed: 32→334/83 on the five row-modes, § pkgRetBareEnumConstFold138 — the return arm threads Reduce::Yes and reduceExpr folds a bare enumerator from the same Value the enum_const publishes, in the pkgRetFoldHome86 window only; the verifier's § enumNameRangeIsNeverRegistered138v refuses enums with a NAME RANGE member, which Surelog never expands — six moved-wrong grid cells, zero corpus cells) |
 | BuildUVMPkg×2 | 83 (depth) | a SURPLUS object on our side: LHS null against our function uvm_pkg::uvm_reg_map's `ceil` (pp_output :75228) — a method listing count/owner cell (uvm127's residue R2 family) — uvm141's target |
 | Earlgrey_0_1×2 (both modes) | 15 (depth, one object) | the SAME missing bare signed int_typespec one producer further: the WIDTH operand of the elaborated port High_conn indexed part-select `intr_timer_en[h*N_TIMERS +: N_TIMERS]` (rv_timer.sv:82:58-82:66, gen_harts[0].u_intr_hw's port reg2hw_intr_enable_q_i; localparam int N_TIMERS) — earl84's residue R1, 18 live corpus cells — earl90's target (earl89 landed: 17→15, § dimBoundLeafValueSignedTs89 — a dimension bound's folded parameter leaf takes the bare signed int_typespec exactly when the instance's stored Value is signed, which collectParams_ sets through valueRange's three-kind switch on the EFFECTIVE typespec; the verifier corrected the qualified-package hop to the declared sign — a one-cell fix) |
@@ -191,7 +191,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 87 verifier fix-before-landing re-cuts (192 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 87 verifier fix-before-landing re-cuts (193 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

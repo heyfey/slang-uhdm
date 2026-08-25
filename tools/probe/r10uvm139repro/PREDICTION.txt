@@ -1,0 +1,37 @@
+r10uvm139 — A-PRIORI MOVER PREDICTION
+Produced by predsweep139.sh with the PREDICTOR binary (the PRISTINE emitter
+plus one inert fprintf; its databases are byte-identical to the pristine
+binary's — verified md5-for-md5 at the same output path), run over the
+PRISTINE sweep workdirs BEFORE the patched sweep was read.
+
+surelog corpus: 1573 rows listed, 1573 processed.
+  every row that produced a pristine database ran the predictor to completion
+  (rc 0 or rc 4 = warnings); rc 1/2/3/139 rows produce no database at all.
+uhdm2rtlil corpus: 1462 rows listed, 1462 processed, ROWS-WITH-CELLS = 0.
+
+THE MOVER SET — 9 rows, and no others:
+  default__BuildUVMPkg-bf853d43            10 cells
+  default__MiniAmiq-544c7f61               12 cells
+  default__Scoreboard-59431470              6 cells
+  default__SeqDriver-32af76aa              12 cells
+  default__SimpleUVM-1dc93a62               6 cells
+  testflags__BuildUVMPkg-bf853d43          10 cells
+  testflags__MiniAmiq-544c7f61             12 cells
+  testflags__SeqDriver-32af76aa            12 cells
+  testflags__SimpleUVM-1dc93a62             6 cells
+
+THE CELLS (identical text in every row that has them):
+  PRED139|SUB=svaunit_pkg::uvm_component::m_set_cl_sev|VAR=initialized|OLD=1|NEW=0|FACE=TFITEM|INIT=0|LIFE=2|LINE=3539
+  PRED139|SUB=svaunit_pkg::uvm_component::m_set_cl_verb|VAR=clp|OLD=0|NEW=1|FACE=TFITEM|INIT=1|LIFE=0|LINE=3383
+  PRED139|SUB=svaunit_pkg::uvm_component::m_set_cl_verb|VAR=values|OLD=1|NEW=0|FACE=TFITEM|INIT=0|LIFE=2|LINE=3380
+  PRED139|SUB=uvm_pkg::uvm_component::m_set_cl_sev|VAR=initialized|OLD=1|NEW=0|FACE=TFITEM|INIT=0|LIFE=2|LINE=3539
+  PRED139|SUB=uvm_pkg::uvm_component::m_set_cl_verb|VAR=clp|OLD=0|NEW=1|FACE=TFITEM|INIT=1|LIFE=0|LINE=3383
+  PRED139|SUB=uvm_pkg::uvm_component::m_set_cl_verb|VAR=values|OLD=1|NEW=0|FACE=TFITEM|INIT=0|LIFE=2|LINE=3380
+
+  SeqDriver/SimpleUVM/Scoreboard/BuildUVMPkg carry the same three written
+  sites through their own package copies; the per-row count is 6, 10 or 12
+  according to how many package copies x views that row emits.
+
+Every cell is a vpiAutomatic flip on a TF-ITEM subroutine local:
+  OLD=1 NEW=0  LIFE=2 (a written `static`)   -> toward golden's absent flag
+  OLD=0 NEW=1  LIFE=0 INIT=1 (an initialiser) -> toward golden's vpiAutomatic:1
