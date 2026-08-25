@@ -1,0 +1,18 @@
+databases joined: 504
+BOTH-SAME        68714
+FAMILY-SUBFOLD   0
+FAMILY-OPKEPT    0
+FAMILY-OVSTAMP   0
+TREE-OTHER       0
+OTHER-DIFF       6
+ONLY-GOLDEN      70
+ONLY-OURS        24
+GATE-REACHABLE   2
+
+-- FAMILY-SUBFOLD cells (golden folded an operand subtree, we did not):
+-- FAMILY-OPKEPT cells (golden keeps the operation, we fold):
+-- FAMILY-OVSTAMP cells:
+-- TREE-OTHER cells:
+-- GATE-REACHABLE rows (ours: an operation Rhs carrying a size(-1) constant):
+   default/ParameterWithUnderscoreValueDividedPassedFromCommandLine-d8855b31 SPAN=4:19-4:28 VIEW=DEF HOME=MODULE PNAME=C INST=work@top
+   testflags/ParameterWithUnderscoreValueDividedPassedFromCommandLine-d8855b31 SPAN=4:19-4:28 VIEW=DEF HOME=MODULE PNAME=C INST=work@top

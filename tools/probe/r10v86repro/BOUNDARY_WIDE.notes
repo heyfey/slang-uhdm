@@ -1,0 +1,52 @@
+r10v86 — WHAT EVERY DIFFERING FILE IN THE WIDE BOUNDARY IS.
+
+The walk covers a COPY of tools/probe taken at the state the IMPLEMENTER's
+patch produced — LISTED = 3857, the same file set the implementer walked, so
+the tallies are directly comparable.  (This verifier's OWN ten arms are not in
+that copy; they are measured by the three-database scorer instead, which is
+stronger: it scores against GOLDEN, not merely pristine-vs-patched.)
+
+RUN 1 — the SHIPPED patch vs pristine:
+  PROCESSED=3857 identical=7403 DIFFERING=17 no_output=294
+  rc=0 14194  rc=3 560  rc=4 646  rc=139 28
+  BYTE-IDENTICAL to the committed r10earl86repro/BOUNDARY_WIDE.tally,
+  .rc_histogram and .differing (all 17 lines, in the same order).
+
+RUN 2 — the patch PLUS § compOpUnsignedReadSignedCompare86v vs pristine:
+  this directory's BOUNDARY_WIDE.tally / .rc_histogram / .differing.
+
+THE 17 FILES
+
+  9  this pass's own arms, both views:
+       r10earl86repro/g1_ops86.sv        plain + elab
+       r10earl86repro/g2_leaves86.sv     plain + elab
+       r10earl86repro/g3_anc86.sv        plain + elab
+       r10earl86repro/g4_neg86.sv        plain + elab
+       r10earl86repro/g5_leaf85copy86.sv plain
+     re-scored here against GOLDEN with the FIXED binary: every published
+     bucket count reproduced exactly, RIGHT->WRONG 0 and WRONG->OTHER 0 in
+     both views (ARMS.r10v86.txt section C).
+
+  5  OTHER AUTHORS' arms.  Each was rebuilt with Surelog and both frozen
+     binaries and scored against GOLDEN, not merely pristine-vs-patched:
+       r10earl85repro/g2_earl85.sv   plain   W2R 1  R2W 0  W2O 0
+       r10earl85repro/g2_leaf85.sv   plain   W2R 2  R2W 0  W2O 0
+       r10earl85repro/g3_ov85.sv     plain   W2R 1  R2W 0  W2O 0
+       r10v85repro/arms/va1_unary85.sv plain+elab  W2R 1  R2W 0  W2O 0 (each)
+       r10v85repro/arms/va4_leaf85.sv  plain   W2R 2  R2W 0  W2O 0
+     Every earlier-pass arm that moves, moves TOWARD golden.
+
+  2  r10buvm22repro/g22.sv, plain + elab, and NOT THIS LAW.
+     Attributed independently on a THIRD binary pair: with the workdir
+     normalised, the pristine binary gives e974df17f531 and the patched one
+     9aa0dab36ac9 — and `R10E86_OFF=1` on the PATCHED binary reproduces
+     9aa0dab36ac9, the PATCHED hash, not the pristine one.  The delta survives
+     the kill switch, so it is not this pass's code path: it is earl84's R5 /
+     earl85's sec 7, a database value derived from an address that tracks the
+     binary's code layout.  The verifier-FIXED binary gives the same
+     9aa0dab36ac9.
+
+THE 28 rc=139
+  14 files x 2 sides, SYMMETRIC under every binary (pristine, patched, fixed)
+  and pre-existing: earl82 R6 / earl83 R6 / earl84 R6 / earl85 R5.  They are
+  NOT compared — a boundary walk that does not say so reads as if it had.

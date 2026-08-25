@@ -12165,6 +12165,25 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                     nw85->VpiParent(pa);
                                     rhs = (UHDM::expr*)nw85;
                                 }
+                                // § elabParamOpSubtreeFold86 (r10earl86) — and
+                                // then the OPERAND SUBTREES.  `compileExpression`
+                                // runs its tail `reduceExpr` at EVERY recursion
+                                // level, so by the time the bailing ancestor sees
+                                // an operand whose own level did NOT bail, that
+                                // operand is already ONE constant — no typespec,
+                                // stamped at the span `populateCoreMembers(child,
+                                // child, result)` gives it.  The leaf walk above
+                                // must run FIRST: these arms read the operands'
+                                // VpiSize/VpiConstType, which is what the leaf
+                                // fold puts there.
+                                if (rhs &&
+                                    rhs->UhdmType() == UHDM::uhdmoperation)
+                                    if (auto* nw86 = elabParamOpSubtreeFold86(
+                                            rhs, emitInit9, 0);
+                                        nw86 && nw86 != rhs) {
+                                        nw86->VpiParent(pa);
+                                        rhs = (UHDM::expr*)nw86;
+                                    }
                             }
                 }
                 importedInitPkgInst = savedImpInst0;

@@ -1,0 +1,94 @@
+r10earl86 — THE FULL GATE BATTERY, as run.  MEASUREMENT ONLY; the official
+~/git-repos/UHDM/build/bin/uhdm-cmp is the acceptance judge everywhere below.
+
+BOTH BINARIES WERE FROZEN AT IMMUTABLE PATHS (chmod 555) BEFORE ANY SWEEP, and
+every sweep's cmds.txt was audited BY BINARY PATH (not by the string
+"slang-uhdm", which also matches the golden cache directory):
+    pristine  e36cb36103acbc3c2e44797ddc81a745   (built from aef5007)
+    patched   774b905631bc3746deb00824309b2566
+    cmds.txt  "slang:   /tmp/r10earl86_frozen/{pris,patched}.bin ..."   VERIFIED
+
+(1) BUILD.  cmake --build -j 2, md5 taken separately.  0 errors.
+
+(2) GOLDEN DUMPS.
+      SLANG_UHDM=<patched>  tests/check_goldens.sh   PASS 23 / FAIL 0
+      SLANG_UHDM=<pristine> tests/check_goldens.sh   PASS 23 / FAIL 0
+      SLANG_UHDM=/bin/false tests/check_goldens.sh   PASS  0 / FAIL 23   <- negative control
+
+(3) uhdm2rtlil, BOTH MODES.
+      status histogram, testflags AND default, patched:
+          CMP_EQUAL 679   SLANG_REJECT 50   SURELOG_FAIL 2
+      ct8rows testflags vs the COMMITTED baseline results/gate_uhdm2rtlil.csv
+          PASS: every row byte-identical to the committed baseline
+      ct8rows testflags vs THIS PASS'S OWN pristine sweep      PASS
+      ct8rows default   vs THIS PASS'S OWN pristine sweep      PASS
+      byteverify SELFCHECK=1   MOVERS 0 / 1358   (SELFCHECK 1357/1358 flagged)
+      PATH_SETS_IDENTICAL (1358 paths)
+
+(4) surelog, --mode both.
+      status histograms IDENTICAL pristine vs patched, both modes:
+          default   CMP_EQUAL 471  SLANG_REJECT 283  SURELOG_FAIL 25
+                    CMP_NOTEQUAL 10  DEFERRED 5
+          testflags CMP_EQUAL 466  SLANG_REJECT 284  SURELOG_FAIL 23
+                    CMP_NOTEQUAL  9  DEFERRED 5  NO_DATABASE 3  NO_UHDM 1
+      ct8rows vs the COMMITTED baseline results/golden_surelog.csv
+          PASS: every row byte-identical to the committed baseline
+      ct8rows vs THIS PASS'S OWN pristine sweep                PASS
+      **NO ROW WAS CONVERTED** — results/*.csv is untouched.
+      0 differing rows over 1588.
+
+(5) byteverify surelog SELFCHECK=1   MOVERS 2 / 956  (SELFCHECK 955/956 flagged)
+      PATH_SETS_IDENTICAL (956 paths)
+      ./default/Earlgrey_0_1-71da2fd7/slang.uhdm    PREDICTED BY NAME
+      ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm  attributed in PREDICT_R0.txt
+          PART 1b: R10E86_OFF=1 reproduces the pristine file byte for byte, and
+          `uhdm-cmp <pristine> <patched>` on the pair exits 0 with 0 lines —
+          the delta is INVISIBLE TO THE JUDGE.
+
+(6) ROW HEADS (rowheads.sh; LHS is always golden).
+      TEST           MODE       BEFORE            AFTER
+      SeqDriver      default     17 / 1 head      17 / 1 head
+      SeqDriver      testflags   17 / 1 head      17 / 1 head
+      SimpleUVM      default    124 / 1 head     124 / 1 head
+      SimpleUVM      testflags  124 / 1 head     124 / 1 head
+      Scoreboard     default    124 / 1 head     124 / 1 head
+      Scoreboard     testflags  SKIP-NOFILE      SKIP-NOFILE   (expected)
+      MiniAmiq       default     17 / 1 head      17 / 1 head
+      MiniAmiq       testflags   17 / 1 head      17 / 1 head
+      BuildUVMPkg    default     54 / 1 head      54 / 1 head
+      BuildUVMPkg    testflags   54 / 1 head      54 / 1 head
+      Earlgrey_0_1   default     90 / 1 head     150 / 1 head  <- HEAD CLEARED
+      Earlgrey_0_1   testflags  150 / 1 head     150 / 1 head  <- unchanged
+      Rggen          default      0 / 0 heads      0 / 0 heads
+      Rggen          testflags  SKIP-NOFILE      SKIP-NOFILE   (expected)
+      measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+      (counts are DEPTH, not distance; Earlgrey default's 90-line log and the
+       master's /tmp/earlgrey_head_default_aef5007.cmp are BYTE-IDENTICAL.)
+
+(7) CANARIES.
+      canaries.sh surelog     ok=52 changed=0 absent=0
+      canaries.sh uhdm2rtlil  ok=8  changed=0 absent=0
+      EXPECT_UNKNOWN=1 ctcan2.sh surelog     PASS
+      EXPECT_UNKNOWN=6 ctcan2.sh uhdm2rtlil  PASS
+      canaudit.sh canaries.sh ctcan2.sh   audited=29 UNCOVERED=0 FENCE-BREACH=0
+      PROTECTED DATABASES, patched vs this pass's own pristine:
+        InterfaceModPort    default/testflags  SAME (59a365f3ce2c / 59a365f3ce2c)
+        BlackParrotComplex  default/testflags  SAME (e3e354129d5a / 73a10e8217e5)
+        YosysOldOr          default/testflags  SAME (d68e0796d62c / d68e0796d62c)
+        SVSwitch            pin 4842211c4030   MATCHED (both modes)
+        YosysVerx           pin 6ccda350c24a   MATCHED (both modes)
+
+(8) THE WIDE BOUNDARY.
+      PROCESSED=3857 (== LISTED)  identical=7403  DIFFERING=17  no_output=294
+      rc histogram: rc=0 14194  rc=3 560  rc=4 646  rc=139 28
+      All 17 named and scored in BOUNDARY_WIDE.notes; 8 of them are OTHER
+      AUTHORS files and every one scores WRONG->RIGHT with RIGHT->WRONG 0.
+      The two r10buvm22repro/g22.sv cells are NOT this law (R10E86_OFF=1
+      reproduces the PATCHED hash, not the pristine one).
+
+(9) PATCH HYGIENE.
+      /tmp/r10earl86.patch applies CLEANLY (git apply -3, rc 0, 0 conflict
+      markers) on a FRESH aef5007 worktree.
+      Surface: src/ExprEmit.cpp, src/ParamEmit.cpp, include/UhdmExporter.h and
+      tools/probe/r10earl86repro/ ONLY.  results/*.csv UNTOUCHED.
+      Fenced-name scan of the patch text: all four counts 0.

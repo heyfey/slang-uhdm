@@ -9,12 +9,15 @@
 #include <algorithm>
 #include <cctype>
 #include <cerrno>
+#include <charconv>
+#include <cmath>
 #include <cstdlib>
 #include <regex>
 
 #include "EmitHelpers.h"
 
 #include "slang/ast/Constraints.h"
+#include "slang/syntax/AllSyntax.h"
 #include "slang/syntax/SyntaxNode.h"
 #include "slang/ast/expressions/Operator.h"
 #include "slang/ast/symbols/CoverSymbols.h"
@@ -8271,10 +8274,34 @@ UHDM::any* UhdmExporter::elabParamOpLeafValueFold85(UHDM::any* node,
     // SIGNED `int` / `bit` / `logic` DECLARED type and nothing else, and never
     // for an OVERRIDDEN parameter (whose Value never reaches the capture).
     bool signedTs85 = false;
+    // § valueRangeImplicitSigning86 (r10earl86) — ONE WORD WIDER THAN earl85's
+    // TRANSCRIPTION.  `CompileHelper::valueRange` (CompileHelper.cpp:5380-5398)
+    // reads `VpiSigned` off the COMPILED TYPESPEC and its switch has exactly
+    // three arms — `logic_typespec`, `bit_typespec`, `int_typespec`.  earl85
+    // asked the question of slang's DECLARED TYPE SYNTAX instead and refused
+    // every `ImplicitType`, which is right for an UNTYPED `localparam X = 4`
+    // (Surelog compiles it to an UNSIGNED `int_typespec`, golden's leaf carries
+    // NO typespec — r10earl85repro/g2_leaf85.sv r05) and WRONG for
+    // `localparam signed [7:0] X = 11`, whose type syntax is ALSO implicit but
+    // whose compiled typespec is an `int_typespec` WITH `VpiSigned` — in golden
+    // AND in our own database (`uhdm-dump`: `int_typespec 19:14 |vpiSigned:1`
+    // under `parameter work@leaf85.L_SLOG` on both sides).  golden's leaf there
+    // DOES carry the bare signed `int_typespec` (g2_leaf85 r06,
+    // `int_typespec:1`) and pristine's does not.
+    //
+    // The distinguisher is the ONE thing that separates the two implicit
+    // shapes and the one thing that decides the emitted typespec's
+    // `VpiSigned`: an explicit `signed` keyword in the declaration.  So an
+    // ImplicitType is refused UNLESS it carries one, and everything after that
+    // is earl85's measured switch, unchanged.
     if (!ovL)
         if (auto dt85 = psL.getDeclaredType())
             if (auto ty85 = dt85->getTypeSyntax();
-                ty85 && ty85->kind != syntax::SyntaxKind::ImplicitType) {
+                ty85 &&
+                (ty85->kind != syntax::SyntaxKind::ImplicitType ||
+                 (ty85->as<syntax::ImplicitTypeSyntax>().signing &&
+                  ty85->as<syntax::ImplicitTypeSyntax>().signing.rawText() ==
+                      "signed"))) {
                 auto& cty85 = psL.getType().getCanonicalType();
                 if (cty85.isIntegral() && !cty85.isEnum() && cty85.isSigned()) {
                     if (cty85.kind == SymbolKind::PredefinedIntegerType)
@@ -8302,6 +8329,671 @@ UHDM::any* UhdmExporter::elabParamOpLeafValueFold85(UHDM::any* node,
         c->Typespec(rt85);
     }
     return c;
+}
+
+// ===========================================================================
+// § srlgReduceOpFold86 + § elabParamOpSubtreeFold86  (r10earl86)
+//
+// THE HEAD.  `flash_erase_ctrl.sv:42`, `top_earlgrey.u_flash_ctrl.
+// u_flash_erase_ctrl`:
+//
+//   localparam logic[AddrW-1:0] BankAddrMask =
+//       ~(('h1 << (PagesBitWidth + WordsBitWidth)) - 1'b1);
+//
+//   LHS (golden)                       RHS (ours, at aef5007)
+//     constant   42:57-42:70             operation 42:57-42:86
+//     |vpiDecompile:16 |vpiSize:32       |vpiOpType:24 (vpiAddOp)
+//     |UINT:16 |vpiConstType:9           |vpiOperand -> constant UINT:8 sz32
+//     (NO vpiTypespec)                   |             + ref_typespec->int_typespec
+//                                        |vpiOperand -> constant UINT:8 sz32
+//                                                      + ref_typespec->int_typespec
+//
+// THE DECODE.  `§ srlgUnsizedBasedShiftBail85` already models WHY the tree
+// survives: `'h1` is a Surelog `constant` with `VpiSize() == -1`, and
+// `ExprEval::reduceExpr`'s shift arms (`templates/ExprEval.cpp:3050` and
+// `:3137`) set `invalidValue` on a size(-1) LEFT operand, so
+// `CompileExpression.cpp:3647-3655`
+//     if (any *tmp = reduceExpr(result, invalidValue, ...))
+//         if (!invalidValue) result = tmp;
+// keeps the ORIGINAL operation.  What earl85 did NOT model is that this tail
+// runs at **EVERY RECURSION LEVEL** of `compileExpression`, not only at the
+// top: each operand is compiled by its own `compileExpression` call
+// (`CompileExpression.cpp:2276-2407`, the `paExpression`/
+// `paConstant_expression` arm), and THAT call reduces its own result before
+// returning it.  `(PagesBitWidth + WordsBitWidth)` therefore folds — nothing
+// in THAT subtree is size(-1); the bail is at the shift ABOVE it — and the
+// bailing ancestor receives a CONSTANT operand.
+//
+// TWO PRODUCERS, TWO TYPESPEC ANSWERS.  This is the split the head turns on:
+//   (A) a BARE IDENTIFIER operand is compiled by the identifier arm
+//       (`CompileExpression.cpp:2852` / `:3004-3018`), which mints the
+//       instance's stored Value AND a bare signed `int_typespec` when
+//       `CompileHelper::valueRange` captured signedness —
+//       § elabParamOpLeafValueFold85 (r10earl85) owns that, unchanged;
+//   (B) an OPERAND SUBTREE is folded by `reduceExpr`, whose arms mint
+//       `s.MakeConstant()` and set VpiValue/VpiDecompile/VpiSize/VpiConstType
+//       and **NOTHING ELSE** — no typespec, ever.  That is this law.
+//
+// THE SPAN.  A `reduceExpr` constant is minted with no location, so
+// `compileExpression`'s tail
+//     if (result && (result->VpiLineNo() == 0)) {
+//         if (child) fC->populateCoreMembers(child, child, result); ... }
+// stamps it with `child = fC->Child(parent)` — the FIRST CHILD of the
+// expression node, i.e. the LEFT OPERAND's own syntax node for a binary
+// operator (INCLUDING its parentheses, because the parenthesised primary IS
+// that child), and the OPERATOR TOKEN for a unary one.  Measured, golden:
+//   `(P + W)`            as `'h1 << (P + W)`'s amount -> span of `P`
+//   `(P + W + 1)`                                     -> span of `P + W`
+//   `((P + W) * 1)`                                   -> span of `(P + W)`
+//   `(((P+W)*1) - 2)`                                 -> span of `((P + W) * 1)`
+//   `($clog2(P) + W)`                                 -> span of `$clog2(P)`
+//   `(-P)` / `(~LW)` / `(!Z)` / `(&LW)`               -> span of `-`/`~`/`!`/`&`
+//   `(~&LW)` / `(~|LW)` / `(~^LW)`                    -> span of `~&`/`~|`/`~^`
+// (tools/probe/r10earl86repro/g1_ops86.sv + g2_leaves86.sv, GOLDEN = Surelog.)
+//
+// THE ENCODER TABLE is earl73's, read off the arms themselves; every one of
+// these was measured on the grids, one localparam per row:
+//   op                     value tag  vpiSize                 constType
+//   << >> (arith and log)  UINT       64                      vpiUIntConst
+//                          + BAIL when operands[0] is size(-1)  <- rule (1)
+//   +  (binary)            UINT unless EITHER reduced operand is
+//                          vpiIntConst/vpiDecConst/vpiStringConst/vpiRealConst,
+//                          then INT     max(sz0, sz1)          9 / 7
+//   -  *  %  **  /         INT        64                      vpiIntConst
+//   -  (unary)             INT        the OPERAND's VpiSize   vpiIntConst
+//   &  |  &&  ||           UINT       64                      vpiUIntConst
+//   !                      UINT       64                      vpiUIntConst
+//   ~  (unary)             UINT masked to  the operand's typespec size when it
+//                          HAS a typespec, else its VpiSize    vpiUIntConst
+//   & ~& | ~| ^ ~^ (unary) UINT       64                      vpiUIntConst
+//   < <= > >= == !=        BIN        1                       vpiBinaryConst
+//   ?: with a CONSTANT condition is not an arm at all: `CompileExpression.cpp
+//      :2289-2306` short-circuits the whole ternary to the COMPILED SELECTED
+//      ARM, so the result keeps that arm's own span and typespec (measured,
+//      g1 rows t_cnd/t_cn2: `UINT:8 sz32 + int_typespec` at `P`'s span, NOT
+//      the `INT:` size-64 mint `reduceExpr`'s vpiConditionOp arm would give).
+//   ^  ~^ (BINARY) have NO arm in reduceExpr at all -> golden keeps the
+//      operation (g1 o_xor, g4 n_xor/n_xnr) and so must we.
+//
+// WHAT IS REFUSED, each with the measurement that says why:
+//   * the ROOT of the bail-kept tree (depth 0) — Surelog's bail IS on that
+//     node; refusing it is a fence, not a model gap;
+//   * any operand that is not a `constant` after the recursion (Surelog's
+//     `constantOperands` guard, ExprEval.cpp:3022-3044);
+//   * a real / string / time / scalar operand, and any value string this
+//     transcription of `get_value`/`get_uvalue` cannot parse — an X/Z binary
+//     operand is exactly rule (2) of § srlgUnbasedReduceBail and it keeps the
+//     operation (g4 n_unx `'x + P`, golden and ours both unfolded);
+//   * `/` or `%` by zero (`if (divisor && ...)` / `if (val1 && ...)`) —
+//     g4 n_dv0 / n_md0, golden keeps the operation;
+//   * a comparison with a size(-1) operand: `reduceCompOp` RESIZES the operand
+//     in place (ExprEval.cpp:1657-1661) and this pass does not model that
+//     mutation;
+//   * ANYTHING under a `vpiConcatOp` / `vpiMultiConcatOp` /
+//     `vpiAssignmentPatternOp` carrier.  THE FENCE, and it is measured, not
+//     assumed: `CompileHelper::reorderAssignmentPattern`
+//     (`CompileExpression.cpp:5887-5960`) REVERSES a concat's operands when the
+//     target range is descending, which we do not model — g3 arm `a_cat`
+//     (`{('h1 << W), (P + W)}` into a `logic[16:0]`) has golden's operands in
+//     the opposite order from ours, so folding inside it would move a cell that
+//     is wrong for a DIFFERENT reason.  The arm stays byte-identical instead.
+//
+// THE KILL SWITCH.  `R10E86_OFF=1` restores the pre-pass path exactly; it is
+// the NEUTRAL binary the Earlgrey A/B attribution scores against (Earlgrey is
+// never whole-dump diffed — its dump is >1 GB).
+static const bool r10e86Off = [] {
+    const char* v = getenv("R10E86_OFF");
+    return v && *v && *v != '0';
+}();
+
+namespace {
+
+// `NumUtils::strToInt` / `strToNum`, transcribed: `from_chars` over the WHOLE
+// remaining text, leading spaces and a leading '+' removed first.  A partial
+// parse is a FAILURE here exactly as it is there (`parse_result.ec` is the only
+// success test and the returned pointer is never range-checked by the callers
+// that matter).
+static bool r86Digits(std::string_view s, int base, bool lenient, bool wantU,
+                      int64_t& sOut, uint64_t& uOut) {
+    while (!s.empty() && isspace((unsigned char)s.front()))
+        s.remove_prefix(1);
+    if (!s.empty() && s.front() == '+')
+        s.remove_prefix(1);
+    if (s.empty())
+        return false;
+    const char* b = s.data();
+    const char* e = s.data() + s.size();
+    if (!wantU || lenient) {
+        int64_t sn = 0;
+        auto r = std::from_chars(b, e, sn, base);
+        if (r.ec == std::errc() && r.ptr == e) {
+            sOut = sn;
+            uOut = (uint64_t)sn;
+            return true;
+        }
+        // strToInt's second try: only when the text is not negative and the
+        // signed parse overflowed.
+        if (lenient && s.front() != '-' &&
+            r.ec == std::errc::result_out_of_range) {
+            uint64_t un = 0;
+            auto r2 = std::from_chars(b, e, un, base);
+            if (r2.ec == std::errc() && r2.ptr == e) {
+                uOut = un;
+                sOut = (int64_t)un;
+                return true;
+            }
+        }
+        return false;
+    }
+    uint64_t un = 0;
+    auto r = std::from_chars(b, e, un, base);
+    if (r.ec != std::errc() || r.ptr != e)
+        return false;
+    uOut = un;
+    sOut = (int64_t)un;
+    return true;
+}
+
+// `ExprEval::ltrim(str, c)`: find `c` ANYWHERE and drop everything up to and
+// including it.  Transcribed verbatim so the same strings survive.
+static std::string_view r86Ltrim(std::string_view s, char c) {
+    auto pos = s.find(c);
+    if (pos != std::string_view::npos)
+        s = s.substr(pos + 1);
+    return s;
+}
+
+// `ExprEval::get_value` (:1946) and `get_uvalue` (:2057), the two readers every
+// arm below goes through.  `uns` selects which.  Returns false where they set
+// `invalidValue`.
+static bool r86Read(const UHDM::constant* c, bool uns, int64_t& sv,
+                    uint64_t& uv) {
+    if (!c)
+        return false;
+    std::string_view s(c->VpiValue());
+    int32_t ct = c->VpiConstType();
+    int32_t sz = c->VpiSize();
+    auto strip = [&](const char* pfx) {
+        size_t n = strlen(pfx);
+        if (s.size() < n || s.compare(0, n, pfx) != 0)
+            return false;
+        s.remove_prefix(n);
+        return true;
+    };
+    switch (ct) {
+        case vpiBinaryConst: {
+            if (sz > 64)
+                return false;
+            s = r86Ltrim(s, '\'');
+            s = r86Ltrim(s, 's');
+            s = r86Ltrim(s, 'b');
+            if (!strip("BIN:"))
+                return false;
+            // `NumUtils::parseBinary` fails on any X/Z digit, and BOTH readers
+            // are called with `strict` defaulted TRUE — rule (2).
+            return r86Digits(s, 2, true, uns, sv, uv);
+        }
+        case vpiDecConst: {
+            if (!strip("DEC:"))
+                return false;
+            return r86Digits(s, 10, false, uns, sv, uv);
+        }
+        case vpiHexConst: {
+            if (sz > 64)
+                return false;
+            s = r86Ltrim(s, '\'');
+            s = r86Ltrim(s, 's');
+            s = r86Ltrim(s, 'h');
+            if (!strip("HEX:"))
+                return false;
+            return r86Digits(s, 16, true, uns, sv, uv);
+        }
+        case vpiOctConst: {
+            if (sz > 64)
+                return false;
+            s = r86Ltrim(s, '\'');
+            s = r86Ltrim(s, 's');
+            s = r86Ltrim(s, 'o');
+            if (!strip("OCT:"))
+                return false;
+            return r86Digits(s, 8, true, uns, sv, uv);
+        }
+        case vpiIntConst: {
+            if (!strip("INT:"))
+                return false;
+            // get_value  -> parseInt64  (strict signed)
+            // get_uvalue -> parseUint64 (strict unsigned: "-3" FAILS)
+            return r86Digits(s, 10, false, uns, sv, uv);
+        }
+        case vpiUIntConst: {
+            if (!strip("UINT:"))
+                return false;
+            // get_value  -> parseIntLenient ; get_uvalue -> parseUint64
+            return r86Digits(s, 10, !uns, uns, sv, uv);
+        }
+        default:
+            // vpiRealConst / vpiStringConst / vpiTimeConst / vpiScalar and the
+            // `default:` sniffing arm are NOT modelled: the arms that reach
+            // them fall into a `get_double` path this pass does not claim.
+            return false;
+    }
+}
+
+static bool r86Sval(const UHDM::constant* c, int64_t& v) {
+    uint64_t u = 0;
+    int64_t s = 0;
+    if (!r86Read(c, false, s, u))
+        return false;
+    v = s;
+    return true;
+}
+static bool r86Uval(const UHDM::constant* c, uint64_t& v) {
+    uint64_t u = 0;
+    int64_t s = 0;
+    if (!r86Read(c, true, s, u))
+        return false;
+    v = u;
+    return true;
+}
+
+// `NumUtils::getMask`.
+static uint64_t r86Mask(uint64_t w) {
+    if (w == 0)
+        return 0;
+    if (w >= 64)
+        return ~0ULL;
+    return (1ULL << w) - 1ULL;
+}
+
+// The operand of `vpiBitNegOp` is sized through its TYPESPEC when it has one
+// (`ExprEval::size(tps, ...)`, ExprEval.cpp:3425-3430).  Only the shape this
+// pass can size EXACTLY is accepted: a BARE `int_typespec` — the very object
+// § elabParamOpLeafValueFold85 mints, and the only typespec a leaf in one of
+// these trees ever carries.  Anything else refuses the whole fold rather than
+// guess a width.
+static bool r86BitNegSize(const UHDM::constant* c, uint64_t& size) {
+    if (auto* rt = c->Typespec()) {
+        auto* ts = rt->Actual_typespec();
+        if (!ts || ts->UhdmType() != UHDM::uhdmint_typespec)
+            return false;
+        auto* its = (const UHDM::int_typespec*)ts;
+        if (its->Ranges() && !its->Ranges()->empty())
+            return false;
+        size = 32;
+        return true;
+    }
+    size = (uint64_t)(int64_t)c->VpiSize();
+    return true;
+}
+
+}  // namespace
+
+UHDM::constant* UhdmExporter::srlgReduceOpFold86(UHDM::operation* op,
+                                                 const Expression& se) {
+    if (r10e86Off || !op)
+        return nullptr;
+    auto* ods = op->Operands();
+    if (!ods || ods->empty())
+        return nullptr;
+    // `constantOperands` (ExprEval.cpp:3022-3044): every operand must have
+    // reduced to a constant.  Ours have, or they have not — there is no
+    // by-name fallback here because the leaf walk already ran.
+    std::vector<const UHDM::constant*> cs;
+    for (auto* o : *ods) {
+        if (!o || o->UhdmType() != UHDM::uhdmconstant)
+            return nullptr;
+        cs.push_back((const UHDM::constant*)o);
+    }
+    const int32_t ot = op->VpiOpType();
+    const size_t n = cs.size();
+    std::string val;   // the whole VpiValue string, prefix included
+    std::string dec;   // VpiDecompile — the same digits, no prefix
+    int32_t size = 64;
+    int32_t ct = vpiUIntConst;
+
+    auto mkU = [&](uint64_t v, int32_t sz) {
+        dec = std::to_string(v);
+        val = "UINT:" + dec;
+        size = sz;
+        ct = vpiUIntConst;
+    };
+    auto mkI = [&](int64_t v, int32_t sz) {
+        dec = std::to_string(v);
+        val = "INT:" + dec;
+        size = sz;
+        ct = vpiIntConst;
+    };
+
+    switch (ot) {
+        case vpiArithRShiftOp:
+        case vpiRShiftOp:
+        case vpiArithLShiftOp:
+        case vpiLShiftOp: {
+            if (n != 2)
+                return nullptr;
+            // RULE (1) — the size(-1) LEFT operand.  Verbatim, and it is the
+            // reason this whole family of trees survives at all.
+            if (cs[0]->VpiSize() == -1)
+                return nullptr;
+            int64_t v0 = 0, v1 = 0;
+            if (!r86Sval(cs[0], v0) || !r86Sval(cs[1], v1))
+                return nullptr;
+            uint64_t v = (ot == vpiArithLShiftOp || ot == vpiLShiftOp)
+                             ? (((uint64_t)v0) << ((uint64_t)v1))
+                             : (((uint64_t)v0) >> ((uint64_t)v1));
+            mkU(v, 64);
+            break;
+        }
+        case vpiAddOp: {
+            if (n != 2)
+                return nullptr;
+            bool uns = true;
+            for (auto* c : cs) {
+                int32_t t = c->VpiConstType();
+                if (t == vpiIntConst || t == vpiStringConst ||
+                    t == vpiRealConst || t == vpiDecConst)
+                    uns = false;
+            }
+            int32_t sz = cs[0]->VpiSize() > cs[1]->VpiSize() ? cs[0]->VpiSize()
+                                                             : cs[1]->VpiSize();
+            if (uns) {
+                uint64_t a = 0, b = 0;
+                if (!r86Uval(cs[0], a) || !r86Uval(cs[1], b))
+                    return nullptr;
+                mkU(a + b, sz);
+            } else {
+                int64_t a = 0, b = 0;
+                if (!r86Sval(cs[0], a) || !r86Sval(cs[1], b))
+                    return nullptr;
+                mkI(a + b, sz);
+            }
+            break;
+        }
+        case vpiSubOp:
+        case vpiMultOp:
+        case vpiModOp:
+        case vpiPowerOp:
+        case vpiDivOp: {
+            if (n != 2)
+                return nullptr;
+            int64_t a = 0, b = 0;
+            if (!r86Sval(cs[0], a) || !r86Sval(cs[1], b))
+                return nullptr;
+            int64_t v = 0;
+            if (ot == vpiSubOp)
+                v = a - b;
+            else if (ot == vpiMultOp)
+                v = a * b;
+            else if (ot == vpiModOp) {
+                if (b == 0)  // `if (val1 && ...)` — the fold does not happen
+                    return nullptr;
+                v = a % b;
+            } else if (ot == vpiDivOp) {
+                if (b == 0)  // `if (divisor && ...)`
+                    return nullptr;
+                v = a / b;
+            } else {
+                // std::pow<int64_t> cast back to int64_t.  A negative exponent
+                // is not claimed (it goes through a double there).
+                if (b < 0)
+                    return nullptr;
+                long double p = powl((long double)a, (long double)b);
+                if (!(p >= -9.2e18L && p <= 9.2e18L))
+                    return nullptr;
+                v = (int64_t)p;
+            }
+            mkI(v, 64);
+            break;
+        }
+        case vpiBitOrOp:
+        case vpiBitAndOp:
+        case vpiLogOrOp:
+        case vpiLogAndOp: {
+            if (n != 2)
+                return nullptr;
+            int64_t a = 0, b = 0;
+            if (!r86Sval(cs[0], a) || !r86Sval(cs[1], b))
+                return nullptr;
+            uint64_t v = 0;
+            if (ot == vpiBitOrOp)
+                v = ((uint64_t)a) | ((uint64_t)b);
+            else if (ot == vpiBitAndOp)
+                v = ((uint64_t)a) & ((uint64_t)b);
+            else if (ot == vpiLogOrOp)
+                v = ((uint64_t)a) || ((uint64_t)b);
+            else
+                v = ((uint64_t)a) && ((uint64_t)b);
+            mkU(v, 64);
+            break;
+        }
+        case vpiMinusOp: {
+            if (n != 1)
+                return nullptr;
+            int64_t a = 0;
+            if (!r86Sval(cs[0], a))
+                return nullptr;
+            // "size = 64; if (operand is a constant) size = operand->VpiSize()"
+            mkI(-a, cs[0]->VpiSize());
+            break;
+        }
+        case vpiNotOp: {
+            if (n != 1)
+                return nullptr;
+            int64_t a = 0;
+            if (!r86Sval(cs[0], a))
+                return nullptr;
+            mkU(!((uint64_t)a), 64);
+            break;
+        }
+        case vpiBitNegOp: {
+            if (n != 1)
+                return nullptr;
+            int64_t a = 0;
+            if (!r86Sval(cs[0], a))
+                return nullptr;
+            uint64_t sz = 64;
+            if (!r86BitNegSize(cs[0], sz))
+                return nullptr;
+            uint64_t v = (uint64_t)a;
+            if (sz == 1)
+                v = !v;
+            else
+                v = (~v) & r86Mask(sz);
+            mkU(v, (int32_t)sz);
+            break;
+        }
+        // The unary reductions.  The loop BOUNDS differ per arm in ExprEval and
+        // they are transcribed as they stand, bugs included: vpiUnaryAndOp
+        // walks the operand's OWN VpiSize, vpiUnaryNandOp and vpiUnaryOrOp stop
+        // at 32, the other three at 64.
+        case vpiUnaryAndOp:
+        case vpiUnaryNandOp:
+        case vpiUnaryOrOp:
+        case vpiUnaryNorOp:
+        case vpiUnaryXorOp:
+        case vpiUnaryXNorOp: {
+            if (n != 1)
+                return nullptr;
+            int64_t a = 0;
+            if (!r86Sval(cs[0], a))
+                return nullptr;
+            uint64_t v = (uint64_t)a;
+            uint64_t res = v & 1;
+            int32_t lim = 64;
+            if (ot == vpiUnaryAndOp)
+                lim = cs[0]->VpiSize();
+            else if (ot == vpiUnaryNandOp || ot == vpiUnaryOrOp)
+                lim = 32;
+            for (int32_t i = 1; i < lim; i++) {
+                uint64_t bit = (v & (1ULL << i)) >> i;
+                if (ot == vpiUnaryAndOp || ot == vpiUnaryNandOp)
+                    res = res & bit;
+                else if (ot == vpiUnaryOrOp || ot == vpiUnaryNorOp)
+                    res = res | bit;
+                else
+                    res = res ^ bit;
+            }
+            if (ot == vpiUnaryNandOp || ot == vpiUnaryNorOp ||
+                ot == vpiUnaryXNorOp)
+                res = !res;
+            mkU(res, 64);
+            break;
+        }
+        case vpiEqOp:
+        case vpiNeqOp:
+        case vpiGtOp:
+        case vpiGeOp:
+        case vpiLtOp:
+        case vpiLeOp: {
+            if (n != 2)
+                return nullptr;
+            // `reduceCompOp` RESIZES a size(-1) operand IN PLACE before reading
+            // it (ExprEval.cpp:1657-1661); that mutation is not modelled.
+            if (cs[0]->VpiSize() == -1 || cs[1]->VpiSize() == -1)
+                return nullptr;
+            // § compOpUnsignedReadSignedCompare86v (r10v86, the VERIFIER'S
+            // FIX) — `reduceCompOp` reads BOTH operands with `get_uvalue` and
+            // then compares them SIGNED: `ExprEval.cpp:1667-1668` declares
+            //     int64_t v0 = get_uvalue(invalidValueI, reduc0);
+            //     int64_t v1 = get_uvalue(invalidValueI, reduc1);
+            // an UNSIGNED read landing in a SIGNED variable, and every ordered
+            // arm below it (`>` `>=` `<` `<=`) then compares the two int64_t.
+            // Reading unsigned and comparing UNSIGNED — as this arm first did
+            // — flips every ordered comparison whose operand has bit 63 set,
+            // e.g. `(1 << 63) > 5` (Surelog 0, unsigned 1).  Measured as a
+            // RIGHT->WRONG under `--elabuhdm`, where the pristine binary is
+            // RIGHT because `UHDM::UhdmAdjuster` reduces the kept tree with
+            // THIS SAME ExprEval: r10v86repro/arms/va9_elabedge86.sv rows
+            // e_gt / e_ge / e_lt / e_le / e_rv / e_bb, and
+            // va7_signcmp86.sv rows s_gt / s_lt / s_ge / s_le / s_rgt.
+            // `==` / `!=` are indifferent to the signedness and did not move.
+            uint64_t ua = 0, ub = 0;
+            if (!r86Uval(cs[0], ua) || !r86Uval(cs[1], ub))
+                return nullptr;
+            const int64_t a = (int64_t)ua;
+            const int64_t b = (int64_t)ub;
+            uint64_t v = 0;
+            switch (ot) {
+                case vpiEqOp: v = (a == b); break;
+                case vpiNeqOp: v = (a != b); break;
+                case vpiGtOp: v = (a > b); break;
+                case vpiGeOp: v = (a >= b); break;
+                case vpiLtOp: v = (a < b); break;
+                default: v = (a <= b); break;
+            }
+            dec = std::to_string(v);
+            val = "BIN:" + dec;
+            size = 1;
+            ct = vpiBinaryConst;
+            break;
+        }
+        default:
+            // No arm in reduceExpr — vpiBitXorOp / vpiBitXnorOp are the ones
+            // this family actually meets, and golden keeps the operation.
+            return nullptr;
+    }
+
+    auto* c = s.MakeConstant();
+    c->VpiValue(val);
+    c->VpiDecompile(dec);
+    c->VpiSize(size);
+    c->VpiConstType(ct);
+    // NO TYPESPEC: `reduceExpr` mints the constant bare (producer (B) above).
+
+    // THE SPAN — `populateCoreMembers(child, child, result)` over
+    // `fC->Child(parent)`.
+    SourceRange sr86 = se.sourceRange;
+    bool haveSr86 = false;
+    const syntax::SyntaxNode* sy86 = se.syntax;
+    // A PARENTHESISED operand carries the PAREN node as its `syntax`, and the
+    // grammar node `fC->Child(parent)` reads is the operator expression INSIDE
+    // it -- so unwrap HERE, and never on `.left`: the left operand's own
+    // parentheses ARE part of the child node and golden's span includes them
+    // (measured: `((P + W) * 1)` folds at the span of `(P + W)`, parens in).
+    while (sy86 &&
+           sy86->kind == syntax::SyntaxKind::ParenthesizedExpression)
+        sy86 = sy86->as<syntax::ParenthesizedExpressionSyntax>().expression;
+    if (sy86) {
+        if (syntax::BinaryExpressionSyntax::isKind(sy86->kind)) {
+            sr86 = sy86->as<syntax::BinaryExpressionSyntax>().left->sourceRange();
+            haveSr86 = true;
+        } else if (syntax::PrefixUnaryExpressionSyntax::isKind(sy86->kind)) {
+            sr86 = sy86->as<syntax::PrefixUnaryExpressionSyntax>()
+                       .operatorToken.range();
+            haveSr86 = true;
+        }
+    }
+    if (!haveSr86) {
+        // No syntax to read the child off: refuse rather than invent a span.
+        return nullptr;
+    }
+    setLoc(c, sr86);
+    if (!op->VpiFile().empty())
+        c->VpiFile(std::string(op->VpiFile()));
+    return c;
+}
+
+UHDM::any* UhdmExporter::elabParamOpSubtreeFold86(UHDM::any* node,
+                                                  const Expression* se,
+                                                  int depth) {
+    if (r10e86Off || !node || !se || depth > 24)
+        return node;
+    if (node->UhdmType() != UHDM::uhdmoperation)
+        return node;
+    auto* op = (UHDM::operation*)node;
+    auto* ods = op->Operands();
+    if (!ods)
+        return node;
+    const int32_t ot = op->VpiOpType();
+    // THE CONCAT FENCE — see the header comment: `reorderAssignmentPattern`
+    // owns these carriers and reverses their operands against the target range.
+    if (ot == vpiConcatOp || ot == vpiMultiConcatOp ||
+        ot == vpiAssignmentPatternOp || ot == vpiMultiAssignmentPatternOp)
+        return node;
+
+    auto& e86 = stripImplicitConv(*se);
+    // Match the slang operands to the emitted ones, or stop.  A shape this
+    // walk cannot pair is left exactly as the pristine binary emitted it.
+    std::vector<const Expression*> subs;
+    if (e86.kind == ExpressionKind::BinaryOp && ods->size() == 2) {
+        auto& be86 = e86.as<BinaryExpression>();
+        subs = {&be86.left(), &be86.right()};
+    } else if (e86.kind == ExpressionKind::UnaryOp && ods->size() == 1) {
+        subs = {&e86.as<UnaryExpression>().operand()};
+    } else if (e86.kind == ExpressionKind::ConditionalOp && ods->size() == 3) {
+        auto& co86 = e86.as<ConditionalExpression>();
+        if (co86.conditions.size() != 1 || co86.conditions[0].pattern)
+            return node;
+        subs = {co86.conditions[0].expr, &co86.left(), &co86.right()};
+    } else {
+        return node;
+    }
+    for (size_t i = 0; i < ods->size(); i++)
+        if (auto* nw = elabParamOpSubtreeFold86((*ods)[i], subs[i], depth + 1);
+            nw && nw != (*ods)[i]) {
+            nw->VpiParent(op);
+            (*ods)[i] = nw;
+        }
+    // The bail-kept ROOT is never folded: Surelog's abstention IS on it.
+    if (depth == 0)
+        return node;
+
+    // THE TERNARY SHORT-CIRCUIT (`CompileExpression.cpp:2289-2306`).  It is not
+    // a `reduceExpr` arm: with `reduce == Reduce::Yes` and a CONSTANT compiled
+    // condition, `compileExpression` returns the compiled SELECTED ARM itself,
+    // which keeps that arm's own span and typespec.
+    if (ot == vpiConditionOp && ods->size() == 3) {
+        auto* c0 = (*ods)[0];
+        if (!c0 || c0->UhdmType() != UHDM::uhdmconstant)
+            return node;
+        int64_t cv86 = 0;
+        if (!r86Sval((const UHDM::constant*)c0, cv86))
+            return node;  // the shortcut ignores invalidValue; we refuse
+        return (*ods)[cv86 ? 1 : 2];
+    }
+    if (auto* c = srlgReduceOpFold86(op, e86))
+        return c;
+    return node;
 }
 
 UHDM::constant* UhdmExporter::connHpIpsBaseNonOvParamFold84(

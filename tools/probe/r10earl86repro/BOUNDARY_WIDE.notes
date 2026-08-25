@@ -1,0 +1,38 @@
+r10earl86 — THE WIDE BOUNDARY, and what every differing file is.
+
+`vwide86.sh` over a COPY of `tools/probe` at ANY depth, BOTH views (plain and
+`--elabuhdm`), BOTH frozen binaries, workdir-normalised whole-dump byte
+compare.  The file list is read on **fd 3**, every child gets `</dev/null`,
+every rc is recorded, and **PROCESSED is asserted equal to LISTED**.
+
+    PROCESSED=3857 (== LISTED)   identical=7403   DIFFERING=17   no_output=294
+    rc histogram:  rc=0 14194   rc=3 560   rc=4 646   rc=139 28
+
+ALL 17 ARE ACCOUNTED FOR, and EIGHT of them are NOT this pass's own arms.
+
+  9  THIS PASS'S OWN ARMS — g1_ops86 / g2_leaves86 / g3_anc86 / g4_neg86 (plain
+     and elab) and g5_leaf85copy86 (plain).  The law's cells; scored in
+     ARMS.r10earl86.txt.
+
+  3  r10earl85repro's OWN ARMS, another author's files, SCORED AGAINST GOLDEN:
+        g2_earl85.sv   SAME 25  WRONG->RIGHT 1  RIGHT->WRONG 0  WRONG->OTHER 0
+        g3_ov85.sv     SAME 47  WRONG->RIGHT 1  RIGHT->WRONG 0  WRONG->OTHER 0
+        g2_leaf85.sv   = this pass's g5_leaf85copy86.sv:
+                       SAME 61  WRONG->RIGHT 2  RIGHT->WRONG 0  WRONG->OTHER 0
+
+  3  r10v85repro's VERIFIER ARMS, a third author's files, SCORED AGAINST GOLDEN:
+        va1_unary85.sv (plain and elab)
+                       SAME 101 WRONG->RIGHT 1  RIGHT->WRONG 0  WRONG->OTHER 0
+        va4_leaf85.sv  SAME 84  WRONG->RIGHT 2  RIGHT->WRONG 0  WRONG->OTHER 0
+
+  2  r10buvm22repro/g22.sv (plain and elab) — **NOT THIS LAW**.  The patched
+     binary run with `R10E86_OFF=1` reproduces the **PATCHED** hash
+     (5ccebbb303ab), not the pristine one (7e3297df76df), so the kill switch
+     proves the delta is not this pass's.  That is r10earl84's R5 / r10earl85's
+     section 7 exactly — a database value derived from an address that tracks
+     the binary's CODE LAYOUT — reproduced here from a THIRD binary pair.
+
+THE 28 `rc=139` are 14 files x 2 sides, SYMMETRIC under both binaries and
+PRE-EXISTING (earl82 R6 / earl83 R6 / earl84 R6 / earl85 R5); a boundary walk
+that does not say so reads as if it had compared them.  `BOUNDARY_WIDE.signals`
+lists them.

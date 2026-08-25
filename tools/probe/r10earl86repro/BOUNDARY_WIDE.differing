@@ -1,0 +1,17 @@
+plain r10buvm22repro/g22.sv
+elab r10buvm22repro/g22.sv
+plain r10earl85repro/g2_earl85.sv
+plain r10earl85repro/g2_leaf85.sv
+plain r10earl85repro/g3_ov85.sv
+plain r10earl86repro/g1_ops86.sv
+elab r10earl86repro/g1_ops86.sv
+plain r10earl86repro/g2_leaves86.sv
+elab r10earl86repro/g2_leaves86.sv
+plain r10earl86repro/g3_anc86.sv
+elab r10earl86repro/g3_anc86.sv
+plain r10earl86repro/g4_neg86.sv
+elab r10earl86repro/g4_neg86.sv
+plain r10earl86repro/g5_leaf85copy86.sv
+plain r10v85repro/arms/va1_unary85.sv
+elab r10v85repro/arms/va1_unary85.sv
+plain r10v85repro/arms/va4_leaf85.sv

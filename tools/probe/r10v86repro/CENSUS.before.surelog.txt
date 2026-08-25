@@ -1,0 +1,152 @@
+databases joined: 461
+BOTH-SAME        45441
+FAMILY-SUBFOLD   1
+FAMILY-OPKEPT    2
+FAMILY-OVSTAMP   16
+TREE-OTHER       0
+OTHER-DIFF       1824
+ONLY-GOLDEN      8898
+ONLY-OURS        9628
+GATE-REACHABLE   117
+
+-- FAMILY-SUBFOLD cells (golden folded an operand subtree, we did not):
+   default/Earlgrey_0_1-71da2fd7                  SPAN=42:31-42:96 VIEW=ELAB HOME=MODULE PNAME=BankAddrMask INST=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl
+-- FAMILY-OPKEPT cells (golden keeps the operation, we fold):
+   default/Earlgrey_0_1-71da2fd7                  SPAN=9:17-9:31 VIEW=ELAB HOME=MODULE PNAME=ResetValue INST=work@top_earlgrey.u_pwrmgr.i_cdc.i_ast_sync
+   testflags/Earlgrey_0_1-71da2fd7                SPAN=9:17-9:31 VIEW=ELAB HOME=MODULE PNAME=ResetValue INST=work@top_earlgrey.u_pwrmgr.i_cdc.i_ast_sync
+-- FAMILY-OVSTAMP cells:
+   default/Earlgrey_0_1-71da2fd7                  SPAN=11:18-11:56 VIEW=ELAB HOME=MODULE PNAME=NumBanks INST=work@top_earlgrey.u_flash_ctrl.u_flash_mp
+   default/Earlgrey_0_1-71da2fd7                  SPAN=12:18-12:65 VIEW=ELAB HOME=MODULE PNAME=PagesPerBank INST=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl
+   default/Earlgrey_0_1-71da2fd7                  SPAN=13:18-13:65 VIEW=ELAB HOME=MODULE PNAME=WordsPerPage INST=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl
+   default/Earlgrey_0_1-71da2fd7                  SPAN=18:18-18:57 VIEW=ELAB HOME=MODULE PNAME=AddrW INST=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl
+   default/Earlgrey_0_1-71da2fd7                  SPAN=22:18-22:49 VIEW=ELAB HOME=MODULE PNAME=AllPagesW INST=work@top_earlgrey.u_flash_ctrl.u_flash_mp
+   default/Earlgrey_0_1-71da2fd7                  SPAN=28:18-28:37 VIEW=ELAB HOME=MODULE PNAME=MpRegions INST=work@top_earlgrey.u_flash_ctrl.u_flash_mp
+   default/Earlgrey_0_1-71da2fd7                  SPAN=7:18-7:60 VIEW=ELAB HOME=MODULE PNAME=PowerDomains INST=work@top_earlgrey.u_rstmgr.i_lc_src
+   default/Earlgrey_0_1-71da2fd7                  SPAN=7:18-7:60 VIEW=ELAB HOME=MODULE PNAME=PowerDomains INST=work@top_earlgrey.u_rstmgr.i_sys_src
+   testflags/Earlgrey_0_1-71da2fd7                SPAN=11:18-11:56 VIEW=ELAB HOME=MODULE PNAME=NumBanks INST=work@top_earlgrey.u_flash_ctrl.u_flash_mp
+   testflags/Earlgrey_0_1-71da2fd7                SPAN=12:18-12:65 VIEW=ELAB HOME=MODULE PNAME=PagesPerBank INST=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl
+   testflags/Earlgrey_0_1-71da2fd7                SPAN=13:18-13:65 VIEW=ELAB HOME=MODULE PNAME=WordsPerPage INST=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl
+   testflags/Earlgrey_0_1-71da2fd7                SPAN=18:18-18:57 VIEW=ELAB HOME=MODULE PNAME=AddrW INST=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl
+   testflags/Earlgrey_0_1-71da2fd7                SPAN=22:18-22:49 VIEW=ELAB HOME=MODULE PNAME=AllPagesW INST=work@top_earlgrey.u_flash_ctrl.u_flash_mp
+   testflags/Earlgrey_0_1-71da2fd7                SPAN=28:18-28:37 VIEW=ELAB HOME=MODULE PNAME=MpRegions INST=work@top_earlgrey.u_flash_ctrl.u_flash_mp
+   testflags/Earlgrey_0_1-71da2fd7                SPAN=7:18-7:60 VIEW=ELAB HOME=MODULE PNAME=PowerDomains INST=work@top_earlgrey.u_rstmgr.i_lc_src
+   testflags/Earlgrey_0_1-71da2fd7                SPAN=7:18-7:60 VIEW=ELAB HOME=MODULE PNAME=PowerDomains INST=work@top_earlgrey.u_rstmgr.i_sys_src
+-- TREE-OTHER cells:
+-- GATE-REACHABLE rows (ours: an operation Rhs carrying a size(-1) constant):
+   default/BlackBePipeInt-2987e0d2                SPAN=14522:12-14522:84 VIEW=DEF HOME=PACKAGE PNAME=cache_base_addr_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=14523:12-14523:65 VIEW=DEF HOME=PACKAGE PNAME=cache_tagfl_addr_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=14609:12-14609:90 VIEW=DEF HOME=PACKAGE PNAME=cfg_base_addr_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=14610:12-14610:90 VIEW=DEF HOME=PACKAGE PNAME=cfg_match_addr_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=14612:12-14612:71 VIEW=DEF HOME=PACKAGE PNAME=cfg_reg_freeze_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=14613:12-14613:71 VIEW=DEF HOME=PACKAGE PNAME=cfg_reg_npc_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=14614:12-14614:71 VIEW=DEF HOME=PACKAGE PNAME=cfg_reg_core_id_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=14615:12-14615:71 VIEW=DEF HOME=PACKAGE PNAME=cfg_reg_did_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=14616:12-14616:71 VIEW=DEF HOME=PACKAGE PNAME=cfg_reg_cord_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=14617:12-14617:71 VIEW=DEF HOME=PACKAGE PNAME=cfg_reg_host_did_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=14619:12-14619:71 VIEW=DEF HOME=PACKAGE PNAME=cfg_reg_hio_mask_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=14620:12-14620:71 VIEW=DEF HOME=PACKAGE PNAME=cfg_reg_icache_id_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=14621:12-14621:71 VIEW=DEF HOME=PACKAGE PNAME=cfg_reg_icache_mode_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=14622:12-14622:71 VIEW=DEF HOME=PACKAGE PNAME=cfg_reg_dcache_id_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=14623:12-14623:71 VIEW=DEF HOME=PACKAGE PNAME=cfg_reg_dcache_mode_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=14624:12-14624:71 VIEW=DEF HOME=PACKAGE PNAME=cfg_reg_cce_id_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=14625:12-14625:71 VIEW=DEF HOME=PACKAGE PNAME=cfg_reg_cce_mode_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=14626:12-14626:71 VIEW=DEF HOME=PACKAGE PNAME=cfg_mem_cce_ucode_base_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=14627:12-14627:71 VIEW=DEF HOME=PACKAGE PNAME=cfg_mem_cce_ucode_match_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=14637:12-14637:88 VIEW=DEF HOME=PACKAGE PNAME=clint_base_addr_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=14638:12-14638:88 VIEW=DEF HOME=PACKAGE PNAME=clint_match_addr_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=14640:12-14640:69 VIEW=DEF HOME=PACKAGE PNAME=mipi_reg_base_addr_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=14641:12-14641:69 VIEW=DEF HOME=PACKAGE PNAME=mipi_reg_match_addr_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=14643:12-14643:69 VIEW=DEF HOME=PACKAGE PNAME=mtimecmp_reg_base_addr_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=14644:12-14644:69 VIEW=DEF HOME=PACKAGE PNAME=mtimecmp_reg_match_addr_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=14646:12-14646:69 VIEW=DEF HOME=PACKAGE PNAME=mtimesel_reg_base_addr_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=14647:12-14647:69 VIEW=DEF HOME=PACKAGE PNAME=mtimesel_reg_match_addr_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=14649:12-14649:69 VIEW=DEF HOME=PACKAGE PNAME=mtime_reg_addr_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=14650:12-14650:69 VIEW=DEF HOME=PACKAGE PNAME=mtime_reg_match_addr_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=14652:12-14652:69 VIEW=DEF HOME=PACKAGE PNAME=plic_reg_base_addr_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=14653:12-14653:69 VIEW=DEF HOME=PACKAGE PNAME=plic_reg_match_addr_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=14655:12-14655:69 VIEW=DEF HOME=PACKAGE PNAME=debug_reg_base_addr_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=14656:12-14656:69 VIEW=DEF HOME=PACKAGE PNAME=debug_reg_match_addr_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=15433:17-15434:277 VIEW=DEF HOME=MODULE PNAME=lce_assoc_p INST=work@bp_be_pipe_int
+   default/BlackBePipeInt-2987e0d2                SPAN=15436:17-15437:267 VIEW=DEF HOME=MODULE PNAME=lce_sets_p INST=work@bp_be_pipe_int
+   default/BlackBePipeInt-2987e0d2                SPAN=15440:17-15441:337 VIEW=DEF HOME=MODULE PNAME=cce_block_width_p INST=work@bp_be_pipe_int
+   default/BlackBePipeInt-2987e0d2                SPAN=15442:17-15443:327 VIEW=DEF HOME=MODULE PNAME=uce_fill_width_p INST=work@bp_be_pipe_int
+   default/BlackBePipeInt-2987e0d2                SPAN=2537:12-2537:89 VIEW=DEF HOME=PACKAGE PNAME=host_base_addr_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=2538:12-2538:89 VIEW=DEF HOME=PACKAGE PNAME=host_match_addr_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=2540:12-2540:70 VIEW=DEF HOME=PACKAGE PNAME=getchar_base_addr_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=2541:12-2541:70 VIEW=DEF HOME=PACKAGE PNAME=getchar_match_addr_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=2543:12-2543:70 VIEW=DEF HOME=PACKAGE PNAME=putchar_base_addr_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=2544:12-2544:70 VIEW=DEF HOME=PACKAGE PNAME=putchar_match_addr_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=2546:12-2546:70 VIEW=DEF HOME=PACKAGE PNAME=finish_base_addr_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=2547:12-2547:70 VIEW=DEF HOME=PACKAGE PNAME=finish_match_addr_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=2549:12-2549:70 VIEW=DEF HOME=PACKAGE PNAME=putch_core_base_addr_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=2550:12-2550:70 VIEW=DEF HOME=PACKAGE PNAME=putch_core_match_addr_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=2552:12-2552:70 VIEW=DEF HOME=PACKAGE PNAME=finish_all_addr_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=2554:12-2554:70 VIEW=DEF HOME=PACKAGE PNAME=bootrom_base_addr_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=2555:12-2555:70 VIEW=DEF HOME=PACKAGE PNAME=bootrom_match_addr_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=2557:12-2557:70 VIEW=DEF HOME=PACKAGE PNAME=paramrom_base_addr_gp INST=bp_common_pkg
+   default/BlackBePipeInt-2987e0d2                SPAN=2558:12-2558:70 VIEW=DEF HOME=PACKAGE PNAME=paramrom_match_addr_gp INST=bp_common_pkg
+   default/BlackParrotComplex-5bed297d            SPAN=45:12-51:249 VIEW=DEF HOME=MODULE PNAME=output_dirs_sparse_lp INST=work@top
+   default/DecValue-ad7b4b8a                      SPAN=4:19-4:28 VIEW=DEF HOME=MODULE PNAME=C INST=work@top
+   default/Earlgrey_0_1-71da2fd7                  SPAN=41:31-41:78 VIEW=DEF HOME=MODULE PNAME=PageAddrMask INST=work@flash_erase_ctrl
+   default/Earlgrey_0_1-71da2fd7                  SPAN=41:31-41:78 VIEW=ELAB HOME=MODULE PNAME=PageAddrMask INST=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl
+   default/Earlgrey_0_1-71da2fd7                  SPAN=42:31-42:96 VIEW=DEF HOME=MODULE PNAME=BankAddrMask INST=work@flash_erase_ctrl
+   default/Earlgrey_0_1-71da2fd7                  SPAN=42:31-42:96 VIEW=ELAB HOME=MODULE PNAME=BankAddrMask INST=work@top_earlgrey.u_flash_ctrl.u_flash_erase_ctrl
+   default/ParamArrayUnsizedPattern-fcd0331d      SPAN=5:26-5:64 VIEW=DEF HOME=MODULE PNAME=NumBobaDrinkers INST=work@test
+   default/ParamArrayUnsizedPattern-fcd0331d      SPAN=6:26-6:76 VIEW=DEF HOME=MODULE PNAME=NumBobaDrinkersMulti INST=work@test
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14522:12-14522:84 VIEW=DEF HOME=PACKAGE PNAME=cache_base_addr_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14523:12-14523:65 VIEW=DEF HOME=PACKAGE PNAME=cache_tagfl_addr_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14609:12-14609:90 VIEW=DEF HOME=PACKAGE PNAME=cfg_base_addr_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14610:12-14610:90 VIEW=DEF HOME=PACKAGE PNAME=cfg_match_addr_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14612:12-14612:71 VIEW=DEF HOME=PACKAGE PNAME=cfg_reg_freeze_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14613:12-14613:71 VIEW=DEF HOME=PACKAGE PNAME=cfg_reg_npc_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14614:12-14614:71 VIEW=DEF HOME=PACKAGE PNAME=cfg_reg_core_id_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14615:12-14615:71 VIEW=DEF HOME=PACKAGE PNAME=cfg_reg_did_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14616:12-14616:71 VIEW=DEF HOME=PACKAGE PNAME=cfg_reg_cord_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14617:12-14617:71 VIEW=DEF HOME=PACKAGE PNAME=cfg_reg_host_did_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14619:12-14619:71 VIEW=DEF HOME=PACKAGE PNAME=cfg_reg_hio_mask_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14620:12-14620:71 VIEW=DEF HOME=PACKAGE PNAME=cfg_reg_icache_id_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14621:12-14621:71 VIEW=DEF HOME=PACKAGE PNAME=cfg_reg_icache_mode_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14622:12-14622:71 VIEW=DEF HOME=PACKAGE PNAME=cfg_reg_dcache_id_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14623:12-14623:71 VIEW=DEF HOME=PACKAGE PNAME=cfg_reg_dcache_mode_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14624:12-14624:71 VIEW=DEF HOME=PACKAGE PNAME=cfg_reg_cce_id_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14625:12-14625:71 VIEW=DEF HOME=PACKAGE PNAME=cfg_reg_cce_mode_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14626:12-14626:71 VIEW=DEF HOME=PACKAGE PNAME=cfg_mem_cce_ucode_base_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14627:12-14627:71 VIEW=DEF HOME=PACKAGE PNAME=cfg_mem_cce_ucode_match_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14637:12-14637:88 VIEW=DEF HOME=PACKAGE PNAME=clint_base_addr_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14638:12-14638:88 VIEW=DEF HOME=PACKAGE PNAME=clint_match_addr_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14640:12-14640:69 VIEW=DEF HOME=PACKAGE PNAME=mipi_reg_base_addr_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14641:12-14641:69 VIEW=DEF HOME=PACKAGE PNAME=mipi_reg_match_addr_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14643:12-14643:69 VIEW=DEF HOME=PACKAGE PNAME=mtimecmp_reg_base_addr_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14644:12-14644:69 VIEW=DEF HOME=PACKAGE PNAME=mtimecmp_reg_match_addr_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14646:12-14646:69 VIEW=DEF HOME=PACKAGE PNAME=mtimesel_reg_base_addr_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14647:12-14647:69 VIEW=DEF HOME=PACKAGE PNAME=mtimesel_reg_match_addr_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14649:12-14649:69 VIEW=DEF HOME=PACKAGE PNAME=mtime_reg_addr_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14650:12-14650:69 VIEW=DEF HOME=PACKAGE PNAME=mtime_reg_match_addr_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14652:12-14652:69 VIEW=DEF HOME=PACKAGE PNAME=plic_reg_base_addr_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14653:12-14653:69 VIEW=DEF HOME=PACKAGE PNAME=plic_reg_match_addr_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14655:12-14655:69 VIEW=DEF HOME=PACKAGE PNAME=debug_reg_base_addr_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=14656:12-14656:69 VIEW=DEF HOME=PACKAGE PNAME=debug_reg_match_addr_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=15433:17-15434:277 VIEW=DEF HOME=MODULE PNAME=lce_assoc_p INST=work@bp_be_pipe_int
+   testflags/BlackBePipeInt-2987e0d2              SPAN=15436:17-15437:267 VIEW=DEF HOME=MODULE PNAME=lce_sets_p INST=work@bp_be_pipe_int
+   testflags/BlackBePipeInt-2987e0d2              SPAN=15440:17-15441:337 VIEW=DEF HOME=MODULE PNAME=cce_block_width_p INST=work@bp_be_pipe_int
+   testflags/BlackBePipeInt-2987e0d2              SPAN=15442:17-15443:327 VIEW=DEF HOME=MODULE PNAME=uce_fill_width_p INST=work@bp_be_pipe_int
+   testflags/BlackBePipeInt-2987e0d2              SPAN=2537:12-2537:89 VIEW=DEF HOME=PACKAGE PNAME=host_base_addr_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=2538:12-2538:89 VIEW=DEF HOME=PACKAGE PNAME=host_match_addr_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=2540:12-2540:70 VIEW=DEF HOME=PACKAGE PNAME=getchar_base_addr_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=2541:12-2541:70 VIEW=DEF HOME=PACKAGE PNAME=getchar_match_addr_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=2543:12-2543:70 VIEW=DEF HOME=PACKAGE PNAME=putchar_base_addr_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=2544:12-2544:70 VIEW=DEF HOME=PACKAGE PNAME=putchar_match_addr_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=2546:12-2546:70 VIEW=DEF HOME=PACKAGE PNAME=finish_base_addr_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=2547:12-2547:70 VIEW=DEF HOME=PACKAGE PNAME=finish_match_addr_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=2549:12-2549:70 VIEW=DEF HOME=PACKAGE PNAME=putch_core_base_addr_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=2550:12-2550:70 VIEW=DEF HOME=PACKAGE PNAME=putch_core_match_addr_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=2552:12-2552:70 VIEW=DEF HOME=PACKAGE PNAME=finish_all_addr_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=2554:12-2554:70 VIEW=DEF HOME=PACKAGE PNAME=bootrom_base_addr_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=2555:12-2555:70 VIEW=DEF HOME=PACKAGE PNAME=bootrom_match_addr_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=2557:12-2557:70 VIEW=DEF HOME=PACKAGE PNAME=paramrom_base_addr_gp INST=bp_common_pkg
+   testflags/BlackBePipeInt-2987e0d2              SPAN=2558:12-2558:70 VIEW=DEF HOME=PACKAGE PNAME=paramrom_match_addr_gp INST=bp_common_pkg
+   testflags/BlackParrotComplex-5bed297d          SPAN=45:12-51:249 VIEW=DEF HOME=MODULE PNAME=output_dirs_sparse_lp INST=work@top
+   testflags/Earlgrey_0_1-71da2fd7                SPAN=41:31-41:78 VIEW=DEF HOME=MODULE PNAME=PageAddrMask INST=work@flash_erase_ctrl
+   testflags/Earlgrey_0_1-71da2fd7                SPAN=42:31-42:96 VIEW=DEF HOME=MODULE PNAME=BankAddrMask INST=work@flash_erase_ctrl
+   testflags/ParamArrayUnsizedPattern-fcd0331d    SPAN=5:26-5:64 VIEW=DEF HOME=MODULE PNAME=NumBobaDrinkers INST=work@test
+   testflags/ParamArrayUnsizedPattern-fcd0331d    SPAN=6:26-6:76 VIEW=DEF HOME=MODULE PNAME=NumBobaDrinkersMulti INST=work@test

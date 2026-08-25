@@ -4089,6 +4089,24 @@ private:
     // with that constant.  Returns the replacement for `node`.
     UHDM::any* elabParamOpLeafValueFold85(UHDM::any* node,
                                           const slang::ast::Scope* body);
+    // § elabParamOpSubtreeFold86 (r10earl86) — THE SECOND HALF of the same
+    // re-compile: `CompileExpression.cpp` runs its tail `reduceExpr`
+    // (:3647-3655) at EVERY recursion level, so inside the tree the shift bail
+    // kept, every MAXIMAL OPERAND SUBTREE whose OWN level did not bail is
+    // already ONE constant by the time the bailing ancestor sees it.  Walks the
+    // emitted operation tree and the slang expression that produced it in
+    // parallel, folding each such operand with `srlgReduceOpFold86` and
+    // stamping the span `populateCoreMembers(child, child, result)` gives it.
+    // `depth` 0 is the bail-kept ROOT and is never folded.
+    UHDM::any* elabParamOpSubtreeFold86(UHDM::any* node,
+                                        const slang::ast::Expression* se,
+                                        int depth);
+    // § elabParamOpSubtreeFold86 — one operation node, folded exactly the way
+    // `UHDM::ExprEval::reduceExpr`'s per-operator arms do it (earl73's encoder
+    // tables).  Returns nullptr when Surelog's reducer would have abstained,
+    // which leaves the operation exactly as the pristine binary emitted it.
+    UHDM::constant* srlgReduceOpFold86(UHDM::operation* op,
+                                       const slang::ast::Expression& se);
     // § srlgUnsizedBasedShiftBail85 (r10earl85) — the ELAB `param_assign`s
     // whose Rhs the shift bail kept as an `operation`.  `expr::Compare` reads
     // `Typespec`, so those operations still need the parameter's declared

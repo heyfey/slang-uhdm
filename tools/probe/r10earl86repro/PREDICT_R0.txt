@@ -1,0 +1,186 @@
+r10earl86 — THE MOVER PREDICTION (made from PRISTINE databases, BEFORE any
+            patched sweep was read) and THE NEXT HEAD (R0).
+
+========================================================================
+PART 1 — THE MOVER PREDICTION
+========================================================================
+`cen86.sh` + `cencount86.py` were run over the PRISTINE sweep workdirs (golden
+from the immutable cache path named in each test's OWN `cmds.txt`, ours from
+the pristine sweep).  They READ databases and DISPATCH NOTHING, so no test —
+fenced or otherwise — is run by them; the FENCED list is supplied by the
+operator at run time and appears in a count, never as names.
+
+THE SHAPE THE GATE CAN FIRE ON is measured, not argued.  `GATE-REACHABLE`
+counts every row whose OURS Rhs is an `operation` carrying a size(-1) constant
+ANYWHERE in its tree — the NECESSARY condition for `srlgUnsizedShiftBails85`,
+which is the ONLY door into this law — and it counts them whether or not the
+row agrees with golden (earl66's lesson: a census keyed on the shape you intend
+to CHANGE is blind to the rows you would change by ACCIDENT).
+
+    databases holding a param_assign     uhdm2rtlil 504 / 1358
+                                         surelog    461 /  956
+    cells joined BOTH-SAME               uhdm2rtlil 68 714
+                                         surelog    45 441
+    GATE-REACHABLE rows                  uhdm2rtlil     2   (BOTH `VIEW=DEF`)
+                                         surelog      117   (115 DEF, 2 ELAB)
+    FAMILY-SUBFOLD — golden folded an operand subtree we kept
+                                         uhdm2rtlil     0   surelog 1
+
+THE LAW IS ELAB-ONLY (`topView && !inPackage` at the ParamEmit hook), so the
+115 + 2 DEF rows cannot move.  The TWO ELAB rows are
+
+    default/Earlgrey_0_1  flash_erase_ctrl.sv:41  PageAddrMask
+    default/Earlgrey_0_1  flash_erase_ctrl.sv:42  BankAddrMask     <- THE HEAD
+
+and `PageAddrMask`'s shift amount is a BARE IDENTIFIER (`WordsBitWidth`) that
+r10earl85 already folded to golden's constant — there is no operand SUBTREE
+there for this law to take, so it must not move.
+
+  PREDICTION: EXACTLY ONE database moves, `Earlgrey_0_1` **default**, and
+  NOTHING ELSE in either corpus.  `Earlgrey_0_1` **testflags** is predicted
+  BYTE-IDENTICAL: its `BankAddrMask` ELAB Rhs is already `INT:65535` size 64 on
+  BOTH sides (UHDM::UhdmAdjuster has reduced the whole tree there — the test's
+  own command line carries `-elabuhdm`), so it holds no gate-reachable ELAB row
+  at all.  The census's ONE FAMILY-SUBFOLD cell is the head itself.
+
+  The 52+52 `BlackBePipeInt` and 2+2 `ParamArrayUnsizedPattern` gate-reachable
+  rows are named here because they are the largest reachable populations and a
+  prediction that does not name what it is excluding is not a prediction: every
+  one of them is `VIEW=DEF`.
+
+MEASURED AFTER THE PATCHED SWEEPS — see PART 1b below.
+
+========================================================================
+PART 1b — WHAT THE PATCHED SWEEPS ACTUALLY MOVED
+========================================================================
+`byteverify.sh SELFCHECK=1`, patched sweep vs THIS PASS'S OWN pristine sweep
+(both binaries frozen at immutable paths before any sweep; every `cmds.txt`
+audited BY BINARY PATH):
+
+  uhdm2rtlil  MOVERS 0 / 1358        SELFCHECK 1357/1358 flagged
+  surelog     MOVERS 2 /  956        SELFCHECK  955/ 956 flagged
+      ./default/Earlgrey_0_1-71da2fd7/slang.uhdm    <- PREDICTED
+      ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm  <- NOT predicted
+
+THE UNPREDICTED MOVER IS ATTRIBUTED, NOT ASSUMED, AND IT IS JUDGE-NEUTRAL.
+
+  (a) THE RUN-TIME A/B GATE.  The PATCHED binary run with `R10E86_OFF=1` (the
+      law disabled, everything else identical) reproduces the PRISTINE
+      testflags database BYTE FOR BYTE (md5 664f81104e1f on both), so 100 % of
+      the delta is this law and nothing else.
+  (b) THE OFFICIAL JUDGE, ours against ours.  `uhdm-cmp <pristine> <patched>`
+      on the two testflags databases exits **0 with 0 lines**: the change is
+      INVISIBLE to the judge.  It is the orphaned pre-adjuster operand objects
+      the fold replaces — the test's own command line carries `-elabuhdm`, so
+      `UHDM::UhdmAdjuster` reduces that whole tree to `INT:65535` size 64 on
+      both sides afterwards, which is why the census sees no cell change there.
+      (`OURS_vs_OURS_testflags.cmp`, 0 bytes.)
+  (c) The SAME cross-compare on the DEFAULT databases prints exactly ONE head,
+      90 lines: `operation` id 331396 at 42:57-42:86 against the folded
+      `constant` — the head cell and nothing else.
+      (`OURS_vs_OURS_default.cmp`.)
+  (d) THE CORPUS CENSUS re-scored on the patched sweep, fixed universe:
+        BOTH-SAME       45 441 -> 45 442
+        FAMILY-SUBFOLD       1 -> 0        <- the head
+        FAMILY-OPKEPT        2 -> 2        (R6)
+        FAMILY-OVSTAMP      16 -> 16       (R1)
+        TREE-OTHER / OTHER-DIFF / ONLY-GOLDEN / ONLY-OURS  all unchanged
+      Per-cell 3-way: WRONG->RIGHT 1, RIGHT->WRONG 0, WRONG->OTHER 0.
+      MOVED-WRONG 0 / AWAY 0.
+
+========================================================================
+PART 2 — R0: THE NEW HEAD, AND ITS DECODE
+========================================================================
+BEFORE (aef5007, this pass's own pristine build; `HEAD_BEFORE_Earlgrey_
+default.cmp` is BYTE-IDENTICAL to the master's
+/tmp/earlgrey_head_default_aef5007.cmp):
+  Earlgrey_0_1 default    90 cmp lines, 1 head   flash_erase_ctrl.sv:42
+                                                 BankAddrMask shift amount
+  Earlgrey_0_1 testflags 150 cmp lines, 1 head   flash_erase_ctrl.sv:12:18
+                                                 PagesPerBank vpiOverriden
+AFTER:
+  Earlgrey_0_1 default   150 cmp lines, 1 head
+  Earlgrey_0_1 testflags 150 cmp lines, 1 head   (unchanged, modulo object ids)
+  (counts are DEPTH, not distance)
+
+  THE TWO MODES NOW SIT ON THE SAME OBJECT AGAIN.  The default head object is
+  GONE; read HEAD_BEFORE_Earlgrey_default.cmp against
+  HEAD_AFTER_Earlgrey_default.cmp.
+
+R0 (BOTH MODES) — `flash_erase_ctrl.sv:12:18` `PagesPerBank`, the ELAB
+`param_assign` of a WILDCARD-IMPORTED package parameter that a module instance
+materializes:
+
+    LHS (golden)                          RHS (ours)
+      param_assign 12:18-12:65              param_assign 12:18-12:65
+      |vpiOverriden:1                       |(vpiOverriden unset)
+      |vpiRhs -> constant UINT:256 sz32     |vpiRhs -> the same constant
+      |        + ref_typespec->int_typespec
+
+  `param_assign::Compare` (UHDM/build/generated/src/param_assign.cpp:94) reads
+  VpiConnByName, then **VpiOverriden**, then Rhs — so the head field is
+  `vpiOverriden`, decided before the Rhs is looked at, and the Rhs AGREES.
+
+  DECODE.  This is r10earl85's R1, unchanged and now the head in BOTH modes.
+  `NetlistElaboration::elab_parameters_` (NetlistElaboration.cpp:327/:556/:565)
+  stamps `vpiOverriden` from `instance->isOverridenParam(paramName)` and from
+  `CompileHelper::isOverloaded` applied to the Rhs and to the DECLARED TYPESPEC
+  (CompileType.cpp:2230-2330).  16 corpus cells — the WHOLE of the census's
+  FAMILY-OVSTAMP — at 8 sites x 2 modes: `flash_ctrl_pkg::{NumBanks,
+  PagesPerBank, WordsPerPage, AddrW, AllPagesW, MpRegions}` in
+  u_flash_erase_ctrl / u_flash_mp and `rstmgr_pkg::PowerDomains` in i_lc_src /
+  i_sys_src.  § paOvFoldedRangeNoStamp85 only ever REMOVES a stamp, so it
+  cannot reach them; the producer is the materialized-import copy.
+  ZERO extra corpus databases: the cells are Earlgrey_0_1, both modes.
+
+========================================================================
+RANKED RESIDUES this pass MEASURED and deliberately did not take
+========================================================================
+R1  THE MATERIALIZED-IMPORT OV STAMP — 16 corpus cells, and the R0 above.
+    Golden stamps `vpiOverriden:1`, we leave it unset.  Arm cells: none here
+    (g3's PACKAGE rows are R7).  earl85's R1, unmoved.
+
+R2  THE GEN-SCOPE HOME NEVER REACHES THE BAIL AT ALL.  A `localparam` declared
+    inside a gen-if / gen-for scope is emitted by a DIFFERENT ParamEmit path
+    that folds the whole initializer to a constant, so
+    § srlgUnsizedBasedShiftBail85's gate is never consulted and neither law
+    fires.  Golden keeps the operation there exactly as it does in a module
+    body.  12 arm cells (g3_anc86.sv `g_add`/`g_mul` x3 instances,
+    `f_add` x2 iterations x3), ZERO corpus cells.  The next widening of the
+    earl85 family, and the cheapest.
+
+R3  THE CONCAT FENCE.  `CompileHelper::reorderAssignmentPattern`
+    (CompileExpression.cpp:5887-5960) reverses a concat's operands against a
+    descending target range; we do not model it, so a fold INSIDE a concat
+    would move a cell that is wrong for a different reason.  6 arm cells
+    (g3_anc86.sv `a_cat`/`a_rep` x3), ZERO corpus cells.  Lifting the fence
+    requires modelling the reorder first.
+
+R4  A `$clog2` OPERAND STAYS A `sys_func_call` IN OUR ELAB COPY where golden's
+    `compileClog2` (CompileExpression.cpp, the `$clog2` arm) already returned a
+    constant, so `constantOperands` refuses the enclosing fold.  1 arm cell
+    (g1_ops86.sv `s_clg`, `$clog2(P) + W`), ZERO corpus cells.  `$bits` does
+    NOT have this problem — our emitter folds it — and g4_neg86.sv `n_sig`
+    proves it by folding to golden.
+
+R5  `logic signed [7:0]` / `bit signed [7:0]` DECLARATIONS carry a
+    `logic_typespec`/`bit_typespec` where golden's is an `int_typespec`.
+    2 arm cells (g2_leaves86.sv `S_LSG`/`S_BSG` DECLARATION rows), ZERO corpus
+    cells.  PRE-EXISTING and untouched (identical in both binaries); their LEAF
+    reads already agree with golden.
+
+R6  AN ASSIGNMENT-PATTERN OVERRIDE ACTUAL ON A SCALAR FORMAL —
+    `prim_flop_2sync.sv:9 parameter bit ResetValue`, 2 corpus cells, the whole
+    remaining FAMILY-OPKEPT.  earl85's R3, unmoved.
+
+R7  THE PACKAGE HOME.  A package `localparam` carrying the same shape folds in
+    golden and not in ours; both laws are gated `topView && !inPackage`, so a
+    package cell is a different producer's.  2 arm cells (g3_anc86.sv
+    `pk_add`/`pk_mul`), ZERO corpus cells.  Our package copy already carries
+    FOLDED LEAVES (without typespecs), so the encoding half is measured and
+    would carry over verbatim; only the hook site is missing.
+
+R8  earl85's R2 — the `~` fold is not masked to the declared width
+    (`n_ful`/`n_dec`, 2 arm cells, 0 corpus cells) — and earl85's declared
+    non-claim for a package-QUALIFIED leaf (g5 row r14, 1 arm cell).
+    PRE-EXISTING, identical in both binaries.
