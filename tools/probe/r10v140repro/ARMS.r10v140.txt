@@ -1,0 +1,76 @@
+r10v140 — VERIFIER GRID, 7 arms x 2 views, scored with the BROAD path census
+(every |vpiActual: binding in the database, not just the return).
+LHS IS ALWAYS GOLDEN.  MEASUREMENT ONLY — the judge is the official uhdm-cmp.
+
+CHANGED-STILL-WRONG	v140_p_kinds:def	package:/function:Quarry_pkg::pkgAliasFace/enum_var:Quarry_pkg::pkgAliasFace	GOLD=['enum_typespec:Quarry_pkg::StoneFace_e']	PRIS=['enum_typespec:Quarry_pkg::stoneFace', 'enum_typespec:Quarry_pkg::stoneFace']	PAT=['enum_typespec:Quarry_pkg::StoneFace_e', 'enum_typespec:Quarry_pkg::StoneFace_e']
+CHANGED-STILL-WRONG	v140_p_kinds:def	package:/function:Quarry_pkg::pkgAliasWord/struct_var:Quarry_pkg::pkgAliasWord	GOLD=['struct_typespec:Quarry_pkg::QuarryWord_s']	PRIS=['struct_typespec:Quarry_pkg::quarryWord', 'struct_typespec:Quarry_pkg::quarryWord']	PAT=['struct_typespec:Quarry_pkg::QuarryWord_s', 'struct_typespec:Quarry_pkg::QuarryWord_s']
+PATHTALLY	v140_p_kinds:def	CHANGED-STILL-WRONG=2	TOGOLD=5	UNCHANGED-OK=41	UNCHANGED-WRONG=24
+CHANGED-STILL-WRONG	v140_p_kinds:elab	package:/function:Quarry_pkg::pkgAliasFace/enum_var:Quarry_pkg::pkgAliasFace	GOLD=['enum_typespec:Quarry_pkg::StoneFace_e']	PRIS=['enum_typespec:Quarry_pkg::stoneFace', 'enum_typespec:Quarry_pkg::stoneFace']	PAT=['enum_typespec:Quarry_pkg::StoneFace_e', 'enum_typespec:Quarry_pkg::StoneFace_e']
+CHANGED-STILL-WRONG	v140_p_kinds:elab	package:/function:Quarry_pkg::pkgAliasWord/struct_var:Quarry_pkg::pkgAliasWord	GOLD=['struct_typespec:Quarry_pkg::QuarryWord_s']	PRIS=['struct_typespec:Quarry_pkg::quarryWord', 'struct_typespec:Quarry_pkg::quarryWord']	PAT=['struct_typespec:Quarry_pkg::QuarryWord_s', 'struct_typespec:Quarry_pkg::QuarryWord_s']
+PATHTALLY	v140_p_kinds:elab	CHANGED-STILL-WRONG=2	TOGOLD=5	UNCHANGED-OK=72	UNCHANGED-WRONG=32
+OBJ	v140_p_kinds:o	enum=6	struct=4	union=4	class=5	logic=7	all=26
+OBJ	v140_p_kinds:q	enum=6	struct=4	union=4	class=5	logic=7	all=26
+OBJ	v140_p_kinds:oe	enum=7	struct=4	union=4	class=5	logic=7	all=27
+OBJ	v140_p_kinds:qe	enum=7	struct=4	union=4	class=5	logic=7	all=27
+CHANGED-NOGOLD	v140_q_homes:def	module_inst:/class_defn:work@harbour_top::Rigging/function:work@harbour_top::Rigging::clsAliasMast/enum_var:work@harbour_top::Rigging::clsAliasMast	GOLD=None	PRIS=['enum_typespec:mastRank']	PAT=['enum_typespec:MastRank_e']
+CHANGED-NOGOLD	v140_q_homes:def	module_inst:/function:work@harbour_top.modAliasMast/enum_var:work@harbour_top.modAliasMast	GOLD=None	PRIS=['enum_typespec:mastRank']	PAT=['enum_typespec:MastRank_e']
+CHANGED-NOGOLD	v140_q_homes:def	package:/function:Harbour_pkg::Wharf::outofbodyAltGate/enum_var:Harbour_pkg::Wharf::outofbodyAltGate	GOLD=None	PRIS=['enum_typespec:Harbour_pkg::gateState']	PAT=['enum_typespec:Harbour_pkg::gate_state_alt']
+CHANGED-NOGOLD	v140_q_homes:def	package:/function:Harbour_pkg::Wharf::outofbodyWord/struct_var:Harbour_pkg::Wharf::outofbodyWord	GOLD=None	PRIS=['struct_typespec:Harbour_pkg::dockWord']	PAT=['struct_typespec:Harbour_pkg::DockWord_s']
+CHANGED-STILL-WRONG	v140_q_homes:def	package:/function:Harbour_pkg::pkgAliasGate/enum_var:Harbour_pkg::pkgAliasGate	GOLD=['enum_typespec:Harbour_pkg::GateState_e']	PRIS=['enum_typespec:Harbour_pkg::gateState', 'enum_typespec:Harbour_pkg::gateState']	PAT=['enum_typespec:Harbour_pkg::GateState_e', 'enum_typespec:Harbour_pkg::GateState_e']
+PATHTALLY	v140_q_homes:def	CHANGED-NOGOLD=4	CHANGED-STILL-WRONG=1	TOGOLD=10	UNCHANGED-OK=43	UNCHANGED-WRONG=24
+CHANGED-NOGOLD	v140_q_homes:elab	module_inst:/class_defn:work@harbour_top::Rigging/function:work@harbour_top::Rigging::clsAliasMast/enum_var:work@harbour_top::Rigging::clsAliasMast	GOLD=None	PRIS=['enum_typespec:mastRank']	PAT=['enum_typespec:MastRank_e']
+CHANGED-NOGOLD	v140_q_homes:elab	module_inst:/function:work@harbour_top.modAliasMast/enum_var:work@harbour_top.modAliasMast	GOLD=None	PRIS=['enum_typespec:mastRank']	PAT=['enum_typespec:MastRank_e']
+CHANGED-NOGOLD	v140_q_homes:elab	package:/function:Harbour_pkg::Wharf::outofbodyAltGate/enum_var:Harbour_pkg::Wharf::outofbodyAltGate	GOLD=None	PRIS=['enum_typespec:Harbour_pkg::gateState']	PAT=['enum_typespec:Harbour_pkg::gate_state_alt']
+CHANGED-NOGOLD	v140_q_homes:elab	package:/function:Harbour_pkg::Wharf::outofbodyWord/struct_var:Harbour_pkg::Wharf::outofbodyWord	GOLD=None	PRIS=['struct_typespec:Harbour_pkg::dockWord']	PAT=['struct_typespec:Harbour_pkg::DockWord_s']
+CHANGED-STILL-WRONG	v140_q_homes:elab	package:/function:Harbour_pkg::pkgAliasGate/enum_var:Harbour_pkg::pkgAliasGate	GOLD=['enum_typespec:Harbour_pkg::GateState_e']	PRIS=['enum_typespec:Harbour_pkg::gateState', 'enum_typespec:Harbour_pkg::gateState']	PAT=['enum_typespec:Harbour_pkg::GateState_e', 'enum_typespec:Harbour_pkg::GateState_e']
+PATHTALLY	v140_q_homes:elab	CHANGED-NOGOLD=4	CHANGED-STILL-WRONG=1	TOGOLD=10	UNCHANGED-OK=70	UNCHANGED-WRONG=44
+OBJ	v140_q_homes:o	enum=9	struct=5	union=0	class=7	logic=4	all=25
+OBJ	v140_q_homes:q	enum=9	struct=5	union=0	class=7	logic=4	all=25
+OBJ	v140_q_homes:oe	enum=19	struct=11	union=0	class=7	logic=4	all=41
+OBJ	v140_q_homes:qe	enum=19	struct=11	union=0	class=7	logic=4	all=41
+CHANGED-STILL-WRONG	v140_r_import:def	module_inst:/class_defn:work@bellows_top::Anvil/function:work@bellows_top::Anvil::clsShadowed/enum_var:work@bellows_top::Anvil::clsShadowed	GOLD=['enum_typespec:Forge_pkg::HeatBand_e']	PRIS=['enum_typespec:Ember_pkg::heatBand']	PAT=['enum_typespec:HeatBand_e']
+CHANGED-STILL-WRONG	v140_r_import:def	package:/function:Forge_pkg::forgeAlt/enum_var:Forge_pkg::forgeAlt	GOLD=['enum_typespec:Forge_pkg::heat_band_alias2']	PRIS=['enum_typespec:Ember_pkg::heatBand', 'enum_typespec:Ember_pkg::heatBand']	PAT=['enum_typespec:Forge_pkg::heat_band_alias2', 'enum_typespec:Forge_pkg::heat_band_alias2']
+CHANGED-STILL-WRONG	v140_r_import:def	package:/function:Forge_pkg::forgeWild/enum_var:Forge_pkg::forgeWild	GOLD=['enum_typespec:Forge_pkg::HeatBand_e']	PRIS=['enum_typespec:Ember_pkg::heatBand', 'enum_typespec:Ember_pkg::heatBand']	PAT=['enum_typespec:Forge_pkg::HeatBand_e', 'enum_typespec:Forge_pkg::HeatBand_e']
+CHANGED-STILL-WRONG	v140_r_import:def	package:/function:Forge_pkg::forgeWord/struct_var:Forge_pkg::forgeWord	GOLD=['struct_typespec:Forge_pkg::EmberWord_s']	PRIS=['struct_typespec:Ember_pkg::emberWord', 'struct_typespec:Ember_pkg::emberWord']	PAT=['struct_typespec:Forge_pkg::EmberWord_s', 'struct_typespec:Forge_pkg::EmberWord_s']
+PATHTALLY	v140_r_import:def	CHANGED-STILL-WRONG=4	TOGOLD=5	UNCHANGED-OK=20	UNCHANGED-WRONG=19
+CHANGED-STILL-WRONG	v140_r_import:elab	module_inst:/class_defn:work@bellows_top::Anvil/function:work@bellows_top::Anvil::clsShadowed/enum_var:work@bellows_top::Anvil::clsShadowed	GOLD=['enum_typespec:Forge_pkg::HeatBand_e']	PRIS=['enum_typespec:Ember_pkg::heatBand']	PAT=['enum_typespec:HeatBand_e']
+CHANGED-STILL-WRONG	v140_r_import:elab	package:/function:Forge_pkg::forgeAlt/enum_var:Forge_pkg::forgeAlt	GOLD=['enum_typespec:Forge_pkg::heat_band_alias2']	PRIS=['enum_typespec:Ember_pkg::heatBand', 'enum_typespec:Ember_pkg::heatBand']	PAT=['enum_typespec:Forge_pkg::heat_band_alias2', 'enum_typespec:Forge_pkg::heat_band_alias2']
+CHANGED-STILL-WRONG	v140_r_import:elab	package:/function:Forge_pkg::forgeWild/enum_var:Forge_pkg::forgeWild	GOLD=['enum_typespec:Forge_pkg::HeatBand_e']	PRIS=['enum_typespec:Ember_pkg::heatBand', 'enum_typespec:Ember_pkg::heatBand']	PAT=['enum_typespec:Forge_pkg::HeatBand_e', 'enum_typespec:Forge_pkg::HeatBand_e']
+CHANGED-STILL-WRONG	v140_r_import:elab	package:/function:Forge_pkg::forgeWord/struct_var:Forge_pkg::forgeWord	GOLD=['struct_typespec:Forge_pkg::EmberWord_s']	PRIS=['struct_typespec:Ember_pkg::emberWord', 'struct_typespec:Ember_pkg::emberWord']	PAT=['struct_typespec:Forge_pkg::EmberWord_s', 'struct_typespec:Forge_pkg::EmberWord_s']
+PATHTALLY	v140_r_import:elab	CHANGED-STILL-WRONG=4	TOGOLD=5	UNCHANGED-OK=33	UNCHANGED-WRONG=39
+OBJ	v140_r_import:o	enum=7	struct=3	union=0	class=5	logic=0	all=15
+OBJ	v140_r_import:q	enum=7	struct=3	union=0	class=5	logic=0	all=15
+OBJ	v140_r_import:oe	enum=20	struct=9	union=0	class=5	logic=0	all=34
+OBJ	v140_r_import:qe	enum=20	struct=9	union=0	class=5	logic=0	all=34
+PATHTALLY	v140_s_spec:def	TOGOLD=6	UNCHANGED-OK=29	UNCHANGED-WRONG=19
+PATHTALLY	v140_s_spec:elab	TOGOLD=6	UNCHANGED-OK=37	UNCHANGED-WRONG=35
+OBJ	v140_s_spec:o	enum=7	struct=3	union=0	class=13	logic=0	all=23
+OBJ	v140_s_spec:q	enum=7	struct=3	union=0	class=13	logic=0	all=23
+OBJ	v140_s_spec:oe	enum=8	struct=3	union=0	class=13	logic=0	all=24
+OBJ	v140_s_spec:qe	enum=8	struct=3	union=0	class=13	logic=0	all=24
+CHANGED-NOGOLD	v140_t_order:def	package:/class_defn:Soot_pkg::Flue/function:Soot_pkg::Flue::clsAliasGrade/enum_var:Soot_pkg::Flue::clsAliasGrade	GOLD=None	PRIS=['enum_typespec:Soot_pkg::sootGrade']	PAT=['enum_typespec:FlueGrade_e']
+CHANGED-NOGOLD	v140_t_order:def	package:/class_defn:Soot_pkg::Flue/function:Soot_pkg::Flue::clsForeignAlias/enum_var:Soot_pkg::Flue::clsForeignAlias	GOLD=None	PRIS=['enum_typespec:Cinder_pkg::sparkLevel']	PAT=['enum_typespec:FlueSpark_e']
+CHANGED-STILL-WRONG	v140_t_order:def	package:/function:Soot_pkg::pkgLateAlias/enum_var:Soot_pkg::pkgLateAlias	GOLD=['enum_typespec:Soot_pkg::lateGrade_t']	PRIS=['enum_typespec:Soot_pkg::sootGrade', 'enum_typespec:Soot_pkg::sootGrade']	PAT=['enum_typespec:Soot_pkg::lateGrade_t', 'enum_typespec:Soot_pkg::lateGrade_t']
+PATHTALLY	v140_t_order:def	CHANGED-NOGOLD=2	CHANGED-STILL-WRONG=1	TOGOLD=7	UNCHANGED-OK=34	UNCHANGED-WRONG=23
+CHANGED-NOGOLD	v140_t_order:elab	package:/class_defn:Soot_pkg::Flue/function:Soot_pkg::Flue::clsAliasGrade/enum_var:Soot_pkg::Flue::clsAliasGrade	GOLD=None	PRIS=['enum_typespec:Soot_pkg::sootGrade']	PAT=['enum_typespec:FlueGrade_e']
+CHANGED-NOGOLD	v140_t_order:elab	package:/class_defn:Soot_pkg::Flue/function:Soot_pkg::Flue::clsForeignAlias/enum_var:Soot_pkg::Flue::clsForeignAlias	GOLD=None	PRIS=['enum_typespec:Cinder_pkg::sparkLevel']	PAT=['enum_typespec:FlueSpark_e']
+CHANGED-STILL-WRONG	v140_t_order:elab	package:/function:Soot_pkg::pkgLateAlias/enum_var:Soot_pkg::pkgLateAlias	GOLD=['enum_typespec:Soot_pkg::lateGrade_t']	PRIS=['enum_typespec:Soot_pkg::sootGrade', 'enum_typespec:Soot_pkg::sootGrade']	PAT=['enum_typespec:Soot_pkg::lateGrade_t', 'enum_typespec:Soot_pkg::lateGrade_t']
+PATHTALLY	v140_t_order:elab	CHANGED-NOGOLD=2	CHANGED-STILL-WRONG=1	TOGOLD=7	UNCHANGED-OK=47	UNCHANGED-WRONG=31
+OBJ	v140_t_order:o	enum=13	struct=6	union=0	class=13	logic=0	all=32
+OBJ	v140_t_order:q	enum=13	struct=6	union=0	class=13	logic=0	all=32
+OBJ	v140_t_order:oe	enum=16	struct=6	union=0	class=13	logic=0	all=35
+OBJ	v140_t_order:qe	enum=16	struct=6	union=0	class=13	logic=0	all=35
+PATHTALLY	v140_u_cross:def	TOGOLD=6	UNCHANGED-OK=25	UNCHANGED-WRONG=24
+PATHTALLY	v140_u_cross:elab	TOGOLD=6	UNCHANGED-OK=45	UNCHANGED-WRONG=29
+OBJ	v140_u_cross:o	enum=6	struct=3	union=0	class=13	logic=0	all=22
+OBJ	v140_u_cross:q	enum=6	struct=3	union=0	class=13	logic=0	all=22
+OBJ	v140_u_cross:oe	enum=8	struct=3	union=0	class=13	logic=0	all=24
+OBJ	v140_u_cross:qe	enum=8	struct=3	union=0	class=13	logic=0	all=24
+CHANGED-NOGOLD	v140_w_inherit:def	package:/class_defn:Kiln_pkg::Urn/function:Kiln_pkg::Urn::urnShadowed/enum_var:Kiln_pkg::Urn::urnShadowed	GOLD=None	PRIS=['enum_typespec:Kiln_pkg::burnStage']	PAT=['enum_typespec:BurnStage_e']
+PATHTALLY	v140_w_inherit:def	CHANGED-NOGOLD=1	TOGOLD=6	UNCHANGED-OK=21	UNCHANGED-WRONG=15
+CHANGED-NOGOLD	v140_w_inherit:elab	package:/class_defn:Kiln_pkg::Urn/function:Kiln_pkg::Urn::urnShadowed/enum_var:Kiln_pkg::Urn::urnShadowed	GOLD=None	PRIS=['enum_typespec:Kiln_pkg::burnStage']	PAT=['enum_typespec:BurnStage_e']
+PATHTALLY	v140_w_inherit:elab	CHANGED-NOGOLD=1	TOGOLD=6	UNCHANGED-OK=31	UNCHANGED-WRONG=19
+OBJ	v140_w_inherit:o	enum=6	struct=3	union=0	class=9	logic=0	all=18
+OBJ	v140_w_inherit:q	enum=6	struct=3	union=0	class=9	logic=0	all=18
+OBJ	v140_w_inherit:oe	enum=9	struct=3	union=0	class=9	logic=0	all=21
+OBJ	v140_w_inherit:qe	enum=9	struct=3	union=0	class=9	logic=0	all=21

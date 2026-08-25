@@ -1,0 +1,36 @@
+DIFF	SeqDriver/default	adpcm_pkg::uvm_sequencer_base::get_arbitration	GOLD=enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE,enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE	OURS=enum_typespec:uvm_pkg::uvm_sequencer_arb_mode,enum_typespec:uvm_pkg::uvm_sequencer_arb_mode
+DIFF	SeqDriver/default	uvm_pkg::uvm_sequence_base::get_sequence_state	GOLD=enum_typespec:uvm_pkg::uvm_sequence_state_enum	OURS=enum_typespec:uvm_pkg::uvm_sequence_state
+DIFF	SeqDriver/default	uvm_pkg::uvm_sequencer_base::get_arbitration	GOLD=enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE,enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE,enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE	OURS=enum_typespec:uvm_pkg::uvm_sequencer_arb_mode,enum_typespec:uvm_pkg::uvm_sequencer_arb_mode,enum_typespec:uvm_pkg::uvm_sequencer_arb_mode
+CEN	SeqDriver/default	cells=42	same=39	diff=3	onlygold=0	onlyours=0
+DIFF	SeqDriver/testflags	adpcm_pkg::uvm_sequencer_base::get_arbitration	GOLD=enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE,enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE	OURS=enum_typespec:uvm_pkg::uvm_sequencer_arb_mode,enum_typespec:uvm_pkg::uvm_sequencer_arb_mode
+DIFF	SeqDriver/testflags	uvm_pkg::uvm_sequence_base::get_sequence_state	GOLD=enum_typespec:uvm_pkg::uvm_sequence_state_enum	OURS=enum_typespec:uvm_pkg::uvm_sequence_state
+DIFF	SeqDriver/testflags	uvm_pkg::uvm_sequencer_base::get_arbitration	GOLD=enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE,enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE,enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE	OURS=enum_typespec:uvm_pkg::uvm_sequencer_arb_mode,enum_typespec:uvm_pkg::uvm_sequencer_arb_mode,enum_typespec:uvm_pkg::uvm_sequencer_arb_mode
+CEN	SeqDriver/testflags	cells=42	same=39	diff=3	onlygold=0	onlyours=0
+DIFF	SimpleUVM/default	uvm_pkg::uvm_sequence_base::get_sequence_state	GOLD=enum_typespec:uvm_pkg::uvm_sequence_state_enum	OURS=enum_typespec:uvm_pkg::uvm_sequence_state
+DIFF	SimpleUVM/default	uvm_pkg::uvm_sequencer_base::get_arbitration	GOLD=enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE,enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE,enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE	OURS=enum_typespec:uvm_pkg::uvm_sequencer_arb_mode,enum_typespec:uvm_pkg::uvm_sequencer_arb_mode,enum_typespec:uvm_pkg::uvm_sequencer_arb_mode
+CEN	SimpleUVM/default	cells=34	same=32	diff=2	onlygold=0	onlyours=0
+DIFF	SimpleUVM/testflags	uvm_pkg::uvm_sequence_base::get_sequence_state	GOLD=enum_typespec:uvm_pkg::uvm_sequence_state_enum	OURS=enum_typespec:uvm_pkg::uvm_sequence_state
+DIFF	SimpleUVM/testflags	uvm_pkg::uvm_sequencer_base::get_arbitration	GOLD=enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE,enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE,enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE	OURS=enum_typespec:uvm_pkg::uvm_sequencer_arb_mode,enum_typespec:uvm_pkg::uvm_sequencer_arb_mode,enum_typespec:uvm_pkg::uvm_sequencer_arb_mode
+CEN	SimpleUVM/testflags	cells=34	same=32	diff=2	onlygold=0	onlyours=0
+DIFF	Scoreboard/default	uvm_pkg::uvm_sequence_base::get_sequence_state	GOLD=enum_typespec:uvm_pkg::uvm_sequence_state_enum	OURS=enum_typespec:uvm_pkg::uvm_sequence_state
+DIFF	Scoreboard/default	uvm_pkg::uvm_sequencer_base::get_arbitration	GOLD=enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE,enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE,enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE	OURS=enum_typespec:uvm_pkg::uvm_sequencer_arb_mode,enum_typespec:uvm_pkg::uvm_sequencer_arb_mode,enum_typespec:uvm_pkg::uvm_sequencer_arb_mode
+CEN	Scoreboard/default	cells=35	same=33	diff=2	onlygold=0	onlyours=0
+SKIP-NOFILE	Scoreboard/testflags
+DIFF	MiniAmiq/default	svaunit_pkg::uvm_sequencer_base::get_arbitration	GOLD=enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE,enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE	OURS=enum_typespec:uvm_pkg::uvm_sequencer_arb_mode,enum_typespec:uvm_pkg::uvm_sequencer_arb_mode
+DIFF	MiniAmiq/default	uvm_pkg::uvm_sequence_base::get_sequence_state	GOLD=enum_typespec:uvm_pkg::uvm_sequence_state_enum	OURS=enum_typespec:uvm_pkg::uvm_sequence_state
+DIFF	MiniAmiq/default	uvm_pkg::uvm_sequencer_base::get_arbitration	GOLD=enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE,enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE,enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE	OURS=enum_typespec:uvm_pkg::uvm_sequencer_arb_mode,enum_typespec:uvm_pkg::uvm_sequencer_arb_mode,enum_typespec:uvm_pkg::uvm_sequencer_arb_mode
+CEN	MiniAmiq/default	cells=50	same=47	diff=3	onlygold=0	onlyours=0
+DIFF	MiniAmiq/testflags	svaunit_pkg::uvm_sequencer_base::get_arbitration	GOLD=enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE,enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE	OURS=enum_typespec:uvm_pkg::uvm_sequencer_arb_mode,enum_typespec:uvm_pkg::uvm_sequencer_arb_mode
+DIFF	MiniAmiq/testflags	uvm_pkg::uvm_sequence_base::get_sequence_state	GOLD=enum_typespec:uvm_pkg::uvm_sequence_state_enum	OURS=enum_typespec:uvm_pkg::uvm_sequence_state
+DIFF	MiniAmiq/testflags	uvm_pkg::uvm_sequencer_base::get_arbitration	GOLD=enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE,enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE,enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE	OURS=enum_typespec:uvm_pkg::uvm_sequencer_arb_mode,enum_typespec:uvm_pkg::uvm_sequencer_arb_mode,enum_typespec:uvm_pkg::uvm_sequencer_arb_mode
+CEN	MiniAmiq/testflags	cells=50	same=47	diff=3	onlygold=0	onlyours=0
+DIFF	BuildUVMPkg/default	uvm_pkg::uvm_sequence_base::get_sequence_state	GOLD=enum_typespec:uvm_pkg::uvm_sequence_state_enum	OURS=enum_typespec:uvm_pkg::uvm_sequence_state
+DIFF	BuildUVMPkg/default	uvm_pkg::uvm_sequencer_base::get_arbitration	GOLD=enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE,enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE,enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE	OURS=enum_typespec:uvm_pkg::uvm_sequencer_arb_mode,enum_typespec:uvm_pkg::uvm_sequencer_arb_mode,enum_typespec:uvm_pkg::uvm_sequencer_arb_mode
+CEN	BuildUVMPkg/default	cells=44	same=42	diff=2	onlygold=0	onlyours=0
+DIFF	BuildUVMPkg/testflags	uvm_pkg::uvm_sequence_base::get_sequence_state	GOLD=enum_typespec:uvm_pkg::uvm_sequence_state_enum	OURS=enum_typespec:uvm_pkg::uvm_sequence_state
+DIFF	BuildUVMPkg/testflags	uvm_pkg::uvm_sequencer_base::get_arbitration	GOLD=enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE,enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE,enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE	OURS=enum_typespec:uvm_pkg::uvm_sequencer_arb_mode,enum_typespec:uvm_pkg::uvm_sequencer_arb_mode,enum_typespec:uvm_pkg::uvm_sequencer_arb_mode
+CEN	BuildUVMPkg/testflags	cells=44	same=42	diff=2	onlygold=0	onlyours=0
+CEN	Earlgrey_0_1/default	cells=1	same=1	diff=0	onlygold=0	onlyours=0
+CEN	Earlgrey_0_1/testflags	cells=1	same=1	diff=0	onlygold=0	onlyours=0
+CEN	Rggen/default	cells=1	same=1	diff=0	onlygold=0	onlyours=0
+SKIP-NOFILE	Rggen/testflags

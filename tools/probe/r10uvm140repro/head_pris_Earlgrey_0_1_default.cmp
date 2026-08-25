@@ -1,0 +1,17 @@
+LHS:
+decompile:
+ref_typespec: (work@top_earlgrey.u_flash_ctrl.u_flash_mp.region_end), id:402919
+|vpiParent:
+\_constant: , id:402917, line:54:36, endln:54:48
+|vpiFullName:work@top_earlgrey.u_flash_ctrl.u_flash_mp.region_end
+|vpiActual:
+\_int_typespec: , id:402918
+
+decompile:
+ref_typespec: (work@top_earlgrey.u_flash_ctrl.u_flash_mp.region_end), id:402919
+|vpiParent:
+\_constant: , id:402917, line:54:36, endln:54:48
+|vpiFullName:work@top_earlgrey.u_flash_ctrl.u_flash_mp.region_end
+|vpiActual:
+\_int_typespec: , id:402918
+RHS: <null>

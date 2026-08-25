@@ -1,0 +1,68 @@
+r10uvm140 — A-PRIORI MOVER PREDICTION, made from the PRISTINE databases
+BEFORE the patched sweep ran (pred140 over 956 surelog + 1358 uhdm2rtlil
+databases).  The byte-mover audit must be a SUBSET of the rows below.
+
+== surelog corpus: 956 databases scanned, 9 named ==
+TOTAL	default/BuildUVMPkg-bf853d43	cands=3	aliasedts=45
+TOTAL	default/MiniAmiq-544c7f61	cands=7	aliasedts=56
+TOTAL	default/Scoreboard-59431470	cands=5	aliasedts=44
+TOTAL	default/SeqDriver-32af76aa	cands=7	aliasedts=56
+TOTAL	default/SimpleUVM-1dc93a62	cands=5	aliasedts=44
+TOTAL	testflags/BuildUVMPkg-bf853d43	cands=3	aliasedts=45
+TOTAL	testflags/MiniAmiq-544c7f61	cands=7	aliasedts=56
+TOTAL	testflags/SeqDriver-32af76aa	cands=7	aliasedts=56
+TOTAL	testflags/SimpleUVM-1dc93a62	cands=5	aliasedts=44
+
+== the candidate cells ==
+CAND	default/BuildUVMPkg-bf853d43	uvm_pkg::uvm_sequence_base::get_sequence_state	enum_typespec	uvm_pkg::uvm_sequence_state	aliases=1
+CAND	default/BuildUVMPkg-bf853d43	uvm_pkg::uvm_sequencer_base::get_arbitration	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode	aliases=1
+CAND	default/BuildUVMPkg-bf853d43	uvm_pkg::uvm_sequencer_base::get_arbitration	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode	aliases=1
+CAND	default/MiniAmiq-544c7f61	uvm_pkg::uvm_report_catcher::get_severity	enum_typespec	uvm_pkg::uvm_severity	aliases=1
+CAND	default/MiniAmiq-544c7f61	uvm_pkg::uvm_report_message::get_severity	enum_typespec	uvm_pkg::uvm_severity	aliases=1
+CAND	default/MiniAmiq-544c7f61	uvm_pkg::uvm_sequence_base::get_sequence_state	enum_typespec	uvm_pkg::uvm_sequence_state	aliases=1
+CAND	default/MiniAmiq-544c7f61	uvm_pkg::uvm_sequencer_base::get_arbitration	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode	aliases=2
+CAND	default/MiniAmiq-544c7f61	uvm_pkg::uvm_sequencer_base::get_arbitration	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode	aliases=2
+CAND	default/MiniAmiq-544c7f61	svaunit_pkg::uvm_sequencer_base::get_arbitration	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode	aliases=2
+CAND	default/MiniAmiq-544c7f61	svaunit_pkg::uvm_sequencer_base::get_arbitration	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode	aliases=2
+CAND	default/Scoreboard-59431470	uvm_pkg::uvm_report_catcher::get_severity	enum_typespec	uvm_pkg::uvm_severity	aliases=1
+CAND	default/Scoreboard-59431470	uvm_pkg::uvm_report_message::get_severity	enum_typespec	uvm_pkg::uvm_severity	aliases=1
+CAND	default/Scoreboard-59431470	uvm_pkg::uvm_sequence_base::get_sequence_state	enum_typespec	uvm_pkg::uvm_sequence_state	aliases=1
+CAND	default/Scoreboard-59431470	uvm_pkg::uvm_sequencer_base::get_arbitration	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode	aliases=1
+CAND	default/Scoreboard-59431470	uvm_pkg::uvm_sequencer_base::get_arbitration	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode	aliases=1
+CAND	default/SeqDriver-32af76aa	uvm_pkg::uvm_report_catcher::get_severity	enum_typespec	uvm_pkg::uvm_severity	aliases=1
+CAND	default/SeqDriver-32af76aa	uvm_pkg::uvm_report_message::get_severity	enum_typespec	uvm_pkg::uvm_severity	aliases=1
+CAND	default/SeqDriver-32af76aa	uvm_pkg::uvm_sequence_base::get_sequence_state	enum_typespec	uvm_pkg::uvm_sequence_state	aliases=1
+CAND	default/SeqDriver-32af76aa	uvm_pkg::uvm_sequencer_base::get_arbitration	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode	aliases=2
+CAND	default/SeqDriver-32af76aa	uvm_pkg::uvm_sequencer_base::get_arbitration	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode	aliases=2
+CAND	default/SeqDriver-32af76aa	adpcm_pkg::uvm_sequencer_base::get_arbitration	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode	aliases=2
+CAND	default/SeqDriver-32af76aa	adpcm_pkg::uvm_sequencer_base::get_arbitration	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode	aliases=2
+CAND	default/SimpleUVM-1dc93a62	uvm_pkg::uvm_report_catcher::get_severity	enum_typespec	uvm_pkg::uvm_severity	aliases=1
+CAND	default/SimpleUVM-1dc93a62	uvm_pkg::uvm_report_message::get_severity	enum_typespec	uvm_pkg::uvm_severity	aliases=1
+CAND	default/SimpleUVM-1dc93a62	uvm_pkg::uvm_sequence_base::get_sequence_state	enum_typespec	uvm_pkg::uvm_sequence_state	aliases=1
+CAND	default/SimpleUVM-1dc93a62	uvm_pkg::uvm_sequencer_base::get_arbitration	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode	aliases=1
+CAND	default/SimpleUVM-1dc93a62	uvm_pkg::uvm_sequencer_base::get_arbitration	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode	aliases=1
+CAND	testflags/BuildUVMPkg-bf853d43	uvm_pkg::uvm_sequence_base::get_sequence_state	enum_typespec	uvm_pkg::uvm_sequence_state	aliases=1
+CAND	testflags/BuildUVMPkg-bf853d43	uvm_pkg::uvm_sequencer_base::get_arbitration	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode	aliases=1
+CAND	testflags/BuildUVMPkg-bf853d43	uvm_pkg::uvm_sequencer_base::get_arbitration	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode	aliases=1
+CAND	testflags/MiniAmiq-544c7f61	uvm_pkg::uvm_report_catcher::get_severity	enum_typespec	uvm_pkg::uvm_severity	aliases=1
+CAND	testflags/MiniAmiq-544c7f61	uvm_pkg::uvm_report_message::get_severity	enum_typespec	uvm_pkg::uvm_severity	aliases=1
+CAND	testflags/MiniAmiq-544c7f61	uvm_pkg::uvm_sequence_base::get_sequence_state	enum_typespec	uvm_pkg::uvm_sequence_state	aliases=1
+CAND	testflags/MiniAmiq-544c7f61	uvm_pkg::uvm_sequencer_base::get_arbitration	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode	aliases=2
+CAND	testflags/MiniAmiq-544c7f61	uvm_pkg::uvm_sequencer_base::get_arbitration	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode	aliases=2
+CAND	testflags/MiniAmiq-544c7f61	svaunit_pkg::uvm_sequencer_base::get_arbitration	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode	aliases=2
+CAND	testflags/MiniAmiq-544c7f61	svaunit_pkg::uvm_sequencer_base::get_arbitration	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode	aliases=2
+CAND	testflags/SeqDriver-32af76aa	uvm_pkg::uvm_report_catcher::get_severity	enum_typespec	uvm_pkg::uvm_severity	aliases=1
+CAND	testflags/SeqDriver-32af76aa	uvm_pkg::uvm_report_message::get_severity	enum_typespec	uvm_pkg::uvm_severity	aliases=1
+CAND	testflags/SeqDriver-32af76aa	uvm_pkg::uvm_sequence_base::get_sequence_state	enum_typespec	uvm_pkg::uvm_sequence_state	aliases=1
+CAND	testflags/SeqDriver-32af76aa	uvm_pkg::uvm_sequencer_base::get_arbitration	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode	aliases=2
+CAND	testflags/SeqDriver-32af76aa	uvm_pkg::uvm_sequencer_base::get_arbitration	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode	aliases=2
+CAND	testflags/SeqDriver-32af76aa	adpcm_pkg::uvm_sequencer_base::get_arbitration	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode	aliases=2
+CAND	testflags/SeqDriver-32af76aa	adpcm_pkg::uvm_sequencer_base::get_arbitration	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode	aliases=2
+CAND	testflags/SimpleUVM-1dc93a62	uvm_pkg::uvm_report_catcher::get_severity	enum_typespec	uvm_pkg::uvm_severity	aliases=1
+CAND	testflags/SimpleUVM-1dc93a62	uvm_pkg::uvm_report_message::get_severity	enum_typespec	uvm_pkg::uvm_severity	aliases=1
+CAND	testflags/SimpleUVM-1dc93a62	uvm_pkg::uvm_sequence_base::get_sequence_state	enum_typespec	uvm_pkg::uvm_sequence_state	aliases=1
+CAND	testflags/SimpleUVM-1dc93a62	uvm_pkg::uvm_sequencer_base::get_arbitration	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode	aliases=1
+CAND	testflags/SimpleUVM-1dc93a62	uvm_pkg::uvm_sequencer_base::get_arbitration	enum_typespec	uvm_pkg::uvm_sequencer_arb_mode	aliases=1
+
+== uhdm2rtlil corpus: 1358 databases scanned, 0 named ==
+(no rows: pred140 found no candidate in any uhdm2rtlil database)

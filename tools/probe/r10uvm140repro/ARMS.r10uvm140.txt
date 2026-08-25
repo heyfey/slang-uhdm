@@ -1,0 +1,101 @@
+r10uvm140 — THE GRID, scored (runarms140.sh + score140.py).
+LHS IS ALWAYS GOLDEN.  MEASUREMENT ONLY.
+
+--- g140_a_kinds
+TOGOLD	def	Chrome_pkg::Assay::readAliasIon	GOLD=['struct_typespec: (Chrome_pkg::IonRec_s)']	PRIS=['struct_typespec: (Chrome_pkg::ionRec)']	PAT=['struct_typespec: (Chrome_pkg::IonRec_s)']
+TOGOLD	def	Chrome_pkg::Assay::readAliasMetal	GOLD=['enum_typespec: (Chrome_pkg::MetalKind_e)']	PRIS=['enum_typespec: (Chrome_pkg::metalKind)']	PAT=['enum_typespec: (Chrome_pkg::MetalKind_e)']
+TOGOLD	def	Chrome_pkg::Assay::readChainIon	GOLD=['struct_typespec: (Chrome_pkg::ion_record_t)']	PRIS=['struct_typespec: (Chrome_pkg::ionRec)']	PAT=['struct_typespec: (Chrome_pkg::ion_record_t)']
+TOGOLD	def	Chrome_pkg::Assay::readChainMetal	GOLD=['enum_typespec: (Chrome_pkg::metal_kind_t)']	PRIS=['enum_typespec: (Chrome_pkg::metalKind)']	PAT=['enum_typespec: (Chrome_pkg::metal_kind_t)']
+TOGOLD	def	Chrome_pkg::Assay::readOreMetal	GOLD=['enum_typespec: (Chrome_pkg::OreKind_e)']	PRIS=['enum_typespec: (Chrome_pkg::metalKind)']	PAT=['enum_typespec: (Chrome_pkg::OreKind_e)']
+TOGOLD	def	Chrome_pkg::pkgIon	GOLD=['struct_typespec: (Chrome_pkg::IonRec_s)', 'struct_typespec: (Chrome_pkg::IonRec_s)']	PRIS=['struct_typespec: (Chrome_pkg::ionRec)', 'struct_typespec: (Chrome_pkg::ionRec)']	PAT=['struct_typespec: (Chrome_pkg::IonRec_s)', 'struct_typespec: (Chrome_pkg::IonRec_s)']
+TOGOLD	def	Chrome_pkg::pkgOre	GOLD=['enum_typespec: (Chrome_pkg::OreKind_e)', 'enum_typespec: (Chrome_pkg::OreKind_e)']	PRIS=['enum_typespec: (Chrome_pkg::metalKind)', 'enum_typespec: (Chrome_pkg::metalKind)']	PAT=['enum_typespec: (Chrome_pkg::OreKind_e)', 'enum_typespec: (Chrome_pkg::OreKind_e)']
+STILL-WRONG	def	work@process::status	GOLD=None	PRIS=['enum_typespec: (state)']	PAT=['enum_typespec: (state)']
+TALLY	g140_a_kinds	def	SAME-OK=3	STILL-WRONG=1	TOGOLD=7
+OBJCOUNT(dump-occurrences)	g140_a_kinds	def	pris=84	pat=84	SAME
+TOGOLD	elab	Chrome_pkg::Assay::readAliasIon	GOLD=['struct_typespec: (Chrome_pkg::IonRec_s)']	PRIS=['struct_typespec: (Chrome_pkg::ionRec)']	PAT=['struct_typespec: (Chrome_pkg::IonRec_s)']
+TOGOLD	elab	Chrome_pkg::Assay::readAliasMetal	GOLD=['enum_typespec: (Chrome_pkg::MetalKind_e)']	PRIS=['enum_typespec: (Chrome_pkg::metalKind)']	PAT=['enum_typespec: (Chrome_pkg::MetalKind_e)']
+TOGOLD	elab	Chrome_pkg::Assay::readChainIon	GOLD=['struct_typespec: (Chrome_pkg::ion_record_t)']	PRIS=['struct_typespec: (Chrome_pkg::ionRec)']	PAT=['struct_typespec: (Chrome_pkg::ion_record_t)']
+TOGOLD	elab	Chrome_pkg::Assay::readChainMetal	GOLD=['enum_typespec: (Chrome_pkg::metal_kind_t)']	PRIS=['enum_typespec: (Chrome_pkg::metalKind)']	PAT=['enum_typespec: (Chrome_pkg::metal_kind_t)']
+TOGOLD	elab	Chrome_pkg::Assay::readOreMetal	GOLD=['enum_typespec: (Chrome_pkg::OreKind_e)']	PRIS=['enum_typespec: (Chrome_pkg::metalKind)']	PAT=['enum_typespec: (Chrome_pkg::OreKind_e)']
+TOGOLD	elab	Chrome_pkg::pkgIon	GOLD=['struct_typespec: (Chrome_pkg::IonRec_s)', 'struct_typespec: (Chrome_pkg::IonRec_s)']	PRIS=['struct_typespec: (Chrome_pkg::ionRec)', 'struct_typespec: (Chrome_pkg::ionRec)']	PAT=['struct_typespec: (Chrome_pkg::IonRec_s)', 'struct_typespec: (Chrome_pkg::IonRec_s)']
+TOGOLD	elab	Chrome_pkg::pkgOre	GOLD=['enum_typespec: (Chrome_pkg::OreKind_e)', 'enum_typespec: (Chrome_pkg::OreKind_e)']	PRIS=['enum_typespec: (Chrome_pkg::metalKind)', 'enum_typespec: (Chrome_pkg::metalKind)']	PAT=['enum_typespec: (Chrome_pkg::OreKind_e)', 'enum_typespec: (Chrome_pkg::OreKind_e)']
+STILL-WRONG	elab	work@process::status	GOLD=None	PRIS=['enum_typespec: (state)']	PAT=['enum_typespec: (state)']
+TALLY	g140_a_kinds	elab	SAME-OK=3	STILL-WRONG=1	TOGOLD=7
+OBJCOUNT(dump-occurrences)	g140_a_kinds	elab	pris=102	pat=102	SAME
+OBJ	g140_a_kinds/o	enum=6	struct=4	union=4	class=5	logic=22	all=41
+OBJ	g140_a_kinds/q	enum=6	struct=4	union=4	class=5	logic=22	all=41
+OBJ	g140_a_kinds/oe	enum=7	struct=4	union=4	class=5	logic=22	all=42
+OBJ	g140_a_kinds/qe	enum=7	struct=4	union=4	class=5	logic=22	all=42
+--- g140_b_homes
+TOGOLD	def	Harbour_pkg::Berth::inBodyAlias	GOLD=['enum_typespec: (Harbour_pkg::tide_mode_t)']	PRIS=['enum_typespec: (Harbour_pkg::tideMode)']	PAT=['enum_typespec: (Harbour_pkg::tide_mode_t)']
+TOGOLD	def	Harbour_pkg::Berth::outOfBodyAlias	GOLD=['enum_typespec: (Harbour_pkg::TideMode_e)', 'enum_typespec: (Harbour_pkg::TideMode_e)', 'enum_typespec: (Harbour_pkg::TideMode_e)']	PRIS=['enum_typespec: (Harbour_pkg::tideMode)', 'enum_typespec: (Harbour_pkg::tideMode)', 'enum_typespec: (Harbour_pkg::tideMode)']	PAT=['enum_typespec: (Harbour_pkg::TideMode_e)', 'enum_typespec: (Harbour_pkg::TideMode_e)', 'enum_typespec: (Harbour_pkg::TideMode_e)']
+TOGOLD	def	Harbour_pkg::Berth::outOfBodySound	GOLD=['struct_typespec: (Harbour_pkg::Sounding_s)', 'struct_typespec: (Harbour_pkg::Sounding_s)', 'struct_typespec: (Harbour_pkg::Sounding_s)']	PRIS=['struct_typespec: (Harbour_pkg::soundingRec)', 'struct_typespec: (Harbour_pkg::soundingRec)', 'struct_typespec: (Harbour_pkg::soundingRec)']	PAT=['struct_typespec: (Harbour_pkg::Sounding_s)', 'struct_typespec: (Harbour_pkg::Sounding_s)', 'struct_typespec: (Harbour_pkg::Sounding_s)']
+TOGOLD	def	Harbour_pkg::pkgSoundAlias	GOLD=['struct_typespec: (Harbour_pkg::Sounding_s)', 'struct_typespec: (Harbour_pkg::Sounding_s)']	PRIS=['struct_typespec: (Harbour_pkg::soundingRec)', 'struct_typespec: (Harbour_pkg::soundingRec)']	PAT=['struct_typespec: (Harbour_pkg::Sounding_s)', 'struct_typespec: (Harbour_pkg::Sounding_s)']
+TOGOLD	def	Harbour_pkg::pkgTideAlias	GOLD=['enum_typespec: (Harbour_pkg::TideMode_e)', 'enum_typespec: (Harbour_pkg::TideMode_e)']	PRIS=['enum_typespec: (Harbour_pkg::tideMode)', 'enum_typespec: (Harbour_pkg::tideMode)']	PAT=['enum_typespec: (Harbour_pkg::TideMode_e)', 'enum_typespec: (Harbour_pkg::TideMode_e)']
+TOGOLD	def	unitClockAlias	GOLD=['struct_typespec: (ClockRec_s)']	PRIS=['struct_typespec: (clockRec)']	PAT=['struct_typespec: (ClockRec_s)']
+TOGOLD	def	unitPhaseAlias	GOLD=['enum_typespec: (DayPhase_e)']	PRIS=['enum_typespec: (dayPhase)']	PAT=['enum_typespec: (DayPhase_e)']
+TOGOLD	def	work@Quay.modStateAlias	GOLD=['enum_typespec: (BerthState_e)']	PRIS=['enum_typespec: (berthState)']	PAT=['enum_typespec: (BerthState_e)']
+TOGOLD	def	work@Quay::Crane::liftAlias	GOLD=['enum_typespec: (BerthState_e)']	PRIS=['enum_typespec: (berthState)']	PAT=['enum_typespec: (BerthState_e)']
+TOGOLD	def	work@UnitTimer::whenAlias	GOLD=['enum_typespec: (DayPhase_e)']	PRIS=['enum_typespec: (dayPhase)']	PAT=['enum_typespec: (DayPhase_e)']
+STILL-WRONG	def	work@process::status	GOLD=None	PRIS=['enum_typespec: (state)']	PAT=['enum_typespec: (state)']
+TALLY	g140_b_homes	def	SAME-OK=7	STILL-WRONG=1	TOGOLD=10
+OBJCOUNT(dump-occurrences)	g140_b_homes	def	pris=109	pat=109	SAME
+TOGOLD	elab	Harbour_pkg::Berth::inBodyAlias	GOLD=['enum_typespec: (Harbour_pkg::tide_mode_t)']	PRIS=['enum_typespec: (Harbour_pkg::tideMode)']	PAT=['enum_typespec: (Harbour_pkg::tide_mode_t)']
+TOGOLD	elab	Harbour_pkg::Berth::outOfBodyAlias	GOLD=['enum_typespec: (Harbour_pkg::TideMode_e)', 'enum_typespec: (Harbour_pkg::TideMode_e)', 'enum_typespec: (Harbour_pkg::TideMode_e)']	PRIS=['enum_typespec: (Harbour_pkg::tideMode)', 'enum_typespec: (Harbour_pkg::tideMode)', 'enum_typespec: (Harbour_pkg::tideMode)']	PAT=['enum_typespec: (Harbour_pkg::TideMode_e)', 'enum_typespec: (Harbour_pkg::TideMode_e)', 'enum_typespec: (Harbour_pkg::TideMode_e)']
+TOGOLD	elab	Harbour_pkg::Berth::outOfBodySound	GOLD=['struct_typespec: (Harbour_pkg::Sounding_s)', 'struct_typespec: (Harbour_pkg::Sounding_s)', 'struct_typespec: (Harbour_pkg::Sounding_s)']	PRIS=['struct_typespec: (Harbour_pkg::soundingRec)', 'struct_typespec: (Harbour_pkg::soundingRec)', 'struct_typespec: (Harbour_pkg::soundingRec)']	PAT=['struct_typespec: (Harbour_pkg::Sounding_s)', 'struct_typespec: (Harbour_pkg::Sounding_s)', 'struct_typespec: (Harbour_pkg::Sounding_s)']
+TOGOLD	elab	Harbour_pkg::pkgSoundAlias	GOLD=['struct_typespec: (Harbour_pkg::Sounding_s)', 'struct_typespec: (Harbour_pkg::Sounding_s)']	PRIS=['struct_typespec: (Harbour_pkg::soundingRec)', 'struct_typespec: (Harbour_pkg::soundingRec)']	PAT=['struct_typespec: (Harbour_pkg::Sounding_s)', 'struct_typespec: (Harbour_pkg::Sounding_s)']
+TOGOLD	elab	Harbour_pkg::pkgTideAlias	GOLD=['enum_typespec: (Harbour_pkg::TideMode_e)', 'enum_typespec: (Harbour_pkg::TideMode_e)']	PRIS=['enum_typespec: (Harbour_pkg::tideMode)', 'enum_typespec: (Harbour_pkg::tideMode)']	PAT=['enum_typespec: (Harbour_pkg::TideMode_e)', 'enum_typespec: (Harbour_pkg::TideMode_e)']
+TOGOLD	elab	unitClockAlias	GOLD=['struct_typespec: (ClockRec_s)']	PRIS=['struct_typespec: (clockRec)']	PAT=['struct_typespec: (ClockRec_s)']
+TOGOLD	elab	unitPhaseAlias	GOLD=['enum_typespec: (DayPhase_e)']	PRIS=['enum_typespec: (dayPhase)']	PAT=['enum_typespec: (DayPhase_e)']
+TOGOLD	elab	work@Quay.modStateAlias	GOLD=['enum_typespec: (BerthState_e)']	PRIS=['enum_typespec: (berthState)']	PAT=['enum_typespec: (BerthState_e)']
+TOGOLD	elab	work@Quay::Crane::liftAlias	GOLD=['enum_typespec: (BerthState_e)']	PRIS=['enum_typespec: (berthState)']	PAT=['enum_typespec: (BerthState_e)']
+TOGOLD	elab	work@UnitTimer::whenAlias	GOLD=['enum_typespec: (DayPhase_e)']	PRIS=['enum_typespec: (dayPhase)']	PAT=['enum_typespec: (DayPhase_e)']
+STILL-WRONG	elab	work@process::status	GOLD=None	PRIS=['enum_typespec: (state)']	PAT=['enum_typespec: (state)']
+TALLY	g140_b_homes	elab	SAME-OK=7	STILL-WRONG=1	TOGOLD=10
+OBJCOUNT(dump-occurrences)	g140_b_homes	elab	pris=174	pat=174	SAME
+OBJ	g140_b_homes/o	enum=9	struct=5	union=0	class=9	logic=7	all=30
+OBJ	g140_b_homes/q	enum=9	struct=5	union=0	class=9	logic=7	all=30
+OBJ	g140_b_homes/oe	enum=19	struct=11	union=0	class=9	logic=7	all=46
+OBJ	g140_b_homes/qe	enum=19	struct=11	union=0	class=9	logic=7	all=46
+--- g140_c_import
+TOGOLD	def	Beryl_use_pkg::narrowAlias	GOLD=['enum_typespec: (Onyx_alias_pkg::grade_kind_t)', 'enum_typespec: (Onyx_alias_pkg::grade_kind_t)']	PRIS=['enum_typespec: (Quartz_base_pkg::stoneGrade)', 'enum_typespec: (Quartz_base_pkg::stoneGrade)']	PAT=['enum_typespec: (Onyx_alias_pkg::grade_kind_t)', 'enum_typespec: (Onyx_alias_pkg::grade_kind_t)']
+TOGOLD	def	Topaz_use_pkg::wildAlias	GOLD=['enum_typespec: (Onyx_alias_pkg::StoneGrade_e)', 'enum_typespec: (Onyx_alias_pkg::StoneGrade_e)']	PRIS=['enum_typespec: (Quartz_base_pkg::stoneGrade)', 'enum_typespec: (Quartz_base_pkg::stoneGrade)']	PAT=['enum_typespec: (Onyx_alias_pkg::StoneGrade_e)', 'enum_typespec: (Onyx_alias_pkg::StoneGrade_e)']
+TOGOLD	def	Topaz_use_pkg::wildAlias2	GOLD=['enum_typespec: (Onyx_alias_pkg::grade_kind_t)', 'enum_typespec: (Onyx_alias_pkg::grade_kind_t)']	PRIS=['enum_typespec: (Quartz_base_pkg::stoneGrade)', 'enum_typespec: (Quartz_base_pkg::stoneGrade)']	PAT=['enum_typespec: (Onyx_alias_pkg::grade_kind_t)', 'enum_typespec: (Onyx_alias_pkg::grade_kind_t)']
+TOGOLD	def	Topaz_use_pkg::wildChain	GOLD=['enum_typespec: (Onyx_alias_pkg::GradeChain_e)', 'enum_typespec: (Onyx_alias_pkg::GradeChain_e)']	PRIS=['enum_typespec: (Quartz_base_pkg::stoneGrade)', 'enum_typespec: (Quartz_base_pkg::stoneGrade)']	PAT=['enum_typespec: (Onyx_alias_pkg::GradeChain_e)', 'enum_typespec: (Onyx_alias_pkg::GradeChain_e)']
+TOGOLD	def	Topaz_use_pkg::wildGem	GOLD=['struct_typespec: (Onyx_alias_pkg::GemRec_s)', 'struct_typespec: (Onyx_alias_pkg::GemRec_s)']	PRIS=['struct_typespec: (Quartz_base_pkg::gemRec)', 'struct_typespec: (Quartz_base_pkg::gemRec)']	PAT=['struct_typespec: (Onyx_alias_pkg::GemRec_s)', 'struct_typespec: (Onyx_alias_pkg::GemRec_s)']
+TOGOLD	def	work@Lapidary.qualifiedChain	GOLD=['enum_typespec: (Onyx_alias_pkg::GradeChain_e)']	PRIS=['enum_typespec: (Quartz_base_pkg::stoneGrade)']	PAT=['enum_typespec: (Onyx_alias_pkg::GradeChain_e)']
+TOGOLD	def	work@Lapidary.qualifiedGem	GOLD=['struct_typespec: (Onyx_alias_pkg::GemRec_s)']	PRIS=['struct_typespec: (Quartz_base_pkg::gemRec)']	PAT=['struct_typespec: (Onyx_alias_pkg::GemRec_s)']
+STILL-WRONG	def	work@process::status	GOLD=None	PRIS=['enum_typespec: (state)']	PAT=['enum_typespec: (state)']
+TALLY	g140_c_import	def	SAME-OK=3	STILL-WRONG=1	TOGOLD=7
+OBJCOUNT(dump-occurrences)	g140_c_import	def	pris=108	pat=108	SAME
+TOGOLD	elab	Beryl_use_pkg::narrowAlias	GOLD=['enum_typespec: (Onyx_alias_pkg::grade_kind_t)', 'enum_typespec: (Onyx_alias_pkg::grade_kind_t)']	PRIS=['enum_typespec: (Quartz_base_pkg::stoneGrade)', 'enum_typespec: (Quartz_base_pkg::stoneGrade)']	PAT=['enum_typespec: (Onyx_alias_pkg::grade_kind_t)', 'enum_typespec: (Onyx_alias_pkg::grade_kind_t)']
+TOGOLD	elab	Topaz_use_pkg::wildAlias	GOLD=['enum_typespec: (Onyx_alias_pkg::StoneGrade_e)', 'enum_typespec: (Onyx_alias_pkg::StoneGrade_e)']	PRIS=['enum_typespec: (Quartz_base_pkg::stoneGrade)', 'enum_typespec: (Quartz_base_pkg::stoneGrade)']	PAT=['enum_typespec: (Onyx_alias_pkg::StoneGrade_e)', 'enum_typespec: (Onyx_alias_pkg::StoneGrade_e)']
+TOGOLD	elab	Topaz_use_pkg::wildAlias2	GOLD=['enum_typespec: (Onyx_alias_pkg::grade_kind_t)', 'enum_typespec: (Onyx_alias_pkg::grade_kind_t)']	PRIS=['enum_typespec: (Quartz_base_pkg::stoneGrade)', 'enum_typespec: (Quartz_base_pkg::stoneGrade)']	PAT=['enum_typespec: (Onyx_alias_pkg::grade_kind_t)', 'enum_typespec: (Onyx_alias_pkg::grade_kind_t)']
+TOGOLD	elab	Topaz_use_pkg::wildChain	GOLD=['enum_typespec: (Onyx_alias_pkg::GradeChain_e)', 'enum_typespec: (Onyx_alias_pkg::GradeChain_e)']	PRIS=['enum_typespec: (Quartz_base_pkg::stoneGrade)', 'enum_typespec: (Quartz_base_pkg::stoneGrade)']	PAT=['enum_typespec: (Onyx_alias_pkg::GradeChain_e)', 'enum_typespec: (Onyx_alias_pkg::GradeChain_e)']
+TOGOLD	elab	Topaz_use_pkg::wildGem	GOLD=['struct_typespec: (Onyx_alias_pkg::GemRec_s)', 'struct_typespec: (Onyx_alias_pkg::GemRec_s)']	PRIS=['struct_typespec: (Quartz_base_pkg::gemRec)', 'struct_typespec: (Quartz_base_pkg::gemRec)']	PAT=['struct_typespec: (Onyx_alias_pkg::GemRec_s)', 'struct_typespec: (Onyx_alias_pkg::GemRec_s)']
+TOGOLD	elab	work@Lapidary.qualifiedChain	GOLD=['enum_typespec: (Onyx_alias_pkg::GradeChain_e)']	PRIS=['enum_typespec: (Quartz_base_pkg::stoneGrade)']	PAT=['enum_typespec: (Onyx_alias_pkg::GradeChain_e)']
+TOGOLD	elab	work@Lapidary.qualifiedGem	GOLD=['struct_typespec: (Onyx_alias_pkg::GemRec_s)']	PRIS=['struct_typespec: (Quartz_base_pkg::gemRec)']	PAT=['struct_typespec: (Onyx_alias_pkg::GemRec_s)']
+STILL-WRONG	elab	work@process::status	GOLD=None	PRIS=['enum_typespec: (state)']	PAT=['enum_typespec: (state)']
+TALLY	g140_c_import	elab	SAME-OK=3	STILL-WRONG=1	TOGOLD=7
+OBJCOUNT(dump-occurrences)	g140_c_import	elab	pris=124	pat=124	SAME
+OBJ	g140_c_import/o	enum=9	struct=4	union=0	class=3	logic=8	all=24
+OBJ	g140_c_import/q	enum=9	struct=4	union=0	class=3	logic=8	all=24
+OBJ	g140_c_import/oe	enum=10	struct=4	union=0	class=3	logic=8	all=25
+OBJ	g140_c_import/qe	enum=10	struct=4	union=0	class=3	logic=8	all=25
+--- g140_d_inst
+TOGOLD	def	Cinder_pkg::Kiln::paramAlias	GOLD=['enum_typespec: (Cinder_pkg::HeatBand_e)']	PRIS=['enum_typespec: (Cinder_pkg::heatBand)']	PAT=['enum_typespec: (Cinder_pkg::HeatBand_e)']
+TOGOLD	def	Cinder_pkg::Kiln::paramRec	GOLD=['struct_typespec: (Cinder_pkg::TempRec_s)']	PRIS=['struct_typespec: (Cinder_pkg::tempRec)']	PAT=['struct_typespec: (Cinder_pkg::TempRec_s)']
+TOGOLD	def	work@Ember.emberAlias	GOLD=['enum_typespec: (Cinder_pkg::heat_band_t)']	PRIS=['enum_typespec: (Cinder_pkg::heatBand)']	PAT=['enum_typespec: (Cinder_pkg::heat_band_t)']
+STILL-WRONG	def	work@process::status	GOLD=None	PRIS=['enum_typespec: (state)']	PAT=['enum_typespec: (state)']
+TALLY	g140_d_inst	def	SAME-OK=2	STILL-WRONG=1	TOGOLD=3
+OBJCOUNT(dump-occurrences)	g140_d_inst	def	pris=88	pat=88	SAME
+TOGOLD	elab	Cinder_pkg::Kiln::paramAlias	GOLD=['enum_typespec: (Cinder_pkg::HeatBand_e)']	PRIS=['enum_typespec: (Cinder_pkg::heatBand)']	PAT=['enum_typespec: (Cinder_pkg::HeatBand_e)']
+TOGOLD	elab	Cinder_pkg::Kiln::paramRec	GOLD=['struct_typespec: (Cinder_pkg::TempRec_s)']	PRIS=['struct_typespec: (Cinder_pkg::tempRec)']	PAT=['struct_typespec: (Cinder_pkg::TempRec_s)']
+TOGOLD	elab	work@Ember.emberAlias	GOLD=['enum_typespec: (Cinder_pkg::heat_band_t)']	PRIS=['enum_typespec: (Cinder_pkg::heatBand)']	PAT=['enum_typespec: (Cinder_pkg::heat_band_t)']
+STILL-WRONG	elab	work@process::status	GOLD=None	PRIS=['enum_typespec: (state)']	PAT=['enum_typespec: (state)']
+TALLY	g140_d_inst	elab	SAME-OK=2	STILL-WRONG=1	TOGOLD=3
+OBJCOUNT(dump-occurrences)	g140_d_inst	elab	pris=96	pat=96	SAME
+OBJ	g140_d_inst/o	enum=5	struct=3	union=0	class=7	logic=3	all=18
+OBJ	g140_d_inst/q	enum=5	struct=3	union=0	class=7	logic=3	all=18
+OBJ	g140_d_inst/oe	enum=6	struct=3	union=0	class=7	logic=3	all=19
+OBJ	g140_d_inst/qe	enum=6	struct=3	union=0	class=7	logic=3	all=19

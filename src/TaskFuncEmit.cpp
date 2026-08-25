@@ -3455,12 +3455,38 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             if (retCanon.kind == SymbolKind::PackedStructType ||
                 retCanon.kind == SymbolKind::UnpackedStructType ||
                 retCanon.kind == SymbolKind::EnumType) {
-                for (auto& [sym, tsp] : typedefTs)
-                    if (sym->kind == SymbolKind::TypeAlias &&
-                        &sym->as<TypeAliasType>().getCanonicalType() == &retCanon) {
-                        ts = tsp;
-                        break;
-                    }
+                // § retNamedTdWinsOverCanon140 — THE TYPEDEF THE RETURN TYPE
+                // ACTUALLY NAMES WINS.  The canonical-type scan below answers
+                // "some TypeAlias whose canonical type is this one", and with
+                // an ALIAS OF A TYPEDEF (`typedef uvm_sequence_state
+                // uvm_sequence_state_enum;`, uvm_object_globals.svh:412) TWO
+                // aliases share one canonical enum, so the scan returned
+                // whichever `typedefTs` (a pointer-keyed std::map) held first
+                // -- the BASE.  Surelog resolves the return type by NAME:
+                // `compileTypespec`'s named arm hands back the typespec
+                // registered for the datatype the return token spells, so
+                // golden's `enum_var uvm_pkg::uvm_sequence_base::
+                // get_sequence_state` binds the `uvm_sequence_state_enum`
+                // object (Typedef_alias -> the base) and never the base
+                // itself.  Look the NAMED alias up first; the canonical scan
+                // stays as the fallback for a return type that is not a
+                // registered TypeAlias (a $unit duplicate instance, an
+                // anonymous enum, an alias whose own object was never
+                // listed) -- every one of those keeps its old answer.
+                if (auto& rdt140 = sub.getReturnType();
+                    rdt140.kind == SymbolKind::TypeAlias) {
+                    if (auto it140 = typedefTs.find(&rdt140);
+                        it140 != typedefTs.end())
+                        ts = it140->second;
+                }
+                if (!ts)
+                    for (auto& [sym, tsp] : typedefTs)
+                        if (sym->kind == SymbolKind::TypeAlias &&
+                            &sym->as<TypeAliasType>().getCanonicalType() ==
+                                &retCanon) {
+                            ts = tsp;
+                            break;
+                        }
             }
             // A typedef'd VECTOR return gets a fresh NAMED clone (at the
             // typedef site) with a Typedef_alias ref; the return var anchors

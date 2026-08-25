@@ -1,0 +1,60 @@
+r10uvm140 — THE BOUNDARY GATE
+
+LISTED=4059 PROCESSED=4059 PRODUCED_DBS=3915 MOVED_ARMS=6 RC_DIFFS=0
+
+MOVED ARMS:
+r10buvm22repro/g22b.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10buvm9repro/w6v_clsalias.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm140repro/g140_a_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm140repro/g140_b_homes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm140repro/g140_c_import.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm140repro/g140_d_inst.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+== the two EARLIER-PASS arms, re-measured against golden ==
+--- bnd_g22b
+TOGOLD	def	q22::L22::lc_n_tdenum	GOLD=['enum_typespec: (cn_tdenum_t)']	PRIS=['enum_typespec: (q22::qe_t)']	PAT=['enum_typespec: (cn_tdenum_t)']
+TOGOLD	def	q22::L22::lc_n_tdstruct	GOLD=['struct_typespec: (cn_tdstruct_t)']	PRIS=['struct_typespec: (q22::qs_t)']	PAT=['struct_typespec: (cn_tdstruct_t)']
+STILL-WRONG	def	work@process::status	GOLD=None	PRIS=['enum_typespec: (state)']	PAT=['enum_typespec: (state)']
+TALLY	bnd_g22b	def	SAME-OK=1	STILL-WRONG=1	TOGOLD=2
+OBJCOUNT(dump-occurrences)	bnd_g22b	def	pris=39	pat=39	SAME
+TOGOLD	elab	q22::L22::lc_n_tdenum	GOLD=['enum_typespec: (cn_tdenum_t)']	PRIS=['enum_typespec: (q22::qe_t)']	PAT=['enum_typespec: (cn_tdenum_t)']
+TOGOLD	elab	q22::L22::lc_n_tdstruct	GOLD=['struct_typespec: (cn_tdstruct_t)']	PRIS=['struct_typespec: (q22::qs_t)']	PAT=['struct_typespec: (cn_tdstruct_t)']
+STILL-WRONG	elab	work@process::status	GOLD=None	PRIS=['enum_typespec: (state)']	PAT=['enum_typespec: (state)']
+TALLY	bnd_g22b	elab	SAME-OK=1	STILL-WRONG=1	TOGOLD=2
+OBJCOUNT(dump-occurrences)	bnd_g22b	elab	pris=49	pat=52	CHANGED -- confirm with objcnt140
+OBJ	bnd_g22b/o	enum=4	struct=5	union=0	class=10	logic=19	all=38
+OBJ	bnd_g22b/q	enum=4	struct=5	union=0	class=10	logic=19	all=38
+OBJ	bnd_g22b/oe	enum=6	struct=7	union=0	class=10	logic=20	all=43
+OBJ	bnd_g22b/qe	enum=6	struct=7	union=0	class=10	logic=20	all=43
+--- bnd_w6v_clsalias
+STILL-WRONG	def	w6p::w6k::f3	GOLD=['struct_typespec: (n3_s)']	PRIS=None	PAT=None
+STILL-WRONG	def	work@process::status	GOLD=None	PRIS=['enum_typespec: (state)']	PAT=['enum_typespec: (state)']
+TALLY	bnd_w6v_clsalias	def	STILL-WRONG=2
+OBJCOUNT(dump-occurrences)	bnd_w6v_clsalias	def	pris=49	pat=49	SAME
+STILL-WRONG	elab	w6p::w6k::f3	GOLD=['struct_typespec: (n3_s)']	PRIS=None	PAT=None
+STILL-WRONG	elab	work@process::status	GOLD=None	PRIS=['enum_typespec: (state)']	PAT=['enum_typespec: (state)']
+TALLY	bnd_w6v_clsalias	elab	STILL-WRONG=2
+OBJCOUNT(dump-occurrences)	bnd_w6v_clsalias	elab	pris=88	pat=88	SAME
+OBJ	bnd_w6v_clsalias/o	enum=4	struct=10	union=0	class=5	logic=0	all=19
+OBJ	bnd_w6v_clsalias/q	enum=4	struct=10	union=0	class=5	logic=0	all=19
+OBJ	bnd_w6v_clsalias/oe	enum=6	struct=18	union=0	class=6	logic=0	all=30
+OBJ	bnd_w6v_clsalias/qe	enum=6	struct=18	union=0	class=6	logic=0	all=30
+
+== r10buvm9repro/w6v_clsalias.sv: the WHOLE-DUMP diff (pristine '<' vs patched '>'),
+   path-normalised.  score140 does not see this move: it is not a return
+   BINDING but the vpiInstance stamp the binding carries.
+-- DEF view:
+1c1
+---
+740a741,742
+>       |vpiInstance:
+>       \_package: w6p (w6p::), file:w6v_clsalias.sv, line:5:1, endln:38:11
+-- ELAB view:
+1c1
+---
+791a792,793
+>       |vpiInstance:
+>       \_package: w6p (w6p::), file:w6v_clsalias.sv, line:5:1, endln:38:11
+2125a2128,2129
+>   |vpiInstance:
+>   \_package: w6p (w6p::), file:w6v_clsalias.sv, line:5:1, endln:38:11

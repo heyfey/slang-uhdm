@@ -1,0 +1,180 @@
+r10uvm140 — ADVERSARIAL VERIFICATION.  VERDICT: ACCEPT AS SHIPPED.
+LHS IS ALWAYS GOLDEN (Surelog).  MEASUREMENT ONLY — the judge is the official
+~/git-repos/UHDM/build/bin/uhdm-cmp.  slang NOT patched; results/*.csv READ
+ONLY; nothing promoted; NO CORPUS ROW CONVERTED.
+
+Everything below was re-measured from scratch in the verifier's own worktrees
+(/tmp/wt_v140 patched, /tmp/wt_v140pris pristine, both fresh at c966463) with
+the verifier's own binaries, its own sweeps and its own instruments.  No
+control directory and no artifact of the implementer's run was reused for any
+number, except where a section says "reproduced the implementer's <script>".
+
+1. BINARIES (built here, -j 2, md5'd separately, chmod 555 BEFORE any sweep)
+   pristine  f1932e97bc9450c2aef7d7be0a387ef1
+   patched   3777166eca94b226512a2b2639a2b1c8
+   Both md5s equal the implementer's claim BIT FOR BIT, from an independent
+   fresh worktree — the patch is reproducible and the production surface is
+   exactly src/TaskFuncEmit.cpp (one block) + RESUME.md §3b + the probe dir.
+   `git apply --check` on a fresh c966463: rc=0.  Fence audit of the patch:
+   0 hits for each of the four slang-fenced names.  0 results/*.csv hunks.
+
+2. GOLDENS      pristine PASS=23 FAIL=0 ; patched PASS=23 FAIL=0 ;
+                SLANG_UHDM=/bin/false FAIL=23 (negative control).
+
+3. uhdm2rtlil (both modes, both binaries)   679 CMP_EQUAL / 50 SLANG_REJECT /
+   2 SURELOG_FAIL.  ct8rows PASS against the committed baseline AND against
+   the verifier's own pristine sweeps, testflags AND default.
+   cmds.txt audit: 1462 files, ZERO slang invocations outside the frozen
+   /tmp/v140_bin/pat.bin; zero references to any main-tree binary.
+
+4. surelog corpus (--mode both, 1588 rows / 956 databases)
+   histogram pristine == patched == 937 CMP_EQUAL, 567 SLANG_REJECT,
+   48 SURELOG_FAIL, 19 CMP_NOTEQUAL, 10 DEFERRED, 3 NO_DATABASE,
+   2 UNTRANSLATABLE, 1 TIMEOUT, 1 NO_UHDM.
+   ct8rows PASS (status AND dump column) vs the committed baseline and vs the
+   verifier's own pristine sweep.  NO row converted in either direction.
+   cmds.txt audit: 1573 files per sweep, ZERO slang invocations outside the
+   frozen binary of that sweep.
+
+5. MOVERS, PREDICTED BY NAME FIRST.  The verifier re-ran the a-priori
+   predictor over ALL 956 + ALL 1358 PRISTINE databases before looking at any
+   patched byte: exactly NINE candidate databases, all in the surelog corpus
+   (BuildUVMPkg / MiniAmiq / SeqDriver / SimpleUVM both modes + Scoreboard
+   default), ZERO in uhdm2rtlil.  byteverify SELFCHECK=1 then found
+   MOVERS 9/956 (that exact set) and MOVERS 0/1358, PATH_SETS_IDENTICAL on
+   both.  Order-blind (sorted, path-normalised) whole-dump attribution:
+   4 changed line-pairs on SimpleUVM/Scoreboard/BuildUVMPkg, 6 on
+   SeqDriver/MiniAmiq, and every single one is an enum_typespec NAME moving
+   uvm_sequencer_arb_mode -> UVM_SEQ_ARB_TYPE or uvm_sequence_state ->
+   uvm_sequence_state_enum, i.e. TOWARD golden.  Arena object counts
+   (objcnt140) identical pristine vs patched on all nine — nothing minted.
+
+6. CENSUS reproduced on all nine movers: 22 wrong cells / 44 bindings -> 0,
+   onlygold=0 onlyours=0 everywhere.  CORPUS NEGATIVE CONTROL reproduced: the
+   third uvm_object_globals backward-compat alias (uvm_severity_type) leaves
+   uvm_report_catcher::get_severity and uvm_report_message::get_severity on
+   uvm_pkg::uvm_severity in golden, in pristine AND in patched.
+
+7. HEADS (rowheads.sh, official cmp) reproduced EXACTLY:
+   SimpleUVM default/testflags and Scoreboard/default 334 -> 29, the head
+   object changing from golden's enum_typespec (uvm_pkg::uvm_sequence_state_
+   enum) to `LHS: <null>` against our io_decl (obj) on
+   uvm_pkg::uvm_objection::wait_for — the R0 the pass names.  SeqDriver x2,
+   MiniAmiq x2, BuildUVMPkg x2, Earlgrey_0_1 x2, Rggen/default: head logs
+   BYTE-IDENTICAL.
+
+8. CANARIES  surelog ok=52 changed=0 absent=0; uhdm2rtlil ok=8 changed=0;
+   ctcan2 PASS x2; canaudit audited=29 UNCOVERED=0 FENCE-BREACH=0.
+   Protected databases, verifier's own md5s, pristine -> patched:
+   InterfaceModPort 59a365f3ce2c SAME (both modes), BlackParrotComplex
+   e3e354129d5a / 73a10e8217e5 SAME, YosysOldOr d68e0796d62c SAME (both),
+   SVSwitch 4842211c4030 (the pin), YosysVerx 6ccda350c24a (the pin).
+
+9. BOUNDARY, re-run here over a COPY of the whole probe tree:
+   LISTED=4059 PROCESSED=4059 PRODUCED_DBS=3915 MOVED_ARMS=6 RC_DIFFS=0 —
+   the same six arms.  Four are this pass's own (the positive control that
+   proves the gate can see).  The two strangers were re-scored against golden
+   by the verifier: r10buvm22repro/g22b.sv moves lc_n_tdenum/lc_n_tdstruct
+   from q22::qe_t / q22::qs_t to cn_tdenum_t / cn_tdstruct_t, which is
+   EXACTLY what golden binds (golden wears a ref_var there, our enum_var /
+   struct_var is the pre-existing R2 residue); r10buvm9repro/w6v_clsalias.sv
+   gains `vpiInstance: package w6p` on our class-scope struct_typespec (n3_s)
+   — additions only, arena counts 19/19 and 30/30.  The brief's must-stay
+   controls were all LISTED and COMPILED and did not move: r10uvm123repro (7)
+   r10v123repro (10) r10uvm114repro (8) r10uvm112repro (12) r10uvm138repro (4)
+   r10v138repro (7) r10uvm113repro (4) r10uvm109repro (3) r10uvm107repro (3)
+   r10uvm98repro (6) r10uvm97repro (5).
+
+10. THE VERIFIER'S OWN GRID — seven arms the implementer never wrote, scored
+    with a BROADER instrument (pathcen.py: EVERY |vpiActual: binding in the
+    database, keyed by the path of enclosing objects+fields, so class
+    properties, class-scope locals, method formals, typedef listing entries
+    and returns are all cells — not just the return the implementer censused):
+      v140_p_kinds   enum/packed-struct/packed-union/vector x base/alias/
+                     2-deep chain/second-alias-of-one-base; property, local,
+                     formal, return faces
+      v140_q_homes   $unit fn, $unit class method, package fn, in-body method,
+                     OUT-OF-BODY method, module fn, module-class method,
+                     NESTED class, interface method
+      v140_r_import  alias in a different package than its base, reached by
+                     wildcard / explicit-single / fully-qualified import;
+                     three aliases of one base; a class-scope typedef that
+                     SHADOWS a wildcard-imported package typedef of that name
+      v140_s_spec    parameterised class specialised twice and three times,
+                     a $unit class, 1/2/3 instances of an alias-returning
+                     module, a type-PARAMETER return
+      v140_t_order   four aliases over one canonical enum with the USED one
+                     declared first / second / third / as an alias-of-alias;
+                     an alias declared AFTER the class that used the base;
+                     class-scope aliases of a foreign package's typedef
+      v140_u_cross   the law against the OTHER committed typedef laws: a cast
+                     target naming the alias and one naming the base, a
+                     parameterised class specialised on alias/base/struct, a
+                     bare-enumerator return, two SIBLING classes of one package
+      v140_w_inherit a virtual base class, two derived classes, a pure virtual
+                     returning the alias, and a derived class that RE-TYPEDEFS
+                     the same name
+    Result over 7 arms x DEF and ELAB (14 databases, plus the implementer's 8
+    re-scored with the same broad instrument):
+      90 TOGOLD, **0 MOVED-WRONG**, 0 AWAY.
+    Every arm's database MOVED on both binaries (an arm that agrees without
+    moving is not an arm that tests).  Arena object counts (objcnt140) are
+    IDENTICAL pristine vs patched on all 28 arm databases: the law re-points
+    a pointer and mints nothing.
+    Var-kind consistency check over every arm database: 1236 enum_var /
+    struct_var / union_var bindings, 0 kind mismatches — the named lookup
+    never hands a return variable a typespec of the wrong kind.
+    Reproduced the implementer's own runarms140.sh: 54 TOGOLD, 0 MOVED-WRONG,
+    30 SAME-OK, 8 STILL-WRONG (all of them work@process::status, the built-in
+    process stub golden does not emit — residue R3), OBJCOUNT SAME everywhere.
+    Broad re-score of those four arms: 0 MOVED-WRONG there too.
+
+11. THE BROAD CENSUS ON A REAL UVM DATABASE.  SimpleUVM/default, golden vs
+    pristine vs patched over 34,218 binding cells:
+      TOGOLD 3, MOVED-WRONG 0, UNCHANGED-OK 33,280, UNCHANGED-WRONG 934,
+      CHANGED-NOGOLD 1 (the package-scope copy of
+      uvm_sequencer_base::get_arbitration, where golden wears a ref_var and we
+      an enum_var — residue R2; both sides bind uvm_pkg::UVM_SEQ_ARB_TYPE).
+    Not one of the 33,280 cells that were already right became wrong.
+
+TWO FINDINGS the implementer's return-only census could not have seen; NEITHER
+is a regression, and neither touches the corpus (0 rows changed):
+
+  F1  A class-scope typedef whose NAME COLLIDES with a wildcard-imported
+      package typedef of the same name (v140_r_import: `class Anvil` inside a
+      module that does `import Forge_pkg::*` declares its own
+      `typedef Ember_pkg::heatBand HeatBand_e;`).  Golden emits a class-scope
+      object parented at the class_defn but NAMES it `Forge_pkg::HeatBand_e`;
+      we now bind our class-scope object, named BARE `HeatBand_e`.  Pristine
+      bound a third thing entirely (the base, `Ember_pkg::heatBand`), so the
+      patch moves us onto golden's OBJECT with a residual NAMING difference —
+      both states are unequal at VpiName, and the patched one additionally
+      carries the Typedef_alias link that golden's object has and the
+      pristine binding did not.  Not a regression; recorded as R4 below.
+  F2  The `ref_var`-vs-`enum_var`/`struct_var` residue (the pass's own R2) is
+      what turns 14 otherwise-perfect grid cells into GOLD=None rows: in every
+      one the BOUND TYPESPEC NAME is now exactly golden's, and only the
+      variable's class differs.  That confirms R2's framing and shows R2 is
+      strictly the next thing standing between these cells and equality.
+
+RESIDUES, RANKED (the pass's R0-R3 re-measured here, plus R4):
+  R0  the new head on SimpleUVM x2 + Scoreboard/default (29 cmp lines):
+      `LHS: <null>` vs our io_decl (obj) on uvm_pkg::uvm_objection::wait_for
+      (uvm_objection.svh:897, a formal with a DEFAULT VALUE) — a vector
+      SafeCompare size mismatch, golden's Io_decls is SHORTER than ours.
+      CONFIRMED here from the patched cmp log.
+  R1  a VECTOR alias-of-typedef return keeps our bare per-function clone.
+      CONFIRMED unchanged (the vector path is kind-excluded by construction).
+  R2  the return VARIABLE's class (golden ref_var, ours enum_var/struct_var)
+      for a package-scope copy of a method compiled at package scope, and for
+      class-scope-typedef returns.  CONFIRMED, and now the LARGEST blocker on
+      this family: 14 verifier grid cells and 1 SimpleUVM cell are name-perfect
+      and stopped only by it.
+  R3  work@process::status, our built-in process stub golden never emits.
+      CONFIRMED identical pristine and patched on every arm.
+  R4  (new, verifier) the shadowed class-scope typedef's VpiName qualification
+      — F1 above.  Corpus population 0; grid population 2 cells.
+
+NO pristine-right -> patched-wrong case was found on any legal SystemVerilog
+this verifier could construct, so NO fix was made and no .verified.patch of
+the production surface exists: /tmp/r10uvm140.patch ships as written.

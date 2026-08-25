@@ -1,0 +1,14 @@
+CEN	SeqDriver/default	cells=42	same=42	diff=0	onlygold=0	onlyours=0
+CEN	SeqDriver/testflags	cells=42	same=42	diff=0	onlygold=0	onlyours=0
+CEN	SimpleUVM/default	cells=34	same=34	diff=0	onlygold=0	onlyours=0
+CEN	SimpleUVM/testflags	cells=34	same=34	diff=0	onlygold=0	onlyours=0
+CEN	Scoreboard/default	cells=35	same=35	diff=0	onlygold=0	onlyours=0
+SKIP-NOFILE	Scoreboard/testflags
+CEN	MiniAmiq/default	cells=50	same=50	diff=0	onlygold=0	onlyours=0
+CEN	MiniAmiq/testflags	cells=50	same=50	diff=0	onlygold=0	onlyours=0
+CEN	BuildUVMPkg/default	cells=44	same=44	diff=0	onlygold=0	onlyours=0
+CEN	BuildUVMPkg/testflags	cells=44	same=44	diff=0	onlygold=0	onlyours=0
+CEN	Earlgrey_0_1/default	cells=1	same=1	diff=0	onlygold=0	onlyours=0
+CEN	Earlgrey_0_1/testflags	cells=1	same=1	diff=0	onlygold=0	onlyours=0
+CEN	Rggen/default	cells=1	same=1	diff=0	onlygold=0	onlyours=0
+SKIP-NOFILE	Rggen/testflags
