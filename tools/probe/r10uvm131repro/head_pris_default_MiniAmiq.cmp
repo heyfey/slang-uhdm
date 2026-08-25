@@ -1,0 +1,294 @@
+LHS:
+decompile:
+named_fork: (uvm_pkg::uvm_phase::execute_phase::master_phase_process), id:13361, line:1400:9, endln:1413:18
+|vpiParent:
+\_begin: (uvm_pkg::uvm_phase::execute_phase), id:13320, line:1393:10, endln:1526:8
+|vpiName:master_phase_process
+|vpiFullName:uvm_pkg::uvm_phase::execute_phase::master_phase_process
+|vpiJoinType:1
+|vpiStmt:
+\_begin: (uvm_pkg::uvm_phase::execute_phase::master_phase_process), id:13362, line:1401:11, endln:1412:14
+  |vpiParent:
+  \_named_fork: (uvm_pkg::uvm_phase::execute_phase::master_phase_process), id:13361, line:1400:9, endln:1413:18
+  |vpiFullName:uvm_pkg::uvm_phase::execute_phase::master_phase_process
+  |vpiStmt:
+  \_assignment: , id:13363, line:1403:13, endln:1403:43
+    |vpiParent:
+    \_begin: (uvm_pkg::uvm_phase::execute_phase::master_phase_process), id:13362, line:1401:11, endln:1412:14
+    |vpiOpType:82
+    |vpiBlocking:1
+    |vpiRhs:
+    \_ref_obj: (uvm_pkg::uvm_phase::execute_phase::master_phase_process::process::self), id:13365, line:1403:28, endln:1403:37
+      |vpiParent:
+      \_assignment: , id:13363, line:1403:13, endln:1403:43
+      |vpiName:process::self
+      |vpiFullName:uvm_pkg::uvm_phase::execute_phase::master_phase_process::process::self
+    |vpiLhs:
+    \_ref_obj: (uvm_pkg::uvm_phase::execute_phase::master_phase_process::m_phase_proc), id:13364, line:1403:13, endln:1403:25
+      |vpiParent:
+      \_assignment: , id:13363, line:1403:13, endln:1403:43
+      |vpiName:m_phase_proc
+      |vpiFullName:uvm_pkg::uvm_phase::execute_phase::master_phase_process::m_phase_proc
+  |vpiStmt:
+  \_method_func_call: (traverse), id:13366, line:1408:24, endln:1408:32
+    |vpiParent:
+    \_begin: (uvm_pkg::uvm_phase::execute_phase::master_phase_process), id:13362, line:1401:11, endln:1412:14
+    |vpiArgument:
+    \_ref_obj: (uvm_pkg::uvm_phase::execute_phase::master_phase_process::top), id:13368, line:1408:33, endln:1408:36
+      |vpiParent:
+      \_method_func_call: (traverse), id:13366, line:1408:24, endln:1408:32
+      |vpiName:top
+      |vpiFullName:uvm_pkg::uvm_phase::execute_phase::master_phase_process::top
+      |vpiActual:
+      \_class_var: (uvm_pkg::uvm_phase::execute_phase::top), id:13011, line:1300:12, endln:1300:15
+    |vpiArgument:
+    \_ref_obj: (uvm_pkg::uvm_phase::execute_phase::master_phase_process::this), id:13369, line:1408:37, endln:1408:41
+      |vpiParent:
+      \_method_func_call: (traverse), id:13366, line:1408:24, endln:1408:32
+      |vpiName:this
+      |vpiFullName:uvm_pkg::uvm_phase::execute_phase::master_phase_process::this
+    |vpiArgument:
+    \_ref_obj: (uvm_pkg::uvm_phase::execute_phase::master_phase_process::UVM_PHASE_EXECUTING), id:13370, line:1408:42, endln:1408:61
+      |vpiParent:
+      \_method_func_call: (traverse), id:13366, line:1408:24, endln:1408:32
+      |vpiName:UVM_PHASE_EXECUTING
+      |vpiFullName:uvm_pkg::uvm_phase::execute_phase::master_phase_process::UVM_PHASE_EXECUTING
+      |vpiActual:
+      \_enum_const: (UVM_PHASE_EXECUTING), id:2393, line:537:19, endln:537:46
+    |vpiName:traverse
+    |vpiPrefix:
+    \_ref_obj: (uvm_pkg::uvm_phase::execute_phase::master_phase_process::task_phase), id:13367, line:1408:13, endln:1408:23
+      |vpiParent:
+      \_method_func_call: (traverse), id:13366, line:1408:24, endln:1408:32
+      |vpiName:task_phase
+      |vpiFullName:uvm_pkg::uvm_phase::execute_phase::master_phase_process::task_phase
+  |vpiStmt:
+  \_wait_stmt: , id:13371, line:1410:13, endln:1410:21
+    |vpiParent:
+    \_begin: (uvm_pkg::uvm_phase::execute_phase::master_phase_process), id:13362, line:1401:11, endln:1412:14
+    |vpiCondition:
+    \_constant: , id:13372, line:1410:18, endln:1410:19
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+
+decompile:
+named_fork: (uvm_pkg::uvm_phase::execute_phase::master_phase_process), id:13361, line:1400:9, endln:1413:18
+|vpiParent:
+\_begin: (uvm_pkg::uvm_phase::execute_phase), id:13320, line:1393:10, endln:1526:8
+|vpiName:master_phase_process
+|vpiFullName:uvm_pkg::uvm_phase::execute_phase::master_phase_process
+|vpiJoinType:1
+|vpiStmt:
+\_begin: (uvm_pkg::uvm_phase::execute_phase::master_phase_process), id:13362, line:1401:11, endln:1412:14
+  |vpiParent:
+  \_named_fork: (uvm_pkg::uvm_phase::execute_phase::master_phase_process), id:13361, line:1400:9, endln:1413:18
+  |vpiFullName:uvm_pkg::uvm_phase::execute_phase::master_phase_process
+  |vpiStmt:
+  \_assignment: , id:13363, line:1403:13, endln:1403:43
+    |vpiParent:
+    \_begin: (uvm_pkg::uvm_phase::execute_phase::master_phase_process), id:13362, line:1401:11, endln:1412:14
+    |vpiOpType:82
+    |vpiBlocking:1
+    |vpiRhs:
+    \_ref_obj: (uvm_pkg::uvm_phase::execute_phase::master_phase_process::process::self), id:13365, line:1403:28, endln:1403:37
+      |vpiParent:
+      \_assignment: , id:13363, line:1403:13, endln:1403:43
+      |vpiName:process::self
+      |vpiFullName:uvm_pkg::uvm_phase::execute_phase::master_phase_process::process::self
+    |vpiLhs:
+    \_ref_obj: (uvm_pkg::uvm_phase::execute_phase::master_phase_process::m_phase_proc), id:13364, line:1403:13, endln:1403:25
+      |vpiParent:
+      \_assignment: , id:13363, line:1403:13, endln:1403:43
+      |vpiName:m_phase_proc
+      |vpiFullName:uvm_pkg::uvm_phase::execute_phase::master_phase_process::m_phase_proc
+  |vpiStmt:
+  \_method_func_call: (traverse), id:13366, line:1408:24, endln:1408:32
+    |vpiParent:
+    \_begin: (uvm_pkg::uvm_phase::execute_phase::master_phase_process), id:13362, line:1401:11, endln:1412:14
+    |vpiArgument:
+    \_ref_obj: (uvm_pkg::uvm_phase::execute_phase::master_phase_process::top), id:13368, line:1408:33, endln:1408:36
+      |vpiParent:
+      \_method_func_call: (traverse), id:13366, line:1408:24, endln:1408:32
+      |vpiName:top
+      |vpiFullName:uvm_pkg::uvm_phase::execute_phase::master_phase_process::top
+      |vpiActual:
+      \_class_var: (uvm_pkg::uvm_phase::execute_phase::top), id:13011, line:1300:12, endln:1300:15
+    |vpiArgument:
+    \_ref_obj: (uvm_pkg::uvm_phase::execute_phase::master_phase_process::this), id:13369, line:1408:37, endln:1408:41
+      |vpiParent:
+      \_method_func_call: (traverse), id:13366, line:1408:24, endln:1408:32
+      |vpiName:this
+      |vpiFullName:uvm_pkg::uvm_phase::execute_phase::master_phase_process::this
+    |vpiArgument:
+    \_ref_obj: (uvm_pkg::uvm_phase::execute_phase::master_phase_process::UVM_PHASE_EXECUTING), id:13370, line:1408:42, endln:1408:61
+      |vpiParent:
+      \_method_func_call: (traverse), id:13366, line:1408:24, endln:1408:32
+      |vpiName:UVM_PHASE_EXECUTING
+      |vpiFullName:uvm_pkg::uvm_phase::execute_phase::master_phase_process::UVM_PHASE_EXECUTING
+      |vpiActual:
+      \_enum_const: (UVM_PHASE_EXECUTING), id:2393, line:537:19, endln:537:46
+    |vpiName:traverse
+    |vpiPrefix:
+    \_ref_obj: (uvm_pkg::uvm_phase::execute_phase::master_phase_process::task_phase), id:13367, line:1408:13, endln:1408:23
+      |vpiParent:
+      \_method_func_call: (traverse), id:13366, line:1408:24, endln:1408:32
+      |vpiName:task_phase
+      |vpiFullName:uvm_pkg::uvm_phase::execute_phase::master_phase_process::task_phase
+  |vpiStmt:
+  \_wait_stmt: , id:13371, line:1410:13, endln:1410:21
+    |vpiParent:
+    \_begin: (uvm_pkg::uvm_phase::execute_phase::master_phase_process), id:13362, line:1401:11, endln:1412:14
+    |vpiCondition:
+    \_constant: , id:13372, line:1410:18, endln:1410:19
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+RHS:
+decompile:
+named_fork: (uvm_pkg::uvm_phase::execute_phase::master_phase_process), id:49413, line:1400:16, endln:1400:36
+|vpiParent:
+\_begin: (uvm_pkg::uvm_phase::execute_phase), id:49375, line:1393:10, endln:1526:8
+|vpiName:master_phase_process
+|vpiFullName:uvm_pkg::uvm_phase::execute_phase::master_phase_process
+|vpiStmt:
+\_begin: (uvm_pkg::uvm_phase::execute_phase::master_phase_process), id:49414, line:1401:11, endln:1412:14
+  |vpiParent:
+  \_named_fork: (uvm_pkg::uvm_phase::execute_phase::master_phase_process), id:49413, line:1400:16, endln:1400:36
+  |vpiFullName:uvm_pkg::uvm_phase::execute_phase::master_phase_process
+  |vpiStmt:
+  \_assignment: , id:49415, line:1403:13, endln:1403:43
+    |vpiParent:
+    \_begin: (uvm_pkg::uvm_phase::execute_phase::master_phase_process), id:49414, line:1401:11, endln:1412:14
+    |vpiOpType:82
+    |vpiBlocking:1
+    |vpiRhs:
+    \_ref_obj: (uvm_pkg::uvm_phase::execute_phase::master_phase_process::process::self), id:49417, line:1403:28, endln:1403:37
+      |vpiParent:
+      \_assignment: , id:49415, line:1403:13, endln:1403:43
+      |vpiName:process::self
+      |vpiFullName:uvm_pkg::uvm_phase::execute_phase::master_phase_process::process::self
+    |vpiLhs:
+    \_ref_obj: (uvm_pkg::uvm_phase::execute_phase::master_phase_process::m_phase_proc), id:49416, line:1403:13, endln:1403:25
+      |vpiParent:
+      \_assignment: , id:49415, line:1403:13, endln:1403:43
+      |vpiName:m_phase_proc
+      |vpiFullName:uvm_pkg::uvm_phase::execute_phase::master_phase_process::m_phase_proc
+  |vpiStmt:
+  \_method_func_call: (traverse), id:49418, line:1408:24, endln:1408:32
+    |vpiParent:
+    \_begin: (uvm_pkg::uvm_phase::execute_phase::master_phase_process), id:49414, line:1401:11, endln:1412:14
+    |vpiArgument:
+    \_ref_obj: (uvm_pkg::uvm_phase::execute_phase::master_phase_process::top), id:49420, line:1408:33, endln:1408:36
+      |vpiParent:
+      \_method_func_call: (traverse), id:49418, line:1408:24, endln:1408:32
+      |vpiName:top
+      |vpiFullName:uvm_pkg::uvm_phase::execute_phase::master_phase_process::top
+      |vpiActual:
+      \_class_var: (uvm_pkg::uvm_phase::execute_phase::top), id:49086, line:1300:12, endln:1300:15
+    |vpiArgument:
+    \_ref_obj: (uvm_pkg::uvm_phase::execute_phase::master_phase_process::this), id:49421, line:1408:37, endln:1408:41
+      |vpiParent:
+      \_method_func_call: (traverse), id:49418, line:1408:24, endln:1408:32
+      |vpiName:this
+      |vpiFullName:uvm_pkg::uvm_phase::execute_phase::master_phase_process::this
+    |vpiArgument:
+    \_ref_obj: (uvm_pkg::uvm_phase::execute_phase::master_phase_process::UVM_PHASE_EXECUTING), id:49422, line:1408:42, endln:1408:61
+      |vpiParent:
+      \_method_func_call: (traverse), id:49418, line:1408:24, endln:1408:32
+      |vpiName:UVM_PHASE_EXECUTING
+      |vpiFullName:uvm_pkg::uvm_phase::execute_phase::master_phase_process::UVM_PHASE_EXECUTING
+      |vpiActual:
+      \_enum_const: (UVM_PHASE_EXECUTING), id:562, line:537:19, endln:537:46
+    |vpiName:traverse
+    |vpiPrefix:
+    \_ref_obj: (uvm_pkg::uvm_phase::execute_phase::master_phase_process::task_phase), id:49419, line:1408:13, endln:1408:23
+      |vpiParent:
+      \_method_func_call: (traverse), id:49418, line:1408:24, endln:1408:32
+      |vpiName:task_phase
+      |vpiFullName:uvm_pkg::uvm_phase::execute_phase::master_phase_process::task_phase
+  |vpiStmt:
+  \_wait_stmt: , id:49423, line:1410:13, endln:1410:21
+    |vpiParent:
+    \_begin: (uvm_pkg::uvm_phase::execute_phase::master_phase_process), id:49414, line:1401:11, endln:1412:14
+    |vpiCondition:
+    \_constant: , id:49424, line:1410:18, endln:1410:19
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+
+decompile:
+named_fork: (uvm_pkg::uvm_phase::execute_phase::master_phase_process), id:49413, line:1400:16, endln:1400:36
+|vpiParent:
+\_begin: (uvm_pkg::uvm_phase::execute_phase), id:49375, line:1393:10, endln:1526:8
+|vpiName:master_phase_process
+|vpiFullName:uvm_pkg::uvm_phase::execute_phase::master_phase_process
+|vpiStmt:
+\_begin: (uvm_pkg::uvm_phase::execute_phase::master_phase_process), id:49414, line:1401:11, endln:1412:14
+  |vpiParent:
+  \_named_fork: (uvm_pkg::uvm_phase::execute_phase::master_phase_process), id:49413, line:1400:16, endln:1400:36
+  |vpiFullName:uvm_pkg::uvm_phase::execute_phase::master_phase_process
+  |vpiStmt:
+  \_assignment: , id:49415, line:1403:13, endln:1403:43
+    |vpiParent:
+    \_begin: (uvm_pkg::uvm_phase::execute_phase::master_phase_process), id:49414, line:1401:11, endln:1412:14
+    |vpiOpType:82
+    |vpiBlocking:1
+    |vpiRhs:
+    \_ref_obj: (uvm_pkg::uvm_phase::execute_phase::master_phase_process::process::self), id:49417, line:1403:28, endln:1403:37
+      |vpiParent:
+      \_assignment: , id:49415, line:1403:13, endln:1403:43
+      |vpiName:process::self
+      |vpiFullName:uvm_pkg::uvm_phase::execute_phase::master_phase_process::process::self
+    |vpiLhs:
+    \_ref_obj: (uvm_pkg::uvm_phase::execute_phase::master_phase_process::m_phase_proc), id:49416, line:1403:13, endln:1403:25
+      |vpiParent:
+      \_assignment: , id:49415, line:1403:13, endln:1403:43
+      |vpiName:m_phase_proc
+      |vpiFullName:uvm_pkg::uvm_phase::execute_phase::master_phase_process::m_phase_proc
+  |vpiStmt:
+  \_method_func_call: (traverse), id:49418, line:1408:24, endln:1408:32
+    |vpiParent:
+    \_begin: (uvm_pkg::uvm_phase::execute_phase::master_phase_process), id:49414, line:1401:11, endln:1412:14
+    |vpiArgument:
+    \_ref_obj: (uvm_pkg::uvm_phase::execute_phase::master_phase_process::top), id:49420, line:1408:33, endln:1408:36
+      |vpiParent:
+      \_method_func_call: (traverse), id:49418, line:1408:24, endln:1408:32
+      |vpiName:top
+      |vpiFullName:uvm_pkg::uvm_phase::execute_phase::master_phase_process::top
+      |vpiActual:
+      \_class_var: (uvm_pkg::uvm_phase::execute_phase::top), id:49086, line:1300:12, endln:1300:15
+    |vpiArgument:
+    \_ref_obj: (uvm_pkg::uvm_phase::execute_phase::master_phase_process::this), id:49421, line:1408:37, endln:1408:41
+      |vpiParent:
+      \_method_func_call: (traverse), id:49418, line:1408:24, endln:1408:32
+      |vpiName:this
+      |vpiFullName:uvm_pkg::uvm_phase::execute_phase::master_phase_process::this
+    |vpiArgument:
+    \_ref_obj: (uvm_pkg::uvm_phase::execute_phase::master_phase_process::UVM_PHASE_EXECUTING), id:49422, line:1408:42, endln:1408:61
+      |vpiParent:
+      \_method_func_call: (traverse), id:49418, line:1408:24, endln:1408:32
+      |vpiName:UVM_PHASE_EXECUTING
+      |vpiFullName:uvm_pkg::uvm_phase::execute_phase::master_phase_process::UVM_PHASE_EXECUTING
+      |vpiActual:
+      \_enum_const: (UVM_PHASE_EXECUTING), id:562, line:537:19, endln:537:46
+    |vpiName:traverse
+    |vpiPrefix:
+    \_ref_obj: (uvm_pkg::uvm_phase::execute_phase::master_phase_process::task_phase), id:49419, line:1408:13, endln:1408:23
+      |vpiParent:
+      \_method_func_call: (traverse), id:49418, line:1408:24, endln:1408:32
+      |vpiName:task_phase
+      |vpiFullName:uvm_pkg::uvm_phase::execute_phase::master_phase_process::task_phase
+  |vpiStmt:
+  \_wait_stmt: , id:49423, line:1410:13, endln:1410:21
+    |vpiParent:
+    \_begin: (uvm_pkg::uvm_phase::execute_phase::master_phase_process), id:49414, line:1401:11, endln:1412:14
+    |vpiCondition:
+    \_constant: , id:49424, line:1410:18, endln:1410:19
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9

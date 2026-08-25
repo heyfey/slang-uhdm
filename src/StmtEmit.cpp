@@ -1871,6 +1871,43 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     return ua;
                 }
             }
+            // § parBlockJoinTailAfterFirstItem131 — Surelog's par_block arm
+            // (CompileStmt.cpp:380-508) NEVER looks at the join keyword until
+            // it has walked PAST the first item:
+            //
+            //   * the join-type loop is `compile(item); item = Sibling(item);
+            //     if (item) { … VpiJoinType(…) … }` — an EMPTY fork advances
+            //     straight off the end of the child list, so the join keyword
+            //     is never typed and vpiJoinType stays 0;
+            //   * the end-label search opens at `tempItem = Sibling(item)` —
+            //     ONE NODE PAST the first item — so an EMPTY fork steps over
+            //     its own join keyword and never records a vpiEndLabel either.
+            //
+            // The seq_block arm differs on BOTH counts (`tempItem = item`,
+            // and no join keyword at all), so an empty NAMED BEGIN keeps its
+            // end label: the gate below is FORK-ONLY.
+            //
+            // MEASURED (arm E, both views): golden's `fork : eF1 join`,
+            // `fork : eF2 join_any`, `fork : eF3 join_none : eF3`,
+            // `fork : eF4 join : eF4` all carry vpiJoinType 0 AND NO
+            // vpiEndLabel, while `fork : fullFork z=4; join_none : fullFork`
+            // carries 1 and `fullFork`; the empty `begin : emptyBeg end :
+            // emptyBeg` control keeps its label.
+            const syntax::BlockStatementSyntax* bss131 =
+                (stmt.syntax &&
+                 syntax::BlockStatementSyntax::isKind(stmt.syntax->kind))
+                    ? &stmt.syntax->as<syntax::BlockStatementSyntax>()
+                    : nullptr;
+            // "Surelog reached the join keyword" == the par_block child list
+            // holds at least one item before it.  ONLY a syntax-visible EMPTY
+            // item list suppresses the tail: a fork with NO SYNTAX AT ALL is
+            // not evidence of emptiness, and gating it the other way was a
+            // REGRESSION the wide boundary convicted — `task Hfrk(); fork
+            // bo.slot.put(tp.conv(kk)); join_none endtask`
+            // (r10v103repro/arms/v103_b2.sv:34) emits a span-less, syntax-less
+            // fork_stmt through the class-method body path, and golden stamps
+            // it vpiJoinType 1.
+            const bool joinTailSeen131 = !bss131 || !bss131->items.empty();
             UHDM::scope* b = nullptr;
             std::string innerPrefix = prefix;
             if (bs.blockSymbol && !bs.blockSymbol->name.empty()) {
@@ -1878,6 +1915,15 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 if (isFork) {
                     auto* nf = s.MakeNamed_fork();
                     nf->VpiName(bs.blockSymbol->name);
+                    // § parBlockJoinTailAfterFirstItem131 — the join type is
+                    // stamped on named_fork and fork_stmt by the SAME two
+                    // lines of CompileStmt; only our emitter had split them.
+                    if (joinTailSeen131) {
+                        if (bs.blockKind == StatementBlockKind::JoinNone)
+                            nf->VpiJoinType(vpiJoinNone);
+                        else if (bs.blockKind == StatementBlockKind::JoinAny)
+                            nf->VpiJoinType(vpiJoinAny);
+                    }
                     nb = nf;
                 }
                 else {
@@ -1887,9 +1933,26 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 }
                 innerPrefix = joinRef(prefix, bs.blockSymbol->name);
                 nb->VpiFullName(innerPrefix);
-                // Anchored at the block name token.
-                auto nl = bs.blockSymbol->location;
-                setLoc(nb, SourceRange(nl, nl + bs.blockSymbol->name.size()));
+                if (isFork && bss131) {
+                    // § parBlockJoinTailAfterFirstItem131 (span half, dump-only
+                    // — uhdm-cmp never reads VpiLineNo).  paSeq_block calls
+                    // `populateCoreMembers(labelId, labelId, scope)` itself, so
+                    // a named BEGIN is anchored at its label token; paPar_block
+                    // makes NO such call, so compileStmt's tail fallback
+                    // (`if (stmt->VpiLineNo() == 0)`) stamps the WHOLE par_block
+                    // node — `fork` keyword through the join keyword and its
+                    // end label — on named_fork exactly as on fork_stmt.
+                    // The `lbl : fork … join` form keeps that span too (the
+                    // slStringConst re-populate does not reach a named_fork),
+                    // so the start is the `fork` TOKEN, not the statement.
+                    setLoc(nb, SourceRange(bss131->begin.range().start(),
+                                           bss131->sourceRange().end()));
+                }
+                else {
+                    // Anchored at the block name token.
+                    auto nl = bs.blockSymbol->location;
+                    setLoc(nb, SourceRange(nl, nl + bs.blockSymbol->name.size()));
+                }
                 // § endBlockLabelAllOwners62 — `end : lbl` AND
                 // `join/join_any/join_none : lbl`.  A ParallelBlockStatement is
                 // the same BlockStatementSyntax with the same `endBlockName`,
@@ -1899,12 +1962,15 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // MEASURED, not assumed: golden labels all three join
                 // flavours (c3 rows f_all/f_any/guard) and labels neither an
                 // unlabelled join (f_bare) nor an unnamed fork.
-                if (stmt.syntax &&
-                    syntax::BlockStatementSyntax::isKind(stmt.syntax->kind))
-                    if (auto* ebn = stmt.syntax->as<syntax::BlockStatementSyntax>()
-                                        .endBlockName) {
-                        if (isFork)
-                            ((UHDM::named_fork*)nb)->VpiEndLabel(ebn->name.valueText());
+                // § parBlockJoinTailAfterFirstItem131 narrows the FORK half by
+                // the join-tail gate: an EMPTY fork's end label is unreachable.
+                if (bss131)
+                    if (auto* ebn = bss131->endBlockName) {
+                        if (isFork) {
+                            if (joinTailSeen131)
+                                ((UHDM::named_fork*)nb)
+                                    ->VpiEndLabel(ebn->name.valueText());
+                        }
                         else
                             ((UHDM::named_begin*)nb)
                                 ->VpiEndLabel(ebn->name.valueText());
@@ -1916,10 +1982,15 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 UHDM::scope* ub;
                 if (isFork) {
                     auto* fk = s.MakeFork_stmt();
-                    if (bs.blockKind == StatementBlockKind::JoinNone)
-                        fk->VpiJoinType(vpiJoinNone);
-                    else if (bs.blockKind == StatementBlockKind::JoinAny)
-                        fk->VpiJoinType(vpiJoinAny);
+                    // § parBlockJoinTailAfterFirstItem131 — same gate on the
+                    // UNNAMED arm: golden's `fork join_none` / `fork join_any`
+                    // carry vpiJoinType 0 (arm C rows, both views).
+                    if (joinTailSeen131) {
+                        if (bs.blockKind == StatementBlockKind::JoinNone)
+                            fk->VpiJoinType(vpiJoinNone);
+                        else if (bs.blockKind == StatementBlockKind::JoinAny)
+                            fk->VpiJoinType(vpiJoinAny);
+                    }
                     ub = fk;
                 }
                 else
