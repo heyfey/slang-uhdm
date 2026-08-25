@@ -1,0 +1,78 @@
+MOVED 0032_r10buvm14repro_a1_dims14.sv/def 12 lines
+MOVED 0032_r10buvm14repro_a1_dims14.sv/elab 16 lines
+bound124.sh: line 35: 884397 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound124.sh: line 35: 884415 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound124.sh: line 35: 886809 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound124.sh: line 35: 886856 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+MOVED 2034_r10uvm124repro_g124_a_kinds.sv/def 42 lines
+MOVED 2034_r10uvm124repro_g124_a_kinds.sv/elab 98 lines
+MOVED 2035_r10uvm124repro_g124_b_meths.sv/def 42 lines
+MOVED 2035_r10uvm124repro_g124_b_meths.sv/elab 98 lines
+MOVED 2036_r10uvm124repro_g124_c_homes.sv/def 72 lines
+MOVED 2036_r10uvm124repro_g124_c_homes.sv/elab 190 lines
+MOVED 2037_r10uvm124repro_g124_d_chain.sv/def 42 lines
+MOVED 2037_r10uvm124repro_g124_d_chain.sv/elab 92 lines
+MOVED 2039_r10uvm124repro_g124_f_fence.sv/def 30 lines
+MOVED 2039_r10uvm124repro_g124_f_fence.sv/elab 70 lines
+MOVED 2373_r10uvm74repro_b3_context.sv/def 6 lines
+MOVED 2373_r10uvm74repro_b3_context.sv/elab 22 lines
+MOVED 2376_r10uvm74repro_v74_edge.sv/def 12 lines
+MOVED 2376_r10uvm74repro_v74_edge.sv/elab 44 lines
+bound124.sh: line 35: 1120690 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound124.sh: line 35: 1120708 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound124.sh: line 35: 1124235 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound124.sh: line 35: 1124270 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound124.sh: line 35: 1127287 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound124.sh: line 35: 1127305 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound124.sh: line 35: 1308850 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound124.sh: line 35: 1308952 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound124.sh: line 35: 1311496 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound124.sh: line 35: 1311572 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound124.sh: line 35: 1335041 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound124.sh: line 35: 1335113 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound124.sh: line 35: 1337341 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound124.sh: line 35: 1337444 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound124.sh: line 35: 1350149 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound124.sh: line 35: 1350212 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound124.sh: line 35: 1351821 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound124.sh: line 35: 1351907 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound124.sh: line 35: 1561678 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound124.sh: line 35: 1561960 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound124.sh: line 35: 1562427 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound124.sh: line 35: 1562759 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound124.sh: line 35: 1563286 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound124.sh: line 35: 1563611 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+LISTED=3769 FENCED_SKIPPED=0 PROCESSED=3769 MOVED=16 NO_OUTPUT_PAIRS=294
+PROCESSED-ASSERT-OK
+
+-- ATTRIBUTION of every moved cell (3769 sources x 2 views; MOVED counts a
+   SOURCE-VIEW pair, not a cell).  Scored against a Surelog golden built for
+   the SAME view (`-parse` for def, `-parse -elabuhdm` for elab) with
+   cells124.py/score124.py.
+
+   TEN of the sixteen are r10uvm124's OWN arms:
+     g124_a_kinds  def/elab   7 TOGOLD each
+     g124_b_meths  def/elab   7 TOGOLD each
+     g124_c_homes  def/elab   8 TOGOLD each
+     g124_d_chain  def/elab   2 TOGOLD + 3 MOVEDOTHER (residue R1) each
+     g124_f_fence  def/elab   5 TOGOLD each
+     g124_e_expr   DID NOT MOVE — the EXPRESSION-position control.
+
+   SIX belong to OTHER passes and every one of them is TOGOLD:
+     r10buvm14repro/a1_dims14.sv  def  SAME_AGREE=15 TOGOLD=2
+     r10buvm14repro/a1_dims14.sv  elab SAME_AGREE=15 TOGOLD=2
+        -> cells S1 (`m2[a][b].delete(c);`) and S2 (`m1[a].delete(b);`), the
+           arm's own STATEMENT-position pair.  buvm14's boundary proper —
+           § builtinRecvMultiDimStepIsBitSelectChain14's EXPRESSION cells
+           L1..L10 and the refusal controls R1..R4 — is SAME_AGREE throughout.
+     r10uvm74repro/b3_context.sv  def  SAME_AGREE=4  TOGOLD=1
+     r10uvm74repro/b3_context.sv  elab SAME_AGREE=5  TOGOLD=1
+        -> `sq[i].itoa(...)` in statement position.
+     r10uvm74repro/v74_edge.sv    def  SAME_AGREE=14 TOGOLD=2
+     r10uvm74repro/v74_edge.sv    elab SAME_AGREE=14 SAME_DIFF=1 TOGOLD=2
+        -> `sq[i].itoa(...)` and `mq[i].sq…` in statement position.  The one
+           SAME_DIFF (`len` @43:20) is PRE-EXISTING and byte-identical
+           pristine -> patched.
+
+   TOTAL over the six foreign arm-views: 10 cell moves, 10 TOGOLD,
+   0 MOVED-WRONG, 0 AWAY-FROM-GOLDEN, 0 one-sided sets added or removed.

@@ -1,0 +1,22 @@
+r10v124 — the SEVEN surelog byte movers, order-blind attribution.
+Both dumps path-normalised and SORTED before diffing, so Scoreboard/default's
+~50/50 vpiTaskFunc-order COIN cannot masquerade as a move (its 92 extra lines
+show only in the ORDERED diff: Scoreboard/default is 152 ordered, 60 order-blind).
+
+DATABASE                          ORDERED ORDBLIND moved lines OUTSIDE the m_inst_override family
+default_MiniAmiq-544c7f61             120      120 0
+default_Scoreboard-59431470           152       60 0
+default_SeqDriver-32af76aa            178      120 0
+default_SimpleUVM-1dc93a62             60       60 0
+testflags_MiniAmiq-544c7f61           120      120 0
+testflags_SeqDriver-32af76aa          160      120 0
+testflags_SimpleUVM-1dc93a62           60       60 0
+
+CENSUS of the movers (v124cells.py + v124score.py, key = call start | call name base | prefix start):
+default_MiniAmiq-544c7f61      ONESIDED_PRIS=517 SAME_AGREE=4706 SAME_DIFF=38 TOGOLD=5
+default_Scoreboard-59431470    ONESIDED_PRIS=501 SAME_AGREE=4357 SAME_DIFF=38 TOGOLD=5
+default_SeqDriver-32af76aa     ONESIDED_PRIS=497 SAME_AGREE=4340 SAME_DIFF=38 TOGOLD=5
+default_SimpleUVM-1dc93a62     ONESIDED_PRIS=497 SAME_AGREE=4331 SAME_DIFF=38 TOGOLD=5
+testflags_MiniAmiq-544c7f61    ONESIDED_PRIS=517 SAME_AGREE=4706 SAME_DIFF=38 TOGOLD=5
+testflags_SeqDriver-32af76aa   ONESIDED_PRIS=497 SAME_AGREE=4340 SAME_DIFF=38 TOGOLD=5
+testflags_SimpleUVM-1dc93a62   ONESIDED_PRIS=497 SAME_AGREE=4331 SAME_DIFF=38 TOGOLD=5

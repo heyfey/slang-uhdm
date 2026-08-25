@@ -1,0 +1,87 @@
+r10uvm124 — GATES, all run in the pass's OWN worktree /tmp/wt_r10uvm124 at
+BASE 5254f43, with BOTH binaries frozen (chmod 555) at immutable paths BEFORE
+any sweep and SLANG_UHDM exported EXPLICITLY to each.  slang was NOT patched;
+results/*.csv were READ ONLY; nothing was promoted; NO CORPUS ROW CONVERTED.
+
+(1) BUILD
+    pristine  md5 65ae4ed26a877930f736e85ea10b5a82   (BASE 5254f43, rc=0)
+    patched   md5 f33032c3b6032765606711e5beae987e   (rc=0)
+    Production surface: src/ExprEmit.cpp ONLY.
+
+(2) GOLDEN DUMP TESTS (tests/check_goldens.sh, SLANG_UHDM exported per binary)
+    pristine  PASS=23 FAIL=0
+    patched   PASS=23 FAIL=0
+    negative control SLANG_UHDM=/bin/false   PASS=0 FAIL=23
+
+(3) uhdm2rtlil, BOTH modes, jobs 2, own --out/--workdir
+    pristine  testflags 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL,
+              1358 databases; ct8rows vs results/gate_uhdm2rtlil.csv PASS
+    patched   testflags 679 / 50 / 2, 1358 databases
+      ct8rows patched vs results/gate_uhdm2rtlil.csv  PASS (0 differing rows)
+      ct8rows patched vs own pristine testflags        PASS
+      ct8rows patched vs own pristine default          PASS
+    byteverify SELFCHECK=1 patched vs pristine:
+      PATH_SETS_IDENTICAL (1358 paths)  MOVERS: 0 / 1358
+      SELFCHECK 1357 / 1358 flagged (the instrument can see)
+
+(4) SURELOG corpus, --mode both, jobs 2, own --out/--workdir
+    pristine  956 databases; status histogram
+              937 CMP_EQUAL / 567 SLANG_REJECT / 48 SURELOG_FAIL /
+              19 CMP_NOTEQUAL / 10 DEFERRED / 3 NO_DATABASE /
+              2 UNTRANSLATABLE / 1 TIMEOUT / 1 NO_UHDM
+    patched   956 databases; histogram IDENTICAL to the pristine one
+      ct8rows patched vs results/golden_surelog.csv  PASS (0 differing rows
+        over 1588; NO row converted in either direction)
+      ct8rows patched vs own pristine                PASS
+    byteverify SELFCHECK=1 patched vs pristine:
+      PATH_SETS_IDENTICAL (956 paths)  MOVERS: 7 / 956
+      SELFCHECK 955 / 956 flagged
+      the SEVEN movers, every one PREDICTED BY NAME (§7 of README.md):
+        default/MiniAmiq  default/Scoreboard  default/SeqDriver
+        default/SimpleUVM testflags/MiniAmiq  testflags/SeqDriver
+        testflags/SimpleUVM
+      NOT movers, as predicted: BuildUVMPkg (both modes), Earlgrey_0_1 (both
+      modes), Rggen, and the other 949 databases.
+
+(5) HEADS (rowheads.sh; uhdm-cmp writes the head to STDERR, counted with
+    grep -c '^LHS:'; counts are DEPTH, not distance)
+    TEST           MODE       PRISTINE   PATCHED
+    SeqDriver      default      28 / 1     17 / 1   <- head CLEARED
+    SeqDriver      testflags    28 / 1     17 / 1   <- head CLEARED
+    MiniAmiq       default      28 / 1     17 / 1   <- head CLEARED
+    MiniAmiq       testflags    28 / 1     17 / 1   <- head CLEARED
+    SimpleUVM      default     148 / 1    148 / 1   cmp log BYTE-IDENTICAL
+    SimpleUVM      testflags   148 / 1    148 / 1   cmp log BYTE-IDENTICAL
+    Scoreboard     default     148 / 1    148 / 1   cmp log BYTE-IDENTICAL
+    BuildUVMPkg    default     148 / 1    148 / 1   cmp log BYTE-IDENTICAL
+    BuildUVMPkg    testflags   148 / 1    148 / 1   cmp log BYTE-IDENTICAL
+    Earlgrey_0_1   default     240 / 1    240 / 1   cmp log BYTE-IDENTICAL
+    Earlgrey_0_1   testflags   268 / 1    268 / 1   cmp log BYTE-IDENTICAL
+    Rggen          default       0 / 0      0 / 0   CMP_EQUAL
+    Scoreboard/testflags and Rggen/testflags are SKIP-NOFILE, as expected.
+
+(6) CANARIES
+    canaries.sh  surelog  ok=52 changed=0 absent=0
+    canaries.sh  u2r      ok=8  changed=0 absent=0
+    EXPECT_UNKNOWN=1 ctcan2.sh surelog  PASS
+    EXPECT_UNKNOWN=6 ctcan2.sh u2r      PASS
+    canaudit.sh canaries.sh ctcan2.sh   audited=29 UNCOVERED=0 FENCE-BREACH=0
+    protected databases by md5, patched vs pristine:
+      InterfaceModPort   both modes SAME
+      BlackParrotComplex both modes SAME
+      YosysOldOr         both modes SAME
+      SVSwitch           both modes SAME, pin 4842211c4030
+      YosysVerx          both modes SAME, pin 6ccda350c24a
+
+(7) WIDE BOUNDARY (bound124.sh over a COPY of tools/probe, no path filter,
+    both suffixes, BOTH views, fd-3 list, children </dev/null)
+    LISTED=3769 FENCED_SKIPPED=0 PROCESSED=3769 MOVED=16 NO_OUTPUT_PAIRS=294
+    PROCESSED-ASSERT-OK
+    Every one of the 16 attributed in BOUNDARY.r10uvm124.txt: 10 are this
+    pass's own arms, 6 belong to r10buvm14 and r10uvm74 and are 10 cell moves,
+    ALL TOGOLD, 0 MOVED-WRONG, 0 AWAY.
+
+(8) FENCE
+    The four slang-fenced tests are NEVER dispatched and are NEVER SPELLED in
+    any artifact of this directory; canaudit.sh reports FENCE-BREACH=0.
+    GOLDEN_DEFER was never set.

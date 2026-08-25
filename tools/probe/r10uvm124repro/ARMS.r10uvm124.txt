@@ -1,0 +1,278 @@
+g124_a_kinds.def             SAME_AGREE=2 TOGOLD=7
+   TOGOLD        @25:20|Depot|25:7|ByHandle
+        golden=1x mfc=Depot@25:25 args=0 pfx=ref_obj|ByHandle|25:7-25:15
+        pris  =1x mfc=Depot@25:25 args=0 pfx=ref_obj|ByHandle[Kx]|25:7-25:19
+        pat   =1x mfc=Depot@25:25 args=0 pfx=ref_obj|ByHandle|25:7-25:15
+   TOGOLD        @26:19|Depot|26:7|ByLabel
+        golden=1x mfc=Depot@26:24 args=0 pfx=ref_obj|ByLabel|26:7-26:14
+        pris  =1x mfc=Depot@26:24 args=0 pfx=ref_obj|ByLabel[Lx]|26:7-26:18
+        pat   =1x mfc=Depot@26:24 args=0 pfx=ref_obj|ByLabel|26:7-26:14
+   TOGOLD        @27:19|Depot|27:7|ByCount
+        golden=1x mfc=Depot@27:24 args=0 pfx=ref_obj|ByCount|27:7-27:14
+        pris  =1x mfc=Depot@27:24 args=0 pfx=ref_obj|ByCount[Nx]|27:7-27:18
+        pat   =1x mfc=Depot@27:24 args=0 pfx=ref_obj|ByCount|27:7-27:14
+   TOGOLD        @28:19|Depot|28:7|Elastic
+        golden=1x mfc=Depot@28:24 args=0 pfx=ref_obj|Elastic|28:7-28:14
+        pris  =1x mfc=Depot@28:24 args=0 pfx=ref_obj|Elastic[Nx]|28:7-28:18
+        pat   =1x mfc=Depot@28:24 args=0 pfx=ref_obj|Elastic|28:7-28:14
+   TOGOLD        @29:16|Depot|29:7|Shelf
+        golden=1x mfc=Depot@29:21 args=0 pfx=ref_obj|Shelf|29:7-29:12
+        pris  =1x mfc=Depot@29:21 args=0 pfx=ref_obj|Shelf[3]|29:7-29:15
+        pat   =1x mfc=Depot@29:21 args=0 pfx=ref_obj|Shelf|29:7-29:12
+   TOGOLD        @30:16|Depot|30:7|Pile
+        golden=1x mfc=Depot@30:21 args=0 pfx=ref_obj|Pile|30:7-30:11
+        pris  =1x mfc=Depot@30:21 args=0 pfx=ref_obj|Pile[Nx]|30:7-30:15
+        pat   =1x mfc=Depot@30:21 args=0 pfx=ref_obj|Pile|30:7-30:11
+   TOGOLD        @31:19|Depot|31:7|Grid2
+        golden=1x mfc=Depot@31:24 args=0 pfx=ref_obj|Grid2|31:7-31:12
+        pris  =1x mfc=Depot@31:24 args=0 pfx=ref_obj|Grid2[1][2]|31:7-31:18
+        pat   =1x mfc=Depot@31:24 args=0 pfx=ref_obj|Grid2|31:7-31:12
+g124_a_kinds.elab            SAME_AGREE=3 TOGOLD=7
+   TOGOLD        @25:20|Depot|25:7|ByHandle
+        golden=2x mfc=Depot@25:25 args=0 pfx=ref_obj|ByHandle|25:7-25:15
+        pris  =2x mfc=Depot@25:25 args=0 pfx=ref_obj|ByHandle[Kx]|25:7-25:19
+        pat   =2x mfc=Depot@25:25 args=0 pfx=ref_obj|ByHandle|25:7-25:15
+   TOGOLD        @26:19|Depot|26:7|ByLabel
+        golden=2x mfc=Depot@26:24 args=0 pfx=ref_obj|ByLabel|26:7-26:14
+        pris  =2x mfc=Depot@26:24 args=0 pfx=ref_obj|ByLabel[Lx]|26:7-26:18
+        pat   =2x mfc=Depot@26:24 args=0 pfx=ref_obj|ByLabel|26:7-26:14
+   TOGOLD        @27:19|Depot|27:7|ByCount
+        golden=2x mfc=Depot@27:24 args=0 pfx=ref_obj|ByCount|27:7-27:14
+        pris  =2x mfc=Depot@27:24 args=0 pfx=ref_obj|ByCount[Nx]|27:7-27:18
+        pat   =2x mfc=Depot@27:24 args=0 pfx=ref_obj|ByCount|27:7-27:14
+   TOGOLD        @28:19|Depot|28:7|Elastic
+        golden=2x mfc=Depot@28:24 args=0 pfx=ref_obj|Elastic|28:7-28:14
+        pris  =2x mfc=Depot@28:24 args=0 pfx=ref_obj|Elastic[Nx]|28:7-28:18
+        pat   =2x mfc=Depot@28:24 args=0 pfx=ref_obj|Elastic|28:7-28:14
+   TOGOLD        @29:16|Depot|29:7|Shelf
+        golden=2x mfc=Depot@29:21 args=0 pfx=ref_obj|Shelf|29:7-29:12
+        pris  =2x mfc=Depot@29:21 args=0 pfx=ref_obj|Shelf[3]|29:7-29:15
+        pat   =2x mfc=Depot@29:21 args=0 pfx=ref_obj|Shelf|29:7-29:12
+   TOGOLD        @30:16|Depot|30:7|Pile
+        golden=2x mfc=Depot@30:21 args=0 pfx=ref_obj|Pile|30:7-30:11
+        pris  =2x mfc=Depot@30:21 args=0 pfx=ref_obj|Pile[Nx]|30:7-30:15
+        pat   =2x mfc=Depot@30:21 args=0 pfx=ref_obj|Pile|30:7-30:11
+   TOGOLD        @31:19|Depot|31:7|Grid2
+        golden=2x mfc=Depot@31:24 args=0 pfx=ref_obj|Grid2|31:7-31:12
+        pris  =2x mfc=Depot@31:24 args=0 pfx=ref_obj|Grid2[1][2]|31:7-31:18
+        pat   =2x mfc=Depot@31:24 args=0 pfx=ref_obj|Grid2|31:7-31:12
+g124_b_meths.def             SAME_AGREE=3 TOGOLD=7
+   TOGOLD        @16:15|Slots|16:7|Row
+        golden=1x mfc=Slots@16:20 args=0 pfx=ref_obj|Row|16:7-16:10
+        pris  =1x mfc=Slots@16:20 args=0 pfx=ref_obj|Row[Ix]|16:7-16:14
+        pat   =1x mfc=Slots@16:20 args=0 pfx=ref_obj|Row|16:7-16:10
+   TOGOLD        @17:15|Slots|17:7|Row
+        golden=1x mfc=Slots@17:20 args=0 pfx=ref_obj|Row|17:7-17:10
+        pris  =1x mfc=Slots@17:20 args=0 pfx=ref_obj|Row[Ix]|17:7-17:14
+        pat   =1x mfc=Slots@17:20 args=0 pfx=ref_obj|Row|17:7-17:10
+   TOGOLD        @18:15|Slots|18:7|Row
+        golden=1x mfc=Slots@18:20 args=0 pfx=ref_obj|Row|18:7-18:10
+        pris  =1x mfc=Slots@18:20 args=0 pfx=ref_obj|Row[Ix]|18:7-18:14
+        pat   =1x mfc=Slots@18:20 args=0 pfx=ref_obj|Row|18:7-18:10
+   TOGOLD        @19:15|Slots|19:7|Row
+        golden=1x mfc=Slots@19:20 args=0 pfx=ref_obj|Row|19:7-19:10
+        pris  =1x mfc=Slots@19:20 args=0 pfx=ref_obj|Row[Ix]|19:7-19:14
+        pat   =1x mfc=Slots@19:20 args=0 pfx=ref_obj|Row|19:7-19:10
+   TOGOLD        @20:15|Tags|20:7|Row
+        golden=1x mfc=Tags@20:19 args=0 pfx=ref_obj|Row|20:7-20:10
+        pris  =1x mfc=Tags@20:19 args=0 pfx=ref_obj|Row[Ix]|20:7-20:14
+        pat   =1x mfc=Tags@20:19 args=0 pfx=ref_obj|Row|20:7-20:10
+   TOGOLD        @23:15|Slots|23:7|Map
+        golden=1x mfc=Slots@23:20 args=0 pfx=ref_obj|Map|23:7-23:10
+        pris  =1x mfc=Slots@23:20 args=0 pfx=ref_obj|Map[Sx]|23:7-23:14
+        pat   =1x mfc=Slots@23:20 args=0 pfx=ref_obj|Map|23:7-23:10
+   TOGOLD        @25:15|Slots|25:7|Row
+        golden=1x mfc=Slots@25:20 args=0 pfx=ref_obj|Row|25:7-25:10
+        pris  =1x mfc=Slots@25:20 args=0 pfx=ref_obj|Row[Ix]|25:7-25:14
+        pat   =1x mfc=Slots@25:20 args=0 pfx=ref_obj|Row|25:7-25:10
+g124_b_meths.elab            SAME_AGREE=4 TOGOLD=7
+   TOGOLD        @16:15|Slots|16:7|Row
+        golden=2x mfc=Slots@16:20 args=0 pfx=ref_obj|Row|16:7-16:10
+        pris  =2x mfc=Slots@16:20 args=0 pfx=ref_obj|Row[Ix]|16:7-16:14
+        pat   =2x mfc=Slots@16:20 args=0 pfx=ref_obj|Row|16:7-16:10
+   TOGOLD        @17:15|Slots|17:7|Row
+        golden=2x mfc=Slots@17:20 args=0 pfx=ref_obj|Row|17:7-17:10
+        pris  =2x mfc=Slots@17:20 args=0 pfx=ref_obj|Row[Ix]|17:7-17:14
+        pat   =2x mfc=Slots@17:20 args=0 pfx=ref_obj|Row|17:7-17:10
+   TOGOLD        @18:15|Slots|18:7|Row
+        golden=2x mfc=Slots@18:20 args=0 pfx=ref_obj|Row|18:7-18:10
+        pris  =2x mfc=Slots@18:20 args=0 pfx=ref_obj|Row[Ix]|18:7-18:14
+        pat   =2x mfc=Slots@18:20 args=0 pfx=ref_obj|Row|18:7-18:10
+   TOGOLD        @19:15|Slots|19:7|Row
+        golden=2x mfc=Slots@19:20 args=0 pfx=ref_obj|Row|19:7-19:10
+        pris  =2x mfc=Slots@19:20 args=0 pfx=ref_obj|Row[Ix]|19:7-19:14
+        pat   =2x mfc=Slots@19:20 args=0 pfx=ref_obj|Row|19:7-19:10
+   TOGOLD        @20:15|Tags|20:7|Row
+        golden=2x mfc=Tags@20:19 args=0 pfx=ref_obj|Row|20:7-20:10
+        pris  =2x mfc=Tags@20:19 args=0 pfx=ref_obj|Row[Ix]|20:7-20:14
+        pat   =2x mfc=Tags@20:19 args=0 pfx=ref_obj|Row|20:7-20:10
+   TOGOLD        @23:15|Slots|23:7|Map
+        golden=2x mfc=Slots@23:20 args=0 pfx=ref_obj|Map|23:7-23:10
+        pris  =2x mfc=Slots@23:20 args=0 pfx=ref_obj|Map[Sx]|23:7-23:14
+        pat   =2x mfc=Slots@23:20 args=0 pfx=ref_obj|Map|23:7-23:10
+   TOGOLD        @25:15|Slots|25:7|Row
+        golden=2x mfc=Slots@25:20 args=0 pfx=ref_obj|Row|25:7-25:10
+        pris  =2x mfc=Slots@25:20 args=0 pfx=ref_obj|Row[Ix]|25:7-25:14
+        pat   =2x mfc=Slots@25:20 args=0 pfx=ref_obj|Row|25:7-25:10
+g124_c_homes.def             TOGOLD=8
+   TOGOLD        @13:16|Leafs|13:7|Twig
+        golden=1x mfc=Leafs@13:21 args=0 pfx=ref_obj|Twig|13:7-13:11
+        pris  =1x mfc=Leafs@13:21 args=0 pfx=ref_obj|Twig[Jx]|13:7-13:15
+        pat   =1x mfc=Leafs@13:21 args=0 pfx=ref_obj|Twig|13:7-13:11
+   TOGOLD        @19:15|Leafs|19:5|Named
+        golden=2x mfc=Leafs@19:20 args=0 pfx=ref_obj|Named|19:5-19:10
+        pris  =2x mfc=Leafs@19:20 args=0 pfx=ref_obj|Named[Sy]|19:5-19:14
+        pat   =2x mfc=Leafs@19:20 args=0 pfx=ref_obj|Named|19:5-19:10
+   TOGOLD        @22:14|Leafs|22:5|Twig
+        golden=2x mfc=Leafs@22:19 args=0 pfx=ref_obj|Twig|22:5-22:9
+        pris  =2x mfc=Leafs@22:19 args=0 pfx=ref_obj|Twig[Ky]|22:5-22:13
+        pat   =2x mfc=Leafs@22:19 args=0 pfx=ref_obj|Twig|22:5-22:9
+   TOGOLD        @25:15|Leafs|25:5|Grove
+        golden=2x mfc=Leafs@25:20 args=0 pfx=ref_obj|Grove|25:5-25:10
+        pris  =2x mfc=Leafs@25:20 args=0 pfx=ref_obj|Grove[Lx]|25:5-25:14
+        pat   =2x mfc=Leafs@25:20 args=0 pfx=ref_obj|Grove|25:5-25:10
+   TOGOLD        @28:15|Leafs|28:5|Copse
+        golden=2x mfc=Leafs@28:20 args=0 pfx=ref_obj|Copse|28:5-28:10
+        pris  =2x mfc=Leafs@28:20 args=0 pfx=ref_obj|Copse[Mx]|28:5-28:14
+        pat   =2x mfc=Leafs@28:20 args=0 pfx=ref_obj|Copse|28:5-28:10
+   TOGOLD        @36:15|Leafs|36:5|Stand
+        golden=1x mfc=Leafs@36:20 args=0 pfx=ref_obj|Stand|36:5-36:10
+        pris  =1x mfc=Leafs@36:20 args=0 pfx=ref_obj|Stand[Nx]|36:5-36:14
+        pat   =1x mfc=Leafs@36:20 args=0 pfx=ref_obj|Stand|36:5-36:10
+   TOGOLD        @39:14|Leafs|39:5|Stand
+        golden=1x mfc=Leafs@39:19 args=0 pfx=ref_obj|Stand|39:5-39:10
+        pris  =1x mfc=Leafs@39:19 args=0 pfx=ref_obj|Stand[0]|39:5-39:13
+        pat   =1x mfc=Leafs@39:19 args=0 pfx=ref_obj|Stand|39:5-39:10
+   TOGOLD        @42:17|Leafs|42:5|Named2
+        golden=1x mfc=Leafs@42:22 args=0 pfx=ref_obj|Named2|42:5-42:11
+        pris  =1x mfc=Leafs@42:22 args=0 pfx=ref_obj|Named2["k"]|42:5-42:16
+        pat   =1x mfc=Leafs@42:22 args=0 pfx=ref_obj|Named2|42:5-42:11
+g124_c_homes.elab            TOGOLD=8
+   TOGOLD        @13:16|Leafs|13:7|Twig
+        golden=1x mfc=Leafs@13:21 args=0 pfx=ref_obj|Twig|13:7-13:11
+        pris  =1x mfc=Leafs@13:21 args=0 pfx=ref_obj|Twig[Jx]|13:7-13:15
+        pat   =1x mfc=Leafs@13:21 args=0 pfx=ref_obj|Twig|13:7-13:11
+   TOGOLD        @19:15|Leafs|19:5|Named
+        golden=4x mfc=Leafs@19:20 args=0 pfx=ref_obj|Named|19:5-19:10
+        pris  =4x mfc=Leafs@19:20 args=0 pfx=ref_obj|Named[Sy]|19:5-19:14
+        pat   =4x mfc=Leafs@19:20 args=0 pfx=ref_obj|Named|19:5-19:10
+   TOGOLD        @22:14|Leafs|22:5|Twig
+        golden=4x mfc=Leafs@22:19 args=0 pfx=ref_obj|Twig|22:5-22:9
+        pris  =4x mfc=Leafs@22:19 args=0 pfx=ref_obj|Twig[Ky]|22:5-22:13
+        pat   =4x mfc=Leafs@22:19 args=0 pfx=ref_obj|Twig|22:5-22:9
+   TOGOLD        @25:15|Leafs|25:5|Grove
+        golden=5x mfc=Leafs@25:20 args=0 pfx=ref_obj|Grove|25:5-25:10
+        pris  =5x mfc=Leafs@25:20 args=0 pfx=ref_obj|Grove[Lx]|25:5-25:14
+        pat   =5x mfc=Leafs@25:20 args=0 pfx=ref_obj|Grove|25:5-25:10
+   TOGOLD        @28:15|Leafs|28:5|Copse
+        golden=5x mfc=Leafs@28:20 args=0 pfx=ref_obj|Copse|28:5-28:10
+        pris  =5x mfc=Leafs@28:20 args=0 pfx=ref_obj|Copse[Mx]|28:5-28:14
+        pat   =5x mfc=Leafs@28:20 args=0 pfx=ref_obj|Copse|28:5-28:10
+   TOGOLD        @36:15|Leafs|36:5|Stand
+        golden=2x mfc=Leafs@36:20 args=0 pfx=ref_obj|Stand|36:5-36:10
+        pris  =2x mfc=Leafs@36:20 args=0 pfx=ref_obj|Stand[Nx]|36:5-36:14
+        pat   =2x mfc=Leafs@36:20 args=0 pfx=ref_obj|Stand|36:5-36:10
+   TOGOLD        @39:14|Leafs|39:5|Stand
+        golden=2x mfc=Leafs@39:19 args=0 pfx=ref_obj|Stand|39:5-39:10
+        pris  =2x mfc=Leafs@39:19 args=0 pfx=ref_obj|Stand[0]|39:5-39:13
+        pat   =2x mfc=Leafs@39:19 args=0 pfx=ref_obj|Stand|39:5-39:10
+   TOGOLD        @42:17|Leafs|42:5|Named2
+        golden=2x mfc=Leafs@42:22 args=0 pfx=ref_obj|Named2|42:5-42:11
+        pris  =2x mfc=Leafs@42:22 args=0 pfx=ref_obj|Named2["k"]|42:5-42:16
+        pat   =2x mfc=Leafs@42:22 args=0 pfx=ref_obj|Named2|42:5-42:11
+g124_d_chain.def             MOVEDOTHER=3 SAME_AGREE=3 TOGOLD=2
+   TOGOLD        @20:16|Solo|20:7|Limb
+        golden=1x mfc=Solo@20:20 args=0 pfx=ref_obj|Limb|20:7-20:11
+        pris  =1x mfc=Solo@20:20 args=0 pfx=ref_obj|Limb[Px]|20:7-20:15
+        pat   =1x mfc=Solo@20:20 args=0 pfx=ref_obj|Limb|20:7-20:11
+   MOVEDOTHER    @21:16|Fan|21:7|Limb
+        golden=1x mfc=Fan@21:19 args=1 pfx=ref_obj|Limb|21:7-21:11
+        pris  =1x mfc=Fan[Px]@21:23 args=0 pfx=ref_obj|Limb[Px]|21:7-21:15
+        pat   =1x mfc=Fan@21:19 args=0 pfx=ref_obj|Limb|21:7-21:11
+   MOVEDOTHER    @22:12|Fan|22:7|Only
+        golden=1x mfc=Fan@22:15 args=1 pfx=ref_obj|Only|22:7-22:11
+        pris  =1x mfc=Fan[Px]@22:19 args=0 pfx=ref_obj|Only|22:7-22:11
+        pat   =1x mfc=Fan@22:15 args=0 pfx=ref_obj|Only|22:7-22:11
+   TOGOLD        @24:16|Direct|24:7|Limb
+        golden=1x mfc=Direct@24:22 args=0 pfx=ref_obj|Limb|24:7-24:11
+        pris  =1x mfc=Direct@24:22 args=0 pfx=ref_obj|Limb[Px]|24:7-24:15
+        pat   =1x mfc=Direct@24:22 args=0 pfx=ref_obj|Limb|24:7-24:11
+   MOVEDOTHER    @25:17|Fan|25:7|Alias
+        golden=1x mfc=Fan@25:20 args=1 pfx=ref_obj|Alias|25:7-25:12
+        pris  =1x mfc=Fan[2]@25:23 args=0 pfx=ref_obj|Alias[Qx]|25:7-25:16
+        pat   =1x mfc=Fan@25:20 args=0 pfx=ref_obj|Alias|25:7-25:12
+g124_d_chain.elab            MOVEDOTHER=3 ONESIDED_PRIS=2 SAME_AGREE=3 TOGOLD=2
+   TOGOLD        @20:16|Solo|20:7|Limb
+        golden=2x mfc=Solo@20:20 args=0 pfx=ref_obj|Limb|20:7-20:11
+        pris  =2x mfc=Solo@20:20 args=0 pfx=ref_obj|Limb[Px]|20:7-20:15
+        pat   =2x mfc=Solo@20:20 args=0 pfx=ref_obj|Limb|20:7-20:11
+   MOVEDOTHER    @21:16|Fan|21:7|Limb
+        golden=2x mfc=Fan@21:19 args=1 pfx=ref_obj|Limb|21:7-21:11
+        pris  =2x mfc=Fan[Px]@21:23 args=0 pfx=ref_obj|Limb[Px]|21:7-21:15
+        pat   =2x mfc=Fan@21:19 args=0 pfx=ref_obj|Limb|21:7-21:11
+   MOVEDOTHER    @22:12|Fan|22:7|Only
+        golden=2x mfc=Fan@22:15 args=1 pfx=ref_obj|Only|22:7-22:11
+        pris  =2x mfc=Fan[Px]@22:19 args=0 pfx=ref_obj|Only|22:7-22:11
+        pat   =2x mfc=Fan@22:15 args=0 pfx=ref_obj|Only|22:7-22:11
+   TOGOLD        @24:16|Direct|24:7|Limb
+        golden=2x mfc=Direct@24:22 args=0 pfx=ref_obj|Limb|24:7-24:11
+        pris  =2x mfc=Direct@24:22 args=0 pfx=ref_obj|Limb[Px]|24:7-24:15
+        pat   =2x mfc=Direct@24:22 args=0 pfx=ref_obj|Limb|24:7-24:11
+   MOVEDOTHER    @25:17|Fan|25:7|Alias
+        golden=2x mfc=Fan@25:20 args=1 pfx=ref_obj|Alias|25:7-25:12
+        pris  =2x mfc=Fan[2]@25:23 args=0 pfx=ref_obj|Alias[Qx]|25:7-25:16
+        pat   =2x mfc=Fan@25:20 args=0 pfx=ref_obj|Alias|25:7-25:12
+   ONESIDED_PRIS @25:17||-|-
+        golden=1x mfc=@25:20 args=0 pfx=<none>
+        pris  =<absent>
+        pat   =<absent>
+   ONESIDED_PRIS @27:12||-|-
+        golden=<absent>
+        pris  =1x mfc=@27:15 args=0 pfx=<none>
+        pat   =1x mfc=@27:15 args=0 pfx=<none>
+g124_e_expr.def              SAME_AGREE=7
+g124_e_expr.elab             SAME_AGREE=7
+g124_f_fence.def             SAME_AGREE=3 TOGOLD=5
+   TOGOLD        @19:23|Drops|19:7|Wells
+        golden=1x mfc=Drops@19:28 args=0 pfx=ref_obj|Wells|19:7-19:12
+        pris  =1x mfc=Drops@19:28 args=0 pfx=ref_obj|Wells[Pick(Ax)]|19:7-19:22
+        pat   =1x mfc=Drops@19:28 args=0 pfx=ref_obj|Wells|19:7-19:12
+   TOGOLD        @20:17|Drops|20:7|Wells
+        golden=1x mfc=Drops@20:22 args=0 pfx=ref_obj|Wells|20:7-20:12
+        pris  =1x mfc=Drops@20:22 args=0 pfx=ref_obj|Wells[Ax]|20:7-20:16
+        pat   =1x mfc=Drops@20:22 args=0 pfx=ref_obj|Wells|20:7-20:12
+   TOGOLD        @21:17|Drops|21:7|Wells
+        golden=1x mfc=Drops@21:22 args=0 pfx=ref_obj|Wells|21:7-21:12
+        pris  =1x mfc=Drops@21:22 args=0 pfx=ref_obj|Wells[Ax]|21:7-21:16
+        pat   =1x mfc=Drops@21:22 args=0 pfx=ref_obj|Wells|21:7-21:12
+   TOGOLD        @22:17|Drops|22:7|Wells
+        golden=1x mfc=Drops@22:22 args=0 pfx=ref_obj|Wells|22:7-22:12
+        pris  =1x mfc=Drops@22:22 args=0 pfx=ref_obj|Wells[Ax]|22:7-22:16
+        pat   =1x mfc=Drops@22:22 args=0 pfx=ref_obj|Wells|22:7-22:12
+   TOGOLD        @23:19|Drops|23:7|Wells
+        golden=1x mfc=Drops@23:24 args=0 pfx=ref_obj|Wells|23:7-23:12
+        pris  =1x mfc=Drops@23:24 args=0 pfx=ref_obj|Wells[Ax+1]|23:7-23:18
+        pat   =1x mfc=Drops@23:24 args=0 pfx=ref_obj|Wells|23:7-23:12
+g124_f_fence.elab            SAME_AGREE=4 TOGOLD=5
+   TOGOLD        @19:23|Drops|19:7|Wells
+        golden=2x mfc=Drops@19:28 args=0 pfx=ref_obj|Wells|19:7-19:12
+        pris  =2x mfc=Drops@19:28 args=0 pfx=ref_obj|Wells[Pick(Ax)]|19:7-19:22
+        pat   =2x mfc=Drops@19:28 args=0 pfx=ref_obj|Wells|19:7-19:12
+   TOGOLD        @20:17|Drops|20:7|Wells
+        golden=2x mfc=Drops@20:22 args=0 pfx=ref_obj|Wells|20:7-20:12
+        pris  =2x mfc=Drops@20:22 args=0 pfx=ref_obj|Wells[Ax]|20:7-20:16
+        pat   =2x mfc=Drops@20:22 args=0 pfx=ref_obj|Wells|20:7-20:12
+   TOGOLD        @21:17|Drops|21:7|Wells
+        golden=2x mfc=Drops@21:22 args=0 pfx=ref_obj|Wells|21:7-21:12
+        pris  =2x mfc=Drops@21:22 args=0 pfx=ref_obj|Wells[Ax]|21:7-21:16
+        pat   =2x mfc=Drops@21:22 args=0 pfx=ref_obj|Wells|21:7-21:12
+   TOGOLD        @22:17|Drops|22:7|Wells
+        golden=2x mfc=Drops@22:22 args=0 pfx=ref_obj|Wells|22:7-22:12
+        pris  =2x mfc=Drops@22:22 args=0 pfx=ref_obj|Wells[Ax]|22:7-22:16
+        pat   =2x mfc=Drops@22:22 args=0 pfx=ref_obj|Wells|22:7-22:12
+   TOGOLD        @23:19|Drops|23:7|Wells
+        golden=2x mfc=Drops@23:24 args=0 pfx=ref_obj|Wells|23:7-23:12
+        pris  =2x mfc=Drops@23:24 args=0 pfx=ref_obj|Wells[Ax+1]|23:7-23:18
+        pat   =2x mfc=Drops@23:24 args=0 pfx=ref_obj|Wells|23:7-23:12
+LISTED=6 PROCESSED=6
+PROCESSED-ASSERT-OK

@@ -1,0 +1,17 @@
+LHS:
+decompile:
+ref_typespec: (uvm_pkg::uvm_printer::adjust_name::id), id:7725
+|vpiParent:
+\_ref_obj: (uvm_pkg::uvm_printer::adjust_name::id), id:7722, line:808:25, endln:808:27
+|vpiFullName:uvm_pkg::uvm_printer::adjust_name::id
+|vpiActual:
+\_string_typespec: , id:2746, line:445:33, endln:445:39
+
+decompile:
+ref_typespec: (uvm_pkg::uvm_printer::adjust_name::id), id:7725
+|vpiParent:
+\_ref_obj: (uvm_pkg::uvm_printer::adjust_name::id), id:7722, line:808:25, endln:808:27
+|vpiFullName:uvm_pkg::uvm_printer::adjust_name::id
+|vpiActual:
+\_string_typespec: , id:2746, line:445:33, endln:445:39
+RHS: <null>

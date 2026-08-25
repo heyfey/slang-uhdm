@@ -1,0 +1,96 @@
+r10uvm124 — CENSUS of § selRecvStmtCallBareNames124's population.
+MEASUREMENT ONLY; the official uhdm-cmp is the judge.  LHS is ALWAYS golden.
+Instrument: cells124.py (multiset, keyed on <call start>|<call name base>|
+<prefix start>|<prefix name base>) + score124.py (multiset join, one-sided
+sets scored, never skipped).
+
+-- 0. CALIBRATION, GOLDEN vs GOLDEN, FIRST
+   GvG BuildUVMPkg.default   SAME_AGREE=5003
+   GvG BuildUVMPkg.testflags SAME_AGREE=5003
+   GvG MiniAmiq.default      SAME_AGREE=4934
+   GvG MiniAmiq.testflags    SAME_AGREE=4934
+   GvG Scoreboard.default    SAME_AGREE=4583
+   GvG SeqDriver.default     SAME_AGREE=4564
+   GvG SeqDriver.testflags   SAME_AGREE=4564
+   GvG SimpleUVM.default     SAME_AGREE=4555
+   GvG SimpleUVM.testflags   SAME_AGREE=4555
+   GvG g124_a_kinds.def      SAME_AGREE=9
+   GvG g124_b_meths.def      SAME_AGREE=10
+   GvG g124_c_homes.def      SAME_AGREE=8
+   GvG g124_d_chain.def      SAME_AGREE=8
+   GvG g124_e_expr.def       SAME_AGREE=7
+   GvG g124_f_fence.def      SAME_AGREE=8
+   GvG g124_a_kinds.elab     SAME_AGREE=10
+   GvG g124_b_meths.elab     SAME_AGREE=11
+   GvG g124_c_homes.elab     SAME_AGREE=8
+   GvG g124_d_chain.elab     SAME_AGREE=9
+   GvG g124_e_expr.elab      SAME_AGREE=7
+   GvG g124_f_fence.elab     SAME_AGREE=9
+   0 DIFF, 0 ONESIDED, no manufactured cell anywhere: the key does not
+   collide with itself and the multiset join cannot drop a row.
+
+-- 1. THE NINE UVM DATABASES, golden vs PRISTINE vs PATCHED
+SeqDriver.default            ONESIDED_PRIS=501 SAME_AGREE=4353 SAME_DIFF=24 TOGOLD=5
+SeqDriver.testflags          ONESIDED_PRIS=501 SAME_AGREE=4353 SAME_DIFF=24 TOGOLD=5
+SimpleUVM.default            ONESIDED_PRIS=501 SAME_AGREE=4344 SAME_DIFF=24 TOGOLD=5
+SimpleUVM.testflags          ONESIDED_PRIS=501 SAME_AGREE=4344 SAME_DIFF=24 TOGOLD=5
+Scoreboard.default           ONESIDED_PRIS=505 SAME_AGREE=4370 SAME_DIFF=24 TOGOLD=5
+Scoreboard.testflags SKIP-NOFILE
+MiniAmiq.default             ONESIDED_PRIS=521 SAME_AGREE=4719 SAME_DIFF=24 TOGOLD=5
+MiniAmiq.testflags           ONESIDED_PRIS=521 SAME_AGREE=4719 SAME_DIFF=24 TOGOLD=5
+BuildUVMPkg.default          ONESIDED_PRIS=13 SAME_AGREE=4996
+BuildUVMPkg.testflags        ONESIDED_PRIS=13 SAME_AGREE=4996
+-- scored=9 SKIP-NOFILE=1
+
+   TOTALS over the nine UVM databases
+      TOGOLD  5+5+5+5+5+5+5+0+0 = 35
+      MOVEDWRONG 0   MOVEDOTHER 0   AWAY 0   ONESIDED_PAT 0
+      No cell KEY was added or removed: ONESIDED_PRIS is identical pristine ->
+      patched in EVERY row (501/501/505/521/13) and ONESIDED_PAT is 0
+      everywhere.  SAME_DIFF fell 29 -> 24 on the seven movers (exactly the
+      five cells that went TOGOLD) and is UNCHANGED on BuildUVMPkg, which
+      holds none of the population.
+
+   THE POPULATION, NAMED.  Five call sites, all in uvm-1.2
+   src/base/uvm_factory.svh, each present 4x per database (uvm_pkg and one
+   test package, DEF and ELAB listings):
+      919:13   m_inst_override_queues[obj].queue.push_back(...)      <- THE HEAD
+      1119:3   m_inst_override_queues[original_type].queue…
+      1162:5   m_inst_override_queues[original_type].queue…
+      1176:7   m_inst_override_name_queues[original_type_name].queue…
+      1387:10  m_inst_override_queues[rtype].queue…
+   Golden names the receiver ref_obj with the BARE associative-array name and
+   spans the NAME ALONE; the pristine binary carried the selected text and
+   spanned through the `]`.  All five are byte-identical to golden after the
+   law, on all seven movers.
+
+   THE ONE CELL THE FENCE REFUSES, and it is in this population's own
+   database: MiniAmiq 512:56, prefix `get_cover_statistics_dpi(cover_info[index]`
+   — a receiver text split inside PARENTHESES (r10buvm23repro README residue
+   R-P).  `builtinRecvStepSelectors74` refuses it (the tree says one component
+   where the text says two), so it is BYTE-IDENTICAL pristine -> patched.  It
+   is the reason the a-priori predictor names SIX candidate cells on MiniAmiq
+   and only FIVE move.
+
+-- 2. THE TWELVE ARM-VIEWS, golden vs PRISTINE vs PATCHED
+g124_a_kinds.def             SAME_AGREE=2 TOGOLD=7
+g124_a_kinds.elab            SAME_AGREE=3 TOGOLD=7
+g124_b_meths.def             SAME_AGREE=3 TOGOLD=7
+g124_b_meths.elab            SAME_AGREE=4 TOGOLD=7
+g124_c_homes.def             TOGOLD=8
+g124_c_homes.elab            TOGOLD=8
+g124_d_chain.def             MOVEDOTHER=3 SAME_AGREE=3 TOGOLD=2
+g124_d_chain.elab            MOVEDOTHER=3 ONESIDED_PRIS=2 SAME_AGREE=3 TOGOLD=2
+g124_e_expr.def              SAME_AGREE=7
+g124_e_expr.elab             SAME_AGREE=7
+g124_f_fence.def             SAME_AGREE=3 TOGOLD=5
+g124_f_fence.elab            SAME_AGREE=4 TOGOLD=5
+   TOGOLD 7+7+7+7+8+8+2+2+0+0+5+5 = 58     MOVEDWRONG 0    AWAY 0
+   MOVEDOTHER 6 = residue R1 (README §5): the three chained cells whose SECOND
+   component carries a subscript.  Their NAME and SPAN are byte-identical to
+   golden after the law; the remaining field is golden's ONE argument, which
+   Surelog compiles out of that second subscript
+   (CompileHelper.cpp:4324 `argListNode = fC->Sibling(tfNameNode)`).  Corpus
+   population of that shape: ZERO in both corpora.
+   g124_e_expr scores SAME_AGREE=7 in both views and its database is
+   BYTE-IDENTICAL: EXPRESSION position is not this law's.

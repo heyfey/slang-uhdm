@@ -20330,21 +20330,107 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // prefix named `m_streams[stream` and NO argument at
                         // all — four defects on one object, all of them the
                         // text split's.  The span follows the name: golden ends
-                        // the prefix at the `[`.  Gated exactly like SITE 1, so
-                        // `q[0].delete();` (no dot in the subscript) keeps its
-                        // written-component prefix untouched — golden's answer
-                        // there is README residue R-Q, not this law's.
+                        // the prefix at the `[`.  It was gated exactly like
+                        // SITE 1 (`dotInBracket23 && !deep0`), so
+                        // `q[0].delete();` and every DEEPER indexed receiver
+                        // kept its written-component prefix — that pass's
+                        // README residue R-Q.  § selRecvStmtCallBareNames124
+                        // below RETIRES that gate: the rule is Surelog's NAME
+                        // NODES, not a dot in a bracket, and R-Q is measured
+                        // and closed.
+                        // § selRecvStmtCallBareNames124 — A STATEMENT CALL'S
+                        // RECEIVER AND ITS CALL ARE NAMED FROM THE **NAME
+                        // NODES**; THE SUBSCRIPT IS NEVER PART OF EITHER NAME.
+                        //
+                        // THE DECODE (`~/git-repos/Surelog`, read, not
+                        // inferred).  `CompileHelper::compileTfCall`'s user-call
+                        // arm, `CompileHelper.cpp:4216-4241`, is the WHOLE
+                        // statement-position builder for `a[i].b…(args)`:
+                        //
+                        //     tfNameNode = dollar_or_string;            // `a`
+                        //     name       = fC->SymName(tfNameNode);     // "a"
+                        //     Constant_bit_select = fC->Sibling(tfNameNode);
+                        //     if (fC->Type(Constant_bit_select) ==
+                        //         VObjectType::paConstant_bit_select) {
+                        //       tfNameNode = fC->Sibling(Constant_bit_select);
+                        //       fcall->VpiName(fC->SymName(tfNameNode));  // `b`
+                        //       fC->populateCoreMembers(tfNameNode,
+                        //                               tfNameNode, fcall);
+                        //       prefix->VpiName(name);                   // "a"
+                        //       fC->populateCoreMembers(dollar_or_string,
+                        //                               dollar_or_string,
+                        //                               prefix);
+                        //     }
+                        //
+                        // Both names come off SymName of a NAME NODE and both
+                        // spans off `populateCoreMembers` of that SAME node, so
+                        // NEITHER the receiver's subscript NOR the call name's
+                        // is in the name, and both spans stop at the `[`.  The
+                        // subscript is stepped OVER, never read into a name.
+                        //
+                        // § dottedIdxRecvFromSyntax23 already transcribed this
+                        // for ONE cell of that population — a SINGLE-component
+                        // receiver whose subscript happened to contain a DOT —
+                        // and gated it on `dotInBracket23 && !deep0`, because
+                        // that pass had measured only the cells its own gate
+                        // could reach (its README residue R-Q says so in as many
+                        // words).  Surelog's arm has no such gate: it does not
+                        // look at the subscript's TEXT at all.  MEASURED ON
+                        // GOLDEN in `g124_a_kinds.sv` … `g124_f_fence.sv`, both
+                        // views: associative (class-, string- and int-keyed),
+                        // dynamic, fixed-unpacked, queue and two-dimensional
+                        // receivers; `push_back`/`push_front`/`pop_back`/
+                        // `delete`/`delete(idx)`/`delete(key)` and user-defined
+                        // methods and tasks; in-body, out-of-body, free package
+                        // function, free package task, module task, module
+                        // `initial` and module `always` homes; chains of two,
+                        // three and four names with the subscript on the first
+                        // component, on the second, on both and on neither; and
+                        // indices written as an identifier, an integer, a string
+                        // literal, an operation and a CALL — golden takes the
+                        // BARE BASE NAME with the NAME-ONLY span in EVERY one.
+                        //
+                        // THE FENCE IS THE TREE, NOT THE TEXT.  The rename fires
+                        // only where `builtinRecvStepSelectors74` has confirmed
+                        // the text split COMPONENT FOR COMPONENT and DIMENSION
+                        // FOR DIMENSION against the bound receiver, so a step
+                        // whose text merely LOOKS subscripted keeps its written
+                        // component: MiniAmiq's `control_assertion_dpi(a_sva.x)`
+                        // family (README residue R-P of `r10buvm23repro`), whose
+                        // receiver text is split inside PARENTHESES and whose
+                        // pristine prefix reads
+                        // `get_cover_statistics_dpi(cover_info[index]`, is
+                        // refused by that walk and is BYTE-IDENTICAL after this
+                        // law (census cell `MiniAmiq 512:56`).
+                        //
+                        // DELIBERATELY OUT (residue R1, measured): when the
+                        // SECOND component carries a subscript, Surelog's
+                        // `argListNode = fC->Sibling(tfNameNode)`
+                        // (`CompileHelper.cpp:4324`) lands on that
+                        // `paConstant_bit_select` and `compileTfCallArguments`
+                        // compiles its INDEX as the call's ONE argument.  That
+                        // is a different field built by a different function,
+                        // and its corpus population is ZERO (the census below
+                        // finds no such cell in either corpus), so this law
+                        // moves the NAMES and leaves the argument vector where
+                        // it was; `g124_d_chain.sv` measures the gap.
                         std::string recvNm23 = recvNm0;
-                        if (dotIdx23 && !deep0 && stepOk23 &&
-                            !stepSel74[0].sels.empty())
-                            recvNm23 = stepSel74[0].base;
+                        std::string callNm124 = callNm0;
+                        if (stepOk23) {
+                            if (!stepSel74[0].sels.empty())
+                                recvNm23 = stepSel74[0].base;
+                            if (deep0 && stepSel74.size() > 1 &&
+                                !stepSel74[1].sels.empty())
+                                callNm124 = stepSel74[1].base;
+                        }
                         auto* mfc = s.MakeMethod_func_call();
-                        mfc->VpiName(callNm0);
+                        mfc->VpiName(callNm124);
                         mfc->VpiParent(parent);
                         auto mStart = recv->sourceRange.start() +
                                       (deep0 ? recvNm0.size() + 1
                                              : recvText.size() + 1);
-                        setLoc(mfc, SourceRange(mStart, mStart + callNm0.size()));
+                        setLoc(mfc,
+                               SourceRange(mStart, mStart + callNm124.size()));
                         auto* pr = s.MakeRef_obj();
                         pr->VpiName(recvNm23);
                         pr->VpiFullName(joinRef(prefix, recvNm23));

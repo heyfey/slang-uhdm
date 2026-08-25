@@ -1,0 +1,93 @@
+r10v124 — ARM SCORES (independent extractor v124cells.py + scorer v124score.py).
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.  MEASUREMENT ONLY.
+Every arm is scored against a Surelog golden built for the SAME view.
+
+=== the verifier's OWN twelve arms (26 arm-views; arms 8/9 are the exotic pair) ===
+v124_1_shapes.def              SAME_AGREE=6 TOGOLD=7
+v124_1_shapes.elab             SAME_AGREE=7 TOGOLD=7
+v124_2_chain.def               MOVEDOTHER=2 SAME_AGREE=10 TOGOLD=3
+v124_2_chain.elab              MOVEDOTHER=2 ONESIDED_PRIS=1 SAME_AGREE=12 TOGOLD=3
+v124_3_homes.def               SAME_AGREE=1 TOGOLD=15
+v124_3_homes.elab              ONESIDED_PRIS=1 SAME_AGREE=6 TOGOLD=15
+v124_4_lv.def                  SAME_AGREE=5 TOGOLD=4
+v124_4_lv.elab                 SAME_AGREE=5 TOGOLD=4
+v124_5_import.def              SAME_AGREE=2 TOGOLD=5
+v124_5_import.elab             MOVEDOTHER=1 SAME_AGREE=5 TOGOLD=4
+v124_6_fence.def               SAME_AGREE=4 TOGOLD=4
+v124_6_fence.elab              SAME_AGREE=5 TOGOLD=4
+v124_7_hier.def                MOVEDOTHER=2 SAME_DIFF=4 TOGOLD=3
+v124_7_hier.elab               MOVEDOTHER=3 SAME_AGREE=2 SAME_DIFF=4 TOGOLD=2
+v124_8_exotic.def              ONESIDED_PRIS=2 SAME_AGREE=2
+v124_8_exotic.elab             ONESIDED_PRIS=3 SAME_AGREE=2
+v124_9_partsel.def             ONESIDED_PRIS=1 SAME_AGREE=2 TOGOLD=1
+v124_9_partsel.elab            ONESIDED_PRIS=1 SAME_AGREE=3 TOGOLD=1
+v124_10_meth.def               SAME_AGREE=10 TOGOLD=10
+v124_10_meth.elab              SAME_AGREE=11 TOGOLD=10
+v124_11_bind.def               SAME_AGREE=2 TOGOLD=7
+v124_11_bind.elab              ONESIDED_PRIS=1 SAME_AGREE=4 TOGOLD=7
+v124_12_shadow.def             SAME_AGREE=4 TOGOLD=1
+v124_12_shadow.elab            SAME_AGREE=5 TOGOLD=1
+
+=== the IMPLEMENTER's six arms, RE-SCORED by this verifier's instruments ===
+g124_a_kinds.def               SAME_AGREE=2 TOGOLD=7
+g124_a_kinds.elab              SAME_AGREE=3 TOGOLD=7
+g124_b_meths.def               SAME_AGREE=3 TOGOLD=7
+g124_b_meths.elab              SAME_AGREE=4 TOGOLD=7
+g124_c_homes.def               TOGOLD=8
+g124_c_homes.elab              TOGOLD=8
+g124_d_chain.def               MOVEDOTHER=3 SAME_AGREE=3 TOGOLD=2
+g124_d_chain.elab              MOVEDOTHER=3 ONESIDED_PRIS=2 SAME_AGREE=3 TOGOLD=2
+g124_e_expr.def                SAME_AGREE=7
+g124_e_expr.elab               SAME_AGREE=7
+g124_f_fence.def               SAME_AGREE=3 TOGOLD=5
+g124_f_fence.elab              SAME_AGREE=4 TOGOLD=5
+
+=== the SIX FOREIGN arm-views the wide boundary moved (re-scored vs golden) ===
+a1_dims14.def                  SAME_AGREE=16 TOGOLD=2
+a1_dims14.elab                 SAME_AGREE=16 TOGOLD=2
+b3_context.def                 SAME_AGREE=5 TOGOLD=1
+b3_context.elab                SAME_AGREE=6 TOGOLD=1
+v74_edge.def                   SAME_AGREE=15 TOGOLD=2
+v74_edge.elab                  SAME_AGREE=15 SAME_DIFF=1 TOGOLD=2
+
+=== MULTISET LINE AUDIT (vlines.py): BAD_REMOVED = a line the patch removed that GOLDEN HOLDS ===
+v124_1_shapes.def              removed=21 BAD_REMOVED=0 added=21 BAD_ADDED=0
+v124_1_shapes.elab             removed=42 BAD_REMOVED=0 added=42 BAD_ADDED=0
+v124_2_chain.def               removed=15 BAD_REMOVED=0 added=15 BAD_ADDED=0
+v124_2_chain.elab              removed=18 BAD_REMOVED=0 added=22 BAD_ADDED=0
+v124_3_homes.def               removed=69 BAD_REMOVED=0 added=69 BAD_ADDED=0
+v124_3_homes.elab              removed=147 BAD_REMOVED=0 added=179 BAD_ADDED=13
+v124_4_lv.def                  removed=12 BAD_REMOVED=0 added=12 BAD_ADDED=0
+v124_4_lv.elab                 removed=24 BAD_REMOVED=0 added=24 BAD_ADDED=0
+v124_5_import.def              removed=30 BAD_REMOVED=0 added=30 BAD_ADDED=0
+v124_5_import.elab             removed=90 BAD_REMOVED=0 added=142 BAD_ADDED=20
+v124_6_fence.def               removed=12 BAD_REMOVED=0 added=12 BAD_ADDED=0
+v124_6_fence.elab              removed=24 BAD_REMOVED=0 added=24 BAD_ADDED=0
+v124_7_hier.def                removed=21 BAD_REMOVED=0 added=21 BAD_ADDED=0
+v124_7_hier.elab               removed=42 BAD_REMOVED=0 added=44 BAD_ADDED=2
+v124_8_exotic.def              removed=0 BAD_REMOVED=0 added=0 BAD_ADDED=0
+v124_8_exotic.elab             removed=0 BAD_REMOVED=0 added=0 BAD_ADDED=0
+v124_9_partsel.def             removed=3 BAD_REMOVED=0 added=3 BAD_ADDED=0
+v124_9_partsel.elab            removed=6 BAD_REMOVED=0 added=6 BAD_ADDED=0
+v124_10_meth.def               removed=30 BAD_REMOVED=0 added=30 BAD_ADDED=0
+v124_10_meth.elab              removed=60 BAD_REMOVED=0 added=60 BAD_ADDED=0
+v124_11_bind.def               removed=33 BAD_REMOVED=0 added=33 BAD_ADDED=0
+v124_11_bind.elab              removed=79 BAD_REMOVED=0 added=115 BAD_ADDED=13
+v124_12_shadow.def             removed=3 BAD_REMOVED=0 added=3 BAD_ADDED=0
+v124_12_shadow.elab            removed=6 BAD_REMOVED=0 added=8 BAD_ADDED=0
+a1_dims14.def                  removed=6 BAD_REMOVED=0 added=6 BAD_ADDED=0
+a1_dims14.elab                 removed=6 BAD_REMOVED=0 added=10 BAD_ADDED=2
+b3_context.def                 removed=3 BAD_REMOVED=0 added=3 BAD_ADDED=0
+b3_context.elab                removed=9 BAD_REMOVED=0 added=13 BAD_ADDED=2
+v74_edge.def                   removed=6 BAD_REMOVED=0 added=6 BAD_ADDED=0
+v74_edge.elab                  removed=18 BAD_REMOVED=0 added=26 BAD_ADDED=0
+default_MiniAmiq-544c7f61      removed=60 BAD_REMOVED=0 added=60 BAD_ADDED=0
+default_Scoreboard-59431470    removed=30 BAD_REMOVED=0 added=30 BAD_ADDED=0
+default_SeqDriver-32af76aa     removed=60 BAD_REMOVED=0 added=60 BAD_ADDED=0
+default_SimpleUVM-1dc93a62     removed=30 BAD_REMOVED=0 added=30 BAD_ADDED=0
+testflags_MiniAmiq-544c7f61    removed=60 BAD_REMOVED=0 added=60 BAD_ADDED=0
+testflags_SeqDriver-32af76aa   removed=60 BAD_REMOVED=0 added=60 BAD_ADDED=0
+testflags_SimpleUVM-1dc93a62   removed=30 BAD_REMOVED=0 added=30 BAD_ADDED=0
+
+=== GOLDEN-vs-GOLDEN CALIBRATION of this verifier's scorer ===
+calibrated_views=45  DIFF_or_ONESIDED_failures=0
