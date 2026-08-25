@@ -1,0 +1,201 @@
+PART 1 — THE HEAD CELL, cen129 on BuildUVMPkg/default (pristine)
+
+GOLDEN
+CELL  design(unnamed)/package(uvm_pkg)/class_defn(uvm_reg_hw_reset_seq)/task(do_block)/begin/foreach_stmt/begin/begin
+      array_var|field_check_restore|79885:25-79885:44|static
+      array_typespec|79885:25-79885:58|nr=1|idx=-
+      enum_var||79885:25-79885:44|sgn=0|auto=0|arrmem=0
+      enum_typespec|uvm_pkg::uvm_check_e|62383:35-62383:46|sgn=-|inst=package(uvm_pkg)
+      shared=Y  elevts_nrefs=16
+OURS (pristine)
+CELL  <same SITE, same array_var, same array_typespec>
+      enum_var||79885:25-79885:44|sgn=1|auto=0|arrmem=0        <-- THE LAW CELL
+      enum_typespec|uvm_pkg::uvm_check_e|60837:4-60840:18|sgn=-|inst=package(uvm_pkg)
+      shared=Y  elevts_nrefs=16
+
+The ONLY compare-visible difference is the element variable's sgn=.
+The enum_typespec SPAN is dump-only (no generated Compare reads VpiFile /
+VpiLineNo / VpiColumnNo) and the OBJECT is already golden's — cen129's id-free
+identity family proves it:
+
+GOLDEN
+TSOBJ	enum_typespec|uvm_pkg::uvm_check_e	62383:35-62383:46	nrefs=16
+TSOBJ	enum_typespec|uvm_pkg::uvm_check_e	79053:35-79053:46	nrefs=5
+OURS
+TSOBJ	enum_typespec|uvm_pkg::uvm_check_e	60837:4-60840:18	nrefs=16
+TSOBJ	enum_typespec|uvm_pkg::uvm_check_e	60837:4-60840:18	nrefs=5
+
+Two objects each side, the same referrer counts (16 and 5), the same name and
+the same vpiInstance; the element variable and the array_typespec's
+Elem_typespec bind the SAME one on both sides (shared=Y, elevts_nrefs=16).
+Golden's spans are FOSSILS of USE sites (pp_output 62383:35 and 79053:35 are
+two written 'uvm_check_e' io_decls) because compileTypespec's named arm calls
+populateCoreMembers on the SHARED object it hands back.
+
+PART 2 — THE NINE UVM ROW-MODES (wide129.sh: golden vs pristine vs patched)
+
+row-mode                  cells  LAW-WRONG  LAW-FIXED  COLLATERAL  TSKIND res
+BuildUVMPkg.default         640          1          1           0           9
+BuildUVMPkg.testflags       640          1          1           0           9
+MiniAmiq.default            930          0          0           0           6
+MiniAmiq.testflags          930          0          0           0           6
+Scoreboard.default          576          0          0           0           6
+SeqDriver.default           861          0          0           0           6
+SeqDriver.testflags         861          0          0           0           6
+SimpleUVM.default           570          0          0           0           6
+SimpleUVM.testflags         570          0          0           0           6
+
+PART 3 — THE FIVE GRIDS, both views (score129.py; LAW field = the element
+variable's vpiSigned; COLLATERAL = ANY pristine->patched change outside it)
+
+--- a_kinds DEF
+PRIS cells=31 ONLY-GOLDEN=0 ONLY-OURS=0 LAW-WRONG=9 TSKIND=16 TSSPAN=2
+PATCHED cells=31 ONLY-GOLDEN=0 ONLY-PATCHED=0 LAW-FIXED=9 LAW-SAME-OK=22 COLLATERAL=0
+--- a_kinds ELAB
+PRIS cells=31 ONLY-GOLDEN=0 ONLY-OURS=62 LAW-WRONG=9 TSKIND=16 TSSPAN=2
+PATCHED cells=31 ONLY-GOLDEN=0 ONLY-PATCHED=62 LAW-FIXED=9 LAW-SAME-OK=22 COLLATERAL=0
+--- b_homes DEF
+PRIS cells=20 ONLY-GOLDEN=6 ONLY-OURS=0 LAW-WRONG=8 TSKIND=7 TSSPAN=3
+PATCHED cells=20 ONLY-GOLDEN=6 ONLY-PATCHED=0 LAW-FIXED=8 LAW-SAME-OK=12 COLLATERAL=0
+--- b_homes ELAB
+PRIS cells=20 ONLY-GOLDEN=6 ONLY-OURS=40 LAW-WRONG=8 TSKIND=7 TSSPAN=3
+PATCHED cells=20 ONLY-GOLDEN=6 ONLY-PATCHED=40 LAW-FIXED=8 LAW-SAME-OK=12 COLLATERAL=0
+--- c_dims DEF
+PRIS cells=14 ONLY-GOLDEN=2 ONLY-OURS=2 LAW-WRONG=7 TSKIND=2
+PATCHED cells=14 ONLY-GOLDEN=2 ONLY-PATCHED=2 LAW-FIXED=7 LAW-SAME-OK=7 COLLATERAL=0
+--- c_dims ELAB
+PRIS cells=14 ONLY-GOLDEN=2 ONLY-OURS=34 LAW-WRONG=7 TSKIND=2
+PATCHED cells=14 ONLY-GOLDEN=2 ONLY-PATCHED=34 LAW-FIXED=7 LAW-SAME-OK=7 COLLATERAL=0
+--- d_bases DEF
+PRIS cells=16 ONLY-GOLDEN=0 ONLY-OURS=0 LAW-WRONG=12 TSKIND=16
+PATCHED cells=16 ONLY-GOLDEN=0 ONLY-PATCHED=0 LAW-FIXED=12 LAW-SAME-OK=4 COLLATERAL=0
+--- d_bases ELAB
+PRIS cells=16 ONLY-GOLDEN=0 ONLY-OURS=32 LAW-WRONG=12 TSKIND=16
+PATCHED cells=16 ONLY-GOLDEN=0 ONLY-PATCHED=32 LAW-FIXED=12 LAW-SAME-OK=4 COLLATERAL=0
+--- e_edge DEF
+PRIS cells=13 ONLY-GOLDEN=0 ONLY-OURS=3 LAW-WRONG=8 TSKIND=9 TSSPAN=1 VARKIND=2
+PATCHED cells=13 ONLY-GOLDEN=0 ONLY-PATCHED=3 LAW-FIXED=8 LAW-SAME-OK=5 COLLATERAL=0
+--- e_edge ELAB
+PRIS cells=13 ONLY-GOLDEN=0 ONLY-OURS=131 LAW-WRONG=8 TSKIND=9 TSSPAN=1 VARKIND=2
+PATCHED cells=13 ONLY-GOLDEN=0 ONLY-PATCHED=131 LAW-FIXED=8 LAW-SAME-OK=5 COLLATERAL=0
+
+PART 4 — GOLDEN'S OWN TABLE, grid A (element variable | vpiSigned | element typespec)
+
+       airDensity129          G short_real_var sgn=0  short_real_typespec                           | O short_real_var sgn=0  short_real_typespec  
+SGN/TS auditTick129           G int_var        sgn=0  int_typespec         tallycount129_t          | O int_var        sgn=1  int_typespec         
+   /TS bannerLine129          G string_var     sgn=0  string_typespec      captiontext129_t         | O string_var     sgn=0  logic_typespec       
+SGN/TS beatPhase129           G enum_var       sgn=0  enum_typespec        pk129a::clockface129_e   | O enum_var       sgn=1  bit_typespec         
+   /TS chanPick129            G enum_var       sgn=0  enum_typespec        pk129a::bandsel129_e     | O enum_var       sgn=0  bit_typespec         
+SGN    cinderMask129          G bit_var        sgn=0  bit_typespec                                  | O bit_var        sgn=1  bit_typespec         
+   /TS crateRow129            G struct_var     sgn=0  struct_typespec      pk129a::looseframe129_t  | O struct_var     sgn=0  logic_typespec       
+       crumbTrail129          G byte_var       sgn=1  byte_typespec                                 | O byte_var       sgn=1  byte_typespec        
+   /TS drivePlan129           G enum_var       sgn=0  enum_typespec        pk129a::enginemode129_e  | O enum_var       sgn=0  logic_typespec       
+   /TS ductFlow129            G enum_var       sgn=0  enum_typespec        pk129a::thermal129_e     | O enum_var       sgn=0  bit_typespec         
+SGN/TS facetPlan129           G enum_var       sgn=0  enum_typespec        pk129a::gemcut129_e      | O enum_var       sgn=1  bit_typespec         
+       flagPile129            G bit_var        sgn=0  bit_typespec                                  | O bit_var        sgn=0  bit_typespec         
+       furnaceTemp129         G real_var       sgn=0  real_typespec                                 | O real_var       sgn=0  real_typespec        
+   /TS hammerSet129           G class_var      sgn=0  class_typespec                                | O class_var      sgn=0  logic_typespec       
+SGN/TS leanMeter129           G struct_var     sgn=0  struct_typespec      pk129a::tiltangle129_t   | O struct_var     sgn=1  logic_typespec       
+       ledgerBig129           G long_int_var   sgn=1  long_int_typespec                             | O long_int_var   sgn=1  long_int_typespec    
+SGN/TS pixelRow129            G byte_var       sgn=0  byte_typespec        rasterbyte129_t          | O byte_var       sgn=1  int_typespec         
+       plainCount129          G int_var        sgn=1  int_typespec                                  | O int_var        sgn=1  int_typespec         
+       plaqueText129          G string_var     sgn=0  string_typespec                               | O string_var     sgn=0  string_typespec      
+       quotaLeft129           G int_var        sgn=0  int_typespec                                  | O int_var        sgn=0  int_typespec         
+       rawStrobe129           G logic_var      sgn=0  logic_typespec                                | O logic_var      sgn=0  logic_typespec       
+       scoreBoard129          G integer_var    sgn=1  integer_typespec                              | O integer_var    sgn=1  integer_typespec     
+SGN/TS skewPair129            G short_int_var  sgn=0  short_int_typespec   offsetword129_t          | O short_int_var  sgn=1  int_typespec         
+   /TS sluiceState129         G enum_var       sgn=0  enum_typespec        pk129a::valvepos129_e    | O enum_var       sgn=0  bit_typespec         
+       stepDelta129           G short_int_var  sgn=1  short_int_typespec                            | O short_int_var  sgn=1  short_int_typespec   
+       stopWatch129           G time_var       sgn=0  time_typespec                                 | O time_var       sgn=0  time_typespec        
+   /TS swatchGrid129          G struct_var     sgn=0  struct_typespec      pk129a::paintmix129_t    | O struct_var     sgn=0  logic_typespec       
+SGN    tiltRead129            G logic_var      sgn=0  logic_typespec                                | O logic_var      sgn=1  logic_typespec       
+       tokenCount129          G byte_var       sgn=0  byte_typespec                                 | O byte_var       sgn=0  byte_typespec        
+SGN/TS vaneTurn129            G enum_var       sgn=0  enum_typespec        pk129a::compass129_e     | O enum_var       sgn=1  bit_typespec         
+   /TS wireTap129             G logic_var      sgn=0  logic_typespec       nibblebus129_t           | O logic_var      sgn=0  logic_typespec       
+TOTAL sgn-wrong=9 ts-wrong=16 same=13 missing=0
+
+--- grid b_homes
+       blkCount129            G int_var        sgn=1  int_typespec                                  | O int_var        sgn=1  int_typespec         
+SGN    blkMood129             G enum_var       sgn=0  enum_typespec        pk129b::tension129_e     | O enum_var       sgn=1  enum_typespec        pk129b::tension129_e
+       fnCount129             G int_var        sgn=1  int_typespec                                  | O int_var        sgn=1  int_typespec         
+       fnCount129             G int_var        sgn=1  int_typespec                                  | O int_var        sgn=1  int_typespec         
+       fnLocal129             G int_var        sgn=1  int_typespec                                  | O int_var        sgn=1  int_typespec         
+SGN/TS fnLocalMood129         G enum_var       sgn=0  enum_typespec        pk129b::tension129_e     | O enum_var       sgn=1  bit_typespec         
+SGN/TS fnMood129              G enum_var       sgn=0  enum_typespec        pk129b::tension129_e     | O enum_var       sgn=1  bit_typespec         
+SGN/TS fnMood129              G enum_var       sgn=0  enum_typespec        pk129b::tension129_e     | O enum_var       sgn=1  bit_typespec         
+       modCount129            G int_var        sgn=0  int_typespec                                  | O int_var        sgn=0  int_typespec         
+       modMood129             G enum_var       sgn=0  enum_typespec        pk129b::tension129_e     | O enum_var       sgn=0  enum_typespec        pk129b::tension129_e
+       mtCount129             G int_var        sgn=1  int_typespec                                  | O int_var        sgn=1  int_typespec         
+SGN/TS mtMood129              G enum_var       sgn=0  enum_typespec        pk129b::tension129_e     | O enum_var       sgn=1  bit_typespec         
+       oobCount129            G int_var        sgn=1  int_typespec                                  | O int_var        sgn=1  int_typespec         
+       oobCount129            G int_var        sgn=1  int_typespec                                  | O int_var        sgn=1  int_typespec         
+SGN/TS oobMood129             G enum_var       sgn=0  enum_typespec        pk129b::tension129_e     | O enum_var       sgn=1  bit_typespec         
+SGN/TS oobMood129             G enum_var       sgn=0  enum_typespec        pk129b::tension129_e     | O enum_var       sgn=1  bit_typespec         
+MISSING packLevel129           G=('int_var', 'sgn=0', 'int_typespec', '') O=None
+MISSING packLevel129           G=('int_var', 'sgn=0', 'int_typespec', '') O=None
+MISSING packLevel129           G=('int_var', 'sgn=0', 'int_typespec', '') O=None
+MISSING packMood129            G=('enum_var', 'sgn=0', 'enum_typespec', 'pk129b::tension129_e') O=None
+MISSING packMood129            G=('enum_var', 'sgn=0', 'enum_typespec', 'pk129b::tension129_e') O=None
+MISSING packMood129            G=('enum_var', 'sgn=0', 'enum_typespec', 'pk129b::tension129_e') O=None
+       propCount129           G int_var        sgn=0  int_typespec                                  | O int_var        sgn=0  int_typespec         
+       propMood129            G enum_var       sgn=0  enum_typespec        pk129b::tension129_e     | O enum_var       sgn=0  enum_typespec        pk129b::tension129_e
+       spinCount129           G int_var        sgn=1  int_typespec                                  | O int_var        sgn=1  int_typespec         
+SGN/TS spinMood129            G enum_var       sgn=0  enum_typespec        pk129b::tension129_e     | O enum_var       sgn=1  bit_typespec         
+TOTAL sgn-wrong=8 ts-wrong=7 same=12 missing=6
+
+--- grid c_dims
+       clsCount129            G int_var        sgn=1  int_typespec                                  | O int_var        sgn=1  int_typespec         
+SGN    clsMood129             G enum_var       sgn=0  enum_typespec        pk129c::phase129_e       | O enum_var       sgn=1  enum_typespec        pk129c::phase129_e
+       dynCount129            G int_var        sgn=1  int_typespec                                  | O int_var        sgn=1  int_typespec         
+SGN    dynMood129             G enum_var       sgn=0  enum_typespec        pk129c::phase129_e       | O enum_var       sgn=1  enum_typespec        pk129c::phase129_e
+       fixCount129            G int_var        sgn=1  int_typespec                                  | O int_var        sgn=1  int_typespec         
+SGN/TS fixMood129             G enum_var       sgn=0  enum_typespec        pk129c::phase129_e       | O enum_var       sgn=1  bit_typespec         
+       intCount129            G int_var        sgn=1  int_typespec                                  | O int_var        sgn=1  int_typespec         
+SGN    intMood129             G enum_var       sgn=0  enum_typespec        pk129c::phase129_e       | O enum_var       sgn=1  enum_typespec        pk129c::phase129_e
+SGN    mixCount129            G int_var        sgn=1  int_typespec                                  | O logic_var      sgn=0  int_typespec         
+   /TS mixMood129             G enum_var       sgn=0  enum_typespec        pk129c::phase129_e       | O logic_var      sgn=0  logic_typespec       
+       queCount129            G int_var        sgn=1  int_typespec                                  | O int_var        sgn=1  int_typespec         
+SGN    queMood129             G enum_var       sgn=0  enum_typespec        pk129c::phase129_e       | O enum_var       sgn=1  enum_typespec        pk129c::phase129_e
+       strCount129            G int_var        sgn=1  int_typespec                                  | O int_var        sgn=1  int_typespec         
+SGN    strMood129             G enum_var       sgn=0  enum_typespec        pk129c::phase129_e       | O enum_var       sgn=1  enum_typespec        pk129c::phase129_e
+       twoCount129            G int_var        sgn=1  int_typespec                                  | O int_var        sgn=1  int_typespec         
+SGN/TS twoMood129             G enum_var       sgn=0  enum_typespec        pk129c::phase129_e       | O enum_var       sgn=1  bit_typespec         
+TOTAL sgn-wrong=8 ts-wrong=3 same=7 missing=0
+
+--- grid d_bases
+   /TS oneBit129              G enum_var       sgn=0  enum_typespec        pk129d::bitBase129_e     | O enum_var       sgn=0  bit_typespec         
+SGN/TS oneByte129             G enum_var       sgn=0  enum_typespec        pk129d::byteBase129_e    | O enum_var       sgn=1  bit_typespec         
+SGN/TS oneInt129              G enum_var       sgn=0  enum_typespec        pk129d::intBase129_e     | O enum_var       sgn=1  bit_typespec         
+SGN/TS oneInteg129            G enum_var       sgn=0  enum_typespec        pk129d::integBase129_e   | O enum_var       sgn=1  logic_typespec       
+   /TS oneLogic129            G enum_var       sgn=0  enum_typespec        pk129d::logicBase129_e   | O enum_var       sgn=0  logic_typespec       
+SGN/TS oneLong129             G enum_var       sgn=0  enum_typespec        pk129d::longBase129_e    | O enum_var       sgn=1  bit_typespec         
+SGN/TS onePlain129            G enum_var       sgn=0  enum_typespec        pk129d::plainBase129_e   | O enum_var       sgn=1  bit_typespec         
+SGN/TS oneShort129            G enum_var       sgn=0  enum_typespec        pk129d::shortBase129_e   | O enum_var       sgn=1  bit_typespec         
+   /TS oneUbyte129            G enum_var       sgn=0  enum_typespec        pk129d::ubyteBase129_e   | O enum_var       sgn=0  bit_typespec         
+   /TS oneUint129             G enum_var       sgn=0  enum_typespec        pk129d::uintBase129_e    | O enum_var       sgn=0  bit_typespec         
+SGN/TS triInteg129            G enum_var       sgn=0  enum_typespec        pk129d::integBase129_e   | O enum_var       sgn=1  logic_typespec       
+SGN/TS triPlain129            G enum_var       sgn=0  enum_typespec        pk129d::plainBase129_e   | O enum_var       sgn=1  bit_typespec         
+SGN/TS twoByte129             G enum_var       sgn=0  enum_typespec        pk129d::byteBase129_e    | O enum_var       sgn=1  bit_typespec         
+SGN/TS twoInt129              G enum_var       sgn=0  enum_typespec        pk129d::intBase129_e     | O enum_var       sgn=1  bit_typespec         
+SGN/TS twoInteg129            G enum_var       sgn=0  enum_typespec        pk129d::integBase129_e   | O enum_var       sgn=1  logic_typespec       
+SGN/TS twoPlain129            G enum_var       sgn=0  enum_typespec        pk129d::plainBase129_e   | O enum_var       sgn=1  bit_typespec         
+TOTAL sgn-wrong=12 ts-wrong=16 same=0 missing=0
+
+--- grid e_edge
+SGN/TS aliasMood129           G enum_var       sgn=0  enum_typespec        pk129e::sideAlias129_e   | O enum_var       sgn=1  bit_typespec         
+       bellRing129            G logic_var      sgn=0  event_typespec                                | O logic_var      sgn=0  event_typespec       
+SGN/TS chainInt129            G int_var        sgn=0  int_typespec         pk129e::deepChain129_t   | O int_var        sgn=1  int_typespec         
+   /TS inlineBore129          G logic_var      sgn=0  struct_typespec                               | O struct_var     sgn=0  logic_typespec       
+SGN/TS inlineMood129          G logic_var      sgn=0  enum_typespec                                 | O enum_var       sgn=1  bit_typespec         
+SGN/TS innerMood129           G enum_var       sgn=0  enum_typespec        deckSpot129_e            | O enum_var       sgn=1  bit_typespec         
+SGN/TS innerTally129          G int_var        sgn=0  int_typespec         deckTally129_t           | O int_var        sgn=1  int_typespec         
+SGN/TS qualMood129            G enum_var       sgn=0  enum_typespec        deckSpot129_e            | O enum_var       sgn=1  bit_typespec         
+SGN/TS scopedInt129           G int_var        sgn=0  int_typespec         pk129e::deepBase129_t    | O int_var        sgn=1  int_typespec         
+   /TS scopedUbyte129         G byte_var       sgn=0  byte_typespec        pk129e::ubyteName129_t   | O byte_var       sgn=0  int_typespec         
+MISSING sgnImplicit129         G=None O=('logic_var', 'sgn=1', 'logic_typespec', '')
+SGN    sgnVector129           G logic_var      sgn=0  logic_typespec                                | O logic_var      sgn=1  logic_typespec       
+       unsTally129            G int_var        sgn=0  int_typespec                                  | O int_var        sgn=0  int_typespec         
+       unsVector129           G logic_var      sgn=0  logic_typespec                                | O logic_var      sgn=0  logic_typespec       
+MISSING varInt129              G=None O=('int_var', 'sgn=1', 'int_typespec', '')
+MISSING varLogic129            G=None O=('logic_var', 'sgn=0', 'logic_typespec', '')
+TOTAL sgn-wrong=8 ts-wrong=9 same=3 missing=3

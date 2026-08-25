@@ -1,0 +1,124 @@
+LHS:
+decompile:
+operation: , id:154408, line:1978:21, endln:1978:76
+|vpiParent:
+\_begin: (uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation), id:154404, line:1977:68, endln:1989:19
+|vpiOpType:15
+|vpiOperand:
+\_hier_path: (abstractions.size), id:154405, line:1978:21, endln:1978:40
+  |vpiParent:
+  \_operation: , id:154408, line:1978:21, endln:1978:76
+  |vpiActual:
+  \_ref_obj: (abstractions), id:154406, line:1978:21, endln:1978:33
+    |vpiParent:
+    \_hier_path: (abstractions.size), id:154405, line:1978:21, endln:1978:40
+    |vpiName:abstractions
+  |vpiActual:
+  \_method_func_call: (size), id:154407, line:1978:34, endln:1978:38
+    |vpiParent:
+    \_hier_path: (abstractions.size), id:154405, line:1978:21, endln:1978:40
+    |vpiName:size
+  |vpiName:abstractions.size
+|vpiOperand:
+\_hier_path: (local_data__.abstractions.size), id:154409, line:1978:44, endln:1978:76
+  |vpiParent:
+  \_operation: , id:154408, line:1978:21, endln:1978:76
+  |vpiActual:
+  \_ref_obj: (local_data__), id:154410, line:1978:44, endln:1978:56
+    |vpiParent:
+    \_hier_path: (local_data__.abstractions.size), id:154409, line:1978:44, endln:1978:76
+    |vpiName:local_data__
+  |vpiActual:
+  \_ref_obj: (abstractions), id:154411, line:1978:57, endln:1978:69
+    |vpiParent:
+    \_hier_path: (local_data__.abstractions.size), id:154409, line:1978:44, endln:1978:76
+    |vpiName:abstractions
+  |vpiActual:
+  \_method_func_call: (size), id:154412, line:1978:70, endln:1978:74
+    |vpiParent:
+    \_hier_path: (local_data__.abstractions.size), id:154409, line:1978:44, endln:1978:76
+    |vpiName:size
+  |vpiName:local_data__.abstractions.size
+
+decompile:
+operation: , id:154408, line:1978:21, endln:1978:76
+|vpiParent:
+\_begin: (uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation), id:154404, line:1977:68, endln:1989:19
+|vpiOpType:15
+|vpiOperand:
+\_hier_path: (abstractions.size), id:154405, line:1978:21, endln:1978:40
+  |vpiParent:
+  \_operation: , id:154408, line:1978:21, endln:1978:76
+  |vpiActual:
+  \_ref_obj: (abstractions), id:154406, line:1978:21, endln:1978:33
+    |vpiParent:
+    \_hier_path: (abstractions.size), id:154405, line:1978:21, endln:1978:40
+    |vpiName:abstractions
+  |vpiActual:
+  \_method_func_call: (size), id:154407, line:1978:34, endln:1978:38
+    |vpiParent:
+    \_hier_path: (abstractions.size), id:154405, line:1978:21, endln:1978:40
+    |vpiName:size
+  |vpiName:abstractions.size
+|vpiOperand:
+\_hier_path: (local_data__.abstractions.size), id:154409, line:1978:44, endln:1978:76
+  |vpiParent:
+  \_operation: , id:154408, line:1978:21, endln:1978:76
+  |vpiActual:
+  \_ref_obj: (local_data__), id:154410, line:1978:44, endln:1978:56
+    |vpiParent:
+    \_hier_path: (local_data__.abstractions.size), id:154409, line:1978:44, endln:1978:76
+    |vpiName:local_data__
+  |vpiActual:
+  \_ref_obj: (abstractions), id:154411, line:1978:57, endln:1978:69
+    |vpiParent:
+    \_hier_path: (local_data__.abstractions.size), id:154409, line:1978:44, endln:1978:76
+    |vpiName:abstractions
+  |vpiActual:
+  \_method_func_call: (size), id:154412, line:1978:70, endln:1978:74
+    |vpiParent:
+    \_hier_path: (local_data__.abstractions.size), id:154409, line:1978:44, endln:1978:76
+    |vpiName:size
+  |vpiName:local_data__.abstractions.size
+RHS:
+decompile:
+operation: , id:80053, line:1978:21, endln:1978:76
+|vpiParent:
+\_begin: (uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation), id:80051, line:1977:68, endln:1989:19
+|vpiOpType:15
+|vpiOperand:
+\_hier_path: (abstractions.size), id:80054, line:1978:21, endln:1978:40
+  |vpiParent:
+  \_operation: , id:80053, line:1978:21, endln:1978:76
+  |vpiActual:
+  \_ref_obj: (abstractions), id:80055, line:1978:21, endln:1978:33
+    |vpiParent:
+    \_hier_path: (abstractions.size), id:80054, line:1978:21, endln:1978:40
+    |vpiName:abstractions
+  |vpiActual:
+  \_method_func_call: (size), id:80056, line:1978:34, endln:1978:38
+    |vpiParent:
+    \_hier_path: (abstractions.size), id:80054, line:1978:21, endln:1978:40
+    |vpiName:size
+  |vpiName:abstractions.size
+
+decompile:
+operation: , id:80053, line:1978:21, endln:1978:76
+|vpiParent:
+\_begin: (uvm_pkg::uvm_reg_mem_hdl_paths_seq::__m_uvm_field_automation), id:80051, line:1977:68, endln:1989:19
+|vpiOpType:15
+|vpiOperand:
+\_hier_path: (abstractions.size), id:80054, line:1978:21, endln:1978:40
+  |vpiParent:
+  \_operation: , id:80053, line:1978:21, endln:1978:76
+  |vpiActual:
+  \_ref_obj: (abstractions), id:80055, line:1978:21, endln:1978:33
+    |vpiParent:
+    \_hier_path: (abstractions.size), id:80054, line:1978:21, endln:1978:40
+    |vpiName:abstractions
+  |vpiActual:
+  \_method_func_call: (size), id:80056, line:1978:34, endln:1978:38
+    |vpiParent:
+    \_hier_path: (abstractions.size), id:80054, line:1978:21, endln:1978:40
+    |vpiName:size
+  |vpiName:abstractions.size

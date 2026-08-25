@@ -2117,11 +2117,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         // § typeParamRetIsRefVar58 — no vpiSigned on a
                         // ref_var; the same repeat of the law as the
                         // block-item array factory at TaskFuncEmit ~4428.
-                        if (leaf0->isSigned() &&
+                        // § declArrayElemVarSignedIsAtomKeyword129,
+                        // SITE 4 of 4 — the FIXED-SIZE begin-block array.
+                        reg0->VpiSigned(
+                            declArrayElemVarSigned129(bm, *leaf0) &&
                             !typeParamVarIsRefVar58(*leaf0) &&
                             declArrayElemVarKind12(bm) ==
-                                TdLocalVarKind10::Resolved)
-                            reg0->VpiSigned(true);
+                                TdLocalVarKind10::Resolved);
                         // § blockDeclAutomaticIsWrittenKw80, SITE 3 of 4 — the
                         // FIXED-SIZE unpacked array's element (arm c2 c_fix,
                         // n_marr).

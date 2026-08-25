@@ -1,0 +1,32 @@
+r10uvm129 — A-PRIORI MOVER PREDICTION
+=====================================
+LHS IS ALWAYS GOLDEN.  MEASUREMENT ONLY — the official uhdm-cmp is the judge.
+
+pred129.sh over BOTH pristine workdirs (surelog 956 DBs + uhdm2rtlil 1358 DBs).
+Each row's GOLDEN is read out of its OWN cmds.txt; both databases are censused
+with cen129 and joined with score129.py.  A database is a PREDICTED MOVER iff
+it holds at least one LAW cell — an array_var whose ELEMENT VARIABLE's
+vpiSigned disagrees with golden's.  Run BEFORE the patched binary existed.
+
+PREDICT law=1 tsspan=70 default/BuildUVMPkg-bf853d43
+PREDICT law=1 tsspan=70 testflags/BuildUVMPkg-bf853d43
+SCANNED=2314 PARSED=2314 PREDICTED_MOVERS=2 WITH_TSSPAN=13 NO_GOLDEN=0
+
+--- and the SAME census over the PATCHED workdirs, after the sweep:
+SCANNED=2314 PARSED=2314 PREDICTED_MOVERS=0 WITH_TSSPAN=13 NO_GOLDEN=0
+
+--- VERIFIER CORRECTION (r10v129, this line and the two blocks above are the
+    VERIFIER's own re-measurement on its own binaries and its own workdirs).
+    The pred129.sh shipped with the first draft of this pass extracted the law
+    counter with `grep -o 'LAW=[0-9]*'` / `'LAW+TSSPAN=[0-9]*'`, but
+    score129.py's PRIS line spells it `LAW-WRONG=<n>` and carries no `LAW=`
+    label at all — so the script matched nothing and could only ever print
+    PREDICTED_MOVERS=0.  The pre-patch block above was therefore NOT
+    reproducible from the committed script, and the post-patch zero was
+    VACUOUS.  pred129.sh now reads the real label and prints PARSED=<n>, the
+    count of score lines actually seen, so a future label rename shows up as
+    PARSED < SCANNED instead of as a silent zero.  With the fix both blocks
+    reproduce exactly (the only change is the per-row tsspan residue counter,
+    66 -> 70, which is a residue tally and not a law cell).
+
+Corpus-wide, after the patch: NOT ONE law cell is left in 2314 databases.

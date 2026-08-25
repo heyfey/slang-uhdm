@@ -1246,9 +1246,12 @@ UHDM::array_var* UhdmExporter::makeQueueDynArrayVar(const Symbol& vs,
     // IsDeclKind12 joins the same guard: Surelog's paClass_scope / bare-name
     // FALLBACKS compute no signedness at all, so a `class_var` / `ref_var`
     // minted by that law must not carry the flag either.
-    if (qelem0->isSigned() && !typeParamVarIsRefVar58(*qelem0) &&
-        declArrayElemVarKind12(vs) == TdLocalVarKind10::Resolved)
-        reg0->VpiSigned(true);
+    // § declArrayElemVarSignedIsAtomKeyword129, SITE 1 of 4 (queue /
+    // dynamic) — the flag is the WRITTEN base-type keyword's, not the
+    // element type's.  Law + Surelog citations: EmitHelpers.h.
+    reg0->VpiSigned(declArrayElemVarSigned129(vs, *qelem0) &&
+                    !typeParamVarIsRefVar58(*qelem0) &&
+                    declArrayElemVarKind12(vs) == TdLocalVarKind10::Resolved);
     auto* rv0 = s.MakeVariablesVec();
     rv0->push_back(reg0);
     av->Variables(rv0);
@@ -1537,9 +1540,13 @@ UHDM::array_var* UhdmExporter::makeAssocArrayVar(const Symbol& vs,
     reg0->Typespec(rrt0);
     // § typeParamRetIsRefVar58 + § declArrayElemKindIsDeclKind12 — see the
     // queue arm's note; the same two guards, for the same reason.
-    if (elem0->isSigned() && !typeParamVarIsRefVar58(*elem0) &&
-        declArrayElemVarKind12(vs) == TdLocalVarKind10::Resolved)
-        reg0->VpiSigned(true);
+    // § declArrayElemVarSignedIsAtomKeyword129, SITE 2 of 4 (associative)
+    // — THIS is the BuildUVMPkg head: `uvm_check_e field_check_restore
+    // [uvm_reg_field]`, an int-based enum typedef whose element enum_var
+    // golden leaves unsigned.  Law + Surelog citations: EmitHelpers.h.
+    reg0->VpiSigned(declArrayElemVarSigned129(vs, *elem0) &&
+                    !typeParamVarIsRefVar58(*elem0) &&
+                    declArrayElemVarKind12(vs) == TdLocalVarKind10::Resolved);
     auto* rv0 = s.MakeVariablesVec();
     rv0->push_back(reg0);
     av->Variables(rv0);
@@ -5231,10 +5238,13 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     // flag golden never puts on one (v4_contprop's `T qloc [$];`
                     // subroutine-local element: golden ref_var with no
                     // vpiSigned, ours ref_var,S before this guard).
-                    if (leaf->isSigned() && !typeParamVarIsRefVar58(*leaf) &&
+                    // § declArrayElemVarSignedIsAtomKeyword129, SITE 3 of
+                    // 4 — the FIXED-SIZE tf block-item array.
+                    reg->VpiSigned(
+                        declArrayElemVarSigned129(fmv, *leaf) &&
+                        !typeParamVarIsRefVar58(*leaf) &&
                         declArrayElemVarKind12(fmv) ==
-                            TdLocalVarKind10::Resolved)
-                        reg->VpiSigned(true);
+                            TdLocalVarKind10::Resolved);
                     auto* rv = s.MakeVariablesVec();
                     rv->push_back(reg);
                     av->Variables(rv);

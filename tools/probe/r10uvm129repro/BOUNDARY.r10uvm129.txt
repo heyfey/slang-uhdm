@@ -1,0 +1,196 @@
+r10uvm129 — THE WIDE BOUNDARY GATE
+==================================
+LHS IS ALWAYS GOLDEN.  MEASUREMENT ONLY — the official uhdm-cmp is the judge.
+
+bound129.sh (r10buvm30's gate, reused) over a COPY of tools/probe: every .sv
+and .v, BOTH frozen binaries, BOTH views, file list on fd 3, children
+</dev/null, PROCESSED asserted against LISTED, subdirectory arms included,
+scratch keyed on the RELATIVE path.
+
+LISTED=3857 FENCED_SKIPPED=0 PROCESSED=3857 MOVED=82 NO_OUTPUT_PAIRS=294
+PROCESSED-ASSERT-OK
+
+The gate's POSITIVE CONTROL is built in: it sees this pass's own five grids
+move, so a silent run would have been a broken gate.
+
+MOVED arms (41 unique, DEF and ELAB each):
+MOVED 0186_probe_r10buvm9repro_w2v_clskinds.sv/def 8 lines
+MOVED 0186_probe_r10buvm9repro_w2v_clskinds.sv/elab 23 lines
+MOVED 0192_probe_r10buvm9repro_w8v_pkgkinds.sv/def 8 lines
+MOVED 0192_probe_r10buvm9repro_w8v_pkgkinds.sv/elab 23 lines
+MOVED 1406_probe_r10sd10repro_vgrid10_v1_aggregate_kinds.sv/def 6 lines
+MOVED 1406_probe_r10sd10repro_vgrid10_v1_aggregate_kinds.sv/elab 22 lines
+MOVED 1408_probe_r10sd10repro_vgrid10_v3_lifetime_init_ref.sv/def 1 lines
+MOVED 1408_probe_r10sd10repro_vgrid10_v3_lifetime_init_ref.sv/elab 4 lines
+MOVED 1427_probe_r10sd11repro_grid11_g1.sv/def 2 lines
+MOVED 1427_probe_r10sd11repro_grid11_g1.sv/elab 2 lines
+MOVED 1428_probe_r10sd11repro_grid11_g2.sv/def 2 lines
+MOVED 1428_probe_r10sd11repro_grid11_g2.sv/elab 2 lines
+MOVED 1432_probe_r10sd11repro_grid11_g6.sv/def 2 lines
+MOVED 1432_probe_r10sd11repro_grid11_g6.sv/elab 2 lines
+MOVED 1482_probe_r10sd11repro_vgrid10_v1_aggregate_kinds.sv/def 6 lines
+MOVED 1482_probe_r10sd11repro_vgrid10_v1_aggregate_kinds.sv/elab 22 lines
+MOVED 1484_probe_r10sd11repro_vgrid10_v3_lifetime_init_ref.sv/def 1 lines
+MOVED 1484_probe_r10sd11repro_vgrid10_v3_lifetime_init_ref.sv/elab 4 lines
+MOVED 1517_probe_r10sd12repro_grid11_g1.sv/def 2 lines
+MOVED 1517_probe_r10sd12repro_grid11_g1.sv/elab 2 lines
+MOVED 1518_probe_r10sd12repro_grid11_g2.sv/def 2 lines
+MOVED 1518_probe_r10sd12repro_grid11_g2.sv/elab 2 lines
+MOVED 1522_probe_r10sd12repro_grid11_g6.sv/def 2 lines
+MOVED 1522_probe_r10sd12repro_grid11_g6.sv/elab 2 lines
+MOVED 1527_probe_r10sd12repro_grid12_h3.sv/def 2 lines
+MOVED 1527_probe_r10sd12repro_grid12_h3.sv/elab 8 lines
+MOVED 1577_probe_r10sd12repro_vgrid10_v1_aggregate_kinds.sv/def 6 lines
+MOVED 1577_probe_r10sd12repro_vgrid10_v1_aggregate_kinds.sv/elab 22 lines
+MOVED 1579_probe_r10sd12repro_vgrid10_v3_lifetime_init_ref.sv/def 1 lines
+MOVED 1579_probe_r10sd12repro_vgrid10_v3_lifetime_init_ref.sv/elab 4 lines
+MOVED 1600_probe_r10sd12repro_vgrid12_v1_param_owner.sv/def 1 lines
+MOVED 1600_probe_r10sd12repro_vgrid12_v1_param_owner.sv/elab 3 lines
+MOVED 1602_probe_r10sd12repro_vgrid12_v3_unit_scope.sv/def 1 lines
+MOVED 1602_probe_r10sd12repro_vgrid12_v3_unit_scope.sv/elab 3 lines
+MOVED 1605_probe_r10sd12repro_vgrid12_v6_iface_class.sv/def 1 lines
+MOVED 1605_probe_r10sd12repro_vgrid12_v6_iface_class.sv/elab 3 lines
+MOVED 1606_probe_r10sd12repro_vgrid12_v7_peel.sv/def 1 lines
+MOVED 1606_probe_r10sd12repro_vgrid12_v7_peel.sv/elab 4 lines
+MOVED 1612_probe_r10sd12repro_vgrid12_vd_inherit.sv/def 2 lines
+MOVED 1612_probe_r10sd12repro_vgrid12_vd_inherit.sv/elab 12 lines
+MOVED 2063_probe_r10uvm126repro_g126_a_kinds.sv/def 1 lines
+MOVED 2063_probe_r10uvm126repro_g126_a_kinds.sv/elab 4 lines
+MOVED 2067_probe_r10uvm129repro_g129_a_kinds.sv/def 9 lines
+MOVED 2067_probe_r10uvm129repro_g129_a_kinds.sv/elab 36 lines
+MOVED 2068_probe_r10uvm129repro_g129_b_homes.sv/def 8 lines
+MOVED 2068_probe_r10uvm129repro_g129_b_homes.sv/elab 37 lines
+MOVED 2069_probe_r10uvm129repro_g129_c_dims.sv/def 8 lines
+MOVED 2069_probe_r10uvm129repro_g129_c_dims.sv/elab 32 lines
+MOVED 2070_probe_r10uvm129repro_g129_d_bases.sv/def 12 lines
+MOVED 2070_probe_r10uvm129repro_g129_d_bases.sv/elab 48 lines
+MOVED 2071_probe_r10uvm129repro_g129_e_edge.sv/def 8 lines
+MOVED 2071_probe_r10uvm129repro_g129_e_edge.sv/elab 80 lines
+MOVED 2169_probe_r10uvm43repro_t60a_dut.sv/def 2 lines
+MOVED 2169_probe_r10uvm43repro_t60a_dut.sv/elab 11 lines
+MOVED 2374_probe_r10uvm68repro_a6_tdarray.sv/def 5 lines
+MOVED 2374_probe_r10uvm68repro_a6_tdarray.sv/elab 19 lines
+MOVED 2375_probe_r10uvm69repro_a1_type.sv/def 2 lines
+MOVED 2375_probe_r10uvm69repro_a1_type.sv/elab 11 lines
+MOVED 2461_probe_r10uvm80repro_v2_kinds80.sv/def 2 lines
+MOVED 2461_probe_r10uvm80repro_v2_kinds80.sv/elab 6 lines
+MOVED 2463_probe_r10uvm80repro_v4_arraydims80.sv/def 8 lines
+MOVED 2463_probe_r10uvm80repro_v4_arraydims80.sv/elab 24 lines
+MOVED 2880_probe_r10v126repro_v126_a_sign.sv/def 6 lines
+MOVED 2880_probe_r10v126repro_v126_a_sign.sv/elab 24 lines
+MOVED 2881_probe_r10v126repro_v126_b_forms.sv/def 1 lines
+MOVED 2881_probe_r10v126repro_v126_b_forms.sv/elab 4 lines
+MOVED 2884_probe_r10v126repro_v126_e_edge.sv/def 2 lines
+MOVED 2884_probe_r10v126repro_v126_e_edge.sv/elab 8 lines
+MOVED 3119_probe_r10vbuvm19repro_vg19f.sv/def 2 lines
+MOVED 3119_probe_r10vbuvm19repro_vg19f.sv/elab 8 lines
+MOVED 3142_probe_r10vbuvm22repro_v1_homes.sv/def 34 lines
+MOVED 3142_probe_r10vbuvm22repro_v1_homes.sv/elab 190 lines
+MOVED 3143_probe_r10vbuvm22repro_v2_rettypes.sv/def 19 lines
+MOVED 3143_probe_r10vbuvm22repro_v2_rettypes.sv/elab 88 lines
+MOVED 3144_probe_r10vbuvm22repro_v3_kinds.sv/def 18 lines
+MOVED 3144_probe_r10vbuvm22repro_v3_kinds.sv/elab 81 lines
+MOVED 3145_probe_r10vbuvm22repro_v4_adversary.sv/def 27 lines
+MOVED 3145_probe_r10vbuvm22repro_v4_adversary.sv/elab 138 lines
+MOVED 3146_probe_r10vbuvm22repro_v5_exotic.sv/def 16 lines
+MOVED 3146_probe_r10vbuvm22repro_v5_exotic.sv/elab 106 lines
+MOVED 3147_probe_r10vbuvm22repro_v6_nasty.sv/def 10 lines
+MOVED 3147_probe_r10vbuvm22repro_v6_nasty.sv/elab 55 lines
+
+EVERY MOVED DUMP LINE IS A vpiSigned:1 ON AN ARRAY ELEMENT VARIABLE.
+  total moved dump lines over all 41 arms x 2 views : 1436
+  removals (|vpiSigned:1 dropped)                   : 1427
+  additions (|vpiSigned:1 gained)                   :    9
+The 9 additions are the MIXED fixed-then-dynamic int element
+(g129_c_dims mixCount129 'int [8][]' and r10uvm80repro/v2_kinds80 w_qq
+'automatic int w_qq [$][$]'), where GOLDEN CARRIES vpiSigned:1 and ours did
+not — TO-GOLDEN, not away.
+
+THE 36 EARLIER-PASS ARMS, each re-measured against its OWN Surelog golden
+(arm129.sh + score129.py, both views):
+
+r10buvm9repro_w2v_clskinds.sv DEF PRIS cells=0 ONLY-GOLDEN=0 ONLY-OURS=8  PATCHED cells=0 ONLY-GOLDEN=0 ONLY-PATCHED=8  COLLATERAL=0 
+r10buvm9repro_w2v_clskinds.sv ELAB PRIS cells=0 ONLY-GOLDEN=0 ONLY-OURS=16  PATCHED cells=0 ONLY-GOLDEN=0 ONLY-PATCHED=16  COLLATERAL=0 
+r10buvm9repro_w8v_pkgkinds.sv DEF PRIS cells=0 ONLY-GOLDEN=8 ONLY-OURS=8  PATCHED cells=0 ONLY-GOLDEN=8 ONLY-PATCHED=8  COLLATERAL=0 
+r10buvm9repro_w8v_pkgkinds.sv ELAB PRIS cells=0 ONLY-GOLDEN=8 ONLY-OURS=16  PATCHED cells=0 ONLY-GOLDEN=8 ONLY-PATCHED=16  COLLATERAL=0 
+r10sd10repro_vgrid10_v1_aggregate_kinds.sv DEF PRIS cells=2 ONLY-GOLDEN=0 ONLY-OURS=8 TSKIND=1 PATCHED cells=2 ONLY-GOLDEN=0 ONLY-PATCHED=8 LAW-SAME-OK=2 COLLATERAL=0 
+r10sd10repro_vgrid10_v1_aggregate_kinds.sv ELAB PRIS cells=2 ONLY-GOLDEN=0 ONLY-OURS=26 TSKIND=1 PATCHED cells=2 ONLY-GOLDEN=0 ONLY-PATCHED=26 LAW-SAME-OK=2 COLLATERAL=0 
+r10sd10repro_vgrid10_v3_lifetime_init_ref.sv DEF PRIS cells=0 ONLY-GOLDEN=0 ONLY-OURS=1  PATCHED cells=0 ONLY-GOLDEN=0 ONLY-PATCHED=1  COLLATERAL=0 
+r10sd10repro_vgrid10_v3_lifetime_init_ref.sv ELAB PRIS cells=0 ONLY-GOLDEN=0 ONLY-OURS=3  PATCHED cells=0 ONLY-GOLDEN=0 ONLY-PATCHED=3  COLLATERAL=0 
+r10sd11repro_grid11_g1.sv DEF PRIS cells=0 ONLY-GOLDEN=1 ONLY-OURS=5  PATCHED cells=0 ONLY-GOLDEN=1 ONLY-PATCHED=5  COLLATERAL=0 
+r10sd11repro_grid11_g1.sv ELAB PRIS cells=0 ONLY-GOLDEN=1 ONLY-OURS=10  PATCHED cells=0 ONLY-GOLDEN=1 ONLY-PATCHED=10  COLLATERAL=0 
+r10sd11repro_grid11_g2.sv DEF PRIS cells=0 ONLY-GOLDEN=3 ONLY-OURS=5  PATCHED cells=0 ONLY-GOLDEN=3 ONLY-PATCHED=5  COLLATERAL=0 
+r10sd11repro_grid11_g2.sv ELAB PRIS cells=0 ONLY-GOLDEN=3 ONLY-OURS=10  PATCHED cells=0 ONLY-GOLDEN=3 ONLY-PATCHED=10  COLLATERAL=0 
+r10sd11repro_grid11_g6.sv DEF PRIS cells=0 ONLY-GOLDEN=0 ONLY-OURS=7  PATCHED cells=0 ONLY-GOLDEN=0 ONLY-PATCHED=7  COLLATERAL=0 
+r10sd11repro_grid11_g6.sv ELAB PRIS cells=0 ONLY-GOLDEN=0 ONLY-OURS=14  PATCHED cells=0 ONLY-GOLDEN=0 ONLY-PATCHED=14  COLLATERAL=0 
+r10sd11repro_vgrid10_v1_aggregate_kinds.sv DEF PRIS cells=2 ONLY-GOLDEN=0 ONLY-OURS=8 TSKIND=1 PATCHED cells=2 ONLY-GOLDEN=0 ONLY-PATCHED=8 LAW-SAME-OK=2 COLLATERAL=0 
+r10sd11repro_vgrid10_v1_aggregate_kinds.sv ELAB PRIS cells=2 ONLY-GOLDEN=0 ONLY-OURS=26 TSKIND=1 PATCHED cells=2 ONLY-GOLDEN=0 ONLY-PATCHED=26 LAW-SAME-OK=2 COLLATERAL=0 
+r10sd11repro_vgrid10_v3_lifetime_init_ref.sv DEF PRIS cells=0 ONLY-GOLDEN=0 ONLY-OURS=1  PATCHED cells=0 ONLY-GOLDEN=0 ONLY-PATCHED=1  COLLATERAL=0 
+r10sd11repro_vgrid10_v3_lifetime_init_ref.sv ELAB PRIS cells=0 ONLY-GOLDEN=0 ONLY-OURS=3  PATCHED cells=0 ONLY-GOLDEN=0 ONLY-PATCHED=3  COLLATERAL=0 
+r10sd12repro_grid11_g1.sv DEF PRIS cells=0 ONLY-GOLDEN=1 ONLY-OURS=5  PATCHED cells=0 ONLY-GOLDEN=1 ONLY-PATCHED=5  COLLATERAL=0 
+r10sd12repro_grid11_g1.sv ELAB PRIS cells=0 ONLY-GOLDEN=1 ONLY-OURS=10  PATCHED cells=0 ONLY-GOLDEN=1 ONLY-PATCHED=10  COLLATERAL=0 
+r10sd12repro_grid11_g2.sv DEF PRIS cells=0 ONLY-GOLDEN=3 ONLY-OURS=5  PATCHED cells=0 ONLY-GOLDEN=3 ONLY-PATCHED=5  COLLATERAL=0 
+r10sd12repro_grid11_g2.sv ELAB PRIS cells=0 ONLY-GOLDEN=3 ONLY-OURS=10  PATCHED cells=0 ONLY-GOLDEN=3 ONLY-PATCHED=10  COLLATERAL=0 
+r10sd12repro_grid11_g6.sv DEF PRIS cells=0 ONLY-GOLDEN=0 ONLY-OURS=7  PATCHED cells=0 ONLY-GOLDEN=0 ONLY-PATCHED=7  COLLATERAL=0 
+r10sd12repro_grid11_g6.sv ELAB PRIS cells=0 ONLY-GOLDEN=0 ONLY-OURS=14  PATCHED cells=0 ONLY-GOLDEN=0 ONLY-PATCHED=14  COLLATERAL=0 
+r10sd12repro_grid12_h3.sv DEF PRIS cells=14 ONLY-GOLDEN=0 ONLY-OURS=0 LAW-WRONG=2 TSKIND=2 VARKIND=1 PATCHED cells=14 ONLY-GOLDEN=0 ONLY-PATCHED=0 LAW-FIXED=2 LAW-SAME-OK=12 COLLATERAL=0 
+r10sd12repro_grid12_h3.sv ELAB PRIS cells=14 ONLY-GOLDEN=0 ONLY-OURS=28 LAW-WRONG=2 TSKIND=2 VARKIND=1 PATCHED cells=14 ONLY-GOLDEN=0 ONLY-PATCHED=28 LAW-FIXED=2 LAW-SAME-OK=12 COLLATERAL=0 
+r10sd12repro_vgrid10_v1_aggregate_kinds.sv DEF PRIS cells=2 ONLY-GOLDEN=0 ONLY-OURS=8 TSKIND=1 PATCHED cells=2 ONLY-GOLDEN=0 ONLY-PATCHED=8 LAW-SAME-OK=2 COLLATERAL=0 
+r10sd12repro_vgrid10_v1_aggregate_kinds.sv ELAB PRIS cells=2 ONLY-GOLDEN=0 ONLY-OURS=26 TSKIND=1 PATCHED cells=2 ONLY-GOLDEN=0 ONLY-PATCHED=26 LAW-SAME-OK=2 COLLATERAL=0 
+r10sd12repro_vgrid10_v3_lifetime_init_ref.sv DEF PRIS cells=0 ONLY-GOLDEN=0 ONLY-OURS=1  PATCHED cells=0 ONLY-GOLDEN=0 ONLY-PATCHED=1  COLLATERAL=0 
+r10sd12repro_vgrid10_v3_lifetime_init_ref.sv ELAB PRIS cells=0 ONLY-GOLDEN=0 ONLY-OURS=3  PATCHED cells=0 ONLY-GOLDEN=0 ONLY-PATCHED=3  COLLATERAL=0 
+r10sd12repro_vgrid12_v1_param_owner.sv DEF PRIS cells=6 ONLY-GOLDEN=1 ONLY-OURS=0 LAW-WRONG=1 TSKIND=5 VARKIND=2 PATCHED cells=6 ONLY-GOLDEN=1 ONLY-PATCHED=0 LAW-FIXED=1 LAW-SAME-OK=5 COLLATERAL=0 
+r10sd12repro_vgrid12_v1_param_owner.sv ELAB PRIS cells=6 ONLY-GOLDEN=1 ONLY-OURS=12 LAW-WRONG=1 TSKIND=5 VARKIND=2 PATCHED cells=6 ONLY-GOLDEN=1 ONLY-PATCHED=12 LAW-FIXED=1 LAW-SAME-OK=5 COLLATERAL=0 
+r10sd12repro_vgrid12_v3_unit_scope.sv DEF PRIS cells=4 ONLY-GOLDEN=2 ONLY-OURS=0 LAW-WRONG=1 TSKIND=2 TSSPAN=1 VARKIND=1 PATCHED cells=4 ONLY-GOLDEN=2 ONLY-PATCHED=0 LAW-FIXED=1 LAW-SAME-OK=3 COLLATERAL=0 
+r10sd12repro_vgrid12_v3_unit_scope.sv ELAB PRIS cells=4 ONLY-GOLDEN=2 ONLY-OURS=8 LAW-WRONG=1 TSKIND=2 TSSPAN=1 VARKIND=1 PATCHED cells=4 ONLY-GOLDEN=2 ONLY-PATCHED=8 LAW-FIXED=1 LAW-SAME-OK=3 COLLATERAL=0 
+r10sd12repro_vgrid12_v6_iface_class.sv DEF PRIS cells=2 ONLY-GOLDEN=2 ONLY-OURS=0 LAW-WRONG=1 VARKIND=1 PATCHED cells=2 ONLY-GOLDEN=2 ONLY-PATCHED=0 LAW-FIXED=1 LAW-SAME-OK=1 COLLATERAL=0 
+r10sd12repro_vgrid12_v6_iface_class.sv ELAB PRIS cells=2 ONLY-GOLDEN=2 ONLY-OURS=4 LAW-WRONG=1 VARKIND=1 PATCHED cells=2 ONLY-GOLDEN=2 ONLY-PATCHED=4 LAW-FIXED=1 LAW-SAME-OK=1 COLLATERAL=0 
+r10sd12repro_vgrid12_v7_peel.sv DEF PRIS cells=3 ONLY-GOLDEN=3 ONLY-OURS=4 TSKIND=3 PATCHED cells=3 ONLY-GOLDEN=3 ONLY-PATCHED=4 LAW-SAME-OK=3 COLLATERAL=0 
+r10sd12repro_vgrid12_v7_peel.sv ELAB PRIS cells=3 ONLY-GOLDEN=3 ONLY-OURS=18 TSKIND=3 PATCHED cells=3 ONLY-GOLDEN=3 ONLY-PATCHED=18 LAW-SAME-OK=3 COLLATERAL=0 
+r10sd12repro_vgrid12_vd_inherit.sv DEF PRIS cells=6 ONLY-GOLDEN=6 ONLY-OURS=0 LAW-WRONG=2 TSKIND=2 VARKIND=1 PATCHED cells=6 ONLY-GOLDEN=6 ONLY-PATCHED=0 LAW-FIXED=2 LAW-SAME-OK=4 COLLATERAL=0 
+r10sd12repro_vgrid12_vd_inherit.sv ELAB PRIS cells=6 ONLY-GOLDEN=6 ONLY-OURS=24 LAW-WRONG=2 TSKIND=2 VARKIND=1 PATCHED cells=6 ONLY-GOLDEN=6 ONLY-PATCHED=24 LAW-FIXED=2 LAW-SAME-OK=4 COLLATERAL=0 
+r10uvm126repro_g126_a_kinds.sv DEF PRIS cells=22 ONLY-GOLDEN=0 ONLY-OURS=0 LAW-WRONG=1 TSKIND=6 PATCHED cells=22 ONLY-GOLDEN=0 ONLY-PATCHED=0 LAW-FIXED=1 LAW-SAME-OK=21 COLLATERAL=0 
+r10uvm126repro_g126_a_kinds.sv ELAB PRIS cells=22 ONLY-GOLDEN=0 ONLY-OURS=44 LAW-WRONG=1 TSKIND=6 PATCHED cells=22 ONLY-GOLDEN=0 ONLY-PATCHED=44 LAW-FIXED=1 LAW-SAME-OK=21 COLLATERAL=0 
+r10uvm43repro_t60a_dut.sv DEF PRIS cells=34 ONLY-GOLDEN=62 ONLY-OURS=15 LAW-WRONG=17 TSKIND=5 PATCHED cells=34 ONLY-GOLDEN=62 ONLY-PATCHED=15 LAW-FIXED=2 LAW-SAME-OK=17 LAW-STILL-WRONG=15 COLLATERAL=0 
+r10uvm43repro_t60a_dut.sv ELAB PRIS cells=34 ONLY-GOLDEN=62 ONLY-OURS=43 LAW-WRONG=17 TSKIND=5 PATCHED cells=34 ONLY-GOLDEN=62 ONLY-PATCHED=43 LAW-FIXED=2 LAW-SAME-OK=17 LAW-STILL-WRONG=15 COLLATERAL=0 
+r10uvm68repro_a6_tdarray.sv DEF PRIS cells=12 ONLY-GOLDEN=0 ONLY-OURS=0 LAW-WRONG=5 TSKIND=6 PATCHED cells=12 ONLY-GOLDEN=0 ONLY-PATCHED=0 LAW-FIXED=5 LAW-SAME-OK=7 COLLATERAL=0 
+r10uvm68repro_a6_tdarray.sv ELAB PRIS cells=12 ONLY-GOLDEN=0 ONLY-OURS=19 LAW-WRONG=5 TSKIND=6 PATCHED cells=12 ONLY-GOLDEN=0 ONLY-PATCHED=19 LAW-FIXED=5 LAW-SAME-OK=7 COLLATERAL=0 
+r10uvm69repro_a1_type.sv DEF PRIS cells=12 ONLY-GOLDEN=6 ONLY-OURS=2  PATCHED cells=12 ONLY-GOLDEN=6 ONLY-PATCHED=2 LAW-SAME-OK=12 COLLATERAL=0 
+r10uvm69repro_a1_type.sv ELAB PRIS cells=12 ONLY-GOLDEN=6 ONLY-OURS=8  PATCHED cells=12 ONLY-GOLDEN=6 ONLY-PATCHED=8 LAW-SAME-OK=12 COLLATERAL=0 
+r10uvm80repro_v2_kinds80.sv DEF PRIS cells=10 ONLY-GOLDEN=1 ONLY-OURS=1 LAW-WRONG=1 VARKIND=1 PATCHED cells=10 ONLY-GOLDEN=1 ONLY-PATCHED=1 LAW-FIXED=1 LAW-SAME-OK=9 COLLATERAL=0 
+r10uvm80repro_v2_kinds80.sv ELAB PRIS cells=10 ONLY-GOLDEN=1 ONLY-OURS=12 LAW-WRONG=1 VARKIND=1 PATCHED cells=10 ONLY-GOLDEN=1 ONLY-PATCHED=12 LAW-FIXED=1 LAW-SAME-OK=9 COLLATERAL=0 
+r10uvm80repro_v4_arraydims80.sv DEF PRIS cells=8 ONLY-GOLDEN=8 ONLY-OURS=7 LAW-WRONG=1 TSKIND=1 VARKIND=1 PATCHED cells=8 ONLY-GOLDEN=8 ONLY-PATCHED=7 LAW-FIXED=1 LAW-SAME-OK=7 COLLATERAL=0 
+r10uvm80repro_v4_arraydims80.sv ELAB PRIS cells=8 ONLY-GOLDEN=8 ONLY-OURS=22 LAW-WRONG=1 TSKIND=1 VARKIND=1 PATCHED cells=8 ONLY-GOLDEN=8 ONLY-PATCHED=22 LAW-FIXED=1 LAW-SAME-OK=7 COLLATERAL=0 
+r10v126repro_v126_a_sign.sv DEF PRIS cells=25 ONLY-GOLDEN=0 ONLY-OURS=0 LAW-WRONG=6 TSSPAN=5 PATCHED cells=25 ONLY-GOLDEN=0 ONLY-PATCHED=0 LAW-FIXED=6 LAW-SAME-OK=19 COLLATERAL=0 
+r10v126repro_v126_a_sign.sv ELAB PRIS cells=25 ONLY-GOLDEN=0 ONLY-OURS=50 LAW-WRONG=6 TSSPAN=5 PATCHED cells=25 ONLY-GOLDEN=0 ONLY-PATCHED=50 LAW-FIXED=6 LAW-SAME-OK=19 COLLATERAL=0 
+r10v126repro_v126_b_forms.sv DEF PRIS cells=10 ONLY-GOLDEN=1 ONLY-OURS=3 LAW-WRONG=1 TSKIND=2 PATCHED cells=10 ONLY-GOLDEN=1 ONLY-PATCHED=3 LAW-FIXED=1 LAW-SAME-OK=9 COLLATERAL=0 
+r10v126repro_v126_b_forms.sv ELAB PRIS cells=10 ONLY-GOLDEN=1 ONLY-OURS=30 LAW-WRONG=1 TSKIND=2 PATCHED cells=10 ONLY-GOLDEN=1 ONLY-PATCHED=30 LAW-FIXED=1 LAW-SAME-OK=9 COLLATERAL=0 
+r10v126repro_v126_e_edge.sv DEF PRIS cells=13 ONLY-GOLDEN=0 ONLY-OURS=0 LAW-WRONG=2 TSKIND=2 VARKIND=2 PATCHED cells=13 ONLY-GOLDEN=0 ONLY-PATCHED=0 LAW-FIXED=2 LAW-SAME-OK=11 COLLATERAL=0 
+r10v126repro_v126_e_edge.sv ELAB PRIS cells=13 ONLY-GOLDEN=0 ONLY-OURS=26 LAW-WRONG=2 TSKIND=2 VARKIND=2 PATCHED cells=13 ONLY-GOLDEN=0 ONLY-PATCHED=26 LAW-FIXED=2 LAW-SAME-OK=11 COLLATERAL=0 
+r10vbuvm19repro_vg19f.sv DEF PRIS cells=13 ONLY-GOLDEN=3 ONLY-OURS=2 LAW-WRONG=2 PATCHED cells=13 ONLY-GOLDEN=3 ONLY-PATCHED=2 LAW-SAME-OK=11 LAW-STILL-WRONG=2 COLLATERAL=0 
+r10vbuvm19repro_vg19f.sv ELAB PRIS cells=13 ONLY-GOLDEN=3 ONLY-OURS=25 LAW-WRONG=2 PATCHED cells=13 ONLY-GOLDEN=3 ONLY-PATCHED=25 LAW-SAME-OK=11 LAW-STILL-WRONG=2 COLLATERAL=0 
+r10vbuvm22repro_v1_homes.sv DEF PRIS cells=36 ONLY-GOLDEN=36 ONLY-OURS=65  PATCHED cells=36 ONLY-GOLDEN=36 ONLY-PATCHED=65 LAW-SAME-OK=36 COLLATERAL=0 
+r10vbuvm22repro_v1_homes.sv ELAB PRIS cells=36 ONLY-GOLDEN=36 ONLY-OURS=347  PATCHED cells=36 ONLY-GOLDEN=36 ONLY-PATCHED=347 LAW-SAME-OK=36 COLLATERAL=0 
+r10vbuvm22repro_v2_rettypes.sv DEF PRIS cells=17 ONLY-GOLDEN=21 ONLY-OURS=34  PATCHED cells=17 ONLY-GOLDEN=21 ONLY-PATCHED=34 LAW-SAME-OK=17 COLLATERAL=0 
+r10vbuvm22repro_v2_rettypes.sv ELAB PRIS cells=17 ONLY-GOLDEN=21 ONLY-OURS=114  PATCHED cells=17 ONLY-GOLDEN=21 ONLY-PATCHED=114 LAW-SAME-OK=17 COLLATERAL=0 
+r10vbuvm22repro_v3_kinds.sv DEF PRIS cells=8 ONLY-GOLDEN=17 ONLY-OURS=35  PATCHED cells=8 ONLY-GOLDEN=17 ONLY-PATCHED=35 LAW-SAME-OK=8 COLLATERAL=0 
+r10vbuvm22repro_v3_kinds.sv ELAB PRIS cells=8 ONLY-GOLDEN=17 ONLY-OURS=127  PATCHED cells=8 ONLY-GOLDEN=17 ONLY-PATCHED=127 LAW-SAME-OK=8 COLLATERAL=0 
+r10vbuvm22repro_v4_adversary.sv DEF PRIS cells=14 ONLY-GOLDEN=14 ONLY-OURS=45  PATCHED cells=14 ONLY-GOLDEN=14 ONLY-PATCHED=45 LAW-SAME-OK=14 COLLATERAL=0 
+r10vbuvm22repro_v4_adversary.sv ELAB PRIS cells=14 ONLY-GOLDEN=14 ONLY-OURS=163  PATCHED cells=14 ONLY-GOLDEN=14 ONLY-PATCHED=163 LAW-SAME-OK=14 COLLATERAL=0 
+r10vbuvm22repro_v5_exotic.sv DEF PRIS cells=11 ONLY-GOLDEN=11 ONLY-OURS=21  PATCHED cells=11 ONLY-GOLDEN=11 ONLY-PATCHED=21 LAW-SAME-OK=11 COLLATERAL=0 
+r10vbuvm22repro_v5_exotic.sv ELAB PRIS cells=11 ONLY-GOLDEN=11 ONLY-OURS=109  PATCHED cells=11 ONLY-GOLDEN=11 ONLY-PATCHED=109 LAW-SAME-OK=11 COLLATERAL=0 
+r10vbuvm22repro_v6_nasty.sv DEF PRIS cells=8 ONLY-GOLDEN=10 ONLY-OURS=23  PATCHED cells=8 ONLY-GOLDEN=10 ONLY-PATCHED=23 LAW-SAME-OK=8 COLLATERAL=0 
+r10vbuvm22repro_v6_nasty.sv ELAB PRIS cells=8 ONLY-GOLDEN=10 ONLY-OURS=85  PATCHED cells=8 ONLY-GOLDEN=10 ONLY-PATCHED=85 LAW-SAME-OK=8 COLLATERAL=0 
+
+AGGREGATE over the 36 earlier-pass arms, both views:
+  LAW-FIXED       52
+  LAW-BROKE        0
+  LAW-STILL-WRONG 34
+  COLLATERAL       0   (no field outside the law's moved, in any arm)
+  object-set drift  0   (ONLY-OURS == ONLY-PATCHED in every arm, both views)
+
+The 34 STILL-WRONG cells are 17 cells x 2 views, all of one shape and all
+BYTE-UNCHANGED by this pass (O sgn=1, P sgn=1): a MODULE- or CLASS-scope
+associative array of a builtin ('int i_int[i_idx]' in r10uvm43repro/t60a,
+'gv19' in r10vbuvm19repro/vg19f), which golden leaves unsigned and which no
+site this pass touches emits.  Recorded as a residue (§9 R2), not fixed.

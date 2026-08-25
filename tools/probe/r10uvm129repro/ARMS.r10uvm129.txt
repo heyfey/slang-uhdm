@@ -1,0 +1,52 @@
+r10uvm129 — ARM INDEX
+=====================
+LHS IS ALWAYS GOLDEN (Surelog).  MEASUREMENT ONLY — the official uhdm-cmp is
+the judge.  Every arm is built by arm129.sh: Surelog `-parse -nobuiltin
+-nocache -sv` for the golden, then BOTH frozen binaries in BOTH views
+(`-o` = DEF, `--elabuhdm` = ELAB), then cen129 on all five databases and the
+OFFICIAL uhdm-cmp on the DEF pair.
+
+g129_a_kinds.sv   THE ELEMENT-TYPE FORM TABLE.  31 fixed-size declarator-array
+                  locals in ONE class task body, one per written element-type
+                  form: the twelve builtin keywords (int / int unsigned /
+                  integer / byte / byte unsigned / shortint / longint / time /
+                  logic / logic signed [3:0] / bit / bit signed [7:0] / string /
+                  real / shortreal), seven enum typedefs over seven different
+                  bases, five plain typedefs (int / byte / shortint / logic
+                  vector / string), three struct typedefs (packed, packed
+                  signed, unpacked) and a class handle.  All 31 array sizes are
+                  DIFFERENT (2..32) and the declaration order is NOT the
+                  emitter's dispatch order, so no cell can agree by accident.
+
+g129_b_homes.sv   THE HOME TABLE.  The SAME two element types — a signed-base
+                  enum typedef and a bare `int` (the POSITIVE CONTROL that must
+                  KEEP vpiSigned) — declared in eleven homes: package free
+                  function (parenthesised), paren-less package function
+                  (TF-ITEM), class property, in-body class task, in-body class
+                  function, OUT-OF-BODY class method, module variable, module
+                  task, subroutine FORMAL, named begin-block local, package
+                  variable.
+
+g129_c_dims.sv    THE DIMENSION TABLE.  The same two element types across
+                  [2], [2][3], [], [$], [string], [int], [ClassName] and the
+                  MIXED [8][] shape.
+
+g129_d_bases.sv   THE ENUM-BASE TABLE.  Ten enum typedefs — implicit int, int,
+                  int unsigned, byte, byte unsigned, shortint, longint,
+                  bit [1:0], logic [2:0], integer — with 1, 2 or 3 instances of
+                  four of them, so a per-DECLARATION answer and a per-TYPEDEF
+                  answer are distinguishable.
+
+g129_e_edge.sv    THE EDGE FORMS.  `var signed [3:0]`, `var int`, `var logic`,
+                  a package-scoped typedef name, a typedef OF a typedef, an
+                  alias of an enum, a class-nested typedef named bare and named
+                  `Class::td`, an INLINE enum, an INLINE packed struct,
+                  `logic signed [7:0]`, `logic unsigned [3:0]`, `int unsigned`
+                  and `event`.
+
+WHAT EACH ARM IS FOR, in one line: A says the law is the WRITTEN KEYWORD and
+not the type; B says it is the same in every home a declarator array has; C
+says the brackets decide nothing; D says the enum's BASE decides nothing and
+the answer is per DECLARATION SITE; E says a NAME never stamps, however it is
+spelled, and pins the ONE form (ImplicitType) the law deliberately does not
+touch.

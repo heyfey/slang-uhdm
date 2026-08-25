@@ -1,0 +1,26 @@
+r10uvm129 — MOVER ATTRIBUTION
+=============================
+LHS IS ALWAYS GOLDEN.  MEASUREMENT ONLY — the official uhdm-cmp is the judge.
+
+SELFCHECK=1 byteverify.sh, patched sweep vs pristine sweep:
+  surelog     MOVERS 2 / 956    PATH_SETS_IDENTICAL   SELFCHECK 955/956 flagged
+  uhdm2rtlil  MOVERS 0 / 1358   PATH_SETS_IDENTICAL   SELFCHECK 1357/1358 flagged
+
+  MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm    patched=0db7826898e5 pristine=3d969c9fcc06
+  MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  patched=0db7826898e5 pristine=3d969c9fcc06
+
+Exactly the TWO databases pred129.sh named BY NAME from the PRISTINE
+databases before the patched binary was built.  No others.
+
+attr129.sh — uhdm-dump both databases, workdir path normalised out, diffed
+in file order AND order-blind (sorted):
+
+default/BuildUVMPkg  in-order=1  ORDER-BLIND=1
+    <                 |vpiSigned:1
+testflags/BuildUVMPkg  in-order=1  ORDER-BLIND=1
+    <                 |vpiSigned:1
+
+ONE dump line per database, both in order and order-blind: the element
+enum_var of uvm_reg_hw_reset_seq::do_block::field_check_restore loses its
+vpiSigned:1 and nothing else changes.  Direction: TO-GOLDEN 2, AWAY-GOLDEN 0,
+STILL-WRONG 0 (golden has no vpiSigned on that variable — §1).

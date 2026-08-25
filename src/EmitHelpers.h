@@ -3624,6 +3624,99 @@ inline TdLocalVarKind10 declArrayElemVarKind12(
     return classTdLocalVarKind10(declSym, et);
 }
 
+// ---------------------------------------------------------------------------
+// § declArrayElemVarSignedIsAtomKeyword129
+//
+// THE LAW.  The ELEMENT VARIABLE of a DECLARATOR ARRAY carries `vpiSigned`
+// only when the declaration's WRITTEN BASE TYPE is one of the five INTEGER
+// ATOM KEYWORDS — `int`, `integer`, `byte`, `shortint`, `longint` — and then
+// its value is "no `unsigned` keyword was written", never the element type's
+// computed signedness.  A `logic` / `reg` / `bit` / `time` / `string` / `real`
+// / `shortreal` / `chandle` / `event` element, an INLINE enum or struct, and
+// EVERY NAMED TYPE (a typedef of an integer atom included) carry NO
+// `vpiSigned` at all — not even when the type they name is signed.
+//
+// WHY, read off Surelog.  `CompileHelper::compileVariable`
+// (~/git-repos/Surelog/src/DesignCompile/CompileType.cpp:250-760) is a CLOSED
+// switch on the PARSE NODE of the written data type, with eighteen case labels
+// and a `default`.  `var->VpiSigned(isSigned)` appears in exactly SEVEN of
+// them:
+//
+//     paIntegerAtomType_Int      (:452)   int_var        VpiSigned(isSigned)
+//     paIntegerAtomType_Integer  (:462)   integer_var    "
+//     paSigning_Unsigned         (:472)   int_var        "
+//     paSigning_Signed           (:482)   int_var        "
+//     paIntegerAtomType_Byte     (:492)   byte_var       "
+//     paIntegerAtomType_LongInt  (:502)   long_int_var   "
+//     paIntegerAtomType_Shortint (:512)   short_int_var  "
+//
+// and NOWHERE ELSE: `paIntVec_TypeLogic`/`_TypeReg` (:437), `paIntVec_TypeBit`
+// (:527), `paIntegerAtomType_Time` (:518), `paNonIntType_Real`/`_ShortReal`,
+// `paString_type`, `paChandle_type`, `paClass_scope` and the `default`
+// "implicit type" arm (:753, a bare `logic_var`) all leave the flag unset.
+// The NAMED-TYPE arm (`slStringConst`, :338) mints its variable through
+// `getSimpleVarFromTypespec` (CompileType.cpp:78-235), a second closed
+// dispatch — on the TYPESPEC kind this time — that sets `Actual_typespec` and
+// NOTHING ELSE; it never touches `VpiSigned` on any of its twelve rows.
+//
+// `isSigned` itself is a SYNTAX question too (CompileType.cpp:456-460):
+//     bool isSigned = true;
+//     const NodeId signId = fC->Sibling(variable);
+//     if (signId && fC->Type(signId) == paSigning_Unsigned) isSigned = false;
+// i.e. "signed unless the word `unsigned` follows the keyword" — the same
+// reading § implicitRetWrittenSigning70 already made for the RETURN variable.
+//
+// The array wrapper changes none of it: `CompileStmt.cpp:1189-1255` compiles
+// the element with this very `compileVariable` call and only then wraps it in
+// an `array_var`, blanking its name.  So the ELEMENT variable of `t a[2]`,
+// `t a[]`, `t a[$]`, `t a[k]` and `t a[2][3]` alike answers the table above.
+//
+// OURS ASKED THE ELEMENT TYPE'S SIGNEDNESS INSTEAD (`elem->isSigned()`), which
+// is true for an `int`-based enum, for a typedef of `int`/`byte`/`shortint`,
+// for a `signed` packed struct and for `logic signed [3:0]` — none of which
+// golden stamps.  Grids A/B/C/D/E measure every row of the table above against
+// a Surelog golden.
+//
+// THE FLAG IS ASSIGNED, NOT OR-ED IN.  `makeReturnVar` (this file) stamps
+// `VpiSigned` a SECOND time, off the CANONICAL `PredefinedIntegerType`, so a
+// declaration that NAMES a typedef of an integer atom (`typedef int t; t a[2]`)
+// arrived at the call site already flagged and an `if (...) VpiSigned(true)`
+// could not clear it.  All four call sites therefore WRITE the law's answer
+// (`reg->VpiSigned(<predicate>)`), which is a no-op wherever the factory left
+// the flag alone (an enum_var, a class_var, a ref_var, a logic_var) and clears
+// it on exactly the named-atom-typedef cells golden leaves unsigned — grid A
+// `auditTick129` / `pixelRow129` / `skewPair129`, grid E `scopedInt129` /
+// `chainInt129` / `innerTally129`.
+//
+// SCOPE, stated so the gate written is the gate coded.  `ImplicitType` is
+// EXCLUDED from the law and keeps the pre-pass answer: Surelog emits no
+// variable at all for the `var`-keyword locals that produce it in the grid
+// (`var signed [3:0] x[2]`, `var int y[3]`), so the arm has no golden to be
+// measured against and must not be moved on a guess.  Everything else is a
+// keyword this table names.
+inline bool declArrayElemVarSigned129(const slang::ast::Symbol& declSym,
+                                      const Type& elemType) {
+    const slang::ast::DeclaredType* dt = declSym.getDeclaredType();
+    const syntax::SyntaxNode* tsyn = dt ? dt->getTypeSyntax() : nullptr;
+    if (!tsyn)
+        return elemType.isSigned();
+    switch (tsyn->kind) {
+        case syntax::SyntaxKind::IntType:
+        case syntax::SyntaxKind::IntegerType:
+        case syntax::SyntaxKind::ByteType:
+        case syntax::SyntaxKind::ShortIntType:
+        case syntax::SyntaxKind::LongIntType:
+            // "signed unless `unsigned` is written" — CompileType.cpp:456-460.
+            return tsyn->as<syntax::IntegerTypeSyntax>().signing.kind !=
+                   parsing::TokenKind::UnsignedKeyword;
+        case syntax::SyntaxKind::ImplicitType:
+            // UNMEASURED (see SCOPE above) — unchanged by this pass.
+            return elemType.isSigned();
+        default:
+            return false;
+    }
+}
+
 // The element variable itself: r10sd10's answer when it has one, and the
 // UNCHANGED `makeReturnVar` factory otherwise.
 inline UHDM::variables* makeDeclArrayElemVar12(UHDM::Serializer& s,
