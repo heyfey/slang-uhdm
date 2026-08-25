@@ -1,0 +1,73 @@
+r10v144 — ARM SCORES (whole-dump ref_obj binding census, v144scan.py; golden is ALWAYS the first column)
+PRISTINE bc675fd7475d665c01c59756784f3347   SHIPPED cc9000b97d76de1b0400d6356d337f23   VERIFIED 9b2c5e4f5ede9a4e97817cbe13c9eedd
+'missing' = golden rows the producer does not have; 'extra' = rows it has that golden does not.
+REGRESS-LOST / REGRESS-ADDED = cells PRISTINE got RIGHT and the measured binary gets WRONG.
+
+=== A. r10uvm144 AS SHIPPED, vs PRISTINE, vs golden
+--- v144_a_homes (SHIPPED in the PATCHED column)
+  DEF goldenrows=57  PRIS missing=18 extra=16  PATCHED missing=6 extra=4
+  ELAB goldenrows=178  PRIS missing=12 extra=3  PATCHED missing=10 extra=1
+  DEF REGRESS-LOST=1 REGRESS-ADDED=1
+    DEF LOST REF	y	37:69	NONE	
+    DEF ADDED REF	y	37:69	int_var	
+  ELAB REGRESS-LOST=0 REGRESS-ADDED=0
+--- v144_b_ctor (SHIPPED in the PATCHED column)
+  DEF goldenrows=69  PRIS missing=11 extra=10  PATCHED missing=5 extra=4
+  ELAB goldenrows=220  PRIS missing=21 extra=15  PATCHED missing=14 extra=8
+  DEF REGRESS-LOST=2 REGRESS-ADDED=2
+    DEF LOST REF	b01b	32:80	NONE	
+    DEF LOST REF	b25b	77:74	NONE	
+    DEF ADDED REF	b01b	32:80	int_var	
+    DEF ADDED REF	b25b	77:74	int_var	
+  ELAB REGRESS-LOST=2 REGRESS-ADDED=2
+    ELAB LOST REF	b01b	32:80	NONE	
+    ELAB LOST REF	b25b	77:74	NONE	
+    ELAB ADDED REF	b01b	32:80	int_var	
+    ELAB ADDED REF	b25b	77:74	int_var	
+--- v144_c_faces (SHIPPED in the PATCHED column)
+  DEF goldenrows=54  PRIS missing=23 extra=23  PATCHED missing=0 extra=0
+  ELAB goldenrows=75  PRIS missing=5 extra=1  PATCHED missing=4 extra=0
+  DEF REGRESS-LOST=0 REGRESS-ADDED=0
+  ELAB REGRESS-LOST=0 REGRESS-ADDED=0
+--- v144_d_named (SHIPPED in the PATCHED column)
+  DEF goldenrows=32  PRIS missing=4 extra=4  PATCHED missing=6 extra=6
+  ELAB goldenrows=58  PRIS missing=0 extra=0  PATCHED missing=0 extra=0
+  DEF REGRESS-LOST=5 REGRESS-ADDED=5
+    DEF LOST REF	y	18:70	NONE	
+    DEF LOST REF	y	35:61	NONE	
+    DEF LOST REF	y	39:76	NONE	
+    DEF LOST REF	y	43:66	NONE	
+    DEF LOST REF	y	54:70	NONE	
+    DEF ADDED REF	y	18:70	int_var	
+    DEF ADDED REF	y	35:61	int_var	
+    DEF ADDED REF	y	39:76	int_var	
+    DEF ADDED REF	y	43:66	int_var	
+    DEF ADDED REF	y	54:70	int_var	
+  ELAB REGRESS-LOST=0 REGRESS-ADDED=0
+
+=== B. THE VERIFIED BINARY, vs PRISTINE, vs golden
+--- v144_a_homes (VERIFIED in the PATCHED column)
+  DEF goldenrows=57  PRIS missing=18 extra=16  PATCHED missing=5 extra=3
+  ELAB goldenrows=178  PRIS missing=12 extra=3  PATCHED missing=10 extra=1
+  DEF REGRESS-LOST=0 REGRESS-ADDED=0
+  ELAB REGRESS-LOST=0 REGRESS-ADDED=0
+--- v144_b_ctor (VERIFIED in the PATCHED column)
+  DEF goldenrows=69  PRIS missing=11 extra=10  PATCHED missing=3 extra=2
+  ELAB goldenrows=220  PRIS missing=21 extra=15  PATCHED missing=12 extra=6
+  DEF REGRESS-LOST=0 REGRESS-ADDED=0
+  ELAB REGRESS-LOST=0 REGRESS-ADDED=0
+--- v144_c_faces (VERIFIED in the PATCHED column)
+  DEF goldenrows=54  PRIS missing=23 extra=23  PATCHED missing=0 extra=0
+  ELAB goldenrows=75  PRIS missing=5 extra=1  PATCHED missing=4 extra=0
+  DEF REGRESS-LOST=0 REGRESS-ADDED=0
+  ELAB REGRESS-LOST=0 REGRESS-ADDED=0
+--- v144_d_named (VERIFIED in the PATCHED column)
+  DEF goldenrows=32  PRIS missing=4 extra=4  PATCHED missing=0 extra=0
+  ELAB goldenrows=58  PRIS missing=0 extra=0  PATCHED missing=0 extra=0
+  DEF REGRESS-LOST=0 REGRESS-ADDED=0
+  ELAB REGRESS-LOST=0 REGRESS-ADDED=0
+--- v144_e_inst (VERIFIED in the PATCHED column)
+  DEF goldenrows=29  PRIS missing=4 extra=4  PATCHED missing=0 extra=0
+  ELAB goldenrows=61  PRIS missing=1 extra=1  PATCHED missing=0 extra=0
+  DEF REGRESS-LOST=0 REGRESS-ADDED=0
+  ELAB REGRESS-LOST=0 REGRESS-ADDED=0

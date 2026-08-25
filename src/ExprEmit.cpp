@@ -15118,6 +15118,104 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // binds all nine of its arguments.
                 bool recvCallArgNoBind52 =
                     curSubClassScope9 && !curSubOob9 && recvCallArgDepth52 > 0;
+                // § ctorFirstBodyItemIsUnlistedNoBind144 — THE FIRST BODY
+                // ELEMENT OF A NO-ARGUMENT CONSTRUCTOR IS NOT COMPILED, SO A
+                // DECLARATION THERE BINDS NOTHING.  This is not a new Surelog
+                // rule; it is § constructorBodyElementShift27's arithmetic
+                // consequence, read through
+                // `CompileHelper::bindVariable` (CompileStmt.cpp:3089), which
+                // walks the `pexpr` chain and reads ONLY the `Variables()` /
+                // `Io_decls()` of a function/task/begin it meets.  With no
+                // `tf_port_list` the node `fC->Child()` hands the constructor
+                // compiler is the FIRST BODY ELEMENT, which is therefore
+                // consumed as the port list and never compiled; when that
+                // element is a declaration, no variable object is ever listed
+                // and the walk returns null.  `emitCtorBody27`
+                // (StmtEmit.cpp:1339) already computes exactly that skip —
+                // `firstCounted` / `walkFrom` — so this term reads ITS OWN
+                // decision (`ctorUnlistedBid144`) instead of guessing a
+                // predicate that would have to re-derive it.
+                //
+                // MEASURED, arm G (`g144_g.sv`), ONE golden, both views, the
+                // cells that make it exactly this shape and not "a constructor
+                // local":
+                //   g01 `function new(); int s1;    B144::si(s1); w=1;`  BARE
+                //   g02 `function new(); int q2[$]; B144::qi(q2); w=2;`  BARE
+                //   g03 the same with an INITIALISER (`int s3 = 7`)      BARE
+                //   g05/g06 the same through a RECEIVER-LESS call        BARE
+                //   g09 `function new(); int s9; int q9[$]; …`  s9 BARE,
+                //       q9 BOUND — the SECOND declaration of the same
+                //       constructor, which is the cell a constructor-wide gate
+                //       gets wrong
+                //   g11 `function new(int a); int lb; int li = 7; …`  BOTH
+                //       BOUND — a constructor WITH a port list eats nothing
+                //       (this is r10uvm28's t38a arm, and the boundary gate
+                //       convicted the constructor-wide gate on it)
+                //   g07/g08 the ordinary-method twins                    BOUND
+                // It also corrects PRISTINE-WRONG cells this pass did not
+                // create: g05 `bs144(s5)` and g06 `bq144(q6)` — RECEIVER-LESS
+                // statement calls — are golden BARE and were bound.
+                //   e07 an OUT-OF-BODY constructor: golden BINDS, but to the
+                //       PACKAGE-level `array_var (p144e::vc07)` the hoisting
+                //       emission mints — the body is compiled in the home
+                //       package's scope, where the declaration IS listed —
+                //       hence `!curSubOob9`.
+                bool ctorSubLocalNoBind144 =
+                    !curSubOob9 && !ctorUnlistedBid144.empty() &&
+                    nv.symbol.kind == SymbolKind::Variable &&
+                    ctorUnlistedBid144.count((const void*)&nv.symbol) != 0;
+                // VERIFIER FIX 2 (r10v144) —
+                // § namedBlkLocalNeverBindsInBodyWindow144v.  THE NAMED BLOCK
+                // IS NOT A SCOPE THE COMPILE-TIME WALK CAN SEE, AT ANY CONTROL
+                // DEPTH.  `CompileHelper::bindVariable`
+                // (CompileStmt.cpp:3089) switches on the scope object's
+                // `UhdmType()` and has cases for `uhdmfunction`, `uhdmtask`,
+                // `uhdmbegin` and `uhdmmodule_inst` — and NO case for
+                // `uhdmnamed_begin` — so a local declared in a `begin : name`
+                // (a named `fork` arm included) is never searched for and the
+                // reference stays BARE.
+                //
+                // § blockLocalSameCtrlDepthArgBinds57 already carries that
+                // half of the law, but it is only ever ASKED through
+                // `blkLocalWindowBind64`, i.e. as a way of LIFTING
+                // § controlBodyNoBind28 — which is not asked at control-body
+                // depth 0.  r10uvm144's arm C `c12` writes its named block
+                // INSIDE an `if` body, so § 28 silenced that cell for a
+                // DIFFERENT reason and the gap stayed invisible; opening this
+                // arm's window then bound the depth-0 cells.
+                //
+                // MEASURED, r10v144repro/v144_d_named.sv, ONE golden, the DEF
+                // view (line numbers are that file's):
+                //   d01 18 in-body class FUNCTION, `begin : nb01`   golden BARE
+                //   d09 35 in-body class TASK, same shape           golden BARE
+                //   d11 39 named block INSIDE an unnamed block      golden BARE
+                //   d13 43 a NAMED `fork` arm                       golden BARE
+                //   d16 54 a MODULE class's in-body method          golden BARE
+                //   d03 22 the UNNAMED twin at depth 0              golden BINDS
+                //   d10 37 an UNNAMED block inside a named one      golden BINDS
+                //   d12 41 the SUBROUTINE local read from inside a
+                //          named block                             golden BINDS
+                //   d06 29 OUT-OF-BODY, d07/d08 31/33 a PACKAGE free
+                //          function, d14/d15 50/52 a MODULE function —
+                //          golden BINDS every one, which is why the gate keeps
+                //          § 12's own `curSubClassScope9 && !curSubOob9`.
+                //   d02 20 the RECEIVER-LESS twin of d01 is golden BARE and
+                //          was bound BEFORE this pass — a pristine-wrong cell
+                //          this term also corrects.
+                // The `classArgBindDepth12 > 0` conjunct keeps the term inert
+                // everywhere a window is not open, so no position outside a
+                // call-argument/condition window changes at all.
+                bool namedBlkLocalNoBind144v = false;
+                if (curSubClassScope9 && !curSubOob9 &&
+                    classArgBindDepth12 > 0 &&
+                    nv.symbol.kind == SymbolKind::Variable) {
+                    if (auto* nbs144v = nv.symbol.getParentScope()) {
+                        auto& nbd144v = nbs144v->asSymbol();
+                        namedBlkLocalNoBind144v =
+                            nbd144v.kind == SymbolKind::StatementBlock &&
+                            !nbd144v.name.empty();
+                    }
+                }
                 // § collArgNamedBlkLocalNoBind15 (VERIFIER FIX, r10buvm15).
                 // GATE: an IN-BODY class method (curSubClassScope9 &&
                 // !curSubOob9), inside a § retNameRecvCollapse69 COLLAPSED
@@ -15197,6 +15295,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                       !evCtrlOperandBind108) ||
                      unitSubNoBind9 ||
                      recvCallArgNoBind52 || collArgNamedBlkNoBind15 ||
+                     ctorSubLocalNoBind144 || namedBlkLocalNoBind144v ||
                      newArrayArgNoBind16) &&
                     !superNewFormal28 && !incDecOperandBind21) {
                     // Class-method body outside an if/case condition, or a
@@ -18715,6 +18814,63 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     pendingScopedCallBind26.push_back(
                                         {c26, &sub});
                                 auto* a26 = s.MakeAnyVec();
+                                // § scopedCallArgsBindLikeBareCall144 — a
+                                // CLASS-SCOPE-QUALIFIED call that KEEPS its
+                                // func_call/task_call compiles its arguments
+                                // through the very same window a receiver-less
+                                // call does, and this arm was the only user
+                                // call arm that never opened it.
+                                //
+                                // DECODED PRODUCER (Surelog, read not
+                                // guessed).  A reference binds EAGERLY, in
+                                // `CompileHelper::bindVariable`
+                                // (CompileStmt.cpp:3089), by walking the
+                                // `pexpr` it is handed up its `VpiParent`
+                                // chain looking for a
+                                // function/task/begin/module_inst that lists
+                                // the name.  The class_scope arm
+                                // (CompileExpression.cpp:5273-5286) mints the
+                                // tf_call, parents it — `call->VpiParent(pexpr)`
+                                // at :5286 — and only THEN calls
+                                // `compileTfCallArguments(..., call, ...)` at
+                                // :5369, which hands each actual that same
+                                // already-parented call as its `pexpr`.  That
+                                // is character-for-character what the
+                                // receiver-less path does
+                                // (CompileHelper.cpp:4251 `call->VpiParent(pexpr)`
+                                // then :4330 `compileTfCallArguments(...)`), so
+                                // the window, and every fence already written
+                                // on it, carries over UNCHANGED:
+                                //   * § classInBodyBareCallArgStmtOnly53 — the
+                                //     window opens for an IN-BODY class method
+                                //     only in STATEMENT position, because in
+                                //     EXPRESSION position the enclosing
+                                //     statement node is not parented yet and
+                                //     the walk dead-ends (arm C c02 assignment
+                                //     RHS, c04 while condition, c05 return,
+                                //     c06 operand, c18 inside `$display` — all
+                                //     golden BARE);
+                                //   * § controlBodyNoBind28 — a SUBROUTINE
+                                //     local read one control body deeper stays
+                                //     bare (c10 if-body, c15 for-body);
+                                //   * § blockLocalSameCtrlDepthArgBinds57 — a
+                                //     local of the UNNAMED block that is open
+                                //     at THAT depth does bind (c11), a NAMED
+                                //     block's does not (c12);
+                                //   * a CLASS PROPERTY stays bare (c09), and an
+                                //     OUT-OF-BODY (d01-d03) or PACKAGE-FREE
+                                //     (e01-e03) caller binds everywhere as it
+                                //     already did.
+                                // The corpus head is BuildUVMPkg's
+                                // `uvm_reg_block::get_root_blocks(q);` in
+                                // `uvm_reg_map::unregister` (uvm_pkg.sv:75269),
+                                // whose argument is golden-bound to the queue
+                                // local's `array_var` and carried no vpiActual
+                                // at all.
+                                ClassArgBindIf38 cab26(
+                                    classArgBindDepth12,
+                                    callStmtCtx0 ||
+                                        !(curSubClassScope9 && !curSubOob9));
                                 // § emptyArgSlotIntZero24 — see the arm below.
                                 std::vector<const syntax::ArgumentSyntax*> es24;
                                 emptyArgSlots24(callArgList24(call), es24);

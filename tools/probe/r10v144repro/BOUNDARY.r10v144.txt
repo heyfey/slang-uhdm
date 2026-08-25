@@ -1,0 +1,63 @@
+r10v144 — THE WIDE BOUNDARY GATE, run TWICE by the verifier from a COPY of the
+whole tools/probe tree (subdirectories included, file list on fd 3, children
+</dev/null, PROCESSED asserted against LISTED, scratch keyed on the RELATIVE
+path).  bound144v.sh is r10uvm144's bound144.sh, unchanged but for its banner.
+
+=== RUN 1 — PRISTINE vs SHIPPED (reproducing the implementer's claim)
+LISTED=4120 PROCESSED=4120 PRODUCED_DBS=3976 MOVED_ARMS=13 RC_DIFFS=0
+  (4120 = the implementer's 4116 + my four arms that existed at copy time.)
+
+  r10buvm22repro/g22.sv          def=MOVED elab=MOVED rc=4/4,4/4   -> R3, see below
+  r10buvm32repro/g32a3.sv        def=MOVED elab=MOVED rc=0/0,0/0   -> TO-GOLDEN
+  r10uvm64repro/v2_ctx.sv        def=MOVED elab=MOVED rc=0/0,0/0   -> TO-GOLDEN
+  r10uvm144repro/g144_{b..g}.sv  (6) the implementer's own arms — POSITIVE CONTROL
+  r10v144repro/v144_{a,b,c,d}*.sv (4) my own arms — POSITIVE CONTROL
+
+  EXACTLY the implementer's mover set, arm for arm.  r10uvm28repro/t38a/dut.sv
+  did NOT move.  No r10uvm77-79 / 82-91 / 84 / 85 / 89, no r10buvm3-15 other
+  than g22, no r10sd8-12, no r10uvm46/47/71/87/113/139/141 arm moved.
+
+  Re-measured against their OWN Surelog goldens, BOTH views, with the
+  whole-dump ref_obj binding census (AWAY = a cell PRISTINE had right):
+    r10buvm32repro/g32a3.sv   DEF wrong 1 -> 0, ELAB 4 -> 4.  AWAY-LOST=0 AWAY-ADDED=0
+    r10uvm64repro/v2_ctx.sv   DEF wrong 3 -> 2, ELAB 4 -> 2.  AWAY-LOST=0 AWAY-ADDED=0
+    r10uvm28repro/t38a/dut.sv DEF 0 -> 0, ELAB 0 -> 0 (unmoved AND already perfect)
+    r10buvm22repro/g22.sv     the OFFICIAL uhdm-cmp output is BYTE-IDENTICAL
+      before and after in BOTH views (DEF 17506 lines / ELAB 26436 lines, one
+      head each).  The whole-dump delta is 28 diff lines: THREE uninterpretable
+      numbers (22498937 -> 22503033 and 22498081 -> 22502177) in |vpiDecompile
+      and |UINT of OURS-ONLY objects.  R3 CONFIRMED at src/TypeEmit.cpp:10771
+      (`auto& fua = ct.as<FixedSizeUnpackedArrayType>();`, no kind test) read at
+      :10855 (`fua.range.width()`) — an unchecked downcast reached for an
+      ASSOCIATIVE typedef through the elaborated clone path.  Pre-existing at
+      9d72d85 (pristine prints numbers too, just different ones).
+
+=== RUN 2 — SHIPPED vs VERIFIED (what the two verifier fixes changed)
+LISTED=4121 PROCESSED=4121 PRODUCED_DBS=3977 MOVED_ARMS=5 RC_DIFFS=0
+
+  r10v144repro/v144_a_homes.sv   my arm — POSITIVE CONTROL
+  r10v144repro/v144_b_ctor.sv    my arm — POSITIVE CONTROL
+  r10v144repro/v144_d_named.sv   my arm — POSITIVE CONTROL
+  r10v144repro/v144_e_inst.sv    my arm — POSITIVE CONTROL
+  r10buvm15repro/v5_named15.sv   § collArgNamedBlkLocalNoBind15's OWN verifier arm
+
+  r10buvm15repro/v5_named15.sv, re-measured against its own golden, both views:
+    PRISTINE and SHIPPED are byte-identical there and both carry FOUR wrong
+    cells per view; the VERIFIED binary carries ZERO.  AWAY-LOST=0 AWAY-ADDED=0.
+    The four are NAMED-block locals read through an ORDINARY (receiver-less)
+    call in an in-body class method, at control depth 0 —
+      34:18 `sink(nloc);`        golden BARE, ours BOUND
+      35:20 `hh.one(nloc);`      golden BARE, ours BOUND
+      41:24 `sink(sink2(nloc));` golden BARE, ours BOUND
+      50:21 `sink(n2loc);`       golden BARE, ours BOUND
+    § 15's own grid never scored them (its named-block cells are all COLLAPSED
+    calls); they were a standing pristine residue and the fence closes them.
+
+  NOTHING ELSE in 4121 arms moved.  In particular r10uvm46/47's t63*/t64*/t65*/
+  t66* subdirectory arms, r10uvm71repro/a1_ctor.sv..a4_escnew.sv,
+  r10uvm87repro's thirteen arms, r10uvm139repro/r10v139repro's thirteen,
+  r10uvm141repro/r10v141repro's seven, r10uvm113repro's four, r10buvm33/34's
+  six, r10sd8-12 and r10uvm77-79/82-91 are all BYTE-IDENTICAL under the fixes.
+
+  RC_DIFFS=0 on both runs.  The --elabuhdm segfaults the log shows are
+  SYMMETRIC (the same arms, the same rc, on both binaries) and pre-existing.

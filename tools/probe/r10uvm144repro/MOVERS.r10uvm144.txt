@@ -1,0 +1,23 @@
+r10uvm144 — MOVERS (byte movers and their order-blind, path-normalised attribution)
+
+byteverify SELFCHECK=1, patched workdir vs my own pristine control workdir:
+  uhdm2rtlil  MOVERS 0 / 1358   (PATH_SETS_IDENTICAL)
+  surelog     MOVERS 2 / 956    (PATH_SETS_IDENTICAL)
+    default/BuildUVMPkg-bf853d43    patched=72243e358ecb pristine=b3874fcd6850
+    testflags/BuildUVMPkg-bf853d43  patched=72243e358ecb pristine=b3874fcd6850
+  Both were PREDICTED BY NAME from the pristine databases (PREDICT.r10uvm144.txt).
+  Scoreboard/default — the ~50/50 vpiTaskFunc-order COIN — did not flip this run.
+
+ATTRIBUTION: uhdm-dump, workdir path normalised, SORTED (order-blind), pristine -> patched:
+--- BuildUVMPkg/default
+  3848a3849
+  >               \_array_var: (uvm_pkg::uvm_reg_map::unregister::q), line:75268:17, endln:75268:18
+  441719a441721
+  >               |vpiActual:
+--- BuildUVMPkg/testflags
+  3848a3849
+  >               \_array_var: (uvm_pkg::uvm_reg_map::unregister::q), line:75268:17, endln:75268:18
+  441719a441721
+  >               |vpiActual:
+
+TWO ADDED LINES PER MODE, ZERO REMOVED — the head's own vpiActual and the object it names.

@@ -1,0 +1,32 @@
+r10uvm144 — PREDICTION (a-priori, over the PRISTINE databases, BEFORE the patched sweep)
+
+pred144 arm A: a "::"-named tf_call owning a BARE ref_obj argument (the window half).
+pred144 arm B: a BOUND ref_obj inside a class-parented constructor (the fence half).
+Both are deliberate OVER-approximations; the byte-mover set must be a SUBSET.
+
+surelog corpus    databases=956  with candidates=17
+  TOTAL	default/ApbSlave-71ff1b05	cands=4
+  TOTAL	default/BuildUVMPkg-bf853d43	cands=622
+  TOTAL	default/Earlgrey_0_1-71da2fd7	cands=111
+  TOTAL	default/EvalFunc-605d5b75	cands=1
+  TOTAL	default/MiniAmiq-544c7f61	cands=622
+  TOTAL	default/Scoreboard-59431470	cands=611
+  TOTAL	default/SeqDriver-32af76aa	cands=663
+  TOTAL	default/SimpleUVM-1dc93a62	cands=657
+  TOTAL	default/SVSwitch-db796243	cands=2
+  TOTAL	testflags/ApbSlave-71ff1b05	cands=4
+  TOTAL	testflags/BuildUVMPkg-bf853d43	cands=622
+  TOTAL	testflags/Earlgrey_0_1-71da2fd7	cands=111
+  TOTAL	testflags/EvalFunc-605d5b75	cands=1
+  TOTAL	testflags/MiniAmiq-544c7f61	cands=622
+  TOTAL	testflags/SeqDriver-32af76aa	cands=663
+  TOTAL	testflags/SimpleUVM-1dc93a62	cands=657
+  TOTAL	testflags/SVSwitch-db796243	cands=2
+
+uhdm2rtlil corpus databases=1358  with candidates=0
+
+MEASURED byte movers (byteverify SELFCHECK=1): 2 / 956 surelog, 0 / 1358 uhdm2rtlil —
+  default/BuildUVMPkg-bf853d43 and testflags/BuildUVMPkg-bf853d43, both PREDICTED by name.
+  The other 15 candidate databases did NOT move: their "::"-named calls are
+  PACKAGE-qualified free-function calls, which reach the GENERIC call arm (that arm
+  already opens the window) and never the § 26 class-scope arm this pass changed.

@@ -3578,6 +3578,20 @@ private:
     // routine mistakes for one is the FIRST BODY ELEMENT.
     bool tfBodyCtor27 = false;
     bool tfBodyCtorNoPorts27 = false;
+    // § ctorFirstBodyItemIsUnlistedNoBind144 — the DECLARATION SYMBOLS
+    // `emitCtorBody27` did NOT walk, i.e. the body elements
+    // § constructorBodyElementShift27 says Surelog never compiled (with no
+    // tf_port_list the first body element IS the node the constructor compiler
+    // mistakes for one).  A variable declared there exists in slang but is
+    // listed on NO scope in the database, so `CompileHelper::bindVariable`'s
+    // walk (CompileStmt.cpp:3089) — which reads only a scope's `Variables()` /
+    // `Io_decls()` — cannot find it and golden's reference stays BARE, in every
+    // position and in both views.  Written once per constructor body, at the
+    // TOP of emitCtorBody27 and therefore before any reference in that body is
+    // emitted; read by ONE term in ExprEmit's reference-silence disjunction.
+    // Keyed on the slang Symbol, which is unique per declaration, so the set
+    // accumulates across views without collisions.
+    std::set<const void*> ctorUnlistedBid144;
     // Is this body statement a constructor's `super.new` element?  `parens`
     // reports whether the source wrote an argument list: Surelog's grammar
     // makes `list_of_arguments` a SEPARATE sibling element, and whether it is

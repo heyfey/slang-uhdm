@@ -1,0 +1,57 @@
+r10uvm144 — THE WIDE BOUNDARY GATE (bound144.sh, run from a COPY of the whole
+tools/probe tree: subdirectories included, file list on fd 3, children </dev/null,
+PROCESSED asserted against LISTED, scratch keyed on the RELATIVE path).
+
+LISTED=4116 PROCESSED=4116 PRODUCED_DBS=3972 MOVED_ARMS=9 RC_DIFFS=0
+BOUNDDONE
+
+MOVED ARMS (9), re-measured against their OWN Surelog goldens in BOTH views:
+r10buvm22repro/g22.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10buvm32repro/g32a3.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm144repro/g144_b.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm144repro/g144_c.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm144repro/g144_d.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm144repro/g144_e.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm144repro/g144_f.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm144repro/g144_g.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm64repro/v2_ctx.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+  * the six r10uvm144repro/g144_*.sv are THIS PASS'S OWN ARMS — the POSITIVE
+    CONTROL that proves the gate can see.
+  * r10buvm32repro/g32a3.sv — § classScopeCallWrittenQualifierIsLookupKey32's OWN
+    arm, i.e. the law this pass extends.  ONE added bind:
+      tder32::tdt32(a) @24:21, an in-body class TASK's scoped call — golden
+      binds io_decl(a) @23:23 and we did not.  TO-GOLDEN.  Arg-census wrong
+      cells DEF 1 -> 0, ELAB 0 -> 0.
+  * r10uvm64repro/v2_ctx.sv — § blkLocalSameCtrlDepthWindowBinds64's arm.  ONE
+    REMOVED bind: work@v2c::new's  @142:9, where nfarg is the
+    FIRST BODY ELEMENT of a no-argument constructor.  Golden's operand is BARE
+    and ours was bound.  TO-GOLDEN — the fence's own corpus-shaped witness.
+  * r10buvm22repro/g22.sv — see R3 below.  The OFFICIAL uhdm-cmp output for this
+    arm is BYTE-IDENTICAL before and after (DEF 17506 lines / ELAB 26436 lines,
+    one head each); the whole dump delta is TWELVE lines, three uninterpretable
+    NUMBERS printed twice each (vpiDecompile + UINT), in OURS-ONLY objects.
+
+  * r10uvm28repro/t38a/dut.sv MOVED under the FIRST cut of the fence (a
+    constructor-wide gate) and is the arm that convicted it; with the shipped
+    first-body-element rule it does NOT move at all.
+  * NO r10uvm77-79, r10uvm82-91, r10uvm84/85, r10uvm89, r10buvm3-15, r10sd8-12,
+    r10uvm46/47/71/87/113/139/141 arm moved.
+
+R3 — r10buvm22repro/g22.sv, characterized, NOT this law and NOT fixed here:
+  src/TypeEmit.cpp:10771 buildUnpackedArrayTypedefTs does
+      auto& fua = ct.as<FixedSizeUnpackedArrayType>();
+  with NO kind test, and reaches an ASSOCIATIVE typedef
+  (g22.sv:70-72, `typedef C22 ka_cls_t[string];` and its two siblings) through the
+  ELABORATED clone path.  slang's release-build as<> is an unchecked downcast, so
+  fua.range at :10855 reads the bytes an AssociativeArrayType holds at that
+  offset and mkB() prints them.  The three constants move 22498937->22503033,
+  22498081->22502177 (twice / once).  Golden models that slot as the
+  `associative` MARKER constant, which we ALSO emit on the non-clone twin, so
+  the object is ours-only and wrong in golden's terms before and after.
+  CONTROLS RUN, both built from 9d72d85 in a separate worktree:
+    (a) + a file-scope volatile int in ExprEmit.cpp (md5 52882f68e3161d0a...)
+    (b) + ONLY the shipped std::set member, no reader (md5 5f07b2e1d0d5e63c...)
+  BOTH reproduce the PRISTINE numbers, so it is neither a code-layout nor an
+  exporter-object-size effect; it is the unchecked read's dependence on what the
+  build leaves in that memory.  Deterministic per binary across runs.

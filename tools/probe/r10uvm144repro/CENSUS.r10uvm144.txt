@@ -1,0 +1,62 @@
+r10uvm144 — CORPUS CENSUS: the CALL-ARGUMENT BINDING population, golden vs ours,
+multiset-joined per row-mode (corpcen144.sh + argscan144.py).  Key = call kind ×
+SCOPED/PLAIN × call vpiName × argument ref vpiName × line:col × the ACTUAL's UHDM
+KIND × the actual's vpiName.  No fullname, no span of the actual, no id.
+
+ROW/MODE                 PRISTINE                     PATCHED                     
+SeqDriver/default  ROWS g=18641 o=18640  ONLY-GOLDEN=1540 ONLY-OURS=1539    ||    SeqDriver/default  ROWS g=18641 o=18640  ONLY-GOLDEN=1540 ONLY-OURS=1539
+SeqDriver/testflags  ROWS g=18641 o=18640  ONLY-GOLDEN=1540 ONLY-OURS=1539    ||    SeqDriver/testflags  ROWS g=18641 o=18640  ONLY-GOLDEN=1540 ONLY-OURS=1539
+SimpleUVM/default  ROWS g=11550 o=11549  ONLY-GOLDEN=861 ONLY-OURS=860    ||    SimpleUVM/default  ROWS g=11550 o=11549  ONLY-GOLDEN=861 ONLY-OURS=860
+SimpleUVM/testflags  ROWS g=11550 o=11549  ONLY-GOLDEN=861 ONLY-OURS=860    ||    SimpleUVM/testflags  ROWS g=11550 o=11549  ONLY-GOLDEN=861 ONLY-OURS=860
+Scoreboard/default  ROWS g=11613 o=11612  ONLY-GOLDEN=881 ONLY-OURS=880    ||    Scoreboard/default  ROWS g=11613 o=11612  ONLY-GOLDEN=881 ONLY-OURS=880
+Scoreboard/testflags  SKIP-NOOURS    ||    Scoreboard/testflags  SKIP-NOOURS
+MiniAmiq/default  ROWS g=19303 o=19296  ONLY-GOLDEN=1627 ONLY-OURS=1620    ||    MiniAmiq/default  ROWS g=19303 o=19296  ONLY-GOLDEN=1627 ONLY-OURS=1620
+MiniAmiq/testflags  ROWS g=19303 o=19296  ONLY-GOLDEN=1627 ONLY-OURS=1620    ||    MiniAmiq/testflags  ROWS g=19303 o=19296  ONLY-GOLDEN=1627 ONLY-OURS=1620
+BuildUVMPkg/default  ROWS g=11227 o=11233  ONLY-GOLDEN=11 ONLY-OURS=17    ||    BuildUVMPkg/default  ROWS g=11227 o=11233  ONLY-GOLDEN=10 ONLY-OURS=16
+BuildUVMPkg/testflags  ROWS g=11227 o=11233  ONLY-GOLDEN=11 ONLY-OURS=17    ||    BuildUVMPkg/testflags  ROWS g=11227 o=11233  ONLY-GOLDEN=10 ONLY-OURS=16
+Earlgrey_0_1/default  ROWS g=536 o=536  ONLY-GOLDEN=0 ONLY-OURS=0    ||    Earlgrey_0_1/default  ROWS g=536 o=536  ONLY-GOLDEN=0 ONLY-OURS=0
+Earlgrey_0_1/testflags  ROWS g=883 o=879  ONLY-GOLDEN=4 ONLY-OURS=0    ||    Earlgrey_0_1/testflags  ROWS g=883 o=879  ONLY-GOLDEN=4 ONLY-OURS=0
+ApbSlave/default  ROWS g=104 o=104  ONLY-GOLDEN=26 ONLY-OURS=26    ||    ApbSlave/default  ROWS g=104 o=104  ONLY-GOLDEN=26 ONLY-OURS=26
+ApbSlave/testflags  ROWS g=104 o=104  ONLY-GOLDEN=26 ONLY-OURS=26    ||    ApbSlave/testflags  ROWS g=104 o=104  ONLY-GOLDEN=26 ONLY-OURS=26
+SVSwitch/default  ROWS g=25 o=25  ONLY-GOLDEN=0 ONLY-OURS=0    ||    SVSwitch/default  ROWS g=25 o=25  ONLY-GOLDEN=0 ONLY-OURS=0
+SVSwitch/testflags  ROWS g=25 o=25  ONLY-GOLDEN=0 ONLY-OURS=0    ||    SVSwitch/testflags  ROWS g=25 o=25  ONLY-GOLDEN=0 ONLY-OURS=0
+EvalFunc/default  ROWS g=8 o=8  ONLY-GOLDEN=0 ONLY-OURS=0    ||    EvalFunc/default  ROWS g=8 o=8  ONLY-GOLDEN=0 ONLY-OURS=0
+EvalFunc/testflags  ROWS g=12 o=12  ONLY-GOLDEN=0 ONLY-OURS=0    ||    EvalFunc/testflags  ROWS g=12 o=12  ONLY-GOLDEN=0 ONLY-OURS=0
+
+ONLY BuildUVMPkg MOVED, in BOTH modes: ONLY-GOLDEN 11 -> 10, ONLY-OURS 17 -> 16.
+TO-GOLDEN 1, AWAY-GOLDEN 0, STILL-WRONG unchanged, on every measurable row.
+(Scoreboard/testflags has no golden cache entry; Rggen carries no such call.)
+
+THE CELL THAT MOVED (BuildUVMPkg, both modes):
+  ONLY-GOLDEN (pristine)  func_call SCOPED uvm_reg_block::get_root_blocks q 75269:34 array_var
+  ONLY-OURS   (pristine)  func_call SCOPED uvm_reg_block::get_root_blocks q 75269:34 NONE
+  -> both gone after the pass.
+
+THE 10 STILL-WRONG BuildUVMPkg cells (RESIDUES, none of them this law's):
+ONLY-GOLDEN BuildUVMPkg/default ROW	func_call	PLAIN	uvm_report_fatal	msg	14065:34	string_var	
+ONLY-GOLDEN BuildUVMPkg/default ROW	method_func_call	PLAIN	set_type_alias	alias_name	14098:35	NONE	
+ONLY-GOLDEN BuildUVMPkg/default ROW	method_func_call	PLAIN	set	UVM_PACK	22423:16	operation	
+ONLY-GOLDEN BuildUVMPkg/default ROW	method_func_call	PLAIN	set	UVM_PRINT	20275:18	operation	
+ONLY-GOLDEN BuildUVMPkg/default ROW	method_func_call	PLAIN	set	UVM_SET	11072:14	operation	
+ONLY-GOLDEN BuildUVMPkg/default ROW	method_func_call	PLAIN	set	UVM_UNPACK	22702:18	operation	
+ONLY-GOLDEN BuildUVMPkg/default ROW	method_func_call	PLAIN	try_get	t	54474:26	NONE	
+ONLY-GOLDEN BuildUVMPkg/default ROW	method_func_call	PLAIN	try_put	param_t	54020:26	NONE	
+ONLY-GOLDEN BuildUVMPkg/default ROW	sys_func_call	PLAIN	$bits	uvm_active_passive_enum	51339:19	NONE	
+ONLY-GOLDEN BuildUVMPkg/default ROW	sys_func_call	PLAIN	$bits	uvm_reg_data_t	78222:23	NONE	
+
+ONLY-OURS   BuildUVMPkg/default ROW	func_call	PLAIN	uvm_report_fatal	msg	14065:34	NONE	
+ONLY-OURS   BuildUVMPkg/default ROW	func_call	SCOPED	uvm_pkg::m_uvm_string_queue_join	q	29218:96	NONE	
+ONLY-OURS   BuildUVMPkg/default ROW	func_call	SCOPED	uvm_pkg::m_uvm_string_queue_join	q	29527:96	NONE	
+ONLY-OURS   BuildUVMPkg/default ROW	method_func_call	PLAIN	set_type_alias	alias_name	14098:35	io_decl	
+ONLY-OURS   BuildUVMPkg/default ROW	method_func_call	PLAIN	set	UVM_PACK	22423:16	constant	
+ONLY-OURS   BuildUVMPkg/default ROW	method_func_call	PLAIN	set	UVM_PRINT	20275:18	constant	
+ONLY-OURS   BuildUVMPkg/default ROW	method_func_call	PLAIN	set	UVM_SET	11072:14	constant	
+ONLY-OURS   BuildUVMPkg/default ROW	method_func_call	PLAIN	set	UVM_UNPACK	22702:18	constant	
+ONLY-OURS   BuildUVMPkg/default ROW	method_func_call	PLAIN	try_get	t	54474:26	ref_var	
+ONLY-OURS   BuildUVMPkg/default ROW	method_func_call	PLAIN	try_put	param_t	54020:26	ref_var	
+ONLY-OURS   BuildUVMPkg/default ROW	method_func_call	PLAIN	uvm_report_enabled	UVM_INFO	29217:53	NONE	
+ONLY-OURS   BuildUVMPkg/default ROW	method_func_call	PLAIN	uvm_report_enabled	UVM_INFO	29526:53	NONE	
+ONLY-OURS   BuildUVMPkg/default ROW	method_func_call	PLAIN	uvm_report_enabled	UVM_LOW	29217:45	NONE	
+ONLY-OURS   BuildUVMPkg/default ROW	method_func_call	PLAIN	uvm_report_enabled	UVM_LOW	29526:45	NONE	
+ONLY-OURS   BuildUVMPkg/default ROW	method_func_call	PLAIN	uvm_report_info	UVM_LOW	29218:100	NONE	
+ONLY-OURS   BuildUVMPkg/default ROW	method_func_call	PLAIN	uvm_report_info	UVM_LOW	29527:100	NONE	

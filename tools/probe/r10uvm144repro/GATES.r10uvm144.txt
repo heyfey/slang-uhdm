@@ -1,0 +1,146 @@
+r10uvm144 — GATES (all measured on the SHIPPED binary cc9000b97d76de1b0400d6356d337f23)
+BASE 9d72d85.  PRISTINE CONTROL bc675fd7475d665c01c59756784f3347 (my own build of the base).
+GOLDEN_DEFER = [UNSET]
+
+== 1. build
+[100%] Built target slang_uhdm
+BUILD rc=0
+bc675fd7475d665c01c59756784f3347  /tmp/r10uvm144_scratch/pris.bin
+cc9000b97d76de1b0400d6356d337f23  /tmp/r10uvm144_scratch/patched.bin
+
+== 2. goldens (SLANG_UHDM exported explicitly to EACH binary)
+PASS=23 FAIL=0
+/bin/false negative control: PASS=0 FAIL=23
+
+== 3. binary audit by PATH (every cmds.txt naming a slang binary)
+surelog     naming patched=1523 other=0
+uhdm2rtlil  naming patched=1458 other=0
+surelog     pristine control naming pristine=1523 other=0
+uhdm2rtlil  pristine control naming pristine=1458 other=0
+
+== 4. status histograms  (PATCHED then PRISTINE)
+[default] 794 tests
+  CMP_EQUAL: 471
+  SLANG_REJECT: 283
+  SURELOG_FAIL: 25
+  CMP_NOTEQUAL: 10
+  DEFERRED: 5
+
+[testflags] 794 tests
+  CMP_EQUAL: 466
+[testflags] 731 tests
+  CMP_EQUAL: 679
+  SLANG_REJECT: 50
+  SURELOG_FAIL: 2
+[default] 731 tests
+  CMP_EQUAL: 679
+  SLANG_REJECT: 50
+  SURELOG_FAIL: 2
+U2RDONE
+--- pristine
+[default] 794 tests
+  CMP_EQUAL: 471
+  SLANG_REJECT: 283
+  SURELOG_FAIL: 25
+  CMP_NOTEQUAL: 10
+  DEFERRED: 5
+
+[testflags] 794 tests
+  CMP_EQUAL: 466
+
+== 5. ct8rows (status AND dump column)
+--- gate_uhdm2rtlil.csv vs pat_u2r_tf.csv
+  testflags  fresh:      52      183 differ     496 match 
+PASS: every row byte-identical to the committed baseline
+--- pris_u2r_tf.csv vs pat_u2r_tf.csv
+  testflags  fresh:      52      183 differ     496 match 
+PASS: every row byte-identical to the committed baseline
+--- pris_u2r_def.csv vs pat_u2r_def.csv
+  default  fresh:      52      187 differ     492 match 
+PASS: every row byte-identical to the committed baseline
+--- golden_surelog.csv vs pat_sl.csv
+  testflags  fresh:     328      300 differ     166 match 
+PASS: every row byte-identical to the committed baseline
+--- pris_sl.csv vs pat_sl.csv
+  testflags  fresh:     328      300 differ     166 match 
+PASS: every row byte-identical to the committed baseline
+NO ROW CONVERTED.  results/*.csv were only READ.
+
+== 6. byteverify SELFCHECK=1 (patched workdir vs my own pristine control workdir)
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm  patched=72243e358ecb pristine=b3874fcd6850
+MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  patched=72243e358ecb pristine=b3874fcd6850
+MOVERS: 2 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+
+== 7. canaries / ctcan2 / canaudit
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+
+== 8. protected databases by NAME (md5 first 12, pristine vs patched)
+InterfaceModPort default wp_sl 59a365f3ce2c
+InterfaceModPort default wq_sl 59a365f3ce2c
+InterfaceModPort testflags wp_sl 59a365f3ce2c
+InterfaceModPort testflags wq_sl 59a365f3ce2c
+BlackParrotComplex default wp_sl e3e354129d5a
+BlackParrotComplex default wq_sl e3e354129d5a
+BlackParrotComplex testflags wp_sl 73a10e8217e5
+BlackParrotComplex testflags wq_sl 73a10e8217e5
+YosysOldOr default wp_sl d68e0796d62c
+YosysOldOr default wq_sl d68e0796d62c
+YosysOldOr testflags wp_sl d68e0796d62c
+YosysOldOr testflags wq_sl d68e0796d62c
+SVSwitch default wp_sl 4842211c4030
+SVSwitch default wq_sl 4842211c4030
+SVSwitch testflags wp_sl 4842211c4030
+SVSwitch testflags wq_sl 4842211c4030
+YosysVerx default wp_sl 6ccda350c24a
+YosysVerx default wq_sl 6ccda350c24a
+YosysVerx testflags wp_sl 6ccda350c24a
+YosysVerx testflags wq_sl 6ccda350c24a
+SVSwitch pin 4842211c4030 HELD; YosysVerx pin 6ccda350c24a HELD.
+
+== 9. heads (rowheads.sh; CMPLINES is the head object's DEPTH, not a distance)
+--- PRISTINE
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default       6254      1 cmp rc=255
+SeqDriver      testflags     6254      1 cmp rc=255
+SimpleUVM      default         29      1 cmp rc=255
+SimpleUVM      testflags       29      1 cmp rc=255
+Scoreboard     default         29      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default       6222      1 cmp rc=255
+MiniAmiq       testflags     6222      1 cmp rc=255
+BuildUVMPkg    default         55      1 cmp rc=255
+BuildUVMPkg    testflags       55      1 cmp rc=255
+Earlgrey_0_1   default        110      1 cmp rc=255
+Earlgrey_0_1   testflags      142      1 cmp rc=255
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+--- PATCHED
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default       6254      1 cmp rc=255
+SeqDriver      testflags     6254      1 cmp rc=255
+SimpleUVM      default         29      1 cmp rc=255
+SimpleUVM      testflags       29      1 cmp rc=255
+Scoreboard     default         29      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default       6222      1 cmp rc=255
+MiniAmiq       testflags     6222      1 cmp rc=255
+BuildUVMPkg    default        174      1 cmp rc=255
+BuildUVMPkg    testflags      174      1 cmp rc=255
+Earlgrey_0_1   default        110      1 cmp rc=255
+Earlgrey_0_1   testflags      142      1 cmp rc=255
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0

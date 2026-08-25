@@ -1,0 +1,93 @@
+r10v144 — GATES, run by the VERIFIER from its own worktrees and its own frozen
+binaries.  BASE 9d72d85.  GOLDEN_DEFER = [UNSET].  `git stash` never used.
+slang never patched.  results/*.csv only READ.
+
+== 0. binaries (built by me, -j 2, md5 taken separately, frozen chmod 555)
+  PRISTINE  /tmp/v144_scratch/pris.bin  bc675fd7475d665c01c59756784f3347
+  SHIPPED   /tmp/v144_scratch/pat.bin   cc9000b97d76de1b0400d6356d337f23   (= r10uvm144.patch on 9d72d85)
+  VERIFIED  /tmp/v144_scratch/fix.bin   9b2c5e4f5ede9a4e97817cbe13c9eedd   (= r10uvm144.verified.patch)
+  Both of the implementer's headline md5s REPRODUCED BIT-FOR-BIT.
+
+== 1. goldens (SLANG_UHDM exported explicitly to EACH binary)
+  PRISTINE  PASS=23 FAIL=0
+  SHIPPED   PASS=23 FAIL=0
+  VERIFIED  PASS=23 FAIL=0
+  /bin/false negative control  PASS=0 FAIL=23
+
+== 2. cmds.txt audit BY BINARY PATH (every cmds.txt in every workdir)
+  /tmp/v144_wd_pris  2981 invocations, ALL /tmp/v144_scratch/pris.bin, 0 other
+  /tmp/v144_wd_pat   2981 invocations, ALL /tmp/v144_scratch/pat.bin,  0 other
+  /tmp/v144_wd_fix   2981 invocations, ALL /tmp/v144_scratch/fix.bin,  0 other
+  (2981 = 1523 surelog + 1458 uhdm2rtlil; the remaining cmds.txt files carry no
+   slang line at all — golden-cache-only rows.)
+
+== 3. status histograms — IDENTICAL for all three binaries
+  surelog  default   471 CMP_EQUAL / 283 SLANG_REJECT / 25 SURELOG_FAIL / 10 CMP_NOTEQUAL / 5 DEFERRED
+  surelog  testflags 466 / 284 / 23 / 9 / 5 (+3 NO_DATABASE, 1 NO_UHDM, 1 TIMEOUT, 2 UNTRANSLATABLE)
+  uhdm2rtlil testflags 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+  uhdm2rtlil default   679 / 50 / 2
+
+== 4. ct8rows (whole ROW, status AND dump column)
+  SHIPPED  vs committed gate_uhdm2rtlil.csv   PASS
+  SHIPPED  vs committed golden_surelog.csv    PASS
+  VERIFIED vs committed gate_uhdm2rtlil.csv   PASS
+  VERIFIED vs committed golden_surelog.csv    PASS   (0 differing rows over 1588)
+  VERIFIED vs my own PRISTINE control, u2r testflags / u2r default / surelog  PASS PASS PASS
+  NO ROW CONVERTED.  BuildUVMPkg is CMP_NOTEQUAL before and after.
+
+== 5. byteverify SELFCHECK=1
+  SHIPPED  vs PRISTINE   uhdm2rtlil MOVERS 0 / 1358   PATH_SETS_IDENTICAL
+  SHIPPED  vs PRISTINE   surelog    MOVERS 3 / 956    PATH_SETS_IDENTICAL
+      ./default/BuildUVMPkg-bf853d43    72243e358ecb vs b3874fcd6850  (PREDICTED)
+      ./testflags/BuildUVMPkg-bf853d43  72243e358ecb vs b3874fcd6850  (PREDICTED)
+      ./default/Scoreboard-59431470     63a1ba37016a vs dee134480fc2  (THE COIN — see 6)
+  VERIFIED vs PRISTINE   uhdm2rtlil MOVERS 0 / 1358 ; surelog MOVERS 3 / 956 (the same three)
+  VERIFIED vs SHIPPED    uhdm2rtlil MOVERS 0 / 1358 ; surelog MOVERS 0 / 956
+      -> the two VERIFIER FIXES are CORPUS-INVISIBLE: every one of the 2314
+         databases is byte-identical between the shipped and the verified binary,
+         BuildUVMPkg included (72243e358ecb in both modes on both binaries).
+  SELFCHECK flagged 955/956 and 1357/1358 on every run.
+
+== 6. mover attribution (uhdm-dump, workdir path normalised, SORTED = ORDER-BLIND)
+  BuildUVMPkg/default and /testflags, PRISTINE -> SHIPPED and PRISTINE -> VERIFIED:
+      3848a3849    > \_array_var: (uvm_pkg::uvm_reg_map::unregister::q), line:75268:17, endln:75268:18
+      441719a441721 > |vpiActual:
+    TWO ADDED LINES PER MODE, ZERO REMOVED — the head's own vpiActual and the
+    object it names.  Reproduces the implementer's attribution exactly.
+  Scoreboard/default: the order-blind diff is ZERO LINES against pristine for
+    BOTH the shipped and the verified run — the ~50/50 vpiTaskFunc-order COIN,
+    not a mover.  (It flipped in my runs; it did not in the implementer's.)
+
+== 7. heads (rowheads.sh; CMPLINES is the head object's DEPTH, not a distance)
+  TEST           MODE       PRISTINE   SHIPPED   VERIFIED
+  SeqDriver      default        6254      6254      6254
+  SeqDriver      testflags      6254      6254      6254
+  SimpleUVM      default          29        29        29
+  SimpleUVM      testflags        29        29        29
+  Scoreboard     default          29        29        29
+  Scoreboard     testflags       SKIP-NOFILE (no golden cache entry)
+  MiniAmiq       default        6222      6222      6222
+  MiniAmiq       testflags      6222      6222      6222
+  BuildUVMPkg    default          55       174       174
+  BuildUVMPkg    testflags        55       174       174
+  Earlgrey_0_1   default         110       110       110
+  Earlgrey_0_1   testflags       142       142       142
+  Rggen          default           0         0         0
+  ONE head per run throughout (grep -c '^LHS:' = 1 everywhere but Rggen's 0).
+  Every VERIFIED head file is BYTE-IDENTICAL to the SHIPPED one, and the shipped
+  BuildUVMPkg/default head is byte-identical to the implementer's archived
+  head_pat_BuildUVMPkg.default.cmp.
+
+== 8. canaries / ctcan2 / canaudit (VERIFIED binary)
+  ---- canary rows: ok=52 changed=0 absent=0 unknown-names=7      (surelog)
+  ---- canary rows: ok=8  changed=0 absent=0 unknown-names=25     (uhdm2rtlil)
+  ctcan2 PASS on both corpora.
+  canaudit in tools/probe/r10v144repro: audited=29 UNCOVERED=0 FENCE-BREACH=0
+  canaudit in tools/probe/r10uvm144repro: audited=29 UNCOVERED=0 FENCE-BREACH=0
+
+== 9. protected databases by NAME (md5 first 12) — PRISTINE / SHIPPED / VERIFIED
+  InterfaceModPort   default+testflags  59a365f3ce2c  (all three, both modes)
+  BlackParrotComplex default e3e354129d5a  testflags 73a10e8217e5  (all three)
+  YosysOldOr         default+testflags  d68e0796d62c  (all three)
+  SVSwitch  pin 4842211c4030 HELD on all three, both modes
+  YosysVerx pin 6ccda350c24a HELD on all three, both modes

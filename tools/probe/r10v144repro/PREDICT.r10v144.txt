@@ -1,0 +1,36 @@
+r10v144 — A-PRIORI PREDICTION for the two VERIFIER FIXES, read off the PRISTINE
+databases (pred144v.py), and the MEASURED mover set.
+
+FIX 2 candidate (over-approximation): a `named_begin` object that OWNS
+  |vpiVariables:.  Only such an object can hold a local the fence can silence.
+FIX 1 candidate (over-approximation): a class-owned `function` whose vpiFullName
+  ends `::new` and whose listed variables include two starting on the SAME LINE
+  — the database's only visible trace of `int a, b;` in one declaration.
+
+ROW/MODE                 NAMEDBLK_WITH_VARS   CTOR_SAMELINE_MULTIVAR
+SeqDriver/default                16                    0
+SeqDriver/testflags              16                    0
+SimpleUVM/default                 8                    0
+SimpleUVM/testflags               8                    0
+Scoreboard/default               11                    0
+MiniAmiq/default                 16                    0
+MiniAmiq/testflags               16                    0
+BuildUVMPkg/default               2                    0
+BuildUVMPkg/testflags             2                    0
+
+So FIX 1 was predicted to move NOTHING (no corpus constructor writes two
+declarators in one first-body declaration), and FIX 2's candidate population is
+non-zero but had to survive three further conditions — the named block must sit
+in an IN-BODY class method, the local must be read inside an OPEN
+call-argument window, and the reference must currently carry a vpiActual.
+
+MEASURED (byteverify SELFCHECK=1, VERIFIED binary vs SHIPPED binary):
+  uhdm2rtlil  MOVERS 0 / 1358   PATH_SETS_IDENTICAL
+  surelog     MOVERS 0 / 956    PATH_SETS_IDENTICAL
+  -> the measured set is EMPTY and is therefore a subset of the predicted set.
+     BuildUVMPkg is 72243e358ecb in both modes on BOTH binaries; all seven
+     rowheads .cmp files are byte-identical between the two binaries.
+
+The two fixes are corpus-invisible.  Their whole measured effect is on ARMS:
+five of mine and § collArgNamedBlkLocalNoBind15's own `v5_named15.sv`, all
+strictly TO-GOLDEN (BOUNDARY.r10v144.txt).

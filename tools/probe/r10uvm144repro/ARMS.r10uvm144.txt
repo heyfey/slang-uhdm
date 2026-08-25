@@ -1,0 +1,116 @@
+r10uvm144 — ARM SCORES (call-argument binding census, golden vs pristine vs patched)
+PRIS md5 bc675fd7475d665c01c59756784f3347   PATCHED md5 cc9000b97d76de1b0400d6356d337f23
+The first column is ALWAYS golden.  'wrong' = census ROWS that differ from golden.
+
+===== arm b1  (g144_b.sv)  the-corpus-shape
+  prisE rc=0
+  patcE rc=0
+  g-vs-o cmp rc=255 lines=3878 heads=1
+  g-vs-q cmp rc=255 lines=3898 heads=1
+  ge-vs-oe cmp rc=255 lines=4530 heads=1
+  ge-vs-qe cmp rc=255 lines=4530 heads=1
+  DEF cells=5  PRISTINE-wrong=5  PATCHED-wrong=0
+  ELAB cells=5  PRISTINE-wrong=0  PATCHED-wrong=0
+
+===== arm c1  (g144_c.sv)  position/owner/argument-kind
+  prisE rc=0
+  patcE rc=0
+  g-vs-o cmp rc=255 lines=12638 heads=1
+  g-vs-q cmp rc=255 lines=12666 heads=1
+  ge-vs-oe cmp rc=255 lines=15502 heads=1
+  ge-vs-qe cmp rc=255 lines=15502 heads=1
+  DEF cells=30  PRISTINE-wrong=6  PATCHED-wrong=0
+  ELAB cells=48  PRISTINE-wrong=1  PATCHED-wrong=0
+
+===== arm d1  (g144_d.sv)  shape/element-kind/home
+  prisE rc=0
+  patcE rc=0
+  g-vs-o cmp rc=255 lines=16652 heads=1
+  g-vs-q cmp rc=255 lines=16736 heads=1
+  ge-vs-oe cmp rc=255 lines=20180 heads=1
+  ge-vs-qe cmp rc=255 lines=20180 heads=1
+  DEF cells=27  PRISTINE-wrong=21  PATCHED-wrong=0
+  ELAB cells=31  PRISTINE-wrong=0  PATCHED-wrong=0
+
+===== arm e1  (g144_e.sv)  constructor
+  prisE rc=0
+  patcE rc=0
+  g-vs-o cmp rc=255 lines=6628 heads=1
+  g-vs-q cmp rc=255 lines=6640 heads=1
+  ge-vs-oe cmp rc=255 lines=7052 heads=1
+  ge-vs-qe cmp rc=255 lines=7048 heads=1
+  DEF cells=11  PRISTINE-wrong=5  PATCHED-wrong=1
+  DEF REMAIN < ROW	func_call	SCOPED	B144::qint	vc09	33:76	array_var	
+  DEF REMAIN > ROW	func_call	SCOPED	B144::qint	vc09	33:72	array_var	
+  ELAB cells=21  PRISTINE-wrong=6  PATCHED-wrong=2
+  ELAB REMAIN < ROW	func_call	SCOPED	B144::qint	vc09	33:76	array_var	
+  ELAB REMAIN < ROW	func_call	SCOPED	B144::qint	vc09	33:76	array_var	
+  ELAB REMAIN > ROW	func_call	SCOPED	B144::qint	vc09	33:72	array_var	
+  ELAB REMAIN > ROW	func_call	SCOPED	B144::qint	vc09	33:72	array_var	
+
+===== arm f1  (g144_f.sv)  qualifier-spelling
+  prisE rc=0
+  patcE rc=0
+  g-vs-o cmp rc=255 lines=7072 heads=1
+  g-vs-q cmp rc=255 lines=7084 heads=1
+  ge-vs-oe cmp rc=255 lines=9368 heads=1
+  ge-vs-qe cmp rc=255 lines=9368 heads=1
+  DEF cells=6  PRISTINE-wrong=3  PATCHED-wrong=0
+  ELAB cells=6  PRISTINE-wrong=0  PATCHED-wrong=0
+
+===== arm g1  (g144_g.sv)  ctor-first-body-element
+  prisE rc=0
+  patcE rc=0
+  g-vs-o cmp rc=255 lines=6734 heads=1
+  g-vs-q cmp rc=255 lines=6746 heads=1
+  ge-vs-oe cmp rc=255 lines=7334 heads=1
+  ge-vs-qe cmp rc=255 lines=7326 heads=1
+  DEF cells=14  PRISTINE-wrong=7  PATCHED-wrong=0
+  ELAB cells=26  PRISTINE-wrong=7  PATCHED-wrong=0
+
+===== arm b22  (r10buvm22repro/g22.sv)  BOUNDARY-MOVER
+  prisE rc=4
+  patcE rc=4
+  g-vs-o cmp rc=255 lines=17506 heads=1
+  g-vs-q cmp rc=255 lines=17506 heads=1
+  ge-vs-oe cmp rc=255 lines=26436 heads=1
+  ge-vs-qe cmp rc=255 lines=26436 heads=1
+  DEF cells=0  PRISTINE-wrong=0  PATCHED-wrong=0
+  ELAB cells=0  PRISTINE-wrong=0  PATCHED-wrong=0
+
+===== arm b32  (r10buvm32repro/g32a3.sv)  BOUNDARY-MOVER
+  prisE rc=0
+  patcE rc=0
+  g-vs-o cmp rc=255 lines=7202 heads=1
+  g-vs-q cmp rc=255 lines=7206 heads=1
+  ge-vs-oe cmp rc=255 lines=7826 heads=1
+  ge-vs-qe cmp rc=255 lines=7826 heads=1
+  DEF cells=16  PRISTINE-wrong=1  PATCHED-wrong=0
+  ELAB cells=36  PRISTINE-wrong=0  PATCHED-wrong=0
+
+===== arm u28  (r10uvm28repro/t38a/dut.sv)  BOUNDARY-NONMOVER(first-cut-convictor)
+  prisE rc=0
+  patcE rc=0
+  g-vs-o cmp rc=255 lines=7846 heads=1
+  g-vs-q cmp rc=255 lines=7846 heads=1
+  ge-vs-oe cmp rc=255 lines=8982 heads=1
+  ge-vs-qe cmp rc=255 lines=8982 heads=1
+  DEF cells=13  PRISTINE-wrong=0  PATCHED-wrong=0
+  ELAB cells=39  PRISTINE-wrong=0  PATCHED-wrong=0
+
+===== arm u64  (r10uvm64repro/v2_ctx.sv)  BOUNDARY-MOVER
+  prisE rc=0
+  patcE rc=0
+  g-vs-o cmp rc=255 lines=14786 heads=1
+  g-vs-q cmp rc=255 lines=14782 heads=1
+  ge-vs-oe cmp rc=255 lines=19500 heads=1
+  ge-vs-qe cmp rc=255 lines=19496 heads=1
+  DEF cells=1  PRISTINE-wrong=0  PATCHED-wrong=0
+  ELAB cells=2  PRISTINE-wrong=0  PATCHED-wrong=0
+
+TOTALS over the ten arms x both views:
+  BINDING-ONLY key (call kind | SCOPED/PLAIN | ref name | ACTUAL kind):
+    PRISTINE-wrong=61   PATCHED-wrong=0
+  The one residual FULL-KEY row (arm E vc09) differs only in the reference's
+  COLUMN (33:72 vs golden 33:76) on the escaped-identifier method; pristine reads
+  33:72 too.  Its BINDING is golden's.  See README R2.

@@ -1357,6 +1357,46 @@ UHDM::any* UhdmExporter::emitCtorBody27(const Statement& slStmt,
     auto* bvars = s.MakeVariablesVec();
     size_t from = nb > 1 ? walkFrom : firstCounted;
     size_t to = nb > 1 ? el.size() : firstCounted + 1;
+    // § ctorFirstBodyItemIsUnlistedNoBind144 — RECORD, before the walk and
+    // therefore before any reference inside this body is emitted, every
+    // DECLARATION element the walk below will not reach.  Those are exactly
+    // the body elements § constructorBodyElementShift27 says Surelog never
+    // compiled, so no variable object of theirs is listed on any scope and
+    // `CompileHelper::bindVariable` (CompileStmt.cpp:3089) cannot find them.
+    // ExprEmit's reference-silence disjunction is the only reader.
+    // VERIFIER FIX 1 (r10v144) — § ctorEatenElementIsTheWholeDeclaration144v.
+    // The element Surelog eats is a GRAMMAR element — one
+    // `block_item_declaration` — and `int a, b;` is ONE of them, carrying TWO
+    // declarators.  slang's statement list carries TWO `VariableDeclStatement`s
+    // instead, so an index-keyed record silences only the FIRST declarator and
+    // the SECOND one binds.  MEASURED, r10v144repro/v144_b_ctor.sv, ONE golden,
+    // BOTH views:
+    //   b01 `function new(); int b01a, b01b; B::si(b01a); B::si(b01b);`
+    //        golden leaves BOTH bare; index-keyed left `b01b` BOUND
+    //   b25 `function new(); int b25a = 3, b25b = b25a; B::si(b25b);`
+    //        the initialised twin, same split
+    //   b02 `function new(); int b02a; int b02b; …` — TWO declarations, so the
+    //        SECOND one survives and golden BINDS it: the control that keeps
+    //        this from becoming "every declarator of the constructor".
+    // So the record is keyed on the DECLARATION SYNTAX NODE the walk did not
+    // reach (the declarator's PARENT, i.e. the whole `data_declaration`), and
+    // every declarator of that node is unlisted whatever its statement index.
+    std::set<const slang::syntax::SyntaxNode*> eatenDecl144v;
+    for (size_t i = 0; i < el.size(); ++i)
+        if (el[i].k == EK_BID && (i < from || i >= to))
+            if (auto* ds144v =
+                    el[i].st->as<VariableDeclStatement>().symbol.getSyntax())
+                if (ds144v->parent)
+                    eatenDecl144v.insert(ds144v->parent);
+    for (size_t i = 0; i < el.size(); ++i) {
+        if (el[i].k != EK_BID)
+            continue;
+        auto& vs144v = el[i].st->as<VariableDeclStatement>().symbol;
+        auto* ds144v = vs144v.getSyntax();
+        if ((i < from || i >= to) ||
+            (ds144v && ds144v->parent && eatenDecl144v.count(ds144v->parent)))
+            ctorUnlistedBid144.insert((const void*)&vs144v);
+    }
     for (size_t i = from; i < to && i < el.size(); ++i) {
         switch (el[i].k) {
             case EK_ARGS:
