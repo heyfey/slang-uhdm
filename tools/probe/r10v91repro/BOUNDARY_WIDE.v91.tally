@@ -1,0 +1,11 @@
+LISTED=4104 PROCESSED=4104 identical=7835 DIFFERING=23 no_output=350
+-- rc histogram BY SIDE (A=patched, B=pristine):
+   A rc=0 7523
+   A rc=139 14
+   A rc=3 336
+   A rc=4 335
+   B rc=0 7523
+   B rc=139 14
+   B rc=3 336
+   B rc=4 335
+-- rc=139 signals: 14 A / 14 B

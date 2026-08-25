@@ -1,0 +1,59 @@
+r10earl91 — THE hier_path VpiSize CENSUS (ct91cen + hpsz91.py), BOTH corpora,
+BEFORE and AFTER, fixed universe.  The GOLDEN side is ASSERTED UNCHANGED:
+every .gold file byte-identical before/after — surelog 166/166, u2r 314/314.
+
+=== surelog (both modes)
+--- BEFORE
+GOLDEN-ONLY      3298
+OURS-ONLY        3844
+SHAPE-DIFF       51
+SZ-BOTH-0        52618
+SZ-BOTH-SET      4
+SZ-OURS-ONLY     4
+DATABASES        166
+--- AFTER
+GOLDEN-ONLY      3298
+OURS-ONLY        3844
+SHAPE-DIFF       51
+SZ-BOTH-0        52622
+SZ-BOTH-SET      4
+DATABASES        166
+
+=== uhdm2rtlil (both modes)
+--- BEFORE
+GOLDEN-ONLY      6
+OURS-ONLY        18
+SZ-BOTH-0        3334
+SZ-BOTH-SET      2
+DATABASES        314
+--- AFTER
+GOLDEN-ONLY      6
+OURS-ONLY        18
+SZ-BOTH-0        3334
+SZ-BOTH-SET      2
+DATABASES        314
+
+=== THE FOUR SZ-OURS-ONLY CELLS (BEFORE), verbatim
+-- ROWS
+[SZ-OURS-ONLY] default__Earlgrey_0_1-71da2fd7
+    SPAN=57:24-57:42	PKIND=operation	POP=75	OPIDX=0	CTX=CONTASSIGN	PORTPAR=-	LHSK=ref_obj	LHSTS=-	CALLARG=0	INSEL=0	ROOT=design	INST=-
+    goldSZ=[] oursSZ=['8']
+[SZ-OURS-ONLY] default__Earlgrey_0_1-71da2fd7
+    SPAN=56:24-56:46	PKIND=operation	POP=75	OPIDX=0	CTX=CONTASSIGN	PORTPAR=-	LHSK=ref_obj	LHSTS=-	CALLARG=0	INSEL=0	ROOT=design	INST=-
+    goldSZ=[] oursSZ=['12']
+[SZ-OURS-ONLY] testflags__Earlgrey_0_1-71da2fd7
+    SPAN=57:24-57:42	PKIND=operation	POP=75	OPIDX=0	CTX=CONTASSIGN	PORTPAR=-	LHSK=ref_obj	LHSTS=-	CALLARG=0	INSEL=0	ROOT=design	INST=-
+    goldSZ=[] oursSZ=['8']
+[SZ-OURS-ONLY] testflags__Earlgrey_0_1-71da2fd7
+    SPAN=56:24-56:46	PKIND=operation	POP=75	OPIDX=0	CTX=CONTASSIGN	PORTPAR=-	LHSK=ref_obj	LHSTS=-	CALLARG=0	INSEL=0	ROOT=design	INST=-
+    goldSZ=[] oursSZ=['12']
+
+=== THE FOUR SZ-BOTH-SET CONTROLS (golden DOES size these; they must not move)
+default__FuncAlias-1d86bd46  SPAN=19:14-19:30	PKIND=operation	POP=75	OPIDX=0	CTX=CONTASSIGN	PORTPAR=-	LHSK=ref_obj	LHSTS=-	CALLARG=0	INSEL=0	ROOT=design	INST=-	||	SZ=64	DEC=-	NAME=pipe[3].f1[63:0]	NEL=2	ELEMS=bit_select:pipe/part_select:f1	RV=-	TS=-	TSN=-	TSRG=-
+default__GenStructAccess-f8d95b3b  SPAN=22:14-22:33	PKIND=operation	POP=75	OPIDX=0	CTX=CONTASSIGN	PORTPAR=-	LHSK=ref_obj	LHSTS=-	CALLARG=0	INSEL=0	ROOT=design	INST=-	||	SZ=64	DEC=-	NAME=pipe_in[3].f1[63:0]	NEL=2	ELEMS=bit_select:pipe_in/part_select:f1	RV=packed_array_var	TS=-	TSN=-	TSRG=-
+testflags__FuncAlias-1d86bd46  SPAN=19:14-19:30	PKIND=operation	POP=75	OPIDX=0	CTX=CONTASSIGN	PORTPAR=-	LHSK=ref_obj	LHSTS=-	CALLARG=0	INSEL=0	ROOT=design	INST=-	||	SZ=64	DEC=-	NAME=pipe[3].f1[63:0]	NEL=2	ELEMS=bit_select:pipe/part_select:f1	RV=-	TS=-	TSN=-	TSRG=-
+testflags__FuncAlias-1d86bd46  SPAN=19:14-19:30	PKIND=operation	POP=75	OPIDX=0	CTX=CONTASSIGN	PORTPAR=-	LHSK=ref_obj	LHSTS=-	CALLARG=0	INSEL=0	ROOT=design	INST=-	||	SZ=64	DEC=-	NAME=pipe[3].f1[63:0]	NEL=2	ELEMS=bit_select:pipe/part_select:f1	RV=-	TS=-	TSN=-	TSRG=-
+testflags__GenStructAccess-f8d95b3b  SPAN=22:14-22:33	PKIND=operation	POP=75	OPIDX=0	CTX=CONTASSIGN	PORTPAR=-	LHSK=ref_obj	LHSTS=-	CALLARG=0	INSEL=0	ROOT=design	INST=-	||	SZ=64	DEC=-	NAME=pipe_in[3].f1[63:0]	NEL=2	ELEMS=bit_select:pipe_in/part_select:f1	RV=packed_array_var	TS=-	TSN=-	TSRG=-
+testflags__GenStructAccess-f8d95b3b  SPAN=22:14-22:33	PKIND=operation	POP=75	OPIDX=0	CTX=CONTASSIGN	PORTPAR=-	LHSK=ref_obj	LHSTS=-	CALLARG=0	INSEL=0	ROOT=design	INST=-	||	SZ=64	DEC=-	NAME=pipe_in[3].f1[63:0]	NEL=2	ELEMS=bit_select:pipe_in/part_select:f1	RV=packed_array_var	TS=-	TSN=-	TSRG=-
+default__gen_struct_access-e748482d  SPAN=22:14-22:33	PKIND=operation	POP=75	OPIDX=0	CTX=CONTASSIGN	PORTPAR=-	LHSK=ref_obj	LHSTS=-	CALLARG=0	INSEL=0	ROOT=design	INST=-	||	SZ=64	DEC=-	NAME=pipe_in[3].f1[63:0]	NEL=2	ELEMS=bit_select:pipe_in/part_select:f1	RV=packed_array_var	TS=-	TSN=-	TSRG=-
+testflags__gen_struct_access-e748482d  SPAN=22:14-22:33	PKIND=operation	POP=75	OPIDX=0	CTX=CONTASSIGN	PORTPAR=-	LHSK=ref_obj	LHSTS=-	CALLARG=0	INSEL=0	ROOT=design	INST=-	||	SZ=64	DEC=-	NAME=pipe_in[3].f1[63:0]	NEL=2	ELEMS=bit_select:pipe_in/part_select:f1	RV=packed_array_var	TS=-	TSN=-	TSRG=-

@@ -1,0 +1,533 @@
+ASSERTION (grep over the per-arm blocks below):
+  lines containing 'RIGHT->WRONG' : 0   (the scorer prints a bucket only when non-zero)
+  lines containing 'DIR:AWAY'     : 0
+  WRONG->RIGHT totals per arm     : 100
+
+r10v91 — ADVERSARIAL ARM SCORES (measurement only; official uhdm-cmp is the judge)
+binaries: pristine md5 1fe90f78fd44f1a6c8774c47b717095c   patched md5 6ce64a069a4ae28d45c42827e141437a
+scorer: score3_91.py  census: ct91pat --inst   golden: surelog -parse -nobuiltin -nocache -d uhdm
+
+===== v1_ports91 =====
+DIR:EXACT            1
+SAME->SAME           45
+UNCHANGED-WRONG      10
+WRONG->RIGHT         1
+KEYS                 56
+-- CHANGED CELLS
+[EXACT] PSPAN=44:18-44:29	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@v1_ports91
+    gold={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=din\tTS=-': 2}
+    pris={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=din\tTS=-': 1, 'KIND=ref_obj\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=din\tTS=-': 1}
+    patc={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=din\tTS=-': 2}
+
+===== v2_targets91 =====
+DIR:CHANGED-NO-GOLDEN 1
+DIR:EXACT            16
+SAME->SAME           85
+STILL-WRONG          1
+UNCHANGED-WRONG      4
+WRONG->RIGHT         16
+KEYS                 106
+-- CHANGED CELLS
+[EXACT] PSPAN=25:44-25:55	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v2.u
+    gold={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+    pris={'KIND=ref_obj\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+    patc={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+[EXACT] PSPAN=27:44-27:55	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v2.u
+    gold={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+    pris={'KIND=ref_obj\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+    patc={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+[EXACT] PSPAN=29:44-29:55	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v2.u
+    gold={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+    pris={'KIND=ref_obj\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+    patc={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+[EXACT] PSPAN=31:44-31:55	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v2.u
+    gold={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+    pris={'KIND=ref_obj\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+    patc={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+[EXACT] PSPAN=33:44-33:60	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v2.u
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=enum_typespec': 1}
+    pris={'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=enum_typespec': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=enum_typespec': 1}
+[EXACT] PSPAN=35:44-35:69	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v2.u
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=union_typespec': 1}
+    pris={'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=union_typespec': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=union_typespec': 1}
+[CHANGED-NO-GOLDEN] PSPAN=37:44-37:69	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v2.u
+    gold={}
+    pris={'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=struct_typespec': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=struct_typespec': 1}
+[EXACT] PSPAN=39:44-39:55	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v2.u
+    gold={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+    pris={'KIND=ref_obj\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+    patc={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+[EXACT] PSPAN=43:45-43:56	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v2.u
+    gold={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+    pris={'KIND=ref_obj\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+    patc={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+[EXACT] PSPAN=45:45-45:56	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v2.u
+    gold={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+    pris={'KIND=ref_obj\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+    patc={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+[EXACT] PSPAN=47:45-47:62	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v2.u
+    gold={'KIND=bit_select\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=din\tTS=-': 1}
+    pris={'KIND=bit_select\tSZ=1\tDEC=-\tVAL=-\tCT=-\tNAME=din\tTS=-': 1}
+    patc={'KIND=bit_select\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=din\tTS=-': 1}
+[EXACT] PSPAN=49:45-49:60	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v2.u
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=int_typespec': 1}
+    pris={'KIND=operation\tSZ=32\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=int_typespec': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=int_typespec': 1}
+[EXACT] PSPAN=59:45-59:51	POP=75	NOPS=1	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v2.u
+    gold={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+    pris={'KIND=ref_obj\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+    patc={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+[EXACT] PSPAN=61:45-61:61	POP=75	NOPS=3	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v2.u
+    gold={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+    pris={'KIND=ref_obj\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+    patc={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+[EXACT] PSPAN=63:45-63:67	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v2.u
+    gold={'KIND=part_select\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=din\tTS=-': 1}
+    pris={'KIND=part_select\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=din\tTS=-': 1}
+    patc={'KIND=part_select\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=din\tTS=-': 1}
+[EXACT] PSPAN=69:54-69:65	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v2.u
+    gold={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+    pris={'KIND=ref_obj\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+    patc={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+[EXACT] PSPAN=69:68-69:79	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v2.u
+    gold={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=din\tTS=-': 1}
+    pris={'KIND=ref_obj\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=din\tTS=-': 1}
+    patc={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=din\tTS=-': 1}
+
+===== v3_homes91 =====
+DIR:CHANGED-NO-GOLDEN 9
+DIR:EXACT            64
+SAME->SAME           108
+STILL-WRONG          9
+UNCHANGED-WRONG      9
+WRONG->RIGHT         64
+KEYS                 190
+-- CHANGED CELLS
+[CHANGED-NO-GOLDEN] PSPAN=19:17-19:46	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[0].m.l0
+    gold={}
+    pris={'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=struct_typespec': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=struct_typespec': 1}
+[CHANGED-NO-GOLDEN] PSPAN=19:17-19:46	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[0].m.l1
+    gold={}
+    pris={'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=struct_typespec': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=struct_typespec': 1}
+[CHANGED-NO-GOLDEN] PSPAN=19:17-19:46	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[0].m.l2
+    gold={}
+    pris={'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=struct_typespec': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=struct_typespec': 1}
+[CHANGED-NO-GOLDEN] PSPAN=19:17-19:46	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[1].m.l0
+    gold={}
+    pris={'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=struct_typespec': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=struct_typespec': 1}
+[CHANGED-NO-GOLDEN] PSPAN=19:17-19:46	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[1].m.l1
+    gold={}
+    pris={'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=struct_typespec': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=struct_typespec': 1}
+[CHANGED-NO-GOLDEN] PSPAN=19:17-19:46	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[1].m.l2
+    gold={}
+    pris={'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=struct_typespec': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=struct_typespec': 1}
+[CHANGED-NO-GOLDEN] PSPAN=19:17-19:46	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[2].m.l0
+    gold={}
+    pris={'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=struct_typespec': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=struct_typespec': 1}
+[CHANGED-NO-GOLDEN] PSPAN=19:17-19:46	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[2].m.l1
+    gold={}
+    pris={'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=struct_typespec': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=struct_typespec': 1}
+[CHANGED-NO-GOLDEN] PSPAN=19:17-19:46	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[2].m.l2
+    gold={}
+    pris={'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=struct_typespec': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=struct_typespec': 1}
+[EXACT] PSPAN=21:15-21:31	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[0].m.l0
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.a\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.a\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.a\tTS=-': 1}
+[EXACT] PSPAN=21:15-21:31	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[0].m.l1
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.a\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.a\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.a\tTS=-': 1}
+[EXACT] PSPAN=21:15-21:31	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[0].m.l2
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.a\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=1\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.a\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.a\tTS=-': 1}
+[EXACT] PSPAN=21:15-21:31	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[1].m.l0
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.a\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.a\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.a\tTS=-': 1}
+[EXACT] PSPAN=21:15-21:31	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[1].m.l1
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.a\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.a\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.a\tTS=-': 1}
+[EXACT] PSPAN=21:15-21:31	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[1].m.l2
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.a\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=1\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.a\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.a\tTS=-': 1}
+[EXACT] PSPAN=21:15-21:31	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[2].m.l0
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.a\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.a\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.a\tTS=-': 1}
+[EXACT] PSPAN=21:15-21:31	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[2].m.l1
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.a\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.a\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.a\tTS=-': 1}
+[EXACT] PSPAN=21:15-21:31	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[2].m.l2
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.a\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=1\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.a\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.a\tTS=-': 1}
+[EXACT] PSPAN=23:15-23:30	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[0].m.l0
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=sarr[1].a\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=sarr[1].a\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=sarr[1].a\tTS=-': 1}
+[EXACT] PSPAN=23:15-23:30	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[0].m.l1
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=sarr[1].a\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=sarr[1].a\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=sarr[1].a\tTS=-': 1}
+[EXACT] PSPAN=23:15-23:30	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[0].m.l2
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=sarr[1].a\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=1\tDEC=-\tVAL=-\tCT=-\tNAME=sarr[1].a\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=sarr[1].a\tTS=-': 1}
+[EXACT] PSPAN=23:15-23:30	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[1].m.l0
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=sarr[1].a\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=sarr[1].a\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=sarr[1].a\tTS=-': 1}
+[EXACT] PSPAN=23:15-23:30	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[1].m.l1
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=sarr[1].a\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=sarr[1].a\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=sarr[1].a\tTS=-': 1}
+[EXACT] PSPAN=23:15-23:30	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[1].m.l2
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=sarr[1].a\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=1\tDEC=-\tVAL=-\tCT=-\tNAME=sarr[1].a\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=sarr[1].a\tTS=-': 1}
+[EXACT] PSPAN=23:15-23:30	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[2].m.l0
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=sarr[1].a\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=sarr[1].a\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=sarr[1].a\tTS=-': 1}
+[EXACT] PSPAN=23:15-23:30	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[2].m.l1
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=sarr[1].a\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=sarr[1].a\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=sarr[1].a\tTS=-': 1}
+[EXACT] PSPAN=23:15-23:30	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[2].m.l2
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=sarr[1].a\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=1\tDEC=-\tVAL=-\tCT=-\tNAME=sarr[1].a\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=sarr[1].a\tTS=-': 1}
+[EXACT] PSPAN=25:15-25:28	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[0].m.l0
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.sig\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=itf.sig\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.sig\tTS=-': 1}
+[EXACT] PSPAN=25:15-25:28	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[0].m.l1
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.sig\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=itf.sig\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.sig\tTS=-': 1}
+[EXACT] PSPAN=25:15-25:28	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[0].m.l2
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.sig\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=1\tDEC=-\tVAL=-\tCT=-\tNAME=itf.sig\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.sig\tTS=-': 1}
+[EXACT] PSPAN=25:15-25:28	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[1].m.l0
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.sig\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=itf.sig\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.sig\tTS=-': 1}
+[EXACT] PSPAN=25:15-25:28	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[1].m.l1
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.sig\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=itf.sig\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.sig\tTS=-': 1}
+[EXACT] PSPAN=25:15-25:28	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[1].m.l2
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.sig\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=1\tDEC=-\tVAL=-\tCT=-\tNAME=itf.sig\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.sig\tTS=-': 1}
+[EXACT] PSPAN=25:15-25:28	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[2].m.l0
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.sig\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=itf.sig\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.sig\tTS=-': 1}
+[EXACT] PSPAN=25:15-25:28	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[2].m.l1
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.sig\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=itf.sig\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.sig\tTS=-': 1}
+[EXACT] PSPAN=25:15-25:28	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[2].m.l2
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.sig\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=1\tDEC=-\tVAL=-\tCT=-\tNAME=itf.sig\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.sig\tTS=-': 1}
+[EXACT] PSPAN=27:15-27:29	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[0].m.l0
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.st.a\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=itf.st.a\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.st.a\tTS=-': 1}
+[EXACT] PSPAN=27:15-27:29	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[0].m.l1
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.st.a\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=itf.st.a\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.st.a\tTS=-': 1}
+[EXACT] PSPAN=27:15-27:29	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[0].m.l2
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.st.a\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=1\tDEC=-\tVAL=-\tCT=-\tNAME=itf.st.a\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.st.a\tTS=-': 1}
+[EXACT] PSPAN=27:15-27:29	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[1].m.l0
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.st.a\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=itf.st.a\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.st.a\tTS=-': 1}
+[EXACT] PSPAN=27:15-27:29	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[1].m.l1
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.st.a\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=itf.st.a\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.st.a\tTS=-': 1}
+[EXACT] PSPAN=27:15-27:29	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[1].m.l2
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.st.a\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=1\tDEC=-\tVAL=-\tCT=-\tNAME=itf.st.a\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.st.a\tTS=-': 1}
+[EXACT] PSPAN=27:15-27:29	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[2].m.l0
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.st.a\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=itf.st.a\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.st.a\tTS=-': 1}
+[EXACT] PSPAN=27:15-27:29	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[2].m.l1
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.st.a\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=itf.st.a\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.st.a\tTS=-': 1}
+[EXACT] PSPAN=27:15-27:29	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[2].m.l2
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.st.a\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=1\tDEC=-\tVAL=-\tCT=-\tNAME=itf.st.a\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=itf.st.a\tTS=-': 1}
+[EXACT] PSPAN=29:15-29:38	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[0].m.l0
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    pris={'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+[EXACT] PSPAN=29:15-29:38	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[0].m.l1
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    pris={'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+[EXACT] PSPAN=29:15-29:38	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[0].m.l2
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    pris={'KIND=operation\tSZ=1\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+[EXACT] PSPAN=29:15-29:38	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[1].m.l0
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    pris={'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+[EXACT] PSPAN=29:15-29:38	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[1].m.l1
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    pris={'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+[EXACT] PSPAN=29:15-29:38	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[1].m.l2
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    pris={'KIND=operation\tSZ=1\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+[EXACT] PSPAN=29:15-29:38	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[2].m.l0
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    pris={'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+[EXACT] PSPAN=29:15-29:38	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[2].m.l1
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    pris={'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+[EXACT] PSPAN=29:15-29:38	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[2].m.l2
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    pris={'KIND=operation\tSZ=1\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+[EXACT] PSPAN=31:15-31:39	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[0].m.l0
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    pris={'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+[EXACT] PSPAN=31:15-31:39	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[0].m.l1
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    pris={'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+[EXACT] PSPAN=31:15-31:39	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[0].m.l2
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    pris={'KIND=operation\tSZ=1\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+[EXACT] PSPAN=31:15-31:39	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[1].m.l0
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    pris={'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+[EXACT] PSPAN=31:15-31:39	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[1].m.l1
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    pris={'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+[EXACT] PSPAN=31:15-31:39	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[1].m.l2
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    pris={'KIND=operation\tSZ=1\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+[EXACT] PSPAN=31:15-31:39	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[2].m.l0
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    pris={'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+[EXACT] PSPAN=31:15-31:39	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[2].m.l1
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    pris={'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+[EXACT] PSPAN=31:15-31:39	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[2].m.l2
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    pris={'KIND=operation\tSZ=1\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+[EXACT] PSPAN=33:15-33:35	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[0].m.l0
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=int_typespec': 1}
+    pris={'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=int_typespec': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=int_typespec': 1}
+[EXACT] PSPAN=33:15-33:35	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[0].m.l1
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=int_typespec': 1}
+    pris={'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=int_typespec': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=int_typespec': 1}
+[EXACT] PSPAN=33:15-33:35	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[0].m.l2
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=int_typespec': 1}
+    pris={'KIND=operation\tSZ=1\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=int_typespec': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=int_typespec': 1}
+[EXACT] PSPAN=33:15-33:35	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[1].m.l0
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=int_typespec': 1}
+    pris={'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=int_typespec': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=int_typespec': 1}
+[EXACT] PSPAN=33:15-33:35	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[1].m.l1
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=int_typespec': 1}
+    pris={'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=int_typespec': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=int_typespec': 1}
+[EXACT] PSPAN=33:15-33:35	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[1].m.l2
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=int_typespec': 1}
+    pris={'KIND=operation\tSZ=1\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=int_typespec': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=int_typespec': 1}
+[EXACT] PSPAN=33:15-33:35	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[2].m.l0
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=int_typespec': 1}
+    pris={'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=int_typespec': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=int_typespec': 1}
+[EXACT] PSPAN=33:15-33:35	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[2].m.l1
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=int_typespec': 1}
+    pris={'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=int_typespec': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=int_typespec': 1}
+[EXACT] PSPAN=33:15-33:35	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u.gblk[2].m.l2
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=int_typespec': 1}
+    pris={'KIND=operation\tSZ=1\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=int_typespec': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=int_typespec': 1}
+[EXACT] PSPAN=64:17-64:38	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top_v3.u
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=gblk[0].gv[1]\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=gblk[0].gv[1]\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=gblk[0].gv[1]\tTS=-': 1}
+
+===== v4_bind91 =====
+DIR:EXACT            2
+SAME->SAME           29
+UNCHANGED-WRONG      1
+WRONG->RIGHT         2
+KEYS                 32
+-- CHANGED CELLS
+[EXACT] PSPAN=10:15-10:26	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@v4_bind91.pb
+    gold={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=d\tTS=-': 1}
+    pris={'KIND=ref_obj\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=d\tTS=-': 1}
+    patc={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=d\tTS=-': 1}
+[EXACT] PSPAN=48:15-48:24	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@v4_bind91.c0
+    gold={'KIND=constant\tSZ=64\tDEC=5\tVAL=UINT:5\tCT=9\tNAME=-\tTS=-': 1}
+    pris={'KIND=constant\tSZ=12\tDEC=5\tVAL=UINT:5\tCT=9\tNAME=-\tTS=-': 1}
+    patc={'KIND=constant\tSZ=64\tDEC=5\tVAL=UINT:5\tCT=9\tNAME=-\tTS=-': 1}
+
+===== v5_spell91 =====
+DIR:CHANGED-NO-GOLDEN 1
+DIR:EXACT            2
+SAME->SAME           28
+STILL-WRONG          1
+UNCHANGED-WRONG      1
+WRONG->RIGHT         2
+KEYS                 32
+-- CHANGED CELLS
+[CHANGED-NO-GOLDEN] PSPAN=13:15-13:26	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@v5_spell91.ui
+    gold={}
+    pris={'KIND=ref_obj\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=d\tTS=-': 1}
+    patc={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=d\tTS=-': 1}
+[EXACT] PSPAN=50:15-50:38	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@v5_spell91
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 2}
+    pris={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1, 'KIND=operation\tSZ=24\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 2}
+[EXACT] PSPAN=58:15-58:37	POP=75	NOPS=3	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@v5_spell91
+    gold={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=din\tTS=-': 2}
+    pris={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=din\tTS=-': 1, 'KIND=ref_obj\tSZ=4\tDEC=-\tVAL=-\tCT=-\tNAME=din\tTS=-': 1}
+    patc={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=din\tTS=-': 2}
+
+===== v6_faces91 =====
+DIR:CHANGED-NO-GOLDEN 3
+DIR:EXACT            9
+DIR:TO-GOLDEN?       1
+SAME->SAME           38
+STILL-WRONG          4
+UNCHANGED-WRONG      9
+WRONG->RIGHT         9
+KEYS                 60
+-- CHANGED CELLS
+[EXACT] PSPAN=23:15-23:26	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@v6_faces91.m.up
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=p.sig\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=p.sig\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=p.sig\tTS=-': 1}
+[EXACT] PSPAN=25:15-25:27	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@v6_faces91.m.up
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=p.st.a\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=p.st.a\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=p.st.a\tTS=-': 1}
+[EXACT] PSPAN=33:15-33:29	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@v6_faces91.m.d0
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+[EXACT] PSPAN=33:15-33:29	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@v6_faces91.m.d1
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+[EXACT] PSPAN=33:15-33:29	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@v6_faces91.m.d2
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=8\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+[TO-GOLDEN?] PSPAN=35:15-35:27	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@v6_faces91.m.d2
+    gold={'KIND=constant\tSZ=12\tDEC=9\tVAL=INT:9\tCT=7\tNAME=-\tTS=-': 1}
+    pris={"KIND=constant\tSZ=8\tDEC=12'd9\tVAL=DEC:9\tCT=1\tNAME=-\tTS=-": 1}
+    patc={"KIND=constant\tSZ=12\tDEC=12'd9\tVAL=DEC:9\tCT=1\tNAME=-\tTS=-": 1}
+[EXACT] PSPAN=37:15-37:43	POP=75	NOPS=3	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@v6_faces91.m.d0
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.b\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.b\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.b\tTS=-': 1}
+[EXACT] PSPAN=37:15-37:43	POP=75	NOPS=3	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@v6_faces91.m.d1
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.b\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.b\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.b\tTS=-': 1}
+[EXACT] PSPAN=37:15-37:43	POP=75	NOPS=3	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@v6_faces91.m.d2
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.b\tTS=-': 1}
+    pris={'KIND=hier_path\tSZ=8\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.b\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=nn.inner.b\tTS=-': 1}
+[CHANGED-NO-GOLDEN] PSPAN=39:15-39:30	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@v6_faces91.m.d0
+    gold={}
+    pris={'KIND=ref_obj\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=d\tTS=-': 1}
+    patc={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=d\tTS=-': 1}
+[CHANGED-NO-GOLDEN] PSPAN=39:15-39:30	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@v6_faces91.m.d1
+    gold={}
+    pris={'KIND=ref_obj\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=d\tTS=-': 1}
+    patc={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=d\tTS=-': 1}
+[CHANGED-NO-GOLDEN] PSPAN=39:15-39:30	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@v6_faces91.m.d2
+    gold={}
+    pris={'KIND=ref_obj\tSZ=8\tDEC=-\tVAL=-\tCT=-\tNAME=d\tTS=-': 1}
+    patc={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=d\tTS=-': 1}
+[EXACT] PSPAN=60:15-60:38	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@v6_faces91
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=m.d0.nn.inner.a\tTS=-': 2}
+    pris={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=m.d0.nn.inner.a\tTS=-': 1, 'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=m.d0.nn.inner.a\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=m.d0.nn.inner.a\tTS=-': 2}
+
+===== v7_spell2 =====
+DIR:EXACT            6
+SAME->SAME           22
+WRONG->RIGHT         6
+KEYS                 28
+-- CHANGED CELLS
+[EXACT] PSPAN=22:29-22:40	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@v7_spell2
+    gold={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 2}
+    pris={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1, 'KIND=ref_obj\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+    patc={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 2}
+[EXACT] PSPAN=24:36-24:48	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@v7_spell2
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=bg.w\tTS=-': 2}
+    pris={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=bg.w\tTS=-': 1, 'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=bg.w\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=bg.w\tTS=-': 2}
+[EXACT] PSPAN=26:36-26:49	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@v7_spell2
+    gold={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 2}
+    pris={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1, 'KIND=ref_obj\tSZ=20\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+    patc={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 2}
+[EXACT] PSPAN=28:29-28:46	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@v7_spell2
+    gold={'KIND=bit_select\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 2}
+    pris={'KIND=bit_select\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1, 'KIND=bit_select\tSZ=1\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+    patc={'KIND=bit_select\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 2}
+[EXACT] PSPAN=30:29-30:39	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@v7_spell2
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=bg.w\tTS=-': 2}
+    pris={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=bg.w\tTS=-': 1, 'KIND=hier_path\tSZ=32\tDEC=-\tVAL=-\tCT=-\tNAME=bg.w\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=bg.w\tTS=-': 2}
+[EXACT] PSPAN=33:43-33:53	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@v7_spell2
+    gold={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=sv\tTS=-': 2}
+    pris={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=sv\tTS=-': 1, 'KIND=ref_obj\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=sv\tTS=-': 1}
+    patc={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=sv\tTS=-': 2}
+

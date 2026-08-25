@@ -1,0 +1,42 @@
+r10v91 — THE 13th WIDE-BOUNDARY CELL, CONVICTED **NOT** THIS LAW.
+
+CELL:  plain  r10vrgg3repro/xi_iface_param_type/dut.sv     (an EARLIER pass's arm)
+FIELD: one `|vpiSigned:1` line, on the un-named `parameter` object that hangs off
+       an `interface_inst` of the interface ARRAY `itf #(logic [7:0]) arr[3]()`
+       whose interface declares `parameter type T`.  Patched dump 1328 lines,
+       pristine dump 1329 lines; the only diff is that single field.
+
+WHY IT IS NOT THIS LAW — three independent measurements:
+
+1. THE LAW'S SITE IS NEVER REACHED FOR THIS FILE.
+     R10E91_CELLDBG=1 <patched> dut.sv            -> 0 cells
+     R10E91_CELLDBG=1 <patched> --elabuhdm dut.sv -> 0 cells
+   (the trace prints EVERY cell that reaches the first-operand stamp, with both
+   answers, whether or not the predicate fires.)
+
+2. IT IS A COIN, NOT A CODE-LAYOUT CONSTANT.  In isolation BOTH binaries print
+   14 occurrences of `vpiSigned:1`, 12/12 runs each.  Under parallel load the
+   count flips to 13 on BOTH SIDES:
+     150 runs each at -P 12:  pristine count13=1 count14=149
+                              patched  count13=0 count14=150
+     24 runs each at -P 48 :  patched  count13=1 count14=23
+   A layout-tracking value would be STABLE per binary and DIFFERENT between
+   them (that is what r10buvm22repro/g22.sv does — see below); this one is the
+   same value on both binaries and flips at ~1/150 on either.
+
+3. THE COIN IS INVISIBLE TO THE CORPUS JUDGE: this arm is a probe source, and
+   the whole-corpus byte gate (byteverify over 1358 + 956 databases) shows 2
+   movers, both `Earlgrey_0_1`, and the run-time A/B gate reproduces the
+   pristine bytes for both of them with R10E91_OFF=1.
+
+CONTRAST — r10buvm22repro/g22.sv IS layout, and also NOT this law:
+     R10E91_OFF=1 patched  -> acdd87b39337     patched law-ON -> acdd87b39337
+     pristine              -> 88ff597a5ebf
+     cells reaching the site: 0
+     the whole diff is a garbage UINT literal, 22498969 (patched) vs 22498937
+     (pristine) — a delta of 32, an address artifact; both sides exit rc=4 and
+     emit no comparable database.  This is r10earl84's R5.
+
+RESIDUE (new, ranked R7 in VERIFIED.r10v91.txt): the `vpiSigned` written onto
+an interface-array instance's un-named `parameter` object is read from a
+race-dependent source.  It predates this pass and is not reachable by it.

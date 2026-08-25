@@ -9427,6 +9427,24 @@ static bool cellDbg90() {
     return v;
 }
 
+// r10earl91 — the A/B gate and the cell trace for
+// § inlineUnpackedArrayPatternNoFirstSize91 (see the site in the
+// SimpleAssignmentPattern arm).  `R10E91_OFF=1` restores the pristine
+// behaviour at run time in the shipped binary; `R10E91_CELLDBG=1` names EVERY
+// cell that REACHES the first-operand stamp with BOTH answers, not only the
+// shape the law intends to change (earl66's lesson).
+static bool off91() {
+    static const bool v = getenv("R10E91_OFF") != nullptr;
+    return v;
+}
+static bool cellDbg91() {
+    static const bool v = [] {
+        const char* e = getenv("R10E91_CELLDBG");
+        return e && *e && *e != '0';
+    }();
+    return v;
+}
+
 // § defparamHidesTheOverride90v (r10v90, THE VERIFIER'S FIX) — FENCE (e) HAS A
 // HOLE THE SPAN TEST CANNOT SEE: A `defparam`.
 //
@@ -26162,7 +26180,92 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // Re-emitted OUTERMOST patterns size their FIRST operand;
                     // NESTED patterns ('{'{0,..},..}) keep every element 64.
                     if (reemitting) {
-                        if (operands->empty() && !wasInPattern)
+                        // § inlineUnpackedArrayPatternNoFirstSize91 (r10earl91)
+                        // — ...EXCEPT WHEN THE TARGET IS AN UNPACKED ARRAY
+                        // SPELLED INLINE, WHERE GOLDEN SIZES NOTHING AT ALL.
+                        //
+                        // This stamp models Surelog's
+                        // `CompileHelper::expandPatternAssignment`
+                        // (CompileHelper.cpp:5238-5257), whose untagged arm
+                        // walks the operands calling
+                        //   expr* vexp = reduceExpr(cop, invalidValue, ...);
+                        //   uint64_t v = eval.get_uvalue(invalidValue, vexp);
+                        //   int32_t csize = adjustOpSize(tps, cop, opIndex, ...);
+                        //   if (invalidValue) { return result; }
+                        // — `adjustOpSize` runs BEFORE the `invalidValue`
+                        // check, which is exactly why an UNREDUCIBLE first
+                        // operand still gets a size and the walk then stops:
+                        // "the re-emitted outermost pattern sizes its FIRST
+                        // operand".
+                        //
+                        // `CompileHelper::adjustOpSize` (CompileHelper.cpp:
+                        // 4944-5035) dispatches on the ASSIGN TARGET's typespec
+                        // and writes `cop->VpiSize(ncsize)` in every branch BUT
+                        // ONE: the `uhdmarray_typespec` branch (:4990-5002)
+                        // writes only `if (const ref_typespec* ert =
+                        // atps->Elem_typespec())`.  An UNPACKED ARRAY declared
+                        // INLINE (`logic [11:0] prescaler [N_HARTS]`) becomes a
+                        // BARE `array_typespec` — no ranges, no location and NO
+                        // `Elem_typespec` (measured: 22 of them in
+                        // `g2_first91`'s golden dump, one per inline unpacked
+                        // declaration in each view) — so that `if` fails, the
+                        // size is NEVER written, and every operand keeps
+                        // whatever size it already had.  A TYPEDEF'd unpacked
+                        // array is the other half: Surelog fills the ref
+                        // (ElaborationStep.cpp:211, UhdmWriter.cpp:752/3195),
+                        // golden DOES size operand 0 at the element width, and
+                        // this emitter already lands on it — hence the
+                        // predicate is the SPELLING (`expr.type`'s own kind),
+                        // not the canonical kind.
+                        //
+                        // MEASURED ON GOLDEN, `assign <tgt> = '{<op0>, ...}`,
+                        // ELAB view, operand 0 (g1/g2/g3/g4):
+                        //   inline `logic [11:0] x [1]` / `[0:0]` / `[1:0]` /
+                        //   `[2]` / `[NH]`, a scalar element, a parameterised
+                        //   width, a TYPEDEF'd ELEMENT with an inline dim, an
+                        //   unpacked array of a PACKED STRUCT, of a PACKED
+                        //   ARRAY, a 2-D unpacked array, an INTERFACE-member
+                        //   root ...................... golden sizes NOTHING,
+                        //   for EVERY operand kind measured (hier_path,
+                        //   ref_obj, bit_select, part_select, operation, cast,
+                        //   a sized literal keeps its own width, an UNSIZED
+                        //   decimal keeps 64);
+                        //   `typedef logic [11:0] wd_t [2]; wd_t h1;` and
+                        //   `typedef sm_t sma_t [2];` ... golden SIZES operand
+                        //   0 at the element width (12 / 8) — KEPT;
+                        //   PACKED vector / PACKED array / STRUCT targets take
+                        //   adjustOpSize's other three branches — UNTOUCHED.
+                        //
+                        // THE HEAD: `rv_timer.sv:56  assign prescaler =
+                        // '{reg2hw.cfg0.prescale.q};` with `logic [11:0]
+                        // prescaler [N_HARTS]` — golden's hier_path carries no
+                        // `vpiSize`, ours carried 12, and `expr::Compare`
+                        // (expr.cpp:95) scores `VpiSize` before `Typespec` and
+                        // before every `hier_path` field.
+                        const Type* pt91 = expr.type;
+                        // The PREDICATE is computed independently of the A/B
+                        // switch so the cell trace can print BOTH answers for
+                        // every cell it reaches even while the law is OFF.
+                        const bool inlineUnpackedTgt91 =
+                            pt91 && pt91->kind ==
+                                        SymbolKind::FixedSizeUnpackedArrayType;
+                        const bool inlineUnpacked91 =
+                            inlineUnpackedTgt91 && !off91();
+                        if (cellDbg91() && operands->empty() && !wasInPattern)
+                            fprintf(stderr,
+                                    "R10E91 CELL buf=%u off=%u elKind=%d "
+                                    "tgtKind=%d szOld=%d szNew=%d\n",
+                                    (unsigned)expr.sourceRange.start()
+                                        .buffer()
+                                        .getId(),
+                                    (unsigned)expr.sourceRange.start().offset(),
+                                    (int)el->kind, pt91 ? (int)pt91->kind : -1,
+                                    (int)el->type->getBitWidth(),
+                                    inlineUnpackedTgt91
+                                        ? ((UHDM::expr*)e)->VpiSize()
+                                        : (int32_t)el->type->getBitWidth());
+                        if (operands->empty() && !wasInPattern &&
+                            !inlineUnpacked91)
                             ((UHDM::expr*)e)->VpiSize((int32_t)el->type->getBitWidth());
                     }
                     // Outermost bare-decimal elements: a direct var initializer

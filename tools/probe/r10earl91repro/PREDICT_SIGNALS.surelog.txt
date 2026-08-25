@@ -1,0 +1,5 @@
+r10earl91 — the prediction re-run's SIGNALS (stderr of predict91.sh).
+A pre-existing rc=139 family (RESUME §9; earl82 R6 / earl83 R6 / earl84 R6 /
+earl85 R5 / earl89 R6 / earl90 R8).  byteverify proves none is a mover.
+
+      2 Segmentation fault

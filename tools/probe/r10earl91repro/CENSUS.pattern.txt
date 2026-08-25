@@ -1,0 +1,89 @@
+r10earl91 — THE ASSIGNMENT-PATTERN OPERAND CENSUS (ct91pat + score91.py),
+BOTH corpora, BEFORE and AFTER, fixed universe, golden side asserted unchanged
+(surelog 230/230, u2r 316/316 .gold files byte-identical).
+
+=== surelog (both modes)
+--- BEFORE
+BOTH-SAME          36132
+GOLDEN-ONLY        4697
+MOVED-WRONG        5699
+OURS-ONLY          5480
+SZ-EXTRA-PAT0      4
+SZ-MISSING-PAT0    1
+DATABASES          230
+--- AFTER
+BOTH-SAME          36134
+GOLDEN-ONLY        4697
+MOVED-WRONG        5697
+OURS-ONLY          5480
+SZ-MISSING-PAT0    1
+DATABASES          230
+
+=== uhdm2rtlil (both modes)
+--- BEFORE
+BOTH-SAME          2812
+GOLDEN-ONLY        16
+MOVED-WRONG        56
+OURS-ONLY          20
+SZ-DIFF-PAT0       2
+SZ-MISSING-PAT0    6
+DATABASES          316
+--- AFTER
+BOTH-SAME          2812
+GOLDEN-ONLY        16
+MOVED-WRONG        56
+OURS-ONLY          20
+SZ-DIFF-PAT0       2
+SZ-MISSING-PAT0    6
+DATABASES          316
+
+=== THE FAMILY ROWS, BEFORE (surelog)
+-- FAMILY ROWS
+[SZ-EXTRA-PAT0] default__Earlgrey_0_1-71da2fd7
+    PSPAN=56:22-56:47	POP=75	NOPS=1	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=-
+    goldSZ={'0': 2} oursSZ={'0': 1, '12': 1}
+[SZ-EXTRA-PAT0] default__Earlgrey_0_1-71da2fd7
+    PSPAN=57:22-57:43	POP=75	NOPS=1	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=-
+    goldSZ={'0': 2} oursSZ={'0': 1, '8': 1}
+[SZ-MISSING-PAT0] default__Earlgrey_0_1-71da2fd7
+    PSPAN=211:24-223:4	POP=75	NOPS=10	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=struct_typespec	INST=-
+    goldSZ={'1': 13} oursSZ={'0': 13}
+[SZ-EXTRA-PAT0] testflags__Earlgrey_0_1-71da2fd7
+    PSPAN=56:22-56:47	POP=75	NOPS=1	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=-
+    goldSZ={'0': 2} oursSZ={'0': 1, '12': 2}
+[SZ-EXTRA-PAT0] testflags__Earlgrey_0_1-71da2fd7
+    PSPAN=57:22-57:43	POP=75	NOPS=1	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=-
+    goldSZ={'0': 2} oursSZ={'0': 1, '8': 2}
+
+=== THE FAMILY ROWS, AFTER (surelog)
+-- FAMILY ROWS
+[SZ-MISSING-PAT0] default__Earlgrey_0_1-71da2fd7
+    PSPAN=211:24-223:4	POP=75	NOPS=10	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=struct_typespec	INST=-
+    goldSZ={'1': 13} oursSZ={'0': 13}
+
+=== THE FAMILY ROWS, BEFORE (uhdm2rtlil) — none belong to this law
+-- FAMILY ROWS
+[SZ-DIFF-PAT0] default__AnonStructs-4babe219
+    PSPAN=9:16-14:6	POP=75	NOPS=4	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=-
+    goldSZ={'1': 1, '-': 1} oursSZ={'1': 1, '64': 1, '-': 1}
+[SZ-MISSING-PAT0] default__iface_cfg_mem-0d90a5ba
+    PSPAN=9:45-9:63	POP=75	NOPS=1	IDX=0	CTX=PARAMINIT	LHSK=-	LHSTS=-	PTS=struct_typespec	INST=-
+    goldSZ={'0': 3, '32': 1} oursSZ={'0': 2}
+[SZ-MISSING-PAT0] default__iface_scalar_localparam-a7441da3
+    PSPAN=6:42-6:45	POP=75	NOPS=1	IDX=0	CTX=PARAMINIT	LHSK=-	LHSTS=-	PTS=struct_typespec	INST=-
+    goldSZ={'0': 3, '32': 1} oursSZ={'0': 2}
+[SZ-MISSING-PAT0] default__iface_struct_field_partsel-917f9147
+    PSPAN=10:42-10:45	POP=75	NOPS=1	IDX=0	CTX=PARAMINIT	LHSK=-	LHSTS=-	PTS=struct_typespec	INST=-
+    goldSZ={'0': 3, '32': 1} oursSZ={'0': 2}
+[SZ-DIFF-PAT0] testflags__AnonStructs-4babe219
+    PSPAN=9:16-14:6	POP=75	NOPS=4	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=-
+    goldSZ={'1': 1, '-': 1} oursSZ={'1': 1, '64': 1, '-': 1}
+[SZ-MISSING-PAT0] testflags__iface_cfg_mem-0d90a5ba
+    PSPAN=9:45-9:63	POP=75	NOPS=1	IDX=0	CTX=PARAMINIT	LHSK=-	LHSTS=-	PTS=struct_typespec	INST=-
+    goldSZ={'0': 3, '32': 1} oursSZ={'0': 2}
+[SZ-MISSING-PAT0] testflags__iface_scalar_localparam-a7441da3
+    PSPAN=6:42-6:45	POP=75	NOPS=1	IDX=0	CTX=PARAMINIT	LHSK=-	LHSTS=-	PTS=struct_typespec	INST=-
+    goldSZ={'0': 3, '32': 1} oursSZ={'0': 2}
+[SZ-MISSING-PAT0] testflags__iface_struct_field_partsel-917f9147
+    PSPAN=10:42-10:45	POP=75	NOPS=1	IDX=0	CTX=PARAMINIT	LHSK=-	LHSTS=-	PTS=struct_typespec	INST=-
+    goldSZ={'0': 3, '32': 1} oursSZ={'0': 2}

@@ -1,0 +1,133 @@
+r10earl91 — ARM MEASUREMENTS.  golden = Surelog (-parse -nobuiltin -nocache -d uhdm),
+pris = /tmp/r10earl91_bin/pristine.bin (md5 1fe90f78fd44f1a6c8774c47b717095c),
+patc = /tmp/r10earl91_bin/patched.bin (md5 35e7c31bd1a713e2ad10f16ceabd53ee).
+Every child got </dev/null and its rc is recorded.  ct91pat --inst rows,
+MULTISET-joined per key by score3_91.py.
+
+================ g1_head91.sv
+rows: golden=18 pris=18 patched=18
+DIR:EXACT            1
+SAME->SAME           8
+WRONG->RIGHT         1
+KEYS                 9
+-- CHANGED CELLS
+[EXACT] PSPAN=40:22-40:47	POP=75	NOPS=1	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@top91
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 2}
+    pris={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 1, 'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 2}
+
+================ g2_first91.sv
+rows: golden=103 pris=108 patched=108
+DIR:EXACT            8
+DIR:TO-GOLDEN?       1
+SAME->SAME           37
+STILL-WRONG          1
+UNCHANGED-WRONG      9
+WRONG->RIGHT         8
+KEYS                 55
+-- CHANGED CELLS
+[EXACT] PSPAN=19:43-19:68	POP=75	NOPS=1	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@g2_first91
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 2}
+    pris={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 1, 'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 2}
+[EXACT] PSPAN=20:43-20:49	POP=75	NOPS=1	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@g2_first91
+    gold={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 2}
+    pris={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1, 'KIND=ref_obj\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 1}
+    patc={'KIND=ref_obj\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=v12\tTS=-': 2}
+[EXACT] PSPAN=22:43-22:47	POP=75	NOPS=1	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@g2_first91
+    gold={'KIND=constant\tSZ=64\tDEC=5\tVAL=UINT:5\tCT=9\tNAME=-\tTS=-': 2}
+    pris={'KIND=constant\tSZ=12\tDEC=5\tVAL=UINT:5\tCT=9\tNAME=-\tTS=-': 1, 'KIND=constant\tSZ=64\tDEC=5\tVAL=UINT:5\tCT=9\tNAME=-\tTS=-': 1}
+    patc={'KIND=constant\tSZ=64\tDEC=5\tVAL=UINT:5\tCT=9\tNAME=-\tTS=-': 2}
+[EXACT] PSPAN=23:43-23:54	POP=75	NOPS=1	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@g2_first91
+    gold={'KIND=bit_select\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=arr12\tTS=-': 2}
+    pris={'KIND=bit_select\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=arr12\tTS=-': 1, 'KIND=bit_select\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=arr12\tTS=-': 1}
+    patc={'KIND=bit_select\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=arr12\tTS=-': 2}
+[EXACT] PSPAN=24:43-24:54	POP=75	NOPS=1	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@g2_first91
+    gold={'KIND=part_select\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=din\tTS=-': 2}
+    pris={'KIND=part_select\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=din\tTS=-': 1, 'KIND=part_select\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=din\tTS=-': 1}
+    patc={'KIND=part_select\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=din\tTS=-': 2}
+[EXACT] PSPAN=25:43-25:57	POP=75	NOPS=1	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@g2_first91
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 2}
+    pris={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1, 'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 2}
+[EXACT] PSPAN=26:43-26:73	POP=75	NOPS=1	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@g2_first91
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=integer_typespec': 2}
+    pris={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=integer_typespec': 1, 'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=integer_typespec': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=integer_typespec': 2}
+[EXACT] PSPAN=30:15-30:64	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@g2_first91
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 2}
+    pris={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 1, 'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 2}
+[TO-GOLDEN?] PSPAN=46:28-46:71	POP=75	NOPS=1	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@g2_first91
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    pris={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1, 'KIND=operation\tSZ=20\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 2}
+
+================ g3_targets91.sv
+rows: golden=82 pris=85 patched=85
+DIR:EXACT            9
+DIR:TO-GOLDEN?       1
+SAME->SAME           30
+STILL-WRONG          1
+UNCHANGED-WRONG      3
+WRONG->RIGHT         9
+KEYS                 43
+-- CHANGED CELLS
+[EXACT] PSPAN=29:39-29:64	POP=75	NOPS=1	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@g3_targets91
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 2}
+    pris={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 1, 'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 2}
+[EXACT] PSPAN=31:39-31:64	POP=75	NOPS=1	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@g3_targets91
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 2}
+    pris={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 1, 'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 2}
+[EXACT] PSPAN=33:39-33:71	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@g3_targets91
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 2}
+    pris={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 1, 'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 2}
+[EXACT] PSPAN=35:39-35:71	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@g3_targets91
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 2}
+    pris={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 1, 'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 2}
+[EXACT] PSPAN=37:39-37:59	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@g3_targets91
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.ctrl\tTS=-': 2}
+    pris={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.ctrl\tTS=-': 1, 'KIND=hier_path\tSZ=1\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.ctrl\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.ctrl\tTS=-': 2}
+[EXACT] PSPAN=39:39-39:64	POP=75	NOPS=1	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@g3_targets91
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 2}
+    pris={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 1, 'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 2}
+[EXACT] PSPAN=41:39-41:64	POP=75	NOPS=1	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@g3_targets91
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 2}
+    pris={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 1, 'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 2}
+[TO-GOLDEN?] PSPAN=45:39-45:78	POP=75	NOPS=1	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@g3_targets91
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    pris={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1, 'KIND=operation\tSZ=8\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 2}
+[EXACT] PSPAN=49:40-49:65	POP=75	NOPS=1	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@g3_targets91
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 2}
+    pris={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 1, 'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 2}
+[EXACT] PSPAN=51:39-51:69	POP=75	NOPS=1	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@g3_targets91
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=u_if.reg2hw.cfg0.prescale.q\tTS=-': 2}
+    pris={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=u_if.reg2hw.cfg0.prescale.q\tTS=-': 1, 'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=u_if.reg2hw.cfg0.prescale.q\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=u_if.reg2hw.cfg0.prescale.q\tTS=-': 2}
+
+================ g4_homes91.sv
+rows: golden=97 pris=101 patched=101
+DIR:EXACT            2
+SAME->SAME           48
+UNCHANGED-WRONG      5
+WRONG->RIGHT         2
+KEYS                 55
+-- CHANGED CELLS
+[EXACT] PSPAN=35:36-35:68	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@g4_homes91
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 2}
+    pris={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 1, 'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 2}
+[EXACT] PSPAN=45:15-45:55	POP=75	NOPS=3	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@g4_homes91
+    gold={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 2}
+    pris={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 1, 'KIND=hier_path\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 1}
+    patc={'KIND=hier_path\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=reg2hw.cfg0.prescale.q\tTS=-': 2}
+

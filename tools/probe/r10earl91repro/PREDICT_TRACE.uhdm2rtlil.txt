@@ -1,0 +1,8 @@
+default/assignment-pattern-bb134336 rc=0 R10E91 CELL buf=1 off=485 elKind=27 tgtKind=35 szOld=192 szNew=192
+FENCED-SKIP <hash 499af5fe>
+default/struct_pattern_loop-e3640d3b rc=0 R10E91 CELL buf=1 off=415 elKind=22 tgtKind=13 szOld=1 szNew=0
+default/UnpackedArray-43b862f8 rc=0 R10E91 CELL buf=1 off=51 elKind=27 tgtKind=13 szOld=0 szNew=0
+testflags/assignment-pattern-bb134336 rc=0 R10E91 CELL buf=1 off=485 elKind=27 tgtKind=35 szOld=192 szNew=192
+FENCED-SKIP <hash 499af5fe>
+testflags/struct_pattern_loop-e3640d3b rc=0 R10E91 CELL buf=1 off=415 elKind=22 tgtKind=13 szOld=1 szNew=0
+testflags/UnpackedArray-43b862f8 rc=0 R10E91 CELL buf=1 off=51 elKind=27 tgtKind=13 szOld=0 szNew=0

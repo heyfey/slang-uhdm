@@ -1,0 +1,104 @@
+r10v91 — THE FULL GATE BATTERY, RE-RUN BY THE VERIFIER FROM ITS OWN WORKTREES.
+BASE c887390.  Worktrees /tmp/wt_v91 (patched) and /tmp/wt_v91pris (pristine),
+built independently by the verifier at -j 2, frozen chmod 555 before any sweep.
+
+(1) BUILD + md5
+    pristine  1fe90f78fd44f1a6c8774c47b717095c   <- BIT-IDENTICAL to the md5 the
+                                                    implementer's README states
+    patched   6ce64a069a4ae28d45c42827e141437a
+    ' error ' lines in either build log: 0
+
+(2) GOLDENS (SLANG_UHDM exported EXPLICITLY to each binary)
+    patched   PASS=23 FAIL=0
+    pristine  PASS=23 FAIL=0
+    /bin/false negative control  PASS=0 FAIL=23
+
+(3) uhdm2rtlil, BOTH MODES, both binaries
+    status histogram, all four sweeps: 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+    ct8rows results/gate_uhdm2rtlil.csv vs PRISTINE   PASS (baseline first)
+    ct8rows results/gate_uhdm2rtlil.csv vs PATCHED    PASS
+    ct8rows pristine_tf  vs patched_tf                PASS  (0 differing rows)
+    ct8rows pristine_def vs patched_def               PASS  (0 differing rows)
+    byteverify SELFCHECK=1  MOVERS 0 / 1358, PATH_SETS_IDENTICAL, selfcheck 1357/1358 flagged
+
+(4) surelog, --mode both, both binaries
+    status histogram, both sweeps IDENTICAL:
+      937 CMP_EQUAL  567 SLANG_REJECT  48 SURELOG_FAIL  19 CMP_NOTEQUAL
+       10 DEFERRED    3 NO_DATABASE     2 UNTRANSLATABLE  1 TIMEOUT  1 NO_UHDM
+    ct8rows results/golden_surelog.csv vs PRISTINE    PASS (baseline first)
+    ct8rows results/golden_surelog.csv vs PATCHED     PASS
+    ct8rows pristine vs patched                       PASS  (0 differing rows over 1588)
+    NO ROW CONVERTED.  results/*.csv READ ONLY and untouched.
+    byteverify SELFCHECK=1  MOVERS 2 / 956, PATH_SETS_IDENTICAL, selfcheck 955/956 flagged
+      MOVER ./default/Earlgrey_0_1-71da2fd7/slang.uhdm    patched=b78f6e7ceabb pristine=43a8d277a6fc
+      MOVER ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm  patched=88e7443dcde5 pristine=02496164d2f6
+      (the same four 12-hex hashes the implementer's README names)
+
+(5) cmds.txt AUDIT BY BINARY PATH, file by file, all four workdirs
+    slP  1573 cmds, 0 name the MAIN-TREE binary, 1523 name /tmp/v91_bin/patched91
+    slO  1573 cmds, 0 name the MAIN-TREE binary, 1523 name /tmp/v91_bin/pris91
+    u2rP 1462 cmds, 0 name the MAIN-TREE binary, 1458 name /tmp/v91_bin/patched91
+    u2rO 1462 cmds, 0 name the MAIN-TREE binary, 1458 name /tmp/v91_bin/pris91
+    the remainder are golden-cache-hit rows where slang never ran.
+
+(6) HEADS (rowheads.sh, official uhdm-cmp, head to STDERR)
+    row            mode        pristine        patched
+    SeqDriver      default      26 / 1 head     26 / 1  IDENTICAL LOG
+    SeqDriver      testflags    26 / 1          26 / 1  IDENTICAL LOG
+    SimpleUVM      default      29 / 1          29 / 1  IDENTICAL LOG
+    SimpleUVM      testflags    29 / 1          29 / 1  IDENTICAL LOG
+    Scoreboard     default      29 / 1          29 / 1  IDENTICAL LOG
+    MiniAmiq       default      26 / 1          26 / 1  IDENTICAL LOG
+    MiniAmiq       testflags    26 / 1          26 / 1  IDENTICAL LOG
+    BuildUVMPkg    default      83 / 1          83 / 1  IDENTICAL LOG
+    BuildUVMPkg    testflags    83 / 1          83 / 1  IDENTICAL LOG
+    Rggen          default       0 / 0           0 / 0  IDENTICAL LOG
+    Earlgrey_0_1   default     110 / 1  ->     250 / 1  HEAD OBJECT CHANGED
+    Earlgrey_0_1   testflags   142 / 1  ->     278 / 1  HEAD OBJECT CHANGED
+    grep -c '56:24' in the Earlgrey head logs: pristine 24 / 24, patched 0 / 0.
+
+(7) CANARIES
+    canaries.sh surelog     ok=52 changed=0 absent=0
+    canaries.sh uhdm2rtlil  ok=8  changed=0 absent=0
+    ctcan2.sh   EXPECT_UNKNOWN=1 surelog     PASS
+    ctcan2.sh   EXPECT_UNKNOWN=6 uhdm2rtlil  PASS
+    canaudit.sh audited=29 UNCOVERED=0 FENCE-BREACH=0
+    PROTECTED DATABASES, md5 pristine vs patched, both modes:
+      InterfaceModPort   59a365f3ce2c  SAME
+      BlackParrotComplex e3e354129d5a (default) / 73a10e8217e5 (testflags)  SAME
+      YosysOldOr         d68e0796d62c  SAME
+      SVSwitch           4842211c4030  SAME  (matches the brief's pin)
+      YosysVerx          6ccda350c24a  SAME  (matches the brief's pin)
+
+(8) RUN-TIME A/B GATE, both Earlgrey modes, re-run by the verifier in the
+    design's own directory with the SAME -o path for all three runs:
+      default    R10E91_OFF=1 patched = c6ac72c2a76d = pristine   BYTE-IDENTICAL
+                 patched law-ON       = 9e22a82b6819              DIFFERS
+      testflags  R10E91_OFF=1 patched = 22c70763c5b1 = pristine   BYTE-IDENTICAL
+                 patched law-ON       = 5e696501ddd9              DIFFERS
+    => 100 % of each mover's byte delta is this law and nothing else.
+
+(9) WIDE BOUNDARY (verifier's own vbd91.sh; list on fd 3, children </dev/null,
+    PROCESSED asserted, rc recorded per cell, 3 shards, disjoint stage dirs,
+    0 key collisions over the list)
+      LISTED = PROCESSED = 4104  (4099 committed probe sources + the verifier's
+      own 5 arms that were in the list at the time)
+      identical 7835   DIFFERING 23   no_output 350
+      rc histogram SYMMETRIC side for side: 7523/7523 rc=0, 14/14 rc=139,
+      336/336 rc=3, 335/335 rc=4
+      23 = 12 (the implementer's own set, reproduced EXACTLY) + 10 (the
+      verifier's own arms in both views — the POSITIVE CONTROL that the gate
+      can see a moved cell) + 1 (plain r10vrgg3repro/xi_iface_param_type/dut.sv,
+      convicted NOT-this-law three ways — see COIN.xi_iface_param_type.txt)
+
+(10) CENSUS on the two mover databases, direct .uhdm readers, GOLDEN side is the
+     cache entry (unchanged by construction — the harness never rewrites it)
+     hier_path census (ct91cen), 3-way multiset score golden/pristine/patched:
+       default    WRONG->RIGHT 2   RIGHT->WRONG 0   AWAY 0   (both DIR:EXACT)
+       testflags  TO-GOLDEN    2   RIGHT->WRONG 0   AWAY 0
+     pattern-operand census (ct91pat), RAW row diff pristine vs patched over the
+     WHOLE database:
+       default   4 differing rows   testflags   8 differing rows
+       every one is "hier_path ... SZ=12 -> SZ=0" at rv_timer.sv:56:22-56:47,
+       or "SZ=8 -> SZ=0" at 57:22-57:43; SZ=0 is golden's value in every case.
+       NOTHING ELSE IN EITHER DATABASE MOVED.

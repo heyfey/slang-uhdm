@@ -1,0 +1,29 @@
+r10earl91 — THE BOUNDARY MOVERS, RE-SCORED AGAINST A FRESH SURELOG GOLDEN.
+The wide boundary (vwide91.sh) found 12 differing cells over 4099 sources x 2 views.
+EIGHT of them are this pass's own four arms in both views (ARMS.r10earl91.txt).
+The other four are two files, both re-measured here:
+
+=== r10earl61repro/v4_v61.sv — THIS LAW, and it moves TOWARD golden
+D4 is 't61_t ua [1:0]; assign ua = '\''{'\''{...}, '\''{...}};' — an INLINE unpacked
+array of packed structs, exactly the shape g2 sa / g3 t9 measure.
+DIR:TO-GOLDEN?       1
+SAME->SAME           10
+STILL-WRONG          1
+UNCHANGED-WRONG      29
+KEYS                 40
+-- CHANGED CELLS
+[TO-GOLDEN?] PSPAN=43:15-44:50	POP=75	NOPS=2	IDX=0	CTX=CONTASSIGN	LHSK=ref_obj	LHSTS=-	PTS=-	INST=work@v4_v61
+    gold={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 2}
+    pris={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1, 'KIND=operation\tSZ=12\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=struct_typespec': 1}
+    patc={'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=-': 1, 'KIND=operation\tSZ=0\tDEC=-\tVAL=-\tCT=-\tNAME=-\tTS=struct_typespec': 1}
+
+=== r10buvm22repro/g22.sv — NOT THIS LAW.  The A/B gate convicts it:
+R10E91_OFF=1 on the PATCHED binary still prints the PATCHED dump hash,
+identical to law-ON, while the pristine binary prints a different one.
+Both binaries exit rc=4 and emit no comparable database.  It is the
+pre-existing garbage numeric literal whose value TRACKS THE BINARY'S CODE
+LAYOUT that r10earl84's R5 recorded; it moved for earl84, earl89 and
+earl90 the same way.
+  pristine   rc=4 dumphash=7b98184cd3c5
+  patched ON rc=4 dumphash=021e46c32a3c
+  patched R10E91_OFF=1 rc=4 dumphash=021e46c32a3c   <- same as ON
