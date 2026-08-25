@@ -1,0 +1,60 @@
+r10uvm132 — THE MEASURED BYTE MOVERS.  MEASUREMENT ONLY.
+byteverify.sh SELFCHECK=1, patched workdir vs this pass's OWN pristine workdir,
+both corpora.  PATH_SETS_IDENTICAL on both.
+
+  surelog     MOVERS 7 / 956      uhdm2rtlil  MOVERS 0 / 1358
+
+  ./default/MiniAmiq-544c7f61/slang.uhdm       9e538900ea97 -> a288f59c9b50
+  ./default/Scoreboard-59431470/slang.uhdm     850e321dd6c0 -> 314ce7010a20
+  ./default/SeqDriver-32af76aa/slang.uhdm      ad21e2615bab -> 9ef98bf003ae
+  ./default/SimpleUVM-1dc93a62/slang.uhdm      1e271d9b5cc7 -> 747df574f132
+  ./testflags/MiniAmiq-544c7f61/slang.uhdm     9e538900ea97 -> a288f59c9b50
+  ./testflags/SeqDriver-32af76aa/slang.uhdm    dd0565394c63 -> 6acdd95c1fe1
+  ./testflags/SimpleUVM-1dc93a62/slang.uhdm    0d5aa03719db -> 1d7fb62202d2
+
+EXACTLY THE SEVEN NAMED IN PREDICT.r10uvm132.txt, written from the pristine
+census BEFORE the patched sweep ran.  Nothing else moved on either corpus.
+
+ATTRIBUTION — attr132.sh, PATH-NORMALISED and ORDER-BLIND (Scoreboard/default
+is a ~50/50 COIN per invocation, RESUME §9, so an ordered diff would report the
+coin and not the law):
+
+  every one of the seven:  ordered_diff_lines = 150
+                           ORDER_BLIND_diff_lines = 150
+                           75 lines removed, 75 lines added
+
+  The ordered and order-blind counts AGREE on all seven, Scoreboard/default
+  included, so no coin flip contaminated the attribution.
+  75 out and 75 in is a pure SUBSTITUTION: NO object is added and NONE removed.
+
+DIRECTION, checked line by line against GOLDEN's own dump (SimpleUVM/default):
+  * of the 13 DISTINCT added lines, 13 are lines GOLDEN also emits — AWAY 0.
+  * of the 28 DISTINCT removed lines, 0 are lines golden emits — MOVED-WRONG 0.
+
+WHAT MOVED, per database-mode (12 cells, six spans):
+  hier_path   `ZE(ARG,"") \.size` / `ZE(ARG,tmp__.size`  ->  `abstractions.size`
+  ref_obj     `ZE(ARG,"") \`      / `ZE(ARG,tmp__`       ->  `abstractions`
+              (span UNCHANGED at 1566:9-1566:21 / 1567:9-1567:21 — the misread's
+               LENGTH was already the written token's)
+  method_func_call size       2010:1-2010:5 / 2036:1-2036:5 / 1566:22-2064:2
+                                                        ->  1566:22-1566:26
+                                                            1567:22-1567:26
+  method_func_call push_back  2010:10-2010:19 / 2036:10-2036:19 / 1566:46-2064:16
+                                                        ->  1566:46-1566:55
+  method_func_call pop_front  2010:10-2010:19 / 2036:10-2036:19 / 1567:52-2064:16
+                                                        ->  1567:52-1567:61
+  the statement calls' vpiPrefix ref_obj  name only (span already golden's)
+
+HEADS (rowheads.sh on the patched sweep vs this pass's own pristine one):
+  SimpleUVM default, SimpleUVM testflags, Scoreboard default  — HEAD CHANGED:
+      hier_path (abstractions.size) 1566:9   ->  struct_var vs bit_var
+                                                  (uvm_pkg::uvm_reg_map_info::
+                                                   mem_range) uvm_reg_map.svh:29
+  SeqDriver def+tf, MiniAmiq def+tf, BuildUVMPkg def+tf, Earlgrey_0_1 def+tf,
+  Rggen default — head log BYTE-IDENTICAL (`cmp`, not by eye).
+  The cmp-line count of the NEW SimpleUVM/Scoreboard head is 64, the same
+  number the OLD head happened to print: a cmp line count is the head OBJECT'S
+  DECOMPILE SIZE, not a distance, and the two objects are different kinds at
+  different source lines.  MiniAmiq and SeqDriver carry the same 12 cells but
+  their heads sit at earlier objects, so clearing these cells does not move
+  them.

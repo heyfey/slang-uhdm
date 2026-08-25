@@ -1,0 +1,73 @@
+r10uvm132 — THE GRID.  MEASUREMENT ONLY; the official uhdm-cmp is the judge.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.  Every arm is run by
+arm132.sh through Surelog and through BOTH frozen binaries, DEF and ELAB, and
+scored by armscore132.py (a multiset census keyed on SPAN and NAME only — never
+on file, never on VpiFullName; HP rows for hier_paths, MFC rows for
+method_func_calls, OP rows for operations).
+
+ARM-DESIGN TRAPS THIS GRID PAYS (two inherited, two new)
+  * INHERITED (r10uvm128repro/ARMS): a macro DEFINED AND INVOKED IN ONE FILE
+    reproduces the symptom through a DIFFERENT mechanism, and a body that
+    begins on the `define line lands in macroInvLineCol's SINGLE-LINE regime
+    where no cell can converge.  Every definition lives in g132_defs.svh and
+    every body begins on a continuation line.
+  * NEW: a trailing `\` on the LAST line of the definitions file makes Surelog
+    report `extraneous input '<' ... <EOF>` and emit NO database — the arm then
+    reads as "NO GOLDEN", not as a failure.  g132_defs.svh ends with a comment.
+  * NEW: Surelog's preprocessor cannot carry an ESCAPED IDENTIFIER (`\name `)
+    through a `\`-continued macro body (three PA0207 syntax errors, no
+    database), and slang's macro-argument parser rejects it as an ARGUMENT.
+    The escaped-identifier fence therefore has NO golden and is arm G, scored
+    by PRISTINE-vs-PATCHED dump identity plus the census instrument's `fit`
+    column.
+
+ARM RESULTS  (SAME / ONLY-GOLDEN / ONLY-OURS, pristine -> patched)
+
+  arm                       def PRIS            def PAT          elab PRIS           elab PAT
+  A g132_a_shapes    19/23/21   ->  33/ 9/ 9    53/70/64  ->  96/27/27
+  B g132_b_methods    5/ 7/ 7   ->  11/ 1/ 1    16/22/22  ->  35/ 3/ 3
+  C g132_c_kinds     12/28/24   ->  40/ 0/ 0    30/74/64  -> 104/ 0/ 0
+  D g132_d_homes     22/50/46   ->  70/ 2/ 2    48/105/106 -> 149/ 4/13
+  E g132_e_inst      18/30/24   ->  48/ 0/ 0    55/92/74  -> 147/ 0/ 0
+  F g132_f_fence      1/ 3/ 1   ->   1/ 3/ 1     3/ 7/ 4  ->   3/ 7/ 4   (0 cells moved)
+
+  SAME rises in every scored arm; ONLY-GOLDEN and ONLY-OURS fall in every one;
+  arms C and E converge to ZERO in BOTH views.  The UNPARSEABLE counter (dump
+  continuation lines — objects whose NAME contains a newline, which the
+  pristine emits for a misread receiver) falls with them: arm A def 117 -> 87,
+  arm E elab 363 -> 111, golden unchanged throughout.
+
+WHAT EACH ARM VARIES
+  A  macro SHAPES: pasted-nested (the law's corpus shape) / pasted with a
+     different suffix / a MULTI-COMPONENT receiver passed as ONE argument /
+     nested WITHOUT a paste / a single-level macro argument / macro BODY text /
+     plain source.  THE PASTE IS THE DISCRIMINATOR — measured: `G132_NEST`
+     (the same nesting, no `` `` ``) reads back `qnest132` CORRECTLY.
+  B  METHODS x POSITION: size (expression) / push_back / pop_front / delete
+     (statement) / a USER method through the same paste.
+  C  RECEIVER KINDS: class PROPERTY / method LOCAL / method FORMAL (ref) /
+     MODULE variable / PACKAGE variable.  0/0 residue both views.
+  D  HOMES: in-body class method / OUT-OF-BODY class method / free package
+     function / free package task / module task / `initial` / `always`.
+  E  1, 2 and 3 INSTANCES x receiver names of DIFFERENT LENGTHS (`q1`,
+     `qq_two_132`, `a_very_long_receiver_name_132`).  0/0 residue both views.
+  F  THE FENCES, all written inside a PASTED invocation: a SCOPED receiver, a
+     `this.` receiver, an INDEXED receiver, and a DOTTED receiver whose two
+     names are in TWO buffers (§ macroSplitRecvIsAstChain128's cell).
+     0 CELLS MOVED — the law declines every one.
+  G  the ESCAPED-IDENTIFIER fence, slang-only (see the traps above).
+
+RESIDUES LEFT BY THE ARMS (all measured, none this law's; see README §8)
+  A  `qnest132` / `qone132` — CONTROL cells the law declines: their
+     method_func_call END span reads `33:4` where golden writes `18:22`.  That
+     is § macroSplitRecvIsAstChain128's README residue R1 (the raw-offset walk
+     past a macro buffer) surviving wherever neither law fires.  NAMES agree.
+  B  the USER method `g132_user` — same END-span walk, in the USER-method arm
+     (§ deepRecvCall11's SITE 2), which this law does not reach.  Name, prefix
+     and argument agree.
+  D  the OUT-OF-BODY method: golden's fullname separator is
+     `work@top_d132.cls_d132::out_d132.qout132`, ours `::` throughout —
+     VpiFullName, which NO generated Compare reads; and in ELAB we emit THREE
+     copies of the out-of-body body where golden has TWO.  Both PRE-EXISTING:
+     the pristine emits the same three copies, with garbage names the census
+     could not key at all.

@@ -1,0 +1,54 @@
+LHS:
+decompile:
+enum_var: (uvm_pkg::uvm_reg_hw_reset_seq::do_block::field_check_restore), id:152464, line:79885:25, endln:79885:44
+|vpiParent:
+\_array_var: (uvm_pkg::uvm_reg_hw_reset_seq::do_block::field_check_restore), id:152466, line:79885:25, endln:79885:44
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_reg_hw_reset_seq::do_block::field_check_restore), id:152465
+  |vpiParent:
+  \_enum_var: (uvm_pkg::uvm_reg_hw_reset_seq::do_block::field_check_restore), id:152464, line:79885:25, endln:79885:44
+  |vpiFullName:uvm_pkg::uvm_reg_hw_reset_seq::do_block::field_check_restore
+  |vpiActual:
+  \_enum_typespec: (uvm_pkg::uvm_check_e), id:28187, line:62383:35, endln:62383:46
+|vpiFullName:uvm_pkg::uvm_reg_hw_reset_seq::do_block::field_check_restore
+
+decompile:
+enum_var: (uvm_pkg::uvm_reg_hw_reset_seq::do_block::field_check_restore), id:152464, line:79885:25, endln:79885:44
+|vpiParent:
+\_array_var: (uvm_pkg::uvm_reg_hw_reset_seq::do_block::field_check_restore), id:152466, line:79885:25, endln:79885:44
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_reg_hw_reset_seq::do_block::field_check_restore), id:152465
+  |vpiParent:
+  \_enum_var: (uvm_pkg::uvm_reg_hw_reset_seq::do_block::field_check_restore), id:152464, line:79885:25, endln:79885:44
+  |vpiFullName:uvm_pkg::uvm_reg_hw_reset_seq::do_block::field_check_restore
+  |vpiActual:
+  \_enum_typespec: (uvm_pkg::uvm_check_e), id:28187, line:62383:35, endln:62383:46
+|vpiFullName:uvm_pkg::uvm_reg_hw_reset_seq::do_block::field_check_restore
+RHS:
+decompile:
+enum_var: (uvm_pkg::uvm_reg_hw_reset_seq::do_block::field_check_restore), id:72935, line:79885:25, endln:79885:44
+|vpiParent:
+\_array_var: (uvm_pkg::uvm_reg_hw_reset_seq::do_block::field_check_restore), id:72926, line:79885:25, endln:79885:44
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_reg_hw_reset_seq::do_block::field_check_restore), id:72936
+  |vpiParent:
+  \_enum_var: (uvm_pkg::uvm_reg_hw_reset_seq::do_block::field_check_restore), id:72935, line:79885:25, endln:79885:44
+  |vpiFullName:uvm_pkg::uvm_reg_hw_reset_seq::do_block::field_check_restore
+  |vpiActual:
+  \_enum_typespec: (uvm_pkg::uvm_check_e), id:3227, line:60837:4, endln:60840:18
+|vpiFullName:uvm_pkg::uvm_reg_hw_reset_seq::do_block::field_check_restore
+|vpiSigned:1
+
+decompile:
+enum_var: (uvm_pkg::uvm_reg_hw_reset_seq::do_block::field_check_restore), id:72935, line:79885:25, endln:79885:44
+|vpiParent:
+\_array_var: (uvm_pkg::uvm_reg_hw_reset_seq::do_block::field_check_restore), id:72926, line:79885:25, endln:79885:44
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_reg_hw_reset_seq::do_block::field_check_restore), id:72936
+  |vpiParent:
+  \_enum_var: (uvm_pkg::uvm_reg_hw_reset_seq::do_block::field_check_restore), id:72935, line:79885:25, endln:79885:44
+  |vpiFullName:uvm_pkg::uvm_reg_hw_reset_seq::do_block::field_check_restore
+  |vpiActual:
+  \_enum_typespec: (uvm_pkg::uvm_check_e), id:3227, line:60837:4, endln:60840:18
+|vpiFullName:uvm_pkg::uvm_reg_hw_reset_seq::do_block::field_check_restore
+|vpiSigned:1

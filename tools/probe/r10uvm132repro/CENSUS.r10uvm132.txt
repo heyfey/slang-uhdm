@@ -1,0 +1,90 @@
+r10uvm132 — THE CENSUSES.  MEASUREMENT ONLY; the official uhdm-cmp is the judge.
+Every run re-executed the slang command line this pass's OWN pristine
+verify_golden workdirs recorded, under a census-instrumented binary named on
+the command line (nothing defaulted to a main-tree binary), in the TEST'S OWN
+SOURCE DIRECTORY, with LISTED == PROCESSED + SKIPPED asserted and SWAPFAIL 0.
+Full per-row tables: CENSUS.surelog.r10uvm132.txt, CENSUS.uhdm2rtlil.r10uvm132.txt.
+
+  surelog     LISTED 1573  PROCESSED 1523  SKIPPED-NO-SLANG-LINE 50  SWAPFAIL/NODIR 0
+  uhdm2rtlil  LISTED 1462  PROCESSED 1458  SKIPPED-NO-SLANG-LINE  4  SWAPFAIL/NODIR 0
+
+--------------------------------------------------------------------------
+0. AN OPS TRAP THIS CENSUS PAID FOR, AND THE DRIVER NOW ENCODES.
+   The first cut ran its parallel children under ONE shared `>>` redirect.
+   Concurrent appends of multi-kilobyte blocks INTERLEAVED: rows were spliced
+   into the middle of other rows and 77 of 1573 workdirs' completion markers
+   vanished (1449 PROCESSED against 1523 rows carrying a spliced `RAN`).  A
+   census that reports fewer cells than exist reads exactly like a small
+   population.  cen132.sh now gives every child its own file, `cat`s them, and
+   ASSERTS PROCESSED + SKIPPED + FAIL == LISTED.
+
+--------------------------------------------------------------------------
+1. EVERY BUILT-IN METHOD RECEIVER READ, WHOLE CORPORA, PRISTINE.
+
+   One row per call reaching ExprEmit.cpp's built-in-method arm.
+   surelog 23,709 reads over 1523 database-modes; uhdm2rtlil 8 over 1458.
+
+   `recv->syntax != NULL`:  0 of 23,709.  The receiver of a built-in method is
+   SYNTHESISED by `Expression::bindLookupResult` and NEVER carries a syntax
+   node, so "no syntax node" is not a discriminator — it is the whole
+   population.  (§ macroSplitRecvIsAstChain128 named it as a gate condition;
+   this census shows it costs nothing and fences nothing.)
+
+   chainok match fit kind            where   count
+         1     1   3 NamedValue      file    18423
+         1     1   3 MemberAccess    file     2663
+         0     0   0 MemberAccess    file      738
+         0     0   0 ElementSelect   file      715
+         1     1   3 NamedValue      macro     673   <- CORRECT macro reads
+         0     0   0 ArbitrarySymbol file      340
+         1     0   3 NamedValue      macro      84   <- THIS LAW'S POPULATION
+         1     1   3 MemberAccess    macro      66   <- CORRECT macro reads
+         1     0   3 MemberAccess    macro       7   <- § …AstChain128's cells
+
+   `match` is `rawText(recv->sourceRange) == the dotted name rebuilt from the
+   bound AST chain`; `fit` is 1 when the chain's FIRST component starts exactly
+   at the receiver span's start plus 2 when its LAST component ends exactly at
+   the span's end.
+
+2. THE LAW'S POPULATION.
+   chainok && !match && fit==3 && both ends macro-expanded && ONE buffer &&
+   the chain's head is not `this`/`super`:
+
+     surelog     84 rows / 7 database-modes, 12 each
+     uhdm2rtlil   0 rows
+
+     SeqDriver def+tf, SimpleUVM def+tf, Scoreboard def, MiniAmiq def+tf.
+     (Scoreboard/testflags is SLANG_REJECT and has no database.)
+     BuildUVMPkg's golden is the 1800.2 `pp_output` — no macros, no cell.
+     Earlgrey_0_1 and Rggen carry none.
+
+   THREE INVOCATION SITES x FOUR CALLS, identical in every database-mode:
+     uvm_object_defines.svh:2009:33  `M_UVM_``TYPE``_RESIZE(ARG,"")
+     uvm_object_defines.svh:2035:37  `M_UVM_``TYPE``_RESIZE(ARG,"")
+     uvm_object_defines.svh:2063:39  `M_UVM_``TYPE``_RESIZE(ARG,tmp__)
+   each expanding `M_UVM_QUEUE_RESIZE`'s body at uvm_object_defines.svh:1566-7
+     while(ARG.size()<sz) ARG.push_back(VAL);
+     while(ARG.size()>sz) void'(ARG.pop_front());
+   -> methods size (x2) / push_back / pop_front, receiver `abstractions`,
+   read back as `ZE(ARG,"") \` (sites 2009 / 2035) and `ZE(ARG,tmp__` (2063).
+   All three sites are MULTI-LINE macro bodies, so all three land on the
+   DEFINITION line and the twelve cells collapse onto six spans.
+
+3. THE NEGATIVE CONTROLS, counted in the same census.
+     739  CORRECT macro-located reads (673 NamedValue + 66 MemberAccess),
+          match==1: the law cannot fire (its gate is the MISMATCH).
+   21,086  CORRECT file-located reads, ZERO of them mismatching — off a macro
+          `rawText` is a substring taken at the chain's own offsets with the
+          chain's own length, so it IS the written identifier.
+    1,793  CHAIN DECLINES (715 ElementSelect, 738 MemberAccess over something
+          the chain refuses, 340 ArbitrarySymbol).  This set CONTAINS
+          § macroSplitRecvIsAstChain128's own 87-row `m_streams[...]`
+          negative control (uvm_component.svh:2666/2674/2675,
+          uvm_report_server.svh:666 and the pp_output twins) — the chain
+          refuses a select outright, so those rows never reach any fence.
+        7  § macroSplitRecvIsAstChain128's OWN cells (two buffers): the 132
+          face requires ONE buffer and declines them, so that law's emission
+          is untouched.
+        0  rows mismatching that the gate would have to argue about.  Over
+          both corpora there is NO cell where the read differs from the chain
+          and the law neither fires nor is fenced by a measured control.

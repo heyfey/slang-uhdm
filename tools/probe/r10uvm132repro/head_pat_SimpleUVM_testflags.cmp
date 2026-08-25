@@ -1,0 +1,64 @@
+LHS:
+decompile:
+struct_var: (uvm_pkg::uvm_reg_map_info::mem_range), id:192968, line:29:27, endln:29:36
+|vpiParent:
+\_class_defn: (uvm_pkg::uvm_reg_map_info), id:306, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/reg/uvm_reg_map.svh, line:23:1, endln:34:9
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_reg_map_info::mem_range), id:192969
+  |vpiParent:
+  \_struct_var: (uvm_pkg::uvm_reg_map_info::mem_range), id:192968, line:29:27, endln:29:36
+  |vpiFullName:uvm_pkg::uvm_reg_map_info::mem_range
+  |vpiActual:
+  \_struct_typespec: (uvm_pkg::uvm_reg_map_addr_range), id:28361, line:408:9, endln:412:4
+|vpiName:mem_range
+|vpiFullName:uvm_pkg::uvm_reg_map_info::mem_range
+|vpiAutomatic:1
+|vpiVisibility:1
+
+decompile:
+struct_var: (uvm_pkg::uvm_reg_map_info::mem_range), id:192968, line:29:27, endln:29:36
+|vpiParent:
+\_class_defn: (uvm_pkg::uvm_reg_map_info), id:306, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/reg/uvm_reg_map.svh, line:23:1, endln:34:9
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_reg_map_info::mem_range), id:192969
+  |vpiParent:
+  \_struct_var: (uvm_pkg::uvm_reg_map_info::mem_range), id:192968, line:29:27, endln:29:36
+  |vpiFullName:uvm_pkg::uvm_reg_map_info::mem_range
+  |vpiActual:
+  \_struct_typespec: (uvm_pkg::uvm_reg_map_addr_range), id:28361, line:408:9, endln:412:4
+|vpiName:mem_range
+|vpiFullName:uvm_pkg::uvm_reg_map_info::mem_range
+|vpiAutomatic:1
+|vpiVisibility:1
+RHS:
+decompile:
+bit_var: (uvm_pkg::uvm_reg_map_info::mem_range), id:79244, line:29:27, endln:29:36
+|vpiParent:
+\_class_defn: (uvm_pkg::uvm_reg_map_info), id:79230, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/reg/uvm_reg_map.svh, line:23:1, endln:34:9
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_reg_map_info::mem_range), id:79245
+  |vpiParent:
+  \_bit_var: (uvm_pkg::uvm_reg_map_info::mem_range), id:79244, line:29:27, endln:29:36
+  |vpiFullName:uvm_pkg::uvm_reg_map_info::mem_range
+  |vpiActual:
+  \_struct_typespec: (uvm_pkg::uvm_reg_map_addr_range), id:3643, line:408:9, endln:412:4
+|vpiName:mem_range
+|vpiFullName:uvm_pkg::uvm_reg_map_info::mem_range
+|vpiAutomatic:1
+|vpiVisibility:1
+
+decompile:
+bit_var: (uvm_pkg::uvm_reg_map_info::mem_range), id:79244, line:29:27, endln:29:36
+|vpiParent:
+\_class_defn: (uvm_pkg::uvm_reg_map_info), id:79230, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/reg/uvm_reg_map.svh, line:23:1, endln:34:9
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_reg_map_info::mem_range), id:79245
+  |vpiParent:
+  \_bit_var: (uvm_pkg::uvm_reg_map_info::mem_range), id:79244, line:29:27, endln:29:36
+  |vpiFullName:uvm_pkg::uvm_reg_map_info::mem_range
+  |vpiActual:
+  \_struct_typespec: (uvm_pkg::uvm_reg_map_addr_range), id:3643, line:408:9, endln:412:4
+|vpiName:mem_range
+|vpiFullName:uvm_pkg::uvm_reg_map_info::mem_range
+|vpiAutomatic:1
+|vpiVisibility:1

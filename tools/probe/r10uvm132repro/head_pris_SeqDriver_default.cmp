@@ -1,0 +1,17 @@
+LHS:
+decompile:
+logic_net: (work@top_tb.sz), id:328447, line:488:15, endln:488:17
+|vpiParent:
+\_module_inst: work@top_tb (work@top_tb), id:328232, file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/testbench.sv, line:210:1, endln:236:18
+|vpiName:sz
+|vpiFullName:work@top_tb.sz
+|vpiNetType:1
+
+decompile:
+logic_net: (work@top_tb.sz), id:328447, line:488:15, endln:488:17
+|vpiParent:
+\_module_inst: work@top_tb (work@top_tb), id:328232, file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/testbench.sv, line:210:1, endln:236:18
+|vpiName:sz
+|vpiFullName:work@top_tb.sz
+|vpiNetType:1
+RHS: <null>

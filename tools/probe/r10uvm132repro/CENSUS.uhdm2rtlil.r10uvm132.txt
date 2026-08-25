@@ -1,0 +1,14 @@
+TOTAL built-in-method receiver reads: 8
+rows with recv->syntax != null: 0  (the arm NEVER has one)
+
+chainok match fit kind          where  count
+      1     1   3 NamedValue    file        8
+
+=== ALREADY § macroSplitRecvIsAstChain128 (two-buffer receiver): 0 rows
+=== THE r10uvm132 LAW GATE (chainok & !match & fit==3 & macro & one buffer & not this/super): 0 rows
+
+   by site x method x join:
+
+=== MISMATCHING BUT OUT OF THE GATE (the negative control): 0 rows
+
+=== CHAIN DECLINES (kept pristine): 0 rows

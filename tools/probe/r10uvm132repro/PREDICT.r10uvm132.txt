@@ -1,0 +1,37 @@
+r10uvm132 — THE A-PRIORI MOVER PREDICTION.
+Written from the PRISTINE census (cen132.sh over this pass's OWN pristine
+verify_golden workdirs, 1523 surelog database-modes + 1458 uhdm2rtlil ones,
+LISTED == PROCESSED + SKIPPED, SWAPFAIL/NODIR 0) BEFORE the patched sweep ran.
+MEASUREMENT ONLY; the official uhdm-cmp and verify_golden.py are the judges.
+
+THE LAW'S GATE, counted on the pristine databases
+  chainok && join != rawText && fit == 3 && both span ends macro-expanded
+  && ONE buffer && the chain's head is not `this`/`super`
+    surelog     84 rows / 7 database-modes, 12 each  (NamedValue receiver,
+                chain length 1, `abstractions`, read back as `ZE(ARG,"") \`
+                and `ZE(ARG,tmp__`)
+    uhdm2rtlil   0 rows
+  The SAME shape with TWO buffers is § macroSplitRecvIsAstChain128's OWN
+  population — 7 further rows (MemberAccess, `local_data__.abstractions`,
+  raw "") — which keep that law's emission untouched: the 132 face requires
+  ONE buffer and declines every two-buffer receiver.
+
+PREDICTED BYTE MOVERS — surelog, EXACTLY THESE SEVEN DATABASES, BY NAME:
+    SeqDriver    default
+    SeqDriver    testflags
+    SimpleUVM    default
+    SimpleUVM    testflags
+    Scoreboard   default          (Scoreboard/testflags is SLANG_REJECT — no DB)
+    MiniAmiq     default
+    MiniAmiq     testflags
+PREDICTED BYTE MOVERS — uhdm2rtlil: NONE (0 / 1358).
+BuildUVMPkg carries NO cell: its golden is the 1800.2 `pp_output`, which has no
+macros at all.  Earlgrey_0_1 and Rggen carry none.
+
+PREDICTED DIRECTION, every mover: 12 cells per database-mode (three
+`M_UVM_QUEUE_RESIZE` invocation sites x four calls: size / push_back / size /
+pop_front), each taking golden's NAME (`abstractions`, `abstractions.size`) in
+place of the macro-paste text and golden's CALL SPAN in place of the
+invocation-site fallback.  NO object is added or removed; the element spans do
+not move (the misread's LENGTH was already the written token's).
+PREDICTED CORPUS ROW CHANGES: NONE on either corpus in either mode.

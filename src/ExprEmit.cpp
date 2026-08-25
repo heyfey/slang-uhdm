@@ -127,6 +127,89 @@ namespace slang_uhdm {
 // name's own token — and, when the look-ahead is a `paList_of_arguments`, one
 // `method_func_call` named after the method and spanned on the method token.
 // That is field for field the shape this law now emits.
+// ---------------------------------------------------------------------------
+// § macroPasteRecvMisreadIsAstChain132 — THE OTHER FACE OF THE SAME
+// CROSS-BUFFER READ: A **SINGLE-NAME** RECEIVER WHOSE DEFINITION-SITE READ
+// LANDS ON THE WRONG CHARACTERS.  § macroSplitRecvIsAstChain128's README
+// residue R0, and the SimpleUVM x2 / Scoreboard-default head it left.
+//
+// THE HEAD.  `uvm_object_defines.svh:1566`, the body of
+// `` `M_UVM_QUEUE_RESIZE(ARG,VAL) ``:
+//
+//     while(ARG.size()<sz) ARG.push_back(VAL); \
+//     while(ARG.size()>sz) void'(ARG.pop_front()); \
+//
+// reached from `uvm_reg_mem_hdl_paths_seq.svh:56`'s
+// `` `uvm_field_queue_string(abstractions, UVM_DEFAULT) ``.  Golden names the
+// path `abstractions.size` with `ref_obj (abstractions) 1566:9-1566:21` and
+// `method_func_call (size) 1566:22-1566:26`; we named it
+// `ZE(ARG,"") \.size` and put the call at `2010:1-2010:5`.
+//
+// WHY THE TEXT IS WRONG, MEASURED (not the two-file guess R0 offered).  The
+// receiver's span lies WHOLLY INSIDE ONE macro-ARGUMENT buffer — start and end
+// share a buffer, and `getFullyOriginalLoc` maps BOTH ends into the SAME file
+// at offsets EXACTLY the token's width apart.  The read is internally
+// consistent and still points at the wrong characters: it lands at
+// `uvm_object_defines.svh:2009:33`, the `Z` of `_RESIZE` inside
+//
+//     `M_UVM_``TYPE``_RESIZE(ARG,"") \
+//
+// three columns short of the `ARG` at 2009:36.  THE DISCRIMINATOR IS THE
+// `` `` `` TOKEN PASTE, measured cell by cell on the grid: the SAME nesting
+// WITHOUT a paste (`` `G132_NEST `` -> `` `G132_QUEUE_RESIZE(ARG,"") ``) reads
+// back `qnest132` CORRECTLY, and so do a single-level macro argument, macro
+// BODY text and plain source.  Only the pasted invocation misplaces the
+// argument buffer's origin.  So R0's proposed gate — "the two ends map to
+// different FILES" — is REFUTED here: both ends map to one file.
+//
+// `rawText`'s LENGTH is right even when its POSITION is not: it reads
+// `end.offset() - start.offset()` characters, and those two offsets are the
+// argument buffer's own ends.  That is why the pristine `ref_obj` span
+// (1566:9-1566:21) is already golden's and only the NAME is garbage — and why
+// substituting the bound name, which has the same length, moves no element
+// span.
+//
+// THE LAW.  When a built-in method's receiver has NO SYNTAX NODE, is
+// MACRO-EXPANDED at both ends, and the dotted name rebuilt from the BOUND AST
+// CHAIN both DESCRIBES the receiver's written span EXACTLY (first component
+// starting at the span start, last component ending at the span end) and
+// DIFFERS from `rawText`'s answer, the definition-site read has MISSED the
+// receiver: take the chain's name, and span the CALL one column past the
+// receiver's last column.  Three fences, each measured against a control that
+// must not move:
+//
+//   * THE FIT.  An ESCAPED IDENTIFIER (`\q$esc132 .size()`) binds to the
+//     symbol `q$esc132` while the written token is `\q$esc132`, so the chain's
+//     component does NOT reach the span's start — fit fails, the law declines,
+//     and the written text is kept.  A scoped name (`pkg::v`) fails the same
+//     test for the same reason.  It is the fit, not a spelling test, that
+//     fences them.
+//   * THE `this`/`super` HEAD.  slang models `this.q` as a two-link chain
+//     whose head is a NamedValue named `this`, and it can pass the fit; that
+//     receiver family belongs to § thisStmtHandleCall85 / § thisSuperNew's
+//     laws, so this one refuses it outright (§ vifClockingPathComponent5's
+//     rule: declining is not being right, it is not guessing).
+//   * THE MISMATCH ITSELF.  Off a macro, `rawText` is a substring taken at the
+//     chain's own offsets with the chain's own length, so it IS the written
+//     identifier and the gate cannot fire; the whole-corpus census confirms
+//     it (21,086 file-located reads, ZERO mismatches).
+//
+// THE CALL'S SPAN.  Surelog spans the `method_func_call` with
+// `populateCoreMembers(method_name_node, method_name_node, fcall)` on the
+// METHOD NAME TOKEN ALONE (`CompileExpression.cpp:5645-5650`, the
+// `paBuilt_in_method_call` branch), and it compiles the PREPROCESSED stream,
+// where that token begins one column past the receiver's last column.  Our two
+// call sites instead walk `recv->sourceRange.end() + 1` (expression position)
+// and `recv->sourceRange.start() + recvText.size() + 1` (statement position) as
+// RAW OFFSETS — which walk off the end of a one-token argument buffer, so
+// `macroInvLineCol`'s newline guard refuses and `setLoc` falls back to the
+// invocation site (`2010:1`, `2010:10`).  That is § macroSplitRecvIsAstChain128's
+// README residue R1, harmless there and fatal here.  On the law's cells the
+// receiver's own END column is ALREADY golden's, so the call's span is that
+// column + 1, width = the method name — measured equal to golden on all four
+// call shapes (`size` in a while-condition, `push_back`/`pop_front` in
+// statement position, both invocation columns).
+// ---------------------------------------------------------------------------
 static bool astDottedRecv128(
     const slang::ast::Expression& e,
     std::vector<std::pair<std::string, slang::SourceLocation>>& out) {
@@ -21315,15 +21398,50 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // written so that an empty vector IS the pristine code.
                     std::vector<std::pair<std::string, slang::SourceLocation>>
                         astRecv128;
-                    if (!recv->syntax &&
+                    // § macroPasteRecvMisreadIsAstChain132 — see the decode
+                    // above `astDottedRecv128`.  TRUE only on THIS law's face
+                    // (the receiver's span lies in ONE buffer and the
+                    // definition-site read misses it); it is what re-spans the
+                    // CALL NAME at the two sites below, and it is FALSE for
+                    // every cell § macroSplitRecvIsAstChain128 already owns, so
+                    // that law's emission is untouched.
+                    bool recvMisread132 = false;
+                    const bool macroRecv132 =
+                        !recv->syntax &&
                         recv->sourceRange.start() != SourceLocation::NoLocation &&
                         recv->sourceRange.end() != SourceLocation::NoLocation &&
                         sm->isMacroLoc(recv->sourceRange.start()) &&
-                        sm->isMacroLoc(recv->sourceRange.end()) &&
-                        recv->sourceRange.start().buffer() !=
-                            recv->sourceRange.end().buffer() &&
-                        astDottedRecv128(*recv, astRecv128) &&
-                        astRecv128.size() > 1) {
+                        sm->isMacroLoc(recv->sourceRange.end());
+                    const bool twoBuf128 =
+                        macroRecv132 && recv->sourceRange.start().buffer() !=
+                                            recv->sourceRange.end().buffer();
+                    const bool chain132 = macroRecv132 &&
+                                          astDottedRecv128(*recv, astRecv128) &&
+                                          !astRecv128.empty();
+                    if (chain132 && !twoBuf128) {
+                        std::string join132;
+                        for (size_t i132 = 0; i132 < astRecv128.size(); i132++) {
+                            if (i132)
+                                join132 += ".";
+                            join132 += astRecv128[i132].first;
+                        }
+                        recvMisread132 =
+                            join132 != recvText &&
+                            astRecv128.front().second -
+                                    astRecv128.front().first.size() ==
+                                recv->sourceRange.start() &&
+                            astRecv128.back().second ==
+                                recv->sourceRange.end() &&
+                            astRecv128.front().first != "this" &&
+                            astRecv128.front().first != "super";
+                        if (recvMisread132)
+                            recvText = join132;
+                    }
+                    // § macroSplitRecvIsAstChain128 — see the decode at
+                    // `astDottedRecv128`.  `astRecv128` stays EMPTY off both
+                    // laws, and the one line further down that reads it is
+                    // written so that an empty vector IS the pristine code.
+                    if (chain132 && twoBuf128 && astRecv128.size() > 1) {
                         recvText.clear();
                         for (size_t i128 = 0; i128 < astRecv128.size(); i128++) {
                             if (i128)
@@ -21331,8 +21449,44 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             recvText += astRecv128[i128].first;
                         }
                     }
-                    else
+                    else if (!recvMisread132)
                         astRecv128.clear();
+                    // § macroPasteRecvMisreadIsAstChain132 — THE SPANS.  On
+                    // this law's face the WHOLE receiver lies in ONE expansion
+                    // buffer, so the expanded stream Surelog compiles spells it
+                    // exactly as the chain joins it — `a.b.m`, no spaces — and
+                    // every component's column is the receiver's own start
+                    // column plus the written offset.  `locLineCol` has already
+                    // applied the argument-expansion shift to that start, so
+                    // the walk is exact.
+                    //
+                    // (§ macroSplitRecvIsAstChain128's face must NOT use it and
+                    // does not: THERE the components live in DIFFERENT buffers,
+                    // one of them spelled as a macro FORMAL of a different
+                    // length, and a column walk over-runs — that law's decode
+                    // above measures the over-run at 12 - 3 columns.  Here
+                    // there is no formal left to over-run: one buffer, one
+                    // written spelling.)
+                    //
+                    // MEASURED AGAINST GOLDEN on arm A's `h_dot132.qdot132`
+                    // cell, the two-component shape: golden
+                    // `ref_obj h_dot132 18:9-18:17`, `ref_obj qdot132
+                    // 18:18-18:25`, `method_func_call size 18:26-18:30` — the
+                    // cumulative walk 0 / 8+1 / 8+1+7+1 from column 9.  Taking
+                    // each link's OWN end location instead put the second
+                    // element's end and the call at `34:4`, because that end is
+                    // one PAST the last character of its own argument-part
+                    // buffer and does not map.
+                    uint32_t rl132 = 0, rc132 = 0;
+                    if (recvMisread132)
+                        locLineCol(recv->sourceRange.start(), rl132, rc132);
+                    auto setColSpan132 = [&](UHDM::BaseClass* o132,
+                                             size_t off132, size_t n132) {
+                        o132->VpiLineNo(rl132);
+                        o132->VpiColumnNo((uint32_t)(rc132 + off132));
+                        o132->VpiEndLineNo(rl132);
+                        o132->VpiEndColumnNo((uint32_t)(rc132 + off132 + n132));
+                    };
                     // The receiver text may itself be DOTTED
                     // (`frame.multicast.constraint_mode(0)` -> receiver
                     // `frame.multicast`); Surelog models the dotted path one
@@ -21582,13 +21736,41 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         auto mStart = recv->sourceRange.start() +
                                       (deep0 ? recvNm0.size() + 1
                                              : recvText.size() + 1);
-                        setLoc(mfc,
-                               SourceRange(mStart, mStart + callNm124.size()));
+                        // § macroPasteRecvMisreadIsAstChain132 — SITE 1 of 2
+                        // (STATEMENT position).  `mStart` is a RAW OFFSET walk
+                        // that runs off the end of a one-token macro-argument
+                        // buffer; the anchor is the chain link the call name
+                        // follows (golden `push_back` at 1566:46 after the
+                        // receiver's last column 45, `pop_front` at 1567:52
+                        // after 51).
+                        if (recvMisread132)
+                            setColSpan132(mfc,
+                                          (deep0 ? recvNm0.size()
+                                                 : recvText.size()) + 1,
+                                          callNm124.size());
+                        else
+                            setLoc(mfc, SourceRange(mStart,
+                                                    mStart + callNm124.size()));
                         auto* pr = s.MakeRef_obj();
                         pr->VpiName(recvNm23);
                         pr->VpiFullName(joinRef(prefix, recvNm23));
                         pr->VpiParent(mfc);
-                        setLoc(pr, SourceRange(recv->sourceRange.start(),
+                        // § macroPasteRecvMisreadIsAstChain132 — the PREFIX is
+                        // the same cumulative column walk, at offset 0.  It is
+                        // IDENTICAL to the offset walk below for a receiver
+                        // whose written token and bound name have the same
+                        // length (the whole corpus population — the misread's
+                        // LENGTH is the written token's), and differs only
+                        // where they do not: arm E's
+                        // `a_very_long_receiver_name_132` prefix ended at
+                        // `36:34` instead of golden's `18:82`, because
+                        // `start + 29` walks off the end of the argument
+                        // buffer.
+                        if (recvMisread132)
+                            setColSpan132(pr, 0, recvNm23.size());
+                        else
+                            setLoc(pr,
+                                   SourceRange(recv->sourceRange.start(),
                                                recv->sourceRange.start() +
                                                    recvNm23.size()));
                         mfc->Prefix(pr);
@@ -22144,17 +22326,28 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     ? joinRef(prefix, dn0)
                                     : dn0);
                             r0->VpiParent(hp);
+                            // § macroPasteRecvMisreadIsAstChain132 — the
+                            // CUMULATIVE COLUMN walk over the written join
+                            // (`dotSoFar74` already carries this component, so
+                            // its size minus this name IS the offset of this
+                            // one); identical to the line below it for a
+                            // SINGLE-name receiver, which is the whole corpus
+                            // population.
                             // § macroSplitRecvIsAstChain128 — the AST link's
                             // OWN END location, when the written text was
                             // rebuilt from the chain (see the decode); the
                             // cumulative offset walk otherwise, unchanged.
-                            setLoc(r0,
-                                   k74 < astRecv128.size()
-                                       ? SourceRange(astRecv128[k74].second -
-                                                         dn0.size(),
-                                                     astRecv128[k74].second)
-                                       : SourceRange(nmStart0,
-                                                     nmStart0 + dn0.size()));
+                            if (recvMisread132)
+                                setColSpan132(r0, dotSoFar74.size() - dn0.size(),
+                                              dn0.size());
+                            else
+                                setLoc(r0,
+                                       k74 < astRecv128.size()
+                                           ? SourceRange(astRecv128[k74].second -
+                                                             dn0.size(),
+                                                         astRecv128[k74].second)
+                                           : SourceRange(nmStart0,
+                                                         nmStart0 + dn0.size()));
                             elems->push_back(r0);
                             nmStart0 = nmStart0 + dn0.size() + 1;
                         }
@@ -22200,8 +22393,19 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // `299:66-778:9`, an end 479 lines past the start,
                         // because the receiver arrives through a UVM macro
                         // expansion.
-                        if (!memberRand119)
-                            setLoc(mfc, SourceRange(mStart, mStart + name.size()));
+                        // § macroPasteRecvMisreadIsAstChain132 — SITE 2 of 2
+                        // (EXPRESSION position), the corpus head's own object:
+                        // golden `method_func_call (size) 1566:22-1566:26`
+                        // after the receiver's last column 21, ours `2010:1`
+                        // from the same raw-offset walk.
+                        if (!memberRand119) {
+                            if (recvMisread132)
+                                setColSpan132(mfc, recvText.size() + 1,
+                                              name.size());
+                            else
+                                setLoc(mfc,
+                                       SourceRange(mStart, mStart + name.size()));
+                        }
                         UHDM::ref_obj* iterArg9 = nullptr;
                         // § arrayMethodIterArg — the ITERATOR NAME written in
                         // the method's own parens (`q.unique( cb_ ) with (...)`)

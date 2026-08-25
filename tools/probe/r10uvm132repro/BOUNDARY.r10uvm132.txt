@@ -1,0 +1,41 @@
+r10uvm132 — THE WIDE BOUNDARY GATE.  MEASUREMENT ONLY.
+bound132.sh over a COPY of the worktree's whole tools/probe: EVERY .sv and .v,
+BOTH frozen binaries, DEF and ELAB, fd-3 file list, children </dev/null,
+recursive (subdirectory arms), PROCESSED asserted.
+
+  LISTED=3881  FENCED_SKIPPED=0  PROCESSED=3881  MOVED=12  NO_OUTPUT_PAIRS=284
+  PROCESSED-ASSERT-OK
+
+FENCED_SKIPPED=0 is the assertion that no arm file under tools/probe is named
+after any brief-protected test; the four slang-fenced test names are never
+dispatched and are never spelled here.
+NO_OUTPUT_PAIRS counts sources on which BOTH binaries produce no database
+(pre-existing rejections and pre-existing SYMMETRIC segfaults); an
+ASYMMETRIC_OUTPUT would have been reported as a MOVER and there were none.
+
+THE TWELVE MOVERS
+
+  TEN are THIS PASS'S OWN ARMS — five arms x two views — and are the gate's
+  POSITIVE CONTROL that it can see a moved cell at all:
+    r10uvm132repro/g132_a_shapes.sv   def 159 / elab 596 lines
+    r10uvm132repro/g132_b_methods.sv  def  68 / elab 281
+    r10uvm132repro/g132_c_kinds.sv    def 246 / elab 741
+    r10uvm132repro/g132_d_homes.sv    def 442 / elab 1196
+    r10uvm132repro/g132_e_inst.sv     def 328 / elab 1241
+  The two FENCE arms — g132_f_fence.sv and g132_g_esc.sv — did NOT move, in
+  either view.  No arm of ANY other pass moved: the uvm82-91 arms, the uvm77-79
+  hier_path arms, the buvm3-15 arms, the sd8-12 arms, uvm124's g124_* receiver
+  arms and uvm128's g128_* arms are all byte-identical.
+
+  TWO are NOT this law's: r10buvm22repro/g22.sv, def and elab, 12 lines each.
+  Three `constant` objects under the vpiRightRange of `g22.sv:70` (`[string]`,
+  columns 28-34) whose vpiDecompile/UINT reads
+      pristine binary   22466073
+      patched binary    22470169
+      census binary     22474265   (the PRISTINE emission plus one fprintf)
+  — three binaries, two runs each, DETERMINISTIC PER BINARY and differing in
+  steps of exactly 4096.  The value tracks the BINARY LAYOUT, not the law: the
+  census binary carries no law at all and still differs from both.  This is
+  § macroSplitRecvIsAstChain128's README residue R2, independently reproduced
+  here.  No corpus database carries the shape (the corpus byte movers are 7,
+  all seven the law's, and this file is not in either corpus).
