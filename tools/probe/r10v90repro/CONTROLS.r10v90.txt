@@ -1,0 +1,712 @@
+== r10earl47repro__a1_earl47
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     106
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->WRONG   0
+WRONG->OTHER   0
+G-ONLY         10
+O-ONLY         0
+-- plain (typespec only) --
+ONE-SIDED          10
+TS-SAME EQ         106
+-- elab (typespec only) --
+ONE-SIDED          77
+TS-SAME EQ         116
+== r10earl47repro__a2_earl47
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     210
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->WRONG   0
+WRONG->OTHER   0
+G-ONLY         0
+O-ONLY         0
+-- plain (typespec only) --
+TS-SAME EQ         210
+-- elab (typespec only) --
+ONE-SIDED          206
+TS-SAME EQ         210
+== r10earl47repro__a3_earl47
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     112
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->WRONG   0
+WRONG->OTHER   0
+G-ONLY         0
+O-ONLY         0
+-- plain (typespec only) --
+TS-SAME EQ         112
+-- elab (typespec only) --
+ONE-SIDED          112
+TS-SAME EQ         112
+== r10earl47repro__b1_earl47
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     69
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->WRONG   0
+WRONG->OTHER   3
+G-ONLY         4
+O-ONLY         4
+-- plain (typespec only) --
+ONE-SIDED          8
+TS-FIXED           3
+TS-SAME EQ         68
+TS-SAME NE         1
+-- elab (typespec only) --
+ONE-SIDED          72
+TS-FIXED           3
+TS-SAME EQ         72
+TS-SAME NE         1
+== r10earl47repro__v47v_prefixkinds
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     44
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->WRONG   12
+WRONG->OTHER   0
+G-ONLY         2
+O-ONLY         2
+-- plain (typespec only) --
+ONE-SIDED          4
+TS-SAME EQ         43
+TS-SAME NE         13
+-- elab (typespec only) --
+ONE-SIDED          52
+TS-SAME EQ         45
+TS-SAME NE         13
+== r10earl65repro__g1_conn65
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     75
+WRONG->RIGHT   3
+RIGHT->WRONG   0
+WRONG->WRONG   4
+WRONG->OTHER   0
+G-ONLY         30
+O-ONLY         30
+-- plain (typespec only) --
+ONE-SIDED          60
+TS-FIXED           3
+TS-SAME EQ         75
+TS-SAME NE         4
+-- elab (typespec only) --
+ONE-SIDED          174
+TS-FIXED           3
+TS-SAME EQ         75
+TS-SAME NE         4
+== r10earl65repro__g2_hier65
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     29
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->WRONG   3
+WRONG->OTHER   0
+G-ONLY         0
+O-ONLY         0
+-- plain (typespec only) --
+TS-SAME EQ         31
+TS-SAME NE         1
+-- elab (typespec only) --
+ONE-SIDED          16
+TS-SAME EQ         31
+TS-SAME NE         1
+== r10earl67repro__a1_tree67
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     91
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->WRONG   3
+WRONG->OTHER   0
+G-ONLY         0
+O-ONLY         6
+-- plain (typespec only) --
+ONE-SIDED          6
+TS-SAME EQ         94
+-- elab (typespec only) --
+ONE-SIDED          120
+TS-SAME EQ         94
+== r10earl67repro__a2_types67
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     64
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->WRONG   4
+WRONG->OTHER   0
+G-ONLY         1
+O-ONLY         1
+-- plain (typespec only) --
+ONE-SIDED          2
+TS-SAME EQ         66
+TS-SAME NE         2
+-- elab (typespec only) --
+ONE-SIDED          74
+TS-SAME EQ         67
+TS-SAME NE         2
+== r10earl67repro__a3_calls67
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     25
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->WRONG   0
+WRONG->OTHER   0
+G-ONLY         0
+O-ONLY         2
+-- plain (typespec only) --
+ONE-SIDED          2
+TS-SAME EQ         25
+-- elab (typespec only) --
+ONE-SIDED          20
+TS-SAME EQ         25
+== r10earl70repro__g1_earl70
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     458
+WRONG->RIGHT   6
+RIGHT->WRONG   0
+WRONG->WRONG   43
+WRONG->OTHER   0
+G-ONLY         0
+O-ONLY         0
+-- plain (typespec only) --
+TS-FIXED           6
+TS-SAME EQ         479
+TS-SAME NE         22
+-- elab (typespec only) --
+ONE-SIDED          713
+TS-FIXED           6
+TS-SAME EQ         479
+TS-SAME NE         22
+== r10earl70repro__g2_earl70
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     84
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->WRONG   4
+WRONG->OTHER   0
+G-ONLY         0
+O-ONLY         0
+-- plain (typespec only) --
+TS-SAME EQ         88
+-- elab (typespec only) --
+ONE-SIDED          176
+TS-SAME EQ         88
+== r10earl70repro__g3_enc70
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     73
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->WRONG   0
+WRONG->OTHER   0
+G-ONLY         0
+O-ONLY         0
+-- plain (typespec only) --
+TS-SAME EQ         73
+-- elab (typespec only) --
+ONE-SIDED          145
+TS-SAME EQ         73
+== r10earl81repro__g1_conn81
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     313
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->WRONG   30
+WRONG->OTHER   0
+G-ONLY         0
+O-ONLY         0
+-- plain (typespec only) --
+TS-SAME EQ         337
+TS-SAME NE         6
+-- elab (typespec only) --
+ONE-SIDED          495
+TS-SAME EQ         337
+TS-SAME NE         6
+== r10earl81repro__g2_enc81
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     90
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->WRONG   36
+WRONG->OTHER   0
+G-ONLY         0
+O-ONLY         0
+-- plain (typespec only) --
+TS-SAME EQ         120
+TS-SAME NE         6
+-- elab (typespec only) --
+ONE-SIDED          88
+TS-SAME EQ         120
+TS-SAME NE         6
+== r10earl81repro__g3_norm81
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     8
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->WRONG   0
+WRONG->OTHER   0
+G-ONLY         0
+O-ONLY         0
+-- plain (typespec only) --
+TS-SAME EQ         8
+-- elab (typespec only) --
+ONE-SIDED          4
+TS-SAME EQ         8
+== r10earl84repro__g1_hp84
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     41
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->WRONG   1
+WRONG->OTHER   0
+G-ONLY         0
+O-ONLY         0
+-- plain (typespec only) --
+TS-SAME EQ         41
+TS-SAME NE         1
+-- elab (typespec only) --
+ONE-SIDED          34
+TS-SAME EQ         41
+TS-SAME NE         1
+== r10earl84repro__g2_types84
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     62
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->WRONG   6
+WRONG->OTHER   0
+G-ONLY         0
+O-ONLY         0
+-- plain (typespec only) --
+TS-SAME EQ         67
+TS-SAME NE         1
+-- elab (typespec only) --
+ONE-SIDED          34
+TS-SAME EQ         67
+TS-SAME NE         1
+== r10earl84repro__g3_pos84
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     31
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->WRONG   13
+WRONG->OTHER   0
+G-ONLY         0
+O-ONLY         0
+-- plain (typespec only) --
+TS-SAME EQ         36
+TS-SAME NE         8
+-- elab (typespec only) --
+ONE-SIDED          22
+TS-SAME EQ         36
+TS-SAME NE         8
+== r10earl84repro__g4_prod84
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     42
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->WRONG   10
+WRONG->OTHER   0
+G-ONLY         0
+O-ONLY         0
+-- plain (typespec only) --
+TS-SAME EQ         50
+TS-SAME NE         2
+-- elab (typespec only) --
+ONE-SIDED          50
+TS-SAME EQ         50
+TS-SAME NE         2
+== r10earl85repro__g1_neg85
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     0
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->WRONG   0
+WRONG->OTHER   0
+G-ONLY         0
+O-ONLY         0
+-- plain (typespec only) --
+-- elab (typespec only) --
+== r10earl85repro__g2_earl85
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     0
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->WRONG   0
+WRONG->OTHER   0
+G-ONLY         0
+O-ONLY         0
+-- plain (typespec only) --
+-- elab (typespec only) --
+== r10earl85repro__g2_leaf85
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     0
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->WRONG   0
+WRONG->OTHER   0
+G-ONLY         0
+O-ONLY         0
+-- plain (typespec only) --
+-- elab (typespec only) --
+== r10earl85repro__g3_ov85
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     0
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->WRONG   0
+WRONG->OTHER   0
+G-ONLY         0
+O-ONLY         0
+-- plain (typespec only) --
+-- elab (typespec only) --
+== r10earl85repro__g4_shadow85
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     0
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->WRONG   0
+WRONG->OTHER   0
+G-ONLY         0
+O-ONLY         0
+-- plain (typespec only) --
+-- elab (typespec only) --
+== r10earl85repro__g5_noshadow85
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     0
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->WRONG   0
+WRONG->OTHER   0
+G-ONLY         0
+O-ONLY         0
+-- plain (typespec only) --
+-- elab (typespec only) --
+== r10earl85repro__g6_parentimp85
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     0
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->WRONG   0
+WRONG->OTHER   0
+G-ONLY         0
+O-ONLY         0
+-- plain (typespec only) --
+-- elab (typespec only) --
+== r10earl85repro__g7_v84cell85
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     14
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->WRONG   2
+WRONG->OTHER   0
+G-ONLY         0
+O-ONLY         0
+-- plain (typespec only) --
+TS-SAME EQ         15
+TS-SAME NE         1
+-- elab (typespec only) --
+ONE-SIDED          8
+TS-SAME EQ         15
+TS-SAME NE         1
+== r10earl89repro__g1_redtype89
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     0
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->WRONG   0
+WRONG->OTHER   0
+G-ONLY         0
+O-ONLY         0
+-- plain (typespec only) --
+-- elab (typespec only) --
+== r10earl89repro__g2_chain89
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     0
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->WRONG   0
+WRONG->OTHER   0
+G-ONLY         0
+O-ONLY         0
+-- plain (typespec only) --
+-- elab (typespec only) --
+== r10earl89repro__g3_homes89
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     2
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->WRONG   0
+WRONG->OTHER   0
+G-ONLY         0
+O-ONLY         0
+-- plain (typespec only) --
+TS-SAME EQ         2
+-- elab (typespec only) --
+ONE-SIDED          2
+TS-SAME EQ         2
+== r10earl89repro__g4_edge89
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     0
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->WRONG   0
+WRONG->OTHER   0
+G-ONLY         0
+O-ONLY         0
+-- plain (typespec only) --
+-- elab (typespec only) --
+== r10earl90repro__g1_head90
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     46
+WRONG->RIGHT   8
+RIGHT->WRONG   0
+WRONG->WRONG   6
+WRONG->OTHER   0
+G-ONLY         6
+O-ONLY         2
+-- plain (typespec only) --
+ONE-SIDED          8
+TS-FIXED           8
+TS-SAME EQ         50
+TS-SAME NE         2
+-- elab (typespec only) --
+ONE-SIDED          96
+TS-FIXED           8
+TS-SAME EQ         50
+TS-SAME NE         2
+== r10earl90repro__g2_types90
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     38
+WRONG->RIGHT   2
+RIGHT->WRONG   0
+WRONG->WRONG   12
+WRONG->OTHER   4
+G-ONLY         28
+O-ONLY         28
+-- plain (typespec only) --
+ONE-SIDED          56
+TS-FIXED           6
+TS-SAME EQ         42
+TS-SAME NE         8
+-- elab (typespec only) --
+ONE-SIDED          182
+TS-FIXED           6
+TS-SAME EQ         42
+TS-SAME NE         8
+== r10earl90repro__g3_slots90
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     22
+WRONG->RIGHT   2
+RIGHT->WRONG   0
+WRONG->WRONG   9
+WRONG->OTHER   0
+G-ONLY         41
+O-ONLY         41
+-- plain (typespec only) --
+ONE-SIDED          82
+TS-FIXED           2
+TS-SAME EQ         28
+TS-SAME NE         3
+-- elab (typespec only) --
+ONE-SIDED          193
+TS-FIXED           2
+TS-SAME EQ         28
+TS-SAME NE         3
+== r10earl90repro__g4_homes90
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- plain (payload) --
+SAME->SAME     90
+WRONG->RIGHT   23
+RIGHT->WRONG   0
+WRONG->WRONG   7
+WRONG->OTHER   2
+G-ONLY         0
+O-ONLY         0
+-- plain (typespec only) --
+TS-FIXED           25
+TS-SAME EQ         95
+TS-SAME NE         2
+-- elab (typespec only) --
+ONE-SIDED          232
+TS-FIXED           25
+TS-SAME EQ         95
+TS-SAME NE         2

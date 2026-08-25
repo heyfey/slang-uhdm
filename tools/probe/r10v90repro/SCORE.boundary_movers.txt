@@ -1,0 +1,49 @@
+r10v90 — THE WIDE BOUNDARY'S 24 DIFFERING CELLS, EACH ATTRIBUTED.
+
+LISTED = PROCESSED = 4071 (.sv/.v at ANY depth under a COPY of tools/probe;
+list on fd 3, children </dev/null, PROCESSED asserted), both views, both frozen
+binaries, workdir-normalised uhdm-dump byte-compare:
+    identical 7768   DIFFERING 24   no_output 350
+rc histogram SYMMETRIC SIDE FOR SIDE:
+    rc=0   A 7459  B 7459
+    rc=3   A  336  B  336
+    rc=4   A  333  B  333
+    rc=139 A   14  B   14   — 14 DISTINCT files, each segfaulting on BOTH
+                              sides, ALL in the --elabuhdm view: the
+                              pre-existing family earl82 R6 / earl83 R6 /
+                              earl84 R6 / earl85 R5 / earl89 R6 record.
+
+THE 24:
+
+  8  r10v90repro/v1_minus90.sv, v2_over90.sv, v3_types90.sv, v4_homes90.sv
+     (both views) — THIS VERIFICATION'S OWN ARMS.  Scored cell by cell against
+     a fresh Surelog golden in ARMS.r10v90.txt: payload RIGHT->WRONG 0,
+     TS-RIGHT->WRONG 0, TS-EXTRA 0, TS-FIXED 5 / 10 / 15 / 9.
+
+  8  r10earl90repro/g1_head90.sv … g4_homes90.sv (both views) — THE PASS'S OWN
+     ARMS, re-scored here with the FIXED binary: payload RIGHT->WRONG 0,
+     TS-RIGHT->WRONG 0, TS-EXTRA 0, TS-FIXED 8 / 6 / 2 / 25.
+
+  6  r10earl47repro/b1_earl47.sv, r10earl65repro/g1_conn65.sv,
+     r10earl70repro/g1_earl70.sv (both views) — ALL THIS LAW, each rebuilt
+     against a FRESH Surelog golden and re-scored (CONTROLS.r10v90.txt):
+        earl47/b1   TS-FIXED 3   TS-RIGHT->WRONG 0   TS-EXTRA 0
+        earl65/g1   TS-FIXED 3   TS-RIGHT->WRONG 0   TS-EXTRA 0
+        earl70/g1   TS-FIXED 6   TS-RIGHT->WRONG 0   TS-EXTRA 0
+     reproducing the implementer's 3 / 3 / 6.
+
+  2  r10buvm22repro/g22.sv (both views) — **NOT THIS LAW**, proved by the
+     run-time A/B gate on MY OWN binaries:
+        pristine (d181b1b59682)              normalised dump faf237d7e1e4
+        fixed    (189cd72b7892)              normalised dump 88ff597a5ebf
+        fixed + R10E90_OFF=1                 normalised dump 88ff597a5ebf
+     The law being OFF changes nothing, so the delta is not the law.  Both
+     binaries exit rc=4 and emit no comparable database.  The whole difference
+     is 12 dump lines carrying ONE numeric literal — `vpiDecompile:22494809` /
+     `UINT:22494809` against `…:22498937` — an UNINITIALISED value whose bits
+     TRACK THE BINARY'S CODE LAYOUT.  It is r10earl84's residue R5 and it moved
+     for earl84 and earl89 the same way.  My hashes differ from the
+     implementer's because our binaries differ, which is the point.
+
+  The other 33 committed arms of r10earl47/65/67/70/81/84/85/89 in the
+  must-stay control battery are BYTE-IDENTICAL between the two binaries.

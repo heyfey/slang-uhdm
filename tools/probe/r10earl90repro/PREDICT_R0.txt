@@ -1,0 +1,262 @@
+r10earl90 — THE MOVER PREDICTION (made with the NEUTRAL binary, before any
+            patched sweep was read) and THE NEXT HEAD (R0).
+
+========================================================================
+PART 1 — THE MOVER PREDICTION
+========================================================================
+TWO INDEPENDENT PREDICTORS, both run on PRISTINE data only.
+
+(A) THE CORPUS CENSUS.  `ct90cen` enumerates every SELECT in every database of
+    both pristine sweeps and reports what each side put in each BOUND SLOT;
+    `score90.py` joins the two sides as a MULTISET and extracts the
+    TYPESPEC-PRESENCE family — both sides hold the SAME folded constant and
+    differ ONLY in whether a typespec hangs off it.  Over 277 surelog and 488
+    uhdm2rtlil databases:
+
+      TS-MISSING in an ELAB port High_conn   surelog 18   uhdm2rtlil 0
+      TS-EXTRA   (either direction)          surelog  0   uhdm2rtlil 0
+
+    ALL 18 ARE `SLOT=WIDTH`, `SEL=indexed_part_select`, `INHP=0`,
+    `CTX=PORTHC`, `PORTPAR=module_inst`, and ALL 18 ARE IN `Earlgrey_0_1` —
+    six in `default` and twelve in `testflags`, at the six `rv_timer.sv` spans
+    82:46, 83:50, 85:51, 87:51, 89:41 and 108:34, every one the localparam
+    `N_TIMERS`.  They are exactly the 18 cells r10earl84's residue R1 named.
+    `CENSUS.family.before.surelog.txt` lists them verbatim.
+
+(B) THE RUN-TIME CELL TRACE.  `predict90.sh` re-ran each test's OWN slang
+    command line — read out of THIS PASS'S OWN pristine sweep's `cmds.txt`, in
+    the test's OWN source directory, recovered through the workdir's
+    `sha1(dirpath)[:8]` suffix — with the PATCHED binary under `R10E90_OFF=1`
+    (whose database is BYTE-IDENTICAL to the pristine one; the A/B gate below
+    proves it twice) and `R10E90_CELLDBG=1`.  Output went to /dev/null.
+
+    THE FOUR SLANG-FENCED TESTS ARE NEVER DISPATCHED: `dirmap90.sh` OMITS
+    their source directories from the map, listing them as five OPAQUE
+    sha1[:8] HASHES so no file in this directory spells them, and the driver
+    then finds no source, prints FENCED-SKIP and runs nothing — 8 skips on
+    surelog, 2 on uhdm2rtlil.
+
+    The trace prints BOTH answers for EVERY width operand the site reaches —
+    not only the shape the law intends to change (earl66's lesson).
+
+      databases re-run                     uhdm2rtlil 1358 / 1358
+                                           surelog     956 /  956
+      cells REACHED                        uhdm2rtlil     20 (4 databases)
+                                           surelog       128 (4 databases)
+      CELLS WHOSE ANSWER CHANGES           uhdm2rtlil      0
+                                           surelog        12
+
+    PREDICTION: EXACTLY TWO DATABASES MOVE — `Earlgrey_0_1` default and
+    testflags — and nothing else in either corpus.  The 12 changing cells are
+
+      default/Earlgrey_0_1    rv_timer.sv:{82:58, 83:62, 85:63, 87:63,
+      testflags/Earlgrey_0_1                89:53, 108:46}  par=N_TIMERS
+                              bare=1 tsOld=0 tsNew=1
+
+    THE CELLS THAT REACH THE SITE AND DO NOT MOVE are the whole denominator:
+    `YosysRiscv` (46 per mode, both corpora' only other reader) answers
+    tsOld=0 tsNew=0 on every one — its `[8*(2*i+1-1) +: 8]` widths are
+    LITERALS, not bare parameter reads, so fence (b) refuses them.  The
+    uhdm2rtlil corpus reaches the site 10 times per mode and changes nothing.
+
+    Both Earlgrey databases are byte-deterministic per binary, so neither is a
+    coin.  ONE surelog command line SEGFAULTED under the neutral binary
+    (`PREDICT_SIGNALS.surelog.txt`); it is the pre-existing rc=139 family
+    RESUME §9 records (earl82 R6 / earl83 R6 / earl84 R6 / earl85 R5 /
+    earl89 R6), it is NOT a mover, and `byteverify` compared all 956 + 1358
+    databases the two real sweeps produced and found only the two Earlgrey
+    ones plus the Scoreboard COIN.
+
+MEASURED AFTER THE PATCHED SWEEPS — see PART 1b.
+
+========================================================================
+PART 1b — WHAT THE PATCHED SWEEPS ACTUALLY MOVED
+========================================================================
+`byteverify.sh SELFCHECK=1`, patched sweep vs THIS PASS'S OWN pristine sweep
+(both binaries frozen `chmod 555` at immutable paths before any sweep; every
+`cmds.txt` audited BY BINARY PATH — 0 of 3035 + 3035 name the main-tree
+binary):
+
+  uhdm2rtlil  MOVERS 0 / 1358        SELFCHECK 1357/1358 flagged
+  surelog     MOVERS 3 /  956        SELFCHECK  955/ 956 flagged
+      ./default/Earlgrey_0_1-71da2fd7    <- PREDICTED
+      ./testflags/Earlgrey_0_1-71da2fd7  <- PREDICTED
+      ./default/Scoreboard-59431470      <- THE ~50/50 COIN
+
+  NOTHING UNPREDICTED MOVED.  The Scoreboard coin is attributed ORDER-BLIND:
+  both dumps path-normalised and SORTED are 1 099 223 lines each and differ in
+  ZERO lines, and its select-bound census is byte-identical between the two
+  binaries.  It is the svunit_pkg `vpiTaskFunc` ORDER flip of RESUME §9.
+
+  (a) THE RUN-TIME A/B GATE.  `R10E90_OFF=1` on the PATCHED binary, re-running
+      Earlgrey's own two command lines in its own directory, reproduces the
+      PRISTINE database BYTE FOR BYTE in BOTH modes (default `ded7aff7a3d0`,
+      testflags `8cfc4af7915b` — the exact hashes `byteverify` read off the
+      pristine sweep), while the law ON gives `43a8d277a6fc` / `02496164d2f6`,
+      the patched sweep's own.  100 % of each mover's byte delta is this law.
+      The same gate holds on all four arms.
+  (b) THE CORPUS CENSUS re-scored fixed-universe, with the GOLDEN side
+      ASSERTED UNCHANGED (every `.gold` file byte-identical before and after):
+
+        surelog     BOTH-SAME          215 411 -> 215 429
+                    MOVED-WRONG          1 197 ->   1 179
+                    TS-MISSING-ELABHC       18 -> 0     <- the family, CLEARED
+                    TS-EXTRA                 0 -> 0     <- AWAY stays 0
+                    GOLDEN-ONLY 4 922, OURS-ONLY 43 439,
+                    TS-MISSING-ELSEWHERE 174, TS-KIND-DIFF 87 — ALL UNCHANGED
+        uhdm2rtlil  EVERY bucket unchanged; 0 databases moved.
+
+      A line-level diff of the `ours` cell files prints 6 rows in default and
+      24 in testflags, EVERY ONE a
+        SLOT=WIDTH SEL=indexed_part_select CTX=PORTHC PORTPAR=module_inst
+        TS=- -> TS=int_typespec (TSSG=1 TSRG=0 TSAL=0 TSIN=0 TSCE=0)
+      substitution, and NOT ONE row of any other SLOT, SEL, CTX or PORTPAR.
+      Per-cell direction (`tsdir90.py`): default CHANGED 6 / EXACT 6 / AWAY 0;
+      testflags CHANGED 24 / EXACT 12 / AWAY 0 + 12 CHANGED-NO-GOLDEN — the
+      PRE-EXISTING duplicate elaborated copies (ours holds four ips objects per
+      span where golden holds two), which gained the same object as their
+      paired twins and against which golden has no cell at all.
+      **WRONG->RIGHT 18, RIGHT->WRONG 0, AWAY-GOLDEN 0, STILL-WRONG 0.**
+
+========================================================================
+PART 2 — R0: THE NEW HEAD, AND ITS DECODE
+========================================================================
+BEFORE (this pass's own pristine build, d181b1b59682):
+  Earlgrey_0_1 default   15 cmp lines, 1 head
+  Earlgrey_0_1 testflags 15 cmp lines, 1 head   (the two logs byte-identical)
+AFTER:
+  Earlgrey_0_1 default  110 cmp lines, 1 head
+  Earlgrey_0_1 testflags 142 cmp lines, 1 head
+The line count RISES because the head OBJECT CHANGED (RESUME §7): the
+`ref_typespec` at `rv_timer.sv:82:58` is GONE from the log entirely, and the
+new head is a `hier_path` whose decompile is much larger.  Every other named
+row's head log is BYTE-IDENTICAL before and after.
+
+R0 (BOTH MODES, THE SAME FIELD) — A `VpiSize` STAMPED ON AN ELABORATED
+`hier_path` GOLDEN LEAVES UNSET:
+
+    hw/ip/rv_timer/rtl/rv_timer.sv:56
+      assign prescaler = '{reg2hw.cfg0.prescale.q};
+
+    the head object (default id 1008881 / 335701, testflags 1324526)
+
+      hier_path (reg2hw.cfg0.prescale.q)  56:24-56:46
+      |vpiParent: operation 56:22-56:47        (the '{...} assignment pattern)
+      LHS (golden)   no vpiSize
+      RHS (ours)     |vpiSize:12
+
+    Every other printed field is identical, ID for ID: the four `Path_elems`
+    ref_objs (`reg2hw`, `cfg0`, `prescale`, `q`), their spans, their names, the
+    trailing element's `vpiFullName work@top_earlgrey.u_rv_timer.q`, and the
+    hier_path's own `vpiName reg2hw.cfg0.prescale.q`.
+
+  THE ARM, decoded the way RESUME §9 demands.  `hier_path::Compare`
+  (`UHDM/build/generated/src/hier_path.cpp:110-125`) delegates FIRST to
+  `basetype_t::Compare`, and `hier_path`'s basetype chain reaches
+  `expr::Compare`, whose FIRST scored line is
+      `if ((r = lhs->VpiSize() - rhs->VpiSize()) != 0) { … return r; }`
+  (`expr.cpp:95`), BEFORE `Typespec` (:100) and before `hier_path`'s own
+  `Path_elems` / `Root_value` / `VpiName`.  So the head is a **`VpiSize`
+  mismatch on the hier_path itself** — 12 (the width of `prescale.q`, a
+  12-bit register field) against golden's unset 0 — and NOT a Path_elems or a
+  naming defect.  The two modes' logs differ only in that testflags' golden
+  binds the elements' `vpiActual`s (`struct_var` / `typespec_member`); the
+  FAILING FIELD is the same one, so there is ONE R0.
+
+  THE QUESTION FOR THE NEXT PASS: which producer stamps `VpiSize` on a
+  hier_path, and why Surelog leaves it unset HERE while (per the corpus census)
+  it does set sizes on other expressions in the same design.  The `'{...}`
+  assignment-pattern parent is the first thing to test — § patFlatUnsizedMember
+  Width61 and the tagged_pattern laws already own re-typing inside
+  `flattenPatternAssignments`, and this hier_path is the pattern's ONLY member.
+  Census EVERY `hier_path` in both corpora keyed by (context, parent kind,
+  Path_elems shape) with `VpiSize` as the payload BEFORE any code: `ct90cen.cpp`
+  needs one new row kind (it enumerates selects, not hier_paths) and
+  `tsdir90.py` scores it unchanged.
+
+========================================================================
+RANKED RESIDUES this pass MEASURED and deliberately did not take
+========================================================================
+R0  THE hier_path `VpiSize` ABOVE — the new head, both modes, ONE head each.
+
+R1  THE ips WIDTH'S **ENCODING** FOR A NON-`int` DECLARED TYPE.  The
+    `genvarConnFold` width mint writes `"UINT:" + decimal` at
+    `vpiUIntConst` and the declared type's bit width, always.  Golden writes
+    the parameter's STORED VALUE's own encoding, which is `INT:v` /
+    `vpiIntConst` for every `bit`/`logic`-vector-typed parameter and for an
+    EXPRESSION-initialised one:
+      g2 u08-u15  golden `INT:2` ct 7, ours `UINT:2` ct 9 (sizes already agree)
+      g4 h15      golden `INT:4` ct 7, ours `UINT:4` ct 9
+    6 arm cells, **0 corpus cells** (every corpus cell that reaches the site is
+    an `int` localparam or a literal, and the census's `VAL`/`CT` fields agree
+    on all 18).  r10earl84's `adjustCopiedParamConst64` is the consumer that
+    already reproduces golden's encoding for all sixteen declared types at the
+    BASE slot; wiring it into the WIDTH mint is a SIZE/ENCODING law and wants
+    its own boundary, so this pass changed no value, size or encoding at all.
+
+R2  THE SAME TYPESPEC AT THE **bit_select INDEX**, AND THE FOLD THAT MUST COME
+    FIRST.  `g3 i01`: golden's ELAB High_conn `sig[P4]` index is a folded
+    `constant UINT:4 sz32 ct9` carrying the same bare signed `int_typespec`,
+    and WE KEEP A `ref_obj` there — so it is a FOLD-PRESENCE change first and a
+    typespec change second, two laws in one cell.  `i02` (an `int unsigned`
+    index) is the same fold with NO typespec, which is the negative control the
+    fold law would need.  2 arm cells, **0 corpus cells** (the census finds no
+    ELAB High_conn bit_select index where golden folds and we do not).
+    r10earl84's R2 recorded this as "0 corpus cells"; this pass measured the
+    GOLDEN side of it for the first time.
+
+R3  THE QUALIFIED PACKAGE ARM IS A DIFFERENT PRODUCER.  `g2 u18`-`u21`: golden
+    folds `pk90::X` at the width slot and gives it the PACKAGE parameter's OWN
+    declared typespec — `int_typespec` SIGNED for `int` (u18), `int_typespec`
+    **UNSIGNED** for `int unsigned` (u19), and a **`logic_typespec`** on a
+    `DEC:2` / `vpiDecConst` constant for `logic signed [7:0]` (u20) and
+    `logic [7:0]` (u21).  Minting this law's bare signed `int_typespec` there
+    would replace a MISSING object with a WRONG one on three of the four, so
+    the package arm is refused whole (fence (c)).  The BARE (wildcard-imported)
+    spelling `u17` carries NO typespec and already agrees.  4 arm cells,
+    **0 corpus cells**.  It is r10earl89's R3 seen from the width slot.
+
+R4  § dimBoundLeafValueSignedTs89's PREDICATE IS WRONG ON ONE SHAPE.
+    `paramValueSigned89` asks `paramDeclSigned89(p)` FIRST and returns TRUE,
+    so `localparam int S4Q = pq90::Q_UNS;` (a SIGNED declaration initialised
+    from a QUALIFIED `int unsigned` package parameter) answers TRUE there,
+    while golden answers **FALSE** — `valueRange` reads `VpiSigned` off
+    `rhstps`, the EFFECTIVE typespec, and a qualified package read brings the
+    package's own.  Measured on golden at THIS site (`g4 h14`) and modelled
+    correctly by this pass's own `paramValueSignedTs90`.  earl89's site is the
+    DIMENSION BOUND, its corpus population for this shape is 0, and moving it
+    would move earl89's arms — so it is recorded, not taken.  1 arm cell here,
+    0 corpus cells there.
+
+R5  A PLAIN (NON-GENERATE) INSTANTIATION'S ips WIDTH KEEPS OUR `ref_obj`.
+    `g1 u_flat` and `g4 h01` (`.a_i(sig[0 +: P4])` at module scope): golden
+    folds the width to a constant WITH the typespec, and the pristine emitter
+    keeps a `ref_obj` because the `genvarConnFold` arm is not armed outside a
+    generate scope.  This law only STAMPS an existing constant, so it cannot
+    reach them.  2 arm cells, **0 corpus cells** (the census's ELAB High_conn
+    WIDTH slot holds no `ref_obj`-vs-`constant` pair in either corpus).
+
+R6  THE ELABORATED CONT_ASSIGN'S ips WIDTH WANTS AN **UNSIGNED** TYPESPEC.
+    174 corpus cells (all `Earlgrey_0_1`, e.g. `rv_timer.sv:235:45`) where both
+    sides hold the same folded `UINT:1 sz32 ct9` width constant and golden
+    carries an `int_typespec` with `VpiSigned` **0** — a different object from
+    this law's, in a different context (`CTX=CONTASSIGN`, inside a
+    `hier_path`).  A further 87 cells (TS-KIND-DIFF) are the same shape plus a
+    hier_path `VpiName` difference (`tl_h_i[i].a_source[8_-_1-:1]` vs
+    `…[IDW_-_1-:1]`).  The largest single family this census found and the
+    obvious successor to R0; the law is fenced to `CTX=PORTHC` precisely so it
+    cannot mint a SIGNED object into it.
+
+R7  A BARE GENVAR ips BASE / bit_select INDEX ENCODES AS `UINT` IN GOLDEN.
+    `g1` `dst[h +: 1]` and `g3 b05`: golden's folded base is `UINT:0` ct 9 at
+    64 bits and ours is `INT:0` ct 7 — while a COMPUTED base (`h*N_TIMERS`,
+    `g3 b03`) is `INT` ct 7 on BOTH sides, which is why the Earlgrey head's own
+    base agrees.  § connIpsBareBaseUint64 owns that split for a written literal;
+    a BARE GENVAR is a third case it does not cover.  3 arm cells, 0 corpus
+    cells (Earlgrey's gen-scope bases are all computed).
+
+R8  THE PRE-EXISTING PROBE / PREDICTION SEGFAULTS.  One surelog command line
+    exits rc=139 under the neutral binary in the prediction re-run and the wide
+    boundary's rc histogram is symmetric side for side; the family is
+    pre-existing and recorded by earl82 R6 / earl83 R6 / earl84 R6 / earl85 R5 /
+    earl89 R6.  `byteverify` proves none of them is a mover.

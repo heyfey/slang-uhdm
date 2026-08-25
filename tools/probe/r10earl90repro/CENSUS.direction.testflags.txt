@@ -1,0 +1,7 @@
+CHANGED            24
+EXACT              12
+TO-GOLDEN          0
+NEUTRAL            0
+AWAY               0
+CHANGED-NO-GOLDEN  12
+UNCHANGED          101944

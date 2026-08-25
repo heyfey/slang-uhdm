@@ -1,0 +1,48 @@
+r10earl90 — SELF-VERIFICATION NOTES (what was checked and how).
+
+1. THE HEAD WAS RE-MEASURED ON THIS PASS'S OWN PRISTINE BUILD before any code
+   was written: `rowheads.sh` over this pass's own pristine surelog sweep gives
+   Earlgrey_0_1 15 cmp lines / 1 head in BOTH modes, the two logs byte-identical
+   (HEAD_BEFORE_*.cmp).  It reproduces r10earl89's committed HEAD_AFTER logs
+   modulo object ids.
+
+2. THE HEAD WAS DECODED FROM THE SafeCompare OVERLOAD, not from the shape:
+   `RHS: <null>` with a printed LHS value is BaseClass.h's SINGULAR overload,
+   so the head is a whole missing `ref_typespec`, and the owner was named by
+   the direct-reader census (`ct90cen --inst`), never by a whole-dump diff
+   (Earlgrey's dump is >1 GB).
+
+3. THE LAW IS A TRANSCRIPTION, and every clause of it has a golden cell:
+   CompileExpression.cpp:4258-4272 (the reduce reaches BOTH ips bounds),
+   :3004-3018 (the `if (sval->isSigned())` mint),
+   DesignElaboration.cpp:2519-2545 (where the Value and its typespec come from),
+   CompileHelper.cpp:5378-5398 (`valueRange` reads `rhstps`, three kinds only),
+   DesignElaboration.cpp:2147-2172 (the override path that skips both).
+
+4. THE PREDICATE WAS TESTED IN BOTH DIRECTIONS on golden, including the row
+   that separates it from r10earl89's `paramValueSigned89`
+   (`localparam int S4Q = pq90::Q_UNS` — golden refuses the typespec on a
+   SIGNED declaration).  See §4's initializer grid.
+
+5. AWAY WAS MEASURED, NOT ASSUMED.  `tsdir90.py` scores every cell whose
+   payload CHANGED by counting the scored fields that agree with golden before
+   and after, and flags AWAY whenever a field that was ALREADY right became
+   wrong — even if the total went up.  Across the four arms, the two corpus
+   movers and the three earlier-pass boundary arms: **AWAY 0** everywhere.
+
+6. THE COIN WAS NOT ASSUMED EITHER.  `Scoreboard`/default moved; it was
+   attributed ORDER-BLIND (sorted, path-normalised dumps: 0 differing lines)
+   AND by its own select-bound census (0 differing lines).
+
+7. THE FENCED FOUR WERE NEVER DISPATCHED BY ANYTHING IN THIS DIRECTORY.  The
+   first prediction run used a DIRMAP that still contained their directories;
+   the map was scrubbed (its header records the count, nothing spells them),
+   `predict90.sh` now prints FENCED-SKIP for them, and THE WHOLE PREDICTION WAS
+   RE-RUN fence-clean — the committed trace is from that run and reproduces the
+   first one's CELL lines exactly (0 differing lines).  `canaudit.sh` reports
+   `FENCE-BREACH=0`.
+
+8. WHAT THIS PASS DELIBERATELY DID NOT DO: it changed no value, size, encoding,
+   span or parent, and it folded nothing that was not already folded.  The call
+   site only attaches a `Typespec` to a constant minted three lines above that
+   carries none, so the law can ADD an object and can never replace one.

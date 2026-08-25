@@ -1,0 +1,110 @@
+LHS:
+decompile:
+hier_path: (reg2hw.cfg0.prescale.q), id:1008881, line:56:24, endln:56:46
+|vpiParent:
+\_operation: , id:1008880, line:56:22, endln:56:47
+|vpiActual:
+\_ref_obj: (reg2hw), id:1008882, line:56:24, endln:56:30
+  |vpiParent:
+  \_hier_path: (reg2hw.cfg0.prescale.q), id:1008881, line:56:24, endln:56:46
+  |vpiName:reg2hw
+|vpiActual:
+\_ref_obj: (cfg0), id:1008883, line:56:31, endln:56:35
+  |vpiParent:
+  \_hier_path: (reg2hw.cfg0.prescale.q), id:1008881, line:56:24, endln:56:46
+  |vpiName:cfg0
+|vpiActual:
+\_ref_obj: (prescale), id:1008884, line:56:36, endln:56:44
+  |vpiParent:
+  \_hier_path: (reg2hw.cfg0.prescale.q), id:1008881, line:56:24, endln:56:46
+  |vpiName:prescale
+|vpiActual:
+\_ref_obj: (work@top_earlgrey.u_rv_timer.q), id:1008885, line:56:45, endln:56:46
+  |vpiParent:
+  \_hier_path: (reg2hw.cfg0.prescale.q), id:1008881, line:56:24, endln:56:46
+  |vpiName:q
+  |vpiFullName:work@top_earlgrey.u_rv_timer.q
+|vpiName:reg2hw.cfg0.prescale.q
+
+decompile:
+hier_path: (reg2hw.cfg0.prescale.q), id:1008881, line:56:24, endln:56:46
+|vpiParent:
+\_operation: , id:1008880, line:56:22, endln:56:47
+|vpiActual:
+\_ref_obj: (reg2hw), id:1008882, line:56:24, endln:56:30
+  |vpiParent:
+  \_hier_path: (reg2hw.cfg0.prescale.q), id:1008881, line:56:24, endln:56:46
+  |vpiName:reg2hw
+|vpiActual:
+\_ref_obj: (cfg0), id:1008883, line:56:31, endln:56:35
+  |vpiParent:
+  \_hier_path: (reg2hw.cfg0.prescale.q), id:1008881, line:56:24, endln:56:46
+  |vpiName:cfg0
+|vpiActual:
+\_ref_obj: (prescale), id:1008884, line:56:36, endln:56:44
+  |vpiParent:
+  \_hier_path: (reg2hw.cfg0.prescale.q), id:1008881, line:56:24, endln:56:46
+  |vpiName:prescale
+|vpiActual:
+\_ref_obj: (work@top_earlgrey.u_rv_timer.q), id:1008885, line:56:45, endln:56:46
+  |vpiParent:
+  \_hier_path: (reg2hw.cfg0.prescale.q), id:1008881, line:56:24, endln:56:46
+  |vpiName:q
+  |vpiFullName:work@top_earlgrey.u_rv_timer.q
+|vpiName:reg2hw.cfg0.prescale.q
+RHS:
+decompile:
+hier_path: (reg2hw.cfg0.prescale.q), id:335701, line:56:24, endln:56:46
+|vpiParent:
+\_operation: , id:335700, line:56:22, endln:56:47
+|vpiSize:12
+|vpiActual:
+\_ref_obj: (reg2hw), id:335702, line:56:24, endln:56:30
+  |vpiParent:
+  \_hier_path: (reg2hw.cfg0.prescale.q), id:335701, line:56:24, endln:56:46
+  |vpiName:reg2hw
+|vpiActual:
+\_ref_obj: (cfg0), id:335703, line:56:31, endln:56:35
+  |vpiParent:
+  \_hier_path: (reg2hw.cfg0.prescale.q), id:335701, line:56:24, endln:56:46
+  |vpiName:cfg0
+|vpiActual:
+\_ref_obj: (prescale), id:335704, line:56:36, endln:56:44
+  |vpiParent:
+  \_hier_path: (reg2hw.cfg0.prescale.q), id:335701, line:56:24, endln:56:46
+  |vpiName:prescale
+|vpiActual:
+\_ref_obj: (work@top_earlgrey.u_rv_timer.q), id:335705, line:56:45, endln:56:46
+  |vpiParent:
+  \_hier_path: (reg2hw.cfg0.prescale.q), id:335701, line:56:24, endln:56:46
+  |vpiName:q
+  |vpiFullName:work@top_earlgrey.u_rv_timer.q
+|vpiName:reg2hw.cfg0.prescale.q
+
+decompile:
+hier_path: (reg2hw.cfg0.prescale.q), id:335701, line:56:24, endln:56:46
+|vpiParent:
+\_operation: , id:335700, line:56:22, endln:56:47
+|vpiSize:12
+|vpiActual:
+\_ref_obj: (reg2hw), id:335702, line:56:24, endln:56:30
+  |vpiParent:
+  \_hier_path: (reg2hw.cfg0.prescale.q), id:335701, line:56:24, endln:56:46
+  |vpiName:reg2hw
+|vpiActual:
+\_ref_obj: (cfg0), id:335703, line:56:31, endln:56:35
+  |vpiParent:
+  \_hier_path: (reg2hw.cfg0.prescale.q), id:335701, line:56:24, endln:56:46
+  |vpiName:cfg0
+|vpiActual:
+\_ref_obj: (prescale), id:335704, line:56:36, endln:56:44
+  |vpiParent:
+  \_hier_path: (reg2hw.cfg0.prescale.q), id:335701, line:56:24, endln:56:46
+  |vpiName:prescale
+|vpiActual:
+\_ref_obj: (work@top_earlgrey.u_rv_timer.q), id:335705, line:56:45, endln:56:46
+  |vpiParent:
+  \_hier_path: (reg2hw.cfg0.prescale.q), id:335701, line:56:24, endln:56:46
+  |vpiName:q
+  |vpiFullName:work@top_earlgrey.u_rv_timer.q
+|vpiName:reg2hw.cfg0.prescale.q

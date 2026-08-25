@@ -9210,6 +9210,331 @@ UHDM::constant* UhdmExporter::connHpIpsBaseNonOvParamFold84(
     return c84;
 }
 
+
+// § connIpsWidthNonOvParamSignedTs90 (r10earl90) — GOLDEN STAMPS A **BARE
+// SIGNED `int_typespec`** ON THE FOLDED **WIDTH** CONSTANT OF AN
+// `indexed_part_select` INSIDE AN ELABORATED PORT `High_conn` WHEN THE WIDTH
+// OPERAND IS A BARE READ OF A MODULE-SCOPE PARAMETER WHOSE STORED `Value` IS
+// SIGNED.  We minted that constant BARE.
+//
+// THE HEAD (Earlgrey_0_1, BOTH modes, 15 cmp lines each, one head each, at
+// 986bc0a) — `hw/ip/rv_timer/rtl/rv_timer.sv:82`, inside `gen_harts[0]`:
+//
+//     localparam int N_TIMERS = 1;                        // rv_timer.sv:20
+//     ...
+//     .reg2hw_intr_enable_q_i (intr_timer_en[h*N_TIMERS+:N_TIMERS]),
+//
+//   LHS(golden) ref_typespec (EMPTY vpiFullName)   RHS(ours) <null>
+//     |vpiParent: constant 82:58-82:66 UINT:1 vpiSize:32 vpiConstType:9
+//     |vpiActual: int_typespec (VpiSigned, NOTHING ELSE)
+//
+// `BaseClass.h`'s SINGULAR `SafeCompare` overload names the VALUE with
+// `RHS: <null>`; the owner is the `indexed_part_select`'s `Width_expr`, and
+// its sibling `Base_expr` (the folded `h*N_TIMERS`) carries NO typespec on
+// EITHER side — an OPERATION reaches `reduceExpr`, not the identifier arm, so
+// it is this law's built-in negative control.
+//
+// DECODED FROM SURELOG, NOT GUESSED:
+//  1. `NetlistElaboration::high_conn_` (NetlistElaboration.cpp:1332-1337)
+//     recompiles the named actual in the PARENT instance with `Reduce::Yes`.
+//  2. `CompileHelper::compileSelectExpression`'s INDEXED arm
+//     (CompileExpression.cpp:4258-4272) passes the CALLER's `reduce` to
+//     **BOTH** `Base_expr` AND `Width_expr`, while the SIMPLE arm seventeen
+//     lines above (:4241-4249) hardcodes `Reduce::No` for `Left_range` and
+//     `Right_range`.  So the WIDTH runs the SAME identifier arm as the base —
+//     the fact § connHpIpsBaseNonOvParamFold84 rests on, one slot over — and a
+//     plain `part_select` bound never folds at all (g3 rows p01-p04: golden
+//     keeps `ref_obj P4` in the RIGHT/LEFT slots).
+//  3. Under `Reduce::Yes` the identifier arm answers from the instance's
+//     stored `Value` and mints (CompileExpression.cpp:3004-3018):
+//         c->VpiValue(sval->uhdmValue()); c->VpiDecompile(...);
+//         c->VpiConstType(sval->vpiValType()); c->VpiSize(sval->getSize());
+//         if (sval->isSigned()) { int_typespec *ts = s.MakeInt_typespec();
+//                                 ts->VpiSigned(true); ... c->Typespec(rt); }
+//     THAT `if` IS THE WHOLE LAW.  The object is BARE: no name, no location,
+//     no ranges, no value, no `Typedef_alias`, no `Instance`, no
+//     `Cast_to_expr` — every field `typespec::Compare` and
+//     `int_typespec::Compare` read is left unset.
+//  4. WHERE `sval->isSigned()` COMES FROM — `DesignElaboration::collectParams_`
+//     (DesignElaboration.cpp:2519-2545).  The default initializer is compiled,
+//     `adjustSize(ts, …)` runs against the DECLARED typespec, and then
+//         if (c->Typespec() == nullptr) c->Typespec(<the DECLARED ts>);
+//         value = fromVpiValue(c->VpiValue(), c->VpiSize());
+//         cts = c->Typespec()->Actual_typespec();
+//         valueRange(value, /*lhstps=*/ts, /*rhstps=*/cts ? cts : ts, …);
+//     and `CompileHelper::valueRange` (CompileHelper.cpp:5378-5398) sets
+//     `isSigned` from **`rhstps`** — the EFFECTIVE typespec — for
+//     `logic_typespec`, `bit_typespec` and `int_typespec` ONLY.  So:
+//       * a LITERAL or EXPRESSION initializer leaves the compiled constant
+//         WITHOUT a typespec, the DECLARED one is attached, and the DECLARED
+//         sign decides (g4 h15-h19: `int E1 = P4U*1`, `int E3 = $clog2(16)`,
+//         `int E5 = int'(P4U)` all TS; their `int unsigned` twins none);
+//       * a BARE reference to another module-scope parameter mints its
+//         constant through point 3, so it carries a typespec ONLY when THAT
+//         parameter's Value is signed — and when it does, that sign WINS over
+//         the declaration (g4 h10 `int unsigned U4R = P4` TS), while when it
+//         does not the DECLARED sign is what got attached (g4 h04
+//         `int P4RU = P4U` TS, h11 `int unsigned U4RU = P4U` none);
+//       * a QUALIFIED package reference carries the PACKAGE parameter's OWN
+//         located typespec, and THAT sign decides in both directions —
+//         g4 h12 `int unsigned U4Q = pq90::Q_SGN` TS and **h14
+//         `int S4Q = pq90::Q_UNS` NONE**, a signed DECLARATION golden refuses;
+//       * `byte`, `integer`, `shortint`, `longint`, an enum, a `string` and a
+//         `real` are not in the three-kind switch and NEVER carry it, however
+//         signed the language says they are (g2 u04-u07);
+//       * an UNTYPED `localparam` has no compiled typespec at all, `adjustSize`
+//         and `valueRange` never run, and the answer is FALSE (g2 u16).
+//  5. AN OVERRIDDEN parameter takes `collectParams_`'s OTHER path
+//     (DesignElaboration.cpp:2147-2172), which has no `adjustSize` and never
+//     calls `valueRange` — measured three ways in `g4_homes90.sv`: `mid90`'s
+//     `parameter int MW = 4` carries NO typespec in `u_m1`/`u_m2` (overridden
+//     with `.MW(2)`) and DOES in `u_m3` (left at the default), from ONE
+//     declaration and ONE source span.
+//
+// THE FENCES, each a negative control MEASURED ON GOLDEN:
+//  (a) THE DEFINITION VIEW KEEPS THE REF.  Every `ref_module` row of every arm
+//      holds `ref_obj N_TIMERS`/`P4` on BOTH sides, before and after; the law
+//      is gated on § elabConnEmit21 and on the gen-scope conn fold, so the DEF
+//      listing is unreachable from here.
+//  (b) THE OPERAND MUST BE A BARE PARAMETER READ.  An EXPRESSION width
+//      (`g3 w03`), a LITERAL width (`g1` `dst[h +: 1]`, `g3 w04`) and a
+//      GENVAR-bearing width (`g3 w05`) are minted by `reduceExpr`, carry no
+//      typespec in golden, and are refused here by construction.
+//  (c) NOT A PACKAGE PARAMETER.  `g2 u17`-`u21` separate the two producers
+//      completely: a WILDCARD-IMPORTED package parameter read BARE folds with
+//      NO typespec, and a QUALIFIED `pk90::X` read carries the package's OWN
+//      DECLARED typespec — `int_typespec` UNSIGNED for `int unsigned`
+//      (`u19`), and a `logic_typespec` at a `DEC:2`/`vpiDecConst` constant for
+//      a `logic signed [7:0]` one (`u20`).  Minting a bare SIGNED
+//      `int_typespec` there would be a WRONG object, so the package arm is
+//      refused whole and recorded as a residue.
+//  (d) USER-CALL ARGUMENT DEPTH.  `g1 gen_m` `.a_i(uf90({…, sig[m*N +: N], …}))`
+//      — golden keeps `ref_obj N_TIMERS` in the ELABORATED copy and folds
+//      nothing; `g1 gen_n`'s `$unsigned(…)` twin DOES fold and DOES carry the
+//      typespec, which is why the test is `callArgDepth - sysCallArgDepth22`
+//      and never a plain `callArgDepth == 0` (§ genCaSysCallArgBinds22).
+//  (e) NOT OVERRIDDEN — point 5 above.
+//  (f) NOT A `bind` INSTANTIATION (§ connBindInstKeepsRef84v).  `g4`'s
+//      `bind bindee90 bnd90 u_bind (.a(sig[0 +: Bd90]))` keeps the `ref_obj`
+//      in golden AND in both binaries — Surelog parents a bind instance at
+//      `parent->getParent()`, so the `Reduce::Yes` recompile has no Value for
+//      a parameter of the bind TARGET.  The flag is asserted anyway.
+//
+// R10E90_OFF=1 disables the law at run time in the shipped binary; it is the
+// A/B gate every mover attribution rests on.
+static bool off90() {
+    static const bool v = getenv("R10E90_OFF") != nullptr;
+    return v;
+}
+
+// Point 4's first clause — does the parameter have a COMPILED TYPESPEC for
+// `adjustSize`/`valueRange` to read at all?  A bare `localparam X = 4` has
+// none; a SIGNING TOKEN or a DIMENSION gives it one.  (The same test
+// § dimBoundLeafValueSignedTs89 spells `paramHasTypespec89`; the copies are
+// deliberate — see RESUME §9's "no premature helper extraction".)
+static bool paramHasTypespec90(const ParameterSymbol& p) {
+    auto dt = p.getDeclaredType();
+    if (!dt)
+        return false;
+    auto* ty = dt->getTypeSyntax();
+    if (!ty)
+        return false;
+    if (ty->kind == syntax::SyntaxKind::ImplicitType) {
+        auto& it = ty->as<syntax::ImplicitTypeSyntax>();
+        return it.signing.valid() || !it.dimensions.empty();
+    }
+    return true;
+}
+
+// `valueRange`'s three-kind switch, transcribed onto slang's canonical type:
+// `int` yes, `int unsigned` no, a SIGNED `logic`/`bit` vector yes, an unsigned
+// one no, and byte/integer/shortint/longint/time/enum/real/string NO.
+static bool paramDeclSigned90(const ParameterSymbol& p) {
+    if (!paramHasTypespec90(p))
+        return false;
+    auto& cty = p.getType().getCanonicalType();
+    if (!cty.isIntegral() || cty.isEnum() || !cty.isSigned())
+        return false;
+    if (cty.kind == SymbolKind::PredefinedIntegerType)
+        return cty.as<PredefinedIntegerType>().integerKind ==
+               PredefinedIntegerType::Int;
+    if (cty.kind == SymbolKind::ScalarType)
+        return true;
+    if (cty.kind == SymbolKind::PackedArrayType) {
+        const Type* el =
+            &cty.as<PackedArrayType>().elementType.getCanonicalType();
+        while (el->kind == SymbolKind::PackedArrayType)
+            el = &el->as<PackedArrayType>().elementType.getCanonicalType();
+        return el->kind == SymbolKind::ScalarType;
+    }
+    return false;
+}
+
+static bool inPackage90(const Symbol& sy) {
+    for (auto sc = sy.getParentScope(); sc; sc = sc->asSymbol().getParentScope())
+        if (sc->asSymbol().kind == SymbolKind::Package)
+            return true;
+    return false;
+}
+
+// IS THE PARAMETER'S STORED `Value` SIGNED?  Point 4, in the order
+// `collectParams_` establishes it: the EFFECTIVE typespec of the compiled
+// initializer decides, and that is the DECLARED one unless the initializer is
+// a bare/qualified parameter reference that brought its own.
+static bool paramValueSignedTs90(const ParameterSymbol& p, int depth) {
+    if (depth > 16)
+        return false;
+    if (isOverriddenParam(p))          // fence (e)
+        return false;
+    if (!paramHasTypespec90(p))        // no compiled typespec -> valueRange
+        return false;                  // never runs
+    if (auto* in = p.getInitializer()) {
+        auto& si = stripImplicitConv(*in);
+        if (si.kind == ExpressionKind::NamedValue) {
+            auto& rsym = si.as<NamedValueExpression>().symbol;
+            if (rsym.kind == SymbolKind::Parameter) {
+                auto& rp = rsym.as<ParameterSymbol>();
+                const bool qual =
+                    si.syntax &&
+                    si.syntax->kind == syntax::SyntaxKind::ScopedName;
+                // A QUALIFIED package read carries the package parameter's own
+                // LOCATED typespec, and its DECLARED sign wins outright — in
+                // BOTH directions (g4 h12 and h14).
+                if (qual && inPackage90(rsym))
+                    return paramDeclSigned90(rp);
+                // A BARE module-scope read mints its constant through point 3:
+                // it carries a typespec ONLY when that parameter's own Value is
+                // signed.  When it does not, `collectParams_` attaches the
+                // DECLARED one and the declaration decides (fall through).
+                if (!qual && !inPackage90(rsym) &&
+                    paramValueSignedTs90(rp, depth + 1))
+                    return true;
+            }
+        }
+    }
+    return paramDeclSigned90(p);
+}
+
+// R10E90_CELLDBG=1 names EVERY cell that REACHES this site with BOTH answers —
+// not only the shape the law intends to change (earl66's lesson: a trace keyed
+// on the shape you intend to change is blind to the rows you would change by
+// accident).  It writes to stderr and is off unless the variable is set.
+static bool cellDbg90() {
+    static const bool v = [] {
+        const char* e = getenv("R10E90_CELLDBG");
+        return e && *e && *e != '0';
+    }();
+    return v;
+}
+
+// § defparamHidesTheOverride90v (r10v90, THE VERIFIER'S FIX) — FENCE (e) HAS A
+// HOLE THE SPAN TEST CANNOT SEE: A `defparam`.
+//
+// `isOverriddenParam` decides "overridden" by asking whether the parameter's
+// BOUND initializer syntax lies inside its DECLARED default's source range.
+// For `#(.MW(2))`, `#(2)` and a CLI `-G` override slang rebinds the
+// INITIALIZER, so the bound span comes from the instantiation and the test is
+// exact.  A `defparam` does NOT rebind the initializer: slang's
+// `ParameterBuilder::createParam` finds the parameter in the instance body's
+// hierarchy override node, sees a PRE-EVALUATED `ConstantValue` and no
+// expression, and takes the
+//     param->setValue(comp, it->second.cv, …);  return *param;
+// EARLY RETURN (slang `source/ast/symbols/ParameterBuilder.cpp:277-287`).
+// The declared default's syntax stays in place, `DeclaredTypeFlags::
+// InitializerOverridden` is never added — so slang's own
+// `ParameterSymbol::isOverridden()` is FALSE too — and `isOverriddenParam`
+// answers FALSE while the VALUE is the overridden one.
+//
+// MEASURED ON GOLDEN (`tools/probe/r10v90repro/v2_over90.sv`, five instances
+// of ONE module from ONE declaration and ONE source span):
+//     ch90            u_def  (…)                     golden width TS   <- fires
+//     ch90 #(.MW(2))  u_nam  (…)                     golden width NO TS
+//     ch90 #(2)       u_pos  (…)                     golden width NO TS
+//     ch90 #(.MW(4))  u_same (…)   (= the default)   golden width NO TS
+//     ch90            u_dp   (…);  defparam u_dp.MW  = 2;   golden NO TS
+//     ch90            u_dp2  (…);  defparam u_dp2.MW = 4;   golden NO TS
+// Surelog puts a `defparam` on `collectParams_`'s OVERRIDDEN path
+// (`DesignElaboration.cpp:2147-2172`) exactly like a `#()` override — the
+// elaborated `High_conn` width there is `UINT:2`/`UINT:4` at 64 bits with NO
+// typespec — so both `u_dp` cells were PRISTINE-RIGHT and PATCHED-WRONG
+// before this fix (2 TS-EXTRA cells, `TS-RIGHT->WRONG 2`).
+// `u_dp2` is why the fix cannot be a VALUE comparison: its defparam restates
+// the default, the values are identical, and golden still stamps nothing.
+//
+// So ask the map `ParameterBuilder` itself consults: the enclosing
+// `InstanceBodySymbol`'s `hierarchyOverrideNode`, keyed by this parameter's
+// own declarator.  That entry exists for a defparam, a config override and a
+// CLI override, and never for a parameter left at its default.
+//
+// DEPTH 0 ONLY — and that is a MEASURED distinction, not a convenience.  A
+// LOCALPARAM DERIVED from a defparam'd parameter behaves the OTHER way in
+// golden: `dv90`'s `localparam int LD = DW; localparam int unsigned LDU = DW;`
+// under `defparam u_dv_dp.DW = 2;` keeps `DW`'s emitted `parameter` object at
+// `UINT:4 vpiSigned:1` with its `int_typespec`, elaborates `LD`/`LDU` from the
+// DEFAULT (the golden ips widths are `UINT:4`, not `UINT:2`) and stamps the
+// typespec on BOTH — while the same module under `#(.DW(2))` elaborates them
+// from the OVERRIDE (`UINT:2`) and stamps only the signed-declared one.  A
+// real `#()` override re-elaborates the body's localparams; a `defparam` does
+// not.  The RECURSION therefore must keep reading `isOverriddenParam` alone,
+// and this test belongs at the DIRECTLY READ parameter only.
+static bool hierNodeOverridden90(const ParameterSymbol& p) {
+    auto* syn = p.getSyntax();
+    if (!syn)
+        return false;
+    for (auto sc = p.getParentScope(); sc;
+         sc = sc->asSymbol().getParentScope()) {
+        auto& sy = sc->asSymbol();
+        if (sy.kind != SymbolKind::InstanceBody)
+            continue;
+        auto* node = sy.as<InstanceBodySymbol>().hierarchyOverrideNode;
+        return node &&
+               node->paramOverrides.find(syn) != node->paramOverrides.end();
+    }
+    return false;
+}
+
+bool UhdmExporter::connIpsWidthNonOvParamSignedTs90(const Expression& w,
+                                                    UHDM::constant* c) {
+    if (!c)
+        return false;
+    auto& core90 = stripImplicitConv(w);
+    const bool bare90 = core90.kind == ExpressionKind::NamedValue &&
+                        core90.as<NamedValueExpression>().symbol.kind ==
+                            SymbolKind::Parameter;
+    bool want90 = false;
+    std::string nm90 = "-";
+    if (bare90) {
+        auto& sy = core90.as<NamedValueExpression>().symbol;
+        nm90 = std::string(sy.name);
+        want90 = !inPackage90(sy) &&                 // fence (c)
+                 // fence (e2) — § defparamHidesTheOverride90v: the DIRECTLY
+                 // READ parameter must not be rebound by a `defparam` (or a
+                 // config / CLI override), which leaves the initializer syntax
+                 // in place and is invisible to `isOverriddenParam`'s span
+                 // test.  Depth 0 only; see the decode at the definition.
+                 !hierNodeOverridden90(sy.as<ParameterSymbol>()) &&
+                 paramValueSignedTs90(sy.as<ParameterSymbol>(), 0);
+    }
+    if (cellDbg90() && sm)
+        fprintf(stderr,
+                "R10E90 CELL %s:%u:%u par=%s bare=%d tsOld=0 tsNew=%d\n",
+                std::string(sm->getFileName(core90.sourceRange.start())).c_str(),
+                (unsigned)sm->getLineNumber(core90.sourceRange.start()),
+                (unsigned)sm->getColumnNumber(core90.sourceRange.start()),
+                nm90.c_str(), bare90 ? 1 : 0, want90 ? 1 : 0);
+    if (off90() || !want90)
+        return false;
+    // The whole object golden mints: a BARE `int_typespec` with `VpiSigned`,
+    // behind a `ref_typespec` with an EMPTY `vpiFullName`.
+    auto* its90 = s.MakeInt_typespec();
+    its90->VpiSigned(true);
+    auto* rt90 = s.MakeRef_typespec();
+    rt90->VpiParent(c);
+    rt90->Actual_typespec(its90);
+    c->Typespec(rt90);
+    return true;
+}
+
 // § genLpOneHopProcBoundOp58 — THE ONE HOP, DECODED FROM SURELOG AND ASKED OF
 // THE SCOPE TREE.
 //
@@ -25440,6 +25765,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         c9->VpiValue("UINT:" + d9);
                         c9->VpiConstType(vpiUIntConst);
                         setLoc(c9, rs.right().sourceRange);
+                        // § connIpsWidthNonOvParamSignedTs90 — THE HEAD's own
+                        // site (rv_timer.sv:82).  The TYPESPEC-PRESENCE half
+                        // only: the value, size and encoding above are
+                        // untouched, so the law can add an object and can
+                        // never change one.  Fences (a) elabConnEmit21, (d)
+                        // user-call depth and (f) `bind` are spelled here; the
+                        // operand, package, signedness and override fences
+                        // live in the helper.
+                        if (elabConnEmit21 && !connFromBind84 &&
+                            callArgDepth - sysCallArgDepth22 == 0)
+                            connIpsWidthNonOvParamSignedTs90(rs.right(), c9);
                         wf9 = c9;
                     }
                     if (bf9 && wf9) {

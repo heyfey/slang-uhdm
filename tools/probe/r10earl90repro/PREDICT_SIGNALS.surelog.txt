@@ -1,0 +1,6 @@
+environment: line 1: 787317 Segmentation fault      R10E90_OFF=1 R10E90_CELLDBG=1 timeout 900 sh -c "$args" > /dev/null 2> /tmp/r10earl90_pred.$$ < /dev/null
+environment: line 1: 814064 Segmentation fault      R10E90_OFF=1 R10E90_CELLDBG=1 timeout 900 sh -c "$args" > /dev/null 2> /tmp/r10earl90_pred.$$ < /dev/null
+trace_lines=136
+FENCED-SKIP=8
+CHANGED=12
+ADDS=12

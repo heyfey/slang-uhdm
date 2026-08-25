@@ -1,0 +1,52 @@
+r10v90 — RESIDUES THIS VERIFICATION MEASURED AND DELIBERATELY DID NOT TAKE.
+All of them are UNDER-REACH (golden has a typespec we do not); after the fix
+there is NO cell anywhere in this battery where we carry one golden does not.
+
+V1  THE DOTTED (hier_path) ips WIDTH.  v4_homes90 `n05` (`st.lo[g*4 +: P4]`)
+    and `n06` (`u_if.w[g*4 +: P4]`): the ELAB port High_conn width folds to the
+    SAME constant on both sides and golden hangs the SAME bare signed
+    int_typespec on it — INHP=1.  We do not, because the dotted actual is minted
+    by a DIFFERENT producer (the `ips2` arm inside the hier_path branch of
+    emitExpr, which already carries § connIpsPkgParamBoundNoTs65 /
+    § connMpRootIpsBoundKeepsTs65v), not by the `genvarConnFold` width mint the
+    law was attached to.  2 arm cells; 0 corpus cells in CTX=PORTHC (every one
+    of the 18 corpus cells is INHP=0).  The natural next step for this family
+    after R0, and it must be measured against R6's 174+87 INHP=1 CONTASSIGN
+    cells, which want an UNSIGNED int_typespec — a DIFFERENT object.
+
+V2  THE ips BASE SLOT INSIDE A NESTED SELECT.  v4_homes90 `n08`
+    (`arr2[g][P2 +: P2*2]`): golden's BASE constant carries the bare signed
+    int_typespec and ours carries none.  This is § connHpIpsBaseNonOvParamFold84's
+    slot with earl90's predicate; 1 arm cell, 0 corpus cells.
+
+V3  A WRITTEN CAST WIDTH IS A `ref_obj` IN OUR DEF LISTING.  v3_types90 `c24`
+    (`sig[g*4 +: int'(T01)]`): in the DEF view (PORTPAR=ref_module) golden holds
+    an `operation` carrying a signed int_typespec while we hold a
+    **`ref_obj` whose VpiName is the literal text `int'(T01)`**.  Both binaries
+    identical, wholly pre-existing, and NOT a typespec defect — a cast rendered
+    as a named reference.  1 arm cell.
+
+V4  R5 HOLDS FOR `-:` TOO.  v1_minus90 `m13`/`m14`: at a PLAIN (non-generate)
+    instantiation golden folds the width AND stamps, and we keep a `ref_obj`,
+    for the descending form exactly as for the ascending one.  This law only
+    stamps an EXISTING constant, so it cannot reach them.  2 arm cells,
+    0 corpus cells.  (= the pass's own R5.)
+
+V5  THE ENCODING RESIDUE R1 IS REAL AND WIDER THAN THE PASS'S GRID SHOWS.
+    Every OVERRIDDEN cell in v2_over90 has golden at SZ=64 and ours at SZ=32
+    (`u_nam`, `u_pos`, `u_same`, `u_dp`, `u_dp2`, `u_im_ov`), and v1_minus90's
+    `bit signed [3:0]` / `logic [7:0]` widths keep the pass's own INT-vs-UINT
+    split.  Untouched here: this pass changes no value, size or encoding.
+
+V6  AN UNINITIALISED READ IN THE r10buvm22 SHAPE.  `r10buvm22repro/g22.sv`
+    emits a numeric literal whose VALUE tracks the binary's code layout
+    (`UINT:22494809` vs `UINT:22498937` between two binaries that differ only
+    in this pass's code).  Pre-existing, recorded as earl84 R5, and it moves for
+    any pass that shifts code layout.  Both binaries exit rc=4 and the file
+    produces no comparable database, so it never reaches the judge — but it is
+    a real latent defect and deserves its own pass.
+
+V7  THE rc=139 ELAB-VIEW SEGFAULT FAMILY.  14 distinct probe sources segfault
+    in the --elabuhdm view on BOTH binaries (28 of 16 284 boundary runs), all
+    pre-existing (earl82/83/84/85/89 R6).  RESUME §9's trap applies: a sweep
+    would record them as SLANG_REJECT wearing the last stderr warning.

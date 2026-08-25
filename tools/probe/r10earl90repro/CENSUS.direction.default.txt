@@ -1,0 +1,7 @@
+CHANGED            6
+EXACT              6
+TO-GOLDEN          0
+NEUTRAL            0
+AWAY               0
+CHANGED-NO-GOLDEN  0
+UNCHANGED          33774

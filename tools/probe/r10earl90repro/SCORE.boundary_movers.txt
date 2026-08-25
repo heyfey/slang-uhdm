@@ -1,0 +1,48 @@
+### r10earl47repro_b1_earl47.sv  (3-way)
+SAME->SAME     69
+WRONG->RIGHT   0
+RIGHT->WRONG   0
+WRONG->WRONG   0
+WRONG->OTHER   3
+G-ONLY         4
+O-ONLY         4
+### r10earl47repro_b1_earl47.sv  (direction)
+CHANGED            3
+EXACT              0
+TO-GOLDEN          3
+NEUTRAL            0
+AWAY               0
+CHANGED-NO-GOLDEN  0
+UNCHANGED          73
+### r10earl65repro_g1_conn65.sv  (3-way)
+SAME->SAME     75
+WRONG->RIGHT   3
+RIGHT->WRONG   0
+WRONG->WRONG   4
+WRONG->OTHER   0
+G-ONLY         30
+O-ONLY         30
+### r10earl65repro_g1_conn65.sv  (direction)
+CHANGED            3
+EXACT              3
+TO-GOLDEN          0
+NEUTRAL            0
+AWAY               0
+CHANGED-NO-GOLDEN  0
+UNCHANGED          109
+### r10earl70repro_g1_earl70.sv  (3-way)
+SAME->SAME     458
+WRONG->RIGHT   6
+RIGHT->WRONG   0
+WRONG->WRONG   43
+WRONG->OTHER   0
+G-ONLY         0
+O-ONLY         0
+### r10earl70repro_g1_earl70.sv  (direction)
+CHANGED            6
+EXACT              6
+TO-GOLDEN          0
+NEUTRAL            0
+AWAY               0
+CHANGED-NO-GOLDEN  0
+UNCHANGED          501

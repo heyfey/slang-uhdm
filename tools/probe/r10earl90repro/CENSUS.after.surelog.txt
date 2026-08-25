@@ -1,0 +1,8 @@
+BOTH-SAME                          215429
+DB                                 277
+GOLDEN-ONLY                        4922
+MOVED-WRONG                        1179
+OURS-ONLY                          43439
+TS-KIND-DIFF                       87
+TS-MISSING-ELSEWHERE               174
+TS-MISSING-ELSEWHERE:WIDTH/indexed_part_select 174

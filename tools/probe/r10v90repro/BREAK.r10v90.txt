@@ -1,0 +1,82 @@
+r10v90 — THE BREAK, VERBATIM.  § defparamHidesTheOverride90v.
+
+THE ARM: tools/probe/r10v90repro/v2_over90.sv, module ch90:
+
+    module ch90 #(parameter int MW = 4) (input logic [31:0] s_i);
+      for (genvar g = 0; g < 1; g++) begin : gm
+        snk4_90 u_ov (.a_i(s_i[g*4 +: MW]));      // <- line 17, ONE span
+      end
+    endmodule
+    ...
+      ch90            u_def (.s_i(sig));
+      ch90 #(.MW(2))  u_nam (.s_i(sig));
+      ch90 #(2)       u_pos (.s_i(sig));
+      ch90 #(.MW(4))  u_same(.s_i(sig));
+      ch90            u_dp  (.s_i(sig));   defparam u_dp.MW  = 2;
+      ch90            u_dp2 (.s_i(sig));   defparam u_dp2.MW = 4;
+
+ct90cen --inst on the SURELOG GOLDEN (all six at SPAN=17:28-17:37,
+SLOT=WIDTH, SEL=indexed_part_select, INHP=0, CTX=PORTHC, PORTPAR=module_inst):
+
+  u_def   KIND=constant SZ=32 VAL=UINT:4 CT=9  TS=int_typespec TSSG=1
+  u_nam   KIND=constant SZ=64 VAL=UINT:2 CT=9  TS=-
+  u_pos   KIND=constant SZ=64 VAL=UINT:2 CT=9  TS=-
+  u_same  KIND=constant SZ=64 VAL=UINT:4 CT=9  TS=-
+  u_dp    KIND=constant SZ=64 VAL=UINT:2 CT=9  TS=-
+  u_dp2   KIND=constant SZ=64 VAL=UINT:4 CT=9  TS=-
+
+THE PATCH AS SHIPPED (491decb635ec1), same six cells:
+
+  u_dp    KIND=constant SZ=32 VAL=UINT:2 CT=9  TS=int_typespec TSSG=1   <- EXTRA
+  u_dp2   KIND=constant SZ=32 VAL=UINT:4 CT=9  TS=int_typespec TSSG=1   <- EXTRA
+
+and the PRISTINE binary (d181b1b59682) has TS=- on both — PRISTINE-RIGHT,
+PATCHED-WRONG, on legal SystemVerilog, in BOTH the plain and the --elabuhdm
+view.  tsonly90.py: TS-RIGHT->WRONG 2, TS-EXTRA 2.
+
+score3_90.py did NOT convict it: those cells already carried the pre-existing
+SZ 32-vs-64 difference of the pass's own residue R1, so the whole-payload
+verdict was WRONG->OTHER (u_dp) and WRONG->WRONG (u_dp2) — which is why this
+directory ships a scorer that reads the EIGHT TYPESPEC FIELDS ALONE.
+
+WHY THE FENCE MISSED IT (slang, source/ast/symbols/ParameterBuilder.cpp:277-287):
+
+    if (auto it = overrideNode->paramOverrides.find(paramSyntax); …) {
+        if (!it->second.expr) {                    // a defparam: pre-evaluated cv
+            param->setValue(comp, it->second.cv, …);
+            return *param;                         // EARLY RETURN
+        }
+        newInitializer = it->second.expr;          // a #() or CLI override
+        param->setInitializerSyntax(*newInitializer, …);
+    }
+
+A defparam never rebinds the initializer and never adds
+DeclaredTypeFlags::InitializerOverridden, so BOTH isOverriddenParam (a SPAN
+test over the bound initializer vs the declared default) and slang's own
+ParameterSymbol::isOverridden() answer FALSE, while getValue() is 2.
+
+THE FIX: ask the map ParameterBuilder itself consults —
+InstanceBodySymbol::hierarchyOverrideNode (a PUBLIC member),
+keyed by the parameter's own declarator.  u_dp2 is why the fix cannot be a
+VALUE comparison: its defparam restates the default and golden still refuses.
+
+DEPTH 0 ONLY, AND THAT IS MEASURED.  module dv90 declares
+    localparam int          LD  = DW;
+    localparam int unsigned LDU = DW;
+and golden gives, for the three instantiations:
+
+  u_dv_def (DW default 4)      LD: UINT:4 +TS     LDU: UINT:4 +TS
+  u_dv_ov  (#(.DW(2)))         LD: UINT:2 +TS     LDU: UINT:2  no TS
+  u_dv_dp  (defparam DW = 2)   LD: UINT:4 +TS     LDU: UINT:4 +TS
+
+Surelog's emitted `parameter DW` inside u_dv_dp still reads UINT:4 vpiSigned:1
+with its int_typespec (verified in the golden dump at v2_over90.sv:66), and
+both derived localparams elaborate from the DEFAULT: a real #() override
+re-elaborates the body's localparams, a defparam does not.  So the RECURSION
+in paramValueSignedTs90 must keep reading isOverriddenParam alone.  With the
+new test at depth 0 only, all EIGHT u_dp*/u_dv_* cells match golden.
+
+AFTER THE FIX (189cd72b7892):  v2_over90 TS-FIXED 10, TS-RIGHT->WRONG 0,
+TS-EXTRA 0, payload RIGHT->WRONG 0 — in both views.  No other arm, no control
+arm and no corpus database changed relative to the patch as shipped: the
+Earlgrey A/B hashes and the whole surelog/u2r mover set are identical.

@@ -1,0 +1,16 @@
+plain r10buvm22repro/g22.sv
+elab r10buvm22repro/g22.sv
+plain r10earl47repro/b1_earl47.sv
+elab r10earl47repro/b1_earl47.sv
+plain r10earl65repro/g1_conn65.sv
+elab r10earl65repro/g1_conn65.sv
+plain r10earl70repro/g1_earl70.sv
+elab r10earl70repro/g1_earl70.sv
+plain r10earl90repro/g1_head90.sv
+elab r10earl90repro/g1_head90.sv
+plain r10earl90repro/g2_types90.sv
+elab r10earl90repro/g2_types90.sv
+plain r10earl90repro/g3_slots90.sv
+elab r10earl90repro/g3_slots90.sv
+plain r10earl90repro/g4_homes90.sv
+elab r10earl90repro/g4_homes90.sv

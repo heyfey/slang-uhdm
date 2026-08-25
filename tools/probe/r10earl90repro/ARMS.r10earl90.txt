@@ -1,0 +1,51 @@
+r10earl90 — THE FOUR PURPOSE-BUILT GOLDENS, three databases each, scored
+field by field.  MEASUREMENT ONLY.
+
+  golden  ~/git-repos/Surelog/build/bin/surelog -parse -nobuiltin -nocache -d uhdm
+  pris    the frozen 986bc0a binary
+  patch   the frozen patched binary
+  census  ct90cen --inst   (INST is a CONTEXT CLASS in the key, never a payload
+          field: two ELABORATED copies of one instantiation line live at the
+          SAME span and a multiset join without it manufactures phantoms —
+          r10earl84's lesson, re-verified here)
+  scorers score3_90.py (the 3-way per-cell verdict) and tsdir90.py (the
+          DIRECTION scorer: for every cell whose payload CHANGED, how many
+          scored fields agreed with golden BEFORE and AFTER)
+
+3-WAY VERDICT
+                      SAME->SAME  WRONG->RIGHT  RIGHT->WRONG  WRONG->WRONG  WRONG->OTHER  G-ONLY  O-ONLY
+  g1_head90.sv            46            8            0             6            0           6       2
+  g2_types90.sv           38            2            0            12            4          28      28
+  g3_slots90.sv           22            2            0             9            0          41      41
+  g4_homes90.sv           90           23            0             7            2           0       0
+
+  RIGHT->WRONG 0 ON EVERY ARM.  35 WRONG->RIGHT.
+
+DIRECTION VERDICT (only cells whose payload CHANGED between the two binaries)
+                      CHANGED  EXACT  TO-GOLDEN  NEUTRAL  AWAY
+  g1_head90.sv            8      8        0        0       0
+  g2_types90.sv           6      2        4        0       0
+  g3_slots90.sv           2      2        0        0       0
+  g4_homes90.sv          25     23        2        0       0
+  ------------------------------------------------------------
+  TOTAL                  41     35        6        0       0
+
+  **AWAY 0.  NEUTRAL 0.**  Every one of the 41 changed cells is a pure TYPESPEC
+  ADD, and in every one golden holds exactly `int_typespec TSSG=1 TSRG=0
+  TSAL=0 TSIN=0 TSCE=0` — the same bare object the law mints.  The six
+  TO-GOLDEN (not EXACT) cells keep a PRE-EXISTING encoding difference in
+  VAL/CT that this pass does not touch (README R1): golden `INT:v`/ct 7 where
+  we mint `UINT:v`/ct 9, on the `bit signed [3:0]` / `logic signed [7:0]` /
+  signed-typedef / implicit-`signed [7:0]` declared types (g2 u09/u11/u13/u14)
+  and on an EXPRESSION-initialised `int` (g4 h15, both gfor copies).
+
+THE A/B GATE, per arm: `R10E90_OFF=1` on the PATCHED binary reproduces the
+PRISTINE database BYTE FOR BYTE on all four arms, so 100 % of each arm's delta
+is this law.
+
+THE PRISTINE / PATCHED DELTA, read straight off the two censuses (no join):
+  g1 16 changed lines / 8 cells, g2 12 / 6, g3 4 / 2, g4 50 / 25 — every one a
+  `TS=- TSSG=- …` -> `TS=int_typespec TSSG=1 TSRG=0 TSAL=0 TSIN=0 TSCE=0`
+  substitution in a `SLOT=WIDTH SEL=indexed_part_select CTX=PORTHC
+  PORTPAR=module_inst` row.  NOT ONE row of any other SLOT, SEL, CTX or
+  PORTPAR moved on any arm.

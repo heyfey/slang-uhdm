@@ -1,0 +1,108 @@
+r10v90 — THE VERIFIER'S GATE BATTERY (the FIXED binary).
+BASE 986bc0a, branch auto5h.  The official ~/git-repos/UHDM/build/bin/uhdm-cmp
+is the sole acceptance judge.  results/*.csv READ-ONLY and UNTOUCHED.
+
+(0) BINARIES, all three rebuilt from scratch in my own worktrees at 986bc0a and
+    frozen `chmod 555` BEFORE any sweep:
+      pristine        d181b1b59682b7739e5f5681f15a9c83   (reproduces the
+                                                          implementer's exactly)
+      patched AS SHIPPED
+                      491decb635ec159a3c8a5fe7b637c211   (reproduces the
+                                                          implementer's exactly)
+      FIXED (shipped) 189cd72b7892717664afea308c108559
+    EVERY cmds.txt audited BY BINARY PATH, per file, all four sweep workdirs:
+      surelog    1573 files, 1523 with a `slang:` line, 1523 name MY frozen
+                 binary, 0 name the main-tree binary
+      uhdm2rtlil 1462 files, 1458 with a `slang:` line, 1458 name MY frozen
+                 binary, 0 name the main-tree binary
+
+(1) GOLDENS   fixed    PASS 23  FAIL 0
+              pristine PASS 23  FAIL 0
+              NEGATIVE CONTROL  SLANG_UHDM=/bin/false  PASS 0  FAIL 23
+
+(2) uhdm2rtlil, both modes, jobs 2, SLANG_UHDM exported per binary
+      default   CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+      testflags CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+      ct8rows vs results/gate_uhdm2rtlil.csv    0 differing ROWS  PASS
+      ct8rows vs MY OWN pristine (tf and def)   0 differing ROWS  PASS
+      byteverify SELFCHECK=1  MOVERS 0 / 1358  PATH_SETS_IDENTICAL
+                              SELFCHECK 1357/1358 flagged
+
+(3) surelog, --mode both, jobs 2
+      default   CMP_EQUAL 471  CMP_NOTEQUAL 10  DEFERRED 5  SLANG_REJECT 283
+                SURELOG_FAIL 25
+      testflags CMP_EQUAL 466  CMP_NOTEQUAL  9  DEFERRED 5  SLANG_REJECT 284
+                SURELOG_FAIL 23  NO_DATABASE 3  UNTRANSLATABLE 2  TIMEOUT 1
+                NO_UHDM 1
+      ct8rows vs results/golden_surelog.csv   0 differing ROWS over 1588  PASS
+      ct8rows vs MY OWN pristine              0 differing ROWS over 1588  PASS
+      NO ROW WAS CONVERTED.
+      byteverify SELFCHECK=1  MOVERS 3 / 956  PATH_SETS_IDENTICAL
+                              SELFCHECK 955/956 flagged
+        ./default/Earlgrey_0_1-71da2fd7    ded7aff7a3d0 -> 43a8d277a6fc
+        ./testflags/Earlgrey_0_1-71da2fd7  8cfc4af7915b -> 02496164d2f6
+        ./default/Scoreboard-59431470      a41ad38e85c3 -> e87a275cae44  COIN
+      THE COIN, ATTRIBUTED ORDER-BLIND: both dumps path-normalised and SORTED
+      are 1 099 223 lines each and differ in ZERO lines.  (My PRISTINE face
+      a41ad38e85c3 differs from the implementer's efb7bc8e33bd — the coin
+      behaving exactly as RESUME §9 says, and the reason it must never be
+      attributed by hash.)
+
+(4) THE RUN-TIME A/B GATE, re-run with the FIXED binary from Earlgrey's own two
+    command lines in its own source directory:
+      default   R10E90_OFF=1 -> ded7aff7a3d0   law ON -> 43a8d277a6fc
+      testflags R10E90_OFF=1 -> 8cfc4af7915b   law ON -> 02496164d2f6
+    The OFF hashes ARE my pristine sweep's own and the ON hashes ARE my patched
+    sweep's own, byte for byte.  100 % of each mover's delta is this law.
+
+(5) HEADS (rowheads.sh, official cmp, DEPTH not distance)
+                     PRISTINE          FIXED
+      SeqDriver      58/1  58/1        58/1  58/1     head log BYTE-IDENTICAL
+      SimpleUVM      334/1 334/1       334/1 334/1    BYTE-IDENTICAL
+      Scoreboard     334/1 (tf SKIP)   334/1          BYTE-IDENTICAL
+      MiniAmiq       58/1  58/1        58/1  58/1     BYTE-IDENTICAL
+      BuildUVMPkg    83/1  83/1        83/1  83/1     BYTE-IDENTICAL
+      Earlgrey_0_1   15/1  15/1        110/1 142/1    HEAD OBJECT CHANGED
+      Rggen          0/0   (tf SKIP)   0/0            BYTE-IDENTICAL
+    The pristine HEAD logs are IDENTICAL MODULO OBJECT IDS to the implementer's
+    committed HEAD_BEFORE_*, and the fixed ones to their HEAD_AFTER_*.
+
+(6) CANARIES
+      canaries.sh surelog     ok=52 changed=0 absent=0
+      canaries.sh uhdm2rtlil  ok=8  changed=0 absent=0
+      EXPECT_UNKNOWN=1 ctcan2 surelog     PASS
+      EXPECT_UNKNOWN=6 ctcan2 uhdm2rtlil  PASS
+      canaudit.sh canaries.sh ctcan2.sh   audited=29 UNCOVERED=0 FENCE-BREACH=0
+        (run in BOTH tools/probe/r10earl90repro and tools/probe/r10v90repro)
+      PROTECTED DATABASES, fixed vs pristine md5 (12 hex), BOTH MODES:
+        InterfaceModPort   59a365f3ce2c / 59a365f3ce2c        SAME
+        BlackParrotComplex e3e354129d5a / 73a10e8217e5        SAME
+        YosysOldOr         d68e0796d62c                       SAME
+        SVSwitch           4842211c4030   the PIN
+        YosysVerx          6ccda350c24a   the PIN
+
+(7) THE CORPUS CENSUS, re-run end to end with my own ct90cen build over my own
+    two surelog sweeps (277 databases hold a select; golden path from each
+    test's OWN cmds.txt).  THE GOLDEN SIDE IS ASSERTED UNCHANGED: all 277
+    `.gold` files byte-identical between the two runs.
+                              pristine    fixed
+      BOTH-SAME               215 411 -> 215 429   (+18)
+      MOVED-WRONG               1 197 ->   1 179   (-18)
+      TS-MISSING-ELABHC            18 ->       0   the family, CLEARED
+      TS-EXTRA (either way)         0 ->       0   AWAY stays 0
+      GOLDEN-ONLY 4 922, OURS-ONLY 43 439,
+      TS-MISSING-ELSEWHERE 174, TS-KIND-DIFF 87    ALL UNCHANGED
+    ONLY TWO `.ours` FILES CHANGED (both Earlgrey).  A line diff prints 6 rows
+    in default and 24 in testflags, EVERY ONE
+      SLOT=WIDTH SEL=indexed_part_select INHP=0 CTX=PORTHC PORTPAR=module_inst
+      TS=- -> TS=int_typespec (TSSG=1)
+    and NOT ONE row of any other SLOT, SEL, INHP, CTX or PORTPAR.
+
+(8) THE ADVERSARIAL ARMS (v1-v4) and the 36-arm MUST-STAY CONTROL BATTERY —
+    see ARMS.r10v90.txt / CONTROLS.r10v90.txt.  After the fix:
+      payload RIGHT->WRONG   0 on every arm, BOTH VIEWS
+      TS-RIGHT->WRONG        0   (2 before the fix, both `defparam`)
+      TS-EXTRA               0
+      TS-OTHER               0
+
+(9) THE WIDE BOUNDARY — see BOUNDARY_WIDE.*.

@@ -4121,6 +4121,22 @@ private:
     std::set<const UHDM::param_assign*> shiftBailPa85;
     UHDM::constant* connHpIpsBaseNonOvParamFold84(
         const slang::ast::Expression& base, UHDM::any* ipsParent);
+    /// § connIpsWidthNonOvParamSignedTs90 (r10earl90) — THE TYPESPEC-PRESENCE
+    /// HALF AT THE **WIDTH** SLOT.  Inside an ELABORATED port `High_conn` the
+    /// folded WIDTH constant of a BARE `indexed_part_select` whose width
+    /// operand is a BARE read of a MODULE-SCOPE parameter carries a BARE
+    /// `int_typespec` with `VpiSigned` set exactly when that parameter's
+    /// STORED `Value` is signed.  Stamps `c` in place and answers whether it
+    /// did.  The full decode, the fences and the golden grids are at the
+    /// definition in ExprEmit.cpp.
+    /// Fence (e2) — § defparamHidesTheOverride90v (r10v90): a `defparam`
+    /// rebinds the VALUE without rebinding the initializer syntax, so
+    /// `isOverriddenParam`'s span test (and slang's own
+    /// `ParameterSymbol::isOverridden()`) answer FALSE for it.  The
+    /// DIRECTLY READ width parameter is checked against the instance body's
+    /// `hierarchyOverrideNode` as well; see the decode in ExprEmit.cpp.
+    bool connIpsWidthNonOvParamSignedTs90(const slang::ast::Expression& w,
+                                          UHDM::constant* c);
     // § genCaSysCallArgBinds22 — nesting depth inside a SYSTEM function
     // call's argument list ($signed/$unsigned/...).  callArgDepth counts user
     // calls too and this law is measured only for system ones.

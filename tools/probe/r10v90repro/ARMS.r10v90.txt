@@ -1,0 +1,109 @@
+r10v90 — THE ADVERSARIAL ARMS, per-arm verdicts with the FIXED binary.
+varm90.sh: Surelog golden + pristine + fixed, PLAIN and --elabuhdm, ct90cen --inst.
+score3_90.py = whole payload; tsonly90.py = the 8 typespec fields alone.
+
+===== v1_minus90 =====
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- rows --
+-- rows: golden=56 pris=56 patched=56 prisE=132 patchedE=132
+-- PLAIN payload --
+SAME->SAME     21
+WRONG->RIGHT   5
+RIGHT->WRONG   0
+WRONG->WRONG   8
+WRONG->OTHER   0
+G-ONLY         22
+O-ONLY         22
+-- PLAIN typespec-only --
+ONE-SIDED          44
+TS-FIXED           5
+TS-SAME EQ         27
+TS-SAME NE         2
+-- ELAB typespec-only --
+ONE-SIDED          120
+TS-FIXED           5
+TS-SAME EQ         27
+TS-SAME NE         2
+
+===== v2_over90 =====
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- rows --
+-- rows: golden=48 pris=48 patched=48 prisE=164 patchedE=164
+-- PLAIN payload --
+SAME->SAME     28
+WRONG->RIGHT   8
+RIGHT->WRONG   0
+WRONG->WRONG   6
+WRONG->OTHER   2
+G-ONLY         4
+O-ONLY         4
+-- PLAIN typespec-only --
+ONE-SIDED          8
+TS-FIXED           10
+TS-SAME EQ         34
+-- ELAB typespec-only --
+ONE-SIDED          124
+TS-FIXED           10
+TS-SAME EQ         34
+
+===== v3_types90 =====
+SL      rc=0
+pris    rc=4
+patc    rc=4
+prisE   rc=4
+patcE   rc=4
+-- rows --
+-- rows: golden=96 pris=96 patched=96 prisE=240 patchedE=240
+-- PLAIN payload --
+SAME->SAME     76
+WRONG->RIGHT   15
+RIGHT->WRONG   0
+WRONG->WRONG   5
+WRONG->OTHER   0
+G-ONLY         0
+O-ONLY         0
+-- PLAIN typespec-only --
+TS-FIXED           15
+TS-SAME EQ         80
+TS-SAME NE         1
+-- ELAB typespec-only --
+ONE-SIDED          144
+TS-FIXED           15
+TS-SAME EQ         80
+TS-SAME NE         1
+
+===== v4_homes90 =====
+SL      rc=0
+pris    rc=0
+patc    rc=0
+prisE   rc=0
+patcE   rc=0
+-- rows --
+-- rows: golden=76 pris=70 patched=70 prisE=172 patchedE=172
+-- PLAIN payload --
+SAME->SAME     45
+WRONG->RIGHT   9
+RIGHT->WRONG   0
+WRONG->WRONG   8
+WRONG->OTHER   0
+G-ONLY         14
+O-ONLY         8
+-- PLAIN typespec-only --
+ONE-SIDED          22
+TS-FIXED           9
+TS-SAME EQ         50
+TS-SAME NE         3
+-- ELAB typespec-only --
+ONE-SIDED          124
+TS-FIXED           9
+TS-SAME EQ         50
+TS-SAME NE         3
+

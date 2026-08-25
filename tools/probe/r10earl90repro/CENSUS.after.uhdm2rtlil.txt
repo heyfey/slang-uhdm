@@ -1,0 +1,5 @@
+BOTH-SAME                          19110
+DB                                 488
+GOLDEN-ONLY                        78
+MOVED-WRONG                        0
+OURS-ONLY                          90

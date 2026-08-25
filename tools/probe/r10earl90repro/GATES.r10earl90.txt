@@ -1,0 +1,137 @@
+r10earl90 — THE GATE BATTERY.  BASE 986bc0a, branch auto5h.
+The official ~/git-repos/UHDM/build/bin/uhdm-cmp is the sole judge.
+
+(0) BINARIES, frozen `chmod 555` at immutable paths BEFORE any sweep
+    pristine  d181b1b59682b7739e5f5681f15a9c83   (986bc0a, this pass's own build)
+    patched   491decb635ec159a3c8a5fe7b637c211
+    Every cmds.txt audited BY BINARY PATH: 0 of 3035 pristine and 0 of 3035
+    patched name the MAIN-TREE binary (the 54 / 50 that name neither are rows
+    where slang was never invoked — SLANG_REJECT, SURELOG_FAIL, golden-only).
+
+(1) GOLDENS            patched  PASS 23  FAIL 0
+                       pristine PASS 23  FAIL 0
+    NEGATIVE CONTROL   SLANG_UHDM=/bin/false  PASS 0  FAIL 23
+
+(2) uhdm2rtlil, both modes, jobs 2
+    default   CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+    testflags CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+    ct8rows vs results/gate_uhdm2rtlil.csv        0 differing ROWS   PASS
+    ct8rows vs THIS PASS'S OWN pristine (tf,def)  0 differing ROWS   PASS
+    byteverify SELFCHECK=1  MOVERS 0 / 1358   PATH_SETS_IDENTICAL
+                            SELFCHECK 1357/1358 flagged
+
+(3) surelog, --mode both, jobs 2
+    default   CMP_EQUAL 471  CMP_NOTEQUAL 10  DEFERRED 5  SLANG_REJECT 283
+              SURELOG_FAIL 25
+    testflags CMP_EQUAL 466  CMP_NOTEQUAL  9  DEFERRED 5  SLANG_REJECT 284
+              SURELOG_FAIL 23  NO_DATABASE 3  UNTRANSLATABLE 2  TIMEOUT 1
+              NO_UHDM 1
+    ct8rows vs results/golden_surelog.csv         0 differing ROWS over 1588  PASS
+    ct8rows vs THIS PASS'S OWN pristine           0 differing ROWS over 1588  PASS
+    NO ROW WAS CONVERTED.  results/*.csv untouched.
+    byteverify SELFCHECK=1  MOVERS 3 / 956   PATH_SETS_IDENTICAL
+                            SELFCHECK 955/956 flagged
+      ./default/Earlgrey_0_1-71da2fd7    ded7aff7a3d0 -> 43a8d277a6fc  PREDICTED
+      ./testflags/Earlgrey_0_1-71da2fd7  8cfc4af7915b -> 02496164d2f6  PREDICTED
+      ./default/Scoreboard-59431470      efb7bc8e33bd -> e87a275cae44  THE COIN
+    THE COIN, ATTRIBUTED ORDER-BLIND: both dumps path-normalised and SORTED are
+    1 099 223 lines each and differ in **0 lines** — the svunit_pkg
+    `vpiTaskFunc` ORDER flip RESUME §9 records, not a cell of this law.  Its
+    select-bound census is byte-identical between the two binaries (0 lines).
+
+(4) THE RUN-TIME A/B GATE (Earlgrey's own two command lines, re-run in the
+    test's own directory with the PATCHED binary)
+      default   R10E90_OFF=1 -> ded7aff7a3d0   law ON -> 43a8d277a6fc
+      testflags R10E90_OFF=1 -> 8cfc4af7915b   law ON -> 02496164d2f6
+    The OFF hashes are the PRISTINE SWEEP'S OWN, byte for byte, and the ON
+    hashes are the PATCHED SWEEP'S OWN.  100 % of each mover's byte delta is
+    this law.  The same gate holds on all four arms.
+
+(5) HEADS (rowheads.sh, the official cmp; DEPTH not distance)
+                     BEFORE            AFTER
+      SeqDriver      58/1  58/1        58/1  58/1     head logs BYTE-IDENTICAL
+      SimpleUVM      334/1 334/1       334/1 334/1    BYTE-IDENTICAL
+      Scoreboard     334/1 (tf SKIP)   334/1          BYTE-IDENTICAL
+      MiniAmiq       58/1  58/1        58/1  58/1     BYTE-IDENTICAL
+      BuildUVMPkg    83/1  83/1        83/1  83/1     BYTE-IDENTICAL
+      Earlgrey_0_1   15/1  15/1        110/1 142/1    HEAD OBJECT CHANGED
+      Rggen          0/0   (tf SKIP)   0/0            BYTE-IDENTICAL
+    The Earlgrey line count RISES because the head OBJECT changed: the 15-line
+    `ref_typespec` head is GONE and the new head is a `hier_path` whose
+    decompile is larger (RESUME §7).  ONE head per run in every mode.
+
+(6) CANARIES
+    canaries.sh surelog     ok=52 changed=0 absent=0
+    canaries.sh uhdm2rtlil  ok=8  changed=0 absent=0
+    EXPECT_UNKNOWN=1 ctcan2 surelog     PASS
+    EXPECT_UNKNOWN=6 ctcan2 uhdm2rtlil  PASS
+    canaudit.sh canaries.sh ctcan2.sh   audited=29 UNCOVERED=0 FENCE-BREACH=0
+    PROTECTED DATABASES, patched vs pristine md5 (12 hex):
+      InterfaceModPort   59a365f3ce2c / 59a365f3ce2c   SAME (both modes)
+      BlackParrotComplex e3e354129d5a / 73a10e8217e5   SAME (both modes)
+      YosysOldOr         d68e0796d62c                  SAME (both modes)
+      SVSwitch           4842211c4030                  the PIN, both modes
+      YosysVerx          6ccda350c24a                  the PIN, both modes
+
+(7) THE CORPUS CENSUS, fixed-universe re-score (the golden side ASSERTED
+    UNCHANGED: every `.gold` file byte-identical before and after)
+      surelog     BOTH-SAME            215 411 -> 215 429   (+18)
+                  MOVED-WRONG            1 197 ->   1 179   (-18)
+                  TS-MISSING-ELABHC         18 ->       0   the family, CLEARED
+                  TS-EXTRA (either way)      0 ->       0   AWAY stays 0
+                  GOLDEN-ONLY 4 922, OURS-ONLY 43 439,
+                  TS-MISSING-ELSEWHERE 174, TS-KIND-DIFF 87  ALL UNCHANGED
+      uhdm2rtlil  EVERY bucket unchanged; 0 databases moved.
+    PER-CELL DIRECTION (tsdir90.py, the two movers):
+      default    CHANGED  6  EXACT  6  TO-GOLDEN 0  NEUTRAL 0  **AWAY 0**
+      testflags  CHANGED 24  EXACT 12  TO-GOLDEN 0  NEUTRAL 0  **AWAY 0**
+                 + 12 CHANGED-NO-GOLDEN: the PRE-EXISTING duplicate elaborated
+                   copies of the same six selects (ours holds four per span
+                   where golden holds two), which gained the same object as
+                   their paired twins.  Golden has no cell there at all, so
+                   they are neither toward nor away; they are unchanged in
+                   number (OURS-ONLY stays 43 439).
+    A line-level diff of the two `ours` cell files prints ONLY
+      6 (default) + 24 (testflags) rows, every one
+        SLOT=WIDTH SEL=indexed_part_select CTX=PORTHC PORTPAR=module_inst
+        TS=-  ->  TS=int_typespec (TSSG=1 TSRG=0 TSAL=0 TSIN=0 TSCE=0)
+      and NOT ONE row of any other SLOT, SEL, CTX or PORTPAR.
+
+(8) THE MOVER PREDICTION, made with the NEUTRAL binary BEFORE any patched
+    sweep was read (PREDICT_R0.txt Part 1) — see PREDICT_TRACE.*.
+
+(9) THE WIDE BOUNDARY (vwide90.sh; list on fd 3, children </dev/null,
+    PROCESSED asserted; a COPY of tools/probe, so nothing in the worktree is
+    written)
+      LISTED = PROCESSED = 4067  .sv/.v sources at ANY depth
+      both views (plain and --elabuhdm) x both FROZEN binaries
+      workdir-normalised uhdm-dump byte-compare
+      identical 7768   DIFFERING 16   no_output 350
+    rc histogram, SYMMETRIC SIDE FOR SIDE:
+      rc=0   A 7453  B 7453
+      rc=3   A  336  B  336
+      rc=4   A  331  B  331
+      rc=139 A   14  B   14     all in the ELAB view; the pre-existing family
+                                earl82 R6 / earl83 R6 / earl84 R6 / earl85 R5 /
+                                earl89 R6 record
+    THE 16 DIFFERING CELLS:
+      8 = THIS PASS'S OWN FOUR ARMS in both views.
+      6 = r10earl47repro/b1_earl47.sv, r10earl65repro/g1_conn65.sv and
+          r10earl70repro/g1_earl70.sv in both views — ALL THIS LAW, each
+          re-built against a FRESH Surelog golden and re-scored
+          (SCORE.boundary_movers.txt):
+            earl47  CHANGED  3  EXACT 0  TO-GOLDEN 3  AWAY 0  RIGHT->WRONG 0
+            earl65  CHANGED  3  EXACT 3  TO-GOLDEN 0  AWAY 0  RIGHT->WRONG 0
+            earl70  CHANGED  6  EXACT 6  TO-GOLDEN 0  AWAY 0  RIGHT->WRONG 0
+          earl47's three are residue R1: each gains golden's exact typespec and
+          keeps the pre-existing INT:v/ct 7 vs UINT:v/ct 9 encoding difference.
+      2 = r10buvm22repro/g22.sv in both views — **NOT THIS LAW**, and the A/B
+          gate proves it: R10E90_OFF=1 on the PATCHED binary still prints the
+          PATCHED normalised-dump hash acd78ab17832, identical to law-ON, while
+          the PRISTINE binary prints 60725d038650.  Both binaries exit rc=4 and
+          produce no comparable database.  It is the pre-existing garbage
+          numeric literal whose value TRACKS THE BINARY'S CODE LAYOUT that
+          r10earl84's R5 recorded, and it moved for earl84 and earl89 the same
+          way.
+    SO ONLY CELLS THIS LAW NAMES MOVED, AND EVERY EARLIER-PASS ARM THAT MOVED
+    MOVES TOWARD GOLDEN.
