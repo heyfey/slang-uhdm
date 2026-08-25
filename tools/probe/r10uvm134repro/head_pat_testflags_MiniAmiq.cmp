@@ -1,0 +1,56 @@
+LHS:
+decompile:
+int_var: (uvm_pkg::uvm_phase::get_predecessors_for_successors::next_pred), id:339631, line:1740:40, endln:1740:49
+|vpiParent:
+\_foreach_stmt: (uvm_pkg::uvm_phase::get_predecessors_for_successors), id:14549, line:1740:11, endln:1740:18
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_phase::get_predecessors_for_successors::next_pred), id:339632
+  |vpiParent:
+  \_int_var: (uvm_pkg::uvm_phase::get_predecessors_for_successors::next_pred), id:339631, line:1740:40, endln:1740:49
+  |vpiFullName:uvm_pkg::uvm_phase::get_predecessors_for_successors::next_pred
+  |vpiActual:
+  \_int_typespec: , id:339633
+|vpiName:next_pred
+|vpiFullName:uvm_pkg::uvm_phase::get_predecessors_for_successors::next_pred
+
+decompile:
+int_var: (uvm_pkg::uvm_phase::get_predecessors_for_successors::next_pred), id:339631, line:1740:40, endln:1740:49
+|vpiParent:
+\_foreach_stmt: (uvm_pkg::uvm_phase::get_predecessors_for_successors), id:14549, line:1740:11, endln:1740:18
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_phase::get_predecessors_for_successors::next_pred), id:339632
+  |vpiParent:
+  \_int_var: (uvm_pkg::uvm_phase::get_predecessors_for_successors::next_pred), id:339631, line:1740:40, endln:1740:49
+  |vpiFullName:uvm_pkg::uvm_phase::get_predecessors_for_successors::next_pred
+  |vpiActual:
+  \_int_typespec: , id:339633
+|vpiName:next_pred
+|vpiFullName:uvm_pkg::uvm_phase::get_predecessors_for_successors::next_pred
+RHS:
+decompile:
+class_var: (uvm_pkg::uvm_phase::get_predecessors_for_successors::next_pred), id:50571, line:1740:40, endln:1740:49
+|vpiParent:
+\_foreach_stmt: (uvm_pkg::uvm_phase::get_predecessors_for_successors), id:50566, line:1740:11, endln:1740:18
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_phase::get_predecessors_for_successors::next_pred), id:50572
+  |vpiParent:
+  \_class_var: (uvm_pkg::uvm_phase::get_predecessors_for_successors::next_pred), id:50571, line:1740:40, endln:1740:49
+  |vpiFullName:uvm_pkg::uvm_phase::get_predecessors_for_successors::next_pred
+  |vpiActual:
+  \_class_typespec: (uvm_phase), id:50570
+|vpiName:next_pred
+|vpiFullName:uvm_pkg::uvm_phase::get_predecessors_for_successors::next_pred
+
+decompile:
+class_var: (uvm_pkg::uvm_phase::get_predecessors_for_successors::next_pred), id:50571, line:1740:40, endln:1740:49
+|vpiParent:
+\_foreach_stmt: (uvm_pkg::uvm_phase::get_predecessors_for_successors), id:50566, line:1740:11, endln:1740:18
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_phase::get_predecessors_for_successors::next_pred), id:50572
+  |vpiParent:
+  \_class_var: (uvm_pkg::uvm_phase::get_predecessors_for_successors::next_pred), id:50571, line:1740:40, endln:1740:49
+  |vpiFullName:uvm_pkg::uvm_phase::get_predecessors_for_successors::next_pred
+  |vpiActual:
+  \_class_typespec: (uvm_phase), id:50570
+|vpiName:next_pred
+|vpiFullName:uvm_pkg::uvm_phase::get_predecessors_for_successors::next_pred
