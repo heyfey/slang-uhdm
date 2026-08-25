@@ -173,7 +173,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-24 17:45, HEAD = the uvm123 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-24 20:25, HEAD = the uvm125 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 471/481 comparable
 equal (10 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -183,14 +183,14 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 | row-mode(s) | head (official cmp lines = head-object DEPTH, not distance) | family / next law |
 |---|---|---|
 | SeqDriver×2 + MiniAmiq×2 (uvm-1.2 tree) | 28 (depth) | the receiver of `.queue` in `m_inst_override_queues[obj].queue.push_back(...)` (uvm_factory.svh:919): golden's ref_obj carries the BARE associative-array name and spans the name alone (13-35); ours carries the selected text and spans through the `]` (13-40) — a naming/span law in the method-call receiver path (uvm89/buvm14's decompileHelper family) — uvm124's target (uvm122 landed: 58→28, § localBlockStmtSelBinds122 — lateBinding's begin-block arm asks Variables, Parameters, then its own DIRECT Stmts for a matching non-ref lvalue: a whole-name reference binds the NEXT statement's bit_select, not the declaration; fences: --elabuhdm self-fences, import clones bind the home variable) |
-| SimpleUVM×2 + Scoreboard/default + BuildUVMPkg×2 | 46 (depth) | a call-arg KIND cell at `uvm_hdl_read(..., slice)` (uvm_mem.svh:2074:44-2074:49, in uvm_mem::backdoor_read_func): golden passes a plain ref_obj `slice` with vpiActual → the bit_var declaration @2072:30; ours wraps the ref in an operation vpiOpType 82 whose inner ref_obj's vpiParent is the enclosing assignment, not the func_call — uvm125's target (uvm123 landed: 148→46, § castPkgVecTdBareViewClone123 — the target typespec of a cast written as a BARE identifier naming a package bit/logic ranged typedef is a per-use clone: bare name, Typedef_alias → the listing object, ranges + vpiInstance of the CAST SITE's view; five fences incl. the written-spelling fence the wide boundary found; the verifier repaired a chained-typedef regression with a sixth fence and re-based the arm methodology on --single-unit --nobuiltin; the pair's predicted 98-line R0 composed with uvm122's landing into this 46-line head) |
+| SimpleUVM×2 + Scoreboard/default + BuildUVMPkg×2 | 12 (depth) | an UNPARENTED element typespec of an unpacked array of STRING — `string mode[`UVM_REG_DATA_WIDTH];` (uvm_reg_bit_bash_seq.svh:68:7-68:13, a task local): golden string_typespec, ours logic_typespec (BuildUVMPkg carries the same object) — uvm126's target (uvm125 landed: 46→12, § outArgConvLvalue125 — an output/inout/ref call argument whose copy-back placeholder carries a CONVERSION (slang's bindLValue types it with the FORMAL) is still the bare lvalue: the arm now asks isLValueArg(); Surelog never mints a one-operand vpiAssignmentOp; 0 left in all 956 surelog DBs; residue R-1: the DOUBLE-conversion copy-back still wraps, zero corpus cells) |
 | Earlgrey_0_1×2 (both modes) | 240 default / 268 testflags (depth) | a hier_path High_conn actual `reg2hw.addr.q[DataBitWidth +: AddrW]` (flash_ctrl.sv:171:22-171:58, port op_addr_i): golden's indexed_part_select carries a FOLDED vpiBaseExpr constant (the parameter names reduced) where ours keeps a ref_obj — the High_conn Reduce::Yes recompile descends into the select's base; pass earl84 next (earl83 landed: 58→240/268, § elabConnWrittenCastFold83 — in an ELAB High_conn a WRITTEN size cast over an unsigned written integer literal folds to ONE constant: width = the cast width, value masked, whole-cast span, no typespec; 6 corpus cells over 3 sites, all Earlgrey; the verifier added the unbased-decimal ≥2^31 round-trip refusal — slang types bare decimals signed-32, the fold had minted values in neither source nor golden) |
 | Rggen/default | **CMP_EQUAL** (converted by rgg18) | Rggen's one comparable mode passes the official uhdm-cmp; its dump column stays `differ` (phase-3 residues R-N3 103 golden-only ELAB hier_paths / R-A 810 symbolic range bounds / R-D / R-N4 / R-N5 / R-E hold byte-identity, block nothing); the Rggen slot now refills on the next-largest surelog NE family (rgg18 landed: gen-scope localparam fold digits = the mathematical value, pre-truncation, own sign + the verifier's 64-bit-word and stored-value refusals) |
 
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 79 verifier fix-before-landing re-cuts (171 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 79 verifier fix-before-landing re-cuts (172 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

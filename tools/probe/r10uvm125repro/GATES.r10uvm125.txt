@@ -1,0 +1,86 @@
+r10uvm125 — THE GATE BATTERY, VERBATIM.  BASE b39fd59.
+results/*.csv were READ ONLY; NO ROW WAS CONVERTED and nothing was promoted.
+The official ~/git-repos/UHDM/build/bin/uhdm-cmp is the sole judge.
+slang was NOT patched.
+
+== binaries (both frozen chmod 555 BEFORE any sweep; every cmds.txt audited by
+   binary PATH — 1523/1523 surelog and 1458/1458 uhdm2rtlil name the frozen
+   copy, 0 name the main tree's build/slang-uhdm and 0 name the worktree build) ==
+  pristine  6738536fb5b14c9db80873c8707411b5   BYTE-IDENTICAL to the main tree's
+                                               build/slang-uhdm at b39fd59
+  patched   9eeb7f38678c006f7d2bb3ac4d9cfd84
+
+== (1) goldens ==
+  pristine PASS=23 FAIL=0
+  patched  PASS=23 FAIL=0
+  SLANG_UHDM=/bin/false negative control: FAIL=23 PASS=0
+  (SLANG_UHDM exported explicitly to EACH binary)
+
+== (2) uhdm2rtlil, both modes (patched) ==
+  [testflags] 731 tests   CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+  [default]   731 tests   CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+  ct8rows vs results/gate_uhdm2rtlil.csv        : PASS (0 differing rows)
+  ct8rows vs this pass's own pristine testflags : PASS (0 differing rows)
+  ct8rows vs this pass's own pristine default   : PASS (0 differing rows)
+  byteverify SELFCHECK=1: MOVERS 0 / 1358, PATH_SETS_IDENTICAL,
+                          SELFCHECK 1357/1358 flagged
+
+== (3) surelog --mode both (patched) ==
+  [default]   794 tests
+    CMP_EQUAL 471  SLANG_REJECT 283  SURELOG_FAIL 25  CMP_NOTEQUAL 10  DEFERRED 5
+  [testflags] 794 tests
+    CMP_EQUAL 466  SLANG_REJECT 284  SURELOG_FAIL 23  CMP_NOTEQUAL 9   DEFERRED 5
+    NO_DATABASE 3  UNTRANSLATABLE 2  TIMEOUT 1  NO_UHDM 1
+  The status histogram is IDENTICAL to this pass's own pristine sweep, cell for
+  cell (no rc=139 hiding as SLANG_REJECT).
+  ct8rows vs results/golden_surelog.csv         : PASS (0 differing rows, 1588 rows)
+  ct8rows vs this pass's own pristine sl.csv    : PASS (0 differing rows)
+  NO ROW CONVERTED in either direction.
+  byteverify SELFCHECK=1: MOVERS 9 / 956, PATH_SETS_IDENTICAL,
+                          SELFCHECK 955/956 flagged — the nine PREDICTED BY NAME.
+
+== (4) heads (rowheads.sh, this pass's own pristine and patched sweeps) ==
+  TEST           MODE        PRISTINE      PATCHED
+  SeqDriver      default      28 / 1 head   28 / 1 head  head log BYTE-IDENTICAL
+  SeqDriver      testflags    28 / 1        28 / 1       BYTE-IDENTICAL
+  SimpleUVM      default      46 / 1        12 / 1       NEW HEAD
+  SimpleUVM      testflags    46 / 1        12 / 1       NEW HEAD
+  Scoreboard     default      46 / 1        12 / 1       NEW HEAD
+  Scoreboard     testflags    SKIP-NOFILE   SKIP-NOFILE
+  MiniAmiq       default      28 / 1        28 / 1       BYTE-IDENTICAL
+  MiniAmiq       testflags    28 / 1        28 / 1       BYTE-IDENTICAL
+  BuildUVMPkg    default      46 / 1        12 / 1       NEW HEAD
+  BuildUVMPkg    testflags    46 / 1        12 / 1       NEW HEAD
+  Earlgrey_0_1   default     240 / 1       240 / 1       BYTE-IDENTICAL
+  Earlgrey_0_1   testflags   268 / 1       268 / 1       BYTE-IDENTICAL
+  Rggen          default       0 / 0         0 / 0       CMP_EQUAL
+  Rggen          testflags    SKIP-NOFILE   SKIP-NOFILE
+  measured=12 SKIP-NOFILE=2 UNKNOWN-NAME=0 on both sweeps.
+  The pristine SimpleUVM/default head log reproduces the master's head log for
+  b39fd59 LINE FOR LINE (ids aside).
+
+== (5) canaries and protected databases ==
+  canaries.sh  surelog    ok=52 changed=0 absent=0
+  canaries.sh  uhdm2rtlil ok=8  changed=0 absent=0
+  ctcan2.sh EXPECT_UNKNOWN=1 (surelog)    PASS
+  ctcan2.sh EXPECT_UNKNOWN=6 (uhdm2rtlil) PASS
+  canaudit.sh canaries.sh ctcan2.sh : audited=29 UNCOVERED=0 FENCE-BREACH=0
+  protected databases, patched vs pristine, BY NAME:
+    InterfaceModPort   SAME (both modes)
+    BlackParrotComplex SAME (both modes)
+    YosysOldOr         SAME (both modes)
+    SVSwitch           4842211c4030  (pin held, both modes)
+    YosysVerx          6ccda350c24a  (pin held, both modes)
+
+== (6) the WIDE BOUNDARY (bound125.sh) ==
+  Every .sv/.v arm committed under tools/probe/, SUBDIRECTORIES INCLUDED, built
+  with both frozen binaries in BOTH views and compared BYTE FOR BYTE.
+    LISTED=3784 PROCESSED=3784 (asserted equal)  RC_DIFF=0
+    cells = 7568 (3784 x 2 views);  3777 of the arms live in subdirectories
+    SAME 7266   NO_DB 294 (both binaries reject identically, rc equal on every
+                           one of them — not testing, not regressing)
+    BYTES_DIFFER 8 — and they are EXACTLY this pass's own four grid arms in
+                     both views.  That is the POSITIVE CONTROL: the gate can
+                     see the change, and it sees it NOWHERE ELSE.
+  So every arm of uvm77-79, uvm82-91, buvm3-15, sd8-12, uvm93-123 and the rest
+  is byte-identical under this law; no cell the law does not name moved.

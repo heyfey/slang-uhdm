@@ -1,0 +1,34 @@
+r10uvm125 — EVERY MOVER NAMED AND ATTRIBUTED.  LHS IS ALWAYS GOLDEN.
+
+byteverify.sh SELFCHECK=1, patched vs this pass's own pristine sweep:
+
+  surelog:      MOVERS 9 / 956, PATH_SETS_IDENTICAL (956 paths)
+    default/BuildUVMPkg   default/MiniAmiq   default/Scoreboard
+    default/SeqDriver     default/SimpleUVM
+    testflags/BuildUVMPkg testflags/MiniAmiq testflags/SeqDriver
+    testflags/SimpleUVM
+  uhdm2rtlil:   MOVERS 0 / 1358, PATH_SETS_IDENTICAL (1358 paths)
+
+Every one of the nine was PREDICTED BY NAME from the pristine databases before
+the patched sweep ran (PREDICT.r10uvm125.txt).  Scoreboard/default is the ~50/50
+coin row, so it is attributed ORDER-BLIND, by its census delta and by the object
+counts below, not by a byte hash.
+
+ATTRIBUTION — the ONE-SIDED SET (this pass REMOVES objects; nothing is added):
+
+  row-mode                operation   of which op82   ref_typespec   any other kind
+  SeqDriver   def/tf         -13          -13             -1              0
+  SimpleUVM   def/tf          -7           -7             -1              0
+  Scoreboard  default         -7           -7             -1              0
+  MiniAmiq    def/tf         -15          -15             -1              0
+  BuildUVMPkg def/tf          -7           -7             -1              0
+
+  `operation:op82` leaves the kind set ENTIRELY in all nine databases: after the
+  patch not one operation of type 82 remains anywhere in any of them (before:
+  7/13/15 per row, ALL of them one-operand, ALL in a tf_call argument slot).
+  The single ref_typespec is the one that hung off ONE of the removed
+  operations — `operation@138:38-138:39 | logic_typespec |
+  uvm_pkg::uvm_hdl_data_t`, the `uvm_hdl_read(p_,d)` argument in
+  uvm_reg_mem_hdl_paths_seq.svh:138, which sits in an `if (!...)` condition where
+  our emitter stamps the operation with a typespec.  No GOLDEN object is lost:
+  golden holds ZERO op82 arguments in all nine databases (see CENSUS).

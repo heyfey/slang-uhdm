@@ -1,0 +1,86 @@
+r10uvm125 — THE CALL-ARGUMENT CENSUS.  LHS IS ALWAYS GOLDEN (Surelog);
+RHS IS ALWAYS OURS.  MEASUREMENT ONLY — the official uhdm-cmp is the judge.
+
+cen125 emits one CELL per Tf_call_args element of every tf_call in a database:
+  SITE (the call's parent chain, kinds+names+spans, NO ids) | CALL (kind|name|
+  span) | IDX | PAYLOAD (arg kind; for an operation its opType, operand count,
+  inner kind, INNER-OPERAND PARENT KIND as its own column, spans) | formal
+  DIRECTION (read off the callee's io_decls when the call carries a link).
+
+Two joins are scored, both as MULTISETS (a last-writer dict drops rows):
+  score125.py  keys on (SITE, CALL, IDX) — the fine key, parent chains included;
+  wrap125.py   keys on (CALL, IDX) alone and reduces the payload to the shape
+               this law is about, so it joins without depending on either
+               producer's block spans.
+
+== A. GOLDEN NEVER MINTS THE WRAPPER (the whole nine-database answer) ==
+
+  row-mode              OURS op82 args   of which ONE-OPERAND   GOLDEN op82 args
+  SeqDriver   def/tf         13                 13                     0
+  SimpleUVM   def/tf          7                  7                     0
+  Scoreboard  default         7                  7                     0
+  MiniAmiq    def/tf         15                 15                     0
+  BuildUVMPkg def/tf          7                  7                     0
+
+  Every one of our op82 argument cells faces GOLD=PLAIN:ref_obj, and every one
+  carries dir=out.  Golden has no op82 argument of ANY operand count anywhere.
+
+== B. THE SHAPE TABLE (pristine, wrap125.py, the OP82 rows) ==
+
+     count  GOLD                 OURS                  innerparent   dir
+        6   PLAIN:ref_obj        OP82x1:ref_obj        assignment    out   (BuildUVMPkg, SimpleUVM, Scoreboard)
+        1   PLAIN:ref_obj        OP82x1:ref_obj        operation     out   (idem)
+       12   PLAIN:ref_obj        OP82x1:ref_obj        assignment    out   (SeqDriver, MiniAmiq)
+        1   PLAIN:ref_obj        OP82x1:ref_obj        operation     out   (idem)
+        2   <absent>             OP82x1:ref_obj        operation     -     (MiniAmiq only, get_cover_statistics_dpi)
+
+  THE INNER-REF PARENT IS ITS OWN COLUMN, and it is not constant: the inner
+  ref_obj parents at the ENCLOSING assignment (`ok &= uvm_hdl_read(...)`) when
+  there is one, and at the wrapper operation itself otherwise (a condition,
+  a bare statement call).  Golden's plain ref_obj always parents at the CALL.
+
+== C. THE CORPUS SITES ==
+
+  uvm-1.2 src/reg/uvm_mem.svh:2074    ok &= uvm_hdl_read(hdl_path, slice);
+      `uvm_reg_data_t slice`   (bit unsigned [63:0])   vs the DPI import's
+      `output uvm_hdl_data_t value` (logic [1023:0])   -> CONVERTING -> wrapped
+  uvm-1.2 src/reg/uvm_reg.svh:2725    ok &= uvm_hdl_read(...path, val);
+      `uvm_reg_data_t val`                              -> CONVERTING -> wrapped
+  uvm-1.2 src/reg/uvm_reg.svh:2732    ok &= uvm_hdl_read(...path, slice);
+      `uvm_reg_data_t slice`                            -> CONVERTING -> wrapped
+  uvm-1.2 src/reg/sequences/uvm_reg_mem_hdl_paths_seq.svh:138
+                                      if (!uvm_hdl_read(p_,d))
+      `uvm_reg_data_t d`                                -> CONVERTING -> wrapped
+  MiniAmiq's own get_cover_statistics_dpi @512:56       -> CONVERTING -> wrapped
+
+  THE IN-CORPUS DIFFERENTIAL CONTROL, two statements above the head:
+  uvm-1.2 src/reg/uvm_mem.svh:2068    ok &= uvm_hdl_read(hdl_path, val);
+      `uvm_hdl_data_t val` — the SAME callee, the SAME `ok &= ...` shape, the
+      SAME direction, only the actual's type MATCHES the formal.  slang binds
+      that copy-back as a BARE EmptyArgument, § outArgLvalue17 already unwrapped
+      it, and the cell is BYTE-IDENTICAL to golden's in the pristine build AND
+      in the patched one:
+        GOLDEN  ref_obj(val)|parent=func_call@2068:21-2068:48|span=2068:44-2068:47  dir=out
+        OURS    ref_obj(val)|parent=func_call@2068:21-2068:48|span=2068:44-2068:47  dir=out
+
+== D. THE SCORE, PRISTINE -> PATCHED (nine databases, both joins) ==
+
+  wrap125.py (CALL,IDX key)
+    row-mode           SAME            MOVED-WRONG      ONLY-GOLDEN  ONLY-OURS
+    BuildUVMPkg   24382 -> 24389 (+7)     9 ->  2 (-7)     51 = 51     23 = 23
+    MiniAmiq      28677 -> 28690 (+13)  323 -> 310 (-13) 14094=14094 14062=14062
+    Scoreboard    17130 -> 17137 (+7)    93 ->  86 (-7)   7829= 7829  7816= 7816
+    SeqDriver     27625 -> 27638 (+13)  299 -> 286 (-13) 13745=13745 13732=13732
+    SimpleUVM     17049 -> 17056 (+7)    94 ->  87 (-7)   7750= 7750  7737= 7737
+
+  score125.py (SITE,CALL,IDX key)
+    BuildUVMPkg   20327 -> 20334 (+7)   965 -> 958 (-7)   3150= 3150  3122= 3122
+    MiniAmiq      17833 -> 17846 (+13)  536 -> 523 (-13) 24725=24725 24693=24693
+    Scoreboard    11587 -> 11594 (+7)   305 -> 298 (-7)  13160=13160 13147=13147
+    SeqDriver     17612 -> 17625 (+13)  528 -> 515 (-13) 23529=23529 23516=23516
+    SimpleUVM     11506 -> 11513 (+7)   304 -> 297 (-7)  13083=13083 13070=13070
+
+  SAME rises by EXACTLY the number MOVED-WRONG falls, in both joins, on every
+  row: TO-GOLDEN = 7/13/15 per row, AWAY-GOLDEN = 0, MOVED-WRONG introduced = 0.
+  ONLY-GOLDEN and ONLY-OURS are UNCHANGED to the cell — the pass adds no
+  argument slot and drops none.

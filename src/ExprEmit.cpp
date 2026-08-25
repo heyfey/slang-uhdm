@@ -9077,7 +9077,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // span.  A `ref` formal never takes this form — slang passes the
             // actual straight through — so nothing there changes.  UVM's
             // `m_req_fifo.try_get(t)` family is ~620 rows on SeqDriver.
-            if (ae.right().kind == ExpressionKind::EmptyArgument)
+            // § outArgConvLvalue125 — the copy-back placeholder is NOT always
+            // bare.  `Expression::bindLValue` mints the placeholder with the
+            // FORMAL's type and then runs it through `convertAssignment`, so
+            // when the actual's type differs from the formal's the synthesized
+            // right side is `Conversion(<EmptyArgument>)`, not the
+            // EmptyArgument itself (slang's own `isLValueArg()` names exactly
+            // these two shapes).  The kind-only test above missed that half and
+            // the arm below then wrapped the actual in
+            // operation(vpiAssignmentOp=82) with ONE operand whose inner ref
+            // parented at the ENCLOSING assignment.  Surelog compiles a call
+            // argument from its SYNTAX — it has no copy-back to encode and no
+            // arm that can mint a one-operand op82 — so golden holds the plain
+            // lvalue for every direction (out / inout / ref), converting or
+            // not.  This is the `uvm_hdl_read(hdl_path, slice)` head at
+            // uvm_mem.svh:2074: `uvm_reg_data_t slice` against the DPI import's
+            // `output uvm_hdl_data_t value`.
+            if (ae.isLValueArg())
                 return emitExpr(ae.left(), parent, prefix, netMap);
             // An EMBEDDED assignment expression (x = (y = ...) + 1) — one used
             // as an OPERAND or as another assignment's RHS — is an

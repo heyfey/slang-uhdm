@@ -1,0 +1,46 @@
+LHS:
+decompile:
+ref_obj: (uvm_pkg::uvm_mem::backdoor_read_func::slice), id:48669, line:2074:44, endln:2074:49
+|vpiParent:
+\_func_call: (uvm_hdl_read), id:48667, line:2074:21, endln:2074:50
+|vpiName:slice
+|vpiFullName:uvm_pkg::uvm_mem::backdoor_read_func::slice
+|vpiActual:
+\_bit_var: (uvm_pkg::uvm_mem::backdoor_read_func::slice), id:48653, line:2072:30, endln:2072:35
+
+decompile:
+ref_obj: (uvm_pkg::uvm_mem::backdoor_read_func::slice), id:48669, line:2074:44, endln:2074:49
+|vpiParent:
+\_func_call: (uvm_hdl_read), id:48667, line:2074:21, endln:2074:50
+|vpiName:slice
+|vpiFullName:uvm_pkg::uvm_mem::backdoor_read_func::slice
+|vpiActual:
+\_bit_var: (uvm_pkg::uvm_mem::backdoor_read_func::slice), id:48653, line:2072:30, endln:2072:35
+RHS:
+decompile:
+operation: , id:31131, line:2074:44, endln:2074:49
+|vpiParent:
+\_func_call: (uvm_hdl_read), id:31129, line:2074:21, endln:2074:50
+|vpiOpType:82
+|vpiOperand:
+\_ref_obj: (uvm_pkg::uvm_mem::backdoor_read_func::slice), id:31132, line:2074:44, endln:2074:49
+  |vpiParent:
+  \_assignment: , id:31127, line:2074:15, endln:2074:50
+  |vpiName:slice
+  |vpiFullName:uvm_pkg::uvm_mem::backdoor_read_func::slice
+  |vpiActual:
+  \_bit_var: (uvm_pkg::uvm_mem::backdoor_read_func::slice), id:31116, line:2072:30, endln:2072:35
+
+decompile:
+operation: , id:31131, line:2074:44, endln:2074:49
+|vpiParent:
+\_func_call: (uvm_hdl_read), id:31129, line:2074:21, endln:2074:50
+|vpiOpType:82
+|vpiOperand:
+\_ref_obj: (uvm_pkg::uvm_mem::backdoor_read_func::slice), id:31132, line:2074:44, endln:2074:49
+  |vpiParent:
+  \_assignment: , id:31127, line:2074:15, endln:2074:50
+  |vpiName:slice
+  |vpiFullName:uvm_pkg::uvm_mem::backdoor_read_func::slice
+  |vpiActual:
+  \_bit_var: (uvm_pkg::uvm_mem::backdoor_read_func::slice), id:31116, line:2072:30, endln:2072:35

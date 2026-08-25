@@ -1,0 +1,24 @@
+r10uvm125 — THE A-PRIORI MOVER PREDICTION, made from the PRISTINE databases
+BEFORE the patched sweep ran.  `pred125.sh` scans every slang.uhdm in both
+pristine workdirs and reports the databases holding at least one ONE-OPERAND
+operation(vpiAssignmentOp=82) in a tf_call argument slot — the object this pass
+removes.  Those, and only those, may move.
+
+  $ CEN125=cen125 pred125.sh <surelog workdir> <uhdm2rtlil workdir>
+  PREDICT 7  default/BuildUVMPkg
+  PREDICT 15 default/MiniAmiq
+  PREDICT 7  default/Scoreboard
+  PREDICT 13 default/SeqDriver
+  PREDICT 7  default/SimpleUVM
+  PREDICT 7  testflags/BuildUVMPkg
+  PREDICT 15 testflags/MiniAmiq
+  PREDICT 13 testflags/SeqDriver
+  PREDICT 7  testflags/SimpleUVM
+  SCANNED=2314 PREDICTED_MOVERS=9
+
+  (Scoreboard/testflags builds no database of ours in either sweep — it is the
+  row rowheads.sh reports SKIP-NOFILE.)
+
+MEASURED AFTERWARDS by SELFCHECK=1 byteverify.sh:
+  surelog      MOVERS 9 / 956   — the nine names above, no others
+  uhdm2rtlil   MOVERS 0 / 1358  — as predicted, PATH_SETS_IDENTICAL

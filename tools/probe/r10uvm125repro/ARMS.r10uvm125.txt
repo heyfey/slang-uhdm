@@ -1,0 +1,71 @@
+r10uvm125 — THE GRID.  Four arms, each built with SURELOG (golden) and with the
+frozen PRISTINE and PATCHED binaries in BOTH views, censused with cen125 and
+scored with score125.py.  LHS IS ALWAYS GOLDEN.
+
+  arm125.sh builds one arm; score125.py joins the two censuses as multisets.
+
+== the grid axes ==
+  g125_a_dirs.sv    DIRECTIONS x conversion:  output/SAME type (control),
+                    output/narrower, output/int, output inside a COMPOUND
+                    statement (`ok &= f(...)` — the corpus shape), inout/
+                    converting, ref/same, TASK call/converting, and a bare
+                    `void'(f(...))` statement call.
+  g125_b_shapes.sv  ARG SHAPES for a converting output/inout formal: bare ref,
+                    same-type control, bit-select, part-select, indexed
+                    part-select, struct member, array element, `this.`-qualified
+                    property, inout converting, inout same-type control, a
+                    WIDENING actual (the other conversion direction), a local
+                    same-type control and a local converting.
+  g125_c_kinds.sv   CALL KINDS: DPI import function, DPI import task, package
+                    free function, package task, class method (method_func_call),
+                    class method task (method_task_call), $value$plusargs and
+                    $sscanf (system functions with an output formal).
+  g125_d_homes.sv   HOMES x INSTANCES: the same converting output actual inside a
+                    module task, a module function, an initial block, an always
+                    block and a generate block, in THREE differently
+                    parameterised instances of the same module.
+
+== the score (score125.py, SITE+CALL+IDX key, DEF view) ==
+
+  arm            PRISTINE                                   PATCHED
+  a_dirs     SAME= 9 WRONG= 6 OG=0 OO=0        SAME=15 WRONG=0 OG=0 OO=0
+  b_shapes   SAME=16 WRONG=10 OG=0 OO=0        SAME=25 WRONG=1 OG=0 OO=0
+  c_kinds    SAME=11 WRONG= 6 OG=0 OO=0        SAME=17 WRONG=0 OG=0 OO=0
+  d_homes    SAME= 8 WRONG= 8 OG=0 OO=0        SAME=16 WRONG=0 OG=0 OO=0
+
+  30 of the 31 pristine-wrong cells are converted; 0 cells move away; the
+  ONLY-GOLDEN and ONLY-OURS sets stay EMPTY on every arm (no argument slot is
+  added or dropped).
+
+  The ELAB view scores the SAME conversions, cell for cell:
+    a_dirs   WRONG 6 -> 0     b_shapes WRONG 10 -> 1 (the span residue R-B)
+    c_kinds  WRONG 6 -> 0     d_homes  WRONG  8 -> 0
+  and its ONLY-OURS column is UNCHANGED by the patch on every arm (15/52/17/30 —
+  the def+elab duplication of an elaborated database scored against the DEF-view
+  golden, not a mover).
+
+  The official uhdm-cmp line count falls on every arm (these toy packages carry
+  an unrelated design-level head, so cmp is a monotone witness here, not the
+  oracle — the census is):
+      a_dirs 6290 -> 6230,  b_shapes 6498 -> 6400,
+      c_kinds 5096 -> 5036, d_homes 6782 -> 6702.
+
+== the ONE residual cell (b_shapes), NOT this law ==
+
+  `r = fo(8, this.narr)` — the `this.`-qualified property actual.  Both
+  producers give a hier_path parented at the func_call; only its SPAN differs
+  (golden 42:17-42:26 covers `this.narr`, ours 42:17-42:21 covers `this.`).
+  Compare reads VpiType/VpiName/VpiDefName and per-kind fields, NEVER
+  VpiFile/line/col, so this cell is DUMP-ONLY and invisible to the judge.  It is
+  PRE-EXISTING: pristine wraps the same actual in op82, which merely MASKED the
+  span; the patch unmasks it without changing it.  Recorded as residue R-B.
+
+== what an arm agreeing does NOT prove ==
+
+  `fsame` / `fio(10, same)` / `fo(12, locw)` / `fref` are agreeing arms because
+  slang binds their copy-back as a BARE EmptyArgument (or, for `ref`, passes the
+  actual straight through) — § outArgLvalue17 already handled them.  They are
+  CONTROLS for the mechanism, not tests of it; the tests are the converting rows,
+  and the grid varies the actual's width in BOTH directions (narrowing at
+  `fo(1, narr)`, widening at `fw(11, locw)`) so that agreement cannot come from
+  one accidental type relation.
