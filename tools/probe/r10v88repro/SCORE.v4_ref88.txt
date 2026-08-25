@@ -1,0 +1,11 @@
+/tmp/v88_arms/wd_v4_ref88 o -> q {'STILL-WRONG': 3, 'RIGHT': 1, 'TO-GOLDEN': 1, 'MOVED-WRONG': 1}
+/tmp/v88_arms/wd_v4_ref88 oe -> qe {'STILL-WRONG': 3, 'RIGHT': 1, 'TO-GOLDEN': 1, 'MOVED-WRONG': 1}
+/tmp/v88_arms/wd_v4_ref88 oe -> qe {'RIGHT': 2, 'TO-GOLDEN': 2}
+  TO-GOLDEN module_inst|work@vtop4|w_n 
+     PRIS ['NET|packed_array_net|ELEM=struct_net|ETS=struct_typespec/u88::n_t|LOOSE=1|STRICT=0'] 
+     PATC ['VAR|packed_array_var|ELEM=struct_var|ETS=struct_typespec/u88::n_t|LOOSE=1|STRICT=0'] 
+     GOLD ['VAR|packed_array_var|ELEM=struct_var|ETS=struct_typespec/u88::n_t|LOOSE=1|STRICT=0']
+  TO-GOLDEN module_inst|work@vtop4.u_r|r_n 
+     PRIS ['NET|packed_array_net|ELEM=struct_net|ETS=struct_typespec/u88::n_t|LOOSE=1|STRICT=0'] 
+     PATC ['VAR|packed_array_var|ELEM=struct_var|ETS=struct_typespec/u88::n_t|LOOSE=1|STRICT=0'] 
+     GOLD ['VAR|packed_array_var|ELEM=struct_var|ETS=struct_typespec/u88::n_t|LOOSE=1|STRICT=0']

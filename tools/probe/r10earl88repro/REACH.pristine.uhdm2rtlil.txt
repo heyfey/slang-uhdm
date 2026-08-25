@@ -1,0 +1,2 @@
+default/StructPackedOutput-66c2719b|module_inst|work@top.d|flash_rsp_o|NET|packed_array_net|ELEM=struct_net|ETS=struct_typespec/flash_phy_pkg::flash_phy_prim_flash_rsp_t|LOOSE=1|STRICT=1
+testflags/StructPackedOutput-66c2719b|module_inst|work@top.d|flash_rsp_o|NET|packed_array_net|ELEM=struct_net|ETS=struct_typespec/flash_phy_pkg::flash_phy_prim_flash_rsp_t|LOOSE=1|STRICT=1

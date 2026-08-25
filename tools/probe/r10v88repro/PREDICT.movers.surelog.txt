@@ -1,0 +1,2 @@
+default/Earlgrey_0_1-71da2fd7|module_inst|work@top_earlgrey.u_flash_ctrl.u_flash_mp|region_cfgs_i|NET|packed_array_net|ELEM=struct_net|ETS=struct_typespec/flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t|LOOSE=1|STRICT=0
+testflags/Earlgrey_0_1-71da2fd7|module_inst|work@top_earlgrey.u_flash_ctrl.u_flash_mp|region_cfgs_i|NET|packed_array_net|ELEM=struct_net|ETS=struct_typespec/flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t|LOOSE=1|STRICT=0

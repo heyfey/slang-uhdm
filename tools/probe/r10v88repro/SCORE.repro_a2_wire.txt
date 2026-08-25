@@ -1,0 +1,2 @@
+/tmp/v88_arms/ctl_a2_wire o -> q {'RIGHT': 20, 'TO-GOLDEN': 6, 'STILL-WRONG': 2}
+/tmp/v88_arms/ctl_a2_wire oe -> qe {'RIGHT': 20, 'TO-GOLDEN': 6, 'STILL-WRONG': 2}

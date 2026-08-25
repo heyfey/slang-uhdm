@@ -1,0 +1,2 @@
+/tmp/v88_arms/ctl_a1_flat o -> q {'RIGHT': 55, 'STILL-WRONG': 2, 'TO-GOLDEN': 18}
+/tmp/v88_arms/ctl_a1_flat oe -> qe {'RIGHT': 55, 'STILL-WRONG': 2, 'TO-GOLDEN': 18}

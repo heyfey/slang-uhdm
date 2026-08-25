@@ -1,0 +1,2 @@
+/tmp/v88_arms/ctl_v1_v53 o -> q {'RIGHT': 46, 'MISSING-OURS': 1, 'TO-GOLDEN': 1}
+/tmp/v88_arms/ctl_v1_v53 oe -> qe {'RIGHT': 46, 'MISSING-OURS': 1, 'TO-GOLDEN': 1}

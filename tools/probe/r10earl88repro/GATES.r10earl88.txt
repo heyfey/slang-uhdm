@@ -1,0 +1,94 @@
+r10earl88 — THE LANDING GATE BATTERY, every number as measured.
+BASE d0499f7.  results/*.csv READ ONLY and UNTOUCHED — NO ROW CONVERTED.
+
+(1) BUILD.  Both binaries built `-j 2` in this pass's own worktree and FROZEN
+    `chmod 555` at immutable paths BEFORE any sweep was started.
+      pristine  3f628b1cfc109b3f0e5396ce88abae36
+      patched   3cf1df8c63b42c245c8176248b8f99d5
+
+(2) GOLDEN DUMP TESTS (SLANG_UHDM exported EXPLICITLY to each binary).
+      pristine  PASS=23 FAIL=0
+      patched   PASS=23 FAIL=0
+      /bin/false PASS=0 FAIL=23        (negative control)
+
+(3) uhdm2rtlil, BOTH MODES.
+      status histogram (testflags)  CMP_EQUAL 679 / SLANG_REJECT 50 / SURELOG_FAIL 2
+      ct8rows vs the COMMITTED baseline results/gate_uhdm2rtlil.csv   0 differing rows
+      ct8rows vs THIS PASS'S OWN pristine sweep, testflags            0 differing rows
+      ct8rows vs THIS PASS'S OWN pristine sweep, default              0 differing rows
+      cmds.txt audited BY BINARY PATH: 0 of 1462 name the main-tree binary
+
+(4) surelog corpus, --mode both (1588 rows).
+      CMP_EQUAL 937 / SLANG_REJECT 567 / SURELOG_FAIL 48 / CMP_NOTEQUAL 19 /
+      DEFERRED 10 / NO_DATABASE 3 / UNTRANSLATABLE 2 / TIMEOUT 1 / NO_UHDM 1
+      ct8rows vs the COMMITTED baseline results/golden_surelog.csv    0 differing rows
+      ct8rows vs THIS PASS'S OWN pristine sweep                       0 differing rows
+      cmds.txt audited BY BINARY PATH: 0 of 1573 name the main-tree binary
+      NO ROW CONVERTED.  Earlgrey_0_1 stays CMP_NOTEQUAL in both modes;
+      its head moved (21302/21926 cmp lines -> 17/17) but the row does not flip.
+
+(5) BYTE MOVERS, SELFCHECK=1, patched sweep vs THIS PASS'S OWN pristine sweep.
+      uhdm2rtlil  MOVERS 0 / 1358   PATH_SETS_IDENTICAL   SELFCHECK 1357/1358 flagged
+      surelog     MOVERS 3 /  956   PATH_SETS_IDENTICAL   SELFCHECK  955/ 956 flagged
+        ./default/Earlgrey_0_1-71da2fd7/slang.uhdm     <- PREDICTED BY NAME
+        ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm   <- PREDICTED BY NAME
+        ./default/Scoreboard-59431470/slang.uhdm       <- the documented COIN:
+             92 raw path-normalised dump lines, **0 ORDER-BLIND** (sorted dumps
+             identical), i.e. the svunit_pkg vpiTaskFunc list-order flip, not
+             this law.
+      Both Earlgrey databases are byte-DETERMINISTIC per binary (re-run
+      standalone outside the sweep, the same md5s come back).
+
+(5a) THE RUN-TIME A/B GATE.  The PATCHED binary run with `R10E88_OFF=1` (the
+     law disabled, everything else identical) reproduces the PRISTINE database
+     BYTE FOR BYTE in BOTH modes, and law-ON reproduces the sweep's own md5s:
+        default    OFF feb743d6f254 == pristine feb743d6f254   ON 08141341859e == sweep
+        testflags  OFF 22dc13775f8d == pristine 22dc13775f8d   ON ef74c30dc999 == sweep
+     100 % of each mover's delta is § pkgScopedPaStructStrictNetVar88.
+
+(6) CANARIES.
+      canaries.sh surelog    ok=52 changed=0 absent=0
+      canaries.sh u2r        ok=8  changed=0 absent=0
+      ctcan2.sh   surelog    PASS (EXPECT_UNKNOWN=1)
+      ctcan2.sh   u2r        PASS (EXPECT_UNKNOWN=6)
+      canaudit.sh            audited=29  UNCOVERED=0  FENCE-BREACH=0
+      protected databases, patched vs pristine, BOTH MODES:
+        InterfaceModPort 59a365f3ce2c  BlackParrotComplex def e3e354129d5a /
+        tf 73a10e8217e5  YosysOldOr d68e0796d62c  — all byte-identical
+        SVSwitch 4842211c4030 (pin)   YosysVerx 6ccda350c24a (pin)
+
+(7) HEADS (rowheads.sh, this pass's own sweeps).
+      TEST          MODE       BEFORE            AFTER
+      SeqDriver     default       17 / 1 head      17 / 1 head
+      SeqDriver     testflags     17 / 1 head      17 / 1 head
+      SimpleUVM     default       64 / 1 head      64 / 1 head
+      SimpleUVM     testflags     64 / 1 head      64 / 1 head
+      Scoreboard    default       64 / 1 head      64 / 1 head
+      MiniAmiq      default       80 / 1 head      80 / 1 head
+      MiniAmiq      testflags     80 / 1 head      80 / 1 head
+      BuildUVMPkg   default       60 / 1 head      60 / 1 head
+      BuildUVMPkg   testflags     60 / 1 head      60 / 1 head
+      Earlgrey_0_1  default    21302 / 1 head      17 / 1 head    <- THIS PASS
+      Earlgrey_0_1  testflags  21926 / 1 head      17 / 1 head    <- THIS PASS
+      Rggen         default        0 / 0 heads      0 / 0 heads
+      (Scoreboard/testflags and Rggen/testflags are the expected SKIP-NOFILE;
+       counts are DEPTH, not distance.)
+
+(8) THE WIDE BOUNDARY (vwide88.sh over a COPY of the whole tools/probe tree,
+    .sv and .v at ANY depth, both views, both frozen binaries,
+    workdir-normalised dump byte-compare; file list on fd 3, children
+    </dev/null).
+      PROCESSED=4026  (== LISTED=4026)  identical=7696  DIFFERING=6  no_output=350
+      rc histogram: rc=0 14746, rc=3 672, rc=4 658, rc=139 28
+        the 28 rc=139 are 14 files x 2 sides — the A and B rc=139 SETS ARE
+        IDENTICAL, so every segfault is pre-existing on both binaries.
+      THE FOUR SLANG-FENCED TESTS ARE NEVER DISPATCHED: the list is filtered by
+      the names read out of canaudit.sh (the only file here that may spell
+      them) and 0 of 4026 files matched.
+      The 6 differing cells are 3 files x 2 views, and ALL THREE WERE
+      RE-MEASURED AGAINST GOLDEN (Surelog built on each, official uhdm-cmp run,
+      sig88 scored 3-way):
+        r10earl35repro/a1_flat.sv  TO-GOLDEN 18  AWAY 0  MOVED-WRONG 0  (STILL-WRONG 2, both unchanged)
+        r10earl35repro/a2_wire.sv  TO-GOLDEN  6  AWAY 0  MOVED-WRONG 0  (STILL-WRONG 2, both unchanged)
+        r10earl53repro/v1_v53.sv   TO-GOLDEN  1  AWAY 0  MOVED-WRONG 0  (STILL-WRONG 1, unchanged)
+      RIGHT->WRONG 0 and AWAY-GOLDEN 0 over the WHOLE boundary.

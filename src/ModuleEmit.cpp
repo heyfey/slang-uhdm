@@ -7623,19 +7623,53 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 // (/tmp/r10sing3_repro/pa3: imported-bare / pkg-qualified /
                 // $unit x input / output) — direction is irrelevant, the
                 // qualifier is the whole discriminator (ParamTypespec2).
-                if (auto* pan = scopedWrittenType(*it.sym)
-                                    ? emitPackedStructArrayNet(*it.sym, name,
-                                                               fullName, m)
-                                    : nullptr) {
+                //
+                // § pkgScopedPaStructStrictNetVar88 — THE SCOPED SPELLING IS
+                // NECESSARY BUT NOT SUFFICIENT.  With packed dimensions
+                // WRITTEN on the declaration the elaborated typespec is a
+                // packed_array_typespec, so `elab_signal_`'s struct arm — the
+                // LOOSE member scan that accepts a nested struct — never
+                // runs (NetlistElaboration.cpp:1996, the `else if (ttmp ==
+                // uhdmstruct_typespec)` is unreachable once the
+                // packed_array_typespec arm has taken the branch).  The only
+                // thing that ever cleared `isNet` for a `pkg::T` spelling is
+                // `bindStructInPackage` (ElaborationStep.cpp:1233), and it
+                // consults the STRICT scan `SURELOG::Struct::isNet()`: every
+                // member must be a plain logic_typespec.  One nested struct
+                // member — the head's
+                // `flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t`
+                // — and the port is a packed_array_VAR of struct_vars, in
+                // EVERY direction and whether or not it is driven.  Golden
+                // grid g1_elemdims88.sv: the container is the STRICT scan on
+                // all 36 packed-array cells, 0 exceptions; the SAME typedef
+                // with NO packed dims stays a struct_net under the LOOSE scan.
+                // A/B kill switch for the landing gate only: with
+                // R10E88_OFF=1 the law is disabled and everything else is
+                // identical, so the patched binary must reproduce the
+                // pristine database byte for byte.
+                static const bool r10e88Off = getenv("R10E88_OFF") != nullptr;
+                const bool paScoped88 = scopedWrittenType(*it.sym);
+                UHDM::typespec* paElemTs88 =
+                    paScoped88 ? packedStructArrayElemTs(*it.sym) : nullptr;
+                const bool paNet88 =
+                    paElemTs88 != nullptr &&
+                    (r10e88Off ||
+                     (it.sym->getDeclaredType()->getType().kind !=
+                          SymbolKind::TypeAlias &&
+                      structTsIsNetStrict(paElemTs88)));
+                if (auto* pan = paNet88 ? emitPackedStructArrayNet(
+                                              *it.sym, name, fullName, m)
+                                        : nullptr) {
                     topNets[it.sym] = pan;
                     sigOrder.emplace_back(it.sym, pan);
                     nets->push_back(pan);
                     continue;
                 }
-                if (auto* pav8 = scopedWrittenType(*it.sym)
-                                     ? nullptr
-                                     : emitPackedStructArrayVar(*it.sym, name,
-                                                                fullName, m)) {
+                if (auto* pav8 = (!paScoped88 ||
+                                  (!r10e88Off && paElemTs88 != nullptr))
+                                     ? emitPackedStructArrayVar(*it.sym, name,
+                                                                fullName, m)
+                                     : nullptr) {
                     topNets[it.sym] = pav8;
                     sigOrder.emplace_back(it.sym, pav8);
                     vars->push_back(pav8);
@@ -7663,7 +7697,16 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                               SymbolKind::TypeAlias &&
                           !hasVarKeywordDecl(*it.sym) &&
                           !hasExplicitNetKeyword(*it.sym) &&
-                          structTsIsNetLike(packedStructArrayElemTs(*it.sym)))
+                          // § pkgScopedPaStructStrictNetVar88: the STRICT scan
+                          // (every member a plain logic_typespec), not the
+                          // loose one — a nested-struct member makes the
+                          // packed-dim body declaration a packed_array_VAR
+                          // exactly as it does the port above.
+                          (getenv("R10E88_OFF")
+                               ? structTsIsNetLike(
+                                     packedStructArrayElemTs(*it.sym))
+                               : structTsIsNetStrict(
+                                     packedStructArrayElemTs(*it.sym))))
                              ? emitPackedStructArrayNet(*it.sym, name, fullName, m)
                              : nullptr) {
                 topNets[it.sym] = pan9;

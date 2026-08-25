@@ -1,0 +1,42 @@
+RIGHT            20
+TO-GOLDEN         6
+AWAY-GOLDEN       0
+MOVED-WRONG       0
+STILL-WRONG       2
+NOGOLD-MOVED      0
+
+-- TO-GOLDEN --
+   module_inst|work@e35b_top.u_dut|k_nest_d
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@e35b_top.u_dut|w_atom_d
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@e35b_top.u_dut|w_nest_d
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@e35b_top|k_nest_d
+      pris  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=-']
+      patch ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+      gold  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+   module_inst|work@e35b_top|w_nest_d
+      pris  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=-']
+      patch ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+      gold  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+   module_inst|work@e35b_top|y_nest
+      pris  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=-']
+      patch ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+      gold  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+
+-- STILL-WRONG --
+   module_inst|work@e35b_top.u_dut|bw_flat
+      pris  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+      gold  ['NET|struct_net|ELEM=-|TS=struct_typespec/e35b_pkg::flat_t|DIR=-']
+   module_inst|work@e35b_top.u_dut|bw_nest
+      pris  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+      gold  ['NET|struct_net|ELEM=-|TS=struct_typespec/e35b_pkg::nest_t|DIR=-']

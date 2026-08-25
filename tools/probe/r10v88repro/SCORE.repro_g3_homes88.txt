@@ -1,0 +1,2 @@
+/tmp/v88_arms/impl_g3_homes88 o -> q {'STILL-WRONG': 4, 'RIGHT': 29, 'TO-GOLDEN': 18}
+/tmp/v88_arms/impl_g3_homes88 oe -> qe {'STILL-WRONG': 4, 'RIGHT': 29, 'TO-GOLDEN': 18}

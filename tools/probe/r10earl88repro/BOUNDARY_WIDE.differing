@@ -1,0 +1,6 @@
+plain r10earl35repro/a1_flat.sv
+elab r10earl35repro/a1_flat.sv
+plain r10earl35repro/a2_wire.sv
+elab r10earl35repro/a2_wire.sv
+plain r10earl53repro/v1_v53.sv
+elab r10earl53repro/v1_v53.sv

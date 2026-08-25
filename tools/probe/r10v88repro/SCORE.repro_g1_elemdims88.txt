@@ -1,0 +1,2 @@
+/tmp/v88_arms/impl_g1_elemdims88 o -> q {'RIGHT': 202, 'STILL-WRONG': 86, 'TO-GOLDEN': 72}
+/tmp/v88_arms/impl_g1_elemdims88 oe -> qe {'RIGHT': 202, 'STILL-WRONG': 86, 'TO-GOLDEN': 72}

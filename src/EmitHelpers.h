@@ -225,6 +225,43 @@ inline bool structTsIsNetLike(const UHDM::typespec* ts) {
     return true;
 }
 
+// § pkgScopedPaStructStrictNetVar88 — the OTHER struct member scan Surelog
+// runs, `SURELOG::Struct::isNet()` (Design/Struct.cpp:44), verbatim: the
+// struct is net-like only while EVERY member's typespec is a plain
+// logic_typespec.  A NESTED STRUCT member fails it, which is exactly where it
+// parts company with `structTsIsNetLike` above (the elab_signal_ scan, which
+// accepts logic OR struct).  A member with no typespec / no actual typespec is
+// a FAILURE here, not a skip — Surelog `return false`s on both.  A non-struct
+// typespec is not net-like at all (Surelog: `if (m_typespec->UhdmType() !=
+// uhdmstruct_typespec) return false`), which is also what makes a typedef that
+// already carries its own packed dims (a packed_array_typespec) a variable.
+//
+// WHICH SCAN GOVERNS IS A FUNCTION OF THE WRITTEN PACKED DIMENSIONS.  For a
+// signal written `pkg::T` with NO packed dims, `elab_signal_`'s typespec
+// dispatch reaches the struct_typespec arm and runs the LOOSE scan.  With
+// packed dims the typespec is a packed_array_typespec, that arm is SKIPPED,
+// and the only thing that ever set `isNet` is `bindStructInPackage`
+// (ElaborationStep.cpp:1233), which consults THIS scan.  Hence: dims ⇒ STRICT,
+// no dims ⇒ LOOSE.
+inline bool structTsIsNetStrict(const UHDM::typespec* ts) {
+    if (!ts || ts->UhdmType() != UHDM::uhdmstruct_typespec)
+        return false;
+    auto* sts = (const UHDM::struct_typespec*)ts;
+    if (!sts->Members())
+        return true;
+    for (auto* mem : *sts->Members()) {
+        auto* mrt = mem->Typespec();
+        if (!mrt)
+            return false;
+        auto* mts = mrt->Actual_typespec();
+        if (!mts)
+            return false;
+        if (mts->UhdmType() != UHDM::uhdmlogic_typespec)
+            return false;
+    }
+    return true;
+}
+
 // Surelog re-lexes based literals compactly ("8'd 3" -> "8'd3"); spans that
 // contain them shrink by the whitespace between the base char and the digits.
 inline size_t basedLiteralSpaceCount(std::string_view text) {

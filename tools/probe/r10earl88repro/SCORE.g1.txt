@@ -1,0 +1,642 @@
+RIGHT           202
+TO-GOLDEN        72
+AWAY-GOLDEN       0
+MOVED-WRONG       0
+STILL-WRONG      86
+NOGOLD-MOVED      0
+
+-- TO-GOLDEN --
+   module_inst|work@top88.g88[0].u_gen|i_s_bit_d1
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.g88[0].u_gen|i_s_bit_d2
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.g88[0].u_gen|i_s_deep_d1
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.g88[0].u_gen|i_s_deep_d2
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.g88[0].u_gen|i_s_enum_d1
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.g88[0].u_gen|i_s_enum_d2
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.g88[0].u_gen|i_s_nest_d1
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.g88[0].u_gen|i_s_nest_d2
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.g88[0].u_gen|o_s_bit_d1
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=OUT']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.g88[0].u_gen|o_s_bit_d2
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=OUT']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.g88[0].u_gen|o_s_deep_d1
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=OUT']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.g88[0].u_gen|o_s_deep_d2
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=OUT']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.g88[0].u_gen|o_s_enum_d1
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=OUT']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.g88[0].u_gen|o_s_enum_d2
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=OUT']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.g88[0].u_gen|o_s_nest_d1
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=OUT']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.g88[0].u_gen|o_s_nest_d2
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=OUT']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.g88[1].u_gen|i_s_bit_d1
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.g88[1].u_gen|i_s_bit_d2
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.g88[1].u_gen|i_s_deep_d1
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.g88[1].u_gen|i_s_deep_d2
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.g88[1].u_gen|i_s_enum_d1
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.g88[1].u_gen|i_s_enum_d2
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.g88[1].u_gen|i_s_nest_d1
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.g88[1].u_gen|i_s_nest_d2
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.g88[1].u_gen|o_s_bit_d1
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=OUT']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.g88[1].u_gen|o_s_bit_d2
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=OUT']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.g88[1].u_gen|o_s_deep_d1
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=OUT']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.g88[1].u_gen|o_s_deep_d2
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=OUT']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.g88[1].u_gen|o_s_enum_d1
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=OUT']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.g88[1].u_gen|o_s_enum_d2
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=OUT']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.g88[1].u_gen|o_s_nest_d1
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=OUT']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.g88[1].u_gen|o_s_nest_d2
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=OUT']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.u_drv|i_s_bit_d1
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.u_drv|i_s_bit_d2
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.u_drv|i_s_deep_d1
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.u_drv|i_s_deep_d2
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.u_drv|i_s_enum_d1
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.u_drv|i_s_enum_d2
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.u_drv|i_s_nest_d1
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.u_drv|i_s_nest_d2
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.u_drv|o_s_bit_d1
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=OUT']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.u_drv|o_s_bit_d2
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=OUT']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.u_drv|o_s_deep_d1
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=OUT']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.u_drv|o_s_deep_d2
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=OUT']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.u_drv|o_s_enum_d1
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=OUT']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.u_drv|o_s_enum_d2
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=OUT']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.u_drv|o_s_nest_d1
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=OUT']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.u_drv|o_s_nest_d2
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=OUT']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.u_und|i_s_bit_d1
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.u_und|i_s_bit_d2
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.u_und|i_s_deep_d1
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.u_und|i_s_deep_d2
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.u_und|i_s_enum_d1
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.u_und|i_s_enum_d2
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.u_und|i_s_nest_d1
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.u_und|i_s_nest_d2
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.u_und|o_s_bit_d1
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=OUT']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.u_und|o_s_bit_d2
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=OUT']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.u_und|o_s_deep_d1
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=OUT']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.u_und|o_s_deep_d2
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=OUT']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.u_und|o_s_enum_d1
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=OUT']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.u_und|o_s_enum_d2
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=OUT']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.u_und|o_s_nest_d1
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=OUT']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.u_und|o_s_nest_d2
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=OUT']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88|w_i_s_deep_d1
+      pris  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=-']
+      patch ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+      gold  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+   module_inst|work@top88|w_i_s_deep_d2
+      pris  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=-']
+      patch ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+      gold  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+   module_inst|work@top88|w_i_s_nest_d1
+      pris  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=-']
+      patch ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+      gold  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+   module_inst|work@top88|w_i_s_nest_d2
+      pris  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=-']
+      patch ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+      gold  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+   module_inst|work@top88|w_o_s_deep_d1
+      pris  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=-']
+      patch ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+      gold  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+   module_inst|work@top88|w_o_s_deep_d2
+      pris  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=-']
+      patch ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+      gold  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+   module_inst|work@top88|w_o_s_nest_d1
+      pris  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=-']
+      patch ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+      gold  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+   module_inst|work@top88|w_o_s_nest_d2
+      pris  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=-']
+      patch ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+      gold  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+
+-- STILL-WRONG --
+   module_inst|work@top88.g88[0].u_gen|i_b8_d1
+      pris  ['VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=IN']
+      patch ['VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=IN']
+      gold  ['VAR|bit_var|ELEM=-|TS=bit_typespec/b8_t|DIR=IN']
+   module_inst|work@top88.g88[0].u_gen|i_b8_d2
+      pris  ['VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=IN']
+      patch ['VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=IN']
+      gold  ['VAR|bit_var|ELEM=-|TS=bit_typespec/b8_t|DIR=IN']
+   module_inst|work@top88.g88[0].u_gen|i_e88_d1
+      pris  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=IN']
+      patch ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=enum_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.g88[0].u_gen|i_e88_d2
+      pris  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=IN']
+      patch ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=enum_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.g88[0].u_gen|i_s1_d0
+      pris  ['VAR|logic_var|ELEM=-|TS=logic_typespec/s1_t|DIR=IN']
+      patch ['VAR|logic_var|ELEM=-|TS=logic_typespec/s1_t|DIR=IN']
+      gold  ['VAR|logic_var|ELEM=-|TS=logic_typespec/p88::s1_t|DIR=IN']
+   module_inst|work@top88.g88[0].u_gen|i_s1_d1
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=IN']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/p88::s1_t|DIR=IN']
+   module_inst|work@top88.g88[0].u_gen|i_s1_d2
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=IN']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/p88::s1_t|DIR=IN']
+   module_inst|work@top88.g88[0].u_gen|i_v8_d1
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=IN']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/v8_t|DIR=IN']
+   module_inst|work@top88.g88[0].u_gen|i_v8_d2
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=IN']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/v8_t|DIR=IN']
+   module_inst|work@top88.g88[0].u_gen|o_b8_d1
+      pris  ['VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=OUT']
+      patch ['VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=OUT']
+      gold  ['VAR|bit_var|ELEM=-|TS=bit_typespec/b8_t|DIR=OUT']
+   module_inst|work@top88.g88[0].u_gen|o_b8_d2
+      pris  ['VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=OUT']
+      patch ['VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=OUT']
+      gold  ['VAR|bit_var|ELEM=-|TS=bit_typespec/b8_t|DIR=OUT']
+   module_inst|work@top88.g88[0].u_gen|o_e88_d1
+      pris  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=OUT']
+      patch ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=enum_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.g88[0].u_gen|o_e88_d2
+      pris  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=OUT']
+      patch ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=enum_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.g88[0].u_gen|o_s1_d0
+      pris  ['VAR|logic_var|ELEM=-|TS=logic_typespec/s1_t|DIR=OUT']
+      patch ['VAR|logic_var|ELEM=-|TS=logic_typespec/s1_t|DIR=OUT']
+      gold  ['VAR|logic_var|ELEM=-|TS=logic_typespec/p88::s1_t|DIR=OUT']
+   module_inst|work@top88.g88[0].u_gen|o_s1_d1
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/p88::s1_t|DIR=OUT']
+   module_inst|work@top88.g88[0].u_gen|o_s1_d2
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/p88::s1_t|DIR=OUT']
+   module_inst|work@top88.g88[0].u_gen|o_v8_d1
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/v8_t|DIR=OUT']
+   module_inst|work@top88.g88[0].u_gen|o_v8_d2
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/v8_t|DIR=OUT']
+   module_inst|work@top88.g88[1].u_gen|i_b8_d1
+      pris  ['VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=IN']
+      patch ['VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=IN']
+      gold  ['VAR|bit_var|ELEM=-|TS=bit_typespec/b8_t|DIR=IN']
+   module_inst|work@top88.g88[1].u_gen|i_b8_d2
+      pris  ['VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=IN']
+      patch ['VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=IN']
+      gold  ['VAR|bit_var|ELEM=-|TS=bit_typespec/b8_t|DIR=IN']
+   module_inst|work@top88.g88[1].u_gen|i_e88_d1
+      pris  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=IN']
+      patch ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=enum_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.g88[1].u_gen|i_e88_d2
+      pris  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=IN']
+      patch ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=enum_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.g88[1].u_gen|i_s1_d0
+      pris  ['VAR|logic_var|ELEM=-|TS=logic_typespec/s1_t|DIR=IN']
+      patch ['VAR|logic_var|ELEM=-|TS=logic_typespec/s1_t|DIR=IN']
+      gold  ['VAR|logic_var|ELEM=-|TS=logic_typespec/p88::s1_t|DIR=IN']
+   module_inst|work@top88.g88[1].u_gen|i_s1_d1
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=IN']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/p88::s1_t|DIR=IN']
+   module_inst|work@top88.g88[1].u_gen|i_s1_d2
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=IN']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/p88::s1_t|DIR=IN']
+   module_inst|work@top88.g88[1].u_gen|i_v8_d1
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=IN']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/v8_t|DIR=IN']
+   module_inst|work@top88.g88[1].u_gen|i_v8_d2
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=IN']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/v8_t|DIR=IN']
+   module_inst|work@top88.g88[1].u_gen|o_b8_d1
+      pris  ['VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=OUT']
+      patch ['VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=OUT']
+      gold  ['VAR|bit_var|ELEM=-|TS=bit_typespec/b8_t|DIR=OUT']
+   module_inst|work@top88.g88[1].u_gen|o_b8_d2
+      pris  ['VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=OUT']
+      patch ['VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=OUT']
+      gold  ['VAR|bit_var|ELEM=-|TS=bit_typespec/b8_t|DIR=OUT']
+   module_inst|work@top88.g88[1].u_gen|o_e88_d1
+      pris  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=OUT']
+      patch ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=enum_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.g88[1].u_gen|o_e88_d2
+      pris  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=OUT']
+      patch ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=enum_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.g88[1].u_gen|o_s1_d0
+      pris  ['VAR|logic_var|ELEM=-|TS=logic_typespec/s1_t|DIR=OUT']
+      patch ['VAR|logic_var|ELEM=-|TS=logic_typespec/s1_t|DIR=OUT']
+      gold  ['VAR|logic_var|ELEM=-|TS=logic_typespec/p88::s1_t|DIR=OUT']
+   module_inst|work@top88.g88[1].u_gen|o_s1_d1
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/p88::s1_t|DIR=OUT']
+   module_inst|work@top88.g88[1].u_gen|o_s1_d2
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/p88::s1_t|DIR=OUT']
+   module_inst|work@top88.g88[1].u_gen|o_v8_d1
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/v8_t|DIR=OUT']
+   module_inst|work@top88.g88[1].u_gen|o_v8_d2
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/v8_t|DIR=OUT']
+   module_inst|work@top88.u_drv|i_b8_d1
+      pris  ['VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=IN']
+      patch ['VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=IN']
+      gold  ['VAR|bit_var|ELEM=-|TS=bit_typespec/b8_t|DIR=IN']
+   module_inst|work@top88.u_drv|i_b8_d2
+      pris  ['VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=IN']
+      patch ['VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=IN']
+      gold  ['VAR|bit_var|ELEM=-|TS=bit_typespec/b8_t|DIR=IN']
+   module_inst|work@top88.u_drv|i_e88_d1
+      pris  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=IN']
+      patch ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=enum_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.u_drv|i_e88_d2
+      pris  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=IN']
+      patch ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=enum_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.u_drv|i_s1_d0
+      pris  ['VAR|logic_var|ELEM=-|TS=logic_typespec/s1_t|DIR=IN']
+      patch ['VAR|logic_var|ELEM=-|TS=logic_typespec/s1_t|DIR=IN']
+      gold  ['VAR|logic_var|ELEM=-|TS=logic_typespec/p88::s1_t|DIR=IN']
+   module_inst|work@top88.u_drv|i_s1_d1
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=IN']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/p88::s1_t|DIR=IN']
+   module_inst|work@top88.u_drv|i_s1_d2
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=IN']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/p88::s1_t|DIR=IN']
+   module_inst|work@top88.u_drv|i_v8_d1
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=IN']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/v8_t|DIR=IN']
+   module_inst|work@top88.u_drv|i_v8_d2
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=IN']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/v8_t|DIR=IN']
+   module_inst|work@top88.u_drv|o_b8_d1
+      pris  ['VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=OUT']
+      patch ['VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=OUT']
+      gold  ['VAR|bit_var|ELEM=-|TS=bit_typespec/b8_t|DIR=OUT']
+   module_inst|work@top88.u_drv|o_b8_d2
+      pris  ['VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=OUT']
+      patch ['VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=OUT']
+      gold  ['VAR|bit_var|ELEM=-|TS=bit_typespec/b8_t|DIR=OUT']
+   module_inst|work@top88.u_drv|o_e88_d1
+      pris  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=OUT']
+      patch ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=enum_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.u_drv|o_e88_d2
+      pris  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=OUT']
+      patch ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=enum_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.u_drv|o_s1_d0
+      pris  ['VAR|logic_var|ELEM=-|TS=logic_typespec/s1_t|DIR=OUT']
+      patch ['VAR|logic_var|ELEM=-|TS=logic_typespec/s1_t|DIR=OUT']
+      gold  ['VAR|logic_var|ELEM=-|TS=logic_typespec/p88::s1_t|DIR=OUT']
+   module_inst|work@top88.u_drv|o_s1_d1
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/p88::s1_t|DIR=OUT']
+   module_inst|work@top88.u_drv|o_s1_d2
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/p88::s1_t|DIR=OUT']
+   module_inst|work@top88.u_drv|o_v8_d1
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/v8_t|DIR=OUT']
+   module_inst|work@top88.u_drv|o_v8_d2
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/v8_t|DIR=OUT']
+   module_inst|work@top88.u_und|i_b8_d1
+      pris  ['VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=IN']
+      patch ['VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=IN']
+      gold  ['VAR|bit_var|ELEM=-|TS=bit_typespec/b8_t|DIR=IN']
+   module_inst|work@top88.u_und|i_b8_d2
+      pris  ['VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=IN']
+      patch ['VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=IN']
+      gold  ['VAR|bit_var|ELEM=-|TS=bit_typespec/b8_t|DIR=IN']
+   module_inst|work@top88.u_und|i_e88_d1
+      pris  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=IN']
+      patch ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=enum_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.u_und|i_e88_d2
+      pris  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=IN']
+      patch ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=enum_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.u_und|i_s1_d0
+      pris  ['VAR|logic_var|ELEM=-|TS=logic_typespec/s1_t|DIR=IN']
+      patch ['VAR|logic_var|ELEM=-|TS=logic_typespec/s1_t|DIR=IN']
+      gold  ['VAR|logic_var|ELEM=-|TS=logic_typespec/p88::s1_t|DIR=IN']
+   module_inst|work@top88.u_und|i_s1_d1
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=IN']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/p88::s1_t|DIR=IN']
+   module_inst|work@top88.u_und|i_s1_d2
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=IN']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/p88::s1_t|DIR=IN']
+   module_inst|work@top88.u_und|i_v8_d1
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=IN']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/v8_t|DIR=IN']
+   module_inst|work@top88.u_und|i_v8_d2
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=IN']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/v8_t|DIR=IN']
+   module_inst|work@top88.u_und|o_b8_d1
+      pris  ['VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=OUT']
+      patch ['VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=OUT']
+      gold  ['VAR|bit_var|ELEM=-|TS=bit_typespec/b8_t|DIR=OUT']
+   module_inst|work@top88.u_und|o_b8_d2
+      pris  ['VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=OUT']
+      patch ['VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=OUT']
+      gold  ['VAR|bit_var|ELEM=-|TS=bit_typespec/b8_t|DIR=OUT']
+   module_inst|work@top88.u_und|o_e88_d1
+      pris  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=OUT']
+      patch ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=enum_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.u_und|o_e88_d2
+      pris  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=OUT']
+      patch ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=enum_var|TS=none/-|DIR=OUT']
+   module_inst|work@top88.u_und|o_s1_d0
+      pris  ['VAR|logic_var|ELEM=-|TS=logic_typespec/s1_t|DIR=OUT']
+      patch ['VAR|logic_var|ELEM=-|TS=logic_typespec/s1_t|DIR=OUT']
+      gold  ['VAR|logic_var|ELEM=-|TS=logic_typespec/p88::s1_t|DIR=OUT']
+   module_inst|work@top88.u_und|o_s1_d1
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/p88::s1_t|DIR=OUT']
+   module_inst|work@top88.u_und|o_s1_d2
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/p88::s1_t|DIR=OUT']
+   module_inst|work@top88.u_und|o_v8_d1
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/v8_t|DIR=OUT']
+   module_inst|work@top88.u_und|o_v8_d2
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT']
+      gold  ['VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/v8_t|DIR=OUT']
+   module_inst|work@top88|w_i_b8_d1
+      pris  ['NET|logic_net|ELEM=-|TS=bit_typespec/<anon>|DIR=-', 'VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=-']
+      patch ['NET|logic_net|ELEM=-|TS=bit_typespec/<anon>|DIR=-', 'VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=-']
+      gold  ['NET|logic_net|ELEM=-|TS=bit_typespec/p88::b8_t|DIR=-', 'VAR|bit_var|ELEM=-|TS=bit_typespec/b8_t|DIR=-']
+   module_inst|work@top88|w_i_b8_d2
+      pris  ['NET|logic_net|ELEM=-|TS=bit_typespec/<anon>|DIR=-', 'VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=-']
+      patch ['NET|logic_net|ELEM=-|TS=bit_typespec/<anon>|DIR=-', 'VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=-']
+      gold  ['NET|logic_net|ELEM=-|TS=bit_typespec/p88::b8_t|DIR=-', 'VAR|bit_var|ELEM=-|TS=bit_typespec/b8_t|DIR=-']
+   module_inst|work@top88|w_i_s1_d0
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/p88::s1_t|DIR=-', 'VAR|logic_var|ELEM=-|TS=logic_typespec/s1_t|DIR=-']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/p88::s1_t|DIR=-', 'VAR|logic_var|ELEM=-|TS=logic_typespec/s1_t|DIR=-']
+      gold  ['NET|logic_net|ELEM=-|TS=logic_typespec/p88::s1_t|DIR=-', 'VAR|logic_var|ELEM=-|TS=logic_typespec/p88::s1_t|DIR=-']
+   module_inst|work@top88|w_i_s1_d1
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/s1_t|DIR=-']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/s1_t|DIR=-']
+      gold  ['NET|logic_net|ELEM=-|TS=logic_typespec/p88::s1_t|DIR=-', 'VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/p88::s1_t|DIR=-']
+   module_inst|work@top88|w_i_s1_d2
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/s1_t|DIR=-']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/s1_t|DIR=-']
+      gold  ['NET|logic_net|ELEM=-|TS=logic_typespec/p88::s1_t|DIR=-', 'VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/p88::s1_t|DIR=-']
+   module_inst|work@top88|w_i_v8_d1
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/v8_t|DIR=-']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/v8_t|DIR=-']
+      gold  ['NET|logic_net|ELEM=-|TS=logic_typespec/p88::v8_t|DIR=-', 'VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/v8_t|DIR=-']
+   module_inst|work@top88|w_i_v8_d2
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/v8_t|DIR=-']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/v8_t|DIR=-']
+      gold  ['NET|logic_net|ELEM=-|TS=logic_typespec/p88::v8_t|DIR=-', 'VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/v8_t|DIR=-']
+   module_inst|work@top88|w_o_b8_d1
+      pris  ['NET|logic_net|ELEM=-|TS=bit_typespec/<anon>|DIR=-', 'VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=-']
+      patch ['NET|logic_net|ELEM=-|TS=bit_typespec/<anon>|DIR=-', 'VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=-']
+      gold  ['NET|logic_net|ELEM=-|TS=bit_typespec/p88::b8_t|DIR=-', 'VAR|bit_var|ELEM=-|TS=bit_typespec/b8_t|DIR=-']
+   module_inst|work@top88|w_o_b8_d2
+      pris  ['NET|logic_net|ELEM=-|TS=bit_typespec/<anon>|DIR=-', 'VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=-']
+      patch ['NET|logic_net|ELEM=-|TS=bit_typespec/<anon>|DIR=-', 'VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=-']
+      gold  ['NET|logic_net|ELEM=-|TS=bit_typespec/p88::b8_t|DIR=-', 'VAR|bit_var|ELEM=-|TS=bit_typespec/b8_t|DIR=-']
+   module_inst|work@top88|w_o_s1_d0
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/p88::s1_t|DIR=-', 'VAR|logic_var|ELEM=-|TS=logic_typespec/s1_t|DIR=-']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/p88::s1_t|DIR=-', 'VAR|logic_var|ELEM=-|TS=logic_typespec/s1_t|DIR=-']
+      gold  ['NET|logic_net|ELEM=-|TS=logic_typespec/p88::s1_t|DIR=-', 'VAR|logic_var|ELEM=-|TS=logic_typespec/p88::s1_t|DIR=-']
+   module_inst|work@top88|w_o_s1_d1
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/s1_t|DIR=-']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/s1_t|DIR=-']
+      gold  ['NET|logic_net|ELEM=-|TS=logic_typespec/p88::s1_t|DIR=-', 'VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/p88::s1_t|DIR=-']
+   module_inst|work@top88|w_o_s1_d2
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/s1_t|DIR=-']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/s1_t|DIR=-']
+      gold  ['NET|logic_net|ELEM=-|TS=logic_typespec/p88::s1_t|DIR=-', 'VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/p88::s1_t|DIR=-']
+   module_inst|work@top88|w_o_v8_d1
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/v8_t|DIR=-']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/v8_t|DIR=-']
+      gold  ['NET|logic_net|ELEM=-|TS=logic_typespec/p88::v8_t|DIR=-', 'VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/v8_t|DIR=-']
+   module_inst|work@top88|w_o_v8_d2
+      pris  ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/v8_t|DIR=-']
+      patch ['NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/v8_t|DIR=-']
+      gold  ['NET|logic_net|ELEM=-|TS=logic_typespec/p88::v8_t|DIR=-', 'VAR|packed_array_var|ELEM=logic_var|TS=logic_typespec/v8_t|DIR=-']

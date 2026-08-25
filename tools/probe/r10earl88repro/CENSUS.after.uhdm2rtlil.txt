@@ -1,0 +1,23 @@
+== BUCKETS ==
+BOTH-SAME             31788
+FAM-NET2VAR               0
+OTHER-CONTAINER           0
+DIFF-KIND                 0
+DIFF-PAYLOAD              2
+ONLY-GOLDEN               0
+ONLY-OURS                 0
+GATE-REACHABLE            2   (ours: packed_array_net with a struct_net element)
+
+== FAM-NET2VAR (0) ==
+
+== OTHER-CONTAINER (0) ==
+
+== DIFF-KIND (0) ==
+
+== DIFF-PAYLOAD (2) ==
+  G[NET|logic_net|ELEM=-|TS=array_typespec/pkg::b|DIR=-] O[NET|logic_net|ELEM=-|TS=struct_typespec/pkg::a|DIR=-]  default/TypedefVariableDimensions-50d7d2d6|module_inst|work@top|c
+  G[NET|logic_net|ELEM=-|TS=array_typespec/pkg::b|DIR=-] O[NET|logic_net|ELEM=-|TS=struct_typespec/pkg::a|DIR=-]  testflags/TypedefVariableDimensions-50d7d2d6|module_inst|work@top|c
+
+== ONLY-GOLDEN (0) ==
+
+== ONLY-OURS (0) ==

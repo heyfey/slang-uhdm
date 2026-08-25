@@ -1,0 +1,13 @@
+=== GATES r10v88 (adversarial verifier of r10earl88), BASE d0499f7
+binaries built by the verifier, -j 2, frozen chmod 555 before any sweep:
+3f628b1cfc109b3f0e5396ce88abae36  /tmp/v88_bin/slang-uhdm.pristine
+3cf1df8c63b42c245c8176248b8f99d5  /tmp/v88_bin/slang-uhdm.patched
+
+goldens: patched PASS=23 FAIL=0 | pristine PASS=23 FAIL=0 | /bin/false PASS=0 FAIL=23
+
+cmds.txt audit (slang line, per file):
+  sla: 1573 files, binaries:    1523 /tmp/v88_bin/slang-uhdm.patched 
+  slp: 1573 files, binaries:    1523 /tmp/v88_bin/slang-uhdm.pristine 
+  u2ra: 1462 files, binaries:    1458 /tmp/v88_bin/slang-uhdm.patched 
+  u2rp: 1462 files, binaries:    1458 /tmp/v88_bin/slang-uhdm.pristine 
+  main-tree binary named in 0 of them

@@ -1,0 +1,2 @@
+/tmp/v88_arms/impl_g2_spellkw88 o -> q {'RIGHT': 43, 'TO-GOLDEN': 13, 'STILL-WRONG': 2}
+/tmp/v88_arms/impl_g2_spellkw88 oe -> qe {'RIGHT': 43, 'TO-GOLDEN': 13, 'STILL-WRONG': 2}

@@ -1,0 +1,18 @@
+RIGHT            46
+TO-GOLDEN         1
+AWAY-GOLDEN       0
+MOVED-WRONG       0
+STILL-WRONG       1
+NOGOLD-MOVED      0
+
+-- TO-GOLDEN --
+   module_inst|work@v1_v53|pa_i
+      pris  ['NET|logic_net|ELEM=-|TS=none/-|DIR=IN', 'NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['NET|logic_net|ELEM=-|TS=none/-|DIR=IN', 'VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['NET|logic_net|ELEM=-|TS=none/-|DIR=IN', 'VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+
+-- STILL-WRONG --
+   module_inst|work@v1_v53|f4
+      pris  []
+      patch []
+      gold  ['NET|logic_net|ELEM=-|TS=none/-|DIR=-']

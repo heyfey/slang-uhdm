@@ -1,0 +1,98 @@
+RIGHT            29
+TO-GOLDEN        18
+AWAY-GOLDEN       0
+MOVED-WRONG       0
+STILL-WRONG       4
+NOGOLD-MOVED      0
+
+-- TO-GOLDEN --
+   module_inst|work@top88.u_d1.u_c.u_a|d3_body_n
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=-']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+   module_inst|work@top88.u_d1.u_c.u_a|d3_n
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.u_d1.u_c.u_b|d3_body_n
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=-']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+   module_inst|work@top88.u_d1.u_c.u_b|d3_n
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.u_d1.u_c|d2_n
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.u_d1b.u_c.u_a|d3_body_n
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=-']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+   module_inst|work@top88.u_d1b.u_c.u_a|d3_n
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.u_d1b.u_c.u_b|d3_body_n
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=-']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+   module_inst|work@top88.u_d1b.u_c.u_b|d3_n
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.u_d1b.u_c|d2_n
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.u_d1b|d1_n
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.u_d1|d1_n
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.u_gs.gb[0].u_g|d3_body_n
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=-']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+   module_inst|work@top88.u_gs.gb[0].u_g|d3_n
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.u_gs.gb[1].u_g|d3_body_n
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=-']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+   module_inst|work@top88.u_gs.gb[1].u_g|d3_n
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88.u_gs|g_n
+      pris  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN']
+   module_inst|work@top88|tn
+      pris  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=-']
+      patch ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+      gold  ['NET|logic_net|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-', 'VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+
+-- STILL-WRONG --
+   gen_scope|work@top88.u_gs.gb[0]|gs_f
+      pris  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+      gold  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=-']
+   gen_scope|work@top88.u_gs.gb[1]|gs_f
+      pris  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+      patch ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']
+      gold  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=-']
+   interface_inst|work@top88.u_if|if_body_f
+      pris  ['VAR|struct_var|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-']
+      patch ['VAR|struct_var|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-']
+      gold  ['NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=-']
+   interface_inst|work@top88.u_if|if_body_n
+      pris  ['VAR|struct_var|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-']
+      patch ['VAR|struct_var|ELEM=-|TS=packed_array_typespec/<anon>|DIR=-']
+      gold  ['VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=-']

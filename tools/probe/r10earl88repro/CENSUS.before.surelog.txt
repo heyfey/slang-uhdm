@@ -1,0 +1,449 @@
+== BUCKETS ==
+BOTH-SAME            217700
+FAM-NET2VAR               2
+OTHER-CONTAINER           4
+DIFF-KIND                 0
+DIFF-PAYLOAD             22
+ONLY-GOLDEN             400
+ONLY-OURS              4923
+GATE-REACHABLE           24   (ours: packed_array_net with a struct_net element)
+
+== FAM-NET2VAR (2) ==
+  G[VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN] O[NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN]  default/Earlgrey_0_1-71da2fd7|module_inst|work@top_earlgrey.u_flash_ctrl.u_flash_mp|region_cfgs_i
+  G[VAR|packed_array_var|ELEM=struct_var|TS=none/-|DIR=IN] O[NET|packed_array_net|ELEM=struct_net|TS=none/-|DIR=IN]  testflags/Earlgrey_0_1-71da2fd7|module_inst|work@top_earlgrey.u_flash_ctrl.u_flash_mp|region_cfgs_i
+
+== OTHER-CONTAINER (4) ==
+  G[NET|struct_net|ELEM=-|TS=struct_typespec/hmac_pkg::sha_fifo_t|DIR=IN] O[VAR|struct_var|ELEM=-|TS=struct_typespec/hmac_pkg::sha_fifo_t|DIR=IN]  default/Earlgrey_0_1-71da2fd7|module_inst|work@top_earlgrey.u_hmac.u_sha2.u_pad|fifo_rdata
+  G[NET|struct_net|ELEM=-|TS=struct_typespec/usbdev_reg_pkg::usbdev_reg2hw_phy_config_reg_t|DIR=IN] O[VAR|struct_var|ELEM=-|TS=struct_typespec/usbdev_reg_pkg::usbdev_reg2hw_phy_config_reg_t|DIR=IN]  default/Earlgrey_0_1-71da2fd7|module_inst|work@top_earlgrey.u_usbdev.i_usbdev_iomux|sys_reg2hw_config_i
+  G[NET|struct_net|ELEM=-|TS=struct_typespec/hmac_pkg::sha_fifo_t|DIR=IN] O[VAR|struct_var|ELEM=-|TS=struct_typespec/hmac_pkg::sha_fifo_t|DIR=IN]  testflags/Earlgrey_0_1-71da2fd7|module_inst|work@top_earlgrey.u_hmac.u_sha2.u_pad|fifo_rdata
+  G[NET|struct_net|ELEM=-|TS=struct_typespec/usbdev_reg_pkg::usbdev_reg2hw_phy_config_reg_t|DIR=IN] O[VAR|struct_var|ELEM=-|TS=struct_typespec/usbdev_reg_pkg::usbdev_reg2hw_phy_config_reg_t|DIR=IN]  testflags/Earlgrey_0_1-71da2fd7|module_inst|work@top_earlgrey.u_usbdev.i_usbdev_iomux|sys_reg2hw_config_i
+
+== DIFF-KIND (0) ==
+
+== DIFF-PAYLOAD (22) ==
+  G[NET|logic_net|ELEM=-|TS=logic_typespec/hmac_pkg::sha_word_t|DIR=OUT] O[NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT]  default/Earlgrey_0_1-71da2fd7|module_inst|work@top_earlgrey.u_hmac.u_sha2|digest
+  G[NET|logic_net|ELEM=-|TS=array_typespec/pkg::b|DIR=-] O[NET|logic_net|ELEM=-|TS=struct_typespec/pkg::a|DIR=-]  default/HierPathVarArray-195f274d|module_inst|work@top|c
+  G[NET|logic_net|ELEM=-|TS=logic_typespec/my_package::typedef_logic_typespec|DIR=-] O[NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/LogicTypespec-bac9d066|module_inst|work@logic_typespec|my_instance
+  G[NET|logic_net|ELEM=-|TS=none/-|DIR=-] O[NET|logic_net|ELEM=-|TS=class_typespec/svaunit_concurrent_assertion_info|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|cover_info
+  G[NET|logic_net|ELEM=-|TS=none/-|DIR=-] O[NET|logic_net|ELEM=-|TS=class_typespec/svaunit_concurrent_assertion_info|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|property_info
+  G[NET|logic_net|ELEM=-|TS=none/-|DIR=-] O[NET|logic_net|ELEM=-|TS=class_typespec/svaunit_concurrent_assertion_info|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|sva_info
+  G[NET|logic_net|ELEM=-|TS=class_typespec/uvm_cmdline_processor|DIR=-] O[NET|logic_net|ELEM=-|TS=none/-|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|clp
+  G[NET|logic_net|ELEM=-|TS=class_typespec/uvm_cmdline_processor|DIR=-] O[NET|logic_net|ELEM=-|TS=none/-|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|clp
+  G[NET|logic_net|ELEM=-|TS=class_typespec/uvm_root|DIR=-] O[NET|logic_net|ELEM=-|TS=none/-|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|top
+  G[NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=-] O[NET|logic_net|ELEM=-|TS=int_typespec/<anon>|DIR=-]  default/TypeParam-44ec1c51|module_inst|work@bottom|DATA1
+  G[NET|logic_net|ELEM=-|TS=array_typespec/pkg::b|DIR=-] O[NET|logic_net|ELEM=-|TS=struct_typespec/pkg::a|DIR=-]  default/TypedefUnpacked-50c67e2c|module_inst|work@dut|c
+  G[NET|logic_net|ELEM=-|TS=logic_typespec/hmac_pkg::sha_word_t|DIR=OUT] O[NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=OUT]  testflags/Earlgrey_0_1-71da2fd7|module_inst|work@top_earlgrey.u_hmac.u_sha2|digest
+  G[NET|logic_net|ELEM=-|TS=array_typespec/pkg::b|DIR=-] O[NET|logic_net|ELEM=-|TS=struct_typespec/pkg::a|DIR=-]  testflags/HierPathVarArray-195f274d|module_inst|work@top|c
+  G[NET|logic_net|ELEM=-|TS=logic_typespec/my_package::typedef_logic_typespec|DIR=-] O[NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/LogicTypespec-bac9d066|module_inst|work@logic_typespec|my_instance
+  G[NET|logic_net|ELEM=-|TS=none/-|DIR=-] O[NET|logic_net|ELEM=-|TS=class_typespec/svaunit_concurrent_assertion_info|DIR=-]  testflags/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|cover_info
+  G[NET|logic_net|ELEM=-|TS=none/-|DIR=-] O[NET|logic_net|ELEM=-|TS=class_typespec/svaunit_concurrent_assertion_info|DIR=-]  testflags/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|property_info
+  G[NET|logic_net|ELEM=-|TS=none/-|DIR=-] O[NET|logic_net|ELEM=-|TS=class_typespec/svaunit_concurrent_assertion_info|DIR=-]  testflags/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|sva_info
+  G[NET|logic_net|ELEM=-|TS=class_typespec/uvm_cmdline_processor|DIR=-] O[NET|logic_net|ELEM=-|TS=none/-|DIR=-]  testflags/SeqDriver-32af76aa|module_inst|work@top_tb|clp
+  G[NET|logic_net|ELEM=-|TS=class_typespec/uvm_cmdline_processor|DIR=-] O[NET|logic_net|ELEM=-|TS=none/-|DIR=-]  testflags/SimpleUVM-1dc93a62|module_inst|work@top|clp
+  G[NET|logic_net|ELEM=-|TS=class_typespec/uvm_root|DIR=-] O[NET|logic_net|ELEM=-|TS=none/-|DIR=-]  testflags/SimpleUVM-1dc93a62|module_inst|work@top|top
+  G[NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=-] O[NET|logic_net|ELEM=-|TS=int_typespec/<anon>|DIR=-]  testflags/TypeParam-44ec1c51|module_inst|work@bottom|DATA1
+  G[NET|logic_net|ELEM=-|TS=array_typespec/pkg::b|DIR=-] O[NET|logic_net|ELEM=-|TS=struct_typespec/pkg::a|DIR=-]  testflags/TypedefUnpacked-50c67e2c|module_inst|work@dut|c
+
+== ONLY-GOLDEN (400) ==
+  [NET|logic_net|ELEM=-|TS=int_typespec/<anon>|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|UVM_UNBOUNDED_CONNECTIONS
+  [NET|logic_net|ELEM=-|TS=int_typespec/<anon>|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|UVM_UNBOUNDED_CONNECTIONS
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|bld
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|bld
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|build_ph
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|build_ph
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|check_ph
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|check_ph
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_cmdline_processor|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|clp
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_cmdline_processor|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|clp
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_domain|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|common
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_domain|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|common
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|connect_ph
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|connect_ph
+  [ANET|array_net|ELEM=-|TS=none/-|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|cover_info
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_coreservice_t|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|cs
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_coreservice_t|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|cs
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|end_of_elaboration_ph
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|end_of_elaboration_ph
+  [NET|logic_net|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|error_str
+  [NET|logic_net|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|error_str
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|extract_ph
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|extract_ph
+  [ANET|array_net|ELEM=-|TS=none/-|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|property_info
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|report_ph
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|report_ph
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|run_ph
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|run_ph
+  [NET|logic_net|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|s_connection_error_id
+  [NET|logic_net|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|s_connection_error_id
+  [NET|logic_net|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|s_connection_warning_id
+  [NET|logic_net|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|s_connection_warning_id
+  [NET|logic_net|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|s_spaces
+  [NET|logic_net|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|s_spaces
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|start_of_simulation_ph
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|start_of_simulation_ph
+  [ANET|array_net|ELEM=-|TS=none/-|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|sva_info
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_root|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|top
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_root|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|top
+  [NET|logic_net|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|uvm_aa_string_key
+  [NET|logic_net|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|uvm_aa_string_key
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_cmdline_processor|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|uvm_cmdline_proc
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_cmdline_processor|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|uvm_cmdline_proc
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_comparer|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|uvm_default_comparer
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_comparer|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|uvm_default_comparer
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_line_printer|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|uvm_default_line_printer
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_line_printer|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|uvm_default_line_printer
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_packer|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|uvm_default_packer
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_packer|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|uvm_default_packer
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_printer|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|uvm_default_printer
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_printer|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|uvm_default_printer
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_table_printer|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|uvm_default_table_printer
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_table_printer|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|uvm_default_table_printer
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_tree_printer|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|uvm_default_tree_printer
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_tree_printer|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|uvm_default_tree_printer
+  [NET|logic_net|ELEM=-|TS=int_typespec/<anon>|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|uvm_global_random_seed
+  [NET|logic_net|ELEM=-|TS=int_typespec/<anon>|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|uvm_global_random_seed
+  [ANET|array_net|ELEM=-|TS=none/-|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|uvm_random_seed_table_lookup
+  [ANET|array_net|ELEM=-|TS=none/-|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|uvm_random_seed_table_lookup
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_seed_map|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|uvm_random_seed_table_lookup
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_seed_map|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|uvm_random_seed_table_lookup
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_resource_pool|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|uvm_resources
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_resource_pool|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|uvm_resources
+  [NET|logic_net|ELEM=-|TS=bit_typespec/<anon>|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|uvm_start_uvm_declarations
+  [NET|logic_net|ELEM=-|TS=bit_typespec/<anon>|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|uvm_start_uvm_declarations
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_test_done_objection|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|uvm_test_done
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_test_done_objection|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|uvm_test_done
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_root|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|uvm_top
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_root|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|uvm_top
+  [NET|logic_net|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|val
+  [NET|logic_net|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/MiniAmiq-544c7f61|interface_inst|work@svaunit_vpi_interface|val
+  [VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=IN]  default/SVSwitch-db796243|interface_inst|output_intf.output_intf[0]|clock
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/SVSwitch-db796243|interface_inst|output_intf.output_intf[0]|data_out
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/SVSwitch-db796243|interface_inst|output_intf.output_intf[0]|read
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/SVSwitch-db796243|interface_inst|output_intf.output_intf[0]|ready
+  [VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=IN]  default/SVSwitch-db796243|interface_inst|output_intf.output_intf[1]|clock
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/SVSwitch-db796243|interface_inst|output_intf.output_intf[1]|data_out
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/SVSwitch-db796243|interface_inst|output_intf.output_intf[1]|read
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/SVSwitch-db796243|interface_inst|output_intf.output_intf[1]|ready
+  [VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=IN]  default/SVSwitch-db796243|interface_inst|output_intf.output_intf[2]|clock
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/SVSwitch-db796243|interface_inst|output_intf.output_intf[2]|data_out
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/SVSwitch-db796243|interface_inst|output_intf.output_intf[2]|read
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/SVSwitch-db796243|interface_inst|output_intf.output_intf[2]|ready
+  [VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=IN]  default/SVSwitch-db796243|interface_inst|output_intf.output_intf[3]|clock
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/SVSwitch-db796243|interface_inst|output_intf.output_intf[3]|data_out
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/SVSwitch-db796243|interface_inst|output_intf.output_intf[3]|read
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/SVSwitch-db796243|interface_inst|output_intf.output_intf[3]|ready
+  [NET|logic_net|ELEM=-|TS=int_typespec/<anon>|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|UVM_UNBOUNDED_CONNECTIONS
+  [VAR|int_var|ELEM=-|TS=int_typespec/<anon>|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|UVM_UNBOUNDED_CONNECTIONS
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|bld
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|bld
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|bld
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|bld
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|build_ph
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|build_ph
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|check_ph
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|check_ph
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_cmdline_processor|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|clp
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_cmdline_processor|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|clp
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_cmdline_processor|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|clp
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_domain|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|common
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_domain|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|common
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_domain|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|common
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_domain|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|common
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|connect_ph
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|connect_ph
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_coreservice_t|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|cs
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_coreservice_t|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|cs
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_coreservice_t|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|cs
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_coreservice_t|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|cs
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|end_of_elaboration_ph
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|end_of_elaboration_ph
+  [NET|logic_net|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|error_str
+  [NET|logic_net|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|error_str
+  [VAR|string_var|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|error_str
+  [VAR|string_var|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|error_str
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|extract_ph
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|extract_ph
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|report_ph
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|report_ph
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|run_ph
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|run_ph
+  [NET|logic_net|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|s_connection_error_id
+  [VAR|string_var|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|s_connection_error_id
+  [NET|logic_net|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|s_connection_warning_id
+  [VAR|string_var|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|s_connection_warning_id
+  [NET|logic_net|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|s_spaces
+  [VAR|string_var|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|s_spaces
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|start_of_simulation_ph
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|start_of_simulation_ph
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_root|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|top
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_root|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|top
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_root|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|top
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_root|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|top
+  [NET|logic_net|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|uvm_aa_string_key
+  [VAR|string_var|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|uvm_aa_string_key
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_cmdline_processor|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|uvm_cmdline_proc
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_cmdline_processor|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|uvm_cmdline_proc
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_comparer|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|uvm_default_comparer
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_comparer|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|uvm_default_comparer
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_line_printer|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|uvm_default_line_printer
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_line_printer|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|uvm_default_line_printer
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_packer|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|uvm_default_packer
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_packer|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|uvm_default_packer
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_printer|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|uvm_default_printer
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_printer|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|uvm_default_printer
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_table_printer|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|uvm_default_table_printer
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_table_printer|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|uvm_default_table_printer
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_tree_printer|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|uvm_default_tree_printer
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_tree_printer|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|uvm_default_tree_printer
+  [NET|logic_net|ELEM=-|TS=int_typespec/<anon>|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|uvm_global_random_seed
+  [VAR|int_var|ELEM=-|TS=int_typespec/<anon>|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|uvm_global_random_seed
+  [NET|logic_net|ELEM=-|TS=none/-|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|uvm_phase
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_seed_map|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|uvm_random_seed_table_lookup
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_seed_map|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|uvm_random_seed_table_lookup
+  [VAR|array_var|ELEM=-|TS=array_typespec/<anon>|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|uvm_random_seed_table_lookup
+  [VAR|array_var|ELEM=-|TS=array_typespec/<anon>|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|uvm_random_seed_table_lookup
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_resource_pool|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|uvm_resources
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_resource_pool|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|uvm_resources
+  [NET|logic_net|ELEM=-|TS=bit_typespec/<anon>|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|uvm_start_uvm_declarations
+  [VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|uvm_start_uvm_declarations
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_test_done_objection|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|uvm_test_done
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_test_done_objection|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|uvm_test_done
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_root|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|uvm_top
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_root|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|uvm_top
+  [NET|logic_net|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|val
+  [NET|logic_net|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|val
+  [VAR|string_var|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|val
+  [VAR|string_var|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/SeqDriver-32af76aa|module_inst|work@top_tb|val
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|bld
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|bld
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|bld
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_phase|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|bld
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_cmdline_processor|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|clp
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_cmdline_processor|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|clp
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_cmdline_processor|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|clp
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_domain|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|common
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_domain|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|common
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_domain|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|common
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_domain|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|common
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_coreservice_t|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|cs
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_coreservice_t|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|cs
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_coreservice_t|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|cs
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_coreservice_t|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|cs
+  [NET|logic_net|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|error_str
+  [NET|logic_net|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|error_str
+  [VAR|string_var|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|error_str
+  [VAR|string_var|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|error_str
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_root|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|top
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_root|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|top
+  [VAR|class_var|ELEM=-|TS=class_typespec/uvm_root|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|top
+  [NET|logic_net|ELEM=-|TS=none/-|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|uvm_phase
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_seed_map|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|uvm_random_seed_table_lookup
+  [NET|logic_net|ELEM=-|TS=class_typespec/uvm_seed_map|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|uvm_random_seed_table_lookup
+  [VAR|array_var|ELEM=-|TS=array_typespec/<anon>|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|uvm_random_seed_table_lookup
+  [VAR|array_var|ELEM=-|TS=array_typespec/<anon>|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|uvm_random_seed_table_lookup
+  [NET|logic_net|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|val
+  [NET|logic_net|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|val
+  [VAR|string_var|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|val
+  [VAR|string_var|ELEM=-|TS=string_typespec/<anon>|DIR=-]  default/SimpleUVM-1dc93a62|module_inst|work@top|val
+
+== ONLY-OURS (4923) ==
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/InterfaceModPort-a10293bb|interface_inst|work@interface_modports.U_test.tif|addr_mem
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/InterfaceModPort-a10293bb|interface_inst|work@interface_modports.U_test.tif|addr_sys
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/InterfaceModPort-a10293bb|interface_inst|work@interface_modports.U_test.tif|ce_mem
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/InterfaceModPort-a10293bb|interface_inst|work@interface_modports.U_test.tif|cmd_valid_sys
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/InterfaceModPort-a10293bb|interface_inst|work@interface_modports.U_test.tif|data_sys
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/InterfaceModPort-a10293bb|interface_inst|work@interface_modports.U_test.tif|datai_mem
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/InterfaceModPort-a10293bb|interface_inst|work@interface_modports.U_test.tif|datao_mem
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/InterfaceModPort-a10293bb|interface_inst|work@interface_modports.U_test.tif|ready_sys
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/InterfaceModPort-a10293bb|interface_inst|work@interface_modports.U_test.tif|reset
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/InterfaceModPort-a10293bb|interface_inst|work@interface_modports.U_test.tif|we_mem
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/InterfaceModPort-a10293bb|interface_inst|work@interface_modports.U_test.tif|we_sys
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/OneNetModPort-6ef54f5f|interface_inst|work@TOP.tb.intf|drive
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/OneNetModPort-6ef54f5f|interface_inst|work@TOP.tb.intf|observe
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/OneNetModPortGeneric-96eefa34|interface_inst|work@TOP.tb.intf|drive
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/OneNetModPortGeneric-96eefa34|interface_inst|work@TOP.tb.intf|observe
+  [VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=IN]  default/SVSwitch-db796243|interface_inst|work@top.TC.input_intf|clock
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/SVSwitch-db796243|interface_inst|work@top.TC.input_intf|data_in
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/SVSwitch-db796243|interface_inst|work@top.TC.input_intf|data_status
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/SVSwitch-db796243|interface_inst|work@top.TC.input_intf|reset
+  [VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=IN]  default/SVSwitch-db796243|interface_inst|work@top.TC.mem_intf|clock
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/SVSwitch-db796243|interface_inst|work@top.TC.mem_intf|mem_add
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/SVSwitch-db796243|interface_inst|work@top.TC.mem_intf|mem_data
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/SVSwitch-db796243|interface_inst|work@top.TC.mem_intf|mem_en
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/SVSwitch-db796243|interface_inst|work@top.TC.mem_intf|mem_rd_wr
+  [VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=IN]  default/SVSwitch-db796243|interface_inst|work@top.TC.output_intf[0]|clock
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/SVSwitch-db796243|interface_inst|work@top.TC.output_intf[0]|data_out
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/SVSwitch-db796243|interface_inst|work@top.TC.output_intf[0]|read
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/SVSwitch-db796243|interface_inst|work@top.TC.output_intf[0]|ready
+  [VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=IN]  default/SVSwitch-db796243|interface_inst|work@top.TC.output_intf[1]|clock
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/SVSwitch-db796243|interface_inst|work@top.TC.output_intf[1]|data_out
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/SVSwitch-db796243|interface_inst|work@top.TC.output_intf[1]|read
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/SVSwitch-db796243|interface_inst|work@top.TC.output_intf[1]|ready
+  [VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=IN]  default/SVSwitch-db796243|interface_inst|work@top.TC.output_intf[2]|clock
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/SVSwitch-db796243|interface_inst|work@top.TC.output_intf[2]|data_out
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/SVSwitch-db796243|interface_inst|work@top.TC.output_intf[2]|read
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/SVSwitch-db796243|interface_inst|work@top.TC.output_intf[2]|ready
+  [VAR|bit_var|ELEM=-|TS=bit_typespec/<anon>|DIR=IN]  default/SVSwitch-db796243|interface_inst|work@top.TC.output_intf[3]|clock
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/SVSwitch-db796243|interface_inst|work@top.TC.output_intf[3]|data_out
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/SVSwitch-db796243|interface_inst|work@top.TC.output_intf[3]|read
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  default/SVSwitch-db796243|interface_inst|work@top.TC.output_intf[3]|ready
+  [NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/BasicOh-87b55f9d|gen_scope|work@oh_fifo_async.rd_sync[0].genblk1|sync_pipe
+  [NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/BasicOh-87b55f9d|gen_scope|work@oh_fifo_async.rd_sync[1].genblk1|sync_pipe
+  [NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/BasicOh-87b55f9d|gen_scope|work@oh_fifo_async.rd_sync[2].genblk1|sync_pipe
+  [NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/BasicOh-87b55f9d|gen_scope|work@oh_fifo_async.rd_sync[3].genblk1|sync_pipe
+  [NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/BasicOh-87b55f9d|gen_scope|work@oh_fifo_async.rd_sync[4].genblk1|sync_pipe
+  [NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/BasicOh-87b55f9d|gen_scope|work@oh_fifo_async.rd_sync[5].genblk1|sync_pipe
+  [NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/BasicOh-87b55f9d|gen_scope|work@oh_fifo_async.wr_sync[0].genblk1|sync_pipe
+  [NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/BasicOh-87b55f9d|gen_scope|work@oh_fifo_async.wr_sync[1].genblk1|sync_pipe
+  [NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/BasicOh-87b55f9d|gen_scope|work@oh_fifo_async.wr_sync[2].genblk1|sync_pipe
+  [NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/BasicOh-87b55f9d|gen_scope|work@oh_fifo_async.wr_sync[3].genblk1|sync_pipe
+  [NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/BasicOh-87b55f9d|gen_scope|work@oh_fifo_async.wr_sync[4].genblk1|sync_pipe
+  [NET|logic_net|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/BasicOh-87b55f9d|gen_scope|work@oh_fifo_async.wr_sync[5].genblk1|sync_pipe
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/BitSelectPartSelectInFunction-55cf72a7|module_inst||iota
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_alert_handler.gen_alerts[0].i_alert_receiver.i_decode_alert.gen_no_async|diff_pd
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_alert_handler.gen_alerts[0].i_alert_receiver.i_decode_alert.gen_no_async|diff_pd
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_alert_handler.gen_alerts[0].i_alert_receiver.i_decode_alert.gen_no_async|diff_pq
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_alert_handler.gen_alerts[0].i_alert_receiver.i_decode_alert.gen_no_async|diff_pq
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_alert_handler.gen_esc_sev[0].i_esc_sender.i_decode_resp.gen_no_async|diff_pd
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_alert_handler.gen_esc_sev[0].i_esc_sender.i_decode_resp.gen_no_async|diff_pd
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_alert_handler.gen_esc_sev[0].i_esc_sender.i_decode_resp.gen_no_async|diff_pq
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_alert_handler.gen_esc_sev[0].i_esc_sender.i_decode_resp.gen_no_async|diff_pq
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_alert_handler.gen_esc_sev[1].i_esc_sender.i_decode_resp.gen_no_async|diff_pd
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_alert_handler.gen_esc_sev[1].i_esc_sender.i_decode_resp.gen_no_async|diff_pd
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_alert_handler.gen_esc_sev[1].i_esc_sender.i_decode_resp.gen_no_async|diff_pq
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_alert_handler.gen_esc_sev[1].i_esc_sender.i_decode_resp.gen_no_async|diff_pq
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_alert_handler.gen_esc_sev[2].i_esc_sender.i_decode_resp.gen_no_async|diff_pd
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_alert_handler.gen_esc_sev[2].i_esc_sender.i_decode_resp.gen_no_async|diff_pd
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_alert_handler.gen_esc_sev[2].i_esc_sender.i_decode_resp.gen_no_async|diff_pq
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_alert_handler.gen_esc_sev[2].i_esc_sender.i_decode_resp.gen_no_async|diff_pq
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_alert_handler.gen_esc_sev[3].i_esc_sender.i_decode_resp.gen_no_async|diff_pd
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_alert_handler.gen_esc_sev[3].i_esc_sender.i_decode_resp.gen_no_async|diff_pd
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_alert_handler.gen_esc_sev[3].i_esc_sender.i_decode_resp.gen_no_async|diff_pq
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_alert_handler.gen_esc_sev[3].i_esc_sender.i_decode_resp.gen_no_async|diff_pq
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_ctrl.u_reg.u_socket.gen_dfifo[0].fifo_d.reqfifo.gen_passthru_fifo|unused_clr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_ctrl.u_reg.u_socket.gen_dfifo[0].fifo_d.reqfifo.gen_passthru_fifo|unused_clr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_ctrl.u_reg.u_socket.gen_dfifo[0].fifo_d.rspfifo.gen_passthru_fifo|unused_clr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_ctrl.u_reg.u_socket.gen_dfifo[0].fifo_d.rspfifo.gen_passthru_fifo|unused_clr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_ctrl.u_reg.u_socket.gen_dfifo[1].fifo_d.reqfifo.gen_passthru_fifo|unused_clr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_ctrl.u_reg.u_socket.gen_dfifo[1].fifo_d.reqfifo.gen_passthru_fifo|unused_clr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_ctrl.u_reg.u_socket.gen_dfifo[1].fifo_d.rspfifo.gen_passthru_fifo|unused_clr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_ctrl.u_reg.u_socket.gen_dfifo[1].fifo_d.rspfifo.gen_passthru_fifo|unused_clr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_ctrl.u_reg.u_socket.gen_dfifo[2].fifo_d.reqfifo.gen_passthru_fifo|unused_clr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_ctrl.u_reg.u_socket.gen_dfifo[2].fifo_d.reqfifo.gen_passthru_fifo|unused_clr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_ctrl.u_reg.u_socket.gen_dfifo[2].fifo_d.rspfifo.gen_passthru_fifo|unused_clr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_ctrl.u_reg.u_socket.gen_dfifo[2].fifo_d.rspfifo.gen_passthru_fifo|unused_clr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.gen_prog_data|prog_data_packed
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.gen_prog_data|prog_data_packed
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|empty
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|empty
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|empty
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|empty
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|empty
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|empty
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|fifo_empty
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|fifo_empty
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|fifo_empty
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|fifo_empty
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|fifo_empty
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|fifo_empty
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|fifo_incr_rptr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|fifo_incr_rptr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|fifo_incr_rptr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|fifo_incr_rptr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|fifo_incr_rptr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|fifo_incr_rptr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|fifo_incr_wptr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|fifo_incr_wptr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|fifo_incr_wptr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|fifo_incr_wptr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|fifo_incr_wptr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|fifo_incr_wptr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|fifo_rptr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|fifo_rptr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|fifo_rptr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|fifo_rptr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|fifo_rptr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|fifo_rptr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|fifo_wptr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|fifo_wptr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|fifo_wptr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|fifo_wptr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|fifo_wptr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|fifo_wptr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|full
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|full
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|full
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|full
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|full
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|full
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|rdata_int
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|rdata_int
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|rdata_int
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|rdata_int
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|rdata_int
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|rdata_int
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|rptr_msb
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|rptr_msb
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|rptr_msb
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|rptr_msb
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|rptr_msb
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|rptr_msb
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|rptr_value
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|rptr_value
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|rptr_value
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|rptr_value
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|rptr_value
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|rptr_value
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|storage
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|storage
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|storage
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|storage
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|storage
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|storage
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|storage_rdata
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|storage_rdata
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|storage_rdata
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|storage_rdata
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|storage_rdata
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|storage_rdata
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|wptr_msb
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|wptr_msb
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|wptr_msb
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|wptr_msb
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|wptr_msb
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|wptr_msb
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|wptr_value
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|wptr_value
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|wptr_value
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|wptr_value
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|wptr_value
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_flash.gen_generic.u_impl_generic.i_slice.gen_normal_fifo|wptr_value
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_rd|bus_words_packed
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.gen_rd|bus_words_packed
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_rsp_order_fifo.gen_normal_fifo|empty
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_rsp_order_fifo.gen_normal_fifo|empty
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_rsp_order_fifo.gen_normal_fifo|fifo_empty
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_rsp_order_fifo.gen_normal_fifo|fifo_empty
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_rsp_order_fifo.gen_normal_fifo|fifo_incr_rptr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_rsp_order_fifo.gen_normal_fifo|fifo_incr_rptr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_rsp_order_fifo.gen_normal_fifo|fifo_incr_wptr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_rsp_order_fifo.gen_normal_fifo|fifo_incr_wptr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_rsp_order_fifo.gen_normal_fifo|fifo_rptr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_rsp_order_fifo.gen_normal_fifo|fifo_rptr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_rsp_order_fifo.gen_normal_fifo|fifo_wptr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_rsp_order_fifo.gen_normal_fifo|fifo_wptr
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_rsp_order_fifo.gen_normal_fifo|full
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_rsp_order_fifo.gen_normal_fifo|full
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_rsp_order_fifo.gen_normal_fifo|rdata_int
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_rsp_order_fifo.gen_normal_fifo|rdata_int
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_rsp_order_fifo.gen_normal_fifo|rptr_msb
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_rsp_order_fifo.gen_normal_fifo|rptr_msb
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_rsp_order_fifo.gen_normal_fifo|rptr_value
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_rsp_order_fifo.gen_normal_fifo|rptr_value
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_rsp_order_fifo.gen_normal_fifo|storage
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_rsp_order_fifo.gen_normal_fifo|storage
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_rsp_order_fifo.gen_normal_fifo|storage_rdata
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_rsp_order_fifo.gen_normal_fifo|storage_rdata
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_rsp_order_fifo.gen_normal_fifo|wptr_msb
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_rsp_order_fifo.gen_normal_fifo|wptr_msb
+  [VAR|logic_var|ELEM=-|TS=logic_typespec/<anon>|DIR=-]  testflags/Earlgrey_0_1-71da2fd7|gen_scope|work@top_earlgrey.u_flash_eflash.gen_flash_banks[0].i_core.i_rd.i_rsp_order_fifo.gen_normal_fifo|wptr_value

@@ -1,0 +1,240 @@
+r10earl88 — THE MOVER PREDICTION (made from PRISTINE databases, BEFORE any
+            patched sweep was read) and THE NEXT HEAD (R0).
+
+========================================================================
+PART 1 — THE MOVER PREDICTION
+========================================================================
+`reach88.sh` + `pareach88` were run over THIS PASS'S OWN PRISTINE sweep
+workdirs, with the golden side read from the immutable cache path named in each
+test's OWN `cmds.txt`.  They READ DATABASES AND DISPATCH NOTHING, so no test —
+fenced or otherwise — is run by them.
+
+The population is measured WITHOUT asking whether the row already agrees with
+golden (earl66's lesson: a census keyed on the shape you intend to CHANGE is
+blind to the rows you would change by ACCIDENT):
+
+  GATE-REACHABLE — every row where OUR pristine database lists a
+  `packed_array_net` whose first Element is a `struct_net`.  That is the whole
+  population § pkgScopedPaStructStrictNetVar88 can reach at all.
+
+  GATE-COLLIDE — the subset whose element `struct_typespec` FAILS the STRICT
+  member scan (`SURELOG::Struct::isNet()`: every member a plain
+  `logic_typespec`).  That is exactly the predicate the law tests, read off OUR
+  OWN pristine rows.
+
+    databases scanned                    uhdm2rtlil 1358 / 1358
+                                         surelog     956 /  956
+    signal cells joined BOTH-SAME        uhdm2rtlil  31 788
+                                         surelog    217 700
+    GATE-REACHABLE                       uhdm2rtlil      2
+                                         surelog        24
+    GATE-COLLIDE (STRICT=0)              uhdm2rtlil      0
+                                         surelog         2
+    FAMILY (the identity census's
+      FAM-NET2VAR: golden packed_array_var,
+      ours packed_array_net)             uhdm2rtlil      0
+                                         surelog         2
+
+  GATE-COLLIDE AND THE FAMILY ARE THE SAME TWO CELLS, cell for cell:
+      flash_mp.sv:21  region_cfgs_i   work@top_earlgrey.u_flash_ctrl.u_flash_mp
+      in Earlgrey_0_1 default AND testflags.
+  The law's reachable set and the family it clears coincide exactly, so there
+  is no row it can move by accident and no row of the family it cannot reach.
+
+  THE SECOND CONJUNCT WAS PREDICTED TOO.  The law also refuses the net arm when
+  the packed dimensions come from the TYPEDEF instead of the declaration
+  (`typedef f_t [1:0] fpa_t;  input q88::fpa_t x`), because Surelog reads
+  `Struct::isNet()` off the typedef's OWN typespec, which is then a
+  `packed_array_typespec`, not a `struct_typespec`.  ALL 24 + 2 GATE-REACHABLE
+  rows were traced back to their source declarations and EVERY ONE writes its
+  packed dimensions at the declaration (`pkg::T [N-1:0] name`), so that
+  conjunct cannot fire anywhere in either corpus:
+      top_earlgrey.sv:239-243  alert_tx / alert_rx / esc_tx / esc_rx
+      rv_dm.sv:53 hartinfo, dm_csrs.sv:39 hartinfo_i, :201 hartinfo_aligned
+      flash_mp.sv:22 bank_cfgs_i        (STRICT=1 — an ALL-LOGIC one-member
+                                         struct, so it stays a net: the second
+                                         witness on the head's own module)
+      PortComplex dut.sv:10 alert_tx_o, :30 hartinfo_i
+      StructArrayNet dut.sv:10 struct_array
+      StructPackedOutput dut.sv:9 flash_rsp_o   (the only u2r pair)
+
+  PREDICTION: EXACTLY TWO databases move — `Earlgrey_0_1` **default** and
+  `Earlgrey_0_1` **testflags** — and NOTHING ELSE in either corpus.  Both are
+  byte-deterministic per binary, so neither is a coin.  In each, exactly ONE
+  signal changes container and kind, and no other object changes.
+
+  The largest reachable population NOT taken is named here, because a
+  prediction that does not say what it is excluding is not a prediction:
+  22 surelog + 2 uhdm2rtlil GATE-REACHABLE rows carry an element struct whose
+  members are ALL plain logic typespecs (STRICT=1), and golden lists every one
+  of them as a NET today — they must stay put.
+
+MEASURED AFTER THE PATCHED SWEEPS — see PART 1b.
+
+========================================================================
+PART 1b — WHAT THE PATCHED SWEEPS ACTUALLY MOVED
+========================================================================
+`byteverify.sh SELFCHECK=1`, patched sweep vs THIS PASS'S OWN pristine sweep
+(both binaries frozen at immutable paths before any sweep; every `cmds.txt`
+audited BY BINARY PATH):
+
+  uhdm2rtlil  MOVERS 0 / 1358        SELFCHECK 1357/1358 flagged
+  surelog     MOVERS 3 /  956        SELFCHECK  955/ 956 flagged
+      ./default/Earlgrey_0_1-71da2fd7/slang.uhdm    <- PREDICTED
+      ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm  <- PREDICTED
+      ./default/Scoreboard-59431470/slang.uhdm      <- the documented COIN
+          92 raw path-normalised dump lines, 0 ORDER-BLIND.
+
+  NOTHING UNPREDICTED MOVED.
+
+  (a) THE RUN-TIME A/B GATE.  `R10E88_OFF=1` on the PATCHED binary reproduces
+      the PRISTINE database BYTE FOR BYTE in BOTH modes (default feb743d6f254,
+      testflags 22dc13775f8d), so 100 % of each mover's delta is this law.
+      Law ON: 08141341859e / ef74c30dc999 — the md5s the sweep produced.
+  (b) THE CORPUS CENSUS re-scored on the patched sweep (`cen88.sh` +
+      `cencount88.py`, with the GOLDEN side asserted unchanged — the two
+      golden census files are byte-identical md5s across the before and after
+      runs):
+        surelog     BOTH-SAME        217 700 -> 217 702
+                    FAM-NET2VAR            2 -> 0        <- the family, cleared
+                    GATE-REACHABLE        24 -> 22
+                    OTHER-CONTAINER 4, DIFF-KIND 0, DIFF-PAYLOAD 22,
+                    ONLY-GOLDEN 400, ONLY-OURS 4923      — ALL UNCHANGED
+        uhdm2rtlil  every bucket unchanged
+      The ENTIRE corpus-wide signal delta is TWO ROWS, and a line-level diff of
+      the two `ours` census files prints exactly those two rows and nothing
+      else:
+        - …u_flash_mp|region_cfgs_i|NET|packed_array_net|ELEM=struct_net
+        + …u_flash_mp|region_cfgs_i|VAR|packed_array_var|ELEM=struct_var
+      in both modes.  WRONG->RIGHT 2, RIGHT->WRONG 0, AWAY-GOLDEN 0,
+      MOVED-WRONG 0.
+  (c) THE WIDE BOUNDARY moved 6 cells (3 files x 2 views), all three
+      re-measured AGAINST GOLDEN: TO-GOLDEN 25, AWAY-GOLDEN 0, MOVED-WRONG 0,
+      RIGHT->WRONG 0.
+
+========================================================================
+PART 2 — R0: THE NEW HEAD, AND ITS DECODE
+========================================================================
+BEFORE (this pass's own pristine build, 3f628b1cfc10):
+  Earlgrey_0_1 default   21 302 cmp lines, 1 head
+  Earlgrey_0_1 testflags 21 926 cmp lines, 1 head
+  (a `module_inst` Variables/Nets VECTOR SIZE mismatch on
+   work@top_earlgrey.u_flash_ctrl.u_flash_mp — the whole decompile printed on
+   both sides, which is why the line count was five figures.)
+AFTER:
+  Earlgrey_0_1 default   17 cmp lines, 1 head
+  Earlgrey_0_1 testflags 17 cmp lines, 1 head
+  The two after-logs are BYTE-IDENTICAL, so there is ONE R0, not two.
+
+R0 (BOTH MODES) — a `ref_typespec` the judge finds on golden's side and NOT on
+ours.  The SINGULAR `SafeCompare` overload names the VALUE with `RHS: <null>`
+(RESUME.md §9), and the value is the whole `ref_typespec`:
+
+    flash_mp.sv:54   logic [AllPagesW-1:0] region_end[TotalRegions];
+
+    LHS (golden)                                RHS (ours)
+      constant 54:36-54:48 (UINT:9, size 32)      the same constant
+      |vpiTypespec:                               |vpiTypespec: <ABSENT>
+      \_ref_typespec (fullname …region_end)
+          |vpiActual:
+          \_int_typespec
+
+  THE OWNER is the `constant` at `flash_mp.sv:54:36-54:48`, id 402917 on the
+  golden side: it is the LEFT operand of the `vpiOpType:11` (subtraction)
+  operation that forms the Right_expr of the `array_var region_end`'s ONE
+  `vpiRange`.  `TotalRegions` is `localparam int TotalRegions = MpRegions+1`
+  = 9, and golden's folded `9` carries a `vpiTypespec` -> `ref_typespec` ->
+  `int_typespec` (the localparam's `int` type) while ours carries none.  The
+  SIBLING constant of the same operation (`INT:1`, the literal `1`) carries no
+  typespec on EITHER side, and the array_var's own `array_typespec` ref is
+  present and identical on both — so the missing link is specifically the
+  FOLDED PARAMETER READ inside an unpacked-dimension bound.
+
+  THIS IS THE `typespec-linkage` FAMILY the campaign already has a memory for
+  ("folded-param constant missing its int type", LocalParamInNestedForLoops).
+  `constant::Compare` reads `Typespec` (generated Compare, and `VpiDecompile`
+  /`VpiSize`/`VpiConstType` alongside it), so it is judge-visible; the two
+  bounds' constants are otherwise byte-equal.
+
+  THE QUESTION FOR THE NEXT PASS: when does Surelog attach a
+  `ref_typespec` -> `int_typespec` to a FOLDED parameter read?  Decode
+  `CompileHelper::compileExpression`'s constant-folding return path and
+  `adjustSize` (earl63's `§ constCallFoldAdjustSize63` names the producer x
+  consumer split), then census EVERY constant in both corpora keyed by
+  (owner-kind, field) with the typespec PRESENCE as the payload — earl64's
+  `allc64.cpp` every-constant span-keyed census + `msjoin64.py` and earl64's
+  `tsfind64.cpp` typespec-presence probe are the instruments to reuse, and
+  earl62's `mlts62.cpp`/`tscen65`/`tsdet65` are the typespec-presence readers.
+  Predict the movers from the PRISTINE databases first: the shape is narrow
+  (an unpacked-dimension bound that folds a localparam), but the general rule
+  may reach thousands of constants, so the census must be run BEFORE the law
+  is written.
+
+========================================================================
+RANKED RESIDUES this pass MEASURED and deliberately did not take
+========================================================================
+R0  THE FOLDED-PARAMETER CONSTANT'S MISSING `int_typespec` LINK — the new head
+    above, both modes, 17 cmp lines each.
+
+R1  THE GEN-SCOPE HOME NEVER TAKES THE NET ARM.  `g3_homes88.sv`: a
+    `pkg::f_t [1:0]` (STRICT-net) declared inside a `for`-generate block is a
+    `packed_array_net` in golden and a `packed_array_var` on BOTH binaries
+    (2 arm cells, `work@top88.u_gs.gb[0]/gb[1] gs_f`); the STRICT-FAIL twin
+    `gs_n` is already right.  Our gen-scope signal site (ModuleEmit.cpp ~14470)
+    ALWAYS builds a `packed_array_var` for a packed array over a struct/enum
+    typedef.  **DO NOT WIDEN THE LAW INTO IT BLIND**: the corpus holds 5
+    gen-scope `packed_array_var` rows with a STRICT=1 element and GOLDEN AGREES
+    THEY ARE VARIABLES, so the gen-scope home carries an extra discriminator
+    this pass did not decode (ModuleEmit.cpp ~14195 already records one:
+    Surelog's gen-scope `elab_signal_` sees an unresolved alias where the
+    module pass sees the definition).  A naive widening would produce 5
+    AWAY-GOLDEN corpus cells.
+
+R2  THE `var` KEYWORD ON A STRICT-NET PACKED-ARRAY PORT.  `g2_spellkw88.sv`
+    `input var q88::f_t [1:0] i_var_f`: golden `packed_array_var`, both
+    binaries `packed_array_net`.  1 arm cell, **0 corpus cells** — every
+    GATE-REACHABLE corpus row is written without a keyword.  The body arm
+    already carries `!hasVarKeywordDecl`; the port arm does not, and adding it
+    would widen the predicate past anything the corpus can witness, so it is
+    recorded, not taken.
+
+R3  THE DIRECTIONLESS TYPED ANSI PORT DROPS ITS DIMS AS A **NET**.
+    `g2_spellkw88.sv` `q88::n_t [1:0] x_dirless_n` (no direction keyword):
+    golden `struct_var`, both binaries `struct_net`.  Our `bareAnsiPort9` arm
+    (ModuleEmit.cpp ~7580) correctly drops the packed dims but always builds a
+    `struct_net`; golden applies the SAME strict/loose split one level down.
+    1 arm cell, 0 corpus cells.
+
+R4  THE INTERFACE TWIN, unmoved from earl77's R1.  `g3_homes88.sv`: an
+    interface BODY declaration `r88::f_t [1:0] if_body_f` is a
+    `packed_array_net` in golden and a **dim-DROPPED `struct_var`** on both
+    binaries; the STRICT-FAIL twin `if_body_n` is a `packed_array_var` in
+    golden and the same dim-dropped `struct_var` here.  2 arm cells, 0 corpus
+    cells (the corpus has no interface cell of this shape).  Interface signals
+    are emitted from a different site with `portBacked=false`, and the
+    interface family is the campaign's largest DIFF cluster — a measured
+    interface grid must come first.
+
+R5  A NON-STRUCT ELEMENT UNDER WRITTEN PACKED DIMS IS STILL A `logic_net`.
+    earl77's R2, re-measured and re-scoped here.  `pkg::e_t [1:0]`,
+    `pkg::v8_t [1:0]`, `pkg::s1_t [1:0]` ports and body declarations are
+    `packed_array_var` (with `enum_var` / `logic_var` elements) in golden and a
+    flat `logic_net` on both binaries.  12 arm cells per leaf instance in
+    `g1_elemdims88.sv`, **0 corpus cells in either corpus** — the corpus census
+    finds no cell where golden has a packed_array_var over a non-struct element
+    and we do not.  It is the same DECODED rule (golden's container is the
+    STRICT scan on all 36 g1 packed-array cells, and a non-struct typespec
+    fails STRICT outright), but it is a KIND **and** a TYPESPEC change with no
+    corpus witness, so it wants its own pass with its own boundary.
+
+R6  earl77's R3, unmoved: an UNDRIVEN all-logic packed STRUCT port that golden
+    keeps a `struct_net` and we make a `struct_var` — the 4 OTHER-CONTAINER
+    corpus cells (`u_hmac.u_sha2.u_pad fifo_rdata`,
+    `u_usbdev.i_usbdev_iomux sys_reg2hw_config_i`, x 2 modes), unchanged by
+    this pass.
+
+R7  A STRICT-NET PACKED-ARRAY **OUTPUT** WE MAKE A VAR.  Boundary arm
+    `r10earl35repro/a1_flat.sv o_flat` and `a2_wire.sv bw_flat`/`bw_nest`:
+    golden NET, both binaries VAR, unchanged pristine -> patched.  The
+    `childDrivenOut9` / `wire`-keyword arms above this law own those shapes;
+    3 arm cells, 0 corpus cells.
