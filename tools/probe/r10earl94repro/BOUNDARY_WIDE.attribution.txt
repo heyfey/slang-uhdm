@@ -1,0 +1,81 @@
+r10earl94 -- THE WIDE BOUNDARY, and the ATTRIBUTION of every differing cell.
+MEASUREMENT ONLY.  vwide94.sh: every .sv/.v at ANY depth under a COPY of
+tools/probe, both views, both frozen binaries, workdir-normalised uhdm-dump
+byte-compare; the file list on fd 3, children </dev/null, PROCESSED asserted,
+every rc recorded.
+
+PROCESSED=4199 identical=8032 DIFFERING=14 no_output=352
+
+rc=0 15390
+rc=139 28
+rc=3 676
+rc=4 702
+
+rc BY SIDE (A = patched, B = pristine) -- SYMMETRIC:
+0 A 7695
+0 B 7695
+139 A 14
+139 B 14
+3 A 338
+3 B 338
+4 A 351
+4 B 351
+
+THE 14 DIFFERING CELLS
+
+  9 are THIS PASS'S OWN ARMS -- the law's intended movers and the POSITIVE
+    CONTROL that proves the gate can see:
+      plain r10earl94repro/g1_cast94.sv
+      plain r10earl94repro/g2_ctx94.sv
+      elab r10earl94repro/g2_ctx94.sv
+      plain r10earl94repro/g3_kind94.sv
+      plain r10earl94repro/g4_pool94.sv
+      plain r10earl94repro/g5_fence94.sv
+      elab r10earl94repro/g5_fence94.sv
+      plain r10earl94repro/g6_depth94.sv
+      plain r10earl94repro/g7_flat94.sv
+
+  2 are r10buvm22repro/g22.sv (plain and elab) -- NOT THIS LAW.  It is earl93's
+    R5, the BUILD-LAYOUT-DEPENDENT associative-index range, re-proven here:
+      pristine        UINT:22515417 / 22514561
+      LAYOUT CONTROL  UINT:22515481 / ...        (+64, EXACTLY its .bss delta)
+      patched         UINT:22519513 / 22518657
+    the line COUNT is identical in all three (6394) and only these constants
+    move; a binary built from PRISTINE e6156a8 with 64 bytes of .bss and no law
+    at all moves the number, so the number follows the BINARY LAYOUT, not the law.
+
+  3 are r10earl57repro arms and they ARE this law -- scored against
+    purpose-built Surelog goldens they move TOWARD GOLDEN ONLY:
+      v2_contexts57 plain
+        PRISTINE BOTH-SAME 196  MOVED-WRONG 21  GOLDEN-ONLY 7  OURS-ONLY 8
+        PATCHED  BOTH-SAME 224  MOVED-WRONG 0  GOLDEN-ONLY 0  OURS-ONLY 1
+        WRONG->RIGHT 21  RIGHT->WRONG 0  cellcount-changed 0  no-golden-key-changed 0
+      v2_contexts57 elab
+        PRISTINE BOTH-SAME 279  MOVED-WRONG 21  GOLDEN-ONLY 7  OURS-ONLY 50
+        PATCHED  BOTH-SAME 307  MOVED-WRONG 0  GOLDEN-ONLY 0  OURS-ONLY 43
+        WRONG->RIGHT 21  RIGHT->WRONG 0  cellcount-changed 0  no-golden-key-changed 0
+      v3_gengrid57 plain
+        PRISTINE BOTH-SAME 267  MOVED-WRONG 44  GOLDEN-ONLY 16  OURS-ONLY 18
+        PATCHED  BOTH-SAME 317  MOVED-WRONG 5  GOLDEN-ONLY 5  OURS-ONLY 7
+        WRONG->RIGHT 39  RIGHT->WRONG 0  cellcount-changed 0  no-golden-key-changed 0
+      v3_gengrid57 elab
+        PRISTINE BOTH-SAME 392  MOVED-WRONG 44  GOLDEN-ONLY 16  OURS-ONLY 70
+        PATCHED  BOTH-SAME 442  MOVED-WRONG 5  GOLDEN-ONLY 5  OURS-ONLY 59
+        WRONG->RIGHT 39  RIGHT->WRONG 0  cellcount-changed 0  no-golden-key-changed 0
+
+    (v2_contexts57 in the ELAB view is listed by the boundary as PLAIN only:
+     its elaborated .uhdm files differ while the uhdm-dump is BYTE-IDENTICAL,
+     so that difference lives in the weakly-referenced TAIL, which RESUME section 9
+     records as UNREACHABLE to the judge.  The census reads AllObjects() and
+     therefore counts it; the verdict there is RIGHT->WRONG 0 as well.)
+
+  The LAYOUT-CONTROL attribution, run on all five non-arm cells:
+      cell                                   pris-vs-patc  pris-vs-LAYOUTCTL  lc-vs-patc
+      plain r10buvm22repro/g22.sv            DIFF          DIFF               DIFF
+      elab  r10buvm22repro/g22.sv            DIFF          DIFF               DIFF
+      plain r10earl57repro/v2_contexts57.sv  DIFF          SAME               DIFF
+      elab  r10earl57repro/v2_contexts57.sv  SAME          SAME               SAME
+      plain r10earl57repro/v3_gengrid57.sv   DIFF          SAME               DIFF
+      elab  r10earl57repro/v3_gengrid57.sv   DIFF          SAME               DIFF
+  g22 moves for the LAYOUT CONTROL too (so it is layout); the earl57 arms do
+  not (so they are the law).

@@ -1,0 +1,25 @@
+LHS:
+decompile:
+ref_obj: (work@top_earlgrey.u_aes.aes_prng.aes_prng_lfsr.gen_gal_xor.gen_lut.GAL_XOR_COEFFS.LfsrDw), id:1385979, line:308:38, endln:308:44
+|vpiParent:
+\_operation: , id:1385978, line:308:38, endln:308:60
+|vpiName:LfsrDw
+|vpiFullName:work@top_earlgrey.u_aes.aes_prng.aes_prng_lfsr.gen_gal_xor.gen_lut.GAL_XOR_COEFFS.LfsrDw
+|vpiActual:
+\_parameter: (work@top_earlgrey.u_aes.aes_prng.aes_prng_lfsr.LfsrDw), id:1017164, line:33:32, endln:33:38
+RHS:
+decompile:
+constant: , id:362271, line:308:38, endln:308:44
+|vpiParent:
+\_operation: , id:362269, line:308:38, endln:308:60
+|vpiDecompile:64
+|vpiSize:32
+|UINT:64
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_aes.aes_prng.aes_prng_lfsr.gen_gal_xor.gen_lut.GAL_XOR_COEFFS), id:362272
+  |vpiParent:
+  \_constant: , id:362271, line:308:38, endln:308:44
+  |vpiFullName:work@top_earlgrey.u_aes.aes_prng.aes_prng_lfsr.gen_gal_xor.gen_lut.GAL_XOR_COEFFS
+  |vpiActual:
+  \_int_typespec: , id:760277, line:33:13, endln:33:25
+|vpiConstType:9

@@ -1,0 +1,194 @@
+r10earl94 -- THE MOVER PREDICTION and THE NEXT HEAD (R0).
+
+BASE e6156a8, branch auto5h.  The official ~/git-repos/UHDM/build/bin/uhdm-cmp
+is the sole acceptance judge; everything in this directory is MEASUREMENT ONLY.
+
+========================================================================
+PART 1 -- THE MOVER PREDICTION (made from PRISTINE databases only)
+========================================================================
+`ct94cen` enumerates four families over EVERY database of both corpora (RF/RL
+every ref_obj in a gen scope or a cast, strict and loose keys; SL every operand
+slot of every gen-scope operation; GA a global tripwire over EVERY ref_obj), in
+the fields the generated Compares actually read.  `score94corpus.py` joins the
+two sides as a MULTISET.  The census was run over the PRISTINE sweeps and
+scored BEFORE a line of the law was written.
+
+THE DENOMINATOR -- every ELAB gen-scope CAST-operand ref_obj we leave NULL:
+
+  uhdm2rtlil    0 cells  in 1358 databases.  The corpus has NO cell of this
+                shape at all, so it has neither a cell to fix nor one to break.
+  surelog     146 cells  in 956 databases, ALL of them in Earlgrey_0_1
+                (73 per mode):
+                   64  wptr_value / rptr_value  prim_fifo_sync.sv:73,74
+                        -- declared INSIDE the same gen scope (:65,:66)
+                    5  i                        tlul_socket_1n.sv:131
+                        -- a GENVAR
+                    2  source_q                 tlul_adapter_host.sv:77
+                        -- declared inside g_multiple_reqs (:55)
+                    2  entropy_i                prim_lfsr.sv:315
+                        -- the ONLY parent-scope name in the whole denominator
+
+  Golden leaves the first 71 of each mode NULL as well (they are BOTH-SAME
+  cells), and the law's pool -- the gen scope's PARENT scope, one level -- is
+  exactly what excludes them.
+
+PREDICTION: EXACTLY TWO DATABASES MOVE -- Earlgrey_0_1 default and testflags --
+at prim_lfsr.sv:315:38-315:47, in the two elaborated prim_lfsr instances
+(work@top_earlgrey.u_aes.aes_prng.aes_prng_lfsr and
+ work@top_earlgrey.u_alert_handler.i_ping_timer.i_prim_lfsr), FOUR cells,
+each `-@-` -> `logic_net@55:33-55:42`.  uhdm2rtlil: ZERO movers.
+
+WHAT ACTUALLY MOVED (byteverify SELFCHECK=1, patched vs this pass's OWN
+pristine sweep; both binaries frozen chmod 555; every cmds.txt audited BY
+BINARY PATH, 0 of 1573 + 1462 name the main-tree binary):
+
+  uhdm2rtlil  MOVERS 0 / 1358      <- as predicted
+  surelog     MOVERS 5 /  956
+      ./default/Earlgrey_0_1      <- PREDICTED, the law
+      ./testflags/Earlgrey_0_1    <- PREDICTED, the law
+      ./default/SeqDriver         <- BUILD LAYOUT, not the law (proof below)
+      ./testflags/SeqDriver       <- BUILD LAYOUT, not the law
+      ./default/Scoreboard        <- the documented ~50/50 COIN
+
+  THE LAYOUT CONTROL, the decisive one.  A binary built from PRISTINE e6156a8
+  with ONE behaviour-free line added to src/ModuleEmit.cpp --
+      __attribute__((used)) static char r10earl94_layout_pad[64];
+  -- and NOTHING else, swept over the whole surelog corpus, moves EXACTLY the
+  two SeqDriver databases and reproduces the PATCHED hashes EXACTLY:
+      default    layoutctl d56dec429669  patched d56dec429669  pristine 59faaf3106e0
+      testflags  layoutctl 48efd6ae07ab  patched 48efd6ae07ab  pristine df3580c736e2
+  and it does NOT move Earlgrey (its Earlgrey hashes equal pristine's).  The
+  order-blind attribution agrees: the sorted, path-normalised dumps are
+  byte-identical (0 differing lines) in both modes, so the SET of dump lines
+  never changed -- only its order.  SeqDriver is DETERMINISTIC per binary
+  (3 pristine runs identical, 3 patched runs identical).
+  byteverify PATCHED vs LAYOUT CONTROL is the clean read: MOVERS 3 / 956 --
+  Earlgrey x2 (the law) and Scoreboard/default (the coin).
+
+  THE COIN, proven on the PRISTINE binary alone, six runs on the same sources:
+      Scoreboard/default  9740ea5bb6b6 5dcb6a96a2ab 5dcb6a96a2ab
+                          5dcb6a96a2ab 9740ea5bb6b6 9740ea5bb6b6
+  and every order-blind pairing is 0 differing lines.
+
+  THE CORPUS CENSUS re-scored over the SAME fixed universe, GOLDEN SIDE
+  ASSERTED BYTE-UNCHANGED:
+
+     surelog     BOTH-SAME 2 102 537 -> 2 102 551
+                 MOVED-WRONG   3 025 ->     3 013
+                 GOLDEN-ONLY  22 819 ->    22 817
+                 OURS-ONLY   501 361 ->   501 359
+     uhdm2rtlil  every bucket of all four families UNCHANGED; the two census
+                 files are BYTE-IDENTICAL before and after.
+
+  **WRONG->RIGHT 12, RIGHT->WRONG 0, AWAY-GOLDEN 0, STILL-WRONG 0** on
+  surelog; 0/0/0/0 on uhdm2rtlil.  Every changed row is `entropy_i` at
+  315:38-315:47 going to golden's payload, in the RF, RL and SL views.
+
+========================================================================
+PART 2 -- R0: THE NEXT HEAD, AND ITS DECODE
+========================================================================
+BEFORE (this pass's own pristine build 377572c695d6):
+  Earlgrey_0_1 default   29 cmp lines, 1 head   (the entropy_i null actual)
+  Earlgrey_0_1 testflags 50 cmp lines, 1 head   (the LfsrDw fold)
+AFTER (d56a5ef7bb59):
+  Earlgrey_0_1 default   46 cmp lines, 1 head   <- THE HEAD MOVED ON
+  Earlgrey_0_1 testflags 50 cmp lines, 1 head   <- unchanged
+Every other named row's head log is BYTE-IDENTICAL before and after
+(SeqDriver 62 / SimpleUVM 62 / Scoreboard 62 / MiniAmiq 62 /
+ BuildUVMPkg 174 / Rggen 0).
+
+THE TWO MODES NOW SHARE ONE HEAD AND ONE MECHANISM:
+
+R0 -- AN ELABORATED GEN-SCOPE SELECT INDEX SUBSTITUTES THE PARAMETER'S VALUE
+      WHERE GOLDEN KEEPS THE REFERENCE.
+
+    prim_lfsr.sv:308   assign coeffs = GAL_XOR_COEFFS[LfsrDw-GAL_XOR_LUT_OFF]
+                                                     [LfsrDw-1:0];
+    the `LfsrDw` at 308:38-308:44, parent operation 308:38-308:60 (vpiSubOp),
+    grandparent var_select GAL_XOR_COEFFS 308:23-308:73
+
+      LHS (golden) ref_obj LfsrDw   -- default: Actual_group <null>
+                                    -- testflags: Actual_group -> parameter
+                                       LfsrDw 33:32-33:38 of the instance
+      RHS (ours)   constant vpiDecompile 64, vpiSize 32, UINT:64,
+                   vpiConstType 9, Typespec -> int_typespec 33:13-33:25
+
+    Two non-null objects of DIFFERENT UhdmType, so the head is the VpiType line
+    inside BaseClass::Compare before any per-kind field is read; the 46/50 lines
+    are the sub-tree printing, not 46/50 cells.
+
+    WHAT `ln94.cpp` MEASURED (the decode this pass hands over):
+
+    1. OUR OWN DEF-VIEW LISTING IS ALREADY RIGHT.  In `work@prim_lfsr`'s own
+       listing we emit `ref_obj LfsrDw` and `ref_obj GAL_XOR_LUT_OFF`
+       unbound, exactly as golden does.  Only the ELABORATED copy folds.  The
+       producer is therefore the elaborated gen-scope cont_assign RHS path in
+       `emitBlock` -- specifically `genCaLhsParamFold`, which
+       `src/ModuleEmit.cpp` sets to `!blkInLoop3` for a gen-IF body, and which
+       `gen_lut` (an if-generate) turns ON.
+    2. GOLDEN FOLDS NOTHING IN THAT WHOLE STATEMENT: `LfsrDw` at 308:38,
+       `GAL_XOR_LUT_OFF` at 308:45 and `LfsrDw` at 308:62 are ALL symbolic on
+       the golden side, while we emit UINT:64 / UINT:4 / UINT:64.
+    3. YET GOLDEN DOES FOLD ELSEWHERE IN THE SAME GEN SCOPE: four lines down,
+       at 315:53-315:59, the replication count `{LfsrDw{...}}` is
+       `constant UINT:64 vpiSize 32` on BOTH sides.  So the distinguisher is
+       NOT "a gen scope suppresses folding"; it is THIS EXPRESSION.
+    4. THE CANDIDATE DISTINGUISHER, to be isolated by the next pass:
+       `GAL_XOR_COEFFS` is a localparam UNPACKED ARRAY of 168-bit values, and
+       the whole `var_select` is un-evaluable by Surelog's ExprEval -- so
+       `reduceExpr` bails on the SELECT and the UNREDUCED index tree survives,
+       index and all.  An arm row measured here says the opposite case folds:
+       `m_net[W-KOFF]` on a NET produces NO ref at all on either side (both
+       fold), so the bail is a property of the SELECTED OBJECT, not of the
+       index.  Purpose-built goldens must cross: selected object (net /
+       variable / packed localparam / UNPACKED localparam array / wide
+       (>64 bit) element) x select kind (bit_select / part_select /
+       var_select) x gen-scope kind, and the un-evaluability must be measured,
+       not assumed.
+    5. THE SECOND HALF IS A BINDING, and it is THIS PASS'S mechanism again:
+       once the ref survives, the ELABORATED copy must carry
+       `Actual_group -> parameter LfsrDw` of the instance while the DEF copy
+       carries <null> -- which is `UhdmWriter::lateBinding`'s parameter arm,
+       run per written scope.  Decide the fold and the binding together.
+
+========================================================================
+RANKED RESIDUES this pass MEASURED and deliberately did not take
+========================================================================
+R1  THE PROCESS HALF OF THIS LAW.  A gen-scope PROCESS obeys the SAME
+    parent-scope pool: g4_pool94's `gp2` (a process in a NESTED gen scope)
+    binds `p1` -- the PARENT gen block's local -- in golden and leaves
+    `m_var` (the module, two levels up) null, while WE do exactly the reverse.
+    Two pristine-wrong cells per instance.  It is a REMOVAL as well as an add,
+    so it needs its own boundary and its own census.  0 corpus cells.
+
+R2  SeqDriver's BUILD-LAYOUT DUMP ORDER.  64 bytes of .bss added to
+    src/ModuleEmit.cpp and nothing else move both SeqDriver databases to the
+    patched hashes exactly, with 0 order-blind differing lines.  A pre-existing
+    ordering defect the emitter reads out of memory that any edit to
+    ModuleEmit.cpp shifts -- the ModuleEmit twin of earl93's R5
+    (r10buvm22repro/g22.sv, ExprEmit.cpp).  Corpus-visible but CMP-invisible
+    (SeqDriver's row is byte-identical in status AND dump column before and
+    after).  Worth its own pass: a dump whose ORDER depends on where the
+    emitter's statics land is a real defect.
+
+R3  A TOP-MODULE GEN SCOPE'S OWN LOCAL IS OVER-BOUND.  g4_pool94's `gtop`
+    (a gen scope in the TOP module) reads `8'(top_var) ^ 8'(tv)`: golden binds
+    `top_var` (the module) and leaves `tv` (the gen-local) null, and we bind
+    BOTH.  A removal; pre-existing; not touched here.  0 corpus cells.
+
+R4  THE NESTED CAST slang COLLAPSES.  `W'(W'(a_i))` (g2_ctx94 n5) is ONE
+    vpiCastOp for us and TWO for golden, so our operand hangs under the OUTER
+    cast's span (32:19-32:30) where golden's hangs under the inner one
+    (32:22-32:29).  The law binds ours exactly as golden binds its own, so the
+    payload multiset matches under the LOOSE census key; the SPAN does not.
+    Same family as earl93's R2.  0 corpus cells.
+
+R5  AN EXTRA DEF-VIEW CONSTANT AT prim_lfsr.sv:308:71-308:72.  Our
+    `work@prim_lfsr` listing carries a `constant UINT:0 vpiSize 64` as the
+    part_select's right bound that golden's listing does not have.  Visible in
+    the census as an OURS-ONLY cell; not reached by the current head.
+
+R6  THE PRE-EXISTING PROBE / BOUNDARY SEGFAULTS.  The wide boundary's rc
+    histogram is symmetric side for side.  Recorded by earl82 R6 / earl83 R6 /
+    earl84 R6 / earl85 R5 / earl89 R6 / earl90 R8 / earl91 R5 / earl93 R7;
+    byteverify proves none of them is a mover.

@@ -1,0 +1,83 @@
+r10earl94 -- THE CORPUS CENSUS.  MEASUREMENT ONLY; the official uhdm-cmp is the judge.
+
+Whole universe, every database both sweeps produced, each joined against ITS OWN
+golden (the cache entry the test's own cmds.txt names).  Multiset join.
+
+  surelog     956 databases, 956 with rc=0 on BOTH sides, nogolden=0
+  uhdm2rtlil  1358 databases, 1358 with rc=0 on BOTH sides, nogolden=0
+
+== PRISTINE (the BLIND prediction: pristine databases only, scored before the law was written)
+surelog    BOTH-SAME 2102537  MOVED-WRONG 3025  GOLDEN-ONLY 22819  OURS-ONLY 501361
+  families G GA=1207177  G RF=279458  G RL=279458  G SL=362288  O GA=1359098  O RF=384777  O RL=384777  O SL=478271
+u2r        BOTH-SAME 267310  MOVED-WRONG 20  GOLDEN-ONLY 172  OURS-ONLY 7202
+  families G GA=119738  G RF=66516  G RL=66516  G SL=14732  O GA=122672  O RF=68564  O RL=68564  O SL=14732
+
+== PATCHED, golden side ASSERTED UNCHANGED (sl: YES; u2r: YES)
+surelog    BOTH-SAME 2102551  MOVED-WRONG 3013  GOLDEN-ONLY 22817  OURS-ONLY 501359
+  families G GA=1207177  G RF=279458  G RL=279458  G SL=362288  O GA=1359098  O RF=384777  O RL=384777  O SL=478271
+u2r        BOTH-SAME 267310  MOVED-WRONG 20  GOLDEN-ONLY 172  OURS-ONLY 7202
+  families G GA=119738  G RF=66516  G RL=66516  G SL=14732  O GA=122672  O RF=68564  O RL=68564  O SL=14732
+
+== CELL-LEVEL VERDICT (bucket counts can hide a swap; cells cannot)
+surelog
+  WRONG->RIGHT 12  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 4
+    GA testflags/Earlgrey_0_1-71da2fd7 GA|ELAB|1|CAST|logic_net  O {'.': 6} -> Q {'.': 8}
+    GA default/Earlgrey_0_1-71da2fd7 GA|ELAB|1|CAST|logic_net  O {'.': 1} -> Q {'.': 3}
+    GA testflags/Earlgrey_0_1-71da2fd7 GA|ELAB|1|CAST|-  O {'.': 558} -> Q {'.': 556}
+    GA default/Earlgrey_0_1-71da2fd7 GA|ELAB|1|CAST|-  O {'.': 558} -> Q {'.': 556}
+uhdm2rtlil
+  WRONG->RIGHT 0  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 0
+
+== EVERY census row that changed on OUR side, corpus-wide
+< default/Earlgrey_0_1-71da2fd7	GA|ELAB|1|CAST|- => . #558
+< default/Earlgrey_0_1-71da2fd7	GA|ELAB|1|CAST|logic_net => . #1
+> default/Earlgrey_0_1-71da2fd7	GA|ELAB|1|CAST|- => . #556
+> default/Earlgrey_0_1-71da2fd7	GA|ELAB|1|CAST|logic_net => . #3
+< default/Earlgrey_0_1-71da2fd7	RF|ELAB|1|CAST|7|aes_prng_lfsr|entropy_i|315:38-315:47|operation|315:30-315:48 => -@- #1
+< default/Earlgrey_0_1-71da2fd7	RF|ELAB|1|CAST|7|i_prim_lfsr|entropy_i|315:38-315:47|operation|315:30-315:48 => -@- #1
+> default/Earlgrey_0_1-71da2fd7	RF|ELAB|1|CAST|7|aes_prng_lfsr|entropy_i|315:38-315:47|operation|315:30-315:48 => logic_net@55:33-55:42 #1
+> default/Earlgrey_0_1-71da2fd7	RF|ELAB|1|CAST|7|i_prim_lfsr|entropy_i|315:38-315:47|operation|315:30-315:48 => logic_net@55:33-55:42 #1
+< default/Earlgrey_0_1-71da2fd7	RL|CAST|entropy_i|315:38-315:47|operation|315:30-315:48 => -@- #3
+> default/Earlgrey_0_1-71da2fd7	RL|CAST|entropy_i|315:38-315:47|operation|315:30-315:48 => -@- #1
+> default/Earlgrey_0_1-71da2fd7	RL|CAST|entropy_i|315:38-315:47|operation|315:30-315:48 => logic_net@55:33-55:42 #2
+< default/Earlgrey_0_1-71da2fd7	SL|ELAB|1|CA|6|aes_prng_lfsr|315:30-315:48|67|0 => ref_obj[entropy_i|-@-] #1
+> default/Earlgrey_0_1-71da2fd7	SL|ELAB|1|CA|6|aes_prng_lfsr|315:30-315:48|67|0 => ref_obj[entropy_i|logic_net@55:33-55:42] #1
+< default/Earlgrey_0_1-71da2fd7	SL|ELAB|1|CA|6|i_prim_lfsr|315:30-315:48|67|0 => ref_obj[entropy_i|-@-] #1
+> default/Earlgrey_0_1-71da2fd7	SL|ELAB|1|CA|6|i_prim_lfsr|315:30-315:48|67|0 => ref_obj[entropy_i|logic_net@55:33-55:42] #1
+< testflags/Earlgrey_0_1-71da2fd7	GA|ELAB|1|CAST|- => . #558
+< testflags/Earlgrey_0_1-71da2fd7	GA|ELAB|1|CAST|logic_net => . #6
+> testflags/Earlgrey_0_1-71da2fd7	GA|ELAB|1|CAST|- => . #556
+> testflags/Earlgrey_0_1-71da2fd7	GA|ELAB|1|CAST|logic_net => . #8
+< testflags/Earlgrey_0_1-71da2fd7	RF|ELAB|1|CAST|7|aes_prng_lfsr|entropy_i|315:38-315:47|operation|315:30-315:48 => -@- #1
+< testflags/Earlgrey_0_1-71da2fd7	RF|ELAB|1|CAST|7|aes_prng_lfsr|entropy_i|315:38-315:47|operation|315:30-315:48 => logic_net@55:33-55:42 #1
+< testflags/Earlgrey_0_1-71da2fd7	RF|ELAB|1|CAST|7|i_prim_lfsr|entropy_i|315:38-315:47|operation|315:30-315:48 => -@- #1
+< testflags/Earlgrey_0_1-71da2fd7	RF|ELAB|1|CAST|7|i_prim_lfsr|entropy_i|315:38-315:47|operation|315:30-315:48 => logic_net@55:33-55:42 #1
+> testflags/Earlgrey_0_1-71da2fd7	RF|ELAB|1|CAST|7|aes_prng_lfsr|entropy_i|315:38-315:47|operation|315:30-315:48 => logic_net@55:33-55:42 #2
+> testflags/Earlgrey_0_1-71da2fd7	RF|ELAB|1|CAST|7|i_prim_lfsr|entropy_i|315:38-315:47|operation|315:30-315:48 => logic_net@55:33-55:42 #2
+< testflags/Earlgrey_0_1-71da2fd7	RL|CAST|entropy_i|315:38-315:47|operation|315:30-315:48 => -@- #3
+< testflags/Earlgrey_0_1-71da2fd7	RL|CAST|entropy_i|315:38-315:47|operation|315:30-315:48 => logic_net@55:33-55:42 #2
+> testflags/Earlgrey_0_1-71da2fd7	RL|CAST|entropy_i|315:38-315:47|operation|315:30-315:48 => -@- #1
+> testflags/Earlgrey_0_1-71da2fd7	RL|CAST|entropy_i|315:38-315:47|operation|315:30-315:48 => logic_net@55:33-55:42 #4
+< testflags/Earlgrey_0_1-71da2fd7	SL|ELAB|1|CA|6|aes_prng_lfsr|315:30-315:48|67|0 => ref_obj[entropy_i|-@-] #1
+< testflags/Earlgrey_0_1-71da2fd7	SL|ELAB|1|CA|6|aes_prng_lfsr|315:30-315:48|67|0 => ref_obj[entropy_i|logic_net@55:33-55:42] #1
+> testflags/Earlgrey_0_1-71da2fd7	SL|ELAB|1|CA|6|aes_prng_lfsr|315:30-315:48|67|0 => ref_obj[entropy_i|logic_net@55:33-55:42] #2
+< testflags/Earlgrey_0_1-71da2fd7	SL|ELAB|1|CA|6|i_prim_lfsr|315:30-315:48|67|0 => ref_obj[entropy_i|-@-] #1
+< testflags/Earlgrey_0_1-71da2fd7	SL|ELAB|1|CA|6|i_prim_lfsr|315:30-315:48|67|0 => ref_obj[entropy_i|logic_net@55:33-55:42] #1
+> testflags/Earlgrey_0_1-71da2fd7	SL|ELAB|1|CA|6|i_prim_lfsr|315:30-315:48|67|0 => ref_obj[entropy_i|logic_net@55:33-55:42] #2
+(uhdm2rtlil: the two files are byte-identical -- CONFIRMED)
+
+== THE DENOMINATOR: every ELAB gen-scope CAST-operand ref_obj OURS leaves NULL, pristine, corpus-wide
+  surelog    146 cells, all in Earlgrey_0_1 (73 per mode)
+  uhdm2rtlil 0 cells
+
+  of the 73 per mode:
+        32 wptr_value
+        32 rptr_value
+         5 i
+         2 source_q
+         2 entropy_i
+
+  wptr_value / rptr_value  prim_fifo_sync.sv:65,66 -- declared INSIDE the same gen scope
+  i                        tlul_socket_1n.sv:128   -- a genvar
+  source_q                 tlul_adapter_host.sv:55 -- declared inside g_multiple_reqs
+  entropy_i                prim_lfsr.sv:315        -- THE HEAD, the only parent-scope name

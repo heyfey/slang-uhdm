@@ -1,0 +1,397 @@
+r10earl94 -- THE ARM GRID.  MEASUREMENT ONLY; the official uhdm-cmp is the judge.
+
+Seven purpose-built goldens, both views (plain and -elabuhdm), one gen_scope
+per row.  Golden = ~/git-repos/Surelog/build/bin/surelog; ours = the two FROZEN
+binaries.  Cells are ct94cen's, keyed and payloaded exactly as the generated
+Compares read them.  verd94.py is the CELL-level verdict (bucket counts can
+hide a swap, cells cannot).
+
+  binaries  pristine  377572c695d6878809390a6912be5481   (e6156a8)
+            patched   d56a5ef7bb590a992d4d5c34e8f6302c
+            layoutctl 5a69ef5f59afb965370ef00b96e08639   (e6156a8 + 64 bytes of .bss)
+
+== g1_cast94 plain
+   PRISTINE BOTH-SAME 253  MOVED-WRONG 18  GOLDEN-ONLY 6  OURS-ONLY 12
+   PATCHED  BOTH-SAME 277  MOVED-WRONG 0  GOLDEN-ONLY 0  OURS-ONLY 6
+   WRONG->RIGHT 18  RIGHT->WRONG 0  cellcount-changed 0  no-golden-key-changed 0
+== g1_cast94 elab
+   PRISTINE BOTH-SAME 395  MOVED-WRONG 18  GOLDEN-ONLY 6  OURS-ONLY 66
+   PATCHED  BOTH-SAME 419  MOVED-WRONG 0  GOLDEN-ONLY 0  OURS-ONLY 60
+   WRONG->RIGHT 18  RIGHT->WRONG 0  cellcount-changed 0  no-golden-key-changed 0
+== g2_ctx94 plain
+   PRISTINE BOTH-SAME 248  MOVED-WRONG 14  GOLDEN-ONLY 12  OURS-ONLY 12
+   PATCHED  BOTH-SAME 266  MOVED-WRONG 2  GOLDEN-ONLY 6  OURS-ONLY 6
+   WRONG->RIGHT 12  RIGHT->WRONG 0  cellcount-changed 0  no-golden-key-changed 3
+     NOGOLDENKEY RF|ELAB|1|CAST|5|u_b|a_i|32:25-32:28|operation|32:19-32:30
+       O {'-@-': 1}
+       Q {'logic_net@10:24-10:27': 1}
+     NOGOLDENKEY RL|CAST|a_i|32:25-32:28|operation|32:19-32:30
+       O {'-@-': 2}
+       Q {'logic_net@10:24-10:27': 2}
+     NOGOLDENKEY RF|ELAB|1|CAST|5|u_a|a_i|32:25-32:28|operation|32:19-32:30
+       O {'-@-': 1}
+       Q {'logic_net@10:24-10:27': 1}
+== g2_ctx94 elab
+   PRISTINE BOTH-SAME 392  MOVED-WRONG 16  GOLDEN-ONLY 14  OURS-ONLY 138
+   PATCHED  BOTH-SAME 406  MOVED-WRONG 4  GOLDEN-ONLY 12  OURS-ONLY 136
+   WRONG->RIGHT 12  RIGHT->WRONG 0  cellcount-changed 0  no-golden-key-changed 3
+     NOGOLDENKEY RF|ELAB|1|CAST|5|u_b|a_i|32:25-32:28|operation|32:19-32:30
+       O {'-@-': 1, 'logic_net@10:24-10:27': 1}
+       Q {'logic_net@10:24-10:27': 2}
+     NOGOLDENKEY RL|CAST|a_i|32:25-32:28|operation|32:19-32:30
+       O {'-@-': 2, 'logic_net@10:24-10:27': 2}
+       Q {'logic_net@10:24-10:27': 4}
+     NOGOLDENKEY RF|ELAB|1|CAST|5|u_a|a_i|32:25-32:28|operation|32:19-32:30
+       O {'-@-': 1, 'logic_net@10:24-10:27': 1}
+       Q {'logic_net@10:24-10:27': 2}
+== g3_kind94 plain
+   PRISTINE BOTH-SAME 360  MOVED-WRONG 60  GOLDEN-ONLY 20  OURS-ONLY 22
+   PATCHED  BOTH-SAME 440  MOVED-WRONG 0  GOLDEN-ONLY 0  OURS-ONLY 2
+   WRONG->RIGHT 60  RIGHT->WRONG 0  cellcount-changed 0  no-golden-key-changed 0
+== g3_kind94 elab
+   PRISTINE BOTH-SAME 634  MOVED-WRONG 60  GOLDEN-ONLY 20  OURS-ONLY 70
+   PATCHED  BOTH-SAME 714  MOVED-WRONG 0  GOLDEN-ONLY 0  OURS-ONLY 50
+   WRONG->RIGHT 60  RIGHT->WRONG 0  cellcount-changed 0  no-golden-key-changed 0
+== g4_pool94 plain
+   PRISTINE BOTH-SAME 420  MOVED-WRONG 55  GOLDEN-ONLY 11  OURS-ONLY 11
+   PATCHED  BOTH-SAME 458  MOVED-WRONG 25  GOLDEN-ONLY 3  OURS-ONLY 3
+   WRONG->RIGHT 30  RIGHT->WRONG 0  cellcount-changed 0  no-golden-key-changed 0
+== g4_pool94 elab
+   PRISTINE BOTH-SAME 759  MOVED-WRONG 55  GOLDEN-ONLY 11  OURS-ONLY 48
+   PATCHED  BOTH-SAME 797  MOVED-WRONG 25  GOLDEN-ONLY 3  OURS-ONLY 40
+   WRONG->RIGHT 30  RIGHT->WRONG 0  cellcount-changed 0  no-golden-key-changed 0
+== g5_fence94 plain
+   PRISTINE BOTH-SAME 296  MOVED-WRONG 24  GOLDEN-ONLY 11  OURS-ONLY 17
+   PATCHED  BOTH-SAME 324  MOVED-WRONG 2  GOLDEN-ONLY 5  OURS-ONLY 11
+   WRONG->RIGHT 22  RIGHT->WRONG 0  cellcount-changed 0  no-golden-key-changed 2
+     NOGOLDENKEY RF|ELAB|1|CAST|5|u_a|m_var|45:27-45:32|operation|45:24-45:33
+       O {'-@-': 1}
+       Q {'logic_var@28:17-28:22': 1}
+     NOGOLDENKEY RF|ELAB|1|CAST|5|u_b|m_var|45:27-45:32|operation|45:24-45:33
+       O {'-@-': 1}
+       Q {'logic_var@28:17-28:22': 1}
+== g5_fence94 elab
+   PRISTINE BOTH-SAME 487  MOVED-WRONG 22  GOLDEN-ONLY 10  OURS-ONLY 62
+   PATCHED  BOTH-SAME 515  MOVED-WRONG 0  GOLDEN-ONLY 4  OURS-ONLY 56
+   WRONG->RIGHT 22  RIGHT->WRONG 0  cellcount-changed 0  no-golden-key-changed 0
+== g6_depth94 plain
+   PRISTINE BOTH-SAME 173  MOVED-WRONG 18  GOLDEN-ONLY 6  OURS-ONLY 6
+   PATCHED  BOTH-SAME 197  MOVED-WRONG 0  GOLDEN-ONLY 0  OURS-ONLY 0
+   WRONG->RIGHT 18  RIGHT->WRONG 0  cellcount-changed 0  no-golden-key-changed 0
+== g7_flat94 plain
+   PRISTINE BOTH-SAME 170  MOVED-WRONG 18  GOLDEN-ONLY 6  OURS-ONLY 6
+   PATCHED  BOTH-SAME 194  MOVED-WRONG 0  GOLDEN-ONLY 0  OURS-ONLY 0
+   WRONG->RIGHT 18  RIGHT->WRONG 0  cellcount-changed 0  no-golden-key-changed 0
+
+== EVERY ELAB gen-scope CAST cell, golden vs pristine vs patched, per arm
+-- g1_cast94 (plain view)
+   [g]
+     RF|ELAB|1|CAST|5|u_a|b_i|24:22-24:25|operation|24:19-24:26 => logic_net@6:24-6:27 #1
+     RF|ELAB|1|CAST|5|u_b|b_i|24:22-24:25|operation|24:19-24:26 => logic_net@6:24-6:27 #1
+     RF|ELAB|1|CAST|6|u_a|a_i|22:22-22:25|operation|22:19-22:26 => logic_net@5:24-5:27 #1
+     RF|ELAB|1|CAST|6|u_a|g_loc|29:22-29:27|operation|29:19-29:28 => -@- #1
+     RF|ELAB|1|CAST|6|u_a|m_net|26:22-26:27|operation|26:19-26:28 => logic_var@15:17-15:22 #1
+     RF|ELAB|1|CAST|6|u_b|a_i|22:22-22:25|operation|22:19-22:26 => logic_net@5:24-5:27 #1
+     RF|ELAB|1|CAST|6|u_b|g_loc|29:22-29:27|operation|29:19-29:28 => -@- #1
+     RF|ELAB|1|CAST|6|u_b|m_net|26:22-26:27|operation|26:19-26:28 => logic_var@15:17-15:22 #1
+   [o]
+     RF|ELAB|1|CAST|5|u_a|b_i|24:22-24:25|operation|24:19-24:26 => -@- #1
+     RF|ELAB|1|CAST|5|u_b|b_i|24:22-24:25|operation|24:19-24:26 => -@- #1
+     RF|ELAB|1|CAST|6|u_a|a_i|22:22-22:25|operation|22:19-22:26 => -@- #1
+     RF|ELAB|1|CAST|6|u_a|g_loc|29:22-29:27|operation|29:19-29:28 => -@- #1
+     RF|ELAB|1|CAST|6|u_a|m_net|26:22-26:27|operation|26:19-26:28 => -@- #1
+     RF|ELAB|1|CAST|6|u_b|a_i|22:22-22:25|operation|22:19-22:26 => -@- #1
+     RF|ELAB|1|CAST|6|u_b|g_loc|29:22-29:27|operation|29:19-29:28 => -@- #1
+     RF|ELAB|1|CAST|6|u_b|m_net|26:22-26:27|operation|26:19-26:28 => -@- #1
+   [q]
+     RF|ELAB|1|CAST|5|u_a|b_i|24:22-24:25|operation|24:19-24:26 => logic_net@6:24-6:27 #1
+     RF|ELAB|1|CAST|5|u_b|b_i|24:22-24:25|operation|24:19-24:26 => logic_net@6:24-6:27 #1
+     RF|ELAB|1|CAST|6|u_a|a_i|22:22-22:25|operation|22:19-22:26 => logic_net@5:24-5:27 #1
+     RF|ELAB|1|CAST|6|u_a|g_loc|29:22-29:27|operation|29:19-29:28 => -@- #1
+     RF|ELAB|1|CAST|6|u_a|m_net|26:22-26:27|operation|26:19-26:28 => logic_var@15:17-15:22 #1
+     RF|ELAB|1|CAST|6|u_b|a_i|22:22-22:25|operation|22:19-22:26 => logic_net@5:24-5:27 #1
+     RF|ELAB|1|CAST|6|u_b|g_loc|29:22-29:27|operation|29:19-29:28 => -@- #1
+     RF|ELAB|1|CAST|6|u_b|m_net|26:22-26:27|operation|26:19-26:28 => logic_var@15:17-15:22 #1
+-- g2_ctx94 (plain view)
+   [g]
+     RF|ELAB|1|CAST|3|u_leaf|b_i|30:39-30:42|operation|30:36-30:43 => -@- #2
+     RF|ELAB|1|CAST|6|u_a|a_i|23:22-23:25|operation|23:19-23:26 => logic_net@10:24-10:27 #1
+     RF|ELAB|1|CAST|6|u_a|a_i|32:25-32:28|operation|32:22-32:29 => logic_net@10:24-10:27 #1
+     RF|ELAB|1|CAST|6|u_a|m_wire|25:34-25:40|operation|25:31-25:41 => logic_net@16:17-16:23 #1
+     RF|ELAB|1|CAST|6|u_b|a_i|23:22-23:25|operation|23:19-23:26 => logic_net@10:24-10:27 #1
+     RF|ELAB|1|CAST|6|u_b|a_i|32:25-32:28|operation|32:22-32:29 => logic_net@10:24-10:27 #1
+     RF|ELAB|1|CAST|6|u_b|m_wire|25:34-25:40|operation|25:31-25:41 => logic_net@16:17-16:23 #1
+     RF|ELAB|1|CAST|7|u_a|a_i|27:29-27:32|operation|27:26-27:33 => logic_net@10:24-10:27 #1
+     RF|ELAB|1|CAST|7|u_b|a_i|27:29-27:32|operation|27:26-27:33 => logic_net@10:24-10:27 #1
+   [o]
+     RF|ELAB|1|CAST|3|u_leaf|b_i|30:39-30:42|operation|30:36-30:43 => -@- #2
+     RF|ELAB|1|CAST|5|u_a|a_i|32:25-32:28|operation|32:19-32:30 => -@- #1
+     RF|ELAB|1|CAST|5|u_b|a_i|32:25-32:28|operation|32:19-32:30 => -@- #1
+     RF|ELAB|1|CAST|6|u_a|a_i|23:22-23:25|operation|23:19-23:26 => -@- #1
+     RF|ELAB|1|CAST|6|u_a|m_wire|25:34-25:40|operation|25:31-25:41 => -@- #1
+     RF|ELAB|1|CAST|6|u_b|a_i|23:22-23:25|operation|23:19-23:26 => -@- #1
+     RF|ELAB|1|CAST|6|u_b|m_wire|25:34-25:40|operation|25:31-25:41 => -@- #1
+     RF|ELAB|1|CAST|7|u_a|a_i|27:29-27:32|operation|27:26-27:33 => logic_net@10:24-10:27 #1
+     RF|ELAB|1|CAST|7|u_b|a_i|27:29-27:32|operation|27:26-27:33 => logic_net@10:24-10:27 #1
+   [q]
+     RF|ELAB|1|CAST|3|u_leaf|b_i|30:39-30:42|operation|30:36-30:43 => -@- #2
+     RF|ELAB|1|CAST|5|u_a|a_i|32:25-32:28|operation|32:19-32:30 => logic_net@10:24-10:27 #1
+     RF|ELAB|1|CAST|5|u_b|a_i|32:25-32:28|operation|32:19-32:30 => logic_net@10:24-10:27 #1
+     RF|ELAB|1|CAST|6|u_a|a_i|23:22-23:25|operation|23:19-23:26 => logic_net@10:24-10:27 #1
+     RF|ELAB|1|CAST|6|u_a|m_wire|25:34-25:40|operation|25:31-25:41 => logic_net@16:17-16:23 #1
+     RF|ELAB|1|CAST|6|u_b|a_i|23:22-23:25|operation|23:19-23:26 => logic_net@10:24-10:27 #1
+     RF|ELAB|1|CAST|6|u_b|m_wire|25:34-25:40|operation|25:31-25:41 => logic_net@16:17-16:23 #1
+     RF|ELAB|1|CAST|7|u_a|a_i|27:29-27:32|operation|27:26-27:33 => logic_net@10:24-10:27 #1
+     RF|ELAB|1|CAST|7|u_b|a_i|27:29-27:32|operation|27:26-27:33 => logic_net@10:24-10:27 #1
+-- g3_kind94 (plain view)
+   [g]
+     RF|ELAB|1|CAST|10|u_a|a_i|43:23-43:26|operation|43:20-43:27 => -@- #1
+     RF|ELAB|1|CAST|10|u_a|m_var|43:33-43:38|operation|43:30-43:39 => -@- #1
+     RF|ELAB|1|CAST|10|u_b|a_i|43:23-43:26|operation|43:20-43:27 => -@- #1
+     RF|ELAB|1|CAST|10|u_b|m_var|43:33-43:38|operation|43:30-43:39 => -@- #1
+     RF|ELAB|1|CAST|6|u_a|a_i|48:21-48:24|operation|48:18-48:25 => logic_net@5:24-5:27 #1
+     RF|ELAB|1|CAST|6|u_a|gi|23:55-23:57|operation|23:52-23:58 => -@- #1
+     RF|ELAB|1|CAST|6|u_a|k_loc|30:45-30:50|operation|30:42-30:51 => -@- #1
+     RF|ELAB|1|CAST|6|u_a|m_var|48:31-48:36|operation|48:28-48:37 => logic_var@9:17-9:22 #1
+     RF|ELAB|1|CAST|6|u_b|a_i|48:21-48:24|operation|48:18-48:25 => logic_net@5:24-5:27 #1
+     RF|ELAB|1|CAST|6|u_b|gi|23:55-23:57|operation|23:52-23:58 => -@- #1
+     RF|ELAB|1|CAST|6|u_b|k_loc|30:45-30:50|operation|30:42-30:51 => -@- #1
+     RF|ELAB|1|CAST|6|u_b|m_var|48:31-48:36|operation|48:28-48:37 => logic_var@9:17-9:22 #1
+     RF|ELAB|1|CAST|7|u_a|a_i|30:23-30:26|operation|30:20-30:27 => logic_net@5:24-5:27 #1
+     RF|ELAB|1|CAST|7|u_a|g_loc|17:56-17:61|operation|17:53-17:62 => -@- #1
+     RF|ELAB|1|CAST|7|u_a|l_loc|23:43-23:48|operation|23:40-23:49 => -@- #1
+     RF|ELAB|1|CAST|7|u_a|m_var|30:33-30:38|operation|30:30-30:39 => logic_var@9:17-9:22 #1
+     RF|ELAB|1|CAST|7|u_b|a_i|30:23-30:26|operation|30:20-30:27 => logic_net@5:24-5:27 #1
+     RF|ELAB|1|CAST|7|u_b|g_loc|17:56-17:61|operation|17:53-17:62 => -@- #1
+     RF|ELAB|1|CAST|7|u_b|l_loc|23:43-23:48|operation|23:40-23:49 => -@- #1
+     RF|ELAB|1|CAST|7|u_b|m_var|30:33-30:38|operation|30:30-30:39 => logic_var@9:17-9:22 #1
+     RF|ELAB|1|CAST|8|u_a|a_i|23:21-23:24|operation|23:18-23:25 => logic_net@5:24-5:27 #1
+     RF|ELAB|1|CAST|8|u_a|i_loc|43:57-43:62|operation|43:54-43:63 => -@- #1
+     RF|ELAB|1|CAST|8|u_a|m_var|23:31-23:36|operation|23:28-23:37 => logic_var@9:17-9:22 #1
+     RF|ELAB|1|CAST|8|u_a|m_wire|17:43-17:49|operation|17:40-17:50 => logic_net@10:17-10:23 #1
+     RF|ELAB|1|CAST|8|u_b|a_i|23:21-23:24|operation|23:18-23:25 => logic_net@5:24-5:27 #1
+     RF|ELAB|1|CAST|8|u_b|i_loc|43:57-43:62|operation|43:54-43:63 => -@- #1
+     RF|ELAB|1|CAST|8|u_b|m_var|23:31-23:36|operation|23:28-23:37 => logic_var@9:17-9:22 #1
+     RF|ELAB|1|CAST|8|u_b|m_wire|17:43-17:49|operation|17:40-17:50 => logic_net@10:17-10:23 #1
+     RF|ELAB|1|CAST|9|u_a|a_i|17:21-17:24|operation|17:18-17:25 => logic_net@5:24-5:27 #1
+     RF|ELAB|1|CAST|9|u_a|m_var|17:31-17:36|operation|17:28-17:37 => logic_var@9:17-9:22 #1
+     RF|ELAB|1|CAST|9|u_a|o_loc|43:45-43:50|operation|43:42-43:51 => logic_var@38:19-38:24 #1
+     RF|ELAB|1|CAST|9|u_b|a_i|17:21-17:24|operation|17:18-17:25 => logic_net@5:24-5:27 #1
+     RF|ELAB|1|CAST|9|u_b|m_var|17:31-17:36|operation|17:28-17:37 => logic_var@9:17-9:22 #1
+     RF|ELAB|1|CAST|9|u_b|o_loc|43:45-43:50|operation|43:42-43:51 => logic_var@38:19-38:24 #1
+   [o]
+     RF|ELAB|1|CAST|10|u_a|a_i|43:23-43:26|operation|43:20-43:27 => -@- #1
+     RF|ELAB|1|CAST|10|u_a|m_var|43:33-43:38|operation|43:30-43:39 => -@- #1
+     RF|ELAB|1|CAST|10|u_b|a_i|43:23-43:26|operation|43:20-43:27 => -@- #1
+     RF|ELAB|1|CAST|10|u_b|m_var|43:33-43:38|operation|43:30-43:39 => -@- #1
+     RF|ELAB|1|CAST|6|u_a|a_i|48:21-48:24|operation|48:18-48:25 => -@- #1
+     RF|ELAB|1|CAST|6|u_a|gi|23:55-23:57|operation|23:52-23:58 => -@- #1
+     RF|ELAB|1|CAST|6|u_a|k_loc|30:45-30:50|operation|30:42-30:51 => -@- #1
+     RF|ELAB|1|CAST|6|u_a|m_var|48:31-48:36|operation|48:28-48:37 => -@- #1
+     RF|ELAB|1|CAST|6|u_b|a_i|48:21-48:24|operation|48:18-48:25 => -@- #1
+     RF|ELAB|1|CAST|6|u_b|gi|23:55-23:57|operation|23:52-23:58 => -@- #1
+     RF|ELAB|1|CAST|6|u_b|k_loc|30:45-30:50|operation|30:42-30:51 => -@- #1
+     RF|ELAB|1|CAST|6|u_b|m_var|48:31-48:36|operation|48:28-48:37 => -@- #1
+     RF|ELAB|1|CAST|7|u_a|a_i|30:23-30:26|operation|30:20-30:27 => -@- #1
+     RF|ELAB|1|CAST|7|u_a|g_loc|17:56-17:61|operation|17:53-17:62 => -@- #1
+     RF|ELAB|1|CAST|7|u_a|l_loc|23:43-23:48|operation|23:40-23:49 => -@- #1
+     RF|ELAB|1|CAST|7|u_a|m_var|30:33-30:38|operation|30:30-30:39 => -@- #1
+     RF|ELAB|1|CAST|7|u_b|a_i|30:23-30:26|operation|30:20-30:27 => -@- #1
+     RF|ELAB|1|CAST|7|u_b|g_loc|17:56-17:61|operation|17:53-17:62 => -@- #1
+     RF|ELAB|1|CAST|7|u_b|l_loc|23:43-23:48|operation|23:40-23:49 => -@- #1
+     RF|ELAB|1|CAST|7|u_b|m_var|30:33-30:38|operation|30:30-30:39 => -@- #1
+     RF|ELAB|1|CAST|8|u_a|a_i|23:21-23:24|operation|23:18-23:25 => -@- #1
+     RF|ELAB|1|CAST|8|u_a|i_loc|43:57-43:62|operation|43:54-43:63 => -@- #1
+     RF|ELAB|1|CAST|8|u_a|m_var|23:31-23:36|operation|23:28-23:37 => -@- #1
+     RF|ELAB|1|CAST|8|u_a|m_wire|17:43-17:49|operation|17:40-17:50 => -@- #1
+     RF|ELAB|1|CAST|8|u_b|a_i|23:21-23:24|operation|23:18-23:25 => -@- #1
+     RF|ELAB|1|CAST|8|u_b|i_loc|43:57-43:62|operation|43:54-43:63 => -@- #1
+     RF|ELAB|1|CAST|8|u_b|m_var|23:31-23:36|operation|23:28-23:37 => -@- #1
+     RF|ELAB|1|CAST|8|u_b|m_wire|17:43-17:49|operation|17:40-17:50 => -@- #1
+     RF|ELAB|1|CAST|9|u_a|a_i|17:21-17:24|operation|17:18-17:25 => -@- #1
+     RF|ELAB|1|CAST|9|u_a|m_var|17:31-17:36|operation|17:28-17:37 => -@- #1
+     RF|ELAB|1|CAST|9|u_a|o_loc|43:45-43:50|operation|43:42-43:51 => -@- #1
+     RF|ELAB|1|CAST|9|u_b|a_i|17:21-17:24|operation|17:18-17:25 => -@- #1
+     RF|ELAB|1|CAST|9|u_b|m_var|17:31-17:36|operation|17:28-17:37 => -@- #1
+     RF|ELAB|1|CAST|9|u_b|o_loc|43:45-43:50|operation|43:42-43:51 => -@- #1
+   [q]
+     RF|ELAB|1|CAST|10|u_a|a_i|43:23-43:26|operation|43:20-43:27 => -@- #1
+     RF|ELAB|1|CAST|10|u_a|m_var|43:33-43:38|operation|43:30-43:39 => -@- #1
+     RF|ELAB|1|CAST|10|u_b|a_i|43:23-43:26|operation|43:20-43:27 => -@- #1
+     RF|ELAB|1|CAST|10|u_b|m_var|43:33-43:38|operation|43:30-43:39 => -@- #1
+     RF|ELAB|1|CAST|6|u_a|a_i|48:21-48:24|operation|48:18-48:25 => logic_net@5:24-5:27 #1
+     RF|ELAB|1|CAST|6|u_a|gi|23:55-23:57|operation|23:52-23:58 => -@- #1
+     RF|ELAB|1|CAST|6|u_a|k_loc|30:45-30:50|operation|30:42-30:51 => -@- #1
+     RF|ELAB|1|CAST|6|u_a|m_var|48:31-48:36|operation|48:28-48:37 => logic_var@9:17-9:22 #1
+     RF|ELAB|1|CAST|6|u_b|a_i|48:21-48:24|operation|48:18-48:25 => logic_net@5:24-5:27 #1
+     RF|ELAB|1|CAST|6|u_b|gi|23:55-23:57|operation|23:52-23:58 => -@- #1
+     RF|ELAB|1|CAST|6|u_b|k_loc|30:45-30:50|operation|30:42-30:51 => -@- #1
+     RF|ELAB|1|CAST|6|u_b|m_var|48:31-48:36|operation|48:28-48:37 => logic_var@9:17-9:22 #1
+     RF|ELAB|1|CAST|7|u_a|a_i|30:23-30:26|operation|30:20-30:27 => logic_net@5:24-5:27 #1
+     RF|ELAB|1|CAST|7|u_a|g_loc|17:56-17:61|operation|17:53-17:62 => -@- #1
+     RF|ELAB|1|CAST|7|u_a|l_loc|23:43-23:48|operation|23:40-23:49 => -@- #1
+     RF|ELAB|1|CAST|7|u_a|m_var|30:33-30:38|operation|30:30-30:39 => logic_var@9:17-9:22 #1
+     RF|ELAB|1|CAST|7|u_b|a_i|30:23-30:26|operation|30:20-30:27 => logic_net@5:24-5:27 #1
+     RF|ELAB|1|CAST|7|u_b|g_loc|17:56-17:61|operation|17:53-17:62 => -@- #1
+     RF|ELAB|1|CAST|7|u_b|l_loc|23:43-23:48|operation|23:40-23:49 => -@- #1
+     RF|ELAB|1|CAST|7|u_b|m_var|30:33-30:38|operation|30:30-30:39 => logic_var@9:17-9:22 #1
+     RF|ELAB|1|CAST|8|u_a|a_i|23:21-23:24|operation|23:18-23:25 => logic_net@5:24-5:27 #1
+     RF|ELAB|1|CAST|8|u_a|i_loc|43:57-43:62|operation|43:54-43:63 => -@- #1
+     RF|ELAB|1|CAST|8|u_a|m_var|23:31-23:36|operation|23:28-23:37 => logic_var@9:17-9:22 #1
+     RF|ELAB|1|CAST|8|u_a|m_wire|17:43-17:49|operation|17:40-17:50 => logic_net@10:17-10:23 #1
+     RF|ELAB|1|CAST|8|u_b|a_i|23:21-23:24|operation|23:18-23:25 => logic_net@5:24-5:27 #1
+     RF|ELAB|1|CAST|8|u_b|i_loc|43:57-43:62|operation|43:54-43:63 => -@- #1
+     RF|ELAB|1|CAST|8|u_b|m_var|23:31-23:36|operation|23:28-23:37 => logic_var@9:17-9:22 #1
+     RF|ELAB|1|CAST|8|u_b|m_wire|17:43-17:49|operation|17:40-17:50 => logic_net@10:17-10:23 #1
+     RF|ELAB|1|CAST|9|u_a|a_i|17:21-17:24|operation|17:18-17:25 => logic_net@5:24-5:27 #1
+     RF|ELAB|1|CAST|9|u_a|m_var|17:31-17:36|operation|17:28-17:37 => logic_var@9:17-9:22 #1
+     RF|ELAB|1|CAST|9|u_a|o_loc|43:45-43:50|operation|43:42-43:51 => logic_var@38:19-38:24 #1
+     RF|ELAB|1|CAST|9|u_b|a_i|17:21-17:24|operation|17:18-17:25 => logic_net@5:24-5:27 #1
+     RF|ELAB|1|CAST|9|u_b|m_var|17:31-17:36|operation|17:28-17:37 => logic_var@9:17-9:22 #1
+     RF|ELAB|1|CAST|9|u_b|o_loc|43:45-43:50|operation|43:42-43:51 => logic_var@38:19-38:24 #1
+-- g4_pool94 (plain view)
+   [g]
+     RF|ELAB|1|CAST|10|u_a|v3|25:56-25:58|operation|25:53-25:59 => -@- #1
+     RF|ELAB|1|CAST|10|u_b|v3|25:56-25:58|operation|25:53-25:59 => -@- #1
+     RF|ELAB|1|CAST|11|u_a|m_var|25:44-25:49|operation|25:41-25:50 => -@- #1
+     RF|ELAB|1|CAST|11|u_b|m_var|25:44-25:49|operation|25:41-25:50 => -@- #1
+     RF|ELAB|1|CAST|12|u_a|v1|25:35-25:37|operation|25:32-25:38 => -@- #1
+     RF|ELAB|1|CAST|12|u_a|v2|25:26-25:28|operation|25:23-25:29 => logic_var@19:21-19:23 #1
+     RF|ELAB|1|CAST|12|u_b|v1|25:35-25:37|operation|25:32-25:38 => -@- #1
+     RF|ELAB|1|CAST|12|u_b|v2|25:26-25:28|operation|25:23-25:29 => logic_var@19:21-19:23 #1
+     RF|ELAB|1|CAST|5|u_a|sh_var|33:22-33:28|operation|33:19-33:29 => logic_var@9:17-9:23 #1
+     RF|ELAB|1|CAST|5|u_b|sh_var|33:22-33:28|operation|33:19-33:29 => logic_var@9:17-9:23 #1
+     RF|ELAB|1|CAST|6|u_a|m_var|43:22-43:27|operation|43:19-43:28 => logic_var@8:17-8:22 #3
+     RF|ELAB|1|CAST|6|u_a|w1|43:34-43:36|operation|43:31-43:37 => -@- #3
+     RF|ELAB|1|CAST|6|u_b|m_var|43:22-43:27|operation|43:19-43:28 => logic_var@8:17-8:22 #3
+     RF|ELAB|1|CAST|6|u_b|w1|43:34-43:36|operation|43:31-43:37 => -@- #3
+     RF|ELAB|1|CAST|6|work@g4_pool94_top|top_var|68:20-68:27|operation|68:17-68:28 => logic_var@62:15-62:22 #1
+     RF|ELAB|1|CAST|6|work@g4_pool94_top|tv|68:34-68:36|operation|68:31-68:37 => -@- #1
+     RF|ELAB|1|CAST|9|u_a|m_var|51:36-51:41|operation|51:33-51:42 => -@- #1
+     RF|ELAB|1|CAST|9|u_a|p1|51:27-51:29|operation|51:24-51:30 => logic_var@47:19-47:21 #1
+     RF|ELAB|1|CAST|9|u_b|m_var|51:36-51:41|operation|51:33-51:42 => -@- #1
+     RF|ELAB|1|CAST|9|u_b|p1|51:27-51:29|operation|51:24-51:30 => logic_var@47:19-47:21 #1
+   [o]
+     RF|ELAB|1|CAST|10|u_a|v3|25:56-25:58|operation|25:53-25:59 => -@- #1
+     RF|ELAB|1|CAST|10|u_b|v3|25:56-25:58|operation|25:53-25:59 => -@- #1
+     RF|ELAB|1|CAST|11|u_a|m_var|25:44-25:49|operation|25:41-25:50 => -@- #1
+     RF|ELAB|1|CAST|11|u_b|m_var|25:44-25:49|operation|25:41-25:50 => -@- #1
+     RF|ELAB|1|CAST|12|u_a|v1|25:35-25:37|operation|25:32-25:38 => -@- #1
+     RF|ELAB|1|CAST|12|u_a|v2|25:26-25:28|operation|25:23-25:29 => -@- #1
+     RF|ELAB|1|CAST|12|u_b|v1|25:35-25:37|operation|25:32-25:38 => -@- #1
+     RF|ELAB|1|CAST|12|u_b|v2|25:26-25:28|operation|25:23-25:29 => -@- #1
+     RF|ELAB|1|CAST|5|u_a|sh_var|33:22-33:28|operation|33:19-33:29 => -@- #1
+     RF|ELAB|1|CAST|5|u_b|sh_var|33:22-33:28|operation|33:19-33:29 => -@- #1
+     RF|ELAB|1|CAST|6|u_a|m_var|43:22-43:27|operation|43:19-43:28 => -@- #3
+     RF|ELAB|1|CAST|6|u_a|w1|43:34-43:36|operation|43:31-43:37 => -@- #3
+     RF|ELAB|1|CAST|6|u_b|m_var|43:22-43:27|operation|43:19-43:28 => -@- #3
+     RF|ELAB|1|CAST|6|u_b|w1|43:34-43:36|operation|43:31-43:37 => -@- #3
+     RF|ELAB|1|CAST|6|work@g4_pool94_top|top_var|68:20-68:27|operation|68:17-68:28 => logic_var@62:15-62:22 #1
+     RF|ELAB|1|CAST|6|work@g4_pool94_top|tv|68:34-68:36|operation|68:31-68:37 => logic_var@66:17-66:19 #1
+     RF|ELAB|1|CAST|9|u_a|m_var|51:36-51:41|operation|51:33-51:42 => logic_var@8:17-8:22 #1
+     RF|ELAB|1|CAST|9|u_a|p1|51:27-51:29|operation|51:24-51:30 => -@- #1
+     RF|ELAB|1|CAST|9|u_b|m_var|51:36-51:41|operation|51:33-51:42 => logic_var@8:17-8:22 #1
+     RF|ELAB|1|CAST|9|u_b|p1|51:27-51:29|operation|51:24-51:30 => -@- #1
+   [q]
+     RF|ELAB|1|CAST|10|u_a|v3|25:56-25:58|operation|25:53-25:59 => -@- #1
+     RF|ELAB|1|CAST|10|u_b|v3|25:56-25:58|operation|25:53-25:59 => -@- #1
+     RF|ELAB|1|CAST|11|u_a|m_var|25:44-25:49|operation|25:41-25:50 => -@- #1
+     RF|ELAB|1|CAST|11|u_b|m_var|25:44-25:49|operation|25:41-25:50 => -@- #1
+     RF|ELAB|1|CAST|12|u_a|v1|25:35-25:37|operation|25:32-25:38 => -@- #1
+     RF|ELAB|1|CAST|12|u_a|v2|25:26-25:28|operation|25:23-25:29 => logic_var@19:21-19:23 #1
+     RF|ELAB|1|CAST|12|u_b|v1|25:35-25:37|operation|25:32-25:38 => -@- #1
+     RF|ELAB|1|CAST|12|u_b|v2|25:26-25:28|operation|25:23-25:29 => logic_var@19:21-19:23 #1
+     RF|ELAB|1|CAST|5|u_a|sh_var|33:22-33:28|operation|33:19-33:29 => logic_var@9:17-9:23 #1
+     RF|ELAB|1|CAST|5|u_b|sh_var|33:22-33:28|operation|33:19-33:29 => logic_var@9:17-9:23 #1
+     RF|ELAB|1|CAST|6|u_a|m_var|43:22-43:27|operation|43:19-43:28 => logic_var@8:17-8:22 #3
+     RF|ELAB|1|CAST|6|u_a|w1|43:34-43:36|operation|43:31-43:37 => -@- #3
+     RF|ELAB|1|CAST|6|u_b|m_var|43:22-43:27|operation|43:19-43:28 => logic_var@8:17-8:22 #3
+     RF|ELAB|1|CAST|6|u_b|w1|43:34-43:36|operation|43:31-43:37 => -@- #3
+     RF|ELAB|1|CAST|6|work@g4_pool94_top|top_var|68:20-68:27|operation|68:17-68:28 => logic_var@62:15-62:22 #1
+     RF|ELAB|1|CAST|6|work@g4_pool94_top|tv|68:34-68:36|operation|68:31-68:37 => logic_var@66:17-66:19 #1
+     RF|ELAB|1|CAST|9|u_a|m_var|51:36-51:41|operation|51:33-51:42 => logic_var@8:17-8:22 #1
+     RF|ELAB|1|CAST|9|u_a|p1|51:27-51:29|operation|51:24-51:30 => -@- #1
+     RF|ELAB|1|CAST|9|u_b|m_var|51:36-51:41|operation|51:33-51:42 => logic_var@8:17-8:22 #1
+     RF|ELAB|1|CAST|9|u_b|p1|51:27-51:29|operation|51:24-51:30 => -@- #1
+-- g5_fence94 (plain view)
+   [g]
+     RF|ELAB|1|CAST|5|u_a|yv|53:22-53:24|operation|53:19-53:25 => -@- #1
+     RF|ELAB|1|CAST|5|u_b|yv|53:22-53:24|operation|53:19-53:25 => -@- #1
+     RF|ELAB|1|CAST|6|the_if|il|12:29-12:31|operation|12:26-12:32 => logic_var@10:19-10:21 #1
+     RF|ELAB|1|CAST|6|the_if|iv|12:20-12:22|operation|12:17-12:23 => logic_var@6:17-6:19 #1
+     RF|ELAB|1|CAST|6|u_a|m_var|47:50-47:55|operation|47:47-47:56 => logic_var@28:17-28:22 #1
+     RF|ELAB|1|CAST|6|u_b|m_var|47:50-47:55|operation|47:47-47:56 => logic_var@28:17-28:22 #1
+     RF|ELAB|1|CAST|7|u_a|E_B|47:40-47:43|operation|47:37-47:44 => -@- #1
+     RF|ELAB|1|CAST|7|u_b|E_B|47:40-47:43|operation|47:37-47:44 => -@- #1
+     RF|ELAB|1|CAST|8|u_a|fv|39:45-39:47|operation|39:42-39:48 => -@- #2
+     RF|ELAB|1|CAST|8|u_b|fv|39:45-39:47|operation|39:42-39:48 => -@- #2
+     RF|ELAB|1|CAST|9|u_a|m_var|39:33-39:38|operation|39:30-39:39 => -@- #2
+     RF|ELAB|1|CAST|9|u_a|ov|39:24-39:26|operation|39:21-39:27 => logic_var@34:19-34:21 #2
+     RF|ELAB|1|CAST|9|u_b|m_var|39:33-39:38|operation|39:30-39:39 => -@- #2
+     RF|ELAB|1|CAST|9|u_b|ov|39:24-39:26|operation|39:21-39:27 => logic_var@34:19-34:21 #2
+   [o]
+     RF|ELAB|1|CAST|5|u_a|m_var|45:27-45:32|operation|45:24-45:33 => -@- #1
+     RF|ELAB|1|CAST|5|u_a|yv|53:22-53:24|operation|53:19-53:25 => -@- #1
+     RF|ELAB|1|CAST|5|u_b|m_var|45:27-45:32|operation|45:24-45:33 => -@- #1
+     RF|ELAB|1|CAST|5|u_b|yv|53:22-53:24|operation|53:19-53:25 => -@- #1
+     RF|ELAB|1|CAST|6|the_if|il|12:29-12:31|operation|12:26-12:32 => logic_var@10:19-10:21 #1
+     RF|ELAB|1|CAST|6|the_if|iv|12:20-12:22|operation|12:17-12:23 => logic_var@6:17-6:19 #1
+     RF|ELAB|1|CAST|6|u_a|m_var|47:50-47:55|operation|47:47-47:56 => -@- #1
+     RF|ELAB|1|CAST|6|u_b|m_var|47:50-47:55|operation|47:47-47:56 => -@- #1
+     RF|ELAB|1|CAST|7|u_a|E_B|47:40-47:43|operation|47:37-47:44 => -@- #1
+     RF|ELAB|1|CAST|7|u_b|E_B|47:40-47:43|operation|47:37-47:44 => -@- #1
+     RF|ELAB|1|CAST|8|u_a|fv|39:45-39:47|operation|39:42-39:48 => -@- #2
+     RF|ELAB|1|CAST|8|u_b|fv|39:45-39:47|operation|39:42-39:48 => -@- #2
+     RF|ELAB|1|CAST|9|u_a|m_var|39:33-39:38|operation|39:30-39:39 => -@- #2
+     RF|ELAB|1|CAST|9|u_a|ov|39:24-39:26|operation|39:21-39:27 => -@- #2
+     RF|ELAB|1|CAST|9|u_b|m_var|39:33-39:38|operation|39:30-39:39 => -@- #2
+     RF|ELAB|1|CAST|9|u_b|ov|39:24-39:26|operation|39:21-39:27 => -@- #2
+   [q]
+     RF|ELAB|1|CAST|5|u_a|m_var|45:27-45:32|operation|45:24-45:33 => logic_var@28:17-28:22 #1
+     RF|ELAB|1|CAST|5|u_a|yv|53:22-53:24|operation|53:19-53:25 => -@- #1
+     RF|ELAB|1|CAST|5|u_b|m_var|45:27-45:32|operation|45:24-45:33 => logic_var@28:17-28:22 #1
+     RF|ELAB|1|CAST|5|u_b|yv|53:22-53:24|operation|53:19-53:25 => -@- #1
+     RF|ELAB|1|CAST|6|the_if|il|12:29-12:31|operation|12:26-12:32 => logic_var@10:19-10:21 #1
+     RF|ELAB|1|CAST|6|the_if|iv|12:20-12:22|operation|12:17-12:23 => logic_var@6:17-6:19 #1
+     RF|ELAB|1|CAST|6|u_a|m_var|47:50-47:55|operation|47:47-47:56 => logic_var@28:17-28:22 #1
+     RF|ELAB|1|CAST|6|u_b|m_var|47:50-47:55|operation|47:47-47:56 => logic_var@28:17-28:22 #1
+     RF|ELAB|1|CAST|7|u_a|E_B|47:40-47:43|operation|47:37-47:44 => -@- #1
+     RF|ELAB|1|CAST|7|u_b|E_B|47:40-47:43|operation|47:37-47:44 => -@- #1
+     RF|ELAB|1|CAST|8|u_a|fv|39:45-39:47|operation|39:42-39:48 => -@- #2
+     RF|ELAB|1|CAST|8|u_b|fv|39:45-39:47|operation|39:42-39:48 => -@- #2
+     RF|ELAB|1|CAST|9|u_a|m_var|39:33-39:38|operation|39:30-39:39 => -@- #2
+     RF|ELAB|1|CAST|9|u_a|ov|39:24-39:26|operation|39:21-39:27 => logic_var@34:19-34:21 #2
+     RF|ELAB|1|CAST|9|u_b|m_var|39:33-39:38|operation|39:30-39:39 => -@- #2
+     RF|ELAB|1|CAST|9|u_b|ov|39:24-39:26|operation|39:21-39:27 => logic_var@34:19-34:21 #2
+-- g6_depth94 (plain view)
+   [g]
+     RF|ELAB|1|CAST|7|u_c|a_i|18:21-18:24|operation|18:18-18:25 => logic_net@4:24-4:27 #2
+     RF|ELAB|1|CAST|7|u_c|m_var|18:31-18:36|operation|18:28-18:37 => logic_var@9:17-9:22 #2
+     RF|ELAB|1|CAST|7|u_d1|a_i|18:21-18:24|operation|18:18-18:25 => logic_net@4:24-4:27 #1
+     RF|ELAB|1|CAST|7|u_d1|m_var|18:31-18:36|operation|18:28-18:37 => logic_var@9:17-9:22 #1
+   [o]
+     RF|ELAB|1|CAST|7|u_c|a_i|18:21-18:24|operation|18:18-18:25 => -@- #2
+     RF|ELAB|1|CAST|7|u_c|m_var|18:31-18:36|operation|18:28-18:37 => -@- #2
+     RF|ELAB|1|CAST|7|u_d1|a_i|18:21-18:24|operation|18:18-18:25 => -@- #1
+     RF|ELAB|1|CAST|7|u_d1|m_var|18:31-18:36|operation|18:28-18:37 => -@- #1
+   [q]
+     RF|ELAB|1|CAST|7|u_c|a_i|18:21-18:24|operation|18:18-18:25 => logic_net@4:24-4:27 #2
+     RF|ELAB|1|CAST|7|u_c|m_var|18:31-18:36|operation|18:28-18:37 => logic_var@9:17-9:22 #2
+     RF|ELAB|1|CAST|7|u_d1|a_i|18:21-18:24|operation|18:18-18:25 => logic_net@4:24-4:27 #1
+     RF|ELAB|1|CAST|7|u_d1|m_var|18:31-18:36|operation|18:28-18:37 => logic_var@9:17-9:22 #1
+-- g7_flat94 (plain view)
+   [g]
+     RF|ELAB|1|CAST|7|u_c|a_i|13:21-13:24|operation|13:18-13:25 => logic_net@4:24-4:27 #2
+     RF|ELAB|1|CAST|7|u_c|m_var|13:31-13:36|operation|13:28-13:37 => logic_var@9:17-9:22 #2
+     RF|ELAB|1|CAST|7|u_d1|a_i|13:21-13:24|operation|13:18-13:25 => logic_net@4:24-4:27 #1
+     RF|ELAB|1|CAST|7|u_d1|m_var|13:31-13:36|operation|13:28-13:37 => logic_var@9:17-9:22 #1
+   [o]
+     RF|ELAB|1|CAST|7|u_c|a_i|13:21-13:24|operation|13:18-13:25 => -@- #2
+     RF|ELAB|1|CAST|7|u_c|m_var|13:31-13:36|operation|13:28-13:37 => -@- #2
+     RF|ELAB|1|CAST|7|u_d1|a_i|13:21-13:24|operation|13:18-13:25 => -@- #1
+     RF|ELAB|1|CAST|7|u_d1|m_var|13:31-13:36|operation|13:28-13:37 => -@- #1
+   [q]
+     RF|ELAB|1|CAST|7|u_c|a_i|13:21-13:24|operation|13:18-13:25 => logic_net@4:24-4:27 #2
+     RF|ELAB|1|CAST|7|u_c|m_var|13:31-13:36|operation|13:28-13:37 => logic_var@9:17-9:22 #2
+     RF|ELAB|1|CAST|7|u_d1|a_i|13:21-13:24|operation|13:18-13:25 => logic_net@4:24-4:27 #1
+     RF|ELAB|1|CAST|7|u_d1|m_var|13:31-13:36|operation|13:28-13:37 => logic_var@9:17-9:22 #1

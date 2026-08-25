@@ -16382,6 +16382,136 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                     deep20((UHDM::any*)ca->Rhs());
                 }
             }
+            // ---------------------------------------------------------------
+            // § genCaCastOperandParentScopeBind94 (r10earl94) — THE CAST
+            // OPERAND IS LATE-BOUND, AND ITS POOL IS THE GEN SCOPE'S **PARENT**
+            // SCOPE.
+            //
+            // DECODE (Surelog).  `CompileExpression.cpp:2643`, the `paCast` /
+            // `paConstant_cast` arm, compiles the cast's OPERAND with
+            //     compileExpression(component, fC, Expression, compileDesign,
+            //                       reduce, /*pexpr=*/nullptr, instance, ...)
+            // — the ONE operand position in the whole compiler that passes a
+            // NULL `pexpr`; every other operand is compiled against its own
+            // operation.  The name arm (`CompileExpression.cpp:2982-3001`) then
+            // reads that null:
+            //     if (pexpr)        { bindVariable(component, pexpr, name) … }
+            //     else if (instance){ bindVariable(component, instance, name) … }
+            //     else if (component) component->needLateBinding(ref);
+            // so a BARE NAME under a cast never runs `bindVariable`'s parent
+            // walk (the same "pexpr is null ⇒ late binding" mechanism
+            // § pkgSubRefBindsPkgVarOverFormal81 decodes in ExprEmit) and lands
+            // in the late-binding pool instead.  `UhdmWriter::lateBinding`
+            // (UhdmWriter.cpp:3294) is then run ONCE PER WRITTEN SCOPE
+            // (UhdmWriter.cpp:1575 / 1623 / 2072 / 4785, the last under
+            // `if (mod && netlist)`) and resolves the name against THAT scope's
+            // `Nets()` / `Array_nets()` / `Variables()` listing.  The scope a
+            // generate block's refs are written against is the one that OWNS
+            // the block — the enclosing module instance for a top-level gen
+            // scope, the enclosing GEN SCOPE for a nested one — so the pool is
+            // exactly the gen scope's PARENT scope, one level and one level
+            // only.  The DEF-view listing carries no netlist, so `lateBinding`
+            // never runs there and every such ref stays null in the definition.
+            //
+            // MEASURED, five purpose-built goldens, both views, one gen_scope
+            // per row (g1_cast94 / g2_ctx94 / g3_kind94 / g4_pool94 /
+            // g5_fence94).  BOUND in golden:
+            //   gen-if / gen-for / gen-case / UNNAMED gen-if, all at the top
+            //   level of the module:  a PORT net, a module `logic` var and a
+            //   module `wire` all bind (g3 rows f_o/r_o/c_o/u_o).
+            //   NESTED gen scope: the PARENT gen block's local binds (g3
+            //   gen_in's `o_loc`, g4 gl3's `v2`, g5 gf's `ov`), and a gen-for
+            //   body skips its GenerateBlockArray to reach it.
+            //   SHADOWING (g4 gsh): a gen-local named `sh_var` does NOT hide
+            //   the module-level `sh_var` — golden binds the MODULE one, so the
+            //   lookup is BY NAME in the parent scope, not by slang's symbol.
+            // NOT bound in golden — the fences this law keeps:
+            //   the gen scope's OWN local (g1 `g_loc`, g3 `g_loc`/`l_loc`/
+            //   `k_loc`/`i_loc`, g4 `v3`/`w1`/`tv`, g5 `fv`/`yv`);
+            //   a GRANDPARENT scope's name (g4 gl3's `v1` and `m_var`, g3
+            //   gen_in's `a_i`/`m_var`, g5 gf's `m_var`) — one level only;
+            //   a genvar (g3 `gi`), an enum constant (g5 `E_B`), and a
+            //   parameter / localparam (they fold to a constant before they
+            //   reach a ref at all: g1 `W'(W)`, g5 `W'(LQ)` / `W'(PW)`);
+            //   an operand that is NOT a bare name — `W'(m_var[0])`,
+            //   `W'(arr[0])`, `W'(a_i + m_var)` (g4 gnb): those operands are
+            //   compiled against their OWN select/operation, so `pexpr` is not
+            //   null and they never reach the late-binding pool.
+            // The corpus witness is the Earlgrey_0_1/default head:
+            // `assign next_lfsr_state = LfsrDw'(entropy_i) ^ …`
+            // (prim_lfsr.sv:315), where golden binds `entropy_i` to the
+            // instance's port net at :55 while the SAME statement's `coeffs`
+            // and `lfsr_q` — read from inside operations — stay null on both
+            // sides.
+            //
+            // DELIBERATELY NOT CLAIMED (measured, filed as residues):
+            //   a PROCESS in a gen scope obeys the same parent-scope pool (g4
+            //   gp2 binds `p1` and leaves `m_var` null while we do the reverse)
+            //   — that is a REMOVAL as well as an add, and it needs its own
+            //   pass;  a TOP-MODULE gen scope's own local is over-bound by us
+            //   (g4 gtop's `tv`), which is likewise a removal.
+            {
+                // The pool: the gen scope's parent scope, skipping the
+                // GenerateBlockArray a gen-for body hangs under.
+                const Scope* pool94 = blk.getParentScope();
+                if (pool94 &&
+                    pool94->asSymbol().kind == SymbolKind::GenerateBlockArray)
+                    pool94 = pool94->asSymbol().getParentScope();
+                if (pool94) {
+                    auto bind94 = [&](UHDM::any* n94) {
+                        if (!n94 || n94->UhdmType() != UHDM::uhdmref_obj)
+                            return;
+                        auto* r94 = (UHDM::ref_obj*)n94;
+                        if (r94->Actual_group())
+                            return;
+                        std::string_view nm94 = r94->VpiName();
+                        if (nm94.empty())
+                            return;
+                        // The pool is read out of `netMap` — the objects this
+                        // instance has ALREADY emitted — and NEVER by walking
+                        // `pool94->members()`: `Scope::members()` FORCES that
+                        // scope's deferred member elaboration, and doing it
+                        // here reordered SeqDriver's dump (both modes, an
+                        // ORDER-ONLY move: the sorted, path-normalised dumps
+                        // were byte-identical, 0 differing lines) — the
+                        // AST-forcing Heisenbug RESUME §9 records.  The same
+                        // `for (auto& [ms9, mo9] : netMap)` idiom is already
+                        // used by the own-scope arm of the gen-scope CA LHS
+                        // binder above.  A module PORT reaches netMap as its
+                        // INTERNAL net/variable, whose parent scope is the
+                        // InstanceBody — which is what `lateBinding` searches
+                        // (`inst->Nets()` / `m->Variables()`).
+                        for (auto& [ms94, mo94] : netMap) {
+                            if (!ms94 || !mo94 || ms94->name != nm94)
+                                continue;
+                            if (ms94->kind != SymbolKind::Variable &&
+                                ms94->kind != SymbolKind::Net)
+                                continue;
+                            if (ms94->getParentScope() != pool94)
+                                continue;
+                            r94->Actual_group(mo94);
+                            break;
+                        }
+                    };
+                    // Walk the emitted Rhs down through OPERATIONS only (the
+                    // same reach § genCaOpDeepBindGenLocal20's walk has), and
+                    // fire on the FIRST operand of a vpiCastOp.
+                    std::function<void(UHDM::any*)> walk94 =
+                        [&](UHDM::any* n94) {
+                            if (!n94 || n94->UhdmType() != UHDM::uhdmoperation)
+                                return;
+                            auto* op94 = (UHDM::operation*)n94;
+                            auto* ops94 = op94->Operands();
+                            if (!ops94 || ops94->empty())
+                                return;
+                            if (op94->VpiOpType() == vpiCastOp)
+                                bind94((*ops94)[0]);
+                            for (auto* o94 : *ops94)
+                                walk94(o94);
+                        };
+                    walk94((UHDM::any*)ca->Rhs());
+                }
+            }
             cas->push_back(ca);
         }
         if (!cas->empty())

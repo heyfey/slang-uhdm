@@ -1,0 +1,65 @@
+r10v94 -- THE SeqDriver ATTRIBUTION, RE-MEASURED AND CORRECTED.
+MEASUREMENT ONLY; the official uhdm-cmp remains the judge.
+
+r10earl94's PREDICT_R0.txt / GATES.r10earl94.txt attribute the two SeqDriver
+byte movers to BUILD LAYOUT and state "SeqDriver is DETERMINISTIC per binary".
+BOTH halves are refuted here.
+
+(1) THE VERIFIER'S OWN SWEEP DOES NOT MOVE SeqDriver AT ALL.
+    Two frozen binaries, bit-identical to the implementer's
+    (pristine 377572c695d6878809390a6912be5481, patched
+     d56a5ef7bb590a992d4d5c34e8f6302c), swept over the whole surelog corpus
+    with workroots of EQUAL NAME LENGTH (/tmp/v94_wd/pris_sl and
+    /tmp/v94_wd/patc_sl):
+
+        byteverify SELFCHECK=1   surelog   MOVERS 2 / 956
+            ./default/Earlgrey_0_1      20fdd8913dc7  <- pristine 03812fa7b530
+            ./testflags/Earlgrey_0_1    d8669ab5b9b2  <- pristine f809a9723c06
+        SeqDriver default   pristine d56dec429669 == patched d56dec429669
+        SeqDriver testflags pristine 48efd6ae07ab == patched 48efd6ae07ab
+        Scoreboard default  pristine 5dcb6a96a2ab == patched 5dcb6a96a2ab
+
+    Note that the two hashes the implementer reports as the PATCHED and the
+    LAYOUT-CONTROL faces (d56dec429669 / 48efd6ae07ab) are what the PRISTINE
+    binary produced here.
+
+(2) THE SAME PRISTINE BINARY PRODUCES BOTH FACES.  Same binary, same cwd
+    (~/git-repos/Surelog/third_party/tests/SeqDriver), same argv apart from the
+    -o path, interleaved in ONE shell, each run repeated:
+
+        -o /tmp/v94_t1.uhdm                                      59faaf3106e0
+        -o /tmp/v94_arl94_wd/x.uhdm                              59faaf3106e0
+        -o /tmp/v94_arl94_wd/pris_sl/default/
+             SeqDriver-32af76aa/slang.uhdm                       d56dec429669
+        -o /tmp/v94_t2.uhdm                                      59faaf3106e0
+
+    A length sweep over a synthetic output path flips the face deterministically
+    between 31 and 41 characters:
+
+        len=21 59faaf3106e0   len=31 59faaf3106e0
+        len=41 d56dec429669   len=51/61/64/65/66/71/81 d56dec429669
+
+    16 CPUs; the face does not depend on `taskset -c 0-0/0-1/0-2/0-7` nor on
+    running four copies concurrently (all 59faaf3106e0 at the short path).
+
+(3) IT IS ORDER-ONLY, as the implementer said of its own control.
+    Sorted, path-normalised uhdm-dump of the two faces: raw 58 differing lines,
+    SORTED 0 differing lines.
+
+(4) Earlgrey is NOT path-sensitive -- it wrote the sweep's exact hashes from a
+    short /tmp path (pristine 03812fa7b530, patched 20fdd8913dc7), so the
+    implementer's Earlgrey attribution is unaffected.
+
+(5) THE LAYOUT CONTROL IS STILL A VALID CONTROL FOR g22.  A binary built from
+    PRISTINE e6156a8 with one added line in src/ModuleEmit.cpp
+    (`__attribute__((used)) static char r10v94_layout_pad[64];`,
+     md5 3ed9ef50f9208699b49bbc4a22c24bf7) shifts r10buvm22repro/g22.sv's
+    associative-index constant by EXACTLY its own .bss delta:
+        pristine 22515417   layout control 22515481 (+64)   patched 22519513 (+4096)
+    -- earl93's R5, reproduced independently, and NOT this pass's law.
+
+CONSEQUENCE FOR THE CAMPAIGN (an ops law, not a finding about this patch):
+a byteverify comparison of two sweeps must hold the WORKROOT PATH SHAPE fixed
+(same depth and same component lengths) or SeqDriver will appear as a phantom
+mover.  `/tmp/ctl_wd_sl_<HEAD>` vs a fresh `<W>/sl` already satisfies this only
+by accident; make it deliberate.

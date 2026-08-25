@@ -1,0 +1,14 @@
+plain r10buvm22repro/g22.sv
+elab r10buvm22repro/g22.sv
+plain r10earl57repro/v2_contexts57.sv
+plain r10earl57repro/v3_gengrid57.sv
+elab r10earl57repro/v3_gengrid57.sv
+plain r10earl94repro/g1_cast94.sv
+plain r10earl94repro/g2_ctx94.sv
+elab r10earl94repro/g2_ctx94.sv
+plain r10earl94repro/g3_kind94.sv
+plain r10earl94repro/g4_pool94.sv
+plain r10earl94repro/g5_fence94.sv
+elab r10earl94repro/g5_fence94.sv
+plain r10earl94repro/g6_depth94.sv
+plain r10earl94repro/g7_flat94.sv

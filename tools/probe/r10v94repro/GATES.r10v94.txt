@@ -1,0 +1,94 @@
+r10v94 -- THE VERIFIER'S OWN GATE BATTERY.  Every number below was measured in
+the verifier's own worktrees (/tmp/wt_v94 patched, /tmp/wt_v94pris pristine,
+both freshly created at e6156a8), with both binaries built by the verifier and
+FROZEN chmod 555 at immutable paths before any sweep.
+
+(0) THE PATCH
+    /tmp/r10earl94.patch  md5 1491a1ff7c76bf5cadad7427b2b641a9
+    applies with plain `git apply` on a FRESH e6156a8 worktree, rc 0, and the
+    regenerated `git diff HEAD` is BYTE-IDENTICAL to it (same md5).
+    Surface: src/ModuleEmit.cpp + tools/probe/r10earl94repro/ ONLY (40 files).
+    Fence check: 0 hunks name a slang-fenced test outside canaudit.sh.
+    The pass's copies of ct8rows.sh / byteverify.sh / canaries.sh / ctcan2.sh /
+    rowheads.sh are byte-identical to the canonical r10oth8/r10oth4/r10uvm52/
+    r10uvm67 originals.
+
+(1) BUILD (verifier's own, -j 2, md5 taken separately)
+    pristine  377572c695d6878809390a6912be5481   <- REPRODUCES the implementer's
+    patched   d56a5ef7bb590a992d4d5c34e8f6302c   <- REPRODUCES the implementer's
+    (bit-for-bit, from a different worktree path -- the build is path-independent)
+    layout control (verifier's own, e6156a8 + 64 B .bss) 3ed9ef50f9208699b49bbc4a22c24bf7
+
+(2) GOLDENS, SLANG_UHDM exported explicitly per binary
+    patched  23 PASS / 0 FAIL      pristine 23 PASS / 0 FAIL
+    SLANG_UHDM=/bin/false  0 PASS / 23 FAIL   (negative control)
+
+(3) cmds.txt AUDIT BY BINARY PATH
+    pris_sl   1573 files, 1523 name /tmp/v94_bin/pris94.bin, 0 name the main tree
+    patc_sl   1573 files, 1523 name /tmp/v94_bin/patc94.bin, 0 name the main tree
+    pris_u2r  1462 files, 0 name the main tree
+    patc_u2r  1462 files, 0 name the main tree
+    (the 50 sl files without a slang line are golden-cache-hit rows; their only
+     'slang-uhdm' string is the ~/.cache/slang-uhdm-goldens path -- the documented trap)
+
+(4) STATUS HISTOGRAMS, identical pristine vs patched
+    u2r  testflags 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+    u2r  default   679 / 50 / 2
+    sl   default   471 CMP_EQUAL / 283 SLANG_REJECT / 25 SURELOG_FAIL / 10 CMP_NOTEQUAL / 5 DEFERRED
+    sl   testflags 466 / 284 / 23 / 9 / 5 DEFERRED / 3 NO_DATABASE / 2 UNTRANSLATABLE /
+                   1 TIMEOUT / 1 NO_UHDM
+
+(5) ct8rows (WHOLE ROW: status AND dump)  0 differing rows on every pairing;
+    NO row converted; results/*.csv untouched
+      results/golden_surelog.csv  vs pris_sl.csv   PASS
+      results/golden_surelog.csv  vs patc_sl.csv   PASS
+      pris_sl.csv                 vs patc_sl.csv   PASS
+      results/gate_uhdm2rtlil.csv vs patc_u2r_tf.csv PASS
+      pris_u2r_tf.csv             vs patc_u2r_tf.csv PASS
+      pris_u2r_def.csv            vs patc_u2r_def.csv PASS
+
+(6) byteverify SELFCHECK=1
+      u2r      MOVERS 0 / 1358   SELFCHECK 1357/1358 flagged  PATH_SETS_IDENTICAL
+      surelog  MOVERS 2 /  956   SELFCHECK  955/ 956 flagged  PATH_SETS_IDENTICAL
+          ./default/Earlgrey_0_1     03812fa7b530 -> 20fdd8913dc7   PREDICTED, the law
+          ./testflags/Earlgrey_0_1   f809a9723c06 -> d8669ab5b9b2   PREDICTED, the law
+      NO SeqDriver mover and NO Scoreboard coin flip in this sweep --
+      see SEQDRIVER_PATH.r10v94.txt.
+
+(7) CANARIES / protected databases
+      canaries.sh surelog ok=52 changed=0 absent=0
+      canaries.sh u2r     ok=8  changed=0 absent=0
+      ctcan2 EXPECT_UNKNOWN=1 (sl) PASS ; EXPECT_UNKNOWN=6 (u2r) PASS
+      canaudit.sh canaries.sh ctcan2.sh  audited=29 UNCOVERED=0 FENCE-BREACH=0  PASS
+      InterfaceModPort  default 59a365f3ce2c  testflags 59a365f3ce2c   SAME
+      BlackParrotComplex default e3e354129d5a testflags 73a10e8217e5   SAME
+      YosysOldOr        both d68e0796d62c                              SAME
+      SVSwitch          both 4842211c4030 (PIN)                        SAME
+      YosysVerx         both 6ccda350c24a (PIN)                        SAME
+
+(8) HEADS (rowheads.sh)
+      SeqDriver 62/62, SimpleUVM 62/62, Scoreboard 62/SKIP, MiniAmiq 62/62,
+      BuildUVMPkg 174/174, Rggen 0/SKIP -- every .cmp file BYTE-IDENTICAL
+      before and after.
+      Earlgrey_0_1 default   29 -> 46 cmp lines, 1 head  <- HEAD CLEARED
+      Earlgrey_0_1 testflags 50 -> 50, .cmp BYTE-IDENTICAL before and after
+      The cleared head was `logic_net entropy_i / RHS <null>` (the SINGULAR
+      SafeCompare naming the POINTEE and hiding the owning ref_obj); the new
+      default head is the SAME `ref_obj LfsrDw vs constant UINT:64 vpiSize 32`
+      at prim_lfsr.sv:308 that testflags already sat on.
+
+(9) CENSUS, verifier's own run of ct94cen/cen94.sh over BOTH whole corpora
+      surelog    956 databases, rc=0 both sides on all, nogolden=0
+      u2r       1358 databases, rc=0 both sides on all, nogolden=0
+      golden side BYTE-IDENTICAL pristine-run vs patched-run (md5 6af1ce96...)
+      surelog  BOTH-SAME 2102537 -> 2102551   MOVED-WRONG 3025 -> 3013
+               GOLDEN-ONLY 22819 -> 22817     OURS-ONLY 501361 -> 501359
+      u2r      every bucket unchanged; the two census files BYTE-IDENTICAL
+      CELL VERDICT  surelog WRONG->RIGHT 12  RIGHT->WRONG 0  no-golden-key 0
+                            GA-buckets-changed 4 (all Earlgrey ELAB|CAST)
+                    u2r     0 / 0 / 0 / 0
+      Every one of the 35 changed census rows corpus-wide is Earlgrey's
+      `entropy_i` at 315:38-315:47 going `-@-` -> `logic_net@55:33-55:42`.
+
+(10) PERFORMANCE  Earlgrey_0_1/default, alternating runs:
+      pristine 5.31 s / 5.81 s     patched 5.56 s / 5.48 s   (no regression)

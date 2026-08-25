@@ -1,0 +1,1298 @@
+### v1_iarr94 / plain   cells=15 WRONG->RIGHT=6 RIGHT->WRONG=0 NOKEY=3
+  [NOKEY] work@v1_iarr94_top.gen_holder.u_in[0].gen_a.a_i|13:21-13:24|op@13:18-13:25
+      G=['logic_net|work@v1_iarr94_top.gen_holder.u_in[0].a_i|4:24-4:27']
+      P=None
+      Q=None
+  [NOKEY] work@v1_iarr94_top.gen_holder.u_in[0].gen_a.g_loc|13:43-13:48|op@13:40-13:49
+      G=['<null>']
+      P=None
+      Q=None
+  [NOKEY] work@v1_iarr94_top.gen_holder.u_in[0].gen_a.m_var|13:31-13:36|op@13:28-13:37
+      G=['logic_var|work@v1_iarr94_top.gen_holder.u_in[0].m_var|8:17-8:22']
+      P=None
+      Q=None
+  [WRONG->RIGHT] work@v1_iarr94_top.u_arr[0].gen_a.a_i|13:21-13:24|op@13:18-13:25
+      G=['logic_net|work@v1_iarr94_top.u_arr[0].a_i|4:24-4:27']
+      P=['<null>']
+      Q=['logic_net|work@v1_iarr94_top.u_arr[0].a_i|4:24-4:27']
+  [WRONG->RIGHT] work@v1_iarr94_top.u_arr[0].gen_a.m_var|13:31-13:36|op@13:28-13:37
+      G=['logic_var|work@v1_iarr94_top.u_arr[0].m_var|8:17-8:22']
+      P=['<null>']
+      Q=['logic_var|work@v1_iarr94_top.u_arr[0].m_var|8:17-8:22']
+  [WRONG->RIGHT] work@v1_iarr94_top.u_arr[1].gen_a.a_i|13:21-13:24|op@13:18-13:25
+      G=['logic_net|work@v1_iarr94_top.u_arr[1].a_i|4:24-4:27']
+      P=['<null>']
+      Q=['logic_net|work@v1_iarr94_top.u_arr[1].a_i|4:24-4:27']
+  [WRONG->RIGHT] work@v1_iarr94_top.u_arr[1].gen_a.m_var|13:31-13:36|op@13:28-13:37
+      G=['logic_var|work@v1_iarr94_top.u_arr[1].m_var|8:17-8:22']
+      P=['<null>']
+      Q=['logic_var|work@v1_iarr94_top.u_arr[1].m_var|8:17-8:22']
+  [WRONG->RIGHT] work@v1_iarr94_top.u_arr[2].gen_a.a_i|13:21-13:24|op@13:18-13:25
+      G=['logic_net|work@v1_iarr94_top.u_arr[2].a_i|4:24-4:27']
+      P=['<null>']
+      Q=['logic_net|work@v1_iarr94_top.u_arr[2].a_i|4:24-4:27']
+  [WRONG->RIGHT] work@v1_iarr94_top.u_arr[2].gen_a.m_var|13:31-13:36|op@13:28-13:37
+      G=['logic_var|work@v1_iarr94_top.u_arr[2].m_var|8:17-8:22']
+      P=['<null>']
+      Q=['logic_var|work@v1_iarr94_top.u_arr[2].m_var|8:17-8:22']
+### v1_iarr94 / elab   cells=15 WRONG->RIGHT=6 RIGHT->WRONG=0 NOKEY=3
+  [NOKEY] work@v1_iarr94_top.gen_holder.u_in[0].gen_a.a_i|13:21-13:24|op@13:18-13:25
+      G=['logic_net|work@v1_iarr94_top.gen_holder.u_in[0].a_i|4:24-4:27', 'logic_net|work@v1_iarr94_top.gen_holder.u_in[0].a_i|4:24-4:27']
+      P=None
+      Q=None
+  [NOKEY] work@v1_iarr94_top.gen_holder.u_in[0].gen_a.g_loc|13:43-13:48|op@13:40-13:49
+      G=['<null>', 'logic_var|work@v1_iarr94_top.gen_holder.u_in[0].gen_a.g_loc|11:19-11:24']
+      P=None
+      Q=None
+  [NOKEY] work@v1_iarr94_top.gen_holder.u_in[0].gen_a.m_var|13:31-13:36|op@13:28-13:37
+      G=['logic_var|work@v1_iarr94_top.gen_holder.u_in[0].m_var|8:17-8:22', 'logic_var|work@v1_iarr94_top.gen_holder.u_in[0].m_var|8:17-8:22']
+      P=None
+      Q=None
+  [WRONG->RIGHT] work@v1_iarr94_top.u_arr[0].gen_a.a_i|13:21-13:24|op@13:18-13:25
+      G=['logic_net|work@v1_iarr94_top.u_arr[0].a_i|4:24-4:27', 'logic_net|work@v1_iarr94_top.u_arr[0].a_i|4:24-4:27', 'logic_net|work@v1_iarr94_top.u_arr[0].a_i|4:24-4:27']
+      P=['<null>', 'logic_net|work@v1_iarr94_top.u_arr[0].a_i|4:24-4:27', 'logic_net|work@v1_iarr94_top.u_arr[0].a_i|4:24-4:27']
+      Q=['logic_net|work@v1_iarr94_top.u_arr[0].a_i|4:24-4:27', 'logic_net|work@v1_iarr94_top.u_arr[0].a_i|4:24-4:27', 'logic_net|work@v1_iarr94_top.u_arr[0].a_i|4:24-4:27']
+  [WRONG->RIGHT] work@v1_iarr94_top.u_arr[0].gen_a.m_var|13:31-13:36|op@13:28-13:37
+      G=['logic_var|work@v1_iarr94_top.u_arr[0].m_var|8:17-8:22', 'logic_var|work@v1_iarr94_top.u_arr[0].m_var|8:17-8:22', 'logic_var|work@v1_iarr94_top.u_arr[0].m_var|8:17-8:22']
+      P=['<null>', 'logic_var|work@v1_iarr94_top.u_arr[0].m_var|8:17-8:22', 'logic_var|work@v1_iarr94_top.u_arr[0].m_var|8:17-8:22']
+      Q=['logic_var|work@v1_iarr94_top.u_arr[0].m_var|8:17-8:22', 'logic_var|work@v1_iarr94_top.u_arr[0].m_var|8:17-8:22', 'logic_var|work@v1_iarr94_top.u_arr[0].m_var|8:17-8:22']
+  [WRONG->RIGHT] work@v1_iarr94_top.u_arr[1].gen_a.a_i|13:21-13:24|op@13:18-13:25
+      G=['logic_net|work@v1_iarr94_top.u_arr[1].a_i|4:24-4:27', 'logic_net|work@v1_iarr94_top.u_arr[1].a_i|4:24-4:27', 'logic_net|work@v1_iarr94_top.u_arr[1].a_i|4:24-4:27']
+      P=['<null>', 'logic_net|work@v1_iarr94_top.u_arr[1].a_i|4:24-4:27', 'logic_net|work@v1_iarr94_top.u_arr[1].a_i|4:24-4:27']
+      Q=['logic_net|work@v1_iarr94_top.u_arr[1].a_i|4:24-4:27', 'logic_net|work@v1_iarr94_top.u_arr[1].a_i|4:24-4:27', 'logic_net|work@v1_iarr94_top.u_arr[1].a_i|4:24-4:27']
+  [WRONG->RIGHT] work@v1_iarr94_top.u_arr[1].gen_a.m_var|13:31-13:36|op@13:28-13:37
+      G=['logic_var|work@v1_iarr94_top.u_arr[1].m_var|8:17-8:22', 'logic_var|work@v1_iarr94_top.u_arr[1].m_var|8:17-8:22', 'logic_var|work@v1_iarr94_top.u_arr[1].m_var|8:17-8:22']
+      P=['<null>', 'logic_var|work@v1_iarr94_top.u_arr[1].m_var|8:17-8:22', 'logic_var|work@v1_iarr94_top.u_arr[1].m_var|8:17-8:22']
+      Q=['logic_var|work@v1_iarr94_top.u_arr[1].m_var|8:17-8:22', 'logic_var|work@v1_iarr94_top.u_arr[1].m_var|8:17-8:22', 'logic_var|work@v1_iarr94_top.u_arr[1].m_var|8:17-8:22']
+  [WRONG->RIGHT] work@v1_iarr94_top.u_arr[2].gen_a.a_i|13:21-13:24|op@13:18-13:25
+      G=['logic_net|work@v1_iarr94_top.u_arr[2].a_i|4:24-4:27', 'logic_net|work@v1_iarr94_top.u_arr[2].a_i|4:24-4:27', 'logic_net|work@v1_iarr94_top.u_arr[2].a_i|4:24-4:27']
+      P=['<null>', 'logic_net|work@v1_iarr94_top.u_arr[2].a_i|4:24-4:27', 'logic_net|work@v1_iarr94_top.u_arr[2].a_i|4:24-4:27']
+      Q=['logic_net|work@v1_iarr94_top.u_arr[2].a_i|4:24-4:27', 'logic_net|work@v1_iarr94_top.u_arr[2].a_i|4:24-4:27', 'logic_net|work@v1_iarr94_top.u_arr[2].a_i|4:24-4:27']
+  [WRONG->RIGHT] work@v1_iarr94_top.u_arr[2].gen_a.m_var|13:31-13:36|op@13:28-13:37
+      G=['logic_var|work@v1_iarr94_top.u_arr[2].m_var|8:17-8:22', 'logic_var|work@v1_iarr94_top.u_arr[2].m_var|8:17-8:22', 'logic_var|work@v1_iarr94_top.u_arr[2].m_var|8:17-8:22']
+      P=['<null>', 'logic_var|work@v1_iarr94_top.u_arr[2].m_var|8:17-8:22', 'logic_var|work@v1_iarr94_top.u_arr[2].m_var|8:17-8:22']
+      Q=['logic_var|work@v1_iarr94_top.u_arr[2].m_var|8:17-8:22', 'logic_var|work@v1_iarr94_top.u_arr[2].m_var|8:17-8:22', 'logic_var|work@v1_iarr94_top.u_arr[2].m_var|8:17-8:22']
+### v2_kind94 / plain   cells=14 WRONG->RIGHT=5 RIGHT->WRONG=0 NOKEY=1
+  [NOKEY] work@chv2_94.gen_k.m_var|40:66-40:71|op@40:63-40:72
+      G=['<null>']
+      P=None
+      Q=None
+  [WRONG->RIGHT] work@v2_kind94_top.u_a.gen_k.m_var|30:20-30:25|op@30:17-30:26
+      G=['logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22']
+      P=['<null>']
+      Q=['logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22']
+  [WRONG->RIGHT] work@v2_kind94_top.u_a.gen_k.m_var|32:22-32:27|op@32:17-32:28
+      G=['logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22']
+      P=['<null>']
+      Q=['logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22']
+  [WRONG->RIGHT] work@v2_kind94_top.u_a.gen_k.m_var|35:23-35:28|op@35:17-35:29
+      G=['logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22']
+      P=['<null>']
+      Q=['logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22']
+  [WRONG->RIGHT] work@v2_kind94_top.u_a.gen_k.m_var|37:24-37:29|op@37:17-37:30
+      G=['logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22']
+      P=['<null>']
+      Q=['logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22']
+  [WRONG->RIGHT] work@v2_kind94_top.u_a.gen_k.m_var|38:23-38:28|op@38:17-38:29
+      G=['logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22']
+      P=['<null>']
+      Q=['logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22']
+### v2_kind94 / elab   cells=14 WRONG->RIGHT=5 RIGHT->WRONG=0 NOKEY=1
+  [NOKEY] work@chv2_94.gen_k.m_var|40:66-40:71|op@40:63-40:72
+      G=['<null>']
+      P=None
+      Q=None
+  [WRONG->RIGHT] work@v2_kind94_top.u_a.gen_k.m_var|30:20-30:25|op@30:17-30:26
+      G=['logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22', 'logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22']
+      P=['<null>', 'logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22']
+      Q=['logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22', 'logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22']
+  [WRONG->RIGHT] work@v2_kind94_top.u_a.gen_k.m_var|32:22-32:27|op@32:17-32:28
+      G=['logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22', 'logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22']
+      P=['<null>', 'logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22']
+      Q=['logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22', 'logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22']
+  [WRONG->RIGHT] work@v2_kind94_top.u_a.gen_k.m_var|35:23-35:28|op@35:17-35:29
+      G=['logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22', 'logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22']
+      P=['<null>', 'logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22']
+      Q=['logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22', 'logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22']
+  [WRONG->RIGHT] work@v2_kind94_top.u_a.gen_k.m_var|37:24-37:29|op@37:17-37:30
+      G=['logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22', 'logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22']
+      P=['<null>', 'logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22']
+      Q=['logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22', 'logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22']
+  [WRONG->RIGHT] work@v2_kind94_top.u_a.gen_k.m_var|38:23-38:28|op@38:17-38:29
+      G=['logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22', 'logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22']
+      P=['<null>', 'logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22']
+      Q=['logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22', 'logic_var|work@v2_kind94_top.u_a.m_var|17:17-17:22']
+### v3_home94 / plain   cells=14 WRONG->RIGHT=4 RIGHT->WRONG=0 NOKEY=0
+  [WRONG->RIGHT] work@v3_home94_top.u_c.gen_b.a_i|23:21-23:24|op@23:18-23:25
+      G=['logic_net|work@v3_home94_top.u_c.a_i|17:24-17:27']
+      P=['<null>']
+      Q=['logic_net|work@v3_home94_top.u_c.a_i|17:24-17:27']
+  [WRONG->RIGHT] work@v3_home94_top.u_c.gen_b.m_var|23:31-23:36|op@23:28-23:37
+      G=['logic_var|work@v3_home94_top.u_c.m_var|20:17-20:22']
+      P=['<null>']
+      Q=['logic_var|work@v3_home94_top.u_c.m_var|20:17-20:22']
+  [WRONG->RIGHT] work@v3_home94_top.u_c.u_bnd.gen_bind.a_i|35:20-35:23|op@35:17-35:24
+      G=['logic_net|work@v3_home94_top.u_c.u_bnd.a_i|28:23-28:26']
+      P=['<null>']
+      Q=['logic_net|work@v3_home94_top.u_c.u_bnd.a_i|28:23-28:26']
+  [WRONG->RIGHT] work@v3_home94_top.u_c.u_bnd.gen_bind.bm|35:30-35:32|op@35:27-35:33
+      G=['logic_var|work@v3_home94_top.u_c.u_bnd.bm|30:17-30:19']
+      P=['<null>']
+      Q=['logic_var|work@v3_home94_top.u_c.u_bnd.bm|30:17-30:19']
+### v3_home94 / elab   cells=14 WRONG->RIGHT=4 RIGHT->WRONG=0 NOKEY=0
+  [WRONG->RIGHT] work@v3_home94_top.u_c.gen_b.a_i|23:21-23:24|op@23:18-23:25
+      G=['logic_net|work@v3_home94_top.u_c.a_i|17:24-17:27', 'logic_net|work@v3_home94_top.u_c.a_i|17:24-17:27']
+      P=['<null>', 'logic_net|work@v3_home94_top.u_c.a_i|17:24-17:27']
+      Q=['logic_net|work@v3_home94_top.u_c.a_i|17:24-17:27', 'logic_net|work@v3_home94_top.u_c.a_i|17:24-17:27']
+  [WRONG->RIGHT] work@v3_home94_top.u_c.gen_b.m_var|23:31-23:36|op@23:28-23:37
+      G=['logic_var|work@v3_home94_top.u_c.m_var|20:17-20:22', 'logic_var|work@v3_home94_top.u_c.m_var|20:17-20:22']
+      P=['<null>', 'logic_var|work@v3_home94_top.u_c.m_var|20:17-20:22']
+      Q=['logic_var|work@v3_home94_top.u_c.m_var|20:17-20:22', 'logic_var|work@v3_home94_top.u_c.m_var|20:17-20:22']
+  [WRONG->RIGHT] work@v3_home94_top.u_c.u_bnd.gen_bind.a_i|35:20-35:23|op@35:17-35:24
+      G=['logic_net|work@v3_home94_top.u_c.u_bnd.a_i|28:23-28:26', 'logic_net|work@v3_home94_top.u_c.u_bnd.a_i|28:23-28:26']
+      P=['<null>', 'logic_net|work@v3_home94_top.u_c.u_bnd.a_i|28:23-28:26']
+      Q=['logic_net|work@v3_home94_top.u_c.u_bnd.a_i|28:23-28:26', 'logic_net|work@v3_home94_top.u_c.u_bnd.a_i|28:23-28:26']
+  [WRONG->RIGHT] work@v3_home94_top.u_c.u_bnd.gen_bind.bm|35:30-35:32|op@35:27-35:33
+      G=['logic_var|work@v3_home94_top.u_c.u_bnd.bm|30:17-30:19', 'logic_var|work@v3_home94_top.u_c.u_bnd.bm|30:17-30:19']
+      P=['<null>', 'logic_var|work@v3_home94_top.u_c.u_bnd.bm|30:17-30:19']
+      Q=['logic_var|work@v3_home94_top.u_c.u_bnd.bm|30:17-30:19', 'logic_var|work@v3_home94_top.u_c.u_bnd.bm|30:17-30:19']
+### v4_ctx94 / plain   cells=20 WRONG->RIGHT=8 RIGHT->WRONG=0 NOKEY=0
+  [WRONG->RIGHT] work@v4_ctx94_top.u_a.gen_c.before_var|19:28-19:38|op@19:25-19:39
+      G=['logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27']
+      P=['<null>']
+      Q=['logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27']
+  [WRONG->RIGHT] work@v4_ctx94_top.u_a.gen_c.before_var|21:21-21:31|op@21:18-21:32
+      G=['logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27']
+      P=['<null>']
+      Q=['logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27']
+  [WRONG->RIGHT] work@v4_ctx94_top.u_a.gen_c.before_var|23:20-23:30|op@23:17-23:31
+      G=['logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27']
+      P=['<null>']
+      Q=['logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27']
+  [WRONG->RIGHT] work@v4_ctx94_top.u_a.gen_c.before_var|23:37-23:47|op@23:34-23:48
+      G=['logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27']
+      P=['<null>']
+      Q=['logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27']
+  [WRONG->RIGHT] work@v4_ctx94_top.u_a.gen_c.mid_var|21:42-21:49|op@21:39-21:50
+      G=['logic_var|work@v4_ctx94_top.u_a.mid_var|11:17-11:24']
+      P=['<null>']
+      Q=['logic_var|work@v4_ctx94_top.u_a.mid_var|11:17-11:24']
+  [WRONG->RIGHT] work@v4_ctx94_top.u_a.gen_c.mid_var|27:20-27:27|op@27:17-27:28
+      G=['logic_var|work@v4_ctx94_top.u_a.mid_var|11:17-11:24']
+      P=['<null>']
+      Q=['logic_var|work@v4_ctx94_top.u_a.mid_var|11:17-11:24']
+  [WRONG->RIGHT] work@v4_ctx94_top.u_a.gen_d.before_var|34:34-34:44|op@34:31-34:45
+      G=['logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27']
+      P=['<null>']
+      Q=['logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27']
+  [WRONG->RIGHT] work@v4_ctx94_top.u_a.gen_d.mid_var|34:20-34:27|op@34:17-34:28
+      G=['logic_var|work@v4_ctx94_top.u_a.mid_var|11:17-11:24']
+      P=['<null>']
+      Q=['logic_var|work@v4_ctx94_top.u_a.mid_var|11:17-11:24']
+### v4_ctx94 / elab   cells=20 WRONG->RIGHT=8 RIGHT->WRONG=0 NOKEY=0
+  [WRONG->RIGHT] work@v4_ctx94_top.u_a.gen_c.before_var|19:28-19:38|op@19:25-19:39
+      G=['logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27', 'logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27']
+      P=['<null>', 'logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27']
+      Q=['logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27', 'logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27']
+  [WRONG->RIGHT] work@v4_ctx94_top.u_a.gen_c.before_var|21:21-21:31|op@21:18-21:32
+      G=['logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27', 'logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27']
+      P=['<null>', 'logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27']
+      Q=['logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27', 'logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27']
+  [WRONG->RIGHT] work@v4_ctx94_top.u_a.gen_c.before_var|23:20-23:30|op@23:17-23:31
+      G=['logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27', 'logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27']
+      P=['<null>', 'logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27']
+      Q=['logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27', 'logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27']
+  [WRONG->RIGHT] work@v4_ctx94_top.u_a.gen_c.before_var|23:37-23:47|op@23:34-23:48
+      G=['logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27', 'logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27']
+      P=['<null>', 'logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27']
+      Q=['logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27', 'logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27']
+  [WRONG->RIGHT] work@v4_ctx94_top.u_a.gen_c.mid_var|21:42-21:49|op@21:39-21:50
+      G=['logic_var|work@v4_ctx94_top.u_a.mid_var|11:17-11:24', 'logic_var|work@v4_ctx94_top.u_a.mid_var|11:17-11:24']
+      P=['<null>', 'logic_var|work@v4_ctx94_top.u_a.mid_var|11:17-11:24']
+      Q=['logic_var|work@v4_ctx94_top.u_a.mid_var|11:17-11:24', 'logic_var|work@v4_ctx94_top.u_a.mid_var|11:17-11:24']
+  [WRONG->RIGHT] work@v4_ctx94_top.u_a.gen_c.mid_var|27:20-27:27|op@27:17-27:28
+      G=['logic_var|work@v4_ctx94_top.u_a.mid_var|11:17-11:24', 'logic_var|work@v4_ctx94_top.u_a.mid_var|11:17-11:24']
+      P=['<null>', 'logic_var|work@v4_ctx94_top.u_a.mid_var|11:17-11:24']
+      Q=['logic_var|work@v4_ctx94_top.u_a.mid_var|11:17-11:24', 'logic_var|work@v4_ctx94_top.u_a.mid_var|11:17-11:24']
+  [WRONG->RIGHT] work@v4_ctx94_top.u_a.gen_d.before_var|34:34-34:44|op@34:31-34:45
+      G=['logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27', 'logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27']
+      P=['<null>', 'logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27']
+      Q=['logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27', 'logic_var|work@v4_ctx94_top.u_a.before_var|10:17-10:27']
+  [WRONG->RIGHT] work@v4_ctx94_top.u_a.gen_d.mid_var|34:20-34:27|op@34:17-34:28
+      G=['logic_var|work@v4_ctx94_top.u_a.mid_var|11:17-11:24', 'logic_var|work@v4_ctx94_top.u_a.mid_var|11:17-11:24']
+      P=['<null>', 'logic_var|work@v4_ctx94_top.u_a.mid_var|11:17-11:24']
+      Q=['logic_var|work@v4_ctx94_top.u_a.mid_var|11:17-11:24', 'logic_var|work@v4_ctx94_top.u_a.mid_var|11:17-11:24']
+### v5_par94 / plain   cells=32 WRONG->RIGHT=14 RIGHT->WRONG=0 NOKEY=3
+  [WRONG->RIGHT] work@v5_par94_top.u_a.gen_p.en_var|24:20-24:26|op@24:17-24:27
+      G=['enum_var|work@v5_par94_top.u_a.en_var|11:8-11:14']
+      P=['<null>']
+      Q=['enum_var|work@v5_par94_top.u_a.en_var|11:8-11:14']
+  [NOKEY] work@v5_par94_top.u_a.gen_p.gen_q.GLP|27:22-27:25|op@27:19-27:26
+      G=None
+      P=['<null>']
+      Q=['<null>']
+  [WRONG->RIGHT] work@v5_par94_top.u_a.gen_p.gen_q.p_loc|27:32-27:37|op@27:29-27:38
+      G=['logic_var|work@v5_par94_top.u_a.gen_p.p_loc|20:19-20:24']
+      P=['<null>']
+      Q=['logic_var|work@v5_par94_top.u_a.gen_p.p_loc|20:19-20:24']
+  [WRONG->RIGHT] work@v5_par94_top.u_a.gen_p.m_var|22:20-22:25|op@22:17-22:26
+      G=['logic_var|work@v5_par94_top.u_a.m_var|13:17-13:22']
+      P=['<null>']
+      Q=['logic_var|work@v5_par94_top.u_a.m_var|13:17-13:22']
+  [WRONG->RIGHT] work@v5_par94_top.u_a.gen_p.st_var|23:20-23:26|op@23:17-23:27
+      G=['struct_net|work@v5_par94_top.u_a.st_var|10:8-10:14']
+      P=['<null>']
+      Q=['struct_net|work@v5_par94_top.u_a.st_var|10:8-10:14']
+  [WRONG->RIGHT] work@v5_par94_top.u_b.gen_p.en_var|24:20-24:26|op@24:17-24:27
+      G=['enum_var|work@v5_par94_top.u_b.en_var|11:8-11:14']
+      P=['<null>']
+      Q=['enum_var|work@v5_par94_top.u_b.en_var|11:8-11:14']
+  [NOKEY] work@v5_par94_top.u_b.gen_p.gen_q.GLP|27:22-27:25|op@27:19-27:26
+      G=None
+      P=['<null>']
+      Q=['<null>']
+  [WRONG->RIGHT] work@v5_par94_top.u_b.gen_p.gen_q.p_loc|27:32-27:37|op@27:29-27:38
+      G=['logic_var|work@v5_par94_top.u_b.gen_p.p_loc|20:19-20:24']
+      P=['<null>']
+      Q=['logic_var|work@v5_par94_top.u_b.gen_p.p_loc|20:19-20:24']
+  [WRONG->RIGHT] work@v5_par94_top.u_b.gen_p.m_var|22:20-22:25|op@22:17-22:26
+      G=['logic_var|work@v5_par94_top.u_b.m_var|13:17-13:22']
+      P=['<null>']
+      Q=['logic_var|work@v5_par94_top.u_b.m_var|13:17-13:22']
+  [WRONG->RIGHT] work@v5_par94_top.u_b.gen_p.st_var|23:20-23:26|op@23:17-23:27
+      G=['struct_net|work@v5_par94_top.u_b.st_var|10:8-10:14']
+      P=['<null>']
+      Q=['struct_net|work@v5_par94_top.u_b.st_var|10:8-10:14']
+  [WRONG->RIGHT] work@v5_par94_top.u_c.gen_p.en_var|24:20-24:26|op@24:17-24:27
+      G=['enum_var|work@v5_par94_top.u_c.en_var|11:8-11:14']
+      P=['<null>']
+      Q=['enum_var|work@v5_par94_top.u_c.en_var|11:8-11:14']
+  [NOKEY] work@v5_par94_top.u_c.gen_p.gen_q.GLP|27:22-27:25|op@27:19-27:26
+      G=None
+      P=['<null>']
+      Q=['<null>']
+  [WRONG->RIGHT] work@v5_par94_top.u_c.gen_p.gen_q.p_loc|27:32-27:37|op@27:29-27:38
+      G=['logic_var|work@v5_par94_top.u_c.gen_p.p_loc|20:19-20:24']
+      P=['<null>']
+      Q=['logic_var|work@v5_par94_top.u_c.gen_p.p_loc|20:19-20:24']
+  [WRONG->RIGHT] work@v5_par94_top.u_c.gen_p.m_var|22:20-22:25|op@22:17-22:26
+      G=['logic_var|work@v5_par94_top.u_c.m_var|13:17-13:22']
+      P=['<null>']
+      Q=['logic_var|work@v5_par94_top.u_c.m_var|13:17-13:22']
+  [WRONG->RIGHT] work@v5_par94_top.u_c.gen_p.st_var|23:20-23:26|op@23:17-23:27
+      G=['struct_net|work@v5_par94_top.u_c.st_var|10:8-10:14']
+      P=['<null>']
+      Q=['struct_net|work@v5_par94_top.u_c.st_var|10:8-10:14']
+  [WRONG->RIGHT] work@v5_par94_top.u_d.gen_d.a_i|37:32-37:35|op@37:29-37:36
+      G=['logic_net|work@v5_par94_top.u_d.a_i|33:23-33:26']
+      P=['<null>']
+      Q=['logic_net|work@v5_par94_top.u_d.a_i|33:23-33:26']
+  [WRONG->RIGHT] work@v5_par94_top.u_d.gen_d.n_var|37:20-37:25|op@37:17-37:26
+      G=['logic_var|work@v5_par94_top.u_d.n_var|34:17-34:22']
+      P=['<null>']
+      Q=['logic_var|work@v5_par94_top.u_d.n_var|34:17-34:22']
+### v5_par94 / elab   cells=32 WRONG->RIGHT=14 RIGHT->WRONG=0 NOKEY=3
+  [STILL-WRONG] work@v5_par94_top.u_a.gen_p.GLP|22:32-22:35|op@22:29-22:36
+      G=['<null>']
+      P=['<null>', 'parameter|work@v5_par94_top.u_a.gen_p.GLP|19:29-19:32']
+      Q=['<null>', 'parameter|work@v5_par94_top.u_a.gen_p.GLP|19:29-19:32']
+  [WRONG->RIGHT] work@v5_par94_top.u_a.gen_p.en_var|24:20-24:26|op@24:17-24:27
+      G=['enum_var|work@v5_par94_top.u_a.en_var|11:8-11:14', 'enum_var|work@v5_par94_top.u_a.en_var|11:8-11:14']
+      P=['<null>', 'enum_var|work@v5_par94_top.u_a.en_var|11:8-11:14']
+      Q=['enum_var|work@v5_par94_top.u_a.en_var|11:8-11:14', 'enum_var|work@v5_par94_top.u_a.en_var|11:8-11:14']
+  [NOKEY] work@v5_par94_top.u_a.gen_p.gen_q.GLP|27:22-27:25|op@27:19-27:26
+      G=None
+      P=['<null>', 'parameter|work@v5_par94_top.u_a.gen_p.GLP|19:29-19:32']
+      Q=['<null>', 'parameter|work@v5_par94_top.u_a.gen_p.GLP|19:29-19:32']
+  [WRONG->RIGHT] work@v5_par94_top.u_a.gen_p.gen_q.p_loc|27:32-27:37|op@27:29-27:38
+      G=['logic_var|work@v5_par94_top.u_a.gen_p.p_loc|20:19-20:24', 'logic_var|work@v5_par94_top.u_a.gen_p.p_loc|20:19-20:24']
+      P=['<null>', 'logic_var|work@v5_par94_top.u_a.gen_p.p_loc|20:19-20:24']
+      Q=['logic_var|work@v5_par94_top.u_a.gen_p.p_loc|20:19-20:24', 'logic_var|work@v5_par94_top.u_a.gen_p.p_loc|20:19-20:24']
+  [WRONG->RIGHT] work@v5_par94_top.u_a.gen_p.m_var|22:20-22:25|op@22:17-22:26
+      G=['logic_var|work@v5_par94_top.u_a.m_var|13:17-13:22', 'logic_var|work@v5_par94_top.u_a.m_var|13:17-13:22']
+      P=['<null>', 'logic_var|work@v5_par94_top.u_a.m_var|13:17-13:22']
+      Q=['logic_var|work@v5_par94_top.u_a.m_var|13:17-13:22', 'logic_var|work@v5_par94_top.u_a.m_var|13:17-13:22']
+  [WRONG->RIGHT] work@v5_par94_top.u_a.gen_p.st_var|23:20-23:26|op@23:17-23:27
+      G=['struct_net|work@v5_par94_top.u_a.st_var|10:8-10:14', 'struct_net|work@v5_par94_top.u_a.st_var|10:8-10:14']
+      P=['<null>', 'struct_net|work@v5_par94_top.u_a.st_var|10:8-10:14']
+      Q=['struct_net|work@v5_par94_top.u_a.st_var|10:8-10:14', 'struct_net|work@v5_par94_top.u_a.st_var|10:8-10:14']
+  [STILL-WRONG] work@v5_par94_top.u_b.gen_p.GLP|22:32-22:35|op@22:29-22:36
+      G=['<null>']
+      P=['<null>', 'parameter|work@v5_par94_top.u_b.gen_p.GLP|19:29-19:32']
+      Q=['<null>', 'parameter|work@v5_par94_top.u_b.gen_p.GLP|19:29-19:32']
+  [WRONG->RIGHT] work@v5_par94_top.u_b.gen_p.en_var|24:20-24:26|op@24:17-24:27
+      G=['enum_var|work@v5_par94_top.u_b.en_var|11:8-11:14', 'enum_var|work@v5_par94_top.u_b.en_var|11:8-11:14']
+      P=['<null>', 'enum_var|work@v5_par94_top.u_b.en_var|11:8-11:14']
+      Q=['enum_var|work@v5_par94_top.u_b.en_var|11:8-11:14', 'enum_var|work@v5_par94_top.u_b.en_var|11:8-11:14']
+  [NOKEY] work@v5_par94_top.u_b.gen_p.gen_q.GLP|27:22-27:25|op@27:19-27:26
+      G=None
+      P=['<null>', 'parameter|work@v5_par94_top.u_b.gen_p.GLP|19:29-19:32']
+      Q=['<null>', 'parameter|work@v5_par94_top.u_b.gen_p.GLP|19:29-19:32']
+  [WRONG->RIGHT] work@v5_par94_top.u_b.gen_p.gen_q.p_loc|27:32-27:37|op@27:29-27:38
+      G=['logic_var|work@v5_par94_top.u_b.gen_p.p_loc|20:19-20:24', 'logic_var|work@v5_par94_top.u_b.gen_p.p_loc|20:19-20:24']
+      P=['<null>', 'logic_var|work@v5_par94_top.u_b.gen_p.p_loc|20:19-20:24']
+      Q=['logic_var|work@v5_par94_top.u_b.gen_p.p_loc|20:19-20:24', 'logic_var|work@v5_par94_top.u_b.gen_p.p_loc|20:19-20:24']
+  [WRONG->RIGHT] work@v5_par94_top.u_b.gen_p.m_var|22:20-22:25|op@22:17-22:26
+      G=['logic_var|work@v5_par94_top.u_b.m_var|13:17-13:22', 'logic_var|work@v5_par94_top.u_b.m_var|13:17-13:22']
+      P=['<null>', 'logic_var|work@v5_par94_top.u_b.m_var|13:17-13:22']
+      Q=['logic_var|work@v5_par94_top.u_b.m_var|13:17-13:22', 'logic_var|work@v5_par94_top.u_b.m_var|13:17-13:22']
+  [WRONG->RIGHT] work@v5_par94_top.u_b.gen_p.st_var|23:20-23:26|op@23:17-23:27
+      G=['struct_net|work@v5_par94_top.u_b.st_var|10:8-10:14', 'struct_net|work@v5_par94_top.u_b.st_var|10:8-10:14']
+      P=['<null>', 'struct_net|work@v5_par94_top.u_b.st_var|10:8-10:14']
+      Q=['struct_net|work@v5_par94_top.u_b.st_var|10:8-10:14', 'struct_net|work@v5_par94_top.u_b.st_var|10:8-10:14']
+  [STILL-WRONG] work@v5_par94_top.u_c.gen_p.GLP|22:32-22:35|op@22:29-22:36
+      G=['<null>']
+      P=['<null>', 'parameter|work@v5_par94_top.u_c.gen_p.GLP|19:29-19:32']
+      Q=['<null>', 'parameter|work@v5_par94_top.u_c.gen_p.GLP|19:29-19:32']
+  [WRONG->RIGHT] work@v5_par94_top.u_c.gen_p.en_var|24:20-24:26|op@24:17-24:27
+      G=['enum_var|work@v5_par94_top.u_c.en_var|11:8-11:14', 'enum_var|work@v5_par94_top.u_c.en_var|11:8-11:14']
+      P=['<null>', 'enum_var|work@v5_par94_top.u_c.en_var|11:8-11:14']
+      Q=['enum_var|work@v5_par94_top.u_c.en_var|11:8-11:14', 'enum_var|work@v5_par94_top.u_c.en_var|11:8-11:14']
+  [NOKEY] work@v5_par94_top.u_c.gen_p.gen_q.GLP|27:22-27:25|op@27:19-27:26
+      G=None
+      P=['<null>', 'parameter|work@v5_par94_top.u_c.gen_p.GLP|19:29-19:32']
+      Q=['<null>', 'parameter|work@v5_par94_top.u_c.gen_p.GLP|19:29-19:32']
+  [WRONG->RIGHT] work@v5_par94_top.u_c.gen_p.gen_q.p_loc|27:32-27:37|op@27:29-27:38
+      G=['logic_var|work@v5_par94_top.u_c.gen_p.p_loc|20:19-20:24', 'logic_var|work@v5_par94_top.u_c.gen_p.p_loc|20:19-20:24']
+      P=['<null>', 'logic_var|work@v5_par94_top.u_c.gen_p.p_loc|20:19-20:24']
+      Q=['logic_var|work@v5_par94_top.u_c.gen_p.p_loc|20:19-20:24', 'logic_var|work@v5_par94_top.u_c.gen_p.p_loc|20:19-20:24']
+  [WRONG->RIGHT] work@v5_par94_top.u_c.gen_p.m_var|22:20-22:25|op@22:17-22:26
+      G=['logic_var|work@v5_par94_top.u_c.m_var|13:17-13:22', 'logic_var|work@v5_par94_top.u_c.m_var|13:17-13:22']
+      P=['<null>', 'logic_var|work@v5_par94_top.u_c.m_var|13:17-13:22']
+      Q=['logic_var|work@v5_par94_top.u_c.m_var|13:17-13:22', 'logic_var|work@v5_par94_top.u_c.m_var|13:17-13:22']
+  [WRONG->RIGHT] work@v5_par94_top.u_c.gen_p.st_var|23:20-23:26|op@23:17-23:27
+      G=['struct_net|work@v5_par94_top.u_c.st_var|10:8-10:14', 'struct_net|work@v5_par94_top.u_c.st_var|10:8-10:14']
+      P=['<null>', 'struct_net|work@v5_par94_top.u_c.st_var|10:8-10:14']
+      Q=['struct_net|work@v5_par94_top.u_c.st_var|10:8-10:14', 'struct_net|work@v5_par94_top.u_c.st_var|10:8-10:14']
+  [WRONG->RIGHT] work@v5_par94_top.u_d.gen_d.a_i|37:32-37:35|op@37:29-37:36
+      G=['logic_net|work@v5_par94_top.u_d.a_i|33:23-33:26', 'logic_net|work@v5_par94_top.u_d.a_i|33:23-33:26']
+      P=['<null>', 'logic_net|work@v5_par94_top.u_d.a_i|33:23-33:26']
+      Q=['logic_net|work@v5_par94_top.u_d.a_i|33:23-33:26', 'logic_net|work@v5_par94_top.u_d.a_i|33:23-33:26']
+  [WRONG->RIGHT] work@v5_par94_top.u_d.gen_d.n_var|37:20-37:25|op@37:17-37:26
+      G=['logic_var|work@v5_par94_top.u_d.n_var|34:17-34:22', 'logic_var|work@v5_par94_top.u_d.n_var|34:17-34:22']
+      P=['<null>', 'logic_var|work@v5_par94_top.u_d.n_var|34:17-34:22']
+      Q=['logic_var|work@v5_par94_top.u_d.n_var|34:17-34:22', 'logic_var|work@v5_par94_top.u_d.n_var|34:17-34:22']
+### v6_hier94 / plain   cells=8 WRONG->RIGHT=1 RIGHT->WRONG=0 NOKEY=4
+  [NOKEY] pkv6_94::pvar|32:20-32:33|op@32:17-32:34
+      G=None
+      P=['<null>']
+      Q=['<null>']
+  [NOKEY] work@chv6_94.gen_h.pkv6_94::pvar|32:20-32:29|op@32:17-32:34
+      G=['<null>']
+      P=None
+      Q=None
+  [NOKEY] work@v6_hier94_top.u_a.gen_h.pkv6_94::pvar|32:20-32:29|op@32:17-32:34
+      G=['<null>']
+      P=None
+      Q=None
+  [NOKEY] work@v6_hier94_top.u_a.gen_h.pkv6_94::pvar|32:20-32:33|op@32:17-32:34
+      G=None
+      P=['logic_var|pkv6_94::pvar|6:15-6:19']
+      Q=['logic_var|pkv6_94::pvar|6:15-6:19']
+  [STILL-WRONG] work@v6_hier94_top.u_a.gen_h.pvar|34:20-34:24|op@34:17-34:25
+      G=['logic_var|work@v6_hier94_top.u_a.pvar|6:15-6:19']
+      P=['<null>']
+      Q=['<null>']
+  [WRONG->RIGHT] work@v6_hier94_top.u_a.gen_h.sib|36:20-36:23|op@36:17-36:24
+      G=['logic_var|work@v6_hier94_top.u_a.sib|24:15-24:18']
+      P=['<null>']
+      Q=['logic_var|work@v6_hier94_top.u_a.sib|24:15-24:18']
+### v6_hier94 / elab   cells=8 WRONG->RIGHT=1 RIGHT->WRONG=0 NOKEY=4
+  [NOKEY] pkv6_94::pvar|32:20-32:33|op@32:17-32:34
+      G=None
+      P=['<null>']
+      Q=['<null>']
+  [NOKEY] work@chv6_94.gen_h.pkv6_94::pvar|32:20-32:29|op@32:17-32:34
+      G=['<null>']
+      P=None
+      Q=None
+  [NOKEY] work@v6_hier94_top.u_a.gen_h.pkv6_94::pvar|32:20-32:29|op@32:17-32:34
+      G=['<null>', '<null>']
+      P=None
+      Q=None
+  [NOKEY] work@v6_hier94_top.u_a.gen_h.pkv6_94::pvar|32:20-32:33|op@32:17-32:34
+      G=None
+      P=['logic_var|pkv6_94::pvar|6:15-6:19', 'logic_var|pkv6_94::pvar|6:15-6:19']
+      Q=['logic_var|pkv6_94::pvar|6:15-6:19', 'logic_var|pkv6_94::pvar|6:15-6:19']
+  [STILL-WRONG] work@v6_hier94_top.u_a.gen_h.pvar|34:20-34:24|op@34:17-34:25
+      G=['logic_var|work@v6_hier94_top.u_a.pvar|6:15-6:19', 'logic_var|work@v6_hier94_top.u_a.pvar|6:15-6:19']
+      P=['<null>', 'logic_var|work@v6_hier94_top.u_a.pvar|6:15-6:19']
+      Q=['<null>', 'logic_var|work@v6_hier94_top.u_a.pvar|6:15-6:19']
+  [WRONG->RIGHT] work@v6_hier94_top.u_a.gen_h.sib|36:20-36:23|op@36:17-36:24
+      G=['logic_var|work@v6_hier94_top.u_a.sib|24:15-24:18', 'logic_var|work@v6_hier94_top.u_a.sib|24:15-24:18']
+      P=['<null>', 'logic_var|work@v6_hier94_top.u_a.sib|24:15-24:18']
+      Q=['logic_var|work@v6_hier94_top.u_a.sib|24:15-24:18', 'logic_var|work@v6_hier94_top.u_a.sib|24:15-24:18']
+### v2_contexts57 / plain   cells=24 WRONG->RIGHT=7 RIGHT->WRONG=0 NOKEY=0
+  [WRONG->RIGHT] work@top57c.i_c.gen_for57[0].sig|42:24-42:27|op@42:18-42:28
+      G=['logic_net|work@top57c.i_c.sig|13:23-13:26']
+      P=['<null>']
+      Q=['logic_net|work@top57c.i_c.sig|13:23-13:26']
+  [WRONG->RIGHT] work@top57c.i_c.gen_for57[0].sig|43:24-43:27|op@43:18-43:28
+      G=['logic_net|work@top57c.i_c.sig|13:23-13:26']
+      P=['<null>']
+      Q=['logic_net|work@top57c.i_c.sig|13:23-13:26']
+  [WRONG->RIGHT] work@top57c.i_c.gen_if57.sig|25:24-25:27|op@25:18-25:28
+      G=['logic_net|work@top57c.i_c.sig|13:23-13:26']
+      P=['<null>']
+      Q=['logic_net|work@top57c.i_c.sig|13:23-13:26']
+  [WRONG->RIGHT] work@top57c.i_c.gen_if57.sig|26:24-26:27|op@26:18-26:28
+      G=['logic_net|work@top57c.i_c.sig|13:23-13:26']
+      P=['<null>']
+      Q=['logic_net|work@top57c.i_c.sig|13:23-13:26']
+  [WRONG->RIGHT] work@top57c.i_c.gen_if57.sig|27:24-27:27|op@27:18-27:28
+      G=['logic_net|work@top57c.i_c.sig|13:23-13:26']
+      P=['<null>']
+      Q=['logic_net|work@top57c.i_c.sig|13:23-13:26']
+  [WRONG->RIGHT] work@top57c.i_c.gen_if57.sig|28:24-28:27|op@28:18-28:28
+      G=['logic_net|work@top57c.i_c.sig|13:23-13:26']
+      P=['<null>']
+      Q=['logic_net|work@top57c.i_c.sig|13:23-13:26']
+  [WRONG->RIGHT] work@top57c.i_c.gen_if57.sig|29:24-29:27|op@29:18-29:28
+      G=['logic_net|work@top57c.i_c.sig|13:23-13:26']
+      P=['<null>']
+      Q=['logic_net|work@top57c.i_c.sig|13:23-13:26']
+### v2_contexts57 / elab   cells=28 WRONG->RIGHT=7 RIGHT->WRONG=0 NOKEY=4
+  [STILL-WRONG] work@c57.f57.a|48:18-48:19|op@48:12-48:20
+      G=['io_decl|a|47:52-47:53']
+      P=['io_decl|a|47:52-47:53', 'io_decl|a|47:52-47:53']
+      Q=['io_decl|a|47:52-47:53', 'io_decl|a|47:52-47:53']
+  [STILL-WRONG] work@c57.f57.a|48:29-48:30|op@48:23-48:31
+      G=['io_decl|a|47:52-47:53']
+      P=['io_decl|a|47:52-47:53', 'io_decl|a|47:52-47:53']
+      Q=['io_decl|a|47:52-47:53', 'io_decl|a|47:52-47:53']
+  [STILL-WRONG] work@c57.sig|54:27-54:30|op@54:21-54:31
+      G=['logic_net|work@c57.sig|13:23-13:26']
+      P=['logic_net|work@c57.sig|13:23-13:26', 'logic_net|work@top57c.i_c.sig|13:23-13:26']
+      Q=['logic_net|work@c57.sig|13:23-13:26', 'logic_net|work@top57c.i_c.sig|13:23-13:26']
+  [STILL-WRONG] work@c57.sig|55:27-55:30|op@55:21-55:31
+      G=['logic_net|work@c57.sig|13:23-13:26']
+      P=['logic_net|work@c57.sig|13:23-13:26', 'logic_net|work@top57c.i_c.sig|13:23-13:26']
+      Q=['logic_net|work@c57.sig|13:23-13:26', 'logic_net|work@top57c.i_c.sig|13:23-13:26']
+  [NOKEY] work@top57c.i_c.f57.a|48:18-48:19|op@48:12-48:20
+      G=['io_decl|a|47:52-47:53']
+      P=None
+      Q=None
+  [NOKEY] work@top57c.i_c.f57.a|48:29-48:30|op@48:23-48:31
+      G=['io_decl|a|47:52-47:53']
+      P=None
+      Q=None
+  [WRONG->RIGHT] work@top57c.i_c.gen_for57[0].sig|42:24-42:27|op@42:18-42:28
+      G=['logic_net|work@top57c.i_c.sig|13:23-13:26', 'logic_net|work@top57c.i_c.sig|13:23-13:26']
+      P=['<null>', 'logic_net|work@top57c.i_c.sig|13:23-13:26']
+      Q=['logic_net|work@top57c.i_c.sig|13:23-13:26', 'logic_net|work@top57c.i_c.sig|13:23-13:26']
+  [WRONG->RIGHT] work@top57c.i_c.gen_for57[0].sig|43:24-43:27|op@43:18-43:28
+      G=['logic_net|work@top57c.i_c.sig|13:23-13:26', 'logic_net|work@top57c.i_c.sig|13:23-13:26']
+      P=['<null>', 'logic_net|work@top57c.i_c.sig|13:23-13:26']
+      Q=['logic_net|work@top57c.i_c.sig|13:23-13:26', 'logic_net|work@top57c.i_c.sig|13:23-13:26']
+  [WRONG->RIGHT] work@top57c.i_c.gen_if57.sig|25:24-25:27|op@25:18-25:28
+      G=['logic_net|work@top57c.i_c.sig|13:23-13:26', 'logic_net|work@top57c.i_c.sig|13:23-13:26']
+      P=['<null>', 'logic_net|work@top57c.i_c.sig|13:23-13:26']
+      Q=['logic_net|work@top57c.i_c.sig|13:23-13:26', 'logic_net|work@top57c.i_c.sig|13:23-13:26']
+  [WRONG->RIGHT] work@top57c.i_c.gen_if57.sig|26:24-26:27|op@26:18-26:28
+      G=['logic_net|work@top57c.i_c.sig|13:23-13:26', 'logic_net|work@top57c.i_c.sig|13:23-13:26']
+      P=['<null>', 'logic_net|work@top57c.i_c.sig|13:23-13:26']
+      Q=['logic_net|work@top57c.i_c.sig|13:23-13:26', 'logic_net|work@top57c.i_c.sig|13:23-13:26']
+  [WRONG->RIGHT] work@top57c.i_c.gen_if57.sig|27:24-27:27|op@27:18-27:28
+      G=['logic_net|work@top57c.i_c.sig|13:23-13:26', 'logic_net|work@top57c.i_c.sig|13:23-13:26']
+      P=['<null>', 'logic_net|work@top57c.i_c.sig|13:23-13:26']
+      Q=['logic_net|work@top57c.i_c.sig|13:23-13:26', 'logic_net|work@top57c.i_c.sig|13:23-13:26']
+  [WRONG->RIGHT] work@top57c.i_c.gen_if57.sig|28:24-28:27|op@28:18-28:28
+      G=['logic_net|work@top57c.i_c.sig|13:23-13:26', 'logic_net|work@top57c.i_c.sig|13:23-13:26']
+      P=['<null>', 'logic_net|work@top57c.i_c.sig|13:23-13:26']
+      Q=['logic_net|work@top57c.i_c.sig|13:23-13:26', 'logic_net|work@top57c.i_c.sig|13:23-13:26']
+  [WRONG->RIGHT] work@top57c.i_c.gen_if57.sig|29:24-29:27|op@29:18-29:28
+      G=['logic_net|work@top57c.i_c.sig|13:23-13:26', 'logic_net|work@top57c.i_c.sig|13:23-13:26']
+      P=['<null>', 'logic_net|work@top57c.i_c.sig|13:23-13:26']
+      Q=['logic_net|work@top57c.i_c.sig|13:23-13:26', 'logic_net|work@top57c.i_c.sig|13:23-13:26']
+  [NOKEY] work@top57c.i_c.sig|54:27-54:30|op@54:21-54:31
+      G=['logic_net|work@top57c.i_c.sig|13:23-13:26']
+      P=None
+      Q=None
+  [NOKEY] work@top57c.i_c.sig|55:27-55:30|op@55:21-55:31
+      G=['logic_net|work@top57c.i_c.sig|13:23-13:26']
+      P=None
+      Q=None
+### v3_gengrid57 / plain   cells=32 WRONG->RIGHT=13 RIGHT->WRONG=0 NOKEY=0
+  [WRONG->RIGHT] work@top57g.i_g.gen_g57.sig|35:24-35:27|op@35:18-35:28
+      G=['logic_net|work@top57g.i_g.sig|20:23-20:26']
+      P=['<null>']
+      Q=['logic_net|work@top57g.i_g.sig|20:23-20:26']
+  [WRONG->RIGHT] work@top57g.i_g.gen_g57.sig|36:24-36:27|op@36:18-36:28
+      G=['logic_net|work@top57g.i_g.sig|20:23-20:26']
+      P=['<null>']
+      Q=['logic_net|work@top57g.i_g.sig|20:23-20:26']
+  [WRONG->RIGHT] work@top57g.i_g.gen_g57.sig|37:24-37:27|op@37:18-37:28
+      G=['logic_net|work@top57g.i_g.sig|20:23-20:26']
+      P=['<null>']
+      Q=['logic_net|work@top57g.i_g.sig|20:23-20:26']
+  [WRONG->RIGHT] work@top57g.i_g.gen_g57.sig|38:25-38:28|op@38:18-38:29
+      G=['logic_net|work@top57g.i_g.sig|20:23-20:26']
+      P=['<null>']
+      Q=['logic_net|work@top57g.i_g.sig|20:23-20:26']
+  [WRONG->RIGHT] work@top57g.i_g.gen_g57.sig|39:24-39:27|op@39:18-39:28
+      G=['logic_net|work@top57g.i_g.sig|20:23-20:26']
+      P=['<null>']
+      Q=['logic_net|work@top57g.i_g.sig|20:23-20:26']
+  [STILL-WRONG] work@top57g.i_g.gen_g57.sig|45:24-45:27|op@45:18-45:28
+      G=['<null>']
+      P=['logic_net|work@top57g.i_g.sig|20:23-20:26']
+      Q=['logic_net|work@top57g.i_g.sig|20:23-20:26']
+  [WRONG->RIGHT] work@top57g.i_g.gen_g57.sig|49:24-49:27|op@49:18-49:28
+      G=['logic_net|work@top57g.i_g.sig|20:23-20:26']
+      P=['<null>']
+      Q=['logic_net|work@top57g.i_g.sig|20:23-20:26']
+  [WRONG->RIGHT] work@top57g.i_g.gen_g57.sig|50:24-50:27|op@50:18-50:28
+      G=['logic_net|work@top57g.i_g.sig|20:23-20:26']
+      P=['<null>']
+      Q=['logic_net|work@top57g.i_g.sig|20:23-20:26']
+  [WRONG->RIGHT] work@top57g.i_g.gen_g57.sig|53:28-53:31|op@53:18-53:32
+      G=['logic_net|work@top57g.i_g.sig|20:23-20:26']
+      P=['<null>']
+      Q=['logic_net|work@top57g.i_g.sig|20:23-20:26']
+  [WRONG->RIGHT] work@top57g.i_g.gen_g57.sig|54:23-54:26|op@54:18-54:27
+      G=['logic_net|work@top57g.i_g.sig|20:23-20:26']
+      P=['<null>']
+      Q=['logic_net|work@top57g.i_g.sig|20:23-20:26']
+  [WRONG->RIGHT] work@top57g.i_g.gen_g57.sig|57:28-57:31|op@57:18-57:32
+      G=['logic_net|work@top57g.i_g.sig|20:23-20:26']
+      P=['<null>']
+      Q=['logic_net|work@top57g.i_g.sig|20:23-20:26']
+  [WRONG->RIGHT] work@top57g.i_g.gen_g57.sig|59:25-59:28|op@59:18-59:29
+      G=['logic_net|work@top57g.i_g.sig|20:23-20:26']
+      P=['<null>']
+      Q=['logic_net|work@top57g.i_g.sig|20:23-20:26']
+  [WRONG->RIGHT] work@top57g.i_g.gen_g57.sig|60:30-60:33|op@60:24-60:34
+      G=['logic_net|work@top57g.i_g.sig|20:23-20:26']
+      P=['<null>']
+      Q=['logic_net|work@top57g.i_g.sig|20:23-20:26']
+  [WRONG->RIGHT] work@top57g.i_g.gen_l57[1].sig|69:22-69:25|op@69:18-69:26
+      G=['logic_net|work@top57g.i_g.sig|20:23-20:26']
+      P=['<null>']
+      Q=['logic_net|work@top57g.i_g.sig|20:23-20:26']
+### v3_gengrid57 / elab   cells=32 WRONG->RIGHT=13 RIGHT->WRONG=0 NOKEY=0
+  [WRONG->RIGHT] work@top57g.i_g.gen_g57.sig|35:24-35:27|op@35:18-35:28
+      G=['logic_net|work@top57g.i_g.sig|20:23-20:26', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+      P=['<null>', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+      Q=['logic_net|work@top57g.i_g.sig|20:23-20:26', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+  [WRONG->RIGHT] work@top57g.i_g.gen_g57.sig|36:24-36:27|op@36:18-36:28
+      G=['logic_net|work@top57g.i_g.sig|20:23-20:26', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+      P=['<null>', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+      Q=['logic_net|work@top57g.i_g.sig|20:23-20:26', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+  [WRONG->RIGHT] work@top57g.i_g.gen_g57.sig|37:24-37:27|op@37:18-37:28
+      G=['logic_net|work@top57g.i_g.sig|20:23-20:26', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+      P=['<null>', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+      Q=['logic_net|work@top57g.i_g.sig|20:23-20:26', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+  [WRONG->RIGHT] work@top57g.i_g.gen_g57.sig|38:25-38:28|op@38:18-38:29
+      G=['logic_net|work@top57g.i_g.sig|20:23-20:26', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+      P=['<null>', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+      Q=['logic_net|work@top57g.i_g.sig|20:23-20:26', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+  [WRONG->RIGHT] work@top57g.i_g.gen_g57.sig|39:24-39:27|op@39:18-39:28
+      G=['logic_net|work@top57g.i_g.sig|20:23-20:26', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+      P=['<null>', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+      Q=['logic_net|work@top57g.i_g.sig|20:23-20:26', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+  [STILL-WRONG] work@top57g.i_g.gen_g57.sig|45:24-45:27|op@45:18-45:28
+      G=['<null>', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+      P=['logic_net|work@top57g.i_g.sig|20:23-20:26', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+      Q=['logic_net|work@top57g.i_g.sig|20:23-20:26', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+  [WRONG->RIGHT] work@top57g.i_g.gen_g57.sig|49:24-49:27|op@49:18-49:28
+      G=['logic_net|work@top57g.i_g.sig|20:23-20:26', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+      P=['<null>', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+      Q=['logic_net|work@top57g.i_g.sig|20:23-20:26', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+  [WRONG->RIGHT] work@top57g.i_g.gen_g57.sig|50:24-50:27|op@50:18-50:28
+      G=['logic_net|work@top57g.i_g.sig|20:23-20:26', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+      P=['<null>', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+      Q=['logic_net|work@top57g.i_g.sig|20:23-20:26', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+  [WRONG->RIGHT] work@top57g.i_g.gen_g57.sig|53:28-53:31|op@53:18-53:32
+      G=['logic_net|work@top57g.i_g.sig|20:23-20:26', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+      P=['<null>', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+      Q=['logic_net|work@top57g.i_g.sig|20:23-20:26', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+  [WRONG->RIGHT] work@top57g.i_g.gen_g57.sig|54:23-54:26|op@54:18-54:27
+      G=['logic_net|work@top57g.i_g.sig|20:23-20:26', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+      P=['<null>', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+      Q=['logic_net|work@top57g.i_g.sig|20:23-20:26', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+  [WRONG->RIGHT] work@top57g.i_g.gen_g57.sig|57:28-57:31|op@57:18-57:32
+      G=['logic_net|work@top57g.i_g.sig|20:23-20:26', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+      P=['<null>', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+      Q=['logic_net|work@top57g.i_g.sig|20:23-20:26', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+  [WRONG->RIGHT] work@top57g.i_g.gen_g57.sig|59:25-59:28|op@59:18-59:29
+      G=['logic_net|work@top57g.i_g.sig|20:23-20:26', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+      P=['<null>', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+      Q=['logic_net|work@top57g.i_g.sig|20:23-20:26', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+  [WRONG->RIGHT] work@top57g.i_g.gen_g57.sig|60:30-60:33|op@60:24-60:34
+      G=['logic_net|work@top57g.i_g.sig|20:23-20:26', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+      P=['<null>', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+      Q=['logic_net|work@top57g.i_g.sig|20:23-20:26', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+  [WRONG->RIGHT] work@top57g.i_g.gen_l57[1].sig|69:22-69:25|op@69:18-69:26
+      G=['logic_net|work@top57g.i_g.sig|20:23-20:26', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+      P=['<null>', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+      Q=['logic_net|work@top57g.i_g.sig|20:23-20:26', 'logic_net|work@top57g.i_g.sig|20:23-20:26']
+### g1_cast94 / plain   cells=13 WRONG->RIGHT=6 RIGHT->WRONG=0 NOKEY=0
+  [WRONG->RIGHT] work@g1_cast94_top.u_a.gen_if.a_i|22:22-22:25|op@22:19-22:26
+      G=['logic_net|work@g1_cast94_top.u_a.a_i|5:24-5:27']
+      P=['<null>']
+      Q=['logic_net|work@g1_cast94_top.u_a.a_i|5:24-5:27']
+  [WRONG->RIGHT] work@g1_cast94_top.u_a.gen_if.b_i|24:22-24:25|op@24:19-24:26
+      G=['logic_net|work@g1_cast94_top.u_a.b_i|6:24-6:27']
+      P=['<null>']
+      Q=['logic_net|work@g1_cast94_top.u_a.b_i|6:24-6:27']
+  [WRONG->RIGHT] work@g1_cast94_top.u_a.gen_if.m_net|26:22-26:27|op@26:19-26:28
+      G=['logic_var|work@g1_cast94_top.u_a.m_net|15:17-15:22']
+      P=['<null>']
+      Q=['logic_var|work@g1_cast94_top.u_a.m_net|15:17-15:22']
+  [WRONG->RIGHT] work@g1_cast94_top.u_b.gen_if.a_i|22:22-22:25|op@22:19-22:26
+      G=['logic_net|work@g1_cast94_top.u_b.a_i|5:24-5:27']
+      P=['<null>']
+      Q=['logic_net|work@g1_cast94_top.u_b.a_i|5:24-5:27']
+  [WRONG->RIGHT] work@g1_cast94_top.u_b.gen_if.b_i|24:22-24:25|op@24:19-24:26
+      G=['logic_net|work@g1_cast94_top.u_b.b_i|6:24-6:27']
+      P=['<null>']
+      Q=['logic_net|work@g1_cast94_top.u_b.b_i|6:24-6:27']
+  [WRONG->RIGHT] work@g1_cast94_top.u_b.gen_if.m_net|26:22-26:27|op@26:19-26:28
+      G=['logic_var|work@g1_cast94_top.u_b.m_net|15:17-15:22']
+      P=['<null>']
+      Q=['logic_var|work@g1_cast94_top.u_b.m_net|15:17-15:22']
+### g1_cast94 / elab   cells=13 WRONG->RIGHT=6 RIGHT->WRONG=0 NOKEY=0
+  [WRONG->RIGHT] work@g1_cast94_top.u_a.gen_if.a_i|22:22-22:25|op@22:19-22:26
+      G=['logic_net|work@g1_cast94_top.u_a.a_i|5:24-5:27', 'logic_net|work@g1_cast94_top.u_a.a_i|5:24-5:27']
+      P=['<null>', 'logic_net|work@g1_cast94_top.u_a.a_i|5:24-5:27']
+      Q=['logic_net|work@g1_cast94_top.u_a.a_i|5:24-5:27', 'logic_net|work@g1_cast94_top.u_a.a_i|5:24-5:27']
+  [WRONG->RIGHT] work@g1_cast94_top.u_a.gen_if.b_i|24:22-24:25|op@24:19-24:26
+      G=['logic_net|work@g1_cast94_top.u_a.b_i|6:24-6:27', 'logic_net|work@g1_cast94_top.u_a.b_i|6:24-6:27']
+      P=['<null>', 'logic_net|work@g1_cast94_top.u_a.b_i|6:24-6:27']
+      Q=['logic_net|work@g1_cast94_top.u_a.b_i|6:24-6:27', 'logic_net|work@g1_cast94_top.u_a.b_i|6:24-6:27']
+  [WRONG->RIGHT] work@g1_cast94_top.u_a.gen_if.m_net|26:22-26:27|op@26:19-26:28
+      G=['logic_var|work@g1_cast94_top.u_a.m_net|15:17-15:22', 'logic_var|work@g1_cast94_top.u_a.m_net|15:17-15:22']
+      P=['<null>', 'logic_var|work@g1_cast94_top.u_a.m_net|15:17-15:22']
+      Q=['logic_var|work@g1_cast94_top.u_a.m_net|15:17-15:22', 'logic_var|work@g1_cast94_top.u_a.m_net|15:17-15:22']
+  [WRONG->RIGHT] work@g1_cast94_top.u_b.gen_if.a_i|22:22-22:25|op@22:19-22:26
+      G=['logic_net|work@g1_cast94_top.u_b.a_i|5:24-5:27', 'logic_net|work@g1_cast94_top.u_b.a_i|5:24-5:27']
+      P=['<null>', 'logic_net|work@g1_cast94_top.u_b.a_i|5:24-5:27']
+      Q=['logic_net|work@g1_cast94_top.u_b.a_i|5:24-5:27', 'logic_net|work@g1_cast94_top.u_b.a_i|5:24-5:27']
+  [WRONG->RIGHT] work@g1_cast94_top.u_b.gen_if.b_i|24:22-24:25|op@24:19-24:26
+      G=['logic_net|work@g1_cast94_top.u_b.b_i|6:24-6:27', 'logic_net|work@g1_cast94_top.u_b.b_i|6:24-6:27']
+      P=['<null>', 'logic_net|work@g1_cast94_top.u_b.b_i|6:24-6:27']
+      Q=['logic_net|work@g1_cast94_top.u_b.b_i|6:24-6:27', 'logic_net|work@g1_cast94_top.u_b.b_i|6:24-6:27']
+  [WRONG->RIGHT] work@g1_cast94_top.u_b.gen_if.m_net|26:22-26:27|op@26:19-26:28
+      G=['logic_var|work@g1_cast94_top.u_b.m_net|15:17-15:22', 'logic_var|work@g1_cast94_top.u_b.m_net|15:17-15:22']
+      P=['<null>', 'logic_var|work@g1_cast94_top.u_b.m_net|15:17-15:22']
+      Q=['logic_var|work@g1_cast94_top.u_b.m_net|15:17-15:22', 'logic_var|work@g1_cast94_top.u_b.m_net|15:17-15:22']
+### g2_ctx94 / plain   cells=22 WRONG->RIGHT=4 RIGHT->WRONG=0 NOKEY=8
+  [WRONG->RIGHT] work@g2_ctx94_top.u_a.gen_if.a_i|23:22-23:25|op@23:19-23:26
+      G=['logic_net|work@g2_ctx94_top.u_a.a_i|10:24-10:27']
+      P=['<null>']
+      Q=['logic_net|work@g2_ctx94_top.u_a.a_i|10:24-10:27']
+  [NOKEY] work@g2_ctx94_top.u_a.gen_if.a_i|32:25-32:28|op@32:19-32:30
+      G=None
+      P=['<null>']
+      Q=['logic_net|work@g2_ctx94_top.u_a.a_i|10:24-10:27']
+  [NOKEY] work@g2_ctx94_top.u_a.gen_if.a_i|32:25-32:28|op@32:22-32:29
+      G=['logic_net|work@g2_ctx94_top.u_a.a_i|10:24-10:27']
+      P=None
+      Q=None
+  [NOKEY] work@g2_ctx94_top.u_a.gen_if.b_i|30:39-30:42|op@30:36-30:43
+      G=None
+      P=['<null>']
+      Q=['<null>']
+  [WRONG->RIGHT] work@g2_ctx94_top.u_a.gen_if.m_wire|25:34-25:40|op@25:31-25:41
+      G=['logic_net|work@g2_ctx94_top.u_a.m_wire|16:17-16:23']
+      P=['<null>']
+      Q=['logic_net|work@g2_ctx94_top.u_a.m_wire|16:17-16:23']
+  [NOKEY] work@g2_ctx94_top.u_a.gen_if.u_leaf.p_i.b_i|30:39-30:42|op@30:36-30:43
+      G=['<null>']
+      P=None
+      Q=None
+  [WRONG->RIGHT] work@g2_ctx94_top.u_b.gen_if.a_i|23:22-23:25|op@23:19-23:26
+      G=['logic_net|work@g2_ctx94_top.u_b.a_i|10:24-10:27']
+      P=['<null>']
+      Q=['logic_net|work@g2_ctx94_top.u_b.a_i|10:24-10:27']
+  [NOKEY] work@g2_ctx94_top.u_b.gen_if.a_i|32:25-32:28|op@32:19-32:30
+      G=None
+      P=['<null>']
+      Q=['logic_net|work@g2_ctx94_top.u_b.a_i|10:24-10:27']
+  [NOKEY] work@g2_ctx94_top.u_b.gen_if.a_i|32:25-32:28|op@32:22-32:29
+      G=['logic_net|work@g2_ctx94_top.u_b.a_i|10:24-10:27']
+      P=None
+      Q=None
+  [NOKEY] work@g2_ctx94_top.u_b.gen_if.b_i|30:39-30:42|op@30:36-30:43
+      G=None
+      P=['<null>']
+      Q=['<null>']
+  [WRONG->RIGHT] work@g2_ctx94_top.u_b.gen_if.m_wire|25:34-25:40|op@25:31-25:41
+      G=['logic_net|work@g2_ctx94_top.u_b.m_wire|16:17-16:23']
+      P=['<null>']
+      Q=['logic_net|work@g2_ctx94_top.u_b.m_wire|16:17-16:23']
+  [NOKEY] work@g2_ctx94_top.u_b.gen_if.u_leaf.p_i.b_i|30:39-30:42|op@30:36-30:43
+      G=['<null>']
+      P=None
+      Q=None
+### g2_ctx94 / elab   cells=22 WRONG->RIGHT=4 RIGHT->WRONG=0 NOKEY=8
+  [WRONG->RIGHT] work@g2_ctx94_top.u_a.gen_if.a_i|23:22-23:25|op@23:19-23:26
+      G=['logic_net|work@g2_ctx94_top.u_a.a_i|10:24-10:27', 'logic_net|work@g2_ctx94_top.u_a.a_i|10:24-10:27']
+      P=['<null>', 'logic_net|work@g2_ctx94_top.u_a.a_i|10:24-10:27']
+      Q=['logic_net|work@g2_ctx94_top.u_a.a_i|10:24-10:27', 'logic_net|work@g2_ctx94_top.u_a.a_i|10:24-10:27']
+  [NOKEY] work@g2_ctx94_top.u_a.gen_if.a_i|32:25-32:28|op@32:19-32:30
+      G=None
+      P=['<null>', 'logic_net|work@g2_ctx94_top.u_a.a_i|10:24-10:27']
+      Q=['logic_net|work@g2_ctx94_top.u_a.a_i|10:24-10:27', 'logic_net|work@g2_ctx94_top.u_a.a_i|10:24-10:27']
+  [NOKEY] work@g2_ctx94_top.u_a.gen_if.a_i|32:25-32:28|op@32:22-32:29
+      G=['logic_net|work@g2_ctx94_top.u_a.a_i|10:24-10:27', 'logic_net|work@g2_ctx94_top.u_a.a_i|10:24-10:27']
+      P=None
+      Q=None
+  [NOKEY] work@g2_ctx94_top.u_a.gen_if.b_i|30:39-30:42|op@30:36-30:43
+      G=None
+      P=['<null>', 'logic_net|work@g2_ctx94_top.u_a.b_i|11:24-11:27', 'logic_net|work@g2_ctx94_top.u_a.b_i|11:24-11:27', 'logic_net|work@g2_ctx94_top.u_a.b_i|11:24-11:27']
+      Q=['<null>', 'logic_net|work@g2_ctx94_top.u_a.b_i|11:24-11:27', 'logic_net|work@g2_ctx94_top.u_a.b_i|11:24-11:27', 'logic_net|work@g2_ctx94_top.u_a.b_i|11:24-11:27']
+  [WRONG->RIGHT] work@g2_ctx94_top.u_a.gen_if.m_wire|25:34-25:40|op@25:31-25:41
+      G=['logic_net|work@g2_ctx94_top.u_a.m_wire|16:17-16:23', 'logic_net|work@g2_ctx94_top.u_a.m_wire|16:17-16:23']
+      P=['<null>', 'logic_net|work@g2_ctx94_top.u_a.m_wire|16:17-16:23']
+      Q=['logic_net|work@g2_ctx94_top.u_a.m_wire|16:17-16:23', 'logic_net|work@g2_ctx94_top.u_a.m_wire|16:17-16:23']
+  [NOKEY] work@g2_ctx94_top.u_a.gen_if.u_leaf.p_i.b_i|30:39-30:42|op@30:36-30:43
+      G=['<null>', 'logic_net|work@g2_ctx94_top.u_a.b_i|11:24-11:27']
+      P=None
+      Q=None
+  [WRONG->RIGHT] work@g2_ctx94_top.u_b.gen_if.a_i|23:22-23:25|op@23:19-23:26
+      G=['logic_net|work@g2_ctx94_top.u_b.a_i|10:24-10:27', 'logic_net|work@g2_ctx94_top.u_b.a_i|10:24-10:27']
+      P=['<null>', 'logic_net|work@g2_ctx94_top.u_b.a_i|10:24-10:27']
+      Q=['logic_net|work@g2_ctx94_top.u_b.a_i|10:24-10:27', 'logic_net|work@g2_ctx94_top.u_b.a_i|10:24-10:27']
+  [NOKEY] work@g2_ctx94_top.u_b.gen_if.a_i|32:25-32:28|op@32:19-32:30
+      G=None
+      P=['<null>', 'logic_net|work@g2_ctx94_top.u_b.a_i|10:24-10:27']
+      Q=['logic_net|work@g2_ctx94_top.u_b.a_i|10:24-10:27', 'logic_net|work@g2_ctx94_top.u_b.a_i|10:24-10:27']
+  [NOKEY] work@g2_ctx94_top.u_b.gen_if.a_i|32:25-32:28|op@32:22-32:29
+      G=['logic_net|work@g2_ctx94_top.u_b.a_i|10:24-10:27', 'logic_net|work@g2_ctx94_top.u_b.a_i|10:24-10:27']
+      P=None
+      Q=None
+  [NOKEY] work@g2_ctx94_top.u_b.gen_if.b_i|30:39-30:42|op@30:36-30:43
+      G=None
+      P=['<null>', 'logic_net|work@g2_ctx94_top.u_b.b_i|11:24-11:27', 'logic_net|work@g2_ctx94_top.u_b.b_i|11:24-11:27', 'logic_net|work@g2_ctx94_top.u_b.b_i|11:24-11:27']
+      Q=['<null>', 'logic_net|work@g2_ctx94_top.u_b.b_i|11:24-11:27', 'logic_net|work@g2_ctx94_top.u_b.b_i|11:24-11:27', 'logic_net|work@g2_ctx94_top.u_b.b_i|11:24-11:27']
+  [WRONG->RIGHT] work@g2_ctx94_top.u_b.gen_if.m_wire|25:34-25:40|op@25:31-25:41
+      G=['logic_net|work@g2_ctx94_top.u_b.m_wire|16:17-16:23', 'logic_net|work@g2_ctx94_top.u_b.m_wire|16:17-16:23']
+      P=['<null>', 'logic_net|work@g2_ctx94_top.u_b.m_wire|16:17-16:23']
+      Q=['logic_net|work@g2_ctx94_top.u_b.m_wire|16:17-16:23', 'logic_net|work@g2_ctx94_top.u_b.m_wire|16:17-16:23']
+  [NOKEY] work@g2_ctx94_top.u_b.gen_if.u_leaf.p_i.b_i|30:39-30:42|op@30:36-30:43
+      G=['<null>', 'logic_net|work@g2_ctx94_top.u_b.b_i|11:24-11:27']
+      P=None
+      Q=None
+### g3_kind94 / plain   cells=55 WRONG->RIGHT=20 RIGHT->WRONG=0 NOKEY=6
+  [NOKEY] gen_case.a_i|30:23-30:26|op@30:20-30:27
+      G=['<null>']
+      P=None
+      Q=None
+  [NOKEY] gen_case.k_loc|30:45-30:50|op@30:42-30:51
+      G=['<null>']
+      P=None
+      Q=None
+  [NOKEY] gen_case.m_var|30:33-30:38|op@30:30-30:39
+      G=['<null>']
+      P=None
+      Q=None
+  [NOKEY] work@ch3_94.gen_case.a_i|30:23-30:26|op@30:20-30:27
+      G=None
+      P=['<null>']
+      Q=['<null>']
+  [NOKEY] work@ch3_94.gen_case.k_loc|30:45-30:50|op@30:42-30:51
+      G=None
+      P=['<null>']
+      Q=['<null>']
+  [NOKEY] work@ch3_94.gen_case.m_var|30:33-30:38|op@30:30-30:39
+      G=None
+      P=['<null>']
+      Q=['<null>']
+  [WRONG->RIGHT] work@g3_kind94_top.u_a.gen_case.a_i|30:23-30:26|op@30:20-30:27
+      G=['logic_net|work@g3_kind94_top.u_a.a_i|5:24-5:27']
+      P=['<null>']
+      Q=['logic_net|work@g3_kind94_top.u_a.a_i|5:24-5:27']
+  [WRONG->RIGHT] work@g3_kind94_top.u_a.gen_case.m_var|30:33-30:38|op@30:30-30:39
+      G=['logic_var|work@g3_kind94_top.u_a.m_var|9:17-9:22']
+      P=['<null>']
+      Q=['logic_var|work@g3_kind94_top.u_a.m_var|9:17-9:22']
+  [WRONG->RIGHT] work@g3_kind94_top.u_a.gen_for[0].a_i|23:21-23:24|op@23:18-23:25
+      G=['logic_net|work@g3_kind94_top.u_a.a_i|5:24-5:27']
+      P=['<null>']
+      Q=['logic_net|work@g3_kind94_top.u_a.a_i|5:24-5:27']
+  [WRONG->RIGHT] work@g3_kind94_top.u_a.gen_for[0].m_var|23:31-23:36|op@23:28-23:37
+      G=['logic_var|work@g3_kind94_top.u_a.m_var|9:17-9:22']
+      P=['<null>']
+      Q=['logic_var|work@g3_kind94_top.u_a.m_var|9:17-9:22']
+  [WRONG->RIGHT] work@g3_kind94_top.u_a.gen_if.a_i|17:21-17:24|op@17:18-17:25
+      G=['logic_net|work@g3_kind94_top.u_a.a_i|5:24-5:27']
+      P=['<null>']
+      Q=['logic_net|work@g3_kind94_top.u_a.a_i|5:24-5:27']
+  [WRONG->RIGHT] work@g3_kind94_top.u_a.gen_if.m_var|17:31-17:36|op@17:28-17:37
+      G=['logic_var|work@g3_kind94_top.u_a.m_var|9:17-9:22']
+      P=['<null>']
+      Q=['logic_var|work@g3_kind94_top.u_a.m_var|9:17-9:22']
+  [WRONG->RIGHT] work@g3_kind94_top.u_a.gen_if.m_wire|17:43-17:49|op@17:40-17:50
+      G=['logic_net|work@g3_kind94_top.u_a.m_wire|10:17-10:23']
+      P=['<null>']
+      Q=['logic_net|work@g3_kind94_top.u_a.m_wire|10:17-10:23']
+  [WRONG->RIGHT] work@g3_kind94_top.u_a.gen_out.gen_in.o_loc|43:45-43:50|op@43:42-43:51
+      G=['logic_var|work@g3_kind94_top.u_a.gen_out.o_loc|38:19-38:24']
+      P=['<null>']
+      Q=['logic_var|work@g3_kind94_top.u_a.gen_out.o_loc|38:19-38:24']
+  [WRONG->RIGHT] work@g3_kind94_top.u_a.genblk5.a_i|48:21-48:24|op@48:18-48:25
+      G=['logic_net|work@g3_kind94_top.u_a.a_i|5:24-5:27']
+      P=['<null>']
+      Q=['logic_net|work@g3_kind94_top.u_a.a_i|5:24-5:27']
+  [WRONG->RIGHT] work@g3_kind94_top.u_a.genblk5.m_var|48:31-48:36|op@48:28-48:37
+      G=['logic_var|work@g3_kind94_top.u_a.m_var|9:17-9:22']
+      P=['<null>']
+      Q=['logic_var|work@g3_kind94_top.u_a.m_var|9:17-9:22']
+  [WRONG->RIGHT] work@g3_kind94_top.u_b.gen_case.a_i|30:23-30:26|op@30:20-30:27
+      G=['logic_net|work@g3_kind94_top.u_b.a_i|5:24-5:27']
+      P=['<null>']
+      Q=['logic_net|work@g3_kind94_top.u_b.a_i|5:24-5:27']
+  [WRONG->RIGHT] work@g3_kind94_top.u_b.gen_case.m_var|30:33-30:38|op@30:30-30:39
+      G=['logic_var|work@g3_kind94_top.u_b.m_var|9:17-9:22']
+      P=['<null>']
+      Q=['logic_var|work@g3_kind94_top.u_b.m_var|9:17-9:22']
+  [WRONG->RIGHT] work@g3_kind94_top.u_b.gen_for[0].a_i|23:21-23:24|op@23:18-23:25
+      G=['logic_net|work@g3_kind94_top.u_b.a_i|5:24-5:27']
+      P=['<null>']
+      Q=['logic_net|work@g3_kind94_top.u_b.a_i|5:24-5:27']
+  [WRONG->RIGHT] work@g3_kind94_top.u_b.gen_for[0].m_var|23:31-23:36|op@23:28-23:37
+      G=['logic_var|work@g3_kind94_top.u_b.m_var|9:17-9:22']
+      P=['<null>']
+      Q=['logic_var|work@g3_kind94_top.u_b.m_var|9:17-9:22']
+  [WRONG->RIGHT] work@g3_kind94_top.u_b.gen_if.a_i|17:21-17:24|op@17:18-17:25
+      G=['logic_net|work@g3_kind94_top.u_b.a_i|5:24-5:27']
+      P=['<null>']
+      Q=['logic_net|work@g3_kind94_top.u_b.a_i|5:24-5:27']
+  [WRONG->RIGHT] work@g3_kind94_top.u_b.gen_if.m_var|17:31-17:36|op@17:28-17:37
+      G=['logic_var|work@g3_kind94_top.u_b.m_var|9:17-9:22']
+      P=['<null>']
+      Q=['logic_var|work@g3_kind94_top.u_b.m_var|9:17-9:22']
+  [WRONG->RIGHT] work@g3_kind94_top.u_b.gen_if.m_wire|17:43-17:49|op@17:40-17:50
+      G=['logic_net|work@g3_kind94_top.u_b.m_wire|10:17-10:23']
+      P=['<null>']
+      Q=['logic_net|work@g3_kind94_top.u_b.m_wire|10:17-10:23']
+  [WRONG->RIGHT] work@g3_kind94_top.u_b.gen_out.gen_in.o_loc|43:45-43:50|op@43:42-43:51
+      G=['logic_var|work@g3_kind94_top.u_b.gen_out.o_loc|38:19-38:24']
+      P=['<null>']
+      Q=['logic_var|work@g3_kind94_top.u_b.gen_out.o_loc|38:19-38:24']
+  [WRONG->RIGHT] work@g3_kind94_top.u_b.genblk5.a_i|48:21-48:24|op@48:18-48:25
+      G=['logic_net|work@g3_kind94_top.u_b.a_i|5:24-5:27']
+      P=['<null>']
+      Q=['logic_net|work@g3_kind94_top.u_b.a_i|5:24-5:27']
+  [WRONG->RIGHT] work@g3_kind94_top.u_b.genblk5.m_var|48:31-48:36|op@48:28-48:37
+      G=['logic_var|work@g3_kind94_top.u_b.m_var|9:17-9:22']
+      P=['<null>']
+      Q=['logic_var|work@g3_kind94_top.u_b.m_var|9:17-9:22']
+### g3_kind94 / elab   cells=55 WRONG->RIGHT=20 RIGHT->WRONG=0 NOKEY=6
+  [NOKEY] gen_case.a_i|30:23-30:26|op@30:20-30:27
+      G=['<null>']
+      P=None
+      Q=None
+  [NOKEY] gen_case.k_loc|30:45-30:50|op@30:42-30:51
+      G=['<null>']
+      P=None
+      Q=None
+  [NOKEY] gen_case.m_var|30:33-30:38|op@30:30-30:39
+      G=['<null>']
+      P=None
+      Q=None
+  [NOKEY] work@ch3_94.gen_case.a_i|30:23-30:26|op@30:20-30:27
+      G=None
+      P=['<null>']
+      Q=['<null>']
+  [NOKEY] work@ch3_94.gen_case.k_loc|30:45-30:50|op@30:42-30:51
+      G=None
+      P=['<null>']
+      Q=['<null>']
+  [NOKEY] work@ch3_94.gen_case.m_var|30:33-30:38|op@30:30-30:39
+      G=None
+      P=['<null>']
+      Q=['<null>']
+  [WRONG->RIGHT] work@g3_kind94_top.u_a.gen_case.a_i|30:23-30:26|op@30:20-30:27
+      G=['logic_net|work@g3_kind94_top.u_a.a_i|5:24-5:27', 'logic_net|work@g3_kind94_top.u_a.a_i|5:24-5:27']
+      P=['<null>', 'logic_net|work@g3_kind94_top.u_a.a_i|5:24-5:27']
+      Q=['logic_net|work@g3_kind94_top.u_a.a_i|5:24-5:27', 'logic_net|work@g3_kind94_top.u_a.a_i|5:24-5:27']
+  [WRONG->RIGHT] work@g3_kind94_top.u_a.gen_case.m_var|30:33-30:38|op@30:30-30:39
+      G=['logic_var|work@g3_kind94_top.u_a.m_var|9:17-9:22', 'logic_var|work@g3_kind94_top.u_a.m_var|9:17-9:22']
+      P=['<null>', 'logic_var|work@g3_kind94_top.u_a.m_var|9:17-9:22']
+      Q=['logic_var|work@g3_kind94_top.u_a.m_var|9:17-9:22', 'logic_var|work@g3_kind94_top.u_a.m_var|9:17-9:22']
+  [WRONG->RIGHT] work@g3_kind94_top.u_a.gen_for[0].a_i|23:21-23:24|op@23:18-23:25
+      G=['logic_net|work@g3_kind94_top.u_a.a_i|5:24-5:27', 'logic_net|work@g3_kind94_top.u_a.a_i|5:24-5:27']
+      P=['<null>', 'logic_net|work@g3_kind94_top.u_a.a_i|5:24-5:27']
+      Q=['logic_net|work@g3_kind94_top.u_a.a_i|5:24-5:27', 'logic_net|work@g3_kind94_top.u_a.a_i|5:24-5:27']
+  [STILL-WRONG] work@g3_kind94_top.u_a.gen_for[0].gi|23:55-23:57|op@23:52-23:58
+      G=['<null>']
+      P=['<null>', 'parameter|work@g3_kind94_top.u_a.gen_for[0].gi|20:0-0:0']
+      Q=['<null>', 'parameter|work@g3_kind94_top.u_a.gen_for[0].gi|20:0-0:0']
+  [WRONG->RIGHT] work@g3_kind94_top.u_a.gen_for[0].m_var|23:31-23:36|op@23:28-23:37
+      G=['logic_var|work@g3_kind94_top.u_a.m_var|9:17-9:22', 'logic_var|work@g3_kind94_top.u_a.m_var|9:17-9:22']
+      P=['<null>', 'logic_var|work@g3_kind94_top.u_a.m_var|9:17-9:22']
+      Q=['logic_var|work@g3_kind94_top.u_a.m_var|9:17-9:22', 'logic_var|work@g3_kind94_top.u_a.m_var|9:17-9:22']
+  [WRONG->RIGHT] work@g3_kind94_top.u_a.gen_if.a_i|17:21-17:24|op@17:18-17:25
+      G=['logic_net|work@g3_kind94_top.u_a.a_i|5:24-5:27', 'logic_net|work@g3_kind94_top.u_a.a_i|5:24-5:27']
+      P=['<null>', 'logic_net|work@g3_kind94_top.u_a.a_i|5:24-5:27']
+      Q=['logic_net|work@g3_kind94_top.u_a.a_i|5:24-5:27', 'logic_net|work@g3_kind94_top.u_a.a_i|5:24-5:27']
+  [WRONG->RIGHT] work@g3_kind94_top.u_a.gen_if.m_var|17:31-17:36|op@17:28-17:37
+      G=['logic_var|work@g3_kind94_top.u_a.m_var|9:17-9:22', 'logic_var|work@g3_kind94_top.u_a.m_var|9:17-9:22']
+      P=['<null>', 'logic_var|work@g3_kind94_top.u_a.m_var|9:17-9:22']
+      Q=['logic_var|work@g3_kind94_top.u_a.m_var|9:17-9:22', 'logic_var|work@g3_kind94_top.u_a.m_var|9:17-9:22']
+  [WRONG->RIGHT] work@g3_kind94_top.u_a.gen_if.m_wire|17:43-17:49|op@17:40-17:50
+      G=['logic_net|work@g3_kind94_top.u_a.m_wire|10:17-10:23', 'logic_net|work@g3_kind94_top.u_a.m_wire|10:17-10:23']
+      P=['<null>', 'logic_net|work@g3_kind94_top.u_a.m_wire|10:17-10:23']
+      Q=['logic_net|work@g3_kind94_top.u_a.m_wire|10:17-10:23', 'logic_net|work@g3_kind94_top.u_a.m_wire|10:17-10:23']
+  [WRONG->RIGHT] work@g3_kind94_top.u_a.gen_out.gen_in.o_loc|43:45-43:50|op@43:42-43:51
+      G=['logic_var|work@g3_kind94_top.u_a.gen_out.o_loc|38:19-38:24', 'logic_var|work@g3_kind94_top.u_a.gen_out.o_loc|38:19-38:24']
+      P=['<null>', 'logic_var|work@g3_kind94_top.u_a.gen_out.o_loc|38:19-38:24']
+      Q=['logic_var|work@g3_kind94_top.u_a.gen_out.o_loc|38:19-38:24', 'logic_var|work@g3_kind94_top.u_a.gen_out.o_loc|38:19-38:24']
+  [WRONG->RIGHT] work@g3_kind94_top.u_a.genblk5.a_i|48:21-48:24|op@48:18-48:25
+      G=['logic_net|work@g3_kind94_top.u_a.a_i|5:24-5:27', 'logic_net|work@g3_kind94_top.u_a.a_i|5:24-5:27']
+      P=['<null>', 'logic_net|work@g3_kind94_top.u_a.a_i|5:24-5:27']
+      Q=['logic_net|work@g3_kind94_top.u_a.a_i|5:24-5:27', 'logic_net|work@g3_kind94_top.u_a.a_i|5:24-5:27']
+  [WRONG->RIGHT] work@g3_kind94_top.u_a.genblk5.m_var|48:31-48:36|op@48:28-48:37
+      G=['logic_var|work@g3_kind94_top.u_a.m_var|9:17-9:22', 'logic_var|work@g3_kind94_top.u_a.m_var|9:17-9:22']
+      P=['<null>', 'logic_var|work@g3_kind94_top.u_a.m_var|9:17-9:22']
+      Q=['logic_var|work@g3_kind94_top.u_a.m_var|9:17-9:22', 'logic_var|work@g3_kind94_top.u_a.m_var|9:17-9:22']
+  [WRONG->RIGHT] work@g3_kind94_top.u_b.gen_case.a_i|30:23-30:26|op@30:20-30:27
+      G=['logic_net|work@g3_kind94_top.u_b.a_i|5:24-5:27', 'logic_net|work@g3_kind94_top.u_b.a_i|5:24-5:27']
+      P=['<null>', 'logic_net|work@g3_kind94_top.u_b.a_i|5:24-5:27']
+      Q=['logic_net|work@g3_kind94_top.u_b.a_i|5:24-5:27', 'logic_net|work@g3_kind94_top.u_b.a_i|5:24-5:27']
+  [WRONG->RIGHT] work@g3_kind94_top.u_b.gen_case.m_var|30:33-30:38|op@30:30-30:39
+      G=['logic_var|work@g3_kind94_top.u_b.m_var|9:17-9:22', 'logic_var|work@g3_kind94_top.u_b.m_var|9:17-9:22']
+      P=['<null>', 'logic_var|work@g3_kind94_top.u_b.m_var|9:17-9:22']
+      Q=['logic_var|work@g3_kind94_top.u_b.m_var|9:17-9:22', 'logic_var|work@g3_kind94_top.u_b.m_var|9:17-9:22']
+  [WRONG->RIGHT] work@g3_kind94_top.u_b.gen_for[0].a_i|23:21-23:24|op@23:18-23:25
+      G=['logic_net|work@g3_kind94_top.u_b.a_i|5:24-5:27', 'logic_net|work@g3_kind94_top.u_b.a_i|5:24-5:27']
+      P=['<null>', 'logic_net|work@g3_kind94_top.u_b.a_i|5:24-5:27']
+      Q=['logic_net|work@g3_kind94_top.u_b.a_i|5:24-5:27', 'logic_net|work@g3_kind94_top.u_b.a_i|5:24-5:27']
+  [STILL-WRONG] work@g3_kind94_top.u_b.gen_for[0].gi|23:55-23:57|op@23:52-23:58
+      G=['<null>']
+      P=['<null>', 'parameter|work@g3_kind94_top.u_b.gen_for[0].gi|20:0-0:0']
+      Q=['<null>', 'parameter|work@g3_kind94_top.u_b.gen_for[0].gi|20:0-0:0']
+  [WRONG->RIGHT] work@g3_kind94_top.u_b.gen_for[0].m_var|23:31-23:36|op@23:28-23:37
+      G=['logic_var|work@g3_kind94_top.u_b.m_var|9:17-9:22', 'logic_var|work@g3_kind94_top.u_b.m_var|9:17-9:22']
+      P=['<null>', 'logic_var|work@g3_kind94_top.u_b.m_var|9:17-9:22']
+      Q=['logic_var|work@g3_kind94_top.u_b.m_var|9:17-9:22', 'logic_var|work@g3_kind94_top.u_b.m_var|9:17-9:22']
+  [WRONG->RIGHT] work@g3_kind94_top.u_b.gen_if.a_i|17:21-17:24|op@17:18-17:25
+      G=['logic_net|work@g3_kind94_top.u_b.a_i|5:24-5:27', 'logic_net|work@g3_kind94_top.u_b.a_i|5:24-5:27']
+      P=['<null>', 'logic_net|work@g3_kind94_top.u_b.a_i|5:24-5:27']
+      Q=['logic_net|work@g3_kind94_top.u_b.a_i|5:24-5:27', 'logic_net|work@g3_kind94_top.u_b.a_i|5:24-5:27']
+  [WRONG->RIGHT] work@g3_kind94_top.u_b.gen_if.m_var|17:31-17:36|op@17:28-17:37
+      G=['logic_var|work@g3_kind94_top.u_b.m_var|9:17-9:22', 'logic_var|work@g3_kind94_top.u_b.m_var|9:17-9:22']
+      P=['<null>', 'logic_var|work@g3_kind94_top.u_b.m_var|9:17-9:22']
+      Q=['logic_var|work@g3_kind94_top.u_b.m_var|9:17-9:22', 'logic_var|work@g3_kind94_top.u_b.m_var|9:17-9:22']
+  [WRONG->RIGHT] work@g3_kind94_top.u_b.gen_if.m_wire|17:43-17:49|op@17:40-17:50
+      G=['logic_net|work@g3_kind94_top.u_b.m_wire|10:17-10:23', 'logic_net|work@g3_kind94_top.u_b.m_wire|10:17-10:23']
+      P=['<null>', 'logic_net|work@g3_kind94_top.u_b.m_wire|10:17-10:23']
+      Q=['logic_net|work@g3_kind94_top.u_b.m_wire|10:17-10:23', 'logic_net|work@g3_kind94_top.u_b.m_wire|10:17-10:23']
+  [WRONG->RIGHT] work@g3_kind94_top.u_b.gen_out.gen_in.o_loc|43:45-43:50|op@43:42-43:51
+      G=['logic_var|work@g3_kind94_top.u_b.gen_out.o_loc|38:19-38:24', 'logic_var|work@g3_kind94_top.u_b.gen_out.o_loc|38:19-38:24']
+      P=['<null>', 'logic_var|work@g3_kind94_top.u_b.gen_out.o_loc|38:19-38:24']
+      Q=['logic_var|work@g3_kind94_top.u_b.gen_out.o_loc|38:19-38:24', 'logic_var|work@g3_kind94_top.u_b.gen_out.o_loc|38:19-38:24']
+  [WRONG->RIGHT] work@g3_kind94_top.u_b.genblk5.a_i|48:21-48:24|op@48:18-48:25
+      G=['logic_net|work@g3_kind94_top.u_b.a_i|5:24-5:27', 'logic_net|work@g3_kind94_top.u_b.a_i|5:24-5:27']
+      P=['<null>', 'logic_net|work@g3_kind94_top.u_b.a_i|5:24-5:27']
+      Q=['logic_net|work@g3_kind94_top.u_b.a_i|5:24-5:27', 'logic_net|work@g3_kind94_top.u_b.a_i|5:24-5:27']
+  [WRONG->RIGHT] work@g3_kind94_top.u_b.genblk5.m_var|48:31-48:36|op@48:28-48:37
+      G=['logic_var|work@g3_kind94_top.u_b.m_var|9:17-9:22', 'logic_var|work@g3_kind94_top.u_b.m_var|9:17-9:22']
+      P=['<null>', 'logic_var|work@g3_kind94_top.u_b.m_var|9:17-9:22']
+      Q=['logic_var|work@g3_kind94_top.u_b.m_var|9:17-9:22', 'logic_var|work@g3_kind94_top.u_b.m_var|9:17-9:22']
+### g4_pool94 / plain   cells=37 WRONG->RIGHT=10 RIGHT->WRONG=0 NOKEY=0
+  [STILL-WRONG] work@g4_pool94_top.gtop.tv|68:34-68:36|op@68:31-68:37
+      G=['<null>', '<null>']
+      P=['<null>', 'logic_var|work@g4_pool94_top.gtop.tv|66:17-66:19']
+      Q=['<null>', 'logic_var|work@g4_pool94_top.gtop.tv|66:17-66:19']
+  [WRONG->RIGHT] work@g4_pool94_top.u_a.gfor[0].m_var|43:22-43:27|op@43:19-43:28
+      G=['logic_var|work@g4_pool94_top.u_a.m_var|8:17-8:22']
+      P=['<null>']
+      Q=['logic_var|work@g4_pool94_top.u_a.m_var|8:17-8:22']
+  [WRONG->RIGHT] work@g4_pool94_top.u_a.gfor[1].m_var|43:22-43:27|op@43:19-43:28
+      G=['logic_var|work@g4_pool94_top.u_a.m_var|8:17-8:22']
+      P=['<null>']
+      Q=['logic_var|work@g4_pool94_top.u_a.m_var|8:17-8:22']
+  [WRONG->RIGHT] work@g4_pool94_top.u_a.gfor[2].m_var|43:22-43:27|op@43:19-43:28
+      G=['logic_var|work@g4_pool94_top.u_a.m_var|8:17-8:22']
+      P=['<null>']
+      Q=['logic_var|work@g4_pool94_top.u_a.m_var|8:17-8:22']
+  [WRONG->RIGHT] work@g4_pool94_top.u_a.gl1.gl2.gl3.v2|25:26-25:28|op@25:23-25:29
+      G=['logic_var|work@g4_pool94_top.u_a.gl1.gl2.v2|19:21-19:23']
+      P=['<null>']
+      Q=['logic_var|work@g4_pool94_top.u_a.gl1.gl2.v2|19:21-19:23']
+  [STILL-WRONG] work@g4_pool94_top.u_a.gp1.gp2.m_var|51:36-51:41|op@51:33-51:42
+      G=['<null>']
+      P=['logic_var|work@g4_pool94_top.u_a.m_var|8:17-8:22']
+      Q=['logic_var|work@g4_pool94_top.u_a.m_var|8:17-8:22']
+  [STILL-WRONG] work@g4_pool94_top.u_a.gp1.gp2.p1|51:27-51:29|op@51:24-51:30
+      G=['logic_var|work@g4_pool94_top.u_a.gp1.p1|47:19-47:21']
+      P=['<null>']
+      Q=['<null>']
+  [WRONG->RIGHT] work@g4_pool94_top.u_a.gsh.sh_var|33:22-33:28|op@33:19-33:29
+      G=['logic_var|work@g4_pool94_top.u_a.sh_var|9:17-9:23']
+      P=['<null>']
+      Q=['logic_var|work@g4_pool94_top.u_a.sh_var|9:17-9:23']
+  [WRONG->RIGHT] work@g4_pool94_top.u_b.gfor[0].m_var|43:22-43:27|op@43:19-43:28
+      G=['logic_var|work@g4_pool94_top.u_b.m_var|8:17-8:22']
+      P=['<null>']
+      Q=['logic_var|work@g4_pool94_top.u_b.m_var|8:17-8:22']
+  [WRONG->RIGHT] work@g4_pool94_top.u_b.gfor[1].m_var|43:22-43:27|op@43:19-43:28
+      G=['logic_var|work@g4_pool94_top.u_b.m_var|8:17-8:22']
+      P=['<null>']
+      Q=['logic_var|work@g4_pool94_top.u_b.m_var|8:17-8:22']
+  [WRONG->RIGHT] work@g4_pool94_top.u_b.gfor[2].m_var|43:22-43:27|op@43:19-43:28
+      G=['logic_var|work@g4_pool94_top.u_b.m_var|8:17-8:22']
+      P=['<null>']
+      Q=['logic_var|work@g4_pool94_top.u_b.m_var|8:17-8:22']
+  [WRONG->RIGHT] work@g4_pool94_top.u_b.gl1.gl2.gl3.v2|25:26-25:28|op@25:23-25:29
+      G=['logic_var|work@g4_pool94_top.u_b.gl1.gl2.v2|19:21-19:23']
+      P=['<null>']
+      Q=['logic_var|work@g4_pool94_top.u_b.gl1.gl2.v2|19:21-19:23']
+  [STILL-WRONG] work@g4_pool94_top.u_b.gp1.gp2.m_var|51:36-51:41|op@51:33-51:42
+      G=['<null>']
+      P=['logic_var|work@g4_pool94_top.u_b.m_var|8:17-8:22']
+      Q=['logic_var|work@g4_pool94_top.u_b.m_var|8:17-8:22']
+  [STILL-WRONG] work@g4_pool94_top.u_b.gp1.gp2.p1|51:27-51:29|op@51:24-51:30
+      G=['logic_var|work@g4_pool94_top.u_b.gp1.p1|47:19-47:21']
+      P=['<null>']
+      Q=['<null>']
+  [WRONG->RIGHT] work@g4_pool94_top.u_b.gsh.sh_var|33:22-33:28|op@33:19-33:29
+      G=['logic_var|work@g4_pool94_top.u_b.sh_var|9:17-9:23']
+      P=['<null>']
+      Q=['logic_var|work@g4_pool94_top.u_b.sh_var|9:17-9:23']
+### g4_pool94 / elab   cells=37 WRONG->RIGHT=10 RIGHT->WRONG=0 NOKEY=0
+  [STILL-WRONG] work@g4_pool94_top.gtop.tv|68:34-68:36|op@68:31-68:37
+      G=['<null>', '<null>', 'logic_var|work@g4_pool94_top.gtop.tv|66:17-66:19']
+      P=['<null>', 'logic_var|work@g4_pool94_top.gtop.tv|66:17-66:19', 'logic_var|work@g4_pool94_top.gtop.tv|66:17-66:19']
+      Q=['<null>', 'logic_var|work@g4_pool94_top.gtop.tv|66:17-66:19', 'logic_var|work@g4_pool94_top.gtop.tv|66:17-66:19']
+  [WRONG->RIGHT] work@g4_pool94_top.u_a.gfor[0].m_var|43:22-43:27|op@43:19-43:28
+      G=['logic_var|work@g4_pool94_top.u_a.m_var|8:17-8:22', 'logic_var|work@g4_pool94_top.u_a.m_var|8:17-8:22']
+      P=['<null>', 'logic_var|work@g4_pool94_top.u_a.m_var|8:17-8:22']
+      Q=['logic_var|work@g4_pool94_top.u_a.m_var|8:17-8:22', 'logic_var|work@g4_pool94_top.u_a.m_var|8:17-8:22']
+  [WRONG->RIGHT] work@g4_pool94_top.u_a.gfor[1].m_var|43:22-43:27|op@43:19-43:28
+      G=['logic_var|work@g4_pool94_top.u_a.m_var|8:17-8:22', 'logic_var|work@g4_pool94_top.u_a.m_var|8:17-8:22']
+      P=['<null>', 'logic_var|work@g4_pool94_top.u_a.m_var|8:17-8:22']
+      Q=['logic_var|work@g4_pool94_top.u_a.m_var|8:17-8:22', 'logic_var|work@g4_pool94_top.u_a.m_var|8:17-8:22']
+  [WRONG->RIGHT] work@g4_pool94_top.u_a.gfor[2].m_var|43:22-43:27|op@43:19-43:28
+      G=['logic_var|work@g4_pool94_top.u_a.m_var|8:17-8:22', 'logic_var|work@g4_pool94_top.u_a.m_var|8:17-8:22']
+      P=['<null>', 'logic_var|work@g4_pool94_top.u_a.m_var|8:17-8:22']
+      Q=['logic_var|work@g4_pool94_top.u_a.m_var|8:17-8:22', 'logic_var|work@g4_pool94_top.u_a.m_var|8:17-8:22']
+  [WRONG->RIGHT] work@g4_pool94_top.u_a.gl1.gl2.gl3.v2|25:26-25:28|op@25:23-25:29
+      G=['logic_var|work@g4_pool94_top.u_a.gl1.gl2.v2|19:21-19:23', 'logic_var|work@g4_pool94_top.u_a.gl1.gl2.v2|19:21-19:23']
+      P=['<null>', 'logic_var|work@g4_pool94_top.u_a.gl1.gl2.v2|19:21-19:23']
+      Q=['logic_var|work@g4_pool94_top.u_a.gl1.gl2.v2|19:21-19:23', 'logic_var|work@g4_pool94_top.u_a.gl1.gl2.v2|19:21-19:23']
+  [STILL-WRONG] work@g4_pool94_top.u_a.gp1.gp2.m_var|51:36-51:41|op@51:33-51:42
+      G=['<null>', 'logic_var|work@g4_pool94_top.u_a.m_var|8:17-8:22']
+      P=['logic_var|work@g4_pool94_top.u_a.m_var|8:17-8:22', 'logic_var|work@g4_pool94_top.u_a.m_var|8:17-8:22']
+      Q=['logic_var|work@g4_pool94_top.u_a.m_var|8:17-8:22', 'logic_var|work@g4_pool94_top.u_a.m_var|8:17-8:22']
+  [STILL-WRONG] work@g4_pool94_top.u_a.gp1.gp2.p1|51:27-51:29|op@51:24-51:30
+      G=['logic_var|work@g4_pool94_top.u_a.gp1.p1|47:19-47:21', 'logic_var|work@g4_pool94_top.u_a.gp1.p1|47:19-47:21']
+      P=['<null>', 'logic_var|work@g4_pool94_top.u_a.gp1.p1|47:19-47:21']
+      Q=['<null>', 'logic_var|work@g4_pool94_top.u_a.gp1.p1|47:19-47:21']
+  [WRONG->RIGHT] work@g4_pool94_top.u_a.gsh.sh_var|33:22-33:28|op@33:19-33:29
+      G=['logic_var|work@g4_pool94_top.u_a.gsh.sh_var|31:19-31:25', 'logic_var|work@g4_pool94_top.u_a.sh_var|9:17-9:23']
+      P=['<null>', 'logic_var|work@g4_pool94_top.u_a.gsh.sh_var|31:19-31:25']
+      Q=['logic_var|work@g4_pool94_top.u_a.gsh.sh_var|31:19-31:25', 'logic_var|work@g4_pool94_top.u_a.sh_var|9:17-9:23']
+  [WRONG->RIGHT] work@g4_pool94_top.u_b.gfor[0].m_var|43:22-43:27|op@43:19-43:28
+      G=['logic_var|work@g4_pool94_top.u_b.m_var|8:17-8:22', 'logic_var|work@g4_pool94_top.u_b.m_var|8:17-8:22']
+      P=['<null>', 'logic_var|work@g4_pool94_top.u_b.m_var|8:17-8:22']
+      Q=['logic_var|work@g4_pool94_top.u_b.m_var|8:17-8:22', 'logic_var|work@g4_pool94_top.u_b.m_var|8:17-8:22']
+  [WRONG->RIGHT] work@g4_pool94_top.u_b.gfor[1].m_var|43:22-43:27|op@43:19-43:28
+      G=['logic_var|work@g4_pool94_top.u_b.m_var|8:17-8:22', 'logic_var|work@g4_pool94_top.u_b.m_var|8:17-8:22']
+      P=['<null>', 'logic_var|work@g4_pool94_top.u_b.m_var|8:17-8:22']
+      Q=['logic_var|work@g4_pool94_top.u_b.m_var|8:17-8:22', 'logic_var|work@g4_pool94_top.u_b.m_var|8:17-8:22']
+  [WRONG->RIGHT] work@g4_pool94_top.u_b.gfor[2].m_var|43:22-43:27|op@43:19-43:28
+      G=['logic_var|work@g4_pool94_top.u_b.m_var|8:17-8:22', 'logic_var|work@g4_pool94_top.u_b.m_var|8:17-8:22']
+      P=['<null>', 'logic_var|work@g4_pool94_top.u_b.m_var|8:17-8:22']
+      Q=['logic_var|work@g4_pool94_top.u_b.m_var|8:17-8:22', 'logic_var|work@g4_pool94_top.u_b.m_var|8:17-8:22']
+  [WRONG->RIGHT] work@g4_pool94_top.u_b.gl1.gl2.gl3.v2|25:26-25:28|op@25:23-25:29
+      G=['logic_var|work@g4_pool94_top.u_b.gl1.gl2.v2|19:21-19:23', 'logic_var|work@g4_pool94_top.u_b.gl1.gl2.v2|19:21-19:23']
+      P=['<null>', 'logic_var|work@g4_pool94_top.u_b.gl1.gl2.v2|19:21-19:23']
+      Q=['logic_var|work@g4_pool94_top.u_b.gl1.gl2.v2|19:21-19:23', 'logic_var|work@g4_pool94_top.u_b.gl1.gl2.v2|19:21-19:23']
+  [STILL-WRONG] work@g4_pool94_top.u_b.gp1.gp2.m_var|51:36-51:41|op@51:33-51:42
+      G=['<null>', 'logic_var|work@g4_pool94_top.u_b.m_var|8:17-8:22']
+      P=['logic_var|work@g4_pool94_top.u_b.m_var|8:17-8:22', 'logic_var|work@g4_pool94_top.u_b.m_var|8:17-8:22']
+      Q=['logic_var|work@g4_pool94_top.u_b.m_var|8:17-8:22', 'logic_var|work@g4_pool94_top.u_b.m_var|8:17-8:22']
+  [STILL-WRONG] work@g4_pool94_top.u_b.gp1.gp2.p1|51:27-51:29|op@51:24-51:30
+      G=['logic_var|work@g4_pool94_top.u_b.gp1.p1|47:19-47:21', 'logic_var|work@g4_pool94_top.u_b.gp1.p1|47:19-47:21']
+      P=['<null>', 'logic_var|work@g4_pool94_top.u_b.gp1.p1|47:19-47:21']
+      Q=['<null>', 'logic_var|work@g4_pool94_top.u_b.gp1.p1|47:19-47:21']
+  [WRONG->RIGHT] work@g4_pool94_top.u_b.gsh.sh_var|33:22-33:28|op@33:19-33:29
+      G=['logic_var|work@g4_pool94_top.u_b.gsh.sh_var|31:19-31:25', 'logic_var|work@g4_pool94_top.u_b.sh_var|9:17-9:23']
+      P=['<null>', 'logic_var|work@g4_pool94_top.u_b.gsh.sh_var|31:19-31:25']
+      Q=['logic_var|work@g4_pool94_top.u_b.gsh.sh_var|31:19-31:25', 'logic_var|work@g4_pool94_top.u_b.sh_var|9:17-9:23']
+### g5_fence94 / plain   cells=31 WRONG->RIGHT=6 RIGHT->WRONG=0 NOKEY=3
+  [NOKEY] m_var|45:27-45:32|op@45:24-45:33
+      G=['logic_var|work@g5_fence94_top.u_a.m_var|28:17-28:22', 'logic_var|work@g5_fence94_top.u_a.m_var|28:17-28:22', 'logic_var|work@g5_fence94_top.u_b.m_var|28:17-28:22', 'logic_var|work@g5_fence94_top.u_b.m_var|28:17-28:22']
+      P=None
+      Q=None
+  [WRONG->RIGHT] work@g5_fence94_top.u_a.go.gf[0].ov|39:24-39:26|op@39:21-39:27
+      G=['logic_var|work@g5_fence94_top.u_a.go.ov|34:19-34:21']
+      P=['<null>']
+      Q=['logic_var|work@g5_fence94_top.u_a.go.ov|34:19-34:21']
+  [WRONG->RIGHT] work@g5_fence94_top.u_a.go.gf[1].ov|39:24-39:26|op@39:21-39:27
+      G=['logic_var|work@g5_fence94_top.u_a.go.ov|34:19-34:21']
+      P=['<null>']
+      Q=['logic_var|work@g5_fence94_top.u_a.go.ov|34:19-34:21']
+  [NOKEY] work@g5_fence94_top.u_a.gx.m_var|45:27-45:32|op@45:24-45:33
+      G=None
+      P=['<null>']
+      Q=['logic_var|work@g5_fence94_top.u_a.m_var|28:17-28:22']
+  [WRONG->RIGHT] work@g5_fence94_top.u_a.gx.m_var|47:50-47:55|op@47:47-47:56
+      G=['logic_var|work@g5_fence94_top.u_a.m_var|28:17-28:22']
+      P=['<null>']
+      Q=['logic_var|work@g5_fence94_top.u_a.m_var|28:17-28:22']
+  [WRONG->RIGHT] work@g5_fence94_top.u_b.go.gf[0].ov|39:24-39:26|op@39:21-39:27
+      G=['logic_var|work@g5_fence94_top.u_b.go.ov|34:19-34:21']
+      P=['<null>']
+      Q=['logic_var|work@g5_fence94_top.u_b.go.ov|34:19-34:21']
+  [WRONG->RIGHT] work@g5_fence94_top.u_b.go.gf[1].ov|39:24-39:26|op@39:21-39:27
+      G=['logic_var|work@g5_fence94_top.u_b.go.ov|34:19-34:21']
+      P=['<null>']
+      Q=['logic_var|work@g5_fence94_top.u_b.go.ov|34:19-34:21']
+  [NOKEY] work@g5_fence94_top.u_b.gx.m_var|45:27-45:32|op@45:24-45:33
+      G=None
+      P=['<null>']
+      Q=['logic_var|work@g5_fence94_top.u_b.m_var|28:17-28:22']
+  [WRONG->RIGHT] work@g5_fence94_top.u_b.gx.m_var|47:50-47:55|op@47:47-47:56
+      G=['logic_var|work@g5_fence94_top.u_b.m_var|28:17-28:22']
+      P=['<null>']
+      Q=['logic_var|work@g5_fence94_top.u_b.m_var|28:17-28:22']
+### g5_fence94 / elab   cells=31 WRONG->RIGHT=6 RIGHT->WRONG=0 NOKEY=1
+  [NOKEY] m_var|45:27-45:32|op@45:24-45:33
+      G=['logic_var|work@g5_fence94_top.u_a.m_var|28:17-28:22', 'logic_var|work@g5_fence94_top.u_a.m_var|28:17-28:22', 'logic_var|work@g5_fence94_top.u_b.m_var|28:17-28:22', 'logic_var|work@g5_fence94_top.u_b.m_var|28:17-28:22']
+      P=None
+      Q=None
+  [WRONG->RIGHT] work@g5_fence94_top.u_a.go.gf[0].ov|39:24-39:26|op@39:21-39:27
+      G=['logic_var|work@g5_fence94_top.u_a.go.ov|34:19-34:21', 'logic_var|work@g5_fence94_top.u_a.go.ov|34:19-34:21']
+      P=['<null>', 'logic_var|work@g5_fence94_top.u_a.go.ov|34:19-34:21']
+      Q=['logic_var|work@g5_fence94_top.u_a.go.ov|34:19-34:21', 'logic_var|work@g5_fence94_top.u_a.go.ov|34:19-34:21']
+  [WRONG->RIGHT] work@g5_fence94_top.u_a.go.gf[1].ov|39:24-39:26|op@39:21-39:27
+      G=['logic_var|work@g5_fence94_top.u_a.go.ov|34:19-34:21', 'logic_var|work@g5_fence94_top.u_a.go.ov|34:19-34:21']
+      P=['<null>', 'logic_var|work@g5_fence94_top.u_a.go.ov|34:19-34:21']
+      Q=['logic_var|work@g5_fence94_top.u_a.go.ov|34:19-34:21', 'logic_var|work@g5_fence94_top.u_a.go.ov|34:19-34:21']
+  [STILL-WRONG] work@g5_fence94_top.u_a.gx.E_B|47:40-47:43|op@47:37-47:44
+      G=['<null>']
+      P=['<null>', 'enum_const|E_B|17:39-17:46']
+      Q=['<null>', 'enum_const|E_B|17:39-17:46']
+  [MOVED-STILL-WRONG] work@g5_fence94_top.u_a.gx.m_var|45:27-45:32|op@45:24-45:33
+      G=['logic_var|work@g5_fence94_top.u_a.m_var|28:17-28:22']
+      P=['<null>', 'logic_var|work@g5_fence94_top.u_a.m_var|28:17-28:22']
+      Q=['logic_var|work@g5_fence94_top.u_a.m_var|28:17-28:22', 'logic_var|work@g5_fence94_top.u_a.m_var|28:17-28:22']
+  [WRONG->RIGHT] work@g5_fence94_top.u_a.gx.m_var|47:50-47:55|op@47:47-47:56
+      G=['logic_var|work@g5_fence94_top.u_a.m_var|28:17-28:22', 'logic_var|work@g5_fence94_top.u_a.m_var|28:17-28:22']
+      P=['<null>', 'logic_var|work@g5_fence94_top.u_a.m_var|28:17-28:22']
+      Q=['logic_var|work@g5_fence94_top.u_a.m_var|28:17-28:22', 'logic_var|work@g5_fence94_top.u_a.m_var|28:17-28:22']
+  [WRONG->RIGHT] work@g5_fence94_top.u_b.go.gf[0].ov|39:24-39:26|op@39:21-39:27
+      G=['logic_var|work@g5_fence94_top.u_b.go.ov|34:19-34:21', 'logic_var|work@g5_fence94_top.u_b.go.ov|34:19-34:21']
+      P=['<null>', 'logic_var|work@g5_fence94_top.u_b.go.ov|34:19-34:21']
+      Q=['logic_var|work@g5_fence94_top.u_b.go.ov|34:19-34:21', 'logic_var|work@g5_fence94_top.u_b.go.ov|34:19-34:21']
+  [WRONG->RIGHT] work@g5_fence94_top.u_b.go.gf[1].ov|39:24-39:26|op@39:21-39:27
+      G=['logic_var|work@g5_fence94_top.u_b.go.ov|34:19-34:21', 'logic_var|work@g5_fence94_top.u_b.go.ov|34:19-34:21']
+      P=['<null>', 'logic_var|work@g5_fence94_top.u_b.go.ov|34:19-34:21']
+      Q=['logic_var|work@g5_fence94_top.u_b.go.ov|34:19-34:21', 'logic_var|work@g5_fence94_top.u_b.go.ov|34:19-34:21']
+  [STILL-WRONG] work@g5_fence94_top.u_b.gx.E_B|47:40-47:43|op@47:37-47:44
+      G=['<null>']
+      P=['<null>', 'enum_const|E_B|17:39-17:46']
+      Q=['<null>', 'enum_const|E_B|17:39-17:46']
+  [MOVED-STILL-WRONG] work@g5_fence94_top.u_b.gx.m_var|45:27-45:32|op@45:24-45:33
+      G=['logic_var|work@g5_fence94_top.u_b.m_var|28:17-28:22']
+      P=['<null>', 'logic_var|work@g5_fence94_top.u_b.m_var|28:17-28:22']
+      Q=['logic_var|work@g5_fence94_top.u_b.m_var|28:17-28:22', 'logic_var|work@g5_fence94_top.u_b.m_var|28:17-28:22']
+  [WRONG->RIGHT] work@g5_fence94_top.u_b.gx.m_var|47:50-47:55|op@47:47-47:56
+      G=['logic_var|work@g5_fence94_top.u_b.m_var|28:17-28:22', 'logic_var|work@g5_fence94_top.u_b.m_var|28:17-28:22']
+      P=['<null>', 'logic_var|work@g5_fence94_top.u_b.m_var|28:17-28:22']
+      Q=['logic_var|work@g5_fence94_top.u_b.m_var|28:17-28:22', 'logic_var|work@g5_fence94_top.u_b.m_var|28:17-28:22']
+### g6_depth94 / plain   cells=8 WRONG->RIGHT=6 RIGHT->WRONG=0 NOKEY=0
+  [WRONG->RIGHT] work@g6_depth94_top.u_d1.gen_top.a_i|18:21-18:24|op@18:18-18:25
+      G=['logic_net|work@g6_depth94_top.u_d1.a_i|4:24-4:27']
+      P=['<null>']
+      Q=['logic_net|work@g6_depth94_top.u_d1.a_i|4:24-4:27']
+  [WRONG->RIGHT] work@g6_depth94_top.u_d1.gen_top.m_var|18:31-18:36|op@18:28-18:37
+      G=['logic_var|work@g6_depth94_top.u_d1.m_var|9:17-9:22']
+      P=['<null>']
+      Q=['logic_var|work@g6_depth94_top.u_d1.m_var|9:17-9:22']
+  [WRONG->RIGHT] work@g6_depth94_top.u_d2.u_c.gen_top.a_i|18:21-18:24|op@18:18-18:25
+      G=['logic_net|work@g6_depth94_top.u_d2.u_c.a_i|4:24-4:27']
+      P=['<null>']
+      Q=['logic_net|work@g6_depth94_top.u_d2.u_c.a_i|4:24-4:27']
+  [WRONG->RIGHT] work@g6_depth94_top.u_d2.u_c.gen_top.m_var|18:31-18:36|op@18:28-18:37
+      G=['logic_var|work@g6_depth94_top.u_d2.u_c.m_var|9:17-9:22']
+      P=['<null>']
+      Q=['logic_var|work@g6_depth94_top.u_d2.u_c.m_var|9:17-9:22']
+  [WRONG->RIGHT] work@g6_depth94_top.u_d3.u_m.u_c.gen_top.a_i|18:21-18:24|op@18:18-18:25
+      G=['logic_net|work@g6_depth94_top.u_d3.u_m.u_c.a_i|4:24-4:27']
+      P=['<null>']
+      Q=['logic_net|work@g6_depth94_top.u_d3.u_m.u_c.a_i|4:24-4:27']
+  [WRONG->RIGHT] work@g6_depth94_top.u_d3.u_m.u_c.gen_top.m_var|18:31-18:36|op@18:28-18:37
+      G=['logic_var|work@g6_depth94_top.u_d3.u_m.u_c.m_var|9:17-9:22']
+      P=['<null>']
+      Q=['logic_var|work@g6_depth94_top.u_d3.u_m.u_c.m_var|9:17-9:22']
+### g6_depth94 / elab   cells=8 WRONG->RIGHT=6 RIGHT->WRONG=0 NOKEY=0
+  [WRONG->RIGHT] work@g6_depth94_top.u_d1.gen_top.a_i|18:21-18:24|op@18:18-18:25
+      G=['logic_net|work@g6_depth94_top.u_d1.a_i|4:24-4:27', 'logic_net|work@g6_depth94_top.u_d1.a_i|4:24-4:27']
+      P=['<null>', 'logic_net|work@g6_depth94_top.u_d1.a_i|4:24-4:27']
+      Q=['logic_net|work@g6_depth94_top.u_d1.a_i|4:24-4:27', 'logic_net|work@g6_depth94_top.u_d1.a_i|4:24-4:27']
+  [WRONG->RIGHT] work@g6_depth94_top.u_d1.gen_top.m_var|18:31-18:36|op@18:28-18:37
+      G=['logic_var|work@g6_depth94_top.u_d1.m_var|9:17-9:22', 'logic_var|work@g6_depth94_top.u_d1.m_var|9:17-9:22']
+      P=['<null>', 'logic_var|work@g6_depth94_top.u_d1.m_var|9:17-9:22']
+      Q=['logic_var|work@g6_depth94_top.u_d1.m_var|9:17-9:22', 'logic_var|work@g6_depth94_top.u_d1.m_var|9:17-9:22']
+  [WRONG->RIGHT] work@g6_depth94_top.u_d2.u_c.gen_top.a_i|18:21-18:24|op@18:18-18:25
+      G=['logic_net|work@g6_depth94_top.u_d2.u_c.a_i|4:24-4:27', 'logic_net|work@g6_depth94_top.u_d2.u_c.a_i|4:24-4:27']
+      P=['<null>', 'logic_net|work@g6_depth94_top.u_d2.u_c.a_i|4:24-4:27']
+      Q=['logic_net|work@g6_depth94_top.u_d2.u_c.a_i|4:24-4:27', 'logic_net|work@g6_depth94_top.u_d2.u_c.a_i|4:24-4:27']
+  [WRONG->RIGHT] work@g6_depth94_top.u_d2.u_c.gen_top.m_var|18:31-18:36|op@18:28-18:37
+      G=['logic_var|work@g6_depth94_top.u_d2.u_c.m_var|9:17-9:22', 'logic_var|work@g6_depth94_top.u_d2.u_c.m_var|9:17-9:22']
+      P=['<null>', 'logic_var|work@g6_depth94_top.u_d2.u_c.m_var|9:17-9:22']
+      Q=['logic_var|work@g6_depth94_top.u_d2.u_c.m_var|9:17-9:22', 'logic_var|work@g6_depth94_top.u_d2.u_c.m_var|9:17-9:22']
+  [WRONG->RIGHT] work@g6_depth94_top.u_d3.u_m.u_c.gen_top.a_i|18:21-18:24|op@18:18-18:25
+      G=['logic_net|work@g6_depth94_top.u_d3.u_m.u_c.a_i|4:24-4:27', 'logic_net|work@g6_depth94_top.u_d3.u_m.u_c.a_i|4:24-4:27']
+      P=['<null>', 'logic_net|work@g6_depth94_top.u_d3.u_m.u_c.a_i|4:24-4:27']
+      Q=['logic_net|work@g6_depth94_top.u_d3.u_m.u_c.a_i|4:24-4:27', 'logic_net|work@g6_depth94_top.u_d3.u_m.u_c.a_i|4:24-4:27']
+  [WRONG->RIGHT] work@g6_depth94_top.u_d3.u_m.u_c.gen_top.m_var|18:31-18:36|op@18:28-18:37
+      G=['logic_var|work@g6_depth94_top.u_d3.u_m.u_c.m_var|9:17-9:22', 'logic_var|work@g6_depth94_top.u_d3.u_m.u_c.m_var|9:17-9:22']
+      P=['<null>', 'logic_var|work@g6_depth94_top.u_d3.u_m.u_c.m_var|9:17-9:22']
+      Q=['logic_var|work@g6_depth94_top.u_d3.u_m.u_c.m_var|9:17-9:22', 'logic_var|work@g6_depth94_top.u_d3.u_m.u_c.m_var|9:17-9:22']
+### g7_flat94 / plain   cells=8 WRONG->RIGHT=6 RIGHT->WRONG=0 NOKEY=0
+  [WRONG->RIGHT] work@g7_flat94_top.u_d1.gen_top.a_i|13:21-13:24|op@13:18-13:25
+      G=['logic_net|work@g7_flat94_top.u_d1.a_i|4:24-4:27']
+      P=['<null>']
+      Q=['logic_net|work@g7_flat94_top.u_d1.a_i|4:24-4:27']
+  [WRONG->RIGHT] work@g7_flat94_top.u_d1.gen_top.m_var|13:31-13:36|op@13:28-13:37
+      G=['logic_var|work@g7_flat94_top.u_d1.m_var|9:17-9:22']
+      P=['<null>']
+      Q=['logic_var|work@g7_flat94_top.u_d1.m_var|9:17-9:22']
+  [WRONG->RIGHT] work@g7_flat94_top.u_d2.u_c.gen_top.a_i|13:21-13:24|op@13:18-13:25
+      G=['logic_net|work@g7_flat94_top.u_d2.u_c.a_i|4:24-4:27']
+      P=['<null>']
+      Q=['logic_net|work@g7_flat94_top.u_d2.u_c.a_i|4:24-4:27']
+  [WRONG->RIGHT] work@g7_flat94_top.u_d2.u_c.gen_top.m_var|13:31-13:36|op@13:28-13:37
+      G=['logic_var|work@g7_flat94_top.u_d2.u_c.m_var|9:17-9:22']
+      P=['<null>']
+      Q=['logic_var|work@g7_flat94_top.u_d2.u_c.m_var|9:17-9:22']
+  [WRONG->RIGHT] work@g7_flat94_top.u_d3.u_m.u_c.gen_top.a_i|13:21-13:24|op@13:18-13:25
+      G=['logic_net|work@g7_flat94_top.u_d3.u_m.u_c.a_i|4:24-4:27']
+      P=['<null>']
+      Q=['logic_net|work@g7_flat94_top.u_d3.u_m.u_c.a_i|4:24-4:27']
+  [WRONG->RIGHT] work@g7_flat94_top.u_d3.u_m.u_c.gen_top.m_var|13:31-13:36|op@13:28-13:37
+      G=['logic_var|work@g7_flat94_top.u_d3.u_m.u_c.m_var|9:17-9:22']
+      P=['<null>']
+      Q=['logic_var|work@g7_flat94_top.u_d3.u_m.u_c.m_var|9:17-9:22']
+### g7_flat94 / elab   cells=8 WRONG->RIGHT=6 RIGHT->WRONG=0 NOKEY=0
+  [WRONG->RIGHT] work@g7_flat94_top.u_d1.gen_top.a_i|13:21-13:24|op@13:18-13:25
+      G=['logic_net|work@g7_flat94_top.u_d1.a_i|4:24-4:27', 'logic_net|work@g7_flat94_top.u_d1.a_i|4:24-4:27']
+      P=['<null>', 'logic_net|work@g7_flat94_top.u_d1.a_i|4:24-4:27']
+      Q=['logic_net|work@g7_flat94_top.u_d1.a_i|4:24-4:27', 'logic_net|work@g7_flat94_top.u_d1.a_i|4:24-4:27']
+  [WRONG->RIGHT] work@g7_flat94_top.u_d1.gen_top.m_var|13:31-13:36|op@13:28-13:37
+      G=['logic_var|work@g7_flat94_top.u_d1.m_var|9:17-9:22', 'logic_var|work@g7_flat94_top.u_d1.m_var|9:17-9:22']
+      P=['<null>', 'logic_var|work@g7_flat94_top.u_d1.m_var|9:17-9:22']
+      Q=['logic_var|work@g7_flat94_top.u_d1.m_var|9:17-9:22', 'logic_var|work@g7_flat94_top.u_d1.m_var|9:17-9:22']
+  [WRONG->RIGHT] work@g7_flat94_top.u_d2.u_c.gen_top.a_i|13:21-13:24|op@13:18-13:25
+      G=['logic_net|work@g7_flat94_top.u_d2.u_c.a_i|4:24-4:27', 'logic_net|work@g7_flat94_top.u_d2.u_c.a_i|4:24-4:27']
+      P=['<null>', 'logic_net|work@g7_flat94_top.u_d2.u_c.a_i|4:24-4:27']
+      Q=['logic_net|work@g7_flat94_top.u_d2.u_c.a_i|4:24-4:27', 'logic_net|work@g7_flat94_top.u_d2.u_c.a_i|4:24-4:27']
+  [WRONG->RIGHT] work@g7_flat94_top.u_d2.u_c.gen_top.m_var|13:31-13:36|op@13:28-13:37
+      G=['logic_var|work@g7_flat94_top.u_d2.u_c.m_var|9:17-9:22', 'logic_var|work@g7_flat94_top.u_d2.u_c.m_var|9:17-9:22']
+      P=['<null>', 'logic_var|work@g7_flat94_top.u_d2.u_c.m_var|9:17-9:22']
+      Q=['logic_var|work@g7_flat94_top.u_d2.u_c.m_var|9:17-9:22', 'logic_var|work@g7_flat94_top.u_d2.u_c.m_var|9:17-9:22']
+  [WRONG->RIGHT] work@g7_flat94_top.u_d3.u_m.u_c.gen_top.a_i|13:21-13:24|op@13:18-13:25
+      G=['logic_net|work@g7_flat94_top.u_d3.u_m.u_c.a_i|4:24-4:27', 'logic_net|work@g7_flat94_top.u_d3.u_m.u_c.a_i|4:24-4:27']
+      P=['<null>', 'logic_net|work@g7_flat94_top.u_d3.u_m.u_c.a_i|4:24-4:27']
+      Q=['logic_net|work@g7_flat94_top.u_d3.u_m.u_c.a_i|4:24-4:27', 'logic_net|work@g7_flat94_top.u_d3.u_m.u_c.a_i|4:24-4:27']
+  [WRONG->RIGHT] work@g7_flat94_top.u_d3.u_m.u_c.gen_top.m_var|13:31-13:36|op@13:28-13:37
+      G=['logic_var|work@g7_flat94_top.u_d3.u_m.u_c.m_var|9:17-9:22', 'logic_var|work@g7_flat94_top.u_d3.u_m.u_c.m_var|9:17-9:22']
+      P=['<null>', 'logic_var|work@g7_flat94_top.u_d3.u_m.u_c.m_var|9:17-9:22']
+      Q=['logic_var|work@g7_flat94_top.u_d3.u_m.u_c.m_var|9:17-9:22', 'logic_var|work@g7_flat94_top.u_d3.u_m.u_c.m_var|9:17-9:22']
