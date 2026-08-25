@@ -1,0 +1,184 @@
+r10uvm136 — THE GRID, verbatim score136.py output per arm.  LHS IS ALWAYS GOLDEN.
+G = golden, O = ours pristine, Q = ours patched.  Key = (SITE, IDX, property
+name) — never a span, never a file: our objects carry an empty VpiFile and
+spans are dump fidelity, not judge-visible.
+
+################ DEF VIEW (arm136.sh) ################
+
+======== arm a
+AGREE=10
+FIXED=6
+STILL-WRONG=0
+MOVED-WRONG=0
+AWAY=0
+ONLY-GOLDEN=0
+ONLY-OURS=0
+PRIS  wrong cells = 6
+   FIXED 	 k01_ps2 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@ktop)/package(Kpkg)/class_defn(Holder78)
+   FIXED 	 k02_ps4 	G= struct_var 	O= logic_var 	Q= struct_var 	 design(work@ktop)/package(Kpkg)/class_defn(Holder78)
+   FIXED 	 k12_chain 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@ktop)/package(Kpkg)/class_defn(Holder78)
+   FIXED 	 k14_anonps 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@ktop)/package(Kpkg)/class_defn(Holder78)
+   FIXED 	 k03_ps4m 	G= struct_var 	O= logic_var 	Q= struct_var 	 design(work@ktop)/package(Kpkg)/class_defn(Holder78)
+   FIXED 	 k05_pu 	G= union_var 	O= logic_var 	Q= union_var 	 design(work@ktop)/package(Kpkg)/class_defn(Holder78)
+
+======== arm b
+AGREE=3
+FIXED=7
+STILL-WRONG=0
+MOVED-WRONG=0
+AWAY=0
+ONLY-GOLDEN=0
+ONLY-OURS=0
+PRIS  wrong cells = 7
+   FIXED 	 b10_ownpkg 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@btop)/package(Early3)/class_defn(Consumer21)
+   FIXED 	 b08_before 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@btop)/package(Late7)/class_defn(UsesEarlier4)
+   FIXED 	 b01_incLater 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@btop)/package(Late7)/class_defn(UsesLater9)
+   FIXED 	 b04_sameFile 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@btop)/package(Late7)/class_defn(UsesLater9)
+   FIXED 	 b05_xpkgQual 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@btop)/package(Late7)/class_defn(UsesLater9)
+   FIXED 	 b06_xpkgWild 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@btop)/package(Late7)/class_defn(UsesLater9)
+   FIXED 	 b07_inClass 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@btop)/package(Late7)/class_defn(UsesLater9)
+
+======== arm c
+AGREE=12
+FIXED=8
+STILL-WRONG=0
+MOVED-WRONG=0
+AWAY=0
+ONLY-GOLDEN=0
+ONLY-OURS=0
+PRIS  wrong cells = 8
+   FIXED 	 c01_plain 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@ctop)/package(Pk3)/class_defn(ManyShapes55)
+   FIXED 	 c02_static 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@ctop)/package(Pk3)/class_defn(ManyShapes55)
+   FIXED 	 c14_two 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@ctop)/package(Pk3)/class_defn(ManyShapes55)
+   FIXED 	 c15_three 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@ctop)/package(Pk3)/class_defn(ManyShapes55)
+   FIXED 	 c03_rand 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@ctop)/package(Pk3)/class_defn(ManyShapes55)
+   FIXED 	 c05_local 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@ctop)/package(Pk3)/class_defn(ManyShapes55)
+   FIXED 	 c06_prot 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@ctop)/package(Pk3)/class_defn(ManyShapes55)
+   FIXED 	 c07_const 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@ctop)/package(Pk3)/class_defn(ManyShapes55)
+
+======== arm d
+AGREE=1
+FIXED=4
+STILL-WRONG=0
+MOVED-WRONG=0
+AWAY=0
+ONLY-GOLDEN=0
+ONLY-OURS=0
+PRIS  wrong cells = 4
+   FIXED 	 d01_unitps 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@dtop)/class_defn(work@UnitHome12)
+   FIXED 	 d04_modps 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@dtop)/module_inst/class_defn(ModHome56)
+   FIXED 	 d05_unitFromMod 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@dtop)/module_inst/class_defn(ModHome56)
+   FIXED 	 d03_pkgps 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@dtop)/package(Ph9)/class_defn(PkgHome34)
+
+======== arm e
+AGREE=1
+FIXED=8
+STILL-WRONG=2
+MOVED-WRONG=0
+AWAY=0
+ONLY-GOLDEN=0
+ONLY-OURS=0
+PRIS  wrong cells = 10
+   FIXED 	 e01_virtbase 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@etop)/package(Edg2)/class_defn(AbstractHold9)
+   FIXED 	 e02_base 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@etop)/package(Edg2)/class_defn(BaseHold7)
+   FIXED 	 e03_deriv 	G= union_var 	O= bit_var 	Q= union_var 	 design(work@etop)/package(Edg2)/class_defn(DerivHold8)
+   FIXED 	 e04_typeparam 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@etop)/package(Edg2)/class_defn(ParamHold)
+   STILL-WRONG 	 e05_packedArr 	G= packed_array_var 	O= bit_var 	Q= bit_var 	 design(work@etop)/package(Edg2)/class_defn(ParamHold)
+   STILL-WRONG 	 e06_arrTypedef 	G= packed_array_var 	O= bit_var 	Q= bit_var 	 design(work@etop)/package(Edg2)/class_defn(ParamHold)
+   FIXED 	 e07_chain3 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@etop)/package(Edg2)/class_defn(ParamHold)
+   FIXED 	 e08_nested 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@etop)/package(Edg2)/class_defn(ParamHold)
+   FIXED 	 e09_withenum 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@etop)/package(Edg2)/class_defn(ParamHold)
+   FIXED 	 e10_innerclass 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@etop)/package(Edg2)/class_defn(ParamHold)/class_defn(InnerHold3)
+
+======== arm f
+AGREE=4
+FIXED=1
+STILL-WRONG=4
+MOVED-WRONG=0
+AWAY=0
+ONLY-GOLDEN=0
+ONLY-OURS=0
+PRIS  wrong cells = 5
+   STILL-WRONG 	 f01_pastruct 	G= packed_array_var 	O= bit_var 	Q= bit_var 	 design(work@ftop)/package(Fpk8)/class_defn(ArrHold44)
+   STILL-WRONG 	 f02_pastruct2d 	G= packed_array_var 	O= bit_var 	Q= bit_var 	 design(work@ftop)/package(Fpk8)/class_defn(ArrHold44)
+   STILL-WRONG 	 f03_paunion 	G= packed_array_var 	O= bit_var 	Q= bit_var 	 design(work@ftop)/package(Fpk8)/class_defn(ArrHold44)
+   STILL-WRONG 	 f04_paenum 	G= packed_array_var 	O= bit_var 	Q= bit_var 	 design(work@ftop)/package(Fpk8)/class_defn(ArrHold44)
+   FIXED 	 f08_scalarctl 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@ftop)/package(Fpk8)/class_defn(ArrHold44)
+
+======== arm z
+AGREE=25
+FIXED=0
+STILL-WRONG=0
+MOVED-WRONG=0
+AWAY=0
+ONLY-GOLDEN=0
+ONLY-OURS=0
+PRIS  wrong cells = 0
+
+################ ELAB VIEW (elab136.sh — Surelog run a SECOND time with
+################ -elabuhdm so the elaborated view has a golden of its own)
+
+======== elab arm a
+AGREE=10
+FIXED=6
+STILL-WRONG=0
+MOVED-WRONG=0
+AWAY=0
+ONLY-GOLDEN=0
+ONLY-OURS=0
+PRIS  wrong cells = 6
+   FIXED 	 k01_ps2 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@ktop)/package(Kpkg)/class_defn(Holder78)
+   FIXED 	 k02_ps4 	G= struct_var 	O= logic_var 	Q= struct_var 	 design(work@ktop)/package(Kpkg)/class_defn(Holder78)
+   FIXED 	 k12_chain 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@ktop)/package(Kpkg)/class_defn(Holder78)
+   FIXED 	 k14_anonps 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@ktop)/package(Kpkg)/class_defn(Holder78)
+   FIXED 	 k03_ps4m 	G= struct_var 	O= logic_var 	Q= struct_var 	 design(work@ktop)/package(Kpkg)/class_defn(Holder78)
+   FIXED 	 k05_pu 	G= union_var 	O= logic_var 	Q= union_var 	 design(work@ktop)/package(Kpkg)/class_defn(Holder78)
+
+======== elab arm c
+AGREE=12
+FIXED=8
+STILL-WRONG=0
+MOVED-WRONG=0
+AWAY=0
+ONLY-GOLDEN=0
+ONLY-OURS=0
+PRIS  wrong cells = 8
+   FIXED 	 c01_plain 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@ctop)/package(Pk3)/class_defn(ManyShapes55)
+   FIXED 	 c02_static 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@ctop)/package(Pk3)/class_defn(ManyShapes55)
+   FIXED 	 c14_two 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@ctop)/package(Pk3)/class_defn(ManyShapes55)
+   FIXED 	 c15_three 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@ctop)/package(Pk3)/class_defn(ManyShapes55)
+   FIXED 	 c03_rand 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@ctop)/package(Pk3)/class_defn(ManyShapes55)
+   FIXED 	 c05_local 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@ctop)/package(Pk3)/class_defn(ManyShapes55)
+   FIXED 	 c06_prot 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@ctop)/package(Pk3)/class_defn(ManyShapes55)
+   FIXED 	 c07_const 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@ctop)/package(Pk3)/class_defn(ManyShapes55)
+
+======== elab arm e
+AGREE=1
+FIXED=8
+STILL-WRONG=2
+MOVED-WRONG=0
+AWAY=0
+ONLY-GOLDEN=0
+ONLY-OURS=1
+PRIS  wrong cells = 10
+   FIXED 	 e01_virtbase 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@etop)/package(Edg2)/class_defn(AbstractHold9)
+   FIXED 	 e02_base 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@etop)/package(Edg2)/class_defn(BaseHold7)
+   FIXED 	 e03_deriv 	G= union_var 	O= bit_var 	Q= union_var 	 design(work@etop)/package(Edg2)/class_defn(DerivHold8)
+   FIXED 	 e04_typeparam 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@etop)/package(Edg2)/class_defn(ParamHold)
+   STILL-WRONG 	 e05_packedArr 	G= packed_array_var 	O= bit_var 	Q= bit_var 	 design(work@etop)/package(Edg2)/class_defn(ParamHold)
+   STILL-WRONG 	 e06_arrTypedef 	G= packed_array_var 	O= bit_var 	Q= bit_var 	 design(work@etop)/package(Edg2)/class_defn(ParamHold)
+   FIXED 	 e07_chain3 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@etop)/package(Edg2)/class_defn(ParamHold)
+   FIXED 	 e08_nested 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@etop)/package(Edg2)/class_defn(ParamHold)
+   FIXED 	 e09_withenum 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@etop)/package(Edg2)/class_defn(ParamHold)
+   FIXED 	 e10_innerclass 	G= struct_var 	O= bit_var 	Q= struct_var 	 design(work@etop)/package(Edg2)/class_defn(ParamHold)/class_defn(InnerHold3)
+   ONLY-OURS-DUP 	 e10_innerclass 	G= - 	O= bit_var 	Q= struct_var 	 design(work@etop)/package(Edg2)/class_defn(ParamHold)/class_defn(InnerHold3)
+
+======== elab arm z
+AGREE=25
+FIXED=0
+STILL-WRONG=0
+MOVED-WRONG=0
+AWAY=0
+ONLY-GOLDEN=0
+ONLY-OURS=0
+PRIS  wrong cells = 0

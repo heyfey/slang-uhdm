@@ -1,0 +1,23 @@
+r10uvm136 — THE BOUNDARY GATE (bound136.sh), run from a COPY of the arms
+directory so no path filter can hide an arm.  Every .sv under the copy — top
+level AND subdirectories — is compiled by Surelog and by BOTH frozen binaries,
+in the DEF view and the ELAB view.  The file list is read on fd 3, every child
+gets </dev/null, PROCESSED is asserted against LISTED, scratch is keyed on the
+RELATIVE path, and every rc is printed (rc=139 is a SEGFAULT verify_golden
+would have recorded as a SLANG_REJECT wearing the last stderr warning).
+
+ARM                                   pRC    qRC   pERC   qERC   PRIS_CMP    PAT_CMP VERDICT
+g136_a_kinds.sv                         0      0      0      0       5738       5738 SAME ELAB-MOVED
+g136_b_order.sv                         0      0      0      0       4194       4194 SAME ELAB-MOVED
+g136_c_props.sv                         0      0      0      0       3354       3354 SAME ELAB-MOVED
+g136_d_homes.sv                         0      0      0      0       4126       4126 SAME ELAB-MOVED
+g136_e_edge.sv                          0      0      0      0       5058       5058 SAME ELAB-MOVED
+g136_f_packedarr.sv                     0      0      0      0       2990       2990 SAME ELAB-MOVED
+g136_z_control.sv                       0      0      0      0       4394       4394 SAME ELAB-SAME
+sub/g136_a_kinds.sv                     0      0      0      0       5738       5738 SAME ELAB-MOVED
+LISTED=8 PROCESSED=8 CMP_OR_RC_DIFFS=0
+
+THE POSITIVE / NEGATIVE CONTROL PAIR: g136_z_control.sv (22 properties, not one
+packed struct or union among them) reads ELAB-SAME while every packed-struct
+arm reads ELAB-MOVED.  A gate that cannot tell those apart is measuring
+something other than the law.

@@ -1,0 +1,18 @@
+r10uvm136 — THE A-PRIORI MOVER PREDICTION, made from PRISTINE databases ONLY,
+before the patched binary ever ran a sweep.  pred136.sh flags every class-
+property cell whose variable class is bit_var/logic_var while the typespec it
+binds is a struct_ / union_ / packed_array_typespec.  LHS IS ALWAYS GOLDEN.
+
+surelog    DBS_SCANNED=956   CELLS=9   DBS_WITH_CELLS=9
+uhdm2rtlil DBS_SCANNED=1358  CELLS=0   DBS_WITH_CELLS=0
+
+the nine cells, verbatim (row / kind / site / property / our class / typespec):
+default/BuildUVMPkg-bf853d43	CELL	design(unnamed)/package(uvm_pkg)/class_defn(uvm_reg_map_info)	mem_range	bit_var	struct_typespec	uvm_pkg::uvm_reg_map_addr_range
+default/MiniAmiq-544c7f61	CELL	design(unnamed)/package(uvm_pkg)/class_defn(uvm_reg_map_info)	mem_range	bit_var	struct_typespec	uvm_pkg::uvm_reg_map_addr_range
+default/Scoreboard-59431470	CELL	design(work@my_scoreboard_unit_test)/package(uvm_pkg)/class_defn(uvm_reg_map_info)	mem_range	bit_var	struct_typespec	uvm_pkg::uvm_reg_map_addr_range
+default/SeqDriver-32af76aa	CELL	design(work@top_tb)/package(uvm_pkg)/class_defn(uvm_reg_map_info)	mem_range	bit_var	struct_typespec	uvm_pkg::uvm_reg_map_addr_range
+default/SimpleUVM-1dc93a62	CELL	design(work@top)/package(uvm_pkg)/class_defn(uvm_reg_map_info)	mem_range	bit_var	struct_typespec	uvm_pkg::uvm_reg_map_addr_range
+testflags/BuildUVMPkg-bf853d43	CELL	design(unnamed)/package(uvm_pkg)/class_defn(uvm_reg_map_info)	mem_range	bit_var	struct_typespec	uvm_pkg::uvm_reg_map_addr_range
+testflags/MiniAmiq-544c7f61	CELL	design(unnamed)/package(uvm_pkg)/class_defn(uvm_reg_map_info)	mem_range	bit_var	struct_typespec	uvm_pkg::uvm_reg_map_addr_range
+testflags/SeqDriver-32af76aa	CELL	design(work@top_tb)/package(uvm_pkg)/class_defn(uvm_reg_map_info)	mem_range	bit_var	struct_typespec	uvm_pkg::uvm_reg_map_addr_range
+testflags/SimpleUVM-1dc93a62	CELL	design(work@top)/package(uvm_pkg)/class_defn(uvm_reg_map_info)	mem_range	bit_var	struct_typespec	uvm_pkg::uvm_reg_map_addr_range

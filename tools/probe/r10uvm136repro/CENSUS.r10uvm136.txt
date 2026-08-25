@@ -1,0 +1,44 @@
+r10uvm136 — THE WIDE CLASS-PROPERTY VARIABLE-KIND CENSUS (wide136.sh).
+For every database in a sweep: cen136 the row's OWN golden (path read out of
+that row's cmds.txt) and cen136 ours, multiset-join on (SITE, IDX, property
+name), print every cell whose VARIABLE CLASS differs.  LHS IS ALWAYS GOLDEN.
+
+== PRISTINE, surelog corpus
+DBS_SCANNED=956  DBS_WITH_GOLDEN=956
+KIND_DISAGREEING_CELLS=9
+  PAIR       9 struct_var -> bit_var
+DONE
+
+the 9 cells, verbatim:
+default/BuildUVMPkg-bf853d43	design(unnamed)/package(uvm_pkg)/class_defn(uvm_reg_map_info)	5	mem_range	struct_var	bit_var	struct_typespec|uvm_pkg::uvm_reg_map_addr_range|nr=-1|inst=package(uvm_pkg)	struct_typespec|uvm_pkg::uvm_reg_map_addr_range|nr=-1|inst=package(uvm_pkg)
+default/MiniAmiq-544c7f61	design(unnamed)/package(uvm_pkg)/class_defn(uvm_reg_map_info)	5	mem_range	struct_var	bit_var	struct_typespec|uvm_pkg::uvm_reg_map_addr_range|nr=-1|inst=package(svaunit_pkg)	struct_typespec|uvm_pkg::uvm_reg_map_addr_range|nr=-1|inst=package(svaunit_pkg)
+default/Scoreboard-59431470	design(work@my_scoreboard_unit_test)/package(uvm_pkg)/class_defn(uvm_reg_map_info)	5	mem_range	struct_var	bit_var	struct_typespec|uvm_pkg::uvm_reg_map_addr_range|nr=-1|inst=package(uvm_pkg)	struct_typespec|uvm_pkg::uvm_reg_map_addr_range|nr=-1|inst=package(uvm_pkg)
+default/SeqDriver-32af76aa	design(work@top_tb)/package(uvm_pkg)/class_defn(uvm_reg_map_info)	5	mem_range	struct_var	bit_var	struct_typespec|uvm_pkg::uvm_reg_map_addr_range|nr=-1|inst=package(adpcm_pkg)	struct_typespec|uvm_pkg::uvm_reg_map_addr_range|nr=-1|inst=package(adpcm_pkg)
+default/SimpleUVM-1dc93a62	design(work@top)/package(uvm_pkg)/class_defn(uvm_reg_map_info)	5	mem_range	struct_var	bit_var	struct_typespec|uvm_pkg::uvm_reg_map_addr_range|nr=-1|inst=package(uvm_pkg)	struct_typespec|uvm_pkg::uvm_reg_map_addr_range|nr=-1|inst=package(uvm_pkg)
+testflags/BuildUVMPkg-bf853d43	design(unnamed)/package(uvm_pkg)/class_defn(uvm_reg_map_info)	5	mem_range	struct_var	bit_var	struct_typespec|uvm_pkg::uvm_reg_map_addr_range|nr=-1|inst=package(uvm_pkg)	struct_typespec|uvm_pkg::uvm_reg_map_addr_range|nr=-1|inst=package(uvm_pkg)
+testflags/MiniAmiq-544c7f61	design(unnamed)/package(uvm_pkg)/class_defn(uvm_reg_map_info)	5	mem_range	struct_var	bit_var	struct_typespec|uvm_pkg::uvm_reg_map_addr_range|nr=-1|inst=package(svaunit_pkg)	struct_typespec|uvm_pkg::uvm_reg_map_addr_range|nr=-1|inst=package(svaunit_pkg)
+testflags/SeqDriver-32af76aa	design(work@top_tb)/package(uvm_pkg)/class_defn(uvm_reg_map_info)	5	mem_range	struct_var	bit_var	struct_typespec|uvm_pkg::uvm_reg_map_addr_range|nr=-1|inst=package(adpcm_pkg)	struct_typespec|uvm_pkg::uvm_reg_map_addr_range|nr=-1|inst=package(adpcm_pkg)
+testflags/SimpleUVM-1dc93a62	design(work@top)/package(uvm_pkg)/class_defn(uvm_reg_map_info)	5	mem_range	struct_var	bit_var	struct_typespec|uvm_pkg::uvm_reg_map_addr_range|nr=-1|inst=package(uvm_pkg)	struct_typespec|uvm_pkg::uvm_reg_map_addr_range|nr=-1|inst=package(uvm_pkg)
+
+== PRISTINE, uhdm2rtlil corpus
+DBS_SCANNED=1358  DBS_WITH_GOLDEN=1358
+KIND_DISAGREEING_CELLS=0
+DONE
+
+== PATCHED, surelog corpus
+DBS_SCANNED=956  DBS_WITH_GOLDEN=956
+KIND_DISAGREEING_CELLS=0
+DONE
+
+== JOIN COVERAGE CONTROL (cover136.sh) — a multiset join DROPS unmatched rows,
+   so the counts above are only honest if the two sides carry the SAME cells.
+ROW                                  GOLDEN     OURS     ONLY-G     ONLY-O
+default/SimpleUVM-                     1234     1234          0          0
+default/Scoreboard-                    1245     1245          0          0
+default/SeqDriver-                     1349     1349          0          0
+default/MiniAmiq-                      1647     1647          0          0
+default/BuildUVMPkg-                   1029     1029          0          0
+testflags/SimpleUVM-                   1234     1234          0          0
+testflags/SeqDriver-                   1349     1349          0          0
+testflags/MiniAmiq-                    1647     1647          0          0
+testflags/BuildUVMPkg-                 1029     1029          0          0

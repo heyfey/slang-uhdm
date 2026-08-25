@@ -1,0 +1,39 @@
+r10uvm136 — THE MOVERS AND THEIR ATTRIBUTION.  LHS IS ALWAYS GOLDEN.
+
+byteverify.sh SELFCHECK=1, surelog corpus (patched vs this pass's own pristine):
+  databases patched=956 pristine=956, PATH_SETS_IDENTICAL
+  MOVERS 9 / 956, selfcheck 955/956 flagged
+  every one of the nine was PREDICTED BY NAME (PREDICT.r10uvm136.txt) from
+  pristine databases before the patched sweep ran.
+
+byteverify.sh SELFCHECK=1, uhdm2rtlil corpus:
+  databases patched=1358 pristine=1358, PATH_SETS_IDENTICAL
+  MOVERS 0 / 1358, selfcheck 1357/1358 flagged
+
+ATTRIBUTION (attr136.sh): uhdm-dump both sides, NORMALISE the workdir out of
+the dump paths, SORT both, diff ORDER-BLIND.  Scoreboard/default is a ~50/50
+COIN per invocation, so order-blind is the only sound attribution there.
+
+ROW                                           OUT       IN VERDICT
+default/BuildUVMPkg-bf853d43/slang.uhdm         2        2 LAW-ONLY
+default/MiniAmiq-544c7f61/slang.uhdm            2        2 LAW-ONLY
+default/Scoreboard-59431470/slang.uhdm          2        2 LAW-ONLY
+default/SeqDriver-32af76aa/slang.uhdm           2        2 LAW-ONLY
+default/SimpleUVM-1dc93a62/slang.uhdm           2        2 LAW-ONLY
+testflags/BuildUVMPkg-bf853d43/slang.uhdm        2        2 LAW-ONLY
+testflags/MiniAmiq-544c7f61/slang.uhdm          2        2 LAW-ONLY
+testflags/SeqDriver-32af76aa/slang.uhdm         2        2 LAW-ONLY
+testflags/SimpleUVM-1dc93a62/slang.uhdm         2        2 LAW-ONLY
+
+the diff, IDENTICAL in shape on all nine (Scoreboard/default shown verbatim):
+68753,68754d68752
+<         \_bit_var: (uvm_pkg::uvm_reg_map_info::mem_range), line:29:27, endln:29:36
+<     \_bit_var: (uvm_pkg::uvm_reg_map_info::mem_range), line:29:27, endln:29:36
+403498a403497,403498
+>         \_struct_var: (uvm_pkg::uvm_reg_map_info::mem_range), line:29:27, endln:29:36
+>     \_struct_var: (uvm_pkg::uvm_reg_map_info::mem_range), line:29:27, endln:29:36
+
+A PURE SUBSTITUTION: 2 lines out, 2 lines in, on every mover.
+Every ADDED line is one GOLDEN also emits  -> AWAY 0.
+No REMOVED line is one golden emits        -> MOVED-WRONG 0.
+Nothing outside the law's own cell moved in any of the nine databases.

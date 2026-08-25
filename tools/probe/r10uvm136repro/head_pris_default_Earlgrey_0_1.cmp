@@ -1,0 +1,122 @@
+# r10uvm136: TRUNCATED ARTIFACT — the full uhdm-cmp log for this row is 21302 lines
+# with 1 head(s); only the first 120 lines (the head itself) are kept here.
+LHS:
+decompile:
+module_inst: work@flash_mp (work@top_earlgrey.u_flash_ctrl.u_flash_mp), id:1008545, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_flash_ctrl_0.1/rtl/flash_ctrl.sv, line:323:3, endln:360:5
+|vpiParent:
+\_module_inst: work@flash_ctrl (work@top_earlgrey.u_flash_ctrl), id:1001814, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_systems_top_earlgrey_0.1/rtl/autogen/top_earlgrey.sv, line:554:3, endln:572:5
+|vpiName:u_flash_mp
+|vpiFullName:work@top_earlgrey.u_flash_ctrl.u_flash_mp
+|vpiVariables:
+\_packed_array_var: (work@top_earlgrey.u_flash_ctrl.u_flash_mp.region_cfgs_i), id:402762, line:21:87, endln:21:100
+  |vpiParent:
+  \_module_inst: work@flash_mp (work@top_earlgrey.u_flash_ctrl.u_flash_mp), id:1008545, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_flash_ctrl_0.1/rtl/flash_ctrl.sv, line:323:3, endln:360:5
+  |vpiName:region_cfgs_i
+  |vpiFullName:work@top_earlgrey.u_flash_ctrl.u_flash_mp.region_cfgs_i
+  |vpiVisibility:1
+  |vpiRange:
+  \_range: , id:402752, line:21:68, endln:21:86
+    |vpiParent:
+    \_packed_array_var: (work@top_earlgrey.u_flash_ctrl.u_flash_mp.region_cfgs_i), id:402762, line:21:87, endln:21:100
+    |vpiLeftRange:
+    \_constant: , id:402758, line:21:69, endln:21:81
+      |vpiParent:
+      \_range: , id:402752, line:21:68, endln:21:86
+      |vpiDecompile:8
+      |vpiSize:64
+      |INT:8
+      |vpiConstType:7
+    |vpiRightRange:
+    \_constant: , id:402759, line:21:84, endln:21:85
+      |vpiParent:
+      \_range: , id:402752, line:21:68, endln:21:86
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiElement:
+  \_struct_var: (work@top_earlgrey.u_flash_ctrl.u_flash_mp.region_cfgs_i), id:402760
+    |vpiParent:
+    \_packed_array_var: (work@top_earlgrey.u_flash_ctrl.u_flash_mp.region_cfgs_i), id:402762, line:21:87, endln:21:100
+    |vpiTypespec:
+    \_ref_typespec: (work@top_earlgrey.u_flash_ctrl.u_flash_mp.region_cfgs_i), id:402761
+      |vpiParent:
+      \_struct_var: (work@top_earlgrey.u_flash_ctrl.u_flash_mp.region_cfgs_i), id:402760
+      |vpiFullName:work@top_earlgrey.u_flash_ctrl.u_flash_mp.region_cfgs_i
+      |vpiActual:
+      \_struct_typespec: (flash_ctrl_reg_pkg::flash_ctrl_reg2hw_mp_region_cfg_mreg_t), id:29184, line:107:11, endln:126:4
+    |vpiFullName:work@top_earlgrey.u_flash_ctrl.u_flash_mp.region_cfgs_i
+|vpiVariables:
+\_array_var: (work@top_earlgrey.u_flash_ctrl.u_flash_mp.region_end), id:402924, line:54:25, endln:54:35
+  |vpiParent:
+  \_module_inst: work@flash_mp (work@top_earlgrey.u_flash_ctrl.u_flash_mp), id:1008545, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_flash_ctrl_0.1/rtl/flash_ctrl.sv, line:323:3, endln:360:5
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (work@top_earlgrey.u_flash_ctrl.u_flash_mp.region_end), id:402925
+    |vpiParent:
+    \_array_var: (work@top_earlgrey.u_flash_ctrl.u_flash_mp.region_end), id:402924, line:54:25, endln:54:35
+    |vpiFullName:work@top_earlgrey.u_flash_ctrl.u_flash_mp.region_end
+    |vpiActual:
+    \_array_typespec: , id:402926
+  |vpiName:region_end
+  |vpiFullName:work@top_earlgrey.u_flash_ctrl.u_flash_mp.region_end
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:402915, line:54:36, endln:54:48
+    |vpiParent:
+    \_array_var: (work@top_earlgrey.u_flash_ctrl.u_flash_mp.region_end), id:402924, line:54:25, endln:54:35
+    |vpiLeftRange:
+    \_constant: , id:402916
+      |vpiParent:
+      \_range: , id:402915, line:54:36, endln:54:48
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_operation: , id:402920, line:54:36, endln:54:48
+      |vpiParent:
+      \_range: , id:402915, line:54:36, endln:54:48
+      |vpiOpType:11
+      |vpiOperand:
+      \_constant: , id:402917, line:54:36, endln:54:48
+        |vpiParent:
+        \_operation: , id:402920, line:54:36, endln:54:48
+        |vpiDecompile:9
+        |vpiSize:32
+        |UINT:9
+        |vpiTypespec:
+        \_ref_typespec: (work@top_earlgrey.u_flash_ctrl.u_flash_mp.region_end), id:402919
+          |vpiParent:
+          \_constant: , id:402917, line:54:36, endln:54:48
+          |vpiFullName:work@top_earlgrey.u_flash_ctrl.u_flash_mp.region_end
+          |vpiActual:
+          \_int_typespec: , id:402918
+        |vpiConstType:9
+      |vpiOperand:
+      \_constant: , id:402921
+        |vpiSize:64
+        |INT:1
+        |vpiConstType:7
+  |vpiReg:
+  \_logic_var: (work@top_earlgrey.u_flash_ctrl.u_flash_mp.region_end), id:402922, line:54:25, endln:54:35
+    |vpiParent:
+    \_array_var: (work@top_earlgrey.u_flash_ctrl.u_flash_mp.region_end), id:402924, line:54:25, endln:54:35
+    |vpiTypespec:
+    \_ref_typespec: (work@top_earlgrey.u_flash_ctrl.u_flash_mp.region_end), id:402923
+      |vpiParent:
+      \_logic_var: (work@top_earlgrey.u_flash_ctrl.u_flash_mp.region_end), id:402922, line:54:25, endln:54:35
+      |vpiFullName:work@top_earlgrey.u_flash_ctrl.u_flash_mp.region_end
+      |vpiActual:
+      \_logic_typespec: , id:402908, line:54:3, endln:54:24
+    |vpiFullName:work@top_earlgrey.u_flash_ctrl.u_flash_mp.region_end
+|vpiVariables:
+\_logic_var: (work@top_earlgrey.u_flash_ctrl.u_flash_mp.region_match), id:402944, line:55:28, endln:55:40
+  |vpiParent:
+  \_module_inst: work@flash_mp (work@top_earlgrey.u_flash_ctrl.u_flash_mp), id:1008545, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_flash_ctrl_0.1/rtl/flash_ctrl.sv, line:323:3, endln:360:5
+  |vpiTypespec:
+  \_ref_typespec: (work@top_earlgrey.u_flash_ctrl.u_flash_mp.region_match), id:402945
+    |vpiParent:
+    \_logic_var: (work@top_earlgrey.u_flash_ctrl.u_flash_mp.region_match), id:402944, line:55:28, endln:55:40

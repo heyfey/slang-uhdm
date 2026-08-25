@@ -1,0 +1,60 @@
+LHS:
+decompile:
+sys_func_call: ($bits), id:155495, line:82730:10, endln:82731:48
+|vpiParent:
+\_operation: , id:155499, line:82730:10, endln:82731:54
+|vpiArgument:
+\_hier_path: (abstractions.size), id:155496, line:82731:28, endln:82731:47
+  |vpiParent:
+  \_sys_func_call: ($bits), id:155495, line:82730:10, endln:82731:48
+  |vpiActual:
+  \_ref_obj: (abstractions), id:155497, line:82731:28, endln:82731:40
+    |vpiParent:
+    \_hier_path: (abstractions.size), id:155496, line:82731:28, endln:82731:47
+    |vpiName:abstractions
+  |vpiActual:
+  \_method_func_call: (size), id:155498, line:82731:41, endln:82731:45
+    |vpiParent:
+    \_hier_path: (abstractions.size), id:155496, line:82731:28, endln:82731:47
+    |vpiName:size
+  |vpiName:abstractions.size
+|vpiName:$bits
+
+decompile:
+sys_func_call: ($bits), id:155495, line:82730:10, endln:82731:48
+|vpiParent:
+\_operation: , id:155499, line:82730:10, endln:82731:54
+|vpiArgument:
+\_hier_path: (abstractions.size), id:155496, line:82731:28, endln:82731:47
+  |vpiParent:
+  \_sys_func_call: ($bits), id:155495, line:82730:10, endln:82731:48
+  |vpiActual:
+  \_ref_obj: (abstractions), id:155497, line:82731:28, endln:82731:40
+    |vpiParent:
+    \_hier_path: (abstractions.size), id:155496, line:82731:28, endln:82731:47
+    |vpiName:abstractions
+  |vpiActual:
+  \_method_func_call: (size), id:155498, line:82731:41, endln:82731:45
+    |vpiParent:
+    \_hier_path: (abstractions.size), id:155496, line:82731:28, endln:82731:47
+    |vpiName:size
+  |vpiName:abstractions.size
+|vpiName:$bits
+RHS:
+decompile:
+constant: , id:81263, line:82730:10, endln:82731:48
+|vpiParent:
+\_operation: , id:81262, line:82730:10, endln:82731:54
+|vpiDecompile:32
+|vpiSize:64
+|UINT:32
+|vpiConstType:9
+
+decompile:
+constant: , id:81263, line:82730:10, endln:82731:48
+|vpiParent:
+\_operation: , id:81262, line:82730:10, endln:82731:54
+|vpiDecompile:32
+|vpiSize:64
+|UINT:32
+|vpiConstType:9

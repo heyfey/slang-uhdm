@@ -1427,6 +1427,62 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
         // the array-element path (classElemVar) already had this rule.
         else if (ct.kind == SymbolKind::EnumType)
             v = s.MakeEnum_var();
+        // § classPropPackedStructIsStructVar136 — a class property whose
+        // canonical type is a PACKED struct / union is a `struct_var` /
+        // `union_var`, NOT the `bit_var` / `logic_var` its INTEGRAL base gives.
+        // A packed struct IS integral in slang, so without this arm the
+        // `ct.isIntegral()` line below swallowed it and the 2-state /
+        // 4-state split decided the class — which is how
+        // `uvm_pkg::uvm_reg_map_info::mem_range` (uvm_reg_map.svh:29, typed by
+        // the package typedef `uvm_reg_map_addr_range`, a 2-state packed
+        // struct at uvm_reg_model.svh:408) came out a `bit_var` against
+        // golden's `struct_var` in ALL NINE UVM databases.
+        //
+        // DECODED, not guessed: Surelog's variable class for a class property
+        // FOLLOWS THE TYPESPEC KIND, in two mirror-image closed dispatches —
+        //   * `CompileHelper::getSimpleVarFromTypespec`
+        //     (src/DesignCompile/CompileType.cpp:78; its `uhdmstruct_typespec`
+        //     arm at :201 mints `MakeStruct_var`, its `uhdmunion_typespec` arm
+        //     at :182 `MakeUnion_var`), reached for a NAMED type through
+        //     `compileVariable`'s `slStringConst` / `paClass_scope` arms
+        //     (CompileType.cpp:345, :567, :599) and through
+        //     `ElaborationStep::makeVar_`'s `SimpleType` arm (:1852);
+        //   * `makeVar_`'s `DummyType` arm (ElaborationStep.cpp:1786-1791),
+        //     which is the ANONYMOUS `struct packed {...} p;` route and reads
+        //     the very same typespec kind.
+        // Neither dispatch looks at 2-state vs 4-state, at the typedef's
+        // declaration order, or at whether a typedef was written at all.
+        //
+        // THE TYPESPEC IS UNTOUCHED.  This arm decides the variable CLASS only;
+        // the property's `ref_typespec` is still minted in the write phase by
+        // `pendingClassPropTs` -> `makeTypespec`, and the census confirms the
+        // bound `struct_typespec` / `union_typespec` (kind, name, member list
+        // and `vpiInstance`) was ALREADY byte-for-byte golden's on every cell
+        // this arm moves — so the typespec-linkage laws (uvm114, uvm123,
+        // § classPropNoStampShared50) are not in play here.
+        //
+        // GATE = the CANONICAL kind, so the typedef chain (arm A `k12_chain`,
+        // arm E `e07_chain3`), the cross-package spelling qualified and
+        // wildcard-imported (arm B `b05_xpkgQual` / `b06_xpkgWild`), the
+        // in-class typedef (`b07_inClass`) and the ANONYMOUS packed struct
+        // (arm A `k14_anonps`) all land here — golden gives every one of them
+        // a `struct_var`.  It sits AFTER § classScopedTypedefPropIsBareLogicVar73
+        // on purpose: a CLASS-qualified packed-struct typedef stays that law's
+        // bare `logic_var` (its arm a4 cell `c_qual_pstruct`).
+        //
+        // FENCED, deliberately: a PACKED ARRAY over a packed struct / union /
+        // enum is a `packed_array_var` in golden and stays a `bit_var` here.
+        // Arm F measures nine packed-array/control cells; the half's corpus
+        // reach is ZERO (0 cells in 956 surelog + 1358 uhdm2rtlil databases),
+        // and one of its FOUR moving cells (`f03_paunion`) also needs a
+        // TYPESPEC fix we are not making in this pass, so the whole half is
+        // left to R0 rather than half-moved.  `f05_pabit` / `f06_palogic` / `f07_patypedef` (a
+        // bit / logic leaf) are `bit_var` / `logic_var` in golden and must
+        // NEVER reach a packed-array arm.
+        else if (ct.kind == SymbolKind::PackedStructType)
+            v = s.MakeStruct_var();
+        else if (ct.kind == SymbolKind::PackedUnionType)
+            v = s.MakeUnion_var();
         else if (ct.isIntegral()) {
             if (ct.kind == SymbolKind::PredefinedIntegerType)
                 v = makeVar(cp, /*portBacked=*/false);
