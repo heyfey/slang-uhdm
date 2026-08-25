@@ -1,0 +1,62 @@
+LHS:
+decompile:
+parameter: (UVM_STR_CRC_POLYNOMIAL), id:120157, line:368:11, endln:368:33
+|vpiParent:
+\_design: (work@my_scoreboard_unit_test), id:194649
+|HEX:04c11db6
+|vpiTypespec:
+\_ref_typespec: (UVM_STR_CRC_POLYNOMIAL), id:120158
+  |vpiParent:
+  \_parameter: (UVM_STR_CRC_POLYNOMIAL), id:120157, line:368:11, endln:368:33
+  |vpiFullName:UVM_STR_CRC_POLYNOMIAL
+  |vpiActual:
+  \_int_typespec: , id:120159, line:368:1, endln:368:48
+|vpiName:UVM_STR_CRC_POLYNOMIAL
+|vpiImported:uvm_pkg
+
+decompile:
+parameter: (UVM_STR_CRC_POLYNOMIAL), id:120157, line:368:11, endln:368:33
+|vpiParent:
+\_design: (work@my_scoreboard_unit_test), id:194649
+|HEX:04c11db6
+|vpiTypespec:
+\_ref_typespec: (UVM_STR_CRC_POLYNOMIAL), id:120158
+  |vpiParent:
+  \_parameter: (UVM_STR_CRC_POLYNOMIAL), id:120157, line:368:11, endln:368:33
+  |vpiFullName:UVM_STR_CRC_POLYNOMIAL
+  |vpiActual:
+  \_int_typespec: , id:120159, line:368:1, endln:368:48
+|vpiName:UVM_STR_CRC_POLYNOMIAL
+|vpiImported:uvm_pkg
+RHS:
+decompile:
+constant: , id:3328, line:368:36, endln:368:48
+|vpiParent:
+\_param_assign: , id:3327, line:368:11, endln:368:48
+|vpiDecompile:32'h04c11db6
+|vpiSize:32
+|HEX:04c11db6
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg), id:3329
+  |vpiParent:
+  \_constant: , id:3328, line:368:36, endln:368:48
+  |vpiFullName:uvm_pkg
+  |vpiActual:
+  \_int_typespec: , id:3330, line:368:1, endln:368:48
+|vpiConstType:5
+
+decompile:
+constant: , id:3328, line:368:36, endln:368:48
+|vpiParent:
+\_param_assign: , id:3327, line:368:11, endln:368:48
+|vpiDecompile:32'h04c11db6
+|vpiSize:32
+|HEX:04c11db6
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg), id:3329
+  |vpiParent:
+  \_constant: , id:3328, line:368:36, endln:368:48
+  |vpiFullName:uvm_pkg
+  |vpiActual:
+  \_int_typespec: , id:3330, line:368:1, endln:368:48
+|vpiConstType:5

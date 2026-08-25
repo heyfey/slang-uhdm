@@ -5361,7 +5361,88 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // so a wrapper begin here neither lists nor owns them.
             bool bodyTfItems9 =
                 tfBodyStmt9 == (const void*)&stmt && tfBodyTfItems9;
-            size_t eff9 = initCount + real.size();
+            // § tfItemLocalInitHoistsNoStatement145 — HALF ONE OF TWO: THE
+            // THRESHOLD.  Under the TF-ITEM production the declarations are
+            // `tf_item_declaration`s, consumed by
+            // `CompileHelper::compileTfPortDecl` BEFORE the body-statement walk
+            // starts (`compileFunction` advances `Function_statement_or_null`
+            // past every one of them, CompileStmt.cpp:2425-2470; `compileTask`
+            // takes the same path once a `tf_port_declaration` has opened it,
+            // :2010-2027).  Surelog's "more than one statement" test is then
+            // `fC->Sibling(Function_statement_or_null)` — the SECOND SURVIVING
+            // STATEMENT — so a declaration counts for NOTHING.  The wrapper
+            // begin's own anchor loop below already spells exactly that
+            // (`bodyTfItems9` skips every VariableDeclaration when it builds
+            // `items9`), and the threshold was the half that disagreed with
+            // it: `int a1 = 1; $display(a1);` written paren-less dumps golden's
+            // BARE `$display` and dumped a two-element `begin` here.
+            //
+            // The disagreement was also a CRASH: with every body item a
+            // declaration, `items9` came out EMPTY while `initCount` had
+            // already decided to build the wrapper, and `items9[0]` read off
+            // the end of the vector — `function void f; int k1 = 4; int k2 =
+            // 5; endfunction` SEGFAULTED the exporter (arm `g145_e_zero`,
+            // which the pristine binary cannot even produce a database for).
+            // § tfItemTaskParamBreaksTheWalk145v (r10v145, VERIFIER FIX) —
+            // THE ONE FACE WHERE A TF-ITEM BODY *DOES* HOIST.  `compileTask`
+            // (CompileStmt.cpp:2010-2028) advances past tf_item declarations
+            // only while each one is a `paTf_port_declaration` or a
+            // `paBlock_item_declaration` whose child IS a `paData_declaration`
+            // — `if (fC->Type(ItemNode) != VObjectType::paData_declaration)
+            // break;`.  A `parameter` / `localparam` declaration is a
+            // block_item_declaration that is NOT a data_declaration, so it
+            // BREAKS the advance and `Statement_or_null` is left pointing AT
+            // it: that item and EVERY declaration after it are compiled by
+            // `compileStmt` -> `compileDataDeclaration`, which mints the
+            // hoisted assignment.  Declarations BEFORE the break stay
+            // tf-items and hoist nothing.  `compileFunction` (:2425-2470) has
+            // no such break — it compiles a body parameter inline and keeps
+            // advancing — so a paren-less FUNCTION hoists nothing whatever a
+            // parameter does.  MEASURED (arm `v145_h_param.sv`, both views,
+            // golden vs pristine vs patched): in `h_ba145v` golden hoists
+            // `post` (declared after the parameter) and NOT `pre`; in
+            // `h_plast145v`, whose declarations all precede the parameter,
+            // golden hoists neither; a `typedef` (a data_declaration) does not
+            // break; the paren-less-function twin `hf_ba145v` hoists neither.
+            // `tfBodyPa9` is populated for TASKS only, so `bodyParams9` is
+            // exactly this break.
+            bool tfHasBreak145v = false;
+            SourceLocation tfBreakLoc145v = SourceLocation::NoLocation;
+            if (bodyTfItems9 && bodyParams9)
+                for (auto& pr9 : tfBodyPaAnchor9)
+                    if (pr9.start() &&
+                        (!tfHasBreak145v || pr9.start() < tfBreakLoc145v)) {
+                        tfBreakLoc145v = pr9.start();
+                        tfHasBreak145v = true;
+                    }
+            // A declaration's own hoist question, asked once and used by BOTH
+            // halves below so the threshold and the statement list can never
+            // disagree again (the disagreement between them was a SEGFAULT —
+            // see the crash note below).
+            auto declStart145v = [](const VariableSymbol* vs) -> SourceLocation {
+                if (auto* dsyn = vs->getSyntax()) {
+                    if (dsyn->parent && dsyn->parent->kind ==
+                                            syntax::SyntaxKind::DataDeclaration)
+                        return dsyn->parent->sourceRange().start();
+                    return dsyn->sourceRange().start();
+                }
+                return SourceLocation::NoLocation;
+            };
+            auto hoists145v = [&](const VariableSymbol* vs) {
+                if (!bodyTfItems9)
+                    return true;
+                if (!tfHasBreak145v)
+                    return false;
+                SourceLocation st9 = declStart145v(vs);
+                return st9.valid() && tfBreakLoc145v < st9;
+            };
+            size_t hoistCount145v = 0;
+            for (auto* vsym : declVars)
+                if (vsym->getDeclaredType()->getInitializer() &&
+                    hoists145v(vsym))
+                    hoistCount145v++;
+            (void)initCount;
+            size_t eff9 = hoistCount145v + real.size();
             if (eff9 == 0 || (eff9 <= 1 && !bodyBlockDecls9 && !bodyParams9)) {
                 UHDM::any* result = nullptr;
                 for (auto st : real) {
@@ -5438,7 +5519,13 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                  [](const SourceRange& a, const SourceRange& b) {
                                      return a.start() < b.start();
                                  });
-                setLoc(ub, items9.size() >= 2 ? items9[1] : items9[0]);
+                // `items9` can now only be empty when a parameter anchor was
+                // unset; keep the read in range regardless (see the crash
+                // note on `eff9` above).
+                if (!items9.empty())
+                    setLoc(ub, items9.size() >= 2 ? items9[1] : items9[0]);
+                else
+                    setLoc(ub, stmt.sourceRange);
             }
             else if (anch9)
                 setLoc(ub, anch9->sourceRange());
@@ -5482,6 +5569,47 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             for (auto* vsym : declVars) {
                 auto* init = vsym->getDeclaredType()->getInitializer();
                 if (!init)
+                    continue;
+                // § tfItemLocalInitHoistsNoStatement145 — HALF TWO OF TWO: THE
+                // STATEMENT.  `compileTfPortDecl`'s `paBlock_item_declaration`
+                // arm (CompileStmt.cpp:1661-1712) walks the
+                // `Variable_decl_assignment` list reading ONLY
+                // `fC->Child(...)`, the NAME: it never locates the
+                // `paExpression` sibling, never calls `compileExpression`, and
+                // returns a pair of (io_decls, variables) with NO statement
+                // list at all.  So under the TF-ITEM production a local's
+                // initialiser produces NEITHER a hoisted assignment NOR a
+                // `vpiExpr` on the variable — Surelog simply drops it.
+                //
+                // The BLOCK-ITEM production is where the hoist comes from and
+                // is untouched: `compileDataDeclaration` (CompileStmt.cpp:1258)
+                // mints an `assignment` per declarator unconditionally, and the
+                // body loop that consumes it (`compileFunction` :2506-2520,
+                // `compileTask` the same) keeps it in `stmts` when it has an
+                // Rhs and DROPS it when it has none — which is the shape
+                // § oobRefVarLocalHoistNet107 / § classPropNewLhsNoHoist109 /
+                // uvm122's begin-block lvalue law all model.
+                //
+                // MEASURED, golden-vs-pristine, over the whole grid (arms A-E,
+                // both views): the surplus assignment appears on EVERY TF-ITEM
+                // home — package free subroutine, in-body class method,
+                // out-of-body class method, module / program / interface
+                // subroutine, and a task whose body declares io — for EVERY
+                // kind (class handle, bit, int, string, enum, struct, real,
+                // queue, dynamic / fixed / associative array) and EVERY
+                // initialiser shape (literal, call, null, expression, another
+                // local), and on NO BLOCK-ITEM twin.  A CLASS CONSTRUCTOR
+                // keeps its hoist on both sides (§ ctorBodyLocalsNotOnFunc71,
+                // § tfItemLocalClassTsNotAConstructor142v: a constructor body
+                // is compiled by `compileClassConstructorDeclaration` and
+                // never reaches `compileTfPortDecl` — here it never reaches
+                // this loop either, because `emitCtorBody27` returned above),
+                // and so does the § qualLifetimeStubListsNoBodyLocals141 stub,
+                // which emits no body at all.
+                // § tfItemLocalInitHoistsNoStatement145 + the verifier's
+                // § tfItemTaskParamBreaksTheWalk145v refinement above: the
+                // SAME predicate the threshold used.
+                if (!hoists145v(vsym))
                     continue;
                 // § declInitWrittenNewNoStmt66 — CALL SITE 2 of 2: THE HEAD'S
                 // SITE.  A SUBROUTINE BODY's statement list.  `initCount` above

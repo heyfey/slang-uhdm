@@ -1,0 +1,139 @@
+# r10uvm145 — THE A-PRIORI MOVER PREDICTION.  MEASUREMENT ONLY.
+#
+# Produced by predsweep145.sh + pred145.py from the PRISTINE sweep databases
+# ALONE, at base 2ce3785, BEFORE the patched binary existed.  ct145cen was run
+# over all 956 surelog databases and all 1358 uhdm2rtlil databases.
+#
+# THE PREDICTION
+#   HOISTS      surelog    9 databases, 86 cells
+#                          SeqDriver default+testflags, MiniAmiq df+tf,
+#                          BuildUVMPkg df+tf, SimpleUVM df+tf, Scoreboard df
+#                          uvm_pkg::uvm_component::m_set_cl_verb   (uvm_component.svh:3375)
+#                          uvm_pkg::uvm_component::m_set_cl_action (uvm_component.svh:3462)
+#                          uvm_pkg::uvm_component::m_set_cl_sev    (uvm_pkg.sv:41346, BuildUVMPkg)
+#                          (adpcm_pkg / svaunit_pkg re-compile the same
+#                           uvm_component INSIDE those same nine databases)
+#               uhdm2rtlil 0 databases
+#   WRAPPERS    0 in both corpora — the threshold half has NO corpus reach and
+#               is proved by the grid alone (arms D and E).
+#   CANDIDATES  18 surelog + 4 uhdm2rtlil body-begins (log2 / fshl_s / foo_bar
+#               in BlockingAssignRewrite, EvalFunc, FuncIoTypespec, PreprocFunc,
+#               PackFunc, asym_ram_sdp_read_wider, asym_ram_sdp_write_wider) —
+#               a TF-ITEM body begin with no hoist and <= 1 statement, the ONE
+#               shape where a § declInitWrittenNewNoStmt66 `= new` drop could
+#               hide an initialiser the database cannot show.  ALL FIVE SOURCES
+#               WERE READ: none of their body locals carries an initialiser, so
+#               `initCount` was 0 before the law and is 0 after and the `begin`
+#               they dump is the SOURCE begin, not a wrapper.
+#
+# MEASURED AFTERWARDS (byteverify.sh, GATES.txt): MOVERS 9/956 and 0/1358 —
+# exactly the predicted nine, and not one candidate.
+#
+# ===== surelog corpus (956 databases) =====
+LISTED=956 PROCESSED=956 NONZERO_RC=0
+PROCESSED-ASSERT-OK
+default__MiniAmiq-544c7f61                                     hoists=12 wrappers=0
+          2 package(svaunit_pkg)/uvm_component::m_set_cl_action
+          2 package(svaunit_pkg)/uvm_component::m_set_cl_verb
+          1 package(uvm_pkg)/class_defn(uvm_component)/m_set_cl_action
+          1 package(uvm_pkg)/class_defn(uvm_component)/m_set_cl_verb
+          1 package(uvm_pkg)/uvm_component::m_set_cl_action
+          1 package(uvm_pkg)/uvm_component::m_set_cl_verb
+default__SeqDriver-32af76aa                                    hoists=12 wrappers=0
+          2 package(adpcm_pkg)/uvm_component::m_set_cl_action
+          2 package(adpcm_pkg)/uvm_component::m_set_cl_verb
+          1 package(uvm_pkg)/class_defn(uvm_component)/m_set_cl_action
+          1 package(uvm_pkg)/class_defn(uvm_component)/m_set_cl_verb
+          1 package(uvm_pkg)/uvm_component::m_set_cl_action
+          1 package(uvm_pkg)/uvm_component::m_set_cl_verb
+testflags__MiniAmiq-544c7f61                                   hoists=12 wrappers=0
+          2 package(svaunit_pkg)/uvm_component::m_set_cl_action
+          2 package(svaunit_pkg)/uvm_component::m_set_cl_verb
+          1 package(uvm_pkg)/class_defn(uvm_component)/m_set_cl_action
+          1 package(uvm_pkg)/class_defn(uvm_component)/m_set_cl_verb
+          1 package(uvm_pkg)/uvm_component::m_set_cl_action
+          1 package(uvm_pkg)/uvm_component::m_set_cl_verb
+testflags__SeqDriver-32af76aa                                  hoists=12 wrappers=0
+          2 package(adpcm_pkg)/uvm_component::m_set_cl_action
+          2 package(adpcm_pkg)/uvm_component::m_set_cl_verb
+          1 package(uvm_pkg)/class_defn(uvm_component)/m_set_cl_action
+          1 package(uvm_pkg)/class_defn(uvm_component)/m_set_cl_verb
+          1 package(uvm_pkg)/uvm_component::m_set_cl_action
+          1 package(uvm_pkg)/uvm_component::m_set_cl_verb
+default__BuildUVMPkg-bf853d43                                  hoists=10 wrappers=0
+          1 package(uvm_pkg)/class_defn(uvm_component)/m_set_cl_action
+          1 package(uvm_pkg)/class_defn(uvm_component)/m_set_cl_sev
+          1 package(uvm_pkg)/class_defn(uvm_component)/m_set_cl_verb
+          1 package(uvm_pkg)/uvm_component::m_set_cl_action
+          1 package(uvm_pkg)/uvm_component::m_set_cl_sev
+          1 package(uvm_pkg)/uvm_component::m_set_cl_verb
+testflags__BuildUVMPkg-bf853d43                                hoists=10 wrappers=0
+          1 package(uvm_pkg)/class_defn(uvm_component)/m_set_cl_action
+          1 package(uvm_pkg)/class_defn(uvm_component)/m_set_cl_sev
+          1 package(uvm_pkg)/class_defn(uvm_component)/m_set_cl_verb
+          1 package(uvm_pkg)/uvm_component::m_set_cl_action
+          1 package(uvm_pkg)/uvm_component::m_set_cl_sev
+          1 package(uvm_pkg)/uvm_component::m_set_cl_verb
+default__Scoreboard-59431470                                   hoists=6 wrappers=0
+          1 package(uvm_pkg)/class_defn(uvm_component)/m_set_cl_action
+          1 package(uvm_pkg)/class_defn(uvm_component)/m_set_cl_verb
+          1 package(uvm_pkg)/uvm_component::m_set_cl_action
+          1 package(uvm_pkg)/uvm_component::m_set_cl_verb
+default__SimpleUVM-1dc93a62                                    hoists=6 wrappers=0
+          1 package(uvm_pkg)/class_defn(uvm_component)/m_set_cl_action
+          1 package(uvm_pkg)/class_defn(uvm_component)/m_set_cl_verb
+          1 package(uvm_pkg)/uvm_component::m_set_cl_action
+          1 package(uvm_pkg)/uvm_component::m_set_cl_verb
+testflags__SimpleUVM-1dc93a62                                  hoists=6 wrappers=0
+          1 package(uvm_pkg)/class_defn(uvm_component)/m_set_cl_action
+          1 package(uvm_pkg)/class_defn(uvm_component)/m_set_cl_verb
+          1 package(uvm_pkg)/uvm_component::m_set_cl_action
+          1 package(uvm_pkg)/uvm_component::m_set_cl_verb
+default__BlockingAssignRewrite-bc63788c                        hoists=0 wrappers=0
+default__EvalFunc-605d5b75                                     hoists=0 wrappers=0
+default__FuncIoTypespec-183e3a5f                               hoists=0 wrappers=0
+default__PackFunc-a6a76934                                     hoists=0 wrappers=0
+default__PreprocFunc-14a457b6                                  hoists=0 wrappers=0
+testflags__BlockingAssignRewrite-bc63788c                      hoists=0 wrappers=0
+testflags__EvalFunc-605d5b75                                   hoists=0 wrappers=0
+testflags__FuncIoTypespec-183e3a5f                             hoists=0 wrappers=0
+testflags__PackFunc-a6a76934                                   hoists=0 wrappers=0
+testflags__PreprocFunc-14a457b6                                hoists=0 wrappers=0
+-- SUBROUTINES NAMED ACROSS ALL DATABASES:
+      4 package(adpcm_pkg)/uvm_component::m_set_cl_action
+      4 package(adpcm_pkg)/uvm_component::m_set_cl_verb
+      4 package(svaunit_pkg)/uvm_component::m_set_cl_action
+      4 package(svaunit_pkg)/uvm_component::m_set_cl_verb
+      9 package(uvm_pkg)/class_defn(uvm_component)/m_set_cl_action
+      2 package(uvm_pkg)/class_defn(uvm_component)/m_set_cl_sev
+      9 package(uvm_pkg)/class_defn(uvm_component)/m_set_cl_verb
+      9 package(uvm_pkg)/uvm_component::m_set_cl_action
+      2 package(uvm_pkg)/uvm_component::m_set_cl_sev
+      9 package(uvm_pkg)/uvm_component::m_set_cl_verb
+-- CANDIDATES (TF-ITEM body begin, no hoist, <=1 statement: the only
+   place a § declInitWrittenNewNoStmt66 drop could hide an initialiser;
+   in the CORPUS every source below was read and carries NO initialised
+   local, so none of them moves):
+      2 module_inst(-)/fshl_s
+      6 module_inst(-)/log2
+      1 module_inst(work@asym_ram)/log2
+      1 module_inst(work@asym_ram_tdp_write_first_dc)/log2
+      1 module_inst(work@top)/log2
+      1 module_inst(work@top)/module_inst(inst)/fshl_s
+      6 package(aa)/foo_bar
+PREDICTED-DBS=19 PREDICTED-HOISTS=86 PREDICTED-WRAPPERS=0 PREDICTED-CANDIDATES=18
+
+# ===== uhdm2rtlil corpus (1358 databases) =====
+LISTED=1358 PROCESSED=1358 NONZERO_RC=0
+PROCESSED-ASSERT-OK
+default__asym_ram_sdp_read_wider-48806817                      hoists=0 wrappers=0
+default__asym_ram_sdp_write_wider-e83fc792                     hoists=0 wrappers=0
+testflags__asym_ram_sdp_read_wider-48806817                    hoists=0 wrappers=0
+testflags__asym_ram_sdp_write_wider-e83fc792                   hoists=0 wrappers=0
+-- SUBROUTINES NAMED ACROSS ALL DATABASES:
+-- CANDIDATES (TF-ITEM body begin, no hoist, <=1 statement: the only
+   place a § declInitWrittenNewNoStmt66 drop could hide an initialiser;
+   in the CORPUS every source below was read and carries NO initialised
+   local, so none of them moves):
+      4 module_inst(-)/log2
+PREDICTED-DBS=4 PREDICTED-HOISTS=0 PREDICTED-WRAPPERS=0 PREDICTED-CANDIDATES=4

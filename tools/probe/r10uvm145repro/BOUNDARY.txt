@@ -1,0 +1,84 @@
+# r10uvm145 — WIDE BOUNDARY GATE.  MEASUREMENT ONLY.
+# Every .sv/.svh under tools/probe/ (4086 files x 2 views = 8172 file-views),
+# pristine vs patched, run as two halves of the sorted file list.
+# Segmentation-fault lines below are bash job messages for files BOTH binaries
+# crash on identically (rc_pris == rc_pat): those are counted in NORUN, never
+# read as 'no differences'.
+
+===== half 0 (files 1-2006) =====
+tools/probe/r10uvm145repro/bound145.sh: line 75: 3901285 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+tools/probe/r10uvm145repro/bound145.sh: line 75: 3901377 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+tools/probe/r10uvm145repro/bound145.sh: line 75: 3905733 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+tools/probe/r10uvm145repro/bound145.sh: line 75: 3905794 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+LISTED=2006 PROCESSED=2006 MOVED=0 FIXED-CRASH=0 BREACH=0 RC-MISMATCH=0 NORUN=124
+PROCESSED-ASSERT-OK
+BOUNDARY PASS
+BOUNDDONE0
+
+===== half 1 (files 2007-4086) =====
+MOVED tmp/wt_r10uvm145/tools/probe/r10uvm139repro/g139_b_kinds.sv def dumplines=238 cenlines=296 predhoists=10 predwrap=2 predcand=0
+MOVED tmp/wt_r10uvm145/tools/probe/r10uvm139repro/g139_b_kinds.sv elab dumplines=340 cenlines=584 predhoists=10 predwrap=2 predcand=0
+MOVED tmp/wt_r10uvm145/tools/probe/r10uvm139repro/g139_c_shapes.sv def dumplines=634 cenlines=332 predhoists=22 predwrap=6 predcand=0
+MOVED tmp/wt_r10uvm145/tools/probe/r10uvm139repro/g139_c_shapes.sv elab dumplines=858 cenlines=608 predhoists=22 predwrap=6 predcand=0
+MOVED tmp/wt_r10uvm145/tools/probe/r10uvm139repro/g139_d_mult.sv def dumplines=244 cenlines=100 predhoists=6 predwrap=4 predcand=0
+MOVED tmp/wt_r10uvm145/tools/probe/r10uvm139repro/g139_d_mult.sv elab dumplines=1280 cenlines=345 predhoists=25 predwrap=17 predcand=0
+MOVED tmp/wt_r10uvm145/tools/probe/r10uvm145repro/g145_a_prod.sv def dumplines=418 cenlines=388 predhoists=20 predwrap=2 predcand=0
+MOVED tmp/wt_r10uvm145/tools/probe/r10uvm145repro/g145_a_prod.sv elab dumplines=864 cenlines=724 predhoists=30 predwrap=2 predcand=0
+MOVED tmp/wt_r10uvm145/tools/probe/r10uvm145repro/g145_b_kind.sv def dumplines=750 cenlines=368 predhoists=30 predwrap=0 predcand=0
+MOVED tmp/wt_r10uvm145/tools/probe/r10uvm145repro/g145_b_kind.sv elab dumplines=2379 cenlines=768 predhoists=60 predwrap=0 predcand=0
+MOVED tmp/wt_r10uvm145/tools/probe/r10uvm145repro/g145_c_home.sv def dumplines=176 cenlines=261 predhoists=11 predwrap=0 predcand=0
+MOVED tmp/wt_r10uvm145/tools/probe/r10uvm145repro/g145_c_home.sv elab dumplines=508 cenlines=517 predhoists=21 predwrap=0 predcand=0
+MOVED tmp/wt_r10uvm145/tools/probe/r10uvm145repro/g145_d_thresh.sv def dumplines=756 cenlines=452 predhoists=24 predwrap=8 predcand=0
+MOVED tmp/wt_r10uvm145/tools/probe/r10uvm145repro/g145_d_thresh.sv elab dumplines=1310 cenlines=830 predhoists=32 predwrap=10 predcand=0
+tools/probe/r10uvm145repro/bound145.sh: line 75: 3906693 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+FIXED-CRASH tmp/wt_r10uvm145/tools/probe/r10uvm145repro/g145_e_zero.sv def rc_pris=139 rc_pat=0
+tools/probe/r10uvm145repro/bound145.sh: line 75: 3906786 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+FIXED-CRASH tmp/wt_r10uvm145/tools/probe/r10uvm145repro/g145_e_zero.sv elab rc_pris=139 rc_pat=0
+MOVED tmp/wt_r10uvm145/tools/probe/r10uvm66repro/a2_slots.sv def dumplines=51 cenlines=48 predhoists=0 predwrap=0 predcand=1
+MOVED tmp/wt_r10uvm145/tools/probe/r10uvm66repro/a2_slots.sv elab dumplines=102 cenlines=254 predhoists=0 predwrap=0 predcand=2
+MOVED tmp/wt_r10uvm145/tools/probe/r10uvm66repro/a3_count.sv def dumplines=118 cenlines=75 predhoists=1 predwrap=1 predcand=1
+MOVED tmp/wt_r10uvm145/tools/probe/r10uvm66repro/a3_count.sv elab dumplines=241 cenlines=186 predhoists=2 predwrap=2 predcand=2
+tools/probe/r10uvm145repro/bound145.sh: line 75: 3996173 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+tools/probe/r10uvm145repro/bound145.sh: line 75: 3996215 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+tools/probe/r10uvm145repro/bound145.sh: line 75: 4003575 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+tools/probe/r10uvm145repro/bound145.sh: line 75: 4003620 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+tools/probe/r10uvm145repro/bound145.sh: line 75: 4009198 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+tools/probe/r10uvm145repro/bound145.sh: line 75: 4009240 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+MOVED tmp/wt_r10uvm145/tools/probe/r10v139repro/v139_a_kinds.sv def dumplines=1202 cenlines=422 predhoists=40 predwrap=6 predcand=0
+MOVED tmp/wt_r10uvm145/tools/probe/r10v139repro/v139_a_kinds.sv elab dumplines=3026 cenlines=902 predhoists=80 predwrap=12 predcand=0
+MOVED tmp/wt_r10uvm145/tools/probe/r10v139repro/v139_d_shapes.sv def dumplines=64 cenlines=96 predhoists=4 predwrap=0 predcand=0
+MOVED tmp/wt_r10uvm145/tools/probe/r10v139repro/v139_d_shapes.sv elab dumplines=102 cenlines=138 predhoists=4 predwrap=0 predcand=0
+MOVED tmp/wt_r10uvm145/tools/probe/r10v139repro/v139_e_inst.sv def dumplines=48 cenlines=69 predhoists=3 predwrap=0 predcand=0
+MOVED tmp/wt_r10uvm145/tools/probe/r10v139repro/v139_e_inst.sv elab dumplines=205 cenlines=183 predhoists=9 predwrap=0 predcand=0
+MOVED tmp/wt_r10uvm145/tools/probe/r10v139repro/v139_f_carve.sv def dumplines=16 cenlines=53 predhoists=1 predwrap=0 predcand=0
+MOVED tmp/wt_r10uvm145/tools/probe/r10v139repro/v139_f_carve.sv elab dumplines=38 cenlines=102 predhoists=2 predwrap=0 predcand=0
+MOVED tmp/wt_r10uvm145/tools/probe/r10v139repro/v139_g_edge.sv def dumplines=48 cenlines=137 predhoists=3 predwrap=0 predcand=0
+MOVED tmp/wt_r10uvm145/tools/probe/r10v139repro/v139_g_edge.sv elab dumplines=125 cenlines=248 predhoists=6 predwrap=0 predcand=0
+MOVED tmp/wt_r10uvm145/tools/probe/r10v139repro/v139_h_odd.sv def dumplines=96 cenlines=168 predhoists=6 predwrap=0 predcand=0
+MOVED tmp/wt_r10uvm145/tools/probe/r10v139repro/v139_h_odd.sv elab dumplines=264 cenlines=344 predhoists=12 predwrap=0 predcand=0
+tools/probe/r10uvm145repro/bound145.sh: line 75: 4163255 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+tools/probe/r10uvm145repro/bound145.sh: line 75: 4163297 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+tools/probe/r10uvm145repro/bound145.sh: line 75: 4164463 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+tools/probe/r10uvm145repro/bound145.sh: line 75: 4164491 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+tools/probe/r10uvm145repro/bound145.sh: line 75: 4175179 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+tools/probe/r10uvm145repro/bound145.sh: line 75: 4175222 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+tools/probe/r10uvm145repro/bound145.sh: line 75: 4176207 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+tools/probe/r10uvm145repro/bound145.sh: line 75: 4176235 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+tools/probe/r10uvm145repro/bound145.sh: line 75: 4182161 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+tools/probe/r10uvm145repro/bound145.sh: line 75: 4182203 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+tools/probe/r10uvm145repro/bound145.sh: line 75: 4182937 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+tools/probe/r10uvm145repro/bound145.sh: line 75: 4182979 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+tools/probe/r10uvm145repro/bound145.sh: line 75: 90419 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+tools/probe/r10uvm145repro/bound145.sh: line 75: 90537 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+tools/probe/r10uvm145repro/bound145.sh: line 75: 90754 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+tools/probe/r10uvm145repro/bound145.sh: line 75: 90891 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+tools/probe/r10uvm145repro/bound145.sh: line 75: 91116 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+tools/probe/r10uvm145repro/bound145.sh: line 75: 91331 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+LISTED=2080 PROCESSED=2080 MOVED=30 FIXED-CRASH=2 BREACH=0 RC-MISMATCH=0 NORUN=182
+PROCESSED-ASSERT-OK
+BOUNDARY PASS
+BOUNDDONE1
+
+===== TOTAL =====
+LISTED=4086 PROCESSED=4086 MOVED=30 FIXED-CRASH=2 BREACH=0 RC-MISMATCH=0 NORUN=306
+BOUNDARY PASS (both halves)

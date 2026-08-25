@@ -3497,6 +3497,57 @@ private:
     // items are name-span, non-automatic locals owned by a `begin` that wraps
     // the body statement(s).
     const void* tfBodyStmt9 = nullptr;
+    /// § `tfItemLocalInitHoistsNoStatement145` (r10uvm145) — THE TF-ITEM
+    /// PRODUCTION HOISTS NOTHING, AND ITS DECLARATIONS ARE NOT BODY ITEMS.
+    ///
+    /// `CompileHelper::compileTfPortDecl`'s `paBlock_item_declaration` arm
+    /// (`CompileStmt.cpp:1661-1712`) walks the `Variable_decl_assignment` list
+    /// reading only `fC->Child(...)` — the NAME.  It never locates the
+    /// `paExpression` sibling, never calls `compileExpression`, and its return
+    /// type is a pair of (io_decls, variables) with no statement list at all.
+    /// So a TF-ITEM local's initialiser reaches the database NOWHERE: no
+    /// hoisted `assignment` in the body, and no `vpiExpr` on the variable.
+    /// The hoist we do emit is the OTHER production's:
+    /// `compileDataDeclaration` (`CompileStmt.cpp:1258`) mints an `assignment`
+    /// per declarator and the body loop keeps it exactly when it has an Rhs
+    /// (`compileFunction` `:2506-2520`) — the shape
+    /// § `oobRefVarLocalHoistNet107`, § `classPropNewLhsNoHoist109` and
+    /// uvm122's begin-block lvalue law all model.
+    ///
+    /// The same fact decides the WRAPPER: `Function_statement_or_null` has
+    /// already been advanced past every `tf_item_declaration`
+    /// (`CompileStmt.cpp:2425-2470`) before Surelog tests
+    /// `fC->Sibling(...)` for "more than one statement", so under this
+    /// production a declaration counts for NOTHING toward the begin.  Both
+    /// halves live in StmtEmit's statement-list arm, gated on `tfBodyTfItems9`
+    /// for the BODY statement only — an inner `begin`'s own locals are block
+    /// items however the body was written.
+    ///
+    /// FENCES.  A CLASS CONSTRUCTOR is never this production
+    /// (§ `ctorBodyLocalsNotOnFunc71`,
+    /// § `tfItemLocalClassTsNotAConstructor142v`): its body is compiled by
+    /// `compileClassConstructorDeclaration` and, here, `emitCtorBody27` has
+    /// already returned before the gate.  The
+    /// § `qualLifetimeStubListsNoBodyLocals141` stub emits no body at all.
+    /// `= new` initialisers were already dropped by
+    /// § `declInitWrittenNewNoStmt66` under BOTH productions and are not
+    /// re-added.
+    ///
+    /// THE ONE EXCEPTION, added by the adversarial verifier r10v145 as
+    /// § `tfItemTaskParamBreaksTheWalk145v`: a TASK's tf-item advance BREAKS
+    /// at the first `paBlock_item_declaration` whose child is NOT a
+    /// `paData_declaration` — `if (fC->Type(ItemNode) !=
+    /// VObjectType::paData_declaration) break;`, `compileTask`
+    /// (`CompileStmt.cpp:2010-2028`).  A `parameter` / `localparam`
+    /// declaration is exactly that, so `Statement_or_null` is left pointing AT
+    /// it and every declaration from there on IS compiled by
+    /// `compileDataDeclaration` and DOES hoist.  Declarations that precede the
+    /// break stay tf-items and hoist nothing.  `compileFunction`
+    /// (`:2425-2470`) has no such break — it compiles a body parameter inline
+    /// and keeps advancing — so a paren-less FUNCTION hoists nothing whatever
+    /// a parameter does.  Measured against golden in arm
+    /// `tools/probe/r10v145repro/v145_h_param.sv`, both views.  The gate is
+    /// `bodyParams9`, which `tfBodyPa9` populates for TASKS only.
     bool tfBodyTfItems9 = false;
     /// § `tfItemLocalClassTsNamedByCompileTypespec142` (r10uvm142) — A CLASS-
     /// HANDLE SUBROUTINE BODY LOCAL COMPILED UNDER THE **TF-ITEM** PRODUCTION

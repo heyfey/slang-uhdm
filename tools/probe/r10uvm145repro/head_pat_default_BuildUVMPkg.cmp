@@ -1,0 +1,55 @@
+LHS:
+decompile:
+array_var: (uvm_pkg::uvm_reg_map::unregister::q), id:154441, line:75268:17, endln:75268:18
+|vpiParent:
+\_begin: (uvm_pkg::uvm_reg_map::unregister), id:154433, line:75269:3, endln:75269:37
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_reg_map::unregister::q), id:154444
+  |vpiParent:
+  \_array_var: (uvm_pkg::uvm_reg_map::unregister::q), id:154441, line:75268:17, endln:75268:18
+  |vpiFullName:uvm_pkg::uvm_reg_map::unregister::q
+  |vpiActual:
+  \_array_typespec: , id:154442, line:75268:17, endln:75268:20
+|vpiName:q
+|vpiFullName:uvm_pkg::uvm_reg_map::unregister::q
+|vpiArrayType:4
+|vpiReg:
+\_class_var: (uvm_pkg::uvm_reg_map::unregister::q), id:154438, line:75268:17, endln:75268:18
+  |vpiParent:
+  \_array_var: (uvm_pkg::uvm_reg_map::unregister::q), id:154441, line:75268:17, endln:75268:18
+  |vpiTypespec:
+  \_ref_typespec: (uvm_pkg::uvm_reg_map::unregister::q), id:154440
+    |vpiParent:
+    \_class_var: (uvm_pkg::uvm_reg_map::unregister::q), id:154438, line:75268:17, endln:75268:18
+    |vpiFullName:uvm_pkg::uvm_reg_map::unregister::q
+    |vpiActual:
+    \_class_typespec: , id:154439, line:75268:3, endln:75268:16
+  |vpiFullName:uvm_pkg::uvm_reg_map::unregister::q
+
+decompile:
+array_var: (uvm_pkg::uvm_reg_map::unregister::q), id:154441, line:75268:17, endln:75268:18
+|vpiParent:
+\_begin: (uvm_pkg::uvm_reg_map::unregister), id:154433, line:75269:3, endln:75269:37
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_reg_map::unregister::q), id:154444
+  |vpiParent:
+  \_array_var: (uvm_pkg::uvm_reg_map::unregister::q), id:154441, line:75268:17, endln:75268:18
+  |vpiFullName:uvm_pkg::uvm_reg_map::unregister::q
+  |vpiActual:
+  \_array_typespec: , id:154442, line:75268:17, endln:75268:20
+|vpiName:q
+|vpiFullName:uvm_pkg::uvm_reg_map::unregister::q
+|vpiArrayType:4
+|vpiReg:
+\_class_var: (uvm_pkg::uvm_reg_map::unregister::q), id:154438, line:75268:17, endln:75268:18
+  |vpiParent:
+  \_array_var: (uvm_pkg::uvm_reg_map::unregister::q), id:154441, line:75268:17, endln:75268:18
+  |vpiTypespec:
+  \_ref_typespec: (uvm_pkg::uvm_reg_map::unregister::q), id:154440
+    |vpiParent:
+    \_class_var: (uvm_pkg::uvm_reg_map::unregister::q), id:154438, line:75268:17, endln:75268:18
+    |vpiFullName:uvm_pkg::uvm_reg_map::unregister::q
+    |vpiActual:
+    \_class_typespec: , id:154439, line:75268:3, endln:75268:16
+  |vpiFullName:uvm_pkg::uvm_reg_map::unregister::q
+RHS: <null>
