@@ -1,0 +1,81 @@
+r10earl93 -- CENSUS BUCKET SUMMARY (MEASUREMENT ONLY).
+
+Universe: 956 surelog + 1358 uhdm2rtlil databases, each joined against ITS
+OWN golden cache entry as a MULTISET.  nogolden=0; every ct93cen rc=0 on both
+sides, both sweeps.  Golden cache sets asserted IDENTICAL (3022 entries).
+
+=== pris_sl
+CS	BOTH-SAME	2494
+CS	GOLDEN-ONLY	144
+CS	MOVED-WRONG	584
+CS	OURS-ONLY	160
+CV	BOTH-SAME	346030
+CV	GOLDEN-ONLY	41830
+CV	MOVED-WRONG	16205
+CV	OURS-ONLY	31249
+PA	BOTH-SAME	33175
+PA	GOLDEN-ONLY	4853
+PA	MOVED-WRONG	785
+PA	OURS-ONLY	5077
+
+=== patc_sl
+CS	BOTH-SAME	2494
+CS	GOLDEN-ONLY	144
+CS	MOVED-WRONG	584
+CS	OURS-ONLY	160
+CV	BOTH-SAME	346032
+CV	GOLDEN-ONLY	41830
+CV	MOVED-WRONG	16203
+CV	OURS-ONLY	31249
+PA	BOTH-SAME	33177
+PA	GOLDEN-ONLY	4853
+PA	MOVED-WRONG	783
+PA	OURS-ONLY	5077
+
+=== pris_u2r
+CS	BOTH-SAME	1744
+CS	GOLDEN-ONLY	2
+CS	MOVED-WRONG	2
+CS	OURS-ONLY	8
+CV	BOTH-SAME	92216
+CV	GOLDEN-ONLY	410
+CV	MOVED-WRONG	1312
+CV	OURS-ONLY	496
+PA	BOTH-SAME	66816
+PA	GOLDEN-ONLY	36
+PA	MOVED-WRONG	8
+PA	OURS-ONLY	20
+
+=== patc_u2r
+CS	BOTH-SAME	1744
+CS	GOLDEN-ONLY	2
+CS	MOVED-WRONG	2
+CS	OURS-ONLY	8
+CV	BOTH-SAME	92216
+CV	GOLDEN-ONLY	410
+CV	MOVED-WRONG	1312
+CV	OURS-ONLY	496
+PA	BOTH-SAME	66816
+PA	GOLDEN-ONLY	36
+PA	MOVED-WRONG	8
+PA	OURS-ONLY	20
+
+=== per-(database,family,bucket) rows that CHANGED, surelog
+< default/Earlgrey_0_1-71da2fd7	CV	BOTH-SAME	51484
+> default/Earlgrey_0_1-71da2fd7	CV	BOTH-SAME	51485
+> default/Earlgrey_0_1-71da2fd7	CV	MOVED-WRONG	1933
+< default/Earlgrey_0_1-71da2fd7	CV	MOVED-WRONG	1934
+< default/Earlgrey_0_1-71da2fd7	PA	BOTH-SAME	9887
+> default/Earlgrey_0_1-71da2fd7	PA	BOTH-SAME	9888
+> default/Earlgrey_0_1-71da2fd7	PA	MOVED-WRONG	1
+< default/Earlgrey_0_1-71da2fd7	PA	MOVED-WRONG	2
+< testflags/Earlgrey_0_1-71da2fd7	CV	BOTH-SAME	51690
+> testflags/Earlgrey_0_1-71da2fd7	CV	BOTH-SAME	51691
+> testflags/Earlgrey_0_1-71da2fd7	CV	MOVED-WRONG	1947
+< testflags/Earlgrey_0_1-71da2fd7	CV	MOVED-WRONG	1948
+< testflags/Earlgrey_0_1-71da2fd7	PA	BOTH-SAME	9417
+> testflags/Earlgrey_0_1-71da2fd7	PA	BOTH-SAME	9418
+> testflags/Earlgrey_0_1-71da2fd7	PA	MOVED-WRONG	473
+< testflags/Earlgrey_0_1-71da2fd7	PA	MOVED-WRONG	474
+=== per-(database,family,bucket) rows that CHANGED, uhdm2rtlil
+(none: 0 rows)

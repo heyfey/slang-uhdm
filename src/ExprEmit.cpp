@@ -5878,6 +5878,198 @@ static SrlgNatFold srlgNaturalFoldWidth(const Expression& expr,
     return r;
 }
 
+// § srlgSizeCastUbShiftMask93 (r10earl93) -- A SIZE CAST WHOSE WIDTH IS 64 OR
+// MORE DOES NOT KEEP THE OPERAND'S BITS.  Surelog's folded value is
+// `operand & ((1ULL << (W % 64)) - 1)`, because the mask is computed by a
+// C++ SHIFT WHOSE COUNT IS THE FULL WIDTH, which is undefined behaviour at 64
+// and above and which x86-64 evaluates modulo 64.
+//
+// THE PRODUCER.  `UHDM templates/ExprEval.cpp:4074`, the `vpiCastOp` case,
+// `uhdminteger_typespec` branch -- the arm a SIZE cast `N'(x)` / `PARAM'(x)`
+// and the `integer` keyword take -- reads the cast width `cast_to` out of the
+// typespec's own `VpiValue` (or evaluates `itps->Expr()`), and then does
+//
+//     uint64_t mask = ((uint64_t)(1ULL << cast_to)) - 1ULL;
+//     resize(oper, cast_to);
+//     uint64_t res = get_value(invalidValue, oper) & mask;
+//     c->VpiValue("UINT:" + std::to_string(res));
+//     c->VpiSize(static_cast<int32_t>(cast_to));
+//
+// `1ULL << cast_to` is UB for `cast_to >= 64` and the x86-64 `shl` takes its
+// count modulo 64, so the mask is `(1ULL << (cast_to % 64)) - 1` -- ZERO
+// whenever the width is a multiple of 64.  GOLDEN IS THE SPEC, BUGS INCLUDED
+// (RESUME section 1): this models the wrap, it does not "fix" it.
+//
+// THE ARITHMETIC IS MEASURED, NEVER DERIVED.  One localparam per row on real
+// Surelog (`g1_width93.sv`, ELAB view; `w.sv` reproduces it in nine lines):
+//
+//   W    mask (measured)        witness
+//   32   0xFFFFFFFF             32'(-1)                    -> UINT:4294967295
+//   63   0x7FFFFFFFFFFFFFFF     63'(64'hFFFF_FFFF_FFFF_FFFF)-> UINT:9223372036854775807
+//   64   0                      64'(64'd1) / 64'd2 / all-ones / a param read
+//                                                          -> UINT:0 (every one)
+//   65   0x1                    65'(64'hFFFF...)  -> UINT:1   65'(64'h1234...DEF0) -> UINT:0
+//   96   0xFFFFFFFF             96'(64'hFFFF...)  -> UINT:4294967295
+//                               96'(64'h1234_5678_9ABC_DEF0) -> UINT:2596069104
+//   127  0x7FFFFFFFFFFFFFFF     127'(64'hFFFF...) -> UINT:9223372036854775807
+//   128  0                      128'(anything)    -> UINT:0
+//   192  0                      192'(anything)    -> UINT:0
+//
+// and a width written as a PARAMETER NAME behaves exactly like the literal of
+// the same value (`PW64'` == `64'`, `PW96'` == `96'`, rows `c_PW64_*` /
+// `c_PW96_*`).  `vpiSize` stays the FULL width (128, 192) -- only the value
+// wraps -- and the head's own instance carries `logic [LfsrDw-1:0]` with
+// `LfsrDw == 64`.
+//
+// A CHAIN OF CASTS ANDs ITS MASKS.  ExprEval reduces the operand first, so
+// `96'(65'(v))` masks with 1 and then with 0xFFFFFFFF; because every step is a
+// bitwise AND of the running value, the composition is the AND of the per-cast
+// masks, which is what this helper returns.  Measured cell by cell on
+// `g7_nest93.sv` (golden, one localparam per row, operand all-ones):
+//
+//   96'(65')  -> 1        96'(64')  -> 0        96'(63')  -> 4294967295
+//   65'(32')  -> 1        65'(64')  -> 0        128'(65') -> 0
+//   192'(128')-> 0        96'(96')  -> 4294967295
+//   96'(65'(64'))     -> 0      128'(96'(65')) -> 0      96'(65'(A)) -> 1
+//
+// and the walk has to look THROUGH the parentheses: a cast's operand is bound
+// from `CastExpressionSyntax::right`, the parenthesised node, so a nested cast
+// carries `ParenthesizedExpression` as its own `syntax`.  Without that unwrap
+// the chain stopped at depth 1 and `96'(65'(all-ones))` kept 4294967295 where
+// golden has 1.
+//
+// SLANG COLLAPSES A NARROWING OUTER CAST.  When the outer width is SMALLER
+// than the inner one (`32'(65'(v))`, `65'(96'(v))`, `128'(192'(v))`) slang
+// binds ONE ConversionExpression, not two, so the inner width is simply not in
+// the AST and no walk can recover it.  Every such row whose OUTER width is 64
+// or more still lands on golden, because the outer mask alone decides there
+// (`65'(96')` -> 1, `64'(96')` -> 0, `128'(192')` -> 0, all measured); the one
+// row that does NOT is `32'(65'(all-ones))`, golden 1 and ours 4294967295, and
+// it was ALREADY 4294967295 before this law -- a STILL-WRONG cell, not a
+// regression, and residue R2 in the README.
+//
+// THE MASK IS A NO-OP BELOW 64, so the 32..63 CONTROL BAND cannot move: slang
+// has already truncated the folded value to the cast's own width, and
+// `mask % 64 == mask` there.  `fires` is therefore set only when SOME cast in
+// the chain reaches 64, and a 32..63 cast moves only when a 64-or-wider cast
+// sits inside it (`32'(64'(x))`), which is the chain rule above and is
+// golden's answer.  Control rows, all byte-identical before and after:
+// `g1_width93.sv`'s whole `c_32_*` and `c_63_*` blocks (18 cells) and
+// `g7_nest93.sv`'s `n_32_16` / `n_63_32` / `n_48_63`.
+//
+// WHAT THIS HELPER DELIBERATELY DOES NOT CLAIM (each one MEASURED on golden
+// and left byte-identical -- see the README's residue table):
+//  * A CAST INSIDE AN OPERATION.  `64'(64'd1) + gi`, `64'(x) | 64'd1`,
+//    `EN ? 64'(1) : 0`, `{64'(1)}` -- golden masks the INNER cast and then
+//    runs the operation on the wrapped value.  Reproducing that needs
+//    ExprEval's whole `reduceExpr`, not a mask, so the fence is the TOP-LEVEL
+//    cast chain and nothing else (arm cells g3 `L_genfor`, g5 `s_in_*`).
+//  * A SIGNED FOLD.  ExprEval's `oper_signed` branch mints `INT:` and a signed
+//    `logic_typespec`, and above 64 bits it does not sign-extend at all; we
+//    emit `INT:-1` there and golden emits something else at a different
+//    vpiSize.  The gate therefore fires only on the UNSIGNED decimal mint
+//    (`!(iv.isSigned() && iv.isNegative()) && !isIntEncoded(expr)`), so every
+//    `N'(-1)` / `N'(64'sh..)` / `N'(signed'(..))` cell stays exactly as it was
+//    -- wrong at 32 and 63 as well as above 64, i.e. a pre-existing family
+//    this law does not enter (arm cells g1 `c_*_n`, g4 `k_s*` / `k_sd*`).
+//  * A TARGET THAT IS NOT THE INTEGER ARM.  `int'` / `longint'` / `shortint'`
+//    / `bit'` have their OWN ExprEval arms with their own widths and tags,
+//    `byte'` / `logic'` / `time'` have NO arm (golden keeps the cast), an
+//    `enum` target folds with NO mask, and a TYPEDEF'd vector target is kept
+//    by golden.  The gate is § castTargetKeywordTypespecKind96's distinction,
+//    reused verbatim from § elabConnWrittenCastFold83: the written left of the
+//    `'` is not a type syntax kind AND the cast's type is integral, not an
+//    alias, not an enum (arm cells g4 `k_int`/`k_longint`/`k_shortint`/`k_bit`/
+//    `k_byte`/`k_logic`/`k_time`/`k_integer`/`k_enum`/`k_td64`/`k_td96`/
+//    `k_tdb64`, all of which must stay byte-identical).
+//  * AN IMPLICIT CONVERSION.  § implicitStrConcatNoCast118's WRITTEN-TICK
+//    FENCE stands: a compiler-inserted widening carries no `CastExpression`
+//    syntax and never masks (arm cells g5 `s_imp_w` / `s_imp_x` / `s_imp_y`,
+//    where golden's 96-bit copy is the UNMASKED `HEX:FFFFFFFFFFFFFFFF`).
+//  * A `get_value` BAIL.  `ExprEval::get_value` refuses a BIN/HEX/OCT constant
+//    whose `VpiSize() > 64` (templates/ExprEval.cpp:1975/1984/1995) and an
+//    INT/DEC one whose digits overflow `int64`, so golden keeps the whole cast
+//    operation for `96'(96'hFFFF...)`, `96'(96'h0000_0000_FFFF_FFFF_FFFF_FFFF)`
+//    (the bail is on the SIZE, not the value), `96'(96'b101)` and
+//    `96'(96'd18446744073709551615)` -- while `96'(96'd5)` DOES fold.  We fold
+//    all of them (a PRE-EXISTING over-fold this law does not create and does
+//    not repair); the value we write there changes from one wrong number to
+//    another and the cell stays STILL-WRONG (arm cells g6 `b_*`).  ZERO corpus
+//    cells (the whole-universe census below).
+//
+// THE POPULATION, censused over the WHOLE universe BEFORE any code
+// (`cen93.sh` + `score93.py` over all 956 surelog and 1358 uhdm2rtlil
+// databases, three families -- every `param_assign`, every `vpiCastOp`
+// operation, every constant of vpiSize >= 32 with a 32..63 CONTROL BAND):
+// EXACTLY TWO cells in either corpus are mask-family cells, and they are the
+// SAME cell in both modes --
+//   Earlgrey_0_1 {default,testflags}
+//   prim_lfsr.sv:39  work@top_earlgrey.u_aes.aes_prng.aes_prng_lfsr
+//   `parameter logic [LfsrDw-1:0] DefaultSeed = LfsrDw'(1)` with LfsrDw = 64
+//   golden UINT:0 vpiSize 64, ours UINT:1 -- THE HEAD.
+// uhdm2rtlil has NONE in any family.
+struct SizeCastUbMask93 {
+    bool fires = false;      // some cast in the chain has width >= 64
+    uint64_t mask = ~0ULL;   // the AND of every cast's Surelog mask
+    uint64_t width = 0;      // the OUTERMOST cast's width (diagnostics only)
+    int depth = 0;           // how many written size casts were walked
+    const char* stop = "-";  // why the walk stopped (diagnostics only)
+};
+
+static SizeCastUbMask93 srlgSizeCastUbMask93(const Expression& e) {
+    SizeCastUbMask93 r;
+    const Expression* p = &stripImplicitConv(e);
+    for (int g = 0; g < 32; g++) {
+        if (p->kind != ExpressionKind::Conversion) {
+            r.stop = "not-a-conversion";
+            break;
+        }
+        auto& cv = p->as<ConversionExpression>();
+        if (cv.isImplicit()) {
+            r.stop = "implicit";
+            break;
+        }
+        // THE OPERAND'S SYNTAX IS THE PARENTHESIZED NODE.  A cast's operand
+        // is bound from `CastExpressionSyntax::right`, which is the
+        // parenthesised `( ... )` node, so a NESTED cast carries
+        // `ParenthesizedExpression` as its own `syntax` and not
+        // `CastExpression` (the same one-level-down walk
+        // § elabConnWrittenCastFold83 needs for its literal).  Without this
+        // unwrap the chain stopped at depth 1 and `96'(65'(all-ones))` kept
+        // 4294967295 where golden has 1 -- measured, and it is why the walk
+        // exists at all.
+        const syntax::SyntaxNode* sy93 = p->syntax;
+        while (sy93 &&
+               sy93->kind == syntax::SyntaxKind::ParenthesizedExpression)
+            sy93 = sy93->as<syntax::ParenthesizedExpressionSyntax>().expression;
+        if (!sy93 || sy93->kind != syntax::SyntaxKind::CastExpression) {
+            r.stop = sy93 ? "not-a-cast-syntax" : "no-syntax";
+            break;
+        }
+        auto& ce = sy93->as<syntax::CastExpressionSyntax>();
+        if (isTypeSyntaxKind(ce.left->kind)) {
+            r.stop = "type-cast";
+            break;
+        }
+        const Type* tt = p->type;
+        if (!tt || !tt->isIntegral() || tt->isAlias() || tt->isEnum()) {
+            r.stop = "target-not-plain-integral";
+            break;
+        }
+        uint64_t w = (uint64_t)tt->getBitWidth();
+        if (w == 0)
+            break;
+        if (w >= 64)
+            r.fires = true;
+        if (r.depth == 0)
+            r.width = w;
+        r.mask &= (w % 64 == 0) ? 0ULL : ((1ULL << (w % 64)) - 1ULL);
+        r.depth++;
+        p = &stripImplicitConv(cv.operand());
+    }
+    return r;
+}
+
 UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* typedConv,
                                       bool paramCtx) {
     // Surelog's netlist elaboration re-compiles top-view cont_assign
@@ -6236,6 +6428,64 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* 
         }
     }
     std::string digits = iv.toString(LiteralBase::Decimal, /*includeBase*/ false);
+    // § srlgSizeCastUbShiftMask93 (r10earl93) -- THE PLACE THE WRAPPED VALUE IS
+    // MINTED.  The folds that reach this decimal mint are the head's own ELAB
+    // `param_assign` Rhs, the DEF and PKG package listings, a materialised
+    // import copy and a 3-deep instance chain's localparam -- all measured
+    // agreeing with the mask on golden (g2/g3/g6).  The gate is the TOP-LEVEL
+    // cast chain (`ubm93.fires`), the PARAMETER context, and the UNSIGNED
+    // decimal encoding.
+    //
+    // TWO PARAMETER SUB-FAMILIES DO NOT REACH THIS SITE AT ALL and are
+    // therefore NOT modelled (golden wraps them, we do not, before AND after --
+    // residue R8, zero corpus cells): a GENERATE-SCOPE localparam (`g3`'s
+    // `gf.L_genfor96` / `gif.L_genif`, golden 4294967295 / 0, ours
+    // 18446744073709551615 / 1 unchanged) and an INSTANCE PARAMETER ACTUAL
+    // (`g6`'s `.SEED(96'(…))`, golden 4294967295, ours 18446744073709551615
+    // unchanged).  `R10E93_CELLDBG=1` on `g3` prints only lines 5/9/13.
+    //
+    // WHY `paramCtx` IS PART OF THE LAW AND NOT AN ACCIDENT.  A `cont_assign`
+    // Rhs does NOT wrap in golden: Surelog's netlist elaboration folds
+    // `assign w_ca = W'(64'd5)` to `UINT:5` at vpiSize 64 / 96 / 128 -- the
+    // OPERAND's value, unmasked, with no location -- so that producer is not
+    // ExprEval's `vpiCastOp` arm at all.  Measured on `g2_ctx93.sv` line 13 in
+    // all three child instances; the pristine emitter ALREADY matched golden
+    // there, and an earlier revision of this law that masked every fold turned
+    // those three cells from RIGHT to WRONG.  `paramCtx` is true at exactly
+    // ONE call site -- the `param_assign` Rhs fold in ParamEmit -- which is
+    // the one context every measured cell says wraps.  A PROCEDURAL assignment
+    // (`always_comb r_pr = W'(64'd7)`) is folded by NEITHER side, so the fence
+    // costs nothing there.
+    //
+    // The two exclusions below are the signed arm, which ExprEval mints as
+    // `INT:` through completely different arithmetic.
+    {
+        static const bool off93 = getenv("R10E93_OFF") != nullptr;
+        static const bool dbg93 = getenv("R10E93_CELLDBG") != nullptr;
+        auto ubm93 = srlgSizeCastUbMask93(expr);
+        const bool uns93 =
+            !(iv.isSigned() && iv.isNegative()) && !isIntEncoded(expr);
+        if (dbg93 && ubm93.depth && sm) {
+            auto sr93 = expr.sourceRange;
+            fprintf(stderr,
+                    "R10E93CELL file=%s line=%u fires=%d depth=%d width=%llu "
+                    "mask=%llu uns=%d stop=%s install=%d\n",
+                    std::string(sm->getFileName(sr93.start())).c_str(),
+                    (unsigned)sm->getLineNumber(sr93.start()),
+                    (int)ubm93.fires, ubm93.depth,
+                    (unsigned long long)ubm93.width,
+                    (unsigned long long)ubm93.mask, (int)uns93, ubm93.stop,
+                    (int)(ubm93.fires && uns93 && paramCtx));
+        }
+        if (ubm93.fires && uns93 && paramCtx && !off93) {
+            uint64_t low93 = 0;
+            uint32_t nb93 = iv.getBitWidth() < 64u ? iv.getBitWidth() : 64u;
+            for (uint32_t b93 = 0; b93 < nb93; b93++)
+                if (iv[(int32_t)b93] == slang::logic_t(1))
+                    low93 |= (1ULL << b93);
+            digits = std::to_string(low93 & ubm93.mask);
+        }
+    }
     auto* c = s.MakeConstant();
     c->VpiDecompile(digits);
     c->VpiSize((int32_t)expr.type->getBitWidth());

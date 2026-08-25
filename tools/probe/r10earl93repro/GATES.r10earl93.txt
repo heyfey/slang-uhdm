@@ -1,0 +1,109 @@
+r10earl93 -- THE GATE BATTERY, AS RUN.  BASE 5c6cea7, branch auto5h.
+The official ~/git-repos/UHDM/build/bin/uhdm-cmp is the sole acceptance judge.
+
+Both binaries were built in THIS PASS'S OWN worktree and FROZEN (chmod 555) at
+immutable paths BEFORE any sweep; SLANG_UHDM was exported explicitly to each.
+
+  pristine (5c6cea7 verbatim)  md5 1f9f6de994797625de7a50b7404c6e18
+  patched  (this law)          md5 7122b0a25ce0e6a1f75b2df518aa7265
+  layout control (5c6cea7 + 32 bytes of .bss, no behaviour)
+                               md5 4b4d1b628a6a62759361c32472c69aa0
+
+(1) BUILD -- both clean, `Built target slang_uhdm`, -j 2 throughout, md5s above.
+
+(2) GOLDENS
+      patched     PASS 23  FAIL 0
+      pristine    PASS 23  FAIL 0
+      SLANG_UHDM=/bin/false   PASS 0  FAIL 23    (negative control)
+
+(3) uhdm2rtlil, BOTH MODES
+      status histogram, both modes:  679 CMP_EQUAL / 50 SLANG_REJECT /
+                                     2 SURELOG_FAIL
+      ct8rows  results/gate_uhdm2rtlil.csv  vs patched testflags   PASS
+      ct8rows  this pass's pristine tf      vs patched testflags   PASS
+      ct8rows  this pass's pristine default vs patched default     PASS
+        -> 0 differing rows, status AND dump, against the committed baseline
+           AND against this pass's own pristine sweep.
+      cmds.txt audit BY BINARY PATH: 0 of 1462 name the main-tree binary.
+      byteverify SELFCHECK=1: MOVERS 0 / 1358, SELFCHECK 1357/1358 flagged,
+                              PATH_SETS_IDENTICAL (1358 paths).
+
+(4) surelog, --mode both
+      status histogram: 937 CMP_EQUAL / 567 SLANG_REJECT / 48 SURELOG_FAIL /
+                        19 CMP_NOTEQUAL / 10 DEFERRED / 3 NO_DATABASE /
+                        2 UNTRANSLATABLE / 1 TIMEOUT / 1 NO_UHDM
+        -- IDENTICAL to this pass's own pristine sweep, bucket for bucket.
+      ct8rows  results/golden_surelog.csv vs patched   PASS  (0 differing rows
+                                                              over 1588)
+      ct8rows  this pass's pristine       vs patched   PASS
+      NO ROW WAS CONVERTED; results/*.csv were NOT edited.
+      cmds.txt audit BY BINARY PATH: 0 of 1573 name the main-tree binary.
+      byteverify SELFCHECK=1: MOVERS 2 / 956, SELFCHECK 955/956 flagged,
+                              PATH_SETS_IDENTICAL (956 paths)
+        ./default/Earlgrey_0_1-71da2fd7    <- PREDICTED BY NAME
+        ./testflags/Earlgrey_0_1-71da2fd7  <- PREDICTED BY NAME
+      NOTHING UNPREDICTED MOVED.
+
+(5) HEADS (rowheads.sh, this pass's own pristine and patched sweeps)
+      TEST          MODE       BEFORE  AFTER
+      SeqDriver     default      6254   6254   head log byte-identical
+      SeqDriver     testflags    6254   6254   head log byte-identical
+      SimpleUVM     default        62     62   head log byte-identical
+      SimpleUVM     testflags      62     62   head log byte-identical
+      Scoreboard    default        62     62   head log byte-identical (no coin flip)
+      MiniAmiq      default      6222   6222   head log byte-identical
+      MiniAmiq      testflags    6222   6222   head log byte-identical
+      BuildUVMPkg   default        55     55   head log byte-identical
+      BuildUVMPkg   testflags      55     55   head log byte-identical
+      Earlgrey_0_1  default        64 ->  29   THE HEAD CLEARED
+      Earlgrey_0_1  testflags      64 ->  50   THE HEAD CLEARED
+      Rggen         default         0      0
+      (SKIP-NOFILE on Scoreboard/testflags and Rggen/testflags is expected.)
+
+(6) CANARIES
+      canaries.sh surelog     ok=52 changed=0 absent=0
+      canaries.sh uhdm2rtlil  ok=8  changed=0 absent=0
+      ctcan2.sh   surelog     PASS      ctcan2.sh uhdm2rtlil  PASS
+      canaudit.sh canaries.sh ctcan2.sh
+          audited=29  UNCOVERED=0  FENCE-BREACH=0  PASS
+      PROTECTED DATABASES, md5 patched vs pristine, both modes:
+          InterfaceModPort   59a365f3ce2c  SAME
+          BlackParrotComplex e3e354129d5a / 73a10e8217e5  SAME
+          YosysOldOr         d68e0796d62c  SAME
+          SVSwitch           4842211c4030  SAME   <- the pin
+          YosysVerx          6ccda350c24a  SAME   <- the pin
+
+(7) THE WIDE BOUNDARY (vwide93.sh over a COPY of tools/probe)
+      PROCESSED=4162 identical=7958 DIFFERING=16 no_output=350
+      rc histogram  rc=0 15262  rc=3 672  rc=4 686  rc=139 28
+      rc BY SIDE    symmetric: 0 A 7631 / 0 B 7631, 3 A 336 / 3 B 336,
+                    4 A 343 / 4 B 343, 139 A 14 / 139 B 14
+      14 of 16 differing cells are THIS PASS'S OWN SEVEN GRID ARMS in both
+      views (the law's intended movers and the gate's positive control).
+      The other 2 are r10buvm22repro/g22.sv plain+elab -- PROVEN not this law
+      by a layout control (PREDICT_R0.txt PART 3, residue R5).
+      The list is free of the four slang-fenced names (grep -c = 0 each).
+
+(8) THE CORPUS CENSUS, re-scored over the SAME universe with the golden side
+    asserted unchanged (CENSUS.r10earl93.txt):
+      WRONG->RIGHT 2, RIGHT->WRONG 0, AWAY-GOLDEN 0, STILL-WRONG 0.
+      Order-blind multiset comparison of the recorded diff CELLS:
+        surelog     ADDED 0  REMOVED 4   (the head, PA and CV view, both modes)
+        uhdm2rtlil  ADDED 0  REMOVED 0
+      EXACTLY EIGHT (database, family, bucket) rows changed count; all eight
+      belong to the two Earlgrey databases.
+
+(9) THE GRID ARMS (ARMS.r10earl93.txt): seven arms,
+      WRONG->RIGHT 165, RIGHT->WRONG 0, AWAY-GOLDEN 0.
+    THE RUN-TIME A/B GATE: R10E93_OFF=1 on the PATCHED binary reproduces the
+    PRISTINE database BYTE FOR BYTE on all seven arms.
+
+(10) REPRODUCIBILITY.  The deliverable patch was re-applied with `git apply -3`
+     to a FRESH 5c6cea7 checkout (rc 0, no conflict markers, only a
+     "new blank line at EOF" whitespace warning), rebuilt -j 2, and produced a
+     BYTE-IDENTICAL binary -- md5 7122b0a25ce0e6a1f75b2df518aa7265 -- which
+     passes the goldens 23/0.  The patch surface is production
+     (`src/ExprEmit.cpp`) plus `tools/probe/r10earl93repro/` and nothing else.
+
+GOLDEN_DEFER was never set.  results/*.csv were never edited.  No slang patch,
+no UHDM patch.  The four slang-fenced tests were never dispatched.

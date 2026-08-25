@@ -1,0 +1,316 @@
+r10earl93 -- THE MOVER PREDICTION and THE NEXT HEAD (R0).
+
+BASE 5c6cea7, branch auto5h.  The official ~/git-repos/UHDM/build/bin/uhdm-cmp
+is the sole acceptance judge; everything in this directory is MEASUREMENT ONLY.
+
+========================================================================
+PART 1 -- THE MOVER PREDICTION
+========================================================================
+TWO INDEPENDENT PREDICTORS, both computed from PRISTINE behaviour only.
+
+(A) THE WHOLE-UNIVERSE CENSUS (pristine databases only, so it is the BLIND
+    one).  `ct93cen` enumerates three families over every database -- every
+    `param_assign` (PA), every `vpiCastOp` operation (CS), and every constant
+    of vpiSize >= 32 with a 32..63 CONTROL BAND (CV) -- in the fields the
+    generated Compares actually read.  `score93.py` joins the two sides as a
+    MULTISET (keys collide; a last-writer dict drops rows).  `famclass93.py`
+    then classifies every MOVED-WRONG cell and names the MASK-FAMILY ones:
+    constant vs constant, same vpiSize, both `UINT:`, and golden's value equal
+    to ours under mask64(W) for some W >= 64.
+
+    PRISTINE, both corpora, whole universe (956 surelog + 1358 uhdm2rtlil
+    databases; nogolden=0, every ct93cen rc=0 on both sides):
+
+      surelog     CS  BOTH-SAME   2 494  MOVED-WRONG    584  GOLDEN-ONLY   144
+                                                             OURS-ONLY     160
+                  PA  BOTH-SAME  33 175  MOVED-WRONG    785  GOLDEN-ONLY 4 853
+                                                             OURS-ONLY   5 077
+                  CV  BOTH-SAME 346 030  MOVED-WRONG 16 205  GOLDEN-ONLY 41 830
+                                                             OURS-ONLY  31 249
+      uhdm2rtlil  CS  BOTH-SAME   1 744  MOVED-WRONG      2  GOLDEN-ONLY     2
+                                                             OURS-ONLY       8
+                  PA  BOTH-SAME  66 816  MOVED-WRONG      8  GOLDEN-ONLY    36
+                                                             OURS-ONLY      20
+                  CV  BOTH-SAME  92 216  MOVED-WRONG  1 312  GOLDEN-ONLY   410
+                                                             OURS-ONLY     496
+
+    THE MASK-FAMILY CELLS ARE THE WHOLE FAMILY, AND THERE ARE EXACTLY TWO --
+    the SAME cell in both modes:
+
+      PA  SPAN=39:32-39:57  LNAME=DefaultSeed  VIEW=ELAB  MOD=work@prim_lfsr
+          INST=work@top_earlgrey.u_aes.aes_prng.aes_prng_lfsr
+          golden RVAL=UINT:0  ours RVAL=UINT:1  RSZ=64  RCT=9
+      CV  the same constant at its own span 39:47-39:57.
+
+    The other surelog PA MOVED-WRONG cells sort as 680 differ-in-another-field,
+    49 kind-flip, 38 multiplicity, 12 size-diff, 4 a value no mask explains.
+    uhdm2rtlil has NO mask-family cell in ANY family, so it has neither a cell
+    to fix nor a cell to break.
+
+(B) THE RUN-TIME CELL TRACE.  `predict93.sh` re-runs each test's OWN slang
+    command line -- read out of THIS PASS'S OWN pristine sweep's `cmds.txt`, in
+    the test's OWN source directory, recovered through the workdir's
+    `sha1(dirpath)[:8]` suffix -- with the PATCHED binary under `R10E93_OFF=1`
+    (byte-identical database) and `R10E93_CELLDBG=1`, which prints, for EVERY
+    folded expression whose top level is a written SIZE-CAST CHAIN, the chain
+    depth, the outermost width, the composed mask, the unsigned verdict, the
+    stop reason and whether the law would install -- the WHOLE denominator,
+    including the cells the fences REFUSE (earl66's rule).  The predicate is
+    computed OUTSIDE the `R10E93_OFF` switch, so the OFF binary still names it.
+    Output goes to /dev/null.
+
+    THE FOUR SLANG-FENCED TESTS ARE NEVER DISPATCHED: `dirmap93.sh` OMITS their
+    source directories from the map, listing them only as OPAQUE sha1[:8]
+    hashes, so the driver finds no source, prints FENCED-SKIP and runs nothing
+    -- 8 skips on surelog, 2 on uhdm2rtlil.  No file in this directory spells
+    them.
+
+      sites REACHED   surelog  558 cells      uhdm2rtlil   26 cells
+      fires=1         surelog    2            uhdm2rtlil    0
+      install=1       surelog    2            uhdm2rtlil    0
+
+    PREDICTION: EXACTLY TWO DATABASES MOVE -- `Earlgrey_0_1` default and
+    testflags -- at
+
+      .../Earlgrey_0_1/src/lowrisc_prim_all_0.1/rtl/prim_lfsr.sv line=39
+      fires=1 depth=1 width=64 mask=0 uns=1 install=1
+
+    THE 556 + 26 CELLS THAT REACH THE SITE AND DO NOT MOVE are the denominator,
+    and every one reports `fires=0`: no cast in its chain reaches 64 bits.  No
+    cell folds and then stops for a different reason.  THE DENOMINATOR COUNTS
+    ONLY CELLS THAT REACH THE SITE: two sub-families of this same law never
+    reach it -- a GENERATE-SCOPE localparam and an INSTANCE PARAMETER ACTUAL
+    are folded by a different path, so golden wraps them and we do not, before
+    AND after (residue R8).  Neither is a mover; neither is a corpus cell.  Two surelog command lines exit rc=139 in the trace
+    re-run under the neutral binary; that is the pre-existing segfault family
+    RESUME section 9 records (earl82 R6 / earl83 R6 / earl84 R6 / earl85 R5 /
+    earl89 R6 / earl90 R8 / earl91 R5), it is NOT a mover, and `byteverify`
+    compared all 956 + 1358 databases the two real sweeps produced.
+
+    Both Earlgrey databases are byte-deterministic per binary, so neither is a
+    coin.  ORDER OF EVIDENCE: the census in (A) reads PRISTINE DATABASES ONLY
+    and was run BEFORE any line of the law was written; the uhdm2rtlil trace
+    (install=0) and the surelog trace were both run BEFORE either patched sweep
+    was read.
+
+========================================================================
+PART 1b -- WHAT THE PATCHED SWEEPS ACTUALLY MOVED
+========================================================================
+`byteverify.sh SELFCHECK=1`, patched sweep vs THIS PASS'S OWN pristine sweep
+(both binaries frozen `chmod 555` at immutable paths before any sweep; every
+`cmds.txt` audited BY BINARY PATH -- 0 of 1462 + 1573 name the main-tree
+binary; both sweeps reference the SAME 3 022 golden cache entries, set-identical):
+
+  uhdm2rtlil  MOVERS 0 / 1358      SELFCHECK 1357/1358 flagged
+  surelog     MOVERS 2 /  956      SELFCHECK  955/ 956 flagged
+      ./default/Earlgrey_0_1-71da2fd7    <- PREDICTED
+      ./testflags/Earlgrey_0_1-71da2fd7  <- PREDICTED
+
+  NOTHING UNPREDICTED MOVED.  The Scoreboard/default COIN did not flip on this
+  pair of sweeps (its head log is byte-identical before and after).
+
+  (a) THE RUN-TIME A/B GATE.  `R10E93_OFF=1` on the PATCHED binary reproduces
+      the PRISTINE database BYTE FOR BYTE on all SEVEN grid arms, while the law
+      ON gives the patched hashes.
+  (b) THE CORPUS CENSUS re-scored over the SAME fixed universe, GOLDEN SIDE
+      ASSERTED UNCHANGED:
+
+        surelog   PA  MOVED-WRONG  785 ->  783   <- the head, both modes
+                      BOTH-SAME 33 175 -> 33 177
+                      GOLDEN-ONLY 4 853 -> 4 853  <- AWAY stays put
+                      OURS-ONLY   5 077 -> 5 077
+                  CV  MOVED-WRONG 16 205 -> 16 203
+                      BOTH-SAME 346 030 -> 346 032
+                      GOLDEN-ONLY / OURS-ONLY unchanged
+                  CS  EVERY bucket unchanged
+        uhdm2rtlil  EVERY bucket of ALL THREE families unchanged, and every
+                      recorded diff cell byte-identical before and after.
+
+      **WRONG->RIGHT 2, RIGHT->WRONG 0, AWAY-GOLDEN 0, STILL-WRONG 0.**
+      EXACTLY EIGHT (database, family, bucket) rows changed count at all, and
+      all eight belong to the two Earlgrey databases.  An ORDER-BLIND multiset
+      comparison of the recorded diff CELLS says **ADDED 0 / REMOVED 4** on
+      surelog (the head, in the PA and the CV view, once per mode) and
+      **ADDED 0 / REMOVED 0** on uhdm2rtlil.
+
+  (c) THE WIDE BOUNDARY (`vwide93.sh`, every .sv/.v at ANY depth under a COPY
+      of tools/probe, both views, both frozen binaries, workdir-normalised dump
+      byte-compare; list on fd 3, children `</dev/null`, PROCESSED asserted):
+
+        PROCESSED=4162 identical=7958 DIFFERING=16 no_output=350
+        rc histogram  rc=0 15262  rc=3 672  rc=4 686  rc=139 28
+        rc BY SIDE    0 A 7631 / 0 B 7631   3 A 336 / 3 B 336
+                      4 A 343 / 4 B 343     139 A 14 / 139 B 14   (symmetric)
+
+      14 of the 16 differing cells are THIS PASS'S OWN SEVEN GRID ARMS in both
+      views -- the law's intended movers, and the positive control that proves
+      the gate can see.  The remaining 2 are `r10buvm22repro/g22.sv` (plain and
+      elab), and they are NOT this law: see PART 3.
+
+========================================================================
+PART 2 -- R0: THE NEW HEADS, AND THEIR DECODE
+========================================================================
+BEFORE (this pass's own pristine build 1f9f6de99479):
+  Earlgrey_0_1 default   64 cmp lines, 1 head
+  Earlgrey_0_1 testflags 64 cmp lines, 1 head   (the two modes shared the head)
+AFTER (7122b0a25ce0):
+  Earlgrey_0_1 default   29 cmp lines, 1 head
+  Earlgrey_0_1 testflags 50 cmp lines, 1 head   (the modes now differ)
+Every other named row's head log is BYTE-IDENTICAL before and after
+(SeqDriver 6254 / SimpleUVM 62 / Scoreboard 62 / MiniAmiq 6222 /
+BuildUVMPkg 55 / Rggen 0).
+
+BOTH NEW HEADS ARE THE SAME MECHANISM: A NAME BOUND INSIDE AN ELABORATED
+GEN-SCOPE OF `prim_lfsr` IS WRONG.  They sit four lines apart in one gen-if
+body (`gen_gal_xor` / its nested `gen_lut`), the exact shape RESUME section 9
+records as `currentScope` being STALE throughout `emitInstance` (earl57 R3).
+
+R0-default (29 cmp lines) -- A REF_OBJ'S `Actual_group` IS NULL WHERE GOLDEN
+BINDS THE INSTANCE'S NET.
+
+    prim_lfsr.sv:315   assign next_lfsr_state = LfsrDw'(entropy_i) ^ ...
+    the `entropy_i` at 315:38-315:47, parent operation 315:30-315:48
+    instance work@top_earlgrey.u_aes.aes_prng.aes_prng_lfsr
+
+      golden  ref_obj entropy_i  Actual_group -> logic_net entropy_i 55:33-55:42
+      ours    ref_obj entropy_i  Actual_group -> <null>
+
+    Span, VpiName, VpiFullName (`...aes_prng_lfsr.gen_gal_xor.entropy_i`) and
+    the parent operation all MATCH; only the actual differs.  The cmp head
+    prints `LHS: logic_net(entropy_i)@55:33-55:42` and `RHS: <null>` because
+    `BaseClass.h:187`'s SINGULAR overload with `rhs == nullptr` sets only
+    `m_failedLhs`, and it sets it to the POINTEE -- so the head NAMES THE NET
+    AND HIDES THE OWNER (RESUME section 9; earl60's tool reports POOL-EMPTY
+    here because its pool is typespec-shaped, and `r0ref93.cpp` in this
+    directory is the generic locator that found the owner).
+
+R0-testflags (50 cmp lines) -- AN ELABORATED GEN-SCOPE SELECT INDEX SUBSTITUTES
+THE PARAMETER'S VALUE WHERE GOLDEN KEEPS THE REFERENCE.
+
+    prim_lfsr.sv:308  assign coeffs = GAL_XOR_COEFFS[LfsrDw-GAL_XOR_LUT_OFF]
+                                                    [LfsrDw-1:0];
+    the `LfsrDw` at 308:38-308:44, parent operation 308:38-308:60
+
+      LHS (golden) ref_obj LfsrDw, Actual_group -> parameter LfsrDw 33:32-33:38
+      RHS (ours)   constant vpiDecompile 64, vpiSize 32, UINT:64,
+                   vpiConstType 9, Typespec -> int_typespec 33:13-33:25
+
+    Two non-null objects of DIFFERENT `UhdmType`, so the head is the `VpiType`
+    line inside `BaseClass::Compare` before any per-kind field is read (read
+    the MK line, RESUME section 9); the 50 lines are the sub-tree printing, not
+    50 cells.  `r0ref93.cpp` shows golden carries the same bound `ref_obj` in
+    EVERY elaborated instance of `prim_lfsr` (aes_prng_lfsr, i_prim_lfsr, ...)
+    and that our DEF listing still has the (unbound) ref_obj -- so the defect
+    is purely the ELABORATED copy.
+
+    THE QUESTION FOR THE NEXT PASS: census, corpus-wide, every `ref_obj` inside
+    an ELABORATED gen-scope, keyed by (span, gen-scope class, view), with
+    `Actual_group`'s KIND as the payload -- both the null-actual family and the
+    value-substitution family -- and decide the two together, because they are
+    one binder.
+
+========================================================================
+PART 3 -- `r10buvm22repro/g22.sv`, THE OTHER BOUNDARY CELL: NOT THIS LAW
+========================================================================
+6 constants (12 dump lines) differ, all by exactly 32, in the SYNTHESISED right
+range of associative-array typespecs (`typedef C22 ka_cls_t[string];`,
+g22.sv:70/71 and the package twins at :29/:30):
+
+    patched  UINT:22511321   UINT:22510465
+    pristine UINT:22511289   UINT:22510433
+
+FIVE MEASUREMENTS SAY IT IS NOT THE LAW:
+
+  1. `R10E93_OFF=1` ON THE PATCHED BINARY REPRODUCES THE PATCHED VALUE, not the
+     pristine one.  The law's install is switched off and the number does not
+     move, so the install is not what changed it.
+  2. The value follows the BINARY, not the directory: pristine gives 22511289
+     in BOTH staging directories, patched gives 22511321 in both.
+  3. `R10E93_CELLDBG=1` reports NO reached cell in this file -- the site the
+     law lives at is never entered.
+  4. earl92's committed `BOUNDARY_WIDE.diff` lists the SAME file, in the SAME
+     two views, as a boundary difference for a completely unrelated law
+     (`plain r10buvm22repro/g22.sv`, `elab r10buvm22repro/g22.sv`).
+  5. THE LAYOUT CONTROL, the decisive one.  A binary built from PRISTINE 5c6cea7
+     with ONE behaviour-free line added to `ExprEmit.cpp` --
+         __attribute__((used)) static char r10earl93_layout_pad[32];
+     -- and NOTHING else, reproduces the PATCHED numbers EXACTLY:
+         layout control  UINT:22511321  UINT:22510465
+         patched         UINT:22511321  UINT:22510465
+         pristine        UINT:22511289  UINT:22510433
+     32 bytes of `.bss` and no law at all move the value by 32.
+
+The number is BUILD-LAYOUT DEPENDENT: it is a value the associative-index range
+synthesis reads out of memory that ANY edit to `ExprEmit.cpp` shifts (the delta
+is exactly the 32 bytes the control adds, and exactly the .bss the two
+function-local `static const bool` guards of this law add).  It is a
+PRE-EXISTING emitter defect the wide boundary exposes, it is invisible to both
+corpora (no corpus test contains this shape), and it is filed as residue R5.
+
+========================================================================
+RANKED RESIDUES this pass MEASURED and deliberately did not take
+========================================================================
+R0  THE ELABORATED GEN-SCOPE BINDER, both heads above.  One mechanism, two
+    faces (a null `Actual_group` on a net reference; a value substituted for a
+    parameter reference), four source lines apart in one gen-if body.
+
+R1  A PORT `High_conn` SIZE CAST OF WIDTH >= 64.  Golden FOLDS it -- measured
+    `96'(64'hFFFF…)` -> `constant UINT:4294967295 vpiSize 96` and
+    `128'(64'd11)` -> `constant UINT:0 vpiSize 128` on `g2_ctx93.sv`'s child
+    instances -- and we KEEP the `vpiCastOp` operation, because
+    § elabConnWrittenCastFold83 abstains at `w83 >= 64` (its own comment says
+    "this law will not encode UB").  The mask this pass measured is exactly
+    what that abstention was waiting for, so extending 83 to W >= 64 with
+    `mask64` is now a ONE-LINE change -- but it converts an operation into a
+    constant (a KIND flip, not a value flip), so it needs its own boundary and
+    its own census.  3 arm cells, **0 corpus cells** (the CS family's 584
+    surelog MOVED-WRONG cells contain no W >= 64 High_conn cast).
+
+R2  A CAST INSIDE AN OPERATION.  `64'(64'd1) + gi`, `64'(x) | 64'd1`,
+    `EN ? 64'(1) : 0`, `{64'(1)}`: golden masks the INNER cast and then runs
+    the operation on the wrapped value, so `g3`'s gen-for `L_genfor` is 0/1 on
+    golden and 1/2 for us.  Reproducing it needs ExprEval's whole `reduceExpr`,
+    not a mask.  4 arm cells (`g3 L_genfor` x2, `g5 s_in_add/s_in_or/
+    s_in_tern/s_in_cat`), 0 corpus cells.
+    The same residue covers the ONE nest shape slang collapses out of the AST:
+    `32'(65'(all-ones))` is golden 1 and ours 4294967295 (`g7 n_32_65`),
+    unchanged by this law because the inner 65 is not in the AST at all.
+
+R3  THE SIGNED ARM.  ExprEval's `oper_signed` branch mints `INT:` and a signed
+    `logic_typespec`, and above 64 bits it does not sign-extend; golden's
+    `64'(-1)` is `UINT:0` and `96'(64'shFFFF…)` is `INT:4294967295 vpiSize 1`
+    where we emit `INT:-1` at the cast width.  Wrong at 32 and 63 as well as
+    above 64, i.e. a PRE-EXISTING family this law deliberately does not enter.
+    16 arm cells (`g1 c_*_n` x8, `g4 k_s64/k_s96/k_sd64/k_sd96`), 0 corpus
+    cells.
+
+R4  THE `get_value` BAIL AND THE TYPEDEF TARGET -- two shapes where GOLDEN
+    KEEPS THE WHOLE CAST and we fold anyway: an operand constant encoded
+    BIN/HEX/OCT with `VpiSize() > 64` (the bail is on the SIZE, not the value:
+    `96'(96'h0000_0000_FFFF_FFFF_FFFF_FFFF)` bails while `96'(96'd5)` folds),
+    and a vector TYPEDEF cast target (`w64_t'`, `b64_t'`).  Pre-existing
+    over-folds; this law changes the value it writes in a bail cell from one
+    wrong number to another and the cell stays STILL-WRONG.  ~23 arm cells,
+    0 corpus cells.
+
+R5  `r10buvm22repro/g22.sv`'s BUILD-LAYOUT-DEPENDENT ASSOCIATIVE-INDEX RANGE
+    (PART 3).  A number the emitter reads out of memory that any edit to
+    `ExprEmit.cpp` shifts -- PROVEN by a layout control that adds 32 bytes of
+    `.bss` to pristine 5c6cea7 and nothing else, and reproduces the patched
+    numbers exactly.  Pre-existing, corpus-invisible (`R10E93_CELLDBG` reaches
+    no cell in that file), and already visible in earl92's boundary.  It is a
+    real defect worth its own pass: the range bound of `typedef T x[string]`
+    should not depend on where the emitter's statics land.
+
+R6  PRE-EXISTING DUPLICATE / LOCATION-LESS ELABORATED COPIES.  In `g5` and `g6`
+    we emit a SECOND, span-less `param_assign` copy golden does not have; both
+    copies now carry golden's value, so the value cell is right and the COUNT
+    is a separate defect this pass neither created nor fixed.  Visible in the
+    census as the surelog PA `OURS-ONLY 5 077` bucket, unchanged.
+
+R7  THE PRE-EXISTING PROBE / BOUNDARY SEGFAULTS.  Two surelog command lines
+    exit rc=139 under the neutral binary in the trace re-run, and the wide
+    boundary's rc histogram is SYMMETRIC side for side (14 / 14).  The family
+    is pre-existing and recorded by earl82 R6 / earl83 R6 / earl84 R6 /
+    earl85 R5 / earl89 R6 / earl90 R8 / earl91 R5.  `byteverify` proves none of
+    them is a mover.

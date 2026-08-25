@@ -1,0 +1,229 @@
+r10v93 -- ADVERSARIAL VERIFICATION OF r10earl93 (§ srlgSizeCastUbShiftMask93).
+
+VERDICT: ACCEPT, with two documentation overclaims CORRECTED IN PLACE (this
+patch is the implementer's, byte-for-byte in production, plus comment/README
+corrections that leave the binary UNCHANGED).
+
+BASE 5c6cea7, branch auto5h.  The official ~/git-repos/UHDM/build/bin/uhdm-cmp
+(md5 2ad8015175758e918de1789b86ef1ea5) is the sole acceptance judge; every tool
+named here is MEASUREMENT ONLY.
+
+========================================================================
+1.  EVERY HEADLINE NUMBER, RE-MEASURED FROM SCRATCH
+========================================================================
+Fresh worktrees at 5c6cea7 (/tmp/wt_v93pris pristine, /tmp/wt_v93 patched);
+both binaries built here, frozen chmod 555 before any sweep.
+
+  pristine   1f9f6de994797625de7a50b7404c6e18
+  patched    7122b0a25ce0e6a1f75b2df518aa7265   <- the implementer's md5,
+                                                   reproduced bit for bit from
+                                                   a DIFFERENT worktree path
+
+  goldens          patched 23 PASS / 0 FAIL;  pristine 23 PASS / 0 FAIL
+  negative control SLANG_UHDM=/bin/false  0 PASS / 23 FAIL
+  cmds.txt audit   3035 files per side; 2981 name the frozen binary,
+                   0 name the main-tree binary, on BOTH sweeps
+  u2r              679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL, both modes
+  ct8rows          PASS vs the committed baselines and vs pristine (u2r tf,
+                   u2r default, surelog) -- NO row converted
+  surelog status   histogram byte-identical pristine vs patched
+  byteverify       SELFCHECK=1: u2r MOVERS 0/1358 (selfcheck 1357/1358),
+                   surelog MOVERS 2/956 (selfcheck 955/956) --
+                   ./default/Earlgrey_0_1-71da2fd7 and
+                   ./testflags/Earlgrey_0_1-71da2fd7, the two PREDICTED names
+  heads            Earlgrey_0_1 default 64 -> 29, testflags 64 -> 50, 1 head
+                   each; SeqDriver 6254 / SimpleUVM 62 / Scoreboard 62 /
+                   MiniAmiq 6222 / BuildUVMPkg 55 / Rggen 0 head logs
+                   BYTE-IDENTICAL pristine vs patched.  Both HEAD_AFTER logs
+                   are byte-identical to the committed ones.
+  canaries         ok=52 changed=0 (surelog), ok=8 changed=0 (u2r)
+  ctcan2           PASS x2;  canaudit audited=29 UNCOVERED=0 FENCE-BREACH=0
+  protected DBs    InterfaceModPort / BlackParrotComplex / YosysOldOr SAME both
+                   modes; SVSwitch 4842211c4030; YosysVerx 6ccda350c24a
+
+WHOLE-UNIVERSE CENSUS re-run here (956 surelog + 1358 uhdm2rtlil, nogolden=0):
+every bucket reproduced EXACTLY --
+  surelog  CS 2494/584/144/160 unchanged
+           PA BOTH-SAME 33175 -> 33177, MOVED-WRONG 785 -> 783
+           CV BOTH-SAME 346030 -> 346032, MOVED-WRONG 16205 -> 16203
+           GOLDEN-ONLY / OURS-ONLY unchanged in all three families
+  u2r      every bucket of all three families unchanged
+famclass93: MASK-FAMILY = 2 pristine (PA + CV views of ONE cell, once per
+mode: prim_lfsr.sv DefaultSeed in work@top_earlgrey.u_aes.aes_prng.aes_prng_lfsr),
+0 patched, and 0 in uhdm2rtlil in any family.  Sub-classification reproduced
+too (PA other-field 680 / kind-flip 49 / multiplicity 38 / size-diff 12 /
+other-value 4).  Order-blind cell multiset: ADDED 0 / REMOVED 4 (surelog),
+ADDED 0 / REMOVED 0 (u2r).
+
+EARLGREY, SCORED AGAINST GOLDEN, per mode:
+  WRONG->RIGHT 2, RIGHT->WRONG 0, AWAY-GOLDEN 0, STILL-WRONG-MOVED 0,
+  OURS-ONLY-MOVED 0.
+WHOLE-DUMP DIFF (uhdm-dump, path-normalised) pristine vs patched:
+  default   244,531,384 bytes, EXACTLY 4 differing lines
+  testflags 360,578,901 bytes, EXACTLY 4 differing lines
+and all four are the same two fields of ONE constant -- `|vpiDecompile:1` ->
+`0` and `|UINT:1` -> `0` under `param_assign 39:32-39:57` of
+work@top_earlgrey.u_aes.aes_prng.aes_prng_lfsr, past the `|uhdmtopModules:`
+marker (the ELAB section, reachable to the judge -- not the weakly-referenced
+tail).  Nothing else in either database moved.
+
+THE IMPLEMENTER'S SEVEN ARMS, re-run here with my own binaries:
+  g1 62 / g2 15 / g3 14 / g4 8 / g5 18 / g6 22 / g7 26  = 165 WRONG->RIGHT,
+  RIGHT->WRONG 0, AWAY-GOLDEN 0 -- the published table, cell for cell.
+  R10E93_OFF=1 reproduces the PRISTINE database byte for byte on all seven
+  (run in ONE directory per arm; see armv93.sh's trap note).
+
+WIDE BOUNDARY over a COPY of tools/probe plus this directory's six arms:
+  PROCESSED=4167 identical=7958 DIFFERING=26 no_output=350
+  rc histogram symmetric side for side: 0 7641/7641, 139 14/14, 3 336/336,
+  4 343/343.
+  The 26 = this pass's 14 own-arm cells + 2 g22 cells + my 10 own-arm cells.
+  Removing my arms leaves a set BYTE-IDENTICAL to the committed
+  BOUNDARY_WIDE.diff.  Every arm directory the brief names as a must-stay
+  control was compiled and is 0-differing: r10earl92/91/90/89/86/85/83/73/60/59,
+  r10v92/v85/v96/v118/vbuvm29, r10uvm96/118/123, r10buvm29.
+
+  THE g22 CELLS ARE NOT THIS LAW -- INDEPENDENTLY PROVEN HERE.  I built a
+  binary from PRISTINE 5c6cea7 with one change, `__attribute__((used)) static
+  char v93pad[32];` added to ExprEmit.cpp (md5 a8bb25d0394bbe1b74ebde84460caf17),
+  and its path-normalised dump of r10buvm22repro/g22.sv is BYTE-IDENTICAL to
+  the patched binary's (diff = 0 lines): 22511289 -> 22511321 and
+  22510433 -> 22510465, the same numbers the patched binary gives.  The cell is
+  the right-range bound of `typedef C22 ka_cls_t[string]` (g22.sv:70) -- a
+  pre-existing defect whose value tracks a LINK-TIME OFFSET, corpus-invisible
+  (byteverify sees it in no database).
+
+========================================================================
+2.  BREAKING THE LAW -- SIX NEW ADVERSARIAL ARMS
+========================================================================
+Written here, not carried over.  Each is built three ways in ONE directory
+(golden Surelog / frozen pristine / frozen patched) plus the R10E93_OFF=1
+control, and scored as a MULTISET against golden.
+
+  v1_ctx93.sv   width from a PACKAGE parameter, a DEFPARAM'd width, an
+                INTERFACE localparam, a $bits()-sized cast and a $bits()
+                operand, a STRING-LITERAL operand, `'1`, a $clog2() operand,
+                three child instances at 64/96/128, an array DIMENSION BOUND
+                written as a cast, a materialised import copy
+                                        WRONG->RIGHT 26  RIGHT->WRONG 0
+  v2_kind93.sv  15 cast-target spellings (int/longint/shortint/byte/bit/logic/
+                time/integer, a vector typedef, a BIT vector typedef, a SIGNED
+                typedef, an ENUM typedef, a PACKED-STRUCT typedef, a size cast,
+                a parameter-named width, an ENUM-MEMBER-named width) x operand
+                classes 0 / 1 / -1 / bit-63-set / a 96-bit operand / a string /
+                `'1` / a parameter read / an expression / a nested cast /
+                $bits() / an x-digit / signed'()  + the 32 and 63 control band
+                                        WRONG->RIGHT 22  RIGHT->WRONG 0
+  v3_home93.sv  gen-for, gen-if, a 3-DEEP instance chain, a BIND target and the
+                BOUND module, three instantiations of one span at 64/96/128
+                                        WRONG->RIGHT 20  RIGHT->WRONG 0
+  v4_edge93.sv  narrow declared types (int / int unsigned / byte / bare /
+                logic[7:0] / logic[127:0]), a SIGNED target with a positive
+                value, an UNPACKED-ARRAY parameter of casts, a PACKED-STRUCT
+                assignment pattern of casts, top-level shapes that must NOT
+                fire (unary minus / concat / add / ternary), the cont_assign
+                and PROCEDURAL fences, a port High_conn actual, an instance
+                override actual, a SPECPARAM
+                                        WRONG->RIGHT  9  RIGHT->WRONG 0
+  v5_more93.sv  widths 31 / 33 / 63 / 65 / 127 / 256 and a package-parameter
+                width, a BIND home, a PROGRAM home, and CHAINED PARAMETER READS
+                (B = A, C = A + 1, D = 96'(A)) that test whether the wrapped
+                value PROPAGATES
+                                        WRONG->RIGHT 14  RIGHT->WRONG 0
+  v6_chain93.sv mixed chains (96'(int'()), 96'(longint'()), 96'(bit'()),
+                int'(96'()), longint'(96'()), 96'((64'())), 96'(96'()),
+                128'(65'()), 96'(65'(64'()))), a SIGNED target with a wide
+                positive value, a signed NEGATIVE value, and six
+                ALREADY-RIGHT controls that must stay right (64'(0), 96'(7),
+                65'(1), 127'(9), 32'(5), 63'(5))
+                                        WRONG->RIGHT 13  RIGHT->WRONG 0
+
+  TOTAL over the six new arms: WRONG->RIGHT 104, RIGHT->WRONG 0,
+  AWAY-GOLDEN 0.  R10E93_OFF=1 == PRISTINE byte for byte on all six.
+
+  NO pristine-right -> patched-wrong cell was found on legal SV, in these six
+  arms or in the implementer's seven, or anywhere in the wide boundary, or in
+  either corpus.  Production is therefore UNCHANGED by this verification.
+
+  WHY THAT IS STRUCTURAL, NOT LUCK.  Every mask the law composes is a
+  CONTIGUOUS LOW-BIT mask (2^k - 1, or 0).  If pristine already equalled
+  golden's masked value then `iv & ~mask == 0`, so `iv < 2^63` and both the
+  low-64 truncation and the AND are no-ops -- the install cannot move a cell
+  that was already right, PROVIDED golden really masks in that context.  The
+  whole residual risk is therefore "a paramCtx context in which golden does NOT
+  mask", and the arms above enumerate the contexts: module DEF and ELAB,
+  package, PKG listing, import copy, interface, bind, generate, 3-deep chain,
+  defparam, unpacked-array element, struct-pattern member, specparam, override
+  actual, narrow and signed declared types.  Golden masks in every one of them.
+  The only measured NON-masking producer is the `cont_assign` Rhs, and that is
+  exactly what `paramCtx` fences off.
+
+========================================================================
+3.  WHAT I FOUND THAT THE PASS DID NOT REPORT  (ranked)
+========================================================================
+R8  TWO PARAMETER SUB-FAMILIES NEVER REACH THE SITE -- the pass's context
+    table claimed both.  CORRECTED IN THIS PATCH (README section 2b, the
+    PREDICT_R0 denominator paragraph, and the ExprEmit.cpp comment).
+      * a GENERATE-SCOPE localparam.  In the pass's OWN g3 arm:
+        `gif.L_genif` golden UINT:0 / ours UINT:1 BEFORE AND AFTER;
+        `gf.L_genfor96` golden UINT:4294967295 / ours
+        UINT:18446744073709551615 BEFORE AND AFTER.  `R10E93_CELLDBG=1` on
+        g3 prints cells for lines 5/9/13 only -- the generate-scope
+        localparams never reach `tryFoldConst`.  Reproduced independently in
+        v3 (LG / LI64 / LI96 / LI128, all unchanged).
+      * an INSTANCE PARAMETER ACTUAL.  In the pass's OWN g6 arm, `SEED` in
+        u1/u2/u3 is golden UINT:0 / 4294967295 / 0 and ours
+        18446744073709551615 / 18446744073709551615 / 3, before AND after.
+        Reproduced independently in v4 (`.SEED(96'(…))`).
+    Neither is a regression, neither is a mover, and the census says neither
+    exists in either corpus -- but the run-time denominator ("every non-firing
+    cell reports fires=0") counts only cells that REACH the site, so it could
+    not see them, and "no partially-modelled family here" was too strong.
+    NOTE FOR WHOEVER TAKES R0: the pass's own R0-testflags head sits inside the
+    elaborated gen-scope `gen_gal_xor.gen_lut.GAL_XOR_COEFFS` of prim_lfsr --
+    the same generate-scope emission path this residue names.
+
+R9  A DEFPARAM'd CAST WIDTH DOES NOT FOLLOW THE OVERRIDE IN GOLDEN.  New
+    measurement (v1, `v1_defp`): `parameter int DW = 32` with
+    `defparam u_dp.DW = 64` and `localparam logic [DW-1:0] L_dw = DW'(all-ones)`
+    gives golden `UINT:4294967295` at `vpiSize 64` -- Surelog masks with the
+    PRE-defparam width 32 while sizing with the elaborated width 64.  Patched
+    writes 0 (the mask for 64); pristine wrote 18446744073709551615.
+    STILL-WRONG both ways, so not a regression; the law's width source is the
+    elaborated width and golden's is not.  Zero corpus cells.
+
+R10 THE WRAPPED VALUE DOES NOT PROPAGATE.  New measurement (v5): with
+    `localparam A = 64'(64'd5)`, golden gives `D = 96'(A)` -> UINT:0 and
+    `C = A + 1` -> INT:1 because A itself is already wrapped to 0 in golden's
+    value store; ours gives 5 and 6, before AND after.  A bare read `B = A`
+    DOES land on golden, but only because the emitter substitutes a CLONE of
+    A's initializer, which re-folds through the gated mint.  Any read of a
+    wrapped parameter inside a larger expression stays unwrapped.  This is the
+    deepest limit of a mint-site model: the law rewrites digits, it does not
+    rewrite slang's constant value.
+
+R11 NO RE-TRUNCATION TO THE DECLARED TYPE AFTER MASKING.  New measurement
+    (v4 `P_byte`, v5 `v5_p127` / `v5_p33` / `v5_p63`): golden computes
+    `truncate_to_declared_type(value & mask)`.  `parameter byte P = 96'(all-ones)`
+    is golden UINT:255, patched UINT:4294967295, pristine
+    UINT:18446744073709551615.  An UNTYPED package localparam behaves as
+    32-bit: `localparam v5_p127 = 127'(all-ones)` is golden UINT:4294967295,
+    patched UINT:9223372036854775807.  Pre-existing (the sub-64 row
+    `v5_p63 = 63'(all-ones)` is golden 4294967295 and ours 2^63-1 with the law
+    OFF), still wrong after, not a regression.
+
+R12 EVIDENCE HYGIENE (cosmetic).  The committed HEAD_BEFORE_Earlgrey_*.cmp
+    files hold 32 lines each (one stream) while HEAD_AFTER_* hold the 29 / 50
+    that `rowheads.sh` captures (uhdm-cmp writes the head to BOTH stdout and
+    stderr).  The content matches line for line; only the capture differs.  The
+    README's "64 cmp lines" is the rowheads count and is right.
+
+========================================================================
+4.  RE-RUNNING THIS
+========================================================================
+  CEN93=<ct93cen> PRIS=<pristine> PATCHED=<patched> \
+      bash armv93.sh v4_edge93.sv /tmp/out_v4 && python3 score93v.py /tmp/out_v4
+  ct93cen and score93v.py are the pass's own instruments (score93v.py is
+  score93arm.py verbatim); armv93.sh differs from arm93.sh only in running all
+  four binaries in ONE directory, because the .uhdm embeds the source path and
+  a three-directory A/B control reads "differs" on a neutral binary.
