@@ -1874,7 +1874,38 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             // touch it.
             bool builtinLocalUnnamed0 =
                 nested0 && inClassBody0 && isBuiltinStdClass(ct0);
-            if (!localSameComp0 && !builtinLocalUnnamed0 &&
+            // § tfItemLocalClassTsNamedByCompileTypespec142 (r10uvm142) — the
+            // NARROWING of § localClassTsUnnamed15, on the face Surelog names
+            // through a DIFFERENT function.  A subroutine BODY LOCAL compiled
+            // under the TF-ITEM production has its typespec built by
+            // `compileTypespec` (CompileStmt.cpp:1665-1700) and therefore
+            // carries the written class name whatever the class's home is,
+            // while the BLOCK-ITEM production keeps `compileVariable`'s
+            // fallback object and stays anonymous.  Law + Surelog citations:
+            // UhdmExporter.h.
+            //
+            // THREE FENCES, each a refusal to move a cell this pass did not
+            // measure:
+            //   * `nested0` — only a SUBROUTINE / statement-block declaration;
+            //     a class PROPERTY or a package variable is named by the rule
+            //     above and is untouched (arm a `pkgvar142`, arm b
+            //     `bpkgvar_same`, both already RIGHT->RIGHT);
+            //   * the WRITTEN type must resolve DIRECTLY to a class — a
+            //     TYPEDEF'd handle takes Surelog's `SimpleType` arm
+            //     (CompileType.cpp:882-896), which hands back the TYPEDEF's OWN
+            //     object rather than minting one, so its name is that typedef's
+            //     (arm c `e_td` / `e_tdspec`, where golden has no object at the
+            //     declaration's span at all and ours is a pre-existing
+            //     ONLY-OURS mint — R1);
+            //   * `builtinLocalUnnamed0` still wins (§
+            //     builtinClassTsLinksBuiltinFileDefn7): a `std` built-in is not
+            //     resolvable as a DataType from a class body and never reaches
+            //     the naming arm in Surelog either.
+            const bool tfItemNamed142 =
+                tfItemLocalClassTs142 && nested0 && declared &&
+                arrayElemLeaf(declared->getType()).kind !=
+                    SymbolKind::TypeAlias;
+            if ((!localSameComp0 || tfItemNamed142) && !builtinLocalUnnamed0 &&
                 !(declSymbol.getParentScope() &&
                   declSymbol.getParentScope()->asSymbol().kind ==
                       SymbolKind::StatementBlock &&

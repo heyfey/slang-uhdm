@@ -5498,7 +5498,47 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         tfTypeScope = &sub;
                         tfTypeScopeViewLocal = true;
                     }
+                    // § tfItemLocalClassTsNamedByCompileTypespec142 — the
+                    // PRODUCTION, handed to the one arm that needs it.  Read
+                    // ONLY by TypeEmit's class-handle arm, where it narrows
+                    // § localClassTsUnnamed15's same-component suppression; the
+                    // law and its Surelog citations are in UhdmExporter.h.
+                    // `blockItems9` is the production selector this loop
+                    // already computed, so the gate cannot drift from the
+                    // shape the rest of the loop models.
+                    // VERIFIER FIX (r10v142) —
+                    // § tfItemLocalClassTsNotAConstructor142v.
+                    // A CLASS CONSTRUCTOR IS NEVER THE
+                    // TF-ITEM PRODUCTION, whatever its header looks like:
+                    // Surelog compiles a constructor body through
+                    // `CompileHelper::compileClassConstructorDeclaration`
+                    // (CompileStmt.cpp:2165), which never reaches
+                    // `compileTfPortDecl`'s `paBlock_item_declaration` arm at
+                    // all, so the local's typespec stays `compileVariable`'s
+                    // unnamed fallback even for a PAREN-LESS `function new;`.
+                    // `blockItems9` only reads the port-list paren, so without
+                    // this term the gate calls `function new;` TF-ITEM and
+                    // NAMES a local golden leaves anonymous.
+                    // MEASURED (verifier arms v142_a_ctor / v142_d_ctor2, both
+                    // views): four RIGHT->WRONG cells without this term —
+                    // `Cv1142::new` 14:7, `Bv4142::new` 12:7,
+                    // `Dv4142::new` (an extended class) 18:7 and a MODULE
+                    // class's `Mc4142::new` 43:7 — all golden-anonymous, all
+                    // named by the ungated gate.  Zero with it.
+                    // CONSTRUCTOR-NESS IS SLANG'S OWN FLAG, NOT THE NAME
+                    // (§ ctorNoVars71's lesson): an ESCAPED identifier is
+                    // exempt from keyword rules, so `function void \new ;` is
+                    // an ORDINARY paren-less method whose locals golden DOES
+                    // name — arm v142_d_ctor2 cells 24:7 / 25:7, WRONG->RIGHT
+                    // under this fix and RIGHT->WRONG under a `sub.name ==
+                    // "new"` test.
+                    bool savedTfi142 = tfItemLocalClassTs142;
+                    tfItemLocalClassTs142 =
+                        !blockItems9 &&
+                        (sub.flags & MethodFlags::Constructor) ==
+                            MethodFlags::None;
                     vts = makeTypespec(fmv);
+                    tfItemLocalClassTs142 = savedTfi142;
                     tdCloneRefNoBind18 = savedNb18;
                     tfTypeScope = savedTfS3;
                     tfTypeScopeViewLocal = savedTfV3;

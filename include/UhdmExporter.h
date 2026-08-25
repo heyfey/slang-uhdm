@@ -3498,6 +3498,76 @@ private:
     // the body statement(s).
     const void* tfBodyStmt9 = nullptr;
     bool tfBodyTfItems9 = false;
+    /// § `tfItemLocalClassTsNamedByCompileTypespec142` (r10uvm142) — A CLASS-
+    /// HANDLE SUBROUTINE BODY LOCAL COMPILED UNDER THE **TF-ITEM** PRODUCTION
+    /// CARRIES THE WRITTEN CLASS NAME ON ITS `class_typespec`, WHATEVER THE
+    /// CLASS'S HOME IS.
+    ///
+    /// Surelog's two body-declaration productions build the local's typespec
+    /// from two different places, and only one of them ever NAMES it:
+    ///
+    ///   * **TF-ITEM** — `CompileHelper::compileTfPortDecl`'s
+    ///     `paBlock_item_declaration` arm (`CompileStmt.cpp:1665-1700`) calls
+    ///     `compileTypespec(component, fC, Data_type, …)` for the whole
+    ///     declaration and then OVERWRITES every declarator's typespec with it
+    ///     (`var->Typespec()->Actual_typespec(ts)`).  `compileTypespec` reaches
+    ///     `compileDatastructureTypespec`'s `ClassDefinition` arm
+    ///     (`CompileType.cpp:902-908`), which mints `class_typespec` +
+    ///     `ref->VpiName(typeName)` + `populateCoreMembers(type, type, ref)` —
+    ///     the WRITTEN spelling and the TYPE NODE's span.
+    ///   * **BLOCK-ITEM** — `CompileHelper::compileDataDeclaration`
+    ///     (`CompileStmt.cpp:1152-1153`) has that very `compileTypespec` call
+    ///     **commented out** and keeps whatever `compileVariable` produced.
+    ///     For a class handle that is `compileVariable`'s
+    ///     `design->getClassDefinition(typeName)` fallback
+    ///     (`CompileType.cpp:360-384`), which mints a class_typespec with
+    ///     `Class_defn` and **no** `VpiName` — unless the earlier
+    ///     `component->getDataType(typeName)` lookup hit, which it does for an
+    ///     IMPORTED or `$unit` class and not for a class the enclosing
+    ///     component declares itself.  That surviving asymmetry is exactly
+    ///     § `localClassTsUnnamed15` / § `classMethodLocalNameFollowsHomeComponent7`,
+    ///     and this law does not touch it.
+    ///
+    /// So the production, not the home, decides on the tf-item face.  Set only
+    /// around the body-local `makeTypespec` call in `emitTaskFuncs`, whose
+    /// `blockItems9` IS the production selector (§ `blockItems9`: a FUNCTION
+    /// takes the block shape iff its header carries a port-list paren, a TASK
+    /// unless its body declares io).
+    ///
+    /// The `vpiInstance` half needs no code: the site already stamps `tsInst`
+    /// (the declaring PACKAGE for a package free subroutine and for an
+    /// out-of-body class method, NOTHING for an in-body one or for anything in
+    /// a module) on the typespec, and `clearAnonClassTsInstance` was the only
+    /// thing taking it away again — a NAMED object keeps it.  Golden's stamp is
+    /// `compileTypespec`'s own tail (`CompileType.cpp:2135-2137`,
+    /// `result->Instance(component->getUhdmInstance())`), and only a `Package`
+    /// ever has a `getUhdmInstance()` (`CompilePackage.cpp:84`,
+    /// `Builtin.cpp:246`, `ResolveSymbols.cpp:110` are the only three writers),
+    /// so it is the USE SITE's package — never the class's home.  Measured both
+    /// ways: `g142_b_home.sv` `oo_othimp` / `oo_othscoped` name a class living
+    /// in `pb1142` from a subroutine in `pb2142` and golden reads
+    /// `vpiInstance -> package pb2142`.
+    ///
+    /// § `tfItemLocalClassTsNotAConstructor142v` (r10v142, the VERIFIER's
+    /// narrowing) — A CLASS CONSTRUCTOR IS NEVER THE TF-ITEM PRODUCTION,
+    /// however its header is written.  Surelog compiles a constructor body
+    /// through `CompileHelper::compileClassConstructorDeclaration`
+    /// (`CompileStmt.cpp:2165`), which never reaches `compileTfPortDecl`'s
+    /// `paBlock_item_declaration` arm at all, so a constructor's class-handle
+    /// local keeps `compileVariable`'s UNNAMED fallback object even for a
+    /// PAREN-LESS `function new;`.  `blockItems9` reads only the port-list
+    /// paren and therefore calls `function new;` TF-ITEM, so the flag carries
+    /// the constructor term itself.  MEASURED (verifier arms `v142_a_ctor` /
+    /// `v142_d_ctor2`, both views): FOUR RIGHT->WRONG cells without it —
+    /// `Cv1142::new` 14:7, `Bv4142::new` 12:7, `Dv4142::new` (an extended
+    /// class) 18:7 and a MODULE class's `Mc4142::new` 43:7 — zero with it.
+    /// The term is slang's own `MethodFlags::Constructor`, NOT a `sub.name ==
+    /// "new"` test (§ `ctorNoVars71`'s lesson): an ESCAPED identifier is
+    /// exempt from keyword rules, so `function void \new ;` is an ORDINARY
+    /// paren-less method whose locals golden DOES name (arm `v142_d_ctor2`
+    /// cells 24:7 / 25:7, WRONG->RIGHT under the flag test and RIGHT->WRONG
+    /// under a name test).
+    bool tfItemLocalClassTs142 = false;
     // § constructorBodyElementShift27 / § ctorDeclIsRhslessAssignment27 — a
     // CLASS CONSTRUCTOR body is compiled by a function of its own
     // (CompileHelper::compileClassConstructorDeclaration, CompileStmt.cpp:2165)

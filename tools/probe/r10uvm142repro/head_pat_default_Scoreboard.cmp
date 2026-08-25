@@ -1,0 +1,29 @@
+LHS: <null>
+RHS:
+decompile:
+io_decl: (obj), id:41256, line:897:60, endln:897:63
+|vpiParent:
+\_task: (uvm_pkg::uvm_objection::wait_for), id:41253, line:897:3, endln:918:11
+|vpiDirection:1
+|vpiName:obj
+|vpiTypedef:
+\_ref_typespec: (uvm_pkg::uvm_objection::wait_for::obj), id:41257
+  |vpiParent:
+  \_io_decl: (obj), id:41256, line:897:60, endln:897:63
+  |vpiFullName:uvm_pkg::uvm_objection::wait_for::obj
+  |vpiActual:
+  \_class_typespec: (uvm_object), id:41258, line:897:49, endln:897:59
+
+decompile:
+io_decl: (obj), id:41256, line:897:60, endln:897:63
+|vpiParent:
+\_task: (uvm_pkg::uvm_objection::wait_for), id:41253, line:897:3, endln:918:11
+|vpiDirection:1
+|vpiName:obj
+|vpiTypedef:
+\_ref_typespec: (uvm_pkg::uvm_objection::wait_for::obj), id:41257
+  |vpiParent:
+  \_io_decl: (obj), id:41256, line:897:60, endln:897:63
+  |vpiFullName:uvm_pkg::uvm_objection::wait_for::obj
+  |vpiActual:
+  \_class_typespec: (uvm_object), id:41258, line:897:49, endln:897:59

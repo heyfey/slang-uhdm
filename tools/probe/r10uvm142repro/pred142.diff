@@ -1,0 +1,67 @@
+diff --git a/include/UhdmExporter.h b/include/UhdmExporter.h
+index 84dcc26e..f7a9b84b 100644
+--- a/include/UhdmExporter.h
++++ b/include/UhdmExporter.h
+@@ -3498,6 +3498,10 @@ private:
+     // the body statement(s).
+     const void* tfBodyStmt9 = nullptr;
+     bool tfBodyTfItems9 = false;
++    // r10uvm142 PREDICTOR BUILD ONLY (never shipped): the TF-ITEM production
++    // flag, set around the body-local makeTypespec call, so the predictor can
++    // evaluate the law's gate without applying it.
++    bool tfItemLocalClassTs142 = false;
+     // § constructorBodyElementShift27 / § ctorDeclIsRhslessAssignment27 — a
+     // CLASS CONSTRUCTOR body is compiled by a function of its own
+     // (CompileHelper::compileClassConstructorDeclaration, CompileStmt.cpp:2165)
+diff --git a/src/TaskFuncEmit.cpp b/src/TaskFuncEmit.cpp
+index e1ca66e1..061b851e 100644
+--- a/src/TaskFuncEmit.cpp
++++ b/src/TaskFuncEmit.cpp
+@@ -5498,7 +5498,10 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
+                         tfTypeScope = &sub;
+                         tfTypeScopeViewLocal = true;
+                     }
++                    bool savedTfi142 = tfItemLocalClassTs142;
++                    tfItemLocalClassTs142 = !blockItems9;
+                     vts = makeTypespec(fmv);
++                    tfItemLocalClassTs142 = savedTfi142;
+                     tdCloneRefNoBind18 = savedNb18;
+                     tfTypeScope = savedTfS3;
+                     tfTypeScopeViewLocal = savedTfV3;
+diff --git a/src/TypeEmit.cpp b/src/TypeEmit.cpp
+index 7b8abd93..d3b5ff8c 100644
+--- a/src/TypeEmit.cpp
++++ b/src/TypeEmit.cpp
+@@ -1874,6 +1874,32 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
+             // touch it.
+             bool builtinLocalUnnamed0 =
+                 nested0 && inClassBody0 && isBuiltinStdClass(ct0);
++            // r10uvm142 PREDICTOR BUILD ONLY — never shipped.  Evaluates
++            // § tfItemLocalClassTsNamedByCompileTypespec142's own gate on the
++            // PRISTINE code path and names every cell the law would newly
++            // name, without changing a single field.  Used by bound142.sh so
++            // "this file moved" can be checked against the law's OWN decision
++            // rather than a syntactic proxy.
++            {
++                const bool tfi142 =
++                    tfItemLocalClassTs142 && nested0 && declared &&
++                    arrayElemLeaf(declared->getType()).kind !=
++                        SymbolKind::TypeAlias;
++                if (tfi142 && localSameComp0 && !builtinLocalUnnamed0 &&
++                    !(declSymbol.getParentScope() &&
++                      declSymbol.getParentScope()->asSymbol().kind ==
++                          SymbolKind::StatementBlock &&
++                      ct0.getParentScope() &&
++                      ct0.getParentScope()->asSymbol().kind ==
++                          SymbolKind::InstanceBody))
++                    if (const char* pf142 = getenv("PRED142"))
++                        if (FILE* fp142 = fopen(pf142, "a")) {
++                            fprintf(fp142, "PRED142|%s|%s\n",
++                                    std::string(declSymbol.name).c_str(),
++                                    std::string(ct0.name).c_str());
++                            fclose(fp142);
++                        }
++            }
+             if (!localSameComp0 && !builtinLocalUnnamed0 &&
+                 !(declSymbol.getParentScope() &&
+                   declSymbol.getParentScope()->asSymbol().kind ==

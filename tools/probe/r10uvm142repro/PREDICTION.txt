@@ -1,0 +1,86 @@
+# r10uvm142 — A-PRIORI MOVER PREDICTION, made from the PRISTINE databases
+# ALONE (predsweep142.sh + pred142.py over BOTH sweep workdirs) BEFORE the
+# patched binary existed.  MEASUREMENT ONLY.
+#
+# rows examined: 2314 (surelog both modes + uhdm2rtlil both modes)
+# rows with no golden or no database: 721 (SKIP-NOFILE, counted, not hidden)
+# rows predicted to MOVE: 9 — every other row predicted BYTE-IDENTICAL.
+
+PRED default/BuildUVMPkg-bf853d43 10 rc_g=0 rc_o=0
+PRED default/MiniAmiq-544c7f61 12 rc_g=0 rc_o=0
+PRED default/Scoreboard-59431470 6 rc_g=0 rc_o=0
+PRED default/SeqDriver-32af76aa 12 rc_g=0 rc_o=0
+PRED default/SimpleUVM-1dc93a62 6 rc_g=0 rc_o=0
+PRED testflags/BuildUVMPkg-bf853d43 10 rc_g=0 rc_o=0
+PRED testflags/MiniAmiq-544c7f61 12 rc_g=0 rc_o=0
+PRED testflags/SeqDriver-32af76aa 12 rc_g=0 rc_o=0
+PRED testflags/SimpleUVM-1dc93a62 6 rc_g=0 rc_o=0
+PREDDONE
+
+SKIP-NOFILE rows: 721
+-- rows=2314 SKIP-NOFILE=721 PREDICTED-MOVERS=9
+
+== the predicted CELLS, per database
+--- default.BuildUVMPkg-bf853d43
+CELL 41172:3-41172:24   n=2 NAME=uvm_cmdline_processor DEFN=uvm_pkg::uvm_cmdline_processor GOLDEN_TF=2 OURS_ANON=2
+CELL 41173:3-41173:11   n=2 NAME=uvm_root DEFN=uvm_pkg::uvm_root GOLDEN_TF=2 OURS_ANON=2
+CELL 41174:3-41174:20   n=2 NAME=uvm_coreservice_t DEFN=uvm_pkg::uvm_coreservice_t GOLDEN_TF=2 OURS_ANON=2
+CELL 41266:3-41266:24   n=2 NAME=uvm_cmdline_processor DEFN=uvm_pkg::uvm_cmdline_processor GOLDEN_TF=2 OURS_ANON=2
+CELL 41353:3-41353:24   n=2 NAME=uvm_cmdline_processor DEFN=uvm_pkg::uvm_cmdline_processor GOLDEN_TF=2 OURS_ANON=2
+TOTAL=10
+--- default.MiniAmiq-544c7f61
+CELL 3383:3-3383:24     n=4 NAME=uvm_cmdline_processor DEFN=uvm_pkg::uvm_cmdline_processor GOLDEN_TF=4 OURS_ANON=4
+CELL 3384:3-3384:11     n=4 NAME=uvm_root DEFN=uvm_pkg::uvm_root GOLDEN_TF=4 OURS_ANON=4
+CELL 3385:3-3385:20     n=4 NAME=uvm_coreservice_t DEFN=uvm_pkg::uvm_coreservice_t GOLDEN_TF=4 OURS_ANON=4
+TOTAL=12
+--- default.Scoreboard-59431470
+CELL 3383:3-3383:24     n=2 NAME=uvm_cmdline_processor DEFN=uvm_pkg::uvm_cmdline_processor GOLDEN_TF=2 OURS_ANON=2
+CELL 3384:3-3384:11     n=2 NAME=uvm_root DEFN=uvm_pkg::uvm_root GOLDEN_TF=2 OURS_ANON=2
+CELL 3385:3-3385:20     n=2 NAME=uvm_coreservice_t DEFN=uvm_pkg::uvm_coreservice_t GOLDEN_TF=2 OURS_ANON=2
+TOTAL=6
+--- default.SeqDriver-32af76aa
+CELL 3383:3-3383:24     n=4 NAME=uvm_cmdline_processor DEFN=uvm_pkg::uvm_cmdline_processor GOLDEN_TF=4 OURS_ANON=4
+CELL 3384:3-3384:11     n=4 NAME=uvm_root DEFN=uvm_pkg::uvm_root GOLDEN_TF=4 OURS_ANON=4
+CELL 3385:3-3385:20     n=4 NAME=uvm_coreservice_t DEFN=uvm_pkg::uvm_coreservice_t GOLDEN_TF=4 OURS_ANON=4
+TOTAL=12
+--- default.SimpleUVM-1dc93a62
+CELL 3383:3-3383:24     n=2 NAME=uvm_cmdline_processor DEFN=uvm_pkg::uvm_cmdline_processor GOLDEN_TF=2 OURS_ANON=2
+CELL 3384:3-3384:11     n=2 NAME=uvm_root DEFN=uvm_pkg::uvm_root GOLDEN_TF=2 OURS_ANON=2
+CELL 3385:3-3385:20     n=2 NAME=uvm_coreservice_t DEFN=uvm_pkg::uvm_coreservice_t GOLDEN_TF=2 OURS_ANON=2
+TOTAL=6
+--- testflags.BuildUVMPkg-bf853d43
+CELL 41172:3-41172:24   n=2 NAME=uvm_cmdline_processor DEFN=uvm_pkg::uvm_cmdline_processor GOLDEN_TF=2 OURS_ANON=2
+CELL 41173:3-41173:11   n=2 NAME=uvm_root DEFN=uvm_pkg::uvm_root GOLDEN_TF=2 OURS_ANON=2
+CELL 41174:3-41174:20   n=2 NAME=uvm_coreservice_t DEFN=uvm_pkg::uvm_coreservice_t GOLDEN_TF=2 OURS_ANON=2
+CELL 41266:3-41266:24   n=2 NAME=uvm_cmdline_processor DEFN=uvm_pkg::uvm_cmdline_processor GOLDEN_TF=2 OURS_ANON=2
+CELL 41353:3-41353:24   n=2 NAME=uvm_cmdline_processor DEFN=uvm_pkg::uvm_cmdline_processor GOLDEN_TF=2 OURS_ANON=2
+TOTAL=10
+--- testflags.MiniAmiq-544c7f61
+CELL 3383:3-3383:24     n=4 NAME=uvm_cmdline_processor DEFN=uvm_pkg::uvm_cmdline_processor GOLDEN_TF=4 OURS_ANON=4
+CELL 3384:3-3384:11     n=4 NAME=uvm_root DEFN=uvm_pkg::uvm_root GOLDEN_TF=4 OURS_ANON=4
+CELL 3385:3-3385:20     n=4 NAME=uvm_coreservice_t DEFN=uvm_pkg::uvm_coreservice_t GOLDEN_TF=4 OURS_ANON=4
+TOTAL=12
+--- testflags.SeqDriver-32af76aa
+CELL 3383:3-3383:24     n=4 NAME=uvm_cmdline_processor DEFN=uvm_pkg::uvm_cmdline_processor GOLDEN_TF=4 OURS_ANON=4
+CELL 3384:3-3384:11     n=4 NAME=uvm_root DEFN=uvm_pkg::uvm_root GOLDEN_TF=4 OURS_ANON=4
+CELL 3385:3-3385:20     n=4 NAME=uvm_coreservice_t DEFN=uvm_pkg::uvm_coreservice_t GOLDEN_TF=4 OURS_ANON=4
+TOTAL=12
+--- testflags.SimpleUVM-1dc93a62
+CELL 3383:3-3383:24     n=2 NAME=uvm_cmdline_processor DEFN=uvm_pkg::uvm_cmdline_processor GOLDEN_TF=2 OURS_ANON=2
+CELL 3384:3-3384:11     n=2 NAME=uvm_root DEFN=uvm_pkg::uvm_root GOLDEN_TF=2 OURS_ANON=2
+CELL 3385:3-3385:20     n=2 NAME=uvm_coreservice_t DEFN=uvm_pkg::uvm_coreservice_t GOLDEN_TF=2 OURS_ANON=2
+TOTAL=6
+
+== SOURCE SITES the spans name
+  uvm_component.svh:3383  uvm_cmdline_processor clp = uvm_cmdline_processor::get_inst();
+  uvm_component.svh:3384  uvm_root      top;
+  uvm_component.svh:3385  uvm_coreservice_t cs;
+     — all three in `function void uvm_component::m_set_cl_verb;`, an
+       OUT-OF-BODY class method with a PAREN-LESS header (TF-ITEM production).
+  BuildUVMPkg is the 1800.2 pp_output, one flat file: 41172/41173/41174 are
+  the same three declarations, 41266 and 41353 two more tf-item
+  `uvm_cmdline_processor clp = …` locals in the same preprocessed text.
+
+== OUTCOME (measured after the patch, byteverify.sh SELFCHECK=1)
+  surelog corpus : MOVERS 9 / 956  — exactly the 9 predicted, by name
+  uhdm2rtlil     : MOVERS 0 / 1358 — as predicted

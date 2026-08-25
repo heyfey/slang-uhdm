@@ -1,0 +1,38 @@
+MOVED tools/probe/r10uvm139repro/g139_b_kinds.sv def dumplines=56 cenlines=16 predcells=8
+MOVED tools/probe/r10uvm139repro/g139_b_kinds.sv elab dumplines=64 cenlines=16 predcells=8
+MOVED tools/probe/r10uvm139repro/g139_c_shapes.sv def dumplines=28 cenlines=8 predcells=4
+MOVED tools/probe/r10uvm139repro/g139_c_shapes.sv elab dumplines=36 cenlines=8 predcells=4
+MOVED tools/probe/r10uvm142repro/g142_a_prod.sv def dumplines=157 cenlines=50 predcells=25
+MOVED tools/probe/r10uvm142repro/g142_a_prod.sv elab dumplines=167 cenlines=50 predcells=25
+MOVED tools/probe/r10uvm142repro/g142_b_home.sv def dumplines=57 cenlines=18 predcells=10
+MOVED tools/probe/r10uvm142repro/g142_b_home.sv elab dumplines=97 cenlines=18 predcells=10
+MOVED tools/probe/r10uvm142repro/g142_c_shape.sv def dumplines=196 cenlines=56 predcells=28
+MOVED tools/probe/r10uvm142repro/g142_c_shape.sv elab dumplines=230 cenlines=56 predcells=28
+MOVED tools/probe/r10v139repro/v139_a_kinds.sv def dumplines=84 cenlines=24 predcells=12
+MOVED tools/probe/r10v139repro/v139_a_kinds.sv elab dumplines=108 cenlines=24 predcells=12
+MOVED tools/probe/r10v139repro/v139_h_odd.sv def dumplines=28 cenlines=8 predcells=4
+MOVED tools/probe/r10v139repro/v139_h_odd.sv elab dumplines=36 cenlines=8 predcells=4
+LISTED=4034 PROCESSED=4034 MOVED=14 BREACH=0 RC-MISMATCH=0 NORUN=306
+PROCESSED-ASSERT-OK
+BOUNDARY PASS
+
+POSITIVE CONTROL (CTRL=1 over this pass's own arm directory):
+  LISTED=3 PROCESSED=3 MOVED=6 BREACH=0 RC-MISMATCH=0 NORUN=0
+  POSITIVE-CONTROL-OK (gate can see: 6 file-views moved)
+
+THE FOUR FOREIGN ARM FILES, RE-MEASURED AGAINST GOLDEN (r10uvm139's
+g139_b_kinds.sv / g139_c_shapes.sv and r10v139's v139_a_kinds.sv /
+v139_h_odd.sv, both views).  They move TOWARD golden and nowhere else —
+an independent test of the law on grids this pass did not write:
+  g139_b_kinds  def/elab  TSNAME TOTAL=13 R->R=5 W->R=8   TSINST TOTAL=13 R->R=5 W->R=8
+  g139_c_shapes def/elab  TSNAME TOTAL=4  W->R=4          TSINST TOTAL=4  W->R=4
+  v139_a_kinds  def/elab  TSNAME TOTAL=18 R->R=6 W->R=12  TSINST TOTAL=18 R->R=6 W->R=12
+  v139_h_odd    def/elab  TSNAME TOTAL=4  W->R=4          TSINST TOTAL=4  W->R=4
+  RIGHT->WRONG=0, ONLY-GOLDEN=0, ONLY-OURS=0, AWAY=0 on every one.
+  Every moved cell is a PAREN-LESS subroutine's class-handle body local:
+    Forge139::Tongs139 (x4), Loom139::Bobbin139 (x2),
+    Quarrel139::Trinket139 (x6), Wicket139::Pawl139 (x2).
+
+NORUN=306 file-views are files NEITHER binary produced a database for
+(slang rejects them, or both segfault identically); an rc MISMATCH between
+the two binaries would have been a BREACH and there were none.

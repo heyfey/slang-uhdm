@@ -1,0 +1,72 @@
+# r10uvm142 — the NEW head after the patch, SeqDriver/default.  MEASUREMENT ONLY.
+# uhdm-cmp lines: 6254   ^LHS: count: 1
+# The head object (both sides): the body `begin` of
+#   uvm_pkg::uvm_component::m_set_cl_verb  (uvm_component.svh:3375)
+# It is a Stmts VECTOR SIZE MISMATCH — the vector SafeCompare overload
+# sets BOTH containers, so both sides print in full (RESUME.md §9).
+
+== LHS (golden) top-level statements of the begin
+\_assignment: , line:3386:3, endln:3386:32
+\_assignment: , line:3387:3, endln:3387:22
+\_assignment: , line:3456:3, endln:3456:12
+\_foreach_stmt: (uvm_pkg::uvm_component::m_set_cl_verb), line:3392:3, endln:3392:10
+\_if_stmt: , line:3389:3, endln:3390:74
+\_if_stmt: , line:3432:3, endln:3454:6
+
+== RHS (ours) top-level statements of the begin
+\_assignment: , line:3381:14, endln:3381:23
+\_assignment: , line:3383:25, endln:3383:64
+\_assignment: , line:3386:3, endln:3386:32
+\_assignment: , line:3387:3, endln:3387:22
+\_assignment: , line:3456:3, endln:3456:12
+\_foreach_stmt: (uvm_pkg::uvm_component::m_set_cl_verb), line:3392:3, endln:3392:10
+\_if_stmt: , line:3389:3, endln:3390:74
+\_if_stmt: , line:3432:3, endln:3454:6
+
+== THE DIFFERENCE (R0): ours carries TWO EXTRA assignments, both the
+   HOISTED INITIALISER of a TF-ITEM local —
+     3381:14-3381:23   static bit first = 1;
+     3383:25-3383:64   uvm_cmdline_processor clp = uvm_cmdline_processor::get_inst();
+   golden's begin has 6 statements, ours 8.
+
+== First 40 lines of the raw head
+LHS:
+decompile:
+begin: (uvm_pkg::uvm_component::m_set_cl_verb), id:21289, line:3387:3, endln:3387:23
+|vpiParent:
+\_function: (uvm_pkg::uvm_component::m_set_cl_verb), id:766, line:3375:1, endln:3457:12
+|vpiFullName:uvm_pkg::uvm_component::m_set_cl_verb
+|vpiStmt:
+\_assignment: , id:21290, line:3386:3, endln:3386:32
+  |vpiParent:
+  \_begin: (uvm_pkg::uvm_component::m_set_cl_verb), id:21289, line:3387:3, endln:3387:23
+  |vpiOpType:82
+  |vpiBlocking:1
+  |vpiRhs:
+  \_ref_obj: (uvm_pkg::uvm_component::m_set_cl_verb::uvm_coreservice_t::get), id:21292, line:3386:8, endln:3386:27
+    |vpiParent:
+    \_assignment: , id:21290, line:3386:3, endln:3386:32
+    |vpiName:uvm_coreservice_t::get
+    |vpiFullName:uvm_pkg::uvm_component::m_set_cl_verb::uvm_coreservice_t::get
+  |vpiLhs:
+  \_ref_obj: (uvm_pkg::uvm_component::m_set_cl_verb::cs), id:21291, line:3386:3, endln:3386:5
+    |vpiParent:
+    \_assignment: , id:21290, line:3386:3, endln:3386:32
+    |vpiName:cs
+    |vpiFullName:uvm_pkg::uvm_component::m_set_cl_verb::cs
+    |vpiActual:
+    \_class_var: (uvm_pkg::cs), id:319138, line:1731:21, endln:1731:23
+|vpiStmt:
+\_assignment: , id:21293, line:3387:3, endln:3387:22
+  |vpiParent:
+  \_begin: (uvm_pkg::uvm_component::m_set_cl_verb), id:21289, line:3387:3, endln:3387:23
+  |vpiOpType:82
+  |vpiBlocking:1
+  |vpiRhs:
+  \_hier_path: (cs.get_root), id:21295, line:3387:9, endln:3387:22
+    |vpiParent:
+    \_assignment: , id:21293, line:3387:3, endln:3387:22
+    |vpiActual:
+    \_ref_obj: (cs), id:21296, line:3387:9, endln:3387:11
+      |vpiParent:
+      \_hier_path: (cs.get_root), id:21295, line:3387:9, endln:3387:22

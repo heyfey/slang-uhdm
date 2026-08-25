@@ -1,0 +1,55 @@
+# r10v142 — THE GATE BATTERY, run by the VERIFIER on its own builds.
+# pristine and patched+fix built -j 2 in separate worktrees at eca7329,
+# md5s taken separately, both frozen chmod 555 BEFORE any sweep.
+
+(1) BUILD
+    pristine  = a fresh eca7329 worktree
+    submitted = eca7329 + r10uvm142.patch
+    fixed     = eca7329 + r10uvm142.verified.patch   (the shipped one)
+    predictor = eca7329 + r10uvm142repro/pred142.diff (never shipped)
+    predictor INERTNESS: database byte-identical to pristine on v142_a_ctor.sv
+    and g142_a_prod.sv, both views, while naming 11 and 25 cells.
+
+(2) GOLDENS   pristine 23 PASS / 0 FAIL; submitted 23/0; fixed 23/0;
+              SLANG_UHDM=/bin/false -> 0 PASS / 23 FAIL (negative control)
+
+(3) uhdm2rtlil  679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL, both modes,
+              all three binaries.  ct8rows 0 differing rows vs the committed
+              results/gate_uhdm2rtlil.csv AND vs my own pristine, both modes.
+
+(4) surelog --mode both   ct8rows 0 differing ROWS over 1588 vs the committed
+              results/golden_surelog.csv AND vs my own pristine.  NO ROW
+              CONVERTED; results/*.csv NOT EDITED.  Histograms:
+              default   471 CMP_EQUAL / 10 CMP_NOTEQUAL / 5 DEFERRED / 283 SLANG_REJECT / 25 SURELOG_FAIL
+              testflags 466 / 9 / 5 / 3 NO_DATABASE / 1 NO_UHDM / 284 / 23 / 1 TIMEOUT / 2 UNTRANSLATABLE
+              — identical for pristine, submitted and fixed.
+
+(5) BYTE VERIFIER SELFCHECK=1   surelog MOVERS 9/956 (the nine PREDICTED BY
+              NAME, a priori, from pristine databases only), uhdm2rtlil 0/1358.
+              Every mover attributed ORDER-BLIND: see MOVERS.txt.
+
+    cmds.txt AUDIT BY BINARY PATH (not by the string "slang-uhdm", which also
+    matches slang-uhdm-goldens/):
+      fixed  surelog workdir 1523 cmds.txt name the frozen fixed binary, 0 other
+      fixed  u2r     workdir 1458 cmds.txt name the frozen fixed binary, 0 other
+      (2981 of 3035; the other 54 rows never invoked slang)
+
+(6) CANARIES  canaries.sh ok=52 changed=0 (surelog), ok=8 changed=0 (u2r);
+              ctcan2.sh PASS with EXPECT_UNKNOWN=1 / EXPECT_UNKNOWN=6;
+              canaudit.sh canaries.sh ctcan2.sh -> audited=29 UNCOVERED=0 FENCE-BREACH=0.
+              PROTECTED DATABASES (md5 vs my pristine sweep):
+                InterfaceModPort  default/testflags  59a365f3ce2c  SAME
+                BlackParrotComplex default e3e354129d5a / testflags 73a10e8217e5  SAME
+                YosysOldOr        default/testflags  d68e0796d62c  SAME
+                SVSwitch          4842211c4030  (pin)
+                YosysVerx         6ccda350c24a  (pin)
+
+(7) WIDE BOUNDARY (bound142.sh over the WHOLE of tools/probe, subdirectories
+              included, both views, pristine vs FIXED):
+                LISTED=4034 PROCESSED=4034 MOVED=14 BREACH=0 RC-MISMATCH=0 NORUN=306
+                PROCESSED-ASSERT-OK / BOUNDARY PASS
+              POSITIVE CONTROL (CTRL=1 over r10uvm142repro): MOVED=6, gate can see.
+              No r10uvm123 / r10uvm114 / r10uvm112 / r10uvm83 / r10uvm88 file-view moved.
+
+(8) ARMS      five verifier grids x two views: RIGHT->WRONG 0, AWAY 0 (VARMS.fixed.txt).
+              Against the patch AS SUBMITTED: 4 RIGHT->WRONG cells (VARMS.pre-fix.txt).

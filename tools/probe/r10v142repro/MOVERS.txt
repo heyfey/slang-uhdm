@@ -1,0 +1,38 @@
+# r10v142 — MOVER ATTRIBUTION, order-blind (sorted whole-dump, workdir-normalised).
+# byteverify.sh SELFCHECK=1, my own pristine vs my own FIXED build.
+
+## surelog corpus
+  PATH_SETS_IDENTICAL (956 paths)
+  MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm  patched=e61d38186a16 pristine=f75a5d6022be
+  MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=578ff17ca95f pristine=ccecdf48cec2
+  MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=63a1ba37016a pristine=0c70903248cf
+  MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=daff8debaafd pristine=b7d6d855b688
+  MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=2bc3af689ee7 pristine=ad1e780d2bd4
+  MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  patched=e61d38186a16 pristine=f75a5d6022be
+  MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=578ff17ca95f pristine=ccecdf48cec2
+  MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=4ed0eb8ff194 pristine=2e7b342cea0a
+  MOVER ./testflags/SimpleUVM-1dc93a62/slang.uhdm  patched=bd85049327c3 pristine=82fce4f479e9
+  MOVERS: 9 / 956
+  SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+
+## uhdm2rtlil
+  PATH_SETS_IDENTICAL (1358 paths)
+  MOVERS: 0 / 1358
+  SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+
+## per-mover ORDER-BLIND dump diff (sort both dumps first; mandatory for the
+## Scoreboard/default COIN), and the count of diff lines that are NOT a
+## class_typespec identity line / |vpiName: / |vpiInstance: / the named package
+  default_SeqDriver-32af76aa  difflines=84  outside-the-law=0
+  testflags_SeqDriver-32af76aa  difflines=84  outside-the-law=0
+  default_MiniAmiq-544c7f61  difflines=84  outside-the-law=0
+  testflags_MiniAmiq-544c7f61  difflines=84  outside-the-law=0
+  default_BuildUVMPkg-bf853d43  difflines=70  outside-the-law=0
+  testflags_BuildUVMPkg-bf853d43  difflines=70  outside-the-law=0
+  default_SimpleUVM-1dc93a62  difflines=42  outside-the-law=0
+  testflags_SimpleUVM-1dc93a62  difflines=42  outside-the-law=0
+  default_Scoreboard-59431470  difflines=42  outside-the-law=0
+
+## the FIX changes NOTHING in the corpus: fixed vs unfixed-patched is 1/956 byte
+## movers (Scoreboard/default), and that one is ZERO lines ORDER-BLIND — the
+## known ~50/50 COIN, not the fix.

@@ -1,0 +1,875 @@
+== g142_a_prod.def  rc_sl=0 rc_pris=4 rc_pat=4 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+TSNAME   TOTAL=64 RIGHT->RIGHT=38 WRONG->RIGHT=25 WRONG->WRONG=1
+    113:5-113:10   G={'Ma142': 1} P={'-': 1} Q={'Ma142': 1}
+    114:5-114:10   G={'Ma142': 1} P={'-': 1} Q={'Ma142': 1}
+    125:5-125:10   G={'Ma142': 1} P={'-': 1} Q={'Ma142': 1}
+    129:7-129:12   G={'Ma142': 1} P={'-': 1} Q={'Ma142': 1}
+    138:5-138:10   G={'Ma142': 1} P={'-': 1} Q={'Ma142': 1}
+    19:7-19:12     G={'Ka142': 1} P={'-': 1} Q={'Ka142': 1}
+    20:7-20:12     G={'Ka142': 1} P={'-': 1} Q={'Ka142': 1}
+    35:7-35:12     G={'Ka142': 1} P={'-': 1} Q={'Ka142': 1}
+    36:7-36:12     G={'Ka142': 1} P={'-': 1} Q={'Ka142': 1}
+    46:5-46:10     G={'Ka142': 2} P={'-': 2} Q={'Ka142': 2}
+    47:5-47:10     G={'Ka142': 2} P={'-': 2} Q={'Ka142': 2}
+    60:5-60:10     G={'Ka142': 2} P={'-': 2} Q={'Ka142': 2}
+    61:5-61:10     G={'Ka142': 2} P={'-': 2} Q={'Ka142': 2}
+    66:5-66:10     G={'Ka142': 2} P={'-': 2} Q={'Ka142': 2}
+    67:5-67:10     G={'Ka142': 2} P={'-': 2} Q={'Ka142': 2}
+    79:5-79:10     G={'Ka142': 2} P={'-': 2} Q={'Ka142': 2}
+    80:5-80:10     G={'Ka142': 2} P={'-': 2} Q={'Ka142': 2}
+    89:19-89:24    G={'Ua142': 1} P={'-': 1} Q={'-': 1}
+TSINST   TOTAL=64 RIGHT->RIGHT=48 WRONG->RIGHT=16
+    46:5-46:10     G={'package(pa142)': 2} P={'-': 2} Q={'package(pa142)': 2}
+    47:5-47:10     G={'package(pa142)': 2} P={'-': 2} Q={'package(pa142)': 2}
+    60:5-60:10     G={'package(pa142)': 2} P={'-': 2} Q={'package(pa142)': 2}
+    61:5-61:10     G={'package(pa142)': 2} P={'-': 2} Q={'package(pa142)': 2}
+    66:5-66:10     G={'package(pa142)': 2} P={'-': 2} Q={'package(pa142)': 2}
+    67:5-67:10     G={'package(pa142)': 2} P={'-': 2} Q={'package(pa142)': 2}
+    79:5-79:10     G={'package(pa142)': 2} P={'-': 2} Q={'package(pa142)': 2}
+    80:5-80:10     G={'package(pa142)': 2} P={'-': 2} Q={'package(pa142)': 2}
+TSALIAS  TOTAL=64 RIGHT->RIGHT=64
+TSDEFN   TOTAL=64 RIGHT->RIGHT=64
+TSCT     TOTAL=64 RIGHT->RIGHT=64
+TSAUTO   TOTAL=64 RIGHT->RIGHT=64
+TSPARM   TOTAL=64 RIGHT->RIGHT=64
+TSPA     TOTAL=64 RIGHT->RIGHT=64
+TSEXT    TOTAL=64 RIGHT->RIGHT=64
+HOLD     TOTAL=64 RIGHT->RIGHT=64
+PAR      TOTAL=64 RIGHT->RIGHT=62 WRONG->WRONG=2
+    84:3-84:8      G={'class_var(pkgvar142)': 2} P={'-': 2} Q={'-': 2}
+SCOPE    TOTAL=64 RIGHT->RIGHT=62 WRONG->WRONG=2
+    84:3-84:8      G={'package(pa142)': 2} P={'-': 2} Q={'-': 2}
+DEFSPAN  TOTAL=64 RIGHT->RIGHT=64
+== g142_a_prod.elab  rc_sl=0 rc_pris=4 rc_pat=4 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+TSNAME   TOTAL=64 RIGHT->RIGHT=38 WRONG->RIGHT=25 WRONG->WRONG=1
+    113:5-113:10   G={'Ma142': 1} P={'-': 1} Q={'Ma142': 1}
+    114:5-114:10   G={'Ma142': 1} P={'-': 1} Q={'Ma142': 1}
+    125:5-125:10   G={'Ma142': 1} P={'-': 1} Q={'Ma142': 1}
+    129:7-129:12   G={'Ma142': 1} P={'-': 1} Q={'Ma142': 1}
+    138:5-138:10   G={'Ma142': 1} P={'-': 1} Q={'Ma142': 1}
+    19:7-19:12     G={'Ka142': 1} P={'-': 1} Q={'Ka142': 1}
+    20:7-20:12     G={'Ka142': 1} P={'-': 1} Q={'Ka142': 1}
+    35:7-35:12     G={'Ka142': 1} P={'-': 1} Q={'Ka142': 1}
+    36:7-36:12     G={'Ka142': 1} P={'-': 1} Q={'Ka142': 1}
+    46:5-46:10     G={'Ka142': 2} P={'-': 2} Q={'Ka142': 2}
+    47:5-47:10     G={'Ka142': 2} P={'-': 2} Q={'Ka142': 2}
+    60:5-60:10     G={'Ka142': 2} P={'-': 2} Q={'Ka142': 2}
+    61:5-61:10     G={'Ka142': 2} P={'-': 2} Q={'Ka142': 2}
+    66:5-66:10     G={'Ka142': 2} P={'-': 2} Q={'Ka142': 2}
+    67:5-67:10     G={'Ka142': 2} P={'-': 2} Q={'Ka142': 2}
+    79:5-79:10     G={'Ka142': 2} P={'-': 2} Q={'Ka142': 2}
+    80:5-80:10     G={'Ka142': 2} P={'-': 2} Q={'Ka142': 2}
+    89:19-89:24    G={'Ua142': 1} P={'-': 1} Q={'-': 1}
+TSINST   TOTAL=64 RIGHT->RIGHT=48 WRONG->RIGHT=16
+    46:5-46:10     G={'package(pa142)': 2} P={'-': 2} Q={'package(pa142)': 2}
+    47:5-47:10     G={'package(pa142)': 2} P={'-': 2} Q={'package(pa142)': 2}
+    60:5-60:10     G={'package(pa142)': 2} P={'-': 2} Q={'package(pa142)': 2}
+    61:5-61:10     G={'package(pa142)': 2} P={'-': 2} Q={'package(pa142)': 2}
+    66:5-66:10     G={'package(pa142)': 2} P={'-': 2} Q={'package(pa142)': 2}
+    67:5-67:10     G={'package(pa142)': 2} P={'-': 2} Q={'package(pa142)': 2}
+    79:5-79:10     G={'package(pa142)': 2} P={'-': 2} Q={'package(pa142)': 2}
+    80:5-80:10     G={'package(pa142)': 2} P={'-': 2} Q={'package(pa142)': 2}
+TSALIAS  TOTAL=64 RIGHT->RIGHT=64
+TSDEFN   TOTAL=64 RIGHT->RIGHT=64
+TSCT     TOTAL=64 RIGHT->RIGHT=64
+TSAUTO   TOTAL=64 RIGHT->RIGHT=64
+TSPARM   TOTAL=64 RIGHT->RIGHT=64
+TSPA     TOTAL=64 RIGHT->RIGHT=64
+TSEXT    TOTAL=64 RIGHT->RIGHT=64
+HOLD     TOTAL=64 RIGHT->RIGHT=64
+PAR      TOTAL=64 RIGHT->RIGHT=62 WRONG->WRONG=2
+    84:3-84:8      G={'class_var(pkgvar142)': 2} P={'-': 2} Q={'-': 2}
+SCOPE    TOTAL=64 RIGHT->RIGHT=62 WRONG->WRONG=2
+    84:3-84:8      G={'package(pa142)': 2} P={'-': 2} Q={'-': 2}
+DEFSPAN  TOTAL=64 RIGHT->RIGHT=64
+== g142_b_home.def  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+TSNAME   TOTAL=65 RIGHT->RIGHT=45 WRONG->RIGHT=6 ONLY-GOLDEN=6 ONLY-OURS=8
+    29:7-29:13     G={'Kb2142': 1} P={'-': 1} Q={'Kb2142': 1}
+    32:7-32:12     G={} P={'-': 1} Q={'Nb142': 1}
+    39:7-39:12     G={} P={'-': 1} Q={'-': 1}
+    44:5-44:11     G={'Kb2142': 2} P={'-': 2} Q={'Kb2142': 2}
+    47:5-47:10     G={} P={'-': 2} Q={'Nb142': 2}
+    54:5-54:10     G={} P={'-': 2} Q={'-': 2}
+    58:5-58:11     G={'Kb2142': 2} P={'-': 2} Q={'Kb2142': 2}
+    61:5-61:11     G={} P={'Kb1142': 1} Q={'Kb1142': 1}
+    67:5-67:11     G={} P={'Kb1142': 1} Q={'Kb1142': 1}
+    84:5-84:10     G={'Mb142': 1} P={} Q={}
+    85:5-85:13     G={'pb1142::Kb1142': 1} P={} Q={}
+    86:5-86:10     G={'Ub142': 1} P={} Q={}
+    89:5-89:10     G={'-': 1} P={} Q={}
+    90:5-90:13     G={'pb1142::Kb1142': 1} P={} Q={}
+    91:5-91:10     G={'Ub142': 1} P={} Q={}
+    94:5-94:10     G={'Mb142': 1} P={'-': 1} Q={'Mb142': 1}
+TSINST   TOTAL=65 RIGHT->RIGHT=47 WRONG->RIGHT=4 ONLY-GOLDEN=6 ONLY-OURS=8
+    32:7-32:12     G={} P={'-': 1} Q={'-': 1}
+    39:7-39:12     G={} P={'-': 1} Q={'-': 1}
+    44:5-44:11     G={'package(pb2142)': 2} P={'-': 2} Q={'package(pb2142)': 2}
+    47:5-47:10     G={} P={'-': 2} Q={'package(pb2142)': 2}
+    54:5-54:10     G={} P={'-': 2} Q={'-': 2}
+    58:5-58:11     G={'package(pb2142)': 2} P={'-': 2} Q={'package(pb2142)': 2}
+    61:5-61:11     G={} P={'package(pb2142)': 1} Q={'package(pb2142)': 1}
+    67:5-67:11     G={} P={'package(pb2142)': 1} Q={'package(pb2142)': 1}
+    84:5-84:10     G={'-': 1} P={} Q={}
+    85:5-85:13     G={'-': 1} P={} Q={}
+    86:5-86:10     G={'-': 1} P={} Q={}
+    89:5-89:10     G={'-': 1} P={} Q={}
+    90:5-90:13     G={'-': 1} P={} Q={}
+    91:5-91:10     G={'-': 1} P={} Q={}
+TSALIAS  TOTAL=65 RIGHT->RIGHT=51 ONLY-GOLDEN=6 ONLY-OURS=8
+    32:7-32:12     G={} P={'NOALIAS': 1} Q={'NOALIAS': 1}
+    39:7-39:12     G={} P={'NOALIAS': 1} Q={'NOALIAS': 1}
+    47:5-47:10     G={} P={'NOALIAS': 2} Q={'NOALIAS': 2}
+    54:5-54:10     G={} P={'NOALIAS': 2} Q={'NOALIAS': 2}
+    61:5-61:11     G={} P={'NOALIAS': 1} Q={'NOALIAS': 1}
+    67:5-67:11     G={} P={'NOALIAS': 1} Q={'NOALIAS': 1}
+    84:5-84:10     G={'NOALIAS': 1} P={} Q={}
+    85:5-85:13     G={'NOALIAS': 1} P={} Q={}
+    86:5-86:10     G={'NOALIAS': 1} P={} Q={}
+    89:5-89:10     G={'NOALIAS': 1} P={} Q={}
+    90:5-90:13     G={'NOALIAS': 1} P={} Q={}
+    91:5-91:10     G={'NOALIAS': 1} P={} Q={}
+TSDEFN   TOTAL=65 RIGHT->RIGHT=51 ONLY-GOLDEN=6 ONLY-OURS=8
+    32:7-32:12     G={} P={'pb2142::Hb142::Nb142': 1} Q={'pb2142::Hb142::Nb142': 1}
+    39:7-39:12     G={} P={'pb2142::Hb142::Nb142': 1} Q={'pb2142::Hb142::Nb142': 1}
+    47:5-47:10     G={} P={'pb2142::Hb142::Nb142': 2} Q={'pb2142::Hb142::Nb142': 2}
+    54:5-54:10     G={} P={'pb2142::Hb142::Nb142': 2} Q={'pb2142::Hb142::Nb142': 2}
+    61:5-61:11     G={} P={'pb1142::Kb1142': 1} Q={'pb1142::Kb1142': 1}
+    67:5-67:11     G={} P={'pb1142::Kb1142': 1} Q={'pb1142::Kb1142': 1}
+    84:5-84:10     G={'work@mb142::Mb142': 1} P={} Q={}
+    85:5-85:13     G={'pb1142::Kb1142': 1} P={} Q={}
+    86:5-86:10     G={'work@Ub142': 1} P={} Q={}
+    89:5-89:10     G={'work@mb142::Mb142': 1} P={} Q={}
+    90:5-90:13     G={'pb1142::Kb1142': 1} P={} Q={}
+    91:5-91:10     G={'work@Ub142': 1} P={} Q={}
+TSCT     TOTAL=65 RIGHT->RIGHT=51 ONLY-GOLDEN=6 ONLY-OURS=8
+    32:7-32:12     G={} P={'0': 1} Q={'0': 1}
+    39:7-39:12     G={} P={'0': 1} Q={'0': 1}
+    47:5-47:10     G={} P={'0': 2} Q={'0': 2}
+    54:5-54:10     G={} P={'0': 2} Q={'0': 2}
+    61:5-61:11     G={} P={'0': 1} Q={'0': 1}
+    67:5-67:11     G={} P={'0': 1} Q={'0': 1}
+    84:5-84:10     G={'0': 1} P={} Q={}
+    85:5-85:13     G={'0': 1} P={} Q={}
+    86:5-86:10     G={'0': 1} P={} Q={}
+    89:5-89:10     G={'0': 1} P={} Q={}
+    90:5-90:13     G={'0': 1} P={} Q={}
+    91:5-91:10     G={'0': 1} P={} Q={}
+TSAUTO   TOTAL=65 RIGHT->RIGHT=51 ONLY-GOLDEN=6 ONLY-OURS=8
+    32:7-32:12     G={} P={'0': 1} Q={'0': 1}
+    39:7-39:12     G={} P={'0': 1} Q={'0': 1}
+    47:5-47:10     G={} P={'0': 2} Q={'0': 2}
+    54:5-54:10     G={} P={'0': 2} Q={'0': 2}
+    61:5-61:11     G={} P={'0': 1} Q={'0': 1}
+    67:5-67:11     G={} P={'0': 1} Q={'0': 1}
+    84:5-84:10     G={'0': 1} P={} Q={}
+    85:5-85:13     G={'0': 1} P={} Q={}
+    86:5-86:10     G={'0': 1} P={} Q={}
+    89:5-89:10     G={'0': 1} P={} Q={}
+    90:5-90:13     G={'0': 1} P={} Q={}
+    91:5-91:10     G={'0': 1} P={} Q={}
+TSPARM   TOTAL=65 RIGHT->RIGHT=51 ONLY-GOLDEN=6 ONLY-OURS=8
+    32:7-32:12     G={} P={'-1': 1} Q={'-1': 1}
+    39:7-39:12     G={} P={'-1': 1} Q={'-1': 1}
+    47:5-47:10     G={} P={'-1': 2} Q={'-1': 2}
+    54:5-54:10     G={} P={'-1': 2} Q={'-1': 2}
+    61:5-61:11     G={} P={'-1': 1} Q={'-1': 1}
+    67:5-67:11     G={} P={'-1': 1} Q={'-1': 1}
+    84:5-84:10     G={'-1': 1} P={} Q={}
+    85:5-85:13     G={'-1': 1} P={} Q={}
+    86:5-86:10     G={'-1': 1} P={} Q={}
+    89:5-89:10     G={'-1': 1} P={} Q={}
+    90:5-90:13     G={'-1': 1} P={} Q={}
+    91:5-91:10     G={'-1': 1} P={} Q={}
+TSPA     TOTAL=65 RIGHT->RIGHT=51 ONLY-GOLDEN=6 ONLY-OURS=8
+    32:7-32:12     G={} P={'-1': 1} Q={'-1': 1}
+    39:7-39:12     G={} P={'-1': 1} Q={'-1': 1}
+    47:5-47:10     G={} P={'-1': 2} Q={'-1': 2}
+    54:5-54:10     G={} P={'-1': 2} Q={'-1': 2}
+    61:5-61:11     G={} P={'-1': 1} Q={'-1': 1}
+    67:5-67:11     G={} P={'-1': 1} Q={'-1': 1}
+    84:5-84:10     G={'-1': 1} P={} Q={}
+    85:5-85:13     G={'-1': 1} P={} Q={}
+    86:5-86:10     G={'-1': 1} P={} Q={}
+    89:5-89:10     G={'-1': 1} P={} Q={}
+    90:5-90:13     G={'-1': 1} P={} Q={}
+    91:5-91:10     G={'-1': 1} P={} Q={}
+TSEXT    TOTAL=65 RIGHT->RIGHT=51 ONLY-GOLDEN=6 ONLY-OURS=8
+    32:7-32:12     G={} P={'-': 1} Q={'-': 1}
+    39:7-39:12     G={} P={'-': 1} Q={'-': 1}
+    47:5-47:10     G={} P={'-': 2} Q={'-': 2}
+    54:5-54:10     G={} P={'-': 2} Q={'-': 2}
+    61:5-61:11     G={} P={'-': 1} Q={'-': 1}
+    67:5-67:11     G={} P={'-': 1} Q={'-': 1}
+    84:5-84:10     G={'-': 1} P={} Q={}
+    85:5-85:13     G={'-': 1} P={} Q={}
+    86:5-86:10     G={'-': 1} P={} Q={}
+    89:5-89:10     G={'-': 1} P={} Q={}
+    90:5-90:13     G={'-': 1} P={} Q={}
+    91:5-91:10     G={'-': 1} P={} Q={}
+HOLD     TOTAL=65 RIGHT->RIGHT=32 WRONG->WRONG=19 ONLY-GOLDEN=6 ONLY-OURS=8
+    100:5-100:13   G={'class_var(mfb_pkg)@begin': 1} P={'class_var(mfb_pkg)@function': 1} Q={'class_var(mfb_pkg)@function': 1}
+    101:5-101:10   G={'class_var(mfb_unit)@begin': 1} P={'class_var(mfb_unit)@function': 1} Q={'class_var(mfb_unit)@function': 1}
+    10:11-10:17    G={'ref_var(ib_othtd)@function,ref_var(ibb_othtd)@begin,ref_var(oo_othtd)@function,ref_var(oob_othtd)@begin,ref_var(pf_othtd)@function,ref_var(pfb_othtd)@begin': 1} P={'ref_var(ib_othtd)@function,ref_var(ibb_othtd)@function,ref_var(oo_othtd)@function,ref_var(oob_othtd)@function,ref_var(pf_othtd)@function,ref_var(pfb_othtd)@function': 1} Q={'ref_var(ib_othtd)@function,ref_var(ibb_othtd)@function,ref_var(oo_othtd)@function,ref_var(oob_othtd)@function,ref_var(pf_othtd)@function,ref_var(pfb_othtd)@function': 1}
+    32:7-32:12     G={} P={'class_var(ib_nested)@function': 1} Q={'class_var(ib_nested)@function': 1}
+    36:7-36:13     G={'class_var(ibb_same)@begin': 1} P={'class_var(ibb_same)@function': 1} Q={'class_var(ibb_same)@function': 1}
+    37:7-37:13     G={'class_var(ibb_othimp)@begin': 1} P={'class_var(ibb_othimp)@function': 1} Q={'class_var(ibb_othimp)@function': 1}
+    38:7-38:15     G={'class_var(ibb_othscoped)@begin': 1} P={'class_var(ibb_othscoped)@function': 1} Q={'class_var(ibb_othscoped)@function': 1}
+    39:7-39:12     G={} P={'class_var(ibb_nested)@function': 1} Q={'class_var(ibb_nested)@function': 1}
+    47:5-47:10     G={} P={'class_var(oo_nested)@function': 2} Q={'class_var(oo_nested)@function': 2}
+    51:5-51:11     G={'class_var(oob_same)@begin': 2} P={'class_var(oob_same)@function': 2} Q={'class_var(oob_same)@function': 2}
+    52:5-52:11     G={'class_var(oob_othimp)@begin': 2} P={'class_var(oob_othimp)@function': 2} Q={'class_var(oob_othimp)@function': 2}
+    53:5-53:13     G={'class_var(oob_othscoped)@begin': 2} P={'class_var(oob_othscoped)@function': 2} Q={'class_var(oob_othscoped)@function': 2}
+    54:5-54:10     G={} P={'class_var(oob_nested)@function': 2} Q={'class_var(oob_nested)@function': 2}
+    61:5-61:11     G={} P={'ref_var(pf_othtd)@function': 1} Q={'ref_var(pf_othtd)@function': 1}
+    64:5-64:11     G={'class_var(pfb_same)@begin': 2} P={'class_var(pfb_same)@function': 2} Q={'class_var(pfb_same)@function': 2}
+    65:5-65:11     G={'class_var(pfb_othimp)@begin': 2} P={'class_var(pfb_othimp)@function': 2} Q={'class_var(pfb_othimp)@function': 2}
+    66:5-66:13     G={'class_var(pfb_othscoped)@begin': 2} P={'class_var(pfb_othscoped)@function': 2} Q={'class_var(pfb_othscoped)@function': 2}
+    67:5-67:11     G={} P={'ref_var(pfb_othtd)@function': 1} Q={'ref_var(pfb_othtd)@function': 1}
+    84:5-84:10     G={'class_var(mo_samemod)@function': 1} P={} Q={}
+    85:5-85:13     G={'class_var(mo_pkg)@function': 1} P={} Q={}
+    86:5-86:10     G={'class_var(mo_unit)@function': 1} P={} Q={}
+    89:5-89:10     G={'class_var(mob_samemod)@begin': 1} P={} Q={}
+    90:5-90:13     G={'class_var(mob_pkg)@begin': 1} P={} Q={}
+    91:5-91:10     G={'class_var(mob_unit)@begin': 1} P={} Q={}
+    99:5-99:10     G={'class_var(mfb_samemod)@begin': 1} P={'class_var(mfb_samemod)@function': 1} Q={'class_var(mfb_samemod)@function': 1}
+PAR      TOTAL=65 RIGHT->RIGHT=46 WRONG->WRONG=5 ONLY-GOLDEN=6 ONLY-OURS=8
+    10:11-10:17    G={'class_defn(Mhb142)': 1} P={'module_inst(work@mb142)': 1} Q={'module_inst(work@mb142)': 1}
+    32:7-32:12     G={} P={'-': 1} Q={'-': 1}
+    39:7-39:12     G={} P={'-': 1} Q={'-': 1}
+    47:5-47:10     G={} P={'-': 2} Q={'-': 2}
+    54:5-54:10     G={} P={'-': 2} Q={'-': 2}
+    61:5-61:11     G={} P={'-': 1} Q={'-': 1}
+    67:5-67:11     G={} P={'-': 1} Q={'-': 1}
+    70:3-70:9      G={'class_var(bpkgvar_same)': 2, '-': 4} P={'-': 4, 'ref_typespec': 2} Q={'-': 4, 'ref_typespec': 2}
+    71:3-71:11     G={'class_var(bpkgvar_oth)': 2, '-': 4} P={'-': 4, 'ref_typespec': 2} Q={'-': 4, 'ref_typespec': 2}
+    84:5-84:10     G={'-': 1} P={} Q={}
+    85:5-85:13     G={'-': 1} P={} Q={}
+    86:5-86:10     G={'-': 1} P={} Q={}
+    89:5-89:10     G={'-': 1} P={} Q={}
+    90:5-90:13     G={'-': 1} P={} Q={}
+    91:5-91:10     G={'-': 1} P={} Q={}
+SCOPE    TOTAL=65 RIGHT->RIGHT=46 WRONG->WRONG=5 ONLY-GOLDEN=6 ONLY-OURS=8
+    10:11-10:17    G={'module_inst(-)/class_defn(Mhb142)': 1} P={'module_inst(work@mb142)': 1} Q={'module_inst(work@mb142)': 1}
+    32:7-32:12     G={} P={'-': 1} Q={'-': 1}
+    39:7-39:12     G={} P={'-': 1} Q={'-': 1}
+    47:5-47:10     G={} P={'-': 2} Q={'-': 2}
+    54:5-54:10     G={} P={'-': 2} Q={'-': 2}
+    61:5-61:11     G={} P={'-': 1} Q={'-': 1}
+    67:5-67:11     G={} P={'-': 1} Q={'-': 1}
+    70:3-70:9      G={'package(pb2142)': 2, '-': 4} P={'-': 4, 'module_inst(-)/class_defn(Mhb142)': 1, 'module_inst(-)/class_defn(Mb142)': 1} Q={'-': 4, 'module_inst(-)/class_defn(Mhb142)': 1, 'module_inst(-)/class_defn(Mb142)': 1}
+    71:3-71:11     G={'package(pb2142)': 2, '-': 4} P={'-': 4, 'module_inst(-)/class_defn(Mhb142)': 1, 'module_inst(-)/class_defn(Mb142)': 1} Q={'-': 4, 'module_inst(-)/class_defn(Mhb142)': 1, 'module_inst(-)/class_defn(Mb142)': 1}
+    84:5-84:10     G={'-': 1} P={} Q={}
+    85:5-85:13     G={'-': 1} P={} Q={}
+    86:5-86:10     G={'-': 1} P={} Q={}
+    89:5-89:10     G={'-': 1} P={} Q={}
+    90:5-90:13     G={'-': 1} P={} Q={}
+    91:5-91:10     G={'-': 1} P={} Q={}
+DEFSPAN  TOTAL=65 RIGHT->RIGHT=51 ONLY-GOLDEN=6 ONLY-OURS=8
+    32:7-32:12     G={} P={'23:5-25:13': 1} Q={'23:5-25:13': 1}
+    39:7-39:12     G={} P={'23:5-25:13': 1} Q={'23:5-25:13': 1}
+    47:5-47:10     G={} P={'23:5-25:13': 2} Q={'23:5-25:13': 2}
+    54:5-54:10     G={} P={'23:5-25:13': 2} Q={'23:5-25:13': 2}
+    61:5-61:11     G={} P={'7:3-9:11': 1} Q={'7:3-9:11': 1}
+    67:5-67:11     G={} P={'7:3-9:11': 1} Q={'7:3-9:11': 1}
+    84:5-84:10     G={'76:3-78:11': 1} P={} Q={}
+    85:5-85:13     G={'7:3-9:11': 1} P={} Q={}
+    86:5-86:10     G={'13:1-15:9': 1} P={} Q={}
+    89:5-89:10     G={'76:3-78:11': 1} P={} Q={}
+    90:5-90:13     G={'7:3-9:11': 1} P={} Q={}
+    91:5-91:10     G={'13:1-15:9': 1} P={} Q={}
+== g142_b_home.elab  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+TSNAME   TOTAL=72 RIGHT->RIGHT=52 WRONG->RIGHT=6 ONLY-GOLDEN=6 ONLY-OURS=8
+    29:7-29:13     G={'Kb2142': 1} P={'-': 1} Q={'Kb2142': 1}
+    32:7-32:12     G={} P={'-': 1} Q={'Nb142': 1}
+    39:7-39:12     G={} P={'-': 1} Q={'-': 1}
+    44:5-44:11     G={'Kb2142': 2} P={'-': 2} Q={'Kb2142': 2}
+    47:5-47:10     G={} P={'-': 2} Q={'Nb142': 2}
+    54:5-54:10     G={} P={'-': 2} Q={'-': 2}
+    58:5-58:11     G={'Kb2142': 2} P={'-': 2} Q={'Kb2142': 2}
+    61:5-61:11     G={} P={'Kb1142': 1} Q={'Kb1142': 1}
+    67:5-67:11     G={} P={'Kb1142': 1} Q={'Kb1142': 1}
+    84:5-84:10     G={'Mb142': 1} P={} Q={}
+    85:5-85:13     G={'pb1142::Kb1142': 1} P={} Q={}
+    86:5-86:10     G={'Ub142': 1} P={} Q={}
+    89:5-89:10     G={'-': 1} P={} Q={}
+    90:5-90:13     G={'pb1142::Kb1142': 1} P={} Q={}
+    91:5-91:10     G={'Ub142': 1} P={} Q={}
+    94:5-94:10     G={'Mb142': 1} P={'-': 1} Q={'Mb142': 1}
+TSINST   TOTAL=72 RIGHT->RIGHT=54 WRONG->RIGHT=4 ONLY-GOLDEN=6 ONLY-OURS=8
+    32:7-32:12     G={} P={'-': 1} Q={'-': 1}
+    39:7-39:12     G={} P={'-': 1} Q={'-': 1}
+    44:5-44:11     G={'package(pb2142)': 2} P={'-': 2} Q={'package(pb2142)': 2}
+    47:5-47:10     G={} P={'-': 2} Q={'package(pb2142)': 2}
+    54:5-54:10     G={} P={'-': 2} Q={'-': 2}
+    58:5-58:11     G={'package(pb2142)': 2} P={'-': 2} Q={'package(pb2142)': 2}
+    61:5-61:11     G={} P={'package(pb2142)': 1} Q={'package(pb2142)': 1}
+    67:5-67:11     G={} P={'package(pb2142)': 1} Q={'package(pb2142)': 1}
+    84:5-84:10     G={'-': 1} P={} Q={}
+    85:5-85:13     G={'-': 1} P={} Q={}
+    86:5-86:10     G={'-': 1} P={} Q={}
+    89:5-89:10     G={'-': 1} P={} Q={}
+    90:5-90:13     G={'-': 1} P={} Q={}
+    91:5-91:10     G={'-': 1} P={} Q={}
+TSALIAS  TOTAL=72 RIGHT->RIGHT=58 ONLY-GOLDEN=6 ONLY-OURS=8
+    32:7-32:12     G={} P={'NOALIAS': 1} Q={'NOALIAS': 1}
+    39:7-39:12     G={} P={'NOALIAS': 1} Q={'NOALIAS': 1}
+    47:5-47:10     G={} P={'NOALIAS': 2} Q={'NOALIAS': 2}
+    54:5-54:10     G={} P={'NOALIAS': 2} Q={'NOALIAS': 2}
+    61:5-61:11     G={} P={'NOALIAS': 1} Q={'NOALIAS': 1}
+    67:5-67:11     G={} P={'NOALIAS': 1} Q={'NOALIAS': 1}
+    84:5-84:10     G={'NOALIAS': 1} P={} Q={}
+    85:5-85:13     G={'NOALIAS': 1} P={} Q={}
+    86:5-86:10     G={'NOALIAS': 1} P={} Q={}
+    89:5-89:10     G={'NOALIAS': 1} P={} Q={}
+    90:5-90:13     G={'NOALIAS': 1} P={} Q={}
+    91:5-91:10     G={'NOALIAS': 1} P={} Q={}
+TSDEFN   TOTAL=72 RIGHT->RIGHT=58 ONLY-GOLDEN=6 ONLY-OURS=8
+    32:7-32:12     G={} P={'pb2142::Hb142::Nb142': 1} Q={'pb2142::Hb142::Nb142': 1}
+    39:7-39:12     G={} P={'pb2142::Hb142::Nb142': 1} Q={'pb2142::Hb142::Nb142': 1}
+    47:5-47:10     G={} P={'pb2142::Hb142::Nb142': 2} Q={'pb2142::Hb142::Nb142': 2}
+    54:5-54:10     G={} P={'pb2142::Hb142::Nb142': 2} Q={'pb2142::Hb142::Nb142': 2}
+    61:5-61:11     G={} P={'pb1142::Kb1142': 1} Q={'pb1142::Kb1142': 1}
+    67:5-67:11     G={} P={'pb1142::Kb1142': 1} Q={'pb1142::Kb1142': 1}
+    84:5-84:10     G={'work@mb142::Mb142': 1} P={} Q={}
+    85:5-85:13     G={'pb1142::Kb1142': 1} P={} Q={}
+    86:5-86:10     G={'work@Ub142': 1} P={} Q={}
+    89:5-89:10     G={'work@mb142::Mb142': 1} P={} Q={}
+    90:5-90:13     G={'pb1142::Kb1142': 1} P={} Q={}
+    91:5-91:10     G={'work@Ub142': 1} P={} Q={}
+TSCT     TOTAL=72 RIGHT->RIGHT=58 ONLY-GOLDEN=6 ONLY-OURS=8
+    32:7-32:12     G={} P={'0': 1} Q={'0': 1}
+    39:7-39:12     G={} P={'0': 1} Q={'0': 1}
+    47:5-47:10     G={} P={'0': 2} Q={'0': 2}
+    54:5-54:10     G={} P={'0': 2} Q={'0': 2}
+    61:5-61:11     G={} P={'0': 1} Q={'0': 1}
+    67:5-67:11     G={} P={'0': 1} Q={'0': 1}
+    84:5-84:10     G={'0': 1} P={} Q={}
+    85:5-85:13     G={'0': 1} P={} Q={}
+    86:5-86:10     G={'0': 1} P={} Q={}
+    89:5-89:10     G={'0': 1} P={} Q={}
+    90:5-90:13     G={'0': 1} P={} Q={}
+    91:5-91:10     G={'0': 1} P={} Q={}
+TSAUTO   TOTAL=72 RIGHT->RIGHT=58 ONLY-GOLDEN=6 ONLY-OURS=8
+    32:7-32:12     G={} P={'0': 1} Q={'0': 1}
+    39:7-39:12     G={} P={'0': 1} Q={'0': 1}
+    47:5-47:10     G={} P={'0': 2} Q={'0': 2}
+    54:5-54:10     G={} P={'0': 2} Q={'0': 2}
+    61:5-61:11     G={} P={'0': 1} Q={'0': 1}
+    67:5-67:11     G={} P={'0': 1} Q={'0': 1}
+    84:5-84:10     G={'0': 1} P={} Q={}
+    85:5-85:13     G={'0': 1} P={} Q={}
+    86:5-86:10     G={'0': 1} P={} Q={}
+    89:5-89:10     G={'0': 1} P={} Q={}
+    90:5-90:13     G={'0': 1} P={} Q={}
+    91:5-91:10     G={'0': 1} P={} Q={}
+TSPARM   TOTAL=72 RIGHT->RIGHT=58 ONLY-GOLDEN=6 ONLY-OURS=8
+    32:7-32:12     G={} P={'-1': 1} Q={'-1': 1}
+    39:7-39:12     G={} P={'-1': 1} Q={'-1': 1}
+    47:5-47:10     G={} P={'-1': 2} Q={'-1': 2}
+    54:5-54:10     G={} P={'-1': 2} Q={'-1': 2}
+    61:5-61:11     G={} P={'-1': 1} Q={'-1': 1}
+    67:5-67:11     G={} P={'-1': 1} Q={'-1': 1}
+    84:5-84:10     G={'-1': 1} P={} Q={}
+    85:5-85:13     G={'-1': 1} P={} Q={}
+    86:5-86:10     G={'-1': 1} P={} Q={}
+    89:5-89:10     G={'-1': 1} P={} Q={}
+    90:5-90:13     G={'-1': 1} P={} Q={}
+    91:5-91:10     G={'-1': 1} P={} Q={}
+TSPA     TOTAL=72 RIGHT->RIGHT=58 ONLY-GOLDEN=6 ONLY-OURS=8
+    32:7-32:12     G={} P={'-1': 1} Q={'-1': 1}
+    39:7-39:12     G={} P={'-1': 1} Q={'-1': 1}
+    47:5-47:10     G={} P={'-1': 2} Q={'-1': 2}
+    54:5-54:10     G={} P={'-1': 2} Q={'-1': 2}
+    61:5-61:11     G={} P={'-1': 1} Q={'-1': 1}
+    67:5-67:11     G={} P={'-1': 1} Q={'-1': 1}
+    84:5-84:10     G={'-1': 1} P={} Q={}
+    85:5-85:13     G={'-1': 1} P={} Q={}
+    86:5-86:10     G={'-1': 1} P={} Q={}
+    89:5-89:10     G={'-1': 1} P={} Q={}
+    90:5-90:13     G={'-1': 1} P={} Q={}
+    91:5-91:10     G={'-1': 1} P={} Q={}
+TSEXT    TOTAL=72 RIGHT->RIGHT=58 ONLY-GOLDEN=6 ONLY-OURS=8
+    32:7-32:12     G={} P={'-': 1} Q={'-': 1}
+    39:7-39:12     G={} P={'-': 1} Q={'-': 1}
+    47:5-47:10     G={} P={'-': 2} Q={'-': 2}
+    54:5-54:10     G={} P={'-': 2} Q={'-': 2}
+    61:5-61:11     G={} P={'-': 1} Q={'-': 1}
+    67:5-67:11     G={} P={'-': 1} Q={'-': 1}
+    84:5-84:10     G={'-': 1} P={} Q={}
+    85:5-85:13     G={'-': 1} P={} Q={}
+    86:5-86:10     G={'-': 1} P={} Q={}
+    89:5-89:10     G={'-': 1} P={} Q={}
+    90:5-90:13     G={'-': 1} P={} Q={}
+    91:5-91:10     G={'-': 1} P={} Q={}
+HOLD     TOTAL=72 RIGHT->RIGHT=39 WRONG->WRONG=19 ONLY-GOLDEN=6 ONLY-OURS=8
+    100:5-100:13   G={'class_var(mfb_pkg)@begin,class_var(mfb_pkg)@function': 1} P={'class_var(mfb_pkg)@function': 1} Q={'class_var(mfb_pkg)@function': 1}
+    101:5-101:10   G={'class_var(mfb_unit)@begin,class_var(mfb_unit)@function': 1} P={'class_var(mfb_unit)@function': 1} Q={'class_var(mfb_unit)@function': 1}
+    10:11-10:17    G={'ref_var(ib_othtd)@function,ref_var(ibb_othtd)@begin,ref_var(ibb_othtd)@function,ref_var(oo_othtd)@function,ref_var(oob_othtd)@begin,ref_var(oob_othtd)@function,ref_var(pf_othtd)@function,ref_var(pfb_othtd)@begin,ref_var(pfb_othtd)@function': 1, '-': 7} P={'ref_var(ib_othtd)@function,ref_var(ibb_othtd)@function,ref_var(oo_othtd)@function,ref_var(oob_othtd)@function,ref_var(pf_othtd)@function,ref_var(pfb_othtd)@function': 1, '-': 7} Q={'ref_var(ib_othtd)@function,ref_var(ibb_othtd)@function,ref_var(oo_othtd)@function,ref_var(oob_othtd)@function,ref_var(pf_othtd)@function,ref_var(pfb_othtd)@function': 1, '-': 7}
+    32:7-32:12     G={} P={'class_var(ib_nested)@function': 1} Q={'class_var(ib_nested)@function': 1}
+    36:7-36:13     G={'class_var(ibb_same)@begin,class_var(ibb_same)@function': 1} P={'class_var(ibb_same)@function': 1} Q={'class_var(ibb_same)@function': 1}
+    37:7-37:13     G={'class_var(ibb_othimp)@begin,class_var(ibb_othimp)@function': 1} P={'class_var(ibb_othimp)@function': 1} Q={'class_var(ibb_othimp)@function': 1}
+    38:7-38:15     G={'class_var(ibb_othscoped)@begin,class_var(ibb_othscoped)@function': 1} P={'class_var(ibb_othscoped)@function': 1} Q={'class_var(ibb_othscoped)@function': 1}
+    39:7-39:12     G={} P={'class_var(ibb_nested)@function': 1} Q={'class_var(ibb_nested)@function': 1}
+    47:5-47:10     G={} P={'class_var(oo_nested)@function': 2} Q={'class_var(oo_nested)@function': 2}
+    51:5-51:11     G={'class_var(oob_same)@begin,class_var(oob_same)@function': 2} P={'class_var(oob_same)@function': 2} Q={'class_var(oob_same)@function': 2}
+    52:5-52:11     G={'class_var(oob_othimp)@begin,class_var(oob_othimp)@function': 2} P={'class_var(oob_othimp)@function': 2} Q={'class_var(oob_othimp)@function': 2}
+    53:5-53:13     G={'class_var(oob_othscoped)@begin,class_var(oob_othscoped)@function': 2} P={'class_var(oob_othscoped)@function': 2} Q={'class_var(oob_othscoped)@function': 2}
+    54:5-54:10     G={} P={'class_var(oob_nested)@function': 2} Q={'class_var(oob_nested)@function': 2}
+    61:5-61:11     G={} P={'ref_var(pf_othtd)@function': 1} Q={'ref_var(pf_othtd)@function': 1}
+    64:5-64:11     G={'class_var(pfb_same)@begin,class_var(pfb_same)@function': 2} P={'class_var(pfb_same)@function': 2} Q={'class_var(pfb_same)@function': 2}
+    65:5-65:11     G={'class_var(pfb_othimp)@begin,class_var(pfb_othimp)@function': 2} P={'class_var(pfb_othimp)@function': 2} Q={'class_var(pfb_othimp)@function': 2}
+    66:5-66:13     G={'class_var(pfb_othscoped)@begin,class_var(pfb_othscoped)@function': 2} P={'class_var(pfb_othscoped)@function': 2} Q={'class_var(pfb_othscoped)@function': 2}
+    67:5-67:11     G={} P={'ref_var(pfb_othtd)@function': 1} Q={'ref_var(pfb_othtd)@function': 1}
+    84:5-84:10     G={'class_var(mo_samemod)@function': 1} P={} Q={}
+    85:5-85:13     G={'class_var(mo_pkg)@function': 1} P={} Q={}
+    86:5-86:10     G={'class_var(mo_unit)@function': 1} P={} Q={}
+    89:5-89:10     G={'class_var(mob_samemod)@begin,class_var(mob_samemod)@function': 1} P={} Q={}
+    90:5-90:13     G={'class_var(mob_pkg)@begin,class_var(mob_pkg)@function': 1} P={} Q={}
+    91:5-91:10     G={'class_var(mob_unit)@begin,class_var(mob_unit)@function': 1} P={} Q={}
+    99:5-99:10     G={'class_var(mfb_samemod)@begin,class_var(mfb_samemod)@function': 1} P={'class_var(mfb_samemod)@function': 1} Q={'class_var(mfb_samemod)@function': 1}
+PAR      TOTAL=72 RIGHT->RIGHT=53 WRONG->WRONG=5 ONLY-GOLDEN=6 ONLY-OURS=8
+    10:11-10:17    G={'class_defn(Mhb142)': 3, 'class_defn(Mb142)': 2, 'class_defn(Nb142)': 1, 'class_defn(Hb142)': 1, 'class_defn(Kb2142)': 1} P={'module_inst(work@mb142)': 1, 'class_defn(Mhb142)': 2, 'class_defn(Nb142)': 1, 'class_defn(Hb142)': 1, 'class_defn(Mb142)': 2, 'class_defn(Kb2142)': 1} Q={'module_inst(work@mb142)': 1, 'class_defn(Mhb142)': 2, 'class_defn(Nb142)': 1, 'class_defn(Hb142)': 1, 'class_defn(Mb142)': 2, 'class_defn(Kb2142)': 1}
+    32:7-32:12     G={} P={'-': 1} Q={'-': 1}
+    39:7-39:12     G={} P={'-': 1} Q={'-': 1}
+    47:5-47:10     G={} P={'-': 2} Q={'-': 2}
+    54:5-54:10     G={} P={'-': 2} Q={'-': 2}
+    61:5-61:11     G={} P={'-': 1} Q={'-': 1}
+    67:5-67:11     G={} P={'-': 1} Q={'-': 1}
+    70:3-70:9      G={'class_var(bpkgvar_same)': 2, '-': 4} P={'-': 4, 'ref_typespec': 2} Q={'-': 4, 'ref_typespec': 2}
+    71:3-71:11     G={'class_var(bpkgvar_oth)': 2, '-': 4} P={'-': 4, 'ref_typespec': 2} Q={'-': 4, 'ref_typespec': 2}
+    84:5-84:10     G={'-': 1} P={} Q={}
+    85:5-85:13     G={'-': 1} P={} Q={}
+    86:5-86:10     G={'-': 1} P={} Q={}
+    89:5-89:10     G={'-': 1} P={} Q={}
+    90:5-90:13     G={'-': 1} P={} Q={}
+    91:5-91:10     G={'-': 1} P={} Q={}
+SCOPE    TOTAL=72 RIGHT->RIGHT=53 WRONG->WRONG=5 ONLY-GOLDEN=6 ONLY-OURS=8
+    10:11-10:17    G={'module_inst(-)/class_defn(Mhb142)': 2, 'module_inst(-)/class_defn(Mb142)': 1, 'package(pb2142)/class_defn(Hb142)/class_defn(Nb142)': 1, 'package(pb2142)/class_defn(Hb142)': 1, 'package(pb2142)/class_defn(Kb2142)': 1, 'module_inst(work@mb142)/class_defn(Mb142)': 1, 'module_inst(work@mb142)/class_defn(Mhb142)': 1} P={'module_inst(work@mb142)': 1, 'module_inst(-)/class_defn(Mhb142)': 1, 'package(pb2142)/class_defn(Hb142)/class_defn(Nb142)': 1, 'package(pb2142)/class_defn(Hb142)': 1, 'module_inst(-)/class_defn(Mb142)': 1, 'module_inst(work@mb142)/class_defn(Mb142)': 1, 'module_inst(work@mb142)/class_defn(Mhb142)': 1, 'package(pb2142)/class_defn(Kb2142)': 1} Q={'module_inst(work@mb142)': 1, 'module_inst(-)/class_defn(Mhb142)': 1, 'package(pb2142)/class_defn(Hb142)/class_defn(Nb142)': 1, 'package(pb2142)/class_defn(Hb142)': 1, 'module_inst(-)/class_defn(Mb142)': 1, 'module_inst(work@mb142)/class_defn(Mb142)': 1, 'module_inst(work@mb142)/class_defn(Mhb142)': 1, 'package(pb2142)/class_defn(Kb2142)': 1}
+    32:7-32:12     G={} P={'-': 1} Q={'-': 1}
+    39:7-39:12     G={} P={'-': 1} Q={'-': 1}
+    47:5-47:10     G={} P={'-': 2} Q={'-': 2}
+    54:5-54:10     G={} P={'-': 2} Q={'-': 2}
+    61:5-61:11     G={} P={'-': 1} Q={'-': 1}
+    67:5-67:11     G={} P={'-': 1} Q={'-': 1}
+    70:3-70:9      G={'package(pb2142)': 2, '-': 4} P={'-': 4, 'module_inst(-)/class_defn(Mhb142)': 1, 'module_inst(-)/class_defn(Mb142)': 1} Q={'-': 4, 'module_inst(-)/class_defn(Mhb142)': 1, 'module_inst(-)/class_defn(Mb142)': 1}
+    71:3-71:11     G={'package(pb2142)': 2, '-': 4} P={'-': 4, 'module_inst(-)/class_defn(Mhb142)': 1, 'module_inst(-)/class_defn(Mb142)': 1} Q={'-': 4, 'module_inst(-)/class_defn(Mhb142)': 1, 'module_inst(-)/class_defn(Mb142)': 1}
+    84:5-84:10     G={'-': 1} P={} Q={}
+    85:5-85:13     G={'-': 1} P={} Q={}
+    86:5-86:10     G={'-': 1} P={} Q={}
+    89:5-89:10     G={'-': 1} P={} Q={}
+    90:5-90:13     G={'-': 1} P={} Q={}
+    91:5-91:10     G={'-': 1} P={} Q={}
+DEFSPAN  TOTAL=72 RIGHT->RIGHT=58 ONLY-GOLDEN=6 ONLY-OURS=8
+    32:7-32:12     G={} P={'23:5-25:13': 1} Q={'23:5-25:13': 1}
+    39:7-39:12     G={} P={'23:5-25:13': 1} Q={'23:5-25:13': 1}
+    47:5-47:10     G={} P={'23:5-25:13': 2} Q={'23:5-25:13': 2}
+    54:5-54:10     G={} P={'23:5-25:13': 2} Q={'23:5-25:13': 2}
+    61:5-61:11     G={} P={'7:3-9:11': 1} Q={'7:3-9:11': 1}
+    67:5-67:11     G={} P={'7:3-9:11': 1} Q={'7:3-9:11': 1}
+    84:5-84:10     G={'76:3-78:11': 1} P={} Q={}
+    85:5-85:13     G={'7:3-9:11': 1} P={} Q={}
+    86:5-86:10     G={'13:1-15:9': 1} P={} Q={}
+    89:5-89:10     G={'76:3-78:11': 1} P={} Q={}
+    90:5-90:13     G={'7:3-9:11': 1} P={} Q={}
+    91:5-91:10     G={'13:1-15:9': 1} P={} Q={}
+== g142_c_shape.def  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+TSNAME   TOTAL=72 RIGHT->RIGHT=33 WRONG->RIGHT=18 ONLY-GOLDEN=6 ONLY-OURS=15
+    21:5-21:10     G={'Bc142': 2} P={'-': 2} Q={'Bc142': 2}
+    22:5-22:10     G={'Bc142': 2} P={'-': 4} Q={'Bc142': 4}
+    23:5-23:10     G={'Bc142': 2} P={'-': 6} Q={'Bc142': 6}
+    25:5-25:10     G={'Kc142': 2} P={'-': 2} Q={'Kc142': 2}
+    26:5-26:10     G={'Kc142': 2} P={} Q={}
+    26:5-26:19     G={} P={'-': 2} Q={'Kc142': 2}
+    28:12-28:17    G={'Bc142': 2} P={'-': 2} Q={'Bc142': 2}
+    29:5-29:10     G={'Bc142': 2} P={'-': 2} Q={'Bc142': 2}
+    30:5-30:10     G={'Bc142': 2} P={'-': 2} Q={'Bc142': 2}
+    41:5-41:10     G={'-': 2} P={} Q={}
+    45:5-45:10     G={'Bc142': 2} P={'-': 2} Q={'Bc142': 2}
+    46:5-46:13     G={} P={'-': 1} Q={'-': 1}
+    47:5-47:10     G={'Kc142': 2} P={'-': 2} Q={'Kc142': 2}
+    48:5-48:10     G={'Kc142': 2} P={} Q={}
+    48:5-48:19     G={} P={'-': 2} Q={'Kc142': 2}
+    49:5-49:13     G={} P={'-': 1} Q={'-': 1}
+    53:5-53:13     G={} P={'-': 1} Q={'-': 1}
+    56:5-56:13     G={} P={'-': 1} Q={'-': 1}
+    60:3-60:11     G={} P={'Bc142': 1} Q={'Bc142': 1}
+TSINST   TOTAL=72 RIGHT->RIGHT=33 WRONG->RIGHT=18 ONLY-GOLDEN=6 ONLY-OURS=15
+    21:5-21:10     G={'package(pc142)': 2} P={'-': 2} Q={'package(pc142)': 2}
+    22:5-22:10     G={'package(pc142)': 2} P={'-': 4} Q={'package(pc142)': 4}
+    23:5-23:10     G={'package(pc142)': 2} P={'-': 6} Q={'package(pc142)': 6}
+    25:5-25:10     G={'package(pc142)': 2} P={'-': 2} Q={'package(pc142)': 2}
+    26:5-26:10     G={'package(pc142)': 2} P={} Q={}
+    26:5-26:19     G={} P={'-': 2} Q={'package(pc142)': 2}
+    28:12-28:17    G={'package(pc142)': 2} P={'-': 2} Q={'package(pc142)': 2}
+    29:5-29:10     G={'package(pc142)': 2} P={'-': 2} Q={'package(pc142)': 2}
+    30:5-30:10     G={'package(pc142)': 2} P={'-': 2} Q={'package(pc142)': 2}
+    41:5-41:10     G={'-': 2} P={} Q={}
+    45:5-45:10     G={'package(pc142)': 2} P={'-': 2} Q={'package(pc142)': 2}
+    46:5-46:13     G={} P={'-': 1} Q={'-': 1}
+    47:5-47:10     G={'package(pc142)': 2} P={'-': 2} Q={'package(pc142)': 2}
+    48:5-48:10     G={'package(pc142)': 2} P={} Q={}
+    48:5-48:19     G={} P={'-': 2} Q={'package(pc142)': 2}
+    49:5-49:13     G={} P={'-': 1} Q={'-': 1}
+    53:5-53:13     G={} P={'-': 1} Q={'-': 1}
+    56:5-56:13     G={} P={'-': 1} Q={'-': 1}
+    60:3-60:11     G={} P={'package(pc142)': 1} Q={'package(pc142)': 1}
+TSALIAS  TOTAL=72 RIGHT->RIGHT=51 ONLY-GOLDEN=6 ONLY-OURS=15
+    22:5-22:10     G={'NOALIAS': 2} P={'NOALIAS': 4} Q={'NOALIAS': 4}
+    23:5-23:10     G={'NOALIAS': 2} P={'NOALIAS': 6} Q={'NOALIAS': 6}
+    26:5-26:10     G={'NOALIAS': 2} P={} Q={}
+    26:5-26:19     G={} P={'NOALIAS': 2} Q={'NOALIAS': 2}
+    41:5-41:10     G={'NOALIAS': 2} P={} Q={}
+    46:5-46:13     G={} P={'NOALIAS': 1} Q={'NOALIAS': 1}
+    48:5-48:10     G={'NOALIAS': 2} P={} Q={}
+    48:5-48:19     G={} P={'NOALIAS': 2} Q={'NOALIAS': 2}
+    49:5-49:13     G={} P={'NOALIAS': 1} Q={'NOALIAS': 1}
+    53:5-53:13     G={} P={'NOALIAS': 1} Q={'NOALIAS': 1}
+    56:5-56:13     G={} P={'NOALIAS': 1} Q={'NOALIAS': 1}
+    60:3-60:11     G={} P={'NOALIAS': 1} Q={'NOALIAS': 1}
+TSDEFN   TOTAL=72 RIGHT->RIGHT=51 ONLY-GOLDEN=6 ONLY-OURS=15
+    22:5-22:10     G={'pc142::Bc142': 2} P={'pc142::Bc142': 4} Q={'pc142::Bc142': 4}
+    23:5-23:10     G={'pc142::Bc142': 2} P={'pc142::Bc142': 6} Q={'pc142::Bc142': 6}
+    26:5-26:10     G={'pc142::Kc142': 2} P={} Q={}
+    26:5-26:19     G={} P={'pc142::Kc142': 2} Q={'pc142::Kc142': 2}
+    41:5-41:10     G={'pc142::Bc142': 2} P={} Q={}
+    46:5-46:13     G={} P={'pc142::Bc142': 1} Q={'pc142::Bc142': 1}
+    48:5-48:10     G={'pc142::Kc142': 2} P={} Q={}
+    48:5-48:19     G={} P={'pc142::Kc142': 2} Q={'pc142::Kc142': 2}
+    49:5-49:13     G={} P={'pc142::Kc142': 1} Q={'pc142::Kc142': 1}
+    53:5-53:13     G={} P={'pc142::Bc142': 1} Q={'pc142::Bc142': 1}
+    56:5-56:13     G={} P={'pc142::Kc142': 1} Q={'pc142::Kc142': 1}
+    60:3-60:11     G={} P={'pc142::Bc142': 1} Q={'pc142::Bc142': 1}
+TSCT     TOTAL=72 RIGHT->RIGHT=51 ONLY-GOLDEN=6 ONLY-OURS=15
+    22:5-22:10     G={'0': 2} P={'0': 4} Q={'0': 4}
+    23:5-23:10     G={'0': 2} P={'0': 6} Q={'0': 6}
+    26:5-26:10     G={'0': 2} P={} Q={}
+    26:5-26:19     G={} P={'0': 2} Q={'0': 2}
+    41:5-41:10     G={'0': 2} P={} Q={}
+    46:5-46:13     G={} P={'0': 1} Q={'0': 1}
+    48:5-48:10     G={'0': 2} P={} Q={}
+    48:5-48:19     G={} P={'0': 2} Q={'0': 2}
+    49:5-49:13     G={} P={'0': 1} Q={'0': 1}
+    53:5-53:13     G={} P={'0': 1} Q={'0': 1}
+    56:5-56:13     G={} P={'0': 1} Q={'0': 1}
+    60:3-60:11     G={} P={'0': 1} Q={'0': 1}
+TSAUTO   TOTAL=72 RIGHT->RIGHT=51 ONLY-GOLDEN=6 ONLY-OURS=15
+    22:5-22:10     G={'0': 2} P={'0': 4} Q={'0': 4}
+    23:5-23:10     G={'0': 2} P={'0': 6} Q={'0': 6}
+    26:5-26:10     G={'0': 2} P={} Q={}
+    26:5-26:19     G={} P={'0': 2} Q={'0': 2}
+    41:5-41:10     G={'0': 2} P={} Q={}
+    46:5-46:13     G={} P={'0': 1} Q={'0': 1}
+    48:5-48:10     G={'0': 2} P={} Q={}
+    48:5-48:19     G={} P={'0': 2} Q={'0': 2}
+    49:5-49:13     G={} P={'0': 1} Q={'0': 1}
+    53:5-53:13     G={} P={'0': 1} Q={'0': 1}
+    56:5-56:13     G={} P={'0': 1} Q={'0': 1}
+    60:3-60:11     G={} P={'0': 1} Q={'0': 1}
+TSPARM   TOTAL=72 RIGHT->RIGHT=51 ONLY-GOLDEN=6 ONLY-OURS=15
+    22:5-22:10     G={'-1': 2} P={'-1': 4} Q={'-1': 4}
+    23:5-23:10     G={'-1': 2} P={'-1': 6} Q={'-1': 6}
+    26:5-26:10     G={'-1': 2} P={} Q={}
+    26:5-26:19     G={} P={'-1': 2} Q={'-1': 2}
+    41:5-41:10     G={'-1': 2} P={} Q={}
+    46:5-46:13     G={} P={'-1': 1} Q={'-1': 1}
+    48:5-48:10     G={'-1': 2} P={} Q={}
+    48:5-48:19     G={} P={'-1': 2} Q={'-1': 2}
+    49:5-49:13     G={} P={'-1': 1} Q={'-1': 1}
+    53:5-53:13     G={} P={'-1': 1} Q={'-1': 1}
+    56:5-56:13     G={} P={'-1': 1} Q={'-1': 1}
+    60:3-60:11     G={} P={'-1': 1} Q={'-1': 1}
+TSPA     TOTAL=72 RIGHT->RIGHT=51 ONLY-GOLDEN=6 ONLY-OURS=15
+    22:5-22:10     G={'-1': 2} P={'-1': 4} Q={'-1': 4}
+    23:5-23:10     G={'-1': 2} P={'-1': 6} Q={'-1': 6}
+    26:5-26:10     G={'-1': 2} P={} Q={}
+    26:5-26:19     G={} P={'-1': 2} Q={'-1': 2}
+    41:5-41:10     G={'-1': 2} P={} Q={}
+    46:5-46:13     G={} P={'-1': 1} Q={'-1': 1}
+    48:5-48:10     G={'-1': 2} P={} Q={}
+    48:5-48:19     G={} P={'-1': 2} Q={'-1': 2}
+    49:5-49:13     G={} P={'-1': 1} Q={'-1': 1}
+    53:5-53:13     G={} P={'-1': 1} Q={'-1': 1}
+    56:5-56:13     G={} P={'-1': 1} Q={'-1': 1}
+    60:3-60:11     G={} P={'-1': 1} Q={'-1': 1}
+TSEXT    TOTAL=72 RIGHT->RIGHT=51 ONLY-GOLDEN=6 ONLY-OURS=15
+    22:5-22:10     G={'-': 2} P={'-': 4} Q={'-': 4}
+    23:5-23:10     G={'-': 2} P={'-': 6} Q={'-': 6}
+    26:5-26:10     G={'-': 2} P={} Q={}
+    26:5-26:19     G={} P={'-': 2} Q={'-': 2}
+    41:5-41:10     G={'-': 2} P={} Q={}
+    46:5-46:13     G={} P={'-': 1} Q={'-': 1}
+    48:5-48:10     G={'-': 2} P={} Q={}
+    48:5-48:19     G={} P={'-': 2} Q={'-': 2}
+    49:5-49:13     G={} P={'-': 1} Q={'-': 1}
+    53:5-53:13     G={} P={'-': 1} Q={'-': 1}
+    56:5-56:13     G={} P={'-': 1} Q={'-': 1}
+    60:3-60:11     G={} P={'-': 1} Q={'-': 1}
+HOLD     TOTAL=72 RIGHT->RIGHT=21 WRONG->WRONG=30 ONLY-GOLDEN=6 ONLY-OURS=15
+    12:11-12:16    G={'ref_var(c_tdspec)@function,ref_var(d_tdspec)@begin,ref_var(e_tdspec)@function,ref_var(f_tdspec)@begin': 1} P={'ref_var(c_tdspec)@function,ref_var(d_tdspec)@function,ref_var(e_tdspec)@function,ref_var(f_tdspec)@function': 1} Q={'ref_var(c_tdspec)@function,ref_var(d_tdspec)@function,ref_var(e_tdspec)@function,ref_var(f_tdspec)@function': 1}
+    13:11-13:16    G={'class_var(cpkg_td)@package,ref_var(c_td)@function,ref_var(d_td)@begin,ref_var(e_td)@function,ref_var(f_td)@begin': 1} P={'class_var(cpkg_td)@package,ref_var(c_td)@function,ref_var(d_td)@function,ref_var(e_td)@function,ref_var(f_td)@function': 1} Q={'class_var(cpkg_td)@package,ref_var(c_td)@function,ref_var(d_td)@function,ref_var(e_td)@function,ref_var(f_td)@function': 1}
+    22:5-22:10     G={'class_var(c_two_a)@function,class_var(c_two_b)@function': 2} P={'class_var(c_two_a)@function': 2, 'class_var(c_two_b)@function': 2} Q={'class_var(c_two_a)@function': 2, 'class_var(c_two_b)@function': 2}
+    23:5-23:10     G={'class_var(c_three_a)@function,class_var(c_three_b)@function,class_var(c_three_c)@function': 2} P={'class_var(c_three_a)@function': 2, 'class_var(c_three_b)@function': 2, 'class_var(c_three_c)@function': 2} Q={'class_var(c_three_a)@function': 2, 'class_var(c_three_b)@function': 2, 'class_var(c_three_c)@function': 2}
+    26:5-26:10     G={'class_var(c_spec)@function': 2} P={} Q={}
+    26:5-26:19     G={} P={'class_var(c_spec)@function': 2} Q={'class_var(c_spec)@function': 2}
+    33:5-33:10     G={'class_var(d_one)@begin': 2} P={'class_var(d_one)@function': 2} Q={'class_var(d_one)@function': 2}
+    34:5-34:10     G={'class_var(d_two_a)@begin': 2, 'class_var(d_two_b)@begin': 2} P={'class_var(d_two_a)@function': 2, 'class_var(d_two_b)@function': 2} Q={'class_var(d_two_a)@function': 2, 'class_var(d_two_b)@function': 2}
+    35:5-35:10     G={'class_var(d_three_a)@begin': 2, 'class_var(d_three_b)@begin': 2, 'class_var(d_three_c)@begin': 2} P={'class_var(d_three_a)@function': 2, 'class_var(d_three_b)@function': 2, 'class_var(d_three_c)@function': 2} Q={'class_var(d_three_a)@function': 2, 'class_var(d_three_b)@function': 2, 'class_var(d_three_c)@function': 2}
+    37:5-37:10     G={'class_var(d_bare)@begin': 2} P={'class_var(d_bare)@function': 2} Q={'class_var(d_bare)@function': 2}
+    38:5-38:19     G={'class_var(d_spec)@begin': 2} P={'class_var(d_spec)@function': 2} Q={'class_var(d_spec)@function': 2}
+    40:12-40:17    G={'class_var(d_static)@begin': 2} P={'class_var(d_static)@function': 2} Q={'class_var(d_static)@function': 2}
+    41:5-41:10     G={'array_typespec,class_var@array_var': 2} P={} Q={}
+    46:5-46:13     G={} P={'ref_var(e_td)@function': 1} Q={'ref_var(e_td)@function': 1}
+    48:5-48:10     G={'class_var(e_spec)@function': 2} P={} Q={}
+    48:5-48:19     G={} P={'class_var(e_spec)@function': 2} Q={'class_var(e_spec)@function': 2}
+    49:5-49:13     G={} P={'ref_var(e_tdspec)@function': 1} Q={'ref_var(e_tdspec)@function': 1}
+    52:5-52:10     G={'class_var(f_one)@begin': 2} P={'class_var(f_one)@function': 2} Q={'class_var(f_one)@function': 2}
+    53:5-53:13     G={} P={'ref_var(f_td)@function': 1} Q={'ref_var(f_td)@function': 1}
+    54:5-54:10     G={'class_var(f_bare)@begin': 2} P={'class_var(f_bare)@function': 2} Q={'class_var(f_bare)@function': 2}
+    55:5-55:19     G={'class_var(f_spec)@begin': 2} P={'class_var(f_spec)@function': 2} Q={'class_var(f_spec)@function': 2}
+    56:5-56:13     G={} P={'ref_var(f_tdspec)@function': 1} Q={'ref_var(f_tdspec)@function': 1}
+    60:3-60:11     G={} P={'class_var(cpkg_td)@package': 1} Q={'class_var(cpkg_td)@package': 1}
+PAR      TOTAL=72 RIGHT->RIGHT=47 WRONG->WRONG=4 ONLY-GOLDEN=6 ONLY-OURS=15
+    22:5-22:10     G={'-': 2} P={'-': 4} Q={'-': 4}
+    23:5-23:10     G={'-': 2} P={'-': 6} Q={'-': 6}
+    26:5-26:10     G={'-': 2} P={} Q={}
+    26:5-26:19     G={} P={'-': 2} Q={'-': 2}
+    41:5-41:10     G={'-': 2} P={} Q={}
+    46:5-46:13     G={} P={'-': 1} Q={'-': 1}
+    48:5-48:10     G={'-': 2} P={} Q={}
+    48:5-48:19     G={} P={'-': 2} Q={'-': 2}
+    49:5-49:13     G={} P={'-': 1} Q={'-': 1}
+    53:5-53:13     G={} P={'-': 1} Q={'-': 1}
+    56:5-56:13     G={} P={'-': 1} Q={'-': 1}
+    59:3-59:8      G={'class_var(cpkg_one)': 2} P={'-': 2} Q={'-': 2}
+    60:3-60:11     G={} P={'-': 1} Q={'-': 1}
+    61:3-61:8      G={'class_var(cpkg_spec)': 2} P={'-': 2} Q={'-': 2}
+SCOPE    TOTAL=72 RIGHT->RIGHT=47 WRONG->WRONG=4 ONLY-GOLDEN=6 ONLY-OURS=15
+    22:5-22:10     G={'-': 2} P={'-': 4} Q={'-': 4}
+    23:5-23:10     G={'-': 2} P={'-': 6} Q={'-': 6}
+    26:5-26:10     G={'-': 2} P={} Q={}
+    26:5-26:19     G={} P={'-': 2} Q={'-': 2}
+    41:5-41:10     G={'-': 2} P={} Q={}
+    46:5-46:13     G={} P={'-': 1} Q={'-': 1}
+    48:5-48:10     G={'-': 2} P={} Q={}
+    48:5-48:19     G={} P={'-': 2} Q={'-': 2}
+    49:5-49:13     G={} P={'-': 1} Q={'-': 1}
+    53:5-53:13     G={} P={'-': 1} Q={'-': 1}
+    56:5-56:13     G={} P={'-': 1} Q={'-': 1}
+    59:3-59:8      G={'package(pc142)': 2} P={'-': 2} Q={'-': 2}
+    60:3-60:11     G={} P={'-': 1} Q={'-': 1}
+    61:3-61:8      G={'package(pc142)': 2} P={'-': 2} Q={'-': 2}
+DEFSPAN  TOTAL=72 RIGHT->RIGHT=51 ONLY-GOLDEN=6 ONLY-OURS=15
+    22:5-22:10     G={'6:3-8:11': 2} P={'6:3-8:11': 4} Q={'6:3-8:11': 4}
+    23:5-23:10     G={'6:3-8:11': 2} P={'6:3-8:11': 6} Q={'6:3-8:11': 6}
+    26:5-26:10     G={'9:3-11:11': 2} P={} Q={}
+    26:5-26:19     G={} P={'9:3-11:11': 2} Q={'9:3-11:11': 2}
+    41:5-41:10     G={'6:3-8:11': 2} P={} Q={}
+    46:5-46:13     G={} P={'6:3-8:11': 1} Q={'6:3-8:11': 1}
+    48:5-48:10     G={'9:3-11:11': 2} P={} Q={}
+    48:5-48:19     G={} P={'9:3-11:11': 2} Q={'9:3-11:11': 2}
+    49:5-49:13     G={} P={'9:3-11:11': 1} Q={'9:3-11:11': 1}
+    53:5-53:13     G={} P={'6:3-8:11': 1} Q={'6:3-8:11': 1}
+    56:5-56:13     G={} P={'9:3-11:11': 1} Q={'9:3-11:11': 1}
+    60:3-60:11     G={} P={'6:3-8:11': 1} Q={'6:3-8:11': 1}
+== g142_c_shape.elab  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+TSNAME   TOTAL=72 RIGHT->RIGHT=33 WRONG->RIGHT=18 ONLY-GOLDEN=6 ONLY-OURS=15
+    21:5-21:10     G={'Bc142': 2} P={'-': 2} Q={'Bc142': 2}
+    22:5-22:10     G={'Bc142': 2} P={'-': 4} Q={'Bc142': 4}
+    23:5-23:10     G={'Bc142': 2} P={'-': 6} Q={'Bc142': 6}
+    25:5-25:10     G={'Kc142': 2} P={'-': 2} Q={'Kc142': 2}
+    26:5-26:10     G={'Kc142': 2} P={} Q={}
+    26:5-26:19     G={} P={'-': 2} Q={'Kc142': 2}
+    28:12-28:17    G={'Bc142': 2} P={'-': 2} Q={'Bc142': 2}
+    29:5-29:10     G={'Bc142': 2} P={'-': 2} Q={'Bc142': 2}
+    30:5-30:10     G={'Bc142': 2} P={'-': 2} Q={'Bc142': 2}
+    41:5-41:10     G={'-': 2} P={} Q={}
+    45:5-45:10     G={'Bc142': 2} P={'-': 2} Q={'Bc142': 2}
+    46:5-46:13     G={} P={'-': 1} Q={'-': 1}
+    47:5-47:10     G={'Kc142': 2} P={'-': 2} Q={'Kc142': 2}
+    48:5-48:10     G={'Kc142': 2} P={} Q={}
+    48:5-48:19     G={} P={'-': 2} Q={'Kc142': 2}
+    49:5-49:13     G={} P={'-': 1} Q={'-': 1}
+    53:5-53:13     G={} P={'-': 1} Q={'-': 1}
+    56:5-56:13     G={} P={'-': 1} Q={'-': 1}
+    60:3-60:11     G={} P={'Bc142': 1} Q={'Bc142': 1}
+TSINST   TOTAL=72 RIGHT->RIGHT=33 WRONG->RIGHT=18 ONLY-GOLDEN=6 ONLY-OURS=15
+    21:5-21:10     G={'package(pc142)': 2} P={'-': 2} Q={'package(pc142)': 2}
+    22:5-22:10     G={'package(pc142)': 2} P={'-': 4} Q={'package(pc142)': 4}
+    23:5-23:10     G={'package(pc142)': 2} P={'-': 6} Q={'package(pc142)': 6}
+    25:5-25:10     G={'package(pc142)': 2} P={'-': 2} Q={'package(pc142)': 2}
+    26:5-26:10     G={'package(pc142)': 2} P={} Q={}
+    26:5-26:19     G={} P={'-': 2} Q={'package(pc142)': 2}
+    28:12-28:17    G={'package(pc142)': 2} P={'-': 2} Q={'package(pc142)': 2}
+    29:5-29:10     G={'package(pc142)': 2} P={'-': 2} Q={'package(pc142)': 2}
+    30:5-30:10     G={'package(pc142)': 2} P={'-': 2} Q={'package(pc142)': 2}
+    41:5-41:10     G={'-': 2} P={} Q={}
+    45:5-45:10     G={'package(pc142)': 2} P={'-': 2} Q={'package(pc142)': 2}
+    46:5-46:13     G={} P={'-': 1} Q={'-': 1}
+    47:5-47:10     G={'package(pc142)': 2} P={'-': 2} Q={'package(pc142)': 2}
+    48:5-48:10     G={'package(pc142)': 2} P={} Q={}
+    48:5-48:19     G={} P={'-': 2} Q={'package(pc142)': 2}
+    49:5-49:13     G={} P={'-': 1} Q={'-': 1}
+    53:5-53:13     G={} P={'-': 1} Q={'-': 1}
+    56:5-56:13     G={} P={'-': 1} Q={'-': 1}
+    60:3-60:11     G={} P={'package(pc142)': 1} Q={'package(pc142)': 1}
+TSALIAS  TOTAL=72 RIGHT->RIGHT=51 ONLY-GOLDEN=6 ONLY-OURS=15
+    22:5-22:10     G={'NOALIAS': 2} P={'NOALIAS': 4} Q={'NOALIAS': 4}
+    23:5-23:10     G={'NOALIAS': 2} P={'NOALIAS': 6} Q={'NOALIAS': 6}
+    26:5-26:10     G={'NOALIAS': 2} P={} Q={}
+    26:5-26:19     G={} P={'NOALIAS': 2} Q={'NOALIAS': 2}
+    41:5-41:10     G={'NOALIAS': 2} P={} Q={}
+    46:5-46:13     G={} P={'NOALIAS': 1} Q={'NOALIAS': 1}
+    48:5-48:10     G={'NOALIAS': 2} P={} Q={}
+    48:5-48:19     G={} P={'NOALIAS': 2} Q={'NOALIAS': 2}
+    49:5-49:13     G={} P={'NOALIAS': 1} Q={'NOALIAS': 1}
+    53:5-53:13     G={} P={'NOALIAS': 1} Q={'NOALIAS': 1}
+    56:5-56:13     G={} P={'NOALIAS': 1} Q={'NOALIAS': 1}
+    60:3-60:11     G={} P={'NOALIAS': 1} Q={'NOALIAS': 1}
+TSDEFN   TOTAL=72 RIGHT->RIGHT=51 ONLY-GOLDEN=6 ONLY-OURS=15
+    22:5-22:10     G={'pc142::Bc142': 2} P={'pc142::Bc142': 4} Q={'pc142::Bc142': 4}
+    23:5-23:10     G={'pc142::Bc142': 2} P={'pc142::Bc142': 6} Q={'pc142::Bc142': 6}
+    26:5-26:10     G={'pc142::Kc142': 2} P={} Q={}
+    26:5-26:19     G={} P={'pc142::Kc142': 2} Q={'pc142::Kc142': 2}
+    41:5-41:10     G={'pc142::Bc142': 2} P={} Q={}
+    46:5-46:13     G={} P={'pc142::Bc142': 1} Q={'pc142::Bc142': 1}
+    48:5-48:10     G={'pc142::Kc142': 2} P={} Q={}
+    48:5-48:19     G={} P={'pc142::Kc142': 2} Q={'pc142::Kc142': 2}
+    49:5-49:13     G={} P={'pc142::Kc142': 1} Q={'pc142::Kc142': 1}
+    53:5-53:13     G={} P={'pc142::Bc142': 1} Q={'pc142::Bc142': 1}
+    56:5-56:13     G={} P={'pc142::Kc142': 1} Q={'pc142::Kc142': 1}
+    60:3-60:11     G={} P={'pc142::Bc142': 1} Q={'pc142::Bc142': 1}
+TSCT     TOTAL=72 RIGHT->RIGHT=51 ONLY-GOLDEN=6 ONLY-OURS=15
+    22:5-22:10     G={'0': 2} P={'0': 4} Q={'0': 4}
+    23:5-23:10     G={'0': 2} P={'0': 6} Q={'0': 6}
+    26:5-26:10     G={'0': 2} P={} Q={}
+    26:5-26:19     G={} P={'0': 2} Q={'0': 2}
+    41:5-41:10     G={'0': 2} P={} Q={}
+    46:5-46:13     G={} P={'0': 1} Q={'0': 1}
+    48:5-48:10     G={'0': 2} P={} Q={}
+    48:5-48:19     G={} P={'0': 2} Q={'0': 2}
+    49:5-49:13     G={} P={'0': 1} Q={'0': 1}
+    53:5-53:13     G={} P={'0': 1} Q={'0': 1}
+    56:5-56:13     G={} P={'0': 1} Q={'0': 1}
+    60:3-60:11     G={} P={'0': 1} Q={'0': 1}
+TSAUTO   TOTAL=72 RIGHT->RIGHT=51 ONLY-GOLDEN=6 ONLY-OURS=15
+    22:5-22:10     G={'0': 2} P={'0': 4} Q={'0': 4}
+    23:5-23:10     G={'0': 2} P={'0': 6} Q={'0': 6}
+    26:5-26:10     G={'0': 2} P={} Q={}
+    26:5-26:19     G={} P={'0': 2} Q={'0': 2}
+    41:5-41:10     G={'0': 2} P={} Q={}
+    46:5-46:13     G={} P={'0': 1} Q={'0': 1}
+    48:5-48:10     G={'0': 2} P={} Q={}
+    48:5-48:19     G={} P={'0': 2} Q={'0': 2}
+    49:5-49:13     G={} P={'0': 1} Q={'0': 1}
+    53:5-53:13     G={} P={'0': 1} Q={'0': 1}
+    56:5-56:13     G={} P={'0': 1} Q={'0': 1}
+    60:3-60:11     G={} P={'0': 1} Q={'0': 1}
+TSPARM   TOTAL=72 RIGHT->RIGHT=51 ONLY-GOLDEN=6 ONLY-OURS=15
+    22:5-22:10     G={'-1': 2} P={'-1': 4} Q={'-1': 4}
+    23:5-23:10     G={'-1': 2} P={'-1': 6} Q={'-1': 6}
+    26:5-26:10     G={'-1': 2} P={} Q={}
+    26:5-26:19     G={} P={'-1': 2} Q={'-1': 2}
+    41:5-41:10     G={'-1': 2} P={} Q={}
+    46:5-46:13     G={} P={'-1': 1} Q={'-1': 1}
+    48:5-48:10     G={'-1': 2} P={} Q={}
+    48:5-48:19     G={} P={'-1': 2} Q={'-1': 2}
+    49:5-49:13     G={} P={'-1': 1} Q={'-1': 1}
+    53:5-53:13     G={} P={'-1': 1} Q={'-1': 1}
+    56:5-56:13     G={} P={'-1': 1} Q={'-1': 1}
+    60:3-60:11     G={} P={'-1': 1} Q={'-1': 1}
+TSPA     TOTAL=72 RIGHT->RIGHT=51 ONLY-GOLDEN=6 ONLY-OURS=15
+    22:5-22:10     G={'-1': 2} P={'-1': 4} Q={'-1': 4}
+    23:5-23:10     G={'-1': 2} P={'-1': 6} Q={'-1': 6}
+    26:5-26:10     G={'-1': 2} P={} Q={}
+    26:5-26:19     G={} P={'-1': 2} Q={'-1': 2}
+    41:5-41:10     G={'-1': 2} P={} Q={}
+    46:5-46:13     G={} P={'-1': 1} Q={'-1': 1}
+    48:5-48:10     G={'-1': 2} P={} Q={}
+    48:5-48:19     G={} P={'-1': 2} Q={'-1': 2}
+    49:5-49:13     G={} P={'-1': 1} Q={'-1': 1}
+    53:5-53:13     G={} P={'-1': 1} Q={'-1': 1}
+    56:5-56:13     G={} P={'-1': 1} Q={'-1': 1}
+    60:3-60:11     G={} P={'-1': 1} Q={'-1': 1}
+TSEXT    TOTAL=72 RIGHT->RIGHT=51 ONLY-GOLDEN=6 ONLY-OURS=15
+    22:5-22:10     G={'-': 2} P={'-': 4} Q={'-': 4}
+    23:5-23:10     G={'-': 2} P={'-': 6} Q={'-': 6}
+    26:5-26:10     G={'-': 2} P={} Q={}
+    26:5-26:19     G={} P={'-': 2} Q={'-': 2}
+    41:5-41:10     G={'-': 2} P={} Q={}
+    46:5-46:13     G={} P={'-': 1} Q={'-': 1}
+    48:5-48:10     G={'-': 2} P={} Q={}
+    48:5-48:19     G={} P={'-': 2} Q={'-': 2}
+    49:5-49:13     G={} P={'-': 1} Q={'-': 1}
+    53:5-53:13     G={} P={'-': 1} Q={'-': 1}
+    56:5-56:13     G={} P={'-': 1} Q={'-': 1}
+    60:3-60:11     G={} P={'-': 1} Q={'-': 1}
+HOLD     TOTAL=72 RIGHT->RIGHT=19 WRONG->WRONG=32 ONLY-GOLDEN=6 ONLY-OURS=15
+    12:11-12:16    G={'ref_var(c_tdspec)@function,ref_var(d_tdspec)@begin,ref_var(d_tdspec)@function,ref_var(e_tdspec)@function,ref_var(f_tdspec)@begin,ref_var(f_tdspec)@function': 1} P={'ref_var(c_tdspec)@function,ref_var(d_tdspec)@function,ref_var(e_tdspec)@function,ref_var(f_tdspec)@function': 1} Q={'ref_var(c_tdspec)@function,ref_var(d_tdspec)@function,ref_var(e_tdspec)@function,ref_var(f_tdspec)@function': 1}
+    13:11-13:16    G={'class_var(cpkg_td)@package,ref_var(c_td)@function,ref_var(d_td)@begin,ref_var(d_td)@function,ref_var(e_td)@function,ref_var(f_td)@begin,ref_var(f_td)@function': 1} P={'class_var(cpkg_td)@package,ref_var(c_td)@function,ref_var(d_td)@function,ref_var(e_td)@function,ref_var(f_td)@function': 1} Q={'class_var(cpkg_td)@package,ref_var(c_td)@function,ref_var(d_td)@function,ref_var(e_td)@function,ref_var(f_td)@function': 1}
+    22:5-22:10     G={'class_var(c_two_a)@function,class_var(c_two_b)@function': 2} P={'class_var(c_two_a)@function': 2, 'class_var(c_two_b)@function': 2} Q={'class_var(c_two_a)@function': 2, 'class_var(c_two_b)@function': 2}
+    23:5-23:10     G={'class_var(c_three_a)@function,class_var(c_three_b)@function,class_var(c_three_c)@function': 2} P={'class_var(c_three_a)@function': 2, 'class_var(c_three_b)@function': 2, 'class_var(c_three_c)@function': 2} Q={'class_var(c_three_a)@function': 2, 'class_var(c_three_b)@function': 2, 'class_var(c_three_c)@function': 2}
+    26:5-26:10     G={'class_var(c_spec)@function': 2} P={} Q={}
+    26:5-26:19     G={} P={'class_var(c_spec)@function': 2} Q={'class_var(c_spec)@function': 2}
+    33:5-33:10     G={'class_var(d_one)@begin,class_var(d_one)@function': 2} P={'class_var(d_one)@function': 2} Q={'class_var(d_one)@function': 2}
+    34:5-34:10     G={'class_var(d_two_a)@begin,class_var(d_two_a)@function': 2, 'class_var(d_two_b)@begin,class_var(d_two_b)@function': 2} P={'class_var(d_two_a)@function': 2, 'class_var(d_two_b)@function': 2} Q={'class_var(d_two_a)@function': 2, 'class_var(d_two_b)@function': 2}
+    35:5-35:10     G={'class_var(d_three_a)@begin,class_var(d_three_a)@function': 2, 'class_var(d_three_b)@begin,class_var(d_three_b)@function': 2, 'class_var(d_three_c)@begin,class_var(d_three_c)@function': 2} P={'class_var(d_three_a)@function': 2, 'class_var(d_three_b)@function': 2, 'class_var(d_three_c)@function': 2} Q={'class_var(d_three_a)@function': 2, 'class_var(d_three_b)@function': 2, 'class_var(d_three_c)@function': 2}
+    37:5-37:10     G={'class_var(d_bare)@begin,class_var(d_bare)@function': 2} P={'class_var(d_bare)@function': 2} Q={'class_var(d_bare)@function': 2}
+    38:5-38:19     G={'class_var(d_spec)@begin,class_var(d_spec)@function': 2} P={'class_var(d_spec)@function': 2} Q={'class_var(d_spec)@function': 2}
+    40:12-40:17    G={'class_var(d_static)@begin,class_var(d_static)@function': 2} P={'class_var(d_static)@function': 2} Q={'class_var(d_static)@function': 2}
+    41:5-41:10     G={'array_typespec,class_var@array_var,class_var@begin': 2} P={} Q={}
+    42:5-42:10     G={'array_typespec,class_var@array_var,class_var@begin': 2} P={'array_typespec,class_var@array_var': 2} Q={'array_typespec,class_var@array_var': 2}
+    46:5-46:13     G={} P={'ref_var(e_td)@function': 1} Q={'ref_var(e_td)@function': 1}
+    48:5-48:10     G={'class_var(e_spec)@function': 2} P={} Q={}
+    48:5-48:19     G={} P={'class_var(e_spec)@function': 2} Q={'class_var(e_spec)@function': 2}
+    49:5-49:13     G={} P={'ref_var(e_tdspec)@function': 1} Q={'ref_var(e_tdspec)@function': 1}
+    52:5-52:10     G={'class_var(f_one)@begin,class_var(f_one)@function': 2} P={'class_var(f_one)@function': 2} Q={'class_var(f_one)@function': 2}
+    53:5-53:13     G={} P={'ref_var(f_td)@function': 1} Q={'ref_var(f_td)@function': 1}
+    54:5-54:10     G={'class_var(f_bare)@begin,class_var(f_bare)@function': 2} P={'class_var(f_bare)@function': 2} Q={'class_var(f_bare)@function': 2}
+    55:5-55:19     G={'class_var(f_spec)@begin,class_var(f_spec)@function': 2} P={'class_var(f_spec)@function': 2} Q={'class_var(f_spec)@function': 2}
+    56:5-56:13     G={} P={'ref_var(f_tdspec)@function': 1} Q={'ref_var(f_tdspec)@function': 1}
+    60:3-60:11     G={} P={'class_var(cpkg_td)@package': 1} Q={'class_var(cpkg_td)@package': 1}
+PAR      TOTAL=72 RIGHT->RIGHT=47 WRONG->WRONG=4 ONLY-GOLDEN=6 ONLY-OURS=15
+    22:5-22:10     G={'-': 2} P={'-': 4} Q={'-': 4}
+    23:5-23:10     G={'-': 2} P={'-': 6} Q={'-': 6}
+    26:5-26:10     G={'-': 2} P={} Q={}
+    26:5-26:19     G={} P={'-': 2} Q={'-': 2}
+    41:5-41:10     G={'-': 2} P={} Q={}
+    46:5-46:13     G={} P={'-': 1} Q={'-': 1}
+    48:5-48:10     G={'-': 2} P={} Q={}
+    48:5-48:19     G={} P={'-': 2} Q={'-': 2}
+    49:5-49:13     G={} P={'-': 1} Q={'-': 1}
+    53:5-53:13     G={} P={'-': 1} Q={'-': 1}
+    56:5-56:13     G={} P={'-': 1} Q={'-': 1}
+    59:3-59:8      G={'class_var(cpkg_one)': 2} P={'-': 2} Q={'-': 2}
+    60:3-60:11     G={} P={'-': 1} Q={'-': 1}
+    61:3-61:8      G={'class_var(cpkg_spec)': 2} P={'-': 2} Q={'-': 2}
+SCOPE    TOTAL=72 RIGHT->RIGHT=47 WRONG->WRONG=4 ONLY-GOLDEN=6 ONLY-OURS=15
+    22:5-22:10     G={'-': 2} P={'-': 4} Q={'-': 4}
+    23:5-23:10     G={'-': 2} P={'-': 6} Q={'-': 6}
+    26:5-26:10     G={'-': 2} P={} Q={}
+    26:5-26:19     G={} P={'-': 2} Q={'-': 2}
+    41:5-41:10     G={'-': 2} P={} Q={}
+    46:5-46:13     G={} P={'-': 1} Q={'-': 1}
+    48:5-48:10     G={'-': 2} P={} Q={}
+    48:5-48:19     G={} P={'-': 2} Q={'-': 2}
+    49:5-49:13     G={} P={'-': 1} Q={'-': 1}
+    53:5-53:13     G={} P={'-': 1} Q={'-': 1}
+    56:5-56:13     G={} P={'-': 1} Q={'-': 1}
+    59:3-59:8      G={'package(pc142)': 2} P={'-': 2} Q={'-': 2}
+    60:3-60:11     G={} P={'-': 1} Q={'-': 1}
+    61:3-61:8      G={'package(pc142)': 2} P={'-': 2} Q={'-': 2}
+DEFSPAN  TOTAL=72 RIGHT->RIGHT=51 ONLY-GOLDEN=6 ONLY-OURS=15
+    22:5-22:10     G={'6:3-8:11': 2} P={'6:3-8:11': 4} Q={'6:3-8:11': 4}
+    23:5-23:10     G={'6:3-8:11': 2} P={'6:3-8:11': 6} Q={'6:3-8:11': 6}
+    26:5-26:10     G={'9:3-11:11': 2} P={} Q={}
+    26:5-26:19     G={} P={'9:3-11:11': 2} Q={'9:3-11:11': 2}
+    41:5-41:10     G={'6:3-8:11': 2} P={} Q={}
+    46:5-46:13     G={} P={'6:3-8:11': 1} Q={'6:3-8:11': 1}
+    48:5-48:10     G={'9:3-11:11': 2} P={} Q={}
+    48:5-48:19     G={} P={'9:3-11:11': 2} Q={'9:3-11:11': 2}
+    49:5-49:13     G={} P={'9:3-11:11': 1} Q={'9:3-11:11': 1}
+    53:5-53:13     G={} P={'6:3-8:11': 1} Q={'6:3-8:11': 1}
+    56:5-56:13     G={} P={'9:3-11:11': 1} Q={'9:3-11:11': 1}
+    60:3-60:11     G={} P={'6:3-8:11': 1} Q={'6:3-8:11': 1}
+LISTED=3 PROCESSED=3
+PROCESSED-ASSERT-OK

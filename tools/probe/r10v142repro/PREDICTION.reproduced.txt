@@ -1,0 +1,12 @@
+# r10v142 — the a-priori prediction, RE-RUN from my own pristine sweeps
+# CEN=ct142cen predsweep142.sh <pris_sl> <pris_u2r>; only non-zero rows shown
+PRED default/BuildUVMPkg-bf853d43 10 rc_g=0 rc_o=0
+PRED default/MiniAmiq-544c7f61 12 rc_g=0 rc_o=0
+PRED default/Scoreboard-59431470 6 rc_g=0 rc_o=0
+PRED default/SeqDriver-32af76aa 12 rc_g=0 rc_o=0
+PRED default/SimpleUVM-1dc93a62 6 rc_g=0 rc_o=0
+PRED testflags/BuildUVMPkg-bf853d43 10 rc_g=0 rc_o=0
+PRED testflags/MiniAmiq-544c7f61 12 rc_g=0 rc_o=0
+PRED testflags/SeqDriver-32af76aa 12 rc_g=0 rc_o=0
+PRED testflags/SimpleUVM-1dc93a62 6 rc_g=0 rc_o=0
+-- rows=2314 SKIP-NOFILE=721 PREDICTED-MOVERS=9
