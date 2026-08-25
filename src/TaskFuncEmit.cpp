@@ -5038,7 +5038,26 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     // The element typespec (int_typespec for int/...), shared
                     // by the reg AND the array_typespec's Elem_typespec.
                     UHDM::typespec* elemTs = nullptr;
-                    if (leaf->getCanonicalType().kind ==
+                    // § declArrayElemTsIsWrittenKeyword126 — Surelog's
+                    // `compileBuiltinTypespec` dispatch, asked of the WRITTEN
+                    // base-type KEYWORD instead of the element's integral
+                    // shape.  This arm answers `string` / `real` / `shortreal`
+                    // / `chandle` / `event` / `byte` / `shortint` / `longint`
+                    // / `integer` / `time` (and `int`, with the object it
+                    // already had); `logic` / `reg` / `bit` and every NAMED
+                    // type fall through to the two arms below unchanged.  Law
+                    // + Surelog citations: EmitHelpers.h.
+                    const syntax::SyntaxNode* tsynK126 =
+                        fmv.getDeclaredType()->getTypeSyntax();
+                    if (auto* kwTs126 = writtenKeywordElemTs126(
+                            s, tsynK126, leaf->isSigned())) {
+                        // The SAME span the int arm below already took: the
+                        // keyword token itself, which is the node Surelog's
+                        // populateCoreMembers spans these typespecs over.
+                        setLoc(kwTs126, tsynK126->getFirstToken().range());
+                        elemTs = kwTs126;
+                    }
+                    else if (leaf->getCanonicalType().kind ==
                         SymbolKind::PredefinedIntegerType) {
                         auto* its = s.MakeInt_typespec();
                         its->VpiSigned(leaf->isSigned());

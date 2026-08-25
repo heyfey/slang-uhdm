@@ -1,0 +1,55 @@
+r10v126 — VERIFIER ARM INDEX (what each arm asks that r10uvm126's own grids do not)
+==================================================================================
+Every arm is scored DEF and ELAB, against its OWN Surelog golden built in BOTH
+views (`surelog -parse` and `surelog -parse -elabuhdm`), by `armv126.sh` +
+`cenv126.cpp` + `/tmp/v126_score.py`'s multiset join keyed on
+(owner parent-chain, owner name) with the payload
+(element-typespec KIND | NAME | range count | **VpiSigned** | vpiInstance).
+Span is deliberately OUT of the payload — no generated Compare reads it.
+
+  cenv126.cpp is r10uvm126's cen126.cpp with ONE addition: `sgn=`.  cen126's
+  header claims it prints vpiSigned and its `elemStr` does not, which is why
+  r10uvm126's own four grids could not have seen finding V-1 below.
+
+v126_a_sign.sv   THE SIGNING GRID — every integer-atom keyword x {bare, signed,
+                 unsigned} plus `bit signed`, `bit signed [5:0]`, `logic signed`,
+                 `logic signed [6:0]`, `reg signed`, in the head's own home.
+                 r10uvm126's four grids carry NOT ONE signing variant, yet the
+                 shipped arm set VpiSigned on six typespec classes.
+                 -> found V-1 (`time signed`).
+v126_b_forms.sv  DECLARATION FORMS: `var`, `automatic`, `static`, `const`,
+                 TWO declarators on one type, a typedef of the ELEMENT and a
+                 typedef of the ARRAY.
+v126_c_homes.sv  HOMES r10uvm126's grid B omits: an INTERFACE variable, an
+                 interface TASK local, a $unit (compilation-unit) function
+                 local, a for-loop block local, a fork/join_none block local,
+                 and a package class with THREE instantiations.
+v126_d_shapes.sv ELEMENT x DIMENSION shapes: queue / dynamic / associative
+                 (int-keyed AND string-keyed) / 2-D / 3-D of STRING, the mixed
+                 fixed-then-dynamic `string [5][]`, enum / packed-struct /
+                 unpacked-struct / class-handle elements, and the packed
+                 CONTROLS (`logic [9:0]`, `logic`, `bit [2:0]`, `bit`, `int`)
+                 that MUST NOT move.
+v126_e_edge.sv   EDGE KEYWORDS: `realtime` (-> residue V-2), `time` x signing in
+                 a second home and order, a module-task string array, and a
+                 packed-control triple.
+v126_f_stress.sv CRASH / SYMMETRY: a constructor, a pure-virtual + virtual
+                 method, a parameterised class extending another, a class
+                 nested in a class, a STATIC method, a task with a
+                 default-valued formal, an interface class, and a program
+                 block.  Both binaries rc=0 in both views; 13 cells FIXED,
+                 MOVED-WRONG 0.
+
+REJECTION PROBE (not an arm; /tmp/v126_edge2/z.sv): packed dimensions written on
+`int` / `byte` / `string` / `time` — ILLEGAL SV.  Both binaries reject
+symmetrically with rc=3 and no segfault, in both views.
+
+SCORE TOTALS over the six arms (DEF + ELAB), pristine vs patched+fix:
+  SAME-OK 63   FIXED 163   MOVED-WRONG 0   BROKE-AGREEING 0
+  STILL-WRONG 43   ONLY-GOLDEN 0   ONLY-OURS 8
+  With the patch AS SHIPPED (no verifier fix) the same six arms read
+  FIXED 153 and MOVED-WRONG 10 — three DISTINCT `time signed` declarations
+  (v126_a_sign t_sgn126v, v126_e_edge tm_sgn126v and mts126v), counted once in
+  the DEF view and two or three times in the ELAB view where the elaborated
+  listings repeat them.  Finding V-1.
+  STILL-WRONG and ONLY-* cells are enumerated in README.md §5 (residues).

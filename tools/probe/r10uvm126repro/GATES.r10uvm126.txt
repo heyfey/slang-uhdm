@@ -1,0 +1,102 @@
+r10uvm126 — THE GATE RUNS, verbatim, in the order RESUME.md §6 prescribes.
+LHS IS ALWAYS GOLDEN.  The judge is uhdm-cmp / verify_golden.py; nothing here.
+
+(1) BUILD BOTH, md5s
+    pristine  9eeb7f38678c006f7d2bb3ac4d9cfd84   (== the main tree's build/slang-uhdm at 0a5551e)
+    patched   b8587364c34513da6006b77b8ee0cb7e
+    both frozen `chmod 555` at immutable paths BEFORE any sweep.
+
+(2) GOLDENS 23/0 + the /bin/false NEGATIVE CONTROL
+    SLANG_UHDM exported EXPLICITLY to each binary in turn.
+      pristine  PASS=23  FAIL=0
+      patched   PASS=23  FAIL=0
+      /bin/false PASS=0  FAIL=23      (the negative control fires)
+
+(3) uhdm2rtlil, BOTH modes, PRISTINE FIRST then patched
+      pristine  testflags  CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+      pristine  default    CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+      patched   testflags  CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+      patched   default    CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+    ct8rows (STATUS *and* DUMP column), patched vs the COMMITTED baseline in
+    this worktree AND vs this pass's own pristine sweep:
+      results/gate_uhdm2rtlil.csv  vs patched tf   -> PASS, 0 differing rows
+      pristine tf                  vs patched tf   -> PASS, 0 differing rows
+      pristine default             vs patched def  -> PASS, 0 differing rows
+
+(4) SURELOG CORPUS, --mode both, 1588 rows
+      pristine  default   CMP_EQUAL 471 SLANG_REJECT 283 SURELOG_FAIL 25 CMP_NOTEQUAL 10 DEFERRED 5
+      pristine  testflags CMP_EQUAL 466 SLANG_REJECT 284 SURELOG_FAIL 23 CMP_NOTEQUAL  9 DEFERRED 5
+                          NO_DATABASE 3 UNTRANSLATABLE 2 TIMEOUT 1 NO_UHDM 1
+      patched   default   IDENTICAL HISTOGRAM
+      patched   testflags IDENTICAL HISTOGRAM
+    ct8rows:
+      results/golden_surelog.csv vs patched -> PASS, 0 differing rows over 1588
+      this pass's pristine       vs patched -> PASS, 0 differing rows over 1588
+    NO CORPUS ROW WAS CONVERTED in either direction and results/*.csv were
+    READ ONLY.
+
+(5) BYTE VERIFIER, SELFCHECK=1
+      surelog     databases 956/956   PATH_SETS_IDENTICAL   MOVERS 9 / 956
+                  SELFCHECK 955 / 956 flagged
+      uhdm2rtlil  databases 1358/1358 PATH_SETS_IDENTICAL   MOVERS 0 / 1358
+                  SELFCHECK 1357 / 1358 flagged
+    The nine movers are EXACTLY the nine PREDICTED BY NAME from the pristine
+    databases before the patched sweep ran (PREDICT.r10uvm126.txt), and each is
+    attributed line by line, ORDER-BLIND (MOVERS.r10uvm126.txt): 6 dump lines
+    each, all of them logic_typespec -> string_typespec at the same span.
+
+(6) CANARIES
+      canaries.sh surelog       ok=52 changed=0 absent=0
+      canaries.sh uhdm2rtlil    ok=8  changed=0 absent=0
+      ctcan2.sh   surelog       PASS   (EXPECT_UNKNOWN=1)
+      ctcan2.sh   uhdm2rtlil    PASS   (EXPECT_UNKNOWN=6)
+      canaudit.sh canaries.sh ctcan2.sh -> audited=29 UNCOVERED=0 FENCE-BREACH=0
+    PROTECTED DATABASES, md5 pristine vs patched:
+      InterfaceModPort   59a365f3ce2c  SAME (both modes)
+      BlackParrotComplex e3e354129d5a / 73a10e8217e5  SAME (both modes)
+      YosysOldOr         d68e0796d62c  SAME (both modes)
+      SVSwitch           4842211c4030  SAME  <- the brief's pin
+      YosysVerx          6ccda350c24a  SAME  <- the brief's pin
+
+(7) HEADS (rowheads.sh, cmp lines / heads; counts are DEPTH not distance)
+      row-mode                  pristine   patched
+      SeqDriver default/tf        28 / 1     28 / 1   head log BYTE-IDENTICAL
+      SimpleUVM default/tf        12 / 1    124 / 1   NEW HEAD, new object+family
+      Scoreboard default          12 / 1    124 / 1   the same new head
+      MiniAmiq default/tf         28 / 1     28 / 1   head log BYTE-IDENTICAL
+      BuildUVMPkg default/tf      12 / 1     54 / 1   NEW HEAD, new object+family
+      Earlgrey_0_1 default        240 / 1   240 / 1   head log BYTE-IDENTICAL
+      Earlgrey_0_1 testflags      268 / 1   268 / 1   head log BYTE-IDENTICAL
+      Rggen default                0 / 0      0 / 0   CMP_EQUAL
+      Scoreboard/tf and Rggen/tf are SKIP-NOFILE in both sweeps (expected).
+    The line counts that went UP are the NEW head object's decompile size, not
+    a regression: the string_typespec/logic_typespec head is GONE from all five
+    row-modes and the object now printed is a different one (SimpleUVM /
+    Scoreboard: an `operation` vpiOpType 15 over two hier_paths in
+    `__m_uvm_field_automation` at :1978; BuildUVMPkg: the `enum_var` element of
+    `uvm_reg_hw_reset_seq::do_block::field_check_restore` at :79885).
+
+(8) THE WIDE BOUNDARY — every .sv/.v under a COPY of tools/probe, both
+    binaries, DEF and ELAB, list on fd 3, children </dev/null.
+      LISTED=3798  FENCED_SKIPPED=0  PROCESSED=3798  MOVED=14  NO_OUTPUT_PAIRS=294
+      PROCESSED-ASSERT-OK   (and no ASYMMETRIC_OUTPUT)
+    MOVED = 7 arms x 2 views:
+      this pass's own four grids                          (the gate's positive control)
+      r10buvm8repro/v2_argts8.sv   def 12 / elab 24 lines
+      r10sd12repro/grid12_h3.sv    def  6 / elab 12 lines
+      r10uvm20repro/t30_t.sv       def 12 / elab 24 lines
+    All three earlier-pass arms were REBUILT AGAINST THEIR OWN SURELOG GOLDEN
+    and every moved cell is FIXED (TO-GOLDEN), MOVED-WRONG 0:
+      v2_argts8  `string arr [2];` :100  -> FIXED 1, STILL-WRONG 0; the arm's
+                 own cmp line count (21748) and head (1) are UNCHANGED
+      grid12_h3  `byte` local :24        -> FIXED 1; s declArrayElemKindIsDecl-
+                 Kind12's own cells (n_cls / p_c / p_i / p_s) all SAME-OK
+      t30_t      three `_f_str` cells    -> FIXED 3; every queue / dynamic /
+                 associative cell in the same file SAME-OK
+    The 294 no-output pairs are arms BOTH binaries reject or segfault on
+    identically (pre-existing); a one-sided output would have been reported as
+    ASYMMETRIC_OUTPUT and counted as a mover.
+
+ALL GATES GREEN.  0 differing corpus rows on 1588 surelog + 1462 uhdm2rtlil
+row-modes, 0 conversions, 9 predicted movers and no others, every mover
+TO-GOLDEN.

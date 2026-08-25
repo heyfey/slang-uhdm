@@ -1,0 +1,105 @@
+r10uvm126 — THE CENSUSES.  LHS IS ALWAYS GOLDEN.  MEASUREMENT ONLY.
+
+===============================================================================
+A. GOLDEN-vs-GOLDEN CALIBRATION (run FIRST)
+===============================================================================
+`cen126` keys a cell on (owner kind | owner NAME | owner name-span) and carries
+NO object ids, NO file names and NO DEF/ELAB view flag — the two producers label
+the view differently and ids are not comparable.  Scored against ITSELF every
+golden reads AGREE = its own cell count and LAW = RESIDUE = ONLY-* = 0:
+
+  $ score126.py <row>.g.cen <row>.g.cen        (LAW/RESIDUE/ONLY-* all 0)
+  SeqDriver/default    AGREE 1235
+  SimpleUVM/default    AGREE  658
+  Scoreboard/default   AGREE  662
+  MiniAmiq/default     AGREE 1302
+  BuildUVMPkg/default  AGREE  722
+
+===============================================================================
+B. THE NINE UVM DATABASES (golden vs pristine vs patched), wide126.sh
+===============================================================================
+                       AGREE  LAW  LAW:TO-GOLDEN  RESIDUE  ONLY-G  ONLY-O
+  SeqDriver/default      934    1        1           15      285      6
+  SeqDriver/testflags    934    1        1           15      285      6
+  SimpleUVM/default      635    1        1           15        7      5
+  SimpleUVM/testflags    635    1        1           15        7      5
+  Scoreboard/default     641    1        1           15        5      5
+  MiniAmiq/default      1003    1        1           15      283     24
+  MiniAmiq/testflags    1003    1        1           15      283     24
+  BuildUVMPkg/default    703    1        1           15        3      2
+  BuildUVMPkg/testflags  703    1        1           15        3      2
+  ---------------------------------------------------------------------
+  TOTAL LAW cells 9    TO-GOLDEN 9    AWAY-GOLDEN 0    STILL-WRONG 0
+                       MOVED-WRONG 0  BROKE-AGREEING 0 PATCH-ONLY-KEY 0
+
+  Every LAW cell is the same declaration:
+     golden  string_typespec  (anonymous, 68:7-68:13)
+     ours    logic_typespec   (anonymous, 68:7-68:13)   -> now string_typespec
+
+  The 15 RESIDUE cells per database are UNCHANGED by design (SimpleUVM/default,
+  identical set on every row bar BuildUVMPkg's split):
+     5 x golden class_typespec(uvm_component) / ours class_typespec unnamed
+         (associative arrays of class handles: `c` :121 :153 :184, `q` :191,
+          `t` :193)
+     7 x golden bit_typespec / ours NO Elem_typespec at all
+         (`bit predecessors[uvm_phase]` and friends, :1675 :1686 :1704 :1715
+          :1763 :1786 :2152)
+     2 x golden class_typespec / ours NO Elem_typespec
+         (`sorted_override_queues` :1557 :1581)
+     1 x golden <null> / ours int_typespec(uvm_pkg::uvm_action) at :649
+  BuildUVMPkg's split is 7 bit_typespec + 8 class_typespec, same total.
+
+===============================================================================
+C. THE GRIDS (arm126.sh + score126.py, DEF and ELAB view)
+===============================================================================
+  grid              DEF: FIXED  MOVED-WRONG  STILL-WRONG   ELAB: LAW  TO-GOLDEN
+  g126_a_kinds        10           0            6             10        10
+  g126_b_homes        20           0            5             28        28
+  g126_c_dims         13           0            0             13        13
+  g126_d_inst          3           0            7              3         3
+  -----------------------------------------------------------------------
+  TOTAL               46           0           18             54        54
+
+  MOVED-WRONG is 0 and BROKE-AGREEING is 0 in every grid and in both views.
+  The 18 DEF STILL-WRONG cells are the ones the law explicitly excludes:
+    grid A (6): an enum typedef, two struct typedefs, a class handle, an `int`
+      typedef and a `string` typedef — golden binds its SHARED, NAMED typespec
+      object (a name, the typedef's own span and a vpiInstance), which is a
+      different mechanism; swapping our anonymous logic_typespec for an
+      anonymous string_typespec would move the cell without reaching golden.
+    grid B (5): a module `chandle` array and the four package-variable arrays,
+      where OUR emitter lists no array_var at all (golden lists one with NO
+      Elem_typespec).  Pre-existing, unrelated to typespec kind.
+    grid D (7): the three methods of a class DECLARED IN A MODULE, whose locals
+      our DEF and ELAB listings do not carry at all (ONLY-GOLDEN).
+
+===============================================================================
+D. GOLDEN'S WHOLE TABLE, read off grid A in one class task body
+===============================================================================
+  written           golden element ts        ours pristine     ours patched
+  string            string_typespec          logic_typespec    string_typespec
+  real              real_typespec            logic_typespec    real_typespec
+  shortreal         short_real_typespec      logic_typespec    short_real_typespec
+  chandle           chandle_typespec         logic_typespec    chandle_typespec
+  event             event_typespec           logic_typespec    event_typespec
+  byte              byte_typespec            int_typespec      byte_typespec
+  shortint          short_int_typespec       int_typespec      short_int_typespec
+  longint           long_int_typespec        int_typespec      long_int_typespec
+  integer           integer_typespec         int_typespec      integer_typespec
+  time              time_typespec            int_typespec      time_typespec
+  int               int_typespec             int_typespec      int_typespec     (unchanged)
+  bit               bit_typespec             bit_typespec      bit_typespec     (unchanged)
+  bit [7:0]         bit_typespec + 1 range   same              same             (unchanged)
+  logic             logic_typespec           same              same             (unchanged)
+  logic [3:0]       logic_typespec + 1 range same              same             (unchanged)
+  reg [1:0]         logic_typespec + 1 range same              same             (unchanged)
+  <enum typedef>    enum_typespec NAMED      bit_typespec      bit_typespec     (RESIDUE)
+  <pk struct td>    struct_typespec NAMED    logic_typespec    logic_typespec   (RESIDUE)
+  <unpk struct td>  struct_typespec NAMED    logic_typespec    logic_typespec   (RESIDUE)
+  <class handle>    class_typespec           logic_typespec    logic_typespec   (RESIDUE)
+  <int typedef>     int_typespec NAMED       int_typespec      int_typespec     (RESIDUE)
+  <string typedef>  string_typespec NAMED    logic_typespec    logic_typespec   (RESIDUE)
+
+  vpiInstance and the ELEMENT VARIABLE were ALREADY golden's in all 22 cells,
+  before and after — this is a typespec-CLASS-only law.  Golden itself gives an
+  `event` element a logic_var next to an event_typespec.

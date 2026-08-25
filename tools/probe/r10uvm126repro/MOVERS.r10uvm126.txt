@@ -1,0 +1,36 @@
+r10uvm126 — MOVER ATTRIBUTION, line by line, ORDER-BLIND.
+
+`attr126.sh` uhdm-dumps the pristine and the patched database of one row-mode,
+`sed`s the workdir path out of both, and diffs them BOTH in file order and
+SORTED.  Scoreboard/default is a ~50/50 COIN per invocation (svunit_pkg
+vpiTaskFunc list ORDER flip, ~92 dump lines), so only the ORDER-BLIND number is
+attributable there; it came out identical to the in-order one, i.e. the coin did
+not flip on these two invocations and there is nothing else in the delta.
+
+  row-mode              in-order  ORDER-BLIND
+  default/SeqDriver         6          6
+  default/SimpleUVM         6          6
+  default/Scoreboard        6          6      <- the coin row
+  default/MiniAmiq          6          6
+  default/BuildUVMPkg       6          6
+  testflags/SeqDriver       6          6
+  testflags/SimpleUVM       6          6
+  testflags/MiniAmiq        6          6
+  testflags/BuildUVMPkg     6          6
+  -----------------------------------------
+  TOTAL                    54         54
+
+EVERY ONE of the 54 lines is the same pair, three deletions and three insertions
+per database.  The ONE shared object is printed at exactly three places in the
+dump, verified by reading its context (SimpleUVM/default, patched):
+  * the element VARIABLE's typespec:   string_var(...::body::mode) -> ref_typespec -> HERE
+  * the array_typespec's vpiElemTypespec: array_typespec@68:14-68:21 -> ref_typespec -> HERE
+  * one un-parented listing in the weaklyReferenced TAIL (unreachable to the judge)
+
+    < \_logic_typespec: , line:68:7, endln:68:13          (BuildUVMPkg: 80061:7)
+    > \_string_typespec: , line:68:7, endln:68:13         (BuildUVMPkg: 80061:7)
+
+NO other object, span, name or field moved in any of the nine databases, and no
+line moved in any of the other 947 surelog databases or any of the 1358
+uhdm2rtlil databases.  Direction: TO-GOLDEN 9 / 9, AWAY-GOLDEN 0, STILL-WRONG 0
+(the golden census below).

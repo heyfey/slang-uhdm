@@ -1,0 +1,38 @@
+r10uvm126 — THE A-PRIORI MOVER PREDICTION, made from the PRISTINE databases
+BEFORE the patched binary finished compiling.
+
+`pred126.sh` walks every `slang.uhdm` in both pristine workdirs, reads that
+row's OWN golden out of its `cmds.txt` (never guessed), censuses BOTH with
+`cen126` and scores them with `score126.py`.  A database is a PREDICTED MOVER
+iff it holds at least one **LAW cell**: an unpacked-array element typespec that
+golden mints as an ANONYMOUS BUILTIN KEYWORD typespec (one of the eleven
+`compileBuiltinTypespec` / chandle / event classes, `VpiName` empty) and that
+ours gets wrong.  RESIDUE cells — golden's element typespec is NAMED (a typedef
+/ enum / struct / class object) or is absent on one side — are outside the law
+and must NOT move.
+
+  $ CEN126=cen126 SCORE126=score126.py pred126.sh <surelog wd> <uhdm2rtlil wd>
+  PREDICT law=1 residue=15 default/BuildUVMPkg-bf853d43
+  PREDICT law=1 residue=15 default/MiniAmiq-544c7f61
+  PREDICT law=1 residue=15 default/Scoreboard-59431470
+  PREDICT law=1 residue=15 default/SeqDriver-32af76aa
+  PREDICT law=1 residue=15 default/SimpleUVM-1dc93a62
+  PREDICT law=1 residue=15 testflags/BuildUVMPkg-bf853d43
+  PREDICT law=1 residue=15 testflags/MiniAmiq-544c7f61
+  PREDICT law=1 residue=15 testflags/SeqDriver-32af76aa
+  PREDICT law=1 residue=15 testflags/SimpleUVM-1dc93a62
+  SCANNED=2314 PREDICTED_MOVERS=9 WITH_RESIDUE_ONLY_OR_ALSO=15 NO_GOLDEN=0
+
+  The ONE law cell in all nine is the SAME declaration:
+     uvm_reg_bit_bash_seq.svh:68  `string mode[`UVM_REG_DATA_WIDTH];`
+     (BuildUVMPkg carries it at its own 1800.2 pp_output line 80061)
+     golden string_typespec  /  ours logic_typespec
+  Scoreboard/testflags builds no database of ours in either sweep — it is the
+  row `rowheads.sh` reports SKIP-NOFILE.  uhdm2rtlil: NOT ONE law cell in 1358
+  databases.
+
+MEASURED AFTERWARDS by SELFCHECK=1 byteverify.sh:
+  surelog      MOVERS 9 / 956   — the nine names above, NO OTHERS
+                                  (SELFCHECK 955/956 flagged)
+  uhdm2rtlil   MOVERS 0 / 1358  — as predicted, PATH_SETS_IDENTICAL
+                                  (SELFCHECK 1357/1358 flagged)

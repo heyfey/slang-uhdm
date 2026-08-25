@@ -1,0 +1,103 @@
+r10v126 — ADVERSARIAL VERIFIER GATE LOG for r10uvm126
+=====================================================
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.  The official
+~/git-repos/UHDM/build/bin/uhdm-cmp and scripts/verify_golden.py are the only
+acceptance judges.  slang was NOT patched.  results/*.csv were READ-ONLY.
+NO CORPUS ROW WAS CONVERTED.
+
+BASE                 0a5551e
+worktrees            /tmp/wt_v126pris (pristine)  /tmp/wt_v126 (patched + verifier fix)
+pristine binary      9eeb7f38678c006f7d2bb3ac4d9cfd84   frozen 555 at /tmp/v126_pris.bin
+patched AS SHIPPED   b8587364c34513da6006b77b8ee0cb7e   frozen 555 at /tmp/v126_pat.bin
+patched + FIX        d5b7813a2a6f053d14751d77e7949945   frozen 555 at /tmp/v126_fix.bin
+  -> BOTH implementer md5s reproduced BIT FOR BIT from independent builds.
+
+(1) BUILD                pristine rc=0, shipped rc=0, fixed rc=0 (cmake -j 2)
+(2) GOLDEN DUMP TESTS    pristine 23 PASS / 0 FAIL
+                         shipped  23 PASS / 0 FAIL
+                         fixed    23 PASS / 0 FAIL
+                         SLANG_UHDM=/bin/false -> 0 PASS / 23 FAIL (negative control)
+                         SLANG_UHDM exported EXPLICITLY per binary each time.
+(3) cmds.txt AUDIT       file by file, on the '^slang: ' invocation line only
+                         (the substring 'slang-uhdm' also matches the GOLDEN
+                         CACHE path and reads as a false positive):
+                         pris 3035 cmds.txt / 2981 with a slang invocation / 2981 on /tmp/v126_pris.bin / 0 off
+                         pat  3035 / 2981 / 2981 on /tmp/v126_pat.bin / 0 off
+                         fix  3035 / 2981 / 2981 on /tmp/v126_fix.bin / 0 off
+                         the 54 remaining cmds.txt never invoke our binary at all.
+(4) u2r BOTH MODES       679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+                         on all three binaries, both modes.
+                         ct8rows (status AND dump column):
+                           results/gate_uhdm2rtlil.csv vs pris  = 0 differing rows
+                           results/gate_uhdm2rtlil.csv vs pat   = 0
+                           results/gate_uhdm2rtlil.csv vs fix   = 0
+                           pris vs pat / pris vs fix (tf + def)  = 0
+(5) surelog BOTH MODES   default 471 EQUAL / 10 NE, testflags 466 EQUAL / 9 NE
+                         — histograms IDENTICAL on all three binaries.
+                         ct8rows over 1588 rows:
+                           results/golden_surelog.csv vs pris = 0 differing rows
+                           results/golden_surelog.csv vs pat  = 0
+                           results/golden_surelog.csv vs fix  = 0
+                           pris vs pat = 0,  pat vs fix = 0
+                         NO CONVERSION.  results/*.csv untouched.
+(6) A-PRIORI PREDICTION  predv126.sh, written by the verifier, reads ONLY the
+                         PRISTINE databases and each row's OWN golden out of its
+                         cmds.txt; it never opens a patched database.
+                           SCANNED=956  PREDICTED_MOVERS=9  NO_GOLDEN=0  (surelog)
+                           SCANNED=1358 PREDICTED_MOVERS=0  NO_GOLDEN=0  (uhdm2rtlil)
+                         named: {default,testflags} x {BuildUVMPkg, MiniAmiq,
+                         SeqDriver, SimpleUVM} + default/Scoreboard.
+(7) BYTEVERIFY SELFCHECK=1
+                         fix vs pris surelog     MOVERS 9 / 956   (exactly the 9 predicted)
+                         fix vs pris uhdm2rtlil  MOVERS 0 / 1358
+                         pat vs pris surelog     MOVERS 9 / 956   (same 9, same hashes)
+                         fix vs pat  surelog     MOVERS 0 / 956   <- the verifier fix is
+                                                 corpus-neutral: it changes no
+                                                 database byte anywhere.
+                         SELFCHECK 955/956 and 1357/1358 flagged (comparator proven live).
+(8) MOVER ATTRIBUTION    uhdm-dump, workdir-path-normalised, SORTED (order-blind,
+                         so default/Scoreboard's ~50/50 coin is attributed too):
+                         every one of the 9 = 6 diff sides, 54 in total, all of
+                         them  logic_typespec -> string_typespec  at the SAME span
+                         (68:7-68:13 on the four uvm-1.2 rows, 80061:7-80061:13 on
+                         BuildUVMPkg's pp_output).  Nothing else moved.
+(9) HEADS (official cmp; counts are the head object's DEPTH, not a distance)
+                         row-mode              pristine   shipped   fixed
+                         SeqDriver x2               28        28       28   head log BYTE-IDENTICAL
+                         SimpleUVM x2               12       124      124   NEW head object
+                         Scoreboard/default         12       124      124   NEW head object
+                         MiniAmiq x2                28        28       28   head log BYTE-IDENTICAL
+                         BuildUVMPkg x2             12        54       54   NEW head object
+                         Earlgrey_0_1 def/tf   240/268   240/268  240/268   head logs BYTE-IDENTICAL
+                         Rggen/default               0         0        0   CMP_EQUAL
+                         SKIP-NOFILE on Scoreboard/tf and Rggen/tf (expected).
+                         The pristine head is the unparented, unnamed, unparented
+                         pair  string_typespec(golden) vs logic_typespec(ours)
+                         at 68:7-68:13 — GONE on all five row-modes.
+(10) CANARIES            canaries.sh  surelog ok=52 changed=0 absent=0
+                         canaries.sh  u2r     ok=8  changed=0 absent=0
+                         ctcan2.sh    EXPECT_UNKNOWN=1 PASS, EXPECT_UNKNOWN=6 PASS
+                         canaudit.sh  audited=29 UNCOVERED=0 FENCE-BREACH=0
+                         (all four re-run on the FIXED binary's sweep as well)
+(11) PROTECTED DBs       InterfaceModPort SAME, BlackParrotComplex SAME, YosysOldOr SAME,
+                         SVSwitch 4842211c4030 (both modes), YosysVerx 6ccda350c24a (both modes)
+(12) WIDE BOUNDARY       bound126.sh over a COPY of tools/probe, fd-3 list, children
+                         </dev/null, PROCESSED asserted, subdirectory arms included,
+                         scratch keyed on the RELATIVE path, both views, both binaries.
+                         LISTED=3804 FENCED_SKIPPED=0 PROCESSED=3804
+                         MOVED=26  NO_OUTPUT_PAIRS=294  PROCESSED-ASSERT-OK
+                         no ASYMMETRIC_OUTPUT.
+                         26 = 3 EARLIER-PASS arms x2 views + 4 grid126 arms x2
+                              + 6 verifier arms x2.
+                         Each of the three earlier-pass arms re-measured against
+                         its OWN Surelog golden, DEF and ELAB:
+                           r10buvm8repro/v2_argts8.sv   FIXED 1/2, MOVED-WRONG 0,
+                             BROKE-AGREEING 0; the arm's own cmp lines UNCHANGED (21748)
+                           r10sd12repro/grid12/h3.sv    FIXED 1/2, MOVED-WRONG 0,
+                             BROKE-AGREEING 0; cmp lines UNCHANGED (3794)
+                           r10uvm20repro/t30/t.sv       FIXED 4/9, MOVED-WRONG 0,
+                             BROKE-AGREEING 0; cmp lines UNCHANGED (14503)
+                         The four grid126 arms are the gate's built-in positive
+                         control: a silent run would have been a broken gate.
+(13) FENCE               patch touches no fenced test; awk-over-the-patch check
+                         prints 0/0/0/0.  No probe artifact spells one.

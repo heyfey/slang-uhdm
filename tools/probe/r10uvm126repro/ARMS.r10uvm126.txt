@@ -1,0 +1,41 @@
+r10uvm126 — THE ARMS, and what each one is FOR.
+LHS IS ALWAYS GOLDEN (Surelog).  MEASUREMENT ONLY — the official uhdm-cmp is
+the judge; nothing in this directory judges anything.
+
+Every arm is built by `arm126.sh` with the frozen PRISTINE and PATCHED binaries
+in BOTH views (plain = DEF, `--elabuhdm` = ELAB) and with Surelog `-parse` for
+the golden, then censused with `cen126` and scored with `score126.py`.
+
+  g126_a_kinds.sv   ELEMENT KIND.  22 fixed-size unpacked-array locals in ONE
+                    class task body, one per element kind: string, real,
+                    shortreal, chandle, event, byte, shortint, longint,
+                    integer, time, bit, `bit [7:0]`, `logic [3:0]`, logic,
+                    `reg [1:0]`, int, an enum typedef, a packed-struct typedef,
+                    an unpacked-struct typedef, a class handle, an `int`
+                    typedef and a `string` typedef.  The kinds are NOT in the
+                    emitter's dispatch order and every array size differs, so
+                    an arm cannot agree by accident.
+                    -> golden's whole compileBuiltinTypespec table in one file.
+
+  g126_b_homes.sv   DECLARATION HOME.  string / real / chandle / byte fixed
+                    arrays in: an in-body class task, an in-body class
+                    function, a nested `begin` block, an OUT-OF-BODY class
+                    method, a package free function, a PAREN-LESS function (the
+                    TF-ITEM production), a class property, a package variable,
+                    a module variable, a module task and three formals.
+                    -> names the ONE home that is wrong (tf BLOCK-ITEM) and
+                       shows the `begin`-block twin was already right.
+
+  g126_c_dims.sv    DIMENSION KIND.  string / real / byte / chandle under 1-D,
+                    2-D, 3-D fixed, dynamic `[]`, queue `[$]`, associative
+                    `[int]` / `[string]` and the MIXED `[2][]` shape, all in
+                    one class task, plus a second class repeating the 1-D cells
+                    with different sizes.
+                    -> the queue / dynamic / associative arms were already
+                       right; the fixed and mixed arms were not.
+
+  g126_d_inst.sv    SHARING and INSTANCE COUNT.  A parameterised class
+                    instantiated ONE, TWO and THREE times, three sibling
+                    methods each carrying keyword locals, and a plain module
+                    task with the same keywords at different sizes — asked in a
+                    MODULE so the vpiInstance half differs from grids A-C.

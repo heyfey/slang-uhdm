@@ -2247,6 +2247,115 @@ inline bool unpackedArrayTypedefCopies(const TypeAliasType& ta) {
            SymbolKind::TypeAlias;
 }
 
+// ---------------------------------------------------------------------------
+// § declArrayElemTsIsWrittenKeyword126
+//
+// THE LAW.  The ELEMENT TYPESPEC of a FIXED-SIZE unpacked-array BLOCK-ITEM
+// subroutine local is the typespec class Surelog's `compileTypespec` mints for
+// the declaration's WRITTEN BASE-TYPE KEYWORD — `string` -> string_typespec,
+// `real` -> real_typespec, `byte` -> byte_typespec, and so on for all twelve
+// keyword forms.  It is NOT derived from the element's integral shape.
+//
+// WHY, read off Surelog.  `CompileHelper::compileTypespec` (CompileType.cpp)
+// dispatches on the PARSE NODE of the data type, and its builtin arm
+// `compileBuiltinTypespec` (CompileType.cpp:1126-1231) is a closed switch:
+//
+//     paIntVec_TypeLogic / paIntVec_TypeReg -> logic_typespec (+Ranges, signed
+//                                              only when `signed` is written)
+//     paIntegerAtomType_Int      -> int_typespec        VpiSigned unless `unsigned`
+//     paIntegerAtomType_Integer  -> integer_typespec    "
+//     paIntegerAtomType_Byte     -> byte_typespec       "
+//     paIntegerAtomType_LongInt  -> long_int_typespec   "
+//     paIntegerAtomType_Shortint -> short_int_typespec  "
+//     paIntegerAtomType_Time     -> time_typespec       (no VpiSigned at all)
+//     paIntVec_TypeBit           -> bit_typespec (+Ranges, signed if written)
+//     paNonIntType_ShortReal     -> short_real_typespec
+//     paNonIntType_Real          -> real_typespec
+//     paString_type              -> string_typespec     (CompileType.cpp:1220)
+//     default                    -> logic_typespec      <- OUR OLD ANSWER
+//
+// with `paChandle_type` (CompileType.cpp:2019) and `paEvent_type` (:2035)
+// handled by the same dispatch one level up.  The unpacked dimensions are then
+// wrapped around THAT object as an `array_typespec`, so the keyword decides the
+// element typespec and the brackets decide nothing.
+//
+// OURS ASKED THE ELEMENT'S SHAPE INSTEAD.  The tf BLOCK-ITEM fixed-size arm in
+// TaskFuncEmit was a three-way fallback — PredefinedIntegerType -> int_typespec,
+// 2-state integral -> bit_typespec, everything else -> logic_typespec — i.e. it
+// only ever reproduced Surelog's `int`, `bit` and `default` rows.  `string`,
+// `real`, `shortreal`, `chandle`, `event`, `byte`, `shortint`, `longint`,
+// `integer` and `time` all landed on the wrong class.  Grid A (22 element kinds
+// in one class task body) measures every row of the table above against golden.
+//
+// SCOPE, stated so the gate written is the gate coded.  The dispatch is on the
+// WRITTEN SYNTAX NODE, never on the canonical type, because a declaration that
+// NAMES A TYPEDEF (`label126_t caption126[2]`, `paint126_e hue126[4]`,
+// `psplit126_t split126[2]`, a class handle) binds golden's SHARED, NAMED
+// typespec object — a different mechanism (a name, a typedef span and a
+// vpiInstance), which this law leaves exactly where it stands rather than
+// swapping one wrong object for another.  Returning null for those nodes is
+// what keeps this pass's movers TO-GOLDEN-only.
+//
+// The element VARIABLE is untouched: `makeReturnVar` already gives it golden's
+// class in every one of the 22 grid-A cells (golden itself gives an `event`
+// element a logic_var next to an event_typespec), which is why this is a
+// typespec-only law.
+inline UHDM::typespec* writtenKeywordElemTs126(UHDM::Serializer& s,
+                                               const syntax::SyntaxNode* tsyn,
+                                               bool isSigned) {
+    if (!tsyn)
+        return nullptr;
+    switch (tsyn->kind) {
+        case syntax::SyntaxKind::StringType:
+            return s.MakeString_typespec();
+        case syntax::SyntaxKind::RealType:
+            return s.MakeReal_typespec();
+        case syntax::SyntaxKind::ShortRealType:
+            return s.MakeShort_real_typespec();
+        case syntax::SyntaxKind::CHandleType:
+            return s.MakeChandle_typespec();
+        case syntax::SyntaxKind::EventType:
+            return s.MakeEvent_typespec();
+        case syntax::SyntaxKind::IntType: {
+            auto* t = s.MakeInt_typespec();
+            t->VpiSigned(isSigned);
+            return t;
+        }
+        case syntax::SyntaxKind::IntegerType: {
+            auto* t = s.MakeInteger_typespec();
+            t->VpiSigned(isSigned);
+            return t;
+        }
+        case syntax::SyntaxKind::ByteType: {
+            auto* t = s.MakeByte_typespec();
+            t->VpiSigned(isSigned);
+            return t;
+        }
+        case syntax::SyntaxKind::ShortIntType: {
+            auto* t = s.MakeShort_int_typespec();
+            t->VpiSigned(isSigned);
+            return t;
+        }
+        case syntax::SyntaxKind::LongIntType: {
+            auto* t = s.MakeLong_int_typespec();
+            t->VpiSigned(isSigned);
+            return t;
+        }
+        case syntax::SyntaxKind::TimeType:
+            // § declArrayElemTsIsWrittenKeyword126v — the `time` row is the
+            // ONE arm of Surelog's switch that never touches VpiSigned
+            // (CompileType.cpp:1188-1192 has no `var->VpiSigned(...)` call at
+            // all, unlike every other integer-atom row), so a written
+            // `time signed x[N]` is golden's time_typespec with VpiSigned
+            // FALSE.  `time_typespec::Compare` READS VpiSigned, so setting it
+            // from slang's `isSigned()` moved the cell to the right class and
+            // the wrong field.  Verifier arm v126_a_sign, cell `t_sgn126v`.
+            return s.MakeTime_typespec();
+        default:
+            return nullptr;
+    }
+}
+
 // Return-value variables take the class of the function's return type.
 inline UHDM::variables* makeReturnVar(UHDM::Serializer& s, const Type& retType,
                                       bool implicitWrittenSigning70 = false) {
