@@ -1,0 +1,17 @@
+LHS:
+decompile:
+logic_net: (work@topItemCont130v.contSizePhi130v), id:242, line:14:23, endln:14:38
+|vpiParent:
+\_module_inst: work@topItemCont130v (work@topItemCont130v), id:240, file:/tmp/wt_v130/tools/probe/r10v130repro/v130_b9.sv, line:39:1, endln:46:10
+|vpiName:contSizePhi130v
+|vpiFullName:work@topItemCont130v.contSizePhi130v
+|vpiNetType:1
+
+decompile:
+logic_net: (work@topItemCont130v.contSizePhi130v), id:242, line:14:23, endln:14:38
+|vpiParent:
+\_module_inst: work@topItemCont130v (work@topItemCont130v), id:240, file:/tmp/wt_v130/tools/probe/r10v130repro/v130_b9.sv, line:39:1, endln:46:10
+|vpiName:contSizePhi130v
+|vpiFullName:work@topItemCont130v.contSizePhi130v
+|vpiNetType:1
+RHS: <null>

@@ -1,0 +1,158 @@
+r10uvm130 — GRID.  MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+binaries: pristine f102bcba68a7d9317c746b848792fda1  patched 96ac63809cd34213960a17a58a268e13
+each arm built in BOTH views (def and --elabuhdm/-elabuhdm) by grid130.sh; every command + rc in the arm's own cmds.txt
+
+================ g130_a1
+-- cmds.txt rc histogram:
+      6 rc=0
+-- IMPLICIT MODULE NETS (module | span | name):
+   [GOLDEN]
+     IMPL work@top130a 36:20-36:33 sizeAlpha130a
+     IMPL work@top130a 38:20-38:32 opndBeta130a
+     IMPL work@top130a 40:23-40:33 srcLam130a
+     IMPL work@top130a 48:5-48:15 statNu130a
+   [PRISTINE]
+     IMPL work@top130a 48:5-48:15 statNu130a
+   [PATCHED]
+     IMPL work@top130a 36:20-36:33 sizeAlpha130a
+     IMPL work@top130a 38:20-38:32 opndBeta130a
+     IMPL work@top130a 40:23-40:33 srcLam130a
+     IMPL work@top130a 48:5-48:15 statNu130a
+-- DIRECTION:
+   [NET] cells=4 AGREE-BEFORE=1 AGREE-AFTER=4 TO-GOLDEN=3 AWAY-GOLDEN=0 STILL-WRONG=0
+      TO-GOLDEN	work@top130a|36:20-36:33|sizeAlpha130a|IMPL	g=2 pris=0 pat=2
+      TO-GOLDEN	work@top130a|38:20-38:32|opndBeta130a|IMPL	g=2 pris=0 pat=2
+      TO-GOLDEN	work@top130a|40:23-40:33|srcLam130a|IMPL	g=2 pris=0 pat=2
+   [REF] cells=42 AGREE-BEFORE=39 AGREE-AFTER=42 TO-GOLDEN=3 AWAY-GOLDEN=0 STILL-WRONG=0
+      TO-GOLDEN	36:20-36:33|sizeAlpha130a|NEWARG|IMPL	g=2 pris=0 pat=2
+      TO-GOLDEN	38:20-38:32|opndBeta130a|NEWARG|IMPL	g=1 pris=0 pat=1
+      TO-GOLDEN	40:23-40:33|srcLam130a|NEWARG|IMPL	g=2 pris=0 pat=2
+
+================ g130_a2
+-- cmds.txt rc histogram:
+      6 rc=0
+-- IMPLICIT MODULE NETS (module | span | name):
+   [GOLDEN]
+     IMPL work@top130b 24:21-24:37 homeOobGamma130b
+     IMPL work@top130b 24:5-24:14 dynIn130b
+     IMPL work@top130b 32:23-32:42 homeFreeFnAlpha130b
+     IMPL work@top130b 39:23-39:44 homeFreeTaskDelta130b
+     IMPL work@top130b 60:22-60:38 homeModFnEps130b
+     OTH work@top130b 28:7-28:18 dynFree130b
+     OTH work@top130b 55:7-55:17 dynMod130b
+   [PRISTINE]
+     IMPL work@top130b 24:5-24:14 dynIn130b
+     OTH work@top130b 55:7-55:17 dynMod130b
+   [PATCHED]
+     IMPL work@top130b 24:21-24:37 homeOobGamma130b
+     IMPL work@top130b 24:5-24:14 dynIn130b
+     IMPL work@top130b 32:23-32:42 homeFreeFnAlpha130b
+     IMPL work@top130b 39:23-39:44 homeFreeTaskDelta130b
+     OTH work@top130b 55:7-55:17 dynMod130b
+-- DIRECTION:
+   [NET] cells=7 AGREE-BEFORE=2 AGREE-AFTER=5 TO-GOLDEN=3 AWAY-GOLDEN=0 STILL-WRONG=2
+      TO-GOLDEN	work@top130b|24:21-24:37|homeOobGamma130b|IMPL	g=2 pris=0 pat=2
+      STILL-WRONG	work@top130b|28:7-28:18|dynFree130b|OTH	g=4 pris=0 pat=0
+      TO-GOLDEN	work@top130b|32:23-32:42|homeFreeFnAlpha130b|IMPL	g=2 pris=0 pat=2
+      TO-GOLDEN	work@top130b|39:23-39:44|homeFreeTaskDelta130b|IMPL	g=2 pris=0 pat=2
+      STILL-WRONG	work@top130b|60:22-60:38|homeModFnEps130b|IMPL	g=2 pris=0 pat=0
+   [REF] cells=39 AGREE-BEFORE=34 AGREE-AFTER=37 TO-GOLDEN=3 AWAY-GOLDEN=0 STILL-WRONG=2
+      TO-GOLDEN	24:21-24:37|homeOobGamma130b|NEWARG|IMPL	g=2 pris=0 pat=2
+      TO-GOLDEN	32:23-32:42|homeFreeFnAlpha130b|NEWARG|IMPL	g=2 pris=0 pat=2
+      TO-GOLDEN	39:23-39:44|homeFreeTaskDelta130b|NEWARG|IMPL	g=2 pris=0 pat=2
+      STILL-WRONG	60:22-60:38|homeModFnEps130b|NEWARG|IMPL	g=2 pris=0 pat=0
+      STILL-WRONG	60:22-60:38|homeModFnEps130b|NEWARG|int_var	g=0 pris=2 pat=2
+
+================ g130_a3
+-- cmds.txt rc histogram:
+      6 rc=0
+-- IMPLICIT MODULE NETS (module | span | name):
+   [GOLDEN]
+     IMPL work@top130c 23:20-23:39 bodyBeforeAlpha130c
+     IMPL work@top130c 23:5-23:13 dynC130c
+     IMPL work@top130c 25:20-25:30 farmXi130c
+     IMPL work@top130c 27:20-27:33 refArgPsi130c
+     IMPL work@top130c 29:20-29:30 propMu130c
+     IMPL work@top130c 31:20-31:30 statNu130c
+     IMPL work@top130c 38:22-38:37 blkLocalGam130c
+     IMPL work@top130c 44:22-44:35 nmdBlkDel130c
+     IMPL work@top130c 48:22-48:37 loopIterEps130c
+     OTH work@top130c 16:7-16:20 pkgVarOmi130c
+   [PRISTINE]
+     IMPL work@top130c 23:5-23:13 dynC130c
+     IMPL work@top130c 29:20-29:30 propMu130c
+     IMPL work@top130c 31:20-31:30 statNu130c
+     OTH work@top130c 16:7-16:20 pkgVarOmi130c
+   [PATCHED]
+     IMPL work@top130c 23:20-23:39 bodyBeforeAlpha130c
+     IMPL work@top130c 23:5-23:13 dynC130c
+     IMPL work@top130c 25:20-25:30 farmXi130c
+     IMPL work@top130c 27:20-27:33 refArgPsi130c
+     IMPL work@top130c 29:20-29:30 propMu130c
+     IMPL work@top130c 31:20-31:30 statNu130c
+     IMPL work@top130c 38:22-38:37 blkLocalGam130c
+     IMPL work@top130c 44:22-44:35 nmdBlkDel130c
+     IMPL work@top130c 48:22-48:37 loopIterEps130c
+     OTH work@top130c 16:7-16:20 pkgVarOmi130c
+-- DIRECTION:
+   [NET] cells=10 AGREE-BEFORE=4 AGREE-AFTER=10 TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=0
+      TO-GOLDEN	work@top130c|23:20-23:39|bodyBeforeAlpha130c|IMPL	g=2 pris=0 pat=2
+      TO-GOLDEN	work@top130c|25:20-25:30|farmXi130c|IMPL	g=2 pris=0 pat=2
+      TO-GOLDEN	work@top130c|27:20-27:33|refArgPsi130c|IMPL	g=2 pris=0 pat=2
+      TO-GOLDEN	work@top130c|38:22-38:37|blkLocalGam130c|IMPL	g=2 pris=0 pat=2
+      TO-GOLDEN	work@top130c|44:22-44:35|nmdBlkDel130c|IMPL	g=2 pris=0 pat=2
+      TO-GOLDEN	work@top130c|48:22-48:37|loopIterEps130c|IMPL	g=2 pris=0 pat=2
+   [REF] cells=76 AGREE-BEFORE=70 AGREE-AFTER=76 TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=0
+      TO-GOLDEN	23:20-23:39|bodyBeforeAlpha130c|NEWARG|IMPL	g=2 pris=0 pat=2
+      TO-GOLDEN	25:20-25:30|farmXi130c|NEWARG|IMPL	g=2 pris=0 pat=2
+      TO-GOLDEN	27:20-27:33|refArgPsi130c|NEWARG|IMPL	g=2 pris=0 pat=2
+      TO-GOLDEN	38:22-38:37|blkLocalGam130c|NEWARG|IMPL	g=2 pris=0 pat=2
+      TO-GOLDEN	44:22-44:35|nmdBlkDel130c|NEWARG|IMPL	g=2 pris=0 pat=2
+      TO-GOLDEN	48:22-48:37|loopIterEps130c|NEWARG|IMPL	g=1 pris=0 pat=1
+
+================ g130_a4
+-- cmds.txt rc histogram:
+      6 rc=0
+-- IMPLICIT MODULE NETS (module | span | name):
+   [GOLDEN]
+     IMPL work@kid130d 17:20-17:34 ownerAlpha130d
+     IMPL work@kid130d 17:5-17:13 dynD130d
+   [PRISTINE]
+     IMPL work@kid130d 17:5-17:13 dynD130d
+     IMPL work@topA130d 17:5-17:13 dynD130d
+     IMPL work@topB130d 17:5-17:13 dynD130d
+   [PATCHED]
+     IMPL work@kid130d 17:20-17:34 ownerAlpha130d
+     IMPL work@kid130d 17:5-17:13 dynD130d
+     IMPL work@topA130d 17:20-17:34 ownerAlpha130d
+     IMPL work@topA130d 17:5-17:13 dynD130d
+     IMPL work@topB130d 17:20-17:34 ownerAlpha130d
+     IMPL work@topB130d 17:5-17:13 dynD130d
+-- DIRECTION:
+   [NET] cells=6 AGREE-BEFORE=3 AGREE-AFTER=2 TO-GOLDEN=1 AWAY-GOLDEN=2 STILL-WRONG=2
+      TO-GOLDEN	work@kid130d|17:20-17:34|ownerAlpha130d|IMPL	g=2 pris=0 pat=2
+      AWAY-GOLDEN	work@topA130d|17:20-17:34|ownerAlpha130d|IMPL	g=0 pris=0 pat=2
+      STILL-WRONG	work@topA130d|17:5-17:13|dynD130d|IMPL	g=0 pris=2 pat=2
+      AWAY-GOLDEN	work@topB130d|17:20-17:34|ownerAlpha130d|IMPL	g=0 pris=0 pat=2
+      STILL-WRONG	work@topB130d|17:5-17:13|dynD130d|IMPL	g=0 pris=2 pat=2
+   [REF] cells=11 AGREE-BEFORE=10 AGREE-AFTER=11 TO-GOLDEN=1 AWAY-GOLDEN=0 STILL-WRONG=0
+      TO-GOLDEN	17:20-17:34|ownerAlpha130d|NEWARG|IMPL	g=2 pris=0 pat=2
+
+================ g130_a5
+-- cmds.txt rc histogram:
+      6 rc=0
+-- IMPLICIT MODULE NETS (module | span | name):
+   [GOLDEN]
+     IMPL work@bodyImp130e 15:20-15:36 noHoistAlpha130e
+     IMPL work@bodyImp130e 15:5-15:13 dynE130e
+   [PRISTINE]
+     IMPL work@bodyImp130e 15:5-15:13 dynE130e
+   [PATCHED]
+     IMPL work@bodyImp130e 15:20-15:36 noHoistAlpha130e
+     IMPL work@bodyImp130e 15:5-15:13 dynE130e
+-- DIRECTION:
+   [NET] cells=2 AGREE-BEFORE=1 AGREE-AFTER=2 TO-GOLDEN=1 AWAY-GOLDEN=0 STILL-WRONG=0
+      TO-GOLDEN	work@bodyImp130e|15:20-15:36|noHoistAlpha130e|IMPL	g=2 pris=0 pat=2
+   [REF] cells=15 AGREE-BEFORE=14 AGREE-AFTER=15 TO-GOLDEN=1 AWAY-GOLDEN=0 STILL-WRONG=0
+      TO-GOLDEN	15:20-15:36|noHoistAlpha130e|NEWARG|IMPL	g=2 pris=0 pat=2
+

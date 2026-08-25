@@ -173,7 +173,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-25 01:30, HEAD = the earl86 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-25 02:05, HEAD = the uvm130 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 471/481 comparable
 equal (10 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -182,7 +182,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 
 | row-mode(s) | head (official cmp lines = head-object DEPTH, not distance) | family / next law |
 |---|---|---|
-| SeqDriver×2 (uvm-1.2 tree) | 17 (depth) | a MISSING NET: golden hoists an implicit wire `sz` (logic_net work@top_tb.sz @uvm_packer.svh:488:15-488:17, vpiNetType 1) for `bytes = new[sz];` inside the out-of-body uvm_packer::get_bytes into the TOP MODULE work@top_tb; we mint none — the hoisted-net family of §§ withIterIterBindsHoistNet75 / oobRefVarLocalHoistNet107 / pkgFreeSubRefVarHoistNet117, landing in the top module's pool — uvm130's target (uvm127 landed: 17→17 new object, § pkgRetOobClassAndImportCloneTs127 — an OUT-OF-BODY method body takes Reduce::Yes like a free package function, so ExprEval::evalFunc stamps every call actual with the callee's formal's SHARED typespec by position; in-body methods never; module/$unit classes never; importer clones both views) |
+| SeqDriver×2 (uvm-1.2 tree) | 310 (depth) | the named_fork (uvm_pkg::uvm_phase::execute_phase::master_phase_process, uvm_phase.svh:1400) — the SAME object as MiniAmiq's head: golden carries vpiJoinType:1, ours none — uvm131's law (§ parBlockJoinTailAfterFirstItem131, verified, in the gate queue) clears it (uvm130 landed: 17→310, § newArrayArgHoistNet130 — Surelog's paDynamic_array_new arm never parents the synthetic new call, so both bind walks die on the first hop and the name read in a new[...] size inside an out-of-body method is minted as an implicit wire in the top module; in-body methods never hoist; the declaration kind is irrelevant) |
 | MiniAmiq×2 (uvm-1.2 tree) | 294 (depth) | a MISSING vpiJoinType: golden's `named_fork (uvm_pkg::uvm_phase::execute_phase::master_phase_process) @uvm_phase.svh:1400:9-1413:18` carries `vpiJoinType:1` for `fork : master_phase_process ... join_none`; our named_fork exists (same name, same Stmt children; spanned at the label text 1400:16-36, dump-only) but carries NO vpiJoinType — the compared field (named_fork::Compare reads it) — uvm131's target |
 | SimpleUVM×2 + Scoreboard/default | 64 (depth) | the SAME cross-buffer read at a SINGLE-name built-in receiver, invisible to uvm128's two-buffer gate: uvm_object_defines.svh:1566 (the M_UVM_QUEUE_RESIZE macro) — golden's hier_path `abstractions.size`, ours named from macro text; 84 cells over 7 UVM DB-modes (size/push_back/pop_front); the next gate is likely 'the span mapped to ORIGINALS starts and ends in different FILES', with uvm128's census carrying the 87-row negative control (m_streams[stream.get_name()]-shaped, correct text, must not move) — uvm132's target (uvm128 landed: 124→64, § macroSplitRecvIsAstChain128 — a built-in receiver with no syntax node whose span ends lie in two macro buffers is rebuilt from the bound AST chain, each link carrying its own end location; the only corpus population was 7 cells at one site) |
 | BuildUVMPkg×2 | 60 (depth) | a sys_func_call `$bits` (pp_output :82730:10-82731:48, in uvm_reg_mem_hdl_paths_seq) whose argument is the hier_path `abstractions.size` (ref_obj abstractions + method_func_call size): golden KEEPS the `$bits` call with its argument; we FOLD it to constant UINT:32 sz64 (decompile 32) — a `$bits` fold-vs-keep cell when the argument is a method call (uvm93's `$bits` minting family, not the macro-receiver family) — uvm133's target (uvm129 landed: 54→60, § declArrayElemVarSignedIsAtomKeyword129 — an array element variable carries vpiSigned only for the five written integer-atom keywords (value = no `unsigned` written), never for named types; the brief's typespec-identity claim was REFUTED (both sides bind the same shared uvm_check_e object; the span is a use-site fossil, dump-only); the verifier's fix was probe-side only) |
@@ -192,7 +192,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 83 verifier fix-before-landing re-cuts (180 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 83 verifier fix-before-landing re-cuts (181 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

@@ -4889,6 +4889,86 @@ private:
     bool oobRefVarLocalHoistNet107(const slang::ast::Symbol& sym,
                                    const UHDM::any* declObj, bool bind5,
                                    const slang::ast::Expression& e) const;
+    // § newArrayArgHoistNet130 (r10uvm130) — THE LAW.
+    //
+    // *A NAME WRITTEN IN A DYNAMIC-ARRAY `new[...]` ARGUMENT LIST DOES NOT
+    // MERELY STAY UNBOUND — IT MINTS AN IMPLICIT WIRE IN EVERY MODULE THAT
+    // HOISTS THE ENCLOSING BODY'S PACKAGE.  § `newArrayArgNoBind16` decoded
+    // WHY the binding fails and stopped there; this is the other half, and it
+    // is § `oobRefVarLocalHoistNet107` one reason further out: the `ref_var`
+    // conjunct of § 107 models ONE way Surelog's late binder fails to answer
+    // (the explicit `if (decl->UhdmType() == uhdmref_var) continue;`), and the
+    // DEAD PARENT CHAIN of the `new[...]` call is the OTHER — which is why the
+    // population sits OUTSIDE § 107's gate and was recorded as its residue
+    // R-NONREFVAR.*
+    //
+    // DECODED FROM SURELOG, file and line:
+    //
+    //  1. **The unparented call.** `CompileHelper::compileBlockingAssignment`'s
+    //     `paDynamic_array_new` arm
+    //     (Surelog src/DesignCompile/CompileHelper.cpp:4482-4497) builds the
+    //     `method_func_call` named `new` and NEVER sets its `VpiParent`; the
+    //     CLASS `= new` arm eleven lines down (`:4543`) does
+    //     (`fcall->VpiParent(assign);`).  Both hand that call to
+    //     `compileTfCallArguments` as the arguments' `pexpr`.
+    //  2. **The compile-time walk dies.** `CompileHelper::bindVariable`
+    //     (src/DesignCompile/CompileStmt.cpp:3089-3147) resolves a name by
+    //     recursing on `scope->VpiParent()`; from the dynamic-array `fcall`
+    //     that is `nullptr` on the first hop, so the walk answers nothing and
+    //     `CompileExpression.cpp:5778-5809` puts the reference on
+    //     `DesignComponent::needLateBinding`.
+    //  3. **The WRITE-TIME walk dies for the SAME reason.**
+    //     `UhdmWriter::lateBinding` (src/DesignCompile/UhdmWriter.cpp:3359-3360)
+    //     starts from `ref->VpiParent()` — the same unparented `fcall` — so the
+    //     `uhdmfunction` / `uhdmtask` / `uhdmbegin` arms are never reached and
+    //     THE DECLARATION KIND IS IRRELEVANT: an `int_var`, a `bit_var`, an
+    //     `array_var` and an `io_decl` all fall through exactly as a `ref_var`
+    //     does.
+    //  4. **The mint.** The module-level search (`:3762-3958`) finds nothing
+    //     either, so `:3982-4004` makes a `logic_net`, names it after the token,
+    //     parents it at the module, stamps it with the REFERENCE's span and
+    //     `VpiNetType(getVpiNetType(elem->m_defaultNetType))` = `1`, pushes it
+    //     onto `inst->Nets()` and does `ref->Actual_group(net)`.  A LATER
+    //     reference of the same name finds that net in the `inst->Nets()` sweep
+    //     at `:3764-3769` and SHARES it — one wire per NAME per module, at the
+    //     FIRST unbound reference's span.
+    //  5. **WHICH BODIES.** `lateBinding(s, mod, m)` walks
+    //     `mod->getLateBinding()`, and a module inherits the whole unbound list
+    //     of every package it imports (`CompileHelper::importPackage`,
+    //     CompileHelper.cpp:190-193).  A CLASS's list is never walked at all —
+    //     `UhdmWriter.cpp:1067` is the commented-out
+    //     `// lateBinding(s, classDef, c);`.  So an IN-BODY class method's
+    //     `new[...]` argument belongs to the CLASS component and stays bare in
+    //     golden for ever, while an OUT-OF-BODY definition's and a free package
+    //     subroutine's belong to the PACKAGE and hoist.  That is exactly
+    //     `hoistHomePkg117()`, and it is the whole discriminator over the twelve
+    //     measured corpus sites (six hoist, six do not).
+    //
+    // MEASURED, uvm-1.2, SeqDriver / SimpleUVM `work@top_tb` / `work@top`
+    // (golden = Surelog; the fence's 24 HIT cells are these six sites × four
+    // databases):
+    //   uvm_packer.svh:488:15  `bytes = new[sz];`   OOB  -> logic_net   THE HEAD
+    //   uvm_packer.svh:509:14  `ints  = new[sz];`   OOB  -> the SAME wire
+    //   uvm_reg_map.svh:1427:25 `local_addr = new [n];`          OOB -> wire
+    //   uvm_reg_map.svh:1467:39 `addr = new [local_addr.size()] (local_addr);`
+    //                                   the INIT argument         OOB -> wire
+    //   uvm_reg_map.svh:1491:22 `addr = new [n + sys_addr.size()] (addr);`
+    //                                   the size OPERAND          OOB -> wire
+    //   uvm_reg_map.svh:1491:44         the INIT argument         OOB -> wire
+    // and the six that must NOT move, all IN-BODY:
+    //   uvm_spell_chkr.svh:160:13/15 `d = new[m*n];`      IN-BODY -> NONE
+    //   uvm_reg_adapter.svh:195:30   `gp.m_byte_enable = new [nbytes];`
+    //                                                      IN-BODY -> NONE
+    //   uvm_reg_model.svh:362:39     `slices = new [slices.size()+1] (slices);`
+    //                                                      IN-BODY -> NONE
+    //   uvm_tlm2_generic_payload.svh:547:20 / :553:27      IN-BODY -> NONE
+    // plus every hier_path element under a `new[...]` (a method-call receiver:
+    // `local_addr` @1467:19, `sys_addr` @1491:26, `gp` @200:23, `slices`
+    // @362:21, `m_extensions` @910:24) — golden binds none of them and mints
+    // them no wire, the same builder exclusion § classPropNewLhsNoHoist109
+    // decoded.
+    bool newArrayArgHoistNet130(const slang::ast::Symbol& sym,
+                                const slang::ast::Expression& e) const;
     std::optional<std::set<const slang::ast::Expression*>> memberLeakAsgs;
     // Scope for resolving identifiers inside a pkg-function's return/arg TYPE
     // ranges (logic [PARAM-1:0]) — SL binds such refs to the pkg param's

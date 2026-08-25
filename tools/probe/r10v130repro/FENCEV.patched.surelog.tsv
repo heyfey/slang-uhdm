@@ -1,0 +1,10 @@
+OTHER	default	SeqDriver-32af76aa	work@top_tb	uvm_phase
+MIRROR	default	SeqDriver-32af76aa	work@top_tb	clp
+OTHER	default	SimpleUVM-1dc93a62	work@top	uvm_phase
+MIRROR	default	SimpleUVM-1dc93a62	work@top	clp
+MIRROR	default	SimpleUVM-1dc93a62	work@top	top
+OTHER	testflags	SeqDriver-32af76aa	work@top_tb	uvm_phase
+MIRROR	testflags	SeqDriver-32af76aa	work@top_tb	clp
+OTHER	testflags	SimpleUVM-1dc93a62	work@top	uvm_phase
+MIRROR	testflags	SimpleUVM-1dc93a62	work@top	clp
+MIRROR	testflags	SimpleUVM-1dc93a62	work@top	top

@@ -1,0 +1,100 @@
+r10uvm130 — THE GATE BATTERY.  Every number below was produced by this pass's
+own frozen binaries and its own sweep workdirs.  The official uhdm-cmp and
+scripts/verify_golden.py are the only judges.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+BASE                f611e1b
+worktree            /tmp/wt_r10uvm130
+pristine binary     md5 f102bcba68a7d9317c746b848792fda1 — reproduced the main tree's
+                    build/slang-uhdm at f611e1b BYTE FOR BYTE; frozen chmod 555 before any sweep
+patched binary      md5 96ac63809cd34213960a17a58a268e13, frozen chmod 555
+
+(1) BUILD — both binaries built -j 2, md5 taken separately (above).
+
+(2) GOLDEN TESTS, SLANG_UHDM exported EXPLICITLY to each binary:
+      patched   PASS=23 FAIL=0
+      pristine  PASS=23 FAIL=0
+      /bin/false PASS=0 FAIL=23   (the negative control)
+
+(3) uhdm2rtlil, BOTH modes, BOTH binaries:  679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+    ct8rows (status AND dump column):
+      committed baseline vs patched   : PASS: every row byte-identical to the committed baseline
+      own pristine  vs patched (tf)   : PASS: every row byte-identical to the committed baseline
+      own pristine  vs patched (def)  : PASS: every row byte-identical to the committed baseline
+
+(4) surelog corpus, --mode both, 1588 rows.  STATUS HISTOGRAM, identical on both binaries:
+          937 CMP_EQUAL
+          567 SLANG_REJECT
+           48 SURELOG_FAIL
+           19 CMP_NOTEQUAL
+           10 DEFERRED
+            3 NO_DATABASE
+            2 UNTRANSLATABLE
+            1 TIMEOUT
+            1 NO_UHDM
+    CMP_NOTEQUAL 19, UNCHANGED.  NO ROW CONVERTED; results/*.csv READ ONLY.
+      committed baseline vs patched : PASS: every row byte-identical to the committed baseline
+      own pristine  vs patched      : PASS: every row byte-identical to the committed baseline
+      committed baseline vs pristine: PASS: every row byte-identical to the committed baseline
+
+(5) BYTE MOVERS, SELFCHECK=1:
+      surelog     databases: patched=956 pristine=956
+      surelog     PATH_SETS_IDENTICAL (956 paths)
+      surelog     MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=41d02de78dc7 pristine=ad21e2615bab
+      surelog     MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=ffabab973e08 pristine=1e271d9b5cc7
+      surelog     MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=fad04770677e pristine=dd0565394c63
+      surelog     MOVER ./testflags/SimpleUVM-1dc93a62/slang.uhdm  patched=15f3162e04df pristine=0d5aa03719db
+      surelog     MOVERS: 4 / 956
+      surelog     SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+      uhdm2rtlil  databases: patched=1358 pristine=1358
+      uhdm2rtlil  PATH_SETS_IDENTICAL (1358 paths)
+      uhdm2rtlil  MOVERS: 0 / 1358
+      uhdm2rtlil  SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+      -> the four movers are EXACTLY the four the fence PREDICTED BY NAME.
+
+(6) HEADS (rowheads.sh, this pass's own sweeps, same instrument both times):
+      row-mode              pristine  patched
+      SeqDriver     def/tf      17        310   <- the head CLEARED, a NEW object
+      SimpleUVM     def/tf      64         64   unchanged, head text BYTE-IDENTICAL
+      Scoreboard    def         64         64   unchanged, head text BYTE-IDENTICAL
+      MiniAmiq      def/tf     294        294   unchanged, head text BYTE-IDENTICAL
+      BuildUVMPkg   def/tf      54         54   unchanged, head text BYTE-IDENTICAL
+      Earlgrey_0_1  def          90         90   unchanged, head text BYTE-IDENTICAL
+      Earlgrey_0_1  tf          150        150   unchanged, head text BYTE-IDENTICAL
+      Rggen         def           0          0   CMP_EQUAL, 0 heads
+      (SKIP-NOFILE on Scoreboard/tf and Rggen/tf is expected and is COUNTED;
+       every measured cell recorded cmp rc; counts are DEPTH, not distance.)
+
+(7) CANARIES:
+      surelog     ---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+      uhdm2rtlil  ---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+      ctcan2 surelog    : PASS: every supplementary canary row is byte-identical to the baseline.
+      ctcan2 uhdm2rtlil : PASS: every supplementary canary row is byte-identical to the baseline.
+      canaudit: ---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+      canaudit: PASS: every brief-protected name and family is carried by a script that RUNS here.
+
+      PROTECTED DATABASES, patched vs pristine md5 (first 12):
+        BlackParrotComplex/default pat=e3e354129d5a pris=e3e354129d5a SAME
+        BlackParrotComplex/testflags pat=73a10e8217e5 pris=73a10e8217e5 SAME
+        InterfaceModPort/default pat=59a365f3ce2c pris=59a365f3ce2c SAME
+        InterfaceModPort/testflags pat=59a365f3ce2c pris=59a365f3ce2c SAME
+        SVSwitch/default pat=4842211c4030 pris=4842211c4030 SAME
+        SVSwitch/testflags pat=4842211c4030 pris=4842211c4030 SAME
+        YosysOldOr/default pat=d68e0796d62c pris=d68e0796d62c SAME
+        YosysOldOr/testflags pat=d68e0796d62c pris=d68e0796d62c SAME
+        YosysVerx/default pat=6ccda350c24a pris=6ccda350c24a SAME
+        YosysVerx/testflags pat=6ccda350c24a pris=6ccda350c24a SAME
+        (SVSwitch pinned at 4842211c4030; YosysVerx pinned at 6ccda350c24a)
+
+(8) THE cmds.txt BINARY AUDIT, BY PATH (not by the string 'slang-uhdm', which
+    also matches the golden cache directory):
+      pris/sl: cmds.txt=1573  naming THIS pass's frozen binary=1523  naming the MAIN TREE binary=0
+      pris/u2r: cmds.txt=1462  naming THIS pass's frozen binary=1458  naming the MAIN TREE binary=0
+      pat/sl: cmds.txt=1573  naming THIS pass's frozen binary=1523  naming the MAIN TREE binary=0
+      pat/u2r: cmds.txt=1462  naming THIS pass's frozen binary=1458  naming the MAIN TREE binary=0
+
+(9) FENCE, both corpora, before and after (fence130.sh):
+      surelog    PRISTINE: 24 HIT / 12 OTHER / 0 MIRROR
+      surelog    PATCHED : 0 HIT / 12 OTHER / 0 MIRROR
+      uhdm2rtlil PRISTINE: 0 HIT / 0 OTHER / 0 MIRROR
+      uhdm2rtlil PATCHED : 0 HIT / 0 OTHER / 0 MIRROR

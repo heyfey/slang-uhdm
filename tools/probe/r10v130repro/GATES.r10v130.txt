@@ -1,0 +1,150 @@
+r10v130 — THE VERIFIER'S OWN GATE BATTERY, run end to end on binaries the
+verifier BUILT ITSELF from a fresh worktree at f611e1b.  MEASUREMENT ONLY; the
+official uhdm-cmp and scripts/verify_golden.py are the judges.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+(1) BUILD — two FRESH worktrees at f611e1b, `cmake -B build -DCMAKE_BUILD_TYPE=
+    Release`, `cmake --build build -j 2`, md5 taken separately, both frozen
+    chmod 555 BEFORE any sweep:
+      pristine  f102bcba68a7d9317c746b848792fda1   <- the implementer's md5, BIT FOR BIT
+      patched   96ac63809cd34213960a17a58a268e13   <- the implementer's md5, BIT FOR BIT
+    The patch applies to a FRESH f611e1b checkout with `git apply -3`, rc 0, no
+    conflict markers; its whole surface is include/UhdmExporter.h,
+    src/ExprEmit.cpp and tools/probe/r10uvm130repro/.  results/*.csv untouched.
+    Fence check on the patch text: each of the four slang-fenced names appears
+    in 0 non-canaudit files.
+
+(2) GOLDEN TESTS, SLANG_UHDM exported EXPLICITLY to each binary:
+      patched    PASS=23 FAIL=0
+      pristine   PASS=23 FAIL=0
+      /bin/false PASS=0  FAIL=23    (the negative control)
+
+(3) uhdm2rtlil, BOTH modes, BOTH binaries: 679 CMP_EQUAL / 50 SLANG_REJECT /
+    2 SURELOG_FAIL — four identical histograms.
+    ct8rows (whole row, dump column included):
+      committed baseline vs patched (tf)  PASS
+      own pristine vs patched (tf)        PASS
+      own pristine vs patched (def)       PASS
+
+(4) surelog corpus, --mode both, 1588 rows, BOTH binaries:
+        937 CMP_EQUAL   567 SLANG_REJECT   48 SURELOG_FAIL   19 CMP_NOTEQUAL
+         10 DEFERRED      3 NO_DATABASE     2 UNTRANSLATABLE   1 TIMEOUT
+          1 NO_UHDM
+      CMP_NOTEQUAL 19, UNCHANGED.  NO ROW CONVERTED.  results/*.csv READ ONLY.
+      ct8rows committed baseline vs own pristine  PASS
+      ct8rows committed baseline vs patched       PASS
+      ct8rows own pristine vs patched             PASS
+
+(5) BYTE MOVERS, SELFCHECK=1:
+      uhdm2rtlil  MOVERS 0 / 1358      SELFCHECK 1357 / 1358
+      surelog     MOVERS 5 / 956       SELFCHECK  955 /  956
+        ./default/SeqDriver-32af76aa    pat=41d02de78dc7 pris=ad21e2615bab
+        ./default/SimpleUVM-1dc93a62    pat=ffabab973e08 pris=1e271d9b5cc7
+        ./testflags/SeqDriver-32af76aa  pat=fad04770677e pris=dd0565394c63
+        ./testflags/SimpleUVM-1dc93a62  pat=15f3162e04df pris=0d5aa03719db
+        ./default/Scoreboard-59431470   pat=850e321dd6c0 pris=92b96bbc11c5
+      THE FIRST FOUR are exactly the four the fence PREDICTED BY NAME, and their
+      md5s are the implementer's own, bit for bit.  Order-blind attribution
+      (both dumps sorted, workdir path normalised): 40 ADDED / 0 REMOVED lines
+      each — four logic_nets, four vpiParent module lines, and the
+      vpiActual/vpiName/vpiFullName lines that make them.
+      THE FIFTH IS THE DOCUMENTED Scoreboard/default COIN (RESUME §9): its
+      ORDER-BLIND diff is 0 lines — 0 ADDED, 0 REMOVED — i.e. pure vpiTaskFunc
+      list order, not a mover.  A lander who re-runs this sweep should expect
+      4 OR 5 and must attribute the fifth order-blind before reading it.
+
+(6) HEADS (rowheads.sh, the verifier's own sweeps, same instrument both times):
+      SeqDriver    def/tf   17 -> 310   the head CLEARED; the new head is
+                                        named_fork(uvm_pkg::uvm_phase::
+                                        execute_phase::master_phase_process)
+                                        @1400:9-1413:18, vpiJoinType 1,
+                                        RHS <null> — and its text equals the
+                                        implementer's shipped
+                                        head_pat_default_SeqDriver.cmp modulo
+                                        object ids.
+      SimpleUVM def/tf 64, Scoreboard def 64, MiniAmiq def/tf 294,
+      BuildUVMPkg def/tf 54, Earlgrey_0_1 def 90 / tf 150, Rggen def 0:
+      UNCHANGED, and every one of those head texts is BYTE-IDENTICAL between
+      the pristine and the patched run.
+      (SKIP-NOFILE on Scoreboard/tf and Rggen/tf, as expected; every cell
+      recorded cmp rc — 255 for a head, 0 for Rggen.)
+
+(7) CANARIES: surelog ok=52 changed=0; uhdm2rtlil ok=8 changed=0;
+    ctcan2 PASS on both corpora; canaudit audited=29 UNCOVERED=0
+    FENCE-BREACH=0.  Protected databases, patched vs pristine md5:
+      InterfaceModPort def/tf, BlackParrotComplex def/tf, YosysOldOr def/tf,
+      SVSwitch def/tf, YosysVerx def/tf — ALL SAME.
+      SVSwitch pinned 4842211c4030; YosysVerx pinned 6ccda350c24a.
+
+(8) cmds.txt AUDIT, BY PATH:
+      pris/sl  1573 files, 1523 slang lines, ALL /tmp/v130_bin/pris130v, 0 main-tree
+      pat/sl   1573 files, 1523 slang lines, ALL /tmp/v130_bin/pat130v,  0 main-tree
+      pris/u2r 1462 files, 1458 slang lines, ALL /tmp/v130_bin/pris130v, 0 main-tree
+      pat/u2r  1462 files, 1458 slang lines, ALL /tmp/v130_bin/pat130v,  0 main-tree
+
+(9) THE VERIFIER'S OWN FENCE (fence130v.py — written independently of the
+    pass's fence130.sh, keyed on (module fullname, implicit-net NAME) rather
+    than on a reference SPAN, so a shared key bug cannot hide in both):
+      surelog PRISTINE  measured=956 skip=617  HIT=16  OTHER=4  MIRROR=6
+      surelog PATCHED   measured=956 skip=617  HIT= 0  OTHER=4  MIRROR=6
+      HIT names: sz, n, local_addr, addr — in work@top_tb (SeqDriver) and
+      work@top (SimpleUVM), both modes = 16 cells = the pass's 24 span-keyed
+      cells deduplicated to one wire per NAME per module.
+      DATABASES THAT MUST MOVE: exactly default/SeqDriver, default/SimpleUVM,
+      testflags/SeqDriver, testflags/SimpleUVM — the four that did.
+      OTHER: uvm_phase only (R-IDXTYPE), unchanged.
+      MIRROR: clp (both designs) + top (SimpleUVM) — the two sets are
+      BYTE-IDENTICAL before and after.  NO WIDENING ON THE CORPUS.
+
+(10) GOLDEN-VS-GOLDEN CALIBRATION, RUN FIRST (goldcal130v.py): over the five UVM
+     tests that have both modes — two INDEPENDENT Surelog runs of the same
+     design — 5 pairs, 502 family rows, PAIRS_DIFFER=0, EXPM_N=0.
+     (The same instrument over the WHOLE corpus is NOT zero: Earlgrey's two
+     modes elaborate differently and legitimately carry different padring nets.
+     Restricting to the family's own row-modes is what makes the calibration
+     mean something.)
+
+(11) THE BOUNDARY, over a COPY of the WHOLE probe tree (3887 .sv/.v arms, no
+     path filter, PROCESSED == LISTED and PRIS_REJECT == PATCHED_REJECT in all
+     four runs), with the verifier's own nine arms ADDED to the tree:
+       file / def   3887 arms   DIFFER=16   rejects 151 / 151
+       file / elab  3887 arms   DIFFER=17   rejects 165 / 165
+       dir  / def   1572 dirs   DIFFER= 9   rejects 128 / 128
+       dir  / elab  1572 dirs   DIFFER=10   rejects 134 / 134
+     file/def's 16 = the implementer's 10 (byte for byte the same list) + the
+     verifier's own 6.  ORDER-BLIND per arm (both dumps sorted):
+       r10buvm16repro/a1_newgrid16   ADDED=90  REMOVED=0
+       r10uvm69repro/a1_type         ADDED=11  REMOVED=0
+       r10v107repro/v107_b2          ADDED= 9  REMOVED=0
+       r10v110repro/v4_bind          ADDED=36  REMOVED=0
+       r10uvm130repro/g130_a1..a5    ADDED=27,27,54,23,9  REMOVED=0
+       r10v130repro/v130_b1..b6      ADDED=63,63,15,30,36,72  REMOVED=0
+       r10buvm22repro/g22            ADDED= 6  REMOVED=6   <- R-ADDRCONST, below
+     THE FIVE DIR-MODE-ONLY DIRECTORIES the pass named — r10uvm75repro,
+     r10uvm76repro, r10v109repro, r10v117repro and (elab only) r10uvm117repro —
+     have 0 ORDER-BLIND differing lines in BOTH views.  Confirmed.
+     EVERY differing arm in the whole tree is PURE ADDITION except g22.
+
+     ONE ARM THE PASS DID NOT LIST, and it is NOT this law:
+       r10vrgg3repro/xi_iface_param_type/dut.sv, file/elab only, ONE line
+       `|vpiSigned:1` on the interface-instance parameter work@top.arr[0].
+       PROVED NONDETERMINISTIC ON BOTH BINARIES, 200 repeat runs each in a
+       fixed directory: the PRISTINE binary produced the 13-line variant 2/200,
+       the patched binary 0/200 (and 1/40 in an earlier batch).  A pre-existing
+       per-run coin, residue R-IFPARAMSIGNED; it is why a boundary gate must
+       re-run a lone differing arm before convicting a pass.
+
+(12) THE MUST-STAY CONTROLS — every committed arm of r10uvm75repro,
+     r10uvm107repro, r10uvm117repro, r10uvm127repro, r10v107repro, r10v117repro
+     and r10v127repro/arms, 47 files, scored in BOTH views:
+       46 arms   0 to-golden / 0 AWAY
+        1 arm    r10v107repro/v107_b2.sv  2 NET + 2 REF TO-GOLDEN, 0 AWAY
+     Nothing moved away from golden on any control.
+
+(13) THE OFFICIAL JUDGE on every verifier arm, both views: all nine arms are
+     CMP_NOTEQUAL on the PRISTINE binary already, so no arm flips EQUAL ->
+     NOT-EQUAL.  Two arms change WHICH head surfaces (b9 def 17 -> 267,
+     b9 elab 17 -> 80): the whole pristine-to-patched dump delta on b9 is
+     9 ADDED / 0 REMOVED lines — one minted wire and its binding — so the new
+     head is a pre-existing deeper difference UNMASKED when the reference cell
+     started comparing equal, the same cascade the SeqDriver 17 -> 310 move is.

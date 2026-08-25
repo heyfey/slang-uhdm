@@ -1,0 +1,12 @@
+LHS:
+decompile:
+interface_inst: work@ifCont130v (work@ifCont130v), id:238, file:/tmp/wt_v130/tools/probe/r10v130repro/v130_b9.sv, line:19:1, endln:26:13
+|vpiParent:
+\_design: (work@topItemCont130v), id:232
+|vpiFullName:work@ifCont130v
+|vpiTypedef:
+\_import_typespec: (pkCont130v), id:30, line:20:10, endln:20:23
+|vpiDefName:work@ifCont130v
+|vpiTaskFunc:
+\_function: (pkCont130v::cCont130v::contRunner130v), id:3, line:11:3, endln:15:14
+  |vpiParent:

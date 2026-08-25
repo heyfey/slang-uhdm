@@ -1,0 +1,150 @@
+r10uvm130 — THE CENSUS AND THE MOVER ATTRIBUTION.  MEASUREMENT ONLY.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+== GOLDEN-VS-GOLDEN CALIBRATION FIRST (goldcen130.sh; default vs testflags are
+   two INDEPENDENT Surelog runs of the same design):
+   SAME SeqDriver (189 family rows)
+   SAME SimpleUVM (188 family rows)
+   SAME Scoreboard (35 family rows)
+   SAME MiniAmiq (43 family rows)
+   SAME BuildUVMPkg (47 family rows)
+   CALIBRATED pairs=5 SKIP=0 EXPM_N=0
+
+== THE IMPLICIT-NET NAME SETS, per top module (ct130cen NET rows, IMPL only)
+-- default.SeqDriver
+   counts   golden=158
+            pristine=154
+            patched =158
+   GOLDEN-ONLY names, PRISTINE:
+     work@top_tb	addr
+     work@top_tb	local_addr
+     work@top_tb	n
+     work@top_tb	sz
+     work@top_tb	uvm_phase
+   GOLDEN-ONLY names, PATCHED:
+     work@top_tb	uvm_phase
+   OURS-ONLY names, PRISTINE:
+     work@top_tb	clp
+   OURS-ONLY names, PATCHED (must be the SAME set — no widening):
+     work@top_tb	clp
+-- default.SimpleUVM
+   counts   golden=157
+            pristine=154
+            patched =158
+   GOLDEN-ONLY names, PRISTINE:
+     work@top	addr
+     work@top	local_addr
+     work@top	n
+     work@top	sz
+     work@top	uvm_phase
+   GOLDEN-ONLY names, PATCHED:
+     work@top	uvm_phase
+   OURS-ONLY names, PRISTINE:
+     work@top	clp
+     work@top	top
+   OURS-ONLY names, PATCHED (must be the SAME set — no widening):
+     work@top	clp
+     work@top	top
+-- default.Scoreboard
+   counts   golden=4
+            pristine=4
+            patched =4
+   GOLDEN-ONLY names, PRISTINE:
+   GOLDEN-ONLY names, PATCHED:
+   OURS-ONLY names, PRISTINE:
+   OURS-ONLY names, PATCHED (must be the SAME set — no widening):
+-- default.MiniAmiq
+   counts   golden=0
+            pristine=0
+            patched =0
+   GOLDEN-ONLY names, PRISTINE:
+   GOLDEN-ONLY names, PATCHED:
+   OURS-ONLY names, PRISTINE:
+   OURS-ONLY names, PATCHED (must be the SAME set — no widening):
+-- default.BuildUVMPkg
+   counts   golden=0
+            pristine=0
+            patched =0
+   GOLDEN-ONLY names, PRISTINE:
+   GOLDEN-ONLY names, PATCHED:
+   OURS-ONLY names, PRISTINE:
+   OURS-ONLY names, PATCHED (must be the SAME set — no widening):
+
+== THE SPANS OF THE FOUR MINTED WIRES (SeqDriver; net spans are NOT read by any
+   generated Compare, but golden's own order is reproduced exactly):
+   sz  golden=488:15-488:17  ours=488:15-488:17
+   n  golden=1427:25-1427:26  ours=1427:25-1427:26
+   addr  golden=1491:44-1491:48  ours=1491:44-1491:48
+   local_addr  golden=1467:39-1467:49  ours=1467:39-1467:49
+
+== DIRECTION over the whole census, per database (score130.py)
+-- default.SeqDriver
+   [NET] cells=213 AGREE-BEFORE=157 AGREE-AFTER=161 TO-GOLDEN=4 AWAY-GOLDEN=0 STILL-WRONG=52
+   [REF] cells=31235 AGREE-BEFORE=28203 AGREE-AFTER=28209 TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=3026
+-- testflags.SeqDriver
+   [NET] cells=213 AGREE-BEFORE=157 AGREE-AFTER=161 TO-GOLDEN=4 AWAY-GOLDEN=0 STILL-WRONG=52
+   [REF] cells=31235 AGREE-BEFORE=28203 AGREE-AFTER=28209 TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=3026
+-- default.SimpleUVM
+   [NET] cells=225 AGREE-BEFORE=168 AGREE-AFTER=172 TO-GOLDEN=4 AWAY-GOLDEN=0 STILL-WRONG=53
+   [REF] cells=26628 AGREE-BEFORE=24280 AGREE-AFTER=24286 TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=2342
+-- testflags.SimpleUVM
+   [NET] cells=225 AGREE-BEFORE=168 AGREE-AFTER=172 TO-GOLDEN=4 AWAY-GOLDEN=0 STILL-WRONG=53
+   [REF] cells=26628 AGREE-BEFORE=24280 AGREE-AFTER=24286 TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=2342
+-- default.Scoreboard
+   [NET] cells=10 AGREE-BEFORE=10 AGREE-AFTER=10 TO-GOLDEN=0 AWAY-GOLDEN=0 STILL-WRONG=0
+   [REF] cells=25515 AGREE-BEFORE=23184 AGREE-AFTER=23184 TO-GOLDEN=0 AWAY-GOLDEN=0 STILL-WRONG=2331
+-- default.MiniAmiq
+   [NET] cells=0 AGREE-BEFORE=0 AGREE-AFTER=0 TO-GOLDEN=0 AWAY-GOLDEN=0 STILL-WRONG=0
+   [REF] cells=31697 AGREE-BEFORE=28500 AGREE-AFTER=28500 TO-GOLDEN=0 AWAY-GOLDEN=0 STILL-WRONG=3197
+-- default.BuildUVMPkg
+   [NET] cells=0 AGREE-BEFORE=0 AGREE-AFTER=0 TO-GOLDEN=0 AWAY-GOLDEN=0 STILL-WRONG=0
+   [REF] cells=27345 AGREE-BEFORE=26506 AGREE-AFTER=26506 TO-GOLDEN=0 AWAY-GOLDEN=0 STILL-WRONG=839
+
+== THE BYTE MOVERS, ORDER-BLIND ATTRIBUTION (uhdm-dump both sides, workdir path
+   normalised away, sorted).  ALL FOUR are ADDITIONS ONLY:
+   default_SeqDriver-32af76aa  removals=0  additions=40
+   testflags_SeqDriver-32af76aa  removals=0  additions=40
+   default_SimpleUVM-1dc93a62  removals=0  additions=40
+   testflags_SimpleUVM-1dc93a62  removals=0  additions=40
+
+   the 40 added lines of default/SeqDriver, verbatim:
+     >                           \_logic_net: (work@top_tb.addr), line:1491:44, endln:1491:48
+     >   \_logic_net: (work@top_tb.addr), line:1491:44, endln:1491:48
+     >                       \_logic_net: (work@top_tb.local_addr), line:1467:39, endln:1467:49
+     >   \_logic_net: (work@top_tb.local_addr), line:1467:39, endln:1467:49
+     >                             \_logic_net: (work@top_tb.n), line:1427:25, endln:1427:26
+     >                       \_logic_net: (work@top_tb.n), line:1427:25, endln:1427:26
+     >   \_logic_net: (work@top_tb.n), line:1427:25, endln:1427:26
+     >                   \_logic_net: (work@top_tb.sz), line:488:15, endln:488:17
+     >                   \_logic_net: (work@top_tb.sz), line:488:15, endln:488:17
+     >   \_logic_net: (work@top_tb.sz), line:488:15, endln:488:17
+     >     \_module_inst: work@top_tb (work@top_tb), file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/testbench.sv, line:210:1, endln:236:18
+     >     \_module_inst: work@top_tb (work@top_tb), file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/testbench.sv, line:210:1, endln:236:18
+     >     \_module_inst: work@top_tb (work@top_tb), file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/testbench.sv, line:210:1, endln:236:18
+     >     \_module_inst: work@top_tb (work@top_tb), file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/testbench.sv, line:210:1, endln:236:18
+     >                             |vpiActual:
+     >                           |vpiActual:
+     >                       |vpiActual:
+     >                       |vpiActual:
+     >                   |vpiActual:
+     >                   |vpiActual:
+     >     |vpiFullName:work@top_tb.addr
+     >     |vpiFullName:work@top_tb.local_addr
+     >     |vpiFullName:work@top_tb.n
+     >     |vpiFullName:work@top_tb.sz
+     >     |vpiName:addr
+     >     |vpiName:local_addr
+     >     |vpiName:n
+     >     |vpiName:sz
+     >   |vpiNet:
+     >   |vpiNet:
+     >   |vpiNet:
+     >   |vpiNet:
+     >     |vpiNetType:1
+     >     |vpiNetType:1
+     >     |vpiNetType:1
+     >     |vpiNetType:1
+     >     |vpiParent:
+     >     |vpiParent:
+     >     |vpiParent:
+     >     |vpiParent:

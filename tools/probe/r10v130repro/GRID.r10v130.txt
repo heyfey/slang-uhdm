@@ -1,0 +1,63 @@
+r10v130 — THE ADVERSARIAL GRID.  MEASUREMENT ONLY; the official uhdm-cmp is the
+judge.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+Every cell carries its OWN name; no arm names anything a_t/b_t/c_t.
+Scored by score130v.py over drive130v.sh databases, BOTH VIEWS (def + elab),
+three binaries per view (Surelog golden, pristine, patched).
+
+arm  what it varies                                      NET to-golden / away   REF to-golden / away
+b1   the READ FACE inside new[...]: queue index,          14 / 0                 7 / 0
+     nested-call argument, ternary condition and both
+     branches, $bits() argument, concatenation element;
+     and OUTSIDE it: a loop bound, a while condition, an
+     LHS-only name, a select index, a delay operand
+b2   the STATEMENT SHAPE: plain blocking assignment,      14 / 0                 14 / 0
+     DECLARATION INITIALIZER (`int a[] = new[n];`),
+     if branch, case item, for body, NAMED begin/end,
+     out-of-body TASK, inside a fork...join_none
+b3   TOP-MODULE COLLISIONS: the module declares a wire /   2 / 0                 8 / 0
+     a parameter / a localparam / an int variable /
+     a logic reg of the SAME name; plus a fresh name
+b4   MULTIPLICITY: 2 tops, a child x3, a 4th module        2 / 6                 2 / 0
+b5   HOMES: virtual OOB method, static OOB method,         8 / 0                 8 / 0
+     OUT-OF-BODY TASK, derived-class OOB method,
+     IN-BODY TASK (the control), a MODULE's own task
+b6   DECLARATION KINDS: const local, function localparam,  16 / 0                15 / 0
+     automatic local, static local, output formal, inout
+     formal, enclosing named-block local, foreach
+     iterator, formal with a default
+b7   R-MULTI INHERITANCE CONTROL (a `ref` formal, the       0 / 0                 0 / 0
+     § oobRefVarLocalHoistNet107 family, in b4's shape)
+b8   a GENUINELY UNDECLARED name                          slang rejects rc=3 on BOTH binaries,
+     (tools/probe/r10v130repro/rejarm/v130_b8.sv)         stderr BYTE-IDENTICAL — symmetric
+b9   HOISTING CONTAINERS AND IMPORT SPELLINGS: an           0 / 2                 2 / 0
+     interface, a program, an EXPLICIT-ITEM import, an
+     import inside a generate block, a plain importer
+                                                          ------                ------
+                                                  TOTAL   56 / 8                56 / 0
+
+READ THE EIGHT AWAY CELLS.  All eight are ONE residue, and it is NOT this law's:
+
+* b4 (6 cells) and b9 (2 cells) are WHICH MODULE OWNS THE WIRE.  Golden's owner
+  is the FIRST MODULE WRITTEN that cannot bind the name — `UhdmWriter::
+  lateBinding`'s own first line is `if (ref->Actual_group()) continue;` and the
+  ref objects are SHARED — so exactly ONE module ever mints it.  Our pool binds
+  EVERY module whose materialised-package set contains the home.
+* b7 PROVES the spread is INHERITED and not this pass's: with a `ref` formal —
+  § oobRefVarLocalHoistNet107's OWN population, which the PRISTINE binary
+  already hoists — the PRISTINE binary mints `dynRefMult130v` in ALL FOUR
+  modules (kid, topA, topB and the module that imports nothing at its own
+  scope) where golden mints NONE at all, and the patched binary is identical to
+  it.  0 to-golden / 0 away for this pass on that arm.
+* CORPUS REACH IS ZERO, measured: the verifier's own fence (fence130v.py,
+  independent of the pass's fence130.sh) reports MIRROR 6 -> 6 with the two
+  name sets BYTE-IDENTICAL over all 956 surelog databases, and byteverify
+  reports 0/1358 on uhdm2rtlil.
+
+AND READ b3, WHICH IS WHERE A WIDENING WOULD HAVE LIVED.  Golden binds
+`wireClashBet130v` to the module's DECLARED wire, `varClashEps130v` and
+`regClashZet130v` to the module's declared object, and mints NOTHING for
+`paramClashGam130v` / `lparamClashDel130v`.  The patched binary does the same in
+every one of those five cells and adds NO net: the pool binder's existing
+name-in-`nets` search covers the wire/int/logic cells and § hoistedNetNeverOver
+AModuleParam117's suppressor covers the two parameter cells.  8 REF cells move
+TO golden, 0 away, and the module's net LIST does not grow.

@@ -1,0 +1,127 @@
+r10uvm130 — THE BOUNDARY GATE AND ITS ATTRIBUTION.  MEASUREMENT ONLY.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+PRISTINE=f102bcba68a7d9317c746b848792fda1  PATCHED=96ac63809cd34213960a17a58a268e13
+ROOT = a COPY of the WHOLE tools/probe tree (no path filter), 3879 .sv/.v arms.
+
+== r10uvm130_BOUND.file.def.txt
+== boundary gate: MODE=file VIEW=def  3879 arms under /tmp/r10uvm130_probecopy
+PROCESSED=3879 LISTED=3879 DIFFER=10 PRIS_REJECT=150 PATCHED_REJECT=150
+-- differing arms:
+./r10buvm16repro/a1_newgrid16.sv
+./r10buvm22repro/g22.sv
+./r10uvm130repro/g130_a1.sv
+./r10uvm130repro/g130_a2.sv
+./r10uvm130repro/g130_a3.sv
+./r10uvm130repro/g130_a4.sv
+./r10uvm130repro/g130_a5.sv
+./r10uvm69repro/a1_type.sv
+./r10v107repro/v107_b2.sv
+./r10v110repro/v4_bind.sv
+
+== r10uvm130_BOUND.file.elab.txt
+== boundary gate: MODE=file VIEW=elab  3879 arms under /tmp/r10uvm130_probecopy
+PROCESSED=3879 LISTED=3879 DIFFER=10 PRIS_REJECT=164 PATCHED_REJECT=164
+-- differing arms:
+./r10buvm16repro/a1_newgrid16.sv
+./r10buvm22repro/g22.sv
+./r10uvm130repro/g130_a1.sv
+./r10uvm130repro/g130_a2.sv
+./r10uvm130repro/g130_a3.sv
+./r10uvm130repro/g130_a4.sv
+./r10uvm130repro/g130_a5.sv
+./r10uvm69repro/a1_type.sv
+./r10v107repro/v107_b2.sv
+./r10v110repro/v4_bind.sv
+
+== r10uvm130_BOUND.dir.def.txt
+== boundary gate: MODE=dir VIEW=def  1571 arms under /tmp/r10uvm130_probecopy
+PROCESSED=1571 LISTED=1571 DIFFER=10 PRIS_REJECT=127 PATCHED_REJECT=127
+-- differing arms:
+./r10buvm16repro
+./r10buvm22repro
+./r10uvm117repro
+./r10uvm130repro
+./r10uvm69repro
+./r10uvm75repro
+./r10uvm76repro
+./r10v107repro
+./r10v109repro
+./r10v117repro
+
+== r10uvm130_BOUND.dir.elab.txt
+== boundary gate: MODE=dir VIEW=elab  1571 arms under /tmp/r10uvm130_probecopy
+PROCESSED=1571 LISTED=1571 DIFFER=10 PRIS_REJECT=133 PATCHED_REJECT=133
+-- differing arms:
+./r10buvm16repro
+./r10buvm22repro
+./r10uvm117repro
+./r10uvm130repro
+./r10uvm69repro
+./r10uvm75repro
+./r10uvm76repro
+./r10v107repro
+./r10v109repro
+./r10v117repro
+
+================ ATTRIBUTION, arm by arm
+
+-- THIS PASS'S OWN FIVE ARMS (file mode): g130_a1..a5 — see GRID.r10uvm130.txt.
+   a1 3 NET + 3 REF TO-GOLDEN, 0 AWAY, 0 STILL
+   a2 3 NET + 3 REF TO-GOLDEN, 0 AWAY, 2 STILL (R-MODFN + a pre-existing OTH net)
+   a3 6 NET + 6 REF TO-GOLDEN, 0 AWAY, 0 STILL
+   a4 1 NET + 1 REF TO-GOLDEN, 2 NET AWAY (uvm107's R-MULTI, see README §7), 2 STILL
+   a5 1 NET + 1 REF TO-GOLDEN, 0 AWAY, 0 STILL
+
+-- EARLIER PASSES' ARMS, file mode, re-measured against GOLDEN by attrib130.sh:
+   == r10buvm16repro/a1_newgrid16
+      [NET] cells=17 AGREE-BEFORE=6 AGREE-AFTER=14 TO-GOLDEN=8 AWAY-GOLDEN=0 STILL-WRONG=3
+      [REF] cells=267 AGREE-BEFORE=222 AGREE-AFTER=239 TO-GOLDEN=17 AWAY-GOLDEN=0 STILL-WRONG=28
+   == r10uvm69repro/a1_type
+      [NET] cells=3 AGREE-BEFORE=2 AGREE-AFTER=3 TO-GOLDEN=1 AWAY-GOLDEN=0 STILL-WRONG=0
+      [REF] cells=74 AGREE-BEFORE=70 AGREE-AFTER=72 TO-GOLDEN=2 AWAY-GOLDEN=0 STILL-WRONG=2
+   == r10v107repro/v107_b2
+      [NET] cells=5 AGREE-BEFORE=3 AGREE-AFTER=4 TO-GOLDEN=1 AWAY-GOLDEN=0 STILL-WRONG=1
+      [REF] cells=44 AGREE-BEFORE=43 AGREE-AFTER=44 TO-GOLDEN=1 AWAY-GOLDEN=0 STILL-WRONG=0
+   == r10v110repro/v4_bind
+      [NET] cells=7 AGREE-BEFORE=2 AGREE-AFTER=6 TO-GOLDEN=4 AWAY-GOLDEN=0 STILL-WRONG=1
+      [REF] cells=53 AGREE-BEFORE=49 AGREE-AFTER=53 TO-GOLDEN=4 AWAY-GOLDEN=0 STILL-WRONG=0
+
+   == r10buvm22repro/g22  -> residue R-ADDRCONST, NOT this law (see below)
+      [NET] cells=4 AGREE-BEFORE=4 AGREE-AFTER=4 TO-GOLDEN=0 AWAY-GOLDEN=0 STILL-WRONG=0
+      [REF] cells=49 AGREE-BEFORE=44 AGREE-AFTER=44 TO-GOLDEN=0 AWAY-GOLDEN=0 STILL-WRONG=5
+      the WHOLE dump diff, both views, is 12 lines:
+        <         |UINT:22465217
+        <         |UINT:22466073
+        >         |UINT:22469313
+        >         |UINT:22470169
+        <         |vpiDecompile:22465217
+        <         |vpiDecompile:22466073
+        >         |vpiDecompile:22469313
+        >         |vpiDecompile:22470169
+      g22.sv contains ZERO occurrences of 'new[' — this law cannot reach it.
+      Those values are .bss ADDRESSES of the emitting binary, leaked into the
+      right range of the array_typespec our emitter mints for an ASSOCIATIVE
+      typedef (`typedef C22 ka_cls_t[string];`, g22.sv:70) where golden emits a
+      string_typespec and NO constant at all.  readelf on the two binaries:
+        pristine .bss start 0x156ba00   leaked 0x156cac1 / 0x156ce19
+        patched  .bss start 0x156ca00   leaked 0x156dac1 / 0x156de19
+      i.e. the values shift by exactly the .bss shift (0x1000).  Both binaries
+      are ET_EXEC (non-PIE), so the value is DETERMINISTIC per binary (measured
+      3x pristine, 2x patched, identical each time) and moves with ANY change to
+      static layout.  Neither value is golden's; the cell has NO direction.
+
+-- DIR-MODE-ONLY ARMS (r10uvm117repro, r10uvm75repro, r10uvm76repro,
+   r10v109repro, r10v117repro): the ORDER-BLIND (sorted) dumps are IDENTICAL —
+   0 differing lines in BOTH views for all five.  The whole difference is the
+   ORDER of a module's vpiTaskFunc list, which is PER-RUN NONDETERMINISTIC on
+   the SAME binary: four consecutive runs of the PRISTINE binary over
+   r10uvm75repro produced FOUR different orders (RESUME §9, macro-buffer
+   SourceLocation ordering under slang's parallel parse).
+     r10uvm117repro def=0 elab=0
+     r10uvm75repro def=0 elab=0
+     r10uvm76repro def=0 elab=0
+     r10v109repro def=0 elab=0
+     r10v117repro def=0 elab=0
+
+FENCED= (list only — the four slang-fenced test names are deliberately NOT
+written into any probe artefact of this pass; canaudit.sh reports FENCE-BREACH=0)

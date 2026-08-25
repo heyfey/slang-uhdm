@@ -756,6 +756,7 @@ bool UhdmExporter::oobRefVarLocalHoistNet107(const slang::ast::Symbol& sym,
     return !bind5 || recvUserMethodArgDepth107 > 0;
 }
 
+
 // § retNameRecvCollapse69 — WHEN A METHOD CALL'S RECEIVER IS THE ENCLOSING
 // FUNCTION'S OWN RETURN VARIABLE, SURELOG RESOLVES THE RECEIVER TO THE FUNCTION
 // AND SWALLOWS THE METHOD.
@@ -2512,6 +2513,45 @@ static bool newArraySubScopeSym16(const slang::ast::Symbol& sym) {
     // law owns and every one of its 18 cells is bare in golden.
     auto hk = sc->asSymbol().kind;
     return hk == SymbolKind::Package || hk == SymbolKind::CompilationUnit;
+}
+
+// § newArrayArgHoistNet130 — the predicate.  See UhdmExporter.h for the law and
+// its Surelog decode.  TRUE means: this reference, which
+// § newArrayArgNoBind16 already refuses to bind, must ALSO be handed to the
+// hoisted-net pool, because the module that hoists this body's package mints an
+// implicit wire for it.
+//
+// Three conjuncts, each one a measured cell:
+//   (1) the § newArrayArgNoBind16 WINDOW and its SYMBOL half — the reference is
+//       inside a dynamic-array `new[...]` argument list and names a
+//       subroutine-scope symbol (a body local, a block local, a formal, a loop
+//       iterator).  A CLASS PROPERTY under the same `new[...]`
+//       (`bits = new[m_packed_size]`, uvm-1.2 uvm_packer.svh:475) is
+//       § classPropRefs' own cell and already hoists through that law; a
+//       PACKAGE variable never enters `bindVariable` at all.
+//   (2) `hoistHomePkg117()` — a hoisting HOME.  This is the whole discriminator
+//       between the six corpus sites that mint a wire and the six that do not:
+//       `UhdmWriter.cpp:1067` leaves `lateBinding(s, classDef, c)` COMMENTED
+//       OUT, so a CLASS's unbound-reference list is never walked and never
+//       copied into an importing module, while a PACKAGE's is
+//       (`CompileHelper::importPackage`, CompileHelper.cpp:190-193).  An
+//       IN-BODY class method's references belong to the CLASS component and
+//       stay bare in golden for ever; an OUT-OF-BODY definition's and a free
+//       package subroutine's belong to the PACKAGE and hoist.
+//   (3) the reference is not a hier_path element or a method-call receiver —
+//       those are built by other builders that never reach this gate, so the
+//       conjunct is structural rather than written out here (measured: golden
+//       leaves `local_addr` @1467:19, `sys_addr` @1491:26, `gp` @200:23,
+//       `slices` @362:21 and `m_extensions` @910:24 — every hier_path element
+//       under a `new[...]` — with NO actual and mints them no wire).
+bool UhdmExporter::newArrayArgHoistNet130(
+    const slang::ast::Symbol& sym, const slang::ast::Expression& e) const {
+    (void)e;
+    if (newArrayArgDepth16 == 0)
+        return false;
+    if (!newArraySubScopeSym16(sym))
+        return false;
+    return hoistHomePkg117() != nullptr;
 }
 
 // § incDecStmtOperandBinds21 — THE SYMBOL HALF of the inc/dec statement window.
@@ -14605,6 +14645,28 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // Class-method body outside an if/case condition, or a
                     // `$unit`-scope subroutine body: no actual of any kind
                     // (see classMethodNoBind / unitSubNoBind9).
+                    //
+                    // § newArrayArgHoistNet130 — ...EXCEPT that "no actual"
+                    // is only half of what Surelog does with a dynamic-array
+                    // `new[...]` argument.  The reference reached
+                    // `needLateBinding` and the WRITE-TIME walk fails for the
+                    // same reason the compile-time one did (the `new` call has
+                    // no vpiParent), so `UhdmWriter::lateBinding` falls through
+                    // to the module-level search and MINTS an implicit wire in
+                    // every module that hoists this body's package.  Hand the
+                    // reference to the SAME pool §§ 107/117 use; the hoisting
+                    // home is what decides, and when there is none the pool
+                    // entry binds nothing and the reference stays bare exactly
+                    // as § newArrayArgNoBind16 left it.
+                    if (newArrayArgNoBind16 &&
+                        newArrayArgHoistNet130(nv.symbol, expr)) {
+                        auto& pool130 = (inClassBodyEmit && classBodyHomePkg75)
+                                            ? classPropRefs
+                                            : pkgFreeSubPropRefs117;
+                        pool130.push_back({ref, std::string(nv.symbol.name),
+                                           expr.sourceRange,
+                                           hoistHomePkg117()});
+                    }
                 }
                 else if (suppressRefActual) {
                     // § genCaSysCallArgBinds22 (r10earl22) — a ref NESTED
