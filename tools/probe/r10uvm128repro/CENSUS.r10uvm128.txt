@@ -1,0 +1,61 @@
+r10uvm128 — THE CENSUSES.  All MEASUREMENT ONLY; the official uhdm-cmp is the
+judge.  Every run re-executed the slang command line this pass's OWN pristine
+verify_golden workdirs recorded, under a census-instrumented binary named on
+the command line (nothing defaulted to a main-tree binary), in the TEST'S OWN
+SOURCE DIRECTORY, with LISTED == PROCESSED asserted and SWAPFAIL 0.
+
+--------------------------------------------------------------------------
+1. THE LAW'S POPULATION — a built-in method whose receiver has NO SYNTAX NODE
+   and whose span's two ends live in DIFFERENT BUFFERS.
+
+   surelog     1523 database-modes    7 cells
+   uhdm2rtlil  1458 database-modes    0 cells
+   ------------------------------------------
+   ALL SEVEN at ONE SOURCE SITE and all seven read back EMPTY (never garbage):
+     uvm_reg_mem_hdl_paths_seq.svh:56  ->  uvm_object_defines.svh:1978
+     receiver `local_data__.abstractions`, method `size`, chain length 2,
+     recv->syntax = NULL, stmtCtx = 0, 1 call argument.
+   Rows: SeqDriver def+tf, SimpleUVM def+tf, MiniAmiq def+tf, Scoreboard def.
+   BuildUVMPkg's golden is the 1800.2 `pp_output` — no macros, no cell.
+
+2. DROPPED BINARY OPERANDS — every `ExpressionKind::BinaryOp` that pushed
+   fewer operands than it had, whole corpora, PRISTINE.
+
+   surelog     7 rows — THE SAME SEVEN, opType 15, L=1 R=0, both sides Call
+   uhdm2rtlil  0 rows
+
+   i.e. in the ENTIRE surelog corpus our emitter drops a binary operand in
+   exactly the seven database-modes this law addresses and nowhere else.
+
+3. OPERAND COUNTS AGAINST GOLDEN — score128.py's OP rows (opType x span x
+   operand count) over golden and ours, on the grid arms, both views.  Every
+   arm: the operand-count rows converge (nops 1 -> 2) and NO arm gains an
+   operand golden does not have (AWAY = 0).  See ARMS.r10uvm128.txt.
+
+--------------------------------------------------------------------------
+4. THE SIBLING FAMILY — the SAME cross-buffer read, its OTHER face, NOT taken
+   by this pass and now the SimpleUVM / Scoreboard head.  README residue R0.
+
+   Census: every built-in receiver whose rawText is not a plain dotted /
+   indexed identifier, PRISTINE, whole corpora.
+
+   surelog  171 rows / 9 UVM database-modes;  uhdm2rtlil 0.
+   Two disjoint families:
+
+     84 rows  GARBAGE, `ZE(ARG,"") \` and `ZE(ARG,tmp__`  — 7 database-modes
+              (every UVM row-mode except BuildUVMPkg), ONE site:
+              uvm_object_defines.svh:1566, the `M_UVM_QUEUE_RESIZE(ARG,VAL)`
+              body `while(ARG.size()<sz) ARG.push_back(VAL);`, methods size /
+              push_back / pop_front, invoked at
+              uvm_reg_mem_hdl_paths_seq.svh:56.
+              The receiver is a SINGLE name, so its span's two ends are in ONE
+              buffer and THIS pass's gate — which requires two — does not fire.
+              recv->syntax is NULL here too.  Golden names the path
+              `abstractions.size`; we name it `ZE(ARG,"") \.size`.
+
+     87 rows  NOT garbage: `m_streams[stream.get_name()]` and
+              `m_streams[ro.get_name()]` (uvm_component.svh:2666/2674/2675,
+              uvm_report_server.svh:666, and the 1800.2 pp_output twins).
+              These are the WRITTEN texts; the census flags them only because
+              its "is this a dotted identifier" filter rejects `(` and `)`.
+              A NEGATIVE CONTROL for the filter, not a defect.

@@ -1,0 +1,112 @@
+r10uvm128 — THE GRID.  Five arms, DEF and ELAB, scored against GOLDEN with
+score128.py (a SPAN-and-NAME-keyed multiset census: one row per `operation`
+carrying its opType, span and OPERAND COUNT, one row per `hier_path` carrying
+its name, span and ordered element list; no ids, no file, no VpiFullName).
+
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+WHY THE MACROS LIVE IN THEIR OWN FILE (g128_defs.svh).  The law's gate is that
+the two halves of a written receiver come from TWO DIFFERENT BUFFERS.  A macro
+DEFINED AND INVOKED IN ONE FILE does not have that shape — both ends map back
+into the same file and `rawText` returns a long garbage substring instead — so
+a same-file arm reproduces the SYMPTOM through a DIFFERENT MECHANISM and tests
+nothing.  The first cut of arm A was written that way and DID show twelve
+operations with one operand where golden has two; instrumenting it showed the
+law never fired.  UVM's layout is the cross-file one, and so is the grid's.
+
+WHY THE MACRO BODIES START ON A CONTINUATION LINE.  A body that begins on the
+`define line itself lands in `macroInvLineCol`'s SINGLE-LINE regime, where our
+spans map to the INVOCATION line while golden maps to the DEFINITION line — a
+PRE-EXISTING residue that would leave every cell unmatchable and make the arm
+unable to show convergence.  Arms B/C/D were first written that way; the whole
+grid was renormalised to UVM's own layout (body on continuation lines).
+
+WHY THE NAMES HAVE FOUR DIFFERENT LENGTHS.  The macro formal is `ARG`, three
+characters, and the arguments are 1, 5, 12 and 20 characters.  A cell that
+merely walked `start + name.size()` could not agree with golden by accident:
+the column shift the argument paste causes is different in every cell.  That is
+what caught the element END span (column 78 where golden writes 69) before the
+law shipped.
+
+ARM g128_a_handles.sv
+  PRI 92184b36c03d7e2f698a54f34bf5173a  PAT af9f894eb946239440803abed2945521
+    PRIS SAME 29  ONLY-GOLDEN 32  ONLY-OURS 20  UNPARSEABLE golden=50 ours=236
+    PAT  SAME 35  ONLY-GOLDEN 26  ONLY-OURS 26  UNPARSEABLE golden=50 ours=85
+    CELLS MOVED BY THE PATCH: 24
+    PRIS SAME 62  ONLY-GOLDEN 64  ONLY-OURS 41  UNPARSEABLE golden=78 ours=419
+    PAT  SAME 74  ONLY-GOLDEN 52  ONLY-OURS 52  UNPARSEABLE golden=78 ours=117
+    CELLS MOVED BY THE PATCH: 25
+ARM g128_b_props.sv
+  PRI 92184b36c03d7e2f698a54f34bf5173a  PAT af9f894eb946239440803abed2945521
+    PRIS SAME 7  ONLY-GOLDEN 18  ONLY-OURS 12  UNPARSEABLE golden=42 ours=77
+    PAT  SAME 13  ONLY-GOLDEN 12  ONLY-OURS 12  UNPARSEABLE golden=42 ours=77
+    CELLS MOVED BY THE PATCH: 16
+    PRIS SAME 19  ONLY-GOLDEN 36  ONLY-OURS 24  UNPARSEABLE golden=61 ours=100
+    PAT  SAME 31  ONLY-GOLDEN 24  ONLY-OURS 24  UNPARSEABLE golden=61 ours=100
+    CELLS MOVED BY THE PATCH: 16
+ARM g128_c_ops.sv
+  PRI 92184b36c03d7e2f698a54f34bf5173a  PAT af9f894eb946239440803abed2945521
+    PRIS SAME 10  ONLY-GOLDEN 19  ONLY-OURS 10  UNPARSEABLE golden=41 ours=76
+    PAT  SAME 16  ONLY-GOLDEN 13  ONLY-OURS 13  UNPARSEABLE golden=41 ours=76
+    CELLS MOVED BY THE PATCH: 21
+    PRIS SAME 22  ONLY-GOLDEN 38  ONLY-OURS 20  UNPARSEABLE golden=60 ours=99
+    PAT  SAME 34  ONLY-GOLDEN 26  ONLY-OURS 26  UNPARSEABLE golden=60 ours=99
+    CELLS MOVED BY THE PATCH: 21
+ARM g128_d_homes.sv
+  PRI 92184b36c03d7e2f698a54f34bf5173a  PAT af9f894eb946239440803abed2945521
+    PRIS SAME 10  ONLY-GOLDEN 12  ONLY-OURS 8  UNPARSEABLE golden=44 ours=79
+    PAT  SAME 14  ONLY-GOLDEN 8  ONLY-OURS 8  UNPARSEABLE golden=44 ours=79
+    CELLS MOVED BY THE PATCH: 5
+    PRIS SAME 27  ONLY-GOLDEN 27  ONLY-OURS 18  UNPARSEABLE golden=70 ours=109
+    PAT  SAME 36  ONLY-GOLDEN 18  ONLY-OURS 18  UNPARSEABLE golden=70 ours=109
+    CELLS MOVED BY THE PATCH: 5
+ARM g128_e_inst.sv
+  PRI 92184b36c03d7e2f698a54f34bf5173a  PAT af9f894eb946239440803abed2945521
+    PRIS SAME 10  ONLY-GOLDEN 28  ONLY-OURS 18  UNPARSEABLE golden=33 ours=68
+    PAT  SAME 22  ONLY-GOLDEN 16  ONLY-OURS 16  UNPARSEABLE golden=33 ours=68
+    CELLS MOVED BY THE PATCH: 18
+    PRIS SAME 24  ONLY-GOLDEN 56  ONLY-OURS 36  UNPARSEABLE golden=46 ours=85
+    PAT  SAME 48  ONLY-GOLDEN 32  ONLY-OURS 32  UNPARSEABLE golden=46 ours=85
+    CELLS MOVED BY THE PATCH: 18
+
+READING THE ROWS.  SAME grows and ONLY-GOLDEN shrinks in EVERY arm and BOTH
+views; ONLY-OURS never grows except in arm A, where it grows by exactly the six
+hier_paths that the pristine emitted with a GARBAGE NAME (a name containing a
+newline, which the census cannot key at all — the UNPARSEABLE counter is those
+continuation lines: arm A def 236 -> 85, elab 419 -> 117, golden unchanged at
+50 / 78).  Those six rows are not new wrongness; they are six objects that were
+unrowable garbage and are now well-formed, differing from golden in ONE field.
+
+THE ONE FIELD, and it is PRE-EXISTING, not this law's (README residue R1): the
+`method_func_call` element's END span, `mStart + name.size()` where `mStart` is
+`recv->sourceRange.end() + 1`.  That is a raw offset walk past the end of a
+one-token macro-ARGUMENT buffer; `macroInvLineCol`'s newline guard then refuses
+and `setLoc` falls back to the invocation site.  It is computed IDENTICALLY for
+the FIRST operand of every cell in these arms, whose hier_path this law never
+touches, and every one of those is wrong in the pristine too.  ON THE CORPUS IT
+DOES NOT BITE — the invocation line `\`uvm_field_queue_string(abstractions,
+UVM_DEFAULT)` is long enough that the walk stays on it — and the corpus head
+object is BYTE-IDENTICAL to golden, field for field.
+
+CELLS THE ARMS COVER
+  A  receiver head kind      macro-body local (the corpus head's own shape),
+                             hand-written class property, a FORMAL, `this.`,
+                             + two NEGATIVE CONTROLS (receiver wholly in the
+                             macro BODY; receiver wholly the macro ARGUMENT —
+                             the corpus head's first operand, which never lost
+                             its text).  Neither negative control moves.
+  B  property kind x method  associative / dynamic / queue x size, num,
+                             exists, len.  (A FIXED unpacked array is fenced
+                             out by slang itself: "unknown built-in method
+                             'size' on type 'int$[4]'" — no cell, not a claim.)
+  C  where it sits           ==, !=, <, &&, a bare assignment rvalue, a direct
+                             `if` condition, a `while` condition, a call
+                             ARGUMENT, a ternary operand.  The positions with
+                             NO comparison at all prove the restoration is not
+                             tied to the binary operator.
+  D  home                    in-body class method, OUT-OF-BODY method, a
+                             doubly-nested `begin` in a class task, a package
+                             free function.
+  E  count / spelling        one, two and three invocations in one scope; two
+                             names through a two-formal macro in BOTH orders;
+                             names differing only in CASE (qA / qa / Qa128).

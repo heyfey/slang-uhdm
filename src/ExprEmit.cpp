@@ -51,6 +51,108 @@ namespace slang_uhdm {
 // cell that was already wrong stays wrong rather than becoming wrongly bound,
 // which is exactly the class law 70's verifier refused.  Correct INT encoding
 // is ranked, not claimed.
+// § macroSplitRecvIsAstChain128 — A BUILT-IN METHOD'S RECEIVER WHOSE WRITTEN
+// TEXT NO SINGLE BUFFER HOLDS.
+//
+// THE HEAD.  `uvm_object_defines.svh:1978`, the `UVM_COMPARE` arm of
+// `uvm_field_queue_string(ARG, FLAG)`:
+//
+//     if(ARG.size() != local_data__.ARG.size()) begin
+//
+// Golden's `operation(vpiOpType 15)` there carries TWO `hier_path` operands;
+// ours carried ONE — THE SECOND OPERAND WAS DROPPED WHOLE, which is a
+// `vpiOperand` VECTOR SIZE MISMATCH and therefore sets BOTH containers as the
+// head (RESUME §9).  The two operands are written with the SAME macro formal
+// and differ only in that the second prefixes it with a name from the macro
+// BODY, which is the whole of why one survived and the other did not.
+//
+// WHY OURS DROPPED IT.  slang models a built-in array/string/enum method as a
+// SYSTEM call whose receiver hides in `arguments()[0]`, and that receiver
+// expression is SYNTHESISED by `Expression::bindLookupResult` — IT CARRIES NO
+// `syntax` POINTER AT ALL.  The built-in-method arm therefore reads the
+// receiver out of the SOURCE BUFFER (`rawText(recv->sourceRange)`) and keys
+// every one of its decisions on that text; with an EMPTY text the arm reaches
+// `noteUnsupportedAt("system method call: …")` and returns NULL, and the
+// enclosing binary operation pushes only the operands that came back non-null.
+//
+// `rawText` cannot answer here, and no caller can repair it: the receiver
+// `local_data__.ARG` is spelled ACROSS TWO EXPANSION BUFFERS — the head name
+// `local_data__` is a token of the macro BODY, `ARG` is a token of the macro
+// ARGUMENT — so `getFullyOriginalRange` maps the two ends into two DIFFERENT
+// FILES (`uvm_object_defines.svh` and `uvm_reg_mem_hdl_paths_seq.svh`) and the
+// `substr` over one file's text is meaningless.  WHICH meaningless answer it
+// gives is an ACCIDENT OF FILE OFFSETS, and both faces are in the grid:
+//   * end-offset BELOW start-offset (or past the file) -> EMPTY -> the call
+//     returns null and the OPERAND IS DROPPED (the corpus head, and arm A's
+//     `loc128.*` / `hand128.q` / `hand128.field` cells);
+//   * end-offset ABOVE it -> a GARBAGE SPAN OF THE WRONG FILE -> the arm
+//     happily builds a `hier_path` NAMED WITH SOURCE TEXT, newlines and all
+//     (arm A's `peer128.*` cells: golden `peer128.q.size`, ours
+//     `peer128.ARG.size()) rc128 = 3; \ …`).
+// `rawTextExp` cannot help either: it rebuilds text from a node's TOKENS and
+// there is no node.
+//
+// THE LAW.  When a built-in method's receiver HAS NO SYNTAX NODE and its span's
+// two ends live in DIFFERENT BUFFERS — i.e. no buffer holds the written text
+// and `rawText`'s answer is meaningless whatever it is — rebuild the written
+// dotted receiver FROM THE BOUND AST CHAIN: one component per
+// `MemberAccess`/`NamedValue` link, innermost first, each carrying ITS OWN END
+// LOCATION.  A chain containing anything else (a select, a call, `this`, a
+// scoped name) DECLINES and keeps the pristine emission, which for the corpus
+// head is a drop: declining is not being right, it is refusing to guess
+// (§ vifClockingPathComponent5's rule).
+//
+// WHY THE END LOCATIONS AND NOT THE ARM'S CUMULATIVE OFFSET WALK.  The arm
+// builds its element spans by walking `recv->sourceRange.start()` forward by
+// `name.size() + 1` per component, which is exact whenever the written text and
+// the bound names have the same lengths.  ACROSS A MACRO-ARGUMENT SUBSTITUTION
+// THEY DO NOT: in the macro body the second component is spelled `ARG` (3
+// characters) while the bound name is `abstractions` (12), and
+// `macroInvLineCol` turns a body offset into `invocation column + offset` with
+// the argument-expansion shift applied to everything AFTER the formal.  Walking
+// +12 from the formal's start therefore over-runs it: measured, the element's
+// END came out at column 78 where golden writes 69.  The END location of each
+// AST link is the end of the NAME TOKEN AS WRITTEN (for a substituted component
+// that token lives in the ARGUMENT buffer, so its mapped column is already the
+// expanded one), and `end - name.size()` is its start because a NAME TOKEN
+// NEVER CROSSES A BUFFER.
+//
+// SURELOG'S SIDE, for completeness: Surelog compiles the PREPROCESSED TOKEN
+// STREAM and so never sees a macro buffer at all.  `compileExpression`'s dotted
+// path loop (`CompileExpression.cpp:5501-5710`) pushes one `ref_obj` per
+// written name — spanned by `populateCoreMembers(name, name, ref)` on THAT
+// name's own token — and, when the look-ahead is a `paList_of_arguments`, one
+// `method_func_call` named after the method and spanned on the method token.
+// That is field for field the shape this law now emits.
+static bool astDottedRecv128(
+    const slang::ast::Expression& e,
+    std::vector<std::pair<std::string, slang::SourceLocation>>& out) {
+    using slang::ast::ExpressionKind;
+    auto take = [&](std::string_view nm) {
+        auto en = e.sourceRange.end();
+        if (nm.empty() || en == slang::SourceLocation::NoLocation ||
+            en.offset() < nm.size())
+            return false;
+        out.emplace_back(std::string(nm), en);
+        return true;
+    };
+    switch (e.kind) {
+        case ExpressionKind::NamedValue:
+            return take(e.as<slang::ast::NamedValueExpression>().symbol.name);
+        case ExpressionKind::HierarchicalValue:
+            return take(
+                e.as<slang::ast::HierarchicalValueExpression>().symbol.name);
+        case ExpressionKind::MemberAccess: {
+            auto& ma = e.as<slang::ast::MemberAccessExpression>();
+            if (!astDottedRecv128(ma.value(), out))
+                return false;
+            return take(ma.member.name);
+        }
+        default:
+            return false;
+    }
+}
+
 static bool pkgParamValueIsUnsigned71(const slang::ast::ParameterSymbol& ps,
                                       int depth);
 static bool pkgParamExprIsUnsigned71(const slang::ast::Expression& e0,
@@ -20453,6 +20555,30 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 if (!call.arguments().empty()) {
                     auto* recv = call.arguments()[0];
                     std::string recvText = rawText(recv->sourceRange);
+                    // § macroSplitRecvIsAstChain128 — see the decode at
+                    // `astDottedRecv128`.  `astRecv128` stays EMPTY off the
+                    // law, and the one line further down that reads it is
+                    // written so that an empty vector IS the pristine code.
+                    std::vector<std::pair<std::string, slang::SourceLocation>>
+                        astRecv128;
+                    if (!recv->syntax &&
+                        recv->sourceRange.start() != SourceLocation::NoLocation &&
+                        recv->sourceRange.end() != SourceLocation::NoLocation &&
+                        sm->isMacroLoc(recv->sourceRange.start()) &&
+                        sm->isMacroLoc(recv->sourceRange.end()) &&
+                        recv->sourceRange.start().buffer() !=
+                            recv->sourceRange.end().buffer() &&
+                        astDottedRecv128(*recv, astRecv128) &&
+                        astRecv128.size() > 1) {
+                        recvText.clear();
+                        for (size_t i128 = 0; i128 < astRecv128.size(); i128++) {
+                            if (i128)
+                                recvText += ".";
+                            recvText += astRecv128[i128].first;
+                        }
+                    }
+                    else
+                        astRecv128.clear();
                     // The receiver text may itself be DOTTED
                     // (`frame.multicast.constraint_mode(0)` -> receiver
                     // `frame.multicast`); Surelog models the dotted path one
@@ -21264,7 +21390,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     ? joinRef(prefix, dn0)
                                     : dn0);
                             r0->VpiParent(hp);
-                            setLoc(r0, SourceRange(nmStart0, nmStart0 + dn0.size()));
+                            // § macroSplitRecvIsAstChain128 — the AST link's
+                            // OWN END location, when the written text was
+                            // rebuilt from the chain (see the decode); the
+                            // cumulative offset walk otherwise, unchanged.
+                            setLoc(r0,
+                                   k74 < astRecv128.size()
+                                       ? SourceRange(astRecv128[k74].second -
+                                                         dn0.size(),
+                                                     astRecv128[k74].second)
+                                       : SourceRange(nmStart0,
+                                                     nmStart0 + dn0.size()));
                             elems->push_back(r0);
                             nmStart0 = nmStart0 + dn0.size() + 1;
                         }

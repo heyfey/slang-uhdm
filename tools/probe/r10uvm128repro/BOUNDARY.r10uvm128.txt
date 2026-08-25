@@ -1,0 +1,73 @@
+MOVED 0068_r10buvm22repro_g22.sv/def 12 lines
+MOVED 0068_r10buvm22repro_g22.sv/elab 12 lines
+/tmp/wt_r10uvm128/tools/probe/r10uvm128repro/bound128.sh: line 42: 441755 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm128/tools/probe/r10uvm128repro/bound128.sh: line 42: 441840 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm128/tools/probe/r10uvm128repro/bound128.sh: line 42: 445976 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm128/tools/probe/r10uvm128repro/bound128.sh: line 42: 446060 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+MOVED 2059_r10uvm128repro_g128_a_handles.sv/def 364 lines
+MOVED 2059_r10uvm128repro_g128_a_handles.sv/elab 829 lines
+MOVED 2060_r10uvm128repro_g128_b_props.sv/def 128 lines
+MOVED 2060_r10uvm128repro_g128_b_props.sv/elab 302 lines
+MOVED 2061_r10uvm128repro_g128_c_ops.sv/def 180 lines
+MOVED 2061_r10uvm128repro_g128_c_ops.sv/elab 483 lines
+MOVED 2062_r10uvm128repro_g128_d_homes.sv/def 80 lines
+MOVED 2062_r10uvm128repro_g128_d_homes.sv/elab 228 lines
+MOVED 2063_r10uvm128repro_g128_e_inst.sv/def 200 lines
+MOVED 2063_r10uvm128repro_g128_e_inst.sv/elab 468 lines
+/tmp/wt_r10uvm128/tools/probe/r10uvm128repro/bound128.sh: line 42: 888047 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm128/tools/probe/r10uvm128repro/bound128.sh: line 42: 888083 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm128/tools/probe/r10uvm128repro/bound128.sh: line 42: 894739 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm128/tools/probe/r10uvm128repro/bound128.sh: line 42: 894766 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm128/tools/probe/r10uvm128repro/bound128.sh: line 42: 900064 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm128/tools/probe/r10uvm128repro/bound128.sh: line 42: 900100 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm128/tools/probe/r10uvm128repro/bound128.sh: line 42: 993035 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm128/tools/probe/r10uvm128repro/bound128.sh: line 42: 993072 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm128/tools/probe/r10uvm128repro/bound128.sh: line 42: 994201 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm128/tools/probe/r10uvm128repro/bound128.sh: line 42: 994224 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm128/tools/probe/r10uvm128repro/bound128.sh: line 42: 1003488 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm128/tools/probe/r10uvm128repro/bound128.sh: line 42: 1003528 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm128/tools/probe/r10uvm128repro/bound128.sh: line 42: 1004466 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm128/tools/probe/r10uvm128repro/bound128.sh: line 42: 1004518 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm128/tools/probe/r10uvm128repro/bound128.sh: line 42: 1009954 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm128/tools/probe/r10uvm128repro/bound128.sh: line 42: 1009972 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm128/tools/probe/r10uvm128repro/bound128.sh: line 42: 1010316 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm128/tools/probe/r10uvm128repro/bound128.sh: line 42: 1010334 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm128/tools/probe/r10uvm128repro/bound128.sh: line 42: 1097766 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm128/tools/probe/r10uvm128repro/bound128.sh: line 42: 1097784 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm128/tools/probe/r10uvm128repro/bound128.sh: line 42: 1097852 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm128/tools/probe/r10uvm128repro/bound128.sh: line 42: 1097870 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm128/tools/probe/r10uvm128repro/bound128.sh: line 42: 1097938 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+/tmp/wt_r10uvm128/tools/probe/r10uvm128repro/bound128.sh: line 42: 1097956 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+LISTED=3839 FENCED_SKIPPED=0 PROCESSED=3839 MOVED=12 NO_OUTPUT_PAIRS=284
+PROCESSED-ASSERT-OK
+DONE
+
+--------------------------------------------------------------------------
+VERDICT.  12 MOVED entries over 3839 listed / 3839 PROCESSED sources (both
+views, both binaries, subdirectory arms included, FENCED_SKIPPED=0):
+
+  * TEN of them are THIS PASS'S OWN ARMS (g128_a_handles, g128_b_props,
+    g128_c_ops, g128_d_homes, g128_e_inst — def and elab).  Their cells are
+    scored against GOLDEN in ARMS.r10uvm128.txt.
+
+  * TWO are the def and elab views of ONE file, r10buvm22repro/g22.sv, and the
+    12 lines are the SAME 12 in both: three `constant` objects under the
+    `vpiRightRange` of the typedef at g22.sv:70 (`[string]`, columns 28-34),
+    whose `vpiDecompile`/`UINT` value reads 22449657 on the pristine binary and
+    22453753 on the patched one.
+
+    THIS IS NOT THIS LAW.  PROVEN, not asserted: the census builds carry the
+    law behind an instrument-only kill switch, and running the SAME binary with
+    the law ON and with it OFF gives the SAME value — four binaries, eight runs:
+
+        r10uvm128_cen.bin   lawON=22453753  lawOFF=22453753
+        r10uvm128_cen2.bin  lawON=22453753  lawOFF=22453753
+        r10uvm128_cen3.bin  lawON=22457849  lawOFF=22457849
+        r10uvm128_cen4.bin  lawON=22453753  lawOFF=22453753
+
+    while the value DOES differ between binaries, in steps of exactly 4096.
+    It is deterministic per binary (three runs each) and depends on the BINARY
+    LAYOUT, not on the source: a pre-existing emitted constant whose value is
+    not a property of the design.  Recorded as README residue R2.  No corpus
+    database carries the shape (the whole-corpus mover set is 7 databases and
+    all seven are this law's, MOVERS.r10uvm128.txt).

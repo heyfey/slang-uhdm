@@ -1,0 +1,44 @@
+r10uvm128 — THE MOVER SET, PREDICTED BY NAME FROM THE PRISTINE DATABASES
+BEFORE THE PATCHED SWEEP RAN.
+
+Method.  A census-instrumented build of the PRISTINE emitter (the law compiled
+in but switched OFF by an instrument-only env kill switch, so the emission is
+byte-for-byte the pristine one) was run over EVERY slang command line the
+pristine verify_golden workdirs recorded — 1523 surelog database-modes and 1458
+uhdm2rtlil ones, LISTED == PROCESSED, SWAPFAIL 0, each child in the TEST'S OWN
+SOURCE DIRECTORY (the workdir does not hold the sources; a driver that `cd`s to
+the workdir compiles nothing and prints green).  It printed one row per built-in
+method call whose receiver satisfies the law's gate, and one row per binary
+operation that pushed fewer operands than it had.
+
+THE GATE'S WHOLE POPULATION, BOTH CORPORA, BOTH MODES (2981 database-modes):
+
+  test             mode        site                                   text
+  SeqDriver        default     uvm_reg_mem_hdl_paths_seq.svh:56       <EMPTY>
+  SeqDriver        testflags   uvm_reg_mem_hdl_paths_seq.svh:56       <EMPTY>
+  SimpleUVM        default     uvm_reg_mem_hdl_paths_seq.svh:56       <EMPTY>
+  SimpleUVM        testflags   uvm_reg_mem_hdl_paths_seq.svh:56       <EMPTY>
+  MiniAmiq         default     uvm_reg_mem_hdl_paths_seq.svh:56       <EMPTY>
+  MiniAmiq         testflags   uvm_reg_mem_hdl_paths_seq.svh:56       <EMPTY>
+  Scoreboard       default     uvm_reg_mem_hdl_paths_seq.svh:56       <EMPTY>
+  --------------------------------------------------------------------------
+  uhdm2rtlil, both modes, 1458 database-modes                          NONE
+
+  (the site is the macro INVOCATION `uvm_field_queue_string(abstractions,
+  UVM_DEFAULT)`; the statement is the macro BODY, uvm_object_defines.svh:1978.
+  BuildUVMPkg's golden is the 1800.2 `pp_output`, which has no macros at all,
+  so it carries no cell — and it did not move.)
+
+DROPPED BINARY OPERANDS, PRISTINE, WHOLE SURELOG CORPUS: the SAME 7 rows and
+NOTHING ELSE (opType 15, L=1 R=0, both sides Call).  uhdm2rtlil: 0.
+
+PREDICTION, therefore, BY NAME:
+  MOVERS = { default/SeqDriver, default/SimpleUVM, default/MiniAmiq,
+             default/Scoreboard, testflags/SeqDriver, testflags/SimpleUVM,
+             testflags/MiniAmiq }  = 7 of 956 surelog databases
+  MOVERS(uhdm2rtlil) = {} = 0 of 1358
+  every mover ADDS objects and REMOVES none (the law restores a dropped
+  operand), so the one-sided sets must be ADD-ONLY.
+
+MEASURED AFTER THE PATCHED SWEEP: exactly those 7, 0 of 1358, 20 added dump
+lines each, 0 removed.  See MOVERS.r10uvm128.txt.

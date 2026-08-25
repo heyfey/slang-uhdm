@@ -1,0 +1,170 @@
+r10uvm128 — MOVERS, MEASURED (byteverify.sh SELFCHECK=1, patched vs this pass's own pristine sweep)
+
+surelog corpus:
+  databases: patched=956 pristine=956   PATH_SETS_IDENTICAL (956 paths)
+  MOVERS: 7 / 956 — exactly the seven PREDICTED BY NAME (PREDICT.r10uvm128.txt)
+    ./default/MiniAmiq-544c7f61/slang.uhdm     patched=7333fe476a4f pristine=ad7a232943e5
+    ./default/Scoreboard-59431470/slang.uhdm   patched=7efa39407a10 pristine=f2dbe8434526
+    ./default/SeqDriver-32af76aa/slang.uhdm    patched=6306fae7d984 pristine=d41eeb125774
+    ./default/SimpleUVM-1dc93a62/slang.uhdm    patched=9d560df0a37e pristine=fa28ad03408e
+    ./testflags/MiniAmiq-544c7f61/slang.uhdm   patched=7333fe476a4f pristine=ad7a232943e5
+    ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=1a1c6aa05888 pristine=7ab0093e0360
+    ./testflags/SimpleUVM-1dc93a62/slang.uhdm  patched=c65756302f1e pristine=9812143d8ef3
+  SELFCHECK (every file vs one fixed file): 955 / 956 flagged — the gate can see.
+
+uhdm2rtlil corpus:
+  databases: patched=1358 pristine=1358   PATH_SETS_IDENTICAL (1358 paths)
+  MOVERS: 0 / 1358      SELFCHECK: 1357 / 1358 flagged
+
+ATTRIBUTION — attr128.sh, PATH-NORMALISED and ORDER-BLIND (Scoreboard/default is
+a ~50/50 coin per invocation, RESUME §9, and SeqDriver's macro-buffer ordering
+flips too: their ORDERED diffs read 112 / 78 / 60 lines and their ORDER-BLIND
+diffs read 20, the same 20 as the deterministic rows):
+
+default/SimpleUVM-1dc93a62  ordered_diff_lines=20  ORDER_BLIND_diff_lines=20
+    >                                       \_hier_path: (local_data__.abstractions.size), line:1978:44, endln:1978:76
+    >                                       \_hier_path: (local_data__.abstractions.size), line:1978:44, endln:1978:76
+    >                                       \_hier_path: (local_data__.abstractions.size), line:1978:44, endln:1978:76
+    >                                   \_hier_path: (local_data__.abstractions.size), line:1978:44, endln:1978:76
+    >                                     \_method_func_call: (size), line:1978:70, endln:1978:74
+    >                                     \_operation: , line:1978:21, endln:1978:76
+    >                                     \_ref_obj: (abstractions), line:1978:57, endln:1978:69
+    >                                     \_ref_obj: (local_data__), line:1978:44, endln:1978:56
+    >                                     |vpiActual:
+    >                                     |vpiActual:
+    >                                     |vpiActual:
+    >                                       |vpiName:abstractions
+    >                                       |vpiName:local_data__
+    >                                     |vpiName:local_data__.abstractions.size
+    >                                       |vpiName:size
+    >                                   |vpiOperand:
+    >                                       |vpiParent:
+    >                                       |vpiParent:
+    >                                       |vpiParent:
+    >                                     |vpiParent:
+default/Scoreboard-59431470  ordered_diff_lines=112  ORDER_BLIND_diff_lines=20
+    >                                       \_hier_path: (local_data__.abstractions.size), line:1978:44, endln:1978:76
+    >                                       \_hier_path: (local_data__.abstractions.size), line:1978:44, endln:1978:76
+    >                                       \_hier_path: (local_data__.abstractions.size), line:1978:44, endln:1978:76
+    >                                   \_hier_path: (local_data__.abstractions.size), line:1978:44, endln:1978:76
+    >                                     \_method_func_call: (size), line:1978:70, endln:1978:74
+    >                                     \_operation: , line:1978:21, endln:1978:76
+    >                                     \_ref_obj: (abstractions), line:1978:57, endln:1978:69
+    >                                     \_ref_obj: (local_data__), line:1978:44, endln:1978:56
+    >                                     |vpiActual:
+    >                                     |vpiActual:
+    >                                     |vpiActual:
+    >                                       |vpiName:abstractions
+    >                                       |vpiName:local_data__
+    >                                     |vpiName:local_data__.abstractions.size
+    >                                       |vpiName:size
+    >                                   |vpiOperand:
+    >                                       |vpiParent:
+    >                                       |vpiParent:
+    >                                       |vpiParent:
+    >                                     |vpiParent:
+default/SeqDriver-32af76aa  ordered_diff_lines=78  ORDER_BLIND_diff_lines=20
+    >                                       \_hier_path: (local_data__.abstractions.size), line:1978:44, endln:1978:76
+    >                                       \_hier_path: (local_data__.abstractions.size), line:1978:44, endln:1978:76
+    >                                       \_hier_path: (local_data__.abstractions.size), line:1978:44, endln:1978:76
+    >                                   \_hier_path: (local_data__.abstractions.size), line:1978:44, endln:1978:76
+    >                                     \_method_func_call: (size), line:1978:70, endln:1978:74
+    >                                     \_operation: , line:1978:21, endln:1978:76
+    >                                     \_ref_obj: (abstractions), line:1978:57, endln:1978:69
+    >                                     \_ref_obj: (local_data__), line:1978:44, endln:1978:56
+    >                                     |vpiActual:
+    >                                     |vpiActual:
+    >                                     |vpiActual:
+    >                                       |vpiName:abstractions
+    >                                       |vpiName:local_data__
+    >                                     |vpiName:local_data__.abstractions.size
+    >                                       |vpiName:size
+    >                                   |vpiOperand:
+    >                                       |vpiParent:
+    >                                       |vpiParent:
+    >                                       |vpiParent:
+    >                                     |vpiParent:
+default/MiniAmiq-544c7f61  ordered_diff_lines=20  ORDER_BLIND_diff_lines=20
+    >                                       \_hier_path: (local_data__.abstractions.size), line:1978:44, endln:1978:76
+    >                                       \_hier_path: (local_data__.abstractions.size), line:1978:44, endln:1978:76
+    >                                       \_hier_path: (local_data__.abstractions.size), line:1978:44, endln:1978:76
+    >                                   \_hier_path: (local_data__.abstractions.size), line:1978:44, endln:1978:76
+    >                                     \_method_func_call: (size), line:1978:70, endln:1978:74
+    >                                     \_operation: , line:1978:21, endln:1978:76
+    >                                     \_ref_obj: (abstractions), line:1978:57, endln:1978:69
+    >                                     \_ref_obj: (local_data__), line:1978:44, endln:1978:56
+    >                                     |vpiActual:
+    >                                     |vpiActual:
+    >                                     |vpiActual:
+    >                                       |vpiName:abstractions
+    >                                       |vpiName:local_data__
+    >                                     |vpiName:local_data__.abstractions.size
+    >                                       |vpiName:size
+    >                                   |vpiOperand:
+    >                                       |vpiParent:
+    >                                       |vpiParent:
+    >                                       |vpiParent:
+    >                                     |vpiParent:
+testflags/SimpleUVM-1dc93a62  ordered_diff_lines=20  ORDER_BLIND_diff_lines=20
+    >                                       \_hier_path: (local_data__.abstractions.size), line:1978:44, endln:1978:76
+    >                                       \_hier_path: (local_data__.abstractions.size), line:1978:44, endln:1978:76
+    >                                       \_hier_path: (local_data__.abstractions.size), line:1978:44, endln:1978:76
+    >                                   \_hier_path: (local_data__.abstractions.size), line:1978:44, endln:1978:76
+    >                                     \_method_func_call: (size), line:1978:70, endln:1978:74
+    >                                     \_operation: , line:1978:21, endln:1978:76
+    >                                     \_ref_obj: (abstractions), line:1978:57, endln:1978:69
+    >                                     \_ref_obj: (local_data__), line:1978:44, endln:1978:56
+    >                                     |vpiActual:
+    >                                     |vpiActual:
+    >                                     |vpiActual:
+    >                                       |vpiName:abstractions
+    >                                       |vpiName:local_data__
+    >                                     |vpiName:local_data__.abstractions.size
+    >                                       |vpiName:size
+    >                                   |vpiOperand:
+    >                                       |vpiParent:
+    >                                       |vpiParent:
+    >                                       |vpiParent:
+    >                                     |vpiParent:
+testflags/SeqDriver-32af76aa  ordered_diff_lines=60  ORDER_BLIND_diff_lines=20
+    >                                       \_hier_path: (local_data__.abstractions.size), line:1978:44, endln:1978:76
+    >                                       \_hier_path: (local_data__.abstractions.size), line:1978:44, endln:1978:76
+    >                                       \_hier_path: (local_data__.abstractions.size), line:1978:44, endln:1978:76
+    >                                   \_hier_path: (local_data__.abstractions.size), line:1978:44, endln:1978:76
+    >                                     \_method_func_call: (size), line:1978:70, endln:1978:74
+    >                                     \_operation: , line:1978:21, endln:1978:76
+    >                                     \_ref_obj: (abstractions), line:1978:57, endln:1978:69
+    >                                     \_ref_obj: (local_data__), line:1978:44, endln:1978:56
+    >                                     |vpiActual:
+    >                                     |vpiActual:
+    >                                     |vpiActual:
+    >                                       |vpiName:abstractions
+    >                                       |vpiName:local_data__
+    >                                     |vpiName:local_data__.abstractions.size
+    >                                       |vpiName:size
+    >                                   |vpiOperand:
+    >                                       |vpiParent:
+    >                                       |vpiParent:
+    >                                       |vpiParent:
+    >                                     |vpiParent:
+testflags/MiniAmiq-544c7f61  ordered_diff_lines=20  ORDER_BLIND_diff_lines=20
+    >                                       \_hier_path: (local_data__.abstractions.size), line:1978:44, endln:1978:76
+    >                                       \_hier_path: (local_data__.abstractions.size), line:1978:44, endln:1978:76
+    >                                       \_hier_path: (local_data__.abstractions.size), line:1978:44, endln:1978:76
+    >                                   \_hier_path: (local_data__.abstractions.size), line:1978:44, endln:1978:76
+    >                                     \_method_func_call: (size), line:1978:70, endln:1978:74
+    >                                     \_operation: , line:1978:21, endln:1978:76
+    >                                     \_ref_obj: (abstractions), line:1978:57, endln:1978:69
+    >                                     \_ref_obj: (local_data__), line:1978:44, endln:1978:56
+    >                                     |vpiActual:
+    >                                     |vpiActual:
+    >                                     |vpiActual:
+    >                                       |vpiName:abstractions
+    >                                       |vpiName:local_data__
+    >                                     |vpiName:local_data__.abstractions.size
+    >                                       |vpiName:size
+    >                                   |vpiOperand:
+    >                                       |vpiParent:
+    >                                       |vpiParent:
+    >                                       |vpiParent:
+    >                                     |vpiParent:
