@@ -1,0 +1,22 @@
+LHS:
+decompile:
+class_typespec: (uvm_object_wrapper), id:251330, line:444:21, endln:444:39
+|vpiName:uvm_object_wrapper
+|vpiClassDefn:
+\_class_defn: (uvm_pkg::uvm_object_wrapper), id:16, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_factory.svh, line:810:9, endln:843:9
+
+decompile:
+class_typespec: (uvm_object_wrapper), id:251330, line:444:21, endln:444:39
+|vpiName:uvm_object_wrapper
+|vpiClassDefn:
+\_class_defn: (uvm_pkg::uvm_object_wrapper), id:16, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_factory.svh, line:810:9, endln:843:9
+RHS:
+decompile:
+class_typespec: , id:184647, line:444:21, endln:444:39
+|vpiClassDefn:
+\_class_defn: (uvm_pkg::uvm_object_wrapper), id:42261, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_factory.svh, line:810:9, endln:843:9
+
+decompile:
+class_typespec: , id:184647, line:444:21, endln:444:39
+|vpiClassDefn:
+\_class_defn: (uvm_pkg::uvm_object_wrapper), id:42261, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_factory.svh, line:810:9, endln:843:9

@@ -2205,6 +2205,17 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         UHDM::typespec* ets0 = ts;
                         if (auto* uts11 = makeScopedTdUnsupTs11(bm))
                             ets0 = uts11;
+                        // § blockLocalTdDeclIsRefVarUnsupported155, SITE 6 of
+                        // 6 — the FIXED-SIZE declarator array, BLOCK-item
+                        // form (grid155 `warpFixed`, both views).  The
+                        // element VARIABLE becomes a `ref_var` through
+                        // `declArrayElemVarKind12` two dozen lines below.
+                        else if (auto* uts155 =
+                                     makeStmtScopeTdUnsupTs155(bm)) {
+                            if (pkgScopeInst)
+                                uts155->Instance(pkgScopeInst);
+                            ets0 = uts155;
+                        }
                         auto* ert0 = s.MakeRef_typespec();
                         ert0->VpiParent(ats0);
                         ert0->Actual_typespec(ets0);
@@ -2217,7 +2228,8 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         // § declArrayElemKindIsDeclKind12, SITE 4 of 4 — the
                         // FIXED-SIZE declarator array, BLOCK-item form.
                         // grid12 `h1` `a_fx` / `k_fx` in a `begin` body.
-                        auto* reg0 = makeDeclArrayElemVar12(s, bm, *leaf0);
+                        auto* reg0 = makeDeclArrayElemVar12(s, bm, *leaf0,
+                                                stmtScopeTdDegrades155(bm));
                         reg0->VpiParent(av0);
                         setLoc(reg0, nameSpan(bm.location, bm.name));
                         auto* rrt0 = s.MakeRef_typespec();
@@ -2233,7 +2245,8 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         reg0->VpiSigned(
                             declArrayElemVarSigned129(bm, *leaf0) &&
                             !typeParamVarIsRefVar58(*leaf0) &&
-                            declArrayElemVarKind12(bm) ==
+                            declArrayElemVarKind12(
+                                bm, stmtScopeTdDegrades155(bm)) ==
                                 TdLocalVarKind10::Resolved);
                         // § blockDeclAutomaticIsWrittenKw80, SITE 3 of 4 — the
                         // FIXED-SIZE unpacked array's element (arm c2 c_fix,
@@ -2277,6 +2290,18 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         vlogHiddenBlockVars.insert(&bm);
                     }
                     else if (!stdBi115.empty()) {
+                        v = s.MakeRef_var();
+                    }
+                    // § blockLocalTdDeclIsRefVarUnsupported155, SITE 2 of 6
+                    // (the KIND half) — the BLOCK-ITEM local (`begin` /
+                    // `fork` arm / loop body / `case` item / an `initial` or
+                    // `always` body).  Same law, same Surelog arm as SITE 1:
+                    // a typedef compiled as a STATEMENT is in no
+                    // DesignComponent, so `compileVariable` falls to
+                    // `ref_var`.  grid155 `nestVal`, `initialVal`, `forkVal`,
+                    // `talonVal`, `beakVal`, `plumageVal`, `vaultVal` and the
+                    // corpus head `__tmp_int_val__`.
+                    else if (stmtScopeTdDegrades155(bm)) {
                         v = s.MakeRef_var();
                     }
                     else {
@@ -2354,6 +2379,20 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         if (importCopyTsInst && importCopyTsCollect)
                             importCopyTsCollect->push_back(uts115);
                         rt->Actual_typespec(uts115);
+                    }
+                    else if (auto* uts155 = makeStmtScopeTdUnsupTs155(bm)) {
+                        // § blockLocalTdDeclIsRefVarUnsupported155, SITE 2 of
+                        // 6 (the TYPESPEC half).  `pkgScopeInst` is the very
+                        // pointer the resolved `ts` above was stamped with —
+                        // the home package for an out-of-body class method, a
+                        // package free subroutine's own package, and NULL for
+                        // an in-body method and for a module, which is
+                        // exactly what golden reads (grid155 `perchInnerVal`
+                        // `@Hive155` against `nestVal` / `initialVal` with
+                        // none).
+                        if (pkgScopeInst)
+                            uts155->Instance(pkgScopeInst);
+                        rt->Actual_typespec(uts155);
                     }
                     else if (auto* uts11 = makeScopedTdUnsupTs11(bm)) {
                         // § scopedTdUnsupTsHomePkgInstance83, the BLOCK-ITEM

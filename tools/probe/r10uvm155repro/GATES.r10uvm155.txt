@@ -1,0 +1,79 @@
+r10uvm155 — THE GATE BATTERY.  Every gate ran with SLANG_UHDM exported
+explicitly to the binary under test; every cmds.txt was audited BY PATH.
+The official uhdm-cmp and scripts/verify_golden.py are the judges.
+
+BASE 5b84cae
+pristine  md5 62edd55590a0e02a0647ac59dfb32820   frozen chmod 555 at
+          /tmp/r10uvm155_bin/pris.bin BEFORE any sweep
+patched   md5 cd167bd1925a7198211625b5124e8c4d   frozen chmod 555 at
+          /tmp/r10uvm155_bin/pat.bin  BEFORE any sweep
+
+(1) BUILD           both binaries built -j 2 from their own worktree, md5
+                    taken separately.  No source was edited while its TU was
+                    compiling; no sweep ran against a binary being rebuilt.
+
+(2) GOLDENS         SLANG_UHDM=<patched>  PASS=23  FAIL=0
+                    SLANG_UHDM=<pristine> PASS=23  FAIL=0
+                    SLANG_UHDM=/bin/false PASS=0   FAIL=23   (negative control)
+
+(3) uhdm2rtlil      testflags  CMP_EQUAL 679 / SLANG_REJECT 50 / SURELOG_FAIL 2
+                    default    CMP_EQUAL 679 / SLANG_REJECT 50 / SURELOG_FAIL 2
+                    ct8rows vs results/gate_uhdm2rtlil.csv        PASS (0 rows)
+                    ct8rows vs THIS pass's own pristine, tf       PASS (0 rows)
+                    ct8rows vs THIS pass's own pristine, default  PASS (0 rows)
+
+(4) surelog         --mode both, 1588 rows over 794 tests
+                    status histogram IDENTICAL pristine vs patched:
+                      CMP_EQUAL 937  SLANG_REJECT 567  SURELOG_FAIL 48
+                      CMP_NOTEQUAL 19  DEFERRED 10  NO_DATABASE 3
+                      UNTRANSLATABLE 2  TIMEOUT 1  NO_UHDM 1
+                    ct8rows vs results/golden_surelog.csv         PASS (0 rows)
+                    ct8rows vs THIS pass's own pristine           PASS (0 rows)
+                    NO ROW CONVERTED; results/*.csv were READ ONLY.
+
+(5) BYTEVERIFY  SELFCHECK=1
+                    surelog     PATH_SETS_IDENTICAL (956)
+                                MOVERS 3 / 956   SELFCHECK 955/956 flagged
+                                  ./default/BuildUVMPkg-bf853d43   PREDICTED
+                                  ./testflags/BuildUVMPkg-bf853d43 PREDICTED
+                                  ./default/Scoreboard-59431470    THE COIN —
+                                    sorted, path-normalised uhdm-dump pair
+                                    differs in 0 lines of 1,100,235
+                    uhdm2rtlil  PATH_SETS_IDENTICAL (1358)
+                                MOVERS 0 / 1358  SELFCHECK 1357/1358 flagged
+                    BuildUVMPkg path-normalised whole-dump diff: 9 lines, every
+                    one the law's; both modes produce the SAME database
+                    (patched 3ffbc2fa5459, pristine 1044d58c3c02).
+
+(6) CMDS AUDIT      pristine sweep 1523 references, ALL /tmp/r10uvm155_bin/pris.bin
+                    patched sweeps 2981 references, ALL /tmp/r10uvm155_bin/pat.bin
+                    (no main-tree binary reached any cell)
+
+(7) CANARIES        canaries.sh surelog     ok=52 changed=0 absent=0
+                    canaries.sh uhdm2rtlil  ok=8  changed=0 absent=0
+                    ctcan2.sh   surelog     PASS (EXPECT_UNKNOWN=1)
+                    ctcan2.sh   uhdm2rtlil  PASS (EXPECT_UNKNOWN=6)
+                    canaudit.sh canaries.sh ctcan2.sh
+                                audited=29 UNCOVERED=0 FENCE-BREACH=0  PASS
+                    protected databases, md5 pristine vs patched:
+                      InterfaceModPort   default/testflags  SAME
+                      BlackParrotComplex default/testflags  SAME
+                      YosysOldOr         default/testflags  SAME
+                      SVSwitch           4842211c4030       PIN HELD
+                      YosysVerx          6ccda350c24a       PIN HELD
+
+(8) HEADS           rowheads.sh over the seven named rows, both modes:
+                      BuildUVMPkg  56 -> 1371  (a NEW head, a different object)
+                      every other row's head log BYTE-IDENTICAL
+                      SKIP-NOFILE on Scoreboard/testflags and Rggen/testflags is
+                      expected and is COUNTED.
+
+(9) FAMILY CENSUS   nine UVM databases, strict cell comparison (cellcmp155.py,
+                    which sees a cell that is DIFFERENTLY wrong after):
+                      seven databases  TOWARD 0  AWAY 0  RESHAPE 0
+                      BuildUVMPkg x2   TOWARD 1  AWAY 0  RESHAPE 0
+
+(10) GRID           five arms, both views, strict comparison:
+                      TOTAL MOVED-TOWARD 73  AWAY 0  RESHAPE 0
+
+(11) WIDE BOUNDARY  see BOUNDARY.r10uvm155.txt

@@ -1,0 +1,40 @@
+a_home     pristine-DIFF=25   patched-DIFF=0    MOVED-TOWARD=25   MOVED-WRONG/AWAY=0
+b_form     pristine-DIFF=18   patched-DIFF=6    MOVED-TOWARD=12   MOVED-WRONG/AWAY=0
+c_shape    pristine-DIFF=19   patched-DIFF=2    MOVED-TOWARD=17   MOVED-WRONG/AWAY=0
+d_gate     pristine-DIFF=16   patched-DIFF=11   MOVED-TOWARD=5    MOVED-WRONG/AWAY=0
+e_edge     pristine-DIFF=15   patched-DIFF=1    MOVED-TOWARD=14   MOVED-WRONG/AWAY=0
+-- TOTAL MOVED-TOWARD=73  MOVED-WRONG/AWAY=0
+
+SPAN-INSENSITIVE reading (cellcmp155.py --nospan, which also sees a cell that
+is DIFFERENTLY wrong after, not only a changed key set):
+  a_home  TOWARD=25  b_form TOWARD=12  c_shape TOWARD=14  d_gate TOWARD=5
+  e_edge  TOWARD=8   — AWAY=0 and RESHAPE=0 on every arm.
+
+--------------------------------------------------------------------------
+THE CELLS THE LAW STILL DECLINES (patched-DIFF above), each one identical to
+the PRISTINE answer — this pass moved none of them, in either direction:
+
+  b_form  vShadow         a local typedef whose name is ALSO a package
+                          typedef: golden binds the PACKAGE one
+                          (bit_typespec (quarryVector) @7:11 @Quarry155);
+                          our span/instance residue is untouched.
+          vTypeParamCtl   a TYPE PARAMETER named directly: golden `ref_var`
+                          + int_typespec spanned at the PARAMETER (16:39),
+                          ours at the USE — a SPAN residue, not a kind one.
+          MalletHead      the type_parameter listing entry's own span.
+          vUnitCtl        a census MULTIPLICITY artefact (our DEFMOD listing
+                          holds the object twice) plus the module instance
+                          stamp; unchanged.
+          shard           a typespec_member our DEFMOD view does not list.
+  c_shape shadowPkgName / shadowClsName   the SHADOW gate, package and class.
+  d_gate  ibBeadShadow / ibTallyShadow / oobTallyShadow / modCarryShadow /
+          modUnitShadow                   the SHADOW gate from four homes.
+          oobBeadShadow                   golden `ref_var` + the CLASS
+                          typedef's REPAIRED bit_typespec — the OUT-OF-BODY
+                          shape this pass names as its R0 sibling and does
+                          NOT touch.
+          mintVal         a typedef declared DIRECTLY in a GENERATE block
+                          RESOLVES; the law declines, as measured.
+  e_edge  clashClassName  a local typedef whose name is ALSO a CLASS: golden
+                          takes `compileVariable`'s getClassDefinition arm and
+                          builds a `class_var`; the law declines.

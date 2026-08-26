@@ -1,0 +1,57 @@
+r10uvm155 — THE FAMILY CENSUS.  MEASUREMENT ONLY; the official uhdm-cmp is the
+judge.  LHS/G is ALWAYS golden (Surelog); RHS/O is ALWAYS ours.
+
+INSTRUMENT: ct155cen (one row per declaration that carries a ref_typespec,
+keyed on VIEW / OWNER / LINE:COL / NAME — never on a file, because our objects
+carry an EMPTY VpiFile) joined by join155.py as a MULTISET, with the payload
+(VK, TSK, TSN, TSI, TSLC) = the declaration's own UHDM kind, the bound
+typespec's kind, name, vpiInstance and span.
+
+CALIBRATION FIRST, golden vs golden, BuildUVMPkg/default:
+    shared=16563 same=16563 DIFF=0 ONLY-G=0 ONLY-O=0
+(the SAME golden file censused twice by the SAME ct155cen binary; a first
+reading that showed 10258 DIFF was two DIFFERENT ct155cen builds, one before
+the `<noinst>` column existed — a tool-version artefact, and it is recorded
+here because it is exactly the class of error a calibration exists to catch.)
+
+THE NINE UVM DATABASES, full payload, PRISTINE vs PATCHED against golden:
+
+  row-mode                pristine DIFF   patched DIFF   TOWARD   WRONG/AWAY
+  SeqDriver/default            7661           7661          0         0
+  SeqDriver/testflags          7661           7661          0         0
+  SimpleUVM/default            4774           4774          0         0
+  SimpleUVM/testflags          4774           4774          0         0
+  Scoreboard/default           4732           4732          0         0
+  MiniAmiq/default             7717           7717          0         0
+  MiniAmiq/testflags           7717           7717          0         0
+  BuildUVMPkg/default          5060           5059          1         0
+  BuildUVMPkg/testflags        5060           5059          1         0
+
+ONE cell moved in the whole family, and it is the head:
+  LOCAL ELABPKG uvm_pkg::uvm_agent::build_phase 51340:36-51340:51
+        __tmp_int_val__
+    golden   ref_var  unsupported_typespec (__tmp_int_t__) <noinst> 51340:6-51340:19
+    pristine bit_var  bit_typespec         (-)             <noinst> 51340:6-51340:19
+    patched  ref_var  unsupported_typespec (__tmp_int_t__) <noinst> 51340:6-51340:19
+
+THE SIBLINGS THE LAW DOES NOT REACH, and why — all still wrong, none MADE
+wrong, each measured on all nine databases:
+  * `uvm_pkg::uvm_utils::find` / `find_all` `types` (2 cells per database):
+    golden `ref_var` + array_typespec (types_t), ours `array_var`.  `types_t`
+    is a CLASS typedef (`typedef TYPE types_t[$]`) whose target is a TYPE
+    PARAMETER, so `dt->getActual()->getTypespec()` is null and
+    `compileVariable` falls to its ref_var arm with a RESOLVED `ts`.  The
+    typedef is NOT statement-scope; the law declines by question (2).
+  * `uvm_pkg::uvm_sequencer_base::get_arbitration` return (1 cell per
+    database, DEFPKG view ONLY): golden `ref_var` + the class typedef's
+    REPAIRED enum_typespec, ours `enum_var`.  An OUT-OF-BODY method is
+    compiled in the PACKAGE, so the CLASS typedef `UVM_SEQ_ARB_TYPE` is not in
+    `component->getDataType`'s chain; the placeholder is then repaired BY NAME
+    in `bindTypedefs_` and only the KIND survives.  Same arm of
+    `compileVariable`, DIFFERENT question — and view-dependent, because the
+    ELABORATED copy is `enum_var` on both sides.  This is R0's sibling and is
+    NOT touched.
+  * `work@svaunit_vpi_interface.*` `index` (19 cells, MiniAmiq both modes,
+    DEFIFACE view): golden `ref_var` + unsupported_typespec, ours `class_var`.
+    These are FOREACH LOOP VARIABLES (`CompileStmt.cpp:550`), a different
+    factory and a different law family.

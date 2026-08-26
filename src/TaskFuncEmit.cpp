@@ -1220,6 +1220,18 @@ UHDM::array_var* UhdmExporter::makeQueueDynArrayVar(const Symbol& vs,
     // placeholder never carries.
     if (auto* uts11 = makeScopedTdUnsupTs11(vs))
         elemTs = uts11;
+    // § blockLocalTdDeclIsRefVarUnsupported155, SITE 3 of 6 — the QUEUE /
+    // DYNAMIC-ARRAY element.  Same substitution point, same reason: golden's
+    // placeholder sits on the ELEMENT (grid155 `warpQueue` / `warpDyn` /
+    // `tongsQueue` / `tongsDyn`, both views), and the element VARIABLE becomes
+    // a `ref_var` through `declArrayElemVarKind12`.  The vpiInstance stamp two
+    // lines above has already run on the DISCARDED resolved typespec, so it is
+    // re-applied here from the same `tsInst`.
+    else if (auto* uts155 = makeStmtScopeTdUnsupTs155(vs)) {
+        if (tsInst)
+            uts155->Instance(importCopyTsInst ? importCopyTsInst : tsInst);
+        elemTs = uts155;
+    }
     auto* av = s.MakeArray_var();
     av->VpiName(vs.name);
     av->VpiFullName(afull);
@@ -1286,7 +1298,8 @@ UHDM::array_var* UhdmExporter::makeQueueDynArrayVar(const Symbol& vs,
     // element variable is the SCALAR variable Surelog's compileStmt builds from
     // the DATA-TYPE node and then re-parents under the array_var, so it takes
     // r10sd10's answer for the declaration's WRITTEN base type.  grid12 `h1`.
-    auto* reg0 = makeDeclArrayElemVar12(s, vs, *qelem0);
+    auto* reg0 = makeDeclArrayElemVar12(s, vs, *qelem0,
+                                        stmtScopeTdDegrades155(vs));
     reg0->VpiParent(av);
     reg0->VpiFullName(afull);
     setLoc(reg0, nameSpan(vs.location, vs.name));
@@ -1305,7 +1318,8 @@ UHDM::array_var* UhdmExporter::makeQueueDynArrayVar(const Symbol& vs,
     // element type's.  Law + Surelog citations: EmitHelpers.h.
     reg0->VpiSigned(declArrayElemVarSigned129(vs, *qelem0) &&
                     !typeParamVarIsRefVar58(*qelem0) &&
-                    declArrayElemVarKind12(vs) == TdLocalVarKind10::Resolved);
+                    declArrayElemVarKind12(vs, stmtScopeTdDegrades155(vs)) ==
+                        TdLocalVarKind10::Resolved);
     auto* rv0 = s.MakeVariablesVec();
     rv0->push_back(reg0);
     av->Variables(rv0);
@@ -1472,6 +1486,13 @@ UHDM::array_var* UhdmExporter::makeAssocArrayVar(const Symbol& vs,
     // placeholder never carries.
     if (auto* uts11 = makeScopedTdUnsupTs11(vs))
         elemTs = uts11;
+    // § blockLocalTdDeclIsRefVarUnsupported155, SITE 4 of 6 — the ASSOCIATIVE
+    // element (grid155 `warpAssoc` / `tongsAssoc`, both views).
+    else if (auto* uts155 = makeStmtScopeTdUnsupTs155(vs)) {
+        if (tsInst)
+            uts155->Instance(importCopyTsInst ? importCopyTsInst : tsInst);
+        elemTs = uts155;
+    }
     auto* av = s.MakeArray_var();
     av->VpiName(vs.name);
     av->VpiFullName(afull);
@@ -1635,7 +1656,8 @@ UHDM::array_var* UhdmExporter::makeAssocArrayVar(const Symbol& vs,
     art0->Actual_typespec(ats);
     av->Typespec(art0);
     // § declArrayElemKindIsDeclKind12, SITE 2 of 4 (associative).  grid12 `h1`.
-    auto* reg0 = makeDeclArrayElemVar12(s, vs, *elem0);
+    auto* reg0 = makeDeclArrayElemVar12(s, vs, *elem0,
+                                        stmtScopeTdDegrades155(vs));
     reg0->VpiParent(av);
     reg0->VpiFullName(afull);
     setLoc(reg0, nameSpan(vs.location, vs.name));
@@ -1652,7 +1674,8 @@ UHDM::array_var* UhdmExporter::makeAssocArrayVar(const Symbol& vs,
     // golden leaves unsigned.  Law + Surelog citations: EmitHelpers.h.
     reg0->VpiSigned(declArrayElemVarSigned129(vs, *elem0) &&
                     !typeParamVarIsRefVar58(*elem0) &&
-                    declArrayElemVarKind12(vs) == TdLocalVarKind10::Resolved);
+                    declArrayElemVarKind12(vs, stmtScopeTdDegrades155(vs)) ==
+                        TdLocalVarKind10::Resolved);
     auto* rv0 = s.MakeVariablesVec();
     rv0->push_back(reg0);
     av->Variables(rv0);
@@ -5335,6 +5358,15 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     // `g8` `a_fx` / `k_fx`.
                     if (auto* uts11 = makeScopedTdUnsupTs11(fmv))
                         elemTs = uts11;
+                    // § blockLocalTdDeclIsRefVarUnsupported155, SITE 5 of 6 —
+                    // the FIXED-SIZE declarator array, tf-item form (grid155
+                    // `tongsFixed` in a module task, both views).
+                    else if (auto* uts155 = makeStmtScopeTdUnsupTs155(fmv)) {
+                        if (tsInst)
+                            uts155->Instance(importCopyTsInst ? importCopyTsInst
+                                                              : tsInst);
+                        elemTs = uts155;
+                    }
 
                     auto* av = s.MakeArray_var();
                     av->VpiName(fmv.name);
@@ -5366,7 +5398,8 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     // § declArrayElemKindIsDeclKind12, SITE 3 of 4 — the
                     // FIXED-SIZE declarator array, tf-item form.  grid12 `h1`
                     // `a_fx` / `k_fx`.
-                    auto* reg = makeDeclArrayElemVar12(s, fmv, *leaf);
+                    auto* reg = makeDeclArrayElemVar12(s, fmv, *leaf,
+                                        stmtScopeTdDegrades155(fmv));
                     reg->VpiParent(av);
                     setLoc(reg, nameSpan(fmv.location, fmv.name));
                     auto* regRt = s.MakeRef_typespec();
@@ -5385,7 +5418,8 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     reg->VpiSigned(
                         declArrayElemVarSigned129(fmv, *leaf) &&
                         !typeParamVarIsRefVar58(*leaf) &&
-                        declArrayElemVarKind12(fmv) ==
+                        declArrayElemVarKind12(
+                            fmv, stmtScopeTdDegrades155(fmv)) ==
                             TdLocalVarKind10::Resolved);
                     auto* rv = s.MakeVariablesVec();
                     rv->push_back(reg);
@@ -5693,6 +5727,20 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 // order, and this declaration names no typedef at all.
                 if (!v && !stdBi115.empty())
                     v = s.MakeRef_var();
+                // § blockLocalTdDeclIsRefVarUnsupported155, SITE 1 of 6 (the
+                // KIND half) — the SUBROUTINE-BODY local.  A typedef declared
+                // as a STATEMENT is registered in NO DesignComponent, so
+                // `compileVariable` finds no `getDataType` and no class and
+                // takes its final `ref_var` arm (CompileType.cpp:421-431).
+                // src/EmitHelpers.h carries the law and the grid155 cell
+                // behind each of its three questions.  Asked AFTER the
+                // builtin-class arm so that older, separately measured law
+                // keeps its own name (`process` / `mailbox` / `semaphore`),
+                // and BEFORE r10sd10's, whose typedef lives in a CLASS and
+                // can never be this one.
+                const bool td155 = !v && stmtScopeTdDegrades155(fmv);
+                if (td155)
+                    v = s.MakeRef_var();
                 if (!v)
                     switch (classTdLocalVarKind10(fmv)) {
                         case TdLocalVarKind10::ClassVar:
@@ -5892,6 +5940,29 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     if (auto* ui105 = oobDeclPkg31 ? oobDeclPkg31 : tsInst)
                         uts105->Instance(ui105);
                     vrt->Actual_typespec(uts105);
+                }
+                else if (auto* uts155 =
+                             td155 ? makeStmtScopeTdUnsupTs155(fmv) : nullptr) {
+                    // § blockLocalTdDeclIsRefVarUnsupported155, SITE 1 of 6
+                    // (the TYPESPEC half).  Only the KIND, the NAME and the
+                    // SPAN move; the variable's own name, full name, parent,
+                    // span and vpiAutomatic stay exactly where the surrounding
+                    // laws put them (measured field by field on grid155's
+                    // `vInt` / `vStruct`: golden's record carries vpiParent,
+                    // vpiTypespec, vpiName, vpiFullName AND NOTHING ELSE).
+                    // The instance is the one every other typespec of this
+                    // subroutine takes — § scopedTdUnsupTsHomePkgInstance83's
+                    // `tsInst`: the home PACKAGE for a package free function
+                    // and for an out-of-body method (grid155 `flockVal` /
+                    // `perchVal` read `@Hive155`), NOTHING for an in-body one
+                    // or a module (`broodVal`, `wingVal`, `initialVal`).
+                    if (tsInst) {
+                        uts155->Instance(importCopyTsInst ? importCopyTsInst
+                                                          : tsInst);
+                        if (importCopyTsInst && importCopyTsCollect)
+                            importCopyTsCollect->push_back(uts155);
+                    }
+                    vrt->Actual_typespec(uts155);
                 }
                 else if (auto* uts11 = makeScopedTdUnsupTs11(fmv)) {
                     // § scopedTdUnsupTsHomePkgInstance83 — THE WALL.  This

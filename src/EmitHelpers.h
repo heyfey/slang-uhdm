@@ -3424,6 +3424,319 @@ inline TdLocalVarKind10 classTdLocalVarKind10(
 }
 
 // ---------------------------------------------------------------------------
+// § blockLocalTdDeclIsRefVarUnsupported155
+//
+// THE LAW.  A declaration whose written type is a BARE NAME that denotes a
+// TYPEDEF DECLARED INSIDE A STATEMENT SCOPE — a `begin` / `fork` arm / loop
+// body / `case` item, a subroutine BODY, an `initial` / `always` body — binds
+// NOT that typedef's real typespec but an `unsupported_typespec` NAMED with
+// the WRITTEN TYPE NAME and SPANNED over it, and the declaration itself is a
+// `ref_var`, whatever the typedef's target type is.  UNLESS the same NAME also
+// denotes a type OUTSIDE every statement scope (a class / package / module /
+// `$unit` typedef, a type parameter, or a CLASS), in which case Surelog binds
+// THAT one and nothing about the declaration moves.
+//
+// WHY, read off Surelog.  `CompileHelper::compileStmt`'s `paType_declaration`
+// arm (`~/git-repos/Surelog/src/DesignCompile/CompileStmt.cpp:1284-1290`) is
+//
+//     case VObjectType::paType_declaration: {
+//       if (pstmt) {
+//         // Keep type declaration local to the current stmt
+//         component = nullptr;
+//       }
+//       compileTypeDef(component, fC, fC->Parent(nodeId), …, pstmt);
+//
+// and every `insertTypeDef` / `insertDataType` inside `compileTypeDef`
+// (`CompileHelper.cpp:558-636, 742-895`) is guarded `if (scope)`.  A typedef
+// compiled as a STATEMENT therefore lands in NO `DesignComponent`'s data-type
+// map — and a subroutine BODY takes that same arm, because
+// `compileTask`/`compileFunction` pass the synthesised `begin` as `pstmt`
+// (`CompileStmt.cpp:2046-2075`).  So when the declaration is compiled:
+//   * `compileVariable` (`CompileType.cpp:340-435`) finds no
+//     `component->getDataType(typeName)` and no `design->getClassDefinition`,
+//     and falls to its FINAL arm — `ref_var` (`CompileType.cpp:421-431`);
+//   * the `ts` it binds came from `compileTypespec`'s `slStringConst` arm,
+//     which ends in `compileDatastructureTypespec`'s catch-all
+//     (`CompileType.cpp:1051-1055`): an `unsupported_typespec` carrying
+//     `VpiName(typeName)` and `populateCoreMembers(type, type, …)`, i.e. the
+//     WRITTEN NAME and the WRITTEN NAME'S SPAN;
+//   * `needLateTypedefBinding` can NEVER repair it, because
+//     `ElaborationStep::bindTypedefs_`'s `defs` vector
+//     (`ElaborationStep.cpp:110-148`) is built from file contents, packages,
+//     modules, programs and classes ONLY — a statement-scope typedef is in
+//     none of them, so its name never enters the `specs` map.
+// The placeholder's `vpiInstance` is `component->getUhdmInstance()`
+// (`CompileType.cpp:2135-2136`) — the same pointer every other typespec of the
+// declaration takes, which is why the sites stamp it from their own `tsInst` /
+// `pkgScopeInst` rather than re-deriving it.
+//
+// MEASURED, arm by arm (grid155, five arms, both views, golden vs ours):
+//   * `g155_a_home`  — ELEVEN homes all degrade IDENTICALLY: a `begin` in an
+//     in-body class method, an in-body method's body top level, a class TASK,
+//     an OUT-OF-BODY method's body level AND its nested `begin`, a package
+//     free function, a module `initial`, a module function, a module task, an
+//     `always_comb` named block, a `fork` arm, a `for` body, a `case` item and
+//     an `initial` inside a GENERATE block.  The vpiInstance is the home
+//     PACKAGE for the package free function and the out-of-body method
+//     (`Hive155`) and NOTHING for every other home — exactly `tsInst`.
+//     The same file's `hivePkgWidth` / `RoostMember` controls RESOLVE.
+//   * `g155_b_form`  — ELEVEN declared-type forms off a statement-scope
+//     typedef (vector, `logic`, `int`, `string`, inline enum, packed struct,
+//     typedef-of-local-typedef, alias of a CLASS, alias of a TYPE PARAMETER,
+//     alias of a PACKAGE typedef, and one in a module function) ALL degrade,
+//     against package enum / package struct / package typedef-of-typedef /
+//     class typedef / class name / parameterised class name / `$unit` typedef
+//     controls that all RESOLVE.
+//   * `g155_c_shape` — 1, 2 and 3 declarators, with and without an
+//     INITIALISER, a PACKED dimension written at the use, and a use from a
+//     NESTED `begin` all degrade; the four DECLARATOR-ARRAY forms put the
+//     placeholder on the ELEMENT variable and leave the `array_var` /
+//     `array_typespec` untouched.
+//   * `g155_d_gate`  — the SHADOW gate from every home: a local typedef whose
+//     name is also a PACKAGE / MODULE / `$unit` / CLASS typedef RESOLVES to
+//     the OUTER one (`shadowPkgName`, `modCarryShadow`, `modUnitShadow`,
+//     `ibBeadShadow`); a typedef declared DIRECTLY in a GENERATE block
+//     RESOLVES (`mintVal`) because a generate block is not a statement scope;
+//     and a use three `begin`s deep still degrades (`vaultVal`).
+//   * `g155_e_edge`  — a local typedef whose name is also a CLASS in the same
+//     package makes the declaration a `class_var` (`clashClassName`,
+//     `compileVariable`'s `getClassDefinition` arm), while a local typedef
+//     named after a MODULE still degrades (`clashModuleName`); `const`,
+//     `automatic` and `static` locals degrade exactly like a plain one.
+//
+// THE ANSWER: the WRITTEN TYPE NAME when the law fires, empty otherwise.
+inline bool isStmtScopeSym155(const slang::ast::Symbol& s) {
+    return s.kind == slang::ast::SymbolKind::StatementBlock ||
+           s.kind == slang::ast::SymbolKind::Subroutine;
+}
+
+// § blockLocalTdDeclIsRefVarUnsupported155, THE SHADOW GATE'S TYPE TEST.
+// Anything that could answer `component->getDataType` /
+// `design->getClassDefinition` / the `getParameters()` type-parameter arm for
+// this name.  A plain VALUE of the same name is none of those and is
+// deliberately NOT a decline.
+inline bool typeLike155(const slang::ast::Symbol& h) {
+    return h.isType() ||
+           h.kind == slang::ast::SymbolKind::TypeParameter ||
+           h.kind == slang::ast::SymbolKind::GenericClassDef ||
+           h.kind == slang::ast::SymbolKind::ForwardingTypedef;
+}
+
+// § blockLocalTdDeclIsRefVarUnsupported155, THE IMPORT HALF OF THE SHADOW GATE
+// (added by the adversarial verifier r10v155; see tools/probe/r10v155repro).
+//
+// `Scope::find` is DIRECT MEMBERS ONLY.  It returns nullptr for an
+// `ExplicitImport` (slang `source/ast/Scope.cpp:582-584`, "Don't return
+// imported symbols; this function is for querying direct members only"), and a
+// WILDCARD import is not in the name map at all (`include/slang/ast/symbols/
+// MemberSymbols.h:88-91`, "won't even be in the name map of a symbol at all…
+// there is a sideband list").  Surelog's `getDataType` /
+// `getClassDefinition` DO resolve an imported name, so without this probe the
+// law fires on a declaration golden never degrades.
+//
+// MEASURED (`tools/probe/r10v155repro/v155_e_import.sv`, both views, golden vs
+// ours): a statement-scope `typedef int` shadowing an EXPLICITLY imported class
+// (`import pq::KExpl155v;`) and a WILDCARD-imported class (`import pq::*;`) —
+// golden reads `class_var` + `class_typespec` on BOTH, i.e. it binds the CLASS
+// and the local typedef is invisible.  Without this probe the law minted
+// `ref_var` + `unsupported_typespec` on all FOUR cells (2 declarations x 2
+// views).  A class that is a DIRECT member of an enclosing scope was already
+// declined by `Scope::find` (v155_e_import `KLoc155v`), and a class in a
+// package that is NOT imported is correctly degraded by golden too
+// (`KNone155v` — golden `ref_var` + `unsupported_typespec`), which is why the
+// probe asks about IMPORTS ONLY and never about the design at large.
+inline bool importedTypeLike155(const slang::ast::Scope& sc,
+                                std::string_view nm) {
+    for (const auto& m : sc.members()) {
+        if (m.kind == slang::ast::SymbolKind::ExplicitImport && m.name == nm) {
+            if (const slang::ast::Symbol* is =
+                    m.as<slang::ast::ExplicitImportSymbol>().importedSymbol())
+                if (typeLike155(*is))
+                    return true;
+        }
+    }
+    if (auto* wd = sc.getWildcardImportData()) {
+        for (const slang::ast::WildcardImportSymbol* wi : wd->wildcardImports) {
+            if (const slang::ast::PackageSymbol* pkg = wi->getPackage())
+                if (const slang::ast::Symbol* hit = pkg->find(nm))
+                    if (typeLike155(*hit))
+                        return true;
+        }
+    }
+    return false;
+}
+
+// § blockLocalTdDeclIsRefVarUnsupported155, THE PROGRAM CARVE-OUT (added by
+// the adversarial verifier r10v155; see tools/probe/r10v155repro).
+//
+// A MODULE's and an INTERFACE's collect walk STOPS at a procedural block:
+// `CompileModule.cpp:529-538` lists
+//   paPar_block, paSeq_block, paFunction_body_declaration,
+//   paTask_body_declaration
+// among its `stopPoints`, so a `paData_declaration` — and therefore the
+// `paType_declaration` inside it — is NEVER reached by
+// `CompileHelper::compileDataDeclaration` (`CompileHelper.cpp:2260-2277`,
+// which calls `compileTypeDef(component, …, /*pstmt*/ nullptr)` and DOES
+// register).  Only `compileStmt`'s `paType_declaration` arm sees it, with
+// `component = nullptr` — and the declaration degrades.
+//
+// A PROGRAM's collect walk has stopPoints = `{ paClass_declaration }` and
+// NOTHING ELSE (`CompileProgram.cpp:97-99`).  It therefore DESCENDS into an
+// `initial` / `final` block's `paSeq_block`, reaches the `paData_declaration`,
+// and registers the typedef in the Program component — so `compileVariable`
+// resolves it and NOTHING degrades.
+//
+// MEASURED (`tools/probe/r10v155repro/v155_g_program.sv`, both views, golden vs
+// ours), every typedef name unique in the design:
+//   module   initial / always_comb / final / task body  -> golden DEGRADES (4)
+//   interface initial / task body                       -> golden DEGRADES (2)
+//   package  function body                              -> golden DEGRADES (1)
+//   PROGRAM  initial / final                            -> golden RESOLVES  (2)
+//   PROGRAM  task body                                  -> golden DEGRADES (1)
+// The discriminator is therefore: a statement scope that reaches a PROGRAM's
+// body WITHOUT passing through a SUBROUTINE is registered and must not degrade.
+// Without this carve-out the law fired on the two program cells and drove them
+// AWAY from golden — `byte_var` + `byte_typespec` (2 of 4 payload fields
+// already right) became `ref_var` + `unsupported_typespec` (1 of 4).
+inline bool stmtScopeIsProgramProcedural155(const slang::ast::Scope& home) {
+    for (const slang::ast::Scope* sc = &home; sc;
+         sc = sc->asSymbol().getParentScope()) {
+        const slang::ast::Symbol& ss = sc->asSymbol();
+        // A subroutine body is a stop point in EVERY container, a program
+        // included, so the law still fires below one.
+        if (ss.kind == slang::ast::SymbolKind::Subroutine)
+            return false;
+        if (ss.kind == slang::ast::SymbolKind::InstanceBody) {
+            return ss.as<slang::ast::InstanceBodySymbol>()
+                       .getDefinition()
+                       .definitionKind == slang::ast::DefinitionKind::Program;
+        }
+    }
+    return false;
+}
+
+inline std::string_view stmtScopeTdName155(const slang::ast::Symbol& declSym) {
+    const slang::ast::DeclaredType* dt = declSym.getDeclaredType();
+    if (!dt)
+        return {};
+    // (1) SPELLING — ONE BARE IDENTIFIER.  A `Scope::td` spelling is
+    // § classScopedTdDeclTsUnsupported11's and can never name a
+    // statement-scope typedef; a built-in keyword type is not a NamedType.
+    auto* tsyn = dt->getTypeSyntax();
+    if (!tsyn || tsyn->kind != syntax::SyntaxKind::NamedType)
+        return {};
+    auto& nt155 = tsyn->as<syntax::NamedTypeSyntax>();
+    if (!nt155.name)
+        return {};
+    // ...and the SAME spelling with PACKED DIMENSIONS written at the USE
+    // (`weftKind [1:0] warpPacked;`), which slang parses as ONE
+    // `IdentifierSelectName` rather than a name plus dimensions.  Golden
+    // degrades it exactly like the bare form and SPANS the placeholder from
+    // the type through the LAST packed dimension — `compileTypespec`'s
+    // `if (ranges && result)` tail re-runs `populateCoreMembers(type,
+    // last_Packed_dimension, result)` (CompileType.cpp:1958-1967) after
+    // `compileDatastructureTypespec` has already spanned it over the name
+    // alone.  `tsyn->sourceRange()` is that wider span, so the factory needs
+    // no special case (grid155 `warpPacked`, golden
+    // `unsupported_typespec (weftKind) @25:7-25:21`).
+    std::string_view nm155;
+    if (nt155.name->kind == syntax::SyntaxKind::IdentifierName)
+        nm155 = nt155.name->as<syntax::IdentifierNameSyntax>()
+                    .identifier.valueText();
+    else if (nt155.name->kind == syntax::SyntaxKind::IdentifierSelectName)
+        nm155 = nt155.name->as<syntax::IdentifierSelectNameSyntax>()
+                    .identifier.valueText();
+    if (nm155.empty())
+        return {};
+    // (2a) THE CHEAP GATE, asked BEFORE any name lookup.  The declared type
+    // must ALREADY be — or contain as its element — a `TypeAliasType` of that
+    // very name whose HOME is a statement scope.  This is read straight off
+    // the DeclaredType every other law at these sites already resolves, and it
+    // costs nothing.
+    //
+    // WHY IT IS ASKED FIRST, and not merged into the walk below: a
+    // `Scope::find` FORCES that scope's members to be elaborated, and RESUME
+    // §9's Heisenbug warning ("do not force AST binding during the DEF phase")
+    // is exactly this hazard.  A first cut ran the walk for EVERY declaration
+    // and the wide boundary gate caught the consequence in one arm —
+    // r10buvm22repro/g22.sv, which slang REJECTS on both binaries (rc=4/4) and
+    // whose declaration census moved 0 cells, but whose partial database moved
+    // three folded constants inside an associative-dimension range.  With this
+    // gate the lookup below runs only for a declaration that genuinely names a
+    // statement-scope typedef.
+    const slang::ast::TypeAliasType* al155 = nullptr;
+    {
+        const slang::ast::Type* t155 = &dt->getType();
+        for (int g155 = 0; t155 && g155 < 16; g155++) {
+            if (t155->kind == slang::ast::SymbolKind::TypeAlias) {
+                al155 = &t155->as<slang::ast::TypeAliasType>();
+                break;
+            }
+            const slang::ast::Type& ct155 = t155->getCanonicalType();
+            using slang::ast::SymbolKind;
+            if (ct155.kind == SymbolKind::PackedArrayType)
+                t155 = &ct155.as<slang::ast::PackedArrayType>().elementType;
+            else if (ct155.kind == SymbolKind::FixedSizeUnpackedArrayType)
+                t155 = &ct155.as<slang::ast::FixedSizeUnpackedArrayType>()
+                            .elementType;
+            else if (ct155.kind == SymbolKind::QueueType)
+                t155 = &ct155.as<slang::ast::QueueType>().elementType;
+            else if (ct155.kind == SymbolKind::DynamicArrayType)
+                t155 = &ct155.as<slang::ast::DynamicArrayType>().elementType;
+            else if (ct155.kind == SymbolKind::AssociativeArrayType)
+                t155 = &ct155.as<slang::ast::AssociativeArrayType>()
+                            .elementType;
+            else
+                break;
+        }
+    }
+    if (!al155 || al155->name != nm155)
+        return {};
+    const slang::ast::Scope* home155 = al155->getParentScope();
+    if (!home155 || !isStmtScopeSym155(home155->asSymbol()))
+        return {};
+    // …and it must not be a PROGRAM's procedural block, whose collect walk has
+    // no `paSeq_block` stop point and therefore REGISTERS the typedef.  See
+    // `stmtScopeIsProgramProcedural155` above for the Surelog citations and the
+    // ten measured cells.
+    if (stmtScopeIsProgramProcedural155(*home155))
+        return {};
+    const std::string key155(nm155);
+    bool found155 = false;
+    for (const slang::ast::Scope* sc = declSym.getParentScope(); sc;
+         sc = sc->asSymbol().getParentScope()) {
+        const slang::ast::Symbol& ss = sc->asSymbol();
+        const slang::ast::Symbol* hit = sc->find(key155);
+        if (!found155) {
+            if (!hit)
+                continue;
+            // (2) THE NAME MUST FIRST BE FOUND IN A STATEMENT SCOPE, AS A
+            // TYPEDEF.  Found anywhere else first (a generate block, a class,
+            // a package, `$unit`) means Surelog resolved it too.
+            if (!isStmtScopeSym155(ss) ||
+                hit->kind != slang::ast::SymbolKind::TypeAlias)
+                return {};
+            found155 = true;
+            continue;
+        }
+        // (3) THE SHADOW GATE.  Statement scopes above are just as invisible
+        // to Surelog, so they are skipped; anything type-like OUTSIDE them
+        // means `getDataType` / `getClassDefinition` answers and the
+        // declaration keeps its resolved shape (`g155_d_gate`, `g155_e_edge`).
+        if (isStmtScopeSym155(ss))
+            continue;
+        if (hit && typeLike155(*hit))
+            return {};
+        // …and the same question asked of this scope's IMPORTS, which
+        // `Scope::find` cannot answer.  See `importedTypeLike155` above for the
+        // slang citations and the four measured cells.
+        if (!hit && importedTypeLike155(*sc, key155))
+            return {};
+    }
+    return found155 ? nm155 : std::string_view{};
+}
+
+// ---------------------------------------------------------------------------
 // § namedBaseUnpackedTdRetVar22
 //
 // THE LAW.  The FUNCTION RETURN VARIABLE of a function whose RETURN TYPE names
@@ -3697,10 +4010,23 @@ inline const slang::ast::Type* declArrayElemDeclType12(
 // whenever the declaration is not a declarator array at all, so a caller can
 // apply it unconditionally.
 inline TdLocalVarKind10 declArrayElemVarKind12(
-    const slang::ast::Symbol& declSym) {
+    const slang::ast::Symbol& declSym, bool stmtScopeTd155 = false) {
     const slang::ast::Type* et = declArrayElemDeclType12(declSym);
     if (!et)
         return TdLocalVarKind10::Resolved;
+    // § blockLocalTdDeclIsRefVarUnsupported155, the KIND half for the FOUR
+    // DECLARATOR-ARRAY forms.  golden puts the placeholder and the `ref_var`
+    // on the ELEMENT variable and leaves the `array_var` / `array_typespec`
+    // alone (grid155 `g155_c_shape` warpFixed/warpQueue/warpDyn/warpAssoc and
+    // `g155_e_edge` tongsFixed/tongsQueue/tongsDyn/tongsAssoc, both views).
+    // The ANSWER is passed IN, not recomputed: question (4) — the
+    // `bindTypedefs_` repair gate — needs the whole design's typedef-name
+    // count, which lives on the exporter.  Asked FIRST because the two
+    // predicates are mutually exclusive (this one needs a typedef declared in
+    // a STATEMENT scope, r10sd10's needs one declared in a CLASS), so the
+    // order is documentation, not precedence.
+    if (stmtScopeTd155)
+        return TdLocalVarKind10::RefVar;
     return classTdLocalVarKind10(declSym, et);
 }
 
@@ -3801,8 +4127,9 @@ inline bool declArrayElemVarSigned129(const slang::ast::Symbol& declSym,
 // UNCHANGED `makeReturnVar` factory otherwise.
 inline UHDM::variables* makeDeclArrayElemVar12(UHDM::Serializer& s,
                                                const slang::ast::Symbol& declSym,
-                                               const Type& elemType) {
-    switch (declArrayElemVarKind12(declSym)) {
+                                               const Type& elemType,
+                                               bool stmtScopeTd155 = false) {
+    switch (declArrayElemVarKind12(declSym, stmtScopeTd155)) {
         case TdLocalVarKind10::ClassVar:
             return s.MakeClass_var();
         case TdLocalVarKind10::RefVar:

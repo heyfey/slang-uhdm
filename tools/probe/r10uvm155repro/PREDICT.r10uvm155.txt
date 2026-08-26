@@ -1,0 +1,52 @@
+r10uvm155 — THE A-PRIORI MOVER PREDICTION, made from the PRISTINE databases
+ONLY (golden + our pristine build at 5b84cae), BEFORE the patched binary
+existed.  MEASUREMENT ONLY; the official uhdm-cmp is the judge.
+LHS/G is ALWAYS golden (Surelog); RHS/O is ALWAYS ours.
+
+INSTRUMENT: predsweep155.sh over every row of a verify_golden workdir —
+ct155cen on BOTH sides, join155.py on (SITE, VIEW, OWNER, LINE:COL, NAME),
+keeping only the cells where the DECLARATION KIND disagrees and either side is
+a `ref_var`.  That is the ONLY bucket § blockLocalTdDeclIsRefVarUnsupported155
+can move, in either direction.
+
+  surelog corpus     rows censused 956   SKIP-NOFILE 617   ref_var cells 2991
+  uhdm2rtlil corpus  rows censused 1358  SKIP-NOFILE 104   ref_var cells 0
+
+SINGLE-OBJECT cells (both sides exactly one object at the key), surelog:
+
+  TOWARD  golden ref_var, ours resolved
+    38  unsupported_typespec (index)          -> class_var     FOREACH loop var
+    14  array_typespec      (types_t)         -> array_var     class td of a queue
+                                                               of a TYPE PARAMETER
+     9  enum_typespec (uvm_pkg::UVM_SEQ_ARB_TYPE) -> enum_var  OUT-OF-BODY return,
+                                                               DEF view only
+     2  unsupported_typespec (__tmp_int_t__)  -> bit_var       <-- THIS HEAD
+  AWAY    ours ref_var, golden resolved
+     0
+
+  uhdm2rtlil: TOWARD 0, AWAY 0.
+
+Every OTHER name in the wider "golden binds an unsupported_typespec, we do
+not" bucket is a PACKAGE- or CLASS-level typedef (uvm_reg_field_cb_iter,
+uvm_vreg_field_cb_iter, uvm_mem_cb_iter, uvm_reg_cb_iter, uvm_vreg_cb_iter,
+uvm_cmdline_parsed_arg_t, m_verbosity_setting) or a FOREACH loop variable
+(index, sva_info, cover_info, arg, actions, a_lof_sva) — the law's SHADOW gate
+declines every one of them, because their names resolve outside every
+statement scope.
+
+THE PREDICTION, BY NAME:
+  surelog     2 databases move:  default/BuildUVMPkg-bf853d43
+                                 testflags/BuildUVMPkg-bf853d43
+              one cell each: uvm_pkg::uvm_agent::build_phase::__tmp_int_val__
+              at 51340:36-51340:51.
+  uhdm2rtlil  0 databases move.
+  Scoreboard/default is a ~50/50 COIN per invocation and may appear as a byte
+  mover with NO law content; it must be attributed order-blind (sorted,
+  path-normalised dumps) and only then dismissed.
+
+MEASURED AFTERWARDS (byteverify.sh SELFCHECK=1, both corpora):
+  surelog     MOVERS 3 / 956 — the two PREDICTED BuildUVMPkg rows plus
+              Scoreboard/default, whose sorted path-normalised uhdm-dump pair
+              differs in 0 lines: THE COIN, not this law.
+  uhdm2rtlil  MOVERS 0 / 1358.
+  Every predicted row moved; nothing unpredicted moved.

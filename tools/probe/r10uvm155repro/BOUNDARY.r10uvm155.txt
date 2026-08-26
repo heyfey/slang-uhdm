@@ -1,0 +1,83 @@
+r10uvm155 — THE WIDE BOUNDARY GATE.  MEASUREMENT ONLY.
+bound155.sh, run from a COPY of the WHOLE tools/probe tree so no path filter
+can hide an arm: every .sv/.v at top level AND IN SUBDIRECTORIES, compiled in
+BOTH views by BOTH binaries, with every child given </dev/null, the file list
+read on fd 3, PROCESSED asserted against LISTED, and the scratch keyed on the
+RELATIVE path.
+
+  LISTED=4381  PROCESSED=4381  PRODUCED_DBS=4234  MOVED_ARMS=11  RC_DIFFS=0
+
+This pass's own five grid arms are the POSITIVE CONTROL: a gate that reports
+zero movers over them cannot see.  All five moved.
+
+THE ELEVEN MOVED ARMS, each scored golden-vs-pristine against
+golden-vs-patched, cell by cell, with cellcmp155.py (which sees a cell that is
+DIFFERENTLY wrong after, not only a changed key set).  `--nospan` drops the
+DECLARATION's own span from the key, for the two arms where a PRE-EXISTING span
+residue puts golden's row at a different key from ours:
+
+  arm                                   TOWARD  AWAY  RESHAPE
+  r10uvm155repro/g155_a_home.sv            25     0      0   (positive control)
+  r10uvm155repro/g155_b_form.sv            12     0      0   (positive control)
+  r10uvm155repro/g155_c_shape.sv           14     0      0   (positive control)
+  r10uvm155repro/g155_d_gate.sv             5     0      0   (positive control)
+  r10uvm155repro/g155_e_edge.sv             8     0      0   (positive control)
+  r10uvm114repro/g114_c_clspkg.sv           4     0      0
+  r10uvm58repro/w2_locals.sv                1     0      0
+  r10v138repro/v5_homes.sv                  2     0      0
+  r10v145repro/v145_h_param.sv              2     0      0
+  r10v149repro/arms/scoped/dut.sv           5     0      0
+  r10buvm22repro/g22.sv                     0     0      0   <- see below
+  ------------------------------------------------------------
+  TOTAL                                    78     0      0
+
+Every one of the six OTHER passes' arms that moved holds a typedef declared
+inside a subroutine or a `begin` and a declaration that names it — exactly this
+law's population — and every moved cell went TOWARD golden.  r10v149repro's
+arm is a SUBDIRECTORY arm (`arms/scoped/dut.sv`), which the gate reached
+because it walks subdirectories; a top-level glob would have run nothing there
+and printed green.
+
+`r10v145repro/v145_h_param.sv` — the two cells moved kind AND typespec onto
+golden's answer (`ref_var` + `unsupported_typespec (th145v_t)`), while the
+DECLARATION'S OWN SPAN stayed exactly where it was (55:14-55:15 on both
+binaries, against golden's 55:5-55:13).  That span is a PRE-EXISTING residue of
+a different law (a tf-item local WITH AN INITIALISER anchors at the name here
+and at the declared type in golden); this pass did not touch it, which is why
+the span-keyed reading calls the pair RESHAPE and the span-insensitive one
+calls it TOWARD.  Both readings are printed above and neither shows an AWAY.
+
+`r10buvm22repro/g22.sv` — MOVED IN BYTES, 0 CELLS.  ATTRIBUTED, NOT WAVED
+THROUGH:
+  * slang REJECTS the arm on BOTH binaries (rc=4/4, "unsupported constructs
+    encountered: typedef target: PredefinedIntegerType / QueueType"), so the
+    database is a partial diagnostic artefact and the row class is
+    SLANG_REJECT — out of scope by decision.
+  * its DECLARATION census moved 0 cells in either view.
+  * the whole-dump diff is 12 lines: THREE folded constants inside the
+    `vpiRightRange` operation of a `range` at 70:28-70:34, which is
+    `typedef C22 ka_cls_t[string];` — pristine 22539137 / 22539993, patched
+    22543233 / 22544089, a difference of exactly one 4096-byte page.
+  * the file contains NO typedef declared in a statement scope at all
+    (every typedef in it is at package, class or module level), so this law's
+    predicate returns empty at its FIRST gate for every declaration in the
+    file and mints nothing.
+  * THE POSITIVE CONTROL THAT SETTLES IT: a binary built from the PATCHED
+    source plus ONE semantically dead, externally linked function
+    (`r10uvm155LayoutPad`, added and then removed) produced 22547329 /
+    22548185 — another +4096 — for the SAME source with NO semantic change.
+    The constant is a number derived from the BINARY IMAGE's layout (its
+    magnitude, ~22.5 M, is the size of the binary itself), it is stable across
+    runs and across working directories and unaffected by environment padding
+    of up to 400 KB, and it moves for ANY binary whatsoever.  It is a
+    pre-existing emitter defect on a rejected construct, not a cell of this
+    law.
+
+ALSO MEASURED, and the reason the predicate got its CHEAP PRE-GATE: a first cut
+asked its scope-walk question (which calls `Scope::find`, and a `find` FORCES
+that scope's members to elaborate) for EVERY declaration.  The wide gate then
+reported TWELVE moved arms, including `r10v98repro/v98_c20_dut.sv` and
+`v98_c26_dut.sv` — and those two were REAL: a statement-scope typedef whose
+name collides with ANOTHER typedef anywhere in the design is REPAIRED BY NAME
+in `bindTypedefs_`, so golden binds THAT stranger's typespec, not a
+placeholder.  Question (4) was added for them and they are byte-identical now.

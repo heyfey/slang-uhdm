@@ -1,0 +1,1371 @@
+LHS:
+decompile:
+begin: (uvm_pkg::uvm_agent::build_phase), id:120887, line:51337:29, endln:51431:6
+|vpiParent:
+\_if_stmt: , id:120886, line:51337:3, endln:51431:6
+|vpiFullName:uvm_pkg::uvm_agent::build_phase
+|vpiVariables:
+\_ref_var: (uvm_pkg::uvm_agent::build_phase::__tmp_int_val__), id:120903, line:51340:36, endln:51340:51
+  |vpiParent:
+  \_begin: (uvm_pkg::uvm_agent::build_phase), id:120887, line:51337:29, endln:51431:6
+  |vpiTypespec:
+  \_ref_typespec: (uvm_pkg::uvm_agent::build_phase::__tmp_int_val__), id:120904
+    |vpiParent:
+    \_ref_var: (uvm_pkg::uvm_agent::build_phase::__tmp_int_val__), id:120903, line:51340:36, endln:51340:51
+    |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_int_val__
+    |vpiActual:
+    \_unsupported_typespec: (__tmp_int_t__), id:120902, line:51340:6, endln:51340:19
+  |vpiName:__tmp_int_val__
+  |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_int_val__
+|vpiVariables:
+\_bit_var: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120907, line:51341:16, endln:51341:35
+  |vpiParent:
+  \_begin: (uvm_pkg::uvm_agent::build_phase), id:120887, line:51337:29, endln:51431:6
+  |vpiTypespec:
+  \_ref_typespec: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120908
+    |vpiParent:
+    \_bit_var: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120907, line:51341:16, endln:51341:35
+    |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+    |vpiActual:
+    \_bit_typespec: , id:120906, line:51341:6, endln:51341:9
+  |vpiName:__tmp_success_val__
+  |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+|vpiTypedef:
+\_bit_typespec: (__tmp_int_t__), id:120901, line:51338:14, endln:51339:48
+  |vpiName:__tmp_int_t__
+  |vpiRange:
+  \_range: , id:120895, line:51338:18, endln:51339:48
+    |vpiParent:
+    \_bit_typespec: (__tmp_int_t__), id:120901, line:51338:14, endln:51339:48
+    |vpiLeftRange:
+    \_operation: , id:120898, line:51338:19, endln:51339:45
+      |vpiParent:
+      \_range: , id:120895, line:51338:18, endln:51339:48
+      |vpiOpType:11
+      |vpiOperand:
+      \_sys_func_call: ($bits), id:120896, line:51338:19, endln:51339:43
+        |vpiParent:
+        \_operation: , id:120898, line:51338:19, endln:51339:45
+        |vpiArgument:
+        \_ref_obj: (__tmp_int_t__.uvm_active_passive_enum), id:120897, line:51339:19, endln:51339:42
+          |vpiParent:
+          \_sys_func_call: ($bits), id:120896, line:51338:19, endln:51339:43
+          |vpiName:uvm_active_passive_enum
+          |vpiFullName:__tmp_int_t__.uvm_active_passive_enum
+        |vpiName:$bits
+      |vpiOperand:
+      \_constant: , id:120899, line:51339:44, endln:51339:45
+        |vpiParent:
+        \_operation: , id:120898, line:51338:19, endln:51339:45
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:120900, line:51339:46, endln:51339:47
+      |vpiParent:
+      \_range: , id:120895, line:51338:18, endln:51339:48
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+|vpiStmt:
+\_begin: (uvm_pkg::uvm_agent::build_phase), id:120910, line:51343:1, endln:51423:4
+  |vpiParent:
+  \_begin: (uvm_pkg::uvm_agent::build_phase), id:120887, line:51337:29, endln:51431:6
+  |vpiFullName:uvm_pkg::uvm_agent::build_phase
+  |vpiStmt:
+  \_begin: (uvm_pkg::uvm_agent::build_phase), id:120911, line:51345:1, endln:51357:4
+    |vpiParent:
+    \_begin: (uvm_pkg::uvm_agent::build_phase), id:120910, line:51343:1, endln:51423:4
+    |vpiFullName:uvm_pkg::uvm_agent::build_phase
+    |vpiVariables:
+    \_class_var: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:120913, line:51347:23, endln:51347:35
+      |vpiParent:
+      \_begin: (uvm_pkg::uvm_agent::build_phase), id:120911, line:51345:1, endln:51357:4
+      |vpiTypespec:
+      \_ref_typespec: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:120915
+        |vpiParent:
+        \_class_var: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:120913, line:51347:23, endln:51347:35
+        |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__
+        |vpiActual:
+        \_class_typespec: , id:120914, line:51346:3, endln:51347:22
+      |vpiName:__tmp_rsrc__
+      |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__
+    |vpiStmt:
+    \_assignment: , id:120917, line:51348:3, endln:51350:24
+      |vpiParent:
+      \_begin: (uvm_pkg::uvm_agent::build_phase), id:120911, line:51345:1, endln:51357:4
+      |vpiOpType:82
+      |vpiBlocking:1
+      |vpiRhs:
+      \_sys_func_call: ($cast), id:120919, line:51348:25, endln:51350:24
+        |vpiParent:
+        \_assignment: , id:120917, line:51348:3, endln:51350:24
+        |vpiArgument:
+        \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:120920, line:51348:31, endln:51348:43
+          |vpiParent:
+          \_sys_func_call: ($cast), id:120919, line:51348:25, endln:51350:24
+          |vpiName:__tmp_rsrc__
+          |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__
+        |vpiArgument:
+        \_ref_obj: (uvm_pkg::uvm_agent::build_phase::rsrc), id:120921, line:51350:19, endln:51350:23
+          |vpiParent:
+          \_sys_func_call: ($cast), id:120919, line:51348:25, endln:51350:24
+          |vpiName:rsrc
+          |vpiFullName:uvm_pkg::uvm_agent::build_phase::rsrc
+        |vpiName:$cast
+      |vpiLhs:
+      \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120918, line:51348:3, endln:51348:22
+        |vpiParent:
+        \_assignment: , id:120917, line:51348:3, endln:51350:24
+        |vpiName:__tmp_success_val__
+        |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+    |vpiStmt:
+    \_if_stmt: , id:120923, line:51351:3, endln:51356:6
+      |vpiParent:
+      \_begin: (uvm_pkg::uvm_agent::build_phase), id:120911, line:51345:1, endln:51357:4
+      |vpiCondition:
+      \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120922, line:51351:7, endln:51351:26
+        |vpiParent:
+        \_begin: (uvm_pkg::uvm_agent::build_phase), id:120911, line:51345:1, endln:51357:4
+        |vpiName:__tmp_success_val__
+        |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+        |vpiActual:
+        \_bit_var: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120907, line:51341:16, endln:51341:35
+      |vpiStmt:
+      \_begin: (uvm_pkg::uvm_agent::build_phase), id:120924, line:51351:28, endln:51356:6
+        |vpiParent:
+        \_if_stmt: , id:120923, line:51351:3, endln:51356:6
+        |vpiFullName:uvm_pkg::uvm_agent::build_phase
+        |vpiStmt:
+        \_assignment: , id:120925, line:51353:8, endln:51355:24
+          |vpiParent:
+          \_begin: (uvm_pkg::uvm_agent::build_phase), id:120924, line:51351:28, endln:51356:6
+          |vpiOpType:82
+          |vpiBlocking:1
+          |vpiRhs:
+          \_hier_path: (__tmp_rsrc__.read), id:120927, line:51353:26, endln:51355:24
+            |vpiParent:
+            \_assignment: , id:120925, line:51353:8, endln:51355:24
+            |vpiActual:
+            \_ref_obj: (__tmp_rsrc__), id:120928, line:51353:26, endln:51353:38
+              |vpiParent:
+              \_hier_path: (__tmp_rsrc__.read), id:120927, line:51353:26, endln:51355:24
+              |vpiName:__tmp_rsrc__
+            |vpiActual:
+            \_method_func_call: (read), id:120929, line:51353:39, endln:51353:43
+              |vpiParent:
+              \_hier_path: (__tmp_rsrc__.read), id:120927, line:51353:26, endln:51355:24
+              |vpiArgument:
+              \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__.read::this), id:120930, line:51355:19, endln:51355:23
+                |vpiParent:
+                \_method_func_call: (read), id:120929, line:51353:39, endln:51353:43
+                |vpiName:this
+                |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__.read::this
+              |vpiName:read
+            |vpiName:__tmp_rsrc__.read
+          |vpiLhs:
+          \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_int_val__), id:120926, line:51353:8, endln:51353:23
+            |vpiParent:
+            \_assignment: , id:120925, line:51353:8, endln:51355:24
+            |vpiName:__tmp_int_val__
+            |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_int_val__
+  |vpiStmt:
+  \_if_stmt: , id:120933, line:51359:3, endln:51421:4
+    |vpiParent:
+    \_begin: (uvm_pkg::uvm_agent::build_phase), id:120910, line:51343:1, endln:51423:4
+    |vpiCondition:
+    \_operation: , id:120931, line:51359:7, endln:51359:27
+      |vpiParent:
+      \_begin: (uvm_pkg::uvm_agent::build_phase), id:120910, line:51343:1, endln:51423:4
+      |vpiOpType:3
+      |vpiOperand:
+      \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120932, line:51359:8, endln:51359:27
+        |vpiParent:
+        \_operation: , id:120931, line:51359:7, endln:51359:27
+        |vpiName:__tmp_success_val__
+        |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+        |vpiActual:
+        \_bit_var: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120907, line:51341:16, endln:51341:35
+    |vpiStmt:
+    \_begin: (uvm_pkg::uvm_agent::build_phase), id:120934, line:51361:1, endln:51421:4
+      |vpiParent:
+      \_if_stmt: , id:120933, line:51359:3, endln:51421:4
+      |vpiFullName:uvm_pkg::uvm_agent::build_phase
+      |vpiStmt:
+      \_begin: (uvm_pkg::uvm_agent::build_phase), id:120935, line:51363:1, endln:51374:4
+        |vpiParent:
+        \_begin: (uvm_pkg::uvm_agent::build_phase), id:120934, line:51361:1, endln:51421:4
+        |vpiFullName:uvm_pkg::uvm_agent::build_phase
+        |vpiVariables:
+        \_class_var: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:120937, line:51364:33, endln:51364:45
+          |vpiParent:
+          \_begin: (uvm_pkg::uvm_agent::build_phase), id:120935, line:51363:1, endln:51374:4
+          |vpiTypespec:
+          \_ref_typespec: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:120939
+            |vpiParent:
+            \_class_var: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:120937, line:51364:33, endln:51364:45
+            |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__
+            |vpiActual:
+            \_class_typespec: , id:120938, line:51364:3, endln:51364:32
+          |vpiName:__tmp_rsrc__
+          |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__
+        |vpiStmt:
+        \_assignment: , id:120941, line:51365:3, endln:51367:24
+          |vpiParent:
+          \_begin: (uvm_pkg::uvm_agent::build_phase), id:120935, line:51363:1, endln:51374:4
+          |vpiOpType:82
+          |vpiBlocking:1
+          |vpiRhs:
+          \_sys_func_call: ($cast), id:120943, line:51365:25, endln:51367:24
+            |vpiParent:
+            \_assignment: , id:120941, line:51365:3, endln:51367:24
+            |vpiArgument:
+            \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:120944, line:51365:31, endln:51365:43
+              |vpiParent:
+              \_sys_func_call: ($cast), id:120943, line:51365:25, endln:51367:24
+              |vpiName:__tmp_rsrc__
+              |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__
+            |vpiArgument:
+            \_ref_obj: (uvm_pkg::uvm_agent::build_phase::rsrc), id:120945, line:51367:19, endln:51367:23
+              |vpiParent:
+              \_sys_func_call: ($cast), id:120943, line:51365:25, endln:51367:24
+              |vpiName:rsrc
+              |vpiFullName:uvm_pkg::uvm_agent::build_phase::rsrc
+            |vpiName:$cast
+          |vpiLhs:
+          \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120942, line:51365:3, endln:51365:22
+            |vpiParent:
+            \_assignment: , id:120941, line:51365:3, endln:51367:24
+            |vpiName:__tmp_success_val__
+            |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+        |vpiStmt:
+        \_if_stmt: , id:120947, line:51368:3, endln:51373:6
+          |vpiParent:
+          \_begin: (uvm_pkg::uvm_agent::build_phase), id:120935, line:51363:1, endln:51374:4
+          |vpiCondition:
+          \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120946, line:51368:7, endln:51368:26
+            |vpiParent:
+            \_begin: (uvm_pkg::uvm_agent::build_phase), id:120935, line:51363:1, endln:51374:4
+            |vpiName:__tmp_success_val__
+            |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+          |vpiStmt:
+          \_begin: (uvm_pkg::uvm_agent::build_phase), id:120948, line:51368:28, endln:51373:6
+            |vpiParent:
+            \_if_stmt: , id:120947, line:51368:3, endln:51373:6
+            |vpiFullName:uvm_pkg::uvm_agent::build_phase
+            |vpiStmt:
+            \_assignment: , id:120949, line:51370:8, endln:51372:24
+              |vpiParent:
+              \_begin: (uvm_pkg::uvm_agent::build_phase), id:120948, line:51368:28, endln:51373:6
+              |vpiOpType:82
+              |vpiBlocking:1
+              |vpiRhs:
+              \_hier_path: (__tmp_rsrc__.read), id:120951, line:51370:26, endln:51372:24
+                |vpiParent:
+                \_assignment: , id:120949, line:51370:8, endln:51372:24
+                |vpiActual:
+                \_ref_obj: (__tmp_rsrc__), id:120952, line:51370:26, endln:51370:38
+                  |vpiParent:
+                  \_hier_path: (__tmp_rsrc__.read), id:120951, line:51370:26, endln:51372:24
+                  |vpiName:__tmp_rsrc__
+                |vpiActual:
+                \_method_func_call: (read), id:120953, line:51370:39, endln:51370:43
+                  |vpiParent:
+                  \_hier_path: (__tmp_rsrc__.read), id:120951, line:51370:26, endln:51372:24
+                  |vpiArgument:
+                  \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__.read::this), id:120954, line:51372:19, endln:51372:23
+                    |vpiParent:
+                    \_method_func_call: (read), id:120953, line:51370:39, endln:51370:43
+                    |vpiName:this
+                    |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__.read::this
+                  |vpiName:read
+                |vpiName:__tmp_rsrc__.read
+              |vpiLhs:
+              \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_int_val__), id:120950, line:51370:8, endln:51370:23
+                |vpiParent:
+                \_assignment: , id:120949, line:51370:8, endln:51372:24
+                |vpiName:__tmp_int_val__
+                |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_int_val__
+      |vpiStmt:
+      \_if_stmt: , id:120957, line:51376:3, endln:51389:4
+        |vpiParent:
+        \_begin: (uvm_pkg::uvm_agent::build_phase), id:120934, line:51361:1, endln:51421:4
+        |vpiCondition:
+        \_operation: , id:120955, line:51376:7, endln:51376:27
+          |vpiParent:
+          \_begin: (uvm_pkg::uvm_agent::build_phase), id:120934, line:51361:1, endln:51421:4
+          |vpiOpType:3
+          |vpiOperand:
+          \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120956, line:51376:8, endln:51376:27
+            |vpiParent:
+            \_operation: , id:120955, line:51376:7, endln:51376:27
+            |vpiName:__tmp_success_val__
+            |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+        |vpiStmt:
+        \_begin: (uvm_pkg::uvm_agent::build_phase), id:120958, line:51378:1, endln:51389:4
+          |vpiParent:
+          \_if_stmt: , id:120957, line:51376:3, endln:51389:4
+          |vpiFullName:uvm_pkg::uvm_agent::build_phase
+          |vpiVariables:
+          \_class_var: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:120960, line:51379:34, endln:51379:46
+            |vpiParent:
+            \_begin: (uvm_pkg::uvm_agent::build_phase), id:120958, line:51378:1, endln:51389:4
+            |vpiTypespec:
+            \_ref_typespec: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:120962
+              |vpiParent:
+              \_class_var: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:120960, line:51379:34, endln:51379:46
+              |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__
+              |vpiActual:
+              \_class_typespec: , id:120961, line:51379:3, endln:51379:33
+            |vpiName:__tmp_rsrc__
+            |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__
+          |vpiStmt:
+          \_assignment: , id:120964, line:51380:3, endln:51382:24
+            |vpiParent:
+            \_begin: (uvm_pkg::uvm_agent::build_phase), id:120958, line:51378:1, endln:51389:4
+            |vpiOpType:82
+            |vpiBlocking:1
+            |vpiRhs:
+            \_sys_func_call: ($cast), id:120966, line:51380:25, endln:51382:24
+              |vpiParent:
+              \_assignment: , id:120964, line:51380:3, endln:51382:24
+              |vpiArgument:
+              \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:120967, line:51380:31, endln:51380:43
+                |vpiParent:
+                \_sys_func_call: ($cast), id:120966, line:51380:25, endln:51382:24
+                |vpiName:__tmp_rsrc__
+                |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__
+              |vpiArgument:
+              \_ref_obj: (uvm_pkg::uvm_agent::build_phase::rsrc), id:120968, line:51382:19, endln:51382:23
+                |vpiParent:
+                \_sys_func_call: ($cast), id:120966, line:51380:25, endln:51382:24
+                |vpiName:rsrc
+                |vpiFullName:uvm_pkg::uvm_agent::build_phase::rsrc
+              |vpiName:$cast
+            |vpiLhs:
+            \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120965, line:51380:3, endln:51380:22
+              |vpiParent:
+              \_assignment: , id:120964, line:51380:3, endln:51382:24
+              |vpiName:__tmp_success_val__
+              |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+          |vpiStmt:
+          \_if_stmt: , id:120970, line:51383:3, endln:51388:6
+            |vpiParent:
+            \_begin: (uvm_pkg::uvm_agent::build_phase), id:120958, line:51378:1, endln:51389:4
+            |vpiCondition:
+            \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120969, line:51383:7, endln:51383:26
+              |vpiParent:
+              \_begin: (uvm_pkg::uvm_agent::build_phase), id:120958, line:51378:1, endln:51389:4
+              |vpiName:__tmp_success_val__
+              |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+            |vpiStmt:
+            \_begin: (uvm_pkg::uvm_agent::build_phase), id:120971, line:51383:28, endln:51388:6
+              |vpiParent:
+              \_if_stmt: , id:120970, line:51383:3, endln:51388:6
+              |vpiFullName:uvm_pkg::uvm_agent::build_phase
+              |vpiStmt:
+              \_assignment: , id:120972, line:51385:8, endln:51387:24
+                |vpiParent:
+                \_begin: (uvm_pkg::uvm_agent::build_phase), id:120971, line:51383:28, endln:51388:6
+                |vpiOpType:82
+                |vpiBlocking:1
+                |vpiRhs:
+                \_hier_path: (__tmp_rsrc__.read), id:120974, line:51385:26, endln:51387:24
+                  |vpiParent:
+                  \_assignment: , id:120972, line:51385:8, endln:51387:24
+                  |vpiActual:
+                  \_ref_obj: (__tmp_rsrc__), id:120975, line:51385:26, endln:51385:38
+                    |vpiParent:
+                    \_hier_path: (__tmp_rsrc__.read), id:120974, line:51385:26, endln:51387:24
+                    |vpiName:__tmp_rsrc__
+                  |vpiActual:
+                  \_method_func_call: (read), id:120976, line:51385:39, endln:51385:43
+                    |vpiParent:
+                    \_hier_path: (__tmp_rsrc__.read), id:120974, line:51385:26, endln:51387:24
+                    |vpiArgument:
+                    \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__.read::this), id:120977, line:51387:19, endln:51387:23
+                      |vpiParent:
+                      \_method_func_call: (read), id:120976, line:51385:39, endln:51385:43
+                      |vpiName:this
+                      |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__.read::this
+                    |vpiName:read
+                  |vpiName:__tmp_rsrc__.read
+                |vpiLhs:
+                \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_int_val__), id:120973, line:51385:8, endln:51385:23
+                  |vpiParent:
+                  \_assignment: , id:120972, line:51385:8, endln:51387:24
+                  |vpiName:__tmp_int_val__
+                  |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_int_val__
+      |vpiStmt:
+      \_if_stmt: , id:120980, line:51391:3, endln:51404:4
+        |vpiParent:
+        \_begin: (uvm_pkg::uvm_agent::build_phase), id:120934, line:51361:1, endln:51421:4
+        |vpiCondition:
+        \_operation: , id:120978, line:51391:7, endln:51391:27
+          |vpiParent:
+          \_begin: (uvm_pkg::uvm_agent::build_phase), id:120934, line:51361:1, endln:51421:4
+          |vpiOpType:3
+          |vpiOperand:
+          \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120979, line:51391:8, endln:51391:27
+            |vpiParent:
+            \_operation: , id:120978, line:51391:7, endln:51391:27
+            |vpiName:__tmp_success_val__
+            |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+        |vpiStmt:
+        \_begin: (uvm_pkg::uvm_agent::build_phase), id:120981, line:51393:1, endln:51404:4
+          |vpiParent:
+          \_if_stmt: , id:120980, line:51391:3, endln:51404:4
+          |vpiFullName:uvm_pkg::uvm_agent::build_phase
+          |vpiVariables:
+          \_class_var: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:120983, line:51394:22, endln:51394:34
+            |vpiParent:
+            \_begin: (uvm_pkg::uvm_agent::build_phase), id:120981, line:51393:1, endln:51404:4
+            |vpiTypespec:
+            \_ref_typespec: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:120985
+              |vpiParent:
+              \_class_var: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:120983, line:51394:22, endln:51394:34
+              |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__
+              |vpiActual:
+              \_class_typespec: , id:120984, line:51394:3, endln:51394:21
+            |vpiName:__tmp_rsrc__
+            |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__
+          |vpiStmt:
+          \_assignment: , id:120987, line:51395:3, endln:51397:24
+            |vpiParent:
+            \_begin: (uvm_pkg::uvm_agent::build_phase), id:120981, line:51393:1, endln:51404:4
+            |vpiOpType:82
+            |vpiBlocking:1
+            |vpiRhs:
+            \_sys_func_call: ($cast), id:120989, line:51395:25, endln:51397:24
+              |vpiParent:
+              \_assignment: , id:120987, line:51395:3, endln:51397:24
+              |vpiArgument:
+              \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:120990, line:51395:31, endln:51395:43
+                |vpiParent:
+                \_sys_func_call: ($cast), id:120989, line:51395:25, endln:51397:24
+                |vpiName:__tmp_rsrc__
+                |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__
+              |vpiArgument:
+              \_ref_obj: (uvm_pkg::uvm_agent::build_phase::rsrc), id:120991, line:51397:19, endln:51397:23
+                |vpiParent:
+                \_sys_func_call: ($cast), id:120989, line:51395:25, endln:51397:24
+                |vpiName:rsrc
+                |vpiFullName:uvm_pkg::uvm_agent::build_phase::rsrc
+              |vpiName:$cast
+            |vpiLhs:
+            \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120988, line:51395:3, endln:51395:22
+              |vpiParent:
+              \_assignment: , id:120987, line:51395:3, endln:51397:24
+              |vpiName:__tmp_success_val__
+              |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+          |vpiStmt:
+          \_if_stmt: , id:120993, line:51398:3, endln:51403:6
+            |vpiParent:
+            \_begin: (uvm_pkg::uvm_agent::build_phase), id:120981, line:51393:1, endln:51404:4
+            |vpiCondition:
+            \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120992, line:51398:7, endln:51398:26
+              |vpiParent:
+              \_begin: (uvm_pkg::uvm_agent::build_phase), id:120981, line:51393:1, endln:51404:4
+              |vpiName:__tmp_success_val__
+              |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+            |vpiStmt:
+            \_begin: (uvm_pkg::uvm_agent::build_phase), id:120994, line:51398:28, endln:51403:6
+              |vpiParent:
+              \_if_stmt: , id:120993, line:51398:3, endln:51403:6
+              |vpiFullName:uvm_pkg::uvm_agent::build_phase
+              |vpiStmt:
+              \_assignment: , id:120995, line:51400:8, endln:51402:24
+                |vpiParent:
+                \_begin: (uvm_pkg::uvm_agent::build_phase), id:120994, line:51398:28, endln:51403:6
+                |vpiOpType:82
+                |vpiBlocking:1
+                |vpiRhs:
+                \_hier_path: (__tmp_rsrc__.read), id:120997, line:51400:26, endln:51402:24
+                  |vpiParent:
+                  \_assignment: , id:120995, line:51400:8, endln:51402:24
+                  |vpiActual:
+                  \_ref_obj: (__tmp_rsrc__), id:120998, line:51400:26, endln:51400:38
+                    |vpiParent:
+                    \_hier_path: (__tmp_rsrc__.read), id:120997, line:51400:26, endln:51402:24
+                    |vpiName:__tmp_rsrc__
+                  |vpiActual:
+                  \_method_func_call: (read), id:120999, line:51400:39, endln:51400:43
+                    |vpiParent:
+                    \_hier_path: (__tmp_rsrc__.read), id:120997, line:51400:26, endln:51402:24
+                    |vpiArgument:
+                    \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__.read::this), id:121000, line:51402:19, endln:51402:23
+                      |vpiParent:
+                      \_method_func_call: (read), id:120999, line:51400:39, endln:51400:43
+                      |vpiName:this
+                      |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__.read::this
+                    |vpiName:read
+                  |vpiName:__tmp_rsrc__.read
+                |vpiLhs:
+                \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_int_val__), id:120996, line:51400:8, endln:51400:23
+                  |vpiParent:
+                  \_assignment: , id:120995, line:51400:8, endln:51402:24
+                  |vpiName:__tmp_int_val__
+                  |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_int_val__
+      |vpiStmt:
+      \_if_stmt: , id:121003, line:51406:3, endln:51419:4
+        |vpiParent:
+        \_begin: (uvm_pkg::uvm_agent::build_phase), id:120934, line:51361:1, endln:51421:4
+        |vpiCondition:
+        \_operation: , id:121001, line:51406:7, endln:51406:27
+          |vpiParent:
+          \_begin: (uvm_pkg::uvm_agent::build_phase), id:120934, line:51361:1, endln:51421:4
+          |vpiOpType:3
+          |vpiOperand:
+          \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:121002, line:51406:8, endln:51406:27
+            |vpiParent:
+            \_operation: , id:121001, line:51406:7, endln:51406:27
+            |vpiName:__tmp_success_val__
+            |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+        |vpiStmt:
+        \_begin: (uvm_pkg::uvm_agent::build_phase), id:121004, line:51408:1, endln:51419:4
+          |vpiParent:
+          \_if_stmt: , id:121003, line:51406:3, endln:51419:4
+          |vpiFullName:uvm_pkg::uvm_agent::build_phase
+          |vpiVariables:
+          \_class_var: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:121006, line:51409:31, endln:51409:43
+            |vpiParent:
+            \_begin: (uvm_pkg::uvm_agent::build_phase), id:121004, line:51408:1, endln:51419:4
+            |vpiTypespec:
+            \_ref_typespec: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:121008
+              |vpiParent:
+              \_class_var: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:121006, line:51409:31, endln:51409:43
+              |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__
+              |vpiActual:
+              \_class_typespec: , id:121007, line:51409:3, endln:51409:30
+            |vpiName:__tmp_rsrc__
+            |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__
+          |vpiStmt:
+          \_assignment: , id:121010, line:51410:3, endln:51412:24
+            |vpiParent:
+            \_begin: (uvm_pkg::uvm_agent::build_phase), id:121004, line:51408:1, endln:51419:4
+            |vpiOpType:82
+            |vpiBlocking:1
+            |vpiRhs:
+            \_sys_func_call: ($cast), id:121012, line:51410:25, endln:51412:24
+              |vpiParent:
+              \_assignment: , id:121010, line:51410:3, endln:51412:24
+              |vpiArgument:
+              \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:121013, line:51410:31, endln:51410:43
+                |vpiParent:
+                \_sys_func_call: ($cast), id:121012, line:51410:25, endln:51412:24
+                |vpiName:__tmp_rsrc__
+                |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__
+              |vpiArgument:
+              \_ref_obj: (uvm_pkg::uvm_agent::build_phase::rsrc), id:121014, line:51412:19, endln:51412:23
+                |vpiParent:
+                \_sys_func_call: ($cast), id:121012, line:51410:25, endln:51412:24
+                |vpiName:rsrc
+                |vpiFullName:uvm_pkg::uvm_agent::build_phase::rsrc
+              |vpiName:$cast
+            |vpiLhs:
+            \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:121011, line:51410:3, endln:51410:22
+              |vpiParent:
+              \_assignment: , id:121010, line:51410:3, endln:51412:24
+              |vpiName:__tmp_success_val__
+              |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+          |vpiStmt:
+          \_if_stmt: , id:121016, line:51413:3, endln:51418:6
+            |vpiParent:
+            \_begin: (uvm_pkg::uvm_agent::build_phase), id:121004, line:51408:1, endln:51419:4
+            |vpiCondition:
+            \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:121015, line:51413:7, endln:51413:26
+              |vpiParent:
+              \_begin: (uvm_pkg::uvm_agent::build_phase), id:121004, line:51408:1, endln:51419:4
+              |vpiName:__tmp_success_val__
+              |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+            |vpiStmt:
+            \_begin: (uvm_pkg::uvm_agent::build_phase), id:121017, line:51413:28, endln:51418:6
+              |vpiParent:
+              \_if_stmt: , id:121016, line:51413:3, endln:51418:6
+              |vpiFullName:uvm_pkg::uvm_agent::build_phase
+              |vpiStmt:
+              \_assignment: , id:121018, line:51415:8, endln:51417:24
+                |vpiParent:
+                \_begin: (uvm_pkg::uvm_agent::build_phase), id:121017, line:51413:28, endln:51418:6
+                |vpiOpType:82
+                |vpiBlocking:1
+                |vpiRhs:
+                \_hier_path: (__tmp_rsrc__.read), id:121020, line:51415:26, endln:51417:24
+                  |vpiParent:
+                  \_assignment: , id:121018, line:51415:8, endln:51417:24
+                  |vpiActual:
+                  \_ref_obj: (__tmp_rsrc__), id:121021, line:51415:26, endln:51415:38
+                    |vpiParent:
+                    \_hier_path: (__tmp_rsrc__.read), id:121020, line:51415:26, endln:51417:24
+                    |vpiName:__tmp_rsrc__
+                  |vpiActual:
+                  \_method_func_call: (read), id:121022, line:51415:39, endln:51415:43
+                    |vpiParent:
+                    \_hier_path: (__tmp_rsrc__.read), id:121020, line:51415:26, endln:51417:24
+                    |vpiArgument:
+                    \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__.read::this), id:121023, line:51417:19, endln:51417:23
+                      |vpiParent:
+                      \_method_func_call: (read), id:121022, line:51415:39, endln:51415:43
+                      |vpiName:this
+                      |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__.read::this
+                    |vpiName:read
+                  |vpiName:__tmp_rsrc__.read
+                |vpiLhs:
+                \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_int_val__), id:121019, line:51415:8, endln:51415:23
+                  |vpiParent:
+                  \_assignment: , id:121018, line:51415:8, endln:51417:24
+                  |vpiName:__tmp_int_val__
+                  |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_int_val__
+|vpiStmt:
+\_if_stmt: , id:121025, line:51425:6, endln:51430:9
+  |vpiParent:
+  \_begin: (uvm_pkg::uvm_agent::build_phase), id:120887, line:51337:29, endln:51431:6
+  |vpiCondition:
+  \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:121024, line:51425:10, endln:51425:29
+    |vpiParent:
+    \_begin: (uvm_pkg::uvm_agent::build_phase), id:120887, line:51337:29, endln:51431:6
+    |vpiName:__tmp_success_val__
+    |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+    |vpiActual:
+    \_bit_var: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120907, line:51341:16, endln:51341:35
+  |vpiStmt:
+  \_begin: (uvm_pkg::uvm_agent::build_phase), id:121026, line:51425:31, endln:51430:9
+    |vpiParent:
+    \_if_stmt: , id:121025, line:51425:6, endln:51430:9
+    |vpiFullName:uvm_pkg::uvm_agent::build_phase
+    |vpiStmt:
+    \_assignment: , id:121027, line:51427:19, endln:51428:60
+      |vpiParent:
+      \_begin: (uvm_pkg::uvm_agent::build_phase), id:121026, line:51425:31, endln:51430:9
+      |vpiOpType:82
+      |vpiBlocking:1
+      |vpiRhs:
+      \_operation: , id:121030, line:51428:19, endln:51428:60
+        |vpiParent:
+        \_assignment: , id:121027, line:51427:19, endln:51428:60
+        |vpiTypespec:
+        \_ref_typespec: (uvm_pkg::uvm_agent::build_phase), id:121031
+          |vpiParent:
+          \_operation: , id:121030, line:51428:19, endln:51428:60
+          |vpiFullName:uvm_pkg::uvm_agent::build_phase
+          |vpiActual:
+          \_enum_typespec: (uvm_pkg::uvm_active_passive_enum), id:1777, line:9952:52, endln:9952:53
+        |vpiOpType:67
+        |vpiOperand:
+        \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_int_val__), id:121029, line:51428:44, endln:51428:59
+          |vpiParent:
+          \_operation: , id:121030, line:51428:19, endln:51428:60
+          |vpiName:__tmp_int_val__
+          |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_int_val__
+      |vpiLhs:
+      \_ref_obj: (uvm_pkg::uvm_agent::build_phase::is_active), id:121028, line:51427:19, endln:51427:28
+        |vpiParent:
+        \_assignment: , id:121027, line:51427:19, endln:51428:60
+        |vpiName:is_active
+        |vpiFullName:uvm_pkg::uvm_agent::build_phase::is_active
+    |vpiStmt:
+    \_assignment: , id:121032, line:51429:22, endln:51429:49
+      |vpiParent:
+      \_begin: (uvm_pkg::uvm_agent::build_phase), id:121026, line:51425:31, endln:51430:9
+      |vpiOpType:82
+      |vpiBlocking:1
+      |vpiRhs:
+      \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:121034, line:51429:30, endln:51429:49
+        |vpiParent:
+        \_assignment: , id:121032, line:51429:22, endln:51429:49
+        |vpiName:__tmp_success_val__
+        |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+      |vpiLhs:
+      \_ref_obj: (uvm_pkg::uvm_agent::build_phase::found), id:121033, line:51429:22, endln:51429:27
+        |vpiParent:
+        \_assignment: , id:121032, line:51429:22, endln:51429:49
+        |vpiName:found
+        |vpiFullName:uvm_pkg::uvm_agent::build_phase::found
+
+decompile:
+begin: (uvm_pkg::uvm_agent::build_phase), id:120887, line:51337:29, endln:51431:6
+|vpiParent:
+\_if_stmt: , id:120886, line:51337:3, endln:51431:6
+|vpiFullName:uvm_pkg::uvm_agent::build_phase
+|vpiVariables:
+\_ref_var: (uvm_pkg::uvm_agent::build_phase::__tmp_int_val__), id:120903, line:51340:36, endln:51340:51
+  |vpiParent:
+  \_begin: (uvm_pkg::uvm_agent::build_phase), id:120887, line:51337:29, endln:51431:6
+  |vpiTypespec:
+  \_ref_typespec: (uvm_pkg::uvm_agent::build_phase::__tmp_int_val__), id:120904
+    |vpiParent:
+    \_ref_var: (uvm_pkg::uvm_agent::build_phase::__tmp_int_val__), id:120903, line:51340:36, endln:51340:51
+    |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_int_val__
+    |vpiActual:
+    \_unsupported_typespec: (__tmp_int_t__), id:120902, line:51340:6, endln:51340:19
+  |vpiName:__tmp_int_val__
+  |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_int_val__
+|vpiVariables:
+\_bit_var: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120907, line:51341:16, endln:51341:35
+  |vpiParent:
+  \_begin: (uvm_pkg::uvm_agent::build_phase), id:120887, line:51337:29, endln:51431:6
+  |vpiTypespec:
+  \_ref_typespec: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120908
+    |vpiParent:
+    \_bit_var: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120907, line:51341:16, endln:51341:35
+    |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+    |vpiActual:
+    \_bit_typespec: , id:120906, line:51341:6, endln:51341:9
+  |vpiName:__tmp_success_val__
+  |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+|vpiTypedef:
+\_bit_typespec: (__tmp_int_t__), id:120901, line:51338:14, endln:51339:48
+  |vpiName:__tmp_int_t__
+  |vpiRange:
+  \_range: , id:120895, line:51338:18, endln:51339:48
+    |vpiParent:
+    \_bit_typespec: (__tmp_int_t__), id:120901, line:51338:14, endln:51339:48
+    |vpiLeftRange:
+    \_operation: , id:120898, line:51338:19, endln:51339:45
+      |vpiParent:
+      \_range: , id:120895, line:51338:18, endln:51339:48
+      |vpiOpType:11
+      |vpiOperand:
+      \_sys_func_call: ($bits), id:120896, line:51338:19, endln:51339:43
+        |vpiParent:
+        \_operation: , id:120898, line:51338:19, endln:51339:45
+        |vpiArgument:
+        \_ref_obj: (__tmp_int_t__.uvm_active_passive_enum), id:120897, line:51339:19, endln:51339:42
+          |vpiParent:
+          \_sys_func_call: ($bits), id:120896, line:51338:19, endln:51339:43
+          |vpiName:uvm_active_passive_enum
+          |vpiFullName:__tmp_int_t__.uvm_active_passive_enum
+        |vpiName:$bits
+      |vpiOperand:
+      \_constant: , id:120899, line:51339:44, endln:51339:45
+        |vpiParent:
+        \_operation: , id:120898, line:51338:19, endln:51339:45
+        |vpiDecompile:1
+        |vpiSize:64
+        |UINT:1
+        |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:120900, line:51339:46, endln:51339:47
+      |vpiParent:
+      \_range: , id:120895, line:51338:18, endln:51339:48
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+|vpiStmt:
+\_begin: (uvm_pkg::uvm_agent::build_phase), id:120910, line:51343:1, endln:51423:4
+  |vpiParent:
+  \_begin: (uvm_pkg::uvm_agent::build_phase), id:120887, line:51337:29, endln:51431:6
+  |vpiFullName:uvm_pkg::uvm_agent::build_phase
+  |vpiStmt:
+  \_begin: (uvm_pkg::uvm_agent::build_phase), id:120911, line:51345:1, endln:51357:4
+    |vpiParent:
+    \_begin: (uvm_pkg::uvm_agent::build_phase), id:120910, line:51343:1, endln:51423:4
+    |vpiFullName:uvm_pkg::uvm_agent::build_phase
+    |vpiVariables:
+    \_class_var: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:120913, line:51347:23, endln:51347:35
+      |vpiParent:
+      \_begin: (uvm_pkg::uvm_agent::build_phase), id:120911, line:51345:1, endln:51357:4
+      |vpiTypespec:
+      \_ref_typespec: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:120915
+        |vpiParent:
+        \_class_var: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:120913, line:51347:23, endln:51347:35
+        |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__
+        |vpiActual:
+        \_class_typespec: , id:120914, line:51346:3, endln:51347:22
+      |vpiName:__tmp_rsrc__
+      |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__
+    |vpiStmt:
+    \_assignment: , id:120917, line:51348:3, endln:51350:24
+      |vpiParent:
+      \_begin: (uvm_pkg::uvm_agent::build_phase), id:120911, line:51345:1, endln:51357:4
+      |vpiOpType:82
+      |vpiBlocking:1
+      |vpiRhs:
+      \_sys_func_call: ($cast), id:120919, line:51348:25, endln:51350:24
+        |vpiParent:
+        \_assignment: , id:120917, line:51348:3, endln:51350:24
+        |vpiArgument:
+        \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:120920, line:51348:31, endln:51348:43
+          |vpiParent:
+          \_sys_func_call: ($cast), id:120919, line:51348:25, endln:51350:24
+          |vpiName:__tmp_rsrc__
+          |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__
+        |vpiArgument:
+        \_ref_obj: (uvm_pkg::uvm_agent::build_phase::rsrc), id:120921, line:51350:19, endln:51350:23
+          |vpiParent:
+          \_sys_func_call: ($cast), id:120919, line:51348:25, endln:51350:24
+          |vpiName:rsrc
+          |vpiFullName:uvm_pkg::uvm_agent::build_phase::rsrc
+        |vpiName:$cast
+      |vpiLhs:
+      \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120918, line:51348:3, endln:51348:22
+        |vpiParent:
+        \_assignment: , id:120917, line:51348:3, endln:51350:24
+        |vpiName:__tmp_success_val__
+        |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+    |vpiStmt:
+    \_if_stmt: , id:120923, line:51351:3, endln:51356:6
+      |vpiParent:
+      \_begin: (uvm_pkg::uvm_agent::build_phase), id:120911, line:51345:1, endln:51357:4
+      |vpiCondition:
+      \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120922, line:51351:7, endln:51351:26
+        |vpiParent:
+        \_begin: (uvm_pkg::uvm_agent::build_phase), id:120911, line:51345:1, endln:51357:4
+        |vpiName:__tmp_success_val__
+        |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+        |vpiActual:
+        \_bit_var: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120907, line:51341:16, endln:51341:35
+      |vpiStmt:
+      \_begin: (uvm_pkg::uvm_agent::build_phase), id:120924, line:51351:28, endln:51356:6
+        |vpiParent:
+        \_if_stmt: , id:120923, line:51351:3, endln:51356:6
+        |vpiFullName:uvm_pkg::uvm_agent::build_phase
+        |vpiStmt:
+        \_assignment: , id:120925, line:51353:8, endln:51355:24
+          |vpiParent:
+          \_begin: (uvm_pkg::uvm_agent::build_phase), id:120924, line:51351:28, endln:51356:6
+          |vpiOpType:82
+          |vpiBlocking:1
+          |vpiRhs:
+          \_hier_path: (__tmp_rsrc__.read), id:120927, line:51353:26, endln:51355:24
+            |vpiParent:
+            \_assignment: , id:120925, line:51353:8, endln:51355:24
+            |vpiActual:
+            \_ref_obj: (__tmp_rsrc__), id:120928, line:51353:26, endln:51353:38
+              |vpiParent:
+              \_hier_path: (__tmp_rsrc__.read), id:120927, line:51353:26, endln:51355:24
+              |vpiName:__tmp_rsrc__
+            |vpiActual:
+            \_method_func_call: (read), id:120929, line:51353:39, endln:51353:43
+              |vpiParent:
+              \_hier_path: (__tmp_rsrc__.read), id:120927, line:51353:26, endln:51355:24
+              |vpiArgument:
+              \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__.read::this), id:120930, line:51355:19, endln:51355:23
+                |vpiParent:
+                \_method_func_call: (read), id:120929, line:51353:39, endln:51353:43
+                |vpiName:this
+                |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__.read::this
+              |vpiName:read
+            |vpiName:__tmp_rsrc__.read
+          |vpiLhs:
+          \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_int_val__), id:120926, line:51353:8, endln:51353:23
+            |vpiParent:
+            \_assignment: , id:120925, line:51353:8, endln:51355:24
+            |vpiName:__tmp_int_val__
+            |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_int_val__
+  |vpiStmt:
+  \_if_stmt: , id:120933, line:51359:3, endln:51421:4
+    |vpiParent:
+    \_begin: (uvm_pkg::uvm_agent::build_phase), id:120910, line:51343:1, endln:51423:4
+    |vpiCondition:
+    \_operation: , id:120931, line:51359:7, endln:51359:27
+      |vpiParent:
+      \_begin: (uvm_pkg::uvm_agent::build_phase), id:120910, line:51343:1, endln:51423:4
+      |vpiOpType:3
+      |vpiOperand:
+      \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120932, line:51359:8, endln:51359:27
+        |vpiParent:
+        \_operation: , id:120931, line:51359:7, endln:51359:27
+        |vpiName:__tmp_success_val__
+        |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+        |vpiActual:
+        \_bit_var: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120907, line:51341:16, endln:51341:35
+    |vpiStmt:
+    \_begin: (uvm_pkg::uvm_agent::build_phase), id:120934, line:51361:1, endln:51421:4
+      |vpiParent:
+      \_if_stmt: , id:120933, line:51359:3, endln:51421:4
+      |vpiFullName:uvm_pkg::uvm_agent::build_phase
+      |vpiStmt:
+      \_begin: (uvm_pkg::uvm_agent::build_phase), id:120935, line:51363:1, endln:51374:4
+        |vpiParent:
+        \_begin: (uvm_pkg::uvm_agent::build_phase), id:120934, line:51361:1, endln:51421:4
+        |vpiFullName:uvm_pkg::uvm_agent::build_phase
+        |vpiVariables:
+        \_class_var: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:120937, line:51364:33, endln:51364:45
+          |vpiParent:
+          \_begin: (uvm_pkg::uvm_agent::build_phase), id:120935, line:51363:1, endln:51374:4
+          |vpiTypespec:
+          \_ref_typespec: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:120939
+            |vpiParent:
+            \_class_var: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:120937, line:51364:33, endln:51364:45
+            |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__
+            |vpiActual:
+            \_class_typespec: , id:120938, line:51364:3, endln:51364:32
+          |vpiName:__tmp_rsrc__
+          |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__
+        |vpiStmt:
+        \_assignment: , id:120941, line:51365:3, endln:51367:24
+          |vpiParent:
+          \_begin: (uvm_pkg::uvm_agent::build_phase), id:120935, line:51363:1, endln:51374:4
+          |vpiOpType:82
+          |vpiBlocking:1
+          |vpiRhs:
+          \_sys_func_call: ($cast), id:120943, line:51365:25, endln:51367:24
+            |vpiParent:
+            \_assignment: , id:120941, line:51365:3, endln:51367:24
+            |vpiArgument:
+            \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:120944, line:51365:31, endln:51365:43
+              |vpiParent:
+              \_sys_func_call: ($cast), id:120943, line:51365:25, endln:51367:24
+              |vpiName:__tmp_rsrc__
+              |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__
+            |vpiArgument:
+            \_ref_obj: (uvm_pkg::uvm_agent::build_phase::rsrc), id:120945, line:51367:19, endln:51367:23
+              |vpiParent:
+              \_sys_func_call: ($cast), id:120943, line:51365:25, endln:51367:24
+              |vpiName:rsrc
+              |vpiFullName:uvm_pkg::uvm_agent::build_phase::rsrc
+            |vpiName:$cast
+          |vpiLhs:
+          \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120942, line:51365:3, endln:51365:22
+            |vpiParent:
+            \_assignment: , id:120941, line:51365:3, endln:51367:24
+            |vpiName:__tmp_success_val__
+            |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+        |vpiStmt:
+        \_if_stmt: , id:120947, line:51368:3, endln:51373:6
+          |vpiParent:
+          \_begin: (uvm_pkg::uvm_agent::build_phase), id:120935, line:51363:1, endln:51374:4
+          |vpiCondition:
+          \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120946, line:51368:7, endln:51368:26
+            |vpiParent:
+            \_begin: (uvm_pkg::uvm_agent::build_phase), id:120935, line:51363:1, endln:51374:4
+            |vpiName:__tmp_success_val__
+            |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+          |vpiStmt:
+          \_begin: (uvm_pkg::uvm_agent::build_phase), id:120948, line:51368:28, endln:51373:6
+            |vpiParent:
+            \_if_stmt: , id:120947, line:51368:3, endln:51373:6
+            |vpiFullName:uvm_pkg::uvm_agent::build_phase
+            |vpiStmt:
+            \_assignment: , id:120949, line:51370:8, endln:51372:24
+              |vpiParent:
+              \_begin: (uvm_pkg::uvm_agent::build_phase), id:120948, line:51368:28, endln:51373:6
+              |vpiOpType:82
+              |vpiBlocking:1
+              |vpiRhs:
+              \_hier_path: (__tmp_rsrc__.read), id:120951, line:51370:26, endln:51372:24
+                |vpiParent:
+                \_assignment: , id:120949, line:51370:8, endln:51372:24
+                |vpiActual:
+                \_ref_obj: (__tmp_rsrc__), id:120952, line:51370:26, endln:51370:38
+                  |vpiParent:
+                  \_hier_path: (__tmp_rsrc__.read), id:120951, line:51370:26, endln:51372:24
+                  |vpiName:__tmp_rsrc__
+                |vpiActual:
+                \_method_func_call: (read), id:120953, line:51370:39, endln:51370:43
+                  |vpiParent:
+                  \_hier_path: (__tmp_rsrc__.read), id:120951, line:51370:26, endln:51372:24
+                  |vpiArgument:
+                  \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__.read::this), id:120954, line:51372:19, endln:51372:23
+                    |vpiParent:
+                    \_method_func_call: (read), id:120953, line:51370:39, endln:51370:43
+                    |vpiName:this
+                    |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__.read::this
+                  |vpiName:read
+                |vpiName:__tmp_rsrc__.read
+              |vpiLhs:
+              \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_int_val__), id:120950, line:51370:8, endln:51370:23
+                |vpiParent:
+                \_assignment: , id:120949, line:51370:8, endln:51372:24
+                |vpiName:__tmp_int_val__
+                |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_int_val__
+      |vpiStmt:
+      \_if_stmt: , id:120957, line:51376:3, endln:51389:4
+        |vpiParent:
+        \_begin: (uvm_pkg::uvm_agent::build_phase), id:120934, line:51361:1, endln:51421:4
+        |vpiCondition:
+        \_operation: , id:120955, line:51376:7, endln:51376:27
+          |vpiParent:
+          \_begin: (uvm_pkg::uvm_agent::build_phase), id:120934, line:51361:1, endln:51421:4
+          |vpiOpType:3
+          |vpiOperand:
+          \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120956, line:51376:8, endln:51376:27
+            |vpiParent:
+            \_operation: , id:120955, line:51376:7, endln:51376:27
+            |vpiName:__tmp_success_val__
+            |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+        |vpiStmt:
+        \_begin: (uvm_pkg::uvm_agent::build_phase), id:120958, line:51378:1, endln:51389:4
+          |vpiParent:
+          \_if_stmt: , id:120957, line:51376:3, endln:51389:4
+          |vpiFullName:uvm_pkg::uvm_agent::build_phase
+          |vpiVariables:
+          \_class_var: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:120960, line:51379:34, endln:51379:46
+            |vpiParent:
+            \_begin: (uvm_pkg::uvm_agent::build_phase), id:120958, line:51378:1, endln:51389:4
+            |vpiTypespec:
+            \_ref_typespec: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:120962
+              |vpiParent:
+              \_class_var: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:120960, line:51379:34, endln:51379:46
+              |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__
+              |vpiActual:
+              \_class_typespec: , id:120961, line:51379:3, endln:51379:33
+            |vpiName:__tmp_rsrc__
+            |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__
+          |vpiStmt:
+          \_assignment: , id:120964, line:51380:3, endln:51382:24
+            |vpiParent:
+            \_begin: (uvm_pkg::uvm_agent::build_phase), id:120958, line:51378:1, endln:51389:4
+            |vpiOpType:82
+            |vpiBlocking:1
+            |vpiRhs:
+            \_sys_func_call: ($cast), id:120966, line:51380:25, endln:51382:24
+              |vpiParent:
+              \_assignment: , id:120964, line:51380:3, endln:51382:24
+              |vpiArgument:
+              \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:120967, line:51380:31, endln:51380:43
+                |vpiParent:
+                \_sys_func_call: ($cast), id:120966, line:51380:25, endln:51382:24
+                |vpiName:__tmp_rsrc__
+                |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__
+              |vpiArgument:
+              \_ref_obj: (uvm_pkg::uvm_agent::build_phase::rsrc), id:120968, line:51382:19, endln:51382:23
+                |vpiParent:
+                \_sys_func_call: ($cast), id:120966, line:51380:25, endln:51382:24
+                |vpiName:rsrc
+                |vpiFullName:uvm_pkg::uvm_agent::build_phase::rsrc
+              |vpiName:$cast
+            |vpiLhs:
+            \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120965, line:51380:3, endln:51380:22
+              |vpiParent:
+              \_assignment: , id:120964, line:51380:3, endln:51382:24
+              |vpiName:__tmp_success_val__
+              |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+          |vpiStmt:
+          \_if_stmt: , id:120970, line:51383:3, endln:51388:6
+            |vpiParent:
+            \_begin: (uvm_pkg::uvm_agent::build_phase), id:120958, line:51378:1, endln:51389:4
+            |vpiCondition:
+            \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120969, line:51383:7, endln:51383:26
+              |vpiParent:
+              \_begin: (uvm_pkg::uvm_agent::build_phase), id:120958, line:51378:1, endln:51389:4
+              |vpiName:__tmp_success_val__
+              |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+            |vpiStmt:
+            \_begin: (uvm_pkg::uvm_agent::build_phase), id:120971, line:51383:28, endln:51388:6
+              |vpiParent:
+              \_if_stmt: , id:120970, line:51383:3, endln:51388:6
+              |vpiFullName:uvm_pkg::uvm_agent::build_phase
+              |vpiStmt:
+              \_assignment: , id:120972, line:51385:8, endln:51387:24
+                |vpiParent:
+                \_begin: (uvm_pkg::uvm_agent::build_phase), id:120971, line:51383:28, endln:51388:6
+                |vpiOpType:82
+                |vpiBlocking:1
+                |vpiRhs:
+                \_hier_path: (__tmp_rsrc__.read), id:120974, line:51385:26, endln:51387:24
+                  |vpiParent:
+                  \_assignment: , id:120972, line:51385:8, endln:51387:24
+                  |vpiActual:
+                  \_ref_obj: (__tmp_rsrc__), id:120975, line:51385:26, endln:51385:38
+                    |vpiParent:
+                    \_hier_path: (__tmp_rsrc__.read), id:120974, line:51385:26, endln:51387:24
+                    |vpiName:__tmp_rsrc__
+                  |vpiActual:
+                  \_method_func_call: (read), id:120976, line:51385:39, endln:51385:43
+                    |vpiParent:
+                    \_hier_path: (__tmp_rsrc__.read), id:120974, line:51385:26, endln:51387:24
+                    |vpiArgument:
+                    \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__.read::this), id:120977, line:51387:19, endln:51387:23
+                      |vpiParent:
+                      \_method_func_call: (read), id:120976, line:51385:39, endln:51385:43
+                      |vpiName:this
+                      |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__.read::this
+                    |vpiName:read
+                  |vpiName:__tmp_rsrc__.read
+                |vpiLhs:
+                \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_int_val__), id:120973, line:51385:8, endln:51385:23
+                  |vpiParent:
+                  \_assignment: , id:120972, line:51385:8, endln:51387:24
+                  |vpiName:__tmp_int_val__
+                  |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_int_val__
+      |vpiStmt:
+      \_if_stmt: , id:120980, line:51391:3, endln:51404:4
+        |vpiParent:
+        \_begin: (uvm_pkg::uvm_agent::build_phase), id:120934, line:51361:1, endln:51421:4
+        |vpiCondition:
+        \_operation: , id:120978, line:51391:7, endln:51391:27
+          |vpiParent:
+          \_begin: (uvm_pkg::uvm_agent::build_phase), id:120934, line:51361:1, endln:51421:4
+          |vpiOpType:3
+          |vpiOperand:
+          \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120979, line:51391:8, endln:51391:27
+            |vpiParent:
+            \_operation: , id:120978, line:51391:7, endln:51391:27
+            |vpiName:__tmp_success_val__
+            |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+        |vpiStmt:
+        \_begin: (uvm_pkg::uvm_agent::build_phase), id:120981, line:51393:1, endln:51404:4
+          |vpiParent:
+          \_if_stmt: , id:120980, line:51391:3, endln:51404:4
+          |vpiFullName:uvm_pkg::uvm_agent::build_phase
+          |vpiVariables:
+          \_class_var: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:120983, line:51394:22, endln:51394:34
+            |vpiParent:
+            \_begin: (uvm_pkg::uvm_agent::build_phase), id:120981, line:51393:1, endln:51404:4
+            |vpiTypespec:
+            \_ref_typespec: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:120985
+              |vpiParent:
+              \_class_var: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:120983, line:51394:22, endln:51394:34
+              |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__
+              |vpiActual:
+              \_class_typespec: , id:120984, line:51394:3, endln:51394:21
+            |vpiName:__tmp_rsrc__
+            |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__
+          |vpiStmt:
+          \_assignment: , id:120987, line:51395:3, endln:51397:24
+            |vpiParent:
+            \_begin: (uvm_pkg::uvm_agent::build_phase), id:120981, line:51393:1, endln:51404:4
+            |vpiOpType:82
+            |vpiBlocking:1
+            |vpiRhs:
+            \_sys_func_call: ($cast), id:120989, line:51395:25, endln:51397:24
+              |vpiParent:
+              \_assignment: , id:120987, line:51395:3, endln:51397:24
+              |vpiArgument:
+              \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:120990, line:51395:31, endln:51395:43
+                |vpiParent:
+                \_sys_func_call: ($cast), id:120989, line:51395:25, endln:51397:24
+                |vpiName:__tmp_rsrc__
+                |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__
+              |vpiArgument:
+              \_ref_obj: (uvm_pkg::uvm_agent::build_phase::rsrc), id:120991, line:51397:19, endln:51397:23
+                |vpiParent:
+                \_sys_func_call: ($cast), id:120989, line:51395:25, endln:51397:24
+                |vpiName:rsrc
+                |vpiFullName:uvm_pkg::uvm_agent::build_phase::rsrc
+              |vpiName:$cast
+            |vpiLhs:
+            \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120988, line:51395:3, endln:51395:22
+              |vpiParent:
+              \_assignment: , id:120987, line:51395:3, endln:51397:24
+              |vpiName:__tmp_success_val__
+              |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+          |vpiStmt:
+          \_if_stmt: , id:120993, line:51398:3, endln:51403:6
+            |vpiParent:
+            \_begin: (uvm_pkg::uvm_agent::build_phase), id:120981, line:51393:1, endln:51404:4
+            |vpiCondition:
+            \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120992, line:51398:7, endln:51398:26
+              |vpiParent:
+              \_begin: (uvm_pkg::uvm_agent::build_phase), id:120981, line:51393:1, endln:51404:4
+              |vpiName:__tmp_success_val__
+              |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+            |vpiStmt:
+            \_begin: (uvm_pkg::uvm_agent::build_phase), id:120994, line:51398:28, endln:51403:6
+              |vpiParent:
+              \_if_stmt: , id:120993, line:51398:3, endln:51403:6
+              |vpiFullName:uvm_pkg::uvm_agent::build_phase
+              |vpiStmt:
+              \_assignment: , id:120995, line:51400:8, endln:51402:24
+                |vpiParent:
+                \_begin: (uvm_pkg::uvm_agent::build_phase), id:120994, line:51398:28, endln:51403:6
+                |vpiOpType:82
+                |vpiBlocking:1
+                |vpiRhs:
+                \_hier_path: (__tmp_rsrc__.read), id:120997, line:51400:26, endln:51402:24
+                  |vpiParent:
+                  \_assignment: , id:120995, line:51400:8, endln:51402:24
+                  |vpiActual:
+                  \_ref_obj: (__tmp_rsrc__), id:120998, line:51400:26, endln:51400:38
+                    |vpiParent:
+                    \_hier_path: (__tmp_rsrc__.read), id:120997, line:51400:26, endln:51402:24
+                    |vpiName:__tmp_rsrc__
+                  |vpiActual:
+                  \_method_func_call: (read), id:120999, line:51400:39, endln:51400:43
+                    |vpiParent:
+                    \_hier_path: (__tmp_rsrc__.read), id:120997, line:51400:26, endln:51402:24
+                    |vpiArgument:
+                    \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__.read::this), id:121000, line:51402:19, endln:51402:23
+                      |vpiParent:
+                      \_method_func_call: (read), id:120999, line:51400:39, endln:51400:43
+                      |vpiName:this
+                      |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__.read::this
+                    |vpiName:read
+                  |vpiName:__tmp_rsrc__.read
+                |vpiLhs:
+                \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_int_val__), id:120996, line:51400:8, endln:51400:23
+                  |vpiParent:
+                  \_assignment: , id:120995, line:51400:8, endln:51402:24
+                  |vpiName:__tmp_int_val__
+                  |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_int_val__
+      |vpiStmt:
+      \_if_stmt: , id:121003, line:51406:3, endln:51419:4
+        |vpiParent:
+        \_begin: (uvm_pkg::uvm_agent::build_phase), id:120934, line:51361:1, endln:51421:4
+        |vpiCondition:
+        \_operation: , id:121001, line:51406:7, endln:51406:27
+          |vpiParent:
+          \_begin: (uvm_pkg::uvm_agent::build_phase), id:120934, line:51361:1, endln:51421:4
+          |vpiOpType:3
+          |vpiOperand:
+          \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:121002, line:51406:8, endln:51406:27
+            |vpiParent:
+            \_operation: , id:121001, line:51406:7, endln:51406:27
+            |vpiName:__tmp_success_val__
+            |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+        |vpiStmt:
+        \_begin: (uvm_pkg::uvm_agent::build_phase), id:121004, line:51408:1, endln:51419:4
+          |vpiParent:
+          \_if_stmt: , id:121003, line:51406:3, endln:51419:4
+          |vpiFullName:uvm_pkg::uvm_agent::build_phase
+          |vpiVariables:
+          \_class_var: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:121006, line:51409:31, endln:51409:43
+            |vpiParent:
+            \_begin: (uvm_pkg::uvm_agent::build_phase), id:121004, line:51408:1, endln:51419:4
+            |vpiTypespec:
+            \_ref_typespec: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:121008
+              |vpiParent:
+              \_class_var: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:121006, line:51409:31, endln:51409:43
+              |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__
+              |vpiActual:
+              \_class_typespec: , id:121007, line:51409:3, endln:51409:30
+            |vpiName:__tmp_rsrc__
+            |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__
+          |vpiStmt:
+          \_assignment: , id:121010, line:51410:3, endln:51412:24
+            |vpiParent:
+            \_begin: (uvm_pkg::uvm_agent::build_phase), id:121004, line:51408:1, endln:51419:4
+            |vpiOpType:82
+            |vpiBlocking:1
+            |vpiRhs:
+            \_sys_func_call: ($cast), id:121012, line:51410:25, endln:51412:24
+              |vpiParent:
+              \_assignment: , id:121010, line:51410:3, endln:51412:24
+              |vpiArgument:
+              \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__), id:121013, line:51410:31, endln:51410:43
+                |vpiParent:
+                \_sys_func_call: ($cast), id:121012, line:51410:25, endln:51412:24
+                |vpiName:__tmp_rsrc__
+                |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__
+              |vpiArgument:
+              \_ref_obj: (uvm_pkg::uvm_agent::build_phase::rsrc), id:121014, line:51412:19, endln:51412:23
+                |vpiParent:
+                \_sys_func_call: ($cast), id:121012, line:51410:25, endln:51412:24
+                |vpiName:rsrc
+                |vpiFullName:uvm_pkg::uvm_agent::build_phase::rsrc
+              |vpiName:$cast
+            |vpiLhs:
+            \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:121011, line:51410:3, endln:51410:22
+              |vpiParent:
+              \_assignment: , id:121010, line:51410:3, endln:51412:24
+              |vpiName:__tmp_success_val__
+              |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+          |vpiStmt:
+          \_if_stmt: , id:121016, line:51413:3, endln:51418:6
+            |vpiParent:
+            \_begin: (uvm_pkg::uvm_agent::build_phase), id:121004, line:51408:1, endln:51419:4
+            |vpiCondition:
+            \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:121015, line:51413:7, endln:51413:26
+              |vpiParent:
+              \_begin: (uvm_pkg::uvm_agent::build_phase), id:121004, line:51408:1, endln:51419:4
+              |vpiName:__tmp_success_val__
+              |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+            |vpiStmt:
+            \_begin: (uvm_pkg::uvm_agent::build_phase), id:121017, line:51413:28, endln:51418:6
+              |vpiParent:
+              \_if_stmt: , id:121016, line:51413:3, endln:51418:6
+              |vpiFullName:uvm_pkg::uvm_agent::build_phase
+              |vpiStmt:
+              \_assignment: , id:121018, line:51415:8, endln:51417:24
+                |vpiParent:
+                \_begin: (uvm_pkg::uvm_agent::build_phase), id:121017, line:51413:28, endln:51418:6
+                |vpiOpType:82
+                |vpiBlocking:1
+                |vpiRhs:
+                \_hier_path: (__tmp_rsrc__.read), id:121020, line:51415:26, endln:51417:24
+                  |vpiParent:
+                  \_assignment: , id:121018, line:51415:8, endln:51417:24
+                  |vpiActual:
+                  \_ref_obj: (__tmp_rsrc__), id:121021, line:51415:26, endln:51415:38
+                    |vpiParent:
+                    \_hier_path: (__tmp_rsrc__.read), id:121020, line:51415:26, endln:51417:24
+                    |vpiName:__tmp_rsrc__
+                  |vpiActual:
+                  \_method_func_call: (read), id:121022, line:51415:39, endln:51415:43
+                    |vpiParent:
+                    \_hier_path: (__tmp_rsrc__.read), id:121020, line:51415:26, endln:51417:24
+                    |vpiArgument:
+                    \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__.read::this), id:121023, line:51417:19, endln:51417:23
+                      |vpiParent:
+                      \_method_func_call: (read), id:121022, line:51415:39, endln:51415:43
+                      |vpiName:this
+                      |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_rsrc__.read::this
+                    |vpiName:read
+                  |vpiName:__tmp_rsrc__.read
+                |vpiLhs:
+                \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_int_val__), id:121019, line:51415:8, endln:51415:23
+                  |vpiParent:
+                  \_assignment: , id:121018, line:51415:8, endln:51417:24
+                  |vpiName:__tmp_int_val__
+                  |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_int_val__
+|vpiStmt:
+\_if_stmt: , id:121025, line:51425:6, endln:51430:9
+  |vpiParent:
+  \_begin: (uvm_pkg::uvm_agent::build_phase), id:120887, line:51337:29, endln:51431:6
+  |vpiCondition:
+  \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:121024, line:51425:10, endln:51425:29
+    |vpiParent:
+    \_begin: (uvm_pkg::uvm_agent::build_phase), id:120887, line:51337:29, endln:51431:6
+    |vpiName:__tmp_success_val__
+    |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+    |vpiActual:
+    \_bit_var: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:120907, line:51341:16, endln:51341:35
+  |vpiStmt:
+  \_begin: (uvm_pkg::uvm_agent::build_phase), id:121026, line:51425:31, endln:51430:9
+    |vpiParent:
+    \_if_stmt: , id:121025, line:51425:6, endln:51430:9
+    |vpiFullName:uvm_pkg::uvm_agent::build_phase
+    |vpiStmt:
+    \_assignment: , id:121027, line:51427:19, endln:51428:60
+      |vpiParent:
+      \_begin: (uvm_pkg::uvm_agent::build_phase), id:121026, line:51425:31, endln:51430:9
+      |vpiOpType:82
+      |vpiBlocking:1
+      |vpiRhs:
+      \_operation: , id:121030, line:51428:19, endln:51428:60
+        |vpiParent:
+        \_assignment: , id:121027, line:51427:19, endln:51428:60
+        |vpiTypespec:
+        \_ref_typespec: (uvm_pkg::uvm_agent::build_phase), id:121031
+          |vpiParent:
+          \_operation: , id:121030, line:51428:19, endln:51428:60
+          |vpiFullName:uvm_pkg::uvm_agent::build_phase
+          |vpiActual:
+          \_enum_typespec: (uvm_pkg::uvm_active_passive_enum), id:1777, line:9952:52, endln:9952:53
+        |vpiOpType:67
+        |vpiOperand:
+        \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_int_val__), id:121029, line:51428:44, endln:51428:59
+          |vpiParent:
+          \_operation: , id:121030, line:51428:19, endln:51428:60
+          |vpiName:__tmp_int_val__
+          |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_int_val__
+      |vpiLhs:
+      \_ref_obj: (uvm_pkg::uvm_agent::build_phase::is_active), id:121028, line:51427:19, endln:51427:28
+        |vpiParent:
+        \_assignment: , id:121027, line:51427:19, endln:51428:60
+        |vpiName:is_active
+        |vpiFullName:uvm_pkg::uvm_agent::build_phase::is_active
+    |vpiStmt:
+    \_assignment: , id:121032, line:51429:22, endln:51429:49
+      |vpiParent:
+      \_begin: (uvm_pkg::uvm_agent::build_phase), id:121026, line:51425:31, endln:51430:9
+      |vpiOpType:82
+      |vpiBlocking:1
+      |vpiRhs:
+      \_ref_obj: (uvm_pkg::uvm_agent::build_phase::__tmp_success_val__), id:121034, line:51429:30, endln:51429:49
+        |vpiParent:
+        \_assignment: , id:121032, line:51429:22, endln:51429:49
+        |vpiName:__tmp_success_val__
+        |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_success_val__
+      |vpiLhs:
+      \_ref_obj: (uvm_pkg::uvm_agent::build_phase::found), id:121033, line:51429:22, endln:51429:27
+        |vpiParent:
+        \_assignment: , id:121032, line:51429:22, endln:51429:49
+        |vpiName:found
+        |vpiFullName:uvm_pkg::uvm_agent::build_phase::found
+RHS: <null>

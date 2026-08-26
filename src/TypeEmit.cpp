@@ -19180,4 +19180,88 @@ UHDM::typespec* UhdmExporter::makeScopedTdUnsupTs11(const Symbol& declSym) {
     return uts;
 }
 
+// § blockLocalTdDeclIsRefVarUnsupported155.  `stmtScopeTdName155`
+// (src/EmitHelpers.h) carries the law, the Surelog decode and the grid cell
+// behind each of its three questions; this builds the object golden builds:
+// `VpiName(typeName)` + `populateCoreMembers(type, type, tps)`, i.e. the
+// WRITTEN TYPE NAME and the span of the WRITTEN TYPE NAME — nothing else.
+// Measured on every cell of grid155: `unsupported_typespec (weftKind)
+// @20:7-20:15`, `(__tmp_int_t__) @51340:6-51340:19` on the corpus head.
+// The `vpiInstance` is NOT stamped here: golden's placeholder takes
+// `component->getUhdmInstance()` (CompileType.cpp:2135-2136), which is the
+// home PACKAGE for a package free subroutine and an out-of-body class method
+// and NOTHING for every other home — the very pointer each call site already
+// holds as `tsInst` / `pkgScopeInst`, so § scopedTdUnsupTsHomePkgInstance83's
+// rule (stamp at the SITE, from the site's own pointer) is kept.
+// § blockLocalTdDeclIsRefVarUnsupported155, QUESTION (4) — THE REPAIR GATE,
+// and the term the WIDE BOUNDARY convicted a first cut for missing.
+//
+// `ElaborationStep::bindTypedefs_` keys its repair map on the BARE typedef
+// NAME (`specs.emplace(typd->getName(), ts)`, ElaborationStep.cpp:217/240/276)
+// and the swap loop asks only `need == tps->VpiName()` (`:317`), with `defs`
+// built over EVERY file content, package, module, program and class in the
+// design.  So a statement-scope typedef is unregistered — but if ANY OTHER
+// typedef in the design carries the same bare name, the placeholder IS swapped,
+// for that stranger's typespec.  Golden then reads `ref_var` + THAT typespec,
+// spanned at THAT typedef.
+//
+// MEASURED, by the wide boundary gate over the whole probe tree:
+//   r10v98repro/v98_c20_dut.sv  `p20v::a20win98v::mk`'s method-local
+//     `typedef bit [6:0] mk20_t` shares its name with `p20v::m20base98v`'s
+//     `typedef int mk20_t` -> golden `ref_var` + `int_typespec (mk20_t)
+//     @10:29-10:32`, NOT a placeholder.
+//   r10v98repro/v98_c26_dut.sv  module `amod26v`'s function-local
+//     `typedef byte wk26_t` against `p26v::a26win98v::wk26_t` -> golden
+//     `ref_var` + `bit_typespec (wk26_t) @4:29-4:38`.
+// Building that stranger's typespec is a DIFFERENT law (and a name race with
+// its own order), so this one DECLINES the collision outright: the count is
+// taken over the design's SYNTAX — one pass, no AST forcing, forward typedefs
+// included — and the law fires only at count == 1.
+void UhdmExporter::buildTdNameCount155() {
+    if (tdNameCount155Built)
+        return;
+    tdNameCount155Built = true;
+    auto scan = [&](auto&& self, const syntax::SyntaxNode& node) -> void {
+        if (auto* td = node.as_if<syntax::TypedefDeclarationSyntax>()) {
+            if (!td->name.valueText().empty())
+                tdNameCount155[std::string(td->name.valueText())]++;
+        }
+        else if (auto* fw =
+                     node.as_if<syntax::ForwardTypedefDeclarationSyntax>()) {
+            if (!fw->name.valueText().empty())
+                tdNameCount155[std::string(fw->name.valueText())]++;
+        }
+        for (size_t i = 0, n = node.getChildCount(); i < n; i++)
+            if (auto* ch = node.childNode(i))
+                self(self, *ch);
+    };
+    for (auto& tree : comp.getSyntaxTrees())
+        scan(scan, tree->root());
+}
+
+bool UhdmExporter::stmtScopeTdNameUnique155(std::string_view nm) {
+    buildTdNameCount155();
+    auto it = tdNameCount155.find(std::string(nm));
+    return it != tdNameCount155.end() && it->second == 1;
+}
+
+bool UhdmExporter::stmtScopeTdDegrades155(const Symbol& declSym) {
+    std::string_view nm = stmtScopeTdName155(declSym);
+    return !nm.empty() && stmtScopeTdNameUnique155(nm);
+}
+
+UHDM::typespec* UhdmExporter::makeStmtScopeTdUnsupTs155(const Symbol& declSym) {
+    std::string_view nm = stmtScopeTdName155(declSym);
+    if (nm.empty() || !stmtScopeTdNameUnique155(nm))
+        return nullptr;
+    auto* dt = declSym.getDeclaredType();
+    auto* tsyn = dt ? dt->getTypeSyntax() : nullptr;
+    if (!tsyn)
+        return nullptr;
+    auto* uts = s.MakeUnsupported_typespec();
+    uts->VpiName(std::string(nm));
+    setLoc(uts, tsyn->sourceRange());
+    return uts;
+}
+
 } // namespace slang_uhdm

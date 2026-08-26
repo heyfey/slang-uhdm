@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <functional>
 #include <map>
+#include <unordered_map>
 #include <optional>
 #include <set>
 #include <string>
@@ -3451,6 +3452,28 @@ private:
     slang::SourceRange scopedTdPrefixSpan11(const slang::ast::Symbol& declSym);
     /// Mint the placeholder for `declSym`, or return null.
     UHDM::typespec* makeScopedTdUnsupTs11(const slang::ast::Symbol& declSym);
+    /// § blockLocalTdDeclIsRefVarUnsupported155 — mint the placeholder for a
+    /// declaration whose written type names a typedef declared inside a
+    /// STATEMENT scope, or return null.  The law and its whole grid live in
+    /// `src/EmitHelpers.h` next to `stmtScopeTdName155`, which answers the
+    /// three questions; this only builds the object.  NO `vpiInstance` is
+    /// stamped here — § scopedTdUnsupTsHomePkgInstance83 makes that the CALL
+    /// SITE's job, from the same pointer the site's resolved typespec uses.
+    UHDM::typespec* makeStmtScopeTdUnsupTs155(const slang::ast::Symbol& declSym);
+    /// § blockLocalTdDeclIsRefVarUnsupported155, QUESTION (4) — the REPAIR
+    /// gate.  `ElaborationStep::bindTypedefs_` swaps the placeholder for any
+    /// registered typedef's typespec whose BARE NAME matches, ANYWHERE in the
+    /// design (`ElaborationStep.cpp:305-320`, `specs.emplace(typd->getName(),
+    /// …)`), so a statement-scope typedef that shares its name with ANY other
+    /// typedef keeps `ref_var` but binds THAT OTHER typedef's typespec — a
+    /// different object this pass does not build.  The law fires only when the
+    /// name occurs EXACTLY ONCE as a typedef in the whole design's syntax.
+    bool stmtScopeTdNameUnique155(std::string_view nm);
+    /// The WHOLE predicate: spelling + statement scope + shadow + uniqueness.
+    bool stmtScopeTdDegrades155(const slang::ast::Symbol& declSym);
+    void buildTdNameCount155();
+    std::unordered_map<std::string, int> tdNameCount155;
+    bool tdNameCount155Built = false;
     // True while emitting a subroutine body that belongs to the package's
     // UN-ELABORATED (def) view: a package function in the def pass, or an
     // out-of-body class-method CLONE in the def package's Task_funcs. Surelog
