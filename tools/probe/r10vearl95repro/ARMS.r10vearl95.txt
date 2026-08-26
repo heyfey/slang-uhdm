@@ -1,0 +1,56 @@
+r10earl95 -- VERIFIER ARM EVIDENCE (r10vearl95).  MEASUREMENT ONLY; the
+official uhdm-cmp is the judge.  Every row below is arm95.sh + verd95corpus.py
+with the VERIFIER's OWN frozen binaries
+  pristine a7c25e51887a87b63fecd233fba489ab  /tmp/v95_bin_pris/slang-uhdm
+  patched  fe69ea2dfe5c0fd2bf6b21a4a8cb3f83  /tmp/v95_bin_patc/slang-uhdm
+and each arm's OWN purpose-built Surelog golden (LHS is always golden).
+
+ARM                                VIEW   verd95corpus.py
+v95a_ctx                           plain  WRONG->RIGHT 12  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 3
+v95a_ctx                           elab   WRONG->RIGHT 24  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 3
+v95b_homes                         plain  WRONG->RIGHT 12  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 3
+v95b_homes                         elab   WRONG->RIGHT 22  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 3
+v95c_faces                         plain  WRONG->RIGHT 96  RIGHT->WRONG 0  no-golden-key-changed 4  GA-buckets-changed 5
+v95c_faces                         elab   WRONG->RIGHT 126  RIGHT->WRONG 0  no-golden-key-changed 4  GA-buckets-changed 5
+v95d_defp                          plain  WRONG->RIGHT 6  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 3
+v95d_defp                          elab   WRONG->RIGHT 12  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 3
+v95e_collapse                      plain  WRONG->RIGHT 18  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 3
+v95e_collapse                      elab   WRONG->RIGHT 36  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 3
+v95f_bind                          plain  WRONG->RIGHT 2  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 3
+v95f_bind                          elab   WRONG->RIGHT 4  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 3
+v95g_rec                           plain  WRONG->RIGHT 0  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 0
+v95g_rec                           elab   WRONG->RIGHT 0  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 0
+v95h_survivor                      plain  WRONG->RIGHT 6  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 3
+v95h_survivor                      elab   WRONG->RIGHT 12  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 3
+v95i_unnamed                       plain  WRONG->RIGHT 8  RIGHT->WRONG 0  no-golden-key-changed 3  GA-buckets-changed 3
+v95i_unnamed                       elab   WRONG->RIGHT 16  RIGHT->WRONG 0  no-golden-key-changed 3  GA-buckets-changed 3
+g1_sel95                           plain  WRONG->RIGHT 0  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 0
+g1_sel95                           elab   WRONG->RIGHT 0  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 0
+g2_depth95                         plain  WRONG->RIGHT 48  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 5
+g2_depth95                         elab   WRONG->RIGHT 78  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 5
+g3_pool95                          plain  WRONG->RIGHT 96  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 6
+g3_pool95                          elab   WRONG->RIGHT 138  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 6
+g4_kind95                          plain  WRONG->RIGHT 54  RIGHT->WRONG 0  no-golden-key-changed 8  GA-buckets-changed 3
+g4_kind95                          elab   WRONG->RIGHT 60  RIGHT->WRONG 0  no-golden-key-changed 8  GA-buckets-changed 3
+g5_hop95                           plain  WRONG->RIGHT 10  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 5
+g5_hop95                           elab   WRONG->RIGHT 12  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 5
+r10earl56repro_a1_earl56           plain  WRONG->RIGHT 6  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 3
+r10earl56repro_a1_earl56           elab   WRONG->RIGHT 6  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 3
+r10earl56repro_a2_earl56           plain  WRONG->RIGHT 4  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 3
+r10earl56repro_a2_earl56           elab   WRONG->RIGHT 4  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 3
+r10earl56repro_a5_earl56           plain  WRONG->RIGHT 6  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 3
+r10earl56repro_a5_earl56           elab   WRONG->RIGHT 6  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 3
+r10earl56repro_v2_nestedsel56      plain  WRONG->RIGHT 6  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 3
+r10earl56repro_v2_nestedsel56      elab   WRONG->RIGHT 8  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 3
+r10earl56repro_v6_overreach56      plain  WRONG->RIGHT 4  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 3
+r10earl56repro_v6_overreach56      elab   WRONG->RIGHT 4  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 3
+r10earl58repro_a1_earl58           plain  WRONG->RIGHT 20  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 4
+r10earl58repro_a1_earl58           elab   WRONG->RIGHT 24  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 4
+r10earl59repro_v59v2_earl59        plain  WRONG->RIGHT 0  RIGHT->WRONG 0  no-golden-key-changed 1  GA-buckets-changed 3
+r10earl59repro_v59v2_earl59        elab   WRONG->RIGHT 0  RIGHT->WRONG 0  no-golden-key-changed 1  GA-buckets-changed 3
+r10earl59repro_v59w2_shapes59      plain  WRONG->RIGHT 0  RIGHT->WRONG 0  no-golden-key-changed 6  GA-buckets-changed 3
+r10earl59repro_v59w2_shapes59      elab   WRONG->RIGHT 0  RIGHT->WRONG 0  no-golden-key-changed 6  GA-buckets-changed 3
+r10earl59repro_v59w3_ports59       plain  WRONG->RIGHT 8  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 3
+r10earl59repro_v59w3_ports59       elab   WRONG->RIGHT 16  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 3
+v4_homes64                         plain  WRONG->RIGHT 16  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 3
+v4_homes64                         elab   WRONG->RIGHT 32  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 3

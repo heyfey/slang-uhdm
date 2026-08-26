@@ -1,0 +1,104 @@
+r10earl95 -- THE GATES.  Both binaries FROZEN chmod 555 at immutable paths of
+the SAME LENGTH before any sweep; SLANG_UHDM exported explicitly to EACH.
+
+(1) BUILD
+a7c25e51887a87b63fecd233fba489ab  /tmp/r10earl95_bin_pris/slang-uhdm
+fe69ea2dfe5c0fd2bf6b21a4a8cb3f83  /tmp/r10earl95_bin_patc/slang-uhdm
+-r-xr-xr-x /tmp/r10earl95_bin_patc/slang-uhdm
+-r-xr-xr-x /tmp/r10earl95_bin_pris/slang-uhdm
+
+(2) GOLDEN DUMP TESTS  (tests/check_goldens.sh, SLANG_UHDM exported per binary)
+  pristine : PASS=23 FAIL=0
+  patched  : PASS=23 FAIL=0
+  /bin/false negative control: PASS=0 FAIL=23 (the comparator can see)
+
+(3) UHDM2RTLIL, BOTH MODES
+  700/731
+  725/731
+
+[default] 731 tests
+  CMP_EQUAL: 679
+  SLANG_REJECT: 50
+  SURELOG_FAIL: 2
+
+[testflags] 731 tests
+  CMP_EQUAL: 679
+  SLANG_REJECT: 50
+  SURELOG_FAIL: 2
+  -- ct8rows vs the COMMITTED baseline (testflags rows):
+baseline: 732 lines = 731 ROWS (the header is not a row)
+fresh   : 732 lines = 731 ROWS
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+PASS: every row byte-identical to the committed baseline
+  -- ct8rows vs THIS PASS'S OWN PRISTINE SWEEP (both modes, 1462 rows):
+baseline: 1463 lines = 1462 ROWS (the header is not a row)
+fresh   : 1463 lines = 1462 ROWS
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+PASS: every row byte-identical to the committed baseline
+
+(4) SURELOG, BOTH MODES
+  750/794
+  775/794
+
+[default] 794 tests
+  CMP_EQUAL: 471
+  SLANG_REJECT: 283
+  SURELOG_FAIL: 25
+  CMP_NOTEQUAL: 10
+  DEFERRED: 5
+
+[testflags] 794 tests
+  CMP_EQUAL: 466
+  SLANG_REJECT: 284
+  SURELOG_FAIL: 23
+  CMP_NOTEQUAL: 9
+  DEFERRED: 5
+  NO_DATABASE: 3
+  UNTRANSLATABLE: 2
+  TIMEOUT: 1
+  NO_UHDM: 1
+  -- ct8rows vs the COMMITTED baseline (1588 rows):
+baseline: 1589 lines = 1588 ROWS (the header is not a row)
+fresh   : 1589 lines = 1588 ROWS
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+PASS: every row byte-identical to the committed baseline
+  NO row converted in either direction, so results/*.csv is UNTOUCHED.
+
+(5) BYTE MOVERS (byteverify SELFCHECK=1).  Earlgrey x2 is the LAW; the third
+    mover, Scoreboard/default, is the documented ~50/50 COIN -- twelve runs on
+    the same sources, alternating binaries, give
+      1 pris 61dbb909a7e5   2 patc 61dbb909a7e5   3 pris 61dbb909a7e5
+      4 patc 61dbb909a7e5   5 pris 61dbb909a7e5   6 patc 1bb47cacd704
+      7-12 pris 61dbb909a7e5
+    so the PATCHED binary produced the PRISTINE sweep's hash on two runs of
+    three; the sorted, path-normalised dumps of the two sweeps' Scoreboard
+    databases are byte-identical over 1 100 242 lines (0 differing lines); and
+    Scoreboard.default.cmp is BYTE-IDENTICAL before and after.
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/Earlgrey_0_1-71da2fd7/slang.uhdm  patched=a8b5854525f6 pristine=20fdd8913dc7
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=1bb47cacd704 pristine=61dbb909a7e5
+MOVER ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm  patched=d405c669f5f5 pristine=d8669ab5b9b2
+MOVERS: 3 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+
+  CMDS.TXT AUDIT BY BINARY PATH (not by the string 'slang-uhdm', which also
+  matches slang-uhdm-goldens/):
+    wd_p0: cmds=1573  name_MAIN_TREE=0  name_expected=1523  (the rest carry no slang line: SURELOG_FAIL / NO_DATABASE rows)
+    wd_p1: cmds=1573  name_MAIN_TREE=0  name_expected=1523  (the rest carry no slang line: SURELOG_FAIL / NO_DATABASE rows)
+    wd_u0: cmds=1462  name_MAIN_TREE=0  name_expected=1458  (the rest carry no slang line: SURELOG_FAIL / NO_DATABASE rows)
+    wd_u1: cmds=1462  name_MAIN_TREE=0  name_expected=1458  (the rest carry no slang line: SURELOG_FAIL / NO_DATABASE rows)
+
+  CANARIES
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+PASS: every supplementary canary row is byte-identical to the baseline.
+---- ctcan2 rows: ok=1 changed=0 absent=0 unknown-patterns=6
+PASS: every supplementary canary row is byte-identical to the baseline.
+---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+PASS: every brief-protected name and family is carried by a script that RUNS here.

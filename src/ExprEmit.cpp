@@ -8413,6 +8413,114 @@ bool UhdmExporter::genScopeDeclaredParam56(const Symbol& sym) {
     return k == SymbolKind::GenerateBlock || k == SymbolKind::GenerateBlockArray;
 }
 
+// § genCaParamFoldOneHopPool95 (r10earl95) — THE POOL AN ELABORATED GEN-SCOPE
+// CONT-ASSIGN FOLD READS, AND IT IS ONE HOP DEEP.
+//
+//   IN AN ELABORATED GENERATE-SCOPE `cont_assign`, SURELOG SUBSTITUTES A
+//   PARAMETER'S VALUE ONLY WHEN THAT PARAMETER IS DECLARED IN THE GENERATE
+//   BLOCK'S **IMMEDIATE PARENT SCOPE** — the enclosing module instance for a
+//   top-level block, the enclosing GENERATE SCOPE for a nested one.  The
+//   block's OWN declarations (distance 0) and everything two or more scopes up
+//   (distance >= 2) keep their `ref_obj`.
+//
+// This is the CONT-ASSIGN twin of § genProcParamFoldTopGenOnly20, which landed
+// the same rule for a gen-scope PROCESS ("a MODULE parameter folds in a FLAT
+// gen block and keeps its ref in a NESTED one"), and it is the same one hop
+// § genLpUseFoldParentScope47 measured for a gen-scope localparam and
+// § genScopeOwnParamNoSelFold56 measured at distance 0.  All four are the same
+// line of Surelog, already decoded at § genLpOneHopProcBoundOp58 above:
+// `DesignElaboration::elaborateInstance_` compiles a generate block's
+// `ModuleDefinition` with `m_instance = parent` — the PARENT ModuleInstance —
+// and `compileContinuousAssignment` compiles both sides at `Reduce::No`
+// (`CompileHelper.cpp:2470/2498`), so the only substitution
+// `CompileExpression`'s identifier arm can still make is the one guarded by
+// `param_ass->Rhs()->UhdmType() == uhdmconstant` over
+// `instance->getNetlist()->param_assigns()`, which `elab_parameters_` fills
+// from that parent's OWN parameters and nothing inherited.
+//
+// MEASURED on the purpose-built golden `g3_pool95.sv` (three instantiations of
+// one parameterized module at W = 5/6/8; LHS always golden, both views), one
+// statement shape per row, gen-if depth 1/2/3 and gen-for depth 1/2:
+//
+//   distance 1  FOLDS   module PORT param and module localparam at depth 1
+//                       (rows 26/27/30/31/32/33/62); the PARENT gen scope's
+//                       localparam at depth 2 (row 41 `D1`, row 48's ips base);
+//                       the parent's at depth 3 (row 53 `D2`).  Row 66 (a
+//                       gen-if nested in a for body reading the for body's
+//                       `F1`) is distance 1 for golden too, but this window is
+//                       switched off under a `LoopGenerate` — README R2, the
+//                       LOOP half, deliberately not taken here.
+//   distance 0  KEEPS   the block's own localparam at depth 1 (row 29 `D1`)
+//                       and at depth 2 (row 42 `D2`), and a for body's own
+//                       (row 63 `F1`).
+//   distance >=2 KEEPS  the module param/localparam at depth 2 (rows 38/39/
+//                       43/44/45) and depth 3 (rows 51/54), and the
+//                       GRANDPARENT gen scope's localparam at depth 3
+//                       (row 52 `D1`).
+//   a PACKAGE parameter FOLDS at every depth (rows 28 and 40, `p95::PKGW`) —
+//   it never reaches the netlist param_assign arm at all, so it is excluded
+//   here and left to the arm that owns it.
+//
+// The corpus head this fixes is `prim_lfsr.sv:308`
+// `assign coeffs = GAL_XOR_COEFFS[LfsrDw-GAL_XOR_LUT_OFF][LfsrDw-1:0];` in
+// `gen_lut`, which is nested inside `gen_gal_xor`: golden keeps all three
+// operands symbolic there while it folds the `{LfsrDw{...}}` replication count
+// seven lines down at :315, in `gen_gal_xor` itself — distance 2 versus
+// distance 1, one mechanism, no property of the selected object involved.
+static const Scope* enclosingBody95(const Symbol& sym) {
+    for (auto sc95 = sym.getParentScope(); sc95;
+         sc95 = sc95->asSymbol().getParentScope())
+        if (sc95->asSymbol().kind == SymbolKind::InstanceBody)
+            return sc95;
+    return nullptr;
+}
+
+const Scope* UhdmExporter::genCaPoolScope95For(const Symbol& blk) const {
+    const Scope* body95 = enclosingBody95(blk);
+    // ONE EMITTED LEVEL UP.  `genEmitStack95` holds only the blocks that
+    // became a `gen_scope`, so a level `pushGenBlk9` spliced out
+    // (§ genElseArmCollapse48, `genHoists9`) is not a hop — which is exactly
+    // how Surelog's elaborated instance tree counts it.
+    //
+    // THE STACK CROSSES INSTANCE BOUNDARIES AND THE HOP DOES NOT.  A module
+    // instantiated INSIDE a generate scope is emitted with that scope's frames
+    // still on the stack, so the entry one level up can belong to a DIFFERENT
+    // module — and a top-level generate block of the CHILD is one hop from the
+    // CHILD's own body, not two from the parent's.  MEASURED, and it is a
+    // REGRESSION THIS PASS MADE AND FIXED BEFORE LANDING: uhdm2rtlil
+    // `genscope_cells` dut.sv:97 `counter[CounterWidth-1:0]` in
+    // `g_counter_narrow`, a TOP-LEVEL gen-if of module `counter`, which `dut`
+    // instantiates inside `gen_modules[i].module_in_genscope`.  Golden folds
+    // `CounterWidth` there (UINT:10, int_typespec 29:13-29:16); an
+    // instance-blind stack read kept the `ref_obj` and un-converted that row
+    // (a NAMED CANARY) from CMP_EQUAL to CMP_NOTEQUAL in BOTH modes.
+    if (genEmitStack95.size() >= 2) {
+        const Scope* up95 = genEmitStack95[genEmitStack95.size() - 2];
+        if (up95 && enclosingBody95(up95->asSymbol()) == body95)
+            return up95;
+    }
+    // The outermost emitted generate level OF THIS INSTANCE: the pool is the
+    // module instance body.
+    return body95;
+}
+
+bool UhdmExporter::genCaOneHopPool95(const Symbol& sym) {
+    if (!genCaPoolScope95)
+        return true;
+    const Scope* decl = sym.getParentScope();
+    // A for-generate body hangs under a GenerateBlockArray; that wrapper is
+    // not a scope Surelog ever compiles against, so it is not a hop
+    // (§ genLpOneHopUp58 skips it on the other side of the same test).
+    while (decl && decl->asSymbol().kind == SymbolKind::GenerateBlockArray)
+        decl = decl->asSymbol().getParentScope();
+    if (!decl)
+        return true;
+    auto dk = decl->asSymbol().kind;
+    if (dk != SymbolKind::InstanceBody && dk != SymbolKind::GenerateBlock)
+        return true;
+    return decl == genCaPoolScope95;
+}
+
 // § connBitSelIdxModParamFold81 — GOLDEN FOLDS THE INDEX OF A `bit_select`
 // THAT SITS IN AN ELABORATED PORT `High_conn` AND NAMES A MODULE-SCOPE
 // PARAMETER OR LOCALPARAM, TO THAT INSTANCE'S STORED `Value` — WHICH IS *NOT*
@@ -14591,6 +14699,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         return c58;
                 if (genCaLhsParamFold && inPsBound &&
                     nv.symbol.kind == SymbolKind::Parameter &&
+                    // § genCaParamFoldOneHopPool95 — SITE 1 of 2 (select
+                    // bounds).  A REFUSAL ONLY: it can never fold where the
+                    // pristine binary did not.
+                    genCaOneHopPool95(nv.symbol) &&
                     !(directBound56 && genScopeDeclaredParam56(nv.symbol))) {
                     // A TYPELESS parameter object reduces to the plain
                     // unsized UINT — no width, no typespec (see
@@ -14844,7 +14956,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // declaration and carries none.  Scope is the gen scope for a
                 // plain operand, the SELECT BASE inside a bit_select index.
                 if (genCaLhsParamFold && !inPsBound && callArgDepth == 0 &&
-                    nv.symbol.kind == SymbolKind::Parameter) {
+                    nv.symbol.kind == SymbolKind::Parameter &&
+                    // § genCaParamFoldOneHopPool95 — SITE 2 of 2 (every plain
+                    // operand of the elab gen-scope CA, the var_select INDEX
+                    // included: `inPsBound` is set inside part-select bound
+                    // emission only, so `GAL_XOR_COEFFS[LfsrDw-...]`'s index
+                    // arrives here).  A REFUSAL ONLY.
+                    genCaOneHopPool95(nv.symbol)) {
                     bool outerParam8 = false;
                     for (auto sc8 = nv.symbol.getParentScope(); sc8;
                          sc8 = sc8->asSymbol().getParentScope()) {

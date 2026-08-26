@@ -13217,6 +13217,17 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
         emitBlock = [&](const GenerateBlockSymbol& blk, const std::string& name,
                         const std::string& parentFull,
                         UHDM::BaseClass* parentObj) -> UHDM::gen_scope_array* {
+        // § genCaParamFoldOneHopPool95 — this block IS an emitted gen_scope
+        // (every level `pushGenBlk9` splices out returns before reaching
+        // here), so push it for the duration.  RAII, because the lambda has
+        // more than one return.
+        struct GenEmitGuard95 {
+            std::vector<const slang::ast::Scope*>& st;
+            GenEmitGuard95(std::vector<const slang::ast::Scope*>& s95,
+                           const slang::ast::Scope* sc95)
+                : st(s95) { st.push_back(sc95); }
+            ~GenEmitGuard95() { st.pop_back(); }
+        } genEmitGuard95(genEmitStack95, static_cast<const Scope*>(&blk));
         std::string fullName = parentFull + "." + name;
         // Gen-local variable initializers, emitted after the block's
         // task/functions exist (see below).
@@ -15605,6 +15616,10 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         break;
                     }
                 genCaLhsParamFold = !blkInLoop3;
+                // § genCaParamFoldOneHopPool95 (r10earl95) — the pool the
+                // fold above may read: this block's IMMEDIATE parent scope,
+                // one hop and one hop only.
+                genCaPoolScope95 = genCaPoolScope95For(blk);
                 // Only a TOP-LEVEL for-generate body of this module folds
                 // outer params; nested / child-instance gen scopes re-emit
                 // them symbolically (hier_path's g_regions).
@@ -15722,6 +15737,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 genCaLoopParamFold = false;
                 genCaChildLoopFold21 = false;
                 genCaLhsParamFold = false;
+                genCaPoolScope95 = nullptr;
                 if (suppress)
                     suppressRefActual = false;
             }
@@ -16093,6 +16109,9 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                     break;
                 }
             genCaLhsParamFold = !blkInLoop2;
+            // § genCaParamFoldOneHopPool95 (r10earl95) — the LHS half of the
+            // same window reads the same one-hop pool.
+            genCaPoolScope95 = genCaPoolScope95For(blk);
             // TOP-LEVEL FOR-generate LHS select bounds fold outer params too.
             genCaLoopParamFold =
                 prefix.find('.') == std::string::npos &&
@@ -16143,6 +16162,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             }
             genCaLhsReelab = false;
             genCaLhsParamFold = false;
+            genCaPoolScope95 = nullptr;
             genCaLoopParamFold = false;
             if (lhsSuppress)
                 suppressRefActual = false;

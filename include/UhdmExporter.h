@@ -3795,6 +3795,19 @@ private:
     // parameter, i.e. when § genLpUseFoldParentScope47's one-hop rule (and NOT
     // the gen-scope cont-assign select-bound fold) owns the decision about it.
     bool genScopeDeclaredParam56(const slang::ast::Symbol& sym);
+    // § genCaParamFoldOneHopPool95 (r10earl95) — the CONT-ASSIGN twin of
+    // § genProcParamFoldTopGenOnly20's `nestedGenBlk20`: true when this
+    // parameter is visible to the ELABORATED gen-scope cont-assign fold, i.e.
+    // when it is declared in `genCaPoolScope95` (ONE HOP UP, no more and no
+    // less) or lives outside the instance/generate chain altogether (a
+    // package parameter, which a different Surelog arm substitutes at every
+    // depth).
+    bool genCaOneHopPool95(const slang::ast::Symbol& sym);
+    // § genCaParamFoldOneHopPool95 — the pool for one emitted generate block:
+    // the scope ONE emitted level up (`genEmitStack95`), or the enclosing
+    // module InstanceBody when this block is the outermost emitted level.
+    const slang::ast::Scope* genCaPoolScope95For(
+        const slang::ast::Symbol& blk) const;
     // § genLpOneHopProcBoundOp58 — the SCOPE-side of § genLpUseFoldParentScope47's
     // one hop, asked of the slang scope tree instead of the emitted name: true
     // when this gen-scope-declared parameter belongs to the generate scope that
@@ -6665,6 +6678,25 @@ private:
     // True while emitting an ELAB gen-scope CA LHS: param refs in select
     // bounds fold to typed constants (Surelog).
     bool genCaLhsParamFold = false;
+    // § genCaParamFoldOneHopPool95 (r10earl95) — THE POOL that fold reads.
+    // Set alongside `genCaLhsParamFold` by `genCaPoolScope95For` to the scope
+    // ONE EMITTED LEVEL above the block being emitted (the enclosing
+    // InstanceBody for the outermost emitted generate level, the enclosing
+    // emitted GENERATE SCOPE for a nested one).  `genCaOneHopPool95` is the
+    // test; null means "not in the window" and changes nothing.
+    const slang::ast::Scope* genCaPoolScope95 = nullptr;
+    // § genCaParamFoldOneHopPool95 — THE EMITTED gen-scope chain, pushed by
+    // `emitBlock` for every block that actually becomes a `gen_scope` and by
+    // nothing else.  The hop MUST be counted here and not in slang's scope
+    // tree: `pushGenBlk9`'s § genElseArmCollapse48 and `genHoists9` SPLICE a
+    // generate level out of the emitted model (an ELSE arm whose first item
+    // is a named if-generate is dropped, exactly as Surelog's elaborator drops
+    // it), and Surelog's parameter pool is the ELABORATED parent, not the
+    // syntactic one.  MEASURED: r10earl59repro/v59w3_ports59.sv `u_a8`, whose
+    // `g_other/g_in2` is TWO blocks in slang and ONE `gen_scope` in golden --
+    // golden folds `W` there and keeps it in `u_a4`'s uncollapsed
+    // `g_four/g_in`.  A syntax-tree hop count made that cell RIGHT->WRONG.
+    std::vector<const slang::ast::Scope*> genEmitStack95;
     // ...and when its RHS is a literal (netlist re-elab), direct literal
     // bounds parent at the part_select.
     bool genCaLhsReelab = false;

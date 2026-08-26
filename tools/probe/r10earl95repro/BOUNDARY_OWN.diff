@@ -1,0 +1,8 @@
+plain r10earl95repro/g2_depth95.sv
+elab r10earl95repro/g2_depth95.sv
+plain r10earl95repro/g3_pool95.sv
+elab r10earl95repro/g3_pool95.sv
+plain r10earl95repro/g4_kind95.sv
+elab r10earl95repro/g4_kind95.sv
+plain r10earl95repro/g5_hop95.sv
+elab r10earl95repro/g5_hop95.sv

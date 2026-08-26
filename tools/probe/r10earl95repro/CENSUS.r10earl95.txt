@@ -1,0 +1,45 @@
+r10earl95 -- THE CORPUS CENSUS.  MEASUREMENT ONLY; the official uhdm-cmp is
+the judge.  ct95cen over EVERY database of BOTH corpora, golden and ours,
+joined as a MULTISET per (database,key) by score95corpus.py, scored
+pristine-vs-patched against the SAME golden by verd95corpus.py.
+  pristine a7c25e51887a87b63fecd233fba489ab   sweeps /tmp/r10earl95_wd_{p0,u0}
+  patched  fe69ea2dfe5c0fd2bf6b21a4a8cb3f83   sweeps /tmp/r10earl95_wd_{p1,u1}
+
+GOLDEN SIDE ASSERTED BYTE-UNCHANGED between the two runs:
+3bbe03d6d6abf0bdd81069ab16be1058  cen_sl_p0.g
+3bbe03d6d6abf0bdd81069ab16be1058  cen_sl_p1.g
+a4003660feff644f5158e3537489d302  cen_u2r_p0.g
+a4003660feff644f5158e3537489d302  cen_u2r_p1.g
+
+PER-DATABASE RC: every child </dev/null, every rc recorded.
+  surelog     censused=956  nogolden=0  nonzero-rc=0
+  uhdm2rtlil  censused=1358 nogolden=0  nonzero-rc=0
+
+=== SURELOG (956 databases) ===
+-- PRISTINE vs golden
+BOTH-SAME 2822528  MOVED-WRONG 3285  GOLDEN-ONLY 264680  OURS-ONLY 485086
+  families G GA=2365082  G RF=278359  G SL=447052  O GA=2327103  O RF=383666  O SL=600130
+-- PATCHED  vs golden
+BOTH-SAME 2822548  MOVED-WRONG 3269  GOLDEN-ONLY 264676  OURS-ONLY 485094
+  families G GA=2365082  G RF=278359  G SL=447052  O GA=2327097  O RF=383684  O SL=600130
+-- VERDICT pristine -> patched
+WRONG->RIGHT 32  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 6
+  GA testflags/Earlgrey_0_1-71da2fd7 GA|ELAB|1|IDX|constant  O {'.': 4204} -> Q {'.': 4198}
+  GA default/Earlgrey_0_1-71da2fd7 GA|ELAB|1|IDX|ref_obj  O {'.': 10041} -> Q {'.': 10047}
+  GA testflags/Earlgrey_0_1-71da2fd7 GA|ELAB|1|IDX|ref_obj  O {'.': 39068} -> Q {'.': 39080}
+  GA default/Earlgrey_0_1-71da2fd7 GA|DEF|0|OTHER|ref_obj  O {'.': 5371} -> Q {'.': 5365}
+  GA testflags/Earlgrey_0_1-71da2fd7 GA|DEF|0|OTHER|ref_obj  O {'.': 5815} -> Q {'.': 5809}
+  GA default/Earlgrey_0_1-71da2fd7 GA|ELAB|1|IDX|constant  O {'.': 4204} -> Q {'.': 4198}
+
+=== UHDM2RTLIL (1358 databases) ===
+-- PRISTINE vs golden
+BOTH-SAME 362581  MOVED-WRONG 12  GOLDEN-ONLY 18472  OURS-ONLY 7484
+  families G GA=286721  G RF=66116  G SL=28228  O GA=273685  O RF=68164  O SL=28228
+-- PATCHED  vs golden
+BOTH-SAME 362581  MOVED-WRONG 12  GOLDEN-ONLY 18472  OURS-ONLY 7484
+  families G GA=286721  G RF=66116  G SL=28228  O GA=273685  O RF=68164  O SL=28228
+-- VERDICT pristine -> patched
+WRONG->RIGHT 0  RIGHT->WRONG 0  no-golden-key-changed 0  GA-buckets-changed 0
+-- the two OURS-side census files are BYTE-IDENTICAL:
+0df1bd37cd5aff0d4c3b801f4940fc6d  cen_u2r_p0.o
+0df1bd37cd5aff0d4c3b801f4940fc6d  cen_u2r_p1.o

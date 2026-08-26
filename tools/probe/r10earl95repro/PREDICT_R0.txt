@@ -1,0 +1,156 @@
+r10earl95 -- THE MOVER PREDICTION and THE NEXT HEAD (R0).
+
+BASE d7c6e81, branch auto5h.  The official ~/git-repos/UHDM/build/bin/uhdm-cmp
+is the sole acceptance judge; everything in this directory is MEASUREMENT ONLY.
+
+========================================================================
+PART 1 -- THE MOVER PREDICTION (made from PRISTINE databases only)
+========================================================================
+`ct95cen` enumerates three families over EVERY database of both corpora, in the
+fields the generated Compares actually read, and DEPTH-KEYED by the GENERATE
+NESTING DEPTH -- the very quantity the law reads:
+
+  SL  every VALUE SLOT of every operation and every select that lives in a gen
+      scope.  KEY SL|VIEW|GDEPTH|CTX|DINST|INST|OWNERKIND|OWNERSPAN|SLOT
+                 PAY the child's kind + name/Actual or value/size/consttype/
+                     decompile  <- the KIND FLIP cannot hide
+  RF  every ref_obj in a gen scope.
+  GA  the GLOBAL tripwire over EVERY ref_obj and EVERY constant, gen scope or
+      not, so a move outside this law's population cannot hide below the family
+      filters.
+
+`score95corpus.py` joins the two sides as a MULTISET (keys collide; a
+last-writer dict drops rows).  The census was run over the PRISTINE sweeps and
+scored BEFORE a line of the law was written.
+
+THE DENOMINATOR -- every ELABORATED gen-scope value slot whose GOLDEN side is a
+`ref_obj` and whose OURS side is a folded `constant`:
+
+  uhdm2rtlil    0 cells  in 1358 databases.  The corpus has NO cell of this
+                shape at all, so it has neither a cell to fix nor one to break.
+  surelog      12 cells  in  956 databases, ALL of them Earlgrey_0_1, ALL at
+                GDEPTH 2, ALL at prim_lfsr.sv:308, six per mode:
+                   4  LfsrDw / GAL_XOR_LUT_OFF at 308:38-308:60
+                        (the var_select INDEX operation), x2 instances
+                   2  LfsrDw            at 308:62-308:70
+                        (the part_select BOUND operation), x2 instances
+                the instances being
+                  work@top_earlgrey.u_aes.aes_prng.aes_prng_lfsr and
+                  work@top_earlgrey.u_alert_handler.i_ping_timer.i_prim_lfsr.
+
+PREDICTION: EXACTLY TWO DATABASES MOVE -- Earlgrey_0_1 default and testflags.
+uhdm2rtlil: ZERO movers.
+
+WHAT ACTUALLY MOVED (byteverify SELFCHECK=1, patched vs this pass's OWN pristine
+sweep; both binaries frozen chmod 555 at immutable paths of the SAME LENGTH;
+workroot path shape held identical between the two sweeps -- the SEQDRIVER_PATH
+discipline; every cmds.txt audited BY BINARY PATH, 0 of 1573 + 1462 name the
+main-tree binary):
+
+  uhdm2rtlil  MOVERS 0 / 1358     <- as predicted
+  surelog     MOVERS 2 /  956     <- as predicted, and NOTHING ELSE
+      ./default/Earlgrey_0_1
+      ./testflags/Earlgrey_0_1
+
+  THE CORPUS CENSUS re-scored over the SAME fixed universe, GOLDEN SIDE
+  ASSERTED BYTE-UNCHANGED (md5 equal on both corpora):
+
+     surelog     BOTH-SAME   2 822 528 -> 2 822 548
+                 MOVED-WRONG     3 285 ->     3 269
+                 GOLDEN-ONLY   264 680 ->   264 676
+                 OURS-ONLY     485 086 ->   485 094
+     uhdm2rtlil  every bucket of every family UNCHANGED; the two census files
+                 are BYTE-IDENTICAL before and after.
+
+  **WRONG->RIGHT 32, RIGHT->WRONG 0, AWAY-GOLDEN 0** on surelog; 0/0/0 on
+  uhdm2rtlil.  Eighteen cell rows disappear (six GOLDEN-ONLY ref_obj rows we did
+  not have, plus the twelve predicted MOVED rows) and exactly ONE row appears --
+  the pass's only one-sided addition, stated loudly:
+
+     OURS-ONLY testflags/Earlgrey_0_1
+       RF|ELAB|2|IDX|LfsrDw|308:62-308:68|operation|308:62-308:70
+       G [('-@-',2)]   O [('-@-',2), ('parameter@33:32-33:38',2)]
+
+  Two surplus ref_objs on the PRE-REDUCTION operation at the part-select bound.
+  The slot that reaches that position, `part_select|308:62-308:72|lr`, is
+  `constant[INT:63]` on BOTH sides before and after, so nothing the judge walks
+  points at the operation any more: the weakly-referenced TAIL.  Filed as R1.
+
+========================================================================
+PART 2 -- R0: THE NEXT HEAD, AND WHAT IS ALREADY KNOWN ABOUT IT
+========================================================================
+BEFORE (this pass's own pristine build a7c25e51887a):
+  Earlgrey_0_1 default   46 cmp lines, 1 head   (the LfsrDw fold)
+  Earlgrey_0_1 testflags 50 cmp lines, 1 head   (the same fold)
+AFTER (fe69ea2dfe5c):
+  Earlgrey_0_1 default  112 cmp lines, 1 head   <- THE HEAD MOVED ON
+  Earlgrey_0_1 testflags 112 cmp lines, 1 head  <- THE HEAD MOVED ON
+The two modes now share ONE head and ONE object.
+
+R0 -- AN ELABORATED MODULE'S TYPESPEC KEEPS THE PACKAGE QUALIFIER GOLDEN DROPS.
+
+    hmac_pkg.sv:17   typedef logic [31:0] sha_word_t;
+    the object is the `logic_typespec` at 17:11-17:23 reached through
+    work@top_earlgrey.u_hmac.
+
+      LHS (golden) logic_typespec  VpiName `sha_word_t`
+                                   VpiParent -> ref_typespec
+                                     (work@top_earlgrey.u_hmac.sha_word_t)
+                                   VpiInstance -> package hmac_pkg
+      RHS (ours)   logic_typespec  VpiName `hmac_pkg::sha_word_t`
+                                   VpiParent -> module_inst work@top_earlgrey.u_hmac
+                                   VpiInstance -> package hmac_pkg
+
+    Same kind, same range (31:0, both constants identical), same instance --
+    the head is `VpiName`, and `typespec::Compare` reads it.
+
+    FOUR MEASURED FACTS, the decode this pass hands over:
+
+    1. IT IS PRE-EXISTING, NOT INTRODUCED.  `ln95 <db> 17 logic_typespec` on the
+       PRISTINE database prints `hmac_pkg::sha_word_t` for every copy, exactly
+       as the patched one does.  The prim_lfsr head was masking it.
+    2. IT IS A NAMING HEAD, AND NAMING IS CONTEXT-DEPENDENT.  The campaign's
+       memory records `pkg::pkg::`-style requalification as a DEAD END when
+       applied uniformly (it breaks goldens and RefPkgParamInEnum); this cell
+       must be decoded per-context, from `UhdmWriter`'s typespec writer, before
+       any rename.
+    3. THE PARENT DIFFERS TOO, and `no generated Compare reads VpiParent`
+       (RESUME §9), so the parent is a CLUE, not the head: golden reaches the
+       typespec through a `ref_typespec` named
+       `work@top_earlgrey.u_hmac.sha_word_t` -- an INSTANCE-scoped alias -- while
+       ours hangs the typespec straight off the module_inst.  The name and the
+       owner are one decision.
+    4. 112 CMP LINES IS THE SUBTREE PRINTING, NOT 112 CELLS.  uhdm-cmp prints
+       the whole failing object twice per side; the head is ONE field.
+
+========================================================================
+RANKED RESIDUES this pass MEASURED and deliberately did not take
+========================================================================
+R1  THE SURPLUS BOUND REFS ON A PRE-REDUCTION PART-SELECT BOUND.  Described in
+    Part 1: two objects per instance in Earlgrey/testflags at 308:62, and the
+    same shape on arm rows g3 29/38/39/42/43:34/45:28/51/52/54:36, g4 37-40,
+    g5 22/36.  Ours keeps the `LfsrDw-1` operation with its refs after
+    `UhdmAdjuster` has already installed the reduced constant in the
+    `part_select`'s Left_range; golden does not carry the leftover.  TAIL-only
+    today (the slot payloads match), so CMP-invisible -- but it is a real
+    arena residue and it grows with this law's population.
+R2  A GEN-FOR BODY'S NESTED GEN-IF DOES NOT FOLD ITS PARENT'S LOCALPARAM.
+    g3 row 66 (`f2` reading `f1`'s `F1`): golden FOLDS (UINT:7), we keep the
+    ref, PRISTINE and PATCHED alike.  `genCaLhsParamFold` is switched OFF for
+    every block under a `LoopGenerate` (`blkInLoop2/3`), so the one-hop pool
+    never gets the chance there; `genCaLoopParamFold` covers only a TOP-LEVEL
+    loop body.  This is the LOOP half of this pass's law and it is a pure ADD.
+    0 corpus cells measured.
+R3  AN EVALUABLE SELECT ON A PACKED PARAMETER / A CONSTANT Rhs IS NOT REDUCED
+    TO A VALUE.  Golden's elaborated cont_assign can lose the whole select or
+    the whole Rhs to `writeCont_assign`'s final `reduceExpr` /
+    `UhdmAdjuster::leaveConstant`; we keep the tree.  Seen as
+    `no-golden-key-changed` on g4 row 36 (`LPVEC[W-KOFF]`, 8 cells),
+    r10earl59repro/v59w2_shapes59 rows 32/33 (6) and v59v2_earl59 row 69 (1).
+    Both binaries are equally unlike golden there; only the payload inside an
+    OURS-ONLY subtree changed.  Needs its own pass and its own census.
+R4  THE PRE-EXISTING PROBE / BOUNDARY SEGFAULTS.  The wide boundary's rc
+    histogram is SYMMETRIC side for side (rc=139 14/14, rc=3 342/342, rc=4
+    351/351).  Recorded by earl82 R6 / earl83 R6 / earl84 R6 / earl85 R5 /
+    earl89 R6 / earl90 R8 / earl91 R5 / earl93 R7 / earl94 R6; byteverify
+    proves none of them is a mover.
