@@ -1,0 +1,101 @@
+[r10buvm15repro/v1_homes15.sv/def] ONLY-GOLDEN=0  ONLY-OURS same=4  RIGHT->RIGHT=7  WRONG->RIGHT=2
+[r10buvm15repro/v1_homes15.sv/def] NAME-RIGHT=9
+[r10buvm15repro/v1_homes15.sv/elab] ONLY-GOLDEN=0  ONLY-OURS same=4  RIGHT->RIGHT=7  WRONG->RIGHT=2
+[r10buvm15repro/v1_homes15.sv/elab] NAME-RIGHT=9
+[r10buvm15repro/v6_more15.sv/def] ONLY-GOLDEN=0  ONLY-OURS same=3  RIGHT->RIGHT=6  WRONG->RIGHT=1
+[r10buvm15repro/v6_more15.sv/def] NAME-RIGHT=7
+[r10buvm15repro/v6_more15.sv/elab] ONLY-GOLDEN=0  ONLY-OURS same=3  RIGHT->RIGHT=6  WRONG->RIGHT=1
+[r10buvm15repro/v6_more15.sv/elab] NAME-RIGHT=7
+[r10oth7repro/c2_localname.sv/def] ONLY-GOLDEN=0  ONLY-OURS same=4  RIGHT->RIGHT=9  WRONG->RIGHT=1
+[r10oth7repro/c2_localname.sv/def] NAME-RIGHT=10
+[r10oth7repro/c2_localname.sv/elab] ONLY-GOLDEN=5  ONLY-OURS same=9  RIGHT->RIGHT=4  WRONG->RIGHT=1
+[r10oth7repro/c2_localname.sv/elab] NAME-RIGHT=5
+[r10svs4repro/v2_copy.sv/def] ONLY-GOLDEN=1  ONLY-OURS same=4  RIGHT->RIGHT=13  WRONG->RIGHT=1
+[r10svs4repro/v2_copy.sv/def] NAME-RIGHT=14
+[r10svs4repro/v2_copy.sv/elab] ONLY-GOLDEN=1  ONLY-OURS same=4  RIGHT->RIGHT=13  WRONG->RIGHT=1
+[r10svs4repro/v2_copy.sv/elab] NAME-RIGHT=14
+[r10uvm142repro/g142_a_prod.sv/def] ONLY-GOLDEN=2  ONLY-OURS same=5  RIGHT->RIGHT=52  WRONG->RIGHT=1
+[r10uvm142repro/g142_a_prod.sv/def] NAME-RIGHT=53
+[r10uvm142repro/g142_a_prod.sv/elab] ONLY-GOLDEN=18  ONLY-OURS same=21  RIGHT->RIGHT=36  WRONG->RIGHT=1
+[r10uvm142repro/g142_a_prod.sv/elab] NAME-RIGHT=37
+[r10uvm150repro/g150_b.sv/def] ONLY-GOLDEN=3  ONLY-OURS same=5  RIGHT->RIGHT=10  STILL-WRONG=1  WRONG->RIGHT=2
+[r10uvm150repro/g150_b.sv/def] NAME-RIGHT=13
+[r10uvm150repro/g150_b.sv/elab] ONLY-GOLDEN=5  ONLY-OURS same=6  RIGHT->RIGHT=8  STILL-WRONG=2  WRONG->RIGHT=2
+[r10uvm150repro/g150_b.sv/elab] NAME-RIGHT=12
+[r10uvm150repro/g150_c.sv/def] ONLY-GOLDEN=2  ONLY-OURS same=3  RIGHT->RIGHT=18  STILL-WRONG=2  WRONG->RIGHT=3
+[r10uvm150repro/g150_c.sv/def] NAME-RIGHT=23
+[r10uvm150repro/g150_c.sv/elab] ONLY-GOLDEN=5  ONLY-OURS same=5  RIGHT->RIGHT=15  STILL-WRONG=3  WRONG->RIGHT=3
+[r10uvm150repro/g150_c.sv/elab] NAME-RIGHT=21
+[r10uvm150repro/g150_d.sv/def] ONLY-GOLDEN=3  ONLY-OURS same=3  RIGHT->RIGHT=14  STILL-WRONG=3  WRONG->RIGHT=2
+[r10uvm150repro/g150_d.sv/def] NAME-RIGHT=19
+[r10uvm150repro/g150_d.sv/elab] ONLY-GOLDEN=7  ONLY-OURS same=6  RIGHT->RIGHT=10  STILL-WRONG=4  WRONG->RIGHT=2
+[r10uvm150repro/g150_d.sv/elab] NAME-RIGHT=16
+[r10uvm55repro/a1/dut.sv/def] ONLY-GOLDEN=4  ONLY-OURS same=12  RIGHT->RIGHT=16  WRONG->RIGHT=6
+[r10uvm55repro/a1/dut.sv/def] NAME-RIGHT=22
+[r10uvm55repro/a1/dut.sv/elab] ONLY-GOLDEN=7  ONLY-OURS same=15  RIGHT->RIGHT=14  WRONG->RIGHT=6
+[r10uvm55repro/a1/dut.sv/elab] NAME-RIGHT=20
+[r10uvm56repro/a1_witness.sv/def] ONLY-GOLDEN=0  ONLY-OURS same=4  RIGHT->RIGHT=8  WRONG->RIGHT=3
+[r10uvm56repro/a1_witness.sv/def] NAME-RIGHT=11
+[r10uvm56repro/a1_witness.sv/elab] ONLY-GOLDEN=0  ONLY-OURS same=4  RIGHT->RIGHT=8  WRONG->RIGHT=3
+[r10uvm56repro/a1_witness.sv/elab] NAME-RIGHT=11
+[r10uvm56repro/a2_local.sv/def] ONLY-GOLDEN=0  ONLY-OURS same=3  RIGHT->RIGHT=9  WRONG->RIGHT=3
+[r10uvm56repro/a2_local.sv/def] NAME-RIGHT=12
+[r10uvm56repro/a2_local.sv/elab] ONLY-GOLDEN=0  ONLY-OURS same=3  RIGHT->RIGHT=9  WRONG->RIGHT=3
+[r10uvm56repro/a2_local.sv/elab] NAME-RIGHT=12
+[r10uvm56repro/a5_argpos.sv/def] ONLY-GOLDEN=2  ONLY-OURS same=6  RIGHT->RIGHT=5  WRONG->RIGHT=2
+[r10uvm56repro/a5_argpos.sv/def] NAME-RIGHT=7
+[r10uvm56repro/a5_argpos.sv/elab] ONLY-GOLDEN=0  ONLY-OURS same=6  RIGHT->RIGHT=5  WRONG->RIGHT=2
+[r10uvm56repro/a5_argpos.sv/elab] NAME-RIGHT=7
+[r10uvm56repro/a6_type.sv/def] ONLY-GOLDEN=3  ONLY-OURS same=7  RIGHT->RIGHT=4  WRONG->RIGHT=2
+[r10uvm56repro/a6_type.sv/def] NAME-RIGHT=6
+[r10uvm56repro/a6_type.sv/elab] ONLY-GOLDEN=0  ONLY-OURS same=7  RIGHT->RIGHT=4  WRONG->RIGHT=2
+[r10uvm56repro/a6_type.sv/elab] NAME-RIGHT=6
+[r10uvm56repro/a8_newlhs.sv/def] ONLY-GOLDEN=1  ONLY-OURS same=5  RIGHT->RIGHT=7  WRONG->RIGHT=4
+[r10uvm56repro/a8_newlhs.sv/def] NAME-RIGHT=11
+[r10uvm56repro/a8_newlhs.sv/elab] ONLY-GOLDEN=1  ONLY-OURS same=6  RIGHT->RIGHT=6  WRONG->RIGHT=4
+[r10uvm56repro/a8_newlhs.sv/elab] NAME-RIGHT=10
+[r10uvm56repro/v3_hierpath.sv/def] ONLY-GOLDEN=2  ONLY-OURS moved=2  ONLY-OURS same=6  RIGHT->RIGHT=4
+[r10uvm56repro/v3_hierpath.sv/def] NAME-RIGHT=4
+[r10uvm56repro/v3_hierpath.sv/elab] ONLY-GOLDEN=2  ONLY-OURS moved=2  ONLY-OURS same=6  RIGHT->RIGHT=4
+[r10uvm56repro/v3_hierpath.sv/elab] NAME-RIGHT=4
+[r10uvm64repro/v1_prod.sv/def] ONLY-GOLDEN=0  ONLY-OURS same=3  RIGHT->RIGHT=14  WRONG->RIGHT=1
+[r10uvm64repro/v1_prod.sv/def] NAME-RIGHT=15
+[r10uvm64repro/v1_prod.sv/elab] ONLY-GOLDEN=0  ONLY-OURS same=3  RIGHT->RIGHT=14  WRONG->RIGHT=1
+[r10uvm64repro/v1_prod.sv/elab] NAME-RIGHT=15
+[r10uvm69repro/a2_scope.sv/def] ONLY-GOLDEN=2  ONLY-OURS same=9  RIGHT->RIGHT=8  STILL-WRONG=2  WRONG->RIGHT=1
+[r10uvm69repro/a2_scope.sv/def] NAME-RIGHT=11
+[r10uvm69repro/a2_scope.sv/elab] ONLY-GOLDEN=2  ONLY-OURS same=9  RIGHT->RIGHT=8  STILL-WRONG=2  WRONG->RIGHT=1
+[r10uvm69repro/a2_scope.sv/elab] NAME-RIGHT=11
+[r10uvm69repro/v1_gaps.sv/def] ONLY-GOLDEN=0  ONLY-OURS same=5  RIGHT->RIGHT=10  WRONG->RIGHT=1
+[r10uvm69repro/v1_gaps.sv/def] NAME-RIGHT=11
+[r10uvm69repro/v1_gaps.sv/elab] ONLY-GOLDEN=0  ONLY-OURS same=5  RIGHT->RIGHT=10  WRONG->RIGHT=1
+[r10uvm69repro/v1_gaps.sv/elab] NAME-RIGHT=11
+[r10v119repro/v119_b.sv/def] ONLY-GOLDEN=0  ONLY-OURS same=3  RIGHT->RIGHT=3  WRONG->RIGHT=1
+[r10v119repro/v119_b.sv/def] NAME-RIGHT=4
+[r10v119repro/v119_b.sv/elab] ONLY-GOLDEN=0  ONLY-OURS same=3  RIGHT->RIGHT=3  WRONG->RIGHT=1
+[r10v119repro/v119_b.sv/elab] NAME-RIGHT=4
+[r10v142repro/v142_c_inst.sv/def] ONLY-GOLDEN=16  ONLY-OURS same=19  RIGHT->RIGHT=15  WRONG->RIGHT=2
+[r10v142repro/v142_c_inst.sv/def] NAME-RIGHT=17
+[r10v142repro/v142_c_inst.sv/elab] ONLY-GOLDEN=12  ONLY-OURS same=17  RIGHT->RIGHT=17  WRONG->RIGHT=2
+[r10v142repro/v142_c_inst.sv/elab] NAME-RIGHT=19
+[r10v150repro/v150_a.sv/def] ONLY-GOLDEN=3  ONLY-OURS moved=1  ONLY-OURS same=4  RIGHT->RIGHT=4  WRONG->RIGHT=2
+[r10v150repro/v150_a.sv/def] NAME-RIGHT=6
+[r10v150repro/v150_a.sv/elab] ONLY-GOLDEN=3  ONLY-OURS moved=1  ONLY-OURS same=4  RIGHT->RIGHT=4  WRONG->RIGHT=2
+[r10v150repro/v150_a.sv/elab] NAME-RIGHT=6
+[r10v150repro/v150_b.sv/def] ONLY-GOLDEN=1  ONLY-OURS same=3  RIGHT->RIGHT=7  STILL-WRONG=1  WRONG->RIGHT=1
+[r10v150repro/v150_b.sv/def] NAME-RIGHT=9
+[r10v150repro/v150_b.sv/elab] ONLY-GOLDEN=4  ONLY-OURS same=4  RIGHT->RIGHT=4  STILL-WRONG=3  WRONG->RIGHT=1
+[r10v150repro/v150_b.sv/elab] NAME-RIGHT=8
+[r10v150repro/v150_d.sv/def] ONLY-GOLDEN=4  ONLY-OURS same=5  RIGHT->RIGHT=15  STILL-WRONG=2  WRONG->RIGHT=3
+[r10v150repro/v150_d.sv/def] NAME-RIGHT=20
+[r10v150repro/v150_d.sv/elab] ONLY-GOLDEN=6  ONLY-OURS same=7  RIGHT->RIGHT=13  STILL-WRONG=2  WRONG->RIGHT=3
+[r10v150repro/v150_d.sv/elab] NAME-RIGHT=18
+[r10v150repro/v150_f1.sv/def] ONLY-GOLDEN=2  ONLY-OURS moved=1  ONLY-OURS same=3  RIGHT->RIGHT=3  STILL-WRONG=1
+[r10v150repro/v150_f1.sv/def] NAME-RIGHT=4
+[r10v150repro/v150_f1.sv/elab] ONLY-GOLDEN=2  ONLY-OURS moved=1  ONLY-OURS same=3  RIGHT->RIGHT=3  STILL-WRONG=1
+[r10v150repro/v150_f1.sv/elab] NAME-RIGHT=4
+[r10vbuvm32repro/vb32h1.sv/def] ONLY-GOLDEN=3  ONLY-OURS moved=1  ONLY-OURS same=4  RIGHT->RIGHT=3
+[r10vbuvm32repro/vb32h1.sv/def] NAME-RIGHT=3
+[r10vbuvm32repro/vb32h1.sv/elab] ONLY-GOLDEN=3  ONLY-OURS moved=1  ONLY-OURS same=4  STILL-WRONG=3
+[r10vbuvm32repro/vb32h1.sv/elab] NAME-RIGHT=3
+RMDONE

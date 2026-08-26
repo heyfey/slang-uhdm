@@ -1,0 +1,163 @@
+LHS:
+decompile:
+begin: (uvm_pkg::uvm_reg_predictor::get_type_name), id:155854, line:118:26, endln:122:8
+|vpiParent:
+\_if_stmt: , id:155853, line:118:5, endln:122:8
+|vpiFullName:uvm_pkg::uvm_reg_predictor::get_type_name
+|vpiVariables:
+\_ref_var: (uvm_pkg::uvm_reg_predictor::get_type_name::t), id:155855, line:119:15, endln:119:16
+  |vpiParent:
+  \_begin: (uvm_pkg::uvm_reg_predictor::get_type_name), id:155854, line:118:26, endln:122:8
+  |vpiTypespec:
+  \_ref_typespec: (uvm_pkg::uvm_reg_predictor::get_type_name::t), id:155856
+    |vpiParent:
+    \_ref_var: (uvm_pkg::uvm_reg_predictor::get_type_name::t), id:155855, line:119:15, endln:119:16
+    |vpiFullName:uvm_pkg::uvm_reg_predictor::get_type_name::t
+    |vpiActual:
+    \_int_typespec: , id:155803, line:142:31, endln:142:38
+  |vpiName:t
+  |vpiFullName:uvm_pkg::uvm_reg_predictor::get_type_name::t
+|vpiStmt:
+\_assignment: , id:155858, line:120:7, endln:120:40
+  |vpiParent:
+  \_begin: (uvm_pkg::uvm_reg_predictor::get_type_name), id:155854, line:118:26, endln:122:8
+  |vpiOpType:82
+  |vpiBlocking:1
+  |vpiRhs:
+  \_ref_obj: (uvm_pkg::uvm_reg_predictor::get_type_name::BUSTYPE::create), id:155860, line:120:11, endln:120:29
+    |vpiParent:
+    \_assignment: , id:155858, line:120:7, endln:120:40
+    |vpiName:BUSTYPE::create
+    |vpiFullName:uvm_pkg::uvm_reg_predictor::get_type_name::BUSTYPE::create
+  |vpiLhs:
+  \_ref_obj: (uvm_pkg::uvm_reg_predictor::get_type_name::t), id:155859, line:120:7, endln:120:8
+    |vpiParent:
+    \_assignment: , id:155858, line:120:7, endln:120:40
+    |vpiName:t
+    |vpiFullName:uvm_pkg::uvm_reg_predictor::get_type_name::t
+|vpiStmt:
+\_assignment: , id:155861, line:121:7, endln:121:67
+  |vpiParent:
+  \_begin: (uvm_pkg::uvm_reg_predictor::get_type_name), id:155854, line:118:26, endln:122:8
+  |vpiOpType:82
+  |vpiBlocking:1
+  |vpiRhs:
+  \_operation: , id:155863, line:121:19, endln:121:67
+    |vpiParent:
+    \_assignment: , id:155861, line:121:7, endln:121:67
+    |vpiOpType:33
+    |vpiOperand:
+    \_constant: , id:155864, line:121:20, endln:121:42
+      |vpiDecompile:"uvm_reg_predictor #("
+      |vpiSize:160
+      |STRING:uvm_reg_predictor #(
+      |vpiConstType:6
+    |vpiOperand:
+    \_hier_path: (t.get_type_name), id:155865, line:121:44, endln:121:61
+      |vpiParent:
+      \_operation: , id:155863, line:121:19, endln:121:67
+      |vpiActual:
+      \_ref_obj: (t), id:155866, line:121:44, endln:121:45
+        |vpiParent:
+        \_hier_path: (t.get_type_name), id:155865, line:121:44, endln:121:61
+        |vpiName:t
+      |vpiActual:
+      \_method_func_call: (get_type_name), id:155867, line:121:46, endln:121:59
+        |vpiParent:
+        \_hier_path: (t.get_type_name), id:155865, line:121:44, endln:121:61
+        |vpiName:get_type_name
+      |vpiName:t.get_type_name
+    |vpiOperand:
+    \_constant: , id:155868, line:121:63, endln:121:66
+      |vpiDecompile:")"
+      |vpiSize:8
+      |STRING:)
+      |vpiConstType:6
+  |vpiLhs:
+  \_ref_obj: (uvm_pkg::uvm_reg_predictor::get_type_name::type_name), id:155862, line:121:7, endln:121:16
+    |vpiParent:
+    \_assignment: , id:155861, line:121:7, endln:121:67
+    |vpiName:type_name
+    |vpiFullName:uvm_pkg::uvm_reg_predictor::get_type_name::type_name
+
+decompile:
+begin: (uvm_pkg::uvm_reg_predictor::get_type_name), id:155854, line:118:26, endln:122:8
+|vpiParent:
+\_if_stmt: , id:155853, line:118:5, endln:122:8
+|vpiFullName:uvm_pkg::uvm_reg_predictor::get_type_name
+|vpiVariables:
+\_ref_var: (uvm_pkg::uvm_reg_predictor::get_type_name::t), id:155855, line:119:15, endln:119:16
+  |vpiParent:
+  \_begin: (uvm_pkg::uvm_reg_predictor::get_type_name), id:155854, line:118:26, endln:122:8
+  |vpiTypespec:
+  \_ref_typespec: (uvm_pkg::uvm_reg_predictor::get_type_name::t), id:155856
+    |vpiParent:
+    \_ref_var: (uvm_pkg::uvm_reg_predictor::get_type_name::t), id:155855, line:119:15, endln:119:16
+    |vpiFullName:uvm_pkg::uvm_reg_predictor::get_type_name::t
+    |vpiActual:
+    \_int_typespec: , id:155803, line:142:31, endln:142:38
+  |vpiName:t
+  |vpiFullName:uvm_pkg::uvm_reg_predictor::get_type_name::t
+|vpiStmt:
+\_assignment: , id:155858, line:120:7, endln:120:40
+  |vpiParent:
+  \_begin: (uvm_pkg::uvm_reg_predictor::get_type_name), id:155854, line:118:26, endln:122:8
+  |vpiOpType:82
+  |vpiBlocking:1
+  |vpiRhs:
+  \_ref_obj: (uvm_pkg::uvm_reg_predictor::get_type_name::BUSTYPE::create), id:155860, line:120:11, endln:120:29
+    |vpiParent:
+    \_assignment: , id:155858, line:120:7, endln:120:40
+    |vpiName:BUSTYPE::create
+    |vpiFullName:uvm_pkg::uvm_reg_predictor::get_type_name::BUSTYPE::create
+  |vpiLhs:
+  \_ref_obj: (uvm_pkg::uvm_reg_predictor::get_type_name::t), id:155859, line:120:7, endln:120:8
+    |vpiParent:
+    \_assignment: , id:155858, line:120:7, endln:120:40
+    |vpiName:t
+    |vpiFullName:uvm_pkg::uvm_reg_predictor::get_type_name::t
+|vpiStmt:
+\_assignment: , id:155861, line:121:7, endln:121:67
+  |vpiParent:
+  \_begin: (uvm_pkg::uvm_reg_predictor::get_type_name), id:155854, line:118:26, endln:122:8
+  |vpiOpType:82
+  |vpiBlocking:1
+  |vpiRhs:
+  \_operation: , id:155863, line:121:19, endln:121:67
+    |vpiParent:
+    \_assignment: , id:155861, line:121:7, endln:121:67
+    |vpiOpType:33
+    |vpiOperand:
+    \_constant: , id:155864, line:121:20, endln:121:42
+      |vpiDecompile:"uvm_reg_predictor #("
+      |vpiSize:160
+      |STRING:uvm_reg_predictor #(
+      |vpiConstType:6
+    |vpiOperand:
+    \_hier_path: (t.get_type_name), id:155865, line:121:44, endln:121:61
+      |vpiParent:
+      \_operation: , id:155863, line:121:19, endln:121:67
+      |vpiActual:
+      \_ref_obj: (t), id:155866, line:121:44, endln:121:45
+        |vpiParent:
+        \_hier_path: (t.get_type_name), id:155865, line:121:44, endln:121:61
+        |vpiName:t
+      |vpiActual:
+      \_method_func_call: (get_type_name), id:155867, line:121:46, endln:121:59
+        |vpiParent:
+        \_hier_path: (t.get_type_name), id:155865, line:121:44, endln:121:61
+        |vpiName:get_type_name
+      |vpiName:t.get_type_name
+    |vpiOperand:
+    \_constant: , id:155868, line:121:63, endln:121:66
+      |vpiDecompile:")"
+      |vpiSize:8
+      |STRING:)
+      |vpiConstType:6
+  |vpiLhs:
+  \_ref_obj: (uvm_pkg::uvm_reg_predictor::get_type_name::type_name), id:155862, line:121:7, endln:121:16
+    |vpiParent:
+    \_assignment: , id:155861, line:121:7, endln:121:67
+    |vpiName:type_name
+    |vpiFullName:uvm_pkg::uvm_reg_predictor::get_type_name::type_name
+RHS: <null>

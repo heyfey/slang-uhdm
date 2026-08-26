@@ -1,0 +1,50 @@
+r10uvm156 — CENSUS.  Every class_typespec of the nine UVM row-mode databases,
+keyed by (line:col span, owner ROLE, holder kind, class_defn, parent chain);
+the FILE is out of the key (ours leaves a class_typespec's VpiFile empty and
+typespec::Compare never reads it) and so is the DEF/ELAB view.  Payload is the
+COMPARE-VISIBLE pair (VpiName, vpiInstance).  LHS IS ALWAYS GOLDEN.
+
+PART 0 — golden's own answer, by owner ROLE (SeqDriver/default, 9748 cells):
+  formal  900 NAMED     prop    740 NAMED     pkgvar  92 NAMED
+  return  855 anonymous / 106 NAMED           tflocal 2327 NAMED / 402 anon
+  other  3857 anonymous /  469 NAMED
+
+PART 1 — THE PREDICATE SCORED ON GOLDEN ITSELF (all nine row-modes).
+  in-scope class-handle RETURN typespecs      5305
+  predicate agrees with golden                5305      MISS 0
+  fenced out: constructors 2875, builtin.sv 9, alias-named 748
+
+PART 2 — the law's population, ours vs golden, PRISTINE -> PATCHED
+  (return-role cells that PAIR with a golden cell):
+[SeqDriver.default] ONLY-OURS moved=0  RIGHT->RIGHT=645  STILL-WRONG=104  WRONG->RIGHT=7
+[SeqDriver.testflags] ONLY-OURS moved=0  RIGHT->RIGHT=645  STILL-WRONG=104  WRONG->RIGHT=7
+[MiniAmiq.default] ONLY-OURS moved=0  RIGHT->RIGHT=660  STILL-WRONG=104  WRONG->RIGHT=21
+[MiniAmiq.testflags] ONLY-OURS moved=0  RIGHT->RIGHT=660  STILL-WRONG=104  WRONG->RIGHT=21
+[Scoreboard.default] ONLY-OURS moved=0  RIGHT->RIGHT=649  STILL-WRONG=104  WRONG->RIGHT=1
+[SimpleUVM.default] ONLY-OURS moved=0  RIGHT->RIGHT=641  STILL-WRONG=104
+[SimpleUVM.testflags] ONLY-OURS moved=0  RIGHT->RIGHT=641  STILL-WRONG=104
+[BuildUVMPkg.default] ONLY-OURS moved=0  RIGHT->RIGHT=724  STILL-WRONG=116
+[BuildUVMPkg.testflags] ONLY-OURS moved=0  RIGHT->RIGHT=724  STILL-WRONG=116
+
+  WRONG->RIGHT total = 7 + 7 + 21 + 21 + 1 = 57 cells in 5 databases.
+  RIGHT->WRONG = 0 in every row-mode.
+  The STILL-WRONG cells differ ONLY in multiset COUNT (both sides read
+  name='-' and inst='-'): our duplicate out-of-body prototype/definition
+  copies, a pre-existing residue this pass does not touch (R2).
+
+PART 3 — THE AWAY COLUMN, scored explicitly on every class_typespec cell
+  of every UVM row-mode (not just the return role):
+[SeqDriver.default] AWAY(spelling)=1  NAME-RIGHT=5820
+[SeqDriver.testflags] AWAY(spelling)=1  NAME-RIGHT=5820
+[MiniAmiq.default] AWAY(spelling)=1  NAME-RIGHT=6094
+[MiniAmiq.testflags] AWAY(spelling)=1  NAME-RIGHT=6094
+[Scoreboard.default] AWAY(spelling)=1  NAME-RIGHT=4653
+[SimpleUVM.default] AWAY(spelling)=1  NAME-RIGHT=4659
+[SimpleUVM.testflags] AWAY(spelling)=1  NAME-RIGHT=4659
+[BuildUVMPkg.default] AWAY(spelling)=1  NAME-RIGHT=4762
+[BuildUVMPkg.testflags] AWAY(spelling)=1  NAME-RIGHT=4762
+
+  The ONE AWAY(spelling) cell per row is IDENTICAL in pristine and patched
+  (uvm_derived_callbacks's this_super_type/this_user_type class PROPERTY at
+  34:9) — a pre-existing residue, not a cell this pass moved.  AWAY
+  INTRODUCED BY THIS PASS = 0, MOVED-WRONG = 0.

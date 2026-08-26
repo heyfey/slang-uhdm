@@ -1,0 +1,94 @@
+r10uvm156 — ARM GRID.  Four arms, both views, scored cell by cell against
+GOLDEN with score156.py (RIGHT/WRONG) and away156.py (the AWAY column).
+PRIS=pristine edf82ef build, PATCHED=this pass.  LHS IS ALWAYS GOLDEN.
+
+ARMS
+  g156_a_mech.sv   the MECHANISM: HOME of the returned class x HOME of the
+                   declaring scope — $unit / package / package free fn /
+                   out-of-body / module / module free fn / program /
+                   program free fn / interface / interface free fn, each
+                   returning a far-package class, a same-home class, a
+                   $unit class, ITSELF, a nested class and a scoped pkg::cls
+  g156_b_forms.sv  the DECLARATION FORMS: property / fixed array / queue /
+                   dynamic array / RETURN / formal / body local / typedef of
+                   a class / parameterized specialization / scoped pkg::cls /
+                   nested class / cast target, each against a same-package
+                   class and a far-package class, in a package AND a module
+  g156_c_multi.sv  the 1-3 INSTANCE axis (one leaf module instantiated once,
+                   twice and three times) and the DEF/ELAB axis
+  g156_d_shapes.sv the RETURN SHAPES: static / virtual / pure-virtual /
+                   protected / local / extern (prototype AND out-of-body
+                   body) / automatic / the BASE class / a self typedef /
+                   a #(...) specialization
+
+SCORE (score156.py: every class_typespec cell of the arm, both views)
+[a_mech/def]   (moved, still wrong)=1  ONLY-GOLDEN=6  ONLY-OURS moved=5  ONLY-OURS same=8  RIGHT->RIGHT=10  STILL-WRONG=2  WRONG->RIGHT=16
+[a_mech/elab]   (moved, still wrong)=1  ONLY-GOLDEN=6  ONLY-OURS moved=5  ONLY-OURS same=8  RIGHT->RIGHT=9  STILL-WRONG=3  WRONG->RIGHT=16
+[b_forms/def] ONLY-GOLDEN=10  ONLY-OURS moved=2  ONLY-OURS same=12  RIGHT->RIGHT=23  WRONG->RIGHT=6
+[b_forms/elab] ONLY-GOLDEN=12  ONLY-OURS moved=2  ONLY-OURS same=14  RIGHT->RIGHT=21  STILL-WRONG=1  WRONG->RIGHT=6
+[c_multi/def] ONLY-GOLDEN=2  ONLY-OURS same=5  RIGHT->RIGHT=4  WRONG->RIGHT=2
+[c_multi/elab] ONLY-GOLDEN=2  ONLY-OURS same=5  RIGHT->RIGHT=4  WRONG->RIGHT=2
+[d_shapes/def]   (moved, still wrong)=1  ONLY-GOLDEN=4  ONLY-OURS moved=1  ONLY-OURS same=5  RIGHT->RIGHT=10  STILL-WRONG=2  WRONG->RIGHT=7
+[d_shapes/elab]   (moved, still wrong)=1  ONLY-GOLDEN=4  ONLY-OURS moved=1  ONLY-OURS same=4  RIGHT->RIGHT=10  STILL-WRONG=3  WRONG->RIGHT=7
+
+AWAY COLUMN (away156.py: the NAME of every cell that pairs with golden)
+[a_mech/def] NAME-RIGHT=28
+[a_mech/elab] NAME-RIGHT=28
+[b_forms/def] NAME-RIGHT=29
+[b_forms/elab] NAME-RIGHT=28
+[c_multi/def] NAME-RIGHT=6
+[c_multi/elab] NAME-RIGHT=6
+[d_shapes/def] NAME-RIGHT=19
+[d_shapes/elab] NAME-RIGHT=20
+
+  RIGHT->WRONG = 0 and AWAY = 0 in all eight arm-views; 62 WRONG->RIGHT.
+  Every paired cell's NAME is RIGHT after the pass.
+
+THE TWO 'MOVED, STILL WRONG' CELLS (a_mech r_oob_far @45:12, d_shapes
+e_far @40:12) are the out-of-body method whose class listing holds TWO of
+our copies where golden holds one.  Pristine: both anonymous, both wrong.
+Patched: both carry golden's name and ONE of them also carries golden's
+vpiInstance (the home package) — i.e. both moved TOWARD golden and the
+residue that remains is the pre-existing MULTIPLICITY, not a name.
+
+GOLDEN'S OWN ANSWER on g156_a_mech (def view; elab identical) — the table
+the law was read off, line by line:
+  line  site                                            returned class     golden
+   20   $unit class method     r_far                    far package        wrapA156
+   22   $unit class method     r_unit                   $unit              unitCls156
+   23   $unit class method     r_self                   ITSELF ($unit)     unitHome156
+   31   package class method   r_sib                    SAME package       (anonymous)
+   32   package class method   r_far                    far package        wrapA156
+   34   package class method   r_self                   ITSELF (same pkg)  (anonymous)
+   35   package class EXTERN   r_oob_sib prototype      SAME package       (anonymous)
+   36   package class EXTERN   r_oob_far prototype      far package        wrapA156
+   41   package FREE function  pf_sib                   SAME package       (anonymous)
+   42   package FREE function  pf_far                   far package        wrapA156 + vpiInstance ph156
+   44   OUT-OF-BODY body       pkgHome156::r_oob_sib    SAME package       (anonymous)
+   45   OUT-OF-BODY body       pkgHome156::r_oob_far    far package        wrapA156 + vpiInstance ph156
+   50   package FREE function  obf   (imported class)   far package        sib156 + vpiInstance phb156
+   51   package FREE function  obfs  (WRITTEN ph156::)  far package        ph156::sib156 + vpiInstance phb156
+   60   module class method    r_mod                    SAME module        (anonymous)
+   61   module class method    r_far                    far package        wrapA156
+   62   module class method    r_unit                   $unit              unitCls156
+   63   module class method    r_pkg                    far package        sib156
+   65   module FREE function   mf_mod                   SAME module        (anonymous)
+   66   module FREE function   mf_far                   far package        wrapA156
+   67   module FREE function   mf_unit                  $unit              unitCls156
+   79   program class method   r_prg                    SAME program       (anonymous)
+   80   program class method   r_far                    far package        wrapA156
+   83   program FREE function  gf_far                   far package        wrapA156
+   92   interface class method r_if                     SAME INTERFACE     ifCls156   <- NAMED
+   93   interface class method r_far                    far package        wrapA156
+   96   interface FREE fn      iff_far                  far package        wrapA156
+
+The interface row is the one a same-home reading gets wrong: Surelog's own
+compile log registers an interface's class as `work@ifCls156` with NO
+interface qualifier, exactly like a $unit class, so arm B's three lookup
+forms cannot reach it and the name survives.
+
+WHAT GOLDEN EMITS INSTEAD OF A class_typespec (fenced, NOT this law's):
+  a return written `pkg::C` INSIDE A CLASS  (a_mech 21 / 33)  -> unsupported_typespec
+  a return of a NESTED class               (a_mech 39 / 43)  -> unsupported_typespec
+  Both are the owner-KIND family; the judge fails on UhdmType before it
+  reads a name, so naming those objects is neither TO-GOLDEN nor AWAY.

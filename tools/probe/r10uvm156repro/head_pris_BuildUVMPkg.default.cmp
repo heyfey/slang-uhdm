@@ -1,0 +1,56 @@
+LHS:
+decompile:
+ref_var: (uvm_pkg::uvm_agent::build_phase::__tmp_int_val__), id:120903, line:51340:36, endln:51340:51
+|vpiParent:
+\_begin: (uvm_pkg::uvm_agent::build_phase), id:120887, line:51337:29, endln:51431:6
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_agent::build_phase::__tmp_int_val__), id:120904
+  |vpiParent:
+  \_ref_var: (uvm_pkg::uvm_agent::build_phase::__tmp_int_val__), id:120903, line:51340:36, endln:51340:51
+  |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_int_val__
+  |vpiActual:
+  \_unsupported_typespec: (__tmp_int_t__), id:120902, line:51340:6, endln:51340:19
+|vpiName:__tmp_int_val__
+|vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_int_val__
+
+decompile:
+ref_var: (uvm_pkg::uvm_agent::build_phase::__tmp_int_val__), id:120903, line:51340:36, endln:51340:51
+|vpiParent:
+\_begin: (uvm_pkg::uvm_agent::build_phase), id:120887, line:51337:29, endln:51431:6
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_agent::build_phase::__tmp_int_val__), id:120904
+  |vpiParent:
+  \_ref_var: (uvm_pkg::uvm_agent::build_phase::__tmp_int_val__), id:120903, line:51340:36, endln:51340:51
+  |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_int_val__
+  |vpiActual:
+  \_unsupported_typespec: (__tmp_int_t__), id:120902, line:51340:6, endln:51340:19
+|vpiName:__tmp_int_val__
+|vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_int_val__
+RHS:
+decompile:
+bit_var: (uvm_pkg::uvm_agent::build_phase::__tmp_int_val__), id:6071, line:51340:36, endln:51340:51
+|vpiParent:
+\_begin: (uvm_pkg::uvm_agent::build_phase), id:6069, line:51337:29, endln:51431:6
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_agent::build_phase::__tmp_int_val__), id:6072
+  |vpiParent:
+  \_bit_var: (uvm_pkg::uvm_agent::build_phase::__tmp_int_val__), id:6071, line:51340:36, endln:51340:51
+  |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_int_val__
+  |vpiActual:
+  \_bit_typespec: , id:6070, line:51340:6, endln:51340:19
+|vpiName:__tmp_int_val__
+|vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_int_val__
+
+decompile:
+bit_var: (uvm_pkg::uvm_agent::build_phase::__tmp_int_val__), id:6071, line:51340:36, endln:51340:51
+|vpiParent:
+\_begin: (uvm_pkg::uvm_agent::build_phase), id:6069, line:51337:29, endln:51431:6
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_agent::build_phase::__tmp_int_val__), id:6072
+  |vpiParent:
+  \_bit_var: (uvm_pkg::uvm_agent::build_phase::__tmp_int_val__), id:6071, line:51340:36, endln:51340:51
+  |vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_int_val__
+  |vpiActual:
+  \_bit_typespec: , id:6070, line:51340:6, endln:51340:19
+|vpiName:__tmp_int_val__
+|vpiFullName:uvm_pkg::uvm_agent::build_phase::__tmp_int_val__

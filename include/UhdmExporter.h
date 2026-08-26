@@ -5755,6 +5755,94 @@ private:
                                 const slang::syntax::SyntaxNode* dsyn,
                                 const slang::ast::Type& resolved);
 
+    // ------------------------------------------------------------------
+    // § classHandleRetTsNameUnlessSameHomeComponent156  (r10uvm156)
+    //
+    // > A function's CLASS-HANDLE RETURN typespec carries the type name AS
+    // > WRITTEN at the return-type token, EXCEPT when Surelog's
+    // > `design->getClassDefinition` fallback resolves the class first — which
+    // > it does exactly when the returned class's HOME DESIGN COMPONENT is the
+    // > home of the declaring scope — in which case the object is minted fresh
+    // > and stays ANONYMOUS.
+    //
+    // Surelog, read line by line
+    // (`~/git-repos/Surelog/src/DesignCompile/CompileType.cpp`):
+    // `compileVariable` builds a function's return variable
+    // (`CompileStmt.cpp:2400-2408`, `compileVariable(component, fC,
+    // Return_data_type, …)`).  It first computes `ts = compileTypespec(...)`
+    // (`:317-329`), whose own `slStringConst` class arm mints a class_typespec
+    // and WRITES THE NAME (`:1913-1917`, `tps->VpiName(typeName)`).  Then, in
+    // the `slStringConst` switch case, three arms compete for the result:
+    //   A `component->getDataType(typeName)` -> `getSimpleVarFromTypespec`
+    //     keeps `ts`, i.e. the NAMED object (`:337-357`) — this is the TYPEDEF
+    //     face, and it is FENCED OUT of this law;
+    //   B `design->getClassDefinition(typeName)`, then
+    //     `<component>::<typeName>`, then `<component's parent scope>::
+    //     <typeName>` — ON A HIT it mints a FRESH `class_typespec` with
+    //     `Class_defn` and NO `VpiName` at all (`:361-386`) and throws `ts`
+    //     away.  **This is the anonymous object.**
+    //   C otherwise, when `ts` is a class_typespec, it wraps `ts` — the NAMED
+    //     object (`:387-399`).
+    // So the question is only ever "does arm B's three-form lookup hit".
+    // `Design::addClassDefinition` (`src/Design/Design.cpp:519`) keys the
+    // registry by the class's QUALIFIED name, and Surelog's own compile log
+    // spells those keys: `ph156::sib156` for a package class,
+    // `work@mod156::modCls156` for a module class, `work@prg156::prgCls156`
+    // for a program class — but `work@ifCls156` for an INTERFACE class and
+    // `work@unitCls156` for a $unit class, with NO enclosing qualifier.  The
+    // three lookup forms can therefore only hit when the returned class and
+    // the declaring scope share a PACKAGE, MODULE or PROGRAM; an interface
+    // class and a $unit class are unreachable through them and stay NAMED.
+    //
+    // Golden, measured (`g156_a_mech.sv`, both views, every cell):
+    //   $unit class method    -> far-package class      NAMED
+    //                         -> $unit class            NAMED
+    //                         -> ITSELF                 NAMED
+    //   package class method  -> SAME-package class     anonymous
+    //                         -> ITSELF                 anonymous
+    //                         -> far-package class      NAMED
+    //   package class `extern` prototype   -> same rule, both directions
+    //   package FREE function -> same-package class     anonymous
+    //                         -> far-package class      NAMED (+ vpiInstance
+    //                                                    = the home package)
+    //   OUT-OF-BODY body      -> same rule as the package free function
+    //   module class method / module FREE function
+    //                         -> same-module class      anonymous
+    //                         -> far-package / $unit    NAMED
+    //   program class method / program FREE function    ditto
+    //   INTERFACE class method / interface FREE function
+    //                         -> SAME-INTERFACE class   **NAMED** (the
+    //                            registry carries no interface qualifier)
+    //
+    // THREE FENCES, each a refusal to move a population this pass did not
+    // measure — every one of them is a MEASURED carve-out, not a guess:
+    //   * a CONSTRUCTOR.  Its return typespec is built at the
+    //     `classScope && sub.name == "new"` site, never here; the predicate
+    //     asserts the fence so a future re-order cannot silently widen the law.
+    //     Golden's implicit-`new` return objects are a separate, still-wrong
+    //     population (r10uvm156 README R1).
+    //   * a class Surelog registers under its BARE name — i.e. builtin.sv's
+    //     `mailbox` / `process` / `semaphore`.  `Builtin::addBuiltinClasses`
+    //     (`src/DesignCompile/Builtin.cpp:385-392`) names the ClassDefinition
+    //     `work@process` but registers it in the DESIGN table as `process`,
+    //     so arm B's FIRST form hits for it from anywhere and golden leaves
+    //     `static function process self();` ANONYMOUS.  NECESSARY: without it
+    //     the law names 9 corpus cells (one per UVM row-mode) golden leaves
+    //     bare — measured, not reasoned.
+    //   * a return written through a TYPEDEF (`static function type_id
+    //     get_type();`).  That is Surelog's arm A, a different object with a
+    //     different (context-dependent) spelling, and it does not reach this
+    //     mint at all — the fence only records the boundary.
+    //
+    // Scored on golden itself: over the nine UVM row-mode databases the
+    // predicate reproduces golden's own naming on 5305 of 5305 in-scope
+    // class-handle return typespecs (2875 constructor cells, 9 builtin.sv
+    // cells and 748 alias-named cells fenced out, 0 MISS).
+    /// The name a class-handle RETURN typespec wears, or empty for the
+    /// anonymous mint.  `rct` is the CANONICAL return type (a ClassType).
+    std::string classHandleRetTsName156(const slang::ast::SubroutineSymbol& sub,
+                                        const slang::ast::Type& rct);
+
     // § classTpTdGroupNonClsRootShared91 — the SAME class-scope type-parameter
     // typespec group, for the resolved kinds § 87 deliberately left alone
     // (its residue R1: `int` / `bit` / `logic` / a packed vector / `string` /

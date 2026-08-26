@@ -173,7 +173,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-08-26 02:00, HEAD = the uvm155 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-08-26 02:20, HEAD = the uvm156 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 471/481 comparable
 equal (10 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -182,7 +182,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 
 | row-mode(s) | head (official cmp lines = head-object DEPTH, not distance) | family / next law |
 |---|---|---|
-| SeqDriver×2 (uvm-1.2 tree) | 22 (depth) | a CLASS_TYPESPEC's NAME: a class_typespec at 444:21–444:39 (no file field on the object — find it by span; the 18-column spelling is uvm_object_wrapper) — golden carries vpiName uvm_object_wrapper plus vpiClassDefn → uvm_pkg::uvm_object_wrapper; ours the same class_typespec with vpiClassDefn only and NO vpiName — the nameless class_typespec family of uvm139's R0 (the class_typespec uvm_cmdline_processor at uvm_component.svh:3383, golden with vpiName and vpiInstance) — queued (uvm156) (uvm153 landed: 60→22 — the § 75 hoist net that paired against golden's package class_var is un-minted, so the row lands on a new object) |
+| SeqDriver×2 (uvm-1.2 tree) | 17 (depth) | a CONSTANT's TYPESPEC EDGE: golden's ref_typespec (adpcm_pkg::adpcm_tx_seq) whose parent is a constant at 162:24–162:34 (no file field — SeqDriver's own adpcm package, find it by span) and whose actual is an int_typespec at 217:1–217:38; ours <null> — the SINGULAR SafeCompare: an edge (the constant's vpiTypespec) golden carries and we do not; decode the constant (a folded parameter? a $bits or a cast? why a class-named ref_typespec over an int actual) with the owner-finder first — queued (uvm159) (uvm156 landed: 22→17, § classHandleRetTsNameUnlessSameHomeComponent156 — a class-handle return typespec is named, with vpiInstance where the declaring scope is a package free function or an out-of-body body, unless the class and the declaring scope share a package, module or program; fences: constructors, builtin.sv classes, typedef'd returns; verifier ACCEPT as shipped) |
 | MiniAmiq×2 | 106 (depth) | a SCOPED-TYPEDEF REFERENCE's object kind: a MiniAmiq source at :168:15 (`uvm_severity`, no file field on the object) — golden an unsupported_typespec named uvm_severity with vpiInstance → package uvm_pkg (the vpiInstance family of § scopedTdUnsupTsHomePkgInstance83 / § pkgVarBindsOnlyThroughInstance88); ours the RESOLVED enum_typespec uvm_pkg::uvm_severity at uvm_pkg.sv:242:1 with its bit base typespec and enum consts — a different UhdmType, the type test fails first — queued (uvm157) (uvm151 landed: 36→106, a new object) |
 | SimpleUVM×2 | 163 (depth) | the SAME object as the Scoreboard/default row — golden's begin of uvm_reg_predictor::get_type_name (uvm_reg_predictor.svh:118:26, parent the if_stmt at 118:5) whose vpiVariables carries the ref_var t typed by the type parameter BUSTYPE; ours <null> at that vector position — NOT reached by uvm155 (measured: its law names statement-scope typedefs only; this cell is a type-parameter-typed local on the begin's Variables vector) — queued (uvm158) (uvm154 landed: 36→163, § enumWrittenNegDecLit154 — an enum constant written as a negated decimal literal is valued from the expression alone, the base never participates, INT -N at size 64 in both views; the verifier's re-cut: a $unit-scope enum's written -0 or leading-zero negation folds like a top package's single listing; verifier ACCEPT WITH FIX, re-cut 96) |
 | Scoreboard/default | 163 (depth) | a BEGIN BLOCK with a class-typed local in a parameterized class's function: uvm_reg_predictor.svh:118:26 — golden a begin named uvm_pkg::uvm_reg_predictor::get_type_name (118:26–122:8, parent the if_stmt at 118:5) whose vpiVariables carries a ref_var t (119:15, typed by a ref_typespec — the local's type is the enclosing parameterized class itself); ours <null> — a VECTOR SafeCompare on a size or position mismatch (decode the container first: the if_stmt's statement, the function's body statements, or the begin's Variables under § 145's LOWN dual-listing) — queued (uvm158, with the SimpleUVM row — the same object; not reached by uvm155) (uvm151 landed: 36→163, a new object; this row-mode carries a dump-order coin — attribute order-blind) |
@@ -194,7 +194,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 97 verifier fix-before-landing re-cuts (217 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 97 verifier fix-before-landing re-cuts (218 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

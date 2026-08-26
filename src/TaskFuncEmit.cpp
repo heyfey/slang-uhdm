@@ -18,6 +18,103 @@
 
 namespace slang_uhdm {
 
+// § classHandleRetTsNameUnlessSameHomeComponent156 — the HOME DESIGN COMPONENT
+// of a scope, keyed the way Surelog's class REGISTRY keys it
+// (`Design::addClassDefinition`, and the `Compile class "…"` lines of its own
+// log): a PACKAGE, a MODULE or a PROGRAM is a home; an INTERFACE and $unit are
+// NOT — their classes are registered with no enclosing qualifier at all
+// (`work@ifCls156`, `work@unitCls156`), so arm B's three lookup forms can never
+// reach them.  The walk goes THROUGH class / subroutine / block scopes, which
+// is what makes an out-of-body method answer with its home package.
+static const slang::ast::Symbol* homeComp156(const slang::ast::Scope* sc) {
+    for (int i = 0; i < 64 && sc; ++i) {
+        auto& sym = sc->asSymbol();
+        if (sym.kind == SymbolKind::Package)
+            return &sym;
+        if (sym.kind == SymbolKind::InstanceBody) {
+            auto& def = sym.as<InstanceBodySymbol>().getDefinition();
+            if (def.definitionKind == slang::ast::DefinitionKind::Interface)
+                return nullptr;
+            return &def;
+        }
+        if (sym.kind == SymbolKind::CompilationUnit)
+            return nullptr;
+        sc = sym.getParentScope();
+    }
+    return nullptr;
+}
+
+// The type name AS WRITTEN at the return-type token, which is Surelog's
+// `typeName` (`compileTypespec`'s `fC->SymName(type)`, and for a `paClass_scope`
+// node the `"<scope>::<name>"` it concatenates at CompileType.cpp:1524-1531).
+// An UNMEASURED spelling returns empty, i.e. leaves the object anonymous —
+// the pristine behaviour.
+static std::string writtenTypeName156(const syntax::SyntaxNode* rsyn) {
+    auto ident = [](const syntax::NameSyntax* n) -> std::string {
+        if (auto* id = n->as_if<syntax::IdentifierNameSyntax>())
+            return std::string(id->identifier.valueText());
+        if (auto* cn = n->as_if<syntax::ClassNameSyntax>())
+            return std::string(cn->identifier.valueText());
+        return {};
+    };
+    auto* nt = rsyn ? rsyn->as_if<syntax::NamedTypeSyntax>() : nullptr;
+    if (!nt || !nt->name)
+        return {};
+    if (auto* sn = nt->name->as_if<syntax::ScopedNameSyntax>()) {
+        std::string l = ident(&*sn->left), r = ident(&*sn->right);
+        if (l.empty() || r.empty())
+            return {};
+        return l + "::" + r;
+    }
+    return ident(nt->name);
+}
+
+std::string UhdmExporter::classHandleRetTsName156(const SubroutineSymbol& sub,
+                                                  const Type& rct) {
+    // FENCE 1 — a CONSTRUCTOR.  Its return typespec is built at the
+    // `classScope && sub.name == "new"` site above and never reaches this
+    // mint; asserting the fence here keeps a future re-order from widening
+    // the law onto a population golden answers by a different rule.
+    if (sub.name == "new" ||
+        (sub.flags & MethodFlags::Constructor) != MethodFlags::None)
+        return {};
+    // FENCE 2 — a class Surelog registers under its BARE name, i.e. a
+    // builtin.sv class.  `Builtin::addBuiltinClasses`
+    // (`~/git-repos/Surelog/src/DesignCompile/Builtin.cpp:385-392`) builds the
+    // ClassDefinition as `work@process` but calls
+    // `design->addClassDefinition(name, def)` with the SHORT name, so arm B's
+    // FIRST form — `design->getClassDefinition(typeName)` — HITS for
+    // `mailbox` / `process` / `semaphore` from anywhere at all.  Golden
+    // therefore leaves builtin.sv's own `static function process self();`
+    // ANONYMOUS even though its home differs from nothing: 9 corpus cells
+    // (one per UVM row-mode) depend on this carve-out, and it was found by
+    // scoring the predicate against golden, not reasoned.
+    // Both faces are tested: slang's compiler-synthesized `std` package
+    // (§ builtinClassTsLinksBuiltinFileDefn7's gate) and the injected
+    // builtin.sv text the class_defns actually come from.
+    if (isBuiltinStdClass(rct) ||
+        (builtins && fullFilePath(rct.location) == builtinFilePath))
+        return {};
+    // FENCE 3 — a return written through a TYPEDEF is Surelog's arm A: a
+    // different object with a context-dependent spelling, and one that does
+    // not reach this mint (the typedef arms above claim it).  Recorded so the
+    // boundary is explicit.
+    if (sub.getReturnType().kind == SymbolKind::TypeAlias)
+        return {};
+    // ARM B — the three-form `design->getClassDefinition` lookup hits exactly
+    // when the returned class shares its HOME DESIGN COMPONENT with the
+    // declaring scope, and then the object is minted fresh and ANONYMOUS.
+    const Scope* clsScope = rct.getParentScope();
+    if (!clsScope)
+        if (auto* gc = rct.as<ClassType>().genericClass)
+            clsScope = gc->getParentScope();
+    const Symbol* clsHome = homeComp156(clsScope);
+    const Symbol* subHome = homeComp156(sub.getParentScope());
+    if (clsHome && clsHome == subHome)
+        return {};
+    return writtenTypeName156(returnTypeSyntax(sub));
+}
+
 // § elabInvoked — every subroutine CALLED from a continuous / elaboration
 // expression in the design.  The scan is a symbol+EXPRESSION walk of the root
 // with STATEMENTS switched off, which is exactly the distinction Surelog
@@ -3710,8 +3807,14 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     typedefRetClone = true;
                 }
             }
-            // A CLASS-HANDLE return: an ANONYMOUS class_typespec at the
-            // return-type token, linked to the class_defn (Surelog).
+            // A CLASS-HANDLE return: a class_typespec at the return-type
+            // token, linked to the class_defn (Surelog).  ~~ANONYMOUS.~~
+            // **STRUCK BY r10uvm156 IN ITS BLANKET FORM** — golden leaves this
+            // object bare only when Surelog's `design->getClassDefinition`
+            // fallback claims it, i.e. when the returned class's HOME DESIGN
+            // COMPONENT is the declaring scope's; everywhere else it carries
+            // the WRITTEN type name (§ classHandleRetTsNameUnlessSameHomeComponent156,
+            // UhdmExporter.h).  Do not carry the superseded wording forward.
             if (!ts) {
                 auto& rct9 = sub.getReturnType().getCanonicalType();
                 if (rct9.kind == SymbolKind::ClassType) {
@@ -3727,13 +3830,24 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         pendingClassTsLink.push_back({cts9, &rct9});
                     if (auto* rsyn9 = returnTypeSyntax(sub))
                         setLoc(cts9, rsyn9->sourceRange());
+                    // § classHandleRetTsNameUnlessSameHomeComponent156 —
+                    // the class-handle return is anonymous ONLY when Surelog's
+                    // `design->getClassDefinition` fallback claims it, i.e.
+                    // when the returned class's home design component is the
+                    // declaring scope's.  Everywhere else golden carries the
+                    // WRITTEN type name.  Law, Surelog citations and the three
+                    // fences: UhdmExporter.h.
+                    if (auto rn156 = classHandleRetTsName156(sub, rct9);
+                        !rn156.empty())
+                        cts9->VpiName(rn156);
                     // § classTpTsResolvedNameEverySite87 — the RETURN site.
                     // `function REQ last_req(...)` in `uvm_sequencer_param_base`
                     // (and `get_current_item` / `last_rsp`): golden's return
                     // typespec is the class-scope type-parameter GROUP object,
                     // NAMED `rsp_type`, not the anonymous mint above.  The
-                    // anonymity of a class-handle return is otherwise the law
-                    // (SeqDriver golden: 1986 uninstanced anonymous objects) and
+                    // anonymity of a class-handle return is otherwise the
+                    // SAME-HOME-COMPONENT half of § 156 (SeqDriver golden: 855
+                    // anonymous return typespecs against 106 named ones), and
                     // is untouched — this fires only for a return written as one
                     // of the enclosing class's own type parameters whose group
                     // has a winning typedef.  Arm a2 `c_sites::m_ret`.
@@ -3801,9 +3915,14 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             UHDM::instance* useInst9 = tsInst ? tsInst : retCloneInst9;
             // An ANONYMOUS class_typespec — the class-HANDLE return minted at
             // the return-type token — never carries a vpiInstance, in any
-            // listing and either view (SeqDriver golden: 1986 of them, all
+            // listing and either view (SeqDriver golden: 855 of them, all
             // uninstanced; repro r2 `function D C::h()`).  Only a NAMED class
-            // typespec (`p::C`, a typedef'd class type) takes one.
+            // typespec takes one — and § 156's newly named returns take it by
+            // exactly this line: golden's NAMED return typespec in a PACKAGE
+            // FREE FUNCTION or an OUT-OF-BODY body carries `vpiInstance` = the
+            // home package (`g156_a_mech.sv` lines 42/45/50/51), while the same
+            // return inside a CLASS METHOD carries none — which is `tsInst`
+            // read verbatim.
             if (ts->UhdmType() == UHDM::uhdmclass_typespec &&
                 (ts->VpiName().empty() ||
                  tpGroupTs87.count((const UHDM::typespec*)ts)))

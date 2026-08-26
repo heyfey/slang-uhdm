@@ -1,0 +1,19 @@
+PREDICTED MOVERS: 5 databases, 932 cells
+    243  default/MiniAmiq-544c7f61
+      2  default/Scoreboard-59431470
+    222  default/SeqDriver-32af76aa
+    243  testflags/MiniAmiq-544c7f61
+    222  testflags/SeqDriver-32af76aa
+
+NOTE ON THE CELL COUNTS ABOVE — read before quoting them.
+`movers156.py` runs the predicate over the UHDM PARENT CHAIN of the pristine
+database, and the production predicate runs it over the SLANG SYMBOL's scope.
+The two agree on WHICH DATABASE moves (5 / 956, and the byte verifier then
+found exactly those five) but NOT on how many cells inside it: the parent-chain
+reading counts our IMPORT-CLONE copies of a uvm_pkg out-of-body method that sit
+under `package(adpcm_pkg)` as "far", while production asks the ORIGINAL slang
+SubroutineSymbol, whose scope is still the uvm_pkg class, and leaves them
+anonymous.  The measured cell counts are therefore the ones in
+CENSUS.r10uvm156.txt (7 / 7 / 21 / 21 / 1 = 57), not the 222 / 243 / 2 here.
+The prediction is a SUPERSET by construction and is used only to name the
+databases.
