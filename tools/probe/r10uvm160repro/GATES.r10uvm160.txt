@@ -1,0 +1,35 @@
+=== r10uvm160 GATES
+--- binaries
+904532d3885d6362d6f515c3db951771  /tmp/r10uvm160_scr/bin/pris.bin
+995b3d45726c2a9aef48b76b87f497a2  /tmp/r10uvm160_scr/bin/pat.bin
+--- goldens (patched / negative control / pristine)
+PASS=23 FAIL=0
+SLANG_UHDM=/bin/false: PASS=0 FAIL=23
+pristine: PASS=23 FAIL=0
+--- status histograms
+wdp/u2r_tf:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+wdp/u2r_def:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+wdp/sl:     937 CMP_EQUAL      19 CMP_NOTEQUAL      10 DEFERRED       3 NO_DATABASE       1 NO_UHDM     567 SLANG_REJECT      48 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+wdb/u2r_tf:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+wdb/u2r_def:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+wdb/sl:     937 CMP_EQUAL      19 CMP_NOTEQUAL      10 DEFERRED       3 NO_DATABASE       1 NO_UHDM     567 SLANG_REJECT      48 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+--- ct8rows
+results/gate_uhdm2rtlil.csv /tmp/r10uvm160_scr/wdb/u2r_tf.csv          PASS: every row byte-identical to the committed baseline
+/tmp/r10uvm160_scr/wdp/u2r_tf.csv /tmp/r10uvm160_scr/wdb/u2r_tf.csv    PASS: every row byte-identical to the committed baseline
+/tmp/r10uvm160_scr/wdp/u2r_def.csv /tmp/r10uvm160_scr/wdb/u2r_def.csv  PASS: every row byte-identical to the committed baseline
+results/golden_surelog.csv /tmp/r10uvm160_scr/wdb/sl.csv               PASS: every row byte-identical to the committed baseline
+/tmp/r10uvm160_scr/wdp/sl.csv /tmp/r10uvm160_scr/wdb/sl.csv            PASS: every row byte-identical to the committed baseline
+--- byte movers
+MOVERS: 9 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+--- canaries
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+--- boundary
+LISTED=4462 PROCESSED=4462 PRODUCED_DBS=4315 MOVED_ARMS=12 RC_DIFFS=0

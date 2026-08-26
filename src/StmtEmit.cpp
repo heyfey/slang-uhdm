@@ -6041,6 +6041,15 @@ UHDM::any* UhdmExporter::emitDroppedArg14(const syntax::ExpressionSyntax& ae,
     return ahp;
 }
 
+// § badConcatOperandsFromSyntax160 — the SHAPE half of § droppedCall14's
+// dotted-call test, exposed so the bad-concat rebuild's shape-only pass and its
+// mint pass ask the SAME question.  `droppedCallShape14` is the predicate
+// `emitDroppedCall14` itself re-runs on its first line, so the two can never
+// disagree about which invocations are modelled.
+bool UhdmExporter::droppedCallShapeOk14(const syntax::ExpressionSyntax& e) {
+    return droppedCallShape14(e) != nullptr;
+}
+
 UHDM::any* UhdmExporter::emitDroppedCall14(const syntax::ExpressionSyntax& e,
                                            UHDM::BaseClass* parent,
                                            const std::string& prefix,

@@ -1,0 +1,101 @@
+r10v160repro/CELLS.r10v160.txt - one INDEPENDENT database per cell.
+LHS is always golden (Surelog).  a = this verifier's PRISTINE binary,
+b = the patched one.  Columns are official uhdm-cmp LINE COUNTS (depth,
+not distance); 0 lines is CMP_EQUAL; '-' is no database (both binaries
+refuse the source identically -- rc recorded in each cell's cmds.txt).
+
+cell                     def a   def b  elab a  elab b  verdict
+c01_scopedname              79       0      83       0  -> CMP_EQUAL
+c02_scopedcall              79       0      83       0  -> CMP_EQUAL
+c03_scoped3                 79       0      83       0  -> CMP_EQUAL
+c04_scopedarg               79       0      83       0  -> CMP_EQUAL
+c05_pkgscope                79      28      83      28  MOVED
+d01_dotcall                 97       0     109       0  -> CMP_EQUAL
+d02_dotname                 99       0     111       0  -> CMP_EQUAL
+d03_dotcallarg             109       0     125       0  -> CMP_EQUAL
+d04_dotcalldot             129       0     149       0  -> CMP_EQUAL
+d05_dot3                   109     109     125     125  unchanged (abstain)
+d06_dot3call               107     107     123     123  unchanged (abstain)
+d10_repl                    77      77      81      81  unchanged (abstain)
+f01_allfive                141       0     165       0  -> CMP_EQUAL
+h01_task                    67       0      71       0  -> CMP_EQUAL
+h02_static                  67       0      71       0  -> CMP_EQUAL
+h03_twoparam                97       0     105       0  -> CMP_EQUAL
+h04_classspec               67       0      75       0  -> CMP_EQUAL
+h05_twospec                 67       0      75       0  -> CMP_EQUAL
+h06_inst                    67      28      75      28  MOVED
+h07_inst3                   67      28      75      28  MOVED
+h08_defonly                 67       0      75       0  -> CMP_EQUAL
+i01_formal                  55       0      63       0  -> CMP_EQUAL
+i02_local                   55       0      63       0  -> CMP_EQUAL
+i03_prop                    55       0      63       0  -> CMP_EQUAL
+i04_static                  55       0      63       0  -> CMP_EQUAL
+i05_lparam                  55       0      63       0  -> CMP_EQUAL
+i06_typeparam               55       0      63       0  -> CMP_EQUAL
+i07_pkgparam                55       0      63       0  -> CMP_EQUAL
+i08_inherited               55       0      63       0  -> CMP_EQUAL
+k01_escquote                 0       0       0       0  EQUAL both (control)
+k02_escnl                    0       0       0       0  EQUAL both (control)
+k03_escbs                    0       0       0       0  EQUAL both (control)
+k04_empty                    0       0       0       0  EQUAL both (control)
+k06_esctab                   0       0       0       0  EQUAL both (control)
+l01_escquote                55       0      59       0  -> CMP_EQUAL
+l02_escnl                   55       0      59       0  -> CMP_EQUAL
+l03_escbs                   55       0      59       0  -> CMP_EQUAL
+l04_empty                   53       0      57       0  -> CMP_EQUAL
+l05_colons                  55       0      59       0  -> CMP_EQUAL
+l06_esctab                  55       0      59       0  -> CMP_EQUAL
+l07_space                   55       0      59       0  -> CMP_EQUAL
+l08_pct                     55       0      59       0  -> CMP_EQUAL
+o01_intlit                  55      55      59      59  unchanged (abstain)
+o02_select                  95      95     103     103  unchanged (abstain)
+o03_sysfunc                 81      81      89      89  unchanged (abstain)
+o04_paren                   55      55      63      63  unchanged (abstain)
+o05_ternary                121     121     129     129  unchanged (abstain)
+o06_nestcat                 77      77      81      81  unchanged (abstain)
+o07_barecall                57      57      61      61  unchanged (abstain)
+o08_repl                    87      87      91      91  unchanged (abstain)
+o09_cast                    83      83      87      87  unchanged (abstain)
+o10_binary                  77      77      85      85  unchanged (abstain)
+x01_membersel               69       0      73       0  -> CMP_EQUAL
+x02_scopedcall              49       0      49       0  -> CMP_EQUAL
+x03_badarg                  97      97     109     109  unchanged (abstain)
+x04_nested                 131     131     143     143  unchanged (abstain)
+x05_onlybad                 43       0      47       0  -> CMP_EQUAL
+x06_firstbad                55       0      59       0  -> CMP_EQUAL
+x07_twobad                  97       0     105       0  -> CMP_EQUAL
+x08_str                     67       0      71       0  -> CMP_EQUAL
+x09_struct                  67       0      71       0  -> CMP_EQUAL
+x10_enum                    67       0      71       0  -> CMP_EQUAL
+x11_class                   67       0      71       0  -> CMP_EQUAL
+x12_bit                     67       0      71       0  -> CMP_EQUAL
+x13_real                    67       0      71       0  -> CMP_EQUAL
+x14_selbadty                79      79      83      83  unchanged (abstain)
+y01_init                    67       0      71       0  -> CMP_EQUAL
+y02_return                  67       0      71       0  -> CMP_EQUAL
+y03_arg                     67       0      71       0  -> CMP_EQUAL
+y04_sysarg                  67       0      71       0  -> CMP_EQUAL
+y05_ternarm                 67       0      71       0  -> CMP_EQUAL
+y06_cond                    67       0      71       0  -> CMP_EQUAL
+y07_caseexpr                67       0      71       0  -> CMP_EQUAL
+y08_caseitem                67       0      71       0  -> CMP_EQUAL
+y09_lvalue                  67       0      71       0  -> CMP_EQUAL
+y10_nestgood               101     101     105     105  unchanged (abstain)
+y11_cast                    17      17      17      17  unchanged (abstain)
+y12_binary                  67       0      71       0  -> CMP_EQUAL
+y13_foreach                 67       0      71       0  -> CMP_EQUAL
+y14_fork                    67       0      71       0  -> CMP_EQUAL
+y15_propinit                67      67      71      71  unchanged (abstain)
+y16_two                     55       0      59       0  -> CMP_EQUAL
+z01_badlvalue               55      55      63      63  unchanged (abstain)
+z02_module                   -       -       -       -  SLANG_REJECT both
+z03_iface                 2694    2694    2802    2802  unchanged (abstain)
+z04_compunit                67       0      71       0  -> CMP_EQUAL
+z05_virtual                 67       0      71       0  -> CMP_EQUAL
+
+-> CMP_EQUAL: 57
+EQUAL both (control): 5
+MOVED: 3
+SLANG_REJECT both: 1
+unchanged (abstain): 21
+total cells: 87

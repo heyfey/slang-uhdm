@@ -1,0 +1,415 @@
+# r10uvm160 — the GRID: 6 arms, BOTH views, three ways (golden vs pristine vs patched).
+# grid160.sh builds 12 databases per arm, each command echoed with its binary PATH
+# into the arm's own cmds.txt and each recording its own rc; all 72 returned rc=0.
+# score160.py --nospan scores every cell.  MEASUREMENT ONLY.
+
+===== g160_a_badkind.sv
+TOWARD	('ARG', 'pa160::holda160::a1', '20:43-20:45', 'method_func_call', 'gt')
+	G=[('-1', '-')]
+	A=[]
+TOWARD	('ARG', 'pa160::holda160::a5', '32:45-32:54', 'method_func_call', 'nosuch160')
+	G=[('-1', '-')]
+	A=[]
+ONLY-G	('ARG', 'pa160::holda160::a6', '34:44-34:46', 'method_func_call', 'gn')	[('1', 'hier_path(t.gt)')]
+ONLY-G	('ARG', 'pa160::holda160::a6', '34:49-34:51', 'method_func_call', 'gt')	[('-1', '-')]
+ONLY-G	('ARG', 'pa160::holda160::a7', '36:44-36:46', 'method_func_call', 'gn')	[('1', 'operation')]
+ONLY-G	('ARG', 'pa160::holda160::a7', '36:55-36:57', 'method_func_call', 'gt')	[('-1', '-')]
+TOWARD	('ARG', 'pa160::holda160::a8', '38:38-38:40', 'method_func_call', 'gt')
+	G=[('-1', '-')]
+	A=[]
+TOWARD	('HP', 'pa160::holda160::a1', '20:41-20:47', 't.gt')
+	G=[('2', 'ref_obj(t),method_func_call(gt)')]
+	A=[]
+TOWARD	('HP', 'pa160::holda160::a2', '22:41-22:46', 't.fld')
+	G=[('2', 'ref_obj(t),ref_obj(fld)')]
+	A=[]
+TOWARD	('HP', 'pa160::holda160::a5', '32:42-32:56', 's5.nosuch160')
+	G=[('2', 'ref_obj(s5),method_func_call(nosuch160)')]
+	A=[]
+ONLY-G	('HP', 'pa160::holda160::a6', '34:41-34:54', 'uh.gn')	[('2', 'ref_obj(uh),method_func_call(gn)')]
+ONLY-G	('HP', 'pa160::holda160::a6', '34:47-34:53', 't.gt')	[('2', 'ref_obj(t),method_func_call(gt)')]
+ONLY-G	('HP', 'pa160::holda160::a7', '36:41-36:66', 'uh.gn')	[('2', 'ref_obj(uh),method_func_call(gn)')]
+ONLY-G	('HP', 'pa160::holda160::a7', '36:53-36:59', 't.gt')	[('2', 'ref_obj(t),method_func_call(gt)')]
+TOWARD	('HP', 'pa160::holda160::a8', '38:36-38:42', 't.gt')
+	G=[('2', 'ref_obj(t),method_func_call(gt)')]
+	A=[]
+TOWARD	('OP', 'pa160::holda160::a1', '20:35-20:53', '33')
+	G=[('assignment', '3', 'constant("["),hier_path(t.gt),constant("]")')]
+	A=[('assignment', '-1', '-')]
+TOWARD	('OP', 'pa160::holda160::a2', '22:35-22:52', '33')
+	G=[('assignment', '3', 'constant("["),hier_path(t.fld),constant("]")')]
+	A=[('assignment', '-1', '-')]
+TOWARD	('OP', 'pa160::holda160::a3', '24:35-24:52', '33')
+	G=[('assignment', '3', 'constant("["),ref_obj(T::tn),constant("]")')]
+	A=[('assignment', '-1', '-')]
+TOWARD	('OP', 'pa160::holda160::a4', '26:35-26:54', '33')
+	G=[('assignment', '3', 'constant("["),ref_obj(T::mk),constant("]")')]
+	A=[('assignment', '-1', '-')]
+TOWARD	('OP', 'pa160::holda160::a5', '32:36-32:62', '33')
+	G=[('assignment', '3', 'constant("["),hier_path(s5.nosuch160),constant("]")')]
+	A=[('assignment', '-1', '-')]
+STILL	('OP', 'pa160::holda160::a6', '34:35-34:60', '33')
+	G=[('assignment', '3', 'constant("["),hier_path(uh.gn),constant("]")')]
+	A=B=[('assignment', '-1', '-')]
+STILL	('OP', 'pa160::holda160::a7', '36:35-36:72', '33')
+	G=[('assignment', '3', 'constant("["),hier_path(uh.gn),constant("]")')]
+	A=B=[('assignment', '-1', '-')]
+ONLY-G	('OP', 'pa160::holda160::a7', '36:47-36:65', '33')	[('method_func_call', '3', 'constant("<"),hier_path(t.gt),constant(">")')]
+TOWARD	('OP', 'pa160::holda160::a8', '38:35-38:43', '33')
+	G=[('assignment', '1', 'hier_path(t.gt)')]
+	A=[('assignment', '-1', '-')]
+-- rows=ALL RIGHT=16 TOWARD=13 WRONG=0 STILL=2 RESHAPE=0 ONLY-G=9 AWAY=0 ONLY-OURS=0 ONLY-A=0
+
+  arm commands: rc=0 on 6 of 6
+
+===== g160_b_operand.sv
+TOWARD	('ARG', 'pb160::holdb160::bd_arg', '38:65-38:67', 'method_func_call', 'gt')
+	G=[('-1', '-')]
+	A=[]
+ONLY-G	('ARG', 'pb160::holdb160::bd_bc', '47:47-47:54', 'func_call', 'gname')	[('-1', '-')]
+ONLY-G	('ARG', 'pb160::holdb160::bd_bc', '47:63-47:65', 'method_func_call', 'gt')	[('-1', '-')]
+TOWARD	('ARG', 'pb160::holdb160::bd_dc', '44:50-44:55', 'method_func_call', 'gname')
+	G=[('-1', '-')]
+	A=[]
+TOWARD	('ARG', 'pb160::holdb160::bd_dc', '44:66-44:68', 'method_func_call', 'gt')
+	G=[('-1', '-')]
+	A=[]
+TOWARD	('ARG', 'pb160::holdb160::bd_dn', '60:61-60:63', 'method_func_call', 'gt')
+	G=[('-1', '-')]
+	A=[]
+TOWARD	('ARG', 'pb160::holdb160::bd_lit', '23:59-23:61', 'method_func_call', 'gt')
+	G=[('-1', '-')]
+	A=[]
+TOWARD	('ARG', 'pb160::holdb160::bd_loc', '35:75-35:77', 'method_func_call', 'gt')
+	G=[('-1', '-')]
+	A=[]
+TOWARD	('ARG', 'pb160::holdb160::bd_lp', '29:61-29:63', 'method_func_call', 'gt')
+	G=[('-1', '-')]
+	A=[]
+ONLY-G	('ARG', 'pb160::holdb160::bd_nc', '53:65-53:67', 'method_func_call', 'gt')	[('-1', '-')]
+TOWARD	('ARG', 'pb160::holdb160::bd_par', '26:59-26:61', 'method_func_call', 'gt')
+	G=[('-1', '-')]
+	A=[]
+TOWARD	('ARG', 'pb160::holdb160::bd_pkp', '41:63-41:65', 'method_func_call', 'gt')
+	G=[('-1', '-')]
+	A=[]
+TOWARD	('ARG', 'pb160::holdb160::bd_prp', '32:60-32:62', 'method_func_call', 'gt')
+	G=[('-1', '-')]
+	A=[]
+ONLY-G	('ARG', 'pb160::holdb160::bd_tn', '50:74-50:76', 'method_func_call', 'gt')	[('-1', '-')]
+TOWARD	('HP', 'pb160::holdb160::bd_arg', '38:63-38:69', 't.gt')
+	G=[('2', 'ref_obj(t),method_func_call(gt)')]
+	A=[]
+ONLY-G	('HP', 'pb160::holdb160::bd_bc', '47:61-47:67', 't.gt')	[('2', 'ref_obj(t),method_func_call(gt)')]
+TOWARD	('HP', 'pb160::holdb160::bd_dc', '44:47-44:57', 'bh.gname')
+	G=[('2', 'ref_obj(bh),method_func_call(gname)')]
+	A=[]
+TOWARD	('HP', 'pb160::holdb160::bd_dc', '44:64-44:70', 't.gt')
+	G=[('2', 'ref_obj(t),method_func_call(gt)')]
+	A=[]
+TOWARD	('HP', 'pb160::holdb160::bd_dn', '60:47-60:52', 't.fld')
+	G=[('2', 'ref_obj(t),ref_obj(fld)')]
+	A=[]
+TOWARD	('HP', 'pb160::holdb160::bd_dn', '60:59-60:65', 't.gt')
+	G=[('2', 'ref_obj(t),method_func_call(gt)')]
+	A=[]
+TOWARD	('HP', 'pb160::holdb160::bd_lit', '23:57-23:63', 't.gt')
+	G=[('2', 'ref_obj(t),method_func_call(gt)')]
+	A=[]
+TOWARD	('HP', 'pb160::holdb160::bd_loc', '35:73-35:79', 't.gt')
+	G=[('2', 'ref_obj(t),method_func_call(gt)')]
+	A=[]
+TOWARD	('HP', 'pb160::holdb160::bd_lp', '29:59-29:65', 't.gt')
+	G=[('2', 'ref_obj(t),method_func_call(gt)')]
+	A=[]
+ONLY-G	('HP', 'pb160::holdb160::bd_nc', '53:63-53:69', 't.gt')	[('2', 'ref_obj(t),method_func_call(gt)')]
+TOWARD	('HP', 'pb160::holdb160::bd_par', '26:57-26:63', 't.gt')
+	G=[('2', 'ref_obj(t),method_func_call(gt)')]
+	A=[]
+TOWARD	('HP', 'pb160::holdb160::bd_pkp', '41:61-41:67', 't.gt')
+	G=[('2', 'ref_obj(t),method_func_call(gt)')]
+	A=[]
+TOWARD	('HP', 'pb160::holdb160::bd_prp', '32:58-32:64', 't.gt')
+	G=[('2', 'ref_obj(t),method_func_call(gt)')]
+	A=[]
+ONLY-G	('HP', 'pb160::holdb160::bd_tn', '50:72-50:78', 't.gt')	[('2', 'ref_obj(t),method_func_call(gt)')]
+TOWARD	('OP', 'pb160::holdb160::bd_arg', '38:49-38:70', '33')
+	G=[('assignment', '4', 'constant("["),ref_obj(a),constant("]"),hier_path(t.gt)')]
+	A=[('assignment', '-1', '-')]
+STILL	('OP', 'pb160::holdb160::bd_bc', '47:41-47:68', '33')
+	G=[('assignment', '4', 'constant("["),func_call(gname),constant("]"),hier_path(t.gt)')]
+	A=B=[('assignment', '-1', '-')]
+TOWARD	('OP', 'pb160::holdb160::bd_dc', '44:41-44:71', '33')
+	G=[('assignment', '4', 'constant("["),hier_path(bh.gname),constant("]"),hier_path(t.gt)')]
+	A=[('assignment', '-1', '-')]
+TOWARD	('OP', 'pb160::holdb160::bd_dn', '60:41-60:66', '33')
+	G=[('assignment', '4', 'constant("["),hier_path(t.fld),constant("]"),hier_path(t.gt)')]
+	A=[('assignment', '-1', '-')]
+TOWARD	('OP', 'pb160::holdb160::bd_lit', '23:41-23:64', '33')
+	G=[('assignment', '4', 'constant("["),constant("k"),constant("]"),hier_path(t.gt)')]
+	A=[('assignment', '-1', '-')]
+TOWARD	('OP', 'pb160::holdb160::bd_loc', '35:58-35:80', '33')
+	G=[('assignment', '4', 'constant("["),ref_obj(lv),constant("]"),hier_path(t.gt)')]
+	A=[('assignment', '-1', '-')]
+TOWARD	('OP', 'pb160::holdb160::bd_lp', '29:41-29:66', '33')
+	G=[('assignment', '4', 'constant("["),ref_obj(LP160),constant("]"),hier_path(t.gt)')]
+	A=[('assignment', '-1', '-')]
+STILL	('OP', 'pb160::holdb160::bd_nc', '53:41-53:70', '33')
+	G=[('assignment', '4', 'constant("["),operation,constant("]"),hier_path(t.gt)')]
+	A=B=[('assignment', '-1', '-')]
+ONLY-G	('OP', 'pb160::holdb160::bd_nc', '53:47-53:56', '33')	[('operation', '2', 'constant("x"),constant("y")')]
+TOWARD	('OP', 'pb160::holdb160::bd_par', '26:41-26:64', '33')
+	G=[('assignment', '4', 'constant("["),ref_obj(FLD),constant("]"),hier_path(t.gt)')]
+	A=[('assignment', '-1', '-')]
+TOWARD	('OP', 'pb160::holdb160::bd_pkp', '41:41-41:68', '33')
+	G=[('assignment', '4', 'constant("["),ref_obj(PKGP160),constant("]"),hier_path(t.gt)')]
+	A=[('assignment', '-1', '-')]
+TOWARD	('OP', 'pb160::holdb160::bd_prp', '32:41-32:65', '33')
+	G=[('assignment', '4', 'constant("["),ref_obj(prop),constant("]"),hier_path(t.gt)')]
+	A=[('assignment', '-1', '-')]
+STILL	('OP', 'pb160::holdb160::bd_tn', '50:41-50:79', '33')
+	G=[('assignment', '4', 'constant("["),operation,constant("]"),hier_path(t.gt)')]
+	A=B=[('assignment', '-1', '-')]
+ONLY-G	('OP', 'pb160::holdb160::bd_tn', '50:47-50:65', '32')	[('operation', '3', 'operation,constant("a"),constant("b")')]
+ONLY-G	('OP', 'pb160::holdb160::bd_tn', '50:48-50:56', '14')	[('operation', '2', 'ref_obj(prop),constant("")')]
+-- rows=ALL RIGHT=48 TOWARD=30 WRONG=0 STILL=3 RESHAPE=0 ONLY-G=10 AWAY=0 ONLY-OURS=0 ONLY-A=0
+
+  arm commands: rc=0 on 6 of 6
+
+===== g160_c_context.sv
+TOWARD	('ARG', 'pc160::holdc160::c2', '24:43-24:45', 'method_func_call', 'gt')
+	G=[('-1', '-')]
+	A=[]
+TOWARD	('HP', 'pc160::holdc160::c2', '24:41-24:47', 't.gt')
+	G=[('2', 'ref_obj(t),method_func_call(gt)')]
+	A=[]
+ONLY-OURS	('HP', 'pc160::holdc160::c5', '30:35-30:40', 'bc.gn')	A=[('2', 'ref_obj(bc),method_func_call(gn)')] B=[('2', 'ref_obj(bc),method_func_call(gn)')]
+ONLY-G	('HP', 'pc160::holdc160::c5', '30:35-30:48', 'bc.gn')	[('2', 'ref_obj(bc),method_func_call(gn)')]
+TOWARD	('OP', 'pc160::holdc160::c2', '24:35-24:53', '33')
+	G=[('assignment', '3', 'constant("["),hier_path(t.gt),constant("]")')]
+	A=[('assignment', '-1', '-')]
+-- rows=ALL RIGHT=36 TOWARD=3 WRONG=0 STILL=0 RESHAPE=0 ONLY-G=1 AWAY=0 ONLY-OURS=1 ONLY-A=0
+
+  arm commands: rc=0 on 6 of 6
+
+===== g160_d_home.sv
+TOWARD	('ARG', 'pd160::d1_160::m', '16:42-16:44', 'method_func_call', 'gt')
+	G=[('-1', '-')]
+	A=[]
+TOWARD	('ARG', 'pd160::d2_160::m', '23:48-23:50', 'method_func_call', 'gt')
+	G=[('-1', '-')]
+	A=[]
+TOWARD	('ARG', 'pd160::d3_160::m', '27:33-27:35', 'method_func_call', 'gt')
+	G=[('-1', '-')]
+	A=[]
+TOWARD	('ARG', 'pd160::d4_160::m', '32:49-32:51', 'method_func_call', 'gt')
+	G=[('-1', '-')]
+	A=[]
+TOWARD	('ARG', 'pd160::d6_160::m', '42:47-42:49', 'method_func_call', 'gt')
+	G=[('-1', '-')]
+	A=[]
+TOWARD	('ARG', 'pd160::d6_160::m', '42:55-42:57', 'method_func_call', 'gt')
+	G=[('-1', '-')]
+	A=[]
+TOWARD	('HP', 'pd160::d1_160::m', '16:40-16:46', 't.gt')
+	G=[('2', 'ref_obj(t),method_func_call(gt)')]
+	A=[]
+TOWARD	('HP', 'pd160::d2_160::m', '23:46-23:52', 't.gt')
+	G=[('2', 'ref_obj(t),method_func_call(gt)')]
+	A=[]
+TOWARD	('HP', 'pd160::d3_160::m', '27:31-27:37', 't.gt')
+	G=[('2', 'ref_obj(t),method_func_call(gt)')]
+	A=[]
+TOWARD	('HP', 'pd160::d4_160::m', '32:47-32:53', 't.gt')
+	G=[('2', 'ref_obj(t),method_func_call(gt)')]
+	A=[]
+TOWARD	('HP', 'pd160::d6_160::m', '42:45-42:51', 't.gt')
+	G=[('2', 'ref_obj(t),method_func_call(gt)')]
+	A=[]
+TOWARD	('HP', 'pd160::d6_160::m', '42:53-42:59', 'v.gt')
+	G=[('2', 'ref_obj(v),method_func_call(gt)')]
+	A=[]
+TOWARD	('OP', 'pd160::d1_160::m', '16:34-16:52', '33')
+	G=[('assignment', '3', 'constant("["),hier_path(t.gt),constant("]")')]
+	A=[('assignment', '-1', '-')]
+TOWARD	('OP', 'pd160::d2_160::m', '23:40-23:58', '33')
+	G=[('assignment', '3', 'constant("["),hier_path(t.gt),constant("]")')]
+	A=[('assignment', '-1', '-')]
+TOWARD	('OP', 'pd160::d3_160::m', '27:25-27:43', '33')
+	G=[('assignment', '3', 'constant("["),hier_path(t.gt),constant("]")')]
+	A=[('assignment', '-1', '-')]
+TOWARD	('OP', 'pd160::d4_160::m', '32:41-32:59', '33')
+	G=[('assignment', '3', 'constant("["),hier_path(t.gt),constant("]")')]
+	A=[('assignment', '-1', '-')]
+TOWARD	('OP', 'pd160::d6_160::m', '42:39-42:65', '33')
+	G=[('assignment', '4', 'constant("["),hier_path(t.gt),hier_path(v.gt),constant("]")')]
+	A=[('assignment', '-1', '-')]
+-- rows=ALL RIGHT=16 TOWARD=17 WRONG=0 STILL=0 RESHAPE=0 ONLY-G=0 AWAY=0 ONLY-OURS=0 ONLY-A=0
+
+  arm commands: rc=0 on 6 of 6
+
+===== g160_e_edge.sv
+TOWARD	('ARG', 'pe160::holde160::e1', '20:38-20:40', 'method_func_call', 'gt')
+	G=[('-1', '-')]
+	A=[]
+TOWARD	('ARG', 'pe160::holde160::e10', '38:62-38:64', 'method_func_call', 'gt')
+	G=[('-1', '-')]
+	A=[]
+TOWARD	('ARG', 'pe160::holde160::e11', '41:49-41:51', 'method_func_call', 'gt')
+	G=[('-1', '-')]
+	A=[]
+TOWARD	('ARG', 'pe160::holde160::e2', '22:43-22:45', 'method_func_call', 'gt')
+	G=[('-1', '-')]
+	A=[]
+TOWARD	('ARG', 'pe160::holde160::e3', '24:43-24:45', 'method_func_call', 'gt')
+	G=[('-1', '-')]
+	A=[]
+TOWARD	('ARG', 'pe160::holde160::e3', '24:56-24:58', 'method_func_call', 'gt')
+	G=[('-1', '-')]
+	A=[]
+TOWARD	('ARG', 'pe160::holde160::e4', '26:38-26:40', 'method_func_call', 'gt')
+	G=[('-1', '-')]
+	A=[]
+TOWARD	('ARG', 'pe160::holde160::e4', '26:46-26:48', 'method_func_call', 'g2')
+	G=[('-1', '-')]
+	A=[]
+TOWARD	('ARG', 'pe160::holde160::e4', '26:54-26:56', 'method_func_call', 'g3')
+	G=[('-1', '-')]
+	A=[]
+TOWARD	('ARG', 'pe160::holde160::e5', '28:38-28:40', 'method_func_call', 'gt')
+	G=[('-1', '-')]
+	A=[]
+TOWARD	('ARG', 'pe160::holde160::e6', '30:43-30:45', 'method_func_call', 'gt')
+	G=[('-1', '-')]
+	A=[]
+TOWARD	('ARG', 'pe160::holde160::e6', '30:63-30:65', 'method_func_call', 'gt')
+	G=[('-1', '-')]
+	A=[]
+ONLY-G	('ARG', 'pe160::holde160::e7', '32:49-32:51', 'method_func_call', 'gt')	[('-1', '-')]
+TOWARD	('ARG', 'pe160::holde160::e8', '34:64-34:66', 'method_func_call', 'gt')
+	G=[('-1', '-')]
+	A=[]
+ONLY-G	('ARG', 'pe160::holde160::e9', '36:48-36:50', 'method_func_call', 'gt')	[('-1', '-')]
+TOWARD	('ARG', 'pe160::holde2_160::m', '50:42-50:44', 'method_func_call', 'gt')
+	G=[('-1', '-')]
+	A=[]
+TOWARD	('HP', 'pe160::holde160::e1', '20:36-20:42', 't.gt')
+	G=[('2', 'ref_obj(t),method_func_call(gt)')]
+	A=[]
+TOWARD	('HP', 'pe160::holde160::e10', '38:60-38:66', 't.gt')
+	G=[('2', 'ref_obj(t),method_func_call(gt)')]
+	A=[]
+TOWARD	('HP', 'pe160::holde160::e11', '41:47-41:53', 't.gt')
+	G=[('2', 'ref_obj(t),method_func_call(gt)')]
+	A=[]
+TOWARD	('HP', 'pe160::holde160::e2', '22:41-22:47', 't.gt')
+	G=[('2', 'ref_obj(t),method_func_call(gt)')]
+	A=[]
+TOWARD	('HP', 'pe160::holde160::e3', '24:41-24:47', 't.gt')
+	G=[('2', 'ref_obj(t),method_func_call(gt)')]
+	A=[]
+TOWARD	('HP', 'pe160::holde160::e3', '24:54-24:60', 't.gt')
+	G=[('2', 'ref_obj(t),method_func_call(gt)')]
+	A=[]
+TOWARD	('HP', 'pe160::holde160::e4', '26:36-26:42', 't.gt')
+	G=[('2', 'ref_obj(t),method_func_call(gt)')]
+	A=[]
+TOWARD	('HP', 'pe160::holde160::e4', '26:44-26:50', 't.g2')
+	G=[('2', 'ref_obj(t),method_func_call(g2)')]
+	A=[]
+TOWARD	('HP', 'pe160::holde160::e4', '26:52-26:58', 't.g3')
+	G=[('2', 'ref_obj(t),method_func_call(g3)')]
+	A=[]
+TOWARD	('HP', 'pe160::holde160::e5', '28:36-28:42', 't.gt')
+	G=[('2', 'ref_obj(t),method_func_call(gt)')]
+	A=[]
+TOWARD	('HP', 'pe160::holde160::e6', '30:41-30:47', 't.gt')
+	G=[('2', 'ref_obj(t),method_func_call(gt)')]
+	A=[]
+TOWARD	('HP', 'pe160::holde160::e6', '30:61-30:67', 't.gt')
+	G=[('2', 'ref_obj(t),method_func_call(gt)')]
+	A=[]
+ONLY-G	('HP', 'pe160::holde160::e7', '32:47-32:53', 't.gt')	[('2', 'ref_obj(t),method_func_call(gt)')]
+TOWARD	('HP', 'pe160::holde160::e8', '34:62-34:68', 't.gt')
+	G=[('2', 'ref_obj(t),method_func_call(gt)')]
+	A=[]
+ONLY-G	('HP', 'pe160::holde160::e9', '36:46-36:52', 't.gt')	[('2', 'ref_obj(t),method_func_call(gt)')]
+TOWARD	('HP', 'pe160::holde2_160::m', '50:40-50:46', 'w.gt')
+	G=[('2', 'ref_obj(w),method_func_call(gt)')]
+	A=[]
+TOWARD	('OP', 'pe160::holde160::e1', '20:35-20:48', '33')
+	G=[('assignment', '2', 'hier_path(t.gt),constant("b")')]
+	A=[('assignment', '-1', '-')]
+TOWARD	('OP', 'pe160::holde160::e10', '38:54-38:67', '33')
+	G=[('assignment', '2', 'constant("a"),hier_path(t.gt)')]
+	A=[('assignment', '-1', '-')]
+TOWARD	('OP', 'pe160::holde160::e11', '41:41-41:59', '33')
+	G=[('func_call', '3', 'constant("a"),hier_path(t.gt),constant("b")')]
+	A=[('func_call', '-1', '-')]
+TOWARD	('OP', 'pe160::holde160::e2', '22:35-22:48', '33')
+	G=[('assignment', '2', 'constant("a"),hier_path(t.gt)')]
+	A=[('assignment', '-1', '-')]
+TOWARD	('OP', 'pe160::holde160::e3', '24:35-24:61', '33')
+	G=[('assignment', '4', 'constant("a"),hier_path(t.gt),constant("b"),hier_path(t.gt)')]
+	A=[('assignment', '-1', '-')]
+TOWARD	('OP', 'pe160::holde160::e4', '26:35-26:59', '33')
+	G=[('assignment', '3', 'hier_path(t.gt),hier_path(t.g2),hier_path(t.g3)')]
+	A=[('assignment', '-1', '-')]
+TOWARD	('OP', 'pe160::holde160::e5', '28:35-28:43', '33')
+	G=[('assignment', '1', 'hier_path(t.gt)')]
+	A=[('assignment', '-1', '-')]
+TOWARD	('OP', 'pe160::holde160::e6', '30:35-30:48', '33')
+	G=[('assignment', '2', 'constant("a"),hier_path(t.gt)')]
+	A=[('assignment', '-1', '-')]
+TOWARD	('OP', 'pe160::holde160::e6', '30:55-30:68', '33')
+	G=[('assignment', '2', 'constant("b"),hier_path(t.gt)')]
+	A=[('assignment', '-1', '-')]
+STILL	('OP', 'pe160::holde160::e7', '32:35-32:60', '33')
+	G=[('assignment', '3', 'constant("a"),operation,constant("c")')]
+	A=B=[('assignment', '-1', '-')]
+ONLY-G	('OP', 'pe160::holde160::e7', '32:41-32:54', '33')	[('operation', '2', 'constant("b"),hier_path(t.gt)')]
+TOWARD	('OP', 'pe160::holde160::e8', '34:56-34:69', '33')
+	G=[('assignment', '2', 'constant("a"),hier_path(t.gt)')]
+	A=[('assignment', '-1', '-')]
+STILL	('OP', 'pe160::holde160::e9', '36:35-36:53', '33')
+	G=[('assignment', '2', 'operation,hier_path(t.gt)')]
+	A=B=[('assignment', '-1', '-')]
+ONLY-G	('OP', 'pe160::holde160::e9', '36:36-36:44', '34')	[('operation', '2', 'constant(2),operation')]
+ONLY-G	('OP', 'pe160::holde160::e9', '36:38-36:43', '33')	[('operation', '1', 'constant("x")')]
+TOWARD	('OP', 'pe160::holde2_160::m', '50:34-50:52', '33')
+	G=[('assignment', '3', 'constant("<"),hier_path(w.gt),constant(">")')]
+	A=[('assignment', '-1', '-')]
+-- rows=ALL RIGHT=23 TOWARD=39 WRONG=0 STILL=2 RESHAPE=0 ONLY-G=7 AWAY=0 ONLY-OURS=0 ONLY-A=0
+
+  arm commands: rc=0 on 6 of 6
+
+===== g160_f_witness.sv
+TOWARD	('ARG', 'pf160::pred160::get_name160', '25:37-25:50', 'method_func_call', 'get_type_name')
+	G=[('-1', '-')]
+	A=[]
+ONLY-G	('ARG', 'pf160::warn160c::find160', '11:7-12:82', 'func_call', 'rep160f')	[('2', 'constant("find_type-no match"),operation')]
+ONLY-G	('ARG', 'pf160::warn160c::find160', '12:67-12:78', 'method_func_call', 'get_name160')	[('-1', '-')]
+ONLY-OURS	('ARG', 'pf160::warn160c::find160', '59:7-59:158', 'func_call', 'rep160f')	A=[('2', 'constant("find_type-no match"),operation')] B=[('2', 'constant("find_type-no match"),operation')]
+AWAY	('ARG', 'pf160::warn160c::find160', '60:85-60:96', 'method_func_call', 'get_name160')	A=[] B=[('-1', '-')]
+TOWARD	('HP', 'pf160::pred160::get_name160', '25:35-25:52', 't.get_type_name')
+	G=[('2', 'ref_obj(t),method_func_call(get_type_name)')]
+	A=[]
+ONLY-G	('HP', 'pf160::warn160c::find160', '12:61-12:80', 'start.get_name160')	[('2', 'ref_obj(start),method_func_call(get_name160)')]
+AWAY	('HP', 'pf160::warn160c::find160', '60:79-60:98', 'start.get_name160')	A=[] B=[('2', 'ref_obj(start),method_func_call(get_name160)')]
+TOWARD	('OP', 'pf160::pred160::get_name160', '25:20-25:58', '33')
+	G=[('assignment', '3', 'constant("pred160 #("),hier_path(t.get_type_name),constant(")")')]
+	A=[('assignment', '-1', '-')]
+TOWARD	('OP', 'pf160::utils160::get_config160', '42:35-43:70', '33')
+	G=[('func_call', '5', 'constant("set_config_object with field name "),ref_obj(FIELD),constant(" is not of type \'"),ref_obj(TYPE::type_name),constant("\'")')]
+	A=[('func_call', '-1', '-')]
+ONLY-G	('OP', 'pf160::warn160c::find160', '11:37-12:81', '33')	[('func_call', '4', 'constant("Instance of type \'"),ref_obj(TYPE::type_name),constant(" not found in component hierarchy beginning at "),hier_path(start.get_name160)')]
+ONLY-OURS	('OP', 'pf160::warn160c::find160', '59:37-60:99', '33')	A=[('func_call', '-1', '-')] B=[('func_call', '4', 'constant("Instance of type \'"),ref_obj(TYPE::type_name),constant(" not found in component hierarchy beginning at "),hier_path(start.get_name160)')]
+-- rows=ALL RIGHT=12 TOWARD=4 WRONG=0 STILL=0 RESHAPE=0 ONLY-G=4 AWAY=2 ONLY-OURS=2 ONLY-A=0
+
+  arm commands: rc=0 on 6 of 6
+
+== arm F, the reduced corpus witness, judged by the OFFICIAL uhdm-cmp ==
+  f_witness def PRISTINE: cmp lines=67 heads=1
+  f_witness def PATCHED: cmp lines=0 heads=0
+  f_witness elab PRISTINE: cmp lines=71 heads=1
+  f_witness elab PATCHED: cmp lines=0 heads=0

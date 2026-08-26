@@ -2611,6 +2611,262 @@ UHDM::any* UhdmExporter::invalidScopedCallRef59(const slang::ast::Expression& e,
     return r59;
 }
 
+// ===========================================================================
+// § badConcatOperandsFromSyntax160 — A CONCATENATION SLANG REJECTED KEEPS NONE
+// OF ITS OPERANDS, NOT EVEN THE ONES IT HAD ALREADY BOUND.
+//
+// THE SLANG MECHANISM, READ NOT GUESSED
+// (`slang/source/ast/expressions/OperatorExpressions.cpp`, `e4e8a2d`):
+// `ConcatenationExpression::fromSyntax`'s vector/string arm walks the written
+// operands, and the FIRST one that binds bad ends the walk —
+//
+//     for (auto argSyntax : syntax.expressions) {
+//         Expression* arg = &create(comp, *argSyntax, context);   // :1919-1922
+//         buffer.push_back(arg);
+//         if (arg->bad()) { errored = true; break; }              // :1925-1928
+//     }
+//     ...
+//     if (errored) {                                             // :1993
+//         return badExpr(comp, comp.emplace<ConcatenationExpression>(
+//             comp.getErrorType(), std::span<Expression*>{},      // <-- EMPTY
+//             syntax.sourceRange()));                            // :1994-1996
+//     }
+//
+// `buffer` — which already holds every operand bound BEFORE the bad one — is
+// DROPPED on the floor: the wrapped child is a `ConcatenationExpression` with
+// an EMPTY operand span.  It is the only `badExpr` in slang's expression
+// library that hands back an emptied CONTAINER (the other, at :2272, is the
+// streaming concat); every other compound bad path — `BinaryExpression`,
+// `ConditionalExpression`, `AssignmentExpression::fromComponents`,
+// `CallExpression` — returns `badExpr(comp, result)` with the parts intact,
+// which is why § `droppedCall14`'s child unwrap already recovers those and why
+// a bad operand hurts NOWHERE ELSE (measured: arm C, every other context
+// agrees with golden pristine).
+//
+// `Expression::create` then stamps `result->syntax = &syntax` (`:1002`) on the
+// INVALID node — not on the emptied child — so the written concatenation is
+// still reachable, and the child keeps the concatenation's own `sourceRange`.
+// Those two facts are the whole recovery handle.
+//
+// WHAT SURELOG DOES (why golden has all the operands).  Surelog's expression
+// compiler is SYNTAX-DIRECTED and binds nothing at this level: its
+// `paConcatenation` arm walks the written operand nodes and compiles each one
+// through `compileExpression`, so a concatenation whose operands slang could
+// not type still comes out with every operand it was written with.
+//
+// WHICH CONCATENATIONS THIS ACTUALLY REACHES.  A bad operand normally carries a
+// REPORTED diagnostic, and a reported error makes the whole test SLANG_REJECT,
+// which is out of the campaign's scope by decision.  The population this law
+// reaches is the operand that binds bad IN SILENCE: the body of a GENERIC
+// CLASS's DEFAULT specialization, which nothing in the source specializes and
+// which slang therefore never diagnoses — our emitter is what asks for it.
+// That is exactly `uvm_reg_predictor #(type BUSTYPE=int)`'s
+// `{"uvm_reg_predictor #(", t.get_type_name(), ")"}` (uvm_reg_predictor.svh:121,
+// the SimpleUVM x2 + Scoreboard/default head), `uvm_utils #(type TYPE=int,
+// string FIELD)`'s `{"set_config_object with field name ", FIELD,
+// " is not of type '", TYPE::type_name, "'"}` (uvm_misc.svh:721 and :726) and
+// `uvm_registry_common`'s `create` message (uvm_registry.svh:563).
+//
+// THE OPERAND OBJECTS, MEASURED CELL FOR CELL AGAINST THE ACCEPTED TWIN.  For
+// every operand kind below, the SAME concatenation with the bad operand removed
+// is emitted by our ordinary bound path and is BYTE-IDENTICAL to golden
+// (grid arm `g160_b_operand.sv`, twelve `ok_*` / `bd_*` pairs), and golden's
+// object inside the REJECTED concatenation is field-for-field the accepted
+// twin's.  So the rebuild is not a new model: it is the accepted twin's object,
+// reached from the syntax instead of from the binding.
+//
+//   written form              object
+//   ------------------------  ----------------------------------------------
+//   "text"                    constant, vpiConstType 6, decompile = the raw
+//                             quoted text, size = 8 * inner length, parented
+//                             exactly as the concat arm parents a DIRECT
+//                             literal operand
+//   ident                     ref_obj, vpiName = the identifier, vpiFullName =
+//                             prefix::identifier, UNBOUND — and golden emits
+//                             that same bare ref for a formal, a method local,
+//                             a class property, a class type PARAMETER, a
+//                             class localparam and a PACKAGE parameter alike
+//   recv.meth(args)           § droppedCall14's EXPRESSION form: hier_path
+//                             [ref_obj recv, method_func_call meth]
+//   recv.field                hier_path [ref_obj recv, ref_obj field]
+//   Qual::name / Qual::call() § typeParamScopedCallRef59's object: one ref_obj
+//                             named `<first written segment>::<final
+//                             identifier>`, spanning the qualifier alone
+//
+// ALL OR NOTHING.  If ANY written operand is not one of those five shapes the
+// whole recovery ABSTAINS and the concatenation keeps exactly the shape it has
+// today (an operation with an empty operand vector).  Half a list is not a
+// smaller error than none: `operation::Compare` reads the operand vector's SIZE
+// first (`~/git-repos/UHDM/build/generated/src/operation.cpp:126` ->
+// `BaseClass.h:207-213`), so a short list moves the head from `RHS: <null>` to
+// a size mismatch and nothing else.  Serializer GC is off, so the shape check
+// runs BEFORE anything is minted.
+//
+// Returns the operand object, or null to ABSTAIN.  `mint == false` is the
+// shape-only pass.
+UHDM::any* UhdmExporter::emitBadConcatOperand160(
+    const slang::syntax::ExpressionSyntax& os, UHDM::BaseClass* op,
+    const std::string& prefix, NetMap& netMap, bool mint) {
+    using namespace slang::syntax;
+    // (1) a STRING LITERAL.
+    if (os.kind == SyntaxKind::StringLiteralExpression) {
+        std::string raw = rawText(os.sourceRange());
+        // A MACRO-QUOTED literal has no quoted source text of its own (the
+        // range maps back into the macro BODY); the bound arm re-quotes
+        // slang's own value there and this one has no slang value to read, so
+        // it ABSTAINS.  No corpus site reaches it: BuildUVMPkg is a
+        // PREPROCESSED source and the uvm-1.2 sites are written literals.
+        if (raw.size() < 2 || raw.front() != '"' || raw.back() != '"')
+            return nullptr;
+        if (!mint)
+            return (UHDM::any*)1;
+        std::string inner = raw.substr(1, raw.size() - 2);
+        auto* c160 = s.MakeConstant();
+        c160->VpiDecompile(raw);
+        c160->VpiSize((int32_t)(inner.size() * 8));
+        c160->VpiValue("STRING:" + inner);
+        c160->VpiConstType(vpiStringConst);
+        setLoc(c160, os.sourceRange());
+        // The DIRECT-literal parenting decision, transcribed from the two
+        // places that make it in the bound path (`case
+        // ExpressionKind::Concatenation`'s per-operand window and `case
+        // ExpressionKind::StringLiteral`'s test), so a recovered operand is
+        // parented exactly as its accepted twin is.
+        bool sup160 = suppressConstParent, frc160 = forceConstParent;
+        if (!reemitting && !importedParamClone) {
+            sup160 = true;
+            if (inParamInit)
+                frc160 = false;
+        }
+        if (frc160 || (!sup160 && op))
+            c160->VpiParent(op);
+        return c160;
+    }
+    // (2) a BARE IDENTIFIER, and (3) a plain DOTTED pair `a.b` — both are
+    // exactly what § droppedCall14's argument emitter builds, UNBOUND.
+    if (os.kind == SyntaxKind::IdentifierName) {
+        if (os.as<IdentifierNameSyntax>().identifier.valueText().empty())
+            return nullptr;
+        return mint ? emitDroppedArg14(os, op, prefix, netMap, /*bind=*/false)
+                    : (UHDM::any*)1;
+    }
+    if (os.kind == SyntaxKind::ScopedName) {
+        auto& sn160 = os.as<ScopedNameSyntax>();
+        if (sn160.separator.kind == slang::parsing::TokenKind::Dot) {
+            if (sn160.left->kind != SyntaxKind::IdentifierName ||
+                sn160.right->kind != SyntaxKind::IdentifierName)
+                return nullptr;
+            if (sn160.left->as<IdentifierNameSyntax>().identifier.valueText().empty() ||
+                sn160.right->as<IdentifierNameSyntax>().identifier.valueText().empty())
+                return nullptr;
+            return mint ? emitDroppedArg14(os, op, prefix, netMap, /*bind=*/false)
+                        : (UHDM::any*)1;
+        }
+    }
+    // (4) a DOTTED CALL — § droppedCall14's EXPRESSION form.
+    if (os.kind == SyntaxKind::InvocationExpression &&
+        droppedCallShapeOk14(os))
+        return mint
+                   ? emitDroppedCall14(os, op, prefix, netMap, /*stmtCtx=*/false)
+                   : (UHDM::any*)1;
+    // (5) a `::`-SCOPED reference, with or without an argument list —
+    // § typeParamScopedCallRef59's object, built from the SAME
+    // `splitScopedName12` the bound arm uses.
+    {
+        const NameSyntax* ns160 = nullptr;
+        if (os.kind == SyntaxKind::ScopedName)
+            ns160 = &os.as<NameSyntax>();
+        else if (os.kind == SyntaxKind::InvocationExpression &&
+                 os.as<InvocationExpressionSyntax>().left->kind ==
+                     SyntaxKind::ScopedName)
+            ns160 = &os.as<InvocationExpressionSyntax>()
+                         .left->as<NameSyntax>();
+        std::string f160, l160;
+        slang::SourceLocation end160;
+        if (ns160 && splitScopedName12(*ns160, f160, l160, end160)) {
+            if (!mint)
+                return (UHDM::any*)1;
+            std::string nm160 = f160 + "::" + l160;
+            auto* r160 = s.MakeRef_obj();
+            r160->VpiName(nm160);
+            r160->VpiFullName(joinRef(prefix, nm160));
+            r160->VpiParent(op);
+            setLoc(r160, SourceRange(ns160->sourceRange().start(), end160));
+            return r160;
+        }
+    }
+    return nullptr;
+}
+
+// § badConcatOperandsFromSyntax160 — the gate and the rebuild.  See the model
+// above.  Returns the rebuilt `operation`, or null so the caller's existing
+// child unwrap stands unchanged.
+UHDM::any* UhdmExporter::emitBadConcatFromSyntax160(
+    const slang::ast::Expression& e, UHDM::BaseClass* parent,
+    const std::string& prefix, NetMap& netMap) {
+    using namespace slang::syntax;
+    if (e.kind != ExpressionKind::Invalid)
+        return nullptr;
+    const Expression* ch160 = e.as<InvalidExpression>().child;
+    // The child must be the EMPTIED concatenation itself.  A NON-empty one is
+    // the unpacked-array arm at OperatorExpressions.cpp:1905-1907, which keeps
+    // what it bound and is already emitted operand by operand; a child of any
+    // other kind belongs to § droppedCall14 / § droppedIdxRecvCall26 / the
+    // plain unwrap.
+    if (!ch160 || ch160->kind != ExpressionKind::Concatenation ||
+        !ch160->as<ConcatenationExpression>().operands().empty())
+        return nullptr;
+    if (!e.syntax || e.syntax->kind != SyntaxKind::ConcatenationExpression)
+        return nullptr;
+    // An LVALUE concatenation takes a different span rule (the cont-assign
+    // FIRST-OPERAND anchor) and, when the target itself is unresolvable,
+    // § staticScopedLvalueBad48's placeholder; nothing here models either, so
+    // an lvalue keeps exactly the shape it has today.
+    if (inLhs)
+        return nullptr;
+    auto& csyn160 = e.syntax->as<ConcatenationExpressionSyntax>();
+    if (csyn160.expressions.empty())
+        return nullptr;
+    // SHAPE FIRST, MINT SECOND: serializer GC is off, so an abandoned object
+    // would still reach the database.
+    //
+    // AND NO NOTE ON THE WAY OUT.  `noteUnsupportedAt` feeds
+    // `unsupportedKinds`, which uhdm_main turns into a NON-ZERO EXIT CODE and a
+    // stdout line; `verify_golden.py` reads a non-zero rc as SLANG_REJECT, so a
+    // note here would reclassify every row holding an unmodelled bad
+    // concatenation.  Measured: with the note in place this arm's own binary
+    // exited 4 where the pristine one exited 0.  The abstention is visible
+    // where it belongs — in the database, as the unchanged empty operand
+    // vector.
+    for (auto* os160 : csyn160.expressions)
+        if (!emitBadConcatOperand160(*os160, nullptr, prefix, netMap,
+                                     /*mint=*/false))
+            return nullptr;
+    auto* op160 = s.MakeOperation();
+    op160->VpiOpType(vpiConcatOp);
+    op160->VpiParent(parent);
+    // The emptied child carries the WRITTEN concatenation's own sourceRange
+    // (OperatorExpressions.cpp:1996), which is the span the bound arm uses and
+    // the span our pristine database already emits.
+    setLoc(op160, ch160->sourceRange);
+    auto* ops160 = s.MakeAnyVec();
+    // A concat operand does NOT pick up the call-argument binding — the same
+    // window § classArgBind12 opens in the bound concat arm.  (`ClassArgBindOff12`
+    // itself is declared further down this file; the window is opened by hand
+    // rather than moved, and it is belt-and-braces either way: not one of the
+    // five operand builders below binds anything — `emitDroppedArg14` and
+    // `emitDroppedCall14` are both called with `bind = false`.)
+    int cab160 = classArgBindDepth12;
+    classArgBindDepth12 = 0;
+    for (auto* os160 : csyn160.expressions)
+        if (auto* v160 = emitBadConcatOperand160(*os160, op160, prefix, netMap,
+                                                 /*mint=*/true))
+            ops160->push_back(v160);
+    classArgBindDepth12 = cab160;
+    op160->Operands(ops160);
+    return op160;
+}
+
 // § staticScopedLvalueBad48 — the ASSIGNMENT-TARGET form of a `::`-written
 // reference: Surelog's lvalue resolution fails outright and it writes the
 // literal placeholder FIRST-SEGMENT `::@@BAD_SYMBOL@@`, spanning the WHOLE
@@ -31114,6 +31370,27 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             emitDroppedIdxCall26(*cs26, *iv2.child, parent,
                                                  prefix, netMap, stmtCtx14))
                         return r26;
+            // § badConcatOperandsFromSyntax160 — THE HEAD.  A CONCATENATION
+            // one of whose operands binds bad comes back from slang as an
+            // InvalidExpression wrapping an EMPTY `ConcatenationExpression`
+            // (`OperatorExpressions.cpp:1993-1996` throws `buffer` away), so
+            // the plain unwrap below emitted `operation(vpiConcatOp)` with an
+            // EMPTY operand vector — which the serializer restores as a NULL
+            // one, and `operation::Compare`'s `SafeCompare(lhs, lhs->Operands(),
+            // rhs, rhs->Operands())` then prints as `LHS: <the operation> /
+            // RHS: <null>`, the SimpleUVM x2 + Scoreboard/default head at
+            // uvm_reg_predictor.svh:121.  Surelog binds nothing at this level
+            // and emits every written operand.  Placed AFTER § droppedCall14
+            // and § droppedIdxRecvCall26 (neither can match a Concatenation
+            // child) and BEFORE the unwrap it replaces: when it ABSTAINS —
+            // any written operand outside the five measured shapes, an lvalue
+            // concatenation, a NON-empty child — the unwrap still stands and
+            // the object is byte-for-byte what it is today.  Model, slang and
+            // Surelog citations and the measured operand table: see the
+            // definition above.
+            if (auto* r160 = emitBadConcatFromSyntax160(expr, parent, prefix,
+                                                        netMap))
+                return r160;
             // § invalidShellKeepsStmtPos103 — AN `Invalid` NODE IS A SHELL,
             // NOT A POSITION.  slang wraps the WHOLE expression of a statement
             // in a bad-expression shell when any part of it fails to bind — in

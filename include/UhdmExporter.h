@@ -1240,6 +1240,26 @@ private:
                                  UHDM::BaseClass* parent,
                                  const std::string& prefix, NetMap& netMap,
                                  bool stmtCtx);
+    /// True when `e` is one of the dotted-call spellings § droppedCall14
+    /// models (`emitDroppedCall14` re-tests the same predicate and returns
+    /// null otherwise).  § badConcatOperandsFromSyntax160's shape-only pass
+    /// asks through here so it cannot drift from the mint pass.
+    bool droppedCallShapeOk14(const slang::syntax::ExpressionSyntax& e);
+    /// § badConcatOperandsFromSyntax160 — a CONCATENATION slang rejected keeps
+    /// NONE of its operands (`ConcatenationExpression::fromSyntax` hands back
+    /// an EMPTY one), while the reference tool, which binds nothing at this
+    /// level, emits every written operand.  These rebuild the operand list
+    /// from the written syntax; see the model and the measured operand table
+    /// at the definitions (ExprEmit.cpp).  Both return null to ABSTAIN, and
+    /// the rebuild is ALL-OR-NOTHING.
+    UHDM::any* emitBadConcatOperand160(const slang::syntax::ExpressionSyntax& os,
+                                       UHDM::BaseClass* op,
+                                       const std::string& prefix,
+                                       NetMap& netMap, bool mint);
+    UHDM::any* emitBadConcatFromSyntax160(const slang::ast::Expression& e,
+                                          UHDM::BaseClass* parent,
+                                          const std::string& prefix,
+                                          NetMap& netMap);
     /// The syntax of the statement currently being emitted.  slang does NOT
     /// set `syntax` on the expression it builds for an invocation
     /// (`Expression::create` deliberately skips the overwrite there), so a

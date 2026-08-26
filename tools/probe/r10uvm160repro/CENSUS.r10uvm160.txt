@@ -1,0 +1,200 @@
+# r10uvm160 — the corpus census over the 9 MOVED databases, three ways
+# (golden vs pristine vs patched), scoreall160.sh + score160.py --nospan.
+# MEASUREMENT ONLY.  G is ALWAYS golden.
+
+default/BuildUVMPkg-bf853d43       OP    -- rows=OP RIGHT=5947 TOWARD=1 WRONG=0 STILL=44 RESHAPE=0 ONLY-G=129 AWAY=0 ONLY-OURS=94 ONLY-A=0
+default/BuildUVMPkg-bf853d43       ASGN  -- rows=ASGN RIGHT=4703 TOWARD=0 WRONG=0 STILL=3 RESHAPE=0 ONLY-G=1 AWAY=0 ONLY-OURS=1 ONLY-A=0
+default/BuildUVMPkg-bf853d43       ARG   -- rows=ARG RIGHT=9447 TOWARD=1 WRONG=0 STILL=0 RESHAPE=0 ONLY-G=52 AWAY=0 ONLY-OURS=3 ONLY-A=0
+default/BuildUVMPkg-bf853d43       COND  -- rows=COND RIGHT=5911 TOWARD=0 WRONG=0 STILL=0 RESHAPE=0 ONLY-G=40 AWAY=0 ONLY-OURS=40 ONLY-A=0
+default/BuildUVMPkg-bf853d43       HP    -- rows=HP RIGHT=4651 TOWARD=1 WRONG=0 STILL=0 RESHAPE=0 ONLY-G=181 AWAY=0 ONLY-OURS=199 ONLY-A=0
+default/MiniAmiq-544c7f61          OP    -- rows=OP RIGHT=8275 TOWARD=3 WRONG=0 STILL=1238 RESHAPE=0 ONLY-G=695 AWAY=0 ONLY-OURS=633 ONLY-A=0
+default/MiniAmiq-544c7f61          ASGN  -- rows=ASGN RIGHT=7723 TOWARD=0 WRONG=0 STILL=1 RESHAPE=0 ONLY-G=109 AWAY=0 ONLY-OURS=106 ONLY-A=0
+default/MiniAmiq-544c7f61          ARG   -- rows=ARG RIGHT=12470 TOWARD=1 WRONG=0 STILL=2 RESHAPE=0 ONLY-G=2085 AWAY=2 ONLY-OURS=2188 ONLY-A=0
+default/MiniAmiq-544c7f61          COND  -- rows=COND RIGHT=7858 TOWARD=0 WRONG=0 STILL=1 RESHAPE=0 ONLY-G=1306 AWAY=0 ONLY-OURS=1313 ONLY-A=0
+default/MiniAmiq-544c7f61          HP    -- rows=HP RIGHT=7216 TOWARD=1 WRONG=0 STILL=1 RESHAPE=0 ONLY-G=750 AWAY=2 ONLY-OURS=831 ONLY-A=0
+default/Scoreboard-59431470        OP    -- rows=OP RIGHT=5854 TOWARD=3 WRONG=0 STILL=26 RESHAPE=0 ONLY-G=451 AWAY=0 ONLY-OURS=425 ONLY-A=0
+default/Scoreboard-59431470        ASGN  -- rows=ASGN RIGHT=4628 TOWARD=0 WRONG=0 STILL=1 RESHAPE=0 ONLY-G=90 AWAY=0 ONLY-OURS=90 ONLY-A=0
+default/Scoreboard-59431470        ARG   -- rows=ARG RIGHT=7891 TOWARD=1 WRONG=0 STILL=2 RESHAPE=0 ONLY-G=1195 AWAY=2 ONLY-OURS=1273 ONLY-A=0
+default/Scoreboard-59431470        COND  -- rows=COND RIGHT=5126 TOWARD=0 WRONG=0 STILL=0 RESHAPE=0 ONLY-G=810 AWAY=0 ONLY-OURS=817 ONLY-A=0
+default/Scoreboard-59431470        HP    -- rows=HP RIGHT=4446 TOWARD=1 WRONG=0 STILL=0 RESHAPE=0 ONLY-G=432 AWAY=2 ONLY-OURS=475 ONLY-A=0
+default/SeqDriver-32af76aa         OP    -- rows=OP RIGHT=7915 TOWARD=3 WRONG=0 STILL=1238 RESHAPE=0 ONLY-G=689 AWAY=0 ONLY-OURS=628 ONLY-A=0
+default/SeqDriver-32af76aa         ASGN  -- rows=ASGN RIGHT=7339 TOWARD=0 WRONG=0 STILL=1 RESHAPE=0 ONLY-G=93 AWAY=0 ONLY-OURS=93 ONLY-A=0
+default/SeqDriver-32af76aa         ARG   -- rows=ARG RIGHT=11570 TOWARD=1 WRONG=0 STILL=2 RESHAPE=0 ONLY-G=1954 AWAY=2 ONLY-OURS=2065 ONLY-A=0
+default/SeqDriver-32af76aa         COND  -- rows=COND RIGHT=7477 TOWARD=0 WRONG=0 STILL=1 RESHAPE=0 ONLY-G=1249 AWAY=0 ONLY-OURS=1258 ONLY-A=0
+default/SeqDriver-32af76aa         HP    -- rows=HP RIGHT=6960 TOWARD=1 WRONG=0 STILL=0 RESHAPE=0 ONLY-G=738 AWAY=2 ONLY-OURS=819 ONLY-A=0
+default/SimpleUVM-1dc93a62         OP    -- rows=OP RIGHT=5847 TOWARD=3 WRONG=0 STILL=26 RESHAPE=0 ONLY-G=450 AWAY=0 ONLY-OURS=424 ONLY-A=0
+default/SimpleUVM-1dc93a62         ASGN  -- rows=ASGN RIGHT=4610 TOWARD=0 WRONG=0 STILL=1 RESHAPE=0 ONLY-G=88 AWAY=0 ONLY-OURS=88 ONLY-A=0
+default/SimpleUVM-1dc93a62         ARG   -- rows=ARG RIGHT=7838 TOWARD=1 WRONG=0 STILL=2 RESHAPE=0 ONLY-G=1188 AWAY=2 ONLY-OURS=1266 ONLY-A=0
+default/SimpleUVM-1dc93a62         COND  -- rows=COND RIGHT=5110 TOWARD=0 WRONG=0 STILL=0 RESHAPE=0 ONLY-G=813 AWAY=0 ONLY-OURS=820 ONLY-A=0
+default/SimpleUVM-1dc93a62         HP    -- rows=HP RIGHT=4433 TOWARD=1 WRONG=0 STILL=0 RESHAPE=0 ONLY-G=431 AWAY=2 ONLY-OURS=474 ONLY-A=0
+testflags/BuildUVMPkg-bf853d43     OP    -- rows=OP RIGHT=5947 TOWARD=1 WRONG=0 STILL=44 RESHAPE=0 ONLY-G=129 AWAY=0 ONLY-OURS=94 ONLY-A=0
+testflags/BuildUVMPkg-bf853d43     ASGN  -- rows=ASGN RIGHT=4703 TOWARD=0 WRONG=0 STILL=3 RESHAPE=0 ONLY-G=1 AWAY=0 ONLY-OURS=1 ONLY-A=0
+testflags/BuildUVMPkg-bf853d43     ARG   -- rows=ARG RIGHT=9447 TOWARD=1 WRONG=0 STILL=0 RESHAPE=0 ONLY-G=52 AWAY=0 ONLY-OURS=3 ONLY-A=0
+testflags/BuildUVMPkg-bf853d43     COND  -- rows=COND RIGHT=5911 TOWARD=0 WRONG=0 STILL=0 RESHAPE=0 ONLY-G=40 AWAY=0 ONLY-OURS=40 ONLY-A=0
+testflags/BuildUVMPkg-bf853d43     HP    -- rows=HP RIGHT=4651 TOWARD=1 WRONG=0 STILL=0 RESHAPE=0 ONLY-G=181 AWAY=0 ONLY-OURS=199 ONLY-A=0
+testflags/MiniAmiq-544c7f61        OP    -- rows=OP RIGHT=8275 TOWARD=3 WRONG=0 STILL=1238 RESHAPE=0 ONLY-G=695 AWAY=0 ONLY-OURS=633 ONLY-A=0
+testflags/MiniAmiq-544c7f61        ASGN  -- rows=ASGN RIGHT=7723 TOWARD=0 WRONG=0 STILL=1 RESHAPE=0 ONLY-G=109 AWAY=0 ONLY-OURS=106 ONLY-A=0
+testflags/MiniAmiq-544c7f61        ARG   -- rows=ARG RIGHT=12470 TOWARD=1 WRONG=0 STILL=2 RESHAPE=0 ONLY-G=2085 AWAY=2 ONLY-OURS=2188 ONLY-A=0
+testflags/MiniAmiq-544c7f61        COND  -- rows=COND RIGHT=7858 TOWARD=0 WRONG=0 STILL=1 RESHAPE=0 ONLY-G=1306 AWAY=0 ONLY-OURS=1313 ONLY-A=0
+testflags/MiniAmiq-544c7f61        HP    -- rows=HP RIGHT=7216 TOWARD=1 WRONG=0 STILL=1 RESHAPE=0 ONLY-G=750 AWAY=2 ONLY-OURS=831 ONLY-A=0
+testflags/SeqDriver-32af76aa       OP    -- rows=OP RIGHT=7915 TOWARD=3 WRONG=0 STILL=1238 RESHAPE=0 ONLY-G=689 AWAY=0 ONLY-OURS=628 ONLY-A=0
+testflags/SeqDriver-32af76aa       ASGN  -- rows=ASGN RIGHT=7339 TOWARD=0 WRONG=0 STILL=1 RESHAPE=0 ONLY-G=93 AWAY=0 ONLY-OURS=93 ONLY-A=0
+testflags/SeqDriver-32af76aa       ARG   -- rows=ARG RIGHT=11570 TOWARD=1 WRONG=0 STILL=2 RESHAPE=0 ONLY-G=1954 AWAY=2 ONLY-OURS=2065 ONLY-A=0
+testflags/SeqDriver-32af76aa       COND  -- rows=COND RIGHT=7477 TOWARD=0 WRONG=0 STILL=1 RESHAPE=0 ONLY-G=1249 AWAY=0 ONLY-OURS=1258 ONLY-A=0
+testflags/SeqDriver-32af76aa       HP    -- rows=HP RIGHT=6960 TOWARD=1 WRONG=0 STILL=0 RESHAPE=0 ONLY-G=738 AWAY=2 ONLY-OURS=819 ONLY-A=0
+testflags/SimpleUVM-1dc93a62       OP    -- rows=OP RIGHT=5847 TOWARD=3 WRONG=0 STILL=26 RESHAPE=0 ONLY-G=450 AWAY=0 ONLY-OURS=424 ONLY-A=0
+testflags/SimpleUVM-1dc93a62       ASGN  -- rows=ASGN RIGHT=4610 TOWARD=0 WRONG=0 STILL=1 RESHAPE=0 ONLY-G=88 AWAY=0 ONLY-OURS=88 ONLY-A=0
+testflags/SimpleUVM-1dc93a62       ARG   -- rows=ARG RIGHT=7838 TOWARD=1 WRONG=0 STILL=2 RESHAPE=0 ONLY-G=1188 AWAY=2 ONLY-OURS=1266 ONLY-A=0
+testflags/SimpleUVM-1dc93a62       COND  -- rows=COND RIGHT=5110 TOWARD=0 WRONG=0 STILL=0 RESHAPE=0 ONLY-G=813 AWAY=0 ONLY-OURS=820 ONLY-A=0
+testflags/SimpleUVM-1dc93a62       HP    -- rows=HP RIGHT=4433 TOWARD=1 WRONG=0 STILL=0 RESHAPE=0 ONLY-G=431 AWAY=2 ONLY-OURS=474 ONLY-A=0
+
+== the 28 AWAY cells, every one of them, and their ONLY-G twins ==
+(all 28 are 'uvm_pkg::uvm_utils::find'/'find_all''s `uvm_warning` MACRO site:
+ golden reports the object at the macro BODY (133:xx), we report it at the macro
+ ARGUMENT (664:xx / 675:xx).  No generated Compare reads VpiLineNo/VpiColumnNo,
+ and grid arm F builds exactly this shape and is judged CMP_EQUAL by uhdm-cmp
+ in BOTH views.)
+
+default/MiniAmiq-544c7f61	ARG	AWAY	('ARG', 'uvm_pkg::uvm_utils::find', '675:83-675:96', 'method_func_call', 'get_full_name')	A=[] B=[('-1', '-')]
+default/MiniAmiq-544c7f61	ARG	AWAY	('ARG', 'uvm_pkg::uvm_utils::find_all', '664:84-664:97', 'method_func_call', 'get_full_name')	A=[] B=[('-1', '-')]
+default/MiniAmiq-544c7f61	HP	AWAY	('HP', 'uvm_pkg::uvm_utils::find', '675:77-675:98', 'start.get_full_name')	A=[] B=[('2', 'ref_obj(start),method_func_call(get_full_name)')]
+default/MiniAmiq-544c7f61	HP	AWAY	('HP', 'uvm_pkg::uvm_utils::find_all', '664:78-664:99', 'start.get_full_name')	A=[] B=[('2', 'ref_obj(start),method_func_call(get_full_name)')]
+default/Scoreboard-59431470	ARG	AWAY	('ARG', 'uvm_pkg::uvm_utils::find', '675:83-675:96', 'method_func_call', 'get_full_name')	A=[] B=[('-1', '-')]
+default/Scoreboard-59431470	ARG	AWAY	('ARG', 'uvm_pkg::uvm_utils::find_all', '664:84-664:97', 'method_func_call', 'get_full_name')	A=[] B=[('-1', '-')]
+default/Scoreboard-59431470	HP	AWAY	('HP', 'uvm_pkg::uvm_utils::find', '675:77-675:98', 'start.get_full_name')	A=[] B=[('2', 'ref_obj(start),method_func_call(get_full_name)')]
+default/Scoreboard-59431470	HP	AWAY	('HP', 'uvm_pkg::uvm_utils::find_all', '664:78-664:99', 'start.get_full_name')	A=[] B=[('2', 'ref_obj(start),method_func_call(get_full_name)')]
+default/SeqDriver-32af76aa	ARG	AWAY	('ARG', 'uvm_pkg::uvm_utils::find', '675:83-675:96', 'method_func_call', 'get_full_name')	A=[] B=[('-1', '-')]
+default/SeqDriver-32af76aa	ARG	AWAY	('ARG', 'uvm_pkg::uvm_utils::find_all', '664:84-664:97', 'method_func_call', 'get_full_name')	A=[] B=[('-1', '-')]
+default/SeqDriver-32af76aa	HP	AWAY	('HP', 'uvm_pkg::uvm_utils::find', '675:77-675:98', 'start.get_full_name')	A=[] B=[('2', 'ref_obj(start),method_func_call(get_full_name)')]
+default/SeqDriver-32af76aa	HP	AWAY	('HP', 'uvm_pkg::uvm_utils::find_all', '664:78-664:99', 'start.get_full_name')	A=[] B=[('2', 'ref_obj(start),method_func_call(get_full_name)')]
+default/SimpleUVM-1dc93a62	ARG	AWAY	('ARG', 'uvm_pkg::uvm_utils::find', '675:83-675:96', 'method_func_call', 'get_full_name')	A=[] B=[('-1', '-')]
+default/SimpleUVM-1dc93a62	ARG	AWAY	('ARG', 'uvm_pkg::uvm_utils::find_all', '664:84-664:97', 'method_func_call', 'get_full_name')	A=[] B=[('-1', '-')]
+default/SimpleUVM-1dc93a62	HP	AWAY	('HP', 'uvm_pkg::uvm_utils::find', '675:77-675:98', 'start.get_full_name')	A=[] B=[('2', 'ref_obj(start),method_func_call(get_full_name)')]
+default/SimpleUVM-1dc93a62	HP	AWAY	('HP', 'uvm_pkg::uvm_utils::find_all', '664:78-664:99', 'start.get_full_name')	A=[] B=[('2', 'ref_obj(start),method_func_call(get_full_name)')]
+testflags/MiniAmiq-544c7f61	ARG	AWAY	('ARG', 'uvm_pkg::uvm_utils::find', '675:83-675:96', 'method_func_call', 'get_full_name')	A=[] B=[('-1', '-')]
+testflags/MiniAmiq-544c7f61	ARG	AWAY	('ARG', 'uvm_pkg::uvm_utils::find_all', '664:84-664:97', 'method_func_call', 'get_full_name')	A=[] B=[('-1', '-')]
+testflags/MiniAmiq-544c7f61	HP	AWAY	('HP', 'uvm_pkg::uvm_utils::find', '675:77-675:98', 'start.get_full_name')	A=[] B=[('2', 'ref_obj(start),method_func_call(get_full_name)')]
+testflags/MiniAmiq-544c7f61	HP	AWAY	('HP', 'uvm_pkg::uvm_utils::find_all', '664:78-664:99', 'start.get_full_name')	A=[] B=[('2', 'ref_obj(start),method_func_call(get_full_name)')]
+testflags/SeqDriver-32af76aa	ARG	AWAY	('ARG', 'uvm_pkg::uvm_utils::find', '675:83-675:96', 'method_func_call', 'get_full_name')	A=[] B=[('-1', '-')]
+testflags/SeqDriver-32af76aa	ARG	AWAY	('ARG', 'uvm_pkg::uvm_utils::find_all', '664:84-664:97', 'method_func_call', 'get_full_name')	A=[] B=[('-1', '-')]
+testflags/SeqDriver-32af76aa	HP	AWAY	('HP', 'uvm_pkg::uvm_utils::find', '675:77-675:98', 'start.get_full_name')	A=[] B=[('2', 'ref_obj(start),method_func_call(get_full_name)')]
+testflags/SeqDriver-32af76aa	HP	AWAY	('HP', 'uvm_pkg::uvm_utils::find_all', '664:78-664:99', 'start.get_full_name')	A=[] B=[('2', 'ref_obj(start),method_func_call(get_full_name)')]
+testflags/SimpleUVM-1dc93a62	ARG	AWAY	('ARG', 'uvm_pkg::uvm_utils::find', '675:83-675:96', 'method_func_call', 'get_full_name')	A=[] B=[('-1', '-')]
+testflags/SimpleUVM-1dc93a62	ARG	AWAY	('ARG', 'uvm_pkg::uvm_utils::find_all', '664:84-664:97', 'method_func_call', 'get_full_name')	A=[] B=[('-1', '-')]
+testflags/SimpleUVM-1dc93a62	HP	AWAY	('HP', 'uvm_pkg::uvm_utils::find', '675:77-675:98', 'start.get_full_name')	A=[] B=[('2', 'ref_obj(start),method_func_call(get_full_name)')]
+testflags/SimpleUVM-1dc93a62	HP	AWAY	('HP', 'uvm_pkg::uvm_utils::find_all', '664:78-664:99', 'start.get_full_name')	A=[] B=[('2', 'ref_obj(start),method_func_call(get_full_name)')]
+
+default/MiniAmiq-544c7f61	OP	ONLY-G	('OP', 'uvm_pkg::uvm_utils::find', '132:53-133:78', '33')	[('func_call', '4', 'constant("More than one instance of type \'"),ref_obj(TYPE::type_name),constant(" found in component hierarchy beginning at "),hier_path(start.get_full_name)')]
+default/MiniAmiq-544c7f61	OP	ONLY-G	('OP', 'uvm_pkg::uvm_utils::find_all', '132:50-133:82', '33')	[('func_call', '4', 'constant("Instance of type \'"),ref_obj(TYPE::type_name),constant(" not found in component hierarchy beginning at "),hier_path(start.get_full_name)')]
+default/MiniAmiq-544c7f61	ARG	ONLY-G	('ARG', 'uvm_pkg::uvm_utils::find', '132:8-133:181', 'func_call', 'uvm_report_warning')	[('7', 'constant("find_type-multi match"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(674),constant(""),constant(1)')]
+default/MiniAmiq-544c7f61	ARG	ONLY-G	('ARG', 'uvm_pkg::uvm_utils::find', '133:62-133:75', 'method_func_call', 'get_full_name')	[('-1', '-')]
+default/MiniAmiq-544c7f61	ARG	ONLY-G	('ARG', 'uvm_pkg::uvm_utils::find_all', '132:8-133:185', 'func_call', 'uvm_report_warning')	[('7', 'constant("find_type-no match"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(663),constant(""),constant(1)')]
+default/MiniAmiq-544c7f61	ARG	ONLY-G	('ARG', 'uvm_pkg::uvm_utils::find_all', '133:66-133:79', 'method_func_call', 'get_full_name')	[('-1', '-')]
+default/MiniAmiq-544c7f61	COND	ONLY-G	('COND', 'uvm_pkg::uvm_utils::find', '131:6-133:182', 'if_stmt')	[('func_call(uvm_report_enabled)',)]
+default/MiniAmiq-544c7f61	COND	ONLY-G	('COND', 'uvm_pkg::uvm_utils::find_all', '131:6-133:186', 'if_stmt')	[('func_call(uvm_report_enabled)',)]
+default/MiniAmiq-544c7f61	HP	ONLY-G	('HP', 'uvm_pkg::uvm_utils::find', '133:56-133:77', 'start.get_full_name')	[('2', 'ref_obj(start),method_func_call(get_full_name)')]
+default/MiniAmiq-544c7f61	HP	ONLY-G	('HP', 'uvm_pkg::uvm_utils::find_all', '133:60-133:81', 'start.get_full_name')	[('2', 'ref_obj(start),method_func_call(get_full_name)')]
+default/Scoreboard-59431470	OP	ONLY-G	('OP', 'uvm_pkg::uvm_utils::find', '132:53-133:78', '33')	[('func_call', '4', 'constant("More than one instance of type \'"),ref_obj(TYPE::type_name),constant(" found in component hierarchy beginning at "),hier_path(start.get_full_name)')]
+default/Scoreboard-59431470	OP	ONLY-G	('OP', 'uvm_pkg::uvm_utils::find_all', '132:50-133:82', '33')	[('func_call', '4', 'constant("Instance of type \'"),ref_obj(TYPE::type_name),constant(" not found in component hierarchy beginning at "),hier_path(start.get_full_name)')]
+default/Scoreboard-59431470	ARG	ONLY-G	('ARG', 'uvm_pkg::uvm_utils::find', '132:8-133:181', 'func_call', 'uvm_report_warning')	[('7', 'constant("find_type-multi match"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(674),constant(""),constant(1)')]
+default/Scoreboard-59431470	ARG	ONLY-G	('ARG', 'uvm_pkg::uvm_utils::find', '133:62-133:75', 'method_func_call', 'get_full_name')	[('-1', '-')]
+default/Scoreboard-59431470	ARG	ONLY-G	('ARG', 'uvm_pkg::uvm_utils::find_all', '132:8-133:185', 'func_call', 'uvm_report_warning')	[('7', 'constant("find_type-no match"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(663),constant(""),constant(1)')]
+default/Scoreboard-59431470	ARG	ONLY-G	('ARG', 'uvm_pkg::uvm_utils::find_all', '133:66-133:79', 'method_func_call', 'get_full_name')	[('-1', '-')]
+default/Scoreboard-59431470	COND	ONLY-G	('COND', 'uvm_pkg::uvm_utils::find', '131:6-133:182', 'if_stmt')	[('func_call(uvm_report_enabled)',)]
+default/Scoreboard-59431470	COND	ONLY-G	('COND', 'uvm_pkg::uvm_utils::find_all', '131:6-133:186', 'if_stmt')	[('func_call(uvm_report_enabled)',)]
+default/Scoreboard-59431470	HP	ONLY-G	('HP', 'uvm_pkg::uvm_utils::find', '133:56-133:77', 'start.get_full_name')	[('2', 'ref_obj(start),method_func_call(get_full_name)')]
+default/Scoreboard-59431470	HP	ONLY-G	('HP', 'uvm_pkg::uvm_utils::find_all', '133:60-133:81', 'start.get_full_name')	[('2', 'ref_obj(start),method_func_call(get_full_name)')]
+default/SeqDriver-32af76aa	OP	ONLY-G	('OP', 'uvm_pkg::uvm_utils::find', '132:53-133:78', '33')	[('func_call', '4', 'constant("More than one instance of type \'"),ref_obj(TYPE::type_name),constant(" found in component hierarchy beginning at "),hier_path(start.get_full_name)')]
+default/SeqDriver-32af76aa	OP	ONLY-G	('OP', 'uvm_pkg::uvm_utils::find_all', '132:50-133:82', '33')	[('func_call', '4', 'constant("Instance of type \'"),ref_obj(TYPE::type_name),constant(" not found in component hierarchy beginning at "),hier_path(start.get_full_name)')]
+default/SeqDriver-32af76aa	ARG	ONLY-G	('ARG', 'uvm_pkg::uvm_utils::find', '132:8-133:181', 'func_call', 'uvm_report_warning')	[('7', 'constant("find_type-multi match"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(674),constant(""),constant(1)')]
+default/SeqDriver-32af76aa	ARG	ONLY-G	('ARG', 'uvm_pkg::uvm_utils::find', '133:62-133:75', 'method_func_call', 'get_full_name')	[('-1', '-')]
+default/SeqDriver-32af76aa	ARG	ONLY-G	('ARG', 'uvm_pkg::uvm_utils::find_all', '132:8-133:185', 'func_call', 'uvm_report_warning')	[('7', 'constant("find_type-no match"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(663),constant(""),constant(1)')]
+default/SeqDriver-32af76aa	ARG	ONLY-G	('ARG', 'uvm_pkg::uvm_utils::find_all', '133:66-133:79', 'method_func_call', 'get_full_name')	[('-1', '-')]
+default/SeqDriver-32af76aa	COND	ONLY-G	('COND', 'uvm_pkg::uvm_utils::find', '131:6-133:182', 'if_stmt')	[('func_call(uvm_report_enabled)',)]
+default/SeqDriver-32af76aa	COND	ONLY-G	('COND', 'uvm_pkg::uvm_utils::find_all', '131:6-133:186', 'if_stmt')	[('func_call(uvm_report_enabled)',)]
+default/SeqDriver-32af76aa	HP	ONLY-G	('HP', 'uvm_pkg::uvm_utils::find', '133:56-133:77', 'start.get_full_name')	[('2', 'ref_obj(start),method_func_call(get_full_name)')]
+default/SeqDriver-32af76aa	HP	ONLY-G	('HP', 'uvm_pkg::uvm_utils::find_all', '133:60-133:81', 'start.get_full_name')	[('2', 'ref_obj(start),method_func_call(get_full_name)')]
+default/SimpleUVM-1dc93a62	OP	ONLY-G	('OP', 'uvm_pkg::uvm_utils::find', '132:53-133:78', '33')	[('func_call', '4', 'constant("More than one instance of type \'"),ref_obj(TYPE::type_name),constant(" found in component hierarchy beginning at "),hier_path(start.get_full_name)')]
+default/SimpleUVM-1dc93a62	OP	ONLY-G	('OP', 'uvm_pkg::uvm_utils::find_all', '132:50-133:82', '33')	[('func_call', '4', 'constant("Instance of type \'"),ref_obj(TYPE::type_name),constant(" not found in component hierarchy beginning at "),hier_path(start.get_full_name)')]
+default/SimpleUVM-1dc93a62	ARG	ONLY-G	('ARG', 'uvm_pkg::uvm_utils::find', '132:8-133:181', 'func_call', 'uvm_report_warning')	[('7', 'constant("find_type-multi match"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(674),constant(""),constant(1)')]
+default/SimpleUVM-1dc93a62	ARG	ONLY-G	('ARG', 'uvm_pkg::uvm_utils::find', '133:62-133:75', 'method_func_call', 'get_full_name')	[('-1', '-')]
+default/SimpleUVM-1dc93a62	ARG	ONLY-G	('ARG', 'uvm_pkg::uvm_utils::find_all', '132:8-133:185', 'func_call', 'uvm_report_warning')	[('7', 'constant("find_type-no match"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(663),constant(""),constant(1)')]
+default/SimpleUVM-1dc93a62	ARG	ONLY-G	('ARG', 'uvm_pkg::uvm_utils::find_all', '133:66-133:79', 'method_func_call', 'get_full_name')	[('-1', '-')]
+default/SimpleUVM-1dc93a62	COND	ONLY-G	('COND', 'uvm_pkg::uvm_utils::find', '131:6-133:182', 'if_stmt')	[('func_call(uvm_report_enabled)',)]
+default/SimpleUVM-1dc93a62	COND	ONLY-G	('COND', 'uvm_pkg::uvm_utils::find_all', '131:6-133:186', 'if_stmt')	[('func_call(uvm_report_enabled)',)]
+default/SimpleUVM-1dc93a62	HP	ONLY-G	('HP', 'uvm_pkg::uvm_utils::find', '133:56-133:77', 'start.get_full_name')	[('2', 'ref_obj(start),method_func_call(get_full_name)')]
+default/SimpleUVM-1dc93a62	HP	ONLY-G	('HP', 'uvm_pkg::uvm_utils::find_all', '133:60-133:81', 'start.get_full_name')	[('2', 'ref_obj(start),method_func_call(get_full_name)')]
+testflags/MiniAmiq-544c7f61	OP	ONLY-G	('OP', 'uvm_pkg::uvm_utils::find', '132:53-133:78', '33')	[('func_call', '4', 'constant("More than one instance of type \'"),ref_obj(TYPE::type_name),constant(" found in component hierarchy beginning at "),hier_path(start.get_full_name)')]
+testflags/MiniAmiq-544c7f61	OP	ONLY-G	('OP', 'uvm_pkg::uvm_utils::find_all', '132:50-133:82', '33')	[('func_call', '4', 'constant("Instance of type \'"),ref_obj(TYPE::type_name),constant(" not found in component hierarchy beginning at "),hier_path(start.get_full_name)')]
+testflags/MiniAmiq-544c7f61	ARG	ONLY-G	('ARG', 'uvm_pkg::uvm_utils::find', '132:8-133:181', 'func_call', 'uvm_report_warning')	[('7', 'constant("find_type-multi match"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(674),constant(""),constant(1)')]
+testflags/MiniAmiq-544c7f61	ARG	ONLY-G	('ARG', 'uvm_pkg::uvm_utils::find', '133:62-133:75', 'method_func_call', 'get_full_name')	[('-1', '-')]
+testflags/MiniAmiq-544c7f61	ARG	ONLY-G	('ARG', 'uvm_pkg::uvm_utils::find_all', '132:8-133:185', 'func_call', 'uvm_report_warning')	[('7', 'constant("find_type-no match"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(663),constant(""),constant(1)')]
+testflags/MiniAmiq-544c7f61	ARG	ONLY-G	('ARG', 'uvm_pkg::uvm_utils::find_all', '133:66-133:79', 'method_func_call', 'get_full_name')	[('-1', '-')]
+testflags/MiniAmiq-544c7f61	COND	ONLY-G	('COND', 'uvm_pkg::uvm_utils::find', '131:6-133:182', 'if_stmt')	[('func_call(uvm_report_enabled)',)]
+testflags/MiniAmiq-544c7f61	COND	ONLY-G	('COND', 'uvm_pkg::uvm_utils::find_all', '131:6-133:186', 'if_stmt')	[('func_call(uvm_report_enabled)',)]
+testflags/MiniAmiq-544c7f61	HP	ONLY-G	('HP', 'uvm_pkg::uvm_utils::find', '133:56-133:77', 'start.get_full_name')	[('2', 'ref_obj(start),method_func_call(get_full_name)')]
+testflags/MiniAmiq-544c7f61	HP	ONLY-G	('HP', 'uvm_pkg::uvm_utils::find_all', '133:60-133:81', 'start.get_full_name')	[('2', 'ref_obj(start),method_func_call(get_full_name)')]
+testflags/SeqDriver-32af76aa	OP	ONLY-G	('OP', 'uvm_pkg::uvm_utils::find', '132:53-133:78', '33')	[('func_call', '4', 'constant("More than one instance of type \'"),ref_obj(TYPE::type_name),constant(" found in component hierarchy beginning at "),hier_path(start.get_full_name)')]
+testflags/SeqDriver-32af76aa	OP	ONLY-G	('OP', 'uvm_pkg::uvm_utils::find_all', '132:50-133:82', '33')	[('func_call', '4', 'constant("Instance of type \'"),ref_obj(TYPE::type_name),constant(" not found in component hierarchy beginning at "),hier_path(start.get_full_name)')]
+testflags/SeqDriver-32af76aa	ARG	ONLY-G	('ARG', 'uvm_pkg::uvm_utils::find', '132:8-133:181', 'func_call', 'uvm_report_warning')	[('7', 'constant("find_type-multi match"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(674),constant(""),constant(1)')]
+testflags/SeqDriver-32af76aa	ARG	ONLY-G	('ARG', 'uvm_pkg::uvm_utils::find', '133:62-133:75', 'method_func_call', 'get_full_name')	[('-1', '-')]
+testflags/SeqDriver-32af76aa	ARG	ONLY-G	('ARG', 'uvm_pkg::uvm_utils::find_all', '132:8-133:185', 'func_call', 'uvm_report_warning')	[('7', 'constant("find_type-no match"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(663),constant(""),constant(1)')]
+testflags/SeqDriver-32af76aa	ARG	ONLY-G	('ARG', 'uvm_pkg::uvm_utils::find_all', '133:66-133:79', 'method_func_call', 'get_full_name')	[('-1', '-')]
+testflags/SeqDriver-32af76aa	COND	ONLY-G	('COND', 'uvm_pkg::uvm_utils::find', '131:6-133:182', 'if_stmt')	[('func_call(uvm_report_enabled)',)]
+testflags/SeqDriver-32af76aa	COND	ONLY-G	('COND', 'uvm_pkg::uvm_utils::find_all', '131:6-133:186', 'if_stmt')	[('func_call(uvm_report_enabled)',)]
+testflags/SeqDriver-32af76aa	HP	ONLY-G	('HP', 'uvm_pkg::uvm_utils::find', '133:56-133:77', 'start.get_full_name')	[('2', 'ref_obj(start),method_func_call(get_full_name)')]
+testflags/SeqDriver-32af76aa	HP	ONLY-G	('HP', 'uvm_pkg::uvm_utils::find_all', '133:60-133:81', 'start.get_full_name')	[('2', 'ref_obj(start),method_func_call(get_full_name)')]
+testflags/SimpleUVM-1dc93a62	OP	ONLY-G	('OP', 'uvm_pkg::uvm_utils::find', '132:53-133:78', '33')	[('func_call', '4', 'constant("More than one instance of type \'"),ref_obj(TYPE::type_name),constant(" found in component hierarchy beginning at "),hier_path(start.get_full_name)')]
+testflags/SimpleUVM-1dc93a62	OP	ONLY-G	('OP', 'uvm_pkg::uvm_utils::find_all', '132:50-133:82', '33')	[('func_call', '4', 'constant("Instance of type \'"),ref_obj(TYPE::type_name),constant(" not found in component hierarchy beginning at "),hier_path(start.get_full_name)')]
+testflags/SimpleUVM-1dc93a62	ARG	ONLY-G	('ARG', 'uvm_pkg::uvm_utils::find', '132:8-133:181', 'func_call', 'uvm_report_warning')	[('7', 'constant("find_type-multi match"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(674),constant(""),constant(1)')]
+testflags/SimpleUVM-1dc93a62	ARG	ONLY-G	('ARG', 'uvm_pkg::uvm_utils::find', '133:62-133:75', 'method_func_call', 'get_full_name')	[('-1', '-')]
+testflags/SimpleUVM-1dc93a62	ARG	ONLY-G	('ARG', 'uvm_pkg::uvm_utils::find_all', '132:8-133:185', 'func_call', 'uvm_report_warning')	[('7', 'constant("find_type-no match"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(663),constant(""),constant(1)')]
+testflags/SimpleUVM-1dc93a62	ARG	ONLY-G	('ARG', 'uvm_pkg::uvm_utils::find_all', '133:66-133:79', 'method_func_call', 'get_full_name')	[('-1', '-')]
+testflags/SimpleUVM-1dc93a62	COND	ONLY-G	('COND', 'uvm_pkg::uvm_utils::find', '131:6-133:182', 'if_stmt')	[('func_call(uvm_report_enabled)',)]
+testflags/SimpleUVM-1dc93a62	COND	ONLY-G	('COND', 'uvm_pkg::uvm_utils::find_all', '131:6-133:186', 'if_stmt')	[('func_call(uvm_report_enabled)',)]
+testflags/SimpleUVM-1dc93a62	HP	ONLY-G	('HP', 'uvm_pkg::uvm_utils::find', '133:56-133:77', 'start.get_full_name')	[('2', 'ref_obj(start),method_func_call(get_full_name)')]
+testflags/SimpleUVM-1dc93a62	HP	ONLY-G	('HP', 'uvm_pkg::uvm_utils::find_all', '133:60-133:81', 'start.get_full_name')	[('2', 'ref_obj(start),method_func_call(get_full_name)')]
+
+== every TOWARD cell ==
+
+default/BuildUVMPkg-bf853d43	OP	TOWARD	('OP', 'uvm_pkg::uvm_reg_predictor::type_name', '61838:21-61838:69', '33')
+default/BuildUVMPkg-bf853d43	ARG	TOWARD	('ARG', 'uvm_pkg::uvm_reg_predictor::type_name', '61838:48-61838:61', 'method_func_call', 'get_type_name')
+default/BuildUVMPkg-bf853d43	HP	TOWARD	('HP', 'uvm_pkg::uvm_reg_predictor::type_name', '61838:46-61838:63', 't.get_type_name')
+default/MiniAmiq-544c7f61	OP	TOWARD	('OP', 'uvm_pkg::uvm_reg_predictor::get_type_name', '121:19-121:67', '33')
+default/MiniAmiq-544c7f61	OP	TOWARD	('OP', 'uvm_pkg::uvm_utils::get_config', '721:27-722:67', '33')
+default/MiniAmiq-544c7f61	OP	TOWARD	('OP', 'uvm_pkg::uvm_utils::get_config', '726:27-727:67', '33')
+default/MiniAmiq-544c7f61	ARG	TOWARD	('ARG', 'uvm_pkg::uvm_reg_predictor::get_type_name', '121:46-121:59', 'method_func_call', 'get_type_name')
+default/MiniAmiq-544c7f61	HP	TOWARD	('HP', 'uvm_pkg::uvm_reg_predictor::get_type_name', '121:44-121:61', 't.get_type_name')
+default/Scoreboard-59431470	OP	TOWARD	('OP', 'uvm_pkg::uvm_reg_predictor::get_type_name', '121:19-121:67', '33')
+default/Scoreboard-59431470	OP	TOWARD	('OP', 'uvm_pkg::uvm_utils::get_config', '721:27-722:67', '33')
+default/Scoreboard-59431470	OP	TOWARD	('OP', 'uvm_pkg::uvm_utils::get_config', '726:27-727:67', '33')
+default/Scoreboard-59431470	ARG	TOWARD	('ARG', 'uvm_pkg::uvm_reg_predictor::get_type_name', '121:46-121:59', 'method_func_call', 'get_type_name')
+default/Scoreboard-59431470	HP	TOWARD	('HP', 'uvm_pkg::uvm_reg_predictor::get_type_name', '121:44-121:61', 't.get_type_name')
+default/SeqDriver-32af76aa	OP	TOWARD	('OP', 'uvm_pkg::uvm_reg_predictor::get_type_name', '121:19-121:67', '33')
+default/SeqDriver-32af76aa	OP	TOWARD	('OP', 'uvm_pkg::uvm_utils::get_config', '721:27-722:67', '33')
+default/SeqDriver-32af76aa	OP	TOWARD	('OP', 'uvm_pkg::uvm_utils::get_config', '726:27-727:67', '33')
+default/SeqDriver-32af76aa	ARG	TOWARD	('ARG', 'uvm_pkg::uvm_reg_predictor::get_type_name', '121:46-121:59', 'method_func_call', 'get_type_name')
+default/SeqDriver-32af76aa	HP	TOWARD	('HP', 'uvm_pkg::uvm_reg_predictor::get_type_name', '121:44-121:61', 't.get_type_name')
+default/SimpleUVM-1dc93a62	OP	TOWARD	('OP', 'uvm_pkg::uvm_reg_predictor::get_type_name', '121:19-121:67', '33')
+default/SimpleUVM-1dc93a62	OP	TOWARD	('OP', 'uvm_pkg::uvm_utils::get_config', '721:27-722:67', '33')
+default/SimpleUVM-1dc93a62	OP	TOWARD	('OP', 'uvm_pkg::uvm_utils::get_config', '726:27-727:67', '33')
+default/SimpleUVM-1dc93a62	ARG	TOWARD	('ARG', 'uvm_pkg::uvm_reg_predictor::get_type_name', '121:46-121:59', 'method_func_call', 'get_type_name')
+default/SimpleUVM-1dc93a62	HP	TOWARD	('HP', 'uvm_pkg::uvm_reg_predictor::get_type_name', '121:44-121:61', 't.get_type_name')
+testflags/BuildUVMPkg-bf853d43	OP	TOWARD	('OP', 'uvm_pkg::uvm_reg_predictor::type_name', '61838:21-61838:69', '33')
+testflags/BuildUVMPkg-bf853d43	ARG	TOWARD	('ARG', 'uvm_pkg::uvm_reg_predictor::type_name', '61838:48-61838:61', 'method_func_call', 'get_type_name')
+testflags/BuildUVMPkg-bf853d43	HP	TOWARD	('HP', 'uvm_pkg::uvm_reg_predictor::type_name', '61838:46-61838:63', 't.get_type_name')
+testflags/MiniAmiq-544c7f61	OP	TOWARD	('OP', 'uvm_pkg::uvm_reg_predictor::get_type_name', '121:19-121:67', '33')
+testflags/MiniAmiq-544c7f61	OP	TOWARD	('OP', 'uvm_pkg::uvm_utils::get_config', '721:27-722:67', '33')
+testflags/MiniAmiq-544c7f61	OP	TOWARD	('OP', 'uvm_pkg::uvm_utils::get_config', '726:27-727:67', '33')
+testflags/MiniAmiq-544c7f61	ARG	TOWARD	('ARG', 'uvm_pkg::uvm_reg_predictor::get_type_name', '121:46-121:59', 'method_func_call', 'get_type_name')
+testflags/MiniAmiq-544c7f61	HP	TOWARD	('HP', 'uvm_pkg::uvm_reg_predictor::get_type_name', '121:44-121:61', 't.get_type_name')
+testflags/SeqDriver-32af76aa	OP	TOWARD	('OP', 'uvm_pkg::uvm_reg_predictor::get_type_name', '121:19-121:67', '33')
+testflags/SeqDriver-32af76aa	OP	TOWARD	('OP', 'uvm_pkg::uvm_utils::get_config', '721:27-722:67', '33')
+testflags/SeqDriver-32af76aa	OP	TOWARD	('OP', 'uvm_pkg::uvm_utils::get_config', '726:27-727:67', '33')
+testflags/SeqDriver-32af76aa	ARG	TOWARD	('ARG', 'uvm_pkg::uvm_reg_predictor::get_type_name', '121:46-121:59', 'method_func_call', 'get_type_name')
+testflags/SeqDriver-32af76aa	HP	TOWARD	('HP', 'uvm_pkg::uvm_reg_predictor::get_type_name', '121:44-121:61', 't.get_type_name')
+testflags/SimpleUVM-1dc93a62	OP	TOWARD	('OP', 'uvm_pkg::uvm_reg_predictor::get_type_name', '121:19-121:67', '33')
+testflags/SimpleUVM-1dc93a62	OP	TOWARD	('OP', 'uvm_pkg::uvm_utils::get_config', '721:27-722:67', '33')
+testflags/SimpleUVM-1dc93a62	OP	TOWARD	('OP', 'uvm_pkg::uvm_utils::get_config', '726:27-727:67', '33')
+testflags/SimpleUVM-1dc93a62	ARG	TOWARD	('ARG', 'uvm_pkg::uvm_reg_predictor::get_type_name', '121:46-121:59', 'method_func_call', 'get_type_name')
+testflags/SimpleUVM-1dc93a62	HP	TOWARD	('HP', 'uvm_pkg::uvm_reg_predictor::get_type_name', '121:44-121:61', 't.get_type_name')

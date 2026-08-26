@@ -1,0 +1,157 @@
+r10v160repro/GATES.r10v160.txt — every gate, raw. MEASUREMENT ONLY.
+
+== binaries ==
+904532d3885d6362d6f515c3db951771  /tmp/v160_bin/pris.bin
+995b3d45726c2a9aef48b76b87f497a2  /tmp/v160_bin/pat.bin
+
+== goldens ==
+patched  PASS=23 FAIL=0
+pristine PASS=23 FAIL=0
+/bin/false PASS=0 FAIL=23
+
+== cmds.txt binary audit (u2r patched, file by file) ==
+cmds.txt files: 1462
+   1458 /tmp/v160_bin/pat.bin
+the 4 without a binary are the 2 SURELOG_FAIL rows x 2 modes:
+  /tmp/v160_wd/u2r_pat/testflags/rp32_r5p_degu_soc_top-4a27cef5/cmds.txt
+  /tmp/v160_wd/u2r_pat/testflags/rp32_soc_vfriendly-6a26280a/cmds.txt
+  /tmp/v160_wd/u2r_pat/default/rp32_r5p_degu_soc_top-4a27cef5/cmds.txt
+  /tmp/v160_wd/u2r_pat/default/rp32_soc_vfriendly-6a26280a/cmds.txt
+
+== surelog histograms (pristine | patched) ==
+51c51
+< DONE_SL_PRIS=0
+---
+> DONE_SL_PAT=0
+[default] 794 tests
+  CMP_EQUAL: 471
+  SLANG_REJECT: 283
+  SURELOG_FAIL: 25
+  CMP_NOTEQUAL: 10
+  DEFERRED: 5
+
+[testflags] 794 tests
+  CMP_EQUAL: 466
+  SLANG_REJECT: 284
+  SURELOG_FAIL: 23
+  CMP_NOTEQUAL: 9
+  DEFERRED: 5
+  NO_DATABASE: 3
+  UNTRANSLATABLE: 2
+  TIMEOUT: 1
+  NO_UHDM: 1
+DONE_SL_PAT=0
+
+== u2r histogram (patched) ==
+[testflags] 731 tests
+  CMP_EQUAL: 679
+  SLANG_REJECT: 50
+  SURELOG_FAIL: 2
+731 tests in uhdm2rtlil; modes=default
+  25/731
+  50/731
+  75/731
+  100/731
+  125/731
+  150/731
+  175/731
+  200/731
+  225/731
+  250/731
+  275/731
+  300/731
+  325/731
+  350/731
+  375/731
+  400/731
+  425/731
+  450/731
+  475/731
+  500/731
+  525/731
+  550/731
+  575/731
+  600/731
+  625/731
+  650/731
+  675/731
+  700/731
+  725/731
+
+[default] 731 tests
+  CMP_EQUAL: 679
+  SLANG_REJECT: 50
+  SURELOG_FAIL: 2
+DONE_U2R_PAT=0
+
+== CMP_NOTEQUAL row sets ==
+pristine:
+  BuildUVMPkg default
+  BuildUVMPkg testflags
+  Earlgrey_0_1 default
+  Earlgrey_0_1 testflags
+  <a slang-fenced row name, elided>
+  <a slang-fenced row name, elided>
+  <a slang-fenced row name, elided>
+  <a slang-fenced row name, elided>
+  MiniAmiq default
+  MiniAmiq testflags
+  Scoreboard default
+  SeqDriver default
+  SeqDriver testflags
+  SimpleUVM default
+  SimpleUVM testflags
+  <a slang-fenced row name, elided>
+  <a slang-fenced row name, elided>
+  <a slang-fenced row name, elided>
+  <a slang-fenced row name, elided>
+patched:
+  BuildUVMPkg default
+  BuildUVMPkg testflags
+  Earlgrey_0_1 default
+  Earlgrey_0_1 testflags
+  <a slang-fenced row name, elided>
+  <a slang-fenced row name, elided>
+  <a slang-fenced row name, elided>
+  <a slang-fenced row name, elided>
+  MiniAmiq default
+  MiniAmiq testflags
+  Scoreboard default
+  SeqDriver default
+  SeqDriver testflags
+  SimpleUVM default
+  SimpleUVM testflags
+  <a slang-fenced row name, elided>
+  <a slang-fenced row name, elided>
+  <a slang-fenced row name, elided>
+  <a slang-fenced row name, elided>
+== ct8rows ==
+-- u2r committed baseline vs patched tf
+PASS: every row byte-identical to the committed baseline
+-- u2r own pristine tf vs patched tf
+PASS: every row byte-identical to the committed baseline
+-- u2r own pristine def vs patched def
+PASS: every row byte-identical to the committed baseline
+-- surelog committed baseline vs patched
+PASS: every row byte-identical to the committed baseline
+-- surelog own pristine vs patched
+PASS: every row byte-identical to the committed baseline
+
+== byteverify ==
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm  patched=6fde8c61af91 pristine=be25d2336a8d
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=45cdfe4f55aa pristine=45ce30668f82
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=86a9fa4fd934 pristine=67cd8b9baabf
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=7a166dc47927 pristine=f435022a46a8
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=e257ce467012 pristine=6881cfe80f30
+MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  patched=6fde8c61af91 pristine=be25d2336a8d
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=45cdfe4f55aa pristine=45ce30668f82
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=bc6f3784306a pristine=0643a2b34f33
+MOVER ./testflags/SimpleUVM-1dc93a62/slang.uhdm  patched=8b84d6f6dbf9 pristine=694dfe8672e1
+MOVERS: 9 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged

@@ -1,0 +1,76 @@
+# r10uvm160 — the WIDE BOUNDARY gate (bound160.sh over a COPY of the whole probe tree).
+
+LISTED=4462 PROCESSED=4462 PRODUCED_DBS=4315 MOVED_ARMS=12 RC_DIFFS=0
+
+== MOVED ARMS ==
+r10buvm22repro/g22.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10uvm154repro/l154_noenum.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm158repro/g158_f_witness.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm160repro/g160_a_badkind.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm160repro/g160_b_operand.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm160repro/g160_c_context.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm160repro/g160_d_home.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm160repro/g160_e_edge.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm160repro/g160_f_witness.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm59repro/vcells/c09_concat.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v103repro/arms/v103_b5.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10v158repro/arms/probe0.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+== every non-grid mover, scored against GOLDEN ==
+
+Six of the twelve moved arms are THIS PASS'S OWN grid arms (g160_a..f) — the
+POSITIVE CONTROL: a gate that reports zero movers over them cannot see.  The
+other six, each rebuilt with Surelog as the golden side and judged by the
+OFFICIAL uhdm-cmp:
+
+  arm                                        pristine  patched  verdict
+  r10uvm158repro/g158_f_witness.sv           67 lines  0 lines  CMP_EQUAL (this head's own witness)
+  r10uvm59repro/vcells/c09_concat.sv         49 lines  0 lines  CMP_EQUAL
+  r10v158repro/arms/probe0.sv                67 lines  0 lines  CMP_EQUAL
+  r10v103repro/arms/v103_b5.sv               48 lines  48 lines TOWARD  (a cmp line count is
+      the HEAD OBJECT's decompile size, not a distance: the order-blind whole-dump
+      distance to golden falls 188 -> 168, with 23 lines ADDED and 0 DELETED, all of
+      them the recovered operands of `{tp.fld, kk}` at 34:33 —
+      hier_path(tp.fld) over [ref_obj tp, ref_obj Vb5::Nest5::Xcat::fld] plus
+      ref_obj(Vb5::Nest5::Xcat::kk))
+  r10buvm22repro/g22.sv                      REFUTED — see below
+  r10uvm154repro/l154_noenum.sv              REFUTED — the SAME leaked pointer value
+      (UINT 22552281 -> 22556377), order-blind distance to golden UNCHANGED at 85
+      before and after, the whole pris->pat difference being those constants alone.
+
+=== r10uvm160 BOUNDARY MOVER REFUTATION — r10buvm22repro/g22.sv
+Three DIFFERENT BUILDS, one source file, the SAME three cells:
+  main-tree build (a build of 400a941d, i.e. DIFFERENT SOURCE): |UINT:22556377
+  this pass's PRISTINE build of 6b24843:                        |UINT:22552281
+  this pass's PATCHED build:                                    |UINT:22556377
+
+The main-tree binary is built from DIFFERENT SOURCE than either of mine and
+agrees with the PATCHED one; the value moves by exactly 4096 (one page).
+The three cells are the vpiRightRange operands of the array_typespec of
+  typedef C22 ka_cls_t[string];  typedef int ka_int_t[string];  typedef int ka_str_t[int];
+(g22.sv:70-72) — an ASSOCIATIVE-array typedef whose emitted 'size' is a leaked
+pointer value.  A PRE-EXISTING emitter defect, layout-dependent, not this law:
+§ badConcatOperandsFromSyntax160 mints only vpiStringConst constants, ref_objs and
+hier_paths, and only inside a vpiConcatOp operation whose gate needs an
+InvalidExpression wrapping an EMPTY ConcatenationExpression.  The whole dump
+difference between the two binaries on this arm is these three constants:
+<         |vpiDecompile:22552281
+>         |vpiDecompile:22556377
+<         |UINT:22552281
+>         |UINT:22556377
+<         |vpiDecompile:22552281
+>         |vpiDecompile:22556377
+<         |UINT:22552281
+>         |UINT:22556377
+<         |vpiDecompile:22551425
+>         |vpiDecompile:22555521
+<         |UINT:22551425
+>         |UINT:22555521
+
+3 runs of each binary, byte-identical each time (so the arm is not itself flaky):
+32c240038f7e
+32c240038f7e
+32c240038f7e
+5bdbd461474f
+5bdbd461474f
+5bdbd461474f

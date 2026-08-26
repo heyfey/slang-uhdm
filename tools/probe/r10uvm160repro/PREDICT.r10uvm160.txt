@@ -1,0 +1,112 @@
+# r10uvm160 — the A-PRIORI prediction, made from the PRISTINE databases ONLY.
+# MEASUREMENT ONLY.  G is ALWAYS golden.  Produced by predsweep160.sh + predjoin160.py
+# over this pass's own PRISTINE verify_golden workdirs, BEFORE any patched database existed.
+# The full sweep output is 106400 lines (22 MB) — the 41 lines that are not
+# ONLYG/ONLYO noise are reproduced here verbatim, followed by both summaries.
+
+default/BuildUVMPkg-bf853d43/	PRED-TOWARD-OP	ELABPKG	uvm_pkg::uvm_reg_predictor::type_name	61838:21-61838:69	33	G=[('assignment', '3', 'constant("uvm_reg_predictor #("),hier_path(t.get_type_name),constant(")")')]	O=[('assignment', '-1', '-')]
+default/BuildUVMPkg-bf853d43/	PRED-TOWARD-OP	ELABPKG	uvm_pkg::uvm_registry_common::create	14061:13-14064:70	33	G=[('assignment', '12', 'constant("Factory did not return a "),ref_obj(Tcreator::base_type_name),constant(" of type \'"),ref_obj(Tregistry::type_name),constant("\'. A component of type \'"),operation,constant("\' was returned instead. Name="),ref_obj(name),constant(" Parent="),operation,constant(" contxt="),ref_obj(contxt)')]	O=[('assignment', '-1', '-')]
+default/Earlgrey_0_1-71da2fd7/	PRED-TRUNC-OP	TOPMOD	work@top_earlgrey.u_hmac.u_hmac	119:5-119:19	75	G=[('operation', '2', 'constant(0),constant(0)')]	O=[('operation', '1', "constant('0)")]
+default/MiniAmiq-544c7f61/	PRED-TOWARD-OP	ELABPKG	uvm_pkg::uvm_reg_predictor::get_type_name	121:19-121:67	33	G=[('assignment', '3', 'constant("uvm_reg_predictor #("),hier_path(t.get_type_name),constant(")")')]	O=[('assignment', '-1', '-')]
+default/MiniAmiq-544c7f61/	PRED-TOWARD-OP	ELABPKG	uvm_pkg::uvm_utils::get_config	721:27-722:67	33	G=[('method_func_call', '5', 'constant("set_config_object with field name "),ref_obj(FIELD),constant(" is not of type \'"),ref_obj(TYPE::type_name),constant("\'")')]	O=[('method_func_call', '-1', '-')]
+default/MiniAmiq-544c7f61/	PRED-TOWARD-OP	ELABPKG	uvm_pkg::uvm_utils::get_config	726:27-727:67	33	G=[('method_func_call', '5', 'constant("set_config_object with field name "),ref_obj(FIELD),constant(" is not of type \'"),ref_obj(TYPE::type_name),constant("\'")')]	O=[('method_func_call', '-1', '-')]
+default/MiniAmiq-544c7f61/	PRED-GROW-ARG	ELABPKG	uvm_pkg::uvm_utils::get_config	720:14-720:30	method_func_call	uvm_report_fatal	G=[('5', 'constant("GET_CFG_TYPE_FAIL"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(723)')]	O=[('7', 'constant("GET_CFG_TYPE_FAIL"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(723),constant(""),constant(0)')]
+default/MiniAmiq-544c7f61/	PRED-GROW-ARG	ELABPKG	uvm_pkg::uvm_utils::get_config	725:14-725:32	method_func_call	uvm_report_warning	G=[('5', 'constant("GET_CFG_TYPE_FAIL"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(728)')]	O=[('7', 'constant("GET_CFG_TYPE_FAIL"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(728),constant(""),constant(0)')]
+default/Scoreboard-59431470/	PRED-TOWARD-OP	ELABPKG	uvm_pkg::uvm_reg_predictor::get_type_name	121:19-121:67	33	G=[('assignment', '3', 'constant("uvm_reg_predictor #("),hier_path(t.get_type_name),constant(")")')]	O=[('assignment', '-1', '-')]
+default/Scoreboard-59431470/	PRED-TOWARD-OP	ELABPKG	uvm_pkg::uvm_utils::get_config	721:27-722:67	33	G=[('method_func_call', '5', 'constant("set_config_object with field name "),ref_obj(FIELD),constant(" is not of type \'"),ref_obj(TYPE::type_name),constant("\'")')]	O=[('method_func_call', '-1', '-')]
+default/Scoreboard-59431470/	PRED-TOWARD-OP	ELABPKG	uvm_pkg::uvm_utils::get_config	726:27-727:67	33	G=[('method_func_call', '5', 'constant("set_config_object with field name "),ref_obj(FIELD),constant(" is not of type \'"),ref_obj(TYPE::type_name),constant("\'")')]	O=[('method_func_call', '-1', '-')]
+default/Scoreboard-59431470/	PRED-GROW-ARG	ELABPKG	uvm_pkg::uvm_utils::get_config	720:14-720:30	method_func_call	uvm_report_fatal	G=[('5', 'constant("GET_CFG_TYPE_FAIL"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(723)')]	O=[('7', 'constant("GET_CFG_TYPE_FAIL"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(723),constant(""),constant(0)')]
+default/Scoreboard-59431470/	PRED-GROW-ARG	ELABPKG	uvm_pkg::uvm_utils::get_config	725:14-725:32	method_func_call	uvm_report_warning	G=[('5', 'constant("GET_CFG_TYPE_FAIL"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(728)')]	O=[('7', 'constant("GET_CFG_TYPE_FAIL"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(728),constant(""),constant(0)')]
+default/SeqDriver-32af76aa/	PRED-TOWARD-OP	ELABPKG	uvm_pkg::uvm_reg_predictor::get_type_name	121:19-121:67	33	G=[('assignment', '3', 'constant("uvm_reg_predictor #("),hier_path(t.get_type_name),constant(")")')]	O=[('assignment', '-1', '-')]
+default/SeqDriver-32af76aa/	PRED-TOWARD-OP	ELABPKG	uvm_pkg::uvm_utils::get_config	721:27-722:67	33	G=[('method_func_call', '5', 'constant("set_config_object with field name "),ref_obj(FIELD),constant(" is not of type \'"),ref_obj(TYPE::type_name),constant("\'")')]	O=[('method_func_call', '-1', '-')]
+default/SeqDriver-32af76aa/	PRED-TOWARD-OP	ELABPKG	uvm_pkg::uvm_utils::get_config	726:27-727:67	33	G=[('method_func_call', '5', 'constant("set_config_object with field name "),ref_obj(FIELD),constant(" is not of type \'"),ref_obj(TYPE::type_name),constant("\'")')]	O=[('method_func_call', '-1', '-')]
+default/SeqDriver-32af76aa/	PRED-GROW-ARG	ELABPKG	uvm_pkg::uvm_utils::get_config	720:14-720:30	method_func_call	uvm_report_fatal	G=[('5', 'constant("GET_CFG_TYPE_FAIL"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(723)')]	O=[('7', 'constant("GET_CFG_TYPE_FAIL"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(723),constant(""),constant(0)')]
+default/SeqDriver-32af76aa/	PRED-GROW-ARG	ELABPKG	uvm_pkg::uvm_utils::get_config	725:14-725:32	method_func_call	uvm_report_warning	G=[('5', 'constant("GET_CFG_TYPE_FAIL"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(728)')]	O=[('7', 'constant("GET_CFG_TYPE_FAIL"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(728),constant(""),constant(0)')]
+default/SimpleUVM-1dc93a62/	PRED-TOWARD-OP	ELABPKG	uvm_pkg::uvm_reg_predictor::get_type_name	121:19-121:67	33	G=[('assignment', '3', 'constant("uvm_reg_predictor #("),hier_path(t.get_type_name),constant(")")')]	O=[('assignment', '-1', '-')]
+default/SimpleUVM-1dc93a62/	PRED-TOWARD-OP	ELABPKG	uvm_pkg::uvm_utils::get_config	721:27-722:67	33	G=[('method_func_call', '5', 'constant("set_config_object with field name "),ref_obj(FIELD),constant(" is not of type \'"),ref_obj(TYPE::type_name),constant("\'")')]	O=[('method_func_call', '-1', '-')]
+default/SimpleUVM-1dc93a62/	PRED-TOWARD-OP	ELABPKG	uvm_pkg::uvm_utils::get_config	726:27-727:67	33	G=[('method_func_call', '5', 'constant("set_config_object with field name "),ref_obj(FIELD),constant(" is not of type \'"),ref_obj(TYPE::type_name),constant("\'")')]	O=[('method_func_call', '-1', '-')]
+default/SimpleUVM-1dc93a62/	PRED-GROW-ARG	ELABPKG	uvm_pkg::uvm_utils::get_config	720:14-720:30	method_func_call	uvm_report_fatal	G=[('5', 'constant("GET_CFG_TYPE_FAIL"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(723)')]	O=[('7', 'constant("GET_CFG_TYPE_FAIL"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(723),constant(""),constant(0)')]
+default/SimpleUVM-1dc93a62/	PRED-GROW-ARG	ELABPKG	uvm_pkg::uvm_utils::get_config	725:14-725:32	method_func_call	uvm_report_warning	G=[('5', 'constant("GET_CFG_TYPE_FAIL"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(728)')]	O=[('7', 'constant("GET_CFG_TYPE_FAIL"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(728),constant(""),constant(0)')]
+testflags/BuildUVMPkg-bf853d43/	PRED-TOWARD-OP	ELABPKG	uvm_pkg::uvm_reg_predictor::type_name	61838:21-61838:69	33	G=[('assignment', '3', 'constant("uvm_reg_predictor #("),hier_path(t.get_type_name),constant(")")')]	O=[('assignment', '-1', '-')]
+testflags/BuildUVMPkg-bf853d43/	PRED-TOWARD-OP	ELABPKG	uvm_pkg::uvm_registry_common::create	14061:13-14064:70	33	G=[('assignment', '12', 'constant("Factory did not return a "),ref_obj(Tcreator::base_type_name),constant(" of type \'"),ref_obj(Tregistry::type_name),constant("\'. A component of type \'"),operation,constant("\' was returned instead. Name="),ref_obj(name),constant(" Parent="),operation,constant(" contxt="),ref_obj(contxt)')]	O=[('assignment', '-1', '-')]
+testflags/Earlgrey_0_1-71da2fd7/	PRED-TRUNC-OP	TOPMOD	work@top_earlgrey.u_hmac.u_hmac	119:5-119:19	75	G=[('operation', '2', 'constant(0),constant(0)'), ('operation', '2', 'constant(0),constant(0)')]	O=[('operation', '1', "constant('0)"), ('operation', '1', "constant('0)")]
+testflags/MiniAmiq-544c7f61/	PRED-TOWARD-OP	ELABPKG	uvm_pkg::uvm_reg_predictor::get_type_name	121:19-121:67	33	G=[('assignment', '3', 'constant("uvm_reg_predictor #("),hier_path(t.get_type_name),constant(")")')]	O=[('assignment', '-1', '-')]
+testflags/MiniAmiq-544c7f61/	PRED-TOWARD-OP	ELABPKG	uvm_pkg::uvm_utils::get_config	721:27-722:67	33	G=[('method_func_call', '5', 'constant("set_config_object with field name "),ref_obj(FIELD),constant(" is not of type \'"),ref_obj(TYPE::type_name),constant("\'")')]	O=[('method_func_call', '-1', '-')]
+testflags/MiniAmiq-544c7f61/	PRED-TOWARD-OP	ELABPKG	uvm_pkg::uvm_utils::get_config	726:27-727:67	33	G=[('method_func_call', '5', 'constant("set_config_object with field name "),ref_obj(FIELD),constant(" is not of type \'"),ref_obj(TYPE::type_name),constant("\'")')]	O=[('method_func_call', '-1', '-')]
+testflags/MiniAmiq-544c7f61/	PRED-GROW-ARG	ELABPKG	uvm_pkg::uvm_utils::get_config	720:14-720:30	method_func_call	uvm_report_fatal	G=[('5', 'constant("GET_CFG_TYPE_FAIL"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(723)')]	O=[('7', 'constant("GET_CFG_TYPE_FAIL"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(723),constant(""),constant(0)')]
+testflags/MiniAmiq-544c7f61/	PRED-GROW-ARG	ELABPKG	uvm_pkg::uvm_utils::get_config	725:14-725:32	method_func_call	uvm_report_warning	G=[('5', 'constant("GET_CFG_TYPE_FAIL"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(728)')]	O=[('7', 'constant("GET_CFG_TYPE_FAIL"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(728),constant(""),constant(0)')]
+testflags/SeqDriver-32af76aa/	PRED-TOWARD-OP	ELABPKG	uvm_pkg::uvm_reg_predictor::get_type_name	121:19-121:67	33	G=[('assignment', '3', 'constant("uvm_reg_predictor #("),hier_path(t.get_type_name),constant(")")')]	O=[('assignment', '-1', '-')]
+testflags/SeqDriver-32af76aa/	PRED-TOWARD-OP	ELABPKG	uvm_pkg::uvm_utils::get_config	721:27-722:67	33	G=[('method_func_call', '5', 'constant("set_config_object with field name "),ref_obj(FIELD),constant(" is not of type \'"),ref_obj(TYPE::type_name),constant("\'")')]	O=[('method_func_call', '-1', '-')]
+testflags/SeqDriver-32af76aa/	PRED-TOWARD-OP	ELABPKG	uvm_pkg::uvm_utils::get_config	726:27-727:67	33	G=[('method_func_call', '5', 'constant("set_config_object with field name "),ref_obj(FIELD),constant(" is not of type \'"),ref_obj(TYPE::type_name),constant("\'")')]	O=[('method_func_call', '-1', '-')]
+testflags/SeqDriver-32af76aa/	PRED-GROW-ARG	ELABPKG	uvm_pkg::uvm_utils::get_config	720:14-720:30	method_func_call	uvm_report_fatal	G=[('5', 'constant("GET_CFG_TYPE_FAIL"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(723)')]	O=[('7', 'constant("GET_CFG_TYPE_FAIL"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(723),constant(""),constant(0)')]
+testflags/SeqDriver-32af76aa/	PRED-GROW-ARG	ELABPKG	uvm_pkg::uvm_utils::get_config	725:14-725:32	method_func_call	uvm_report_warning	G=[('5', 'constant("GET_CFG_TYPE_FAIL"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(728)')]	O=[('7', 'constant("GET_CFG_TYPE_FAIL"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(728),constant(""),constant(0)')]
+testflags/SimpleUVM-1dc93a62/	PRED-TOWARD-OP	ELABPKG	uvm_pkg::uvm_reg_predictor::get_type_name	121:19-121:67	33	G=[('assignment', '3', 'constant("uvm_reg_predictor #("),hier_path(t.get_type_name),constant(")")')]	O=[('assignment', '-1', '-')]
+testflags/SimpleUVM-1dc93a62/	PRED-TOWARD-OP	ELABPKG	uvm_pkg::uvm_utils::get_config	721:27-722:67	33	G=[('method_func_call', '5', 'constant("set_config_object with field name "),ref_obj(FIELD),constant(" is not of type \'"),ref_obj(TYPE::type_name),constant("\'")')]	O=[('method_func_call', '-1', '-')]
+testflags/SimpleUVM-1dc93a62/	PRED-TOWARD-OP	ELABPKG	uvm_pkg::uvm_utils::get_config	726:27-727:67	33	G=[('method_func_call', '5', 'constant("set_config_object with field name "),ref_obj(FIELD),constant(" is not of type \'"),ref_obj(TYPE::type_name),constant("\'")')]	O=[('method_func_call', '-1', '-')]
+testflags/SimpleUVM-1dc93a62/	PRED-GROW-ARG	ELABPKG	uvm_pkg::uvm_utils::get_config	720:14-720:30	method_func_call	uvm_report_fatal	G=[('5', 'constant("GET_CFG_TYPE_FAIL"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(723)')]	O=[('7', 'constant("GET_CFG_TYPE_FAIL"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(723),constant(""),constant(0)')]
+testflags/SimpleUVM-1dc93a62/	PRED-GROW-ARG	ELABPKG	uvm_pkg::uvm_utils::get_config	725:14-725:32	method_func_call	uvm_report_warning	G=[('5', 'constant("GET_CFG_TYPE_FAIL"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(728)')]	O=[('7', 'constant("GET_CFG_TYPE_FAIL"),operation,ref_obj(UVM_NONE),constant("/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_misc.svh"),constant(728),constant(""),constant(0)')]
+
+== surelog sweep summary
+-- rows=956 SKIP-NOFILE=617
+PRED-TOWARD  25
+PRED-AWAY    0
+PRED-TRUNC   2
+PRED-GROW    14
+ONLYG        52136
+ONLYO        53606
+
+== uhdm2rtlil sweep summary
+-- rows=1358 SKIP-NOFILE=104
+PRED-TOWARD  0
+PRED-AWAY    0
+PRED-TRUNC   0
+PRED-GROW    0
+ONLYG        308
+ONLYO        430
+
+== predmovers160.py on the surelog sweep (RECOVER vs ABSTAIN, and the mover set BY NAME)
+default/BuildUVMPkg-bf853d43/      RECOVER=1 ABSTAIN=1
+    RECOVER  ELABPKG  uvm_pkg::uvm_reg_predictor::type_name  61838:21-61838:69  op33  ['constant', 'hier_path']
+    ABSTAIN  ELABPKG  uvm_pkg::uvm_registry_common::create  14061:13-14064:70  op33  ['constant', 'operation', 'ref_obj']
+default/MiniAmiq-544c7f61/         RECOVER=3 ABSTAIN=0
+    RECOVER  ELABPKG  uvm_pkg::uvm_reg_predictor::get_type_name  121:19-121:67  op33  ['constant', 'hier_path']
+    RECOVER  ELABPKG  uvm_pkg::uvm_utils::get_config  721:27-722:67  op33  ['constant', 'ref_obj']
+    RECOVER  ELABPKG  uvm_pkg::uvm_utils::get_config  726:27-727:67  op33  ['constant', 'ref_obj']
+default/Scoreboard-59431470/       RECOVER=3 ABSTAIN=0
+    RECOVER  ELABPKG  uvm_pkg::uvm_reg_predictor::get_type_name  121:19-121:67  op33  ['constant', 'hier_path']
+    RECOVER  ELABPKG  uvm_pkg::uvm_utils::get_config  721:27-722:67  op33  ['constant', 'ref_obj']
+    RECOVER  ELABPKG  uvm_pkg::uvm_utils::get_config  726:27-727:67  op33  ['constant', 'ref_obj']
+default/SeqDriver-32af76aa/        RECOVER=3 ABSTAIN=0
+    RECOVER  ELABPKG  uvm_pkg::uvm_reg_predictor::get_type_name  121:19-121:67  op33  ['constant', 'hier_path']
+    RECOVER  ELABPKG  uvm_pkg::uvm_utils::get_config  721:27-722:67  op33  ['constant', 'ref_obj']
+    RECOVER  ELABPKG  uvm_pkg::uvm_utils::get_config  726:27-727:67  op33  ['constant', 'ref_obj']
+default/SimpleUVM-1dc93a62/        RECOVER=3 ABSTAIN=0
+    RECOVER  ELABPKG  uvm_pkg::uvm_reg_predictor::get_type_name  121:19-121:67  op33  ['constant', 'hier_path']
+    RECOVER  ELABPKG  uvm_pkg::uvm_utils::get_config  721:27-722:67  op33  ['constant', 'ref_obj']
+    RECOVER  ELABPKG  uvm_pkg::uvm_utils::get_config  726:27-727:67  op33  ['constant', 'ref_obj']
+testflags/BuildUVMPkg-bf853d43/    RECOVER=1 ABSTAIN=1
+    RECOVER  ELABPKG  uvm_pkg::uvm_reg_predictor::type_name  61838:21-61838:69  op33  ['constant', 'hier_path']
+    ABSTAIN  ELABPKG  uvm_pkg::uvm_registry_common::create  14061:13-14064:70  op33  ['constant', 'operation', 'ref_obj']
+testflags/MiniAmiq-544c7f61/       RECOVER=3 ABSTAIN=0
+    RECOVER  ELABPKG  uvm_pkg::uvm_reg_predictor::get_type_name  121:19-121:67  op33  ['constant', 'hier_path']
+    RECOVER  ELABPKG  uvm_pkg::uvm_utils::get_config  721:27-722:67  op33  ['constant', 'ref_obj']
+    RECOVER  ELABPKG  uvm_pkg::uvm_utils::get_config  726:27-727:67  op33  ['constant', 'ref_obj']
+testflags/SeqDriver-32af76aa/      RECOVER=3 ABSTAIN=0
+    RECOVER  ELABPKG  uvm_pkg::uvm_reg_predictor::get_type_name  121:19-121:67  op33  ['constant', 'hier_path']
+    RECOVER  ELABPKG  uvm_pkg::uvm_utils::get_config  721:27-722:67  op33  ['constant', 'ref_obj']
+    RECOVER  ELABPKG  uvm_pkg::uvm_utils::get_config  726:27-727:67  op33  ['constant', 'ref_obj']
+testflags/SimpleUVM-1dc93a62/      RECOVER=3 ABSTAIN=0
+    RECOVER  ELABPKG  uvm_pkg::uvm_reg_predictor::get_type_name  121:19-121:67  op33  ['constant', 'hier_path']
+    RECOVER  ELABPKG  uvm_pkg::uvm_utils::get_config  721:27-722:67  op33  ['constant', 'ref_obj']
+    RECOVER  ELABPKG  uvm_pkg::uvm_utils::get_config  726:27-727:67  op33  ['constant', 'ref_obj']
+-- databases with >=1 RECOVER cell (the PREDICTED MOVER SET): 9
+   MOVER default/BuildUVMPkg-bf853d43/
+   MOVER default/MiniAmiq-544c7f61/
+   MOVER default/Scoreboard-59431470/
+   MOVER default/SeqDriver-32af76aa/
+   MOVER default/SimpleUVM-1dc93a62/
+   MOVER testflags/BuildUVMPkg-bf853d43/
+   MOVER testflags/MiniAmiq-544c7f61/
+   MOVER testflags/SeqDriver-32af76aa/
+   MOVER testflags/SimpleUVM-1dc93a62/
+-- cells: RECOVER=23 ABSTAIN=2

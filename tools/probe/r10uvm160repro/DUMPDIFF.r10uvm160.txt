@@ -1,0 +1,1180 @@
+# r10uvm160 — the whole-dump, path-normalised, ORDER-BLIND diff over the 9 moved rows.
+# MEASUREMENT ONLY.  Scoreboard/default is a ~50/50 coin, so order-blind is the only
+# sound attribution (RESUME.md section 9).
+
+default/BuildUVMPkg-bf853d43       PRIS->PAT added=27    deleted=0       DIST-to-golden pris=67020   pat=66993   TOWARD
+default/MiniAmiq-544c7f61          PRIS->PAT added=153   deleted=0       DIST-to-golden pris=341453  pat=341332  TOWARD
+default/Scoreboard-59431470        PRIS->PAT added=153   deleted=0       DIST-to-golden pris=117134  pat=117013  TOWARD
+default/SeqDriver-32af76aa         PRIS->PAT added=153   deleted=0       DIST-to-golden pris=324504  pat=324383  TOWARD
+default/SimpleUVM-1dc93a62         PRIS->PAT added=153   deleted=0       DIST-to-golden pris=126840  pat=126719  TOWARD
+testflags/BuildUVMPkg-bf853d43     PRIS->PAT added=27    deleted=0       DIST-to-golden pris=67020   pat=66993   TOWARD
+testflags/MiniAmiq-544c7f61        PRIS->PAT added=153   deleted=0       DIST-to-golden pris=341453  pat=341332  TOWARD
+testflags/SeqDriver-32af76aa       PRIS->PAT added=153   deleted=0       DIST-to-golden pris=324504  pat=324383  TOWARD
+testflags/SimpleUVM-1dc93a62       PRIS->PAT added=153   deleted=0       DIST-to-golden pris=126836  pat=126715  TOWARD
+
+== SimpleUVM/default: the 153 ADDED lines, split by whether GOLDEN has them ==
+   137 are golden lines verbatim; the 16 below are the SAME objects at the
+   macro-ARGUMENT span where golden reports the macro-BODY span (see CENSUS).
+
+\_constant: , line:664:28, endln:664:77
+\_constant: , line:675:31, endln:675:76
+\_hier_path: (start.get_full_name), line:664:78, endln:664:99
+\_hier_path: (start.get_full_name), line:664:78, endln:664:99
+\_hier_path: (start.get_full_name), line:664:78, endln:664:99
+\_hier_path: (start.get_full_name), line:675:77, endln:675:98
+\_hier_path: (start.get_full_name), line:675:77, endln:675:98
+\_hier_path: (start.get_full_name), line:675:77, endln:675:98
+\_method_func_call: (get_full_name), line:664:84, endln:664:97
+\_method_func_call: (get_full_name), line:675:83, endln:675:96
+\_operation: , line:132:50, endln:664:100
+\_operation: , line:132:50, endln:664:100
+\_operation: , line:132:53, endln:675:99
+\_operation: , line:132:53, endln:675:99
+\_ref_obj: (start), line:664:78, endln:664:83
+\_ref_obj: (start), line:675:77, endln:675:82
+
+== every added/deleted line, all 9 rows ==
+
+=== default/BuildUVMPkg-bf853d43 ADDED (pristine -> patched)
+\_constant: , line:61838:22, endln:61838:44
+\_constant: , line:61838:65, endln:61838:68
+\_hier_path: (t.get_type_name), line:61838:46, endln:61838:63
+\_hier_path: (t.get_type_name), line:61838:46, endln:61838:63
+\_hier_path: (t.get_type_name), line:61838:46, endln:61838:63
+\_method_func_call: (get_type_name), line:61838:48, endln:61838:61
+\_operation: , line:61838:21, endln:61838:69
+\_ref_obj: (t), line:61838:46, endln:61838:47
+|STRING:)
+|STRING:uvm_reg_predictor #(
+|vpiActual:
+|vpiActual:
+|vpiConstType:6
+|vpiConstType:6
+|vpiDecompile:")"
+|vpiDecompile:"uvm_reg_predictor #("
+|vpiName:get_type_name
+|vpiName:t
+|vpiName:t.get_type_name
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiSize:160
+|vpiSize:8
+=== default/BuildUVMPkg-bf853d43 DELETED (pristine -> patched)
+=== default/MiniAmiq-544c7f61 ADDED (pristine -> patched)
+\_constant: , line:121:20, endln:121:42
+\_constant: , line:121:63, endln:121:66
+\_constant: , line:132:51, endln:132:71
+\_constant: , line:132:54, endln:132:88
+\_constant: , line:664:28, endln:664:77
+\_constant: , line:675:31, endln:675:76
+\_constant: , line:721:28, endln:721:64
+\_constant: , line:722:27, endln:722:46
+\_constant: , line:722:63, endln:722:66
+\_constant: , line:726:28, endln:726:64
+\_constant: , line:727:27, endln:727:46
+\_constant: , line:727:63, endln:727:66
+\_hier_path: (start.get_full_name), line:664:78, endln:664:99
+\_hier_path: (start.get_full_name), line:664:78, endln:664:99
+\_hier_path: (start.get_full_name), line:664:78, endln:664:99
+\_hier_path: (start.get_full_name), line:675:77, endln:675:98
+\_hier_path: (start.get_full_name), line:675:77, endln:675:98
+\_hier_path: (start.get_full_name), line:675:77, endln:675:98
+\_hier_path: (t.get_type_name), line:121:44, endln:121:61
+\_hier_path: (t.get_type_name), line:121:44, endln:121:61
+\_hier_path: (t.get_type_name), line:121:44, endln:121:61
+\_method_func_call: (get_full_name), line:664:84, endln:664:97
+\_method_func_call: (get_full_name), line:675:83, endln:675:96
+\_method_func_call: (get_type_name), line:121:46, endln:121:59
+\_operation: , line:121:19, endln:121:67
+\_operation: , line:132:50, endln:664:100
+\_operation: , line:132:50, endln:664:100
+\_operation: , line:132:53, endln:675:99
+\_operation: , line:132:53, endln:675:99
+\_operation: , line:721:27, endln:722:67
+\_operation: , line:721:27, endln:722:67
+\_operation: , line:726:27, endln:727:67
+\_operation: , line:726:27, endln:727:67
+\_ref_obj: (start), line:664:78, endln:664:83
+\_ref_obj: (start), line:675:77, endln:675:82
+\_ref_obj: (t), line:121:44, endln:121:45
+\_ref_obj: (uvm_pkg::uvm_utils::find_all::TYPE::type_name), line:132:72, endln:132:78
+\_ref_obj: (uvm_pkg::uvm_utils::find::TYPE::type_name), line:132:89, endln:132:95
+\_ref_obj: (uvm_pkg::uvm_utils::get_config::FIELD), line:721:65, endln:721:70
+\_ref_obj: (uvm_pkg::uvm_utils::get_config::FIELD), line:726:65, endln:726:70
+\_ref_obj: (uvm_pkg::uvm_utils::get_config::TYPE::type_name), line:722:47, endln:722:53
+\_ref_obj: (uvm_pkg::uvm_utils::get_config::TYPE::type_name), line:727:47, endln:727:53
+|STRING:'
+|STRING:'
+|STRING:)
+|STRING: found in component hierarchy beginning at 
+|STRING:Instance of type '
+|STRING: is not of type '
+|STRING: is not of type '
+|STRING:More than one instance of type '
+|STRING: not found in component hierarchy beginning at 
+|STRING:set_config_object with field name 
+|STRING:set_config_object with field name 
+|STRING:uvm_reg_predictor #(
+|vpiActual:
+|vpiActual:
+|vpiActual:
+|vpiActual:
+|vpiActual:
+|vpiActual:
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiDecompile:"'"
+|vpiDecompile:"'"
+|vpiDecompile:")"
+|vpiDecompile:" found in component hierarchy beginning at "
+|vpiDecompile:"Instance of type '"
+|vpiDecompile:" is not of type '"
+|vpiDecompile:" is not of type '"
+|vpiDecompile:"More than one instance of type '"
+|vpiDecompile:" not found in component hierarchy beginning at "
+|vpiDecompile:"set_config_object with field name "
+|vpiDecompile:"set_config_object with field name "
+|vpiDecompile:"uvm_reg_predictor #("
+|vpiFullName:uvm_pkg::uvm_utils::find_all::TYPE::type_name
+|vpiFullName:uvm_pkg::uvm_utils::find::TYPE::type_name
+|vpiFullName:uvm_pkg::uvm_utils::get_config::FIELD
+|vpiFullName:uvm_pkg::uvm_utils::get_config::FIELD
+|vpiFullName:uvm_pkg::uvm_utils::get_config::TYPE::type_name
+|vpiFullName:uvm_pkg::uvm_utils::get_config::TYPE::type_name
+|vpiName:FIELD
+|vpiName:FIELD
+|vpiName:get_full_name
+|vpiName:get_full_name
+|vpiName:get_type_name
+|vpiName:start
+|vpiName:start
+|vpiName:start.get_full_name
+|vpiName:start.get_full_name
+|vpiName:t
+|vpiName:t.get_type_name
+|vpiName:TYPE::type_name
+|vpiName:TYPE::type_name
+|vpiName:TYPE::type_name
+|vpiName:TYPE::type_name
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiSize:136
+|vpiSize:136
+|vpiSize:144
+|vpiSize:160
+|vpiSize:256
+|vpiSize:272
+|vpiSize:272
+|vpiSize:344
+|vpiSize:376
+|vpiSize:8
+|vpiSize:8
+|vpiSize:8
+=== default/MiniAmiq-544c7f61 DELETED (pristine -> patched)
+=== default/Scoreboard-59431470 ADDED (pristine -> patched)
+\_constant: , line:121:20, endln:121:42
+\_constant: , line:121:63, endln:121:66
+\_constant: , line:132:51, endln:132:71
+\_constant: , line:132:54, endln:132:88
+\_constant: , line:664:28, endln:664:77
+\_constant: , line:675:31, endln:675:76
+\_constant: , line:721:28, endln:721:64
+\_constant: , line:722:27, endln:722:46
+\_constant: , line:722:63, endln:722:66
+\_constant: , line:726:28, endln:726:64
+\_constant: , line:727:27, endln:727:46
+\_constant: , line:727:63, endln:727:66
+\_hier_path: (start.get_full_name), line:664:78, endln:664:99
+\_hier_path: (start.get_full_name), line:664:78, endln:664:99
+\_hier_path: (start.get_full_name), line:664:78, endln:664:99
+\_hier_path: (start.get_full_name), line:675:77, endln:675:98
+\_hier_path: (start.get_full_name), line:675:77, endln:675:98
+\_hier_path: (start.get_full_name), line:675:77, endln:675:98
+\_hier_path: (t.get_type_name), line:121:44, endln:121:61
+\_hier_path: (t.get_type_name), line:121:44, endln:121:61
+\_hier_path: (t.get_type_name), line:121:44, endln:121:61
+\_method_func_call: (get_full_name), line:664:84, endln:664:97
+\_method_func_call: (get_full_name), line:675:83, endln:675:96
+\_method_func_call: (get_type_name), line:121:46, endln:121:59
+\_operation: , line:121:19, endln:121:67
+\_operation: , line:132:50, endln:664:100
+\_operation: , line:132:50, endln:664:100
+\_operation: , line:132:53, endln:675:99
+\_operation: , line:132:53, endln:675:99
+\_operation: , line:721:27, endln:722:67
+\_operation: , line:721:27, endln:722:67
+\_operation: , line:726:27, endln:727:67
+\_operation: , line:726:27, endln:727:67
+\_ref_obj: (start), line:664:78, endln:664:83
+\_ref_obj: (start), line:675:77, endln:675:82
+\_ref_obj: (t), line:121:44, endln:121:45
+\_ref_obj: (uvm_pkg::uvm_utils::find_all::TYPE::type_name), line:132:72, endln:132:78
+\_ref_obj: (uvm_pkg::uvm_utils::find::TYPE::type_name), line:132:89, endln:132:95
+\_ref_obj: (uvm_pkg::uvm_utils::get_config::FIELD), line:721:65, endln:721:70
+\_ref_obj: (uvm_pkg::uvm_utils::get_config::FIELD), line:726:65, endln:726:70
+\_ref_obj: (uvm_pkg::uvm_utils::get_config::TYPE::type_name), line:722:47, endln:722:53
+\_ref_obj: (uvm_pkg::uvm_utils::get_config::TYPE::type_name), line:727:47, endln:727:53
+|STRING:'
+|STRING:'
+|STRING:)
+|STRING: found in component hierarchy beginning at 
+|STRING:Instance of type '
+|STRING: is not of type '
+|STRING: is not of type '
+|STRING:More than one instance of type '
+|STRING: not found in component hierarchy beginning at 
+|STRING:set_config_object with field name 
+|STRING:set_config_object with field name 
+|STRING:uvm_reg_predictor #(
+|vpiActual:
+|vpiActual:
+|vpiActual:
+|vpiActual:
+|vpiActual:
+|vpiActual:
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiDecompile:"'"
+|vpiDecompile:"'"
+|vpiDecompile:")"
+|vpiDecompile:" found in component hierarchy beginning at "
+|vpiDecompile:"Instance of type '"
+|vpiDecompile:" is not of type '"
+|vpiDecompile:" is not of type '"
+|vpiDecompile:"More than one instance of type '"
+|vpiDecompile:" not found in component hierarchy beginning at "
+|vpiDecompile:"set_config_object with field name "
+|vpiDecompile:"set_config_object with field name "
+|vpiDecompile:"uvm_reg_predictor #("
+|vpiFullName:uvm_pkg::uvm_utils::find_all::TYPE::type_name
+|vpiFullName:uvm_pkg::uvm_utils::find::TYPE::type_name
+|vpiFullName:uvm_pkg::uvm_utils::get_config::FIELD
+|vpiFullName:uvm_pkg::uvm_utils::get_config::FIELD
+|vpiFullName:uvm_pkg::uvm_utils::get_config::TYPE::type_name
+|vpiFullName:uvm_pkg::uvm_utils::get_config::TYPE::type_name
+|vpiName:FIELD
+|vpiName:FIELD
+|vpiName:get_full_name
+|vpiName:get_full_name
+|vpiName:get_type_name
+|vpiName:start
+|vpiName:start
+|vpiName:start.get_full_name
+|vpiName:start.get_full_name
+|vpiName:t
+|vpiName:t.get_type_name
+|vpiName:TYPE::type_name
+|vpiName:TYPE::type_name
+|vpiName:TYPE::type_name
+|vpiName:TYPE::type_name
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiSize:136
+|vpiSize:136
+|vpiSize:144
+|vpiSize:160
+|vpiSize:256
+|vpiSize:272
+|vpiSize:272
+|vpiSize:344
+|vpiSize:376
+|vpiSize:8
+|vpiSize:8
+|vpiSize:8
+=== default/Scoreboard-59431470 DELETED (pristine -> patched)
+=== default/SeqDriver-32af76aa ADDED (pristine -> patched)
+\_constant: , line:121:20, endln:121:42
+\_constant: , line:121:63, endln:121:66
+\_constant: , line:132:51, endln:132:71
+\_constant: , line:132:54, endln:132:88
+\_constant: , line:664:28, endln:664:77
+\_constant: , line:675:31, endln:675:76
+\_constant: , line:721:28, endln:721:64
+\_constant: , line:722:27, endln:722:46
+\_constant: , line:722:63, endln:722:66
+\_constant: , line:726:28, endln:726:64
+\_constant: , line:727:27, endln:727:46
+\_constant: , line:727:63, endln:727:66
+\_hier_path: (start.get_full_name), line:664:78, endln:664:99
+\_hier_path: (start.get_full_name), line:664:78, endln:664:99
+\_hier_path: (start.get_full_name), line:664:78, endln:664:99
+\_hier_path: (start.get_full_name), line:675:77, endln:675:98
+\_hier_path: (start.get_full_name), line:675:77, endln:675:98
+\_hier_path: (start.get_full_name), line:675:77, endln:675:98
+\_hier_path: (t.get_type_name), line:121:44, endln:121:61
+\_hier_path: (t.get_type_name), line:121:44, endln:121:61
+\_hier_path: (t.get_type_name), line:121:44, endln:121:61
+\_method_func_call: (get_full_name), line:664:84, endln:664:97
+\_method_func_call: (get_full_name), line:675:83, endln:675:96
+\_method_func_call: (get_type_name), line:121:46, endln:121:59
+\_operation: , line:121:19, endln:121:67
+\_operation: , line:132:50, endln:664:100
+\_operation: , line:132:50, endln:664:100
+\_operation: , line:132:53, endln:675:99
+\_operation: , line:132:53, endln:675:99
+\_operation: , line:721:27, endln:722:67
+\_operation: , line:721:27, endln:722:67
+\_operation: , line:726:27, endln:727:67
+\_operation: , line:726:27, endln:727:67
+\_ref_obj: (start), line:664:78, endln:664:83
+\_ref_obj: (start), line:675:77, endln:675:82
+\_ref_obj: (t), line:121:44, endln:121:45
+\_ref_obj: (uvm_pkg::uvm_utils::find_all::TYPE::type_name), line:132:72, endln:132:78
+\_ref_obj: (uvm_pkg::uvm_utils::find::TYPE::type_name), line:132:89, endln:132:95
+\_ref_obj: (uvm_pkg::uvm_utils::get_config::FIELD), line:721:65, endln:721:70
+\_ref_obj: (uvm_pkg::uvm_utils::get_config::FIELD), line:726:65, endln:726:70
+\_ref_obj: (uvm_pkg::uvm_utils::get_config::TYPE::type_name), line:722:47, endln:722:53
+\_ref_obj: (uvm_pkg::uvm_utils::get_config::TYPE::type_name), line:727:47, endln:727:53
+|STRING:'
+|STRING:'
+|STRING:)
+|STRING: found in component hierarchy beginning at 
+|STRING:Instance of type '
+|STRING: is not of type '
+|STRING: is not of type '
+|STRING:More than one instance of type '
+|STRING: not found in component hierarchy beginning at 
+|STRING:set_config_object with field name 
+|STRING:set_config_object with field name 
+|STRING:uvm_reg_predictor #(
+|vpiActual:
+|vpiActual:
+|vpiActual:
+|vpiActual:
+|vpiActual:
+|vpiActual:
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiDecompile:"'"
+|vpiDecompile:"'"
+|vpiDecompile:")"
+|vpiDecompile:" found in component hierarchy beginning at "
+|vpiDecompile:"Instance of type '"
+|vpiDecompile:" is not of type '"
+|vpiDecompile:" is not of type '"
+|vpiDecompile:"More than one instance of type '"
+|vpiDecompile:" not found in component hierarchy beginning at "
+|vpiDecompile:"set_config_object with field name "
+|vpiDecompile:"set_config_object with field name "
+|vpiDecompile:"uvm_reg_predictor #("
+|vpiFullName:uvm_pkg::uvm_utils::find_all::TYPE::type_name
+|vpiFullName:uvm_pkg::uvm_utils::find::TYPE::type_name
+|vpiFullName:uvm_pkg::uvm_utils::get_config::FIELD
+|vpiFullName:uvm_pkg::uvm_utils::get_config::FIELD
+|vpiFullName:uvm_pkg::uvm_utils::get_config::TYPE::type_name
+|vpiFullName:uvm_pkg::uvm_utils::get_config::TYPE::type_name
+|vpiName:FIELD
+|vpiName:FIELD
+|vpiName:get_full_name
+|vpiName:get_full_name
+|vpiName:get_type_name
+|vpiName:start
+|vpiName:start
+|vpiName:start.get_full_name
+|vpiName:start.get_full_name
+|vpiName:t
+|vpiName:t.get_type_name
+|vpiName:TYPE::type_name
+|vpiName:TYPE::type_name
+|vpiName:TYPE::type_name
+|vpiName:TYPE::type_name
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiSize:136
+|vpiSize:136
+|vpiSize:144
+|vpiSize:160
+|vpiSize:256
+|vpiSize:272
+|vpiSize:272
+|vpiSize:344
+|vpiSize:376
+|vpiSize:8
+|vpiSize:8
+|vpiSize:8
+=== default/SeqDriver-32af76aa DELETED (pristine -> patched)
+=== default/SimpleUVM-1dc93a62 ADDED (pristine -> patched)
+\_constant: , line:121:20, endln:121:42
+\_constant: , line:121:63, endln:121:66
+\_constant: , line:132:51, endln:132:71
+\_constant: , line:132:54, endln:132:88
+\_constant: , line:664:28, endln:664:77
+\_constant: , line:675:31, endln:675:76
+\_constant: , line:721:28, endln:721:64
+\_constant: , line:722:27, endln:722:46
+\_constant: , line:722:63, endln:722:66
+\_constant: , line:726:28, endln:726:64
+\_constant: , line:727:27, endln:727:46
+\_constant: , line:727:63, endln:727:66
+\_hier_path: (start.get_full_name), line:664:78, endln:664:99
+\_hier_path: (start.get_full_name), line:664:78, endln:664:99
+\_hier_path: (start.get_full_name), line:664:78, endln:664:99
+\_hier_path: (start.get_full_name), line:675:77, endln:675:98
+\_hier_path: (start.get_full_name), line:675:77, endln:675:98
+\_hier_path: (start.get_full_name), line:675:77, endln:675:98
+\_hier_path: (t.get_type_name), line:121:44, endln:121:61
+\_hier_path: (t.get_type_name), line:121:44, endln:121:61
+\_hier_path: (t.get_type_name), line:121:44, endln:121:61
+\_method_func_call: (get_full_name), line:664:84, endln:664:97
+\_method_func_call: (get_full_name), line:675:83, endln:675:96
+\_method_func_call: (get_type_name), line:121:46, endln:121:59
+\_operation: , line:121:19, endln:121:67
+\_operation: , line:132:50, endln:664:100
+\_operation: , line:132:50, endln:664:100
+\_operation: , line:132:53, endln:675:99
+\_operation: , line:132:53, endln:675:99
+\_operation: , line:721:27, endln:722:67
+\_operation: , line:721:27, endln:722:67
+\_operation: , line:726:27, endln:727:67
+\_operation: , line:726:27, endln:727:67
+\_ref_obj: (start), line:664:78, endln:664:83
+\_ref_obj: (start), line:675:77, endln:675:82
+\_ref_obj: (t), line:121:44, endln:121:45
+\_ref_obj: (uvm_pkg::uvm_utils::find_all::TYPE::type_name), line:132:72, endln:132:78
+\_ref_obj: (uvm_pkg::uvm_utils::find::TYPE::type_name), line:132:89, endln:132:95
+\_ref_obj: (uvm_pkg::uvm_utils::get_config::FIELD), line:721:65, endln:721:70
+\_ref_obj: (uvm_pkg::uvm_utils::get_config::FIELD), line:726:65, endln:726:70
+\_ref_obj: (uvm_pkg::uvm_utils::get_config::TYPE::type_name), line:722:47, endln:722:53
+\_ref_obj: (uvm_pkg::uvm_utils::get_config::TYPE::type_name), line:727:47, endln:727:53
+|STRING:'
+|STRING:'
+|STRING:)
+|STRING: found in component hierarchy beginning at 
+|STRING:Instance of type '
+|STRING: is not of type '
+|STRING: is not of type '
+|STRING:More than one instance of type '
+|STRING: not found in component hierarchy beginning at 
+|STRING:set_config_object with field name 
+|STRING:set_config_object with field name 
+|STRING:uvm_reg_predictor #(
+|vpiActual:
+|vpiActual:
+|vpiActual:
+|vpiActual:
+|vpiActual:
+|vpiActual:
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiDecompile:"'"
+|vpiDecompile:"'"
+|vpiDecompile:")"
+|vpiDecompile:" found in component hierarchy beginning at "
+|vpiDecompile:"Instance of type '"
+|vpiDecompile:" is not of type '"
+|vpiDecompile:" is not of type '"
+|vpiDecompile:"More than one instance of type '"
+|vpiDecompile:" not found in component hierarchy beginning at "
+|vpiDecompile:"set_config_object with field name "
+|vpiDecompile:"set_config_object with field name "
+|vpiDecompile:"uvm_reg_predictor #("
+|vpiFullName:uvm_pkg::uvm_utils::find_all::TYPE::type_name
+|vpiFullName:uvm_pkg::uvm_utils::find::TYPE::type_name
+|vpiFullName:uvm_pkg::uvm_utils::get_config::FIELD
+|vpiFullName:uvm_pkg::uvm_utils::get_config::FIELD
+|vpiFullName:uvm_pkg::uvm_utils::get_config::TYPE::type_name
+|vpiFullName:uvm_pkg::uvm_utils::get_config::TYPE::type_name
+|vpiName:FIELD
+|vpiName:FIELD
+|vpiName:get_full_name
+|vpiName:get_full_name
+|vpiName:get_type_name
+|vpiName:start
+|vpiName:start
+|vpiName:start.get_full_name
+|vpiName:start.get_full_name
+|vpiName:t
+|vpiName:t.get_type_name
+|vpiName:TYPE::type_name
+|vpiName:TYPE::type_name
+|vpiName:TYPE::type_name
+|vpiName:TYPE::type_name
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiSize:136
+|vpiSize:136
+|vpiSize:144
+|vpiSize:160
+|vpiSize:256
+|vpiSize:272
+|vpiSize:272
+|vpiSize:344
+|vpiSize:376
+|vpiSize:8
+|vpiSize:8
+|vpiSize:8
+=== default/SimpleUVM-1dc93a62 DELETED (pristine -> patched)
+=== testflags/BuildUVMPkg-bf853d43 ADDED (pristine -> patched)
+\_constant: , line:61838:22, endln:61838:44
+\_constant: , line:61838:65, endln:61838:68
+\_hier_path: (t.get_type_name), line:61838:46, endln:61838:63
+\_hier_path: (t.get_type_name), line:61838:46, endln:61838:63
+\_hier_path: (t.get_type_name), line:61838:46, endln:61838:63
+\_method_func_call: (get_type_name), line:61838:48, endln:61838:61
+\_operation: , line:61838:21, endln:61838:69
+\_ref_obj: (t), line:61838:46, endln:61838:47
+|STRING:)
+|STRING:uvm_reg_predictor #(
+|vpiActual:
+|vpiActual:
+|vpiConstType:6
+|vpiConstType:6
+|vpiDecompile:")"
+|vpiDecompile:"uvm_reg_predictor #("
+|vpiName:get_type_name
+|vpiName:t
+|vpiName:t.get_type_name
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiSize:160
+|vpiSize:8
+=== testflags/BuildUVMPkg-bf853d43 DELETED (pristine -> patched)
+=== testflags/MiniAmiq-544c7f61 ADDED (pristine -> patched)
+\_constant: , line:121:20, endln:121:42
+\_constant: , line:121:63, endln:121:66
+\_constant: , line:132:51, endln:132:71
+\_constant: , line:132:54, endln:132:88
+\_constant: , line:664:28, endln:664:77
+\_constant: , line:675:31, endln:675:76
+\_constant: , line:721:28, endln:721:64
+\_constant: , line:722:27, endln:722:46
+\_constant: , line:722:63, endln:722:66
+\_constant: , line:726:28, endln:726:64
+\_constant: , line:727:27, endln:727:46
+\_constant: , line:727:63, endln:727:66
+\_hier_path: (start.get_full_name), line:664:78, endln:664:99
+\_hier_path: (start.get_full_name), line:664:78, endln:664:99
+\_hier_path: (start.get_full_name), line:664:78, endln:664:99
+\_hier_path: (start.get_full_name), line:675:77, endln:675:98
+\_hier_path: (start.get_full_name), line:675:77, endln:675:98
+\_hier_path: (start.get_full_name), line:675:77, endln:675:98
+\_hier_path: (t.get_type_name), line:121:44, endln:121:61
+\_hier_path: (t.get_type_name), line:121:44, endln:121:61
+\_hier_path: (t.get_type_name), line:121:44, endln:121:61
+\_method_func_call: (get_full_name), line:664:84, endln:664:97
+\_method_func_call: (get_full_name), line:675:83, endln:675:96
+\_method_func_call: (get_type_name), line:121:46, endln:121:59
+\_operation: , line:121:19, endln:121:67
+\_operation: , line:132:50, endln:664:100
+\_operation: , line:132:50, endln:664:100
+\_operation: , line:132:53, endln:675:99
+\_operation: , line:132:53, endln:675:99
+\_operation: , line:721:27, endln:722:67
+\_operation: , line:721:27, endln:722:67
+\_operation: , line:726:27, endln:727:67
+\_operation: , line:726:27, endln:727:67
+\_ref_obj: (start), line:664:78, endln:664:83
+\_ref_obj: (start), line:675:77, endln:675:82
+\_ref_obj: (t), line:121:44, endln:121:45
+\_ref_obj: (uvm_pkg::uvm_utils::find_all::TYPE::type_name), line:132:72, endln:132:78
+\_ref_obj: (uvm_pkg::uvm_utils::find::TYPE::type_name), line:132:89, endln:132:95
+\_ref_obj: (uvm_pkg::uvm_utils::get_config::FIELD), line:721:65, endln:721:70
+\_ref_obj: (uvm_pkg::uvm_utils::get_config::FIELD), line:726:65, endln:726:70
+\_ref_obj: (uvm_pkg::uvm_utils::get_config::TYPE::type_name), line:722:47, endln:722:53
+\_ref_obj: (uvm_pkg::uvm_utils::get_config::TYPE::type_name), line:727:47, endln:727:53
+|STRING:'
+|STRING:'
+|STRING:)
+|STRING: found in component hierarchy beginning at 
+|STRING:Instance of type '
+|STRING: is not of type '
+|STRING: is not of type '
+|STRING:More than one instance of type '
+|STRING: not found in component hierarchy beginning at 
+|STRING:set_config_object with field name 
+|STRING:set_config_object with field name 
+|STRING:uvm_reg_predictor #(
+|vpiActual:
+|vpiActual:
+|vpiActual:
+|vpiActual:
+|vpiActual:
+|vpiActual:
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiDecompile:"'"
+|vpiDecompile:"'"
+|vpiDecompile:")"
+|vpiDecompile:" found in component hierarchy beginning at "
+|vpiDecompile:"Instance of type '"
+|vpiDecompile:" is not of type '"
+|vpiDecompile:" is not of type '"
+|vpiDecompile:"More than one instance of type '"
+|vpiDecompile:" not found in component hierarchy beginning at "
+|vpiDecompile:"set_config_object with field name "
+|vpiDecompile:"set_config_object with field name "
+|vpiDecompile:"uvm_reg_predictor #("
+|vpiFullName:uvm_pkg::uvm_utils::find_all::TYPE::type_name
+|vpiFullName:uvm_pkg::uvm_utils::find::TYPE::type_name
+|vpiFullName:uvm_pkg::uvm_utils::get_config::FIELD
+|vpiFullName:uvm_pkg::uvm_utils::get_config::FIELD
+|vpiFullName:uvm_pkg::uvm_utils::get_config::TYPE::type_name
+|vpiFullName:uvm_pkg::uvm_utils::get_config::TYPE::type_name
+|vpiName:FIELD
+|vpiName:FIELD
+|vpiName:get_full_name
+|vpiName:get_full_name
+|vpiName:get_type_name
+|vpiName:start
+|vpiName:start
+|vpiName:start.get_full_name
+|vpiName:start.get_full_name
+|vpiName:t
+|vpiName:t.get_type_name
+|vpiName:TYPE::type_name
+|vpiName:TYPE::type_name
+|vpiName:TYPE::type_name
+|vpiName:TYPE::type_name
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiSize:136
+|vpiSize:136
+|vpiSize:144
+|vpiSize:160
+|vpiSize:256
+|vpiSize:272
+|vpiSize:272
+|vpiSize:344
+|vpiSize:376
+|vpiSize:8
+|vpiSize:8
+|vpiSize:8
+=== testflags/MiniAmiq-544c7f61 DELETED (pristine -> patched)
+=== testflags/SeqDriver-32af76aa ADDED (pristine -> patched)
+\_constant: , line:121:20, endln:121:42
+\_constant: , line:121:63, endln:121:66
+\_constant: , line:132:51, endln:132:71
+\_constant: , line:132:54, endln:132:88
+\_constant: , line:664:28, endln:664:77
+\_constant: , line:675:31, endln:675:76
+\_constant: , line:721:28, endln:721:64
+\_constant: , line:722:27, endln:722:46
+\_constant: , line:722:63, endln:722:66
+\_constant: , line:726:28, endln:726:64
+\_constant: , line:727:27, endln:727:46
+\_constant: , line:727:63, endln:727:66
+\_hier_path: (start.get_full_name), line:664:78, endln:664:99
+\_hier_path: (start.get_full_name), line:664:78, endln:664:99
+\_hier_path: (start.get_full_name), line:664:78, endln:664:99
+\_hier_path: (start.get_full_name), line:675:77, endln:675:98
+\_hier_path: (start.get_full_name), line:675:77, endln:675:98
+\_hier_path: (start.get_full_name), line:675:77, endln:675:98
+\_hier_path: (t.get_type_name), line:121:44, endln:121:61
+\_hier_path: (t.get_type_name), line:121:44, endln:121:61
+\_hier_path: (t.get_type_name), line:121:44, endln:121:61
+\_method_func_call: (get_full_name), line:664:84, endln:664:97
+\_method_func_call: (get_full_name), line:675:83, endln:675:96
+\_method_func_call: (get_type_name), line:121:46, endln:121:59
+\_operation: , line:121:19, endln:121:67
+\_operation: , line:132:50, endln:664:100
+\_operation: , line:132:50, endln:664:100
+\_operation: , line:132:53, endln:675:99
+\_operation: , line:132:53, endln:675:99
+\_operation: , line:721:27, endln:722:67
+\_operation: , line:721:27, endln:722:67
+\_operation: , line:726:27, endln:727:67
+\_operation: , line:726:27, endln:727:67
+\_ref_obj: (start), line:664:78, endln:664:83
+\_ref_obj: (start), line:675:77, endln:675:82
+\_ref_obj: (t), line:121:44, endln:121:45
+\_ref_obj: (uvm_pkg::uvm_utils::find_all::TYPE::type_name), line:132:72, endln:132:78
+\_ref_obj: (uvm_pkg::uvm_utils::find::TYPE::type_name), line:132:89, endln:132:95
+\_ref_obj: (uvm_pkg::uvm_utils::get_config::FIELD), line:721:65, endln:721:70
+\_ref_obj: (uvm_pkg::uvm_utils::get_config::FIELD), line:726:65, endln:726:70
+\_ref_obj: (uvm_pkg::uvm_utils::get_config::TYPE::type_name), line:722:47, endln:722:53
+\_ref_obj: (uvm_pkg::uvm_utils::get_config::TYPE::type_name), line:727:47, endln:727:53
+|STRING:'
+|STRING:'
+|STRING:)
+|STRING: found in component hierarchy beginning at 
+|STRING:Instance of type '
+|STRING: is not of type '
+|STRING: is not of type '
+|STRING:More than one instance of type '
+|STRING: not found in component hierarchy beginning at 
+|STRING:set_config_object with field name 
+|STRING:set_config_object with field name 
+|STRING:uvm_reg_predictor #(
+|vpiActual:
+|vpiActual:
+|vpiActual:
+|vpiActual:
+|vpiActual:
+|vpiActual:
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiDecompile:"'"
+|vpiDecompile:"'"
+|vpiDecompile:")"
+|vpiDecompile:" found in component hierarchy beginning at "
+|vpiDecompile:"Instance of type '"
+|vpiDecompile:" is not of type '"
+|vpiDecompile:" is not of type '"
+|vpiDecompile:"More than one instance of type '"
+|vpiDecompile:" not found in component hierarchy beginning at "
+|vpiDecompile:"set_config_object with field name "
+|vpiDecompile:"set_config_object with field name "
+|vpiDecompile:"uvm_reg_predictor #("
+|vpiFullName:uvm_pkg::uvm_utils::find_all::TYPE::type_name
+|vpiFullName:uvm_pkg::uvm_utils::find::TYPE::type_name
+|vpiFullName:uvm_pkg::uvm_utils::get_config::FIELD
+|vpiFullName:uvm_pkg::uvm_utils::get_config::FIELD
+|vpiFullName:uvm_pkg::uvm_utils::get_config::TYPE::type_name
+|vpiFullName:uvm_pkg::uvm_utils::get_config::TYPE::type_name
+|vpiName:FIELD
+|vpiName:FIELD
+|vpiName:get_full_name
+|vpiName:get_full_name
+|vpiName:get_type_name
+|vpiName:start
+|vpiName:start
+|vpiName:start.get_full_name
+|vpiName:start.get_full_name
+|vpiName:t
+|vpiName:t.get_type_name
+|vpiName:TYPE::type_name
+|vpiName:TYPE::type_name
+|vpiName:TYPE::type_name
+|vpiName:TYPE::type_name
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiSize:136
+|vpiSize:136
+|vpiSize:144
+|vpiSize:160
+|vpiSize:256
+|vpiSize:272
+|vpiSize:272
+|vpiSize:344
+|vpiSize:376
+|vpiSize:8
+|vpiSize:8
+|vpiSize:8
+=== testflags/SeqDriver-32af76aa DELETED (pristine -> patched)
+=== testflags/SimpleUVM-1dc93a62 ADDED (pristine -> patched)
+\_constant: , line:121:20, endln:121:42
+\_constant: , line:121:63, endln:121:66
+\_constant: , line:132:51, endln:132:71
+\_constant: , line:132:54, endln:132:88
+\_constant: , line:664:28, endln:664:77
+\_constant: , line:675:31, endln:675:76
+\_constant: , line:721:28, endln:721:64
+\_constant: , line:722:27, endln:722:46
+\_constant: , line:722:63, endln:722:66
+\_constant: , line:726:28, endln:726:64
+\_constant: , line:727:27, endln:727:46
+\_constant: , line:727:63, endln:727:66
+\_hier_path: (start.get_full_name), line:664:78, endln:664:99
+\_hier_path: (start.get_full_name), line:664:78, endln:664:99
+\_hier_path: (start.get_full_name), line:664:78, endln:664:99
+\_hier_path: (start.get_full_name), line:675:77, endln:675:98
+\_hier_path: (start.get_full_name), line:675:77, endln:675:98
+\_hier_path: (start.get_full_name), line:675:77, endln:675:98
+\_hier_path: (t.get_type_name), line:121:44, endln:121:61
+\_hier_path: (t.get_type_name), line:121:44, endln:121:61
+\_hier_path: (t.get_type_name), line:121:44, endln:121:61
+\_method_func_call: (get_full_name), line:664:84, endln:664:97
+\_method_func_call: (get_full_name), line:675:83, endln:675:96
+\_method_func_call: (get_type_name), line:121:46, endln:121:59
+\_operation: , line:121:19, endln:121:67
+\_operation: , line:132:50, endln:664:100
+\_operation: , line:132:50, endln:664:100
+\_operation: , line:132:53, endln:675:99
+\_operation: , line:132:53, endln:675:99
+\_operation: , line:721:27, endln:722:67
+\_operation: , line:721:27, endln:722:67
+\_operation: , line:726:27, endln:727:67
+\_operation: , line:726:27, endln:727:67
+\_ref_obj: (start), line:664:78, endln:664:83
+\_ref_obj: (start), line:675:77, endln:675:82
+\_ref_obj: (t), line:121:44, endln:121:45
+\_ref_obj: (uvm_pkg::uvm_utils::find_all::TYPE::type_name), line:132:72, endln:132:78
+\_ref_obj: (uvm_pkg::uvm_utils::find::TYPE::type_name), line:132:89, endln:132:95
+\_ref_obj: (uvm_pkg::uvm_utils::get_config::FIELD), line:721:65, endln:721:70
+\_ref_obj: (uvm_pkg::uvm_utils::get_config::FIELD), line:726:65, endln:726:70
+\_ref_obj: (uvm_pkg::uvm_utils::get_config::TYPE::type_name), line:722:47, endln:722:53
+\_ref_obj: (uvm_pkg::uvm_utils::get_config::TYPE::type_name), line:727:47, endln:727:53
+|STRING:'
+|STRING:'
+|STRING:)
+|STRING: found in component hierarchy beginning at 
+|STRING:Instance of type '
+|STRING: is not of type '
+|STRING: is not of type '
+|STRING:More than one instance of type '
+|STRING: not found in component hierarchy beginning at 
+|STRING:set_config_object with field name 
+|STRING:set_config_object with field name 
+|STRING:uvm_reg_predictor #(
+|vpiActual:
+|vpiActual:
+|vpiActual:
+|vpiActual:
+|vpiActual:
+|vpiActual:
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiConstType:6
+|vpiDecompile:"'"
+|vpiDecompile:"'"
+|vpiDecompile:")"
+|vpiDecompile:" found in component hierarchy beginning at "
+|vpiDecompile:"Instance of type '"
+|vpiDecompile:" is not of type '"
+|vpiDecompile:" is not of type '"
+|vpiDecompile:"More than one instance of type '"
+|vpiDecompile:" not found in component hierarchy beginning at "
+|vpiDecompile:"set_config_object with field name "
+|vpiDecompile:"set_config_object with field name "
+|vpiDecompile:"uvm_reg_predictor #("
+|vpiFullName:uvm_pkg::uvm_utils::find_all::TYPE::type_name
+|vpiFullName:uvm_pkg::uvm_utils::find::TYPE::type_name
+|vpiFullName:uvm_pkg::uvm_utils::get_config::FIELD
+|vpiFullName:uvm_pkg::uvm_utils::get_config::FIELD
+|vpiFullName:uvm_pkg::uvm_utils::get_config::TYPE::type_name
+|vpiFullName:uvm_pkg::uvm_utils::get_config::TYPE::type_name
+|vpiName:FIELD
+|vpiName:FIELD
+|vpiName:get_full_name
+|vpiName:get_full_name
+|vpiName:get_type_name
+|vpiName:start
+|vpiName:start
+|vpiName:start.get_full_name
+|vpiName:start.get_full_name
+|vpiName:t
+|vpiName:t.get_type_name
+|vpiName:TYPE::type_name
+|vpiName:TYPE::type_name
+|vpiName:TYPE::type_name
+|vpiName:TYPE::type_name
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiOperand:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiParent:
+|vpiSize:136
+|vpiSize:136
+|vpiSize:144
+|vpiSize:160
+|vpiSize:256
+|vpiSize:272
+|vpiSize:272
+|vpiSize:344
+|vpiSize:376
+|vpiSize:8
+|vpiSize:8
+|vpiSize:8
+=== testflags/SimpleUVM-1dc93a62 DELETED (pristine -> patched)

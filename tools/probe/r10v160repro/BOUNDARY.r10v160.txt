@@ -1,0 +1,34 @@
+r10v160repro/BOUNDARY.r10v160.txt — the WIDE boundary. MEASUREMENT ONLY.
+
+LISTED=4481 PROCESSED=4481
+MOVED_ARMS=71  MOVED_CELLS=142  RC_DIFFS=0
+(*.sv arms; the segfault lines above are arms BOTH binaries refuse identically — RC_DIFFS=0)
+V_LISTED=68 V_PROCESSED=68 V_MOVED=0 V_RCDIFF=0   (*.v arms)
+4394 committed *.sv + 68 *.v = 4462, reconciling with the implementer's LISTED
+
+== earlier-pass arms that moved (this pass's own + this verifier's own excluded) ==
+MOVED tools/probe/r10buvm22repro/g22.sv def a=da202ef8c3cc b=900502839ca8
+MOVED tools/probe/r10buvm22repro/g22.sv elab a=b77a6421e6ba b=2633dea858c8
+MOVED tools/probe/r10uvm154repro/l154_noenum.sv def a=f5725d1ba25f b=f436135ea6b8
+MOVED tools/probe/r10uvm154repro/l154_noenum.sv elab a=f29057eaf6c4 b=2d093f922d60
+MOVED tools/probe/r10uvm158repro/g158_f_witness.sv def a=29b802e8eabf b=8596e0d09064
+MOVED tools/probe/r10uvm158repro/g158_f_witness.sv elab a=ecde33ab9cc5 b=18b989d221d4
+MOVED tools/probe/r10uvm59repro/vcells/c09_concat.sv def a=47dda66f1688 b=8453cf7d24c7
+MOVED tools/probe/r10uvm59repro/vcells/c09_concat.sv elab a=20cc850a37b7 b=d7c84fce1c6f
+MOVED tools/probe/r10v103repro/arms/v103_b5.sv def a=073b671a1c76 b=377cfe5799ac
+MOVED tools/probe/r10v103repro/arms/v103_b5.sv elab a=5a8e0f4371f5 b=e6abc239fc53
+MOVED tools/probe/r10v158repro/arms/probe0.sv def a=f75dab831001 b=bd92d25ba670
+MOVED tools/probe/r10v158repro/arms/probe0.sv elab a=737bdbaa0cb8 b=93a011a41a22
+
+== each judged against golden ==
+g158_f_witness   cmp 67/71 pris -> 0/0 pat (CMP_EQUAL); dist 89->62 / 163->94; DEL_THAT_G_HAS 0
+c09_concat       cmp 49/49 pris -> 0/0 pat (CMP_EQUAL); dist 88->52 / 108->72; DEL_THAT_G_HAS 0
+probe0           cmp 67/71 pris -> 0/0 pat (CMP_EQUAL); dist 85->58 / 128->80; DEL_THAT_G_HAS 0
+v103_b5          cmp 48/56 UNCHANGED; TOWARD dist 260->238 / 399->373; DEL_THAT_G_HAS 0
+g22.sv           REFUTED: cmp 3438/3438 UNCHANGED, dist 2205/2569 UNCHANGED;
+                 only diff = UINT:22552281 (pris) vs UINT:22556377 (pat), 4096 apart,
+                 in a class-scoped typedef <T> name[string] right range, below weaklyReferenced
+l154_noenum.sv   REFUTED: same value pair, cmp 17/17 UNCHANGED, dist 143/169 UNCHANGED.
+                 This file is r10uvm154's OWN committed LAYOUT-PROOF source (no enum, no concat).
+THIRD BINARY: main tree at 400a941d, md5 e3d14ab934b7b9e6862f85620f3c60e7, prints 22556377 —
+              agreeing with the PATCHED binary and disagreeing with the PRISTINE one.
