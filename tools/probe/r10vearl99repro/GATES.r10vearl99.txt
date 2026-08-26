@@ -1,0 +1,82 @@
+r10vearl99 -- THE FULL BATTERY, RUN INDEPENDENTLY BY THE VERIFIER.
+Three binaries, all built by the verifier from a FRESH worktree at 1f9906a,
+frozen chmod 555 at immutable paths of the SAME LENGTH:
+  /tmp/v99_pris.bin  100987bc8d76f2052aa842d7c65c5110   pristine 1f9906a
+  /tmp/v99_cand.bin  a93e0f469c1a6444f06c1c41676ef617   1f9906a + r10earl99.patch
+  /tmp/v99_fixd.bin  d6bfeddb8ba058e17e8cbacbf36d18f4   + the two v99 corrections
+The first two md5s REPRODUCE the implementer's reported md5s BIT FOR BIT.
+
+(1) BUILD                       0 errors on all three, md5 taken separately.
+(2) GOLDENS                     pris 23 PASS / 0 FAIL
+                                cand 23 PASS / 0 FAIL
+                                FIXD 23 PASS / 0 FAIL
+                                SLANG_UHDM=/bin/false  0 PASS / 23 FAIL
+                                (SLANG_UHDM exported explicitly per binary)
+(3) uhdm2rtlil, BOTH modes      cand 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+                                FIXD 679 / 50 / 2   (default and testflags alike)
+(4) surelog --mode both         pristine  default 471 EQ / 10 NE, testflags 466 / 9
+                                cand      IDENTICAL histogram
+                                FIXD      IDENTICAL histogram
+                                NO row converted and none claimed.
+(5) ct8rows, 5 comparisons each, status AND dump column:
+      results/gate_uhdm2rtlil.csv vs u2r_tf            PASS
+      pristine u2r_tf   vs candidate/verified u2r_tf   PASS
+      pristine u2r_def  vs candidate/verified u2r_def  PASS
+      results/golden_surelog.csv  vs sl                PASS
+      pristine sl       vs candidate/verified sl       PASS
+    0 differing rows over 1588 + 1462 on every one.
+(6) cmds.txt AUDITED BY BINARY PATH, file by file:
+      slc  1573 files: main-tree 0, /tmp/v99_cand.bin 1523, other 0
+      u2rc 1462 files: main-tree 0, /tmp/v99_cand.bin 1458, other 0
+      slp  1573 files: main-tree 0, /tmp/v99_pris.bin 1523, other 0
+      u2rp 1462 files: main-tree 0, /tmp/v99_pris.bin 1458, other 0
+      slf  1573 files: main-tree 0, /tmp/v99_fixd.bin 1523, other 0
+      u2rf 1462 files: main-tree 0, /tmp/v99_fixd.bin 1458, other 0
+(7) byteverify SELFCHECK=1
+      u2r  candidate vs pristine   MOVERS 0 / 1358   (SELFCHECK 1357/1358)
+      u2r  VERIFIED  vs pristine   MOVERS 0 / 1358
+      sl   candidate vs pristine   MOVERS 3 / 956    (SELFCHECK 955/956)
+             ./default/Earlgrey_0_1     PREDICTED
+             ./testflags/Earlgrey_0_1   PREDICTED
+             ./default/Scoreboard       THE DOCUMENTED ~50/50 COIN -- attributed
+               order-blind: sorted path-normalised dumps differ by 0 LINES,
+               unsorted by 92 (the svunit_pkg vpiTaskFunc ORDER flip RESUME §9
+               names).  NOT a law mover.
+      sl   VERIFIED  vs pristine   the SAME 3, the SAME hashes
+      sl   VERIFIED  vs CANDIDATE  MOVERS 0 / 956  <-- THE VERIFIER CORRECTIONS
+             HAVE ZERO CORPUS REACH IN EITHER CORPUS.
+(8) canaries          sl ok=52 changed=0 absent=0 | u2r ok=8 changed=0 absent=0
+    ctcan2            PASS x2   canaudit  audited=29 UNCOVERED=0 FENCE-BREACH=0
+    protected DBs     InterfaceModPort / BlackParrotComplex / YosysOldOr
+                      byte-identical to pristine; SVSwitch 4842211c4030;
+                      YosysVerx 6ccda350c24a  (both binaries)
+(9) rowheads (7 named rows, both modes)
+      pristine  Earlgrey default 31/1 head   testflags 36/1 head
+      candidate            31/1              26594/1 (NEW OBJECT)
+      VERIFIED             31/1              26594/1
+      every other row's cmp line count UNCHANGED on all three.
+(10) WIDE BOUNDARY -- every .sv/.v under a COPY of tools/probe at any depth
+     PLUS this verifier's 10 grid arms, both views, both binaries,
+     workdir-normalised dump byte-compare, list on fd 3, children </dev/null:
+       candidate vs pristine  LISTED 4428 == PROCESSED 4428, identical 8468,
+                              DIFFERING 32, rc SYMMETRIC side for side
+                              (0 8131/8131, 139 14/14, 3 342/342, 4 369/369)
+       VERIFIED  vs pristine  THE SAME 32 FILES, the same tally, the same
+                              symmetric rc histogram -- the corrections add
+                              no boundary cell of their own.
+     Of the 32: 14 are exactly the implementer's set (8 own arms, 2
+     r10earl61repro/v4_v61.sv, 4 the g22/l154_noenum LAYOUT artifact) and 18
+     are this verifier's own grid.
+(11) EARLGREY CENSUS (ct99cen + reg99.py, the pass's own instrument, rebuilt
+     and re-run by the verifier over golden / pristine / candidate):
+       CALIB golden-vs-golden   0 on 783183 (default) and 1061095 (testflags)
+       default    TO 4  AWAY 0  ADDED 1  REMOVED 0
+                  STILL-WRONG 5892 -> 5887   BOTH-SAME 739268 -> 739272
+                  GOLDEN-ONLY 32708 -> 32708  OURS-ONLY 27076 -> 27076
+       testflags  TO 2  AWAY 0  ADDED 1  REMOVED 4
+                  STILL-WRONG 391301 -> 391291  BOTH-SAME 1017021 -> 1017022
+                  GOLDEN-ONLY 34179 -> 34179  OURS-ONLY 73829 -> 73829
+     EVERY headline number reproduces EXACTLY, and every changed key's
+     candidate multiset equals GOLDEN'S multiset.  The VERIFIED binary's
+     Earlgrey databases are BYTE-IDENTICAL to the candidate's, so the census
+     is unchanged by construction.

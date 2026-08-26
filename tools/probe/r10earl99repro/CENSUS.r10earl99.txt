@@ -1,0 +1,118 @@
+r10earl99 -- THE CENSUS.  MEASUREMENT ONLY; the official uhdm-cmp is the judge.
+
+INSTRUMENT
+  ct99cen.cpp   one keyed line per object of a .uhdm, read straight from the
+                database (Earlgrey's uhdm-dump is gigabytes and takes hours):
+                  C| span | ownerkind[:optype] | ownerspan | role | homekind | home
+                        -> ct= sz= dec= ts=          (constant::Compare +
+                                                      expr::Compare EXACTLY)
+                  E|kind| ...same key...  -> dec= sz= ts=   (every other expr)
+                  O|kind|span|name        -> identity only  (every non-expr)
+                The payload carries ONLY fields a generated Compare reads.
+                VpiValue is emitted in a THIRD, separate column and reg99.py
+                never scores it (earl60's lesson inverted: a payload field the
+                judge cannot see must not be able to manufacture a verdict).
+                The DEF-vs-ELAB view is NOT in the key; the HOME full name
+                separates a def listing from an elaborated instance by itself.
+  reg99.py      per-KEY MULTISET intersection golden / pristine / candidate.
+  pop99.cpp     the LAW'S POPULATION on a pristine database: every cont_assign
+                whose Rhs reaches an assignmentPatternOp, split CHAIN (through
+                vpiConditionOp arms) vs DIRECT.
+
+CALIBRATION (golden vs golden vs golden), whole database:
+  Earlgrey default    TO-GOLDEN 0 AWAY 0 STILL-WRONG 0 ADDED 0 REMOVED 0
+                      BOTH-SAME 783183
+  Earlgrey testflags  TO-GOLDEN 0 AWAY 0 STILL-WRONG 0 ADDED 0 REMOVED 0
+                      BOTH-SAME 1061095
+
+========================================================================
+THE POPULATION, counted on PRISTINE databases before a line was written
+========================================================================
+pop99 over ALL 956 surelog + ALL 1358 uhdm2rtlil pristine databases:
+
+  CHAIN (this law's carrier: a pattern reached through the cont_assign's
+         conditional-operator arms)
+      uhdm2rtlil     0 cells in 1358 databases  -- the corpus has NONE
+      surelog       28 cells in  2 tests:
+         Earlgrey_0_1  default   10 cells (7 with an unsized member value)
+         Earlgrey_0_1  testflags 10 cells (6)
+         CondOpPattern default    4 cells (0)
+         CondOpPattern testflags  4 cells (0)
+
+  CondOpPattern is CMP_EQUAL in both modes -- a LIVE MUST-STAY control that
+  this law's carrier DOES cover.  Measured directly, both views, both frozen
+  binaries: the .uhdm files are BYTE-IDENTICAL pristine vs patched (its two
+  arms are named members already in declaration order carrying SIZED literals,
+  so the flatten is the identity there).
+
+  DIRECT (the pre-existing carrier the >=65 abort and the getMask clamp also
+          touch): surelog 272 cells, uhdm2rtlil 92 cells.  Of those, the ones
+          where either sub-law can bite -- a member 64 bits or wider -- are
+          ELEVEN, all with unsized=0:
+            sl  FuncAlias / GenStructAccess  szs=64,0
+                PatternAssignment            szs=1,64
+            u2r assignment-pattern           szs=192  (ops=1) and 64,64,64
+                gen_struct_access            szs=64,0
+          The only >=65 one is a SINGLE-operand pattern, so "stamp it and stop"
+          and "stamp it and carry on" are the same vector; and no direct-carrier
+          cell anywhere carries an unbased literal on a >=64-bit member, so the
+          getMask clamp has ZERO corpus reach outside Earlgrey.  Both are
+          MEASURED on g1_lit99 instead.
+
+THE FOUR EARLGREY CELLS, named from the pristine census (both modes identical):
+  hmac_core.sv 116:83  `mask: '1`     golden {ct 9 sz 4 dec 15} / ours {3, -1, '1}
+  hmac_core.sv 117:83  `mask: '1`     golden {ct 9 sz 4 dec 15} / ours {3, -1, '1}
+  hmac_core.sv 119:16  `'{default:'0}` golden TWO constants {9,32,0}+{9,4,0}
+                                       ours ONE {3, 1, '0}
+  hmac.sv      257:86  `mask: '1`     golden {ct 9 sz 4 dec 15} / ours {3, -1, '1}
+  pinmux.sv    268:46  ref_obj lc_strap_taps  golden VpiSize 2 / ours 0
+                       (the operand that STOPPED Surelog's size walk)
+
+========================================================================
+WHAT MOVED (whole-database census, golden / pristine / candidate)
+========================================================================
+  Earlgrey default    TO-GOLDEN 4  AWAY-GOLDEN 0  ADDED 1  REMOVED 0
+                      STILL-WRONG 5892 -> 5887   BOTH-SAME 739268 -> 739272
+                      GOLDEN-ONLY-KEYS 32708 -> 32708
+                      OURS-ONLY-KEYS   27076 -> 27076
+  Earlgrey testflags  TO-GOLDEN 2  AWAY-GOLDEN 0  ADDED 1  REMOVED 4
+                      STILL-WRONG 391301 -> 391291  BOTH-SAME 1017021 -> 1017022
+                      GOLDEN-ONLY-KEYS 34179 -> 34179
+                      OURS-ONLY-KEYS   73829 -> 73829
+
+  MOVED-WRONG 0 and AWAY-GOLDEN 0 in BOTH columns, and NEITHER ONE-SIDED KEY
+  SET MOVES BY A SINGLE KEY.
+
+  SIX keys changed in each mode, and for EVERY ONE of them the candidate's
+  multiset is EXACTLY golden's -- listed here as the scorer printed them
+  (COUNT rows are keys whose CARDINALITY changed; they are quoted in full so
+  the direction is readable, not asserted):
+
+    116:83 / 117:83 / 257:86 (op75, cont_assign)
+        golden {ct=9 sz=4 dec=15}
+        pristine {ct=3 sz=-1 dec='1} x1 (default) / x2 (testflags)
+        candidate {ct=9 sz=4 dec=15} x1   -- EQUAL TO GOLDEN
+    119:16 (op75, cont_assign)
+        golden {ct=9 sz=32 dec=0} + {ct=9 sz=4 dec=0}
+        pristine {ct=3 sz=1 dec='0}
+        candidate {ct=9 sz=32 dec=0} + {ct=9 sz=4 dec=0}  -- EQUAL TO GOLDEN
+    257:86 (ORPHANED copy, testflags only)
+        golden {ct=3 sz=-1 dec='1} x1
+        pristine {ct=3 sz=-1 dec='1} + {ct=9 sz=1 dec=1}
+        candidate {ct=3 sz=-1 dec='1} x1                  -- EQUAL TO GOLDEN
+    pinmux 268:46 ref_obj lc_strap_taps
+        golden sz=2 / pristine sz=0 / candidate sz=2      -- EQUAL TO GOLDEN
+
+  The ADDED 1 is the second constant of `'{default:'0}` -- an object GOLDEN
+  HAS; the REMOVED 4 (testflags) are surplus duplicate copies GOLDEN DOES NOT
+  HAVE.  Both one-sided sets are unchanged, so the law adds and removes no
+  KIND of object anywhere else.
+
+BYTEVERIFY (SELFCHECK=1, patched vs THIS pass's own pristine sweep; both
+binaries frozen chmod 555 at immutable paths of the SAME LENGTH,
+/tmp/r10earl99_pris.bin and /tmp/r10earl99_lawC.bin; every cmds.txt audited BY
+BINARY PATH -- 0 of 1462 + 1573 name the main-tree binary):
+  uhdm2rtlil  MOVERS 0 / 1358   <- as predicted (SELFCHECK 1357/1358 flagged)
+  surelog     MOVERS 2 /  956   <- as predicted, and NOTHING ELSE
+      ./default/Earlgrey_0_1
+      ./testflags/Earlgrey_0_1                (SELFCHECK 955/956 flagged)

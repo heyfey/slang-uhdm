@@ -24036,25 +24036,73 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             // operand per member, member widths stamped on the leading ones.
             // Hand the emitter that typespec; it is what makes the flatten
             // reachable (AssignRhsFlat).
-            if (topView &&
-                stripImplicitConv(ae.right()).kind ==
-                    ExpressionKind::StructuredAssignmentPattern) {
+            // § caTernaryArmPatternFlatten99 (r10earl99) — THE CONDITIONAL
+            // CHAIN IS A FLATTEN CARRIER TOO.  Surelog does not test what the
+            // cont_assign RHS *is*: `UhdmWriter::writeCont` hands the LHS
+            // typespec to `ExprEval::flattenPatternAssignments`, whose FIRST
+            // act (UHDM ExprEval.cpp:757-763) is
+            //     if (op->VpiOpType() == vpiConditionOp) {
+            //       ops->at(1) = flattenPatternAssignments(s, tps, ops->at(1));
+            //       ops->at(2) = flattenPatternAssignments(s, tps, ops->at(2));
+            //       return result; }
+            // and `CompileHelper::expandPatternAssignment`
+            // (CompileHelper.cpp:5069-5075) repeats it verbatim for the
+            // size-stamping pass.  So `assign s = c0 ? x : c1 ? '{..} : '{..}`
+            // flattens and re-types EVERY pattern in the chain, exactly as a
+            // bare `assign s = '{..}` does.  The recursion reaches ARMS ONLY
+            // (ops[1], ops[2] — never ops[0], the condition) and stops dead at
+            // the first operand that is neither a conditionOp nor an
+            // assignmentPatternOp, so a pattern buried inside an arm's
+            // arithmetic is NOT reached: the carrier set below is built by the
+            // same walk rather than by a flag that would leak down the tree.
+            if (topView) {
+                auto& rc9 = stripImplicitConv(ae.right());
+                const bool patRhs9 =
+                    rc9.kind == ExpressionKind::StructuredAssignmentPattern;
+                const bool condRhs9 = rc9.kind == ExpressionKind::ConditionalOp;
                 // The ELABORATED signal object carries the struct typespec
                 // (the def-view net for the same name has none), so the
                 // lookup goes through this instance's map, not the def map
                 // the RHS refs bind through.
-                auto& lc7 = stripImplicitConv(ae.left());
-                if (lc7.kind == ExpressionKind::NamedValue)
-                    if (auto lit7 = netMap.find(
-                            &lc7.as<NamedValueExpression>().symbol);
-                        lit7 != netMap.end())
-                        if (auto* lrt7 = ((UHDM::expr*)lit7->second)->Typespec();
-                            lrt7 && lrt7->Actual_typespec() &&
-                            lrt7->Actual_typespec()->UhdmType() ==
-                                UHDM::uhdmstruct_typespec) {
-                            patFlatTs = lrt7->Actual_typespec();
-                            patFlatAdjust = true;
+                const UHDM::typespec* lts9 = nullptr;
+                if (patRhs9 || condRhs9) {
+                    auto& lc7 = stripImplicitConv(ae.left());
+                    if (lc7.kind == ExpressionKind::NamedValue)
+                        if (auto lit7 = netMap.find(
+                                &lc7.as<NamedValueExpression>().symbol);
+                            lit7 != netMap.end())
+                            if (auto* lrt7 =
+                                    ((UHDM::expr*)lit7->second)->Typespec();
+                                lrt7 && lrt7->Actual_typespec() &&
+                                lrt7->Actual_typespec()->UhdmType() ==
+                                    UHDM::uhdmstruct_typespec)
+                                lts9 = lrt7->Actual_typespec();
+                }
+                if (lts9 && patRhs9) {
+                    patFlatTs = lts9;
+                    patFlatAdjust = true;
+                } else if (lts9 && condRhs9) {
+                    // Walk exactly the chain Surelog's two recursions walk —
+                    // conditionOp arms only, any depth — and record the
+                    // patterns it lands on.  A set of AST nodes, not a flag,
+                    // so nothing leaks into a subtree the flatten never sees.
+                    caCondPatSet99.clear();
+                    std::vector<const Expression*> st9{&rc9};
+                    while (!st9.empty()) {
+                        const Expression* e9 = st9.back();
+                        st9.pop_back();
+                        if (e9->kind == ExpressionKind::ConditionalOp) {
+                            auto& c9 = e9->as<ConditionalExpression>();
+                            st9.push_back(&stripImplicitConv(c9.left()));
+                            st9.push_back(&stripImplicitConv(c9.right()));
+                        } else if (e9->kind ==
+                                   ExpressionKind::StructuredAssignmentPattern) {
+                            caCondPatSet99.insert(e9);
                         }
+                    }
+                    if (!caCondPatSet99.empty())
+                        caCondPatTs99 = lts9;
+                }
             }
             bool forceSaved = forceConstParent;
             if (literalRhs || bitsRhs)
@@ -24093,6 +24141,8 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                            rhsMap);
             patFlatTs = nullptr;
             patFlatAdjust = false;
+            caCondPatTs99 = nullptr;
+            caCondPatSet99.clear();
             implicitConvTargetSigned = savedICT7;
             contAssignView = 0;
             paramInitDef = false;

@@ -1,0 +1,133 @@
+r10earl99 -- THE GOLDEN GRID.  MEASUREMENT ONLY.  LHS is ALWAYS golden.
+Driver: arm99.sh (Surelog -parse [-elabuhdm] vs slang-uhdm --single-unit
+[--elabuhdm], workdir-isolated so both tools see identical paths; SLANG_UHDM has
+NO DEFAULT and its md5 is printed on every run).  BOTH VIEWS on every arm.
+
+  PRISTINE = /tmp/r10earl99_pris.bin   PATCHED = /tmp/r10earl99_lawC.bin
+
+     arm            view    PRISTINE cmp        PATCHED cmp
+     g0_head99      plain   1 head / 36 lines   PASS_CMP  (0 heads)
+     g0_head99      elab    1 head / 36 lines   PASS_CMP  (0 heads)
+     g1_lit99       plain   1 head / 36 lines   PASS_CMP  (0 heads)
+     g1_lit99       elab    1 head / 36 lines   PASS_CMP  (0 heads)
+     g2_ctx99       plain   1 head / 17 lines   1 head / 17 lines   (R1/R2)
+     g2_ctx99       elab    1 head / 17 lines   1 head / 17 lines
+     g3_home99      plain   1 head / 36 lines   1 head / 58 lines   (head CHANGED:
+     g3_home99      elab    1 head / 36 lines   1 head / 58 lines    the struct
+                                                                    typespec RANGE
+                                                                    residue, R4)
+     g4_neg99       plain   1 head / 17 lines   1 head / 17 lines   BYTE-IDENTICAL
+     g4_neg99       elab    1 head / 17 lines   1 head / 17 lines   BYTE-IDENTICAL
+
+========================================================================
+g0_head99 -- THE HEAD WITNESS (hmac_core.sv:114-119 in miniature)
+========================================================================
+  out_a  a NESTED `? :` chain with pattern arms      -- the head
+  out_b  the same pattern written DIRECTLY as the Rhs -- the CONTROL, already
+         equal on the pristine binary (the landed carrier reaches it)
+  out_c  a SINGLE `? :` with a pattern in BOTH arms
+
+  PRISTINE, LHS(golden) first, on `sha_fifo_t`-shaped {32,4} members:
+    26:49 `mask: '1'      {ct 9  sz 4  dec 15}   / ours {ct 3  sz -1  dec '1}
+    28:16 `'{default:'0}`  TWO constants {9,32,0}+{9,4,0}
+                                                 / ours ONE {ct 3 sz 1 dec '0}
+    31:xx out_b (the control)                    IDENTICAL on both sides
+    34:61 `mask: '1'      {9,4,15}               / ours {3,-1,'1}
+    35:61 `mask: '0'      {9,4,0}                / ours {3,-1,'0}
+  PATCHED: uhdm-cmp EQUAL, and the constant census of the arm reads
+  GOLDEN-ONLY 0 / OURS-ONLY 0 in BOTH views.
+
+========================================================================
+g1_lit99 -- LITERAL x TARGET WIDTH (the arithmetic grid)
+========================================================================
+One 8-member struct {1, 4, 32, 64, 65, PW=12, 8, 8}; five cont_assigns, each a
+ternary whose false arm is a fully-named pattern.  GOLDEN, measured:
+
+  '1  -> vpiConstType 9 (UINT), vpiSize = THE MEMBER WIDTH, decompile = the
+         DECIMAL of NumUtils::getMask(width)
+            1 -> 1        4 -> 15        32 -> 4294967295
+           64 -> 18446744073709551615
+           65 -> 18446744073709551615   <-- getMask SATURATES AT 64 BITS and
+                                            the flatten stores it whole, at
+                                            vpiSize 65.  THE LANDMINE.
+           12 -> 4095     8 -> 255
+  '0  -> UINT 0 at the member width, decompile "0"      (all eight widths)
+  'x  -> UINT 0 at the member width                     (all eight widths)
+  'z  -> UINT 0 at the member width                     (all eight widths)
+  1'b1 / 4'hF / 32'd7 / a package PARAMETER / a CONCAT -> UNTOUCHED, both
+       sides, in every position: a SIZED or BASED literal is not
+       `VpiSize() == -1` and the flatten never looks at it.
+
+THE SIZE WALK, same arm, `om` row (mixed literals), golden first:
+    [0] 1'b1            sz 1   both        [4] `'0` -> UINT 0   sz 65  both
+    [1] 4'hF            sz 4   both        [5] q99::P4  sz 4 golden / 12 without
+    [2] 32'd7           sz 32  both            the >=65 abort  <-- AWAY
+    [3] `'1` -> UINT    sz 64  both        [6] {4'h3,4'h6} sz 0 golden / 8
+                                           [7] `'x` -> UINT 0 sz 8 both
+  Surelog stamps operands 0..4 and STOPS: its per-bit copy loop returns from
+  the WHOLE expandPatternAssignment the first time the shift would reach 64
+  (CompileHelper.cpp:5259-5265), and at i==0 the shift IS csize-1, so the
+  65-bit member is the LAST one stamped.  Modelled; PATCHED reproduces golden
+  operand for operand.
+
+========================================================================
+g2_ctx99 -- CONTEXT: what the carrier reaches and what it must not
+========================================================================
+  REACHED (fixed by this pass, golden and ours now identical):
+    a NAMED member in a ternary arm                  (36:55, 37:44)
+  REACHED by golden, NOT by this law (RANKED RESIDUES, unchanged by the pass):
+    R1 a POSITIONAL pattern in a ternary arm (35:35/35:39) -- a DIFFERENT
+       Surelog function: expandPatternAssignment's untagged arm ->
+       adjustOpSize -> adjustUnsized, whose rule is NOT the flatten's:
+         golden `'1` -> UINT 7 sz 3 (re-typed) but `'0` -> BIN `'0` sz 5
+         (SIZE ONLY, decompile and const type KEPT) -- adjustUnsized
+         (CompileHelper.cpp:4921-4942) rewrites only when the value is 1.
+    R2 a NESTED pattern's members (36:40/36:47): golden re-types them through
+       flattenPatternAssignments' OWN recursion
+       (`opi = flattenPatternAssignments(s, fieldTypes[index], patt_op)`),
+       which needs no carrier flag at all; our nested recursion passes
+       `patFlatTs` but not the re-typing permission.
+  NOT REACHED by golden either -- MUST STAY, and DID (byte-identical before
+  and after):
+    a plain ternary arm `sel ? 8'hff : '1`           (39)
+    a REPLICATED pattern `'{2{'1}}`                  (38)
+    an unbased literal as a CONDITION `('1 == sel)`  (41)
+    an unbased literal in a CONCAT `{4'h0,{4{'1}}}`  (42)
+    a pattern under an arm's ARITHMETIC (40:52) -- golden leaves it `'1` sz -1
+    a PROCEDURAL assignment of a pattern (g4 n_proc)
+  PRE-EXISTING, measured and NOT taken (identical before and after):
+    R3 a FUNCTION ARGUMENT's `'1` (43:24): golden re-types it to
+       BIN 11111111 sz 8 with a ref_typespec to the FORMAL's logic_typespec --
+       a THIRD mechanism (adjustSize's logic_typespec arm), ours leaves it
+       `'1` sz -1.
+    R5 a PORT-CONNECTION pattern (45): golden flattens and re-types
+       (UINT 7 sz 3 + UINT 0 sz 5); we fold the whole high_conn to one
+       `8'd224` constant.  A different shape entirely -- the port high_conn
+       laws own it, not this one.
+
+========================================================================
+g3_home99 -- HOMES
+========================================================================
+  module / a submodule instantiated THREE TIMES / a package function's return /
+  a GENERATE SCOPE.
+  PRISTINE: 8 wrong cells -- leaf99's `'{a:'1, b:'0}` in all THREE instances
+  (19:29 x3, 19:36 x3) and the top module's own (32:33, 32:40).
+  PATCHED: ALL EIGHT equal.  The three instances move together, so the law is
+  instance-independent.
+  THE GEN SCOPE IS THE ARM THAT AGREES *AND* TESTS: golden does NOT flatten a
+  gen_scope's cont_assign at all -- the tagged_patterns SURVIVE there and the
+  `'1` stays BIN sz -1 -- and neither do we, before or after (the only
+  difference at 43:37/43:44 is the constant's vpiParent, which no generated
+  Compare reads).  The carrier is set ONLY at ModuleEmit's module-level CA
+  site, and that is exactly Surelog's reach.
+  The remaining head is the struct_typespec RANGE constants (6:12/6:14/7:12/
+  7:14, golden-only, x2) -- pre-existing, untouched, R4.
+
+========================================================================
+g4_neg99 -- THE NEGATIVE CONTROL
+========================================================================
+  Ten negatives (procedural pattern, plain ternary arm, arithmetic operand,
+  comparison operand, concat, index expression, PACKED-ARRAY pattern target,
+  pattern under an arm's arithmetic).  The PATCHED and PRISTINE dumps are
+  BYTE-IDENTICAL in BOTH views, golden side and ours side alike.  This is the
+  arm that proves the law did not widen past its carrier.

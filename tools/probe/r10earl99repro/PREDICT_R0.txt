@@ -1,0 +1,157 @@
+r10earl99 -- THE MOVER PREDICTION and THE NEXT HEAD (R0).
+
+BASE 1f9906a, branch auto5h.  The official ~/git-repos/UHDM/build/bin/uhdm-cmp
+is the sole acceptance judge; everything in this directory is MEASUREMENT ONLY.
+
+========================================================================
+PART 1 -- THE MOVER PREDICTION (made from PRISTINE databases only)
+========================================================================
+The law's population is a SHAPE, and pop99.cpp counted every cell of it over
+both corpora before a line of the law was written:
+
+  a `cont_assign` whose Rhs reaches an `operation(vpiAssignmentPatternOp)`
+  THROUGH A CHAIN OF `vpiConditionOp` ARMS -- the recursion UHDM's
+  ExprEval::flattenPatternAssignments (ExprEval.cpp:757-763) and Surelog's
+  CompileHelper::expandPatternAssignment (CompileHelper.cpp:5069-5075) both
+  perform before they look at anything else.
+
+  uhdm2rtlil     0 cells in 1358 databases.  The corpus has NO cell of this
+                 shape: nothing to fix, nothing to break.
+  surelog       28 cells in  2 tests:
+                   default/Earlgrey_0_1     10 cells (7 with an unsized value)
+                   testflags/Earlgrey_0_1   10 cells (6)
+                   default/CondOpPattern     4 cells (0)
+                   testflags/CondOpPattern   4 cells (0)
+
+  CondOpPattern is CMP_EQUAL in BOTH modes -- a live MUST-STAY row that this
+  carrier covers.  Measured directly, both views, both frozen binaries: its
+  .uhdm files are BYTE-IDENTICAL pristine vs patched.
+
+  The two arithmetic corrections that ride with the law (getMask's 64-bit
+  saturation, and the size walk's abort on a member >= 65 bits) also touch the
+  LANDED DIRECT carrier: 272 surelog + 92 uhdm2rtlil cells, of which ELEVEN
+  have a member 64 bits or wider and ALL ELEVEN carry unsized=0; the single
+  >= 65 one is a one-operand pattern where "stamp and stop" and "stamp and
+  carry on" are the same vector.  ZERO corpus reach outside Earlgrey.
+
+PREDICTION: EXACTLY TWO DATABASES MOVE -- Earlgrey_0_1 default and testflags.
+uhdm2rtlil: ZERO movers.
+
+WHAT ACTUALLY MOVED (byteverify SELFCHECK=1, patched vs this pass's OWN
+pristine sweep; both binaries frozen chmod 555 at immutable paths of the SAME
+LENGTH -- /tmp/r10earl99_pris.bin and /tmp/r10earl99_lawC.bin; every cmds.txt
+audited BY BINARY PATH, 0 of 1462 + 1573 name the main-tree binary):
+
+  uhdm2rtlil  MOVERS 0 / 1358   <- as predicted   (SELFCHECK 1357/1358 flagged)
+  surelog     MOVERS 2 /  956   <- as predicted, and NOTHING ELSE
+      ./default/Earlgrey_0_1
+      ./testflags/Earlgrey_0_1                    (SELFCHECK 955/956 flagged)
+
+THE CENSUS re-scored over the SAME fixed universe, GOLDEN SIDE ASSERTED
+BYTE-UNCHANGED (reg99.py; CALIB golden-vs-golden reads 0 on 783183 / 1061095
+keys):
+
+   Earlgrey default    TO-GOLDEN 4  AWAY-GOLDEN 0  ADDED 1  REMOVED 0
+                       STILL-WRONG 5892 -> 5887
+                       BOTH-SAME 739268 -> 739272
+                       GOLDEN-ONLY-KEYS 32708 -> 32708
+                       OURS-ONLY-KEYS   27076 -> 27076
+   Earlgrey testflags  TO-GOLDEN 2  AWAY-GOLDEN 0  ADDED 1  REMOVED 4
+                       STILL-WRONG 391301 -> 391291
+                       BOTH-SAME 1017021 -> 1017022
+                       GOLDEN-ONLY-KEYS 34179 -> 34179
+                       OURS-ONLY-KEYS   73829 -> 73829
+
+  MOVED-WRONG 0 / AWAY 0 in both columns, NEITHER ONE-SIDED SET MOVES BY A
+  SINGLE KEY, and every one of the six changed keys per mode lands on GOLDEN'S
+  MULTISET EXACTLY (quoted in full in CENSUS.r10earl99.txt).  The ADDED 1 is
+  the second constant of `'{default:'0}`, an object golden HAS; the REMOVED 4
+  are surplus duplicate copies golden does NOT have.
+
+========================================================================
+PART 2 -- R0: THE NEXT HEAD, AND THE RESIDUES
+========================================================================
+BEFORE (this pass's own pristine build 100987bc8d76), rowheads.sh scale:
+  Earlgrey_0_1 default   31, 1 head  |  testflags  36, 1 head
+AFTER (a93e0f469c1a):
+  Earlgrey_0_1 default   31, 1 head  |  testflags  26594, 1 head  (NEW OBJECT --
+  the line count rose because the new head is a MODULE_INST and uhdm-cmp
+  decompiles it whole; the four constant cells and the pinmux size cell are
+  EQUAL now.)
+
+R0-testflags -- A SURPLUS `struct_var` IN AN ELABORATED MODULE'S Variables LIST.
+    sha2.sv:290 instantiates sha2_pad as work@top_earlgrey.u_hmac.u_sha2.u_pad.
+      LHS and RHS are BOTH that module_inst (the VECTOR SafeCompare overload
+      sets both containers on a size mismatch -- BaseClass.h), and the ONLY
+      structural difference between the two decompiles is
+        + struct_var (…u_sha2.u_pad.fifo_rdata), line:19:25-19:35,
+          typespec ref -> struct_typespec hmac_pkg::sha_fifo_t
+      present in OURS and absent from GOLDEN'S `u_pad`.
+      sha2_pad's port `fifo_rdata` (sha2_pad.sv:19) is an INPUT PORT of struct
+      type; golden lists it as a port and a net but NOT as a module VARIABLE,
+      we list it as a variable as well.  Read module_inst's generated Compare
+      order before naming the field -- Variables is a VECTOR, so the count is
+      the failing test, and the census key
+        E|struct_var|19:25-19:35|module_inst|290:3-312:5|other|module_inst|
+          work@top_earlgrey.u_hmac.u_sha2.u_pad
+      reads pristine 1 / candidate 1 / golden 0 BEFORE AND AFTER this pass --
+      pre-existing, untouched, and the OURS-ONLY key set does not move.
+      NOTE: a struct-typed PORT that is also listed as a variable is a shape
+      that recurs; census the whole corpus for `struct_var` keys golden does
+      not carry before writing a law for one instance.
+
+R0-default -- UNCHANGED and STILL QUEUED: the surplus elaborated gen-scope
+    variable `fifo_wptr` (hmac.sv:58, LHS <null> against a full RHS logic_var
+    in gen_scope work@top_earlgrey.u_hmac.u_msg_fifo.gen_normal_fifo), the
+    SINGULAR SafeCompare overload's mirror.  earl96/earl97/earl98 R0-default,
+    verbatim.  (If r10earl98 has landed by the time this is read, re-measure
+    with rowheads.sh before taking it.)
+
+RANKED RESIDUES this pass MEASURED and deliberately did not take
+----------------------------------------------------------------
+R1  A POSITIONAL PATTERN IN A TERNARY ARM IS A DIFFERENT SURELOG FUNCTION.
+    g2_ctx99 c_pos (`'{'1, '0}` on {3,5} members), golden first: `'1` -> UINT 7
+    at size 3, but `'0` -> BIN `'0` at size 5 -- decompile and const type KEPT,
+    only VpiSize stamped.  That is expandPatternAssignment's untagged arm ->
+    adjustOpSize -> adjustUnsized (CompileHelper.cpp:4921-4942), which rewrites
+    the VALUE only when it is 1.  Its own law, its own census.
+    MEASURED DENOMINATOR: 0 corpus cells.
+R2  A NESTED PATTERN'S MEMBERS ARE NOT RE-TYPED.  g2_ctx99 c_nest: golden
+    re-types the inner members (UINT 7 sz 3, UINT 0 sz 5) through the flatten's
+    OWN recursion, which needs no carrier permission; our nested recursion
+    hands the member typespec down but not the re-typing permission, because
+    the landed gate reuses `patFlatAdjust` -- which models the SIZE walk, and
+    the size walk does NOT recurse.  Splitting the two flags is the fix and it
+    also reaches the LANDED direct carrier.  2 cells per view on the arm,
+    0 corpus cells.
+R3  A FUNCTION ARGUMENT'S UNBASED LITERAL IS RE-TYPED BY A THIRD MECHANISM.
+    g2_ctx99 c_arg (`f99('1)` on a `logic [7:0]` formal): golden writes BIN
+    11111111 at size 8 with a ref_typespec to the FORMAL's logic_typespec --
+    adjustSize's uhdmlogic_typespec arm, not the flatten's UINT mask.  Ours
+    leaves it `'1` at -1.  Identical before and after.
+R4  THE STRUCT_TYPESPEC RANGE CONSTANTS.  Every arm carries 4-8 golden-only
+    {dec, sz 64, ct 9} constants on the packed dimensions of the test's own
+    `typedef struct packed`.  g3_home99's remaining head.
+R5  A PORT-CONNECTION PATTERN.  g2_ctx99 `u_sub .p('{a:'1, b:'0})`: golden
+    flattens and re-types it; we fold the whole high_conn into one `8'd224`
+    constant.  The port high_conn laws own that shape and the standing
+    boundary fences them.
+R6  A PACKED-ARRAY PATTERN TARGET.  g4_neg99 n_parr: golden folds
+    `'{'1,'0,'1,'0}` to one `4'd10`; we emit four constants.  Untouched (the
+    carrier requires a struct_typespec).
+R7  THE ASSOCIATIVE-ARRAY TYPEDEF'S LAYOUT-DERIVED CONSTANT.  A class-scoped
+    `typedef <T> name[string]` makes us emit an array_typespec whose range
+    right bound is a garbage number -- golden emits a string_typespec index and
+    NO numeric constant at all -- and that number tracks the BINARY LAYOUT.
+    r10uvm154 §7 characterised it and committed l154_noenum.sv to prove it;
+    this pass re-proved it with a THIRD binary: a build of the PRISTINE SOURCE
+    carrying the law's two members with NO BEHAVIOUR ATTACHED produces the
+    PATCHED number 22552281 on g22.sv where the plain pristine build produces
+    22548185.  Not environment-dependent, run-stable per binary.  Scored
+    against golden it is EQUIDISTANT on all binaries (g22 3438 cmp lines / 1
+    head and census 0/0/0/0 both ways; l154_noenum 17 cmp lines on all three).
+R8  THE PRE-EXISTING PROBE / BOUNDARY SEGFAULTS.  The wide boundary's rc
+    histogram is SYMMETRIC side for side (14 per side).  Recorded by earl82 R6 /
+    earl83 R6 / earl84 R6 / earl85 R5 / earl89 R6 / earl90 R8 / earl91 R5 /
+    earl93 R7 / earl94 R6 / earl95 R4 / earl96 R5 / earl97 R5; byteverify
+    proves none of them is a mover.

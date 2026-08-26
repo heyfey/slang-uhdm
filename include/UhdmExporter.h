@@ -2772,6 +2772,20 @@ private:
     // how u2r assignment-pattern (`p::C l = '{th:170, r:1}`) regressed the
     // moment the flatten started accepting member-only patterns.
     bool patFlatDidOrder27 = false;
+    // § caTernaryArmPatternFlatten99 (r10earl99) — the assignment patterns
+    // that a CONT_ASSIGN's CONDITIONAL-OPERATOR chain carries.  Surelog's
+    // `UHDM::ExprEval::flattenPatternAssignments` (UHDM ExprEval.cpp:757-763)
+    // recurses through a `vpiConditionOp` into ops[1] and ops[2] with the SAME
+    // target typespec BEFORE it looks at anything else, and
+    // `CompileHelper::expandPatternAssignment` (CompileHelper.cpp:5069-5075)
+    // does the identical recursion — so a `? :` (nested arbitrarily deep)
+    // between the LHS signal and a `'{...}` does NOT stop either pass.  The
+    // set holds the exact pattern expressions that chain reaches: only the
+    // ARMS, never the CONDITION, and never a pattern that sits under anything
+    // other than a conditional (the flatten returns unchanged for every other
+    // operand kind).  `caCondPatTs99` is the LHS signal's struct typespec.
+    const UHDM::typespec* caCondPatTs99 = nullptr;
+    std::set<const slang::ast::Expression*> caCondPatSet99;
     // True while a module's DEF (allModules) view is being built — the
     // elaborated view of the same declaration folds bounds the def listing
     // keeps written (InterfArrayBind).  Set by emitModuleDef for the inline

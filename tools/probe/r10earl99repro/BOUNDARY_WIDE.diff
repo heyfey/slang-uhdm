@@ -1,0 +1,14 @@
+plain r10buvm22repro/g22.sv
+elab r10buvm22repro/g22.sv
+plain r10earl61repro/v4_v61.sv
+elab r10earl61repro/v4_v61.sv
+plain r10earl99repro/g0_head99.sv
+elab r10earl99repro/g0_head99.sv
+plain r10earl99repro/g1_lit99.sv
+elab r10earl99repro/g1_lit99.sv
+plain r10earl99repro/g2_ctx99.sv
+elab r10earl99repro/g2_ctx99.sv
+plain r10earl99repro/g3_home99.sv
+elab r10earl99repro/g3_home99.sv
+plain r10uvm154repro/l154_noenum.sv
+elab r10uvm154repro/l154_noenum.sv

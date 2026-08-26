@@ -1,0 +1,94 @@
+r10earl99 -- HEAD_AFTER, Earlgrey_0_1 / testflags (26594 cmp lines, ONE head).
+The FULL cmp log is 1.2 MB because the head object is a MODULE_INST and
+uhdm-cmp decompiles it whole; what follows is the identifying prefix of each
+side plus the ONLY structural difference between the two decompiles
+(ids stripped, unified diff, LHS=golden first).
+
+===== LHS (golden) prefix =====
+LHS:
+decompile:
+module_inst: work@sha2_pad (work@top_earlgrey.u_hmac.u_sha2.u_pad), id:1019494, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_hmac_0.1/rtl/sha2.sv, line:290:3, endln:312:5
+|vpiParent:
+\_module_inst: work@sha2 (work@top_earlgrey.u_hmac.u_sha2), id:1019424, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_hmac_0.1/rtl/hmac.sv, line:400:3, endln:419:5
+|vpiName:u_pad
+|vpiFullName:work@top_earlgrey.u_hmac.u_sha2.u_pad
+|vpiVariables:
+\_logic_var: (work@top_earlgrey.u_hmac.u_sha2.u_pad.tx_count), id:463396, line:38:16, endln:38:24
+  |vpiParent:
+
+===== RHS (ours) prefix =====
+RHS:
+decompile:
+module_inst: work@sha2_pad (work@top_earlgrey.u_hmac.u_sha2.u_pad), id:367932, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_hmac_0.1/rtl/sha2.sv, line:290:3, endln:312:5
+|vpiParent:
+\_module_inst: work@sha2 (work@top_earlgrey.u_hmac.u_sha2), id:367578, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_hmac_0.1/rtl/hmac.sv, line:400:3, endln:419:5
+|vpiName:u_pad
+|vpiFullName:work@top_earlgrey.u_hmac.u_sha2.u_pad
+|vpiVariables:
+\_struct_var: (work@top_earlgrey.u_hmac.u_sha2.u_pad.fifo_rdata), id:368080, line:19:25, endln:19:35
+  |vpiParent:
+
+===== golden-vs-ours decompile diff (ids stripped), first 60 lines =====
+--- /tmp/r10earl99_scratch/h_l.n	2026-08-26 02:36:49.711494001 -0400
++++ /tmp/r10earl99_scratch/h_r.n	2026-08-26 02:36:49.719494002 -0400
+@@ -5,6 +5,20 @@
+ |vpiName:u_pad
+ |vpiFullName:work@top_earlgrey.u_hmac.u_sha2.u_pad
+ |vpiVariables:
++\_struct_var: (work@top_earlgrey.u_hmac.u_sha2.u_pad.fifo_rdata), , line:19:25, endln:19:35
++  |vpiParent:
++  \_module_inst: work@sha2_pad (work@top_earlgrey.u_hmac.u_sha2.u_pad), , file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_hmac_0.1/rtl/sha2.sv, line:290:3, endln:312:5
++  |vpiTypespec:
++  \_ref_typespec: (work@top_earlgrey.u_hmac.u_sha2.u_pad.fifo_rdata), 
++    |vpiParent:
++    \_struct_var: (work@top_earlgrey.u_hmac.u_sha2.u_pad.fifo_rdata), , line:19:25, endln:19:35
++    |vpiFullName:work@top_earlgrey.u_hmac.u_sha2.u_pad.fifo_rdata
++    |vpiActual:
++    \_struct_typespec: (hmac_pkg::sha_fifo_t), , line:20:11, endln:23:4
++  |vpiName:fifo_rdata
++  |vpiFullName:work@top_earlgrey.u_hmac.u_sha2.u_pad.fifo_rdata
++  |vpiVisibility:1
++|vpiVariables:
+ \_logic_var: (work@top_earlgrey.u_hmac.u_sha2.u_pad.tx_count), , line:38:16, endln:38:24
+   |vpiParent:
+   \_module_inst: work@sha2_pad (work@top_earlgrey.u_hmac.u_sha2.u_pad), , file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_hmac_0.1/rtl/sha2.sv, line:290:3, endln:312:5
+@@ -283,7 +297,7 @@
+ \_parameter: (work@top_earlgrey.u_hmac.u_sha2.u_pad.WordByte), , line:18:18, endln:18:26
+   |vpiParent:
+   \_module_inst: work@sha2_pad (work@top_earlgrey.u_hmac.u_sha2.u_pad), , file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_hmac_0.1/rtl/sha2.sv, line:290:3, endln:312:5
+-  |INT:4
++  |UINT:4
+   |vpiTypespec:
+   \_ref_typespec: (work@top_earlgrey.u_hmac.u_sha2.u_pad.WordByte), 
+     |vpiParent:
+@@ -385,7 +399,7 @@
+   |vpiParent:
+   \_module_inst: work@sha2_pad (work@top_earlgrey.u_hmac.u_sha2.u_pad), , file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_hmac_0.1/rtl/sha2.sv, line:290:3, endln:312:5
+   |vpiRhs:
+-  \_constant: , , line:18:29, endln:18:48
++  \_constant: , , line:18:29, endln:18:46
+     |vpiParent:
+     \_param_assign: , , line:18:18, endln:18:48
+     |vpiDecompile:4
+@@ -394,7 +408,7 @@
+     |vpiTypespec:
+     \_ref_typespec: (work@top_earlgrey.u_hmac.u_sha2.u_pad), 
+       |vpiParent:
+-      \_constant: , , line:18:29, endln:18:48
++      \_constant: , , line:18:29, endln:18:46
+       |vpiFullName:work@top_earlgrey.u_hmac.u_sha2.u_pad
+       |vpiActual:
+       \_int_typespec: , , line:18:14, endln:18:17
+@@ -426,7 +440,7 @@
+       |HEX:6a09e667
+       |vpiConstType:5
+     |vpiOperand:
+-    \_constant: , , line:27:20, endln:27:33
++    \_constant: , , line:27:21, endln:27:34
+       |vpiParent:
+       \_operation: , , line:26:39, endln:29:4
+       |vpiDecompile:32'hbb67ae85
+@@ -434,7 +448,7 @@
+
+===== diff size =====
+3624

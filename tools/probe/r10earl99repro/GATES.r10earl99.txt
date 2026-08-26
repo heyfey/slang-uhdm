@@ -1,0 +1,103 @@
+r10earl99 -- THE GATE BATTERY, run on the SHIPPED binary.
+
+BINARIES (frozen chmod 555 at immutable paths of the SAME LENGTH before any
+sweep, so a dump path can never differ by a byte):
+  PRISTINE  /tmp/r10earl99_pris.bin   md5 100987bc8d76f2052aa842d7c65c5110
+  PATCHED   /tmp/r10earl99_lawC.bin   md5 a93e0f469c1a6444f06c1c41676ef617
+  (An earlier build of the SAME law, /tmp/r10earl99_lawB.bin, differs only by a
+   cosmetic re-indent of the ModuleEmit block; it produces BYTE-IDENTICAL
+   Earlgrey databases in both modes -- 278dfd6dad31 / 6e319df8f937 -- which is
+   why the sweeps measured on it and the sweeps re-run on lawC agree exactly.
+   Every number below is from the lawC sweeps.)
+
+1. BUILD -- cmake --build build -j 2, 0 errors.  md5s taken separately (above).
+
+2. GOLDENS -- SLANG_UHDM exported EXPLICITLY to each binary:
+     PATCHED   23 PASS / 0 FAIL
+     PRISTINE  23 PASS / 0 FAIL
+     NEGATIVE CONTROL  SLANG_UHDM=/bin/false -> 23 FAIL / 0 PASS
+
+3. uhdm2rtlil (731 tests):
+     testflags  CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+     default    CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+   ct8rows (status AND dump column):
+     pristine testflags  vs patched  PASS (0 differing rows)
+     pristine default    vs patched  PASS
+     results/gate_uhdm2rtlil.csv vs patched  PASS
+
+4. surelog (794 tests, --mode both, 1588 comparable rows):
+     default    CMP_EQUAL 471  SLANG_REJECT 283  SURELOG_FAIL 25
+                CMP_NOTEQUAL 10  DEFERRED 5
+     testflags  CMP_EQUAL 466  SLANG_REJECT 284  SURELOG_FAIL 23
+                CMP_NOTEQUAL 9  DEFERRED 5  NO_DATABASE 3  UNTRANSLATABLE 2
+                TIMEOUT 1  NO_UHDM 1
+   ct8rows:
+     pristine vs patched                  PASS (0 differing rows)
+     results/golden_surelog.csv vs patched PASS
+   NO ROW WAS CONVERTED and none is claimed.  results/*.csv was NOT edited.
+   (Earlgrey_0_1/testflags is a CMP_NOTEQUAL row before and after -- this pass
+   clears its HEAD, not the row.)
+
+5. BYTEVERIFY SELFCHECK=1 -- patched vs THIS pass's own pristine sweep:
+     uhdm2rtlil  MOVERS 0 / 1358   (SELFCHECK 1357/1358 flagged)
+     surelog     MOVERS 2 /  956   (SELFCHECK 955/956 flagged)
+         ./default/Earlgrey_0_1-71da2fd7    278dfd6dad31 <- 1e9a54fa2ed1
+         ./testflags/Earlgrey_0_1-71da2fd7  6e319df8f937 <- fc4caabc5936
+     BOTH PREDICTED BY NAME from pristine databases (PREDICT_R0.txt part 1).
+   cmds.txt AUDIT BY BINARY PATH: 0 of 1462 (u2r) and 0 of 1573 (sl) cmds.txt
+   name the main-tree binary; 1458 and 1523 name /tmp/r10earl99_lawC.bin (the
+   remainder are rows with no slang invocation at all).
+
+6. HEADS (rowheads.sh; counts are DEPTH, never a distance):
+     TEST           MODE       PRISTINE      PATCHED
+     SeqDriver      default        22/1          22/1
+     SeqDriver      testflags      22/1          22/1
+     SimpleUVM      default       163/1         163/1
+     SimpleUVM      testflags     163/1         163/1
+     Scoreboard     default       163/1         163/1
+     Scoreboard     testflags   SKIP-NOFILE   SKIP-NOFILE   (expected)
+     MiniAmiq       default       106/1         106/1
+     MiniAmiq       testflags     106/1         106/1
+     BuildUVMPkg    default      1371/1        1371/1
+     BuildUVMPkg    testflags    1371/1        1371/1
+     Earlgrey_0_1   default        31/1          31/1
+     Earlgrey_0_1   testflags      36/1       26594/1   <- NEW HEAD OBJECT
+     Rggen          default         0/0           0/0
+     Rggen          testflags   SKIP-NOFILE   SKIP-NOFILE   (expected)
+   measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+
+7. CANARIES:
+     canaries.sh surelog     ok=52 changed=0 absent=0
+     canaries.sh uhdm2rtlil  ok=8  changed=0 absent=0
+     ctcan2.sh   surelog     ok=58 changed=0  PASS
+     ctcan2.sh   uhdm2rtlil  ok=1  changed=0  PASS
+     canaudit.sh audited=29 UNCOVERED=0 FENCE-BREACH=0  PASS
+   PROTECTED DATABASES BY NAME (md5 vs this pass's pristine sweep):
+     InterfaceModPort   default+testflags  59a365f3ce2c   SAME
+     BlackParrotComplex default e3e354129d5a / testflags 73a10e8217e5  SAME
+     YosysOldOr         default+testflags  d68e0796d62c   SAME
+     SVSwitch           default+testflags  4842211c4030   (the brief's pin)
+     YosysVerx          default+testflags  6ccda350c24a   (the brief's pin)
+
+8. BOUNDARY:
+   BOUNDARY_OWN.txt  -- this pass's five arms, BOTH views: 8 cells moved,
+     2 identical (g4_neg99, the negative control); the golden side is identical
+     on all ten.
+   BOUNDARY_WIDE.*   -- every .sv/.v under a COPY of tools/probe at ANY depth,
+     BOTH views, BOTH binaries, workdir-normalised dump byte-compare, list on
+     fd 3, children </dev/null:
+       LISTED 4418 == PROCESSED 4418   identical 8466   DIFFERING 14
+       rc histogram SYMMETRIC side for side:
+         0_A 8113 / 0_B 8113    139_A 14 / 139_B 14
+         3_A  342 / 3_B  342      4_A 367 / 4_B  367
+     The 14: 8 this pass's own arms; 2 r10earl61repro/v4_v61.sv (r10v61's
+     ADVERSARIAL arm for exactly this shape) which moves TOWARD golden
+     (census TO-GOLDEN 6/2, AWAY-GOLDEN 0); 4 the pre-existing
+     associative-array-typedef LAYOUT artifact on r10buvm22repro/g22.sv and
+     r10uvm154repro/l154_noenum.sv, EQUIDISTANT from golden on every binary
+     and re-proved here with a third, behaviourless layout-probe build.
+
+9. THE FOUR SLANG-FENCED TEST NAMES are never dispatched and appear in NO
+   driver, artifact or source file in this directory; canaudit.sh asserts it
+   mechanically (FENCE-BREACH=0), and the wide-boundary file list contains
+   zero of them.

@@ -1,0 +1,60 @@
+r10earl99 BOUNDARY_WIDE -- every .sv/.v under a COPY of tools/probe at ANY
+depth (subdirectory arms included), BOTH views, BOTH frozen binaries,
+workdir-normalised uhdm-dump byte-compare.  List read on fd 3, children
+</dev/null, PROCESSED asserted against LISTED.  MEASUREMENT ONLY.
+
+  PRISTINE /tmp/r10earl99_pris.bin   PATCHED /tmp/r10earl99_lawC.bin
+
+  LISTED = 4418      PROCESSED = 4418      (assertion holds)
+  identical 8466     DIFFERING 14      no_output 356
+  rc histogram, SYMMETRIC side for side:
+      0_A 8113 / 0_B 8113     139_A 14 / 139_B 14
+      3_A   342 / 3_B   342     4_A  367 / 4_B  367
+  (the 28 rc=139 signals are 14 arms x 2 sides -- the pre-existing probe
+   segfaults recorded by earl82 R6 ... earl97 R5; byteverify proves none of
+   them is a mover.)
+
+THE 14 DIFFERING CELLS
+----------------------
+  8 are THIS PASS'S OWN ARMS, both views -- g0_head99, g1_lit99, g2_ctx99,
+    g3_home99.  g4_neg99, the negative control, is IDENTICAL in both views.
+
+  2 are r10earl61repro/v4_v61.sv, both views -- r10v61's ADVERSARIAL arm,
+    whose D2 row is written verbatim as "cont_assign whose RHS pattern is
+    nested inside a ternary", i.e. THIS LAW'S SHAPE, built by that verifier to
+    probe exactly the carrier this pass widens.  RE-MEASURED AGAINST GOLDEN:
+        plain  uhdm-cmp 29 lines / 1 head BOTH, dump distance 435 -> 391
+        elab   uhdm-cmp 58 lines / 1 head BOTH, dump distance 590 -> 522
+        census plain  TO-GOLDEN 6  AWAY-GOLDEN 0  ADDED 0  REMOVED 0
+        census elab   TO-GOLDEN 2  AWAY-GOLDEN 0  ADDED 0  REMOVED 4
+    It moves TOWARD golden and nowhere else.
+
+  2 are r10buvm22repro/g22.sv and 2 are r10uvm154repro/l154_noenum.sv, both
+    views -- THE PRE-EXISTING LAYOUT ARTIFACT r10uvm154 §7 characterised and
+    built l154_noenum.sv to prove.  A class-scoped `typedef <T> name[string]`
+    leaks a BINARY-LAYOUT-DERIVED number into the range of the array_typespec
+    (golden emits a `string_typespec` index and NO numeric constant at all),
+    so any code motion anywhere in the emitter moves it.
+        g22.sv           pristine UINT:22548185  patched UINT:22552281
+        l154_noenum.sv   the same 4096-apart pair, uvm154's own numbers
+    THIS PASS PROVED THE MECHANISM INDEPENDENTLY, with a THIRD binary: a
+    build of the PRISTINE SOURCE with the law's two members added to
+    UhdmExporter.h and NO BEHAVIOUR ATTACHED (`/tmp/r10earl99_padd.bin`)
+    produces 22552281 -- the PATCHED number -- on g22.sv.  The cell tracks the
+    SIZE OF THE EXPORTER OBJECT, not the law.  It is also NOT environment
+    dependent (four runs with the environment padded 0 / 4 / 200 / 5000 bytes
+    all give the pristine number) and is run-stable per binary.
+    SCORED AGAINST GOLDEN, which is what the bar asks:
+        g22.sv         uhdm-cmp 3438 lines / 1 head on BOTH binaries, both
+                       views; dump distance 3013/3013 (plain) and 4335/4335
+                       (elab) -- IDENTICAL; census TO-GOLDEN 0 AWAY-GOLDEN 0
+                       ADDED 0 REMOVED 0 in both views.
+        l154_noenum.sv uhdm-cmp 17 lines / 1 head and dump distance
+                       117 (plain) / 255 (elab) on ALL THREE binaries --
+                       pristine, patched AND the layout probe.  EQUIDISTANT,
+                       which is r10uvm154's own verifier correction reproduced
+                       with an independent third point.
+    Neither moves toward or away from golden.
+
+The four slang-fenced test names appear NOWHERE in the file list (0 hits for
+each) and are dispatched by nothing here.

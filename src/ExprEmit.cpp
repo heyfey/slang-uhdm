@@ -28054,9 +28054,19 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // The flatten target is consumed by THIS pattern only — nested
             // emits get it back explicitly, per member, below.
             const UHDM::typespec* patFlatTs = this->patFlatTs;
-            const bool patFlatAdjust = this->patFlatAdjust;
+            bool patFlatAdjust = this->patFlatAdjust;
             this->patFlatTs = nullptr;
             this->patFlatAdjust = false;
+            // § caTernaryArmPatternFlatten99 (r10earl99) — a pattern that the
+            // cont_assign's CONDITIONAL chain carries is a flatten carrier with
+            // the same target typespec and the same size-stamping pass; the set
+            // was built at the CA site by walking exactly the chain Surelog's
+            // recursion walks (arms only), so no flag leaks into a subtree the
+            // flatten cannot reach.
+            if (!patFlatTs && caCondPatTs99 && caCondPatSet99.count(&expr)) {
+                patFlatTs = caCondPatTs99;
+                patFlatAdjust = true;
+            }
             // R10E27_PATDBG=1 prints one line per STRUCTURED assignment
             // pattern reaching this case, with the four inputs that pick the
             // branch (view, flatten target, adjust flag, setter counts).  The
@@ -28392,18 +28402,83 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     // new witness moves.
                                     if (fw9 > 0 && fw9 <= 4096 &&
                                         (patFlatAdjust || !fb9.isUnknown())) {
-                                        slang::SVInt fv9(
-                                            (slang::bitwidth_t)fw9, 0, false);
+                                        // § caTernaryArmPatternFlatten99
+                                        // (r10earl99) — THE FILL IS
+                                        // `NumUtils::getMask(size)`, NOT an
+                                        // all-ones of the member's width.
+                                        // UHDM's NumUtils.cpp:97-104 returns
+                                        // `(uint64_t)-1` for EVERY width >= 64
+                                        // and the flatten stores that value
+                                        // whole (ExprEval.cpp ~900: no >64
+                                        // branch, unlike CompileHelper's
+                                        // `adjustUnsized`), while stamping the
+                                        // TRUE width on VpiSize.  Measured on
+                                        // g1_lit99 `w65:'1`: golden
+                                        // UINT:18446744073709551615 at
+                                        // vpiSize 65 — `SVInt::setAllOnes()`
+                                        // gave 2^65-1 there.  This is the
+                                        // LANDMINE r10earl61 recorded and
+                                        // deliberately left (its own >64 cell
+                                        // was already unequal); the law's
+                                        // arithmetic is Surelog's, so both
+                                        // halves land ON golden.
+                                        uint64_t fm9 = 0;
                                         if (!fb9.isUnknown() && fb9.value)
-                                            fv9.setAllOnes();
-                                        std::string fd9 = fv9.toString(
-                                            LiteralBase::Decimal, false);
+                                            fm9 = (fw9 >= 64)
+                                                      ? ~(uint64_t)0
+                                                      : ((((uint64_t)1)
+                                                          << (uint64_t)fw9) -
+                                                         1);
+                                        std::string fd9 = std::to_string(fm9);
                                         auto* fc9 = (UHDM::constant*)e9;
                                         fc9->VpiSize((int32_t)fw9);
                                         fc9->VpiValue("UINT:" + fd9);
                                         fc9->VpiConstType(vpiUIntConst);
                                         fc9->VpiDecompile(fd9);
                                         retyped61[i9] = true;
+                                    }
+                                }
+                                // § patFlatEnumDecompileRenderV99 (r10vearl99) —
+                                // AN ENUM-CONSTANT MEMBER VALUE OF A FLATTENED
+                                // PATTERN RENDERS ITS DECOMPILE FROM ITS OWN
+                                // VALUE ENCODING, NOT FROM THE ENUM
+                                // DECLARATION'S SOURCE TEXT.  The qualified
+                                // package-enum fold a few thousand lines up
+                                // copies the shared `enum_const`'s decompile
+                                // verbatim; UHDM's `Value::decompiledValue()`
+                                // re-renders `<size>'<base><digits>` for BIN /
+                                // HEX / OCT ONLY and prints a decimal value
+                                // PLAIN (the law is already written out at
+                                // ParamEmit's `srlgOvRender`).  Measured, LHS
+                                // (golden) first, on one 6-bit enum member of a
+                                // cont_assign pattern (v99_enum2.sv, both
+                                // carriers, both views):
+                                //   Eb = 6'b000111  BIN  dec `6'b000111`  both
+                                //   Eh = 6'h5       HEX  dec `6'h5`       both
+                                //   Ed = 6'd3       INT  dec `3`   / ours `6'd3`
+                                //   Ei (implicit)   INT  dec `4`         both
+                                //   Eu = 9          UINT dec `9`         both
+                                // so ONLY the based-DECIMAL member was wrong.
+                                // Fenced to the flatten's own operand vector:
+                                // the fold site itself feeds every qualified
+                                // package enum read in a module and is not
+                                // this pass's population.
+                                if (e9->UhdmType() == UHDM::uhdmconstant &&
+                                    stripImplicitConv(*slots9[i9]).kind ==
+                                        ExpressionKind::NamedValue &&
+                                    stripImplicitConv(*slots9[i9])
+                                            .as<NamedValueExpression>()
+                                            .symbol.kind ==
+                                        SymbolKind::EnumValue) {
+                                    auto* ec9 = (UHDM::constant*)e9;
+                                    std::string_view ev9 = ec9->VpiValue();
+                                    if (ev9.rfind("BIN:", 0) != 0 &&
+                                        ev9.rfind("HEX:", 0) != 0 &&
+                                        ev9.rfind("OCT:", 0) != 0) {
+                                        auto cp9 = ev9.find(':');
+                                        if (cp9 != std::string_view::npos)
+                                            ec9->VpiDecompile(
+                                                std::string(ev9.substr(cp9 + 1)));
                                     }
                                 }
                                 fops9->push_back(e9);
@@ -28424,6 +28499,67 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 if (bw9 >= 0)
                                     ((UHDM::expr*)(*fops9)[i9])
                                         ->VpiSize((int32_t)bw9);
+                                // § caTernaryArmPatternFlatten99 (r10earl99) —
+                                // THE WALK ALSO ABORTS ON A MEMBER 65 BITS OR
+                                // WIDER, whatever its value.  Surelog copies
+                                // the operand's bits one at a time and bails
+                                // out of the WHOLE expandPatternAssignment the
+                                // first time the shift would reach 64
+                                // (CompileHelper.cpp:5259-5265:
+                                //   for (i = 0; i < csize; i++) {
+                                //     if (valIndex > size-1) break;
+                                //     int shift = (csize - 1 - i);
+                                //     if (shift < 0 || shift >= 64)
+                                //       return result; ... }
+                                // — at i == 0 the shift IS csize-1, so csize
+                                // >= 65 returns immediately), and the operand
+                                // that tripped it has ALREADY been stamped by
+                                // adjustOpSize.  g1_lit99's `om` row, golden
+                                // first, on {1,4,32,64,65,12,8,8} members:
+                                //   [0..4] sized 1/4/32/64/65 on BOTH sides
+                                //   [5] `q99::P4`  golden KEEPS its own 4  /
+                                //       the un-aborted walk stamped 12
+                                //   [6] `{4'h3,4'h6}` golden 0 / stamped 8
+                                //   [7] the re-typed `'x` 8 on both
+                                // This is Surelog's arithmetic, not the
+                                // literal's, so it fences the LANDED direct-RHS
+                                // carrier the same way.
+                                if (bw9 >= 65)
+                                    break;
+                                // § patFlatWalkStopsAtNestedPatternV99
+                                // (r10vearl99) — AND IT STOPS AT A NESTED
+                                // ASSIGNMENT PATTERN, WHICH SURELOG'S REDUCE
+                                // CANNOT VALUE.  CompileHelper.cpp:5250-5253
+                                // runs `get_uvalue` (which sets
+                                // `invalidValue` on an assignment-pattern
+                                // operation) BEFORE `adjustOpSize`, and
+                                // returns from the whole function right after
+                                // the stamp — so the nested operand IS sized
+                                // and NOTHING after it is.  slang's `tryEval`
+                                // values a packed nested pattern happily,
+                                // which is why § patFlatAdjustStopsAtUnvaluable27's
+                                // evaluator test alone walked straight past it.
+                                // Measured, LHS(golden) first (v99_nest.sv /
+                                // v99_nest2.sv, both carriers, both views):
+                                //   `'{s1:'{..}, s2:'{..}, c8:d}`
+                                //      golden sizes s1's op ONLY (8);
+                                //      ours sized s1, s2 AND the ref_obj d
+                                //   `'{w4:'1, mid:'{..}, w8:d, w2:2'h1}`
+                                //      golden sizes w4 (4) and mid (8), and
+                                //      leaves d unsized; ours sized d too
+                                // A ref_obj that stops the walk still keeps
+                                // its own stamp (§ 27's qi27 `be_i`), so the
+                                // break belongs AFTER the size assignment.
+                                if (stripImplicitConv(*slots9[i9]).kind ==
+                                        ExpressionKind::
+                                            StructuredAssignmentPattern ||
+                                    stripImplicitConv(*slots9[i9]).kind ==
+                                        ExpressionKind::
+                                            SimpleAssignmentPattern ||
+                                    stripImplicitConv(*slots9[i9]).kind ==
+                                        ExpressionKind::
+                                            ReplicatedAssignmentPattern)
+                                    break;
                                 // § patFlatAdjustStopsAtUnvaluable27
                                 // (r10earl27) — "the one operand that stopped
                                 // the walk" is the first one Surelog's REDUCE

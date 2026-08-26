@@ -1,0 +1,113 @@
+r10earl99 POPULATION -- corpus u2r, PRISTINE databases, pop99.cpp.
+One PAT line per assignment pattern a cont_assign Rhs reaches; CHAIN = through
+the conditional-operator arms (THIS LAW'S CARRIER), DIRECT = the pattern is the
+Rhs itself (the landed carrier).  szs= are the operands' VpiSize as PRISTINE
+left them.  Databases with no cell at all are summarised, not listed.
+
+DATABASES SCANNED: 1358
+TOTAL CHAIN cells: 0   TOTAL DIRECT cells: 92
+DATABASES WITH >=1 cell: 36
+
+== every CHAIN cell ==
+
+== every DIRECT cell with a member 64 bits or wider ==
+PAT default/assignment-pattern-bb134336 work@top 23 23:13-23:40 ops=1 unsized=0 maxsz=192 szs=192 DIRECT
+PAT default/assignment-pattern-bb134336 work@top 26 26:15-26:25 ops=3 unsized=0 maxsz=64 szs=64,64,64 DIRECT
+PAT default/gen_struct_access-e748482d work@mod1. 21 21:20-24:6 ops=2 unsized=0 maxsz=64 szs=64,0 DIRECT
+PAT testflags/assignment-pattern-bb134336 work@top 23 23:13-23:40 ops=1 unsized=0 maxsz=192 szs=192 DIRECT
+PAT testflags/assignment-pattern-bb134336 work@top 26 26:15-26:25 ops=3 unsized=0 maxsz=64 szs=64,64,64 DIRECT
+PAT testflags/gen_struct_access-e748482d work@mod1. 21 21:20-24:6 ops=2 unsized=0 maxsz=64 szs=64,0 DIRECT
+
+== every DIRECT cell ==
+PAT default/AnonStructs-4babe219 work@top 9 9:16-14:6 ops=4 unsized=0 maxsz=1 szs=1,1,1,1 DIRECT
+PAT default/AnonStructs-4babe219 work@top 9 9:16-14:6 ops=4 unsized=0 maxsz=0 szs=0,0,0,0 DIRECT
+PAT default/assignment-pattern-bb134336 work@top 23 23:13-23:40 ops=1 unsized=0 maxsz=192 szs=192 DIRECT
+PAT default/assignment-pattern-bb134336 work@top 16 16:15-16:51 ops=5 unsized=0 maxsz=0 szs=0,0,0,0,0 DIRECT
+PAT default/assignment-pattern-bb134336 work@top 17 17:15-17:34 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT default/assignment-pattern-bb134336 work@top 18 18:15-18:33 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT default/assignment-pattern-bb134336 work@top 16 16:15-16:51 ops=5 unsized=0 maxsz=0 szs=0,0,0,0,0 DIRECT
+PAT default/assignment-pattern-bb134336 work@top 17 17:15-17:34 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT default/assignment-pattern-bb134336 work@top 18 18:15-18:33 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT default/assignment-pattern-bb134336 work@top 26 26:15-26:25 ops=3 unsized=0 maxsz=64 szs=64,64,64 DIRECT
+PAT default/AssignmentPattern-ef73e4ae work@top 11 11:16-16:6 ops=4 unsized=0 maxsz=1 szs=1,1,1,1 DIRECT
+PAT default/AssignmentPattern-ef73e4ae work@top 11 11:16-16:6 ops=4 unsized=0 maxsz=0 szs=0,0,0,0 DIRECT
+PAT default/AssignmentPattern-ef73e4ae work@top 18 18:16-23:6 ops=4 unsized=0 maxsz=1 szs=1,1,1,1 DIRECT
+PAT default/gen_struct_access-e748482d work@mod1. 21 21:20-24:6 ops=2 unsized=0 maxsz=64 szs=64,0 DIRECT
+PAT default/iface_array_struct-ae873968 work@dut.d 15 15:21-15:45 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT default/iface_array_struct-ae873968 work@dut.d 16 16:21-16:45 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT default/iface_array_struct-ae873968 work@dut.s0 21 21:18-21:35 ops=1 unsized=0 maxsz=0 szs=0 DIRECT
+PAT default/iface_array_struct-ae873968 work@dut.s1 21 21:18-21:35 ops=1 unsized=0 maxsz=0 szs=0 DIRECT
+PAT default/iface_array_struct-ae873968 work@drv 15 15:21-15:45 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT default/iface_array_struct-ae873968 work@drv 16 16:21-16:45 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT default/iface_array_struct-ae873968 work@sub 21 21:18-21:35 ops=1 unsized=0 maxsz=0 szs=0 DIRECT
+PAT default/iface_array_struct_field-a06c758a work@dut.d0 12 12:18-12:38 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT default/iface_array_struct_field-a06c758a work@drv 12 12:18-12:38 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT default/iface_array_struct_whole-c585358f work@dut.d 10 10:21-10:45 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT default/iface_array_struct_whole-c585358f work@dut.d 11 11:21-11:45 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT default/iface_array_struct_whole-c585358f work@drv 10 10:21-10:45 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT default/iface_array_struct_whole-c585358f work@drv 11 11:21-11:45 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT default/iface_struct_field-d0d0da50 work@dut 18 18:21-18:41 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT default/iface_struct_field-d0d0da50 work@dut 18 18:21-18:41 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT default/indexed_partsel_array-552f1b4f work@top 31 31:22-31:37 ops=2 unsized=0 maxsz=8 szs=8,8 DIRECT
+PAT default/IndexedPartSelectOfArrayElement-254df800 work@top 6 6:22-6:37 ops=2 unsized=0 maxsz=8 szs=8,8 DIRECT
+PAT default/local_nested_struct_field-7c56141e work@top 14 14:14-14:84 ops=2 unsized=0 maxsz=7 szs=7,0 DIRECT
+PAT default/local_nested_struct_field-7c56141e work@top 14 14:14-14:84 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT default/MixedPatterns-57cacd29 work@top 11 11:16-11:40 ops=4 unsized=0 maxsz=1 szs=1,1,1,1 DIRECT
+PAT default/MixedPatterns-57cacd29 work@top 11 11:16-11:40 ops=2 unsized=1 maxsz=0 szs=0,0 DIRECT
+PAT default/PatternDefault-087311f6 work@top 2 2:15-2:28 ops=1 unsized=0 maxsz=0 szs=0 DIRECT
+PAT default/PatternIndexes-e6edbeea work@top 2 2:15-2:42 ops=4 unsized=0 maxsz=0 szs=0,0,0,0 DIRECT
+PAT default/PatternStruct-13523a39 work@top 5 5:18-5:30 ops=1 unsized=0 maxsz=8 szs=8 DIRECT
+PAT default/struct_pattern_loop-e3640d3b work@top.inst 11 11:14-11:20 ops=1 unsized=0 maxsz=0 szs=0 DIRECT
+PAT default/struct_pattern_loop-e3640d3b work@a 11 11:14-11:20 ops=1 unsized=0 maxsz=0 szs=0 DIRECT
+PAT default/UnionCustomTypeMultirange-c87c4fb7 work@top 36 36:24-41:4 ops=4 unsized=0 maxsz=0 szs=0,0,0,0 DIRECT
+PAT default/UnionCustomTypeMultirange-c87c4fb7 work@top 42 42:24-47:4 ops=4 unsized=0 maxsz=0 szs=0,0,0,0 DIRECT
+PAT default/UnionCustomTypeMultirange-c87c4fb7 work@top 36 36:24-41:4 ops=4 unsized=0 maxsz=0 szs=0,0,0,0 DIRECT
+PAT default/UnionCustomTypeMultirange-c87c4fb7 work@top 42 42:24-47:4 ops=4 unsized=0 maxsz=0 szs=0,0,0,0 DIRECT
+PAT default/UnpackedArray-43b862f8 work@top 2 2:15-4:35 ops=3 unsized=0 maxsz=0 szs=0,0,0 DIRECT
+PAT default/UnpackedArray-43b862f8 work@top 2 2:15-4:35 ops=3 unsized=0 maxsz=0 szs=0,0,0 DIRECT
+PAT testflags/AnonStructs-4babe219 work@top 9 9:16-14:6 ops=4 unsized=0 maxsz=1 szs=1,1,1,1 DIRECT
+PAT testflags/AnonStructs-4babe219 work@top 9 9:16-14:6 ops=4 unsized=0 maxsz=0 szs=0,0,0,0 DIRECT
+PAT testflags/assignment-pattern-bb134336 work@top 23 23:13-23:40 ops=1 unsized=0 maxsz=192 szs=192 DIRECT
+PAT testflags/assignment-pattern-bb134336 work@top 16 16:15-16:51 ops=5 unsized=0 maxsz=0 szs=0,0,0,0,0 DIRECT
+PAT testflags/assignment-pattern-bb134336 work@top 17 17:15-17:34 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT testflags/assignment-pattern-bb134336 work@top 18 18:15-18:33 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT testflags/assignment-pattern-bb134336 work@top 16 16:15-16:51 ops=5 unsized=0 maxsz=0 szs=0,0,0,0,0 DIRECT
+PAT testflags/assignment-pattern-bb134336 work@top 17 17:15-17:34 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT testflags/assignment-pattern-bb134336 work@top 18 18:15-18:33 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT testflags/assignment-pattern-bb134336 work@top 26 26:15-26:25 ops=3 unsized=0 maxsz=64 szs=64,64,64 DIRECT
+PAT testflags/AssignmentPattern-ef73e4ae work@top 11 11:16-16:6 ops=4 unsized=0 maxsz=1 szs=1,1,1,1 DIRECT
+PAT testflags/AssignmentPattern-ef73e4ae work@top 11 11:16-16:6 ops=4 unsized=0 maxsz=0 szs=0,0,0,0 DIRECT
+PAT testflags/AssignmentPattern-ef73e4ae work@top 18 18:16-23:6 ops=4 unsized=0 maxsz=1 szs=1,1,1,1 DIRECT
+PAT testflags/gen_struct_access-e748482d work@mod1. 21 21:20-24:6 ops=2 unsized=0 maxsz=64 szs=64,0 DIRECT
+PAT testflags/iface_array_struct-ae873968 work@dut.d 15 15:21-15:45 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT testflags/iface_array_struct-ae873968 work@dut.d 16 16:21-16:45 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT testflags/iface_array_struct-ae873968 work@dut.s0 21 21:18-21:35 ops=1 unsized=0 maxsz=0 szs=0 DIRECT
+PAT testflags/iface_array_struct-ae873968 work@dut.s1 21 21:18-21:35 ops=1 unsized=0 maxsz=0 szs=0 DIRECT
+PAT testflags/iface_array_struct-ae873968 work@drv 15 15:21-15:45 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT testflags/iface_array_struct-ae873968 work@drv 16 16:21-16:45 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT testflags/iface_array_struct-ae873968 work@sub 21 21:18-21:35 ops=1 unsized=0 maxsz=0 szs=0 DIRECT
+PAT testflags/iface_array_struct_field-a06c758a work@dut.d0 12 12:18-12:38 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT testflags/iface_array_struct_field-a06c758a work@drv 12 12:18-12:38 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT testflags/iface_array_struct_whole-c585358f work@dut.d 10 10:21-10:45 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT testflags/iface_array_struct_whole-c585358f work@dut.d 11 11:21-11:45 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT testflags/iface_array_struct_whole-c585358f work@drv 10 10:21-10:45 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT testflags/iface_array_struct_whole-c585358f work@drv 11 11:21-11:45 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT testflags/iface_struct_field-d0d0da50 work@dut 18 18:21-18:41 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT testflags/iface_struct_field-d0d0da50 work@dut 18 18:21-18:41 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT testflags/indexed_partsel_array-552f1b4f work@top 31 31:22-31:37 ops=2 unsized=0 maxsz=8 szs=8,8 DIRECT
+PAT testflags/IndexedPartSelectOfArrayElement-254df800 work@top 6 6:22-6:37 ops=2 unsized=0 maxsz=8 szs=8,8 DIRECT
+PAT testflags/local_nested_struct_field-7c56141e work@top 14 14:14-14:84 ops=2 unsized=0 maxsz=7 szs=7,0 DIRECT
+PAT testflags/local_nested_struct_field-7c56141e work@top 14 14:14-14:84 ops=2 unsized=0 maxsz=0 szs=0,0 DIRECT
+PAT testflags/MixedPatterns-57cacd29 work@top 11 11:16-11:40 ops=4 unsized=0 maxsz=1 szs=1,1,1,1 DIRECT
+PAT testflags/MixedPatterns-57cacd29 work@top 11 11:16-11:40 ops=2 unsized=1 maxsz=0 szs=0,0 DIRECT
+PAT testflags/PatternDefault-087311f6 work@top 2 2:15-2:28 ops=1 unsized=0 maxsz=0 szs=0 DIRECT
+PAT testflags/PatternIndexes-e6edbeea work@top 2 2:15-2:42 ops=4 unsized=0 maxsz=0 szs=0,0,0,0 DIRECT
+PAT testflags/PatternStruct-13523a39 work@top 5 5:18-5:30 ops=1 unsized=0 maxsz=8 szs=8 DIRECT
+PAT testflags/struct_pattern_loop-e3640d3b work@top.inst 11 11:14-11:20 ops=1 unsized=0 maxsz=0 szs=0 DIRECT
+PAT testflags/struct_pattern_loop-e3640d3b work@a 11 11:14-11:20 ops=1 unsized=0 maxsz=0 szs=0 DIRECT
+PAT testflags/UnionCustomTypeMultirange-c87c4fb7 work@top 36 36:24-41:4 ops=4 unsized=0 maxsz=0 szs=0,0,0,0 DIRECT
+PAT testflags/UnionCustomTypeMultirange-c87c4fb7 work@top 42 42:24-47:4 ops=4 unsized=0 maxsz=0 szs=0,0,0,0 DIRECT
+PAT testflags/UnionCustomTypeMultirange-c87c4fb7 work@top 36 36:24-41:4 ops=4 unsized=0 maxsz=0 szs=0,0,0,0 DIRECT
+PAT testflags/UnionCustomTypeMultirange-c87c4fb7 work@top 42 42:24-47:4 ops=4 unsized=0 maxsz=0 szs=0,0,0,0 DIRECT
+PAT testflags/UnpackedArray-43b862f8 work@top 2 2:15-4:35 ops=3 unsized=0 maxsz=0 szs=0,0,0 DIRECT
+PAT testflags/UnpackedArray-43b862f8 work@top 2 2:15-4:35 ops=3 unsized=0 maxsz=0 szs=0,0,0 DIRECT

@@ -1,0 +1,48 @@
+r10vearl99 -- VERDICT: ACCEPT-WITH-FIX.
+
+The law § caTernaryArmPatternFlatten99 is CORRECT and its decoded model was
+read back verbatim from UHDM's and Surelog's sources.  Every headline number
+in the implementer's report reproduces bit for bit, including BOTH BINARY
+md5s built from scratch by the verifier (100987bc8d76 pristine,
+a93e0f469c1a shipped).
+
+The verifier convicted TWO pristine-right -> patched-wrong cells on legal
+SystemVerilog OUTSIDE both corpora, and FIXED them:
+
+  § patFlatEnumDecompileRenderV99   an ENUM-CONSTANT member value of a
+      flattened pattern must render its decompile from its own VALUE encoding
+      (plain digits for INT/UINT/DEC, <size>'<base><digits> for BIN/HEX/OCT --
+      UHDM's Value::decompiledValue(), the law this repo already writes out at
+      ParamEmit's srlgOvRender).  Only a BASED-DECIMAL enum member was wrong.
+      Golden `Ed = 6'd3` -> dec `3`; pristine (generic branch) `3`; shipped
+      (flatten branch) `6'd3`.  VpiDecompile IS read by constant::Compare.
+
+  § patFlatWalkStopsAtNestedPatternV99   the size walk STOPS at a nested
+      assignment-pattern operand (Surelog's get_uvalue sets invalidValue on
+      one, CompileHelper.cpp:5250-5253 stamps then returns).  Golden sizes the
+      nested operand and NOTHING after it; we sized everything after it too.
+
+Both holes ALSO existed on the already-landed DIRECT carrier; the pass merely
+widened the reach so that two cells the generic branch had been getting right
+started going through the flatten.  Fixing them therefore moves the LANDED
+carrier toward golden as well -- v99_enum2.sv goes from 1 head to uhdm-cmp
+EQUAL in BOTH views on the direct carrier.
+
+THE FIXES COST NOTHING: byteverify verified-vs-candidate reads MOVERS 0/956
+and 0/1358.  The two corrections change no database in either corpus, and the
+wide boundary lists the SAME 32 differing files with the SAME symmetric rc
+histogram.  Every gate is green on the verified binary.
+
+Adversarial grid, scored with the pass's own arbiter:
+  SHIPPED   TO-GOLDEN 111   AWAY-GOLDEN 15
+  VERIFIED  TO-GOLDEN 124   AWAY-GOLDEN  0
+
+Two corrections to the write-up (measurements, not opinions):
+  * surelog byteverify finds THREE movers, not two -- the third is
+    default/Scoreboard, the documented ~50/50 coin (order-blind sorted-dump
+    diff 0 lines, unsorted 92).
+  * R0-testflags: ours lists ...u_pad.fifo_rdata TWICE in vpiVariables
+    (16 golden vs 18 ours) and golden carries that object as a struct_NET
+    under vpiNet.  The failing test is the Variables vector SIZE, 16 vs 18.
+
+SHIP: /tmp/r10earl99.verified.patch

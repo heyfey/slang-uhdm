@@ -1,0 +1,22 @@
+r10earl99 BOUNDARY_OWN -- THE POSITIVE AND NEGATIVE CONTROL.
+Every arm of THIS pass, BOTH views, PRISTINE vs PATCHED, workdir-normalised
+uhdm-dump byte-compare of BOTH sides (golden side and ours side).
+  PRISTINE /tmp/r10earl99_pris.bin   PATCHED /tmp/r10earl99_lawC.bin
+
+ARM              VIEW   GOLDEN-SIDE    OURS-SIDE
+g0_head99        plain  IDENTICAL      DIFFERING
+g0_head99        elab   IDENTICAL      DIFFERING
+g1_lit99         plain  IDENTICAL      DIFFERING
+g1_lit99         elab   IDENTICAL      DIFFERING
+g2_ctx99         plain  IDENTICAL      DIFFERING
+g2_ctx99         elab   IDENTICAL      DIFFERING
+g3_home99        plain  IDENTICAL      DIFFERING
+g3_home99        elab   IDENTICAL      DIFFERING
+g4_neg99         plain  IDENTICAL      IDENTICAL
+g4_neg99         elab   IDENTICAL      IDENTICAL
+
+LISTED=10 PROCESSED=10   ours-side DIFFERING=8  IDENTICAL=2
+The 8 differing cells are g0-g3 in both views -- the POSITIVE CONTROL that
+this gate can see a moved cell.  The 2 identical cells are g4_neg99 in both
+views -- the NEGATIVE CONTROL.  The golden side is IDENTICAL on all ten,
+which is the assertion that the two runs compared the same golden.

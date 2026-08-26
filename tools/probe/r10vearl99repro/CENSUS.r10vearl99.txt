@@ -1,0 +1,51 @@
+r10vearl99 -- THE EARLGREY CENSUS, RE-RUN INDEPENDENTLY.
+Instrument: the pass's OWN r10earl99repro/ct99cen.cpp (rebuilt by the verifier)
++ reg99.py.  Keys carry NO payload; the scored payload is exactly the fields
+the official Compare reads for a constant (VpiConstType / VpiSize /
+VpiDecompile / Typespec).  Golden databases taken from the harness cache:
+  testflags  .../slang-uhdm-goldens/d7348d2d2fe67abe767b/golden.uhdm
+             md5 ae19a9ce242540bbd2618e3e0f970bfc   1061095 keys
+  default    .../slang-uhdm-goldens/00d4794526e44dc553f3/golden.uhdm
+             md5 f4bb0ca0e497137d309eac87886db6a7    783183 keys
+
+CALIBRATION golden-vs-golden:
+  default    TO 0 AWAY 0 STILL-WRONG 0 ADDED 0 REMOVED 0 BOTH-SAME 783183
+             GOLDEN-ONLY-KEYS 0 OURS-ONLY-KEYS 0
+  testflags  same shape, BOTH-SAME 1061095
+
+BASELINE (pristine scored against itself):
+  default    STILL-WRONG 5892   BOTH-SAME 739268   GOLDEN-ONLY 32708  OURS-ONLY 27076
+  testflags  STILL-WRONG 391301 BOTH-SAME 1017021  GOLDEN-ONLY 34179  OURS-ONLY 73829
+
+PRISTINE -> CANDIDATE:
+  default    TO-GOLDEN 4  AWAY-GOLDEN 0  STILL-WRONG 5887   ADDED 1 REMOVED 0
+             BOTH-SAME 739272   GOLDEN-ONLY 32708  OURS-ONLY 27076
+  testflags  TO-GOLDEN 2  AWAY-GOLDEN 0  STILL-WRONG 391291 ADDED 1 REMOVED 4
+             BOTH-SAME 1017022  GOLDEN-ONLY 34179  OURS-ONLY 73829
+  -> EVERY headline number of the implementer's report reproduces EXACTLY,
+     and NEITHER one-sided key set moves by a single key.
+
+THE CHANGED KEYS, QUOTED (default; testflags is the same five with duplicate
+copies removed).  Every candidate multiset EQUALS GOLDEN'S:
+
+  TO-GOLDEN  C|257:86-257:88|operation:op75|257:43-257:89|cont_assign|
+             module_inst|work@top_earlgrey.u_hmac
+     golden {ct=9 sz=4 dec=15}  pristine {ct=3 sz=-1 dec='1}  candidate = golden
+  TO-GOLDEN  C|117:83-117:85|...|work@top_earlgrey.u_hmac.u_hmac
+     golden {ct=9 sz=4 dec=15}  pristine {ct=3 sz=-1 dec='1}  candidate = golden
+  TO-GOLDEN  C|116:83-116:85|...|work@top_earlgrey.u_hmac.u_hmac
+     golden {ct=9 sz=4 dec=15}  pristine {ct=3 sz=-1 dec='1}  candidate = golden
+  COUNT      C|119:16-119:18|...|work@top_earlgrey.u_hmac.u_hmac   ('{default:'0})
+     golden {ct=9 sz=32 dec=0} + {ct=9 sz=4 dec=0}
+     pristine ONE {ct=3 sz=1 dec='0}          candidate = golden (BOTH)
+  TO-GOLDEN  E|ref_obj|268:46-268:59|operation:op75|268:23-268:60|cont_assign|
+             module_inst|work@top_earlgrey.u_pinmux
+     golden {sz=2}  pristine {sz=0}  candidate = golden
+     -- the operand that STOPPED Surelog's size walk, a cell with NO unbased
+        literal at all: the size walk really is part of the law.
+  (testflags only) COUNT C|257:86-257:88|<null>|-|other|-|-
+     golden ONE {ct=3 sz=-1 dec='1}
+     pristine that PLUS a surplus {ct=9 sz=1 dec=1}   candidate = golden
+
+VERIFIED BINARY: its Earlgrey databases are BYTE-IDENTICAL to the candidate's
+(byteverify verified-vs-candidate MOVERS 0 / 956), so this census is unchanged.
