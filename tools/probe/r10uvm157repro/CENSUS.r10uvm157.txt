@@ -1,0 +1,35 @@
+r10uvm157 — THE FAMILY CENSUS (nine measurable UVM databases, full listing payload)
+MEASUREMENT ONLY.  LHS/G is ALWAYS golden (Surelog).
+
+CALIBRATION FIRST, golden-vs-golden: the nine golden censuses taken during the
+PRISTINE sweep and during the PATCHED sweep are BYTE-IDENTICAL, all nine.
+
+Cells are (VIEW, OWNER, SKIND, DEPTH, SKEY, SNAME) with the listing count and
+every listed entry's kind/name/span/vpiInstance/range-form/alias as the value;
+--listed drops the cells where NEITHER side lists anything.
+
+SeqDriver.default        pris-DIFF=0   pat-DIFF=0   TOWARD=0   WRONG/AWAY=0
+SeqDriver.testflags      pris-DIFF=0   pat-DIFF=0   TOWARD=0   WRONG/AWAY=0
+SimpleUVM.default        pris-DIFF=0   pat-DIFF=0   TOWARD=0   WRONG/AWAY=0
+SimpleUVM.testflags      pris-DIFF=0   pat-DIFF=0   TOWARD=0   WRONG/AWAY=0
+Scoreboard.default       pris-DIFF=0   pat-DIFF=0   TOWARD=0   WRONG/AWAY=0
+MiniAmiq.default         pris-DIFF=0   pat-DIFF=0   TOWARD=0   WRONG/AWAY=0
+MiniAmiq.testflags       pris-DIFF=0   pat-DIFF=0   TOWARD=0   WRONG/AWAY=0
+BuildUVMPkg.default      pris-DIFF=1   pat-DIFF=0   TOWARD=1   WRONG/AWAY=0
+BuildUVMPkg.testflags    pris-DIFF=1   pat-DIFF=0   TOWARD=1   WRONG/AWAY=0
+-- FAMILY TOTAL  MOVED-TOWARD=2  MOVED-WRONG/AWAY=0
+
+THE TWO CELLS (identical in both modes), from the PRISTINE score:
+DIFF	('ELABPKG', 'uvm_pkg::uvm_agent::build_phase', 'begin', '4', '51337:29-51431:6', '-')
+
+SCOPE rows censused per database, default mode (golden / ours), and the
+LISTING ENTRIES inside them:
+  SeqDriver    scopes 20043/20043   listed entries 0/0
+  SimpleUVM    scopes 12701/12701   listed entries 0/0
+  Scoreboard   scopes 12831/12831   listed entries 0/0
+  MiniAmiq     scopes 21054/21052   listed entries 0/0
+  BuildUVMPkg  scopes 13091/13091   listed entries 1/1   <- PATCHED; pristine 1/0
+
+Eight of the nine databases contain NO statement-scope typedef at all on either
+side: the whole UVM family's population of this law is the ONE `begin` in
+`uvm_pkg::uvm_agent::build_phase`, and it is now golden-exact.

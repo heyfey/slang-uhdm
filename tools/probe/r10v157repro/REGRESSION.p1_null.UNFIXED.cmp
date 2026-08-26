@@ -1,0 +1,69 @@
+LHS: <null>
+RHS:
+decompile:
+task: (Ledger157::tallyNull157), id:3, line:2:3, endln:5:10
+|vpiParent:
+\_package: Ledger157 (Ledger157::), id:2, file:/tmp/v157_min/p1_null.sv, line:1:1, endln:6:11
+|vpiName:tallyNull157
+|vpiFullName:Ledger157::tallyNull157
+|vpiTypedef:
+\_bit_typespec: (markNull157), id:4, line:3:13, endln:3:22
+  |vpiName:markNull157
+  |vpiRange:
+  \_range: , id:5, line:3:17, endln:3:22
+    |vpiParent:
+    \_bit_typespec: (markNull157), id:4, line:3:13, endln:3:22
+    |vpiLeftRange:
+    \_constant: , id:6, line:3:18, endln:3:19
+      |vpiParent:
+      \_range: , id:5, line:3:17, endln:3:22
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:7, line:3:20, endln:3:21
+      |vpiParent:
+      \_range: , id:5, line:3:17, endln:3:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+|vpiVisibility:1
+|vpiAutomatic:1
+|vpiInstance:
+\_package: Ledger157 (Ledger157::), id:2, file:/tmp/v157_min/p1_null.sv, line:1:1, endln:6:11
+
+decompile:
+task: (Ledger157::tallyNull157), id:3, line:2:3, endln:5:10
+|vpiParent:
+\_package: Ledger157 (Ledger157::), id:2, file:/tmp/v157_min/p1_null.sv, line:1:1, endln:6:11
+|vpiName:tallyNull157
+|vpiFullName:Ledger157::tallyNull157
+|vpiTypedef:
+\_bit_typespec: (markNull157), id:4, line:3:13, endln:3:22
+  |vpiName:markNull157
+  |vpiRange:
+  \_range: , id:5, line:3:17, endln:3:22
+    |vpiParent:
+    \_bit_typespec: (markNull157), id:4, line:3:13, endln:3:22
+    |vpiLeftRange:
+    \_constant: , id:6, line:3:18, endln:3:19
+      |vpiParent:
+      \_range: , id:5, line:3:17, endln:3:22
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:7, line:3:20, endln:3:21
+      |vpiParent:
+      \_range: , id:5, line:3:17, endln:3:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+|vpiVisibility:1
+|vpiAutomatic:1
+|vpiInstance:
+\_package: Ledger157 (Ledger157::), id:2, file:/tmp/v157_min/p1_null.sv, line:1:1, endln:6:11

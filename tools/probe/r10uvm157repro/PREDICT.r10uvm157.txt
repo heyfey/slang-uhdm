@@ -1,0 +1,23 @@
+# r10uvm157 — THE A-PRIORI MOVER PREDICTION, made from the PRISTINE
+# databases only (golden + our pristine binary md5 100987bc8d76f2052aa842d7c65c5110),
+# BEFORE any patched database existed.  predsweep157.sh + score157.py --listed.
+#
+# surelog corpus: 956 comparable rows censused (617 rows have no golden or no
+#                 slang.uhdm and are counted as SKIP-NOFILE), 2 cells.
+# uhdm2rtlil    : 1358 comparable rows censused (104 SKIP-NOFILE), 0 cells.
+#
+# PREDICTION, BY NAME: default/BuildUVMPkg-bf853d43 and
+# testflags/BuildUVMPkg-bf853d43, one cell each; NOTHING ELSE in either corpus.
+#
+# Earlgrey_0_1/testflags looked like a 270-cell population under a census that
+# keyed scopes WITHOUT the --listed filter; every one of those cells is
+# null-vs-null (neither side lists anything) and is a scope-MULTIPLICITY
+# artifact, not a listing difference.  Earlgrey has ZERO statement-scope
+# typedefs on either side (0 TSENT rows in 15908 golden / 24907 our scopes).
+
+default/BuildUVMPkg-bf853d43/	DIFF	('ELABPKG', 'uvm_pkg::uvm_agent::build_phase', 'begin', '4', '__tmp_int_val__,__tmp_success_val__', '-')
+default/BuildUVMPkg-bf853d43/	     G=['I0=bit_typespec|__tmp_int_t__|51338:14-51339:48|<noinst>|0:operation[11]/constant[UINT:0]|-', 'N=1']
+default/BuildUVMPkg-bf853d43/	     O=['N=null']
+testflags/BuildUVMPkg-bf853d43/	DIFF	('ELABPKG', 'uvm_pkg::uvm_agent::build_phase', 'begin', '4', '__tmp_int_val__,__tmp_success_val__', '-')
+testflags/BuildUVMPkg-bf853d43/	     G=['I0=bit_typespec|__tmp_int_t__|51338:14-51339:48|<noinst>|0:operation[11]/constant[UINT:0]|-', 'N=1']
+testflags/BuildUVMPkg-bf853d43/	     O=['N=null']

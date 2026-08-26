@@ -1,0 +1,92 @@
+r10v157 — GATES, run by the ADVERSARIAL VERIFIER on its OWN binaries.
+BASE 1f9906a.  MEASUREMENT ONLY except uhdm-cmp / verify_golden.py, which are the judges.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+BINARIES (all three built here from fresh 1f9906a worktrees, frozen chmod 555 BEFORE any sweep)
+  pristine                     100987bc8d76f2052aa842d7c65c5110   == implementer's
+  implementer's patch          d27df00cf3c52be5bee8d3286ef2b9b2   == implementer's
+  VERIFIED (patch + §2 fix)    cabffb3c7b71f3c90f1196f1502931b0
+
+(1) GOLDEN DUMP TESTS, SLANG_UHDM exported explicitly per binary
+      pristine   PASS=23 FAIL=0
+      patched    PASS=23 FAIL=0
+      VERIFIED   PASS=23 FAIL=0
+      /bin/false PASS=0  FAIL=23      (negative control)
+
+(2) SURELOG CORPUS, --mode both --jobs 2, own --out/--workdir
+      VERIFIED  default   CMP_EQUAL 471  SLANG_REJECT 283  SURELOG_FAIL 25  CMP_NOTEQUAL 10  DEFERRED 5
+      VERIFIED  testflags CMP_EQUAL 466  SLANG_REJECT 284  SURELOG_FAIL 23  CMP_NOTEQUAL  9  DEFERRED 5
+                          NO_DATABASE 3  UNTRANSLATABLE 2  TIMEOUT 1  NO_UHDM 1
+      identical histograms on the pristine and on the implementer's patched sweep.
+      ct8rows (status AND dump column, whole row):
+        results/golden_surelog.csv vs VERIFIED       PASS  (0 differing rows / 1588)
+        results/golden_surelog.csv vs pristine       PASS
+        results/golden_surelog.csv vs patched        PASS
+        my pristine sweep          vs VERIFIED       PASS
+      NO ROW CONVERTED; CMP_NOTEQUAL stays 19; results/*.csv NOT EDITED.
+
+(3) UHDM2RTLIL CORPUS, testflags + default
+      VERIFIED  CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2   (both modes)
+      ct8rows: gate_uhdm2rtlil.csv vs VERIFIED PASS; my pristine vs VERIFIED PASS (tf and def)
+
+(4) BYTE MOVERS, SELFCHECK=1
+      surelog  VERIFIED vs pristine   MOVERS 3 / 956, PATH_SETS_IDENTICAL, SELFCHECK 955/956
+                 ./default/BuildUVMPkg-bf853d43/slang.uhdm    PREDICTED  (c6d5cf0e28bd)
+                 ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  PREDICTED  (c6d5cf0e28bd)
+                 ./default/Scoreboard-59431470/slang.uhdm     THE COIN — attributed ORDER-BLIND:
+                     sorted, path-normalised, id-stripped dumps differ in exactly ONE line,
+                     the dump's own filename header; the unsorted diff is 94 lines (the
+                     documented svunit_pkg vpiTaskFunc ORDER flip).  NOT this law.
+      surelog  VERIFIED vs implementer's patched   MOVERS 1 / 956 — the Scoreboard coin only.
+               BuildUVMPkg is byte-identical between them (c6d5cf0e28bd both).
+      u2r      VERIFIED vs pristine   MOVERS 0 / 1358, PATH_SETS_IDENTICAL, SELFCHECK 1357/1358
+
+(5) BINARY-PATH AUDIT, every cmds.txt file-by-file
+      surelog sweep : 1573 cmds.txt files, 1523 binary references, ALL /tmp/v157_bin/<bin>.bin
+      u2r sweep     : 1458 binary references, ALL /tmp/v157_bin/<bin>.bin
+      ZERO references to /home/heyfey/git-repos/slang-uhdm/build/slang-uhdm on any sweep.
+
+(6) HEADS (rowheads.sh)
+      pristine  BuildUVMPkg def/tf 1371 / 1371, 1 head
+      patched   BuildUVMPkg def/tf  163 /  163, 1 head — NEW object further along the walk
+      VERIFIED  BuildUVMPkg def/tf  163 /  163, 1 head — head log BYTE-IDENTICAL to patched
+      all TWELVE measured head logs are byte-identical between patched and VERIFIED;
+      the ten non-BuildUVMPkg ones are byte-identical to PRISTINE as well.
+      R0 confirmed: begin @ uvm_pkg.sv:61835:28, vpiVariables ref_var (…::t) @61836:15, RHS <null>.
+
+(7) CANARIES
+      canaries.sh surelog   ok=52 changed=0 absent=0
+      canaries.sh u2r       ok=8  changed=0 absent=0
+      ctcan2.sh   EXPECT_UNKNOWN=1 surelog  PASS
+      ctcan2.sh   EXPECT_UNKNOWN=6 u2r      PASS
+      canaudit.sh (run from this dir over canaries.sh + ctcan2.sh)
+                  audited=29  UNCOVERED=0  FENCE-BREACH=0  PASS
+      protected databases, VERIFIED vs pristine, byte-identical:
+        InterfaceModPort 59a365f3ce2c   BlackParrotComplex 73a10e8217e5   YosysOldOr d68e0796d62c
+        SVSwitch 4842211c4030 (pin)     YosysVerx 6ccda350c24a (pin)
+
+(8) WIDE BOUNDARY, over a COPY of the WHOLE tools/probe tree, both views, both binaries
+      LISTED=4423 PROCESSED=4423 PRODUCED_DBS=4276 MOVED_ARMS=30 RC_DIFFS=0
+      every one of the 30 scored cell-by-cell against a Surelog-built golden:
+        0 ONLY-OURS, 0 AWAY-GOLDEN anywhere.
+        125 cells TOWARD on the 20 arms this verifier scored beyond its own grid
+        (r10uvm155 ×5, r10v155 ×9, r10v131/v131_k_null, r10uvm114/g114_c_clspkg,
+         r10v98 ×2 — every brief-named must-stay control that moved at all).
+        2 arms moved in BYTES with 0 CELLS: r10buvm22repro/g22.sv and
+        r10uvm154repro/l154_noenum.sv — the documented one-4096-byte-page
+        binary-image folded constant.
+        residual DIFF on the moved controls: g155_b_form 1 cell, v155_b_kind 2 cells —
+        BOTH the whole-scope DECLINE (a scope holding an enum/struct/union lists
+        nothing), i.e. ONLY-GOLDEN under-fires, never AWAY.
+      r10uvm145 / r10uvm141 / r10uvm139 arms did not move at all.
+      supplementary boundary over this verifier's own 10 arms:
+      LISTED=10 PROCESSED=10 PRODUCED_DBS=10 MOVED_ARMS=8 RC_DIFFS=0 — v157_p1_null.sv
+      and v157_p2_let.sv are byte-identical to the PRISTINE database, which is the fix.
+
+(9) FENCE / HYGIENE
+      fence check over the shipped patch: each of the four slang-fenced test
+      names appears in ZERO files outside canaudit.sh's own fence list; none of
+      them is dispatched by any driver here (canaudit.sh says so, per name).
+      results/*.csv: NOT in the patch, NOT edited.  slang: NOT patched.
+      GOLDEN_DEFER: UNSET throughout.  No git stash.  Builds -j 2, sweeps --jobs 2.
+      Main tree (/home/heyfey/git-repos/slang-uhdm) `git status --short`: EMPTY.

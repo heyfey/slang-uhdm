@@ -1738,6 +1738,20 @@ private:
     UHDM::typespec* makeTypespec(const slang::ast::Symbol& declSymbol,
                                  const slang::syntax::SyntaxNode* typeSynOverride = nullptr,
                                  const slang::ast::PortSymbol* portCtx = nullptr);
+    /// § stmtScopeTdListedOnEnclosingScope157 — THE STATEMENT-SCOPE TYPEDEF
+    /// LISTING.  Builds the `Typespecs()` vector Surelog's
+    /// `CompileHelper::compileTypeDef` pushes onto the enclosing `scope` when
+    /// it is called from `compileStmt`'s `paType_declaration` arm
+    /// (`CompileStmt.cpp:1284-1290`), for the typedefs declared DIRECTLY in
+    /// @a sc.  Returns nullptr when @a sc has no typedef at all, when every
+    /// one of them is a NAME target (which Surelog pushes nothing for, and a
+    /// null vector and an empty one are the same answer to
+    /// `BaseClass::SafeCompare`), or when ANY of them carries a form this law
+    /// declines — the decline is taken over the WHOLE scope so a half-filled
+    /// vector can never disagree with golden's size in a NEW way.
+    /// The law, the Surelog citations and the measured form table live on
+    /// `stmtScopeTdListForm157` in src/EmitHelpers.h.
+    UHDM::VectorOftypespec* makeStmtScopeTdListing157(const slang::ast::Scope& sc);
     /// A type reference SCOPED INSIDE A CLASS (`C#(t_t0,3)::t_vector`).
     /// Surelog never resolves one — it records an unsupported_typespec named
     /// `<class>::<member>` and leaves every signal so typed untyped in the
@@ -7174,6 +7188,15 @@ private:
     // Skip the shared-typedef shortcut (def-net drains clone vector
     // typedefs fresh).
     bool bypassTypedefShare = false;
+    // § stmtScopeTdListedOnEnclosingScope157 — the SITE 2 / SITE 3 handshake.
+    // Surelog puts a SUBROUTINE-body typedef on the SYNTHESISED `begin` when
+    // the body has more than one item (`CompileStmt.cpp:2043-2075`) and on the
+    // `task`/`function` itself when it has exactly one (`:2115-2121`).  SITE 2
+    // (the wrapper `begin` in StmtEmit's `case StatementKind::List`) sets this
+    // when it has listed the current subroutine's own typedefs; SITE 3 (the
+    // tail of emitTaskFuncs) lists them on the task_func only when it has not.
+    // Saved and restored with the other `tfBody*` fields around each body.
+    bool tfBodyTdListed157 = false;
     // Set while emitting a task/function body: case-item expr refs parent
     // at the tf object.
     UHDM::task_func* currentTf = nullptr;

@@ -1,0 +1,414 @@
+########## v157_a_home
+--- PRISTINE vs GOLDEN ---
+DIFF	('DEFCLASS', 'work@Anvil157::forge157', 'task', '0', '17:3-17:53', 'forge157')
+     G=['I0=bit_typespec|ingot157|17:26-17:35|<noinst>|0:constant[UINT:2]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('DEFCLASS', 'work@Anvil157::quench157', 'task', '0', '21:3-21:64', 'quench157')
+     G=['I0=logic_typespec|tongs157|21:35-21:46|<noinst>|0:constant[UINT:7]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+ONLY-G	('DEFCLASS', 'work@Anvil157::temper157', 'task', '0', '19:3-19:57', 'temper157')	['I0=byte_typespec|bellow157|19:34-19:38|<noinst>|-|-', 'N=1']
+DIFF	('DEFIFACE', 'work@Loom157.weave157', 'task', '0', '30:3-30:55', 'weave157')
+     G=['I0=bit_typespec|shuttle157|30:26-30:35|<noinst>|0:constant[UINT:4]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('DEFMOD', '-', 'begin', '0', '46:11-51:6', '-')
+     G=['I0=bit_typespec|kettleLocal157|48:13-48:23|<noinst>|0:constant[UINT:11]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('DEFMOD', 'work@Kettle157.simmer157', 'task', '0', '41:3-41:54', 'simmer157')
+     G=['I0=bit_typespec|ladle157|41:27-41:36|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'I1=bit_typespec|ladle157|41:27-41:36|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=2']
+     O=['N=null']
+DIFF	('DEFMOD', 'work@Kettle157.steep157', 'task', '0', '44:3-44:72', 'steep157')
+     G=['I0=bit_typespec|sieve157|44:45-44:54|<noinst>|0:constant[UINT:1]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('DEFPKG', 'Quarry157::chisel157', 'task', '0', '10:3-10:66', 'chisel157')
+     G=['I0=bit_typespec|granite157|10:37-10:46|<noinst>|0:constant[UINT:5]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('DEFPKG', 'Quarry157::mallet157', 'task', '0', '12:3-12:63', 'mallet157')
+     G=['I0=short_int_typespec|slate157|12:37-12:45|<noinst>|-|-', 'N=1']
+     O=['N=null']
+DIFF	('DEFPROG', 'work@Cobble157.stitch157', 'task', '0', '35:3-35:52', 'stitch157')
+     G=['I0=bit_typespec|awl157|35:27-35:36|<noinst>|0:constant[UINT:6]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('ELABPKG', 'Quarry157::chisel157', 'task', '0', '10:3-10:66', 'chisel157')
+     G=['I0=bit_typespec|granite157|10:37-10:46|<noinst>|0:constant[UINT:5]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('ELABPKG', 'Quarry157::mallet157', 'task', '0', '12:3-12:63', 'mallet157')
+     G=['I0=short_int_typespec|slate157|12:37-12:45|<noinst>|-|-', 'N=1']
+     O=['N=null']
+DIFF	('TOPMOD', '-', 'begin', '0', '46:11-51:6', '-')
+     G=['I0=bit_typespec|kettleLocal157|48:13-48:23|<noinst>|0:constant[UINT:11]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('TOPMOD', 'work@Kettle157.simmer157', 'task', '0', '41:3-41:54', 'simmer157')
+     G=['I0=bit_typespec|ladle157|41:27-41:36|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'I1=bit_typespec|ladle157|41:27-41:36|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=2']
+     O=['N=null']
+DIFF	('TOPMOD', 'work@Kettle157.steep157', 'task', '0', '44:3-44:72', 'steep157')
+     G=['I0=bit_typespec|sieve157|44:45-44:54|<noinst>|0:constant[UINT:1]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+-- SAME=0 DIFF=14 ONLY-G=1 ONLY-O=0
+--- VERIFIED vs GOLDEN ---
+SAME	('DEFCLASS', 'work@Anvil157::forge157', 'task', '0', '17:3-17:53', 'forge157')	['I0=bit_typespec|ingot157|17:26-17:35|<noinst>|0:constant[UINT:2]/constant[UINT:0]|-', 'N=1']
+ONLY-O	('DEFCLASS', 'work@Anvil157::hammer157', 'task', '0', '26:1-26:62', 'hammer157')	['I0=bit_typespec|scale157|26:35-26:44|<noinst>|0:constant[UINT:9]/constant[UINT:0]|-', 'N=1']
+SAME	('DEFCLASS', 'work@Anvil157::quench157', 'task', '0', '21:3-21:64', 'quench157')	['I0=logic_typespec|tongs157|21:35-21:46|<noinst>|0:constant[UINT:7]/constant[UINT:0]|-', 'N=1']
+ONLY-G	('DEFCLASS', 'work@Anvil157::temper157', 'task', '0', '19:3-19:57', 'temper157')	['I0=byte_typespec|bellow157|19:34-19:38|<noinst>|-|-', 'N=1']
+ONLY-O	('DEFCLASS', 'work@Anvil157::temper157', 'task', '0', '19:3-19:9', 'temper157')	['I0=byte_typespec|bellow157|19:34-19:38|<noinst>|-|-', 'N=1']
+SAME	('DEFIFACE', 'work@Loom157.weave157', 'task', '0', '30:3-30:55', 'weave157')	['I0=bit_typespec|shuttle157|30:26-30:35|<noinst>|0:constant[UINT:4]/constant[UINT:0]|-', 'N=1']
+SAME	('DEFMOD', '-', 'begin', '0', '46:11-51:6', '-')	['I0=bit_typespec|kettleLocal157|48:13-48:23|<noinst>|0:constant[UINT:11]/constant[UINT:0]|-', 'N=1']
+DIFF	('DEFMOD', 'work@Kettle157.simmer157', 'task', '0', '41:3-41:54', 'simmer157')
+     G=['I0=bit_typespec|ladle157|41:27-41:36|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'I1=bit_typespec|ladle157|41:27-41:36|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=2']
+     O=['I0=bit_typespec|ladle157|41:27-41:36|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+SAME	('DEFMOD', 'work@Kettle157.steep157', 'task', '0', '44:3-44:72', 'steep157')	['I0=bit_typespec|sieve157|44:45-44:54|<noinst>|0:constant[UINT:1]/constant[UINT:0]|-', 'N=1']
+SAME	('DEFPKG', 'Quarry157::chisel157', 'task', '0', '10:3-10:66', 'chisel157')	['I0=bit_typespec|granite157|10:37-10:46|<noinst>|0:constant[UINT:5]/constant[UINT:0]|-', 'N=1']
+SAME	('DEFPKG', 'Quarry157::mallet157', 'task', '0', '12:3-12:63', 'mallet157')	['I0=short_int_typespec|slate157|12:37-12:45|<noinst>|-|-', 'N=1']
+SAME	('DEFPROG', 'work@Cobble157.stitch157', 'task', '0', '35:3-35:52', 'stitch157')	['I0=bit_typespec|awl157|35:27-35:36|<noinst>|0:constant[UINT:6]/constant[UINT:0]|-', 'N=1']
+SAME	('ELABPKG', 'Quarry157::chisel157', 'task', '0', '10:3-10:66', 'chisel157')	['I0=bit_typespec|granite157|10:37-10:46|<noinst>|0:constant[UINT:5]/constant[UINT:0]|-', 'N=1']
+SAME	('ELABPKG', 'Quarry157::mallet157', 'task', '0', '12:3-12:63', 'mallet157')	['I0=short_int_typespec|slate157|12:37-12:45|<noinst>|-|-', 'N=1']
+SAME	('TOPMOD', '-', 'begin', '0', '46:11-51:6', '-')	['I0=bit_typespec|kettleLocal157|48:13-48:23|<noinst>|0:constant[UINT:11]/constant[UINT:0]|-', 'N=1']
+DIFF	('TOPMOD', 'work@Kettle157.simmer157', 'task', '0', '41:3-41:54', 'simmer157')
+     G=['I0=bit_typespec|ladle157|41:27-41:36|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'I1=bit_typespec|ladle157|41:27-41:36|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=2']
+     O=['I0=bit_typespec|ladle157|41:27-41:36|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+SAME	('TOPMOD', 'work@Kettle157.steep157', 'task', '0', '44:3-44:72', 'steep157')	['I0=bit_typespec|sieve157|44:45-44:54|<noinst>|0:constant[UINT:1]/constant[UINT:0]|-', 'N=1']
+-- SAME=12 DIFF=2 ONLY-G=1 ONLY-O=2
+########## v157_b_shape
+--- PRISTINE vs GOLDEN ---
+DIFF	('DEFMOD', '-', 'named_begin', '0', '16:19-16:32', 'b_multidim157')
+     G=['I0=bit_typespec|rungGrid157|18:13-18:27|<noinst>|0:constant[UINT:3]/constant[UINT:0];1:constant[UINT:7]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('DEFMOD', '-', 'named_begin', '0', '23:19-23:31', 'b_regword157')
+     G=['I0=logic_typespec|pegBar157|25:13-25:22|<noinst>|0:constant[UINT:6]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('DEFMOD', '-', 'named_begin', '0', '30:19-30:28', 'b_clog157')
+     G=['I0=bit_typespec|clogSpan157|32:13-32:38|<noinst>|0:operation[11]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('DEFMOD', '-', 'named_begin', '0', '37:19-37:34', 'b_paramrange157')
+     G=['I0=logic_typespec|arborSpan157|39:13-39:33|<noinst>|0:operation[11]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('DEFMOD', '-', 'named_begin', '0', '44:19-44:30', 'b_signed157')
+     G=['I0=bit_typespec|tallySigned157|46:13-46:29|<noinst>|0:constant[UINT:7]/constant[UINT:0]|-', 'I1=byte_typespec|tallyByteU157|47:13-47:26|<noinst>|-|-', 'N=2']
+     O=['N=null']
+DIFF	('DEFMOD', '-', 'named_begin', '0', '52:19-52:36', 'b_eventchandle157')
+     G=['I0=event_typespec|knockEvt157|54:13-54:18|<noinst>|-|-', 'I1=chandle_typespec|graspPtr157|55:13-55:20|<noinst>|-|-', 'N=2']
+     O=['N=null']
+DIFF	('DEFMOD', '-', 'named_begin', '0', '60:19-60:30', 'b_shadow157')
+     G=['I0=bit_typespec|outerLeaf157|63:13-63:23|<noinst>|0:constant[UINT:15]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('DEFMOD', '-', 'named_begin', '0', '68:19-68:31', 'b_lateuse157')
+     G=['I0=bit_typespec|firstCut157|71:13-71:22|<noinst>|0:constant[UINT:2]/constant[UINT:0]|-', 'I1=bit_typespec|secondCut157|73:13-73:23|<noinst>|0:constant[UINT:12]/constant[UINT:0]|-', 'N=2']
+     O=['N=null']
+DIFF	('DEFMOD', '-', 'named_begin', '0', '78:19-78:32', 'b_realtime157')
+     G=['I0=real_typespec|gaugeReal157|79:13-79:17|<noinst>|-|-', 'I1=time_typespec|gaugeRT157|80:13-80:21|<noinst>|-|-', 'I2=time_typespec|gaugeTime157|81:13-81:17|<noinst>|-|-', 'N=3']
+     O=['N=null']
+DIFF	('DEFMOD', '-', 'named_begin', '0', '86:19-86:32', 'b_nameonly157')
+     G=['I0=interface_typespec|aliasVif157|90:21-90:28|<noinst>|-|-', 'N=1']
+     O=['N=null']
+DIFF	('DEFMOD', '-', 'named_begin', '0', '95:19-95:31', 'b_forward157')
+     G=['I0=bit_typespec|fernRoot157|98:13-98:22|<noinst>|0:constant[UINT:8]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('TOPMOD', '-', 'named_begin', '0', '16:19-16:32', 'b_multidim157')
+     G=['I0=bit_typespec|rungGrid157|18:13-18:27|<noinst>|0:constant[UINT:3]/constant[UINT:0];1:constant[UINT:7]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('TOPMOD', '-', 'named_begin', '0', '23:19-23:31', 'b_regword157')
+     G=['I0=logic_typespec|pegBar157|25:13-25:22|<noinst>|0:constant[UINT:6]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('TOPMOD', '-', 'named_begin', '0', '30:19-30:28', 'b_clog157')
+     G=['I0=bit_typespec|clogSpan157|32:13-32:38|<noinst>|0:operation[11]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('TOPMOD', '-', 'named_begin', '0', '37:19-37:34', 'b_paramrange157')
+     G=['I0=logic_typespec|arborSpan157|39:13-39:33|<noinst>|0:operation[11]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('TOPMOD', '-', 'named_begin', '0', '44:19-44:30', 'b_signed157')
+     G=['I0=bit_typespec|tallySigned157|46:13-46:29|<noinst>|0:constant[UINT:7]/constant[UINT:0]|-', 'I1=byte_typespec|tallyByteU157|47:13-47:26|<noinst>|-|-', 'N=2']
+     O=['N=null']
+DIFF	('TOPMOD', '-', 'named_begin', '0', '52:19-52:36', 'b_eventchandle157')
+     G=['I0=event_typespec|knockEvt157|54:13-54:18|<noinst>|-|-', 'I1=chandle_typespec|graspPtr157|55:13-55:20|<noinst>|-|-', 'N=2']
+     O=['N=null']
+DIFF	('TOPMOD', '-', 'named_begin', '0', '60:19-60:30', 'b_shadow157')
+     G=['I0=bit_typespec|outerLeaf157|63:13-63:23|<noinst>|0:constant[UINT:15]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('TOPMOD', '-', 'named_begin', '0', '68:19-68:31', 'b_lateuse157')
+     G=['I0=bit_typespec|firstCut157|71:13-71:22|<noinst>|0:constant[UINT:2]/constant[UINT:0]|-', 'I1=bit_typespec|secondCut157|73:13-73:23|<noinst>|0:constant[UINT:12]/constant[UINT:0]|-', 'N=2']
+     O=['N=null']
+DIFF	('TOPMOD', '-', 'named_begin', '0', '78:19-78:32', 'b_realtime157')
+     G=['I0=real_typespec|gaugeReal157|79:13-79:17|<noinst>|-|-', 'I1=time_typespec|gaugeRT157|80:13-80:21|<noinst>|-|-', 'I2=time_typespec|gaugeTime157|81:13-81:17|<noinst>|-|-', 'N=3']
+     O=['N=null']
+DIFF	('TOPMOD', '-', 'named_begin', '0', '86:19-86:32', 'b_nameonly157')
+     G=['I0=interface_typespec|aliasVif157|90:21-90:28|<noinst>|-|-', 'N=1']
+     O=['N=null']
+DIFF	('TOPMOD', '-', 'named_begin', '0', '95:19-95:31', 'b_forward157')
+     G=['I0=bit_typespec|fernRoot157|98:13-98:22|<noinst>|0:constant[UINT:8]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+-- SAME=0 DIFF=22 ONLY-G=0 ONLY-O=0
+--- VERIFIED vs GOLDEN ---
+SAME	('DEFMOD', '-', 'named_begin', '0', '16:19-16:32', 'b_multidim157')	['I0=bit_typespec|rungGrid157|18:13-18:27|<noinst>|0:constant[UINT:3]/constant[UINT:0];1:constant[UINT:7]/constant[UINT:0]|-', 'N=1']
+SAME	('DEFMOD', '-', 'named_begin', '0', '23:19-23:31', 'b_regword157')	['I0=logic_typespec|pegBar157|25:13-25:22|<noinst>|0:constant[UINT:6]/constant[UINT:0]|-', 'N=1']
+SAME	('DEFMOD', '-', 'named_begin', '0', '30:19-30:28', 'b_clog157')	['I0=bit_typespec|clogSpan157|32:13-32:38|<noinst>|0:operation[11]/constant[UINT:0]|-', 'N=1']
+SAME	('DEFMOD', '-', 'named_begin', '0', '37:19-37:34', 'b_paramrange157')	['I0=logic_typespec|arborSpan157|39:13-39:33|<noinst>|0:operation[11]/constant[UINT:0]|-', 'N=1']
+SAME	('DEFMOD', '-', 'named_begin', '0', '44:19-44:30', 'b_signed157')	['I0=bit_typespec|tallySigned157|46:13-46:29|<noinst>|0:constant[UINT:7]/constant[UINT:0]|-', 'I1=byte_typespec|tallyByteU157|47:13-47:26|<noinst>|-|-', 'N=2']
+SAME	('DEFMOD', '-', 'named_begin', '0', '52:19-52:36', 'b_eventchandle157')	['I0=event_typespec|knockEvt157|54:13-54:18|<noinst>|-|-', 'I1=chandle_typespec|graspPtr157|55:13-55:20|<noinst>|-|-', 'N=2']
+SAME	('DEFMOD', '-', 'named_begin', '0', '60:19-60:30', 'b_shadow157')	['I0=bit_typespec|outerLeaf157|63:13-63:23|<noinst>|0:constant[UINT:15]/constant[UINT:0]|-', 'N=1']
+SAME	('DEFMOD', '-', 'named_begin', '0', '68:19-68:31', 'b_lateuse157')	['I0=bit_typespec|firstCut157|71:13-71:22|<noinst>|0:constant[UINT:2]/constant[UINT:0]|-', 'I1=bit_typespec|secondCut157|73:13-73:23|<noinst>|0:constant[UINT:12]/constant[UINT:0]|-', 'N=2']
+DIFF	('DEFMOD', '-', 'named_begin', '0', '78:19-78:32', 'b_realtime157')
+     G=['I0=real_typespec|gaugeReal157|79:13-79:17|<noinst>|-|-', 'I1=time_typespec|gaugeRT157|80:13-80:21|<noinst>|-|-', 'I2=time_typespec|gaugeTime157|81:13-81:17|<noinst>|-|-', 'N=3']
+     O=['I0=real_typespec|gaugeReal157|79:13-79:17|<noinst>|-|-', 'I1=real_typespec|gaugeRT157|80:13-80:21|<noinst>|-|-', 'I2=time_typespec|gaugeTime157|81:13-81:17|<noinst>|-|-', 'N=3']
+DIFF	('DEFMOD', '-', 'named_begin', '0', '86:19-86:32', 'b_nameonly157')
+     G=['I0=interface_typespec|aliasVif157|90:21-90:28|<noinst>|-|-', 'N=1']
+     O=['N=null']
+SAME	('DEFMOD', '-', 'named_begin', '0', '95:19-95:31', 'b_forward157')	['I0=bit_typespec|fernRoot157|98:13-98:22|<noinst>|0:constant[UINT:8]/constant[UINT:0]|-', 'N=1']
+SAME	('TOPMOD', '-', 'named_begin', '0', '16:19-16:32', 'b_multidim157')	['I0=bit_typespec|rungGrid157|18:13-18:27|<noinst>|0:constant[UINT:3]/constant[UINT:0];1:constant[UINT:7]/constant[UINT:0]|-', 'N=1']
+SAME	('TOPMOD', '-', 'named_begin', '0', '23:19-23:31', 'b_regword157')	['I0=logic_typespec|pegBar157|25:13-25:22|<noinst>|0:constant[UINT:6]/constant[UINT:0]|-', 'N=1']
+SAME	('TOPMOD', '-', 'named_begin', '0', '30:19-30:28', 'b_clog157')	['I0=bit_typespec|clogSpan157|32:13-32:38|<noinst>|0:operation[11]/constant[UINT:0]|-', 'N=1']
+SAME	('TOPMOD', '-', 'named_begin', '0', '37:19-37:34', 'b_paramrange157')	['I0=logic_typespec|arborSpan157|39:13-39:33|<noinst>|0:operation[11]/constant[UINT:0]|-', 'N=1']
+SAME	('TOPMOD', '-', 'named_begin', '0', '44:19-44:30', 'b_signed157')	['I0=bit_typespec|tallySigned157|46:13-46:29|<noinst>|0:constant[UINT:7]/constant[UINT:0]|-', 'I1=byte_typespec|tallyByteU157|47:13-47:26|<noinst>|-|-', 'N=2']
+SAME	('TOPMOD', '-', 'named_begin', '0', '52:19-52:36', 'b_eventchandle157')	['I0=event_typespec|knockEvt157|54:13-54:18|<noinst>|-|-', 'I1=chandle_typespec|graspPtr157|55:13-55:20|<noinst>|-|-', 'N=2']
+SAME	('TOPMOD', '-', 'named_begin', '0', '60:19-60:30', 'b_shadow157')	['I0=bit_typespec|outerLeaf157|63:13-63:23|<noinst>|0:constant[UINT:15]/constant[UINT:0]|-', 'N=1']
+SAME	('TOPMOD', '-', 'named_begin', '0', '68:19-68:31', 'b_lateuse157')	['I0=bit_typespec|firstCut157|71:13-71:22|<noinst>|0:constant[UINT:2]/constant[UINT:0]|-', 'I1=bit_typespec|secondCut157|73:13-73:23|<noinst>|0:constant[UINT:12]/constant[UINT:0]|-', 'N=2']
+DIFF	('TOPMOD', '-', 'named_begin', '0', '78:19-78:32', 'b_realtime157')
+     G=['I0=real_typespec|gaugeReal157|79:13-79:17|<noinst>|-|-', 'I1=time_typespec|gaugeRT157|80:13-80:21|<noinst>|-|-', 'I2=time_typespec|gaugeTime157|81:13-81:17|<noinst>|-|-', 'N=3']
+     O=['I0=real_typespec|gaugeReal157|79:13-79:17|<noinst>|-|-', 'I1=real_typespec|gaugeRT157|80:13-80:21|<noinst>|-|-', 'I2=time_typespec|gaugeTime157|81:13-81:17|<noinst>|-|-', 'N=3']
+DIFF	('TOPMOD', '-', 'named_begin', '0', '86:19-86:32', 'b_nameonly157')
+     G=['I0=interface_typespec|aliasVif157|90:21-90:28|<noinst>|-|-', 'N=1']
+     O=['N=null']
+SAME	('TOPMOD', '-', 'named_begin', '0', '95:19-95:31', 'b_forward157')	['I0=bit_typespec|fernRoot157|98:13-98:22|<noinst>|0:constant[UINT:8]/constant[UINT:0]|-', 'N=1']
+-- SAME=18 DIFF=4 ONLY-G=0 ONLY-O=0
+########## v157_c_face
+--- PRISTINE vs GOLDEN ---
+DIFF	('DEFMOD', '-', 'begin', '1', '58:8-63:8', '-')
+     G=['I0=bit_typespec|whirl157|59:15-59:24|<noinst>|0:constant[UINT:5]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('DEFMOD', '-', 'begin', '1', '69:10-72:13', '-')
+     G=['I0=bit_typespec|shard157|70:20-70:29|<noinst>|0:constant[UINT:1]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('DEFMOD', '-', 'begin', '1', '73:16-76:13', '-')
+     G=['I0=bit_typespec|slab157|74:20-74:30|<noinst>|0:constant[UINT:10]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('DEFMOD', '-', 'named_begin', '0', '38:45-38:52', 'c_ff157')
+     G=['I0=bit_typespec|tunnelWide157|39:13-39:23|<noinst>|0:constant[UINT:13]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('DEFMOD', '-', 'named_begin', '0', '44:19-44:29', 'c_outer157')
+     G=['I0=bit_typespec|outerHutch157|45:13-45:22|<noinst>|0:constant[UINT:2]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('DEFMOD', '-', 'named_begin', '1', '47:13-47:23', 'c_inner157')
+     G=['I0=bit_typespec|outerHutch157|49:15-49:24|<noinst>|0:constant[UINT:9]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('DEFMOD', '-', 'named_begin', '1', '82:21-82:33', 'c_genbody157')
+     G=['I0=bit_typespec|cogTooth157|83:15-83:24|<noinst>|0:constant[UINT:7]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('ELABPKG', 'Rookery157::Perch157::glide157', 'begin', '0', '#body', '-')
+     G=['I0=bit_typespec|featherSpan157|9:15-9:32|<noinst>|0:operation[11]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('ELABPKG', 'Rookery157::Perch157::roost157', 'begin', '1', '22:9-27:12', '-')
+     G=['I0=logic_typespec|plume157|24:19-24:30|<noinst>|0:constant[UINT:4]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('ELABPKG', 'Rookery157::Perch157::roost157', 'named_begin', '1', '16:17-16:29', 'c_forkarm157')
+     G=['I0=bit_typespec|talon157|18:19-18:28|<noinst>|0:constant[UINT:1]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('TOPMOD', 'work@TopWarren157.leftHole157', 'begin', '1', '58:8-63:8', '-')
+     G=['I0=bit_typespec|whirl157|59:15-59:24|<noinst>|0:constant[UINT:5]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('TOPMOD', 'work@TopWarren157.leftHole157', 'begin', '1', '69:10-72:13', '-')
+     G=['I0=bit_typespec|shard157|70:20-70:29|<noinst>|0:constant[UINT:1]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('TOPMOD', 'work@TopWarren157.leftHole157', 'begin', '1', '73:16-76:13', '-')
+     G=['I0=bit_typespec|slab157|74:20-74:30|<noinst>|0:constant[UINT:10]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('TOPMOD', 'work@TopWarren157.leftHole157', 'named_begin', '0', '38:45-38:52', 'c_ff157')
+     G=['I0=bit_typespec|tunnelWide157|39:13-39:23|<noinst>|0:constant[UINT:13]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('TOPMOD', 'work@TopWarren157.leftHole157', 'named_begin', '0', '44:19-44:29', 'c_outer157')
+     G=['I0=bit_typespec|outerHutch157|45:13-45:22|<noinst>|0:constant[UINT:2]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('TOPMOD', 'work@TopWarren157.leftHole157', 'named_begin', '0', '82:21-82:33', 'c_genbody157')
+     G=['I0=bit_typespec|cogTooth157|83:15-83:24|<noinst>|0:constant[UINT:7]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('TOPMOD', 'work@TopWarren157.leftHole157', 'named_begin', '1', '47:13-47:23', 'c_inner157')
+     G=['I0=bit_typespec|outerHutch157|49:15-49:24|<noinst>|0:constant[UINT:9]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('TOPMOD', 'work@TopWarren157.rightHole157', 'begin', '1', '58:8-63:8', '-')
+     G=['I0=bit_typespec|whirl157|59:15-59:24|<noinst>|0:constant[UINT:5]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('TOPMOD', 'work@TopWarren157.rightHole157', 'begin', '1', '69:10-72:13', '-')
+     G=['I0=bit_typespec|shard157|70:20-70:29|<noinst>|0:constant[UINT:1]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('TOPMOD', 'work@TopWarren157.rightHole157', 'begin', '1', '73:16-76:13', '-')
+     G=['I0=bit_typespec|slab157|74:20-74:30|<noinst>|0:constant[UINT:10]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('TOPMOD', 'work@TopWarren157.rightHole157', 'named_begin', '0', '38:45-38:52', 'c_ff157')
+     G=['I0=bit_typespec|tunnelWide157|39:13-39:23|<noinst>|0:constant[UINT:13]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('TOPMOD', 'work@TopWarren157.rightHole157', 'named_begin', '0', '44:19-44:29', 'c_outer157')
+     G=['I0=bit_typespec|outerHutch157|45:13-45:22|<noinst>|0:constant[UINT:2]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('TOPMOD', 'work@TopWarren157.rightHole157', 'named_begin', '0', '82:21-82:33', 'c_genbody157')
+     G=['I0=bit_typespec|cogTooth157|83:15-83:24|<noinst>|0:constant[UINT:7]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('TOPMOD', 'work@TopWarren157.rightHole157', 'named_begin', '1', '47:13-47:23', 'c_inner157')
+     G=['I0=bit_typespec|outerHutch157|49:15-49:24|<noinst>|0:constant[UINT:9]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+-- SAME=0 DIFF=24 ONLY-G=0 ONLY-O=0
+--- VERIFIED vs GOLDEN ---
+SAME	('DEFMOD', '-', 'begin', '1', '58:8-63:8', '-')	['I0=bit_typespec|whirl157|59:15-59:24|<noinst>|0:constant[UINT:5]/constant[UINT:0]|-', 'N=1']
+SAME	('DEFMOD', '-', 'begin', '1', '69:10-72:13', '-')	['I0=bit_typespec|shard157|70:20-70:29|<noinst>|0:constant[UINT:1]/constant[UINT:0]|-', 'N=1']
+SAME	('DEFMOD', '-', 'begin', '1', '73:16-76:13', '-')	['I0=bit_typespec|slab157|74:20-74:30|<noinst>|0:constant[UINT:10]/constant[UINT:0]|-', 'N=1']
+SAME	('DEFMOD', '-', 'named_begin', '0', '38:45-38:52', 'c_ff157')	['I0=bit_typespec|tunnelWide157|39:13-39:23|<noinst>|0:constant[UINT:13]/constant[UINT:0]|-', 'N=1']
+SAME	('DEFMOD', '-', 'named_begin', '0', '44:19-44:29', 'c_outer157')	['I0=bit_typespec|outerHutch157|45:13-45:22|<noinst>|0:constant[UINT:2]/constant[UINT:0]|-', 'N=1']
+SAME	('DEFMOD', '-', 'named_begin', '1', '47:13-47:23', 'c_inner157')	['I0=bit_typespec|outerHutch157|49:15-49:24|<noinst>|0:constant[UINT:9]/constant[UINT:0]|-', 'N=1']
+SAME	('DEFMOD', '-', 'named_begin', '1', '82:21-82:33', 'c_genbody157')	['I0=bit_typespec|cogTooth157|83:15-83:24|<noinst>|0:constant[UINT:7]/constant[UINT:0]|-', 'N=1']
+SAME	('ELABPKG', 'Rookery157::Perch157::glide157', 'begin', '0', '#body', '-')	['I0=bit_typespec|featherSpan157|9:15-9:32|<noinst>|0:operation[11]/constant[UINT:0]|-', 'N=1']
+SAME	('ELABPKG', 'Rookery157::Perch157::roost157', 'begin', '1', '22:9-27:12', '-')	['I0=logic_typespec|plume157|24:19-24:30|<noinst>|0:constant[UINT:4]/constant[UINT:0]|-', 'N=1']
+SAME	('ELABPKG', 'Rookery157::Perch157::roost157', 'named_begin', '1', '16:17-16:29', 'c_forkarm157')	['I0=bit_typespec|talon157|18:19-18:28|<noinst>|0:constant[UINT:1]/constant[UINT:0]|-', 'N=1']
+SAME	('TOPMOD', 'work@TopWarren157.leftHole157', 'begin', '1', '58:8-63:8', '-')	['I0=bit_typespec|whirl157|59:15-59:24|<noinst>|0:constant[UINT:5]/constant[UINT:0]|-', 'N=1']
+SAME	('TOPMOD', 'work@TopWarren157.leftHole157', 'begin', '1', '69:10-72:13', '-')	['I0=bit_typespec|shard157|70:20-70:29|<noinst>|0:constant[UINT:1]/constant[UINT:0]|-', 'N=1']
+SAME	('TOPMOD', 'work@TopWarren157.leftHole157', 'begin', '1', '73:16-76:13', '-')	['I0=bit_typespec|slab157|74:20-74:30|<noinst>|0:constant[UINT:10]/constant[UINT:0]|-', 'N=1']
+SAME	('TOPMOD', 'work@TopWarren157.leftHole157', 'named_begin', '0', '38:45-38:52', 'c_ff157')	['I0=bit_typespec|tunnelWide157|39:13-39:23|<noinst>|0:constant[UINT:13]/constant[UINT:0]|-', 'N=1']
+SAME	('TOPMOD', 'work@TopWarren157.leftHole157', 'named_begin', '0', '44:19-44:29', 'c_outer157')	['I0=bit_typespec|outerHutch157|45:13-45:22|<noinst>|0:constant[UINT:2]/constant[UINT:0]|-', 'N=1']
+SAME	('TOPMOD', 'work@TopWarren157.leftHole157', 'named_begin', '0', '82:21-82:33', 'c_genbody157')	['I0=bit_typespec|cogTooth157|83:15-83:24|<noinst>|0:constant[UINT:7]/constant[UINT:0]|-', 'N=1']
+SAME	('TOPMOD', 'work@TopWarren157.leftHole157', 'named_begin', '1', '47:13-47:23', 'c_inner157')	['I0=bit_typespec|outerHutch157|49:15-49:24|<noinst>|0:constant[UINT:9]/constant[UINT:0]|-', 'N=1']
+SAME	('TOPMOD', 'work@TopWarren157.rightHole157', 'begin', '1', '58:8-63:8', '-')	['I0=bit_typespec|whirl157|59:15-59:24|<noinst>|0:constant[UINT:5]/constant[UINT:0]|-', 'N=1']
+SAME	('TOPMOD', 'work@TopWarren157.rightHole157', 'begin', '1', '69:10-72:13', '-')	['I0=bit_typespec|shard157|70:20-70:29|<noinst>|0:constant[UINT:1]/constant[UINT:0]|-', 'N=1']
+SAME	('TOPMOD', 'work@TopWarren157.rightHole157', 'begin', '1', '73:16-76:13', '-')	['I0=bit_typespec|slab157|74:20-74:30|<noinst>|0:constant[UINT:10]/constant[UINT:0]|-', 'N=1']
+SAME	('TOPMOD', 'work@TopWarren157.rightHole157', 'named_begin', '0', '38:45-38:52', 'c_ff157')	['I0=bit_typespec|tunnelWide157|39:13-39:23|<noinst>|0:constant[UINT:13]/constant[UINT:0]|-', 'N=1']
+SAME	('TOPMOD', 'work@TopWarren157.rightHole157', 'named_begin', '0', '44:19-44:29', 'c_outer157')	['I0=bit_typespec|outerHutch157|45:13-45:22|<noinst>|0:constant[UINT:2]/constant[UINT:0]|-', 'N=1']
+SAME	('TOPMOD', 'work@TopWarren157.rightHole157', 'named_begin', '0', '82:21-82:33', 'c_genbody157')	['I0=bit_typespec|cogTooth157|83:15-83:24|<noinst>|0:constant[UINT:7]/constant[UINT:0]|-', 'N=1']
+SAME	('TOPMOD', 'work@TopWarren157.rightHole157', 'named_begin', '1', '47:13-47:23', 'c_inner157')	['I0=bit_typespec|outerHutch157|49:15-49:24|<noinst>|0:constant[UINT:9]/constant[UINT:0]|-', 'N=1']
+-- SAME=24 DIFF=0 ONLY-G=0 ONLY-O=0
+########## v157_d_carve
+--- PRISTINE vs GOLDEN ---
+DIFF	('DEFMOD', 'work@Harbor157::Buoy157::bob157', 'begin', '0', '#body', '-')
+     G=['I0=bit_typespec|ropeTwist157|72:15-72:24|<noinst>|0:constant[UINT:8]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+ONLY-G	('DEFPKG', 'Estuary157::barge157', 'begin', '0', '#body', '-')	['I0=bit_typespec|scowPlank157|46:13-46:22|<noinst>|0:constant[UINT:5]/constant[UINT:0]|-', 'N=1']
+DIFF	('DEFPKG', 'Estuary157::ferry157', 'named_begin', '0', '#body', 'd_tfitemblock157')
+     G=['I0=bit_typespec|keelPlank157|55:15-55:24|<noinst>|0:constant[UINT:7]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('DEFPKG', 'Estuary157::sluice157', 'task', '0', '62:3-65:10', 'sluice157')
+     G=['I0=bit_typespec|gateSlat157|64:13-64:22|<noinst>|0:constant[UINT:9]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('ELABPKG', 'Estuary157::Surge157::swell157', 'named_begin', '0', '#body', 'd_siblingblock157')
+     G=['I0=bit_typespec|wakeMark157|30:17-30:26|<noinst>|0:constant[UINT:4]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+ONLY-G	('ELABPKG', 'Estuary157::barge157', 'begin', '0', '#body', '-')	['I0=bit_typespec|scowPlank157|46:13-46:22|<noinst>|0:constant[UINT:5]/constant[UINT:0]|-', 'N=1']
+DIFF	('ELABPKG', 'Estuary157::ferry157', 'named_begin', '0', '#body', 'd_tfitemblock157')
+     G=['I0=bit_typespec|keelPlank157|55:15-55:24|<noinst>|0:constant[UINT:7]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('ELABPKG', 'Estuary157::sluice157', 'task', '0', '62:3-65:10', 'sluice157')
+     G=['I0=bit_typespec|gateSlat157|64:13-64:22|<noinst>|0:constant[UINT:9]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('TOPMOD', 'work@Harbor157::Buoy157::bob157', 'begin', '0', '#body', '-')
+     G=['I0=bit_typespec|ropeTwist157|72:15-72:24|<noinst>|0:constant[UINT:8]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+-- SAME=0 DIFF=7 ONLY-G=2 ONLY-O=0
+--- VERIFIED vs GOLDEN ---
+SAME	('DEFMOD', 'work@Harbor157::Buoy157::bob157', 'begin', '0', '#body', '-')	['I0=bit_typespec|ropeTwist157|72:15-72:24|<noinst>|0:constant[UINT:8]/constant[UINT:0]|-', 'N=1']
+ONLY-G	('DEFPKG', 'Estuary157::barge157', 'begin', '0', '#body', '-')	['I0=bit_typespec|scowPlank157|46:13-46:22|<noinst>|0:constant[UINT:5]/constant[UINT:0]|-', 'N=1']
+SAME	('DEFPKG', 'Estuary157::ferry157', 'named_begin', '0', '#body', 'd_tfitemblock157')	['I0=bit_typespec|keelPlank157|55:15-55:24|<noinst>|0:constant[UINT:7]/constant[UINT:0]|-', 'N=1']
+SAME	('DEFPKG', 'Estuary157::sluice157', 'task', '0', '62:3-65:10', 'sluice157')	['I0=bit_typespec|gateSlat157|64:13-64:22|<noinst>|0:constant[UINT:9]/constant[UINT:0]|-', 'N=1']
+SAME	('ELABPKG', 'Estuary157::Surge157::swell157', 'named_begin', '0', '#body', 'd_siblingblock157')	['I0=bit_typespec|wakeMark157|30:17-30:26|<noinst>|0:constant[UINT:4]/constant[UINT:0]|-', 'N=1']
+ONLY-G	('ELABPKG', 'Estuary157::barge157', 'begin', '0', '#body', '-')	['I0=bit_typespec|scowPlank157|46:13-46:22|<noinst>|0:constant[UINT:5]/constant[UINT:0]|-', 'N=1']
+SAME	('ELABPKG', 'Estuary157::ferry157', 'named_begin', '0', '#body', 'd_tfitemblock157')	['I0=bit_typespec|keelPlank157|55:15-55:24|<noinst>|0:constant[UINT:7]/constant[UINT:0]|-', 'N=1']
+SAME	('ELABPKG', 'Estuary157::sluice157', 'task', '0', '62:3-65:10', 'sluice157')	['I0=bit_typespec|gateSlat157|64:13-64:22|<noinst>|0:constant[UINT:9]/constant[UINT:0]|-', 'N=1']
+ONLY-O	('OTHER', 'driftUnit157', 'task', '0', '7:1-7:69', 'driftUnit157')	['I0=bit_typespec|siltGrain157|7:38-7:47|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+SAME	('TOPMOD', 'work@Harbor157::Buoy157::bob157', 'begin', '0', '#body', '-')	['I0=bit_typespec|ropeTwist157|72:15-72:24|<noinst>|0:constant[UINT:8]/constant[UINT:0]|-', 'N=1']
+-- SAME=7 DIFF=0 ONLY-G=2 ONLY-O=1
+########## v157_e_count
+--- PRISTINE vs GOLDEN ---
+DIFF	('DEFPKG', 'Kiln157::bakeEmpty157', 'begin', '0', '#body', '-')
+     G=['I0=bit_typespec|emberEmpty157|20:13-20:22|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('DEFPKG', 'Kiln157::bakeEnum157', 'task', '0', '57:3-57:87', 'bakeEnum157')
+     G=['I0=enum_typespec|emberEnum157|57:31-57:79|<noinst>|-|-', 'N=1']
+     O=['N=null']
+ONLY-G	('DEFPKG', 'Kiln157::bakeFwd157', 'begin', '0', '#body', '-')	['I0=bit_typespec|emberFwd157|62:13-62:22|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+ONLY-G	('DEFPKG', 'Kiln157::bakeLet157', 'begin', '0', '#body', '-')	['I0=bit_typespec|emberLet157|14:13-14:22|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+ONLY-G	('DEFPKG', 'Kiln157::bakeLocal157', 'begin', '0', '#body', '-')	['I0=bit_typespec|emberLocal157|44:13-44:22|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+ONLY-G	('DEFPKG', 'Kiln157::bakeNull157', 'begin', '0', '#body', '-')	['I0=bit_typespec|emberNull157|26:13-26:22|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+DIFF	('DEFPKG', 'Kiln157::bakeOne157', 'task', '0', '9:3-9:68', 'bakeOne157')
+     G=['I0=bit_typespec|emberOne157|9:38-9:47|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+ONLY-G	('DEFPKG', 'Kiln157::bakeParam157', 'begin', '0', '#body', '-')	['I0=bit_typespec|emberParam157|39:13-39:28|<noinst>|0:ref_obj[GLOW157]/constant[UINT:0]|-', 'N=1']
+DIFF	('DEFPKG', 'Kiln157::bakeStatic157', 'task', '0', '49:3-49:71', 'bakeStatic157')
+     G=['I0=bit_typespec|emberStatic157|49:38-49:47|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+ONLY-G	('DEFPKG', 'Kiln157::bakeTwo157', 'begin', '0', '#body', '-')	['I0=bit_typespec|emberTwoA157|32:13-32:22|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'I1=bit_typespec|emberTwoB157|33:13-33:22|<noinst>|0:constant[UINT:5]/constant[UINT:0]|-', 'N=2']
+DIFF	('ELABPKG', 'Kiln157::bakeEmpty157', 'begin', '0', '#body', '-')
+     G=['I0=bit_typespec|emberEmpty157|20:13-20:22|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('ELABPKG', 'Kiln157::bakeEnum157', 'task', '0', '57:3-57:87', 'bakeEnum157')
+     G=['I0=enum_typespec|emberEnum157|57:31-57:79|<noinst>|-|-', 'N=1']
+     O=['N=null']
+ONLY-G	('ELABPKG', 'Kiln157::bakeFwd157', 'begin', '0', '#body', '-')	['I0=bit_typespec|emberFwd157|62:13-62:22|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+ONLY-G	('ELABPKG', 'Kiln157::bakeLet157', 'begin', '0', '#body', '-')	['I0=bit_typespec|emberLet157|14:13-14:22|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+ONLY-G	('ELABPKG', 'Kiln157::bakeLocal157', 'begin', '0', '#body', '-')	['I0=bit_typespec|emberLocal157|44:13-44:22|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+ONLY-G	('ELABPKG', 'Kiln157::bakeNull157', 'begin', '0', '#body', '-')	['I0=bit_typespec|emberNull157|26:13-26:22|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+DIFF	('ELABPKG', 'Kiln157::bakeOne157', 'task', '0', '9:3-9:68', 'bakeOne157')
+     G=['I0=bit_typespec|emberOne157|9:38-9:47|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+ONLY-G	('ELABPKG', 'Kiln157::bakeParam157', 'begin', '0', '#body', '-')	['I0=bit_typespec|emberParam157|39:13-39:28|<noinst>|0:ref_obj[GLOW157]/constant[UINT:0]|-', 'N=1']
+DIFF	('ELABPKG', 'Kiln157::bakeStatic157', 'task', '0', '49:3-49:71', 'bakeStatic157')
+     G=['I0=bit_typespec|emberStatic157|49:38-49:47|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+ONLY-G	('ELABPKG', 'Kiln157::bakeTwo157', 'begin', '0', '#body', '-')	['I0=bit_typespec|emberTwoA157|32:13-32:22|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'I1=bit_typespec|emberTwoB157|33:13-33:22|<noinst>|0:constant[UINT:5]/constant[UINT:0]|-', 'N=2']
+-- SAME=0 DIFF=8 ONLY-G=12 ONLY-O=0
+--- VERIFIED vs GOLDEN ---
+DIFF	('DEFPKG', 'Kiln157::bakeEmpty157', 'begin', '0', '#body', '-')
+     G=['I0=bit_typespec|emberEmpty157|20:13-20:22|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('DEFPKG', 'Kiln157::bakeEnum157', 'task', '0', '57:3-57:87', 'bakeEnum157')
+     G=['I0=enum_typespec|emberEnum157|57:31-57:79|<noinst>|-|-', 'N=1']
+     O=['N=null']
+ONLY-G	('DEFPKG', 'Kiln157::bakeFwd157', 'begin', '0', '#body', '-')	['I0=bit_typespec|emberFwd157|62:13-62:22|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+ONLY-G	('DEFPKG', 'Kiln157::bakeLet157', 'begin', '0', '#body', '-')	['I0=bit_typespec|emberLet157|14:13-14:22|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+ONLY-G	('DEFPKG', 'Kiln157::bakeLocal157', 'begin', '0', '#body', '-')	['I0=bit_typespec|emberLocal157|44:13-44:22|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+ONLY-G	('DEFPKG', 'Kiln157::bakeNull157', 'begin', '0', '#body', '-')	['I0=bit_typespec|emberNull157|26:13-26:22|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+SAME	('DEFPKG', 'Kiln157::bakeOne157', 'task', '0', '9:3-9:68', 'bakeOne157')	['I0=bit_typespec|emberOne157|9:38-9:47|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+ONLY-G	('DEFPKG', 'Kiln157::bakeParam157', 'begin', '0', '#body', '-')	['I0=bit_typespec|emberParam157|39:13-39:28|<noinst>|0:ref_obj[GLOW157]/constant[UINT:0]|-', 'N=1']
+SAME	('DEFPKG', 'Kiln157::bakeStatic157', 'task', '0', '49:3-49:71', 'bakeStatic157')	['I0=bit_typespec|emberStatic157|49:38-49:47|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+ONLY-G	('DEFPKG', 'Kiln157::bakeTwo157', 'begin', '0', '#body', '-')	['I0=bit_typespec|emberTwoA157|32:13-32:22|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'I1=bit_typespec|emberTwoB157|33:13-33:22|<noinst>|0:constant[UINT:5]/constant[UINT:0]|-', 'N=2']
+DIFF	('ELABPKG', 'Kiln157::bakeEmpty157', 'begin', '0', '#body', '-')
+     G=['I0=bit_typespec|emberEmpty157|20:13-20:22|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('ELABPKG', 'Kiln157::bakeEnum157', 'task', '0', '57:3-57:87', 'bakeEnum157')
+     G=['I0=enum_typespec|emberEnum157|57:31-57:79|<noinst>|-|-', 'N=1']
+     O=['N=null']
+ONLY-G	('ELABPKG', 'Kiln157::bakeFwd157', 'begin', '0', '#body', '-')	['I0=bit_typespec|emberFwd157|62:13-62:22|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+ONLY-G	('ELABPKG', 'Kiln157::bakeLet157', 'begin', '0', '#body', '-')	['I0=bit_typespec|emberLet157|14:13-14:22|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+ONLY-G	('ELABPKG', 'Kiln157::bakeLocal157', 'begin', '0', '#body', '-')	['I0=bit_typespec|emberLocal157|44:13-44:22|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+ONLY-G	('ELABPKG', 'Kiln157::bakeNull157', 'begin', '0', '#body', '-')	['I0=bit_typespec|emberNull157|26:13-26:22|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+SAME	('ELABPKG', 'Kiln157::bakeOne157', 'task', '0', '9:3-9:68', 'bakeOne157')	['I0=bit_typespec|emberOne157|9:38-9:47|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+ONLY-G	('ELABPKG', 'Kiln157::bakeParam157', 'begin', '0', '#body', '-')	['I0=bit_typespec|emberParam157|39:13-39:28|<noinst>|0:ref_obj[GLOW157]/constant[UINT:0]|-', 'N=1']
+SAME	('ELABPKG', 'Kiln157::bakeStatic157', 'task', '0', '49:3-49:71', 'bakeStatic157')	['I0=bit_typespec|emberStatic157|49:38-49:47|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+ONLY-G	('ELABPKG', 'Kiln157::bakeTwo157', 'begin', '0', '#body', '-')	['I0=bit_typespec|emberTwoA157|32:13-32:22|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'I1=bit_typespec|emberTwoB157|33:13-33:22|<noinst>|0:constant[UINT:5]/constant[UINT:0]|-', 'N=2']
+-- SAME=4 DIFF=4 ONLY-G=12 ONLY-O=0
+########## v157_p3_fn
+--- PRISTINE vs GOLDEN ---
+DIFF	('DEFPKG', 'Ledger157::tallyTk157', 'task', '0', '5:3-7:10', 'tallyTk157')
+     G=['I0=bit_typespec|markTk157|6:13-6:22|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+DIFF	('ELABPKG', 'Ledger157::tallyTk157', 'task', '0', '5:3-7:10', 'tallyTk157')
+     G=['I0=bit_typespec|markTk157|6:13-6:22|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+     O=['N=null']
+-- SAME=0 DIFF=2 ONLY-G=0 ONLY-O=0
+--- VERIFIED vs GOLDEN ---
+SAME	('DEFPKG', 'Ledger157::tallyTk157', 'task', '0', '5:3-7:10', 'tallyTk157')	['I0=bit_typespec|markTk157|6:13-6:22|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+SAME	('ELABPKG', 'Ledger157::tallyTk157', 'task', '0', '5:3-7:10', 'tallyTk157')	['I0=bit_typespec|markTk157|6:13-6:22|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+-- SAME=2 DIFF=0 ONLY-G=0 ONLY-O=0
+########## v157_p4_rt
+--- PRISTINE vs GOLDEN ---
+DIFF	('DEFMOD', '-', 'begin', '0', '5:11-9:6', '-')
+     G=['I0=time_typespec|stmtRT157|6:13-6:21|<noinst>|-|-', 'N=1']
+     O=['N=null']
+DIFF	('TOPMOD', '-', 'begin', '0', '5:11-9:6', '-')
+     G=['I0=time_typespec|stmtRT157|6:13-6:21|<noinst>|-|-', 'N=1']
+     O=['N=null']
+-- SAME=0 DIFF=2 ONLY-G=0 ONLY-O=0
+--- VERIFIED vs GOLDEN ---
+DIFF	('DEFMOD', '-', 'begin', '0', '5:11-9:6', '-')
+     G=['I0=time_typespec|stmtRT157|6:13-6:21|<noinst>|-|-', 'N=1']
+     O=['I0=real_typespec|stmtRT157|6:13-6:21|<noinst>|-|-', 'N=1']
+DIFF	('TOPMOD', '-', 'begin', '0', '5:11-9:6', '-')
+     G=['I0=time_typespec|stmtRT157|6:13-6:21|<noinst>|-|-', 'N=1']
+     O=['I0=real_typespec|stmtRT157|6:13-6:21|<noinst>|-|-', 'N=1']
+-- SAME=0 DIFF=2 ONLY-G=0 ONLY-O=0
+########## v157_p5_unit
+--- PRISTINE vs GOLDEN ---
+-- SAME=0 DIFF=0 ONLY-G=0 ONLY-O=0
+--- VERIFIED vs GOLDEN ---
+ONLY-O	('OTHER', 'driftUnit157', 'task', '0', '1:1-3:8', 'driftUnit157')	['I0=bit_typespec|siltGrain157|2:11-2:20|<noinst>|0:constant[UINT:3]/constant[UINT:0]|-', 'N=1']
+-- SAME=0 DIFF=0 ONLY-G=0 ONLY-O=1

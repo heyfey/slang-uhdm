@@ -2457,6 +2457,29 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 if (!vars->empty())
                     b->Variables(vars);
             }
+            // § stmtScopeTdListedOnEnclosingScope157, SITE 1 of 3 — the
+            // WRITTEN block: `begin`, a NAMED begin, a `fork` arm, a loop
+            // body, an `if` arm, a `case` item, a module `initial` /
+            // `always` body and a generate block's own `initial`.
+            // `CompileStmt.cpp:334` (paSeq_block) and `:427` (paPar_block)
+            // hand the block object itself to every child as `pstmt`, so
+            // `compileTypeDef`'s head pushes the typedef's typespec onto THIS
+            // scope — the INNERMOST enclosing one, never an outer begin and
+            // never the `for_stmt` / `if_stmt` around it.  grid157 `a_scope`
+            // scores all sixteen of those homes; the corpus head is the
+            // `begin` at `uvm_pkg.sv:51337:29`.
+            // ...EXCEPT inside a class CONSTRUCTOR, which lists NOTHING
+            // ANYWHERE.  `compileClassConstructorDeclaration`
+            // (`CompileStmt.cpp:2165-2300`) walks the ctor's items with
+            // `fC->Child(Stmt)` and never reaches a `paType_declaration` at
+            // all.  MEASURED, golden: a ctor's own typedef reaches no scope
+            // (`g157_d_sub` `kilnNewCtor157`, 0 objects in the whole
+            // database), and a typedef inside a WRITTEN `begin` in a ctor body
+            // reaches none either — golden emits no such `begin` (probe
+            // `PC::CC::new`, § constructorBodyElementShift27's territory).
+            if (bs.blockSymbol && !tfBodyCtor27)
+                if (auto* tdl157 = makeStmtScopeTdListing157(*bs.blockSymbol))
+                    b->Typespecs(tdl157);
             auto* stmts = s.MakeAnyVec();
             for (auto* ds9 : forkDeclStmts9)
                 stmts->push_back(ds9);
@@ -5610,6 +5633,36 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 }
             if (!bvars->empty())
                 ub->Variables(bvars);
+            // § stmtScopeTdListedOnEnclosingScope157, SITE 2 of 3 — the
+            // SUBROUTINE BODY's SYNTHESISED `begin`.  `compileTask` /
+            // `compileFunction` pass THIS wrapper (not the task_func) as
+            // `pstmt` to every body statement when the body has more than one
+            // item (`CompileStmt.cpp:2043-2075` / `:2465-2520`), so the
+            // subroutine's OWN typedefs land here.  A typedef written inside
+            // a nested `begin` belongs to that block's symbol and is SITE 1's;
+            // this reads only `currentSubSym`'s DIRECT members.
+            // grid157 `a_scope` `flock` / `lone` / `burrow` / `knead` /
+            // `churn` / `perch` / `groom` / `prune` score this site.
+            // ...unless the body took the TF-ITEM production, where the
+            // leading `tf_item_declaration` run is consumed by
+            // `compileTfPortDecl` BEFORE the statement walk starts
+            // (`compileTask` :2010-2027, `compileFunction` :2425-2470) and its
+            // `paBlock_item_declaration` arm (`:1661-1712`) only ever reads a
+            // `paVariable_declaration` — a `paType_declaration` there is
+            // compiled by NOBODY and listed NOWHERE.  MEASURED: `g157_d_sub`
+            // `tfItemTask157` (a non-ANSI `input int spark;` in the body)
+            // lists nothing in golden while its ANSI twin `ansiTask157` lists
+            // its typedef; a first cut without this gate put an entry on the
+            // task and the grid scored it AWAY.
+            // A CONSTRUCTOR never reaches this arm at all (`emitCtorBody27`
+            // returns above), and its own gate is on SITE 1 and SITE 3.
+            if (tfBodyStmt9 == (const void*)&stmt && currentSubSym &&
+                !tfBodyTfItems9 && !tfBodyCtor27)
+                if (auto* tdl157 =
+                        makeStmtScopeTdListing157(*currentSubSym)) {
+                    ub->Typespecs(tdl157);
+                    tfBodyTdListed157 = true;
+                }
             auto* stmts = s.MakeAnyVec();
             // Task-scope param_assigns LEAD the block and re-parent to it
             // (they stay listed under the task as vpiParamAssign too).

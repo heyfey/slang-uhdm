@@ -1,0 +1,80 @@
+r10uvm157 — THE WIDE BOUNDARY GATE.  bound157.sh over a COPY of the WHOLE
+tools/probe tree — top level AND subdirectories — both views, both binaries.
+MEASUREMENT ONLY.
+
+  LISTED=4418  PROCESSED=4418  PRODUCED_DBS=4271  MOVED_ARMS=25  RC_DIFFS=0
+
+LISTED == PROCESSED (the gate reached every arm); every child ran with
+</dev/null and the file list was read on fd 3; scratch keyed on the RELATIVE
+path (three arms in this tree are all named dut.sv).  This pass's own five
+g157_*.sv arms are the POSITIVE CONTROL — a gate that reported zero movers
+over them could not see.
+
+EVERY ONE OF THE 25 MOVED ARMS IS THEN SCORED CELL BY CELL against a golden
+built by Surelog itself, with score157.py --listed --noowner:
+
+r10buvm22repro/g22.sv                      pris-DIFF=0    pat-DIFF=0    TOWARD=0    WRONG/AWAY=0
+r10uvm114repro/g114_c_clspkg.sv            pris-DIFF=2    pat-DIFF=0    TOWARD=2    WRONG/AWAY=0
+r10uvm154repro/l154_noenum.sv              pris-DIFF=0    pat-DIFF=0    TOWARD=0    WRONG/AWAY=0
+r10uvm155repro/g155_a_home.sv              pris-DIFF=18   pat-DIFF=0    TOWARD=18   WRONG/AWAY=0
+r10uvm155repro/g155_b_form.sv              pris-DIFF=3    pat-DIFF=1    TOWARD=2    WRONG/AWAY=0
+r10uvm155repro/g155_c_shape.sv             pris-DIFF=3    pat-DIFF=0    TOWARD=3    WRONG/AWAY=0
+r10uvm155repro/g155_d_gate.sv              pris-DIFF=6    pat-DIFF=0    TOWARD=6    WRONG/AWAY=0
+r10uvm155repro/g155_e_edge.sv              pris-DIFF=3    pat-DIFF=0    TOWARD=3    WRONG/AWAY=0
+r10uvm157repro/g157_a_scope.sv             pris-DIFF=26   pat-DIFF=0    TOWARD=26   WRONG/AWAY=0
+r10uvm157repro/g157_b_form.sv              pris-DIFF=76   pat-DIFF=28   TOWARD=48   WRONG/AWAY=0
+r10uvm157repro/g157_c_count.sv             pris-DIFF=12   pat-DIFF=0    TOWARD=12   WRONG/AWAY=0
+r10uvm157repro/g157_d_sub.sv               pris-DIFF=8    pat-DIFF=4    TOWARD=4    WRONG/AWAY=0
+r10uvm157repro/g157_e_edge.sv              pris-DIFF=40   pat-DIFF=0    TOWARD=40   WRONG/AWAY=0
+r10v131repro/arms/v131_k_null.sv           pris-DIFF=4    pat-DIFF=0    TOWARD=4    WRONG/AWAY=0
+r10v155repro/v155_a_import.sv              pris-DIFF=10   pat-DIFF=0    TOWARD=10   WRONG/AWAY=0
+r10v155repro/v155_b_kind.sv                pris-DIFF=4    pat-DIFF=2    TOWARD=2    WRONG/AWAY=0
+r10v155repro/v155_c_home.sv                pris-DIFF=14   pat-DIFF=0    TOWARD=14   WRONG/AWAY=0
+r10v155repro/v155_d_shape.sv               pris-DIFF=12   pat-DIFF=0    TOWARD=12   WRONG/AWAY=0
+r10v155repro/v155_e_import.sv              pris-DIFF=8    pat-DIFF=0    TOWARD=8    WRONG/AWAY=0
+r10v155repro/v155_f_shadow.sv              pris-DIFF=5    pat-DIFF=0    TOWARD=5    WRONG/AWAY=0
+r10v155repro/v155_g_program.sv             pris-DIFF=15   pat-DIFF=0    TOWARD=15   WRONG/AWAY=0
+r10v155repro/v155_h_unique.sv              pris-DIFF=8    pat-DIFF=0    TOWARD=8    WRONG/AWAY=0
+r10v155repro/v155_i_order.sv               pris-DIFF=10   pat-DIFF=0    TOWARD=10   WRONG/AWAY=0
+r10v98repro/v98_c20_dut.sv                 pris-DIFF=1    pat-DIFF=0    TOWARD=1    WRONG/AWAY=0
+r10v98repro/v98_c26_dut.sv                 pris-DIFF=2    pat-DIFF=0    TOWARD=2    WRONG/AWAY=0
+-- BOUNDARY TOTAL TOWARD=255 WRONG/AWAY=0
+
+--noowner drops the OWNER column from the census key, and it is needed for
+exactly one thing: in the ELABORATED view golden spells a module subroutine's
+`VpiFullName` with the INSTANCE path (`work@top26v.u.f26`,
+`work@mTriTopD155v.i1D155v.fTriD155v`) and we spell it with the DEFINITION
+(`work@amod26v.f26`, `work@mTriD155v.fTriD155v`).  That is a PRE-EXISTING
+residue of a different law and no generated `Compare` reads `VpiFullName`
+(RESUME §9).  With the owner IN the key those elaborated copies pair up wrongly
+and the SAME cells read as ONLY-G before the pass and ONLY-O after it — the
+owner-keyed run reports WRONG/AWAY=1 on `v155_d_shape` and on `v98_c26_dut` for
+that reason alone, and the LISTED PAYLOAD is byte-identical to golden on both
+(`int_typespec triFuncD155v 57:13-57:16 <noinst>`,
+`byte_typespec wk26_t 12:13-12:17 <noinst>`).  Both numbers are recorded:
+owner-keyed TOWARD=255-ish with 2 such artifacts, owner-blind TOWARD=255
+WRONG/AWAY=0.
+
+WHAT THE 25 ARE:
+  * 5   this pass's own grid arms — THE POSITIVE CONTROL.
+  * 5   r10uvm155's grid arms and 9 r10v155's verifier arms — the SAME
+        population: every one holds a typedef declared in a statement scope.
+  * 2   r10v98repro/v98_c20_dut.sv and v98_c26_dut.sv — method-local typedefs
+        (r10uvm155's name-collision arms).
+  * 1   r10uvm114repro/g114_c_clspkg.sv — a class method's and a package
+        function's local typedefs.
+  * 1   r10v131repro/arms/v131_k_null.sv — `fork typedef int t_ka; join_none`
+        and `fork : kD typedef int t_kb; join_any : kD`: a typedef with NO
+        enclosing `begin`, which golden lists on the `fork_stmt` and the
+        `named_fork` THEMSELVES.  Independent confirmation that the placement
+        rule is `any_cast<UHDM::scope*>(pstmt)` and not "the nearest begin".
+  * 2   r10buvm22repro/g22.sv and r10uvm154repro/l154_noenum.sv — MOVED IN
+        BYTES, **0 CELLS**.  The whole-dump diff is a single folded constant,
+        22548185 -> 22552281, in an associative-dimension range: EXACTLY ONE
+        4096-BYTE PAGE.  This is the defect r10uvm155's README named and
+        measured with a positive control (a binary built from the patched
+        source plus one semantically dead externally linked function moved the
+        same constant another +4096 with no semantic change at all).  The
+        number is derived from the BINARY IMAGE's layout and moves for any
+        binary; neither file contains a statement-scope typedef this law could
+        mint anything in.

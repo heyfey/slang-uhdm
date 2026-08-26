@@ -1,0 +1,41 @@
+r10v157 — WIDE BOUNDARY over a COPY of the whole tools/probe tree
+PRIS=pristine(100987bc) PATCHED=VERIFIED(cabffb3c)
+LISTED=4423 PROCESSED=4423 PRODUCED_DBS=4276 MOVED_ARMS=30 RC_DIFFS=0
+
+each moved arm scored cell-by-cell vs a Surelog-built golden (score157_v.py --listed --noowner):
+arm                                     PRIS(DIFF/ONLY-G/ONLY-O)   VERIFIED
+r10uvm155repro/g155_a_home.sv                 18/0/0                 0/0/0
+r10uvm155repro/g155_b_form.sv                  3/0/0                 1/0/0   (whole-scope DECLINE)
+r10uvm155repro/g155_c_shape.sv                 3/0/0                 0/0/0
+r10uvm155repro/g155_d_gate.sv                  6/0/0                 0/0/0
+r10uvm155repro/g155_e_edge.sv                  3/0/0                 0/0/0
+r10v155repro/v155_a_import.sv                 10/0/0                 0/0/0
+r10v155repro/v155_b_kind.sv                    4/0/0                 2/0/0   (whole-scope DECLINE)
+r10v155repro/v155_c_home.sv                   14/0/0                 0/0/0
+r10v155repro/v155_d_shape.sv                  12/0/0                 0/0/0
+r10v155repro/v155_e_import.sv                  8/0/0                 0/0/0
+r10v155repro/v155_f_shadow.sv                  5/0/0                 0/0/0
+r10v155repro/v155_g_program.sv                15/0/0                 0/0/0
+r10v155repro/v155_h_unique.sv                  8/0/0                 0/0/0
+r10v155repro/v155_i_order.sv                  10/0/0                 0/0/0
+r10v131repro/arms/v131_k_null.sv               4/0/0                 0/0/0   (fork/named_fork, NO begin)
+r10uvm114repro/g114_c_clspkg.sv                2/0/0                 0/0/0
+r10v98repro/v98_c20_dut.sv                     1/0/0                 0/0/0
+r10v98repro/v98_c26_dut.sv                     2/0/0                 0/0/0
+r10buvm22repro/g22.sv                          0/0/0                 0/0/0   BYTES ONLY (4096-byte page)
+r10uvm154repro/l154_noenum.sv                  0/0/0                 0/0/0   BYTES ONLY (4096-byte page)
+r10uvm157repro/g157_a_scope.sv                35/0/0                 0/0/0
+r10uvm157repro/g157_b_form.sv                 76/0/0                28/0/0   (declined forms)
+r10uvm157repro/g157_c_count.sv                36/0/0                 0/0/0
+r10uvm157repro/g157_d_sub.sv                  19/4/0                 2/4/0
+r10uvm157repro/g157_e_edge.sv                 40/0/0                 0/0/0
+r10v157repro/arms/v157_a_home.sv              14/1/0                 2/1/2   (2 ONLY-O = §4.1 + §4.4)
+r10v157repro/arms/v157_b_shape.sv             22/0/0                 4/0/0
+r10v157repro/arms/v157_c_face.sv              24/0/0                 0/0/0
+r10v157repro/arms/v157_d_carve.sv              7/2/0                 0/2/1   (1 ONLY-O = §4.1)
+r10v157repro/arms/v157_e_count.sv              8/12/0                4/12/0
+
+TOTAL: 0 AWAY-GOLDEN cells introduced.  The three ONLY-OURS cells are the
+FILE-CONTENT ($unit) over-fire (README §4.1) and the pre-existing static-task
+span (README §4.4); both are on objects with no golden counterpart, and both
+leave the official uhdm-cmp head unchanged or further along.

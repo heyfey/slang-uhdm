@@ -1,0 +1,59 @@
+LHS:
+decompile:
+begin: (Ledger157::tallyNull157), id:14, line:4:5, endln:4:6
+|vpiParent:
+\_task: (Ledger157::tallyNull157), id:13, line:2:3, endln:5:10
+|vpiFullName:Ledger157::tallyNull157
+|vpiTypedef:
+\_bit_typespec: (markNull157), id:22, line:3:13, endln:3:22
+  |vpiName:markNull157
+  |vpiRange:
+  \_range: , id:19, line:3:17, endln:3:22
+    |vpiParent:
+    \_bit_typespec: (markNull157), id:22, line:3:13, endln:3:22
+    |vpiLeftRange:
+    \_constant: , id:20, line:3:18, endln:3:19
+      |vpiParent:
+      \_range: , id:19, line:3:17, endln:3:22
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:21, line:3:20, endln:3:21
+      |vpiParent:
+      \_range: , id:19, line:3:17, endln:3:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+
+decompile:
+begin: (Ledger157::tallyNull157), id:14, line:4:5, endln:4:6
+|vpiParent:
+\_task: (Ledger157::tallyNull157), id:13, line:2:3, endln:5:10
+|vpiFullName:Ledger157::tallyNull157
+|vpiTypedef:
+\_bit_typespec: (markNull157), id:22, line:3:13, endln:3:22
+  |vpiName:markNull157
+  |vpiRange:
+  \_range: , id:19, line:3:17, endln:3:22
+    |vpiParent:
+    \_bit_typespec: (markNull157), id:22, line:3:13, endln:3:22
+    |vpiLeftRange:
+    \_constant: , id:20, line:3:18, endln:3:19
+      |vpiParent:
+      \_range: , id:19, line:3:17, endln:3:22
+      |vpiDecompile:3
+      |vpiSize:64
+      |UINT:3
+      |vpiConstType:9
+    |vpiRightRange:
+    \_constant: , id:21, line:3:20, endln:3:21
+      |vpiParent:
+      \_range: , id:19, line:3:17, endln:3:22
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+RHS: <null>

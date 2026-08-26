@@ -1,0 +1,86 @@
+r10uvm157 — THE LANDING GATE BATTERY.  BASE 1f9906a.
+MEASUREMENT ONLY here; the official ~/git-repos/UHDM/build/bin/uhdm-cmp and
+scripts/verify_golden.py are the authorities.  slang was NOT patched;
+results/*.csv were READ ONLY; GOLDEN_DEFER stayed UNSET; nothing was promoted
+and NO CORPUS ROW CONVERTED.  The four slang-fenced tests were never dispatched
+and are named only inside canaudit.sh's own fence list.
+
+(1) BOTH BINARIES BUILT, -j 2, md5s taken separately, frozen chmod 555 BEFORE
+    any sweep:
+      pristine  100987bc8d76f2052aa842d7c65c5110   (clean 1f9906a worktree)
+      patched   d27df00cf3c52be5bee8d3286ef2b9b2
+
+(2) GOLDENS, SLANG_UHDM exported explicitly to EACH binary:
+      patched   PASS=23  FAIL=0
+      pristine  PASS=23
+      SLANG_UHDM=/bin/false  FAIL=23   (the negative control)
+
+(3) uhdm2rtlil, BOTH modes, --jobs 2, my own --out/--workdir:
+      testflags  CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2   (731 rows)
+      default    CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2   (731 rows)
+    ct8rows vs the COMMITTED results/gate_uhdm2rtlil.csv     -> 0 differing ROWS, PASS
+    ct8rows vs MY OWN pristine u2r_tf.csv                    -> 0 differing ROWS, PASS
+    ct8rows vs MY OWN pristine u2r_def.csv                   -> 0 differing ROWS, PASS
+    (status AND dump columns; the per-mode dump histogram is identical on both
+     sides: testflags 52/183 differ/496 match, default 52/187 differ/492 match)
+    NOTE: /tmp/ctl_u2r_1f9906a.csv and /tmp/ctl_sl_1f9906a.csv were REMOVED by
+    the master's control rotation while this pass was running, so the control
+    comparison is against THIS PASS'S OWN pristine sweep at the same BASE —
+    said out loud rather than quietly skipped.
+
+(4) surelog corpus, --mode both, --jobs 2, 1588 rows:
+      CMP_EQUAL 937  SLANG_REJECT 567  SURELOG_FAIL 48  CMP_NOTEQUAL 19
+      DEFERRED 10  NO_DATABASE 3  UNTRANSLATABLE 2  TIMEOUT 1  NO_UHDM 1
+    IDENTICAL to the pristine histogram, row for row.
+    ct8rows vs the COMMITTED results/golden_surelog.csv      -> 0 differing ROWS, PASS
+    ct8rows vs MY OWN pristine sl.csv                        -> 0 differing ROWS, PASS
+    NO ROW CONVERTED in either direction; CMP_NOTEQUAL stays 19.
+
+(5) byteverify SELFCHECK=1, both corpora:
+      surelog     PATH_SETS_IDENTICAL (956)   MOVERS 2 / 956   SELFCHECK 955/956 flagged
+                    ./default/BuildUVMPkg-bf853d43/slang.uhdm    PREDICTED BY NAME
+                    ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  PREDICTED BY NAME
+      uhdm2rtlil  PATH_SETS_IDENTICAL (1358)  MOVERS 0 / 1358  SELFCHECK 1357/1358 flagged
+    Scoreboard/default — the ~50/50 COIN — did NOT flip on this run; it is
+    byte-identical between the two sweeps.
+    The two movers were PREDICTED BY NAME from the PRISTINE databases before
+    the patched binary existed (PREDICT.r10uvm157.txt).
+
+    BuildUVMPkg, path-normalised whole-dump diff, pristine vs patched:
+      39 lines ADDED, 0 REMOVED, 0 CHANGED — the single listing entry and its
+      range subtree, byte for byte the object golden has (head_pris_*.cmp
+      lines 33-71 against dump/pat.txt).  Both modes produce the same database.
+
+(6) BINARY-PATH AUDIT of every cmds.txt (RESUME §9: verify_golden.py and
+    check_goldens.sh silently default SLANG_UHDM to the MAIN-TREE binary):
+      pristine surelog sweep  1523 references, ALL /tmp/r10uvm157_bin/pris.bin
+      pristine u2r sweeps     1458 references, ALL /tmp/r10uvm157_bin/pris.bin
+      patched surelog sweep   1523 references, ALL /tmp/r10uvm157_bin/pat.bin
+      patched u2r sweeps      1458 references, ALL /tmp/r10uvm157_bin/pat.bin
+      main-tree build/slang-uhdm references in any of the four sweeps: ZERO
+    No main-tree binary reached any cell; every arm records its own rc.
+
+(7) CANARIES:
+      canaries.sh  surelog      ok=52 changed=0 absent=0
+      canaries.sh  uhdm2rtlil   ok=8  changed=0 absent=0
+      EXPECT_UNKNOWN=1 ctcan2.sh surelog     PASS
+      EXPECT_UNKNOWN=6 ctcan2.sh uhdm2rtlil  PASS
+      canaudit.sh canaries.sh ctcan2.sh      audited=29 UNCOVERED=0 FENCE-BREACH=0
+    PROTECTED DATABASES by md5 (patched vs pristine), both modes:
+      InterfaceModPort   59a365f3ce2c  SAME
+      BlackParrotComplex e3e354129d5a / 73a10e8217e5  SAME
+      YosysOldOr         d68e0796d62c  SAME
+      SVSwitch           4842211c4030  SAME  (the brief's pin)
+      YosysVerx          6ccda350c24a  SAME  (the brief's pin)
+
+(8) HEADS — tools/probe/r10uvm67repro/rowheads.sh, both sweeps:
+      row-mode                pristine   patched
+      SeqDriver     def/tf      22 / 22    22 / 22   head log BYTE-IDENTICAL
+      SimpleUVM     def/tf     163 /163   163 /163   head log BYTE-IDENTICAL
+      Scoreboard    default    163        163        head log BYTE-IDENTICAL
+      MiniAmiq      def/tf     106 /106   106 /106   head log BYTE-IDENTICAL
+      BuildUVMPkg   def/tf    1371 /1371  163 /163   <- THE HEAD CLEARED
+      Earlgrey_0_1  def/tf      31 / 36    31 / 36   head log BYTE-IDENTICAL
+      Rggen         default      0          0        CMP_EQUAL, 0 heads
+    SKIP-NOFILE on Scoreboard/testflags and Rggen/testflags is expected (no
+    golden cache entry).  Counts are DEPTH, not distance.

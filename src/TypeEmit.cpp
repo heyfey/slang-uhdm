@@ -19264,4 +19264,71 @@ UHDM::typespec* UhdmExporter::makeStmtScopeTdUnsupTs155(const Symbol& declSym) {
     return uts;
 }
 
+// § stmtScopeTdListedOnEnclosingScope157 — THE FACTORY.  See
+// `stmtScopeTdListForm157` (src/EmitHelpers.h) for the decoded Surelog arm,
+// the form table and the citations.
+//
+// The three context flags matter and each is a MEASURED choice:
+//   * `bypassTypedefShare` — this object is Surelog's OWN per-statement one,
+//     not the shared registry entry a module/package typedef gets, so the
+//     shortcut that hands back a registered typedef's typespec must not fire.
+//   * `tfContext` — the procedural-declaration form: range bounds stay
+//     UNFOLDED, which is what `Reduce::No` gives Surelog here.
+//   * `typedefTsContext` is deliberately NOT set.  It folds `$bits(t)` bounds,
+//     which is right for a NAMED module/package typedef (`Reduce::Yes`) and
+//     WRONG here: the corpus head's own typedef is
+//     `bit [$bits(uvm_active_passive_enum)-1:0]` and golden keeps it an
+//     `operation` over a `sys_func_call` (head log, `vpiOpType:11`).
+UHDM::VectorOftypespec* UhdmExporter::makeStmtScopeTdListing157(const Scope& sc) {
+    // CLASSIFY EVERY TYPEDEF FIRST, BUILD NOTHING YET: a decline must leave
+    // the serializer exactly as it found it, or the abandoned objects would
+    // still be written to the database and move bytes on an arm this law
+    // does not claim.
+    std::vector<const TypeAliasType*> build157;
+    for (const auto& m157 : sc.members()) {
+        if (m157.kind != SymbolKind::TypeAlias)
+            continue;
+        auto& ta157 = m157.as<TypeAliasType>();
+        switch (stmtScopeTdListForm157(ta157)) {
+            case StmtTdList157::Skip:
+                continue;
+            case StmtTdList157::Decline:
+                return nullptr;
+            case StmtTdList157::Build:
+                build157.push_back(&ta157);
+                continue;
+        }
+    }
+    if (build157.empty())
+        return nullptr;
+    auto* tds157 = s.MakeTypespecVec();
+    for (const TypeAliasType* ta157 : build157) {
+        const syntax::SyntaxNode* tsyn157 = nullptr;
+        if (auto* syn157 = ta157->getSyntax())
+            if (syn157->kind == syntax::SyntaxKind::TypedefDeclaration)
+                tsyn157 = syn157->as<syntax::TypedefDeclarationSyntax>().type;
+        bool savedBTS157 = bypassTypedefShare;
+        bool savedTf157 = tfContext;
+        bypassTypedefShare = true;
+        tfContext = true;
+        auto* ts157 = makeTypespec(*ta157, tsyn157);
+        tfContext = savedTf157;
+        bypassTypedefShare = savedBTS157;
+        if (!ts157) {
+            // Unreachable for the kinds `stmtScopeTdListForm157` admits (each
+            // has a factory arm in makeTypespec); stated rather than assumed,
+            // and the WIDE boundary gate is what would convict it.
+            return nullptr;
+        }
+        // The BARE name: `fullName` gains a `pkg::` prefix only when
+        // `valuedcomponenti_cast<Package*>(scope)` succeeds, and `scope` is
+        // null for every member of this population
+        // (`CompileStmt.cpp:1286`).  No vpiInstance, no Typedef_alias, no
+        // vpiParent — all three are inside `reduce == Reduce::Yes` guards.
+        ts157->VpiName(ta157->name);
+        tds157->push_back(ts157);
+    }
+    return tds157;
+}
+
 } // namespace slang_uhdm

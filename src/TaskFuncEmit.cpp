@@ -6394,6 +6394,12 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         tfBodyPaAnchor9 = taskBodyPaAnchor9;
         bool savedPaUsed9 = tfBodyPaUsed9;
         tfBodyPaUsed9 = false;
+        // § stmtScopeTdListedOnEnclosingScope157 — the SITE 2 / SITE 3
+        // handshake (see UhdmExporter.h).  Saved and restored with the other
+        // per-body flags so a NESTED subroutine emission cannot answer for its
+        // caller.
+        bool savedTdListed157 = tfBodyTdListed157;
+        tfBodyTdListed157 = false;
         // § constructorBodyElementShift27 — a CLASS CONSTRUCTOR's body is
         // compiled by compileClassConstructorDeclaration, not by
         // compileFunction, and the two laws that separates out live in
@@ -6405,6 +6411,12 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         tfBodyCtor27 =
             (sub.flags & MethodFlags::Constructor) != MethodFlags::None;
         tfBodyCtorNoPorts27 = tfBodyCtor27 && sub.getArguments().empty();
+        // § stmtScopeTdListedOnEnclosingScope157 — SITE 3 runs AFTER both
+        // `tfBodyTfItems9` and `tfBodyCtor27` have been restored to the
+        // ENCLOSING subroutine's values, so its two gates are captured here,
+        // while they still describe THIS body.
+        const bool tdTfItems157 = tfBodyTfItems9;
+        const bool tdCtor157 = tfBodyCtor27;
         // § qualifiedCtorLosesPortListAndBody27: the routine never reaches a
         // statement at all when a qualifier displaced its anchor.
         // § qualifiedLifetimeMethodLosesNamePortsBody46: same, one node further
@@ -6477,6 +6489,8 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 pkgCloneBodyLocals9[tf] = std::move(lm9);
         }
         bool paUsed9 = tfBodyPaUsed9;
+        bool tdListed157 = tfBodyTdListed157;
+        tfBodyTdListed157 = savedTdListed157;
         tfBodyPaUsed9 = savedPaUsed9;
         tfBodyStmt9 = savedBodyStmt9;
         tfBodyTfItems9 = savedBodyIo9;
@@ -6541,6 +6555,30 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         pkgRetFoldHome86 = savedPRF86;
         if (body)
             tf->Stmt(body);
+        // § stmtScopeTdListedOnEnclosingScope157, SITE 3 of 3 — the SUBROUTINE
+        // WITH NO SYNTHESISED WRAPPER.  Surelog's "Page 983, 2017 Standard:
+        // 0 or 1 Stmt" arm passes the `task`/`function` ITSELF as `pstmt`
+        // (`CompileStmt.cpp:2115-2121` / `:2560-2566`), so a body whose only
+        // item is the typedef lists on the task_func.  Reached only when SITE 2
+        // did not fire — a wrapper that exists owns the listing, and an
+        // explicit `begin` body owns its own typedefs through SITE 1 (they are
+        // members of the BLOCK symbol, not of the subroutine, so this call
+        // finds nothing there).  grid157 `e_edge` `soleTd*` score it.
+        // ...and ONLY when Surelog's own item count is exactly ONE, which is
+        // the whole condition for its "0 or 1 Stmt" arm
+        // (`subroutineBodyItemCount157`, src/EmitHelpers.h, carries the count
+        // rule and the five measured golden answers).  A body of a typedef
+        // AND anything else — a second typedef, a local, a task parameter, a
+        // statement — puts the listing on the SYNTHESISED `begin`, which our
+        // wrapper threshold does not always build; listing on the task_func
+        // there is an AWAY, and `g157_d_sub` `emberDeclOnly157` /
+        // `emberReturn157` are the two cells that convicted the first cut.
+        // The TF-ITEM and CONSTRUCTOR gates are SITE 2's, repeated here
+        // because this site is reached without passing through it.
+        if (!tdListed157 && !tdTfItems157 && !tdCtor157 &&
+            subroutineBodyItemCount157(sub) == 1)
+            if (auto* tdl157 = makeStmtScopeTdListing157(sub))
+                tf->Typespecs(tdl157);
         // A packed-array-of-enum local is a body-block member in Surelog's
         // model; re-parent the function-var-loop copy from the function to
         // that block (the body's begin) so both listings agree.

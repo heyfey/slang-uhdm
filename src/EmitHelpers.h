@@ -4924,4 +4924,235 @@ inline std::vector<PkgTfEntry> collectPkgTfListing(
     return out;
 }
 
+// -----------------------------------------------------------------------------
+// § stmtScopeTdListedOnEnclosingScope157
+//
+// A TYPEDEF DECLARED INSIDE A STATEMENT SCOPE IS LISTED ON THAT SCOPE'S OWN
+// `Typespecs()` VECTOR — the other half of the arm r10uvm155 decoded.
+//
+// WHY, read off Surelog.  `CompileHelper::compileTypeDef`
+// (`src/DesignCompile/CompileHelper.cpp:501-517`) opens with
+//
+//     UHDM::VectorOftypespec* typespecs = nullptr;
+//     if (pstmt) {
+//       UHDM::scope* scope = any_cast<UHDM::scope*>(pstmt);
+//       if (scope) {
+//         typespecs = scope->Typespecs();
+//         if (typespecs == nullptr) { typespecs = s.MakeTypespecVec();
+//                                     scope->Typespecs(typespecs); }
+//       }
+//     }
+//
+// and EVERY later arm ends `if (typespecs) typespecs->push_back(<ts>)`
+// (`:688, :698, :702, :724, :734, :738, :776, :786, :790, :928, :961, :989,
+// :1013, :1042, :1095`).  `pstmt` is the ENCLOSING STATEMENT the
+// `paType_declaration` arm of `compileStmt` was called with
+// (`CompileStmt.cpp:1284-1290`) — for a `begin` / `named_begin` / `fork` /
+// `named_fork` that is the block object itself (`CompileStmt.cpp:334/427`,
+// which pass `stmt` as every child's `pstmt`), and for a SUBROUTINE body it is
+// the SYNTHESISED `begin` when the body has more than one item
+// (`CompileStmt.cpp:2043-2075`) or the `task`/`function` itself when it has
+// exactly one (`:2115-2121`).  `any_cast<UHDM::scope*>` is the whole gate: an
+// `if_stmt` / `case_stmt` / `while_stmt` is NOT a `scope`, so a declaration
+// can never land on one — and in legal SystemVerilog a `block_item_declaration`
+// only ever appears inside a `seq_block` / `par_block` / subroutine body
+// anyway.
+//
+// The `scope` (DesignComponent) argument is `nullptr` for exactly this
+// population (`CompileStmt.cpp:1286`, "Keep type declaration local to the
+// current stmt"), and `reduce` is `Reduce::No`, which is what makes the listed
+// object DIFFER from a package's or a module's:
+//   * NO `vpiInstance` — the `ts->Instance(scope->getUhdmInstance())` stamps at
+//     `:679, :709, :913, :1085` are all guarded by `reduce == Reduce::Yes &&
+//     valuedcomponenti_cast<Package*>(scope)`, and `scope` is null here;
+//   * NO `Typedef_alias` — the whole clone-and-alias arm at `:900-1046` is
+//     inside the same `reduce == Reduce::Yes && (Package || FileContent)`
+//     guard;
+//   * RANGE BOUNDS STAY SYMBOLIC — `compileTypespec` is called with
+//     `Reduce::No`, so `$bits(x)-1` and `PARAM-1` remain an `operation` over a
+//     `sys_func_call` / `ref_obj` instead of folding to a constant.  THIS IS
+//     THE CORPUS HEAD'S OWN SHAPE (`uvm_pkg.sv:51338 typedef bit [$bits(
+//     uvm_active_passive_enum)-1:0] __tmp_int_t__;`).
+//   * the NAME is the typedef's BARE name (`fullName` only gains a `pkg::`
+//     prefix when `valuedcomponenti_cast<Package*>(scope)` succeeds, and
+//     `scope` is null).
+//
+// AND THE ONE FORM THAT IS NOT LISTED AT ALL.  When the written target is a
+// NAME — `fC->Type(stype) == slStringConst || paClass_scope`, i.e. another
+// typedef, a class, a scoped type, or a forward declaration, with or without
+// the `virtual` keyword (`:882`, which steps over `paVIRTUAL`) — control takes
+// the DummyType arm at `:891-1051`, whose entire typespec construction is
+// wrapped in `if ((reduce == Reduce::Yes) && (Package || FileContent))`.
+// With `reduce == Reduce::No` that body is skipped and NOTHING is pushed.
+// MEASURED (`g157_b_form`, both views): golden lists 19 of the 22 typedefs in
+// one `begin`; the three it omits are exactly `typedef <other typedef> X`,
+// `typedef <class> X` and `typedef <pkg>::<type> X`.
+//
+// LISTING ORDER IS DECLARATION ORDER (the pushes happen as the statements are
+// walked); `g157_b_form` scores indices 0..18 in source order on both views.
+//
+// AN EMPTY VECTOR AND A NULL VECTOR ARE THE SAME ANSWER TO THE JUDGE.
+// `BaseClass::SafeCompare`'s vector overload (`~/.local/include/uhdm/
+// BaseClass.h:201-224`) returns 0 for (null, empty) and (empty, null) alike —
+// only a NON-EMPTY vector against a null one, or two vectors of different
+// size, can fail.  So a scope whose every typedef is a NAME target needs no
+// vector from us even though Surelog materialised an empty one at
+// `CompileHelper.cpp:513`.
+//
+// WHAT THIS LAW BUILDS, AND WHAT IT DECLINES.  The listed object is whatever
+// `compileTypespec` makes of the WRITTEN TYPE, and this pass claims only the
+// forms our shared `makeTypespec` already produces as ONE self-contained
+// object with no member/enum-constant sub-listing and no unpacked wrapper:
+// the vector and scalar forms (`bit`/`logic`, ranged or bare) and the ATOM
+// keywords (`int`, `byte`, `shortint`, `longint`, `integer`, `time`, `string`,
+// `real`, `shortreal`, `chandle`, `event`).  An `enum`, a `struct`, a `union`
+// and any UNPACKED-DIMENSIONED typedef are MEASURED (`g157_b_form` lists them
+// all) and DECLINED: their listed objects carry member / enum-const chains
+// whose naming and parenting are a different law's, and a HALF-listed vector
+// is worse than none — the size would then disagree in a NEW way.  The decline
+// is therefore taken over the WHOLE SCOPE, not per typedef: a scope holding
+// one declined form lists nothing at all and stays byte-identical to today.
+enum class StmtTdList157 { Skip, Build, Decline };
+
+// The WRITTEN target form of a typedef, classified exactly as Surelog's
+// `compileTypeDef` branches on `fC->Child(data_type)`.
+inline StmtTdList157 stmtScopeTdListForm157(const slang::ast::TypeAliasType& ta) {
+    namespace syntax = slang::syntax;
+    const syntax::SyntaxNode* syn = ta.getSyntax();
+    if (!syn)
+        return StmtTdList157::Decline;
+    // A FORWARD typedef (`typedef class C;` / `typedef C;`) is a
+    // ForwardingTypedefSymbol, never a TypeAliasType, so it cannot reach here;
+    // a TypeAliasType always carries a TypedefDeclarationSyntax.
+    if (syn->kind != syntax::SyntaxKind::TypedefDeclaration)
+        return StmtTdList157::Decline;
+    auto& td157 = syn->as<syntax::TypedefDeclarationSyntax>();
+    const syntax::DataTypeSyntax* tsyn157 = td157.type;
+    if (!tsyn157)
+        return StmtTdList157::Decline;
+    // (1) A NAME target — Surelog's DummyType arm, which pushes nothing under
+    //     `Reduce::No`.  `NamedType` covers a bare identifier, a scoped name
+    //     and a class name.
+    //     r10v157 AMENDMENT, MEASURED: `VirtualInterfaceType` (`typedef
+    //     virtual <iface> t;`) does NOT behave like the other name targets —
+    //     golden LISTS it, as an `interface_typespec` named for the typedef
+    //     (arm `v157_b_shape`, scope `b_nameonly157`: golden `N=1`, that entry
+    //     alone, while the bare-identifier and class-name typedefs beside it
+    //     are pushed nowhere).  It stays on this arm because SKIPPING it and
+    //     DECLINING it produce the same object graph today and because the
+    //     interface_typespec's own naming/parenting is a different law's; the
+    //     answer is an UNDER-fire (an ONLY-GOLDEN cell), never an AWAY.  The
+    //     "with or without the `virtual` keyword" reading of
+    //     `CompileHelper.cpp:882` is REFUTED and must not be re-stated.
+    if (tsyn157->kind == syntax::SyntaxKind::NamedType ||
+        tsyn157->kind == syntax::SyntaxKind::VirtualInterfaceType)
+        return StmtTdList157::Skip;
+    // (2) An UNPACKED-DIMENSIONED typedef becomes an `array_typespec` wrapper
+    //     (`CompileHelper.cpp:592-611` + `:1058-1064`).  Measured, declined.
+    if (!td157.dimensions.empty())
+        return StmtTdList157::Decline;
+    const slang::ast::Type& ct157 = ta.getCanonicalType();
+    switch (ct157.kind) {
+        case slang::ast::SymbolKind::ScalarType:
+        case slang::ast::SymbolKind::PackedArrayType:
+        case slang::ast::SymbolKind::PredefinedIntegerType:
+        case slang::ast::SymbolKind::StringType:
+        case slang::ast::SymbolKind::FloatingType:
+        case slang::ast::SymbolKind::CHandleType:
+        case slang::ast::SymbolKind::EventType:
+            return StmtTdList157::Build;
+        default:
+            return StmtTdList157::Decline;
+    }
+}
+
+// Is @a s one of the two symbol kinds whose UHDM object is a `scope` Surelog
+// can push a statement-local typedef onto?  (The same test
+// § blockLocalTdDeclIsRefVarUnsupported155 uses for "invisible to
+// `getDataType`" — the two laws are the two halves of one arm.)
+// § stmtScopeTdListedOnEnclosingScope157 — SURELOG'S BODY-ITEM COUNT, which is
+// what decides WHICH object a SUBROUTINE's own typedefs land on.
+//
+// `compileTask` / `compileFunction` read `Statement_or_null` and then
+// `MoreStatement_or_null = fC->Sibling(Statement_or_null)`
+// (`CompileStmt.cpp:2037-2041` / `:2455-2462`).  With a sibling ("Page 983,
+// 2017 Standard: More than 1 Stmts") they synthesise a `begin` and hand THAT
+// to every body statement as `pstmt`; without one they hand the `task` /
+// `function` itself (`:2115-2121`).  The siblings counted are SOURCE ITEMS —
+// `block_item_declaration`s and statements alike — so a typedef, a local
+// declaration and a task-scope parameter each count as one.
+//
+// MEASURED, golden, both views (`g157_d_sub`, and the two probe files quoted
+// in the pass README):
+//   `task t(); typedef bit[2:0] q; endtask`                 -> on the TASK
+//   `task t(); typedef q1; typedef q2; endtask`             -> on a #body begin
+//   `task t(); parameter K=2; typedef q; endtask`           -> on a #body begin
+//   `task t(); typedef q; q v; endtask`                     -> on a #body begin
+//   `function int f(); typedef q; return 1; endfunction`    -> on a #body begin
+// and NOT MEASURABLE, because Surelog SEGFAULTS on it (rc=139 in a package, a
+// module and a class alike, while the `task` spelling is rc=0):
+//   `function void f(); typedef bit[2:0] q; endfunction`
+//
+// COUNTED OFF THE SOURCE, NOT OFF THE AST.  `MoreStatement_or_null =
+// fC->Sibling(Statement_or_null)` walks Surelog's PARSE TREE, so what it counts
+// is the subroutine's written item list — `FunctionDeclarationSyntax::items`,
+// which slang fills with one entry per `block_item_declaration` and per
+// `statement_or_null` for a `function` and a `task` alike.  An AST-side count
+// is BLIND to every source item slang does not model as one of a handful of
+// member kinds or as a body statement, and r10v157 measured two such items,
+// each of which made this site fire where golden had put the listing on the
+// SYNTHESISED `begin` instead (arm `v157_e_count`, `bakeNull157` /
+// `bakeLet157`, and the two-line repros `v157_p1_null.sv` / `v157_p2_let.sv`):
+//   `task t; typedef bit[3:0] q; ; endtask`      the NULL STATEMENT `;` —
+//        slang leaves the body an `Empty` statement, which the AST count
+//        deliberately skipped, while Surelog counts the `;` as an item and
+//        synthesises a `begin` spanning it (golden: task `Typespecs` NULL, the
+//        `begin` carries the entry).
+//   `task t; typedef bit[3:0] q; let w(x) = x+1; endtask`   a LET DECLARATION
+//        — neither a counted member kind nor a body statement in slang (and
+//        `UH0701 Unsupported statement` in Surelog), yet Surelog counts it and
+//        synthesises the same `begin`.
+// Both read `N=1` on the `task` against golden's `N=null` before this count was
+// moved to the syntax, i.e. PRISTINE-RIGHT -> PATCHED-WRONG, with the official
+// `uhdm-cmp` head moving EARLIER in `scope::Compare`'s walk (to `Typespecs`,
+// :348) than the pre-existing `Stmt` residue it used to stop at.
+// A subroutine with no `FunctionDeclarationSyntax` (a builtin method) keeps the
+// AST count; it can hold no written typedef, so the fallback is never the
+// deciding answer.
+inline size_t subroutineBodyItemCount157(
+    const slang::ast::SubroutineSymbol& sub) {
+    if (const slang::syntax::SyntaxNode* ssyn157 = sub.getSyntax())
+        if (auto* fd157 =
+                ssyn157->as_if<slang::syntax::FunctionDeclarationSyntax>())
+            return fd157->items.size();
+    size_t n157 = 0;
+    for (const auto& m157 : sub.members()) {
+        switch (m157.kind) {
+            case slang::ast::SymbolKind::TypeAlias:
+            case slang::ast::SymbolKind::ForwardingTypedef:
+            case slang::ast::SymbolKind::Parameter:
+            case slang::ast::SymbolKind::TypeParameter:
+                n157++;
+                break;
+            default:
+                break;
+        }
+    }
+    // A body LOCAL is both a member and a `VariableDeclStatement` in the body
+    // list; it is counted once, there.
+    const slang::ast::Statement& b157 = sub.getBody();
+    if (b157.kind == slang::ast::StatementKind::List)
+        n157 += b157.as<slang::ast::StatementList>().list.size();
+    else if (b157.kind != slang::ast::StatementKind::Empty)
+        n157++;
+    return n157;
+}
+
+inline bool stmtScopeHasTdListing157(const slang::ast::Scope& sc) {
+    for (const auto& m : sc.members())
+        if (m.kind == slang::ast::SymbolKind::TypeAlias)
+            return true;
+    return false;
+}
+
 } // namespace slang_uhdm
