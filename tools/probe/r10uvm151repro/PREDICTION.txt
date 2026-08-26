@@ -1,0 +1,52 @@
+# r10uvm151 — THE A-PRIORI MOVER PREDICTION.  MEASUREMENT ONLY.
+# Produced from the PRISTINE sweep's databases and each test's OWN GOLDEN
+# (read out of that test's cmds.txt so the pairing cannot drift), BEFORE the
+# patched binary produced anything.
+#
+#   CEN=<ct151cen> censweep151.sh <sweep-workdir> <cen-out-dir>
+#   pred151.py <cen-out-dir>
+#
+# THE PREDICATE, read off GOLDEN + PRISTINE alone, at one ID-FREE key
+# (FILE, ANCH) — ANCH being the shape anchor: the PREFIX's start for a prefixed
+# method_func_call, the object's own start otherwise, so the two shapes pair
+# ACROSS the type flip:
+#
+#     golden  KIND=FC   PFX=-   NARG=0  WITH=0  FUNC=0
+#     ours    KIND=MFC  PFX=<a name>
+#
+# Nothing else in either database has that pair of shapes.
+#
+# The scan ran with CT151CEN_NOTAIL=1 (UHDM's own dump visitor formats every
+# line even into a sink and runs for eight minutes on AmiqEth's 62 MB golden).
+# With the tail pass OFF the census can only OVER-count — a stale clone's cells
+# are counted as well as the live ones — so naming the same nine databases with
+# it off names them A FORTIORI.
+#
+# ===== SURELOG =====
+DATABASES-WITH-BOTH 956
+PREDICTED-MOVER-DATABASES 9  PREDICTED-CELLS 15
+   MOVER default__BuildUVMPkg-bf853d43                                cells=2
+   MOVER default__MiniAmiq-544c7f61                                   cells=3
+   MOVER default__Scoreboard-59431470                                 cells=1
+   MOVER default__SeqDriver-32af76aa                                  cells=1
+   MOVER default__SimpleUVM-1dc93a62                                  cells=1
+   MOVER testflags__BuildUVMPkg-bf853d43                              cells=2
+   MOVER testflags__MiniAmiq-544c7f61                                 cells=3
+   MOVER testflags__SeqDriver-32af76aa                                cells=1
+   MOVER testflags__SimpleUVM-1dc93a62                                cells=1
+DISTINCT-SOURCE-SITES 4
+   SITE svaunit_immediate_assertion_info.svh:158:7 name=checks_details x2
+   SITE svaunit_test_suite.svh:495:3 name=lof_tests x2
+   SITE uvm_component.svh:3436:9 name=m_time_settings x7
+   SITE uvm_pkg.sv:41234:9 name=m_time_settings x4
+   KIND  RIGHT->RIGHT 143599  WRONG->RIGHT 15    RIGHT->WRONG 0   WRONG->WRONG 948  AWAY 0
+   NAME  RIGHT->RIGHT 141957  WRONG->RIGHT 15    RIGHT->WRONG 0   WRONG->WRONG 2590 AWAY 0
+#
+# ===== UHDM2RTLIL =====
+DATABASES-WITH-BOTH 1358
+PREDICTED-MOVER-DATABASES 0  PREDICTED-CELLS 0
+DISTINCT-SOURCE-SITES 0
+#
+# MEASURED (byteverify.sh SELFCHECK=1, patched sweep vs this worktree's own
+# pristine sweep):  MOVERS 9 / 956 surelog and 0 / 1358 uhdm2rtlil — EXACTLY
+# the nine named above, by name.  See MOVERS.txt.

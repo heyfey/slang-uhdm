@@ -1,0 +1,36 @@
+LHS:
+decompile:
+enum_const: (UVM_CVR_ALL), id:28233, line:279:7, endln:279:32
+|vpiParent:
+\_enum_typespec: (uvm_pkg::uvm_coverage_model_e), id:28216, line:274:4, endln:280:27
+|vpiName:UVM_CVR_ALL
+|INT:-1
+|vpiDecompile:-1
+|vpiSize:64
+
+decompile:
+enum_const: (UVM_CVR_ALL), id:28233, line:279:7, endln:279:32
+|vpiParent:
+\_enum_typespec: (uvm_pkg::uvm_coverage_model_e), id:28216, line:274:4, endln:280:27
+|vpiName:UVM_CVR_ALL
+|INT:-1
+|vpiDecompile:-1
+|vpiSize:64
+RHS:
+decompile:
+enum_const: (UVM_CVR_ALL), id:3617, line:279:7, endln:279:32
+|vpiParent:
+\_enum_typespec: (uvm_pkg::uvm_coverage_model_e), id:3609, line:274:4, endln:280:27
+|vpiName:UVM_CVR_ALL
+|INT:4294967295
+|vpiDecompile:4294967295
+|vpiSize:64
+
+decompile:
+enum_const: (UVM_CVR_ALL), id:3617, line:279:7, endln:279:32
+|vpiParent:
+\_enum_typespec: (uvm_pkg::uvm_coverage_model_e), id:3609, line:274:4, endln:280:27
+|vpiName:UVM_CVR_ALL
+|INT:4294967295
+|vpiDecompile:4294967295
+|vpiSize:64

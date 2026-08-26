@@ -1,0 +1,42 @@
+# r10uvm151 — THE CORPUS CENSUS, golden vs pristine vs patched.
+# MEASUREMENT ONLY.  LHS is always golden; RHS is always ours.
+# ct151cen over EVERY database of both sweeps and every matching golden;
+# pred151.py joins them as MULTISETS on the ID-FREE key (FILE, ANCH) and scores
+# the six fields func_call::Compare / method_func_call::Compare actually read.
+# SPANS APPEAR ONLY IN KEYS, never as scored columns (RESUME.md §9).
+#
+# ===== SURELOG — 956 databases, 144 000+ scored call cells =====
+   SITE uvm_pkg.sv:41234:9 name=m_time_settings x4
+   KIND  RIGHT->RIGHT 143599  WRONG->RIGHT 15    RIGHT->WRONG 0   WRONG->WRONG 948  AWAY 0
+   NAME  RIGHT->RIGHT 141957  WRONG->RIGHT 15    RIGHT->WRONG 0   WRONG->WRONG 2590 AWAY 0
+   PFX   RIGHT->RIGHT 144525  WRONG->RIGHT 15    RIGHT->WRONG 0   WRONG->WRONG 22   AWAY 0
+   NARG  RIGHT->RIGHT 142728  WRONG->RIGHT 0     RIGHT->WRONG 0   WRONG->WRONG 1834 AWAY 0
+   WITH  RIGHT->RIGHT 144539  WRONG->RIGHT 0     RIGHT->WRONG 0   WRONG->WRONG 23   AWAY 0
+   FUNC  RIGHT->RIGHT 144538  WRONG->RIGHT 0     RIGHT->WRONG 0   WRONG->WRONG 24   AWAY 0
+   ROWSETS ONLY-GOLDEN pris=152045 pat=152045   ONLY-OURS pris=152476 pat=152476
+#
+# ===== UHDM2RTLIL — 1358 databases =====
+DISTINCT-SOURCE-SITES 0
+   KIND  RIGHT->RIGHT 9934    WRONG->RIGHT 0     RIGHT->WRONG 0   WRONG->WRONG 0    AWAY 0
+   NAME  RIGHT->RIGHT 9934    WRONG->RIGHT 0     RIGHT->WRONG 0   WRONG->WRONG 0    AWAY 0
+   PFX   RIGHT->RIGHT 9934    WRONG->RIGHT 0     RIGHT->WRONG 0   WRONG->WRONG 0    AWAY 0
+   NARG  RIGHT->RIGHT 9934    WRONG->RIGHT 0     RIGHT->WRONG 0   WRONG->WRONG 0    AWAY 0
+   WITH  RIGHT->RIGHT 9934    WRONG->RIGHT 0     RIGHT->WRONG 0   WRONG->WRONG 0    AWAY 0
+   FUNC  RIGHT->RIGHT 9868    WRONG->RIGHT 0     RIGHT->WRONG 0   WRONG->WRONG 66   AWAY 0
+   ROWSETS ONLY-GOLDEN pris=98 pat=98   ONLY-OURS pris=42 pat=42
+#
+# READ IT THIS WAY:
+#   * WRONG->RIGHT 15 on KIND, NAME and PFX — the law's whole scoreable corpus
+#     population, converted;
+#   * RIGHT->WRONG 0 and AWAY 0 on EVERY column of BOTH corpora — nothing moved
+#     the wrong way and nothing moved to a third answer;
+#   * the WRONG->WRONG counts are PRE-EXISTING residues of OTHER laws, and they
+#     are UNCHANGED (identical pristine and patched);
+#   * ROWSETS are IDENTICAL pristine -> patched on both corpora: this law
+#     replaces one object with one object and mints or removes nothing.
+#
+# The census scores 15 PAIRED cells while the emitter flipped 30 OBJECTS: the
+# join takes min() of the two multiplicities at each anchor, and golden holds
+# fewer copies of a wildcard-imported package body than we do.  That row-set
+# gap is pre-existing, identical pristine -> patched, and belongs to a
+# different law.

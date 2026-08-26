@@ -2179,6 +2179,32 @@ private:
                                 const slang::ast::Expression& recv,
                                 std::string_view name,
                                 const slang::ast::Constraint*& cons);
+    /// § stmtBuiltinBodyIsBareRecvCall151 — THE STATEMENT-POSITION
+    /// `method_call_body` DEGENERATE.  Surelog's `subroutine_call` production
+    /// (`grammar/SV3_1aParser.g4:3185`) offers two roads for
+    /// `<name>.<method>(…)`: the `(constant_bit_select DOT identifier)*` road,
+    /// which `CompileHelper::compileTfCall` (`CompileHelper.cpp:4218`) turns
+    /// into the `method_func_call(<method>) { vpiPrefix <name> }` we already
+    /// emit, and the `select (DOT method_call_body)` road, which it cannot
+    /// decode at all — no `paConstant_bit_select` sibling, no `getTaskFunc`
+    /// hit, no let-declaration — so it falls out of the bottom at
+    /// `CompileHelper.cpp:4310` as a BARE `func_call` named after the
+    /// RECEIVER, spanned over the whole `Subroutine_call` node, with no
+    /// prefix, no arguments and no `vpiWith`.  A call takes the second road
+    /// exactly when the grammar cannot spell it as `identifier`-dot-
+    /// `identifier`: when a `with` clause follows (only
+    /// `array_manipulation_call` and `randomize_call` may carry one) or when
+    /// the method token is one of the four KEYWORD array-method names
+    /// `unique` / `and` / `or` / `xor` (`array_method_name`,
+    /// `SV3_1aParser.g4:3247`).  Answers TRUE for exactly those, and hands
+    /// back the bound inline constraint of the randomize form so the caller
+    /// can span through the block's `}`.  The full law, its fences and the
+    /// golden grid live at the call site in `ExprEmit.cpp`.
+    bool stmtBuiltinBodyDegenerate151(const slang::ast::CallExpression& call,
+                                      const slang::ast::Expression& expr,
+                                      const slang::ast::Expression& recv,
+                                      std::string_view name,
+                                      const slang::ast::Constraint*& cons);
     /// § concatIdxDecompile29 — a hier_path select whose index is a
     /// CONCATENATION renders that index by DECOMPILING the expression TREE, not
     /// by copying the source text the way every other index does.

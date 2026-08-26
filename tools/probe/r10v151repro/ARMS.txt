@@ -1,0 +1,236 @@
+== v151_1_withexpr.def  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+   KIND  RIGHT->RIGHT 14    WRONG->RIGHT 25   RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NAME  RIGHT->RIGHT 14    WRONG->RIGHT 25   RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   PFX   RIGHT->RIGHT 14    WRONG->RIGHT 25   RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NARG  RIGHT->RIGHT 39    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   WITH  RIGHT->RIGHT 39    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   FUNC  RIGHT->RIGHT 39    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   ROWSETS ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=0 pat=0
+   VERDICT CLEAN
+   DESIGN-SECTION order-blind lines differing from golden: pristine=737 patched=487
+== v151_1_withexpr.elab  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+   KIND  RIGHT->RIGHT 14    WRONG->RIGHT 25   RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NAME  RIGHT->RIGHT 14    WRONG->RIGHT 25   RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   PFX   RIGHT->RIGHT 14    WRONG->RIGHT 25   RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NARG  RIGHT->RIGHT 39    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   WITH  RIGHT->RIGHT 39    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   FUNC  RIGHT->RIGHT 39    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   ROWSETS ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=0 pat=0
+   VERDICT CLEAN
+   DESIGN-SECTION order-blind lines differing from golden: pristine=787 patched=487
+v151_2p_packed.def: NO-pris rc_sl=0 rc_pris=3 rc_pat=3 rc_cen_g=0 
+v151_2p_packed.def: NO-pat rc_sl=0 rc_pris=3 rc_pat=3 rc_cen_g=0 
+== v151_2p_packed.def  rc_sl=0 rc_pris=3 rc_pat=3 rc_cen_g=0 
+Traceback (most recent call last):
+  File "/tmp/wt_v151/tools/probe/r10v151repro/../r10uvm151repro/score151.py", line 83, in <module>
+    main()
+  File "/tmp/wt_v151/tools/probe/r10v151repro/../r10uvm151repro/score151.py", line 44, in main
+    g, o, p = (load(a) for a in sys.argv[1:4])
+    ^^^^^^^
+  File "/tmp/wt_v151/tools/probe/r10v151repro/../r10uvm151repro/score151.py", line 44, in <genexpr>
+    g, o, p = (load(a) for a in sys.argv[1:4])
+               ^^^^^^^
+  File "/tmp/wt_v151/tools/probe/r10v151repro/../r10uvm151repro/score151.py", line 32, in load
+    for ln in open(p):
+              ^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/v151_armsF/v151_2p_packed.def/pris.cen'
+   DESIGN-SECTION order-blind lines differing from golden: pristine=201 patched=201
+v151_2p_packed.elab: NO-pris rc_sl=0 rc_pris=3 rc_pat=3 rc_cen_g=0 
+v151_2p_packed.elab: NO-pat rc_sl=0 rc_pris=3 rc_pat=3 rc_cen_g=0 
+== v151_2p_packed.elab  rc_sl=0 rc_pris=3 rc_pat=3 rc_cen_g=0 
+Traceback (most recent call last):
+  File "/tmp/wt_v151/tools/probe/r10v151repro/../r10uvm151repro/score151.py", line 83, in <module>
+    main()
+  File "/tmp/wt_v151/tools/probe/r10v151repro/../r10uvm151repro/score151.py", line 44, in main
+    g, o, p = (load(a) for a in sys.argv[1:4])
+    ^^^^^^^
+  File "/tmp/wt_v151/tools/probe/r10v151repro/../r10uvm151repro/score151.py", line 44, in <genexpr>
+    g, o, p = (load(a) for a in sys.argv[1:4])
+               ^^^^^^^
+  File "/tmp/wt_v151/tools/probe/r10v151repro/../r10uvm151repro/score151.py", line 32, in load
+    for ln in open(p):
+              ^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/v151_armsF/v151_2p_packed.elab/pris.cen'
+   DESIGN-SECTION order-blind lines differing from golden: pristine=299 patched=299
+== v151_2_recv.def  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+   KIND  RIGHT->RIGHT 9     WRONG->RIGHT 11   RIGHT->WRONG 0   WRONG->WRONG 3   AWAY 0
+   NAME  RIGHT->RIGHT 6     WRONG->RIGHT 11   RIGHT->WRONG 0   WRONG->WRONG 6   AWAY 0
+   PFX   RIGHT->RIGHT 12    WRONG->RIGHT 11   RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NARG  RIGHT->RIGHT 20    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 3   AWAY 0
+   WITH  RIGHT->RIGHT 23    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   FUNC  RIGHT->RIGHT 23    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   ROWSETS ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=0 pat=0
+   VERDICT CLEAN
+   DESIGN-SECTION order-blind lines differing from golden: pristine=697 patched=607
+== v151_2_recv.elab  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+   KIND  RIGHT->RIGHT 9     WRONG->RIGHT 11   RIGHT->WRONG 0   WRONG->WRONG 3   AWAY 0
+   NAME  RIGHT->RIGHT 6     WRONG->RIGHT 11   RIGHT->WRONG 0   WRONG->WRONG 6   AWAY 0
+   PFX   RIGHT->RIGHT 12    WRONG->RIGHT 11   RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NARG  RIGHT->RIGHT 20    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 3   AWAY 0
+   WITH  RIGHT->RIGHT 23    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   FUNC  RIGHT->RIGHT 23    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   ROWSETS ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=0 pat=0
+   VERDICT CLEAN
+   DESIGN-SECTION order-blind lines differing from golden: pristine=739 patched=643
+== v151_3_homes.def  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+   KIND  RIGHT->RIGHT 0     WRONG->RIGHT 12   RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NAME  RIGHT->RIGHT 0     WRONG->RIGHT 12   RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   PFX   RIGHT->RIGHT 0     WRONG->RIGHT 12   RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NARG  RIGHT->RIGHT 12    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   WITH  RIGHT->RIGHT 12    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   FUNC  RIGHT->RIGHT 12    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   ROWSETS ONLY-GOLDEN pris=2 pat=2   ONLY-OURS pris=0 pat=0
+   VERDICT CLEAN
+   DESIGN-SECTION order-blind lines differing from golden: pristine=662 patched=542
+== v151_3_homes.elab  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+   KIND  RIGHT->RIGHT 0     WRONG->RIGHT 21   RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NAME  RIGHT->RIGHT 0     WRONG->RIGHT 21   RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   PFX   RIGHT->RIGHT 0     WRONG->RIGHT 21   RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NARG  RIGHT->RIGHT 21    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   WITH  RIGHT->RIGHT 21    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   FUNC  RIGHT->RIGHT 21    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   ROWSETS ONLY-GOLDEN pris=2 pat=2   ONLY-OURS pris=0 pat=0
+   VERDICT CLEAN
+   DESIGN-SECTION order-blind lines differing from golden: pristine=930 patched=686
+== v151_4_nonarray.def  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+   KIND  RIGHT->RIGHT 48    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NAME  RIGHT->RIGHT 48    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   PFX   RIGHT->RIGHT 48    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NARG  RIGHT->RIGHT 48    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   WITH  RIGHT->RIGHT 48    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   FUNC  RIGHT->RIGHT 48    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   ROWSETS ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=0 pat=0
+   VERDICT CLEAN
+   DESIGN-SECTION order-blind lines differing from golden: pristine=501 patched=501
+== v151_4_nonarray.elab  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+   KIND  RIGHT->RIGHT 48    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NAME  RIGHT->RIGHT 48    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   PFX   RIGHT->RIGHT 48    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NARG  RIGHT->RIGHT 48    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   WITH  RIGHT->RIGHT 48    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   FUNC  RIGHT->RIGHT 48    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   ROWSETS ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=0 pat=0
+   VERDICT CLEAN
+   DESIGN-SECTION order-blind lines differing from golden: pristine=501 patched=501
+== v151_5_ctx.def  rc_sl=4 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+   KIND  RIGHT->RIGHT 12    WRONG->RIGHT 17   RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NAME  RIGHT->RIGHT 12    WRONG->RIGHT 17   RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   PFX   RIGHT->RIGHT 12    WRONG->RIGHT 17   RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NARG  RIGHT->RIGHT 29    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   WITH  RIGHT->RIGHT 29    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   FUNC  RIGHT->RIGHT 29    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   ROWSETS ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=0 pat=0
+   VERDICT CLEAN
+   DESIGN-SECTION order-blind lines differing from golden: pristine=681 patched=513
+== v151_5_ctx.elab  rc_sl=4 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+   KIND  RIGHT->RIGHT 12    WRONG->RIGHT 21   RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NAME  RIGHT->RIGHT 12    WRONG->RIGHT 21   RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   PFX   RIGHT->RIGHT 12    WRONG->RIGHT 21   RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NARG  RIGHT->RIGHT 33    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   WITH  RIGHT->RIGHT 33    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   FUNC  RIGHT->RIGHT 33    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   ROWSETS ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=0 pat=0
+   VERDICT CLEAN
+   DESIGN-SECTION order-blind lines differing from golden: pristine=763 patched=523
+== v151_6_shadow.def  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+   KIND  RIGHT->RIGHT 3     WRONG->RIGHT 10   RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NAME  RIGHT->RIGHT 4     WRONG->RIGHT 9    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   PFX   RIGHT->RIGHT 3     WRONG->RIGHT 10   RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NARG  RIGHT->RIGHT 13    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   WITH  RIGHT->RIGHT 13    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   FUNC  RIGHT->RIGHT 10    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 3   AWAY 0
+   ROWSETS ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=0 pat=0
+   VERDICT CLEAN
+   DESIGN-SECTION order-blind lines differing from golden: pristine=589 patched=493
+== v151_6_shadow.elab  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+   KIND  RIGHT->RIGHT 3     WRONG->RIGHT 10   RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NAME  RIGHT->RIGHT 4     WRONG->RIGHT 9    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   PFX   RIGHT->RIGHT 3     WRONG->RIGHT 10   RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NARG  RIGHT->RIGHT 13    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   WITH  RIGHT->RIGHT 13    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   FUNC  RIGHT->RIGHT 10    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 3   AWAY 0
+   ROWSETS ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=0 pat=0
+   VERDICT CLEAN
+   DESIGN-SECTION order-blind lines differing from golden: pristine=619 patched=503
+== v151_7_rand.def  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+   KIND  RIGHT->RIGHT 20    WRONG->RIGHT 5    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NAME  RIGHT->RIGHT 20    WRONG->RIGHT 5    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   PFX   RIGHT->RIGHT 20    WRONG->RIGHT 5    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NARG  RIGHT->RIGHT 24    WRONG->RIGHT 1    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   WITH  RIGHT->RIGHT 25    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   FUNC  RIGHT->RIGHT 25    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   ROWSETS ONLY-GOLDEN pris=1 pat=1   ONLY-OURS pris=0 pat=0
+   VERDICT CLEAN
+   DESIGN-SECTION order-blind lines differing from golden: pristine=570 patched=514
+== v151_7_rand.elab  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+   KIND  RIGHT->RIGHT 20    WRONG->RIGHT 5    RIGHT->WRONG 0   WRONG->WRONG 1   AWAY 0
+   NAME  RIGHT->RIGHT 20    WRONG->RIGHT 5    RIGHT->WRONG 0   WRONG->WRONG 1   AWAY 0
+   PFX   RIGHT->RIGHT 21    WRONG->RIGHT 5    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NARG  RIGHT->RIGHT 24    WRONG->RIGHT 1    RIGHT->WRONG 0   WRONG->WRONG 1   AWAY 0
+   WITH  RIGHT->RIGHT 25    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 1   AWAY 0
+   FUNC  RIGHT->RIGHT 26    WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   ROWSETS ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=0 pat=0
+   VERDICT CLEAN
+   DESIGN-SECTION order-blind lines differing from golden: pristine=580 patched=514
+== v151_8_tfname.def  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+   KIND  RIGHT->RIGHT 0     WRONG->RIGHT 4    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 2
+   NAME  RIGHT->RIGHT 0     WRONG->RIGHT 6    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   PFX   RIGHT->RIGHT 0     WRONG->RIGHT 6    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NARG  RIGHT->RIGHT 6     WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   WITH  RIGHT->RIGHT 6     WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   FUNC  RIGHT->RIGHT 2     WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 4   AWAY 0
+   ROWSETS ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=0 pat=0
+   VERDICT DIRTY
+   DESIGN-SECTION order-blind lines differing from golden: pristine=553 patched=497
+== v151_8_tfname.elab  rc_sl=0 rc_pris=0 rc_pat=0 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+   KIND  RIGHT->RIGHT 0     WRONG->RIGHT 4    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 2
+   NAME  RIGHT->RIGHT 0     WRONG->RIGHT 6    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   PFX   RIGHT->RIGHT 0     WRONG->RIGHT 6    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NARG  RIGHT->RIGHT 6     WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   WITH  RIGHT->RIGHT 6     WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   FUNC  RIGHT->RIGHT 2     WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 4   AWAY 0
+   ROWSETS ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=0 pat=0
+   VERDICT DIRTY
+   DESIGN-SECTION order-blind lines differing from golden: pristine=565 patched=497
+== v151_9_map.def  rc_sl=0 rc_pris=4 rc_pat=4 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+   KIND  RIGHT->RIGHT 0     WRONG->RIGHT 6    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NAME  RIGHT->RIGHT 0     WRONG->RIGHT 5    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 1
+   PFX   RIGHT->RIGHT 0     WRONG->RIGHT 6    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NARG  RIGHT->RIGHT 6     WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   WITH  RIGHT->RIGHT 6     WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   FUNC  RIGHT->RIGHT 6     WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   ROWSETS ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=0 pat=0
+   VERDICT DIRTY
+   DESIGN-SECTION order-blind lines differing from golden: pristine=554 patched=498
+== v151_9_map.elab  rc_sl=0 rc_pris=4 rc_pat=4 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+   KIND  RIGHT->RIGHT 0     WRONG->RIGHT 6    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NAME  RIGHT->RIGHT 0     WRONG->RIGHT 5    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 1
+   PFX   RIGHT->RIGHT 0     WRONG->RIGHT 6    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NARG  RIGHT->RIGHT 6     WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   WITH  RIGHT->RIGHT 6     WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   FUNC  RIGHT->RIGHT 6     WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   ROWSETS ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=0 pat=0
+   VERDICT DIRTY
+   DESIGN-SECTION order-blind lines differing from golden: pristine=558 patched=498
+== v151_a_name.def  rc_sl=0 rc_pris=4 rc_pat=4 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+   KIND  RIGHT->RIGHT 0     WRONG->RIGHT 4    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NAME  RIGHT->RIGHT 0     WRONG->RIGHT 2    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 2
+   PFX   RIGHT->RIGHT 0     WRONG->RIGHT 4    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NARG  RIGHT->RIGHT 4     WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   WITH  RIGHT->RIGHT 4     WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   FUNC  RIGHT->RIGHT 4     WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   ROWSETS ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=0 pat=0
+   VERDICT DIRTY
+   DESIGN-SECTION order-blind lines differing from golden: pristine=634 patched=602
+== v151_a_name.elab  rc_sl=0 rc_pris=4 rc_pat=4 rc_cen_g=0 rc_cen_pris=0 rc_cen_pat=0 
+   KIND  RIGHT->RIGHT 0     WRONG->RIGHT 4    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NAME  RIGHT->RIGHT 0     WRONG->RIGHT 2    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 2
+   PFX   RIGHT->RIGHT 0     WRONG->RIGHT 4    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   NARG  RIGHT->RIGHT 4     WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   WITH  RIGHT->RIGHT 4     WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   FUNC  RIGHT->RIGHT 4     WRONG->RIGHT 0    RIGHT->WRONG 0   WRONG->WRONG 0   AWAY 0
+   ROWSETS ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=0 pat=0
+   VERDICT DIRTY
+   DESIGN-SECTION order-blind lines differing from golden: pristine=634 patched=602
+LISTED=11 PROCESSED=11
+PROCESSED-ASSERT-OK

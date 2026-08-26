@@ -1,0 +1,79 @@
+# r10uvm151 — GATES.  MEASUREMENT ONLY except where the official tools judge.
+# BASE 1c45a507.  Both binaries were built in THIS worktree at that base and
+# frozen `chmod 555` at immutable paths BEFORE any sweep:
+#
+#   pristine  /tmp/r10uvm151_bin/pris.bin   md5 50992c1d030a3cfa83f37a54a8b25f1f
+#   patched   /tmp/r10uvm151_bin/pat.bin    md5 df4708693277d41ddbb48a8f99fd7052
+#
+# EVERY cmds.txt of EVERY sweep directory was audited BY BINARY PATH (not by
+# the string "slang-uhdm", which also matches slang-uhdm-goldens/):
+#
+#   find sl u2r -name cmds.txt | wc -l                       3035
+#   grep -ho 'slang: *[^ ]*' … | sort | uniq -c
+#       2981  slang:   /tmp/r10uvm151_bin/pris.bin           <- the ONLY value
+#   (the remaining 54 cmds.txt carry no `slang:` line at all — Surelog produced
+#    no database, so slang was never invoked.  Never the main-tree binary.)
+
+(1) BUILD, -j 2, md5 taken separately
+    pristine  Built target slang_uhdm, 0 errors
+    patched   Built target slang_uhdm, 0 errors
+
+(2) tests/check_goldens.sh, SLANG_UHDM exported explicitly TO EACH BINARY
+    pristine  PASS=23 FAIL=0
+    patched   PASS=23 FAIL=0
+    negative control SLANG_UHDM=/bin/false   PASS=0 FAIL=23
+
+(3) uhdm2rtlil, both modes
+    testflags CMP_EQUAL 679 / SLANG_REJECT 50 / SURELOG_FAIL 2   (pristine == patched)
+    default   CMP_EQUAL 679 / SLANG_REJECT 50 / SURELOG_FAIL 2   (pristine == patched)
+    ct8rows vs results/gate_uhdm2rtlil.csv                       PASS, 0 differing ROWS
+    ct8rows vs this worktree's own pristine testflags csv        PASS, 0 differing ROWS
+    ct8rows vs this worktree's own pristine default csv          PASS, 0 differing ROWS
+    (WHOLE-ROW comparison — status AND dump column.)
+
+(4) surelog --mode both, 1588 row-modes
+    default   471 CMP_EQUAL / 10 CMP_NOTEQUAL / 5 DEFERRED / 283 SLANG_REJECT
+              / 25 SURELOG_FAIL
+    testflags 466 CMP_EQUAL / 9 CMP_NOTEQUAL / 5 DEFERRED / 3 NO_DATABASE
+              / 1 NO_UHDM / 284 SLANG_REJECT / 23 SURELOG_FAIL / 1 TIMEOUT
+              / 2 UNTRANSLATABLE
+    — byte-identical pristine -> patched in both modes.
+    ct8rows vs results/golden_surelog.csv                 PASS, 0 differing ROWS over 1588
+    ct8rows vs this worktree's own pristine csv           PASS, 0 differing ROWS over 1588
+    NO ROW WAS CONVERTED.  results/*.csv were READ ONLY and never written.
+
+(5) byteverify.sh SELFCHECK=1
+    uhdm2rtlil  MOVERS 0 / 1358   PATH_SETS_IDENTICAL   SELFCHECK 1357/1358 flagged
+    surelog     MOVERS 9 /  956   PATH_SETS_IDENTICAL   SELFCHECK  955/956 flagged
+    The nine are EXACTLY the nine PREDICTION.txt named BY NAME from the
+    PRISTINE and GOLDEN censuses before the patched binary produced anything.
+    See MOVERS.txt for the line-by-line attribution.
+
+CANARIES
+    canaries.sh surelog     ok=52 changed=0 absent=0
+    canaries.sh uhdm2rtlil  ok=8  changed=0 absent=0
+    EXPECT_UNKNOWN=1 ctcan2.sh surelog      PASS
+    EXPECT_UNKNOWN=6 ctcan2.sh uhdm2rtlil   PASS
+    canaudit.sh canaries.sh ctcan2.sh       PASS, audited=29 UNCOVERED=0 FENCE-BREACH=0
+
+PROTECTED DATABASES (md5, patched vs pristine)
+    InterfaceModPort    default/testflags  59a365f3ce2c  SAME
+    BlackParrotComplex  default e3e354129d5a / testflags 73a10e8217e5  SAME
+    YosysOldOr          default/testflags  d68e0796d62c  SAME
+    SVSwitch            default/testflags  4842211c4030  PINNED
+    YosysVerx           default/testflags  6ccda350c24a  PINNED
+
+WIDE BOUNDARY (BOUNDARY.txt)
+    4227 files x 2 views = 8454 file-views, two halves
+    half 0  LISTED=2077 PROCESSED=2077 MOVED=0  BREACH=0 RC-MISMATCH=0 NORUN=124
+    half 1  LISTED=2150 PROCESSED=2150 MOVED=12 BREACH=0 RC-MISMATCH=0 NORUN=184
+    BOUNDARY PASS on both.  The twelve are this pass's own five arms in both
+    views (10) plus r10v99repro/v99_b7_order.sv in both views, which is
+    re-measured against golden in BOUNDARY.txt and moves TOWARD it
+    (def 1506 -> 1494 cmp lines, elab 1910 -> 1882).
+    CTRL=1 positive control on the five arms: POSITIVE-CONTROL-OK, 10 moved.
+
+FENCED TESTS
+    The four slang-fenced tests were never dispatched by anything in this
+    directory and are not spelled anywhere in it; they are named ONLY inside
+    canaudit.sh's own fence list, which is what audits them.

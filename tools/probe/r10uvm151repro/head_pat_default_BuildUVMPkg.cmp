@@ -1,0 +1,68 @@
+LHS:
+decompile:
+func_call: (uvm_root::get), id:161763, line:29217:10, endln:29217:18
+|vpiParent:
+\_begin: (uvm_pkg::uvm_report_catcher::print_catcher), id:161762, line:29216:4, endln:29219:7
+|vpiName:uvm_root::get
+|vpiFunction:
+\_function: (uvm_pkg::uvm_root::get), id:786, line:38754:1, endln:38757:12
+
+decompile:
+func_call: (uvm_root::get), id:161763, line:29217:10, endln:29217:18
+|vpiParent:
+\_begin: (uvm_pkg::uvm_report_catcher::print_catcher), id:161762, line:29216:4, endln:29219:7
+|vpiName:uvm_root::get
+|vpiFunction:
+\_function: (uvm_pkg::uvm_root::get), id:786, line:38754:1, endln:38757:12
+RHS:
+decompile:
+method_func_call: (uvm_report_enabled), id:87198, line:29217:26, endln:29217:44
+|vpiParent:
+\_begin: (uvm_pkg::uvm_report_catcher::print_catcher), id:87196, line:29216:4, endln:29219:7
+|vpiArgument:
+\_ref_obj: (uvm_pkg::uvm_report_catcher::print_catcher::UVM_LOW), id:87199, line:29217:45, endln:29217:52
+  |vpiParent:
+  \_method_func_call: (uvm_report_enabled), id:87198, line:29217:26, endln:29217:44
+  |vpiName:UVM_LOW
+  |vpiFullName:uvm_pkg::uvm_report_catcher::print_catcher::UVM_LOW
+|vpiArgument:
+\_ref_obj: (uvm_pkg::uvm_report_catcher::print_catcher::UVM_INFO), id:87200, line:29217:53, endln:29217:61
+  |vpiParent:
+  \_method_func_call: (uvm_report_enabled), id:87198, line:29217:26, endln:29217:44
+  |vpiName:UVM_INFO
+  |vpiFullName:uvm_pkg::uvm_report_catcher::print_catcher::UVM_INFO
+|vpiArgument:
+\_constant: , id:87201, line:29217:62, endln:29217:82
+  |vpiParent:
+  \_method_func_call: (uvm_report_enabled), id:87198, line:29217:26, endln:29217:44
+  |vpiDecompile:"UVM/REPORT/CATCHER"
+  |vpiSize:144
+  |STRING:UVM/REPORT/CATCHER
+  |vpiConstType:6
+|vpiName:uvm_report_enabled
+
+decompile:
+method_func_call: (uvm_report_enabled), id:87198, line:29217:26, endln:29217:44
+|vpiParent:
+\_begin: (uvm_pkg::uvm_report_catcher::print_catcher), id:87196, line:29216:4, endln:29219:7
+|vpiArgument:
+\_ref_obj: (uvm_pkg::uvm_report_catcher::print_catcher::UVM_LOW), id:87199, line:29217:45, endln:29217:52
+  |vpiParent:
+  \_method_func_call: (uvm_report_enabled), id:87198, line:29217:26, endln:29217:44
+  |vpiName:UVM_LOW
+  |vpiFullName:uvm_pkg::uvm_report_catcher::print_catcher::UVM_LOW
+|vpiArgument:
+\_ref_obj: (uvm_pkg::uvm_report_catcher::print_catcher::UVM_INFO), id:87200, line:29217:53, endln:29217:61
+  |vpiParent:
+  \_method_func_call: (uvm_report_enabled), id:87198, line:29217:26, endln:29217:44
+  |vpiName:UVM_INFO
+  |vpiFullName:uvm_pkg::uvm_report_catcher::print_catcher::UVM_INFO
+|vpiArgument:
+\_constant: , id:87201, line:29217:62, endln:29217:82
+  |vpiParent:
+  \_method_func_call: (uvm_report_enabled), id:87198, line:29217:26, endln:29217:44
+  |vpiDecompile:"UVM/REPORT/CATCHER"
+  |vpiSize:144
+  |STRING:UVM/REPORT/CATCHER
+  |vpiConstType:6
+|vpiName:uvm_report_enabled

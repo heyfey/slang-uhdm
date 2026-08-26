@@ -1,0 +1,75 @@
+# r10uvm151 — THE NINE BYTE MOVERS, NAMED A PRIORI AND ATTRIBUTED.
+# MEASUREMENT ONLY.  LHS is always golden (Surelog); RHS is always ours.
+#
+# byteverify.sh SELFCHECK=1, patched sweep vs this worktree's own pristine
+# sweep, both produced by binaries frozen chmod 555 at immutable paths:
+#
+#   uhdm2rtlil  MOVERS 0 / 1358   PATH_SETS_IDENTICAL   SELFCHECK 1357/1358
+#   surelog     MOVERS 9 /  956   PATH_SETS_IDENTICAL   SELFCHECK  955/956
+#
+# The nine are EXACTLY the nine PREDICTION.txt named from the PRISTINE and
+# GOLDEN censuses before the patched binary produced anything:
+#
+#   default/BuildUVMPkg  default/MiniAmiq  default/Scoreboard
+#   default/SeqDriver    default/SimpleUVM
+#   testflags/BuildUVMPkg  testflags/MiniAmiq  testflags/SeqDriver
+#   testflags/SimpleUVM
+#
+# (Scoreboard/testflags is SLANG_REJECT and has no database of its own.)
+#
+# ATTRIBUTION — attr151.py over each mover's ct151cen census and its whole
+# uhdm-dump with the weakly-referenced tail cut off:
+#   default/BuildUVMPkg-bf853d43       FLIPS=2 CENBAD=0 (census half)
+#   default/MiniAmiq-544c7f61          FLIPS=6 CENBAD=0 (census half)
+#   default/Scoreboard-59431470        FLIPS=2 CENBAD=0 (census half)
+#   default/SeqDriver-32af76aa         FLIPS=4 CENBAD=0 (census half)
+#   default/SimpleUVM-1dc93a62         FLIPS=2 CENBAD=0 (census half)
+#   testflags/BuildUVMPkg-bf853d43     FLIPS=2 CENBAD=0 (census half)
+#   testflags/MiniAmiq-544c7f61        FLIPS=6 CENBAD=0 (census half)
+#   testflags/SeqDriver-32af76aa       FLIPS=4 CENBAD=0 (census half)
+#   testflags/SimpleUVM-1dc93a62       FLIPS=2 CENBAD=0 (census half)
+#
+# DUMP HALF (in emission order, weakly-referenced tail cut off):
+#   every mover DUMPBAD=0 EXCEPT default/Scoreboard, whose in-order diff carries
+#   92 extra lines.  Those 92 are the KNOWN svunit_pkg `vpiTaskFunc` ORDER COIN
+#   (RESUME.md §9), and this pass PROVED it rather than asserting it: three runs
+#   of the PRISTINE binary alone on the same sources produced two distinct
+#   databases, and the two dumps differ by
+#
+#       in-order      94 lines
+#       order-blind    2 lines  — and both of them are the dump's own header
+#                                 line naming the .uhdm file, i.e. ZERO real
+#                                 lines.
+#
+#   Scoreboard is therefore attributed ORDER-BLIND and no other way, and its
+#   order-blind design-section diff is EXACTLY the law's 18 lines (below).
+#
+# ORDER-BLIND DESIGN-SECTION LINE COUNTS (sorted dumps, workdir path and `id:`
+# normalised away, tail cut off) — pristine vs patched, per mover:
+#
+#   default/BuildUVMPkg    18      testflags/BuildUVMPkg    18
+#   default/MiniAmiq       58      testflags/MiniAmiq       58
+#   default/Scoreboard     18
+#   default/SeqDriver      38      testflags/SeqDriver      38
+#   default/SimpleUVM      18      testflags/SimpleUVM      18
+#
+# and every one of those lines is one of the law's own — the removed
+# `method_func_call: (sort)` / `(rsort)` and its `vpiPrefix` `ref_obj`
+# sub-tree, and the added `func_call: (<receiver>)`.  Scoreboard's eighteen,
+# verbatim:
+#
+#   < \_method_func_call: (sort), line:3436:25, endln:3436:29        (x4 indents)
+#   < \_ref_obj: (uvm_pkg::uvm_component::m_set_cl_verb::m_time_settings),
+#   <                                       line:3436:9, endln:3436:24   (x2)
+#   < |vpiName:sort            (x2)   < |vpiPrefix:   (x2)
+#   < |vpiParent:              (x2)   < |vpiFullName:uvm_pkg::…::m_time_settings (x2)
+#   < |vpiName:m_time_settings (x1)
+#   > \_func_call: (m_time_settings), line:3436:9, endln:3436:52      (x2)
+#   > |vpiName:m_time_settings                                        (x1)
+#
+# THE FOUR DISTINCT SOURCE SITES behind all nine movers (PREDICTION.txt):
+#   uvm-1.2  base/uvm_component.svh:3436   `m_time_settings.sort() with ( item.offset );`
+#   1800.2   uvm_pkg.sv:41234              the same statement in the pp_output
+#   SVAUnit  svaunit_immediate_assertion_info.svh:158
+#                                          `checks_details.rsort(item) with (…);`
+#   SVAUnit  svaunit_test_suite.svh:495    `lof_tests.rsort(item) with (…);`

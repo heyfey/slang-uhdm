@@ -1264,6 +1264,48 @@ bool UhdmExporter::memberRandomizeWith119(const CallExpression& call,
     return true;
 }
 
+// § stmtBuiltinBodyIsBareRecvCall151 — THE PREDICATE.  See the decoded law and
+// the golden grid at the call site (the STATEMENT-position built-in method arm
+// in `emitExpr`'s `ExpressionKind::Call` case).  Three disjuncts, one for each
+// way Surelog's `subroutine_call` production is forced onto its
+// `select (DOT method_call_body)` road, all read off slang's BOUND AST:
+//
+//   1. an ARRAY-MANIPULATION call carrying a `with (…)` clause.  slang parks
+//      the iteration expression and its iterator symbol on the call's
+//      `IteratorCallInfo` (`getIteratorInfo()`), set for exactly the calls
+//      that wrote one — the same pair § arrayWithIsRecvPath9 already reads in
+//      the EXPRESSION arm a few hundred lines below, where golden's answer is
+//      a hier_path named after the array alone.
+//   2. one of the four KEYWORD array-method names.  `array_method_name`
+//      (`SV3_1aParser.g4:3247`) is `identifier | unique_call | and_call |
+//      or_call | xor_call`, and `UNIQUE`/`AND`/`OR`/`XOR` are LEXER TOKENS, so
+//      `iq.unique()` can never match the `identifier`-dot-`identifier` road
+//      even with no `with` in sight — while `iq.unique_index()`,
+//      `iq.shuffle()`, `iq.sum()` and `iq.sort()` (all plain identifiers) all
+//      do.  These four names are SystemVerilog KEYWORDS, so no user
+//      subroutine can wear them and the string test cannot collide.
+//   3. `randomize` with a CONSTRAINT BLOCK — § memberRandomizeWith119's own
+//      predicate, reused verbatim.  `randomize_call`
+//      (`SV3_1aParser.g4:3232`) is the OTHER `built_in_method_call`
+//      alternative, and `RANDOMIZE` is a token too; but Surelog's `identifier`
+//      rule admits it, so `o.randomize()` and `o.randomize(x)` DO take the
+//      first road and keep the method shape (measured: `arms151.sh` arm D
+//      cells 14/15/24) — only the constraint block forces the second.
+bool UhdmExporter::stmtBuiltinBodyDegenerate151(
+    const CallExpression& call, const Expression& expr, const Expression& recv,
+    std::string_view name, const slang::ast::Constraint*& cons) {
+    cons = nullptr;
+    if (!call.isSystemCall())
+        return false;
+    if (std::get<CallExpression::SystemCallInfo>(call.subroutine)
+            .getIteratorInfo()
+            .first)
+        return true;
+    if (name == "unique" || name == "and" || name == "or" || name == "xor")
+        return true;
+    return memberRandomizeWith119(call, expr, recv, name, cons);
+}
+
 bool UhdmExporter::retNameRecvCollapse69(const Expression& recv,
                                          bool stmtCtx) const {
     if (!stmtCtx || !funcRetSym)
@@ -22896,6 +22938,155 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         bool deep0 = dots.size() > 1;
                         const std::string& callNm0 = deep0 ? dots[1] : name;
                         const std::string& recvNm0 = dots[0];
+                        // § stmtBuiltinBodyIsBareRecvCall151 — SITE 1 of 1,
+                        // AND THE CORPUS HEAD (uvm-1.2
+                        // `base/uvm_component.svh:3436`,
+                        // `m_time_settings.sort() with ( item.offset );`
+                        // inside `uvm_component::m_set_cl_verb` — uvm148's R0
+                        // and the SeqDriver x2 / MiniAmiq x2 head).
+                        //
+                        // THE DECODE.  Surelog's `subroutine_call`
+                        // (`grammar/SV3_1aParser.g4:3185`) reads
+                        //
+                        //   identifier (constant_bit_select DOT identifier)*
+                        //     ( OPEN_PARENS list_of_arguments CLOSE_PARENS
+                        //     | select )
+                        //     (DOT method_call_body)?
+                        //
+                        // and `CompileHelper::compileTfCall`
+                        // (`CompileHelper.cpp:4218`) decodes ONLY the first
+                        // road: it takes `fC->Sibling(tfNameNode)`, tests it
+                        // for `paConstant_bit_select`, and on a hit mints the
+                        // `method_func_call(<method>) { vpiPrefix <name> }`
+                        // this arm already builds.  When the sibling is a
+                        // `paSelect` instead — the SECOND road, the one that
+                        // ends in `DOT method_call_body` — nothing in that
+                        // function matches: `getTaskFunc(name)` misses (the
+                        // name is a VARIABLE), `getLetStmt(name)` misses, and
+                        // the call falls out of the bottom at
+                        // `CompileHelper.cpp:4310`:
+                        //
+                        //     if (call == nullptr) {
+                        //       call = s.MakeFunc_call();
+                        //       call->VpiParent(pexpr);
+                        //     }
+                        //     if (call->VpiName().empty()) call->VpiName(name);
+                        //     if (call->VpiLineNo() == 0)
+                        //       fC->populateCoreMembers(Tf_call_stmt,
+                        //                               Tf_call_stmt, call);
+                        //     … compileTfCallArguments(fC->Sibling(tfNameNode))
+                        //
+                        // — a BARE `func_call` NAMED AFTER THE RECEIVER
+                        // (`fC->SymName(dollar_or_string)`, the base
+                        // identifier, subscript and all method text
+                        // discarded), spanned over the WHOLE `Subroutine_call`
+                        // node, with NO prefix, NO `vpiWith` and NO arguments
+                        // (the argument walk lands on the `paSelect` and
+                        // returns null).  Every one of those four facts is
+                        // measured on golden below, not assumed.
+                        //
+                        // WHEN THE SECOND ROAD IS FORCED — the predicate's
+                        // three disjuncts, decoded at
+                        // `stmtBuiltinBodyDegenerate151`: a `with` clause
+                        // (only `array_manipulation_call` and
+                        // `randomize_call` may carry one), or the four KEYWORD
+                        // array-method names `unique`/`and`/`or`/`xor`.
+                        //
+                        // GOLDEN SAYS IT IN ONE TASK (`g151_a_body.sv`,
+                        // `g151_d_kind.sv`), SEVENTEEN CELLS, DEF AND ELAB:
+                        //
+                        //   iq.sort()   with (item);  -> func_call(iq)   <- LAW
+                        //   qa.sort()   with (item);  -> func_call(qa)   <- LAW
+                        //   aq.find_index() with (…); -> func_call(aq)   <- LAW
+                        //   iq.find()   with (item>0);-> func_call(iq)   <- LAW
+                        //   qq.sort     with (item.o);-> func_call(qq)   <- LAW
+                        //   qarr[2].sort() with (…);  -> func_call(qarr) <- LAW
+                        //   bq.and();  bq.or();  bq.xor();  iq.unique();
+                        //                             -> func_call(bq/iq)<- LAW
+                        //   o.randomize() with { … }; -> func_call(o)    <- LAW
+                        //   ---------------------------------------------------
+                        //   iq.sort();  iq.sort;  iq.reverse();
+                        //   iq.shuffle();  iq.unique_index();
+                        //   iq.sum();  iq.min();  iq.max();  iq.product();
+                        //   qarr[2].shuffle();  o.randomize();
+                        //   o.randomize(rv);  oarr[1].randomize();
+                        //                             -> method_func_call +
+                        //                                vpiPrefix — UNMOVED,
+                        //                                and byte-identical
+                        //                                pristine->patched.
+                        //
+                        // THE THREE FENCES, each measured:
+                        //   * `!deep0` — a MULTI-COMPONENT receiver takes the
+                        //     FIRST road anyway (the `(constant_bit_select DOT
+                        //     identifier)*` star eats `h . q2` and the
+                        //     `paConstant_bit_select` sibling test hits), so
+                        //     golden keeps `method_func_call(q2){prefix h}`
+                        //     for `h.q2.sort() with (item);` — exactly what
+                        //     this arm already emits.  Arm B measures three
+                        //     of them (`h.q2`, `harr[2].q2`, `nxt.h.q2`).
+                        //   * a `this.`/`super.`-rooted receiver never reaches
+                        //     here: `handleStmtCall85` above returns first,
+                        //     and Surelog takes a THIRD road for it
+                        //     (`paImplicit_class_handle` ->
+                        //     `compileComplexFuncCall`, whose answer is a
+                        //     `hier_path` named `this.<step>` — README
+                        //     residue R1, untouched by this pass).
+                        //   * EXPRESSION position is a different Surelog
+                        //     function entirely (`compileExpression`'s dotted
+                        //     path builder, `CompileExpression.cpp:5610`),
+                        //     which DOES decode the `paMethod_call_body` and
+                        //     mints the hier_path + `vpiWith`
+                        //     § arrayWithIsRecvPath9 already ships.  `stmtCtx`
+                        //     is the whole gate, and arm A carries the rvalue,
+                        //     argument and condition twins of every law cell
+                        //     to prove they do not move.
+                        {
+                            const slang::ast::Constraint* rc151 = nullptr;
+                            if (!deep0 &&
+                                stmtBuiltinBodyDegenerate151(call, expr, *recv,
+                                                             name, rc151)) {
+                                // THE NAME is `fC->SymName(dollar_or_string)`
+                                // — the receiver's BASE identifier.  The
+                                // subscript of an indexed single-component
+                                // receiver is dropped, and it is dropped the
+                                // same TREE-FENCED way
+                                // § dottedIdxRecvFromSyntax23 drops it for
+                                // this arm's prefix: only where
+                                // `builtinRecvStepSelectors74` has confirmed
+                                // the text split against the bound receiver.
+                                std::string bn151 = recvNm0;
+                                if (stepOk23 && !stepSel74.empty() &&
+                                    !stepSel74[0].sels.empty())
+                                    bn151 = stepSel74[0].base;
+                                auto* fc151 = s.MakeFunc_call();
+                                fc151->VpiName(bn151);
+                                fc151->VpiParent(parent);
+                                // THE SPAN is the whole `Subroutine_call`
+                                // node.  For the `with`-clause forms slang's
+                                // own `expr.sourceRange` stops at the
+                                // METHOD's `)`, and the invocation syntax
+                                // (`ArrayOrRandomizeMethodExpressionSyntax`)
+                                // is what carries the clause; for the
+                                // randomize form the block's own syntax
+                                // carries the closing `}`
+                                // (§ memberRandomizeWithIsRecvPath119's
+                                // measurement, reused).  For the keyword
+                                // forms there is no clause and
+                                // `expr.sourceRange` already IS the whole
+                                // written call.
+                                setLoc(fc151,
+                                       rc151 && rc151->syntax
+                                           ? SourceRange(
+                                                 expr.sourceRange.start(),
+                                                 rc151->syntax
+                                                     ->sourceRange()
+                                                     .end())
+                                       : expr.syntax
+                                             ? expr.syntax->sourceRange()
+                                             : expr.sourceRange);
+                                return fc151;
+                            }
+                        }
                         // § dottedIdxRecvFromSyntax23 — the STATEMENT-position
                         // PREFIX of an INDEXED single-component receiver is the
                         // BASE NAME, with the subscript dropped entirely.

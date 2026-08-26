@@ -1,0 +1,106 @@
+# r10uvm151 — WIDE BOUNDARY GATE.  MEASUREMENT ONLY (uhdm-cmp is the judge).
+# Every .sv/.svh under tools/probe/ (4227 files x 2 views = 8454 file-views),
+# pristine vs patched, run as two halves of the sorted file list.
+#
+# THE FIRST RUN OF THIS GATE PRINTED GREEN HAVING COMPILED NOTHING.  The file
+# list was built with a doubled `tools/probe/tools/probe/` prefix, every `cd`
+# failed, every database was absent, and the gate reported
+# `MOVED=0 BREACH=0 NORUN=4166` — RESUME.md §9's "a top-level glob ran nothing
+# and printed green", live.  bound151.sh now carries a NORUN ASSERT that fails
+# when NORUN swallows the whole list, and both halves below print
+# NORUN-ASSERT-OK with a NORUN of 124 / 184 (files BOTH binaries decline
+# identically; every rc is recorded and an rc MISMATCH is itself a breach).
+
+===== POSITIVE CONTROL (this pass's own five arms, CTRL=1) =====
+MOVED tmp/wt_r10uvm151/tools/probe/r10uvm151repro/g151_a_body.sv def FLIPS=17 CENBAD=0 DUMPBAD=0 dumplines=170 cenlines=34
+MOVED tmp/wt_r10uvm151/tools/probe/r10uvm151repro/g151_a_body.sv elab FLIPS=17 CENBAD=0 DUMPBAD=0 dumplines=204 cenlines=34
+MOVED tmp/wt_r10uvm151/tools/probe/r10uvm151repro/g151_b_recv.sv def FLIPS=6 CENBAD=0 DUMPBAD=0 dumplines=60 cenlines=12
+MOVED tmp/wt_r10uvm151/tools/probe/r10uvm151repro/g151_b_recv.sv elab FLIPS=6 CENBAD=0 DUMPBAD=0 dumplines=72 cenlines=12
+MOVED tmp/wt_r10uvm151/tools/probe/r10uvm151repro/g151_c_home.sv def FLIPS=51 CENBAD=0 DUMPBAD=0 dumplines=522 cenlines=102
+MOVED tmp/wt_r10uvm151/tools/probe/r10uvm151repro/g151_c_home.sv elab FLIPS=65 CENBAD=0 DUMPBAD=0 dumplines=734 cenlines=130
+MOVED tmp/wt_r10uvm151/tools/probe/r10uvm151repro/g151_d_kind.sv def FLIPS=15 CENBAD=0 DUMPBAD=0 dumplines=156 cenlines=30
+MOVED tmp/wt_r10uvm151/tools/probe/r10uvm151repro/g151_d_kind.sv elab FLIPS=15 CENBAD=0 DUMPBAD=0 dumplines=186 cenlines=30
+MOVED tmp/wt_r10uvm151/tools/probe/r10uvm151repro/g151_e_ctx.sv def FLIPS=13 CENBAD=0 DUMPBAD=0 dumplines=130 cenlines=26
+MOVED tmp/wt_r10uvm151/tools/probe/r10uvm151repro/g151_e_ctx.sv elab FLIPS=13 CENBAD=0 DUMPBAD=0 dumplines=156 cenlines=26
+LISTED=5 PROCESSED=5 MOVED=10 BREACH=0 RC-MISMATCH=0 NORUN=0
+PROCESSED-ASSERT-OK
+NORUN-ASSERT-OK (0 of 10 file-views produced no database)
+POSITIVE-CONTROL-OK (gate can see: 10 moved)
+
+===== half 0 (files 1-2077) =====
+/tmp/wt_r10uvm151/tools/probe/r10uvm151repro/bound151.sh: line 64: 1810221 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm151/tools/probe/r10uvm151repro/bound151.sh: line 64: 1810353 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm151/tools/probe/r10uvm151repro/bound151.sh: line 64: 1817590 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm151/tools/probe/r10uvm151repro/bound151.sh: line 64: 1817743 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+LISTED=2077 PROCESSED=2077 MOVED=0 BREACH=0 RC-MISMATCH=0 NORUN=124
+PROCESSED-ASSERT-OK
+NORUN-ASSERT-OK (124 of 4154 file-views produced no database)
+BOUNDARY PASS
+
+===== half 1 (files 2078-4227) =====
+MOVED tmp/wt_r10uvm151/tools/probe/r10uvm151repro/g151_a_body.sv def FLIPS=17 CENBAD=0 DUMPBAD=0 dumplines=170 cenlines=34
+MOVED tmp/wt_r10uvm151/tools/probe/r10uvm151repro/g151_a_body.sv elab FLIPS=17 CENBAD=0 DUMPBAD=0 dumplines=204 cenlines=34
+MOVED tmp/wt_r10uvm151/tools/probe/r10uvm151repro/g151_b_recv.sv def FLIPS=6 CENBAD=0 DUMPBAD=0 dumplines=60 cenlines=12
+MOVED tmp/wt_r10uvm151/tools/probe/r10uvm151repro/g151_b_recv.sv elab FLIPS=6 CENBAD=0 DUMPBAD=0 dumplines=72 cenlines=12
+MOVED tmp/wt_r10uvm151/tools/probe/r10uvm151repro/g151_c_home.sv def FLIPS=51 CENBAD=0 DUMPBAD=0 dumplines=522 cenlines=102
+MOVED tmp/wt_r10uvm151/tools/probe/r10uvm151repro/g151_c_home.sv elab FLIPS=65 CENBAD=0 DUMPBAD=0 dumplines=734 cenlines=130
+MOVED tmp/wt_r10uvm151/tools/probe/r10uvm151repro/g151_d_kind.sv def FLIPS=15 CENBAD=0 DUMPBAD=0 dumplines=156 cenlines=30
+MOVED tmp/wt_r10uvm151/tools/probe/r10uvm151repro/g151_d_kind.sv elab FLIPS=15 CENBAD=0 DUMPBAD=0 dumplines=186 cenlines=30
+MOVED tmp/wt_r10uvm151/tools/probe/r10uvm151repro/g151_e_ctx.sv def FLIPS=13 CENBAD=0 DUMPBAD=0 dumplines=130 cenlines=26
+MOVED tmp/wt_r10uvm151/tools/probe/r10uvm151repro/g151_e_ctx.sv elab FLIPS=13 CENBAD=0 DUMPBAD=0 dumplines=156 cenlines=26
+/tmp/wt_r10uvm151/tools/probe/r10uvm151repro/bound151.sh: line 64: 1944920 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm151/tools/probe/r10uvm151repro/bound151.sh: line 64: 1944971 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm151/tools/probe/r10uvm151repro/bound151.sh: line 64: 1956521 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm151/tools/probe/r10uvm151repro/bound151.sh: line 64: 1956586 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm151/tools/probe/r10uvm151repro/bound151.sh: line 64: 1965669 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm151/tools/probe/r10uvm151repro/bound151.sh: line 64: 1965736 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+MOVED tmp/wt_r10uvm151/tools/probe/r10v99repro/v99_b7_order.sv def FLIPS=2 CENBAD=0 DUMPBAD=0 dumplines=20 cenlines=4
+MOVED tmp/wt_r10uvm151/tools/probe/r10v99repro/v99_b7_order.sv elab FLIPS=4 CENBAD=0 DUMPBAD=0 dumplines=44 cenlines=8
+/tmp/wt_r10uvm151/tools/probe/r10uvm151repro/bound151.sh: line 64: 2207935 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm151/tools/probe/r10uvm151repro/bound151.sh: line 64: 2208001 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm151/tools/probe/r10uvm151repro/bound151.sh: line 64: 2209670 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm151/tools/probe/r10uvm151repro/bound151.sh: line 64: 2209721 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm151/tools/probe/r10uvm151repro/bound151.sh: line 64: 2225695 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm151/tools/probe/r10uvm151repro/bound151.sh: line 64: 2225759 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm151/tools/probe/r10uvm151repro/bound151.sh: line 64: 2227154 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm151/tools/probe/r10uvm151repro/bound151.sh: line 64: 2227240 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm151/tools/probe/r10uvm151repro/bound151.sh: line 64: 2235334 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm151/tools/probe/r10uvm151repro/bound151.sh: line 64: 2235403 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm151/tools/probe/r10uvm151repro/bound151.sh: line 64: 2236453 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm151/tools/probe/r10uvm151repro/bound151.sh: line 64: 2236525 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm151/tools/probe/r10uvm151repro/bound151.sh: line 64: 2381864 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm151/tools/probe/r10uvm151repro/bound151.sh: line 64: 2382065 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm151/tools/probe/r10uvm151repro/bound151.sh: line 64: 2382424 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm151/tools/probe/r10uvm151repro/bound151.sh: line 64: 2382677 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm151/tools/probe/r10uvm151repro/bound151.sh: line 64: 2383060 Segmentation fault      "$PRI" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pris.log" 2>&1 < /dev/null
+/tmp/wt_r10uvm151/tools/probe/r10uvm151repro/bound151.sh: line 64: 2383281 Segmentation fault      "$PAT" "$(basename "$f")" --single-unit $SUX -o "$db" > "$o/pat.log" 2>&1 < /dev/null
+LISTED=2150 PROCESSED=2150 MOVED=12 BREACH=0 RC-MISMATCH=0 NORUN=184
+PROCESSED-ASSERT-OK
+NORUN-ASSERT-OK (184 of 4300 file-views produced no database)
+BOUNDARY PASS
+
+===== THE ONE EARLIER-PASS ARM THAT MOVED, RE-MEASURED AGAINST GOLDEN =====
+# RESUME.md §7: an earlier pass's arm that moves must be re-measured against
+# golden and must move TOWARD it.  `r10v99repro/v99_b7_order.sv` carries two
+# STATEMENT-position array methods with a `with` clause among its nine cells:
+#
+#     qa7.sort(i71)  with ((i71 inside {[1:5], 9}) ? i71 : 0);   // line 11
+#     qa7.rsort(i72) with ((i72 inside {[2:6]})    ? i72 : 0);   // line 12
+#
+# Official uhdm-cmp against Surelog's own database for that file:
+#     def   1506 -> 1494 cmp lines (1 head both times)
+#     elab  1910 -> 1882 cmp lines
+#
+# ct151cen + score151.py, golden vs pristine vs patched:
+#     def   KIND/NAME/PFX  RIGHT->RIGHT 13  WRONG->RIGHT 2  RIGHT->WRONG 0  AWAY 0
+#     elab  KIND/NAME/PFX  RIGHT->RIGHT 26  WRONG->RIGHT 4  RIGHT->WRONG 0  AWAY 0
+#     ROWSETS 0/0 in both views; NARG/WITH/FUNC RIGHT->RIGHT throughout.
+#
+# The two cells land on golden EXACTLY, span included:
+#     golden   CALL KIND=FC NAME=qa7 PFX=- NARG=0 WITH=0 FUNC=0 SPAN=11:5-11:59
+#     patched  CALL KIND=FC NAME=qa7 PFX=- NARG=0 WITH=0 FUNC=0 SPAN=11:5-11:59
+#     pristine CALL KIND=MFC NAME=sort PFX=qa7 …               SPAN=11:9-11:13
+#
+# v99's own law — the with-clause EXPRESSION regime (`r74 = as7.find(i74) with
+# (…)` and its six siblings on lines 14-19) — is RIGHT->RIGHT on every column
+# in both views and did not move a byte.
