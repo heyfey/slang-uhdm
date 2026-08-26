@@ -1,0 +1,174 @@
+r10uvm152 — CENSUS (cen152.py).  MEASUREMENT ONLY; uhdm-cmp is the judge.
+LHS is ALWAYS golden.
+
+== CALIBRATION: golden vs golden vs golden, arm g152_c_home, def view ==
+RIGHT->RIGHT             35
+WRONG->RIGHT             0
+RIGHT->WRONG             0
+WRONG->WRONG(unmoved)    0
+WRONG->WRONG(MOVED)      0
+ONLY-GOLDEN-pris         0
+ONLY-GOLDEN-patc         0
+ONLY-OURS-pris           0
+ONLY-OURS-patc           0
+
+== g152_a_mech  def ==
+WRONG->RIGHT ('pa152::Ha152::new::v_ooctor', '42', '5') G= {'pa152::v_ooctor': 2} P= {'pa152::Ha152::new::v_ooctor': 2}
+RIGHT->RIGHT             8
+WRONG->RIGHT             1
+RIGHT->WRONG             0
+WRONG->WRONG(unmoved)    0
+WRONG->WRONG(MOVED)      0
+ONLY-GOLDEN-pris         0
+ONLY-GOLDEN-patc         0
+ONLY-OURS-pris           0
+ONLY-OURS-patc           0
+
+== g152_a_mech  elab ==
+WRONG->WRONG(MOVED) ('pa152::Ha152::new::v_ooctor', '42', '5') G= {'pa152::v_ooctor': 4} P= {'pa152::v_ooctor': 3, 'pa152::Ha152::new::v_ooctor': 2} Q= {'pa152::v_ooctor': 5}
+RIGHT->RIGHT             6
+WRONG->RIGHT             0
+RIGHT->WRONG             0
+WRONG->WRONG(unmoved)    8
+WRONG->WRONG(MOVED)      1
+ONLY-GOLDEN-pris         8
+ONLY-GOLDEN-patc         8
+ONLY-OURS-pris           0
+ONLY-OURS-patc           0
+
+== g152_b_first  def ==
+WRONG->RIGHT ('pb152::E0b152::new::e0_one', '35', '5') G= {'pb152::e0_one': 2} P= {'pb152::E0b152::new::e0_one': 2}
+WRONG->RIGHT ('pb152::E1b152::new::e1_two', '45', '5') G= {'pb152::E1b152::new::e1_two': 2} P= {'pb152::e1_two': 2}
+RIGHT->RIGHT             15
+WRONG->RIGHT             2
+RIGHT->WRONG             0
+WRONG->WRONG(unmoved)    0
+WRONG->WRONG(MOVED)      0
+ONLY-GOLDEN-pris         0
+ONLY-GOLDEN-patc         0
+ONLY-OURS-pris           0
+ONLY-OURS-patc           0
+
+== g152_b_first  elab ==
+WRONG->WRONG(MOVED) ('pb152::E0b152::new::e0_one', '35', '5') G= {'pb152::e0_one': 4} P= {'pb152::e0_one': 3, 'pb152::E0b152::new::e0_one': 2} Q= {'pb152::e0_one': 5}
+RIGHT->RIGHT             8
+WRONG->RIGHT             0
+RIGHT->WRONG             0
+WRONG->WRONG(unmoved)    12
+WRONG->WRONG(MOVED)      1
+ONLY-GOLDEN-pris         13
+ONLY-GOLDEN-patc         13
+ONLY-OURS-pris           0
+ONLY-OURS-patc           0
+
+== g152_c_home  def ==
+WRONG->RIGHT ('pc2152::A1c152::new::a1_first', '26', '5') G= {'pc2152::a1_first': 2} P= {'pc2152::A1c152::new::a1_first': 2}
+WRONG->RIGHT ('pc2152::A2c152::new::a2_second', '40', '5') G= {'pc2152::A2c152::new::a2_second': 2} P= {'pc2152::a2_second': 2}
+WRONG->RIGHT ('pc2152::A3c152::new::a3_first', '52', '5') G= {'pc2152::a3_first': 2} P= {'pc2152::A3c152::new::a3_first': 2}
+RIGHT->RIGHT             26
+WRONG->RIGHT             3
+RIGHT->WRONG             0
+WRONG->WRONG(unmoved)    3
+WRONG->WRONG(MOVED)      0
+ONLY-GOLDEN-pris         3
+ONLY-GOLDEN-patc         3
+ONLY-OURS-pris           4
+ONLY-OURS-patc           4
+
+== g152_c_home  elab ==
+WRONG->WRONG(MOVED) ('pc2152::A1c152::new::a1_first', '26', '5') G= {'pc2152::a1_first': 4} P= {'pc2152::a1_first': 2, 'work@mc152::KM10c152::a1_first': 2, 'work@mc152::M10c152::a1_first': 2, 'work@mc152::M11c152::a1_first': 2, 'pc2152::A1c152::new::a1_first': 2} Q= {'pc2152::a1_first': 4, 'work@mc152::KM10c152::a1_first': 2, 'work@mc152::M10c152::a1_first': 2, 'work@mc152::M11c152::a1_first': 2}
+WRONG->WRONG(MOVED) ('pc2152::A3c152::new::a3_first', '52', '5') G= {'pc2152::a3_first': 4} P= {'pc2152::a3_first': 2, 'work@mc152::KM10c152::a3_first': 2, 'work@mc152::M10c152::a3_first': 2, 'work@mc152::M11c152::a3_first': 2, 'pc2152::A3c152::new::a3_first': 2} Q= {'pc2152::a3_first': 4, 'work@mc152::KM10c152::a3_first': 2, 'work@mc152::M10c152::a3_first': 2, 'work@mc152::M11c152::a3_first': 2}
+RIGHT->RIGHT             23
+WRONG->RIGHT             0
+RIGHT->WRONG             0
+WRONG->WRONG(unmoved)    21
+WRONG->WRONG(MOVED)      2
+ONLY-GOLDEN-pris         91
+ONLY-GOLDEN-patc         91
+ONLY-OURS-pris           3
+ONLY-OURS-patc           3
+
+== g152_d_pos  def ==
+WRONG->RIGHT ('pd152::Ad152::new::d_asg', '23', '5') G= {'pd152::d_asg': 2} P= {'pd152::Ad152::new::d_asg': 2}
+WRONG->RIGHT ('pd152::Ad152::new::d_rhs', '24', '10') G= {'pd152::d_rhs': 2} P= {'pd152::Ad152::new::d_rhs': 2}
+WRONG->RIGHT ('pd152::Ad152::new::d_arg', '25', '13') G= {'pd152::d_arg': 2} P= {'pd152::Ad152::new::d_arg': 2}
+WRONG->RIGHT ('pd152::Ad152::new::d_ifc', '26', '9') G= {'pd152::d_ifc': 2} P= {'pd152::Ad152::new::d_ifc': 2}
+WRONG->RIGHT ('pd152::Ad152::new::d_casec', '27', '11') G= {'pd152::d_casec': 2} P= {'pd152::Ad152::new::d_casec': 2}
+WRONG->RIGHT ('pd152::Ad152::new::d_whi', '35', '12') G= {'pd152::d_whi': 2} P= {'pd152::Ad152::new::d_whi': 2}
+WRONG->RIGHT ('pd152::Ad152::new::d_for', '36', '37') G= {'pd152::d_for': 2} P= {'pd152::Ad152::new::d_for': 2}
+WRONG->RIGHT ('pd152::Ad152::new::d_nest', '39', '17') G= {'pd152::d_nest': 2} P= {'pd152::Ad152::new::d_nest': 2}
+WRONG->RIGHT ('pd152::Ad152::new::nb_d::d_fork', '42', '11') G= {'pd152::d_fork': 2} P= {'pd152::Ad152::new::d_fork': 2}
+WRONG->RIGHT ('pd152::Ad152::new::d_assert', '44', '13') G= {'pd152::d_assert': 2} P= {'pd152::Ad152::new::d_assert': 2}
+RIGHT->RIGHT             20
+WRONG->RIGHT             10
+RIGHT->WRONG             0
+WRONG->WRONG(unmoved)    0
+WRONG->WRONG(MOVED)      0
+ONLY-GOLDEN-pris         0
+ONLY-GOLDEN-patc         0
+ONLY-OURS-pris           1
+ONLY-OURS-patc           0
+
+== g152_d_pos  elab ==
+WRONG->WRONG(MOVED) ('pd152::Ad152::new::d_asg', '23', '5') G= {'pd152::d_asg': 4} P= {'pd152::d_asg': 3, 'pd152::Ad152::new::d_asg': 2} Q= {'pd152::d_asg': 5}
+WRONG->WRONG(MOVED) ('pd152::fetch152::a', '50', '5') G= {'pd152::fetch152::a': 2} P= {'pd152::fetch152::a': 3, '<bare>': 16} Q= {'pd152::fetch152::a': 3, '<bare>': 15}
+RIGHT->RIGHT             5
+WRONG->RIGHT             0
+RIGHT->WRONG             0
+WRONG->WRONG(unmoved)    25
+WRONG->WRONG(MOVED)      2
+ONLY-GOLDEN-pris         27
+ONLY-GOLDEN-patc         27
+ONLY-OURS-pris           0
+ONLY-OURS-patc           0
+
+== g152_e_shape  def ==
+WRONG->RIGHT ('pe152::E1e152::new::e1_a', '20', '5') G= {'pe152::e1_a': 2} P= {'pe152::E1e152::new::e1_a': 2}
+WRONG->RIGHT ('pe152::E2e152::new::e2_a', '27', '5') G= {'pe152::e2_a': 2} P= {'pe152::E2e152::new::e2_a': 2}
+WRONG->RIGHT ('pe152::E2e152::new::e2_b', '27', '18') G= {'pe152::e2_b': 2} P= {'pe152::E2e152::new::e2_b': 2}
+WRONG->RIGHT ('pe152::E2e152::new::e2_c', '27', '31') G= {'pe152::e2_c': 2} P= {'pe152::E2e152::new::e2_c': 2}
+WRONG->RIGHT ('pe152::E3e152::new::e3_a', '35', '5') G= {'pe152::e3_a': 2} P= {'pe152::E3e152::new::e3_a': 2}
+WRONG->RIGHT ('pe152::E5e152::new::e5_a', '49', '5') G= {'pe152::e5_a': 2} P= {'pe152::E5e152::new::e5_a': 2}
+WRONG->RIGHT ('pe152::E9e152::new::e9_i', '80', '5') G= {'pe152::e9_i': 2} P= {'pe152::E9e152::new::e9_i': 2}
+WRONG->RIGHT ('pe152::E10e152::new::e10_i', '87', '14') G= {'pe152::e10_i': 2} P= {'pe152::E10e152::new::e10_i': 2}
+RIGHT->RIGHT             25
+WRONG->RIGHT             8
+RIGHT->WRONG             0
+WRONG->WRONG(unmoved)    3
+WRONG->WRONG(MOVED)      0
+ONLY-GOLDEN-pris         1
+ONLY-GOLDEN-patc         1
+ONLY-OURS-pris           0
+ONLY-OURS-patc           0
+
+== g152_e_shape  elab ==
+WRONG->WRONG(MOVED) ('pe152::E1e152::new::e1_a', '20', '5') G= {'pe152::e1_a': 4} P= {'pe152::e1_a': 3, 'pe152::E1e152::new::e1_a': 2} Q= {'pe152::e1_a': 5}
+WRONG->WRONG(MOVED) ('pe152::E2e152::new::e2_a', '27', '5') G= {'pe152::e2_a': 4} P= {'pe152::e2_a': 3, 'pe152::E2e152::new::e2_a': 2} Q= {'pe152::e2_a': 5}
+WRONG->WRONG(MOVED) ('pe152::E3e152::new::e3_a', '35', '5') G= {'pe152::e3_a': 4} P= {'pe152::e3_a': 3, 'pe152::E3e152::new::e3_a': 2} Q= {'pe152::e3_a': 5}
+WRONG->WRONG(MOVED) ('pe152::E5e152::new::e5_a', '49', '5') G= {'pe152::e5_a': 4} P= {'pe152::e5_a': 3, 'pe152::E5e152::new::e5_a': 2} Q= {'pe152::e5_a': 5}
+WRONG->WRONG(MOVED) ('pe152::E9e152::new::e9_i', '80', '5') G= {'pe152::e9_i': 4} P= {'pe152::e9_i': 3, 'pe152::E9e152::new::e9_i': 2} Q= {'pe152::e9_i': 5}
+WRONG->WRONG(MOVED) ('pe152::E10e152::new::e10_i', '87', '14') G= {'pe152::e10_i': 4} P= {'pe152::e10_i': 3, 'pe152::E10e152::new::e10_i': 2} Q= {'pe152::e10_i': 5}
+RIGHT->RIGHT             22
+WRONG->RIGHT             0
+RIGHT->WRONG             0
+WRONG->WRONG(unmoved)    20
+WRONG->WRONG(MOVED)      6
+ONLY-GOLDEN-pris         26
+ONLY-GOLDEN-patc         26
+ONLY-OURS-pris           0
+ONLY-OURS-patc           0
+== WHOLE-DUMP DIFF, path-normalised, pristine vs patched ==
+   paired-substitutions = a vpiActual target line REPLACED (the law's cells,
+   counted once per dump occurrence); the unpaired removals are the orphaned
+   subroutine locals and their unnamed typespecs leaving the weaklyReferenced
+   TAIL, which no generated Compare can reach (RESUME.md §9).
+g152_a_mech.def  total=36 added=3 removed=33 paired-substitutions=3
+g152_a_mech.elab  total=21 added=3 removed=18 paired-substitutions=3
+g152_b_first.def  total=40 added=5 removed=35 paired-substitutions=5
+g152_b_first.elab  total=21 added=3 removed=18 paired-substitutions=3
+g152_c_home.def  total=80 added=7 removed=73 paired-substitutions=7
+g152_c_home.elab  total=43 added=5 removed=38 paired-substitutions=5
+g152_d_pos.def  total=72 added=21 removed=51 paired-substitutions=21
+g152_d_pos.elab  total=21 added=3 removed=18 paired-substitutions=3
+g152_e_shape.def  total=222 added=17 removed=205 paired-substitutions=17
+g152_e_shape.elab  total=120 added=13 removed=107 paired-substitutions=13

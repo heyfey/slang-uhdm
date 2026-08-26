@@ -1,0 +1,75 @@
+r10uvm152 — THE WIDE BOUNDARY GATE
+==================================
+bound152.sh over a COPY of the WHOLE committed probe tree (top level AND every
+subdirectory), both views, pristine vs patched, byte-compared.  Every child
+</dev/null; every rc recorded; scratch keyed on the RELATIVE path; PROCESSED
+asserted against LISTED.  MEASUREMENT ONLY — uhdm-cmp is the judge of the arms
+that moved, and LHS is ALWAYS golden.
+
+    LISTED=4311  PROCESSED=4311  PRODUCED_DBS=4166  MOVED_ARMS=9  RC_DIFFS=0
+
+POSITIVE CONTROL: this pass's own five arms are among the movers, so the gate
+demonstrably can see.
+
+MOVED ARMS
+----------
+  r10uvm152repro/g152_a_mech.sv      def=MOVED elab=MOVED   this pass's own
+  r10uvm152repro/g152_b_first.sv     def=MOVED elab=MOVED   this pass's own
+  r10uvm152repro/g152_c_home.sv      def=MOVED elab=MOVED   this pass's own
+  r10uvm152repro/g152_d_pos.sv       def=MOVED elab=MOVED   this pass's own
+  r10uvm152repro/g152_e_shape.sv     def=MOVED elab=MOVED   this pass's own
+  r10uvm144repro/g144_e.sv           def=MOVED elab=MOVED   EARLIER PASS
+  r10uvm47repro/t65c/dut.sv          def=MOVED elab=MOVED   EARLIER PASS
+  r10uvm47repro/t65d/dut.sv          def=MOVED elab=MOVED   EARLIER PASS
+  r10v144repro/v144_b_ctor.sv        def=MOVED elab=SAME    EARLIER PASS
+  (RC_DIFFS=0 — no arm's exit code changed, the two rc=4 arms included.)
+
+EVERY EARLIER-PASS ARM RE-MEASURED AGAINST GOLDEN (arm152.sh + cen152.py)
+-------------------------------------------------------------------------
+Official uhdm-cmp, golden vs pristine and golden vs patched, ALL FOUR arms:
+
+  arm                          g-vs-o        g-vs-q        heads
+  r10uvm144repro/g144_e.sv     6640 / 7048   6640 / 7048   1 / 1   UNCHANGED
+  r10uvm47repro/t65c/dut.sv    4376 / 4728   4376 / 4728   1 / 1   UNCHANGED
+  r10uvm47repro/t65d/dut.sv    2720 / 3040   2720 / 3040   1 / 1   UNCHANGED
+  r10v144repro/v144_b_ctor.sv 25212 /72248  25212 /72248   1 / 1   UNCHANGED
+(the moved cells sit BELOW each arm's head, so the judge's line count is the
+ same before and after; the census is what shows the direction)
+
+  arm.view                      R->R  W->R  R->W  WWunmov WWmoved  OG p/q  OO p/q
+  g144_e.def                       7     1     0        0       0   1 / 1   1 / 1
+  g144_e.elab                     11     1     0        2       0   2 / 2   2 / 2
+  t65c/dut.def                    10     1     0        1       0   0 / 0   0 / 0
+  t65c/dut.elab                    9     0     0        2       1   2 / 2   0 / 0
+  t65d/dut.def                     4     1     0        0       0   0 / 0   0 / 0
+  t65d/dut.elab                    3     0     0        1       1   2 / 2   0 / 0
+  v144_b_ctor.def                 11     1     0        1       0   0 / 0   2 / 2
+  v144_b_ctor.elab                37     0     0        3       0  75 / 75   3 / 3
+
+RIGHT->WRONG = 0 on every arm and every view; every one-sided count IDENTICAL
+before and after.
+
+THE CELLS, ONE PER ARM, EACH NAMED
+----------------------------------
+  g144_e.sv     `p144e::C07::new::vc07` @29:48
+                golden {p144e::vc07}, pristine {p144e::C07::new::vc07}
+                -> patched {p144e::vc07}                        WRONG->RIGHT
+      This is § ctorFirstBodyItemIsUnlistedNoBind144's OWN arm e07, the cell
+      that README recorded as "an OUT-OF-BODY constructor: golden BINDS, but to
+      the PACKAGE-level object" and fenced itself off from with `!curSubOob9`.
+      § 152 is what supplies it.
+  t65c/dut.sv   `r1::ooc::new::shared_name` @38:9   -> `r1::shared_name`
+  t65d/dut.sv   `r2::ooc::new::dup_name`    @22:9   -> `r2::dup_name`
+  v144_b_ctor.sv`q144b::B22::new::b22x`     @70:44  -> `q144b::b22x`
+
+THE TWO `WWmoved` ELAB CELLS, SCORED INDIVIDUALLY
+-------------------------------------------------
+  t65c.elab `r1::ooc::new::shared_name` @38:9
+     golden   {r1::shared_name: 4}
+     pristine {r1::shared_name: 3, r1::ooc::new::shared_name: 1,
+               work@t65c.shared_name: 1}
+     patched  {r1::shared_name: 4, work@t65c.shared_name: 1}
+  t65d.elab `r2::ooc::new::dup_name` @22:9 — the identical shape.
+In both, the LOCAL binding is GONE and the package-copy multiplicity now equals
+golden's exactly; the surviving `work@…` entry is the pre-existing elab
+module-net hoist residue, unchanged in count.  Strictly TOWARD golden.

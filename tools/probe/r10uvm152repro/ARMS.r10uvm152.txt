@@ -1,0 +1,17 @@
+r10uvm152 — THE ARMS (arm152.sh + cen152.py; MEASUREMENT ONLY, uhdm-cmp is the judge)
+pristine 04b111949fb08caa98ad4ac0c8bc3242   patched 502f483f715b5612dea9cc3367e59f70
+LHS is ALWAYS golden.  Census key = (reference VpiFullName, line, col);
+payload = the MULTISET of vpiActual target VpiFullNames.  Calibration
+(golden vs golden vs golden) reads RIGHT->RIGHT only — see CENSUS file.
+
+ARM              VIEW     R-R    W-R    R-W  WWunmov WWmoved  OGpris  OGpatc  OOpris  OOpatc
+g152_a_mech      def        8      1      0        0       0       0       0       0       0
+g152_a_mech      elab       6      0      0        8       1       8       8       0       0
+g152_b_first     def       15      2      0        0       0       0       0       0       0
+g152_b_first     elab       8      0      0       12       1      13      13       0       0
+g152_c_home      def       26      3      0        3       0       3       3       4       4
+g152_c_home      elab      23      0      0       21       2      91      91       3       3
+g152_d_pos       def       20     10      0        0       0       0       0       1       0
+g152_d_pos       elab       5      0      0       25       2      27      27       0       0
+g152_e_shape     def       25      8      0        3       0       1       1       0       0
+g152_e_shape     elab      22      0      0       20       6      26      26       0       0

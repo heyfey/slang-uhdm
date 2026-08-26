@@ -1,0 +1,84 @@
+r10uvm152 — THE A-PRIORI MOVER PREDICTION
+=========================================
+Written from PRISTINE data only, BEFORE the patched binary produced anything.
+Base 5cfc64a; pristine binary md5 04b111949fb08caa98ad4ac0c8bc3242 (identical
+to the main tree's control binary at this base).
+
+THE LAW'S NECESSARY CONDITION, at the SOURCE
+--------------------------------------------
+§ ctorEatenLocalBindsPkgCopy152 can only fire where a class CONSTRUCTOR is
+
+  * written OUT OF BODY,
+  * at PACKAGE scope,
+  * with an EMPTY or ABSENT port list, and
+  * whose FIRST body element is a DATA DECLARATION that is then REFERENCED.
+
+Regex over every source tree either corpus can read
+(`function <Id>::new` followed by `;` or `();`):
+
+  Surelog corpus + uhdm2rtlil corpus test trees ......... 1 file
+      Surelog/tests/ExtendClassMember/dut.sv:19
+      `function uvm_sequencer_param_base::new ();`
+      -> its first body element is a STATEMENT, not a declaration, so the
+         constructor eats a statement (§ constructorBodyElementShift27, already
+         modelled and unchanged) and this law has NO cell there.
+  UVM/OVM/VMM trees ..................................... 5 files with a
+      DECLARATION as the first body element:
+      1800.2-2017-1.0/pp_output/uvm_pkg.sv:38762  `uvm_root::new();`
+          first element `uvm_report_handler rh;` @38763          <-- THE HEAD
+      1800.2-2017-1.0/src/base/uvm_root.svh:365   (same code, unexpanded)
+      ovm-2.1.2/src/base/ovm_root.svh:325         `ovm_root_report_handler rh;`
+      uvm-1.1d/src/base/uvm_root.svh:297          `ovm_root_report_handler rh;`
+      vmm-1.1.1a/sv/perf/vmm_sql_db.sv:117        `int t_sec, t_usec;`
+  PAREN-LESS out-of-body constructors (`function C::new;`) ..... ZERO in every
+      tree, so the § 142v constructor fence added to `tfItemBodyLocal148` is
+      CORPUS-INVISIBLE and is measured only on this pass's arms.
+  PAREN-LESS IN-BODY constructors (`function new;`) ..... 2 files, neither with
+      a body local (Google/generic/member/class_member_test_39.sv declares an
+      empty body; ovm-2.1.2 compatibility/urm_message.svh likewise).
+
+WHICH ROWS ACTUALLY READ THOSE FILES
+------------------------------------
+Read out of the control workdirs' own `cmds.txt` (/tmp/ctl_wd_{sl,u2r}_5cfc64a):
+
+  1800.2 pp_output/uvm_pkg.sv ..... BuildUVMPkg ONLY, both modes, DB present.
+  1800.2 src/ .................... CoresSweRV, CoresSweRVMP, Earlgrey,
+                                   Monitor, Opentitan — every one NO DATABASE
+                                   in both modes (non-comparable rows).
+  ovm-2.1.2 / uvm-1.1d / vmm ..... 17 test names; of their 34 row-modes only
+                                   GenerateUnnamed and UnitElabBlock produce a
+                                   database at all, and neither database
+                                   contains ANY `<pkg>::<C>::new::<v>` object
+                                   named `rh` / `t_sec` / `t_usec` (checked by
+                                   uhdm-dump on the pristine DBs).
+
+PREDICTED BYTE MOVERS — EXACTLY TWO, BY NAME
+--------------------------------------------
+  surelog corpus (956 databases):
+      default/BuildUVMPkg-bf853d43/slang.uhdm      MOVES
+      testflags/BuildUVMPkg-bf853d43/slang.uhdm    MOVES
+  uhdm2rtlil corpus (1358 databases):
+      NONE.
+  Every other database byte-identical.
+
+PREDICTED CELL, BY OBJECT
+-------------------------
+In each of the two databases, in BOTH dump views (def + elab), the ONE
+reference `set_report_handler(rh)` at uvm_pkg.sv:38768:22 changes its
+`vpiActual` from
+
+    class_var (uvm_pkg::uvm_root::new::rh)   <- the subroutine local we mint
+to
+    class_var (uvm_pkg::rh)                  <- the package copy we ALREADY
+                                                emit, byte-identical to
+                                                golden's (verified by diffing
+                                                the two pristine dumps).
+
+That is 2 cells per database, 4 cells in total.  No object is created or
+destroyed by the law; the orphaned local survives in the weaklyReferenced
+tail, where it already lived, and the tail is unreachable to the judge.
+
+PREDICTED HEAD MOVEMENT
+-----------------------
+  BuildUVMPkg default / testflags: 30 cmp lines, 1 head -> a DIFFERENT object
+  (the head clears).  Every other row's head log byte-identical.

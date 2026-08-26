@@ -831,12 +831,52 @@ static bool classNewAsgLhs109(const slang::syntax::SyntaxNode* sn) {
 bool UhdmExporter::tfItemBodyLocal148(const slang::ast::Symbol& sym) const {
     if (!tfBodyTfItems9 || !currentSubSym)
         return false;
+    // § tfItemLocalClassTsNotAConstructor142v, THE SECOND READER.  A CLASS
+    // CONSTRUCTOR IS NEVER THE TF-ITEM PRODUCTION, however its header is
+    // written: Surelog compiles a constructor body through
+    // `compileClassConstructorDeclaration` (CompileStmt.cpp:2165), which never
+    // reaches `compileTfPortDecl`'s `paBlock_item_declaration` arm at all, so
+    // a constructor's body local is listed on the body `begin` like every
+    // BLOCK-ITEM one and `lateBinding`'s `uhdmbegin` arm `break`s before the
+    // package listing is consulted.  `blockItems9` reads only the port-list
+    // paren, so a PAREN-LESS `function C::new;` was called TF-ITEM here and
+    // every one of its locals took the package copy.  MEASURED, arm
+    // `g152_c_home.sv` `a2_second` @40:5 (and `g152_b_first.sv` `e1_two`
+    // @45:5): golden binds the LOCAL, pristine bound the package variable —
+    // a pristine-WRONG cell this term takes WRONG->RIGHT.  § 142v's own flag
+    // is `tfBodyCtor27`, slang's `MethodFlags::Constructor`, NOT a
+    // `name == "new"` test: an escaped `function void \new ;` is an ordinary
+    // paren-less method.  The constructor's EATEN first element is a
+    // different road entirely — § `ctorEatenLocalBindsPkgCopy152` below.
+    if (tfBodyCtor27)
+        return false;
     if (sym.kind != slang::ast::SymbolKind::Variable)
         return false;
     if (&sym == (const slang::ast::Symbol*)currentSubSym->returnValVar)
         return false;
     const slang::ast::Scope* sc = sym.getParentScope();
     return sc && sc == static_cast<const slang::ast::Scope*>(currentSubSym);
+}
+
+// § ctorEatenLocalBindsPkgCopy152 — THE PREDICATE.  Law + Surelog citations in
+// include/UhdmExporter.h.
+//
+// True for exactly one thing: a Variable declared by the body element
+// Surelog's constructor compiler consumed as its port list and therefore never
+// compiled.  `emitCtorBody27` (StmtEmit.cpp) already computes that set for
+// § `ctorFirstBodyItemIsUnlistedNoBind144` — keyed on the slang Symbol, and
+// widened by § `ctorEatenElementIsTheWholeDeclaration144v` to every declarator
+// of the eaten `data_declaration` — so this reads ITS decision rather than
+// re-deriving a shift arithmetic that would have to agree with it.
+//
+// It says nothing about WHERE the reference then binds: that is the caller's
+// `subHomeIsPkg81` + `pkgVarOverFormal81` pair, which finds a package listing
+// only when one exists.  An in-body constructor, a `$unit` class and a module
+// class all reach this predicate and are answered `nullptr` there.
+bool UhdmExporter::ctorEatenLocal152(const slang::ast::Symbol& sym) const {
+    return !ctorUnlistedBid144.empty() &&
+           sym.kind == slang::ast::SymbolKind::Variable &&
+           ctorUnlistedBid144.count((const void*)&sym) != 0;
 }
 
 bool UhdmExporter::oobRefVarLocalHoistNet107(const slang::ast::Symbol& sym,
@@ -11217,6 +11257,10 @@ static bool builtinRecvStepSelectors74(
 // header above `tfItemBodyLocal148` below.  The `!bound` guard stays: this law
 // only ever REPLACES a binding, it never mints one, so an unbound reference
 // (a hier_path element, a call receiver) is untouched by construction.
+// § ctorEatenLocalBindsPkgCopy152 is the SECOND caller to raise the same flag
+// (the parameter keeps § 148's name; it means "the reference reached late
+// binding even though it is not a formal"), and the only one that also asks
+// its caller to skip § 81's `condPredEarlyBound81` exception.
 static UHDM::variables* pkgVarOverFormal81(const UHDM::instance* pkgInst,
                                            const UHDM::any* bound,
                                            std::string_view name,
@@ -16605,11 +16649,19 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // local"; every other gate (the home-package test, the early-bound
             // predicate exception, the package's own listing) is § 81's,
             // unchanged, because Surelog reaches both through one walk.
+            // § ctorEatenLocalBindsPkgCopy152 rides the SAME call once more,
+            // and is the ONE term that also lifts § 81's early-bound
+            // exception: a declaration the constructor compiler ate is listed
+            // on NO scope, so `bindVariable`'s compile-time walk fails in an
+            // `if`/`case` predicate exactly as it fails everywhere else and
+            // the reference reaches the package overwrite from every position
+            // (arm `g152_d_pos.sv`, fourteen positions, both views).
+            bool ctorEaten152 = ctorEatenLocal152(nv.symbol);
             if (subHomeIsPkg81(currentSubSym, pkgScopeInst) &&
-                !condPredEarlyBound81(expr.syntax))
+                (ctorEaten152 || !condPredEarlyBound81(expr.syntax)))
                 if (auto* pv81 = pkgVarOverFormal81(
                         pkgScopeInst, ref->Actual_group(), ref->VpiName(),
-                        tfItemBodyLocal148(nv.symbol)))
+                        tfItemBodyLocal148(nv.symbol) || ctorEaten152))
                     ref->Actual_group(pv81);
             ref->VpiParent(parent);
             if (rawText(SourceRange(expr.sourceRange.start(), expr.sourceRange.start() + 1)) ==

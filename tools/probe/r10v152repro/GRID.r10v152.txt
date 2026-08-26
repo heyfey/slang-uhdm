@@ -1,0 +1,142 @@
+########## v152_a_collide.def
+W->R  (28, 5, 'shadow_up') G= {'class_var|qcol::shadow_up|8:7': 2} P= {'class_var|qcol::Zeta::new::shadow_up|26:9': 2}
+W->R  (36, 5, 'shadow_up') G= {'class_var|qcol::shadow_up|8:7': 2} P= {'class_var|qcol::Yank::new::shadow_up|34:9': 2}
+WW-MOVED (45, 5, 'tail_one') G= {'class_var|qcol::Xray::new::tail_one|43:9': 2} P= {'class_var|qcol::tail_one|43:9': 2} Q= {'class_var|qcol::Xray::new::tail_one|43:5': 2}
+RIGHT->RIGHT             8
+WRONG->RIGHT             2
+RIGHT->WRONG             0
+WRONG->WRONG(unmoved)    0
+WRONG->WRONG(MOVED)      1
+ONLY-GOLDEN-pris         0
+ONLY-GOLDEN-patc         0
+ONLY-OURS-pris           0
+ONLY-OURS-patc           0
+########## v152_a_collide.elab
+W->R  (28, 5, 'shadow_up') G= {'class_var|qcol::shadow_up|8:7': 4, 'class_var|work@mcol.shadow_up|8:7': 1} P= {'class_var|qcol::shadow_up|8:7': 3, 'class_var|qcol::Zeta::new::shadow_up|26:9': 1, 'class_var|work@mcol.shadow_up|8:7': 1}
+W->R  (36, 5, 'shadow_up') G= {'class_var|qcol::shadow_up|8:7': 4, 'class_var|work@mcol.shadow_up|8:7': 1} P= {'class_var|qcol::shadow_up|8:7': 3, 'class_var|qcol::Yank::new::shadow_up|34:9': 1, 'class_var|work@mcol.shadow_up|8:7': 1}
+RIGHT->RIGHT             6
+WRONG->RIGHT             2
+RIGHT->WRONG             0
+WRONG->WRONG(unmoved)    6
+WRONG->WRONG(MOVED)      0
+ONLY-GOLDEN-pris         0
+ONLY-GOLDEN-patc         0
+ONLY-OURS-pris           0
+ONLY-OURS-patc           0
+########## v152_b_faces.def
+WW-MOVED (63, 5, 'fwd_second') G= {'class_var|facepkg::Second::new::fwd_second|61:16': 2} P= {'class_var|facepkg::fwd_second|61:16': 2} Q= {'class_var|facepkg::Second::new::fwd_second|61:5': 2}
+RIGHT->RIGHT             6
+WRONG->RIGHT             0
+RIGHT->WRONG             0
+WRONG->WRONG(unmoved)    4
+WRONG->WRONG(MOVED)      1
+ONLY-GOLDEN-pris         0
+ONLY-GOLDEN-patc         0
+ONLY-OURS-pris           0
+ONLY-OURS-patc           0
+########## v152_b_faces.elab
+RIGHT->RIGHT             3
+WRONG->RIGHT             0
+RIGHT->WRONG             0
+WRONG->WRONG(unmoved)    12
+WRONG->WRONG(MOVED)      0
+ONLY-GOLDEN-pris         0
+ONLY-GOLDEN-patc         0
+ONLY-OURS-pris           0
+ONLY-OURS-patc           0
+########## v152_c_homes.def
+W->R  (27, 5, 'p_eaten') G= {'class_var|homepkg::p_eaten|25:10': 2} P= {'class_var|homepkg::PkgHost::new::p_eaten|25:10': 2}
+RIGHT->RIGHT             3
+WRONG->RIGHT             1
+RIGHT->WRONG             0
+WRONG->WRONG(unmoved)    2
+WRONG->WRONG(MOVED)      0
+ONLY-GOLDEN-pris         1
+ONLY-GOLDEN-patc         1
+ONLY-OURS-pris           6
+ONLY-OURS-patc           6
+########## v152_c_homes.elab
+WW-MOVED (27, 5, 'p_eaten') G= {'class_var|homepkg::p_eaten|25:10': 4, 'class_var|work@tophome.p_eaten|25:10': 1} P= {'class_var|homepkg::p_eaten|25:10': 3, 'class_var|homepkg::PkgHost::new::p_eaten|25:10': 2} Q= {'class_var|homepkg::p_eaten|25:10': 5}
+RIGHT->RIGHT             4
+WRONG->RIGHT             0
+RIGHT->WRONG             0
+WRONG->WRONG(unmoved)    8
+WRONG->WRONG(MOVED)      1
+ONLY-GOLDEN-pris         0
+ONLY-GOLDEN-patc         0
+ONLY-OURS-pris           7
+ONLY-OURS-patc           7
+########## v152_d_shape.def
+W->R  (21, 5, 'solo') G= {'class_var|shapepkg::solo|19:9': 2} P= {'class_var|shapepkg::OneDecl::new::solo|19:9': 2}
+W->R  (28, 5, 'duo_a') G= {'class_var|shapepkg::duo_a|26:9': 2} P= {'class_var|shapepkg::TwoDecl::new::duo_a|26:9': 2}
+W->R  (28, 19, 'duo_b') G= {'class_var|shapepkg::duo_b|26:16': 2} P= {'class_var|shapepkg::TwoDecl::new::duo_b|26:16': 2}
+W->R  (35, 5, 'tri_a') G= {'class_var|shapepkg::tri_a|33:9': 2} P= {'class_var|shapepkg::ThreeDecl::new::tri_a|33:9': 2}
+W->R  (35, 19, 'tri_b') G= {'class_var|shapepkg::tri_b|33:16': 2} P= {'class_var|shapepkg::ThreeDecl::new::tri_b|33:16': 2}
+W->R  (35, 33, 'tri_c') G= {'class_var|shapepkg::tri_c|33:23': 2} P= {'class_var|shapepkg::ThreeDecl::new::tri_c|33:23': 2}
+WW-MOVED (40, 31, 'ini_a') G= {'class_var|shapepkg::ini_a|40:9': 2, 'class_typespec|Nut|41:5': 3, 'array_typespec|None|None:None': 12, 'class_typespec|Nut|48:5': 3, 'class_typespec|Nut|56:5': 3, 'class_typespec|Nut|64:5': 3, 'class_typespec|Nut|72:5': 3, 'int_typespec|None|79:5': 3, 'string_typespec|None|80:5': 3, 'class_typespec|Nut|81:5': 3, 'class_var|work@mshape.ini_a|40:9': 1, 'class_typespec|OneDecl|90:3': 3, 'class_typespec|TwoDecl|91:3': 1, 'class_typespec|ThreeDecl|91:15': 1, 'class_typespec|InitDecl|91:29': 1, 'class_typespec|QueueDecl|92:3': 1, 'class_typespec|DynDecl|92:17': 1, 'class_typespec|AssocDecl|92:29': 1, 'class_typespec|FixedDecl|92:43': 1, 'class_typespec|MixedKind|92:57': 1} P= {'class_var|shapepkg::ini_a|40:9': 2, 'class_typespec|Nut|41:5': 2, 'array_typespec|None|None:None': 6, 'class_typespec|Nut|48:5': 2, 'class_typespec|Nut|56:5': 2, 'class_typespec|Nut|64:5': 2, 'class_typespec|Nut|72:5': 2, 'int_typespec|None|79:5': 2, 'string_typespec|None|80:5': 2, 'class_typespec|Nut|81:5': 2, 'class_var|shapepkg::InitDecl::new::ini_a|40:9': 2} Q= {'class_var|shapepkg::ini_a|40:9': 4, 'class_typespec|Nut|41:5': 2, 'array_typespec|None|None:None': 6, 'class_typespec|Nut|48:5': 2, 'class_typespec|Nut|56:5': 2, 'class_typespec|Nut|64:5': 2, 'class_typespec|Nut|72:5': 2, 'int_typespec|None|79:5': 2, 'string_typespec|None|80:5': 2, 'class_typespec|Nut|81:5': 2}
+W->R  (42, 5, 'ini_a') G= {'class_var|shapepkg::ini_a|40:9': 2} P= {'class_var|shapepkg::InitDecl::new::ini_a|40:9': 2}
+W->R  (42, 19, 'ini_b') G= {'class_var|shapepkg::ini_b|40:23': 2} P= {'class_var|shapepkg::InitDecl::new::ini_b|40:23': 2}
+W->R  (58, 5, 'dd') G= {'array_var|shapepkg::dd|55:9': 2} P= {'array_var|shapepkg::DynDecl::new::dd|55:9': 2}
+W->R  (82, 5, 'mk_i') G= {'int_var|shapepkg::mk_i|79:9': 2} P= {'int_var|shapepkg::MixedKind::new::mk_i|79:9': 2}
+RIGHT->RIGHT             17
+WRONG->RIGHT             10
+RIGHT->WRONG             0
+WRONG->WRONG(unmoved)    5
+WRONG->WRONG(MOVED)      1
+ONLY-GOLDEN-pris         1
+ONLY-GOLDEN-patc         1
+ONLY-OURS-pris           0
+ONLY-OURS-patc           0
+########## v152_d_shape.elab
+WW-MOVED (21, 5, 'solo') G= {'class_var|shapepkg::solo|19:9': 4, 'class_var|work@mshape.solo|19:9': 1} P= {'class_var|shapepkg::solo|19:9': 3, 'class_var|shapepkg::OneDecl::new::solo|19:9': 2} Q= {'class_var|shapepkg::solo|19:9': 5}
+WW-MOVED (28, 5, 'duo_a') G= {'class_var|shapepkg::duo_a|26:9': 4, 'class_var|work@mshape.duo_a|26:9': 1} P= {'class_var|shapepkg::duo_a|26:9': 3, 'class_var|shapepkg::TwoDecl::new::duo_a|26:9': 2} Q= {'class_var|shapepkg::duo_a|26:9': 5}
+WW-MOVED (35, 5, 'tri_a') G= {'class_var|shapepkg::tri_a|33:9': 4, 'class_var|work@mshape.tri_a|33:9': 1} P= {'class_var|shapepkg::tri_a|33:9': 3, 'class_var|shapepkg::ThreeDecl::new::tri_a|33:9': 2} Q= {'class_var|shapepkg::tri_a|33:9': 5}
+WW-MOVED (40, 31, 'ini_a') G= {'class_var|shapepkg::ini_a|40:9': 2, 'class_typespec|Nut|41:5': 3, 'array_typespec|None|None:None': 12, 'class_typespec|Nut|48:5': 3, 'class_typespec|Nut|56:5': 3, 'class_typespec|Nut|64:5': 3, 'class_typespec|Nut|72:5': 3, 'int_typespec|None|79:5': 3, 'string_typespec|None|80:5': 3, 'class_typespec|Nut|81:5': 3, 'class_var|work@mshape.ini_a|40:9': 1, 'class_typespec|OneDecl|90:3': 3, 'class_typespec|TwoDecl|91:3': 1, 'class_typespec|ThreeDecl|91:15': 1, 'class_typespec|InitDecl|91:29': 1, 'class_typespec|QueueDecl|92:3': 1, 'class_typespec|DynDecl|92:17': 1, 'class_typespec|AssocDecl|92:29': 1, 'class_typespec|FixedDecl|92:43': 1, 'class_typespec|MixedKind|92:57': 1} P= {'class_var|shapepkg::ini_a|40:9': 5, 'class_typespec|Nut|41:5': 2, 'array_typespec|None|None:None': 6, 'class_typespec|Nut|48:5': 2, 'class_typespec|Nut|56:5': 2, 'class_typespec|Nut|64:5': 2, 'class_typespec|Nut|72:5': 2, 'int_typespec|None|79:5': 2, 'string_typespec|None|80:5': 2, 'class_typespec|Nut|81:5': 2, 'class_var|shapepkg::InitDecl::new::ini_a|40:9': 2} Q= {'class_var|shapepkg::ini_a|40:9': 7, 'class_typespec|Nut|41:5': 2, 'array_typespec|None|None:None': 6, 'class_typespec|Nut|48:5': 2, 'class_typespec|Nut|56:5': 2, 'class_typespec|Nut|64:5': 2, 'class_typespec|Nut|72:5': 2, 'int_typespec|None|79:5': 2, 'string_typespec|None|80:5': 2, 'class_typespec|Nut|81:5': 2}
+WW-MOVED (42, 5, 'ini_a') G= {'class_var|shapepkg::ini_a|40:9': 4, 'class_var|work@mshape.ini_a|40:9': 1} P= {'class_var|shapepkg::ini_a|40:9': 3, 'class_var|shapepkg::InitDecl::new::ini_a|40:9': 2} Q= {'class_var|shapepkg::ini_a|40:9': 5}
+WW-MOVED (58, 5, 'dd') G= {'array_var|shapepkg::dd|55:9': 4, 'array_var|work@mshape.dd|55:9': 1} P= {'array_var|shapepkg::dd|55:9': 3, 'array_var|shapepkg::DynDecl::new::dd|55:9': 2} Q= {'array_var|shapepkg::dd|55:9': 5}
+WW-MOVED (82, 5, 'mk_i') G= {'int_var|shapepkg::mk_i|79:9': 4, 'int_var|work@mshape.mk_i|79:9': 1} P= {'int_var|shapepkg::mk_i|79:9': 3, 'int_var|shapepkg::MixedKind::new::mk_i|79:9': 2} Q= {'int_var|shapepkg::mk_i|79:9': 5}
+RIGHT->RIGHT             15
+WRONG->RIGHT             0
+RIGHT->WRONG             0
+WRONG->WRONG(unmoved)    23
+WRONG->WRONG(MOVED)      7
+ONLY-GOLDEN-pris         0
+ONLY-GOLDEN-patc         0
+ONLY-OURS-pris           0
+ONLY-OURS-patc           0
+########## v152_e_pos.def
+W->R  (19, 9, 'eat_name') G= {'class_var|pospkg::eat_name|17:9': 2} P= {'class_var|pospkg::Poser::new::eat_name|17:9': 2}
+W->R  (21, 11, 'eat_name') G= {'class_var|pospkg::eat_name|17:9': 2} P= {'class_var|pospkg::Poser::new::eat_name|17:9': 2}
+W->R  (29, 12, 'eat_name') G= {'class_var|pospkg::eat_name|17:9': 2} P= {'class_var|pospkg::Poser::new::eat_name|17:9': 2}
+W->R  (32, 11, 'eat_name') G= {'class_var|pospkg::eat_name|17:9': 2} P= {'class_var|pospkg::Poser::new::eat_name|17:9': 2}
+W->R  (33, 5, 'eat_name') G= {'class_var|pospkg::eat_name|17:9': 2} P= {'class_var|pospkg::Poser::new::eat_name|17:9': 2}
+W->R  (35, 12, 'eat_name') G= {'class_var|pospkg::eat_name|17:9': 2} P= {'class_var|pospkg::Poser::new::eat_name|17:9': 2}
+W->R  (37, 10, 'eat_name') G= {'class_var|pospkg::eat_name|17:9': 2} P= {'class_var|pospkg::Poser::new::eat_name|17:9': 2}
+W->R  (40, 11, 'eat_name') G= {'class_var|pospkg::eat_name|17:9': 2} P= {'class_var|pospkg::Poser::new::eat_name|17:9': 2}
+RIGHT->RIGHT             33
+WRONG->RIGHT             8
+RIGHT->WRONG             0
+WRONG->WRONG(unmoved)    0
+WRONG->WRONG(MOVED)      0
+ONLY-GOLDEN-pris         0
+ONLY-GOLDEN-patc         0
+ONLY-OURS-pris           0
+ONLY-OURS-patc           0
+########## v152_e_pos.elab
+WW-MOVED (19, 9, 'eat_name') G= {'class_var|pospkg::eat_name|17:9': 4, 'class_var|work@mpos.eat_name|17:9': 1} P= {'class_var|pospkg::eat_name|17:9': 3, 'class_var|pospkg::Poser::new::eat_name|17:9': 2} Q= {'class_var|pospkg::eat_name|17:9': 5}
+WW-MOVED (21, 11, 'eat_name') G= {'class_var|pospkg::eat_name|17:9': 4, 'class_var|work@mpos.eat_name|17:9': 1} P= {'class_var|pospkg::eat_name|17:9': 3, 'class_var|pospkg::Poser::new::eat_name|17:9': 2} Q= {'class_var|pospkg::eat_name|17:9': 5}
+WW-MOVED (29, 12, 'eat_name') G= {'class_var|pospkg::eat_name|17:9': 4, 'class_var|work@mpos.eat_name|17:9': 1} P= {'class_var|pospkg::eat_name|17:9': 3, 'class_var|pospkg::Poser::new::eat_name|17:9': 2} Q= {'class_var|pospkg::eat_name|17:9': 5}
+WW-MOVED (32, 11, 'eat_name') G= {'class_var|pospkg::eat_name|17:9': 4, 'class_var|work@mpos.eat_name|17:9': 1} P= {'class_var|pospkg::eat_name|17:9': 3, 'class_var|pospkg::Poser::new::eat_name|17:9': 2} Q= {'class_var|pospkg::eat_name|17:9': 5}
+WW-MOVED (33, 5, 'eat_name') G= {'class_var|pospkg::eat_name|17:9': 4, 'class_var|work@mpos.eat_name|17:9': 1} P= {'class_var|pospkg::eat_name|17:9': 3, 'class_var|pospkg::Poser::new::eat_name|17:9': 2} Q= {'class_var|pospkg::eat_name|17:9': 5}
+WW-MOVED (35, 12, 'eat_name') G= {'class_var|pospkg::eat_name|17:9': 4, 'class_var|work@mpos.eat_name|17:9': 1} P= {'class_var|pospkg::eat_name|17:9': 3, 'class_var|pospkg::Poser::new::eat_name|17:9': 2} Q= {'class_var|pospkg::eat_name|17:9': 5}
+WW-MOVED (37, 10, 'eat_name') G= {'class_var|pospkg::eat_name|17:9': 4, 'class_var|work@mpos.eat_name|17:9': 1} P= {'class_var|pospkg::eat_name|17:9': 3, 'class_var|pospkg::Poser::new::eat_name|17:9': 2} Q= {'class_var|pospkg::eat_name|17:9': 5}
+WW-MOVED (40, 11, 'eat_name') G= {'class_var|pospkg::eat_name|17:9': 4, 'class_var|work@mpos.eat_name|17:9': 1} P= {'class_var|pospkg::eat_name|17:9': 3, 'class_var|pospkg::Poser::new::eat_name|17:9': 2} Q= {'class_var|pospkg::eat_name|17:9': 5}
+RIGHT->RIGHT             25
+WRONG->RIGHT             0
+RIGHT->WRONG             0
+WRONG->WRONG(unmoved)    9
+WRONG->WRONG(MOVED)      8
+ONLY-GOLDEN-pris         0
+ONLY-GOLDEN-patc         0
+ONLY-OURS-pris           0
+ONLY-OURS-patc           0

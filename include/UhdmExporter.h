@@ -5143,6 +5143,94 @@ private:
     // local (listed on that `begin`, whatever the body's production —
     // uvm145's inner-block fence).
     bool tfItemBodyLocal148(const slang::ast::Symbol& sym) const;
+    // § ctorEatenLocalBindsPkgCopy152 (r10uvm152) — THE LAW.
+    //
+    // *A REFERENCE TO A DECLARATION SURELOG'S CONSTRUCTOR COMPILER **ATE** —
+    // § `ctorFirstBodyItemIsUnlistedNoBind144`'s unlisted set — IS BARE ONLY
+    // WHEN NOTHING ELSE LISTS THE NAME.  WHEN THE CONSTRUCTOR IS **OUT OF
+    // BODY AT PACKAGE SCOPE**, THE SAME DECLARATION HAS ALREADY BEEN COLLECTED
+    // AS A **PACKAGE DATA DECLARATION**, AND EVERY REFERENCE TO IT — IN EVERY
+    // POSITION, THE EARLY-BOUND ONES INCLUDED — BINDS THAT PACKAGE COPY.*
+    //
+    // TWO Surelog mechanisms meet on one name, and both are already decoded
+    // elsewhere in this header; this law is only their INTERSECTION.
+    //
+    //   1. `CompilePackage::collectObjects_` (CompilePackage.cpp:123) walks the
+    //      package's whole FileContent with FOUR stop points —
+    //      `paClass_declaration`, `paFunction_body_declaration`,
+    //      `paTask_body_declaration`, `paInterface_class_declaration` — and
+    //      `paClass_constructor_declaration` is NOT one of them.  So the walk
+    //      descends into an OUT-OF-BODY constructor and hands its
+    //      `paData_declaration` block items to `compileDataDeclaration(
+    //      m_package, ...)` (:261) — a PACKAGE variable, `vpiAutomatic:1`
+    //      `vpiVisibility:1`, spanning the declarator.  (§ 148's decode; we
+    //      already emit every one of them, span for span, through
+    //      `collectOobCtorLocals`.)
+    //   2. `CompileHelper::compileClassConstructorDeclaration`
+    //      (CompileStmt.cpp:2165) reads the node after the class scope as the
+    //      port list — `Tf_port_list = fC->Sibling(Class_scope)` — and then
+    //      starts the body walk at `Stmt = fC->Sibling(Tf_port_list)`
+    //      (:2219 and, in the multi-statement branch, again at :2266).  With
+    //      an EMPTY or ABSENT port list that "port list" IS the first body
+    //      element, so the walk starts one element late and the FIRST BODY
+    //      ELEMENT IS NEVER COMPILED (§ `constructorBodyElementShift27`).  No
+    //      subroutine-local object of that declaration is ever made or listed.
+    //
+    // The consequence § 144 read is the COMPILE-TIME one: `bindVariable`
+    // (CompileStmt.cpp:3089) reads only a scope's `Variables()`/`Io_decls()`
+    // and cannot find the eaten declaration, so the reference falls to late
+    // binding.  What § 144 did not carry is where late binding then LANDS:
+    // `UhdmWriter::lateBinding`'s `uhdmfunction`/`uhdmtask` arm ends at
+    // `Instance()`'s `Variables()` guarded by `inst->UhdmType() ==
+    // uhdmpackage` (UhdmWriter.cpp:3369-3470) — and for an out-of-body
+    // constructor that instance IS the home package, whose listing carries
+    // mechanism 1's copy.  § 144 already recorded the observation as its arm
+    // `e07` ("golden BINDS, but to the PACKAGE-level object") and fenced
+    // itself off with `!curSubOob9`; nothing then supplied the binding.
+    //
+    // THE CORPUS HEAD (BuildUVMPkg, both modes, 30 cmp lines, one `^LHS:`):
+    // `uvm_pkg.sv:38762 function uvm_root::new();` — an EMPTY port list —
+    // whose first body element is `uvm_report_handler rh;` @38763.  Golden has
+    // NO `uvm_pkg::uvm_root::new::rh` at all; `set_report_handler(rh)`
+    // @38768:22 binds `class_var (uvm_pkg::rh)` @38763:22, whose
+    // `class_typespec` is NAMED `uvm_report_handler` and carries
+    // `vpiInstance -> package uvm_pkg`.  Ours bound the subroutine local,
+    // whose `class_typespec` is the unnamed `compileVariable` fallback — and
+    // `expr::Compare` walks `Typespec()` BEFORE `variables::Compare` reaches
+    // `VpiAutomatic`/`VpiVisibility`, which is why the head names the
+    // TYPESPEC and not the variable.  The package copy we already emit is
+    // BYTE-IDENTICAL to golden's, so the law adds no object.
+    //
+    // THE GATES — every one of them § 81's, reused verbatim, and each fencing
+    // a MEASURED cell of arm `g152_c_home.sv`:
+    //   * `subHomeIsPkg81` — the constructor must be the package's OWN.  It is
+    //     what keeps the three homes where NO package copy exists out: an
+    //     IN-BODY constructor (`a5_*`: golden BARE, and the package lists
+    //     nothing because `collectObjects_` stops at `paClass_declaration`), a
+    //     `$unit` class (`u9_*`: golden BARE) and a MODULE class (`m10_*`:
+    //     golden binds the MODULE-level copy `work@mc152.m10_first`, which we
+    //     do not emit — a MEASURED residue this law leaves exactly where it
+    //     found it, never moving it AWAY).
+    //   * the package's own `Variables()` lookup BY NAME — `pkgVarOverFormal81`
+    //     unchanged, first match wins, exactly Surelog's `break`.
+    //   * a BOUND reference only — the law REPLACES a binding, never mints
+    //     one, so a bare `hier_path` element or a call receiver is outside it
+    //     by construction.
+    //
+    // WHAT THIS LAW DOES **NOT** INHERIT FROM § 81 — `condPredEarlyBound81`.
+    // That exception exists because a predicate's reference binds EARLY,
+    // through `bindVariable`, and never reaches the pool the package overwrite
+    // iterates.  An EATEN declaration is listed on NO scope at all, so
+    // `bindVariable`'s walk fails in the predicate exactly as it fails
+    // everywhere else.  MEASURED on arm `g152_d_pos.sv`, one constructor,
+    // fourteen positions, both views: an `if` predicate (`d_ifc` @26:9), a
+    // `case` CONDITION (`d_casec` @27:11), a `while` condition, a `for`-body
+    // `if`, an lvalue, a ternary operand, a call argument, an immediate
+    // assertion expression, a NAMED-block `if` and a nested `begin` all bind
+    // `pd152::<name>` in golden.  The SECOND body element of the same
+    // constructor (`int k;`) binds the LOCAL in every one of those positions —
+    // that is the control that keeps the law to the eaten element.
+    bool ctorEatenLocal152(const slang::ast::Symbol& sym) const;
     // § newArrayArgHoistNet130 (r10uvm130) — THE LAW.
     //
     // *A NAME WRITTEN IN A DYNAMIC-ARRAY `new[...]` ARGUMENT LIST DOES NOT
