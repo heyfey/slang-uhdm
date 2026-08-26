@@ -1,0 +1,16 @@
+plain r10buvm22repro/g22.sv
+elab r10buvm22repro/g22.sv
+plain r10earl100repro/a1_bare100.sv
+elab r10earl100repro/a1_bare100.sv
+plain r10earl100repro/a2_drive100.sv
+elab r10earl100repro/a2_drive100.sv
+plain r10earl100repro/g1_forms100.sv
+elab r10earl100repro/g1_forms100.sv
+plain r10earl100repro/g2_uses100.sv
+elab r10earl100repro/g2_uses100.sv
+plain r10earl77repro/g1_portkind77.sv
+elab r10earl77repro/g1_portkind77.sv
+plain r10sing3_pa3.sv
+elab r10sing3_pa3.sv
+plain r10uvm154repro/l154_noenum.sv
+elab r10uvm154repro/l154_noenum.sv

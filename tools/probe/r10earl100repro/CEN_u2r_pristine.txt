@@ -1,0 +1,1 @@
+TOTAL {"pairs": 1358, "same": 31664, "only_golden": 0, "only_ours": 0, "scopes": 23620, "badV": 0, "badN": 0}

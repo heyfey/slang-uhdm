@@ -1,0 +1,48 @@
+===== g1_portkind77_elab
+STILL-WRONG ('work@top77.u_mid.gb77[0].u_gleaf', 'i_pkgvecdim') | G=V:packed_array_var | P=N:logic_net nt=0
+STILL-WRONG ('work@top77.u_mid.gb77[0].u_gleaf', 'o_pkgvecdim') | G=V:packed_array_var | P=N:logic_net nt=0
+STILL-WRONG ('work@top77.u_mid.gb77[1].u_gleaf', 'i_pkgvecdim') | G=V:packed_array_var | P=N:logic_net nt=0
+STILL-WRONG ('work@top77.u_mid.gb77[1].u_gleaf', 'o_pkgvecdim') | G=V:packed_array_var | P=N:logic_net nt=0
+STILL-WRONG ('work@top77.u_mid.u_c1', 'i_pkgvecdim') | G=V:packed_array_var | P=N:logic_net nt=0
+STILL-WRONG ('work@top77.u_mid.u_c1', 'o_pkgvecdim') | G=V:packed_array_var | P=N:logic_net nt=0
+STILL-WRONG ('work@top77.u_mid.u_c2', 'i_pkgvecdim') | G=V:packed_array_var | P=N:logic_net nt=0
+STILL-WRONG ('work@top77.u_mid.u_c2', 'o_pkgvecdim') | G=V:packed_array_var | P=N:logic_net nt=0
+TO-GOLDEN   ('work@top77.u_mid.u_c3', 'i_impstruct') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+STILL-WRONG ('work@top77.u_mid.u_c3', 'i_pkgvecdim') | G=V:packed_array_var | P=N:logic_net nt=0
+TO-GOLDEN   ('work@top77.u_mid.u_c3', 'o_impstruct') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+STILL-WRONG ('work@top77.u_mid.u_c3', 'o_pkgvecdim') | G=V:packed_array_var | P=N:logic_net nt=0
+SCORE keys=600 both-right=588 TO-GOLDEN=2 AWAY-GOLDEN=0 STILL-WRONG=10 MOVED-WRONG=0
+===== g1_portkind77_plain
+STILL-WRONG ('work@top77.u_mid.gb77[0].u_gleaf', 'i_pkgvecdim') | G=V:packed_array_var | P=N:logic_net nt=0
+STILL-WRONG ('work@top77.u_mid.gb77[0].u_gleaf', 'o_pkgvecdim') | G=V:packed_array_var | P=N:logic_net nt=0
+STILL-WRONG ('work@top77.u_mid.gb77[1].u_gleaf', 'i_pkgvecdim') | G=V:packed_array_var | P=N:logic_net nt=0
+STILL-WRONG ('work@top77.u_mid.gb77[1].u_gleaf', 'o_pkgvecdim') | G=V:packed_array_var | P=N:logic_net nt=0
+STILL-WRONG ('work@top77.u_mid.u_c1', 'i_pkgvecdim') | G=V:packed_array_var | P=N:logic_net nt=0
+STILL-WRONG ('work@top77.u_mid.u_c1', 'o_pkgvecdim') | G=V:packed_array_var | P=N:logic_net nt=0
+STILL-WRONG ('work@top77.u_mid.u_c2', 'i_pkgvecdim') | G=V:packed_array_var | P=N:logic_net nt=0
+STILL-WRONG ('work@top77.u_mid.u_c2', 'o_pkgvecdim') | G=V:packed_array_var | P=N:logic_net nt=0
+TO-GOLDEN   ('work@top77.u_mid.u_c3', 'i_impstruct') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+STILL-WRONG ('work@top77.u_mid.u_c3', 'i_pkgvecdim') | G=V:packed_array_var | P=N:logic_net nt=0
+TO-GOLDEN   ('work@top77.u_mid.u_c3', 'o_impstruct') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+STILL-WRONG ('work@top77.u_mid.u_c3', 'o_pkgvecdim') | G=V:packed_array_var | P=N:logic_net nt=0
+SCORE keys=600 both-right=588 TO-GOLDEN=2 AWAY-GOLDEN=0 STILL-WRONG=10 MOVED-WRONG=0
+===== g22_elab
+
+SCORE keys=4 both-right=4 TO-GOLDEN=0 AWAY-GOLDEN=0 STILL-WRONG=0 MOVED-WRONG=0
+===== g22_plain
+
+SCORE keys=4 both-right=4 TO-GOLDEN=0 AWAY-GOLDEN=0 STILL-WRONG=0 MOVED-WRONG=0
+===== l154_noenum_elab
+
+SCORE keys=0 both-right=0 TO-GOLDEN=0 AWAY-GOLDEN=0 STILL-WRONG=0 MOVED-WRONG=0
+===== l154_noenum_plain
+
+SCORE keys=0 both-right=0 TO-GOLDEN=0 AWAY-GOLDEN=0 STILL-WRONG=0 MOVED-WRONG=0
+===== r10sing3_pa3_elab
+TO-GOLDEN   ('work@top.u', 'g') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@top.u', 'og') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+SCORE keys=23 both-right=21 TO-GOLDEN=2 AWAY-GOLDEN=0 STILL-WRONG=0 MOVED-WRONG=0
+===== r10sing3_pa3_plain
+TO-GOLDEN   ('work@top.u', 'g') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@top.u', 'og') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+SCORE keys=23 both-right=21 TO-GOLDEN=2 AWAY-GOLDEN=0 STILL-WRONG=0 MOVED-WRONG=0

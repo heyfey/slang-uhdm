@@ -1,0 +1,66 @@
+r10earl100 -- THE WIDE BOUNDARY.  MEASUREMENT ONLY.
+
+WHAT RAN.  Every .sv and .v under a COPY of tools/probe at ANY DEPTH -- 4493
+files -- each in BOTH views (plain and --elabuhdm) on BOTH frozen binaries
+(chmod 555, immutable paths of the SAME LENGTH), compared as WORKDIR-NORMALISED
+uhdm-dump output.  The file list is read on FD 3 and every child runs with
+</dev/null (a stdin list is swallowed by the first child; RESUME §9), the
+scratch key is the RELATIVE path (three probe dirs carry a `dut.sv`), and
+PROCESSED is asserted against the listed count.
+
+  LISTED    = 4493
+  PROCESSED = 4493      <- asserted equal
+  identical = 8614   DIFFERING = 16   no_output = 356
+
+THE FENCE.  The four slang-fenced test names were removed from the list BEFORE
+a single child ran, and the filter matched ZERO files -- none was dispatched.
+
+rc HISTOGRAM (17972 invocations):
+  rc=0    16514
+  rc=3      684     (slang rejects the source -- both sides, symmetric)
+  rc=4      746     (ditto)
+  rc=139     28     SEGFAULTS -- 14 PER SIDE, SYMMETRIC (BOUNDARY_WIDE.rc_by_side)
+                    Pre-existing; earl82 R6 / earl83 R6 / earl84 R6 / earl85 R5 /
+                    earl89 R6 / earl90 R8 / earl91 R5 / earl93 R7 / earl94 R6 /
+                    earl95 R4 / earl96 R5 / earl97 R5 / earl99 R8 record the same
+                    set, and byteverify proves none of them is a mover.
+
+THE 16 DIFFERING CELLS (8 files x 2 views) -- EVERY ONE ATTRIBUTED:
+
+ 1-8  r10earl100repro/a1_bare100.sv   THIS PASS'S OWN ARM -- the POSITIVE
+      r10earl100repro/a2_drive100.sv  CONTROL.  The gate CAN see the law:
+      r10earl100repro/g1_forms100.sv  a1 goes 2496/2548 cmp lines and 1 head
+      r10earl100repro/g2_uses100.sv   to uhdm-cmp EQUAL (0/0) in BOTH views;
+                                      g1 and a2 to 29 lines; g2's own cells all
+                                      move TO-GOLDEN (its 509-line head is the
+                                      unrelated interface residue R2).
+      r10earl100repro/g3_neg100.sv    THE NEGATIVE CONTROL -- present in the
+                                      list, BYTE-IDENTICAL on both binaries in
+                                      both views, and correctly ABSENT here.
+
+ 9-10 r10earl77repro/g1_portkind77.sv  TO-GOLDEN x2, AWAY 0.  Scored against a
+      Surelog golden built for the file: `i_impstruct` and `o_impstruct`
+      (`input`/`output p77::st_t` referenced BARE in work@top77.u_mid.u_c3)
+      were struct_VARs under vpiVariables and are now struct_NETs under vpiNets
+      -- which is what golden lists.  Index-blind listing distance from golden
+      44 -> 40 lines; the remainder (a `p77::s1_t` typespec NAME, and
+      `i/o_pkgvecdim` as logic_nets where golden has packed_array_vars) is
+      pre-existing and IDENTICAL on both binaries.
+
+11-12 r10sing3_pa3.sv                  TO-GOLDEN x2, AWAY 0, and the file
+      CONVERTS: pristine 1394 cmp lines / 1 head -> patched uhdm-cmp EQUAL
+      (0 lines, 0 heads).  `pk::st` struct signals `g` and `og` were struct_VARs
+      and are now the struct_NETs golden lists.
+
+13-16 r10buvm22repro/g22.sv            NOT A BEHAVIOUR CHANGE.  The ONLY line
+      r10uvm154repro/l154_noenum.sv    that differs in either dump is one
+      garbage number -- vpiDecompile/UINT 22527705 (patched) vs 22556377
+      (pristine) -- the associative-array typedef's LAYOUT-DERIVED constant that
+      r10uvm154 §7 characterised and r10earl99 R7 re-proved with a third binary:
+      it tracks the BINARY LAYOUT, is run-stable per binary, and is EQUIDISTANT
+      from golden on both.  Measured here again against a Surelog golden built
+      for each file: identical cmp line counts (g22 1719/1719, l154_noenum 8/8),
+      identical head counts (1/1), and ZERO listing-census differences on both
+      binaries.
+
+ZERO UNATTRIBUTED MOVERS.

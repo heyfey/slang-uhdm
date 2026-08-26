@@ -1,0 +1,112 @@
+===== v1_union100_elab
+TO-GOLDEN   ('work@v1_union100.u_prc', 'p_in') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v1_union100.u_prc', 'p_out') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v1_union100.u_und', 'p_in') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v1_union100.u_und', 'p_out') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+SCORE keys=38 both-right=34 TO-GOLDEN=4 AWAY-GOLDEN=0 STILL-WRONG=0 MOVED-WRONG=0
+===== v1_union100_plain
+TO-GOLDEN   ('work@v1_union100.u_prc', 'p_in') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v1_union100.u_prc', 'p_out') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v1_union100.u_und', 'p_in') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v1_union100.u_und', 'p_out') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+SCORE keys=38 both-right=34 TO-GOLDEN=4 AWAY-GOLDEN=0 STILL-WRONG=0 MOVED-WRONG=0
+===== v2_homes100_elab
+TO-GOLDEN   ('work@v2_homes100.u_blk', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v2_homes100.u_blk', 'q') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v2_homes100.u_io', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v2_homes100.u_mem', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v2_homes100.u_mem', 'q') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v2_homes100.u_nst', 'n') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v2_homes100.u_nst', 'v') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v2_homes100.u_p1', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v2_homes100.u_p2', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v2_homes100.u_pas.u_leaf', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v2_homes100.u_ro', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v2_homes100.u_var', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+SCORE keys=69 both-right=57 TO-GOLDEN=12 AWAY-GOLDEN=0 STILL-WRONG=0 MOVED-WRONG=0
+===== v2_homes100_plain
+TO-GOLDEN   ('work@v2_homes100.u_blk', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v2_homes100.u_blk', 'q') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v2_homes100.u_io', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v2_homes100.u_mem', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v2_homes100.u_mem', 'q') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v2_homes100.u_nst', 'n') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v2_homes100.u_nst', 'v') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v2_homes100.u_p1', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v2_homes100.u_p2', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v2_homes100.u_pas.u_leaf', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v2_homes100.u_ro', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v2_homes100.u_var', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+SCORE keys=69 both-right=57 TO-GOLDEN=12 AWAY-GOLDEN=0 STILL-WRONG=0 MOVED-WRONG=0
+===== v3_gen100_elab
+TO-GOLDEN   ('work@v3_gen100.u_i1', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v3_gen100.u_i2', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v3_gen100.u_i3', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+STILL-WRONG ('work@v3_gen100.u_if', 'i_var') | G=V:struct_var | P=N:struct_net nt=0
+STILL-WRONG ('work@v3_gen100.u_if', 'shadowme') | G=V:logic_var | P=<absent>
+STILL-WRONG ('work@v3_if', 'shadowme') | G=N:logic_net nt=36 | P=<absent>
+SCORE keys=38 both-right=32 TO-GOLDEN=3 AWAY-GOLDEN=0 STILL-WRONG=3 MOVED-WRONG=0
+===== v3_gen100_plain
+TO-GOLDEN   ('work@v3_gen100.u_i1', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v3_gen100.u_i2', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v3_gen100.u_i3', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+STILL-WRONG ('work@v3_gen100.u_if', 'i_var') | G=V:struct_var | P=N:struct_net nt=0
+STILL-WRONG ('work@v3_gen100.u_if', 'shadowme') | G=V:logic_var | P=<absent>
+STILL-WRONG ('work@v3_if', 'shadowme') | G=N:logic_net nt=36 | P=<absent>
+SCORE keys=38 both-right=32 TO-GOLDEN=3 AWAY-GOLDEN=0 STILL-WRONG=3 MOVED-WRONG=0
+===== v4_forms100_elab
+TO-GOLDEN   ('work@v4_forms100.u_na', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v4_forms100.u_na', 'q') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+SCORE keys=27 both-right=25 TO-GOLDEN=2 AWAY-GOLDEN=0 STILL-WRONG=0 MOVED-WRONG=0
+===== v4_forms100_plain
+TO-GOLDEN   ('work@v4_forms100.u_na', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v4_forms100.u_na', 'q') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+SCORE keys=27 both-right=25 TO-GOLDEN=2 AWAY-GOLDEN=0 STILL-WRONG=0 MOVED-WRONG=0
+===== v5_deep100_elab
+TO-GOLDEN   ('work@v5_deep100.ga.u_g', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v5_deep100.gl[0].u_l', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v5_deep100.gl[1].u_l', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v5_deep100.u_ar', 'np') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v5_deep100.u_df', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v5_deep100.u_df', 'q') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+STILL-WRONG ('work@v5_deep100.u_if', 'if_var') | G=V:struct_var | P=N:struct_net nt=0
+SCORE keys=45 both-right=38 TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=1 MOVED-WRONG=0
+===== v5_deep100_plain
+TO-GOLDEN   ('work@v5_deep100.ga.u_g', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v5_deep100.gl[0].u_l', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v5_deep100.gl[1].u_l', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v5_deep100.u_ar', 'np') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v5_deep100.u_df', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v5_deep100.u_df', 'q') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+STILL-WRONG ('work@v5_deep100.u_if', 'if_var') | G=V:struct_var | P=N:struct_net nt=0
+SCORE keys=45 both-right=38 TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=1 MOVED-WRONG=0
+===== v6_more100_elab
+TO-GOLDEN   ('work@v6_more100.u_l1.u2.u3', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v6_more100.u_mix', 'pi') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v6_more100.u_mix', 'po1') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v6_more100.u_mix', 'po2') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+SCORE keys=37 both-right=33 TO-GOLDEN=4 AWAY-GOLDEN=0 STILL-WRONG=0 MOVED-WRONG=0
+===== v6_more100_plain
+TO-GOLDEN   ('work@v6_more100.u_l1.u2.u3', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v6_more100.u_mix', 'pi') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v6_more100.u_mix', 'po1') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v6_more100.u_mix', 'po2') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+SCORE keys=37 both-right=33 TO-GOLDEN=4 AWAY-GOLDEN=0 STILL-WRONG=0 MOVED-WRONG=0
+===== v7_edge100_elab
+TO-GOLDEN   ('work@v7_edge100.u_mc', 'm_i') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v7_edge100.u_mc', 'm_o') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v7_edge100.u_mc', 'n_i') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v7_edge100.u_mc', 'n_o') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v7_edge100.u_mx', 'bare_p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v7_edge100.u_mx', 'pw') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v7_edge100.u_nn', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+SCORE keys=35 both-right=28 TO-GOLDEN=7 AWAY-GOLDEN=0 STILL-WRONG=0 MOVED-WRONG=0
+===== v7_edge100_plain
+TO-GOLDEN   ('work@v7_edge100.u_mc', 'm_i') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v7_edge100.u_mc', 'm_o') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v7_edge100.u_mc', 'n_i') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v7_edge100.u_mc', 'n_o') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v7_edge100.u_mx', 'bare_p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v7_edge100.u_mx', 'pw') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+TO-GOLDEN   ('work@v7_edge100.u_nn', 'p') | G=N:struct_net nt=0 | pris=V:struct_var -> pat=N:struct_net nt=0
+SCORE keys=35 both-right=28 TO-GOLDEN=7 AWAY-GOLDEN=0 STILL-WRONG=0 MOVED-WRONG=0

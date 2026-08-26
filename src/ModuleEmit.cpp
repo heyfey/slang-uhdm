@@ -6892,124 +6892,12 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
     auto* vars = s.MakeVariablesVec();
     auto* arrayNets = s.MakeArray_netVec();
     UHDM::VectorOfnamed_event* namedEvents = nullptr;
-    // Surelog models struct-typed PORTS as struct_VARs (not struct_nets) when
-    // the module PROCEDURALLY writes a struct port (whole or member) — e.g.
-    // rsp_gen_minimal's `tl_o.d_user.rsp_intg = ...` in an always_comb. With no
-    // struct port procedurally driven, struct ports stay struct_nets
-    // (simple_package: bus_out is driven only by a submodule connection).
-    bool procWritesStructPort = false;
-    // A struct-typed port ALSO elaborates as a struct_var when the module
-    // WIRES NO struct port at all — no procedural write, no cont assign, no
-    // child-instance connection on ANY of them (Surelog; rp32 r5p_bru's
-    // read-only `input dec_t dec`). The predicate is module-wide, not
-    // per-port: simple_package hands `bus_out` to a submodule, and that keeps
-    // its read-only `bus_in` a struct_net.
-    std::set<const Symbol*> undrivenStructPorts;
-    {
-        std::vector<const Symbol*> structPortSyms;
-        for (auto& it2 : collectNetOrder(body)) {
-            if (!it2.port || it2.bodyDecl || it2.portExprNet)
-                continue;
-            if (auto dt = it2.sym->getDeclaredType()) {
-                auto k = dt->getType().getCanonicalType().kind;
-                if (k == SymbolKind::PackedStructType ||
-                    k == SymbolKind::PackedUnionType ||
-                    k == SymbolKind::UnpackedUnionType)
-                    structPortSyms.push_back(it2.sym);
-            }
-        }
-        if (!structPortSyms.empty()) {
-            std::set<const Symbol*> touched;
-            auto baseSym = [&](const Expression& e0) -> const Symbol* {
-                const Expression* l = &stripImplicitConv(e0);
-                for (;;) {
-                    if (l->kind == ExpressionKind::MemberAccess)
-                        l = &stripImplicitConv(
-                            l->as<MemberAccessExpression>().value());
-                    else if (l->kind == ExpressionKind::ElementSelect)
-                        l = &stripImplicitConv(
-                            l->as<ElementSelectExpression>().value());
-                    else if (l->kind == ExpressionKind::RangeSelect)
-                        l = &stripImplicitConv(
-                            l->as<RangeSelectExpression>().value());
-                    else
-                        break;
-                }
-                if (l->kind == ExpressionKind::NamedValue)
-                    return &l->as<NamedValueExpression>().symbol;
-                return nullptr;
-            };
-            for (auto& mb : body.members()) {
-                if (mb.kind == SymbolKind::ProceduralBlock)
-                    mb.as<ProceduralBlockSymbol>().getBody().visit(makeVisitor(
-                        [&](auto& v, const AssignmentExpression& ax) {
-                            if (auto* ws = baseSym(ax.left()))
-                                touched.insert(ws);
-                            v.visitDefault(ax);
-                        }));
-                else if (mb.kind == SymbolKind::ContinuousAssign) {
-                    auto& ce = mb.as<ContinuousAssignSymbol>().getAssignment();
-                    if (ce.kind == ExpressionKind::Assignment)
-                        if (auto* ws =
-                                baseSym(ce.as<AssignmentExpression>().left()))
-                            touched.insert(ws);
-                }
-                else if (mb.kind == SymbolKind::Instance) {
-                    for (auto* conn :
-                         mb.as<InstanceSymbol>().getPortConnections())
-                        if (auto* ex = conn->getExpression())
-                            ex->visit(makeVisitor(
-                                [&](auto& v2, const NamedValueExpression& nv) {
-                                    touched.insert(&nv.symbol);
-                                    v2.visitDefault(nv);
-                                }));
-                }
-            }
-            bool anyStructPortWired = false;
-            for (auto* psym : structPortSyms)
-                if (touched.count(psym))
-                    anyStructPortWired = true;
-            if (!anyStructPortWired)
-                for (auto* psym : structPortSyms)
-                    undrivenStructPorts.insert(psym);
-        }
-        if (!structPortSyms.empty())
-            for (auto& mb : body.members()) {
-                if (mb.kind != SymbolKind::ProceduralBlock)
-                    continue;
-                mb.as<ProceduralBlockSymbol>().getBody().visit(makeVisitor(
-                    [&](auto& v, const AssignmentExpression& ax) {
-                        // Only a BLOCKING struct-port write promotes to var; a
-                        // nonblocking one keeps the net (simple_package's
-                        // sub_module drives data_out via always_ff `<=`).
-                        if (ax.isNonBlocking()) {
-                            v.visitDefault(ax);
-                            return;
-                        }
-                        const Expression* l = &stripImplicitConv(ax.left());
-                        for (;;) {
-                            if (l->kind == ExpressionKind::MemberAccess)
-                                l = &stripImplicitConv(
-                                    l->as<MemberAccessExpression>().value());
-                            else if (l->kind == ExpressionKind::ElementSelect)
-                                l = &stripImplicitConv(
-                                    l->as<ElementSelectExpression>().value());
-                            else if (l->kind == ExpressionKind::RangeSelect)
-                                l = &stripImplicitConv(
-                                    l->as<RangeSelectExpression>().value());
-                            else
-                                break;
-                        }
-                        if (l->kind == ExpressionKind::NamedValue) {
-                            auto* wsym = &l->as<NamedValueExpression>().symbol;
-                            for (auto* psym : structPortSyms)
-                                if (psym == wsym)
-                                    procWritesStructPort = true;
-                        }
-                        v.visitDefault(ax);
-                    }));
-            }
-    }
+    // § structPortNetIsMemberScanOnly100 — the module-wide "is any struct
+    // port wired" / "does a blocking assignment write a struct port" scan that
+    // used to live here is GONE with the route it fed (see the § at the
+    // struct-signal emission below).  Surelog's net-vs-variable decision for a
+    // struct-typed signal reads the struct typespec's MEMBERS and nothing about
+    // how the signal is used, so no drivenness walk is needed to make it.
     // An EXPLICIT non-ANSI port shares one internal symbol across several
     // ports; only the FIRST of them carries the port typespec, and the net
     // the others mint is left untyped — which Surelog's elaboration turns
@@ -8554,31 +8442,34 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 vars->push_back(sv);
                 continue;
             }
-            // A packed pkg-typedef STRUCT PORT referenced BARE via a wildcard
-            // import (not explicitly pkg::-qualified), in a module that
-            // procedurally drives a struct port, elaborates as a struct_VAR
-            // under vpiVariables (Surelog), not a struct_net: rsp_gen_minimal's
-            // `input/output tl_d2h_t tl_i/tl_o` under `import tlul_pkg::*` with
-            // `tl_o.d_user.rsp_intg = ...`.
-            if (isStruct && it.port && !it.bodyDecl &&
-                (procWritesStructPort || undrivenStructPorts.count(it.sym)) &&
-                !it.sym->getDeclaredType()->getInitializer() &&
-                isPkgStructType(*it.sym) && !isExplicitPkgQualified(*it.sym)) {
-                auto* sv = s.MakeStruct_var();
-                sv->VpiName(name);
-                sv->VpiFullName(fullName);
-                sv->VpiParent(m);
-                setLoc(sv, nameSpan(it.sym->location, it.sym->name));
-                sv->VpiVisibility(1);
-                if (rt) {
-                    rt->VpiParent(sv);
-                    sv->Typespec(rt);
-                }
-                topNets[it.sym] = sv;
-                sigOrder.emplace_back(it.sym, sv);
-                vars->push_back(sv);
-                continue;
-            }
+            // § structPortNetIsMemberScanOnly100 — A STRUCT-TYPED SIGNAL'S
+            // NET-VS-VARIABLE CLASS IS THE MEMBER SCAN AND NOTHING ELSE.
+            // Surelog decides it in ElaborationStep's typespec dispatch
+            // (`elab_signal_`, ElaborationStep.cpp:1908) reading only the
+            // struct_typespec's MEMBER TYPESPECS — logic or struct ⇒ net,
+            // anything else (an enum member, a packed-array member) ⇒ var —
+            // which is `structTsIsNetLike` / `memberDemotesToVar` above.  There
+            // is NO drivenness term, NO direction term and NO `var`-keyword
+            // term in it: measured on Surelog directly, a net-like package
+            // struct stays a struct_net as an input port, an output port, an
+            // inout port, a port written by a blocking always_comb, by a
+            // continuous assign, by an always_ff `<=`, a port handed to a child
+            // instance, a port nothing drives at all, a port written `var al_t`,
+            // and every body declaration of the same type (plain, `wire`,
+            // `var`).  The two precedents the deleted drivenness route was
+            // written for reproduce WITHOUT it: rsp_gen_minimal's `tl_d2h_t`
+            // carries an ENUM member (`tl_d_op_e d_opcode`) so the member scan
+            // already makes `tl_i`/`tl_o` struct_vars, and simple_package's
+            // all-logic `bus_transaction_t` needs the struct_net the route
+            // suppressed.  The route could only ever fire on a net-like struct
+            // (a non-net-like one is taken by `memberDemotesToVar` above and
+            // `continue`s), i.e. exactly where golden emits a NET — so it was
+            // wrong wherever it reached: Earlgrey's `sha2_pad.fifo_rdata`
+            // (`hmac_pkg::sha_fifo_t`, all-logic) and
+            // `usbdev_iomux.sys_reg2hw_config_i`
+            // (`usbdev_reg_pkg::usbdev_reg2hw_phy_config_reg_t`, all anonymous
+            // packed-struct members) were listed under vpiVariables where
+            // golden lists them under vpiNets.
             // A packed-struct signal initialized by an ASSIGNMENT PATTERN
             // ('{...}) is a struct_NET whose init becomes a net-decl cont_assign
             // (Surelog) — a bare-expression init (concat, literal) stays a

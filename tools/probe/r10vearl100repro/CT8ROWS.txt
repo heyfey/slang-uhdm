@@ -1,0 +1,15 @@
+--- results/gate_uhdm2rtlil.csv vs /tmp/v100_wdA/u2r_tf.csv
+  testflags  fresh:      52      183 differ     496 match
+PASS: every row byte-identical to the committed baseline
+--- /tmp/v100_wdP/u2r_tf.csv vs /tmp/v100_wdA/u2r_tf.csv
+  testflags  fresh:      52      183 differ     496 match
+PASS: every row byte-identical to the committed baseline
+--- /tmp/v100_wdP/u2r_def.csv vs /tmp/v100_wdA/u2r_def.csv
+  default  fresh:      52      187 differ     492 match
+PASS: every row byte-identical to the committed baseline
+--- results/golden_surelog.csv vs /tmp/v100_wdA/sl.csv
+  testflags  fresh:     328      300 differ     166 match
+PASS: every row byte-identical to the committed baseline
+--- /tmp/v100_wdP/sl.csv vs /tmp/v100_wdA/sl.csv
+  testflags  fresh:     328      300 differ     166 match
+PASS: every row byte-identical to the committed baseline

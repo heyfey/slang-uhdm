@@ -1,0 +1,22 @@
+r10earl100 -- THE ARM TABLE.  MEASUREMENT ONLY; uhdm-cmp is the judge.
+LHS is ALWAYS golden (a Surelog database built in place by arm100.sh).
+BINPAIR SAME means the two binaries' databases are BYTE-IDENTICAL on that cell.
+
+ARM                VIEW   BINPAIR   PRIS_LINES  HEADS PAT_LINES  HEADS
+g1_forms100        plain  DIFF          2403      1       29      1
+g1_forms100        elab   DIFF          2463      1       29      1
+g2_uses100         plain  DIFF           509      1      509      1
+g2_uses100         elab   DIFF           509      1      509      1
+g3_neg100          plain  SAME          1154      1     1154      1
+g3_neg100          elab   SAME          1144      1     1144      1
+a1_bare100         plain  DIFF          2496      1        0      0
+a1_bare100         elab   DIFF          2548      1        0      0
+a2_drive100        plain  DIFF          4474      1       29      1
+a2_drive100        elab   DIFF          4663      1       29      1
+
+PRIS_LINES/PAT_LINES = uhdm-cmp stdout lines; HEADS = grep -c '^LHS:' on STDERR.
+a1_bare100 CONVERTS OUTRIGHT (0 lines, 0 heads) in BOTH views.
+g3_neg100 is the NEGATIVE CONTROL: byte-identical databases on both binaries.
+The g2 residue (509 lines, unchanged) is R2 -- an INTERFACE struct member that
+skips the member scan; it is the head of that arm on BOTH binaries and masks the
+law's own cells there, which the listing census scores TO-GOLDEN with AWAY 0.

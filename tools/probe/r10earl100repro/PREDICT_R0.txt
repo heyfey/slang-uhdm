@@ -1,0 +1,122 @@
+r10earl100 -- THE MOVER PREDICTION and THE NEXT HEAD (R0).
+
+BASE 400a941, branch auto5h.  The official ~/git-repos/UHDM/build/bin/uhdm-cmp
+is the sole acceptance judge; everything in this directory is MEASUREMENT ONLY.
+
+========================================================================
+PART 1 -- THE MOVER PREDICTION (made from PRISTINE databases only)
+========================================================================
+The law's population is a SHAPE, and ct100cen/cen100.py counted every cell of
+it over BOTH corpora on the PRISTINE binary before a line of the law was
+written:
+
+  a struct-typed signal whose LISTING (vpiVariables vs vpiNets) or KIND
+  (struct_var vs struct_net) differs from golden's.
+
+  uhdm2rtlil   0 cells in 1358 databases / 23620 scopes / 31664 cells.
+               ONLY-GOLDEN 0, ONLY-OURS 0, count-mismatched scopes 0/0.
+               The corpus has NO cell of this shape: nothing to fix, nothing
+               to break.  (This is also the CALIBRATION of the instrument:
+               zero false positives on 1358 CMP_EQUAL databases.)
+  surelog      4 cells in 2 tests -- Earlgrey_0_1 default and testflags,
+               2 cells each, IDENTICAL in the two modes:
+                 work@top_earlgrey.u_hmac.u_sha2.u_pad          | fifo_rdata
+                 work@top_earlgrey.u_usbdev.i_usbdev_iomux      | sys_reg2hw_config_i
+               golden N:struct_net / ours V:struct_var, both times.
+
+  The deleted drivenness route could only ever fire where structTsIsNetLike()
+  is TRUE (a non-net-like struct is taken by the member-scan route above it and
+  `continue`s), i.e. exactly where golden emits a NET -- so its ENTIRE corpus
+  reach is those 4 cells and every one of them was WRONG.
+
+  MUST-STAY rows the same carrier covers, verified directly on their goldens:
+    rsp_gen_minimal (CMP_EQUAL both modes)  tl_d2h_t has an ENUM member; the
+      member scan alone makes tl_i/tl_o struct_vars.  Golden's `dut` vpiNets is
+      a NULL VECTOR.
+    simple_package  (CMP_EQUAL both modes)  bus_transaction_t is all logic;
+      golden nets bus_in, bus_out AND internal_bus in both the top and the
+      submodule.  The route suppressed exactly those nets.
+    rp32_r5p_bru    (CMP_EQUAL both modes)  dec_t opens with an enum member;
+      golden: struct_var dec, from the member scan.
+  All three are byte-identical pristine vs patched (byteverify).
+
+PREDICTION: EXACTLY TWO DATABASES MOVE -- Earlgrey_0_1 default and testflags.
+uhdm2rtlil: ZERO movers.
+
+WHAT ACTUALLY MOVED (byteverify SELFCHECK=1, patched vs this pass's OWN
+pristine sweep; both binaries frozen chmod 555 at immutable paths of the SAME
+LENGTH -- /tmp/r10earl100_pris.bin and /tmp/r10earl100_lawA.bin; every cmds.txt
+audited BY BINARY PATH, 0 of 3035 name the main-tree binary):
+
+  uhdm2rtlil  MOVERS 0 / 1358   <- as predicted   (SELFCHECK 1357/1358 flagged)
+  surelog     MOVERS 2 /  956   <- as predicted, and NOTHING ELSE
+      ./default/Earlgrey_0_1
+      ./testflags/Earlgrey_0_1                    (SELFCHECK 955/956 flagged)
+  No Scoreboard/default coin flip occurred in this run.  (RESUME §9 names it a
+  ~50/50 coin; a run that shows it is attributed order-blind, not a law mover.)
+
+THE CENSUS re-scored over the SAME fixed universe:
+
+   uhdm2rtlil   BOTH-SAME  31664 ->  31664   ONLY-GOLDEN 0 -> 0   ONLY-OURS 0 -> 0
+                nV-mismatched scopes 0 -> 0   nN-mismatched scopes 0 -> 0
+   surelog      BOTH-SAME 205841 -> 205845   ONLY-GOLDEN 372 -> 368
+                ONLY-OURS      4 ->      0
+                nV-mismatched scopes 8 -> 4   nN-mismatched scopes 10 -> 6
+
+  TO-GOLDEN 4  AWAY-GOLDEN 0  ADDED 0  REMOVED 0  MOVED-WRONG 0.
+  The four cells are one object each changing LISTING -- nothing added, nothing
+  removed.  Earlgrey disappears from the census report in BOTH modes.
+  LISTING COUNTS, both columns, for the head's own module:
+    work@top_earlgrey.u_hmac.u_sha2.u_pad
+      golden nV=8 nN=16 | pristine nV=9 nN=15 | patched nV=8 nN=16
+
+========================================================================
+PART 2 -- R0: THE NEXT HEAD, AND THE RESIDUES
+========================================================================
+BEFORE (this pass's own pristine build e3d14ab934b7), rowheads.sh scale:
+  Earlgrey_0_1 default   132, 1 head  |  testflags  26594, 1 head
+AFTER (6b5ee27cfaa9):
+  Earlgrey_0_1 default   132, 1 head  |  testflags    132, 1 head
+
+R0 -- ONE HEAD NOW SERVES BOTH MODES: A TYPESPEC'S NAME.
+    hmac_pkg.sv:17.  `typedef logic [31:0] sha_word_t;`
+      LHS (golden)  logic_typespec |vpiName:sha_word_t
+                    |vpiTypedefAlias: ref_typespec -> logic_typespec
+                                       (hmac_pkg::sha_word_t)
+      RHS (ours)    logic_typespec |vpiName:hmac_pkg::sha_word_t
+                    |vpiTypedefAlias: ref_typespec -> (hmac_pkg::sha_word_t)
+    132 cmp lines, 1 head, and the two modes' logs are byte-identical
+    (HEAD_AFTER_Earlgrey_default.cmp == HEAD_AFTER_Earlgrey_testflags.cmp).
+    `typespec::Compare` walks Typedef_alias BEFORE Instance, and VpiName is
+    read -- so the failing field is the NAME.
+    QUEUED, NOT THIS FAMILY: Surelog's naming is context-dependent (the
+    campaign memory's naming-context-dependent note: do NOT uniformly strip or
+    add `pkg::`; it breaks goldens and RefPkgParamInEnum) and r10earl96 owns
+    the family.  Whoever takes it must census the whole corpus for typespec
+    VpiName spellings first.
+
+RANKED RESIDUES this pass MEASURED and deliberately did not take -- see
+README.md §7 for the full decode:
+  R1  `wire <pkg-struct> name;` loses VpiNetType (golden 1 = vpiWire, ours 0).
+      nets::Compare DOES read VpiNetType.  Pre-existing, identical on both
+      binaries, 0 corpus cells; the only thing left in g1_forms100 and
+      a2_drive100 (29 cmp lines each).  Sibling already decoded in-tree: an
+      explicitly `pkg::`-qualified struct signal takes vpiWire from
+      bindStructInPackage's setType(paNetType_Wire) -- measured, p_net_qual
+      nt=1 vs p_net_bare nt=0 on the SAME typedef.
+  R2  An INTERFACE's struct member skips the member scan: g2_uses100's
+      if2.i_var (an enum member) is golden struct_var / ours struct_net.  The
+      head of both g2 arms on BOTH binaries.  0 corpus cells; the interface
+      cluster is a known 41-test hazard.
+  R3  A package-typedef struct with a STRUCTURED pattern init: golden
+      struct_net + net-decl cont_assign, ours struct_var carrying the pattern
+      as vpiExpr (the structuredPkgPat route).  0 corpus cells; byte-identical
+      on g3_neg100, which carries the whole init family as a negative control.
+  R4  A `pkg::vec_t [N:0]` PORT is a net, not a packed_array_var: the wide
+      boundary's attribution of r10earl77repro/g1_portkind77.sv shows
+      i_pkgvecdim / o_pkgvecdim as golden packed_array_var / ours logic_net --
+      the STRICT scan's territory (written packed dims make the typespec a
+      packed_array_typespec, which is not net-like at all).  Identical on both
+      binaries, 0 corpus cells.
+  R5  The pre-existing probe / boundary segfaults; the wide boundary's rc
+      histogram is symmetric side for side.  byteverify proves none is a mover.

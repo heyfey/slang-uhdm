@@ -1,0 +1,46 @@
+r10vearl100 — RAW GATE BATTERY (adversarial verifier, independent rebuild)
+binaries: pristine 400a941 = e3d14ab934b7b9e6862f85620f3c60e7
+          patched  400a941+r10earl100.patch = 6b5ee27cfaa974f5da3ec536420e4066
+
+== check_goldens (SLANG_UHDM exported per binary)
+patched  PASS=23 FAIL=0
+pristine PASS=23 FAIL=0
+SLANG_UHDM=/bin/false PASS=0 FAIL=23
+
+== status histograms (identical patched vs pristine)
+surelog  default   471 CMP_EQUAL / 10 CMP_NOTEQUAL / 5 DEFERRED / 283 SLANG_REJECT / 25 SURELOG_FAIL
+surelog  testflags 466 CMP_EQUAL /  9 CMP_NOTEQUAL / 5 DEFERRED / 284 SLANG_REJECT / 23 SURELOG_FAIL / 3 NO_DATABASE / 2 UNTRANSLATABLE / 1 TIMEOUT / 1 NO_UHDM
+uhdm2rtlil both modes 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+
+== ct8rows (see CT8ROWS.txt): PASS x5, 0 differing ROWS over 1588 / 731; no row converts
+   Earlgrey_0_1,default,CMP_NOTEQUAL,decompile:,,   (unchanged)
+   Earlgrey_0_1,testflags,CMP_NOTEQUAL,decompile:,, (unchanged)
+   results/*.csv untouched (git status: only src/ModuleEmit.cpp modified)
+
+== byteverify SELFCHECK=1
+uhdm2rtlil PATH_SETS_IDENTICAL 1358; MOVERS 0 / 1358; SELFCHECK 1357/1358
+surelog    PATH_SETS_IDENTICAL  956; MOVERS 2 /  956; SELFCHECK  955/956
+  MOVER ./default/Earlgrey_0_1-71da2fd7/slang.uhdm
+  MOVER ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm
+  (exactly the predicted set; no Scoreboard/default coin this run)
+
+== cmds.txt audit BY BINARY PATH
+3035 cmds.txt per side; 0 name the main-tree binary; 0 cross-contamination
+  2981 x /tmp/v100_lawA.bin   2981 x /tmp/v100_pris.bin
+
+== canaries / ctcan2 / canaudit
+canaries surelog ok=52 changed=0 absent=0 ; u2r ok=8 changed=0 absent=0
+ctcan2 PASS x2 ; canaudit audited=29 UNCOVERED=0 FENCE-BREACH=0
+
+== protected databases (patched vs pristine md5, both modes)
+InterfaceModPort SAME 59a365f3ce2c ; BlackParrotComplex SAME (def e3e354129d5a / tf 73a10e8217e5)
+YosysOldOr SAME d68e0796d62c ; SVSwitch 4842211c4030 ; YosysVerx 6ccda350c24a
+
+== wide boundary (4499 files = 4493 tools/probe + 6 verifier arms, both views, both binaries)
+PROCESSED=1504 identical=2886 DIFFERING=12 no_output=110
+PROCESSED=1508 identical=2927 DIFFERING=16 no_output=73
+PROCESSED=1487 identical=2801 DIFFERING=0 no_output=173
+merged: PROCESSED=4499 = LISTED  identical=8614  DIFFERING=28  no_output=356
+rc histogram: rc=0 16538  rc=3 684  rc=4 746  rc=139 28 (symmetric: side A 14 / side B 14)
+fenced-name files in the list: 0 (none dispatched)
+44 earl98/earl99/uvm75 must-stay control arms: 0 differing

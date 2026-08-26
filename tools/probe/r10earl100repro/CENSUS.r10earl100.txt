@@ -1,0 +1,75 @@
+r10earl100 -- THE LISTING CENSUS (MEASUREMENT ONLY; uhdm-cmp is the judge).
+
+WHAT IS KEYED.  ct100cen.cpp emits, for every scope that carries a
+Variables / Nets / Array_nets listing in either database, one line per signal:
+
+    SIG <view>|<homekind>|<homefullname>|<signame>   <list>:<kind>
+    CNT <view>|<homekind>|<homefullname>             nV=<n> nN=<n> nA=<n>
+
+<view> is D (design::AllModules/AllPackages/AllInterfaces -- the definition
+listing) or E (design::TopModules -- the elaborated tree); the two producers
+name the two views identically, so the view MUST be in the key.  The key
+carries NO SPAN and NO typespec: this census scores exactly the two things the
+judge reads here -- WHICH LISTING a signal sits in and WHAT KIND it is -- plus
+the vector SIZES, which are what BaseClass.h's vector SafeCompare actually
+reports (it returns on a size mismatch with BOTH owners set, before comparing
+a single element).  cen100.py joins the two sides as MULTISETS (collections.
+Counter), never a last-writer dict: a name can legitimately repeat in a listing.
+
+CALIBRATION.  The scorer reads ZERO one-sided cells and ZERO count mismatches
+on all 1358 uhdm2rtlil databases (23620 scopes, 31664 cells) -- every one of
+which uhdm-cmp calls CMP_EQUAL.  0 false positives on 1358 equal databases.
+
+THE UNIVERSE (identical before and after; both sweeps used frozen binaries at
+immutable paths of the same length, and 0 of 3035 cmds.txt name the main-tree
+binary).  Cell totals per SIDE -- both are INVARIANT across the law, which is
+the arithmetic proof that the four cells changed LISTING and nothing was added
+or removed:
+
+  uhdm2rtlil   1358 databases   23620 scopes   golden 31664 cells / ours 31664
+  surelog       956 databases   41146 scopes   golden 206213 cells / ours 205845
+               (pristine 205841 same + 372 golden-only + 4 ours-only;
+                patched  205845 same + 368 golden-only + 0 ours-only --
+                golden 205845+368 = 206213 UNCHANGED,
+                ours   205845+  0 = 205845 UNCHANGED)
+
+SCORE, PRISTINE -> PATCHED, same fixed universe:
+
+  uhdm2rtlil   BOTH-SAME     31664 ->  31664      (unchanged)
+               ONLY-GOLDEN       0 ->      0
+               ONLY-OURS         0 ->      0
+               count-mismatched scopes  nV 0 -> 0,  nN 0 -> 0
+
+  surelog      BOTH-SAME    205841 -> 205845      +4
+               ONLY-GOLDEN     372 ->    368      -4
+               ONLY-OURS         4 ->      0      -4
+               count-mismatched scopes  nV 8 -> 4,  nN 10 -> 6
+
+  TO-GOLDEN 4   AWAY-GOLDEN 0   ADDED 0   REMOVED 0   MOVED-WRONG 0
+
+THE FOUR CELLS, QUOTED IN FULL (they are the whole population; each is ONE
+object changing listing, not an object added or removed):
+
+  default/Earlgrey_0_1 and testflags/Earlgrey_0_1, identically:
+    G-ONLY x1 E|module_inst|work@top_earlgrey.u_hmac.u_sha2.u_pad|fifo_rdata          N:struct_net
+    O-ONLY x1 E|module_inst|work@top_earlgrey.u_hmac.u_sha2.u_pad|fifo_rdata          V:struct_var
+    G-ONLY x1 E|module_inst|work@top_earlgrey.u_usbdev.i_usbdev_iomux|sys_reg2hw_config_i  N:struct_net
+    O-ONLY x1 E|module_inst|work@top_earlgrey.u_usbdev.i_usbdev_iomux|sys_reg2hw_config_i  V:struct_var
+  After the law all four are gone and Earlgrey no longer appears in the report
+  in EITHER mode.
+
+THE SCOPE COUNTS, BOTH COLUMNS, for the head's own module (read straight out of
+both databases with ct100lst, not out of a decompile):
+
+    work@top_earlgrey.u_hmac.u_sha2.u_pad     golden  nV=8  nN=16
+                                    pristine  nV=9  nN=15   <- the head
+                                     patched  nV=8  nN=16   <- equal
+
+WHAT DOES NOT MOVE (pre-existing, present identically before and after, NOT
+this pass's population -- a different family in every case):
+
+  default+testflags/MiniAmiq      71 ONLY-GOLDEN cells, nN 1 scope
+  default+testflags/SeqDriver     82 ONLY-GOLDEN cells, nV 1 + nN 1 scope
+  default+testflags/SimpleUVM     31 ONLY-GOLDEN cells, nV 1 + nN 1 scope
+  led by D|interface_inst|work@svaunit_vpi_interface|UVM_UNBOUNDED_CONNECTIONS
+  N:logic_net -- a DEF-view interface listing, unchanged by this pass.

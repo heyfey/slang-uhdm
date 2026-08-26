@@ -1,0 +1,87 @@
+r10earl100 -- HEAD_BEFORE, Earlgrey_0_1 / testflags (26594 cmp lines, ONE head).
+The head object is a MODULE_INST and uhdm-cmp decompiles it WHOLE, which is why
+the stderr log is 13297 lines.  What follows is the identifying prefix of each
+side plus the LISTING DIFFERENCE that is the actual failing test.
+
+THE FAILING TEST, decoded from the generated Compare order (scope::Compare
+walks Variables at position 6, instance::Compare walks Nets only AFTER
+Programs/Program_arrays/Class_defns/Task_funcs, and BaseClass.h's VECTOR
+SafeCompare returns on a SIZE MISMATCH with BOTH owners set):
+
+    work@top_earlgrey.u_hmac.u_sha2.u_pad
+      golden  vpiVariables 8   vpiNets 16
+      ours    vpiVariables 9   vpiNets 15
+
+  ONE object is in the wrong listing: `fifo_rdata` (sha2_pad.sv:19, the port
+  `input sha_fifo_t fifo_rdata`).  Golden lists it ONCE under vpiNets as a
+  struct_net; we list it ONCE under vpiVariables as a struct_var.  It is NOT
+  duplicated on either side -- r10vearl99's README says "ours lists it TWICE
+  (16 vs 18)", which is a MISREAD of the decompile: uhdm-cmp prints the
+  `|vpiVariables:` header before EVERY element of the vector, so the extra
+  header line that follows the surplus entry looks like a second copy.
+  Measured straight out of both databases with ct100lst: 8 vs 9 and 16 vs 15.
+
+===== the first 60 lines of the raw cmp log =====
+LHS:
+decompile:
+module_inst: work@sha2_pad (work@top_earlgrey.u_hmac.u_sha2.u_pad), id:1019494, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_hmac_0.1/rtl/sha2.sv, line:290:3, endln:312:5
+|vpiParent:
+\_module_inst: work@sha2 (work@top_earlgrey.u_hmac.u_sha2), id:1019424, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_hmac_0.1/rtl/hmac.sv, line:400:3, endln:419:5
+|vpiName:u_pad
+|vpiFullName:work@top_earlgrey.u_hmac.u_sha2.u_pad
+|vpiVariables:
+\_logic_var: (work@top_earlgrey.u_hmac.u_sha2.u_pad.tx_count), id:463396, line:38:16, endln:38:24
+  |vpiParent:
+  \_module_inst: work@sha2_pad (work@top_earlgrey.u_hmac.u_sha2.u_pad), id:1019494, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_hmac_0.1/rtl/sha2.sv, line:290:3, endln:312:5
+  |vpiTypespec:
+  \_ref_typespec: (work@top_earlgrey.u_hmac.u_sha2.u_pad.tx_count), id:463397
+    |vpiParent:
+    \_logic_var: (work@top_earlgrey.u_hmac.u_sha2.u_pad.tx_count), id:463396, line:38:16, endln:38:24
+    |vpiFullName:work@top_earlgrey.u_hmac.u_sha2.u_pad.tx_count
+    |vpiActual:
+    \_logic_typespec: , id:463392, line:38:3, endln:38:15
+  |vpiName:tx_count
+  |vpiFullName:work@top_earlgrey.u_hmac.u_sha2.u_pad.tx_count
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (work@top_earlgrey.u_hmac.u_sha2.u_pad.inc_txcount), id:463399, line:40:9, endln:40:20
+  |vpiParent:
+  \_module_inst: work@sha2_pad (work@top_earlgrey.u_hmac.u_sha2.u_pad), id:1019494, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_hmac_0.1/rtl/sha2.sv, line:290:3, endln:312:5
+  |vpiTypespec:
+  \_ref_typespec: (work@top_earlgrey.u_hmac.u_sha2.u_pad.inc_txcount), id:463400
+    |vpiParent:
+    \_logic_var: (work@top_earlgrey.u_hmac.u_sha2.u_pad.inc_txcount), id:463399, line:40:9, endln:40:20
+    |vpiFullName:work@top_earlgrey.u_hmac.u_sha2.u_pad.inc_txcount
+    |vpiActual:
+    \_logic_typespec: , id:463398, line:40:3, endln:40:8
+  |vpiName:inc_txcount
+  |vpiFullName:work@top_earlgrey.u_hmac.u_sha2.u_pad.inc_txcount
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (work@top_earlgrey.u_hmac.u_sha2.u_pad.fifo_partial), id:463402, line:41:9, endln:41:21
+  |vpiParent:
+  \_module_inst: work@sha2_pad (work@top_earlgrey.u_hmac.u_sha2.u_pad), id:1019494, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_hmac_0.1/rtl/sha2.sv, line:290:3, endln:312:5
+  |vpiTypespec:
+  \_ref_typespec: (work@top_earlgrey.u_hmac.u_sha2.u_pad.fifo_partial), id:463403
+    |vpiParent:
+    \_logic_var: (work@top_earlgrey.u_hmac.u_sha2.u_pad.fifo_partial), id:463402, line:41:9, endln:41:21
+    |vpiFullName:work@top_earlgrey.u_hmac.u_sha2.u_pad.fifo_partial
+    |vpiActual:
+    \_logic_typespec: , id:463401, line:41:3, endln:41:8
+  |vpiName:fifo_partial
+  |vpiFullName:work@top_earlgrey.u_hmac.u_sha2.u_pad.fifo_partial
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (work@top_earlgrey.u_hmac.u_sha2.u_pad.txcnt_eq_1a0), id:463405, line:42:9, endln:42:21
+  |vpiParent:
+  \_module_inst: work@sha2_pad (work@top_earlgrey.u_hmac.u_sha2.u_pad), id:1019494, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_hmac_0.1/rtl/sha2.sv, line:290:3, endln:312:5
+  |vpiTypespec:
+  \_ref_typespec: (work@top_earlgrey.u_hmac.u_sha2.u_pad.txcnt_eq_1a0), id:463406
+    |vpiParent:
+    \_logic_var: (work@top_earlgrey.u_hmac.u_sha2.u_pad.txcnt_eq_1a0), id:463405, line:42:9, endln:42:21
+    |vpiFullName:work@top_earlgrey.u_hmac.u_sha2.u_pad.txcnt_eq_1a0
+    |vpiActual:
+    \_logic_typespec: , id:463404, line:42:3, endln:42:8
+
+===== full log length =====
+13298 lines (truncated here; regenerate with uhdm-cmp)
