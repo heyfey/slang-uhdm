@@ -11324,6 +11324,43 @@ static UHDM::variables* pkgVarOverFormal81(const UHDM::instance* pkgInst,
     return nullptr;
 }
 
+// § classPropRefBindsPkgListing153 — the package listing read BY NAME, the way
+// `UhdmWriter::lateBinding` reads it (UhdmWriter.cpp:3410-3428): FIRST match in
+// the `Variables()` vector wins, and the vector is the WHOLE listing, hoisted
+// out-of-body constructor locals included.  No `bound` argument: this law is
+// the one that MINTS a binding for a reference nothing else could bind, which
+// is exactly why § 81's `pkgVarOverFormal81` (a REPLACER, with its `!bound`
+// guard) could not carry it.
+static UHDM::variables* pkgListingByName153(const UHDM::instance* pkgInst,
+                                            std::string_view name) {
+    if (!pkgInst || name.empty())
+        return nullptr;
+    // Surelog's guard, verbatim: `inst->UhdmType() == uhdmpackage`.
+    if (pkgInst->UhdmType() != UHDM::uhdmpackage)
+        return nullptr;
+    auto* vars = ((const UHDM::package*)pkgInst)->Variables();
+    if (!vars)
+        return nullptr;
+    for (auto* v : *vars)
+        if (v && v->VpiName() == name)
+            return v;
+    return nullptr;
+}
+
+// § classPropRefBindsPkgListing153, THE POPULATION: a CLASS PROPERTY.  It is
+// the one name family a package-scope subroutine can read that
+// `CompileHelper::bindVariable` cannot see, so it is the family that reaches
+// the late-binding pool the package listing overwrites.  A formal is § 81's, a
+// body local is § 148's / § 152's, a package variable slang resolved itself is
+// already bound by the symbol-keyed map above.
+static bool classPropOfPkgClass153(const slang::ast::Symbol& sym) {
+    if (sym.kind != slang::ast::SymbolKind::ClassProperty &&
+        sym.kind != slang::ast::SymbolKind::Variable)
+        return false;
+    const slang::ast::Scope* sc = sym.getParentScope();
+    return sc && sc->asSymbol().kind == slang::ast::SymbolKind::ClassType;
+}
+
 // § pkgSubRefBindsPkgVarOverFormal81, THE HOME-PACKAGE GATE.
 //
 // A package that WILDCARD-IMPORTS another materialises a COPY of the imported
@@ -16616,6 +16653,30 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 if (auto pv9 = pkgViewVarObjs9.find(&nv.symbol);
                     pv9 != pkgViewVarObjs9.end())
                     ref->Actual_group(pv9->second);
+            // § classPropRefBindsPkgListing153 — THE SAME package listing,
+            // reached BY NAME rather than by symbol.  The map above is keyed on
+            // the package's OWN `VariableSymbol`s, so it can only answer a
+            // reference slang resolved to a package variable.  Surelog's
+            // `UhdmWriter::lateBinding` (UhdmWriter.cpp:3369-3428) does not
+            // resolve anything: it walks the ref's parent chain to the
+            // enclosing `function`/`task`, and when that subroutine's
+            // `Instance()` is a PACKAGE it scans that package's `Variables()`
+            // vector FOR A MATCHING NAME and `break`s on the first hit.  A
+            // CLASS PROPERTY is invisible to the compile-time binder
+            // (`CompileHelper::bindVariable`, CompileStmt.cpp:3089, reads a
+            // scope's `Variables()`/`Io_decls()` only), so a property reference
+            // inside an OUT-OF-BODY package-scope method reaches that walk and
+            // takes whatever the package listing happens to hold under its
+            // name — a real package variable, or the PACKAGE COPY of some
+            // OTHER class's constructor local (§ 148's `collectObjects_`
+            // decode).  Law, Surelog citations, grid and fences:
+            // include/UhdmExporter.h, `grep -n classPropRefBindsPkgListing153`.
+            if (!inBodyClassMethod88 && !ref->Actual_group() &&
+                classPropOfPkgClass153(nv.symbol) &&
+                subHomeIsPkg81(currentSubSym, pkgScopeInst))
+                if (auto* pv153 =
+                        pkgListingByName153(pkgScopeInst, ref->VpiName()))
+                    ref->Actual_group(pv153);
             // An OUT-OF-BODY class method is compiled in the home PACKAGE's
             // scope, where the class's own properties are invisible: Surelog
             // leaves the reference unbound and a module that HOISTS the

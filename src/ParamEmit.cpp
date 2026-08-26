@@ -23409,6 +23409,30 @@ void UhdmExporter::collectOobCtorLocals(const PackageSymbol& pkg,
                 if (m.as<VariableSymbol>().flags.has(
                         VariableFlags::CompilerGenerated))
                     continue;
+                // § ctorForInitIsNotAPkgDataDecl153v (r10uvm153 verifier) —
+                // a `for (int i = 0; ...)` CONTROL VARIABLE is NOT collected.
+                // `CompilePackage::collectObjects_` (CompilePackage.cpp:123)
+                // walks the package's SYNTAX and hands only `paData_declaration`
+                // block items to `compileDataDeclaration(m_package, ...)`
+                // (:261); a for-loop initialiser is a
+                // `paFor_variable_declaration`, a different node, and never
+                // reaches that call.  slang builds the loop variable with
+                // `VariableSymbol::fromSyntax(..., ForVariableDeclarationSyntax,
+                // ...)` -> `setFromDeclarator(*syntax.declarator)`, so the
+                // symbol's syntax is the DECLARATOR and its PARENT is the
+                // `ForVariableDeclaration` node -- that parent is the test.
+                // MEASURED (tools/probe/r10v153repro/arms/v153_f_faces.sv, one
+                // Surelog golden, both views): golden's `pvf153` listing holds
+                // 23 entries and NO `f_forv`, while ours held it at slot 5.
+                // A `foreach` loop variable is `SymbolKind::Iterator` and was
+                // already outside this walk.  Without this the class property
+                // `Rvf153::f_forv` binds a listing entry golden does not have
+                // and golden leaves BARE (the pass's only RIGHT->WRONG cell).
+                if (auto* fsx153 = m.getSyntax();
+                    fsx153 && fsx153->parent &&
+                    fsx153->parent->kind ==
+                        slang::syntax::SyntaxKind::ForVariableDeclaration)
+                    continue;
                 out.push_back(&m);
             }
             else if (m.kind == SymbolKind::StatementBlock)

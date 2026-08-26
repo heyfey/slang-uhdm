@@ -1,0 +1,139 @@
+r10uvm153 — THE GRID: five arms x two views, scored cell by cell against golden
+with ct153bind + score153.py.  LHS is ALWAYS golden (Surelog).  MEASUREMENT
+ONLY; the judge is the official uhdm-cmp (its per-arm line/head counts are at
+the bottom).
+
+=================== g153_a_mech / def
+WRONG->RIGHT  ref_obj|a_body|46:5-46:11  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|a_nest|47:5-47:11  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|a_nest|55:5-55:11  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|a_nest|62:5-62:11  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|a_pkgv|45:5-45:11  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|a_pkgv|54:5-54:11  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|a_pkgv|61:5-61:11  was GOLD-BOUND
+-- WRONG->RIGHT=7 RIGHT->WRONG=0 AWAY=0 STILL-WRONG=0 CHANGED-WRONG=0
+
+=================== g153_a_mech / elab
+CHANGED-WRONG ref_obj|a_body|46:5-46:11  DIFF -> DIFF G=[int_var(a_body)@19:9-19:15^package , int_var(a_body)@30:9-30:15^class_defn]  O=[int_var(a_body)@19:9-19:15^package , int_var(a_body)@19:9-19:15^package , int_var(a_body)@19:9-19:15^package , int_var(a_body)@30:9-30:15^class_defn]
+CHANGED-WRONG ref_obj|a_nest|47:5-47:11  DIFF -> DIFF G=[int_var(a_nest)@21:11-21:17^package , int_var(a_nest)@31:9-31:15^class_defn]  O=[int_var(a_nest)@21:11-21:17^package , int_var(a_nest)@21:11-21:17^package , int_var(a_nest)@21:11-21:17^package , int_var(a_nest)@31:9-31:15^class_defn]
+CHANGED-WRONG ref_obj|a_nest|55:5-55:11  DIFF -> DIFF G=[int_var(a_nest)@21:11-21:17^package , int_var(a_nest)@31:9-31:15^class_defn]  O=[int_var(a_nest)@21:11-21:17^package , int_var(a_nest)@21:11-21:17^package , int_var(a_nest)@21:11-21:17^package , int_var(a_nest)@31:9-31:15^class_defn]
+WRONG->RIGHT  ref_obj|a_nest|62:5-62:11  was DIFF
+CHANGED-WRONG ref_obj|a_pkgv|45:5-45:11  DIFF -> DIFF G=[int_var(a_pkgv)@11:7-11:13^package , int_var(a_pkgv)@29:9-29:15^class_defn]  O=[int_var(a_pkgv)@11:7-11:13^package , int_var(a_pkgv)@11:7-11:13^package , int_var(a_pkgv)@11:7-11:13^package , int_var(a_pkgv)@29:9-29:15^class_defn]
+CHANGED-WRONG ref_obj|a_pkgv|54:5-54:11  DIFF -> DIFF G=[int_var(a_pkgv)@11:7-11:13^package , int_var(a_pkgv)@29:9-29:15^class_defn]  O=[int_var(a_pkgv)@11:7-11:13^package , int_var(a_pkgv)@11:7-11:13^package , int_var(a_pkgv)@11:7-11:13^package , int_var(a_pkgv)@29:9-29:15^class_defn]
+WRONG->RIGHT  ref_obj|a_pkgv|61:5-61:11  was DIFF
+-- WRONG->RIGHT=2 RIGHT->WRONG=0 AWAY=0 STILL-WRONG=16 CHANGED-WRONG=5
+
+=================== g153_b_pos / def
+WRONG->RIGHT  ref_obj|b_int|32:5-32:10  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|b_int|33:9-33:14  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|b_int|34:9-34:14  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|b_int|35:12-35:17  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|b_int|36:11-36:16  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|b_int|40:10-40:15  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|b_int|41:21-41:26  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|b_int|42:19-42:24  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|b_int|50:17-50:22  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|b_int|53:7-53:12  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|b_int|54:13-54:18  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|b_int|58:5-58:10  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|b_str|43:5-43:10  was GOLD-BOUND
+-- WRONG->RIGHT=13 RIGHT->WRONG=0 AWAY=0 STILL-WRONG=0 CHANGED-WRONG=0
+
+=================== g153_b_pos / elab
+WRONG->RIGHT  ref_obj|b_int|32:5-32:10  was DIFF
+WRONG->RIGHT  ref_obj|b_int|33:9-33:14  was DIFF
+WRONG->RIGHT  ref_obj|b_int|34:9-34:14  was DIFF
+WRONG->RIGHT  ref_obj|b_int|35:12-35:17  was DIFF
+WRONG->RIGHT  ref_obj|b_int|36:11-36:16  was DIFF
+WRONG->RIGHT  ref_obj|b_int|40:10-40:15  was DIFF
+WRONG->RIGHT  ref_obj|b_int|41:21-41:26  was DIFF
+WRONG->RIGHT  ref_obj|b_int|42:19-42:24  was DIFF
+WRONG->RIGHT  ref_obj|b_int|50:17-50:22  was DIFF
+WRONG->RIGHT  ref_obj|b_int|53:7-53:12  was DIFF
+WRONG->RIGHT  ref_obj|b_int|54:13-54:18  was DIFF
+CHANGED-WRONG ref_obj|b_int|58:5-58:10  DIFF -> DIFF G=[int_var(b_int)@13:10-13:15^package , int_var(b_int)@20:12-20:17^class_defn]  O=[int_var(b_int)@13:10-13:15^package , int_var(b_int)@13:10-13:15^package , int_var(b_int)@13:10-13:15^package , int_var(b_int)@20:12-20:17^class_defn]
+WRONG->RIGHT  ref_obj|b_str|43:5-43:10  was DIFF
+-- WRONG->RIGHT=12 RIGHT->WRONG=0 AWAY=0 STILL-WRONG=4 CHANGED-WRONG=1
+
+=================== g153_c_home / def
+WRONG->RIGHT  ref_obj|c_int|28:5-28:10  was GOLD-BOUND
+-- WRONG->RIGHT=1 RIGHT->WRONG=0 AWAY=0 STILL-WRONG=2 CHANGED-WRONG=0
+
+=================== g153_c_home / elab
+CHANGED-WRONG ref_obj|c_int|28:5-28:10  DIFF -> DIFF G=[int_var(c_int)@11:9-11:14^package , int_var(c_int)@17:11-17:16^class_defn]  O=[int_var(c_int)@11:9-11:14^package , int_var(c_int)@11:9-11:14^package , int_var(c_int)@11:9-11:14^package , int_var(c_int)@17:11-17:16^class_defn]
+-- WRONG->RIGHT=0 RIGHT->WRONG=0 AWAY=0 STILL-WRONG=20 CHANGED-WRONG=1
+
+=================== g153_d_kind / def
+WRONG->RIGHT  ref_obj|d_bit|62:5-62:10  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|d_cls|65:5-65:10  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|d_enum|66:5-66:11  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|d_first|59:5-59:12  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|d_int|60:5-60:10  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|d_log|63:5-63:10  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|d_m1|69:5-69:9  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|d_m2|70:5-70:9  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|d_m3|71:5-71:9  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|d_real|64:5-64:11  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|d_str|61:5-61:10  was GOLD-BOUND
+-- WRONG->RIGHT=11 RIGHT->WRONG=0 AWAY=0 STILL-WRONG=0 CHANGED-WRONG=0
+
+=================== g153_d_kind / elab
+WRONG->RIGHT  ref_obj|d_bit|62:5-62:10  was DIFF
+WRONG->RIGHT  ref_obj|d_cls|65:5-65:10  was DIFF
+WRONG->RIGHT  ref_obj|d_enum|66:5-66:11  was DIFF
+WRONG->RIGHT  ref_obj|d_first|59:5-59:12  was DIFF
+WRONG->RIGHT  ref_obj|d_int|60:5-60:10  was DIFF
+WRONG->RIGHT  ref_obj|d_log|63:5-63:10  was DIFF
+WRONG->RIGHT  ref_obj|d_m1|69:5-69:9  was DIFF
+WRONG->RIGHT  ref_obj|d_m2|70:5-70:9  was DIFF
+WRONG->RIGHT  ref_obj|d_m3|71:5-71:9  was DIFF
+WRONG->RIGHT  ref_obj|d_real|64:5-64:11  was DIFF
+WRONG->RIGHT  ref_obj|d_str|61:5-61:10  was DIFF
+-- WRONG->RIGHT=11 RIGHT->WRONG=0 AWAY=0 STILL-WRONG=0 CHANGED-WRONG=0
+
+=================== g153_e_shape / def
+WRONG->RIGHT  ref_obj|e_base|36:5-36:11  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|e_each|43:7-43:13  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|e_fork|40:7-40:13  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|e_int|35:5-35:10  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|e_par|60:5-60:10  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|e_stat|37:5-37:11  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|e_stat|51:5-51:11  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|e_str|71:7-71:12  was GOLD-BOUND
+WRONG->RIGHT  ref_obj|e_virt|47:5-47:11  was GOLD-BOUND
+-- WRONG->RIGHT=9 RIGHT->WRONG=0 AWAY=0 STILL-WRONG=1 CHANGED-WRONG=0
+
+=================== g153_e_shape / elab
+WRONG->RIGHT  ref_obj|e_base|36:5-36:11  was DIFF
+WRONG->RIGHT  ref_obj|e_each|43:7-43:13  was DIFF
+WRONG->RIGHT  ref_obj|e_fork|40:7-40:13  was DIFF
+WRONG->RIGHT  ref_obj|e_int|35:5-35:10  was DIFF
+CHANGED-WRONG ref_obj|e_par|60:5-60:10  DIFF -> DIFF G=[int_var(e_par)@14:10-14:15^package , int_var(e_par)@56:9-56:14^class_defn]  O=[int_var(e_par)@14:10-14:15^package , int_var(e_par)@14:10-14:15^package , int_var(e_par)@14:10-14:15^package , int_var(e_par)@56:9-56:14^class_defn]
+WRONG->RIGHT  ref_obj|e_stat|37:5-37:11  was DIFF
+CHANGED-WRONG ref_obj|e_stat|51:5-51:11  DIFF -> DIFF G=[int_var(e_stat)@22:16-22:22^class_defn , int_var(e_stat)@9:10-9:16^package]  O=[int_var(e_stat)@22:16-22:22^class_defn , int_var(e_stat)@22:16-22:22^class_defn , int_var(e_stat)@9:10-9:16^package , int_var(e_stat)@9:10-9:16^package , int_var(e_stat)@9:10-9:16^package]
+CHANGED-WRONG ref_obj|e_str|71:7-71:12  DIFF -> DIFF G=[string_var(e_str)@15:10-15:15^package , string_var(e_str)@66:12-66:17^class_defn]  O=[string_var(e_str)@15:10-15:15^package , string_var(e_str)@15:10-15:15^package , string_var(e_str)@15:10-15:15^package , string_var(e_str)@66:12-66:17^class_defn]
+CHANGED-WRONG ref_obj|e_virt|47:5-47:11  DIFF -> DIFF G=[int_var(e_virt)@11:10-11:16^package , int_var(e_virt)@24:16-24:22^class_defn]  O=[int_var(e_virt)@11:10-11:16^package , int_var(e_virt)@11:10-11:16^package , int_var(e_virt)@11:10-11:16^package , int_var(e_virt)@24:16-24:22^class_defn , int_var(e_virt)@24:16-24:22^class_defn]
+-- WRONG->RIGHT=5 RIGHT->WRONG=0 AWAY=0 STILL-WRONG=4 CHANGED-WRONG=4
+
+
+=================== the OFFICIAL uhdm-cmp on every arm (LHS golden)
+ARM              VIEW  PRIS-LINES  HEADS  PAT-LINES  HEADS
+g153_a_mech      def         6898      1       6954      1
+g153_a_mech      elab        7302      1       7302      1
+g153_b_pos       def         8034      1       8138      1
+g153_b_pos       elab        8334      1       8334      1
+g153_c_home      def         4898      1       4906      1
+g153_c_home      elab        5518      1       5518      1
+g153_d_kind      def         7764      1       7852      1
+g153_d_kind      elab        7972      1       7972      1
+g153_e_shape     def         6814      1       6886      1
+g153_e_shape     elab        7218      1       7218      1
+
+READ THIS BEFORE READING THOSE NUMBERS.  Every arm's ONE head is the DESIGN
+object itself (`LHS: design (work@ma153_top)` / `(work@mc153)` ...): these
+purpose-built arms disagree with golden at the top-level vector, so the "cmp
+lines" column is the DESIGN's decompile size and grows with the design, not
+with the disagreement.  It is NOT the instrument for this grid.  The instrument
+is the cell-by-cell score above (RIGHT->WRONG 0, AWAY 0 in all ten arm-views,
+71 WRONG->RIGHT), and the head that this pass is judged on is the CORPUS head,
+measured with the official uhdm-cmp through rowheads.sh (GATES.r10uvm153.txt).

@@ -1,0 +1,36 @@
+LHS:
+decompile:
+func_call: (m_time_settings), id:23147, line:41234:9, endln:41234:52
+|vpiParent:
+\_if_stmt: , id:23146, line:41233:7, endln:41234:53
+|vpiName:m_time_settings
+
+decompile:
+func_call: (m_time_settings), id:23147, line:41234:9, endln:41234:52
+|vpiParent:
+\_if_stmt: , id:23146, line:41233:7, endln:41234:53
+|vpiName:m_time_settings
+RHS:
+decompile:
+method_func_call: (sort), id:15874, line:41234:25, endln:41234:29
+|vpiParent:
+\_if_stmt: , id:15868, line:41233:7, endln:41234:53
+|vpiName:sort
+|vpiPrefix:
+\_ref_obj: (uvm_pkg::uvm_component::m_set_cl_verb::m_time_settings), id:15875, line:41234:9, endln:41234:24
+  |vpiParent:
+  \_method_func_call: (sort), id:15874, line:41234:25, endln:41234:29
+  |vpiName:m_time_settings
+  |vpiFullName:uvm_pkg::uvm_component::m_set_cl_verb::m_time_settings
+
+decompile:
+method_func_call: (sort), id:15874, line:41234:25, endln:41234:29
+|vpiParent:
+\_if_stmt: , id:15868, line:41233:7, endln:41234:53
+|vpiName:sort
+|vpiPrefix:
+\_ref_obj: (uvm_pkg::uvm_component::m_set_cl_verb::m_time_settings), id:15875, line:41234:9, endln:41234:24
+  |vpiParent:
+  \_method_func_call: (sort), id:15874, line:41234:25, endln:41234:29
+  |vpiName:m_time_settings
+  |vpiFullName:uvm_pkg::uvm_component::m_set_cl_verb::m_time_settings

@@ -1,0 +1,195 @@
+r10uvm153 — THE CENSUS.  Every package Variables listing and every binding
+in the NINE UVM databases (BuildUVMPkg x2, MiniAmiq x2, Scoreboard x1 —
+testflags has no database — SeqDriver x2, SimpleUVM x2), pristine, keyed by
+kind|name|span as a MULTISET (the DEF and ELAB views and the wildcard-import
+clone share a key; the view is deliberately OUT of the key, RESUME § 9) and
+compared target by target with the target's OWNER KIND in the spelling.
+LHS is ALWAYS golden.  MEASUREMENT ONLY.
+
+== the package listing itself, BuildUVMPkg (golden-vs-ours, both views)
+GOLD package(uvm_pkg)@uvm_pkg.sv:7351:1-83263:11#1 Variables=26
+GOLD   [0] string_var(uvm_aa_string_key)@uvm_pkg.sv:8030:8-8030:25#186598
+GOLD   [1] enum_var(m_uvm_core_state)@uvm_pkg.sv:8503:16-8503:32#186601
+GOLD   [2] array_var(uvm_deferred_init)@uvm_pkg.sv:8507:20-8507:37#186609
+GOLD   [3] int_var(uvm_global_random_seed)@uvm_pkg.sv:8582:14-8582:47#186614
+GOLD   [4] array_var(uvm_random_seed_table_lookup)@uvm_pkg.sv:8597:14-8597:42#186624
+GOLD   [5] class_var(clp)@uvm_pkg.sv:33188:27-33188:66#186630
+GOLD   [6] string_var(val)@uvm_pkg.sv:33189:12-33189:15#186633
+GOLD   [7] class_var(build_ph)@uvm_pkg.sv:35319:11-35319:19#186636
+GOLD   [8] class_var(connect_ph)@uvm_pkg.sv:35320:11-35320:21#186639
+GOLD   [9] class_var(end_of_elaboration_ph)@uvm_pkg.sv:35321:11-35321:32#186642
+GOLD   [10] class_var(start_of_simulation_ph)@uvm_pkg.sv:35322:11-35322:33#186645
+GOLD   [11] class_var(run_ph)@uvm_pkg.sv:35323:11-35323:17#186648
+GOLD   [12] class_var(extract_ph)@uvm_pkg.sv:35324:11-35324:21#186651
+GOLD   [13] class_var(check_ph)@uvm_pkg.sv:35325:11-35325:19#186654
+GOLD   [14] class_var(report_ph)@uvm_pkg.sv:35326:11-35326:20#186657
+GOLD   [15] class_var(rh)@uvm_pkg.sv:38763:22-38763:24#186660
+GOLD   [16] string_var(error_str)@uvm_pkg.sv:39599:10-39599:19#186663
+GOLD   [17] class_var(top)@uvm_pkg.sv:39600:12-39600:15#186666
+GOLD   [18] class_var(cs)@uvm_pkg.sv:39601:21-39601:23#186669
+GOLD   [19] class_var(bld)@uvm_pkg.sv:39616:15-39616:18#186672
+GOLD   [20] class_var(common)@uvm_pkg.sv:39617:16-39617:22#186675
+GOLD   [21] class_var(uvm_cmdline_proc)@uvm_pkg.sv:43181:23-43181:39#186678
+GOLD   [22] int_var(UVM_UNBOUNDED_CONNECTIONS)@uvm_pkg.sv:45030:11-45030:41#186683
+GOLD   [23] string_var(s_connection_error_id)@uvm_pkg.sv:45031:14-45031:56#186687
+GOLD   [24] string_var(s_connection_warning_id)@uvm_pkg.sv:45032:14-45032:60#186691
+GOLD   [25] string_var(s_spaces)@uvm_pkg.sv:45033:14-45033:50#186695
+GOLD package(uvm_pkg)@uvm_pkg.sv:7351:1-83263:11#60163 Variables=26
+GOLD   [0] string_var(uvm_aa_string_key)@uvm_pkg.sv:8030:8-8030:25#186497
+GOLD   [1] enum_var(m_uvm_core_state)@uvm_pkg.sv:8503:16-8503:32#186500
+GOLD   [2] array_var(uvm_deferred_init)@uvm_pkg.sv:8507:20-8507:37#186508
+GOLD   [3] int_var(uvm_global_random_seed)@uvm_pkg.sv:8582:14-8582:47#186513
+GOLD   [4] array_var(uvm_random_seed_table_lookup)@uvm_pkg.sv:8597:14-8597:42#186523
+GOLD   [5] class_var(clp)@uvm_pkg.sv:33188:27-33188:66#186529
+GOLD   [6] string_var(val)@uvm_pkg.sv:33189:12-33189:15#186532
+GOLD   [7] class_var(build_ph)@uvm_pkg.sv:35319:11-35319:19#186535
+GOLD   [8] class_var(connect_ph)@uvm_pkg.sv:35320:11-35320:21#186538
+GOLD   [9] class_var(end_of_elaboration_ph)@uvm_pkg.sv:35321:11-35321:32#186541
+GOLD   [10] class_var(start_of_simulation_ph)@uvm_pkg.sv:35322:11-35322:33#186544
+GOLD   [11] class_var(run_ph)@uvm_pkg.sv:35323:11-35323:17#186547
+GOLD   [12] class_var(extract_ph)@uvm_pkg.sv:35324:11-35324:21#186550
+GOLD   [13] class_var(check_ph)@uvm_pkg.sv:35325:11-35325:19#186553
+GOLD   [14] class_var(report_ph)@uvm_pkg.sv:35326:11-35326:20#186556
+GOLD   [15] class_var(rh)@uvm_pkg.sv:38763:22-38763:24#186559
+GOLD   [16] string_var(error_str)@uvm_pkg.sv:39599:10-39599:19#186562
+GOLD   [17] class_var(top)@uvm_pkg.sv:39600:12-39600:15#186565
+GOLD   [18] class_var(cs)@uvm_pkg.sv:39601:21-39601:23#186568
+GOLD   [19] class_var(bld)@uvm_pkg.sv:39616:15-39616:18#186571
+GOLD   [20] class_var(common)@uvm_pkg.sv:39617:16-39617:22#186574
+GOLD   [21] class_var(uvm_cmdline_proc)@uvm_pkg.sv:43181:23-43181:39#186577
+GOLD   [22] int_var(UVM_UNBOUNDED_CONNECTIONS)@uvm_pkg.sv:45030:11-45030:41#186582
+GOLD   [23] string_var(s_connection_error_id)@uvm_pkg.sv:45031:14-45031:56#186587
+GOLD   [24] string_var(s_connection_warning_id)@uvm_pkg.sv:45032:14-45032:60#186591
+GOLD   [25] string_var(s_spaces)@uvm_pkg.sv:45033:14-45033:50#186595
+OURS package(uvm_pkg)@uvm_pkg.sv:7351:1-83263:11#2 Variables=26
+OURS   [0] string_var(uvm_aa_string_key)@:8030:8-8030:25#593
+OURS   [1] enum_var(m_uvm_core_state)@:8503:16-8503:32#596
+OURS   [2] array_var(uvm_deferred_init)@:8507:20-8507:37#599
+OURS   [3] int_var(uvm_global_random_seed)@:8582:14-8582:47#605
+OURS   [4] array_var(uvm_random_seed_table_lookup)@:8597:14-8597:42#609
+OURS   [5] class_var(clp)@:33188:27-33188:66#617
+OURS   [6] string_var(val)@:33189:12-33189:15#621
+OURS   [7] class_var(build_ph)@:35319:11-35319:19#624
+OURS   [8] class_var(connect_ph)@:35320:11-35320:21#627
+OURS   [9] class_var(end_of_elaboration_ph)@:35321:11-35321:32#630
+OURS   [10] class_var(start_of_simulation_ph)@:35322:11-35322:33#633
+OURS   [11] class_var(run_ph)@:35323:11-35323:17#636
+OURS   [12] class_var(extract_ph)@:35324:11-35324:21#639
+OURS   [13] class_var(check_ph)@:35325:11-35325:19#642
+OURS   [14] class_var(report_ph)@:35326:11-35326:20#645
+OURS   [15] class_var(rh)@:38763:22-38763:24#648
+OURS   [16] string_var(error_str)@:39599:10-39599:19#651
+OURS   [17] class_var(top)@:39600:12-39600:15#654
+OURS   [18] class_var(cs)@:39601:21-39601:23#657
+OURS   [19] class_var(bld)@:39616:15-39616:18#660
+OURS   [20] class_var(common)@:39617:16-39617:22#663
+OURS   [21] class_var(uvm_cmdline_proc)@:43181:23-43181:39#666
+OURS   [22] int_var(UVM_UNBOUNDED_CONNECTIONS)@:45030:11-45030:41#669
+OURS   [23] string_var(s_connection_error_id)@:45031:14-45031:56#674
+OURS   [24] string_var(s_connection_warning_id)@:45032:14-45032:60#678
+OURS   [25] string_var(s_spaces)@:45033:14-45033:50#682
+OURS package(uvm_pkg)@uvm_pkg.sv:7351:1-83263:11#2744 Variables=26
+OURS   [0] string_var(uvm_aa_string_key)@:8030:8-8030:25#3333
+OURS   [1] enum_var(m_uvm_core_state)@:8503:16-8503:32#3336
+OURS   [2] array_var(uvm_deferred_init)@:8507:20-8507:37#3339
+OURS   [3] int_var(uvm_global_random_seed)@:8582:14-8582:47#3345
+OURS   [4] array_var(uvm_random_seed_table_lookup)@:8597:14-8597:42#3349
+OURS   [5] class_var(clp)@:33188:27-33188:66#3357
+OURS   [6] string_var(val)@:33189:12-33189:15#3361
+OURS   [7] class_var(build_ph)@:35319:11-35319:19#3364
+OURS   [8] class_var(connect_ph)@:35320:11-35320:21#3367
+OURS   [9] class_var(end_of_elaboration_ph)@:35321:11-35321:32#3370
+OURS   [10] class_var(start_of_simulation_ph)@:35322:11-35322:33#3373
+OURS   [11] class_var(run_ph)@:35323:11-35323:17#3376
+OURS   [12] class_var(extract_ph)@:35324:11-35324:21#3379
+OURS   [13] class_var(check_ph)@:35325:11-35325:19#3382
+OURS   [14] class_var(report_ph)@:35326:11-35326:20#3385
+OURS   [15] class_var(rh)@:38763:22-38763:24#3388
+OURS   [16] string_var(error_str)@:39599:10-39599:19#3391
+OURS   [17] class_var(top)@:39600:12-39600:15#3394
+OURS   [18] class_var(cs)@:39601:21-39601:23#3397
+OURS   [19] class_var(bld)@:39616:15-39616:18#3400
+OURS   [20] class_var(common)@:39617:16-39617:22#3403
+OURS   [21] class_var(uvm_cmdline_proc)@:43181:23-43181:39#3406
+OURS   [22] int_var(UVM_UNBOUNDED_CONNECTIONS)@:45030:11-45030:41#3409
+OURS   [23] string_var(s_connection_error_id)@:45031:14-45031:56#3414
+OURS   [24] string_var(s_connection_warning_id)@:45032:14-45032:60#3418
+OURS   [25] string_var(s_spaces)@:45033:14-45033:50#3422
+
+COUNT 26 = 26, membership and ORDER identical on both sides and in both
+views: the listing is NOT the residue, the BINDING is.
+
+==================================================================
+== THE BINDING CENSUS over the NINE UVM DATABASES, pristine -> patched
+== (scan153.sh + ct153bind; the columns are the classification counts)
+
+PRISTINE
+TEST                     MODE        SAME GBOUND OBOUND   DIFF  ONLYG  ONLYO NOTE
+BuildUVMPkg              default    25845      2      4     87    358    212 rc=0
+BuildUVMPkg              testflags  25845      2      4     87    358    212 rc=0
+MiniAmiq                 default    23795     84     27    195    963   1017 rc=0
+MiniAmiq                 testflags  23795     84     27    195    963   1017 rc=0
+Scoreboard               default    22478      2     11    101    941    963 rc=0
+Scoreboard               testflags      -      -      -      -      -      - SKIP-NOFILE
+SeqDriver                default    21912     47      9    634    928    951 rc=0
+SeqDriver                testflags  21912     47      9    634    928    951 rc=0
+SimpleUVM                default    22004      1      9    535    934    953 rc=0
+SimpleUVM                testflags  22004      1      9    535    934    953 rc=0
+-- censused=9  SKIP-NOFILE=1
+
+PATCHED
+TEST                     MODE        SAME GBOUND OBOUND   DIFF  ONLYG  ONLYO NOTE
+BuildUVMPkg              default    25846      1      4     87    358    212 rc=0
+BuildUVMPkg              testflags  25846      1      4     87    358    212 rc=0
+MiniAmiq                 default    23796     83     27    195    963   1017 rc=0
+MiniAmiq                 testflags  23796     83     27    195    963   1017 rc=0
+Scoreboard               default    22479      1     11    101    941    963 rc=0
+Scoreboard               testflags      -      -      -      -      -      - SKIP-NOFILE
+SeqDriver                default    21913     47      9    633    928    951 rc=0
+SeqDriver                testflags  21913     47      9    633    928    951 rc=0
+SimpleUVM                default    22005      1      9    534    934    953 rc=0
+SimpleUVM                testflags  22005      1      9    534    934    953 rc=0
+-- censused=9  SKIP-NOFILE=1
+
+EVERY row: SAME +1, exactly one cell leaves GOLD-BOUND (BuildUVMPkg,
+MiniAmiq, Scoreboard) or DIFF (SeqDriver, SimpleUVM).  OURS-BOUND is
+UNCHANGED on all nine (4/4/27/27/11/9/9/9/9) and so are ONLY-GOLD and
+ONLY-OURS: the pass adds NO binding golden lacks.
+
+== THE LAW'S WHOLE CORPUS POPULATION, cell by cell (the pristine cells whose
+== golden target is owned by a PACKAGE — the family filter):
+GOLD-BOUND ref_obj|clp|339:3-339:6  G=[<bare> , <bare> , class_var(clp)@801:27-801:66^package , class_var(clp)@801:27-801:66^package]  O=[<bare> , <bare> , <bare> , <bare>]
+GOLD-BOUND ref_obj|clp|339:3-339:6  G=[class_var(clp)@801:27-801:66^package , class_var(clp)@801:27-801:66^package]  O=[<bare> , <bare>]
+GOLD-BOUND ref_obj|clp|38789:3-38789:6  G=[class_var(clp)@33188:27-33188:66^package , class_var(clp)@33188:27-33188:66^package]  O=[<bare> , <bare>]
+
+(the three rows above are the GOLD-BOUND half — BuildUVMPkg, Scoreboard and
+MiniAmiq.  SimpleUVM and SeqDriver hold the SAME cell in the DIFF column,
+because one of their copies was not bare at all but bound to OUR OWN hoist
+net, which golden does not have:)
+
+SimpleUVM PRIS  DIFF ref_obj|clp|339:3-339:6
+   G=[class_var(clp)@801:27-801:66^package , class_var(clp)@801:27-801:66^package]
+   O=[<bare> , logic_net(clp)@339:3-339:6^module_inst]
+SeqDriver PRIS  DIFF ref_obj|clp|339:3-339:6
+   G=[<bare> , <bare> , class_var(clp)@801:27-801:66^package , class_var(clp)@801:27-801:66^package]
+   O=[<bare> , <bare> , <bare> , logic_net(clp)@339:3-339:6^module_inst]
+
+== the SAME cells after the pass: NOTHING on any of the five databases.  Every
+copy in the package's OWN listing now binds the package copy, and the two
+wildcard-import CLONE copies in MiniAmiq/SeqDriver stay bare on BOTH sides —
+that is § 81's subHomeIsPkg81 gate reproducing golden.  (SeqDriver keeps one
+UNRELATED clp cell in DIFF, `clp|3399:20`, on both sides identically: a SPAN
+residue of `uvm_component::m_set_cl_verb`'s own local, 3383:3-3383:24 in golden
+against 3383:25-3383:28 in ours — § 148's R5 span family, untouched here.)
+
+== THE MODULE-NET SIDE OF THE MOVE, scored as a MEMBERSHIP set (name|span) of
+== every module_inst Nets vector, golden against ours, pristine -> patched:
+   SimpleUVM  ONLY-OURS 23 -> 22   ONLY-GOLD 37 -> 37   SHARED 198 -> 198
+   SeqDriver  ONLY-OURS 22 -> 21   ONLY-GOLD 62 -> 62   SHARED 162 -> 162
+   the one member that left ONLY-OURS is `clp|339:3-339:6` — the § 75 hoist
+   net our binder used to mint at the REFERENCE site.  Golden's module-level
+   `clp` objects sit at the DECLARATOR span (801:27), so nothing golden has was
+   lost: ONLY-GOLD and SHARED are unchanged to the element.  (The raw COUNT of
+   that vector falls 211 -> 210 against golden's 225; the count was already
+   wrong and the MEMBERSHIP is the honest score.)
+   MiniAmiq / Scoreboard / BuildUVMPkg: 0 -> 0 on all three sets.

@@ -1,0 +1,51 @@
+r10uvm153 — THE HEAD, DECODED BEFORE ANY CODE (RESUME.md § 9).
+
+The pristine head log (head_pris_BuildUVMPkg.default.cmp, identical in both
+modes and byte-identical to the log r10uvm152repro shipped as its patched
+head) reads
+    LHS: class_var (uvm_pkg::clp) @33188:27-33188:66 ... RHS: <null>
+and BOTH databases contain that object, so the <null> is NOT a missing
+variable.  Three shapes can print it (BaseClass.h SafeCompare): a SINGULAR
+field whose RHS is null, a VECTOR ELEMENT that is null on our side, or a
+vector overload whose lhs_obj IS that class_var.  The tool decides.
+
+STEP 1 — the official design::Compare, both failed objects with parent chains:
+HEAD r=1
+LHS:    class_var(clp)@uvm_pkg.sv:33188:27-33188:66#186630
+        < package(uvm_pkg)@uvm_pkg.sv:7351:1-83263:11#1
+        < design(unnamed)@:0:0-0:0#191741
+        < <root>
+RHS:            < <root>
+
+STEP 2 — is the CONTAINER the package listing?  Both sides, index by index:
+GOLD package(uvm_pkg)@uvm_pkg.sv:7351:1-83263:11#1 Variables=26
+GOLD   [5] class_var(clp)@uvm_pkg.sv:33188:27-33188:66#186630
+GOLD   [6] string_var(val)@uvm_pkg.sv:33189:12-33189:15#186633
+GOLD package(uvm_pkg)@uvm_pkg.sv:7351:1-83263:11#60163 Variables=26
+GOLD   [5] class_var(clp)@uvm_pkg.sv:33188:27-33188:66#186529
+GOLD   [6] string_var(val)@uvm_pkg.sv:33189:12-33189:15#186532
+OURS package(uvm_pkg)@uvm_pkg.sv:7351:1-83263:11#2 Variables=26
+OURS   [5] class_var(clp)@:33188:27-33188:66#617
+OURS   [6] string_var(val)@:33189:12-33189:15#621
+OURS package(uvm_pkg)@uvm_pkg.sv:7351:1-83263:11#2744 Variables=26
+OURS   [5] class_var(clp)@:33188:27-33188:66#3357
+OURS   [6] string_var(val)@:33189:12-33189:15#3361
+    ... 26 entries on BOTH sides, membership and ORDER identical (the full
+    listing is in CENSUS.r10uvm153.txt).  So it is NOT a listing mismatch.
+
+STEP 3 — the REVERSE-REFERENCE scan: who in golden points AT that object?
+REFS target(golden) class_var(clp)@uvm_pkg.sv:33188:27-33188:66#186630
+REF  SINGULAR vpiType=700 holder=ref_obj(clp)@uvm_pkg.sv:38789:3-38789:6#59357
+    Exactly one holder, through vpiActual(700): the SINGULAR
+    ref_obj::Actual_group overload (RESUME § 9's buvm13/15 shape).
+
+STEP 4 — the same source position on both sides:
+GOLD AT ref_obj(clp)@uvm_pkg.sv:38789:3-38789:6#59357  vpiActual=class_var(clp)@uvm_pkg.sv:33188:27-33188:66#186630
+GOLD AT ref_obj(clp)@uvm_pkg.sv:38789:3-38789:6#119518  vpiActual=class_var(clp)@uvm_pkg.sv:33188:27-33188:66#186529
+OURS AT ref_obj(clp)@:38789:3-38789:6#96867  vpiActual=<null>
+OURS AT ref_obj(clp)@:38789:3-38789:6#177032  vpiActual=<null>
+
+uvm_pkg.sv:38789:3 is 'clp = uvm_cmdline_processor::get_inst();' inside
+uvm_root::new().  'clp' is uvm_root's own CLASS PROPERTY (declared @38507).
+Golden binds it to the PACKAGE copy of uvm_phase::new's nested-begin local
+@33188 — a different class entirely — and we were BARE.  That is the law.

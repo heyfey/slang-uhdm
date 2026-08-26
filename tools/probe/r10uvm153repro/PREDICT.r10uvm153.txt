@@ -1,0 +1,107 @@
+r10uvm153 — THE A-PRIORI PREDICTION (pristine databases only; golden never consulted)
+
+Instrument: ct153pred.cpp re-runs Surelog's own late-binding walk on OUR
+emitted tree (a bare ref_obj whose parent chain reaches a function/task whose
+Instance() is a package that lists its name), minus the three measured
+fences (a hier_path element, a call receiver, a '= new' lvalue — our emitter
+builds all three outside the binding site, so they are inherited, and in the
+tree they are exactly the hier_path / method_func_call / method_task_call
+parents).  Driver: predsweep153.sh.
+
+== uhdm2rtlil, 1358 pristine databases
+-- scanned=1358 databases-with-predicted-cells=0
+
+== surelog, 956 pristine databases
+== default/BuildUVMPkg-bf853d43/slang.uhdm cells=2
+== default/MiniAmiq-544c7f61/slang.uhdm cells=24
+== default/Scoreboard-59431470/slang.uhdm cells=2
+== default/SeqDriver-32af76aa/slang.uhdm cells=23
+== default/SimpleUVM-1dc93a62/slang.uhdm cells=1
+== testflags/BuildUVMPkg-bf853d43/slang.uhdm cells=2
+== testflags/MiniAmiq-544c7f61/slang.uhdm cells=24
+== testflags/SeqDriver-32af76aa/slang.uhdm cells=23
+== testflags/SimpleUVM-1dc93a62/slang.uhdm cells=1
+-- scanned=956 databases-with-predicted-cells=9
+
+PREDICTED MOVER SET, BY NAME: BuildUVMPkg (both modes), MiniAmiq (both),
+Scoreboard (default; testflags has no database), SeqDriver (both), SimpleUVM
+(both) = 9 databases of 2314.  Every other database is predicted byte-identical.
+
+The MiniAmiq / SeqDriver counts (24 and 23) include the WILDCARD-IMPORT CLONE
+copies in svaunit_pkg / adpcm_pkg, which § 81's subHomeIsPkg81 gate excludes
+and golden leaves bare (measured: golden holds FOUR copies of clp@339:3 and
+binds only the TWO in uvm_pkg's own listing).  They do not change the set.
+
+== the full per-database cell lists
+== /tmp/r10uvm153_wd/sl_pris/default/BuildUVMPkg-bf853d43/slang.uhdm cells=2
+   PRED [assignment] clp@38789:3-38789:6 -> class_var(clp)@33188:27 in uvm_pkg
+   -- /tmp/r10uvm153_wd/sl_pris/default/BuildUVMPkg-bf853d43/slang.uhdm objects=180816 predicted-cells=2 distinct=1
+== /tmp/r10uvm153_wd/sl_pris/default/MiniAmiq-544c7f61/slang.uhdm cells=24
+   PRED [assignment] clp@339:3-339:6 -> class_var(clp)@801:27 in svaunit_pkg
+   PRED [assignment] clp@339:3-339:6 -> class_var(clp)@801:27 in uvm_pkg
+   PRED [assignment] uvm_default_comparer@1056:41-1056:61 -> class_var(uvm_default_comparer)@654:14 in svaunit_pkg
+   PRED [assignment] uvm_default_packer@1150:39-1150:57 -> class_var(uvm_default_packer)@645:12 in svaunit_pkg
+   PRED [assignment] uvm_default_packer@1213:39-1213:57 -> class_var(uvm_default_packer)@645:12 in svaunit_pkg
+   PRED [assignment] uvm_default_printer@572:15-572:34 -> class_var(uvm_default_printer)@637:13 in svaunit_pkg
+   PRED [assignment] uvm_default_printer@878:15-878:34 -> class_var(uvm_default_printer)@637:13 in svaunit_pkg
+   PRED [assignment] uvm_default_printer@892:15-892:34 -> class_var(uvm_default_printer)@637:13 in svaunit_pkg
+   PRED [assignment] uvm_global_random_seed@374:20-374:42 -> int_var(uvm_global_random_seed)@313:14 in svaunit_pkg
+   PRED [assignment] uvm_top@1948:9-1948:16 -> class_var(uvm_top)@315:16 in svaunit_pkg
+   PRED [func_call] uvm_default_table_printer@115:55-115:80 -> class_var(uvm_default_table_printer)@610:19 in svaunit_pkg
+   PRED [func_call] uvm_global_random_seed@415:77-415:99 -> int_var(uvm_global_random_seed)@313:14 in svaunit_pkg
+   -- /tmp/r10uvm153_wd/sl_pris/default/MiniAmiq-544c7f61/slang.uhdm objects=310048 predicted-cells=24 distinct=12
+== /tmp/r10uvm153_wd/sl_pris/default/Scoreboard-59431470/slang.uhdm cells=2
+   PRED [assignment] clp@339:3-339:6 -> class_var(clp)@801:27 in uvm_pkg
+   -- /tmp/r10uvm153_wd/sl_pris/default/Scoreboard-59431470/slang.uhdm objects=183889 predicted-cells=2 distinct=1
+== /tmp/r10uvm153_wd/sl_pris/default/SeqDriver-32af76aa/slang.uhdm cells=23
+   PRED [assignment] clp@339:3-339:6 -> class_var(clp)@801:27 in adpcm_pkg
+   PRED [assignment] clp@339:3-339:6 -> class_var(clp)@801:27 in uvm_pkg
+   PRED [assignment] uvm_default_comparer@1056:41-1056:61 -> class_var(uvm_default_comparer)@654:14 in adpcm_pkg
+   PRED [assignment] uvm_default_packer@1150:39-1150:57 -> class_var(uvm_default_packer)@645:12 in adpcm_pkg
+   PRED [assignment] uvm_default_packer@1213:39-1213:57 -> class_var(uvm_default_packer)@645:12 in adpcm_pkg
+   PRED [assignment] uvm_default_printer@572:15-572:34 -> class_var(uvm_default_printer)@637:13 in adpcm_pkg
+   PRED [assignment] uvm_default_printer@878:15-878:34 -> class_var(uvm_default_printer)@637:13 in adpcm_pkg
+   PRED [assignment] uvm_default_printer@892:15-892:34 -> class_var(uvm_default_printer)@637:13 in adpcm_pkg
+   PRED [assignment] uvm_global_random_seed@374:20-374:42 -> int_var(uvm_global_random_seed)@313:14 in adpcm_pkg
+   PRED [assignment] uvm_top@1948:9-1948:16 -> class_var(uvm_top)@315:16 in adpcm_pkg
+   PRED [func_call] uvm_default_table_printer@115:55-115:80 -> class_var(uvm_default_table_printer)@610:19 in adpcm_pkg
+   PRED [func_call] uvm_global_random_seed@415:77-415:99 -> int_var(uvm_global_random_seed)@313:14 in adpcm_pkg
+   -- /tmp/r10uvm153_wd/sl_pris/default/SeqDriver-32af76aa/slang.uhdm objects=299391 predicted-cells=23 distinct=12
+== /tmp/r10uvm153_wd/sl_pris/default/SimpleUVM-1dc93a62/slang.uhdm cells=1
+   PRED [assignment] clp@339:3-339:6 -> class_var(clp)@801:27 in uvm_pkg
+   -- /tmp/r10uvm153_wd/sl_pris/default/SimpleUVM-1dc93a62/slang.uhdm objects=183421 predicted-cells=1 distinct=1
+== /tmp/r10uvm153_wd/sl_pris/testflags/BuildUVMPkg-bf853d43/slang.uhdm cells=2
+   PRED [assignment] clp@38789:3-38789:6 -> class_var(clp)@33188:27 in uvm_pkg
+   -- /tmp/r10uvm153_wd/sl_pris/testflags/BuildUVMPkg-bf853d43/slang.uhdm objects=180816 predicted-cells=2 distinct=1
+== /tmp/r10uvm153_wd/sl_pris/testflags/MiniAmiq-544c7f61/slang.uhdm cells=24
+   PRED [assignment] clp@339:3-339:6 -> class_var(clp)@801:27 in svaunit_pkg
+   PRED [assignment] clp@339:3-339:6 -> class_var(clp)@801:27 in uvm_pkg
+   PRED [assignment] uvm_default_comparer@1056:41-1056:61 -> class_var(uvm_default_comparer)@654:14 in svaunit_pkg
+   PRED [assignment] uvm_default_packer@1150:39-1150:57 -> class_var(uvm_default_packer)@645:12 in svaunit_pkg
+   PRED [assignment] uvm_default_packer@1213:39-1213:57 -> class_var(uvm_default_packer)@645:12 in svaunit_pkg
+   PRED [assignment] uvm_default_printer@572:15-572:34 -> class_var(uvm_default_printer)@637:13 in svaunit_pkg
+   PRED [assignment] uvm_default_printer@878:15-878:34 -> class_var(uvm_default_printer)@637:13 in svaunit_pkg
+   PRED [assignment] uvm_default_printer@892:15-892:34 -> class_var(uvm_default_printer)@637:13 in svaunit_pkg
+   PRED [assignment] uvm_global_random_seed@374:20-374:42 -> int_var(uvm_global_random_seed)@313:14 in svaunit_pkg
+   PRED [assignment] uvm_top@1948:9-1948:16 -> class_var(uvm_top)@315:16 in svaunit_pkg
+   PRED [func_call] uvm_default_table_printer@115:55-115:80 -> class_var(uvm_default_table_printer)@610:19 in svaunit_pkg
+   PRED [func_call] uvm_global_random_seed@415:77-415:99 -> int_var(uvm_global_random_seed)@313:14 in svaunit_pkg
+   -- /tmp/r10uvm153_wd/sl_pris/testflags/MiniAmiq-544c7f61/slang.uhdm objects=310048 predicted-cells=24 distinct=12
+== /tmp/r10uvm153_wd/sl_pris/testflags/SeqDriver-32af76aa/slang.uhdm cells=23
+   PRED [assignment] clp@339:3-339:6 -> class_var(clp)@801:27 in adpcm_pkg
+   PRED [assignment] clp@339:3-339:6 -> class_var(clp)@801:27 in uvm_pkg
+   PRED [assignment] uvm_default_comparer@1056:41-1056:61 -> class_var(uvm_default_comparer)@654:14 in adpcm_pkg
+   PRED [assignment] uvm_default_packer@1150:39-1150:57 -> class_var(uvm_default_packer)@645:12 in adpcm_pkg
+   PRED [assignment] uvm_default_packer@1213:39-1213:57 -> class_var(uvm_default_packer)@645:12 in adpcm_pkg
+   PRED [assignment] uvm_default_printer@572:15-572:34 -> class_var(uvm_default_printer)@637:13 in adpcm_pkg
+   PRED [assignment] uvm_default_printer@878:15-878:34 -> class_var(uvm_default_printer)@637:13 in adpcm_pkg
+   PRED [assignment] uvm_default_printer@892:15-892:34 -> class_var(uvm_default_printer)@637:13 in adpcm_pkg
+   PRED [assignment] uvm_global_random_seed@374:20-374:42 -> int_var(uvm_global_random_seed)@313:14 in adpcm_pkg
+   PRED [assignment] uvm_top@1948:9-1948:16 -> class_var(uvm_top)@315:16 in adpcm_pkg
+   PRED [func_call] uvm_default_table_printer@115:55-115:80 -> class_var(uvm_default_table_printer)@610:19 in adpcm_pkg
+   PRED [func_call] uvm_global_random_seed@415:77-415:99 -> int_var(uvm_global_random_seed)@313:14 in adpcm_pkg
+   -- /tmp/r10uvm153_wd/sl_pris/testflags/SeqDriver-32af76aa/slang.uhdm objects=299403 predicted-cells=23 distinct=12
+== /tmp/r10uvm153_wd/sl_pris/testflags/SimpleUVM-1dc93a62/slang.uhdm cells=1
+   PRED [assignment] clp@339:3-339:6 -> class_var(clp)@801:27 in uvm_pkg
+   -- /tmp/r10uvm153_wd/sl_pris/testflags/SimpleUVM-1dc93a62/slang.uhdm objects=183433 predicted-cells=1 distinct=1
+-- scanned=956 databases-with-predicted-cells=9

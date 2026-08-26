@@ -1,0 +1,161 @@
+r10v153 — THE GATES, run by the VERIFIER from its own pinned workdirs with
+THREE frozen binaries (chmod 555 copies made before any sweep).  LHS is always
+golden.  The judge is ~/git-repos/UHDM/build/bin/uhdm-cmp.
+
+BINARIES  (independently configured and built in fresh 34c4dc9 worktrees,
+           cmake -DCMAKE_BUILD_TYPE=Release, cmake --build -j 2)
+  pristine (34c4dc9)          md5 8504a7f8aab1177cb74916fc8ae55012
+  patched  (r10uvm153.patch)  md5 1be8208596e3de248ebae14babb63a30
+  fixed    (this patch)       md5 f21cdacd3cf01d0f3e3eac2560ff33f1
+  The first two md5s are the implementer's, digit for digit: the build is
+  reproducible and the shipped binary IS the one that was measured.
+
+CMDS.TXT AUDIT — BY BINARY PATH, never by the string 'slang-uhdm' (which also
+matches the golden cache directory ~/.cache/slang-uhdm-goldens/):
+  surelog  pristine 1573 cmds.txt, 1523 name /tmp/v153_bin/pris.bin
+  surelog  patched  1573 cmds.txt, 1523 name /tmp/v153_bin/pat.bin
+  surelog  fixed    1573 cmds.txt, 1523 name /tmp/v153_bin/fix.bin
+  u2r      pristine 1462 cmds.txt, 1458 name /tmp/v153_bin/pris.bin
+  u2r      patched  1462 cmds.txt, 1458 name /tmp/v153_bin/pat.bin
+  u2r      fixed    1462 cmds.txt, 1458 name /tmp/v153_bin/fix.bin
+  files naming a main-tree build/slang-uhdm : 0 of all 9105.
+
+(1) GOLDEN TESTS   SLANG_UHDM exported explicitly per binary
+    pristine PASS=23 FAIL=0
+    patched  PASS=23 FAIL=0
+    fixed    PASS=23 FAIL=0
+    negative control SLANG_UHDM=/bin/false -> PASS=0 FAIL=23
+
+(2) uhdm2rtlil, BOTH modes, 731 tests each
+    pristine tf  679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+    pristine def 679 / 50 / 2
+    patched  tf  679 / 50 / 2      patched  def 679 / 50 / 2
+    fixed    tf  679 / 50 / 2      fixed    def 679 / 50 / 2
+    ct8rows fixed vs results/gate_uhdm2rtlil.csv          : PASS
+    ct8rows fixed vs this verifier's own pristine control : PASS (both modes)
+    byteverify SELFCHECK=1 fixed vs pristine : MOVERS 0 / 1358, PATH_SETS_IDENTICAL,
+                                               SELFCHECK 1357/1358 flagged
+
+(3) surelog, --mode both, 1588 comparable row-modes
+    pristine  CMP_EQUAL 937  CMP_NOTEQUAL 19  SLANG_REJECT 567  SURELOG_FAIL 48
+              DEFERRED 10  NO_DATABASE 3  UNTRANSLATABLE 2  TIMEOUT 1  NO_UHDM 1
+    patched   IDENTICAL histogram
+    fixed     IDENTICAL histogram
+    ct8rows fixed vs results/golden_surelog.csv           : PASS (0 differing rows)
+    ct8rows fixed vs this verifier's own pristine control : PASS (0 differing rows)
+    NO ROW CONVERTED.  results/*.csv untouched (never written by this verifier).
+    byteverify SELFCHECK=1 patched vs pristine : MOVERS 9 / 956 — the implementer's
+      nine paths exactly:
+        ./default/BuildUVMPkg-bf853d43   patched=d5cb972eca4e pristine=edcd37373c51
+        ./default/MiniAmiq-544c7f61      patched=eb57d5e89e96 pristine=17147b13a728
+        ./default/Scoreboard-59431470    patched=e5433d82d534 pristine=61dbb909a7e5  (COIN)
+        ./default/SeqDriver-32af76aa     patched=b21409fd3ca1 pristine=895783848302
+        ./default/SimpleUVM-1dc93a62     patched=a26d81b53d62 pristine=726b528248d0
+        ./testflags/BuildUVMPkg-bf853d43 patched=d5cb972eca4e pristine=edcd37373c51
+        ./testflags/MiniAmiq-544c7f61    patched=eb57d5e89e96 pristine=17147b13a728
+        ./testflags/SeqDriver-32af76aa   patched=4c8ab101af69 pristine=c44313471560
+        ./testflags/SimpleUVM-1dc93a62   patched=5c5c070d2435 pristine=22d0795cb687
+      seven of the nine patched hashes are byte-identical to the implementer's;
+      Scoreboard/default is the known ~50/50 vpiTaskFunc coin and its two SeqDriver
+      neighbours are genuine law movers here.
+    byteverify SELFCHECK=1 fixed vs patched  : MOVERS 0 / 956
+      -> the fix is a byte-level NO-OP on the whole corpus; every number above
+         holds verbatim for the shipped binary.
+
+    ATTRIBUTION (uhdm-dump, workdir path normalised, SORTED, whole diff):
+      BuildUVMPkg / MiniAmiq / Scoreboard : 4 lines each
+        +2  \_class_var: (uvm_pkg::clp), line:33188:27 (BuildUVMPkg)
+                                         line:801:27   (MiniAmiq / Scoreboard)
+        +2  |vpiActual:
+      SeqDriver / SimpleUVM : 11 lines each
+        the same substitution, plus the REMOVAL of
+        -   \_logic_net: (work@top{,_tb}.clp), line:339:3  x2
+        -   its module_inst parent line, vpiFullName, vpiName, vpiNet, vpiNetType,
+            vpiParent stamps
+      Nothing else in 1 077 338 dump lines.
+
+(4) HEADS (rowheads.sh, official uhdm-cmp, cmp lines / ^LHS: count)
+    TEST           MODE      PRIS  PATCHED  FIXED
+    SeqDriver      default     36     36      36
+    SeqDriver      testflags   36     36      36
+    SimpleUVM      default     36     36      36
+    SimpleUVM      testflags   36     36      36
+    Scoreboard     default     36     36      36
+    Scoreboard     testflags   SKIP-NOFILE (expected)
+    MiniAmiq       default     36     36      36
+    MiniAmiq       testflags   36     36      36
+    BuildUVMPkg    default     45     36      36
+    BuildUVMPkg    testflags   45     36      36
+    Earlgrey_0_1   default    112    112     112
+    Earlgrey_0_1   testflags  112    112     112
+    Rggen          default      0      0       0   (CMP_EQUAL)
+    Rggen          testflags   SKIP-NOFILE (expected)
+    -- measured=12 SKIP-NOFILE=2 UNKNOWN-NAME=0, one ^LHS: per measured cell.
+    Every one of the 12 FIXED head logs is BYTE-IDENTICAL to the corresponding
+    PATCHED log, and all 12 PATCHED logs are byte-identical to the committed
+    tools/probe/r10uvm153repro/head_pat_*.cmp files.
+    The pristine BuildUVMPkg head is  class_var: (uvm_pkg::clp) @33188:27 / RHS <null>;
+    the patched/fixed head is         func_call: (m_time_settings) @41234:9 —
+    the same object SeqDriver/SimpleUVM/Scoreboard/MiniAmiq already carry
+    (uvm_component.svh:3436 in the uvm-1.2 trees).
+
+(5) WIDE BOUNDARY (bound153.sh, both views, </dev/null, fd-3 file list,
+    PROCESSED asserted, scratch keyed on the RELATIVE path)
+    pristine -> patched : LISTED=4339 PROCESSED=4339 PRODUCED_DBS=4193
+                          MOVED_ARMS=6  RC_DIFFS=0
+        the implementer's line, reproduced identically, same six arm names.
+    patched  -> fixed   : LISTED=4339 PROCESSED=4339 PRODUCED_DBS=4193
+                          MOVED_ARMS=2  RC_DIFFS=0
+        r10uvm152repro/g152_d_pos.sv, r10v152repro/arms/v152_e_pos.sv — both
+        scored below.
+    pristine -> fixed   : LISTED=4346 PROCESSED=4346 PRODUCED_DBS=4200
+                          MOVED_ARMS=15 RC_DIFFS=0
+        = 6 (the pass's) + 2 (the fix's) + 7 (this verifier's own arms, the
+        POSITIVE CONTROL: a gate reporting zero over them could not see).
+
+(6) EVERY MOVED ARM, SCORED CELL BY CELL AGAINST A FRESH SURELOG GOLDEN
+    (ct153bind --all + score153.py; W->R / R->W / AWAY)
+    g153_a_mech          def  7 / 0 / 0     elab  2 / 0 / 0
+    g153_b_pos           def 13 / 0 / 0     elab 12 / 0 / 0
+    g153_c_home          def  1 / 0 / 0     elab  0 / 0 / 0
+    g153_d_kind          def 11 / 0 / 0     elab 11 / 0 / 0
+    g153_e_shape         def  9 / 0 / 0     elab  5 / 0 / 0
+    v152_h_prop          def  3 / 0 / 0     elab  0 / 0 / 0
+                         cmp 4912->4910 (def), 6788->6774 (elab), one head
+    g152_d_pos           def  0 / 0 / 0     elab  0 / 0 / 0
+                         cmp 11736->11640 (def), 18950->18854 (elab)
+                         package pd152 Variables(): 17 -> 16, now BYTE-IDENTICAL
+                         to golden's 16-entry listing in BOTH views
+    v152_e_pos           def  0 / 0 / 0     elab  0 / 0 / 0
+                         cmp 11022->10926 (def), 17914->17818 (elab)
+    v153_a_qual          def  4 / 0 / 0     elab  0 / 0 / 0
+    v153_b_home          def  1 / 0 / 0     elab  0 / 0 / 0
+    v153_c_order         def  2 / 0 / 0     elab  0 / 0 / 0
+    v153_d_hoist         def  2 / 0 / 0     elab  0 / 0 / 0
+    v153_e_shape         def  7 / 0 / 0     elab  7 / 0 / 0
+    v153_f_faces         def 19 / 0 / 0     elab 20 / 0 / 0   (patched: 19 / 1 / 0)
+    v153_g_edge          def  3 / 0 / 0     elab  0 / 0 / 0
+    RIGHT->WRONG 0 and AWAY 0 in every one of the 30 arm-views.
+
+(7) CANARIES AND PROTECTED DATABASES (fixed binary)
+    canaries.sh surelog : ok=52 changed=0 absent=0
+    canaries.sh u2r tf  : ok=8  changed=0 absent=0
+    ctcan2.sh EXPECT_UNKNOWN=1 surelog : PASS
+    ctcan2.sh EXPECT_UNKNOWN=6 u2r     : PASS
+    canaudit.sh canaries.sh ctcan2.sh  : audited=29 UNCOVERED=0 FENCE-BREACH=0
+    protected DBs, all ten cells SAME pristine / patched / fixed:
+      InterfaceModPort   59a365f3ce2c (both modes)
+      BlackParrotComplex e3e354129d5a (default) 73a10e8217e5 (testflags)
+      YosysOldOr         d68e0796d62c (both modes)
+      SVSwitch           4842211c4030   <- the brief's pin
+      YosysVerx          6ccda350c24a   <- the brief's pin
+
+(8) THE FENCE CHECK ON THE PATCH ITSELF
+    Each of the four slang-fenced test names (they are listed once, in
+    canaudit.sh's own fence list, and are deliberately NOT spelled here) has
+    ZERO diff hunks in this patch outside canaudit.sh itself; canaudit.sh run
+    from tools/probe/r10uvm153repro reports FENCE-BREACH=0.  No fenced test was
+    dispatched by any driver in this verification.
+    Surface = src/ExprEmit.cpp + src/ParamEmit.cpp +
+    include/UhdmExporter.h + tools/probe/r10uvm153repro/ +
+    tools/probe/r10v153repro/ ONLY.  results/*.csv untouched.

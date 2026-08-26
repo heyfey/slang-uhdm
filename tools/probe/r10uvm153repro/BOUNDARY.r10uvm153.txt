@@ -1,0 +1,47 @@
+r10uvm153 — THE WIDE BOUNDARY.  bound153.sh compiles EVERY .sv/.v in a COPY
+of tools/probe (top level AND subdirectories) with BOTH frozen binaries in
+BOTH views and reports every arm whose rc or whose DATABASE BYTES moved.
+Children get </dev/null, the file list is read on fd 3, scratch is keyed on
+the RELATIVE path (three arms in this tree are all named dut.sv), and
+PROCESSED is asserted against LISTED.
+
+LISTED=4339 PROCESSED=4339 PRODUCED_DBS=4193 MOVED_ARMS=6 RC_DIFFS=0
+BOUNDDONE
+
+MOVED_ARMS:
+r10uvm153repro/g153_a_mech.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm153repro/g153_b_pos.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm153repro/g153_c_home.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm153repro/g153_d_kind.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm153repro/g153_e_shape.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v152repro/arms/v152_h_prop.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+FIVE of the six are THIS PASS'S OWN ARMS — the POSITIVE CONTROL: a gate that
+reported zero movers over them could not see.
+
+THE SIXTH IS AN EARLIER PASS'S ARM AND IS RE-MEASURED AGAINST GOLDEN HERE.
+  tools/probe/r10v152repro/arms/v152_h_prop.sv is the arm r10uvm152's
+  VERIFIER built for exactly this R0 shape (its own header says so: 'A CLASS
+  PROPERTY read inside an out-of-body constructor at package scope, where the
+  PACKAGE listing carries a variable of the same name ... exactly as
+  uvm_pkg::clp is').  Scored cell by cell against a fresh Surelog golden:
+
+    DEF  WRONG->RIGHT  ref_obj|gadget|30:5-30:11  was DIFF
+    DEF  WRONG->RIGHT  ref_obj|gadget|35:5-35:11  was DIFF
+    DEF  WRONG->RIGHT  ref_obj|statgadget|31:5-31:15  was DIFF
+    DEF  -- WRONG->RIGHT=3 RIGHT->WRONG=0 AWAY=0 STILL-WRONG=0 CHANGED-WRONG=0
+    ELAB -- WRONG->RIGHT=0 RIGHT->WRONG=0 AWAY=0 STILL-WRONG=5 CHANGED-WRONG=0
+
+  official uhdm-cmp on that arm: def 4912 -> 4910 lines, elab 6788 -> 6774,
+  one head throughout — the count goes DOWN in both views.
+  h02 `gadget` @30 (a class property whose name the package listing carries),
+  h03 `statgadget` @31 (a STATIC property) and h04 `gadget` @35 (the same
+  property in an ordinary out-of-body method) all go WRONG->RIGHT; h01, the
+  § 152 cell, is untouched.  The ELAB move is the removal of
+  `logic_net (work@mprop.gadget) @35:5` — golden's module-level `gadget` net
+  sits at the DECLARATOR span 13:10, so a wrong object left and nothing
+  golden has was lost (the same shape as SimpleUVM/SeqDriver in the corpus).
+
+RC_DIFFS 0 over all 4339 arms: no arm's exit status changed, in either view.
+(The segfaults in the log are PRE-EXISTING and symmetric — they happen on
+ both binaries, which is what RC_DIFFS=0 asserts.)

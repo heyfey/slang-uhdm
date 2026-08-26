@@ -1,0 +1,166 @@
+r10uvm153 — THE GATES, all run from this pass's own pinned workdirs with the
+two FROZEN binaries (chmod 555 copies made before any sweep).  LHS is always
+golden.  The judge is ~/git-repos/UHDM/build/bin/uhdm-cmp.
+
+BINARIES
+  pristine (34c4dc9)  md5 8504a7f8aab1177cb74916fc8ae55012
+  patched             md5 1be8208596e3de248ebae14babb63a30
+  every cmds.txt audited by BINARY PATH, not by the string 'slang-uhdm':
+    surelog pristine : slang:   /tmp/r10uvm153_bin/pris.bin
+    surelog patched  : slang:   /tmp/r10uvm153_bin/pat.bin
+    u2r pristine     : slang:   /tmp/r10uvm153_bin/pris.bin
+    u2r patched      : slang:   /tmp/r10uvm153_bin/pat.bin
+
+(1) GOLDEN TESTS   pristine PASS=23 FAIL=0 ; patched PASS=23 FAIL=0
+    negative control SLANG_UHDM=/bin/false -> FAIL=23  (the harness silently
+    defaults SLANG_UHDM to the MAIN-TREE binary, so it was exported per run)
+
+(2) uhdm2rtlil, BOTH modes, 731 tests each
+    pristine  testflags CMP_EQUAL 679 / SLANG_REJECT 50 / SURELOG_FAIL 2
+    patched   testflags CMP_EQUAL 679 / SLANG_REJECT 50 / SURELOG_FAIL 2
+    patched   default   CMP_EQUAL 679 / SLANG_REJECT 50 / SURELOG_FAIL 2
+    ct8rows vs results/gate_uhdm2rtlil.csv : PASS
+    ct8rows vs this pass's own pristine control (both modes) : PASS
+    byteverify SELFCHECK=1 : MOVERS 0 / 1358, PATH_SETS_IDENTICAL
+
+(3) surelog, --mode both, 1588 comparable row-modes
+    pristine NO_UHDM        1
+    pristine SLANG_REJECT   567
+    pristine DEFERRED       10
+    pristine SURELOG_FAIL   48
+    pristine CMP_NOTEQUAL   19
+    pristine CMP_EQUAL      937
+    pristine NO_DATABASE    3
+    pristine UNTRANSLATABLE 2
+    pristine TIMEOUT        1
+    patched  NO_UHDM        1
+    patched  SLANG_REJECT   567
+    patched  DEFERRED       10
+    patched  SURELOG_FAIL   48
+    patched  CMP_NOTEQUAL   19
+    patched  CMP_EQUAL      937
+    patched  NO_DATABASE    3
+    patched  UNTRANSLATABLE 2
+    patched  TIMEOUT        1
+    ct8rows vs results/golden_surelog.csv        : PASS (0 differing rows)
+    ct8rows vs this pass's own pristine control  : PASS (0 differing rows)
+    NO ROW CONVERTED.  results/*.csv untouched.
+    byteverify SELFCHECK=1 : MOVERS 9 / 956 — see (5)
+
+(4) HEADS (rowheads.sh, official uhdm-cmp, cmp lines / ^LHS: count)
+    PRISTINE
+    TEST           MODE      CMPLINES  HEADS NOTE
+    SeqDriver      default         36      1 cmp rc=255
+    SeqDriver      testflags       36      1 cmp rc=255
+    SimpleUVM      default         36      1 cmp rc=255
+    SimpleUVM      testflags       36      1 cmp rc=255
+    Scoreboard     default         36      1 cmp rc=255
+    Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+    MiniAmiq       default         36      1 cmp rc=255
+    MiniAmiq       testflags       36      1 cmp rc=255
+    BuildUVMPkg    default         45      1 cmp rc=255
+    BuildUVMPkg    testflags       45      1 cmp rc=255
+    Earlgrey_0_1   default        112      1 cmp rc=255
+    Earlgrey_0_1   testflags      112      1 cmp rc=255
+    Rggen          default          0      0 cmp rc=0
+    Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+    -- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+    PATCHED
+    TEST           MODE      CMPLINES  HEADS NOTE
+    SeqDriver      default         36      1 cmp rc=255
+    SeqDriver      testflags       36      1 cmp rc=255
+    SimpleUVM      default         36      1 cmp rc=255
+    SimpleUVM      testflags       36      1 cmp rc=255
+    Scoreboard     default         36      1 cmp rc=255
+    Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+    MiniAmiq       default         36      1 cmp rc=255
+    MiniAmiq       testflags       36      1 cmp rc=255
+    BuildUVMPkg    default         36      1 cmp rc=255
+    BuildUVMPkg    testflags       36      1 cmp rc=255
+    Earlgrey_0_1   default        112      1 cmp rc=255
+    Earlgrey_0_1   testflags      112      1 cmp rc=255
+    Rggen          default          0      0 cmp rc=0
+    Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+    -- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+
+    BuildUVMPkg 45 -> 36 on BOTH modes, one head, a DIFFERENT object: it has
+    joined the OTHER FOUR UVM rows at their shared head, the
+    `m_time_settings.sort()` call at uvm_pkg.sv:41234 (= uvm_component.svh
+    :3436 in the uvm-1.2 trees) where golden has a func_call and we build a
+    method_func_call with a prefix.  The eleven other head logs are
+    BYTE-IDENTICAL pristine to patched (cmp -s over head_pris_*/head_pat_*).
+
+(5) BYTE MOVERS — PREDICTED BY NAME FIRST (PREDICT.r10uvm153.txt, from the
+    PRISTINE databases alone, golden never consulted), then measured:
+    predicted : BuildUVMPkg x2, MiniAmiq x2, Scoreboard default, SeqDriver x2,
+                SimpleUVM x2   = 9 of 956 ; uhdm2rtlil 0 of 1358
+    measured  :
+      databases: patched=956 pristine=956
+      PATH_SETS_IDENTICAL (956 paths)
+      MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm  patched=d5cb972eca4e pristine=edcd37373c51
+      MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=eb57d5e89e96 pristine=17147b13a728
+      MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=1b24738f513e pristine=1bb47cacd704
+      MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=b21409fd3ca1 pristine=895783848302
+      MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=a26d81b53d62 pristine=726b528248d0
+      MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  patched=d5cb972eca4e pristine=edcd37373c51
+      MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=eb57d5e89e96 pristine=17147b13a728
+      MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=4c8ab101af69 pristine=c44313471560
+      MOVER ./testflags/SimpleUVM-1dc93a62/slang.uhdm  patched=5c5c070d2435 pristine=22d0795cb687
+      MOVERS: 9 / 956
+      SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+    -> the measured set IS the predicted set, name for name.  No order coin
+       fired in this run (Scoreboard/default and the two SeqDriver rows are
+       genuine law movers here, not the ~50/50 vpiTaskFunc coin).
+
+    ATTRIBUTED LINE BY LINE (uhdm-dump, workdir path normalised, SORTED for
+    order-blindness; the whole diff, nothing elided):
+      BuildUVMPkg / MiniAmiq / Scoreboard : 4 lines each
+        98153a98154,98155
+        >               \_class_var: (uvm_pkg::clp), line:33188:27, endln:33188:66
+        >           \_class_var: (uvm_pkg::clp), line:33188:27, endln:33188:66
+        448536a448539
+        >               |vpiActual:
+        456810a456814
+        >           |vpiActual:
+      SimpleUVM / SeqDriver : 11 lines each
+        97834a97835,97836
+        >                 \_class_var: (uvm_pkg::clp), line:801:27, endln:801:66
+        >           \_class_var: (uvm_pkg::clp), line:801:27, endln:801:66
+        252918,252919d252919
+        <                 \_logic_net: (work@top.clp), line:339:3, endln:339:6
+        <   \_logic_net: (work@top.clp), line:339:3, endln:339:6
+        273131d273130
+        <     \_module_inst: work@top (work@top), file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+        477321a477321
+        >           |vpiActual:
+        668481d668480
+        <     |vpiFullName:work@top.clp
+        712830d712828
+        <     |vpiName:clp
+        796593,796594d796590
+        <   |vpiNet:
+        <     |vpiNetType:1
+        990165d990160
+        <     |vpiParent:
+      = the binding substitution in both views, plus (SimpleUVM/SeqDriver)
+        the removal of the § 75 hoist net our binder used to mint at the
+        reference site, which golden does not have.  Nothing else moved in
+        1 077 338 / 1 103 740 dump lines.
+
+(6) CANARIES / PINS
+    canaries.sh surelog : ok=52 changed=0 absent=0
+    canaries.sh u2r     : ok=8  changed=0 absent=0
+    ctcan2 EXPECT_UNKNOWN=1 (surelog) : PASS
+    ctcan2 EXPECT_UNKNOWN=6 (u2r)     : PASS
+    canaudit.sh canaries.sh ctcan2.sh : audited=29 UNCOVERED=0 FENCE-BREACH=0
+    protected databases by NAME (pins153.sh, md5 patched vs pristine):
+      SAME    default/InterfaceModPort  59a365f3ce2c
+      SAME    testflags/InterfaceModPort  59a365f3ce2c
+      SAME    default/BlackParrotComplex  e3e354129d5a
+      SAME    testflags/BlackParrotComplex  73a10e8217e5
+      SAME    default/YosysOldOr  d68e0796d62c
+      SAME    testflags/YosysOldOr  d68e0796d62c
+      SAME    default/SVSwitch  4842211c4030
+      SAME    testflags/SVSwitch  4842211c4030
+      SAME    default/YosysVerx  6ccda350c24a
+      SAME    testflags/YosysVerx  6ccda350c24a
