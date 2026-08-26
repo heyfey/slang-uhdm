@@ -1,0 +1,99 @@
+r10uvm159 — THE GRID (arm159.sh, ct159cls on golden)
+
+Each arm is compiled against the real uvm-1.2 tree with the SAME Surelog
+scripts/verify_golden.py uses, plus -noprecompiledcache -nocache -mt 0 -mp 0.
+
+ARM                AXIS                             law pris   law pat    EXTRA-OURS pris->pat
+g159_a_owners      12 OWNER positions               13         0          0 -> 0
+g159_b_origins     12 ORIGINS                       9          1          0 -> 0
+g159_c_homes       5 HOMES x 3 instances            5          0          0 -> 0
+g159_d_min         the shape with NO UVM            5          0          0 -> 0
+
+TOTAL: WRONG->RIGHT 31, MOVED-WRONG 0, AWAY 0, and 1 STILL-WRONG (R2).
+
+--- PRISTINE ---
+ARM g159_a_owners grc=4 orc=0
+g159_a_owners TALLY MISSING-OURS own=assignment ctx=tf home=cls n=1
+g159_a_owners TALLY MISSING-OURS own=case_item ctx=tf home=cls n=1
+g159_a_owners TALLY MISSING-OURS own=operation ctx=tf home=cls n=13
+g159_a_owners TALLY MISSING-OURS own=param_assign ctx=param_assign home=cls n=20
+g159_a_owners TALLY MISSING-OURS own=param_assign ctx=param_assign home=mod n=30
+g159_a_owners TALLY MISSING-OURS own=param_assign ctx=param_assign home=pkg n=71
+g159_a_owners TALLY MISSING-OURS own=return_stmt ctx=tf home=cls n=1
+g159_a_owners TALLY MISSING-OURS own=return_stmt ctx=tf home=pkg n=3
+g159_a_owners TALLY MISSING-OURS own=sys_func_call ctx=tf home=cls n=1
+g159_a_owners SUM gconst=44764 gts=356 oconst=40351 ots=271 MISSING-OURS=46 EXTRA-OURS=0 NO-GOLDEN-OBJ=0
+ARM g159_b_origins grc=4 orc=0
+g159_b_origins TALLY MISSING-OURS own=operation ctx=tf home=cls n=9
+g159_b_origins TALLY MISSING-OURS own=param_assign ctx=param_assign home=cls n=25
+g159_b_origins TALLY MISSING-OURS own=param_assign ctx=param_assign home=mod n=37
+g159_b_origins TALLY MISSING-OURS own=param_assign ctx=param_assign home=pkg n=89
+g159_b_origins TALLY MISSING-OURS own=return_stmt ctx=tf home=pkg n=3
+g159_b_origins TALLY MISSING-OURS own=sys_func_call ctx=tf home=cls n=1
+g159_b_origins SUM gconst=44889 gts=378 oconst=40416 ots=294 MISSING-OURS=45 EXTRA-OURS=0 NO-GOLDEN-OBJ=0
+ARM g159_c_homes grc=4 orc=0
+g159_c_homes TALLY MISSING-OURS own=operation ctx=tf home=cls n=5
+g159_c_homes TALLY MISSING-OURS own=param_assign ctx=param_assign home=cls n=21
+g159_c_homes TALLY MISSING-OURS own=param_assign ctx=param_assign home=mod n=36
+g159_c_homes TALLY MISSING-OURS own=param_assign ctx=param_assign home=pkg n=74
+g159_c_homes TALLY MISSING-OURS own=return_stmt ctx=tf home=pkg n=3
+g159_c_homes SUM gconst=44764 gts=360 oconst=40349 ots=282 MISSING-OURS=35 EXTRA-OURS=0 NO-GOLDEN-OBJ=0
+ARM g159_d_min grc=4 orc=0
+g159_d_min TALLY MISSING-OURS own=assignment ctx=tf home=cls n=1
+g159_d_min TALLY MISSING-OURS own=operation ctx=tf home=cls n=5
+g159_d_min TALLY MISSING-OURS own=param_assign ctx=param_assign home=cls n=4
+g159_d_min TALLY MISSING-OURS own=param_assign ctx=param_assign home=mod n=6
+g159_d_min TALLY MISSING-OURS own=param_assign ctx=param_assign home=pkg n=14
+g159_d_min TALLY EXTRA-OURS own=range ctx=clsbody home=cls n=3
+g159_d_min TALLY EXTRA-OURS own=range ctx=other home=TOP n=11
+g159_d_min TALLY EXTRA-OURS own=range ctx=tf home=cls n=1
+g159_d_min SUM gconst=25352 gts=119 oconst=23919 ots=108 MISSING-OURS=11 EXTRA-OURS=4 NO-GOLDEN-OBJ=0
+ARMDONE
+
+--- PATCHED ---
+ARM g159_a_owners grc=4 orc=0
+g159_a_owners TALLY MISSING-OURS own=assignment ctx=tf home=cls n=1
+g159_a_owners TALLY MISSING-OURS own=case_item ctx=tf home=cls n=1
+g159_a_owners TALLY MISSING-OURS own=param_assign ctx=param_assign home=cls n=20
+g159_a_owners TALLY MISSING-OURS own=param_assign ctx=param_assign home=mod n=30
+g159_a_owners TALLY MISSING-OURS own=param_assign ctx=param_assign home=pkg n=71
+g159_a_owners TALLY MISSING-OURS own=return_stmt ctx=tf home=cls n=1
+g159_a_owners TALLY MISSING-OURS own=return_stmt ctx=tf home=pkg n=3
+g159_a_owners TALLY MISSING-OURS own=sys_func_call ctx=tf home=cls n=1
+g159_a_owners SUM gconst=44764 gts=356 oconst=40351 ots=284 MISSING-OURS=33 EXTRA-OURS=0 NO-GOLDEN-OBJ=0
+ARM g159_b_origins grc=4 orc=0
+g159_b_origins TALLY MISSING-OURS own=operation ctx=tf home=cls n=1
+g159_b_origins TALLY MISSING-OURS own=param_assign ctx=param_assign home=cls n=25
+g159_b_origins TALLY MISSING-OURS own=param_assign ctx=param_assign home=mod n=37
+g159_b_origins TALLY MISSING-OURS own=param_assign ctx=param_assign home=pkg n=89
+g159_b_origins TALLY MISSING-OURS own=return_stmt ctx=tf home=pkg n=3
+g159_b_origins TALLY MISSING-OURS own=sys_func_call ctx=tf home=cls n=1
+g159_b_origins SUM gconst=44889 gts=378 oconst=40416 ots=302 MISSING-OURS=37 EXTRA-OURS=0 NO-GOLDEN-OBJ=0
+ARM g159_c_homes grc=4 orc=0
+g159_c_homes TALLY MISSING-OURS own=param_assign ctx=param_assign home=cls n=21
+g159_c_homes TALLY MISSING-OURS own=param_assign ctx=param_assign home=mod n=36
+g159_c_homes TALLY MISSING-OURS own=param_assign ctx=param_assign home=pkg n=74
+g159_c_homes TALLY MISSING-OURS own=return_stmt ctx=tf home=pkg n=3
+g159_c_homes SUM gconst=44764 gts=360 oconst=40349 ots=287 MISSING-OURS=30 EXTRA-OURS=0 NO-GOLDEN-OBJ=0
+ARM g159_d_min grc=4 orc=0
+g159_d_min TALLY MISSING-OURS own=assignment ctx=tf home=cls n=1
+g159_d_min TALLY MISSING-OURS own=param_assign ctx=param_assign home=cls n=4
+g159_d_min TALLY MISSING-OURS own=param_assign ctx=param_assign home=mod n=6
+g159_d_min TALLY MISSING-OURS own=param_assign ctx=param_assign home=pkg n=14
+g159_d_min TALLY EXTRA-OURS own=range ctx=clsbody home=cls n=3
+g159_d_min TALLY EXTRA-OURS own=range ctx=other home=TOP n=11
+g159_d_min TALLY EXTRA-OURS own=range ctx=tf home=cls n=1
+g159_d_min SUM gconst=25352 gts=119 oconst=23919 ots=113 MISSING-OURS=6 EXTRA-OURS=4 NO-GOLDEN-OBJ=0
+ARMDONE
+
+--- g159_d_min WITHOUT uvm_pkg on the command line (the same 5 cells) ---
+PRIS: MISSING-OURS own=operation ctx=tf home=cls n=5   EXTRA-OURS 0
+PAT : (absent)                                          EXTRA-OURS 0
+  -> the law is keyed on the IMPORT MATERIALISATION, not on anything UVM supplies.
+
+--- THE NEGATIVE CONTROLS, both bare on BOTH sides ---
+  g159_a_owners a_qual   r159 = uvm_pkg::UVM_SETINT + 1;   (a QUALIFIED read)
+  g159_a_owners a_own    r159 = PK159T + 1; / PK159U + 1;   (the package's OWN params)
+  g159_c_homes  c_pkgfunc159  a PACKAGE function, not a class method
+  g159_b_origins B_CLASS_LOCALPARAM / B_ENUM_CONST / B_LITERAL / B_BITS / B_MACRO
+                 never fold to this shape at all

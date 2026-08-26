@@ -1,0 +1,41 @@
+r10uvm159 — WIDE BOUNDARY (bound159.sh over a COPY of the whole probe tree)
+
+LISTED=4441 PROCESSED=4441 PRODUCED_DBS=4291 MOVED_ARMS=5 RC_DIFFS=0
+
+MOVED ARMS (def and elab views, pristine vs patched binary):
+r10uvm106repro/a6_edge.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm146repro/g146_c_owners.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm159repro/g159_d_min.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm47repro/t66b/dut.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v106repro/b06_import.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+RE-MEASURED AGAINST GOLDEN (remeasure159.sh; Surelog = ~/git-repos/Surelog/build/bin/surelog):
+
+ARM                                            law cells pris->pat          EXTRA-OURS       uhdm-cmp head
+r10uvm106repro/a6_edge.sv                      0 -> 0 (see note A)          0 -> 0           17L/1H -> 17L/1H (unchanged)
+r10uvm146repro/g146_c_owners.sv                2 -> 0                       1 -> 1           50L/1H -> 50L/1H (unchanged)
+r10uvm47repro/t66b/dut.sv                      1 -> 0                       0 -> 0           17L/1H -> 3958L/1H, HEAD CLEARED
+r10v106repro/b06_import.sv                     0 -> 0 (see note A)          0 -> 0           34L/1H -> 34L/1H (unchanged)
+r10uvm159repro/g159_d_min.sv                   5 -> 0  (POSITIVE CONTROL)   0 -> 0           17L/1H -> 46L/1H, HEAD CLEARED
+
+TOTAL over the boundary: WRONG->RIGHT 8 law cells, MOVED-WRONG 0, AWAY 0, RC_DIFFS 0.
+
+HEADS CLEARED, both of them this law's own shape:
+  r10uvm47repro/t66b/dut.sv   pristine head = ref_typespec (u2::c_pkg::m_other)
+                              on constant@28:11-28:15 -> int_typespec@19:3-19:24, RHS <null>
+                              patched head = a module_inst (a DIFFERENT, larger object)
+  r10uvm159repro/g159_d_min.sv pristine head = ref_typespec (p159d_pkg::c159d::d_op)
+                              on constant@20:14-20:20 -> int_typespec@8:13-8:16, RHS <null>
+                              patched head = constant@23:15 (a DIFFERENT object)
+  A cmp line count that goes UP on a CHANGED head object is the new head's
+  decompile size, not a regression (RESUME.md §7).
+
+NOTE A — the two arms whose census columns did not move.
+  a6_edge.sv gains 3 stamps (20:30 'h0, 20:38 'h1a, 20:46 'b0) and b06_import.sv
+  gains 1 (28:30 'h1a).  GOLDEN CARRIES A TYPESPEC EDGE ON EVERY ONE OF THEM, so
+  the direction is TOWARD golden; the census cannot PAIR those cells because the
+  two sides already disagree about VpiSize there (golden -1 / ours 32 for an
+  UNSIZED literal parameter), a pre-existing divergence this pass does not touch.
+  On the two 'h cells golden's ref_typespec has a NULL actual and ours names the
+  parameter's int_typespec — recorded as R5, and unreachable to the judge behind
+  the size mismatch that already fails first.

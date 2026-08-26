@@ -7455,6 +7455,14 @@ private:
     // cont-assign fold constant that reads it (Surelog gives that fold a
     // ref_typespec -> this typespec).
     std::map<const slang::ast::Symbol*, UHDM::typespec*> importedParamDefTs;
+    // § pkgImportTfOpFoldTs159 -- the PACKAGE twin of `importedParamDefTs`.
+    // The map above is written only on the `!inPackage` arm (a MODULE
+    // materializing a wildcard-imported package parameter), so a package that
+    // materializes the same parameter for its own CLASSES left nothing behind
+    // and every fold inside a class method came out bare.  Keyed by the same
+    // package parameter symbol; the value is the materialized copy's own
+    // declaration typespec.
+    std::map<const slang::ast::Symbol*, UHDM::typespec*> pkgImportParamTs159;
     // The elab-view resolved typespec of each `parameter type T` — shared with
     // the type-param-typed port variable's typespec (Surelog uses one object).
     std::map<const slang::ast::Symbol*, UHDM::typespec*> typeParamElabTs;

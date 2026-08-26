@@ -14552,6 +14552,90 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     cIt->second->VpiParent())
                                     c->VpiParent(cIt->second->VpiParent());
                         }
+                    // § pkgImportTfOpFoldTs159 — THE CLASS-METHOD HALF OF
+                    // § tfOpFold9.  Surelog gives a folded parameter reference
+                    // the PARAMETER'S OWN declaration typespec
+                    // (~/git-repos/Surelog -- the tree scripts/verify_golden.py
+                    // builds its goldens from -- CompileExpression.cpp:2880 and
+                    // :2948: after
+                    // `clone_tree(param_ass->Rhs())` it reads
+                    // `param_ass->Lhs()->Typespec()->Actual_typespec()` and,
+                    // when the clone has none of its own, mints a fresh
+                    // anonymous `ref_typespec` onto the constant).  The
+                    // component that answers the name is whichever one lists
+                    // the parameter in `getParam_assigns()` — a MODULE that
+                    // materialized a wildcard import, or, exactly as well, the
+                    // PACKAGE that materialized it for its own classes.  Our
+                    // § tfOpFold9 arm above can only fire for the module case,
+                    // because `importedParamDefTs` is written on ParamEmit's
+                    // `!inPackage` arm alone; a class method's operand fold had
+                    // no typespec to name and came out bare.
+                    //
+                    // MEASURED POPULATION (pristine 06e1acc, both corpora,
+                    // both modes, `ct159cls` keyed on the compare-visible
+                    // constant payload x owner x context x home):
+                    //   MISSING-OURS own=operation ctx=tf home=cls  = 54
+                    //   EXTRA-OURS   own=operation ctx=tf home=cls  =  0
+                    // and 0 cells of either sign on the uhdm2rtlil corpus.
+                    // The 54 are SeqDriver x2 (2 classes) and MiniAmiq x2
+                    // (7 classes), three spans each — `what__ inside
+                    // {UVM_SETINT, UVM_SETSTR, UVM_SETOBJ}` in
+                    // uvm_object_defines.svh:162, the body of
+                    // `uvm_field_utils_begin`.  Every constant OURS holds at
+                    // those spans is one golden also holds AND stamps, so the
+                    // arm is WRONG->RIGHT on all 54 with no cell to move AWAY.
+                    //
+                    // The typespec object is the materialized copy's own (one
+                    // per package view); golden's is a per-reference clone of
+                    // the same declaration.  `typespec::Compare` reads
+                    // VpiName / Typedef_alias / Instance and `int_typespec`
+                    // adds Cast_to_expr / VpiSigned / Ranges — measured
+                    // identical on both sides for this population
+                    // (int_typespec, unnamed, no alias, NO Instance, unsigned,
+                    // no ranges, span = the whole parameter declaration
+                    // 217:1-217:38).  Sharing versus cloning is invisible to
+                    // the judge: no generated Compare reads VpiParent.
+                    //
+                    // GATES, each one a measured boundary of the population:
+                    //  * a TASK/FUNCTION body (`currentTf`) whose home is a
+                    //    CLASS — golden's `own=operation ctx=tf` cells are
+                    //    home=cls in every one of the 54, and there is no
+                    //    home=pkg cell of that shape anywhere in either corpus;
+                    //  * the fold's parent is an OPERATION, the same parent
+                    //    test § tfOpFold9 carries;
+                    //  * the read is UNQUALIFIED — a written `pkg::P` is
+                    //    Surelog's paPackage_scope arm
+                    //    (CompileExpression.cpp:2722), which clones the value
+                    //    and attaches NO typespec at all;
+                    //  * `!c->Typespec()` — the arms above own every cell they
+                    //    already stamp, and this one may not restamp them.
+                    if (!c->Typespec() && currentTf && !inProcessEmit &&
+                        !inParamInit && parent &&
+                        parent->UhdmType() == UHDM::uhdmoperation &&
+                        rawText(expr.sourceRange).find("::") ==
+                            std::string::npos) {
+                        bool clsTf159 = false;
+                        for (const UHDM::BaseClass* w159 = currentTf; w159;
+                             w159 = w159->VpiParent()) {
+                            if (w159->UhdmType() == UHDM::uhdmclass_defn) {
+                                clsTf159 = true;
+                                break;
+                            }
+                            if (w159->UhdmType() == UHDM::uhdmmodule_inst ||
+                                w159->UhdmType() == UHDM::uhdmdesign)
+                                break;
+                        }
+                        if (clsTf159)
+                            if (auto pit159 =
+                                    pkgImportParamTs159.find(&nv.symbol);
+                                pit159 != pkgImportParamTs159.end() &&
+                                pit159->second) {
+                                auto* rt159 = s.MakeRef_typespec();
+                                rt159->VpiParent(c);
+                                rt159->Actual_typespec(pit159->second);
+                                c->Typespec(rt159);
+                            }
+                    }
                     // § qualPkgParamFoldTs — the QUALIFIED half of the same
                     // law.  The gate right above says "only a param
                     // MATERIALIZED into this module carries the ts ref; a

@@ -14572,6 +14572,19 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     stampParenCastWidthTs(ps, up, its, hi9);
                     if (wantInst9 && !isParenCastWidthParam(ps.name) && hi9)
                         its->Instance(hi9);
+                    // § pkgImportTfOpFoldTs159 -- REMEMBER THIS COPY'S
+                    // DECLARATION TYPESPEC.  The `!inPackage` arm below
+                    // records the same thing in `importedParamDefTs` for a
+                    // MODULE's materialized import, and ExprEmit's fold site
+                    // stamps a ref_typespec to it (§ tfOpFold9 and friends).
+                    // A PACKAGE materializing the import for its own classes
+                    // never reached that arm, so the fold inside a class
+                    // method had no typespec to name.  Surelog does not
+                    // distinguish the two homes: CompileExpression.cpp:2948
+                    // takes `param_ass->Lhs()->Typespec()->Actual_typespec()`
+                    // off whatever component's `getParam_assigns()` answered
+                    // the name.
+                    if (its) pkgImportParamTs159[&ps] = its;
                 }
                 if (inPackage && typedParam)
                     stampPkgTsInst(its);

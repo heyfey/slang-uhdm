@@ -1,0 +1,58 @@
+195713a195714,195715
+>                           \_constant: , line:162:24, endln:162:34
+>                       \_constant: , line:162:24, endln:162:34
+195727a195730,195731
+>                           \_constant: , line:162:35, endln:162:45
+>                       \_constant: , line:162:35, endln:162:45
+195741a195746,195747
+>                           \_constant: , line:162:46, endln:162:56
+>                       \_constant: , line:162:46, endln:162:56
+365794a365801,365802
+>                           \_int_typespec: , line:217:1, endln:217:38
+>                       \_int_typespec: , line:217:1, endln:217:38
+365851a365860,365861
+>                           \_int_typespec: , line:218:1, endln:218:48
+>                       \_int_typespec: , line:218:1, endln:218:48
+365878a365889,365890
+>                           \_int_typespec: , line:219:1, endln:219:48
+>                       \_int_typespec: , line:219:1, endln:219:48
+588471a588484,588486
+>                     \_ref_typespec: (adpcm_pkg::adpcm_seq_item::__m_uvm_field_automation)
+>                     \_ref_typespec: (adpcm_pkg::adpcm_seq_item::__m_uvm_field_automation)
+>                     \_ref_typespec: (adpcm_pkg::adpcm_seq_item::__m_uvm_field_automation)
+588719a588735,588737
+>                         \_ref_typespec: (adpcm_pkg::adpcm_tx_seq::__m_uvm_field_automation)
+>                         \_ref_typespec: (adpcm_pkg::adpcm_tx_seq::__m_uvm_field_automation)
+>                         \_ref_typespec: (adpcm_pkg::adpcm_tx_seq::__m_uvm_field_automation)
+718663a718682,718684
+>                           |vpiActual:
+>                           |vpiActual:
+>                           |vpiActual:
+728083a728105,728107
+>                       |vpiActual:
+>                       |vpiActual:
+>                       |vpiActual:
+982954a982979,982981
+>                       |vpiFullName:adpcm_pkg::adpcm_seq_item::__m_uvm_field_automation
+>                       |vpiFullName:adpcm_pkg::adpcm_seq_item::__m_uvm_field_automation
+>                       |vpiFullName:adpcm_pkg::adpcm_seq_item::__m_uvm_field_automation
+983602a983630,983632
+>                           |vpiFullName:adpcm_pkg::adpcm_tx_seq::__m_uvm_field_automation
+>                           |vpiFullName:adpcm_pkg::adpcm_tx_seq::__m_uvm_field_automation
+>                           |vpiFullName:adpcm_pkg::adpcm_tx_seq::__m_uvm_field_automation
+1403769a1403800,1403802
+>                           |vpiParent:
+>                           |vpiParent:
+>                           |vpiParent:
+1428531a1428565,1428567
+>                       |vpiParent:
+>                       |vpiParent:
+>                       |vpiParent:
+1777912a1777949,1777951
+>                         |vpiTypespec:
+>                         |vpiTypespec:
+>                         |vpiTypespec:
+1778107a1778147,1778149
+>                     |vpiTypespec:
+>                     |vpiTypespec:
+>                     |vpiTypespec:

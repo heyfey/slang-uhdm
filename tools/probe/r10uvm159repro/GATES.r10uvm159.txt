@@ -1,0 +1,49 @@
+r10uvm159 — GATES (all run from THIS pass's own worktree /tmp/wt_r10uvm159 at BASE 06e1acc)
+
+(1) BUILD
+  pristine  md5 eacf54446cce390191ad1174f3fb9f73   frozen at /tmp/r10uvm159_pris.bin (chmod 555)
+  patched   md5 2c7e7caa55154c7e82a0b83b7d1aa87b   frozen at /tmp/r10uvm159_pat.bin  (chmod 555)
+
+(2) GOLDENS  (SLANG_UHDM exported EXPLICITLY to each binary)
+  pristine  PASS=23 FAIL=0
+  patched   PASS=23 FAIL=0
+  negative control SLANG_UHDM=/bin/false  FAIL=23
+
+(3) uhdm2rtlil, BOTH modes
+  patched status histogram (both modes): 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+  ct8rows vs results/gate_uhdm2rtlil.csv .......... PASS (0 differing rows, status AND dump)
+  ct8rows vs this pass's own pristine tf .......... PASS
+  ct8rows vs this pass's own pristine default ..... PASS
+  cmds.txt binary audit: 1458/1458 name /tmp/r10uvm159_pat.bin
+  byteverify SELFCHECK=1: MOVERS 0 / 1358, selfcheck 1357/1358 flagged
+
+(4) surelog corpus, --mode both
+  patched: 471+466 CMP_EQUAL, 283+284 SLANG_REJECT, 25+23 SURELOG_FAIL,
+           10+9 CMP_NOTEQUAL, 5+5 DEFERRED, 3 NO_DATABASE, 2 UNTRANSLATABLE,
+           1 TIMEOUT, 1 NO_UHDM  — identical to the pristine histogram
+  ct8rows vs results/golden_surelog.csv ........... PASS (0 differing rows over 1588)
+  ct8rows vs this pass's own pristine sweep ....... PASS
+  cmds.txt binary audit: 1523/1523 name /tmp/r10uvm159_pat.bin
+  NO ROW WAS CONVERTED in either direction.
+
+(5) byteverify SELFCHECK=1, surelog corpus
+  MOVERS 4 / 956, selfcheck 955/956 flagged
+    ./default/MiniAmiq-544c7f61/slang.uhdm    69c253437caf -> e23a114de406
+    ./default/SeqDriver-32af76aa/slang.uhdm   9b15f1124993 -> c1a200b401f1
+    ./testflags/MiniAmiq-544c7f61/slang.uhdm  69c253437caf -> e23a114de406
+    ./testflags/SeqDriver-32af76aa/slang.uhdm 72015b161510 -> 2e222177e6f3
+  every one PREDICTED BY NAME from pristine databases (PREDICT.r10uvm159.txt).
+  Scoreboard/default — the ~50/50 vpiTaskFunc-order COIN — did NOT move at all.
+
+CANARIES
+  canaries.sh surelog     ok=52 changed=0 absent=0
+  canaries.sh uhdm2rtlil  ok=8  changed=0 absent=0
+  ctcan2.sh   surelog     PASS (EXPECT_UNKNOWN=1)
+  ctcan2.sh   uhdm2rtlil  PASS (EXPECT_UNKNOWN=6)
+  canaudit.sh canaries.sh ctcan2.sh: audited=29 UNCOVERED=0 FENCE-BREACH=0
+  protected databases, patched vs this pass's own pristine:
+    InterfaceModPort   default/testflags  59a365f3ce2c  SAME
+    BlackParrotComplex default e3e354129d5a / testflags 73a10e8217e5  SAME
+    YosysOldOr         default/testflags  d68e0796d62c  SAME
+    SVSwitch           default/testflags  4842211c4030  (pinned value)
+    YosysVerx          default/testflags  6ccda350c24a  (pinned value)

@@ -1,0 +1,176 @@
+203877a203878
+>                           \_constant: , line:162:24, endln:162:34
+203878a203880,203885
+>                   \_constant: , line:162:24, endln:162:34
+>                   \_constant: , line:162:24, endln:162:34
+>                   \_constant: , line:162:24, endln:162:34
+>                   \_constant: , line:162:24, endln:162:34
+>                   \_constant: , line:162:24, endln:162:34
+>                   \_constant: , line:162:24, endln:162:34
+203897a203905
+>                           \_constant: , line:162:35, endln:162:45
+203898a203907,203912
+>                   \_constant: , line:162:35, endln:162:45
+>                   \_constant: , line:162:35, endln:162:45
+>                   \_constant: , line:162:35, endln:162:45
+>                   \_constant: , line:162:35, endln:162:45
+>                   \_constant: , line:162:35, endln:162:45
+>                   \_constant: , line:162:35, endln:162:45
+203917a203932
+>                           \_constant: , line:162:46, endln:162:56
+203918a203934,203939
+>                   \_constant: , line:162:46, endln:162:56
+>                   \_constant: , line:162:46, endln:162:56
+>                   \_constant: , line:162:46, endln:162:56
+>                   \_constant: , line:162:46, endln:162:56
+>                   \_constant: , line:162:46, endln:162:56
+>                   \_constant: , line:162:46, endln:162:56
+384645a384667,384673
+>                           \_int_typespec: , line:217:1, endln:217:38
+>                   \_int_typespec: , line:217:1, endln:217:38
+>                   \_int_typespec: , line:217:1, endln:217:38
+>                   \_int_typespec: , line:217:1, endln:217:38
+>                   \_int_typespec: , line:217:1, endln:217:38
+>                   \_int_typespec: , line:217:1, endln:217:38
+>                   \_int_typespec: , line:217:1, endln:217:38
+384696a384725,384731
+>                           \_int_typespec: , line:218:1, endln:218:48
+>                   \_int_typespec: , line:218:1, endln:218:48
+>                   \_int_typespec: , line:218:1, endln:218:48
+>                   \_int_typespec: , line:218:1, endln:218:48
+>                   \_int_typespec: , line:218:1, endln:218:48
+>                   \_int_typespec: , line:218:1, endln:218:48
+>                   \_int_typespec: , line:218:1, endln:218:48
+384717a384753,384759
+>                           \_int_typespec: , line:219:1, endln:219:48
+>                   \_int_typespec: , line:219:1, endln:219:48
+>                   \_int_typespec: , line:219:1, endln:219:48
+>                   \_int_typespec: , line:219:1, endln:219:48
+>                   \_int_typespec: , line:219:1, endln:219:48
+>                   \_int_typespec: , line:219:1, endln:219:48
+>                   \_int_typespec: , line:219:1, endln:219:48
+611499a611542,611544
+>                         \_ref_typespec: (svaunit_pkg::svaunit_base_sequence::__m_uvm_field_automation)
+>                         \_ref_typespec: (svaunit_pkg::svaunit_base_sequence::__m_uvm_field_automation)
+>                         \_ref_typespec: (svaunit_pkg::svaunit_base_sequence::__m_uvm_field_automation)
+611678a611724,611726
+>                 \_ref_typespec: (svaunit_pkg::svaunit_concurrent_assertion_details::__m_uvm_field_automation)
+>                 \_ref_typespec: (svaunit_pkg::svaunit_concurrent_assertion_details::__m_uvm_field_automation)
+>                 \_ref_typespec: (svaunit_pkg::svaunit_concurrent_assertion_details::__m_uvm_field_automation)
+611807a611856,611858
+>                 \_ref_typespec: (svaunit_pkg::svaunit_concurrent_assertion_info::__m_uvm_field_automation)
+>                 \_ref_typespec: (svaunit_pkg::svaunit_concurrent_assertion_info::__m_uvm_field_automation)
+>                 \_ref_typespec: (svaunit_pkg::svaunit_concurrent_assertion_info::__m_uvm_field_automation)
+611962a612014,612016
+>                 \_ref_typespec: (svaunit_pkg::svaunit_immediate_assertion_details::__m_uvm_field_automation)
+>                 \_ref_typespec: (svaunit_pkg::svaunit_immediate_assertion_details::__m_uvm_field_automation)
+>                 \_ref_typespec: (svaunit_pkg::svaunit_immediate_assertion_details::__m_uvm_field_automation)
+612106a612161,612163
+>                 \_ref_typespec: (svaunit_pkg::svaunit_immediate_assertion_info::__m_uvm_field_automation)
+>                 \_ref_typespec: (svaunit_pkg::svaunit_immediate_assertion_info::__m_uvm_field_automation)
+>                 \_ref_typespec: (svaunit_pkg::svaunit_immediate_assertion_info::__m_uvm_field_automation)
+612210a612268,612270
+>                 \_ref_typespec: (svaunit_pkg::svaunit_reporter::__m_uvm_field_automation)
+>                 \_ref_typespec: (svaunit_pkg::svaunit_reporter::__m_uvm_field_automation)
+>                 \_ref_typespec: (svaunit_pkg::svaunit_reporter::__m_uvm_field_automation)
+613057a613118,613120
+>                 \_ref_typespec: (svaunit_pkg::svaunit_vpi_wrapper::__m_uvm_field_automation)
+>                 \_ref_typespec: (svaunit_pkg::svaunit_vpi_wrapper::__m_uvm_field_automation)
+>                 \_ref_typespec: (svaunit_pkg::svaunit_vpi_wrapper::__m_uvm_field_automation)
+751730a751794,751796
+>                           |vpiActual:
+>                           |vpiActual:
+>                           |vpiActual:
+779215a779282,779299
+>                   |vpiActual:
+>                   |vpiActual:
+>                   |vpiActual:
+>                   |vpiActual:
+>                   |vpiActual:
+>                   |vpiActual:
+>                   |vpiActual:
+>                   |vpiActual:
+>                   |vpiActual:
+>                   |vpiActual:
+>                   |vpiActual:
+>                   |vpiActual:
+>                   |vpiActual:
+>                   |vpiActual:
+>                   |vpiActual:
+>                   |vpiActual:
+>                   |vpiActual:
+>                   |vpiActual:
+1021220a1021305,1021307
+>                           |vpiFullName:svaunit_pkg::svaunit_base_sequence::__m_uvm_field_automation
+>                           |vpiFullName:svaunit_pkg::svaunit_base_sequence::__m_uvm_field_automation
+>                           |vpiFullName:svaunit_pkg::svaunit_base_sequence::__m_uvm_field_automation
+1021845a1021933,1021935
+>                   |vpiFullName:svaunit_pkg::svaunit_concurrent_assertion_details::__m_uvm_field_automation
+>                   |vpiFullName:svaunit_pkg::svaunit_concurrent_assertion_details::__m_uvm_field_automation
+>                   |vpiFullName:svaunit_pkg::svaunit_concurrent_assertion_details::__m_uvm_field_automation
+1022229a1022320,1022322
+>                   |vpiFullName:svaunit_pkg::svaunit_concurrent_assertion_info::__m_uvm_field_automation
+>                   |vpiFullName:svaunit_pkg::svaunit_concurrent_assertion_info::__m_uvm_field_automation
+>                   |vpiFullName:svaunit_pkg::svaunit_concurrent_assertion_info::__m_uvm_field_automation
+1022736a1022830,1022832
+>                   |vpiFullName:svaunit_pkg::svaunit_immediate_assertion_details::__m_uvm_field_automation
+>                   |vpiFullName:svaunit_pkg::svaunit_immediate_assertion_details::__m_uvm_field_automation
+>                   |vpiFullName:svaunit_pkg::svaunit_immediate_assertion_details::__m_uvm_field_automation
+1023206a1023303,1023305
+>                   |vpiFullName:svaunit_pkg::svaunit_immediate_assertion_info::__m_uvm_field_automation
+>                   |vpiFullName:svaunit_pkg::svaunit_immediate_assertion_info::__m_uvm_field_automation
+>                   |vpiFullName:svaunit_pkg::svaunit_immediate_assertion_info::__m_uvm_field_automation
+1023486a1023586,1023588
+>                   |vpiFullName:svaunit_pkg::svaunit_reporter::__m_uvm_field_automation
+>                   |vpiFullName:svaunit_pkg::svaunit_reporter::__m_uvm_field_automation
+>                   |vpiFullName:svaunit_pkg::svaunit_reporter::__m_uvm_field_automation
+1026559a1026662,1026664
+>                   |vpiFullName:svaunit_pkg::svaunit_vpi_wrapper::__m_uvm_field_automation
+>                   |vpiFullName:svaunit_pkg::svaunit_vpi_wrapper::__m_uvm_field_automation
+>                   |vpiFullName:svaunit_pkg::svaunit_vpi_wrapper::__m_uvm_field_automation
+1470448a1470554,1470556
+>                           |vpiParent:
+>                           |vpiParent:
+>                           |vpiParent:
+1544966a1545075,1545092
+>                   |vpiParent:
+>                   |vpiParent:
+>                   |vpiParent:
+>                   |vpiParent:
+>                   |vpiParent:
+>                   |vpiParent:
+>                   |vpiParent:
+>                   |vpiParent:
+>                   |vpiParent:
+>                   |vpiParent:
+>                   |vpiParent:
+>                   |vpiParent:
+>                   |vpiParent:
+>                   |vpiParent:
+>                   |vpiParent:
+>                   |vpiParent:
+>                   |vpiParent:
+>                   |vpiParent:
+1849543a1849670,1849672
+>                         |vpiTypespec:
+>                         |vpiTypespec:
+>                         |vpiTypespec:
+1851190a1851320,1851337
+>                 |vpiTypespec:
+>                 |vpiTypespec:
+>                 |vpiTypespec:
+>                 |vpiTypespec:
+>                 |vpiTypespec:
+>                 |vpiTypespec:
+>                 |vpiTypespec:
+>                 |vpiTypespec:
+>                 |vpiTypespec:
+>                 |vpiTypespec:
+>                 |vpiTypespec:
+>                 |vpiTypespec:
+>                 |vpiTypespec:
+>                 |vpiTypespec:
+>                 |vpiTypespec:
+>                 |vpiTypespec:
+>                 |vpiTypespec:
+>                 |vpiTypespec:

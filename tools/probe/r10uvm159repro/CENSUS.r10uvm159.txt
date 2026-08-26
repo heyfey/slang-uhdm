@@ -1,0 +1,99 @@
+== PRISTINE /tmp/r10uvm159_cls2_sl_pris.txt
+   LAW POPULATION  own=operation ctx=tf home=cls
+     STILL-WRONG (golden has ts, we do not) = 54
+     AWAY        (we have ts, golden none)  = 0
+       default/MiniAmiq-544c7f61                MISSING-OURS n=21
+       default/SeqDriver-32af76aa               MISSING-OURS n=6
+       testflags/MiniAmiq-544c7f61              MISSING-OURS n=21
+       testflags/SeqDriver-32af76aa             MISSING-OURS n=6
+   EVERY OTHER POPULATION (must not move):
+     EXTRA-OURS   own=- ctx=ca home=mod                          n=1
+     EXTRA-OURS   own=bit_select ctx=ca home=mod                 n=12
+     EXTRA-OURS   own=cont_assign ctx=ca home=mod                n=1
+     EXTRA-OURS   own=func_call ctx=param_assign home=TOP        n=2
+     EXTRA-OURS   own=func_call ctx=param_assign home=mod        n=2
+     EXTRA-OURS   own=func_call ctx=scope home=mod               n=1
+     EXTRA-OURS   own=param_assign ctx=param_assign home=TOP     n=108
+     EXTRA-OURS   own=param_assign ctx=param_assign home=iface   n=762
+     EXTRA-OURS   own=param_assign ctx=param_assign home=mod     n=2320
+     EXTRA-OURS   own=param_assign ctx=param_assign home=pkg     n=173
+     EXTRA-OURS   own=range ctx=clsbody home=cls                 n=15
+     EXTRA-OURS   own=range ctx=other home=TOP                   n=57
+     EXTRA-OURS   own=range ctx=tf home=cls                      n=9
+     MISSING-OURS own=indexed_part_select ctx=ca home=mod        n=174
+     MISSING-OURS own=operation ctx=param_assign home=mod        n=4
+     MISSING-OURS own=operation ctx=param_assign home=pkg        n=52
+     MISSING-OURS own=operation ctx=scope home=mod               n=8
+     MISSING-OURS own=operation ctx=scope home=pkg               n=2
+     MISSING-OURS own=param_assign ctx=param_assign home=TOP     n=363
+     MISSING-OURS own=param_assign ctx=param_assign home=cls     n=1800
+     MISSING-OURS own=param_assign ctx=param_assign home=iface   n=180
+     MISSING-OURS own=param_assign ctx=param_assign home=mod     n=1526
+     MISSING-OURS own=param_assign ctx=param_assign home=pkg     n=948
+     MISSING-OURS own=range ctx=clsbody home=cls                 n=6
+     MISSING-OURS own=range ctx=other home=TOP                   n=16
+     MISSING-OURS own=range ctx=scope home=iface                 n=4
+     MISSING-OURS own=range ctx=scope home=mod                   n=2
+     MISSING-OURS own=range ctx=tf home=cls                      n=2
+     MISSING-OURS own=range ctx=tf home=pkg                      n=16
+     MISSING-OURS own=return_stmt ctx=tf home=pkg                n=12
+     MISSING-OURS own=tagged_pattern ctx=param_assign home=pkg   n=58
+     MISSING-OURS own=typespec_member ctx=scope home=mod         n=50
+== PATCHED  /tmp/r10uvm159_cls2_sl_pat.txt
+   LAW POPULATION  own=operation ctx=tf home=cls
+     STILL-WRONG (golden has ts, we do not) = 0
+     AWAY        (we have ts, golden none)  = 0
+   EVERY OTHER POPULATION (must not move):
+     EXTRA-OURS   own=- ctx=ca home=mod                          n=1
+     EXTRA-OURS   own=bit_select ctx=ca home=mod                 n=12
+     EXTRA-OURS   own=cont_assign ctx=ca home=mod                n=1
+     EXTRA-OURS   own=func_call ctx=param_assign home=TOP        n=2
+     EXTRA-OURS   own=func_call ctx=param_assign home=mod        n=2
+     EXTRA-OURS   own=func_call ctx=scope home=mod               n=1
+     EXTRA-OURS   own=param_assign ctx=param_assign home=TOP     n=108
+     EXTRA-OURS   own=param_assign ctx=param_assign home=iface   n=762
+     EXTRA-OURS   own=param_assign ctx=param_assign home=mod     n=2320
+     EXTRA-OURS   own=param_assign ctx=param_assign home=pkg     n=173
+     EXTRA-OURS   own=range ctx=clsbody home=cls                 n=15
+     EXTRA-OURS   own=range ctx=other home=TOP                   n=57
+     EXTRA-OURS   own=range ctx=tf home=cls                      n=9
+     MISSING-OURS own=indexed_part_select ctx=ca home=mod        n=174
+     MISSING-OURS own=operation ctx=param_assign home=mod        n=4
+     MISSING-OURS own=operation ctx=param_assign home=pkg        n=52
+     MISSING-OURS own=operation ctx=scope home=mod               n=8
+     MISSING-OURS own=operation ctx=scope home=pkg               n=2
+     MISSING-OURS own=param_assign ctx=param_assign home=TOP     n=363
+     MISSING-OURS own=param_assign ctx=param_assign home=cls     n=1800
+     MISSING-OURS own=param_assign ctx=param_assign home=iface   n=180
+     MISSING-OURS own=param_assign ctx=param_assign home=mod     n=1526
+     MISSING-OURS own=param_assign ctx=param_assign home=pkg     n=948
+     MISSING-OURS own=range ctx=clsbody home=cls                 n=6
+     MISSING-OURS own=range ctx=other home=TOP                   n=16
+     MISSING-OURS own=range ctx=scope home=iface                 n=4
+     MISSING-OURS own=range ctx=scope home=mod                   n=2
+     MISSING-OURS own=range ctx=tf home=cls                      n=2
+     MISSING-OURS own=range ctx=tf home=pkg                      n=16
+     MISSING-OURS own=return_stmt ctx=tf home=pkg                n=12
+     MISSING-OURS own=tagged_pattern ctx=param_assign home=pkg   n=58
+     MISSING-OURS own=typespec_member ctx=scope home=mod         n=50
+== DELTA (patched - pristine)
+     MISSING-OURS own=operation ctx=tf home=cls                  -54
+   WRONG->RIGHT on the law population = 54
+   AWAY introduced on the law population = 0
+
+=== uhdm2rtlil (pristine; the patched workdir is BYTE-IDENTICAL, 0/1358 movers)
+== PRISTINE /tmp/r10uvm159_cls2_u2r_pris.txt
+   LAW POPULATION  own=operation ctx=tf home=cls
+     STILL-WRONG (golden has ts, we do not) = 0
+     AWAY        (we have ts, golden none)  = 0
+   EVERY OTHER POPULATION (must not move):
+     EXTRA-OURS   own=param_assign ctx=param_assign home=iface   n=42
+     MISSING-OURS own=cont_assign ctx=ca home=mod                n=4
+     MISSING-OURS own=param_assign ctx=param_assign home=mod     n=4
+     MISSING-OURS own=range ctx=param_assign home=mod            n=8
+     MISSING-OURS own=range ctx=scope home=mod                   n=10
+
+=== WHOLE-CENSUS TOTALS (constants carrying a vpiTypespec)
+r10uvm159_cls2_sl_pris.txt  gts=57674 ots=52715 MISSING-OURS=3359 EXTRA-OURS=1240 NO-GOLDEN-OBJ=0
+r10uvm159_cls2_sl_pat.txt  gts=57674 ots=52769 MISSING-OURS=3305 EXTRA-OURS=1240 NO-GOLDEN-OBJ=0
+r10uvm159_cls2_u2r_pris.txt  gts=44324 ots=44274 MISSING-OURS=8 EXTRA-OURS=22 NO-GOLDEN-OBJ=0

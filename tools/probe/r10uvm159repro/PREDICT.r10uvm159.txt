@@ -1,0 +1,18 @@
+r10uvm159 — PREDICTED MOVER SET (from PRISTINE databases, before the patched sweep)
+
+The law's population is the ct159cls class `own=operation ctx=tf home=cls`.
+A database with no cell of that class cannot move.
+
+default/MiniAmiq-544c7f61 n=21
+default/SeqDriver-32af76aa n=6
+testflags/MiniAmiq-544c7f61 n=21
+testflags/SeqDriver-32af76aa n=6
+-- every database NOT listed above must be BYTE-IDENTICAL after the patch
+
+PREDICTED: 4 surelog databases (SeqDriver x2 modes, MiniAmiq x2 modes),
+           0 uhdm2rtlil databases.
+
+OBSERVED (byteverify.sh, pristine vs patched workdirs of THIS pass):
+  surelog     MOVERS 4 / 956   -- exactly the four named above
+  uhdm2rtlil  MOVERS 0 / 1358
+  SELFCHECK   955/956 and 1357/1358 flagged (the comparator can see)

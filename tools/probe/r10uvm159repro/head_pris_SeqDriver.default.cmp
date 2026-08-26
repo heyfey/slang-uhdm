@@ -1,0 +1,17 @@
+LHS:
+decompile:
+ref_typespec: (adpcm_pkg::adpcm_tx_seq), id:251392
+|vpiParent:
+\_constant: , id:251391, line:162:24, endln:162:34
+|vpiFullName:adpcm_pkg::adpcm_tx_seq
+|vpiActual:
+\_int_typespec: , id:251393, line:217:1, endln:217:38
+
+decompile:
+ref_typespec: (adpcm_pkg::adpcm_tx_seq), id:251392
+|vpiParent:
+\_constant: , id:251391, line:162:24, endln:162:34
+|vpiFullName:adpcm_pkg::adpcm_tx_seq
+|vpiActual:
+\_int_typespec: , id:251393, line:217:1, endln:217:38
+RHS: <null>
