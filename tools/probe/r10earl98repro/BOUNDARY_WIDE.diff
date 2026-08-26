@@ -1,0 +1,10 @@
+plain r10earl98repro/g0_head98.sv
+elab r10earl98repro/g0_head98.sv
+plain r10earl98repro/g1_depth98.sv
+elab r10earl98repro/g1_depth98.sv
+plain r10earl98repro/g2_kind98.sv
+elab r10earl98repro/g2_kind98.sv
+plain r10earl98repro/g3_rhs98.sv
+elab r10earl98repro/g3_rhs98.sv
+plain r10earl98repro/g4_lhs98.sv
+elab r10earl98repro/g4_lhs98.sv

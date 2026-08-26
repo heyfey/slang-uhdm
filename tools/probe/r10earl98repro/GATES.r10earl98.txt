@@ -1,0 +1,55 @@
+r10earl98 -- GATE LOG (all measured in the pass's own worktree /tmp/wt_r10earl98
+at BASE 3b588b6; results/*.csv READ-ONLY and untouched).
+
+BINARIES (both frozen chmod 555, immutable paths, SAME LENGTH 22342256)
+  pristine  afff6da0b582557192810f2e28c8be3f
+  patched   027499accb40ad7c87d62d844c12b33b
+
+1  check_goldens        pristine 23 PASS / 0 FAIL      patched 23 PASS / 0 FAIL
+   negative control     SLANG_UHDM=/bin/false -> 23 FAIL
+
+2  uhdm2rtlil testflags  CMP_EQUAL 679 / SLANG_REJECT 50 / SURELOG_FAIL 2
+   uhdm2rtlil default    identical histogram to pristine
+   ct8rows vs results/gate_uhdm2rtlil.csv     PASS (0 differing rows)
+   ct8rows vs own pristine sweep, testflags   PASS (0 differing rows)
+   ct8rows vs own pristine sweep, default     PASS (0 differing rows)
+   byteverify SELFCHECK=1  MOVERS 0 / 1358   (SELFCHECK 1357/1358 flagged)
+   cmds.txt audited by BINARY PATH: 1462 files, 0 name the main-tree binary
+     (4 carry no slang line at all -- SURELOG_FAIL / cache-only rows)
+
+3  surelog --mode both   histograms identical to pristine, both modes
+   ct8rows vs results/golden_surelog.csv      PASS (0 differing rows over 1588)
+   ct8rows vs own pristine sweep              PASS (0 differing rows over 1588)
+   NO ROW CONVERTED.  Earlgrey_0_1 stays CMP_NOTEQUAL in both modes.
+   byteverify SELFCHECK=1  MOVERS 3 / 956    (SELFCHECK 955/956 flagged)
+       ./default/Earlgrey_0_1     predicted
+       ./testflags/Earlgrey_0_1   predicted
+       ./default/Scoreboard       THE COIN (order-blind dump diff 0 lines)
+   cmds.txt audited by BINARY PATH: 1573 files, 0 name the main-tree binary
+
+4  canaries  surelog ok=52 changed=0 absent=0
+             u2r     ok=8  changed=0 absent=0
+   ctcan2    surelog PASS (ok=58 changed=0, EXPECT_UNKNOWN=1)
+             u2r     PASS (ok=1  changed=0, EXPECT_UNKNOWN=6)
+   canaudit.sh canaries.sh ctcan2.sh  audited=29 UNCOVERED=0 FENCE-BREACH=0
+   protected DBs (md5 patched vs pristine)
+       InterfaceModPort   both modes SAME
+       BlackParrotComplex both modes SAME
+       YosysOldOr         both modes SAME
+       SVSwitch           4842211c4030 both modes
+       YosysVerx          6ccda350c24a both modes
+
+5  rowheads (own pristine -> patched)
+       Earlgrey_0_1 default   31,1 -> 36,1  NEW HEAD OBJECT (head cleared)
+       Earlgrey_0_1 testflags 36,1 -> 36,1  unchanged
+       SeqDriver / SimpleUVM / Scoreboard / MiniAmiq / BuildUVMPkg / Rggen
+                                             every row unchanged
+
+6  boundaries
+   BOUNDARY_OWN   LISTED=7 == PROCESSED=7, identical 4, DIFFERING 10
+                  (g0-g4 both views move; g5_neg98 and g6_ifc98 both views do
+                  not) -- the POSITIVE CONTROL that the gate can see a cell
+   BOUNDARY_WIDE  LISTED=4395 == PROCESSED=4395, identical 8424, DIFFERING 10,
+                  no_output 356; ALL TEN are this pass's own arms.
+                  rc by side  0_A 8067 / 0_B 8067   139_A 14 / 139_B 14
+                              3_A  342 /  3_B  342    4_A 367 /  4_B 367

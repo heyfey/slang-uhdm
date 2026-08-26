@@ -1,0 +1,24 @@
+2127671a2127672,2127673
+>                 |vpiActual:
+>                 \_logic_var: (work@top_earlgrey.u_hmac.u_msg_fifo.gen_normal_fifo.fifo_wptr), line:58:27, endln:58:36
+2127677a2127680,2127681
+>                 |vpiActual:
+>                 \_logic_var: (work@top_earlgrey.u_hmac.u_msg_fifo.gen_normal_fifo.fifo_rptr), line:58:38, endln:58:47
+2132521a2132526,2132527
+>                   |vpiActual:
+>                   \_logic_var: (work@top_earlgrey.u_hmac.u_tlul_adapter.u_reqfifo.gen_normal_fifo.fifo_wptr), line:58:27, endln:58:36
+2132527a2132534,2132535
+>                   |vpiActual:
+>                   \_logic_var: (work@top_earlgrey.u_hmac.u_tlul_adapter.u_reqfifo.gen_normal_fifo.fifo_rptr), line:58:38, endln:58:47
+2134968a2134977,2134978
+>                   |vpiActual:
+>                   \_logic_var: (work@top_earlgrey.u_hmac.u_tlul_adapter.u_maskfifo.gen_normal_fifo.fifo_wptr), line:58:27, endln:58:36
+2134974a2134985,2134986
+>                   |vpiActual:
+>                   \_logic_var: (work@top_earlgrey.u_hmac.u_tlul_adapter.u_maskfifo.gen_normal_fifo.fifo_rptr), line:58:38, endln:58:47
+2137418a2137431,2137432
+>                   |vpiActual:
+>                   \_logic_var: (work@top_earlgrey.u_hmac.u_tlul_adapter.u_rspfifo.gen_normal_fifo.fifo_wptr), line:58:27, endln:58:36
+2137424a2137439,2137440
+>                   |vpiActual:
+>                   \_logic_var: (work@top_earlgrey.u_hmac.u_tlul_adapter.u_rspfifo.gen_normal_fifo.fifo_rptr), line:58:38, endln:58:47

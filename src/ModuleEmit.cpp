@@ -16313,12 +16313,146 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                     // reach is real), and the shadowing kept but the
                     // module-level hierarchical reads removed (unbound), so
                     // the shadowing is the whole discriminator.
+                    // § genCaAncestorNetShadowUnbinds98 (r10earl98) — THE
+                    // SHADOW TEST IS SURELOG'S OWN WRITE-TIME `bindVariable`
+                    // WALK, AND IT DOES NOT STOP AT THIS MODULE.
+                    //
+                    // DECODE (Surelog, not a heuristic).
+                    // `UhdmWriter::writeCont_assign` (UhdmWriter.cpp:2120):
+                    //
+                    //   if (lhs->UhdmType() == uhdmref_obj) {
+                    //     any* var = m_helper.bindVariable(mod, m,
+                    //                                      lhs->VpiName(), ..);
+                    //     if (var) {
+                    //       if (rhs->UhdmType() == uhdmoperation) {
+                    //         ... clone_tree(assign) ...          // A CLONE
+                    //         ((ref_obj*)lhs)->Actual_group(var); // Lhs rebound
+                    //
+                    // and `CompileHelper::bindVariable(component, scope, name)`
+                    // (CompileStmt.cpp:3089) switches on uhdmfunction /
+                    // uhdmtask / uhdmbegin / uhdmmodule_inst and NOTHING else:
+                    // every other scope kind falls to `default` and RECURSES on
+                    // `scope->VpiParent()`.  So from a gen scope the walk skips
+                    // the gen_scope / gen_scope_array levels, searches the
+                    // enclosing `module_inst`'s `Variables()` then `Nets()`,
+                    // and — when the name is not there — KEEPS GOING UP through
+                    // the ELABORATED HIERARCHY, module instance after module
+                    // instance, to the top.  `clone_tree` carries no
+                    // `Actual_group`, so in the clone EVERY OTHER ref comes out
+                    // UNBOUND; only the Lhs is re-bound, to the object the walk
+                    // found (which may live in an ANCESTOR instance).
+                    //
+                    // The shipped clause above is the d0 case of exactly this
+                    // walk.  This is the rest of it.
+                    //
+                    // THE HEAD (Earlgrey_0_1/default, prim_fifo_sync.sv:111
+                    // `assign fifo_empty = (fifo_wptr == fifo_rptr);` inside
+                    // `gen_normal_fifo`): `fifo_empty` is a gen-scope local of
+                    // prim_fifo_sync, but `hmac` — one and two module instances
+                    // further up — declares `logic fifo_empty;` (hmac.sv:51).
+                    // The walk finds THAT, Surelog clones, and golden's
+                    // `fifo_wptr` / `fifo_rptr` refs carry NO vpiActual while
+                    // ours bind them.  The judge reads it through
+                    // `ref_obj::Compare`'s `SafeCompare(lhs->Actual_group(),
+                    // rhs->Actual_group())` with a NULL lhs — `LHS: <null>`
+                    // against our `logic_var fifo_wptr`.  It is exactly FOUR
+                    // instances of 128 in the design: the only prim_fifo_sync
+                    // instances under `u_hmac`.
+                    //
+                    // MEASURED, one axis per arm, PLAIN view (the elab view
+                    // agrees; g1's elab column carries a pre-existing listing
+                    // duplication that is identical on both binaries):
+                    //   g1 DEPTH   d0 (already shipped) / d1 / d2 / d3 -> golden
+                    //              UNBINDS; a name declared only in an ANCESTOR
+                    //              GEN BLOCK, or nowhere -> golden BINDS.
+                    //   g2 KIND    ancestor wire / logic var / module PORT /
+                    //              unpacked-array var -> UNBIND; ancestor
+                    //              localparam / function / child INSTANCE name
+                    //              -> BIND.  (`bindVariable` reads Variables()
+                    //              and Nets() and nothing else.)
+                    //   g3 Rhs     operation / ternary / concat / unary /
+                    //              replication / size cast -> UNBIND; a BARE
+                    //              ref, a constant, a part select and a
+                    //              $signed() call -> BIND.
+                    //   g4 Lhs+HOME bare-ref Lhs UNBINDS in a gen-if, a
+                    //              gen-for body, a nested gen block and in each
+                    //              of three instances of one definition; an
+                    //              element-select and a range-select Lhs BIND
+                    //              (they are not `uhdmref_obj`, so § 23's
+                    //              select arm is untouched).
+                    //   g6 FENCE   a name declared only in the enclosing
+                    //              INTERFACE (its own wire / localparam /
+                    //              typedef) -> golden BINDS: there is no
+                    //              uhdminterface_inst case, the walk goes PAST
+                    //              it — while a MODULE-level name two scopes
+                    //              above the interface -> UNBIND.
+                    // So the added levels are gated on the body being a MODULE
+                    // and on the member being a NET or a VARIABLE.  The d0
+                    // clause above keeps its shipped every-kind test verbatim
+                    // (its witness, u2r genvar_loop_decl_3, shadows with module
+                    // PORTS); g6's `w_param` / `w_func` rows record that it is
+                    // wider than the decode at d0 — R1, deliberately not taken.
+                    //
+                    // NOT CLAIMED, and MEASURED UNREACHABLE: the clone's OTHER
+                    // half, the Lhs re-bind onto the ancestor's object.  Every
+                    // generated `Compare` reaches an ancestor `module_inst`'s
+                    // `Variables()`/`Nets()` (scope::Compare / instance::Compare)
+                    // BEFORE its `Gen_scope_arrays()`, so the golden object is
+                    // already in `m_visited` and `logic_var::Compare` returns 0
+                    // on sight; the head proves it — it is the Rhs ref, not the
+                    // Lhs one, and the Lhs pair had already passed.
                     if (lhsGenLocal20)
                         for (auto& bm20 : body.members())
                             if (bm20.name == ls20.name) {
                                 lhsGenLocal20 = false;
                                 break;
                             }
+                    // § genCaAncestorNetShadowUnbinds98 — the levels ABOVE
+                    // this module's own body.  `body` itself is left to the
+                    // shipped clause above; from here on the walk is Surelog's:
+                    // MODULE instance bodies only (an interface/program body is
+                    // walked PAST, never searched), Nets and Variables only,
+                    // and generate levels are skipped by construction because
+                    // only InstanceBody scopes are searched.
+                    //
+                    // THE Rhs GATE IS PART OF THE LAW, not decoration: the
+                    // clone fires only inside `if (rhs->UhdmType() ==
+                    // uhdmoperation)`.  MEASURED AS AN AWAY-GOLDEN FIRST — arm
+                    // g3 row `s_fc` (`assign s_fc = $signed(v1);`, LHS shadowed
+                    // one module up, Rhs a `sys_func_call`) is BOUND in golden
+                    // and the ungated first cut UNBOUND it, 1 cell
+                    // pristine-right -> patched-wrong.  With the gate the same
+                    // arm reads MOVED-WRONG 0.  (The shipped d0 clause above
+                    // carries no such gate; that is R1, left alone.)
+                    if (lhsGenLocal20 && ca->Rhs() &&
+                        ca->Rhs()->UhdmType() != UHDM::uhdmoperation)
+                        ; // not the clone path -- golden keeps its bindings
+                    else if (lhsGenLocal20) {
+                        const Symbol* bs98 = &body.asSymbol();
+                        for (int lv98 = 0; bs98 && lv98 < 64; lv98++) {
+                            auto* pi98 = bs98->as<InstanceBodySymbol>()
+                                             .parentInstance;
+                            if (!pi98)
+                                break;
+                            const Scope* up98 = pi98->getParentScope();
+                            while (up98 && up98->asSymbol().kind !=
+                                               SymbolKind::InstanceBody)
+                                up98 = up98->asSymbol().getParentScope();
+                            if (!up98)
+                                break;
+                            bs98 = &up98->asSymbol();
+                            auto& ib98 = bs98->as<InstanceBodySymbol>();
+                            if (ib98.getDefinition().definitionKind !=
+                                DefinitionKind::Module)
+                                continue;
+                            if (auto* sh98 = ib98.find(ls20.name))
+                                if (sh98->kind == SymbolKind::Net ||
+                                    sh98->kind == SymbolKind::Variable) {
+                                    lhsGenLocal20 = false;
+                                    break;
+                                }
+                        }
+                    }
                 }
                 // § genCaSelLhsDeepBindGenLocal23 — a SELECT LHS turns the
                 // deep walk on as well.  ps20 only ever measured a gen-local

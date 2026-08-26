@@ -1,0 +1,119 @@
+r10earl98 -- THE MOVER PREDICTION and THE NEXT HEAD (R0).
+
+BASE 3b588b6, branch auto5h.  The official ~/git-repos/UHDM/build/bin/uhdm-cmp
+is the sole acceptance judge; everything in this directory is MEASUREMENT ONLY.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+========================================================================
+PART 1 -- THE MOVER PREDICTION (made from PRISTINE databases only)
+========================================================================
+The law's population is defined by a SHAPE, and `pop98.sh` counts every GOLDEN
+cell of it over both corpora before a line of the law was written:
+
+  a `cont_assign` parented at a GEN_SCOPE whose Lhs is a bare `ref_obj`, whose
+  Rhs is an `operation`, and whose Lhs `Actual_group` points OUTSIDE that gen
+  scope -- the signature of the clone `UhdmWriter::writeCont_assign`
+  (UhdmWriter.cpp:2120) takes when `CompileHelper::bindVariable`
+  (CompileStmt.cpp:3089) answers.  In such a cont_assign golden's OTHER refs
+  carry NO `Actual_group`, because `clone_tree` does not copy one.
+
+  uhdm2rtlil   566 golden cont_assigns of the shape (4268 refs) in 18 of 1358
+               pairs -- and we already agree on EVERY one: FIX 0, AWAY 0.
+  surelog     7081 golden cont_assigns of the shape (18556 refs) in 17 of 956
+               pairs.  Exactly TWO pairs hold a cell we get wrong:
+                   default/Earlgrey_0_1     8 cells
+                   testflags/Earlgrey_0_1   8 cells
+               AWAY 0 in all 956 + 1358 pairs.
+
+  The eight cells per mode are the SAME eight objects: the `fifo_wptr` and
+  `fifo_rptr` refs of `assign fifo_empty = (fifo_wptr == fifo_rptr);`
+  (prim_fifo_sync.sv:111) in the four `prim_fifo_sync` instances under
+  `u_hmac` -- u_msg_fifo and u_tlul_adapter's u_reqfifo / u_maskfifo /
+  u_rspfifo.  They and only they are cloned, because `hmac.sv:51` declares
+  `logic fifo_empty;` and the write-time walk finds it.  The other 124
+  instances of the same module have no such ancestor and are already right.
+
+PREDICTION: EXACTLY TWO DATABASES MOVE -- Earlgrey_0_1 default and testflags.
+uhdm2rtlil: ZERO movers.
+
+WHAT ACTUALLY MOVED (byteverify SELFCHECK=1, patched vs this pass's OWN
+pristine sweep; both binaries frozen chmod 555 at immutable paths of the SAME
+LENGTH; every cmds.txt audited BY BINARY PATH, 0 of 1462 + 1573 name the
+main-tree binary):
+
+  uhdm2rtlil  MOVERS 0 / 1358   <- as predicted   (SELFCHECK 1357/1358 flagged)
+  surelog     MOVERS 3 /  956                     (SELFCHECK  955/956  flagged)
+      ./default/Earlgrey_0_1      <- predicted
+      ./testflags/Earlgrey_0_1    <- predicted
+      ./default/Scoreboard        <- THE COIN: path-normalised whole-dump diff
+                                     92 lines RAW, 0 lines ORDER-BLIND
+
+  Each Earlgrey mover's path-normalised whole-dump diff is SIXTEEN LINES and
+  nothing else -- eight REMOVED `|vpiActual:` + `logic_var` pairs, naming
+  exactly fifo_wptr/fifo_rptr at 58:27 and 58:38 in the four predicted gen
+  scopes.  In the default dump they sit between |uhdmtopModules: and
+  \_weaklyReferenced: -- inside the ELAB block the judge reads.
+
+  THE CENSUS re-scored over the SAME fixed universe, GOLDEN SIDE ASSERTED
+  BYTE-UNCHANGED (reg98.py; CALIB golden-vs-golden-vs-golden reads 0):
+
+     Earlgrey default    TO-GOLDEN 8  AWAY-GOLDEN 0  CHANGED-WRONG 0
+                         ADDED 0  REMOVED 0  BOTH-RIGHT 41353
+     Earlgrey testflags  TO-GOLDEN 8  AWAY-GOLDEN 0  CHANGED-WRONG 0
+                         ADDED 0  REMOVED 0  BOTH-RIGHT 16506
+
+  MOVED-WRONG 0 / AWAY 0 in both columns, and NEITHER ONE-SIDED SET MOVES BY A
+  SINGLE ROW -- the law adds and removes no object.
+
+========================================================================
+PART 2 -- R0: THE NEXT HEAD, AND THE RESIDUES
+========================================================================
+BEFORE (this pass's own pristine build afff6da0b582), rowheads.sh scale:
+  Earlgrey_0_1 default   31, 1 head  |  testflags  36, 1 head
+AFTER (027499accb40):
+  Earlgrey_0_1 default   36, 1 head (NEW OBJECT) |  testflags  36, 1 head
+
+R0 -- BOTH MODES NOW STAND ON ONE OBJECT: AN UNBASED `'1` PATTERN MEMBER THAT
+    GOLDEN RE-TYPES AND WE DO NOT.
+      hmac_core.sv:116 (and :117, the same shape)
+        assign sha_rdata =
+          ...
+          (sel_rdata == SelIPad) ? '{data: i_pad[...-:32], mask: '1} :
+      LHS constant 116:83-116:85, parent operation 116:30-116:86, inside the
+          tagged_pattern whose vpiTypespec is the string_typespec `mask`:
+            vpiDecompile:15  vpiSize:4  UINT:15  vpiConstType:9
+      RHS the same constant, same span, same tagged_pattern:
+            vpiDecompile:'1  vpiSize:-1  BIN:1   vpiConstType:3
+    `constant::Compare` reads VpiSize / VpiConstType / VpiDecompile / the value,
+    so all four fields report.  Golden RE-TYPES the unbased literal against the
+    STRUCT MEMBER's width (`mask` is 4 bits in sha_fifo_t) at the tagged_pattern;
+    we keep the literal's own unsized form.  This lands in the assignment-
+    pattern / tagged_pattern family the standing boundary already fences
+    (grep tagged_pattern / "assignment pattern member default" / the '0
+    re-typing precedents) -- decode WHICH of those laws owns a NAMED member
+    before writing a new one.  ONE FIX NOW CLEARS TWO HEADS.
+
+RANKED RESIDUES this pass MEASURED and deliberately did not take
+----------------------------------------------------------------
+R1  THE d0 SHADOW CLAUSE IS WIDER THAN THE DECODE.  § genCaOpDeepBindGenLocal20's
+    shipped clause tests EVERY member kind of the enclosing body and has no Rhs
+    gate; `bindVariable` reads only Variables() and Nets().  Arm g6 rows
+    `w_param` (a d0 localparam) and `w_func` (a d0 function) are BOUND in golden
+    and UNBOUND on both binaries -- 4 cells, pristine-wrong and still wrong.
+    MEASURED DENOMINATOR: 0 corpus cells.  Its own pass; its witness
+    (u2r genvar_loop_decl_3) must stay byte-identical.
+R2  AN INTERFACE-OWNED GEN SCOPE DOES NOT REACH THIS EMITTER.  Arm g4 row
+    `t_ifgen`: golden UNBINDS, we still bind, both binaries -- 2 cells.
+R3  THE UNCLAIMED Lhs RE-BIND (arm g2 `k_wire` / `k_port` / `k_arr`): golden's
+    cloned Lhs points at the ANCESTOR's object, ours at the gen-local of the
+    same name.  PROVABLY invisible to the judge (the ancestor object is in
+    m_visited before any gen scope beneath it is reached).  0 corpus cells.
+R4  THE 128 pinmux `Lhs` CELLS (pinmux.sv:160/174/175/176): a DIFFERENT clone
+    trigger -- writeCont_assign's trailing DetectUnsizedConstant clone
+    (UhdmWriter.cpp:2270), which clones and binds NOTHING, Lhs included.
+    Present identically before and after.
+R5  THE PRE-EXISTING PROBE / BOUNDARY SEGFAULTS.  The wide boundary's rc
+    histogram is SYMMETRIC side for side.  Recorded by earl82 R6 / earl83 R6 /
+    earl84 R6 / earl85 R5 / earl89 R6 / earl90 R8 / earl91 R5 / earl93 R7 /
+    earl94 R6 / earl95 R4 / earl96 R5 / earl97 R5; byteverify proves none of
+    them is a mover.
