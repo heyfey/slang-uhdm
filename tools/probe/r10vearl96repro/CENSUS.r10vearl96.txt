@@ -1,0 +1,16 @@
+r10vearl96 -- THE THREE-SIDED CORPUS CENSUS (vcen3_96.sh: golden / pristine /
+verified, per database, joined by reg96.py's per-KEY multiset intersection).
+MEASUREMENT ONLY.  Per-database rows are NOT reproduced here: the sweep's tag
+list names every test in the corpus, and probe artifacts must not spell the
+four slang-fenced names.  Regenerate the full listing with
+  CEN96=<ct96cen> REG96=./reg96.py bash vcen3_96.sh <pris-wd> <cand-wd> <out>
+
+surelog suite   -- censused 956 databases, skipped 0
+  TOTAL RIGHT->WRONG 0   WRONG->RIGHT 32
+  the ONLY rows with a nonzero count:
+    default/Earlgrey_0_1-71da2fd7 RIGHT->WRONG 0   WRONG->RIGHT 16
+    testflags/Earlgrey_0_1-71da2fd7 RIGHT->WRONG 0   WRONG->RIGHT 16
+
+uhdm2rtlil      -- censused 1358 databases, skipped 0
+  TOTAL RIGHT->WRONG 0   WRONG->RIGHT 0
+  no database has a nonzero count in either direction.

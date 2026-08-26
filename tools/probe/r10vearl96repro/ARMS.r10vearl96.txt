@@ -1,0 +1,82 @@
+r10vearl96 -- THE ARM GRID.  Every arm built by Surelog and by BOTH frozen
+binaries in BOTH views; scored against the SAME golden with ct96cen +
+score96.py (buckets) and reg96.py (the per-KEY multiset intersection with
+golden, pristine vs candidate -- the instrument that names a cell that was
+RIGHT on pristine and WRONG on the candidate).  MEASUREMENT ONLY.
+
+  PRIS = 3b10fa70b3a173555c65691389636d01   (a8876a8, unpatched)
+  ASHP = 786defd3edcb54ee1561cc03b0e9c206   (a8876a8 + /tmp/r10earl96.patch)
+  FIXD = 982d87197f270adf07125bb20b020976   (a8876a8 + the verified patch)
+
+=== A. THE PASS'S OWN FIVE ARMS, re-measured (identical on ASHP and FIXD) ===
+arm            view   MOVED-WRONG pris -> cand   GOLDEN-ONLY   OURS-ONLY
+g1_kind96      plain        30 -> 26              40 = 40       21 = 21
+g1_kind96      elab         30 -> 26              40 = 40       22 = 22
+g2_form96      plain        10 ->  0             328 = 328       3 =  3
+g2_form96      elab         10 ->  0             328 = 328       4 =  4
+g3_site96      plain         8 ->  4              21 = 21        2 =  2
+g3_site96      elab          8 ->  4              21 = 21        3 =  3
+g4_home96      plain        10 ->  0              35 = 35        5 =  5
+g4_home96      elab         10 ->  0              35 = 35        6 =  6
+g5_neg96       plain        11 ->  7              24 = 24        5 =  5
+g5_neg96       elab         11 ->  7              24 = 24        6 =  6
+r10earl_repro/te.sv plain    5 ->  1              24 = 24        2 =  2
+r10earl_repro/te.sv elab     5 ->  1              24 = 24        3 =  3
+
+=== B. THE VERIFIER'S EIGHT ADVERSARIAL ARMS ===
+                              MOVED-WRONG            reg96 pris->cand
+arm             view   pris   ASHP   FIXD     ASHP R->W / W->R   FIXD R->W / W->R
+v1_names96      plain    10      4      4          0 /  7            0 /  7
+v1_names96      elab     10      4      4          0 /  7            0 /  7
+v2_reexport96   plain    36     34     34          0 /  2            0 /  2
+v2_reexport96   elab     36     34     34          0 /  2            0 /  2
+v3_sites96      plain     4      4      4          0 /  0            0 /  0
+v3_sites96      elab      4      4      4          0 /  0            0 /  0
+v4_deep96       plain    28      0      0          0 / 28            0 / 28
+v4_deep96       elab     28      0      0          0 / 28            0 / 28
+v5_kinds96      plain    65     51     49          2 / 16            0 / 16
+v5_kinds96      elab     65     51     49          2 / 16            0 / 16
+v6_pkgchain96   plain    18      4      4          0 / 14            0 / 14
+v6_pkgchain96   elab     18      4      4          0 / 14            0 / 14
+v7_concat96     plain    17     13      9          4 /  8            0 /  8
+v7_concat96     elab     17     13      9          4 /  8            0 /  8
+v8_ops96        plain    14      6      2          4 / 12            0 / 12
+v8_ops96        elab     14      6      2          4 / 12            0 / 12
+v9_catmat96     plain    12      6      0          6 / 12            0 / 12
+v9_catmat96     elab     12      6      0          6 / 12            0 / 12
+
+TOTAL pristine-RIGHT -> as-shipped-WRONG: 16 rows = 8 distinct cells per view
+  v5 LCAT (module) | v7 WCAT, ECAT (module) | v8 ICAT (interface), SCAT
+  (submodule) | v9 ICAT (interface), LCAT (leaf), MCAT (mid of a 3-deep chain)
+  -- every one a CONCAT-initialised unpacked-array parameter of a package
+  typedef DECLARED BY THE CARRIER ITSELF.  With the fix: 0.
+
+GOLDEN-ONLY and OURS-ONLY are byte-identical pristine vs candidate on every arm
+and every view EXCEPT v1_names96, where GOLDEN-ONLY 41 -> 40 and OURS-ONLY
+28 -> 29 (plain; 29 -> 30 elab): at span 11:11-11:23 golden holds six objects
+{c_t:-, c_t->pB1v96::c_t x2, pB1v96::c_t:- x3}, pristine four and the candidate
+six -- the candidate MATCHES one more golden object and carries one surplus
+`c_t -> c_t` on a path (`pa[MYB].rhs`, a SCOPED use of a package NOT imported)
+where golden carries NO Typedef_alias at all, so the position is surplus on
+both binaries and the difference is invisible to typespec::Compare.
+
+=== C. WHAT THE ARMS SHOW (the axes) ===
+v1 two packages declaring the SAME typedef name, one wildcard-imported and one
+   used scoped in one module; a module-LOCAL typedef SHADOWING the imported one.
+v2 an explicit import + EXPORT re-export chain, package to package to module.
+v3 use SITES: port type, net, variable, cast target, nested typedef, function
+   return, io_decl, a class, a generate-scope declaration.
+v4 HOMES: a three-deep module chain, an INSTANCE ARRAY (u_arr[0..2]), an
+   INTERFACE with a modport, and a BIND instance -- all four elaborate.
+v5 element KINDS: enum / packed struct / packed array / typedef-of-a-typedef /
+   two-state bit / signed / multi-dimensional unpacked / CONCAT-initialised.
+v6 a SUBMODULE importing the same package as its parent, three instantiations
+   of one span, a module typedef ALIASING the imported one.
+v7 THE CONCAT DISTINGUISHER: pattern vs concat side by side under a wildcard
+   import, an explicit import and a scoped use.
+v8 the other Rhs op shapes: '{N{...}} multi pattern, '{default:X}, an
+   OVERRIDDEN parameter, and a concat inside an interface / a gen scope / a
+   submodule.
+v9 the CONCAT half at every carrier: a package concat parameter MATERIALIZED
+   into an interface, a submodule and a three-deep chain, beside each
+   carrier's OWN concat declaration.

@@ -1,0 +1,147 @@
+r10earl96 -- THE MOVER PREDICTION and THE NEXT HEAD (R0).
+
+BASE a8876a8, branch auto5h.  The official ~/git-repos/UHDM/build/bin/uhdm-cmp
+is the sole acceptance judge; everything in this directory is MEASUREMENT ONLY.
+
+========================================================================
+PART 1 -- THE MOVER PREDICTION (made from PRISTINE databases only)
+========================================================================
+`ct96cen` enumerates three families over EVERY database of both corpora, keyed
+TOP-DOWN from a named root (module_inst / interface_inst / package) by the
+FIELD PATH the walk took -- NEVER by vpiParent, because the two producers park
+these objects on different parents and no generated Compare reads it:
+
+  TS  every typespec reachable through Param_assigns (Lhs AND Rhs), Parameters,
+      Nets, Variables and the root's own Typespecs, following
+      ref_typespec->Actual_typespec, Elem_typespec and Typedef_alias.
+      PAY = kind | VpiName | vpiInstance name   <- the fields Compare reads
+  AL  the ALIAS-CHAIN projection: own name -> alias target name (+ whether the
+      target is itself aliased).  This is the family the law moves.
+  GA  the GLOBAL tripwire: EVERY named typespec in the arena keyed by kind +
+      span + name, so a rename ANYWHERE -- inside the walked paths or outside
+      them -- shows up as a bucket delta.
+
+`score96.py` joins the two sides as a MULTISET (keys collide; a last-writer
+dict drops rows).  The census was run over the PRISTINE sweeps and scored
+BEFORE a line of the law was written.
+
+THE DENOMINATOR -- every GOLDEN alias-chain row that reaches an array ELEMENT
+(`pop96.sh`, POP_u2r.txt / POP_sl.txt), i.e. every cell the law could possibly
+touch:
+
+  uhdm2rtlil   28 rows in 1358 databases, in THREE tests
+               (TypedefVariableDimensions, unpacked_struct_array_typedef,
+                VarPassedTo2Submodules).  EVERY ONE is a struct_typespec or
+               enum_typespec element -- the AGGREGATE kinds LAW S never copies
+               (r7) -- and NOT ONE sits on a `pa[...].rhs` path.  The corpus
+               has NO cell of this law's shape: nothing to fix, nothing to
+               break.
+  surelog     218 rows in 956 databases: 192 in Earlgrey_0_1 (96 per mode) and
+               26 in HierPathVarArray / PackedEnumPort / TypedefUnpacked /
+               VarRangeTypedef -- again ALL struct/enum elements.
+
+Of Earlgrey's 96 rows per mode, 88 ALREADY AGREE and 8 differ.  Those 8 are the
+law's whole population, two parameters in each of four elaborated instances:
+
+  work@top_earlgrey.u_hmac              pa[InitHash].rhs>r>e>r
+  work@top_earlgrey.u_hmac              pa[CubicRootPrime].rhs>r>e>r
+  work@top_earlgrey.u_hmac.u_hmac       (both)
+  work@top_earlgrey.u_hmac.u_sha2       (both)
+  work@top_earlgrey.u_hmac.u_sha2.u_pad (both)
+      golden  logic_typespec sha_word_t -> sha_word_t
+      ours    logic_typespec sha_word_t -> hmac_pkg::sha_word_t
+
+PREDICTION: EXACTLY TWO DATABASES MOVE -- Earlgrey_0_1 default and testflags.
+uhdm2rtlil: ZERO movers.
+
+WHAT ACTUALLY MOVED (byteverify SELFCHECK=1, patched vs this pass's OWN
+pristine sweep; both binaries frozen chmod 555 at immutable paths of the SAME
+LENGTH -- /tmp/r10earl96_pris.bin and /tmp/r10earl96_lawA.bin; every cmds.txt
+audited BY BINARY PATH, 0 of 3146 + 2924 name the main-tree binary):
+
+  uhdm2rtlil  MOVERS 0 / 1358   <- as predicted   (SELFCHECK 1357/1358 flagged)
+  surelog     MOVERS 2 /  956   <- as predicted, and NOTHING ELSE
+      ./default/Earlgrey_0_1
+      ./testflags/Earlgrey_0_1                    (SELFCHECK 955/956 flagged)
+
+  THE CENSUS re-scored over the SAME fixed universe, GOLDEN SIDE ASSERTED
+  BYTE-UNCHANGED:
+
+     Earlgrey default    BOTH-SAME 81 972 -> 81 988   MOVED-WRONG 24 -> 8
+                         GOLDEN-ONLY  753 ->    753   OURS-ONLY  291 ->  291
+     Earlgrey testflags  BOTH-SAME 97 224 -> 97 240   MOVED-WRONG 24 -> 8
+                         GOLDEN-ONLY  753 ->    753   OURS-ONLY 6500 -> 6500
+
+  WRONG->RIGHT 16 rows per mode (the 8 cells, each seen by the TS family and by
+  the AL family), RIGHT->WRONG 0, AWAY-GOLDEN 0, and NEITHER ONE-SIDED SET
+  MOVES BY A SINGLE ROW -- the law adds and removes no object.  The 8 MOVED
+  rows left in each mode are pre-existing and owned by other laws.
+
+========================================================================
+PART 2 -- R0: THE NEXT HEAD (the two modes now differ), AND THE RESIDUES
+========================================================================
+BEFORE (this pass's own pristine build 3b10fa70b3a1), rowheads.sh scale:
+  Earlgrey_0_1 default   112, 1 head  |  testflags 112, 1 head  (ONE object)
+AFTER (786defd3edcb):
+  Earlgrey_0_1 default    31, 1 head  |  testflags  54, 1 head  (TWO objects)
+
+R0-default -- A SURPLUS ELABORATED GEN-SCOPE VARIABLE.
+    hmac.sv (u_msg_fifo's prim_fifo_sync) :58
+      LHS <null>
+      RHS logic_var `fifo_wptr`
+          VpiParent -> gen_scope work@top_earlgrey.u_hmac.u_msg_fifo.gen_normal_fifo
+          (52:12-151:6), VpiTypespec -> ref_typespec -> logic_typespec 58:5-58:26
+          vpiVisibility 1
+    An `LHS: <null>` against a full RHS is the SINGULAR SafeCompare overload's
+    mirror (RESUME §9): the OWNER's field is set on our side and null on
+    golden's -- decode WHICH field before naming it, from the owner's generated
+    Compare order, not from this line.  The gen scope is `gen_normal_fifo`
+    inside prim_fifo_sync; the variable is one WE list and golden does not.
+
+R0-testflags -- AN int_typespec's vpiSigned ON A PARAMETER-SIZED TYPE.
+    prim_packer.sv:31  (work@top_earlgrey.u_packer's PtrW)
+      LHS int_typespec 31:14-31:17, vpiExpr -> ref_obj PtrW
+          (Actual -> parameter work@top_earlgrey.u_hmac.u_packer.PtrW), vpiSigned 1
+      RHS the same int_typespec and the same bound ref_obj -- WITHOUT vpiSigned.
+    Same kind, same span, same vpiExpr, same Actual: the head is the
+    `VpiSigned` bool, which `int_typespec::Compare` reads after Ranges/Expr.
+
+RANKED RESIDUES this pass MEASURED and deliberately did not take
+----------------------------------------------------------------
+R1  A TYPEDEF OF A TYPEDEF TAKES NO LAW-S COPY, SO ITS WHOLE ALIAS CHAIN IS
+    ONE HOP OUT.  g1_kind96 `vec2_t` (= `typedef vec_t vec2_t;`), 26 cells per
+    view, module views and package views alike:
+      golden  module view   vec2_t -> vec_t -> (leaf, bare)
+              package view  p1k96::vec2_t -> vec_t -> p1k96::vec_t
+      ours    module view   vec2_t -> p1k96::vec2_t -> vec_t -> p1k96::vec_t
+    `TypeEmit.cpp:8686` skips an ALIAS-OF-AN-ALIAS when it fills pkgScalarTd,
+    so the chain keeps one extra qualified link everywhere.  0 corpus cells
+    (Earlgrey's sha_word_t is not an alias of an alias); its own pass and its
+    own census.
+R2  A MODULE-LOCAL TYPEDEF'S BARE COPY IS NAMED WITH ITS FIRST CHARACTER CUT
+    OFF.  `bareScalarTdCopyOfFresh16` (TypeEmit.cpp ~:7098) derives the bare
+    name as `qn.substr(qn.rfind("::") + 2)`; on a name that carries NO "::"
+    `rfind` returns npos and npos+2 wraps to 1, so `own_t` becomes `wn_t`.
+    Visible on g5_neg96 (3 AL + 3 TS cells, `work@top5n96.u_o`'s OWNARR).
+    MEASURED DENOMINATOR: **0 cells in either corpus** -- the GA tripwire over
+    every named typespec of all 2314 databases finds no OURS-ONLY name that is
+    a GOLDEN-ONLY name minus its first character.  Deliberately NOT taken here:
+    it is a second law, it converts nothing in either corpus, and this pass
+    keeps one law.  The fix is one line and its own arm already exists.
+R3  A MODULE-LOCAL TYPEDEF OF A PACKAGE TYPEDEF LOSES ITS vpiInstance.
+    g3_site96 `nest_t` (= `typedef u_t nest_t;` inside a module that imports
+    `p3s96`): golden's copy carries vpiInstance -> package p3s96 at the module
+    Typespecs listing AND at the net/variable that binds it; ours carries an
+    instance with an EMPTY name.  4 cells per view on that arm; the same shape
+    accounts for g5's remaining `own_t|-` vs `own_t|~` TS cell.  0 corpus
+    cells measured.
+R4  THE PRE-EXISTING EARLGREY CELLS THIS LAW DOES NOT OWN (8 MOVED rows per
+    mode, unchanged before and after): `spi_byte_t`'s GA count 6 vs 7,
+    `work@top_earlgrey.u_flash_ctrl.u_flash_mp` pa[BankW].lhs vpiInstance
+    (golden flash_ctrl_pkg, ours none), and
+    `work@top_earlgrey.u_pinmux` pa[MioPeriphHasSleepMode].rhs typespec KIND
+    (golden int_typespec, ours logic_typespec).
+R5  THE PRE-EXISTING PROBE / BOUNDARY SEGFAULTS.  The wide boundary's rc
+    histogram is SYMMETRIC side for side.  Recorded by earl82 R6 / earl83 R6 /
+    earl84 R6 / earl85 R5 / earl89 R6 / earl90 R8 / earl91 R5 / earl93 R7 /
+    earl94 R6 / earl95 R4; byteverify proves none of them is a mover.

@@ -1,0 +1,107 @@
+r10earl96 -- THE GRIDS.  MEASUREMENT ONLY.  Five arms, each built by Surelog
+and by BOTH frozen binaries in BOTH views (arm96.sh; every child </dev/null,
+every rc printed), then scored against the SAME golden with ct96cen +
+score96.py.  PRISTINE 3b10fa70b3a1, PATCHED 786defd3edcb.
+
+======== g1_kind96
+    // r10earl96 arm g1 — TYPEDEF KINDS at the head's exact shape: an UNPACKED-
+    // ARRAY parameter whose ELEMENT is a package typedef, declared in a package
+    // that a module WILDCARD-IMPORTS, read in the module and instantiated.
+    // MEASUREMENT ONLY.
+    package p1k96;
+  plain pris BOTH-SAME 238  MOVED-WRONG 30  GOLDEN-ONLY 40  OURS-ONLY 21
+  plain patc BOTH-SAME 242  MOVED-WRONG 26  GOLDEN-ONLY 40  OURS-ONLY 21
+  elab  pris BOTH-SAME 238  MOVED-WRONG 30  GOLDEN-ONLY 40  OURS-ONLY 22
+  elab  patc BOTH-SAME 242  MOVED-WRONG 26  GOLDEN-ONLY 40  OURS-ONLY 22
+  -- cells that STILL differ after the patch (elab view), all owned by OTHER laws:
+     MOVED   AL	module_inst[work@m1k96]	pa[WA].lhs>r>e>r	6:11-6:23  G [('logic_typespec|vec2_t->vec_t|aliased', 1)]  O [('logic_typespec|vec2_t->p1k96::vec2_t|aliased', 1)]
+     MOVED   AL	module_inst[work@m1k96]	pa[WA].lhs>r>e>r>a>r	6:11-6:23  G [('logic_typespec|vec_t->vec_t|leaf', 1)]  O [('logic_typespec|p1k96::vec2_t->vec_t|aliased', 1)]
+     MOVED   AL	module_inst[work@m1k96]	param[WA]>r>e>r	6:11-6:23  G [('logic_typespec|vec2_t->vec_t|aliased', 1)]  O [('logic_typespec|vec2_t->p1k96::vec2_t|aliased', 1)]
+     MOVED   AL	module_inst[work@m1k96]	param[WA]>r>e>r>a>r	6:11-6:23  G [('logic_typespec|vec_t->vec_t|leaf', 1)]  O [('logic_typespec|p1k96::vec2_t->vec_t|aliased', 1)]
+     MOVED   AL	module_inst[work@top1k96.u_a]	pa[WA].lhs>r>e>r	6:11-6:23  G [('logic_typespec|vec2_t->vec_t|aliased', 1)]  O [('logic_typespec|vec2_t->p1k96::vec2_t|aliased', 1)]
+     MOVED   AL	module_inst[work@top1k96.u_a]	pa[WA].lhs>r>e>r>a>r	6:11-6:23  G [('logic_typespec|vec_t->vec_t|leaf', 1)]  O [('logic_typespec|p1k96::vec2_t->vec_t|aliased', 1)]
+     MOVED   AL	module_inst[work@top1k96.u_a]	pa[WA].rhs>r>e>r	6:11-6:23  G [('logic_typespec|vec2_t->vec_t|aliased', 1)]  O [('logic_typespec|vec2_t->p1k96::vec2_t|aliased', 1)]
+     MOVED   AL	module_inst[work@top1k96.u_a]	pa[WA].rhs>r>e>r>a>r	6:11-6:23  G [('logic_typespec|vec_t->vec_t|leaf', 1)]  O [('logic_typespec|p1k96::vec2_t->vec_t|aliased', 1)]
+     MOVED   AL	module_inst[work@top1k96.u_a]	param[WA]>r>e>r	6:11-6:23  G [('logic_typespec|vec2_t->vec_t|aliased', 1)]  O [('logic_typespec|vec2_t->p1k96::vec2_t|aliased', 1)]
+     MOVED   AL	module_inst[work@top1k96.u_a]	param[WA]>r>e>r>a>r	6:11-6:23  G [('logic_typespec|vec_t->vec_t|leaf', 1)]  O [('logic_typespec|p1k96::vec2_t->vec_t|aliased', 1)]
+     MOVED   AL	package[p1k96::]	pa[WA].lhs>r>e>r	6:11-6:23  G [('logic_typespec|p1k96::vec2_t->vec_t|aliased', 1)]  O [('logic_typespec|vec2_t->p1k96::vec2_t|aliased', 2)]
+     MOVED   AL	package[p1k96::]	pa[WA].lhs>r>e>r>a>r	6:11-6:23  G [('logic_typespec|vec_t->p1k96::vec_t|leaf', 1)]  O [('logic_typespec|p1k96::vec2_t->vec_t|aliased', 2)]
+     MOVED   AL	package[p1k96::]	param[WA]>r>e>r	6:11-6:23  G [('logic_typespec|p1k96::vec2_t->vec_t|aliased', 1)]  O [('logic_typespec|vec2_t->p1k96::vec2_t|aliased', 2)]
+     MOVED   AL	package[p1k96::]	param[WA]>r>e>r>a>r	6:11-6:23  G [('logic_typespec|vec_t->p1k96::vec_t|leaf', 1)]  O [('logic_typespec|p1k96::vec2_t->vec_t|aliased', 2)]
+     MOVED   GA	logic_typespec	6:11-6:23	vec2_t  G [('vec_t', 4)]  O [('p1k96::vec2_t', 1)]
+     MOVED   TS	module_inst[work@m1k96]	pa[WA].lhs>r>e>r>a>r	6:11-6:23  G [('logic_typespec|vec_t|p1k96', 1)]  O [('logic_typespec|p1k96::vec2_t|p1k96', 1)]
+     MOVED   TS	module_inst[work@m1k96]	param[WA]>r>e>r>a>r	6:11-6:23  G [('logic_typespec|vec_t|p1k96', 1)]  O [('logic_typespec|p1k96::vec2_t|p1k96', 1)]
+     MOVED   TS	module_inst[work@top1k96.u_a]	pa[WA].lhs>r>e>r>a>r	6:11-6:23  G [('logic_typespec|vec_t|p1k96', 1)]  O [('logic_typespec|p1k96::vec2_t|p1k96', 1)]
+     MOVED   TS	module_inst[work@top1k96.u_a]	pa[WA].rhs>r>e>r>a>r	6:11-6:23  G [('logic_typespec|vec_t|p1k96', 1)]  O [('logic_typespec|p1k96::vec2_t|p1k96', 1)]
+     MOVED   TS	module_inst[work@top1k96.u_a]	param[WA]>r>e>r>a>r	6:11-6:23  G [('logic_typespec|vec_t|p1k96', 1)]  O [('logic_typespec|p1k96::vec2_t|p1k96', 1)]
+     MOVED   TS	package[p1k96::]	pa[WA].lhs>r>e>r	6:11-6:23  G [('logic_typespec|p1k96::vec2_t|p1k96', 1)]  O [('logic_typespec|vec2_t|p1k96', 2)]
+     MOVED   TS	package[p1k96::]	pa[WA].lhs>r>e>r>a>r	6:11-6:23  G [('logic_typespec|vec_t|p1k96', 1)]  O [('logic_typespec|p1k96::vec2_t|p1k96', 2)]
+     MOVED   TS	package[p1k96::]	pa[WA].lhs>r>e>r>a>r>a>r	6:11-6:23  G [('logic_typespec|p1k96::vec_t|p1k96', 1)]  O [('logic_typespec|vec_t|p1k96', 2)]
+     MOVED   TS	package[p1k96::]	param[WA]>r>e>r	6:11-6:23  G [('logic_typespec|p1k96::vec2_t|p1k96', 1)]  O [('logic_typespec|vec2_t|p1k96', 2)]
+     MOVED   TS	package[p1k96::]	param[WA]>r>e>r>a>r	6:11-6:23  G [('logic_typespec|vec_t|p1k96', 1)]  O [('logic_typespec|p1k96::vec2_t|p1k96', 2)]
+     MOVED   TS	package[p1k96::]	param[WA]>r>e>r>a>r>a>r	6:11-6:23  G [('logic_typespec|p1k96::vec_t|p1k96', 1)]  O [('logic_typespec|vec_t|p1k96', 2)]
+
+======== g2_form96
+    // r10earl96 arm g2 — IMPORT FORMS over the head shape: the SAME package
+    // unpacked-array-of-typedef parameter reached by a WILDCARD import, an
+    // EXPLICIT single-name import, a SCOPED use with no import at all, and a
+    // $unit-scope import.  MEASUREMENT ONLY.
+    package p2f96;
+  plain pris BOTH-SAME 183  MOVED-WRONG 10  GOLDEN-ONLY 328  OURS-ONLY 3
+  plain patc BOTH-SAME 193  MOVED-WRONG 0  GOLDEN-ONLY 328  OURS-ONLY 3
+  elab  pris BOTH-SAME 183  MOVED-WRONG 10  GOLDEN-ONLY 328  OURS-ONLY 4
+  elab  patc BOTH-SAME 193  MOVED-WRONG 0  GOLDEN-ONLY 328  OURS-ONLY 4
+  -- cells that STILL differ after the patch (elab view), all owned by OTHER laws:
+
+======== g3_site96
+    // r10earl96 arm g3 — USE SITES of a package SCALAR typedef inside a module
+    // that wildcard-imports it: port, net, variable, parameter (scalar and
+    // unpacked-array), cast target, a NESTED typedef of it, and a function
+    // return.  MEASUREMENT ONLY.
+    package p3s96;
+  plain pris BOTH-SAME 154  MOVED-WRONG 8  GOLDEN-ONLY 21  OURS-ONLY 2
+  plain patc BOTH-SAME 158  MOVED-WRONG 4  GOLDEN-ONLY 21  OURS-ONLY 2
+  elab  pris BOTH-SAME 154  MOVED-WRONG 8  GOLDEN-ONLY 21  OURS-ONLY 3
+  elab  patc BOTH-SAME 158  MOVED-WRONG 4  GOLDEN-ONLY 21  OURS-ONLY 3
+  -- cells that STILL differ after the patch (elab view), all owned by OTHER laws:
+     MOVED   TS	module_inst[work@m3s96]	net[n_nest]>r	6:11-6:23  G [('logic_typespec|nest_t|p3s96', 1)]  O [('logic_typespec|nest_t|~', 1)]
+     MOVED   TS	module_inst[work@m3s96]	tslist[nest_t]	6:11-6:23  G [('logic_typespec|nest_t|p3s96', 1)]  O [('logic_typespec|nest_t|~', 1)]
+     MOVED   TS	module_inst[work@top3s96.u_a]	tslist[nest_t]	6:11-6:23  G [('logic_typespec|nest_t|p3s96', 1)]  O [('logic_typespec|nest_t|~', 1)]
+     MOVED   TS	module_inst[work@top3s96.u_a]	var[n_nest]>r	6:11-6:23  G [('logic_typespec|nest_t|p3s96', 1)]  O [('logic_typespec|nest_t|~', 1)]
+
+======== g4_home96
+    // r10earl96 arm g4 — HOMES: the head shape (an unpacked-array parameter of a
+    // package typedef, wildcard-imported) at a MODULE TOP, in a SUBMODULE, inside
+    // a GENERATE SCOPE, in an INTERFACE, and in THREE INSTANTIATIONS of ONE span.
+    // MEASUREMENT ONLY.
+    package p4h96;
+  plain pris BOTH-SAME 144  MOVED-WRONG 10  GOLDEN-ONLY 35  OURS-ONLY 5
+  plain patc BOTH-SAME 154  MOVED-WRONG 0  GOLDEN-ONLY 35  OURS-ONLY 5
+  elab  pris BOTH-SAME 144  MOVED-WRONG 10  GOLDEN-ONLY 35  OURS-ONLY 6
+  elab  patc BOTH-SAME 154  MOVED-WRONG 0  GOLDEN-ONLY 35  OURS-ONLY 6
+  -- cells that STILL differ after the patch (elab view), all owned by OTHER laws:
+
+======== g5_neg96
+    // r10earl96 arm g5 — THE NEGATIVE CONTROLS the law must NOT move: the
+    // package's OWN two views of its unpacked-array-of-typedef parameter (whose
+    // alias target stays QUALIFIED), a module's OWN LOCAL typedef used the same
+    // way (never qualified at all), and a module localparam of an IMPORTED
+    // typedef declared in the module itself (not a materialized import copy).
+  plain pris BOTH-SAME 86  MOVED-WRONG 11  GOLDEN-ONLY 24  OURS-ONLY 5
+  plain patc BOTH-SAME 90  MOVED-WRONG 7  GOLDEN-ONLY 24  OURS-ONLY 5
+  elab  pris BOTH-SAME 86  MOVED-WRONG 11  GOLDEN-ONLY 24  OURS-ONLY 6
+  elab  patc BOTH-SAME 90  MOVED-WRONG 7  GOLDEN-ONLY 24  OURS-ONLY 6
+  -- cells that STILL differ after the patch (elab view), all owned by OTHER laws:
+     MOVED   AL	module_inst[work@top5n96.u_o]	pa[OWNARR].lhs>r>e>r	18:11-18:23  G [('logic_typespec|own_t->own_t|leaf', 1)]  O [('logic_typespec|wn_t->own_t|leaf', 1)]
+     MOVED   AL	module_inst[work@top5n96.u_o]	pa[OWNARR].rhs>r>e>r	18:11-18:23  G [('logic_typespec|own_t->own_t|leaf', 1)]  O [('logic_typespec|wn_t->own_t|leaf', 1)]
+     MOVED   AL	module_inst[work@top5n96.u_o]	param[OWNARR]>r>e>r	18:11-18:23  G [('logic_typespec|own_t->own_t|leaf', 1)]  O [('logic_typespec|wn_t->own_t|leaf', 1)]
+     MOVED   TS	module_inst[work@top5n96.u_o]	pa[OWNARR].lhs>r>e>r	18:11-18:23  G [('logic_typespec|own_t|-', 1)]  O [('logic_typespec|wn_t|~', 1)]
+     MOVED   TS	module_inst[work@top5n96.u_o]	pa[OWNARR].rhs>r>e>r	18:11-18:23  G [('logic_typespec|own_t|-', 1)]  O [('logic_typespec|wn_t|~', 1)]
+     MOVED   TS	module_inst[work@top5n96.u_o]	pa[OWNARR].rhs>r>e>r>a>r	18:11-18:23  G [('logic_typespec|own_t|-', 1)]  O [('logic_typespec|own_t|~', 1)]
+     MOVED   TS	module_inst[work@top5n96.u_o]	param[OWNARR]>r>e>r	18:11-18:23  G [('logic_typespec|own_t|-', 1)]  O [('logic_typespec|wn_t|~', 1)]
+
+NOTE the GOLDEN-ONLY and OURS-ONLY columns are byte-identical pristine vs
+patched on every arm and every view: the law adds and removes no object.
+g2 (all four import forms, including a SCOPED USE WITH NO IMPORT AT ALL) and
+g4 (module top / submodule / gen scope / interface / three instantiations of
+one span) both reach MOVED-WRONG 0.

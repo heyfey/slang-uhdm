@@ -1,0 +1,113 @@
+r10earl96 -- THE GATE BATTERY.  BASE a8876a8, branch auto5h.
+Worktree /tmp/wt_r10earl96.  Builds -j 2.  Sweeps --jobs 2.
+
+(1) BUILD BOTH, md5 SEPARATELY
+    pristine (a8876a8, no edit)  3b10fa70b3a173555c65691389636d01
+    patched  (this law)          786defd3edcb54ee1561cc03b0e9c206
+    both frozen chmod 555 at immutable paths of the SAME LENGTH:
+      /tmp/r10earl96_pris.bin   /tmp/r10earl96_lawA.bin
+    0 compiler errors.
+
+(2) GOLDEN DUMP TESTS (SLANG_UHDM exported explicitly to EACH binary)
+    patched   PASS=23 FAIL=0
+    pristine  PASS=23 FAIL=0
+    /bin/false PASS=0 FAIL=23      <- the negative control fires
+
+(3) uhdm2rtlil, BOTH MODES (679/50/2 both modes, unchanged)
+    testflags patched: CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+    default   patched: CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+    ct8rows vs the COMMITTED baseline results/gate_uhdm2rtlil.csv:
+      PASS: every row byte-identical to the committed baseline  (0 differing rows)
+    ct8rows vs THIS PASS'S OWN PRISTINE sweep, testflags AND default:
+      PASS / PASS  (0 differing rows; status AND dump column)
+    cmds.txt audit BY BINARY PATH: 0 of 2924 name the main-tree binary.
+
+(4) surelog, --mode both (956 databases; 1588 comparable row-modes)
+    default   patched: CMP_EQUAL 471  CMP_NOTEQUAL 10  SLANG_REJECT 283  SURELOG_FAIL 25  DEFERRED 5
+    testflags patched: CMP_EQUAL 466  CMP_NOTEQUAL  9  SLANG_REJECT 284  SURELOG_FAIL 23  DEFERRED 5
+                       NO_DATABASE 3  UNTRANSLATABLE 2  TIMEOUT 1  NO_UHDM 1
+    ct8rows vs results/golden_surelog.csv : PASS  (0 differing rows over 1588)
+    ct8rows vs this pass's own pristine   : PASS  (0 differing rows over 1588)
+    NO row is converted by this pass -- Earlgrey_0_1 stays CMP_NOTEQUAL in
+    both modes; results/*.csv are NOT edited.
+    cmds.txt audit BY BINARY PATH: 0 of 3146 name the main-tree binary.
+
+(5) byteverify SELFCHECK=1, patched vs this pass's OWN pristine sweep
+    uhdm2rtlil  PATH_SETS_IDENTICAL (1358 paths)  MOVERS 0 / 1358
+                SELFCHECK 1357 / 1358 flagged      <- the comparator can see
+    surelog     PATH_SETS_IDENTICAL (956 paths)   MOVERS 2 /  956
+                  ./default/Earlgrey_0_1    patched 1e1df5ab0b57  pristine a8b5854525f6
+                  ./testflags/Earlgrey_0_1  patched 1c55d8fa931a  pristine d405c669f5f5
+                SELFCHECK 955 / 956 flagged
+    BOTH MOVERS WERE PREDICTED BY NAME from the pristine census before the
+    law was written (PREDICT_R0.txt Part 1).  Nothing else moved.
+
+(6) CANARIES
+    canaries.sh surelog     ok=52 changed=0 absent=0
+    canaries.sh uhdm2rtlil  ok=8  changed=0 absent=0
+    ctcan2.sh EXPECT_UNKNOWN=1 surelog     PASS
+    ctcan2.sh EXPECT_UNKNOWN=6 uhdm2rtlil  PASS
+    canaudit.sh (run from THIS directory over canaries.sh + ctcan2.sh):
+      audited=29  UNCOVERED=0  FENCE-BREACH=0   PASS
+    PROTECTED DATABASES, md5 patched vs pristine:
+      InterfaceModPort   59a365f3ce2c / 59a365f3ce2c   SAME (both modes)
+      BlackParrotComplex e3e354129d5a / e3e354129d5a   SAME (default)
+                         73a10e8217e5 / 73a10e8217e5   SAME (testflags)
+      YosysOldOr         d68e0796d62c / d68e0796d62c   SAME (both modes)
+      SVSwitch           4842211c4030   <- the PIN, both modes
+      YosysVerx          6ccda350c24a   <- the PIN, both modes
+
+(7) ROW HEADS (rowheads.sh on the patched sweep; SKIP-NOFILE on
+    Scoreboard/testflags and Rggen/testflags is expected)
+    TEST           MODE      PRISTINE   PATCHED
+    SeqDriver      default      36  1      36  1
+    SeqDriver      testflags    36  1      36  1
+    SimpleUVM      default      36  1      36  1
+    SimpleUVM      testflags    36  1      36  1
+    Scoreboard     default      36  1      36  1
+    MiniAmiq       default      36  1      36  1
+    MiniAmiq       testflags    36  1      36  1
+    BuildUVMPkg    default      30  1      30  1
+    BuildUVMPkg    testflags    30  1      30  1
+    Earlgrey_0_1   default     112  1  ->  31  1   <- THE HEAD MOVED ON
+    Earlgrey_0_1   testflags   112  1  ->  54  1   <- THE HEAD MOVED ON
+    Rggen          default       0  0       0  0   (CMP_EQUAL)
+    measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0 on both sides.
+
+(8) BOUNDARIES
+    OWN (this pass's five arms, both views, both binaries, workdir-
+    normalised whole-dump byte compare; list on fd 3, children </dev/null,
+    PROCESSED asserted):
+PROCESSED=5 identical=6 DIFFERING=4 no_output=0
+rc=0 20
+      differing: plain g1_kind96.sv elab g1_kind96.sv plain g2_form96.sv elab g2_form96.sv 
+      g3/g4/g5 dump IDENTICALLY on both binaries even though their census
+      cells move: uhdm-dump ABBREVIATES an already-visited typespec, so an
+      alias TARGET's name is invisible in a dump diff while
+      typespec::Compare reads it.  That is exactly why this pass is scored
+      by census and by the official uhdm-cmp, not by dump bytes.
+
+    WIDE (every .sv and .v under a COPY of tools/probe at ANY depth --
+    subdirectory arms included -- both views, both frozen binaries,
+    workdir-normalised whole-dump byte compare; list on fd 3, children
+    </dev/null, PROCESSED asserted against the 4355-line list):
+PROCESSED=4355 identical=8348 DIFFERING=6 no_output=356
+      LISTED=4355  PROCESSED=4355   <- asserted equal
+      rc by SIDE (perfectly symmetric -- the pre-existing probe
+      segfaults of R5, unchanged by this law):
+        rc=0  A=7987  B=7987
+        rc=3  A=342  B=342
+        rc=4  A=367  B=367
+        rc=139  A=14  B=14
+      the SIX differing files, all three of them this law's own population:
+        plain r10earl96repro/g1_kind96.sv
+        elab r10earl96repro/g1_kind96.sv
+        plain r10earl96repro/g2_form96.sv
+        elab r10earl96repro/g2_form96.sv
+        plain r10earl_repro/te.sv
+        elab r10earl_repro/te.sv
+        r10earl_repro/te.sv is the arm r10earl16 built for the SIBLING law
+        (§ importElemBareTdAlias).  Scored against its own golden it goes
+        MOVED-WRONG 5 -> 1 in BOTH views with GOLDEN-ONLY and OURS-ONLY
+        unchanged -- it moves TOWARD golden.
+      NOTHING outside this law's population differs anywhere in the tree.

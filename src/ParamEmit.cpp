@@ -13132,12 +13132,58 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         rt->VpiFullName(tsPrefix);
                         rt->VpiParent(opr);
                         opr->Typespec(rt);
-                        if (unpackedArrayTs9 || unpArrConcatTs9)
+                        if (unpackedArrayTs9 || unpArrConcatTs9) {
                             // The OP's clone names its element ref by the
                             // holding ref_typespec's own fullname (the
                             // instance prefix), not the parameter's.
+                            //
+                            // § elabRhsOpElemTdAliasBare96 — and the ELEMENT
+                            // typespec this OP's own clone carries takes the
+                            // CLONE-flavoured LAW-S copy, whose Typedef_alias
+                            // target is BARE as well: the Rhs operation's
+                            // typespec is re-minted against the INSTANCE, so
+                            // nothing in its chain is ever the object
+                            // `UhdmWriter::writeDataTypes` prefixed with the
+                            // package name (it prefixes only while walking a
+                            // PACKAGE's own datatypeMap, :775-796).
+                            //
+                            // ...but only when this op is the ASSIGNMENT
+                            // PATTERN.  The two triggers of this arm are
+                            // different Surelog rows and golden splits them:
+                            //
+                            //   `localparam x_t A[2] = '{...}` (pattern)
+                            //        alias target BARE in EVERY module view,
+                            //        the module's own declaration included;
+                            //   `localparam x_t A[2] = { ... }`  (concat)
+                            //        alias target BARE only on a MATERIALIZED
+                            //        IMPORT row — a module's OWN declaration
+                            //        keeps LAW S's home copy, whose target
+                            //        stays QUALIFIED, exactly like the Lhs
+                            //        (§ importElemBareTdAlias).
+                            //
+                            // Measured side by side on v7_concat96, one module
+                            // declaring both shapes of one imported typedef;
+                            // golden's elaborated `u_w`/`u_e` read
+                            //   pa[WPAT].rhs>r>e>r    x_t -> x_t
+                            //   pa[WCAT].rhs>r>e>r    x_t -> p7x96::x_t
+                            //   pa[EPAT].rhs>r>e>r    x_t -> x_t
+                            //   pa[ECAT].rhs>r>e>r    x_t -> p7x96::x_t
+                            //   pa[PKGPAT].rhs>r>e>r  x_t -> x_t
+                            //   pa[PKGCAT].rhs>r>e>r  x_t -> x_t
+                            // and g5_neg96's `u_l` confirms the pattern half
+                            // does NOT split on the import
+                            //   pa[LOCARR].lhs>r>e>r  n_t -> p5n96::n_t
+                            //   pa[LOCARR].rhs>r>e>r  n_t -> n_t
+                            //   pa[PKGARR].rhs>r>e>r  n_t -> n_t
+                            // A PACKAGE view never reaches here at all: both
+                            // triggers already carry !inPackage.
+                            bool savedIpc96 = importedParamElemClone16;
+                            importedParamElemClone16 =
+                                unpackedArrayTs9 || (isImported && !inPackage);
                             rt->Actual_typespec(makeUnpackedArrayParamTs(
                                 ps, tsPrefix, rt, nullptr, true, tsPrefix));
+                            importedParamElemClone16 = savedIpc96;
+                        }
                         else
                             rhsRt = rt;
                     }

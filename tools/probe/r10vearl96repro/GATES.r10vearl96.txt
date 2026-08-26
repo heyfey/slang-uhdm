@@ -1,0 +1,115 @@
+r10vearl96 -- THE GATE BATTERY, run by the VERIFIER on its own worktrees and
+its own frozen binaries.  BASE a8876a8, branch auto5h.  The official
+~/git-repos/UHDM/build/bin/uhdm-cmp is the sole acceptance judge.
+
+(1) BUILDS -- three, each `cmake --build -j 2`, md5 taken separately, all
+    frozen chmod 555 at immutable paths of the SAME LENGTH.
+      /tmp/v96_bin/su_pris96.bin  3b10fa70b3a173555c65691389636d01  0 errors
+      /tmp/v96_bin/su_patc96.bin  786defd3edcb54ee1561cc03b0e9c206  0 errors
+      /tmp/v96_bin/su_fixd96.bin  982d87197f270adf07125bb20b020976  0 errors
+    su_pris96 and su_patc96 reproduce the implementer's reported md5s BIT FOR
+    BIT from an independent configure+build.
+
+(2) GOLDENS (SLANG_UHDM exported explicitly to EACH binary)
+      pristine  23 PASS / 0 FAIL
+      as-shipped 23 PASS / 0 FAIL
+      VERIFIED  23 PASS / 0 FAIL
+      /bin/false 0 PASS / 23 FAIL          (the negative control fires)
+
+(3) uhdm2rtlil, BOTH modes, --jobs 2, own --out/--workdir
+      as-shipped  testflags 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+                  default   679 / 50 / 2
+      VERIFIED    testflags 679 / 50 / 2
+                  default   679 / 50 / 2
+      ct8rows vs the committed results/gate_uhdm2rtlil.csv        PASS
+      ct8rows vs THIS verifier's own pristine sweep, testflags    PASS
+      ct8rows vs THIS verifier's own pristine sweep, default      PASS
+      (status column AND dump column; 0 rows moved)
+
+(4) surelog suite, --mode both
+      pristine    default 471 CMP_EQUAL / 10 CMP_NOTEQUAL
+                  testflags 466 / 9
+      as-shipped  default 471 / 10 ; testflags 466 / 9
+      VERIFIED    default 471 / 10 ; testflags 466 / 9
+      ct8rows vs the committed results/golden_surelog.csv          PASS
+      ct8rows vs THIS verifier's own pristine sweep                PASS
+      0 DIFFERING ROWS over 1588.  NO ROW IS CONVERTED; Earlgrey_0_1 stays
+      CMP_NOTEQUAL in both modes; results/*.csv is NOT touched.
+
+(5) cmds.txt AUDITED BY BINARY PATH, file by file
+      as-shipped u2r  1458 of 1462 name /tmp/v96_bin/su_patc96.bin, 4 have no
+                      slang line, 0 name the main-tree binary
+      VERIFIED   u2r  1458 of 1462 name /tmp/v96_bin/su_fixd96.bin, 0 main-tree
+      VERIFIED   sl   1523 name /tmp/v96_bin/su_fixd96.bin, 0 main-tree
+
+(6) byteverify SELFCHECK=1 -- every mover named and attributed
+      VERIFIED vs pristine, uhdm2rtlil   MOVERS 0 / 1358   SELFCHECK 1357/1358
+      VERIFIED vs pristine, surelog      MOVERS 2 /  956   SELFCHECK  955/956
+          ./default/Earlgrey_0_1    1e1df5ab0b57  (pristine a8b5854525f6)
+          ./testflags/Earlgrey_0_1  1c55d8fa931a  (pristine d405c669f5f5)
+        -- exactly the two databases PREDICTED BY NAME from the pristine
+           census, and the SAME two hashes the as-shipped binary produced.
+      VERIFIED vs AS-SHIPPED, surelog    MOVERS 0 /  956
+      VERIFIED vs AS-SHIPPED, uhdm2rtlil MOVERS 0 / 1358
+        -- THE DENOMINATOR OF THE AS-SHIPPED DEFECT IS ZERO: the two binaries
+           produce byte-identical databases over both corpora, so no corpus
+           gate can tell them apart.  The defect is convicted only by the
+           purpose-built arm.
+
+(7) THREE-SIDED CORPUS CENSUS (vcen3_96.sh: golden, pristine, candidate, per
+    database, reg96.py per-KEY multiset intersection)
+      surelog     956 databases   RIGHT->WRONG 0   WRONG->RIGHT 32
+                  the only nonzero rows:
+                    default/Earlgrey_0_1    0 / 16
+                    testflags/Earlgrey_0_1  0 / 16
+      uhdm2rtlil 1358 databases   RIGHT->WRONG 0   WRONG->RIGHT 0
+
+(8) CANARIES / PINS
+      canaries surelog     ok=52 changed=0 absent=0
+      canaries uhdm2rtlil  ok=8  changed=0 absent=0
+      ctcan2 EXPECT_UNKNOWN=1 (surelog)      PASS
+      ctcan2 EXPECT_UNKNOWN=6 (uhdm2rtlil)   PASS
+      canaudit.sh canaries.sh ctcan2.sh, run from r10earl96repro AND from
+        r10vearl96repro:  audited=29  UNCOVERED=0  FENCE-BREACH=0
+      byte pins, VERIFIED vs pristine, both modes:
+        InterfaceModPort   59a365f3ce2c  SAME
+        BlackParrotComplex e3e354129d5a / 73a10e8217e5  SAME
+        YosysOldOr         d68e0796d62c  SAME
+        SVSwitch           4842211c4030  (the brief's pin)
+        YosysVerx          6ccda350c24a  (the brief's pin)
+
+(9) rowheads.sh (SeqDriver SimpleUVM Scoreboard MiniAmiq BuildUVMPkg
+    Earlgrey_0_1 Rggen; SKIP-NOFILE on Scoreboard/tf and Rggen/tf expected)
+      pristine   Earlgrey_0_1 default 112 lines / 1 head
+                 Earlgrey_0_1 testflags 112 / 1
+      VERIFIED   Earlgrey_0_1 default  31 / 1
+                 Earlgrey_0_1 testflags 54 / 1
+      every other family unmoved on all three binaries: SeqDriver / SimpleUVM /
+      Scoreboard / MiniAmiq 36, BuildUVMPkg 30, Rggen 0.
+      The VERIFIED head files are BYTE-IDENTICAL to the as-shipped ones in both
+      modes -- the fix costs the pass nothing at the head.
+
+(10) WIDE BOUNDARY, TWO INSTRUMENTS (vwide2_96.sh), VERIFIED vs pristine, over
+     EVERY .sv/.v under tools/probe at any depth, both views, list on fd 3,
+     children </dev/null:
+       PROCESSED=4333 (= LISTED 4333)
+       dump_identical 8306   dump_DIFFERING 8    no_output 352
+       cen_identical  8286   cen_DIFFERING 28
+       rc SYMMETRIC side for side:  0 7951/7951   3 338/338
+                                    4 363/363   139 14/14
+       dump-differing (4 files x 2 views): g1_kind96, g2_form96,
+         r10earl_repro/te.sv, r10vearl96repro/v1_names96
+       census-differing (14 files x 2 views): the five pass arms, te.sv, and
+         the eight verifier arms then in the tree -- EVERY ONE a purpose-built
+         arm of this law's family.  NOTHING outside the law's population
+         differs anywhere in the 4333-file probe tree.
+     The ninth verifier arm, v9_catmat96.sv, was written after that sweep and
+     run incrementally with the same script: PROCESSED=1 dump_identical=2
+     dump_DIFFERING=0 cen_identical=0 cen_DIFFERING=2 -- an arm of this law's
+     family, as intended.  Whole-tree totals therefore read PROCESSED 4334,
+     dump_DIFFERING 8, cen_DIFFERING 30.
+     NOTE the two instruments disagree by design: uhdm-dump ABBREVIATES an
+     already-visited typespec, so an alias TARGET's name is invisible to a dump
+     diff while typespec::Compare reads it.  A dump-only wide boundary is BLIND
+     to this whole family -- 10 of the 14 differing files show up only in the
+     census column.

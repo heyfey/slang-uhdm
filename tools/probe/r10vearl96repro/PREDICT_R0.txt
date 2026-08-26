@@ -1,0 +1,76 @@
+r10vearl96 -- THE VERIFIER'S RESIDUE LIST AND R0 CONFIRMATION.
+MEASUREMENT ONLY; the official uhdm-cmp is the sole judge.
+
+R0 -- CONFIRMED, read off the VERIFIED binary's own databases.  The two modes
+now carry DIFFERENT heads and the VERIFIED head files are BYTE-IDENTICAL to the
+as-shipped ones.
+
+  R0-default   hmac.sv:58, `LHS: <null>` against a surplus
+               logic_var `fifo_wptr` parented at gen_scope
+               work@top_earlgrey.u_hmac.u_msg_fifo.gen_normal_fifo
+               (52:12-151:6), vpiVisibility 1.  An `LHS: <null>` with a full
+               RHS is the SINGULAR SafeCompare overload's mirror (RESUME 9):
+               decode WHICH field from the OWNER's generated Compare order,
+               not from that line.
+  R0-testflags prim_packer.sv:31, an int_typespec (31:14-31:17) whose vpiExpr
+               is a ref_obj `PtrW` bound to
+               work@top_earlgrey.u_hmac.u_packer.PtrW on BOTH sides; golden
+               carries vpiSigned 1 and we carry none.  The head is VpiSigned.
+
+RANKED RESIDUES the verifier MEASURED (the ones it did not take)
+---------------------------------------------------------------
+V1  A `'{default: X}` UNPACKED-ARRAY PATTERN DOES NOT REACH THE ARM AT ALL.
+    v8_ops96 `pa[DEFP].rhs>r>e>r`: golden `y_t -> y_t`, ours
+    `y_t -> p8o96::y_t` on the pristine, the as-shipped AND the verified
+    binary.  Its sibling `'{2{...}}` (`pa[MULTI]`) IS carried by the arm and
+    is right on both patched binaries, so the default-pattern init is folded
+    somewhere the `unpackedArrayOp` predicate never sees.  2 cells per view on
+    that arm, 0 corpus cells.  The natural next step for this family.
+
+V2  A SCOPED USE WITH NO IMPORT KEEPS THE QUALIFIED LISTING OBJECT IN GOLDEN.
+    v7_concat96 `m7scop96` (`localparam p7x96::x_t SPAT[2]`) and v1_names96's
+    `MYB`: golden's element typespec IS the qualified listing object
+    (`p7x96::x_t`, NO Typedef_alias); we always take LAW S's bare copy plus an
+    alias.  9 cells per view on v7 and 4 on v1, pre-existing on every binary,
+    0 corpus cells.  Note this is the position where the law's rebind adds two
+    objects that golden also has (v1's GOLDEN-ONLY 41->40) -- the position is
+    surplus on both sides and Compare never reaches the alias, so it is a
+    naming/materialisation question, not this law's.
+
+V3  A TYPEDEF OF A TYPEDEF KEEPS ONE EXTRA QUALIFIED LINK (the pass's R1,
+    independently reproduced).  g1_kind96 `vec2_t`, v5_kinds96 `vv_t`/`VVARR`:
+    golden `vv_t -> v_t`, ours `vv_t -> p5k96::vv_t -> v_t`.  26 cells per view
+    on g1, 16 on v5, 0 corpus cells.  `TypeEmit.cpp:8686` skips an
+    alias-of-an-alias when it fills pkgScalarTd.
+
+V4  THE npos WRAP IS REAL AND VISIBLE (the pass's R2, independently
+    reproduced).  `bareScalarTdCopyOfFresh16` (`TypeEmit.cpp:7100`) computes
+    `qn.substr(qn.rfind("::") + 2)`; with no "::" in the name `rfind` returns
+    npos and npos+2 wraps to 1, so a MODULE-LOCAL typedef `own_t` is emitted as
+    `wn_t`.  Measured on g5_neg96 (`work@top5n96.u_o`, 3 AL + 3 TS cells per
+    view) on ALL THREE binaries.  Corpus denominator 0, per the pass's GA
+    tripwire over all 2314 databases; the fix is one line and the arm exists.
+    It is a real emitter bug and should be taken by its own pass.
+
+V5  A MODULE-LOCAL TYPEDEF OF AN IMPORTED TYPEDEF COMES BACK AS AN
+    `unsupported_typespec` IN GOLDEN.  v3_sites96 `nest_t` and v6_pkgchain96
+    `alias_t`: golden's `pa[...].lhs>r>e>r` is an `unsupported_typespec` NAMED
+    `nest_t`/`alias_t` while ours is an anonymous logic_typespec, and golden's
+    Typespecs listing entry carries vpiInstance -> the package while ours
+    carries an instance with an EMPTY name (the pass's R3).  4 cells per view
+    on each arm, 0 corpus cells.
+
+V6  THE PRE-EXISTING EARLGREY CELLS (the pass's R4) and THE PRE-EXISTING PROBE
+    SEGFAULTS (the pass's R5) both reproduce.  The wide boundary's rc histogram
+    is symmetric side for side: rc=139 14/14; byteverify proves none of them is
+    a mover.
+
+METHOD NOTE for the next verifier
+---------------------------------
+A bucket total (BOTH-SAME / MOVED-WRONG) CANNOT convict a RIGHT->WRONG: on
+v5_kinds96 the as-shipped patch moved 16 cells right and 2 cells wrong and the
+MOVED-WRONG total still FELL, 65 -> 51.  Only a per-KEY multiset intersection
+against golden, pristine vs candidate (reg96.py), names the two.  And the wide
+boundary must carry a CENSUS instrument beside the dump: 10 of the 14 files
+this law touches in the probe tree are invisible to a uhdm-dump diff because
+the dump abbreviates an already-visited typespec.

@@ -1,0 +1,62 @@
+r10earl96 -- THE CORPUS CENSUS (ct96cen + score96.py).  MEASUREMENT ONLY.
+BASE a8876a8.  Pristine binary 3b10fa70b3a173555c65691389636d01
+               patched  binary 786defd3edcb54ee1561cc03b0e9c206
+
+== WHOLE-CORPUS BUCKETS (one scored join per database, golden side asserted
+   byte-unchanged; families TS / AL / GA -- see README §4.2)
+
+corpus                     BOTH-SAME    MOVED-WRONG  GOLDEN-ONLY  OURS-ONLY   
+CEN_pris_sl                428500       316          32447        20171       
+CEN_patc_sl                428532       284          32447        20171       
+CEN_pris_u2r               156181       12           5286         376         
+CEN_patc_u2r               156181       12           5286         376         
+
+   surelog   956 databases; uhdm2rtlil 1358 databases.
+   WRONG->RIGHT 32 rows (316 -> 284), RIGHT->WRONG 0, AWAY-GOLDEN 0.
+   GOLDEN-ONLY and OURS-ONLY are IDENTICAL before and after on BOTH corpora.
+   The uhdm2rtlil census files are BYTE-IDENTICAL before and after
+   (buckets AND cells).
+
+== THE ONLY PER-DATABASE BUCKET LINES THAT MOVED (whole surelog corpus)
+107c107
+< default/Earlgrey_0_1-71da2fd7 BOTH-SAME 81972  MOVED-WRONG 24  GOLDEN-ONLY 753  OURS-ONLY 291
+---
+> default/Earlgrey_0_1-71da2fd7 BOTH-SAME 81988  MOVED-WRONG 8  GOLDEN-ONLY 753  OURS-ONLY 291
+588c588
+< testflags/Earlgrey_0_1-71da2fd7 BOTH-SAME 97224  MOVED-WRONG 24  GOLDEN-ONLY 753  OURS-ONLY 6500
+---
+> testflags/Earlgrey_0_1-71da2fd7 BOTH-SAME 97240  MOVED-WRONG 8  GOLDEN-ONLY 753  OURS-ONLY 6500
+
+== THE 8 CELLS THE LAW OWNS (Earlgrey default; testflags identical),
+   pristine side, each seen once by TS and once by AL
+default/Earlgrey_0_1-71da2fd7	MOVED   AL	module_inst[work@top_earlgrey.u_hmac.u_hmac]	pa[CubicRootPrime].rhs>r>e>r	17:11-17:23  G [('logic_typespec|sha_word_t->sha_word_t|leaf', 1)]  O [('logic_typespec|sha_word_t->hmac_pkg::sha_word_t|leaf', 1)]
+default/Earlgrey_0_1-71da2fd7	MOVED   AL	module_inst[work@top_earlgrey.u_hmac.u_hmac]	pa[InitHash].rhs>r>e>r	17:11-17:23  G [('logic_typespec|sha_word_t->sha_word_t|leaf', 1)]  O [('logic_typespec|sha_word_t->hmac_pkg::sha_word_t|leaf', 1)]
+default/Earlgrey_0_1-71da2fd7	MOVED   AL	module_inst[work@top_earlgrey.u_hmac.u_sha2.u_pad]	pa[CubicRootPrime].rhs>r>e>r	17:11-17:23  G [('logic_typespec|sha_word_t->sha_word_t|leaf', 1)]  O [('logic_typespec|sha_word_t->hmac_pkg::sha_word_t|leaf', 1)]
+default/Earlgrey_0_1-71da2fd7	MOVED   AL	module_inst[work@top_earlgrey.u_hmac.u_sha2.u_pad]	pa[InitHash].rhs>r>e>r	17:11-17:23  G [('logic_typespec|sha_word_t->sha_word_t|leaf', 1)]  O [('logic_typespec|sha_word_t->hmac_pkg::sha_word_t|leaf', 1)]
+default/Earlgrey_0_1-71da2fd7	MOVED   AL	module_inst[work@top_earlgrey.u_hmac.u_sha2]	pa[CubicRootPrime].rhs>r>e>r	17:11-17:23  G [('logic_typespec|sha_word_t->sha_word_t|leaf', 1)]  O [('logic_typespec|sha_word_t->hmac_pkg::sha_word_t|leaf', 1)]
+default/Earlgrey_0_1-71da2fd7	MOVED   AL	module_inst[work@top_earlgrey.u_hmac.u_sha2]	pa[InitHash].rhs>r>e>r	17:11-17:23  G [('logic_typespec|sha_word_t->sha_word_t|leaf', 1)]  O [('logic_typespec|sha_word_t->hmac_pkg::sha_word_t|leaf', 1)]
+default/Earlgrey_0_1-71da2fd7	MOVED   AL	module_inst[work@top_earlgrey.u_hmac]	pa[CubicRootPrime].rhs>r>e>r	17:11-17:23  G [('logic_typespec|sha_word_t->sha_word_t|leaf', 1)]  O [('logic_typespec|sha_word_t->hmac_pkg::sha_word_t|leaf', 1)]
+default/Earlgrey_0_1-71da2fd7	MOVED   AL	module_inst[work@top_earlgrey.u_hmac]	pa[InitHash].rhs>r>e>r	17:11-17:23  G [('logic_typespec|sha_word_t->sha_word_t|leaf', 1)]  O [('logic_typespec|sha_word_t->hmac_pkg::sha_word_t|leaf', 1)]
+default/Earlgrey_0_1-71da2fd7	MOVED   TS	module_inst[work@top_earlgrey.u_hmac.u_hmac]	pa[CubicRootPrime].rhs>r>e>r>a>r	17:11-17:23  G [('logic_typespec|sha_word_t|hmac_pkg', 1)]  O [('logic_typespec|hmac_pkg::sha_word_t|hmac_pkg', 1)]
+default/Earlgrey_0_1-71da2fd7	MOVED   TS	module_inst[work@top_earlgrey.u_hmac.u_hmac]	pa[InitHash].rhs>r>e>r>a>r	17:11-17:23  G [('logic_typespec|sha_word_t|hmac_pkg', 1)]  O [('logic_typespec|hmac_pkg::sha_word_t|hmac_pkg', 1)]
+default/Earlgrey_0_1-71da2fd7	MOVED   TS	module_inst[work@top_earlgrey.u_hmac.u_sha2.u_pad]	pa[CubicRootPrime].rhs>r>e>r>a>r	17:11-17:23  G [('logic_typespec|sha_word_t|hmac_pkg', 1)]  O [('logic_typespec|hmac_pkg::sha_word_t|hmac_pkg', 1)]
+default/Earlgrey_0_1-71da2fd7	MOVED   TS	module_inst[work@top_earlgrey.u_hmac.u_sha2.u_pad]	pa[InitHash].rhs>r>e>r>a>r	17:11-17:23  G [('logic_typespec|sha_word_t|hmac_pkg', 1)]  O [('logic_typespec|hmac_pkg::sha_word_t|hmac_pkg', 1)]
+default/Earlgrey_0_1-71da2fd7	MOVED   TS	module_inst[work@top_earlgrey.u_hmac.u_sha2]	pa[CubicRootPrime].rhs>r>e>r>a>r	17:11-17:23  G [('logic_typespec|sha_word_t|hmac_pkg', 1)]  O [('logic_typespec|hmac_pkg::sha_word_t|hmac_pkg', 1)]
+default/Earlgrey_0_1-71da2fd7	MOVED   TS	module_inst[work@top_earlgrey.u_hmac.u_sha2]	pa[InitHash].rhs>r>e>r>a>r	17:11-17:23  G [('logic_typespec|sha_word_t|hmac_pkg', 1)]  O [('logic_typespec|hmac_pkg::sha_word_t|hmac_pkg', 1)]
+default/Earlgrey_0_1-71da2fd7	MOVED   TS	module_inst[work@top_earlgrey.u_hmac]	pa[CubicRootPrime].rhs>r>e>r>a>r	17:11-17:23  G [('logic_typespec|sha_word_t|hmac_pkg', 1)]  O [('logic_typespec|hmac_pkg::sha_word_t|hmac_pkg', 1)]
+default/Earlgrey_0_1-71da2fd7	MOVED   TS	module_inst[work@top_earlgrey.u_hmac]	pa[InitHash].rhs>r>e>r>a>r	17:11-17:23  G [('logic_typespec|sha_word_t|hmac_pkg', 1)]  O [('logic_typespec|hmac_pkg::sha_word_t|hmac_pkg', 1)]
+
+== THE SAME KEYS AFTER THE PATCH
+Not one of the 16 keys above is a differing cell any more (MOVED-WRONG 24 -> 8
+in each mode, and the 8 that remain are the R4 rows below).  The 41 Earlgrey
+rows whose path still contains `rhs>r>e>r` in the patched census are all
+OURS-ONLY keys -- paths golden has no key for at all -- and they are
+BYTE-IDENTICAL before and after (41 pristine, 41 patched, `diff` empty).
+Corpus-wide the count of differing cells on such a path falls 75 -> 43, the
+32 rows this law converts; the 43 that remain are those 41 Earlgrey OURS-ONLY
+rows plus 2 in BlackBePipeInt, all unchanged.
+
+== WHAT REMAINS DIFFERING IN EARLGREY (pre-existing, other laws -- R4)
+default/Earlgrey_0_1-71da2fd7	MOVED   GA	logic_typespec	22:11-22:22	spi_byte_t  G [('-', 6)]  O [('spi_device_pkg::spi_byte_t', 7)]
+default/Earlgrey_0_1-71da2fd7	MOVED   TS	module_inst[work@top_earlgrey.u_flash_ctrl.u_flash_mp]	pa[BankW].lhs>r	15:14-15:17  G [('int_typespec|~|flash_ctrl_pkg', 1)]  O [('int_typespec|~|-', 1)]
+default/Earlgrey_0_1-71da2fd7	MOVED   TS	module_inst[work@top_earlgrey.u_pinmux]	pa[MioPeriphHasSleepMode].rhs>r	0:0-0:0  G [('int_typespec|~|-', 1)]  O [('logic_typespec|~|-', 1)]

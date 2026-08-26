@@ -1,0 +1,27 @@
+LHS:
+decompile:
+int_typespec: , id:1019031, line:31:14, endln:31:17
+|vpiParent:
+\_ref_typespec: (work@top_earlgrey.u_hmac.u_packer), id:1019030
+|vpiExpr:
+\_ref_obj: (work@prim_packer.PtrW.PtrW), id:147489
+  |vpiParent:
+  \_int_typespec: , id:147424, line:31:14, endln:31:17
+  |vpiName:PtrW
+  |vpiFullName:work@prim_packer.PtrW.PtrW
+  |vpiActual:
+  \_parameter: (work@top_earlgrey.u_hmac.u_packer.PtrW), id:1019014, line:31:18, endln:31:22
+|vpiSigned:1
+RHS:
+decompile:
+int_typespec: , id:366715, line:31:14, endln:31:17
+|vpiParent:
+\_ref_typespec: (work@top_earlgrey.u_hmac.u_packer), id:366717
+|vpiExpr:
+\_ref_obj: (work@prim_packer.PtrW.PtrW), id:366716
+  |vpiParent:
+  \_int_typespec: , id:366715, line:31:14, endln:31:17
+  |vpiName:PtrW
+  |vpiFullName:work@prim_packer.PtrW.PtrW
+  |vpiActual:
+  \_parameter: (work@top_earlgrey.u_hmac.u_packer.PtrW), id:366499, line:31:18, endln:31:22
