@@ -1,0 +1,60 @@
+LHS:
+decompile:
+class_var: (uvm_pkg::clp), id:188535, line:801:27, endln:801:66
+|vpiParent:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::clp), id:188536
+  |vpiParent:
+  \_class_var: (uvm_pkg::clp), id:188535, line:801:27, endln:801:66
+  |vpiFullName:uvm_pkg::clp
+  |vpiActual:
+  \_class_typespec: (uvm_cmdline_processor), id:188533, line:801:5, endln:801:26
+|vpiName:clp
+|vpiFullName:uvm_pkg::clp
+|vpiAutomatic:1
+|vpiVisibility:1
+|vpiExpr:
+\_ref_obj: (uvm_pkg::clp::uvm_cmdline_processor::get_inst), id:188534, line:801:33, endln:801:56
+  |vpiParent:
+  \_class_var: (uvm_pkg::clp), id:188535, line:801:27, endln:801:66
+  |vpiName:uvm_cmdline_processor::get_inst
+  |vpiFullName:uvm_pkg::clp::uvm_cmdline_processor::get_inst
+
+decompile:
+class_var: (uvm_pkg::clp), id:188535, line:801:27, endln:801:66
+|vpiParent:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::clp), id:188536
+  |vpiParent:
+  \_class_var: (uvm_pkg::clp), id:188535, line:801:27, endln:801:66
+  |vpiFullName:uvm_pkg::clp
+  |vpiActual:
+  \_class_typespec: (uvm_cmdline_processor), id:188533, line:801:5, endln:801:26
+|vpiName:clp
+|vpiFullName:uvm_pkg::clp
+|vpiAutomatic:1
+|vpiVisibility:1
+|vpiExpr:
+\_ref_obj: (uvm_pkg::clp::uvm_cmdline_processor::get_inst), id:188534, line:801:33, endln:801:56
+  |vpiParent:
+  \_class_var: (uvm_pkg::clp), id:188535, line:801:27, endln:801:66
+  |vpiName:uvm_cmdline_processor::get_inst
+  |vpiFullName:uvm_pkg::clp::uvm_cmdline_processor::get_inst
+RHS:
+decompile:
+logic_net: (work@top.clp), id:179242, line:339:3, endln:339:6
+|vpiParent:
+\_module_inst: work@top (work@top), id:178944, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+|vpiName:clp
+|vpiFullName:work@top.clp
+|vpiNetType:1
+
+decompile:
+logic_net: (work@top.clp), id:179242, line:339:3, endln:339:6
+|vpiParent:
+\_module_inst: work@top (work@top), id:178944, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+|vpiName:clp
+|vpiFullName:work@top.clp
+|vpiNetType:1

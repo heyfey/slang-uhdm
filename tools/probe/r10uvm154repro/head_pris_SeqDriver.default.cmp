@@ -1,0 +1,60 @@
+LHS:
+decompile:
+class_var: (uvm_pkg::clp), id:319098, line:801:27, endln:801:66
+|vpiParent:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::clp), id:319099
+  |vpiParent:
+  \_class_var: (uvm_pkg::clp), id:319098, line:801:27, endln:801:66
+  |vpiFullName:uvm_pkg::clp
+  |vpiActual:
+  \_class_typespec: (uvm_cmdline_processor), id:319096, line:801:5, endln:801:26
+|vpiName:clp
+|vpiFullName:uvm_pkg::clp
+|vpiAutomatic:1
+|vpiVisibility:1
+|vpiExpr:
+\_ref_obj: (uvm_pkg::clp::uvm_cmdline_processor::get_inst), id:319097, line:801:33, endln:801:56
+  |vpiParent:
+  \_class_var: (uvm_pkg::clp), id:319098, line:801:27, endln:801:66
+  |vpiName:uvm_cmdline_processor::get_inst
+  |vpiFullName:uvm_pkg::clp::uvm_cmdline_processor::get_inst
+
+decompile:
+class_var: (uvm_pkg::clp), id:319098, line:801:27, endln:801:66
+|vpiParent:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::clp), id:319099
+  |vpiParent:
+  \_class_var: (uvm_pkg::clp), id:319098, line:801:27, endln:801:66
+  |vpiFullName:uvm_pkg::clp
+  |vpiActual:
+  \_class_typespec: (uvm_cmdline_processor), id:319096, line:801:5, endln:801:26
+|vpiName:clp
+|vpiFullName:uvm_pkg::clp
+|vpiAutomatic:1
+|vpiVisibility:1
+|vpiExpr:
+\_ref_obj: (uvm_pkg::clp::uvm_cmdline_processor::get_inst), id:319097, line:801:33, endln:801:56
+  |vpiParent:
+  \_class_var: (uvm_pkg::clp), id:319098, line:801:27, endln:801:66
+  |vpiName:uvm_cmdline_processor::get_inst
+  |vpiFullName:uvm_pkg::clp::uvm_cmdline_processor::get_inst
+RHS:
+decompile:
+logic_net: (work@top_tb.clp), id:292989, line:339:3, endln:339:6
+|vpiParent:
+\_module_inst: work@top_tb (work@top_tb), id:291814, file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/testbench.sv, line:210:1, endln:236:18
+|vpiName:clp
+|vpiFullName:work@top_tb.clp
+|vpiNetType:1
+
+decompile:
+logic_net: (work@top_tb.clp), id:292989, line:339:3, endln:339:6
+|vpiParent:
+\_module_inst: work@top_tb (work@top_tb), id:291814, file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/testbench.sv, line:210:1, endln:236:18
+|vpiName:clp
+|vpiFullName:work@top_tb.clp
+|vpiNetType:1

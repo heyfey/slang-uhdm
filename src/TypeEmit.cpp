@@ -6206,6 +6206,132 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                 continue;
             }
         }
+        // § enumWrittenNegDecLit154 — an enum constant whose WRITTEN
+        // initializer is a UNARY MINUS over a BARE UNSIZED DECIMAL literal is
+        // valued from THAT EXPRESSION ALONE.  The enum's BASE TYPE never
+        // participates: the constant is `INT:<-N>` at `vpiSize` 64 in BOTH
+        // views, whatever the base is (none / int / integer / bit[31:0] /
+        // byte / shortint / longint / int unsigned / logic[31:0] / a typedef'd
+        // base), and whatever the home is (package / $unit / module / class /
+        // interface / an import-listing clone).
+        //
+        // Surelog states it in `CompileHelper::compileTypespec`'s enum arm
+        // (src/DesignCompile/CompileHelper.cpp ~808-870):
+        //
+        //     uint64_t baseSize = 64;
+        //     if (rt = enum_t->Base_typespec()) ... baseSize = Bits(ts, ...);
+        //     ...
+        //     if (enumValueId) {
+        //       exp = compileExpression(scope, fC, enumValueId, ...);
+        //       if (exp && exp->UhdmType() == uhdmconstant) { ... }
+        //       else { value = m_exprBuilder.evalExpr(fC, enumValueId, scope); }
+        //     }
+        //     if (value == nullptr) { value->set(val, Integer, baseSize); }
+        //     econst->VpiValue(value->uhdmValue());
+        //     econst->VpiSize(value->getSize());
+        //
+        // `baseSize` — the ONLY place the base typespec is read — reaches the
+        // constant on the `value == nullptr` path ALONE, i.e. only for an
+        // UNWRITTEN implicit successor.  A written initializer is evaluated by
+        // `ExprBuilder::evalExpr` over the raw syntax, which knows nothing of
+        // the enum, negates at its own 64-bit width and reports `getSize()` 64.
+        // The decompile is `ExprEval::prettyPrint` of the compiled operation,
+        // which renders the negation canonically -- parentheses and the space
+        // after the `-` are dropped (`-(2)` and `- 2` both print `-2`), and the
+        // elaborated view prints the folded digits instead.  The two spellings
+        // differ for exactly two written faces: `-0` (folds to `0`) and LEADING
+        // ZEROS (`-007` folds to `-7`); every other spelling has raw == folded.
+        // See the VIEW note at the VpiDecompile call below for which homes take
+        // which spelling.
+        //
+        // We were folding `ev.getValue()` — the member value slang has ALREADY
+        // COERCED to the enum base — so `UVM_CVR_ALL = -1` under
+        // `typedef bit [`UVM_REG_CVR_WIDTH-1:0] uvm_reg_cvr_t` read back as the
+        // zero-extended 32-bit pattern 4294967295 instead of -1.
+        //
+        // GATE == the operand is a BARE UNSIZED DECIMAL literal.  A SIZED or
+        // BASED operand is a different cell and is left alone: golden gives
+        // `-32'd3` `INT:-3` at the LITERAL's OWN size 32 and `-'d1` at size -1,
+        // not at 64 -- see `tools/probe/r10uvm154repro/g154_b_spell.sv`
+        // (`ab_sized`, `ab_unsz`) and README §6, which record golden's answer
+        // for every spelling this gate abstains on.
+        if (auto negInit4 = ev.getInitializer()) {
+            auto& u4 = stripImplicitConv(*negInit4);
+            if (u4.kind == ExpressionKind::UnaryOp &&
+                u4.as<UnaryExpression>().op == UnaryOperator::Minus) {
+                auto& od4 = stripImplicitConv(u4.as<UnaryExpression>().operand());
+                if (od4.kind == ExpressionKind::IntegerLiteral) {
+                    // The operand's source text still carries any parentheses
+                    // slang folded away, so read the digits out of it and
+                    // require that NOTHING but digits (and `_` separators)
+                    // survives: a tick anywhere means a based/sized literal.
+                    std::string rd4 = std::string(rawText(od4.sourceRange));
+                    std::string dg4;
+                    bool ok4 = !rd4.empty();
+                    for (char c4 : rd4) {
+                        if (c4 >= '0' && c4 <= '9')
+                            dg4 += c4;
+                        else if (c4 != '_' && c4 != '(' && c4 != ')' &&
+                                 !std::isspace((unsigned char)c4))
+                            ok4 = false;
+                    }
+                    // <= 18 digits keeps the accumulation below 10^18 and
+                    // therefore inside int64_t with no overflow check; a wider
+                    // literal abstains rather than wrap (Surelog's own 64-bit
+                    // evaluator is the model, so nothing above that is decoded).
+                    if (ok4 && !dg4.empty() && dg4.size() <= 18) {
+                        int64_t mag4 = 0;
+                        for (char c4 : dg4)
+                            mag4 = mag4 * 10 + (c4 - '0');
+                        const std::string d4 = std::to_string(-mag4);
+                        // The def-view decompile is the prettyPrinted NEGATION
+                        // (`-0` stays `-0`, `-007` stays `-007`); the
+                        // ELABORATED view prints the FOLDED value (`-0` -> `0`,
+                        // `-007` -> `-7`).  They differ only where the written
+                        // digits are not the canonical spelling of the value,
+                        // i.e. for `-0` and for LEADING ZEROS.
+                        //
+                        // A `$unit`-scope enum takes the FOLDED spelling even
+                        // though it has no elaborated twin: § unitArith (the
+                        // note above this loop) already records that the
+                        // compilation unit is compiled before any module and
+                        // is elaborated LIKE A TOP PACKAGE, with only ONE
+                        // listing -- and that listing is the TOP one.  A
+                        // module / class / parameterized-class / interface
+                        // home, which also has a single listing, takes the DEF
+                        // spelling instead.  Measured on all four bases x
+                        // {`-0`, `-007`} x six homes: golden gives `$unit`
+                        // `0` / `-7` where every other single-listing home
+                        // gives `-0` / `-007`.  `pkgTopEmit` alone names only
+                        // the package top view, so it must be joined with
+                        // `unitEnum9` here.
+                        //
+                        // THE FIELD ORDER IS NOT COSMETIC.  The serializer
+                        // interns each string on first use, so setting these
+                        // three in a different order from the digits branch
+                        // below swaps two symbol-pool indices and makes the
+                        // database BYTES differ for a constant whose CONTENT
+                        // did not move at all -- uvm-1.2's
+                        // `uvm_tlm_response_status_e`, whose five written
+                        // `-1 .. -5` members this law re-derives to exactly the
+                        // answer they already had.  uhdm-cmp and uhdm-dump both
+                        // read through the pool and cannot see it, but
+                        // byteverify.sh and the wide boundary can, and an
+                        // unattributable byte mover is indistinguishable from a
+                        // real one.  Decompile, then size, then value.
+                        ec->VpiDecompile((pkgTopEmit || unitEnum9)
+                                             ? d4
+                                             : ("-" + dg4));
+                        ec->VpiSize(64);
+                        ec->VpiValue("INT:" + d4);
+                        consts->push_back(ec);
+                        if (!enumConstMap.count(&ev))
+                            enumConstMap[&ev] = ec;
+                        continue;
+                    }
+                }
+            }
+        }
         if (auto init = ev.getInitializer()) {
             auto& lit = stripImplicitConv(*init);
             if (lit.kind == ExpressionKind::IntegerLiteral) {

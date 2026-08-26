@@ -1,0 +1,58 @@
+# r10v154 — the 561-arm adversarial grid, scored against Surelog cell by cell.
+# Key = (owner-typespec, const-name, span); payload = (VpiValue, VpiDecompile,
+# VpiSize) as a SET across both views.  COUNT-MOVED reports a listing-count
+# change (the law mints/removes nothing, so it must be 0).
+
+                       SHIPPED FIRST CUT      AFTER THE VERIFIER'S FIX
+   AWAY-GOLDEN                 7                    0
+   MOVED-WRONG                26                   25
+   TO-GOLDEN                 163                  164
+   still-right              2966                 2973
+   still-wrong               249                  249
+   COUNT-MOVED                 0                    0
+   SKIP (slang reject)        79                   79
+   rc parity            561/561 identical    561/561 identical, 0 segfaults
+
+== THE 7 AWAY-GOLDEN CELLS (first cut) — all $unit home ==
+  q2_unit__nobase__negzero  UNIT_MARK  G INT:0  `0`   64 | pris `0`    | pat `-0`
+  q2_unit__int__negzero     UNIT_MARK  G INT:0  `0`   64 | pris `0`    | pat `-0`
+  q2_unit__byte__negzero    UNIT_MARK  G INT:0  `0`   64 | pris `0`    | pat `-0`
+  q2_unit__bit32__negzero   UNIT_MARK  G INT:0  `0`   64 | pris `0`    | pat `-0`
+  q2_unit__nobase__neglz    UNIT_MARK  G INT:-7 `-7`  64 | pris `-7`   | pat `-007`
+  q2_unit__int__neglz       UNIT_MARK  G INT:-7 `-7`  64 | pris `-7`   | pat `-007`
+  q2_unit__byte__neglz      UNIT_MARK  G INT:-7 `-7`  64 | pris `-7`   | pat `-007`
+(+ q2_unit__bit32__neglz, MOVED-WRONG from a wrong pristine, same shape; it
+ becomes TO-GOLDEN with the fix, which is the TO-GOLDEN 163 -> 164 step.)
+
+== golden's decompile rule, measured over 6 homes x {-0, -007} x 4 bases ==
+  package                                   2 listings: DEF `-0`/`-007`, ELAB `0`/`-7`
+  $unit                                     1 listing : FOLDED   `0` / `-7`
+  module / class / param class / interface  1 listing : WRITTEN  `-0` / `-007`
+
+== abstention proof ==
+  Every non-gated face keeps its pristine answer exactly: sized/based negatives
+  (-32'd3, -32'sd3, -'d1), hex all-ones sized and unsized, 1-2, -1-1, ~0, a
+  local parameter, a package parameter, int'(-1), signed'(-1), and every
+  arithmetic / concat / reference / shift initializer.  A 19-digit magnitude
+  abstains at the gate's own <=18-digit edge; an 18-digit one fires.
+
+== must-stay arms, identical on the first cut and the fix ==
+  enum as parameter value / case selector / port default / array index : unmoved
+  uvm_tlm_response_status_e's five written negatives                   : unmoved
+  based / bin / hex / oct / unbased-unsized / concat / ref / shift / cast: unmoved
+  implicit-successor chains on six bases                               : unmoved
+    (golden's counter reads 1 in the DEF view and 0 elaborated after a negative
+     head, at the BASE's own size -- the one place baseSize reaches a constant)
+
+== the committed verifier arms, scored both ways ==
+  arm                       first cut                          fix
+  v154_a_unitspell   AWAY-GOLDEN=2 TO-GOLDEN=1 s-right=10   TO-GOLDEN=1 s-right=12
+  v154_b_homespell   TO-GOLDEN=8 s-right=13                 TO-GOLDEN=8 s-right=13
+  v154_c_muststay    TO-GOLDEN=2 s-right=21 s-wrong=8       TO-GOLDEN=2 s-right=21 s-wrong=8
+  v154_d_threehomes  AWAY-GOLDEN=2 TO-GOLDEN=4 s-right=9    TO-GOLDEN=4 s-right=11
+  v154_e_importclone TO-GOLDEN=3 s-right=6                  TO-GOLDEN=3 s-right=6
+
+== why the implementer's own $unit arm could not see it ==
+  g154_c_home.sv writes `UNIT_ALL = -1`: raw == folded, so the view
+  discriminator is invisible on that cell.  RESUME.md §9 -- an arm AGREEING
+  with golden is not an arm TESTING the law.

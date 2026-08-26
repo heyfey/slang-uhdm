@@ -1,0 +1,74 @@
+r10uvm154 — GATES, verbatim.  BASE 258e615.  Binaries built in this worktree.
+pristine md5 18aa89a57254ce22ce8839296a248013  (== the main tree's own pristine at 258e615)
+patched  md5 5307130b930c286cef5f106147db85b2
+
+== tests/check_goldens.sh, SLANG_UHDM exported to the PATCHED binary
+PASS=23 FAIL=0
+== negative control SLANG_UHDM=/bin/false
+PASS=0 FAIL=23
+
+== ct8rows.sh  surelog: this worktree's own pristine sweep, then the committed baseline
+baseline: 1589 lines = 1588 ROWS (the header is not a row)
+fresh   : 1589 lines = 1588 ROWS
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     471 CMP_EQUAL      10 CMP_NOTEQUAL       5 DEFERRED     283 SLANG_REJECT      25 SURELOG_FAIL 
+  default  fresh:     471 CMP_EQUAL      10 CMP_NOTEQUAL       5 DEFERRED     283 SLANG_REJECT      25 SURELOG_FAIL 
+  testflags  base:     466 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  testflags  fresh:     466 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     323      245 differ     226 match 
+  default  fresh:     323      245 differ     226 match 
+  testflags  base:     328      300 differ     166 match 
+  testflags  fresh:     328      300 differ     166 match 
+PASS: every row byte-identical to the committed baseline
+== ct8rows.sh  surelog vs results/golden_surelog.csv
+PASS: every row byte-identical to the committed baseline
+== ct8rows.sh  uhdm2rtlil testflags
+baseline: 732 lines = 731 ROWS (the header is not a row)
+fresh   : 732 lines = 731 ROWS
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+---- per-mode STATUS histogram (baseline -> fresh)
+  testflags  base:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+  testflags  fresh:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  testflags  base:      52      183 differ     496 match 
+  testflags  fresh:      52      183 differ     496 match 
+PASS: every row byte-identical to the committed baseline
+== ct8rows.sh  uhdm2rtlil default
+PASS: every row byte-identical to the committed baseline
+
+== every cmds.txt audited BY BINARY PATH
+   2981 slang:   /tmp/r10uvm154_bin/pat.bin
+   2981 slang:   /tmp/r10uvm154_bin/pris.bin
+
+== byteverify.sh SELFCHECK=1
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm  patched=6c46eab6589e pristine=26e85a13be64
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=1ddcd54e396e pristine=e052fd5c2fab
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=cec9012811fc pristine=543be390d670
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=d24ff5674a44 pristine=8f73c05f9c3f
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=a2289057517a pristine=fecaac215d77
+MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  patched=6c46eab6589e pristine=26e85a13be64
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=1ddcd54e396e pristine=e052fd5c2fab
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=ec99e4a776ee pristine=3c6d7436a81d
+MOVER ./testflags/SimpleUVM-1dc93a62/slang.uhdm  patched=bce174660e48 pristine=ea064cfbb2e7
+MOVERS: 9 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+
+== canaries / ctcan2 / canaudit
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+
+== protected databases (patched vs this worktree's pristine)
+InterfaceModPort pat=59a365f3ce2c pris=59a365f3ce2c
+BlackParrotComplex pat=73a10e8217e5 pris=73a10e8217e5
+YosysOldOr pat=d68e0796d62c pris=d68e0796d62c
+SVSwitch pat=4842211c4030 pris=4842211c4030
+YosysVerx pat=6ccda350c24a pris=6ccda350c24a

@@ -1,0 +1,112 @@
+LHS:
+decompile:
+logic_typespec: (sha_word_t), id:456400, line:17:11, endln:17:23
+|vpiParent:
+\_ref_typespec: (work@top_earlgrey.u_hmac.sha_word_t), id:456399
+|vpiName:sha_word_t
+|vpiInstance:
+\_package: hmac_pkg (hmac_pkg::), id:23, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_hmac_0.1/rtl/hmac_pkg.sv, line:6:1, endln:103:22
+|vpiRange:
+\_range: , id:456401, line:17:17, endln:17:23
+  |vpiParent:
+  \_logic_typespec: (sha_word_t), id:456400, line:17:11, endln:17:23
+  |vpiLeftRange:
+  \_constant: , id:456402, line:17:18, endln:17:20
+    |vpiParent:
+    \_range: , id:456401, line:17:17, endln:17:23
+    |vpiDecompile:31
+    |vpiSize:64
+    |UINT:31
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:456403, line:17:21, endln:17:22
+    |vpiParent:
+    \_range: , id:456401, line:17:17, endln:17:23
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+
+decompile:
+logic_typespec: (sha_word_t), id:456400, line:17:11, endln:17:23
+|vpiParent:
+\_ref_typespec: (work@top_earlgrey.u_hmac.sha_word_t), id:456399
+|vpiName:sha_word_t
+|vpiInstance:
+\_package: hmac_pkg (hmac_pkg::), id:23, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_hmac_0.1/rtl/hmac_pkg.sv, line:6:1, endln:103:22
+|vpiRange:
+\_range: , id:456401, line:17:17, endln:17:23
+  |vpiParent:
+  \_logic_typespec: (sha_word_t), id:456400, line:17:11, endln:17:23
+  |vpiLeftRange:
+  \_constant: , id:456402, line:17:18, endln:17:20
+    |vpiParent:
+    \_range: , id:456401, line:17:17, endln:17:23
+    |vpiDecompile:31
+    |vpiSize:64
+    |UINT:31
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:456403, line:17:21, endln:17:22
+    |vpiParent:
+    \_range: , id:456401, line:17:17, endln:17:23
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+RHS:
+decompile:
+logic_typespec: (hmac_pkg::sha_word_t), id:27866, line:17:11, endln:17:23
+|vpiParent:
+\_module_inst: work@hmac (work@top_earlgrey.u_hmac), id:362672, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_systems_top_earlgrey_0.1/rtl/autogen/top_earlgrey.sv, line:593:3, endln:608:5
+|vpiName:hmac_pkg::sha_word_t
+|vpiInstance:
+\_package: hmac_pkg (hmac_pkg::), id:27738, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_hmac_0.1/rtl/hmac_pkg.sv, line:6:1, endln:103:22
+|vpiRange:
+\_range: , id:27867, line:17:17, endln:17:23
+  |vpiParent:
+  \_logic_typespec: (hmac_pkg::sha_word_t), id:27866, line:17:11, endln:17:23
+  |vpiLeftRange:
+  \_constant: , id:27868, line:17:18, endln:17:20
+    |vpiParent:
+    \_range: , id:27867, line:17:17, endln:17:23
+    |vpiDecompile:31
+    |vpiSize:64
+    |UINT:31
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:27869, line:17:21, endln:17:22
+    |vpiParent:
+    \_range: , id:27867, line:17:17, endln:17:23
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+
+decompile:
+logic_typespec: (hmac_pkg::sha_word_t), id:27866, line:17:11, endln:17:23
+|vpiParent:
+\_module_inst: work@hmac (work@top_earlgrey.u_hmac), id:362672, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_systems_top_earlgrey_0.1/rtl/autogen/top_earlgrey.sv, line:593:3, endln:608:5
+|vpiName:hmac_pkg::sha_word_t
+|vpiInstance:
+\_package: hmac_pkg (hmac_pkg::), id:27738, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_hmac_0.1/rtl/hmac_pkg.sv, line:6:1, endln:103:22
+|vpiRange:
+\_range: , id:27867, line:17:17, endln:17:23
+  |vpiParent:
+  \_logic_typespec: (hmac_pkg::sha_word_t), id:27866, line:17:11, endln:17:23
+  |vpiLeftRange:
+  \_constant: , id:27868, line:17:18, endln:17:20
+    |vpiParent:
+    \_range: , id:27867, line:17:17, endln:17:23
+    |vpiDecompile:31
+    |vpiSize:64
+    |UINT:31
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:27869, line:17:21, endln:17:22
+    |vpiParent:
+    \_range: , id:27867, line:17:17, endln:17:23
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9

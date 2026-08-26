@@ -1,0 +1,561 @@
+wd/q1_bit32__castneg	still-right=6 still-wrong=1
+wd/q1_bit32__castneg2	still-right=6 still-wrong=1
+wd/q1_bit32__hexallone	still-right=7
+wd/q1_bit32__hexallunsz	still-right=7
+wd/q1_bit32__neg33	TO-GOLDEN=1 still-right=6
+wd/q1_bit32__neg64	TO-GOLDEN=1 still-right=6
+wd/q1_bit32__neg64over	still-right=6 still-wrong=1
+wd/q1_bit32__negbig	TO-GOLDEN=1 still-right=6
+wd/q1_bit32__negdec	TO-GOLDEN=1 still-right=6
+wd/q1_bit32__negdec7	TO-GOLDEN=1 still-right=6
+wd/q1_bit32__neglz	TO-GOLDEN=1 still-right=6
+wd/q1_bit32__negminus	still-right=6 still-wrong=1
+wd/q1_bit32__negneg	still-right=6 still-wrong=1
+wd/q1_bit32__negparen	TO-GOLDEN=1 still-right=6
+wd/q1_bit32__negsep	MOVED-WRONG=1 still-right=6
+wd/q1_bit32__negspace	TO-GOLDEN=1 still-right=6
+wd/q1_bit32__negzero	TO-GOLDEN=1 still-right=6
+wd/q1_bit32__param	still-right=6 still-wrong=1
+wd/q1_bit32__pkgparam	still-right=6 still-wrong=1
+wd/q1_bit32__sized	still-right=6 still-wrong=1
+wd/q1_bit32__sizedsgn	still-right=6 still-wrong=1
+wd/q1_bit32__submin	still-right=6 still-wrong=1
+wd/q1_bit32__tilde0	still-right=6 still-wrong=1
+wd/q1_bit32__unsz	still-right=6 still-wrong=1
+wd/q1_bituns__castneg	SKIP
+wd/q1_bituns__castneg2	SKIP
+wd/q1_bituns__hexallone	SKIP
+wd/q1_bituns__hexallunsz	SKIP
+wd/q1_bituns__neg33	SKIP
+wd/q1_bituns__neg64	SKIP
+wd/q1_bituns__neg64over	SKIP
+wd/q1_bituns__negbig	SKIP
+wd/q1_bituns__negdec	SKIP
+wd/q1_bituns__negdec7	SKIP
+wd/q1_bituns__neglz	SKIP
+wd/q1_bituns__negminus	SKIP
+wd/q1_bituns__negneg	SKIP
+wd/q1_bituns__negparen	SKIP
+wd/q1_bituns__negsep	SKIP
+wd/q1_bituns__negspace	SKIP
+wd/q1_bituns__negzero	SKIP
+wd/q1_bituns__param	SKIP
+wd/q1_bituns__pkgparam	SKIP
+wd/q1_bituns__sized	SKIP
+wd/q1_bituns__sizedsgn	SKIP
+wd/q1_bituns__submin	SKIP
+wd/q1_bituns__tilde0	SKIP
+wd/q1_bituns__unsz	SKIP
+wd/q1_byte__castneg	still-right=6 still-wrong=1
+wd/q1_byte__castneg2	still-right=6 still-wrong=1
+wd/q1_byte__hexallone	SKIP
+wd/q1_byte__hexallunsz	still-right=7
+wd/q1_byte__neg33	TO-GOLDEN=1 still-right=6
+wd/q1_byte__neg64	SKIP
+wd/q1_byte__neg64over	SKIP
+wd/q1_byte__negbig	SKIP
+wd/q1_byte__negdec	TO-GOLDEN=1 still-right=6
+wd/q1_byte__negdec7	TO-GOLDEN=1 still-right=6
+wd/q1_byte__neglz	TO-GOLDEN=1 still-right=6
+wd/q1_byte__negminus	still-right=6 still-wrong=1
+wd/q1_byte__negneg	still-right=6 still-wrong=1
+wd/q1_byte__negparen	TO-GOLDEN=1 still-right=6
+wd/q1_byte__negsep	MOVED-WRONG=1 still-right=6
+wd/q1_byte__negspace	TO-GOLDEN=1 still-right=6
+wd/q1_byte__negzero	TO-GOLDEN=1 still-right=6
+wd/q1_byte__param	still-right=6 still-wrong=1
+wd/q1_byte__pkgparam	still-right=6 still-wrong=1
+wd/q1_byte__sized	still-right=6 still-wrong=1
+wd/q1_byte__sizedsgn	still-right=6 still-wrong=1
+wd/q1_byte__submin	still-right=6 still-wrong=1
+wd/q1_byte__tilde0	still-right=6 still-wrong=1
+wd/q1_byte__unsz	still-right=6 still-wrong=1
+wd/q1_int__castneg	still-right=6 still-wrong=1
+wd/q1_int__castneg2	still-right=6 still-wrong=1
+wd/q1_integer__castneg	still-right=6 still-wrong=1
+wd/q1_integer__castneg2	still-right=6 still-wrong=1
+wd/q1_integer__hexallone	still-right=7
+wd/q1_integer__hexallunsz	still-right=7
+wd/q1_integer__neg33	TO-GOLDEN=1 still-right=6
+wd/q1_integer__neg64	TO-GOLDEN=1 still-right=6
+wd/q1_integer__neg64over	still-right=6 still-wrong=1
+wd/q1_integer__negbig	TO-GOLDEN=1 still-right=6
+wd/q1_integer__negdec	TO-GOLDEN=1 still-right=6
+wd/q1_integer__negdec7	TO-GOLDEN=1 still-right=6
+wd/q1_integer__neglz	TO-GOLDEN=1 still-right=6
+wd/q1_integer__negminus	still-right=6 still-wrong=1
+wd/q1_integer__negneg	still-right=6 still-wrong=1
+wd/q1_integer__negparen	TO-GOLDEN=1 still-right=6
+wd/q1_integer__negsep	MOVED-WRONG=1 still-right=6
+wd/q1_integer__negspace	TO-GOLDEN=1 still-right=6
+wd/q1_integer__negzero	TO-GOLDEN=1 still-right=6
+wd/q1_integer__param	still-right=6 still-wrong=1
+wd/q1_integer__pkgparam	still-right=7
+wd/q1_integer__sized	still-right=6 still-wrong=1
+wd/q1_integer__sizedsgn	still-right=6 still-wrong=1
+wd/q1_integer__submin	still-right=6 still-wrong=1
+wd/q1_integer__tilde0	still-right=6 still-wrong=1
+wd/q1_integer__unsz	still-right=6 still-wrong=1
+wd/q1_int__hexallone	still-right=7
+wd/q1_int__hexallunsz	still-right=7
+wd/q1_int__neg33	TO-GOLDEN=1 still-right=6
+wd/q1_int__neg64	TO-GOLDEN=1 still-right=6
+wd/q1_int__neg64over	still-right=6 still-wrong=1
+wd/q1_int__negbig	TO-GOLDEN=1 still-right=6
+wd/q1_int__negdec	TO-GOLDEN=1 still-right=6
+wd/q1_int__negdec7	TO-GOLDEN=1 still-right=6
+wd/q1_int__neglz	TO-GOLDEN=1 still-right=6
+wd/q1_int__negminus	still-right=6 still-wrong=1
+wd/q1_int__negneg	still-right=6 still-wrong=1
+wd/q1_int__negparen	TO-GOLDEN=1 still-right=6
+wd/q1_int__negsep	MOVED-WRONG=1 still-right=6
+wd/q1_int__negspace	TO-GOLDEN=1 still-right=6
+wd/q1_int__negzero	TO-GOLDEN=1 still-right=6
+wd/q1_int__param	still-right=6 still-wrong=1
+wd/q1_int__pkgparam	still-right=7
+wd/q1_int__sized	still-right=6 still-wrong=1
+wd/q1_int__sizedsgn	still-right=6 still-wrong=1
+wd/q1_int__submin	still-right=6 still-wrong=1
+wd/q1_int__tilde0	still-right=6 still-wrong=1
+wd/q1_intuns__castneg	still-right=6 still-wrong=1
+wd/q1_intuns__castneg2	still-right=6 still-wrong=1
+wd/q1_intuns__hexallone	still-right=7
+wd/q1_intuns__hexallunsz	still-right=7
+wd/q1_intuns__neg33	TO-GOLDEN=1 still-right=6
+wd/q1_intuns__neg64	TO-GOLDEN=1 still-right=6
+wd/q1_intuns__neg64over	still-right=6 still-wrong=1
+wd/q1_intuns__negbig	TO-GOLDEN=1 still-right=6
+wd/q1_intuns__negdec	TO-GOLDEN=1 still-right=6
+wd/q1_intuns__negdec7	TO-GOLDEN=1 still-right=6
+wd/q1_intuns__neglz	TO-GOLDEN=1 still-right=6
+wd/q1_intuns__negminus	still-right=6 still-wrong=1
+wd/q1_intuns__negneg	still-right=6 still-wrong=1
+wd/q1_intuns__negparen	TO-GOLDEN=1 still-right=6
+wd/q1_intuns__negsep	MOVED-WRONG=1 still-right=6
+wd/q1_intuns__negspace	TO-GOLDEN=1 still-right=6
+wd/q1_intuns__negzero	TO-GOLDEN=1 still-right=6
+wd/q1_intuns__param	still-right=6 still-wrong=1
+wd/q1_intuns__pkgparam	still-right=6 still-wrong=1
+wd/q1_intuns__sized	still-right=6 still-wrong=1
+wd/q1_intuns__sizedsgn	still-right=6 still-wrong=1
+wd/q1_intuns__submin	still-right=6 still-wrong=1
+wd/q1_intuns__tilde0	still-right=6 still-wrong=1
+wd/q1_intuns__unsz	still-right=6 still-wrong=1
+wd/q1_int__unsz	still-right=6 still-wrong=1
+wd/q1_logic8__castneg	SKIP
+wd/q1_logic8__castneg2	SKIP
+wd/q1_logic8__hexallone	SKIP
+wd/q1_logic8__hexallunsz	SKIP
+wd/q1_logic8__neg33	TO-GOLDEN=1 still-right=6
+wd/q1_logic8__neg64	SKIP
+wd/q1_logic8__neg64over	SKIP
+wd/q1_logic8__negbig	SKIP
+wd/q1_logic8__negdec	SKIP
+wd/q1_logic8__negdec7	SKIP
+wd/q1_logic8__neglz	SKIP
+wd/q1_logic8__negminus	SKIP
+wd/q1_logic8__negneg	still-right=6 still-wrong=1
+wd/q1_logic8__negparen	SKIP
+wd/q1_logic8__negsep	SKIP
+wd/q1_logic8__negspace	SKIP
+wd/q1_logic8__negzero	TO-GOLDEN=1 still-right=6
+wd/q1_logic8__param	SKIP
+wd/q1_logic8__pkgparam	SKIP
+wd/q1_logic8__sized	SKIP
+wd/q1_logic8__sizedsgn	SKIP
+wd/q1_logic8__submin	SKIP
+wd/q1_logic8__tilde0	SKIP
+wd/q1_logic8__unsz	SKIP
+wd/q1_longint__castneg	still-right=6 still-wrong=1
+wd/q1_longint__castneg2	still-right=6 still-wrong=1
+wd/q1_longint__hexallone	SKIP
+wd/q1_longint__hexallunsz	still-right=7
+wd/q1_longint__neg33	TO-GOLDEN=1 still-right=6
+wd/q1_longint__neg64	TO-GOLDEN=1 still-right=6
+wd/q1_longint__neg64over	still-right=6 still-wrong=1
+wd/q1_longint__negbig	TO-GOLDEN=1 still-right=6
+wd/q1_longint__negdec	TO-GOLDEN=1 still-right=6
+wd/q1_longint__negdec7	TO-GOLDEN=1 still-right=6
+wd/q1_longint__neglz	TO-GOLDEN=1 still-right=6
+wd/q1_longint__negminus	still-right=6 still-wrong=1
+wd/q1_longint__negneg	still-right=6 still-wrong=1
+wd/q1_longint__negparen	TO-GOLDEN=1 still-right=6
+wd/q1_longint__negsep	MOVED-WRONG=1 still-right=6
+wd/q1_longint__negspace	TO-GOLDEN=1 still-right=6
+wd/q1_longint__negzero	TO-GOLDEN=1 still-right=6
+wd/q1_longint__param	still-right=6 still-wrong=1
+wd/q1_longint__pkgparam	still-right=6 still-wrong=1
+wd/q1_longint__sized	still-right=6 still-wrong=1
+wd/q1_longint__sizedsgn	still-right=6 still-wrong=1
+wd/q1_longint__submin	still-right=6 still-wrong=1
+wd/q1_longint__tilde0	still-right=6 still-wrong=1
+wd/q1_longint__unsz	still-right=6 still-wrong=1
+wd/q1_narrow__castneg	SKIP
+wd/q1_narrow__castneg2	SKIP
+wd/q1_narrow__hexallone	SKIP
+wd/q1_narrow__hexallunsz	SKIP
+wd/q1_narrow__neg33	TO-GOLDEN=1 still-right=6
+wd/q1_narrow__neg64	SKIP
+wd/q1_narrow__neg64over	SKIP
+wd/q1_narrow__negbig	SKIP
+wd/q1_narrow__negdec	SKIP
+wd/q1_narrow__negdec7	SKIP
+wd/q1_narrow__neglz	SKIP
+wd/q1_narrow__negminus	SKIP
+wd/q1_narrow__negneg	still-right=6 still-wrong=1
+wd/q1_narrow__negparen	SKIP
+wd/q1_narrow__negsep	SKIP
+wd/q1_narrow__negspace	SKIP
+wd/q1_narrow__negzero	TO-GOLDEN=1 still-right=6
+wd/q1_narrow__param	SKIP
+wd/q1_narrow__pkgparam	SKIP
+wd/q1_narrow__sized	SKIP
+wd/q1_narrow__sizedsgn	SKIP
+wd/q1_narrow__submin	SKIP
+wd/q1_narrow__tilde0	SKIP
+wd/q1_narrow__unsz	SKIP
+wd/q1_nobase__castneg	still-right=6 still-wrong=1
+wd/q1_nobase__castneg2	still-right=6 still-wrong=1
+wd/q1_nobase__hexallone	still-right=7
+wd/q1_nobase__hexallunsz	still-right=7
+wd/q1_nobase__neg33	TO-GOLDEN=1 still-right=6
+wd/q1_nobase__neg64	TO-GOLDEN=1 still-right=6
+wd/q1_nobase__neg64over	still-right=6 still-wrong=1
+wd/q1_nobase__negbig	still-right=7
+wd/q1_nobase__negdec	still-right=7
+wd/q1_nobase__negdec7	still-right=7
+wd/q1_nobase__neglz	still-right=7
+wd/q1_nobase__negminus	still-right=6 still-wrong=1
+wd/q1_nobase__negneg	still-right=6 still-wrong=1
+wd/q1_nobase__negparen	TO-GOLDEN=1 still-right=6
+wd/q1_nobase__negsep	MOVED-WRONG=1 still-right=6
+wd/q1_nobase__negspace	TO-GOLDEN=1 still-right=6
+wd/q1_nobase__negzero	still-right=7
+wd/q1_nobase__param	still-right=6 still-wrong=1
+wd/q1_nobase__pkgparam	still-right=6 still-wrong=1
+wd/q1_nobase__sized	still-right=6 still-wrong=1
+wd/q1_nobase__sizedsgn	still-right=6 still-wrong=1
+wd/q1_nobase__submin	still-right=6 still-wrong=1
+wd/q1_nobase__tilde0	still-right=6 still-wrong=1
+wd/q1_nobase__unsz	still-right=6 still-wrong=1
+wd/q1_shortint__castneg	still-right=6 still-wrong=1
+wd/q1_shortint__castneg2	still-right=6 still-wrong=1
+wd/q1_shortint__hexallone	SKIP
+wd/q1_shortint__hexallunsz	still-right=7
+wd/q1_shortint__neg33	TO-GOLDEN=1 still-right=6
+wd/q1_shortint__neg64	SKIP
+wd/q1_shortint__neg64over	SKIP
+wd/q1_shortint__negbig	SKIP
+wd/q1_shortint__negdec	TO-GOLDEN=1 still-right=6
+wd/q1_shortint__negdec7	TO-GOLDEN=1 still-right=6
+wd/q1_shortint__neglz	TO-GOLDEN=1 still-right=6
+wd/q1_shortint__negminus	still-right=6 still-wrong=1
+wd/q1_shortint__negneg	still-right=6 still-wrong=1
+wd/q1_shortint__negparen	TO-GOLDEN=1 still-right=6
+wd/q1_shortint__negsep	MOVED-WRONG=1 still-right=6
+wd/q1_shortint__negspace	TO-GOLDEN=1 still-right=6
+wd/q1_shortint__negzero	TO-GOLDEN=1 still-right=6
+wd/q1_shortint__param	still-right=6 still-wrong=1
+wd/q1_shortint__pkgparam	still-right=6 still-wrong=1
+wd/q1_shortint__sized	still-right=6 still-wrong=1
+wd/q1_shortint__sizedsgn	still-right=6 still-wrong=1
+wd/q1_shortint__submin	still-right=6 still-wrong=1
+wd/q1_shortint__tilde0	still-right=6 still-wrong=1
+wd/q1_shortint__unsz	still-right=6 still-wrong=1
+wd/q1_tdbase__castneg	still-right=6 still-wrong=1
+wd/q1_tdbase__castneg2	still-right=6 still-wrong=1
+wd/q1_tdbase__hexallone	still-right=7
+wd/q1_tdbase__hexallunsz	still-right=7
+wd/q1_tdbase__neg33	TO-GOLDEN=1 still-right=6
+wd/q1_tdbase__neg64	TO-GOLDEN=1 still-right=6
+wd/q1_tdbase__neg64over	still-right=6 still-wrong=1
+wd/q1_tdbase__negbig	TO-GOLDEN=1 still-right=6
+wd/q1_tdbase__negdec	TO-GOLDEN=1 still-right=6
+wd/q1_tdbase__negdec7	TO-GOLDEN=1 still-right=6
+wd/q1_tdbase__neglz	TO-GOLDEN=1 still-right=6
+wd/q1_tdbase__negminus	still-right=6 still-wrong=1
+wd/q1_tdbase__negneg	still-right=6 still-wrong=1
+wd/q1_tdbase__negparen	TO-GOLDEN=1 still-right=6
+wd/q1_tdbase__negsep	MOVED-WRONG=1 still-right=6
+wd/q1_tdbase__negspace	TO-GOLDEN=1 still-right=6
+wd/q1_tdbase__negzero	still-right=7
+wd/q1_tdbase__param	still-right=6 still-wrong=1
+wd/q1_tdbase__pkgparam	still-right=6 still-wrong=1
+wd/q1_tdbase__sized	still-right=6 still-wrong=1
+wd/q1_tdbase__sizedsgn	still-right=6 still-wrong=1
+wd/q1_tdbase__submin	still-right=6 still-wrong=1
+wd/q1_tdbase__tilde0	still-right=6 still-wrong=1
+wd/q1_tdbase__unsz	still-right=6 still-wrong=1
+wd/q2_cls__bit32__neg33	TO-GOLDEN=1 still-right=6
+wd/q2_cls__bit32__negdec	TO-GOLDEN=1 still-right=6
+wd/q2_cls__bit32__neglz	TO-GOLDEN=1 still-right=6
+wd/q2_cls__bit32__negneg	still-right=6 still-wrong=1
+wd/q2_cls__bit32__negparen	TO-GOLDEN=1 still-right=6
+wd/q2_cls__bit32__negsep	MOVED-WRONG=1 still-right=6
+wd/q2_cls__bit32__negzero	TO-GOLDEN=1 still-right=6
+wd/q2_cls__bit32__param	still-right=6 still-wrong=1
+wd/q2_cls__bit32__sized	still-right=6 still-wrong=1
+wd/q2_cls__bit32__submin	still-right=6 still-wrong=1
+wd/q2_cls__bit32__tilde0	still-right=6 still-wrong=1
+wd/q2_cls__bit32__unsz	still-right=6 still-wrong=1
+wd/q2_cls__byte__neg33	TO-GOLDEN=1 still-right=6
+wd/q2_cls__byte__negdec	TO-GOLDEN=1 still-right=6
+wd/q2_cls__byte__neglz	TO-GOLDEN=1 still-right=6
+wd/q2_cls__byte__negneg	still-right=6 still-wrong=1
+wd/q2_cls__byte__negparen	TO-GOLDEN=1 still-right=6
+wd/q2_cls__byte__negsep	MOVED-WRONG=1 still-right=6
+wd/q2_cls__byte__negzero	TO-GOLDEN=1 still-right=6
+wd/q2_cls__byte__param	still-right=6 still-wrong=1
+wd/q2_cls__byte__sized	still-right=6 still-wrong=1
+wd/q2_cls__byte__submin	still-right=6 still-wrong=1
+wd/q2_cls__byte__tilde0	still-right=6 still-wrong=1
+wd/q2_cls__byte__unsz	still-right=6 still-wrong=1
+wd/q2_cls__int__neg33	TO-GOLDEN=1 still-right=6
+wd/q2_cls__int__negdec	TO-GOLDEN=1 still-right=6
+wd/q2_cls__int__neglz	TO-GOLDEN=1 still-right=6
+wd/q2_cls__int__negneg	still-right=6 still-wrong=1
+wd/q2_cls__int__negparen	TO-GOLDEN=1 still-right=6
+wd/q2_cls__int__negsep	MOVED-WRONG=1 still-right=6
+wd/q2_cls__int__negzero	TO-GOLDEN=1 still-right=6
+wd/q2_cls__int__param	still-right=7
+wd/q2_cls__int__sized	still-right=6 still-wrong=1
+wd/q2_cls__int__submin	still-right=6 still-wrong=1
+wd/q2_cls__int__tilde0	still-right=6 still-wrong=1
+wd/q2_cls__int__unsz	still-right=6 still-wrong=1
+wd/q2_cls__nobase__neg33	TO-GOLDEN=1 still-right=6
+wd/q2_cls__nobase__negdec	still-right=7
+wd/q2_cls__nobase__neglz	still-right=7
+wd/q2_cls__nobase__negneg	still-right=6 still-wrong=1
+wd/q2_cls__nobase__negparen	TO-GOLDEN=1 still-right=6
+wd/q2_cls__nobase__negsep	MOVED-WRONG=1 still-right=6
+wd/q2_cls__nobase__negzero	still-right=7
+wd/q2_cls__nobase__param	still-right=6 still-wrong=1
+wd/q2_cls__nobase__sized	still-right=6 still-wrong=1
+wd/q2_cls__nobase__submin	still-right=6 still-wrong=1
+wd/q2_cls__nobase__tilde0	still-right=6 still-wrong=1
+wd/q2_cls__nobase__unsz	still-right=6 still-wrong=1
+wd/q2_ifc__bit32__neg33	TO-GOLDEN=1 still-right=6
+wd/q2_ifc__bit32__negdec	TO-GOLDEN=1 still-right=6
+wd/q2_ifc__bit32__neglz	TO-GOLDEN=1 still-right=6
+wd/q2_ifc__bit32__negneg	still-right=6 still-wrong=1
+wd/q2_ifc__bit32__negparen	TO-GOLDEN=1 still-right=6
+wd/q2_ifc__bit32__negsep	MOVED-WRONG=1 still-right=6
+wd/q2_ifc__bit32__negzero	TO-GOLDEN=1 still-right=6
+wd/q2_ifc__bit32__param	still-right=6 still-wrong=1
+wd/q2_ifc__bit32__sized	still-right=6 still-wrong=1
+wd/q2_ifc__bit32__submin	still-right=6 still-wrong=1
+wd/q2_ifc__bit32__tilde0	still-right=6 still-wrong=1
+wd/q2_ifc__bit32__unsz	still-right=6 still-wrong=1
+wd/q2_ifc__byte__neg33	TO-GOLDEN=1 still-right=6
+wd/q2_ifc__byte__negdec	TO-GOLDEN=1 still-right=6
+wd/q2_ifc__byte__neglz	TO-GOLDEN=1 still-right=6
+wd/q2_ifc__byte__negneg	still-right=6 still-wrong=1
+wd/q2_ifc__byte__negparen	TO-GOLDEN=1 still-right=6
+wd/q2_ifc__byte__negsep	MOVED-WRONG=1 still-right=6
+wd/q2_ifc__byte__negzero	TO-GOLDEN=1 still-right=6
+wd/q2_ifc__byte__param	still-right=6 still-wrong=1
+wd/q2_ifc__byte__sized	still-right=6 still-wrong=1
+wd/q2_ifc__byte__submin	still-right=6 still-wrong=1
+wd/q2_ifc__byte__tilde0	still-right=6 still-wrong=1
+wd/q2_ifc__byte__unsz	still-right=6 still-wrong=1
+wd/q2_ifc__int__neg33	TO-GOLDEN=1 still-right=6
+wd/q2_ifc__int__negdec	TO-GOLDEN=1 still-right=6
+wd/q2_ifc__int__neglz	TO-GOLDEN=1 still-right=6
+wd/q2_ifc__int__negneg	still-right=6 still-wrong=1
+wd/q2_ifc__int__negparen	TO-GOLDEN=1 still-right=6
+wd/q2_ifc__int__negsep	MOVED-WRONG=1 still-right=6
+wd/q2_ifc__int__negzero	TO-GOLDEN=1 still-right=6
+wd/q2_ifc__int__param	still-right=6 still-wrong=1
+wd/q2_ifc__int__sized	still-right=6 still-wrong=1
+wd/q2_ifc__int__submin	still-right=6 still-wrong=1
+wd/q2_ifc__int__tilde0	still-right=6 still-wrong=1
+wd/q2_ifc__int__unsz	still-right=6 still-wrong=1
+wd/q2_ifc__nobase__neg33	TO-GOLDEN=1 still-right=6
+wd/q2_ifc__nobase__negdec	still-right=7
+wd/q2_ifc__nobase__neglz	still-right=7
+wd/q2_ifc__nobase__negneg	still-right=6 still-wrong=1
+wd/q2_ifc__nobase__negparen	TO-GOLDEN=1 still-right=6
+wd/q2_ifc__nobase__negsep	MOVED-WRONG=1 still-right=6
+wd/q2_ifc__nobase__negzero	still-right=7
+wd/q2_ifc__nobase__param	still-right=6 still-wrong=1
+wd/q2_ifc__nobase__sized	still-right=6 still-wrong=1
+wd/q2_ifc__nobase__submin	still-right=6 still-wrong=1
+wd/q2_ifc__nobase__tilde0	still-right=6 still-wrong=1
+wd/q2_ifc__nobase__unsz	still-right=6 still-wrong=1
+wd/q2_mod__bit32__neg33	TO-GOLDEN=1 still-right=6
+wd/q2_mod__bit32__negdec	TO-GOLDEN=1 still-right=6
+wd/q2_mod__bit32__neglz	TO-GOLDEN=1 still-right=6
+wd/q2_mod__bit32__negneg	still-right=6 still-wrong=1
+wd/q2_mod__bit32__negparen	TO-GOLDEN=1 still-right=6
+wd/q2_mod__bit32__negsep	MOVED-WRONG=1 still-right=6
+wd/q2_mod__bit32__negzero	TO-GOLDEN=1 still-right=6
+wd/q2_mod__bit32__param	still-right=6 still-wrong=1
+wd/q2_mod__bit32__sized	still-right=6 still-wrong=1
+wd/q2_mod__bit32__submin	still-right=6 still-wrong=1
+wd/q2_mod__bit32__tilde0	still-right=6 still-wrong=1
+wd/q2_mod__bit32__unsz	still-right=6 still-wrong=1
+wd/q2_mod__byte__neg33	TO-GOLDEN=1 still-right=6
+wd/q2_mod__byte__negdec	TO-GOLDEN=1 still-right=6
+wd/q2_mod__byte__neglz	TO-GOLDEN=1 still-right=6
+wd/q2_mod__byte__negneg	still-right=6 still-wrong=1
+wd/q2_mod__byte__negparen	TO-GOLDEN=1 still-right=6
+wd/q2_mod__byte__negsep	MOVED-WRONG=1 still-right=6
+wd/q2_mod__byte__negzero	TO-GOLDEN=1 still-right=6
+wd/q2_mod__byte__param	still-right=6 still-wrong=1
+wd/q2_mod__byte__sized	still-right=6 still-wrong=1
+wd/q2_mod__byte__submin	still-right=6 still-wrong=1
+wd/q2_mod__byte__tilde0	still-right=6 still-wrong=1
+wd/q2_mod__byte__unsz	still-right=6 still-wrong=1
+wd/q2_mod__int__neg33	TO-GOLDEN=1 still-right=6
+wd/q2_mod__int__negdec	TO-GOLDEN=1 still-right=6
+wd/q2_mod__int__neglz	TO-GOLDEN=1 still-right=6
+wd/q2_mod__int__negneg	still-right=6 still-wrong=1
+wd/q2_mod__int__negparen	TO-GOLDEN=1 still-right=6
+wd/q2_mod__int__negsep	MOVED-WRONG=1 still-right=6
+wd/q2_mod__int__negzero	TO-GOLDEN=1 still-right=6
+wd/q2_mod__int__param	still-right=6 still-wrong=1
+wd/q2_mod__int__sized	still-right=6 still-wrong=1
+wd/q2_mod__int__submin	still-right=6 still-wrong=1
+wd/q2_mod__int__tilde0	still-right=6 still-wrong=1
+wd/q2_mod__int__unsz	still-right=6 still-wrong=1
+wd/q2_mod__nobase__neg33	TO-GOLDEN=1 still-right=6
+wd/q2_mod__nobase__negdec	still-right=7
+wd/q2_mod__nobase__neglz	still-right=7
+wd/q2_mod__nobase__negneg	still-right=6 still-wrong=1
+wd/q2_mod__nobase__negparen	TO-GOLDEN=1 still-right=6
+wd/q2_mod__nobase__negsep	MOVED-WRONG=1 still-right=6
+wd/q2_mod__nobase__negzero	still-right=7
+wd/q2_mod__nobase__param	still-right=6 still-wrong=1
+wd/q2_mod__nobase__sized	still-right=6 still-wrong=1
+wd/q2_mod__nobase__submin	still-right=6 still-wrong=1
+wd/q2_mod__nobase__tilde0	still-right=6 still-wrong=1
+wd/q2_mod__nobase__unsz	still-right=6 still-wrong=1
+wd/q2_pcls__bit32__neg33	TO-GOLDEN=1 still-right=6
+wd/q2_pcls__bit32__negdec	TO-GOLDEN=1 still-right=6
+wd/q2_pcls__bit32__neglz	TO-GOLDEN=1 still-right=6
+wd/q2_pcls__bit32__negneg	still-right=6 still-wrong=1
+wd/q2_pcls__bit32__negparen	TO-GOLDEN=1 still-right=6
+wd/q2_pcls__bit32__negsep	MOVED-WRONG=1 still-right=6
+wd/q2_pcls__bit32__negzero	TO-GOLDEN=1 still-right=6
+wd/q2_pcls__bit32__param	still-right=6 still-wrong=1
+wd/q2_pcls__bit32__sized	still-right=6 still-wrong=1
+wd/q2_pcls__bit32__submin	still-right=6 still-wrong=1
+wd/q2_pcls__bit32__tilde0	still-right=6 still-wrong=1
+wd/q2_pcls__bit32__unsz	still-right=6 still-wrong=1
+wd/q2_pcls__byte__neg33	TO-GOLDEN=1 still-right=6
+wd/q2_pcls__byte__negdec	TO-GOLDEN=1 still-right=6
+wd/q2_pcls__byte__neglz	TO-GOLDEN=1 still-right=6
+wd/q2_pcls__byte__negneg	still-right=6 still-wrong=1
+wd/q2_pcls__byte__negparen	TO-GOLDEN=1 still-right=6
+wd/q2_pcls__byte__negsep	MOVED-WRONG=1 still-right=6
+wd/q2_pcls__byte__negzero	TO-GOLDEN=1 still-right=6
+wd/q2_pcls__byte__param	still-right=6 still-wrong=1
+wd/q2_pcls__byte__sized	still-right=6 still-wrong=1
+wd/q2_pcls__byte__submin	still-right=6 still-wrong=1
+wd/q2_pcls__byte__tilde0	still-right=6 still-wrong=1
+wd/q2_pcls__byte__unsz	still-right=6 still-wrong=1
+wd/q2_pcls__int__neg33	TO-GOLDEN=1 still-right=6
+wd/q2_pcls__int__negdec	TO-GOLDEN=1 still-right=6
+wd/q2_pcls__int__neglz	TO-GOLDEN=1 still-right=6
+wd/q2_pcls__int__negneg	still-right=6 still-wrong=1
+wd/q2_pcls__int__negparen	TO-GOLDEN=1 still-right=6
+wd/q2_pcls__int__negsep	MOVED-WRONG=1 still-right=6
+wd/q2_pcls__int__negzero	TO-GOLDEN=1 still-right=6
+wd/q2_pcls__int__param	still-right=7
+wd/q2_pcls__int__sized	still-right=6 still-wrong=1
+wd/q2_pcls__int__submin	still-right=6 still-wrong=1
+wd/q2_pcls__int__tilde0	still-right=6 still-wrong=1
+wd/q2_pcls__int__unsz	still-right=6 still-wrong=1
+wd/q2_pcls__nobase__neg33	TO-GOLDEN=1 still-right=6
+wd/q2_pcls__nobase__negdec	still-right=7
+wd/q2_pcls__nobase__neglz	still-right=7
+wd/q2_pcls__nobase__negneg	still-right=6 still-wrong=1
+wd/q2_pcls__nobase__negparen	TO-GOLDEN=1 still-right=6
+wd/q2_pcls__nobase__negsep	MOVED-WRONG=1 still-right=6
+wd/q2_pcls__nobase__negzero	still-right=7
+wd/q2_pcls__nobase__param	still-right=6 still-wrong=1
+wd/q2_pcls__nobase__sized	still-right=6 still-wrong=1
+wd/q2_pcls__nobase__submin	still-right=6 still-wrong=1
+wd/q2_pcls__nobase__tilde0	still-right=6 still-wrong=1
+wd/q2_pcls__nobase__unsz	still-right=6 still-wrong=1
+wd/q2_unit__bit32__neg33	TO-GOLDEN=1 still-right=6
+wd/q2_unit__bit32__negdec	TO-GOLDEN=1 still-right=6
+wd/q2_unit__bit32__neglz	TO-GOLDEN=1 still-right=6
+wd/q2_unit__bit32__negneg	still-right=7
+wd/q2_unit__bit32__negparen	TO-GOLDEN=1 still-right=6
+wd/q2_unit__bit32__negsep	TO-GOLDEN=1 still-right=6
+wd/q2_unit__bit32__negzero	still-right=7
+wd/q2_unit__bit32__param	still-right=6 still-wrong=1
+wd/q2_unit__bit32__sized	still-right=6 still-wrong=1
+wd/q2_unit__bit32__submin	still-right=6 still-wrong=1
+wd/q2_unit__bit32__tilde0	still-right=6 still-wrong=1
+wd/q2_unit__bit32__unsz	still-right=6 still-wrong=1
+wd/q2_unit__byte__neg33	TO-GOLDEN=1 still-right=6
+wd/q2_unit__byte__negdec	still-right=7
+wd/q2_unit__byte__neglz	still-right=7
+wd/q2_unit__byte__negneg	still-right=7
+wd/q2_unit__byte__negparen	still-right=7
+wd/q2_unit__byte__negsep	still-right=7
+wd/q2_unit__byte__negzero	still-right=7
+wd/q2_unit__byte__param	still-right=6 still-wrong=1
+wd/q2_unit__byte__sized	still-right=6 still-wrong=1
+wd/q2_unit__byte__submin	still-right=7
+wd/q2_unit__byte__tilde0	still-right=6 still-wrong=1
+wd/q2_unit__byte__unsz	still-right=6 still-wrong=1
+wd/q2_unit__int__neg33	TO-GOLDEN=1 still-right=6
+wd/q2_unit__int__negdec	still-right=7
+wd/q2_unit__int__neglz	still-right=7
+wd/q2_unit__int__negneg	still-right=7
+wd/q2_unit__int__negparen	still-right=7
+wd/q2_unit__int__negsep	still-right=7
+wd/q2_unit__int__negzero	still-right=7
+wd/q2_unit__int__param	still-right=7
+wd/q2_unit__int__sized	still-right=6 still-wrong=1
+wd/q2_unit__int__submin	still-right=7
+wd/q2_unit__int__tilde0	still-right=6 still-wrong=1
+wd/q2_unit__int__unsz	still-right=6 still-wrong=1
+wd/q2_unit__nobase__neg33	TO-GOLDEN=1 still-right=6
+wd/q2_unit__nobase__negdec	still-right=7
+wd/q2_unit__nobase__neglz	still-right=7
+wd/q2_unit__nobase__negneg	still-right=7
+wd/q2_unit__nobase__negparen	still-right=7
+wd/q2_unit__nobase__negsep	still-right=7
+wd/q2_unit__nobase__negzero	still-right=7
+wd/q2_unit__nobase__param	still-right=6 still-wrong=1
+wd/q2_unit__nobase__sized	still-right=6 still-wrong=1
+wd/q2_unit__nobase__submin	still-right=7
+wd/q2_unit__nobase__tilde0	still-right=6 still-wrong=1
+wd/q2_unit__nobase__unsz	still-right=6 still-wrong=1
+wd/q3_inst1	TO-GOLDEN=1 still-right=6
+wd/q3_inst2	TO-GOLDEN=1 still-right=6
+wd/q3_inst3	TO-GOLDEN=1 still-right=6
+wd/q4_encodings	still-right=10 still-wrong=5
+wd/q4_succ	SKIP
+wd/q4_tlmstatus	still-right=12
+wd/q4_usage	TO-GOLDEN=1 still-right=7
+wd/q5_overflow	SKIP
+wd/q5_overflow2	SKIP
+wd/q6_succ__bit32__negdec	SKIP
+wd/q6_succ__bit32__negzero	TO-GOLDEN=1 still-right=7
+wd/q6_succ__bit32__plus	still-right=8
+wd/q6_succ__bit32__sized	still-right=5 still-wrong=3
+wd/q6_succ__integer__negdec	TO-GOLDEN=1 still-right=5 still-wrong=2
+wd/q6_succ__integer__negzero	TO-GOLDEN=1 still-right=7
+wd/q6_succ__integer__plus	still-right=8
+wd/q6_succ__integer__sized	still-right=5 still-wrong=3
+wd/q6_succ__int__negdec	TO-GOLDEN=1 still-right=5 still-wrong=2
+wd/q6_succ__int__negzero	TO-GOLDEN=1 still-right=7
+wd/q6_succ__int__plus	still-right=8
+wd/q6_succ__int__sized	still-right=5 still-wrong=3
+wd/q6_succ__longint__negdec	TO-GOLDEN=1 still-right=5 still-wrong=2
+wd/q6_succ__longint__negzero	TO-GOLDEN=1 still-right=7
+wd/q6_succ__longint__plus	still-right=8
+wd/q6_succ__longint__sized	still-right=5 still-wrong=3
+wd/q6_succ__nobase__negdec	still-right=6 still-wrong=2
+wd/q6_succ__nobase__negzero	still-right=8
+wd/q6_succ__nobase__plus	still-right=8
+wd/q6_succ__nobase__sized	still-right=5 still-wrong=3
+wd/q6_succ__shortint__negdec	TO-GOLDEN=1 still-right=5 still-wrong=2
+wd/q6_succ__shortint__negzero	TO-GOLDEN=1 still-right=7
+wd/q6_succ__shortint__plus	still-right=8
+wd/q6_succ__shortint__sized	still-right=5 still-wrong=3

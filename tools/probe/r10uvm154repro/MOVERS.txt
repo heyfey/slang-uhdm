@@ -1,0 +1,104 @@
+r10uvm154 — THE MOVER SET, PREDICTED BY NAME FROM THE PRISTINE CENSUS
+movers154.py /tmp/<pristine census>.tsv UVM_CVR_ALL
+
+default   AmiqEth                            NO-OURS G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[]
+default   AmiqSimpleTestSuite                NO-OURS G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[]
+default   BuildUVMPkg                        DIFFER  G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[('INT:4294967295', '-1', '64'), ('INT:4294967295', '4294967295', '64')]
+default   Driver                             NO-OURS G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[]
+default   Ibex                               NO-OURS G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[]
+default   IbexGoogle                         NO-OURS G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[]
+default   MiniAmiq                           DIFFER  G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[('INT:4294967295', '-1', '64'), ('INT:4294967295', '-1', '64')]
+default   Monitor                            NO-OURS G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[]
+default   Opentitan                          NO-OURS G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[]
+default   Scoreboard                         DIFFER  G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[('INT:4294967295', '-1', '64'), ('INT:4294967295', '4294967295', '64')]
+default   SeqDriver                          DIFFER  G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[('INT:4294967295', '-1', '64'), ('INT:4294967295', '-1', '64')]
+default   SimpleClass1                       NO-OURS G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[]
+default   SimpleInterface                    NO-OURS G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[]
+default   SimpleUVM                          DIFFER  G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[('INT:4294967295', '-1', '64'), ('INT:4294967295', '4294967295', '64')]
+default   UVMNestedSeq                       NO-OURS G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[]
+default   UVMSwitch                          NO-OURS G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[]
+default   UnitAmiqEth                        NO-OURS G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[]
+testflags AmiqEth                            NO-OURS G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[]
+testflags AmiqSimpleTestSuite                NO-OURS G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[]
+testflags BuildUVMPkg                        DIFFER  G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[('INT:4294967295', '-1', '64'), ('INT:4294967295', '4294967295', '64')]
+testflags CoresSweRV                         NO-OURS G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[]
+testflags CoresSweRVMP                       NO-OURS G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[]
+testflags Driver                             NO-OURS G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[]
+testflags Ibex                               NO-OURS G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[]
+testflags IbexGoogle                         NO-OURS G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[]
+testflags MiniAmiq                           DIFFER  G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[('INT:4294967295', '-1', '64'), ('INT:4294967295', '-1', '64')]
+testflags Monitor                            NO-OURS G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[]
+testflags Opentitan                          NO-OURS G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[]
+testflags Scoreboard                         NO-OURS G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[]
+testflags SeqDriver                          DIFFER  G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[('INT:4294967295', '-1', '64'), ('INT:4294967295', '-1', '64')]
+testflags SimpleClass1                       NO-OURS G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[]
+testflags SimpleInterface                    NO-OURS G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[]
+testflags SimpleUVM                          DIFFER  G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[('INT:4294967295', '-1', '64'), ('INT:4294967295', '4294967295', '64')]
+testflags UVMNestedSeq                       NO-OURS G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[]
+testflags UVMSwitch                          NO-OURS G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[]
+testflags UnitAmiqEth                        NO-OURS G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[]
+CELLS agree=0 differ=9
+
+=== the SAME query on the PATCHED census (every comparable cell now AGREES)
+testflags UVMSwitch                          NO-OURS G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[]
+testflags UnitAmiqEth                        NO-OURS G=[('INT:-1', '-1', '64'), ('INT:-1', '-1', '64')] O=[]
+CELLS agree=9 differ=0
+
+=== attrsweep154.sh, order-blind, on the nine byteverify movers
+ATTR default/BuildUVMPkg-bf853d43/slang.uhdm orderblind_lines=6 non-payload=0
+    >       |INT:-1
+    >       |INT:-1
+    <       |INT:4294967295
+    <       |INT:4294967295
+    >       |vpiDecompile:-1
+    <       |vpiDecompile:4294967295
+ATTR default/MiniAmiq-544c7f61/slang.uhdm orderblind_lines=4 non-payload=0
+    >       |INT:-1
+    >       |INT:-1
+    <       |INT:4294967295
+    <       |INT:4294967295
+ATTR default/Scoreboard-59431470/slang.uhdm orderblind_lines=6 non-payload=0
+    >       |INT:-1
+    >       |INT:-1
+    <       |INT:4294967295
+    <       |INT:4294967295
+    >       |vpiDecompile:-1
+    <       |vpiDecompile:4294967295
+ATTR default/SeqDriver-32af76aa/slang.uhdm orderblind_lines=4 non-payload=0
+    >       |INT:-1
+    >       |INT:-1
+    <       |INT:4294967295
+    <       |INT:4294967295
+ATTR default/SimpleUVM-1dc93a62/slang.uhdm orderblind_lines=6 non-payload=0
+    >       |INT:-1
+    >       |INT:-1
+    <       |INT:4294967295
+    <       |INT:4294967295
+    >       |vpiDecompile:-1
+    <       |vpiDecompile:4294967295
+ATTR testflags/BuildUVMPkg-bf853d43/slang.uhdm orderblind_lines=6 non-payload=0
+    >       |INT:-1
+    >       |INT:-1
+    <       |INT:4294967295
+    <       |INT:4294967295
+    >       |vpiDecompile:-1
+    <       |vpiDecompile:4294967295
+ATTR testflags/MiniAmiq-544c7f61/slang.uhdm orderblind_lines=4 non-payload=0
+    >       |INT:-1
+    >       |INT:-1
+    <       |INT:4294967295
+    <       |INT:4294967295
+ATTR testflags/SeqDriver-32af76aa/slang.uhdm orderblind_lines=4 non-payload=0
+    >       |INT:-1
+    >       |INT:-1
+    <       |INT:4294967295
+    <       |INT:4294967295
+ATTR testflags/SimpleUVM-1dc93a62/slang.uhdm orderblind_lines=6 non-payload=0
+    >       |INT:-1
+    >       |INT:-1
+    <       |INT:4294967295
+    <       |INT:4294967295
+    >       |vpiDecompile:-1
+    <       |vpiDecompile:4294967295
+UNATTRIBUTED_DATABASES=0
+ATTRIBUTION PASS

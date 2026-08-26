@@ -1,0 +1,45 @@
+LHS:
+decompile:
+class_var: (uvm_pkg::clp), id:186630, line:33188:27, endln:33188:66
+|vpiParent:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:7351:1, endln:83263:11
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::clp), id:186631
+  |vpiParent:
+  \_class_var: (uvm_pkg::clp), id:186630, line:33188:27, endln:33188:66
+  |vpiFullName:uvm_pkg::clp
+  |vpiActual:
+  \_class_typespec: (uvm_cmdline_processor), id:186628, line:33188:5, endln:33188:26
+|vpiName:clp
+|vpiFullName:uvm_pkg::clp
+|vpiAutomatic:1
+|vpiVisibility:1
+|vpiExpr:
+\_ref_obj: (uvm_pkg::clp::uvm_cmdline_processor::get_inst), id:186629, line:33188:33, endln:33188:56
+  |vpiParent:
+  \_class_var: (uvm_pkg::clp), id:186630, line:33188:27, endln:33188:66
+  |vpiName:uvm_cmdline_processor::get_inst
+  |vpiFullName:uvm_pkg::clp::uvm_cmdline_processor::get_inst
+
+decompile:
+class_var: (uvm_pkg::clp), id:186630, line:33188:27, endln:33188:66
+|vpiParent:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:7351:1, endln:83263:11
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::clp), id:186631
+  |vpiParent:
+  \_class_var: (uvm_pkg::clp), id:186630, line:33188:27, endln:33188:66
+  |vpiFullName:uvm_pkg::clp
+  |vpiActual:
+  \_class_typespec: (uvm_cmdline_processor), id:186628, line:33188:5, endln:33188:26
+|vpiName:clp
+|vpiFullName:uvm_pkg::clp
+|vpiAutomatic:1
+|vpiVisibility:1
+|vpiExpr:
+\_ref_obj: (uvm_pkg::clp::uvm_cmdline_processor::get_inst), id:186629, line:33188:33, endln:33188:56
+  |vpiParent:
+  \_class_var: (uvm_pkg::clp), id:186630, line:33188:27, endln:33188:66
+  |vpiName:uvm_cmdline_processor::get_inst
+  |vpiFullName:uvm_pkg::clp::uvm_cmdline_processor::get_inst
+RHS: <null>

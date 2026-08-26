@@ -1,0 +1,70 @@
+# r10v154 GATES — every gate re-run in THIS verifier's worktrees at BASE 258e615.
+# binaries: pris=18aa89a57254ce22ce8839296a248013  pat(first cut)=5307130b930c286cef5f106147db85b2  fix(shipped)=a67a9b495cc896b727765534dbb65580
+
+== goldens ==
+pat  PASS=23 FAIL=0
+pris PASS=23 FAIL=0
+fix  PASS=23 FAIL=0
+SLANG_UHDM=/bin/false PASS=0 FAIL=23
+
+== cmds.txt audit by binary PATH ==
+pris: 3035 cmds.txt, 2981 name /tmp/v154_bin/pris, 0 crossover
+pat : 3035 cmds.txt, 2981 name /tmp/v154_bin/pat , 0 crossover
+
+== rows (status AND dump column) ==
+surelog vs results/golden_surelog.csv : 1588 ROWS, 0 differing (pat AND fix)
+surelog vs this worktree's pristine   : 0 differing (pat AND fix)
+u2r tf  vs results/gate_uhdm2rtlil.csv: 0 differing, 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+u2r def vs pristine                   : 0 differing, 679/50/2
+
+== byteverify SELFCHECK=1 ==
+surelog fix-vs-pris : MOVERS 9/956   selfcheck 955/956
+u2r     fix-vs-pris : MOVERS 0/1358  selfcheck 1357/1358
+surelog fix-vs-pat  : MOVERS 1/956 (Scoreboard/default; ORDER-BLIND diff 0 lines = the known coin)
+
+== order-blind mover attribution (fix vs pris) ==
+default/BuildUVMPkg-bf853d43  order-blind-lines=6  non-payload=0
+default/MiniAmiq-544c7f61  order-blind-lines=4  non-payload=0
+default/Scoreboard-59431470  order-blind-lines=6  non-payload=0
+default/SeqDriver-32af76aa  order-blind-lines=4  non-payload=0
+default/SimpleUVM-1dc93a62  order-blind-lines=6  non-payload=0
+testflags/BuildUVMPkg-bf853d43  order-blind-lines=6  non-payload=0
+testflags/MiniAmiq-544c7f61  order-blind-lines=4  non-payload=0
+testflags/SeqDriver-32af76aa  order-blind-lines=4  non-payload=0
+testflags/SimpleUVM-1dc93a62  order-blind-lines=6  non-payload=0
+TOTAL order-blind lines=46  NON-PAYLOAD=0
+
+== canaries / ctcan2 / canaudit ==
+canaries sl  ok=52 changed=0 absent=0
+canaries u2r ok=8  changed=0 absent=0
+ctcan2 sl PASS   ctcan2 u2r PASS
+canaudit (from this dir) audited=29 UNCOVERED=0 FENCE-BREACH=0
+
+== byte pins ==
+SVSwitch 4842211c4030 (both modes)   YosysVerx 6ccda350c24a (both modes)
+InterfaceModPort / BlackParrotComplex / YosysOldOr byte-identical to pristine, both modes
+
+== wide boundary, FIXED binary vs pristine, all committed probe arms ==
+without this verifier's own arms (reproducing the implementer's headline exactly):
+  LISTED=4300 PROCESSED=4300 MOVED=26 TAILONLY=4 BREACH=0 RC-MISMATCH=0 NORUN=312 -> BOUNDARY PASS
+  goldscore over the 11 moved arms: better=11 equal=0 worse=0 -> GOLDSCORE PASS
+with this verifier's five arms added:
+  LISTED=4305 PROCESSED=4305 MOVED=36 TAILONLY=4 BREACH=0 RC-MISMATCH=0 NORUN=312 -> BOUNDARY PASS
+  goldscore over all 16 moved arms: better=16 equal=0 worse=0 -> GOLDSCORE PASS
+
+== goldscore, THE ARMS CONVICT THE FIRST CUT ==
+  arm                            pristine -> FIRST CUT      pristine -> FIX
+  v154_a_unitspell.sv                4 -> 4  (EQUAL)            4 -> 0
+  v154_d_threehomes.sv              26 -> 4                    26 -> 0
+  v154_b_homespell.sv               54 -> 12                   54 -> 12   (control)
+  v154_e_importclone.sv             29 -> 2                    29 -> 2    (control)
+  v154_c_muststay.sv               141 -> 119                 141 -> 119  (control)
+Two arms reach ZERO lines from Surelog under the fix and stall under the first
+cut.  The three controls are identical either way, so the fix is not a trade.
+
+== deliverable reproduction ==
+The verified patch applied to a COMPLETELY FRESH 258e615 worktree and built
+independently produces the identical gated binary md5:
+  a67a9b495cc896b727765534dbb65580
+A comment-only re-edit of the shipped source also rebuilt to that md5, so every
+gate reading above holds for the source that ships.

@@ -1,0 +1,53 @@
+r10uvm154 — ARM AND GRID SCORING, pristine -> patched, every cell scored AGAINST GOLDEN.
+score154.py <pristine-arm-root> <patched-arm-root>; verdicts TO-GOLDEN / AWAY-GOLDEN /
+MOVED-WRONG (wrong -> a DIFFERENT wrong) / STILL-WRONG / STILL-RIGHT.
+
+=== the five COMMITTED arms
+TO-GOLDEN   g154_a_base                  b32_all v0  G('INT:-1', '-1', '64')  PRIS('BIN:11111111111111111111111111111111', '-1', '32')  PAT('INT:-1', '-1', '64')
+TO-GOLDEN   g154_a_base                  b32_all v1  G('INT:-1', '-1', '64')  PRIS('BIN:11111111111111111111111111111111', '', '32')  PAT('INT:-1', '-1', '64')
+TO-GOLDEN   g154_a_base                  by_all v0  G('INT:-2', '-2', '64')  PRIS('BIN:11111110', '-2', '8')  PAT('INT:-2', '-2', '64')
+TO-GOLDEN   g154_a_base                  by_all v1  G('INT:-2', '-2', '64')  PRIS('BIN:11111110', '', '8')  PAT('INT:-2', '-2', '64')
+TO-GOLDEN   g154_a_base                  g_all  v0  G('INT:-9', '-9', '64')  PRIS('BIN:11111111111111111111111111110111', '-9', '32')  PAT('INT:-9', '-9', '64')
+TO-GOLDEN   g154_a_base                  g_all  v1  G('INT:-9', '-9', '64')  PRIS('BIN:11111111111111111111111111110111', '', '32')  PAT('INT:-9', '-9', '64')
+TO-GOLDEN   g154_a_base                  i_all  v0  G('INT:-1', '-1', '64')  PRIS('BIN:11111111111111111111111111111111', '-1', '32')  PAT('INT:-1', '-1', '64')
+TO-GOLDEN   g154_a_base                  i_all  v1  G('INT:-1', '-1', '64')  PRIS('BIN:11111111111111111111111111111111', '', '32')  PAT('INT:-1', '-1', '64')
+TO-GOLDEN   g154_a_base                  l32_all v0  G('INT:-2147483648', '-2147483648', '64')  PRIS('BIN:10000000000000000000000000000000', '-2147483648', '32')  PAT('INT:-2147483648', '-2147483648', '64')
+TO-GOLDEN   g154_a_base                  l32_all v1  G('INT:-2147483648', '-2147483648', '64')  PRIS('BIN:10000000000000000000000000000000', '', '32')  PAT('INT:-2147483648', '-2147483648', '64')
+TO-GOLDEN   g154_a_base                  lo_all v0  G('INT:-4294967296', '-4294967296', '64')  PRIS('BIN:0000000000000000000000000000000000000000000000000000000000000000', '-4294967296', '64')  PAT('INT:-4294967296', '-4294967296', '64')
+TO-GOLDEN   g154_a_base                  lo_all v1  G('INT:-4294967296', '-4294967296', '64')  PRIS('BIN:0000000000000000000000000000000000000000000000000000000000000000', '', '64')  PAT('INT:-4294967296', '-4294967296', '64')
+TO-GOLDEN   g154_a_base                  sh_all v0  G('INT:-1', '-1', '64')  PRIS('BIN:1111111111111111', '-1', '16')  PAT('INT:-1', '-1', '64')
+TO-GOLDEN   g154_a_base                  sh_all v1  G('INT:-1', '-1', '64')  PRIS('BIN:1111111111111111', '', '16')  PAT('INT:-1', '-1', '64')
+TO-GOLDEN   g154_a_base                  td_all v0  G('INT:-1', '-1', '64')  PRIS('INT:4294967295', '-1', '64')  PAT('INT:-1', '-1', '64')
+TO-GOLDEN   g154_a_base                  td_all v1  G('INT:-1', '-1', '64')  PRIS('INT:4294967295', '4294967295', '64')  PAT('INT:-1', '-1', '64')
+TO-GOLDEN   g154_a_base                  ti_all v0  G('INT:-1', '-1', '64')  PRIS('BIN:11111111111111111111111111111111', '-1', '32')  PAT('INT:-1', '-1', '64')
+TO-GOLDEN   g154_a_base                  ti_all v1  G('INT:-1', '-1', '64')  PRIS('BIN:11111111111111111111111111111111', '', '32')  PAT('INT:-1', '-1', '64')
+TO-GOLDEN   g154_a_base                  ui_all v0  G('INT:-1', '-1', '64')  PRIS('BIN:11111111111111111111111111111111', '-1', '32')  PAT('INT:-1', '-1', '64')
+TO-GOLDEN   g154_a_base                  ui_all v1  G('INT:-1', '-1', '64')  PRIS('BIN:11111111111111111111111111111111', '', '32')  PAT('INT:-1', '-1', '64')
+TO-GOLDEN   g154_b_spell                 fp_paren v0  G('INT:-2', '-2', '64')  PRIS('INT:4294967294', '-(2)', '64')  PAT('INT:-2', '-2', '64')
+TO-GOLDEN   g154_b_spell                 fp_paren v1  G('INT:-2', '-2', '64')  PRIS('INT:4294967294', '4294967294', '64')  PAT('INT:-2', '-2', '64')
+TO-GOLDEN   g154_b_spell                 fp_plain v0  G('INT:-1', '-1', '64')  PRIS('INT:4294967295', '-1', '64')  PAT('INT:-1', '-1', '64')
+TO-GOLDEN   g154_b_spell                 fp_plain v1  G('INT:-1', '-1', '64')  PRIS('INT:4294967295', '4294967295', '64')  PAT('INT:-1', '-1', '64')
+TO-GOLDEN   g154_b_spell                 fp_space v0  G('INT:-3', '-3', '64')  PRIS('INT:4294967293', '- 3', '64')  PAT('INT:-3', '-3', '64')
+TO-GOLDEN   g154_b_spell                 fp_space v1  G('INT:-3', '-3', '64')  PRIS('INT:4294967293', '4294967293', '64')  PAT('INT:-3', '-3', '64')
+TO-GOLDEN   g154_b_spell                 fp_wide v0  G('INT:-4294967296', '-4294967296', '64')  PRIS('INT:0', '-4294967296', '64')  PAT('INT:-4294967296', '-4294967296', '64')
+TO-GOLDEN   g154_b_spell                 fp_wide v1  G('INT:-4294967296', '-4294967296', '64')  PRIS('INT:0', '0', '64')  PAT('INT:-4294967296', '-4294967296', '64')
+TO-GOLDEN   g154_c_home                  CLS_ALL v0  G('INT:-1', '-1', '64')  PRIS('INT:4294967295', '-1', '64')  PAT('INT:-1', '-1', '64')
+TO-GOLDEN   g154_c_home                  IF_ALL v0  G('INT:-2', '-2', '64')  PRIS('BIN:11111110', '-2', '8')  PAT('INT:-2', '-2', '64')
+TO-GOLDEN   g154_c_home                  MOD_ALL v0  G('INT:-1', '-1', '64')  PRIS('INT:4294967295', '-1', '64')  PAT('INT:-1', '-1', '64')
+TO-GOLDEN   g154_c_home                  UNIT_ALL v1  G('INT:-1', '-1', '64')  PRIS('INT:4294967295', '4294967295', '64')  PAT('INT:-1', '-1', '64')
+TO-GOLDEN   g154_d_inst                  D_ALL  v0  G('INT:-1', '-1', '64')  PRIS('INT:4294967295', '-1', '64')  PAT('INT:-1', '-1', '64')
+TO-GOLDEN   g154_d_inst                  D_ALL  v1  G('INT:-1', '-1', '64')  PRIS('INT:4294967295', '4294967295', '64')  PAT('INT:-1', '-1', '64')
+SCORE {'TO-GOLDEN': 34, 'AWAY-GOLDEN': 0, 'STILL-WRONG': 15, 'STILL-RIGHT': 93, 'MOVED-WRONG': 0}
+
+=== per-arm cmp head + golden distance
+g154_a_base  heads 1->1  golden-distance 157 -> 60
+g154_b_spell  heads 1->1  golden-distance 431 -> 401
+g154_c_home  heads 1->1  golden-distance 106 -> 94
+g154_d_inst  heads 1->1  golden-distance 56 -> 46
+g154_e_ctrl  heads 1->1  golden-distance 27 -> 27
+
+=== the four generated grids (bases x spellings x homes x instances), totals only
+grid1:12-bases-x-11-spellings  SCORE {'TO-GOLDEN': 93, 'AWAY-GOLDEN': 0, 'STILL-WRONG': 69, 'STILL-RIGHT': 298, 'MOVED-WRONG': 0}
+grid2:arithmetic/concat/ref/shift  SCORE {'TO-GOLDEN': 0, 'AWAY-GOLDEN': 0, 'STILL-WRONG': 76, 'STILL-RIGHT': 4, 'MOVED-WRONG': 0}
+grid3:7-bases-x-11-minus-spellings  SCORE {'TO-GOLDEN': 43, 'AWAY-GOLDEN': 0, 'STILL-WRONG': 80, 'STILL-RIGHT': 17, 'MOVED-WRONG': 0}
+grid4:homes-x-instances-x-clone  SCORE {'TO-GOLDEN': 15, 'AWAY-GOLDEN': 0, 'STILL-WRONG': 2, 'STILL-RIGHT': 20, 'MOVED-WRONG': 0}

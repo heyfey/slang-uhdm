@@ -1,0 +1,56 @@
+r10uvm154 — WIDE BOUNDARY over every committed probe arm, and the golden re-score.
+
+TAILONLY tools/probe/r10buvm22repro/g22.sv def (judge-visible dump identical; cenlines=0)
+TAILONLY tools/probe/r10buvm22repro/g22.sv elab (judge-visible dump identical; cenlines=2)
+MOVED tools/probe/r10earl30repro/v7_empty.sv def FLIPS=2 dumplines=15 dumplines=15 cenlines=4
+MOVED tools/probe/r10earl30repro/v7_empty.sv elab FLIPS=2 dumplines=15 dumplines=15 cenlines=4
+MOVED tools/probe/r10earl66repro/g2_enc66.sv def FLIPS=2 dumplines=17 dumplines=17 cenlines=4
+MOVED tools/probe/r10earl66repro/g2_enc66.sv elab FLIPS=2 dumplines=17 dumplines=17 cenlines=4
+MOVED tools/probe/r10uvm138repro/g138_b_kinds.sv def FLIPS=4 dumplines=18 dumplines=18 cenlines=8
+MOVED tools/probe/r10uvm138repro/g138_b_kinds.sv elab FLIPS=4 dumplines=26 dumplines=26 cenlines=8
+MOVED tools/probe/r10uvm154repro/g154_a_base.sv def FLIPS=20 dumplines=97 dumplines=97 cenlines=40
+MOVED tools/probe/r10uvm154repro/g154_a_base.sv elab FLIPS=20 dumplines=97 dumplines=97 cenlines=40
+MOVED tools/probe/r10uvm154repro/g154_b_spell.sv def FLIPS=8 dumplines=30 dumplines=30 cenlines=16
+MOVED tools/probe/r10uvm154repro/g154_b_spell.sv elab FLIPS=8 dumplines=30 dumplines=30 cenlines=16
+MOVED tools/probe/r10uvm154repro/g154_c_home.sv def FLIPS=4 dumplines=12 dumplines=12 cenlines=8
+MOVED tools/probe/r10uvm154repro/g154_c_home.sv elab FLIPS=5 dumplines=12 dumplines=12 cenlines=10
+MOVED tools/probe/r10uvm154repro/g154_d_inst.sv def FLIPS=2 dumplines=10 dumplines=10 cenlines=4
+MOVED tools/probe/r10uvm154repro/g154_d_inst.sv elab FLIPS=2 dumplines=10 dumplines=10 cenlines=4
+TAILONLY tools/probe/r10uvm154repro/l154_noenum.sv def (judge-visible dump identical; cenlines=0)
+TAILONLY tools/probe/r10uvm154repro/l154_noenum.sv elab (judge-visible dump identical; cenlines=0)
+MOVED tools/probe/r10v138repro/v4_kinds.sv def FLIPS=4 dumplines=18 dumplines=18 cenlines=8
+MOVED tools/probe/r10v138repro/v4_kinds.sv elab FLIPS=4 dumplines=26 dumplines=26 cenlines=8
+MOVED tools/probe/r10v66repro/v5_odd66.sv def FLIPS=2 dumplines=17 dumplines=17 cenlines=4
+MOVED tools/probe/r10v66repro/v5_odd66.sv elab FLIPS=2 dumplines=17 dumplines=17 cenlines=4
+MOVED tools/probe/r10vbuvm30repro/vg30_e_targets.sv def FLIPS=2 dumplines=9 dumplines=9 cenlines=4
+MOVED tools/probe/r10vbuvm30repro/vg30_e_targets.sv elab FLIPS=2 dumplines=9 dumplines=9 cenlines=4
+MOVED tools/probe/r10vbuvm30repro/vg30_h_macro.sv def FLIPS=2 dumplines=9 dumplines=9 cenlines=4
+MOVED tools/probe/r10vbuvm30repro/vg30_h_macro.sv elab FLIPS=2 dumplines=9 dumplines=9 cenlines=4
+
+LISTED=4300 PROCESSED=4300 MOVED=26 TAILONLY=4 BREACH=0 RC-MISMATCH=0 NORUN=312
+PROCESSED-ASSERT-OK
+NORUN-ASSERT-OK (312 of 8600 file-views produced no database)
+BOUNDARY PASS
+
+=== goldscore154.sh over every moved arm
+TOWARD-GOLDEN tools/probe/r10earl30repro/v7_empty.sv  139 -> 124
+TOWARD-GOLDEN tools/probe/r10earl66repro/g2_enc66.sv  254 -> 245
+TOWARD-GOLDEN tools/probe/r10uvm138repro/g138_b_kinds.sv  180 -> 162
+TOWARD-GOLDEN tools/probe/r10uvm154repro/g154_a_base.sv  101 -> 4
+TOWARD-GOLDEN tools/probe/r10uvm154repro/g154_b_spell.sv  71 -> 41
+TOWARD-GOLDEN tools/probe/r10uvm154repro/g154_c_home.sv  18 -> 6
+TOWARD-GOLDEN tools/probe/r10uvm154repro/g154_d_inst.sv  20 -> 10
+TOWARD-GOLDEN tools/probe/r10v138repro/v4_kinds.sv  151 -> 133
+TOWARD-GOLDEN tools/probe/r10v66repro/v5_odd66.sv  157 -> 148
+TOWARD-GOLDEN tools/probe/r10vbuvm30repro/vg30_e_targets.sv  78 -> 69
+TOWARD-GOLDEN tools/probe/r10vbuvm30repro/vg30_h_macro.sv  159 -> 150
+GOLDSCORE better=11 equal=0 worse=0 skipped=0
+GOLDSCORE PASS
+
+=== layoutproof154.sh — the TAILONLY moves are layout, not this law
+enum keywords in the source: 0  (must be 0)
+pris: tail value(s) = UINT:22535897 
+pat: tail value(s) = UINT:22539993 
+JUDGE-VISIBLE HEAD IDENTICAL (the two binaries agree on everything uhdm-cmp reads)
+TAIL DIFFERS with no enum in the source => LAYOUT-DERIVED, not this law
+LAYOUTPROOF OK

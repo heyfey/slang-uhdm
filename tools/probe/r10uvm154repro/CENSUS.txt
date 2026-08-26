@@ -1,0 +1,38 @@
+r10uvm154 — CENSUS, verbatim.  ct154cen + cen154.sh + cen154.py.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+=== surelog corpus, PRISTINE
+TOTALS {'SAME': 25072, 'ONLY-GOLDEN': 6953, 'ONLY-OURS': 205, 'CELL-NO-OURS': 413, 'WRONG': 34}
+=== surelog corpus, PATCHED
+TOTALS {'SAME': 25090, 'ONLY-GOLDEN': 6953, 'ONLY-OURS': 205, 'CELL-NO-OURS': 413, 'WRONG': 16}
+
+=== the pristine WRONG population (34 cells, three disjoint shapes)
+=== WRONG cells, grouped by (owner, name, golden-payload, our-payload, base-kind)
+   13  uvm_pkg::uvm_coverage_model_e                  UVM_CVR_ALL            G('INT:-1', '-1', '64')  O('INT:4294967295', '-1', '64')  base=bit_typespec
+    5  uvm_pkg::uvm_coverage_model_e                  UVM_CVR_ALL            G('INT:-1', '-1', '64')  O('INT:4294967295', '4294967295', '64')  base=bit_typespec
+    4  WidthMultiple                                  WidthMultiple          G('INT:2', '2', '32')  O('UINT:2', '2', '32')  base=-
+    2  uvm_pkg::uvm_recursion_policy_enum             UVM_SHALLOW            G('UINT:131072', '1 << 17', '81')  O('INT:131072', '131072', '64')  base=bit_typespec
+    2  uvm_pkg::uvm_recursion_policy_enum             UVM_SHALLOW            G('UINT:131072', '131072', '64')  O('INT:131072', '1<<17', '64')  base=bit_typespec
+    2  uvm_pkg::uvm_recursion_policy_enum             UVM_REFERENCE          G('UINT:262144', '1 << 18', '82')  O('INT:262144', '1<<18', '64')  base=bit_typespec
+    2  uvm_pkg::uvm_recursion_policy_enum             UVM_REFERENCE          G('UINT:262144', '262144', '64')  O('INT:262144', '262144', '64')  base=bit_typespec
+    2  uvm_pkg::uvm_recursion_policy_enum             UVM_DEEP               G('UINT:65536', '1 << 16', '80')  O('INT:65536', '1<<16', '64')  base=bit_typespec
+    2  uvm_pkg::uvm_recursion_policy_enum             UVM_DEEP               G('UINT:65536', '65536', '64')  O('INT:65536', '65536', '64')  base=bit_typespec
+
+=== ONLY-OURS (we emit a const golden has not, at that key)
+=== the patched WRONG population (16 cells: R2 and R3 only)
+=== WRONG cells, grouped by (owner, name, golden-payload, our-payload, base-kind)
+    4  WidthMultiple                                  WidthMultiple          G('INT:2', '2', '32')  O('UINT:2', '2', '32')  base=-
+    2  uvm_pkg::uvm_recursion_policy_enum             UVM_REFERENCE          G('UINT:262144', '1 << 18', '82')  O('INT:262144', '1<<18', '64')  base=bit_typespec
+    2  uvm_pkg::uvm_recursion_policy_enum             UVM_REFERENCE          G('UINT:262144', '262144', '64')  O('INT:262144', '262144', '64')  base=bit_typespec
+    2  uvm_pkg::uvm_recursion_policy_enum             UVM_SHALLOW            G('UINT:131072', '1 << 17', '81')  O('INT:131072', '131072', '64')  base=bit_typespec
+    2  uvm_pkg::uvm_recursion_policy_enum             UVM_SHALLOW            G('UINT:131072', '131072', '64')  O('INT:131072', '1<<17', '64')  base=bit_typespec
+    2  uvm_pkg::uvm_recursion_policy_enum             UVM_DEEP               G('UINT:65536', '1 << 16', '80')  O('INT:65536', '1<<16', '64')  base=bit_typespec
+    2  uvm_pkg::uvm_recursion_policy_enum             UVM_DEEP               G('UINT:65536', '65536', '64')  O('INT:65536', '65536', '64')  base=bit_typespec
+
+=== ONLY-OURS (we emit a const golden has not, at that key)
+=== uhdm2rtlil corpus, PRISTINE
+TOTALS {'SAME': 8213, 'ONLY-GOLDEN': 32354, 'ONLY-OURS': 36, 'CELL-NO-OURS': 61}
+=== uhdm2rtlil corpus, PATCHED
+TOTALS {'SAME': 8213, 'ONLY-GOLDEN': 32354, 'ONLY-OURS': 36, 'CELL-NO-OURS': 61}
+=== uhdm2rtlil census TSV diff pristine vs patched (must be 0)
+0
