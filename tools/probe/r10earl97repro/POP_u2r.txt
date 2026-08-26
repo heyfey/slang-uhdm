@@ -1,0 +1,3 @@
+r10earl97 -- uhdm2rtlil DENOMINATOR: ZERO golden cells of the law's shape
+(int_typespec owned by a cast operation and carrying a Cast_to_expr) in
+1358 databases.  pop97.sh reported: -- goldens=1358  law-shape rows=0

@@ -1,0 +1,62 @@
+r10earl97 -- THE SIGNEDNESS CENSUS.  MEASUREMENT ONLY; the official uhdm-cmp
+is the sole judge.  Instrument: ct97cen.cpp (every integer-kind typespec of a
+database, keyed by kind | span | VpiName | ROLE | owner name | home kind |
+home | has-Cast_to_expr | #ranges, payload `sgn=<0|1>` -- the ONE field
+<kind>_typespec::Compare reads besides Cast_to_expr / Ranges / the base name),
+score97.py (MULTISET join; keys collide, a last-writer dict drops rows) and
+reg97.py (the three-way golden / pristine / candidate per-key intersection).
+
+CALIBRATION -- golden vs golden reads 0 on every arm and on both Earlgrey
+modes: `CALIB TO-GOLDEN 0 AWAY-GOLDEN 0 STILL-WRONG 0 ADDED 0 REMOVED 0`.
+
+THE DENOMINATOR (pop97.sh over every golden of both sweeps; the golden cells
+the law could possibly touch = an `int_typespec` OWNED BY A CAST OPERATION and
+carrying a Cast_to_expr, which is exactly the object Surelog builds by REUSING
+the cast target's DECLARATION typespec):
+
+    uhdm2rtlil    0 rows in 1358 databases.  NOTHING to fix, NOTHING to break.
+    surelog     278 rows in  956 databases, in THREE tests:
+                  default/Earlgrey_0_1    108 sgn=0  +  4 sgn=1
+                  testflags/Earlgrey_0_1  107 sgn=0  +  4 sgn=1
+                  default/Rggen                        45 sgn=1
+                  default/Scr1SvTests       5 sgn=0
+                  testflags/Scr1SvTests     5 sgn=0
+
+    Of those 278, our PRISTINE database disagrees on EIGHT -- the 4 sgn=1 cells
+    in each Earlgrey mode.  Rggen's 45 are golden objects we do not mint at all
+    (our side has ZERO rows of this shape there and Rggen/default is CMP_EQUAL:
+    the judge never reaches them), and Scr1SvTests' 10 are `int unsigned`
+    targets we already get right on both sides.
+
+THE EIGHT CELLS (the whole population, named):
+
+  default/Earlgrey_0_1    int|30:14-30:17 |cast| work@top_earlgrey.u_hmac.u_packer  n=2
+                          int|31:14-31:17 |cast| work@top_earlgrey.u_hmac.u_packer  n=1
+                          int|207:14-207:17|cast| work@top_earlgrey.u_pinmux        n=1
+  testflags/Earlgrey_0_1  the same three keys, same multiplicities
+      golden sgn=1, ours sgn=0  --  prim_packer `Width` / `PtrW`,
+      pinmux `AlignedMuxSize`, all three `localparam int X = <computed>`.
+
+AFTER (reg97.py, golden asserted byte-unchanged, the SAME fixed universe):
+
+  Earlgrey default    TO-GOLDEN 4  AWAY-GOLDEN 0  STILL-WRONG 5899  ADDED 0  REMOVED 0
+  Earlgrey testflags  TO-GOLDEN 4  AWAY-GOLDEN 0  STILL-WRONG 6377  ADDED 0  REMOVED 0
+
+  score97 buckets over the whole integer-kind population, both one-sided sets
+  BYTE-FOR-ROW UNCHANGED (the law adds and removes no object):
+
+  Earlgrey default    BOTH-SAME 74375 -> 74379   MOVED-WRONG 3438 -> 3434
+                      GOLDEN-ONLY 8211 -> 8211   OURS-ONLY 3715 -> 3715
+  Earlgrey testflags  BOTH-SAME 74317 -> 74321   MOVED-WRONG 3500 -> 3496
+                      GOLDEN-ONLY 8139 -> 8139   OURS-ONLY 4192 -> 4192
+
+  Restricted to the LAW'S SHAPE:  wrong 3 -> 0 (default), 4 -> 1 (testflags).
+  The one that stays is NOT a signedness cell: it is a COUNT row
+  (`int|46:14-46:26|cast|work@top_earlgrey.u_spi_device.u_fwmode`, golden={} /
+  ours={sgn=0:1}) -- an `int unsigned` cast typespec we mint one copy too many
+  of, present before and after and owned by another law (R2 below).
+
+THE STILL-WRONG residue (5899 / 6377) is the pre-existing integer-kind
+population of OTHER laws -- logic_typespec ranges, enum/struct element
+typespecs, def-vs-elab listing multiplicities.  It is unchanged cell for cell
+except the four this law moved.

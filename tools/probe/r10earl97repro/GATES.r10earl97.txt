@@ -1,0 +1,119 @@
+r10earl97 -- THE GATE TRANSCRIPT.  BASE 915002a, branch auto5h.
+The official ~/git-repos/UHDM/build/bin/uhdm-cmp is the sole acceptance judge.
+
+(0) BINARIES.  Built in this pass's OWN worktree, -j 2, md5 taken separately,
+    then FROZEN chmod 555 at immutable paths of the SAME LENGTH so every
+    cmds.txt line is auditable by binary PATH:
+
+      pristine (915002a)      bfc16bc71de53c4b781209b4d3cfcd5f
+      patched  (+ the law)    a7276b56df16402b46520b9d19483375
+      production surface: src/ExprEmit.cpp, +18 lines, 1 file.
+
+(1) GOLDENS (SLANG_UHDM exported EXPLICITLY to each binary)
+      patched                23 PASS / 0 FAIL
+      pristine               23 PASS / 0 FAIL
+      SLANG_UHDM=/bin/false   0 PASS / 23 FAIL      <- negative control
+
+(2) uhdm2rtlil, jobs 2, this pass's own workdirs
+      testflags   CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+      ct8rows vs results/gate_uhdm2rtlil.csv           PASS (0 differing rows)
+      ct8rows vs this pass's OWN pristine sweep, tf    PASS (0 differing rows)
+      ct8rows vs this pass's OWN pristine sweep, def   PASS (0 differing rows)
+      (the baseline comparison was run on the PRISTINE sweep FIRST and also
+       read PASS, so the baseline is proven current before the patch is judged)
+
+(3) surelog --mode both, jobs 2
+      default     CMP_EQUAL 471  SLANG_REJECT 283  SURELOG_FAIL 25
+                  CMP_NOTEQUAL 10  DEFERRED 5
+      testflags   CMP_EQUAL 466  SLANG_REJECT 284  SURELOG_FAIL 23
+                  CMP_NOTEQUAL 9   DEFERRED 5  NO_DATABASE 3
+                  UNTRANSLATABLE 2  TIMEOUT 1  NO_UHDM 1
+      ct8rows vs results/golden_surelog.csv            PASS (0 differing rows
+                                                       over 1588, status AND
+                                                       dump column)
+      ct8rows vs this pass's OWN pristine sweep        PASS
+      NO ROW IS CONVERTED BY THIS PASS.  Earlgrey_0_1 stays CMP_NOTEQUAL in
+      both modes (its default mode still has a head); results/*.csv untouched.
+
+(4) cmds.txt AUDIT BY BINARY PATH
+      pristine sweep  u2r 1462 cmds, sl 1573 cmds -- 0 name the main-tree
+                      binary, all name /tmp/r10earl97_pris.bin
+      patched sweep   u2r 1462 cmds, sl 1573 cmds -- 0 name the main-tree
+                      binary, all name /tmp/r10earl97_lawA.bin
+
+(5) BYTEVERIFY SELFCHECK=1 (patched vs the pass's OWN pristine sweep)
+      uhdm2rtlil  PATH_SETS_IDENTICAL (1358)  MOVERS 0 / 1358
+                  SELFCHECK 1357 / 1358 flagged
+      surelog     PATH_SETS_IDENTICAL (956)   MOVERS 2 / 956
+                  ./default/Earlgrey_0_1     1e1df5ab0b57 -> 1e9a54fa2ed1
+                  ./testflags/Earlgrey_0_1   1c55d8fa931a -> fc4caabc5936
+                  SELFCHECK 955 / 956 flagged
+      Both movers were PREDICTED BY NAME from the pristine databases before the
+      patched sweep ran (PREDICT_R0.txt part 1), and each one's whole-dump
+      path-normalised diff is FOUR added `|vpiSigned:1` lines and nothing else.
+
+(6) HEADS (rowheads.sh, official cmp, head to STDERR)
+      TEST          MODE       BEFORE      AFTER
+      SeqDriver     default     60/1        60/1
+      SeqDriver     testflags   60/1        60/1
+      SimpleUVM     default     36/1        36/1
+      SimpleUVM     testflags   36/1        36/1
+      Scoreboard    default    163/1       163/1
+      Scoreboard    testflags  SKIP-NOFILE SKIP-NOFILE
+      MiniAmiq      default    106/1       106/1
+      MiniAmiq      testflags  106/1       106/1
+      BuildUVMPkg   default     45/1        45/1
+      BuildUVMPkg   testflags   45/1        45/1
+      Earlgrey_0_1  default     31/1        31/1      (different object; queued)
+      Earlgrey_0_1  testflags   54/1        36/1      <- THE HEAD CLEARED
+      Rggen         default      0/0         0/0      (EQUAL)
+      Rggen         testflags  SKIP-NOFILE SKIP-NOFILE
+      measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+
+(7) CANARIES
+      canaries.sh surelog     ok=52 changed=0 absent=0
+      canaries.sh u2r         ok=8  changed=0 absent=0
+      EXPECT_UNKNOWN=1 ctcan2 surelog   PASS
+      EXPECT_UNKNOWN=6 ctcan2 u2r       PASS
+      canaudit.sh canaries.sh ctcan2.sh audited=29 UNCOVERED=0 FENCE-BREACH=0
+      protected DBs by name (md5 first 12, patched sweep):
+        InterfaceModPort   59a365f3ce2c  (identical to pristine, both modes)
+        BlackParrotComplex 73a10e8217e5 tf / e3e354129d5a def (identical)
+        YosysOldOr         d68e0796d62c  (identical, both modes)
+        SVSwitch           4842211c4030  <- the pin
+        YosysVerx          6ccda350c24a  <- the pin
+
+(8) BOUNDARY
+    WIDE -- every .sv and .v under a COPY of tools/probe at ANY DEPTH
+    (subdirectory arms included), BOTH views, BOTH frozen binaries,
+    workdir-normalised uhdm-dump byte-compare.  File list read on fd 3,
+    every child </dev/null, PROCESSED asserted against the list:
+
+      LISTED=4364  PROCESSED=4364  identical=8370  DIFFERING=2  no_output=356
+
+      rc histogram BY SIDE -- SYMMETRIC, side for side:
+        0_A 8005   0_B 8005      139_A 14   139_B 14
+        3_A  342   3_B  342        4_A 367    4_B 367
+      (the 14+14 rc=139 are the pre-existing probe segfaults, R5; they occur on
+       BOTH binaries on the SAME arms, and byteverify proves none is a mover)
+
+      THE TWO DIFFERING CELLS are both views of ONE earlier-pass arm,
+      r10earl_repro/qj27.sv -- itself a cast-width arm.  RE-MEASURED AGAINST
+      GOLDEN with arm97.sh, it moves TOWARD golden and NOWHERE ELSE:
+        plain  uhdm-cmp 27 lines / 1 head -> 0 lines / 0 heads (EQUAL)
+        elab   uhdm-cmp 27 lines / 1 head -> 0 lines / 0 heads (EQUAL)
+        census MOVED-WRONG 5 -> 4, GOLDEN-ONLY 3 and OURS-ONLY 3 UNCHANGED
+        reg97  TO-GOLDEN 1  AWAY-GOLDEN 0  ADDED 0  REMOVED 0
+               int|36:14-36:17|cast|work@qj27.u_c  golden sgn=1, pristine 0,
+               candidate 1   (`localparam int MSZW = $clog2(...)` used as
+               `MSZW'(be_i)` -- the law's own shape)
+
+    OWN -- the six arms of this pass, same driver.  THIS IS THE POSITIVE
+    CONTROL that the boundary can see a moved cell:
+      PROCESSED=6  identical=2  DIFFERING=10  no_output=0  (rc=0 24/24)
+      DIFFERING: g0/g1/g2/g3/g4 in BOTH views -- the five law arms.
+      IDENTICAL: g5_neg97 in BOTH views -- the negative control, untouched.
+
+(9) FENCE.  The four slang-fenced test names are dispatched by nothing here and
+    are spelled in no probe artifact of this pass; canaudit.sh asserts
+    FENCE-BREACH=0.  results/*.csv were read only, never written.

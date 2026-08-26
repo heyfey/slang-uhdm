@@ -1,0 +1,139 @@
+r10earl97 -- THE MOVER PREDICTION and THE NEXT HEAD (R0).
+
+BASE 915002a, branch auto5h.  The official ~/git-repos/UHDM/build/bin/uhdm-cmp
+is the sole acceptance judge; everything in this directory is MEASUREMENT ONLY.
+
+========================================================================
+PART 1 -- THE MOVER PREDICTION (made from PRISTINE databases only)
+========================================================================
+The law's population is defined by a SHAPE, and `pop97.sh` counts every GOLDEN
+cell of it over both corpora before a line of the law was written:
+
+  an `int_typespec` OWNED BY A CAST OPERATION and carrying a `Cast_to_expr`
+  -- the object Surelog builds by REUSING the cast target parameter's
+  DECLARATION typespec (CompileType.cpp:750-782) rather than minting one.
+
+  uhdm2rtlil     0 rows in 1358 databases.  The corpus has NO cell of this
+                 shape: nothing to fix, nothing to break.
+  surelog      278 rows in  956 databases, in THREE tests:
+                   default/Earlgrey_0_1    108 sgn=0  +  4 sgn=1
+                   testflags/Earlgrey_0_1  107 sgn=0  +  4 sgn=1
+                   default/Rggen                        45 sgn=1
+                   default/Scr1SvTests       5 sgn=0
+                   testflags/Scr1SvTests     5 sgn=0
+
+Our PRISTINE database disagrees on EIGHT of the 278 -- the four `sgn=1` cells
+in each Earlgrey mode, two parameters of prim_packer and one of pinmux:
+
+  work@top_earlgrey.u_hmac.u_packer   int|30:14-30:17  (Width)          n=2
+  work@top_earlgrey.u_hmac.u_packer   int|31:14-31:17  (PtrW)           n=1
+  work@top_earlgrey.u_pinmux          int|207:14-207:17 (AlignedMuxSize) n=1
+      golden vpiSigned 1, ours unset.
+
+Rggen's 45 golden cells are objects we do not mint AT ALL (our side has ZERO
+rows of this shape there, and Rggen/default is CMP_EQUAL -- the judge never
+reaches them), so the law cannot touch them.  Scr1SvTests' 10 are `int
+unsigned` targets already right on both sides; the law copies the DECLARATION's
+flag, so copying FALSE there is a no-op.
+
+PREDICTION: EXACTLY TWO DATABASES MOVE -- Earlgrey_0_1 default and testflags.
+uhdm2rtlil: ZERO movers.
+
+WHAT ACTUALLY MOVED (byteverify SELFCHECK=1, patched vs this pass's OWN
+pristine sweep; both binaries frozen chmod 555 at immutable paths of the SAME
+LENGTH -- /tmp/r10earl97_pris.bin and /tmp/r10earl97_lawA.bin; every cmds.txt
+audited BY BINARY PATH, 0 of 1462 + 1573 name the main-tree binary):
+
+  uhdm2rtlil  MOVERS 0 / 1358   <- as predicted   (SELFCHECK 1357/1358 flagged)
+  surelog     MOVERS 2 /  956   <- as predicted, and NOTHING ELSE
+      ./default/Earlgrey_0_1
+      ./testflags/Earlgrey_0_1                    (SELFCHECK 955/956 flagged)
+
+  The whole-dump path-normalised diff of each mover is FOUR ADDED LINES and
+  nothing else.  VERIFIER CORRECTION: those four lines land in the design's
+  weaklyReferenced print block -- the only place uhdm-dump FULLY EXPANDS these
+  typespecs -- and the uhdmallModules (DEF) and uhdmtopModules (ELAB) blocks
+  are byte-identical because they print the same objects only as unexpanded
+  |vpiActual: headers.  The objects are parented under the ELABORATED module
+  instances and the official Compare reaches them through the cast operation's
+  ref_typespec -> Actual_typespec (that is how the head named one of them, and
+  the head clears):
+      > |vpiSigned:1  on the cast typespec of work@prim_packer.PtrW    (x1)
+      > |vpiSigned:1  on the cast typespec of work@prim_packer.Width   (x2)
+      > |vpiSigned:1  on the cast typespec of work@pinmux.AlignedMuxSize (x1)
+
+  THE CENSUS re-scored over the SAME fixed universe, GOLDEN SIDE ASSERTED
+  BYTE-UNCHANGED (reg97.py; CALIB golden-vs-golden reads 0):
+
+     Earlgrey default    TO-GOLDEN 4  AWAY-GOLDEN 0  ADDED 0  REMOVED 0
+                         BOTH-SAME 74375 -> 74379  MOVED-WRONG 3438 -> 3434
+                         GOLDEN-ONLY 8211 -> 8211  OURS-ONLY 3715 -> 3715
+     Earlgrey testflags  TO-GOLDEN 4  AWAY-GOLDEN 0  ADDED 0  REMOVED 0
+                         BOTH-SAME 74317 -> 74321  MOVED-WRONG 3500 -> 3496
+                         GOLDEN-ONLY 8139 -> 8139  OURS-ONLY 4192 -> 4192
+
+  MOVED-WRONG 0 / AWAY 0 in both columns, and NEITHER ONE-SIDED SET MOVES BY A
+  SINGLE ROW -- the law adds and removes no object.
+
+========================================================================
+PART 2 -- R0: THE NEXT HEAD, AND THE RESIDUES
+========================================================================
+BEFORE (this pass's own pristine build bfc16bc71de5), rowheads.sh scale:
+  Earlgrey_0_1 default   31, 1 head  |  testflags  54, 1 head
+AFTER (a7276b56df16):
+  Earlgrey_0_1 default   31, 1 head  |  testflags  36, 1 head  (NEW object)
+
+R0-testflags -- AN UNBASED `'1` PATTERN MEMBER THAT GOLDEN FOLDS AND WE DO NOT.
+    hmac_core.sv:116
+      assign sha_rdata =
+        ...
+        (sel_rdata == SelIPad) ? '{data: i_pad[...-:32], mask: '1} :
+      LHS constant 116:83-116:85, parent operation 116:30-116:86, inside the
+          tagged_pattern whose vpiTypespec is string_typespec `mask`:
+            vpiDecompile:15  vpiSize:4  UINT:15  vpiConstType:9
+      RHS the same constant, same span, same tagged_pattern:
+            vpiDecompile:'1  vpiSize:-1  BIN:1   vpiConstType:3
+    `constant::Compare` reads VpiSize / VpiConstType / VpiDecompile / the value,
+    so all four fields report.  Golden RE-TYPES the unbased literal against the
+    STRUCT MEMBER's width (`mask` is 4 bits in sha_fifo_t) at the tagged_pattern;
+    we keep the literal's own unsized form.  This lands in the assignment-
+    pattern / tagged_pattern family the standing boundary already fences
+    (grep tagged_pattern / "assignment pattern member default" / the '0
+    re-typing precedents) -- decode WHICH of those laws owns a NAMED member
+    before writing a new one.  Note line 117 carries the SAME shape, so the
+    fix should clear at least two cells.
+
+R0-default -- UNCHANGED and STILL QUEUED: the surplus elaborated gen-scope
+    variable `fifo_wptr` (hmac.sv:58, LHS <null> against a full RHS logic_var
+    in gen_scope work@top_earlgrey.u_hmac.u_msg_fifo.gen_normal_fifo), the
+    SINGULAR SafeCompare overload's mirror.  earl96 R0-default, verbatim.
+
+RANKED RESIDUES this pass MEASURED and deliberately did not take
+----------------------------------------------------------------
+R1  A NON-`int` CAST TARGET'S DECLARATION TYPESPEC IS NOT REUSED AT ALL.
+    g1_kind97: for a COMPUTED-default localparam of kind `integer`, `shortint`,
+    `longint`, `byte`, `time`, `bit [7:0]` or `logic signed [7:0]` used as a
+    bare cast width, golden REUSES the declaration typespec OF THAT KIND at the
+    cast site (with NO Cast_to_expr -- CompileType.cpp:777 attaches the ref only
+    for an int_typespec), while we mint a NAMED `int_typespec` at the identifier
+    span.  8 GOLDEN-ONLY + 16 OURS-ONLY cells per view, identical before and
+    after.  MEASURED DENOMINATOR: 0 corpus cells.  Its own law, its own census.
+R2  A PARENTHESISED CAST WIDTH ON A TYPED TARGET.  g4_form97 W_PAR
+    (`(W_PAR)'(m)` on a LITERAL-default `localparam int`): golden reuses the
+    declaration int_typespec (sgn=1, carrying the Cast_to_expr), we mint an
+    `integer_typespec` at the paren span.  The same family owns the ONE
+    surviving Earlgrey law-shape row -- an `int unsigned` cast typespec at
+    work@top_earlgrey.u_spi_device.u_fwmode 46:14-46:26 of which we mint one
+    copy too many (golden={} / ours={sgn=0:1}), present identically before and
+    after.  1 corpus cell, testflags only.
+R3  AN IMPORTED PACKAGE PARAMETER IS NOT LISTED UNDER THE IMPORTING MODULE.
+    g2_owner97: golden carries `int` typespecs for p2o97::P_BASE and
+    p2o97::P_PKG under work@sub2o97; we carry none.  2 cells per view.
+R4  A GEN-SCOPE / INTERFACE CAST WIDTH FOLDS TO A DIFFERENT KIND.  g3_home97:
+    golden's cast typespec inside a generate block (and inside an interface) is
+    an `integer_typespec` at the cast span; ours differs.  3 GOLDEN-ONLY cells.
+R5  THE PRE-EXISTING PROBE / BOUNDARY SEGFAULTS.  The wide boundary's rc
+    histogram is SYMMETRIC side for side.  Recorded by earl82 R6 / earl83 R6 /
+    earl84 R6 / earl85 R5 / earl89 R6 / earl90 R8 / earl91 R5 / earl93 R7 /
+    earl94 R6 / earl95 R4 / earl96 R5; byteverify proves none of them is a
+    mover.

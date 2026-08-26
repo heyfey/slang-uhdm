@@ -18557,6 +18557,24 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 its0->VpiColumnNo(dts0->VpiColumnNo());
                                 its0->VpiEndLineNo(dts0->VpiEndLineNo());
                                 its0->VpiEndColumnNo(dts0->VpiEndColumnNo());
+                                // § castTypedParamDeclSigned97 — and it takes
+                                // the declaration's VpiSigned with the rest of
+                                // it.  Surelog mints NOTHING here: it hands the
+                                // cast the target parameter's OWN declaration
+                                // typespec and only hangs a ref_obj on it
+                                // (CompileType.cpp:756-780, the ParamAssign arm
+                                // of compileDatastructureTypespec), so the cast
+                                // site's signedness IS the declaration's, which
+                                // compileBuiltinTypespec set from the type
+                                // keyword — `int` signed, `int unsigned` not
+                                // (CompileType.cpp:1155-1160).  We copy instead
+                                // of sharing, so the flag has to be copied too;
+                                // int_typespec::Compare reads VpiSigned right
+                                // after Cast_to_expr.  Copying MIRRORS the
+                                // declaration, so an `int unsigned` target
+                                // stays unsigned and nothing is stamped that
+                                // golden leaves clear.
+                                its0->VpiSigned(dts0->VpiSigned());
                                 auto* r0 = s.MakeRef_obj();
                                 if (auto* dr0 =
                                         (UHDM::ref_obj*)dts0->Cast_to_expr()) {

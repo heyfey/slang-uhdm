@@ -1,0 +1,77 @@
+r10earl97 -- THE ARM GRID.  Six arms, BOTH views (plain and -elabuhdm), both
+frozen binaries, the OFFICIAL uhdm-cmp per side, plus the ct97cen/score97
+buckets against the SAME golden.  Driver: arm97.sh.  MEASUREMENT ONLY.
+Every child gets </dev/null and its rc is printed; golden-vs-golden CALIB is
+scored FIRST on every arm and reads 0 MOVED-WRONG / 0 one-sided everywhere.
+
+arm            view  | uhdm-cmp lines   heads | MOVED-WRONG | GOLDEN-ONLY  OURS-ONLY
+                     | pris -> patc  pris->patc| pris->patc  |  (unchanged both sides)
+---------------------------------------------------------------------------------
+g0_head97      plain |  27 ->  0     1 -> 0   |  1 -> 0     |   0        0
+g0_head97      elab  |  27 ->  0     1 -> 0   |  1 -> 0     |   0        0
+g1_kind97      plain |  27 -> 13     1 -> 1   |  1 -> 0     |   8       16
+g1_kind97      elab  |  27 -> 13     1 -> 1   |  1 -> 0     |   8       16
+g2_owner97     plain |   9 ->  9     1 -> 1   |  7 -> 3     |   4        3
+g2_owner97     elab  |   9 ->  9     1 -> 1   |  7 -> 3     |   4       23
+g3_home97      plain |  17 -> 17     1 -> 1   |  5 -> 2     |   7        2
+g3_home97      elab  |  27 ->  0     1 -> 0   |  5 -> 2     |   7        2
+g4_form97      plain |  27 -> 25     1 -> 1   |  1 -> 0     |   1        1
+g4_form97      elab  |  27 -> 27     1 -> 1   |  1 -> 0     |   1        1
+g5_neg97       plain |   0 ->  0     0 -> 0   |  0 -> 0     |   1        0
+g5_neg97       elab  |   0 ->  0     0 -> 0   |  0 -> 0     |   1        0
+
+NEITHER ONE-SIDED SET MOVES BY A SINGLE ROW ON ANY ARM: the law writes a flag
+on an object that already exists and creates nothing.
+
+g0_head97  THE HEAD IN MINIATURE, and the positive control.  A typed module-body
+   localparam with a COMPUTED default (`localparam int PtrW = $clog2(Width+1)`)
+   used as a bare `PtrW'(m)` cast width in an instantiated submodule -- the
+   source shape of prim_packer.sv:31.  ONE head before, uhdm-cmp EQUAL after,
+   in BOTH views.
+
+g1_kind97  THE KIND AXIS.  int / int unsigned / integer / integer unsigned /
+   shortint / longint / byte / time / bit [7:0] / logic signed [7:0], each a
+   COMPUTED-default localparam used as a bare cast width.
+     * `int`            golden sgn=1, ours 0 -> 1.   THE LAW'S ONLY CELL HERE.
+     * `int unsigned`   golden sgn=0, ours 0.  AGREES BEFORE AND AFTER -- the
+                        AWAY control: the law copies the DECLARATION's flag,
+                        so an unsigned target stays unsigned.
+     * every other kind: golden REUSES the declaration typespec (integer /
+                        shortint / longint / byte / time / bit / logic) at the
+                        cast site and we mint a NAMED `int` typespec at the
+                        identifier span instead -- 8 GOLDEN-ONLY + 16 OURS-ONLY
+                        rows, IDENTICAL before and after.  That is R1, a
+                        different law with its own population; this law is
+                        gated on `int_typespec` and cannot reach it.
+
+g2_owner97  THE OWNER AXIS.  A port-list parameter, a body localparam, a
+   localparam whose value depends on an INSTANCE OVERRIDE, a package parameter,
+   a type-parameter-derived width, plus the non-cast owners the payload also
+   lives on (typedef, function return, struct member, variable, port), over TWO
+   instances of one definition.  FOUR law cells move (P_BODY and P_OVR in
+   u_s and u_s2) -- the override-dependent one included.  The 3 that stay are
+   pre-existing: two imported package-parameter rows we do not list under the
+   module (R3) and one unparented typedef row.
+
+g3_home97  THE HOME AXIS.  package / module / submodule / gen scope /
+   interface / THREE INSTANCES OF ONE DEFINITION.  All THREE instances of
+   sub3h97 move together (29:14, one cell each); the elab view becomes uhdm-cmp
+   EQUAL.  The gen-scope and interface cast sites are golden `integer_typespec`
+   objects we shape differently -- unchanged, R4.
+
+g4_form97  THE FORM AXIS -- the distinguishers the arm is gated on.
+     W_LIT   literal default, bare cast   : both sides mint the NAMED
+             int_typespec at the identifier span.  AGREES; must stay
+             (`castTgtDefaultIsLiteral`).
+     W_CALC  computed default, bare cast  : THE LAW'S CELL.  0 -> 1.
+     W_UNS   `int unsigned`, computed     : golden 0, ours 0.  AGREES; the law
+             copies FALSE here, which is why AWAY is 0.
+     W_PAR   literal default, PARENTHESISED cast : golden reuses the
+             declaration typespec, we mint an `integer_typespec` at the paren.
+             UNCHANGED -- R2, a different law.
+
+g5_neg97  NEGATIVE CONTROLS.  An UNTYPED localparam cast width (Surelog's
+   buildIntTypespec mints a NAMED int_typespec and NEVER touches VpiSigned --
+   CompileType.cpp:1096-1124), a literal width, a typedef cast target and a
+   typed literal-default width.  uhdm-cmp EQUAL before AND after, every bucket
+   identical: the law does not stamp what golden leaves clear.

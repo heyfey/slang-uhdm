@@ -1,0 +1,117 @@
+# r10earl97 -- VERIFIER TRANSCRIPT (adversarial)  BASE 915002a
+
+== BINARIES (built by the verifier from scratch, -j 2, md5 taken separately)
+pristine  bfc16bc71de53c4b781209b4d3cfcd5f   (frozen chmod 555, immutable path)
+patched   a7276b56df16402b46520b9d19483375   (frozen chmod 555, same path length)
+-- both md5s equal the implementer's; the build is reproducible.
+
+== GOLDENS
+patched  PASS=23 FAIL=0     pristine PASS=23 FAIL=0     SLANG_UHDM=/bin/false PASS=0 FAIL=23
+
+== u2r (both modes, both binaries)  679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+ct8rows committed-baseline vs patched      : 0 differing ROWS
+ct8rows own-pristine       vs patched (tf) : 0 differing ROWS
+ct8rows own-pristine       vs patched (def): 0 differing ROWS
+byteverify SELFCHECK=1  MOVERS 0 / 1358    (SELFCHECK 1357/1358 flagged)
+cmds.txt audit: 1462 files, 1458 name the frozen binary, 0 name the main-tree binary
+
+== surelog --mode both (both binaries)
+default   471 CMP_EQUAL / 283 SLANG_REJECT / 25 SURELOG_FAIL / 10 CMP_NOTEQUAL / 5 DEFERRED
+testflags 466 CMP_EQUAL / 284 SLANG_REJECT / 23 SURELOG_FAIL /  9 CMP_NOTEQUAL / 5 DEFERRED
+          + 3 NO_DATABASE / 2 UNTRANSLATABLE / 1 TIMEOUT / 1 NO_UHDM
+ct8rows committed-baseline vs patched : 0 differing ROWS over 1588
+ct8rows own-pristine       vs patched : 0 differing ROWS over 1588   (NO ROW CONVERTED)
+byteverify SELFCHECK=1  MOVERS 2 / 956  (SELFCHECK 955/956 flagged)
+    ./default/Earlgrey_0_1     patched=1e9a54fa2ed1 pristine=1e1df5ab0b57
+    ./testflags/Earlgrey_0_1   patched=fc4caabc5936 pristine=1c55d8fa931a
+cmds.txt audit: 1573 files, 1523 name the frozen binary, 0 name the main-tree binary
+results/*.csv untouched.
+
+== MOVER ATTRIBUTION (whole-dump, path-normalised)
+default   4717938 -> 4717942 lines; diff = 4 added lines, ALL '|vpiSigned:1'
+testflags 6714513 -> 6714517 lines; diff = 4 added lines, ALL '|vpiSigned:1'
+owners: work@prim_packer.PtrW (x1), work@prim_packer.Width (x2),
+        work@pinmux.AlignedMuxSize (x1)  -- the four cells named in the pass.
+SECTION (verifier correction to the pass README): the four lines land in the
+design's weaklyReferenced print block -- the only place uhdm-dump fully expands
+these typespecs.  uhdmallModules (DEF) and uhdmtopModules (ELAB) are byte-identical
+because they print the same objects only as unexpanded '|vpiActual:' headers.
+The objects are parented under the ELABORATED instances (census home =
+work@top_earlgrey.u_hmac.u_packer / .u_pinmux) and the OFFICIAL Compare reaches
+them through the cast operation's ref_typespec -> Actual_typespec: the pristine
+head IS one of them, and it clears.
+
+== CENSUS (ct97cen + reg97/score97, verifier's own build of the tool)
+CALIB golden-vs-golden: TO-GOLDEN 0 AWAY-GOLDEN 0 STILL-WRONG 0 ADDED 0 REMOVED 0 (both modes)
+default    TO-GOLDEN 4  AWAY-GOLDEN 0  ADDED 0  REMOVED 0
+testflags  TO-GOLDEN 4  AWAY-GOLDEN 0  ADDED 0  REMOVED 0
+default    BOTH-SAME 74375 -> 74379   MOVED-WRONG 3438 -> 3434   GOLDEN-ONLY 8211  OURS-ONLY 3715 (unchanged)
+testflags  BOTH-SAME 74317 -> 74321   MOVED-WRONG 3500 -> 3496   GOLDEN-ONLY 8139  OURS-ONLY 4192 (unchanged)
+WHOLE-FIELD SWEEP: same-count VpiSigned payload flips over EVERY integer-kind
+typespec of Earlgrey: pristine 4 per mode -> patched 0 per mode.  Zero remain.
+
+== POPULATION (pop97.sh, verifier's own run)
+uhdm2rtlil  0 law-shape rows / 1358 goldens
+surelog   278 law-shape rows /  956 goldens -- Earlgrey 112 def + 111 tf,
+          Rggen/default 45, Scr1SvTests 5+5.  Byte-identical to the committed POP_sl.txt.
+
+== HEADS (rowheads.sh, verifier's own sweeps)
+                     pristine   patched
+SeqDriver   def/tf     60/60      60/60
+SimpleUVM   def/tf     36/36      36/36
+Scoreboard  def          163        163
+MiniAmiq    def/tf   106/106    106/106
+BuildUVMPkg def/tf     45/45      45/45
+Earlgrey    default      31         31   (head object byte-identical: fifo_wptr, hmac.sv:58)
+Earlgrey    testflags    54  ->     36   (NEW OBJECT: hmac_core.sv:116:83 tagged-pattern constant)
+Rggen       default    EQUAL      EQUAL
+HEAD_BEFORE/HEAD_AFTER reproduced BYTE-IDENTICAL to the pass's committed .cmp files.
+
+== BOUNDARY, WIDE (verifier's own, a SUPERSET: the pass's six own arms included)
+LISTED=4370 == PROCESSED=4370 (4 workers, list on fd 3, children </dev/null)
+identical=8372  DIFFERING=12  no_output=356
+rc histogram SYMMETRIC side for side: 0_A 8017 / 0_B 8017 ; 139_A 14 / 139_B 14 ;
+                                      3_A 342 / 3_B 342 ; 4_A 367 / 4_B 367
+DIFFERING cells: g0/g1/g2/g3/g4 both views (the pass's own arms, 10) +
+                 r10earl_repro/qj27.sv both views (2).  g5_neg97 IDENTICAL both views.
+This reconciles EXACTLY with the pass's 4364/8370/DIFFERING 2 (which excluded its
+own six arms): 4364+6=4370, 8370+2=8372, 2+10=12, 8005+12=8017.
+qj27.sv re-measured against golden: uhdm-cmp 27 lines / 1 head -> EQUAL in BOTH views;
+reg97 TO-GOLDEN 1 / AWAY-GOLDEN 0 / ADDED 0 / REMOVED 0 on
+int|36:14-36:17|cast|work@qj27.u_c ; MOVED-WRONG 5->4 ; one-sided sets unchanged.
+
+== CANARIES / PROTECTED DBs
+canaries surelog ok=52 changed=0 ; u2r ok=8 changed=0 ; ctcan2 PASS x2 ;
+canaudit audited=29 UNCOVERED=0 FENCE-BREACH=0
+InterfaceModPort / BlackParrotComplex / YosysOldOr byte-identical both modes ;
+SVSwitch 4842211c4030 ; YosysVerx 6ccda350c24a
+
+== THE ADVERSARIAL ARMS (this directory; arm97.sh + ct97cen + reg97, both views)
+                              uhdm-cmp pris -> patc      reg97 (both views)
+va1_sign97  int signed / int unsigned / plain int / typedef-of-int /
+            typedef-of-int-unsigned / typedef-of-integer targets
+                              36 -> 36 lines            TO-GOLDEN 2 AWAY 0 ADDED 0 REMOVED 0
+va2_ovr97   override-dependent target, an INSTANCE ARRAY of 3, and three
+            separate instances of one definition
+                              27 -> EQUAL               TO-GOLDEN 6 AWAY 0 ADDED 0 REMOVED 0
+va3_ref97   target whose default is a bare REF to another parameter; package
+            target reached qualified and unqualified
+                              10 -> 10 lines            TO-GOLDEN 1 AWAY 0 ADDED 0 REMOVED 0
+va4_home97  struct member / union member / class property / enum with an int
+            base / packed array of int / function return + argument / port /
+            variable / gen-scope decl / interface -- MUST NOT MOVE
+                             288 -> 288 lines           TO-GOLDEN 0 AWAY 0 ADDED 0 REMOVED 0
+                             (both censuses byte-identical before and after)
+va5_td97    package typedef, CHAINED typedef, local alias, and a type PARAMETER
+            as the declared type of the target
+                             125 -> 125 lines           TO-GOLDEN 0 AWAY 0 ADDED 0 REMOVED 0
+va6_nest97  shared def bodies: two overrides of one definition, a three-deep
+            nest, and a module instantiated from a generate loop
+                              27 -> EQUAL               TO-GOLDEN 4 AWAY 0 ADDED 0 REMOVED 0
+
+The pass's own grids, re-run by the verifier on its own binaries:
+g0_head97 27 -> EQUAL (both views) ; g1_kind97 27 -> 13, only the 'int' cell moves,
+the 8 GOLDEN-ONLY / 16 OURS-ONLY non-int rows UNCHANGED ; g4_form97 MOVED-WRONG 1 -> 0 ;
+g5_neg97 EQUAL before AND after, dumps byte-identical (the negative control).
+
+AWAY-GOLDEN over EVERY arm measured here, in both views: ZERO.
