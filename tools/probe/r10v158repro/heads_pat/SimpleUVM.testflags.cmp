@@ -1,0 +1,67 @@
+LHS:
+decompile:
+operation: , id:155863, line:121:19, endln:121:67
+|vpiParent:
+\_assignment: , id:155861, line:121:7, endln:121:67
+|vpiOpType:33
+|vpiOperand:
+\_constant: , id:155864, line:121:20, endln:121:42
+  |vpiDecompile:"uvm_reg_predictor #("
+  |vpiSize:160
+  |STRING:uvm_reg_predictor #(
+  |vpiConstType:6
+|vpiOperand:
+\_hier_path: (t.get_type_name), id:155865, line:121:44, endln:121:61
+  |vpiParent:
+  \_operation: , id:155863, line:121:19, endln:121:67
+  |vpiActual:
+  \_ref_obj: (t), id:155866, line:121:44, endln:121:45
+    |vpiParent:
+    \_hier_path: (t.get_type_name), id:155865, line:121:44, endln:121:61
+    |vpiName:t
+  |vpiActual:
+  \_method_func_call: (get_type_name), id:155867, line:121:46, endln:121:59
+    |vpiParent:
+    \_hier_path: (t.get_type_name), id:155865, line:121:44, endln:121:61
+    |vpiName:get_type_name
+  |vpiName:t.get_type_name
+|vpiOperand:
+\_constant: , id:155868, line:121:63, endln:121:66
+  |vpiDecompile:")"
+  |vpiSize:8
+  |STRING:)
+  |vpiConstType:6
+
+decompile:
+operation: , id:155863, line:121:19, endln:121:67
+|vpiParent:
+\_assignment: , id:155861, line:121:7, endln:121:67
+|vpiOpType:33
+|vpiOperand:
+\_constant: , id:155864, line:121:20, endln:121:42
+  |vpiDecompile:"uvm_reg_predictor #("
+  |vpiSize:160
+  |STRING:uvm_reg_predictor #(
+  |vpiConstType:6
+|vpiOperand:
+\_hier_path: (t.get_type_name), id:155865, line:121:44, endln:121:61
+  |vpiParent:
+  \_operation: , id:155863, line:121:19, endln:121:67
+  |vpiActual:
+  \_ref_obj: (t), id:155866, line:121:44, endln:121:45
+    |vpiParent:
+    \_hier_path: (t.get_type_name), id:155865, line:121:44, endln:121:61
+    |vpiName:t
+  |vpiActual:
+  \_method_func_call: (get_type_name), id:155867, line:121:46, endln:121:59
+    |vpiParent:
+    \_hier_path: (t.get_type_name), id:155865, line:121:44, endln:121:61
+    |vpiName:get_type_name
+  |vpiName:t.get_type_name
+|vpiOperand:
+\_constant: , id:155868, line:121:63, endln:121:66
+  |vpiDecompile:")"
+  |vpiSize:8
+  |STRING:)
+  |vpiConstType:6
+RHS: <null>

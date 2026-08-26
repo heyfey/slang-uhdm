@@ -1,0 +1,174 @@
+r10uvm158 — THE WHOLE-DUMP, PATH-NORMALISED, ORDER-BLIND ATTRIBUTION of every
+byte mover.  MEASUREMENT ONLY.  Dumps taken with uhdm-dump from the pristine
+and the patched sweep workdirs, the workdir path sed'ed away, both sides
+sorted (Scoreboard/default is a ~50/50 COIN — order-blind is the only sound
+attribution, RESUME.md section 9).
+
+  row                          raw-diff lines   order-blind lines   deletions
+  default/SeqDriver             15               15                 0
+  default/SimpleUVM             15               15                 0
+  default/Scoreboard            15               15                 0
+  default/MiniAmiq              15               15                 0
+  default/BuildUVMPkg           90               90                 0
+
+EVERY line is an ADDITION and every addition belongs to a recovered block's
+vpiVariables listing.  The four uvm-1.2 rows are the identical 15 lines:
+46575a46576
+>                 \_begin: (uvm_pkg::uvm_reg_predictor::get_type_name), line:118:26, endln:122:8
+221444a221446,221447
+>                   \_int_typespec: , line:119:7, endln:119:14
+> \_int_typespec: , line:119:7, endln:119:14
+368160a368164
+>                 \_ref_typespec: (uvm_pkg::uvm_reg_predictor::get_type_name::t)
+376816a376821,376822
+>                   \_ref_var: (uvm_pkg::uvm_reg_predictor::get_type_name::t), line:119:15, endln:119:16
+>               \_ref_var: (uvm_pkg::uvm_reg_predictor::get_type_name::t), line:119:15, endln:119:16
+451491a451498
+>                   |vpiActual:
+642254a642262,642263
+>                   |vpiFullName:uvm_pkg::uvm_reg_predictor::get_type_name::t
+>                 |vpiFullName:uvm_pkg::uvm_reg_predictor::get_type_name::t
+773014a773024
+>                 |vpiName:t
+898151a898162,898163
+>                   |vpiParent:
+>                 |vpiParent:
+1015474a1015487
+>   |vpiSigned:1
+1079937a1079951
+>                 |vpiTypespec:
+1089173a1089188
+>               |vpiVariables:
+
+BuildUVMPkg/default, all 90 lines (three recovered blocks):
+5629a5630,5635
+>                 \_assignment: , line:14095:21, endln:14095:49
+>               \_assignment: , line:14095:21, endln:14095:49
+>             \_assignment: , line:14095:21, endln:14095:49
+>                 \_assignment: , line:14096:19, endln:14096:43
+>               \_assignment: , line:14096:19, endln:14096:43
+>             \_assignment: , line:14096:19, endln:14096:43
+43917a43924
+>               \_begin: (uvm_pkg::uvm_registry_common::create), line:14059:30, endln:14066:8
+43957a43965,43966
+>               \_begin: (uvm_pkg::uvm_registry_common::set_type_alias), line:14094:63, endln:14100:9
+>               \_begin: (uvm_pkg::uvm_registry_common::set_type_alias), line:14094:63, endln:14100:9
+47036a47046
+>                 \_begin: (uvm_pkg::uvm_reg_predictor::type_name), line:61835:28, endln:61839:8
+74570a74581
+>   \_class_defn: (uvm_pkg::uvm_factory), file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:11448:9, endln:11732:9
+86061a86073,86074
+>                 \_class_typespec: , line:14095:9, endln:14095:20
+> \_class_typespec: , line:14095:9, endln:14095:20
+104556a104570,104572
+>                 \_class_var: (uvm_pkg::uvm_registry_common::set_type_alias::factory), line:14095:21, endln:14095:28
+>               \_class_var: (uvm_pkg::uvm_registry_common::set_type_alias::factory), line:14095:21, endln:14095:28
+>             \_class_var: (uvm_pkg::uvm_registry_common::set_type_alias::factory), line:14095:21, endln:14095:28
+217012a217029,217030
+>                 \_int_typespec: , line:14096:9, endln:14096:18
+> \_int_typespec: , line:14096:9, endln:14096:18
+220246a220265,220266
+>                   \_int_typespec: , line:61836:7, endln:61836:14
+> \_int_typespec: , line:61836:7, endln:61836:14
+331748a331769
+>               \_ref_obj: (uvm_pkg::uvm_registry_common::set_type_alias::Tregistry::get), line:14096:27, endln:14096:38
+331749a331771
+>               \_ref_obj: (uvm_pkg::uvm_registry_common::set_type_alias::uvm_factory::get), line:14095:31, endln:14095:44
+356969a356992
+>               \_ref_typespec: (uvm_pkg::uvm_registry_common::create::msg)
+356990a357014,357015
+>               \_ref_typespec: (uvm_pkg::uvm_registry_common::set_type_alias::factory)
+>               \_ref_typespec: (uvm_pkg::uvm_registry_common::set_type_alias::rgtry)
+358350a358376
+>                 \_ref_typespec: (uvm_pkg::uvm_reg_predictor::type_name::t)
+366198a366225,366227
+>                 \_ref_var: (uvm_pkg::uvm_registry_common::set_type_alias::rgtry), line:14096:19, endln:14096:24
+>               \_ref_var: (uvm_pkg::uvm_registry_common::set_type_alias::rgtry), line:14096:19, endln:14096:24
+>             \_ref_var: (uvm_pkg::uvm_registry_common::set_type_alias::rgtry), line:14096:19, endln:14096:24
+366648a366678,366679
+>                   \_ref_var: (uvm_pkg::uvm_reg_predictor::type_name::t), line:61836:15, endln:61836:16
+>               \_ref_var: (uvm_pkg::uvm_reg_predictor::type_name::t), line:61836:15, endln:61836:16
+383116a383148,383149
+>                 \_string_typespec: , line:14060:7, endln:14060:13
+> \_string_typespec: , line:14060:7, endln:14060:13
+392982a393016,393018
+>                 \_string_var: (uvm_pkg::uvm_registry_common::create::msg), line:14060:14, endln:14060:17
+>                 \_string_var: (uvm_pkg::uvm_registry_common::create::msg), line:14060:14, endln:14060:17
+>             \_string_var: (uvm_pkg::uvm_registry_common::create::msg), line:14060:14, endln:14060:17
+436662a436699,436703
+>                   |vpiActual:
+>                 |vpiActual:
+>                 |vpiActual:
+>                 |vpiActual:
+>                 |vpiActual:
+498278a498320,498321
+>               |vpiBlocking:1
+>               |vpiBlocking:1
+509375a509419
+>   |vpiClassDefn:
+622356a622401,622402
+>                 |vpiFullName:uvm_pkg::uvm_registry_common::create::msg
+>               |vpiFullName:uvm_pkg::uvm_registry_common::create::msg
+622443a622490,622491
+>                 |vpiFullName:uvm_pkg::uvm_registry_common::set_type_alias::factory
+>               |vpiFullName:uvm_pkg::uvm_registry_common::set_type_alias::factory
+622447a622496,622498
+>                 |vpiFullName:uvm_pkg::uvm_registry_common::set_type_alias::rgtry
+>               |vpiFullName:uvm_pkg::uvm_registry_common::set_type_alias::rgtry
+>                 |vpiFullName:uvm_pkg::uvm_registry_common::set_type_alias::Tregistry::get
+622448a622500
+>                 |vpiFullName:uvm_pkg::uvm_registry_common::set_type_alias::uvm_factory::get
+628889a628942,628943
+>                   |vpiFullName:uvm_pkg::uvm_reg_predictor::type_name::t
+>                 |vpiFullName:uvm_pkg::uvm_reg_predictor::type_name::t
+676964a677019,677020
+>               |vpiLhs:
+>               |vpiLhs:
+701710a701767
+>               |vpiName:factory
+728296a728354
+>               |vpiName:msg
+744811a744870
+>               |vpiName:rgtry
+756194a756254
+>                 |vpiName:t
+760408a760469
+>                 |vpiName:Tregistry::get
+763650a763712
+>                 |vpiName:uvm_factory::get
+810828a810891,810892
+>               |vpiOpType:82
+>               |vpiOpType:82
+869752a869817
+>                   |vpiParent:
+886176a886242,886252
+>                 |vpiParent:
+>                 |vpiParent:
+>                 |vpiParent:
+>                 |vpiParent:
+>                 |vpiParent:
+>                 |vpiParent:
+>               |vpiParent:
+>               |vpiParent:
+>               |vpiParent:
+>               |vpiParent:
+>               |vpiParent:
+984807a984884,984885
+>               |vpiRhs:
+>               |vpiRhs:
+992920a992999,993000
+>   |vpiSigned:1
+>   |vpiSigned:1
+1027882a1027963,1027964
+>             |vpiStmt:
+>             |vpiStmt:
+1053376a1053459,1053462
+>                 |vpiTypespec:
+>               |vpiTypespec:
+>               |vpiTypespec:
+>               |vpiTypespec:
+1063065a1063152,1063155
+>               |vpiVariables:
+>             |vpiVariables:
+>             |vpiVariables:
+>             |vpiVariables:

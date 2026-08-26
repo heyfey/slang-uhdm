@@ -1,0 +1,117 @@
+r10uvm158 — THE LANDING GATE BATTERY, run in this worktree, all green.
+MEASUREMENT ONLY except where the official judge is named; LHS is ALWAYS golden.
+
+BASE                1f9906a
+pristine binary     md5 100987bc8d76f2052aa842d7c65c5110  (frozen chmod 555 at
+                    /tmp/r10uvm158_bin/pris.bin BEFORE any sweep)
+patched  binary     md5 5c39f2b244f69d171cfaa3353e8fdf63  (frozen chmod 555 at
+                    /tmp/r10uvm158_bin/pat.bin)
+Both sweeps' cmds.txt audited BY BINARY PATH: every command reads
+  /tmp/r10uvm158_bin/{pris,pat}.bin — never the main-tree build.
+
+(1) BUILD          both binaries built -j 2, rc=0, md5s above (taken separately).
+                   REPRODUCIBILITY CHECK: the SHIPPED source was rebuilt from
+                   scratch (-j 2, rc=0) after the last edit and produced
+                   5c39f2b244f69d171cfaa3353e8fdf63 again — the binary every
+                   gate below was measured with is the binary this patch
+                   builds.
+
+(2) GOLDENS        patched : PASS=23 FAIL=0
+                   pristine: PASS=23 FAIL=0
+                   SLANG_UHDM=/bin/false : FAIL=23   (negative control)
+                   SLANG_UHDM exported EXPLICITLY to each binary.
+
+(3) uhdm2rtlil     testflags CMP_EQUAL 679 / SLANG_REJECT 50 / SURELOG_FAIL 2
+                   default   CMP_EQUAL 679 / SLANG_REJECT 50 / SURELOG_FAIL 2
+                   ct8rows vs results/gate_uhdm2rtlil.csv  : PASS (0 differing rows)
+                   ct8rows vs this pass's own pristine tf  : PASS
+                   ct8rows vs this pass's own pristine def : PASS
+                   (whole row compared, dump column included)
+
+(4) surelog        default   CMP_EQUAL 471 / SLANG_REJECT 283 / SURELOG_FAIL 25
+                             CMP_NOTEQUAL 10 / DEFERRED 5
+                   testflags CMP_EQUAL 466 / SLANG_REJECT 284 / SURELOG_FAIL 23
+                             CMP_NOTEQUAL 9 / DEFERRED 5 / NO_DATABASE 3 /
+                             UNTRANSLATABLE 2 / TIMEOUT 1 / NO_UHDM 1
+                   status histograms IDENTICAL to this pass's own pristine sweep.
+                   ct8rows vs results/golden_surelog.csv : PASS (0 differing rows
+                     over 1588)
+                   ct8rows vs this pass's own pristine   : PASS
+                   NO ROW CONVERTED.  results/*.csv NOT EDITED.
+
+(5) BYTE VERIFY    SELFCHECK=1
+                   uhdm2rtlil : PATH_SETS_IDENTICAL (1358)  MOVERS 0 / 1358
+                                SELFCHECK 1357/1358 flagged
+                   surelog    : PATH_SETS_IDENTICAL (956)   MOVERS 9 / 956
+                                SELFCHECK 955/956 flagged
+                   The 9 movers are EXACTLY the 9 databases predicted BY NAME
+                   from the pristine databases before the patched sweep ran:
+                     default/BuildUVMPkg  default/MiniAmiq  default/Scoreboard
+                     default/SeqDriver    default/SimpleUVM
+                     testflags/BuildUVMPkg testflags/MiniAmiq
+                     testflags/SeqDriver  testflags/SimpleUVM
+                   Attribution: whole-dump, path-normalised, ORDER-BLIND diff
+                   (Scoreboard/default is a coin) — 15 lines on each uvm-1.2 row
+                   and 90 on BuildUVMPkg, ALL ADDITIONS, ZERO DELETIONS, every
+                   line inside a recovered block's vpiVariables listing.
+                   See DUMPDIFF.r10uvm158.txt.
+
+(6) HEADS          rowheads.sh, pristine -> patched (DEPTH, not distance):
+                     SeqDriver      def/tf   22 ->   22   head log same object
+                                                          (one serializer id shifts)
+                     SimpleUVM      def/tf  163 ->   67   NEW head object
+                     Scoreboard     def     163 ->   67   NEW head object
+                     Scoreboard     tf       SKIP-NOFILE (SLANG_REJECT) - COUNTED
+                     MiniAmiq       def/tf  106 ->  106   head log BYTE-IDENTICAL
+                     BuildUVMPkg    def/tf 1371 -> 1371   head log BYTE-IDENTICAL
+                     Earlgrey_0_1   def      31 ->   31   head log BYTE-IDENTICAL
+                     Earlgrey_0_1   tf       36 ->   36   head log BYTE-IDENTICAL
+                     Rggen          def       0 ->    0   CMP_EQUAL
+                     Rggen          tf       SKIP-NOFILE (no golden) - COUNTED
+                   measured=12 SKIP-NOFILE=2 UNKNOWN-NAME=0
+
+(7) CANARIES       canaries.sh  surelog   : ok=52 changed=0 absent=0
+                   canaries.sh  uhdm2rtlil: ok=8  changed=0 absent=0
+                   EXPECT_UNKNOWN=1 ctcan2.sh surelog    : PASS
+                   EXPECT_UNKNOWN=6 ctcan2.sh uhdm2rtlil : PASS
+                   canaudit.sh canaries.sh ctcan2.sh :
+                     audited=29 UNCOVERED=0 FENCE-BREACH=0  PASS
+                   PROTECTED DATABASES, md5 pristine vs patched:
+                     InterfaceModPort   def/tf  59a365f3ce2c  SAME
+                     BlackParrotComplex def     e3e354129d5a  SAME
+                     BlackParrotComplex tf      73a10e8217e5  SAME
+                     YosysOldOr         def/tf  d68e0796d62c  SAME
+                     SVSwitch           def/tf  4842211c4030  SAME  (brief pin)
+                     YosysVerx          def/tf  6ccda350c24a  SAME  (brief pin)
+
+(8) WIDE BOUNDARY  bound158.sh over a COPY of the whole probe tree, top level AND
+                   subdirectories, both views, both binaries.  Run TWICE:
+                   run 1 (before g158_f_witness.sv was added):
+                     LISTED=4418 PROCESSED=4418 PRODUCED_DBS=4271
+                     MOVED_ARMS=6 RC_DIFFS=0
+                   run 2 (the FINAL tree):
+                     LISTED=4419 PROCESSED=4419 PRODUCED_DBS=4272
+                     MOVED_ARMS=8 RC_DIFFS=0
+                   LISTED == PROCESSED both times.
+                   6 of the 8 are THIS pass's own grid arms — the POSITIVE
+                   CONTROL that proves the gate can see.  The seventh,
+                   r10uvm59repro/a1_witness.sv, is re-measured against Surelog's
+                   golden in GRID.r10uvm158.txt: BLK TOWARD=1 WRONG=0 AWAY=0,
+                   DECL TOWARD=2 WRONG=0 AWAY=0 — its `set_type_alias` nested
+                   begin now matches golden exactly (factory:class_var,
+                   rgtry:ref_var), which is the same cell BuildUVMPkg moves.
+                   The eighth, r10vrgg3repro/xi_iface_param_type/dut.sv, is a
+                   GATE FLAKE and is REFUTED, not explained away: the arm has no
+                   procedural code at all (the patch's only entry point is
+                   unreachable from it), run 1 read it SAME, 92 direct builds
+                   are byte-identical on both binaries and in both views, and a
+                   re-run of the same gate over its whole subtree reads
+                   LISTED=52 PROCESSED=52 MOVED_ARMS=0.  See
+                   BOUNDARY.r10uvm158.txt.
+
+(9) FENCE          the four slang-fenced tests were NEVER dispatched and are
+                   spelled nowhere in this directory except canaudit.sh's own
+                   fence list (canaudit FENCE-BREACH=0).
+                   GOLDEN_DEFER unset throughout.  slang NOT patched.
+                   results/gate_uhdm2rtlil.csv and results/golden_surelog.csv
+                   READ ONLY.

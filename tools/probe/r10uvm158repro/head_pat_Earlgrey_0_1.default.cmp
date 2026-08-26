@@ -1,0 +1,31 @@
+LHS: <null>
+RHS:
+decompile:
+logic_var: (work@top_earlgrey.u_hmac.u_msg_fifo.gen_normal_fifo.fifo_wptr), id:363965, line:58:27, endln:58:36
+|vpiParent:
+\_gen_scope: (work@top_earlgrey.u_hmac.u_msg_fifo.gen_normal_fifo), id:363954, line:52:12, endln:151:6
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_hmac.u_msg_fifo.gen_normal_fifo.fifo_wptr), id:363971
+  |vpiParent:
+  \_logic_var: (work@top_earlgrey.u_hmac.u_msg_fifo.gen_normal_fifo.fifo_wptr), id:363965, line:58:27, endln:58:36
+  |vpiFullName:work@top_earlgrey.u_hmac.u_msg_fifo.gen_normal_fifo.fifo_wptr
+  |vpiActual:
+  \_logic_typespec: , id:363967, line:58:5, endln:58:26
+|vpiName:fifo_wptr
+|vpiFullName:work@top_earlgrey.u_hmac.u_msg_fifo.gen_normal_fifo.fifo_wptr
+|vpiVisibility:1
+
+decompile:
+logic_var: (work@top_earlgrey.u_hmac.u_msg_fifo.gen_normal_fifo.fifo_wptr), id:363965, line:58:27, endln:58:36
+|vpiParent:
+\_gen_scope: (work@top_earlgrey.u_hmac.u_msg_fifo.gen_normal_fifo), id:363954, line:52:12, endln:151:6
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_hmac.u_msg_fifo.gen_normal_fifo.fifo_wptr), id:363971
+  |vpiParent:
+  \_logic_var: (work@top_earlgrey.u_hmac.u_msg_fifo.gen_normal_fifo.fifo_wptr), id:363965, line:58:27, endln:58:36
+  |vpiFullName:work@top_earlgrey.u_hmac.u_msg_fifo.gen_normal_fifo.fifo_wptr
+  |vpiActual:
+  \_logic_typespec: , id:363967, line:58:5, endln:58:26
+|vpiName:fifo_wptr
+|vpiFullName:work@top_earlgrey.u_hmac.u_msg_fifo.gen_normal_fifo.fifo_wptr
+|vpiVisibility:1

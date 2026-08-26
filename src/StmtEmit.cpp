@@ -1856,6 +1856,21 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
         }
         case StatementKind::Block: {
             auto& bs = stmt.as<BlockStatement>();
+            // § badBlockKeepsItsScope158 — slang's `Statement::bindBlock`
+            // returns the `badStmt` wrapper BEFORE it links the block to its
+            // scope, so ONE rejected statement inside a `begin` / `fork` costs
+            // the WHOLE block its `blockSymbol` and every question this arm
+            // asks of it — the locals, the label, the block-scope parameters.
+            // Surelog compiles the block items regardless.  `blkSym158` is
+            // `bs.blockSymbol` verbatim whenever slang set it, and the scope
+            // recovered from the block's own `bindScopeInitializers`
+            // declarations when it did not; the law and the slang citations
+            // are on `recoverBadBlockScope158` in EmitHelpers.h.  EVERY
+            // `bs.blockSymbol` read in this arm goes through it, so a
+            // recovered block can never be half-listed (a named block whose
+            // locals were listed under the UNLABELLED prefix would be a
+            // MOVED-WRONG cell, not a fix).
+            const StatementBlockSymbol* blkSym158 = recoverBadBlockScope158(bs);
             bool isFork = bs.blockKind != StatementBlockKind::Sequential;
             // slang wraps for-loops with inline declarations, and every
             // foreach (its loop variables are block-scoped), in an implicit
@@ -1881,7 +1896,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // A LABELED immediate assertion (eff3: assert(x);) gets NO
             // named_begin wrapper: the label becomes the assertion's own
             // name (refs still scope through the label).
-            if (bs.blockSymbol && !bs.blockSymbol->name.empty() && !isFork &&
+            if (blkSym158 && !blkSym158->name.empty() && !isFork &&
                 (!bs.syntax ||
                  bs.syntax->kind != syntax::SyntaxKind::SequentialBlockStatement)) {
                 const Statement* inner = &bs.body;
@@ -1896,17 +1911,17 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // fullnamed by the label (SequenceInst a3).
                 if (inner->kind == StatementKind::ImmediateAssertion ||
                     inner->kind == StatementKind::ConcurrentAssertion) {
-                    std::string innerPfx = joinRef(prefix, bs.blockSymbol->name);
+                    std::string innerPfx = joinRef(prefix, blkSym158->name);
                     auto* ua = emitStmt(*inner, parent, innerPfx, netMap);
                     if (ua) {
                         if (ua->UhdmType() == UHDM::uhdmimmediate_assert)
-                            ((UHDM::immediate_assert*)ua)->VpiName(bs.blockSymbol->name);
+                            ((UHDM::immediate_assert*)ua)->VpiName(blkSym158->name);
                         else if (ua->UhdmType() == UHDM::uhdmimmediate_assume)
-                            ((UHDM::immediate_assume*)ua)->VpiName(bs.blockSymbol->name);
+                            ((UHDM::immediate_assume*)ua)->VpiName(blkSym158->name);
                         else if (ua->UhdmType() == UHDM::uhdmimmediate_cover)
-                            ((UHDM::immediate_cover*)ua)->VpiName(bs.blockSymbol->name);
+                            ((UHDM::immediate_cover*)ua)->VpiName(blkSym158->name);
                         else if (auto* cc = any_cast<UHDM::concurrent_assertions*>(ua))
-                            cc->VpiName(bs.blockSymbol->name);
+                            cc->VpiName(blkSym158->name);
                     }
                     return ua;
                 }
@@ -1950,11 +1965,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             const bool joinTailSeen131 = !bss131 || !bss131->items.empty();
             UHDM::scope* b = nullptr;
             std::string innerPrefix = prefix;
-            if (bs.blockSymbol && !bs.blockSymbol->name.empty()) {
+            if (blkSym158 && !blkSym158->name.empty()) {
                 UHDM::scope* nb;
                 if (isFork) {
                     auto* nf = s.MakeNamed_fork();
-                    nf->VpiName(bs.blockSymbol->name);
+                    nf->VpiName(blkSym158->name);
                     // § parBlockJoinTailAfterFirstItem131 — the join type is
                     // stamped on named_fork and fork_stmt by the SAME two
                     // lines of CompileStmt; only our emitter had split them.
@@ -1968,10 +1983,10 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 }
                 else {
                     auto* nbg = s.MakeNamed_begin();
-                    nbg->VpiName(bs.blockSymbol->name);
+                    nbg->VpiName(blkSym158->name);
                     nb = nbg;
                 }
-                innerPrefix = joinRef(prefix, bs.blockSymbol->name);
+                innerPrefix = joinRef(prefix, blkSym158->name);
                 nb->VpiFullName(innerPrefix);
                 if (isFork && bss131) {
                     // § parBlockJoinTailAfterFirstItem131 (span half, dump-only
@@ -1990,8 +2005,8 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 }
                 else {
                     // Anchored at the block name token.
-                    auto nl = bs.blockSymbol->location;
-                    setLoc(nb, SourceRange(nl, nl + bs.blockSymbol->name.size()));
+                    auto nl = blkSym158->location;
+                    setLoc(nb, SourceRange(nl, nl + blkSym158->name.size()));
                 }
                 // § endBlockLabelAllOwners62 — `end : lbl` AND
                 // `join/join_any/join_none : lbl`.  A ParallelBlockStatement is
@@ -2015,7 +2030,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             ((UHDM::named_begin*)nb)
                                 ->VpiEndLabel(ebn->name.valueText());
                     }
-                namedBlockMap[bs.blockSymbol] = nb;
+                namedBlockMap[blkSym158] = nb;
                 b = nb;
             }
             else {
@@ -2053,15 +2068,15 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // A FORK arm is recorded exactly like a sequential begin because
             // a fork raises no depth (b4 e9:120/121 — golden binds both the
             // arm's own local and the enclosing if-body local).
-            BlkCtrl57 bcd57(blkCtrlDepth57, (const void*)bs.blockSymbol,
+            BlkCtrl57 bcd57(blkCtrlDepth57, (const void*)blkSym158,
                             ctrlBodyDepth28);
             // Block-local variable declarations become scope Variables
             // (module-scoped fullnames, no visibility flag).
             NetMap blockMap = netMap;
             std::vector<UHDM::any*> forkDeclStmts9;
-            if (bs.blockSymbol) {
+            if (blkSym158) {
                 auto* vars = s.MakeVariablesVec();
-                for (auto& bm : bs.blockSymbol->members()) {
+                for (auto& bm : blkSym158->members()) {
                     if (bm.kind != SymbolKind::Variable)
                         continue;
                     // § blockDeclAutomaticIsWrittenKw80 — computed ONCE per
@@ -2447,8 +2462,8 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 stmts->push_back(ds9);
             // Block-scoped localparams appear as inline param_assign stmts
             // (bare parameter, folded unparented rhs, no typespecs).
-            if (bs.blockSymbol) {
-                for (auto& bm : bs.blockSymbol->members()) {
+            if (blkSym158) {
+                for (auto& bm : blkSym158->members()) {
                     if (bm.kind != SymbolKind::Parameter)
                         continue;
                     auto& ps = bm.as<ParameterSymbol>();

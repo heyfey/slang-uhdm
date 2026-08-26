@@ -1,0 +1,9 @@
+SeqDriver/default  ADDED=15 DELETED=0
+SimpleUVM/default  ADDED=15 DELETED=0
+Scoreboard/default  ADDED=15 DELETED=0
+MiniAmiq/default  ADDED=15 DELETED=0
+BuildUVMPkg/default  ADDED=90 DELETED=0
+SeqDriver/testflags  ADDED=15 DELETED=0
+SimpleUVM/testflags  ADDED=15 DELETED=0
+MiniAmiq/testflags  ADDED=15 DELETED=0
+BuildUVMPkg/testflags  ADDED=90 DELETED=0

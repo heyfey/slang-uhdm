@@ -1,0 +1,391 @@
+########## ARM a_shape
+---- rows=BLK
+TOWARD	('BLK', 'pa158::shapeA158::bareBad158', '31:7-35:10', 'begin')
+	G=[('-', '1', '2', '-1', 'bb158:ref_var')]
+	A=[('-', '-1', '2', '-1', '-')]
+TOWARD	('BLK', 'pa158::shapeA158::caseBad158', '114:14-117:17', 'begin')
+	G=[('-', '1', '1', '-1', 'cb158:ref_var')]
+	A=[('-', '-1', '1', '-1', '-')]
+TOWARD	('BLK', 'pa158::shapeA158::forBad158', '75:47-78:10', 'begin')
+	G=[('-', '1', '1', '-1', 'fb158:ref_var')]
+	A=[('-', '-1', '1', '-1', '-')]
+ONLY-OURS	('BLK', 'pa158::shapeA158::forkBad158', '0:0-0:0', 'fork_stmt')	A=[('-', '-1', '1', '-1', '-')] B=[('-', '-1', '1', '-1', '-')]
+ONLY-G	('BLK', 'pa158::shapeA158::forkBad158', '89:7-94:16', 'fork_stmt')	[('-', '-1', '1', '-1', '-')]
+TOWARD	('BLK', 'pa158::shapeA158::forkBad158', '90:9-93:12', 'begin')
+	G=[('-', '1', '1', '-1', 'kb158:ref_var')]
+	A=[('-', '-1', '1', '-1', '-')]
+TOWARD	('BLK', 'pa158::shapeA158::ifBad158', '13:26-17:10', 'begin')
+	G=[('-', '1', '2', '-1', 'ib158:ref_var')]
+	A=[('-', '-1', '2', '-1', '-')]
+TOWARD	('BLK', 'pa158::shapeA158::namedBad158', '47:15-47:23', 'named_begin')
+	G=[('lbBad158', '1', '2', '-1', 'nb158:ref_var')]
+	A=[]
+ONLY-A	('BLK', 'pa158::shapeA158::namedBad158', '47:7-51:10', 'begin')	[('-', '-1', '2', '-1', '-')]
+TOWARD	('BLK', 'pa158::shapeA158::nestBad158', '63:7-70:10', 'begin')
+	G=[('-', '1', '2', '-1', 'outv158:ref_var')]
+	A=[('-', '-1', '2', '-1', '-')]
+TOWARD	('BLK', 'pa158::shapeA158::nestBad158', '66:9-69:12', 'begin')
+	G=[('-', '1', '1', '-1', 'inv158:ref_var')]
+	A=[('-', '-1', '1', '-1', '-')]
+TOWARD	('BLK', 'pa158::shapeA158::whileBad158', '107:29-110:10', 'begin')
+	G=[('-', '1', '1', '-1', 'wb158:ref_var')]
+	A=[('-', '-1', '1', '-1', '-')]
+-- rows=BLK RIGHT=9 TOWARD=9 WRONG=0 STILL=0 RESHAPE=0 ONLY-G=1 AWAY=0 ONLY-OURS=1 ONLY-A=1
+---- rows=DECL
+TOWARD	('DECL', 'pa158::shapeA158::bareBad158', '32:11-32:16', 'bb158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pa158::shapeA158::caseBad158', '115:18-115:23', 'cb158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pa158::shapeA158::forBad158', '76:11-76:16', 'fb158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pa158::shapeA158::forkBad158', '91:13-91:18', 'kb158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pa158::shapeA158::ifBad158', '14:11-14:16', 'ib158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pa158::shapeA158::namedBad158', '48:11-48:16', 'nb158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pa158::shapeA158::nestBad158', '64:11-64:18', 'outv158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pa158::shapeA158::nestBad158', '67:13-67:19', 'inv158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pa158::shapeA158::whileBad158', '108:11-108:16', 'wb158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+-- rows=DECL RIGHT=24 TOWARD=9 WRONG=0 STILL=0 RESHAPE=0 ONLY-G=0 AWAY=0 ONLY-OURS=0 ONLY-A=0
+########## ARM b_type
+---- rows=BLK
+TOWARD	('BLK', 'pb158::ovB158::ovBody158', '91:7-96:10', 'begin')
+	G=[('-', '2', '2', '-1', 'ov158:ref_var,ovi158:int_var')]
+	A=[('-', '-1', '2', '-1', '-')]
+RESHAPE	('BLK', 'pb158::typeB158::allBad158', '35:7-48:10', 'begin')
+	G=[('-', '11', '2', '-1', 'tp158:ref_var,cp158:class_var,al158:ref_var,-:ref_var,ar158:array_var,pi158:int_var,ps158:string_var,pc158:class_var,pe158:enum_var,pt158:struct_var,pv158:bit_var')]
+	A=[('-', '-1', '2', '-1', '-')]
+	B=[('-', '11', '2', '-1', 'tp158:ref_var,cp158:class_var,al158:int_var,-:ref_var,ar158:array_var,pi158:int_var,ps158:string_var,pc158:class_var,pe158:enum_var,pt158:struct_var,pv158:bit_var')]
+STILL	('BLK', 'pb158::typeB158::allOk158', '54:7-66:10', 'begin')
+	G=[('-', '11', '1', '-1', 'tq158:ref_var,cq158:class_var,aq158:ref_var,-:ref_var,aq2158:array_var,qi158:int_var,qs158:string_var,qc158:class_var,qe158:enum_var,qt158:struct_var,qv158:bit_var')]
+	A=B=[('-', '11', '1', '-1', 'tq158:ref_var,cq158:class_var,aq158:int_var,-:ref_var,aq2158:array_var,qi158:int_var,qs158:string_var,qc158:class_var,qe158:enum_var,qt158:struct_var,qv158:bit_var')]
+TOWARD	('BLK', 'pb158::typeB158::initBad158', '79:7-82:10', 'begin')
+	G=[('-', '1', '2', '-1', 'ib2158:int_var')]
+	A=[('-', '-1', '1', '-1', '-')]
+TOWARD	('BLK', 'pb158::typeB158::plainBad158', '71:7-74:10', 'begin')
+	G=[('-', '1', '1', '-1', 'pb2158:int_var')]
+	A=[('-', '-1', '1', '-1', '-')]
+-- rows=BLK RIGHT=1 TOWARD=3 WRONG=0 STILL=1 RESHAPE=1 ONLY-G=0 AWAY=0 ONLY-OURS=0 ONLY-A=0
+---- rows=DECL
+STILL	('DECL', '-', '89:23-89:24', 'T')
+	G=[('type_parameter', 'int_typespec', '-', '<noinst>')]
+	A=B=[('type_parameter', 'class_typespec', 'payl158', '<noinst>'), ('type_parameter', 'int_typespec', '-', '<noinst>')]
+TOWARD	('DECL', 'pb158::ovB158::ovBody158', '92:11-92:16', 'ov158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pb158::ovB158::ovBody158', '93:13-93:19', 'ovi158')
+	G=[('int_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+RESHAPE	('DECL', 'pb158::typeB158::allBad158', '36:21-36:26', 'tp158')
+	G=[('ref_var', 'int_typespec', 'alias158', '<noinst>')]
+	A=[]
+	B=[('ref_var', 'int_typespec', '-', '<noinst>')]
+RESHAPE	('DECL', 'pb158::typeB158::allBad158', '37:21-37:26', 'cp158')
+	G=[('class_var', 'class_typespec', 'payl158', '<noinst>')]
+	A=[]
+	B=[('class_var', 'class_typespec', '-', '<noinst>')]
+RESHAPE	('DECL', 'pb158::typeB158::allBad158', '38:21-38:26', 'al158')
+	G=[('ref_var', 'int_typespec', 'alias158', '<noinst>')]
+	A=[]
+	B=[('int_var', 'int_typespec', 'alias158', '<noinst>')]
+RESHAPE	('DECL', 'pb158::typeB158::allBad158', '39:21-39:26', '-')
+	G=[('ref_var', 'int_typespec', 'alias158', '<noinst>')]
+	A=[]
+	B=[('ref_var', 'int_typespec', '-', '<noinst>')]
+TOWARD	('DECL', 'pb158::typeB158::allBad158', '39:21-39:26', 'ar158')
+	G=[('array_var', 'array_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pb158::typeB158::allBad158', '40:21-40:26', 'pi158')
+	G=[('int_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pb158::typeB158::allBad158', '41:21-41:26', 'ps158')
+	G=[('string_var', 'string_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pb158::typeB158::allBad158', '42:21-42:26', 'pc158')
+	G=[('class_var', 'class_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pb158::typeB158::allBad158', '43:21-43:26', 'pe158')
+	G=[('enum_var', 'enum_typespec', 'pb158::en158', 'pb158')]
+	A=[]
+TOWARD	('DECL', 'pb158::typeB158::allBad158', '44:21-44:26', 'pt158')
+	G=[('struct_var', 'struct_typespec', 'pb158::st158', 'pb158')]
+	A=[]
+TOWARD	('DECL', 'pb158::typeB158::allBad158', '45:21-45:26', 'pv158')
+	G=[('bit_var', 'bit_typespec', '-', '<noinst>')]
+	A=[]
+STILL	('DECL', 'pb158::typeB158::allOk158', '55:21-55:26', 'tq158')
+	G=[('ref_var', 'int_typespec', 'alias158', '<noinst>')]
+	A=B=[('ref_var', 'int_typespec', '-', '<noinst>')]
+STILL	('DECL', 'pb158::typeB158::allOk158', '56:21-56:26', 'cq158')
+	G=[('class_var', 'class_typespec', 'payl158', '<noinst>')]
+	A=B=[('class_var', 'class_typespec', '-', '<noinst>')]
+STILL	('DECL', 'pb158::typeB158::allOk158', '57:21-57:26', 'aq158')
+	G=[('ref_var', 'int_typespec', 'alias158', '<noinst>')]
+	A=B=[('int_var', 'int_typespec', 'alias158', '<noinst>')]
+STILL	('DECL', 'pb158::typeB158::allOk158', '58:21-58:27', '-')
+	G=[('ref_var', 'int_typespec', 'alias158', '<noinst>')]
+	A=B=[('ref_var', 'int_typespec', '-', '<noinst>')]
+TOWARD	('DECL', 'pb158::typeB158::initBad158', '80:13-80:19', 'ib2158')
+	G=[('int_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pb158::typeB158::plainBad158', '72:13-72:19', 'pb2158')
+	G=[('int_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+-- rows=DECL RIGHT=29 TOWARD=11 WRONG=0 STILL=5 RESHAPE=4 ONLY-G=0 AWAY=0 ONLY-OURS=0 ONLY-A=0
+########## ARM c_home
+---- rows=BLK
+TOWARD	('BLK', 'pc158::hostC158::inBody158', '32:7-35:10', 'begin')
+	G=[('-', '1', '1', '-1', 'hb158:ref_var')]
+	A=[('-', '-1', '1', '-1', '-')]
+TOWARD	('BLK', 'pc158::hostC158::outBody158', '76:5-79:8', 'begin')
+	G=[('-', '1', '1', '-1', 'ob158:ref_var')]
+	A=[('-', '-1', '1', '-1', '-')]
+TOWARD	('BLK', 'pc158::hostC158::statBody158', '45:7-48:10', 'begin')
+	G=[('-', '1', '1', '-1', 'sb158:ref_var')]
+	A=[('-', '-1', '1', '-1', '-')]
+TOWARD	('BLK', 'pc158::hostC158::tkBody158', '52:7-55:10', 'begin')
+	G=[('-', '1', '1', '-1', 'tb158:ref_var')]
+	A=[('-', '-1', '1', '-1', '-')]
+TOWARD	('BLK', 'pc158::twoC158::twoBody158', '93:7-97:10', 'begin')
+	G=[('-', '2', '1', '-1', 't2a158:ref_var,t2b158:ref_var')]
+	A=[('-', '-1', '1', '-1', '-')]
+ONLY-G	('BLK', 'work@ifC158::ifBody158', '117:7-120:10', 'begin')	[('-', '1', '1', '-1', 'ifv158:ref_var')]
+ONLY-G	('BLK', 'work@prgc158::prC158::prBody158', '128:7-131:10', 'begin')	[('-', '1', '1', '-1', 'prv158:ref_var')]
+ONLY-G	('BLK', 'work@topc158::modC158::modBody158', '142:7-145:10', 'begin')	[('-', '1', '1', '-1', 'mv158:ref_var')]
+TOWARD	('BLK', 'work@unitC158::unitBody158', '11:5-14:8', 'begin')
+	G=[('-', '1', '1', '-1', 'uc158:ref_var')]
+	A=[('-', '-1', '1', '-1', '-')]
+-- rows=BLK RIGHT=5 TOWARD=6 WRONG=0 STILL=0 RESHAPE=0 ONLY-G=3 AWAY=0 ONLY-OURS=0 ONLY-A=0
+---- rows=DECL
+ONLY-G	('DECL', '-', '115:23-115:24', 'T')	[('type_parameter', 'int_typespec', '-', '<noinst>')]
+ONLY-G	('DECL', '-', '126:23-126:24', 'T')	[('type_parameter', 'int_typespec', '-', '<noinst>')]
+ONLY-G	('DECL', '-', '140:24-140:25', 'T')	[('type_parameter', 'int_typespec', '-', '<noinst>')]
+TOWARD	('DECL', 'pc158::hostC158::inBody158', '33:11-33:16', 'hb158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+RESHAPE	('DECL', 'pc158::hostC158::outBody158', '77:9-77:14', 'ob158')
+	G=[('ref_var', 'unsupported_typespec', 'T', 'pc158')]
+	A=[]
+	B=[('ref_var', 'int_typespec', '-', 'pc158')]
+STILL	('DECL', 'pc158::hostC158::outOk158', '84:9-84:14', 'oo158')
+	G=[('ref_var', 'unsupported_typespec', 'T', 'pc158')]
+	A=B=[('ref_var', 'int_typespec', '-', 'pc158')]
+TOWARD	('DECL', 'pc158::hostC158::statBody158', '46:11-46:16', 'sb158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pc158::hostC158::tkBody158', '53:11-53:16', 'tb158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pc158::twoC158::twoBody158', '94:11-94:17', 't2a158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pc158::twoC158::twoBody158', '95:11-95:17', 't2b158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+ONLY-G	('DECL', 'work@ifC158::ifBody158', '118:11-118:17', 'ifv158')	[('ref_var', 'int_typespec', '-', '<noinst>')]
+ONLY-G	('DECL', 'work@prgc158::prC158::prBody158', '129:11-129:17', 'prv158')	[('ref_var', 'int_typespec', '-', '<noinst>')]
+ONLY-G	('DECL', 'work@topc158::modC158::modBody158', '143:11-143:16', 'mv158')	[('ref_var', 'int_typespec', '-', '<noinst>')]
+TOWARD	('DECL', 'work@unitC158::unitBody158', '12:9-12:14', 'uc158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+-- rows=DECL RIGHT=27 TOWARD=6 WRONG=0 STILL=1 RESHAPE=1 ONLY-G=6 AWAY=0 ONLY-OURS=0 ONLY-A=0
+########## ARM d_count
+---- rows=BLK
+TOWARD	('BLK', 'pd158::cntD158::namedBad158', '55:15-55:20', 'named_begin')
+	G=[('lb158', '2', '1', '-1', 'dna158:ref_var,dnb158:int_var')]
+	A=[]
+ONLY-A	('BLK', 'pd158::cntD158::namedBad158', '55:7-59:18', 'begin')	[('-', '-1', '1', '-1', '-')]
+ONLY-OURS	('BLK', 'pd158::cntD158::namedZero158', '0:0-0:0', 'begin')	A=[('-', '-1', '1', '-1', '-')] B=[('-', '-1', '1', '-1', '-')]
+ONLY-G	('BLK', 'pd158::cntD158::namedZero158', '64:15-64:20', 'named_begin')	[('lz158', '-1', '1', '-1', '-')]
+TOWARD	('BLK', 'pd158::cntD158::oneBad158', '20:7-23:10', 'begin')
+	G=[('-', '1', '1', '-1', 'd1a158:ref_var')]
+	A=[('-', '-1', '1', '-1', '-')]
+TOWARD	('BLK', 'pd158::cntD158::paramBad158', '45:7-49:10', 'begin')
+	G=[('-', '1', '2', '-1', 'dpv158:ref_var')]
+	A=[('-', '-1', '1', '-1', '-')]
+TOWARD	('BLK', 'pd158::cntD158::threeBad158', '35:7-40:10', 'begin')
+	G=[('-', '3', '1', '-1', 'd3a158:ref_var,d3b158:int_var,d3c158:string_var')]
+	A=[('-', '-1', '1', '-1', '-')]
+ONLY-OURS	('BLK', 'pd158::cntD158::twinBad158', '0:0-0:0', 'begin')	A=[('-', '-1', '2', '-1', '-')] B=[('-', '-1', '2', '-1', '-')]
+TOWARD	('BLK', 'pd158::cntD158::twinBad158', '72:7-75:10', 'begin')
+	G=[('-', '1', '1', '-1', 'dta158:ref_var')]
+	A=[('-', '-1', '1', '-1', '-')]
+RESHAPE	('BLK', 'pd158::cntD158::twinBad158', '76:7-79:10', 'begin')
+	G=[('-', '-1', '2', '-1', '-'), ('-', '1', '1', '-1', 'dtb158:ref_var')]
+	A=[('-', '-1', '1', '-1', '-')]
+	B=[('-', '1', '1', '-1', 'dtb158:ref_var')]
+TOWARD	('BLK', 'pd158::cntD158::twoBad158', '27:7-31:10', 'begin')
+	G=[('-', '2', '1', '-1', 'd2a158:ref_var,d2b158:ref_var')]
+	A=[('-', '-1', '1', '-1', '-')]
+ONLY-OURS	('BLK', 'pd158::cntD158::zeroBad158', '0:0-0:0', 'begin')	A=[('-', '-1', '1', '-1', '-')] B=[('-', '-1', '1', '-1', '-')]
+ONLY-G	('BLK', 'pd158::cntD158::zeroBad158', '14:7-16:10', 'begin')	[('-', '-1', '1', '-1', '-')]
+-- rows=BLK RIGHT=1 TOWARD=6 WRONG=0 STILL=0 RESHAPE=1 ONLY-G=2 AWAY=0 ONLY-OURS=3 ONLY-A=1
+---- rows=DECL
+TOWARD	('DECL', 'pd158::cntD158::namedBad158', '56:11-56:17', 'dna158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pd158::cntD158::namedBad158', '57:13-57:19', 'dnb158')
+	G=[('int_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pd158::cntD158::oneBad158', '21:11-21:17', 'd1a158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+ONLY-G	('DECL', 'pd158::cntD158::paramBad158', '46:24-46:33', 'DP158')	[('parameter', 'int_typespec', '-', '<noinst>')]
+TOWARD	('DECL', 'pd158::cntD158::paramBad158', '47:11-47:17', 'dpv158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pd158::cntD158::threeBad158', '36:11-36:17', 'd3a158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pd158::cntD158::threeBad158', '37:13-37:19', 'd3b158')
+	G=[('int_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pd158::cntD158::threeBad158', '38:16-38:22', 'd3c158')
+	G=[('string_var', 'string_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pd158::cntD158::twinBad158', '73:11-73:17', 'dta158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pd158::cntD158::twinBad158', '77:11-77:17', 'dtb158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pd158::cntD158::twoBad158', '28:11-28:17', 'd2a158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pd158::cntD158::twoBad158', '29:11-29:17', 'd2b158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+-- rows=DECL RIGHT=15 TOWARD=11 WRONG=0 STILL=0 RESHAPE=0 ONLY-G=1 AWAY=0 ONLY-OURS=0 ONLY-A=0
+########## ARM e_edge
+---- rows=BLK
+TOWARD	('BLK', 'pe158::edgeE158::arrBad158', '55:7-61:10', 'begin')
+	G=[('-', '7', '1', '-1', '-:ref_var,ed158:array_var,-:ref_var,eq158:array_var,-:int_var,ea2158:array_var,ee158:int_var')]
+	A=[('-', '-1', '1', '-1', '-')]
+TOWARD	('BLK', 'pe158::edgeE158::dblBad158', '19:7-26:10', 'begin')
+	G=[('-', '1', '2', '-1', 'ea158:ref_var')]
+	A=[('-', '-1', '2', '-1', '-')]
+TOWARD	('BLK', 'pe158::edgeE158::dblBad158', '22:9-25:12', 'begin')
+	G=[('-', '1', '1', '-1', 'eb158:ref_var')]
+	A=[('-', '-1', '1', '-1', '-')]
+TOWARD	('BLK', 'pe158::edgeE158::doBad158', '104:10-107:10', 'begin')
+	G=[('-', '1', '1', '-1', 'ek158:ref_var')]
+	A=[('-', '-1', '1', '-1', '-')]
+TOWARD	('BLK', 'pe158::edgeE158::elseBad158', '46:12-49:10', 'begin')
+	G=[('-', '1', '1', '-1', 'ec158:ref_var')]
+	A=[('-', '-1', '1', '-1', '-')]
+TOWARD	('BLK', 'pe158::edgeE158::firstBad158', '76:7-80:10', 'begin')
+	G=[('-', '1', '2', '-1', 'eg158:ref_var')]
+	A=[('-', '-1', '2', '-1', '-')]
+TOWARD	('BLK', 'pe158::edgeE158::lastBad158', '83:7-87:10', 'begin')
+	G=[('-', '1', '2', '-1', 'eh158:ref_var')]
+	A=[('-', '-1', '2', '-1', '-')]
+TOWARD	('BLK', 'pe158::edgeE158::mixBad158', '32:7-39:10', 'begin')
+	G=[('-', '1', '2', '-1', 'em158:ref_var')]
+	A=[('-', '-1', '2', '-1', '-')]
+ONLY-OURS	('BLK', 'pe158::edgeE158::nfBad158', '0:0-0:0', 'fork_stmt')	A=[('-', '-1', '1', '-1', '-')] B=[('-', '-1', '1', '-1', '-')]
+ONLY-G	('BLK', 'pe158::edgeE158::nfBad158', '66:7-71:16', 'named_fork')	[('nf158', '-1', '1', '-1', '-')]
+TOWARD	('BLK', 'pe158::edgeE158::nfBad158', '67:9-70:12', 'begin')
+	G=[('-', '1', '1', '-1', 'ef158:ref_var')]
+	A=[('-', '-1', '1', '-1', '-')]
+ONLY-OURS	('BLK', 'pe158::edgeE158::twinBad158', '0:0-0:0', 'begin')	A=[('-', '-1', '2', '-1', '-')] B=[('-', '-1', '2', '-1', '-')]
+TOWARD	('BLK', 'pe158::edgeE158::twinBad158', '92:7-95:10', 'begin')
+	G=[('-', '1', '1', '-1', 'ei158:ref_var')]
+	A=[('-', '-1', '1', '-1', '-')]
+RESHAPE	('BLK', 'pe158::edgeE158::twinBad158', '96:7-99:10', 'begin')
+	G=[('-', '-1', '2', '-1', '-'), ('-', '1', '1', '-1', 'ej158:ref_var')]
+	A=[('-', '-1', '1', '-1', '-')]
+	B=[('-', '1', '1', '-1', 'ej158:ref_var')]
+-- rows=BLK RIGHT=2 TOWARD=10 WRONG=0 STILL=0 RESHAPE=1 ONLY-G=1 AWAY=0 ONLY-OURS=2 ONLY-A=0
+---- rows=DECL
+TOWARD	('DECL', 'pe158::edgeE158::arrBad158', '56:11-56:16', '-')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pe158::edgeE158::arrBad158', '56:11-56:16', 'ed158')
+	G=[('array_var', 'array_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pe158::edgeE158::arrBad158', '57:11-57:16', '-')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pe158::edgeE158::arrBad158', '57:11-57:16', 'eq158')
+	G=[('array_var', 'array_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pe158::edgeE158::arrBad158', '58:13-58:19', '-')
+	G=[('int_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pe158::edgeE158::arrBad158', '58:13-58:19', 'ea2158')
+	G=[('array_var', 'array_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pe158::edgeE158::arrBad158', '59:13-59:18', 'ee158')
+	G=[('int_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pe158::edgeE158::dblBad158', '20:11-20:16', 'ea158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pe158::edgeE158::dblBad158', '23:13-23:18', 'eb158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pe158::edgeE158::doBad158', '105:11-105:16', 'ek158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pe158::edgeE158::elseBad158', '47:11-47:16', 'ec158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pe158::edgeE158::firstBad158', '77:11-77:16', 'eg158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pe158::edgeE158::lastBad158', '84:11-84:16', 'eh158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pe158::edgeE158::mixBad158', '33:11-33:16', 'em158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pe158::edgeE158::nfBad158', '68:13-68:18', 'ef158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pe158::edgeE158::twinBad158', '93:11-93:16', 'ei158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'pe158::edgeE158::twinBad158', '97:11-97:16', 'ej158')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+-- rows=DECL RIGHT=18 TOWARD=17 WRONG=0 STILL=0 RESHAPE=0 ONLY-G=0 AWAY=0 ONLY-OURS=0 ONLY-A=0
+########## ARM f_witness
+---- rows=BLK
+TOWARD	('BLK', 'p158::pred158::get_name158', '22:27-26:10', 'begin')
+	G=[('-', '1', '2', '-1', 't:ref_var')]
+	A=[('-', '-1', '2', '-1', '-')]
+-- rows=BLK RIGHT=2 TOWARD=1 WRONG=0 STILL=0 RESHAPE=0 ONLY-G=0 AWAY=0 ONLY-OURS=0 ONLY-A=0
+---- rows=DECL
+TOWARD	('DECL', 'p158::pred158::get_name158', '23:17-23:18', 't')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+-- rows=DECL RIGHT=18 TOWARD=1 WRONG=0 STILL=0 RESHAPE=0 ONLY-G=0 AWAY=0 ONLY-OURS=0 ONLY-A=0
+########## THE MOVED EARLIER-PASS BOUNDARY ARM: r10uvm59repro/a1_witness.sv
+---- rows=BLK
+ONLY-OURS	('BLK', 'p59a1::w59::arg_pos', '0:0-0:0', 'begin')	A=[('-', '1', '2', '-1', 'factory:class_var')] B=[('-', '1', '2', '-1', 'factory:class_var')]
+ONLY-G	('BLK', 'p59a1::w59::arg_pos', '43:7-43:42', 'begin')	[('-', '1', '2', '-1', 'factory:class_var')]
+TOWARD	('BLK', 'p59a1::w59::set_type_alias', '62:29-66:10', 'begin')
+	G=[('-', '2', '3', '-1', 'factory:class_var,rgtry:ref_var')]
+	A=[('-', '-1', '1', '-1', '-')]
+-- rows=BLK RIGHT=3 TOWARD=1 WRONG=0 STILL=0 RESHAPE=0 ONLY-G=1 AWAY=0 ONLY-OURS=1 ONLY-A=0
+---- rows=DECL
+TOWARD	('DECL', 'p59a1::w59::set_type_alias', '63:16-63:23', 'factory')
+	G=[('class_var', 'class_typespec', '-', '<noinst>')]
+	A=[]
+TOWARD	('DECL', 'p59a1::w59::set_type_alias', '64:19-64:24', 'rgtry')
+	G=[('ref_var', 'int_typespec', '-', '<noinst>')]
+	A=[]
+-- rows=DECL RIGHT=27 TOWARD=2 WRONG=0 STILL=0 RESHAPE=0 ONLY-G=0 AWAY=0 ONLY-OURS=0 ONLY-A=0

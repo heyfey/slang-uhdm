@@ -3737,6 +3737,88 @@ inline std::string_view stmtScopeTdName155(const slang::ast::Symbol& declSym) {
 }
 
 // ---------------------------------------------------------------------------
+// § badBlockKeepsItsScope158 — A `begin` / `fork` THAT SLANG REJECTED STILL
+// HAS ITS SCOPE IN GOLDEN: ITS LOCAL DECLARATIONS, ITS LABEL AND ITS
+// BLOCK-SCOPE PARAMETERS ARE ALL LISTED.  RECOVER THE `StatementBlockSymbol`
+// SLANG DROPPED.
+//
+// THE SLANG MECHANISM, read not guessed.  `Statement::bindBlock`
+// (slang `source/ast/Statement.cpp:296-357`) is the only place a
+// `BlockStatement` is ever linked to its scope:
+//
+//     auto& bs = BlockStatement::fromSyntax(comp, bss, context, stmtCtx,
+//                                           /* addInitializers */ true);
+//     if (bs.bad())
+//         return bs;                       // <-- EARLY RETURN
+//     result = &bs.as<BlockStatement>();
+//     result->syntax = &bss;
+//     ...
+//     result->blockSymbol = &block;        // <-- NEVER REACHED
+//
+// `BlockStatement::fromSyntax` (:689-750) returns `badStmt(comp, result)` as
+// soon as ANY item of the block binds bad, so ONE rejected statement inside a
+// `begin` costs the WHOLE BLOCK its `blockSymbol` (and its `syntax`).  Our
+// exporter's block arm asks `bs.blockSymbol` for the block's variables, its
+// name and its localparams, so all three silently vanished: the block came out
+// as an UNNAMED `begin` with a NULL `vpiVariables` vector.
+//
+// Surelog performs no such check — `compileStmt`'s `paSeq_block` /
+// `paPar_block` arms (`src/DesignCompile/CompileStmt.cpp:380-508`) walk the
+// block's children and compile every `paBlock_item_declaration` with
+// `compileDataDeclaration` whatever the sibling statements turn out to be — so
+// golden lists the locals of a block we could not bind.  The judge sees it as
+// a scope::Variables VECTOR mismatch whose RHS vector is NULL, which
+// `BaseClass::SafeCompare`'s `(lhs && !lhs->empty() && rhs == nullptr)` arm
+// reports as `m_failedLhs = <the begin>` with the RHS left UNSET — i.e.
+// `LHS: begin …` / `RHS: <null>` (RESUME.md §9's null-vector shape).
+//
+// THE RECOVERY HANDLE.  `BlockStatement::fromSyntax` is called with
+// `addInitializers = true` from `bindBlock`, and `bindScopeInitializers`
+// (Statement.cpp:359-382) pushes a `VariableDeclStatement` for EVERY
+// non-compiler-generated variable of the block's scope into the block's body
+// list BEFORE any item is bound.  Those statements survive the `badStmt`
+// wrapper untouched, and each one's `symbol.getParentScope()` IS the
+// `StatementBlockSymbol` the early return dropped.  So the scope is recoverable
+// from the bad block itself, with no new lookup and no scope walk.
+//
+// GATE (and the gate in the code is this gate): `bs.blockSymbol == nullptr`,
+// the body carries at least one `VariableDeclStatement`, and EVERY
+// `VariableDeclStatement` in the body agrees on one parent scope whose symbol
+// is a `StatementBlock`.  A block with no locals at all has no handle and is
+// left exactly as it was — a measured residue, not a guess.
+inline const slang::ast::StatementBlockSymbol* recoverBadBlockScope158(
+    const slang::ast::BlockStatement& bs) {
+    if (bs.blockSymbol)
+        return bs.blockSymbol;
+    const slang::ast::Scope* sc158 = nullptr;
+    auto take158 = [&](const slang::ast::Statement& st) -> bool {
+        if (st.kind != slang::ast::StatementKind::VariableDeclaration)
+            return true;
+        const slang::ast::Scope* ps =
+            st.as<slang::ast::VariableDeclStatement>().symbol.getParentScope();
+        if (!ps)
+            return false;
+        if (sc158 && sc158 != ps)
+            return false;
+        sc158 = ps;
+        return true;
+    };
+    if (bs.body.kind == slang::ast::StatementKind::List) {
+        for (auto* st : bs.body.as<slang::ast::StatementList>().list)
+            if (!take158(*st))
+                return nullptr;
+    }
+    else if (!take158(bs.body))
+        return nullptr;
+    if (!sc158)
+        return nullptr;
+    const slang::ast::Symbol& ss158 = sc158->asSymbol();
+    if (ss158.kind != slang::ast::SymbolKind::StatementBlock)
+        return nullptr;
+    return &ss158.as<slang::ast::StatementBlockSymbol>();
+}
+
+// ---------------------------------------------------------------------------
 // § namedBaseUnpackedTdRetVar22
 //
 // THE LAW.  The FUNCTION RETURN VARIABLE of a function whose RETURN TYPE names

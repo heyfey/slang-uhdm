@@ -1,0 +1,58 @@
+r10uvm158 — THE WIDE BOUNDARY GATE.  MEASUREMENT ONLY.
+bound158.sh over a COPY of the WHOLE tools/probe tree — top level AND
+subdirectories — in BOTH views, with the frozen pristine and patched binaries:
+
+  PRIS=/tmp/r10uvm158_bin/pris.bin  (md5 100987bc8d76f2052aa842d7c65c5110)
+  PATCHED=/tmp/r10uvm158_bin/pat.bin (md5 5c39f2b244f69d171cfaa3353e8fdf63)
+
+RUN 1 (tree as it stood before g158_f_witness.sv was added):
+  LISTED=4418 PROCESSED=4418 PRODUCED_DBS=4271 MOVED_ARMS=6 RC_DIFFS=0
+    r10uvm158repro/g158_a_shape.sv        def=MOVED elab=MOVED rc=0/0,0/0
+    r10uvm158repro/g158_b_type.sv         def=MOVED elab=MOVED rc=0/0,0/0
+    r10uvm158repro/g158_c_home.sv         def=MOVED elab=MOVED rc=0/0,0/0
+    r10uvm158repro/g158_d_count.sv        def=MOVED elab=MOVED rc=0/0,0/0
+    r10uvm158repro/g158_e_edge.sv         def=MOVED elab=MOVED rc=0/0,0/0
+    r10uvm59repro/a1_witness.sv           def=MOVED elab=MOVED rc=0/0,0/0
+
+RUN 2 (the FINAL tree, g158_f_witness.sv included):
+  LISTED=4419 PROCESSED=4419 PRODUCED_DBS=4272 MOVED_ARMS=8 RC_DIFFS=0
+    the six r10uvm158repro/g158_*.sv arms   def=MOVED elab=MOVED rc=0/0,0/0
+    r10uvm59repro/a1_witness.sv             def=MOVED elab=MOVED rc=0/0,0/0
+    r10vrgg3repro/xi_iface_param_type/dut.sv def=MOVED elab=SAME rc=0/0,0/0
+
+LISTED == PROCESSED in both runs (the gate reached every arm), and RC_DIFFS=0
+(no arm's exit status moved; the segfaulting arms in this tree segfault
+IDENTICALLY on both binaries, which is why PRODUCED_DBS < LISTED).
+
+THE POSITIVE CONTROL: this pass's own six grid arms move in both views.  A
+boundary that reported zero movers over them could not see.
+
+THE ONE EARLIER-PASS ARM THAT REALLY MOVES — r10uvm59repro/a1_witness.sv.
+It is the reduced witness for BuildUVMPkg's `uvm_registry_common::set_type_alias`
+cell and it moves for the SAME reason.  Re-measured against Surelog's golden
+(GRID.r10uvm158.txt, last block):
+    BLK  RIGHT=3  TOWARD=1 WRONG=0 STILL=0 RESHAPE=0 AWAY=0 ONLY-A=0
+    DECL RIGHT=27 TOWARD=2 WRONG=0 STILL=0 RESHAPE=0 AWAY=0 ONLY-A=0
+  the TOWARD cell:
+    ('BLK','p59a1::w59::set_type_alias','62:29-66:10','begin')
+       G = ('-','2','3','-1','factory:class_var,rgtry:ref_var')
+       A = ('-','-1','1','-1','-')          <- NULL Variables vector
+       B = G                                <- exact match
+  Its ONLY-G/ONLY-OURS pair is residue R1 (`arg_pos`'s span-less block),
+  UNCHANGED pristine->patched.
+
+r10vrgg3repro/xi_iface_param_type/dut.sv IS A GATE FLAKE, NOT A MOVER —
+REFUTED, not explained away:
+  * the arm is 10 lines of interface/module/modport with NO procedural code at
+    all: no `begin`, no `fork`, no statement of any kind.  The patch's only
+    entry point is `recoverBadBlockScope158`, called from ONE place —
+    `case StatementKind::Block` in emitStmt — which this source cannot reach.
+  * RUN 1 of this same gate, over the byte-identical arm, reported it SAME.
+  * 12 direct builds (6 pristine + 6 patched, def view) and 80 more under load
+    (40 pristine def + 40 pristine elab) are ALL byte-identical:
+        def  dd0f3eae9b2b703d209e34331f2f86de   (pristine == patched)
+        elab 5144a1483dafc5a8a3a137b3ed58f404
+  * re-running bound158.sh over the whole r10vrgg3repro subtree:
+        LISTED=52 PROCESSED=52 PRODUCED_DBS=50 MOVED_ARMS=0 RC_DIFFS=0
+  Recorded here rather than dropped: an instrument that flakes once in 4419
+  arms is a fact the next pass should know.
