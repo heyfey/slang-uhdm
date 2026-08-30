@@ -1,0 +1,321 @@
+LHS:
+decompile:
+operation: , id:161051, line:14061:13, endln:14064:70
+|vpiParent:
+\_assignment: , id:161049, line:14061:7, endln:14064:70
+|vpiOpType:33
+|vpiOperand:
+\_constant: , id:161052, line:14061:14, endln:14061:41
+  |vpiDecompile:"Factory did not return a "
+  |vpiSize:200
+  |STRING:Factory did not return a 
+  |vpiConstType:6
+|vpiOperand:
+\_ref_obj: (uvm_pkg::uvm_registry_common::create::Tcreator::base_type_name), id:161053, line:14061:43, endln:14061:53
+  |vpiParent:
+  \_operation: , id:161051, line:14061:13, endln:14064:70
+  |vpiName:Tcreator::base_type_name
+  |vpiFullName:uvm_pkg::uvm_registry_common::create::Tcreator::base_type_name
+|vpiOperand:
+\_constant: , id:161054, line:14061:71, endln:14061:83
+  |vpiDecompile:" of type '"
+  |vpiSize:80
+  |STRING: of type '
+  |vpiConstType:6
+|vpiOperand:
+\_ref_obj: (uvm_pkg::uvm_registry_common::create::Tregistry::type_name), id:161055, line:14061:84, endln:14061:95
+  |vpiParent:
+  \_operation: , id:161051, line:14061:13, endln:14064:70
+  |vpiName:Tregistry::type_name
+  |vpiFullName:uvm_pkg::uvm_registry_common::create::Tregistry::type_name
+|vpiOperand:
+\_constant: , id:161056, line:14062:9, endln:14062:35
+  |vpiDecompile:"'. A component of type '"
+  |vpiSize:192
+  |STRING:'. A component of type '
+  |vpiConstType:6
+|vpiOperand:
+\_operation: , id:161060, line:14062:36, endln:14062:78
+  |vpiParent:
+  \_operation: , id:161051, line:14061:13, endln:14064:70
+  |vpiOpType:32
+  |vpiOperand:
+  \_operation: , id:161058, line:14062:36, endln:14062:47
+    |vpiParent:
+    \_operation: , id:161060, line:14062:36, endln:14062:78
+    |vpiOpType:14
+    |vpiOperand:
+    \_ref_obj: (uvm_pkg::uvm_registry_common::create::obj), id:161057, line:14062:36, endln:14062:39
+      |vpiParent:
+      \_operation: , id:161058, line:14062:36, endln:14062:47
+      |vpiName:obj
+      |vpiFullName:uvm_pkg::uvm_registry_common::create::obj
+    |vpiOperand:
+    \_constant: , id:161059, line:14062:43, endln:14062:47
+      |vpiParent:
+      \_operation: , id:161058, line:14062:36, endln:14062:47
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:11
+  |vpiOperand:
+  \_constant: , id:161061, line:14062:50, endln:14062:56
+    |vpiParent:
+    \_operation: , id:161060, line:14062:36, endln:14062:78
+    |vpiDecompile:"null"
+    |vpiSize:32
+    |STRING:null
+    |vpiConstType:6
+  |vpiOperand:
+  \_hier_path: (obj.get_type_name), id:161062, line:14062:59, endln:14062:78
+    |vpiParent:
+    \_operation: , id:161060, line:14062:36, endln:14062:78
+    |vpiActual:
+    \_ref_obj: (obj), id:161063, line:14062:59, endln:14062:62
+      |vpiParent:
+      \_hier_path: (obj.get_type_name), id:161062, line:14062:59, endln:14062:78
+      |vpiName:obj
+    |vpiActual:
+    \_method_func_call: (get_type_name), id:161064, line:14062:63, endln:14062:76
+      |vpiParent:
+      \_hier_path: (obj.get_type_name), id:161062, line:14062:59, endln:14062:78
+      |vpiName:get_type_name
+    |vpiName:obj.get_type_name
+|vpiOperand:
+\_constant: , id:161065, line:14063:9, endln:14063:40
+  |vpiDecompile:"' was returned instead. Name="
+  |vpiSize:232
+  |STRING:' was returned instead. Name=
+  |vpiConstType:6
+|vpiOperand:
+\_ref_obj: (uvm_pkg::uvm_registry_common::create::name), id:161066, line:14063:41, endln:14063:45
+  |vpiParent:
+  \_operation: , id:161051, line:14061:13, endln:14064:70
+  |vpiName:name
+  |vpiFullName:uvm_pkg::uvm_registry_common::create::name
+|vpiOperand:
+\_constant: , id:161067, line:14063:46, endln:14063:56
+  |vpiDecompile:" Parent="
+  |vpiSize:64
+  |STRING: Parent=
+  |vpiConstType:6
+|vpiOperand:
+\_operation: , id:161071, line:14064:9, endln:14064:51
+  |vpiParent:
+  \_operation: , id:161051, line:14061:13, endln:14064:70
+  |vpiOpType:32
+  |vpiOperand:
+  \_operation: , id:161069, line:14064:9, endln:14064:21
+    |vpiParent:
+    \_operation: , id:161071, line:14064:9, endln:14064:51
+    |vpiOpType:14
+    |vpiOperand:
+    \_ref_obj: (uvm_pkg::uvm_registry_common::create::parent), id:161068, line:14064:9, endln:14064:15
+      |vpiParent:
+      \_operation: , id:161069, line:14064:9, endln:14064:21
+      |vpiName:parent
+      |vpiFullName:uvm_pkg::uvm_registry_common::create::parent
+    |vpiOperand:
+    \_constant: , id:161070, line:14064:17, endln:14064:21
+      |vpiParent:
+      \_operation: , id:161069, line:14064:9, endln:14064:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:11
+  |vpiOperand:
+  \_constant: , id:161072, line:14064:22, endln:14064:28
+    |vpiParent:
+    \_operation: , id:161071, line:14064:9, endln:14064:51
+    |vpiDecompile:"null"
+    |vpiSize:32
+    |STRING:null
+    |vpiConstType:6
+  |vpiOperand:
+  \_hier_path: (parent.get_type_name), id:161073, line:14064:29, endln:14064:51
+    |vpiParent:
+    \_operation: , id:161071, line:14064:9, endln:14064:51
+    |vpiActual:
+    \_ref_obj: (parent), id:161074, line:14064:29, endln:14064:35
+      |vpiParent:
+      \_hier_path: (parent.get_type_name), id:161073, line:14064:29, endln:14064:51
+      |vpiName:parent
+    |vpiActual:
+    \_method_func_call: (get_type_name), id:161075, line:14064:36, endln:14064:49
+      |vpiParent:
+      \_hier_path: (parent.get_type_name), id:161073, line:14064:29, endln:14064:51
+      |vpiName:get_type_name
+    |vpiName:parent.get_type_name
+|vpiOperand:
+\_constant: , id:161076, line:14064:52, endln:14064:62
+  |vpiDecompile:" contxt="
+  |vpiSize:64
+  |STRING: contxt=
+  |vpiConstType:6
+|vpiOperand:
+\_ref_obj: (uvm_pkg::uvm_registry_common::create::contxt), id:161077, line:14064:63, endln:14064:69
+  |vpiParent:
+  \_operation: , id:161051, line:14061:13, endln:14064:70
+  |vpiName:contxt
+  |vpiFullName:uvm_pkg::uvm_registry_common::create::contxt
+
+decompile:
+operation: , id:161051, line:14061:13, endln:14064:70
+|vpiParent:
+\_assignment: , id:161049, line:14061:7, endln:14064:70
+|vpiOpType:33
+|vpiOperand:
+\_constant: , id:161052, line:14061:14, endln:14061:41
+  |vpiDecompile:"Factory did not return a "
+  |vpiSize:200
+  |STRING:Factory did not return a 
+  |vpiConstType:6
+|vpiOperand:
+\_ref_obj: (uvm_pkg::uvm_registry_common::create::Tcreator::base_type_name), id:161053, line:14061:43, endln:14061:53
+  |vpiParent:
+  \_operation: , id:161051, line:14061:13, endln:14064:70
+  |vpiName:Tcreator::base_type_name
+  |vpiFullName:uvm_pkg::uvm_registry_common::create::Tcreator::base_type_name
+|vpiOperand:
+\_constant: , id:161054, line:14061:71, endln:14061:83
+  |vpiDecompile:" of type '"
+  |vpiSize:80
+  |STRING: of type '
+  |vpiConstType:6
+|vpiOperand:
+\_ref_obj: (uvm_pkg::uvm_registry_common::create::Tregistry::type_name), id:161055, line:14061:84, endln:14061:95
+  |vpiParent:
+  \_operation: , id:161051, line:14061:13, endln:14064:70
+  |vpiName:Tregistry::type_name
+  |vpiFullName:uvm_pkg::uvm_registry_common::create::Tregistry::type_name
+|vpiOperand:
+\_constant: , id:161056, line:14062:9, endln:14062:35
+  |vpiDecompile:"'. A component of type '"
+  |vpiSize:192
+  |STRING:'. A component of type '
+  |vpiConstType:6
+|vpiOperand:
+\_operation: , id:161060, line:14062:36, endln:14062:78
+  |vpiParent:
+  \_operation: , id:161051, line:14061:13, endln:14064:70
+  |vpiOpType:32
+  |vpiOperand:
+  \_operation: , id:161058, line:14062:36, endln:14062:47
+    |vpiParent:
+    \_operation: , id:161060, line:14062:36, endln:14062:78
+    |vpiOpType:14
+    |vpiOperand:
+    \_ref_obj: (uvm_pkg::uvm_registry_common::create::obj), id:161057, line:14062:36, endln:14062:39
+      |vpiParent:
+      \_operation: , id:161058, line:14062:36, endln:14062:47
+      |vpiName:obj
+      |vpiFullName:uvm_pkg::uvm_registry_common::create::obj
+    |vpiOperand:
+    \_constant: , id:161059, line:14062:43, endln:14062:47
+      |vpiParent:
+      \_operation: , id:161058, line:14062:36, endln:14062:47
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:11
+  |vpiOperand:
+  \_constant: , id:161061, line:14062:50, endln:14062:56
+    |vpiParent:
+    \_operation: , id:161060, line:14062:36, endln:14062:78
+    |vpiDecompile:"null"
+    |vpiSize:32
+    |STRING:null
+    |vpiConstType:6
+  |vpiOperand:
+  \_hier_path: (obj.get_type_name), id:161062, line:14062:59, endln:14062:78
+    |vpiParent:
+    \_operation: , id:161060, line:14062:36, endln:14062:78
+    |vpiActual:
+    \_ref_obj: (obj), id:161063, line:14062:59, endln:14062:62
+      |vpiParent:
+      \_hier_path: (obj.get_type_name), id:161062, line:14062:59, endln:14062:78
+      |vpiName:obj
+    |vpiActual:
+    \_method_func_call: (get_type_name), id:161064, line:14062:63, endln:14062:76
+      |vpiParent:
+      \_hier_path: (obj.get_type_name), id:161062, line:14062:59, endln:14062:78
+      |vpiName:get_type_name
+    |vpiName:obj.get_type_name
+|vpiOperand:
+\_constant: , id:161065, line:14063:9, endln:14063:40
+  |vpiDecompile:"' was returned instead. Name="
+  |vpiSize:232
+  |STRING:' was returned instead. Name=
+  |vpiConstType:6
+|vpiOperand:
+\_ref_obj: (uvm_pkg::uvm_registry_common::create::name), id:161066, line:14063:41, endln:14063:45
+  |vpiParent:
+  \_operation: , id:161051, line:14061:13, endln:14064:70
+  |vpiName:name
+  |vpiFullName:uvm_pkg::uvm_registry_common::create::name
+|vpiOperand:
+\_constant: , id:161067, line:14063:46, endln:14063:56
+  |vpiDecompile:" Parent="
+  |vpiSize:64
+  |STRING: Parent=
+  |vpiConstType:6
+|vpiOperand:
+\_operation: , id:161071, line:14064:9, endln:14064:51
+  |vpiParent:
+  \_operation: , id:161051, line:14061:13, endln:14064:70
+  |vpiOpType:32
+  |vpiOperand:
+  \_operation: , id:161069, line:14064:9, endln:14064:21
+    |vpiParent:
+    \_operation: , id:161071, line:14064:9, endln:14064:51
+    |vpiOpType:14
+    |vpiOperand:
+    \_ref_obj: (uvm_pkg::uvm_registry_common::create::parent), id:161068, line:14064:9, endln:14064:15
+      |vpiParent:
+      \_operation: , id:161069, line:14064:9, endln:14064:21
+      |vpiName:parent
+      |vpiFullName:uvm_pkg::uvm_registry_common::create::parent
+    |vpiOperand:
+    \_constant: , id:161070, line:14064:17, endln:14064:21
+      |vpiParent:
+      \_operation: , id:161069, line:14064:9, endln:14064:21
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:11
+  |vpiOperand:
+  \_constant: , id:161072, line:14064:22, endln:14064:28
+    |vpiParent:
+    \_operation: , id:161071, line:14064:9, endln:14064:51
+    |vpiDecompile:"null"
+    |vpiSize:32
+    |STRING:null
+    |vpiConstType:6
+  |vpiOperand:
+  \_hier_path: (parent.get_type_name), id:161073, line:14064:29, endln:14064:51
+    |vpiParent:
+    \_operation: , id:161071, line:14064:9, endln:14064:51
+    |vpiActual:
+    \_ref_obj: (parent), id:161074, line:14064:29, endln:14064:35
+      |vpiParent:
+      \_hier_path: (parent.get_type_name), id:161073, line:14064:29, endln:14064:51
+      |vpiName:parent
+    |vpiActual:
+    \_method_func_call: (get_type_name), id:161075, line:14064:36, endln:14064:49
+      |vpiParent:
+      \_hier_path: (parent.get_type_name), id:161073, line:14064:29, endln:14064:51
+      |vpiName:get_type_name
+    |vpiName:parent.get_type_name
+|vpiOperand:
+\_constant: , id:161076, line:14064:52, endln:14064:62
+  |vpiDecompile:" contxt="
+  |vpiSize:64
+  |STRING: contxt=
+  |vpiConstType:6
+|vpiOperand:
+\_ref_obj: (uvm_pkg::uvm_registry_common::create::contxt), id:161077, line:14064:63, endln:14064:69
+  |vpiParent:
+  \_operation: , id:161051, line:14061:13, endln:14064:70
+  |vpiName:contxt
+  |vpiFullName:uvm_pkg::uvm_registry_common::create::contxt
+RHS: <null>

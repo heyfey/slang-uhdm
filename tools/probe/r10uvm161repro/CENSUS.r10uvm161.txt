@@ -1,0 +1,77 @@
+r10uvm161 — THE CORPUS CENSUS.  The SEVEN moved surelog databases, cell for cell.
+LHS/G is ALWAYS golden (Surelog); O is ALWAYS ours.  MEASUREMENT ONLY.
+
+=== default/MiniAmiq-544c7f61 ===
+  census lines: golden=112935 pristine=112912 patched=112912
+  cells that MOVED (pristine -> patched):
+    < REF|X|ref_obj|a_expression|1028:44|/func_call:check_expression/operation/immediate_assert:CHECK_THAT/begin/function:check_that/class_defn:svaunit_vpi_wrapper/package:svaunit_pkg/design:unnamed|ACT=NONE
+    > REF|X|ref_obj|a_expression|1028:44|/func_call:check_expression/operation/immediate_assert:CHECK_THAT/begin/function:check_that/class_defn:svaunit_vpi_wrapper/package:svaunit_pkg/design:unnamed|ACT=io_decl:a_expression
+    < REF|X|ref_obj|all_succeeded|1076:55|/operation/func_call:check_expression/operation/immediate_assert:CHECK_ALL_SVA_PASSED/begin/function:check_all_sva_passed/class_defn:svaunit_vpi_wrapper/package:svaunit_pkg/design:unnamed|ACT=NONE
+    > REF|X|ref_obj|all_succeeded|1076:55|/operation/func_call:check_expression/operation/immediate_assert:CHECK_ALL_SVA_PASSED/begin/function:check_all_sva_passed/class_defn:svaunit_vpi_wrapper/package:svaunit_pkg/design:unnamed|ACT=bit_var:all_succeeded
+    < REF|X|ref_obj|assertion|849:51|/operation/func_call:check_expression/operation/immediate_assert:CHECK_SVA_EXISTS/begin/function:check_sva_exists/class_defn:svaunit_vpi_wrapper/package:svaunit_pkg/design:unnamed|ACT=NONE
+    > REF|X|ref_obj|assertion|849:51|/operation/func_call:check_expression/operation/immediate_assert:CHECK_SVA_EXISTS/begin/function:check_sva_exists/class_defn:svaunit_vpi_wrapper/package:svaunit_pkg/design:unnamed|ACT=class_var:assertion
+    < REF|X|ref_obj|compiled_regex|262:10|/operation/immediate_assert/begin/function:visit/class_defn:uvm_component_name_check_visitor/package:uvm_pkg/design:unnamed|ACT=NONE
+    > REF|X|ref_obj|compiled_regex|262:10|/operation/immediate_assert/begin/function:visit/class_defn:uvm_component_name_check_visitor/package:uvm_pkg/design:unnamed|ACT=chandle_var:compiled_regex
+  VAR/CNT lines that moved: 0
+  each moved cell against GOLDEN:
+    TOWARD-EXACT  a_expression|1028:44|ACT=io_decl:a_expression   golden=ACT=io_decl:a_expression
+    TOWARD-EXACT  all_succeeded|1076:55|ACT=bit_var:all_succeeded   golden=ACT=bit_var:all_succeeded
+    TOWARD-EXACT  assertion|849:51|ACT=class_var:assertion   golden=ACT=class_var:assertion
+    TOWARD-EXACT  compiled_regex|262:10|ACT=chandle_var:compiled_regex   golden=ACT=chandle_var:compiled_regex
+=== default/Scoreboard-59431470 ===
+  census lines: golden=65739 pristine=65738 patched=65738
+  cells that MOVED (pristine -> patched):
+    < REF|X|ref_obj|compiled_regex|262:10|/operation/immediate_assert/begin/function:visit/class_defn:uvm_component_name_check_visitor/package:uvm_pkg/design:work@my_scoreboard_unit_test|ACT=NONE
+    > REF|X|ref_obj|compiled_regex|262:10|/operation/immediate_assert/begin/function:visit/class_defn:uvm_component_name_check_visitor/package:uvm_pkg/design:work@my_scoreboard_unit_test|ACT=chandle_var:compiled_regex
+  VAR/CNT lines that moved: 0
+  each moved cell against GOLDEN:
+    TOWARD-EXACT  compiled_regex|262:10|ACT=chandle_var:compiled_regex   golden=ACT=chandle_var:compiled_regex
+=== default/SeqDriver-32af76aa ===
+  census lines: golden=109007 pristine=108944 patched=108944
+  cells that MOVED (pristine -> patched):
+    < REF|X|ref_obj|compiled_regex|262:10|/operation/immediate_assert/begin/function:visit/class_defn:uvm_component_name_check_visitor/package:uvm_pkg/design:work@top_tb|ACT=NONE
+    > REF|X|ref_obj|compiled_regex|262:10|/operation/immediate_assert/begin/function:visit/class_defn:uvm_component_name_check_visitor/package:uvm_pkg/design:work@top_tb|ACT=chandle_var:compiled_regex
+  VAR/CNT lines that moved: 0
+  each moved cell against GOLDEN:
+    TOWARD-EXACT  compiled_regex|262:10|ACT=chandle_var:compiled_regex   golden=ACT=chandle_var:compiled_regex
+=== default/SimpleUVM-1dc93a62 ===
+  census lines: golden=65437 pristine=65418 patched=65418
+  cells that MOVED (pristine -> patched):
+    < REF|X|ref_obj|compiled_regex|262:10|/operation/immediate_assert/begin/function:visit/class_defn:uvm_component_name_check_visitor/package:uvm_pkg/design:work@top|ACT=NONE
+    > REF|X|ref_obj|compiled_regex|262:10|/operation/immediate_assert/begin/function:visit/class_defn:uvm_component_name_check_visitor/package:uvm_pkg/design:work@top|ACT=chandle_var:compiled_regex
+  VAR/CNT lines that moved: 0
+  each moved cell against GOLDEN:
+    TOWARD-EXACT  compiled_regex|262:10|ACT=chandle_var:compiled_regex   golden=ACT=chandle_var:compiled_regex
+=== testflags/MiniAmiq-544c7f61 ===
+  census lines: golden=112935 pristine=112912 patched=112912
+  cells that MOVED (pristine -> patched):
+    < REF|X|ref_obj|a_expression|1028:44|/func_call:check_expression/operation/immediate_assert:CHECK_THAT/begin/function:check_that/class_defn:svaunit_vpi_wrapper/package:svaunit_pkg/design:unnamed|ACT=NONE
+    > REF|X|ref_obj|a_expression|1028:44|/func_call:check_expression/operation/immediate_assert:CHECK_THAT/begin/function:check_that/class_defn:svaunit_vpi_wrapper/package:svaunit_pkg/design:unnamed|ACT=io_decl:a_expression
+    < REF|X|ref_obj|all_succeeded|1076:55|/operation/func_call:check_expression/operation/immediate_assert:CHECK_ALL_SVA_PASSED/begin/function:check_all_sva_passed/class_defn:svaunit_vpi_wrapper/package:svaunit_pkg/design:unnamed|ACT=NONE
+    > REF|X|ref_obj|all_succeeded|1076:55|/operation/func_call:check_expression/operation/immediate_assert:CHECK_ALL_SVA_PASSED/begin/function:check_all_sva_passed/class_defn:svaunit_vpi_wrapper/package:svaunit_pkg/design:unnamed|ACT=bit_var:all_succeeded
+    < REF|X|ref_obj|assertion|849:51|/operation/func_call:check_expression/operation/immediate_assert:CHECK_SVA_EXISTS/begin/function:check_sva_exists/class_defn:svaunit_vpi_wrapper/package:svaunit_pkg/design:unnamed|ACT=NONE
+    > REF|X|ref_obj|assertion|849:51|/operation/func_call:check_expression/operation/immediate_assert:CHECK_SVA_EXISTS/begin/function:check_sva_exists/class_defn:svaunit_vpi_wrapper/package:svaunit_pkg/design:unnamed|ACT=class_var:assertion
+    < REF|X|ref_obj|compiled_regex|262:10|/operation/immediate_assert/begin/function:visit/class_defn:uvm_component_name_check_visitor/package:uvm_pkg/design:unnamed|ACT=NONE
+    > REF|X|ref_obj|compiled_regex|262:10|/operation/immediate_assert/begin/function:visit/class_defn:uvm_component_name_check_visitor/package:uvm_pkg/design:unnamed|ACT=chandle_var:compiled_regex
+  VAR/CNT lines that moved: 0
+  each moved cell against GOLDEN:
+    TOWARD-EXACT  a_expression|1028:44|ACT=io_decl:a_expression   golden=ACT=io_decl:a_expression
+    TOWARD-EXACT  all_succeeded|1076:55|ACT=bit_var:all_succeeded   golden=ACT=bit_var:all_succeeded
+    TOWARD-EXACT  assertion|849:51|ACT=class_var:assertion   golden=ACT=class_var:assertion
+    TOWARD-EXACT  compiled_regex|262:10|ACT=chandle_var:compiled_regex   golden=ACT=chandle_var:compiled_regex
+=== testflags/SeqDriver-32af76aa ===
+  census lines: golden=109007 pristine=108944 patched=108944
+  cells that MOVED (pristine -> patched):
+    < REF|X|ref_obj|compiled_regex|262:10|/operation/immediate_assert/begin/function:visit/class_defn:uvm_component_name_check_visitor/package:uvm_pkg/design:work@top_tb|ACT=NONE
+    > REF|X|ref_obj|compiled_regex|262:10|/operation/immediate_assert/begin/function:visit/class_defn:uvm_component_name_check_visitor/package:uvm_pkg/design:work@top_tb|ACT=chandle_var:compiled_regex
+  VAR/CNT lines that moved: 0
+  each moved cell against GOLDEN:
+    TOWARD-EXACT  compiled_regex|262:10|ACT=chandle_var:compiled_regex   golden=ACT=chandle_var:compiled_regex
+=== testflags/SimpleUVM-1dc93a62 ===
+  census lines: golden=65437 pristine=65418 patched=65418
+  cells that MOVED (pristine -> patched):
+    < REF|X|ref_obj|compiled_regex|262:10|/operation/immediate_assert/begin/function:visit/class_defn:uvm_component_name_check_visitor/package:uvm_pkg/design:work@top|ACT=NONE
+    > REF|X|ref_obj|compiled_regex|262:10|/operation/immediate_assert/begin/function:visit/class_defn:uvm_component_name_check_visitor/package:uvm_pkg/design:work@top|ACT=chandle_var:compiled_regex
+  VAR/CNT lines that moved: 0
+  each moved cell against GOLDEN:
+    TOWARD-EXACT  compiled_regex|262:10|ACT=chandle_var:compiled_regex   golden=ACT=chandle_var:compiled_regex

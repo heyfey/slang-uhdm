@@ -3287,6 +3287,193 @@ private:
     // `wait`, on a `case … inside` item member or on a `return` — all measured
     // golden-bare (a2 b04, § 64's c13, v1 k08/k02, v4 y06/y08).
     int condBindDepth5 = 0;
+    // ===== VERIFIER STATE (r10v161) — the two counters the two verifier
+    // terms below read.  `methodWindowDepth161v` is nonzero exactly inside
+    // § assertCondIsAClassMethodWindow161's window (MethodWindow161 raises
+    // both it and the flag together, StmtEmit.cpp SITE 1-4 of 4), so a
+    // suppression can be scoped to the window this pass OPENS and cannot
+    // reach the `if` / `case` CONDITION column, which keeps its own
+    // pre-existing behaviour untouched.  The window raises it ONLY when it
+    // actually LIFTS a set `classMethodNoBind`, so "depth > 0" means exactly
+    // "binding here is something this window turned on" and both terms are
+    // INERT in an out-of-body method, a package free function, a module
+    // function and a process — measured: a MODULE function's
+    // `assert (int'(loc) == 1)` is golden-BOUND (v161_d_break.sv d62 147:18)
+    // and an unconditional bump suppressed it.  `castOperandDepth161v` is
+    // nonzero while ANY expression under an EXPLICIT cast's operand is
+    // emitted (all FIVE emission sites, the signedness cast included).
+    int methodWindowDepth161v = 0;
+    int castOperandDepth161v = 0;
+    // ===== VERIFIER FIX 1 (r10v161) — § castOperandNeverBindsInWindow161v =====
+    //
+    //   A CAST'S OPERAND IS NEVER EAGERLY BOUND, AT ANY DEPTH UNDER THE CAST.
+    //
+    // DECODED PRODUCER, READ NOT GUESSED.  Surelog's `paCast` arm
+    // (src/DesignCompile/CompileExpression.cpp:2637-2646) compiles the cast's
+    // operand with `pexpr` LITERALLY `nullptr`:
+    //
+    //     NodeId Expression = fC->Sibling(Casting_type);
+    //     operand = compileExpression(component, fC, Expression, compileDesign,
+    //                                 reduce, nullptr, instance, muteErrors);
+    //                                        ^^^^^^^ the pexpr argument
+    //
+    // and `CompileHelper::bindVariable` (CompileStmt.cpp:3089-3092) opens with
+    // `if (scope == nullptr) return nullptr;`.  So the walk never starts and
+    // NOTHING under a cast carries a `vpiActual` — not the bare operand, not a
+    // name nested inside a compound operand.  Both cast spellings take that
+    // arm: the `'()` type/size cast (the `vpiCastOp` operation branch, :2662)
+    // and the SIGNEDNESS cast (`$signed`/`$unsigned`, minted as a
+    // `sys_func_call` at :2649-2661) — the operand is compiled BEFORE either
+    // wrapper exists.
+    //
+    // WHY THE TERM IS SCOPED TO THE § 161 WINDOW.  Our emitter binds a cast
+    // operand in EVERY window, and that is a PRE-EXISTING, corpus-visible
+    // residue of a DIFFERENT law — it is r10uvm161's own R0a
+    // (uvm_report_handler.svh:350 `if(uvm_action_type'(action) == …)`, an
+    // `if`-CONDITION cell golden leaves bare and we bind, in the PRISTINE
+    // database).  This term corrects only what § 161's NEW window newly bound
+    // and deliberately leaves the `if` / `case`-CONDITION column exactly as it
+    // was, so the general law stays available, unmoved and unmasked for the
+    // pass that owns it.
+    //
+    // MEASURED, `tools/probe/r10v161repro/v161_d_break.sv`, ONE golden per
+    // view, DEF view (line numbers are that file's).  Every cast spelling is
+    // golden-BARE in an assertion condition and was PATCHED-WRONG:
+    //   d11 29:18 `assert (int'(loc) == 1)`        type cast of a LOCAL
+    //   d12 30:18 `assert (int'(formal_d) == 1)`   type cast of a FORMAL
+    //   d15 33:18 `assert (bit'(loc))`             a one-bit type cast
+    //   d16 34:23 `assert (unsigned'(loc) == 1)`   the $unsigned spelling
+    //   d17 35:16 `assert (4'(loc) == 1)`          a SIZE cast
+    //   d18 36:28 `assert (ed_t'(nib) == ED0)`     an ENUM type cast
+    //   d22 43:12 `case (loc) int'(formal_d): …`   a cast in a case ITEM
+    // and the CONTROLS that must keep binding, at the same depth in the same
+    // window, prove the term is the CAST and not the position:
+    //   d13 31:13 `assert (loc == 1)`      no cast, LOCAL   golden BINDS
+    //   d14 32:13 `assert (formal_d == 1)` no cast, FORMAL  golden BINDS
+    //   d23 44:7  the un-cast case ITEM                     golden BINDS
+    // The `if`-column twins d01/d02/d05/d06/d07/d08 (20:14…27:24) and the
+    // case-CONDITION twin d21 (38:16) are golden-BARE and OURS-BOUND in the
+    // PRISTINE binary and are left EXACTLY as they were — R0a, not this term.
+    //
+    // ===== VERIFIER FIX 2 (r10v161) — § namedBlkLocalNoBind144v EXTENDED =====
+    //
+    //   A LOCAL DECLARED IN A NAMED `begin` IS INVISIBLE TO `bindVariable`, IN
+    //   THE § 161 WINDOW EXACTLY AS IN § 12's CALL-ARGUMENT WINDOW.
+    //
+    // `CompileHelper::bindVariable` (CompileStmt.cpp:3089-3149) switches on the
+    // scope object's `UhdmType()` and has cases for `uhdmfunction`, `uhdmtask`,
+    // `uhdmbegin` and `uhdmmodule_inst` — and NO case for `uhdmnamed_begin`.
+    // The `default:` arm falls straight through to
+    // `bindVariable(component, scope->VpiParent(), …)`, so a named block is
+    // STEPPED OVER: a local declared IN it is never searched for and stays
+    // BARE, while a local declared FURTHER OUT is still found through it.
+    // That is precisely the shape r10v144 decoded and r10buvm15 re-used; the
+    // only thing missing was that its gate asks `classArgBindDepth12 > 0`,
+    // and § 161 opens a window § 12 knows nothing about.  The change is ONE
+    // DISJUNCT on that existing gate — no new law, no new symbol test.
+    //
+    // MEASURED, `v161_d_break.sv` DEF view, golden vs the two binaries:
+    //   d32  54:15 `begin : blk_a  static int s_a; assert (s_a == 5);`
+    //   d39  87:17 a local of the INNER named block, nested named blocks
+    //   d40  88:17 a local of the OUTER named block, read from the inner one
+    //   d42  98:17 a NAMED `fork` arm's local
+    //   d43 107:9  a case ITEM expression reading a named block's local
+    //   (and `v161_b_assert.sv` b38 140:15, the same shape)
+    //        -> golden BARE, pristine BARE, patched BOUND before this term
+    // and the CONTROLS that must keep binding:
+    //   d34  62:15 `begin : blk_b` reading a local declared in the FUNCTION
+    //   d36  70:15 an UNNAMED `begin`'s own local        golden BINDS
+    //   d38  78:15 an UNNAMED block reading a function local
+    //   d45 116:13 no block at all                       golden BINDS
+    //   b37 133:15 the unnamed-begin twin, b39/b40 the UNNAMED fork arm
+    // The `if`-column twins d31 53:11 and d41 97:13, and the OUT-OF-BODY twin
+    // d54 135:13, are golden-BARE and OURS-BOUND in the PRISTINE binary and
+    // are left EXACTLY as they were (§ 144v's own `curSubClassScope9 &&
+    // !curSubOob9` keeps the out-of-body half out) — residues, not this term.
+    // ============================================================================
+    // ========= § assertCondIsAClassMethodWindow161 — THE LAW (r10uvm161) =========
+    //
+    //   THE SIX `condBindDepth5` WINDOW POSITIONS AND THE `classMethodNoBind`
+    //   WINDOW POSITIONS ARE THE SAME SET.  An IMMEDIATE ASSERT / ASSUME /
+    //   COVER **CONDITION** and a **CASE ITEM EXPRESSION** bind an IN-BODY
+    //   class method's ordinary locals and formals exactly as an `if` or `case`
+    //   CONDITION does; the § 5 v-fix added both to the COUNTER and neither to
+    //   the FLAG, so § refVarLocalWindowBinds5's `ref_var` half bound there and
+    //   every already-resolved kind stayed bare.
+    //
+    // DIRECTION: ADD (a vpiActual that was absent), never delete, never
+    // reshape.  The flag is only ever CLEARED and restored (MethodWindow161 in
+    // StmtEmit.cpp), so a body that already bound keeps binding.
+    //
+    // THE DECODED PRODUCER (Surelog, read not guessed).  A reference is bound
+    // eagerly by `CompileHelper::bindVariable`
+    // (src/DesignCompile/CompileStmt.cpp:3089-3149), which walks the `pexpr` it
+    // is handed up its `VpiParent` chain and reads `Variables()` /
+    // `Io_decls()` off the `uhdmfunction` / `uhdmtask` it reaches,
+    // `Variables()` off a `uhdmbegin`, and `Variables()` / `Nets()` off a
+    // `uhdmmodule_inst`.  Whether the walk ARRIVES is decided by ONE thing:
+    // whether the object handed in as `pstmt` already has its own `VpiParent`.
+    //   * `compileConditionalStmt` (CompileStmt.cpp:1321-1323) compiles the
+    //     CONDITION with `pstmt` — the enclosing, already-parented scope — and
+    //     the BRANCHES with the fresh `if_stmt` / `if_else`, whose own
+    //     `VpiParent` its caller has not set yet.  Condition binds, branch does
+    //     not.
+    //   * `compileSimpleImmediateAssertion` (CompileAssertion.cpp:269, its
+    //     expression at :285-286) and its DEFERRED twin (:360, :379-380)
+    //     compile the assertion EXPRESSION with that SAME `pstmt` and only then
+    //     build the `immediate_assert` and re-parent the expression onto it
+    //     (:306 / :319 / :332 for the three kinds).  The ACTION BLOCK goes
+    //     through `compileStmt` and is a statement, so it binds late — i.e.
+    //     not at all inside a class body.  IDENTICAL SHAPE, identical answer.
+    //   * `compileCaseStmt` compiles the case CONDITION at :1445-1446 and every
+    //     ITEM EXPRESSION at :1504-1506 with `pstmt`, and the item's CLAUSE at
+    //     :1513 with the `case_item`.  `case … inside` is the exception: its
+    //     members are compiled against the synthesized `inside` OPERATION (:1543),
+    //     which is parentless, so they bind late.  ExprEmit.cpp's
+    //     `condPredEarlyBound81` already decodes exactly this split.
+    //
+    // GATE (and the gate in the code is this gate): the flag is cleared at the
+    // FOUR positions StmtEmit.cpp names SITE 1-4 of 4 — the non-`inside` case
+    // ITEM expression loop and the three immediate-assertion CONDITION
+    // lambdas — and nowhere else.  No kind test, no home test, no depth test:
+    // § controlBodyNoBind28's `ctrlBodyDepth28` still decides the depth half
+    // (an assertion one control body deeper stays bare) and § 12 / § 57 / § 64
+    // keep their own rules.  The EVENT CONTROL expression, the sixth § 5 site,
+    // is deliberately NOT touched — § evCtrlBindPos108 already binds it, and
+    // arm D measures that column agreeing cell for cell (`tabor161` 62:9 an
+    // event LOCAL golden-BOUND and ours bound, `bellrope161` 63:9 an event
+    // PROPERTY golden-bare and ours bare, `wainscot161` 64:17 a local inside a
+    // `posedge` golden-BOUND and ours bound).
+    //
+    // MEASURED, golden vs golden FIRST — arm B reads EIGHTEEN referent kinds
+    // TWICE out of the same in-body class method, once from an `if` CONDITION
+    // (the window our emitter already opens) and once from an ASSERTION
+    // CONDITION, and golden's two columns are IDENTICAL, 18 of 18:
+    //   plain local / STATIC local / formal / class-handle local / enum local /
+    //   `$bits(<local>)` system-call argument              -> BOUND in both
+    //   class property / static property / const property /
+    //   INHERITED property / class-handle property / property array element /
+    //   queue method call / enum property / enum constant /
+    //   class localparam / package parameter / package variable /
+    //   `this.<prop>`                                      -> BARE in both
+    // and arm D does the same for the CASE ITEM column (local + formal BOUND;
+    // property, static property, package variable, package parameter and enum
+    // constant BARE), with `casex` binding and `case … inside` bare.
+    //
+    // ARM A is the population: an in-body class method's assertion conditions
+    // in the TF-ITEM and BLOCK-ITEM productions, in a static method and in a
+    // task, for `assert` / `assume` / `cover` / `assert #0` / `assert final` —
+    // 19 cells per view, all golden-BOUND and all pristine-bare — beside the
+    // controls that must not move: the ACTION BLOCK (pass and else), an
+    // assertion one control body deeper, an assertion in a `while` / `forever`
+    // body, and an OUT-OF-BODY method, a package free function, a module
+    // function and an `initial` block, which never set the flag at all and were
+    // already exact.  ARM C adds the block shapes: an assertion inside a plain
+    // `begin`, a NAMED `begin` and a `fork` arm at depth 0 all BIND (Surelog's
+    // `paSeq_block` / `paPar_block` arms set `scope->VpiParent(pstmt)` BEFORE
+    // compiling their children, so the chain is live), while one inside an
+    // `if`, a `for` or a case ITEM's CLAUSE stays bare.
+    // ============================================================================
     // ================= § typeParamRetIsRefVar58 — THE LAW =================
     // A declaration whose WRITTEN TYPE IS A TYPE PARAMETER is a bare
     // `ref_var` in golden — with NO vpiSigned — whatever the parameter is

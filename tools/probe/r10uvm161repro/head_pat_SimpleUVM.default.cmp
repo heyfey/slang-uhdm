@@ -1,0 +1,29 @@
+LHS: <null>
+RHS:
+decompile:
+io_decl: (action), id:87499, line:347:51, endln:347:57
+|vpiParent:
+\_function: (uvm_pkg::uvm_report_handler::format_action), id:87495, line:347:3, endln:347:9
+|vpiDirection:1
+|vpiName:action
+|vpiTypedef:
+\_ref_typespec: (uvm_pkg::uvm_report_handler::format_action::action), id:87500
+  |vpiParent:
+  \_io_decl: (action), id:87499, line:347:51, endln:347:57
+  |vpiFullName:uvm_pkg::uvm_report_handler::format_action::action
+  |vpiActual:
+  \_int_typespec: (uvm_action), id:182846, line:272:9, endln:272:12
+
+decompile:
+io_decl: (action), id:87499, line:347:51, endln:347:57
+|vpiParent:
+\_function: (uvm_pkg::uvm_report_handler::format_action), id:87495, line:347:3, endln:347:9
+|vpiDirection:1
+|vpiName:action
+|vpiTypedef:
+\_ref_typespec: (uvm_pkg::uvm_report_handler::format_action::action), id:87500
+  |vpiParent:
+  \_io_decl: (action), id:87499, line:347:51, endln:347:57
+  |vpiFullName:uvm_pkg::uvm_report_handler::format_action::action
+  |vpiActual:
+  \_int_typespec: (uvm_action), id:182846, line:272:9, endln:272:12

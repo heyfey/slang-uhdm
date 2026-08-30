@@ -1,0 +1,51 @@
+r10uvm161 — THE WIDE BOUNDARY GATE.  MEASUREMENT ONLY.
+arms: every .sv/.v in a COPY of tools/probe (top level AND subdirectories),
+both views, pristine vs patched, BYTE comparison of the databases.
+
+LISTED=4590 PROCESSED=4590 PRODUCED_DBS=4438 MOVED_ARMS=10 RC_DIFFS=0
+
+MOVED ARMS, each attributed:
+r10buvm22repro/g22.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10buvm7repro/v7v_E_ctx.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm154repro/l154_noenum.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm161repro/g161_a_win.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm161repro/g161_b_notmove.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm161repro/g161_c_sites.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm161repro/g161_d_item.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm64repro/v2_ctx.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v121repro/v121_f.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v133repro/v133_h_more.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+
+ATTRIBUTION
+  r10uvm161repro/g161_{a,b,c,d}.sv   THIS PASS'S OWN GRID — the POSITIVE CONTROL.
+      A gate that reports zero movers over its own law's arms cannot see.
+
+  r10buvm7repro/v7v_E_ctx.sv         1 cell, TOWARD.  `assert (i == 0) …` at :31,
+      in-body class method `holdE::f`, local `int i`:  pristine ACT=NONE,
+      patched ACT=int_var:i, GOLDEN ACT=int_var:i.
+  r10uvm64repro/v2_ctx.sv            2 cells, TOWARD.  `a01_blkloc` :133:15 (an
+      assertion condition inside an `if` body, reading the local that same block
+      DECLARES — § blkLocalSameCtrlDepthWindowBinds64's same-depth carve-out) and
+      `j01_blkloc` :92:9 (a case ITEM expression in the same shape).  Golden binds
+      both: ACT=int_var on each side after the patch.
+  r10v121repro/v121_f.sv             1 cell, TOWARD.  `assert` condition in the
+      in-body class TASK `Kettle::settle`, FORMAL `k`: golden ACT=io_decl:k.
+  r10v133repro/v133_h_more.sv        1 cell, TOWARD.  `assert` condition in
+      `der133h::probe133`, local `r`: golden ACT=int_var:r.
+
+  r10buvm22repro/g22.sv              REFUTED — a BUILD-LAYOUT artifact, not a cell.
+  r10uvm154repro/l154_noenum.sv      REFUTED — the same artifact.
+      Both arms move ONLY a pre-existing POINTER-VALUED constant that our emitter
+      writes for an ASSOCIATIVE-ARRAY typedef's right range (`typedef C22
+      ka_cls_t[string];`, g22.sv:70) — `vpiDecompile`/`UINT` and nothing else in
+      the whole dump.  The value TRACKS THE BINARY'S OWN SIZE: pristine
+      22564569 with a 22371136-byte binary, patched 22560473 with a 22367040-byte
+      one — the SAME 4096-byte difference.  A THIRD binary built from the
+      UNPATCHED fe4a739 source with 8 KB of padding added to StmtEmit.cpp
+      (22379384 bytes) moves the same three constants to a THIRD value, 22572761,
+      and moves NOTHING ELSE in either dump.  So an unpatched tree reproduces the
+      arm, and the law does not reach it.  Both files are also `rc=4` (partially
+      rejected) under BOTH binaries, unchanged.
+
+TOTAL: 10 moved arms = 4 positive control + 4 TOWARD (5 cells) + 2 refuted.
+       RC_DIFFS 0 over 4590 arms.

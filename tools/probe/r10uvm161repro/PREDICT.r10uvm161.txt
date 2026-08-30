@@ -1,0 +1,32 @@
+PRED	default/MiniAmiq-544c7f61	assert-cond	ref_obj(compiled_regex)@262:10	immediate_assert()@262:3	function(visit)@255:2
+PRED	default/MiniAmiq-544c7f61	assert-cond	ref_obj(assertion)@849:51	immediate_assert(CHECK_SVA_EXISTS)@849:7	function(check_sva_exists)@838:4
+PRED	default/MiniAmiq-544c7f61	assert-cond	ref_obj(a_expression)@1028:44	immediate_assert(CHECK_THAT)@1028:7	function(check_that)@1017:4
+PRED	default/MiniAmiq-544c7f61	assert-cond	ref_obj(all_succeeded)@1076:55	immediate_assert(CHECK_ALL_SVA_PASSED)@1076:7	function(check_all_sva_passed)@1061:4
+TOTAL	default/MiniAmiq-544c7f61	4
+PRED	default/Scoreboard-59431470	assert-cond	ref_obj(compiled_regex)@262:10	immediate_assert()@262:3	function(visit)@255:2
+TOTAL	default/Scoreboard-59431470	1
+PRED	default/SeqDriver-32af76aa	assert-cond	ref_obj(compiled_regex)@262:10	immediate_assert()@262:3	function(visit)@255:2
+TOTAL	default/SeqDriver-32af76aa	1
+PRED	default/SimpleUVM-1dc93a62	assert-cond	ref_obj(compiled_regex)@262:10	immediate_assert()@262:3	function(visit)@255:2
+TOTAL	default/SimpleUVM-1dc93a62	1
+PRED	testflags/MiniAmiq-544c7f61	assert-cond	ref_obj(compiled_regex)@262:10	immediate_assert()@262:3	function(visit)@255:2
+PRED	testflags/MiniAmiq-544c7f61	assert-cond	ref_obj(assertion)@849:51	immediate_assert(CHECK_SVA_EXISTS)@849:7	function(check_sva_exists)@838:4
+PRED	testflags/MiniAmiq-544c7f61	assert-cond	ref_obj(a_expression)@1028:44	immediate_assert(CHECK_THAT)@1028:7	function(check_that)@1017:4
+PRED	testflags/MiniAmiq-544c7f61	assert-cond	ref_obj(all_succeeded)@1076:55	immediate_assert(CHECK_ALL_SVA_PASSED)@1076:7	function(check_all_sva_passed)@1061:4
+TOTAL	testflags/MiniAmiq-544c7f61	4
+PRED	testflags/SeqDriver-32af76aa	assert-cond	ref_obj(compiled_regex)@262:10	immediate_assert()@262:3	function(visit)@255:2
+TOTAL	testflags/SeqDriver-32af76aa	1
+PRED	testflags/SimpleUVM-1dc93a62	assert-cond	ref_obj(compiled_regex)@262:10	immediate_assert()@262:3	function(visit)@255:2
+TOTAL	testflags/SimpleUVM-1dc93a62	1
+-- databases=956  rows-with-cells=7  restore-fail=0
+-- predicted cells: 13
+-- MOVER ROW: default/MiniAmiq-544c7f61
+-- MOVER ROW: default/Scoreboard-59431470
+-- MOVER ROW: default/SeqDriver-32af76aa
+-- MOVER ROW: default/SimpleUVM-1dc93a62
+-- MOVER ROW: testflags/MiniAmiq-544c7f61
+-- MOVER ROW: testflags/SeqDriver-32af76aa
+-- MOVER ROW: testflags/SimpleUVM-1dc93a62
+== uhdm2rtlil (1358 pristine databases) ==
+-- databases=1358  rows-with-cells=0  restore-fail=0
+-- predicted cells: 0

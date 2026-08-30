@@ -1,0 +1,116 @@
+r10v161 — THE GATE BATTERY, run on the VERIFIER's own build. MEASUREMENT ONLY.
+BASE fe4a739.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+BINARIES (frozen chmod 555 at /tmp/v161_bin BEFORE any sweep)
+  015180bcb928448e2c561c0857cebd2f  /tmp/v161_bin/pat.bin
+  83258cd958cb88be667bf6729dcb0b9d  /tmp/v161_bin/pris.bin
+  99081ba5cce75436b441441f1807524e  /tmp/v161_bin/vfix.bin
+  pris.bin  = a clean fe4a739 built in /tmp/wt_v161pris  -> reproduces the implementer's pristine md5 EXACTLY
+  pat.bin   = /tmp/r10uvm161.patch on fe4a739            -> reproduces the implementer's patched md5 EXACTLY
+  vfix.bin  = pat.bin + the TWO verifier fixes           -> the shipped /tmp/r10uvm161.verified.patch
+
+GATE 1  build both/three, md5s above, 0 compiler errors.
+GATE 2  goldens
+  vfix    PASS=23 FAIL=0
+  pat     PASS=23 FAIL=0
+  pris    PASS=23 FAIL=0
+  /bin/false (negative control)  PASS=0 FAIL=23
+
+GATE 3  uhdm2rtlil, BOTH modes, 731 tests
+  pristine  testflags CMP_EQUAL 679 / SLANG_REJECT 50 / SURELOG_FAIL 2
+  pristine  default   CMP_EQUAL 679 / SLANG_REJECT 50 / SURELOG_FAIL 2
+  vfix      testflags CMP_EQUAL 679 / SLANG_REJECT 50 / SURELOG_FAIL 2
+  vfix      default   CMP_EQUAL 679 / SLANG_REJECT 50 / SURELOG_FAIL 2
+  ct8rows  results/gate_uhdm2rtlil.csv vs vfix/testflags      PASS
+  ct8rows  own pristine testflags       vs vfix/testflags      PASS
+  ct8rows  own pristine default         vs vfix/default        PASS
+
+GATE 4  surelog, --mode both, 794 tests
+  pristine default   CMP_EQUAL 471 SLANG_REJECT 283 SURELOG_FAIL 25 CMP_NOTEQUAL 10 DEFERRED 5
+  pristine testflags CMP_EQUAL 466 SLANG_REJECT 284 SURELOG_FAIL 23 CMP_NOTEQUAL 9 DEFERRED 5 NO_DATABASE 3 UNTRANSLATABLE 2 TIMEOUT 1 NO_UHDM 1
+  vfix     default   IDENTICAL histogram
+  vfix     testflags IDENTICAL histogram
+  ct8rows  results/golden_surelog.csv vs vfix   PASS
+  ct8rows  own pristine               vs vfix   PASS
+  NO ROW CONVERTED.  results/*.csv were READ ONLY.  GOLDEN_DEFER unset.
+
+CMDS AUDIT — every cmds.txt in every workdir, BY BINARY PATH
+  u2r_pris  1462 cmds.txt   1458 x /tmp/v161_bin/pris.bin   0 x any other binary
+  u2r_vfix  1462 cmds.txt   1458 x /tmp/v161_bin/vfix.bin   0 x any other binary
+  sl_pris   1573 cmds.txt   1523 x /tmp/v161_bin/pris.bin   0 x any other binary
+  sl_vfix   1573 cmds.txt   1523 x /tmp/v161_bin/vfix.bin   0 x any other binary
+  (no main-tree /home/heyfey/git-repos/slang-uhdm/build/slang-uhdm anywhere)
+
+GATE 5  byteverify, SELFCHECK=1
+  surelog     MOVERS 7 / 956     comparator negative control 955 / 956 flagged
+  uhdm2rtlil  MOVERS 0 / 1358    comparator negative control 1357 / 1358 flagged
+  PATH_SETS_IDENTICAL on both corpora.
+  THE PREDICTION, made from the PRISTINE databases with the implementer's own
+  ct161pred BEFORE any vfix database was censused, reproduced bit for bit:
+    surelog    956 databases -> 7 rows, 13 cells, all `assert-cond`
+    uhdm2rtlil 1358 databases -> 0 rows, 0 cells
+  The 7 rows byteverify reported are EXACTLY the 7 predicted.
+  NONE of the 13 predicted cells is a cast operand, a concatenation operand or
+  a named-block local, so the two VERIFIER terms move ZERO corpus cells — and
+  the measured mover set is the implementer's, unchanged.
+
+CORPUS CENSUS — the 7 moved databases, golden vs pristine vs vfix, five families
+  default/MiniAmiq-544c7f61     REF 4 moved, 4 TOWARD, 0 AWAY
+  default/Scoreboard-59431470   REF 1 moved, 1 TOWARD, 0 AWAY   (order-blind: the census is identity-keyed and sorted)
+  default/SeqDriver-32af76aa    REF 1 moved, 1 TOWARD, 0 AWAY
+  default/SimpleUVM-1dc93a62    REF 1 moved, 1 TOWARD, 0 AWAY
+  testflags/MiniAmiq-544c7f61   REF 4 moved, 4 TOWARD, 0 AWAY
+  testflags/SeqDriver-32af76aa  REF 1 moved, 1 TOWARD, 0 AWAY
+  testflags/SimpleUVM-1dc93a62  REF 1 moved, 1 TOWARD, 0 AWAY
+  ------------------------------------------------------------
+  13 cells, 13 TOWARD-EXACT, 0 AWAY, 0 SIDEWAYS, 0 RESHAPE
+  VAR 0, CNT 0, OBJ 0, TYP 0 moved in every one of the seven.
+
+HEADS (rowheads.sh, 12 measured, 2 SKIP-NOFILE counted)
+  SimpleUVM default   29 -> 29   HEAD CLEARED: the `chandle_var compiled_regex`
+  SimpleUVM testflags 29 -> 29   head is GONE; the head is now a DIFFERENT object,
+                                 LHS <null> / RHS io_decl(action)@347:51
+  SeqDriver def/tf  17/17   head log BYTE-IDENTICAL
+  Scoreboard default   145  head log BYTE-IDENTICAL
+  MiniAmiq def/tf   106/106 head log BYTE-IDENTICAL
+  BuildUVMPkg def/tf 321/321 head log BYTE-IDENTICAL
+  Earlgrey_0_1 def/tf 132/26594 head log BYTE-IDENTICAL
+  Rggen default 0 (CMP_EQUAL)
+  R0a VERIFIED PRE-EXISTING BY THE VERIFIER'S OWN CENSUS: in the PRISTINE
+  database `ref_obj(action)@350:25` already carries `ACT=io_decl:action` where
+  golden carries ACT=NONE, and the pristine and vfix rows for the whole of
+  `format_action` are BYTE-IDENTICAL.  Its seven siblings at :355-361 are
+  ACT=NONE in golden, pristine and vfix alike.
+
+CANARIES
+  surelog     ok=52 changed=0 absent=0
+  uhdm2rtlil  ok=8  changed=0 absent=0
+  ctcan2 surelog PASS   ctcan2 uhdm2rtlil PASS
+  canaudit  audited=29  UNCOVERED=0  FENCE-BREACH=0
+  protected databases, pristine vs vfix md5 (first 12):
+    InterfaceModPort   59a365f3ce2c = 59a365f3ce2c   SAME
+    BlackParrotComplex 73a10e8217e5 = 73a10e8217e5   SAME
+    YosysOldOr         d68e0796d62c = d68e0796d62c   SAME
+    SVSwitch           4842211c4030 = 4842211c4030   ON ITS PIN
+    YosysVerx          6ccda350c24a = 6ccda350c24a   ON ITS PIN
+
+GATE 6  THE WIDE BOUNDARY (pristine vs vfix, a COPY of the whole probe tree)
+  LISTED=4595  PROCESSED=4595  PRODUCED_DBS=4443  MOVED_ARMS=12  RC_DIFFS=0
+    4 = r10uvm161repro/g161_{a,b,c,d}   the implementer's own arms  (POSITIVE CONTROL)
+    4 = r10v161repro/v161_{b,c,d,e}     the verifier's own arms     (POSITIVE CONTROL)
+        v161_a_statics.sv did NOT move — the static-local MUST-STAY matrix
+    4 = attributed, censused against a Surelog golden built for each arm:
+        r10buvm7repro/v7v_E_ctx.sv    2 cells, 2 TOWARD, 0 AWAY
+        r10uvm64repro/v2_ctx.sv       4 cells, 4 TOWARD, 0 AWAY
+        r10v121repro/v121_f.sv        2 cells, 2 TOWARD, 0 AWAY
+        r10v133repro/v133_h_more.sv   2 cells, 2 TOWARD, 0 AWAY
+        (VAR/CNT/OBJ/TYP 0 moved in all four)
+  The implementer's two REFUTED arms (r10buvm22repro/g22.sv,
+  r10uvm154repro/l154_noenum.sv) DO NOT MOVE under this verifier's binary at
+  all — independent corroboration that their movement tracks the binary's own
+  SIZE and not the law.
+  Every committed must-stay boundary named in the brief was LISTED and did not
+  move: r10uvm160repro 6 arms, r10uvm158repro 6, r10uvm139repro 5,
+  r10uvm145repro 5, r10uvm155repro 5, r10uvm157repro 5, r10uvm146repro 7,
+  r10uvm114repro 8, r10uvm89repro 2, r10buvm14repro 1, r10uvm77repro 9,
+  r10uvm84repro 23 — all moved=0.

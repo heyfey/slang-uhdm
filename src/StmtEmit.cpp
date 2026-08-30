@@ -106,6 +106,43 @@ struct CondWindow5 {
     ~CondWindow5() { --*p; }
 };
 
+// § assertCondIsAClassMethodWindow161 — the RAII form of the three
+// `bool sX = classMethodNoBind; classMethodNoBind = false; … ; classMethodNoBind = sX;`
+// blocks the if / if_else / case CONDITION sites already spell by hand, so the
+// two sites this pass adds read the same as the three that were there.  It
+// clears the flag for its own lifetime and restores whatever it found — never
+// SETS it, so a body that was already binding keeps binding.  Law, Surelog
+// citations and the measured cells: include/UhdmExporter.h.
+// VERIFIER (r10v161): the window also raises `methodWindowDepth161v`, so the
+// two verifier terms in ExprEmit.cpp can be scoped to the window § 161 OPENS
+// and cannot reach the `if` / `case` CONDITION column.  See
+// § castOperandNeverBindsInWindow161v in include/UhdmExporter.h.
+// The depth is raised ONLY when the window ACTUALLY LIFTS a set flag, so
+// `methodWindowDepth161v > 0` means exactly "binding here is something this
+// window turned on".  Outside an in-body class method the flag is already
+// false (TaskFuncEmit.cpp: `classMethodNoBind = classScope && !oob`), the
+// window is a no-op, and both verifier terms stay INERT — measured: a MODULE
+// function's `assert (int'(loc) == 1)` is golden-BOUND (v161_d_break.sv d62
+// 147:18) and must not be suppressed.
+struct MethodWindow161 {
+    bool* p;
+    bool saved;
+    int* d;
+    bool bumped;
+    MethodWindow161(bool& f, int& depth)
+        : p(&f), saved(f), d(&depth), bumped(f) {
+        if (f) {
+            f = false;
+            ++*d;
+        }
+    }
+    ~MethodWindow161() {
+        *p = saved;
+        if (bumped)
+            --*d;
+    }
+};
+
 struct BlkCtrl57 {
     std::vector<std::pair<const void*, int>>* v = nullptr;
     BlkCtrl57(std::vector<std::pair<const void*, int>>& st, const void* key, int d) {
@@ -4548,6 +4585,19 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // why the window is raised here and not around both arms.
                 for (auto e : g.expressions) {
                     CondWindow5 cw5(condBindDepth5);
+                    // § assertCondIsAClassMethodWindow161, SITE 1 of 4.  A case
+                    // ITEM expression is a `classMethodNoBind` window on the
+                    // very same terms as the case CONDITION twelve lines above,
+                    // which already clears the flag: golden binds an IN-BODY
+                    // class method's plain local and its FORMAL from an item
+                    // expression and leaves its properties, package variables
+                    // and parameters bare — the identical column the `if`
+                    // condition gives (arm D, cells 40:9 / 41:9 / 57:9 against
+                    // 29:11 / 30:11 and 42:9 / 43:9 / 44:9 / 45:9 against
+                    // 31:11 / 32:11 / 35:11 / 36:11).  `case … inside` is the
+                    // OTHER arm of this `if` and is deliberately not reached
+                    // (arm D cell 53:9, golden bare).
+                    MethodWindow161 mw161(classMethodNoBind, methodWindowDepth161v);
                     if (auto* ue = emitExpr(*e, it, prefix, netMap)) {
                         // Case-item expr refs and calls parent at the
                         // enclosing scope (constants stay at the case_item).
@@ -4607,9 +4657,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     // 2-4 of 4: an IMMEDIATE ASSERTION / ASSUMPTION / COVER
                     // CONDITION (verifier arm v7 row 18:19, golden `ref_obj`,
                     // pristine RIGHT, first patched binary WRONG).
+                    // § assertCondIsAClassMethodWindow161 — SITE 2 of 4.
                     if (auto* c = [&] {
                             CondWindow5 cw5(condBindDepth5);
                             NoFoldCtx58 nf58ia(procNoFoldCtx58);
+                            MethodWindow161 mw161(classMethodNoBind, methodWindowDepth161v);
                             return emitExpr(ia.cond, a, prefix, netMap);
                         }())
                         a->Expr((UHDM::expr*)c);
@@ -4637,9 +4689,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     // 2-4 of 4: an IMMEDIATE ASSERTION / ASSUMPTION / COVER
                     // CONDITION (verifier arm v7 row 18:19, golden `ref_obj`,
                     // pristine RIGHT, first patched binary WRONG).
+                    // § assertCondIsAClassMethodWindow161 — SITE 3 of 4.
                     if (auto* c = [&] {
                             CondWindow5 cw5(condBindDepth5);
                             NoFoldCtx58 nf58ia(procNoFoldCtx58);
+                            MethodWindow161 mw161(classMethodNoBind, methodWindowDepth161v);
                             return emitExpr(ia.cond, a, prefix, netMap);
                         }())
                         a->Expr((UHDM::expr*)c);
@@ -4667,9 +4721,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     // 2-4 of 4: an IMMEDIATE ASSERTION / ASSUMPTION / COVER
                     // CONDITION (verifier arm v7 row 18:19, golden `ref_obj`,
                     // pristine RIGHT, first patched binary WRONG).
+                    // § assertCondIsAClassMethodWindow161 — SITE 4 of 4.
                     if (auto* c = [&] {
                             CondWindow5 cw5(condBindDepth5);
                             NoFoldCtx58 nf58ia(procNoFoldCtx58);
+                            MethodWindow161 mw161(classMethodNoBind, methodWindowDepth161v);
                             return emitExpr(ia.cond, a, prefix, netMap);
                         }())
                         a->Expr((UHDM::expr*)c);

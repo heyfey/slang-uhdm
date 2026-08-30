@@ -3378,6 +3378,18 @@ struct NewArrayArg16 {
     explicit NewArrayArg16(int& d) : p(&d), saved(d) { d = d + 1; }
     ~NewArrayArg16() { *p = saved; }
 };
+// VERIFIER FIX 1 (r10v161) — § castOperandNeverBindsInWindow161v.  Raised
+// around EVERY emission of an EXPLICIT cast's operand (the four sites in the
+// ConversionExpression arm that hand the `vpiCastOp` operation down as the
+// parent), so the whole subtree under a cast is covered and not just a bare
+// name.  IMPLICIT conversions never raise it — Surelog does not materialise
+// them and their operands bind normally.  See include/UhdmExporter.h.
+struct CastOperand161v {
+    int* p;
+    int saved;
+    explicit CastOperand161v(int& d) : p(&d), saved(d) { d = d + 1; }
+    ~CastOperand161v() { *p = saved; }
+};
 // § newArrayArgNoBind16 — the SYMBOL half of the gate.  True for a name whose
 // DECLARING SCOPE is a subroutine (a formal, a body local, a block local, a
 // loop iterator) AND whose subroutine's HOME is a package, a class or the
@@ -16551,9 +16563,18 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // The `classArgBindDepth12 > 0` conjunct keeps the term inert
                 // everywhere a window is not open, so no position outside a
                 // call-argument/condition window changes at all.
+                // VERIFIER FIX 2 (r10v161): `|| methodWindowDepth161v > 0` —
+                // § 161 opens a window § 12 knows nothing about, and
+                // `bindVariable` (CompileStmt.cpp:3089-3149) has no
+                // `uhdmnamed_begin` case in ANY window, so the identical
+                // suppression is owed there.  Measured cells:
+                // v161_d_break.sv d32/d39/d40/d42/d43 and v161_b_assert.sv
+                // b38 — golden BARE, pristine BARE, patched BOUND without it;
+                // controls d34/d36/d38/d45 keep binding.  See
+                // include/UhdmExporter.h.
                 bool namedBlkLocalNoBind144v = false;
                 if (curSubClassScope9 && !curSubOob9 &&
-                    classArgBindDepth12 > 0 &&
+                    (classArgBindDepth12 > 0 || methodWindowDepth161v > 0) &&
                     nv.symbol.kind == SymbolKind::Variable) {
                     if (auto* nbs144v = nv.symbol.getParentScope()) {
                         auto& nbd144v = nbs144v->asSymbol();
@@ -16636,12 +16657,24 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // control cannot sit inside any of their windows.
                 bool evCtrlOperandBind108 =
                     evCtrlBindPos108 && evCtrlBindSym108(nv.symbol);
+                // VERIFIER FIX 1 (r10v161) — § castOperandNeverBindsInWindow161v.
+                // Surelog compiles a cast's operand with `pexpr == nullptr`
+                // (CompileExpression.cpp:2637-2646) and `bindVariable` returns
+                // immediately on a null scope (CompileStmt.cpp:3092), so
+                // NOTHING under a cast is eagerly bound.  Scoped to the window
+                // § 161 opens: the `if` / `case`-CONDITION column keeps its
+                // PRE-EXISTING cast behaviour (that is r10uvm161's R0a, a
+                // separate law with its own corpus cells).  See
+                // include/UhdmExporter.h.
+                bool castOperandNoBind161v =
+                    methodWindowDepth161v > 0 && castOperandDepth161v > 0;
                 if (((((classMethodNoBind && classArgBindDepth12 == 0) ||
                        ctrlBodyNoBind28) &&
                       !evCtrlOperandBind108) ||
                      unitSubNoBind9 ||
                      recvCallArgNoBind52 || collArgNamedBlkNoBind15 ||
                      ctorSubLocalNoBind144 || namedBlkLocalNoBind144v ||
+                     castOperandNoBind161v ||
                      newArrayArgNoBind16) &&
                     !superNewFormal28 && !incDecOperandBind21) {
                     // Class-method body outside an if/case condition, or a
@@ -18772,7 +18805,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         inner9->syntax->kind ==
                             syntax::SyntaxKind::SignedCastExpression))
                     inner9 = &inner9->as<ConversionExpression>().operand();
-                if (auto* a9 = emitExpr(*inner9, sc9, prefix, netMap)) {
+                // r10v161 FIX 1 — the SIGNEDNESS cast is the same `paCast`
+                // arm in Surelog (CompileExpression.cpp:2637-2661): its
+                // operand is compiled with `pexpr == nullptr` before the
+                // `$signed`/`$unsigned` call exists.  Measured cell
+                // v161_d_break.sv d16 34:23.
+                if (auto* a9 = [&] {
+                        CastOperand161v co161v(castOperandDepth161v);
+                        return emitExpr(*inner9, sc9, prefix, netMap);
+                    }()) {
                     auto* args9 = s.MakeAnyVec();
                     args9->push_back(a9);
                     sc9->Tf_call_args(args9);
@@ -19431,7 +19472,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             }
                         }
                         auto* operandsD = s.MakeAnyVec();
-                        if (auto* e = emitExpr(conv.operand(), op, prefix, netMap))
+                        if (auto* e = [&] {
+                                CastOperand161v co161v(castOperandDepth161v); // r10v161 FIX 1
+                                return emitExpr(conv.operand(), op, prefix, netMap);
+                            }())
                             operandsD->push_back(wrapSignCast9(e));
                         castSynOverride = nullptr;
                         op->Operands(operandsD);
@@ -19710,7 +19754,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                 }
                 auto* operandsD = s.MakeAnyVec();
-                if (auto* e = emitExpr(conv.operand(), op, prefix, netMap))
+                if (auto* e = [&] {
+                        CastOperand161v co161v(castOperandDepth161v); // r10v161 FIX 1
+                        return emitExpr(conv.operand(), op, prefix, netMap);
+                    }())
                     operandsD->push_back(wrapSignCast9(e));
                 castSynOverride = nullptr;
                 op->Operands(operandsD);
@@ -19750,7 +19797,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                    .expression;
                     if (rsyn && rsyn->kind == syntax::SyntaxKind::CastExpression) {
                         castSynOverride = rsyn;
-                        nestedOperand = emitExpr(c1, op, prefix, netMap);
+                        {
+                            CastOperand161v co161v(castOperandDepth161v); // r10v161 FIX 1
+                            nestedOperand = emitExpr(c1, op, prefix, netMap);
+                        }
                         castSynOverride = nullptr;
                     }
                 }
@@ -19935,7 +19985,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 suppressRefActual = true;
             if (nestedOperand)
                 operands->push_back(nestedOperand);
-            else if (auto* e = emitExpr(conv.operand(), op, prefix, netMap))
+            else if (auto* e = [&] {
+                     CastOperand161v co161v(castOperandDepth161v); // r10v161 FIX 1
+                     return emitExpr(conv.operand(), op, prefix, netMap);
+                 }())
                 operands->push_back(wrapSignCast9(e));
             suppressRefActual = savedSRA;
             op->Operands(operands);

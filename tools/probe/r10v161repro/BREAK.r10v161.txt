@@ -1,0 +1,199 @@
+r10v161 — BREAKING THE LAW.  MEASUREMENT ONLY; the official uhdm-cmp is the
+sole judge.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+Every table below is ONE Surelog golden per arm per view, three columns:
+golden / PRISTINE (fe4a739) / the binary under test.  "AWAY" means
+PRISTINE-RIGHT and PATCHED-WRONG — the only verdict that convicts a patch.
+
+=======================================================================
+ARM A  v161_a_statics.sv — THE STATIC-LOCAL FACE MATRIX, MUST-STAY
+=======================================================================
+The brief's whole face list, read OUTSIDE any window (ordinary statements):
+static chandle / int with initialiser / int without / string / class handle /
+queue / unpacked array / event / read-before-written / two statics in one
+method / in a nested begin / in a NAMED begin / in a fork arm / in a loop body /
+in a constructor / in a static method / in an out-of-body method / in a task /
+shadowing a class property / in a generic class's DEFAULT specialization and in
+TWO specializations / in a non-generic class / in a package function / in a
+module function / in an initial block — each with its AUTOMATIC twin and, where
+it can have one, an UNWRITTEN twin; plus every bare face (property, static
+property, const property, inherited property/static, package variable, package
+parameter, class localparam, enum property, queue method, array element,
+this.<prop>).
+
+  REF   DIFF 18 / ONLY-G 12 / ONLY-O 15   pristine
+  REF   DIFF 18 / ONLY-G 12 / ONLY-O 15   patched      -> MOVED 0
+  VAR / CNT / OBJ / TYP                                -> MOVED 0
+  The whole matrix is INERT under this pass, in both views, as it must be.
+  (The 18/12/15 are PRE-EXISTING residues of other laws, byte-for-byte equal on
+  both columns.)  The wide boundary agrees: v161_a_statics.sv is the one arm of
+  this verifier's five that does NOT appear in MOVERS.
+
+=======================================================================
+ARM B  v161_b_assert.sv — THE POPULATION
+=======================================================================
+Every static-local face and its automatic/unwritten twins read from an
+IMMEDIATE ASSERTION CONDITION at control depth 0 in an in-body class method,
+beside an `if`-condition mirror; assert / assume / cover / assert #0 /
+assert final; in a task, a static method, a constructor, a virtual method, a
+plain begin, a NAMED begin, a fork arm, a loop body, an out-of-body method, a
+package function, a module function, an initial block; action blocks and one
+control body deeper as controls.
+
+  golden vs PRISTINE   REF DIFF 60
+  golden vs shipped    REF DIFF  2   AWAY 2   <-- CONVICTED
+  golden vs vfix       REF DIFF  0   AWAY 0   TOWARD 60
+
+  THE AWAY (both views), cell b38:
+    140:15  ref_obj(s_named)  under
+            /operation/immediate_assert/named_begin:nb_b161/function:b_named_begin
+            golden ACT=NONE   pristine ACT=NONE   shipped ACT=int_var:s_named
+    source:  begin : nb_b161  static int s_named = 5;  assert (s_named == 5); end
+
+=======================================================================
+ARM C  v161_c_overbind.sv — THE OVER-BIND HUNT
+=======================================================================
+24 referent kinds read from an `if` condition and again from an assertion
+condition (property, static property, const property, inherited property,
+inherited static, class-handle property, property array element, queue method,
+enum property, enum constant, class localparam, class parameter, package
+parameter, package variable, this.<prop>, super.<prop>, C::static, chandle
+property, struct member, assoc-array method, own method call, virtual method
+call, $bits(local), plain local, formal, property.field, property.method());
+13 case-ITEM kinds; casex / casez / `case … inside`; the depth controls
+(if / while / for / forever / repeat / do-while bodies, action blocks, fork,
+plain begin, named begin); and the expression shapes (cast, sys-call arg,
+short-circuit, inside, ternary, local as index, local indexing a queue).
+
+  golden vs PRISTINE   REF DIFF 56
+  golden vs shipped    REF DIFF 15   AWAY 4   <-- CONVICTED
+  golden vs vfix       REF DIFF 11   AWAY 0   TOWARD 45
+
+  THE AWAY (both views), cells c92 / c93:
+    160:18  ref_obj(loc)       assert (int'(loc) == 1)
+    161:18  ref_obj(formal_s)  assert (int'(formal_s) == 1)
+            golden ACT=NONE   pristine ACT=NONE   shipped BOUND
+  NOT an away, checked and PRE-EXISTING: a case ITEM naming a PACKAGE VARIABLE
+  (112:7 `pk_c161::pkg_var_c:`) is golden-bare and was ALREADY bound by the
+  pristine binary — a residue of a different law, untouched by this pass.
+
+=======================================================================
+ARM D  v161_d_break.sv — THE DISCRIMINATOR ARM
+=======================================================================
+Isolates each AWAY against its `if`-condition mirror, so "did this patch CREATE
+the away or extend one already in the `if` column?" is answered by measurement.
+
+  golden vs PRISTINE   REF DIFF 35
+  golden vs shipped    REF DIFF 41   AWAY 21   <-- CONVICTED
+  golden vs vfix       REF DIFF 21   AWAY  0   TOWARD 14
+
+  D1 THE CAST.  Surelog CompileExpression.cpp:2637-2646 compiles a cast's
+  operand with `pexpr` LITERALLY nullptr, and bindVariable (CompileStmt.cpp:3092)
+  returns immediately on a null scope — so NOTHING under a cast is eagerly
+  bound, in ANY window, in ANY spelling.  DEF view:
+    ln:col  cell                                  golden  pristine  shipped  vfix
+    29:18   assert (int'(loc) == 1)               NONE    NONE      BOUND    NONE
+    30:18   assert (int'(formal_d) == 1)          NONE    NONE      BOUND    NONE
+    33:18   assert (bit'(loc))                    NONE    NONE      BOUND    NONE
+    34:23   assert (unsigned'(loc) == 1)          NONE    NONE      BOUND    NONE
+    35:16   assert (4'(loc) == 1)                 NONE    NONE      BOUND    NONE
+    36:28   assert (ed_t'(nib) == ED0)            NONE    NONE      BOUND    NONE
+    43:12   case (loc) int'(formal_d): …          NONE    NONE      BOUND    NONE
+    31:13   assert (loc == 1)      CONTROL        BOUND   NONE      BOUND    BOUND
+    32:13   assert (formal_d == 1) CONTROL        BOUND   NONE      BOUND    BOUND
+    44:7    the un-cast case ITEM  CONTROL        BOUND   NONE      BOUND    BOUND
+  the `if`-column TWINS are PRE-EXISTING and are LEFT EXACTLY AS THEY WERE:
+    20:14 if (int'(loc)==1)   21:14 if (int'(formal_d)==1)   24:14 bit'
+    25:19 unsigned'   26:12 4'(…)   27:24 enum'   38:16 case (int'(loc))
+      golden NONE, pristine BOUND, shipped BOUND, vfix BOUND
+  and so is the OUT-OF-BODY twin 135:13.  That column is r10uvm161's own R0a.
+
+  D2 THE NAMED BLOCK.  bindVariable (CompileStmt.cpp:3089-3149) switches on the
+  scope kind and has cases for uhdmfunction, uhdmtask, uhdmbegin and
+  uhdmmodule_inst — and NO case for uhdmnamed_begin; its `default:` arm falls
+  through to the PARENT, so a named block is STEPPED OVER.  DEF view:
+    54:15   begin : blk_a  static int s_a;  assert (s_a == 5)   NONE NONE BOUND NONE
+    87:17   a local of the INNER of two nested named blocks     NONE NONE BOUND NONE
+    88:17   a local of the OUTER named block, read from the inner NONE NONE BOUND NONE
+    98:17   a NAMED fork arm's local                            NONE NONE BOUND NONE
+    107:9   a case ITEM reading a named block's local           NONE NONE BOUND NONE
+    62:15   begin : blk_b reading a FUNCTION local  CONTROL     BOUND NONE BOUND BOUND
+    70:15   an UNNAMED begin's own local            CONTROL     BOUND NONE BOUND BOUND
+    78:15   an UNNAMED begin reading a function local CONTROL   BOUND NONE BOUND BOUND
+    116:13  no block at all                         CONTROL     BOUND NONE BOUND BOUND
+  the `if`-column twins 53:11 and 97:13 and the OUT-OF-BODY twin 135:13 are
+  PRE-EXISTING (golden NONE, pristine BOUND) and are left exactly as they were.
+
+  D3 THE FIRST CUT OF FIX 1 WAS ITSELF CONVICTED HERE.  Bumping the window
+  depth unconditionally suppressed 147:18 — a MODULE function's
+  `assert (int'(loc) == 1)`, which golden BINDS.  The shipped term raises the
+  depth ONLY when the window actually lifts a set `classMethodNoBind`, so it is
+  inert in a module function, a package function, an out-of-body method and a
+  process.  147:18 is BOUND again and matches golden.
+
+=======================================================================
+ARM E  v161_e_fixedges.sv — THE EDGES OF THE TWO FIXES
+=======================================================================
+Casts nested in calls, in casts, over operations, concatenations,
+replications, selects, indices, `inside`, ternaries, $bits; $signed/$unsigned
+written as SYSTEM CALLS versus as CASTS; named blocks inside unnamed blocks and
+vice versa, in a task, a static method, a constructor, a case item, a control
+body, a generic class; and the module-function control.
+
+  golden vs vfix   AWAY 4 -> ALL FOUR ARE THE CONCATENATION FAMILY BELOW.
+  Everything the two fixes own is exact:
+    33:21 assert ($signed(loc) == 1)     SYSTEM CALL  golden BOUND, vfix BOUND
+    34:23 assert ($unsigned(loc) == 1)   SYSTEM CALL  golden BOUND, vfix BOUND
+      (against arm D 34:23 `unsigned'(loc)`, the CAST spelling, golden BARE —
+       the two spellings share a home shape and the fix separates them)
+    57:17 an UNNAMED block inside a NAMED one       golden BOUND, vfix BOUND
+    66:17 a NAMED block inside an UNNAMED one       golden BOUND, vfix BOUND
+    58/67:17 the FUNCTION local read from either    golden BOUND, vfix BOUND
+    77:15 task, 86:15/87:15 static method + formal, 107:9 case item,
+    132:15 generic class                            golden BOUND, vfix BOUND
+    every named-block-declared local (nb1..nb6, gnb) golden BARE, vfix BARE
+    60/61/62 the MODULE-function column             golden BOUND, vfix BOUND
+
+=======================================================================
+ARMS F and G  v161_f_concat.sv / v161_g_catshape.sv — R0b, NOT FIXED HERE
+=======================================================================
+A THIRD family the § 161 window inherits from the `if` column, PRE-EXISTING
+there, ZERO corpus cells, and LEFT OPEN by this verifier on purpose (see the
+README's R0b): inside a CLASS method, golden leaves a CONCATENATION's operands
+BARE, and our emitter binds them.
+
+  arm F, DEF view, in-body class method (`#33` = vpiConcatOp, `#34` = vpiMultiConcatOp):
+    ln:col  cell                             golden  pristine  vfix   home
+    17:9    assert-column `nib == 0`         BOUND   NONE      BOUND  /op#14
+    26:13   the same, bare operand           BOUND   NONE      BOUND  /op#14
+    19:10   if   ({nib,nib2} == 0)           NONE    BOUND     BOUND  /op#33/op#14   PRE-EXISTING
+    28:14   assert ({nib,nib2} == 0)         NONE    NONE      BOUND  /op#33/op#14   NEW AWAY
+    29:14   assert ({loc,loc} == 0)          NONE    NONE      BOUND  /op#33/op#14   NEW AWAY
+    31:14   assert ({nib,4'h0} == 0)         NONE    NONE      BOUND  /op#33/op#14   NEW AWAY
+    32:24   assert ({byt[3:0],nib} == 0)     NONE    NONE      BOUND  /op#33/op#14   NEW AWAY
+    35:14   assert ({formal_f,formal_f}==0)  NONE    NONE      BOUND  /op#33/op#14   NEW AWAY
+    42:8    a CONCAT as a case ITEM          NONE    NONE      BOUND  /op#33/case_item NEW AWAY
+    21:12   if   ({2{nib}} == 0)             BOUND   BOUND     BOUND  /op#33/op#34/op#14
+    30:16   assert ({2{nib}} == 0)           BOUND   NONE      BOUND  /op#33/op#34/op#14  TOWARD
+    24:10   assert ((nib+nib2) == 0)         BOUND   NONE      BOUND  /op#24/op#14        TOWARD
+    37:12   a CONCAT as the case CONDITION   NONE    BOUND     BOUND  /op#33            PRE-EXISTING
+    54:8/55:12 an OUT-OF-BODY method's concat NONE   BOUND     BOUND                     PRE-EXISTING
+    66:10/67:14 a MODULE function's concat    BOUND  BOUND     BOUND   golden BINDS here
+  arm G pins the exception exactly, 40 cells, one golden:
+    THE PREDICATE THAT FITS EVERY MEASURED CELL — walk up from the reference to
+    the first ancestor that is a #33 or a #34.  If it is a #33 whose own parent
+    is a #34, golden BINDS; otherwise, if it is a #33 at all, golden is BARE.
+      {a}            /#33/#14                 BARE
+      {a,b}          /#33/#14                 BARE
+      {{a,b},a}      /#33/#33/#14  and /#33/#14  BARE (both)
+      {2{a}}         /#33/#34/#14             BOUND   <- the exception
+      {2{{a,b}}}     /#33/#33/#34/#14         BARE
+      {a,{2{b}}}     b at /#33/#34/#33/#14    BARE    <- the exception does NOT
+                                                        survive an outer concat
+      {a+b,b}        a at /#24/#33/#14        BARE    <- so it is not the
+                                                        IMMEDIATE parent either
+      helper({a,b})  /#33/func_call/#14       BARE
+      {a,b} inside…  /#33/#95                 BARE
+      int'({a,b})    /#33/#67/#14             BARE (already the cast term's)
+    The exception rests on THREE rows and needs its own arm set and its own
+    Surelog decode (the `paMultiple_concatenation` arm) before it becomes a
+    law.  It moves ZERO corpus cells, so it is recorded, not guessed at.
