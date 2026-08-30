@@ -3153,6 +3153,171 @@ void UhdmExporter::emitClassTsParams(UHDM::class_typespec* cts, const ClassType&
     cts->Param_assigns(pas);
 }
 
+// NOTE § classPropSpecForeignPkgHome163 — the LISTING half.  The predicate that
+// decides WHETHER a class property's class_typespec carries a specialization
+// listing lives at the mint (src/TypeEmit.cpp, `grep -n foreignPkgHome163`);
+// this is WHAT the listing contains, transcribed line by line from Surelog's
+// only writer of `Parameters`/`Param_assigns`,
+// `CompileHelper::compileDatastructureTypespec`'s `datatype_cast<const
+// ClassDefinition*>` arm (src/DesignCompile/CompileType.cpp:902-1000):
+//
+//   * the loop walks the WRITTEN `Ordered_parameter_assignment` list and stops
+//     at `index < formal.size()`, so a formal with NO written argument gets
+//     NOTHING — arm C `c4_one_arg_of_two` (`genEp163#(int)` of a TWO-formal
+//     class) is ONE entry in golden, not two.  This is why the site cannot
+//     reuse `emitClassTsParams`, which lists every formal of the
+//     SPECIALIZATION and would give that cell two;
+//   * `index` counts ALL formals, VALUE ones included, and a value formal's
+//     argument pushes nothing — arm C `c10_value_then_type`
+//     (`valEp163#(4, cfgUn163)` on `#(int NN, type TA)`) is ONE entry in
+//     golden, bound to TA, and the `4` only advances the index;
+//   * the loop is guarded on `paOrdered_parameter_assignment`, so a NAMED
+//     argument spelling produces no entries at all — arm C `c7_named_arg`;
+//   * `pass->Lhs(fparam)` is the TARGET class_defn's own formal, and
+//     `pass->VpiLineNo(fparam->VpiLineNo())` gives the param_assign the
+//     FORMAL's span;
+//   * the two ARMS.  When the written argument parses as a `paData_type`
+//     (`int`, `bit [3:0]`, …) Surelog compiles the argument's own type node and
+//     calls `populateCoreMembers(p->getNodeId(), …)` on the type_parameter,
+//     i.e. it stamps THE FORMAL'S OWN DECLARATION SPAN on it; when the argument
+//     parses as an EXPRESSION (a bare identifier naming a class or a typedef)
+//     it takes the `compileExpression`/`ref_obj` branch, which stamps NO span
+//     on the type_parameter and NO span on the param_assign, and locates the
+//     actual typespec at the WHOLE `#(...)` text.  Both faces are in the
+//     Scoreboard head itself: `type_parameter T` at `110:31-110:32` (the
+//     formal's own span, `int` argument) beside `type_parameter IMP` with no
+//     span at all (`my_scoreboard` argument), and their actuals at `9:22-9:25`
+//     and `9:20-9:41`.
+//
+// A SCOPED spelling is refused here for the same reason r10sd1 refuses it: it
+// takes Surelog's paPackage_scope/paClass_scope arm and never reaches this
+// mint.  NO VpiFullName is written on the type_parameter or its ref_typespec —
+// UHDM's `ComputeFullName()` yields golden's
+// `work@my_scoreboard::m_imp::uvm_analysis_imp::T` from the final parent chain,
+// which is not known here.
+void UhdmExporter::emitClassPropSpecParams163(
+        UHDM::class_typespec* cts, const ClassType& target,
+        const syntax::SyntaxNode* typeSyn, const Scope* declScope) {
+    if (!cts || cts->Parameters())
+        return;
+    // (1) The written spelling must be an UNQUALIFIED `C #(...)`.
+    auto* nt163 = typeSyn ? typeSyn->as_if<syntax::NamedTypeSyntax>() : nullptr;
+    auto* cn163 = nt163 ? nt163->name->as_if<syntax::ClassNameSyntax>() : nullptr;
+    if (!cn163 || !cn163->parameters)
+        return;
+    // (2) ORDERED arguments only.
+    std::vector<const syntax::ExpressionSyntax*> ord163;
+    for (auto* pa163 : cn163->parameters->parameters) {
+        if (!pa163 || pa163->kind != syntax::SyntaxKind::OrderedParamAssignment)
+            return;
+        ord163.push_back(&*pa163->as<syntax::OrderedParamAssignmentSyntax>().expr);
+    }
+    if (ord163.empty())
+        return;
+    // § ownTypeFormalArgPushesNothing163v — the argument names a TYPE FORMAL of
+    // the DECLARING class itself.  Measured, not reasoned: arm P `p03`/`p11`
+    // (every argument a own formal) carry NO listing in golden, `p05`/`p06`
+    // carry exactly ONE entry with the index advanced past the skipped
+    // argument, and arm Q `q04`/`q05` repeat it beside a class-scope typedef
+    // argument, which is NOT skipped (`q03` keeps its entry).  A direct `find`
+    // in the declaring scope and no walk: an OUTER class's formal (`q01`) and a
+    // module type parameter (`q10`) ARE listed by golden.
+    auto ownTypeFormal163v = [&](const syntax::ExpressionSyntax* a163v) {
+        if (!declScope || !a163v ||
+            a163v->kind != syntax::SyntaxKind::IdentifierName)
+            return false;
+        std::string_view nm163v =
+            a163v->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+        if (nm163v.empty())
+            return false;
+        const Symbol* f163v = declScope->find(nm163v);
+        return f163v && f163v->kind == SymbolKind::TypeParameter;
+    };
+    auto* params163 = s.MakeAnyVec();
+    auto* pas163 = s.MakeParam_assignVec();
+    size_t idx163 = 0;
+    for (auto& m163 : target.members()) {
+        if (m163.kind != SymbolKind::TypeParameter &&
+            m163.kind != SymbolKind::Parameter)
+            continue;
+        if (idx163 >= ord163.size())
+            break;
+        const syntax::ExpressionSyntax* a163 = ord163[idx163++];
+        if (m163.kind != SymbolKind::TypeParameter)
+            continue;  // a VALUE formal consumes its argument and pushes nothing
+        if (ownTypeFormal163v(a163))
+            continue;  // and so does the declaring class's OWN type formal
+        auto& tps163 = m163.as<TypeParameterSymbol>();
+        // Surelog's `paData_type` test: a bare identifier (a class name, a
+        // typedef name) parses as an EXPRESSION and takes the other arm.
+        const bool exprArm163 =
+            a163 && (a163->kind == syntax::SyntaxKind::IdentifierName ||
+                     a163->kind == syntax::SyntaxKind::ScopedName ||
+                     a163->kind == syntax::SyntaxKind::ClassName);
+        auto* tp163 = s.MakeType_parameter();
+        tp163->VpiName(tps163.name);
+        tp163->VpiParent(cts);
+        if (!exprArm163)
+            setLoc(tp163, nameSpan(tps163.location, tps163.name));
+        auto* rt163 = s.MakeRef_typespec();
+        rt163->VpiParent(tp163);
+        auto& dct163 = tps163.targetType.getType().getCanonicalType();
+        UHDM::typespec* its163 = nullptr;
+        if (dct163.kind == SymbolKind::ClassType) {
+            auto* nts163 = s.MakeClass_typespec();
+            nts163->VpiName(dct163.name);
+            nts163->VpiParent(tp163);
+            if (auto* bcd163 = classDefnFor(dct163))
+                nts163->Class_defn(bcd163);
+            else
+                pendingClassTsLink.push_back({nts163, &dct163});
+            setLoc(nts163, cn163->parameters->sourceRange());
+            its163 = nts163;
+        }
+        else {
+            its163 = makeTypespec(m163, tps163.targetType.getTypeSyntax());
+            if (its163) {
+                its163->VpiParent(tp163);
+                if (!exprArm163)
+                    setLoc(its163, a163->sourceRange());
+                else if (its163->VpiName().empty() &&
+                         a163->kind == syntax::SyntaxKind::IdentifierName) {
+                    // The expression arm re-enters `compileDatastructureTypespec`
+                    // with the ref_obj's NAME, which is what golden's
+                    // `logic_typespec (nib163_t)` wears (arm C `c6_typedef_arg`).
+                    its163->VpiName(std::string(
+                        a163->as<syntax::IdentifierNameSyntax>()
+                            .identifier.valueText()));
+                    setLoc(its163, cn163->parameters->sourceRange());
+                }
+            }
+        }
+        rt163->Actual_typespec(its163);
+        tp163->Typespec(rt163);
+        params163->push_back(tp163);
+        auto* pa163 = s.MakeParam_assign();
+        pa163->VpiParent(cts);
+        pa163->Rhs(tp163);
+        if (!exprArm163)
+            setLoc(pa163, nameSpan(tps163.location, tps163.name));
+        bool bound163 = false;
+        if (auto* bcd163 = classDefnFor(target); bcd163 && bcd163->Parameters())
+            for (auto* p163 : *bcd163->Parameters())
+                if (p163->VpiName() == tps163.name) {
+                    pa163->Lhs(p163);
+                    bound163 = true;
+                    break;
+                }
+        if (!bound163)
+            pendingClassTsPa.push_back({pa163, &target, std::string(tps163.name)});
+        pas163->push_back(pa163);
+    }
+    if (params163->empty())
+        return;
+    cts->Parameters(params163);
+    cts->Param_assigns(pas163);
+}
+
 // NOTE § classTdSpecParamsForeignHome1 — the SPECIALIZATION carried by a
 // CLASS-SCOPE class-handle typedef, and the ONE predicate that decides it.
 //

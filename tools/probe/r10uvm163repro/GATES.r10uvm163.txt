@@ -1,0 +1,72 @@
+== 1. binaries
+55fb7e0612ac4dc2008d1e5906b184e8  /tmp/r10uvm163_bin/pris.bin
+04bf7b27b6e9bfb62c3e13177e14010e  /tmp/r10uvm163_bin/patc.bin
+== 2. golden dump tests
+   pris.bin PASS=23 FAIL=0
+   patc.bin PASS=23 FAIL=0
+   negative control (/bin/false) FAIL=23
+== 3. cmds.txt binary audit (by absolute path)
+   /tmp/r10uvm163_wdp/sl  cmds=1573  binaries: /tmp/r10uvm163_bin/pris.bin 
+   /tmp/r10uvm163_wdp/u2r  cmds=1462  binaries: /tmp/r10uvm163_bin/pris.bin 
+   /tmp/r10uvm163_wdq/sl  cmds=1573  binaries: /tmp/r10uvm163_bin/patc.bin 
+   /tmp/r10uvm163_wdq/u2r  cmds=1462  binaries: /tmp/r10uvm163_bin/patc.bin 
+== 4. status histograms (patched)
+   sl.csv:     937 CMP_EQUAL      19 CMP_NOTEQUAL      10 DEFERRED       3 NO_DATABASE       1 NO_UHDM     567 SLANG_REJECT      48 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+   u2r_tf.csv:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+   u2r_def.csv:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+== 5. ct8rows
+PASS: every row byte-identical to the committed baseline
+PASS: every row byte-identical to the committed baseline
+PASS: every row byte-identical to the committed baseline
+PASS: every row byte-identical to the committed baseline
+PASS: every row byte-identical to the committed baseline
+
+== 6. heads (rowheads.sh), pristine then patched
+TEST           MODE      PRIS  PATC
+SeqDriver      default    29    29
+SeqDriver      testflags  29    29
+SimpleUVM      default    29    29
+SimpleUVM      testflags  29    29
+Scoreboard     default   145    95   <- the law's row
+Scoreboard     testflags  SKIP-NOFILE (expected)
+MiniAmiq       default   106   106
+MiniAmiq       testflags 106   106
+BuildUVMPkg    default    29    29
+BuildUVMPkg    testflags  29    29
+Earlgrey_0_1   default    58    58
+Earlgrey_0_1   testflags  62    62
+Rggen          default     0     0  (CMP_EQUAL)
+Rggen          testflags  SKIP-NOFILE (expected)
+
+== 7. the COIN (coin163.sh, 5 runs per binary on Scoreboard/default)
+   pristine: 3 distinct databases, cmplines=145 on ALL FIVE runs
+   patched:  3 distinct databases, cmplines=95  on ALL FIVE runs
+   so 145 -> 95 is the law, not RESUME.md $9's documented 50/50 order flip.
+
+== 8. byte movers (byteverify.sh SELFCHECK=1)
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=568edbb1966c pristine=4e0d8062a11e
+MOVERS: 1 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+
+== 9. canaries
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+
+== 10. protected databases by NAME (md5 patched vs this pass's pristine)
+   InterfaceModPort     default   59a365f3ce2c SAME
+   InterfaceModPort     testflags 59a365f3ce2c SAME
+   BlackParrotComplex   default   e3e354129d5a SAME
+   BlackParrotComplex   testflags 73a10e8217e5 SAME
+   YosysOldOr           default   d68e0796d62c SAME
+   YosysOldOr           testflags d68e0796d62c SAME
+   SVSwitch             default   4842211c4030 SAME
+   SVSwitch             testflags 4842211c4030 SAME
+   YosysVerx            default   6ccda350c24a SAME
+   YosysVerx            testflags 6ccda350c24a SAME

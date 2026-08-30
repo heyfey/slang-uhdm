@@ -1,0 +1,45 @@
+r10uvm163 — CENSUS: every DECLARATION-SITE class_typespec (VpiParent is a
+variable) in the nine UVM row-modes, golden vs ours, PRISTINE then PATCHED.
+Multiset join (score163.py); LHS is ALWAYS golden(Surelog).
+
+== PRISTINE
+BuildUVMPkg.default        SCORE RIGHT=262 WRONG=0 RESHAPE=0 AWAY=0 ONLY-G=103 ONLY-O=11 TOTAL=376
+BuildUVMPkg.testflags      SCORE RIGHT=262 WRONG=0 RESHAPE=0 AWAY=0 ONLY-G=103 ONLY-O=11 TOTAL=376
+MiniAmiq.default           SCORE RIGHT=282 WRONG=0 RESHAPE=0 AWAY=0 ONLY-G=458 ONLY-O=11 TOTAL=751
+MiniAmiq.testflags         SCORE RIGHT=282 WRONG=0 RESHAPE=0 AWAY=0 ONLY-G=458 ONLY-O=11 TOTAL=751
+Scoreboard.default         SCORE RIGHT=276 WRONG=1 RESHAPE=0 AWAY=0 ONLY-G=167 ONLY-O=10 TOTAL=454
+SeqDriver.default          SCORE RIGHT=281 WRONG=0 RESHAPE=0 AWAY=0 ONLY-G=163 ONLY-O=10 TOTAL=454
+SeqDriver.testflags        SCORE RIGHT=281 WRONG=0 RESHAPE=0 AWAY=0 ONLY-G=163 ONLY-O=10 TOTAL=454
+SimpleUVM.default          SCORE RIGHT=276 WRONG=0 RESHAPE=0 AWAY=0 ONLY-G=115 ONLY-O=10 TOTAL=401
+SimpleUVM.testflags        SCORE RIGHT=276 WRONG=0 RESHAPE=0 AWAY=0 ONLY-G=115 ONLY-O=10 TOTAL=401
+
+== PATCHED
+BuildUVMPkg.default        SCORE RIGHT=262 WRONG=0 RESHAPE=0 AWAY=0 ONLY-G=103 ONLY-O=11 TOTAL=376
+BuildUVMPkg.testflags      SCORE RIGHT=262 WRONG=0 RESHAPE=0 AWAY=0 ONLY-G=103 ONLY-O=11 TOTAL=376
+MiniAmiq.default           SCORE RIGHT=282 WRONG=0 RESHAPE=0 AWAY=0 ONLY-G=458 ONLY-O=11 TOTAL=751
+MiniAmiq.testflags         SCORE RIGHT=282 WRONG=0 RESHAPE=0 AWAY=0 ONLY-G=458 ONLY-O=11 TOTAL=751
+Scoreboard.default         SCORE RIGHT=277 WRONG=0 RESHAPE=0 AWAY=0 ONLY-G=167 ONLY-O=10 TOTAL=454
+SeqDriver.default          SCORE RIGHT=281 WRONG=0 RESHAPE=0 AWAY=0 ONLY-G=163 ONLY-O=10 TOTAL=454
+SeqDriver.testflags        SCORE RIGHT=281 WRONG=0 RESHAPE=0 AWAY=0 ONLY-G=163 ONLY-O=10 TOTAL=454
+SimpleUVM.default          SCORE RIGHT=276 WRONG=0 RESHAPE=0 AWAY=0 ONLY-G=115 ONLY-O=10 TOTAL=401
+SimpleUVM.testflags        SCORE RIGHT=276 WRONG=0 RESHAPE=0 AWAY=0 ONLY-G=115 ONLY-O=10 TOTAL=401
+
+== the ONE wrong cell, pristine (score163.py --cells)
+WRONG    uvm_analysis_imp@9:3|m_imp@9:42
+         G nparam=2 params=T:int_typespec:,IMP:class_typespec:my_scoreboard npa=2 home=<class_defn(work@my_scoreboard)<design(work@my_scoreboard_unit_test)
+         O nparam=-1 params= npa=-1 home=<class_defn(work@my_scoreboard)<design(work@my_scoreboard_unit_test)
+
+== the same cell, patched
+/tmp/r10uvm163_cenq/Scoreboard.default.o.cen:CELL uvm_analysis_imp@9:3|m_imp@9:42 | nparam=2 | params=T:int_typespec:,IMP:class_typespec:my_scoreboard | npa=2 | holder=class_var | cdefn=uvm_pkg::uvm_analysis_imp | cdp=2
+/tmp/r10uvm163_cenq/Scoreboard.default.g.cen:CELL uvm_analysis_imp@9:3|m_imp@9:42 | nparam=2 | params=T:int_typespec:,IMP:class_typespec:my_scoreboard | npa=2 | holder=class_var | cdefn=uvm_pkg::uvm_analysis_imp | cdp=2
+
+== NO ONLY-G row anywhere carries a LISTING (a listing golden has and we never pair):
+BuildUVMPkg.default        0
+BuildUVMPkg.testflags      0
+MiniAmiq.default           0
+MiniAmiq.testflags         0
+Scoreboard.default         0
+SeqDriver.default          0
+SeqDriver.testflags        0
+SimpleUVM.default          0
+SimpleUVM.testflags        0

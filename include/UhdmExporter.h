@@ -6447,6 +6447,47 @@ private:
     void emitClassTsParams(UHDM::class_typespec* cts,
                            const slang::ast::ClassType& cls,
                            const std::string& prefix);
+    /// NOTE § classPropSpecForeignPkgHome163 — the listing a CLASS PROPERTY's
+    /// class_typespec carries when Surelog's three `getClassDefinition` probes
+    /// all MISS, i.e. when the written, UNQUALIFIED generic class lives in a
+    /// package that is NOT the declaring class's home package (walking THROUGH
+    /// enclosing classes, because a nested ClassDefinition inherits its outer
+    /// class's CONTAINER as its parent scope).  The predicate is at the mint
+    /// (`src/TypeEmit.cpp`, `grep -n foreignPkgHome163`) and narrows
+    /// § classPkgGenericSpecListing53's parameter half ONLY — the span half
+    /// stays exactly as r10uvm53 left it.
+    ///
+    /// It cannot reuse `emitClassTsParams`: that one lists every formal of the
+    /// SPECIALIZATION, while Surelog's loop walks the WRITTEN ORDERED arguments
+    /// and stops at `index < formal.size()`, so `G#(int)` on a two-formal class
+    /// is ONE entry in golden and a VALUE formal's argument is none at all.
+    ///
+    /// NOTE § ownTypeFormalArgPushesNothing163v (r10v163, the verifier's fix)
+    /// — `declScope` is the DECLARING class's scope, and it is here for one
+    /// clause of Surelog's loop the pass did not measure: a written ordered
+    /// argument that names a TYPE FORMAL OF THE DECLARING CLASS ITSELF pushes
+    /// NOTHING, exactly like a value formal's argument, while still ADVANCING
+    /// the index.  Golden, arm P (`tools/probe/r10v163repro/v163_p_paramcls.sv`,
+    /// zero Surelog errors, DEF and ELAB agreeing):
+    ///     `class ArgIsFormalBet #(type PP=int); GenAlef#(PP) x;`   -> NO
+    ///         listing at all (`p03`, `p11`; pristine agreed, the first cut of
+    ///         this law did not — one entry named `PP`);
+    ///     `GenAlef#(CfgBet, PP)` -> ONE entry, `ONE:CfgBet`        (`p05`);
+    ///     `GenAlef#(PP, CfgBet)` -> ONE entry, `TWO:CfgBet`        (`p06`)
+    ///         — the index ADVANCES past the skipped argument, so the concrete
+    ///         one pairs with the SECOND formal.
+    /// The declaring class being parameterized is NOT the distinguisher — arm P
+    /// `p02`/`p04`/`p10` (a type- or value-parameterized declaring class with a
+    /// CONCRETE argument) all carry golden's listing — and neither is "the name
+    /// is unresolvable at definition time": an OUTER class's formal (`q01`) and
+    /// a MODULE's type parameter (`q10`) are listed by golden, as an
+    /// `unsupported_typespec` carrying the written name (residue).  Only the
+    /// declaring class's OWN formals are skipped, which is why the predicate is
+    /// a direct `find` in that one scope and not a lookup walk.
+    void emitClassPropSpecParams163(UHDM::class_typespec* cts,
+                                    const slang::ast::ClassType& target,
+                                    const slang::syntax::SyntaxNode* typeSyn,
+                                    const slang::ast::Scope* declScope);
     // param_assigns of a class_typespec specialization whose class_defn was not
     // emitted yet: the Lhs (the class_defn's own formal) is bound at the drain.
     struct PendingClassTsPa {

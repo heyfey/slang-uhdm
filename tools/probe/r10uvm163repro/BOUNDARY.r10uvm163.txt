@@ -1,0 +1,60 @@
+FENCED-SKIPPED=0 of 4643
+LISTED=4643 PROCESSED=4643 PRODUCED_DBS=4487 MOVED_ARMS=7 RC_DIFFS=0
+
+MOVED ARMS (from /tmp/r10uvm163_bound/MOVERS):
+probe/r10buvm22repro/g22.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+probe/r10uvm154repro/l154_noenum.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm156repro/g156_b_forms.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm163repro/g163_a_mech.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm163repro/g163_b_forms.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm163repro/g163_c_types.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm23repro/t34g/t.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+RE-MEASURED AGAINST GOLDEN (remeasure163.sh, Surelog rebuilt in BOTH views):
+  ## r10buvm22repro_g22.sv
+     -- databases-missing=0
+     -- DEF HELD=9 TO-GOLDEN=0 MOVED-WRONG=0 AWAY=0 STILL=0 ONLY-G=18 ONLY-O=23
+     -- ELAB HELD=20 TO-GOLDEN=0 MOVED-WRONG=0 AWAY=0 STILL=0 ONLY-G=17 ONLY-O=29
+  ## r10uvm154repro_l154_noenum.sv
+     -- databases-missing=0
+     -- DEF HELD=0 TO-GOLDEN=0 MOVED-WRONG=0 AWAY=0 STILL=0 ONLY-G=0 ONLY-O=3
+     -- ELAB HELD=0 TO-GOLDEN=0 MOVED-WRONG=0 AWAY=0 STILL=0 ONLY-G=0 ONLY-O=3
+  ## r10uvm156repro_g156_b_forms.sv
+     -- databases-missing=0
+     -- DEF HELD=31 TO-GOLDEN=1 MOVED-WRONG=0 AWAY=0 STILL=1 ONLY-G=8 ONLY-O=12
+     -- ELAB HELD=39 TO-GOLDEN=1 MOVED-WRONG=0 AWAY=0 STILL=1 ONLY-G=7 ONLY-O=14
+  ## r10uvm23repro_t34g_t.sv
+     -- databases-missing=0
+     -- DEF HELD=2 TO-GOLDEN=1 MOVED-WRONG=0 AWAY=0 STILL=0 ONLY-G=1 ONLY-O=4
+     -- ELAB HELD=4 TO-GOLDEN=1 MOVED-WRONG=0 AWAY=0 STILL=0 ONLY-G=1 ONLY-O=4
+
+  ## the three g163_*.sv are this pass's POSITIVE CONTROL — see GRID.r10uvm163.txt
+     arm A  DEF/ELAB  HELD=2 TO-GOLDEN=6  MOVED-WRONG=0 AWAY=0 STILL=3 ONLY-O=2
+     arm B  DEF/ELAB  HELD=3 TO-GOLDEN=5  MOVED-WRONG=0 AWAY=0 ONLY-G=8 ONLY-O=2
+     arm C  DEF/ELAB  HELD=3 TO-GOLDEN=7  MOVED-WRONG=0 AWAY=0
+
+THE TWO ARMS WITH TO-GOLDEN=0 ARE THE DOCUMENTED LAYOUT ARTIFACT.
+r10buvm22repro/g22.sv and r10uvm154repro/l154_noenum.sv differ between the two
+binaries ONLY in one tail constant (UINT/vpiDecompile 22539993 -> 22544089 and
+22539137 -> 22543233, both exactly 4096 apart) — r10uvm154repro/README.md $7's
+TAILONLY artifact, a binary-layout-derived number that ANY code motion moves.
+The order-blind whole-dump diff of each is those lines and NOTHING else:
+  == r10buvm22repro_g22.sv  order-blind dump diff lines: 14
+  -- distinct KINDS on the diff:
+  |UINT
+  |vpiDecompile
+  WD/r10buvm22repro_g22.sv/o.uhdm
+  WD/r10buvm22repro_g22.sv/q.uhdm
+  == r10uvm154repro_l154_noenum.sv  order-blind dump diff lines: 10
+  -- distinct KINDS on the diff:
+  |UINT
+  |vpiDecompile
+  WD/r10uvm154repro_l154_noenum.sv/o.uhdm
+  WD/r10uvm154repro_l154_noenum.sv/q.uhdm
+
+AND BOTH BINARIES ARE EQUIDISTANT FROM GOLDEN ON THEM (uhdm-cmp, both views),
+with the SAME head object (id- and value-normalised cmp diff = 0 lines):
+  r10buvm22repro/g22.sv          g-vs-pris 17506 / g-vs-patc 17506  (DEF)
+  r10buvm22repro/g22.sv          g-vs-pris 26436 / g-vs-patc 26436  (ELAB)
+  r10uvm154repro/l154_noenum.sv  g-vs-pris  1632 / g-vs-patc  1632  (DEF)
+  r10uvm154repro/l154_noenum.sv  g-vs-pris  1636 / g-vs-patc  1636  (ELAB)

@@ -1,0 +1,108 @@
+r10v163 — GATE TRANSCRIPT (verifier).  Base 578ffc2.  LHS is ALWAYS golden.
+binaries: pris=55fb7e0612ac4dc2008d1e5906b184e8  asshipped=04bf7b27b6e9bfb62c3e13177e14010e  verified=9668dad46cf923eddd107907b89ca1f7
+
+== goldens (SLANG_UHDM exported per binary) ==
+  pristine PASS=23 FAIL=0 | as shipped PASS=23 FAIL=0 | verified PASS=23 FAIL=0 | /bin/false FAIL=23
+
+== cmds.txt binary audit (absolute path, EVERY file) ==
+  /tmp/v163_wdp/sl cmds=1573 bins=[/tmp/v163_bin/v163pris.bin ] other-slang-uhdm=[]
+  /tmp/v163_wdp/u2r cmds=1462 bins=[/tmp/v163_bin/v163pris.bin ] other-slang-uhdm=[]
+  /tmp/v163_wdq/sl cmds=1573 bins=[/tmp/v163_bin/v163patc.bin ] other-slang-uhdm=[]
+  /tmp/v163_wdq/u2r cmds=1462 bins=[/tmp/v163_bin/v163patc.bin ] other-slang-uhdm=[]
+  /tmp/v163_wdf/sl cmds=1573 bins=[/tmp/v163_bin/v163fix.bin ] other-slang-uhdm=[]
+  /tmp/v163_wdf/u2r cmds=1462 bins=[/tmp/v163_bin/v163fix.bin ] other-slang-uhdm=[]
+
+== status histograms (verify_golden summary) ==
+  -- pristine surelog:
+       CMP_EQUAL: 471   SLANG_REJECT: 283   SURELOG_FAIL: 25   CMP_NOTEQUAL: 10   DEFERRED: 5   CMP_EQUAL: 466   SLANG_REJECT: 284   SURELOG_FAIL: 23   CMP_NOTEQUAL: 9   DEFERRED: 5   NO_DATABASE: 3   UNTRANSLATABLE: 2   TIMEOUT: 1   NO_UHDM: 1 
+  -- pristine u2r testflags:   CMP_EQUAL: 679   SLANG_REJECT: 50   SURELOG_FAIL: 2 
+  -- pristine u2r default:     CMP_EQUAL: 679   SLANG_REJECT: 50   SURELOG_FAIL: 2 
+  -- asshipped surelog:
+       CMP_EQUAL: 471   SLANG_REJECT: 283   SURELOG_FAIL: 25   CMP_NOTEQUAL: 10   DEFERRED: 5   CMP_EQUAL: 466   SLANG_REJECT: 284   SURELOG_FAIL: 23   CMP_NOTEQUAL: 9   DEFERRED: 5   NO_DATABASE: 3   UNTRANSLATABLE: 2   TIMEOUT: 1   NO_UHDM: 1 
+  -- asshipped u2r testflags:   CMP_EQUAL: 679   SLANG_REJECT: 50   SURELOG_FAIL: 2 
+  -- asshipped u2r default:     CMP_EQUAL: 679   SLANG_REJECT: 50   SURELOG_FAIL: 2 
+  -- verified surelog:
+       CMP_EQUAL: 471   SLANG_REJECT: 283   SURELOG_FAIL: 25   CMP_NOTEQUAL: 10   DEFERRED: 5   CMP_EQUAL: 466   SLANG_REJECT: 284   SURELOG_FAIL: 23   CMP_NOTEQUAL: 9   DEFERRED: 5   NO_DATABASE: 3   UNTRANSLATABLE: 2   TIMEOUT: 1   NO_UHDM: 1 
+  -- verified u2r testflags:   CMP_EQUAL: 679   SLANG_REJECT: 50   SURELOG_FAIL: 2 
+  -- verified u2r default:     CMP_EQUAL: 679   SLANG_REJECT: 50   SURELOG_FAIL: 2 
+
+== rows (ct8rows) ==
+  golden_surelog.csv vs …sl.csv: PASS: every row byte-identical to the committed baseline
+  sl.csv vs …sl.csv: PASS: every row byte-identical to the committed baseline
+  gate_uhdm2rtlil.csv vs …u2r_tf.csv: PASS: every row byte-identical to the committed baseline
+  u2r_tf.csv vs …u2r_tf.csv: PASS: every row byte-identical to the committed baseline
+  u2r_def.csv vs …u2r_def.csv: PASS: every row byte-identical to the committed baseline
+  golden_surelog.csv vs …sl.csv: PASS: every row byte-identical to the committed baseline
+  sl.csv vs …sl.csv: PASS: every row byte-identical to the committed baseline
+  sl.csv vs …sl.csv: PASS: every row byte-identical to the committed baseline
+  gate_uhdm2rtlil.csv vs …u2r_tf.csv: PASS: every row byte-identical to the committed baseline
+  u2r_tf.csv vs …u2r_tf.csv: PASS: every row byte-identical to the committed baseline
+  u2r_def.csv vs …u2r_def.csv: PASS: every row byte-identical to the committed baseline
+
+== byte movers (SELFCHECK=1) ==
+  asshipped vs pristine surelog: PATH_SETS_IDENTICAL (956 paths) MOVERS: 1 / 956 SELFCHECK (every file vs one fixed file): 955 / 956 flagged 
+  verified  vs pristine surelog: PATH_SETS_IDENTICAL (956 paths) MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=102833ba4c34 pristine=deb4e2d91ff7 MOVERS: 1 / 956 SELFCHECK (every file vs one fixed file): 955 / 956 flagged 
+  verified  vs pristine u2r    : PATH_SETS_IDENTICAL (1358 paths) MOVERS: 0 / 1358 SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged 
+  verified  vs asshipped surelog: MOVERS: 1 / 956   (order-blind dump diff of that one database: 0 lines -- the documented coin)
+
+== heads (rowheads.sh) ==
+  pristine : SeqDriver 29/29  SimpleUVM 29/29  Scoreboard 145  MiniAmiq 106/106  BuildUVMPkg 29/29  Earlgrey 58/62  Rggen 0
+  asshipped: identical except Scoreboard 95; all twelve other head logs BYTE-IDENTICAL
+  verified : identical to asshipped; all thirteen head logs BYTE-IDENTICAL to it
+
+== canaries / ctcan2 / canaudit (verified sweep) ==
+  canaries surelog: ---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+  canaries u2r    : ---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+  ctcan2 surelog  : PASS: every supplementary canary row is byte-identical to the baseline.
+  ctcan2 u2r      : PASS: every supplementary canary row is byte-identical to the baseline.
+  canaudit        : PASS: every brief-protected name and family is carried by a script that RUNS here.
+
+== protected databases (verified vs pristine) ==
+  InterfaceModPort SAME 59a365f3ce2c
+  BlackParrotComplex SAME e3e354129d5a
+  YosysOldOr SAME d68e0796d62c
+  SVSwitch SAME 4842211c4030
+  YosysVerx SAME 6ccda350c24a
+
+== census, 9 UVM row-modes (ct163cen + score163.py) ==
+  pristine RIGHT=2478 WRONG=1 RESHAPE=0 AWAY=0
+  verified RIGHT=2479 WRONG=0 RESHAPE=0 AWAY=0
+
+== wide boundary (bound163.sh over a copy of the whole probe tree) ==
+FENCED-SKIPPED=0 of 4650
+LISTED=4650 PROCESSED=4650 PRODUCED_DBS=4494 MOVED_ARMS=13 RC_DIFFS=0
+  probe/r10buvm22repro/g22.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+  probe/r10uvm154repro/l154_noenum.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+  probe/r10uvm156repro/g156_b_forms.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+  probe/r10uvm163repro/g163_a_mech.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+  probe/r10uvm163repro/g163_b_forms.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+  probe/r10uvm163repro/g163_c_types.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+  probe/r10uvm23repro/t34g/t.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+  probe/r10v163repro/v163_b_builtin.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+  probe/r10v163repro/v163_n_nest.sv	def=MOVED	elab=SAME	rc=0/0,139/139
+  probe/r10v163repro/v163_p_paramcls.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+  probe/r10v163repro/v163_q_formalarg.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+  probe/r10v163repro/v163_s_sites.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+  probe/r10v163repro/v163_t_content.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+== the four earlier-pass boundary movers, RE-MEASURED against golden (verified binary) ==
+  ## r10buvm22repro_g22.sv
+  ## r10uvm154repro_l154_noenum.sv
+  ## r10uvm156repro_g156_b_forms.sv
+  ## r10uvm23repro_t34g_t.sv
+  ## r10buvm22repro_g22.sv
+-- databases-missing=0
+-- DEF HELD=9 TO-GOLDEN=0 MOVED-WRONG=0 AWAY=0 STILL=0 ONLY-G=18 ONLY-O=23
+-- ELAB HELD=20 TO-GOLDEN=0 MOVED-WRONG=0 AWAY=0 STILL=0 ONLY-G=17 ONLY-O=29
+  ## r10uvm154repro_l154_noenum.sv
+-- databases-missing=0
+-- DEF HELD=0 TO-GOLDEN=0 MOVED-WRONG=0 AWAY=0 STILL=0 ONLY-G=0 ONLY-O=3
+-- ELAB HELD=0 TO-GOLDEN=0 MOVED-WRONG=0 AWAY=0 STILL=0 ONLY-G=0 ONLY-O=3
+  ## r10uvm156repro_g156_b_forms.sv
+-- databases-missing=0
+-- DEF HELD=31 TO-GOLDEN=1 MOVED-WRONG=0 AWAY=0 STILL=1 ONLY-G=8 ONLY-O=12
+-- ELAB HELD=39 TO-GOLDEN=1 MOVED-WRONG=0 AWAY=0 STILL=1 ONLY-G=7 ONLY-O=14
+  ## r10uvm23repro_t34g_t.sv
+-- databases-missing=0
+-- DEF HELD=2 TO-GOLDEN=1 MOVED-WRONG=0 AWAY=0 STILL=0 ONLY-G=1 ONLY-O=4
+-- ELAB HELD=4 TO-GOLDEN=1 MOVED-WRONG=0 AWAY=0 STILL=0 ONLY-G=1 ONLY-O=4

@@ -1,0 +1,123 @@
+== /tmp/r10uvm163_pred2_sl/default_BuildUVMPkg-bf853d43.cen  candidates=10
+   CAND mailbox@32963:16|m_phase_hopper@32963:37  generic=work@mailbox  declaring-home=<builtin-registered-bare>
+   CAND mailbox@49164:9|m@49164:24  generic=work@mailbox  declaring-home=<builtin-registered-bare>
+   CAND process@32880:9|m_phase_proc@32880:28  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@38306:13|m_phase_process@38306:24  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@52211:5|pid@52211:13  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@53673:3|process_id@53673:14  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@54820:13|m_sequence_process@54820:22  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@66130:10|m_process@66130:28  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND semaphore@66129:10|m_atomic@66129:28  generic=work@semaphore  declaring-home=<builtin-registered-bare>
+   CAND semaphore@71120:10|atomic@71120:20  generic=work@semaphore  declaring-home=<builtin-registered-bare>
+== /tmp/r10uvm163_pred2_sl/default_MiniAmiq-544c7f61.cen  candidates=10
+   CAND mailbox@50:9|m@50:24  generic=work@mailbox  declaring-home=<builtin-registered-bare>
+   CAND mailbox@609:16|m_phase_hopper@609:37  generic=work@mailbox  declaring-home=<builtin-registered-bare>
+   CAND process@160:13|m_sequence_process@160:22  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@1628:13|m_phase_process@1628:24  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@1770:3|process_id@1770:14  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@28:5|pid@28:13  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@49:10|m_process@49:28  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@553:9|m_phase_proc@553:28  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND semaphore@48:10|m_atomic@48:28  generic=work@semaphore  declaring-home=<builtin-registered-bare>
+   CAND semaphore@76:10|atomic@76:20  generic=work@semaphore  declaring-home=<builtin-registered-bare>
+== /tmp/r10uvm163_pred2_sl/default_Scoreboard-59431470.cen  candidates=11
+   CAND mailbox@50:9|m@50:24  generic=work@mailbox  declaring-home=<builtin-registered-bare>
+   CAND mailbox@609:16|m_phase_hopper@609:37  generic=work@mailbox  declaring-home=<builtin-registered-bare>
+   CAND process@160:13|m_sequence_process@160:22  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@1628:13|m_phase_process@1628:24  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@1770:3|process_id@1770:14  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@28:5|pid@28:13  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@49:10|m_process@49:28  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@553:9|m_phase_proc@553:28  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND semaphore@48:10|m_atomic@48:28  generic=work@semaphore  declaring-home=<builtin-registered-bare>
+   CAND semaphore@76:10|atomic@76:20  generic=work@semaphore  declaring-home=<builtin-registered-bare>
+   CAND uvm_analysis_imp@9:3|m_imp@9:42  generic=uvm_pkg::uvm_analysis_imp  declaring-home=<no-package-home>
+== /tmp/r10uvm163_pred2_sl/default_SeqDriver-32af76aa.cen  candidates=10
+   CAND mailbox@50:9|m@50:24  generic=work@mailbox  declaring-home=<builtin-registered-bare>
+   CAND mailbox@609:16|m_phase_hopper@609:37  generic=work@mailbox  declaring-home=<builtin-registered-bare>
+   CAND process@160:13|m_sequence_process@160:22  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@1628:13|m_phase_process@1628:24  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@1770:3|process_id@1770:14  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@28:5|pid@28:13  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@49:10|m_process@49:28  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@553:9|m_phase_proc@553:28  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND semaphore@48:10|m_atomic@48:28  generic=work@semaphore  declaring-home=<builtin-registered-bare>
+   CAND semaphore@76:10|atomic@76:20  generic=work@semaphore  declaring-home=<builtin-registered-bare>
+== /tmp/r10uvm163_pred2_sl/default_SimpleUVM-1dc93a62.cen  candidates=10
+   CAND mailbox@50:9|m@50:24  generic=work@mailbox  declaring-home=<builtin-registered-bare>
+   CAND mailbox@609:16|m_phase_hopper@609:37  generic=work@mailbox  declaring-home=<builtin-registered-bare>
+   CAND process@160:13|m_sequence_process@160:22  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@1628:13|m_phase_process@1628:24  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@1770:3|process_id@1770:14  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@28:5|pid@28:13  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@49:10|m_process@49:28  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@553:9|m_phase_proc@553:28  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND semaphore@48:10|m_atomic@48:28  generic=work@semaphore  declaring-home=<builtin-registered-bare>
+   CAND semaphore@76:10|atomic@76:20  generic=work@semaphore  declaring-home=<builtin-registered-bare>
+== /tmp/r10uvm163_pred2_sl/default_SVSwitch-db796243.cen  candidates=6
+   CAND mailbox@14:1|drvr2sb@14:9  generic=work@mailbox  declaring-home=<builtin-registered-bare>
+   CAND mailbox@14:1|drvr2sb@14:9  generic=work@mailbox  declaring-home=<builtin-registered-bare>
+   CAND mailbox@15:1|rcvr2sb@15:9  generic=work@mailbox  declaring-home=<builtin-registered-bare>
+   CAND mailbox@15:1|rcvr2sb@15:9  generic=work@mailbox  declaring-home=<builtin-registered-bare>
+   CAND mailbox@22:3|drvr2sb@22:11  generic=work@mailbox  declaring-home=<builtin-registered-bare>
+   CAND mailbox@23:3|rcvr2sb@23:11  generic=work@mailbox  declaring-home=<builtin-registered-bare>
+== /tmp/r10uvm163_pred2_sl/testflags_BuildUVMPkg-bf853d43.cen  candidates=10
+   CAND mailbox@32963:16|m_phase_hopper@32963:37  generic=work@mailbox  declaring-home=<builtin-registered-bare>
+   CAND mailbox@49164:9|m@49164:24  generic=work@mailbox  declaring-home=<builtin-registered-bare>
+   CAND process@32880:9|m_phase_proc@32880:28  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@38306:13|m_phase_process@38306:24  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@52211:5|pid@52211:13  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@53673:3|process_id@53673:14  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@54820:13|m_sequence_process@54820:22  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@66130:10|m_process@66130:28  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND semaphore@66129:10|m_atomic@66129:28  generic=work@semaphore  declaring-home=<builtin-registered-bare>
+   CAND semaphore@71120:10|atomic@71120:20  generic=work@semaphore  declaring-home=<builtin-registered-bare>
+== /tmp/r10uvm163_pred2_sl/testflags_MiniAmiq-544c7f61.cen  candidates=10
+   CAND mailbox@50:9|m@50:24  generic=work@mailbox  declaring-home=<builtin-registered-bare>
+   CAND mailbox@609:16|m_phase_hopper@609:37  generic=work@mailbox  declaring-home=<builtin-registered-bare>
+   CAND process@160:13|m_sequence_process@160:22  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@1628:13|m_phase_process@1628:24  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@1770:3|process_id@1770:14  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@28:5|pid@28:13  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@49:10|m_process@49:28  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@553:9|m_phase_proc@553:28  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND semaphore@48:10|m_atomic@48:28  generic=work@semaphore  declaring-home=<builtin-registered-bare>
+   CAND semaphore@76:10|atomic@76:20  generic=work@semaphore  declaring-home=<builtin-registered-bare>
+== /tmp/r10uvm163_pred2_sl/testflags_SeqDriver-32af76aa.cen  candidates=10
+   CAND mailbox@50:9|m@50:24  generic=work@mailbox  declaring-home=<builtin-registered-bare>
+   CAND mailbox@609:16|m_phase_hopper@609:37  generic=work@mailbox  declaring-home=<builtin-registered-bare>
+   CAND process@160:13|m_sequence_process@160:22  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@1628:13|m_phase_process@1628:24  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@1770:3|process_id@1770:14  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@28:5|pid@28:13  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@49:10|m_process@49:28  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@553:9|m_phase_proc@553:28  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND semaphore@48:10|m_atomic@48:28  generic=work@semaphore  declaring-home=<builtin-registered-bare>
+   CAND semaphore@76:10|atomic@76:20  generic=work@semaphore  declaring-home=<builtin-registered-bare>
+== /tmp/r10uvm163_pred2_sl/testflags_SimpleUVM-1dc93a62.cen  candidates=10
+   CAND mailbox@50:9|m@50:24  generic=work@mailbox  declaring-home=<builtin-registered-bare>
+   CAND mailbox@609:16|m_phase_hopper@609:37  generic=work@mailbox  declaring-home=<builtin-registered-bare>
+   CAND process@160:13|m_sequence_process@160:22  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@1628:13|m_phase_process@1628:24  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@1770:3|process_id@1770:14  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@28:5|pid@28:13  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@49:10|m_process@49:28  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND process@553:9|m_phase_proc@553:28  generic=work@process  declaring-home=<builtin-registered-bare>
+   CAND semaphore@48:10|m_atomic@48:28  generic=work@semaphore  declaring-home=<builtin-registered-bare>
+   CAND semaphore@76:10|atomic@76:20  generic=work@semaphore  declaring-home=<builtin-registered-bare>
+== /tmp/r10uvm163_pred2_sl/testflags_SVSwitch-db796243.cen  candidates=6
+   CAND mailbox@14:1|drvr2sb@14:9  generic=work@mailbox  declaring-home=<builtin-registered-bare>
+   CAND mailbox@14:1|drvr2sb@14:9  generic=work@mailbox  declaring-home=<builtin-registered-bare>
+   CAND mailbox@15:1|rcvr2sb@15:9  generic=work@mailbox  declaring-home=<builtin-registered-bare>
+   CAND mailbox@15:1|rcvr2sb@15:9  generic=work@mailbox  declaring-home=<builtin-registered-bare>
+   CAND mailbox@22:3|drvr2sb@22:11  generic=work@mailbox  declaring-home=<builtin-registered-bare>
+   CAND mailbox@23:3|rcvr2sb@23:11  generic=work@mailbox  declaring-home=<builtin-registered-bare>
+-- listings=587 EMPTY=574 CANDIDATE-CELLS=103
+
+== the byte verifier's answer (SELFCHECK=1, run AFTER the patched sweep)
+   surelog:     MOVERS 1 / 956   ./default/Scoreboard-59431470/slang.uhdm
+   uhdm2rtlil:  MOVERS 0 / 1358
+   the 102 other candidate cells are the BUILT-IN fence's population
+   (mailbox / semaphore / process class properties, 10 per UVM row-mode and
+   6 in SVSwitch); NONE of them moved, and SVSwitch's protected database
+   md5 4842211c4030 is unchanged, which is the fence's corpus proof.

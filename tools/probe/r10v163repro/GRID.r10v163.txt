@@ -1,0 +1,329 @@
+r10v163 — ADVERSARIAL GRID, every cell, three binaries.
+  PRIS = 55fb7e0612ac4dc2008d1e5906b184e8 (578ffc2, pristine)
+  Q in the AS-SHIPPED tables = 04bf7b27b6e9bfb62c3e13177e14010e (/tmp/r10uvm163.patch)
+  Q in the FIXED tables      = 9668dad46cf923eddd107907b89ca1f7 (/tmp/r10uvm163.verified.patch)
+  G = Surelog, rebuilt per arm in BOTH views.  LHS is ALWAYS golden.
+
+############ AS SHIPPED ############
+TO-GOLDEN    s10_prop_foreign                   G=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]
+TO-GOLDEN    s13_static                         G=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]
+TO-GOLDEN    s14_rand                           G=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]
+TO-GOLDEN    s15_local                          G=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]
+TO-GOLDEN    s16_prot                           G=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]
+TO-GOLDEN    s17_twin_a                         G=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]
+TO-GOLDEN    s17_twin_b                         G=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]
+TO-GOLDEN    s18_second                         G=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]
+TO-GOLDEN    s19_other_spec                     G=[('1', 'FIRST:int_typespec:', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:int_typespec:', '1', 'class_var')]
+STILL-WRONG  s30_pkgvar                         G=[('-1', '', '-1', 'class_var'), ('-1', '', '-1', 'class_var')]  P=None  Q=None
+MOVED-WRONG  s31_arg_is_own_formal              G=[('-1', '', '-1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:int_typespec:PP', '1', 'class_var')]
+TO-GOLDEN    s40_unitcls_prop                   G=[('1', 'FIRST:class_typespec:CfgUnitZ', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgUnitZ', '1', 'class_var')]
+TO-GOLDEN    s52_modcls_prop                    G=[('1', 'FIRST:class_typespec:CfgUnitZ', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgUnitZ', '1', 'class_var')]
+STILL-WRONG  s60_ifcls_prop                     G=[('1', 'FIRST:class_typespec:CfgUnitZ', '1', 'class_var')]  P=None  Q=None
+TO-GOLDEN    s70_pgcls_prop                     G=[('1', 'FIRST:class_typespec:CfgUnitZ', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgUnitZ', '1', 'class_var')]
+-- arms/DEF HELD-RIGHT=4 MOVED-WRONG=1 STILL-WRONG=2 TO-GOLDEN=12
+
+TO-GOLDEN    s10_prop_foreign                   G=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]
+TO-GOLDEN    s13_static                         G=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]
+TO-GOLDEN    s14_rand                           G=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]
+TO-GOLDEN    s15_local                          G=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]
+TO-GOLDEN    s16_prot                           G=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]
+TO-GOLDEN    s17_twin_a                         G=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]
+TO-GOLDEN    s17_twin_b                         G=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]
+TO-GOLDEN    s18_second                         G=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]
+TO-GOLDEN    s19_other_spec                     G=[('1', 'FIRST:int_typespec:', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:int_typespec:', '1', 'class_var')]
+STILL-WRONG  s30_pkgvar                         G=[('-1', '', '-1', 'class_var'), ('-1', '', '-1', 'class_var')]  P=None  Q=None
+MOVED-WRONG  s31_arg_is_own_formal              G=[('-1', '', '-1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:int_typespec:PP', '1', 'class_var')]
+TO-GOLDEN    s40_unitcls_prop                   G=[('1', 'FIRST:class_typespec:CfgUnitZ', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgUnitZ', '1', 'class_var')]
+TO-GOLDEN    s52_modcls_prop                    G=[('1', 'FIRST:class_typespec:CfgUnitZ', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgUnitZ', '1', 'class_var')]
+STILL-WRONG  s60_ifcls_prop                     G=[('1', 'FIRST:class_typespec:CfgUnitZ', '1', 'class_var')]  P=None  Q=None
+TO-GOLDEN    s70_pgcls_prop                     G=[('1', 'FIRST:class_typespec:CfgUnitZ', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgUnitZ', '1', 'class_var')]
+-- arms/ELAB HELD-RIGHT=4 MOVED-WRONG=1 STILL-WRONG=2 TO-GOLDEN=12
+
+STILL-WRONG                                     G=[('2', 'AA:int_typespec:,BB:class_typespec:CfgUnitK', '2', 'class_var'), ('2', 'AA:int_typespec:,BB:class_typespec:CfgUnitK', '2', 'class_var'), ('2', 'AA:int_typespec:,BB:class_typespec:CfgUnitK', '2', 'class_var'), ('2', 'AA:int_typespec:,BB:class_typespec:CfgUnitK', '2', 'class_var')]  P=None  Q=None
+TO-GOLDEN    t01_int_and_class                  G=[('2', 'AA:int_typespec:,BB:class_typespec:CfgUnitK', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:int_typespec:,BB:class_typespec:CfgUnitK', '2', 'class_var')]
+TO-GOLDEN    t02_packed_and_byte                G=[('2', 'AA:bit_typespec:,BB:byte_typespec:', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:bit_typespec:,BB:byte_typespec:', '2', 'class_var')]
+RESHAPE      t03_unit_td_and_imported_td        G=[('2', 'AA:bit_typespec:Nib_u_t,BB:bit_typespec:Vec_k_t', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:bit_typespec:Nib_u_t,BB:bit_typespec:Pk_Kappa::Vec_k_t', '2', 'class_var')]
+RESHAPE      t04_scoped_td_and_enum             G=[('2', 'AA:unsupported_typespec:Pk_Kappa::Vec_k_t,BB:enum_typespec:Pk_Kappa::Enum_k_t', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:bit_typespec:Pk_Kappa::Vec_k_t,BB:enum_typespec:Pk_Kappa::Enum_k_t', '2', 'class_var')]
+TO-GOLDEN    t05_struct_and_classspec           G=[('2', 'AA:struct_typespec:Pk_Kappa::Str_k_t,BB:class_typespec:OneT', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:struct_typespec:Pk_Kappa::Str_k_t,BB:class_typespec:OneT', '2', 'class_var')]
+TO-GOLDEN    t06_single_of_single               G=[('1', 'AA:int_typespec:', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'AA:int_typespec:', '1', 'class_var')]
+TO-GOLDEN    t07_one_of_two                     G=[('1', 'AA:int_typespec:', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'AA:int_typespec:', '1', 'class_var')]
+TO-GOLDEN    t08_two_of_three                   G=[('2', 'AA:int_typespec:,BB:byte_typespec:', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:int_typespec:,BB:byte_typespec:', '2', 'class_var')]
+TO-GOLDEN    t09_value_then_type                G=[('1', 'AA:class_typespec:CfgUnitK', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'AA:class_typespec:CfgUnitK', '1', 'class_var')]
+TO-GOLDEN    t10_expr_value_then_type           G=[('1', 'AA:int_typespec:', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'AA:int_typespec:', '1', 'class_var')]
+TO-GOLDEN    t11_type_then_value                G=[('1', 'AA:class_typespec:CfgUnitK', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'AA:class_typespec:CfgUnitK', '1', 'class_var')]
+TO-GOLDEN    t12_type_value_type                G=[('2', 'AA:int_typespec:,BB:byte_typespec:', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:int_typespec:,BB:byte_typespec:', '2', 'class_var')]
+TO-GOLDEN    t15_duplicate_args                 G=[('2', 'AA:int_typespec:,BB:int_typespec:', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:int_typespec:,BB:int_typespec:', '2', 'class_var')]
+TO-GOLDEN    t16_two_enums                      G=[('2', 'AA:enum_typespec:Enum_u_t,BB:enum_typespec:Pk_Kappa::Enum_k_t', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:enum_typespec:Enum_u_t,BB:enum_typespec:Pk_Kappa::Enum_k_t', '2', 'class_var')]
+TO-GOLDEN    t19_signed_vector                  G=[('1', 'AA:logic_typespec:', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'AA:logic_typespec:', '1', 'class_var')]
+TO-GOLDEN    t20_class_arg_only                 G=[('1', 'AA:class_typespec:CfgUnitK', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'AA:class_typespec:CfgUnitK', '1', 'class_var')]
+-- armt/DEF HELD-RIGHT=4 RESHAPE=2 STILL-WRONG=1 TO-GOLDEN=14
+
+STILL-WRONG                                     G=[('2', 'AA:int_typespec:,BB:class_typespec:CfgUnitK', '2', 'class_var'), ('2', 'AA:int_typespec:,BB:class_typespec:CfgUnitK', '2', 'class_var'), ('2', 'AA:int_typespec:,BB:class_typespec:CfgUnitK', '2', 'class_var'), ('2', 'AA:int_typespec:,BB:class_typespec:CfgUnitK', '2', 'class_var')]  P=None  Q=None
+TO-GOLDEN    t01_int_and_class                  G=[('2', 'AA:int_typespec:,BB:class_typespec:CfgUnitK', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:int_typespec:,BB:class_typespec:CfgUnitK', '2', 'class_var')]
+TO-GOLDEN    t02_packed_and_byte                G=[('2', 'AA:bit_typespec:,BB:byte_typespec:', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:bit_typespec:,BB:byte_typespec:', '2', 'class_var')]
+RESHAPE      t03_unit_td_and_imported_td        G=[('2', 'AA:bit_typespec:Nib_u_t,BB:bit_typespec:Vec_k_t', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:bit_typespec:Nib_u_t,BB:bit_typespec:Pk_Kappa::Vec_k_t', '2', 'class_var')]
+RESHAPE      t04_scoped_td_and_enum             G=[('2', 'AA:unsupported_typespec:Pk_Kappa::Vec_k_t,BB:enum_typespec:Pk_Kappa::Enum_k_t', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:bit_typespec:Pk_Kappa::Vec_k_t,BB:enum_typespec:Pk_Kappa::Enum_k_t', '2', 'class_var')]
+TO-GOLDEN    t05_struct_and_classspec           G=[('2', 'AA:struct_typespec:Pk_Kappa::Str_k_t,BB:class_typespec:OneT', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:struct_typespec:Pk_Kappa::Str_k_t,BB:class_typespec:OneT', '2', 'class_var')]
+TO-GOLDEN    t06_single_of_single               G=[('1', 'AA:int_typespec:', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'AA:int_typespec:', '1', 'class_var')]
+TO-GOLDEN    t07_one_of_two                     G=[('1', 'AA:int_typespec:', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'AA:int_typespec:', '1', 'class_var')]
+TO-GOLDEN    t08_two_of_three                   G=[('2', 'AA:int_typespec:,BB:byte_typespec:', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:int_typespec:,BB:byte_typespec:', '2', 'class_var')]
+TO-GOLDEN    t09_value_then_type                G=[('1', 'AA:class_typespec:CfgUnitK', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'AA:class_typespec:CfgUnitK', '1', 'class_var')]
+TO-GOLDEN    t10_expr_value_then_type           G=[('1', 'AA:int_typespec:', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'AA:int_typespec:', '1', 'class_var')]
+TO-GOLDEN    t11_type_then_value                G=[('1', 'AA:class_typespec:CfgUnitK', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'AA:class_typespec:CfgUnitK', '1', 'class_var')]
+TO-GOLDEN    t12_type_value_type                G=[('2', 'AA:int_typespec:,BB:byte_typespec:', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:int_typespec:,BB:byte_typespec:', '2', 'class_var')]
+TO-GOLDEN    t15_duplicate_args                 G=[('2', 'AA:int_typespec:,BB:int_typespec:', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:int_typespec:,BB:int_typespec:', '2', 'class_var')]
+TO-GOLDEN    t16_two_enums                      G=[('2', 'AA:enum_typespec:Enum_u_t,BB:enum_typespec:Pk_Kappa::Enum_k_t', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:enum_typespec:Enum_u_t,BB:enum_typespec:Pk_Kappa::Enum_k_t', '2', 'class_var')]
+TO-GOLDEN    t19_signed_vector                  G=[('1', 'AA:logic_typespec:', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'AA:logic_typespec:', '1', 'class_var')]
+TO-GOLDEN    t20_class_arg_only                 G=[('1', 'AA:class_typespec:CfgUnitK', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'AA:class_typespec:CfgUnitK', '1', 'class_var')]
+-- armt/ELAB HELD-RIGHT=4 RESHAPE=2 STILL-WRONG=1 TO-GOLDEN=14
+
+STILL-WRONG  n03_depth3_samepkg                 G=None  P=[('-1', '', '-1', 'class_var')]  Q=[('-1', '', '-1', 'class_var')]
+STILL-WRONG  n04_nested_generic                 G=[('-1', '', '-1', 'class_var')]  P=[('1', 'TT:class_typespec:CfgNu', '1', 'class_var')]  Q=[('1', 'TT:class_typespec:CfgNu', '1', 'class_var')]
+TO-GOLDEN    n11_depth1_crosspkg                G=[('1', 'TT:class_typespec:CfgXi', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TT:class_typespec:CfgXi', '1', 'class_var')]
+TO-GOLDEN    n12_depth2_crosspkg                G=[('1', 'TT:class_typespec:CfgXi', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TT:class_typespec:CfgXi', '1', 'class_var')]
+RESHAPE      n13_depth3_crosspkg                G=None  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TT:class_typespec:CfgXi', '1', 'class_var')]
+TO-GOLDEN    n14_arg_is_self                    G=[('1', 'TT:class_typespec:SelfArgXi', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TT:class_typespec:SelfArgXi', '1', 'class_var')]
+TO-GOLDEN    n15_in_derived                     G=[('1', 'TT:class_typespec:CfgXi', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TT:class_typespec:CfgXi', '1', 'class_var')]
+RESHAPE      n21_depth3_unit                    G=None  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TT:class_typespec:CfgUnitN', '1', 'class_var')]
+RESHAPE      n31_depth3_mod                     G=None  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TT:class_typespec:CfgUnitN', '1', 'class_var')]
+-- armn2/DEF HELD-RIGHT=4 RESHAPE=3 STILL-WRONG=2 TO-GOLDEN=4
+
+TO-GOLDEN    p01_plain_concrete                 G=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]
+TO-GOLDEN    p02_typeparamcls_concrete          G=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]
+MOVED-WRONG  p03_arg_is_formal                  G=[('-1', '', '-1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:int_typespec:PP', '1', 'class_var')]
+TO-GOLDEN    p04_valueparamcls_concrete         G=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]
+RESHAPE      p05_concrete_then_formal           G=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'ONE:class_typespec:CfgBet,TWO:int_typespec:PP', '2', 'class_var')]
+RESHAPE      p06_formal_then_concrete           G=[('1', 'TWO:class_typespec:CfgBet', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'ONE:int_typespec:PP,TWO:class_typespec:CfgBet', '2', 'class_var')]
+TO-GOLDEN    p07_plaininner_of_paramouter       G=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]
+TO-GOLDEN    p08_second                         G=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]
+TO-GOLDEN    p10_unit_paramcls_concrete         G=[('1', 'ONE:class_typespec:CfgUnitP', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgUnitP', '1', 'class_var')]
+MOVED-WRONG  p11_unit_arg_is_formal             G=[('-1', '', '-1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:int_typespec:PP', '1', 'class_var')]
+TO-GOLDEN    p12_unit_plain_concrete            G=[('1', 'ONE:class_typespec:CfgUnitP', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgUnitP', '1', 'class_var')]
+-- armp/DEF MOVED-WRONG=2 RESHAPE=2 TO-GOLDEN=7
+
+TO-GOLDEN    p01_plain_concrete                 G=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]
+TO-GOLDEN    p02_typeparamcls_concrete          G=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]
+MOVED-WRONG  p03_arg_is_formal                  G=[('-1', '', '-1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:int_typespec:PP', '1', 'class_var')]
+TO-GOLDEN    p04_valueparamcls_concrete         G=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]
+RESHAPE      p05_concrete_then_formal           G=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'ONE:class_typespec:CfgBet,TWO:int_typespec:PP', '2', 'class_var')]
+RESHAPE      p06_formal_then_concrete           G=[('1', 'TWO:class_typespec:CfgBet', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'ONE:int_typespec:PP,TWO:class_typespec:CfgBet', '2', 'class_var')]
+TO-GOLDEN    p07_plaininner_of_paramouter       G=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]
+TO-GOLDEN    p08_second                         G=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]
+TO-GOLDEN    p10_unit_paramcls_concrete         G=[('1', 'ONE:class_typespec:CfgUnitP', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgUnitP', '1', 'class_var')]
+MOVED-WRONG  p11_unit_arg_is_formal             G=[('-1', '', '-1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:int_typespec:PP', '1', 'class_var')]
+TO-GOLDEN    p12_unit_plain_concrete            G=[('1', 'ONE:class_typespec:CfgUnitP', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgUnitP', '1', 'class_var')]
+-- armp/ELAB MOVED-WRONG=2 RESHAPE=2 TO-GOLDEN=7
+
+RESHAPE      q01_outer_formal_from_inner        G=[('1', 'ONE:unsupported_typespec:PP', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:int_typespec:PP', '1', 'class_var')]
+TO-GOLDEN    q02_inner_concrete                 G=[('1', 'ONE:class_typespec:CfgDalet', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgDalet', '1', 'class_var')]
+TO-GOLDEN    q03_classtypedef_arg               G=[('1', 'ONE:bit_typespec:Loc_nib_t', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:bit_typespec:Loc_nib_t', '1', 'class_var')]
+RESHAPE      q04_typedef_then_formal            G=[('1', 'ONE:bit_typespec:Loc_nib_t', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'ONE:bit_typespec:Loc_nib_t,TWO:int_typespec:PP', '2', 'class_var')]
+RESHAPE      q05_formal_then_typedef            G=[('1', 'TWO:bit_typespec:Loc_nib_t', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'ONE:int_typespec:PP,TWO:bit_typespec:Loc_nib_t', '2', 'class_var')]
+MOVED-WRONG  q06_both_formals                   G=[('-1', '', '-1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'ONE:int_typespec:PP,TWO:int_typespec:PP', '2', 'class_var')]
+RESHAPE      q10_module_formal_arg              G=[('1', 'ONE:unsupported_typespec:MP', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgUnitQ', '1', 'class_var')]
+TO-GOLDEN    q11_module_concrete                G=[('1', 'ONE:class_typespec:CfgUnitQ', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgUnitQ', '1', 'class_var')]
+STILL-WRONG  q20_iface_formal_arg               G=[('1', 'ONE:unsupported_typespec:IP', '1', 'class_var')]  P=None  Q=None
+STILL-WRONG  q21_iface_concrete                 G=[('1', 'ONE:class_typespec:CfgUnitQ', '1', 'class_var')]  P=None  Q=None
+-- armq/DEF HELD-RIGHT=1 MOVED-WRONG=1 RESHAPE=4 STILL-WRONG=2 TO-GOLDEN=3
+
+RESHAPE      q01_outer_formal_from_inner        G=[('1', 'ONE:unsupported_typespec:PP', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:int_typespec:PP', '1', 'class_var')]
+TO-GOLDEN    q02_inner_concrete                 G=[('1', 'ONE:class_typespec:CfgDalet', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgDalet', '1', 'class_var')]
+TO-GOLDEN    q03_classtypedef_arg               G=[('1', 'ONE:bit_typespec:Loc_nib_t', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:bit_typespec:Loc_nib_t', '1', 'class_var')]
+RESHAPE      q04_typedef_then_formal            G=[('1', 'ONE:bit_typespec:Loc_nib_t', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'ONE:bit_typespec:Loc_nib_t,TWO:int_typespec:PP', '2', 'class_var')]
+RESHAPE      q05_formal_then_typedef            G=[('1', 'TWO:bit_typespec:Loc_nib_t', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'ONE:int_typespec:PP,TWO:bit_typespec:Loc_nib_t', '2', 'class_var')]
+MOVED-WRONG  q06_both_formals                   G=[('-1', '', '-1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'ONE:int_typespec:PP,TWO:int_typespec:PP', '2', 'class_var')]
+RESHAPE      q10_module_formal_arg              G=[('1', 'ONE:unsupported_typespec:MP', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgUnitQ', '1', 'class_var')]
+TO-GOLDEN    q11_module_concrete                G=[('1', 'ONE:class_typespec:CfgUnitQ', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgUnitQ', '1', 'class_var')]
+STILL-WRONG  q20_iface_formal_arg               G=[('1', 'ONE:unsupported_typespec:IP', '1', 'class_var')]  P=None  Q=None
+STILL-WRONG  q21_iface_concrete                 G=[('1', 'ONE:class_typespec:CfgUnitQ', '1', 'class_var')]  P=None  Q=None
+-- armq/ELAB HELD-RIGHT=1 MOVED-WRONG=1 RESHAPE=4 STILL-WRONG=2 TO-GOLDEN=3
+
+TO-GOLDEN    b11_userlike_crosspkg              G=[('1', 'TT:class_typespec:CfgRho', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TT:class_typespec:CfgRho', '1', 'class_var')]
+-- armb/DEF HELD-RIGHT=9 TO-GOLDEN=1
+
+TO-GOLDEN    b11_userlike_crosspkg              G=[('1', 'TT:class_typespec:CfgRho', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TT:class_typespec:CfgRho', '1', 'class_var')]
+-- armb/ELAB HELD-RIGHT=9 TO-GOLDEN=1
+
+
+############ WITH THE VERIFIER'S FIX ############
+TO-GOLDEN    s10_prop_foreign                   G=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]
+TO-GOLDEN    s13_static                         G=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]
+TO-GOLDEN    s14_rand                           G=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]
+TO-GOLDEN    s15_local                          G=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]
+TO-GOLDEN    s16_prot                           G=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]
+TO-GOLDEN    s17_twin_a                         G=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]
+TO-GOLDEN    s17_twin_b                         G=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]
+TO-GOLDEN    s18_second                         G=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]
+TO-GOLDEN    s19_other_spec                     G=[('1', 'FIRST:int_typespec:', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:int_typespec:', '1', 'class_var')]
+STILL-WRONG  s30_pkgvar                         G=[('-1', '', '-1', 'class_var'), ('-1', '', '-1', 'class_var')]  P=None  Q=None
+TO-GOLDEN    s40_unitcls_prop                   G=[('1', 'FIRST:class_typespec:CfgUnitZ', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgUnitZ', '1', 'class_var')]
+TO-GOLDEN    s52_modcls_prop                    G=[('1', 'FIRST:class_typespec:CfgUnitZ', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgUnitZ', '1', 'class_var')]
+STILL-WRONG  s60_ifcls_prop                     G=[('1', 'FIRST:class_typespec:CfgUnitZ', '1', 'class_var')]  P=None  Q=None
+TO-GOLDEN    s70_pgcls_prop                     G=[('1', 'FIRST:class_typespec:CfgUnitZ', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgUnitZ', '1', 'class_var')]
+-- arms/DEF HELD-RIGHT=5 STILL-WRONG=2 TO-GOLDEN=12
+
+TO-GOLDEN    s10_prop_foreign                   G=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]
+TO-GOLDEN    s13_static                         G=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]
+TO-GOLDEN    s14_rand                           G=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]
+TO-GOLDEN    s15_local                          G=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]
+TO-GOLDEN    s16_prot                           G=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]
+TO-GOLDEN    s17_twin_a                         G=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]
+TO-GOLDEN    s17_twin_b                         G=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]
+TO-GOLDEN    s18_second                         G=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgOmega', '1', 'class_var')]
+TO-GOLDEN    s19_other_spec                     G=[('1', 'FIRST:int_typespec:', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:int_typespec:', '1', 'class_var')]
+STILL-WRONG  s30_pkgvar                         G=[('-1', '', '-1', 'class_var'), ('-1', '', '-1', 'class_var')]  P=None  Q=None
+TO-GOLDEN    s40_unitcls_prop                   G=[('1', 'FIRST:class_typespec:CfgUnitZ', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgUnitZ', '1', 'class_var')]
+TO-GOLDEN    s52_modcls_prop                    G=[('1', 'FIRST:class_typespec:CfgUnitZ', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgUnitZ', '1', 'class_var')]
+STILL-WRONG  s60_ifcls_prop                     G=[('1', 'FIRST:class_typespec:CfgUnitZ', '1', 'class_var')]  P=None  Q=None
+TO-GOLDEN    s70_pgcls_prop                     G=[('1', 'FIRST:class_typespec:CfgUnitZ', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'FIRST:class_typespec:CfgUnitZ', '1', 'class_var')]
+-- arms/ELAB HELD-RIGHT=5 STILL-WRONG=2 TO-GOLDEN=12
+
+STILL-WRONG                                     G=[('2', 'AA:int_typespec:,BB:class_typespec:CfgUnitK', '2', 'class_var'), ('2', 'AA:int_typespec:,BB:class_typespec:CfgUnitK', '2', 'class_var'), ('2', 'AA:int_typespec:,BB:class_typespec:CfgUnitK', '2', 'class_var'), ('2', 'AA:int_typespec:,BB:class_typespec:CfgUnitK', '2', 'class_var')]  P=None  Q=None
+TO-GOLDEN    t01_int_and_class                  G=[('2', 'AA:int_typespec:,BB:class_typespec:CfgUnitK', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:int_typespec:,BB:class_typespec:CfgUnitK', '2', 'class_var')]
+TO-GOLDEN    t02_packed_and_byte                G=[('2', 'AA:bit_typespec:,BB:byte_typespec:', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:bit_typespec:,BB:byte_typespec:', '2', 'class_var')]
+RESHAPE      t03_unit_td_and_imported_td        G=[('2', 'AA:bit_typespec:Nib_u_t,BB:bit_typespec:Vec_k_t', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:bit_typespec:Nib_u_t,BB:bit_typespec:Pk_Kappa::Vec_k_t', '2', 'class_var')]
+RESHAPE      t04_scoped_td_and_enum             G=[('2', 'AA:unsupported_typespec:Pk_Kappa::Vec_k_t,BB:enum_typespec:Pk_Kappa::Enum_k_t', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:bit_typespec:Pk_Kappa::Vec_k_t,BB:enum_typespec:Pk_Kappa::Enum_k_t', '2', 'class_var')]
+TO-GOLDEN    t05_struct_and_classspec           G=[('2', 'AA:struct_typespec:Pk_Kappa::Str_k_t,BB:class_typespec:OneT', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:struct_typespec:Pk_Kappa::Str_k_t,BB:class_typespec:OneT', '2', 'class_var')]
+TO-GOLDEN    t06_single_of_single               G=[('1', 'AA:int_typespec:', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'AA:int_typespec:', '1', 'class_var')]
+TO-GOLDEN    t07_one_of_two                     G=[('1', 'AA:int_typespec:', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'AA:int_typespec:', '1', 'class_var')]
+TO-GOLDEN    t08_two_of_three                   G=[('2', 'AA:int_typespec:,BB:byte_typespec:', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:int_typespec:,BB:byte_typespec:', '2', 'class_var')]
+TO-GOLDEN    t09_value_then_type                G=[('1', 'AA:class_typespec:CfgUnitK', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'AA:class_typespec:CfgUnitK', '1', 'class_var')]
+TO-GOLDEN    t10_expr_value_then_type           G=[('1', 'AA:int_typespec:', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'AA:int_typespec:', '1', 'class_var')]
+TO-GOLDEN    t11_type_then_value                G=[('1', 'AA:class_typespec:CfgUnitK', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'AA:class_typespec:CfgUnitK', '1', 'class_var')]
+TO-GOLDEN    t12_type_value_type                G=[('2', 'AA:int_typespec:,BB:byte_typespec:', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:int_typespec:,BB:byte_typespec:', '2', 'class_var')]
+TO-GOLDEN    t15_duplicate_args                 G=[('2', 'AA:int_typespec:,BB:int_typespec:', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:int_typespec:,BB:int_typespec:', '2', 'class_var')]
+TO-GOLDEN    t16_two_enums                      G=[('2', 'AA:enum_typespec:Enum_u_t,BB:enum_typespec:Pk_Kappa::Enum_k_t', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:enum_typespec:Enum_u_t,BB:enum_typespec:Pk_Kappa::Enum_k_t', '2', 'class_var')]
+TO-GOLDEN    t19_signed_vector                  G=[('1', 'AA:logic_typespec:', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'AA:logic_typespec:', '1', 'class_var')]
+TO-GOLDEN    t20_class_arg_only                 G=[('1', 'AA:class_typespec:CfgUnitK', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'AA:class_typespec:CfgUnitK', '1', 'class_var')]
+-- armt/DEF HELD-RIGHT=4 RESHAPE=2 STILL-WRONG=1 TO-GOLDEN=14
+
+STILL-WRONG                                     G=[('2', 'AA:int_typespec:,BB:class_typespec:CfgUnitK', '2', 'class_var'), ('2', 'AA:int_typespec:,BB:class_typespec:CfgUnitK', '2', 'class_var'), ('2', 'AA:int_typespec:,BB:class_typespec:CfgUnitK', '2', 'class_var'), ('2', 'AA:int_typespec:,BB:class_typespec:CfgUnitK', '2', 'class_var')]  P=None  Q=None
+TO-GOLDEN    t01_int_and_class                  G=[('2', 'AA:int_typespec:,BB:class_typespec:CfgUnitK', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:int_typespec:,BB:class_typespec:CfgUnitK', '2', 'class_var')]
+TO-GOLDEN    t02_packed_and_byte                G=[('2', 'AA:bit_typespec:,BB:byte_typespec:', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:bit_typespec:,BB:byte_typespec:', '2', 'class_var')]
+RESHAPE      t03_unit_td_and_imported_td        G=[('2', 'AA:bit_typespec:Nib_u_t,BB:bit_typespec:Vec_k_t', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:bit_typespec:Nib_u_t,BB:bit_typespec:Pk_Kappa::Vec_k_t', '2', 'class_var')]
+RESHAPE      t04_scoped_td_and_enum             G=[('2', 'AA:unsupported_typespec:Pk_Kappa::Vec_k_t,BB:enum_typespec:Pk_Kappa::Enum_k_t', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:bit_typespec:Pk_Kappa::Vec_k_t,BB:enum_typespec:Pk_Kappa::Enum_k_t', '2', 'class_var')]
+TO-GOLDEN    t05_struct_and_classspec           G=[('2', 'AA:struct_typespec:Pk_Kappa::Str_k_t,BB:class_typespec:OneT', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:struct_typespec:Pk_Kappa::Str_k_t,BB:class_typespec:OneT', '2', 'class_var')]
+TO-GOLDEN    t06_single_of_single               G=[('1', 'AA:int_typespec:', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'AA:int_typespec:', '1', 'class_var')]
+TO-GOLDEN    t07_one_of_two                     G=[('1', 'AA:int_typespec:', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'AA:int_typespec:', '1', 'class_var')]
+TO-GOLDEN    t08_two_of_three                   G=[('2', 'AA:int_typespec:,BB:byte_typespec:', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:int_typespec:,BB:byte_typespec:', '2', 'class_var')]
+TO-GOLDEN    t09_value_then_type                G=[('1', 'AA:class_typespec:CfgUnitK', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'AA:class_typespec:CfgUnitK', '1', 'class_var')]
+TO-GOLDEN    t10_expr_value_then_type           G=[('1', 'AA:int_typespec:', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'AA:int_typespec:', '1', 'class_var')]
+TO-GOLDEN    t11_type_then_value                G=[('1', 'AA:class_typespec:CfgUnitK', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'AA:class_typespec:CfgUnitK', '1', 'class_var')]
+TO-GOLDEN    t12_type_value_type                G=[('2', 'AA:int_typespec:,BB:byte_typespec:', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:int_typespec:,BB:byte_typespec:', '2', 'class_var')]
+TO-GOLDEN    t15_duplicate_args                 G=[('2', 'AA:int_typespec:,BB:int_typespec:', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:int_typespec:,BB:int_typespec:', '2', 'class_var')]
+TO-GOLDEN    t16_two_enums                      G=[('2', 'AA:enum_typespec:Enum_u_t,BB:enum_typespec:Pk_Kappa::Enum_k_t', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:enum_typespec:Enum_u_t,BB:enum_typespec:Pk_Kappa::Enum_k_t', '2', 'class_var')]
+TO-GOLDEN    t19_signed_vector                  G=[('1', 'AA:logic_typespec:', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'AA:logic_typespec:', '1', 'class_var')]
+TO-GOLDEN    t20_class_arg_only                 G=[('1', 'AA:class_typespec:CfgUnitK', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'AA:class_typespec:CfgUnitK', '1', 'class_var')]
+-- armt/ELAB HELD-RIGHT=4 RESHAPE=2 STILL-WRONG=1 TO-GOLDEN=14
+
+STILL-WRONG  n03_depth3_samepkg                 G=None  P=[('-1', '', '-1', 'class_var')]  Q=[('-1', '', '-1', 'class_var')]
+STILL-WRONG  n04_nested_generic                 G=[('-1', '', '-1', 'class_var')]  P=[('1', 'TT:class_typespec:CfgNu', '1', 'class_var')]  Q=[('1', 'TT:class_typespec:CfgNu', '1', 'class_var')]
+TO-GOLDEN    n11_depth1_crosspkg                G=[('1', 'TT:class_typespec:CfgXi', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TT:class_typespec:CfgXi', '1', 'class_var')]
+TO-GOLDEN    n12_depth2_crosspkg                G=[('1', 'TT:class_typespec:CfgXi', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TT:class_typespec:CfgXi', '1', 'class_var')]
+RESHAPE      n13_depth3_crosspkg                G=None  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TT:class_typespec:CfgXi', '1', 'class_var')]
+TO-GOLDEN    n14_arg_is_self                    G=[('1', 'TT:class_typespec:SelfArgXi', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TT:class_typespec:SelfArgXi', '1', 'class_var')]
+TO-GOLDEN    n15_in_derived                     G=[('1', 'TT:class_typespec:CfgXi', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TT:class_typespec:CfgXi', '1', 'class_var')]
+RESHAPE      n21_depth3_unit                    G=None  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TT:class_typespec:CfgUnitN', '1', 'class_var')]
+RESHAPE      n31_depth3_mod                     G=None  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TT:class_typespec:CfgUnitN', '1', 'class_var')]
+-- armn2/DEF HELD-RIGHT=4 RESHAPE=3 STILL-WRONG=2 TO-GOLDEN=4
+
+TO-GOLDEN    p01_plain_concrete                 G=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]
+TO-GOLDEN    p02_typeparamcls_concrete          G=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]
+TO-GOLDEN    p04_valueparamcls_concrete         G=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]
+TO-GOLDEN    p05_concrete_then_formal           G=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]
+TO-GOLDEN    p06_formal_then_concrete           G=[('1', 'TWO:class_typespec:CfgBet', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TWO:class_typespec:CfgBet', '1', 'class_var')]
+TO-GOLDEN    p07_plaininner_of_paramouter       G=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]
+TO-GOLDEN    p08_second                         G=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]
+TO-GOLDEN    p10_unit_paramcls_concrete         G=[('1', 'ONE:class_typespec:CfgUnitP', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgUnitP', '1', 'class_var')]
+TO-GOLDEN    p12_unit_plain_concrete            G=[('1', 'ONE:class_typespec:CfgUnitP', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgUnitP', '1', 'class_var')]
+-- armp/DEF HELD-RIGHT=2 TO-GOLDEN=9
+
+TO-GOLDEN    p01_plain_concrete                 G=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]
+TO-GOLDEN    p02_typeparamcls_concrete          G=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]
+TO-GOLDEN    p04_valueparamcls_concrete         G=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]
+TO-GOLDEN    p05_concrete_then_formal           G=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]
+TO-GOLDEN    p06_formal_then_concrete           G=[('1', 'TWO:class_typespec:CfgBet', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TWO:class_typespec:CfgBet', '1', 'class_var')]
+TO-GOLDEN    p07_plaininner_of_paramouter       G=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]
+TO-GOLDEN    p08_second                         G=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgBet', '1', 'class_var')]
+TO-GOLDEN    p10_unit_paramcls_concrete         G=[('1', 'ONE:class_typespec:CfgUnitP', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgUnitP', '1', 'class_var')]
+TO-GOLDEN    p12_unit_plain_concrete            G=[('1', 'ONE:class_typespec:CfgUnitP', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgUnitP', '1', 'class_var')]
+-- armp/ELAB HELD-RIGHT=2 TO-GOLDEN=9
+
+RESHAPE      q01_outer_formal_from_inner        G=[('1', 'ONE:unsupported_typespec:PP', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:int_typespec:PP', '1', 'class_var')]
+TO-GOLDEN    q02_inner_concrete                 G=[('1', 'ONE:class_typespec:CfgDalet', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgDalet', '1', 'class_var')]
+TO-GOLDEN    q03_classtypedef_arg               G=[('1', 'ONE:bit_typespec:Loc_nib_t', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:bit_typespec:Loc_nib_t', '1', 'class_var')]
+TO-GOLDEN    q04_typedef_then_formal            G=[('1', 'ONE:bit_typespec:Loc_nib_t', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:bit_typespec:Loc_nib_t', '1', 'class_var')]
+TO-GOLDEN    q05_formal_then_typedef            G=[('1', 'TWO:bit_typespec:Loc_nib_t', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TWO:bit_typespec:Loc_nib_t', '1', 'class_var')]
+RESHAPE      q10_module_formal_arg              G=[('1', 'ONE:unsupported_typespec:MP', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgUnitQ', '1', 'class_var')]
+TO-GOLDEN    q11_module_concrete                G=[('1', 'ONE:class_typespec:CfgUnitQ', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgUnitQ', '1', 'class_var')]
+STILL-WRONG  q20_iface_formal_arg               G=[('1', 'ONE:unsupported_typespec:IP', '1', 'class_var')]  P=None  Q=None
+STILL-WRONG  q21_iface_concrete                 G=[('1', 'ONE:class_typespec:CfgUnitQ', '1', 'class_var')]  P=None  Q=None
+-- armq/DEF HELD-RIGHT=2 RESHAPE=2 STILL-WRONG=2 TO-GOLDEN=5
+
+RESHAPE      q01_outer_formal_from_inner        G=[('1', 'ONE:unsupported_typespec:PP', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:int_typespec:PP', '1', 'class_var')]
+TO-GOLDEN    q02_inner_concrete                 G=[('1', 'ONE:class_typespec:CfgDalet', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgDalet', '1', 'class_var')]
+TO-GOLDEN    q03_classtypedef_arg               G=[('1', 'ONE:bit_typespec:Loc_nib_t', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:bit_typespec:Loc_nib_t', '1', 'class_var')]
+TO-GOLDEN    q04_typedef_then_formal            G=[('1', 'ONE:bit_typespec:Loc_nib_t', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:bit_typespec:Loc_nib_t', '1', 'class_var')]
+TO-GOLDEN    q05_formal_then_typedef            G=[('1', 'TWO:bit_typespec:Loc_nib_t', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TWO:bit_typespec:Loc_nib_t', '1', 'class_var')]
+RESHAPE      q10_module_formal_arg              G=[('1', 'ONE:unsupported_typespec:MP', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgUnitQ', '1', 'class_var')]
+TO-GOLDEN    q11_module_concrete                G=[('1', 'ONE:class_typespec:CfgUnitQ', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'ONE:class_typespec:CfgUnitQ', '1', 'class_var')]
+STILL-WRONG  q20_iface_formal_arg               G=[('1', 'ONE:unsupported_typespec:IP', '1', 'class_var')]  P=None  Q=None
+STILL-WRONG  q21_iface_concrete                 G=[('1', 'ONE:class_typespec:CfgUnitQ', '1', 'class_var')]  P=None  Q=None
+-- armq/ELAB HELD-RIGHT=2 RESHAPE=2 STILL-WRONG=2 TO-GOLDEN=5
+
+TO-GOLDEN    b11_userlike_crosspkg              G=[('1', 'TT:class_typespec:CfgRho', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TT:class_typespec:CfgRho', '1', 'class_var')]
+-- armb/DEF HELD-RIGHT=9 TO-GOLDEN=1
+
+TO-GOLDEN    b11_userlike_crosspkg              G=[('1', 'TT:class_typespec:CfgRho', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TT:class_typespec:CfgRho', '1', 'class_var')]
+-- armb/ELAB HELD-RIGHT=9 TO-GOLDEN=1
+
+STILL-WRONG  e04_usermailbox_scoped             G=None  P=[('-1', '', '-1', 'class_var')]  Q=[('-1', '', '-1', 'class_var')]
+TO-GOLDEN    e05_control_two_classes            G=[('2', 'AA:class_typespec:CfgUnitE,BB:class_typespec:CfgUnitE', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:class_typespec:CfgUnitE,BB:class_typespec:CfgUnitE', '2', 'class_var')]
+-- arme/DEF HELD-RIGHT=1 STILL-WRONG=1 TO-GOLDEN=1
+
+STILL-WRONG  e04_usermailbox_scoped             G=None  P=[('-1', '', '-1', 'class_var')]  Q=[('-1', '', '-1', 'class_var')]
+TO-GOLDEN    e05_control_two_classes            G=[('2', 'AA:class_typespec:CfgUnitE,BB:class_typespec:CfgUnitE', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'AA:class_typespec:CfgUnitE,BB:class_typespec:CfgUnitE', '2', 'class_var')]
+-- arme/ELAB HELD-RIGHT=1 STILL-WRONG=1 TO-GOLDEN=1
+
+
+############ THE IMPLEMENTER'S OWN THREE ARMS, scored with THIS directory's instrument and the VERIFIED binary ############
+STILL-WRONG  a10_nestedcls_unitgen              G=[('1', 'TA:class_typespec:cfgUnit163', '1', 'class_var')]  P=[('2', 'TA:class_typespec:cfgUnit163,TB:int_typespec:', '2', 'class_var')]  Q=[('2', 'TA:class_typespec:cfgUnit163,TB:int_typespec:', '2', 'class_var')]
+TO-GOLDEN    a12_pkgnested_crosspkg             G=[('1', 'TA:class_typespec:cfgBe163', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TA:class_typespec:cfgBe163', '1', 'class_var')]
+TO-GOLDEN    a13_unitnested_pkggen              G=[('1', 'TA:class_typespec:cfgUnit163', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TA:class_typespec:cfgUnit163', '1', 'class_var')]
+TO-GOLDEN    a2_crosspkg_unqual                 G=[('1', 'TA:class_typespec:cfgBe163', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TA:class_typespec:cfgBe163', '1', 'class_var')]
+STILL-WRONG  a3_crosspkg_scoped                 G=None  P=[('-1', '', '-1', 'class_var')]  Q=[('-1', '', '-1', 'class_var')]
+TO-GOLDEN    a4_unitcls_pkggen_unqual           G=[('1', 'TA:class_typespec:cfgUnit163', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TA:class_typespec:cfgUnit163', '1', 'class_var')]
+STILL-WRONG  a5_unitcls_pkggen_scoped           G=None  P=[('-1', '', '-1', 'class_var')]  Q=[('-1', '', '-1', 'class_var')]
+STILL-WRONG  a6_unitcls_unitgen_unqual          G=[('1', 'TA:class_typespec:cfgUnit163', '1', 'class_var')]  P=[('2', 'TA:class_typespec:cfgUnit163,TB:int_typespec:', '2', 'class_var')]  Q=[('2', 'TA:class_typespec:cfgUnit163,TB:int_typespec:', '2', 'class_var')]
+TO-GOLDEN    a7_unitcls_selfarg                 G=[('2', 'TA:int_typespec:,TB:class_typespec:holdSelf163', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'TA:int_typespec:,TB:class_typespec:holdSelf163', '2', 'class_var')]
+TO-GOLDEN    a8_modcls_pkggen_unqual            G=[('1', 'TA:class_typespec:cfgUnit163', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TA:class_typespec:cfgUnit163', '1', 'class_var')]
+STILL-WRONG  a9_modcls_unitgen_unqual           G=[('1', 'TA:class_typespec:cfgUnit163', '1', 'class_var')]  P=[('2', 'TA:class_typespec:cfgUnit163,TB:int_typespec:', '2', 'class_var')]  Q=[('2', 'TA:class_typespec:cfgUnit163,TB:int_typespec:', '2', 'class_var')]
+-- g163_a_mech/DEF HELD-RIGHT=3 STILL-WRONG=5 TO-GOLDEN=6
+
+-- g163_a_mech/ELAB HELD-RIGHT=3 STILL-WRONG=5 TO-GOLDEN=6
+
+STILL-WRONG                                     G=[('1', 'TA:class_typespec:cfgDe163', '1', 'class_var'), ('1', 'TA:class_typespec:cfgDe163', '1', 'class_var'), ('1', 'TA:class_typespec:cfgDe163', '1', 'class_var')]  P=None  Q=None
+STILL-WRONG  b10_pkgvar                         G=[('-1', '', '-1', 'class_var'), ('-1', '', '-1', 'class_var')]  P=None  Q=None
+STILL-WRONG  b11_builtin_mailbox                G=None  P=[('-1', '', '-1', 'class_var')]  Q=[('-1', '', '-1', 'class_var')]
+STILL-WRONG  b12_builtin_semaphore              G=None  P=[('-1', '', '-1', 'class_var')]  Q=[('-1', '', '-1', 'class_var')]
+TO-GOLDEN    b1_prop                            G=[('1', 'TA:class_typespec:cfgDe163', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TA:class_typespec:cfgDe163', '1', 'class_var')]
+TO-GOLDEN    b2_static                          G=[('1', 'TA:class_typespec:cfgDe163', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TA:class_typespec:cfgDe163', '1', 'class_var')]
+TO-GOLDEN    b3_local                           G=[('1', 'TA:class_typespec:cfgDe163', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TA:class_typespec:cfgDe163', '1', 'class_var')]
+TO-GOLDEN    b4_protected                       G=[('1', 'TA:class_typespec:cfgDe163', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TA:class_typespec:cfgDe163', '1', 'class_var')]
+TO-GOLDEN    b5_rand                            G=[('1', 'TA:class_typespec:cfgDe163', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TA:class_typespec:cfgDe163', '1', 'class_var')]
+STILL-WRONG  k5_samehome_pkgvar                 G=[('-1', '', '-1', 'class_var'), ('-1', '', '-1', 'class_var'), ('-1', '', '-1', 'class_var'), ('-1', '', '-1', 'class_var'), ('-1', '', '-1', 'class_var'), ('-1', '', '-1', 'class_var')]  P=None  Q=None
+-- g163_b_forms/DEF HELD-RIGHT=3 STILL-WRONG=5 TO-GOLDEN=5
+
+-- g163_b_forms/ELAB HELD-RIGHT=3 STILL-WRONG=5 TO-GOLDEN=5
+
+TO-GOLDEN    c10_value_then_type                G=[('1', 'TA:class_typespec:cfgUn163', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TA:class_typespec:cfgUn163', '1', 'class_var')]
+TO-GOLDEN    c1_two_class_args                  G=[('2', 'TA:class_typespec:cfgUn163,TB:class_typespec:cfgUn163', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'TA:class_typespec:cfgUn163,TB:class_typespec:cfgUn163', '2', 'class_var')]
+TO-GOLDEN    c2_two_int_args                    G=[('2', 'TA:int_typespec:,TB:int_typespec:', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'TA:int_typespec:,TB:int_typespec:', '2', 'class_var')]
+TO-GOLDEN    c3_mixed_args                      G=[('2', 'TA:int_typespec:,TB:class_typespec:cfgUn163', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'TA:int_typespec:,TB:class_typespec:cfgUn163', '2', 'class_var')]
+TO-GOLDEN    c4_one_arg_of_two                  G=[('1', 'TA:int_typespec:', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TA:int_typespec:', '1', 'class_var')]
+TO-GOLDEN    c5_single_formal                   G=[('1', 'TA:int_typespec:', '1', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('1', 'TA:int_typespec:', '1', 'class_var')]
+TO-GOLDEN    c6_typedef_arg                     G=[('2', 'TA:logic_typespec:nib163_t,TB:class_typespec:cfgUn163', '2', 'class_var')]  P=[('-1', '', '-1', 'class_var')]  Q=[('2', 'TA:logic_typespec:nib163_t,TB:class_typespec:cfgUn163', '2', 'class_var')]
+-- g163_c_types/DEF HELD-RIGHT=3 TO-GOLDEN=7
+
+-- g163_c_types/ELAB HELD-RIGHT=3 TO-GOLDEN=7
+

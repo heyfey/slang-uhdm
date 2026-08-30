@@ -2016,6 +2016,110 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             const bool listingSite53 =
                 pkgGenericListing53 && (siteKind53 == SymbolKind::ClassType ||
                                         siteKind53 == SymbolKind::Package);
+            // NOTE § classPropSpecForeignPkgHome163 — THE NARROWING of
+            // § classPkgGenericSpecListing53's PARAMETER half (its SPAN half,
+            // `listingSite53`, is deliberately left exactly as it was: golden
+            // gives the generic class's NAME-TOKEN span to a class property
+            // whether or not it also gives the listing — measured on both sides
+            // of every arm-B cell, `44:5-44:13` on `b1_prop` with the listing
+            // and without it).
+            //
+            // r10uvm53 read Surelog's three `getClassDefinition` probes
+            // correctly and then keyed the law on the WRONG half of them.  The
+            // probes are (CompileType.cpp:1896-1918, `compileTypespec`'s
+            // slStringConst case, the arm that runs BEFORE
+            // `compileDatastructureTypespec` — the only writer of
+            // `Parameters`/`Param_assigns`):
+            //     design->getClassDefinition(typeName)
+            //     design->getClassDefinition(<component>::typeName)
+            //     design->getClassDefinition(<component's parent scope>::typeName)
+            // A package class is registered under `<pkg>::<name>`
+            // (ResolveSymbols.cpp:119-131), so the BARE first probe never hits
+            // it; what hits is the THIRD probe, and only when the DECLARING
+            // component's parent scope IS that package.  § 53 read that as "the
+            // generic lives in a package" and suppressed the listing for every
+            // package generic; the cell it believed decided the question,
+            // r10uvm53repro/a3's `e2_unitclass_pkggeneric`, is spelled
+            // `r53::rgc53#(r53::rcfg53)` — a SCOPED name, which takes Surelog's
+            // paPackage_scope arm (CompileType.cpp:1522-1545) and never reaches
+            // the probe site at all.  The UNQUALIFIED foreign-home spelling —
+            // the corpus cell `uvm_analysis_imp #(int, my_scoreboard) m_imp;`
+            // (Scoreboard design.sv:9) — was therefore never measured, and
+            // golden DOES give it the listing.
+            //
+            // The declaring component of a CLASS PROPERTY is the ClassDefinition
+            // (CompileClass.cpp:294 passes `m_class`), and Surelog gives a
+            // ClassDefinition its CONTAINER as its parent scope — the enclosing
+            // package/module/program, NOT the enclosing class, for a nested one
+            // too (`m_class->getContainer()`, CompileClass.cpp:693).  So the
+            // test is the HOME PACKAGE, reached by walking THROUGH enclosing
+            // classes: arm A's `a11_pkgnested_samepkg` (a class nested in a
+            // package class, that package's generic) is SUPPRESSED in golden
+            // exactly like the un-nested `a1_samepkg_unqual`.
+            //
+            // WHAT IS DELIBERATELY LEFT ALONE, each with an arm cell:
+            //   * a PACKAGE VARIABLE (`b10_pkgvar`, a foreign generic) — golden
+            //     gives it NO listing even though the probes miss; that site is
+            //     compiled with the PACKAGE as the component and behaves like
+            //     the module-variable site § 53 already fenced;
+            //   * a MODULE variable (`k6_modvar`/`k7_modvar_new`) — § 53's
+            //     `!declInInstance53`, where golden splits on the INITIALIZER;
+            //   * a class-METHOD LOCAL — golden emits no declaration-site
+            //     class_typespec for one at all in either view (arm B `b9`,
+            //     `k4`), so there is nothing measured to move (residue R2);
+            //   * a SCOPED spelling (`alpha163::genAl163#(..)`) — a different
+            //     Surelog arm, and golden's object is not even a class_var
+            //     there (arm A `a3`/`a5` are `logic_var` on golden's side).
+            //   * a BUILT-IN class.  `Builtin::addBuiltinClasses`
+            //     (~/git-repos/Surelog/src/DesignCompile/Builtin.cpp:385-392)
+            //     builds `mailbox` / `process` / `semaphore` as `work@mailbox`
+            //     but calls `design->addClassDefinition(name, def)` with the
+            //     SHORT name, so the FIRST probe — the bare `typeName` one —
+            //     hits them FROM ANYWHERE and golden never builds their
+            //     listing.  slang puts them in a synthesized `std` PACKAGE, so
+            //     without this fence they read as a package generic in a
+            //     foreign home and the law over-fires on every one.  FOUND BY
+            //     SCORING, not by reasoning: the first cut of this pass shipped
+            //     without it and the five UVM row-modes' heads all collapsed
+            //     onto ONE `LHS: <null>` AWAY object — our own listing on
+            //     `mailbox #(T) m;` at `uvm_tlm_fifo.svh:50:9`, inside
+            //     `uvm_pkg::uvm_tlm_fifo`, where golden has none (SeqDriver's
+            //     head went 29 -> 55 cmp lines and MiniAmiq's 106 -> 55).  This
+            //     is the same fence r10uvm156 had to add to
+            //     § classHandleRetTsNameUnlessSameHomeComponent156, for the
+            //     same registry reason.  Arm B cell `b11_builtin_mailbox`.
+            const bool propSite163 = siteKind53 == SymbolKind::ClassType &&
+                                     !isBuiltinStdClass(ct0);
+            bool foreignPkgHome163 = false;
+            if (pkgGenericListing53 && propSite163) {
+                auto& cls163 = ct0.as<ClassType>();
+                const Symbol* gsym163 =
+                    cls163.genericClass
+                        ? static_cast<const Symbol*>(cls163.genericClass)
+                        : static_cast<const Symbol*>(&cls163);
+                const Scope* gsc163 = gsym163->getParentScope();
+                const Symbol* genPkg163 =
+                    gsc163 ? &gsc163->asSymbol() : nullptr;  // a Package here
+                // The HOME PACKAGE of the declaration site, walking THROUGH
+                // enclosing ClassTypes exactly as Surelog's nested
+                // ClassDefinition inherits its outer class's container.  A
+                // module / program / interface / $unit home yields nullptr,
+                // which the probes can never spell as `<pkg>::<name>`.
+                const Symbol* declPkg163 = nullptr;
+                for (const Scope* sc163 = declSymbol.getParentScope(); sc163;) {
+                    auto& ss163 = sc163->asSymbol();
+                    if (ss163.kind == SymbolKind::Package) {
+                        declPkg163 = &ss163;
+                        break;
+                    }
+                    if (ss163.kind != SymbolKind::ClassType)
+                        break;
+                    sc163 = ss163.getParentScope();
+                }
+                foreignPkgHome163 = genPkg163 && genPkg163 != declPkg163;
+            }
+            const bool suppressParams163 =
+                pkgGenericListing53 && !foreignPkgHome163;
             {
                 bool writtenSpec0 = true;
                 if (auto tsynS0 = declared->getTypeSyntax())
@@ -2029,9 +2133,15 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                             nmS0->kind == syntax::SyntaxKind::ClassName;
                     }
                 // NOTE § classPkgGenericSpecListing53 — the SUPPRESS half.
-                if (writtenSpec0 && !pkgGenericListing53)
-                    emitClassTsParams(cts, ct0.as<ClassType>(),
-                                      std::string(ct0.name));
+                if (writtenSpec0 && !suppressParams163) {
+                    if (foreignPkgHome163)
+                        emitClassPropSpecParams163(cts, ct0.as<ClassType>(),
+                                                   declared->getTypeSyntax(),
+                                                   declSymbol.getParentScope());
+                    else
+                        emitClassTsParams(cts, ct0.as<ClassType>(),
+                                          std::string(ct0.name));
+                }
             }
             if (auto tsyn0 = declared->getTypeSyntax()) {
                 setLoc(cts, tsyn0->sourceRange());

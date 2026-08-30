@@ -1,0 +1,150 @@
+r10uvm163 — GRID: the three arms, DEF and ELAB, golden vs pristine vs patched.
+LHS is ALWAYS golden(Surelog); RHS is ALWAYS ours.  Judge: uhdm-cmp.
+
+########## ARM a  (g163_a_mech.sv)
+-- databases-missing=0
+-- DEF HELD=2 TO-GOLDEN=6 MOVED-WRONG=0 AWAY=0 STILL=3 ONLY-G=0 ONLY-O=2
+   ONLY-O       alpha163::genAl163#(cfgBe163)@69:5|a3_crosspkg_scoped@69:35
+                G=None  pris=(0, '')  patc=(0, '')
+   ONLY-O       alpha163::genAl163#(cfgUnit163)@90:3|a5_unitcls_pkggen_scoped@90:35
+                G=None  pris=(0, '')  patc=(0, '')
+   TO-GOLDEN    genAl163@103:5|a13_unitnested_pkggen@103:27
+                G=(1, 'TA:class_typespec:cfgUnit163')  pris=(0, '')  patc=(1, 'TA:class_typespec:cfgUnit163')
+   TO-GOLDEN    genAl163@113:5|a8_modcls_pkggen_unqual@113:27
+                G=(1, 'TA:class_typespec:cfgUnit163')  pris=(0, '')  patc=(1, 'TA:class_typespec:cfgUnit163')
+   TO-GOLDEN    genAl163@67:5|a2_crosspkg_unqual@67:25
+                G=(1, 'TA:class_typespec:cfgBe163')  pris=(0, '')  patc=(1, 'TA:class_typespec:cfgBe163')
+   TO-GOLDEN    genAl163@76:7|a12_pkgnested_crosspkg@76:27
+                G=(1, 'TA:class_typespec:cfgBe163')  pris=(0, '')  patc=(1, 'TA:class_typespec:cfgBe163')
+   TO-GOLDEN    genAl163@89:3|a4_unitcls_pkggen_unqual@89:25
+                G=(1, 'TA:class_typespec:cfgUnit163')  pris=(0, '')  patc=(1, 'TA:class_typespec:cfgUnit163')
+   TO-GOLDEN    genAl163@97:3|a7_unitcls_selfarg@97:31
+                G=(2, 'TA:int_typespec:,TB:class_typespec:holdSelf163')  pris=(0, '')  patc=(2, 'TA:int_typespec:,TB:class_typespec:holdSelf163')
+   STILL        genUnit163@114:5|a9_modcls_unitgen_unqual@114:29
+                G=(1, 'TA:class_typespec:cfgUnit163')  pris=(2, 'TA:class_typespec:cfgUnit163,TB:int_typespec:')  patc=(2, 'TA:class_typespec:cfgUnit163,TB:int_typespec:')
+   STILL        genUnit163@121:7|a10_nestedcls_unitgen@121:31
+                G=(1, 'TA:class_typespec:cfgUnit163')  pris=(2, 'TA:class_typespec:cfgUnit163,TB:int_typespec:')  patc=(2, 'TA:class_typespec:cfgUnit163,TB:int_typespec:')
+   STILL        genUnit163@91:3|a6_unitcls_unitgen_unqual@91:27
+                G=(1, 'TA:class_typespec:cfgUnit163')  pris=(2, 'TA:class_typespec:cfgUnit163,TB:int_typespec:')  patc=(2, 'TA:class_typespec:cfgUnit163,TB:int_typespec:')
+-- ELAB HELD=2 TO-GOLDEN=6 MOVED-WRONG=0 AWAY=0 STILL=3 ONLY-G=0 ONLY-O=2
+   ONLY-O       alpha163::genAl163#(cfgBe163)@69:5|a3_crosspkg_scoped@69:35
+                G=None  pris=(0, '')  patc=(0, '')
+   ONLY-O       alpha163::genAl163#(cfgUnit163)@90:3|a5_unitcls_pkggen_scoped@90:35
+                G=None  pris=(0, '')  patc=(0, '')
+   TO-GOLDEN    genAl163@103:5|a13_unitnested_pkggen@103:27
+                G=(1, 'TA:class_typespec:cfgUnit163')  pris=(0, '')  patc=(1, 'TA:class_typespec:cfgUnit163')
+   TO-GOLDEN    genAl163@113:5|a8_modcls_pkggen_unqual@113:27
+                G=(1, 'TA:class_typespec:cfgUnit163')  pris=(0, '')  patc=(1, 'TA:class_typespec:cfgUnit163')
+   TO-GOLDEN    genAl163@67:5|a2_crosspkg_unqual@67:25
+                G=(1, 'TA:class_typespec:cfgBe163')  pris=(0, '')  patc=(1, 'TA:class_typespec:cfgBe163')
+   TO-GOLDEN    genAl163@76:7|a12_pkgnested_crosspkg@76:27
+                G=(1, 'TA:class_typespec:cfgBe163')  pris=(0, '')  patc=(1, 'TA:class_typespec:cfgBe163')
+   TO-GOLDEN    genAl163@89:3|a4_unitcls_pkggen_unqual@89:25
+                G=(1, 'TA:class_typespec:cfgUnit163')  pris=(0, '')  patc=(1, 'TA:class_typespec:cfgUnit163')
+   TO-GOLDEN    genAl163@97:3|a7_unitcls_selfarg@97:31
+                G=(2, 'TA:int_typespec:,TB:class_typespec:holdSelf163')  pris=(0, '')  patc=(2, 'TA:int_typespec:,TB:class_typespec:holdSelf163')
+   STILL        genUnit163@114:5|a9_modcls_unitgen_unqual@114:29
+                G=(1, 'TA:class_typespec:cfgUnit163')  pris=(2, 'TA:class_typespec:cfgUnit163,TB:int_typespec:')  patc=(2, 'TA:class_typespec:cfgUnit163,TB:int_typespec:')
+   STILL        genUnit163@121:7|a10_nestedcls_unitgen@121:31
+                G=(1, 'TA:class_typespec:cfgUnit163')  pris=(2, 'TA:class_typespec:cfgUnit163,TB:int_typespec:')  patc=(2, 'TA:class_typespec:cfgUnit163,TB:int_typespec:')
+   STILL        genUnit163@91:3|a6_unitcls_unitgen_unqual@91:27
+                G=(1, 'TA:class_typespec:cfgUnit163')  pris=(2, 'TA:class_typespec:cfgUnit163,TB:int_typespec:')  patc=(2, 'TA:class_typespec:cfgUnit163,TB:int_typespec:')
+
+########## ARM b  (g163_b_forms.sv)
+-- databases-missing=0
+-- DEF HELD=3 TO-GOLDEN=5 MOVED-WRONG=0 AWAY=0 STILL=0 ONLY-G=8 ONLY-O=2
+   ONLY-G       genGa163@32:3|k5_samehome_pkgvar@32:23
+                G=(0, '')  pris=None  patc=None
+   ONLY-G       genGa163@32:3|k5_samehome_pkgvar@32:23
+                G=(0, '')  pris=None  patc=None
+   ONLY-G       genGa163@32:3|k5_samehome_pkgvar@32:23
+                G=(0, '')  pris=None  patc=None
+   ONLY-G       genGa163@32:3|k5_samehome_pkgvar@32:23
+                G=(0, '')  pris=None  patc=None
+   ONLY-G       genGa163@32:3|k5_samehome_pkgvar@32:23
+                G=(0, '')  pris=None  patc=None
+   ONLY-G       genGa163@32:3|k5_samehome_pkgvar@32:23
+                G=(0, '')  pris=None  patc=None
+   TO-GOLDEN    genGa163@44:5|b1_prop@44:25
+                G=(1, 'TA:class_typespec:cfgDe163')  pris=(0, '')  patc=(1, 'TA:class_typespec:cfgDe163')
+   TO-GOLDEN    genGa163@45:12|b2_static@45:32
+                G=(1, 'TA:class_typespec:cfgDe163')  pris=(0, '')  patc=(1, 'TA:class_typespec:cfgDe163')
+   TO-GOLDEN    genGa163@46:11|b3_local@46:31
+                G=(1, 'TA:class_typespec:cfgDe163')  pris=(0, '')  patc=(1, 'TA:class_typespec:cfgDe163')
+   TO-GOLDEN    genGa163@47:15|b4_protected@47:35
+                G=(1, 'TA:class_typespec:cfgDe163')  pris=(0, '')  patc=(1, 'TA:class_typespec:cfgDe163')
+   TO-GOLDEN    genGa163@48:10|b5_rand@48:30
+                G=(1, 'TA:class_typespec:cfgDe163')  pris=(0, '')  patc=(1, 'TA:class_typespec:cfgDe163')
+   ONLY-G       genGa163@67:3|b10_pkgvar@67:23
+                G=(0, '')  pris=None  patc=None
+   ONLY-G       genGa163@67:3|b10_pkgvar@67:23
+                G=(0, '')  pris=None  patc=None
+   ONLY-O       mailbox@62:5|b11_builtin_mailbox@62:24
+                G=None  pris=(0, '')  patc=(0, '')
+   ONLY-O       semaphore@63:5|b12_builtin_semaphore@63:15
+                G=None  pris=(0, '')  patc=(0, '')
+-- ELAB HELD=3 TO-GOLDEN=5 MOVED-WRONG=0 AWAY=0 STILL=0 ONLY-G=8 ONLY-O=2
+   ONLY-G       genGa163@32:3|k5_samehome_pkgvar@32:23
+                G=(0, '')  pris=None  patc=None
+   ONLY-G       genGa163@32:3|k5_samehome_pkgvar@32:23
+                G=(0, '')  pris=None  patc=None
+   ONLY-G       genGa163@32:3|k5_samehome_pkgvar@32:23
+                G=(0, '')  pris=None  patc=None
+   ONLY-G       genGa163@32:3|k5_samehome_pkgvar@32:23
+                G=(0, '')  pris=None  patc=None
+   ONLY-G       genGa163@32:3|k5_samehome_pkgvar@32:23
+                G=(0, '')  pris=None  patc=None
+   ONLY-G       genGa163@32:3|k5_samehome_pkgvar@32:23
+                G=(0, '')  pris=None  patc=None
+   TO-GOLDEN    genGa163@44:5|b1_prop@44:25
+                G=(1, 'TA:class_typespec:cfgDe163')  pris=(0, '')  patc=(1, 'TA:class_typespec:cfgDe163')
+   TO-GOLDEN    genGa163@45:12|b2_static@45:32
+                G=(1, 'TA:class_typespec:cfgDe163')  pris=(0, '')  patc=(1, 'TA:class_typespec:cfgDe163')
+   TO-GOLDEN    genGa163@46:11|b3_local@46:31
+                G=(1, 'TA:class_typespec:cfgDe163')  pris=(0, '')  patc=(1, 'TA:class_typespec:cfgDe163')
+   TO-GOLDEN    genGa163@47:15|b4_protected@47:35
+                G=(1, 'TA:class_typespec:cfgDe163')  pris=(0, '')  patc=(1, 'TA:class_typespec:cfgDe163')
+   TO-GOLDEN    genGa163@48:10|b5_rand@48:30
+                G=(1, 'TA:class_typespec:cfgDe163')  pris=(0, '')  patc=(1, 'TA:class_typespec:cfgDe163')
+   ONLY-G       genGa163@67:3|b10_pkgvar@67:23
+                G=(0, '')  pris=None  patc=None
+   ONLY-G       genGa163@67:3|b10_pkgvar@67:23
+                G=(0, '')  pris=None  patc=None
+   ONLY-O       mailbox@62:5|b11_builtin_mailbox@62:24
+                G=None  pris=(0, '')  patc=(0, '')
+   ONLY-O       semaphore@63:5|b12_builtin_semaphore@63:15
+                G=None  pris=(0, '')  patc=(0, '')
+
+########## ARM c  (g163_c_types.sv)
+-- databases-missing=0
+-- DEF HELD=3 TO-GOLDEN=7 MOVED-WRONG=0 AWAY=0 STILL=0 ONLY-G=0 ONLY-O=0
+   TO-GOLDEN    genEp163@43:3|c1_two_class_args@43:33
+                G=(2, 'TA:class_typespec:cfgUn163,TB:class_typespec:cfgUn163')  pris=(0, '')  patc=(2, 'TA:class_typespec:cfgUn163,TB:class_typespec:cfgUn163')
+   TO-GOLDEN    genEp163@44:3|c2_two_int_args@44:23
+                G=(2, 'TA:int_typespec:,TB:int_typespec:')  pris=(0, '')  patc=(2, 'TA:int_typespec:,TB:int_typespec:')
+   TO-GOLDEN    genEp163@45:3|c3_mixed_args@45:28
+                G=(2, 'TA:int_typespec:,TB:class_typespec:cfgUn163')  pris=(0, '')  patc=(2, 'TA:int_typespec:,TB:class_typespec:cfgUn163')
+   TO-GOLDEN    genEp163@46:3|c4_one_arg_of_two@46:18
+                G=(1, 'TA:int_typespec:')  pris=(0, '')  patc=(1, 'TA:int_typespec:')
+   TO-GOLDEN    genEp163@48:3|c6_typedef_arg@48:33
+                G=(2, 'TA:logic_typespec:nib163_t,TB:class_typespec:cfgUn163')  pris=(0, '')  patc=(2, 'TA:logic_typespec:nib163_t,TB:class_typespec:cfgUn163')
+   TO-GOLDEN    oneEp163@47:3|c5_single_formal@47:18
+                G=(1, 'TA:int_typespec:')  pris=(0, '')  patc=(1, 'TA:int_typespec:')
+   TO-GOLDEN    valEp163@52:3|c10_value_then_type@52:26
+                G=(1, 'TA:class_typespec:cfgUn163')  pris=(0, '')  patc=(1, 'TA:class_typespec:cfgUn163')
+-- ELAB HELD=3 TO-GOLDEN=7 MOVED-WRONG=0 AWAY=0 STILL=0 ONLY-G=0 ONLY-O=0
+   TO-GOLDEN    genEp163@43:3|c1_two_class_args@43:33
+                G=(2, 'TA:class_typespec:cfgUn163,TB:class_typespec:cfgUn163')  pris=(0, '')  patc=(2, 'TA:class_typespec:cfgUn163,TB:class_typespec:cfgUn163')
+   TO-GOLDEN    genEp163@44:3|c2_two_int_args@44:23
+                G=(2, 'TA:int_typespec:,TB:int_typespec:')  pris=(0, '')  patc=(2, 'TA:int_typespec:,TB:int_typespec:')
+   TO-GOLDEN    genEp163@45:3|c3_mixed_args@45:28
+                G=(2, 'TA:int_typespec:,TB:class_typespec:cfgUn163')  pris=(0, '')  patc=(2, 'TA:int_typespec:,TB:class_typespec:cfgUn163')
+   TO-GOLDEN    genEp163@46:3|c4_one_arg_of_two@46:18
+                G=(1, 'TA:int_typespec:')  pris=(0, '')  patc=(1, 'TA:int_typespec:')
+   TO-GOLDEN    genEp163@48:3|c6_typedef_arg@48:33
+                G=(2, 'TA:logic_typespec:nib163_t,TB:class_typespec:cfgUn163')  pris=(0, '')  patc=(2, 'TA:logic_typespec:nib163_t,TB:class_typespec:cfgUn163')
+   TO-GOLDEN    oneEp163@47:3|c5_single_formal@47:18
+                G=(1, 'TA:int_typespec:')  pris=(0, '')  patc=(1, 'TA:int_typespec:')
+   TO-GOLDEN    valEp163@52:3|c10_value_then_type@52:26
+                G=(1, 'TA:class_typespec:cfgUn163')  pris=(0, '')  patc=(1, 'TA:class_typespec:cfgUn163')
+
