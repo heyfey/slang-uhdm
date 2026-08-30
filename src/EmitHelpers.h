@@ -5148,6 +5148,170 @@ inline size_t subroutineBodyItemCount157(
     return n157;
 }
 
+// ---------------------------------------------------------------------------
+// § nameBasedArrayTdDeclIsRefVar166
+//
+// THE LAW.  A declaration whose written type is a BARE NAME — `td` or
+// `Owner::td`, with NO dimension written on the declarator — denoting a
+// TYPEDEF OF AN UNPACKED ARRAY (`typedef <BASE> td [$] / [] / [k] / [key_t];`)
+// whose **BASE TYPE IS ITSELF WRITTEN AS A NAME**, and whose HOME is a CLASS,
+// a MODULE, an INTERFACE or a PROGRAM, is a bare `ref_var` bound straight to
+// that typedef's own typespec: **NO `array_var` wrapper, NO `vpiArrayType`,
+// NO `vpiReg` element variable, NO range of its own.**
+//
+// The same declaration keeps the ordinary `array_var` + element pair when the
+// typedef's base is written as a KEYWORD (`int`, `bit`, `logic`, `string`,
+// `real`, `byte`, …) or as an INLINE `enum {}` / `struct {}` / `union {}`,
+// and when the typedef's home is a PACKAGE or `$unit`.
+//
+// WHY, read off Surelog.  `CompileHelper::compileTypeDef`
+// (src/DesignCompile/CompileHelper.cpp:500-1103) decides, per typedef, whether
+// a UHDM typespec is attached to the `DataType` at all, and it has exactly
+// three outcomes for `typedef <BASE> td [dims];`:
+//
+//   * BASE is an INLINE `enum` / `struct` / `union` — the enum arm (:755-772)
+//     and the struct/union arms (:665-740) ALWAYS run
+//     `the_enum->setTypespec(array_tps)` / `st->setTypespec(array_tps)`.
+//     The DataType HAS a typespec, in every home.
+//   * BASE is a KEYWORD type — `fC->Type(stype)` is neither `slStringConst`
+//     nor `paClass_scope`, so the final `else` at :1043-1097 runs: a
+//     `SimpleType` is built, `compileTypespec` is called UNCONDITIONALLY, the
+//     result is wrapped in `array_tps` and `simple->setTypespec(ts)` is set.
+//     The DataType HAS a typespec, in every home.
+//   * BASE is a NAME (`slStringConst` or `paClass_scope`, :889) — the arm
+//     carries the comment *"Don't create the typespec here, as it is most
+//     likely going to be incomplete at compilation time, except for packages
+//     and FileContent"* and guards the whole build with
+//
+//         if ((reduce == Reduce::Yes) &&
+//             ((valuedcomponenti_cast<Package*>(scope) ||
+//               valuedcomponenti_cast<FileContent*>(scope)))) {
+//           UHDM::typespec* ts = compileTypespec(...);
+//           if (ts && (ts->UhdmType() != uhdmclass_typespec) &&
+//               (ts->UhdmType() != uhdmunsupported_typespec)) { … }
+//
+//     A CLASS, a MODULE, an INTERFACE and a PROGRAM are none of those two, so
+//     `newTypeDef->setTypespec` is NEVER reached and the DataType has NO
+//     typespec.
+//
+// And that is the whole question `compileVariable` asks first
+// (CompileType.cpp:341-359):
+//
+//     if (const DataType* dt = component->getDataType(typeName)) {
+//       dt = dt->getActual();
+//       if (typespec* tps = dt->getTypespec()) {            // <- NULL here
+//         if (variables* var = getSimpleVarFromTypespec(tps, ranges, …)) {
+//
+// With no typespec the arm is skipped, `getClassDefinition` finds nothing, and
+// the declaration falls to the function's LAST arm (:421-431) — `MakeRef_var`
+// carrying `ts`, the typespec `compileTypespec` built for the WRITTEN NAME.
+// When that arrived as an `unsupported_typespec`, `needLateTypedefBinding`
+// hands it to `ElaborationStep::bindTypedefs_`, which swaps in the typedef's
+// real object; the declaration therefore ends up bound to the typedef's OWN
+// `array_typespec`, named and spanned AT THE TYPEDEF.
+//
+// The `array_var` the ordinary declaration gets comes from the OTHER side of
+// that same `if`: `getSimpleVarFromTypespec`'s `uhdmarray_typespec` case
+// (CompileType.cpp:220-233) has no `Index_typespec` on a typedef's
+// array_typespec (only ElaborationStep.cpp:2136-2140 and UhdmWriter.cpp:731
+// ever set one, and only for an ASSOCIATIVE DECLARATION), so it takes the
+// `else` branch and mints `MakeArray_var()` — which is why golden's
+// `array_var` for this shape carries NO `vpiArrayType` and NO `vpiReg`
+// either.  Only a declaration with dimensions WRITTEN ON THE DECLARATOR gets
+// the element/array pair, from `compileStmt`'s unpacked-dimension wrapper.
+//
+// MEASURED, arm by arm (grid166, both views, golden built by Surelog itself):
+//   * `g166_a_core` — queue / dynamic / associative / fixed targets of a class
+//     TYPE PARAMETER all degrade; the same four with an `int` base all keep
+//     `array_var`; a package typedef, a plain (non-generic) class typedef and
+//     a module typedef of `int` keep `array_var`; `int wrtQ166[$]` (dims on
+//     the declarator) is untouched.
+//   * `g166_b_elem` — the ELEMENT axis: a type parameter bound to int / a
+//     class / an enum / a packed struct / a string, a typedef OF a type
+//     parameter, an array of an array of one, AND a CONCRETE class handle, a
+//     CONCRETE enum and a CONCRETE packed struct all degrade — it is the
+//     SPELLING of the base, not what it resolves to; `real`, `string` and
+//     `int` bases (including an associative one keyed by a type parameter and
+//     a fixed one sized by a value parameter) keep `array_var`.
+//   * `g166_c_gate` — the HOME axis: class / module / interface / program with
+//     a NAME base degrade in EVERY view; `$unit` (FileContent) resolves; a
+//     PACKAGE resolves in its ELABORATED copy and degrades in its DEF-listing
+//     copy (`reduce == Reduce::Yes` is elaboration) — which is why the package
+//     home is DECLINED here; and a package typedef of an array of CLASS
+//     handles degrades even in the elaborated copy, bound to the base's
+//     `class_typespec` (the `!= uhdmclass_typespec` guard above).
+//
+// SCOPE, stated so the gate written is the gate coded.  DECLINED and left
+// exactly as they are today: the PACKAGE and `$unit` homes (the package's
+// DEF/ELAB split is a second law), a typedef declared in a STATEMENT SCOPE
+// (§ blockLocalTdDeclIsRefVarUnsupported155's family), a `virtual` interface
+// base (not a `NamedType` in slang), and every declaration site other than a
+// SUBROUTINE-BODY / BLOCK-ITEM local.
+inline bool nameBasedArrayTdDeclIsRefVar166(const slang::ast::Symbol& declSym) {
+    const slang::ast::DeclaredType* dt = declSym.getDeclaredType();
+    if (!dt)
+        return false;
+    // (1) SPELLING — the written type is a NAME (`td` / `Owner::td`) and the
+    // declarator carries NO dimensions.  A dimension WRITTEN AT THE USE is
+    // `compileStmt`'s array wrapper and a different shape entirely
+    // (g166_a_core `wrtQ166`).
+    auto* tsyn = dt->getTypeSyntax();
+    if (!tsyn || tsyn->kind != syntax::SyntaxKind::NamedType)
+        return false;
+    // ONE BARE IDENTIFIER, never a `Owner::td` spelling: a scoped use is
+    // sec. classScopedTdDeclTsUnsupported11's arm (golden binds an
+    // `unsupported_typespec` NAMED with the written scoped text there), and
+    // this law must not reach into it.
+    const auto& nt166 = tsyn->as<syntax::NamedTypeSyntax>();
+    if (!nt166.name || nt166.name->kind != syntax::SyntaxKind::IdentifierName)
+        return false;
+    if (auto* dsyn = declSym.getSyntax())
+        if (dsyn->kind == syntax::SyntaxKind::Declarator &&
+            !dsyn->as<syntax::DeclaratorSyntax>().dimensions.empty())
+            return false;
+    // (2) IT NAMES A REAL TYPEDEF whose target is an UNPACKED ARRAY.  A type
+    // PARAMETER's alias is spelled `TypeAssignment` and is
+    // § typeParamVarIsRefVar58's arm, never this one.
+    const slang::ast::Type& t = dt->getType();
+    if (t.kind != slang::ast::SymbolKind::TypeAlias)
+        return false;
+    const auto& al166 = t.as<slang::ast::TypeAliasType>();
+    const syntax::SyntaxNode* asyn = al166.getSyntax();
+    if (!asyn || asyn->kind != syntax::SyntaxKind::TypedefDeclaration)
+        return false;
+    switch (al166.getCanonicalType().kind) {
+        case slang::ast::SymbolKind::QueueType:
+        case slang::ast::SymbolKind::DynamicArrayType:
+        case slang::ast::SymbolKind::AssociativeArrayType:
+        case slang::ast::SymbolKind::FixedSizeUnpackedArrayType:
+            break;
+        default:
+            return false;
+    }
+    // (3) THE TYPEDEF'S OWN BASE TYPE IS WRITTEN AS A NAME.  This is
+    // `fC->Type(stype) == slStringConst || paClass_scope` and nothing else: a
+    // keyword type and an inline enum / struct / union both attach a typespec
+    // and keep the `array_var`.
+    const auto& td166 = asyn->as<syntax::TypedefDeclarationSyntax>();
+    if (!td166.type || td166.type->kind != syntax::SyntaxKind::NamedType)
+        return false;
+    // (4) THE HOME GATE — a CLASS, and nothing else.  A PACKAGE and the
+    // COMPILATION UNIT are the two homes Surelog's guard lets through, and a
+    // statement scope belongs to § blockLocalTdDeclIsRefVarUnsupported155.
+    // A MODULE / INTERFACE / PROGRAM home degrades in golden exactly like a
+    // class one, but the typespec our emitter has for such a declaration
+    // TODAY is not the typedef's `array_typespec` (grid166 `g166_c_gate`
+    // `mEnumVal166` / `iEnumVal166` / `gEnumVal166`, `g166_d_home`
+    // `modInitVal166` / `modCombVal166`: ours is a `bit_typespec` spanned at
+    // the written type), so moving the KIND there would trade one wrong field
+    // for another instead of moving the cell toward golden.  DECLINED and
+    // measured; the residue table is in the pass README.
+    const slang::ast::Scope* home166 = al166.getParentScope();
+    if (!home166)
+        return false;
+    return home166->asSymbol().kind == slang::ast::SymbolKind::ClassType;
+}
+
 inline bool stmtScopeHasTdListing157(const slang::ast::Scope& sc) {
     for (const auto& m : sc.members())
         if (m.kind == slang::ast::SymbolKind::TypeAlias)

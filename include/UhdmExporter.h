@@ -1889,6 +1889,18 @@ private:
                                           const std::string& afull,
                                           UHDM::any* parent,
                                           UHDM::instance* tsInst);
+    // § nameBasedArrayTdDeclIsRefVar166 — the COLLAPSED `ref_var` a
+    // declaration takes when it NAMES an unpacked-array typedef whose base is
+    // written as a NAME and whose home is a class / module / interface /
+    // program: no array_var wrapper, no element variable, bound straight to
+    // the typedef's own typespec.  Null whenever the law declines, in which
+    // case the caller's existing array factories run unchanged.  The law, the
+    // Surelog citations and every measured grid cell live next to the
+    // predicate `nameBasedArrayTdDeclIsRefVar166` in `src/EmitHelpers.h`.
+    UHDM::ref_var* makeNameBasedArrayTdRefVar166(const slang::ast::Symbol& vs,
+                                                 const std::string& afull,
+                                                 UHDM::any* parent,
+                                                 UHDM::instance* tsInst);
     // § assocLocalArrayVar40 — the same array_var shape for a BODY-LOCAL
     // ASSOCIATIVE array; null for any other type.  `tsInst` is the vpiInstance
     // the element / index typespecs take (the flat-local rule), `promoteNamed`

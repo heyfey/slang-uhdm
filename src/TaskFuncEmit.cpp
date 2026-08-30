@@ -1279,6 +1279,53 @@ static bool classHomedType4(const Type* t) {
     return false;
 }
 
+// § nameBasedArrayTdDeclIsRefVar166 — THE FACTORY.  One `ref_var`, bound to
+// the typedef's own typespec, in place of the whole array_var / element pair.
+//
+// The typespec is `makeTypespec(vs)` under `tfContext`, which is EXACTLY how
+// `makeQueueDynArrayVar` below computes its ELEMENT typespec — so the OBJECT
+// this law binds is the very object the element variable binds today, kind,
+// name and span alike (measured: grid166 `g166_a_core` `pqVal166` and the
+// corpus head both already read `array_typespec (<td>)` spanned AT THE
+// TYPEDEF, which is what golden binds).  Only the VARIABLE changes.
+UHDM::ref_var* UhdmExporter::makeNameBasedArrayTdRefVar166(
+    const Symbol& vs, const std::string& afull, UHDM::any* parent,
+    UHDM::instance* tsInst) {
+    if (!nameBasedArrayTdDeclIsRefVar166(vs))
+        return nullptr;
+    // `tsInst` is taken so this factory has the SAME signature as the three
+    // array factories it stands in front of, and is deliberately UNUSED - see
+    // the vpiInstance note below.
+    (void)tsInst;
+    bool savedTfCtx166 = tfContext;
+    tfContext = true;
+    UHDM::typespec* ts166 = makeTypespec(vs);
+    tfContext = savedTfCtx166;
+    if (!ts166)
+        return nullptr;
+    // NO vpiInstance STAMP, and § classHomedTypeTsNoPkgInstance4 is the reason
+    // rather than an exception to it: the object bound here is the TYPEDEF's
+    // own typespec and the law's HOME GATE has already required that typedef
+    // to live in a CLASS, which is exactly the `classHomedType4` case the
+    // queue / associative factories suppress the stamp for.  Asking
+    // `classHomedType4` about the ELEMENT instead (which is what those
+    // factories do, because THEIR typespec is the element's) stamps the class
+    // typedef's shared object with the enclosing PACKAGE for an OUT-OF-BODY
+    // method — golden reads `<noinst>` on all four of `g166_d_home`'s
+    // `oobVal166` / `oobNestVal166` cells, in both views.
+    auto* rv166 = s.MakeRef_var();
+    rv166->VpiName(vs.name);
+    rv166->VpiFullName(afull);
+    rv166->VpiParent(parent);
+    setLoc(rv166, nameSpan(vs.location, vs.name));
+    auto* rt166 = s.MakeRef_typespec();
+    rt166->VpiFullName(afull);
+    rt166->VpiParent(rv166);
+    rt166->Actual_typespec(ts166);
+    rv166->Typespec(rt166);
+    return rv166;
+}
+
 UHDM::array_var* UhdmExporter::makeQueueDynArrayVar(const Symbol& vs,
                                                     const std::string& afull,
                                                     UHDM::any* parent,
@@ -5272,6 +5319,24 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 // r10c4_p9/p10: `function int f; int lq[$];` dumps an
                 // automatic int_var, its `function int f();` twin an
                 // array_var).
+                // § nameBasedArrayTdDeclIsRefVar166, SITE 2 of 2 — the
+                // SUBROUTINE-BODY (TF-ITEM) local, which is the listing the
+                // `uvm_utils::find` cell also reaches.  Same law, same
+                // question, asked before all three array factories; gated on
+                // `blockItems9` exactly like them, so a PAREN-LESS function
+                // header keeps the flat model it has today.
+                if (auto* rv166 =
+                        !blockItems9
+                            ? nullptr
+                            : makeNameBasedArrayTdRefVar166(
+                                  fmv, fullName + sep + std::string(fmv.name),
+                                  tf,
+                                  importCopyTsInst ? importCopyTsInst
+                                                   : tsInst)) {
+                    funcMap[&fmv] = rv166;
+                    fvars->push_back(rv166);
+                    continue;
+                }
                 if (auto* av = !blockItems9
                                    ? nullptr
                                    : makeQueueDynArrayVar(

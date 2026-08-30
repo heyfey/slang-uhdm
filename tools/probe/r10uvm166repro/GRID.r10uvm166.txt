@@ -1,0 +1,156 @@
+r10uvm166 - THE GRID.  MEASUREMENT ONLY; the official uhdm-cmp is the sole
+judge.  LHS/G is ALWAYS golden (Surelog), built by Surelog itself with
+  -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm [-elabuhdm]
+and every command echoed WITH ITS BINARY PATH into the arm's own cmds.txt.
+
+Scored by score166.py: keyed on (RUN, row type, owner, NAME) - NAME-keyed and
+never span-keyed, because golden spans a ref_var at the WRITTEN TYPE and we
+span it at the NAME; the ROOT LABEL is kept OUT of the key (RESUME sec.9) and
+the RUN is kept IN it (merging the -o and --elabuhdm databases into one
+multiset manufactures phantoms - it is what first mis-read
+r10vbuvm22repro/v3_kinds.sv as a regression).
+
+pristine md5 3002e867e7137c2e5b2e2236d846dc2f
+patched  md5 8dc9d834176c7467f397b10f9d1f23d4
+
+== g166_a_core
+-- SAME=41  TOWARD=10  AWAY=0  WRONG=0  RESHAPE-TOWARD=0  RESHAPE-AWAY=0  STILL=29  ONLY-G=0  ONLY-O=32
+   moved cells:
+        1      nqVal166 (def/LOCAL)
+        1      nqVal166 (elab/LOCAL)
+        1      paVal166 (def/LOCAL)
+        1      paVal166 (elab/LOCAL)
+        1      pdVal166 (def/LOCAL)
+        1      pdVal166 (elab/LOCAL)
+        1      pfVal166 (def/LOCAL)
+        1      pfVal166 (elab/LOCAL)
+        1      pqVal166 (def/LOCAL)
+        1      pqVal166 (elab/LOCAL)
+   rc per command (golden runs first, then pristine, then patched, both views):
+           2 rc=0
+           4 rc=4
+
+== g166_b_elem
+-- SAME=38  TOWARD=10  AWAY=0  WRONG=0  RESHAPE-TOWARD=10  RESHAPE-AWAY=0  STILL=24  ONLY-G=2  ONLY-O=32
+   moved cells:
+        1      cargoVal166 (def/LOCAL)
+        1      cargoVal166 (elab/LOCAL)
+        1      chainVal166 (def/LOCAL)
+        1      chainVal166 (elab/LOCAL)
+        1      deepVal166 (def/LOCAL)
+        1      deepVal166 (elab/LOCAL)
+        1      duoVal166 (def/LOCAL)
+        1      duoVal166 (elab/LOCAL)
+        1      fixedVal166 (def/LOCAL)
+        1      fixedVal166 (elab/LOCAL)
+        1      flagVal166 (def/LOCAL)
+        1      flagVal166 (elab/LOCAL)
+        1      slabVal166 (def/LOCAL)
+        1      slabVal166 (elab/LOCAL)
+        1      toneVal166 (def/LOCAL)
+        1      toneVal166 (elab/LOCAL)
+        1      wireVal166 (def/LOCAL)
+        1      wireVal166 (elab/LOCAL)
+        1      wordVal166 (def/LOCAL)
+        1      wordVal166 (elab/LOCAL)
+   rc per command (golden runs first, then pristine, then patched, both views):
+           2 rc=0
+           4 rc=4
+
+== g166_c_gate
+-- SAME=30  TOWARD=2  AWAY=0  WRONG=0  RESHAPE-TOWARD=2  RESHAPE-AWAY=0  STILL=44  ONLY-G=4  ONLY-O=42
+   moved cells:
+        1      cEnumVal166 (def/LOCAL)
+        1      cEnumVal166 (elab/LOCAL)
+        1      cScopedVal166 (def/LOCAL)
+        1      cScopedVal166 (elab/LOCAL)
+   rc per command (golden runs first, then pristine, then patched, both views):
+           2 rc=0
+           4 rc=4
+
+== g166_d_home
+-- SAME=58  TOWARD=35  AWAY=0  WRONG=0  RESHAPE-TOWARD=10  RESHAPE-AWAY=0  STILL=15  ONLY-G=0  ONLY-O=46
+   moved cells:
+        1      autoVal166 (def/LOCAL)
+        1      autoVal166 (elab/LOCAL)
+        1      caseVal166 (def/LOCAL)
+        1      caseVal166 (elab/LOCAL)
+        1      caseVal166 (elab/REF)
+        1      forkVal166 (def/LOCAL)
+        1      forkVal166 (elab/LOCAL)
+        1      forkVal166 (elab/REF)
+        1      inAssocVal166 (def/LOCAL)
+        1      inAssocVal166 (elab/LOCAL)
+        1      inBodyVal166 (def/LOCAL)
+        1      inBodyVal166 (elab/LOCAL)
+        1      inDynVal166 (def/LOCAL)
+        1      inDynVal166 (elab/LOCAL)
+        1      inFixVal166 (def/LOCAL)
+        1      inFixVal166 (elab/LOCAL)
+        1      initVal166 (def/LOCAL)
+        1      initVal166 (elab/LOCAL)
+        1      initVal166 (elab/REF)
+        1      loopVal166 (def/LOCAL)
+        1      loopVal166 (elab/LOCAL)
+        1      loopVal166 (elab/REF)
+        1      nestVal166 (def/LOCAL)
+        1      nestVal166 (elab/LOCAL)
+        1      nestVal166 (elab/REF)
+        1      oobNestVal166 (def/LOCAL)
+        1      oobNestVal166 (elab/LOCAL)
+        1      oobNestVal166 (elab/REF)
+        1      oobVal166 (def/LOCAL)
+        1      oobVal166 (elab/LOCAL)
+        1      oobVal166 (elab/REF)
+        1      statVal166 (def/LOCAL)
+        1      statVal166 (elab/LOCAL)
+        1      triAVal166 (def/LOCAL)
+        1      triAVal166 (elab/LOCAL)
+        1      triBVal166 (def/LOCAL)
+        1      triBVal166 (elab/LOCAL)
+        1      triCVal166 (def/LOCAL)
+        1      triCVal166 (elab/LOCAL)
+        1      twoAVal166 (def/LOCAL)
+        1      twoAVal166 (elab/LOCAL)
+        1      twoAVal166 (elab/REF)
+        1      twoBVal166 (def/LOCAL)
+        1      twoBVal166 (elab/LOCAL)
+        1      twoBVal166 (elab/REF)
+   rc per command (golden runs first, then pristine, then patched, both views):
+           2 rc=0
+           4 rc=4
+
+== g166_e_decline
+-- SAME=55  TOWARD=0  AWAY=0  WRONG=0  RESHAPE-TOWARD=0  RESHAPE-AWAY=0  STILL=29  ONLY-G=0  ONLY-O=18
+   moved cells: NONE.  Both databases are BYTE-IDENTICAL on the two binaries in
+   both views (cmp) - this is the NEGATIVE CONTROL, and it is a REAL one: golden
+   carries 84 scored cells for it, not an empty file.  (A first cut of this arm
+   compiled to NOTHING in Surelog - 29 rows, all built-in classes - and would
+   have read green while testing nothing; it was rewritten until Surelog
+   reported "Compile package ek166" / "Compile class ek166::Ladder166" /
+   "Top level module work@yard166".)
+   rc per command (golden runs first, then pristine, then patched, both views):
+           2 rc=0
+           4 rc=4
+
+   WHAT GOLDEN SAYS ABOUT EACH DECLINED CELL (this is why the gate is where it
+   is - most of these declines are CORRECT, not merely conservative):
+     propVal166 / statPropVal166  CLASS PROPERTY          golden array_var  (decline CORRECT)
+     argVal166                    FORMAL                  golden io_decl    (decline CORRECT)
+     hoist166's return            RETURN variable         golden ref_var, and OURS ALREADY AGREES
+     declDimVal166                dims on the declarator  golden array_var  (decline CORRECT)
+     keyBaseVal166                KEYWORD base (int)      golden array_var  (decline CORRECT)
+     inlBaseVal166                INLINE-enum base        golden array_var  (decline CORRECT)
+     pkgHomeVal166                PACKAGE home            golden array_var  (decline CORRECT)
+     unitHomeVal166               $unit home              golden array_var  (decline CORRECT)
+     vifVal166                    `virtual` base          golden array_var  (decline CORRECT)
+     modVarVal166                 MODULE-level variable   golden array_var  (decline CORRECT)
+     parenLessVal166              PAREN-LESS body         golden ref_var    (RESIDUE R1)
+     blkVal166                    STATEMENT-SCOPE typedef golden ref_var +
+                                  unsupported_typespec (blkQ166_t)          (RESIDUE R2)
+
+TOTAL over the five arms:  TOWARD=57  RESHAPE-TOWARD=22  AWAY=0  WRONG=0  RESHAPE-AWAY=0
+
+rc=4 on our binary is the PRE-EXISTING notice "unsupported constructs
+encountered: typedef target: QueueType" and is IDENTICAL on both binaries;
+RC_DIFFS over the whole probe tree is 0 (see BOUNDARY.r10uvm166.txt).

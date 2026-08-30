@@ -2125,6 +2125,27 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     // every sibling declaration (VpiName/VpiFullName are
                     // cmp-compared).
                     std::string bfull = joinRef(innerPrefix, bm.name);
+                    // § nameBasedArrayTdDeclIsRefVar166, SITE 1 of 2 — the
+                    // BLOCK-ITEM local, and the site of the SeqDriver /
+                    // SimpleUVM head (`uvm_utils::find_all`'s `types_t types;`
+                    // and `uvm_utils::find`'s initialised twin).  Asked BEFORE
+                    // all three array factories, because the law replaces the
+                    // WHOLE array_var / element pair with ONE `ref_var` for
+                    // the queue, dynamic, associative AND fixed-size shapes
+                    // alike.  The law, its Surelog citations and its four
+                    // measured grid arms live next to the predicate in
+                    // `src/EmitHelpers.h`.
+                    if (auto* rv166 = makeNameBasedArrayTdRefVar166(
+                            bm, bfull, b, pkgScopeInst)) {
+                        // § blockDeclAutomaticIsWrittenKw80 — the flag is
+                        // written on `compileVariable`'s result, and THIS
+                        // `ref_var` IS that result.
+                        if (auto80)
+                            rv166->VpiAutomatic(true);
+                        vars->push_back(rv166);
+                        blockMap[&bm] = rv166;
+                        continue;
+                    }
                     // A QUEUE / DYNAMIC-array block local is a PAIR: the
                     // element var (listed FIRST, parented at the array) and
                     // the array_var itself. ApbSlave's

@@ -1,0 +1,45 @@
+r10uvm166 - THE A-PRIORI MOVER PREDICTION, made from the PRISTINE databases
+ONLY (golden + our pristine build md5 3002e867e7137c2e5b2e2236d846dc2f), before any
+patched database existed.  MEASUREMENT ONLY.  LHS/G is ALWAYS golden.
+
+predsweep166.sh censused 956 surelog and 1358 uhdm2rtlil databases on BOTH
+sides and kept every cell where the declaration KIND disagrees and EITHER
+side is a `ref_var` bound to an `array_typespec` - the only bucket
+sec. nameBasedArrayTdDeclIsRefVar166 can move, in either direction.
+
+== surelog ==
+-- rows=956 SKIP-NOFILE=617 cells=682
+
+buckets (typedef names folded to TD):
+     32 G=[('ref_var', 'unsupported_typespec', 'sva_info')]	O=[('ref_var', 'array_typespec', '-')]
+     14 G=[('ref_var', 'array_typespec', 'TD')]	O=[('array_var', 'array_typespec', '-')]
+     11 G=[('ref_var', 'string_typespec', '-')]	O=[('ref_var', 'array_typespec', '-')]
+      4 G=[('ref_var', 'unsupported_typespec', 'cover_info')]	O=[('ref_var', 'array_typespec', '-')]
+      4 G=[('ref_var', 'unsupported_typespec', 'actions')]	O=[('ref_var', 'array_typespec', '-')]
+
+THE LAW'S bucket - G=ref_var+array_typespec(<td>), O=array_var - IN FULL:
+  default/MiniAmiq-544c7f61/  uvm_pkg::uvm_utils::find  670:13-670:18  types
+  default/MiniAmiq-544c7f61/  uvm_pkg::uvm_utils::find_all  651:13-651:18  types
+  default/Scoreboard-59431470/  uvm_pkg::uvm_utils::find  670:13-670:18  types
+  default/Scoreboard-59431470/  uvm_pkg::uvm_utils::find_all  651:13-651:18  types
+  default/SeqDriver-32af76aa/  uvm_pkg::uvm_utils::find  670:13-670:18  types
+  default/SeqDriver-32af76aa/  uvm_pkg::uvm_utils::find_all  651:13-651:18  types
+  default/SimpleUVM-1dc93a62/  uvm_pkg::uvm_utils::find  670:13-670:18  types
+  default/SimpleUVM-1dc93a62/  uvm_pkg::uvm_utils::find_all  651:13-651:18  types
+  testflags/MiniAmiq-544c7f61/  uvm_pkg::uvm_utils::find  670:13-670:18  types
+  testflags/MiniAmiq-544c7f61/  uvm_pkg::uvm_utils::find_all  651:13-651:18  types
+  testflags/SeqDriver-32af76aa/  uvm_pkg::uvm_utils::find  670:13-670:18  types
+  testflags/SeqDriver-32af76aa/  uvm_pkg::uvm_utils::find_all  651:13-651:18  types
+  testflags/SimpleUVM-1dc93a62/  uvm_pkg::uvm_utils::find  670:13-670:18  types
+  testflags/SimpleUVM-1dc93a62/  uvm_pkg::uvm_utils::find_all  651:13-651:18  types
+
+PREDICTION, BY NAME: 7 databases, one cell each in uvm_utils::find and
+uvm_utils::find_all -
+  default/{MiniAmiq,Scoreboard,SeqDriver,SimpleUVM}
+  testflags/{MiniAmiq,SeqDriver,SimpleUVM}
+  (Scoreboard/testflags and Rggen/testflags have no golden - SKIP-NOFILE.)
+Nothing else in either corpus.
+
+== uhdm2rtlil ==
+-- rows=1358 SKIP-NOFILE=104 cells=104
+cells in the law's bucket: 0

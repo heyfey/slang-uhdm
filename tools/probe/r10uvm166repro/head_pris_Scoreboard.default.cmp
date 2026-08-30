@@ -1,0 +1,145 @@
+LHS:
+decompile:
+class_typespec: (uvm_analysis_imp), id:194630, line:9:3, endln:9:19
+|vpiParent:
+\_class_var: (work@my_scoreboard::m_imp), id:194640, line:9:42, endln:9:47
+|vpiName:uvm_analysis_imp
+|vpiParameter:
+\_type_parameter: (work@my_scoreboard::m_imp::uvm_analysis_imp::T), id:194632, line:110:31, endln:110:32
+  |vpiParent:
+  \_class_typespec: (uvm_analysis_imp), id:194630, line:9:3, endln:9:19
+  |vpiName:T
+  |vpiFullName:work@my_scoreboard::m_imp::uvm_analysis_imp::T
+  |vpiTypespec:
+  \_ref_typespec: (work@my_scoreboard::m_imp::uvm_analysis_imp::T), id:194633
+    |vpiParent:
+    \_type_parameter: (work@my_scoreboard::m_imp::uvm_analysis_imp::T), id:194632, line:110:31, endln:110:32
+    |vpiFullName:work@my_scoreboard::m_imp::uvm_analysis_imp::T
+    |vpiActual:
+    \_int_typespec: , id:194631, line:9:22, endln:9:25
+|vpiParameter:
+\_type_parameter: (work@my_scoreboard::m_imp::uvm_analysis_imp::IMP), id:194637
+  |vpiParent:
+  \_class_typespec: (uvm_analysis_imp), id:194630, line:9:3, endln:9:19
+  |vpiName:IMP
+  |vpiFullName:work@my_scoreboard::m_imp::uvm_analysis_imp::IMP
+  |vpiTypespec:
+  \_ref_typespec: (work@my_scoreboard::m_imp::uvm_analysis_imp::IMP), id:194638
+    |vpiParent:
+    \_type_parameter: (work@my_scoreboard::m_imp::uvm_analysis_imp::IMP), id:194637
+    |vpiFullName:work@my_scoreboard::m_imp::uvm_analysis_imp::IMP
+    |vpiActual:
+    \_class_typespec: (my_scoreboard), id:194636, line:9:20, endln:9:41
+|vpiParamAssign:
+\_param_assign: , id:194634, line:110:31, endln:110:32
+  |vpiParent:
+  \_class_typespec: (uvm_analysis_imp), id:194630, line:9:3, endln:9:19
+  |vpiRhs:
+  \_type_parameter: (work@my_scoreboard::m_imp::uvm_analysis_imp::T), id:194632, line:110:31, endln:110:32
+  |vpiLhs:
+  \_type_parameter: (uvm_pkg::uvm_analysis_imp::T), id:121487, line:110:31, endln:110:32
+    |vpiParent:
+    \_class_defn: (uvm_pkg::uvm_analysis_imp), id:202, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/tlm1/uvm_analysis_port.svh, line:110:1, endln:116:9
+    |vpiName:T
+    |vpiFullName:uvm_pkg::uvm_analysis_imp::T
+    |vpiTypespec:
+    \_ref_typespec: (uvm_pkg::uvm_analysis_imp::T), id:121489
+      |vpiParent:
+      \_type_parameter: (uvm_pkg::uvm_analysis_imp::T), id:121487, line:110:31, endln:110:32
+      |vpiFullName:uvm_pkg::uvm_analysis_imp::T
+      |vpiActual:
+      \_int_typespec: , id:121488, line:113:30, endln:113:31
+|vpiParamAssign:
+\_param_assign: , id:194639
+  |vpiParent:
+  \_class_typespec: (uvm_analysis_imp), id:194630, line:9:3, endln:9:19
+  |vpiRhs:
+  \_type_parameter: (work@my_scoreboard::m_imp::uvm_analysis_imp::IMP), id:194637
+  |vpiLhs:
+  \_type_parameter: (uvm_pkg::uvm_analysis_imp::IMP), id:121490, line:110:43, endln:110:46
+    |vpiParent:
+    \_class_defn: (uvm_pkg::uvm_analysis_imp), id:202, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/tlm1/uvm_analysis_port.svh, line:110:1, endln:116:9
+    |vpiName:IMP
+    |vpiFullName:uvm_pkg::uvm_analysis_imp::IMP
+    |vpiTypespec:
+    \_ref_typespec: (uvm_pkg::uvm_analysis_imp::IMP), id:121492
+      |vpiParent:
+      \_type_parameter: (uvm_pkg::uvm_analysis_imp::IMP), id:121490, line:110:43, endln:110:46
+      |vpiFullName:uvm_pkg::uvm_analysis_imp::IMP
+      |vpiActual:
+      \_int_typespec: , id:121491, line:207:30, endln:207:33
+|vpiClassDefn:
+\_class_defn: (uvm_pkg::uvm_analysis_imp), id:202, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/tlm1/uvm_analysis_port.svh, line:110:1, endln:116:9
+
+decompile:
+class_typespec: (uvm_analysis_imp), id:194630, line:9:3, endln:9:19
+|vpiParent:
+\_class_var: (work@my_scoreboard::m_imp), id:194640, line:9:42, endln:9:47
+|vpiName:uvm_analysis_imp
+|vpiParameter:
+\_type_parameter: (work@my_scoreboard::m_imp::uvm_analysis_imp::T), id:194632, line:110:31, endln:110:32
+  |vpiParent:
+  \_class_typespec: (uvm_analysis_imp), id:194630, line:9:3, endln:9:19
+  |vpiName:T
+  |vpiFullName:work@my_scoreboard::m_imp::uvm_analysis_imp::T
+  |vpiTypespec:
+  \_ref_typespec: (work@my_scoreboard::m_imp::uvm_analysis_imp::T), id:194633
+    |vpiParent:
+    \_type_parameter: (work@my_scoreboard::m_imp::uvm_analysis_imp::T), id:194632, line:110:31, endln:110:32
+    |vpiFullName:work@my_scoreboard::m_imp::uvm_analysis_imp::T
+    |vpiActual:
+    \_int_typespec: , id:194631, line:9:22, endln:9:25
+|vpiParameter:
+\_type_parameter: (work@my_scoreboard::m_imp::uvm_analysis_imp::IMP), id:194637
+  |vpiParent:
+  \_class_typespec: (uvm_analysis_imp), id:194630, line:9:3, endln:9:19
+  |vpiName:IMP
+  |vpiFullName:work@my_scoreboard::m_imp::uvm_analysis_imp::IMP
+  |vpiTypespec:
+  \_ref_typespec: (work@my_scoreboard::m_imp::uvm_analysis_imp::IMP), id:194638
+    |vpiParent:
+    \_type_parameter: (work@my_scoreboard::m_imp::uvm_analysis_imp::IMP), id:194637
+    |vpiFullName:work@my_scoreboard::m_imp::uvm_analysis_imp::IMP
+    |vpiActual:
+    \_class_typespec: (my_scoreboard), id:194636, line:9:20, endln:9:41
+|vpiParamAssign:
+\_param_assign: , id:194634, line:110:31, endln:110:32
+  |vpiParent:
+  \_class_typespec: (uvm_analysis_imp), id:194630, line:9:3, endln:9:19
+  |vpiRhs:
+  \_type_parameter: (work@my_scoreboard::m_imp::uvm_analysis_imp::T), id:194632, line:110:31, endln:110:32
+  |vpiLhs:
+  \_type_parameter: (uvm_pkg::uvm_analysis_imp::T), id:121487, line:110:31, endln:110:32
+    |vpiParent:
+    \_class_defn: (uvm_pkg::uvm_analysis_imp), id:202, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/tlm1/uvm_analysis_port.svh, line:110:1, endln:116:9
+    |vpiName:T
+    |vpiFullName:uvm_pkg::uvm_analysis_imp::T
+    |vpiTypespec:
+    \_ref_typespec: (uvm_pkg::uvm_analysis_imp::T), id:121489
+      |vpiParent:
+      \_type_parameter: (uvm_pkg::uvm_analysis_imp::T), id:121487, line:110:31, endln:110:32
+      |vpiFullName:uvm_pkg::uvm_analysis_imp::T
+      |vpiActual:
+      \_int_typespec: , id:121488, line:113:30, endln:113:31
+|vpiParamAssign:
+\_param_assign: , id:194639
+  |vpiParent:
+  \_class_typespec: (uvm_analysis_imp), id:194630, line:9:3, endln:9:19
+  |vpiRhs:
+  \_type_parameter: (work@my_scoreboard::m_imp::uvm_analysis_imp::IMP), id:194637
+  |vpiLhs:
+  \_type_parameter: (uvm_pkg::uvm_analysis_imp::IMP), id:121490, line:110:43, endln:110:46
+    |vpiParent:
+    \_class_defn: (uvm_pkg::uvm_analysis_imp), id:202, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/tlm1/uvm_analysis_port.svh, line:110:1, endln:116:9
+    |vpiName:IMP
+    |vpiFullName:uvm_pkg::uvm_analysis_imp::IMP
+    |vpiTypespec:
+    \_ref_typespec: (uvm_pkg::uvm_analysis_imp::IMP), id:121492
+      |vpiParent:
+      \_type_parameter: (uvm_pkg::uvm_analysis_imp::IMP), id:121490, line:110:43, endln:110:46
+      |vpiFullName:uvm_pkg::uvm_analysis_imp::IMP
+      |vpiActual:
+      \_int_typespec: , id:121491, line:207:30, endln:207:33
+|vpiClassDefn:
+\_class_defn: (uvm_pkg::uvm_analysis_imp), id:202, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/tlm1/uvm_analysis_port.svh, line:110:1, endln:116:9
+RHS: <null>

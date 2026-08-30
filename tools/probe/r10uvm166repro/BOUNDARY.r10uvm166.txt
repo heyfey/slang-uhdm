@@ -1,0 +1,45 @@
+r10uvm166 - THE BOUNDARY GATE.  MEASUREMENT ONLY.
+
+bound166.sh over a COPY of the WHOLE tools/probe tree - top level AND
+SUBDIRECTORIES - compiling every .sv/.v in BOTH views with BOTH frozen
+binaries, children </dev/null, the file list on fd 3, PROCESSED asserted
+against LISTED, scratch keyed on the RELATIVE path.
+
+LISTED=4668 PROCESSED=4668 PRODUCED_DBS=4512 MOVED_ARMS=9 RC_DIFFS=0
+
+THE NINE MOVED ARMS:
+r10uvm166repro/g166_a_core.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10uvm166repro/g166_b_elem.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10uvm166repro/g166_c_gate.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10uvm166repro/g166_d_home.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10vbuvm22repro/v1_homes.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10vbuvm22repro/v2_rettypes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10vbuvm22repro/v3_kinds.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10vbuvm22repro/v4_adversary.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10vbuvm22repro/v6_nasty.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+FOUR of the nine are THIS PASS'S OWN GRID ARMS - the POSITIVE CONTROL that
+proves the gate can see.  The fifth of this pass's arms, g166_e_decline.sv,
+is byte-identical, which is what it exists to be.
+
+THE OTHER FIVE are r10vbuvm22's verifier arms, and every one of them is this
+law's own population: a class-homed typedef of a queue whose base is written
+as a NAME (`typedef base3 q_cls3[$];`, `typedef ti3_t q_tdint3[$];`) named
+bare by a subroutine local.  Each was re-measured against a Surelog golden
+built for it, both views, and scored by score166.py:
+
+  v1_homes         -- SAME=133  TOWARD=29  AWAY=0  WRONG=0  RESHAPE-TOWARD=4  RESHAPE-AWAY=0  STILL=172  ONLY-G=4  ONLY-O=106
+  v2_rettypes      -- SAME=199  TOWARD=15  AWAY=0  WRONG=0  RESHAPE-TOWARD=0  RESHAPE-AWAY=0  STILL=122  ONLY-G=0  ONLY-O=56
+  v3_kinds         -- SAME=80  TOWARD=26  AWAY=0  WRONG=0  RESHAPE-TOWARD=7  RESHAPE-AWAY=0  STILL=73  ONLY-G=30  ONLY-O=62
+  v4_adversary     -- SAME=84  TOWARD=27  AWAY=0  WRONG=0  RESHAPE-TOWARD=0  RESHAPE-AWAY=0  STILL=115  ONLY-G=0  ONLY-O=62
+  v6_nasty         -- SAME=54  TOWARD=12  AWAY=0  WRONG=0  RESHAPE-TOWARD=0  RESHAPE-AWAY=0  STILL=64  ONLY-G=0  ONLY-O=26
+
+  TOTAL over the five: TOWARD=109  RESHAPE-TOWARD=11  AWAY=0  WRONG=0  RESHAPE-AWAY=0
+
+ONE ATTRIBUTION worth recording.  A first cut of score166.py merged the
+`-o` and `--elabuhdm` databases into ONE multiset and reported three
+RESHAPE-AWAY cells on v3_kinds' `p3::c3::ob_cls::r`.  They are an artefact:
+per RUN, our DEF-view reference to `r` is now UNBOUND, and GOLDEN'S DEF-view
+reference is UNBOUND TOO (uhdm-dump of the Surelog golden, no vpiActual under
+`ref_obj: (p3::c3::ob_cls::r)`) - the PRISTINE binding to an `array_var` was
+the wrong one.  With the RUN in the key all three cells score TOWARD.

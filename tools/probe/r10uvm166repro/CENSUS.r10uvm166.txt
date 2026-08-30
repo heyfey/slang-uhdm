@@ -1,0 +1,33 @@
+r10uvm166 - THE FAMILY CENSUS over the NINE UVM databases (both modes;
+Scoreboard/testflags has no golden and is SKIP-NOFILE), golden vs PRISTINE vs
+PATCHED, scored three ways by score166.py.  MEASUREMENT ONLY.
+
+Payload: the declared object's UHDM kind + the bound typespec's kind / name /
+vpiInstance, spans dropped, REF rows included so the collateral a
+declaration's kind change has on the references bound to it is visible.
+
+default_SeqDriver-32af76aa         -- SAME=37524  TOWARD=2  AWAY=0  WRONG=0  RESHAPE-TOWARD=0  RESHAPE-AWAY=0  STILL=2582  ONLY-G=557  ONLY-O=495
+testflags_SeqDriver-32af76aa       -- SAME=37524  TOWARD=2  AWAY=0  WRONG=0  RESHAPE-TOWARD=0  RESHAPE-AWAY=0  STILL=2582  ONLY-G=557  ONLY-O=495
+default_SimpleUVM-1dc93a62         -- SAME=27838  TOWARD=2  AWAY=0  WRONG=0  RESHAPE-TOWARD=0  RESHAPE-AWAY=0  STILL=632  ONLY-G=426  ONLY-O=36
+testflags_SimpleUVM-1dc93a62       -- SAME=27838  TOWARD=2  AWAY=0  WRONG=0  RESHAPE-TOWARD=0  RESHAPE-AWAY=0  STILL=632  ONLY-G=426  ONLY-O=36
+default_Scoreboard-59431470        -- SAME=28028  TOWARD=2  AWAY=0  WRONG=0  RESHAPE-TOWARD=0  RESHAPE-AWAY=0  STILL=593  ONLY-G=435  ONLY-O=36
+SKIP-NOFILE testflags/Scoreboard-59431470/
+default_MiniAmiq-544c7f61          -- SAME=40141  TOWARD=2  AWAY=0  WRONG=0  RESHAPE-TOWARD=0  RESHAPE-AWAY=0  STILL=2634  ONLY-G=568  ONLY-O=508
+testflags_MiniAmiq-544c7f61        -- SAME=40141  TOWARD=2  AWAY=0  WRONG=0  RESHAPE-TOWARD=0  RESHAPE-AWAY=0  STILL=2634  ONLY-G=568  ONLY-O=508
+default_BuildUVMPkg-bf853d43       -- SAME=27189  TOWARD=0  AWAY=0  WRONG=0  RESHAPE-TOWARD=0  RESHAPE-AWAY=0  STILL=679  ONLY-G=489  ONLY-O=37
+testflags_BuildUVMPkg-bf853d43     -- SAME=27189  TOWARD=0  AWAY=0  WRONG=0  RESHAPE-TOWARD=0  RESHAPE-AWAY=0  STILL=679  ONLY-G=489  ONLY-O=37
+-- rows=9 SKIP-NOFILE=1
+
+14 CELLS MOVED, ALL TOWARD; 0 AWAY, 0 WRONG, 0 RESHAPE-AWAY.
+They are exactly the two PREDICT.r10uvm166.txt named per database (the
+SeqDriver/default rows, verbatim):
+
+TOWARD  corpus|LOCAL|uvm_pkg::uvm_utils::find|types
+        G=[('ref_var', 'array_typespec', 'types_t', '<noinst>')]
+        PRIS=[('array_var', 'array_typespec', '-', '<noinst>')]
+TOWARD  corpus|LOCAL|uvm_pkg::uvm_utils::find_all|types
+        G=[('ref_var', 'array_typespec', 'types_t', '<noinst>')]
+        PRIS=[('array_var', 'array_typespec', '-', '<noinst>')]
+
+BuildUVMPkg moves 0 cells: its uvm_pkg (the 1800.2 pp_output) carries no
+uvm_utils class at all - `ct166cen` finds no object whose owner names it.

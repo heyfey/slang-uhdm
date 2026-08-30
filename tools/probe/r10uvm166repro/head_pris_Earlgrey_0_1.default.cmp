@@ -1,0 +1,34 @@
+LHS:
+decompile:
+int_typespec: , id:595640
+|UINT:1
+
+decompile:
+int_typespec: , id:595640
+|UINT:1
+RHS:
+decompile:
+logic_typespec: , id:772036
+|vpiRange:
+\_range: , id:772037
+  |vpiParent:
+  \_logic_typespec: , id:772036
+  |vpiLeftRange:
+  \_constant: , id:772038
+    |UINT:31
+  |vpiRightRange:
+  \_constant: , id:772039
+    |UINT:0
+
+decompile:
+logic_typespec: , id:772036
+|vpiRange:
+\_range: , id:772037
+  |vpiParent:
+  \_logic_typespec: , id:772036
+  |vpiLeftRange:
+  \_constant: , id:772038
+    |UINT:31
+  |vpiRightRange:
+  \_constant: , id:772039
+    |UINT:0
