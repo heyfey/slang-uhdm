@@ -1,0 +1,29 @@
+== r10uvm162 — THE A-PRIORI PREDICTION (pristine databases ONLY)
+
+-- surelog (956 rows)
+-- rows=956 SKIP-NOFILE=617
+PRED-TOWARD  2
+PRED-AWAY    0
+PRED-TRUNC   0
+PRED-GROW    14
+ONLYG        52114
+ONLYO        53634
+
+default/BuildUVMPkg-bf853d43/	PRED-TOWARD-OP	ELABPKG	uvm_pkg::uvm_registry_common::create	14061:13-14064:70	33	G=[('assignment', '12', 'constant("Factory did not return a "),ref_obj(Tcreator::base_type_name),constant(" of type \'"),ref_obj(Tregistry::type_name),constant("\'. A component of type \'"),operation,constant("\' was returned instead. Name="),ref_obj(name),constant(" Parent="),operation,constant(" contxt="),ref_obj(contxt)')]	O=[('assignment', '-1', '-')]
+testflags/BuildUVMPkg-bf853d43/	PRED-TOWARD-OP	ELABPKG	uvm_pkg::uvm_registry_common::create	14061:13-14064:70	33	G=[('assignment', '12', 'constant("Factory did not return a "),ref_obj(Tcreator::base_type_name),constant(" of type \'"),ref_obj(Tregistry::type_name),constant("\'. A component of type \'"),operation,constant("\' was returned instead. Name="),ref_obj(name),constant(" Parent="),operation,constant(" contxt="),ref_obj(contxt)')]	O=[('assignment', '-1', '-')]
+
+default/BuildUVMPkg-bf853d43/      RECOVER=1 ABSTAIN=0
+    RECOVER  ELABPKG  uvm_pkg::uvm_registry_common::create  14061:13-14064:70  op33  ['constant', 'operation', 'ref_obj']
+testflags/BuildUVMPkg-bf853d43/    RECOVER=1 ABSTAIN=0
+    RECOVER  ELABPKG  uvm_pkg::uvm_registry_common::create  14061:13-14064:70  op33  ['constant', 'operation', 'ref_obj']
+-- databases with >=1 RECOVER cell (the PREDICTED MOVER SET): 2
+   MOVER default/BuildUVMPkg-bf853d43/
+   MOVER testflags/BuildUVMPkg-bf853d43/
+-- cells: RECOVER=2 ABSTAIN=0
+
+-- uhdm2rtlil (1358 rows)
+-- rows=1358 SKIP-NOFILE=104
+PRED-TOWARD  0
+PRED-AWAY    0
+PRED-TRUNC   0
+PRED-GROW    0

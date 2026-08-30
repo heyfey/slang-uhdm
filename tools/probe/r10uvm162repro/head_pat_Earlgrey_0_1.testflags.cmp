@@ -1,0 +1,67 @@
+# r10uvm162 — TRUNCATED EVIDENCE.  This one head's decompile is 26594 lines
+# (1 head), too large to carry whole; the FIRST 60 lines are below and the
+# whole log's md5 is 2d9be700973ce3429f41e58f18f2574e.
+# The claim this file supports is IDENTITY: head_pris_Earlgrey_0_1.testflags.cmp
+# and head_pat_Earlgrey_0_1.testflags.cmp were byte-identical, measured with
+# cmp(1) on the full logs before either was truncated.
+LHS:
+decompile:
+module_inst: work@sha2_pad (work@top_earlgrey.u_hmac.u_sha2.u_pad), id:1019494, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_hmac_0.1/rtl/sha2.sv, line:290:3, endln:312:5
+|vpiParent:
+\_module_inst: work@sha2 (work@top_earlgrey.u_hmac.u_sha2), id:1019424, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_hmac_0.1/rtl/hmac.sv, line:400:3, endln:419:5
+|vpiName:u_pad
+|vpiFullName:work@top_earlgrey.u_hmac.u_sha2.u_pad
+|vpiVariables:
+\_logic_var: (work@top_earlgrey.u_hmac.u_sha2.u_pad.tx_count), id:463396, line:38:16, endln:38:24
+  |vpiParent:
+  \_module_inst: work@sha2_pad (work@top_earlgrey.u_hmac.u_sha2.u_pad), id:1019494, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_hmac_0.1/rtl/sha2.sv, line:290:3, endln:312:5
+  |vpiTypespec:
+  \_ref_typespec: (work@top_earlgrey.u_hmac.u_sha2.u_pad.tx_count), id:463397
+    |vpiParent:
+    \_logic_var: (work@top_earlgrey.u_hmac.u_sha2.u_pad.tx_count), id:463396, line:38:16, endln:38:24
+    |vpiFullName:work@top_earlgrey.u_hmac.u_sha2.u_pad.tx_count
+    |vpiActual:
+    \_logic_typespec: , id:463392, line:38:3, endln:38:15
+  |vpiName:tx_count
+  |vpiFullName:work@top_earlgrey.u_hmac.u_sha2.u_pad.tx_count
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (work@top_earlgrey.u_hmac.u_sha2.u_pad.inc_txcount), id:463399, line:40:9, endln:40:20
+  |vpiParent:
+  \_module_inst: work@sha2_pad (work@top_earlgrey.u_hmac.u_sha2.u_pad), id:1019494, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_hmac_0.1/rtl/sha2.sv, line:290:3, endln:312:5
+  |vpiTypespec:
+  \_ref_typespec: (work@top_earlgrey.u_hmac.u_sha2.u_pad.inc_txcount), id:463400
+    |vpiParent:
+    \_logic_var: (work@top_earlgrey.u_hmac.u_sha2.u_pad.inc_txcount), id:463399, line:40:9, endln:40:20
+    |vpiFullName:work@top_earlgrey.u_hmac.u_sha2.u_pad.inc_txcount
+    |vpiActual:
+    \_logic_typespec: , id:463398, line:40:3, endln:40:8
+  |vpiName:inc_txcount
+  |vpiFullName:work@top_earlgrey.u_hmac.u_sha2.u_pad.inc_txcount
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (work@top_earlgrey.u_hmac.u_sha2.u_pad.fifo_partial), id:463402, line:41:9, endln:41:21
+  |vpiParent:
+  \_module_inst: work@sha2_pad (work@top_earlgrey.u_hmac.u_sha2.u_pad), id:1019494, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_hmac_0.1/rtl/sha2.sv, line:290:3, endln:312:5
+  |vpiTypespec:
+  \_ref_typespec: (work@top_earlgrey.u_hmac.u_sha2.u_pad.fifo_partial), id:463403
+    |vpiParent:
+    \_logic_var: (work@top_earlgrey.u_hmac.u_sha2.u_pad.fifo_partial), id:463402, line:41:9, endln:41:21
+    |vpiFullName:work@top_earlgrey.u_hmac.u_sha2.u_pad.fifo_partial
+    |vpiActual:
+    \_logic_typespec: , id:463401, line:41:3, endln:41:8
+  |vpiName:fifo_partial
+  |vpiFullName:work@top_earlgrey.u_hmac.u_sha2.u_pad.fifo_partial
+  |vpiVisibility:1
+|vpiVariables:
+\_logic_var: (work@top_earlgrey.u_hmac.u_sha2.u_pad.txcnt_eq_1a0), id:463405, line:42:9, endln:42:21
+  |vpiParent:
+  \_module_inst: work@sha2_pad (work@top_earlgrey.u_hmac.u_sha2.u_pad), id:1019494, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_hmac_0.1/rtl/sha2.sv, line:290:3, endln:312:5
+  |vpiTypespec:
+  \_ref_typespec: (work@top_earlgrey.u_hmac.u_sha2.u_pad.txcnt_eq_1a0), id:463406
+    |vpiParent:
+    \_logic_var: (work@top_earlgrey.u_hmac.u_sha2.u_pad.txcnt_eq_1a0), id:463405, line:42:9, endln:42:21
+    |vpiFullName:work@top_earlgrey.u_hmac.u_sha2.u_pad.txcnt_eq_1a0
+    |vpiActual:
+    \_logic_typespec: , id:463404, line:42:3, endln:42:8
+# ... 26534 further lines elided

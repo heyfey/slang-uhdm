@@ -1,0 +1,12 @@
+== r10uvm162 — THE ORDER-BLIND WHOLE-DUMP DIFF over the MOVED DATABASES
+LHS/G is ALWAYS golden.  Dump paths embed the workdir and serializer ids
+differ run to run, so both are normalised away; the dumps are SORTED, so the
+attribution is ORDER-BLIND (Scoreboard/default is a ~50/50 COIN, RESUME §9).
+
+ROW                                   ADDED  DELETED   distance to golden
+default/BuildUVMPkg-bf853d43           +154       -0   68022 -> 67878  TOWARD
+                                     of the 154 lines the patch ADDS, 154 are GOLDEN lines VERBATIM
+testflags/BuildUVMPkg-bf853d43         +154       -0   68022 -> 67878  TOWARD
+                                     of the 154 lines the patch ADDS, 154 are GOLDEN lines VERBATIM
+default/Scoreboard-59431470              +0       -0   119951 -> 119951  SAME
+                                     of the 0 lines the patch ADDS, 0 are GOLDEN lines VERBATIM

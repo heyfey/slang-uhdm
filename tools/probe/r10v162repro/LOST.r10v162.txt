@@ -1,0 +1,19 @@
+ARM                    VIEW     LOST   GAINED   NEWONLYOURS
+v162_1_badinside       def         0      175             0
+v162_1_badinside       elab        0      309            29
+v162_2_shapes          def         0      112             0
+v162_2_shapes          elab        0      153             7
+v162_3_ctx             def         0      324             0
+v162_3_ctx             elab        0      674            84
+v162_4_home            def         0      145             0
+v162_4_home            elab        0      268            16
+v162_5_stress          def         0      384             0
+v162_5_stress          elab        0      672            14
+v162_6_reported        def  SKIP
+v162_6_reported        elab SKIP
+v162_7_order           def         0      171             0
+v162_7_order           elab        0      394            31
+v162_8_pkgfold         def         0       68             2
+v162_8_pkgfold         elab        0      170            20
+v162_9_exotic          def         0      185             0
+v162_9_exotic          elab        0      382            22

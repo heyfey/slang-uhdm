@@ -1,0 +1,37 @@
+ARM                    VIEW SIDE        ADDED  DELETED     DIST VERDICT
+v162_1_badinside       def  PRISTINE        5      559      564 
+v162_1_badinside       def  PATCHED         5        1        6 TOWARD (564 -> 6)
+v162_1_badinside       elab PRISTINE       37      991     1028 
+v162_1_badinside       elab PATCHED       106      110      216 TOWARD (1028 -> 216)
+v162_2_shapes          def  PRISTINE       24     1227     1251 
+v162_2_shapes          def  PATCHED        25      806      831 TOWARD (1251 -> 831)
+v162_2_shapes          elab PRISTINE       49     2204     2253 
+v162_2_shapes          elab PATCHED        76     1667     1743 TOWARD (2253 -> 1743)
+v162_3_ctx             def  PRISTINE        9     1034     1043 
+v162_3_ctx             def  PATCHED         9        5       14 TOWARD (1043 -> 14)
+v162_3_ctx             elab PRISTINE       47     2256     2303 
+v162_3_ctx             elab PATCHED       232      241      473 TOWARD (2303 -> 473)
+v162_4_home            def  PRISTINE      127      498      625 
+v162_4_home            def  PATCHED       127       74      201 TOWARD (625 -> 201)
+v162_4_home            elab PRISTINE      155     1016     1171 
+v162_4_home            elab PATCHED       205      147      352 TOWARD (1171 -> 352)
+v162_5_stress          def  PRISTINE        7     2473     2480 
+v162_5_stress          def  PATCHED         7      966      973 TOWARD (2480 -> 973)
+v162_5_stress          elab PRISTINE       21     3873     3894 
+v162_5_stress          elab PATCHED        50     1521     1571 TOWARD (3894 -> 1571)
+v162_6_reported        def  a        SKIP-NODUMP
+v162_6_reported        def  b        SKIP-NODUMP
+v162_6_reported        elab a        SKIP-NODUMP
+v162_6_reported        elab b        SKIP-NODUMP
+v162_7_order           def  PRISTINE       10      642      652 
+v162_7_order           def  PATCHED        10        2       12 TOWARD (652 -> 12)
+v162_7_order           elab PRISTINE       31     1387     1418 
+v162_7_order           elab PATCHED       110      112      222 TOWARD (1418 -> 222)
+v162_8_pkgfold         def  PRISTINE       22      697      719 
+v162_8_pkgfold         def  PATCHED        25      444      469 TOWARD (719 -> 469)
+v162_8_pkgfold         elab PRISTINE      105     1402     1507 
+v162_8_pkgfold         elab PATCHED       148      883     1031 TOWARD (1507 -> 1031)
+v162_9_exotic          def  PRISTINE        7      945      952 
+v162_9_exotic          def  PATCHED         7      261      268 TOWARD (952 -> 268)
+v162_9_exotic          elab PRISTINE       38     1866     1904 
+v162_9_exotic          elab PATCHED        90      656      746 TOWARD (1904 -> 746)

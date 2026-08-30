@@ -1,0 +1,66 @@
+== r10uvm162 — THE ORACLE PROOF and the ARM CELL TABLE (twin162.py)
+
+For every ok_/bd_ pair in ONE database: is the object inside the REJECTED
+concatenation field-for-field the ACCEPTED twin's?  Run on GOLDEN it is the
+PROOF that the accepted twin is an oracle for the recovery; run on OURS it
+says which cells the law recovered and which it abstained on (an abstention
+prints bd=4 lines — the empty operand vector).  Arms E, F and G do not pair
+cell for cell by construction (arm E's contexts differ structurally, arms F
+and G have no ok_/bd_ pairs at all) and GOLDEN itself reads NOTTWIN there;
+they are scored by uhdm-cmp and by armscore162.py instead.
+MEASUREMENT ONLY; the official uhdm-cmp is the judge.  LHS/G is ALWAYS golden.
+
+-- g162_a_tern      def  GOLDEN        TWIN=14 NOTTWIN=0 EMPTY=0
+-- g162_a_tern      def  OURS PRISTINE TWIN=1 NOTTWIN=13 EMPTY=0
+-- g162_a_tern      def  OURS PATCHED  TWIN=13 NOTTWIN=1 EMPTY=0
+-- g162_a_tern      elab GOLDEN        TWIN=14 NOTTWIN=0 EMPTY=0
+-- g162_a_tern      elab OURS PRISTINE TWIN=1 NOTTWIN=13 EMPTY=0
+-- g162_a_tern      elab OURS PATCHED  TWIN=13 NOTTWIN=1 EMPTY=0
+-- g162_b_shapes    def  GOLDEN        TWIN=15 NOTTWIN=0 EMPTY=0
+-- g162_b_shapes    def  OURS PRISTINE TWIN=0 NOTTWIN=15 EMPTY=0
+-- g162_b_shapes    def  OURS PATCHED  TWIN=9 NOTTWIN=6 EMPTY=0
+-- g162_b_shapes    elab GOLDEN        TWIN=15 NOTTWIN=0 EMPTY=0
+-- g162_b_shapes    elab OURS PRISTINE TWIN=0 NOTTWIN=15 EMPTY=0
+-- g162_b_shapes    elab OURS PATCHED  TWIN=9 NOTTWIN=6 EMPTY=0
+-- g162_c_opmap     def  GOLDEN        TWIN=32 NOTTWIN=0 EMPTY=0
+-- g162_c_opmap     def  OURS PRISTINE TWIN=0 NOTTWIN=32 EMPTY=0
+-- g162_c_opmap     def  OURS PATCHED  TWIN=24 NOTTWIN=8 EMPTY=0
+-- g162_c_opmap     elab GOLDEN        TWIN=32 NOTTWIN=0 EMPTY=0
+-- g162_c_opmap     elab OURS PRISTINE TWIN=0 NOTTWIN=32 EMPTY=0
+-- g162_c_opmap     elab OURS PATCHED  TWIN=24 NOTTWIN=8 EMPTY=0
+-- g162_d_fold      def  GOLDEN        TWIN=14 NOTTWIN=0 EMPTY=0
+-- g162_d_fold      def  OURS PRISTINE TWIN=0 NOTTWIN=14 EMPTY=0
+-- g162_d_fold      def  OURS PATCHED  TWIN=6 NOTTWIN=8 EMPTY=0
+-- g162_d_fold      elab GOLDEN        TWIN=14 NOTTWIN=0 EMPTY=0
+-- g162_d_fold      elab OURS PRISTINE TWIN=0 NOTTWIN=14 EMPTY=0
+-- g162_d_fold      elab OURS PATCHED  TWIN=6 NOTTWIN=8 EMPTY=0
+
+-- the cells the PATCHED binary still abstains on, BY NAME (def view; every
+   one prints bd=4 lines, i.e. an empty operand vector, never a wrong object)
+g162_a_tern  NOTTWIN a12    ok=51 bd=4 lines
+g162_a_tern  TWIN=13 NOTTWIN=1 EMPTY=0
+g162_b_shapes  NOTTWIN b1     ok=21 bd=4 lines
+g162_b_shapes  NOTTWIN b15    ok=22 bd=22 lines
+g162_b_shapes  NOTTWIN b2     ok=29 bd=4 lines
+g162_b_shapes  NOTTWIN b7     ok=46 bd=4 lines
+g162_b_shapes  NOTTWIN b8     ok=22 bd=4 lines
+g162_b_shapes  NOTTWIN b9     ok=48 bd=4 lines
+g162_b_shapes  TWIN=9 NOTTWIN=6 EMPTY=0
+g162_c_opmap  NOTTWIN c21    ok=48 bd=4 lines
+g162_c_opmap  NOTTWIN c22    ok=48 bd=4 lines
+g162_c_opmap  NOTTWIN c23    ok=48 bd=4 lines
+g162_c_opmap  NOTTWIN c24    ok=48 bd=4 lines
+g162_c_opmap  NOTTWIN c25    ok=48 bd=4 lines
+g162_c_opmap  NOTTWIN c29    ok=56 bd=4 lines
+g162_c_opmap  NOTTWIN c30    ok=56 bd=4 lines
+g162_c_opmap  NOTTWIN c31    ok=56 bd=4 lines
+g162_c_opmap  TWIN=24 NOTTWIN=8 EMPTY=0
+g162_d_fold  NOTTWIN d1     ok=59 bd=4 lines
+g162_d_fold  NOTTWIN d10    ok=50 bd=4 lines
+g162_d_fold  NOTTWIN d11    ok=35 bd=4 lines
+g162_d_fold  NOTTWIN d12    ok=30 bd=4 lines
+g162_d_fold  NOTTWIN d13    ok=34 bd=4 lines
+g162_d_fold  NOTTWIN d14    ok=32 bd=4 lines
+g162_d_fold  NOTTWIN d6     ok=51 bd=4 lines
+g162_d_fold  NOTTWIN d7     ok=38 bd=4 lines
+g162_d_fold  TWIN=6 NOTTWIN=8 EMPTY=0

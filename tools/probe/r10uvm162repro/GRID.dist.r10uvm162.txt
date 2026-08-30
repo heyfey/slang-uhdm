@@ -1,0 +1,29 @@
+ARM                    VIEW SIDE        ADDED  DELETED     DIST VERDICT
+g162_a_tern            def  PRISTINE       87     1158     1245 
+g162_a_tern            def  PATCHED        87      129      216 TOWARD (1245 -> 216)
+g162_a_tern            elab PRISTINE      281     2225     2506 
+g162_a_tern            elab PATCHED       282      380      662 TOWARD (2506 -> 662)
+g162_b_shapes          def  PRISTINE       99      869      968 
+g162_b_shapes          def  PATCHED        99      294      393 TOWARD (968 -> 393)
+g162_b_shapes          elab PRISTINE      231     1602     1833 
+g162_b_shapes          elab PATCHED       231      607      838 TOWARD (1833 -> 838)
+g162_c_opmap           def  PRISTINE      192     2163     2355 
+g162_c_opmap           def  PATCHED       192      624      816 TOWARD (2355 -> 816)
+g162_c_opmap           elab PRISTINE      424     3914     4338 
+g162_c_opmap           elab PATCHED       424     1210     1634 TOWARD (4338 -> 1634)
+g162_d_fold            def  PRISTINE       99     1056     1155 
+g162_d_fold            def  PATCHED        99      499      598 TOWARD (1155 -> 598)
+g162_d_fold            elab PRISTINE      198     2775     2973 
+g162_d_fold            elab PATCHED       209     1306     1515 TOWARD (2973 -> 1515)
+g162_e_context         def  PRISTINE       66      887      953 
+g162_e_context         def  PATCHED        66       44      110 TOWARD (953 -> 110)
+g162_e_context         elab PRISTINE      225     1751     1976 
+g162_e_context         elab PATCHED       237      225      462 TOWARD (1976 -> 462)
+g162_f_home            def  PRISTINE      245      531      776 
+g162_f_home            def  PATCHED       245       72      317 TOWARD (776 -> 317)
+g162_f_home            elab PRISTINE      293     1183     1476 
+g162_f_home            elab PATCHED       340      140      480 TOWARD (1476 -> 480)
+g162_g_witness         def  PRISTINE        3      155      158 
+g162_g_witness         def  PATCHED         3        1        4 TOWARD (158 -> 4)
+g162_g_witness         elab PRISTINE        3      277      280 
+g162_g_witness         elab PATCHED         3        1        4 TOWARD (280 -> 4)

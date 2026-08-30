@@ -1,0 +1,111 @@
+r10uvm162 — THE GATES, all run from /tmp/wt_r10uvm162 at BASE fe4a739.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.  MEASUREMENT ONLY;
+the official uhdm-cmp and scripts/verify_golden.py are the authorities.
+slang was NOT patched.  results/*.csv were READ ONLY.  GOLDEN_DEFER unset.
+
+== (1) BUILD (-j 2, md5 taken separately, both binaries frozen chmod 555
+        BEFORE any sweep)
+pristine md5 83258cd958cb88be667bf6729dcb0b9d  -> /tmp/r10uvm162_pris.bin
+patched  md5 834a54ee7996ba8b29b245895a4eaee8  -> /tmp/r10uvm162_pat.bin
+
+== (2) GOLDENS (SLANG_UHDM exported EXPLICITLY to EACH binary)
+patched    PASS=23 FAIL=0
+pristine   PASS=23 FAIL=0
+/bin/false PASS=0 FAIL=23   (the negative control: the gate can see)
+
+== (3) uhdm2rtlil ROW GATE
+-- testflags vs the COMMITTED baseline
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+---- per-mode STATUS histogram (baseline -> fresh)
+  testflags  fresh:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+  testflags  fresh:      52      183 differ     496 match 
+PASS: every row byte-identical to the committed baseline
+-- testflags vs THIS PASS'S OWN pristine sweep
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+---- per-mode STATUS histogram (baseline -> fresh)
+  testflags  fresh:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+  testflags  fresh:      52      183 differ     496 match 
+PASS: every row byte-identical to the committed baseline
+-- default vs THIS PASS'S OWN pristine sweep
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  fresh:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+  default  fresh:      52      187 differ     492 match 
+PASS: every row byte-identical to the committed baseline
+
+== (4) surelog ROW GATE (1588 rows over 794 tests x 2 modes)
+-- vs the COMMITTED baseline
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+  default  fresh:     471 CMP_EQUAL      10 CMP_NOTEQUAL       5 DEFERRED     283 SLANG_REJECT      25 SURELOG_FAIL 
+  testflags  fresh:     466 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  default  fresh:     323      245 differ     226 match 
+  testflags  fresh:     328      300 differ     166 match 
+PASS: every row byte-identical to the committed baseline
+-- vs THIS PASS'S OWN pristine sweep
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+  default  fresh:     471 CMP_EQUAL      10 CMP_NOTEQUAL       5 DEFERRED     283 SLANG_REJECT      25 SURELOG_FAIL 
+  testflags  fresh:     466 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  default  fresh:     323      245 differ     226 match 
+  testflags  fresh:     328      300 differ     166 match 
+PASS: every row byte-identical to the committed baseline
+CMP_NOTEQUAL stays 10 (default) + 9 (testflags).  NO CORPUS ROW CONVERTED.
+
+== cmds.txt AUDIT BY BINARY PATH (verify_golden.py silently defaults
+   SLANG_UHDM to the MAIN-TREE binary; every command line was checked)
+pristine workdirs:    2981 /tmp/r10uvm162_pris.bin 
+patched  workdirs:    2981 /tmp/r10uvm162_pat.bin 
+
+== (5) BYTE MOVERS (SELFCHECK=1), PREDICTED BY NAME before the patched sweep
+-- surelog
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm  patched=ab303ff19f7a pristine=14217f0ce2f9
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=eb2a3e30c551 pristine=86a9fa4fd934
+MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  patched=ab303ff19f7a pristine=14217f0ce2f9
+MOVERS: 3 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+-- uhdm2rtlil
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+
+   The TWO BuildUVMPkg movers are the two this pass PREDICTED BY NAME.
+   The THIRD, default/Scoreboard, is the ~50/50 COIN of RESUME.md §9 and is
+   attributed ORDER-BLIND and by a NULL SWEEP, never by a hash:
+     order-blind whole-dump diff pristine vs patched : 0 lines (94 raw)
+     census over OP/ASGN/ARG/COND/HP                 : TOWARD 0, WRONG 0, AWAY 0, ONLY-A 0
+     NULL SWEEP, serial, from the test's own directory:
+       pristine x3 -> 86a9fa4fd934 86a9fa4fd934 86a9fa4fd934
+       patched  x3 -> 86a9fa4fd934 86a9fa4fd934 86a9fa4fd934
+     i.e. the PATCHED binary reproduces the PRISTINE database byte for byte
+     when the parallel-parse ordering is not in play.
+
+== (6) CANARIES
+surelog     ---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+uhdm2rtlil  ---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+PASS: every supplementary canary row is byte-identical to the baseline.
+---- ctcan2 rows: ok=1 changed=0 absent=0 unknown-patterns=6
+PASS: every supplementary canary row is byte-identical to the baseline.
+---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+
+== (7) THE SIX PROTECTED DATABASES (md5 head, pristine vs patched)
+InterfaceModPort     default   pris=59a365f3ce2c pat=59a365f3ce2c  SAME
+InterfaceModPort     testflags pris=59a365f3ce2c pat=59a365f3ce2c  SAME
+BlackParrotComplex   default   pris=e3e354129d5a pat=e3e354129d5a  SAME
+BlackParrotComplex   testflags pris=73a10e8217e5 pat=73a10e8217e5  SAME
+YosysOldOr           default   pris=d68e0796d62c pat=d68e0796d62c  SAME
+YosysOldOr           testflags pris=d68e0796d62c pat=d68e0796d62c  SAME
+SVSwitch             default   pris=4842211c4030 pat=4842211c4030  SAME
+SVSwitch             testflags pris=4842211c4030 pat=4842211c4030  SAME
+YosysVerx            default   pris=6ccda350c24a pat=6ccda350c24a  SAME
+YosysVerx            testflags pris=6ccda350c24a pat=6ccda350c24a  SAME
+SVSwitch pin 4842211c4030 and YosysVerx pin 6ccda350c24a both held.
+
+== (8) THE WIDE BOUNDARY
+LISTED=4593 PROCESSED=4593 PRODUCED_DBS=4441 MOVED_ARMS=17 RC_DIFFS=0
+   17 moved arms: 7 are this pass's own (the positive control), 10 are
+   r10uvm160/r10v160 cells of its own R1 residue — 8 go to CMP_EQUAL and 2
+   move TOWARD.  Full table in BOUNDARY.r10uvm162.txt.

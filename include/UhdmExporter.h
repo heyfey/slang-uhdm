@@ -1252,10 +1252,27 @@ private:
     /// from the written syntax; see the model and the measured operand table
     /// at the definitions (ExprEmit.cpp).  Both return null to ABSTAIN, and
     /// the rebuild is ALL-OR-NOTHING.
+    /// § badConcatCompoundOperands162 extends the shape set with the COMPOUND
+    /// operands (a ternary, a binary operator, a nested concatenation, a
+    /// replication) and the two literals they hold (`null`, a plain decimal
+    /// integer).  A compound operand is admitted only when EVERY sub-operand
+    /// is itself an admitted shape, recursively — `direct` says whether this
+    /// operand sits directly under a concatenation or a replication COUNT (the
+    /// two slots whose literal golden leaves unparented), and `depth` bounds
+    /// the recursion.
     UHDM::any* emitBadConcatOperand160(const slang::syntax::ExpressionSyntax& os,
                                        UHDM::BaseClass* op,
                                        const std::string& prefix,
-                                       NetMap& netMap, bool mint);
+                                       NetMap& netMap, bool mint,
+                                       bool direct = true, int depth = 0);
+    /// The two constant-parenting decisions a recovered operand can need, in
+    /// ONE place so the recursion cannot drift from the bound path: a literal
+    /// DIRECTLY under a concatenation (or a replication count) is unparented
+    /// exactly as the bound concat arm unparents it, and a literal anywhere
+    /// deeper follows the ordinary rule.  Measured on golden and on our own
+    /// accepted twins (`g162_b_shapes.sv` b3/b5/b6, `g162_a_tern.sv` a1).
+    void badConcatParentConst162(UHDM::constant* c, UHDM::BaseClass* op,
+                                 bool direct);
     UHDM::any* emitBadConcatFromSyntax160(const slang::ast::Expression& e,
                                           UHDM::BaseClass* parent,
                                           const std::string& prefix,

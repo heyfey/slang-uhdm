@@ -1,0 +1,41 @@
+ARM                    VIEW SIDE        ADDED  DELETED     DIST VERDICT
+d10_repl               def  PRISTINE        6       36       42 
+d10_repl               def  PATCHED         6        4       10 TOWARD (42 -> 10)
+d10_repl               elab PRISTINE       12       68       80 
+d10_repl               elab PATCHED        12       10       22 TOWARD (80 -> 22)
+g160_b_operand         def  PRISTINE       69      191      260 
+g160_b_operand         def  PATCHED        69       81      150 TOWARD (260 -> 150)
+g160_b_operand         elab PRISTINE      149      375      524 
+g160_b_operand         elab PATCHED       149      190      339 TOWARD (524 -> 339)
+g160_e_edge            def  PRISTINE       67      118      185 
+g160_e_edge            def  PATCHED        67       43      110 TOWARD (185 -> 110)
+g160_e_edge            elab PRISTINE      140      251      391 
+g160_e_edge            elab PATCHED       140      117      257 TOWARD (391 -> 257)
+o04_paren              def  PRISTINE       14      193      207 
+o04_paren              def  PATCHED        14      172      186 TOWARD (207 -> 186)
+o04_paren              elab PRISTINE       20      253      273 
+o04_paren              elab PATCHED        20      193      213 TOWARD (273 -> 213)
+o05_ternary            def  PRISTINE       14      226      240 
+o05_ternary            def  PATCHED        14      172      186 TOWARD (240 -> 186)
+o05_ternary            elab PRISTINE       20      302      322 
+o05_ternary            elab PATCHED        20      193      213 TOWARD (322 -> 213)
+o06_nestcat            def  PRISTINE       14      204      218 
+o06_nestcat            def  PATCHED        14      172      186 TOWARD (218 -> 186)
+o06_nestcat            elab PRISTINE       20      251      271 
+o06_nestcat            elab PATCHED        20      193      213 TOWARD (271 -> 213)
+o08_repl               def  PRISTINE       14      209      223 
+o08_repl               def  PATCHED        14      172      186 TOWARD (223 -> 186)
+o08_repl               elab PRISTINE       20      261      281 
+o08_repl               elab PATCHED        20      193      213 TOWARD (281 -> 213)
+o10_binary             def  PRISTINE       14      204      218 
+o10_binary             def  PATCHED        14      172      186 TOWARD (218 -> 186)
+o10_binary             elab PRISTINE       20      271      291 
+o10_binary             elab PATCHED        20      193      213 TOWARD (291 -> 213)
+v160_d_ctx             def  PRISTINE      103      187      290 
+v160_d_ctx             def  PATCHED       103      111      214 TOWARD (290 -> 214)
+v160_d_ctx             elab PRISTINE      206      379      585 
+v160_d_ctx             elab PATCHED       206      247      453 TOWARD (585 -> 453)
+y10_nestgood           def  PRISTINE       14      216      230 
+y10_nestgood           def  PATCHED        14      172      186 TOWARD (230 -> 186)
+y10_nestgood           elab PRISTINE       20      267      287 
+y10_nestgood           elab PATCHED        20      193      213 TOWARD (287 -> 213)

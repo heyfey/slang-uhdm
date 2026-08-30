@@ -1,0 +1,138 @@
+== r10uvm162 — THE WIDE BOUNDARY GATE
+
+Run from a COPY of the whole committed probe tree, top level AND
+SUBDIRECTORIES, in BOTH views, with the pristine and the patched binary.
+Byte-identity of the DATABASE is the test; rc is recorded for every cell.
+This pass's own seven g162_*.sv arms are the POSITIVE CONTROL: a gate that
+reported zero movers over them could not see.
+
+LISTED=4593 PROCESSED=4593 PRODUCED_DBS=4441 MOVED_ARMS=17 RC_DIFFS=0
+
+-- the 17 MOVED arms
+r10uvm160repro/g160_b_operand.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm160repro/g160_e_edge.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm162repro/g162_a_tern.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm162repro/g162_b_shapes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm162repro/g162_c_opmap.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm162repro/g162_d_fold.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm162repro/g162_e_context.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm162repro/g162_f_home.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm162repro/g162_g_witness.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v160repro/arms/v160_d_ctx.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v160repro/cells/d10_repl.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v160repro/cells/o04_paren.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v160repro/cells/o05_ternary.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v160repro/cells/o06_nestcat.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v160repro/cells/o08_repl.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v160repro/cells/o10_binary.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v160repro/cells/y10_nestgood.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+-- the 7 that are THIS PASS'S OWN (the positive control)
+7
+
+-- the 10 EARLIER-PASS arms, EACH re-measured against golden with the
+   OFFICIAL uhdm-cmp and with the order-blind whole-dump distance.
+   Every one of them is a cell r10uvm160's own README lists as its R1
+   residue: a ternary, a nested concatenation, a replication, a binary
+   operator, a parenthesised operand.  EIGHT go to CMP_EQUAL; the other
+   two move TOWARD.  NONE moves away.
+
+g160_b_operand         def  PRISTINE  cmplines=77     heads=1   cmp_rc=255
+g160_b_operand         def  PATCHED   cmplines=77     heads=1   cmp_rc=255
+g160_b_operand         elab PRISTINE  cmplines=85     heads=1   cmp_rc=255
+g160_b_operand         elab PATCHED   cmplines=85     heads=1   cmp_rc=255
+g160_e_edge            def  PRISTINE  cmplines=89     heads=1   cmp_rc=255
+g160_e_edge            def  PATCHED   cmplines=0      heads=0   cmp_rc=0
+g160_e_edge            elab PRISTINE  cmplines=93     heads=1   cmp_rc=255
+g160_e_edge            elab PATCHED   cmplines=0      heads=0   cmp_rc=0
+v160_d_ctx             def  PRISTINE  cmplines=77     heads=1   cmp_rc=255
+v160_d_ctx             def  PATCHED   cmplines=17     heads=1   cmp_rc=255
+v160_d_ctx             elab PRISTINE  cmplines=81     heads=1   cmp_rc=255
+v160_d_ctx             elab PATCHED   cmplines=17     heads=1   cmp_rc=255
+c05_pkgscope           def  PRISTINE  cmplines=28     heads=1   cmp_rc=255
+c05_pkgscope           def  PATCHED   cmplines=28     heads=1   cmp_rc=255
+c05_pkgscope           elab PRISTINE  cmplines=28     heads=1   cmp_rc=255
+c05_pkgscope           elab PATCHED   cmplines=28     heads=1   cmp_rc=255
+d10_repl               def  PRISTINE  cmplines=77     heads=1   cmp_rc=255
+d10_repl               def  PATCHED   cmplines=0      heads=0   cmp_rc=0
+d10_repl               elab PRISTINE  cmplines=81     heads=1   cmp_rc=255
+d10_repl               elab PATCHED   cmplines=0      heads=0   cmp_rc=0
+o04_paren              def  PRISTINE  cmplines=55     heads=1   cmp_rc=255
+o04_paren              def  PATCHED   cmplines=0      heads=0   cmp_rc=0
+o04_paren              elab PRISTINE  cmplines=63     heads=1   cmp_rc=255
+o04_paren              elab PATCHED   cmplines=0      heads=0   cmp_rc=0
+o05_ternary            def  PRISTINE  cmplines=121    heads=1   cmp_rc=255
+o05_ternary            def  PATCHED   cmplines=0      heads=0   cmp_rc=0
+o05_ternary            elab PRISTINE  cmplines=129    heads=1   cmp_rc=255
+o05_ternary            elab PATCHED   cmplines=0      heads=0   cmp_rc=0
+o06_nestcat            def  PRISTINE  cmplines=77     heads=1   cmp_rc=255
+o06_nestcat            def  PATCHED   cmplines=0      heads=0   cmp_rc=0
+o06_nestcat            elab PRISTINE  cmplines=81     heads=1   cmp_rc=255
+o06_nestcat            elab PATCHED   cmplines=0      heads=0   cmp_rc=0
+o08_repl               def  PRISTINE  cmplines=87     heads=1   cmp_rc=255
+o08_repl               def  PATCHED   cmplines=0      heads=0   cmp_rc=0
+o08_repl               elab PRISTINE  cmplines=91     heads=1   cmp_rc=255
+o08_repl               elab PATCHED   cmplines=0      heads=0   cmp_rc=0
+o10_binary             def  PRISTINE  cmplines=77     heads=1   cmp_rc=255
+o10_binary             def  PATCHED   cmplines=0      heads=0   cmp_rc=0
+o10_binary             elab PRISTINE  cmplines=85     heads=1   cmp_rc=255
+o10_binary             elab PATCHED   cmplines=0      heads=0   cmp_rc=0
+y10_nestgood           def  PRISTINE  cmplines=101    heads=1   cmp_rc=255
+y10_nestgood           def  PATCHED   cmplines=0      heads=0   cmp_rc=0
+y10_nestgood           elab PRISTINE  cmplines=105    heads=1   cmp_rc=255
+y10_nestgood           elab PATCHED   cmplines=0      heads=0   cmp_rc=0
+
+ARM                    VIEW SIDE        ADDED  DELETED     DIST VERDICT
+r10uvm160repro_g160_b_operand def  PRISTINE       69      191      260 
+r10uvm160repro_g160_b_operand def  PATCHED        69       81      150 TOWARD (260 -> 150)
+r10uvm160repro_g160_b_operand elab PRISTINE      149      375      524 
+r10uvm160repro_g160_b_operand elab PATCHED       149      190      339 TOWARD (524 -> 339)
+r10uvm160repro_g160_e_edge def  PRISTINE       67      118      185 
+r10uvm160repro_g160_e_edge def  PATCHED        67       43      110 TOWARD (185 -> 110)
+r10uvm160repro_g160_e_edge elab PRISTINE      140      251      391 
+r10uvm160repro_g160_e_edge elab PATCHED       140      117      257 TOWARD (391 -> 257)
+r10v160repro_arms_v160_d_ctx def  PRISTINE      103      187      290 
+r10v160repro_arms_v160_d_ctx def  PATCHED       103      111      214 TOWARD (290 -> 214)
+r10v160repro_arms_v160_d_ctx elab PRISTINE      206      379      585 
+r10v160repro_arms_v160_d_ctx elab PATCHED       206      247      453 TOWARD (585 -> 453)
+r10v160repro_cells_c05_pkgscope def  PRISTINE       19      177      196 
+r10v160repro_cells_c05_pkgscope def  PATCHED        19      177      196 SAME
+r10v160repro_cells_c05_pkgscope elab PRISTINE       29      198      227 
+r10v160repro_cells_c05_pkgscope elab PATCHED        29      198      227 SAME
+r10v160repro_cells_d10_repl def  PRISTINE        6       36       42 
+r10v160repro_cells_d10_repl def  PATCHED         6        4       10 TOWARD (42 -> 10)
+r10v160repro_cells_d10_repl elab PRISTINE       12       68       80 
+r10v160repro_cells_d10_repl elab PATCHED        12       10       22 TOWARD (80 -> 22)
+r10v160repro_cells_o04_paren def  PRISTINE       14      193      207 
+r10v160repro_cells_o04_paren def  PATCHED        14      172      186 TOWARD (207 -> 186)
+r10v160repro_cells_o04_paren elab PRISTINE       20      253      273 
+r10v160repro_cells_o04_paren elab PATCHED        20      193      213 TOWARD (273 -> 213)
+r10v160repro_cells_o05_ternary def  PRISTINE       14      226      240 
+r10v160repro_cells_o05_ternary def  PATCHED        14      172      186 TOWARD (240 -> 186)
+r10v160repro_cells_o05_ternary elab PRISTINE       20      302      322 
+r10v160repro_cells_o05_ternary elab PATCHED        20      193      213 TOWARD (322 -> 213)
+r10v160repro_cells_o06_nestcat def  PRISTINE       14      204      218 
+r10v160repro_cells_o06_nestcat def  PATCHED        14      172      186 TOWARD (218 -> 186)
+r10v160repro_cells_o06_nestcat elab PRISTINE       20      251      271 
+r10v160repro_cells_o06_nestcat elab PATCHED        20      193      213 TOWARD (271 -> 213)
+r10v160repro_cells_o08_repl def  PRISTINE       14      209      223 
+r10v160repro_cells_o08_repl def  PATCHED        14      172      186 TOWARD (223 -> 186)
+r10v160repro_cells_o08_repl elab PRISTINE       20      261      281 
+r10v160repro_cells_o08_repl elab PATCHED        20      193      213 TOWARD (281 -> 213)
+r10v160repro_cells_o10_binary def  PRISTINE       14      204      218 
+r10v160repro_cells_o10_binary def  PATCHED        14      172      186 TOWARD (218 -> 186)
+r10v160repro_cells_o10_binary elab PRISTINE       20      271      291 
+r10v160repro_cells_o10_binary elab PATCHED        20      193      213 TOWARD (291 -> 213)
+r10v160repro_cells_y10_nestgood def  PRISTINE       14      216      230 
+r10v160repro_cells_y10_nestgood def  PATCHED        14      172      186 TOWARD (230 -> 186)
+r10v160repro_cells_y10_nestgood elab PRISTINE       20      267      287 
+r10v160repro_cells_y10_nestgood elab PATCHED        20      193      213 TOWARD (287 -> 213)
+
+-- r10v160repro/cells/c05_pkgscope.sv is NOT a mover.
+   It is r10uvm160's own package-scope cell (`pvx160::VX` as a TOP-LEVEL
+   operand), and it is the reason § 162's package-parameter refusal is gated
+   on `depth > 0`.  A first cut applied that refusal at the top level too;
+   MEASURED, it moved this arm's head from 28 cmp lines to 79 in the def view
+   and from 28 to 83 in the elab view — an earlier-pass arm moving AWAY from
+   golden, which is a fail condition (RESUME.md §7).  With the gate it is
+   28/28 in both views and byte-identical.

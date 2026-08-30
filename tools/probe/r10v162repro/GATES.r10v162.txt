@@ -1,0 +1,59 @@
+r10v162 — GATES, reproduced independently on this verifier's OWN worktrees.
+BASE fe4a739. pristine /tmp/wt_v162pris md5 83258cd958cb88be667bf6729dcb0b9d; patched (fe4a739 + /tmp/r10uvm162.patch) /tmp/wt_v162 md5 834a54ee7996ba8b29b245895a4eaee8. Both frozen chmod 555.
+
+goldens patched  : PASS=23 FAIL=0 (SLANG_UHDM=/tmp/v162_pat.bin)
+goldens pristine : PASS=23 FAIL=0 (SLANG_UHDM=/tmp/v162_pris.bin)
+goldens /bin/false: PASS=0 FAIL=23
+
+verify_golden status histograms (own sweeps):
+  /tmp/v162_wd_pris/sl.csv 1588 {'CMP_EQUAL': 937, 'CMP_NOTEQUAL': 19, 'DEFERRED': 10, 'NO_DATABASE': 3, 'NO_UHDM': 1, 'SLANG_REJECT': 567, 'SURELOG_FAIL': 48, 'TIMEOUT': 1, 'UNTRANSLATABLE': 2}
+  /tmp/v162_wd_pat/sl.csv 1588 {'CMP_EQUAL': 937, 'CMP_NOTEQUAL': 19, 'DEFERRED': 10, 'NO_DATABASE': 3, 'NO_UHDM': 1, 'SLANG_REJECT': 567, 'SURELOG_FAIL': 48, 'TIMEOUT': 1, 'UNTRANSLATABLE': 2}
+  /tmp/v162_wd_pris/u2r_tf.csv 731 {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+  /tmp/v162_wd_pat/u2r_tf.csv 731 {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+  /tmp/v162_wd_pris/u2r_def.csv 731 {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+  /tmp/v162_wd_pat/u2r_def.csv 731 {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+
+ct8rows (status AND dump column), 0 differing ROWS on every pair:
+  u2r_tf  vs results/gate_uhdm2rtlil.csv : PASS
+  u2r_tf  vs own pristine                : PASS
+  u2r_def vs own pristine                : PASS
+  sl      vs results/golden_surelog.csv  : PASS (1588 rows, 0 differing)
+  sl      vs own pristine                : PASS
+  CMP_NOTEQUAL stays 10 default + 9 testflags — NO ROW CONVERTED; results/*.csv READ-ONLY
+
+cmds.txt audit BY BINARY PATH:
+  /tmp/v162_wd_pris: 3035 cmds.txt, 6016 lines, 2981 invoke /tmp/v162_pris.bin, 0 any other slang-uhdm binary
+  /tmp/v162_wd_pat : 3035 cmds.txt, 6016 lines, 2981 invoke /tmp/v162_pat.bin,  0 any other slang-uhdm binary
+
+byteverify SELFCHECK=1:
+  u2r : MOVERS 0 / 1358, PATH_SETS_IDENTICAL
+  sl  : MOVERS 3 / 956, PATH_SETS_IDENTICAL
+        default/BuildUVMPkg-bf853d43   (PREDICTED BY NAME from pristine DBs)
+        testflags/BuildUVMPkg-bf853d43 (PREDICTED BY NAME from pristine DBs)
+        default/Scoreboard-59431470    (the coin — see NULLSWEEP below)
+
+prediction from PRISTINE databases only (predsweep162/predjoin162):
+  surelog   : rows=956  SKIP-NOFILE=617 PRED-TOWARD 2 AWAY 0 TRUNC 0 GROW 14
+  uhdm2rtlil: rows=1358 SKIP-NOFILE=104 PRED-TOWARD 0 AWAY 0 TRUNC 0 GROW 0
+  the 2 named cells are uvm_pkg::uvm_registry_common::create 14061:13-14064:70 op33, both modes
+
+heads (rowheads.sh, own sweeps): BuildUVMPkg 321 -> 29 BOTH modes, 1 head, the two
+  patched logs BYTE-IDENTICAL to each other and to the committed head_pat artifact.
+  SeqDriver 17/17, SimpleUVM 29/29, Scoreboard 145/145, MiniAmiq 106/106,
+  Earlgrey_0_1 132/132 + 26594/26594, Rggen CMP_EQUAL — every other head log
+  BYTE-IDENTICAL pristine vs patched.
+
+canaries 52/8 ok=  0 changed; ctcan2 PASS x2; canaudit audited=29 UNCOVERED=0 FENCE-BREACH=0
+protected DBs: InterfaceModPort/BlackParrotComplex/YosysOldOr byte-identical;
+  SVSwitch 4842211c4030 both modes; YosysVerx 6ccda350c24a both modes
+
+wide boundary over the WHOLE probe tree (this verifier's arms included):
+  LISTED=4601 PROCESSED=4601 PRODUCED_DBS=4448 MOVED_ARMS=24 RC_DIFFS=0
+
+NULLSWEEP default/Scoreboard, SERIAL, 3 runs per binary, from the test's own dir:
+  pristine -> efaba1fecd2b  86a9fa4fd934  0cf9f54ec324
+  patched  -> 86a9fa4fd934  86a9fa4fd934  eb2a3e30c551
+  ALL SIX are order-blind IDENTICAL (0 content lines apart). The PRISTINE binary
+  alone produces three distinct hashes, so a Scoreboard hash change cannot be
+  attributed to the patch at all. This CORRECTS r10uvm162repro/README.md §9,
+  which reports the pristine null sweep as byte-stable 3/3.

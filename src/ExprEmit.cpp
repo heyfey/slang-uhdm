@@ -2704,10 +2704,193 @@ UHDM::any* UhdmExporter::invalidScopedCallRef59(const slang::ast::Expression& e,
 //
 // Returns the operand object, or null to ABSTAIN.  `mint == false` is the
 // shape-only pass.
+//
+// ---------------------------------------------------------------------------
+// § badConcatCompoundOperands162 — THE COMPOUND OPERANDS, AND WHY THE ACCEPTED
+// TWIN IS AN ORACLE FOR THEM TOO.
+//
+// § 160 modelled the five ATOMIC operand shapes and abstained on the whole
+// concatenation when it met anything else; its measured corpus cost was 2
+// cells, both of them `uvm_pkg::uvm_registry_common::create`'s twelve-operand
+// message (`uvm_registry.svh:558-570`, BuildUVMPkg `uvm_pkg.sv:14061-14064`),
+// two of whose operands are TERNARIES:
+//
+//     msg = {"Factory did not return a ", Tcreator::base_type_name(),
+//            " of type '", Tregistry::type_name,
+//            "'. A component of type '", obj == null ? "null" : obj.get_type_name(),
+//            "' was returned instead. Name=", name, " Parent=",
+//            parent==null?"null":parent.get_type_name(), " contxt=", contxt};
+//
+// THE ORACLE, PROVEN AND NOT ASSUMED.  `twin162.py` cuts every `ok_<cell>` /
+// `bd_<cell>` pair out of ONE golden database, dedents the `bd_` body (its
+// type-parameter local puts the statement one `begin` deeper), erases spans and
+// the method name, drops the trailing operand the `bd_` twin adds, and compares
+// what is left.  Over the four grid arms that is **75 pairs, TWIN 75,
+// NOTTWIN 0**: golden's object inside a REJECTED concatenation is field for
+// field its ACCEPTED twin's.  And every `ok_` cell of those arms is
+// BYTE-IDENTICAL between golden and our pristine binary except the two
+// package-qualified ones (R-V1 below).  So the rebuild has a checkable target:
+// produce what OUR OWN BOUND PATH produces for the same written expression.
+//
+// THE SHAPES THIS PASS ADDS, each read off golden (`g162_a_tern.sv`,
+// `g162_b_shapes.sv`, `g162_c_opmap.sv`, `g162_d_fold.sv`):
+//
+//   written form           object
+//   ---------------------  --------------------------------------------------
+//   ( e )                  NOTHING — parentheses are TRANSPARENT and the inner
+//                          expression keeps its OWN range (arm a4: the operand
+//                          `(prop == "" ? "a" : "b")` is reported 47-69, not
+//                          46-70).  A ternary whose PREDICATE is parenthesised
+//                          still spans from the open paren, because that is
+//                          where its own syntax node starts (arm a3: 46-70 with
+//                          the `==` inside it at 47-57).
+//   c ? t : f              operation vpiConditionOp (32), THREE operands in
+//                          written order; each is parented to it, INCLUDING a
+//                          literal — the unparenting rule belongs to the
+//                          concatenation slot, not to constants in general
+//                          (arms a1-a14, c26-c32)
+//   a <op> b               operation, opType from the MEASURED map below, two
+//                          operands (arm c01-c20, twenty operators)
+//   null                   constant, vpiConstType 11 (vpiNullConst), decompile
+//                          `0`, size 64, value UINT:0 (arms a1, c32)
+//   <digits>               constant, vpiConstType 9 (vpiUIntConst), decompile =
+//                          the digits, size 64, value UINT:<digits> — the PLAIN
+//                          DECIMAL literal only (arm c27); a SIZED/BASED one is
+//                          a different constant (`8'd65` is DEC:65 size 8
+//                          constType 1, `32'h0000_00FF` is HEX:000000FF size 32
+//                          constType 5 with the `_` stripped) and a REAL one a
+//                          third (constType 2), so those three ABSTAIN (c29-c31)
+//   { a, b }               operation vpiConcatOp (33) — the same builder,
+//                          recursively, and its OWN direct literals are
+//                          unparented exactly as the outer one's are (arm b3)
+//   { n { a } }            operation vpiMultiConcatOp (34) over [the count, the
+//                          inner CONCATENATION].  The count follows the DIRECT
+//                          rule — a literal count is unparented (arm b5), a
+//                          `ref_obj` count is parented (arm b6)
+//
+// RECURSIVELY ADMITTED, AND STILL ALL OR NOTHING.  A compound operand is
+// admitted only when every sub-operand is itself an admitted shape, at any
+// depth; one unmodelled leaf abstains the WHOLE concatenation, because
+// `operation::Compare` reads the operand vector's SIZE first and a short list
+// is not a smaller error than none.  The shape pass is the same code as the
+// mint pass with `mint == false`, so the two cannot disagree.
+//
+// WHAT IS DELIBERATELY LEFT OUT, each because golden gives it an object this
+// pass has NOT modelled (residues, all measured, none guessed):
+//   * a BARE call `f()` — golden's `func_call`, a new object KIND minted
+//     unbound (arm b1/b2);
+//   * a UNARY operator — golden's opTypes are measured (arm c21-c25: `!`->3,
+//     `~`->4, `-`->1, `&`->5, `|`->7) but its LITERAL operand is UNPARENTED
+//     where a binary's is parented (arm d1, `(i == -1)`), and unary minus over
+//     a literal is § negLitPkgRetFoldNested30's fold window;
+//   * a call whose ACTUAL is itself a call — § droppedCall14's own argument
+//     predicate refuses those actuals and this law asks that predicate (arm b7);
+//   * a SIZED/BASED/REAL literal (c29-c31), a SYSTEM call (d11), an INDEX
+//     SELECT (d12) and a CAST (d13).
+//
+// R-V1, THE RECORDED TRAP, RE-MEASURED AND UNCHANGED.  Golden CONSTANT-FOLDS a
+// PACKAGE-QUALIFIED parameter — `pb162::PKGP162` is golden's `constant` with
+// decompile `pp`, size 16, STRING:pp — where our BOUND path emits a `ref_obj`
+// (arm b15 `ok_b15`, and arm d6/d7 inside a ternary arm and a replication
+// count).  That disagreement is PRE-EXISTING in the accepted path and is
+// § typeParamScopedCallRef59's object, which § 160 already admits as shape (5);
+// this pass does not widen it and does not narrow it.  No corpus site holds one
+// (the corpus's `::` operands are TYPE-PARAMETER qualified —
+// `Tcreator::base_type_name`, `Tregistry::type_name` — which golden emits as
+// exactly that `ref_obj`).
+//
+// The MEASURED map from the written binary operator to Surelog's `vpiOpType`.
+// Every row was read off a golden database built from `g162_c_opmap.sv`, whose
+// twenty accepted cells are byte-identical to our own bound path's; nothing
+// here is transcribed from a header.
+static int32_t badConcatBinOp162(slang::syntax::SyntaxKind k) {
+    using SK = slang::syntax::SyntaxKind;
+    switch (k) {
+        case SK::EqualityExpression:          return vpiEqOp;       // c01 -> 14
+        case SK::InequalityExpression:        return vpiNeqOp;      // c02 -> 15
+        case SK::CaseEqualityExpression:      return vpiCaseEqOp;   // c03 -> 16
+        case SK::CaseInequalityExpression:    return vpiCaseNeqOp;  // c04 -> 17
+        case SK::GreaterThanExpression:       return vpiGtOp;       // c05 -> 18
+        case SK::GreaterThanEqualExpression:  return vpiGeOp;       // c06 -> 19
+        case SK::LessThanExpression:          return vpiLtOp;       // c07 -> 20
+        case SK::LessThanEqualExpression:     return vpiLeOp;       // c08 -> 21
+        case SK::LogicalAndExpression:        return vpiLogAndOp;   // c09 -> 26
+        case SK::LogicalOrExpression:         return vpiLogOrOp;    // c10 -> 27
+        case SK::BinaryAndExpression:         return vpiBitAndOp;   // c11 -> 28
+        case SK::BinaryOrExpression:          return vpiBitOrOp;    // c12 -> 29
+        case SK::BinaryXorExpression:         return vpiBitXorOp;   // c13 -> 30
+        case SK::AddExpression:               return vpiAddOp;      // c14 -> 24
+        case SK::SubtractExpression:          return vpiSubOp;      // c15 -> 11
+        case SK::MultiplyExpression:          return vpiMultOp;     // c16 -> 25
+        case SK::DivideExpression:            return vpiDivOp;      // c17 -> 12
+        case SK::ModExpression:               return vpiModOp;      // c18 -> 13
+        case SK::LogicalShiftLeftExpression:  return vpiLShiftOp;   // c19 -> 22
+        case SK::LogicalShiftRightExpression: return vpiRShiftOp;   // c20 -> 23
+        default: return 0;
+    }
+}
+
+// A PLAIN DECIMAL integer literal — digits only, nothing else.  A `'`, a `_`,
+// a sign, a `.` or an `e` all take it out of the admitted set, because golden
+// gives each of those a DIFFERENT constant (arm c29-c31).
+static bool plainDecDigits162(const std::string& raw) {
+    if (raw.empty() || raw.size() > 19)
+        return false;
+    for (char c : raw)
+        if (c < '0' || c > '9')
+            return false;
+    return true;
+}
+
+// The DIRECT-literal parenting decision, transcribed from the two places that
+// make it in the BOUND path (`case ExpressionKind::Concatenation`'s per-operand
+// window and `case ExpressionKind::StringLiteral`'s test), so a recovered
+// operand is parented exactly as its accepted twin is — plus the ORDINARY rule
+// for a literal that is NOT in a concatenation's own operand slot.
+//
+// The asymmetry is golden's, not ours, and it is measured: the top-level
+// concatenation's `"["` carries NO vpiParent while the ternary's `"null"` and
+// the `==`'s `null` both carry one (arm a1, and `uvm_pkg.sv:14061-14064`
+// itself); a nested concatenation unparents its OWN direct literals in turn
+// (arm b3) and a replication unparents a LITERAL count but parents a `ref_obj`
+// one (arms b5, b6).  So the slot, not the constant, decides.
+void UhdmExporter::badConcatParentConst162(UHDM::constant* c,
+                                           UHDM::BaseClass* op, bool direct) {
+    bool sup162 = suppressConstParent, frc162 = forceConstParent;
+    if (direct && !reemitting && !importedParamClone) {
+        sup162 = true;
+        if (inParamInit)
+            frc162 = false;
+    }
+    if (direct) {
+        if (frc162 || (!sup162 && op))
+            c->VpiParent(op);
+        return;
+    }
+    // The ordinary rule every literal arm in this file applies.
+    if (frc162 || (!sup162 && op &&
+                   (op->UhdmType() == UHDM::uhdmoperation ||
+                    op->UhdmType() == UHDM::uhdmbit_select)))
+        c->VpiParent(op);
+}
+
 UHDM::any* UhdmExporter::emitBadConcatOperand160(
-    const slang::syntax::ExpressionSyntax& os, UHDM::BaseClass* op,
-    const std::string& prefix, NetMap& netMap, bool mint) {
+    const slang::syntax::ExpressionSyntax& os0, UHDM::BaseClass* op,
+    const std::string& prefix, NetMap& netMap, bool mint, bool direct,
+    int depth) {
     using namespace slang::syntax;
+    // A written expression nests no deeper than this in any corpus or grid
+    // cell; the bound is a guard against a pathological source, not a model.
+    if (depth > 16)
+        return nullptr;
+    // (0) PARENTHESES ARE TRANSPARENT — Surelog mints no object for them and
+    // the inner expression keeps its OWN range (arm a4).  `direct` rides
+    // through: `{("a")}` is still a direct concat operand.
+    const ExpressionSyntax* osp = &os0;
+    for (int g = 0; g < 16 && osp->kind == SyntaxKind::ParenthesizedExpression;
+         ++g)
+        osp = osp->as<ParenthesizedExpressionSyntax>().expression.get();
+    const ExpressionSyntax& os = *osp;
     // (1) a STRING LITERAL.
     if (os.kind == SyntaxKind::StringLiteralExpression) {
         std::string raw = rawText(os.sourceRange());
@@ -2727,20 +2910,43 @@ UHDM::any* UhdmExporter::emitBadConcatOperand160(
         c160->VpiValue("STRING:" + inner);
         c160->VpiConstType(vpiStringConst);
         setLoc(c160, os.sourceRange());
-        // The DIRECT-literal parenting decision, transcribed from the two
-        // places that make it in the bound path (`case
-        // ExpressionKind::Concatenation`'s per-operand window and `case
-        // ExpressionKind::StringLiteral`'s test), so a recovered operand is
-        // parented exactly as its accepted twin is.
-        bool sup160 = suppressConstParent, frc160 = forceConstParent;
-        if (!reemitting && !importedParamClone) {
-            sup160 = true;
-            if (inParamInit)
-                frc160 = false;
-        }
-        if (frc160 || (!sup160 && op))
-            c160->VpiParent(op);
+        badConcatParentConst162(c160, op, direct);
         return c160;
+    }
+    // (1b) § badConcatCompoundOperands162 — `null`.  The same UINT:0 / size 64
+    // / decompile `0` payload every unsized integral constant of Surelog's
+    // carries; the CONST TYPE is the only thing that says "null" (arm a1's
+    // `bh == null`, arm c32's `null == null`, and the corpus's `obj == null`).
+    // Transcribed from `case ExpressionKind::NullLiteral` in this same file.
+    if (os.kind == SyntaxKind::NullLiteralExpression) {
+        if (!mint)
+            return (UHDM::any*)1;
+        auto* c162 = s.MakeConstant();
+        c162->VpiDecompile("0");
+        c162->VpiSize(64);
+        c162->VpiValue("UINT:0");
+        c162->VpiConstType(vpiNullConst);
+        setLoc(c162, os.sourceRange());
+        badConcatParentConst162(c162, op, direct);
+        return c162;
+    }
+    // (1c) § badConcatCompoundOperands162 — a PLAIN DECIMAL integer literal
+    // (arm c27, and the replication count of arm c28).  A sized, based or real
+    // literal is a DIFFERENT constant and abstains (arm c29-c31).
+    if (os.kind == SyntaxKind::IntegerLiteralExpression) {
+        std::string raw162 = rawText(os.sourceRange());
+        if (!plainDecDigits162(raw162))
+            return nullptr;
+        if (!mint)
+            return (UHDM::any*)1;
+        auto* c162 = s.MakeConstant();
+        c162->VpiDecompile(raw162);
+        c162->VpiSize(64);
+        c162->VpiValue("UINT:" + raw162);
+        c162->VpiConstType(vpiUIntConst);
+        setLoc(c162, os.sourceRange());
+        badConcatParentConst162(c162, op, direct);
+        return c162;
     }
     // (2) a BARE IDENTIFIER, and (3) a plain DOTTED pair `a.b` — both are
     // exactly what § droppedCall14's argument emitter builds, UNBOUND.
@@ -2784,6 +2990,39 @@ UHDM::any* UhdmExporter::emitBadConcatOperand160(
         std::string f160, l160;
         slang::SourceLocation end160;
         if (ns160 && splitScopedName12(*ns160, f160, l160, end160)) {
+            // § badConcatCompoundOperands162 — R-V1, THE FOLD TRAP, REFUSED
+            // INSIDE THE NEW RECURSION AND NOWHERE ELSE.
+            //
+            // A `::` operand whose FIRST SEGMENT names a PACKAGE and whose
+            // final identifier is that package's PARAMETER is one golden
+            // CONSTANT-FOLDS: golden holds `constant` decompile `pp` / size 16
+            // / STRING:pp where this builder mints a `ref_obj`
+            // (`g162_b_shapes.sv` ok_b15/bd_b15, `g162_d_fold.sv` ok_d6/ok_d7).
+            // The disagreement is PRE-EXISTING and visible on the ACCEPTED TWIN
+            // too — our BOUND path emits the same `ref_obj` — so minting one
+            // moves the operand AWAY from golden rather than toward it.
+            //
+            // `depth > 0` IS THE WHOLE GATE, and the asymmetry is deliberate.
+            // At the TOP level this is § `badConcatOperandsFromSyntax160`'s own
+            // shape (5), landed and gate-verified, with a committed verifier
+            // cell of its own (`r10v160repro/cells/c05_pkgscope.sv`); revisiting
+            // it is not this pass's business, and MEASURED: fencing it there
+            // moved that arm's head from 28 cmp lines to 79, i.e. AWAY.  What
+            // IS this pass's business is which shapes the NEW recursion admits,
+            // and it declines to introduce a mint it has measured to be wrong.
+            //
+            // The test is NARROW BY MEASUREMENT — a PACKAGE and a PARAMETER
+            // member, the only face measured to fold.  It costs NO corpus cell:
+            // every `::`-qualified operand in every `operation` of our pristine
+            // UVM databases is CLASS- or TYPE-PARAMETER-qualified
+            // (`uvm_config_db::get`, `process::KILLED`, `TYPE::type_name`,
+            // `Tcreator::base_type_name`, `Tregistry::type_name`, …) and not
+            // one is `<package>::<parameter>`.
+            if (depth > 0)
+                if (auto* pk162 = comp.getPackage(f160))
+                    if (auto* pm162 = pk162->find(l160);
+                        pm162 && pm162->kind == slang::ast::SymbolKind::Parameter)
+                        return nullptr;
             if (!mint)
                 return (UHDM::any*)1;
             std::string nm160 = f160 + "::" + l160;
@@ -2794,6 +3033,140 @@ UHDM::any* UhdmExporter::emitBadConcatOperand160(
             setLoc(r160, SourceRange(ns160->sourceRange().start(), end160));
             return r160;
         }
+    }
+    // -----------------------------------------------------------------------
+    // § badConcatCompoundOperands162 — THE COMPOUND SHAPES.  Each one is
+    // admitted only when EVERY sub-operand is admitted, so the shape pass
+    // (`mint == false`) walks the same tree the mint pass will, mints nothing,
+    // and returns the same non-null sentinel the atomic shapes return.  A
+    // compound's sub-operands are NOT `direct`: the unparenting rule belongs to
+    // the concatenation slot (and to a replication COUNT), and to nothing else.
+    //
+    // (6) a TERNARY — operation vpiConditionOp over [predicate, true, false].
+    // The operation's span is the ConditionalExpressionSyntax's OWN range,
+    // which starts at the predicate's syntax node: for `(p) ? a : b` that is
+    // the OPEN PAREN (arm a3, golden 46-70 with the `==` inside it at 47-57),
+    // while a parenthesised WHOLE ternary reports the inner range (arm a4).
+    // slang models `matches`/pattern predicates and comma-separated condition
+    // lists in the same node; neither is modelled here, so both abstain.
+    if (os.kind == SyntaxKind::ConditionalExpression) {
+        auto& ce162 = os.as<ConditionalExpressionSyntax>();
+        if (ce162.predicate->conditions.size() != 1)
+            return nullptr;
+        auto& cp162 = *ce162.predicate->conditions[0];
+        if (cp162.matchesClause)
+            return nullptr;
+        const ExpressionSyntax* sub162[3] = {cp162.expr.get(), ce162.left.get(),
+                                             ce162.right.get()};
+        if (!mint) {
+            for (auto* x : sub162)
+                if (!emitBadConcatOperand160(*x, nullptr, prefix, netMap,
+                                             /*mint=*/false, /*direct=*/false,
+                                             depth + 1))
+                    return nullptr;
+            return (UHDM::any*)1;
+        }
+        auto* t162 = s.MakeOperation();
+        t162->VpiOpType(vpiConditionOp);
+        t162->VpiParent(op);
+        setLoc(t162, os.sourceRange());
+        auto* tv162 = s.MakeAnyVec();
+        for (auto* x : sub162)
+            if (auto* v = emitBadConcatOperand160(*x, t162, prefix, netMap,
+                                                  /*mint=*/true,
+                                                  /*direct=*/false, depth + 1))
+                tv162->push_back(v);
+        t162->Operands(tv162);
+        return t162;
+    }
+    // (7) a BINARY OPERATOR from the measured map — operation over [left,
+    // right], spanning the binary syntax node's own range.
+    if (int32_t bop162 = badConcatBinOp162(os.kind)) {
+        auto& be162 = os.as<BinaryExpressionSyntax>();
+        const ExpressionSyntax* sub162[2] = {be162.left.get(), be162.right.get()};
+        if (!mint) {
+            for (auto* x : sub162)
+                if (!emitBadConcatOperand160(*x, nullptr, prefix, netMap,
+                                             /*mint=*/false, /*direct=*/false,
+                                             depth + 1))
+                    return nullptr;
+            return (UHDM::any*)1;
+        }
+        auto* b162 = s.MakeOperation();
+        b162->VpiOpType(bop162);
+        b162->VpiParent(op);
+        setLoc(b162, os.sourceRange());
+        auto* bv162 = s.MakeAnyVec();
+        for (auto* x : sub162)
+            if (auto* v = emitBadConcatOperand160(*x, b162, prefix, netMap,
+                                                  /*mint=*/true,
+                                                  /*direct=*/false, depth + 1))
+                bv162->push_back(v);
+        b162->Operands(bv162);
+        return b162;
+    }
+    // (8) a NESTED CONCATENATION — the same object the outer one is, built by
+    // the same code, and its OWN direct literals are unparented in turn
+    // (arm b3).
+    if (os.kind == SyntaxKind::ConcatenationExpression) {
+        auto& nc162 = os.as<ConcatenationExpressionSyntax>();
+        if (nc162.expressions.empty())
+            return nullptr;
+        if (!mint) {
+            for (auto* x : nc162.expressions)
+                if (!emitBadConcatOperand160(*x, nullptr, prefix, netMap,
+                                             /*mint=*/false, /*direct=*/true,
+                                             depth + 1))
+                    return nullptr;
+            return (UHDM::any*)1;
+        }
+        auto* n162 = s.MakeOperation();
+        n162->VpiOpType(vpiConcatOp);
+        n162->VpiParent(op);
+        setLoc(n162, os.sourceRange());
+        auto* nv162 = s.MakeAnyVec();
+        for (auto* x : nc162.expressions)
+            if (auto* v = emitBadConcatOperand160(*x, n162, prefix, netMap,
+                                                  /*mint=*/true,
+                                                  /*direct=*/true, depth + 1))
+                nv162->push_back(v);
+        n162->Operands(nv162);
+        return n162;
+    }
+    // (9) a REPLICATION — operation vpiMultiConcatOp over [the COUNT, the inner
+    // CONCATENATION].  The count takes the DIRECT rule (arm b5's literal count
+    // is unparented, arm b6's `ref_obj` count is parented); the inner braces
+    // are an ordinary nested concatenation object of their own.
+    if (os.kind == SyntaxKind::MultipleConcatenationExpression) {
+        auto& mc162 = os.as<MultipleConcatenationExpressionSyntax>();
+        if (mc162.concatenation->expressions.empty())
+            return nullptr;
+        if (!mint) {
+            if (!emitBadConcatOperand160(*mc162.expression, nullptr, prefix,
+                                         netMap, /*mint=*/false,
+                                         /*direct=*/true, depth + 1))
+                return nullptr;
+            if (!emitBadConcatOperand160(*mc162.concatenation, nullptr, prefix,
+                                         netMap, /*mint=*/false,
+                                         /*direct=*/false, depth + 1))
+                return nullptr;
+            return (UHDM::any*)1;
+        }
+        auto* m162 = s.MakeOperation();
+        m162->VpiOpType(vpiMultiConcatOp);
+        m162->VpiParent(op);
+        setLoc(m162, os.sourceRange());
+        auto* mv162 = s.MakeAnyVec();
+        if (auto* cnt = emitBadConcatOperand160(*mc162.expression, m162, prefix,
+                                                netMap, /*mint=*/true,
+                                                /*direct=*/true, depth + 1))
+            mv162->push_back(cnt);
+        if (auto* inr = emitBadConcatOperand160(*mc162.concatenation, m162,
+                                                prefix, netMap, /*mint=*/true,
+                                                /*direct=*/false, depth + 1))
+            mv162->push_back(inr);
+        m162->Operands(mv162);
+        return m162;
     }
     return nullptr;
 }
