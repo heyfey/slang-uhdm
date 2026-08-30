@@ -4002,6 +4002,15 @@ private:
     // copies carry vpiParent on that operand. Package params and net/var
     // ranges are never cloned, hence never parented.
     bool elabParamDim = false;
+    // § elabRhsArrayTsSubBoundFolds102 — set ONLY while building the
+    // array_typespec that an unpacked-array parameter's param_assign RHS
+    // OPERATION carries in an ELABORATED module instance.  There a RANGE-form
+    // dimension bound written `<parameter> - <literal>` is FOLDED by Surelog
+    // (the parameter's own Ranges / array_typespec keep whatever their view's
+    // own law gives them; only this copy is re-folded).  It does NOT reach the
+    // SIZE spelling `[N]`, which golden keeps as `op11(<param value at its own
+    // width>, 1)` on this very object, nor a BARE identifier bound.
+    bool rhsOpArrayTsSubFold102 = false;
     // The param_assign Rhs object most recently emitted per parameter symbol.
     // A package DEF-view unpacked-dim ref binds the sized param's own constant
     // through it (DefaultPatternInt pack::V::CNT -> the CNT constant).

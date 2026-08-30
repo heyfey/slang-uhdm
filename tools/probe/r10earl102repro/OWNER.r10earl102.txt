@@ -1,0 +1,32 @@
+ARENA 783183 objects
+=== OBJ #595840 range name=~ span=20:29-20:42 file=/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_pinmux_component_0.1/rtl/pinmux_pkg.sv
+     SELFPAR <- array_typespec[~]@20:13-20:42#595839 <- ref_typespec[~]{work@top_earlgrey.u_pinmux}@0:0-0:0#595838 <- operation[~]@20:45-20:52#595837 <- param_assign[~]@20:17-20:52#595822 <- module_inst[u_pinmux]{work@top_earlgrey.u_pinmux}@623:3-653:5#1041350 <- module_inst[work@top_earlgrey]@5:1-1022:10#972058 <- design[work@prim_sync_reqack]@0:0-0:0#919334
+     LEFT  constant#595841 20:30-20:31
+     RIGHT constant#595842 20:32-20:39
+  CONTAINER array_typespec[~]{}@20:13-20:42#595839 <- ref_typespec[~]{work@top_earlgrey.u_pinmux}@0:0-0:0#595838 <- operation[~]@20:45-20:52#595837 <- param_assign[~]@20:17-20:52#595822 <- module_inst[u_pinmux]{work@top_earlgrey.u_pinmux}@623:3-653:5#1041350 <- module_inst[work@top_earlgrey]@5:1-1022:10#972058 <- design[work@prim_sync_reqack]@0:0-0:0#919334
+  TOTALS containers=1 boundof=0
+=== OBJ #595842 constant name=~ span=20:32-20:39 file=/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_pinmux_component_0.1/rtl/pinmux_pkg.sv
+     SELFPAR <- range[~]@20:29-20:42#595840 <- array_typespec[~]@20:13-20:42#595839 <- ref_typespec[~]{work@top_earlgrey.u_pinmux}@0:0-0:0#595838 <- operation[~]@20:45-20:52#595837 <- param_assign[~]@20:17-20:52#595822 <- module_inst[u_pinmux]{work@top_earlgrey.u_pinmux}@623:3-653:5#1041350 <- module_inst[work@top_earlgrey]@5:1-1022:10#972058 <- design[work@prim_sync_reqack]@0:0-0:0#919334
+  BOUNDOF   range#595840 @20:29-20:42 <- array_typespec[~]@20:13-20:42#595839 <- ref_typespec[~]{work@top_earlgrey.u_pinmux}@0:0-0:0#595838 <- operation[~]@20:45-20:52#595837 <- param_assign[~]@20:17-20:52#595822 <- module_inst[u_pinmux]{work@top_earlgrey.u_pinmux}@623:3-653:5#1041350 <- module_inst[work@top_earlgrey]@5:1-1022:10#972058
+  TOTALS containers=0 boundof=1
+ARENA 772239 objects
+=== OBJ #462870 range name=~ span=20:29-20:42 file=
+     SELFPAR <- array_typespec[~]@20:13-20:42#462869 <- ref_typespec[~]{work@top_earlgrey.u_pinmux}@0:0-0:0#462867 <- operation[~]@20:45-20:52#462864 <- param_assign[~]@20:17-20:52#462863 <- module_inst[u_pinmux]{work@top_earlgrey.u_pinmux}@623:3-653:5#462852 <- module_inst[work@top_earlgrey]@5:1-1022:10#189339 <- design[work@prim_sync_reqack]@0:0-0:0#1
+     LEFT  constant#462871 20:30-20:31
+     RIGHT operation#462872 20:32-20:41
+  CONTAINER array_typespec[~]{}@20:13-20:42#462869 <- ref_typespec[~]{work@top_earlgrey.u_pinmux}@0:0-0:0#462867 <- operation[~]@20:45-20:52#462864 <- param_assign[~]@20:17-20:52#462863 <- module_inst[u_pinmux]{work@top_earlgrey.u_pinmux}@623:3-653:5#462852 <- module_inst[work@top_earlgrey]@5:1-1022:10#189339 <- design[work@prim_sync_reqack]@0:0-0:0#1
+  TOTALS containers=1 boundof=0
+=== OBJ #462872 operation name=~ span=20:32-20:41 file=
+     SELFPAR <- range[~]@20:29-20:42#462870 <- array_typespec[~]@20:13-20:42#462869 <- ref_typespec[~]{work@top_earlgrey.u_pinmux}@0:0-0:0#462867 <- operation[~]@20:45-20:52#462864 <- param_assign[~]@20:17-20:52#462863 <- module_inst[u_pinmux]{work@top_earlgrey.u_pinmux}@623:3-653:5#462852 <- module_inst[work@top_earlgrey]@5:1-1022:10#189339 <- design[work@prim_sync_reqack]@0:0-0:0#1
+  BOUNDOF   range#462870 @20:29-20:42 <- array_typespec[~]@20:13-20:42#462869 <- ref_typespec[~]{work@top_earlgrey.u_pinmux}@0:0-0:0#462867 <- operation[~]@20:45-20:52#462864 <- param_assign[~]@20:17-20:52#462863 <- module_inst[u_pinmux]{work@top_earlgrey.u_pinmux}@623:3-653:5#462852 <- module_inst[work@top_earlgrey]@5:1-1022:10#189339
+  TOTALS containers=0 boundof=1
+ARENA 783183 objects
+=== OBJ #595640 int_typespec name=~ span=0:0-0:0 file=
+     SELFPAR <- <null>
+  TSREF     ref#596080   full=work@top_earlgrey.u_pinmux     <- constant[~]@54:22-54:59#596079 <- param_assign[~]@53:56-54:59#596078 <- module_inst[u_pinmux]{work@top_earlgrey.u_pinmux}@623:3-653:5#1041350 <- module_inst[work@top_earlgrey]@5:1-1022:10#972058 <- design[work@prim_sync_reqack]@0:0-0:0#919334
+  TOTALS containers=1 boundof=0
+ARENA 772221 objects
+=== OBJ #772036 logic_typespec name=~ span=0:0-0:0 file=
+     SELFPAR <- <null>
+  TSREF     ref#463127   full=work@top_earlgrey.u_pinmux     <- constant[~]@54:22-54:59#463126 <- param_assign[~]@53:56-54:59#463125 <- module_inst[u_pinmux]{work@top_earlgrey.u_pinmux}@623:3-653:5#462852 <- module_inst[work@top_earlgrey]@5:1-1022:10#189339 <- design[work@prim_sync_reqack]@0:0-0:0#1
+  TOTALS containers=1 boundof=0

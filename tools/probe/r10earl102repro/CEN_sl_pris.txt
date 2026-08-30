@@ -1,0 +1,66 @@
+DATABASES 956
+WHOLE CENSUS  BOTH-SAME 4226  FLIP 18  ONLY-GOLDEN 16  ONLY-OURS 18
+-- rhsts POPULATION by (golden form, ours form):
+   golden FOLDED  ours FOLDED   236
+   golden OP      ours OP       206
+   golden FOLDED  ours OP       18
+   golden ABSENT  ours OP       3
+   golden ABSENT  ours FOLDED   3
+-- THE LAW'S CELLS (golden FOLDED / ours OP), by database:
+   default__Earlgrey_0_1                    9
+        E | module_inst | work@top_earlgrey.u_pinmux.gen_wkup_detect[1].i_pinmux_wkup | RHS | MioStrapPos | rhsts>ats[0]R
+          golden ('FOLDED', 'constant|sz=64|ct=7|dc=1|v=INT:1')
+          ours   ('OP', 'operation|op=11|(ref_obj|NStraps|act=-,constant|sz=64|ct=9|dc=1|v=UINT:1)')
+        E | module_inst | work@top_earlgrey.u_pinmux.gen_wkup_detect[5].i_pinmux_wkup | RHS | MioStrapPos | rhsts>ats[0]R
+          golden ('FOLDED', 'constant|sz=64|ct=7|dc=1|v=INT:1')
+          ours   ('OP', 'operation|op=11|(ref_obj|NStraps|act=-,constant|sz=64|ct=9|dc=1|v=UINT:1)')
+        E | module_inst | work@top_earlgrey.u_pinmux | RHS | MioStrapPos | rhsts>ats[0]R
+          golden ('FOLDED', 'constant|sz=64|ct=7|dc=1|v=INT:1')
+          ours   ('OP', 'operation|op=11|(ref_obj|NStraps|act=-,constant|sz=64|ct=9|dc=1|v=UINT:1)')
+        E | module_inst | work@top_earlgrey.u_pinmux.gen_wkup_detect[0].i_pinmux_wkup | RHS | MioStrapPos | rhsts>ats[0]R
+          golden ('FOLDED', 'constant|sz=64|ct=7|dc=1|v=INT:1')
+          ours   ('OP', 'operation|op=11|(ref_obj|NStraps|act=-,constant|sz=64|ct=9|dc=1|v=UINT:1)')
+        E | module_inst | work@top_earlgrey.u_pinmux.gen_wkup_detect[6].i_pinmux_wkup | RHS | MioStrapPos | rhsts>ats[0]R
+          golden ('FOLDED', 'constant|sz=64|ct=7|dc=1|v=INT:1')
+          ours   ('OP', 'operation|op=11|(ref_obj|NStraps|act=-,constant|sz=64|ct=9|dc=1|v=UINT:1)')
+        E | module_inst | work@top_earlgrey.u_pinmux.gen_wkup_detect[3].i_pinmux_wkup | RHS | MioStrapPos | rhsts>ats[0]R
+          golden ('FOLDED', 'constant|sz=64|ct=7|dc=1|v=INT:1')
+          ours   ('OP', 'operation|op=11|(ref_obj|NStraps|act=-,constant|sz=64|ct=9|dc=1|v=UINT:1)')
+        E | module_inst | work@top_earlgrey.u_pinmux.gen_wkup_detect[7].i_pinmux_wkup | RHS | MioStrapPos | rhsts>ats[0]R
+          golden ('FOLDED', 'constant|sz=64|ct=7|dc=1|v=INT:1')
+          ours   ('OP', 'operation|op=11|(ref_obj|NStraps|act=-,constant|sz=64|ct=9|dc=1|v=UINT:1)')
+        E | module_inst | work@top_earlgrey.u_pinmux.gen_wkup_detect[4].i_pinmux_wkup | RHS | MioStrapPos | rhsts>ats[0]R
+          golden ('FOLDED', 'constant|sz=64|ct=7|dc=1|v=INT:1')
+          ours   ('OP', 'operation|op=11|(ref_obj|NStraps|act=-,constant|sz=64|ct=9|dc=1|v=UINT:1)')
+        E | module_inst | work@top_earlgrey.u_pinmux.gen_wkup_detect[2].i_pinmux_wkup | RHS | MioStrapPos | rhsts>ats[0]R
+          golden ('FOLDED', 'constant|sz=64|ct=7|dc=1|v=INT:1')
+          ours   ('OP', 'operation|op=11|(ref_obj|NStraps|act=-,constant|sz=64|ct=9|dc=1|v=UINT:1)')
+   testflags__Earlgrey_0_1                  9
+        E | module_inst | work@top_earlgrey.u_pinmux.gen_wkup_detect[1].i_pinmux_wkup | RHS | MioStrapPos | rhsts>ats[0]R
+          golden ('FOLDED', 'constant|sz=64|ct=7|dc=1|v=INT:1')
+          ours   ('OP', 'operation|op=11|(ref_obj|NStraps|act=parameter[NStraps],constant|sz=64|ct=9|dc=1|v=UINT:1)')
+        E | module_inst | work@top_earlgrey.u_pinmux.gen_wkup_detect[5].i_pinmux_wkup | RHS | MioStrapPos | rhsts>ats[0]R
+          golden ('FOLDED', 'constant|sz=64|ct=7|dc=1|v=INT:1')
+          ours   ('OP', 'operation|op=11|(ref_obj|NStraps|act=parameter[NStraps],constant|sz=64|ct=9|dc=1|v=UINT:1)')
+        E | module_inst | work@top_earlgrey.u_pinmux | RHS | MioStrapPos | rhsts>ats[0]R
+          golden ('FOLDED', 'constant|sz=64|ct=7|dc=1|v=INT:1')
+          ours   ('OP', 'operation|op=11|(ref_obj|NStraps|act=parameter[NStraps],constant|sz=64|ct=9|dc=1|v=UINT:1)')
+        E | module_inst | work@top_earlgrey.u_pinmux.gen_wkup_detect[0].i_pinmux_wkup | RHS | MioStrapPos | rhsts>ats[0]R
+          golden ('FOLDED', 'constant|sz=64|ct=7|dc=1|v=INT:1')
+          ours   ('OP', 'operation|op=11|(ref_obj|NStraps|act=parameter[NStraps],constant|sz=64|ct=9|dc=1|v=UINT:1)')
+        E | module_inst | work@top_earlgrey.u_pinmux.gen_wkup_detect[6].i_pinmux_wkup | RHS | MioStrapPos | rhsts>ats[0]R
+          golden ('FOLDED', 'constant|sz=64|ct=7|dc=1|v=INT:1')
+          ours   ('OP', 'operation|op=11|(ref_obj|NStraps|act=parameter[NStraps],constant|sz=64|ct=9|dc=1|v=UINT:1)')
+        E | module_inst | work@top_earlgrey.u_pinmux.gen_wkup_detect[3].i_pinmux_wkup | RHS | MioStrapPos | rhsts>ats[0]R
+          golden ('FOLDED', 'constant|sz=64|ct=7|dc=1|v=INT:1')
+          ours   ('OP', 'operation|op=11|(ref_obj|NStraps|act=parameter[NStraps],constant|sz=64|ct=9|dc=1|v=UINT:1)')
+        E | module_inst | work@top_earlgrey.u_pinmux.gen_wkup_detect[7].i_pinmux_wkup | RHS | MioStrapPos | rhsts>ats[0]R
+          golden ('FOLDED', 'constant|sz=64|ct=7|dc=1|v=INT:1')
+          ours   ('OP', 'operation|op=11|(ref_obj|NStraps|act=parameter[NStraps],constant|sz=64|ct=9|dc=1|v=UINT:1)')
+        E | module_inst | work@top_earlgrey.u_pinmux.gen_wkup_detect[4].i_pinmux_wkup | RHS | MioStrapPos | rhsts>ats[0]R
+          golden ('FOLDED', 'constant|sz=64|ct=7|dc=1|v=INT:1')
+          ours   ('OP', 'operation|op=11|(ref_obj|NStraps|act=parameter[NStraps],constant|sz=64|ct=9|dc=1|v=UINT:1)')
+        E | module_inst | work@top_earlgrey.u_pinmux.gen_wkup_detect[2].i_pinmux_wkup | RHS | MioStrapPos | rhsts>ats[0]R
+          golden ('FOLDED', 'constant|sz=64|ct=7|dc=1|v=INT:1')
+          ours   ('OP', 'operation|op=11|(ref_obj|NStraps|act=parameter[NStraps],constant|sz=64|ct=9|dc=1|v=UINT:1)')
+TOTAL LAW CELLS 18 in 2 databases

@@ -1,0 +1,234 @@
+##### v1_concat102 plain
+array_typespec<ROOT(work@v1_concat102)|, line:6:22, endln:6:30|vpiRightRange               | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v1_concat102)|, line:6:22, endln:6:30|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=PN},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v1_concat102)|, line:7:22, endln:7:30|vpiRightRange               | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v1_concat102)|, line:7:22, endln:7:30|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=PN},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v1_concat102)|, line:8:24, endln:8:32|vpiRightRange               | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v1_concat102)|, line:8:24, endln:8:32|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=PN},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+SUMMARY {'TO-GOLDEN': 3, 'LEFT-WRONG': 3}
+##### v1_concat102 elab
+array_typespec<ROOT(work@v1_concat102)|, line:6:22, endln:6:30|vpiRightRange               | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v1_concat102)|, line:6:22, endln:6:30|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=PN,act{parameter:(work@v1_concat102.u_a.PN)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:
+array_typespec<ROOT(work@v1_concat102)|, line:7:22, endln:7:30|vpiRightRange               | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v1_concat102)|, line:7:22, endln:7:30|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=PN,act{parameter:(work@v1_concat102.u_a.PN)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:
+array_typespec<ROOT(work@v1_concat102)|, line:8:24, endln:8:32|vpiRightRange               | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v1_concat102)|, line:8:24, endln:8:32|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=PN,act{parameter:(work@v1_concat102.u_a.PN)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:
+SUMMARY {'TO-GOLDEN': 3, 'LEFT-WRONG': 3}
+##### v2_dims102 plain
+array_typespec<ROOT(work@v2_dims102)|, line:10:22, endln:10:29|vpiRightRange               | g=3 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v2_dims102)|, line:10:22, endln:10:29|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=A},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v2_dims102)|, line:10:29, endln:10:36|vpiLeftRange                | g=3 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=1,INT:1
+array_typespec<ROOT(work@v2_dims102)|, line:10:29, endln:10:36|vpiLeftRange                | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=B},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v2_dims102)|, line:6:20, endln:6:27|vpiRightRange                 | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v2_dims102)|, line:6:20, endln:6:27|vpiRightRange                 | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=A},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v2_dims102)|, line:6:27, endln:6:34|vpiRightRange                 | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=1,INT:1
+array_typespec<ROOT(work@v2_dims102)|, line:6:27, endln:6:34|vpiRightRange                 | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=B},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v2_dims102)|, line:7:20, endln:7:27|vpiRightRange                 | g=3 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v2_dims102)|, line:7:20, endln:7:27|vpiRightRange                 | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=A},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v2_dims102)|, line:7:27, endln:7:34|vpiRightRange                 | g=3 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=1,INT:1
+array_typespec<ROOT(work@v2_dims102)|, line:7:27, endln:7:34|vpiRightRange                 | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=B},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v2_dims102)|, line:7:34, endln:7:41|vpiRightRange                 | g=3 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v2_dims102)|, line:7:34, endln:7:41|vpiRightRange                 | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=A},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v2_dims102)|, line:8:20, endln:8:27|vpiLeftRange                  | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v2_dims102)|, line:8:20, endln:8:27|vpiLeftRange                  | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=A},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v2_dims102)|, line:9:20, endln:9:29|vpiLeftRange                  | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v2_dims102)|, line:9:20, endln:9:29|vpiLeftRange                  | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=A},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v2_dims102)|, line:9:20, endln:9:29|vpiRightRange                 | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=1,INT:1
+array_typespec<ROOT(work@v2_dims102)|, line:9:20, endln:9:29|vpiRightRange                 | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=B},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+SUMMARY {'TO-GOLDEN': 10, 'LEFT-WRONG': 10}
+##### v2_dims102 elab
+array_typespec<ROOT(work@v2_dims102)|, line:10:22, endln:10:29|vpiRightRange               | g=3 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v2_dims102)|, line:10:22, endln:10:29|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=A,act{parameter:(work@v2_dims102.u_a.A)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v2_dims102)|, line:10:29, endln:10:36|vpiLeftRange                | g=3 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=1,INT:1
+array_typespec<ROOT(work@v2_dims102)|, line:10:29, endln:10:36|vpiLeftRange                | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=B,act{parameter:(work@v2_dims102.u_a.B)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v2_dims102)|, line:6:20, endln:6:27|vpiRightRange                 | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v2_dims102)|, line:6:20, endln:6:27|vpiRightRange                 | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=A,act{parameter:(work@v2_dims102.u_a.A)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v2_dims102)|, line:6:27, endln:6:34|vpiRightRange                 | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=1,INT:1
+array_typespec<ROOT(work@v2_dims102)|, line:6:27, endln:6:34|vpiRightRange                 | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=B,act{parameter:(work@v2_dims102.u_a.B)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v2_dims102)|, line:7:20, endln:7:27|vpiRightRange                 | g=3 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v2_dims102)|, line:7:20, endln:7:27|vpiRightRange                 | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=A,act{parameter:(work@v2_dims102.u_a.A)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v2_dims102)|, line:7:27, endln:7:34|vpiRightRange                 | g=3 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=1,INT:1
+array_typespec<ROOT(work@v2_dims102)|, line:7:27, endln:7:34|vpiRightRange                 | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=B,act{parameter:(work@v2_dims102.u_a.B)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v2_dims102)|, line:7:34, endln:7:41|vpiRightRange                 | g=3 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v2_dims102)|, line:7:34, endln:7:41|vpiRightRange                 | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=A,act{parameter:(work@v2_dims102.u_a.A)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v2_dims102)|, line:8:20, endln:8:27|vpiLeftRange                  | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v2_dims102)|, line:8:20, endln:8:27|vpiLeftRange                  | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=A,act{parameter:(work@v2_dims102.u_a.A)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v2_dims102)|, line:9:20, endln:9:29|vpiLeftRange                  | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v2_dims102)|, line:9:20, endln:9:29|vpiLeftRange                  | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=A,act{parameter:(work@v2_dims102.u_a.A)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v2_dims102)|, line:9:20, endln:9:29|vpiRightRange                 | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=1,INT:1
+array_typespec<ROOT(work@v2_dims102)|, line:9:20, endln:9:29|vpiRightRange                 | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=B,act{parameter:(work@v2_dims102.u_a.B)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+SUMMARY {'TO-GOLDEN': 10, 'LEFT-WRONG': 10}
+##### v3_xpkg102 plain
+array_typespec<ROOT(work@v3_xpkg102)|, line:13:24, endln:13:34|vpiRightRange               | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v3_xpkg102)|, line:13:24, endln:13:34|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=LOCN},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v3_xpkg102)|, line:14:24, endln:14:34|vpiRightRange               | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v3_xpkg102)|, line:14:24, endln:14:34|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=LOCN},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+SUMMARY {'TO-GOLDEN': 2, 'LEFT-WRONG': 2}
+##### v3_xpkg102 elab
+array_typespec<ROOT(work@v3_xpkg102)|, line:13:24, endln:13:34|vpiRightRange               | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v3_xpkg102)|, line:13:24, endln:13:34|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=LOCN,act{parameter:(work@v3_xpkg102.u_a.LOCN)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UIN
+array_typespec<ROOT(work@v3_xpkg102)|, line:14:24, endln:14:34|vpiRightRange               | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v3_xpkg102)|, line:14:24, endln:14:34|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=LOCN,act{parameter:(work@v3_xpkg102.u_a.LOCN)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UIN
+SUMMARY {'TO-GOLDEN': 2, 'LEFT-WRONG': 2}
+##### v4_forms102 plain
+SUMMARY {}
+##### v4_forms102 elab
+SUMMARY {}
+##### v5_home102 plain
+array_typespec<ROOT(work@v5_home102)|, line:5:22, endln:5:30|vpiRightRange                 | g=18 p=5 q=11 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v5_home102)|, line:5:22, endln:5:30|vpiRightRange                 | g=0 p=6 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=PN},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+SUMMARY {'TO-GOLDEN': 1, 'LEFT-WRONG': 1}
+##### v5_home102 elab
+array_typespec<ROOT(work@v5_home102)|, line:5:22, endln:5:30|vpiRightRange                 | g=18 p=5 q=11 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v5_home102)|, line:5:22, endln:5:30|vpiRightRange                 | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=PN,act{constant:}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v5_home102)|, line:5:22, endln:5:30|vpiRightRange                 | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=PN,act{parameter:(work@v5_home102.u_a.PN)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v5_home102)|, line:5:22, endln:5:30|vpiRightRange                 | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=PN,act{parameter:(work@v5_home102.u_b.PN)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v5_home102)|, line:5:22, endln:5:30|vpiRightRange                 | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=PN,act{parameter:(work@v5_home102.u_c.PN)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v5_home102)|, line:5:22, endln:5:30|vpiRightRange                 | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=PN,act{parameter:(work@v5_home102.u_p4.PN)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1
+array_typespec<ROOT(work@v5_home102)|, line:5:22, endln:5:30|vpiRightRange                 | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=PN,act{parameter:(work@v5_home102.u_p5.PN)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1
+SUMMARY {'TO-GOLDEN': 1, 'LEFT-WRONG': 6}
+##### v6_neg102 plain
+SUMMARY {}
+##### v6_neg102 elab
+SUMMARY {}
+##### v7_kind102 plain
+array_typespec<ROOT(work@v7_kind102)|, line:11:33, endln:11:40|vpiRightRange               | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v7_kind102)|, line:11:33, endln:11:40|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=N},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v7_kind102)|, line:12:33, endln:12:40|vpiRightRange               | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v7_kind102)|, line:12:33, endln:12:40|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=N},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v7_kind102)|, line:13:33, endln:13:40|vpiRightRange               | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v7_kind102)|, line:13:33, endln:13:40|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=N},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v7_kind102)|, line:7:33, endln:7:40|vpiRightRange                 | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v7_kind102)|, line:7:33, endln:7:40|vpiRightRange                 | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=N},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v7_kind102)|, line:8:33, endln:8:40|vpiRightRange                 | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v7_kind102)|, line:8:33, endln:8:40|vpiRightRange                 | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=N},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+SUMMARY {'TO-GOLDEN': 5, 'LEFT-WRONG': 5}
+##### v7_kind102 elab
+array_typespec<ROOT(work@v7_kind102)|, line:11:33, endln:11:40|vpiRightRange               | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v7_kind102)|, line:11:33, endln:11:40|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=N,act{parameter:(work@v7_kind102.u_a.N)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v7_kind102)|, line:12:33, endln:12:40|vpiRightRange               | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v7_kind102)|, line:12:33, endln:12:40|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=N,act{parameter:(work@v7_kind102.u_a.N)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v7_kind102)|, line:13:33, endln:13:40|vpiRightRange               | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v7_kind102)|, line:13:33, endln:13:40|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=N,act{parameter:(work@v7_kind102.u_a.N)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v7_kind102)|, line:7:33, endln:7:40|vpiRightRange                 | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v7_kind102)|, line:7:33, endln:7:40|vpiRightRange                 | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=N,act{parameter:(work@v7_kind102.u_a.N)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v7_kind102)|, line:8:33, endln:8:40|vpiRightRange                 | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v7_kind102)|, line:8:33, endln:8:40|vpiRightRange                 | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=N,act{parameter:(work@v7_kind102.u_a.N)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+SUMMARY {'TO-GOLDEN': 5, 'LEFT-WRONG': 5}
+##### v8_mix102 plain
+array_typespec<ROOT(work@v8_mix102)|, line:13:22, endln:13:30|vpiRightRange                | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v8_mix102)|, line:13:22, endln:13:30|vpiRightRange                | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=BN},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v8_mix102)|, line:7:22, endln:7:30|vpiRightRange                  | g=15 p=2 q=5 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v8_mix102)|, line:7:22, endln:7:30|vpiRightRange                  | g=0 p=3 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=SN},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+SUMMARY {'TO-GOLDEN': 2, 'LEFT-WRONG': 2}
+##### v8_mix102 elab
+array_typespec<ROOT(work@v8_mix102)|, line:13:22, endln:13:30|vpiRightRange                | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v8_mix102)|, line:13:22, endln:13:30|vpiRightRange                | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=BN,act{parameter:(work@v8_mix102.u_s.BN)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v8_mix102)|, line:7:22, endln:7:30|vpiRightRange                  | g=15 p=2 q=5 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v8_mix102)|, line:7:22, endln:7:30|vpiRightRange                  | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=SN,act{constant:}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v8_mix102)|, line:7:22, endln:7:30|vpiRightRange                  | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=SN,act{parameter:(work@v8_mix102.u_m.SN)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@v8_mix102)|, line:7:22, endln:7:30|vpiRightRange                  | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=SN,act{parameter:(work@v8_mix102.u_s.SN)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+SUMMARY {'TO-GOLDEN': 2, 'LEFT-WRONG': 4}
+##### v9_scope102 plain
+array_typespec<ROOT(work@v9_scope102)|, line:10:22, endln:10:30|vpiRightRange              | g=14 p=6 q=12 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v9_scope102)|, line:10:22, endln:10:30|vpiRightRange              | g=0 p=6 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=PN},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+SUMMARY {'TO-GOLDEN': 1, 'LEFT-WRONG': 1}
+##### v9_scope102 elab
+array_typespec<ROOT(work@v9_scope102)|, line:10:22, endln:10:30|vpiRightRange              | g=14 p=6 q=12 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@v9_scope102)|, line:10:22, endln:10:30|vpiRightRange              | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=PN,act{parameter:(work@v9_scope102.g_loop[0].u_g.PN)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompil
+array_typespec<ROOT(work@v9_scope102)|, line:10:22, endln:10:30|vpiRightRange              | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=PN,act{parameter:(work@v9_scope102.g_loop[1].u_g.PN)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompil
+array_typespec<ROOT(work@v9_scope102)|, line:10:22, endln:10:30|vpiRightRange              | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=PN,act{parameter:(work@v9_scope102.g_loop[2].u_g.PN)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompil
+array_typespec<ROOT(work@v9_scope102)|, line:10:22, endln:10:30|vpiRightRange              | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=PN,act{parameter:(work@v9_scope102.u_arr[0].PN)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,U
+array_typespec<ROOT(work@v9_scope102)|, line:10:22, endln:10:30|vpiRightRange              | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=PN,act{parameter:(work@v9_scope102.u_arr[1].PN)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,U
+array_typespec<ROOT(work@v9_scope102)|, line:10:22, endln:10:30|vpiRightRange              | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=PN,act{parameter:(work@v9_scope102.u_arr[2].PN)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,U
+SUMMARY {'TO-GOLDEN': 1, 'LEFT-WRONG': 6}
+##### va_mixdim102 plain
+array_typespec<ROOT(work@va_mixdim102)|, line:6:25, endln:6:32|vpiRightRange               | g=3 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@va_mixdim102)|, line:6:25, endln:6:32|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=N},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@va_mixdim102)|, line:7:22, endln:7:29|vpiRightRange               | g=3 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@va_mixdim102)|, line:7:22, endln:7:29|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=N},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@va_mixdim102)|, line:8:22, endln:8:29|vpiRightRange               | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@va_mixdim102)|, line:8:22, endln:8:29|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=N},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+SUMMARY {'TO-GOLDEN': 3, 'LEFT-WRONG': 3}
+##### va_mixdim102 elab
+array_typespec<ROOT(work@va_mixdim102)|, line:6:25, endln:6:32|vpiRightRange               | g=3 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@va_mixdim102)|, line:6:25, endln:6:32|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=N},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@va_mixdim102)|, line:7:22, endln:7:29|vpiRightRange               | g=3 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@va_mixdim102)|, line:7:22, endln:7:29|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=N},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@va_mixdim102)|, line:8:22, endln:8:29|vpiRightRange               | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@va_mixdim102)|, line:8:22, endln:8:29|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=N},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+SUMMARY {'TO-GOLDEN': 3, 'LEFT-WRONG': 3}
+##### g1_form102 plain
+array_typespec<ROOT(work@g1_form102)|, line:16:20, endln:16:28|vpiRightRange               | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=1,INT:1
+array_typespec<ROOT(work@g1_form102)|, line:16:20, endln:16:28|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=NA},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@g1_form102)|, line:23:20, endln:23:28|vpiLeftRange                | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=1,INT:1
+array_typespec<ROOT(work@g1_form102)|, line:23:20, endln:23:28|vpiLeftRange                | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=NA},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@g1_form102)|, line:24:20, endln:24:31|vpiLeftRange                | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=3,INT:3
+array_typespec<ROOT(work@g1_form102)|, line:24:20, endln:24:31|vpiLeftRange                | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=NB},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@g1_form102)|, line:24:20, endln:24:31|vpiRightRange               | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@g1_form102)|, line:24:20, endln:24:31|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=NB},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=2,UINT:2}
+SUMMARY {'TO-GOLDEN': 4, 'LEFT-WRONG': 4}
+##### g1_form102 elab
+array_typespec<ROOT(work@g1_form102)|, line:16:20, endln:16:28|vpiRightRange               | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=1,INT:1
+array_typespec<ROOT(work@g1_form102)|, line:16:20, endln:16:28|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=NA,act{parameter:(work@g1_form102.u.NA)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@g1_form102)|, line:23:20, endln:23:28|vpiLeftRange                | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=1,INT:1
+array_typespec<ROOT(work@g1_form102)|, line:23:20, endln:23:28|vpiLeftRange                | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=NA,act{parameter:(work@g1_form102.u.NA)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@g1_form102)|, line:24:20, endln:24:31|vpiLeftRange                | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=3,INT:3
+array_typespec<ROOT(work@g1_form102)|, line:24:20, endln:24:31|vpiLeftRange                | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=NB,act{parameter:(work@g1_form102.u.NB)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@g1_form102)|, line:24:20, endln:24:31|vpiRightRange               | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@g1_form102)|, line:24:20, endln:24:31|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=NB,act{parameter:(work@g1_form102.u.NB)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=2,UINT:2}
+SUMMARY {'TO-GOLDEN': 4, 'LEFT-WRONG': 4}
+##### g2_home102 plain
+array_typespec<ROOT(work@g2_home102)|, line:11:22, endln:11:30|vpiRightRange               | g=8 p=3 q=6 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=1,INT:1
+array_typespec<ROOT(work@g2_home102)|, line:11:22, endln:11:30|vpiRightRange               | g=0 p=3 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=PN},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+SUMMARY {'TO-GOLDEN': 1, 'LEFT-WRONG': 1}
+##### g2_home102 elab
+array_typespec<ROOT(work@g2_home102)|, line:11:22, endln:11:30|vpiRightRange               | g=8 p=3 q=6 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=1,INT:1
+array_typespec<ROOT(work@g2_home102)|, line:11:22, endln:11:30|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=PN,act{parameter:(work@g2_home102.u0.PN)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@g2_home102)|, line:11:22, endln:11:30|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=PN,act{parameter:(work@g2_home102.u1.PN)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@g2_home102)|, line:11:22, endln:11:30|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=PN,act{parameter:(work@g2_home102.u2.PN)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+SUMMARY {'TO-GOLDEN': 1, 'LEFT-WRONG': 3}
+##### g3_kind102 plain
+array_typespec<ROOT(work@g3_kind102)|, line:10:30, endln:10:38|vpiRightRange               | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=1,INT:1
+array_typespec<ROOT(work@g3_kind102)|, line:10:30, endln:10:38|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=KN},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@g3_kind102)|, line:11:30, endln:11:38|vpiRightRange               | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=1,INT:1
+array_typespec<ROOT(work@g3_kind102)|, line:11:30, endln:11:38|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=KN},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@g3_kind102)|, line:15:30, endln:15:38|vpiRightRange               | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=1,INT:1
+array_typespec<ROOT(work@g3_kind102)|, line:15:30, endln:15:38|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=KN},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@g3_kind102)|, line:15:38, endln:15:46|vpiRightRange               | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=1,INT:1
+array_typespec<ROOT(work@g3_kind102)|, line:15:38, endln:15:46|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=KN},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@g3_kind102)|, line:9:30, endln:9:38|vpiRightRange                 | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=1,INT:1
+array_typespec<ROOT(work@g3_kind102)|, line:9:30, endln:9:38|vpiRightRange                 | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=KN},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+SUMMARY {'TO-GOLDEN': 5, 'LEFT-WRONG': 5}
+##### g3_kind102 elab
+array_typespec<ROOT(work@g3_kind102)|, line:10:30, endln:10:38|vpiRightRange               | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=1,INT:1
+array_typespec<ROOT(work@g3_kind102)|, line:10:30, endln:10:38|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=KN,act{parameter:(work@g3_kind102.u.KN)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@g3_kind102)|, line:11:30, endln:11:38|vpiRightRange               | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=1,INT:1
+array_typespec<ROOT(work@g3_kind102)|, line:11:30, endln:11:38|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=KN,act{parameter:(work@g3_kind102.u.KN)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@g3_kind102)|, line:15:30, endln:15:38|vpiRightRange               | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=1,INT:1
+array_typespec<ROOT(work@g3_kind102)|, line:15:30, endln:15:38|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=KN,act{parameter:(work@g3_kind102.u.KN)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@g3_kind102)|, line:15:38, endln:15:46|vpiRightRange               | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=1,INT:1
+array_typespec<ROOT(work@g3_kind102)|, line:15:38, endln:15:46|vpiRightRange               | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=KN,act{parameter:(work@g3_kind102.u.KN)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+array_typespec<ROOT(work@g3_kind102)|, line:9:30, endln:9:38|vpiRightRange                 | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=1,INT:1
+array_typespec<ROOT(work@g3_kind102)|, line:9:30, endln:9:38|vpiRightRange                 | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=KN,act{parameter:(work@g3_kind102.u.KN)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+SUMMARY {'TO-GOLDEN': 5, 'LEFT-WRONG': 5}
+##### g4_neg102 plain
+SUMMARY {}
+##### g4_neg102 elab
+SUMMARY {}
+##### g5_class102 plain
+array_typespec<ROOT(work@g5_class102)|, line:6:22, endln:6:30|vpiRightRange                | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=1,INT:1
+array_typespec<ROOT(work@g5_class102)|, line:6:22, endln:6:30|vpiRightRange                | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=CN},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+SUMMARY {'TO-GOLDEN': 1, 'LEFT-WRONG': 1}
+##### g5_class102 elab
+array_typespec<ROOT(work@g5_class102)|, line:6:22, endln:6:30|vpiRightRange                | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=1,INT:1
+array_typespec<ROOT(work@g5_class102)|, line:6:22, endln:6:30|vpiRightRange                | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=CN,act{parameter:(work@g5_class102.u.CN)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+SUMMARY {'TO-GOLDEN': 1, 'LEFT-WRONG': 1}
+##### g6_mix102 plain
+array_typespec<ROOT(work@g6_mix102)|, line:14:22, endln:14:30|vpiRightRange                | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@g6_mix102)|, line:14:22, endln:14:30|vpiRightRange                | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=SN},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+SUMMARY {'TO-GOLDEN': 1, 'LEFT-WRONG': 1}
+##### g6_mix102 elab
+array_typespec<ROOT(work@g6_mix102)|, line:14:22, endln:14:30|vpiRightRange                | g=4 p=1 q=2 | TO-GOLDEN        | constant,vpiSize=64,vpiConstType=7,vpiDecompile=2,INT:2
+array_typespec<ROOT(work@g6_mix102)|, line:14:22, endln:14:30|vpiRightRange                | g=0 p=1 q=0 | LEFT-WRONG       | operation,vpiOpType=11,opnd{ref_obj,vpiName=SN,act{parameter:(work@g6_mix102.u.SN)}},opnd{constant,vpiSize=64,vpiConstType=9,vpiDecompile=1,UINT:1}
+SUMMARY {'TO-GOLDEN': 1, 'LEFT-WRONG': 1}

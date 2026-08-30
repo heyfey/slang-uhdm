@@ -1,0 +1,7 @@
+DATABASES 1358
+WHOLE CENSUS  BOTH-SAME 932  FLIP 0  ONLY-GOLDEN 0  ONLY-OURS 0
+-- rhsts POPULATION by (golden form, ours form):
+   golden FOLDED  ours FOLDED   50
+   golden OP      ours OP       22
+-- THE LAW'S CELLS (golden FOLDED / ours OP), by database:
+TOTAL LAW CELLS 0 in 0 databases

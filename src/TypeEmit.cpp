@@ -16926,7 +16926,22 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                     };
                     if (es->kind == syntax::SyntaxKind::IdentifierName)
                         return mkDimRef9(*es, r);
-                    if (es->kind == syntax::SyntaxKind::SubtractExpression) {
+                    // § elabRhsArrayTsSubBoundFolds102 — ...but on the
+                    // array_typespec that the param_assign RHS OPERATION
+                    // carries in an ELABORATED instance, a `<param> - <lit>`
+                    // RANGE bound is FOLDED by Surelog, in every position and
+                    // every dimension.  Falling through hands the bound to the
+                    // shared fold at the end of this lambda, which already
+                    // writes exactly golden's shape: INT at 64 bits,
+                    // vpiConstType 7, anchored at the LEFT OPERAND's span.
+                    // Measured on pinmux_pkg.sv:20 `parameter int MioStrapPos
+                    // [0:NStraps-1]` (nine elaborated instances) and on the
+                    // g1/g2/g3/g5 arms; the SIZE spelling `[N]` on this very
+                    // object is NOT this rule and never reaches here (it
+                    // `continue`s above), and a BARE identifier bound is a
+                    // different constant shape and is returned above.
+                    if (es->kind == syntax::SyntaxKind::SubtractExpression &&
+                        !rhsOpArrayTsSubFold102) {
                         auto& bs9 = es->as<syntax::BinaryExpressionSyntax>();
                         if (bs9.left->kind ==
                                 syntax::SyntaxKind::IdentifierName &&

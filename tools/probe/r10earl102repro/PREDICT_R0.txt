@@ -1,0 +1,187 @@
+r10earl102 -- THE MOVER PREDICTION and THE NEXT HEAD (R0).
+
+BASE 091da09, branch auto5h.  The official ~/git-repos/UHDM/build/bin/uhdm-cmp
+is the sole acceptance judge; everything in this directory is MEASUREMENT ONLY.
+
+========================================================================
+PART 1 -- THE MOVER PREDICTION (made from PRISTINE databases only)
+========================================================================
+The law's population is a SHAPE, and ct102cen/censcore102.py counted every cell
+of it over BOTH corpora on the PRISTINE binary before a line of the law was
+written:
+
+  the array_typespec that an unpacked-array PARAMETER's param_assign RHS
+  OPERATION carries in an ELABORATED module instance, holding a RANGE-form
+  unpacked-dimension bound written `<parameter> - <literal>`, where the
+  PARAMETER ITSELF is declared in a PACKAGE.  Field path:
+    design > TopModules > ... > module_inst > Param_assigns > param_assign
+           > Rhs (operation) > Typespec (ref_typespec) > array_typespec
+           > Ranges[i] > Left_expr / Right_expr
+
+  uhdm2rtlil   ZERO cells in 1358 databases.  The corpus has NO cell of this
+               shape: nothing to fix, nothing to break.  This is also the
+               CALIBRATION of the instrument -- the whole census over those
+               1358 databases reads BOTH-SAME 932, FLIP 0, ONLY-GOLDEN 0,
+               ONLY-OURS 0.  The 72 `rhsts` bound rows it DOES hold (50 folded
+               on both sides, 22 op11 on both sides) are the MUST-NOT-MOVE half.
+
+  surelog      EIGHTEEN cells in 956 databases, ALL of them Earlgrey_0_1, NINE
+               PER MODE, and ALL of them ONE declaration -- pinmux_pkg.sv:20
+               `parameter int MioStrapPos [0:NStraps-1] = '{1, 0};` -- in its
+               nine elaborated instances:
+
+                 work@top_earlgrey.u_pinmux
+                 work@top_earlgrey.u_pinmux.gen_wkup_detect[0].i_pinmux_wkup
+                 ... [1] ... [2] ... [3] ... [4] ... [5] ... [6] ... [7]
+
+               golden  constant  INT:1 / vpiSize 64 / vpiConstType 7
+               ours    operation op11(ref_obj NStraps, UINT:1 / 64 / ct 9)
+
+               Population counters, whole surelog corpus, `rhsts` bound rows:
+                 golden FOLDED / ours FOLDED  236
+                 golden OP     / ours OP      206   <- MUST NOT MOVE
+                 golden FOLDED / ours OP       18   <- THE LAW
+               The parameter's OWN Ranges and its OWN array_typespec were
+               ALREADY exactly golden on all nine instances and in both module
+               def views and both package views -- which is why the head sat on
+               the Rhs operation's copy and nowhere else.
+
+PREDICTION: EXACTLY TWO DATABASES MOVE -- Earlgrey_0_1 default and testflags.
+uhdm2rtlil: ZERO movers.
+
+WHAT ACTUALLY MOVED (byteverify SELFCHECK=1, patched vs this pass's OWN
+pristine sweep; both binaries frozen chmod 555 at immutable paths; every
+cmds.txt audited BY BINARY PATH, 0 of 3035 name the main-tree binary):
+
+  uhdm2rtlil  MOVERS 0 / 1358   <- as predicted   (SELFCHECK 1357/1358 flagged,
+                                                   PATH_SETS_IDENTICAL)
+  surelog     MOVERS 3 /  956   <- the two predicted Earlgrey databases plus
+      ./default/Earlgrey_0_1       Scoreboard/default, the KNOWN svunit_pkg
+      ./testflags/Earlgrey_0_1     vpiTaskFunc order coin: its two
+      ./default/Scoreboard         workdir-normalised dumps sort to 0 DIFFERING
+                                   LINES (94 unsorted).
+                                (SELFCHECK 955/956 flagged, PATH_SETS_IDENTICAL)
+
+THE CENSUS re-scored over the SAME fixed universe, golden side ASSERTED
+byte-unchanged (censcore102.py prints GOLDEN-SIDE-IDENTICAL first):
+
+   surelog      BOTH-SAME 4226 -> 4244   FLIP 18 -> 0
+                ONLY-GOLDEN 16 -> 16     ONLY-OURS 18 -> 18
+                TO-GOLDEN 18  AWAY-GOLDEN 0  STILL-WRONG 0
+                MOVED-NO-GOLDEN 0  ADDED 0  REMOVED 0
+   uhdm2rtlil   BOTH-SAME 932 -> 932     FLIP 0 -> 0
+                TO-GOLDEN 0   AWAY-GOLDEN 0  STILL-WRONG 0
+                MOVED-NO-GOLDEN 0  ADDED 0  REMOVED 0
+
+  The whole measured population of unpacked-array-parameter dimension bounds is
+  now EXACTLY golden on both corpora.  One cell quoted verbatim:
+
+    E | module_inst | work@top_earlgrey.u_pinmux | RHS | MioStrapPos | rhsts>ats[0]R
+        golden  constant|sz=64|ct=7|dc=1|v=INT:1
+        pris    operation|op=11|(ref_obj|NStraps|act=parameter[NStraps],
+                                 constant|sz=64|ct=9|dc=1|v=UINT:1)
+        patc    constant|sz=64|ct=7|dc=1|v=INT:1
+
+  The whole-dump attribution agrees to the line: 189 changed dump lines in
+  default and 207 in testflags, EVERY one inside one of the nine cells' own
+  subtrees (the testflags surplus is the removed ref_obj's `|vpiActual:` line to
+  the NStraps parameter -- exactly the pristine 58-vs-62 split).
+
+A REFUTED READING, recorded as refuted.  The first law written was
+"the Rhs operation's array_typespec ALWAYS folds its dimension bounds".  It was
+built, frozen and measured: TO-GOLDEN 3, AWAY-GOLDEN 9 on g2_home102.  Golden
+keeps op11 there for a MODULE localparam (LARR), a MODULE parameter (MARR), an
+OVERRIDABLE module parameter (OVARR) and an INTERFACE parameter (IARR), in all
+three instances.  g6_mix102 then separated the two survivors and refuted the
+second one too: a MODULE's own array sized by an IMPORTED PACKAGE parameter
+(MIX_PKGSIZE / MIXP_PKGSIZE) is NOT folded by golden either, so the
+discriminator is the ARRAY PARAMETER's own home, not the sizing parameter's.
+
+========================================================================
+PART 2 -- R0: THE NEXT HEAD, AND THE RESIDUES
+========================================================================
+BEFORE (this pass's own pristine build 2eaa7a60ddb4), rowheads.sh scale:
+  Earlgrey_0_1 default    58, 1 head  |  testflags   62, 1 head  (ONE object)
+AFTER (6842c35d388c):
+  Earlgrey_0_1 default    34, 1 head  |  testflags   34, 1 head  (ONE object,
+  and the two modes' head logs are now BYTE-IDENTICAL)
+
+R0 -- A FOLDED REPLICATION CONSTANT'S TYPESPEC IS AN int_typespec IN GOLDEN AND
+     A RANGED logic_typespec IN OURS.  ONE object serves BOTH modes.
+    pinmux.sv:53-54
+      localparam logic [pinmux_reg_pkg::NMioPeriphOut-1:0] MioPeriphHasSleepMode
+                       = {pinmux_reg_pkg::NMioPeriphOut{1'b1}};
+      (pinmux_reg_pkg.sv:11  parameter int NMioPeriphOut = 32;)
+
+      LHS (golden)  int_typespec   (no location)   |UINT:1
+      RHS (ours)    logic_typespec (no location)
+                      vpiRange -> range
+                        vpiLeftRange  constant UINT:31
+                        vpiRightRange constant UINT:0
+
+    OWNER, decoded with own102's ref_typespec scan (OWNER.r10earl102.txt), ONE
+    holder on each side and the SAME one:
+      module_inst work@top_earlgrey.u_pinmux
+        > Param_assigns > param_assign 53:56-54:59
+          > Rhs constant 54:22-54:59        (the folded {32{1'b1}} replication)
+            > Typespec ref_typespec {work@top_earlgrey.u_pinmux}
+              > THE HEAD
+    So the head is the TYPESPEC A FOLDED REPLICATION CONSTANT CARRIES, not the
+    constant and not the localparam's declared type.  `int_typespec::Compare`
+    reads Cast_to_expr, VpiSigned and Ranges -- but the two sides are different
+    KINDS, so the failure is at typespec's basetype (VpiType) and the whole
+    object is the head.  Golden's int_typespec carries a VpiValue of `UINT:1`
+    (int_typespec HAS a VpiValue field) and no range at all; ours is the
+    declared 32-bit vector type.
+    NOTE for whoever takes it: census the corpus for param_assign Rhs CONSTANTS
+    whose Typespec is a ranged logic_typespec on our side, split by what the
+    initializer was (a replication, a concatenation, a pattern, a plain
+    expression) and by the declared type, BEFORE writing anything -- the
+    constant-typespec precedents in this tree are per-context
+    (uvm159's r10uvm159repro, uvm154's field-order pass, the
+    § enumSubstIntConst30 family).
+
+RANKED RESIDUES this pass MEASURED and deliberately did not take
+----------------------------------------------------------------
+R1  A MODULE's or INTERFACE's OWN unpacked-array parameter's `[0:N-1]` bound is
+    FOLDED BY US and SYMBOLIC IN GOLDEN, on the parameter's own Ranges AND its
+    own array_typespec, in BOTH views -- the exact MIRROR of this pass's law.
+    g2_home102 LARR / MARR / OVARR / IARR (26 flips per view) and g6_mix102
+    MIX_PKGSIZE / MIXP_PKGSIZE / MIX_MODSIZE (14 flips per view).  Golden
+    substitutes a PACKAGE sizing parameter's value there
+    (op11(UINT:3 @32, UINT:1)) and holds a bound ref_obj for a module one.
+    CORPUS-NULL: zero such cells in either corpus (the corpora's module-owned
+    unpacked-array parameters all size by a literal), which is why it is not
+    this pass's head.  § modUnpackedDimBareRef covers only its BARE-identifier
+    spelling today.  Its own law, its own census.
+R2  A PACKAGE DEF listing folds bounds golden keeps in their ORIGINAL SYNTAX.
+    g1_form102's PD rows: golden holds ref_obj / op24 / sys_func_call /
+    op11(sys_func_call,1) / op11(ref,ref) / bit_select for `[0:NA]`,
+    `[0:NA+1]`, `[0:$clog2(NB)]`, `[0:$bits(w_t)-1]`, `[0:NB-NA]` and
+    `[0:PARR[0]]`; we fold every one.  § PackageEval covers only the
+    `<ident>-<literal>` and bare-`<ident>` spellings.  16 flips per view,
+    0 corpus cells.  Untouched here (this pass's guard never fires in a
+    package view).
+R3  THE ELABORATED FOLD ENCODING for the non-subtract forms.  g1_form102 E/PE:
+    golden writes UINT:<v> at the SIZING PARAMETER's own width for a bare
+    reference (sz 32, ct 9) and UINT at 64 for `+`, `$clog2` and a select,
+    where we write INT:<v> / 64 / ct 7 throughout.  24 flips per view,
+    0 corpus cells.  THIS IS WHY the law is restricted to SubtractExpression:
+    folding the bare-`N` arm too would have moved a cell from one wrong shape
+    to another (MOVED-WRONG), which the arms measured before a line was
+    written.
+R4  THE CENSUS'S TWO ONE-SIDED SETS, byte-unchanged by this pass.
+    ONLY-GOLDEN 16 = MiniAmiq's svaunit_vpi_interface associative / unsized
+    array_net dims (STRING:associative, STRING:unsized) that we do not emit;
+    ONLY-OURS 18 = the AES_PERMIT / SBOX_FWD / SBOX_INV rows of an EMPTY-NAMED
+    elaborated module_inst in our testflags Earlgrey -- a parenting/naming
+    residue of another family (the census keys on the owner's fullname, so an
+    empty one splits the row).
+R5  g4_neg102's TWO elab-view flips: golden binds the DEF-view `DAM` bound
+    ref_obj's Actual_group to the IFN parameter; we leave it unbound.  Present
+    IDENTICALLY on both binaries, -elabuhdm view only, 0 corpus cells (the
+    param_array_wildcard row is CMP_EQUAL and stays so).  Its own law.
+R6  THE PRE-EXISTING PROBE / BOUNDARY SEGFAULTS.  Recorded by earl82 R6 /
+    earl83 R6 / ... / earl100 R5 / earl101 R5; byteverify proves none of them
+    is a mover.  This pass's own rc symmetry check is in
+    BOUNDARY_WIDE.rc_histogram and BOUNDARY_WIDE.rc_by_side.

@@ -13180,8 +13180,34 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             bool savedIpc96 = importedParamElemClone16;
                             importedParamElemClone16 =
                                 unpackedArrayTs9 || (isImported && !inPackage);
+                            // § elabRhsArrayTsSubBoundFolds102 — THE ONE CALL
+                            // SITE.  This array_typespec is the RHS OPERATION's
+                            // own copy of the parameter's unpacked-array
+                            // typespec, and its `<param> - <lit>` RANGE bound
+                            // folds exactly when the PARAMETER ITSELF is
+                            // declared in a PACKAGE — the materialized import
+                            // copy is a clone of the ELABORATED package's
+                            // objects, which Surelog compiled with Reduce::Yes
+                            // (the § PackageEval / DefaultPatternInt split).  A
+                            // MODULE's or INTERFACE's own parameter is cloned
+                            // out of a def view compiled with Reduce::No and
+                            // keeps the op11 — and it keeps it EVEN WHEN THE
+                            // SIZING IDENTIFIER IS ITSELF A PACKAGE PARAMETER
+                            // (g6_mix102's MIX_PKGSIZE / MIXP_PKGSIZE, which
+                            // refuted the sizing-parameter reading: golden
+                            // holds `op11(UINT:3@32, UINT:1)` there).  A
+                            // PACKAGE's own view never builds this object at
+                            // all (measured: no RHS row in either package
+                            // view), and the guard says so.
+                            bool pkgOwnedArr102 =
+                                !inPackage && ps.getParentScope() &&
+                                ps.getParentScope()->asSymbol().kind ==
+                                    SymbolKind::Package;
+                            bool savedRhsFold102 = rhsOpArrayTsSubFold102;
+                            rhsOpArrayTsSubFold102 = pkgOwnedArr102;
                             rt->Actual_typespec(makeUnpackedArrayParamTs(
                                 ps, tsPrefix, rt, nullptr, true, tsPrefix));
+                            rhsOpArrayTsSubFold102 = savedRhsFold102;
                             importedParamElemClone16 = savedIpc96;
                         }
                         else

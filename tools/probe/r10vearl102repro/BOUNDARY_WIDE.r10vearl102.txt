@@ -1,0 +1,36 @@
+PROCESSED=4627 LISTED=4627
+DIFF 22
+NOOUT 372
+SAME 8860
+-- DIFFERING:
+DIFF elab r10earl102repro/g1_form102.sv
+DIFF elab r10earl102repro/g2_home102.sv
+DIFF elab r10earl102repro/g3_kind102.sv
+DIFF elab r10earl102repro/g5_class102.sv
+DIFF elab r10earl102repro/g6_mix102.sv
+DIFF elab vverify102arms/v1_concat102.sv
+DIFF elab vverify102arms/v2_dims102.sv
+DIFF elab vverify102arms/v3_xpkg102.sv
+DIFF elab vverify102arms/v5_home102.sv
+DIFF elab vverify102arms/v7_kind102.sv
+DIFF elab vverify102arms/v8_mix102.sv
+DIFF plain r10earl102repro/g1_form102.sv
+DIFF plain r10earl102repro/g2_home102.sv
+DIFF plain r10earl102repro/g3_kind102.sv
+DIFF plain r10earl102repro/g5_class102.sv
+DIFF plain r10earl102repro/g6_mix102.sv
+DIFF plain vverify102arms/v1_concat102.sv
+DIFF plain vverify102arms/v2_dims102.sv
+DIFF plain vverify102arms/v3_xpkg102.sv
+DIFF plain vverify102arms/v5_home102.sv
+DIFF plain vverify102arms/v7_kind102.sv
+DIFF plain vverify102arms/v8_mix102.sv
+-- rc by side:
+A rc=0 8509
+A rc=139 14
+A rc=3 358
+A rc=4 373
+B rc=0 8509
+B rc=139 14
+B rc=3 358
+B rc=4 373

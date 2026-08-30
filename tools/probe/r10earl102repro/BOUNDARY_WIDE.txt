@@ -1,0 +1,36 @@
+r10earl102 WIDE BOUNDARY -- 4619 sources under a COPY of tools/probe (this pass's six arms included), both views, both frozen binaries, workdir-normalised uhdm-dump byte-compare.
+FENCED= (EMPTY -- the boundary list was filtered against the four brief-fenced test names before a single child ran, and NONE of the 4619 probe sources matched, so none was dispatched and none is spelled here)
+
+PROCESSED=4619 identical=8856 DIFFERING=10 no_output=372
+
+PROCESSED == LISTED == 4619.
+
+DIFFERING=10 and every one is THIS PASS'S OWN ARM:
+plain g1_form102.sv
+elab g1_form102.sv
+plain g2_home102.sv
+elab g2_home102.sv
+plain g3_kind102.sv
+elab g3_kind102.sv
+plain g5_class102.sv
+elab g5_class102.sv
+plain g6_mix102.sv
+elab g6_mix102.sv
+
+g4_neg102 -- the MUST-NOT-MOVE arm (param_array_wildcard's shape, a bare-ref bound, the SIZE spelling, array vars and nets) -- is NOT in that list, in either view.
+No earlier-pass arm moves at all.
+
+rc histogram, and the same counts split BY SIDE (symmetric side for side):
+rc=0 16986
+rc=139 28
+rc=3 716
+rc=4 746
+
+   8493 A rc=0
+     14 A rc=139
+    358 A rc=3
+    373 A rc=4
+   8493 B rc=0
+     14 B rc=139
+    358 B rc=3
+    373 B rc=4
