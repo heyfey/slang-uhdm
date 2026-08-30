@@ -1,0 +1,29 @@
+LHS:
+decompile:
+chandle_var: (uvm_pkg::uvm_component_name_check_visitor::visit::compiled_regex), id:258273, line:257:18, endln:257:32
+|vpiParent:
+\_begin: (uvm_pkg::uvm_component_name_check_visitor::visit), id:258271, line:259:3, endln:260:58
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_component_name_check_visitor::visit::compiled_regex), id:258274
+  |vpiParent:
+  \_chandle_var: (uvm_pkg::uvm_component_name_check_visitor::visit::compiled_regex), id:258273, line:257:18, endln:257:32
+  |vpiFullName:uvm_pkg::uvm_component_name_check_visitor::visit::compiled_regex
+  |vpiActual:
+  \_chandle_typespec: , id:258272, line:257:10, endln:257:17
+|vpiName:compiled_regex
+|vpiFullName:uvm_pkg::uvm_component_name_check_visitor::visit::compiled_regex
+
+decompile:
+chandle_var: (uvm_pkg::uvm_component_name_check_visitor::visit::compiled_regex), id:258273, line:257:18, endln:257:32
+|vpiParent:
+\_begin: (uvm_pkg::uvm_component_name_check_visitor::visit), id:258271, line:259:3, endln:260:58
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_component_name_check_visitor::visit::compiled_regex), id:258274
+  |vpiParent:
+  \_chandle_var: (uvm_pkg::uvm_component_name_check_visitor::visit::compiled_regex), id:258273, line:257:18, endln:257:32
+  |vpiFullName:uvm_pkg::uvm_component_name_check_visitor::visit::compiled_regex
+  |vpiActual:
+  \_chandle_typespec: , id:258272, line:257:10, endln:257:17
+|vpiName:compiled_regex
+|vpiFullName:uvm_pkg::uvm_component_name_check_visitor::visit::compiled_regex
+RHS: <null>

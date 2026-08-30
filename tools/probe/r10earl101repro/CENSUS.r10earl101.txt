@@ -1,0 +1,14 @@
+### Earlgrey_0_1 default
+BOTH-SAME 20064 -> 20065   ONLY-GOLDEN 45 -> 44   ONLY-OURS 32 -> 31
+TO-GOLDEN 1  AWAY-GOLDEN 0  ADDED 0  REMOVED 0  MOVED-WRONG 31
+  TO-GOLDEN E | module_inst | work@top_earlgrey.u_hmac.u_sha2 | PORT | digest | ts>e
+      golden=['logic_typespec|sha_word_t|package[hmac_pkg]|17:11-17:23']
+      pris  =['logic_typespec|hmac_pkg::sha_word_t|package[hmac_pkg]|17:11-17:23']
+      patc  =['logic_typespec|sha_word_t|package[hmac_pkg]|17:11-17:23']
+### Earlgrey_0_1 testflags
+BOTH-SAME 23963 -> 23964   ONLY-GOLDEN 45 -> 44   ONLY-OURS 5289 -> 5288
+TO-GOLDEN 1  AWAY-GOLDEN 0  ADDED 0  REMOVED 0  MOVED-WRONG 5288
+  TO-GOLDEN E | module_inst | work@top_earlgrey.u_hmac.u_sha2 | PORT | digest | ts>e
+      golden=['logic_typespec|sha_word_t|package[hmac_pkg]|17:11-17:23']
+      pris  =['logic_typespec|hmac_pkg::sha_word_t|package[hmac_pkg]|17:11-17:23']
+      patc  =['logic_typespec|sha_word_t|package[hmac_pkg]|17:11-17:23']

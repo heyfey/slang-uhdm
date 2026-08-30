@@ -8899,8 +8899,70 @@ void UhdmExporter::bareScalarTypedefVarTs() {
     // `sha_word_t`) — measured as the residue this law's first cut left on
     // work@sha2 and work@hmac, which moved together from `rel=701 NULLNESS`
     // to a pure name difference.
-    std::map<const UHDM::typespec*, UHDM::typespec*> qualTdElemCopy18;
-    auto rebindQualElem18 = [&](UHDM::ref_typespec* rt) {
+    //
+    // § elabVecPortTdElemBare101 (r10earl101) — …AND THE SPELLING IS
+    // PER-VIEW.  r10earl18 measured the DEF view and generalised; golden
+    // splits the two views of the SAME port exactly as LAW S splits a
+    // module signal's def NET from its elaborated VARIABLE:
+    //
+    //   sha2.sv:27  `output sha_word_t [7:0] digest`  (hmac_pkg::sha_word_t)
+    //     golden  D work@sha2                        ts>e  hmac_pkg::sha_word_t
+    //             E work@top_earlgrey.u_hmac.u_sha2  ts>e  sha_word_t
+    //     both aliased to the QUALIFIED listing object; only the copy's own
+    //     VpiName moves, and VpiName is the FIRST field typespec::Compare
+    //     reads (VpiName, then Typedef_alias, then Instance).
+    //
+    // Surelog's reason is `UhdmWriter::writeDataTypes` (UhdmWriter.cpp:775-796):
+    // the `p::t` prefix is applied IN PLACE while the PACKAGE listing walk runs,
+    // so only the object that walk touched carries it.  The AllModules def
+    // entry reuses that very object for its port's element; the ELABORATED
+    // instance re-compiles the port's declared type in the instance's own
+    // scope, and what comes back is the ordinary per-declaration copy — BARE,
+    // with a Typedef_alias back at the prefixed listing entry.  `hmac`
+    // wildcard-imports `hmac_pkg`, so `writeImportedSymbols` (:1307-1396)
+    // clones nothing here (its `item->Item()` decompile is `"*"`, which matches
+    // no package typespec): this is LAW S's per-declaration copy, not an
+    // import clone.
+    //
+    // The memo therefore keys on (listing object, VIEW).  The def-view arm is
+    // r10earl18's, byte for byte.  The AGGREGATE kinds never reach here at all
+    // — `pkgScalarTd` holds scalar typedefs only (LAW S r7) — which is why
+    // Earlgrey's eleven other elaborated packed-vector port elements (the
+    // `prim_alert_pkg` / `prim_esc_pkg` / `tlul_pkg` / `dm` / `ibex_pkg`
+    // structs and enums) stay qualified on both sides and must not move.
+    std::map<std::pair<const UHDM::typespec*, bool>, UHDM::typespec*>
+        qualTdElemCopy18;
+    // A DEF-view listing entry (`design->AllModules` / `AllInterfaces`) versus
+    // an ELABORATED instance.  Read off the design's own two lists, never off
+    // a name heuristic: the def entry's vpiName is empty and its vpiDefName
+    // names the module, but an elaborated TOP instance shares both.
+    std::set<const UHDM::any*> defRoots101;
+    if (d) {
+        if (d->AllModules())
+            for (auto* m : *d->AllModules())
+                defRoots101.insert(m);
+        if (d->AllInterfaces())
+            for (auto* m : *d->AllInterfaces())
+                defRoots101.insert(m);
+    }
+    auto elabOwned101 = [&](const UHDM::any* o) {
+        for (int i = 0; i < 8 && o; ++i) {
+            switch (o->UhdmType()) {
+                case UHDM::uhdmmodule_inst:
+                case UHDM::uhdminterface_inst:
+                case UHDM::uhdmprogram:
+                    return !defRoots101.count(o);
+                case UHDM::uhdmpackage:
+                case UHDM::uhdmclass_defn:
+                    return false;
+                default:
+                    break;
+            }
+            o = o->VpiParent();
+        }
+        return false;
+    };
+    auto rebindQualElem18 = [&](UHDM::ref_typespec* rt, bool elabView101) {
         if (!rt)
             return;
         auto* at = rt->Actual_typespec();
@@ -8909,19 +8971,29 @@ void UhdmExporter::bareScalarTypedefVarTs() {
         if (modOwned9(rt))
             if (auto d18 = defTdToTop9.find(at); d18 != defTdToTop9.end())
                 at = d18->second;
-        auto qit18 = qualTdElemCopy18.find(at);
+        // The bare form is only available when the listing object actually
+        // carries a qualifier: bareScalarTdCopyOfFresh16 derives it as
+        // `qn.substr(qn.rfind("::") + 2)`, and on a name with no "::" that
+        // wraps to 1 and eats the first character (r10earl96 R2).  An
+        // unqualified listing object keeps r10earl18's arm.
+        const bool bare101 =
+            elabView101 &&
+            std::string_view(at->VpiName()).find("::") != std::string_view::npos;
+        auto key18 = std::make_pair((const UHDM::typespec*)at, bare101);
+        auto qit18 = qualTdElemCopy18.find(key18);
         if (qit18 == qualTdElemCopy18.end()) {
             UHDM::typespec* cp18 = bareScalarTdCopyOfFresh16(at);
             if (cp18) {
-                cp18->VpiName(at->VpiName());
+                if (!bare101)
+                    cp18->VpiName(at->VpiName());
                 auto* al18 = s.MakeRef_typespec();
-                al18->VpiFullName(std::string(at->VpiName()));
+                al18->VpiFullName(std::string(cp18->VpiName()));
                 al18->VpiParent(cp18);
                 al18->Actual_typespec((UHDM::typespec*)at);
                 cp18->Typedef_alias(al18);
             }
-            qualTdElemCopy18[at] = cp18;
-            qit18 = qualTdElemCopy18.find(at);
+            qualTdElemCopy18[key18] = cp18;
+            qit18 = qualTdElemCopy18.find(key18);
         }
         if (qit18->second)
             rt->Actual_typespec(qit18->second);
@@ -9011,7 +9083,12 @@ void UhdmExporter::bareScalarTypedefVarTs() {
             auto* pat18 = prt18 ? prt18->Actual_typespec() : nullptr;
             if (pat18 && pat18->UhdmType() == UHDM::uhdmlogic_typespec)
                 rebindQualElem18(
-                    ((UHDM::logic_typespec*)pat18)->Elem_typespec());
+                    ((UHDM::logic_typespec*)pat18)->Elem_typespec(),
+                    // § elabVecPortTdElemBare101 — the view is read off the
+                    // PORT, whose parent chain reaches its instance; the
+                    // element ref itself is unparented (the wrapper typespec
+                    // is minted per declaration and never adopted).
+                    elabOwned101(pt18));
         }
         else if (auto* n = dynamic_cast<UHDM::nets*>(o))
             netObjs.push_back(n);

@@ -1,0 +1,49 @@
+ARM                VIEW   BINPAIR   PRIS_LINES  HEADS PAT_LINES  HEADS
+g1_kind101         plain  DIFF            15      1       15      1
+g1_kind101         elab   DIFF            15      1       15      1
+g2_form101         plain  DIFF            66      1      193      1
+g2_form101         elab   DIFF            66      1      197      1
+g3_site101         plain  DIFF            77      1       77      1
+g3_site101         elab   DIFF            77      1       77      1
+g4_home101         plain  DIFF            55      1       55      1
+g4_home101         elab   DIFF            55      1       55      1
+g5_neg101          plain  SAME            61      1       61      1
+g5_neg101          elab   SAME            61      1       61      1
+a1_head101         plain  DIFF            18      1       18      1
+a1_head101         elab   DIFF            18      1       18      1
+### a1_head101 plain
+BOTH-SAME 23 -> 24   ONLY-GOLDEN 11 -> 10   ONLY-OURS 14 -> 13
+TO-GOLDEN 1  AWAY-GOLDEN 0  ADDED 0  REMOVED 0  MOVED-WRONG 13
+### a1_head101 elab
+BOTH-SAME 23 -> 24   ONLY-GOLDEN 11 -> 10   ONLY-OURS 14 -> 13
+TO-GOLDEN 1  AWAY-GOLDEN 0  ADDED 0  REMOVED 0  MOVED-WRONG 13
+### g1_kind101 plain
+BOTH-SAME 39 -> 43   ONLY-GOLDEN 69 -> 65   ONLY-OURS 83 -> 79
+TO-GOLDEN 4  AWAY-GOLDEN 0  ADDED 0  REMOVED 0  MOVED-WRONG 79
+### g1_kind101 elab
+BOTH-SAME 39 -> 43   ONLY-GOLDEN 69 -> 65   ONLY-OURS 83 -> 79
+TO-GOLDEN 4  AWAY-GOLDEN 0  ADDED 0  REMOVED 0  MOVED-WRONG 79
+### g2_form101 plain
+BOTH-SAME 21 -> 27   ONLY-GOLDEN 55 -> 49   ONLY-OURS 87 -> 81
+TO-GOLDEN 6  AWAY-GOLDEN 0  ADDED 0  REMOVED 0  MOVED-WRONG 81
+### g2_form101 elab
+BOTH-SAME 21 -> 27   ONLY-GOLDEN 55 -> 49   ONLY-OURS 87 -> 81
+TO-GOLDEN 6  AWAY-GOLDEN 0  ADDED 0  REMOVED 0  MOVED-WRONG 81
+### g3_site101 plain
+BOTH-SAME 17 -> 19   ONLY-GOLDEN 103 -> 101   ONLY-OURS 57 -> 55
+TO-GOLDEN 2  AWAY-GOLDEN 0  ADDED 0  REMOVED 0  MOVED-WRONG 55
+### g3_site101 elab
+BOTH-SAME 17 -> 19   ONLY-GOLDEN 103 -> 101   ONLY-OURS 57 -> 55
+TO-GOLDEN 2  AWAY-GOLDEN 0  ADDED 0  REMOVED 0  MOVED-WRONG 55
+### g4_home101 plain
+BOTH-SAME 114 -> 133   ONLY-GOLDEN 42 -> 23   ONLY-OURS 59 -> 40
+TO-GOLDEN 19  AWAY-GOLDEN 0  ADDED 0  REMOVED 0  MOVED-WRONG 40
+### g4_home101 elab
+BOTH-SAME 124 -> 147   ONLY-GOLDEN 50 -> 27   ONLY-OURS 71 -> 48
+TO-GOLDEN 23  AWAY-GOLDEN 0  ADDED 0  REMOVED 0  MOVED-WRONG 48
+### g5_neg101 plain
+BOTH-SAME 74 -> 74   ONLY-GOLDEN 22 -> 22   ONLY-OURS 22 -> 22
+TO-GOLDEN 0  AWAY-GOLDEN 0  ADDED 0  REMOVED 0  MOVED-WRONG 22
+### g5_neg101 elab
+BOTH-SAME 74 -> 74   ONLY-GOLDEN 22 -> 22   ONLY-OURS 22 -> 22
+TO-GOLDEN 0  AWAY-GOLDEN 0  ADDED 0  REMOVED 0  MOVED-WRONG 22

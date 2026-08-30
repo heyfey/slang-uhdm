@@ -1,0 +1,29 @@
+r10earl101 -- THE OWNER SCAN (question 1), raw.
+
+=== OURS (pristine, Earlgrey default): every ref_typespec naming the head
+=== object as Actual_typespec, with its owner chain ===
+=== OBJ #772214 logic_typespec name=hmac_pkg::sha_word_t span=17:11-17:23 ALIAS=hmac_pkg::sha_word_t#27866 INST=package[hmac_pkg#27738]
+     SELFPAR <- <null>
+  REF      ref#367554   full=                                   <- logic_typespec[~]@27:10-27:26#367553
+  REF      ref#368320   full=                                   <- logic_typespec[~]@27:10-27:26#368319
+  TOTALS refs=2 aliasrefs=0 listings=0
+
+=== the two owners, resolved ===
+=== OBJ #367553 logic_typespec name=~ span=27:10-27:26 ALIAS=- INST=-
+     SELFPAR <- <null>
+  REF      ref#367558   full=work@sha2.digest                   <- port[digest]@27:27-27:33#367551 <- module_inst[~]{work@sha2}@8:1-315:17#35278 <- design[work@prim_sync_reqack]@0:0-0:0#1
+  TOTALS refs=1 aliasrefs=0 listings=0
+=== OBJ #368319 logic_typespec name=~ span=27:10-27:26 ALIAS=- INST=-
+     SELFPAR <- <null>
+  REF      ref#368318   full=work@top_earlgrey.u_hmac.u_sha2.digest <- port[digest]@27:27-27:33#368315 <- module_inst[u_sha2]{work@top_earlgrey.u_hmac.u_sha2}@400:3-419:5#367578 <- module_inst[u_hmac]{work@top_earlgrey.u_hmac}@593:3-608:5#362672 <- module_inst[work@top_earlgrey]@5:1-1022:10#189339 <- design[work@prim_sync_reqack]@0:0-0:0#1
+  TOTALS refs=1 aliasrefs=0 listings=0
+
+=== GOLDEN: the head object's single owner ===
+=== OBJ #462455 logic_typespec name=sha_word_t span=17:11-17:23 ALIAS=hmac_pkg::sha_word_t#32639 INST=package[hmac_pkg#23]
+     SELFPAR <- <null>
+  REF      ref#462460   full=                                   <- logic_typespec[~]@27:10-27:26#462461
+  TOTALS refs=1 aliasrefs=0 listings=0
+=== OBJ #462461 logic_typespec name=~ span=27:10-27:26 ALIAS=- INST=-
+     SELFPAR <- <null>
+  REF      ref#462462   full=work@top_earlgrey.u_hmac.u_sha2.digest <- port[digest]@27:27-27:33#462451 <- module_inst[u_sha2]{work@top_earlgrey.u_hmac.u_sha2}@400:3-419:5#1019424 <- module_inst[u_hmac]{work@top_earlgrey.u_hmac}@593:3-608:5#1017290 <- module_inst[work@top_earlgrey]@5:1-1022:10#972058 <- design[work@prim_sync_reqack]@0:0-0:0#919334
+  TOTALS refs=1 aliasrefs=0 listings=0

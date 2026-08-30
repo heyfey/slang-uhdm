@@ -1,0 +1,17 @@
+G-ONLY	default/VarPassedTo2Submodules-e6c6340e	D	module_inst	work@prim_lc_sync	PORT	lc_en_o	ts>e	enum_typespec|lc_ctrl_pkg::lc_tx_t|package[lc_ctrl_pkg]|2:4-4:14
+G-ONLY	default/VarPassedTo2Submodules-e6c6340e	D	module_inst	work@top	NET	lc_clk_byp_ack	ts>e	enum_typespec|lc_ctrl_pkg::lc_tx_t|package[lc_ctrl_pkg]|2:4-4:14
+G-ONLY	default/VarPassedTo2Submodules-e6c6340e	E	module_inst	work@top.u_prim_lc_sync_clk_byp_ack	PORT	lc_en_o	ts>e	enum_typespec|lc_ctrl_pkg::lc_tx_t|package[lc_ctrl_pkg]|2:4-4:14
+O-ONLY	default/VarPassedTo2Submodules-e6c6340e	D	module_inst	work@prim_lc_sync	PORT	lc_en_o	ts>e	enum_typespec|lc_ctrl_pkg::lc_tx_e|package[lc_ctrl_pkg]|2:4-4:14
+O-ONLY	default/VarPassedTo2Submodules-e6c6340e	D	module_inst	work@top	NET	lc_clk_byp_ack	ts>e	enum_typespec|lc_ctrl_pkg::lc_tx_e|package[lc_ctrl_pkg]|2:4-4:14
+O-ONLY	default/VarPassedTo2Submodules-e6c6340e	E	module_inst	work@top.u_prim_lc_sync_clk_byp_ack	PORT	lc_en_o	ts>e	enum_typespec|lc_ctrl_pkg::lc_tx_e|package[lc_ctrl_pkg]|2:4-4:14
+G-ONLY	testflags/VarPassedTo2Submodules-e6c6340e	D	module_inst	work@prim_lc_sync	PORT	lc_en_o	ts>e	enum_typespec|lc_ctrl_pkg::lc_tx_t|package[lc_ctrl_pkg]|2:4-4:14
+G-ONLY	testflags/VarPassedTo2Submodules-e6c6340e	D	module_inst	work@top	NET	lc_clk_byp_ack	ts>e	enum_typespec|lc_ctrl_pkg::lc_tx_t|package[lc_ctrl_pkg]|2:4-4:14
+G-ONLY	testflags/VarPassedTo2Submodules-e6c6340e	E	module_inst	work@top.u_prim_lc_sync_clk_byp_ack	PORT	lc_en_o	ts>e	enum_typespec|lc_ctrl_pkg::lc_tx_t|package[lc_ctrl_pkg]|2:4-4:14
+O-ONLY	testflags/VarPassedTo2Submodules-e6c6340e	D	module_inst	work@prim_lc_sync	PORT	lc_en_o	ts>e	enum_typespec|lc_ctrl_pkg::lc_tx_e|package[lc_ctrl_pkg]|2:4-4:14
+O-ONLY	testflags/VarPassedTo2Submodules-e6c6340e	D	module_inst	work@top	NET	lc_clk_byp_ack	ts>e	enum_typespec|lc_ctrl_pkg::lc_tx_e|package[lc_ctrl_pkg]|2:4-4:14
+O-ONLY	testflags/VarPassedTo2Submodules-e6c6340e	E	module_inst	work@top.u_prim_lc_sync_clk_byp_ack	PORT	lc_en_o	ts>e	enum_typespec|lc_ctrl_pkg::lc_tx_e|package[lc_ctrl_pkg]|2:4-4:14
+DATABASES 1358
+BOTH-SAME 7040
+ONLY-GOLDEN 48
+ONLY-OURS 46
+POPULATION (element link, scalar kind, package instance)

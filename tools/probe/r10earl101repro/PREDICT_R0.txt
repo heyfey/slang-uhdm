@@ -1,0 +1,162 @@
+r10earl101 -- THE MOVER PREDICTION and THE NEXT HEAD (R0).
+
+BASE 01603ea, branch auto5h.  The official ~/git-repos/UHDM/build/bin/uhdm-cmp
+is the sole acceptance judge; everything in this directory is MEASUREMENT ONLY.
+
+========================================================================
+PART 1 -- THE MOVER PREDICTION (made from PRISTINE databases only)
+========================================================================
+The law's population is a SHAPE, and ct101cen/cen101.py counted every cell of
+it over BOTH corpora on the PRISTINE binary before a line of the law was
+written:
+
+  a PORT whose typespec is a per-declaration packed-vector wrapper and whose
+  Elem_typespec is a package SCALAR typedef's listing object
+  (`output sha_word_t [7:0] digest`), reached by the FIELD PATH
+  root > Ports > port > Typespec > logic_typespec > Elem_typespec.
+
+  uhdm2rtlil   0 cells in 1358 databases.  The corpus has NO cell of this
+               shape: nothing to fix, nothing to break.  (This is also the
+               CALIBRATION of the instrument -- 7040 census rows over 1358
+               CMP_EQUAL databases, and the only one-sided rows anywhere in
+               it are ENUM elements, which are outside the shape by
+               construction.)
+  surelog      FOUR cells in 956 databases, ALL of them Earlgrey_0_1, both
+               modes, and ALL of them the SAME port -- sha2.sv:27
+               `output sha_word_t [7:0] digest`:
+
+                 D work@sha2                        ts>e  golden QUAL  ours QUAL
+                 E work@top_earlgrey.u_hmac.u_sha2   ts>e  golden BARE  ours QUAL
+
+               (x2 modes).  The DEF cell already agrees; the ELABORATED cell
+               is the head.  Population counters, whole surelog corpus:
+                 golden  D|PORT|QUAL 4   E|PORT|BARE 2   E|PORT|QUAL 2
+                 ours    D|PORT|QUAL 4   E|PORT|BARE 0   E|PORT|QUAL 4
+               (the E|QUAL pair on golden's side is the `ts>e>a` ALIAS TARGET,
+               which is qualified on both sides and must not move.)
+
+  The AGGREGATE kinds cannot reach this site at all: `pkgScalarTd` holds
+  scalar typedefs only (LAW S r7), which is why Earlgrey's ELEVEN other
+  elaborated packed-vector port elements -- prim_alert_pkg::alert_rx_t /
+  alert_tx_t, prim_esc_pkg::esc_rx_t / esc_tx_t, dm::hartinfo_t,
+  flash_ctrl_reg_pkg's two mreg structs, ibex_pkg::pmp_cfg_t / pmp_req_e /
+  priv_lvl_e and tlul_pkg's tl_h2d_t / tl_d2h_t -- are qualified on BOTH
+  sides in BOTH views and are the MUST-NOT-MOVE half of the population.
+
+PREDICTION: EXACTLY TWO DATABASES MOVE -- Earlgrey_0_1 default and testflags.
+uhdm2rtlil: ZERO movers.
+
+WHAT ACTUALLY MOVED (byteverify SELFCHECK=1, patched vs this pass's OWN
+pristine sweep; both binaries frozen chmod 555 at immutable paths
+-- /tmp/r10earl101_pris.bin and /tmp/r10earl101_lawA.bin; every cmds.txt
+audited BY BINARY PATH, 0 of 6070 name the main-tree binary):
+
+  uhdm2rtlil  MOVERS 0 / 1358   <- as predicted   (SELFCHECK 1357/1358 flagged,
+                                                   PATH_SETS_IDENTICAL)
+  surelog     MOVERS 2 /  956   <- as predicted, and NOTHING ELSE
+      ./default/Earlgrey_0_1
+      ./testflags/Earlgrey_0_1                    (SELFCHECK 955/956 flagged,
+                                                   PATH_SETS_IDENTICAL)
+  No Scoreboard/default coin flip occurred in this run.
+
+THE CENSUS re-scored over the SAME fixed universe, golden side asserted
+byte-unchanged (reg3_101.py; the three-way multiset join):
+
+   Earlgrey default    BOTH-SAME 20064 -> 20065  ONLY-GOLDEN 45 -> 44
+                       ONLY-OURS    32 ->    31
+   Earlgrey testflags  BOTH-SAME 23963 -> 23964  ONLY-GOLDEN 45 -> 44
+                       ONLY-OURS  5289 ->  5288
+
+   TO-GOLDEN 1  AWAY-GOLDEN 0  ADDED 0  REMOVED 0   in EACH mode.
+
+  ONE cell per mode, quoted verbatim, and BOTH one-sided sets drop by exactly
+  one row -- the arithmetic proof that the law renames one object and adds and
+  removes nothing:
+
+    E | module_inst | work@top_earlgrey.u_hmac.u_sha2 | PORT | digest | ts>e
+        golden  logic_typespec|sha_word_t|package[hmac_pkg]|17:11-17:23
+        pris    logic_typespec|hmac_pkg::sha_word_t|package[hmac_pkg]|...
+        patc    logic_typespec|sha_word_t|package[hmac_pkg]|17:11-17:23
+
+  The population counters now MATCH golden exactly in both modes:
+    golden D|QUAL 1  E|BARE 1   |   patched D|QUAL 1  E|BARE 1
+
+========================================================================
+PART 2 -- R0: THE NEXT HEAD, AND THE RESIDUES
+========================================================================
+BEFORE (this pass's own pristine build 12ca2375a652), rowheads.sh scale:
+  Earlgrey_0_1 default   132, 1 head  |  testflags  132, 1 head  (ONE object)
+AFTER (2eaa7a60ddb4):
+  Earlgrey_0_1 default    58, 1 head  |  testflags   62, 1 head  (ONE object)
+
+R0 -- AN UNPACKED-ARRAY PARAMETER'S DIMENSION BOUND IS FOLDED BY GOLDEN AND
+     SYMBOLIC IN OURS.  ONE object serves BOTH modes.
+    pinmux_pkg.sv:20   `parameter int MioStrapPos [0:NStraps-1] = '{1, 0};`
+      (NStraps is `parameter int NStraps = 2;` at pinmux_pkg.sv:18)
+      LHS (golden)  constant 20:32-20:39, parent range 20:29-20:42
+                    vpiDecompile:1  vpiSize:64  INT:1  vpiConstType:7
+      RHS (ours)    operation 20:32-20:41, SAME parent range 20:29-20:42
+                    vpiOpType:11 (minus)
+                      operand ref_obj `NStraps`
+                        (work@top_earlgrey.u_pinmux.NStraps)
+                      operand constant 1
+    Golden FOLDS `NStraps-1` to the constant 1 and stamps it at the
+    IDENTIFIER's span (20:32-20:39, not the whole expression's 20:32-20:41);
+    we keep the symbolic minus.  `range::Compare` reads Left_expr/Right_expr
+    (RESUME s9) and the two are different KINDS, so the head is the expression
+    itself, not a field of it.
+    The two modes differ by exactly TWO lines and only in OUR print: the
+    testflags ref_obj carries `|vpiActual: parameter
+    work@top_earlgrey.u_pinmux.NStraps` and the default one does not (58 vs 62
+    cmp lines).  Same object, same failing field, both modes.
+    NOTE for whoever takes it: this is a RANGE-FOLD question on an UNPACKED
+    dimension of a PACKAGE parameter, reached through the ELABORATED instance.
+    Census the corpus for `range` bounds that are operations on our side and
+    constants on golden's BEFORE writing anything -- the fold precedents in
+    the tree are per-context.
+
+RANKED RESIDUES this pass MEASURED and deliberately did not take
+----------------------------------------------------------------
+R1  A PACKED-VECTOR PORT'S ELABORATED NET BINDS THE WRAPPER, GOLDEN BINDS THE
+    SCALAR.  On the very same `digest`:
+      E work@top_earlgrey.u_hmac.u_sha2 | NET | digest | ts
+        golden  logic_typespec|hmac_pkg::sha_word_t|package[hmac_pkg]|17:11-17:23
+        ours    logic_typespec|~|-|27:10-27:26      (the per-declaration
+                packed-vector wrapper, whose Elem_typespec is the listing
+                object)
+    Present IDENTICALLY on both binaries, in both modes, and it is JUDGE-
+    INVISIBLE today: `nets::Compare` (nets.cpp) reads VpiArrayMember,
+    VpiConstantSelect, VpiExpanded, VpiImplicitDecl, VpiName, VpiNetDeclAssign,
+    VpiNetType, VpiResolvedNetType, VpiScalar, VpiExplicitScalared, VpiSigned
+    -- and NOT `Typespec()`.  That is exactly WHY the head is the PORT's
+    element and not the net's: `ports::Compare` DOES read `Typespec()`
+    (ports.cpp:176).  1 cell per mode, 0 uhdm2rtlil cells.  Its own law.
+R2  A `pkg::vec_t [N:0]` PORT IS NOT A WRAPPER AT ALL IN GOLDEN.  earl100's R4,
+    re-measured here from the wide boundary's own attribution of
+    r10earl77repro/g1_portkind77.sv: golden's `i_pkgvecdim` / `o_pkgvecdim`
+    carry a SCALAR `p77::v8_t` typespec with NO `ts>e` link, where we mint the
+    packed-vector wrapper plus an element.  Because golden has no such key,
+    this pass's law can move it neither toward nor away from golden, and it
+    does not: cmp lines 37725 -> 37725, head log BYTE-IDENTICAL, census
+    TO-GOLDEN 0 / AWAY 0.  0 corpus cells.  Its own law, its own census.
+R3  THE SAME QUESTION FOR A NON-PORT ELEMENT SITE.  g3_site101 measures the
+    net / variable / parameter / cast / nested-typedef / function-return /
+    struct-member spellings of the same package scalar typedef under a packed
+    dimension; the arm still carries 55 OURS-ONLY and 101 GOLDEN-ONLY rows
+    after this pass, all of them owned by LAW S's own arms, the NET half,
+    ParamEmit's element clone and castPkgTdCloneViewTs123.  Deliberately not
+    disturbed: each has its own precedent and its own census.
+R4  A NONDETERMINISM ON r10vrgg3repro/xi_iface_param_type/dut.sv.  The wide
+    boundary reported ONE differing elab cell there -- a single added
+    `|vpiSigned:1` on the EMPTY-NAMED `parameter` of the interface-array
+    element `work@top.arr[0]`.  It is NOT a law effect: re-run in place, the
+    two frozen binaries produce the IDENTICAL database (a90b30ca70d4, 5/5 runs
+    each), the same binary run in the two staging directories produces
+    IDENTICAL normalised dumps, and TEN boundary-style repeats of the pair
+    differ 0/10.  Recorded so the next pass does not re-attribute it.
+R5  THE PRE-EXISTING PROBE / BOUNDARY SEGFAULTS.  The wide boundary's rc
+    histogram is SYMMETRIC side for side (rc=0 8481/8481, rc=3 358/358,
+    rc=4 373/373, rc=139 14/14).  Recorded by earl82 R6 / earl83 R6 /
+    earl84 R6 / earl85 R5 / earl89 R6 / earl90 R8 / earl91 R5 / earl93 R7 /
+    earl94 R6 / earl95 R4 / earl96 R5 / earl97 R5 / earl99 R8 / earl100 R5;
+    byteverify proves none of them is a mover.

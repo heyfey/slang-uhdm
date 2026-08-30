@@ -1,0 +1,172 @@
+G-ONLY	default/BlackBePipeInt-2987e0d2	D	module_inst	work@bp_be_pipe_int	PARAM	all_cfgs_gp	ts>e	struct_typespec|bp_common_pkg::bp_proc_param_s|package[bp_common_pkg]|1869:9-2044:2
+G-ONLY	default/BlackBePipeInt-2987e0d2	E	module_inst	work@bp_be_pipe_int	PARAM	all_cfgs_gp	ts>e	struct_typespec|bp_common_pkg::bp_proc_param_s|package[bp_common_pkg]|1869:9-2044:2
+G-ONLY	default/BlackBePipeInt-2987e0d2	P	package	bp_be_pkg::	PARAM	all_cfgs_gp	ts>e	struct_typespec|bp_common_pkg::bp_proc_param_s|package[bp_common_pkg]|1869:9-2044:2
+O-ONLY	default/BlackBePipeInt-2987e0d2	D	module_inst	work@bp_be_pipe_int	PARAM	all_cfgs_gp	ts>e	struct_typespec|bp_common_pkg::bp_proc_param_s|package[bp_be_pkg]|1869:9-2044:2
+O-ONLY	default/BlackBePipeInt-2987e0d2	E	module_inst	work@bp_be_pipe_int	PARAM	all_cfgs_gp	ts>e	struct_typespec|bp_common_pkg::bp_proc_param_s|package[bp_be_pkg]|1869:9-2044:2
+O-ONLY	default/BlackBePipeInt-2987e0d2	P	package	bp_be_pkg::	PARAM	all_cfgs_gp	ts>e	struct_typespec|bp_common_pkg::bp_proc_param_s|package[bp_be_pkg]|1869:9-2044:2
+G-ONLY	default/BuildUVMPkg-bf853d43	P	package	uvm_pkg::	FUNC_VAR	uvm_reg_map::do_bus_access.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[uvm_pkg]|76787:40-76787:54
+O-ONLY	default/BuildUVMPkg-bf853d43	P	package	uvm_pkg::	FUNC_VAR	uvm_reg_map::do_bus_access.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[uvm_pkg]|61351:9-61383:2
+G-ONLY	default/Earlgrey_0_1-71da2fd7	E	module_inst	work@top_earlgrey.u_hmac.u_sha2	PORT	digest	ts>e	logic_typespec|sha_word_t|package[hmac_pkg]|17:11-17:23
+O-ONLY	default/Earlgrey_0_1-71da2fd7	E	module_inst	work@top_earlgrey.u_hmac.u_sha2	PORT	digest	ts>e	logic_typespec|hmac_pkg::sha_word_t|package[hmac_pkg]|17:11-17:23
+G-ONLY	default/MiniAmiq-544c7f61	D	interface_inst	work@svaunit_vpi_interface	FUNC_VAR	uvm_mem::get_address.addr	ts>e>a	bit_typespec|uvm_reg_addr_t|package[uvm_pkg]|73:10-73:31
+G-ONLY	default/MiniAmiq-544c7f61	D	interface_inst	work@svaunit_vpi_interface	FUNC_VAR	uvm_reg::get_address.addr	ts>e>a	bit_typespec|uvm_reg_addr_t|package[uvm_pkg]|73:10-73:31
+G-ONLY	default/MiniAmiq-544c7f61	D	interface_inst	work@svaunit_vpi_interface	FUNC_VAR	uvm_reg_map::do_bus_read.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[uvm_pkg]|257:9-313:2
+G-ONLY	default/MiniAmiq-544c7f61	D	interface_inst	work@svaunit_vpi_interface	FUNC_VAR	uvm_reg_map::do_bus_read.addrs	ts>e>a	bit_typespec|uvm_reg_addr_t|package[uvm_pkg]|73:10-73:31
+G-ONLY	default/MiniAmiq-544c7f61	D	interface_inst	work@svaunit_vpi_interface	FUNC_VAR	uvm_reg_map::do_bus_write.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[uvm_pkg]|257:9-313:2
+G-ONLY	default/MiniAmiq-544c7f61	D	interface_inst	work@svaunit_vpi_interface	FUNC_VAR	uvm_reg_map::do_bus_write.addrs	ts>e>a	bit_typespec|uvm_reg_addr_t|package[uvm_pkg]|73:10-73:31
+G-ONLY	default/MiniAmiq-544c7f61	D	interface_inst	work@svaunit_vpi_interface	FUNC_VAR	uvm_reg_map::get_physical_addresses.local_addr	ts>e>a	bit_typespec|uvm_reg_addr_t|package[uvm_pkg]|73:10-73:31
+G-ONLY	default/MiniAmiq-544c7f61	P	package	svaunit_pkg::	FUNC_VAR	uvm_mem::get_address.addr	ts>e>a	bit_typespec|uvm_reg_addr_t|package[uvm_pkg]|73:10-73:31
+G-ONLY	default/MiniAmiq-544c7f61	P	package	svaunit_pkg::	FUNC_VAR	uvm_reg::get_address.addr	ts>e>a	bit_typespec|uvm_reg_addr_t|package[uvm_pkg]|73:10-73:31
+G-ONLY	default/MiniAmiq-544c7f61	P	package	svaunit_pkg::	FUNC_VAR	uvm_reg_map::do_bus_read.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[uvm_pkg]|257:9-313:2
+G-ONLY	default/MiniAmiq-544c7f61	P	package	svaunit_pkg::	FUNC_VAR	uvm_reg_map::do_bus_read.addrs	ts>e>a	bit_typespec|uvm_reg_addr_t|package[uvm_pkg]|73:10-73:31
+G-ONLY	default/MiniAmiq-544c7f61	P	package	svaunit_pkg::	FUNC_VAR	uvm_reg_map::do_bus_write.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[uvm_pkg]|257:9-313:2
+G-ONLY	default/MiniAmiq-544c7f61	P	package	svaunit_pkg::	FUNC_VAR	uvm_reg_map::do_bus_write.addrs	ts>e>a	bit_typespec|uvm_reg_addr_t|package[uvm_pkg]|73:10-73:31
+G-ONLY	default/MiniAmiq-544c7f61	P	package	svaunit_pkg::	FUNC_VAR	uvm_reg_map::get_physical_addresses.local_addr	ts>e>a	bit_typespec|uvm_reg_addr_t|package[uvm_pkg]|73:10-73:31
+O-ONLY	default/MiniAmiq-544c7f61	D	interface_inst	work@svaunit_vpi_interface	FUNC_VAR	uvm_mem::get_address.addr	ts>e>a	bit_typespec|uvm_pkg::uvm_reg_addr_t|package[svaunit_pkg]|73:10-73:31
+O-ONLY	default/MiniAmiq-544c7f61	D	interface_inst	work@svaunit_vpi_interface	FUNC_VAR	uvm_reg::get_address.addr	ts>e>a	bit_typespec|uvm_pkg::uvm_reg_addr_t|package[svaunit_pkg]|73:10-73:31
+O-ONLY	default/MiniAmiq-544c7f61	D	interface_inst	work@svaunit_vpi_interface	FUNC_VAR	uvm_reg_map::do_bus_read.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[svaunit_pkg]|257:9-313:2
+O-ONLY	default/MiniAmiq-544c7f61	D	interface_inst	work@svaunit_vpi_interface	FUNC_VAR	uvm_reg_map::do_bus_read.addrs	ts>e>a	bit_typespec|uvm_pkg::uvm_reg_addr_t|package[svaunit_pkg]|73:10-73:31
+O-ONLY	default/MiniAmiq-544c7f61	D	interface_inst	work@svaunit_vpi_interface	FUNC_VAR	uvm_reg_map::do_bus_write.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[svaunit_pkg]|257:9-313:2
+O-ONLY	default/MiniAmiq-544c7f61	D	interface_inst	work@svaunit_vpi_interface	FUNC_VAR	uvm_reg_map::do_bus_write.addrs	ts>e>a	bit_typespec|uvm_pkg::uvm_reg_addr_t|package[svaunit_pkg]|73:10-73:31
+O-ONLY	default/MiniAmiq-544c7f61	D	interface_inst	work@svaunit_vpi_interface	FUNC_VAR	uvm_reg_map::get_physical_addresses.local_addr	ts>e>a	bit_typespec|uvm_pkg::uvm_reg_addr_t|package[svaunit_pkg]|73:10-73:31
+O-ONLY	default/MiniAmiq-544c7f61	P	package	svaunit_pkg::	FUNC_VAR	uvm_mem::get_address.addr	ts>e>a	bit_typespec|uvm_pkg::uvm_reg_addr_t|package[svaunit_pkg]|73:10-73:31
+O-ONLY	default/MiniAmiq-544c7f61	P	package	svaunit_pkg::	FUNC_VAR	uvm_reg::get_address.addr	ts>e>a	bit_typespec|uvm_pkg::uvm_reg_addr_t|package[svaunit_pkg]|73:10-73:31
+O-ONLY	default/MiniAmiq-544c7f61	P	package	svaunit_pkg::	FUNC_VAR	uvm_reg_map::do_bus_read.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[svaunit_pkg]|257:9-313:2
+O-ONLY	default/MiniAmiq-544c7f61	P	package	svaunit_pkg::	FUNC_VAR	uvm_reg_map::do_bus_read.addrs	ts>e>a	bit_typespec|uvm_pkg::uvm_reg_addr_t|package[svaunit_pkg]|73:10-73:31
+O-ONLY	default/MiniAmiq-544c7f61	P	package	svaunit_pkg::	FUNC_VAR	uvm_reg_map::do_bus_write.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[svaunit_pkg]|257:9-313:2
+O-ONLY	default/MiniAmiq-544c7f61	P	package	svaunit_pkg::	FUNC_VAR	uvm_reg_map::do_bus_write.addrs	ts>e>a	bit_typespec|uvm_pkg::uvm_reg_addr_t|package[svaunit_pkg]|73:10-73:31
+O-ONLY	default/MiniAmiq-544c7f61	P	package	svaunit_pkg::	FUNC_VAR	uvm_reg_map::get_physical_addresses.local_addr	ts>e>a	bit_typespec|uvm_pkg::uvm_reg_addr_t|package[svaunit_pkg]|73:10-73:31
+G-ONLY	default/PackedEnumPort-0b2e1434	D	module_inst	work@top	NET	lc_clk_byp_ack	ts>e	enum_typespec|lc_ctrl_pkg::lc_tx_t|package[lc_ctrl_pkg]|3:4-5:14
+O-ONLY	default/PackedEnumPort-0b2e1434	D	module_inst	work@top	NET	lc_clk_byp_ack	ts>e	enum_typespec|lc_ctrl_pkg::lc_tx_e|package[lc_ctrl_pkg]|3:4-5:14
+G-ONLY	default/SeqDriver-32af76aa	D	module_inst	work@top_tb	FUNC_VAR	do_bus_read.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[adpcm_pkg]|50:42-50:56
+G-ONLY	default/SeqDriver-32af76aa	D	module_inst	work@top_tb	FUNC_VAR	do_bus_write.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[adpcm_pkg]|50:42-50:56
+G-ONLY	default/SeqDriver-32af76aa	E	module_inst	work@top_tb	FUNC_VAR	do_bus_read.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[adpcm_pkg]|50:42-50:56
+G-ONLY	default/SeqDriver-32af76aa	E	module_inst	work@top_tb	FUNC_VAR	do_bus_write.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[adpcm_pkg]|50:42-50:56
+G-ONLY	default/SeqDriver-32af76aa	P	package	adpcm_pkg::	FUNC_VAR	uvm_mem::get_address.addr	ts>e>a	bit_typespec|uvm_reg_addr_t|package[uvm_pkg]|73:10-73:31
+G-ONLY	default/SeqDriver-32af76aa	P	package	adpcm_pkg::	FUNC_VAR	uvm_reg::get_address.addr	ts>e>a	bit_typespec|uvm_reg_addr_t|package[uvm_pkg]|73:10-73:31
+G-ONLY	default/SeqDriver-32af76aa	P	package	adpcm_pkg::	FUNC_VAR	uvm_reg_map::do_bus_read.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[uvm_pkg]|257:9-313:2
+G-ONLY	default/SeqDriver-32af76aa	P	package	adpcm_pkg::	FUNC_VAR	uvm_reg_map::do_bus_read.addrs	ts>e>a	bit_typespec|uvm_reg_addr_t|package[uvm_pkg]|73:10-73:31
+G-ONLY	default/SeqDriver-32af76aa	P	package	adpcm_pkg::	FUNC_VAR	uvm_reg_map::do_bus_write.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[uvm_pkg]|257:9-313:2
+G-ONLY	default/SeqDriver-32af76aa	P	package	adpcm_pkg::	FUNC_VAR	uvm_reg_map::do_bus_write.addrs	ts>e>a	bit_typespec|uvm_reg_addr_t|package[uvm_pkg]|73:10-73:31
+G-ONLY	default/SeqDriver-32af76aa	P	package	adpcm_pkg::	FUNC_VAR	uvm_reg_map::get_physical_addresses.local_addr	ts>e>a	bit_typespec|uvm_reg_addr_t|package[uvm_pkg]|73:10-73:31
+O-ONLY	default/SeqDriver-32af76aa	D	module_inst	work@top_tb	FUNC_VAR	do_bus_read.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[adpcm_pkg]|257:9-313:2
+O-ONLY	default/SeqDriver-32af76aa	D	module_inst	work@top_tb	FUNC_VAR	do_bus_write.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[adpcm_pkg]|257:9-313:2
+O-ONLY	default/SeqDriver-32af76aa	E	module_inst	work@top_tb	FUNC_VAR	do_bus_read.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[adpcm_pkg]|257:9-313:2
+O-ONLY	default/SeqDriver-32af76aa	E	module_inst	work@top_tb	FUNC_VAR	do_bus_write.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[adpcm_pkg]|257:9-313:2
+O-ONLY	default/SeqDriver-32af76aa	P	package	adpcm_pkg::	FUNC_VAR	uvm_mem::get_address.addr	ts>e>a	bit_typespec|uvm_pkg::uvm_reg_addr_t|package[adpcm_pkg]|73:10-73:31
+O-ONLY	default/SeqDriver-32af76aa	P	package	adpcm_pkg::	FUNC_VAR	uvm_reg::get_address.addr	ts>e>a	bit_typespec|uvm_pkg::uvm_reg_addr_t|package[adpcm_pkg]|73:10-73:31
+O-ONLY	default/SeqDriver-32af76aa	P	package	adpcm_pkg::	FUNC_VAR	uvm_reg_map::do_bus_read.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[adpcm_pkg]|257:9-313:2
+O-ONLY	default/SeqDriver-32af76aa	P	package	adpcm_pkg::	FUNC_VAR	uvm_reg_map::do_bus_read.addrs	ts>e>a	bit_typespec|uvm_pkg::uvm_reg_addr_t|package[adpcm_pkg]|73:10-73:31
+O-ONLY	default/SeqDriver-32af76aa	P	package	adpcm_pkg::	FUNC_VAR	uvm_reg_map::do_bus_write.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[adpcm_pkg]|257:9-313:2
+O-ONLY	default/SeqDriver-32af76aa	P	package	adpcm_pkg::	FUNC_VAR	uvm_reg_map::do_bus_write.addrs	ts>e>a	bit_typespec|uvm_pkg::uvm_reg_addr_t|package[adpcm_pkg]|73:10-73:31
+O-ONLY	default/SeqDriver-32af76aa	P	package	adpcm_pkg::	FUNC_VAR	uvm_reg_map::get_physical_addresses.local_addr	ts>e>a	bit_typespec|uvm_pkg::uvm_reg_addr_t|package[adpcm_pkg]|73:10-73:31
+G-ONLY	default/SimpleUVM-1dc93a62	D	module_inst	work@top	FUNC_VAR	do_bus_read.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[uvm_pkg]|50:42-50:56
+G-ONLY	default/SimpleUVM-1dc93a62	D	module_inst	work@top	FUNC_VAR	do_bus_write.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[uvm_pkg]|50:42-50:56
+G-ONLY	default/SimpleUVM-1dc93a62	E	module_inst	work@top	FUNC_VAR	do_bus_read.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[uvm_pkg]|50:42-50:56
+G-ONLY	default/SimpleUVM-1dc93a62	E	module_inst	work@top	FUNC_VAR	do_bus_write.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[uvm_pkg]|50:42-50:56
+O-ONLY	default/SimpleUVM-1dc93a62	D	module_inst	work@top	FUNC_VAR	do_bus_read.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[uvm_pkg]|257:9-313:2
+O-ONLY	default/SimpleUVM-1dc93a62	D	module_inst	work@top	FUNC_VAR	do_bus_write.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[uvm_pkg]|257:9-313:2
+O-ONLY	default/SimpleUVM-1dc93a62	E	module_inst	work@top	FUNC_VAR	do_bus_read.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[uvm_pkg]|257:9-313:2
+O-ONLY	default/SimpleUVM-1dc93a62	E	module_inst	work@top	FUNC_VAR	do_bus_write.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[uvm_pkg]|257:9-313:2
+G-ONLY	testflags/BlackBePipeInt-2987e0d2	D	module_inst	work@bp_be_pipe_int	PARAM	all_cfgs_gp	ts>e	struct_typespec|bp_common_pkg::bp_proc_param_s|package[bp_common_pkg]|1869:9-2044:2
+G-ONLY	testflags/BlackBePipeInt-2987e0d2	E	module_inst	work@bp_be_pipe_int	PARAM	all_cfgs_gp	ts>e	struct_typespec|bp_common_pkg::bp_proc_param_s|package[bp_common_pkg]|1869:9-2044:2
+G-ONLY	testflags/BlackBePipeInt-2987e0d2	P	package	bp_be_pkg::	PARAM	all_cfgs_gp	ts>e	struct_typespec|bp_common_pkg::bp_proc_param_s|package[bp_common_pkg]|1869:9-2044:2
+O-ONLY	testflags/BlackBePipeInt-2987e0d2	D	module_inst	work@bp_be_pipe_int	PARAM	all_cfgs_gp	ts>e	struct_typespec|bp_common_pkg::bp_proc_param_s|package[bp_be_pkg]|1869:9-2044:2
+O-ONLY	testflags/BlackBePipeInt-2987e0d2	E	module_inst	work@bp_be_pipe_int	PARAM	all_cfgs_gp	ts>e	struct_typespec|bp_common_pkg::bp_proc_param_s|package[bp_be_pkg]|1869:9-2044:2
+O-ONLY	testflags/BlackBePipeInt-2987e0d2	P	package	bp_be_pkg::	PARAM	all_cfgs_gp	ts>e	struct_typespec|bp_common_pkg::bp_proc_param_s|package[bp_be_pkg]|1869:9-2044:2
+G-ONLY	testflags/BuildUVMPkg-bf853d43	P	package	uvm_pkg::	FUNC_VAR	uvm_reg_map::do_bus_access.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[uvm_pkg]|76787:40-76787:54
+O-ONLY	testflags/BuildUVMPkg-bf853d43	P	package	uvm_pkg::	FUNC_VAR	uvm_reg_map::do_bus_access.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[uvm_pkg]|61351:9-61383:2
+G-ONLY	testflags/Earlgrey_0_1-71da2fd7	E	module_inst	work@top_earlgrey.u_hmac.u_sha2	PORT	digest	ts>e	logic_typespec|sha_word_t|package[hmac_pkg]|17:11-17:23
+O-ONLY	testflags/Earlgrey_0_1-71da2fd7	E	module_inst	work@top_earlgrey.u_hmac.u_sha2	PORT	digest	ts>e	logic_typespec|hmac_pkg::sha_word_t|package[hmac_pkg]|17:11-17:23
+G-ONLY	testflags/MiniAmiq-544c7f61	D	interface_inst	work@svaunit_vpi_interface	FUNC_VAR	uvm_mem::get_address.addr	ts>e>a	bit_typespec|uvm_reg_addr_t|package[uvm_pkg]|73:10-73:31
+G-ONLY	testflags/MiniAmiq-544c7f61	D	interface_inst	work@svaunit_vpi_interface	FUNC_VAR	uvm_reg::get_address.addr	ts>e>a	bit_typespec|uvm_reg_addr_t|package[uvm_pkg]|73:10-73:31
+G-ONLY	testflags/MiniAmiq-544c7f61	D	interface_inst	work@svaunit_vpi_interface	FUNC_VAR	uvm_reg_map::do_bus_read.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[uvm_pkg]|257:9-313:2
+G-ONLY	testflags/MiniAmiq-544c7f61	D	interface_inst	work@svaunit_vpi_interface	FUNC_VAR	uvm_reg_map::do_bus_read.addrs	ts>e>a	bit_typespec|uvm_reg_addr_t|package[uvm_pkg]|73:10-73:31
+G-ONLY	testflags/MiniAmiq-544c7f61	D	interface_inst	work@svaunit_vpi_interface	FUNC_VAR	uvm_reg_map::do_bus_write.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[uvm_pkg]|257:9-313:2
+G-ONLY	testflags/MiniAmiq-544c7f61	D	interface_inst	work@svaunit_vpi_interface	FUNC_VAR	uvm_reg_map::do_bus_write.addrs	ts>e>a	bit_typespec|uvm_reg_addr_t|package[uvm_pkg]|73:10-73:31
+G-ONLY	testflags/MiniAmiq-544c7f61	D	interface_inst	work@svaunit_vpi_interface	FUNC_VAR	uvm_reg_map::get_physical_addresses.local_addr	ts>e>a	bit_typespec|uvm_reg_addr_t|package[uvm_pkg]|73:10-73:31
+G-ONLY	testflags/MiniAmiq-544c7f61	P	package	svaunit_pkg::	FUNC_VAR	uvm_mem::get_address.addr	ts>e>a	bit_typespec|uvm_reg_addr_t|package[uvm_pkg]|73:10-73:31
+G-ONLY	testflags/MiniAmiq-544c7f61	P	package	svaunit_pkg::	FUNC_VAR	uvm_reg::get_address.addr	ts>e>a	bit_typespec|uvm_reg_addr_t|package[uvm_pkg]|73:10-73:31
+G-ONLY	testflags/MiniAmiq-544c7f61	P	package	svaunit_pkg::	FUNC_VAR	uvm_reg_map::do_bus_read.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[uvm_pkg]|257:9-313:2
+G-ONLY	testflags/MiniAmiq-544c7f61	P	package	svaunit_pkg::	FUNC_VAR	uvm_reg_map::do_bus_read.addrs	ts>e>a	bit_typespec|uvm_reg_addr_t|package[uvm_pkg]|73:10-73:31
+G-ONLY	testflags/MiniAmiq-544c7f61	P	package	svaunit_pkg::	FUNC_VAR	uvm_reg_map::do_bus_write.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[uvm_pkg]|257:9-313:2
+G-ONLY	testflags/MiniAmiq-544c7f61	P	package	svaunit_pkg::	FUNC_VAR	uvm_reg_map::do_bus_write.addrs	ts>e>a	bit_typespec|uvm_reg_addr_t|package[uvm_pkg]|73:10-73:31
+G-ONLY	testflags/MiniAmiq-544c7f61	P	package	svaunit_pkg::	FUNC_VAR	uvm_reg_map::get_physical_addresses.local_addr	ts>e>a	bit_typespec|uvm_reg_addr_t|package[uvm_pkg]|73:10-73:31
+O-ONLY	testflags/MiniAmiq-544c7f61	D	interface_inst	work@svaunit_vpi_interface	FUNC_VAR	uvm_mem::get_address.addr	ts>e>a	bit_typespec|uvm_pkg::uvm_reg_addr_t|package[svaunit_pkg]|73:10-73:31
+O-ONLY	testflags/MiniAmiq-544c7f61	D	interface_inst	work@svaunit_vpi_interface	FUNC_VAR	uvm_reg::get_address.addr	ts>e>a	bit_typespec|uvm_pkg::uvm_reg_addr_t|package[svaunit_pkg]|73:10-73:31
+O-ONLY	testflags/MiniAmiq-544c7f61	D	interface_inst	work@svaunit_vpi_interface	FUNC_VAR	uvm_reg_map::do_bus_read.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[svaunit_pkg]|257:9-313:2
+O-ONLY	testflags/MiniAmiq-544c7f61	D	interface_inst	work@svaunit_vpi_interface	FUNC_VAR	uvm_reg_map::do_bus_read.addrs	ts>e>a	bit_typespec|uvm_pkg::uvm_reg_addr_t|package[svaunit_pkg]|73:10-73:31
+O-ONLY	testflags/MiniAmiq-544c7f61	D	interface_inst	work@svaunit_vpi_interface	FUNC_VAR	uvm_reg_map::do_bus_write.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[svaunit_pkg]|257:9-313:2
+O-ONLY	testflags/MiniAmiq-544c7f61	D	interface_inst	work@svaunit_vpi_interface	FUNC_VAR	uvm_reg_map::do_bus_write.addrs	ts>e>a	bit_typespec|uvm_pkg::uvm_reg_addr_t|package[svaunit_pkg]|73:10-73:31
+O-ONLY	testflags/MiniAmiq-544c7f61	D	interface_inst	work@svaunit_vpi_interface	FUNC_VAR	uvm_reg_map::get_physical_addresses.local_addr	ts>e>a	bit_typespec|uvm_pkg::uvm_reg_addr_t|package[svaunit_pkg]|73:10-73:31
+O-ONLY	testflags/MiniAmiq-544c7f61	P	package	svaunit_pkg::	FUNC_VAR	uvm_mem::get_address.addr	ts>e>a	bit_typespec|uvm_pkg::uvm_reg_addr_t|package[svaunit_pkg]|73:10-73:31
+O-ONLY	testflags/MiniAmiq-544c7f61	P	package	svaunit_pkg::	FUNC_VAR	uvm_reg::get_address.addr	ts>e>a	bit_typespec|uvm_pkg::uvm_reg_addr_t|package[svaunit_pkg]|73:10-73:31
+O-ONLY	testflags/MiniAmiq-544c7f61	P	package	svaunit_pkg::	FUNC_VAR	uvm_reg_map::do_bus_read.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[svaunit_pkg]|257:9-313:2
+O-ONLY	testflags/MiniAmiq-544c7f61	P	package	svaunit_pkg::	FUNC_VAR	uvm_reg_map::do_bus_read.addrs	ts>e>a	bit_typespec|uvm_pkg::uvm_reg_addr_t|package[svaunit_pkg]|73:10-73:31
+O-ONLY	testflags/MiniAmiq-544c7f61	P	package	svaunit_pkg::	FUNC_VAR	uvm_reg_map::do_bus_write.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[svaunit_pkg]|257:9-313:2
+O-ONLY	testflags/MiniAmiq-544c7f61	P	package	svaunit_pkg::	FUNC_VAR	uvm_reg_map::do_bus_write.addrs	ts>e>a	bit_typespec|uvm_pkg::uvm_reg_addr_t|package[svaunit_pkg]|73:10-73:31
+O-ONLY	testflags/MiniAmiq-544c7f61	P	package	svaunit_pkg::	FUNC_VAR	uvm_reg_map::get_physical_addresses.local_addr	ts>e>a	bit_typespec|uvm_pkg::uvm_reg_addr_t|package[svaunit_pkg]|73:10-73:31
+G-ONLY	testflags/PackedEnumPort-0b2e1434	D	module_inst	work@top	NET	lc_clk_byp_ack	ts>e	enum_typespec|lc_ctrl_pkg::lc_tx_t|package[lc_ctrl_pkg]|3:4-5:14
+O-ONLY	testflags/PackedEnumPort-0b2e1434	D	module_inst	work@top	NET	lc_clk_byp_ack	ts>e	enum_typespec|lc_ctrl_pkg::lc_tx_e|package[lc_ctrl_pkg]|3:4-5:14
+G-ONLY	testflags/SeqDriver-32af76aa	D	module_inst	work@top_tb	FUNC_VAR	do_bus_read.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[adpcm_pkg]|50:42-50:56
+G-ONLY	testflags/SeqDriver-32af76aa	D	module_inst	work@top_tb	FUNC_VAR	do_bus_write.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[adpcm_pkg]|50:42-50:56
+G-ONLY	testflags/SeqDriver-32af76aa	E	module_inst	work@top_tb	FUNC_VAR	do_bus_read.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[adpcm_pkg]|50:42-50:56
+G-ONLY	testflags/SeqDriver-32af76aa	E	module_inst	work@top_tb	FUNC_VAR	do_bus_write.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[adpcm_pkg]|50:42-50:56
+G-ONLY	testflags/SeqDriver-32af76aa	P	package	adpcm_pkg::	FUNC_VAR	uvm_mem::get_address.addr	ts>e>a	bit_typespec|uvm_reg_addr_t|package[uvm_pkg]|73:10-73:31
+G-ONLY	testflags/SeqDriver-32af76aa	P	package	adpcm_pkg::	FUNC_VAR	uvm_reg::get_address.addr	ts>e>a	bit_typespec|uvm_reg_addr_t|package[uvm_pkg]|73:10-73:31
+G-ONLY	testflags/SeqDriver-32af76aa	P	package	adpcm_pkg::	FUNC_VAR	uvm_reg_map::do_bus_read.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[uvm_pkg]|257:9-313:2
+G-ONLY	testflags/SeqDriver-32af76aa	P	package	adpcm_pkg::	FUNC_VAR	uvm_reg_map::do_bus_read.addrs	ts>e>a	bit_typespec|uvm_reg_addr_t|package[uvm_pkg]|73:10-73:31
+G-ONLY	testflags/SeqDriver-32af76aa	P	package	adpcm_pkg::	FUNC_VAR	uvm_reg_map::do_bus_write.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[uvm_pkg]|257:9-313:2
+G-ONLY	testflags/SeqDriver-32af76aa	P	package	adpcm_pkg::	FUNC_VAR	uvm_reg_map::do_bus_write.addrs	ts>e>a	bit_typespec|uvm_reg_addr_t|package[uvm_pkg]|73:10-73:31
+G-ONLY	testflags/SeqDriver-32af76aa	P	package	adpcm_pkg::	FUNC_VAR	uvm_reg_map::get_physical_addresses.local_addr	ts>e>a	bit_typespec|uvm_reg_addr_t|package[uvm_pkg]|73:10-73:31
+O-ONLY	testflags/SeqDriver-32af76aa	D	module_inst	work@top_tb	FUNC_VAR	do_bus_read.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[adpcm_pkg]|257:9-313:2
+O-ONLY	testflags/SeqDriver-32af76aa	D	module_inst	work@top_tb	FUNC_VAR	do_bus_write.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[adpcm_pkg]|257:9-313:2
+O-ONLY	testflags/SeqDriver-32af76aa	E	module_inst	work@top_tb	FUNC_VAR	do_bus_read.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[adpcm_pkg]|257:9-313:2
+O-ONLY	testflags/SeqDriver-32af76aa	E	module_inst	work@top_tb	FUNC_VAR	do_bus_write.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[adpcm_pkg]|257:9-313:2
+O-ONLY	testflags/SeqDriver-32af76aa	P	package	adpcm_pkg::	FUNC_VAR	uvm_mem::get_address.addr	ts>e>a	bit_typespec|uvm_pkg::uvm_reg_addr_t|package[adpcm_pkg]|73:10-73:31
+O-ONLY	testflags/SeqDriver-32af76aa	P	package	adpcm_pkg::	FUNC_VAR	uvm_reg::get_address.addr	ts>e>a	bit_typespec|uvm_pkg::uvm_reg_addr_t|package[adpcm_pkg]|73:10-73:31
+O-ONLY	testflags/SeqDriver-32af76aa	P	package	adpcm_pkg::	FUNC_VAR	uvm_reg_map::do_bus_read.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[adpcm_pkg]|257:9-313:2
+O-ONLY	testflags/SeqDriver-32af76aa	P	package	adpcm_pkg::	FUNC_VAR	uvm_reg_map::do_bus_read.addrs	ts>e>a	bit_typespec|uvm_pkg::uvm_reg_addr_t|package[adpcm_pkg]|73:10-73:31
+O-ONLY	testflags/SeqDriver-32af76aa	P	package	adpcm_pkg::	FUNC_VAR	uvm_reg_map::do_bus_write.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[adpcm_pkg]|257:9-313:2
+O-ONLY	testflags/SeqDriver-32af76aa	P	package	adpcm_pkg::	FUNC_VAR	uvm_reg_map::do_bus_write.addrs	ts>e>a	bit_typespec|uvm_pkg::uvm_reg_addr_t|package[adpcm_pkg]|73:10-73:31
+O-ONLY	testflags/SeqDriver-32af76aa	P	package	adpcm_pkg::	FUNC_VAR	uvm_reg_map::get_physical_addresses.local_addr	ts>e>a	bit_typespec|uvm_pkg::uvm_reg_addr_t|package[adpcm_pkg]|73:10-73:31
+G-ONLY	testflags/SimpleUVM-1dc93a62	D	module_inst	work@top	FUNC_VAR	do_bus_read.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[uvm_pkg]|50:42-50:56
+G-ONLY	testflags/SimpleUVM-1dc93a62	D	module_inst	work@top	FUNC_VAR	do_bus_write.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[uvm_pkg]|50:42-50:56
+G-ONLY	testflags/SimpleUVM-1dc93a62	E	module_inst	work@top	FUNC_VAR	do_bus_read.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[uvm_pkg]|50:42-50:56
+G-ONLY	testflags/SimpleUVM-1dc93a62	E	module_inst	work@top	FUNC_VAR	do_bus_write.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[uvm_pkg]|50:42-50:56
+O-ONLY	testflags/SimpleUVM-1dc93a62	D	module_inst	work@top	FUNC_VAR	do_bus_read.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[uvm_pkg]|257:9-313:2
+O-ONLY	testflags/SimpleUVM-1dc93a62	D	module_inst	work@top	FUNC_VAR	do_bus_write.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[uvm_pkg]|257:9-313:2
+O-ONLY	testflags/SimpleUVM-1dc93a62	E	module_inst	work@top	FUNC_VAR	do_bus_read.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[uvm_pkg]|257:9-313:2
+O-ONLY	testflags/SimpleUVM-1dc93a62	E	module_inst	work@top	FUNC_VAR	do_bus_write.accesses	ts>e	struct_typespec|uvm_pkg::uvm_reg_bus_op|package[uvm_pkg]|257:9-313:2
+DATABASES 956
+BOTH-SAME 120327
+ONLY-GOLDEN 9608
+ONLY-OURS 14765
+POPULATION (element link, scalar kind, package instance)
+  POP D|FUNC_IO|BARE  golden=10  ours=10
+  POP D|FUNC_IO|QUAL  golden=10  ours=10
+  POP D|FUNC_RET|BARE  golden=10  ours=10
+  POP D|FUNC_RET|QUAL  golden=10  ours=10
+  POP D|FUNC_VAR|BARE  golden=82  ours=72
+  POP D|FUNC_VAR|QUAL  golden=20  ours=30
+  POP D|NET|QUAL  golden=24  ours=24
+  POP D|PARAM|BARE  golden=260  ours=260
+  POP D|PORT|QUAL  golden=4  ours=4
+  POP E|FUNC_IO|BARE  golden=10  ours=10
+  POP E|FUNC_IO|QUAL  golden=10  ours=10
+  POP E|FUNC_RET|BARE  golden=10  ours=10
+  POP E|FUNC_RET|QUAL  golden=10  ours=10
+  POP E|FUNC_VAR|BARE  golden=48  ours=48
+  POP E|FUNC_VAR|QUAL  golden=20  ours=20
+  POP E|NET|QUAL  golden=0  ours=2
+  POP E|PARAM|BARE  golden=300  ours=306
+  POP E|PORT|BARE  golden=2  ours=0
+  POP E|PORT|QUAL  golden=2  ours=4
+  POP P|FUNC_IO|BARE  golden=16  ours=16
+  POP P|FUNC_IO|QUAL  golden=16  ours=16
+  POP P|FUNC_RET|BARE  golden=12  ours=12
+  POP P|FUNC_RET|QUAL  golden=12  ours=12
+  POP P|FUNC_VAR|BARE  golden=258  ours=218
+  POP P|FUNC_VAR|QUAL  golden=45  ours=85
+  POP P|PARAM|BARE  golden=208  ours=208
+  POP P|PARAM|QUAL  golden=16  ours=16

@@ -1,0 +1,71 @@
+r10earl101 -- HEAD_BEFORE, Earlgrey_0_1 / default (66 stderr lines, ONE head).
+Base 01603ea, this pass's own pristine build 12ca2375a652.
+Byte-identical to r10earl100repro/HEAD_BEFORE_Earlgrey_default.cmp and to the
+other mode's log.  Raw uhdm-cmp stderr follows.
+
+LHS:
+decompile:
+logic_typespec: (sha_word_t), id:462455, line:17:11, endln:17:23
+|vpiName:sha_word_t
+|vpiTypedefAlias:
+\_ref_typespec: (sha_word_t), id:462459
+  |vpiParent:
+  \_logic_typespec: (sha_word_t), id:462455, line:17:11, endln:17:23
+  |vpiFullName:sha_word_t
+  |vpiActual:
+  \_logic_typespec: (hmac_pkg::sha_word_t), id:32639, line:17:11, endln:17:23
+|vpiInstance:
+\_package: hmac_pkg (hmac_pkg::), id:23, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_hmac_0.1/rtl/hmac_pkg.sv, line:6:1, endln:103:22
+|vpiRange:
+\_range: , id:462456, line:17:17, endln:17:23
+  |vpiParent:
+  \_logic_typespec: (sha_word_t), id:462455, line:17:11, endln:17:23
+  |vpiLeftRange:
+  \_constant: , id:462457, line:17:18, endln:17:20
+    |vpiParent:
+    \_range: , id:462456, line:17:17, endln:17:23
+    |vpiDecompile:31
+    |vpiSize:64
+    |UINT:31
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:462458, line:17:21, endln:17:22
+    |vpiParent:
+    \_range: , id:462456, line:17:17, endln:17:23
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+RHS:
+decompile:
+logic_typespec: (hmac_pkg::sha_word_t), id:772214, line:17:11, endln:17:23
+|vpiName:hmac_pkg::sha_word_t
+|vpiTypedefAlias:
+\_ref_typespec: (hmac_pkg::sha_word_t), id:772215
+  |vpiParent:
+  \_logic_typespec: (hmac_pkg::sha_word_t), id:772214, line:17:11, endln:17:23
+  |vpiFullName:hmac_pkg::sha_word_t
+  |vpiActual:
+  \_logic_typespec: (hmac_pkg::sha_word_t), id:27866, line:17:11, endln:17:23
+|vpiInstance:
+\_package: hmac_pkg (hmac_pkg::), id:27738, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_hmac_0.1/rtl/hmac_pkg.sv, line:6:1, endln:103:22
+|vpiRange:
+\_range: , id:10309, line:17:17, endln:17:23
+  |vpiParent:
+  \_logic_typespec: (hmac_pkg::sha_word_t), id:10308, line:17:11, endln:17:23
+  |vpiLeftRange:
+  \_constant: , id:10310, line:17:18, endln:17:20
+    |vpiParent:
+    \_range: , id:10309, line:17:17, endln:17:23
+    |vpiDecompile:31
+    |vpiSize:64
+    |UINT:31
+    |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:10311, line:17:21, endln:17:22
+    |vpiParent:
+    \_range: , id:10309, line:17:17, endln:17:23
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
