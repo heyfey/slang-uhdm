@@ -16661,13 +16661,22 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // Surelog compiles a cast's operand with `pexpr == nullptr`
                 // (CompileExpression.cpp:2637-2646) and `bindVariable` returns
                 // immediately on a null scope (CompileStmt.cpp:3092), so
-                // NOTHING under a cast is eagerly bound.  Scoped to the window
-                // § 161 opens: the `if` / `case`-CONDITION column keeps its
-                // PRE-EXISTING cast behaviour (that is r10uvm161's R0a, a
-                // separate law with its own corpus cells).  See
+                // NOTHING under a cast is eagerly bound.
+                // r10uvm164 — § castOperandNeverBindsInCondWindow164: the
+                // second disjunct is the `if` / `if_else` / `case` CONDITION
+                // column, the R0a r10v161 deliberately left standing.  Surelog
+                // draws NO line between the condition column and the
+                // assert/case-item column — one `paCast` arm, one null `pexpr`
+                // — so the same suppression is owed at both, and it is owed on
+                // the SAME class-method terms: `condMethodWindowDepth164` is
+                // raised only where the condition window actually LIFTS a set
+                // `classMethodNoBind`, which is why a MODULE function's
+                // `if (int'(loc) == 1)` stays BOUND as golden has it.  See
                 // include/UhdmExporter.h.
                 bool castOperandNoBind161v =
-                    methodWindowDepth161v > 0 && castOperandDepth161v > 0;
+                    (methodWindowDepth161v > 0 ||
+                     condMethodWindowDepth164 > 0) &&
+                    castOperandDepth161v > 0;
                 if (((((classMethodNoBind && classArgBindDepth12 == 0) ||
                        ctrlBodyNoBind28) &&
                       !evCtrlOperandBind108) ||

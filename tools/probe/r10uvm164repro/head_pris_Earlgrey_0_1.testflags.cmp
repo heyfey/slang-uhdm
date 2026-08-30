@@ -1,0 +1,62 @@
+LHS:
+decompile:
+constant: , id:595842, line:20:32, endln:20:39
+|vpiParent:
+\_range: , id:595840, line:20:29, endln:20:42
+|vpiDecompile:1
+|vpiSize:64
+|INT:1
+|vpiConstType:7
+
+decompile:
+constant: , id:595842, line:20:32, endln:20:39
+|vpiParent:
+\_range: , id:595840, line:20:29, endln:20:42
+|vpiDecompile:1
+|vpiSize:64
+|INT:1
+|vpiConstType:7
+RHS:
+decompile:
+operation: , id:462872, line:20:32, endln:20:41
+|vpiParent:
+\_range: , id:462870, line:20:29, endln:20:42
+|vpiOpType:11
+|vpiOperand:
+\_ref_obj: (work@top_earlgrey.u_pinmux.NStraps), id:462873, line:20:32, endln:20:39
+  |vpiParent:
+  \_operation: , id:462872, line:20:32, endln:20:41
+  |vpiName:NStraps
+  |vpiFullName:work@top_earlgrey.u_pinmux.NStraps
+  |vpiActual:
+  \_parameter: (work@top_earlgrey.u_pinmux.NStraps), id:462853, line:18:17, endln:18:24
+|vpiOperand:
+\_constant: , id:462874, line:20:40, endln:20:41
+  |vpiParent:
+  \_operation: , id:462872, line:20:32, endln:20:41
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9
+
+decompile:
+operation: , id:462872, line:20:32, endln:20:41
+|vpiParent:
+\_range: , id:462870, line:20:29, endln:20:42
+|vpiOpType:11
+|vpiOperand:
+\_ref_obj: (work@top_earlgrey.u_pinmux.NStraps), id:462873, line:20:32, endln:20:39
+  |vpiParent:
+  \_operation: , id:462872, line:20:32, endln:20:41
+  |vpiName:NStraps
+  |vpiFullName:work@top_earlgrey.u_pinmux.NStraps
+  |vpiActual:
+  \_parameter: (work@top_earlgrey.u_pinmux.NStraps), id:462853, line:18:17, endln:18:24
+|vpiOperand:
+\_constant: , id:462874, line:20:40, endln:20:41
+  |vpiParent:
+  \_operation: , id:462872, line:20:32, endln:20:41
+  |vpiDecompile:1
+  |vpiSize:64
+  |UINT:1
+  |vpiConstType:9

@@ -1,0 +1,64 @@
+r10uvm164 GATES -- the mandatory battery, run in the pass's OWN worktree at
+BASE 578ffc2 with BOTH binaries FROZEN at immutable paths before any sweep.
+
+(1) BUILD + md5
+    pristine  55fb7e0612ac4dc2008d1e5906b184e8   (byte-identical to the main
+              tree's build/slang-uhdm at 578ffc2 -- the base is re-derived,
+              not inherited)
+    patched   a6cf9362b957f131bfc5e13d3de0c105
+    Every sweep's cmds.txt audited BY BINARY PATH: 3035 files each, one
+    distinct value each -- 'slang:   /tmp/<pass scratch>/...pris.bin' and
+    '...pat.bin'.  No cmds.txt anywhere names the main-tree binary.
+
+(2) GOLDEN DUMP TESTS (SLANG_UHDM exported EXPLICITLY to each binary)
+    patched   PASS=23 FAIL=0
+    pristine  PASS=23 FAIL=0
+    /bin/false PASS=0 FAIL=23        (the negative control: the gate can see)
+
+(3) UHDM2RTLIL, both modes
+    testflags 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+    default   679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+    ct8rows vs the COMMITTED baseline results/gate_uhdm2rtlil.csv:
+      PASS: every row byte-identical (0 differing rows)
+    ct8rows pristine-vs-patched, testflags AND default: PASS, 0 differing rows
+
+(4) SURELOG, --mode both, 1588 rows
+    ct8rows vs the COMMITTED baseline results/golden_surelog.csv:
+      ---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS
+    ct8rows pristine-vs-patched: PASS, 0 differing rows
+    NO ROW CONVERTED.  The head of four row-modes moves and the rows stay
+    CMP_NOTEQUAL -- more objects differ below it.  results/*.csv UNTOUCHED.
+    status histograms, baseline -> fresh, IDENTICAL:
+      default   471 CMP_EQUAL 10 CMP_NOTEQUAL 5 DEFERRED 283 SLANG_REJECT 25 SURELOG_FAIL
+      testflags 466 CMP_EQUAL  9 CMP_NOTEQUAL 5 DEFERRED   3 NO_DATABASE 1 NO_UHDM
+                284 SLANG_REJECT 23 SURELOG_FAIL 1 TIMEOUT 2 UNTRANSLATABLE
+
+(5) BYTEVERIFY, SELFCHECK=1
+    surelog     PATH_SETS_IDENTICAL (956 paths)   MOVERS 9 / 956
+                SELFCHECK 955/956 flagged  (the gate can see)
+    uhdm2rtlil  PATH_SETS_IDENTICAL (1358 paths)  MOVERS 0 / 1358
+                SELFCHECK 1357/1358 flagged
+    The nine movers, each PREDICTED BY NAME from the pristine databases
+    before the patched sweep existed (PREDICT.r10uvm164.txt):
+      default/BuildUVMPkg  default/MiniAmiq  default/Scoreboard
+      default/SeqDriver    default/SimpleUVM
+      testflags/BuildUVMPkg testflags/MiniAmiq testflags/SeqDriver
+      testflags/SimpleUVM
+    Scoreboard/default is the documented ~50/50 COIN and is attributed
+    ORDER-BLIND: the path-normalised SORTED uhdm-dump diff is exactly TWO
+    lines, '|vpiActual:' and '\_io_decl: (action), line:347:51, endln:347:57'
+    -- the law's own cell and nothing else.  The in-order diff's other 95
+    lines are the svunit_pkg vpiTaskFunc list REORDER (RESUME.md S9).
+
+CANARIES
+    canaries.sh surelog     ok=52 changed=0 absent=0
+    canaries.sh uhdm2rtlil  ok=8  changed=0 absent=0
+    ctcan2.sh   EXPECT_UNKNOWN=1 surelog     PASS
+    ctcan2.sh   EXPECT_UNKNOWN=6 uhdm2rtlil  PASS
+    canaudit.sh canaries.sh ctcan2.sh:  audited=29 UNCOVERED=0 FENCE-BREACH=0
+    protected databases, pristine vs patched md5 (both modes):
+      InterfaceModPort   59a365f3ce2c  SAME
+      BlackParrotComplex e3e354129d5a / 73a10e8217e5  SAME
+      YosysOldOr         d68e0796d62c  SAME
+      SVSwitch           4842211c4030  ON PIN
+      YosysVerx          6ccda350c24a  ON PIN

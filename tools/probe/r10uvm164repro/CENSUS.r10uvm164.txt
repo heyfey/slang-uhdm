@@ -1,0 +1,109 @@
+r10uvm164 CENSUS -- every reference under a CAST across the NINE UVM databases
+x both modes x both views, keyed by CONTEXT x HOME x CAST KIND, golden vs ours.
+LHS is ALWAYS golden (Surelog), RHS is ALWAYS ours.  MEASUREMENT ONLY.
+
+The nine are the only databases in either corpus that compile uvm_report_handler:
+  BuildUVMPkg, MiniAmiq, SeqDriver, SimpleUVM (x default and testflags) and
+  Scoreboard/default (Scoreboard/testflags has no database -- SKIP-NOFILE).
+  The other UVM-TREE rows (ApbSlave, BeginKeywords, InterfaceModPort, YosysMarlann,
+  YosysRiscv, YosysVerx) use the tree only as an include path and hold ZERO
+  references under a cast in a condition; the predictor sweep over all 956 + 1358
+  databases found cells in these nine rows and nowhere else.
+
+A NOTE ON VIEWS.  verify_golden.py builds ONE database per row-mode, so each of
+the nine corpus databases carries a single view and the census key needs no view
+field; the DEF/ELAB split is a GRID property and is measured there (grid164.sh
+builds both views of every arm with both binaries, and GRID.r10uvm164.txt scores
+CAS|def and CAS|elab as separate cells).  The MODE is in the tag (G.default /
+G.testflags / O.default / O.testflags) and the rows are kept apart by file.
+
+================ PRISTINE ================
+=== CELLS BY CONTEXT (references under a cast) ===
+  arg          cells=    35  DIFF(g!=o)=    0
+  assign_rhs   cells=   266  DIFF(g!=o)=    0
+  body         cells=   176  DIFF(g!=o)=    0
+  ifcond       cells=   164  DIFF(g!=o)=    9
+  return       cells=    27  DIFF(g!=o)=    0
+=== CELLS BY HOME ===
+  function@class_defn          cells=   333  DIFF=    9
+  function@design              cells=     2  DIFF=    0
+  function@package             cells=   227  DIFF=    0
+  none@none                    cells=    88  DIFF=    0
+  task@class_defn              cells=    18  DIFF=    0
+=== CELLS BY CAST KIND ===
+  castop               cells=   668  DIFF=    9
+=== ONE-SIDED SETS ===  ONLY-G keys=2 cells=88   ONLY-O keys=1 cells=88
+  ONLY-G ('body', 'function@class_defn', 'castop') x36
+  ONLY-G ('body', 'function@package', 'castop') x52
+  ONLY-O ('body', 'none@none', 'castop') x88
+=== DIFF CELLS (golden != ours), 9 ===
+  default.BuildUVMPkg-bf853d43
+     ('ifcond', 'castop', 'function@class_defn', 'ref_obj', 'action', '30800:25')
+     G=[('BARE', 1)]  O=[('BOUND', 1)]
+  default.MiniAmiq-544c7f61
+     ('ifcond', 'castop', 'function@class_defn', 'ref_obj', 'action', '350:25')
+     G=[('BARE', 1)]  O=[('BOUND', 1)]
+  default.Scoreboard-59431470
+     ('ifcond', 'castop', 'function@class_defn', 'ref_obj', 'action', '350:25')
+     G=[('BARE', 1)]  O=[('BOUND', 1)]
+  default.SeqDriver-32af76aa
+     ('ifcond', 'castop', 'function@class_defn', 'ref_obj', 'action', '350:25')
+     G=[('BARE', 1)]  O=[('BOUND', 1)]
+  default.SimpleUVM-1dc93a62
+     ('ifcond', 'castop', 'function@class_defn', 'ref_obj', 'action', '350:25')
+     G=[('BARE', 1)]  O=[('BOUND', 1)]
+  testflags.BuildUVMPkg-bf853d43
+     ('ifcond', 'castop', 'function@class_defn', 'ref_obj', 'action', '30800:25')
+     G=[('BARE', 1)]  O=[('BOUND', 1)]
+  testflags.MiniAmiq-544c7f61
+     ('ifcond', 'castop', 'function@class_defn', 'ref_obj', 'action', '350:25')
+     G=[('BARE', 1)]  O=[('BOUND', 1)]
+  testflags.SeqDriver-32af76aa
+     ('ifcond', 'castop', 'function@class_defn', 'ref_obj', 'action', '350:25')
+     G=[('BARE', 1)]  O=[('BOUND', 1)]
+  testflags.SimpleUVM-1dc93a62
+     ('ifcond', 'castop', 'function@class_defn', 'ref_obj', 'action', '350:25')
+     G=[('BARE', 1)]  O=[('BOUND', 1)]
+
+================ PATCHED =================
+=== CELLS BY CONTEXT (references under a cast) ===
+  arg          cells=    35  DIFF(g!=o)=    0
+  assign_rhs   cells=   266  DIFF(g!=o)=    0
+  body         cells=   176  DIFF(g!=o)=    0
+  ifcond       cells=   164  DIFF(g!=o)=    0
+  return       cells=    27  DIFF(g!=o)=    0
+=== CELLS BY HOME ===
+  function@class_defn          cells=   333  DIFF=    0
+  function@design              cells=     2  DIFF=    0
+  function@package             cells=   227  DIFF=    0
+  none@none                    cells=    88  DIFF=    0
+  task@class_defn              cells=    18  DIFF=    0
+=== CELLS BY CAST KIND ===
+  castop               cells=   668  DIFF=    0
+=== ONE-SIDED SETS ===  ONLY-G keys=2 cells=88   ONLY-O keys=1 cells=88
+  ONLY-G ('body', 'function@class_defn', 'castop') x36
+  ONLY-G ('body', 'function@package', 'castop') x52
+  ONLY-O ('body', 'none@none', 'castop') x88
+=== DIFF CELLS (golden != ours), 0 ===
+
+================ SCORED, pristine -> patched =================
+=== MOVED (pristine -> patched) ===
+  TOWARD    default.BuildUVMPkg-bf853d43 ('ifcond', 'castop', 'function@class_defn', 'ref_obj', 'action', '30800:25')
+     G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+  TOWARD    default.MiniAmiq-544c7f61 ('ifcond', 'castop', 'function@class_defn', 'ref_obj', 'action', '350:25')
+     G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+  TOWARD    default.Scoreboard-59431470 ('ifcond', 'castop', 'function@class_defn', 'ref_obj', 'action', '350:25')
+     G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+  TOWARD    default.SeqDriver-32af76aa ('ifcond', 'castop', 'function@class_defn', 'ref_obj', 'action', '350:25')
+     G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+  TOWARD    default.SimpleUVM-1dc93a62 ('ifcond', 'castop', 'function@class_defn', 'ref_obj', 'action', '350:25')
+     G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+  TOWARD    testflags.BuildUVMPkg-bf853d43 ('ifcond', 'castop', 'function@class_defn', 'ref_obj', 'action', '30800:25')
+     G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+  TOWARD    testflags.MiniAmiq-544c7f61 ('ifcond', 'castop', 'function@class_defn', 'ref_obj', 'action', '350:25')
+     G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+  TOWARD    testflags.SeqDriver-32af76aa ('ifcond', 'castop', 'function@class_defn', 'ref_obj', 'action', '350:25')
+     G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+  TOWARD    testflags.SimpleUVM-1dc93a62 ('ifcond', 'castop', 'function@class_defn', 'ref_obj', 'action', '350:25')
+     G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+MOVED TOWARD=9   TOTAL=9

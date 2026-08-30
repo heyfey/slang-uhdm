@@ -1,0 +1,362 @@
+r10uvm164 GRID -- four arms x two views, scored TOWARD / AWAY / SIDEWAYS / RESHAPE
+against a per-arm Surelog golden.  MEASUREMENT ONLY; uhdm-cmp is the judge.
+Driver: grid164.sh (every command and every rc recorded in each workdir's
+cmds.txt -- an rc=139 segfault must never read as a result).
+
+=========== ARM A  (g164_a_ctx.sv) ===========
+PRISTINE  vs GOLDEN:  DIFF   27  ONLY-G    9  ONLY-O    9
+PATCHED   vs GOLDEN:  DIFF   15  ONLY-G    9  ONLY-O    9
+---- MOVED CELLS (pristine column != patched column) ----
+  TOWARD    CAS|def|CTX=casecond|CAST=castop|HOME=function@class_defn|ref_obj|ticker|35:16
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|quota|31:14
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|spool|29:14
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|elab|CTX=casecond|CAST=castop|HOME=function@class_defn|ref_obj|ticker|35:16
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|quota|31:14
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|spool|29:14
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    REF|def|ref_obj|quota|31:14|/operation#67/operation#14/begin/function:seven_ways/class_defn:work@Contexts164/design:work@harness164_a
+      G=['ACT=NONE']  pris=['ACT=io_decl:quota']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|spool|29:14|/operation#67/operation#14/begin/function:seven_ways/class_defn:work@Contexts164/design:work@harness164_a
+      G=['ACT=NONE']  pris=['ACT=int_var:spool']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|ticker|35:16|/operation#67/begin/function:seven_ways/class_defn:work@Contexts164/design:work@harness164_a
+      G=['ACT=NONE']  pris=['ACT=int_var:ticker']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|quota|31:14|/operation#67/operation#14/begin/function:seven_ways/class_defn:work@Contexts164/design:work@harness164_a
+      G=['ACT=NONE']  pris=['ACT=io_decl:quota']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|spool|29:14|/operation#67/operation#14/begin/function:seven_ways/class_defn:work@Contexts164/design:work@harness164_a
+      G=['ACT=NONE']  pris=['ACT=int_var:spool']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|ticker|35:16|/operation#67/begin/function:seven_ways/class_defn:work@Contexts164/design:work@harness164_a
+      G=['ACT=NONE']  pris=['ACT=int_var:ticker']  pat=['ACT=NONE']
+MOVED TOWARD=12   TOTAL=12
+
+=========== ARM B  (g164_b_home.sv) ===========
+PRISTINE  vs GOLDEN:  DIFF   21  ONLY-G   14  ONLY-O   56
+PATCHED   vs GOLDEN:  DIFF    1  ONLY-G   14  ONLY-O   56
+---- MOVED CELLS (pristine column != patched column) ----
+  TOWARD    CAS|def|CTX=casecond|CAST=castop|HOME=function@class_defn|ref_obj|brim|34:18
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|brim|30:16
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|tide|32:16
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=castop|HOME=task@class_defn|ref_obj|tide|55:16
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=castop|HOME=task@class_defn|ref_obj|wharf|53:16
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|elab|CTX=casecond|CAST=castop|HOME=function@class_defn|ref_obj|brim|34:18
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|brim|30:16
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|tide|32:16
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=castop|HOME=task@class_defn|ref_obj|tide|55:16
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=castop|HOME=task@class_defn|ref_obj|wharf|53:16
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    REF|def|ref_obj|brim|30:16|/operation#67/operation#14/begin/function:in_body/class_defn:Homes164/package:pk_home164/design:work@harness164_b
+      G=['ACT=NONE']  pris=['ACT=int_var:brim']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|brim|34:18|/operation#67/begin/function:in_body/class_defn:Homes164/package:pk_home164/design:work@harness164_b
+      G=['ACT=NONE']  pris=['ACT=int_var:brim']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|tide|32:16|/operation#67/operation#14/begin/function:in_body/class_defn:Homes164/package:pk_home164/design:work@harness164_b
+      G=['ACT=NONE']  pris=['ACT=io_decl:tide']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|tide|55:16|/operation#67/operation#14/begin/task:in_body_task/class_defn:Homes164/package:pk_home164/design:work@harness164_b
+      G=['ACT=NONE']  pris=['ACT=io_decl:tide']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|wharf|53:16|/operation#67/operation#14/begin/task:in_body_task/class_defn:Homes164/package:pk_home164/design:work@harness164_b
+      G=['ACT=NONE']  pris=['ACT=int_var:wharf']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|brim|30:16|/operation#67/operation#14/begin/function:in_body/class_defn:Homes164/package:pk_home164/design:work@harness164_b
+      G=['ACT=NONE']  pris=['ACT=int_var:brim']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|brim|34:18|/operation#67/begin/function:in_body/class_defn:Homes164/package:pk_home164/design:work@harness164_b
+      G=['ACT=NONE']  pris=['ACT=int_var:brim']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|tide|32:16|/operation#67/operation#14/begin/function:in_body/class_defn:Homes164/package:pk_home164/design:work@harness164_b
+      G=['ACT=NONE']  pris=['ACT=io_decl:tide']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|tide|55:16|/operation#67/operation#14/begin/task:in_body_task/class_defn:Homes164/package:pk_home164/design:work@harness164_b
+      G=['ACT=NONE']  pris=['ACT=io_decl:tide']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|wharf|53:16|/operation#67/operation#14/begin/task:in_body_task/class_defn:Homes164/package:pk_home164/design:work@harness164_b
+      G=['ACT=NONE']  pris=['ACT=int_var:wharf']  pat=['ACT=NONE']
+MOVED TOWARD=20   TOTAL=20
+
+=========== ARM C  (g164_c_kinds.sv) ===========
+PRISTINE  vs GOLDEN:  DIFF   99  ONLY-G   41  ONLY-O   40
+PATCHED   vs GOLDEN:  DIFF   11  ONLY-G   41  ONLY-O   40
+---- MOVED CELLS (pristine column != patched column) ----
+  TOWARD    CAS|def|CTX=casecond|CAST=castop|HOME=function@class_defn|ref_obj|barrow|61:16
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=casecond|CAST=castop|HOME=function@class_defn|ref_obj|drift|65:16
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=casecond|CAST=signcast|HOME=function@class_defn|ref_obj|trough|73:19
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|barrow|34:14
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|barrow|35:14
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|barrow|38:12
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|barrow|40:18
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  NO-GOLDEN CAS|def|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|barrow|42:23
+      G=None  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|barrow|43:14
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|barrow|44:15
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|barrow|47:14
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|barrow|48:14
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|barrow|49:14
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|cistern|56:14
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|crumb|39:18
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|drift|48:29
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|drift|49:29
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|drift|52:14
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|furrow|49:43
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|stage|53:14
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=castop>castop|HOME=function@class_defn|ref_obj|barrow|41:19
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=signcast|HOME=function@class_defn|ref_obj|barrow|36:19
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=signcast|HOME=function@class_defn|ref_obj|plinth|37:17
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|elab|CTX=casecond|CAST=castop|HOME=function@class_defn|ref_obj|barrow|61:16
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=casecond|CAST=castop|HOME=function@class_defn|ref_obj|drift|65:16
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=casecond|CAST=signcast|HOME=function@class_defn|ref_obj|trough|73:19
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|barrow|34:14
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|barrow|35:14
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|barrow|38:12
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|barrow|40:18
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  NO-GOLDEN CAS|elab|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|barrow|42:23
+      G=None  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|barrow|43:14
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|barrow|44:15
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|barrow|47:14
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|barrow|48:14
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|barrow|49:14
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|cistern|56:14
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|crumb|39:18
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|drift|48:29
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|drift|49:29
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|drift|52:14
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|furrow|49:43
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|stage|53:14
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=castop>castop|HOME=function@class_defn|ref_obj|barrow|41:19
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=signcast|HOME=function@class_defn|ref_obj|barrow|36:19
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=signcast|HOME=function@class_defn|ref_obj|plinth|37:17
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    REF|def|ref_obj|barrow|34:14|/operation#67/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=int_var:barrow']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|barrow|35:14|/operation#67/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=int_var:barrow']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|barrow|36:19|/sys_func_call:$unsigned/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=int_var:barrow']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|barrow|38:12|/operation#67/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=int_var:barrow']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|barrow|40:18|/operation#67/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=int_var:barrow']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|barrow|41:19|/operation#67/operation#67/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=int_var:barrow']  pat=['ACT=NONE']
+  NO-GOLDEN REF|def|ref_obj|barrow|42:23|/operation#67/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=None  pris=['ACT=int_var:barrow']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|barrow|43:14|/operation#67/operation#24/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=int_var:barrow']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|barrow|44:15|/operation#67/operation#14/operation#26/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=int_var:barrow']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|barrow|47:14|/operation#67/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=int_var:barrow']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|barrow|48:14|/operation#67/operation#24/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=int_var:barrow']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|barrow|49:14|/operation#67/operation#24/operation#24/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=int_var:barrow']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|barrow|61:16|/operation#67/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=int_var:barrow']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|cistern|56:14|/operation#67/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=int_var:cistern']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|crumb|39:18|/operation#67/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=io_decl:crumb']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|drift|48:29|/operation#67/operation#24/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=io_decl:drift']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|drift|49:29|/operation#67/operation#24/operation#24/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=io_decl:drift']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|drift|52:14|/operation#67/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=io_decl:drift']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|drift|65:16|/operation#67/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=io_decl:drift']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|furrow|49:43|/operation#67/operation#24/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=byte_var:furrow']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|plinth|37:17|/sys_func_call:$signed/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=bit_var:plinth']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|stage|53:14|/operation#67/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=io_decl:stage']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|trough|73:19|/sys_func_call:$signed/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=logic_var:trough']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|barrow|34:14|/operation#67/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=int_var:barrow']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|barrow|35:14|/operation#67/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=int_var:barrow']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|barrow|36:19|/sys_func_call:$unsigned/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=int_var:barrow']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|barrow|38:12|/operation#67/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=int_var:barrow']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|barrow|40:18|/operation#67/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=int_var:barrow']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|barrow|41:19|/operation#67/operation#67/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=int_var:barrow']  pat=['ACT=NONE']
+  NO-GOLDEN REF|elab|ref_obj|barrow|42:23|/operation#67/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=None  pris=['ACT=int_var:barrow']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|barrow|43:14|/operation#67/operation#24/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=int_var:barrow']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|barrow|44:15|/operation#67/operation#14/operation#26/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=int_var:barrow']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|barrow|47:14|/operation#67/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=int_var:barrow']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|barrow|48:14|/operation#67/operation#24/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=int_var:barrow']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|barrow|49:14|/operation#67/operation#24/operation#24/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=int_var:barrow']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|barrow|61:16|/operation#67/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=int_var:barrow']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|cistern|56:14|/operation#67/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=int_var:cistern']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|crumb|39:18|/operation#67/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=io_decl:crumb']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|drift|48:29|/operation#67/operation#24/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=io_decl:drift']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|drift|49:29|/operation#67/operation#24/operation#24/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=io_decl:drift']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|drift|52:14|/operation#67/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=io_decl:drift']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|drift|65:16|/operation#67/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=io_decl:drift']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|furrow|49:43|/operation#67/operation#24/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=byte_var:furrow']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|plinth|37:17|/sys_func_call:$signed/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=bit_var:plinth']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|stage|53:14|/operation#67/operation#14/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=io_decl:stage']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|trough|73:19|/sys_func_call:$signed/begin/function:every_cast/class_defn:work@Kinds164/design:work@harness164_c
+      G=['ACT=NONE']  pris=['ACT=logic_var:trough']  pat=['ACT=NONE']
+MOVED NO-GOLDEN=4  TOWARD=88   TOTAL=92
+
+=========== ARM D  (g164_d_notmove.sv) ===========
+PRISTINE  vs GOLDEN:  DIFF   19  ONLY-G   16  ONLY-O    9
+PATCHED   vs GOLDEN:  DIFF    7  ONLY-G   16  ONLY-O    9
+---- MOVED CELLS (pristine column != patched column) ----
+  TOWARD    CAS|def|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|rafter|104:16
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|sconce|98:16
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=castop|HOME=task@class_defn|ref_obj|gable|117:18
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|rafter|104:16
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|sconce|98:16
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=castop|HOME=task@class_defn|ref_obj|gable|117:18
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    REF|def|ref_obj|gable|117:18|/operation#67/operation#14/begin/fork_stmt/begin/task:waits/class_defn:work@Stay164/design:work@harness164_d
+      G=['ACT=NONE']  pris=['ACT=int_var:gable']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|rafter|104:16|/operation#67/operation#14/begin/begin/function:named_blocks/class_defn:work@Stay164/design:work@harness164_d
+      G=['ACT=NONE']  pris=['ACT=int_var:rafter']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|sconce|98:16|/operation#67/operation#14/named_begin:lodge/begin/function:named_blocks/class_defn:work@Stay164/design:work@harness164_d
+      G=['ACT=NONE']  pris=['ACT=int_var:sconce']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|gable|117:18|/operation#67/operation#14/begin/fork_stmt/begin/task:waits/class_defn:work@Stay164/design:work@harness164_d
+      G=['ACT=NONE']  pris=['ACT=int_var:gable']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|rafter|104:16|/operation#67/operation#14/begin/begin/function:named_blocks/class_defn:work@Stay164/design:work@harness164_d
+      G=['ACT=NONE']  pris=['ACT=int_var:rafter']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|sconce|98:16|/operation#67/operation#14/named_begin:lodge/begin/function:named_blocks/class_defn:work@Stay164/design:work@harness164_d
+      G=['ACT=NONE']  pris=['ACT=int_var:sconce']  pat=['ACT=NONE']
+MOVED TOWARD=12   TOTAL=12
+
+=========== r10v161's ARM D re-run (v161_d_break.sv) -- the MODULE-FUNCTION CONTROL ===========
+PRISTINE  vs GOLDEN:  DIFF   43  ONLY-G  114  ONLY-O  138
+PATCHED   vs GOLDEN:  DIFF   15  ONLY-G  114  ONLY-O  138
+---- MOVED CELLS (pristine column != patched column) ----
+  TOWARD    CAS|def|CTX=casecond|CAST=castop|HOME=function@class_defn|ref_obj|loc|38:16
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|formal_d|21:14
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|loc|20:14
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|loc|24:14
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|loc|26:12
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|nib|27:24
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|def|CTX=ifcond|CAST=signcast|HOME=function@class_defn|ref_obj|loc|25:19
+      G=['BARE']  pris=['BOUND']  pat=['BARE']
+  TOWARD    CAS|elab|CTX=casecond|CAST=castop|HOME=function@class_defn|ref_obj|loc|38:16
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|formal_d|21:14
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|loc|20:14
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|loc|24:14
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|loc|26:12
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=castop|HOME=function@class_defn|ref_obj|nib|27:24
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    CAS|elab|CTX=ifcond|CAST=signcast|HOME=function@class_defn|ref_obj|loc|25:19
+      G=['BARE', 'BOUND']  pris=['BOUND']  pat=['BARE', 'BOUND']
+  TOWARD    REF|def|ref_obj|formal_d|21:14|/operation#67/operation#14/begin/function:d_cast/class_defn:work@Cast_d161/design:work@top_d161
+      G=['ACT=NONE']  pris=['ACT=io_decl:formal_d']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|loc|20:14|/operation#67/operation#14/begin/function:d_cast/class_defn:work@Cast_d161/design:work@top_d161
+      G=['ACT=NONE']  pris=['ACT=int_var:loc']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|loc|24:14|/operation#67/begin/function:d_cast/class_defn:work@Cast_d161/design:work@top_d161
+      G=['ACT=NONE']  pris=['ACT=int_var:loc']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|loc|25:19|/sys_func_call:$unsigned/operation#14/begin/function:d_cast/class_defn:work@Cast_d161/design:work@top_d161
+      G=['ACT=NONE']  pris=['ACT=int_var:loc']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|loc|26:12|/operation#67/operation#14/begin/function:d_cast/class_defn:work@Cast_d161/design:work@top_d161
+      G=['ACT=NONE']  pris=['ACT=int_var:loc']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|loc|38:16|/operation#67/begin/function:d_cast/class_defn:work@Cast_d161/design:work@top_d161
+      G=['ACT=NONE']  pris=['ACT=int_var:loc']  pat=['ACT=NONE']
+  TOWARD    REF|def|ref_obj|nib|27:24|/operation#67/operation#14/begin/function:d_cast/class_defn:work@Cast_d161/design:work@top_d161
+      G=['ACT=NONE']  pris=['ACT=bit_var:nib']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|formal_d|21:14|/operation#67/operation#14/begin/function:d_cast/class_defn:work@Cast_d161/design:work@top_d161
+      G=['ACT=NONE']  pris=['ACT=io_decl:formal_d']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|loc|20:14|/operation#67/operation#14/begin/function:d_cast/class_defn:work@Cast_d161/design:work@top_d161
+      G=['ACT=NONE']  pris=['ACT=int_var:loc']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|loc|24:14|/operation#67/begin/function:d_cast/class_defn:work@Cast_d161/design:work@top_d161
+      G=['ACT=NONE']  pris=['ACT=int_var:loc']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|loc|25:19|/sys_func_call:$unsigned/operation#14/begin/function:d_cast/class_defn:work@Cast_d161/design:work@top_d161
+      G=['ACT=NONE']  pris=['ACT=int_var:loc']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|loc|26:12|/operation#67/operation#14/begin/function:d_cast/class_defn:work@Cast_d161/design:work@top_d161
+      G=['ACT=NONE']  pris=['ACT=int_var:loc']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|loc|38:16|/operation#67/begin/function:d_cast/class_defn:work@Cast_d161/design:work@top_d161
+      G=['ACT=NONE']  pris=['ACT=int_var:loc']  pat=['ACT=NONE']
+  TOWARD    REF|elab|ref_obj|nib|27:24|/operation#67/operation#14/begin/function:d_cast/class_defn:work@Cast_d161/design:work@top_d161
+      G=['ACT=NONE']  pris=['ACT=bit_var:nib']  pat=['ACT=NONE']
+MOVED TOWARD=28   TOTAL=28

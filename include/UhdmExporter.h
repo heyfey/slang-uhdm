@@ -3304,6 +3304,17 @@ private:
     // emitted (all FIVE emission sites, the signedness cast included).
     int methodWindowDepth161v = 0;
     int castOperandDepth161v = 0;
+    // ===== r10uvm164 — the CONDITION column's half of the same window. =====
+    // `condMethodWindowDepth164` is `methodWindowDepth161v`'s twin for the
+    // THREE `if` / `if_else` / `case` CONDITION sites (StmtEmit.cpp SITE 1-3 of
+    // 3 of § refVarLocalWindowBinds5), raised by the SAME `MethodWindow161`
+    // RAII on the SAME terms — only when the window ACTUALLY LIFTS a set
+    // `classMethodNoBind`.  It is a SEPARATE counter, not a widening of
+    // `methodWindowDepth161v`, precisely so that only the term § 164 un-scopes
+    // (the CAST one) reaches the condition column: § namedBlkLocalNoBind144v
+    // keeps reading `methodWindowDepth161v` alone and its condition-column
+    // twins (r10v161's d31 53:11, d41 97:13) stay exactly as they were.
+    int condMethodWindowDepth164 = 0;
     // ===== VERIFIER FIX 1 (r10v161) — § castOperandNeverBindsInWindow161v =====
     //
     //   A CAST'S OPERAND IS NEVER EAGERLY BOUND, AT ANY DEPTH UNDER THE CAST.
@@ -3354,6 +3365,102 @@ private:
     // The `if`-column twins d01/d02/d05/d06/d07/d08 (20:14…27:24) and the
     // case-CONDITION twin d21 (38:16) are golden-BARE and OURS-BOUND in the
     // PRISTINE binary and are left EXACTLY as they were — R0a, not this term.
+    //
+    // ===== § castOperandNeverBindsInCondWindow164 (r10uvm164) =====
+    //
+    //   THE `if` / `case` CONDITION COLUMN IS THE SAME CAST WINDOW.  Surelog
+    //   draws NO line between a condition and an assertion condition or a case
+    //   item: ONE `paCast` arm, ONE null `pexpr`.  § castOperandNeverBindsIn-
+    //   Window161v's term is therefore owed at the CONDITION positions too,
+    //   and on the SAME class-method terms.
+    //
+    // WHAT r10v161 LEFT STANDING AND WHY.  Its FIX 1 corrected only what its
+    // own window newly bound and named the `if`-condition half R0a — "a
+    // PRE-EXISTING, corpus-visible residue of a DIFFERENT law".  It is the same
+    // law.  The producer decode is FIX 1's, unchanged and re-read here:
+    // `CompileExpression.cpp:2637-2646` compiles a cast's operand with `pexpr`
+    // LITERALLY `nullptr`, and `CompileHelper::bindVariable`
+    // (CompileStmt.cpp:3092) opens `if (scope == nullptr) return nullptr;`.
+    // Nothing in either line knows which STATEMENT the cast is standing in.
+    //
+    // WHY IT IS STILL A CLASS-METHOD TERM, AND WHAT THE MODULE FACE PROVES.
+    // The null `pexpr` is not the end of the story — the very next branch
+    // (`CompileExpression.cpp:2833-2842`, and again at :2989-2995) is
+    //
+    //     if (pexpr)            { … bindVariable(component, pexpr, …) }
+    //     else if (instance)    { … bindVariable(component, instance, …) }
+    //     else if (component)   component->needLateBinding(ref);
+    //
+    // so a cast operand falls through to the INSTANCE.  A class method living
+    // in a package has no instance and reaches `needLateBinding`, where a
+    // formal and a subroutine local find nothing; a MODULE function, task or
+    // process HAS one, and golden BINDS there.  That is the counter-example
+    // r10v161's verifier convicted its own first cut on, and it is measured
+    // again here in the CONDITION column: `v161_d_break.sv` d61 146:14
+    // `if (int'(loc) == 1)` in a module function is golden-BOUND, pristine-
+    // BOUND and PATCHED-BOUND.  `condMethodWindowDepth164` is raised by
+    // `MethodWindow161` only where the window ACTUALLY LIFTS a set
+    // `classMethodNoBind`, so the term is INERT in a module function, a module
+    // task, an `initial`, a package free function and an OUT-OF-BODY method —
+    // every one of them measured golden-BOUND and unmoved (arm B b41-b46,
+    // b51-b53, b01-b03, b31-b33).
+    //
+    // THE MEASURED POPULATION — the nine UVM databases (BuildUVMPkg, MiniAmiq,
+    // SeqDriver, SimpleUVM x both modes + Scoreboard/default; the other 947
+    // hold no reference under a cast in a condition at all), censused by
+    // CONTEXT x HOME x CAST KIND x VIEW, golden against ours:
+    //     668 references under a cast in all
+    //       by context   ifcond 164 | assign_rhs 266 | body 176 | arg 35 | return 27
+    //                    (casecond, caseitem and assertcond: EMPTY in the corpus)
+    //       by home      function@class_defn 333 | function@package 227 |
+    //                    task@class_defn 18 | function@design 2 | none@none 88
+    //       by kind      castop 668 | signcast 0
+    //     DIFF golden-vs-ours BEFORE: 9, EVERY ONE of them
+    //        (ifcond, castop, function@class_defn) — uvm_report_handler.svh:350
+    //        `if(uvm_action_type'(action) == UVM_NO_ACTION)` in the IN-BODY
+    //        static method `format_action`, golden BARE and ours BOUND to the
+    //        function's own io_decl at 347:51 (the head, `LHS: <null>` — the
+    //        SINGULAR SafeCompare MIRROR).  DIFF in every other context, every
+    //        other home and the other cast kind: 0.
+    //     DIFF AFTER: 0 over the whole 668.  MOVED 9, ALL TOWARD-EXACT,
+    //        AWAY 0, SIDEWAYS 0, RESHAPE 0.
+    // The AWAY column scored EXPLICITLY, both directions: a cast operand left
+    // bare where golden BINDS is AWAY, and there are ZERO — the 227
+    // package-function, 18 class-task, 2 design and 88 home-unattributed cells
+    // are byte-for-byte what they were, and so is every module face on the grid.
+    //
+    // WHAT THE SEVEN SIBLINGS AT :355-361 PROVE.  `if(action & UVM_DISPLAY)`
+    // and its six twins read the SAME formal from the SAME method through an
+    // `if` condition with NO cast, and are null on BOTH sides — they sit one
+    // control body deeper than the declaration, which is § refVarLocalWindow-
+    // Binds5's DEPTH half.  They do not move (arm D d31-d35), and neither does
+    // any un-cast twin in any of the seven contexts (arm D d01-d10).
+    //
+    // WHAT THIS TERM DOES **NOT** REACH, each one measured rather than assumed:
+    //   * a CLASS PROPERTY, a class STATIC property and an enum-typed property
+    //     under a cast in a condition are golden-BARE and ALREADY bare in the
+    //     pristine binary (arm A a21/a23/a27, arm C c17/c18/c21) — the eager
+    //     binder has no class-scope case at all, so there is nothing to take
+    //     away and NO symbol half is needed on the gate.  The corpus agrees:
+    //     the predictor's INERT-LATE bucket is EMPTY over 956 + 1358 databases.
+    //   * `$signed(x)` / `$unsigned(x)` written as SYSTEM CALLS are golden-BOUND
+    //     and stay BOUND (arm C c33/c34) — they are not the `paCast` arm; the
+    //     CAST spellings `signed'(x)` / `unsigned'(x)` at the same depth in the
+    //     same condition are golden-BARE and move (arm C c03/c04, c25).  Our
+    //     emitter separates the two by SYNTAX (`SignedCastExpressionSyntax`),
+    //     which is the only place they are separable — Surelog renders both as
+    //     one `sys_func_call`.
+    //   * `$cast(dst, src)` is an ordinary system call and its arguments are
+    //     untouched (arm C c30/c31).
+    //   * a cast OUTSIDE the condition window — an assignment RHS, a call
+    //     argument, a `while` / `for` / `repeat` / `do-while` control, a
+    //     `case … inside` item, a `wait`, a `return` — is not reached at all
+    //     (arm D d21-d28, all golden-BARE, all unmoved).
+    //   * § namedBlkLocalNoBind144v's CONDITION-column twin (a named-block local
+    //     with NO cast, golden BARE, ours BOUND) stays exactly as it was —
+    //     arm D d41 — because that term reads `methodWindowDepth161v` and this
+    //     one raises `condMethodWindowDepth164`.  Its CAST twin d42 moves, as
+    //     the cast law says it must.
     //
     // ===== VERIFIER FIX 2 (r10v161) — § namedBlkLocalNoBind144v EXTENDED =====
     //

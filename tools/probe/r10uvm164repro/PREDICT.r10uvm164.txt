@@ -1,0 +1,39 @@
+r10uvm164 PREDICT -- the a-priori mover set, named BY NAME from the PRISTINE
+databases only, BEFORE the patched sweep existed (RESUME.md S6).  ct164pred.cpp
+reads one pristine database and applies the term's own five conjuncts.
+
+SURELOG corpus (predsweep164.sh over /tmp scratch, 956 databases):
+-- databases=956  rows-with-cells=9  restore-fail=0
+-- PRED cells: 9
+-- PRED-SIGN cells: 0
+-- INERT-OOB cells: 48
+-- INERT-LATE cells: 0
+-- MOVER ROW: default/BuildUVMPkg-bf853d43
+-- MOVER ROW: default/MiniAmiq-544c7f61
+-- MOVER ROW: default/Scoreboard-59431470
+-- MOVER ROW: default/SeqDriver-32af76aa
+-- MOVER ROW: default/SimpleUVM-1dc93a62
+-- MOVER ROW: testflags/BuildUVMPkg-bf853d43
+-- MOVER ROW: testflags/MiniAmiq-544c7f61
+-- MOVER ROW: testflags/SeqDriver-32af76aa
+-- MOVER ROW: testflags/SimpleUVM-1dc93a62
+
+PRED	default/BuildUVMPkg-bf853d43	castop	action:30800:25		fn=format_action@30797-30797/cls@30476-31097	inbody=1	flag=1	sub=1	act=io_decl
+PRED	default/MiniAmiq-544c7f61	castop	action:350:25		fn=format_action@347-347/cls@55-797	inbody=1	flag=1	sub=1	act=io_decl
+PRED	default/Scoreboard-59431470	castop	action:350:25		fn=format_action@347-347/cls@55-797	inbody=1	flag=1	sub=1	act=io_decl
+PRED	default/SeqDriver-32af76aa	castop	action:350:25		fn=format_action@347-347/cls@55-797	inbody=1	flag=1	sub=1	act=io_decl
+PRED	default/SimpleUVM-1dc93a62	castop	action:350:25		fn=format_action@347-347/cls@55-797	inbody=1	flag=1	sub=1	act=io_decl
+PRED	testflags/BuildUVMPkg-bf853d43	castop	action:30800:25		fn=format_action@30797-30797/cls@30476-31097	inbody=1	flag=1	sub=1	act=io_decl
+PRED	testflags/MiniAmiq-544c7f61	castop	action:350:25		fn=format_action@347-347/cls@55-797	inbody=1	flag=1	sub=1	act=io_decl
+PRED	testflags/SeqDriver-32af76aa	castop	action:350:25		fn=format_action@347-347/cls@55-797	inbody=1	flag=1	sub=1	act=io_decl
+PRED	testflags/SimpleUVM-1dc93a62	castop	action:350:25		fn=format_action@347-347/cls@55-797	inbody=1	flag=1	sub=1	act=io_decl
+
+UHDM2RTLIL corpus (1358 databases):
+-- databases=1358  rows-with-cells=0  restore-fail=0
+-- PRED cells: 0
+-- PRED-SIGN cells: 0
+-- INERT-OOB cells: 0
+-- INERT-LATE cells: 0
+
+MEASURED AFTERWARDS: byteverify MOVERS 9/956 and 0/1358 -- exactly these rows,
+by name, and the corpus census scored all 9 TOWARD-EXACT with 0 AWAY.

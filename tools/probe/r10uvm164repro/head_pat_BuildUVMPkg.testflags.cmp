@@ -1,0 +1,29 @@
+LHS: <null>
+RHS:
+decompile:
+io_decl: (alias_name), id:86640, line:14091:46, endln:14091:56
+|vpiParent:
+\_function: (uvm_pkg::uvm_registry_common::set_type_alias), id:86639, line:14091:3, endln:14091:9
+|vpiDirection:1
+|vpiName:alias_name
+|vpiTypedef:
+\_ref_typespec: (uvm_pkg::uvm_registry_common::set_type_alias::alias_name), id:86641
+  |vpiParent:
+  \_io_decl: (alias_name), id:86640, line:14091:46, endln:14091:56
+  |vpiFullName:uvm_pkg::uvm_registry_common::set_type_alias::alias_name
+  |vpiActual:
+  \_string_typespec: , id:86642, line:14091:39, endln:14091:45
+
+decompile:
+io_decl: (alias_name), id:86640, line:14091:46, endln:14091:56
+|vpiParent:
+\_function: (uvm_pkg::uvm_registry_common::set_type_alias), id:86639, line:14091:3, endln:14091:9
+|vpiDirection:1
+|vpiName:alias_name
+|vpiTypedef:
+\_ref_typespec: (uvm_pkg::uvm_registry_common::set_type_alias::alias_name), id:86641
+  |vpiParent:
+  \_io_decl: (alias_name), id:86640, line:14091:46, endln:14091:56
+  |vpiFullName:uvm_pkg::uvm_registry_common::set_type_alias::alias_name
+  |vpiActual:
+  \_string_typespec: , id:86642, line:14091:39, endln:14091:45

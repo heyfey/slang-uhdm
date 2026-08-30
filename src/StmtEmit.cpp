@@ -4156,14 +4156,22 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     ie->VpiQualifier(vpiUniqueQualifier);
                 else if (cs.check == UniquePriorityCheck::Priority)
                     ie->VpiQualifier(vpiPriorityQualifier);
-                bool sCM9 = classMethodNoBind;
-                classMethodNoBind = false; // condition refs DO bind
                 UHDM::any* c = nullptr;
                 {   // § refVarLocalWindowBinds5 — WINDOW SITE 1 of 3
                     CondWindow5 cw5(condBindDepth5);
+                    // r10uvm164 — § castOperandNeverBindsInCondWindow164.  The
+                    // hand-spelled `bool sCM9 = classMethodNoBind;
+                    // classMethodNoBind = false; … ; classMethodNoBind = sCM9;`
+                    // this replaces did exactly what MethodWindow161 does, and
+                    // nothing else: the RAII form ALSO raises the condition
+                    // column's own depth counter, and only when it actually
+                    // LIFTS a set flag, so the cast term can be un-scoped to
+                    // this column while staying inert in a module function, a
+                    // package function, an out-of-body method and a process.
+                    MethodWindow161 mw164(classMethodNoBind,
+                                          condMethodWindowDepth164);
                     c = emitExpr(*cs.conditions[0].expr, parent, prefix, netMap);
                 }
-                classMethodNoBind = sCM9;
                 if (c)
                     ie->VpiCondition((UHDM::expr*)c);
                 CtrlBody28 cb28(ctrlBodyDepth28);
@@ -4180,14 +4188,15 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 is->VpiQualifier(vpiUniqueQualifier);
             else if (cs.check == UniquePriorityCheck::Priority)
                 is->VpiQualifier(vpiPriorityQualifier);
-            bool sCM8 = classMethodNoBind;
-            classMethodNoBind = false; // condition refs DO bind
             UHDM::any* c8 = nullptr;
             {   // § refVarLocalWindowBinds5 — WINDOW SITE 2 of 3
                 CondWindow5 cw5(condBindDepth5);
+                // r10uvm164 — § castOperandNeverBindsInCondWindow164 (SITE 1's
+                // comment carries the reasoning).
+                MethodWindow161 mw164(classMethodNoBind,
+                                      condMethodWindowDepth164);
                 c8 = emitExpr(*cs.conditions[0].expr, parent, prefix, netMap);
             }
-            classMethodNoBind = sCM8;
             if (c8)
                 is->VpiCondition((UHDM::expr*)c8);
             {
@@ -4466,14 +4475,15 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // Like if conditions, the case condition parents at the
             // enclosing scope — but FOLDED condition constants parent at
             // the case_stmt itself.
-            bool sCM7 = classMethodNoBind;
-            classMethodNoBind = false; // condition refs DO bind
             UHDM::any* c7 = nullptr;
             {   // § refVarLocalWindowBinds5 — WINDOW SITE 3 of 3
                 CondWindow5 cw5(condBindDepth5);
+                // r10uvm164 — § castOperandNeverBindsInCondWindow164 (SITE 1's
+                // comment carries the reasoning).
+                MethodWindow161 mw164(classMethodNoBind,
+                                      condMethodWindowDepth164);
                 c7 = emitExpr(cs.expr, parent, prefix, netMap);
             }
-            classMethodNoBind = sCM7;
             if (c7) {
                 if (c7->UhdmType() == UHDM::uhdmconstant)
                     ((UHDM::constant*)c7)->VpiParent(uc);

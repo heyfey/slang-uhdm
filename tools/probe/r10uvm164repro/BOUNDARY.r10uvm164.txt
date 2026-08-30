@@ -1,0 +1,67 @@
+r10uvm164 BOUNDARY -- the wide gate over a COPY of the WHOLE probe tree.
+MEASUREMENT ONLY.  bound164.sh (descended verbatim from r10uvm161repro/
+bound161.sh): top level AND subdirectories, BOTH views, BOTH frozen binaries,
+every child </dev/null, the file list on fd 3, scratch keyed on the RELATIVE
+path (three arms in this tree are all named dut.sv), PROCESSED asserted
+against LISTED.
+
+LISTED=4644 PROCESSED=4644 PRODUCED_DBS=4488 MOVED_ARMS=8 RC_DIFFS=0
+
+MOVED ARMS (8) -- four are THIS pass's own (the POSITIVE CONTROL: a gate that
+reports zero movers over them cannot see), four are outside and each was
+censused against its OWN Surelog golden with score164.py:
+r10buvm29repro/g29_c_carriers.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm164repro/g164_a_ctx.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm164repro/g164_b_home.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm164repro/g164_c_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm164repro/g164_d_notmove.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm96repro/g96_a2_homes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v161repro/v161_d_break.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v161repro/v161_g_catshape.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+  r10buvm29repro/g29_c_carriers.sv   DIFF 4 -> 0    MOVED 4, ALL TOWARD, AWAY 0
+/bin/bash: line 55: inside: command not found
+      ref_obj __a 14:27, under a concat under an  under a castop, in
+      an IN-BODY class method's if CONDITION.
+  r10uvm96repro/g96_a2_homes.sv      DIFF 10 -> 6   MOVED 4, ALL TOWARD, AWAY 0
+      ref_obj scaled 26:17, under a castop in an IN-BODY method's if CONDITION.
+  r10v161repro/v161_d_break.sv       DIFF 43 -> 15  MOVED 28, ALL TOWARD, AWAY 0
+      the previous pass's own break arm; the MODULE-FUNCTION control 146:14 /
+      147:18 is golden-BOUND and UNMOVED, and so are the package/oob columns.
+  r10v161repro/v161_g_catshape.sv    DIFF 116 -> 108 MOVED 8, ALL TOWARD, AWAY 0
+      a CONCATENATION UNDER A CAST in an if CONDITION.  r10v161's R0b (a
+      concatenation with NO cast) is untouched -- 108 cells still differ.
+
+  Outside cells in total: 44, every one TOWARD, MOVED-WRONG 0, AWAY 0.
+
+RC_DIFFS = 0.  156 of the 4644 arms produce no database on EITHER binary
+(4644 - 4488), identically on both -- pre-existing rejects and segfaults, not
+this patch: no arm changed its rc in either view.
+
+MUST-STAY ARM SETS NAMED IN THE BRIEF -- listed by the gate and NOT moved:
+  r10uvm160repro       listed=6    moved=0
+  r10uvm158repro       listed=6    moved=0
+  r10uvm139repro       listed=5    moved=0
+  r10uvm145repro       listed=5    moved=0
+  r10uvm155repro       listed=5    moved=0
+  r10uvm157repro       listed=5    moved=0
+  r10uvm146repro       listed=7    moved=0
+  r10uvm114repro       listed=8    moved=0
+  r10uvm89repro        listed=2    moved=0
+  r10uvm77repro        listed=9    moved=0
+  r10uvm78repro        listed=8    moved=0
+  r10uvm79repro        listed=8    moved=0
+  r10uvm82repro        listed=7    moved=0
+  r10uvm84repro        listed=23   moved=0
+  r10uvm85repro        listed=23   moved=0
+  r10uvm91repro        listed=5    moved=0
+  r10buvm14repro       listed=1    moved=0
+  r10buvm3repro        listed=4    moved=0
+  r10buvm15repro       listed=9    moved=0
+  r10sd8repro          listed=37   moved=0
+  r10sd9repro          listed=44   moved=0
+  r10sd10repro         listed=68   moved=0
+  r10sd11repro         listed=90   moved=0
+  r10sd12repro         listed=108  moved=0
+  r10uvm33repro        listed=3    moved=0
+  r10uvm161repro       listed=4    moved=0
