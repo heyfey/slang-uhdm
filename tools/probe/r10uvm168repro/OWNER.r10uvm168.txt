@@ -1,0 +1,24 @@
+# r10uvm168 — ct168own on the PRISTINE BuildUVMPkg/default pair.  MEASUREMENT ONLY.
+# golden: $HOME/.cache/slang-uhdm-goldens/<BuildUVMPkg key>/golden.uhdm
+# ours:   <pristine sweep workdir>/default/BuildUVMPkg-*/slang.uhdm
+
+design::Compare r=-2
+HEAD LHS(golden) = constant()@8504:47-8504:67#2991
+HEAD RHS(ours)   = constant()@8504:47-8504:67#2939
+  golden owner chain:
+      < param_assign()@8504:26-8504:67#2974
+      < package(uvm_pkg)@7351:1-83263:11#1
+      < design(unnamed)@0:0-0:0#191741
+  ours   owner chain:
+      < param_assign()@8504:26-8504:67#2938
+      < package(uvm_pkg)@7351:1-83263:11#2744
+      < design(unnamed)@0:0-0:0#1
+THE FOUR FIELDS constant::Compare + expr::Compare READ:
+  golden constType=7   size=0    decompile=3            value=INT:3          ts=ref_typespec()@0:0-0:0#2992 -> enum_typespec(uvm_pkg::uvm_core_state)@8490:1-8501:18#2958
+  ours   constType=9   size=0    decompile=3            value=UINT:3         ts=ref_typespec()@0:0-0:0#2940 -> enum_typespec(uvm_pkg::uvm_core_state)@8490:1-8501:18#3105
+  agree: decompile=1 size=1 constType=0
+ABLATION (ours constType 9 -> 7, in memory only):
+  design::Compare r=3369
+  NEXT LHS(golden) = unsupported_typespec(uvm_severity)@9584:15-9584:27#480
+  NEXT RHS(ours)   = enum_typespec(uvm_pkg::uvm_severity)@8049:1-8055:16#304
+  VERDICT: THE CONST TYPE WAS THE WHOLE HEAD (the judge moved on)

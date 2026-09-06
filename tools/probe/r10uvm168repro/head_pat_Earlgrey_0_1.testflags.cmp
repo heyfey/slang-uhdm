@@ -1,0 +1,50 @@
+LHS:
+decompile:
+constant: , id:640534, line:176:43, endln:176:64
+|vpiParent:
+\_param_assign: , id:596078, line:53:56, endln:54:59
+|vpiDecompile:32'b11111111111111111111111111111111
+|vpiSize:32
+|BIN:11111111111111111111111111111111
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_pinmux), id:640535
+  |vpiParent:
+  \_constant: , id:640534, line:176:43, endln:176:64
+  |vpiFullName:work@top_earlgrey.u_pinmux
+  |vpiActual:
+  \_int_typespec: , id:640536
+|vpiConstType:3
+
+decompile:
+constant: , id:640534, line:176:43, endln:176:64
+|vpiParent:
+\_param_assign: , id:596078, line:53:56, endln:54:59
+|vpiDecompile:32'b11111111111111111111111111111111
+|vpiSize:32
+|BIN:11111111111111111111111111111111
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_pinmux), id:640535
+  |vpiParent:
+  \_constant: , id:640534, line:176:43, endln:176:64
+  |vpiFullName:work@top_earlgrey.u_pinmux
+  |vpiActual:
+  \_int_typespec: , id:640536
+|vpiConstType:3
+RHS:
+decompile:
+ref_obj: (work@top_earlgrey.u_pinmux.gen_mio_out[0].MioPeriphHasSleepMode), id:1162043, line:176:43, endln:176:64
+|vpiParent:
+\_operation: , id:1162042, line:176:42, endln:176:84
+|vpiName:MioPeriphHasSleepMode
+|vpiFullName:work@top_earlgrey.u_pinmux.gen_mio_out[0].MioPeriphHasSleepMode
+|vpiActual:
+\_parameter: (work@top_earlgrey.u_pinmux.MioPeriphHasSleepMode), id:463123, line:53:56, endln:53:77
+
+decompile:
+ref_obj: (work@top_earlgrey.u_pinmux.gen_mio_out[0].MioPeriphHasSleepMode), id:1162043, line:176:43, endln:176:64
+|vpiParent:
+\_operation: , id:1162042, line:176:42, endln:176:84
+|vpiName:MioPeriphHasSleepMode
+|vpiFullName:work@top_earlgrey.u_pinmux.gen_mio_out[0].MioPeriphHasSleepMode
+|vpiActual:
+\_parameter: (work@top_earlgrey.u_pinmux.MioPeriphHasSleepMode), id:463123, line:53:56, endln:53:77

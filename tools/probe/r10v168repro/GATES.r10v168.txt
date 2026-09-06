@@ -1,0 +1,44 @@
+=== GATES re-run independently by the verifier (r10v168) ===
+binaries: pristine md5 5bfd7087944d0a2a32585d54a9bbe1e3 / patched md5 123e8379e93105f9091763d030eda09e
+  (both rebuilt from FRESH 39f286ef worktrees /tmp/wt_v168pris and /tmp/wt_v168; both frozen chmod 555)
+
+goldens: PAT PASS=23 FAIL=0 | PRIS PASS=23 FAIL=0 | SLANG_UHDM=/bin/false PASS=0 FAIL=23
+
+cmds.txt audit: 3035 files per workdir, 0 name build/slang-uhdm, 2981 name exactly one frozen binary,
+  distinct slang binaries per workdir: /tmp/v168_pat.bin (patched) / /tmp/v168_pris.bin (pristine)
+
+u2r histograms (both binaries, both modes): CMP_EQUAL 679 / SLANG_REJECT 50 / SURELOG_FAIL 2
+surelog histograms: identical cell-for-cell between the two binaries; 1588 rows
+ct8rows: PASS x5 (u2r tf vs committed, u2r tf vs own pris, u2r def vs own pris, sl vs committed golden, sl vs own pris)
+  surelog whole-row diff: 0 differing ROWS over 1588. NO ROW CONVERTED.
+
+byteverify SELFCHECK=1:
+  u2r   PATH_SETS_IDENTICAL (1358) MOVERS 0/1358  SELFCHECK 1357/1358
+  surelog PATH_SETS_IDENTICAL (956) MOVERS 2/956 SELFCHECK 955/956
+    MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm
+    MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm
+    (the Scoreboard/default COIN did not flip on this run; both movers were PREDICTED BY NAME)
+
+canaries sl ok=52 changed=0 absent=0 | canaries u2r ok=8 changed=0 absent=0
+ctcan2 PASS x2 | canaudit audited=29 UNCOVERED=0 FENCE-BREACH=0
+protected DBs byte-identical between binaries: InterfaceModPort 59a365f3ce2c, BlackParrotComplex e3e354129d5a/73a10e8217e5,
+  YosysOldOr d68e0796d62c, SVSwitch 4842211c4030 (pin), YosysVerx 6ccda350c24a (pin)
+
+HEADS (patched sweep): SeqDriver 338x2, SimpleUVM 338x2, Scoreboard/default 95, MiniAmiq 106x2,
+  BuildUVMPkg 106x2 (was 60x2), Earlgrey 31/50, Rggen/default CMP_EQUAL. ONE head each.
+  head log md5s: pristine 5315640cf76c3304a75dece1884b10c6 (both modes), patched bc812ae88196732fccc89625149c9abc (both modes)
+  -- BYTE-IDENTICAL to the implementer's committed head_pris_/head_pat_BuildUVMPkg.*.cmp
+
+BuildUVMPkg path-normalised dump diff: EXACTLY 2 lines of 1077633
+  |UINT:3 -> |INT:3   and   |vpiConstType:9 -> |vpiConstType:7
+
+CENSUS (ct168cen, verifier-built):
+  surelog param_assign  agree 38378 -> 38380, ct-diff 2 -> 0, other-diff 30 -> 30, only-golden 5836 -> 5836, only-ours 6089 -> 6089
+  surelog whole-design constants  both 756943 -> 756945, only-golden 400962 -> 400960, only-ours 211087 -> 211085
+  uhdm2rtlil param_assign  agree 67122 -> 67122, ct-diff 0 -> 0, only-golden 36, only-ours 22
+  the two ct-diff rows on the pristine side are exactly default/BuildUVMPkg and testflags/BuildUVMPkg
+
+A-PRIORI PREDICTION on the NEUTRAL binary (R10E168_OFF=1, R10E168_DBG=1, harness discovery, 4 fenced tests skipped):
+  surelog     rows=1565 produced=952 firings=6 -> arm=AUTO x2 (default/BuildUVMPkg, testflags/BuildUVMPkg) + arm=BIN x4 (pre-existing)
+  uhdm2rtlil  rows=1462 produced=1358 firings=8 -> arm=HEX x8 (pre-existing), ZERO new-arm firings
+  => the predicted mover set equals the measured mover set, BY NAME.

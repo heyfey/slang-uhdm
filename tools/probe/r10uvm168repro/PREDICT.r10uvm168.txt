@@ -1,0 +1,40 @@
+# r10uvm168 — THE A-PRIORI MOVER PREDICTION.  MEASUREMENT ONLY.
+# predict168.py ran the PATCHED binary with R10E168_OFF=1 (the law switched
+# off: behaviour identical to the pristine binary) and R10E168_DBG=1 over
+# BOTH corpora, collecting every firing of the enum-origin recode BEFORE the
+# scoring sweep existed.  A firing with rc=0 is a cell the law WILL move;
+# rc=1 is a cell the PRE-EXISTING hex/binary arms already recode and that the
+# law leaves exactly as it was.
+# The four slang-fenced tests were passed in FENCED= and never dispatched.
+
+######## surelog
+PREDICT binary=/tmp/r10uvm168_pat.bin env_off=1
+default/BuildUVMPkg R10E168 file=<SURELOG>/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv at=8504:47 arm=AUTO member=UVM_CORE_INITIALIZED off=1 rc=0 before[ct=9 UINT:3 dec=3] after[ct=9 UINT:3 dec=3]
+testflags/BuildUVMPkg R10E168 file=<SURELOG>/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv at=8504:47 arm=AUTO member=UVM_CORE_INITIALIZED off=1 rc=0 before[ct=9 UINT:3 dec=3] after[ct=9 UINT:3 dec=3]
+default/ImportBinding R10E168 file=<SURELOG>/tests/ImportBinding/dut.sv at=11:39 arm=BIN member=Off off=1 rc=1 before[ct=9 UINT:5 dec=5] after[ct=3 BIN:0101 dec=4'b0101]
+default/ImportBinding R10E168 file=<SURELOG>/tests/ImportBinding/dut.sv at=11:39 arm=BIN member=Off off=1 rc=1 before[ct=3 BIN:0101 dec=4'b0101] after[ct=3 BIN:0101 dec=4'b0101]
+testflags/ImportBinding R10E168 file=<SURELOG>/tests/ImportBinding/dut.sv at=11:39 arm=BIN member=Off off=1 rc=1 before[ct=9 UINT:5 dec=5] after[ct=3 BIN:0101 dec=4'b0101]
+testflags/ImportBinding R10E168 file=<SURELOG>/tests/ImportBinding/dut.sv at=11:39 arm=BIN member=Off off=1 rc=1 before[ct=3 BIN:0101 dec=4'b0101] after[ct=3 BIN:0101 dec=4'b0101]
+PREDICTRUN corpus=surelog rows=1565 produced=952 skipped=5 fenced=4 firings=6
+RC [(-11, 3), (0, 940), (1, 4), (2, 32), (3, 574), (4, 12)]
+
+######## uhdm2rtlil
+default/typedef_package R10E168 file=<U2R>/test/typedef_package/dut.sv at=5:30 arm=HEX member=cc off=1 rc=1 before[ct=9 UINT:204 dec=204] after[ct=5 HEX:CC dec=8'hCC]
+default/typedef_package R10E168 file=<U2R>/test/typedef_package/dut.sv at=6:34 arm=HEX member=cc off=1 rc=1 before[ct=5 HEX:CC dec=8'hCC] after[ct=5 HEX:CC dec=8'hCC]
+default/typedef_package R10E168 file=<U2R>/test/typedef_package/dut.sv at=0:0 arm=HEX member=cc off=1 rc=1 before[ct=9 UINT:204 dec=204] after[ct=5 HEX:CC dec=8'hCC]
+default/typedef_package R10E168 file=<U2R>/test/typedef_package/dut.sv at=0:0 arm=HEX member=cc off=1 rc=1 before[ct=9 UINT:204 dec=204] after[ct=5 HEX:CC dec=8'hCC]
+testflags/typedef_package R10E168 file=<U2R>/test/typedef_package/dut.sv at=5:30 arm=HEX member=cc off=1 rc=1 before[ct=9 UINT:204 dec=204] after[ct=5 HEX:CC dec=8'hCC]
+testflags/typedef_package R10E168 file=<U2R>/test/typedef_package/dut.sv at=6:34 arm=HEX member=cc off=1 rc=1 before[ct=5 HEX:CC dec=8'hCC] after[ct=5 HEX:CC dec=8'hCC]
+testflags/typedef_package R10E168 file=<U2R>/test/typedef_package/dut.sv at=0:0 arm=HEX member=cc off=1 rc=1 before[ct=9 UINT:204 dec=204] after[ct=5 HEX:CC dec=8'hCC]
+testflags/typedef_package R10E168 file=<U2R>/test/typedef_package/dut.sv at=0:0 arm=HEX member=cc off=1 rc=1 before[ct=9 UINT:204 dec=204] after[ct=5 HEX:CC dec=8'hCC]
+PREDICTRUN corpus=uhdm2rtlil rows=1462 produced=1358 skipped=0 fenced=0 firings=8
+RC [(0, 1358), (2, 4), (3, 100)]
+
+######## THE PREDICTION
+# arm=AUTO firings, rc=0 (declined while OFF, WILL move when ON):
+#     BuildUVMPkg/default   uvm_pkg.sv:8504:47  member=UVM_CORE_INITIALIZED
+#     BuildUVMPkg/testflags uvm_pkg.sv:8504:47  member=UVM_CORE_INITIALIZED
+# and NOTHING ELSE in 952 surelog + 1358 uhdm2rtlil databases.
+# MEASURED byteverify movers: surelog 3/956 -- those two, plus the known
+# Scoreboard/default COIN whose order-blind sorted-dump diff is 0 lines;
+# uhdm2rtlil 0/1358.  The prediction is exact.

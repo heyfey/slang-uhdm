@@ -1,0 +1,20 @@
+# r10uvm168 WIDE BOUNDARY — every .sv/.v under a COPY of tools/probe, both views,
+# both frozen binaries, rc + database-byte compare.  MEASUREMENT ONLY.
+
+LISTED=4721 PROCESSED=4721 PRODUCED_DBS=4564 MOVED_ARMS=14 RC_DIFFS=0
+
+MOVED ARMS (14):
+probe/r10buvm18repro/grid18.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+probe/r10buvm22repro/g22.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+probe/r10earl30repro/g2_origin.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10earl33repro/b2_init.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10earl43repro/v43_overfire.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10earl44repro/a1_earl44.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10earl44repro/v44_overfire.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10earl60repro/vfa_v60.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm154repro/l154_noenum.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm168repro/g168_a_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm168repro/g168_b_form.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm168repro/g168_c_home.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v138repro/v3_faces.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10vearl71repro/v2_origins71.sv	def=MOVED	elab=MOVED	rc=0/0,0/0

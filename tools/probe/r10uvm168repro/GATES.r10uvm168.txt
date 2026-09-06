@@ -1,0 +1,90 @@
+# r10uvm168 GATE BATTERY.  The official uhdm-cmp and scripts/verify_golden.py
+# are the only authorities here.  BASE 39f286ef.
+
+(1) BUILD — both binaries built in THIS pass's own worktree, frozen chmod 555
+    pristine  md5 5bfd7087944d0a2a32585d54a9bbe1e3
+    patched   md5 123e8379e93105f9091763d030eda09e
+
+(2) GOLDENS (SLANG_UHDM exported explicitly to EACH binary)
+    patched   PASS=23 FAIL=0
+    pristine  PASS=23 FAIL=0
+    /bin/false PASS=0 FAIL=23      (negative control)
+
+(3) uhdm2rtlil, testflags AND default
+    tf  vs committed baseline: PASS: every row byte-identical to the committed baseline
+    tf  vs own pristine:      PASS: every row byte-identical to the committed baseline
+    def vs own pristine:      PASS: every row byte-identical to the committed baseline
+    every cmds.txt names the frozen patched binary and nothing else:
+        slang:   /tmp/r10uvm168_pat.bin
+
+(4) surelog corpus, --mode both (1588 rows)
+    vs committed baseline: PASS: every row byte-identical to the committed baseline
+    vs own pristine:       PASS: every row byte-identical to the committed baseline
+    NO ROW CONVERTED.  Status histogram, patched:
+            937 CMP_EQUAL
+            567 SLANG_REJECT
+             48 SURELOG_FAIL
+             19 CMP_NOTEQUAL
+             10 DEFERRED
+              3 NO_DATABASE
+              2 UNTRANSLATABLE
+              1 TIMEOUT
+              1 NO_UHDM
+    ...identical to this pass's own pristine sweep.
+        slang:   /tmp/r10uvm168_pat.bin
+
+(5) BYTE MOVERS (SELFCHECK=1)
+    u2r  databases: patched=1358 pristine=1358
+    u2r  PATH_SETS_IDENTICAL (1358 paths)
+    u2r  MOVERS: 0 / 1358
+    u2r  SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+    sl   databases: patched=956 pristine=956
+    sl   PATH_SETS_IDENTICAL (956 paths)
+    sl   MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm  patched=d5d110fa31ad pristine=74d4283bcd42
+    sl   MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=71d51148be4a pristine=6e8702880da6
+    sl   MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  patched=d5d110fa31ad pristine=74d4283bcd42
+    sl   MOVERS: 3 / 956
+    sl   SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+
+    ATTRIBUTION of the three surelog movers:
+      BuildUVMPkg default+testflags — the LAW.  Path-normalised dump diff is
+        EXACTLY two lines changed out of 1077632:
+          < |UINT:3            > |INT:3
+          < |vpiConstType:9    > |vpiConstType:7
+        Both modes produce the BYTE-IDENTICAL database (md5 d5d110fa31ad).
+      Scoreboard/default — the KNOWN ~50/50 COIN (RESUME §9).  Order-blind
+        sorted, path-normalised dump diff: 0 lines over 1100371.
+
+(6) HEADS (rowheads.sh, this pass's own workdirs)
+    TEST           MODE       PRISTINE   PATCHED
+    SeqDriver      default        338       338
+    SeqDriver      testflags      338       338
+    SimpleUVM      default        338       338
+    SimpleUVM      testflags      338       338
+    Scoreboard     default         95        95
+    MiniAmiq       default        106       106
+    MiniAmiq       testflags      106       106
+    BuildUVMPkg    default         60       106   <- the head CLEARED, NEW OBJECT
+    BuildUVMPkg    testflags       60       106   <- (the two logs byte-identical)
+    Earlgrey_0_1   default         31        31
+    Earlgrey_0_1   testflags       50        50
+    Rggen          default          0         0   (CMP_EQUAL)
+    (Scoreboard/testflags and Rggen/testflags SKIP-NOFILE, as expected)
+
+(7) CANARIES
+    sl   ---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+    u2r  ---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+    ctcan2 sl:  PASS: every supplementary canary row is byte-identical to the baseline.
+    ctcan2 u2r: PASS: every supplementary canary row is byte-identical to the baseline.
+    canaudit: ---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+    canaudit: PASS: every brief-protected name and family is carried by a script that RUNS here.
+
+    PROTECTED DATABASES (md5, both binaries, both modes):
+      InterfaceModPort   59a365f3ce2c  SAME
+      BlackParrotComplex e3e354129d5a (default) / 73a10e8217e5 (testflags)  SAME
+      YosysOldOr         d68e0796d62c  SAME
+      SVSwitch           4842211c4030  (the pinned value)
+      YosysVerx          6ccda350c24a  (the pinned value)
+
+(8) WIDE BOUNDARY — see BOUNDARY.r10uvm168.txt / ATTRIB.r10uvm168.txt
+    LISTED=4721 PROCESSED=4721 PRODUCED_DBS=4564 MOVED_ARMS=14 RC_DIFFS=0

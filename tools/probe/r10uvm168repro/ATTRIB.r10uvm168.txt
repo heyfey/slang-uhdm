@@ -1,0 +1,222 @@
+# r10uvm168 — ATTRIBUTION of every arm the wide boundary reported as MOVED.
+# Each moved arm is REBUILT against its OWN Surelog golden and scored in all
+# three projections, so no arm is attributed on a byte compare alone.
+# A = pristine, B = patched, G = golden.  MEASUREMENT ONLY.
+
+=== ARM probe/r10buvm18repro/grid18.sv   (def=MOVED	elab=MOVED	rc=4/4,4/4)
+TALLY[full] cells=253 same=247 TOWARD=2 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=4 ONLY-OURS=0
+TALLY[ct] cells=253 same=247 TOWARD=2 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=4 ONLY-OURS=0
+TALLY[rest] cells=253 same=249 TOWARD=0 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=4 ONLY-OURS=0
+TOWARD       def|uhdmtopPackages|gp::P_E|35:23:35:37                          G[ct=7 INT:0 size=2 dec=0] A[ct=9 UINT:0 size=2 dec=0] B[ct=7 INT:0 size=2 dec=0]
+TOWARD       elab|uhdmtopPackages|gp::P_E|35:23:35:37                         G[ct=7 INT:0 size=2 dec=0] A[ct=9 UINT:0 size=2 dec=0] B[ct=7 INT:0 size=2 dec=0]
+=== ARM probe/r10buvm22repro/g22.sv   (def=MOVED	elab=MOVED	rc=4/4,4/4)
+TALLY[full] cells=3 same=3 TOWARD=0 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0
+TALLY[ct] cells=3 same=3 TOWARD=0 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0
+TALLY[rest] cells=3 same=3 TOWARD=0 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0
+=== ARM probe/r10earl30repro/g2_origin.sv   (def=MOVED	elab=MOVED	rc=0/0,0/0)
+TALLY[full] cells=28 same=26 TOWARD=2 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0
+TALLY[ct] cells=28 same=26 TOWARD=2 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0
+TALLY[rest] cells=28 same=28 TOWARD=0 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0
+TOWARD       def|uhdmtopPackages|p2::PE|13:27:13:35                           G[ct=7 INT:1 size=3 dec=1] A[ct=9 UINT:1 size=3 dec=1] B[ct=7 INT:1 size=3 dec=1]
+TOWARD       elab|uhdmtopPackages|p2::PE|13:27:13:35                          G[ct=7 INT:1 size=3 dec=1] A[ct=9 UINT:1 size=3 dec=1] B[ct=7 INT:1 size=3 dec=1]
+=== ARM probe/r10earl33repro/b2_init.sv   (def=MOVED	elab=MOVED	rc=0/0,0/0)
+TALLY[full] cells=72 same=70 TOWARD=2 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0
+TALLY[ct] cells=72 same=70 TOWARD=2 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0
+TALLY[rest] cells=72 same=72 TOWARD=0 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0
+TOWARD       def|uhdmtopPackages|q33::N13|28:27:28:35                         G[ct=7 INT:1 size=2 dec=1] A[ct=9 UINT:1 size=2 dec=1] B[ct=7 INT:1 size=2 dec=1]
+TOWARD       elab|uhdmtopPackages|q33::N13|28:27:28:35                        G[ct=7 INT:1 size=2 dec=1] A[ct=9 UINT:1 size=2 dec=1] B[ct=7 INT:1 size=2 dec=1]
+=== ARM probe/r10earl43repro/v43_overfire.sv   (def=MOVED	elab=MOVED	rc=0/0,0/0)
+TALLY[full] cells=86 same=44 TOWARD=2 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=20 ONLY-OURS=20
+TALLY[ct] cells=86 same=44 TOWARD=2 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=20 ONLY-OURS=20
+TALLY[rest] cells=86 same=46 TOWARD=0 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=20 ONLY-OURS=20
+TOWARD       def|uhdmtopPackages|q43::Q_ENUM|20:27:20:41                      G[ct=7 INT:1 size=2 dec=1] A[ct=9 UINT:1 size=2 dec=1] B[ct=7 INT:1 size=2 dec=1]
+TOWARD       elab|uhdmtopPackages|q43::Q_ENUM|20:27:20:41                     G[ct=7 INT:1 size=2 dec=1] A[ct=9 UINT:1 size=2 dec=1] B[ct=7 INT:1 size=2 dec=1]
+=== ARM probe/r10earl44repro/a1_earl44.sv   (def=MOVED	elab=MOVED	rc=0/0,0/0)
+TALLY[full] cells=136 same=46 TOWARD=2 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=44 ONLY-OURS=44
+TALLY[ct] cells=136 same=46 TOWARD=2 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=44 ONLY-OURS=44
+TALLY[rest] cells=136 same=48 TOWARD=0 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=44 ONLY-OURS=44
+TOWARD       def|uhdmtopPackages|p44::PK_ENUM|49:27:49:46                     G[ct=7 INT:1 size=2 dec=1] A[ct=9 UINT:1 size=2 dec=1] B[ct=7 INT:1 size=2 dec=1]
+TOWARD       elab|uhdmtopPackages|p44::PK_ENUM|49:27:49:46                    G[ct=7 INT:1 size=2 dec=1] A[ct=9 UINT:1 size=2 dec=1] B[ct=7 INT:1 size=2 dec=1]
+=== ARM probe/r10earl44repro/v44_overfire.sv   (def=MOVED	elab=MOVED	rc=0/0,0/0)
+TALLY[full] cells=62 same=14 TOWARD=2 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=23 ONLY-OURS=23
+TALLY[ct] cells=62 same=14 TOWARD=2 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=23 ONLY-OURS=23
+TALLY[rest] cells=62 same=16 TOWARD=0 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=23 ONLY-OURS=23
+TOWARD       def|uhdmtopPackages|q44::Q_ENUM|21:27:21:42                      G[ct=7 INT:1 size=2 dec=1] A[ct=9 UINT:1 size=2 dec=1] B[ct=7 INT:1 size=2 dec=1]
+TOWARD       elab|uhdmtopPackages|q44::Q_ENUM|21:27:21:42                     G[ct=7 INT:1 size=2 dec=1] A[ct=9 UINT:1 size=2 dec=1] B[ct=7 INT:1 size=2 dec=1]
+=== ARM probe/r10earl60repro/vfa_v60.sv   (def=MOVED	elab=MOVED	rc=0/0,0/0)
+TALLY[full] cells=148 same=142 TOWARD=6 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0
+TALLY[ct] cells=148 same=142 TOWARD=6 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0
+TALLY[rest] cells=148 same=148 TOWARD=0 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0
+TOWARD       def|uhdmallModules|work@s_a.a_ev|47:31:47:44                     G[ct=7 INT:1 size=2 dec=1] A[ct=9 UINT:1 size=2 dec=1] B[ct=7 INT:1 size=2 dec=1]
+TOWARD       def|uhdmtopModules|work@a1.u_a.a_ev|47:31:47:44                  G[ct=7 INT:1 size=2 dec=1] A[ct=9 UINT:1 size=2 dec=1] B[ct=7 INT:1 size=2 dec=1]
+TOWARD       def|uhdmtopPackages|tp::EV|24:29:24:38                           G[ct=7 INT:1 size=2 dec=1] A[ct=9 UINT:1 size=2 dec=1] B[ct=7 INT:1 size=2 dec=1]
+TOWARD       elab|uhdmallModules|work@s_a.a_ev|47:31:47:44                    G[ct=7 INT:1 size=2 dec=1] A[ct=9 UINT:1 size=2 dec=1] B[ct=7 INT:1 size=2 dec=1]
+TOWARD       elab|uhdmtopModules|work@a1.u_a.a_ev|47:31:47:44                 G[ct=7 INT:1 size=2 dec=1] A[ct=9 UINT:1 size=2 dec=1] B[ct=7 INT:1 size=2 dec=1]
+TOWARD       elab|uhdmtopPackages|tp::EV|24:29:24:38                          G[ct=7 INT:1 size=2 dec=1] A[ct=9 UINT:1 size=2 dec=1] B[ct=7 INT:1 size=2 dec=1]
+=== ARM probe/r10uvm154repro/l154_noenum.sv   (def=MOVED	elab=MOVED	rc=0/0,0/0)
+TALLY[full] cells=0 same=0 TOWARD=0 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0
+TALLY[ct] cells=0 same=0 TOWARD=0 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0
+TALLY[rest] cells=0 same=0 TOWARD=0 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0
+=== ARM probe/r10v138repro/v3_faces.sv   (def=MOVED	elab=MOVED	rc=0/0,0/0)
+TALLY[full] cells=4 same=2 TOWARD=2 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0
+TALLY[ct] cells=4 same=2 TOWARD=2 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0
+TALLY[rest] cells=4 same=4 TOWARD=0 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0
+TOWARD       def|uhdmtopPackages|v3p::LP|22:19:22:27                          G[ct=7 INT:2 size=32 dec=2] A[ct=9 UINT:2 size=32 dec=2] B[ct=7 INT:2 size=32 dec=2]
+TOWARD       elab|uhdmtopPackages|v3p::LP|22:19:22:27                         G[ct=7 INT:2 size=32 dec=2] A[ct=9 UINT:2 size=32 dec=2] B[ct=7 INT:2 size=32 dec=2]
+=== ARM probe/r10vearl71repro/v2_origins71.sv   (def=MOVED	elab=MOVED	rc=0/0,0/0)
+TALLY[full] cells=96 same=83 TOWARD=2 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=11 ONLY-OURS=0
+TALLY[ct] cells=96 same=83 TOWARD=2 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=11 ONLY-OURS=0
+TALLY[rest] cells=96 same=85 TOWARD=0 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=11 ONLY-OURS=0
+TOWARD       def|uhdmtopPackages|pa_v71::APE|8:19:8:28                        G[ct=7 INT:16 size=32 dec=16] A[ct=9 UINT:16 size=32 dec=16] B[ct=7 INT:16 size=32 dec=16]
+TOWARD       elab|uhdmtopPackages|pa_v71::APE|8:19:8:28                       G[ct=7 INT:16 size=32 dec=16] A[ct=9 UINT:16 size=32 dec=16] B[ct=7 INT:16 size=32 dec=16]
+=== ARM probe/r10uvm168repro/g168_a_kinds.sv   (def=MOVED	elab=MOVED	rc=0/0,0/0)
+TALLY[full] cells=124 same=82 TOWARD=42 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0
+TALLY[ct] cells=124 same=82 TOWARD=42 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0
+TALLY[rest] cells=124 same=122 TOWARD=2 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0
+TOWARD       def|uhdmtopPackages|tinct_pkg::ka_bdec|63:20:63:40               G[ct=7 INT:2 size=4 dec=2] A[ct=9 UINT:2 size=4 dec=2] B[ct=7 INT:2 size=4 dec=2]
+TOWARD       def|uhdmtopPackages|tinct_pkg::ka_bdnext|64:20:64:41             G[ct=7 INT:3 size=4 dec=3] A[ct=9 UINT:3 size=4 dec=3] B[ct=7 INT:3 size=4 dec=3]
+TOWARD       def|uhdmtopPackages|tinct_pkg::ka_bit|55:20:55:40                G[ct=7 INT:1 size=4 dec=1] A[ct=9 UINT:1 size=4 dec=1] B[ct=7 INT:1 size=4 dec=1]
+TOWARD       def|uhdmtopPackages|tinct_pkg::ka_bnext|69:20:69:41              G[ct=7 INT:6 size=4 dec=6] A[ct=9 UINT:6 size=4 dec=6] B[ct=7 INT:6 size=4 dec=6]
+TOWARD       def|uhdmtopPackages|tinct_pkg::ka_byte|44:20:44:38               G[ct=7 INT:1 size=8 dec=1] A[ct=9 UINT:1 size=8 dec=1] B[ct=7 INT:1 size=8 dec=1]
+TOWARD       def|uhdmtopPackages|tinct_pkg::ka_first|14:20:14:41              G[ct=7 INT:0 size=NONE dec=0] A[ct=9 UINT:0 size=NONE dec=0] B[ct=7 INT:0 size=NONE dec=0]
+TOWARD       def|uhdmtopPackages|tinct_pkg::ka_hnext|74:20:74:41              G[ct=7 INT:32 size=8 dec=32] A[ct=9 UINT:32 size=8 dec=32] B[ct=7 INT:32 size=8 dec=32]
+TOWARD       def|uhdmtopPackages|tinct_pkg::ka_int0|32:20:32:40               G[ct=7 INT:0 size=32 dec=0] A[ct=9 UINT:0 size=32 dec=0] B[ct=7 INT:0 size=32 dec=0]
+TOWARD       def|uhdmtopPackages|tinct_pkg::ka_integ|47:20:47:38              G[ct=7 INT:1 size=32 dec=1] A[ct=9 UINT:1 size=32 dec=1] B[ct=7 INT:1 size=32 dec=1]
+TOWARD       def|uhdmtopPackages|tinct_pkg::ka_last|16:20:16:42               G[ct=7 INT:3 size=NONE dec=3] A[ct=9 UINT:3 size=NONE dec=3] B[ct=7 INT:3 size=NONE dec=3]
+TOWARD       def|uhdmtopPackages|tinct_pkg::ka_logic|51:20:51:41              G[ct=7 INT:2 size=4 dec=2] A[ct=9 UINT:2 size=4 dec=2] B[ct=7 INT:2 size=4 dec=2]
+TOWARD       def|uhdmtopPackages|tinct_pkg::ka_long|46:20:46:38               G[ct=7 INT:1 size=64 dec=1] A[ct=9 UINT:1 size=64 dec=1] B[ct=7 INT:1 size=64 dec=1]
+TOWARD       def|uhdmtopPackages|tinct_pkg::ka_mid|15:20:15:40                G[ct=7 INT:2 size=NONE dec=2] A[ct=9 UINT:2 size=NONE dec=2] B[ct=7 INT:2 size=NONE dec=2]
+TOWARD       def|uhdmtopPackages|tinct_pkg::ka_oct|78:20:78:40                G[ct=9 UINT:15 size=6 dec=15] A[ct=4 OCT:17 size=6 dec=6'o17] B[ct=9 UINT:15 size=6 dec=15]
+TOWARD       def|uhdmtopPackages|tinct_pkg::ka_onext|79:20:79:41              G[ct=7 INT:16 size=6 dec=16] A[ct=9 UINT:16 size=6 dec=16] B[ct=7 INT:16 size=6 dec=16]
+TOWARD       def|uhdmtopPackages|tinct_pkg::ka_short|45:20:45:38              G[ct=7 INT:1 size=16 dec=1] A[ct=9 UINT:1 size=16 dec=1] B[ct=7 INT:1 size=16 dec=1]
+TOWARD       def|uhdmtopPackages|tinct_pkg::ka_slogic|59:20:59:40             G[ct=7 INT:1 size=4 dec=1] A[ct=9 UINT:1 size=4 dec=1] B[ct=7 INT:1 size=4 dec=1]
+TOWARD       def|uhdmtopPackages|tinct_pkg::ka_ubnext|84:20:84:41             G[ct=7 INT:33 size=8 dec=33] A[ct=9 UINT:33 size=8 dec=33] B[ct=7 INT:33 size=8 dec=33]
+TOWARD       def|uhdmtopPackages|tinct_pkg::ka_udnext|21:20:21:41             G[ct=7 INT:6 size=NONE dec=6] A[ct=9 UINT:6 size=NONE dec=6] B[ct=7 INT:6 size=NONE dec=6]
+TOWARD       def|uhdmtopPackages|tinct_pkg::ka_udtail|23:20:23:41             G[ct=7 INT:10 size=NONE dec=10] A[ct=9 UINT:10 size=NONE dec=10] B[ct=7 INT:10 size=NONE dec=10]
+TOWARD       def|uhdmtopPackages|tinct_pkg::ka_uint|37:20:37:41               G[ct=7 INT:1 size=32 dec=1] A[ct=9 UINT:1 size=32 dec=1] B[ct=7 INT:1 size=32 dec=1]
+TOWARD       elab|uhdmtopPackages|tinct_pkg::ka_bdec|63:20:63:40              G[ct=7 INT:2 size=4 dec=2] A[ct=9 UINT:2 size=4 dec=2] B[ct=7 INT:2 size=4 dec=2]
+TOWARD       elab|uhdmtopPackages|tinct_pkg::ka_bdnext|64:20:64:41            G[ct=7 INT:3 size=4 dec=3] A[ct=9 UINT:3 size=4 dec=3] B[ct=7 INT:3 size=4 dec=3]
+TOWARD       elab|uhdmtopPackages|tinct_pkg::ka_bit|55:20:55:40               G[ct=7 INT:1 size=4 dec=1] A[ct=9 UINT:1 size=4 dec=1] B[ct=7 INT:1 size=4 dec=1]
+TOWARD       elab|uhdmtopPackages|tinct_pkg::ka_bnext|69:20:69:41             G[ct=7 INT:6 size=4 dec=6] A[ct=9 UINT:6 size=4 dec=6] B[ct=7 INT:6 size=4 dec=6]
+TOWARD       elab|uhdmtopPackages|tinct_pkg::ka_byte|44:20:44:38              G[ct=7 INT:1 size=8 dec=1] A[ct=9 UINT:1 size=8 dec=1] B[ct=7 INT:1 size=8 dec=1]
+TOWARD       elab|uhdmtopPackages|tinct_pkg::ka_first|14:20:14:41             G[ct=7 INT:0 size=NONE dec=0] A[ct=9 UINT:0 size=NONE dec=0] B[ct=7 INT:0 size=NONE dec=0]
+TOWARD       elab|uhdmtopPackages|tinct_pkg::ka_hnext|74:20:74:41             G[ct=7 INT:32 size=8 dec=32] A[ct=9 UINT:32 size=8 dec=32] B[ct=7 INT:32 size=8 dec=32]
+TOWARD       elab|uhdmtopPackages|tinct_pkg::ka_int0|32:20:32:40              G[ct=7 INT:0 size=32 dec=0] A[ct=9 UINT:0 size=32 dec=0] B[ct=7 INT:0 size=32 dec=0]
+TOWARD       elab|uhdmtopPackages|tinct_pkg::ka_integ|47:20:47:38             G[ct=7 INT:1 size=32 dec=1] A[ct=9 UINT:1 size=32 dec=1] B[ct=7 INT:1 size=32 dec=1]
+TOWARD       elab|uhdmtopPackages|tinct_pkg::ka_last|16:20:16:42              G[ct=7 INT:3 size=NONE dec=3] A[ct=9 UINT:3 size=NONE dec=3] B[ct=7 INT:3 size=NONE dec=3]
+TOWARD       elab|uhdmtopPackages|tinct_pkg::ka_logic|51:20:51:41             G[ct=7 INT:2 size=4 dec=2] A[ct=9 UINT:2 size=4 dec=2] B[ct=7 INT:2 size=4 dec=2]
+TOWARD       elab|uhdmtopPackages|tinct_pkg::ka_long|46:20:46:38              G[ct=7 INT:1 size=64 dec=1] A[ct=9 UINT:1 size=64 dec=1] B[ct=7 INT:1 size=64 dec=1]
+TOWARD       elab|uhdmtopPackages|tinct_pkg::ka_mid|15:20:15:40               G[ct=7 INT:2 size=NONE dec=2] A[ct=9 UINT:2 size=NONE dec=2] B[ct=7 INT:2 size=NONE dec=2]
+TOWARD       elab|uhdmtopPackages|tinct_pkg::ka_oct|78:20:78:40               G[ct=9 UINT:15 size=6 dec=15] A[ct=4 OCT:17 size=6 dec=6'o17] B[ct=9 UINT:15 size=6 dec=15]
+TOWARD       elab|uhdmtopPackages|tinct_pkg::ka_onext|79:20:79:41             G[ct=7 INT:16 size=6 dec=16] A[ct=9 UINT:16 size=6 dec=16] B[ct=7 INT:16 size=6 dec=16]
+TOWARD       elab|uhdmtopPackages|tinct_pkg::ka_short|45:20:45:38             G[ct=7 INT:1 size=16 dec=1] A[ct=9 UINT:1 size=16 dec=1] B[ct=7 INT:1 size=16 dec=1]
+TOWARD       elab|uhdmtopPackages|tinct_pkg::ka_slogic|59:20:59:40            G[ct=7 INT:1 size=4 dec=1] A[ct=9 UINT:1 size=4 dec=1] B[ct=7 INT:1 size=4 dec=1]
+TOWARD       elab|uhdmtopPackages|tinct_pkg::ka_ubnext|84:20:84:41            G[ct=7 INT:33 size=8 dec=33] A[ct=9 UINT:33 size=8 dec=33] B[ct=7 INT:33 size=8 dec=33]
+TOWARD       elab|uhdmtopPackages|tinct_pkg::ka_udnext|21:20:21:41            G[ct=7 INT:6 size=NONE dec=6] A[ct=9 UINT:6 size=NONE dec=6] B[ct=7 INT:6 size=NONE dec=6]
+TOWARD       elab|uhdmtopPackages|tinct_pkg::ka_udtail|23:20:23:41            G[ct=7 INT:10 size=NONE dec=10] A[ct=9 UINT:10 size=NONE dec=10] B[ct=7 INT:10 size=NONE dec=10]
+TOWARD       elab|uhdmtopPackages|tinct_pkg::ka_uint|37:20:37:41              G[ct=7 INT:1 size=32 dec=1] A[ct=9 UINT:1 size=32 dec=1] B[ct=7 INT:1 size=32 dec=1]
+=== ARM probe/r10uvm168repro/g168_b_form.sv   (def=MOVED	elab=MOVED	rc=0/0,0/0)
+TALLY[full] cells=296 same=256 TOWARD=34 AWAY=0 MOVED-WRONG=6 ONLY-GOLDEN=0 ONLY-OURS=0
+TALLY[ct] cells=296 same=256 TOWARD=40 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0
+TALLY[rest] cells=296 same=296 TOWARD=0 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0
+MOVED-WRONG  def|uhdmallModules|work@welkin_mod.kb_hop1|27:22:27:44           G[ct=7 INT:3 size=NONE dec=3] A[ct=9 UINT:3 size=32 dec=3] B[ct=7 INT:3 size=32 dec=3]
+MOVED-WRONG  def|uhdmallModules|work@welkin_mod.kb_hop2|28:22:28:42           G[ct=7 INT:3 size=NONE dec=3] A[ct=9 UINT:3 size=32 dec=3] B[ct=7 INT:3 size=32 dec=3]
+TOWARD       def|uhdmallModules|work@welkin_mod.kb_hopint|29:22:29:44         G[ct=7 INT:3 size=32 dec=3] A[ct=9 UINT:3 size=32 dec=3] B[ct=7 INT:3 size=32 dec=3]
+MOVED-WRONG  def|uhdmallModules|work@welkin_mod.kb_lp_hop|30:22:30:44         G[ct=7 INT:3 size=NONE dec=3] A[ct=9 UINT:3 size=32 dec=3] B[ct=7 INT:3 size=32 dec=3]
+TOWARD       def|uhdmtopPackages|welkin_pkg::kb_bitty|17:25:17:46             G[ct=7 INT:3 size=8 dec=3] A[ct=9 UINT:3 size=8 dec=3] B[ct=7 INT:3 size=8 dec=3]
+TOWARD       def|uhdmtopPackages|welkin_pkg::kb_byty|18:22:18:45              G[ct=7 INT:3 size=8 dec=3] A[ct=9 UINT:3 size=8 dec=3] B[ct=7 INT:3 size=8 dec=3]
+TOWARD       def|uhdmtopPackages|welkin_pkg::kb_enumty|13:22:13:45            G[ct=7 INT:3 size=NONE dec=3] A[ct=9 UINT:3 size=NONE dec=3] B[ct=7 INT:3 size=NONE dec=3]
+TOWARD       def|uhdmtopPackages|welkin_pkg::kb_explnxt|50:22:50:46           G[ct=7 INT:7 size=NONE dec=7] A[ct=9 UINT:7 size=NONE dec=7] B[ct=7 INT:7 size=NONE dec=7]
+TOWARD       def|uhdmtopPackages|welkin_pkg::kb_hop1|27:22:27:44              G[ct=7 INT:3 size=NONE dec=3] A[ct=9 UINT:3 size=NONE dec=3] B[ct=7 INT:3 size=NONE dec=3]
+TOWARD       def|uhdmtopPackages|welkin_pkg::kb_hop2|28:22:28:42              G[ct=7 INT:3 size=NONE dec=3] A[ct=9 UINT:3 size=NONE dec=3] B[ct=7 INT:3 size=NONE dec=3]
+TOWARD       def|uhdmtopPackages|welkin_pkg::kb_hopint|29:22:29:44            G[ct=7 INT:3 size=32 dec=3] A[ct=9 UINT:3 size=32 dec=3] B[ct=7 INT:3 size=32 dec=3]
+TOWARD       def|uhdmtopPackages|welkin_pkg::kb_integty|15:22:15:45           G[ct=7 INT:3 size=32 dec=3] A[ct=9 UINT:3 size=32 dec=3] B[ct=7 INT:3 size=32 dec=3]
+TOWARD       def|uhdmtopPackages|welkin_pkg::kb_intty|14:22:14:45             G[ct=7 INT:3 size=32 dec=3] A[ct=9 UINT:3 size=32 dec=3] B[ct=7 INT:3 size=32 dec=3]
+TOWARD       def|uhdmtopPackages|welkin_pkg::kb_logty|16:25:16:46             G[ct=7 INT:3 size=8 dec=3] A[ct=9 UINT:3 size=8 dec=3] B[ct=7 INT:3 size=8 dec=3]
+TOWARD       def|uhdmtopPackages|welkin_pkg::kb_lp_enum|22:22:22:45           G[ct=7 INT:2 size=NONE dec=2] A[ct=9 UINT:2 size=NONE dec=2] B[ct=7 INT:2 size=NONE dec=2]
+TOWARD       def|uhdmtopPackages|welkin_pkg::kb_lp_hop|30:22:30:44            G[ct=7 INT:3 size=NONE dec=3] A[ct=9 UINT:3 size=NONE dec=3] B[ct=7 INT:3 size=NONE dec=3]
+TOWARD       def|uhdmtopPackages|welkin_pkg::kb_lp_int|23:22:23:45            G[ct=7 INT:2 size=32 dec=2] A[ct=9 UINT:2 size=32 dec=2] B[ct=7 INT:2 size=32 dec=2]
+TOWARD       def|uhdmtopPackages|welkin_pkg::kb_paren|37:22:37:47             G[ct=7 INT:3 size=32 dec=3] A[ct=9 UINT:3 size=32 dec=3] B[ct=7 INT:3 size=32 dec=3]
+TOWARD       def|uhdmtopPackages|welkin_pkg::kb_wide|44:22:44:45              G[ct=7 INT:2 size=4 dec=2] A[ct=9 UINT:2 size=4 dec=2] B[ct=7 INT:2 size=4 dec=2]
+TOWARD       def|uhdmtopPackages|welkin_pkg::kb_wideint|45:22:45:45           G[ct=7 INT:2 size=32 dec=2] A[ct=9 UINT:2 size=32 dec=2] B[ct=7 INT:2 size=32 dec=2]
+MOVED-WRONG  elab|uhdmallModules|work@welkin_mod.kb_hop1|27:22:27:44          G[ct=7 INT:3 size=NONE dec=3] A[ct=9 UINT:3 size=32 dec=3] B[ct=7 INT:3 size=32 dec=3]
+MOVED-WRONG  elab|uhdmallModules|work@welkin_mod.kb_hop2|28:22:28:42          G[ct=7 INT:3 size=NONE dec=3] A[ct=9 UINT:3 size=32 dec=3] B[ct=7 INT:3 size=32 dec=3]
+TOWARD       elab|uhdmallModules|work@welkin_mod.kb_hopint|29:22:29:44        G[ct=7 INT:3 size=32 dec=3] A[ct=9 UINT:3 size=32 dec=3] B[ct=7 INT:3 size=32 dec=3]
+MOVED-WRONG  elab|uhdmallModules|work@welkin_mod.kb_lp_hop|30:22:30:44        G[ct=7 INT:3 size=NONE dec=3] A[ct=9 UINT:3 size=32 dec=3] B[ct=7 INT:3 size=32 dec=3]
+TOWARD       elab|uhdmtopPackages|welkin_pkg::kb_bitty|17:25:17:46            G[ct=7 INT:3 size=8 dec=3] A[ct=9 UINT:3 size=8 dec=3] B[ct=7 INT:3 size=8 dec=3]
+TOWARD       elab|uhdmtopPackages|welkin_pkg::kb_byty|18:22:18:45             G[ct=7 INT:3 size=8 dec=3] A[ct=9 UINT:3 size=8 dec=3] B[ct=7 INT:3 size=8 dec=3]
+TOWARD       elab|uhdmtopPackages|welkin_pkg::kb_enumty|13:22:13:45           G[ct=7 INT:3 size=NONE dec=3] A[ct=9 UINT:3 size=NONE dec=3] B[ct=7 INT:3 size=NONE dec=3]
+TOWARD       elab|uhdmtopPackages|welkin_pkg::kb_explnxt|50:22:50:46          G[ct=7 INT:7 size=NONE dec=7] A[ct=9 UINT:7 size=NONE dec=7] B[ct=7 INT:7 size=NONE dec=7]
+TOWARD       elab|uhdmtopPackages|welkin_pkg::kb_hop1|27:22:27:44             G[ct=7 INT:3 size=NONE dec=3] A[ct=9 UINT:3 size=NONE dec=3] B[ct=7 INT:3 size=NONE dec=3]
+TOWARD       elab|uhdmtopPackages|welkin_pkg::kb_hop2|28:22:28:42             G[ct=7 INT:3 size=NONE dec=3] A[ct=9 UINT:3 size=NONE dec=3] B[ct=7 INT:3 size=NONE dec=3]
+TOWARD       elab|uhdmtopPackages|welkin_pkg::kb_hopint|29:22:29:44           G[ct=7 INT:3 size=32 dec=3] A[ct=9 UINT:3 size=32 dec=3] B[ct=7 INT:3 size=32 dec=3]
+TOWARD       elab|uhdmtopPackages|welkin_pkg::kb_integty|15:22:15:45          G[ct=7 INT:3 size=32 dec=3] A[ct=9 UINT:3 size=32 dec=3] B[ct=7 INT:3 size=32 dec=3]
+TOWARD       elab|uhdmtopPackages|welkin_pkg::kb_intty|14:22:14:45            G[ct=7 INT:3 size=32 dec=3] A[ct=9 UINT:3 size=32 dec=3] B[ct=7 INT:3 size=32 dec=3]
+TOWARD       elab|uhdmtopPackages|welkin_pkg::kb_logty|16:25:16:46            G[ct=7 INT:3 size=8 dec=3] A[ct=9 UINT:3 size=8 dec=3] B[ct=7 INT:3 size=8 dec=3]
+TOWARD       elab|uhdmtopPackages|welkin_pkg::kb_lp_enum|22:22:22:45          G[ct=7 INT:2 size=NONE dec=2] A[ct=9 UINT:2 size=NONE dec=2] B[ct=7 INT:2 size=NONE dec=2]
+TOWARD       elab|uhdmtopPackages|welkin_pkg::kb_lp_hop|30:22:30:44           G[ct=7 INT:3 size=NONE dec=3] A[ct=9 UINT:3 size=NONE dec=3] B[ct=7 INT:3 size=NONE dec=3]
+TOWARD       elab|uhdmtopPackages|welkin_pkg::kb_lp_int|23:22:23:45           G[ct=7 INT:2 size=32 dec=2] A[ct=9 UINT:2 size=32 dec=2] B[ct=7 INT:2 size=32 dec=2]
+TOWARD       elab|uhdmtopPackages|welkin_pkg::kb_paren|37:22:37:47            G[ct=7 INT:3 size=32 dec=3] A[ct=9 UINT:3 size=32 dec=3] B[ct=7 INT:3 size=32 dec=3]
+TOWARD       elab|uhdmtopPackages|welkin_pkg::kb_wide|44:22:44:45             G[ct=7 INT:2 size=4 dec=2] A[ct=9 UINT:2 size=4 dec=2] B[ct=7 INT:2 size=4 dec=2]
+TOWARD       elab|uhdmtopPackages|welkin_pkg::kb_wideint|45:22:45:45          G[ct=7 INT:2 size=32 dec=2] A[ct=9 UINT:2 size=32 dec=2] B[ct=7 INT:2 size=32 dec=2]
+=== ARM probe/r10uvm168repro/g168_c_home.sv   (def=MOVED	elab=MOVED	rc=0/0,0/0)
+TALLY[full] cells=153 same=109 TOWARD=38 AWAY=0 MOVED-WRONG=4 ONLY-GOLDEN=2 ONLY-OURS=0
+TALLY[ct] cells=153 same=109 TOWARD=42 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=2 ONLY-OURS=0
+TALLY[rest] cells=153 same=139 TOWARD=12 AWAY=0 MOVED-WRONG=0 ONLY-GOLDEN=2 ONLY-OURS=0
+MOVED-WRONG  def|uhdmallInterfaces|work@tiller_if.kc_p_hop|14:23:14:44        G[ct=7 INT:2 size=NONE dec=2] A[ct=9 UINT:2 size=32 dec=2] B[ct=7 INT:2 size=32 dec=2]
+MOVED-WRONG  def|uhdmallModules|work@gantry_mod.kc_p_hop|14:23:14:44          G[ct=7 INT:2 size=NONE dec=2] A[ct=9 UINT:2 size=32 dec=2] B[ct=7 INT:2 size=32 dec=2]
+TOWARD       def|uhdmallPackages|brambel_pkg::kc_p_auto|11:23:11:47           G[ct=7 INT:2 size=NONE dec=2] A[ct=9 UINT:2 size=NONE dec=2] B[ct=7 INT:2 size=NONE dec=2]
+TOWARD       def|uhdmallPackages|brambel_pkg::kc_p_bdec|12:23:12:46           G[ct=7 INT:2 size=4 dec=2] A[ct=9 UINT:2 size=4 dec=2] B[ct=7 INT:2 size=4 dec=2]
+TOWARD       def|uhdmallPackages|brambel_pkg::kc_p_hop|14:23:14:44            G[ct=7 INT:2 size=NONE dec=2] A[ct=9 UINT:2 size=NONE dec=2] B[ct=7 INT:2 size=NONE dec=2]
+TOWARD       def|uhdmallPackages|brambel_pkg::kc_p_oct|13:23:13:46            G[ct=9 UINT:15 size=6 dec=15] A[ct=4 OCT:17 size=6 dec=6'o17] B[ct=9 UINT:15 size=6 dec=15]
+TOWARD       def|uhdmtopModules|work@gantry_mod.kc_p_oct|13:23:13:46          G[ct=9 UINT:15 size=6 dec=15] A[ct=4 OCT:17 size=6 dec=6'o17] B[ct=9 UINT:15 size=6 dec=15]
+TOWARD       def|uhdmtopModules|work@gantry_mod.u_tiller.kc_p_oct|13:23:13:46 G[ct=9 UINT:15 size=6 dec=15] A[ct=4 OCT:17 size=6 dec=6'o17] B[ct=9 UINT:15 size=6 dec=15]
+TOWARD       def|uhdmtopPackages|brambel_pkg::kc_p_auto|11:23:11:47           G[ct=7 INT:2 size=NONE dec=2] A[ct=9 UINT:2 size=NONE dec=2] B[ct=7 INT:2 size=NONE dec=2]
+TOWARD       def|uhdmtopPackages|brambel_pkg::kc_p_bdec|12:23:12:46           G[ct=7 INT:2 size=4 dec=2] A[ct=9 UINT:2 size=4 dec=2] B[ct=7 INT:2 size=4 dec=2]
+TOWARD       def|uhdmtopPackages|brambel_pkg::kc_p_hop|14:23:14:44            G[ct=7 INT:2 size=NONE dec=2] A[ct=9 UINT:2 size=NONE dec=2] B[ct=7 INT:2 size=NONE dec=2]
+TOWARD       def|uhdmtopPackages|brambel_pkg::kc_p_oct|13:23:13:46            G[ct=9 UINT:15 size=6 dec=15] A[ct=4 OCT:17 size=6 dec=6'o17] B[ct=9 UINT:15 size=6 dec=15]
+TOWARD       def|uhdmtopPackages|brambel_pkg::kc_q_auto|20:23:20:46           G[ct=7 INT:1 size=NONE dec=1] A[ct=9 UINT:1 size=NONE dec=1] B[ct=7 INT:1 size=NONE dec=1]
+TOWARD       def|uhdmtopPackages|brambel_pkg::kc_q_bdec|21:23:21:47           G[ct=7 INT:3 size=4 dec=3] A[ct=9 UINT:3 size=4 dec=3] B[ct=7 INT:3 size=4 dec=3]
+TOWARD       def|uhdmtopPackages|brambel_pkg::kc_q_cross|23:23:23:58          G[ct=7 INT:2 size=NONE dec=2] A[ct=9 UINT:2 size=NONE dec=2] B[ct=7 INT:2 size=NONE dec=2]
+TOWARD       def|uhdmtopPackages|brambel_pkg::kc_q_oct|22:23:22:46            G[ct=9 UINT:15 size=6 dec=15] A[ct=4 OCT:17 size=6 dec=6'o17] B[ct=9 UINT:15 size=6 dec=15]
+TOWARD       def|uhdmtopPackages|brambel_pkg::kc_q_own|25:23:25:44            G[ct=7 INT:1 size=NONE dec=1] A[ct=9 UINT:1 size=NONE dec=1] B[ct=7 INT:1 size=NONE dec=1]
+TOWARD       def|uhdmtopPackages|thicket_pkg::kc_p_auto|11:23:11:47           G[ct=7 INT:2 size=NONE dec=2] A[ct=9 UINT:2 size=NONE dec=2] B[ct=7 INT:2 size=NONE dec=2]
+TOWARD       def|uhdmtopPackages|thicket_pkg::kc_p_bdec|12:23:12:46           G[ct=7 INT:2 size=4 dec=2] A[ct=9 UINT:2 size=4 dec=2] B[ct=7 INT:2 size=4 dec=2]
+TOWARD       def|uhdmtopPackages|thicket_pkg::kc_p_hop|14:23:14:44            G[ct=7 INT:2 size=NONE dec=2] A[ct=9 UINT:2 size=NONE dec=2] B[ct=7 INT:2 size=NONE dec=2]
+TOWARD       def|uhdmtopPackages|thicket_pkg::kc_p_oct|13:23:13:46            G[ct=9 UINT:15 size=6 dec=15] A[ct=4 OCT:17 size=6 dec=6'o17] B[ct=9 UINT:15 size=6 dec=15]
+MOVED-WRONG  elab|uhdmallInterfaces|work@tiller_if.kc_p_hop|14:23:14:44       G[ct=7 INT:2 size=NONE dec=2] A[ct=9 UINT:2 size=32 dec=2] B[ct=7 INT:2 size=32 dec=2]
+MOVED-WRONG  elab|uhdmallModules|work@gantry_mod.kc_p_hop|14:23:14:44         G[ct=7 INT:2 size=NONE dec=2] A[ct=9 UINT:2 size=32 dec=2] B[ct=7 INT:2 size=32 dec=2]
+TOWARD       elab|uhdmallPackages|brambel_pkg::kc_p_auto|11:23:11:47          G[ct=7 INT:2 size=NONE dec=2] A[ct=9 UINT:2 size=NONE dec=2] B[ct=7 INT:2 size=NONE dec=2]
+TOWARD       elab|uhdmallPackages|brambel_pkg::kc_p_bdec|12:23:12:46          G[ct=7 INT:2 size=4 dec=2] A[ct=9 UINT:2 size=4 dec=2] B[ct=7 INT:2 size=4 dec=2]
+TOWARD       elab|uhdmallPackages|brambel_pkg::kc_p_hop|14:23:14:44           G[ct=7 INT:2 size=NONE dec=2] A[ct=9 UINT:2 size=NONE dec=2] B[ct=7 INT:2 size=NONE dec=2]
+TOWARD       elab|uhdmallPackages|brambel_pkg::kc_p_oct|13:23:13:46           G[ct=9 UINT:15 size=6 dec=15] A[ct=4 OCT:17 size=6 dec=6'o17] B[ct=9 UINT:15 size=6 dec=15]
+TOWARD       elab|uhdmtopModules|work@gantry_mod.kc_p_oct|13:23:13:46         G[ct=9 UINT:15 size=6 dec=15] A[ct=4 OCT:17 size=6 dec=6'o17] B[ct=9 UINT:15 size=6 dec=15]
+TOWARD       elab|uhdmtopModules|work@gantry_mod.u_tiller.kc_p_oct|13:23:13:46 G[ct=9 UINT:15 size=6 dec=15] A[ct=4 OCT:17 size=6 dec=6'o17] B[ct=9 UINT:15 size=6 dec=15]
+TOWARD       elab|uhdmtopPackages|brambel_pkg::kc_p_auto|11:23:11:47          G[ct=7 INT:2 size=NONE dec=2] A[ct=9 UINT:2 size=NONE dec=2] B[ct=7 INT:2 size=NONE dec=2]
+TOWARD       elab|uhdmtopPackages|brambel_pkg::kc_p_bdec|12:23:12:46          G[ct=7 INT:2 size=4 dec=2] A[ct=9 UINT:2 size=4 dec=2] B[ct=7 INT:2 size=4 dec=2]
+TOWARD       elab|uhdmtopPackages|brambel_pkg::kc_p_hop|14:23:14:44           G[ct=7 INT:2 size=NONE dec=2] A[ct=9 UINT:2 size=NONE dec=2] B[ct=7 INT:2 size=NONE dec=2]
+TOWARD       elab|uhdmtopPackages|brambel_pkg::kc_p_oct|13:23:13:46           G[ct=9 UINT:15 size=6 dec=15] A[ct=4 OCT:17 size=6 dec=6'o17] B[ct=9 UINT:15 size=6 dec=15]
+TOWARD       elab|uhdmtopPackages|brambel_pkg::kc_q_auto|20:23:20:46          G[ct=7 INT:1 size=NONE dec=1] A[ct=9 UINT:1 size=NONE dec=1] B[ct=7 INT:1 size=NONE dec=1]
+TOWARD       elab|uhdmtopPackages|brambel_pkg::kc_q_bdec|21:23:21:47          G[ct=7 INT:3 size=4 dec=3] A[ct=9 UINT:3 size=4 dec=3] B[ct=7 INT:3 size=4 dec=3]
+TOWARD       elab|uhdmtopPackages|brambel_pkg::kc_q_cross|23:23:23:58         G[ct=7 INT:2 size=NONE dec=2] A[ct=9 UINT:2 size=NONE dec=2] B[ct=7 INT:2 size=NONE dec=2]
+TOWARD       elab|uhdmtopPackages|brambel_pkg::kc_q_oct|22:23:22:46           G[ct=9 UINT:15 size=6 dec=15] A[ct=4 OCT:17 size=6 dec=6'o17] B[ct=9 UINT:15 size=6 dec=15]
+TOWARD       elab|uhdmtopPackages|brambel_pkg::kc_q_own|25:23:25:44           G[ct=7 INT:1 size=NONE dec=1] A[ct=9 UINT:1 size=NONE dec=1] B[ct=7 INT:1 size=NONE dec=1]
+TOWARD       elab|uhdmtopPackages|thicket_pkg::kc_p_auto|11:23:11:47          G[ct=7 INT:2 size=NONE dec=2] A[ct=9 UINT:2 size=NONE dec=2] B[ct=7 INT:2 size=NONE dec=2]
+TOWARD       elab|uhdmtopPackages|thicket_pkg::kc_p_bdec|12:23:12:46          G[ct=7 INT:2 size=4 dec=2] A[ct=9 UINT:2 size=4 dec=2] B[ct=7 INT:2 size=4 dec=2]
+TOWARD       elab|uhdmtopPackages|thicket_pkg::kc_p_hop|14:23:14:44           G[ct=7 INT:2 size=NONE dec=2] A[ct=9 UINT:2 size=NONE dec=2] B[ct=7 INT:2 size=NONE dec=2]
+TOWARD       elab|uhdmtopPackages|thicket_pkg::kc_p_oct|13:23:13:46           G[ct=9 UINT:15 size=6 dec=15] A[ct=4 OCT:17 size=6 dec=6'o17] B[ct=9 UINT:15 size=6 dec=15]
+ATTRIB arms=14
+
+############ THE TWO ARMS WITH NO param_assign CELL
+# probe/r10buvm22repro/g22.sv and probe/r10uvm154repro/l154_noenum.sv are
+# r10uvm154's OWN LAYOUT PROOF family (its README §7 / layoutproof154.sh):
+# a class-scoped `typedef <T> name[string]` mints an ADDRESS-DERIVED range
+# bound, so ANY two binaries disagree on it.  Measured here:
+#   pristine  22548185 (0x1580ed9)
+#   patched   22556409 (0x1582ef9)   binary grew 8992 bytes
+# and DECISIVELY, the PATCHED binary with R10E168_OFF=1 (the law switched
+# off, behaviour identical to pristine) ALSO prints 22556409 -- so the move
+# is the binary IMAGE, not the law.
+# Both constants sit BELOW \_weaklyReferenced: (g22 line 4356 < 5118;
+# l154 line 645 < 678), where RESUME.md §9 says the judge cannot reach, and
+# uhdm-cmp reads 3438 lines / 1 head on g22 under BOTH binaries in BOTH views.

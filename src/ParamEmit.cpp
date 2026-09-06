@@ -13849,7 +13849,14 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     pkgParamDefRhsDefView17[&member] = rhs;
                 // ELAB pkg typed-param whose init chain (through same-pkg
                 // param refs) lands on an ENUM VALUE folds in the enum
-                // literal's source HEX form (8'hCC / HEX:CC) — Surelog.
+                // MEMBER'S OWN `Value` ENCODING — § enumOriginConstTypeIsThe
+                // MemberValue168 at the definition: the written base for a
+                // hex/binary member (8'hCC / HEX:CC), a DECIMAL `UINT:` for an
+                // octal one, and a SIGNED `INT:` / `vpiIntConst` for the
+                // AUTO-NUMBERED and BASED-DECIMAL members that carry
+                // `Value::Type::Integer`.  This is the BuildUVMPkg ×2 head
+                // (`parameter uvm_core_state UVM_CORE_POST_INIT =
+                // UVM_CORE_INITIALIZED`, uvm_pkg.sv:8504).
                 if (topView && (inPackage || isImported) && typedParam &&
                     rhs->UhdmType() == UHDM::uhdmconstant)
                     if (!enumOriginHexRecode((UHDM::constant*)rhs, init))
@@ -19676,21 +19683,94 @@ void UhdmExporter::applyPkgParamPatternReorder() {
     // there, and doing it once keeps the two module listings consistent.
 }
 
-// A fold whose init chain (through param refs) lands on an ENUM VALUE takes
-// the enum literal's source HEX form (8'hCC / HEX:CC / constType 5) — Surelog.
+// § enumOriginConstTypeIsTheMemberValue168 (r10uvm168) — A FOLD WHOSE INIT
+// CHAIN LANDS ON AN ENUM CONSTANT TAKES THAT MEMBER'S OWN `Value` ENCODING,
+// AND AN AUTO-NUMBERED MEMBER'S IS A **SIGNED** ONE.
+//
+// This function used to model only half of that: an enum member WRITTEN in
+// hex/binary/octal handed its source base to the fold, and everything else was
+// left with whatever the generic fold had minted (`UINT:` / `vpiUIntConst`).
+// The other half is Surelog's, decoded from two files and measured on a
+// 31-cell golden grid (`g168_a_kinds.sv`):
+//
+//   * `CompileHelper::compileTypeDef`'s enum arm (CompileHelper.cpp:809-871)
+//     gives every member a `Value`.  A member with a WRITTEN value takes
+//     `ExprBuilder::fromVpiValue(c->VpiValue(), c->VpiSize())`; a member with
+//     NO written value takes `newLValue(); value->set(val, Value::Type::Integer,
+//     baseSize)` — **Type::Integer**, the auto-numbering counter.
+//   * `SValue/LValue::vpiValType()` (Expression/Value.cpp:326/952) maps that
+//     type to the const type the reference site stamps
+//     (CompileExpression.cpp:915/979/1067/1086, `c->VpiConstType(sval->vpiValType())`):
+//     Integer -> `vpiIntConst`, Unsigned -> `vpiUIntConst`, Binary ->
+//     `vpiBinaryConst`, Hexadecimal -> `vpiHexConst`.
+//   * `ExprBuilder::fromVpiValue` (Expression/ExprBuilder.cpp) is the whole
+//     matrix, because it re-types the written form:
+//         "INT:"/"DEC:"  -> Type::Integer      -> vpiIntConst   (7)
+//         "UINT:"        -> Type::Unsigned     -> vpiUIntConst  (9)
+//         "OCT:"         -> Type::Unsigned     -> vpiUIntConst  (9), and the
+//                           digits are PARSED, so an octal member reads back as
+//                           a plain DECIMAL number, base and all gone
+//         "BIN:"         -> StValue Binary     -> vpiBinaryConst (3)
+//         "HEX:"         -> StValue Hexadecimal-> vpiHexConst    (5)
+//     and Surelog's own literal arm (CompileExpression.cpp:543-563) is what
+//     produces those prefixes: a BASED DECIMAL (`4'd2`) is "DEC:", an UNSIZED
+//     decimal (`5`) is "UINT:", a negative one "INT:".
+//
+// So, measured cell by cell on ONE Surelog golden, at a package parameter whose
+// Rhs is a bare reference to the member (`G[golden] O[pristine]`):
+//
+//     member written          golden    pristine   this law
+//     ----------------------  --------  ---------  ------------------
+//     (nothing — auto)        INT / 7   UINT / 9   MOVES to INT / 7
+//     `= 4'd2`  based dec     INT / 7   UINT / 9   MOVES to INT / 7
+//     `= 5`     unsized dec   UINT / 9  UINT / 9   unchanged
+//     `= -4`    negative      INT / 7   INT  / 7   unchanged
+//     `= 4'b0101`             BIN / 3   BIN  / 3   unchanged
+//     `= 8'h1f` / `= 'h20`    HEX / 5   HEX  / 5   unchanged
+//     `= 6'o17` octal         UINT:15/9 OCT:17/4   MOVES to UINT / 9, DECIMAL
+//     `= EXPR`  expression    UINT / 9  UINT / 9   unchanged
+//
+// and it is INDEPENDENT of the parameter's own declared type (`int`,
+// `integer`, `logic [7:0]`, `bit [7:0]`, `byte` and the enum typedef all take
+// the member's encoding), of `parameter` vs `localparam`, and it survives one
+// or more PARAMETER HOPS — which is why the chain walk above is unchanged.
+//
+// DIRECTION: RE-ENCODE (no object is created, destroyed or reparented).  The
+// two fields that move are `VpiConstType` — the ONLY own field
+// `constant::Compare` reads (UHDM/build/generated/src/constant.cpp:58-71) — and
+// the `VpiValue` prefix that is minted with it and that the judge never reads.
+// `VpiDecompile` moves ONLY in the octal arm, where golden's decompile is the
+// decimal number.  `VpiSize` is never touched.
+//
+// `R10E168_OFF=1` restores the pre-pass path for exactly the three new clauses
+// (auto-numbered, based-decimal, octal) — the NEUTRAL binary every grid arm and
+// every boundary walk scores against.  Read once; `getenv` in a per-parameter
+// loop is not free.
+//
 // Returns true when the recode applied.
+// `R10E168_DBG=1` prints ONE line per cell whose init chain lands on an enum
+// member, naming the arm and the const type before/after — and it prints the
+// SAME line whether the law is ON or OFF, so the MOVER SET CAN BE PREDICTED BY
+// NAME from a run of the NEUTRAL (`R10E168_OFF=1`) binary, before the scoring
+// sweep exists.  A POPULATION COUNT NEEDS A MEASURER TOO.  Inert when unset.
+static const bool dbg168 = [] {
+    const char* v = getenv("R10E168_DBG");
+    return v && *v && *v != '0';
+}();
+
 bool UhdmExporter::enumOriginHexRecode(UHDM::constant* c,
                                        const Expression* init) {
+    static const bool off168 = getenv("R10E168_OFF") != nullptr;
     if (!init)
         return false;
     const Expression* ce = &stripImplicitConv(*init);
-    const Expression* evInit = nullptr;
+    const EnumValueSymbol* evSym = nullptr;
     for (int g = 0; ce && g < 8; g++) {
         if (ce->kind != ExpressionKind::NamedValue)
             break;
         auto& sym2 = ce->as<NamedValueExpression>().symbol;
         if (sym2.kind == SymbolKind::EnumValue) {
-            evInit = sym2.as<EnumValueSymbol>().getInitializer();
+            evSym = &sym2.as<EnumValueSymbol>();
             break;
         }
         if (sym2.kind != SymbolKind::Parameter)
@@ -19698,9 +19778,57 @@ bool UhdmExporter::enumOriginHexRecode(UHDM::constant* c,
         auto* ini2 = sym2.as<ParameterSymbol>().getInitializer();
         ce = ini2 ? &stripImplicitConv(*ini2) : nullptr;
     }
-    if (!evInit)
+    if (!evSym)
         return false;
-    std::string lit = rawText(stripImplicitConv(*evInit).sourceRange);
+    const int32_t ctBefore168 = c->VpiConstType();
+    const std::string vBefore168(c->VpiValue());
+    const std::string dBefore168(c->VpiDecompile());
+    const char* arm168 = "NONE";
+    auto trace168 = [&](bool rc) -> bool {
+        if (dbg168)
+            fprintf(stderr,
+                    "R10E168 file=%s at=%u:%u arm=%s member=%s off=%d rc=%d "
+                    "before[ct=%d %s dec=%s] after[ct=%d %s dec=%s]\n",
+                    (sm ? std::string(sm->getFileName(init->sourceRange.start()))
+                        : std::string("?")).c_str(),
+                    (unsigned)c->VpiLineNo(), (unsigned)c->VpiColumnNo(), arm168,
+                    std::string(evSym->name).c_str(), (int)off168, (int)rc,
+                    ctBefore168, vBefore168.c_str(), dBefore168.c_str(),
+                    c->VpiConstType(), std::string(c->VpiValue()).c_str(),
+                    std::string(c->VpiDecompile()).c_str());
+        return rc;
+    };
+    // Re-prefix the value the generic fold already minted and stamp the SIGNED
+    // const type.  Only a plain decimal encoding is re-prefixed: a `BIN:`/
+    // `HEX:`/`OCT:`/`REAL:`/`STRING:` payload came from a different `Value`
+    // arm entirely and this law has nothing to say about it, so the recode
+    // DECLINES rather than guessing (and the caller's own fallback still runs,
+    // exactly as it did before this pass).
+    auto intRecode168 = [&]() -> bool {
+        std::string v(c->VpiValue());
+        auto cl = v.find(':');
+        if (cl == std::string::npos)
+            return false;
+        const std::string pfx = v.substr(0, cl);
+        if (pfx != "UINT" && pfx != "INT")
+            return false;
+        c->VpiValue("INT:" + v.substr(cl + 1));
+        c->VpiConstType(vpiIntConst);
+        return true;
+    };
+    const Expression* evInit = evSym->getInitializer();
+    if (!evInit) {
+        arm168 = "AUTO";
+        return trace168(off168 ? false : intRecode168());
+    }
+    const Expression& evLit = stripImplicitConv(*evInit);
+    // The two NEW arms fire only on a member whose value really is ONE written
+    // integer literal — Surelog's `fromVpiValue` reads the compiled constant,
+    // and an ARITHMETIC member (`KELP_BASE + 4`) reduces through a different
+    // arm and stays unsigned.  The pre-existing hex/binary arms keep their old,
+    // wider reach so this pass cannot take a cell away from them.
+    const bool litInit168 = evLit.kind == ExpressionKind::IntegerLiteral;
+    std::string lit = rawText(evLit.sourceRange);
     while (!lit.empty() && (unsigned char)lit.back() <= ' ')
         lit.pop_back();
     while (!lit.empty() && (unsigned char)lit.front() <= ' ')
@@ -19709,29 +19837,70 @@ bool UhdmExporter::enumOriginHexRecode(UHDM::constant* c,
     // BIN:0101 / vpiBinaryConst just as `8'hCC` gives HEX:CC (ImportBinding
     // lc_ctrl_pkg::LC_TX_DEFAULT; the HEX rows are rp32/ibex).
     auto tick = lit.find('\'');
-    if (tick == std::string::npos || tick + 1 >= lit.size())
-        return false;
+    if (tick == std::string::npos || tick + 1 >= lit.size()) {
+        arm168 = "UNSIZED-DEC-OR-EXPR";
+        return trace168(false);
+    }
     size_t bp = tick + 1;
     if (lit[bp] == 's' || lit[bp] == 'S')
         bp++;
-    if (bp >= lit.size())
-        return false;
+    if (bp >= lit.size()) {
+        arm168 = "MALFORMED";
+        return trace168(false);
+    }
     const char* pfx = nullptr;
     int32_t cty = 0;
     switch (lit[bp]) {
         case 'h': case 'H': pfx = "HEX:"; cty = vpiHexConst; break;
         case 'b': case 'B': pfx = "BIN:"; cty = vpiBinaryConst; break;
         case 'o': case 'O': pfx = "OCT:"; cty = vpiOctConst; break;
-        default: return false;
+        case 'd': case 'D':
+            // A BASED DECIMAL member is "DEC:" -> Type::Integer -> vpiIntConst,
+            // and its decompile is the plain number the generic fold already
+            // wrote (the `<w>'d` spelling survives only on the enum_const
+            // object itself, never in the substituted copy).
+            arm168 = "BASED-DEC";
+            return trace168((off168 || !litInit168) ? false : intRecode168());
+        default:
+            arm168 = "OTHER-BASE";
+            return trace168(false);
     }
     std::string digits = lit.substr(bp + 1);
+    // An OCTAL member does NOT keep its base: `fromVpiValue`'s "OCT:" arm
+    // PARSES the digits into an unsigned Value, so the reference reads back as
+    // a decimal `UINT:` whose decompile is that number (golden `6'o17` ->
+    // UINT:15 / vpiUIntConst / decompile "15" at the target width).
+    if (cty == vpiOctConst && !off168 && litInit168) {
+        std::string od;
+        for (char ch : digits)
+            if (ch != '_')
+                od += ch;
+        uint64_t ov = 0;
+        bool ok = !od.empty();
+        for (char ch : od) {
+            if (ch < '0' || ch > '7') { ok = false; break; }
+            if (ov > (~0ull >> 3)) { ok = false; break; }
+            ov = ov * 8 + (uint64_t)(ch - '0');
+        }
+        if (ok) {
+            const std::string d10 = std::to_string(ov);
+            c->VpiValue("UINT:" + d10);
+            c->VpiConstType(vpiUIntConst);
+            c->VpiDecompile(d10);
+            arm168 = "OCT";
+            return trace168(true);
+        }
+    }
     if (cty == vpiHexConst)
         for (auto& ch : digits)
             ch = (char)toupper((unsigned char)ch);
     c->VpiValue(std::string(pfx) + digits);
     c->VpiConstType(cty);
     c->VpiDecompile(lit);
-    return true;
+    arm168 = cty == vpiHexConst   ? "HEX"
+             : cty == vpiBinaryConst ? "BIN"
+                                     : "OCT-KEPT";
+    return trace168(true);
 }
 
 // A pkg-param fold whose init chain (through param REFERENCES, across package

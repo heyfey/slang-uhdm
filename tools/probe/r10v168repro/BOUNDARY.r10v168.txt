@@ -1,0 +1,22 @@
+LISTED/PROCESSED/MOVED (verifier's own boundary walk, 4726 arms incl. the six v168 arms)
+LISTED=4726 PROCESSED=4726 PRODUCED_DBS=4569 MOVED_ARMS=18 RC_DIFFS=0
+
+MOVED ARMS:
+r10buvm18repro/grid18.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10buvm22repro/g22.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10earl30repro/g2_origin.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10earl33repro/b2_init.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10earl43repro/v43_overfire.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10earl44repro/a1_earl44.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10earl44repro/v44_overfire.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10earl60repro/vfa_v60.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm154repro/l154_noenum.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm168repro/g168_a_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm168repro/g168_b_form.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm168repro/g168_c_home.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v138repro/v3_faces.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v168repro/v1_width168.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v168repro/v2_path168.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v168repro/v3_home168.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v168repro/v5_form168.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10vearl71repro/v2_origins71.sv	def=MOVED	elab=MOVED	rc=0/0,0/0

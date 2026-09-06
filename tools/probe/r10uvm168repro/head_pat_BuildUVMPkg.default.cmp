@@ -1,0 +1,106 @@
+LHS:
+decompile:
+unsupported_typespec: (uvm_severity), id:480, line:9584:15, endln:9584:27
+|vpiName:uvm_severity
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:7351:1, endln:83263:11
+
+decompile:
+unsupported_typespec: (uvm_severity), id:480, line:9584:15, endln:9584:27
+|vpiName:uvm_severity
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:7351:1, endln:83263:11
+RHS:
+decompile:
+enum_typespec: (uvm_pkg::uvm_severity), id:304, line:8049:1, endln:8055:16
+|vpiParent:
+\_package: uvm_pkg (uvm_pkg::), id:2, file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:7351:1, endln:83263:11
+|vpiName:uvm_pkg::uvm_severity
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:2, file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:7351:1, endln:83263:11
+|vpiBaseTypespec:
+\_ref_typespec: (uvm_pkg::uvm_pkg::uvm_severity), id:309
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_severity), id:304, line:8049:1, endln:8055:16
+  |vpiFullName:uvm_pkg::uvm_pkg::uvm_severity
+  |vpiActual:
+  \_bit_typespec: , id:305, line:8049:14, endln:8049:23
+|vpiEnumConst:
+\_enum_const: (UVM_INFO), id:310, line:8051:3, endln:8051:11
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_severity), id:304, line:8049:1, endln:8055:16
+  |vpiName:UVM_INFO
+  |INT:0
+  |vpiDecompile:0
+  |vpiSize:2
+|vpiEnumConst:
+\_enum_const: (UVM_WARNING), id:311, line:8052:3, endln:8052:14
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_severity), id:304, line:8049:1, endln:8055:16
+  |vpiName:UVM_WARNING
+  |INT:1
+  |vpiDecompile:1
+  |vpiSize:2
+|vpiEnumConst:
+\_enum_const: (UVM_ERROR), id:312, line:8053:3, endln:8053:12
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_severity), id:304, line:8049:1, endln:8055:16
+  |vpiName:UVM_ERROR
+  |INT:2
+  |vpiDecompile:2
+  |vpiSize:2
+|vpiEnumConst:
+\_enum_const: (UVM_FATAL), id:313, line:8054:3, endln:8054:12
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_severity), id:304, line:8049:1, endln:8055:16
+  |vpiName:UVM_FATAL
+  |INT:3
+  |vpiDecompile:3
+  |vpiSize:2
+
+decompile:
+enum_typespec: (uvm_pkg::uvm_severity), id:304, line:8049:1, endln:8055:16
+|vpiParent:
+\_package: uvm_pkg (uvm_pkg::), id:2, file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:7351:1, endln:83263:11
+|vpiName:uvm_pkg::uvm_severity
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:2, file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:7351:1, endln:83263:11
+|vpiBaseTypespec:
+\_ref_typespec: (uvm_pkg::uvm_pkg::uvm_severity), id:309
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_severity), id:304, line:8049:1, endln:8055:16
+  |vpiFullName:uvm_pkg::uvm_pkg::uvm_severity
+  |vpiActual:
+  \_bit_typespec: , id:305, line:8049:14, endln:8049:23
+|vpiEnumConst:
+\_enum_const: (UVM_INFO), id:310, line:8051:3, endln:8051:11
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_severity), id:304, line:8049:1, endln:8055:16
+  |vpiName:UVM_INFO
+  |INT:0
+  |vpiDecompile:0
+  |vpiSize:2
+|vpiEnumConst:
+\_enum_const: (UVM_WARNING), id:311, line:8052:3, endln:8052:14
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_severity), id:304, line:8049:1, endln:8055:16
+  |vpiName:UVM_WARNING
+  |INT:1
+  |vpiDecompile:1
+  |vpiSize:2
+|vpiEnumConst:
+\_enum_const: (UVM_ERROR), id:312, line:8053:3, endln:8053:12
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_severity), id:304, line:8049:1, endln:8055:16
+  |vpiName:UVM_ERROR
+  |INT:2
+  |vpiDecompile:2
+  |vpiSize:2
+|vpiEnumConst:
+\_enum_const: (UVM_FATAL), id:313, line:8054:3, endln:8054:12
+  |vpiParent:
+  \_enum_typespec: (uvm_pkg::uvm_severity), id:304, line:8049:1, endln:8055:16
+  |vpiName:UVM_FATAL
+  |INT:3
+  |vpiDecompile:3
+  |vpiSize:2

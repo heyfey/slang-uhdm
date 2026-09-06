@@ -7904,8 +7904,15 @@ private:
     // LISTING shares the def object (the top object still backs module
     // import listings via pkgTopTypedefTs).
     std::set<const slang::ast::Symbol*> pkgImportedByPkg;
-    // Re-encode a folded constant in the enum literal's source HEX form when
-    // `init` chains (through param refs) to an enum value (Surelog).
+    // § enumOriginConstTypeIsTheMemberValue168 — re-encode a folded constant
+    // in the ENUM MEMBER'S OWN `Value` encoding when `init` chains (through
+    // param refs) to an enum value: the written base for a hex/binary member,
+    // a DECIMAL `UINT:` for an octal one, and a SIGNED `INT:` /
+    // `vpiIntConst` for the AUTO-NUMBERED and BASED-DECIMAL members that carry
+    // `Value::Type::Integer` (Surelog CompileHelper.cpp:809-871 +
+    // ExprBuilder::fromVpiValue + LValue::vpiValType).  The full decode, the
+    // measured 31-cell matrix and the `R10E168_OFF` A/B gate live at the
+    // definition in ParamEmit.cpp.
     bool enumOriginHexRecode(UHDM::constant* c,
                              const slang::ast::Expression* init);
     // Sibling of enumOriginHexRecode for PLAIN param chains: when `init`

@@ -1,0 +1,44 @@
+# r10uvm168 CORPUS CONST-TYPE CENSUS — ct168cen over EVERY comparable row of
+# both corpora x both modes, PRISTINE then PATCHED.  MEASUREMENT ONLY.
+# G is ALWAYS golden (Surelog); O is ALWAYS ours.
+#
+# PA  = every param_assign whose Rhs is a constant, keyed on
+#       (design-level listing, Lhs fullname, param_assign span).
+# CN  = a DEPTH-KEYED whole-design constant IDENTITY census (multiset), keyed on
+#       (listing, enclosing-kind chain, span, size, decompile, const type).
+#
+# Row names are aggregated here on purpose: the per-row file names test
+# directories, and probe artifacts must not spell the four slang-fenced tests.
+
+======== surelog  (rows censused: pristine 956, patched 956)
+                             PRISTINE        PATCHED      DELTA
+CN.both                        756943         756945         +2
+CN.only-golden                 400962         400960         -2
+CN.only-ours                   211087         211085         -2
+PA.agree                        38378          38380         +2
+PA.ct-diff                          2              0         -2
+PA.only-golden                   5836           5836         +0
+PA.only-ours                     6089           6089         +0
+PA.other-diff                      30             30         +0
+
+======== uhdm2rtlil  (rows censused: pristine 1358, patched 1358)
+                             PRISTINE        PATCHED      DELTA
+CN.both                        147513         147513         +0
+CN.only-golden                  19470          19470         +0
+CN.only-ours                     3500           3500         +0
+PA.agree                        67122          67122         +0
+PA.ct-diff                          0              0         +0
+PA.only-golden                     36             36         +0
+PA.only-ours                       22             22         +0
+PA.other-diff                       0              0         +0
+
+######## THE ONLY const-type DISAGREEMENTS IN EITHER CORPUS, BEFORE:
+PA <BuildUVMPkg/default>   topPkg|uvm_pkg::UVM_CORE_POST_INIT|8504:26:8504:67 G=ct7/enum_typespec/3/0 O=ct9/enum_typespec/3/0 CT-DIFF
+PA <BuildUVMPkg/testflags> topPkg|uvm_pkg::UVM_CORE_POST_INIT|8504:26:8504:67 G=ct7/enum_typespec/3/0 O=ct9/enum_typespec/3/0 CT-DIFF
+######## AND AFTER: none.
+#
+# The 30 `SAME-CT-OTHER-DIFF` cells (identical before and after) are two
+# families, neither this pass's: a STRING parameter's vpiSize (0 vs the
+# character count) in three UVM databases, and two enum-typed module parameters
+# whose vpiSize is 1 vs 0.  The instrument reports them separately from CT-DIFF
+# precisely so a const-type census cannot be read as a whole-payload one.
