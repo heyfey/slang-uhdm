@@ -1,0 +1,17 @@
+== ITERATION 0 : design::Compare -> 1
+   HEAD LHS(golden) = ref_typespec id:793443   0:0-0:0
+   HEAD RHS(ours)   = <null> id:0  <null>
+   ref_typespec fullname='work@top_earlgrey.u_xbar_main.u_sm1_17' name='' defname=''
+   |vpiActual -> int_typespec name='' defname='' alias=<null> instance=<null> signed=0 cast=<null> ranges=0  @tlul_socket_m1.sv 73:14-73:26
+   |vpiParent -> constant name='' dec='2' size=32 value='UINT:2' ct=9  @tlul_socket_m1.sv 105:61-105:66
+       |vpiParent -> param_assign name=''  @tlul_socket_m1.sv 73:27-73:44
+           |vpiParent -> module_inst name='u_sm1_17'  @xbar_main.sv 532:3-545:5
+               |vpiParent -> module_inst name='u_xbar_main'  @top_earlgrey.sv 888:3-927:5
+   OWNER->Typespec() is EXACTLY the head
+   MASKED golden owner's Typespec := <null>; re-running.
+== ITERATION 1 : design::Compare -> -57
+   HEAD LHS(golden) = hier_path id:793448  tlul_socket_m1.sv 109:19-109:36
+   HEAD RHS(ours)   = hier_path id:1292377   109:19-109:36
+   NOT a singular ref_typespec-with-null-RHS head -- family exhausted.
+   LHS payload: hier_path name='tl_h_i[0].a_valid' size=0  @tlul_socket_m1.sv 109:19-109:36
+   RHS payload: hier_path name='tl_h_i[i].a_valid' size=1  @ 109:19-109:36

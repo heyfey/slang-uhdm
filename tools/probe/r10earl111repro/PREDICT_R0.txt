@@ -1,0 +1,186 @@
+SCANNED bare 32-bit IPS.width keys: 44
+PREDICT MOVE 12   PREDICT RISK(must not move) 32
+
+--- MOVE (golden stamped, ours bare) ---
+default/Earlgrey_0_1-71da2fd7
+	IPS.width|105:61-105:66|1|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 20}
+	O {'BARE': 20}
+default/Earlgrey_0_1-71da2fd7
+	IPS.width|105:61-105:66|2|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 9}
+	O {'BARE': 9}
+default/Earlgrey_0_1-71da2fd7
+	IPS.width|235:57-235:62|1|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 20}
+	O {'BARE': 20}
+default/Earlgrey_0_1-71da2fd7
+	IPS.width|235:57-235:62|2|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 9}
+	O {'BARE': 9}
+default/Earlgrey_0_1-71da2fd7
+	IPS.width|237:57-237:62|1|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 20}
+	O {'BARE': 20}
+default/Earlgrey_0_1-71da2fd7
+	IPS.width|237:57-237:62|2|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 9}
+	O {'BARE': 9}
+testflags/Earlgrey_0_1-71da2fd7
+	IPS.width|105:61-105:66|1|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 40}
+	O {'BARE': 40}
+testflags/Earlgrey_0_1-71da2fd7
+	IPS.width|105:61-105:66|2|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 18}
+	O {'BARE': 18}
+testflags/Earlgrey_0_1-71da2fd7
+	IPS.width|235:57-235:62|1|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 40}
+	O {'BARE': 40}
+testflags/Earlgrey_0_1-71da2fd7
+	IPS.width|235:57-235:62|2|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 18}
+	O {'BARE': 18}
+testflags/Earlgrey_0_1-71da2fd7
+	IPS.width|237:57-237:62|1|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 40}
+	O {'BARE': 40}
+testflags/Earlgrey_0_1-71da2fd7
+	IPS.width|237:57-237:62|2|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 18}
+	O {'BARE': 18}
+
+--- RISK (golden bare or unjoined; the law must leave these alone) ---
+default/BlackBePipeInt-2987e0d2
+	IPS.width|15772:51-15772:64|39|32|ct9|own=indexed_part_select
+	G {'BARE': 1}
+	O {'BARE': 1}
+default/Earlgrey_0_1-71da2fd7
+	IPS.width|128:37-128:46|16|32|ct9|own=indexed_part_select
+	G {'BARE': 2}
+	O {'BARE': 2}
+default/Earlgrey_0_1-71da2fd7
+	IPS.width|133:38-133:47|16|32|ct9|own=indexed_part_select
+	G {'BARE': 2}
+	O {'BARE': 2}
+default/Earlgrey_0_1-71da2fd7
+	IPS.width|171:52-171:57|17|32|ct9|own=indexed_part_select
+	G {'BARE': 1, "TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=flash_ctrl_pkg,sg=1,cast=-,rng=0": 1}
+	O {'BARE': 1, "TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=flash_ctrl_pkg,sg=1,cast=-,rng=0": 1}
+default/Earlgrey_0_1-71da2fd7
+	IPS.width|178:35-178:40|32|32|ct9|own=indexed_part_select
+	G {'BARE': 1}
+	O {'BARE': 1}
+default/Earlgrey_0_1-71da2fd7
+	IPS.width|185:35-185:40|32|32|ct9|own=indexed_part_select
+	G {'BARE': 1}
+	O {'BARE': 1}
+default/Earlgrey_0_1-71da2fd7
+	IPS.width|249:52-249:57|17|32|ct9|own=indexed_part_select
+	G {'BARE': 1, "TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=flash_ctrl_pkg,sg=1,cast=-,rng=0": 1}
+	O {'BARE': 1, "TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=flash_ctrl_pkg,sg=1,cast=-,rng=0": 1}
+default/Earlgrey_0_1-71da2fd7
+	IPS.width|277:52-277:57|17|32|ct9|own=indexed_part_select
+	G {'BARE': 1, "TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=flash_ctrl_pkg,sg=1,cast=-,rng=0": 1}
+	O {'BARE': 1, "TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=flash_ctrl_pkg,sg=1,cast=-,rng=0": 1}
+default/Earlgrey_0_1-71da2fd7
+	IPS.width|337:37-337:46|9|32|ct9|own=indexed_part_select
+	G {'BARE': 1, "TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=flash_ctrl_pkg,sg=1,cast=-,rng=0": 1}
+	O {'BARE': 1, "TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=flash_ctrl_pkg,sg=1,cast=-,rng=0": 1}
+default/Earlgrey_0_1-71da2fd7
+	IPS.width|339:39-339:44|1|32|ct9|own=indexed_part_select
+	G {'BARE': 1, "TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=flash_ctrl_pkg,sg=1,cast=-,rng=0": 1}
+	O {'BARE': 1, "TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=flash_ctrl_pkg,sg=1,cast=-,rng=0": 1}
+default/generate_test-5edc9fe7
+	IPS.width|52:48-52:58|8|32|ct9|own=indexed_part_select
+	G {'BARE': 2}
+	O {'BARE': 2}
+default/generate_test-5edc9fe7
+	IPS.width|53:48-53:58|8|32|ct9|own=indexed_part_select
+	G {'BARE': 2}
+	O {'BARE': 2}
+default/generate_test-5edc9fe7
+	IPS.width|61:48-61:58|8|32|ct9|own=indexed_part_select
+	G {'BARE': 2}
+	O {'BARE': 2}
+default/generate_test-5edc9fe7
+	IPS.width|62:48-62:58|8|32|ct9|own=indexed_part_select
+	G {'BARE': 2}
+	O {'BARE': 2}
+default/generate_test-5edc9fe7
+	IPS.width|87:43-87:53|8|32|ct9|own=indexed_part_select
+	G {'BARE': 1}
+	O {'BARE': 1}
+default/generate_test-5edc9fe7
+	IPS.width|88:43-88:53|8|32|ct9|own=indexed_part_select
+	G {'BARE': 1}
+	O {'BARE': 1}
+testflags/BlackBePipeInt-2987e0d2
+	IPS.width|15772:51-15772:64|39|32|ct9|own=indexed_part_select
+	G {'BARE': 1}
+	O {'BARE': 2}
+testflags/Earlgrey_0_1-71da2fd7
+	IPS.width|128:37-128:46|16|32|ct9|own=indexed_part_select
+	G {'BARE': 4}
+	O {'BARE': 8}
+testflags/Earlgrey_0_1-71da2fd7
+	IPS.width|133:38-133:47|16|32|ct9|own=indexed_part_select
+	G {'BARE': 4}
+	O {'BARE': 8}
+testflags/Earlgrey_0_1-71da2fd7
+	IPS.width|171:52-171:57|17|32|ct9|own=indexed_part_select
+	G {'BARE': 1, "TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=flash_ctrl_pkg,sg=1,cast=-,rng=0": 1}
+	O {'BARE': 2, "TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=flash_ctrl_pkg,sg=1,cast=-,rng=0": 1}
+testflags/Earlgrey_0_1-71da2fd7
+	IPS.width|178:35-178:40|32|32|ct9|own=indexed_part_select
+	G {'BARE': 2}
+	O {'BARE': 4}
+testflags/Earlgrey_0_1-71da2fd7
+	IPS.width|185:35-185:40|32|32|ct9|own=indexed_part_select
+	G {'BARE': 2}
+	O {'BARE': 4}
+testflags/Earlgrey_0_1-71da2fd7
+	IPS.width|249:52-249:57|17|32|ct9|own=indexed_part_select
+	G {'BARE': 1, "TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=flash_ctrl_pkg,sg=1,cast=-,rng=0": 1}
+	O {'BARE': 2, "TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=flash_ctrl_pkg,sg=1,cast=-,rng=0": 1}
+testflags/Earlgrey_0_1-71da2fd7
+	IPS.width|277:52-277:57|17|32|ct9|own=indexed_part_select
+	G {'BARE': 1, "TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=flash_ctrl_pkg,sg=1,cast=-,rng=0": 1}
+	O {'BARE': 2, "TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=flash_ctrl_pkg,sg=1,cast=-,rng=0": 1}
+testflags/Earlgrey_0_1-71da2fd7
+	IPS.width|337:37-337:46|9|32|ct9|own=indexed_part_select
+	G {'BARE': 1, "TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=flash_ctrl_pkg,sg=1,cast=-,rng=0": 1}
+	O {'BARE': 2, "TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=flash_ctrl_pkg,sg=1,cast=-,rng=0": 1}
+testflags/Earlgrey_0_1-71da2fd7
+	IPS.width|339:39-339:44|1|32|ct9|own=indexed_part_select
+	G {'BARE': 1, "TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=flash_ctrl_pkg,sg=1,cast=-,rng=0": 1}
+	O {'BARE': 2, "TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=flash_ctrl_pkg,sg=1,cast=-,rng=0": 1}
+testflags/generate_test-5edc9fe7
+	IPS.width|52:48-52:58|8|32|ct9|own=indexed_part_select
+	G {'BARE': 2}
+	O {'BARE': 2}
+testflags/generate_test-5edc9fe7
+	IPS.width|53:48-53:58|8|32|ct9|own=indexed_part_select
+	G {'BARE': 2}
+	O {'BARE': 2}
+testflags/generate_test-5edc9fe7
+	IPS.width|61:48-61:58|8|32|ct9|own=indexed_part_select
+	G {'BARE': 2}
+	O {'BARE': 2}
+testflags/generate_test-5edc9fe7
+	IPS.width|62:48-62:58|8|32|ct9|own=indexed_part_select
+	G {'BARE': 2}
+	O {'BARE': 2}
+testflags/generate_test-5edc9fe7
+	IPS.width|87:43-87:53|8|32|ct9|own=indexed_part_select
+	G {'BARE': 1}
+	O {'BARE': 1}
+testflags/generate_test-5edc9fe7
+	IPS.width|88:43-88:53|8|32|ct9|own=indexed_part_select
+	G {'BARE': 1}
+	O {'BARE': 1}
+
+ROWS PREDICTED TO MOVE (2):
+  default/Earlgrey_0_1-71da2fd7
+  testflags/Earlgrey_0_1-71da2fd7

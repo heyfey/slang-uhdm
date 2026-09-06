@@ -11714,15 +11714,75 @@ std::string UhdmExporter::rawTextPkgFold(SourceRange range,
     return out;
 }
 
+// § modLocalIntTsFold111 — the ADMISSION test for a NON-package parameter at
+// this site.  Golden's object is the parameter's OWN declaration typespec
+// (CompileHelper::compileParameterDeclaration, CompileHelper.cpp:3542-3712,
+// hands `parameter->Typespec()->Actual_typespec(ts)` the typespec compiled
+// from the declaration's data type; CompileExpression.cpp:2894-2905 and
+// :2954-2971 then copy THAT object onto the substituted value).  Which UHDM
+// kind that object is depends ENTIRELY on the declared type, measured one
+// spelling at a time on golden (g2_kind111.sv):
+//
+//   int / int unsigned / int signed -> int_typespec  (VpiSigned only)
+//   integer  -> integer_typespec        byte     -> byte_typespec
+//   shortint -> short_int_typespec      longint  -> long_int_typespec
+//   bit      -> bit_typespec            bit [3:0]-> bit_typespec + 1 Range
+//   logic    -> logic_typespec          logic[7:0]-> logic_typespec + 1 Range
+//   a TYPEDEF name -> the typedef's OWN object, carrying its VpiName and its
+//                     home package as VpiInstance (`w_t` / `pk2`), or a
+//                     Typedef_alias for a module-local one
+//
+// This site can mint only the FIRST row faithfully: a bare `int_typespec`
+// whose sole Compare-visible field beyond the kind is `VpiSigned`.  Every
+// other row differs from a minted int_typespec in a field the judge READS —
+// the UhdmType itself, a Range vector, or the typedef's VpiName/Instance — so
+// admitting it would replace a MISSING object with a WRONG one.  That is
+// § psBoundPkgParamTs31's own abstention, applied to the declared type
+// instead of to the binding state, and it is why this test is a WHITELIST of
+// one spelling rather than "explicitly typed".
+//
+// A package parameter never reaches this test: it keeps the older, wider path
+// (its real object is reachable through `pkgParamObj`, so the typedef and
+// vector rows are already served there).
+static bool modLocalIntAtomTs111(const ParameterSymbol& dp) {
+    auto dt = dp.getDeclaredType();
+    if (!dt)
+        return false;
+    auto* tsy = dt->getTypeSyntax();
+    // `int`, and ONLY `int`.  A NamedType (any typedef, qualified or not) and
+    // an ImplicitType both fail here, which is the point.
+    if (!tsy || tsy->kind != syntax::SyntaxKind::IntType)
+        return false;
+    // `int [3:0]` is not legal SystemVerilog, but a packed dimension on the
+    // syntax node would mean golden's object carries a Range this site does
+    // not mint — refuse rather than assume the parser agrees.
+    if (auto* ity = tsy->as_if<syntax::IntegerTypeSyntax>())
+        if (!ity->dimensions.empty())
+            return false;
+    // The value must still be a plain TWO-state 32-bit integer: `getType()` is
+    // what the fold already sized the constant from (§ elabHierSelWidthFold),
+    // so a type that is not 32 bits wide, or is four-state, is not the `int`
+    // golden compiled either.  (`integer` is 32 bits and FOUR-state; it is
+    // already refused one line up, and is refused again here on purpose.)
+    auto& t = dp.getType();
+    return t.isIntegral() && t.getBitWidth() == 32 && !t.isFourState();
+}
+
 // § elabHierSelWidthFold (declaration comment in UhdmExporter.h).
 void UhdmExporter::stampFoldedPkgParamTs(UHDM::constant* c, const Symbol& sym,
                                          const std::string& fullName,
-                                         bool declTsOnly) {
+                                         bool declTsOnly, bool modIntAtom111) {
     if (!c || sym.kind != SymbolKind::Parameter)
         return;
     auto* psc = sym.getParentScope();
-    if (!psc || psc->asSymbol().kind != SymbolKind::Package)
-        return;
+    if (!psc || psc->asSymbol().kind != SymbolKind::Package) {
+        // § modLocalIntTsFold111 — see the declaration comment.  OFF by
+        // default, so the four call sites this pass does not own keep their
+        // behaviour to the byte.
+        if (!modIntAtom111 || sym.kind != SymbolKind::Parameter ||
+            !modLocalIntAtomTs111(sym.as<ParameterSymbol>()))
+            return;
+    }
     auto& dp = sym.as<ParameterSymbol>();
     bool implicit9 = true;
     if (auto dt9 = dp.getDeclaredType())
@@ -27777,8 +27837,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 // it is the shape of the Earlgrey head
                                 // (flash_phy.sv:133 `.addr_i(flash_ctrl_i.addr
                                 // [0 +: BankAddrW])`).
+                                // § modLocalIntTsFold111 — SITE 1 of 2.  The
+                                // module-localparam arm rides INSIDE the
+                                // High_conn carve-out above, so a folded width
+                                // in an elaborated port connection stays bare
+                                // whatever the parameter's home scope is.
                                 if (!elabConnEmit21)
-                                    stampFoldedPkgParamTs(wc9, *wf9.sym, prefix);
+                                    stampFoldedPkgParamTs(wc9, *wf9.sym, prefix,
+                                                          /*declTsOnly=*/false,
+                                                          /*modIntAtom111=*/true);
                                 ips->Width_expr(wc9);
                             }
                             else if (auto* w = emitExpr(rs.right(), ips, prefix,
@@ -28728,8 +28795,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 // the dotted half (the base-select spelling).
                                 // § connMpRootIpsBoundKeepsTs65v — the
                                 // modport carve-out (see mpRoot65v above).
+                                // § modLocalIntTsFold111 — SITE 2 of 2, riding
+                                // inside the same two carve-outs.
                                 if (!elabConnEmit21 || mpRoot65v)
-                                    stampFoldedPkgParamTs(wc9, *wf9.sym, prefix);
+                                    stampFoldedPkgParamTs(wc9, *wf9.sym, prefix,
+                                                          /*declTsOnly=*/false,
+                                                          /*modIntAtom111=*/true);
                                 ips2->Width_expr(wc9);
                             }
                             else if (auto* w2 = emitExpr(rs.right(), ips2, prefix,

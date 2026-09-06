@@ -1,0 +1,3 @@
+MODE 3-file (golden / pristine / patched)
+pairs golden=14782 pristine=14798 patched=14798
+TOGOLD 0  AWAY 0  MOVEDWRONG 0  STILLWRONG 908  SAME_AGREE 13874  ONE-SIDED-CHANGED 0

@@ -1,0 +1,27 @@
+ADDED total 696   by region {'ELAB': 609, 'TAIL': 87}
+REMOVED total 0   by region {}
+
+--- ADDED line shapes, DEF+ELAB only (the tail is not counted) ---
+    29                      |vpiParent:
+    29                          |vpiParent:
+    29                          |vpiTypespec:
+    29                            |vpiParent:
+    29                            |vpiActual:
+    29                    |vpiTypespec:
+    29                      |vpiActual:
+    29                        |vpiTypespec:
+    29                          |vpiActual:
+    29                          \_int_typespec: , line:N:N, endln:N:N
+    29                    \_ref_typespec: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N])
+    29                      \_constant: , line:N:N, endln:N:N
+    29                      |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N]
+    29                      \_int_typespec: , line:N:N, endln:N:N
+    29                        \_ref_typespec: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N])
+    29                          \_constant: , line:N:N, endln:N:N
+    29                          |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N]
+    29                          \_ref_typespec: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N])
+    29                            \_constant: , line:N:N, endln:N:N
+    29                            |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N]
+    29                            \_int_typespec: , line:N:N, endln:N:N
+
+--- REMOVED line shapes, DEF+ELAB only ---

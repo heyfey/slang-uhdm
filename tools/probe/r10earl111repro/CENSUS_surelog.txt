@@ -1,0 +1,39 @@
+MODE 3-file (golden / pristine / patched)
+pairs golden=110894 pristine=109783 patched=109783
+TOGOLD 12  AWAY 0  MOVEDWRONG 0  STILLWRONG 8601  SAME_AGREE 100816  ONE-SIDED-CHANGED 0
+TOGOLD	default/Earlgrey_0_1-71da2fd7	IPS.width|105:61-105:66|1|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 20}
+	P {'BARE': 20}
+TOGOLD	default/Earlgrey_0_1-71da2fd7	IPS.width|105:61-105:66|2|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 9}
+	P {'BARE': 9}
+TOGOLD	default/Earlgrey_0_1-71da2fd7	IPS.width|235:57-235:62|1|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 20}
+	P {'BARE': 20}
+TOGOLD	default/Earlgrey_0_1-71da2fd7	IPS.width|235:57-235:62|2|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 9}
+	P {'BARE': 9}
+TOGOLD	default/Earlgrey_0_1-71da2fd7	IPS.width|237:57-237:62|1|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 20}
+	P {'BARE': 20}
+TOGOLD	default/Earlgrey_0_1-71da2fd7	IPS.width|237:57-237:62|2|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 9}
+	P {'BARE': 9}
+TOGOLD	testflags/Earlgrey_0_1-71da2fd7	IPS.width|105:61-105:66|1|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 40}
+	P {'BARE': 40}
+TOGOLD	testflags/Earlgrey_0_1-71da2fd7	IPS.width|105:61-105:66|2|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 18}
+	P {'BARE': 18}
+TOGOLD	testflags/Earlgrey_0_1-71da2fd7	IPS.width|235:57-235:62|1|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 40}
+	P {'BARE': 40}
+TOGOLD	testflags/Earlgrey_0_1-71da2fd7	IPS.width|235:57-235:62|2|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 18}
+	P {'BARE': 18}
+TOGOLD	testflags/Earlgrey_0_1-71da2fd7	IPS.width|237:57-237:62|1|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 40}
+	P {'BARE': 40}
+TOGOLD	testflags/Earlgrey_0_1-71da2fd7	IPS.width|237:57-237:62|2|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 18}
+	P {'BARE': 18}

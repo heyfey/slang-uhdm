@@ -511,10 +511,33 @@ private:
     // parameter's own declaration typespec, the shape § defNetBoundUntypedPkgTs
     // measured for a range bound: a TYPED package parameter shares the object
     // its own parameter carries, an UNTYPED one gets a synthesized unsigned
-    // int_typespec spanning the whole parameter DECLARATION.  A MODULE-scope
-    // parameter has no such object and is left bare (golden: BlackBePipeInt's
-    // `[0+:vaddr_width_p]` fold carries no vpiTypespec while the sibling
-    // `[0+:dword_width_gp]` does).
+    // int_typespec spanning the whole parameter DECLARATION.
+    //
+    // § modLocalIntTsFold111 (r10earl111) CORRECTS THE SENTENCE THAT USED TO
+    // STAND HERE — "a MODULE-scope parameter has no such object and is left
+    // bare (golden: BlackBePipeInt's `[0+:vaddr_width_p]` fold carries no
+    // vpiTypespec while the sibling `[0+:dword_width_gp]` does)".  That
+    // reading is REFUTED: the axis is not the parameter's SCOPE, it is
+    // whether the parameter's own declaration gave Surelog a typespec to copy.
+    //   * `vaddr_width_p` is an IMPLICITLY typed module localparam whose RHS
+    //     is a struct-member read (`proc_param_lp.vaddr_width`), so at
+    //     declaration-compile time neither branch of
+    //     CompileHelper::compileParameterDeclaration
+    //     (~/git-repos/Surelog/src/DesignCompile/CompileHelper.cpp:3542-3712
+    //     for the declared type, :3788-3878 for the synthesized one, which
+    //     needs the RHS to have compiled to a `constant`) sets one — the
+    //     parameter carries NO Typespec, so the fold has nothing to copy.
+    //   * Earlgrey's `localparam int unsigned STIDW = $clog2(M);`
+    //     (tlul_socket_m1.sv:73) is EXPLICITLY typed, so its parameter DOES
+    //     carry an `int_typespec` at the `int unsigned` type syntax, and
+    //     CompileExpression.cpp:2894-2905 / :2954-2971 copy exactly that
+    //     object onto the substituted value at the reference's own span.
+    // A MODULE-scope parameter therefore DOES get one, and this site stamps it
+    // — but ONLY for the declared type it can mint faithfully; see
+    // `modLocalIntAtomTs111` in ExprEmit.cpp for the measured type matrix and
+    // why the test is a whitelist of `int` rather than "explicitly typed".
+    // OFF by default (`modIntAtom111`), so the call sites this law does not
+    // own keep their behaviour to the byte.
     // declTsOnly (§ psBoundPkgParamTs31): REFUSE the synthesized int_typespec
     // when the parameter's declared type is EXPLICIT but its own object's
     // typespec is not resolvable yet — a typedef-typed package localparam
@@ -526,7 +549,8 @@ private:
     void stampFoldedPkgParamTs(UHDM::constant* c,
                                const slang::ast::Symbol& sym,
                                const std::string& fullName,
-                               bool declTsOnly = false);
+                               bool declTsOnly = false,
+                               bool modIntAtom111 = false);
     // Surelog clones a NAMED vector-typedef typespec at every REFERENCE
     // instead of sharing the module's object, and the copy DROPS vpiInstance
     // (the shared object's instance is the def-view module). Copies the fields

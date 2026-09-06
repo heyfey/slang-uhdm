@@ -1,0 +1,13 @@
+ARM              VIEW    SLRC   PRC   ARC   PRIS c/h  PATCH c/h
+g1_head111       plain      0     0     0       58/1       58/1
+g1_head111       elab       0     0     0       58/1       58/1
+g2_kind111       plain      0     0     0       40/1       40/1
+g2_kind111       elab       0     0     0       40/1       40/1
+g3_scope111      plain      0     0     0       58/1       58/1
+g3_scope111      elab       0     0     0       58/1       58/1
+g4_site111       plain      0     0     0       58/1       58/1
+g4_site111       elab       0     0     0       58/1       58/1
+g5_neg111        plain      0     0     0       11/1       11/1
+g5_neg111        elab       0     0     0       11/1       11/1
+g6_view111       plain      0     0     0       17/1        0/0
+g6_view111       elab       0     0     0       17/1        0/0

@@ -1,0 +1,259 @@
+r10earl111 -- EVERY CENSUS CELL THAT CHANGED ON A FOREIGN ARM, classified
+against GOLDEN.  MEASUREMENT ONLY; the official uhdm-cmp is the sole judge.
+LHS is ALWAYS golden; RHS is ALWAYS ours.
+
+  NEW-PAYLOAD-IS-GOLDENS      the constant exists on BOTH sides at this key,
+                              golden stamped it, we were bare, and we now
+                              carry golden's object field for field -> a WIN.
+  NEW-PAYLOAD-NOT-IN-GOLDEN   golden has NO key here at all: it emits a
+                              ref_obj where we emit a constant (the
+                              PRE-EXISTING over-fold, residue R4).  The cell
+                              already failed on VpiType before this patch, so
+                              a Typespec on it changes no verdict.
+
+  AND THE ONE THAT MATTERS: cells where GOLDEN IS BARE and the patch STAMPED
+  -- the definition of an AWAY -- number ZERO.
+
+NEW-PAYLOAD-IS-GOLDENS	r10earl110repro_g1_head110_elab|IPS.width|29:65-29:69|2|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 6}
+	P {'BARE': 6}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 6}
+NEW-PAYLOAD-IS-GOLDENS	r10earl110repro_g1_head110_elab|IPS.width|35:37-35:42|8|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 6}
+	P {'BARE': 6}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 6}
+NEW-PAYLOAD-IS-GOLDENS	r10earl110repro_g1_head110_plain|IPS.width|29:65-29:69|2|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 3}
+	P {'BARE': 3}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 3}
+NEW-PAYLOAD-IS-GOLDENS	r10earl110repro_g1_head110_plain|IPS.width|35:37-35:42|8|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 3}
+	P {'BARE': 3}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 3}
+NEW-PAYLOAD-IS-GOLDENS	r10earl110repro_g5_neg110_elab|IPS.width|22:42-22:44|6|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 4}
+	P {'BARE': 4}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 4}
+NEW-PAYLOAD-IS-GOLDENS	r10earl110repro_g5_neg110_plain|IPS.width|22:42-22:44|6|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 2}
+	P {'BARE': 2}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 2}
+NEW-PAYLOAD-NOT-IN-GOLDEN	r10earl34repro_a2_shape_elab|IPS.width|76:43-76:48|6|32|ct9|own=indexed_part_select
+	G {}
+	P {'BARE': 2}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 2}
+NEW-PAYLOAD-NOT-IN-GOLDEN	r10earl34repro_a2_shape_plain|IPS.width|76:43-76:48|6|32|ct9|own=indexed_part_select
+	G {}
+	P {'BARE': 1}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 1}
+NEW-PAYLOAD-NOT-IN-GOLDEN	r10earl56repro_v6_overreach56_elab|IPS.width|43:35-43:37|3|32|ct9|own=indexed_part_select
+	G {}
+	P {'BARE': 2}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 2}
+NEW-PAYLOAD-NOT-IN-GOLDEN	r10earl56repro_v6_overreach56_plain|IPS.width|43:35-43:37|3|32|ct9|own=indexed_part_select
+	G {}
+	P {'BARE': 1}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 1}
+NEW-PAYLOAD-IS-GOLDENS	r10earl65repro_g2_hier65_elab|IPS.width|29:35-29:37|5|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 1}
+	P {'BARE': 3}
+	A {'BARE': 2, "TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 1}
+NEW-PAYLOAD-IS-GOLDENS	r10earl65repro_g2_hier65_plain|IPS.width|29:35-29:37|5|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 1}
+	P {'BARE': 2}
+	A {'BARE': 1, "TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 1}
+NEW-PAYLOAD-IS-GOLDENS	r10earl69repro_a1_hpname69_elab|IPS.width|32:40-32:42|8|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 4}
+	P {'BARE': 4}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 4}
+NEW-PAYLOAD-NOT-IN-GOLDEN	r10earl69repro_a1_hpname69_elab|IPS.width|83:39-83:41|8|32|ct9|own=indexed_part_select
+	G {}
+	P {'BARE': 2}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 2}
+NEW-PAYLOAD-IS-GOLDENS	r10earl69repro_a1_hpname69_plain|IPS.width|32:40-32:42|8|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 2}
+	P {'BARE': 2}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 2}
+NEW-PAYLOAD-NOT-IN-GOLDEN	r10earl69repro_a1_hpname69_plain|IPS.width|83:39-83:41|8|32|ct9|own=indexed_part_select
+	G {}
+	P {'BARE': 1}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 1}
+NEW-PAYLOAD-IS-GOLDENS	r10earl69repro_a2_fence69_elab|IPS.width|26:32-26:34|4|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 4}
+	P {'BARE': 4}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 4}
+NEW-PAYLOAD-IS-GOLDENS	r10earl69repro_a2_fence69_elab|IPS.width|47:37-47:39|4|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 4}
+	P {'BARE': 4}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 4}
+NEW-PAYLOAD-NOT-IN-GOLDEN	r10earl69repro_a2_fence69_elab|IPS.width|56:30-56:32|4|32|ct9|own=indexed_part_select
+	G {}
+	P {'BARE': 2}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 2}
+NEW-PAYLOAD-IS-GOLDENS	r10earl69repro_a2_fence69_plain|IPS.width|26:32-26:34|4|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 2}
+	P {'BARE': 2}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 2}
+NEW-PAYLOAD-IS-GOLDENS	r10earl69repro_a2_fence69_plain|IPS.width|47:37-47:39|4|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 2}
+	P {'BARE': 2}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 2}
+NEW-PAYLOAD-NOT-IN-GOLDEN	r10earl69repro_a2_fence69_plain|IPS.width|56:30-56:32|4|32|ct9|own=indexed_part_select
+	G {}
+	P {'BARE': 1}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 1}
+NEW-PAYLOAD-IS-GOLDENS	r10earl84repro_g3_pos84_elab|IPS.width|24:47-24:49|2|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 1}
+	P {'BARE': 3}
+	A {'BARE': 2, "TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 1}
+NEW-PAYLOAD-IS-GOLDENS	r10earl84repro_g3_pos84_plain|IPS.width|24:47-24:49|2|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 1}
+	P {'BARE': 2}
+	A {'BARE': 1, "TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 1}
+NEW-PAYLOAD-NOT-IN-GOLDEN	r10earl_repro_vc_elab|IPS.width|35:34-35:35|5|32|ct9|own=indexed_part_select
+	G {}
+	P {'BARE': 4}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 4}
+NEW-PAYLOAD-NOT-IN-GOLDEN	r10earl_repro_vc_plain|IPS.width|35:34-35:35|5|32|ct9|own=indexed_part_select
+	G {}
+	P {'BARE': 2}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 2}
+NEW-PAYLOAD-NOT-IN-GOLDEN	r10uvm94repro_g94_a1_idxbase_elab|IPS.width|58:38-58:44|9|32|ct9|own=indexed_part_select
+	G {}
+	P {'BARE': 2}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 2}
+NEW-PAYLOAD-NOT-IN-GOLDEN	r10uvm94repro_g94_a1_idxbase_elab|IPS.width|73:37-73:43|9|32|ct9|own=indexed_part_select
+	G {}
+	P {'BARE': 2}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 2}
+NEW-PAYLOAD-NOT-IN-GOLDEN	r10uvm94repro_g94_a1_idxbase_elab|IPS.width|75:37-75:43|6|32|ct9|own=indexed_part_select
+	G {}
+	P {'BARE': 2}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 2}
+NEW-PAYLOAD-NOT-IN-GOLDEN	r10uvm94repro_g94_a1_idxbase_plain|IPS.width|58:38-58:44|9|32|ct9|own=indexed_part_select
+	G {}
+	P {'BARE': 1}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 1}
+NEW-PAYLOAD-NOT-IN-GOLDEN	r10uvm94repro_g94_a1_idxbase_plain|IPS.width|73:37-73:43|9|32|ct9|own=indexed_part_select
+	G {}
+	P {'BARE': 1}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 1}
+NEW-PAYLOAD-NOT-IN-GOLDEN	r10uvm94repro_g94_a1_idxbase_plain|IPS.width|75:37-75:43|6|32|ct9|own=indexed_part_select
+	G {}
+	P {'BARE': 1}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 1}
+NEW-PAYLOAD-NOT-IN-GOLDEN	r10uvm94repro_g94_a2_homes_elab|IPS.width|73:45-73:51|23|32|ct9|own=indexed_part_select
+	G {}
+	P {'BARE': 2}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 2}
+NEW-PAYLOAD-NOT-IN-GOLDEN	r10uvm94repro_g94_a2_homes_plain|IPS.width|73:45-73:51|23|32|ct9|own=indexed_part_select
+	G {}
+	P {'BARE': 1}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 1}
+NEW-PAYLOAD-IS-GOLDENS	r10v69repro_v1_shapes69_elab|IPS.width|28:35-28:37|8|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 6}
+	P {'BARE': 6}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 6}
+NEW-PAYLOAD-IS-GOLDENS	r10v69repro_v1_shapes69_elab|IPS.width|34:53-34:55|8|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 6}
+	P {'BARE': 6}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 6}
+NEW-PAYLOAD-IS-GOLDENS	r10v69repro_v1_shapes69_elab|IPS.width|46:63-46:65|8|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 6}
+	P {'BARE': 6}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 6}
+NEW-PAYLOAD-IS-GOLDENS	r10v69repro_v1_shapes69_elab|IPS.width|52:35-52:37|8|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 6}
+	P {'BARE': 6}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 6}
+NEW-PAYLOAD-NOT-IN-GOLDEN	r10v69repro_v1_shapes69_elab|IPS.width|57:34-57:36|8|32|ct9|own=indexed_part_select
+	G {}
+	P {'BARE': 2}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 2}
+NEW-PAYLOAD-IS-GOLDENS	r10v69repro_v1_shapes69_plain|IPS.width|28:35-28:37|8|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 3}
+	P {'BARE': 3}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 3}
+NEW-PAYLOAD-IS-GOLDENS	r10v69repro_v1_shapes69_plain|IPS.width|34:53-34:55|8|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 3}
+	P {'BARE': 3}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 3}
+NEW-PAYLOAD-IS-GOLDENS	r10v69repro_v1_shapes69_plain|IPS.width|46:63-46:65|8|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 3}
+	P {'BARE': 3}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 3}
+NEW-PAYLOAD-IS-GOLDENS	r10v69repro_v1_shapes69_plain|IPS.width|52:35-52:37|8|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 3}
+	P {'BARE': 3}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 3}
+NEW-PAYLOAD-NOT-IN-GOLDEN	r10v69repro_v1_shapes69_plain|IPS.width|57:34-57:36|8|32|ct9|own=indexed_part_select
+	G {}
+	P {'BARE': 1}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 1}
+NEW-PAYLOAD-NOT-IN-GOLDEN	r10v69repro_v3_deep69_elab|IPS.width|23:44-23:46|8|32|ct9|own=indexed_part_select
+	G {}
+	P {'BARE': 16}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 16}
+NEW-PAYLOAD-NOT-IN-GOLDEN	r10v69repro_v3_deep69_elab|IPS.width|35:38-35:40|8|32|ct9|own=indexed_part_select
+	G {}
+	P {'BARE': 2}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 2}
+NEW-PAYLOAD-NOT-IN-GOLDEN	r10v69repro_v3_deep69_plain|IPS.width|23:44-23:46|8|32|ct9|own=indexed_part_select
+	G {}
+	P {'BARE': 8}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 8}
+NEW-PAYLOAD-NOT-IN-GOLDEN	r10v69repro_v3_deep69_plain|IPS.width|35:38-35:40|8|32|ct9|own=indexed_part_select
+	G {}
+	P {'BARE': 1}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=1,cast=-,rng=0": 1}
+NEW-PAYLOAD-IS-GOLDENS	r10vearl110repro_v3_shape_elab|IPS.width|33:45-33:47|3|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 6}
+	P {'BARE': 6}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 6}
+NEW-PAYLOAD-IS-GOLDENS	r10vearl110repro_v3_shape_plain|IPS.width|33:45-33:47|3|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 3}
+	P {'BARE': 3}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 3}
+NEW-PAYLOAD-NOT-IN-GOLDEN	r10vearl110repro_v4_pair_elab|IPS.width|22:43-22:45|1|32|ct9|own=indexed_part_select
+	G {}
+	P {'BARE': 3}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 3}
+NEW-PAYLOAD-NOT-IN-GOLDEN	r10vearl110repro_v4_pair_elab|IPS.width|22:43-22:45|2|32|ct9|own=indexed_part_select
+	G {}
+	P {'BARE': 4}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 4}
+NEW-PAYLOAD-IS-GOLDENS	r10vearl110repro_v4_pair_elab|IPS.width|26:80-26:82|1|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 4}
+	P {'BARE': 4}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 4}
+NEW-PAYLOAD-IS-GOLDENS	r10vearl110repro_v4_pair_elab|IPS.width|26:80-26:82|2|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 14}
+	P {'BARE': 14}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 14}
+NEW-PAYLOAD-NOT-IN-GOLDEN	r10vearl110repro_v4_pair_plain|IPS.width|22:43-22:45|1|32|ct9|own=indexed_part_select
+	G {}
+	P {'BARE': 2}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 2}
+NEW-PAYLOAD-NOT-IN-GOLDEN	r10vearl110repro_v4_pair_plain|IPS.width|22:43-22:45|2|32|ct9|own=indexed_part_select
+	G {}
+	P {'BARE': 2}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 2}
+NEW-PAYLOAD-IS-GOLDENS	r10vearl110repro_v4_pair_plain|IPS.width|26:80-26:82|1|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 2}
+	P {'BARE': 2}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 2}
+NEW-PAYLOAD-IS-GOLDENS	r10vearl110repro_v4_pair_plain|IPS.width|26:80-26:82|2|32|ct9|own=indexed_part_select
+	G {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 7}
+	P {'BARE': 7}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 7}
+NEW-PAYLOAD-NOT-IN-GOLDEN	r10vearl110repro_v6_away_elab|IPS.width|41:40-41:45|4|32|ct9|own=indexed_part_select
+	G {}
+	P {'BARE': 4}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 4}
+NEW-PAYLOAD-NOT-IN-GOLDEN	r10vearl110repro_v6_away_plain|IPS.width|41:40-41:45|4|32|ct9|own=indexed_part_select
+	G {}
+	P {'BARE': 2}
+	A {"TS[n='',dn='']->int_typespec,n='',dn='',alias=-,inst=-,sg=0,cast=-,rng=0": 2}
+
+TOTALS {'NEW-PAYLOAD-IS-GOLDENS': 30, 'NEW-PAYLOAD-NOT-IN-GOLDEN': 30}
+CELLS WHERE GOLDEN IS BARE AND THE PATCH STAMPED (an AWAY): 0

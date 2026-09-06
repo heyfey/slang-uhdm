@@ -1,0 +1,17 @@
+LHS:
+decompile:
+ref_typespec: (work@top_earlgrey.u_xbar_main.u_sm1_17), id:793443
+|vpiParent:
+\_constant: , id:793442, line:105:61, endln:105:66
+|vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17
+|vpiActual:
+\_int_typespec: , id:793444, line:73:14, endln:73:26
+
+decompile:
+ref_typespec: (work@top_earlgrey.u_xbar_main.u_sm1_17), id:793443
+|vpiParent:
+\_constant: , id:793442, line:105:61, endln:105:66
+|vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17
+|vpiActual:
+\_int_typespec: , id:793444, line:73:14, endln:73:26
+RHS: <null>

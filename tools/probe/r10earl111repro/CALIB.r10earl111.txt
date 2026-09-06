@@ -1,0 +1,8 @@
+== /home/heyfey/.cache/slang-uhdm-goldens/d7348d2d2fe67abe767b/golden.uhdm
+MODE 2-file (pristine vs golden)
+keys golden=20888 ours=20888 joined=20888
+SAME 20888   DIFF 0   G-ONLY 0   O-ONLY 0
+== /home/heyfey/.cache/slang-uhdm-goldens/1e8dca43ebc74fb734eb/golden.uhdm
+MODE 2-file (pristine vs golden)
+keys golden=259 ours=259 joined=259
+SAME 259   DIFF 0   G-ONLY 0   O-ONLY 0

@@ -1,0 +1,6 @@
+== ITERATION 0 : design::Compare -> -57
+   HEAD LHS(golden) = hier_path id:793448  tlul_socket_m1.sv 109:19-109:36
+   HEAD RHS(ours)   = hier_path id:1292551   109:19-109:36
+   NOT a singular ref_typespec-with-null-RHS head -- family exhausted.
+   LHS payload: hier_path name='tl_h_i[0].a_valid' size=0  @tlul_socket_m1.sv 109:19-109:36
+   RHS payload: hier_path name='tl_h_i[i].a_valid' size=1  @ 109:19-109:36

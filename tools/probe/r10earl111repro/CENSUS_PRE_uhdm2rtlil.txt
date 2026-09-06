@@ -1,0 +1,5 @@
+MODE 2-file (pristine vs golden)
+pairs golden=14782 ours=14798 joined=14782
+EDGE 0  PAYLOAD 0  COUNT 908  G-ONLY 0  O-ONLY 16
+
+--- EVERY EDGE cell (golden vs ours) ---
