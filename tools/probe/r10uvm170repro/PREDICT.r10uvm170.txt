@@ -1,0 +1,253 @@
+r10uvm170 — PREDICT (a priori, PRISTINE databases + goldens only; the patched binary did not exist for this run)
+
+PREDICT default    BuildUVMPkg-bf853d43         9584:15-9584:38 golden=[('unsupported_typespec', 'uvm_severity')] ours=[('enum_typespec', 'uvm_pkg::uvm_severity')]
+EXCLUDED default    Earlgrey_0_1-71da2fd7        192:28-192:51  golden=[('int_typespec', 'N_ESC_SEV'), ('unsupported_typespec', 'N_ESC_SEV')] ours=[('int_typespec', 'N_ESC_SEV'), ('unsupported_typespec', 'N_ESC_SEV')]
+EXCLUDED default    Earlgrey_0_1-71da2fd7        39:24-39:38    golden=[('unsupported_typespec', 'AttrDw')] ours=[('int_typespec', 'AttrDw'), ('unsupported_typespec', 'AttrDw')]
+EXCLUDED default    Earlgrey_0_1-71da2fd7        42:24-42:37    golden=[('unsupported_typespec', 'AttrDw')] ours=[('unsupported_typespec', 'AttrDw')]
+EXCLUDED default    Earlgrey_0_1-71da2fd7        45:24-45:38    golden=[('unsupported_typespec', 'AttrDw')] ours=[('unsupported_typespec', 'AttrDw')]
+EXCLUDED default    Earlgrey_0_1-71da2fd7        240:29-240:73  golden=[('enum_typespec', 'pinmux_pkg::wkup_mode_e'), ('unsupported_typespec', 'wkup_mode_e')] ours=[('enum_typespec', 'pinmux_pkg::wkup_mode_e'), ('unsupported_typespec', 'wkup_mode_e')]
+EXCLUDED default    Earlgrey_0_1-71da2fd7        72:45-72:59    golden=[('int_typespec', 'DepthW'), ('unsupported_typespec', 'DepthW')] ours=[('int_typespec', 'DepthW'), ('unsupported_typespec', 'DepthW')]
+EXCLUDED default    Earlgrey_0_1-71da2fd7        73:45-73:64    golden=[('int_typespec', 'DepthW'), ('unsupported_typespec', 'DepthW')] ours=[('int_typespec', 'DepthW'), ('unsupported_typespec', 'DepthW')]
+EXCLUDED default    Earlgrey_0_1-71da2fd7        73:67-73:86    golden=[('int_typespec', 'DepthW'), ('unsupported_typespec', 'DepthW')] ours=[('int_typespec', 'DepthW'), ('unsupported_typespec', 'DepthW')]
+EXCLUDED default    Earlgrey_0_1-71da2fd7        74:21-74:35    golden=[('int_typespec', 'DepthW'), ('unsupported_typespec', 'DepthW')] ours=[('int_typespec', 'DepthW'), ('unsupported_typespec', 'DepthW')]
+EXCLUDED default    Earlgrey_0_1-71da2fd7        74:38-74:57    golden=[('int_typespec', 'DepthW'), ('unsupported_typespec', 'DepthW')] ours=[('int_typespec', 'DepthW'), ('unsupported_typespec', 'DepthW')]
+EXCLUDED default    Earlgrey_0_1-71da2fd7        74:60-74:79    golden=[('int_typespec', 'DepthW'), ('unsupported_typespec', 'DepthW')] ours=[('int_typespec', 'DepthW'), ('unsupported_typespec', 'DepthW')]
+EXCLUDED default    Earlgrey_0_1-71da2fd7        315:30-315:48  golden=[('int_typespec', 'LfsrDw'), ('unsupported_typespec', 'LfsrDw')] ours=[('int_typespec', 'LfsrDw'), ('unsupported_typespec', 'LfsrDw')]
+EXCLUDED default    Earlgrey_0_1-71da2fd7        340:30-340:48  golden=[('unsupported_typespec', 'LfsrDw')] ours=[('unsupported_typespec', 'LfsrDw')]
+EXCLUDED default    Earlgrey_0_1-71da2fd7        131:51-131:58  golden=[('int_typespec', 'NWD'), ('unsupported_typespec', 'NWD')] ours=[('int_typespec', 'NWD'), ('unsupported_typespec', 'NWD')]
+PREDICT default    MiniAmiq-544c7f61            168:15-168:38  golden=[('unsupported_typespec', 'uvm_severity')] ours=[('enum_typespec', 'uvm_pkg::uvm_severity')]
+EXCLUDED default    Rggen-50ccbd70               82:30-82:46    golden=[('enum_typespec', 'rggen_rtl_pkg::rggen_access'), ('unsupported_typespec', 'rggen_access')] ours=[('enum_typespec', 'rggen_rtl_pkg::rggen_access'), ('unsupported_typespec', 'rggen_access')]
+PREDICT default    Scoreboard-59431470          168:15-168:38  golden=[('unsupported_typespec', 'uvm_severity')] ours=[('enum_typespec', 'uvm_pkg::uvm_severity')]
+EXCLUDED default    Scr1SvTests-b87ba20c         581:26-581:61  golden=[('unsupported_typespec', 'SCR1_IRQ_LINES_WIDTH')] ours=[('unsupported_typespec', 'SCR1_IRQ_LINES_WIDTH')]
+EXCLUDED default    Scr1SvTests-b87ba20c         1007:73-1007:106 golden=[('unsupported_typespec', 'SCR1_CSR_MTVEC_BASE_ZERO_BITS')] ours=[('unsupported_typespec', 'SCR1_CSR_MTVEC_BASE_ZERO_BITS')]
+EXCLUDED default    Scr1SvTests-b87ba20c         1011:73-1011:106 golden=[('unsupported_typespec', 'SCR1_CSR_MTVEC_BASE_ZERO_BITS')] ours=[('unsupported_typespec', 'SCR1_CSR_MTVEC_BASE_ZERO_BITS')]
+EXCLUDED default    Scr1SvTests-b87ba20c         1014:49-1014:82 golden=[('unsupported_typespec', 'SCR1_CSR_MTVEC_BASE_ZERO_BITS')] ours=[('unsupported_typespec', 'SCR1_CSR_MTVEC_BASE_ZERO_BITS')]
+PREDICT default    SeqDriver-32af76aa           168:15-168:38  golden=[('enum_typespec', 'uvm_pkg::uvm_severity'), ('unsupported_typespec', 'uvm_severity')] ours=[('enum_typespec', 'uvm_pkg::uvm_severity')]
+PREDICT default    SimpleUVM-1dc93a62           168:15-168:38  golden=[('enum_typespec', 'uvm_pkg::uvm_severity'), ('unsupported_typespec', 'uvm_severity')] ours=[('enum_typespec', 'uvm_pkg::uvm_severity')]
+EXCLUDED default    UnpackPort-98701e61          9:24-9:37      golden=[('struct_typespec', 'struct2'), ('unsupported_typespec', 'struct2')] ours=[('struct_typespec', 'struct2'), ('unsupported_typespec', 'struct2')]
+PREDICT testflags  BuildUVMPkg-bf853d43         9584:15-9584:38 golden=[('unsupported_typespec', 'uvm_severity')] ours=[('enum_typespec', 'uvm_pkg::uvm_severity')]
+EXCLUDED testflags  Earlgrey_0_1-71da2fd7        192:28-192:51  golden=[('int_typespec', 'N_ESC_SEV'), ('unsupported_typespec', 'N_ESC_SEV')] ours=[('int_typespec', 'N_ESC_SEV'), ('unsupported_typespec', 'N_ESC_SEV')]
+EXCLUDED testflags  Earlgrey_0_1-71da2fd7        39:24-39:38    golden=[('unsupported_typespec', 'AttrDw')] ours=[('int_typespec', 'AttrDw'), ('unsupported_typespec', 'AttrDw')]
+EXCLUDED testflags  Earlgrey_0_1-71da2fd7        42:24-42:37    golden=[('unsupported_typespec', 'AttrDw')] ours=[('unsupported_typespec', 'AttrDw')]
+EXCLUDED testflags  Earlgrey_0_1-71da2fd7        45:24-45:38    golden=[('unsupported_typespec', 'AttrDw')] ours=[('unsupported_typespec', 'AttrDw')]
+EXCLUDED testflags  Earlgrey_0_1-71da2fd7        240:29-240:73  golden=[('enum_typespec', 'pinmux_pkg::wkup_mode_e'), ('unsupported_typespec', 'wkup_mode_e')] ours=[('enum_typespec', 'pinmux_pkg::wkup_mode_e'), ('unsupported_typespec', 'wkup_mode_e')]
+EXCLUDED testflags  Earlgrey_0_1-71da2fd7        72:45-72:59    golden=[('int_typespec', 'DepthW'), ('unsupported_typespec', 'DepthW')] ours=[('int_typespec', 'DepthW'), ('unsupported_typespec', 'DepthW')]
+EXCLUDED testflags  Earlgrey_0_1-71da2fd7        73:45-73:64    golden=[('int_typespec', 'DepthW'), ('unsupported_typespec', 'DepthW')] ours=[('int_typespec', 'DepthW'), ('unsupported_typespec', 'DepthW')]
+EXCLUDED testflags  Earlgrey_0_1-71da2fd7        73:67-73:86    golden=[('int_typespec', 'DepthW'), ('unsupported_typespec', 'DepthW')] ours=[('int_typespec', 'DepthW'), ('unsupported_typespec', 'DepthW')]
+EXCLUDED testflags  Earlgrey_0_1-71da2fd7        74:21-74:35    golden=[('int_typespec', 'DepthW'), ('unsupported_typespec', 'DepthW')] ours=[('int_typespec', 'DepthW'), ('unsupported_typespec', 'DepthW')]
+EXCLUDED testflags  Earlgrey_0_1-71da2fd7        74:38-74:57    golden=[('int_typespec', 'DepthW'), ('unsupported_typespec', 'DepthW')] ours=[('int_typespec', 'DepthW'), ('unsupported_typespec', 'DepthW')]
+EXCLUDED testflags  Earlgrey_0_1-71da2fd7        74:60-74:79    golden=[('int_typespec', 'DepthW'), ('unsupported_typespec', 'DepthW')] ours=[('int_typespec', 'DepthW'), ('unsupported_typespec', 'DepthW')]
+EXCLUDED testflags  Earlgrey_0_1-71da2fd7        315:30-315:48  golden=[('int_typespec', 'LfsrDw'), ('unsupported_typespec', 'LfsrDw')] ours=[('int_typespec', 'LfsrDw'), ('unsupported_typespec', 'LfsrDw')]
+EXCLUDED testflags  Earlgrey_0_1-71da2fd7        340:30-340:48  golden=[('unsupported_typespec', 'LfsrDw')] ours=[('unsupported_typespec', 'LfsrDw')]
+EXCLUDED testflags  Earlgrey_0_1-71da2fd7        131:51-131:58  golden=[('unsupported_typespec', 'NWD')] ours=[('int_typespec', 'NWD'), ('unsupported_typespec', 'NWD')]
+PREDICT testflags  MiniAmiq-544c7f61            168:15-168:38  golden=[('unsupported_typespec', 'uvm_severity')] ours=[('enum_typespec', 'uvm_pkg::uvm_severity')]
+EXCLUDED testflags  Scr1SvTests-b87ba20c         581:26-581:61  golden=[('unsupported_typespec', 'SCR1_IRQ_LINES_WIDTH')] ours=[('unsupported_typespec', 'SCR1_IRQ_LINES_WIDTH')]
+EXCLUDED testflags  Scr1SvTests-b87ba20c         1007:73-1007:106 golden=[('unsupported_typespec', 'SCR1_CSR_MTVEC_BASE_ZERO_BITS')] ours=[('unsupported_typespec', 'SCR1_CSR_MTVEC_BASE_ZERO_BITS')]
+EXCLUDED testflags  Scr1SvTests-b87ba20c         1011:73-1011:106 golden=[('unsupported_typespec', 'SCR1_CSR_MTVEC_BASE_ZERO_BITS')] ours=[('unsupported_typespec', 'SCR1_CSR_MTVEC_BASE_ZERO_BITS')]
+EXCLUDED testflags  Scr1SvTests-b87ba20c         1014:49-1014:82 golden=[('unsupported_typespec', 'SCR1_CSR_MTVEC_BASE_ZERO_BITS')] ours=[('unsupported_typespec', 'SCR1_CSR_MTVEC_BASE_ZERO_BITS')]
+PREDICT testflags  SeqDriver-32af76aa           168:15-168:38  golden=[('enum_typespec', 'uvm_pkg::uvm_severity'), ('unsupported_typespec', 'uvm_severity')] ours=[('enum_typespec', 'uvm_pkg::uvm_severity')]
+PREDICT testflags  SimpleUVM-1dc93a62           168:15-168:38  golden=[('enum_typespec', 'uvm_pkg::uvm_severity'), ('unsupported_typespec', 'uvm_severity')] ours=[('enum_typespec', 'uvm_pkg::uvm_severity')]
+EXCLUDED testflags  UnpackPort-98701e61          9:24-9:37      golden=[('struct_typespec', 'struct2'), ('unsupported_typespec', 'struct2')] ours=[('struct_typespec', 'struct2'), ('unsupported_typespec', 'struct2')]
+comparable rows=956  predicted moving rows=9  cells=9
+  MOVER default/BuildUVMPkg-bf853d43  cells=1
+  MOVER default/MiniAmiq-544c7f61  cells=1
+  MOVER default/Scoreboard-59431470  cells=1
+  MOVER default/SeqDriver-32af76aa  cells=1
+  MOVER default/SimpleUVM-1dc93a62  cells=1
+  MOVER testflags/BuildUVMPkg-bf853d43  cells=1
+  MOVER testflags/MiniAmiq-544c7f61  cells=1
+  MOVER testflags/SeqDriver-32af76aa  cells=1
+  MOVER testflags/SimpleUVM-1dc93a62  cells=1
+PDONE
+
+== what the byte gate actually returned ==
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm  patched=461edfcd5760 pristine=d5d110fa31ad
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=ba1940c40654 pristine=c238bd2390da
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=b7877ce4df14 pristine=099b89b3bf80
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=2937e8280066 pristine=8bd24543dea8
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=ee9a5c89c3fa pristine=eec809f9439e
+MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  patched=461edfcd5760 pristine=d5d110fa31ad
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=ba1940c40654 pristine=c238bd2390da
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=1426ac5f14ee pristine=cf0a5c131f25
+MOVER ./testflags/SimpleUVM-1dc93a62/slang.uhdm  patched=8fe10ad0653f pristine=78c54cd4d41a
+MOVERS: 9 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+
+== mover attribution (order-blind, id-stripped) ==
+default    BuildUVMPkg-bf853d43     plain=36     order-blind=12
+default    MiniAmiq-544c7f61        plain=24     order-blind=24
+default    Scoreboard-59431470      plain=12     order-blind=12
+default    SeqDriver-32af76aa       plain=108    order-blind=24
+default    SimpleUVM-1dc93a62       plain=12     order-blind=12
+testflags  BuildUVMPkg-bf853d43     plain=36     order-blind=12
+testflags  MiniAmiq-544c7f61        plain=24     order-blind=24
+SKIP testflags/Scoreboard-59431470
+testflags  SeqDriver-32af76aa       plain=64     order-blind=24
+testflags  SimpleUVM-1dc93a62       plain=12     order-blind=12
+--- default.BuildUVMPkg-bf853d43.sorteddiff
+<           \_enum_typespec: (uvm_pkg::uvm_severity), line:8049:1, endln:8055:16
+<           \_enum_typespec: (uvm_pkg::uvm_severity), line:8049:1, endln:8055:16
+>           \_unsupported_typespec: (uvm_severity), line:9584:15, endln:9584:27
+>           \_unsupported_typespec: (uvm_severity), line:9584:15, endln:9584:27
+>   \_package: uvm_pkg (uvm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:7351:1, endln:83263:11
+>   \_package: uvm_pkg (uvm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:7351:1, endln:83263:11
+>   |vpiInstance:
+>   |vpiInstance:
+>   |vpiName:uvm_severity
+>   |vpiName:uvm_severity
+> \_unsupported_typespec: (uvm_severity), line:9584:15, endln:9584:27
+> \_unsupported_typespec: (uvm_severity), line:9584:15, endln:9584:27
+--- default.MiniAmiq-544c7f61.sorteddiff
+<                     \_enum_typespec: (uvm_pkg::uvm_severity), line:242:1, endln:248:16
+>                     \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+<           \_enum_typespec: (uvm_pkg::uvm_severity), line:242:1, endln:248:16
+<           \_enum_typespec: (uvm_pkg::uvm_severity), line:242:1, endln:248:16
+<           \_enum_typespec: (uvm_pkg::uvm_severity), line:242:1, endln:248:16
+>           \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+>           \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+>           \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+>   \_package: svaunit_pkg (svaunit_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_pkg.sv, line:24:1, endln:73:11
+>   \_package: svaunit_pkg (svaunit_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_pkg.sv, line:24:1, endln:73:11
+>   \_package: uvm_pkg (uvm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+>   \_package: uvm_pkg (uvm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+>   |vpiInstance:
+>   |vpiInstance:
+>   |vpiInstance:
+>   |vpiInstance:
+>   |vpiName:uvm_severity
+>   |vpiName:uvm_severity
+>   |vpiName:uvm_severity
+>   |vpiName:uvm_severity
+> \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+> \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+> \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+> \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+--- default.Scoreboard-59431470.sorteddiff
+<                 \_enum_typespec: (uvm_pkg::uvm_severity), line:242:1, endln:248:16
+>                 \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+<           \_enum_typespec: (uvm_pkg::uvm_severity), line:242:1, endln:248:16
+>           \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+>   \_package: uvm_pkg (uvm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+>   \_package: uvm_pkg (uvm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+>   |vpiInstance:
+>   |vpiInstance:
+>   |vpiName:uvm_severity
+>   |vpiName:uvm_severity
+> \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+> \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+--- default.SeqDriver-32af76aa.sorteddiff
+<                 \_enum_typespec: (uvm_pkg::uvm_severity), line:242:1, endln:248:16
+>                 \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+<           \_enum_typespec: (uvm_pkg::uvm_severity), line:242:1, endln:248:16
+<           \_enum_typespec: (uvm_pkg::uvm_severity), line:242:1, endln:248:16
+<           \_enum_typespec: (uvm_pkg::uvm_severity), line:242:1, endln:248:16
+>           \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+>           \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+>           \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+>   \_package: adpcm_pkg (adpcm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/testbench.sv, line:10:1, endln:207:22
+>   \_package: adpcm_pkg (adpcm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/testbench.sv, line:10:1, endln:207:22
+>   \_package: uvm_pkg (uvm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+>   \_package: uvm_pkg (uvm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+>   |vpiInstance:
+>   |vpiInstance:
+>   |vpiInstance:
+>   |vpiInstance:
+>   |vpiName:uvm_severity
+>   |vpiName:uvm_severity
+>   |vpiName:uvm_severity
+>   |vpiName:uvm_severity
+> \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+> \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+> \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+> \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+--- default.SimpleUVM-1dc93a62.sorteddiff
+<                 \_enum_typespec: (uvm_pkg::uvm_severity), line:242:1, endln:248:16
+>                 \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+<           \_enum_typespec: (uvm_pkg::uvm_severity), line:242:1, endln:248:16
+>           \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+>   \_package: uvm_pkg (uvm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+>   \_package: uvm_pkg (uvm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+>   |vpiInstance:
+>   |vpiInstance:
+>   |vpiName:uvm_severity
+>   |vpiName:uvm_severity
+> \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+> \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+--- testflags.BuildUVMPkg-bf853d43.sorteddiff
+<           \_enum_typespec: (uvm_pkg::uvm_severity), line:8049:1, endln:8055:16
+<           \_enum_typespec: (uvm_pkg::uvm_severity), line:8049:1, endln:8055:16
+>           \_unsupported_typespec: (uvm_severity), line:9584:15, endln:9584:27
+>           \_unsupported_typespec: (uvm_severity), line:9584:15, endln:9584:27
+>   \_package: uvm_pkg (uvm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:7351:1, endln:83263:11
+>   \_package: uvm_pkg (uvm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:7351:1, endln:83263:11
+>   |vpiInstance:
+>   |vpiInstance:
+>   |vpiName:uvm_severity
+>   |vpiName:uvm_severity
+> \_unsupported_typespec: (uvm_severity), line:9584:15, endln:9584:27
+> \_unsupported_typespec: (uvm_severity), line:9584:15, endln:9584:27
+--- testflags.MiniAmiq-544c7f61.sorteddiff
+<                     \_enum_typespec: (uvm_pkg::uvm_severity), line:242:1, endln:248:16
+>                     \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+<           \_enum_typespec: (uvm_pkg::uvm_severity), line:242:1, endln:248:16
+<           \_enum_typespec: (uvm_pkg::uvm_severity), line:242:1, endln:248:16
+<           \_enum_typespec: (uvm_pkg::uvm_severity), line:242:1, endln:248:16
+>           \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+>           \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+>           \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+>   \_package: svaunit_pkg (svaunit_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_pkg.sv, line:24:1, endln:73:11
+>   \_package: svaunit_pkg (svaunit_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_pkg.sv, line:24:1, endln:73:11
+>   \_package: uvm_pkg (uvm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+>   \_package: uvm_pkg (uvm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+>   |vpiInstance:
+>   |vpiInstance:
+>   |vpiInstance:
+>   |vpiInstance:
+>   |vpiName:uvm_severity
+>   |vpiName:uvm_severity
+>   |vpiName:uvm_severity
+>   |vpiName:uvm_severity
+> \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+> \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+> \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+> \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+--- testflags.SeqDriver-32af76aa.sorteddiff
+<                 \_enum_typespec: (uvm_pkg::uvm_severity), line:242:1, endln:248:16
+>                 \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+<           \_enum_typespec: (uvm_pkg::uvm_severity), line:242:1, endln:248:16
+<           \_enum_typespec: (uvm_pkg::uvm_severity), line:242:1, endln:248:16
+<           \_enum_typespec: (uvm_pkg::uvm_severity), line:242:1, endln:248:16
+>           \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+>           \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+>           \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+>   \_package: adpcm_pkg (adpcm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/testbench.sv, line:10:1, endln:207:22
+>   \_package: adpcm_pkg (adpcm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/testbench.sv, line:10:1, endln:207:22
+>   \_package: uvm_pkg (uvm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+>   \_package: uvm_pkg (uvm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+>   |vpiInstance:
+>   |vpiInstance:
+>   |vpiInstance:
+>   |vpiInstance:
+>   |vpiName:uvm_severity
+>   |vpiName:uvm_severity
+>   |vpiName:uvm_severity
+>   |vpiName:uvm_severity
+> \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+> \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+> \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+> \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+--- testflags.SimpleUVM-1dc93a62.sorteddiff
+<                 \_enum_typespec: (uvm_pkg::uvm_severity), line:242:1, endln:248:16
+>                 \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+<           \_enum_typespec: (uvm_pkg::uvm_severity), line:242:1, endln:248:16
+>           \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+>   \_package: uvm_pkg (uvm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+>   \_package: uvm_pkg (uvm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+>   |vpiInstance:
+>   |vpiInstance:
+>   |vpiName:uvm_severity
+>   |vpiName:uvm_severity
+> \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27
+> \_unsupported_typespec: (uvm_severity), line:168:15, endln:168:27

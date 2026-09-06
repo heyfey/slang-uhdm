@@ -19061,12 +19061,82 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // already emits (emitSyntaxExpr's CastExpression arm) and like
                 // the sibling parameter-WIDTH rule below.  The elaborated view
                 // still resolves to the real typespec.
-                if (defGenProcessEmit &&
+                // § dpiExportedPkgSubBareOwnTdUnsupported170 (r10uvm170) — THE
+                // SAME DEGRADED OBJECT, in a package subroutine whose
+                // `export "DPI-C"` is written ABOVE its definition.  Surelog
+                // compiles such a body one collect-pass EARLY (see the law on
+                // `dpiExportPkgHome170` in UhdmExporter.h), so a BARE name of a
+                // type declared IN THAT PACKAGE misses
+                // `compileDatastructureTypespec`'s `component->getDataType()`
+                // and the cast target comes out as an `unsupported_typespec`
+                // NAMED AS WRITTEN.  A `pkg::name` spelling and an IMPORTED
+                // name both still resolve, so the gate is exactly "bare
+                // identifier whose type alias is declared in THIS package".
+                //
+                // THE HEAD (MiniAmiq ×2 and BuildUVMPkg ×2, 106 cmp lines, one
+                // head each): `uvm_globals.svh:168:15` / `uvm_pkg.sv:9584:15`,
+                // `uvm_report(uvm_severity'(severity), …)` inside
+                // `uvm_pkg`'s `m__uvm_report_dpi`.
+                //   LHS golden  unsupported_typespec (uvm_severity)
+                //               |vpiName:uvm_severity |vpiInstance: uvm_pkg
+                //   RHS ours    enum_typespec (uvm_pkg::uvm_severity)
+                //
+                // THE TYPE-KIND FENCE, MEASURED (`g170_e_kinds.sv`, and the
+                // `while (dt)` loop of `compileDatastructureTypespec`,
+                // `CompileType.cpp:850-900`, which is where the two answers
+                // diverge): inside the very same exported body only a typedef
+                // written as an INLINE `enum` / `struct` / `union` comes out
+                // unsupported.  A SIMPLE-TYPE alias (`typedef logic [7:0]`,
+                // `typedef bit [7:0]`, `typedef int`, `typedef byte`), a
+                // multi-dimensional vector alias, and a TYPEDEF OF A TYPEDEF —
+                // `typedef t_enum t_alias_enum;` INCLUDED — all still RESOLVE.
+                // So the fence reads the WRITTEN target of the alias, not its
+                // canonical type: `t_alias_enum`'s canonical type IS an enum
+                // and it must NOT degrade.
+                const syntax::SyntaxNode* tdTgt170 = nullptr;
+                if (dpiExportPkgHome170 && expr.type &&
+                    expr.type->kind == SymbolKind::TypeAlias)
+                    if (auto* tdSyn170 = expr.type->getSyntax())
+                        if (tdSyn170->kind ==
+                            syntax::SyntaxKind::TypedefDeclaration)
+                            tdTgt170 = tdSyn170->as<
+                                               syntax::TypedefDeclarationSyntax>()
+                                           .type;
+                const bool dpiOwnTdCast170 =
+                    dpiExportPkgHome170 &&
+                    cesyn.left->kind == syntax::SyntaxKind::IdentifierName &&
+                    expr.type && expr.type->kind == SymbolKind::TypeAlias &&
+                    expr.type->getParentScope() == dpiExportPkgHome170 &&
+                    tdTgt170 &&
+                    (tdTgt170->kind == syntax::SyntaxKind::EnumType ||
+                     tdTgt170->kind == syntax::SyntaxKind::StructType ||
+                     tdTgt170->kind == syntax::SyntaxKind::UnionType) &&
+                    // r10v170 FENCES 2 and 3 — golden RESOLVES the bare name
+                    // anyway when an IMPORT of the home package provides that
+                    // simple name (Surelog replays imports at the top of the
+                    // FUNCTION pass and `insertDataType` is an `emplace`, so
+                    // the donor's entry wins), or when the alias carries a
+                    // FORWARD typedef.  Both measured against real Surelog
+                    // goldens in `tools/probe/r10v170repro/v170_t_fence.sv`;
+                    // without them this law moved 4 cells AWAY from golden on
+                    // legal SV that pristine already got right.
+                    !dpiHomeStillResolves170(*expr.type);
+                if ((defGenProcessEmit || dpiOwnTdCast170) &&
                     cesyn.left->kind == syntax::SyntaxKind::IdentifierName) {
                     auto lrU = cesyn.left->sourceRange();
                     auto* utsU = s.MakeUnsupported_typespec();
                     utsU->VpiName(std::string(rawText(lrU)));
                     setLoc(utsU, lrU);
+                    // The placeholder carries the same `vpiInstance` the
+                    // resolved typespec of this site carries — § 83's law, and
+                    // the sibling size-cast rule below reads the same pointer.
+                    if (dpiOwnTdCast170) {
+                        UHDM::instance* hi170 = pkgScopeInst;
+                        if (!hi170)
+                            hi170 = homePkgInstOf(*expr.type);
+                        if (hi170)
+                            utsU->Instance(hi170);
+                    }
                     cts = utsU;
                 }
                 if (cts) {

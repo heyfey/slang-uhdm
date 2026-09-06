@@ -1,0 +1,560 @@
+r10uvm170 — GRIDS (five arms, one real Surelog golden each, both views)
+
+############ g170_a_spell.sv
+      1 rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/r10uvm170_s/grid_a_spell/g_elab /tmp/wt_r10uvm170/tools/probe/r10uvm170repro/g170_a_spell.sv
+      1 rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/r10uvm170_s/grid_a_spell/g_def /tmp/wt_r10uvm170/tools/probe/r10uvm170repro/g170_a_spell.sv
+      1 rc=0 /tmp/r10uvm170_pat.bin /tmp/wt_r10uvm170/tools/probe/r10uvm170repro/g170_a_spell.sv --elabuhdm -o /tmp/r10uvm170_s/grid_a_spell/b_elab.uhdm
+      1 rc=0 /tmp/r10uvm170_pat.bin /tmp/wt_r10uvm170/tools/probe/r10uvm170repro/g170_a_spell.sv -o /tmp/r10uvm170_s/grid_a_spell/b_def.uhdm
+      1 rc=0 /tmp/r10uvm170_pris.bin /tmp/wt_r10uvm170/tools/probe/r10uvm170repro/g170_a_spell.sv --elabuhdm -o /tmp/r10uvm170_s/grid_a_spell/a_elab.uhdm
+      1 rc=0 /tmp/r10uvm170_pris.bin /tmp/wt_r10uvm170/tools/probe/r10uvm170repro/g170_a_spell.sv -o /tmp/r10uvm170_s/grid_a_spell/a_def.uhdm
+== a_spell == cast sites=40  (golden rows=180 pristine=240 patched=240)
+  [set] TOWARD 2  AWAY 0  MOVED-WRONG 0  same-agree 37  same-differ 1
+     TOWARD       24:16-24:24      g={unsupported_typespec(ea_t)x1}
+                                  a={enum_typespec(pa170::ea_t)x1}
+                                  b={unsupported_typespec(ea_t)x1}
+     TOWARD       25:16-25:24      g={unsupported_typespec(sa_t)x1}
+                                  a={struct_typespec(pa170::sa_t)x1}
+                                  b={unsupported_typespec(sa_t)x1}
+     same-differ  26:16-26:24      g={logic_typespec(pa170::la_t)x1}
+                                  a={logic_typespec(la_t)x1}
+                                  b={logic_typespec(la_t)x1}
+  [cnt] TOWARD 0  AWAY 0  MOVED-WRONG 0  same-agree 0  same-differ 40
+     same-differ  24:11-24:25      g=4 a=6 b=6
+     same-differ  24:16-24:24      g=4 a=6 b=6
+     same-differ  25:11-25:25      g=4 a=6 b=6
+     same-differ  25:16-25:24      g=4 a=6 b=6
+     same-differ  26:11-26:25      g=4 a=6 b=6
+     same-differ  26:16-26:24      g=4 a=6 b=6
+     same-differ  27:11-27:32      g=4 a=6 b=6
+     same-differ  27:16-27:31      g=4 a=6 b=6
+     same-differ  28:11-28:25      g=4 a=6 b=6
+     same-differ  28:16-28:24      g=4 a=6 b=6
+     same-differ  29:11-29:25      g=4 a=6 b=6
+     same-differ  29:16-29:24      g=4 a=6 b=6
+     same-differ  30:11-30:32      g=4 a=6 b=6
+     same-differ  30:16-30:31      g=4 a=6 b=6
+     same-differ  31:11-31:32      g=4 a=6 b=6
+     same-differ  31:16-31:31      g=4 a=6 b=6
+     same-differ  32:11-32:25      g=4 a=6 b=6
+     same-differ  32:16-32:24      g=4 a=6 b=6
+     same-differ  33:11-33:22      g=4 a=6 b=6
+     same-differ  33:16-33:21      g=4 a=6 b=6
+     same-differ  37:11-37:25      g=5 a=6 b=6
+     same-differ  37:16-37:24      g=5 a=6 b=6
+     same-differ  38:11-38:25      g=5 a=6 b=6
+     same-differ  38:16-38:24      g=5 a=6 b=6
+     same-differ  39:11-39:25      g=5 a=6 b=6
+     same-differ  39:16-39:24      g=5 a=6 b=6
+     same-differ  40:11-40:32      g=5 a=6 b=6
+     same-differ  40:16-40:31      g=5 a=6 b=6
+     same-differ  41:11-41:25      g=5 a=6 b=6
+     same-differ  41:16-41:24      g=5 a=6 b=6
+     same-differ  42:11-42:25      g=5 a=6 b=6
+     same-differ  42:16-42:24      g=5 a=6 b=6
+     same-differ  43:11-43:32      g=5 a=6 b=6
+     same-differ  43:16-43:31      g=5 a=6 b=6
+     same-differ  44:11-44:32      g=5 a=6 b=6
+     same-differ  44:16-44:31      g=5 a=6 b=6
+     same-differ  45:11-45:25      g=5 a=6 b=6
+     same-differ  45:16-45:24      g=5 a=6 b=6
+     same-differ  46:11-46:22      g=5 a=6 b=6
+     same-differ  46:16-46:21      g=5 a=6 b=6
+  [ms] TOWARD 0  AWAY 0  MOVED-WRONG 2  same-agree 0  same-differ 38
+     same-differ  24:11-24:25      g={int_typespec()x4}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     MOVED-WRONG  24:16-24:24      g={unsupported_typespec(ea_t)x4}
+                                  a={enum_typespec(pa170::ea_t)x6}
+                                  b={unsupported_typespec(ea_t)x6}
+     same-differ  25:11-25:25      g={int_typespec()x4}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     MOVED-WRONG  25:16-25:24      g={unsupported_typespec(sa_t)x4}
+                                  a={struct_typespec(pa170::sa_t)x6}
+                                  b={unsupported_typespec(sa_t)x6}
+     same-differ  26:11-26:25      g={int_typespec()x4}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  26:16-26:24      g={logic_typespec(pa170::la_t)x4}
+                                  a={logic_typespec(la_t)x6}
+                                  b={logic_typespec(la_t)x6}
+     same-differ  27:11-27:32      g={int_typespec()x4}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  27:16-27:31      g={enum_typespec(pa170::ea_t)x4}
+                                  a={enum_typespec(pa170::ea_t)x6}
+                                  b={enum_typespec(pa170::ea_t)x6}
+     same-differ  28:11-28:25      g={int_typespec()x4}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  28:16-28:24      g={enum_typespec(fa170::fa_t)x4}
+                                  a={enum_typespec(fa170::fa_t)x6}
+                                  b={enum_typespec(fa170::fa_t)x6}
+     same-differ  29:11-29:25      g={int_typespec()x4}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  29:16-29:24      g={enum_typespec(fa170::fb_t)x4}
+                                  a={enum_typespec(fa170::fb_t)x6}
+                                  b={enum_typespec(fa170::fb_t)x6}
+     same-differ  30:11-30:32      g={int_typespec()x4}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  30:16-30:31      g={enum_typespec(fa170::fa_t)x4}
+                                  a={enum_typespec(fa170::fa_t)x6}
+                                  b={enum_typespec(fa170::fa_t)x6}
+     same-differ  31:11-31:32      g={int_typespec()x4}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  31:16-31:31      g={struct_typespec(fa170::fs_t)x4}
+                                  a={struct_typespec(fa170::fs_t)x6}
+                                  b={struct_typespec(fa170::fs_t)x6}
+     same-differ  32:11-32:25      g={int_typespec()x4}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  32:16-32:24      g={byte_typespec()x4}
+                                  a={byte_typespec()x6}
+                                  b={byte_typespec()x6}
+     same-differ  33:11-33:22      g={int_typespec()x4}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  33:16-33:21      g={integer_typespec()x4}
+                                  a={integer_typespec()x6}
+                                  b={integer_typespec()x6}
+     same-differ  37:11-37:25      g={int_typespec()x5}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  37:16-37:24      g={enum_typespec(pa170::ea_t)x5}
+                                  a={enum_typespec(pa170::ea_t)x6}
+                                  b={enum_typespec(pa170::ea_t)x6}
+     same-differ  38:11-38:25      g={int_typespec()x5}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  38:16-38:24      g={struct_typespec(pa170::sa_t)x5}
+                                  a={struct_typespec(pa170::sa_t)x6}
+                                  b={struct_typespec(pa170::sa_t)x6}
+     same-differ  39:11-39:25      g={int_typespec()x5}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  39:16-39:24      g={logic_typespec(la_t)x5}
+                                  a={logic_typespec(la_t)x6}
+                                  b={logic_typespec(la_t)x6}
+     same-differ  40:11-40:32      g={int_typespec()x5}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  40:16-40:31      g={enum_typespec(pa170::ea_t)x5}
+                                  a={enum_typespec(pa170::ea_t)x6}
+                                  b={enum_typespec(pa170::ea_t)x6}
+     same-differ  41:11-41:25      g={int_typespec()x5}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  41:16-41:24      g={enum_typespec(fa170::fa_t)x5}
+                                  a={enum_typespec(fa170::fa_t)x6}
+                                  b={enum_typespec(fa170::fa_t)x6}
+     same-differ  42:11-42:25      g={int_typespec()x5}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  42:16-42:24      g={enum_typespec(fa170::fb_t)x5}
+                                  a={enum_typespec(fa170::fb_t)x6}
+                                  b={enum_typespec(fa170::fb_t)x6}
+     same-differ  43:11-43:32      g={int_typespec()x5}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  43:16-43:31      g={enum_typespec(fa170::fa_t)x5}
+                                  a={enum_typespec(fa170::fa_t)x6}
+                                  b={enum_typespec(fa170::fa_t)x6}
+     same-differ  44:11-44:32      g={int_typespec()x5}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  44:16-44:31      g={struct_typespec(fa170::fs_t)x5}
+                                  a={struct_typespec(fa170::fs_t)x6}
+                                  b={struct_typespec(fa170::fs_t)x6}
+     same-differ  45:11-45:25      g={int_typespec()x5}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  45:16-45:24      g={byte_typespec()x5}
+                                  a={byte_typespec()x6}
+                                  b={byte_typespec()x6}
+     same-differ  46:11-46:22      g={int_typespec()x5}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  46:16-46:21      g={integer_typespec()x5}
+                                  a={integer_typespec()x6}
+                                  b={integer_typespec()x6}
+
+############ g170_b_site.sv
+      1 rc=0 /tmp/r10uvm170_pat.bin /tmp/wt_r10uvm170/tools/probe/r10uvm170repro/g170_b_site.sv --elabuhdm -o /tmp/r10uvm170_s/grid_b_site/b_elab.uhdm
+      1 rc=0 /tmp/r10uvm170_pat.bin /tmp/wt_r10uvm170/tools/probe/r10uvm170repro/g170_b_site.sv -o /tmp/r10uvm170_s/grid_b_site/b_def.uhdm
+      1 rc=0 /tmp/r10uvm170_pris.bin /tmp/wt_r10uvm170/tools/probe/r10uvm170repro/g170_b_site.sv --elabuhdm -o /tmp/r10uvm170_s/grid_b_site/a_elab.uhdm
+      1 rc=0 /tmp/r10uvm170_pris.bin /tmp/wt_r10uvm170/tools/probe/r10uvm170repro/g170_b_site.sv -o /tmp/r10uvm170_s/grid_b_site/a_def.uhdm
+      1 rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/r10uvm170_s/grid_b_site/g_elab /tmp/wt_r10uvm170/tools/probe/r10uvm170repro/g170_b_site.sv
+      1 rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/r10uvm170_s/grid_b_site/g_def /tmp/wt_r10uvm170/tools/probe/r10uvm170repro/g170_b_site.sv
+== b_site == cast sites=16  (golden rows=86 pristine=90 patched=90)
+  [set] TOWARD 3  AWAY 0  MOVED-WRONG 0  same-agree 12  same-differ 1
+     TOWARD       27:16-27:24      g={unsupported_typespec(eb_t)x1}
+                                  a={enum_typespec(pb170::eb_t)x1}
+                                  b={unsupported_typespec(eb_t)x1}
+     TOWARD       28:16-28:24      g={unsupported_typespec(sb_t)x1}
+                                  a={struct_typespec(pb170::sb_t)x1}
+                                  b={unsupported_typespec(sb_t)x1}
+     TOWARD       35:16-35:24      g={unsupported_typespec(eb_t)x1}
+                                  a={enum_typespec(pb170::eb_t)x1}
+                                  b={unsupported_typespec(eb_t)x1}
+     same-differ  48:12-48:20      g={bit_typespec(lb_t)x1}
+                                  a={bit_typespec(pb170::lb_t)x1}
+                                  b={bit_typespec(pb170::lb_t)x1}
+  [cnt] TOWARD 0  AWAY 0  MOVED-WRONG 0  same-agree 12  same-differ 4
+     same-differ  53:11-53:25      g=5 a=6 b=6
+     same-differ  53:16-53:24      g=5 a=6 b=6
+     same-differ  61:13-61:27      g=2 a=3 b=3
+     same-differ  61:18-61:26      g=2 a=3 b=3
+  [ms] TOWARD 3  AWAY 0  MOVED-WRONG 0  same-agree 8  same-differ 5
+     TOWARD       27:16-27:24      g={unsupported_typespec(eb_t)x6}
+                                  a={enum_typespec(pb170::eb_t)x6}
+                                  b={unsupported_typespec(eb_t)x6}
+     TOWARD       28:16-28:24      g={unsupported_typespec(sb_t)x6}
+                                  a={struct_typespec(pb170::sb_t)x6}
+                                  b={unsupported_typespec(sb_t)x6}
+     TOWARD       35:16-35:24      g={unsupported_typespec(eb_t)x6}
+                                  a={enum_typespec(pb170::eb_t)x6}
+                                  b={unsupported_typespec(eb_t)x6}
+     same-differ  48:12-48:20      g={bit_typespec(lb_t)x6}
+                                  a={bit_typespec(pb170::lb_t)x6}
+                                  b={bit_typespec(pb170::lb_t)x6}
+     same-differ  53:11-53:25      g={int_typespec()x5}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  53:16-53:24      g={enum_typespec(pb170::eb_t)x5}
+                                  a={enum_typespec(pb170::eb_t)x6}
+                                  b={enum_typespec(pb170::eb_t)x6}
+     same-differ  61:13-61:27      g={int_typespec()x2}
+                                  a={int_typespec()x3}
+                                  b={int_typespec()x3}
+     same-differ  61:18-61:26      g={enum_typespec(pb170::eb_t)x2}
+                                  a={enum_typespec(pb170::eb_t)x3}
+                                  b={enum_typespec(pb170::eb_t)x3}
+
+############ g170_c_home.sv
+      1 rc=0 /tmp/r10uvm170_pat.bin /tmp/wt_r10uvm170/tools/probe/r10uvm170repro/g170_c_home.sv --elabuhdm -o /tmp/r10uvm170_s/grid_c_home/b_elab.uhdm
+      1 rc=0 /tmp/r10uvm170_pat.bin /tmp/wt_r10uvm170/tools/probe/r10uvm170repro/g170_c_home.sv -o /tmp/r10uvm170_s/grid_c_home/b_def.uhdm
+      1 rc=0 /tmp/r10uvm170_pris.bin /tmp/wt_r10uvm170/tools/probe/r10uvm170repro/g170_c_home.sv --elabuhdm -o /tmp/r10uvm170_s/grid_c_home/a_elab.uhdm
+      1 rc=0 /tmp/r10uvm170_pris.bin /tmp/wt_r10uvm170/tools/probe/r10uvm170repro/g170_c_home.sv -o /tmp/r10uvm170_s/grid_c_home/a_def.uhdm
+      1 rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/r10uvm170_s/grid_c_home/g_elab /tmp/wt_r10uvm170/tools/probe/r10uvm170repro/g170_c_home.sv
+      1 rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/r10uvm170_s/grid_c_home/g_def /tmp/wt_r10uvm170/tools/probe/r10uvm170repro/g170_c_home.sv
+== c_home == cast sites=28  (golden rows=96 pristine=118 patched=118)
+  [set] TOWARD 2  AWAY 0  MOVED-WRONG 0  same-agree 26  same-differ 0
+     TOWARD       22:16-22:24      g={unsupported_typespec(ec_t)x1}
+                                  a={enum_typespec(pc170::ec_t)x1}
+                                  b={unsupported_typespec(ec_t)x1}
+     TOWARD       36:16-36:24      g={unsupported_typespec(ed_t)x1}
+                                  a={enum_typespec(pc170::ed_t)x1}
+                                  b={unsupported_typespec(ed_t)x1}
+  [cnt] TOWARD 0  AWAY 0  MOVED-WRONG 0  same-agree 14  same-differ 14
+     same-differ  22:11-22:25      g=4 a=6 b=6
+     same-differ  22:16-22:24      g=4 a=6 b=6
+     same-differ  23:11-23:32      g=4 a=6 b=6
+     same-differ  23:16-23:31      g=4 a=6 b=6
+     same-differ  28:11-28:25      g=5 a=6 b=6
+     same-differ  28:16-28:24      g=5 a=6 b=6
+     same-differ  29:11-29:32      g=5 a=6 b=6
+     same-differ  29:16-29:31      g=5 a=6 b=6
+     same-differ  36:11-36:25      g=4 a=6 b=6
+     same-differ  36:16-36:24      g=4 a=6 b=6
+     same-differ  39:11-39:25      g=4 a=6 b=6
+     same-differ  39:16-39:24      g=4 a=6 b=6
+     same-differ  45:13-45:27      g=2 a=3 b=3
+     same-differ  45:18-45:26      g=2 a=3 b=3
+  [ms] TOWARD 0  AWAY 0  MOVED-WRONG 2  same-agree 14  same-differ 12
+     same-differ  22:11-22:25      g={int_typespec()x4}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     MOVED-WRONG  22:16-22:24      g={unsupported_typespec(ec_t)x4}
+                                  a={enum_typespec(pc170::ec_t)x6}
+                                  b={unsupported_typespec(ec_t)x6}
+     same-differ  23:11-23:32      g={int_typespec()x4}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  23:16-23:31      g={enum_typespec(fc170::fc_t)x4}
+                                  a={enum_typespec(fc170::fc_t)x6}
+                                  b={enum_typespec(fc170::fc_t)x6}
+     same-differ  28:11-28:25      g={int_typespec()x5}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  28:16-28:24      g={enum_typespec(pc170::ec_t)x5}
+                                  a={enum_typespec(pc170::ec_t)x6}
+                                  b={enum_typespec(pc170::ec_t)x6}
+     same-differ  29:11-29:32      g={int_typespec()x5}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  29:16-29:31      g={enum_typespec(fc170::fc_t)x5}
+                                  a={enum_typespec(fc170::fc_t)x6}
+                                  b={enum_typespec(fc170::fc_t)x6}
+     same-differ  36:11-36:25      g={int_typespec()x4}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     MOVED-WRONG  36:16-36:24      g={unsupported_typespec(ed_t)x4}
+                                  a={enum_typespec(pc170::ed_t)x6}
+                                  b={unsupported_typespec(ed_t)x6}
+     same-differ  39:11-39:25      g={int_typespec()x4}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  39:16-39:24      g={enum_typespec(pc170::ed_t)x4}
+                                  a={enum_typespec(pc170::ed_t)x6}
+                                  b={enum_typespec(pc170::ed_t)x6}
+     same-differ  45:13-45:27      g={int_typespec()x2}
+                                  a={int_typespec()x3}
+                                  b={int_typespec()x3}
+     same-differ  45:18-45:26      g={enum_typespec(pc170::ec_t)x2}
+                                  a={enum_typespec(pc170::ec_t)x3}
+                                  b={enum_typespec(pc170::ec_t)x3}
+
+############ g170_d_notmove.sv
+      1 rc=0 /tmp/r10uvm170_pat.bin /tmp/wt_r10uvm170/tools/probe/r10uvm170repro/g170_d_notmove.sv --elabuhdm -o /tmp/r10uvm170_s/grid_d_notmove/b_elab.uhdm
+      1 rc=0 /tmp/r10uvm170_pat.bin /tmp/wt_r10uvm170/tools/probe/r10uvm170repro/g170_d_notmove.sv -o /tmp/r10uvm170_s/grid_d_notmove/b_def.uhdm
+      1 rc=0 /tmp/r10uvm170_pris.bin /tmp/wt_r10uvm170/tools/probe/r10uvm170repro/g170_d_notmove.sv --elabuhdm -o /tmp/r10uvm170_s/grid_d_notmove/a_elab.uhdm
+      1 rc=0 /tmp/r10uvm170_pris.bin /tmp/wt_r10uvm170/tools/probe/r10uvm170repro/g170_d_notmove.sv -o /tmp/r10uvm170_s/grid_d_notmove/a_def.uhdm
+      1 rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/r10uvm170_s/grid_d_notmove/g_elab /tmp/wt_r10uvm170/tools/probe/r10uvm170repro/g170_d_notmove.sv
+      1 rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/r10uvm170_s/grid_d_notmove/g_def /tmp/wt_r10uvm170/tools/probe/r10uvm170repro/g170_d_notmove.sv
+== d_notmove == cast sites=27  (golden rows=134 pristine=138 patched=138)
+  [set] TOWARD 0  AWAY 0  MOVED-WRONG 0  same-agree 27  same-differ 0
+  [cnt] TOWARD 0  AWAY 0  MOVED-WRONG 0  same-agree 23  same-differ 4
+     same-differ  39:11-39:25      g=5 a=6 b=6
+     same-differ  39:16-39:24      g=5 a=6 b=6
+     same-differ  47:13-47:27      g=2 a=3 b=3
+     same-differ  47:18-47:26      g=2 a=3 b=3
+  [ms] TOWARD 0  AWAY 0  MOVED-WRONG 0  same-agree 23  same-differ 4
+     same-differ  39:11-39:25      g={int_typespec()x5}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  39:16-39:24      g={enum_typespec(pd170::ed_t)x5}
+                                  a={enum_typespec(pd170::ed_t)x6}
+                                  b={enum_typespec(pd170::ed_t)x6}
+     same-differ  47:13-47:27      g={int_typespec()x2}
+                                  a={int_typespec()x3}
+                                  b={int_typespec()x3}
+     same-differ  47:18-47:26      g={enum_typespec(pd170::ed_t)x2}
+                                  a={enum_typespec(pd170::ed_t)x3}
+                                  b={enum_typespec(pd170::ed_t)x3}
+
+############ g170_e_kinds.sv
+      1 rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/r10uvm170_s/grid_e_kinds/g_elab /tmp/wt_r10uvm170/tools/probe/r10uvm170repro/g170_e_kinds.sv
+      1 rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/r10uvm170_s/grid_e_kinds/g_def /tmp/wt_r10uvm170/tools/probe/r10uvm170repro/g170_e_kinds.sv
+      1 rc=0 /tmp/r10uvm170_pat.bin /tmp/wt_r10uvm170/tools/probe/r10uvm170repro/g170_e_kinds.sv --elabuhdm -o /tmp/r10uvm170_s/grid_e_kinds/b_elab.uhdm
+      1 rc=0 /tmp/r10uvm170_pat.bin /tmp/wt_r10uvm170/tools/probe/r10uvm170repro/g170_e_kinds.sv -o /tmp/r10uvm170_s/grid_e_kinds/b_def.uhdm
+      1 rc=0 /tmp/r10uvm170_pris.bin /tmp/wt_r10uvm170/tools/probe/r10uvm170repro/g170_e_kinds.sv --elabuhdm -o /tmp/r10uvm170_s/grid_e_kinds/a_elab.uhdm
+      1 rc=0 /tmp/r10uvm170_pris.bin /tmp/wt_r10uvm170/tools/probe/r10uvm170repro/g170_e_kinds.sv -o /tmp/r10uvm170_s/grid_e_kinds/a_def.uhdm
+== e_kinds == cast sites=44  (golden rows=198 pristine=240 patched=240)
+  [set] TOWARD 3  AWAY 0  MOVED-WRONG 0  same-agree 32  same-differ 9
+     TOWARD       24:16-24:26      g={unsupported_typespec(t_enum)x1}
+                                  a={enum_typespec(pe170::t_enum)x1}
+                                  b={unsupported_typespec(t_enum)x1}
+     TOWARD       25:16-25:28      g={unsupported_typespec(t_struct)x1}
+                                  a={struct_typespec(pe170::t_struct)x1}
+                                  b={unsupported_typespec(t_struct)x1}
+     TOWARD       26:16-26:27      g={unsupported_typespec(t_union)x1}
+                                  a={union_typespec(pe170::t_union)x1}
+                                  b={unsupported_typespec(t_union)x1}
+     same-differ  27:16-27:26      g={logic_typespec(pe170::t_vecl)x1}
+                                  a={logic_typespec(t_vecl)x1}
+                                  b={logic_typespec(t_vecl)x1}
+     same-differ  28:16-28:26      g={bit_typespec(pe170::t_vecb)x1}
+                                  a={bit_typespec(t_vecb)x1}
+                                  b={bit_typespec(t_vecb)x1}
+     same-differ  29:16-29:25      g={int_typespec(pe170::t_int)x1}
+                                  a={}
+                                  b={}
+     same-differ  33:16-33:31      g={logic_typespec(pe170::t_alias_vec)x1}
+                                  a={logic_typespec(t_alias_vec)x1}
+                                  b={logic_typespec(t_alias_vec)x1}
+     same-differ  34:16-34:26      g={logic_typespec(pe170::t_vec2)x1}
+                                  a={}
+                                  b={}
+     same-differ  43:16-43:25      g={int_typespec(t_int)x1}
+                                  a={}
+                                  b={}
+     same-differ  44:16-44:26      g={byte_typespec(t_byte)x1}
+                                  a={byte_typespec(pe170::t_byte)x1}
+                                  b={byte_typespec(pe170::t_byte)x1}
+     same-differ  47:16-47:31      g={logic_typespec(pe170::t_alias_vec)x1}
+                                  a={logic_typespec(t_alias_vec)x1}
+                                  b={logic_typespec(t_alias_vec)x1}
+     same-differ  48:16-48:26      g={logic_typespec(t_vec2)x1}
+                                  a={}
+                                  b={}
+  [cnt] TOWARD 0  AWAY 0  MOVED-WRONG 0  same-agree 0  same-differ 44
+     same-differ  24:11-24:27      g=4 a=6 b=6
+     same-differ  24:16-24:26      g=4 a=6 b=6
+     same-differ  25:11-25:29      g=4 a=6 b=6
+     same-differ  25:16-25:28      g=4 a=6 b=6
+     same-differ  26:11-26:28      g=4 a=6 b=6
+     same-differ  26:16-26:27      g=4 a=6 b=6
+     same-differ  27:11-27:27      g=4 a=6 b=6
+     same-differ  27:16-27:26      g=4 a=6 b=6
+     same-differ  28:11-28:27      g=4 a=6 b=6
+     same-differ  28:16-28:26      g=4 a=6 b=6
+     same-differ  29:11-29:26      g=4 a=6 b=6
+     same-differ  29:16-29:25      g=4 a=0 b=0
+     same-differ  30:11-30:27      g=4 a=6 b=6
+     same-differ  30:16-30:26      g=4 a=6 b=6
+     same-differ  31:11-31:33      g=4 a=6 b=6
+     same-differ  31:16-31:32      g=4 a=6 b=6
+     same-differ  32:11-32:35      g=4 a=6 b=6
+     same-differ  32:16-32:34      g=4 a=6 b=6
+     same-differ  33:11-33:32      g=4 a=6 b=6
+     same-differ  33:16-33:31      g=4 a=6 b=6
+     same-differ  34:11-34:27      g=4 a=6 b=6
+     same-differ  34:16-34:26      g=4 a=0 b=0
+     same-differ  38:11-38:27      g=5 a=6 b=6
+     same-differ  38:16-38:26      g=5 a=6 b=6
+     same-differ  39:11-39:29      g=5 a=6 b=6
+     same-differ  39:16-39:28      g=5 a=6 b=6
+     same-differ  40:11-40:28      g=5 a=6 b=6
+     same-differ  40:16-40:27      g=5 a=6 b=6
+     same-differ  41:11-41:27      g=5 a=6 b=6
+     same-differ  41:16-41:26      g=5 a=6 b=6
+     same-differ  42:11-42:27      g=5 a=6 b=6
+     same-differ  42:16-42:26      g=5 a=6 b=6
+     same-differ  43:11-43:26      g=5 a=6 b=6
+     same-differ  43:16-43:25      g=5 a=0 b=0
+     same-differ  44:11-44:27      g=5 a=6 b=6
+     same-differ  44:16-44:26      g=5 a=6 b=6
+     same-differ  45:11-45:33      g=5 a=6 b=6
+     same-differ  45:16-45:32      g=5 a=6 b=6
+     same-differ  46:11-46:35      g=5 a=6 b=6
+     same-differ  46:16-46:34      g=5 a=6 b=6
+     same-differ  47:11-47:32      g=5 a=6 b=6
+     same-differ  47:16-47:31      g=5 a=6 b=6
+     same-differ  48:11-48:27      g=5 a=6 b=6
+     same-differ  48:16-48:26      g=5 a=0 b=0
+  [ms] TOWARD 0  AWAY 0  MOVED-WRONG 3  same-agree 0  same-differ 41
+     same-differ  24:11-24:27      g={int_typespec()x4}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     MOVED-WRONG  24:16-24:26      g={unsupported_typespec(t_enum)x4}
+                                  a={enum_typespec(pe170::t_enum)x6}
+                                  b={unsupported_typespec(t_enum)x6}
+     same-differ  25:11-25:29      g={int_typespec()x4}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     MOVED-WRONG  25:16-25:28      g={unsupported_typespec(t_struct)x4}
+                                  a={struct_typespec(pe170::t_struct)x6}
+                                  b={unsupported_typespec(t_struct)x6}
+     same-differ  26:11-26:28      g={int_typespec()x4}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     MOVED-WRONG  26:16-26:27      g={unsupported_typespec(t_union)x4}
+                                  a={union_typespec(pe170::t_union)x6}
+                                  b={unsupported_typespec(t_union)x6}
+     same-differ  27:11-27:27      g={int_typespec()x4}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  27:16-27:26      g={logic_typespec(pe170::t_vecl)x4}
+                                  a={logic_typespec(t_vecl)x6}
+                                  b={logic_typespec(t_vecl)x6}
+     same-differ  28:11-28:27      g={int_typespec()x4}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  28:16-28:26      g={bit_typespec(pe170::t_vecb)x4}
+                                  a={bit_typespec(t_vecb)x6}
+                                  b={bit_typespec(t_vecb)x6}
+     same-differ  29:11-29:26      g={int_typespec()x4}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  29:16-29:25      g={int_typespec(pe170::t_int)x4}
+                                  a={}
+                                  b={}
+     same-differ  30:11-30:27      g={int_typespec()x4}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  30:16-30:26      g={byte_typespec(pe170::t_byte)x4}
+                                  a={byte_typespec(pe170::t_byte)x6}
+                                  b={byte_typespec(pe170::t_byte)x6}
+     same-differ  31:11-31:33      g={int_typespec()x4}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  31:16-31:32      g={enum_typespec(pe170::t_alias_enum)x4}
+                                  a={enum_typespec(pe170::t_alias_enum)x6}
+                                  b={enum_typespec(pe170::t_alias_enum)x6}
+     same-differ  32:11-32:35      g={int_typespec()x4}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  32:16-32:34      g={struct_typespec(pe170::t_alias_struct)x4}
+                                  a={struct_typespec(pe170::t_alias_struct)x6}
+                                  b={struct_typespec(pe170::t_alias_struct)x6}
+     same-differ  33:11-33:32      g={int_typespec()x4}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  33:16-33:31      g={logic_typespec(pe170::t_alias_vec)x4}
+                                  a={logic_typespec(t_alias_vec)x6}
+                                  b={logic_typespec(t_alias_vec)x6}
+     same-differ  34:11-34:27      g={int_typespec()x4}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  34:16-34:26      g={logic_typespec(pe170::t_vec2)x4}
+                                  a={}
+                                  b={}
+     same-differ  38:11-38:27      g={int_typespec()x5}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  38:16-38:26      g={enum_typespec(pe170::t_enum)x5}
+                                  a={enum_typespec(pe170::t_enum)x6}
+                                  b={enum_typespec(pe170::t_enum)x6}
+     same-differ  39:11-39:29      g={int_typespec()x5}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  39:16-39:28      g={struct_typespec(pe170::t_struct)x5}
+                                  a={struct_typespec(pe170::t_struct)x6}
+                                  b={struct_typespec(pe170::t_struct)x6}
+     same-differ  40:11-40:28      g={int_typespec()x5}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  40:16-40:27      g={union_typespec(pe170::t_union)x5}
+                                  a={union_typespec(pe170::t_union)x6}
+                                  b={union_typespec(pe170::t_union)x6}
+     same-differ  41:11-41:27      g={int_typespec()x5}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  41:16-41:26      g={logic_typespec(t_vecl)x5}
+                                  a={logic_typespec(t_vecl)x6}
+                                  b={logic_typespec(t_vecl)x6}
+     same-differ  42:11-42:27      g={int_typespec()x5}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  42:16-42:26      g={bit_typespec(t_vecb)x5}
+                                  a={bit_typespec(t_vecb)x6}
+                                  b={bit_typespec(t_vecb)x6}
+     same-differ  43:11-43:26      g={int_typespec()x5}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  43:16-43:25      g={int_typespec(t_int)x5}
+                                  a={}
+                                  b={}
+     same-differ  44:11-44:27      g={int_typespec()x5}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  44:16-44:26      g={byte_typespec(t_byte)x5}
+                                  a={byte_typespec(pe170::t_byte)x6}
+                                  b={byte_typespec(pe170::t_byte)x6}
+     same-differ  45:11-45:33      g={int_typespec()x5}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  45:16-45:32      g={enum_typespec(pe170::t_alias_enum)x5}
+                                  a={enum_typespec(pe170::t_alias_enum)x6}
+                                  b={enum_typespec(pe170::t_alias_enum)x6}
+     same-differ  46:11-46:35      g={int_typespec()x5}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  46:16-46:34      g={struct_typespec(pe170::t_alias_struct)x5}
+                                  a={struct_typespec(pe170::t_alias_struct)x6}
+                                  b={struct_typespec(pe170::t_alias_struct)x6}
+     same-differ  47:11-47:32      g={int_typespec()x5}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  47:16-47:31      g={logic_typespec(pe170::t_alias_vec)x5}
+                                  a={logic_typespec(t_alias_vec)x6}
+                                  b={logic_typespec(t_alias_vec)x6}
+     same-differ  48:11-48:27      g={int_typespec()x5}
+                                  a={int_typespec()x6}
+                                  b={int_typespec()x6}
+     same-differ  48:16-48:26      g={logic_typespec(t_vec2)x5}
+                                  a={}
+                                  b={}

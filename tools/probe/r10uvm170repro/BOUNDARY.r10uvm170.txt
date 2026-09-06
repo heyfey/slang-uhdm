@@ -1,0 +1,31 @@
+r10uvm170 — BOUNDARY (the wide gate over a COPY of tools/probe)
+
+LISTED=4768 PROCESSED=4768 PRODUCED_DBS=4611 MOVED_ARMS=8 RC_DIFFS=0
+BDONE
+
+== MOVED ARMS ==
+r10buvm22repro/g22.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10uvm154repro/l154_noenum.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm170repro/g170_a_spell.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm170repro/g170_b_site.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm170repro/g170_c_home.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm170repro/g170_e_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm36repro/t48a/dut.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v123repro/v123_c_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+== attribution of the four NON-OWN moved arms ==
+t48a  dump-diff-lines=0  differing-bytes=8  sorted-dump a=e5f89413625a b=e5f89413625a  uhdm-cmp(a,b) lines=0 heads=0
+v123_c_kinds  dump-diff-lines=74  differing-bytes=87  sorted-dump a=6baef723a962 b=6baef723a962  uhdm-cmp(a,b) lines=0 heads=0
+g22  dump-diff-lines=12  differing-bytes=20  sorted-dump a=4b561a2c3402 b=9a4b840ca21e  uhdm-cmp(a,b) lines=36 heads=1
+l154_noenum  dump-diff-lines=8  differing-bytes=10  sorted-dump a=e07ece310790 b=69f2979c1233  uhdm-cmp(a,b) lines=36 heads=1
+
+g22 / l154 diff (the ADDRESS-DERIVED range bound, r10uvm154's R-addrbound):
+5119c5119
+<         |vpiDecompile:22556409
+---
+>         |vpiDecompile:22564601
+5121c5121
+<         |UINT:22556409
+---
+>         |UINT:22564601
+binary sizes: pristine 22357608  patched 22366608

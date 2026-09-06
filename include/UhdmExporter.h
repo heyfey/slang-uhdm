@@ -10,6 +10,7 @@
 #include <functional>
 #include <map>
 #include <unordered_map>
+#include <unordered_set>
 #include <optional>
 #include <set>
 #include <string>
@@ -6978,6 +6979,91 @@ private:
     // package's `Variables()` listing ONLY through `func->Instance()` when that
     // instance is a package -- so a reference from here can never bind one.
     bool inBodyClassMethod88 = false;
+    // § dpiExportedPkgSubBareOwnTdUnsupported170 (r10uvm170) — THE HOME
+    // PACKAGE of a subroutine whose definition is PRECEDED, in that package's
+    // own item list, by an `export "DPI-C" function|task <name>;` naming it.
+    // Null everywhere else.
+    //
+    // THE DECODE (Surelog).  `CompilePackage::compile` runs its item walk
+    // THREE times (`src/DesignCompile/CompilePackage.cpp:105-108`):
+    // `CollectType::FUNCTION`, then `CollectType::DEFINITION`, then
+    // `CollectType::OTHER`.  `paFunction_declaration` / `paTask_declaration`
+    // run in the FIRST TWO ("Called twice, placeholder first, then
+    // definition", :207-217) and `CompileHelper::compileFunction`
+    // (`CompileStmt.cpp:2352-2367`) encodes exactly that: if no
+    // `UHDM::function` of this name is in `component->getTask_funcs()` yet it
+    // MAKES A PLACEHOLDER AND RETURNS, and only the second visit compiles the
+    // header and the body.  TYPEDEFS are collected in the *DEFINITION* pass,
+    // so by the second visit the package's `m_dataTypes` already holds them.
+    //
+    // `paDpi_import_export` also runs in the FUNCTION pass (:288-306) and
+    // `CompileHelper::compileFunctionPrototype` (`CompileStmt.cpp:2625-2640`)
+    // pushes a NAMED `UHDM::function` into the very same `getTask_funcs()`
+    // vector.  So when the export is written ABOVE the definition, the
+    // definition's FIRST visit already finds a function of that name, skips
+    // the placeholder return, and COMPILES THE WHOLE BODY IN THE FUNCTION
+    // PASS — before a single typedef of that package has been collected.
+    // Every BARE name of a type declared in that package therefore misses
+    // `compileDatastructureTypespec`'s `component->getDataType(typeName)`
+    // (`CompileType.cpp:725`) and falls out of its tail as an
+    // `unsupported_typespec` NAMED AS WRITTEN (`CompileType.cpp:1053-1062`).
+    // WILDCARD- and EXPLICITLY-IMPORTED names still resolve: the imports are
+    // replayed at the TOP of the same FUNCTION pass (`CompilePackage.cpp:139-
+    // 155`), ahead of the item walk.  A `pkg::name` spelling resolves through
+    // the `paPackage_scope` arm (`CompileType.cpp:1517-1618`), which looks the
+    // package up in the DESIGN and never touches `component`.
+    //
+    // Written BELOW the definition the export changes nothing (the definition
+    // gets the ordinary two-visit treatment), and a MODULE is unaffected —
+    // `CompileModule` collects its typedefs before its DPI items.
+    //
+    // The one corpus construct is the cast target `uvm_severity'(severity)` in
+    // `uvm_globals.svh:168:15` / `uvm_pkg.sv:9584:15`, inside `uvm_pkg`'s
+    // `export "DPI-C" function m__uvm_report_dpi;`.
+    const slang::ast::Scope* dpiExportPkgHome170 = nullptr;
+    // Per-package memo for the ordering test above: the item index of every
+    // subroutine-definition member, and the FIRST index at which each name is
+    // DPI-exported.  Keyed by the package symbol.
+    struct DpiExpOrder170 {
+        std::unordered_map<const void*, size_t> memberIdx;
+        std::unordered_map<std::string, size_t> exportIdx;
+    };
+    std::unordered_map<const void*, DpiExpOrder170> dpiExpOrder170;
+    bool dpiExportPrecedesDef170(const slang::ast::SubroutineSymbol& sub);
+    // § dpiExportedPkgSubBareOwnTdUnsupported170 — FENCE 2 and FENCE 3
+    // (r10v170, `tools/probe/r10v170repro/v170_t_fence.sv`).  Answers "would
+    // Surelog's FUNCTION-pass `component->getDataType(name)` still HIT for
+    // this bare name?"  If it would, golden RESOLVES the cast and this law
+    // must NOT degrade it — pristine already agreed with golden there.
+    //
+    // FENCE 2 — AN IMPORT PROVIDES THE NAME.  `CompilePackage::collectObjects_`
+    // replays the package's imports at the TOP of the FUNCTION pass
+    // (`CompilePackage.cpp:139-155`) and `CompileHelper::importPackage` copies
+    // the donor's WHOLE data-type map into the importer
+    // (`CompileHelper.cpp:162-169`).  `DesignComponent::insertDataType` is an
+    // `emplace`, so the IMPORTED entry WINS over the package's own later
+    // declaration of the same simple name — golden resolves a shadowed
+    // `Ghost_e` to the DONOR's typedef (arm T cell t06, 36:17), and so does
+    // our own pristine emission.  Note this is a NAME test, not a
+    // "package has imports" test: `g170_a_spell.sv`'s `pa170` imports
+    // `fa170` and its own bare `ea_t` still degrades.
+    //
+    // FENCE 3 — A FORWARD TYPEDEF.  `typedef enum Early_e;` written above the
+    // completion makes golden RESOLVE the cast while the very same package's
+    // plain `typedef enum bit [1:0] {…} Plain_e;` degrades in the SAME
+    // exported body.  Measured in a package WITH imports (t01/t04 resolve vs
+    // t02/t03/t05 degrade) and in one with NONE at all (t09 resolves vs t10
+    // degrades), so it is the forward declaration and neither the item
+    // position nor the imports.  slang records it as
+    // `TypeAliasType::getFirstForwardDecl()`.
+    bool dpiHomeStillResolves170(const slang::ast::Type& alias);
+    // Per-package memo for FENCE 2: the explicitly imported names and the
+    // wildcard-imported packages of the DPI home package.
+    struct DpiImp170 {
+        std::unordered_set<std::string> explicitNames;
+        std::vector<const slang::ast::Scope*> wildcardPkgs;
+    };
+    std::unordered_map<const void*, DpiImp170> dpiImp170;
     // § hpIdxClassBodyNeverLateBinds143 (r10uvm143) — clears the
     // `vpiActual` of every reference minted under a `hier_path` ELEMENT's
     // INDEX while the body of an IN-BODY class method is being emitted.

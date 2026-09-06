@@ -1,0 +1,71 @@
+r10v170 — GRIDS.  Five arms of this verifier plus the implementer's five, each
+against ONE real Surelog golden (~/git-repos/Surelog/build/bin/surelog), BOTH
+views, every rc recorded by grid170.sh.  Scored by score170.py on the field
+this law owns (the SET of (UhdmType, VpiName) at the cast target's span) and on
+the COPY-COUNT projection it must not touch.  LHS is ALWAYS golden.
+
+                      implementer's binary        verified binary
+arm                   set T/A/MW    cnt T/A/MW    set T/A/MW    cnt T/A/MW
+g170_a_spell.sv        2 / 0 / 0     0 / 0 / 0     2 / 0 / 0     0 / 0 / 0
+g170_b_site.sv         3 / 0 / 0     0 / 0 / 0     3 / 0 / 0     0 / 0 / 0
+g170_c_home.sv         2 / 0 / 0     0 / 0 / 0     2 / 0 / 0     0 / 0 / 0
+g170_e_kinds.sv        3 / 0 / 0     0 / 0 / 0     3 / 0 / 0     0 / 0 / 0
+g170_d_notmove.sv      0 / 0 / 0     0 / 0 / 0     0 / 0 / 0     0 / 0 / 0   (negative control)
+v170_p_export.sv       5 / 0 / 0     0 / 0 / 0     5 / 0 / 0     0 / 0 / 0
+v170_q_shape.sv        3 / 2 / 0     0 / 0 / 0     3 / 0 / 0     0 / 0 / 0
+v170_r_copies.sv       0 / 0 / 1     0 / 0 / 0     0 / 0 / 1     0 / 0 / 0
+v170_s_edge.sv         3 / 0 / 0     0 / 0 / 0     3 / 0 / 0     0 / 0 / 0
+v170_t_fence.sv        4 / 4 / 0     0 / 0 / 0     4 / 0 / 0     0 / 0 / 0
+                      ---------                   ---------
+TOTAL                 25 / 6 / 1                  25 / 0 / 1
+
+THE SIX AWAY CELLS (pristine == golden, implementer's patch != golden), all
+eliminated by the two fences and none of them at the cost of a TOWARD cell:
+
+v170_t_fence.sv  31:17  t01  Early_e  FORWARD typedef, FIRST item in the package
+   g/a enum_typespec(FenceT2::Early_e)      b unsupported_typespec(Early_e)
+v170_t_fence.sv  34:17  t04  Tail_e   FORWARD typedef, LATE in the package
+   g/a enum_typespec(FenceT2::Tail_e)       b unsupported_typespec(Tail_e)
+v170_t_fence.sv  62:17  t09  Fwd2_e   FORWARD typedef, package with NO imports
+   g/a enum_typespec(CleanT2::Fwd2_e)       b unsupported_typespec(Fwd2_e)
+v170_t_fence.sv  36:17  t06  Ghost_e  local name ALSO wildcard-imported
+   g/a enum_typespec(DonorT2::Ghost_e)      b unsupported_typespec(Ghost_e)
+v170_q_shape.sv  32:16  q01  Jump_e   FORWARD typedef (the first sighting)
+   g/a enum_typespec(Shapes3::Jump_e)       b unsupported_typespec(Jump_e)
+v170_q_shape.sv  37:16  q06  Shadow_e local name ALSO wildcard-imported
+   g/a enum_typespec(ForeignQ3::Shadow_e)   b unsupported_typespec(Shadow_e)
+
+THEIR CONTROLS, in the SAME package and the SAME exported body, all degrading
+correctly on both patched and verified (so the arms TEST and do not merely
+AGREE):
+   t02 32:17 Plain_e   t03 33:17 Late_e    t05 35:17 FwdS_s   t10 63:17 Pln2_e
+   q02 33:16 Link1_e   q09 40:16 Pair_s    q10 41:16 Sel_u
+
+THE ONE MOVED-WRONG (v170_r_copies.sv 15:16, t01) is the implementer's R1
+reproduced at arm scale and is NOT a law error: golden itself holds BOTH a
+resolved and an unsupported copy at that span
+   g={enum_typespec(CoreR5::Grade_e)x1, unsupported_typespec(Grade_e)x1}
+   a={enum_typespec(CoreR5::Grade_e)x1}   b={unsupported_typespec(Grade_e)x1}
+Eighty lines of SystemVerilog (one exporting package, a wildcard importer, an
+explicit importer, three module instances) reproduce the SeqDriver/SimpleUVM
+copy split that R1 states at UVM scale.
+
+WHAT THE NEW ARMS ESTABLISH BEYOND THE IMPLEMENTER'S FIVE
+  p01/p02  an ALIASED export (export "DPI-C" c_alias_alpha = function alpha7;)
+           degrades its subject -- DPIExportSyntax::name is the SV name
+  p04      the same for an aliased exported TASK
+  p05/p06  two non-exported definitions written BETWEEN the export and its
+           subject do not degrade
+  p07      the subject degrades even when separated from its export
+  p09      an export written BELOW its definition changes nothing
+  u01/u02  a package that NO module instantiates still degrades
+  u04      a cast to a TYPE PARAMETER (T'(v)) is untouched
+  u09-u11  a MODULE-scope export, incl. inside a generate block, never degrades
+  q03/q04  a 2-link and a 3-link alias chain both stay RESOLVED, extending the
+           implementer's t_alias_enum fence
+  q05      a local alias of a FOREIGN enum stays RESOLVED
+  s01-s03  nested class-in-class methods inside the exporting package never
+           degrade
+  t05-t07  in v170_r_copies.sv: a wildcard importer, an explicit importer and
+           three module instances neither multiply nor move the cell
+           (cnt projection 0/0/0 on every arm)

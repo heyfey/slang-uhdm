@@ -1,0 +1,187 @@
+r10uvm170 — GATES (all measured on the frozen binaries; BASE 143df9df)
+
+== binaries ==
+9793b8253cc81350201a215044061a4f  /tmp/r10uvm170_pris.bin
+a66b73e36dedd997fb0e7bdc649b2711  /tmp/r10uvm170_pat.bin
+
+== goldens ==
+patched  PASS=23 FAIL=0
+pristine PASS=23 FAIL=0
+/bin/false PASS=0 FAIL=23
+
+== surelog status histograms ==
+PRIS [default] 794 tests
+PRIS   CMP_EQUAL: 471
+PRIS   SLANG_REJECT: 283
+PRIS   SURELOG_FAIL: 25
+PRIS   CMP_NOTEQUAL: 10
+PRIS   DEFERRED: 5
+PRIS 
+PRIS [testflags] 794 tests
+PRIS   CMP_EQUAL: 466
+PRIS   SLANG_REJECT: 284
+PRIS   SURELOG_FAIL: 23
+PRIS   CMP_NOTEQUAL: 9
+PRIS   DEFERRED: 5
+PRIS   NO_DATABASE: 3
+PRIS   UNTRANSLATABLE: 2
+PRIS   TIMEOUT: 1
+PRIS   NO_UHDM: 1
+PRIS SLDONE
+PAT  [default] 794 tests
+PAT    CMP_EQUAL: 471
+PAT    SLANG_REJECT: 283
+PAT    SURELOG_FAIL: 25
+PAT    CMP_NOTEQUAL: 10
+PAT    DEFERRED: 5
+PAT  
+PAT  [testflags] 794 tests
+PAT    CMP_EQUAL: 466
+PAT    SLANG_REJECT: 284
+PAT    SURELOG_FAIL: 23
+PAT    CMP_NOTEQUAL: 9
+PAT    DEFERRED: 5
+PAT    NO_DATABASE: 3
+PAT    UNTRANSLATABLE: 2
+PAT    TIMEOUT: 1
+PAT    NO_UHDM: 1
+PAT  SLDONE
+
+== ct8rows: surelog patched vs COMMITTED results/golden_surelog.csv ==
+baseline: 1589 lines = 1588 ROWS (the header is not a row)
+fresh   : 1589 lines = 1588 ROWS
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     471 CMP_EQUAL      10 CMP_NOTEQUAL       5 DEFERRED     283 SLANG_REJECT      25 SURELOG_FAIL 
+  default  fresh:     471 CMP_EQUAL      10 CMP_NOTEQUAL       5 DEFERRED     283 SLANG_REJECT      25 SURELOG_FAIL 
+  testflags  base:     466 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  testflags  fresh:     466 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     323      245 differ     226 match 
+  default  fresh:     323      245 differ     226 match 
+  testflags  base:     328      300 differ     166 match 
+  testflags  fresh:     328      300 differ     166 match 
+PASS: every row byte-identical to the committed baseline
+
+== ct8rows: surelog patched vs THIS PASS'S OWN pristine sweep ==
+baseline: 1589 lines = 1588 ROWS (the header is not a row)
+fresh   : 1589 lines = 1588 ROWS
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     471 CMP_EQUAL      10 CMP_NOTEQUAL       5 DEFERRED     283 SLANG_REJECT      25 SURELOG_FAIL 
+  default  fresh:     471 CMP_EQUAL      10 CMP_NOTEQUAL       5 DEFERRED     283 SLANG_REJECT      25 SURELOG_FAIL 
+  testflags  base:     466 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  testflags  fresh:     466 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     323      245 differ     226 match 
+  default  fresh:     323      245 differ     226 match 
+  testflags  base:     328      300 differ     166 match 
+  testflags  fresh:     328      300 differ     166 match 
+PASS: every row byte-identical to the committed baseline
+
+== ct8rows: u2r testflags vs committed / vs own pristine ==
+baseline: 732 lines = 731 ROWS (the header is not a row)
+fresh   : 732 lines = 731 ROWS
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+---- per-mode STATUS histogram (baseline -> fresh)
+  testflags  base:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+  testflags  fresh:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  testflags  base:      52      183 differ     496 match 
+  testflags  fresh:      52      183 differ     496 match 
+PASS: every row byte-identical to the committed baseline
+  testflags  base:      52      183 differ     496 match 
+  testflags  fresh:      52      183 differ     496 match 
+PASS: every row byte-identical to the committed baseline
+
+== ct8rows: u2r default vs own pristine ==
+  default  base:      52      187 differ     492 match 
+  default  fresh:      52      187 differ     492 match 
+PASS: every row byte-identical to the committed baseline
+
+== byteverify surelog (patched vs own pristine) ==
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm  patched=461edfcd5760 pristine=d5d110fa31ad
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=ba1940c40654 pristine=c238bd2390da
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=b7877ce4df14 pristine=099b89b3bf80
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=2937e8280066 pristine=8bd24543dea8
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=ee9a5c89c3fa pristine=eec809f9439e
+MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  patched=461edfcd5760 pristine=d5d110fa31ad
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=ba1940c40654 pristine=c238bd2390da
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=1426ac5f14ee pristine=cf0a5c131f25
+MOVER ./testflags/SimpleUVM-1dc93a62/slang.uhdm  patched=8fe10ad0653f pristine=78c54cd4d41a
+MOVERS: 9 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+
+== byteverify uhdm2rtlil ==
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+
+== canaries ==
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+
+== protected DB md5s (pristine vs patched sweep) ==
+InterfaceModPort/default pris=59a365f3ce2c pat=59a365f3ce2c
+InterfaceModPort/testflags pris=59a365f3ce2c pat=59a365f3ce2c
+BlackParrotComplex/default pris=e3e354129d5a pat=e3e354129d5a
+BlackParrotComplex/testflags pris=73a10e8217e5 pat=73a10e8217e5
+YosysOldOr/default pris=d68e0796d62c pat=d68e0796d62c
+YosysOldOr/testflags pris=d68e0796d62c pat=d68e0796d62c
+SVSwitch/default pris=4842211c4030 pat=4842211c4030
+SVSwitch/testflags pris=4842211c4030 pat=4842211c4030
+YosysVerx/default pris=6ccda350c24a pat=6ccda350c24a
+YosysVerx/testflags pris=6ccda350c24a pat=6ccda350c24a
+
+== heads, pristine then patched ==
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         50      1 cmp rc=255
+SeqDriver      testflags       50      1 cmp rc=255
+SimpleUVM      default         17      1 cmp rc=255
+SimpleUVM      testflags       17      1 cmp rc=255
+Scoreboard     default         95      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default        106      1 cmp rc=255
+MiniAmiq       testflags      106      1 cmp rc=255
+BuildUVMPkg    default        106      1 cmp rc=255
+BuildUVMPkg    testflags      106      1 cmp rc=255
+Earlgrey_0_1   default         31      1 cmp rc=255
+Earlgrey_0_1   testflags       26      1 cmp rc=255
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         50      1 cmp rc=255
+SeqDriver      testflags       50      1 cmp rc=255
+SimpleUVM      default         17      1 cmp rc=255
+SimpleUVM      testflags       17      1 cmp rc=255
+Scoreboard     default         95      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default         40      1 cmp rc=255
+MiniAmiq       testflags       40      1 cmp rc=255
+BuildUVMPkg    default         52      1 cmp rc=255
+BuildUVMPkg    testflags       52      1 cmp rc=255
+Earlgrey_0_1   default         31      1 cmp rc=255
+Earlgrey_0_1   testflags       26      1 cmp rc=255
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+
+== wide boundary ==
+LISTED=4768 PROCESSED=4768 PRODUCED_DBS=4611 MOVED_ARMS=8 RC_DIFFS=0
+BDONE
+r10buvm22repro/g22.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10uvm154repro/l154_noenum.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm170repro/g170_a_spell.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm170repro/g170_b_site.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm170repro/g170_c_home.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm170repro/g170_e_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm36repro/t48a/dut.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v123repro/v123_c_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0

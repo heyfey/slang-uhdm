@@ -1,0 +1,69 @@
+r10v170 — GATES (verifier), BASE 143df9df
+
+binaries (all built in this verifier's OWN worktrees, frozen chmod 555)
+  pristine  9793b8253cc81350201a215044061a4f   22357608   /tmp/wt_v170pris
+  patched   a66b73e36dedd997fb0e7bdc649b2711   22366608   /tmp/wt_v170 + /tmp/r10uvm170.patch
+  verified  7e094bd99eb656c4c22f18f01b64165b   22372576   /tmp/wt_v170 + the two fences
+  (pristine and patched md5 both IDENTICAL to the implementer's reported values)
+
+cmds.txt audit BY BINARY PATH (no cmds.txt anywhere names a main-tree binary)
+  wdb_sl  1573 files, 1523 name /tmp/v170_pris.bin
+  wdp_sl  1573 files, 1523 name /tmp/v170_pat.bin
+  wdf_sl  1573 files, 1523 name /tmp/v170_fix.bin
+  wdb_u2r 1462 files, 1458 name /tmp/v170_pris.bin
+  wdp_u2r 1462 files, 1458 name /tmp/v170_pat.bin
+  wdf_u2r 1462 files, 1458 name /tmp/v170_fix.bin
+  (the remainder are golden-cache-hit rows with no slang invocation)
+
+goldens              pristine 23/0   patched 23/0   verified 23/0   SLANG_UHDM=/bin/false 0/23
+
+uhdm2rtlil (both modes, all three binaries)   679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+  ct8rows vs results/gate_uhdm2rtlil.csv      PASS (patched and verified)
+  ct8rows vs own pristine, testflags+default  PASS (patched and verified)
+  byteverify SELFCHECK=1                      MOVERS 0/1358, PATH_SETS_IDENTICAL (patched and verified)
+
+surelog (794 rows x 2 modes = 1588)
+  default    471 CMP_EQUAL  10 CMP_NOTEQUAL  5 DEFERRED  283 SLANG_REJECT  25 SURELOG_FAIL
+  testflags  466 CMP_EQUAL   9 CMP_NOTEQUAL  5 DEFERRED   3 NO_DATABASE  1 NO_UHDM
+             284 SLANG_REJECT  23 SURELOG_FAIL  1 TIMEOUT  2 UNTRANSLATABLE
+  IDENTICAL cell for cell across pristine / patched / verified
+  ct8rows vs results/golden_surelog.csv   PASS   (patched and verified)
+  ct8rows vs own pristine sweep           PASS   (patched and verified)
+  NO ROW CONVERTED
+
+byte movers, surelog 956 databases
+  patched  9 / 956   verified  9 / 956   -- the SAME nine rows, predicted BY NAME before the sweep
+    default/{BuildUVMPkg,MiniAmiq,Scoreboard,SeqDriver,SimpleUVM}
+    testflags/{BuildUVMPkg,MiniAmiq,SeqDriver,SimpleUVM}
+  attribution (workdir-normalised, id-stripped, ORDER-BLIND): every row's sorted
+  dump diff contains ONLY this law's lines --
+    out \_enum_typespec: (uvm_pkg::uvm_severity)
+    in  \_unsupported_typespec: (uvm_severity) + |vpiName:uvm_severity
+        + |vpiInstance: + \_package: <home>
+  Scoreboard/default (the coin): plain 90 (patched) / 182 (verified), ORDER-BLIND 12 on both
+
+heads (rowheads.sh)
+                pristine        patched         verified
+  MiniAmiq      106 / 106       40 / 40         40 / 40
+  BuildUVMPkg   106 / 106       52 / 52         52 / 52
+  SeqDriver      50 /  50       50 / 50         50 / 50
+  SimpleUVM      17 /  17       17 / 17         17 / 17
+  Scoreboard/def     95             95              95
+  Earlgrey_0_1   31 /  26        31 / 26         31 / 26
+  Rggen/default       0 (CMP_EQUAL)  0               0
+
+canaries        surelog ok=52 changed=0 ; u2r ok=8 changed=0   (patched and verified)
+ctcan2          PASS with EXPECT_UNKNOWN=1 and =6              (patched and verified)
+canaudit        29 audited, 0 UNCOVERED, 0 FENCE-BREACH        (from r10uvm170repro and from r10v170repro)
+byte pins       InterfaceModPort / BlackParrotComplex / YosysOldOr byte-identical to pristine,
+                both modes; SVSwitch 4842211c4030 ; YosysVerx 6ccda350c24a
+
+wide boundary (pristine vs verified, a COPY of the whole probe tree)
+  LISTED=4773 PROCESSED=4773 PRODUCED_DBS=4616 MOVED_ARMS=14 RC_DIFFS=0
+  9 own arms (positive control) + 2 R-addrbound (22556409 -> 22568697)
+  + 3 serialisation-order-only (uhdm-cmp 0 lines / 0 heads, both views)
+  must-stay floor uvm157 / 83 / 88 / uvm151 / uvm168: 46 arms listed, 0 moved
+  32 segfault lines = 16 arms that segfault under --elabuhdm on BOTH binaries (RC_DIFFS=0)
+
+hygiene         fenced-name hits in the verified patch: 0 ; results/*.csv edits: 0
+                GOLDEN_DEFER unset ; slang NOT patched ; no row promoted

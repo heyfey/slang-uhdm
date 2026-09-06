@@ -1,0 +1,201 @@
+r10uvm170 — LADDERS / HEADS (official uhdm-cmp; measurement only)
+
+== rowheads on THIS PASS'S OWN PRISTINE sweep (BASE 143df9df) ==
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         50      1 cmp rc=255
+SeqDriver      testflags       50      1 cmp rc=255
+SimpleUVM      default         17      1 cmp rc=255
+SimpleUVM      testflags       17      1 cmp rc=255
+Scoreboard     default         95      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default        106      1 cmp rc=255
+MiniAmiq       testflags      106      1 cmp rc=255
+BuildUVMPkg    default        106      1 cmp rc=255
+BuildUVMPkg    testflags      106      1 cmp rc=255
+Earlgrey_0_1   default         31      1 cmp rc=255
+Earlgrey_0_1   testflags       26      1 cmp rc=255
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+
+== rowheads on the PATCHED sweep ==
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         50      1 cmp rc=255
+SeqDriver      testflags       50      1 cmp rc=255
+SimpleUVM      default         17      1 cmp rc=255
+SimpleUVM      testflags       17      1 cmp rc=255
+Scoreboard     default         95      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default         40      1 cmp rc=255
+MiniAmiq       testflags       40      1 cmp rc=255
+BuildUVMPkg    default         52      1 cmp rc=255
+BuildUVMPkg    testflags       52      1 cmp rc=255
+Earlgrey_0_1   default         31      1 cmp rc=255
+Earlgrey_0_1   testflags       26      1 cmp rc=255
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+
+== head-log md5s ==
+bc812ae88196732fccc89625149c9abc  /tmp/r10uvm170_s/heads_pris/BuildUVMPkg.default.cmp
+bc812ae88196732fccc89625149c9abc  /tmp/r10uvm170_s/heads_pris/BuildUVMPkg.testflags.cmp
+950764852393bc3a716cbf7b2ec46efb  /tmp/r10uvm170_s/heads_pris/Earlgrey_0_1.default.cmp
+8fc006472480153e426405c530adfd93  /tmp/r10uvm170_s/heads_pris/Earlgrey_0_1.testflags.cmp
+9d30f6d610b79869e45d0645bd00e271  /tmp/r10uvm170_s/heads_pris/MiniAmiq.default.cmp
+9d30f6d610b79869e45d0645bd00e271  /tmp/r10uvm170_s/heads_pris/MiniAmiq.testflags.cmp
+d41d8cd98f00b204e9800998ecf8427e  /tmp/r10uvm170_s/heads_pris/Rggen.default.cmp
+3e982322bc8e92f0805f6c5851d8caee  /tmp/r10uvm170_s/heads_pris/Scoreboard.default.cmp
+c4eee79474880e30cb8ce5f05b19160c  /tmp/r10uvm170_s/heads_pris/SeqDriver.default.cmp
+3a655b9f22b0cbe6cda4755c10f50de5  /tmp/r10uvm170_s/heads_pris/SeqDriver.testflags.cmp
+63a52be71c81f035a0da71031ba2c668  /tmp/r10uvm170_s/heads_pris/SimpleUVM.default.cmp
+17ac69210b77d8a33e171ef9c513d266  /tmp/r10uvm170_s/heads_pris/SimpleUVM.testflags.cmp
+ddc90caa664d4de9b63535cebd32e599  /tmp/r10uvm170_s/heads_pat/BuildUVMPkg.default.cmp
+ddc90caa664d4de9b63535cebd32e599  /tmp/r10uvm170_s/heads_pat/BuildUVMPkg.testflags.cmp
+950764852393bc3a716cbf7b2ec46efb  /tmp/r10uvm170_s/heads_pat/Earlgrey_0_1.default.cmp
+8fc006472480153e426405c530adfd93  /tmp/r10uvm170_s/heads_pat/Earlgrey_0_1.testflags.cmp
+51bb4610415fa7fecfe2f7d0c7040332  /tmp/r10uvm170_s/heads_pat/MiniAmiq.default.cmp
+51bb4610415fa7fecfe2f7d0c7040332  /tmp/r10uvm170_s/heads_pat/MiniAmiq.testflags.cmp
+d41d8cd98f00b204e9800998ecf8427e  /tmp/r10uvm170_s/heads_pat/Rggen.default.cmp
+a545f4d99e6cf4922a15bd7fa8e549b7  /tmp/r10uvm170_s/heads_pat/Scoreboard.default.cmp
+42a45506c355e8090fd41af4e3cf81ac  /tmp/r10uvm170_s/heads_pat/SeqDriver.default.cmp
+5b3fd8f62ef4707f90ded5c9ca146369  /tmp/r10uvm170_s/heads_pat/SeqDriver.testflags.cmp
+75ee6b8193a4c32ad47c370c33dd3745  /tmp/r10uvm170_s/heads_pat/SimpleUVM.default.cmp
+58482989f8dbad18d8be2916bd08ef6e  /tmp/r10uvm170_s/heads_pat/SimpleUVM.testflags.cmp
+
+== the NEW MiniAmiq head, decoded (ct170own on the patched DB) ==
+design::Compare r=-629
+HEAD LHS(golden) = func_call(copy)@svaunit_immediate_assertion_details.svh:155:10-155:56#254781
+HEAD RHS(ours)   = method_func_call(tests_names)@:155:15-155:26#186841
+  golden owner chain:
+      < begin()@svaunit_immediate_assertion_details.svh:154:35-156:10#254778
+      < foreach_stmt()@svaunit_immediate_assertion_details.svh:154:7-154:14#254771
+      < begin()@svaunit_immediate_assertion_details.svh:152:7-152:36#254762
+      < function(copy)@svaunit_immediate_assertion_details.svh:149:4-167:15#254757
+      < class_defn(svaunit_immediate_assertion_details)@svaunit_immediate_assertion_details.svh:25:1-168:9#329
+      < package(svaunit_pkg)@svaunit_pkg.sv:24:1-73:11#325
+      < design(unnamed)@:0:0-0:0#339431
+  ours   owner chain:
+      < begin()@:154:35-156:10#186840
+      < foreach_stmt()@:154:7-154:14#186833
+      < begin()@:152:7-152:36#186824
+      < function(copy)@:149:4-167:15#186820
+      < class_defn(svaunit_immediate_assertion_details)@svaunit_immediate_assertion_details.svh:25:1-168:9#186537
+      < package(svaunit_pkg)@svaunit_pkg.sv:24:1-73:11#181500
+      < design(unnamed)@:0:0-0:0#1
+ABLATION (mask the golden head only):
+
+== the NEW BuildUVMPkg head, decoded ==
+design::Compare r=2
+HEAD LHS(golden) = enum_var()@uvm_pkg.sv:19055:27-19055:56#146491
+HEAD RHS(ours)   = class_var()@:20364:10-20364:39#52136
+  golden owner chain:
+      < function(object_printed)@uvm_pkg.sv:19055:3-19055:9#146489
+      < class_defn(uvm_printer)@uvm_pkg.sv:18932:9-19282:9#43
+      < package(uvm_pkg)@uvm_pkg.sv:7351:1-83263:11#1
+      < design(unnamed)@:0:0-0:0#191741
+  ours   owner chain:
+      < function(object_printed)@:19055:3-19055:9#52135
+      < class_defn(uvm_printer)@uvm_pkg.sv:18932:9-19282:9#51978
+      < package(uvm_pkg)@uvm_pkg.sv:7351:1-83263:11#2745
+      < design(unnamed)@:0:0-0:0#1
+ABLATION (mask the golden head only):
+  design::Compare r=8
+  NEXT LHS(golden) = int_typespec(UVM_FILE)@uvm_pkg.sv:8459:9-8459:12#62665
+  NEXT RHS(ours)   = int_typespec()@:8461:11-8461:19#197
+  VERDICT: THE HEAD MOVED (this object was the whole head)
+
+== the head logs themselves ==
+--- MiniAmiq (patched)
+LHS:
+decompile:
+func_call: (copy), id:254781, line:155:10, endln:155:56
+|vpiParent:
+\_begin: (svaunit_pkg::svaunit_immediate_assertion_details::copy), id:254778, line:154:35, endln:156:10
+|vpiName:copy
+|vpiFunction:
+\_function: (svaunit_pkg::svaunit_immediate_assertion_details::copy), id:254757, line:149:4, endln:167:15
+
+decompile:
+func_call: (copy), id:254781, line:155:10, endln:155:56
+|vpiParent:
+\_begin: (svaunit_pkg::svaunit_immediate_assertion_details::copy), id:254778, line:154:35, endln:156:10
+|vpiName:copy
+|vpiFunction:
+\_function: (svaunit_pkg::svaunit_immediate_assertion_details::copy), id:254757, line:149:4, endln:167:15
+RHS:
+decompile:
+method_func_call: (tests_names), id:186841, line:155:15, endln:155:26
+|vpiParent:
+\_begin: (svaunit_pkg::svaunit_immediate_assertion_details::copy), id:186840, line:154:35, endln:156:10
+|vpiName:tests_names
+|vpiPrefix:
+\_ref_obj: (svaunit_pkg::svaunit_immediate_assertion_details::copy::copy), id:186842, line:155:10, endln:155:14
+  |vpiParent:
+  \_method_func_call: (tests_names), id:186841, line:155:15, endln:155:26
+  |vpiName:copy
+  |vpiFullName:svaunit_pkg::svaunit_immediate_assertion_details::copy::copy
+
+decompile:
+method_func_call: (tests_names), id:186841, line:155:15, endln:155:26
+|vpiParent:
+\_begin: (svaunit_pkg::svaunit_immediate_assertion_details::copy), id:186840, line:154:35, endln:156:10
+|vpiName:tests_names
+|vpiPrefix:
+\_ref_obj: (svaunit_pkg::svaunit_immediate_assertion_details::copy::copy), id:186842, line:155:10, endln:155:14
+  |vpiParent:
+  \_method_func_call: (tests_names), id:186841, line:155:15, endln:155:26
+  |vpiName:copy
+  |vpiFullName:svaunit_pkg::svaunit_immediate_assertion_details::copy::copy
+--- BuildUVMPkg (patched)
+LHS:
+decompile:
+enum_var: (uvm_pkg::uvm_printer::object_printed), id:146491, line:19055:27, endln:19055:56
+|vpiParent:
+\_function: (uvm_pkg::uvm_printer::object_printed), id:146489, line:19055:3, endln:19055:9
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_printer::object_printed), id:146493
+  |vpiParent:
+  \_enum_var: (uvm_pkg::uvm_printer::object_printed), id:146491, line:19055:27, endln:19055:56
+  |vpiFullName:uvm_pkg::uvm_printer::object_printed
+  |vpiActual:
+  \_enum_typespec: (recursion_state_e), id:144162, line:18219:1, endln:18223:21
+|vpiFullName:uvm_pkg::uvm_printer::object_printed
+
+decompile:
+enum_var: (uvm_pkg::uvm_printer::object_printed), id:146491, line:19055:27, endln:19055:56
+|vpiParent:
+\_function: (uvm_pkg::uvm_printer::object_printed), id:146489, line:19055:3, endln:19055:9
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_printer::object_printed), id:146493
+  |vpiParent:
+  \_enum_var: (uvm_pkg::uvm_printer::object_printed), id:146491, line:19055:27, endln:19055:56
+  |vpiFullName:uvm_pkg::uvm_printer::object_printed
+  |vpiActual:
+  \_enum_typespec: (recursion_state_e), id:144162, line:18219:1, endln:18223:21
+|vpiFullName:uvm_pkg::uvm_printer::object_printed
+RHS:
+decompile:
+class_var: (uvm_pkg::uvm_printer::object_printed), id:52136, line:20364:10, endln:20364:39
+|vpiParent:
+\_function: (uvm_pkg::uvm_printer::object_printed), id:52135, line:19055:3, endln:19055:9
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_printer::object_printed), id:52137
+  |vpiParent:
+  \_class_var: (uvm_pkg::uvm_printer::object_printed), id:52136, line:20364:10, endln:20364:39
+  |vpiFullName:uvm_pkg::uvm_printer::object_printed
+  |vpiActual:
+  \_enum_typespec: (recursion_state_e), id:11299, line:18219:1, endln:18223:21
+|vpiFullName:uvm_pkg::uvm_printer::object_printed
+
+decompile:
+class_var: (uvm_pkg::uvm_printer::object_printed), id:52136, line:20364:10, endln:20364:39
+|vpiParent:
+\_function: (uvm_pkg::uvm_printer::object_printed), id:52135, line:19055:3, endln:19055:9
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_printer::object_printed), id:52137
+  |vpiParent:
+  \_class_var: (uvm_pkg::uvm_printer::object_printed), id:52136, line:20364:10, endln:20364:39
+  |vpiFullName:uvm_pkg::uvm_printer::object_printed
+  |vpiActual:
+  \_enum_typespec: (recursion_state_e), id:11299, line:18219:1, endln:18223:21
+|vpiFullName:uvm_pkg::uvm_printer::object_printed

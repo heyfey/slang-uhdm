@@ -69,6 +69,105 @@ static std::string writtenTypeName156(const syntax::SyntaxNode* rsyn) {
     return ident(nt->name);
 }
 
+// § dpiExportedPkgSubBareOwnTdUnsupported170 — is THIS subroutine's definition
+// preceded, in its own package's item list, by an `export "DPI-C"` naming it?
+//
+// The test is the ITEM INDEX inside the package declaration, not a
+// SourceLocation: Surelog's bail is produced by the ORDER of
+// `CompilePackage::collectObjects_`'s single walk over that same list, and a
+// raw `SourceLocation` compare across macro/include buffers is not a stable
+// order (RESUME.md §9, "Emitter nondeterminism").  The per-package index maps
+// are built once and memoised — uvm_pkg has one item list and hundreds of
+// package-level subroutines.
+bool UhdmExporter::dpiExportPrecedesDef170(const SubroutineSymbol& sub) {
+    auto* ps = sub.getParentScope();
+    if (!ps || ps->asSymbol().kind != SymbolKind::Package)
+        return false;
+    auto& pkgSym = ps->asSymbol();
+    auto* pkgSyn = pkgSym.getSyntax();
+    if (!pkgSyn || pkgSyn->kind != syntax::SyntaxKind::PackageDeclaration)
+        return false;
+    auto* subSyn = sub.getSyntax();
+    if (!subSyn)
+        return false;
+    // The package ITEM that contains the definition (the definition syntax is
+    // itself the member for a package-level `function`/`task`).
+    const syntax::SyntaxNode* subMem = subSyn;
+    for (int g = 0; g < 8 && subMem && subMem->parent != pkgSyn; ++g)
+        subMem = subMem->parent;
+    if (!subMem || subMem->parent != pkgSyn)
+        return false;
+    auto it = dpiExpOrder170.find((const void*)&pkgSym);
+    if (it == dpiExpOrder170.end()) {
+        DpiExpOrder170 ord;
+        size_t i = 0;
+        for (auto* mem : pkgSyn->as<syntax::ModuleDeclarationSyntax>().members) {
+            ord.memberIdx[(const void*)mem] = i;
+            if (mem->kind == syntax::SyntaxKind::DPIExport) {
+                std::string nm(
+                    mem->as<syntax::DPIExportSyntax>().name.valueText());
+                if (!nm.empty())
+                    ord.exportIdx.emplace(nm, i);
+            }
+            ++i;
+        }
+        it = dpiExpOrder170.emplace((const void*)&pkgSym, std::move(ord)).first;
+    }
+    auto mi = it->second.memberIdx.find((const void*)subMem);
+    if (mi == it->second.memberIdx.end())
+        return false;
+    auto ei = it->second.exportIdx.find(std::string(sub.name));
+    return ei != it->second.exportIdx.end() && ei->second < mi->second;
+}
+
+// § dpiExportedPkgSubBareOwnTdUnsupported170 — FENCE 2 (an import provides the
+// name) and FENCE 3 (a forward typedef).  See the law on
+// `dpiHomeStillResolves170` in UhdmExporter.h for both decodes; the arm is
+// `tools/probe/r10v170repro/v170_t_fence.sv`.  Returns TRUE when golden
+// RESOLVES the bare name anyway, in which case this law must keep its hands
+// off the site.
+bool UhdmExporter::dpiHomeStillResolves170(const Type& alias) {
+    // FENCE 3 — the alias carries a FORWARD declaration.
+    if (alias.kind == SymbolKind::TypeAlias &&
+        alias.as<slang::ast::TypeAliasType>().getFirstForwardDecl())
+        return true;
+    // FENCE 2 — an import of the HOME package provides this simple name.
+    if (!dpiExportPkgHome170)
+        return false;
+    std::string_view nm = alias.name;
+    if (nm.empty())
+        return false;
+    auto* key = (const void*)&dpiExportPkgHome170->asSymbol();
+    auto it = dpiImp170.find(key);
+    if (it == dpiImp170.end()) {
+        DpiImp170 imp;
+        for (auto& mem : dpiExportPkgHome170->members()) {
+            if (mem.kind == SymbolKind::ExplicitImport)
+                imp.explicitNames.emplace(
+                    mem.as<slang::ast::ExplicitImportSymbol>().importName);
+            else if (mem.kind == SymbolKind::WildcardImport) {
+                if (auto* dp =
+                        mem.as<slang::ast::WildcardImportSymbol>().getPackage())
+                    imp.wildcardPkgs.push_back(dp);
+            }
+        }
+        it = dpiImp170.emplace(key, std::move(imp)).first;
+    }
+    if (it->second.explicitNames.count(std::string(nm)))
+        return true;
+    for (auto* dp : it->second.wildcardPkgs) {
+        // `importPackage` copies the donor's data-type map, so only a TYPE of
+        // that name can shadow the local one at `getDataType` time.
+        if (auto* sym = dp->find(nm))
+            if (sym->kind == SymbolKind::TypeAlias ||
+                sym->kind == SymbolKind::ClassType ||
+                sym->kind == SymbolKind::GenericClassDef ||
+                sym->kind == SymbolKind::ForwardingTypedef)
+                return true;
+    }
+    return false;
+}
+
 std::string UhdmExporter::classHandleRetTsName156(const SubroutineSymbol& sub,
                                                   const Type& rct) {
     // FENCE 1 — a CONSTRUCTOR.  Its return typespec is built at the
@@ -3189,6 +3288,15 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         // (`classScope && !oob` is exactly the case that leaves it null), so
         // the gate and the instance it models can never drift apart.
         inBodyClassMethod88 = classScope && !oob;
+        // § dpiExportedPkgSubBareOwnTdUnsupported170 — the home package of a
+        // package subroutine whose `export "DPI-C"` is written ABOVE its
+        // definition.  Read off the SUBROUTINE's own declaring scope, not the
+        // package being emitted, so a WILDCARD-IMPORT CLONE re-emitted into
+        // another package keeps the same answer (golden degrades the clone's
+        // copy too, and stamps it with the DECLARING package).
+        dpiExportPkgHome170 =
+            (!classScope && dpiExportPrecedesDef170(sub)) ? sub.getParentScope()
+                                                          : nullptr;
         // § withIterRefBindsHoistNet75 — the same body's home PACKAGE, as a
         // slang symbol, for the refs that carry none of their own.  `body` IS
         // the class scope here (classScope), so its parent scope is the
@@ -6691,6 +6799,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
     }
     inClassBodyEmit = false;
     inBodyClassMethod88 = false;
+    dpiExportPkgHome170 = nullptr;
     classBodyHomePkg75 = nullptr;
     pkgFreeSubHomePkg117 = nullptr;
     if (!tfs->empty()) {
