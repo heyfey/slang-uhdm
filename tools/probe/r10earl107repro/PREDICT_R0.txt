@@ -1,0 +1,47 @@
+r10earl107 — THE PREDICTION, WRITTEN BEFORE THE PATCHED SWEEPS
+==============================================================
+MEASUREMENT ONLY.  The official ~/git-repos/UHDM/build/bin/uhdm-cmp is the sole
+acceptance judge.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+BASE d53fbaad.  Pristine binary md5 fb82059559765e79eee43ee365aa4879 (byte
+identical to the main tree's build at d53fbaad).
+
+1. THE HEAD, re-measured on THIS pass's own pristine build
+   rowheads.sh: Earlgrey_0_1 default 31 lines / 1 head, testflags 32 / 1.
+   testflags head:
+     LHS constant id:704546 157:14-157:16  dc "0"  size 2  UINT:0  ct 9
+     RHS constant id:1479774 157:14-157:16 dc "'0" size 16 BIN:0   ct 3
+   expr::Compare order — VpiDecompile FAILS FIRST ("0" vs "'0"), then VpiSize
+   (2 vs 16), then constant::Compare's VpiConstType (9 vs 3).  No location is
+   read anywhere.
+   OWNER (own107, the id-selector): golden VECTOR=2 SINGULAR=0, both holders an
+   op75 at pwrmgr_pkg.sv:155:43-158:4 under port pwr_peri_i of
+   work@top_earlgrey.u_pwrmgr; ours VECTOR=1, one op75 at
+   top_earlgrey.sv:710:19-710:47 under the same port.
+
+2. THE MOVER SET, PREDICTED BY NAME
+   surelog corpus: EXACTLY TWO databases — Earlgrey_0_1/default and
+   Earlgrey_0_1/testflags.  uhdm2rtlil: ZERO in either mode.
+   Inside those two, EXACTLY FOUR constants move (two per mode):
+     work@top_earlgrey.u_pwrmgr / pwr_peri_i  operand 1  (pwrmgr_pkg.sv:157,
+        `rstreqs: '0`, member width 2)
+     work@top_earlgrey.u_rstmgr / peri_i      operand 0  (rstmgr_pkg.sv:61,
+        `rst_reqs: '0`, member width 2)
+   each from {dc "'0", BIN:0, ct 3, size -1 or 16 or 2} to
+   {dc "0", UINT:0, ct 9, size 2} — golden's own triple.
+
+3. THE CENSUS PREDICTION (cen107, port carrier)
+   pristine: SL 4 DIFF / 34 SAME, U2R 0 DIFF / 10 SAME.
+   patched:  SL 0 DIFF / 38 SAME, U2R 0 DIFF / 10 SAME.
+   AWAY-GOLDEN 0, MOVED-WRONG 0 on both corpora and every other carrier
+   (param_assign / cont_assign / assignment / var) unchanged row for row.
+
+4. THE ROW PREDICTION
+   Earlgrey_0_1/testflags: the head OBJECT is destroyed; the row stays
+   CMP_NOTEQUAL on a NEW head (the line count may rise or fall — counts are
+   DEPTH, not distance).
+   Earlgrey_0_1/default: the head is a DIFFERENT object already
+   (`u_pinmux.gen_mio_periph_in[0].data_mux`, pinmux.sv:157, a logic_var we
+   emit and golden does not), so that row stays CMP_NOTEQUAL on the SAME head
+   while its bytes move.
+   NO ROW CONVERTS.  Every other row byte-identical; goldens 23 PASS / 0 FAIL.

@@ -1,0 +1,100 @@
+r10vearl107 -- EVERY GATE RE-RUN BY THE VERIFIER ON ITS OWN TWO BUILDS.
+MEASUREMENT ONLY; the official ~/git-repos/UHDM/build/bin/uhdm-cmp is the judge.
+LHS is ALWAYS golden (Surelog).
+
+BUILDS (fresh worktrees at d53fbaad, cmake -DCMAKE_BUILD_TYPE=Release, -j 2)
+  pristine  fb82059559765e79eee43ee365aa4879   = the MAIN TREE's build at d53fbaad
+  patched   fd2870e34b3081cb23199acbdfdf838d   = /tmp/r10earl107.patch applied to a
+                                                 FRESH d53fbaad and rebuilt
+  Both md5s reproduce the implementer's headline numbers BIT FOR BIT.
+  Both frozen chmod 555 before any sweep.  0 build errors on either side.
+
+CMDS.TXT AUDIT BY BINARY PATH (not by the string "slang-uhdm")
+  pristine workdir  3035 cmds.txt   2981 name /tmp/v107_bin/pristine.bin
+  patched  workdir  3035 cmds.txt   2981 name /tmp/v107_bin/patched.bin
+  MAIN-TREE binary named in 0 files on either side; any other worktree build, 0.
+  The 54 that name neither are golden-cache-hit-only rows (slang never ran).
+
+GOLDEN DUMPS (SLANG_UHDM exported explicitly to EACH binary)
+  patched   23 PASS / 0 FAIL        pristine  23 PASS / 0 FAIL
+  negative control SLANG_UHDM=/bin/false   0 PASS / 23 FAIL
+
+STATUS HISTOGRAMS (pristine and patched IDENTICAL on all four sweeps)
+  u2r testflags / default   CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2   (731 rows)
+  surelog both modes        CMP_EQUAL 937  SLANG_REJECT 567 SURELOG_FAIL 48
+                            NO_DATABASE 3  CMP_NOTEQUAL 19  UNTRANSLATABLE 2
+                            DEFERRED 10    TIMEOUT 1        NO_UHDM 1  (1588 rows)
+  GOLDEN_DEFER was UNSET throughout.
+
+ct8rows -- WHOLE-ROW (status AND dump column)
+  u2r tf  vs results/gate_uhdm2rtlil.csv        PASS
+  u2r tf  patched vs THIS PASS'S OWN pristine   PASS
+  u2r def patched vs THIS PASS'S OWN pristine   PASS
+  surelog vs results/golden_surelog.csv         PASS  (1588 rows)
+  surelog patched vs THIS PASS'S OWN pristine   PASS
+  NO ROW CONVERTED.  results/*.csv were READ ONLY.
+
+byteverify SELFCHECK=1
+  u2r      MOVERS 0 / 1358   PATH_SETS_IDENTICAL   selfcheck 1357/1358 flagged
+  surelog  MOVERS 3 /  956   PATH_SETS_IDENTICAL   selfcheck  955/956  flagged
+    ./default/Earlgrey_0_1-71da2fd7    02b37834ae6d -> 2fd4124a74be
+    ./testflags/Earlgrey_0_1-71da2fd7  6d603492b6f9 -> ea9428a76a16
+    ./default/Scoreboard-59431470      b7877ce4df14 -> 08b3e1b1649c   (THE COIN)
+  Each mover is one the pass PREDICTED BY NAME; attribution in ATTRIB.r10vearl107.txt.
+
+DETERMINISM (Earlgrey both binaries, re-run outside the sweep, same command line)
+  patched  run1 = run2 = the sweep's DB   ea9428a76a16
+  pristine run1       = the sweep's DB    6d603492b6f9
+
+CANARIES
+  surelog  ok=52 changed=0 absent=0        u2r  ok=8 changed=0 absent=0
+  ctcan2 EXPECT_UNKNOWN=1 surelog  PASS    ctcan2 EXPECT_UNKNOWN=6 u2r  PASS
+  canaudit.sh canaries.sh ctcan2.sh  audited=29 UNCOVERED=0 FENCE-BREACH=0
+
+PROTECTED DATABASES (md5 prefix, both modes)
+  InterfaceModPort 59a365f3ce2c SAME   BlackParrotComplex SAME   YosysOldOr SAME
+  SVSwitch 4842211c4030 (the pin)      YosysVerx 6ccda350c24a (the pin)
+
+HEADS (rowheads.sh, pristine -> patched)
+  SeqDriver 33/33 both modes, SimpleUVM 17/17, Scoreboard/default 95/95,
+  MiniAmiq 40/40, BuildUVMPkg 52/52, Rggen/default 0/0, Earlgrey/default 31/31
+  -- every one of those head LOGS byte-identical.
+  Earlgrey/testflags  32 / 1 head  ->  122 / 1 head, a NEW OBJECT (the head is
+  CLEARED; counts are DEPTH not distance).  ONE head per run on both sides.
+
+WIDE BOUNDARY (every .sv/.v under a COPY of tools/probe at any depth, plus this
+directory's arms; both views; both frozen binaries; workdir-normalised whole-dump
+byte compare; list on fd 3, children </dev/null)
+  LISTED=4817  PROCESSED=4817  identical=9236  DIFFERING=20  no_output=378
+  rc histogram BY SIDE fully symmetric: 0 8869/8869, 3 362/362, 4 387/387,
+    139 16/16 -- ASYMMETRIC=0; all 16 segfaults are PRE-EXISTING and appear on
+    BOTH sides (r10buvm8, r10uvm84/87/92, r10v163, r10vbuvm19/28/31, r10vrgg8).
+  The 20 DIFFERING cells are the four r10earl107repro arms and six of this
+  directory's arms, in both views -- and nothing else.  Every committed
+  r10earl45-106 arm, r10earl59's genCaNestedModuleLhsOpRhsBinds59 binder mirror,
+  r10earl104's twelve KEEPs, r10earl105's clone window, r10earl106's cast window,
+  every uvm / buvm / rgg arm and every SUBDIRECTORY arm is byte-identical.
+  The four slang-fenced names appear in 0 listed files.
+
+LANDED-LAW CONTROLS RE-JUDGED DIRECTLY (uhdm-cmp lines, pristine -> patched;
+every database byte-identical between the binaries)
+  r10earl104  vb2_genfor   0 -> 0   vb4_instarr 0 -> 0   (the must-stay-EQUAL pair)
+              va1 48/48  va2 78/78  va3 28/28  va4 48|52  va5 34/34
+              vb1 36/36  vb3 48/48                        all BYTEIDENT
+  r10earl105  g1 31|64  g2 64  g3 64  g4 150  g5 31|0  h1 31|0  h2 31|0  BYTEIDENT
+  r10earl106  g1 56|0  g2 71  g3 34  g4 42  h1 56|0                      BYTEIDENT
+              (its landed law still reads 0 cmp lines in elab on g1/h1)
+
+THE IMPLEMENTER'S OWN GRID, RE-RUN HERE
+  g1_home107 plain 36/1 -> 0/0 ; elab 32/1 -> 0/0   EQUAL, both views
+  g2_form107 32/1 -> 32/1 ; g3_src107 32/1 -> 32/1 ; g4_fence107 28/1 -> 28/1
+  g4's fences hold: only the FS_DEF package-param port cells move; the inline
+  pattern, the non-struct param, the module-local param, the cont_assign carrier,
+  the module-body param_assign and the var-declaration initializer are untouched.
+
+THE COMMITTED EVIDENCE, RE-PRODUCED
+  All four committed head logs -- HEAD_{BEFORE,AFTER}_Earlgrey_{default,testflags}.cmp
+  in tools/probe/r10earl107repro -- are BYTE-IDENTICAL to the ones this verifier
+  produced on its own two builds and its own sweep workdirs.
+  The committed CHANGED_sl.txt's four DIFF rows and this verifier's own census
+  diff name the SAME four cells with the SAME payloads.

@@ -1,0 +1,10 @@
+AssignmentPatternArrayPort-02b7e491 | SAME   default | port | d/data | 0{default} | 7:25-7:26 || dc=<0> sz=64 ct=9 val=<UINT:0>
+NestedPatternPassedAsPort-ada9b373 | SAME   default | port | u_hw_sel/region_attrs_i | 0.0{phase} | 20:23-20:27 || dc=<1'b1> sz=1 ct=3 val=<BIN:1>
+NestedPatternPassedAsPort-ada9b373 | SAME   default | port | work@top.u_hw_sel/region_attrs_i | 0 | 20:23-20:27 || dc=<1'b1> sz=1 ct=3 val=<BIN:1>
+NestedStructArrayParameterInitializedByPatternPassedAsPort-4e1a3bac | SAME   default | port | work@top.u_hw_sel/region_attrs_i | 0.0 | 15:26-15:30 || dc=<1'b1> sz=1 ct=3 val=<BIN:1>
+StructArrayParameterInitializedByPatternPassedAsPort-56baeba6 | SAME   default | port | work@top.u_hw_sel/region_attrs_i | 0 | 8:17-8:21 || dc=<1'b1> sz=1 ct=3 val=<BIN:1>
+AssignmentPatternArrayPort-02b7e491 | SAME   testflags | port | d/data | 0{default} | 7:25-7:26 || dc=<0> sz=64 ct=9 val=<UINT:0>
+NestedPatternPassedAsPort-ada9b373 | SAME   testflags | port | u_hw_sel/region_attrs_i | 0.0{phase} | 20:23-20:27 || dc=<1'b1> sz=1 ct=3 val=<BIN:1>
+NestedPatternPassedAsPort-ada9b373 | SAME   testflags | port | work@top.u_hw_sel/region_attrs_i | 0 | 20:23-20:27 || dc=<1'b1> sz=1 ct=3 val=<BIN:1>
+NestedStructArrayParameterInitializedByPatternPassedAsPort-4e1a3bac | SAME   testflags | port | work@top.u_hw_sel/region_attrs_i | 0.0 | 15:26-15:30 || dc=<1'b1> sz=1 ct=3 val=<BIN:1>
+StructArrayParameterInitializedByPatternPassedAsPort-56baeba6 | SAME   testflags | port | work@top.u_hw_sel/region_attrs_i | 0 | 8:17-8:21 || dc=<1'b1> sz=1 ct=3 val=<BIN:1>

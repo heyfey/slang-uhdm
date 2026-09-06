@@ -10261,6 +10261,161 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                                     nrt8->VpiParent(no8);
                                                 }
                                             }
+                                        // § patFlatPortConnUnsizedMember107
+                                        // (r10earl107) — AN UNSIZED MEMBER
+                                        // VALUE OF THE SUBSTITUTED PATTERN IS
+                                        // RE-TYPED AT THE MEMBER'S OWN WIDTH
+                                        // HERE, EXACTLY AS IT IS ON THE
+                                        // PARAM_ASSIGN CARRIER.
+                                        //
+                                        // Golden's port high_conn is a CLONE of
+                                        // the parameter's own ELABORATED
+                                        // param_assign Rhs, and that Rhs went
+                                        // through `UHDM::ExprEval::
+                                        // flattenPatternAssignments`
+                                        // (UHDM/templates/ExprEval.cpp:889-916),
+                                        // whose only re-typing test is on the
+                                        // tagged_pattern's `Pattern()` alone —
+                                        // `constant && VpiSize() == -1`:
+                                        //     uval == 1 -> `NumUtils::getMask
+                                        //                   (size)` at the
+                                        //                  MEMBER's width
+                                        //     uval == 0 -> 0
+                                        //   VpiValue "UINT:<v>", VpiDecompile
+                                        //   the DECIMAL spelling, VpiConstType
+                                        //   vpiUIntConst, VpiSize the member
+                                        //   width.
+                                        // `get_uvalue` is called with its
+                                        // default `strict`, so `'x`/`'z` set
+                                        // invalidValue — but the flatten NEVER
+                                        // READS it and `NumUtils::parseBinary`
+                                        // leaves `result` at 0, so `'x`/`'z`
+                                        // land in the `uval == 0` arm (this is
+                                        // § patFlatUnsizedMemberWidth61's own
+                                        // V-FIX, re-measured here at a PORT).
+                                        // `getMask` SATURATES at 64 bits, so a
+                                        // 65-bit member's `'1` is
+                                        // 18446744073709551615 AT VpiSize 65 —
+                                        // NOT 2^65-1.
+                                        //
+                                        // MEASURED, LHS(golden) first, at a
+                                        // PORT high_conn (g2_form107, one
+                                        // 6-member struct, one row per fill):
+                                        //   '1 at 1/3/8/32/64/65 ->
+                                        //      1 / 7 / 255 / 4294967295 /
+                                        //      18446744073709551615 /
+                                        //      18446744073709551615(sz 65)
+                                        //   '0 and 'x and 'z -> 0 at every
+                                        //      width
+                                        //   1'b1 3'h5 8'hA5 32'd7 64'hFF 65'h1
+                                        //      -> UNTOUCHED (a SIZED literal is
+                                        //      not VpiSize()==-1) on both sides
+                                        // and the corpus cells are
+                                        // top_earlgrey.sv:710
+                                        // `.pwr_peri_i(pwrmgr_pkg::
+                                        //  PWR_PERI_DEFAULT)` (`rstreqs: '0`,
+                                        // member width 2 — the Earlgrey
+                                        // testflags head) and :728
+                                        // `.peri_i(rstmgr_pkg::
+                                        //  RSTMGR_PERI_DEFAULT)`
+                                        // (`rst_reqs: '0`, width 2), in BOTH
+                                        // modes.
+                                        //
+                                        // THE FENCES, each with a golden
+                                        // witness:
+                                        //  * NAMED member setters ONLY, and the
+                                        //    operand vector must still be in
+                                        //    lockstep with them.  A POSITIONAL
+                                        //    pattern is NOT re-typed by golden
+                                        //    (g3_src107 `.d(M_POS)`: golden's
+                                        //    port operands keep `'0`/`'1`, one
+                                        //    of them at VpiSize -1), and a
+                                        //    `default:` fill changes the
+                                        //    operand COUNT (g3_src107
+                                        //    `.c(M_DEF)`: golden has one
+                                        //    operand per MEMBER, we have one
+                                        //    per setter) so an index-aligned
+                                        //    walk would read the wrong member —
+                                        //    both are declined here and both
+                                        //    stay byte-identical.  The u2r
+                                        //    precedent row
+                                        //    AssignmentPatternArrayPort
+                                        //    (`0{default}`) is a `default:`
+                                        //    fill and is already SAME.
+                                        //  * the value must be WRITTEN as an
+                                        //    unbased-unsized literal — every
+                                        //    sized/based literal, enum constant
+                                        //    and nested pattern operand is left
+                                        //    exactly as it is.
+                                        //  * an INTEGRAL member only.  This arm
+                                        //    is already gated on a PACKED
+                                        //    struct, so `getBitWidth()` is the
+                                        //    width `ExprEval::size` would
+                                        //    answer for the same member and the
+                                        //    ExprEmit copy of `surelogTsBits`
+                                        //    is not needed here.
+                                        //
+                                        // NOT WIDENED, and each is a RESIDUE
+                                        // measured on the same arms: golden
+                                        // keeps TAGGED patterns at this port
+                                        // when the struct has an enum or a
+                                        // nested-struct member (g3_src107 .a/.b)
+                                        // or is wider than a word (g2_form107),
+                                        // and it re-types a NESTED pattern's
+                                        // members too; a MODULE-LOCAL param
+                                        // (g3 .g, g4 .d) and a pattern written
+                                        // INLINE at the connection (g4 .b) never
+                                        // reach this arm at all.
+                                        if (ov8 && ap8.typeSetters.empty() &&
+                                            ap8.indexSetters.empty() &&
+                                            !ap8.defaultSetter &&
+                                            ov8->size() ==
+                                                ap8.memberSetters.size())
+                                            for (size_t i7 = 0;
+                                                 i7 < ov8->size(); i7++) {
+                                                auto* o7 = (*ov8)[i7];
+                                                if (o7->UhdmType() !=
+                                                    UHDM::uhdmconstant)
+                                                    continue;
+                                                auto& sv7 = stripImplicitConv(
+                                                    *ap8.memberSetters[i7].expr);
+                                                if (sv7.kind !=
+                                                    ExpressionKind::
+                                                        UnbasedUnsizedIntegerLiteral)
+                                                    continue;
+                                                auto* mdt7 =
+                                                    ap8.memberSetters[i7]
+                                                        .member->getDeclaredType();
+                                                if (!mdt7)
+                                                    continue;
+                                                auto& mty7 = mdt7->getType();
+                                                if (!mty7.isIntegral())
+                                                    continue;
+                                                int64_t mw7 =
+                                                    (int64_t)mty7.getBitWidth();
+                                                if (mw7 <= 0 || mw7 > 4096)
+                                                    continue;
+                                                logic_t fb7 =
+                                                    sv7.as<UnbasedUnsizedIntegerLiteral>()
+                                                        .getLiteralValue();
+                                                uint64_t fv7 = 0;
+                                                if (!fb7.isUnknown() &&
+                                                    fb7.value)
+                                                    fv7 = (mw7 >= 64)
+                                                              ? ~(uint64_t)0
+                                                              : ((((uint64_t)1)
+                                                                  << (uint64_t)
+                                                                         mw7) -
+                                                                 1);
+                                                std::string fd7 =
+                                                    std::to_string(fv7);
+                                                auto* fc7 =
+                                                    (UHDM::constant*)o7;
+                                                fc7->VpiSize((int32_t)mw7);
+                                                fc7->VpiValue("UINT:" + fd7);
+                                                fc7->VpiConstType(vpiUIntConst);
+                                                fc7->VpiDecompile(fd7);
+                                            }
                                         h = op8;
                                     }
                                 }

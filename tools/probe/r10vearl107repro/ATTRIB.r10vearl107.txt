@@ -1,0 +1,49 @@
+r10vearl107 -- THE ORDER-BLIND, PATH-NORMALISED WHOLE-DUMP ATTRIBUTION OF THE THREE MOVERS
+MEASUREMENT ONLY.  uhdm-dump | sed 's#<workdir>#WD/#' | LC_ALL=C sort, then diff.
+
+Earlgrey_0_1/default   14 lines
+  <           |BIN:0
+  <           |BIN:0
+  >           |UINT:0
+  >           |UINT:0
+  <           |vpiConstType:3
+  <           |vpiConstType:3
+  >           |vpiConstType:9
+  >           |vpiConstType:9
+  <           |vpiDecompile:'0
+  <           |vpiDecompile:'0
+  >           |vpiDecompile:0
+  >           |vpiDecompile:0
+  <           |vpiSize:-1
+  >           |vpiSize:2
+
+Earlgrey_0_1/testflags 22 lines
+  >           \_operation: , line:710:19, endln:710:47
+  <           |BIN:0
+  <           |BIN:0
+  >           |UINT:0
+  >           |UINT:0
+  <           |vpiConstType:3
+  <           |vpiConstType:3
+  >           |vpiConstType:9
+  >           |vpiConstType:9
+  <           |vpiDecompile:'0
+  <           |vpiDecompile:'0
+  >           |vpiDecompile:0
+  >           |vpiDecompile:0
+  >           |vpiParent:
+  <           |vpiSize:16
+  >           |vpiSize:2
+  <     \_operation: , line:710:19, endln:710:47
+  <     |BIN:0
+  <     |vpiConstType:3
+  <     |vpiDecompile:'0
+  <     |vpiParent:
+  <     |vpiSize:-1
+
+Scoreboard/default     0 lines ORDER-BLIND (92 lines raw) -- THE RECORDED COIN
+  RESUME.md section 9: svunit_pkg vpiTaskFunc list ORDER flip / macro-buffer
+  SourceLocation ordering under slang's parallel parse.  Its head log is
+  byte-identical before and after (95/1 -> 95/1).
+
+ZERO unrelated lines on either Earlgrey mover.

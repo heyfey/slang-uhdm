@@ -1,0 +1,16 @@
+r10vearl107 CORPUS CENSUS (cen107, deduped, tag-blind OFF -- the implementer's own key)
+MEASUREMENT ONLY; LHS is ALWAYS golden.
+
+surelog  PROCESSED=956  SKIP-NOFILE=617  CENRC-NONZERO=0  (79794 census rows each side)
+u2r      PROCESSED=1358 SKIP-NOFILE=104  CENRC-NONZERO=0  (1370 census rows each side)
+
+ROWS CHANGED pristine -> patched:
+  surelog     4   all DIFF -> SAME   (see CENSUS_CHANGED_sl.txt)
+  uhdm2rtlil  0
+
+PORT-CARRIER TOTALS (surelog):  4 DIFF / 34 SAME  ->  0 DIFF / 38 SAME
+WHOLE-CENSUS TOTALS (surelog): 2360 DIFF / 47465 SAME -> 2356 DIFF / 47469 SAME
+  net -4 DIFF / +4 SAME; every non-port carrier row is byte-identical.
+PORT-CARRIER TOTALS (u2r):     0 DIFF / 10 SAME  ->  0 DIFF / 10 SAME
+
+AWAY-GOLDEN 0, MOVED-WRONG 0 on both corpora.

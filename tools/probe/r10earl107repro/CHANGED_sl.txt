@@ -1,0 +1,8 @@
+< Earlgrey_0_1-71da2fd7 | DIFF   default | port | work@top_earlgrey.u_pwrmgr/pwr_peri_i | 1 | 157:14-157:16 || G{dc=<0> sz=2 ct=9 val=<UINT:0>} | O{dc=<'0> sz=-1 ct=3 val=<BIN:0>}
+< Earlgrey_0_1-71da2fd7 | DIFF   default | port | work@top_earlgrey.u_rstmgr/peri_i | 0 | 61:15-61:17 || G{dc=<0> sz=2 ct=9 val=<UINT:0>} | O{dc=<'0> sz=2 ct=3 val=<BIN:0>}
+< Earlgrey_0_1-71da2fd7 | DIFF   testflags | port | work@top_earlgrey.u_pwrmgr/pwr_peri_i | 1 | 157:14-157:16 || G{dc=<0> sz=2 ct=9 val=<UINT:0>} | O{dc=<'0> sz=-1 ct=3 val=<BIN:0>}{dc=<'0> sz=16 ct=3 val=<BIN:0>}
+< Earlgrey_0_1-71da2fd7 | DIFF   testflags | port | work@top_earlgrey.u_rstmgr/peri_i | 0 | 61:15-61:17 || G{dc=<0> sz=2 ct=9 val=<UINT:0>} | O{dc=<'0> sz=2 ct=3 val=<BIN:0>}
+> Earlgrey_0_1-71da2fd7 | SAME   default | port | work@top_earlgrey.u_pwrmgr/pwr_peri_i | 1 | 157:14-157:16 || dc=<0> sz=2 ct=9 val=<UINT:0>
+> Earlgrey_0_1-71da2fd7 | SAME   default | port | work@top_earlgrey.u_rstmgr/peri_i | 0 | 61:15-61:17 || dc=<0> sz=2 ct=9 val=<UINT:0>
+> Earlgrey_0_1-71da2fd7 | SAME   testflags | port | work@top_earlgrey.u_pwrmgr/pwr_peri_i | 1 | 157:14-157:16 || dc=<0> sz=2 ct=9 val=<UINT:0>
+> Earlgrey_0_1-71da2fd7 | SAME   testflags | port | work@top_earlgrey.u_rstmgr/peri_i | 0 | 61:15-61:17 || dc=<0> sz=2 ct=9 val=<UINT:0>

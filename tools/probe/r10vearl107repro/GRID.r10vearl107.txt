@@ -1,0 +1,30 @@
+ARM              VIEW    SLRC   PRC   ARC   PRIS c/h  PATCH c/h
+v1_shuf107       plain      0     0     0       36/1       36/1
+v1_shuf107       elab       0     0     0       36/1       36/1
+v2_hold107       plain      0     0     0     1057/1     1057/1
+v2_hold107       elab       0     0     0     1065/1     1077/1
+v3_width107      plain      0     0     0      101/1      101/1
+v3_width107      elab       0     0     0      101/1      101/1
+v4_kind107       plain      0     0     0       24/1       24/1
+v4_kind107       elab       0     0     0       24/1       24/1
+v5_dpth107       plain      0     0     0      126/1      126/1
+v5_dpth107       elab       0     0     0      126/1      126/1
+v6_alias107      plain      0     0     0       11/1       11/1
+v6_alias107      elab       0     0     0       11/1       11/1
+v7_edge107       plain      0     0     0       32/1       32/1
+v7_edge107       elab       0     0     0       32/1       32/1
+---- three-way score (cen107 --raw --tagblind; LHS is ALWAYS golden)
+v1_shuf107     plain  TO_GOLDEN=3 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=0 UNCHANGED_OK=15 ONLY_ONE_SIDE=8
+v1_shuf107     elab   TO_GOLDEN=3 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=0 UNCHANGED_OK=15 ONLY_ONE_SIDE=8
+v2_hold107     plain  TO_GOLDEN=6 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=0 UNCHANGED_OK=2 ONLY_ONE_SIDE=0
+v2_hold107     elab   TO_GOLDEN=6 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=0 UNCHANGED_OK=2 ONLY_ONE_SIDE=0
+v3_width107    plain  TO_GOLDEN=20 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=14 UNCHANGED_OK=26 ONLY_ONE_SIDE=0
+v3_width107    elab   TO_GOLDEN=20 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=14 UNCHANGED_OK=26 ONLY_ONE_SIDE=0
+v4_kind107     plain  TO_GOLDEN=8 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=18 UNCHANGED_OK=0 ONLY_ONE_SIDE=2
+v4_kind107     elab   TO_GOLDEN=8 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=20 UNCHANGED_OK=0 ONLY_ONE_SIDE=0
+v5_dpth107     plain  TO_GOLDEN=3 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=2 UNCHANGED_OK=19 ONLY_ONE_SIDE=19
+v5_dpth107     elab   TO_GOLDEN=3 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=2 UNCHANGED_OK=19 ONLY_ONE_SIDE=19
+v6_alias107    plain  TO_GOLDEN=6 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=2 UNCHANGED_OK=8 ONLY_ONE_SIDE=2
+v6_alias107    elab   TO_GOLDEN=6 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=2 UNCHANGED_OK=8 ONLY_ONE_SIDE=2
+v7_edge107     plain  TO_GOLDEN=6 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=10 UNCHANGED_OK=0 ONLY_ONE_SIDE=0
+v7_edge107     elab   TO_GOLDEN=6 AWAY_GOLDEN=0 MOVED_WRONG=2 STILL_WRONG=8 UNCHANGED_OK=0 ONLY_ONE_SIDE=0

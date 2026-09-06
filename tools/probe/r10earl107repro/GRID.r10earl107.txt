@@ -1,0 +1,68 @@
+r10earl107 GRID -- MEASUREMENT ONLY.  uhdm-cmp lines/heads per arm x view,
+pristine fb82059559765e79eee43ee365aa4879 vs patched fd2870e34b3081cb23199acbdfdf838d,
+and the cen107 --raw --tagblind THREE-WAY score beside each.
+
+ARM            VIEW     PRIS c/h  PATCH c/h
+g1_home107     plain        36/1        0/0
+g1_home107     elab         32/1        0/0
+g2_form107     plain        32/1       32/1
+g2_form107     elab         32/1       32/1
+g3_src107      plain        32/1       32/1
+g3_src107      elab         32/1       32/1
+g4_fence107    plain        28/1       28/1
+g4_fence107    elab         28/1       28/1
+
+THREE-WAY SCORE (score107.py, tag-blind so a cell whose OPERAND KIND still
+differs -- golden a tagged_pattern, ours a bare constant -- is still joined
+and its compare-visible payload scored):
+g1_home107     plain ALL   TO_GOLDEN=8 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=0 UNCHANGED_OK=14 ONLY_ONE_SIDE=0
+g1_home107     plain port  TO_GOLDEN=8 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=0 UNCHANGED_OK=3 ONLY_ONE_SIDE=0
+g1_home107     elab  ALL   TO_GOLDEN=8 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=0 UNCHANGED_OK=14 ONLY_ONE_SIDE=0
+g1_home107     elab  port  TO_GOLDEN=8 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=0 UNCHANGED_OK=3 ONLY_ONE_SIDE=0
+g2_form107     plain ALL   TO_GOLDEN=18 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=27 UNCHANGED_OK=15 ONLY_ONE_SIDE=0
+g2_form107     plain port  TO_GOLDEN=18 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=4 UNCHANGED_OK=8 ONLY_ONE_SIDE=0
+g2_form107     elab  ALL   TO_GOLDEN=18 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=27 UNCHANGED_OK=15 ONLY_ONE_SIDE=0
+g2_form107     elab  port  TO_GOLDEN=18 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=4 UNCHANGED_OK=8 ONLY_ONE_SIDE=0
+g3_src107      plain ALL   TO_GOLDEN=8 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=17 UNCHANGED_OK=39 ONLY_ONE_SIDE=12
+g3_src107      plain port  TO_GOLDEN=8 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=5 UNCHANGED_OK=3 ONLY_ONE_SIDE=8
+g3_src107      elab  ALL   TO_GOLDEN=8 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=17 UNCHANGED_OK=39 ONLY_ONE_SIDE=12
+g3_src107      elab  port  TO_GOLDEN=8 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=5 UNCHANGED_OK=3 ONLY_ONE_SIDE=8
+g4_fence107    plain ALL   TO_GOLDEN=2 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=0 UNCHANGED_OK=10 ONLY_ONE_SIDE=8
+g4_fence107    plain port  TO_GOLDEN=2 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=0 UNCHANGED_OK=2 ONLY_ONE_SIDE=4
+g4_fence107    elab  ALL   TO_GOLDEN=2 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=0 UNCHANGED_OK=10 ONLY_ONE_SIDE=8
+g4_fence107    elab  port  TO_GOLDEN=2 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=0 UNCHANGED_OK=2 ONLY_ONE_SIDE=4
+
+THE PORT-CARRIER CELLS THAT STAY WRONG (the recorded residues, listed):
+-- g2_form107
+TO_GOLDEN=18 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=4 UNCHANGED_OK=8 ONLY_ONE_SIDE=0
+-- g3_src107
+TO_GOLDEN=8 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=5 UNCHANGED_OK=3 ONLY_ONE_SIDE=8
+-- g2_form107 port cells that STAY WRONG (residues)
+   STILL-WRONG plain | port | work@g2_form107.u_c/e | 1 | 17:42-17:43
+      G {dc=<5> sz=3 ct=9 val=<UINT:5>}
+      O {dc=<5> sz=64 ct=9 val=<UINT:5>}
+   STILL-WRONG plain | port | work@g2_form107.u_c/e | 2 | 17:48-17:51
+      G {dc=<165> sz=8 ct=9 val=<UINT:165>}
+      O {dc=<165> sz=64 ct=9 val=<UINT:165>}
+   STILL-WRONG plain | port | work@g2_form107.u_c/e | 3 | 17:57-17:58
+      G {dc=<7> sz=32 ct=9 val=<UINT:7>}
+      O {dc=<7> sz=64 ct=9 val=<UINT:7>}
+   STILL-WRONG plain | port | work@g2_form107.u_c/e | 5 | 17:73-17:74
+      G {dc=<1> sz=65 ct=9 val=<UINT:1>}
+      O {dc=<1> sz=64 ct=9 val=<UINT:1>}
+-- g3_src107 port cells that STAY WRONG (residues)
+   STILL-WRONG plain | port | work@g3_src107.u_c/a | 2.0 | 13:53-13:55
+      G {dc=<15> sz=4 ct=9 val=<UINT:15>}
+      O {dc=<'1> sz=-1 ct=3 val=<BIN:1>}
+   STILL-WRONG plain | port | work@g3_src107.u_c/a | 2.1 | 13:60-13:62
+      G {dc=<0> sz=2 ct=9 val=<UINT:0>}
+      O {dc=<'0> sz=-1 ct=3 val=<BIN:0>}
+   STILL-WRONG plain | port | work@g3_src107.u_c/b | 2.0 | 15:53-15:55
+      G {dc=<0> sz=2 ct=9 val=<UINT:0>}
+      O {dc=<'0> sz=-1 ct=3 val=<BIN:0>}
+   STILL-WRONG plain | port | work@g3_src107.u_c/b | 2.1 | 15:60-15:62
+      G {dc=<15> sz=4 ct=9 val=<UINT:15>}
+      O {dc=<'1> sz=-1 ct=3 val=<BIN:1>}
+   STILL-WRONG plain | port | work@g3_src107.u_c/c | 1 | 18:50-18:52
+      G {dc=<0> sz=5 ct=9 val=<UINT:0>}
+      O {dc=<'0> sz=-1 ct=3 val=<BIN:0>}

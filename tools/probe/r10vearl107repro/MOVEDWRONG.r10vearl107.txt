@@ -1,0 +1,44 @@
+r10vearl107 -- THE TWO MOVED-WRONG CELLS, NAMED (v7_edge107 elab).  MEASUREMENT ONLY.
+
+score107.py --list, LHS(G) is ALWAYS golden:
+
+  MOVED-WRONG elab | port | work@v7_edge107.u_e/a | 3 | 11:63-11:65
+     G {dc=<18446744073709551615> sz=4097 ct=9 val=<UINT:18446744073709551615>}
+     pris {dc=<'1> sz=-1 ct=3 val=<BIN:1>}
+     patch {dc=<'1> sz=-1 ct=3 val=<BIN:1>}{dc=<18446744073709551615> sz=4096 ct=9 val=<UINT:18446744073709551615>}
+--
+  MOVED-WRONG elab | port | work@v7_edge107.u_e/b | 3 | 12:63-12:65
+     G {dc=<0> sz=4097 ct=9 val=<UINT:0>}
+     pris {dc=<'0> sz=-1 ct=3 val=<BIN:0>}
+     patch {dc=<'0> sz=-1 ct=3 val=<BIN:0>}{dc=<'0> sz=4096 ct=3 val=<BIN:0>}
+
+THE OBJECTS THE JUDGE REACHES (the ELAB port high_conn copies, dumpop107):
+
+  arm .a  (P_E1, every member written '1)   operand 3 = w4097
+    golden    dc=18446744073709551615  size=4097  UINT:...            ct=9
+    pristine  dc='1                    size=-1    BIN:1               ct=3
+    patched   dc=18446744073709551615  size=4096  UINT:...            ct=9
+
+  arm .b  (P_E0, every member written '0)   operand 3 = w4097
+    golden    dc=0                     size=4097  UINT:0              ct=9
+    pristine  dc='0                    size=-1    BIN:0               ct=3
+    patched   dc='0                    size=4096  BIN:0               ct=3
+
+expr::Compare order (UHDM/build/generated/src/expr.cpp:90 VpiDecompile,
+95 VpiSize, 100 Typespec; constant.cpp:66 VpiConstType):
+
+  .a  VpiDecompile FIRST -> pristine FAILS there; patched PASSES it and fails
+      one field LATER, at VpiSize (4096 vs 4097).  STRICTLY CLOSER to golden.
+  .b  VpiDecompile FIRST -> BOTH fail there with the SAME value ('0 vs 0).  The
+      size move (-1 -> 4096) sits BEHIND the first failure and is therefore
+      JUDGE-INVISIBLE: neither closer nor further.
+
+Neither cell is AWAY-GOLDEN: pristine was not equal to golden in either.
+
+CAUSE: the loop's own 'mw7 > 4096' guard declines w4097; the elaborator then
+mints a re-sized replacement for the still-VpiSize(-1) constant and copies the
+PREVIOUS operand's width (4096, w4096's, now real because the law set it).
+Golden has NO width cap -- NumUtils::getMask saturates at 64 and the flatten
+stamps the TRUE width, so golden re-types at 4097 too.
+ZERO corpus cells (a >4096-bit packed-struct member exists nowhere in either
+corpus); pristine was equally wrong, so this is a RESIDUE, not a regression.
