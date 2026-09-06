@@ -1,0 +1,156 @@
+r10uvm169 — GATES.  Every number below was produced by the OFFICIAL harness
+(scripts/verify_golden.py) and the OFFICIAL judge (uhdm-cmp).  LHS is ALWAYS
+golden (Surelog); RHS is ALWAYS ours.  slang was NOT patched; results/*.csv
+were READ ONLY; nothing was promoted; NO CORPUS ROW WAS CONVERTED;
+GOLDEN_DEFER was never set.
+
+BASE                cfb2321f
+worktree            /tmp/wt_r10uvm169
+pristine binary     md5 196a8dcc6d57a4a2da7f6017d652712d  (frozen chmod 555 before any sweep)
+patched binary      md5 ae36c8b5caa51176a4bb77e9f2fec2f2  (frozen chmod 555 before any sweep)
+production surface  src/StmtEmit.cpp  +69 / -5
+
+== (1) BUILD ==
+both binaries built -j 2 from this worktree; md5s taken separately (above).
+
+== (2) GOLDEN DUMP TESTS (SLANG_UHDM exported explicitly to each binary) ==
+patched:            PASS 23   FAIL 0
+negative control:   SLANG_UHDM=/bin/false -> FAIL 23  PASS 0
+
+== (3) uhdm2rtlil (731 rows x 2 modes) ==
+baseline: 732 lines = 731 ROWS (the header is not a row)
+fresh   : 732 lines = 731 ROWS
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+---- per-mode STATUS histogram (baseline -> fresh)
+  testflags  base:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL
+  testflags  fresh:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  testflags  base:      52      183 differ     496 match
+  testflags  fresh:      52      183 differ     496 match
+PASS: every row byte-identical to the committed baseline
+
+-- default, pristine vs patched (this pass's own control):
+  default  base:      52      187 differ     492 match
+  default  fresh:      52      187 differ     492 match
+PASS: every row byte-identical to the committed baseline
+
+== (4) surelog (794 rows x 2 modes = 1588) ==
+baseline: 1589 lines = 1588 ROWS (the header is not a row)
+fresh   : 1589 lines = 1588 ROWS
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     471 CMP_EQUAL      10 CMP_NOTEQUAL       5 DEFERRED     283 SLANG_REJECT      25 SURELOG_FAIL
+  default  fresh:     471 CMP_EQUAL      10 CMP_NOTEQUAL       5 DEFERRED     283 SLANG_REJECT      25 SURELOG_FAIL
+  testflags  base:     466 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE
+  testflags  fresh:     466 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     323      245 differ     226 match
+  default  fresh:     323      245 differ     226 match
+  testflags  base:     328      300 differ     166 match
+  testflags  fresh:     328      300 differ     166 match
+PASS: every row byte-identical to the committed baseline
+
+== (5) BYTE MOVERS (SELFCHECK=1), every one PREDICTED BY NAME ==
+-- surelog:
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=ec08740916fc pristine=c238bd2390da
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=d55c0ea322c7 pristine=099b89b3bf80
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=f464a73846a6 pristine=8bd24543dea8
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=ec08740916fc pristine=c238bd2390da
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=48d70aa95909 pristine=cf0a5c131f25
+MOVERS: 5 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+-- uhdm2rtlil:
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+
+ATTRIBUTION (uhdm-dump, workdir path normalised, SORTED = order-blind):
+  default/SeqDriver   19 diff lines, all the ONE adpcm_pkg::uvm_revision_string cell
+  testflags/SeqDriver 19 diff lines, same cell
+  default/MiniAmiq    19 diff lines, all the ONE svaunit_pkg::uvm_revision_string cell
+  testflags/MiniAmiq  19 diff lines, same cell
+  default/Scoreboard   0 diff lines ORDER-BLIND -> RESUME.md §9's documented ~50/50 COIN
+                       (svunit_pkg vpiTaskFunc list order), NOT this law.
+
+== (6) HEADS (rowheads.sh, the OFFICIAL uhdm-cmp) ==
+-- PRISTINE (this pass's own build):
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         50      1 cmp rc=255
+SeqDriver      testflags       50      1 cmp rc=255
+SimpleUVM      default         17      1 cmp rc=255
+SimpleUVM      testflags       17      1 cmp rc=255
+Scoreboard     default         95      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default        106      1 cmp rc=255
+MiniAmiq       testflags      106      1 cmp rc=255
+BuildUVMPkg    default         60      1 cmp rc=255
+BuildUVMPkg    testflags       60      1 cmp rc=255
+Earlgrey_0_1   default         31      1 cmp rc=255
+Earlgrey_0_1   testflags       50      1 cmp rc=255
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+-- PATCHED:
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         27      1 cmp rc=255
+SeqDriver      testflags       27      1 cmp rc=255
+SimpleUVM      default         17      1 cmp rc=255
+SimpleUVM      testflags       17      1 cmp rc=255
+Scoreboard     default         95      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default        106      1 cmp rc=255
+MiniAmiq       testflags      106      1 cmp rc=255
+BuildUVMPkg    default         60      1 cmp rc=255
+BuildUVMPkg    testflags       60      1 cmp rc=255
+Earlgrey_0_1   default         31      1 cmp rc=255
+Earlgrey_0_1   testflags       50      1 cmp rc=255
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+
+== (7) CANARIES ==
+-- canaries.sh surelog:
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+-- canaries.sh uhdm2rtlil:
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+-- ctcan2.sh surelog:
+PASS: every supplementary canary row is byte-identical to the baseline.
+-- ctcan2.sh uhdm2rtlil:
+PASS: every supplementary canary row is byte-identical to the baseline.
+-- canaudit.sh (run from this pass's dir):
+---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+
+-- protected databases, md5 (pristine -> patched), first 12 hex:
+   InterfaceModPort   59a365f3ce2c -> 59a365f3ce2c   SAME (both modes)
+   BlackParrotComplex e3e354129d5a -> e3e354129d5a   SAME (default); 73a10e8217e5 -> 73a10e8217e5 SAME (testflags)
+   YosysOldOr         d68e0796d62c -> d68e0796d62c   SAME (both modes)
+   SVSwitch           4842211c4030 -> 4842211c4030   PINNED VALUE MATCHED
+   YosysVerx          6ccda350c24a -> 6ccda350c24a   PINNED VALUE MATCHED
+
+== (8) WIDE BOUNDARY (see BOUNDARY.r10uvm169.txt) ==
+RUN 2 (idle machine): LISTED=4738 PROCESSED=4738 PRODUCED_DBS=4581 MOVED_ARMS=4 RC_DIFFS=0
+  3 arms are this pass's own grid (the positive control: g169_d_scopes did NOT move)
+  1 arm is r10uvm120repro/g120_c_homes.sv — this law's own population —
+    re-measured against golden: RET 6 TOWARD / 0 AWAY / 0 STILL-WRONG.
+
+== (9) BINARY-PATH AUDIT of every cmds.txt (never by the string 'slang-uhdm') ==
+  r10uvm169_wd_pris/sl  cmds=1573  pris=1523  pat=0  MAINTREE=0  WORKTREEBUILD=0
+  r10uvm169_wd_pris/u2r  cmds=1462  pris=1458  pat=0  MAINTREE=0  WORKTREEBUILD=0
+  r10uvm169_wd_pat/sl  cmds=1573  pris=0  pat=1523  MAINTREE=0  WORKTREEBUILD=0
+  r10uvm169_wd_pat/u2r  cmds=1462  pris=0  pat=1458  MAINTREE=0  WORKTREEBUILD=0
+  -> zero main-tree and zero worktree-build leakage on all four sweeps.
+
+== (10) FRESH-APPLY VERIFICATION ==
+/tmp/r10uvm169.patch applied with 'git apply -3' to a FRESH cfb2321f worktree:
+  rc=0, 0 conflict markers, index identical to the pass worktree,
+  src/StmtEmit.cpp md5 b14d54d07661beb18a364767573524ca on both,
+  and a clean -j 2 rebuild reproduces the frozen patched binary EXACTLY:
+  md5 ae36c8b5caa51176a4bb77e9f2fec2f2.
+
+== SURFACE ==
+  production:  src/StmtEmit.cpp only
+  probe:       tools/probe/r10uvm169repro/ only
+  results/*.csv: NOT touched (0 diff hunks)
+  fence check on the patch: 0 hits for each of the four slang-fenced names

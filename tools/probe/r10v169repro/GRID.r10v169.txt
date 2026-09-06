@@ -1,0 +1,791 @@
+r10v169 — GRID.  MEASUREMENT ONLY; the official uhdm-cmp is the judge.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+A = pristine 196a8dcc6d57a4a2da7f6017d652712d ; B = VERIFIED ae... -> 9a793239793883a5a8c492897f71a250
+
+== THE VERIFIER'S TEN NEW ARMS, both views, scored on the VERIFIED binary ==
+########## ARM e_shadow
+-- commands (rc, by binary path):
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/v169_grid2/e_shadow/g_def /tmp/v169_arms/v169_e_shadow.sv
+rc=0 /tmp/v169_bin/pris.bin /tmp/v169_arms/v169_e_shadow.sv -o /tmp/v169_grid2/e_shadow/a_def.uhdm
+rc=0 /tmp/v169_bin/pat2.bin /tmp/v169_arms/v169_e_shadow.sv -o /tmp/v169_grid2/e_shadow/b_def.uhdm
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/v169_grid2/e_shadow/g_elab /tmp/v169_arms/v169_e_shadow.sv
+rc=0 /tmp/v169_bin/pris.bin /tmp/v169_arms/v169_e_shadow.sv --elabuhdm -o /tmp/v169_grid2/e_shadow/a_elab.uhdm
+rc=0 /tmp/v169_bin/pat2.bin /tmp/v169_arms/v169_e_shadow.sv --elabuhdm -o /tmp/v169_grid2/e_shadow/b_elab.uhdm
+-- Surelog units compiled:
+Compile class "work@mailbox"
+Compile class "work@process"
+Compile class "work@semaphore"
+Compile module "work@v169_e_shadow"
+Compile package "p169he"
+Compile package "p169ie"
+-- RET:
+TOWARD      def    p169ie::f_cstloc169                12:62-12:68
+    G=['K=constant;DEC="eee";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eee', 'K=constant;DEC="eee";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eee']
+    A=['K=constant;DEC="eee";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eee', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=se169;ACT=string_var']
+    B=['K=constant;DEC="eee";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eee', 'K=constant;DEC="eee";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eee']
+TOWARD      def    p169ie::f_cstpar169                13:34-13:40
+    G=['K=constant;DEC="eee";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eee', 'K=constant;DEC="eee";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eee']
+    A=['K=constant;DEC="eee";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eee', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=se169;ACT=constant']
+    B=['K=constant;DEC="eee";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eee', 'K=constant;DEC="eee";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eee']
+TOWARD      def    p169ie::f_ctl169                   9:48-9:54
+    G=['K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5']
+    A=['K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ke169;ACT=constant']
+    B=['K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5']
+TOWARD      def    p169ie::f_formal169                10:49-10:55
+    G=['K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5']
+    A=['K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ke169;ACT=io_decl']
+    B=['K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5']
+TOWARD      def    p169ie::f_local169                 11:56-11:62
+    G=['K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5']
+    A=['K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ke169;ACT=int_var']
+    B=['K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5']
+TOWARD      elab   p169ie::f_cstloc169                12:62-12:68
+    G=['K=constant;DEC="eee";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eee', 'K=constant;DEC="eee";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eee', 'K=constant;DEC="eee";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eee', 'K=constant;DEC="eee";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eee']
+    A=['K=constant;DEC="eee";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eee', 'K=constant;DEC="eee";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eee', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=se169;ACT=string_var', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=se169;ACT=string_var']
+    B=['K=constant;DEC="eee";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eee', 'K=constant;DEC="eee";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eee', 'K=constant;DEC="eee";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eee', 'K=constant;DEC="eee";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eee']
+TOWARD      elab   p169ie::f_cstpar169                13:34-13:40
+    G=['K=constant;DEC="eee";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eee', 'K=constant;DEC="eee";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eee', 'K=constant;DEC="eee";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eee', 'K=constant;DEC="eee";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eee']
+    A=['K=constant;DEC="eee";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eee', 'K=constant;DEC="eee";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eee', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=se169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=se169;ACT=parameter']
+    B=['K=constant;DEC="eee";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eee', 'K=constant;DEC="eee";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eee', 'K=constant;DEC="eee";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eee', 'K=constant;DEC="eee";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eee']
+TOWARD      elab   p169ie::f_ctl169                   9:48-9:54
+    G=['K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5']
+    A=['K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ke169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ke169;ACT=parameter']
+    B=['K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5']
+TOWARD      elab   p169ie::f_formal169                10:49-10:55
+    G=['K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5']
+    A=['K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ke169;ACT=io_decl', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ke169;ACT=io_decl']
+    B=['K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5']
+TOWARD      elab   p169ie::f_local169                 11:56-11:62
+    G=['K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5']
+    A=['K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ke169;ACT=int_var', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ke169;ACT=int_var']
+    B=['K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5']
+-- RET cells: BOTH-RIGHT=12  TOWARD=10  AWAY=0  STILL-WRONG=0  UNMOVED=0
+-- OBJ (totals only):
+-- OBJ cells: BOTH-RIGHT=126  TOWARD=4  AWAY=0  STILL-WRONG=4  UNMOVED=48
+########## ARM f_foreign
+-- commands (rc, by binary path):
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/v169_grid2/f_foreign/g_def /tmp/v169_arms/v169_f_foreign.sv
+rc=0 /tmp/v169_bin/pris.bin /tmp/v169_arms/v169_f_foreign.sv -o /tmp/v169_grid2/f_foreign/a_def.uhdm
+rc=0 /tmp/v169_bin/pat2.bin /tmp/v169_arms/v169_f_foreign.sv -o /tmp/v169_grid2/f_foreign/b_def.uhdm
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/v169_grid2/f_foreign/g_elab /tmp/v169_arms/v169_f_foreign.sv
+rc=0 /tmp/v169_bin/pris.bin /tmp/v169_arms/v169_f_foreign.sv --elabuhdm -o /tmp/v169_grid2/f_foreign/a_elab.uhdm
+rc=0 /tmp/v169_bin/pat2.bin /tmp/v169_arms/v169_f_foreign.sv --elabuhdm -o /tmp/v169_grid2/f_foreign/b_elab.uhdm
+-- Surelog units compiled:
+Compile class "work@mailbox"
+Compile class "work@process"
+Compile class "work@semaphore"
+Compile module "work@v169_f_foreign"
+Compile package "p169fx"
+Compile package "p169hf"
+Compile package "p169hf2"
+Compile package "p169if"
+Compile package "p169jf"
+-- RET:
+UNMOVED     def    p169hf2::f_wild169                 19:33-19:39
+    G=['K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41']
+    A=['K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kx169;ACT=constant']
+    B=['K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kx169;ACT=constant']
+UNMOVED     def    p169hf2::f_wilds169                20:33-20:39
+    G=['K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff']
+    A=['K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sx169;ACT=constant']
+    B=['K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sx169;ACT=constant']
+UNMOVED     def    p169hf::f_qual169                  13:30-13:36
+    G=['K=constant;DEC=41;SZ=32;TS=<none>;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=<none>;CT=9;VAL=UINT:41']
+    A=['K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kx169;ACT=constant']
+    B=['K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kx169;ACT=constant']
+TOWARD      def    p169if::f_ownf169                  14:30-14:36
+    G=['K=constant;DEC=8;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:8', 'K=constant;DEC=8;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:8']
+    A=['K=constant;DEC=8;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:8', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kf169;ACT=constant']
+    B=['K=constant;DEC=8;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:8', 'K=constant;DEC=8;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:8']
+STILL-WRONG def    p169if::f_qual169                  13:30-13:36
+    G=['K=constant;DEC=41;SZ=32;TS=<none>;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=<none>;CT=9;VAL=UINT:41']
+    A=['K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kx169;ACT=constant']
+    B=['K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41']
+TOWARD      def    p169if::f_wild169                  19:33-19:39
+    G=['K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41']
+    A=['K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kx169;ACT=constant']
+    B=['K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41']
+TOWARD      def    p169if::f_wilds169                 20:33-20:39
+    G=['K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff']
+    A=['K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sx169;ACT=constant']
+    B=['K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff']
+TOWARD      def    p169jf::f_ownf169                  14:30-14:36
+    G=['K=constant;DEC=8;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:8', 'K=constant;DEC=8;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:8']
+    A=['K=constant;DEC=8;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:8', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kf169;ACT=constant']
+    B=['K=constant;DEC=8;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:8', 'K=constant;DEC=8;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:8']
+TOWARD      def    p169jf::f_ownif169                 27:30-27:36
+    G=['K=constant;DEC=2;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:2', 'K=constant;DEC=2;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:2']
+    A=['K=constant;DEC=2;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:2', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ownf169;ACT=constant']
+    B=['K=constant;DEC=2;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:2', 'K=constant;DEC=2;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:2']
+STILL-WRONG def    p169jf::f_qual169                  13:30-13:36
+    G=['K=constant;DEC=41;SZ=32;TS=<none>;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=<none>;CT=9;VAL=UINT:41']
+    A=['K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kx169;ACT=constant']
+    B=['K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41']
+TOWARD      def    p169jf::f_wild169                  19:33-19:39
+    G=['K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41']
+    A=['K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kx169;ACT=constant']
+    B=['K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41']
+TOWARD      def    p169jf::f_wilds169                 20:33-20:39
+    G=['K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff']
+    A=['K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sx169;ACT=constant']
+    B=['K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff']
+UNMOVED     elab   p169hf2::f_wild169                 19:33-19:39
+    G=['K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41']
+    A=['K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kx169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kx169;ACT=parameter']
+    B=['K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kx169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kx169;ACT=parameter']
+UNMOVED     elab   p169hf2::f_wilds169                20:33-20:39
+    G=['K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff']
+    A=['K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sx169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sx169;ACT=parameter']
+    B=['K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sx169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sx169;ACT=parameter']
+UNMOVED     elab   p169hf::f_qual169                  13:30-13:36
+    G=['K=constant;DEC=41;SZ=32;TS=<none>;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=<none>;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=<none>;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=<none>;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=<none>;CT=9;VAL=UINT:41']
+    A=['K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kx169;ACT=constant', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kx169;ACT=constant']
+    B=['K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kx169;ACT=constant', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kx169;ACT=constant']
+TOWARD      elab   p169if::f_ownf169                  14:30-14:36
+    G=['K=constant;DEC=8;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:8', 'K=constant;DEC=8;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:8', 'K=constant;DEC=8;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:8', 'K=constant;DEC=8;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:8']
+    A=['K=constant;DEC=8;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:8', 'K=constant;DEC=8;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:8', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kf169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kf169;ACT=parameter']
+    B=['K=constant;DEC=8;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:8', 'K=constant;DEC=8;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:8', 'K=constant;DEC=8;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:8', 'K=constant;DEC=8;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:8']
+STILL-WRONG elab   p169if::f_qual169                  13:30-13:36
+    G=['K=constant;DEC=41;SZ=32;TS=<none>;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=<none>;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=<none>;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=<none>;CT=9;VAL=UINT:41']
+    A=['K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kx169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kx169;ACT=parameter']
+    B=['K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41']
+TOWARD      elab   p169if::f_wild169                  19:33-19:39
+    G=['K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41']
+    A=['K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kx169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kx169;ACT=parameter']
+    B=['K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41']
+TOWARD      elab   p169if::f_wilds169                 20:33-20:39
+    G=['K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff']
+    A=['K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sx169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sx169;ACT=parameter']
+    B=['K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff']
+TOWARD      elab   p169jf::f_ownf169                  14:30-14:36
+    G=['K=constant;DEC=8;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:8', 'K=constant;DEC=8;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:8', 'K=constant;DEC=8;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:8', 'K=constant;DEC=8;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:8']
+    A=['K=constant;DEC=8;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:8', 'K=constant;DEC=8;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:8', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kf169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kf169;ACT=parameter']
+    B=['K=constant;DEC=8;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:8', 'K=constant;DEC=8;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:8', 'K=constant;DEC=8;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:8', 'K=constant;DEC=8;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:8']
+TOWARD      elab   p169jf::f_ownif169                 27:30-27:36
+    G=['K=constant;DEC=2;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:2', 'K=constant;DEC=2;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:2', 'K=constant;DEC=2;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:2', 'K=constant;DEC=2;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:2']
+    A=['K=constant;DEC=2;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:2', 'K=constant;DEC=2;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:2', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ownf169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ownf169;ACT=parameter']
+    B=['K=constant;DEC=2;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:2', 'K=constant;DEC=2;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:2', 'K=constant;DEC=2;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:2', 'K=constant;DEC=2;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:2']
+STILL-WRONG elab   p169jf::f_qual169                  13:30-13:36
+    G=['K=constant;DEC=41;SZ=32;TS=<none>;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=<none>;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=<none>;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=<none>;CT=9;VAL=UINT:41']
+    A=['K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kx169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kx169;ACT=parameter']
+    B=['K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41']
+TOWARD      elab   p169jf::f_wild169                  19:33-19:39
+    G=['K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41']
+    A=['K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kx169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kx169;ACT=parameter']
+    B=['K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41', 'K=constant;DEC=41;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:41']
+TOWARD      elab   p169jf::f_wilds169                 20:33-20:39
+    G=['K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff']
+    A=['K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sx169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sx169;ACT=parameter']
+    B=['K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff', 'K=constant;DEC="eff";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eff']
+-- RET cells: BOTH-RIGHT=6  TOWARD=14  AWAY=0  STILL-WRONG=4  UNMOVED=6
+-- OBJ (totals only):
+-- OBJ cells: BOTH-RIGHT=125  TOWARD=4  AWAY=0  STILL-WRONG=8  UNMOVED=56
+########## ARM g_control
+-- commands (rc, by binary path):
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/v169_grid2/g_control/g_def /tmp/v169_arms/v169_g_control.sv
+rc=0 /tmp/v169_bin/pris.bin /tmp/v169_arms/v169_g_control.sv -o /tmp/v169_grid2/g_control/a_def.uhdm
+rc=0 /tmp/v169_bin/pat2.bin /tmp/v169_arms/v169_g_control.sv -o /tmp/v169_grid2/g_control/b_def.uhdm
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/v169_grid2/g_control/g_elab /tmp/v169_arms/v169_g_control.sv
+rc=0 /tmp/v169_bin/pris.bin /tmp/v169_arms/v169_g_control.sv --elabuhdm -o /tmp/v169_grid2/g_control/a_elab.uhdm
+rc=0 /tmp/v169_bin/pat2.bin /tmp/v169_arms/v169_g_control.sv --elabuhdm -o /tmp/v169_grid2/g_control/b_elab.uhdm
+-- Surelog units compiled:
+Compile class "work@mailbox"
+Compile class "work@process"
+Compile class "work@semaphore"
+Compile module "work@v169_g_control"
+Compile package "p169hg"
+Compile package "p169ig"
+-- RET:
+UNMOVED     def    p169ig::f_after169                 32:17-32:23
+    G=['K=ref_obj;DEC=;SZ=0;TS=<none>;NM=lg169;ACT=<null>', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=lg169;ACT=<null>']
+    A=['K=ref_obj;DEC=;SZ=0;TS=<none>;NM=lg169;ACT=constant', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=lg169;ACT=constant']
+    B=['K=ref_obj;DEC=;SZ=0;TS=<none>;NM=lg169;ACT=constant', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=lg169;ACT=constant']
+TOWARD      def    p169ig::f_after169                 33:5-33:11
+    G=['K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3']
+    A=['K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kg169;ACT=constant']
+    B=['K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3']
+UNMOVED     def    p169ig::f_case169                  20:13-20:19
+    G=['K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kg169;ACT=<null>', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kg169;ACT=<null>']
+    A=['K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kg169;ACT=constant', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kg169;ACT=constant']
+    B=['K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kg169;ACT=constant', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kg169;ACT=constant']
+UNMOVED     def    p169ig::f_case169                  21:16-21:22
+    G=['K=ref_obj;DEC=;SZ=0;TS=<none>;NM=lg169;ACT=<null>', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=lg169;ACT=<null>']
+    A=['K=ref_obj;DEC=;SZ=0;TS=<none>;NM=lg169;ACT=constant', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=lg169;ACT=constant']
+    B=['K=ref_obj;DEC=;SZ=0;TS=<none>;NM=lg169;ACT=constant', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=lg169;ACT=constant']
+UNMOVED     def    p169ig::f_multi169                 14:12-14:18
+    G=['K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kg169;ACT=<null>', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kg169;ACT=<null>']
+    A=['K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kg169;ACT=constant', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kg169;ACT=constant']
+    B=['K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kg169;ACT=constant', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kg169;ACT=constant']
+TOWARD      def    p169ig::f_multi169                 15:5-15:11
+    G=['K=constant;DEC=4;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:4', 'K=constant;DEC=4;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:4']
+    A=['K=constant;DEC=4;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:4', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=lg169;ACT=constant']
+    B=['K=constant;DEC=4;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:4', 'K=constant;DEC=4;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:4']
+UNMOVED     def    p169ig::f_rec169                   9:17-9:23
+    G=['K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kg169;ACT=<null>', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kg169;ACT=<null>']
+    A=['K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kg169;ACT=constant', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kg169;ACT=constant']
+    B=['K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kg169;ACT=constant', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kg169;ACT=constant']
+UNMOVED     elab   p169hg::f_void169                  25:30-25:36
+    G=['K=<null>', 'K=<null>', 'K=<null>', 'K=<null>']
+    A=['K=<null>', 'K=<null>', 'K=<null>', 'K=<null>', 'K=<null>']
+    B=['K=<null>', 'K=<null>', 'K=<null>', 'K=<null>', 'K=<null>']
+UNMOVED     elab   p169hg::t_task169                  27:21-27:27
+    G=['K=<null>', 'K=<null>', 'K=<null>', 'K=<null>']
+    A=['K=<null>', 'K=<null>', 'K=<null>', 'K=<null>', 'K=<null>']
+    B=['K=<null>', 'K=<null>', 'K=<null>', 'K=<null>', 'K=<null>']
+TOWARD      elab   p169ig::f_after169                 33:5-33:11
+    G=['K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3']
+    A=['K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kg169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kg169;ACT=parameter']
+    B=['K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3']
+TOWARD      elab   p169ig::f_multi169                 15:5-15:11
+    G=['K=constant;DEC=4;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:4', 'K=constant;DEC=4;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:4', 'K=constant;DEC=4;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:4', 'K=constant;DEC=4;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:4']
+    A=['K=constant;DEC=4;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:4', 'K=constant;DEC=4;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:4', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=lg169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=lg169;ACT=parameter']
+    B=['K=constant;DEC=4;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:4', 'K=constant;DEC=4;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:4', 'K=constant;DEC=4;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:4', 'K=constant;DEC=4;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:4']
+UNMOVED     elab   p169ig::f_void169                  25:30-25:36
+    G=['K=<null>', 'K=<null>']
+    A=['K=<null>', 'K=<null>', 'K=<null>', 'K=<null>']
+    B=['K=<null>', 'K=<null>', 'K=<null>', 'K=<null>']
+UNMOVED     elab   p169ig::t_task169                  27:21-27:27
+    G=['K=<null>', 'K=<null>']
+    A=['K=<null>', 'K=<null>', 'K=<null>', 'K=<null>']
+    B=['K=<null>', 'K=<null>', 'K=<null>', 'K=<null>']
+-- RET cells: BOTH-RIGHT=29  TOWARD=4  AWAY=0  STILL-WRONG=0  UNMOVED=9
+-- OBJ (totals only):
+-- OBJ cells: BOTH-RIGHT=130  TOWARD=2  AWAY=0  STILL-WRONG=6  UNMOVED=45
+########## ARM h_types
+-- commands (rc, by binary path):
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/v169_grid2/h_types/g_def /tmp/v169_arms/v169_h_types.sv
+rc=0 /tmp/v169_bin/pris.bin /tmp/v169_arms/v169_h_types.sv -o /tmp/v169_grid2/h_types/a_def.uhdm
+rc=0 /tmp/v169_bin/pat2.bin /tmp/v169_arms/v169_h_types.sv -o /tmp/v169_grid2/h_types/b_def.uhdm
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/v169_grid2/h_types/g_elab /tmp/v169_arms/v169_h_types.sv
+rc=0 /tmp/v169_bin/pris.bin /tmp/v169_arms/v169_h_types.sv --elabuhdm -o /tmp/v169_grid2/h_types/a_elab.uhdm
+rc=0 /tmp/v169_bin/pat2.bin /tmp/v169_arms/v169_h_types.sv --elabuhdm -o /tmp/v169_grid2/h_types/b_elab.uhdm
+-- Surelog units compiled:
+Compile class "work@mailbox"
+Compile class "work@process"
+Compile class "work@semaphore"
+Compile module "work@v169_h_types"
+Compile package "p169hh"
+Compile package "p169ih"
+-- RET:
+UNMOVED     def    p169hh::f_cast169                  16:38-16:44
+    G=['K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:165', 'K=operation;DEC=;SZ=0;TS=int_typespec:']
+    A=['K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:']
+    B=['K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:']
+UNMOVED     def    p169hh::f_castp169                 17:38-17:44
+    G=['K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:9', 'K=operation;DEC=;SZ=0;TS=int_typespec:']
+    A=['K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:']
+    B=['K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:']
+UNMOVED     def    p169hh::f_enumint169               19:38-19:44
+    G=['K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:2', 'K=operation;DEC=;SZ=0;TS=int_typespec:']
+    A=['K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:']
+    B=['K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:']
+UNMOVED     def    p169ih::f_cast169                  16:38-16:44
+    G=['K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:165', 'K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:165']
+    A=['K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:']
+    B=['K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:']
+UNMOVED     def    p169ih::f_castp169                 17:38-17:44
+    G=['K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:9', 'K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:9']
+    A=['K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:']
+    B=['K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:']
+TOWARD      def    p169ih::f_enum169                  18:38-18:44
+    G=['K=constant;DEC=2;SZ=32;TS=enum_typespec:p169hh::eh169_t;CT=9;VAL=UINT:2', 'K=constant;DEC=2;SZ=32;TS=enum_typespec:p169hh::eh169_t;CT=9;VAL=UINT:2']
+    A=['K=constant;DEC=2;SZ=32;TS=enum_typespec:p169hh::eh169_t;CT=9;VAL=UINT:2', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=eh169;ACT=constant']
+    B=['K=constant;DEC=2;SZ=32;TS=enum_typespec:p169hh::eh169_t;CT=9;VAL=UINT:2', 'K=constant;DEC=2;SZ=32;TS=enum_typespec:p169hh::eh169_t;CT=9;VAL=UINT:2']
+UNMOVED     def    p169ih::f_enumint169               19:38-19:44
+    G=['K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:2', 'K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:2']
+    A=['K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:']
+    B=['K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:']
+TOWARD      def    p169ih::f_exact169                 22:38-22:44
+    G=["K=constant;DEC=8'hA5;SZ=8;TS=bit_typespec:;CT=5;VAL=HEX:A5", "K=constant;DEC=8'hA5;SZ=8;TS=bit_typespec:;CT=5;VAL=HEX:A5"]
+    A=["K=constant;DEC=8'hA5;SZ=8;TS=bit_typespec:;CT=5;VAL=HEX:A5", 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=vh169;ACT=constant']
+    B=["K=constant;DEC=8'hA5;SZ=8;TS=bit_typespec:;CT=5;VAL=HEX:A5", "K=constant;DEC=8'hA5;SZ=8;TS=bit_typespec:;CT=5;VAL=HEX:A5"]
+TOWARD      def    p169ih::f_narrow169                13:38-13:44
+    G=['K=constant;DEC=9;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:9', 'K=constant;DEC=9;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:9']
+    A=['K=constant;DEC=9;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:9', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kh169;ACT=constant']
+    B=['K=constant;DEC=9;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:9', 'K=constant;DEC=9;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:9']
+TOWARD      def    p169ih::f_wide169                  14:38-14:44
+    G=['K=constant;DEC=9;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:9', 'K=constant;DEC=9;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:9']
+    A=['K=constant;DEC=9;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:9', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kh169;ACT=constant']
+    B=['K=constant;DEC=9;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:9', 'K=constant;DEC=9;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:9']
+TOWARD      def    p169ih::f_widep169                 15:38-15:44
+    G=["K=constant;DEC=8'hA5;SZ=8;TS=bit_typespec:;CT=5;VAL=HEX:A5", "K=constant;DEC=8'hA5;SZ=8;TS=bit_typespec:;CT=5;VAL=HEX:A5"]
+    A=["K=constant;DEC=8'hA5;SZ=8;TS=bit_typespec:;CT=5;VAL=HEX:A5", 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=vh169;ACT=constant']
+    B=["K=constant;DEC=8'hA5;SZ=8;TS=bit_typespec:;CT=5;VAL=HEX:A5", "K=constant;DEC=8'hA5;SZ=8;TS=bit_typespec:;CT=5;VAL=HEX:A5"]
+UNMOVED     elab   p169hh::f_cast169                  16:38-16:44
+    G=['K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:165', 'K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:165', 'K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:165', 'K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:']
+    A=['K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:165', 'K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:165', 'K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:']
+    B=['K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:165', 'K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:165', 'K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:']
+UNMOVED     elab   p169hh::f_castp169                 17:38-17:44
+    G=['K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:9', 'K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:9', 'K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:9', 'K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:']
+    A=['K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:9', 'K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:9', 'K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:']
+    B=['K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:9', 'K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:9', 'K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:']
+UNMOVED     elab   p169hh::f_enumint169               19:38-19:44
+    G=['K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:2', 'K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:2', 'K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:2', 'K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:']
+    A=['K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:2', 'K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:2', 'K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:']
+    B=['K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:2', 'K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:2', 'K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:']
+UNMOVED     elab   p169ih::f_cast169                  16:38-16:44
+    G=['K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:165', 'K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:165', 'K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:165', 'K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:165']
+    A=['K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:165', 'K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:']
+    B=['K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:165', 'K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:']
+UNMOVED     elab   p169ih::f_castp169                 17:38-17:44
+    G=['K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:9', 'K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:9', 'K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:9', 'K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:9']
+    A=['K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:9', 'K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:']
+    B=['K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:9', 'K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:']
+TOWARD      elab   p169ih::f_enum169                  18:38-18:44
+    G=['K=constant;DEC=2;SZ=32;TS=enum_typespec:p169hh::eh169_t;CT=9;VAL=UINT:2', 'K=constant;DEC=2;SZ=32;TS=enum_typespec:p169hh::eh169_t;CT=9;VAL=UINT:2', 'K=constant;DEC=2;SZ=32;TS=enum_typespec:p169hh::eh169_t;CT=9;VAL=UINT:2', 'K=constant;DEC=2;SZ=32;TS=enum_typespec:p169hh::eh169_t;CT=9;VAL=UINT:2']
+    A=['K=constant;DEC=2;SZ=32;TS=enum_typespec:p169hh::eh169_t;CT=9;VAL=UINT:2', 'K=constant;DEC=2;SZ=32;TS=enum_typespec:p169hh::eh169_t;CT=9;VAL=UINT:2', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=eh169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=eh169;ACT=parameter']
+    B=['K=constant;DEC=2;SZ=32;TS=enum_typespec:p169hh::eh169_t;CT=9;VAL=UINT:2', 'K=constant;DEC=2;SZ=32;TS=enum_typespec:p169hh::eh169_t;CT=9;VAL=UINT:2', 'K=constant;DEC=2;SZ=32;TS=enum_typespec:p169hh::eh169_t;CT=9;VAL=UINT:2', 'K=constant;DEC=2;SZ=32;TS=enum_typespec:p169hh::eh169_t;CT=9;VAL=UINT:2']
+UNMOVED     elab   p169ih::f_enumint169               19:38-19:44
+    G=['K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:2', 'K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:2', 'K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:2', 'K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:2']
+    A=['K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:2', 'K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:']
+    B=['K=constant;DEC=;SZ=64;TS=<none>;CT=9;VAL=UINT:2', 'K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:', 'K=operation;DEC=;SZ=0;TS=int_typespec:']
+TOWARD      elab   p169ih::f_exact169                 22:38-22:44
+    G=["K=constant;DEC=8'hA5;SZ=8;TS=bit_typespec:;CT=5;VAL=HEX:A5", "K=constant;DEC=8'hA5;SZ=8;TS=bit_typespec:;CT=5;VAL=HEX:A5", "K=constant;DEC=8'hA5;SZ=8;TS=bit_typespec:;CT=5;VAL=HEX:A5", "K=constant;DEC=8'hA5;SZ=8;TS=bit_typespec:;CT=5;VAL=HEX:A5"]
+    A=["K=constant;DEC=8'hA5;SZ=8;TS=bit_typespec:;CT=5;VAL=HEX:A5", "K=constant;DEC=8'hA5;SZ=8;TS=bit_typespec:;CT=5;VAL=HEX:A5", 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=vh169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=vh169;ACT=parameter']
+    B=["K=constant;DEC=8'hA5;SZ=8;TS=bit_typespec:;CT=5;VAL=HEX:A5", "K=constant;DEC=8'hA5;SZ=8;TS=bit_typespec:;CT=5;VAL=HEX:A5", "K=constant;DEC=8'hA5;SZ=8;TS=bit_typespec:;CT=5;VAL=HEX:A5", "K=constant;DEC=8'hA5;SZ=8;TS=bit_typespec:;CT=5;VAL=HEX:A5"]
+TOWARD      elab   p169ih::f_narrow169                13:38-13:44
+    G=['K=constant;DEC=9;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:9', 'K=constant;DEC=9;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:9', 'K=constant;DEC=9;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:9', 'K=constant;DEC=9;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:9']
+    A=['K=constant;DEC=9;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:9', 'K=constant;DEC=9;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:9', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kh169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kh169;ACT=parameter']
+    B=['K=constant;DEC=9;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:9', 'K=constant;DEC=9;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:9', 'K=constant;DEC=9;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:9', 'K=constant;DEC=9;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:9']
+TOWARD      elab   p169ih::f_wide169                  14:38-14:44
+    G=['K=constant;DEC=9;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:9', 'K=constant;DEC=9;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:9', 'K=constant;DEC=9;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:9', 'K=constant;DEC=9;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:9']
+    A=['K=constant;DEC=9;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:9', 'K=constant;DEC=9;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:9', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kh169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kh169;ACT=parameter']
+    B=['K=constant;DEC=9;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:9', 'K=constant;DEC=9;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:9', 'K=constant;DEC=9;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:9', 'K=constant;DEC=9;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:9']
+TOWARD      elab   p169ih::f_widep169                 15:38-15:44
+    G=["K=constant;DEC=8'hA5;SZ=8;TS=bit_typespec:;CT=5;VAL=HEX:A5", "K=constant;DEC=8'hA5;SZ=8;TS=bit_typespec:;CT=5;VAL=HEX:A5", "K=constant;DEC=8'hA5;SZ=8;TS=bit_typespec:;CT=5;VAL=HEX:A5", "K=constant;DEC=8'hA5;SZ=8;TS=bit_typespec:;CT=5;VAL=HEX:A5"]
+    A=["K=constant;DEC=8'hA5;SZ=8;TS=bit_typespec:;CT=5;VAL=HEX:A5", "K=constant;DEC=8'hA5;SZ=8;TS=bit_typespec:;CT=5;VAL=HEX:A5", 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=vh169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=vh169;ACT=parameter']
+    B=["K=constant;DEC=8'hA5;SZ=8;TS=bit_typespec:;CT=5;VAL=HEX:A5", "K=constant;DEC=8'hA5;SZ=8;TS=bit_typespec:;CT=5;VAL=HEX:A5", "K=constant;DEC=8'hA5;SZ=8;TS=bit_typespec:;CT=5;VAL=HEX:A5", "K=constant;DEC=8'hA5;SZ=8;TS=bit_typespec:;CT=5;VAL=HEX:A5"]
+-- RET cells: BOTH-RIGHT=20  TOWARD=10  AWAY=0  STILL-WRONG=0  UNMOVED=12
+-- OBJ (totals only):
+-- OBJ cells: BOTH-RIGHT=149  TOWARD=0  AWAY=0  STILL-WRONG=10  UNMOVED=77
+########## ARM i_multi
+-- commands (rc, by binary path):
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/v169_grid2/i_multi/g_def /tmp/v169_arms/v169_i_multi.sv
+rc=0 /tmp/v169_bin/pris.bin /tmp/v169_arms/v169_i_multi.sv -o /tmp/v169_grid2/i_multi/a_def.uhdm
+rc=0 /tmp/v169_bin/pat2.bin /tmp/v169_arms/v169_i_multi.sv -o /tmp/v169_grid2/i_multi/b_def.uhdm
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/v169_grid2/i_multi/g_elab /tmp/v169_arms/v169_i_multi.sv
+rc=0 /tmp/v169_bin/pris.bin /tmp/v169_arms/v169_i_multi.sv --elabuhdm -o /tmp/v169_grid2/i_multi/a_elab.uhdm
+rc=0 /tmp/v169_bin/pat2.bin /tmp/v169_arms/v169_i_multi.sv --elabuhdm -o /tmp/v169_grid2/i_multi/b_elab.uhdm
+-- Surelog units compiled:
+Compile class "work@mailbox"
+Compile class "work@process"
+Compile class "work@semaphore"
+Compile module "work@v169_i_multi"
+Compile package "p169hi"
+Compile package "p169i1"
+Compile package "p169i2"
+Compile package "p169i3"
+-- RET:
+UNMOVED     def    p169hi::f_shtyp169                 14:36-14:42
+    G=["K=constant;DEC=6'h2a;SZ=6;TS=bit_typespec:vi169_t;CT=5;VAL=HEX:2a", 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ti169;ACT=constant']
+    A=["K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a", 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ti169;ACT=constant']
+    B=["K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a", 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ti169;ACT=constant']
+TOWARD      def    p169i1::f_shared169                12:36-12:42
+    G=['K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17']
+    A=['K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ki169;ACT=constant']
+    B=['K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17']
+TOWARD      def    p169i1::f_shstr169                 13:36-13:42
+    G=['K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye']
+    A=['K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=si169;ACT=constant']
+    B=['K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye']
+STILL-WRONG def    p169i1::f_shtyp169                 14:36-14:42
+    G=["K=constant;DEC=6'h2a;SZ=6;TS=bit_typespec:vi169_t;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=bit_typespec:vi169_t;CT=5;VAL=HEX:2a"]
+    A=["K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a", 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ti169;ACT=constant']
+    B=["K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a"]
+TOWARD      def    p169i2::f_shared169                12:36-12:42
+    G=['K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17']
+    A=['K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ki169;ACT=constant']
+    B=['K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17']
+TOWARD      def    p169i2::f_shstr169                 13:36-13:42
+    G=['K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye']
+    A=['K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=si169;ACT=constant']
+    B=['K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye']
+STILL-WRONG def    p169i2::f_shtyp169                 14:36-14:42
+    G=["K=constant;DEC=6'h2a;SZ=6;TS=bit_typespec:vi169_t;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=bit_typespec:vi169_t;CT=5;VAL=HEX:2a"]
+    A=["K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a", 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ti169;ACT=constant']
+    B=["K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a"]
+TOWARD      def    p169i3::f_shared169                12:36-12:42
+    G=['K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17']
+    A=['K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ki169;ACT=constant']
+    B=['K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17']
+TOWARD      def    p169i3::f_shstr169                 13:36-13:42
+    G=['K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye']
+    A=['K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=si169;ACT=constant']
+    B=['K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye']
+STILL-WRONG def    p169i3::f_shtyp169                 14:36-14:42
+    G=["K=constant;DEC=6'h2a;SZ=6;TS=bit_typespec:vi169_t;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=bit_typespec:vi169_t;CT=5;VAL=HEX:2a"]
+    A=["K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a", 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ti169;ACT=constant']
+    B=["K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a"]
+UNMOVED     elab   p169hi::f_shtyp169                 14:36-14:42
+    G=["K=constant;DEC=6'h2a;SZ=6;TS=bit_typespec:vi169_t;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=bit_typespec:vi169_t;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=bit_typespec:vi169_t;CT=5;VAL=HEX:2a", 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ti169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ti169;ACT=parameter']
+    A=["K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a", 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ti169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ti169;ACT=parameter']
+    B=["K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a", 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ti169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ti169;ACT=parameter']
+TOWARD      elab   p169i1::f_shared169                12:36-12:42
+    G=['K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17']
+    A=['K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ki169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ki169;ACT=parameter']
+    B=['K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17']
+TOWARD      elab   p169i1::f_shstr169                 13:36-13:42
+    G=['K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye']
+    A=['K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=si169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=si169;ACT=parameter']
+    B=['K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye']
+STILL-WRONG elab   p169i1::f_shtyp169                 14:36-14:42
+    G=["K=constant;DEC=6'h2a;SZ=6;TS=bit_typespec:vi169_t;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=bit_typespec:vi169_t;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=bit_typespec:vi169_t;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=bit_typespec:vi169_t;CT=5;VAL=HEX:2a"]
+    A=["K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a", 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ti169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ti169;ACT=parameter']
+    B=["K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a"]
+TOWARD      elab   p169i2::f_shared169                12:36-12:42
+    G=['K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17']
+    A=['K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ki169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ki169;ACT=parameter']
+    B=['K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17']
+TOWARD      elab   p169i2::f_shstr169                 13:36-13:42
+    G=['K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye']
+    A=['K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=si169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=si169;ACT=parameter']
+    B=['K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye']
+STILL-WRONG elab   p169i2::f_shtyp169                 14:36-14:42
+    G=["K=constant;DEC=6'h2a;SZ=6;TS=bit_typespec:vi169_t;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=bit_typespec:vi169_t;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=bit_typespec:vi169_t;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=bit_typespec:vi169_t;CT=5;VAL=HEX:2a"]
+    A=["K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a", 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ti169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ti169;ACT=parameter']
+    B=["K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a"]
+TOWARD      elab   p169i3::f_shared169                12:36-12:42
+    G=['K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17']
+    A=['K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ki169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ki169;ACT=parameter']
+    B=['K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17', 'K=constant;DEC=17;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:17']
+TOWARD      elab   p169i3::f_shstr169                 13:36-13:42
+    G=['K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye']
+    A=['K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=si169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=si169;ACT=parameter']
+    B=['K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye', 'K=constant;DEC="eye";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:eye']
+STILL-WRONG elab   p169i3::f_shtyp169                 14:36-14:42
+    G=["K=constant;DEC=6'h2a;SZ=6;TS=bit_typespec:vi169_t;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=bit_typespec:vi169_t;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=bit_typespec:vi169_t;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=bit_typespec:vi169_t;CT=5;VAL=HEX:2a"]
+    A=["K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a", 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ti169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ti169;ACT=parameter']
+    B=["K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a", "K=constant;DEC=6'h2a;SZ=6;TS=int_typespec:;CT=5;VAL=HEX:2a"]
+-- RET cells: BOTH-RIGHT=10  TOWARD=12  AWAY=0  STILL-WRONG=6  UNMOVED=2
+-- OBJ (totals only):
+-- OBJ cells: BOTH-RIGHT=136  TOWARD=6  AWAY=0  STILL-WRONG=4  UNMOVED=60
+########## ARM k_rhsform
+-- commands (rc, by binary path):
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/v169_grid2/k_rhsform/g_def /tmp/v169_arms/v169_k_rhsform.sv
+rc=0 /tmp/v169_bin/pris.bin /tmp/v169_arms/v169_k_rhsform.sv -o /tmp/v169_grid2/k_rhsform/a_def.uhdm
+rc=0 /tmp/v169_bin/pat2.bin /tmp/v169_arms/v169_k_rhsform.sv -o /tmp/v169_grid2/k_rhsform/b_def.uhdm
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/v169_grid2/k_rhsform/g_elab /tmp/v169_arms/v169_k_rhsform.sv
+rc=0 /tmp/v169_bin/pris.bin /tmp/v169_arms/v169_k_rhsform.sv --elabuhdm -o /tmp/v169_grid2/k_rhsform/a_elab.uhdm
+rc=0 /tmp/v169_bin/pat2.bin /tmp/v169_arms/v169_k_rhsform.sv --elabuhdm -o /tmp/v169_grid2/k_rhsform/b_elab.uhdm
+-- Surelog units compiled:
+Compile class "work@mailbox"
+Compile class "work@process"
+Compile class "work@semaphore"
+Compile module "work@v169_k_rhsform"
+Compile package "p169hk"
+Compile package "p169ik"
+-- RET:
+UNMOVED     def    p169hk::f_sk169                    17:30-17:36
+    G=['K=constant;DEC=;SZ=40;TS=<none>;CT=6;VAL=STRING:exwye', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sk169;ACT=operation']
+    A=['K=constant;DEC=exwye;SZ=40;TS=string_typespec:;CT=6;VAL=STRING:exwye', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sk169;ACT=operation']
+    B=['K=constant;DEC=exwye;SZ=40;TS=string_typespec:;CT=6;VAL=STRING:exwye', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sk169;ACT=operation']
+UNMOVED     def    p169hk::f_ve169                    19:33-19:39
+    G=['K=constant;DEC=;SZ=8;TS=<none>;CT=3;VAL=BIN:10100101', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ve169;ACT=operation']
+    A=['K=constant;DEC=165;SZ=8;TS=bit_typespec:;CT=9;VAL=UINT:165', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ve169;ACT=operation']
+    B=['K=constant;DEC=165;SZ=8;TS=bit_typespec:;CT=9;VAL=UINT:165', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ve169;ACT=operation']
+TOWARD      def    p169ik::f_ka169                    14:30-14:36
+    G=['K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5']
+    A=['K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ka169;ACT=constant']
+    B=['K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5']
+TOWARD      def    p169ik::f_kb169                    15:30-15:36
+    G=['K=constant;DEC=6;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:6', 'K=constant;DEC=6;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:6']
+    A=['K=constant;DEC=6;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:6', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kb169;ACT=constant']
+    B=['K=constant;DEC=6;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:6', 'K=constant;DEC=6;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:6']
+TOWARD      def    p169ik::f_kc169                    16:30-16:36
+    G=['K=constant;DEC=12;SZ=32;TS=int_typespec:;CT=7;VAL=INT:12', 'K=constant;DEC=12;SZ=32;TS=int_typespec:;CT=7;VAL=INT:12']
+    A=['K=constant;DEC=12;SZ=32;TS=int_typespec:;CT=7;VAL=INT:12', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kc169;ACT=constant']
+    B=['K=constant;DEC=12;SZ=32;TS=int_typespec:;CT=7;VAL=INT:12', 'K=constant;DEC=12;SZ=32;TS=int_typespec:;CT=7;VAL=INT:12']
+TOWARD      def    p169ik::f_kd169                    18:30-18:36
+    G=['K=constant;DEC=6;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:6', 'K=constant;DEC=6;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:6']
+    A=['K=constant;DEC=6;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:6', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kd169;ACT=constant']
+    B=['K=constant;DEC=6;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:6', 'K=constant;DEC=6;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:6']
+STILL-WRONG def    p169ik::f_sk169                    17:30-17:36
+    G=['K=constant;DEC=;SZ=40;TS=<none>;CT=6;VAL=STRING:exwye', 'K=constant;DEC=;SZ=40;TS=<none>;CT=6;VAL=STRING:exwye']
+    A=['K=constant;DEC=exwye;SZ=40;TS=string_typespec:;CT=6;VAL=STRING:exwye', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sk169;ACT=constant']
+    B=['K=constant;DEC=exwye;SZ=40;TS=string_typespec:;CT=6;VAL=STRING:exwye', 'K=constant;DEC=exwye;SZ=40;TS=string_typespec:;CT=6;VAL=STRING:exwye']
+STILL-WRONG def    p169ik::f_ve169                    19:33-19:39
+    G=['K=constant;DEC=;SZ=8;TS=<none>;CT=3;VAL=BIN:10100101', 'K=constant;DEC=;SZ=8;TS=<none>;CT=3;VAL=BIN:10100101']
+    A=['K=constant;DEC=165;SZ=8;TS=bit_typespec:;CT=9;VAL=UINT:165', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ve169;ACT=operation']
+    B=['K=constant;DEC=165;SZ=8;TS=bit_typespec:;CT=9;VAL=UINT:165', 'K=constant;DEC=165;SZ=8;TS=bit_typespec:;CT=9;VAL=UINT:165']
+UNMOVED     elab   p169hk::f_sk169                    17:30-17:36
+    G=['K=constant;DEC=;SZ=40;TS=<none>;CT=6;VAL=STRING:exwye', 'K=constant;DEC=;SZ=40;TS=<none>;CT=6;VAL=STRING:exwye', 'K=constant;DEC=;SZ=40;TS=<none>;CT=6;VAL=STRING:exwye', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sk169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sk169;ACT=parameter']
+    A=['K=constant;DEC=exwye;SZ=40;TS=string_typespec:;CT=6;VAL=STRING:exwye', 'K=constant;DEC=exwye;SZ=40;TS=string_typespec:;CT=6;VAL=STRING:exwye', 'K=constant;DEC=exwye;SZ=40;TS=string_typespec:;CT=6;VAL=STRING:exwye', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sk169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sk169;ACT=parameter']
+    B=['K=constant;DEC=exwye;SZ=40;TS=string_typespec:;CT=6;VAL=STRING:exwye', 'K=constant;DEC=exwye;SZ=40;TS=string_typespec:;CT=6;VAL=STRING:exwye', 'K=constant;DEC=exwye;SZ=40;TS=string_typespec:;CT=6;VAL=STRING:exwye', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sk169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sk169;ACT=parameter']
+UNMOVED     elab   p169hk::f_ve169                    19:33-19:39
+    G=['K=constant;DEC=;SZ=8;TS=<none>;CT=3;VAL=BIN:10100101', 'K=constant;DEC=;SZ=8;TS=<none>;CT=3;VAL=BIN:10100101', 'K=constant;DEC=;SZ=8;TS=<none>;CT=3;VAL=BIN:10100101', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ve169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ve169;ACT=parameter']
+    A=['K=constant;DEC=165;SZ=8;TS=bit_typespec:;CT=9;VAL=UINT:165', 'K=constant;DEC=165;SZ=8;TS=bit_typespec:;CT=9;VAL=UINT:165', 'K=constant;DEC=165;SZ=8;TS=bit_typespec:;CT=9;VAL=UINT:165', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ve169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ve169;ACT=parameter']
+    B=['K=constant;DEC=165;SZ=8;TS=bit_typespec:;CT=9;VAL=UINT:165', 'K=constant;DEC=165;SZ=8;TS=bit_typespec:;CT=9;VAL=UINT:165', 'K=constant;DEC=165;SZ=8;TS=bit_typespec:;CT=9;VAL=UINT:165', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ve169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ve169;ACT=parameter']
+TOWARD      elab   p169ik::f_ka169                    14:30-14:36
+    G=['K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5']
+    A=['K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ka169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ka169;ACT=parameter']
+    B=['K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5', 'K=constant;DEC=5;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:5']
+TOWARD      elab   p169ik::f_kb169                    15:30-15:36
+    G=['K=constant;DEC=6;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:6', 'K=constant;DEC=6;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:6', 'K=constant;DEC=6;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:6', 'K=constant;DEC=6;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:6']
+    A=['K=constant;DEC=6;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:6', 'K=constant;DEC=6;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:6', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kb169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kb169;ACT=parameter']
+    B=['K=constant;DEC=6;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:6', 'K=constant;DEC=6;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:6', 'K=constant;DEC=6;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:6', 'K=constant;DEC=6;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:6']
+TOWARD      elab   p169ik::f_kc169                    16:30-16:36
+    G=['K=constant;DEC=12;SZ=32;TS=int_typespec:;CT=7;VAL=INT:12', 'K=constant;DEC=12;SZ=32;TS=int_typespec:;CT=7;VAL=INT:12', 'K=constant;DEC=12;SZ=32;TS=int_typespec:;CT=7;VAL=INT:12', 'K=constant;DEC=12;SZ=32;TS=int_typespec:;CT=7;VAL=INT:12']
+    A=['K=constant;DEC=12;SZ=32;TS=int_typespec:;CT=7;VAL=INT:12', 'K=constant;DEC=12;SZ=32;TS=int_typespec:;CT=7;VAL=INT:12', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kc169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kc169;ACT=parameter']
+    B=['K=constant;DEC=12;SZ=32;TS=int_typespec:;CT=7;VAL=INT:12', 'K=constant;DEC=12;SZ=32;TS=int_typespec:;CT=7;VAL=INT:12', 'K=constant;DEC=12;SZ=32;TS=int_typespec:;CT=7;VAL=INT:12', 'K=constant;DEC=12;SZ=32;TS=int_typespec:;CT=7;VAL=INT:12']
+TOWARD      elab   p169ik::f_kd169                    18:30-18:36
+    G=['K=constant;DEC=6;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:6', 'K=constant;DEC=6;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:6', 'K=constant;DEC=6;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:6', 'K=constant;DEC=6;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:6']
+    A=['K=constant;DEC=6;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:6', 'K=constant;DEC=6;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:6', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kd169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kd169;ACT=parameter']
+    B=['K=constant;DEC=6;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:6', 'K=constant;DEC=6;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:6', 'K=constant;DEC=6;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:6', 'K=constant;DEC=6;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:6']
+STILL-WRONG elab   p169ik::f_sk169                    17:30-17:36
+    G=['K=constant;DEC=;SZ=40;TS=<none>;CT=6;VAL=STRING:exwye', 'K=constant;DEC=;SZ=40;TS=<none>;CT=6;VAL=STRING:exwye', 'K=constant;DEC=;SZ=40;TS=<none>;CT=6;VAL=STRING:exwye', 'K=constant;DEC=;SZ=40;TS=<none>;CT=6;VAL=STRING:exwye']
+    A=['K=constant;DEC=exwye;SZ=40;TS=string_typespec:;CT=6;VAL=STRING:exwye', 'K=constant;DEC=exwye;SZ=40;TS=string_typespec:;CT=6;VAL=STRING:exwye', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sk169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sk169;ACT=parameter']
+    B=['K=constant;DEC=exwye;SZ=40;TS=string_typespec:;CT=6;VAL=STRING:exwye', 'K=constant;DEC=exwye;SZ=40;TS=string_typespec:;CT=6;VAL=STRING:exwye', 'K=constant;DEC=exwye;SZ=40;TS=string_typespec:;CT=6;VAL=STRING:exwye', 'K=constant;DEC=exwye;SZ=40;TS=string_typespec:;CT=6;VAL=STRING:exwye']
+STILL-WRONG elab   p169ik::f_ve169                    19:33-19:39
+    G=['K=constant;DEC=;SZ=8;TS=<none>;CT=3;VAL=BIN:10100101', 'K=constant;DEC=;SZ=8;TS=<none>;CT=3;VAL=BIN:10100101', 'K=constant;DEC=;SZ=8;TS=<none>;CT=3;VAL=BIN:10100101', 'K=constant;DEC=;SZ=8;TS=<none>;CT=3;VAL=BIN:10100101']
+    A=['K=constant;DEC=165;SZ=8;TS=bit_typespec:;CT=9;VAL=UINT:165', 'K=constant;DEC=165;SZ=8;TS=bit_typespec:;CT=9;VAL=UINT:165', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ve169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ve169;ACT=parameter']
+    B=['K=constant;DEC=165;SZ=8;TS=bit_typespec:;CT=9;VAL=UINT:165', 'K=constant;DEC=165;SZ=8;TS=bit_typespec:;CT=9;VAL=UINT:165', 'K=constant;DEC=165;SZ=8;TS=bit_typespec:;CT=9;VAL=UINT:165', 'K=constant;DEC=165;SZ=8;TS=bit_typespec:;CT=9;VAL=UINT:165']
+-- RET cells: BOTH-RIGHT=10  TOWARD=8  AWAY=0  STILL-WRONG=4  UNMOVED=4
+-- OBJ (totals only):
+-- OBJ cells: BOTH-RIGHT=128  TOWARD=12  AWAY=0  STILL-WRONG=4  UNMOVED=63
+########## ARM l_class
+-- commands (rc, by binary path):
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/v169_grid2/l_class/g_def /tmp/v169_arms/v169_l_class.sv
+rc=0 /tmp/v169_bin/pris.bin /tmp/v169_arms/v169_l_class.sv -o /tmp/v169_grid2/l_class/a_def.uhdm
+rc=0 /tmp/v169_bin/pat2.bin /tmp/v169_arms/v169_l_class.sv -o /tmp/v169_grid2/l_class/b_def.uhdm
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/v169_grid2/l_class/g_elab /tmp/v169_arms/v169_l_class.sv
+rc=0 /tmp/v169_bin/pris.bin /tmp/v169_arms/v169_l_class.sv --elabuhdm -o /tmp/v169_grid2/l_class/a_elab.uhdm
+rc=0 /tmp/v169_bin/pat2.bin /tmp/v169_arms/v169_l_class.sv --elabuhdm -o /tmp/v169_grid2/l_class/b_elab.uhdm
+-- Surelog units compiled:
+Compile class "p169hl::c169l"
+Compile class "p169hl::c169p"
+Compile class "work@mailbox"
+Compile class "work@process"
+Compile class "work@semaphore"
+Compile module "work@v169_l_class"
+Compile package "p169hl"
+Compile package "p169il"
+-- RET:
+UNMOVED     def    p169hl::c169l::m_oob169            16:39-16:45
+    G=['K=constant;DEC="ell";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:ell', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sl169;ACT=constant']
+    A=['K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sl169;ACT=constant', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sl169;ACT=constant']
+    B=['K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sl169;ACT=constant', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sl169;ACT=constant']
+UNMOVED     def    p169hl::c169p::m_oobp169           23:36-23:42
+    G=['K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kl169;ACT=constant']
+    A=['K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kl169;ACT=constant', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kl169;ACT=constant']
+    B=['K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kl169;ACT=constant', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kl169;ACT=constant']
+TOWARD      def    p169il::c169l::m_oob169            16:39-16:45
+    G=['K=constant;DEC="ell";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:ell', 'K=constant;DEC="ell";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:ell']
+    A=['K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sl169;ACT=constant', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sl169;ACT=constant']
+    B=['K=constant;DEC="ell";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:ell', 'K=constant;DEC="ell";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:ell']
+TOWARD      def    p169il::c169p::m_oobp169           23:36-23:42
+    G=['K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13', 'K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13']
+    A=['K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kl169;ACT=constant', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kl169;ACT=constant']
+    B=['K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13', 'K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13']
+TOWARD      def    p169il::f_freel169                 25:30-25:36
+    G=['K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13', 'K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13']
+    A=['K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kl169;ACT=constant']
+    B=['K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13', 'K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13']
+UNMOVED     elab   p169hl::c169l::m_oob169            16:39-16:45
+    G=['K=constant;DEC="ell";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:ell', 'K=constant;DEC="ell";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:ell', 'K=constant;DEC="ell";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:ell', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sl169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sl169;ACT=parameter']
+    A=['K=constant;DEC="ell";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:ell', 'K=constant;DEC=ell;SZ=24;TS=string_typespec:;CT=6;VAL=STRING:ell', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sl169;ACT=constant', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sl169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sl169;ACT=parameter']
+    B=['K=constant;DEC="ell";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:ell', 'K=constant;DEC=ell;SZ=24;TS=string_typespec:;CT=6;VAL=STRING:ell', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sl169;ACT=constant', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sl169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sl169;ACT=parameter']
+UNMOVED     elab   p169hl::c169p::m_oobp169           23:36-23:42
+    G=['K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13', 'K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13', 'K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kl169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kl169;ACT=parameter']
+    A=['K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13', 'K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kl169;ACT=constant', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kl169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kl169;ACT=parameter']
+    B=['K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13', 'K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kl169;ACT=constant', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kl169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kl169;ACT=parameter']
+TOWARD      elab   p169il::c169l::m_oob169            16:39-16:45
+    G=['K=constant;DEC="ell";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:ell', 'K=constant;DEC="ell";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:ell', 'K=constant;DEC="ell";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:ell', 'K=constant;DEC="ell";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:ell']
+    A=['K=constant;DEC="ell";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:ell', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sl169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sl169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sl169;ACT=parameter']
+    B=['K=constant;DEC="ell";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:ell', 'K=constant;DEC="ell";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:ell', 'K=constant;DEC="ell";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:ell', 'K=constant;DEC="ell";SZ=24;TS=string_typespec:;CT=6;VAL=STRING:ell']
+UNMOVED     elab   p169il::c169l::m_oobc169           17:39-17:45
+    G=['K=ref_obj;DEC=;SZ=0;TS=<none>;NM=cl169;ACT=<null>', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=cl169;ACT=<null>']
+    A=['K=ref_obj;DEC=;SZ=0;TS=<none>;NM=cl169;ACT=<null>', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=cl169;ACT=<null>', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=cl169;ACT=<null>', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=cl169;ACT=<null>']
+    B=['K=ref_obj;DEC=;SZ=0;TS=<none>;NM=cl169;ACT=<null>', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=cl169;ACT=<null>', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=cl169;ACT=<null>', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=cl169;ACT=<null>']
+TOWARD      elab   p169il::c169p::m_oobp169           23:36-23:42
+    G=['K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13', 'K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13', 'K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13', 'K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13']
+    A=['K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kl169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kl169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kl169;ACT=parameter']
+    B=['K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13', 'K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13', 'K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13', 'K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13']
+TOWARD      elab   p169il::f_freel169                 25:30-25:36
+    G=['K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13', 'K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13', 'K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13', 'K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13']
+    A=['K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13', 'K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kl169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kl169;ACT=parameter']
+    B=['K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13', 'K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13', 'K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13', 'K=constant;DEC=13;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:13']
+-- RET cells: BOTH-RIGHT=15  TOWARD=6  AWAY=0  STILL-WRONG=0  UNMOVED=5
+-- OBJ (totals only):
+-- OBJ cells: BOTH-RIGHT=182  TOWARD=0  AWAY=0  STILL-WRONG=12  UNMOVED=32
+########## ARM m_export
+-- commands (rc, by binary path):
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/v169_grid2/m_export/g_def /tmp/v169_arms/v169_m_export.sv
+rc=0 /tmp/v169_bin/pris.bin /tmp/v169_arms/v169_m_export.sv -o /tmp/v169_grid2/m_export/a_def.uhdm
+rc=0 /tmp/v169_bin/pat2.bin /tmp/v169_arms/v169_m_export.sv -o /tmp/v169_grid2/m_export/b_def.uhdm
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/v169_grid2/m_export/g_elab /tmp/v169_arms/v169_m_export.sv
+rc=0 /tmp/v169_bin/pris.bin /tmp/v169_arms/v169_m_export.sv --elabuhdm -o /tmp/v169_grid2/m_export/a_elab.uhdm
+rc=0 /tmp/v169_bin/pat2.bin /tmp/v169_arms/v169_m_export.sv --elabuhdm -o /tmp/v169_grid2/m_export/b_elab.uhdm
+-- Surelog units compiled:
+Compile class "work@mailbox"
+Compile class "work@process"
+Compile class "work@semaphore"
+Compile module "work@v169_m_export"
+Compile package "p169hm"
+Compile package "p169xm"
+-- RET:
+TOWARD      def    p169xm::f_m169                     8:30-8:36
+    G=['K=constant;DEC=19;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:19', 'K=constant;DEC=19;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:19']
+    A=['K=constant;DEC=19;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:19', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=km169;ACT=constant']
+    B=['K=constant;DEC=19;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:19', 'K=constant;DEC=19;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:19']
+TOWARD      def    p169xm::f_ms169                    9:30-9:36
+    G=['K=constant;DEC="em";SZ=16;TS=string_typespec:;CT=6;VAL=STRING:em', 'K=constant;DEC="em";SZ=16;TS=string_typespec:;CT=6;VAL=STRING:em']
+    A=['K=constant;DEC="em";SZ=16;TS=string_typespec:;CT=6;VAL=STRING:em', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sm169;ACT=constant']
+    B=['K=constant;DEC="em";SZ=16;TS=string_typespec:;CT=6;VAL=STRING:em', 'K=constant;DEC="em";SZ=16;TS=string_typespec:;CT=6;VAL=STRING:em']
+UNMOVED     def    work@if169m.f_ifm169               22:29-22:35
+    G=['K=constant;DEC=19;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:19']
+    A=['K=constant;DEC=19;SZ=32;TS=<none>;CT=9;VAL=UINT:19']
+    B=['K=constant;DEC=19;SZ=32;TS=<none>;CT=9;VAL=UINT:19']
+TOWARD      elab   p169xm::f_m169                     8:30-8:36
+    G=['K=constant;DEC=19;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:19', 'K=constant;DEC=19;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:19', 'K=constant;DEC=19;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:19', 'K=constant;DEC=19;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:19']
+    A=['K=constant;DEC=19;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:19', 'K=constant;DEC=19;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:19', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=km169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=km169;ACT=parameter']
+    B=['K=constant;DEC=19;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:19', 'K=constant;DEC=19;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:19', 'K=constant;DEC=19;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:19', 'K=constant;DEC=19;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:19']
+TOWARD      elab   p169xm::f_ms169                    9:30-9:36
+    G=['K=constant;DEC="em";SZ=16;TS=string_typespec:;CT=6;VAL=STRING:em', 'K=constant;DEC="em";SZ=16;TS=string_typespec:;CT=6;VAL=STRING:em', 'K=constant;DEC="em";SZ=16;TS=string_typespec:;CT=6;VAL=STRING:em', 'K=constant;DEC="em";SZ=16;TS=string_typespec:;CT=6;VAL=STRING:em']
+    A=['K=constant;DEC="em";SZ=16;TS=string_typespec:;CT=6;VAL=STRING:em', 'K=constant;DEC="em";SZ=16;TS=string_typespec:;CT=6;VAL=STRING:em', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sm169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sm169;ACT=parameter']
+    B=['K=constant;DEC="em";SZ=16;TS=string_typespec:;CT=6;VAL=STRING:em', 'K=constant;DEC="em";SZ=16;TS=string_typespec:;CT=6;VAL=STRING:em', 'K=constant;DEC="em";SZ=16;TS=string_typespec:;CT=6;VAL=STRING:em', 'K=constant;DEC="em";SZ=16;TS=string_typespec:;CT=6;VAL=STRING:em']
+UNMOVED     elab   work@if169m.f_ifm169               22:29-22:35
+    G=['K=constant;DEC=19;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:19']
+    A=['K=constant;DEC=19;SZ=32;TS=<none>;CT=9;VAL=UINT:19']
+    B=['K=constant;DEC=19;SZ=32;TS=<none>;CT=9;VAL=UINT:19']
+-- RET cells: BOTH-RIGHT=8  TOWARD=4  AWAY=0  STILL-WRONG=0  UNMOVED=2
+-- OBJ (totals only):
+-- OBJ cells: BOTH-RIGHT=130  TOWARD=2  AWAY=0  STILL-WRONG=6  UNMOVED=38
+########## ARM n_collide
+-- commands (rc, by binary path):
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/v169_grid2/n_collide/g_def /tmp/v169_arms/v169_n_collide.sv
+rc=0 /tmp/v169_bin/pris.bin /tmp/v169_arms/v169_n_collide.sv -o /tmp/v169_grid2/n_collide/a_def.uhdm
+rc=0 /tmp/v169_bin/pat2.bin /tmp/v169_arms/v169_n_collide.sv -o /tmp/v169_grid2/n_collide/b_def.uhdm
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/v169_grid2/n_collide/g_elab /tmp/v169_arms/v169_n_collide.sv
+rc=0 /tmp/v169_bin/pris.bin /tmp/v169_arms/v169_n_collide.sv --elabuhdm -o /tmp/v169_grid2/n_collide/a_elab.uhdm
+rc=0 /tmp/v169_bin/pat2.bin /tmp/v169_arms/v169_n_collide.sv --elabuhdm -o /tmp/v169_grid2/n_collide/b_elab.uhdm
+-- Surelog units compiled:
+Compile class "work@mailbox"
+Compile class "work@process"
+Compile class "work@semaphore"
+Compile module "work@v169_n_collide"
+Compile package "p169hn"
+Compile package "p169in"
+-- RET:
+UNMOVED     def    p169in::f_dup169                   18:28-18:34
+    G=[]
+    A=['K=constant;DEC=99;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:99', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kn169;ACT=constant']
+    B=['K=constant;DEC=99;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:99', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kn169;ACT=constant']
+TOWARD      def    p169in::f_dup169                   9:31-9:37
+    G=['K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23', 'K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23']
+    A=['K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kn169;ACT=constant']
+    B=['K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23', 'K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23']
+TOWARD      def    p169in::f_hn169                    10:31-10:37
+    G=['K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23', 'K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23']
+    A=['K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kn169;ACT=constant']
+    B=['K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23', 'K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23']
+TOWARD      def    p169in::f_hs169                    11:31-11:37
+    G=['K=constant;DEC="en";SZ=16;TS=string_typespec:;CT=6;VAL=STRING:en', 'K=constant;DEC="en";SZ=16;TS=string_typespec:;CT=6;VAL=STRING:en']
+    A=['K=constant;DEC="en";SZ=16;TS=string_typespec:;CT=6;VAL=STRING:en', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sn169;ACT=constant']
+    B=['K=constant;DEC="en";SZ=16;TS=string_typespec:;CT=6;VAL=STRING:en', 'K=constant;DEC="en";SZ=16;TS=string_typespec:;CT=6;VAL=STRING:en']
+UNMOVED     def    p169in::f_in169                    19:28-19:34
+    G=['K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23', 'K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23']
+    A=['K=constant;DEC=99;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:99', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kn169;ACT=constant']
+    B=['K=constant;DEC=99;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:99', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kn169;ACT=constant']
+UNMOVED     elab   p169in::f_dup169                   18:28-18:34
+    G=[]
+    A=['K=constant;DEC=99;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:99', 'K=constant;DEC=99;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:99', 'K=constant;DEC=99;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:99', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kn169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kn169;ACT=parameter']
+    B=['K=constant;DEC=99;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:99', 'K=constant;DEC=99;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:99', 'K=constant;DEC=99;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:99', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kn169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kn169;ACT=parameter']
+TOWARD      elab   p169in::f_dup169                   9:31-9:37
+    G=['K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23', 'K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23', 'K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23', 'K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23']
+    A=['K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23', 'K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kn169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kn169;ACT=parameter']
+    B=['K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23', 'K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23', 'K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23', 'K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23']
+TOWARD      elab   p169in::f_hn169                    10:31-10:37
+    G=['K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23', 'K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23', 'K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23', 'K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23']
+    A=['K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23', 'K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kn169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kn169;ACT=parameter']
+    B=['K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23', 'K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23', 'K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23', 'K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23']
+TOWARD      elab   p169in::f_hs169                    11:31-11:37
+    G=['K=constant;DEC="en";SZ=16;TS=string_typespec:;CT=6;VAL=STRING:en', 'K=constant;DEC="en";SZ=16;TS=string_typespec:;CT=6;VAL=STRING:en', 'K=constant;DEC="en";SZ=16;TS=string_typespec:;CT=6;VAL=STRING:en', 'K=constant;DEC="en";SZ=16;TS=string_typespec:;CT=6;VAL=STRING:en']
+    A=['K=constant;DEC="en";SZ=16;TS=string_typespec:;CT=6;VAL=STRING:en', 'K=constant;DEC="en";SZ=16;TS=string_typespec:;CT=6;VAL=STRING:en', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sn169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=sn169;ACT=parameter']
+    B=['K=constant;DEC="en";SZ=16;TS=string_typespec:;CT=6;VAL=STRING:en', 'K=constant;DEC="en";SZ=16;TS=string_typespec:;CT=6;VAL=STRING:en', 'K=constant;DEC="en";SZ=16;TS=string_typespec:;CT=6;VAL=STRING:en', 'K=constant;DEC="en";SZ=16;TS=string_typespec:;CT=6;VAL=STRING:en']
+UNMOVED     elab   p169in::f_in169                    19:28-19:34
+    G=['K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23', 'K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23', 'K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23', 'K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23', 'K=constant;DEC=23;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:23']
+    A=['K=constant;DEC=99;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:99', 'K=constant;DEC=99;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:99', 'K=constant;DEC=99;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:99', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kn169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kn169;ACT=parameter']
+    B=['K=constant;DEC=99;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:99', 'K=constant;DEC=99;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:99', 'K=constant;DEC=99;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:99', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kn169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=kn169;ACT=parameter']
+-- RET cells: BOTH-RIGHT=6  TOWARD=6  AWAY=0  STILL-WRONG=0  UNMOVED=4
+-- OBJ (totals only):
+-- OBJ cells: BOTH-RIGHT=105  TOWARD=2  AWAY=0  STILL-WRONG=6  UNMOVED=44
+########## ARM o_nonparam
+-- commands (rc, by binary path):
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/v169_grid2/o_nonparam/g_def /tmp/v169_arms/v169_o_nonparam.sv
+rc=0 /tmp/v169_bin/pris.bin /tmp/v169_arms/v169_o_nonparam.sv -o /tmp/v169_grid2/o_nonparam/a_def.uhdm
+rc=0 /tmp/v169_bin/pat2.bin /tmp/v169_arms/v169_o_nonparam.sv -o /tmp/v169_grid2/o_nonparam/b_def.uhdm
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/v169_grid2/o_nonparam/g_elab /tmp/v169_arms/v169_o_nonparam.sv
+rc=0 /tmp/v169_bin/pris.bin /tmp/v169_arms/v169_o_nonparam.sv --elabuhdm -o /tmp/v169_grid2/o_nonparam/a_elab.uhdm
+rc=0 /tmp/v169_bin/pat2.bin /tmp/v169_arms/v169_o_nonparam.sv --elabuhdm -o /tmp/v169_grid2/o_nonparam/b_elab.uhdm
+-- Surelog units compiled:
+Compile class "work@mailbox"
+Compile class "work@process"
+Compile class "work@semaphore"
+Compile module "work@v169_o_nonparam"
+Compile package "p169ho"
+Compile package "p169io"
+-- RET:
+UNMOVED     def    p169ho::f_callp169                 18:35-18:41
+    G=['K=func_call;DEC=;SZ=0;TS=<none>', 'K=func_call;DEC=;SZ=0;TS=<none>']
+    A=['K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=func_call;DEC=;SZ=0;TS=<none>']
+    B=['K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=func_call;DEC=;SZ=0;TS=<none>']
+UNMOVED     def    p169io::f_call169                  17:35-17:41
+    G=['K=constant;DEC=42;SZ=64;TS=<none>;CT=9;VAL=UINT:42', 'K=constant;DEC=42;SZ=64;TS=<none>;CT=9;VAL=UINT:42']
+    A=['K=constant;DEC=42;SZ=64;TS=<none>;CT=9;VAL=UINT:42', 'K=func_call;DEC=;SZ=0;TS=<none>']
+    B=['K=constant;DEC=42;SZ=64;TS=<none>;CT=9;VAL=UINT:42', 'K=func_call;DEC=;SZ=0;TS=<none>']
+UNMOVED     def    p169io::f_callp169                 18:35-18:41
+    G=['K=func_call;DEC=;SZ=0;TS=<none>', 'K=func_call;DEC=;SZ=0;TS=<none>']
+    A=['K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=func_call;DEC=;SZ=0;TS=<none>']
+    B=['K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=func_call;DEC=;SZ=0;TS=<none>']
+TOWARD      def    p169io::f_ko169                    19:35-19:41
+    G=['K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3']
+    A=['K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ko169;ACT=constant']
+    B=['K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3']
+UNMOVED     elab   p169ho::f_callp169                 18:35-18:41
+    G=['K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=func_call;DEC=;SZ=0;TS=<none>', 'K=func_call;DEC=;SZ=0;TS=<none>', 'K=func_call;DEC=;SZ=0;TS=<none>']
+    A=['K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=func_call;DEC=;SZ=0;TS=<none>', 'K=func_call;DEC=;SZ=0;TS=<none>']
+    B=['K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=func_call;DEC=;SZ=0;TS=<none>', 'K=func_call;DEC=;SZ=0;TS=<none>']
+UNMOVED     elab   p169io::f_call169                  17:35-17:41
+    G=['K=constant;DEC=42;SZ=64;TS=<none>;CT=9;VAL=UINT:42', 'K=constant;DEC=42;SZ=64;TS=<none>;CT=9;VAL=UINT:42', 'K=constant;DEC=42;SZ=64;TS=<none>;CT=9;VAL=UINT:42', 'K=constant;DEC=42;SZ=64;TS=<none>;CT=9;VAL=UINT:42']
+    A=['K=constant;DEC=42;SZ=64;TS=<none>;CT=9;VAL=UINT:42', 'K=constant;DEC=42;SZ=64;TS=<none>;CT=9;VAL=UINT:42', 'K=func_call;DEC=;SZ=0;TS=<none>', 'K=func_call;DEC=;SZ=0;TS=<none>']
+    B=['K=constant;DEC=42;SZ=64;TS=<none>;CT=9;VAL=UINT:42', 'K=constant;DEC=42;SZ=64;TS=<none>;CT=9;VAL=UINT:42', 'K=func_call;DEC=;SZ=0;TS=<none>', 'K=func_call;DEC=;SZ=0;TS=<none>']
+UNMOVED     elab   p169io::f_callp169                 18:35-18:41
+    G=['K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=func_call;DEC=;SZ=0;TS=<none>']
+    A=['K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=func_call;DEC=;SZ=0;TS=<none>', 'K=func_call;DEC=;SZ=0;TS=<none>']
+    B=['K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=func_call;DEC=;SZ=0;TS=<none>', 'K=func_call;DEC=;SZ=0;TS=<none>']
+UNMOVED     elab   p169io::f_constv169                13:35-13:41
+    G=['K=ref_obj;DEC=;SZ=0;TS=<none>;NM=co169;ACT=int_var', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=co169;ACT=int_var']
+    A=['K=ref_obj;DEC=;SZ=0;TS=<none>;NM=co169;ACT=int_var', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=co169;ACT=int_var', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=co169;ACT=int_var', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=co169;ACT=int_var']
+    B=['K=ref_obj;DEC=;SZ=0;TS=<none>;NM=co169;ACT=int_var', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=co169;ACT=int_var', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=co169;ACT=int_var', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=co169;ACT=int_var']
+TOWARD      elab   p169io::f_ko169                    19:35-19:41
+    G=['K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3']
+    A=['K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ko169;ACT=parameter', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=ko169;ACT=parameter']
+    B=['K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3', 'K=constant;DEC=3;SZ=32;TS=int_typespec:;CT=9;VAL=UINT:3']
+UNMOVED     elab   p169io::f_var169                   14:35-14:41
+    G=['K=ref_obj;DEC=;SZ=0;TS=<none>;NM=vo169;ACT=int_var', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=vo169;ACT=int_var']
+    A=['K=ref_obj;DEC=;SZ=0;TS=<none>;NM=vo169;ACT=int_var', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=vo169;ACT=int_var', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=vo169;ACT=int_var', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=vo169;ACT=int_var']
+    B=['K=ref_obj;DEC=;SZ=0;TS=<none>;NM=vo169;ACT=int_var', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=vo169;ACT=int_var', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=vo169;ACT=int_var', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=vo169;ACT=int_var']
+-- RET cells: BOTH-RIGHT=28  TOWARD=2  AWAY=0  STILL-WRONG=0  UNMOVED=8
+-- OBJ (totals only):
+-- OBJ cells: BOTH-RIGHT=130  TOWARD=2  AWAY=0  STILL-WRONG=4  UNMOVED=72
+
+== THE PASS'S OWN FOUR ARMS, RE-RUN ON THE VERIFIED BINARY ==
+-- a_import
+-- RET cells: BOTH-RIGHT=18  TOWARD=16  AWAY=0  STILL-WRONG=4  UNMOVED=4
+   
+-- OBJ cells: BOTH-RIGHT=157  TOWARD=20  AWAY=0  STILL-WRONG=4  UNMOVED=67
+-- b_forms
+-- RET cells: BOTH-RIGHT=26  TOWARD=4  AWAY=0  STILL-WRONG=0  UNMOVED=20
+   
+-- OBJ cells: BOTH-RIGHT=141  TOWARD=0  AWAY=0  STILL-WRONG=6  UNMOVED=84
+-- c_homes
+-- RET cells: BOTH-RIGHT=7  TOWARD=4  AWAY=0  STILL-WRONG=0  UNMOVED=5
+   
+-- OBJ cells: BOTH-RIGHT=139  TOWARD=0  AWAY=0  STILL-WRONG=10  UNMOVED=42
+-- d_scopes
+-- RET cells: BOTH-RIGHT=8  TOWARD=0  AWAY=0  STILL-WRONG=0  UNMOVED=2
+   
+-- OBJ cells: BOTH-RIGHT=107  TOWARD=0  AWAY=0  STILL-WRONG=0  UNMOVED=46
+-- r10uvm120repro/g120_c_homes.sv (the boundary arm)
+-- RET cells: BOTH-RIGHT=10  TOWARD=6  AWAY=0  STILL-WRONG=0  UNMOVED=4
+-- OBJ cells: BOTH-RIGHT=122  TOWARD=0  AWAY=0  STILL-WRONG=12  UNMOVED=18

@@ -1,0 +1,51 @@
+r10uvm169 — THE A-PRIORI PREDICTION, made from PRISTINE databases only
+(ct169cen + predsweep169.sh over the pristine verify_golden workdirs; the
+patched binary was NOT run to produce any number below).
+
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+=== SURELOG CORPUS (956 databases with both sides present) ===
+-- rows=956 skipped=617 censusfail=0
+-- directions:
+    664 OTHER
+      4 OURS-REF-GOLDEN-CONST
+-- OURS-REF-GOLDEN-CONST (this pass's bucket) BY DATABASE:
+      1 default/MiniAmiq-544c7f61
+      1 default/SeqDriver-32af76aa
+      1 testflags/MiniAmiq-544c7f61
+      1 testflags/SeqDriver-32af76aa
+-- OURS-CONST-GOLDEN-REF (the AWAY direction) BY DATABASE:
+DONE
+
+--- the four bucket cells, in full ---
+default/MiniAmiq-544c7f61	OURS-REF-GOLDEN-CONST	svaunit_pkg::uvm_revision_string|34:3-34:9	G=['K=constant;DEC="UVM.1.2";SZ=56;TS=string_typespec:;CT=6;VAL=STRING:UVM.1.2', 'K=constant;DEC="UVM.1.2";SZ=56;TS=string_typespec:;CT=6;VAL=STRING:UVM.1.2']	O=['K=constant;DEC="UVM.1.2";SZ=56;TS=string_typespec:;CT=6;VAL=STRING:UVM.1.2', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=uvm_revision;ACT=constant']
+default/SeqDriver-32af76aa	OURS-REF-GOLDEN-CONST	adpcm_pkg::uvm_revision_string|34:3-34:9	G=['K=constant;DEC="UVM.1.2";SZ=56;TS=string_typespec:;CT=6;VAL=STRING:UVM.1.2', 'K=constant;DEC="UVM.1.2";SZ=56;TS=string_typespec:;CT=6;VAL=STRING:UVM.1.2']	O=['K=constant;DEC="UVM.1.2";SZ=56;TS=string_typespec:;CT=6;VAL=STRING:UVM.1.2', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=uvm_revision;ACT=constant']
+testflags/MiniAmiq-544c7f61	OURS-REF-GOLDEN-CONST	svaunit_pkg::uvm_revision_string|34:3-34:9	G=['K=constant;DEC="UVM.1.2";SZ=56;TS=string_typespec:;CT=6;VAL=STRING:UVM.1.2', 'K=constant;DEC="UVM.1.2";SZ=56;TS=string_typespec:;CT=6;VAL=STRING:UVM.1.2']	O=['K=constant;DEC="UVM.1.2";SZ=56;TS=string_typespec:;CT=6;VAL=STRING:UVM.1.2', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=uvm_revision;ACT=constant']
+testflags/SeqDriver-32af76aa	OURS-REF-GOLDEN-CONST	adpcm_pkg::uvm_revision_string|34:3-34:9	G=['K=constant;DEC="UVM.1.2";SZ=56;TS=string_typespec:;CT=6;VAL=STRING:UVM.1.2', 'K=constant;DEC="UVM.1.2";SZ=56;TS=string_typespec:;CT=6;VAL=STRING:UVM.1.2']	O=['K=constant;DEC="UVM.1.2";SZ=56;TS=string_typespec:;CT=6;VAL=STRING:UVM.1.2', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=uvm_revision;ACT=constant']
+
+--- what the 664 OTHER cells are (owner, top 12) — a DIFFERENT family:
+     20 work@svaunit_vpi_interface.get_state_from_reason
+     14 uvm_pkg::uvm_vreg_field::create
+     14 uvm_pkg::uvm_tlm_generic_payload::create
+     14 uvm_pkg::uvm_text_tr_stream::create
+     14 uvm_pkg::uvm_text_tr_database::create
+     14 uvm_pkg::uvm_text_recorder::create
+     14 uvm_pkg::uvm_simple_lock_dap::create
+     14 uvm_pkg::uvm_set_before_get_dap::create
+     14 uvm_pkg::uvm_sequence_library::create
+     14 uvm_pkg::uvm_sequence_library_cfg::create
+     14 uvm_pkg::uvm_report_message_element_container::create
+     14 uvm_pkg::uvm_report_message::create
+
+=== UHDM2RTLIL CORPUS (1358 databases with both sides present) ===
+-- rows=1358 skipped=104 censusfail=0
+-- directions:
+-- OURS-REF-GOLDEN-CONST (this pass's bucket) BY DATABASE:
+-- OURS-CONST-GOLDEN-REF (the AWAY direction) BY DATABASE:
+DONE
+
+PREDICTION: the byte movers are exactly
+  surelog  default/SeqDriver  testflags/SeqDriver
+           default/MiniAmiq   testflags/MiniAmiq
+  uhdm2rtlil  NONE (both modes)
+AWAY column (golden keeps a reference, we would fold): 0 cells, both corpora.

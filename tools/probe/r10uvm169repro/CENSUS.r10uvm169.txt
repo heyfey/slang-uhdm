@@ -1,0 +1,107 @@
+r10uvm169 — THE CORPUS RETURN CENSUS (predsweep169.sh + ct169cen over the
+PRISTINE workdirs of BOTH corpora; the patched binary was NOT run).
+Regenerate in full with:  CEN=./ct169cen bash predsweep169.sh <workdir> out.tsv
+
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+================ SURELOG (956 databases with both sides present) ================
+-- rows=956 skipped=617 censusfail=0
+-- directions:
+    664 OTHER
+      4 OURS-REF-GOLDEN-CONST
+-- OURS-REF-GOLDEN-CONST (this pass's bucket) BY DATABASE:
+      1 default/MiniAmiq-544c7f61
+      1 default/SeqDriver-32af76aa
+      1 testflags/MiniAmiq-544c7f61
+      1 testflags/SeqDriver-32af76aa
+-- OURS-CONST-GOLDEN-REF (the AWAY direction) BY DATABASE:
+DONE
+
+---- THE FOUR BUCKET CELLS, IN FULL ----
+default/MiniAmiq-544c7f61	OURS-REF-GOLDEN-CONST	svaunit_pkg::uvm_revision_string|34:3-34:9	G=['K=constant;DEC="UVM.1.2";SZ=56;TS=string_typespec:;CT=6;VAL=STRING:UVM.1.2', 'K=constant;DEC="UVM.1.2";SZ=56;TS=string_typespec:;CT=6;VAL=STRING:UVM.1.2']	O=['K=constant;DEC="UVM.1.2";SZ=56;TS=string_typespec:;CT=6;VAL=STRING:UVM.1.2', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=uvm_revision;ACT=constant']
+default/SeqDriver-32af76aa	OURS-REF-GOLDEN-CONST	adpcm_pkg::uvm_revision_string|34:3-34:9	G=['K=constant;DEC="UVM.1.2";SZ=56;TS=string_typespec:;CT=6;VAL=STRING:UVM.1.2', 'K=constant;DEC="UVM.1.2";SZ=56;TS=string_typespec:;CT=6;VAL=STRING:UVM.1.2']	O=['K=constant;DEC="UVM.1.2";SZ=56;TS=string_typespec:;CT=6;VAL=STRING:UVM.1.2', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=uvm_revision;ACT=constant']
+testflags/MiniAmiq-544c7f61	OURS-REF-GOLDEN-CONST	svaunit_pkg::uvm_revision_string|34:3-34:9	G=['K=constant;DEC="UVM.1.2";SZ=56;TS=string_typespec:;CT=6;VAL=STRING:UVM.1.2', 'K=constant;DEC="UVM.1.2";SZ=56;TS=string_typespec:;CT=6;VAL=STRING:UVM.1.2']	O=['K=constant;DEC="UVM.1.2";SZ=56;TS=string_typespec:;CT=6;VAL=STRING:UVM.1.2', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=uvm_revision;ACT=constant']
+testflags/SeqDriver-32af76aa	OURS-REF-GOLDEN-CONST	adpcm_pkg::uvm_revision_string|34:3-34:9	G=['K=constant;DEC="UVM.1.2";SZ=56;TS=string_typespec:;CT=6;VAL=STRING:UVM.1.2', 'K=constant;DEC="UVM.1.2";SZ=56;TS=string_typespec:;CT=6;VAL=STRING:UVM.1.2']	O=['K=constant;DEC="UVM.1.2";SZ=56;TS=string_typespec:;CT=6;VAL=STRING:UVM.1.2', 'K=ref_obj;DEC=;SZ=0;TS=<none>;NM=uvm_revision;ACT=constant']
+
+---- THE 664 'OTHER' CELLS ARE A DIFFERENT FAMILY (owner histogram, full) ----
+     20 work@svaunit_vpi_interface.get_state_from_reason
+     14 uvm_pkg::uvm_vreg_field::create
+     14 uvm_pkg::uvm_tlm_generic_payload::create
+     14 uvm_pkg::uvm_text_tr_stream::create
+     14 uvm_pkg::uvm_text_tr_database::create
+     14 uvm_pkg::uvm_text_recorder::create
+     14 uvm_pkg::uvm_simple_lock_dap::create
+     14 uvm_pkg::uvm_set_before_get_dap::create
+     14 uvm_pkg::uvm_sequence_library::create
+     14 uvm_pkg::uvm_sequence_library_cfg::create
+     14 uvm_pkg::uvm_report_message_element_container::create
+     14 uvm_pkg::uvm_report_message::create
+     14 uvm_pkg::uvm_report_handler::create
+     14 uvm_pkg::uvm_related_link::create
+     14 uvm_pkg::uvm_reg_write_only_cbs::create
+     14 uvm_pkg::uvm_reg_tlm_adapter::create
+     14 uvm_pkg::uvm_reg_single_bit_bash_seq::create
+     14 uvm_pkg::uvm_reg_single_access_seq::create
+     14 uvm_pkg::uvm_reg_shared_access_seq::create
+     14 uvm_pkg::uvm_reg_sequence::create
+     14 uvm_pkg::uvm_reg_read_only_cbs::create
+     14 uvm_pkg::uvm_reg_mem_shared_access_seq::create
+     14 uvm_pkg::uvm_reg_mem_hdl_paths_seq::create
+     14 uvm_pkg::uvm_reg_mem_built_in_seq::create
+     14 uvm_pkg::uvm_reg_mem_access_seq::create
+     14 uvm_pkg::uvm_reg_map::create
+     14 uvm_pkg::uvm_reg_item::create
+     14 uvm_pkg::uvm_reg_hw_reset_seq::create
+     14 uvm_pkg::uvm_reg_field::create
+     14 uvm_pkg::uvm_reg_bit_bash_seq::create
+     14 uvm_pkg::uvm_reg_backdoor::create
+     14 uvm_pkg::uvm_reg_access_seq::create
+     14 uvm_pkg::uvm_phase_state_change::create
+     14 uvm_pkg::uvm_parent_child_link::create
+     14 uvm_pkg::uvm_mem_walk_seq::create
+     14 uvm_pkg::uvm_mem_single_walk_seq::create
+     14 uvm_pkg::uvm_mem_single_access_seq::create
+     14 uvm_pkg::uvm_mem_shared_access_seq::create
+     14 uvm_pkg::uvm_mem_access_seq::create
+     14 uvm_pkg::uvm_get_to_lock_dap::create
+     14 uvm_pkg::uvm_class_pair::create
+     14 uvm_pkg::uvm_cause_effect_link::create
+     14 uvm_pkg::uvm_built_in_pair::create
+      4 svaunit_pkg::svaunit_vpi_wrapper::create
+      4 svaunit_pkg::svaunit_reporter::create
+      4 svaunit_pkg::svaunit_immediate_assertion_info::create
+      4 svaunit_pkg::svaunit_immediate_assertion_details::create
+      4 svaunit_pkg::svaunit_concurrent_assertion_info::create
+      4 svaunit_pkg::svaunit_concurrent_assertion_details::create
+      4 svaunit_pkg::svaunit_base_sequence::create
+      4 adpcm_pkg::adpcm_tx_seq::create
+      4 adpcm_pkg::adpcm_seq_item::create
+      1 work@top.u_lfsr.get_1s
+      1 work@top_earlgrey.u_aes.aes_core.aes_ctr.aes_rev_order_byte
+      1 work@top_earlgrey.u_aes.aes_core.aes_ctr.aes_rev_order_bit
+      1 work@prim_lfsr.get_1s
+      1 work@prim_lfsr.compute
+      1 work@aes_sbox_canright.aes_inverse_gf2p8
+      1 work@aes_sbox_canright.aes_inverse_gf2p4
+      1 work@aes_prng.u_lfsr18.compute
+      1 work@aes_prng.u_lfsr16.compute
+      1 work@aes_ctr.aes_rev_order_byte
+      1 work@aes_ctr.aes_rev_order_bit
+      1 aes_sbox_canright_pkg::aes_square_scale_gf2p4_gf2p2
+      1 aes_sbox_canright_pkg::aes_mul_gf2p4
+      1 aes_pkg::aes_transpose
+      1 aes_pkg::aes_mvm
+      1 aes_pkg::aes_mul4
+      1 aes_pkg::aes_mul2
+      1 aes_pkg::aes_div2
+      1 aes_pkg::aes_col_get
+      1 aes_pkg::aes_circ_byte_shift
+
+============= UHDM2RTLIL (1358 databases with both sides present) =============
+-- rows=1358 skipped=104 censusfail=0
+-- directions:
+-- OURS-REF-GOLDEN-CONST (this pass's bucket) BY DATABASE:
+-- OURS-CONST-GOLDEN-REF (the AWAY direction) BY DATABASE:
+DONE
+(the joined tsv is EMPTY: not one return cell differs from golden anywhere in
+ the uhdm2rtlil corpus, in either direction, in either mode.)

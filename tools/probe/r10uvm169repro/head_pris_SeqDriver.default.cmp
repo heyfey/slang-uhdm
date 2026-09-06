@@ -1,0 +1,50 @@
+LHS:
+decompile:
+constant: , id:183951, line:34:10, endln:34:22
+|vpiParent:
+\_return_stmt: , id:183950, line:34:3, endln:34:9
+|vpiDecompile:"UVM.1.2"
+|vpiSize:56
+|STRING:UVM.1.2
+|vpiTypespec:
+\_ref_typespec: (adpcm_pkg::uvm_revision_string), id:183952
+  |vpiParent:
+  \_constant: , id:183951, line:34:10, endln:34:22
+  |vpiFullName:adpcm_pkg::uvm_revision_string
+  |vpiActual:
+  \_string_typespec: , id:183953, line:31:11, endln:31:17
+|vpiConstType:6
+
+decompile:
+constant: , id:183951, line:34:10, endln:34:22
+|vpiParent:
+\_return_stmt: , id:183950, line:34:3, endln:34:9
+|vpiDecompile:"UVM.1.2"
+|vpiSize:56
+|STRING:UVM.1.2
+|vpiTypespec:
+\_ref_typespec: (adpcm_pkg::uvm_revision_string), id:183952
+  |vpiParent:
+  \_constant: , id:183951, line:34:10, endln:34:22
+  |vpiFullName:adpcm_pkg::uvm_revision_string
+  |vpiActual:
+  \_string_typespec: , id:183953, line:31:11, endln:31:17
+|vpiConstType:6
+RHS:
+decompile:
+ref_obj: (adpcm_pkg::uvm_revision_string::uvm_revision), id:3870, line:34:10, endln:34:22
+|vpiParent:
+\_return_stmt: , id:3869, line:34:3, endln:34:9
+|vpiName:uvm_revision
+|vpiFullName:adpcm_pkg::uvm_revision_string::uvm_revision
+|vpiActual:
+\_constant: , id:186, line:31:33, endln:31:42
+
+decompile:
+ref_obj: (adpcm_pkg::uvm_revision_string::uvm_revision), id:3870, line:34:10, endln:34:22
+|vpiParent:
+\_return_stmt: , id:3869, line:34:3, endln:34:9
+|vpiName:uvm_revision
+|vpiFullName:adpcm_pkg::uvm_revision_string::uvm_revision
+|vpiActual:
+\_constant: , id:186, line:31:33, endln:31:42

@@ -1,0 +1,56 @@
+r10v169 — THE WIDE BOUNDARY, run TWICE: once on the SHIPPED patch's binary
+(ae36c8b5caa51176a4bb77e9f2fec2f2) and once on the VERIFIED one
+(9a793239793883a5a8c492897f71a250).  Both over a COPY of the whole probe
+tree plus this verifier's own arms, top level AND subdirectories, both
+views, children </dev/null, the file list on fd 3, scratch keyed on the
+RELATIVE path, PROCESSED asserted against LISTED.  MEASUREMENT ONLY.
+
+FENCE CHECK — the four slang-fenced names (deliberately not spelled here;
+canaudit.sh carries them) matched case-insensitively against every arm
+path: FENCED_MATCHES=0 in both runs.
+
+== RUN A — the SHIPPED patch's binary, 4747 arms, idle machine ==
+LISTED=4747 PROCESSED=4747 PRODUCED_DBS=4590 MOVED_ARMS=13 RC_DIFFS=0
+probe/r10uvm120repro/g120_c_homes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm169repro/g169_a_import.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm169repro/g169_b_forms.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm169repro/g169_c_homes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v169repro/v169_e_shadow.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v169repro/v169_f_foreign.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v169repro/v169_g_control.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v169repro/v169_h_types.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v169repro/v169_i_multi.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v169repro/v169_k_rhsform.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v169repro/v169_l_class.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v169repro/v169_m_export.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v169repro/v169_n_collide.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+== RUN B — the VERIFIED binary, 4748 arms (this pass's arm O added) ==
+LISTED=4748 PROCESSED=4748 PRODUCED_DBS=4591 MOVED_ARMS=14 RC_DIFFS=0
+probe/r10uvm120repro/g120_c_homes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm169repro/g169_a_import.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm169repro/g169_b_forms.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm169repro/g169_c_homes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v169repro/v169_e_shadow.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v169repro/v169_f_foreign.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v169repro/v169_g_control.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v169repro/v169_h_types.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v169repro/v169_i_multi.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v169repro/v169_k_rhsform.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v169repro/v169_l_class.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v169repro/v169_m_export.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v169repro/v169_n_collide.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v169repro/v169_o_nonparam.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+In BOTH runs every moved arm is a POSITIVE CONTROL: the pass's own three
+g169 arms, this verifier's arms, and r10uvm120repro/g120_c_homes.sv (the
+arm of the law § 169 widens, re-measured against golden at 6 TOWARD /
+0 AWAY / 0 STILL-WRONG).  g169_d_scopes.sv correctly did NOT move.  No
+committed arm of any earlier pass moved.  RC_DIFFS=0 in both runs; the 32
+segfault lines per run are 16 arm pairs that segfault IDENTICALLY on both
+binaries in the --elabuhdm view (pre-existing, rc equal, so RC_DIFFS=0).
+
+THE FIFTH ARM the pass's own RUN 1 flagged
+(r10vrgg3repro/xi_iface_param_type/dut.sv) did NOT appear in either of
+this verifier's 4747/4748-arm runs — the pass's 'measurement artefact
+under load' reading is CONFIRMED independently.

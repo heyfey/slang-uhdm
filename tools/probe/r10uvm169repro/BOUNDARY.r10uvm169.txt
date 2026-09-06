@@ -1,0 +1,53 @@
+r10uvm169 — THE WIDE BOUNDARY.  MEASUREMENT ONLY.
+
+bound169.sh over a COPY of the whole probe tree: every .sv/.v at top level AND
+in subdirectories, both views, both frozen binaries, children </dev/null, the
+file list on fd 3, scratch keyed on the RELATIVE path, PROCESSED asserted
+against LISTED.  This pass's own g169_*.sv are the POSITIVE CONTROL.
+
+FENCE CHECK — the four slang-fenced test names (named in the brief and in
+canaudit.sh, deliberately NOT spelled here) were matched case-insensitively
+against every one of the 4738 arm paths:  FENCED_MATCHES=0.  No arm of this
+gate is one of them and none was ever dispatched.
+
+== RUN 1 (executed CONCURRENTLY with a --jobs 2 corpus sweep) ==
+LISTED=4738 PROCESSED=4738 PRODUCED_DBS=4581 MOVED_ARMS=5 RC_DIFFS=0
+r10uvm120repro/g120_c_homes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm169repro/g169_a_import.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm169repro/g169_b_forms.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm169repro/g169_c_homes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10vrgg3repro/xi_iface_param_type/dut.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+
+== RUN 2 (idle machine, nothing else running) ==
+LISTED=4738 PROCESSED=4738 PRODUCED_DBS=4581 MOVED_ARMS=4 RC_DIFFS=0
+r10uvm120repro/g120_c_homes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm169repro/g169_a_import.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm169repro/g169_b_forms.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm169repro/g169_c_homes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+THE FIFTH ARM OF RUN 1 IS A MEASUREMENT ARTEFACT, NOT A MOVER:
+  r10vrgg3repro/xi_iface_param_type/dut.sv contains NO return statement at all
+  (ct169cen reports 0 RET cells in either database), so the patch cannot reach it.
+  It did not reproduce:
+    * 25 pristine DEF runs -> 1 distinct hash;  25 pristine ELAB runs -> 1 distinct hash
+    * three back-to-back bound169.sh runs over that arm alone -> MOVED_ARMS=0 each
+    * the whole 4738-arm re-run on an idle machine (RUN 2) -> not flagged
+  RESUME.md §9's documented emitter nondeterminism under load.
+
+== THE EARLIER-PASS ARM THAT MOVED, RE-MEASURED AGAINST GOLDEN ==
+r10uvm120repro/g120_c_homes.sv — the arm of the very law this pass widens
+(p120c2 WILDCARD-IMPORTS p120c1).  grid169.sh + score169.py, both views:
+UNMOVED     def    p120c1::c120c::oob                 20:35-20:41
+UNMOVED     def    p120c1::c120c::oobs                21:35-21:41
+TOWARD      def    p120c2::c120c::oob                 20:35-20:41
+TOWARD      def    p120c2::c120c::oobs                21:35-21:41
+TOWARD      def    p120c2::pf                         12:29-12:35
+UNMOVED     elab   p120c1::c120c::oob                 20:35-20:41
+UNMOVED     elab   p120c1::c120c::oobs                21:35-21:41
+TOWARD      elab   p120c2::c120c::oob                 20:35-20:41
+TOWARD      elab   p120c2::c120c::oobs                21:35-21:41
+TOWARD      elab   p120c2::pf                         12:29-12:35
+-- RET cells: BOTH-RIGHT=10  TOWARD=6  AWAY=0  STILL-WRONG=0  UNMOVED=4
+
+== the rgg3 arm, re-measured against golden for completeness ==
+-- RET cells: BOTH-RIGHT=0  TOWARD=0  AWAY=0  STILL-WRONG=0  UNMOVED=0

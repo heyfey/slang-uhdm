@@ -4904,11 +4904,75 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         foldCloneTs[currentSubSym] = its0;
                     }
                 }
-                // Top-view package re-emission folds constant returns.
-                if (pkgTopEmit) {
+                // § pkgRetParamSubstReachesTheImportCloneDefView169
+                // (r10uvm169) — THE FOLD WINDOW IS § pkgRetOobClassAndImport
+                // CloneTs127's LISTING SET, NOT `pkgTopEmit` ALONE.
+                //
+                // THE HEAD (SeqDriver x2, 50 cmp lines, ONE object): uvm-1.2
+                // `base/uvm_version.svh:34` `return uvm_revision;` inside the
+                // WILDCARD-IMPORT CLONE of `uvm_revision_string` that
+                // `import uvm_pkg::*;` materializes in `adpcm_pkg`.  Golden
+                // holds the folded `constant "UVM.1.2"` (vpiSize 56,
+                // STRING:UVM.1.2, ct 6, ref_typespec -> the parameter's own
+                // bare `string_typespec`) in BOTH of the importer's listings;
+                // we already folded the ELABORATED one (`pkgTopEmit` is
+                // `topView` at the clone site) and kept the bound `ref_obj` in
+                // the `AllPackages` one.
+                //
+                // SURELOG.  `CompileHelper::importPackage` `clone_tree`s
+                // `def->getTask_funcs()` of the ELABORATED home `Package*`
+                // whatever view of the IMPORTER is being compiled
+                // (CompileHelper.cpp:319-325), so the importer's DEF listing
+                // is a copy of bodies that were ALREADY reduced by the home
+                // package's `Reduce::Yes` compile — the same reason
+                // § pkgRetOobClassAndImportCloneTs127 already puts both of an
+                // import clone's views in the Reduce::Yes stamp set.  Only the
+                // HOME package's own `getUnElabPackage()` listing
+                // (CompilePackage.cpp:66-68, `Reduce::No`) is bare, and it
+                // stays bare here: golden's `uvm_pkg::uvm_revision_string`
+                // keeps its `ref_obj` in this very database, and arm A's
+                // `p169h` half is the same control on ten parameter kinds.
+                //
+                // THE LISTING TEST IS `pkgImportCloneEmit`, which names the two
+                // WILDCARD clone-emission sites — the free-subroutine copy and
+                // the class-method copy, in BOTH views of the importer.  It
+                // covers both halves of golden's clone listing (arm C
+                // `p169wc::f_free169` AND `p169wc::c169::m_oob169` are
+                // `{constant, constant}` in golden and both convert).
+                //
+                // FENCED to the PARAMETER SUBSTITUTION.  The called-sub reuse
+                // (`foldedRet`), the `foldedRet` registration and the literal
+                // arm stay `pkgTopEmit`-only: `foldedRet` is keyed by the
+                // subroutine SYMBOL, which a clone shares with its home, so
+                // letting a clone read or write it would splice one listing's
+                // object into another's.
+                //
+                // NOT EXTENDED — two listings golden folds and this pass does
+                // NOT, both measured, both with ZERO corpus witnesses in either
+                // corpus (§ CENSUS), both left as residues rather than guessed:
+                //
+                //   R1 — the EXPLICIT `import p::f` clone (`importCopyTsInst`
+                //        without `pkgImportCloneEmit`).  Golden folds it (arm C
+                //        `p169ec::f_free169`, `{constant, constant}`), but our
+                //        explicit-clone listing already disagrees with golden on
+                //        its COUNT (5 objects against golden's 4 in the elab
+                //        view) and the `pkgParamDefRhs` entry reachable there is
+                //        the home DEF Rhs, whose `vpiSize` is 64 where golden's
+                //        constant is 32 — so taking the arm converts a WRONG
+                //        KIND into a WRONG SIZE and nothing else.  Refused as a
+                //        MOVED-WRONG, not accepted as a partial win.
+                //   R2 — the CLASS_DEFN'S OWN COPY of an out-of-body method body
+                //        (§ 127's arm (a)).  Golden folds it (arm C
+                //        `p169hc::c169::m_oob169`, `{constant, ref_obj}` against
+                //        our `{ref_obj, ref_obj}`) and an IN-BODY method does
+                //        NOT (arm C `m_in169`, one bare `ref_obj` in golden), so
+                //        the arm needs an in-body/out-of-body separator this
+                //        pass measured on exactly one cell each.
+                const bool foldWindow169 = pkgTopEmit || pkgImportCloneEmit;
+                if (foldWindow169) {
                     auto cf = resolveConstExpr(*rs.expr);
                     // A called sub's param-backed fold is reused verbatim.
-                    if (cf.directSub && foldedRet.count(cf.directSub)) {
+                    if (pkgTopEmit && cf.directSub && foldedRet.count(cf.directSub)) {
                         r->VpiCondition(foldedRet[cf.directSub]);
                         return r;
                     }
@@ -4928,7 +4992,30 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                     break;
                                 }
                     }
-                    if (fp120 && direct120) {
+                    // r10v169 VERIFIER FIX — § 169's WIDENED half folds the
+                    // BARE PARAMETER READ ONLY.  `resolveConstExpr` sets
+                    // `cf.directSub` exactly when the returned expression is a
+                    // CALL (`constCallFold`), and a return that CALLS a
+                    // param-backed subroutine is golden's `func_call` in a
+                    // wildcard clone's UNELABORATED listing.  Measured PER
+                    // LISTING on verifier arm O (`v169_o_nonparam.sv`,
+                    // `function int f_callp169(); return f_ko169(); endfunction`
+                    // in a wildcard-imported package):
+                    //   golden  p169io::f_callp169  def-run {func_call, func_call}
+                    //                              elab-run {func_call, constant}
+                    //   pristine                   def-run {func_call, constant}
+                    //                              elab-run {func_call, constant}
+                    //   169 as shipped             {constant, constant} in BOTH
+                    // — i.e. the AllPackages listing was pristine-RIGHT and went
+                    // patched-WRONG, while the BARE read in the same package
+                    // (`p169io::f_ko169`) is `constant` in every golden listing
+                    // and is the cell § 169 exists to fix.  The three
+                    // `pkgTopEmit` fences § 169 already carries do not reach
+                    // this arm: `constCallFold` also reports `cf.param`, so the
+                    // parameter-substitution arm catches the call before the
+                    // fenced `foldedRet` arm is ever consulted.  The call fold
+                    // therefore stays `pkgTopEmit`-only, like the other three.
+                    if (fp120 && direct120 && (pkgTopEmit || !cf.directSub)) {
                         // Constant at the ref site, parented at the DEF
                         // param_assign, ts ref naming the package with a
                         // fresh param-ts clone.
@@ -5007,7 +5094,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             }
                             its2->VpiParent(rt2);
                             rt2->Actual_typespec(its2);
-                            if (currentSubSym)
+                            if (pkgTopEmit && currentSubSym)
                                 foldedRet[currentSubSym] = c;
                             r->VpiCondition(c);
                             return r;
@@ -5019,7 +5106,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     // would put the initialiser's own span and fields where
                     // golden holds the bound `ref_obj`
                     // (§ pkgRetParamSubstIsRhsClone120's window half).
-                    if (cf.lit && (!fp120 || direct120)) {
+                    if (pkgTopEmit && cf.lit && (!fp120 || direct120)) {
                         if (auto* e = emitExpr(*cf.lit, r, prefix, netMap)) {
                             r->VpiCondition((UHDM::expr*)e);
                             return r;
