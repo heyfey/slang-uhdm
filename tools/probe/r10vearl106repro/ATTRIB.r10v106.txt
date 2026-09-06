@@ -1,0 +1,20 @@
+r10v106 -- MOVER ATTRIBUTION.  MEASUREMENT ONLY.
+
+=== Earlgrey_0_1 testflags: patched vs pristine, workdir-normalised uhdm-dump ===
+dump lines: A=6715900  P=6715899
+changed lines: 5
+3465148,3465149c3465148,3465150
+<           \_constant: , line:39:24, endln:39:38
+<             |vpiSize:64
+---
+>           \_constant: 
+>             |vpiDecompile:63
+>             |vpiSize:8
+_weaklyReferenced: boundary at line 4683187
+=> BODY 5 / TAIL 0
+
+=== Scoreboard default: the coin ===
+raw changed lines: 92
+order-blind (sorted-dump) changed lines: 0
+and the hash flipped BACK between the patched and the verified sweep:
+  pristine 099b89b3bf80   patched d55c0ea322c7   verified 099b89b3bf80

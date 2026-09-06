@@ -1,0 +1,6 @@
+va1_word106 va1_word106
+va2_lhs106 va2_lhs106
+va3_span106 va3_span106
+va4_cast106 va4_cast106
+va5_scope106 va5_scope106
+va6_neg106 va6_neg106

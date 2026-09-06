@@ -1,0 +1,256 @@
+r10earl106 -- PREDICTION, MADE FROM THE PRISTINE DATABASES AND THE SURELOG
+DECODE, WRITTEN BEFORE THE PATCHED SWEEPS WERE RUN.  MEASUREMENT ONLY.
+BASE 143df9df, branch auto5h.  Pristine binary 9793b8253cc81350201a215044061a4f,
+patched 5448452a3a47e4651dc22a61b81a0e17 (both frozen chmod 555).
+
+===============================================================================
+1. THE HEAD, re-measured on THIS pass's OWN pristine build
+===============================================================================
+rowheads.sh over this pass's own pristine surelog sweep (SLANG_UHDM exported to
+the frozen pristine binary; 1573 cmds.txt audited, 0 name the main-tree binary):
+
+  Earlgrey_0_1 testflags   26 cmp lines / 1 head   <- MINE
+  Earlgrey_0_1 default     31 cmp lines / 1 head   (the pre-existing data_mux
+                                                    <null>, a DIFFERENT object)
+  SeqDriver 50/1  SimpleUVM 17/1  Scoreboard default 95/1
+  MiniAmiq 106/1  BuildUVMPkg 106/1  Rggen default 0/0
+
+THE HEAD (HEAD_BEFORE_Earlgrey_testflags.cmp):
+
+  LHS (golden)  constant  id:1054135  NO LOCATION
+                |vpiDecompile:63 |vpiSize:8 |UINT:63 |vpiConstType:9
+  RHS (ours)    constant  id:1479540  line:39:24 endln:39:38
+                |no vpiDecompile |vpiSize:64 |UINT:63 |vpiConstType:9
+
+  padctrl.sv:36  logic [AttrDw-1:0] warl_mask;
+  padctrl.sv:37  if (Impl == prim_pkg::ImplGeneric) begin : gen_generic
+  padctrl.sv:39    assign warl_mask = AttrDw'(6'h3F);
+
+WHICH FIELD FAILS FIRST -- read out of the generated Compare, not assumed
+(~/git-repos/UHDM/build/generated/src/{BaseClass,expr,constant}.cpp):
+
+  BaseClass::Compare   VpiType, VpiName, VpiDefName          (all equal here)
+  expr::Compare        1. VpiDecompile   <-- "63" vs ""  THE FIRST FAILURE
+                       2. VpiSize        <-- 8 vs 64
+                       3. Typespec       (NONE on both sides)
+  constant::Compare    4. VpiConstType   (9 on both sides)
+
+  NO location is read ANYWHERE (no VpiFile / VpiLineNo / VpiColumnNo in any of
+  the three), so the loc-less-ness is a FAITHFULNESS question, not a judge
+  question, and it is fixed because golden's object has no location -- not
+  because the judge would notice.
+
+THE OWNER (own106.cpp -- own105.cpp with an `id:` selector, because a
+LOCATION-LESS head cannot be named by span).  ONE holder, and it is the SAME
+holder on both sides, object for object:
+
+  golden constant#1054135  <- SINGULAR cont_assign 39:12-39:38  Rhs
+                           <- gen_scope       work@top_earlgrey.u_padctrl.gen_generic
+                           <- gen_scope_array work@top_earlgrey.u_padctrl.gen_generic
+                           <- module_inst     work@top_earlgrey.u_padctrl
+                           <- module_inst     work@top_earlgrey
+  ours   constant#1479540  <- the IDENTICAL chain
+  containers: VECTOR=0 SINGULAR=1   (on both sides)
+
+So this is a WHOLE-Rhs question -- not an operand-vector question (which is
+what r10earl105's head was) and not a typespec question (both sides carry
+none).
+
+===============================================================================
+2. THE SURELOG DECODE
+===============================================================================
+`UhdmWriter::writeCont_assign` (Surelog/src/DesignCompile/UhdmWriter.cpp:2118):
+
+    if (lhs->UhdmType() == uhdmref_obj) {
+      any* var = m_helper.bindVariable(mod, m, lhs->VpiName(), m_compileDesign);
+      if (var) {
+        if (rhs->UhdmType() == uhdmoperation) {
+          ... clone_tree(assign) ...
+          any* rhstmp = m_helper.reduceExpr((expr*)rhs, invalidValue, ...);
+          if (expr* exp = any_cast<expr*>(var))
+            if (const ref_typespec* rt = exp->Typespec())
+              if (const typespec* t = rt->Actual_typespec()) tps = t;
+          if ((invalidValue == false) && rhstmp)
+            if (rhstmp->UhdmType() == uhdmconstant)
+              rhstmp = m_helper.adjustSize(tps, mod, ..., (constant*)rhstmp, true);
+          assign->Rhs((expr*)rhstmp);
+
+THE PRODUCER, `UHDM/templates/ExprEval.cpp:4074` (`vpiCastOp`): the constant is
+`s.MakeConstant()` and is NEVER given a location -- hence LOC-LESS -- and the
+branch depends on the cast typespec's KIND:
+  * `uhdmint_typespec`      (a cast width written as a PARAMETER NAME, and
+                             `int'`)  ->  UINT:(int32_t)val0, vpiSize 64, NO MASK
+  * `uhdminteger_typespec`  (a cast width written as a LITERAL / expression)
+                            ->  UINT:(val0 & ((1<<W)-1)), vpiSize W  (r10earl93's
+                                shift-wrap law owns the W>=64 arithmetic)
+  * `uhdmbit_typespec` 1 / `uhdmshort_int_typespec` 16 / `uhdmlong_int_typespec` 64
+  * ANY OTHER typespec -> `break`, NO FOLD  (`byte'`, `logic'`)
+NEITHER branch writes a `vpiDecompile`.
+
+THE CONSUMER, `CompileHelper::adjustSize` (CompileHelper.cpp:3949), the
+`vpiUIntConst` arm (3990-4002):
+
+    int32_t size = Bits(ts, ...);                      // the BOUND LHS's width
+    uint64_t uval = (uint64_t)eval.get_value(c) & NumUtils::getMask(size);
+    c = clone_tree(c);                                 // uniquify == true
+    c->VpiValue("UINT:" + std::to_string(uval));
+    c->VpiDecompile(std::to_string(uval));             // <-- THE SPELLING
+    c->VpiConstType(vpiUIntConst);
+    c->VpiSize(size);
+
+`NumUtils::getMask(w)` (NumUtils.cpp:94) is `~0ULL` for w >= 64.
+`ExprEval::get_value`'s `vpiUIntConst` arm (ExprEval.cpp:2013) parses with
+`NumUtils::parseIntLenient` into an int64_t, so `UINT:-1` and
+`UINT:18446744073709551615` are the same 64-bit pattern.
+
+`bindVariable`'s scope walk (CompileStmt.cpp:3089) switches on
+function / task / begin / module_inst ONLY -- it walks a gen_scope's parent
+chain past every gen-local declaration and stops dead at an interface_inst.
+So the ADJUST fires exactly when the Lhs is a PLAIN NAME of a MODULE-BODY
+net/variable (a port included) THAT CARRIES A TYPESPEC.  When it does not
+fire, golden keeps the fold's own encoding and its own location -- WHICH THIS
+EMITTER ALREADY EMITS, cell for cell (g1_home106 gen_c / gen_d / gen_e and the
+interface row, all SAME on the pristine binary).
+
+===============================================================================
+3. THE LAW
+===============================================================================
+Sec. genCaCastFoldAdjustSize106 -- In the ELABORATED view, a gen-scope
+continuous assignment whose WRITTEN Rhs is a CAST and whose Lhs
+`bindVariable` finds RE-ENCODES its folded constant through
+`CompileHelper::adjustSize`: LOCATION-LESS, `vpiSize` = the bound
+declaration's width, `VpiValue` masked to that width, and `vpiDecompile` the
+DECIMAL spelling of the masked value.  `vpiUIntConst` only.
+
+It is a RE-ENCODE, never a new fold: it cannot fire where we emit an
+operation, and the bind predicate (`caLhsAdjustBind106`, a deliberate
+STRICTLY-NARROWER copy of r10earl68's `caLhsAdjustSize68`) is false wherever
+golden does not adjust.
+
+===============================================================================
+4. THE PREDICTION -- WRITTEN BEFORE THE PATCHED SWEEPS
+===============================================================================
+POPULATION, from `cen106` over the PRISTINE databases (956 surelog + 1358
+uhdm2rtlil, both modes, 0 bad rc):
+
+  surelog     ELAB depth-0 cells whose fold ORIGIN is a vpiCastOp:  434
+              430 SAME  (274 gen-scope `operation > operation` -- UNREACHABLE
+                         to this arm; 4 more gen-scope operations; 20 module
+                         constants; 134 module operations; 2 gen-scope
+                         constants already right)
+                4 DIFF  (2 are a module-body cast TYPESPEC span, a DIFFERENT
+                         family this arm never touches; 2 are the Earlgrey
+                         padctrl cell, one per mode)
+  uhdm2rtlil  144 such cells, ALL 144 SAME.
+
+MOVERS, BY NAME:
+  surelog     ./testflags/Earlgrey_0_1   -- THE ONLY law-driven mover.
+              ./default/Earlgrey_0_1 does NOT move: in default mode our
+              pristine Rhs there is still an `operation` (the cast typespec
+              binds as a NAMED int_typespec), so the arm cannot fire.
+              ./default/Scoreboard MAY move -- RESUME.md Sec. 9's recorded
+              ~50/50 COIN, to be attributed order-blind if it appears.
+  uhdm2rtlil  NONE.  The only cell this arm reaches in that corpus is
+              CastInFunctionInGenBlock's `assign o = int'(get_casted_param())`
+              onto the 32-bit `output int o`, where the re-encode is the
+              IDENTITY (UINT:4 / 32 / "4" in and out) and the location clear is
+              guarded on actually having a location, which that constant has
+              not.  Predicted MOVERS 0 / 1358.
+
+ROWS: NO ROW CONVERTS.  Earlgrey_0_1 testflags stays CMP_NOTEQUAL (the head
+object clears; a later one becomes first).  Every other row byte-identical.
+
+CENSUS SCORE (cen106 + score106.py, re-run on the patched databases):
+  AWAY-GOLDEN 0, MOVED-WRONG 0, TO-GOLDEN 1 on surelog; 0/0/0 on uhdm2rtlil.
+
+HEADS:  Earlgrey_0_1 testflags 26/1 -> a NEW head (line count is the new head's
+print size, not a distance -- RESUME.md Sec. 9).  Every other row unchanged.
+
+ARMS (grid106.sh, both views, both binaries):
+  h1_head106  the head shape, reduced from padctrl.sv -- converges.
+  g1_home106  12 homes  -- the 8 bound rows convert, the 4 unbound rows
+              (gen-local Lhs, bit-select, part-select, interface) stay SAME.
+  g2_form106  20 cast-width forms -- 17 convert, c_byte / c_logic stay
+              operations on both sides, c_negs stays SAME.
+  g3_val106   20 cast value forms convert except v_catx / v_ccx / v_repx
+              (our operand does not fold -- residue R1); the 8 NON-CAST rows
+              must not move at all.
+  g4_fence106 r10earl105's own head shape stays an OPERATION on both sides;
+              the ancestor-gen-scope row stays SAME; the loop row converts.
+
+===============================================================================
+5. THE MEASURED OUTCOME, beside the prediction
+===============================================================================
+                                     PREDICTED            MEASURED
+  surelog byte movers                Earlgrey/testflags   Earlgrey/testflags
+                                     (+ the coin, maybe)  + default/Scoreboard
+                                                          = 2 / 956
+  Earlgrey_0_1 DEFAULT moves?        NO                   NO (byte-identical,
+                                                          02b37834ae6d both)
+  uhdm2rtlil byte movers             0                    0 / 1358
+  rows converted                     NONE                 NONE (status
+                                                          histogram identical)
+  census surelog  AWAY / WRONG / TO  0 / 0 / 1            0 / 0 / 1
+  census u2r      AWAY / WRONG / TO  0 / 0 / 0            0 / 0 / 0
+  Earlgrey testflags head            26/1 -> a NEW head   26/1 -> 32/1, and the
+                                                          head OBJECT changed
+                                                          (padctrl:39 is gone)
+  g1 8 bound rows convert            8                    7 + the module-body
+                                                          control, which is a
+                                                          `mod` cell and was
+                                                          already right
+  g2 17 of 20 convert                17                   17
+  g3 17 of 20 convert                17                   16 -- v_zzx is an
+                                                          OPERATION on both
+                                                          sides and was never a
+                                                          candidate, so the
+                                                          reachable count is 16
+  g4 earl105's shape stays an op     yes                  yes (both sides)
+  boundary: only this pass's arms    +earl68's, expected  5 own + 3 earl68/v68
+                                     to be re-scored      (all TO-GOLDEN) + 4
+                                                          TAILONLY layout cells
+
+THE ONE PREDICTION THAT WAS WRONG IN ITS REASONING, recorded as such: section 3
+said the law would RE-ENCODE the constant in `emitGenScopes`.  It cannot: our
+emitter never folds that cast at all -- the constant is minted afterwards by
+`UHDM::UhdmAdjuster::updateParentWithReducedExpression`
+(UHDM/templates/UhdmAdjuster.cpp:331-345), which runs the same
+`ExprEval::reduceExpr` and then STAMPS THE OPERATION'S LOCATION on the result.
+That was measured (the emitted Rhs is still an `operation` when `emitGenScopes`
+pushes the cont_assign, and UHDM's elaborator then CLONES the whole gen-scope
+tree), and the law moved to a post-adjuster pass keyed on the gen scope's
+fullname and the cont_assign's span.  The LAW ITSELF -- which cells, which
+fields, which values -- is unchanged; only where it runs moved.
+
+===============================================================================
+6. R0 -- THE NEXT HEAD, NAMED AND ITS OWNER FOUND
+===============================================================================
+Earlgrey_0_1 testflags, 32 cmp lines / 1 head after this pass:
+
+  LHS (golden)  constant 157:14-157:16  |vpiDecompile:0  |vpiSize:2  |UINT:0
+                                        |vpiConstType:9
+  RHS (ours)    constant 157:14-157:16  |vpiDecompile:'0 |vpiSize:16 |BIN:0
+                                        |vpiConstType:3
+
+own106 on the golden database (`own106 <golden> id:704546`):
+
+  constant#704546  <- VECTOR operation op=75 155:43-158:4  Operands[1]
+                   <- port 49:21-49:31  pwr_peri_i
+                     <- module_inst work@top_earlgrey.u_pwrmgr 690:3-716:5
+                       <- module_inst work@top_earlgrey
+  containers: VECTOR=2 SINGULAR=0
+
+  pwrmgr_pkg.sv:155  parameter pwr_peri_t PWR_PERI_DEFAULT = '{
+  pwrmgr_pkg.sv:156    wakeups: WakeUpPeris'(1'b1),
+  pwrmgr_pkg.sv:157    rstreqs: '0
+  pwrmgr_pkg.sv:158  };
+  top_earlgrey.sv:710  .pwr_peri_i(pwrmgr_pkg::PWR_PERI_DEFAULT),
+
+A STRUCT ASSIGNMENT-PATTERN MEMBER `'0`, in a PORT HIGH_CONN.  Golden re-types
+it to the member's own width (`rstreqs` is `logic [HwRstReqs-1:0]`, so 2) as a
+DECIMAL vpiUIntConst; we keep the literal's 16-bit BIN:0 with the `'0` spelling.
+`expr::Compare` fails at VpiDecompile first ("0" vs "'0"), then at VpiSize
+(2 vs 16).  Family: the assignment-pattern / tagged_pattern laws and the `'0`
+re-typing precedents, crossed with the port high_conn laws -- NOT this pass's
+whole-Rhs adjustSize.  VECTOR=2 says two operation objects at that span hold the
+same operand, so a fix must not assume a single writer.

@@ -1,0 +1,12 @@
+plain r10buvm22repro/g22.sv
+elab r10buvm22repro/g22.sv
+elab r10earl106repro/g1_home106.sv
+elab r10earl106repro/g2_form106.sv
+elab r10earl106repro/g3_val106.sv
+elab r10earl106repro/g4_fence106.sv
+elab r10earl106repro/h1_head106.sv
+elab r10earl68repro/a1_gv68.sv
+plain r10uvm154repro/l154_noenum.sv
+elab r10uvm154repro/l154_noenum.sv
+elab r10v68repro/v1_pos68.sv
+elab r10v68repro/v5_enum68.sv

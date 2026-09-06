@@ -1,0 +1,69 @@
+# pristine cells=666798 (dupkeys 0)  patched cells=666798 (dupkeys 0)
+GOLDEN-SIDE-IDENTICAL on 666798 shared cells
+
+== AWAY-GOLDEN (the only regression class): 0
+
+== MOVED-WRONG: 0
+
+== UNREACHABLE-CHANGED (golden holds no node at this key -- the judge stops above it on both binaries): 0
+
+== SCORE
+  AWAY-GOLDEN         0
+  MOVED-WRONG         0
+  TO-GOLDEN           1
+  UNMOVED-GOOD   645410
+  UNMOVED-BAD      2065
+  UNREACHABLE     19322
+  UNREACHABLE-CHANGED       0
+  ADDED               0
+  REMOVED             0
+
+== FAMILIES
+FAM	     1	TO-GOLDEN	constant,sz=64,ct=9,v=UINT:63,dc=,TS=NONE  LOC=39:24-39:38  >  constant,sz=8,ct=9,v=UINT:63,dc=63,TS=NONE  LOCLESS
+
+=============== uhdm2rtlil ===============
+# pristine cells=47008 (dupkeys 0)  patched cells=47008 (dupkeys 0)
+GOLDEN-SIDE-IDENTICAL on 47008 shared cells
+
+== AWAY-GOLDEN (the only regression class): 0
+
+== MOVED-WRONG: 0
+
+== UNREACHABLE-CHANGED (golden holds no node at this key -- the judge stops above it on both binaries): 0
+
+== SCORE
+  AWAY-GOLDEN         0
+  MOVED-WRONG         0
+  TO-GOLDEN           0
+  UNMOVED-GOOD    46952
+  UNMOVED-BAD        54
+  UNREACHABLE         2
+  UNREACHABLE-CHANGED       0
+  ADDED               0
+  REMOVED             0
+
+== FAMILIES
+
+=============== surelog, --judge projection ===============
+# pristine cells=666798 (dupkeys 0)  patched cells=666798 (dupkeys 0)
+GOLDEN-SIDE-IDENTICAL on 666798 shared cells
+
+== AWAY-GOLDEN (the only regression class): 0
+
+== MOVED-WRONG: 0
+
+== UNREACHABLE-CHANGED (golden holds no node at this key -- the judge stops above it on both binaries): 0
+
+== SCORE (--judge projection)
+  AWAY-GOLDEN         0
+  MOVED-WRONG         0
+  TO-GOLDEN           1
+  UNMOVED-GOOD   645885
+  UNMOVED-BAD      1590
+  UNREACHABLE     19322
+  UNREACHABLE-CHANGED       0
+  ADDED               0
+  REMOVED             0
+
+== FAMILIES
+FAM	     1	TO-GOLDEN	constant,sz=64,ct=9,v=UINT:63,dc=,TS=NONE  >  constant,sz=8,ct=9,v=UINT:63,dc=63,TS=NONE

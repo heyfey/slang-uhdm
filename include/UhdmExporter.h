@@ -106,6 +106,17 @@ public:
     /// Builds the UHDM design object tree. Returns the design root.
     UHDM::design* exportDesign();
 
+    /// § genCaCastFoldAdjustSize106 (r10earl106) — the CONSUMER half of
+    /// Surelog's `UhdmWriter::writeCont_assign`, which has to run AFTER
+    /// `UHDM::UhdmAdjuster` because the adjuster is what folds our gen-scope
+    /// cast Rhs to a constant in the first place (and stamps the operation's
+    /// location on it, which Surelog's own answer does not carry).  Re-encodes
+    /// the recorded cont_assigns' folded constants through
+    /// `CompileHelper::adjustSize`'s `vpiUIntConst` arm; a no-op wherever the
+    /// Rhs is still an operation (the plain view, and every cast neither tool
+    /// folds).  See the decode at the record site in ModuleEmit.cpp.
+    void applyCaCastAdjust106(UHDM::design* d);
+
     /// Mirrors Surelog without -nobuiltin: synthesize the `builtin` package
     /// (five empty class_defns) and treat @a builtinFile as the fake
     /// <cwd>/builtin.sv compilation unit holding mailbox/process/semaphore.
@@ -5451,6 +5462,28 @@ private:
     // of the subroutines some continuous assignment calls as its DIRECT rhs,
     // built once on first use (TaskFuncEmit.cpp).
     bool pkgSubCalledAsContAssignRhs(const slang::ast::SubroutineSymbol& sub);
+    // § genCaCastFoldAdjustSize106 (r10earl106) — one entry per ELABORATED
+    // gen-scope cont_assign whose WRITTEN Rhs is a cast and whose Lhs
+    // `bindVariable` finds, recorded during emission and consumed by
+    // `applyCaCastAdjust106` after `UHDM::UhdmAdjuster` has run.  Keyed on the
+    // gen scope's FULLNAME and the cont_assign's SPAN rather than on the
+    // pointer, because UHDM's elaborator CLONES the gen-scope tree between the
+    // two points (measured: the emitted gen_scope is not the one the
+    // serialized design holds).
+    // r10v106 (verifier) — the Lhs NAME is part of the key.  In the ELABORATED
+    // view every cont_assign of a COMMA-LIST `assign a = …, b = …;` carries the
+    // span of the WHOLE statement, so a (fullname, span) key collides across
+    // the list and handed every member the FIRST one's width — including
+    // members that were never recorded at all, whose Lhs `bindVariable` does
+    // NOT find (witness `va7_mix106`: a gen-LOCAL Lhs that golden and the
+    // pristine binary both leave at size 64 with no decompile).
+    struct CaCastAdjust106 {
+        std::string scopeFull;
+        uint32_t line = 0, col = 0, endLine = 0, endCol = 0;
+        int32_t width = 0;
+        std::string lhsName;
+    };
+    std::vector<CaCastAdjust106> caCastAdjust106;
     std::set<const slang::ast::SubroutineSymbol*> contAssignRhsCallees9;
     bool contAssignRhsCalleesBuilt9 = false;
     /// § pkgSubEvaluatedFromParamInit9 — the design-wide sibling of

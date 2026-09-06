@@ -1,0 +1,52 @@
+r10earl106 -- WHOLE-DUMP ATTRIBUTION OF EVERY BYTE MOVER.  MEASUREMENT ONLY.
+Dumps are workdir-normalised and sectioned at the `\_weaklyReferenced:` marker
+(RESUME.md section 9: the tail is unreachable to the judge; never count tail
+stamps).
+
+byteverify.sh SELFCHECK=1
+  uhdm2rtlil  MOVERS 0 / 1358   PATH_SETS_IDENTICAL   SELFCHECK 1357/1358
+  surelog     MOVERS 2 /  956   PATH_SETS_IDENTICAL   SELFCHECK  955/956
+      ./testflags/Earlgrey_0_1  6d603492b6f9 <- da7542fd91e5   PREDICTED BY NAME
+      ./default/Scoreboard      d55c0ea322c7 <- 099b89b3bf80   THE RECORDED COIN
+  ./default/Earlgrey_0_1 did NOT move (02b37834ae6de59c302498f940072316 on both
+  binaries), exactly as PREDICT_R0.txt section 4 said it would not.
+
+1. testflags/Earlgrey_0_1 -- THE LAW'S MOVER
+   6 715 900 dump lines patched / 6 715 899 pristine.
+   RAW CHANGED LINES: 5, and they are ONE object:
+
+     3465148,3465150c3465148,3465149
+     <           \_constant:                       <- patched: LOCATION-LESS
+     <             |vpiDecompile:63                <- the adjustSize spelling
+     <             |vpiSize:8                      <- the bound LHS's width
+     ---
+     >           \_constant: , line:39:24, endln:39:38   <- pristine
+     >             |vpiSize:64
+
+   The `_weaklyReferenced:` marker is at line 4 683 188, so the change is in the
+   BODY: BODY 5 / TAIL 0.  NOTHING ELSE in the database moved -- not a
+   typespec, not a span, not an arena position.  This is the head object itself
+   (`work@top_earlgrey.u_padctrl.gen_generic`, padctrl.sv:39) and nothing else.
+
+2. default/Scoreboard -- THE COIN, ATTRIBUTED AND NOT ASSERTED
+   raw changed dump lines            92
+   ORDER-BLIND (sorted-dump) lines    0
+   which is RESUME.md section 9's recorded ~50/50 coin (the svunit_pkg
+   `vpiTaskFunc` list ORDER flip, ~92 dump lines) to the line.  And the law
+   provably cannot reach that database: `cen106` finds ZERO cont_assign cells
+   with a vpiCastOp origin in Scoreboard on either side, in either mode.
+
+3. THE WIDE BOUNDARY'S TWO NON-ARM FILES -- the DOCUMENTED layout artifact
+   `r10buvm22repro/g22.sv` and `r10uvm154repro/l154_noenum.sv` differ in BOTH
+   views.  Sectioned at the marker:
+
+     g22.sv          plain  BODY 0  TAIL 12      elab  BODY 0  TAIL 12
+     l154_noenum.sv  plain  BODY 0  TAIL  8      elab  BODY 0  TAIL  8
+
+   i.e. the whole difference is BELOW `\_weaklyReferenced:`.  `l154_noenum.sv`
+   IS r10uvm154's committed LAYOUT PROOF source (its header says so): a
+   class-scoped `typedef <T> name[string]` mints a BINARY-LAYOUT-DERIVED number
+   into a tail constant, so ANY code motion anywhere in the emitter moves it
+   (`UINT:22564601` here against `UINT:22556409`, and the two binaries differ in
+   size by 10 192 bytes).  It is not this law -- the file carries no gen scope
+   and no cast -- and it is unreachable to the judge.

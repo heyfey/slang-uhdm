@@ -488,6 +488,14 @@ int main(int argc, char** argv) {
 
             UHDM::UhdmAdjuster adjuster(&serializer, design);
             adjuster.listenDesigns(designs);
+
+            // § genCaCastFoldAdjustSize106 (r10earl106) — the CONSUMER half of
+            // Surelog's `UhdmWriter::writeCont_assign`.  It has to run HERE,
+            // after the adjuster, because the adjuster is what folds a
+            // gen-scope cast Rhs to a constant on our side at all; Surelog
+            // replaced that Rhs with the ADJUSTED constant before the adjuster
+            // ever saw it.  A no-op when the Rhs is still an operation.
+            exporter.applyCaCastAdjust106(design);
         }
 
         if (synthSubset) {

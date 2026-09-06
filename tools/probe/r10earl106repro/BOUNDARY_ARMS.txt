@@ -1,0 +1,45 @@
+r10earl106 -- EVERY DIFFERING CELL OF THE WIDE BOUNDARY, SCORED AGAINST GOLDEN
+ON BOTH BINARIES.  MEASUREMENT ONLY.
+
+  LISTED=4768   PROCESSED=4768   identical=9146   DIFFERING=12   no_output=378
+  rc symmetry (A=patched / B=pristine):
+      rc=0   8771 / 8771     rc=3    362 / 362
+      rc=4    387 /  387     rc=139   16 /  16
+  FENCED=0 -- the four slang-fenced names appear 0 times in BOUNDARY_WIDE.listed
+              and were never dispatched.
+  The 16 rc=139 per side are the pre-existing probe segfaults recorded since
+  r10earl82, identical on both sides.  The gate demonstrably SEES (12 differing
+  cells): that is its own positive control.
+
+THE 12 CELLS
+
+  5  THIS PASS'S OWN ARMS, elab view only
+       r10earl106repro/{h1_head106,g1_home106,g2_form106,g3_val106,g4_fence106}
+     scored in GRID.r10earl106.txt: AWAY-GOLDEN 0 / MOVED-WRONG 0 /
+     UNREACHABLE-CHANGED 0 on every row; TO-GOLDEN 1 / 7 / 17 / 16 / 2;
+     h1_head106 and g1_home106 CONVERGE (13/1 -> 0/0).
+
+  3  r10earl68 / r10v68 ARMS, elab view only -- the same family, and a FREE WIN
+       r10earl68repro/a1_gv68.sv    34/1 -> 34/1   TO-GOLDEN 2, AWAY 0, WRONG 0
+       r10v68repro/v1_pos68.sv      14/1 -> 14/1   TO-GOLDEN 2, AWAY 0, WRONG 0
+       r10v68repro/v5_enum68.sv     13/1 ->  0/0   TO-GOLDEN 1, AWAY 0, WRONG 0
+     r10earl68 owns the genvar half of the same `adjustSize` consumer; its arms
+     carry gen-scope cast cont_assigns beside their genvar ones, and those are
+     what moved.  Every one moves TOWARD golden and `v5_enum68` converges.
+     Their PLAIN rows are byte-identical (TO-GOLDEN 0, nothing moved).
+
+  4  TWO FILES x TWO VIEWS, and BOTH are r10uvm154's DOCUMENTED LAYOUT ARTIFACT
+       r10buvm22repro/g22.sv            plain + elab
+       r10uvm154repro/l154_noenum.sv    plain + elab
+     Sectioned at `\_weaklyReferenced:`: BODY 0 changed lines in ALL FOUR, TAIL
+     12 / 12 / 8 / 8.  `l154_noenum.sv` is r10uvm154's committed LAYOUT PROOF
+     source and its own header names the mechanism: a class-scoped
+     `typedef <T> name[string]` mints a binary-layout-derived number into a TAIL
+     constant, so any code motion moves it.  Neither file contains a generate
+     scope or a cast, so this law cannot reach either; and the tail is
+     unreachable to the judge (RESUME.md section 9).
+
+  A PLAIN-VIEW ROW OF THIS PASS'S OWN ARMS IS ABSENT FROM THE LIST, which is the
+  law's DEF/ELAB fence stated as a measurement: `applyCaCastAdjust106` runs only
+  inside `uhdm_main.cpp`'s `elabUhdm` block, and the plain view's Rhs is still an
+  operation there, so nothing can move.

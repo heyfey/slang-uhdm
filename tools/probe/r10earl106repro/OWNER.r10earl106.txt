@@ -1,0 +1,45 @@
+r10earl106 -- THE HEAD'S OWNER, found with own106 (r10earl105's own105.cpp plus
+an `id:` selector, because a LOCATION-LESS head cannot be named by span).
+MEASUREMENT ONLY.  Databases: this pass's own PRISTINE surelog sweep,
+testflags/Earlgrey_0_1, against its cached Surelog golden.
+
+  $ own106 <golden> id:1054135
+  TARGETS at id:1054135: 1
+  == TARGET constant id:1054135
+    vpiParent chain (what the DUMP shows):
+    > constant 0:0-0:0                       <- NO PARENT AND NO LOCATION
+    SINGULAR cont_assign 39:12-39:38 Rhs
+      holder chain:
+    > cont_assign 39:12-39:38
+      > gen_scope       17? -> work@top_earlgrey.u_padctrl.gen_generic 37:38-40:6
+        > gen_scope_array  work@top_earlgrey.u_padctrl.gen_generic 37:38-40:6
+          > module_inst    work@top_earlgrey.u_padctrl 655:3-664:5
+            > module_inst  work@top_earlgrey 5:1-1022:10
+              > design
+    containers: VECTOR=0 SINGULAR=1
+
+  $ own106 <ours> id:1479540
+  TARGETS at id:1479540: 1
+  == TARGET constant id:1479540
+    vpiParent chain: > constant 39:24-39:38   <- NO PARENT, but LOCATED
+    SINGULAR cont_assign 39:12-39:38 Rhs
+      holder chain: THE IDENTICAL CHAIN, object for object
+    containers: VECTOR=0 SINGULAR=1
+
+READ THIS WAY:
+  * ONE holder, and it is the SAME holder on both sides.  The head is the WHOLE
+    Rhs of a cont_assign -- a SINGULAR edge -- not an Operands element (which is
+    what r10earl105's head was) and not a container-size question.
+  * `containers: VECTOR=0` matters: `BaseClass::SafeCompare`'s VECTOR overload
+    sets BOTH containers on a size mismatch and would have named the operation,
+    not the constant (RESUME.md section 9).  It is the SINGULAR overload here,
+    and both sides are non-null, so the print names the VALUES.
+  * NEITHER side's constant is parented.  Surelog's `writeCont_assign` only
+    runs `res->VpiParent(assign)` on the `cloned == false` path and this Rhs was
+    already cloned; ours is the UhdmAdjuster's fold, which does not parent
+    either.  No generated Compare reads VpiParent, so this is invisible to the
+    judge and is recorded, not "fixed".
+
+  padctrl.sv:36  logic [AttrDw-1:0] warl_mask;
+  padctrl.sv:37  if (Impl == prim_pkg::ImplGeneric) begin : gen_generic
+  padctrl.sv:39    assign warl_mask = AttrDw'(6'h3F);

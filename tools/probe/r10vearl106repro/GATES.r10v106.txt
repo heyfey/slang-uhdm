@@ -1,0 +1,103 @@
+r10v106 -- GATES.  MEASUREMENT ONLY; the official uhdm-cmp is the judge.
+BASE 143df9df, branch auto5h.  Worktrees /tmp/wt_v106 (patch+fixes),
+/tmp/wt_v106pris (pristine).  Binaries frozen chmod 555 BEFORE any sweep:
+
+  pristine  9793b8253cc81350201a215044061a4f   (== the implementer's)
+  patched   72a6413dafd7567d87898e5f5731f470   (== the implementer's, rebuilt here)
+  verified  9c74c1bad869163cfb2c091281cb08f8   (patch + the two verifier fixes)
+
+===============================================================================
+1. cmds.txt AUDIT BY BINARY PATH -- 0 name the main-tree binary
+===============================================================================
+  pristine surelog wd   1523 x /tmp/v106_bin/pristine     (1573 cmds.txt files)
+  patched  surelog wd   1523 x /tmp/v106_bin/patched      (1573 cmds.txt files)
+  verified surelog wd   1523 x /tmp/v106_bin/verified
+  verified u2r wd       1458 x /tmp/v106_bin/verified
+  /home/heyfey/git-repos/slang-uhdm/build/slang-uhdm : 0 occurrences anywhere
+
+===============================================================================
+2. GOLDENS
+===============================================================================
+  SLANG_UHDM=/tmp/v106_bin/patched   23 PASS / 0 FAIL
+  SLANG_UHDM=/tmp/v106_bin/verified  23 PASS / 0 FAIL
+  SLANG_UHDM=/bin/false               0 PASS / 23 FAIL   (negative control)
+
+===============================================================================
+3. SURELOG CORPUS (794 tests x 2 modes = 1588 rows, 956 databases)
+===============================================================================
+status histogram, IDENTICAL on all three binaries:
+  default   CMP_EQUAL 471  SLANG_REJECT 283  SURELOG_FAIL 25  CMP_NOTEQUAL 10  DEFERRED 5
+  testflags CMP_EQUAL 466  SLANG_REJECT 284  SURELOG_FAIL 23  CMP_NOTEQUAL  9  DEFERRED 5
+            NO_DATABASE 3  UNTRANSLATABLE 2  TIMEOUT 1  NO_UHDM 1
+
+ct8rows (status AND dump column), 0 differing rows, NO ROW CONVERTS:
+  results/golden_surelog.csv  vs  patched   PASS
+  results/golden_surelog.csv  vs  verified  PASS
+  results/golden_surelog.csv  vs  own pristine  PASS
+  own pristine                vs  patched   PASS
+  own pristine                vs  verified  PASS
+  patched                     vs  verified  PASS
+
+byteverify SELFCHECK=1, PATH_SETS_IDENTICAL on every pair:
+  patched  vs pristine   MOVERS 2 / 956
+      ./testflags/Earlgrey_0_1  6d603492b6f9 <- da7542fd91e5   THE LAW (predicted)
+      ./default/Scoreboard      d55c0ea322c7 <- 099b89b3bf80   THE COIN
+  verified vs pristine   MOVERS 1 / 956
+      ./testflags/Earlgrey_0_1  6d603492b6f9 <- da7542fd91e5   SAME HASH as patched
+  verified vs patched    MOVERS 1 / 956
+      ./default/Scoreboard      099b89b3bf80 <- d55c0ea322c7   the coin, other face
+  => the two verifier fixes are CORPUS-NEUTRAL: the one database the law moves
+     is byte-identical between patched and verified.
+
+===============================================================================
+4. UHDM2RTLIL CORPUS (1358 databases)
+===============================================================================
+  counts 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL in BOTH modes, on
+  patched and on verified.
+  ct8rows vs results/gate_uhdm2rtlil.csv, vs own pristine (tf AND def): PASS
+  byteverify SELFCHECK=1: patched MOVERS 0/1358, verified MOVERS 0/1358
+
+===============================================================================
+5. MOVER ATTRIBUTION
+===============================================================================
+Earlgrey_0_1 testflags, workdir-normalised whole-dump diff, 6 715 900 lines:
+  changed lines 5, one hunk at dump line 3 465 148:
+      <   \_constant: , line:39:24, endln:39:38
+      <     |vpiSize:64
+      ---
+      >   \_constant:
+      >     |vpiDecompile:63
+      >     |vpiSize:8
+  the `_weaklyReferenced:` boundary is at 4 683 187  =>  BODY 5 / TAIL 0.
+Scoreboard default: 92 raw changed lines, 0 ORDER-BLIND (sorted-dump) changed
+  lines -- RESUME.md section 9's recorded coin; it also flipped BACK between the
+  patched and the verified sweep, which is the coin proving itself.
+
+===============================================================================
+6. HEADS (rowheads.sh, this verifier's own sweeps)
+===============================================================================
+  row                     pristine   patched   verified
+  SeqDriver both            50/1      50/1      50/1
+  SimpleUVM both            17/1      17/1      17/1
+  Scoreboard default        95/1      95/1      95/1
+  MiniAmiq both            106/1     106/1     106/1
+  BuildUVMPkg both         106/1     106/1     106/1
+  Earlgrey_0_1 default      31/1      31/1      31/1  (head log byte-identical)
+  Earlgrey_0_1 testflags    26/1      32/1      32/1  DIFFERENT head object
+  Rggen default              0/0       0/0       0/0
+  Scoreboard/tf and Rggen/tf: SKIP-NOFILE (expected)
+  The verified Earlgrey testflags head LOG is BYTE-IDENTICAL to the patched one.
+
+===============================================================================
+7. CANARIES / PINS
+===============================================================================
+  canaries.sh surelog  ok=52 changed=0   (patched and verified)
+  canaries.sh u2r      ok=8  changed=0   (patched and verified)
+  ctcan2.sh  EXPECT_UNKNOWN=1 / =6       PASS both, both binaries
+  canaudit.sh canaries.sh ctcan2.sh      audited=29 UNCOVERED=0 FENCE-BREACH=0
+  InterfaceModPort / BlackParrotComplex / YosysOldOr  byte-identical both modes
+  SVSwitch  4842211c4030      YosysVerx  6ccda350c24a
+  ReplicationPassedToInstance CMP_EQUAL both modes, byte-identical on all three
+  r10earl104 must-stay-EQUAL controls: vb2_genfor 0/0, vb4_instarr 0/0
+  FENCED: the four slang-fenced test names appear 0 times in the wide
+          boundary list and were never dispatched.

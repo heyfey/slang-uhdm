@@ -12828,6 +12828,233 @@ static int32_t caLhsAdjustSize68(const Expression& lhsExpr) {
     return bw > 0 ? bw : 64;
 }
 
+// ---------------------------------------------------------------------------
+// § genCaCastFoldAdjustSize106 (r10earl106) — THE SAME `bindVariable` +
+// `adjustSize` PREDICATE AS `caLhsAdjustSize68`, ANSWERED AS A BOOLEAN.
+//
+// `caLhsAdjustSize68` returns 64 for TWO different facts — "no bind / no
+// typespec, so `adjustSize` does nothing" and "bound to a genuinely 64-bit
+// declaration, so `adjustSize` sizes at 64".  Its callers (r10earl68's genvar
+// fold, r10earl78's replication fold) cannot tell them apart and do not need
+// to: their mints are already 64 wide.  THIS law does need to, because the two
+// facts have OPPOSITE golden answers on a cast fold — measured on
+// `g2_form106`, one cell each:
+//     `assign t64a = 8'(6'h3F);`  Lhs `logic [63:0]`  golden UINT:63 vpiSize 64
+//                                 WITH `vpiDecompile:63` and LOCATION-LESS;
+//     `assign loc_c = W8'(6'h3F);` Lhs GEN-LOCAL       golden UINT:63 vpiSize 64
+//                                 with NO decompile and LOCATED at the cast.
+// So the sentinel is unusable here and this returns `true` + the width.
+//
+// It is a DELIBERATE COPY of `caLhsAdjustSize68`'s conditions, not a
+// refactor of it: the campaign defers helper extraction until 0 NE (the copies
+// differ in gate-verified ways), and rewriting `caLhsAdjustSize68` would put
+// r10earl68's and r10earl78's landed measurements at risk for no gain.  The
+// copy is STRICTLY NARROWER than the original — every case where
+// `caLhsAdjustSize68` returns 64 as "no adjust" returns `false` here, and the
+// two floating kinds it cannot distinguish (`shortreal`, `realtime`) return
+// `false` as well, since no arm of this pass measured them.
+//
+// r10v106 (verifier) — it also hands back the bound symbol's NAME, because the
+// consumer's record key needs it: two cont_assigns of one COMMA-LIST `assign`
+// share the whole statement's span in the elaborated view, and the Lhs name is
+// what tells them apart.
+static bool caLhsAdjustBind106(const Expression& lhsExpr, int32_t& w,
+                               std::string& lhsName) {
+    auto& l = stripImplicitConv(lhsExpr);
+    if (l.kind != ExpressionKind::NamedValue)
+        return false;
+    auto& sym = l.as<NamedValueExpression>().symbol;
+    lhsName = std::string(sym.name);
+    if (lhsName.empty())
+        return false;
+    if (sym.kind != SymbolKind::Net && sym.kind != SymbolKind::Variable)
+        return false;
+    auto* ps = sym.getParentScope();
+    if (!ps || ps->asSymbol().kind != SymbolKind::InstanceBody)
+        return false;
+    // `CompileHelper::bindVariable`'s scope walk (CompileStmt.cpp:3089)
+    // switches on function / task / begin / module_inst ONLY — it stops dead
+    // at an interface_inst, so an interface's gen scope never binds.  Witness:
+    // `g1_home106`'s `if1_106.gen_if`, golden LOCATED / no decompile / 64.
+    if (ps->asSymbol().as<InstanceBodySymbol>().getDefinition().definitionKind !=
+        DefinitionKind::Module)
+        return false;
+    // r10v68's amendment, re-used verbatim: `adjustSize` needs the DECLARATION
+    // to carry a typespec at all; an implicit net and a bare `var d;` have
+    // none, so it returns at once.
+    if (sym.kind == SymbolKind::Net && sym.as<NetSymbol>().isImplicit)
+        return false;
+    if (hasBareImplicitType(sym))
+        return false;
+    auto& t = sym.as<ValueSymbol>().getType();
+    if (auto& ct106 = t.getCanonicalType(); ct106.kind == SymbolKind::FloatingType) {
+        if (ct106.as<FloatingType>().floatKind != FloatingType::Real)
+            return false;
+        w = 32;
+        return true;
+    }
+    if (!t.isIntegral())
+        return false;
+    // r10v106 (verifier) — `time` is 64-bit integral to slang, but Surelog
+    // gives the declaration a time_var whose typespec `adjustSize` does not
+    // size: measured on golden (`va2_lhs106` `t_time`), the constant keeps the
+    // cast fold's own 64-bit, SPELLING-LESS encoding, exactly what the pristine
+    // binary already emits.  Writing a decimal `vpiDecompile` there is a
+    // JUDGE-VISIBLE regression, because `constant::Compare` reads
+    // `VpiDecompile` first.  (`shortreal` and `realtime` are already excluded
+    // by the FloatingType arm above; this is the integral twin of the same
+    // "Surelog has no typespec to size with" fact r10v68 decoded.)
+    if (auto* pit106 = t.getCanonicalType().as_if<PredefinedIntegerType>();
+        pit106 && pit106->integerKind == PredefinedIntegerType::Time)
+        return false;
+    auto bw = (int32_t)t.getBitWidth();
+    if (bw <= 0)
+        return false;
+    w = bw;
+    return true;
+}
+
+// § genCaCastFoldAdjustSize106 (r10earl106) — THE CONSUMER HALF, run from
+// `uhdm_main.cpp` AFTER `UHDM::UhdmAdjuster`.  See the full decode at the
+// record site in `emitGenScopes` below.  Three properties are load-bearing:
+//  * it walks the design's TOP modules only, so the DEFINITION listing cannot
+//    move, and it reaches the ELABORATED gen scopes UHDM's elaborator CLONED
+//    (the emitted objects are unreachable tail by then);
+//  * it only ever REWRITES a constant the adjuster already folded — it never
+//    creates one, so a cast neither tool folds cannot move;
+//  * it touches `vpiUIntConst` only, which is the one `adjustSize` arm this
+//    pass measured (CompileHelper.cpp:3990-4002).
+void UhdmExporter::applyCaCastAdjust106(UHDM::design* d) {
+    if (!d || caCastAdjust106.empty())
+        return;
+    // r10v106 (verifier) — the Lhs NAME closes the key.  Without it the two
+    // cont_assigns of `assign a = C, b = C;` inside one gen scope share a key
+    // (both carry the whole statement's span once elaborated) and the FIRST
+    // record's width was applied to BOTH — even to a member whose Lhs never
+    // bound and so was never recorded.
+    auto keyOf = [](const std::string& full, uint32_t l, uint32_t c, uint32_t el,
+                    uint32_t ec, const std::string& nm) {
+        return full + "@" + std::to_string(l) + ":" + std::to_string(c) + "-" +
+               std::to_string(el) + ":" + std::to_string(ec) + "#" + nm;
+    };
+    std::map<std::string, int32_t> want;
+    for (auto& e : caCastAdjust106)
+        want.emplace(keyOf(e.scopeFull, e.line, e.col, e.endLine, e.endCol,
+                           e.lhsName),
+                     e.width);
+    auto reencode = [&](UHDM::cont_assign* ca, int32_t w) {
+        auto* r = (UHDM::any*)ca->Rhs();
+        if (!r || r->UhdmType() != UHDM::uhdmconstant)
+            return;
+        auto* c = (UHDM::constant*)r;
+        if (c->VpiConstType() != vpiUIntConst)
+            return;
+        std::string v(c->VpiValue());
+        if (v.rfind("UINT:", 0) != 0)
+            return;
+        // `ExprEval::get_value`'s `vpiUIntConst` arm (ExprEval.cpp:2013) parses
+        // the digits with `NumUtils::parseIntLenient` into an int64_t, so BOTH
+        // a negative spelling (`UINT:-1`, which the `int_typespec` cast arm
+        // writes whenever bit 31 of the value is set) and the full unsigned
+        // range land on the same 64-bit pattern.
+        std::string dig = v.substr(5);
+        if (dig.empty())
+            return;
+        uint64_t raw = 0;
+        try {
+            if (dig[0] == '-')
+                raw = (uint64_t)std::stoll(dig);
+            else
+                raw = std::stoull(dig);
+        } catch (...) {
+            return;
+        }
+        uint64_t mask = w >= 64 ? ~0ULL : ((1ULL << (uint32_t)w) - 1ULL);
+        std::string dg = std::to_string(raw & mask);
+        c->VpiValue("UINT:" + dg);
+        c->VpiDecompile(dg);
+        c->VpiConstType(vpiUIntConst);
+        c->VpiSize(w);
+        // `reduceExpr`'s cast mint never carried a location; the located
+        // object is `UhdmAdjuster::updateParentWithReducedExpression`'s
+        // re-stamp (UhdmAdjuster.cpp:341-345), which Surelog never reaches
+        // here.  Guarded on actually HAVING one so an already location-less
+        // constant is not written to and cannot move a byte.
+        if (c->VpiLineNo() != 0 || c->VpiColumnNo() != 0) {
+            c->VpiFile("");
+            c->VpiLineNo(0);
+            c->VpiColumnNo(0);
+            c->VpiEndLineNo(0);
+            c->VpiEndColumnNo(0);
+        }
+    };
+    std::function<void(UHDM::any*)> walk = [&](UHDM::any* sc) {
+        if (!sc)
+            return;
+        UHDM::VectorOfcont_assign* cas = nullptr;
+        UHDM::VectorOfgen_scope_array* gsas = nullptr;
+        UHDM::VectorOfmodule_inst* mods = nullptr;
+        UHDM::VectorOfinterface_inst* ifs = nullptr;
+        std::string full;
+        bool isGenScope = false;
+        if (auto* mi = any_cast<UHDM::module_inst*>(sc)) {
+            cas = mi->Cont_assigns();
+            gsas = mi->Gen_scope_arrays();
+            mods = mi->Modules();
+            ifs = mi->Interfaces();
+        }
+        else if (auto* ii = any_cast<UHDM::interface_inst*>(sc)) {
+            cas = ii->Cont_assigns();
+            gsas = ii->Gen_scope_arrays();
+            ifs = ii->Interfaces();
+        }
+        else if (auto* gs = any_cast<UHDM::gen_scope*>(sc)) {
+            cas = gs->Cont_assigns();
+            gsas = gs->Gen_scope_arrays();
+            mods = gs->Modules();
+            ifs = gs->Interfaces();
+            full = gs->VpiFullName();
+            isGenScope = true;
+        }
+        else if (auto* ga = any_cast<UHDM::gen_scope_array*>(sc)) {
+            if (ga->Gen_scopes())
+                for (auto* g : *ga->Gen_scopes())
+                    walk(g);
+            return;
+        }
+        if (isGenScope && cas && !full.empty())
+            for (auto* ca : *cas) {
+                // r10v106 — the Lhs the record was made for.  Only a plain
+                // `ref_obj` Lhs can have bound; anything else (a bit-select, a
+                // part-select, a hier_path) never recorded a width, so leaving
+                // it alone is the pristine answer and cannot regress.
+                auto* lh = (UHDM::any*)ca->Lhs();
+                if (!lh || lh->UhdmType() != UHDM::uhdmref_obj)
+                    continue;
+                std::string lnm(((UHDM::ref_obj*)lh)->VpiName());
+                if (lnm.empty())
+                    continue;
+                auto it = want.find(keyOf(full, ca->VpiLineNo(),
+                                          ca->VpiColumnNo(), ca->VpiEndLineNo(),
+                                          ca->VpiEndColumnNo(), lnm));
+                if (it != want.end())
+                    reencode(ca, it->second);
+            }
+        if (gsas)
+            for (auto* g : *gsas)
+                walk(g);
+        if (mods)
+            for (auto* mm : *mods)
+                walk(mm);
+        if (ifs)
+            for (auto* ii2 : *ifs)
+                walk(ii2);
+    };
+    if (d->TopModules())
+        for (auto* t : *d->TopModules())
+            walk(t);
+}
+
 void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance* m,
                                  const std::string& prefix, NetMap& netMap) {
     // An instance whose parameter override reads a member-leftover struct
@@ -15707,6 +15934,139 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         }
                     }
                 }
+            }
+            // ============ § genCaCastFoldAdjustSize106 (r10earl106) =========
+            // AN ELABORATED GEN-SCOPE cont_assign WHOSE WRITTEN Rhs IS A CAST
+            // AND WHOSE Lhs `bindVariable` FINDS RE-ENCODES ITS FOLDED
+            // CONSTANT THROUGH `CompileHelper::adjustSize`: LOCATION-LESS,
+            // SIZED AT THE BOUND DECLARATION'S WIDTH, VALUE MASKED TO IT, AND
+            // CARRYING THE DECIMAL SPELLING IN `vpiDecompile`.
+            //
+            // DECODED OUT OF SURELOG, not guessed.  `UhdmWriter::
+            // writeCont_assign` (Surelog/src/DesignCompile/UhdmWriter.cpp:2118)
+            // opens with
+            //
+            //   if (lhs->UhdmType() == uhdmref_obj) {
+            //     any* var = m_helper.bindVariable(mod, m, lhs->VpiName(), …);
+            //     if (var) {
+            //       if (rhs->UhdmType() == uhdmoperation) {
+            //         … clone the assign …
+            //         any* rhstmp = m_helper.reduceExpr((expr*)rhs, …);
+            //         if (expr* exp = any_cast<expr*>(var))          // the LHS
+            //           if (const ref_typespec* rt = exp->Typespec())//  TYPESPEC
+            //             if (const typespec* t = rt->Actual_typespec()) tps = t;
+            //         if (!invalidValue && rhstmp)
+            //           if (rhstmp->UhdmType() == uhdmconstant)
+            //             rhstmp = m_helper.adjustSize(tps, …, (constant*)rhstmp,
+            //                                          /*uniquify*/ true);
+            //
+            // `reduceExpr` is `UHDM/templates/ExprEval.cpp:4074`'s `vpiCastOp`
+            // arm, whose constant is minted with `s.MakeConstant()` and NEVER
+            // given a location -- that is why golden's answer is LOCATION-LESS.
+            // `CompileHelper::adjustSize` (CompileHelper.cpp:3949) then takes
+            // its `vpiUIntConst` branch (CompileHelper.cpp:3990-4002):
+            //
+            //   int32_t size = Bits(ts, …);                 // the LHS width
+            //   uint64_t uval = (uint64_t)get_value(c) & NumUtils::getMask(size);
+            //   c = clone_tree(c);                          // uniquify
+            //   c->VpiValue("UINT:" + std::to_string(uval));
+            //   c->VpiDecompile(std::to_string(uval));      // THE SPELLING
+            //   c->VpiConstType(vpiUIntConst);
+            //   c->VpiSize(size);
+            //
+            // and `NumUtils::getMask(w)` (NumUtils.cpp:94) is `~0ULL` for
+            // w >= 64, so a wider-than-word LHS masks nothing.
+            //
+            // WHEN THE BIND FAILS THERE IS NO ADJUST AT ALL, and golden keeps
+            // the fold's own 64-bit spelling-less encoding at the cast's span
+            // -- WHICH THIS PIPELINE ALREADY PRODUCES, cell for cell
+            // (`g1_home106`'s gen-local / bit-select / part-select /
+            // interface rows are all SAME on the pristine binary).
+            //
+            // WHERE THE PRODUCER LIVES ON OUR SIDE, and why this is RECORDED
+            // HERE AND APPLIED LATER.  We do not fold the cast at all: the
+            // emitted Rhs is still the `vpiCastOp` operation when this loop
+            // ends.  The constant appears afterwards, in `uhdm_main.cpp`'s
+            // post-export passes -- `UHDM::UhdmAdjuster::
+            // updateParentWithReducedExpression`
+            // (UHDM/templates/UhdmAdjuster.cpp:331-345) runs the SAME
+            // `ExprEval::reduceExpr` and then STAMPS THE OPERATION'S LOCATION
+            // onto the constant, which is exactly the located, spelling-less,
+            // 64-bit object the head shows.  Surelog never reaches that arm
+            // for a bound Lhs because `writeCont_assign` has already replaced
+            // the Rhs with the adjusted constant.  So the consumer half is
+            // recorded here (the emitter is the only place that knows the
+            // slang Lhs symbol and the written syntax) and applied in
+            // `applyCaCastAdjust106` AFTER the adjuster has run -- which also
+            // makes it structurally impossible for this law to INVENT a
+            // constant: it only ever re-encodes one the adjuster already made.
+            // The elaborator CLONES the gen-scope tree, so the record is keyed
+            // on the gen scope's FULLNAME and the cont_assign's SPAN, never on
+            // the pointer this loop holds.
+            //
+            // THE GOLDEN GRID (`g1_home106`, one cell per row, ELAB view, the
+            // same cast `W8'(6'h3F)` throughout):
+            //
+            //   home                     LHS                     golden
+            //   module body              logic [7:0]      LOCLESS  63 / 8
+            //   gen-IF                   logic [7:0]      LOCLESS  63 / 8
+            //   gen-IF                   logic [3:0]      LOCLESS  15 / 4
+            //   gen-IF                   logic [15:0]     LOCLESS  63 / 16
+            //   gen-FOR                  logic [7:0]      LOCLESS  63 / 8
+            //   gen-IF inside gen-FOR    logic [7:0]      LOCLESS  63 / 8
+            //   gen-else branch          logic [7:0]      LOCLESS  63 / 8
+            //   CHILD instance's gen-IF  logic [7:0]      LOCLESS  63 / 8
+            //   gen-IF                   GEN-LOCAL        LOCATED  no dc / 64
+            //   gen-IF                   bit-select       LOCATED  no dc / 64
+            //   gen-IF                   part-select      LOCATED  no dc / 64
+            //   INTERFACE's gen-IF       iface logic[7:0] LOCATED  no dc / 64
+            //
+            // THE FENCES, each with a witness measured on golden:
+            //  * ONLY A WRITTEN CAST.  `g3_val106`'s non-cast rows (a bare
+            //    literal, a parameter read, a concat, a replication, a binary
+            //    op, a ternary, a system call, `'1`) are adjusted by Surelog
+            //    too, but NOT all of them location-lessly and not all of them
+            //    in decimal (`n_litx` keeps `6'h3F` AND its location, `n_parx`
+            //    keeps its location, `n_catx` stays BINARY), so a general
+            //    re-encode would move cells AWAY.  Those shapes belong to
+            //    other laws (§ genvarWholeCaRhsFold68, § genCaReplWholeFold78,
+            //    § genCaEnumWholeRhsFold25, …) and are left exactly as they are.
+            //  * ONLY `vpiUIntConst`.  `adjustSize`'s other arms are different
+            //    arithmetic; `g2_form106`'s `c_negs` (`8'(signed'(-8'sd3))`) is
+            //    a `vpiIntConst` carrying a signed logic_typespec and it
+            //    ALREADY matches golden byte for byte, LOCLESS included.
+            //  * A CAST GOLDEN DOES NOT FOLD CANNOT REACH THIS LAW, because
+            //    the Rhs is still an operation after the adjuster too:
+            //    `byte'(…)` / `logic'(…)` (no ExprEval cast branch for those
+            //    typespecs) and `8'(6'bzzzzzz)` (`get_value` invalid on X/Z)
+            //    stay operations on BOTH sides (`g2_form106` c_byte / c_logic,
+            //    `g3_val106` v_zzx).
+            //  * THE DEF VIEW CANNOT MOVE: `applyCaCastAdjust106` walks the
+            //    design's TOP modules only, and the definition listing keeps
+            //    the whole cast operation on both sides in every arm.
+            //
+            // CORPUS POPULATION, measured on the PRISTINE databases before a
+            // line of this was written (`cen106`, 956 surelog + 1358
+            // uhdm2rtlil databases): 434 + 144 ELAB depth-0 cast cells, of
+            // which 430 + 144 are already SAME -- 274 of them
+            // `operation > operation` in gen scopes, which this law cannot
+            // reach -- and the only already-right gen-scope cast cell it CAN
+            // reach is `FuncBindGen` / `CastInFunctionInGenBlock`'s
+            // `assign o = int'(…)` onto the 32-bit `output int o`, where the
+            // re-encode is the IDENTITY (UINT:4 / 32 / "4" in and out).
+            {
+                auto& rc106 = stripImplicitConv(ae.right());
+                int32_t adjW106 = 0;
+                std::string lnm106;
+                if (rc106.kind == ExpressionKind::Conversion &&
+                    !rc106.as<ConversionExpression>().isImplicit() &&
+                    rc106.syntax &&
+                    rc106.syntax->kind == syntax::SyntaxKind::CastExpression &&
+                    caLhsAdjustBind106(ae.left(), adjW106, lnm106))
+                    caCastAdjust106.push_back(
+                        {fullName, ca->VpiLineNo(), ca->VpiColumnNo(),
+                         ca->VpiEndLineNo(), ca->VpiEndColumnNo(), adjW106,
+                         lnm106});
             }
             // A gen-scope $bits/$signed-style sys call RHS carries a result
             // typespec ref (gen-scope fullname, LHS net's actual) — Surelog.
