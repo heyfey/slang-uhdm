@@ -1,0 +1,20 @@
+design::Compare r=-1
+HEAD LHS(golden) = <null>
+HEAD RHS(ours)   = constant()@368:36-368:48#181751
+HEAD RHS parent chain:
+    < param_assign()@368:11-368:48#181750
+    < package(svaunit_pkg)@24:1-73:11#181501
+    < design(unnamed)@0:0-0:0#1
+MIRROR REFERENCE SCAN — every edge of OURS that lands on the head, and golden's:
+  ours   param_assign()@368:11-368:48#181750
+      edge vpiType=82 (singular)   cast=-
+      golden param_assign()@368:11-368:48#119656 -> singular constant()@368:36-368:48#119657
+      golden param_assign()@368:11-368:48#183841 -> singular constant()@368:36-368:48#183842
+  ours   ref_obj(UVM_STR_CRC_POLYNOMIAL)@385:21-385:43#182178
+      edge vpiType=700 (singular)   cast=-
+      golden ref_obj(UVM_STR_CRC_POLYNOMIAL)@385:21-385:43#120074 -> singular <null>
+      golden ref_obj(UVM_STR_CRC_POLYNOMIAL)@385:21-385:43#184259 -> singular <null>
+  ours   ref_typespec()@0:0-0:0#181752
+      edge vpiType=81 (singular)   cast=-
+      golden ref_typespec()@0:0-0:0#119658 -> singular constant()@368:36-368:48#119657
+      golden ref_typespec()@0:0-0:0#183843 -> singular constant()@368:36-368:48#183842

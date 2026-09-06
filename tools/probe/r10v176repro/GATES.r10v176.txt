@@ -1,0 +1,81 @@
+r10v176 — VERIFIER GATES.  Every number from the OFFICIAL instruments.  LHS is ALWAYS golden.
+
+BASE 76252556.  Worktrees /tmp/wt_v176 (patched+fix) and /tmp/wt_v176pris (clean).
+  pristine  md5 b49636170347560e90432e4e18a11f3b   built by the VERIFIER from a clean 76252556, frozen chmod 555
+  patched   md5 10dc137e115d174d49de081277acb5c8   /tmp/r10uvm176.patch (md5 336bd5b348fc8a365f61d8cefbf57053) applied to a FRESH 76252556, frozen
+  fixed     md5 8c64d71a5ef2621aaf3f4a51fb58ac23   + § classInBodyRecvCallArgNoBind52 SITE 5, frozen
+  -> the implementer's two md5s REPRODUCE BIT-FOR-BIT from an independent build.
+
+== GATE 2 — 23 golden dump tests, SLANG_UHDM exported EXPLICITLY per binary
+  pristine PASS=23 FAIL=0
+  patched  PASS=23 FAIL=0
+  FIXED    PASS=23 FAIL=0
+  /bin/false negative control PASS=0 FAIL=23
+
+== GATE 3/4 — ct8rows, status AND dump column
+  u2r testflags status, all three binaries: CMP_EQUAL 679 / SLANG_REJECT 50 / SURELOG_FAIL 2
+  surelog status, all three binaries: CMP_EQUAL 937 SLANG_REJECT 567 SURELOG_FAIL 48 CMP_NOTEQUAL 19 NO_DATABASE 3 UNTRANSLATABLE 2 DEFERRED 10 TIMEOUT 1 NO_UHDM 1
+  PASS (0 differing rows) for EVERY pair measured:
+    pristine vs results/golden_surelog.csv, results/gate_uhdm2rtlil.csv
+    patched  vs both committed baselines, and vs the verifier's OWN pristine sweeps (sl, u2r tf, u2r def)
+    FIXED    vs both committed baselines, vs the verifier's pristine sweeps, and vs the PATCHED sweep
+  NO ROW CONVERTED.  results/*.csv READ ONLY.  GOLDEN_DEFER unset.
+
+== BINARY-PATH AUDIT (3035 cmds.txt per workdir, audited file by file)
+  /tmp/v176_wdP : every cmds.txt names ONLY /tmp/v176_bin/pris.bin ; naming the main-tree binary: 0
+  /tmp/v176_wdB : every cmds.txt names ONLY /tmp/v176_bin/pat.bin  ; naming the main-tree binary: 0
+  /tmp/v176_wdF : every cmds.txt names ONLY /tmp/v176_bin/fix.bin  ; naming the main-tree binary: 0
+
+== GATE 5 — BYTE MOVERS (SELFCHECK=1), predicted BY NAME from PRISTINE databases first
+  PREDICTION, made from the whole-corpus face census of the PRISTINE workdir alone
+  (32681 golden face cells over 956 databases): the ONLY class-home face cells with an
+  INTERFACE receiver are svaunit's two STATEMENT-position vpi_vif calls, so the fix
+  (which silences EXPRESSION position only) must move MiniAmiq x2 versus pristine and
+  NOTHING versus the patched binary.  Measured:
+    FIXED vs PRISTINE surelog : MOVERS 2/956 — ./default/MiniAmiq-544c7f61, ./testflags/MiniAmiq-544c7f61
+                                patched=227a5378c0d7 pristine=388fa4f0332b (both rows)
+    FIXED vs PRISTINE u2r     : MOVERS 0/1358
+    FIXED vs PATCHED surelog  : MOVERS 0/956   <-- the fix costs the corpus NOTHING
+    PATCHED vs PRISTINE surelog: MOVERS 2/956 (the same two rows, the same hashes)
+    SELFCHECK 955/956 and 1357/1358 flagged; PATH_SETS_IDENTICAL on every pair.
+  The implementer reported 3/956 — the third was default/Scoreboard, the documented
+  ~50/50 coin (RESUME.md §9); it did not flip in either of the verifier's runs, and its
+  cmp log is byte-identical across all three binaries here.
+
+== THE HEADS (rowheads.sh, the official uhdm-cmp; ONE head per row-mode)
+  TEST           MODE       PRIS      PAT       FIX      
+  MiniAmiq       default    29        33        33       
+  MiniAmiq       testflags  29        33        33       
+  SeqDriver      both       33        33        33       
+  SimpleUVM      both       40        40        40       
+  Scoreboard     default    95        95        95       
+  BuildUVMPkg    both       52        52        52       
+  Earlgrey_0_1   default    31        31        31       
+  Earlgrey_0_1   testflags  122       122       122      
+  Rggen          default    0         0         0        
+  measured=12 SKIP-NOFILE=2 (Scoreboard/tf, Rggen/tf) UNKNOWN-NAME=0 on all three binaries.
+  cmp LOGS: every row byte-identical pristine->patched EXCEPT MiniAmiq x2; and every row
+  byte-identical patched->FIXED, MiniAmiq x2 INCLUDED.
+  PRISTINE MiniAmiq head, read off the verifier's own log:
+     LHS: io_decl: (a_test_name), line:91:51 …    RHS: <null>
+  LHS IS GOLDEN, so GOLDEN BINDS AND WE LEFT IT BARE — the implementer is RIGHT and the
+  brief (and RESUME.md §3b line 185) had the direction INVERTED.  CONFIRMED.
+  PATCHED/FIXED MiniAmiq head: LHS: <null> / RHS: constant 32'h04c11db6 @368:36 under a
+  param_assign — and a diff of the SeqDriver and MiniAmiq head logs with ids stripped
+  differs in FOUR lines, all of them uvm_pkg vs svaunit_pkg.  It is literally the same
+  object; the head now covers TWO rows.  CONFIRMED.
+
+== CANARIES (all three binaries)
+  surelog ok=52 changed=0 absent=0 ; u2r ok=8 changed=0 absent=0
+  ctcan2 surelog PASS ; ctcan2 u2r PASS ; canaudit PASS
+  protected DBs, md5 vs pristine, for BOTH the patched and the fixed binary:
+    InterfaceModPort x2 59a365f3ce2c SAME ; BlackParrotComplex def e3e354129d5a / tf 73a10e8217e5 SAME
+    YosysOldOr x2 d68e0796d62c SAME ; SVSwitch x2 4842211c4030 (PIN) ; YosysVerx x2 6ccda350c24a (PIN)
+
+== THE WIDE BOUNDARY — pristine vs FIXED, every .sv/.v under a copy of tools/probe
+  LISTED=4864 FENCED_SKIPPED=0 PROCESSED=4864 MOVED=12 ASYMMETRIC=0 NO_OUTPUT_PAIRS=380
+  PROCESSED-ASSERT-OK.  All TWELVE movers are this pass's OWN arms — the implementer's
+  four (g176_a/b/c/d) and the verifier's four (v176_p/q/r/s).  NOT ONE file of the
+  committed floor moved: uvm175/172/171/170/165/164/161/124/89/77-79/82-91, buvm3-15,
+  sd8-12, and every other committed arm, byte-identical in BOTH views.
+  (The moving arms are the gate's own positive control: it can see.)

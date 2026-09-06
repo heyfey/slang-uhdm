@@ -1,0 +1,38 @@
+r10uvm176 — MOVERS, and the FLOOR.
+
+== BYTE MOVERS (byteverify.sh SELFCHECK=1, patched vs this pass's OWN pristine sweep)
+   surelog : 3 / 956
+     default/MiniAmiq-544c7f61    PREDICTED BY NAME (PREDICT.r10uvm176.txt)
+     testflags/MiniAmiq-544c7f61  PREDICTED BY NAME
+     default/Scoreboard-59431470  the documented ~50/50 COIN (RESUME.md §9);
+                                  order-blind sorted-dump diff = 0 lines
+   uhdm2rtlil : 0 / 1358      (also predicted: the corpus holds 4 face cells, all agreeing)
+   SELFCHECK: 955/956 and 1357/1358 flagged — the comparator can see.
+
+== THE FOUR MOVED DUMP LINES (default/MiniAmiq, order-blind, ALL ADDED)
+   398856a398857
+   >             \_io_decl: (a_sim_time), line:627:51, endln:627:61
+   399161a399163
+   >               \_io_decl: (a_test_name), line:91:51, endln:91:62
+   796610a796613,796614
+   >               |vpiActual:
+   >             |vpiActual:
+
+== THE WIDE BOUNDARY (bound176.sh over a COPY of the whole tools/probe tree)
+   MOVED 2451_r10uvm176repro_g176_a_face.sv/def 10 lines
+   MOVED 2451_r10uvm176repro_g176_a_face.sv/elab 2 lines
+   MOVED 2452_r10uvm176repro_g176_b_home.sv/def 4 lines
+   MOVED 2453_r10uvm176repro_g176_c_recv.sv/def 10 lines
+   MOVED 2454_r10uvm176repro_g176_d_arg.sv/def 18 lines
+   MOVED 2454_r10uvm176repro_g176_d_arg.sv/elab 16 lines
+   LISTED=4860 FENCED_SKIPPED=0 PROCESSED=4860 MOVED=6 NO_OUTPUT_PAIRS=380
+   PROCESSED-ASSERT-OK
+   EXIT=0
+   ALL SIX moved arm-views are THIS PASS'S OWN ARMS (g176_*.sv) — the positive control.
+   ASYMMETRIC_OUTPUT is 0: no crash was introduced (380 NO_OUTPUT_PAIRS are symmetric
+   refusals/segfaults present on BOTH binaries, i.e. deliberate reject arms).
+
+== THE FLOOR — not one arm of these passes moved:
+   r10uvm175, r10uvm172, r10uvm171, r10uvm170, r10uvm165, r10uvm164, r10uvm161,
+   r10uvm124, r10uvm89, r10uvm77-79, r10uvm82-91, r10buvm3-15, r10sd8-12,
+   and every other directory under tools/probe (4860 sources, 4854 unmoved).

@@ -1,0 +1,88 @@
+r10uvm176 — THE A-PRIORI PREDICTION, from the PRISTINE databases alone,
+  written BEFORE the patched sweep ran (predict176.sh).
+
+/tmp/r10uvm176_face_sl_pris.txt
+  our BARE face cells with a ONE-NAME receiver : 9902
+  PREDICTED MOVERS (golden BINDS them)         : 34
+    by row: {'default/MiniAmiq': 17, 'testflags/MiniAmiq': 17}
+       default/MiniAmiq|CALL=method_func_call:kill_all_assertions|RECV=ref_obj:vpi_vif|NOLINK|POS=1|REF=ref_obj:a_sim_time@628:52|HOME=function:kill_all_assertions/class_defn:svaunit_vpi_wrapper
+       default/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=0|REF=ref_obj:a_test_name@309:24|HOME=function:reset_assertion/interface_inst:<anon>
+       default/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=0|REF=ref_obj:a_test_name@333:24|HOME=function:disable_assertion/interface_inst:<anon>
+       default/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=0|REF=ref_obj:a_test_name@357:24|HOME=function:enable_assertion/interface_inst:<anon>
+       default/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=0|REF=ref_obj:a_test_name@382:24|HOME=function:kill_assertion/interface_inst:<anon>
+       default/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=0|REF=ref_obj:a_test_name@407:24|HOME=function:disable_step_assertion/interface_inst:<anon>
+       default/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=0|REF=ref_obj:a_test_name@433:24|HOME=function:enable_step_assertion/interface_inst:<anon>
+       default/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=1|REF=ref_obj:disable_sva@333:37|HOME=function:disable_assertion/interface_inst:<anon>
+       default/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=1|REF=ref_obj:enable_sva@309:37|HOME=function:reset_assertion/interface_inst:<anon>
+       default/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=1|REF=ref_obj:enable_sva@357:37|HOME=function:enable_assertion/interface_inst:<anon>
+       default/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=1|REF=ref_obj:enable_sva@382:37|HOME=function:kill_assertion/interface_inst:<anon>
+       default/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=1|REF=ref_obj:enable_sva@407:37|HOME=function:disable_step_assertion/interface_inst:<anon>
+       default/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=1|REF=ref_obj:enable_sva@433:37|HOME=function:enable_step_assertion/interface_inst:<anon>
+       default/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:sva_info|NOLINK|POS=1|REF=ref_obj:disable_sva@482:50|HOME=function:system_off_all_assertions/interface_inst:<anon>
+       default/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:sva_info|NOLINK|POS=1|REF=ref_obj:disable_sva@498:50|HOME=function:system_end_all_assertions/interface_inst:<anon>
+       default/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:sva_info|NOLINK|POS=1|REF=ref_obj:enable_sva@467:50|HOME=function:system_on_all_assertions/interface_inst:<anon>
+       default/MiniAmiq|CALL=method_func_call:set_test_name|RECV=ref_obj:vpi_vif|NOLINK|POS=0|REF=ref_obj:a_test_name@94:29|HOME=function:set_test_name_vpi/class_defn:svaunit_vpi_wrapper
+       testflags/MiniAmiq|CALL=method_func_call:kill_all_assertions|RECV=ref_obj:vpi_vif|NOLINK|POS=1|REF=ref_obj:a_sim_time@628:52|HOME=function:kill_all_assertions/class_defn:svaunit_vpi_wrapper
+       testflags/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=0|REF=ref_obj:a_test_name@309:24|HOME=function:reset_assertion/interface_inst:<anon>
+       testflags/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=0|REF=ref_obj:a_test_name@333:24|HOME=function:disable_assertion/interface_inst:<anon>
+       testflags/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=0|REF=ref_obj:a_test_name@357:24|HOME=function:enable_assertion/interface_inst:<anon>
+       testflags/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=0|REF=ref_obj:a_test_name@382:24|HOME=function:kill_assertion/interface_inst:<anon>
+       testflags/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=0|REF=ref_obj:a_test_name@407:24|HOME=function:disable_step_assertion/interface_inst:<anon>
+       testflags/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=0|REF=ref_obj:a_test_name@433:24|HOME=function:enable_step_assertion/interface_inst:<anon>
+       testflags/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=1|REF=ref_obj:disable_sva@333:37|HOME=function:disable_assertion/interface_inst:<anon>
+       testflags/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=1|REF=ref_obj:enable_sva@309:37|HOME=function:reset_assertion/interface_inst:<anon>
+       testflags/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=1|REF=ref_obj:enable_sva@357:37|HOME=function:enable_assertion/interface_inst:<anon>
+       testflags/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=1|REF=ref_obj:enable_sva@382:37|HOME=function:kill_assertion/interface_inst:<anon>
+       testflags/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=1|REF=ref_obj:enable_sva@407:37|HOME=function:disable_step_assertion/interface_inst:<anon>
+       testflags/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=1|REF=ref_obj:enable_sva@433:37|HOME=function:enable_step_assertion/interface_inst:<anon>
+       testflags/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:sva_info|NOLINK|POS=1|REF=ref_obj:disable_sva@482:50|HOME=function:system_off_all_assertions/interface_inst:<anon>
+       testflags/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:sva_info|NOLINK|POS=1|REF=ref_obj:disable_sva@498:50|HOME=function:system_end_all_assertions/interface_inst:<anon>
+       testflags/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:sva_info|NOLINK|POS=1|REF=ref_obj:enable_sva@467:50|HOME=function:system_on_all_assertions/interface_inst:<anon>
+       testflags/MiniAmiq|CALL=method_func_call:set_test_name|RECV=ref_obj:vpi_vif|NOLINK|POS=0|REF=ref_obj:a_test_name@94:29|HOME=function:set_test_name_vpi/class_defn:svaunit_vpi_wrapper
+  golden has NO SUCH KEY (our receiver NAME differs): 24
+       default/MiniAmiq|CALL=method_func_call:control_assertion_dpi|RECV=ref_obj:control_assertion_dpi(a_sva|NOLINK|POS=2|REF=ref_obj:a_sim_time@383:56|HOME=function:kill_assertion/interface_inst:<anon>
+       default/MiniAmiq|CALL=method_func_call:do_field_check|RECV=ref_obj:__m_uvm_status_container|NOLINK|POS=1|REF=ref_obj:this@1962:58|HOME=function:__m_uvm_field_automation/class_defn:uvm_reg_mem_hdl_paths_seq
+       default/MiniAmiq|CALL=method_func_call:get_cover_statistics_dpi|RECV=ref_obj:get_cover_statistics_dpi(cover_info[index]|NOLINK|POS=1|REF=ref_obj:nof_attempts_failed_covered@512:72|HOME=function:update_coverage/interface_inst:<anon>
+       default/MiniAmiq|CALL=method_func_call:get_cover_statistics_dpi|RECV=ref_obj:get_cover_statistics_dpi(cover_info[index]|NOLINK|POS=2|REF=ref_obj:nof_attempts_successful_covered@513:16|HOME=function:update_coverage/interface_inst:<anon>
+       default/MiniAmiq|CALL=method_func_call:uvm_report_error|RECV=ref_obj:top|NOLINK|POS=2|REF=ref_obj:UVM_NONE@212:170|HOME=function:uvm_sequence_library::m_check/package:svaunit_pkg
+       default/MiniAmiq|CALL=method_func_call:uvm_report_info|RECV=ref_obj:m_top|NOLINK|POS=2|REF=ref_obj:UVM_LOW@182:132|HOME=task:all_dropped/class_defn:uvm_test_done_objection
+       default/Scoreboard|CALL=method_func_call:do_field_check|RECV=ref_obj:__m_uvm_status_container|NOLINK|POS=1|REF=ref_obj:this@1962:58|HOME=function:__m_uvm_field_automation/class_defn:uvm_reg_mem_hdl_paths_seq
+       default/Scoreboard|CALL=method_func_call:uvm_report_info|RECV=ref_obj:m_top|NOLINK|POS=2|REF=ref_obj:UVM_LOW@182:132|HOME=task:all_dropped/class_defn:uvm_test_done_objection
+       default/SeqDriver|CALL=method_func_call:do_field_check|RECV=ref_obj:__m_uvm_status_container|NOLINK|POS=1|REF=ref_obj:this@1962:58|HOME=function:__m_uvm_field_automation/class_defn:uvm_reg_mem_hdl_paths_seq
+       default/SeqDriver|CALL=method_func_call:uvm_report_error|RECV=ref_obj:top|NOLINK|POS=2|REF=ref_obj:UVM_NONE@212:170|HOME=function:uvm_sequence_library::m_check/package:adpcm_pkg
+       default/SeqDriver|CALL=method_func_call:uvm_report_info|RECV=ref_obj:m_top|NOLINK|POS=2|REF=ref_obj:UVM_LOW@182:132|HOME=task:all_dropped/class_defn:uvm_test_done_objection
+       default/SimpleUVM|CALL=method_func_call:do_field_check|RECV=ref_obj:__m_uvm_status_container|NOLINK|POS=1|REF=ref_obj:this@1962:58|HOME=function:__m_uvm_field_automation/class_defn:uvm_reg_mem_hdl_paths_seq
+       default/SimpleUVM|CALL=method_func_call:uvm_report_info|RECV=ref_obj:m_top|NOLINK|POS=2|REF=ref_obj:UVM_LOW@182:132|HOME=task:all_dropped/class_defn:uvm_test_done_objection
+       testflags/MiniAmiq|CALL=method_func_call:control_assertion_dpi|RECV=ref_obj:control_assertion_dpi(a_sva|NOLINK|POS=2|REF=ref_obj:a_sim_time@383:56|HOME=function:kill_assertion/interface_inst:<anon>
+       testflags/MiniAmiq|CALL=method_func_call:do_field_check|RECV=ref_obj:__m_uvm_status_container|NOLINK|POS=1|REF=ref_obj:this@1962:58|HOME=function:__m_uvm_field_automation/class_defn:uvm_reg_mem_hdl_paths_seq
+       testflags/MiniAmiq|CALL=method_func_call:get_cover_statistics_dpi|RECV=ref_obj:get_cover_statistics_dpi(cover_info[index]|NOLINK|POS=1|REF=ref_obj:nof_attempts_failed_covered@512:72|HOME=function:update_coverage/interface_inst:<anon>
+       testflags/MiniAmiq|CALL=method_func_call:get_cover_statistics_dpi|RECV=ref_obj:get_cover_statistics_dpi(cover_info[index]|NOLINK|POS=2|REF=ref_obj:nof_attempts_successful_covered@513:16|HOME=function:update_coverage/interface_inst:<anon>
+       testflags/MiniAmiq|CALL=method_func_call:uvm_report_error|RECV=ref_obj:top|NOLINK|POS=2|REF=ref_obj:UVM_NONE@212:170|HOME=function:uvm_sequence_library::m_check/package:svaunit_pkg
+       testflags/MiniAmiq|CALL=method_func_call:uvm_report_info|RECV=ref_obj:m_top|NOLINK|POS=2|REF=ref_obj:UVM_LOW@182:132|HOME=task:all_dropped/class_defn:uvm_test_done_objection
+       testflags/SeqDriver|CALL=method_func_call:do_field_check|RECV=ref_obj:__m_uvm_status_container|NOLINK|POS=1|REF=ref_obj:this@1962:58|HOME=function:__m_uvm_field_automation/class_defn:uvm_reg_mem_hdl_paths_seq
+       testflags/SeqDriver|CALL=method_func_call:uvm_report_error|RECV=ref_obj:top|NOLINK|POS=2|REF=ref_obj:UVM_NONE@212:170|HOME=function:uvm_sequence_library::m_check/package:adpcm_pkg
+       testflags/SeqDriver|CALL=method_func_call:uvm_report_info|RECV=ref_obj:m_top|NOLINK|POS=2|REF=ref_obj:UVM_LOW@182:132|HOME=task:all_dropped/class_defn:uvm_test_done_objection
+       testflags/SimpleUVM|CALL=method_func_call:do_field_check|RECV=ref_obj:__m_uvm_status_container|NOLINK|POS=1|REF=ref_obj:this@1962:58|HOME=function:__m_uvm_field_automation/class_defn:uvm_reg_mem_hdl_paths_seq
+       testflags/SimpleUVM|CALL=method_func_call:uvm_report_info|RECV=ref_obj:m_top|NOLINK|POS=2|REF=ref_obj:UVM_LOW@182:132|HOME=task:all_dropped/class_defn:uvm_test_done_objection
+/tmp/r10uvm176_face_u2r_pris.txt
+  our BARE face cells with a ONE-NAME receiver : 0
+  PREDICTED MOVERS (golden BINDS them)         : 0
+    by row: {}
+  golden has NO SUCH KEY (our receiver NAME differs): 0
+
+PREDICTION.  The upper bound above (34 = 17 per MiniAmiq mode) is the gate WITHOUT
+its home conjunct, on purpose: it also names the cells the home conjunct exists to
+protect.  Applying `curSubClassScope9 && !curSubOob9` removes the FIFTEEN per mode
+whose HOME is `interface_inst` (an INTERFACE's own subroutine, residue R1) and
+leaves TWO per mode:
+   MiniAmiq  94:29  a_test_name   in svaunit_vpi_wrapper::set_test_name_vpi
+   MiniAmiq 628:52  a_sim_time    in svaunit_vpi_wrapper::kill_all_assertions
+so the predicted mover set is: MiniAmiq default and MiniAmiq testflags in the
+surelog corpus, and NOTHING ANYWHERE in uhdm2rtlil (which holds four face cells in
+total, all in `iface_method_call`, and they already agree).
+
+OUTCOME.  byteverify: 3 / 956 surelog — MiniAmiq default and MiniAmiq testflags, both
+PREDICTED BY NAME, plus the documented Scoreboard/default COIN whose order-blind
+sorted-dump diff is 0 lines — and 0 / 1358 uhdm2rtlil.  The MiniAmiq order-blind dump
+diff is exactly FOUR ADDED LINES: two `|vpiActual:` and their two `\_io_decl:` targets,
+nothing removed and nothing reshaped.

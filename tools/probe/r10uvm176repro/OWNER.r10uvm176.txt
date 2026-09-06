@@ -1,0 +1,38 @@
+design::Compare r=1
+HEAD LHS = io_decl(a_test_name)@91:51-91:62#261648
+HEAD RHS = <null>
+HEAD LHS parent chain:
+    < function(set_test_name_vpi)@91:4-91:11#261647
+    < class_defn(svaunit_vpi_wrapper)@25:1-1274:9#331
+    < package(svaunit_pkg)@24:1-73:11#325
+    < design(unnamed)@0:0-0:0#339431
+PARENT-CHAIN PROBE (top down; REPRO = this pair's own Compare gives the same head):
+  design(unnamed)@0:0-0:0#339431                             ourMatches=1 repro=1 REPRO
+  package(svaunit_pkg)@24:1-73:11#325                        ourMatches=2 repro=2 REPRO
+  class_defn(svaunit_vpi_wrapper)@25:1-1274:9#331            ourMatches=1 repro=0 no-repro
+  function(set_test_name_vpi)@91:4-91:11#261647              ourMatches=0 repro=0 NO COUNTERPART
+  io_decl(a_test_name)@91:51-91:62#261648                    ourMatches=1 repro=0 no-repro
+DESCENT (each step = a child pair whose own Compare reproduces the head):
+  [0] package(svaunit_pkg)@24:1-73:11#325
+      vs package(svaunit_pkg)@24:1-73:11#3074
+  [1] array_var(uvm_random_seed_table_lookup)@328:14-328:42#331786
+      vs array_var(uvm_random_seed_table_lookup)@328:14-328:42#6006   (AMBIGUOUS: more than one child reproduces)
+  [2] class_var()@328:14-328:42#331784
+      vs class_var()@328:14-328:42#6010   (AMBIGUOUS: more than one child reproduces)
+  [3] ref_typespec()@0:0-0:0#331785
+      vs ref_typespec()@0:0-0:0#6011
+  STOP: no child pair reproduces the head -> the edge is a FIELD of the pair above
+OWNER PAIR:
+  FIELDS of ref_typespec()@0:0-0:0#331785
+         vs ref_typespec()@0:0-0:0#6011
+    ref_typespec::Actual_typespec LHS=class_typespec(uvm_seed_map)@328:1-328:13#331778           RHS=class_typespec(uvm_seed_map)@328:1-328:13#6009
+REFERENCE SCAN — every golden edge that lands on the head, and ours:
+  golden function(set_test_name_vpi)@91:4-91:11#261647
+      edge vpiType=28 (vector index 0)
+      ours   NO COUNTERPART for the referrer
+  golden ref_obj(a_test_name)@94:29-94:40#261657
+      edge vpiType=700 (singular)
+      ours   ref_obj(a_test_name)@94:29-94:40#190664 -> singular <null>
+  golden ref_typespec()@0:0-0:0#261650
+      edge vpiType=81 (singular)
+      ours   ref_typespec()@0:0-0:0#190656 -> singular io_decl(a_test_name)@91:51-91:62#190655

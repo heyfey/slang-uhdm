@@ -1,0 +1,40 @@
+r10uvm176 — THE LAW'S FACE over the WHOLE CORPUS, both sides.  MEASUREMENT ONLY.
+  the FACE = every argument reference of a method_func_call/method_task_call that
+  carries a vpiPrefix and NO vpiFunction/vpiTask link (ct176cen --face).
+
+== surelog: 956 comparable databases x 2 sides
+  golden face rows identical across the two runs: True
+  golden FACE cells = 32681
+  FACEDIFF 142 -> 138   MOVED=4 TOGOLD=4 AWAY=0 MOVEDWRONG=0
+  cells where GOLDEN BINDS and WE DO NOT (the whole population, pristine): 34
+   by row: {'testflags/MiniAmiq': 17, 'default/MiniAmiq': 17}
+   the TWO this law owns (an IN-BODY CLASS METHOD calling through a one-name handle):
+      default/MiniAmiq|CALL=method_func_call:kill_all_assertions|RECV=ref_obj:vpi_vif|NOLINK|POS=1|REF=ref_obj:a_sim_time@628:52|HOME=function:kill_all_assertions/class_defn:svaunit_vpi_wrapper
+      default/MiniAmiq|CALL=method_func_call:set_test_name|RECV=ref_obj:vpi_vif|NOLINK|POS=0|REF=ref_obj:a_test_name@94:29|HOME=function:set_test_name_vpi/class_defn:svaunit_vpi_wrapper
+      testflags/MiniAmiq|CALL=method_func_call:kill_all_assertions|RECV=ref_obj:vpi_vif|NOLINK|POS=1|REF=ref_obj:a_sim_time@628:52|HOME=function:kill_all_assertions/class_defn:svaunit_vpi_wrapper
+      testflags/MiniAmiq|CALL=method_func_call:set_test_name|RECV=ref_obj:vpi_vif|NOLINK|POS=0|REF=ref_obj:a_test_name@94:29|HOME=function:set_test_name_vpi/class_defn:svaunit_vpi_wrapper
+   the FIFTEEN per mode it does NOT (residue R1 — an INTERFACE's own subroutine):
+      default/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=0|REF=ref_obj:a_test_name@309:24|HOME=function:reset_assertion/interface_inst:<anon>
+      default/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=0|REF=ref_obj:a_test_name@333:24|HOME=function:disable_assertion/interface_inst:<anon>
+      default/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=0|REF=ref_obj:a_test_name@357:24|HOME=function:enable_assertion/interface_inst:<anon>
+      default/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=0|REF=ref_obj:a_test_name@382:24|HOME=function:kill_assertion/interface_inst:<anon>
+      default/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=0|REF=ref_obj:a_test_name@407:24|HOME=function:disable_step_assertion/interface_inst:<anon>
+      default/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=0|REF=ref_obj:a_test_name@433:24|HOME=function:enable_step_assertion/interface_inst:<anon>
+      default/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=1|REF=ref_obj:disable_sva@333:37|HOME=function:disable_assertion/interface_inst:<anon>
+      default/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=1|REF=ref_obj:enable_sva@309:37|HOME=function:reset_assertion/interface_inst:<anon>
+      default/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=1|REF=ref_obj:enable_sva@357:37|HOME=function:enable_assertion/interface_inst:<anon>
+      default/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=1|REF=ref_obj:enable_sva@382:37|HOME=function:kill_assertion/interface_inst:<anon>
+      default/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=1|REF=ref_obj:enable_sva@407:37|HOME=function:disable_step_assertion/interface_inst:<anon>
+      default/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:a_sva|NOLINK|POS=1|REF=ref_obj:enable_sva@433:37|HOME=function:enable_step_assertion/interface_inst:<anon>
+      default/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:sva_info|NOLINK|POS=1|REF=ref_obj:disable_sva@482:50|HOME=function:system_off_all_assertions/interface_inst:<anon>
+      default/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:sva_info|NOLINK|POS=1|REF=ref_obj:disable_sva@498:50|HOME=function:system_end_all_assertions/interface_inst:<anon>
+      default/MiniAmiq|CALL=method_func_call:set_enable|RECV=ref_obj:sva_info|NOLINK|POS=1|REF=ref_obj:enable_sva@467:50|HOME=function:system_on_all_assertions/interface_inst:<anon>
+
+== uhdm2rtlil: 1358 databases x 2 sides (pristine)
+  golden FACE cells = 4   ours = 4   FACEDIFF = 0
+    default/iface_method_call|CALL=method_func_call:summ2|RECV=ref_obj:ha_intf|NOLINK|POS=0|REF=ref_obj:a@7:23|HOME=always:<anon>/module_inst:<anon> {'BOUND=logic_net:a': 1} {'BOUND=logic_net:a': 1}
+    default/iface_method_call|CALL=method_func_call:summ2|RECV=ref_obj:ha_intf|NOLINK|POS=1|REF=ref_obj:b@7:26|HOME=always:<anon>/module_inst:<anon> {'BOUND=logic_net:b': 1} {'BOUND=logic_net:b': 1}
+    testflags/iface_method_call|CALL=method_func_call:summ2|RECV=ref_obj:ha_intf|NOLINK|POS=0|REF=ref_obj:a@7:23|HOME=always:<anon>/module_inst:<anon> {'BOUND=logic_net:a': 1} {'BOUND=logic_net:a': 1}
+    testflags/iface_method_call|CALL=method_func_call:summ2|RECV=ref_obj:ha_intf|NOLINK|POS=1|REF=ref_obj:b@7:26|HOME=always:<anon>/module_inst:<anon> {'BOUND=logic_net:b': 1} {'BOUND=logic_net:b': 1}
+  -> the whole u2r corpus holds FOUR face cells and they already AGREE, which is
+     why byteverify reads MOVERS 0 / 1358 there.

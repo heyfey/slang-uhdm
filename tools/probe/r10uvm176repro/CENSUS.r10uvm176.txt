@@ -1,0 +1,34 @@
+r10uvm176 — THE CENSUS of the NINE UVM row-modes, EVERY family, both sides.
+  ARG = every reference in a tf_call's vpiArgument vector, keyed by call kind+name,
+        receiver, link, position, ref kind+name+span and HOME (subroutine kind+name /
+        container kind+name).  REF = EVERY reference object in the database (the
+        MUST-NOT-MOVE family).  OBJ = one row per UHDM kind with its count.
+  The DEF/ELAB view is NOT in any key; the ROW is (RESUME.md §9 census traps).
+  Rows: SeqDriver x2, SimpleUVM x2, Scoreboard x1 (testflags has no golden), MiniAmiq x2,
+        BuildUVMPkg x2 = NINE databases; 1 352 918 census rows per binary.
+
+  golden ARG rows identical across the two runs: True
+  ARG: keys golden=114044 ours=114190 | disagreeing cells 14512 -> 14508 | MOVED=4 TOGOLD=4 AWAY=0 MOVEDWRONG=0
+     MOVER default/MiniAmiq|CALL=method_func_call:kill_all_assertions|RECV=ref_obj:vpi_vif|NOLINK|POS=1|REF=ref_obj:a_sim_time@628:52|HOME=function:kill_all_assertions/class_defn:svaunit_vpi_wrapper
+        G= {'BOUND=io_decl:a_sim_time': 1} A= {'BARE': 1} B= {'BOUND=io_decl:a_sim_time': 1}
+     MOVER default/MiniAmiq|CALL=method_func_call:set_test_name|RECV=ref_obj:vpi_vif|NOLINK|POS=0|REF=ref_obj:a_test_name@94:29|HOME=function:set_test_name_vpi/class_defn:svaunit_vpi_wrapper
+        G= {'BOUND=io_decl:a_test_name': 1} A= {'BARE': 1} B= {'BOUND=io_decl:a_test_name': 1}
+     MOVER testflags/MiniAmiq|CALL=method_func_call:kill_all_assertions|RECV=ref_obj:vpi_vif|NOLINK|POS=1|REF=ref_obj:a_sim_time@628:52|HOME=function:kill_all_assertions/class_defn:svaunit_vpi_wrapper
+        G= {'BOUND=io_decl:a_sim_time': 1} A= {'BARE': 1} B= {'BOUND=io_decl:a_sim_time': 1}
+     MOVER testflags/MiniAmiq|CALL=method_func_call:set_test_name|RECV=ref_obj:vpi_vif|NOLINK|POS=0|REF=ref_obj:a_test_name@94:29|HOME=function:set_test_name_vpi/class_defn:svaunit_vpi_wrapper
+        G= {'BOUND=io_decl:a_test_name': 1} A= {'BARE': 1} B= {'BOUND=io_decl:a_test_name': 1}
+
+  golden OBJ rows identical across the two runs: True
+  OBJ: keys golden=812 ours=810 | disagreeing cells 343 -> 343 | MOVED=0 TOGOLD=0 AWAY=0 MOVEDWRONG=0
+
+  golden REF rows identical across the two runs: True
+  REF: keys golden=461077 ours=458277 | disagreeing cells 48701 -> 48697 | MOVED=4 TOGOLD=4 AWAY=0 MOVEDWRONG=0
+     MOVER default/MiniAmiq|ref_obj:a_sim_time@628:52|HOME=function:kill_all_assertions/class_defn:svaunit_vpi_wrapper
+        G= {'BOUND=io_decl:a_sim_time': 1} A= {'BARE': 1} B= {'BOUND=io_decl:a_sim_time': 1}
+     MOVER default/MiniAmiq|ref_obj:a_test_name@94:29|HOME=function:set_test_name_vpi/class_defn:svaunit_vpi_wrapper
+        G= {'BOUND=io_decl:a_test_name': 1} A= {'BARE': 1} B= {'BOUND=io_decl:a_test_name': 1}
+     MOVER testflags/MiniAmiq|ref_obj:a_sim_time@628:52|HOME=function:kill_all_assertions/class_defn:svaunit_vpi_wrapper
+        G= {'BOUND=io_decl:a_sim_time': 1} A= {'BARE': 1} B= {'BOUND=io_decl:a_sim_time': 1}
+     MOVER testflags/MiniAmiq|ref_obj:a_test_name@94:29|HOME=function:set_test_name_vpi/class_defn:svaunit_vpi_wrapper
+        G= {'BOUND=io_decl:a_test_name': 1} A= {'BARE': 1} B= {'BOUND=io_decl:a_test_name': 1}
+

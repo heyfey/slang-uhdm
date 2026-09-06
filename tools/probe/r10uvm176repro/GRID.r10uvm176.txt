@@ -1,0 +1,1014 @@
+r10uvm176 — THE GRID.  Four arms x two views (DEF / ELAB), ONE Surelog golden each,
+  BOTH binaries, every rc recorded, and the OFFICIAL uhdm-cmp run on every arm-view.
+  A = pristine (b49636170347560e90432e4e18a11f3b), B = patched (10dc137e115d174d49de081277acb5c8).
+  LHS is ALWAYS golden.
+
+  Scored TWO ways, because a cell can be RIGHT IN VALUE and WRONG IN KEY:
+   * FULL KEY      — receiver ref NAME included;
+   * POSITION KEY  — --drop=RECV, so a receiver whose NAME we get wrong (an unstripped
+                     subscript, a trailing space: residue R2) still joins with golden's.
+  The ELAB view is additionally scored --set: with --elabuhdm OUR database carries the
+  class DEFINITION's method AND its elaborated copy where Surelog's carries one, a
+  MULTIPLICITY difference that predates this law.
+
+##### ARM a_face
+-- commands and rc
+   rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/r10uvm176_grid/a_face/g_def /tmp/wt_r10uvm176/tools/probe/r10uvm176repro/g176_a_face.sv
+   rc=0 /tmp/r10uvm176_bin/pris.bin /tmp/wt_r10uvm176/tools/probe/r10uvm176repro/g176_a_face.sv -o /tmp/r10uvm176_grid/a_face/a_def.uhdm
+   rc=0 /tmp/r10uvm176_bin/pat.bin /tmp/wt_r10uvm176/tools/probe/r10uvm176repro/g176_a_face.sv -o /tmp/r10uvm176_grid/a_face/b_def.uhdm
+   cmp rc=255 a def lines=29 heads=1
+   cmp rc=255 b def lines=72 heads=1
+   rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/r10uvm176_grid/a_face/g_elab /tmp/wt_r10uvm176/tools/probe/r10uvm176repro/g176_a_face.sv
+   rc=0 /tmp/r10uvm176_bin/pris.bin /tmp/wt_r10uvm176/tools/probe/r10uvm176repro/g176_a_face.sv --elabuhdm -o /tmp/r10uvm176_grid/a_face/a_elab.uhdm
+   rc=0 /tmp/r10uvm176_bin/pat.bin /tmp/wt_r10uvm176/tools/probe/r10uvm176repro/g176_a_face.sv --elabuhdm -o /tmp/r10uvm176_grid/a_face/b_elab.uhdm
+   cmp rc=255 a elab lines=80 heads=1
+   cmp rc=255 b elab lines=80 heads=1
+-- def, FULL KEY
+   == ARG (A: pristine) AGREE=7 G-ONLY=1 O-ONLY=1 DIFF=5
+      DIFF  CALL=method_func_call:mark176|RECV=ref_obj:wire176|NOLINK|POS=0|REF=ref_obj:alpha176@38:23|HOME=function:a1_vfunc/class_defn:work@rider176
+              G={'BOUND=io_decl:alpha176': 1}
+              O={'BARE': 1}
+      DIFF  CALL=method_func_call:mark176|RECV=ref_obj:wire176|NOLINK|POS=0|REF=ref_obj:charlie176@50:23|HOME=function:a3_local/class_defn:work@rider176
+              G={'BOUND=string_var:charlie176': 1}
+              O={'BARE': 1}
+      DIFF  CALL=method_func_call:mark176|RECV=ref_obj:wire176|NOLINK|POS=0|REF=ref_obj:lima176@99:23|HOME=task:a12_two/class_defn:work@rider176
+              G={'BOUND=io_decl:lima176': 1}
+              O={'BARE': 1}
+      DIFF  CALL=method_func_call:stow176|RECV=ref_obj:wire176|NOLINK|POS=0|REF=ref_obj:bravo176@43:23|HOME=task:a2_vtask/class_defn:work@rider176
+              G={'BOUND=io_decl:bravo176': 1}
+              O={'BARE': 1}
+      DIFF  CALL=method_func_call:stow176|RECV=ref_obj:wire176|NOLINK|POS=0|REF=ref_obj:mike176@100:23|HOME=task:a12_two/class_defn:work@rider176
+              G={'BOUND=io_decl:mike176': 1}
+              O={'BARE': 1}
+      G-ONLY CALL=method_func_call:this|RECV=constant:|NOLINK|POS=0|REF=ref_obj:kilo176@94:28|HOME=function:a11_thisvif/class_defn:work@rider176 = {'BARE': 1}
+      O-ONLY CALL=method_func_call:mark176|RECV=ref_obj:this.wire176|NOLINK|POS=0|REF=ref_obj:kilo176@94:28|HOME=function:a11_thisvif/class_defn:work@rider176 = {'BARE': 1}
+   == ARG (B: patched)  AGREE=12 G-ONLY=1 O-ONLY=1 DIFF=0
+      TOGOLD=5 AWAY=0 MOVEDWRONG=0 STILLWRONG=2
+      TOGOLD     CALL=method_func_call:mark176|RECV=ref_obj:wire176|NOLINK|POS=0|REF=ref_obj:alpha176@38:23|HOME=function:a1_vfunc/class_defn:work@rider176
+      TOGOLD     CALL=method_func_call:mark176|RECV=ref_obj:wire176|NOLINK|POS=0|REF=ref_obj:charlie176@50:23|HOME=function:a3_local/class_defn:work@rider176
+      TOGOLD     CALL=method_func_call:mark176|RECV=ref_obj:wire176|NOLINK|POS=0|REF=ref_obj:lima176@99:23|HOME=task:a12_two/class_defn:work@rider176
+      TOGOLD     CALL=method_func_call:stow176|RECV=ref_obj:wire176|NOLINK|POS=0|REF=ref_obj:bravo176@43:23|HOME=task:a2_vtask/class_defn:work@rider176
+      TOGOLD     CALL=method_func_call:stow176|RECV=ref_obj:wire176|NOLINK|POS=0|REF=ref_obj:mike176@100:23|HOME=task:a12_two/class_defn:work@rider176
+   == OBJ (A: pristine) AGREE=29 G-ONLY=0 O-ONLY=0 DIFF=3
+      DIFF  constant
+              G={'12': 1}
+              O={'11': 1}
+      DIFF  logic_net
+              G={'3': 1}
+              O={'2': 1}
+      DIFF  ref_obj
+              G={'47': 1}
+              O={'48': 1}
+   == OBJ (B: patched)  AGREE=29 G-ONLY=0 O-ONLY=0 DIFF=3
+      TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=3
+   == REF (A: pristine) AGREE=42 G-ONLY=0 O-ONLY=1 DIFF=6
+      DIFF  ref_obj:alpha176@38:23|HOME=function:a1_vfunc/class_defn:work@rider176
+              G={'BOUND=io_decl:alpha176': 1}
+              O={'BARE': 1}
+      DIFF  ref_obj:bravo176@43:23|HOME=task:a2_vtask/class_defn:work@rider176
+              G={'BOUND=io_decl:bravo176': 1}
+              O={'BARE': 1}
+      DIFF  ref_obj:charlie176@50:23|HOME=function:a3_local/class_defn:work@rider176
+              G={'BOUND=string_var:charlie176': 1}
+              O={'BARE': 1}
+      DIFF  ref_obj:inst176@121:24|HOME=initial:<anon>/module_inst:<anon>
+              G={'BOUND=logic_net:inst176': 1}
+              O={'BARE': 1}
+      DIFF  ref_obj:lima176@99:23|HOME=task:a12_two/class_defn:work@rider176
+              G={'BOUND=io_decl:lima176': 1}
+              O={'BARE': 1}
+      DIFF  ref_obj:mike176@100:23|HOME=task:a12_two/class_defn:work@rider176
+              G={'BOUND=io_decl:mike176': 1}
+              O={'BARE': 1}
+      O-ONLY ref_obj:this.wire176@94:7|HOME=function:a11_thisvif/class_defn:work@rider176 = {'BARE': 1}
+   == REF (B: patched)  AGREE=47 G-ONLY=0 O-ONLY=1 DIFF=1
+      TOGOLD=5 AWAY=0 MOVEDWRONG=0 STILLWRONG=2
+      TOGOLD     ref_obj:alpha176@38:23|HOME=function:a1_vfunc/class_defn:work@rider176
+      TOGOLD     ref_obj:bravo176@43:23|HOME=task:a2_vtask/class_defn:work@rider176
+      TOGOLD     ref_obj:charlie176@50:23|HOME=function:a3_local/class_defn:work@rider176
+      TOGOLD     ref_obj:lima176@99:23|HOME=task:a12_two/class_defn:work@rider176
+      TOGOLD     ref_obj:mike176@100:23|HOME=task:a12_two/class_defn:work@rider176
+-- def, POSITION KEY (--drop=RECV)
+   == ARG (A: pristine) AGREE=7 G-ONLY=1 O-ONLY=1 DIFF=5
+   == ARG (B: patched)  AGREE=12 G-ONLY=1 O-ONLY=1 DIFF=0
+      TOGOLD=5 AWAY=0 MOVEDWRONG=0 STILLWRONG=2
+   == OBJ (A: pristine) AGREE=29 G-ONLY=0 O-ONLY=0 DIFF=3
+   == OBJ (B: patched)  AGREE=29 G-ONLY=0 O-ONLY=0 DIFF=3
+      TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=3
+   == REF (A: pristine) AGREE=42 G-ONLY=0 O-ONLY=1 DIFF=6
+   == REF (B: patched)  AGREE=47 G-ONLY=0 O-ONLY=1 DIFF=1
+      TOGOLD=5 AWAY=0 MOVEDWRONG=0 STILLWRONG=2
+-- elab, FULL KEY
+   == ARG (A: pristine) AGREE=7 G-ONLY=1 O-ONLY=3 DIFF=6
+      DIFF  CALL=method_func_call:mark176|RECV=ref_obj:wire176|NOLINK|POS=0|REF=ref_obj:alpha176@38:23|HOME=function:a1_vfunc/class_defn:work@rider176
+              G={'BOUND=io_decl:alpha176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:alpha176': 1}
+      DIFF  CALL=method_func_call:mark176|RECV=ref_obj:wire176|NOLINK|POS=0|REF=ref_obj:charlie176@50:23|HOME=function:a3_local/class_defn:work@rider176
+              G={'BOUND=string_var:charlie176': 1}
+              O={'BARE': 1, 'BOUND=string_var:charlie176': 1}
+      DIFF  CALL=method_func_call:mark176|RECV=ref_obj:wire176|NOLINK|POS=0|REF=ref_obj:lima176@99:23|HOME=task:a12_two/class_defn:work@rider176
+              G={'BOUND=io_decl:lima176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:lima176': 1}
+      DIFF  CALL=method_func_call:mark176|RECV=ref_obj:wire176|NOLINK|POS=0|REF=ref_obj:prop176@55:23|HOME=function:a4_prop/class_defn:work@rider176
+              G={'BOUND=string_var:prop176': 1}
+              O={'BARE': 1, 'BOUND=string_var:prop176': 1}
+      DIFF  CALL=method_func_call:stow176|RECV=ref_obj:wire176|NOLINK|POS=0|REF=ref_obj:bravo176@43:23|HOME=task:a2_vtask/class_defn:work@rider176
+              G={'BOUND=io_decl:bravo176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:bravo176': 1}
+      DIFF  CALL=method_func_call:stow176|RECV=ref_obj:wire176|NOLINK|POS=0|REF=ref_obj:mike176@100:23|HOME=task:a12_two/class_defn:work@rider176
+              G={'BOUND=io_decl:mike176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:mike176': 1}
+      G-ONLY CALL=method_func_call:this|RECV=constant:|NOLINK|POS=0|REF=ref_obj:kilo176@94:28|HOME=function:a11_thisvif/class_defn:work@rider176 = {'BOUND=io_decl:kilo176': 1}
+      O-ONLY CALL=func_call:keep_local176|RECV=NONE|NOLINK|POS=0|REF=ref_obj:india176@86:21|HOME=function:a10_bare/class_defn:work@rider176 = {'BOUND=io_decl:india176': 1}
+      O-ONLY CALL=method_func_call:keep176|RECV=ref_obj:mate176|NOLINK|POS=0|REF=ref_obj:golf176@76:23|HOME=function:a8_class/class_defn:work@rider176 = {'BOUND=io_decl:golf176': 1}
+      O-ONLY CALL=method_func_call:mark176|RECV=ref_obj:this.wire176|NOLINK|POS=0|REF=ref_obj:kilo176@94:28|HOME=function:a11_thisvif/class_defn:work@rider176 = {'BARE': 1, 'BOUND=io_decl:kilo176': 1}
+   == ARG (B: patched)  AGREE=12 G-ONLY=1 O-ONLY=3 DIFF=1
+      TOGOLD=5 AWAY=0 MOVEDWRONG=0 STILLWRONG=5
+      TOGOLD     CALL=method_func_call:mark176|RECV=ref_obj:wire176|NOLINK|POS=0|REF=ref_obj:alpha176@38:23|HOME=function:a1_vfunc/class_defn:work@rider176
+      TOGOLD     CALL=method_func_call:mark176|RECV=ref_obj:wire176|NOLINK|POS=0|REF=ref_obj:charlie176@50:23|HOME=function:a3_local/class_defn:work@rider176
+      TOGOLD     CALL=method_func_call:mark176|RECV=ref_obj:wire176|NOLINK|POS=0|REF=ref_obj:lima176@99:23|HOME=task:a12_two/class_defn:work@rider176
+      TOGOLD     CALL=method_func_call:stow176|RECV=ref_obj:wire176|NOLINK|POS=0|REF=ref_obj:bravo176@43:23|HOME=task:a2_vtask/class_defn:work@rider176
+      TOGOLD     CALL=method_func_call:stow176|RECV=ref_obj:wire176|NOLINK|POS=0|REF=ref_obj:mike176@100:23|HOME=task:a12_two/class_defn:work@rider176
+   == OBJ (A: pristine) AGREE=20 G-ONLY=0 O-ONLY=0 DIFF=12
+      DIFF  assignment
+              G={'14': 1}
+              O={'16': 1}
+      DIFF  begin
+              G={'8': 1}
+              O={'10': 1}
+      DIFF  constant
+              G={'12': 1}
+              O={'11': 1}
+      DIFF  func_call
+              G={'1': 1}
+              O={'2': 1}
+      DIFF  function
+              G={'43': 1}
+              O={'50': 1}
+      DIFF  io_decl
+              G={'41': 1}
+              O={'55': 1}
+      DIFF  logic_net
+              G={'3': 1}
+              O={'2': 1}
+      DIFF  method_func_call
+              G={'27': 1}
+              O={'35': 1}
+      DIFF  operation
+              G={'5': 1}
+              O={'6': 1}
+      DIFF  ref_obj
+              G={'69': 1}
+              O={'103': 1}
+      DIFF  ref_typespec
+              G={'59': 1}
+              O={'71': 1}
+      DIFF  task
+              G={'12': 1}
+              O={'23': 1}
+   == OBJ (B: patched)  AGREE=20 G-ONLY=0 O-ONLY=0 DIFF=12
+      TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=12
+   == REF (A: pristine) AGREE=32 G-ONLY=0 O-ONLY=1 DIFF=21
+      DIFF  ref_obj:alpha176@37:17|HOME=function:a1_vfunc/class_defn:work@rider176
+              G={'BOUND=io_decl:alpha176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:alpha176': 1}
+      DIFF  ref_obj:alpha176@38:23|HOME=function:a1_vfunc/class_defn:work@rider176
+              G={'BOUND=io_decl:alpha176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:alpha176': 1}
+      DIFF  ref_obj:bravo176@43:23|HOME=task:a2_vtask/class_defn:work@rider176
+              G={'BOUND=io_decl:bravo176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:bravo176': 1}
+      DIFF  ref_obj:charlie176@50:23|HOME=function:a3_local/class_defn:work@rider176
+              G={'BOUND=string_var:charlie176': 1}
+              O={'BARE': 1, 'BOUND=string_var:charlie176': 1}
+      DIFF  ref_obj:inst176@121:24|HOME=initial:<anon>/module_inst:<anon>
+              G={'BOUND=logic_net:inst176': 1}
+              O={'BARE': 1}
+      DIFF  ref_obj:kept176@21:7|HOME=function:keep176/class_defn:work@helper176
+              G={'BOUND=string_var:kept176': 1}
+              O={'BARE': 1, 'BOUND=string_var:kept176': 1}
+      DIFF  ref_obj:kilo176@94:28|HOME=function:a11_thisvif/class_defn:work@rider176
+              G={'BOUND=io_decl:kilo176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:kilo176': 1}
+      DIFF  ref_obj:lima176@99:23|HOME=task:a12_two/class_defn:work@rider176
+              G={'BOUND=io_decl:lima176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:lima176': 1}
+      DIFF  ref_obj:mate176@76:7|HOME=function:a8_class/class_defn:work@rider176
+              G={'BOUND=class_var:mate176': 1}
+              O={'BARE': 1, 'BOUND=class_var:mate176': 1}
+      DIFF  ref_obj:mike176@100:23|HOME=task:a12_two/class_defn:work@rider176
+              G={'BOUND=io_decl:mike176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:mike176': 1}
+      DIFF  ref_obj:oscar176@112:24|HOME=function:a14_oparg/class_defn:work@rider176
+              G={'BOUND=io_decl:oscar176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:oscar176': 1}
+      DIFF  ref_obj:prop176@37:7|HOME=function:a1_vfunc/class_defn:work@rider176
+              G={'BOUND=string_var:prop176': 1}
+              O={'BARE': 1, 'BOUND=string_var:prop176': 1}
+      DIFF  ref_obj:prop176@55:23|HOME=function:a4_prop/class_defn:work@rider176
+              G={'BOUND=string_var:prop176': 1}
+              O={'BARE': 1, 'BOUND=string_var:prop176': 1}
+      DIFF  ref_obj:tag176@21:17|HOME=function:keep176/class_defn:work@helper176
+              G={'BOUND=io_decl:tag176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:tag176': 1}
+      DIFF  ref_obj:who176@122:7|HOME=initial:<anon>/module_inst:<anon>
+              G={'BARE': 1}
+              O={'BARE': 1, 'BOUND=class_var:who176': 1}
+      DIFF  ref_obj:wire176@100:7|HOME=task:a12_two/class_defn:work@rider176
+              G={'BOUND=logic_var:wire176': 1}
+              O={'BARE': 1, 'BOUND=logic_var:wire176': 1}
+      DIFF  ref_obj:wire176@112:7|HOME=function:a14_oparg/class_defn:work@rider176
+              G={'BOUND=logic_var:wire176': 1}
+              O={'BARE': 1, 'BOUND=logic_var:wire176': 1}
+      DIFF  ref_obj:wire176@38:7|HOME=function:a1_vfunc/class_defn:work@rider176
+              G={'BOUND=logic_var:wire176': 1}
+              O={'BARE': 1, 'BOUND=logic_var:wire176': 1}
+      DIFF  ref_obj:wire176@43:7|HOME=task:a2_vtask/class_defn:work@rider176
+              G={'BOUND=logic_var:wire176': 1}
+              O={'BARE': 1, 'BOUND=logic_var:wire176': 1}
+      DIFF  ref_obj:wire176@55:7|HOME=function:a4_prop/class_defn:work@rider176
+              G={'BOUND=logic_var:wire176': 1}
+              O={'BARE': 1, 'BOUND=logic_var:wire176': 1}
+      DIFF  ref_obj:wire176@99:7|HOME=task:a12_two/class_defn:work@rider176
+              G={'BOUND=logic_var:wire176': 1}
+              O={'BARE': 1, 'BOUND=logic_var:wire176': 1}
+      O-ONLY ref_obj:this.wire176@94:7|HOME=function:a11_thisvif/class_defn:work@rider176 = {'BARE': 1}
+   == REF (B: patched)  AGREE=37 G-ONLY=0 O-ONLY=1 DIFF=16
+      TOGOLD=5 AWAY=0 MOVEDWRONG=0 STILLWRONG=17
+      TOGOLD     ref_obj:alpha176@38:23|HOME=function:a1_vfunc/class_defn:work@rider176
+      TOGOLD     ref_obj:bravo176@43:23|HOME=task:a2_vtask/class_defn:work@rider176
+      TOGOLD     ref_obj:charlie176@50:23|HOME=function:a3_local/class_defn:work@rider176
+      TOGOLD     ref_obj:lima176@99:23|HOME=task:a12_two/class_defn:work@rider176
+      TOGOLD     ref_obj:mike176@100:23|HOME=task:a12_two/class_defn:work@rider176
+-- elab, POSITION KEY (--drop=RECV)
+   == ARG (A: pristine) AGREE=7 G-ONLY=1 O-ONLY=3 DIFF=6
+   == ARG (B: patched)  AGREE=12 G-ONLY=1 O-ONLY=3 DIFF=1
+      TOGOLD=5 AWAY=0 MOVEDWRONG=0 STILLWRONG=5
+   == OBJ (A: pristine) AGREE=20 G-ONLY=0 O-ONLY=0 DIFF=12
+   == OBJ (B: patched)  AGREE=20 G-ONLY=0 O-ONLY=0 DIFF=12
+      TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=12
+   == REF (A: pristine) AGREE=32 G-ONLY=0 O-ONLY=1 DIFF=21
+   == REF (B: patched)  AGREE=37 G-ONLY=0 O-ONLY=1 DIFF=16
+      TOGOLD=5 AWAY=0 MOVEDWRONG=0 STILLWRONG=17
+
+##### ARM b_home
+-- commands and rc
+   rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/r10uvm176_grid/b_home/g_def /tmp/wt_r10uvm176/tools/probe/r10uvm176repro/g176_b_home.sv
+   rc=0 /tmp/r10uvm176_bin/pris.bin /tmp/wt_r10uvm176/tools/probe/r10uvm176repro/g176_b_home.sv -o /tmp/r10uvm176_grid/b_home/a_def.uhdm
+   rc=0 /tmp/r10uvm176_bin/pat.bin /tmp/wt_r10uvm176/tools/probe/r10uvm176repro/g176_b_home.sv -o /tmp/r10uvm176_grid/b_home/b_def.uhdm
+   cmp rc=255 a def lines=29 heads=1
+   cmp rc=255 b def lines=6532 heads=1
+   rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/r10uvm176_grid/b_home/g_elab /tmp/wt_r10uvm176/tools/probe/r10uvm176repro/g176_b_home.sv
+   rc=0 /tmp/r10uvm176_bin/pris.bin /tmp/wt_r10uvm176/tools/probe/r10uvm176repro/g176_b_home.sv --elabuhdm -o /tmp/r10uvm176_grid/b_home/a_elab.uhdm
+   rc=0 /tmp/r10uvm176_bin/pat.bin /tmp/wt_r10uvm176/tools/probe/r10uvm176repro/g176_b_home.sv --elabuhdm -o /tmp/r10uvm176_grid/b_home/b_elab.uhdm
+   cmp rc=255 a elab lines=7908 heads=1
+   cmp rc=255 b elab lines=7908 heads=1
+-- def, FULL KEY
+   == ARG (A: pristine) AGREE=7 G-ONLY=1 O-ONLY=1 DIFF=2
+      DIFF  CALL=method_func_call:bump176|RECV=ref_obj:duct176|NOLINK|POS=0|REF=ref_obj:papa176@20:23|HOME=function:u1_inbody/class_defn:work@unitrider176
+              G={'BOUND=io_decl:papa176': 1}
+              O={'BARE': 1}
+      DIFF  CALL=method_func_call:bump176|RECV=ref_obj:duct176|NOLINK|POS=0|REF=ref_obj:quebec176@30:26|HOME=function:p1_inbody/class_defn:pkgrider176
+              G={'BOUND=io_decl:quebec176': 1}
+              O={'BARE': 1}
+      G-ONLY CALL=method_func_call:bump176|RECV=ref_obj:nested176|NOLINK|POS=0|REF=ref_obj:whisky176@68:25|HOME=function:i1_ifacefn/interface_inst:<anon> = {'BOUND=io_decl:whisky176': 1}
+      O-ONLY CALL=method_func_call:bump176|RECV=ref_obj:nested176|NOLINK|POS=0|REF=ref_obj:whisky176@68:25|HOME=function:i1_ifacefn/module_inst:<anon> = {'BOUND=io_decl:whisky176': 1}
+   == ARG (B: patched)  AGREE=9 G-ONLY=1 O-ONLY=1 DIFF=0
+      TOGOLD=2 AWAY=0 MOVEDWRONG=0 STILLWRONG=2
+      TOGOLD     CALL=method_func_call:bump176|RECV=ref_obj:duct176|NOLINK|POS=0|REF=ref_obj:papa176@20:23|HOME=function:u1_inbody/class_defn:work@unitrider176
+      TOGOLD     CALL=method_func_call:bump176|RECV=ref_obj:duct176|NOLINK|POS=0|REF=ref_obj:quebec176@30:26|HOME=function:p1_inbody/class_defn:pkgrider176
+   == OBJ (A: pristine) AGREE=27 G-ONLY=0 O-ONLY=0 DIFF=3
+      DIFF  interface_inst
+              G={'7': 1}
+              O={'5': 1}
+      DIFF  module_inst
+              G={'4': 1}
+              O={'6': 1}
+      DIFF  ref_module
+              G={'3': 1}
+              O={'4': 1}
+   == OBJ (B: patched)  AGREE=27 G-ONLY=0 O-ONLY=0 DIFF=3
+      TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=3
+   == REF (A: pristine) AGREE=38 G-ONLY=2 O-ONLY=3 DIFF=5
+      DIFF  ref_module:call_u176@75:17|HOME=-:-/module_inst:<anon>
+              G={'BOUND=interface_inst:': 1}
+              O={'BOUND=module_inst:': 1}
+      DIFF  ref_obj:papa176@20:23|HOME=function:u1_inbody/class_defn:work@unitrider176
+              G={'BOUND=io_decl:papa176': 1}
+              O={'BARE': 1}
+      DIFF  ref_obj:quebec176@30:26|HOME=function:p1_inbody/class_defn:pkgrider176
+              G={'BOUND=io_decl:quebec176': 1}
+              O={'BARE': 1}
+      DIFF  ref_obj:wirebox176@80:23|HOME=initial:<anon>/module_inst:<anon>
+              G={'BOUND=logic_net:wirebox176': 1}
+              O={'BARE': 1}
+      DIFF  ref_obj:wirebox176@83:23|HOME=initial:<anon>/module_inst:<anon>
+              G={'BOUND=logic_net:wirebox176': 1}
+              O={'BARE': 1}
+      G-ONLY ref_obj:nested176@68:7|HOME=function:i1_ifacefn/interface_inst:<anon> = {'BARE': 1}
+      G-ONLY ref_obj:whisky176@68:25|HOME=function:i1_ifacefn/interface_inst:<anon> = {'BOUND=io_decl:whisky176': 1}
+      O-ONLY ref_module:nested176@65:15|HOME=-:-/module_inst:<anon> = {'BOUND=interface_inst:': 1}
+      O-ONLY ref_obj:nested176@68:7|HOME=function:i1_ifacefn/module_inst:<anon> = {'BARE': 1}
+      O-ONLY ref_obj:whisky176@68:25|HOME=function:i1_ifacefn/module_inst:<anon> = {'BOUND=io_decl:whisky176': 1}
+   == REF (B: patched)  AGREE=40 G-ONLY=2 O-ONLY=3 DIFF=3
+      TOGOLD=2 AWAY=0 MOVEDWRONG=0 STILLWRONG=8
+      TOGOLD     ref_obj:papa176@20:23|HOME=function:u1_inbody/class_defn:work@unitrider176
+      TOGOLD     ref_obj:quebec176@30:26|HOME=function:p1_inbody/class_defn:pkgrider176
+-- def, POSITION KEY (--drop=RECV)
+   == ARG (A: pristine) AGREE=7 G-ONLY=1 O-ONLY=1 DIFF=2
+   == ARG (B: patched)  AGREE=9 G-ONLY=1 O-ONLY=1 DIFF=0
+      TOGOLD=2 AWAY=0 MOVEDWRONG=0 STILLWRONG=2
+   == OBJ (A: pristine) AGREE=27 G-ONLY=0 O-ONLY=0 DIFF=3
+   == OBJ (B: patched)  AGREE=27 G-ONLY=0 O-ONLY=0 DIFF=3
+      TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=3
+   == REF (A: pristine) AGREE=38 G-ONLY=2 O-ONLY=3 DIFF=5
+   == REF (B: patched)  AGREE=40 G-ONLY=2 O-ONLY=3 DIFF=3
+      TOGOLD=2 AWAY=0 MOVEDWRONG=0 STILLWRONG=8
+-- elab, FULL KEY
+   == ARG (A: pristine) AGREE=10 G-ONLY=1 O-ONLY=2 DIFF=2
+      DIFF  CALL=method_func_call:bump176|RECV=ref_obj:duct176|NOLINK|POS=0|REF=ref_obj:papa176@20:23|HOME=function:u1_inbody/class_defn:work@unitrider176
+              G={'BOUND=io_decl:papa176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:papa176': 1}
+      DIFF  CALL=method_func_call:bump176|RECV=ref_obj:duct176|NOLINK|POS=0|REF=ref_obj:quebec176@30:26|HOME=function:p1_inbody/class_defn:pkgrider176
+              G={'BOUND=io_decl:quebec176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:quebec176': 1}
+      G-ONLY CALL=method_func_call:bump176|RECV=ref_obj:nested176|NOLINK|POS=0|REF=ref_obj:whisky176@68:25|HOME=function:i1_ifacefn/interface_inst:<anon> = {'BOUND=io_decl:whisky176': 1}
+      O-ONLY CALL=method_func_call:bump176|RECV=ref_obj:nested176|FUNC|POS=0|REF=ref_obj:whisky176@68:25|HOME=function:i1_ifacefn/module_inst:call_u176 = {'BOUND=io_decl:whisky176': 1}
+      O-ONLY CALL=method_func_call:bump176|RECV=ref_obj:nested176|NOLINK|POS=0|REF=ref_obj:whisky176@68:25|HOME=function:i1_ifacefn/module_inst:<anon> = {'BOUND=io_decl:whisky176': 1}
+   == ARG (B: patched)  AGREE=12 G-ONLY=1 O-ONLY=2 DIFF=0
+      TOGOLD=2 AWAY=0 MOVEDWRONG=0 STILLWRONG=3
+      TOGOLD     CALL=method_func_call:bump176|RECV=ref_obj:duct176|NOLINK|POS=0|REF=ref_obj:papa176@20:23|HOME=function:u1_inbody/class_defn:work@unitrider176
+      TOGOLD     CALL=method_func_call:bump176|RECV=ref_obj:duct176|NOLINK|POS=0|REF=ref_obj:quebec176@30:26|HOME=function:p1_inbody/class_defn:pkgrider176
+   == OBJ (A: pristine) AGREE=20 G-ONLY=0 O-ONLY=0 DIFF=11
+      DIFF  function
+              G={'27': 1}
+              O={'34': 1}
+      DIFF  interface_inst
+              G={'6': 1}
+              O={'5': 1}
+      DIFF  io_decl
+              G={'30': 1}
+              O={'45': 1}
+      DIFF  logic_var
+              G={'3': 1}
+              O={'5': 1}
+      DIFF  method_func_call
+              G={'24': 1}
+              O={'32': 1}
+      DIFF  module_inst
+              G={'4': 1}
+              O={'6': 1}
+      DIFF  port
+              G={'3': 1}
+              O={'4': 1}
+      DIFF  ref_module
+              G={'3': 1}
+              O={'4': 1}
+      DIFF  ref_obj
+              G={'61': 1}
+              O={'94': 1}
+      DIFF  ref_typespec
+              G={'45': 1}
+              O={'60': 1}
+      DIFF  task
+              G={'13': 1}
+              O={'25': 1}
+   == OBJ (B: patched)  AGREE=20 G-ONLY=0 O-ONLY=0 DIFF=11
+      TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=11
+   == REF (A: pristine) AGREE=45 G-ONLY=2 O-ONLY=6 DIFF=17
+      DIFF  ref_module:call_u176@75:17|HOME=-:-/module_inst:<anon>
+              G={'BOUND=interface_inst:': 1}
+              O={'BOUND=module_inst:': 1}
+      DIFF  ref_obj:call_u176@87:7|HOME=initial:<anon>/module_inst:<anon>
+              G={'BARE': 1}
+              O={'BARE': 1, 'BOUND=module_inst:call_u176': 1}
+      DIFF  ref_obj:call_u176@87:7|HOME=initial:<anon>/module_inst:work@top176
+              G={'BOUND=interface_inst:call_u176': 1}
+              O={'BOUND=module_inst:call_u176': 1}
+      DIFF  ref_obj:duct176@20:7|HOME=function:u1_inbody/class_defn:work@unitrider176
+              G={'BOUND=logic_var:duct176': 1}
+              O={'BARE': 1, 'BOUND=logic_var:duct176': 1}
+      DIFF  ref_obj:duct176@30:10|HOME=function:p1_inbody/class_defn:pkgrider176
+              G={'BOUND=logic_var:duct176': 1}
+              O={'BARE': 1, 'BOUND=logic_var:duct176': 1}
+      DIFF  ref_obj:duct176@38:7|HOME=function:p2_oob/class_defn:pkgrider176
+              G={'BOUND=logic_var:duct176': 1}
+              O={'BARE': 1, 'BOUND=logic_var:duct176': 1}
+      DIFF  ref_obj:duct176@42:7|HOME=task:p3_oobtask/class_defn:pkgrider176
+              G={'BOUND=logic_var:duct176': 1}
+              O={'BARE': 1, 'BOUND=logic_var:duct176': 1}
+      DIFF  ref_obj:papa176@20:23|HOME=function:u1_inbody/class_defn:work@unitrider176
+              G={'BOUND=io_decl:papa176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:papa176': 1}
+      DIFF  ref_obj:port176@52:7|HOME=function:m1_modfn/module_inst:<anon>
+              G={'BARE': 1}
+              O={'BARE': 1, 'BOUND=interface_inst:port176': 1}
+      DIFF  ref_obj:port176@59:7|HOME=initial:<anon>/module_inst:<anon>
+              G={'BARE': 1}
+              O={'BARE': 1, 'BOUND=interface_inst:port176': 1}
+      DIFF  ref_obj:pp176@84:7|HOME=initial:<anon>/module_inst:<anon>
+              G={'BARE': 1}
+              O={'BARE': 1, 'BOUND=class_var:pp176': 1}
+      DIFF  ref_obj:pp176@85:7|HOME=initial:<anon>/module_inst:<anon>
+              G={'BARE': 1}
+              O={'BARE': 1, 'BOUND=class_var:pp176': 1}
+      DIFF  ref_obj:pp176@86:7|HOME=initial:<anon>/module_inst:<anon>
+              G={'BARE': 1}
+              O={'BARE': 1, 'BOUND=class_var:pp176': 1}
+      DIFF  ref_obj:quebec176@30:26|HOME=function:p1_inbody/class_defn:pkgrider176
+              G={'BOUND=io_decl:quebec176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:quebec176': 1}
+      DIFF  ref_obj:uu176@81:7|HOME=initial:<anon>/module_inst:<anon>
+              G={'BARE': 1}
+              O={'BARE': 1, 'BOUND=class_var:uu176': 1}
+      DIFF  ref_obj:wirebox176@80:23|HOME=initial:<anon>/module_inst:<anon>
+              G={'BOUND=logic_net:wirebox176': 1}
+              O={'BARE': 1}
+      DIFF  ref_obj:wirebox176@83:23|HOME=initial:<anon>/module_inst:<anon>
+              G={'BOUND=logic_net:wirebox176': 1}
+              O={'BARE': 1}
+      G-ONLY ref_obj:nested176@68:7|HOME=function:i1_ifacefn/interface_inst:<anon> = {'BOUND=interface_inst:nested176': 1}
+      G-ONLY ref_obj:whisky176@68:25|HOME=function:i1_ifacefn/interface_inst:<anon> = {'BOUND=io_decl:whisky176': 1}
+      O-ONLY ref_module:nested176@65:15|HOME=-:-/module_inst:<anon> = {'BOUND=interface_inst:': 1}
+      O-ONLY ref_obj:@74:28|HOME=-:-/-:- = {'BOUND=interface_inst:port176': 1}
+      O-ONLY ref_obj:nested176@68:7|HOME=function:i1_ifacefn/module_inst:<anon> = {'BARE': 1, 'BOUND=interface_inst:nested176': 1}
+      O-ONLY ref_obj:nested176@68:7|HOME=function:i1_ifacefn/module_inst:call_u176 = {'BOUND=interface_inst:nested176': 1}
+      O-ONLY ref_obj:whisky176@68:25|HOME=function:i1_ifacefn/module_inst:<anon> = {'BOUND=io_decl:whisky176': 1}
+      O-ONLY ref_obj:whisky176@68:25|HOME=function:i1_ifacefn/module_inst:call_u176 = {'BOUND=io_decl:whisky176': 1}
+   == REF (B: patched)  AGREE=47 G-ONLY=2 O-ONLY=6 DIFF=15
+      TOGOLD=2 AWAY=0 MOVEDWRONG=0 STILLWRONG=23
+      TOGOLD     ref_obj:papa176@20:23|HOME=function:u1_inbody/class_defn:work@unitrider176
+      TOGOLD     ref_obj:quebec176@30:26|HOME=function:p1_inbody/class_defn:pkgrider176
+-- elab, POSITION KEY (--drop=RECV)
+   == ARG (A: pristine) AGREE=10 G-ONLY=1 O-ONLY=2 DIFF=2
+   == ARG (B: patched)  AGREE=12 G-ONLY=1 O-ONLY=2 DIFF=0
+      TOGOLD=2 AWAY=0 MOVEDWRONG=0 STILLWRONG=3
+   == OBJ (A: pristine) AGREE=20 G-ONLY=0 O-ONLY=0 DIFF=11
+   == OBJ (B: patched)  AGREE=20 G-ONLY=0 O-ONLY=0 DIFF=11
+      TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=11
+   == REF (A: pristine) AGREE=45 G-ONLY=2 O-ONLY=6 DIFF=17
+   == REF (B: patched)  AGREE=47 G-ONLY=2 O-ONLY=6 DIFF=15
+      TOGOLD=2 AWAY=0 MOVEDWRONG=0 STILLWRONG=23
+
+##### ARM c_recv
+-- commands and rc
+   rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/r10uvm176_grid/c_recv/g_def /tmp/wt_r10uvm176/tools/probe/r10uvm176repro/g176_c_recv.sv
+   rc=0 /tmp/r10uvm176_bin/pris.bin /tmp/wt_r10uvm176/tools/probe/r10uvm176repro/g176_c_recv.sv -o /tmp/r10uvm176_grid/c_recv/a_def.uhdm
+   rc=0 /tmp/r10uvm176_bin/pat.bin /tmp/wt_r10uvm176/tools/probe/r10uvm176repro/g176_c_recv.sv -o /tmp/r10uvm176_grid/c_recv/b_def.uhdm
+   cmp rc=255 a def lines=29 heads=1
+   cmp rc=255 b def lines=72 heads=1
+   rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/r10uvm176_grid/c_recv/g_elab /tmp/wt_r10uvm176/tools/probe/r10uvm176repro/g176_c_recv.sv
+   rc=0 /tmp/r10uvm176_bin/pris.bin /tmp/wt_r10uvm176/tools/probe/r10uvm176repro/g176_c_recv.sv --elabuhdm -o /tmp/r10uvm176_grid/c_recv/a_elab.uhdm
+   rc=0 /tmp/r10uvm176_bin/pat.bin /tmp/wt_r10uvm176/tools/probe/r10uvm176repro/g176_c_recv.sv --elabuhdm -o /tmp/r10uvm176_grid/c_recv/b_elab.uhdm
+   cmp rc=255 a elab lines=80 heads=1
+   cmp rc=255 b elab lines=80 heads=1
+-- def, FULL KEY
+   == ARG (A: pristine) AGREE=0 G-ONLY=3 O-ONLY=4 DIFF=4
+      DIFF  CALL=method_func_call:c6_formal|RECV=ref_obj:sp176|NOLINK|POS=0|REF=ref_obj:box176@83:23|HOME=initial:<anon>/module_inst:<anon>
+              G={'BOUND=logic_net:box176': 1}
+              O={'BARE': 1}
+      DIFF  CALL=method_func_call:poke176|RECV=ref_obj:grab176|NOLINK|POS=0|REF=ref_obj:epsil176@46:23|HOME=function:c5_local/class_defn:work@spelling176
+              G={'BOUND=io_decl:epsil176': 1}
+              O={'BARE': 1}
+      DIFF  CALL=method_func_call:poke176|RECV=ref_obj:held176|NOLINK|POS=0|REF=ref_obj:zeta176@51:23|HOME=function:c6_formal/class_defn:work@spelling176
+              G={'BOUND=io_decl:zeta176': 1}
+              O={'BARE': 1}
+      DIFF  CALL=method_func_call:poke176|RECV=ref_obj:plain176|NOLINK|POS=0|REF=ref_obj:alfa176@23:24|HOME=function:c1_plain/class_defn:work@spelling176
+              G={'BOUND=io_decl:alfa176': 1}
+              O={'BARE': 1}
+      G-ONLY CALL=method_func_call:poke176|RECV=ref_obj:bank176|NOLINK|POS=0|REF=ref_obj:delta176@39:26|HOME=function:c4_index/class_defn:work@spelling176 = {'BOUND=io_decl:delta176': 1}
+      G-ONLY CALL=method_func_call:poke176|RECV=ref_obj:plain176|NOLINK|POS=0|REF=ref_obj:eta176@56:26|HOME=function:c7_spaced/class_defn:work@spelling176 = {'BOUND=io_decl:eta176': 1}
+      G-ONLY CALL=method_func_call:this|RECV=constant:|NOLINK|POS=0|REF=ref_obj:beta176@29:29|HOME=function:c2_this/class_defn:work@spelling176 = {'BARE': 1}
+      O-ONLY CALL=method_func_call:poke176|RECV=ref_obj:bank176[1]|NOLINK|POS=0|REF=ref_obj:delta176@39:26|HOME=function:c4_index/class_defn:work@spelling176 = {'BARE': 1}
+      O-ONLY CALL=method_func_call:poke176|RECV=ref_obj:nest176.deep176|NOLINK|POS=0|REF=ref_obj:gamma176@34:31|HOME=function:c3_deep/class_defn:work@spelling176 = {'BARE': 1}
+      O-ONLY CALL=method_func_call:poke176|RECV=ref_obj:plain176 |NOLINK|POS=0|REF=ref_obj:eta176@56:26|HOME=function:c7_spaced/class_defn:work@spelling176 = {'BARE': 1}
+      O-ONLY CALL=method_func_call:poke176|RECV=ref_obj:this.plain176|NOLINK|POS=0|REF=ref_obj:beta176@29:29|HOME=function:c2_this/class_defn:work@spelling176 = {'BARE': 1}
+   == ARG (B: patched)  AGREE=3 G-ONLY=3 O-ONLY=4 DIFF=1
+      TOGOLD=3 AWAY=0 MOVEDWRONG=2 STILLWRONG=6
+      TOGOLD     CALL=method_func_call:poke176|RECV=ref_obj:grab176|NOLINK|POS=0|REF=ref_obj:epsil176@46:23|HOME=function:c5_local/class_defn:work@spelling176
+      TOGOLD     CALL=method_func_call:poke176|RECV=ref_obj:held176|NOLINK|POS=0|REF=ref_obj:zeta176@51:23|HOME=function:c6_formal/class_defn:work@spelling176
+      TOGOLD     CALL=method_func_call:poke176|RECV=ref_obj:plain176|NOLINK|POS=0|REF=ref_obj:alfa176@23:24|HOME=function:c1_plain/class_defn:work@spelling176
+      MOVEDWRONG CALL=method_func_call:poke176|RECV=ref_obj:bank176[1]|NOLINK|POS=0|REF=ref_obj:delta176@39:26|HOME=function:c4_index/class_defn:work@spelling176
+              G={}
+              A={'BARE': 1}
+              B={'BOUND=io_decl:delta176': 1}
+      MOVEDWRONG CALL=method_func_call:poke176|RECV=ref_obj:plain176 |NOLINK|POS=0|REF=ref_obj:eta176@56:26|HOME=function:c7_spaced/class_defn:work@spelling176
+              G={}
+              A={'BARE': 1}
+              B={'BOUND=io_decl:eta176': 1}
+   == OBJ (A: pristine) AGREE=29 G-ONLY=0 O-ONLY=0 DIFF=3
+      DIFF  constant
+              G={'17': 1}
+              O={'16': 1}
+      DIFF  logic_net
+              G={'3': 1}
+              O={'2': 1}
+      DIFF  ref_obj
+              G={'37': 1}
+              O={'39': 1}
+   == OBJ (B: patched)  AGREE=29 G-ONLY=0 O-ONLY=0 DIFF=3
+      TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=3
+   == REF (A: pristine) AGREE=27 G-ONLY=3 O-ONLY=5 DIFF=9
+      DIFF  ref_obj:alfa176@23:24|HOME=function:c1_plain/class_defn:work@spelling176
+              G={'BOUND=io_decl:alfa176': 1}
+              O={'BARE': 1}
+      DIFF  ref_obj:box176@74:24|HOME=initial:<anon>/module_inst:<anon>
+              G={'BOUND=logic_net:box176': 1}
+              O={'BARE': 1}
+      DIFF  ref_obj:box176@76:31|HOME=initial:<anon>/module_inst:<anon>
+              G={'BOUND=logic_net:box176': 1}
+              O={'BARE': 1}
+      DIFF  ref_obj:box176@77:26|HOME=initial:<anon>/module_inst:<anon>
+              G={'BOUND=logic_net:box176': 1}
+              O={'BARE': 1}
+      DIFF  ref_obj:box176@83:23|HOME=initial:<anon>/module_inst:<anon>
+              G={'BOUND=logic_net:box176': 1}
+              O={'BARE': 1}
+      DIFF  ref_obj:delta176@39:26|HOME=function:c4_index/class_defn:work@spelling176
+              G={'BOUND=io_decl:delta176': 1}
+              O={'BARE': 1}
+      DIFF  ref_obj:epsil176@46:23|HOME=function:c5_local/class_defn:work@spelling176
+              G={'BOUND=io_decl:epsil176': 1}
+              O={'BARE': 1}
+      DIFF  ref_obj:eta176@56:26|HOME=function:c7_spaced/class_defn:work@spelling176
+              G={'BOUND=io_decl:eta176': 1}
+              O={'BARE': 1}
+      DIFF  ref_obj:zeta176@51:23|HOME=function:c6_formal/class_defn:work@spelling176
+              G={'BOUND=io_decl:zeta176': 1}
+              O={'BARE': 1}
+      G-ONLY ref_obj:bank176@39:7|HOME=function:c4_index/class_defn:work@spelling176 = {'BARE': 1}
+      G-ONLY ref_obj:nest176@34:7|HOME=function:c3_deep/class_defn:work@spelling176 = {'BARE': 1}
+      G-ONLY ref_obj:plain176@56:7|HOME=function:c7_spaced/class_defn:work@spelling176 = {'BARE': 1}
+      O-ONLY ref_obj:bank176[1]@39:7|HOME=function:c4_index/class_defn:work@spelling176 = {'BARE': 1}
+      O-ONLY ref_obj:gamma176@34:31|HOME=function:c3_deep/class_defn:work@spelling176 = {'BARE': 1}
+      O-ONLY ref_obj:nest176.deep176@34:7|HOME=function:c3_deep/class_defn:work@spelling176 = {'BARE': 1}
+      O-ONLY ref_obj:plain176 @56:7|HOME=function:c7_spaced/class_defn:work@spelling176 = {'BARE': 1}
+      O-ONLY ref_obj:this.plain176@29:7|HOME=function:c2_this/class_defn:work@spelling176 = {'BARE': 1}
+   == REF (B: patched)  AGREE=32 G-ONLY=3 O-ONLY=5 DIFF=4
+      TOGOLD=5 AWAY=0 MOVEDWRONG=0 STILLWRONG=12
+      TOGOLD     ref_obj:alfa176@23:24|HOME=function:c1_plain/class_defn:work@spelling176
+      TOGOLD     ref_obj:delta176@39:26|HOME=function:c4_index/class_defn:work@spelling176
+      TOGOLD     ref_obj:epsil176@46:23|HOME=function:c5_local/class_defn:work@spelling176
+      TOGOLD     ref_obj:eta176@56:26|HOME=function:c7_spaced/class_defn:work@spelling176
+      TOGOLD     ref_obj:zeta176@51:23|HOME=function:c6_formal/class_defn:work@spelling176
+-- def, POSITION KEY (--drop=RECV)
+   == ARG (A: pristine) AGREE=0 G-ONLY=1 O-ONLY=2 DIFF=6
+   == ARG (B: patched)  AGREE=5 G-ONLY=1 O-ONLY=2 DIFF=1
+      TOGOLD=5 AWAY=0 MOVEDWRONG=0 STILLWRONG=4
+   == OBJ (A: pristine) AGREE=29 G-ONLY=0 O-ONLY=0 DIFF=3
+   == OBJ (B: patched)  AGREE=29 G-ONLY=0 O-ONLY=0 DIFF=3
+      TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=3
+   == REF (A: pristine) AGREE=27 G-ONLY=3 O-ONLY=5 DIFF=9
+   == REF (B: patched)  AGREE=32 G-ONLY=3 O-ONLY=5 DIFF=4
+      TOGOLD=5 AWAY=0 MOVEDWRONG=0 STILLWRONG=12
+-- elab, FULL KEY
+   == ARG (A: pristine) AGREE=1 G-ONLY=3 O-ONLY=4 DIFF=4
+      DIFF  CALL=method_func_call:c6_formal|RECV=ref_obj:sp176|NOLINK|POS=0|REF=ref_obj:box176@83:23|HOME=initial:<anon>/module_inst:<anon>
+              G={'BOUND=logic_net:box176': 1}
+              O={'BARE': 1}
+      DIFF  CALL=method_func_call:poke176|RECV=ref_obj:grab176|NOLINK|POS=0|REF=ref_obj:epsil176@46:23|HOME=function:c5_local/class_defn:work@spelling176
+              G={'BOUND=io_decl:epsil176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:epsil176': 1}
+      DIFF  CALL=method_func_call:poke176|RECV=ref_obj:held176|NOLINK|POS=0|REF=ref_obj:zeta176@51:23|HOME=function:c6_formal/class_defn:work@spelling176
+              G={'BOUND=io_decl:zeta176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:zeta176': 1}
+      DIFF  CALL=method_func_call:poke176|RECV=ref_obj:plain176|NOLINK|POS=0|REF=ref_obj:alfa176@23:24|HOME=function:c1_plain/class_defn:work@spelling176
+              G={'BOUND=io_decl:alfa176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:alfa176': 1}
+      G-ONLY CALL=method_func_call:poke176|RECV=ref_obj:bank176|NOLINK|POS=0|REF=ref_obj:delta176@39:26|HOME=function:c4_index/class_defn:work@spelling176 = {'BOUND=io_decl:delta176': 1}
+      G-ONLY CALL=method_func_call:poke176|RECV=ref_obj:plain176|NOLINK|POS=0|REF=ref_obj:eta176@56:26|HOME=function:c7_spaced/class_defn:work@spelling176 = {'BOUND=io_decl:eta176': 1}
+      G-ONLY CALL=method_func_call:this|RECV=constant:|NOLINK|POS=0|REF=ref_obj:beta176@29:29|HOME=function:c2_this/class_defn:work@spelling176 = {'BOUND=io_decl:beta176': 1}
+      O-ONLY CALL=method_func_call:poke176|RECV=ref_obj:bank176[1]|NOLINK|POS=0|REF=ref_obj:delta176@39:26|HOME=function:c4_index/class_defn:work@spelling176 = {'BARE': 1, 'BOUND=io_decl:delta176': 1}
+      O-ONLY CALL=method_func_call:poke176|RECV=ref_obj:nest176.deep176|NOLINK|POS=0|REF=ref_obj:gamma176@34:31|HOME=function:c3_deep/class_defn:work@spelling176 = {'BARE': 1, 'BOUND=io_decl:gamma176': 1}
+      O-ONLY CALL=method_func_call:poke176|RECV=ref_obj:plain176 |NOLINK|POS=0|REF=ref_obj:eta176@56:26|HOME=function:c7_spaced/class_defn:work@spelling176 = {'BARE': 1, 'BOUND=io_decl:eta176': 1}
+      O-ONLY CALL=method_func_call:poke176|RECV=ref_obj:this.plain176|NOLINK|POS=0|REF=ref_obj:beta176@29:29|HOME=function:c2_this/class_defn:work@spelling176 = {'BARE': 1, 'BOUND=io_decl:beta176': 1}
+   == ARG (B: patched)  AGREE=4 G-ONLY=3 O-ONLY=4 DIFF=1
+      TOGOLD=3 AWAY=0 MOVEDWRONG=2 STILLWRONG=6
+      TOGOLD     CALL=method_func_call:poke176|RECV=ref_obj:grab176|NOLINK|POS=0|REF=ref_obj:epsil176@46:23|HOME=function:c5_local/class_defn:work@spelling176
+      TOGOLD     CALL=method_func_call:poke176|RECV=ref_obj:held176|NOLINK|POS=0|REF=ref_obj:zeta176@51:23|HOME=function:c6_formal/class_defn:work@spelling176
+      TOGOLD     CALL=method_func_call:poke176|RECV=ref_obj:plain176|NOLINK|POS=0|REF=ref_obj:alfa176@23:24|HOME=function:c1_plain/class_defn:work@spelling176
+      MOVEDWRONG CALL=method_func_call:poke176|RECV=ref_obj:bank176[1]|NOLINK|POS=0|REF=ref_obj:delta176@39:26|HOME=function:c4_index/class_defn:work@spelling176
+              G={}
+              A={'BARE': 1, 'BOUND=io_decl:delta176': 1}
+              B={'BOUND=io_decl:delta176': 1}
+      MOVEDWRONG CALL=method_func_call:poke176|RECV=ref_obj:plain176 |NOLINK|POS=0|REF=ref_obj:eta176@56:26|HOME=function:c7_spaced/class_defn:work@spelling176
+              G={}
+              A={'BARE': 1, 'BOUND=io_decl:eta176': 1}
+              B={'BOUND=io_decl:eta176': 1}
+   == OBJ (A: pristine) AGREE=22 G-ONLY=0 O-ONLY=0 DIFF=10
+      DIFF  assignment
+              G={'12': 1}
+              O={'13': 1}
+      DIFF  begin
+              G={'3': 1}
+              O={'4': 1}
+      DIFF  function
+              G={'27': 1}
+              O={'35': 1}
+      DIFF  io_decl
+              G={'27': 1}
+              O={'41': 1}
+      DIFF  logic_net
+              G={'3': 1}
+              O={'2': 1}
+      DIFF  logic_var
+              G={'8': 1}
+              O={'12': 1}
+      DIFF  method_func_call
+              G={'25': 1}
+              O={'32': 1}
+      DIFF  ref_obj
+              G={'57': 1}
+              O={'90': 1}
+      DIFF  ref_typespec
+              G={'36': 1}
+              O={'50': 1}
+      DIFF  task
+              G={'9': 1}
+              O={'18': 1}
+   == OBJ (B: patched)  AGREE=22 G-ONLY=0 O-ONLY=0 DIFF=10
+      TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=10
+   == REF (A: pristine) AGREE=35 G-ONLY=3 O-ONLY=5 DIFF=22
+      DIFF  ref_obj:alfa176@23:24|HOME=function:c1_plain/class_defn:work@spelling176
+              G={'BOUND=io_decl:alfa176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:alfa176': 1}
+      DIFF  ref_obj:beta176@29:29|HOME=function:c2_this/class_defn:work@spelling176
+              G={'BOUND=io_decl:beta176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:beta176': 1}
+      DIFF  ref_obj:box176@74:24|HOME=initial:<anon>/module_inst:<anon>
+              G={'BOUND=logic_net:box176': 1}
+              O={'BARE': 1}
+      DIFF  ref_obj:box176@76:31|HOME=initial:<anon>/module_inst:<anon>
+              G={'BOUND=logic_net:box176': 1}
+              O={'BARE': 1}
+      DIFF  ref_obj:box176@77:26|HOME=initial:<anon>/module_inst:<anon>
+              G={'BOUND=logic_net:box176': 1}
+              O={'BARE': 1}
+      DIFF  ref_obj:box176@83:23|HOME=initial:<anon>/module_inst:<anon>
+              G={'BOUND=logic_net:box176': 1}
+              O={'BARE': 1}
+      DIFF  ref_obj:delta176@39:26|HOME=function:c4_index/class_defn:work@spelling176
+              G={'BOUND=io_decl:delta176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:delta176': 1}
+      DIFF  ref_obj:epsil176@46:23|HOME=function:c5_local/class_defn:work@spelling176
+              G={'BOUND=io_decl:epsil176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:epsil176': 1}
+      DIFF  ref_obj:eta176@56:26|HOME=function:c7_spaced/class_defn:work@spelling176
+              G={'BOUND=io_decl:eta176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:eta176': 1}
+      DIFF  ref_obj:grab176@45:7|HOME=function:c5_local/class_defn:work@spelling176
+              G={'BOUND=logic_var:grab176': 1}
+              O={'BARE': 1, 'BOUND=logic_var:grab176': 1}
+      DIFF  ref_obj:grab176@46:7|HOME=function:c5_local/class_defn:work@spelling176
+              G={'BOUND=logic_var:grab176': 1}
+              O={'BARE': 1, 'BOUND=logic_var:grab176': 1}
+      DIFF  ref_obj:held176@51:7|HOME=function:c6_formal/class_defn:work@spelling176
+              G={'BOUND=io_decl:held176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:held176': 1}
+      DIFF  ref_obj:plain176@23:7|HOME=function:c1_plain/class_defn:work@spelling176
+              G={'BOUND=logic_var:plain176': 1}
+              O={'BARE': 1, 'BOUND=logic_var:plain176': 1}
+      DIFF  ref_obj:plain176@45:17|HOME=function:c5_local/class_defn:work@spelling176
+              G={'BOUND=logic_var:plain176': 1}
+              O={'BARE': 1, 'BOUND=logic_var:plain176': 1}
+      DIFF  ref_obj:sp176@78:7|HOME=initial:<anon>/module_inst:<anon>
+              G={'BARE': 1}
+              O={'BARE': 1, 'BOUND=class_var:sp176': 1}
+      DIFF  ref_obj:sp176@79:7|HOME=initial:<anon>/module_inst:<anon>
+              G={'BARE': 1}
+              O={'BARE': 1, 'BOUND=class_var:sp176': 1}
+      DIFF  ref_obj:sp176@80:7|HOME=initial:<anon>/module_inst:<anon>
+              G={'BARE': 1}
+              O={'BARE': 1, 'BOUND=class_var:sp176': 1}
+      DIFF  ref_obj:sp176@81:7|HOME=initial:<anon>/module_inst:<anon>
+              G={'BARE': 1}
+              O={'BARE': 1, 'BOUND=class_var:sp176': 1}
+      DIFF  ref_obj:sp176@82:7|HOME=initial:<anon>/module_inst:<anon>
+              G={'BARE': 1}
+              O={'BARE': 1, 'BOUND=class_var:sp176': 1}
+      DIFF  ref_obj:sp176@83:7|HOME=initial:<anon>/module_inst:<anon>
+              G={'BARE': 1}
+              O={'BARE': 1, 'BOUND=class_var:sp176': 1}
+      DIFF  ref_obj:sp176@84:7|HOME=initial:<anon>/module_inst:<anon>
+              G={'BARE': 1}
+              O={'BARE': 1, 'BOUND=class_var:sp176': 1}
+      DIFF  ref_obj:zeta176@51:23|HOME=function:c6_formal/class_defn:work@spelling176
+              G={'BOUND=io_decl:zeta176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:zeta176': 1}
+      G-ONLY ref_obj:bank176@39:7|HOME=function:c4_index/class_defn:work@spelling176 = {'BOUND=array_var:bank176': 1}
+      G-ONLY ref_obj:nest176@34:7|HOME=function:c3_deep/class_defn:work@spelling176 = {'BOUND=class_var:nest176': 1}
+      G-ONLY ref_obj:plain176@56:7|HOME=function:c7_spaced/class_defn:work@spelling176 = {'BOUND=logic_var:plain176': 1}
+      O-ONLY ref_obj:bank176[1]@39:7|HOME=function:c4_index/class_defn:work@spelling176 = {'BARE': 1}
+      O-ONLY ref_obj:gamma176@34:31|HOME=function:c3_deep/class_defn:work@spelling176 = {'BARE': 1, 'BOUND=io_decl:gamma176': 1}
+      O-ONLY ref_obj:nest176.deep176@34:7|HOME=function:c3_deep/class_defn:work@spelling176 = {'BARE': 1}
+      O-ONLY ref_obj:plain176 @56:7|HOME=function:c7_spaced/class_defn:work@spelling176 = {'BARE': 1}
+      O-ONLY ref_obj:this.plain176@29:7|HOME=function:c2_this/class_defn:work@spelling176 = {'BARE': 1}
+   == REF (B: patched)  AGREE=40 G-ONLY=3 O-ONLY=5 DIFF=17
+      TOGOLD=5 AWAY=0 MOVEDWRONG=0 STILLWRONG=25
+      TOGOLD     ref_obj:alfa176@23:24|HOME=function:c1_plain/class_defn:work@spelling176
+      TOGOLD     ref_obj:delta176@39:26|HOME=function:c4_index/class_defn:work@spelling176
+      TOGOLD     ref_obj:epsil176@46:23|HOME=function:c5_local/class_defn:work@spelling176
+      TOGOLD     ref_obj:eta176@56:26|HOME=function:c7_spaced/class_defn:work@spelling176
+      TOGOLD     ref_obj:zeta176@51:23|HOME=function:c6_formal/class_defn:work@spelling176
+-- elab, POSITION KEY (--drop=RECV)
+   == ARG (A: pristine) AGREE=1 G-ONLY=1 O-ONLY=2 DIFF=6
+   == ARG (B: patched)  AGREE=6 G-ONLY=1 O-ONLY=2 DIFF=1
+      TOGOLD=5 AWAY=0 MOVEDWRONG=0 STILLWRONG=4
+   == OBJ (A: pristine) AGREE=22 G-ONLY=0 O-ONLY=0 DIFF=10
+   == OBJ (B: patched)  AGREE=22 G-ONLY=0 O-ONLY=0 DIFF=10
+      TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=10
+   == REF (A: pristine) AGREE=35 G-ONLY=3 O-ONLY=5 DIFF=22
+   == REF (B: patched)  AGREE=40 G-ONLY=3 O-ONLY=5 DIFF=17
+      TOGOLD=5 AWAY=0 MOVEDWRONG=0 STILLWRONG=25
+
+##### ARM d_arg
+-- commands and rc
+   rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/r10uvm176_grid/d_arg/g_def /tmp/wt_r10uvm176/tools/probe/r10uvm176repro/g176_d_arg.sv
+   rc=0 /tmp/r10uvm176_bin/pris.bin /tmp/wt_r10uvm176/tools/probe/r10uvm176repro/g176_d_arg.sv -o /tmp/r10uvm176_grid/d_arg/a_def.uhdm
+   rc=0 /tmp/r10uvm176_bin/pat.bin /tmp/wt_r10uvm176/tools/probe/r10uvm176repro/g176_d_arg.sv -o /tmp/r10uvm176_grid/d_arg/b_def.uhdm
+   cmp rc=255 a def lines=18 heads=1
+   cmp rc=255 b def lines=18 heads=1
+   rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/r10uvm176_grid/d_arg/g_elab /tmp/wt_r10uvm176/tools/probe/r10uvm176repro/g176_d_arg.sv
+   rc=0 /tmp/r10uvm176_bin/pris.bin /tmp/wt_r10uvm176/tools/probe/r10uvm176repro/g176_d_arg.sv --elabuhdm -o /tmp/r10uvm176_grid/d_arg/a_elab.uhdm
+   rc=0 /tmp/r10uvm176_bin/pat.bin /tmp/wt_r10uvm176/tools/probe/r10uvm176repro/g176_d_arg.sv --elabuhdm -o /tmp/r10uvm176_grid/d_arg/b_elab.uhdm
+   cmp rc=255 a elab lines=18 heads=1
+   cmp rc=255 b elab lines=18 heads=1
+-- def, FULL KEY
+   == ARG (A: pristine) AGREE=10 G-ONLY=0 O-ONLY=0 DIFF=9
+      DIFF  CALL=func_call:helper176|RECV=NONE|NOLINK|POS=0|REF=ref_obj:tango176@102:32|HOME=function:d11_nested/class_defn:work@feeder176
+              G={'BOUND=io_decl:tango176': 1}
+              O={'BARE': 1}
+      DIFF  CALL=method_func_call:one176|RECV=ref_obj:pipe176|NOLINK|POS=0|REF=ref_obj:store176::shelf176@87:22|HOME=function:d8_pkgvar/class_defn:work@feeder176
+              G={'BARE': 1}
+              O={'BOUND=int_var:shelf176': 1}
+      DIFF  CALL=method_func_call:one176|RECV=ref_obj:pipe176|NOLINK|POS=0|REF=ref_obj:vic176@112:25|HOME=task:d12_fork/class_defn:work@feeder176
+              G={'BOUND=io_decl:vic176': 1}
+              O={'BARE': 1}
+      DIFF  CALL=method_func_call:take176|RECV=ref_obj:pipe176|NOLINK|POS=0|REF=ref_obj:kilo176@29:23|HOME=function:d1_depth0/class_defn:work@feeder176
+              G={'BOUND=io_decl:kilo176': 1}
+              O={'BARE': 1}
+      DIFF  CALL=method_func_call:take176|RECV=ref_obj:pipe176|NOLINK|POS=0|REF=ref_obj:oscar176@55:26|HOME=function:d4_bareblock/class_defn:work@feeder176
+              G={'BOUND=io_decl:oscar176': 1}
+              O={'BARE': 1}
+      DIFF  CALL=method_func_call:take176|RECV=ref_obj:pipe176|NOLINK|POS=0|REF=ref_obj:papa176@64:26|HOME=function:d5_namedblock/class_defn:work@feeder176
+              G={'BOUND=io_decl:papa176': 1}
+              O={'BARE': 1}
+      DIFF  CALL=method_func_call:take176|RECV=ref_obj:pipe176|NOLINK|POS=1|REF=ref_obj:lark176@29:32|HOME=function:d1_depth0/class_defn:work@feeder176
+              G={'BOUND=int_var:lark176': 1}
+              O={'BARE': 1}
+      DIFF  CALL=method_func_call:take176|RECV=ref_obj:pipe176|NOLINK|POS=1|REF=ref_obj:nook176@46:35|HOME=function:d3_blocklocal/class_defn:work@feeder176
+              G={'BOUND=int_var:nook176': 1}
+              O={'BARE': 1}
+      DIFF  CALL=method_func_call:take176|RECV=ref_obj:pipe176|NOLINK|POS=1|REF=ref_obj:oath176@55:36|HOME=function:d4_bareblock/class_defn:work@feeder176
+              G={'BOUND=int_var:oath176': 1}
+              O={'BARE': 1}
+   == ARG (B: patched)  AGREE=18 G-ONLY=0 O-ONLY=0 DIFF=1
+      TOGOLD=8 AWAY=0 MOVEDWRONG=0 STILLWRONG=1
+      TOGOLD     CALL=func_call:helper176|RECV=NONE|NOLINK|POS=0|REF=ref_obj:tango176@102:32|HOME=function:d11_nested/class_defn:work@feeder176
+      TOGOLD     CALL=method_func_call:one176|RECV=ref_obj:pipe176|NOLINK|POS=0|REF=ref_obj:vic176@112:25|HOME=task:d12_fork/class_defn:work@feeder176
+      TOGOLD     CALL=method_func_call:take176|RECV=ref_obj:pipe176|NOLINK|POS=0|REF=ref_obj:kilo176@29:23|HOME=function:d1_depth0/class_defn:work@feeder176
+      TOGOLD     CALL=method_func_call:take176|RECV=ref_obj:pipe176|NOLINK|POS=0|REF=ref_obj:oscar176@55:26|HOME=function:d4_bareblock/class_defn:work@feeder176
+      TOGOLD     CALL=method_func_call:take176|RECV=ref_obj:pipe176|NOLINK|POS=0|REF=ref_obj:papa176@64:26|HOME=function:d5_namedblock/class_defn:work@feeder176
+      TOGOLD     CALL=method_func_call:take176|RECV=ref_obj:pipe176|NOLINK|POS=1|REF=ref_obj:lark176@29:32|HOME=function:d1_depth0/class_defn:work@feeder176
+      TOGOLD     CALL=method_func_call:take176|RECV=ref_obj:pipe176|NOLINK|POS=1|REF=ref_obj:nook176@46:35|HOME=function:d3_blocklocal/class_defn:work@feeder176
+      TOGOLD     CALL=method_func_call:take176|RECV=ref_obj:pipe176|NOLINK|POS=1|REF=ref_obj:oath176@55:36|HOME=function:d4_bareblock/class_defn:work@feeder176
+   == OBJ (A: pristine) AGREE=36 G-ONLY=0 O-ONLY=0 DIFF=1
+      DIFF  logic_net
+              G={'3': 1}
+              O={'2': 1}
+   == OBJ (B: patched)  AGREE=36 G-ONLY=0 O-ONLY=0 DIFF=1
+      TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=1
+   == REF (A: pristine) AGREE=53 G-ONLY=0 O-ONLY=0 DIFF=11
+      DIFF  ref_obj:kilo176@29:23|HOME=function:d1_depth0/class_defn:work@feeder176
+              G={'BOUND=io_decl:kilo176': 1}
+              O={'BARE': 1}
+      DIFF  ref_obj:lark176@29:32|HOME=function:d1_depth0/class_defn:work@feeder176
+              G={'BOUND=int_var:lark176': 1}
+              O={'BARE': 1}
+      DIFF  ref_obj:nook176@46:35|HOME=function:d3_blocklocal/class_defn:work@feeder176
+              G={'BOUND=int_var:nook176': 1}
+              O={'BARE': 1}
+      DIFF  ref_obj:oath176@55:36|HOME=function:d4_bareblock/class_defn:work@feeder176
+              G={'BOUND=int_var:oath176': 1}
+              O={'BARE': 1}
+      DIFF  ref_obj:oscar176@55:26|HOME=function:d4_bareblock/class_defn:work@feeder176
+              G={'BOUND=io_decl:oscar176': 1}
+              O={'BARE': 1}
+      DIFF  ref_obj:pan176@128:23|HOME=initial:<anon>/module_inst:<anon>
+              G={'BOUND=logic_net:pan176': 1}
+              O={'BARE': 1}
+      DIFF  ref_obj:papa176@64:26|HOME=function:d5_namedblock/class_defn:work@feeder176
+              G={'BOUND=io_decl:papa176': 1}
+              O={'BARE': 1}
+      DIFF  ref_obj:romeo176@92:27|HOME=function:d9_shapes/class_defn:work@feeder176
+              G={'BOUND=io_decl:romeo176': 1}
+              O={'BARE': 1}
+      DIFF  ref_obj:store176::shelf176@87:22|HOME=function:d8_pkgvar/class_defn:work@feeder176
+              G={'BARE': 1}
+              O={'BOUND=int_var:shelf176': 1}
+      DIFF  ref_obj:tango176@102:32|HOME=function:d11_nested/class_defn:work@feeder176
+              G={'BOUND=io_decl:tango176': 1}
+              O={'BARE': 1}
+      DIFF  ref_obj:vic176@112:25|HOME=task:d12_fork/class_defn:work@feeder176
+              G={'BOUND=io_decl:vic176': 1}
+              O={'BARE': 1}
+   == REF (B: patched)  AGREE=62 G-ONLY=0 O-ONLY=0 DIFF=2
+      TOGOLD=9 AWAY=0 MOVEDWRONG=0 STILLWRONG=2
+      TOGOLD     ref_obj:kilo176@29:23|HOME=function:d1_depth0/class_defn:work@feeder176
+      TOGOLD     ref_obj:lark176@29:32|HOME=function:d1_depth0/class_defn:work@feeder176
+      TOGOLD     ref_obj:nook176@46:35|HOME=function:d3_blocklocal/class_defn:work@feeder176
+      TOGOLD     ref_obj:oath176@55:36|HOME=function:d4_bareblock/class_defn:work@feeder176
+      TOGOLD     ref_obj:oscar176@55:26|HOME=function:d4_bareblock/class_defn:work@feeder176
+      TOGOLD     ref_obj:papa176@64:26|HOME=function:d5_namedblock/class_defn:work@feeder176
+      TOGOLD     ref_obj:romeo176@92:27|HOME=function:d9_shapes/class_defn:work@feeder176
+      TOGOLD     ref_obj:tango176@102:32|HOME=function:d11_nested/class_defn:work@feeder176
+      TOGOLD     ref_obj:vic176@112:25|HOME=task:d12_fork/class_defn:work@feeder176
+-- def, POSITION KEY (--drop=RECV)
+   == ARG (A: pristine) AGREE=10 G-ONLY=0 O-ONLY=0 DIFF=9
+   == ARG (B: patched)  AGREE=18 G-ONLY=0 O-ONLY=0 DIFF=1
+      TOGOLD=8 AWAY=0 MOVEDWRONG=0 STILLWRONG=1
+   == OBJ (A: pristine) AGREE=36 G-ONLY=0 O-ONLY=0 DIFF=1
+   == OBJ (B: patched)  AGREE=36 G-ONLY=0 O-ONLY=0 DIFF=1
+      TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=1
+   == REF (A: pristine) AGREE=53 G-ONLY=0 O-ONLY=0 DIFF=11
+   == REF (B: patched)  AGREE=62 G-ONLY=0 O-ONLY=0 DIFF=2
+      TOGOLD=9 AWAY=0 MOVEDWRONG=0 STILLWRONG=2
+-- elab, FULL KEY
+   == ARG (A: pristine) AGREE=8 G-ONLY=0 O-ONLY=0 DIFF=12
+      DIFF  CALL=func_call:helper176|RECV=NONE|NOLINK|POS=0|REF=ref_obj:tango176@102:32|HOME=function:d11_nested/class_defn:work@feeder176
+              G={'BOUND=io_decl:tango176': 1}
+              O={'BARE': 1}
+      DIFF  CALL=method_func_call:one176|RECV=ref_obj:pipe176|NOLINK|POS=0|REF=ref_obj:FIXED176@82:22|HOME=function:d7b_param/class_defn:work@feeder176
+              G={'BOUND=parameter:FIXED176': 1}
+              O={'BARE': 1, 'BOUND=parameter:FIXED176': 1}
+      DIFF  CALL=method_func_call:one176|RECV=ref_obj:pipe176|NOLINK|POS=0|REF=ref_obj:store176::shelf176@87:22|HOME=function:d8_pkgvar/class_defn:work@feeder176
+              G={'BARE': 1}
+              O={'BOUND=int_var:shelf176': 1}
+      DIFF  CALL=method_func_call:one176|RECV=ref_obj:pipe176|NOLINK|POS=0|REF=ref_obj:vic176@112:25|HOME=task:d12_fork/class_defn:work@feeder176
+              G={'BOUND=io_decl:vic176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:vic176': 1}
+      DIFF  CALL=method_func_call:take176|RECV=ref_obj:pipe176|NOLINK|POS=0|REF=ref_obj:kilo176@29:23|HOME=function:d1_depth0/class_defn:work@feeder176
+              G={'BOUND=io_decl:kilo176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:kilo176': 1}
+      DIFF  CALL=method_func_call:take176|RECV=ref_obj:pipe176|NOLINK|POS=0|REF=ref_obj:oscar176@55:26|HOME=function:d4_bareblock/class_defn:work@feeder176
+              G={'BOUND=io_decl:oscar176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:oscar176': 1}
+      DIFF  CALL=method_func_call:take176|RECV=ref_obj:pipe176|NOLINK|POS=0|REF=ref_obj:owned176@79:23|HOME=function:d7_props/class_defn:work@feeder176
+              G={'BOUND=int_var:owned176': 1}
+              O={'BARE': 1, 'BOUND=int_var:owned176': 1}
+      DIFF  CALL=method_func_call:take176|RECV=ref_obj:pipe176|NOLINK|POS=0|REF=ref_obj:papa176@64:26|HOME=function:d5_namedblock/class_defn:work@feeder176
+              G={'BOUND=io_decl:papa176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:papa176': 1}
+      DIFF  CALL=method_func_call:take176|RECV=ref_obj:pipe176|NOLINK|POS=1|REF=ref_obj:lark176@29:32|HOME=function:d1_depth0/class_defn:work@feeder176
+              G={'BOUND=int_var:lark176': 1}
+              O={'BARE': 1, 'BOUND=int_var:lark176': 1}
+      DIFF  CALL=method_func_call:take176|RECV=ref_obj:pipe176|NOLINK|POS=1|REF=ref_obj:nook176@46:35|HOME=function:d3_blocklocal/class_defn:work@feeder176
+              G={'BOUND=int_var:nook176': 1}
+              O={'BARE': 1, 'BOUND=int_var:nook176': 1}
+      DIFF  CALL=method_func_call:take176|RECV=ref_obj:pipe176|NOLINK|POS=1|REF=ref_obj:oath176@55:36|HOME=function:d4_bareblock/class_defn:work@feeder176
+              G={'BOUND=int_var:oath176': 1}
+              O={'BARE': 1, 'BOUND=int_var:oath176': 1}
+      DIFF  CALL=method_func_call:take176|RECV=ref_obj:pipe176|NOLINK|POS=1|REF=ref_obj:shared176@79:33|HOME=function:d7_props/class_defn:work@feeder176
+              G={'BOUND=int_var:shared176': 1}
+              O={'BARE': 1, 'BOUND=int_var:shared176': 1}
+   == ARG (B: patched)  AGREE=16 G-ONLY=0 O-ONLY=0 DIFF=4
+      TOGOLD=8 AWAY=0 MOVEDWRONG=0 STILLWRONG=4
+      TOGOLD     CALL=func_call:helper176|RECV=NONE|NOLINK|POS=0|REF=ref_obj:tango176@102:32|HOME=function:d11_nested/class_defn:work@feeder176
+      TOGOLD     CALL=method_func_call:one176|RECV=ref_obj:pipe176|NOLINK|POS=0|REF=ref_obj:vic176@112:25|HOME=task:d12_fork/class_defn:work@feeder176
+      TOGOLD     CALL=method_func_call:take176|RECV=ref_obj:pipe176|NOLINK|POS=0|REF=ref_obj:kilo176@29:23|HOME=function:d1_depth0/class_defn:work@feeder176
+      TOGOLD     CALL=method_func_call:take176|RECV=ref_obj:pipe176|NOLINK|POS=0|REF=ref_obj:oscar176@55:26|HOME=function:d4_bareblock/class_defn:work@feeder176
+      TOGOLD     CALL=method_func_call:take176|RECV=ref_obj:pipe176|NOLINK|POS=0|REF=ref_obj:papa176@64:26|HOME=function:d5_namedblock/class_defn:work@feeder176
+      TOGOLD     CALL=method_func_call:take176|RECV=ref_obj:pipe176|NOLINK|POS=1|REF=ref_obj:lark176@29:32|HOME=function:d1_depth0/class_defn:work@feeder176
+      TOGOLD     CALL=method_func_call:take176|RECV=ref_obj:pipe176|NOLINK|POS=1|REF=ref_obj:nook176@46:35|HOME=function:d3_blocklocal/class_defn:work@feeder176
+      TOGOLD     CALL=method_func_call:take176|RECV=ref_obj:pipe176|NOLINK|POS=1|REF=ref_obj:oath176@55:36|HOME=function:d4_bareblock/class_defn:work@feeder176
+   == OBJ (A: pristine) AGREE=26 G-ONLY=0 O-ONLY=0 DIFF=11
+      DIFF  fork_stmt
+              G={'1': 1}
+              O={'2': 1}
+      DIFF  function
+              G={'44': 1}
+              O={'48': 1}
+      DIFF  io_decl
+              G={'42': 1}
+              O={'49': 1}
+      DIFF  logic_net
+              G={'3': 1}
+              O={'2': 1}
+      DIFF  logic_var
+              G={'2': 1}
+              O={'3': 1}
+      DIFF  method_func_call
+              G={'31': 1}
+              O={'36': 1}
+      DIFF  operation
+              G={'20': 1}
+              O={'21': 1}
+      DIFF  part_select
+              G={'2': 1}
+              O={'4': 1}
+      DIFF  ref_obj
+              G={'107': 1}
+              O={'134': 1}
+      DIFF  ref_typespec
+              G={'69': 1}
+              O={'76': 1}
+      DIFF  task
+              G={'10': 1}
+              O={'20': 1}
+   == OBJ (B: patched)  AGREE=26 G-ONLY=0 O-ONLY=0 DIFF=11
+      TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=11
+   == REF (A: pristine) AGREE=47 G-ONLY=0 O-ONLY=0 DIFF=24
+      DIFF  part_select:sierra176@97:23|HOME=function:d10_concat/class_defn:work@feeder176
+              G={'BOUND=io_decl:sierra176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:sierra176': 1}
+      DIFF  part_select:sierra176@97:40|HOME=function:d10_concat/class_defn:work@feeder176
+              G={'BOUND=io_decl:sierra176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:sierra176': 1}
+      DIFF  ref_obj:FIXED176@82:22|HOME=function:d7b_param/class_defn:work@feeder176
+              G={'BOUND=parameter:FIXED176': 1}
+              O={'BARE': 1, 'BOUND=parameter:FIXED176': 1}
+      DIFF  ref_obj:fe176@129:7|HOME=initial:<anon>/module_inst:<anon>
+              G={'BARE': 1}
+              O={'BARE': 1, 'BOUND=class_var:fe176': 1}
+      DIFF  ref_obj:fe176@130:7|HOME=initial:<anon>/module_inst:<anon>
+              G={'BARE': 1}
+              O={'BARE': 1, 'BOUND=class_var:fe176': 1}
+      DIFF  ref_obj:fe176@131:7|HOME=initial:<anon>/module_inst:<anon>
+              G={'BARE': 1}
+              O={'BARE': 1, 'BOUND=class_var:fe176': 1}
+      DIFF  ref_obj:kilo176@29:23|HOME=function:d1_depth0/class_defn:work@feeder176
+              G={'BOUND=io_decl:kilo176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:kilo176': 1}
+      DIFF  ref_obj:lark176@29:32|HOME=function:d1_depth0/class_defn:work@feeder176
+              G={'BOUND=int_var:lark176': 1}
+              O={'BARE': 1, 'BOUND=int_var:lark176': 1}
+      DIFF  ref_obj:nook176@46:35|HOME=function:d3_blocklocal/class_defn:work@feeder176
+              G={'BOUND=int_var:nook176': 1}
+              O={'BARE': 1, 'BOUND=int_var:nook176': 1}
+      DIFF  ref_obj:oath176@55:36|HOME=function:d4_bareblock/class_defn:work@feeder176
+              G={'BOUND=int_var:oath176': 1}
+              O={'BARE': 1, 'BOUND=int_var:oath176': 1}
+      DIFF  ref_obj:oscar176@55:26|HOME=function:d4_bareblock/class_defn:work@feeder176
+              G={'BOUND=io_decl:oscar176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:oscar176': 1}
+      DIFF  ref_obj:owned176@79:23|HOME=function:d7_props/class_defn:work@feeder176
+              G={'BOUND=int_var:owned176': 1}
+              O={'BARE': 1, 'BOUND=int_var:owned176': 1}
+      DIFF  ref_obj:pan176@128:23|HOME=initial:<anon>/module_inst:<anon>
+              G={'BOUND=logic_net:pan176': 1}
+              O={'BARE': 1}
+      DIFF  ref_obj:papa176@64:26|HOME=function:d5_namedblock/class_defn:work@feeder176
+              G={'BOUND=io_decl:papa176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:papa176': 1}
+      DIFF  ref_obj:pipe176@112:10|HOME=task:d12_fork/class_defn:work@feeder176
+              G={'BOUND=logic_var:pipe176': 1}
+              O={'BARE': 1, 'BOUND=logic_var:pipe176': 1}
+      DIFF  ref_obj:pipe176@79:7|HOME=function:d7_props/class_defn:work@feeder176
+              G={'BOUND=logic_var:pipe176': 1}
+              O={'BARE': 1, 'BOUND=logic_var:pipe176': 1}
+      DIFF  ref_obj:pipe176@82:7|HOME=function:d7b_param/class_defn:work@feeder176
+              G={'BOUND=logic_var:pipe176': 1}
+              O={'BARE': 1, 'BOUND=logic_var:pipe176': 1}
+      DIFF  ref_obj:pipe176@87:7|HOME=function:d8_pkgvar/class_defn:work@feeder176
+              G={'BOUND=logic_var:pipe176': 1}
+              O={'BARE': 1, 'BOUND=logic_var:pipe176': 1}
+      DIFF  ref_obj:pipe176@97:7|HOME=function:d10_concat/class_defn:work@feeder176
+              G={'BOUND=logic_var:pipe176': 1}
+              O={'BARE': 1, 'BOUND=logic_var:pipe176': 1}
+      DIFF  ref_obj:romeo176@92:27|HOME=function:d9_shapes/class_defn:work@feeder176
+              G={'BOUND=io_decl:romeo176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:romeo176': 1}
+      DIFF  ref_obj:shared176@79:33|HOME=function:d7_props/class_defn:work@feeder176
+              G={'BOUND=int_var:shared176': 1}
+              O={'BARE': 1, 'BOUND=int_var:shared176': 1}
+      DIFF  ref_obj:store176::shelf176@87:22|HOME=function:d8_pkgvar/class_defn:work@feeder176
+              G={'BARE': 1}
+              O={'BOUND=int_var:shelf176': 1}
+      DIFF  ref_obj:tango176@102:32|HOME=function:d11_nested/class_defn:work@feeder176
+              G={'BOUND=io_decl:tango176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:tango176': 1}
+      DIFF  ref_obj:vic176@112:25|HOME=task:d12_fork/class_defn:work@feeder176
+              G={'BOUND=io_decl:vic176': 1}
+              O={'BARE': 1, 'BOUND=io_decl:vic176': 1}
+   == REF (B: patched)  AGREE=56 G-ONLY=0 O-ONLY=0 DIFF=15
+      TOGOLD=9 AWAY=0 MOVEDWRONG=0 STILLWRONG=15
+      TOGOLD     ref_obj:kilo176@29:23|HOME=function:d1_depth0/class_defn:work@feeder176
+      TOGOLD     ref_obj:lark176@29:32|HOME=function:d1_depth0/class_defn:work@feeder176
+      TOGOLD     ref_obj:nook176@46:35|HOME=function:d3_blocklocal/class_defn:work@feeder176
+      TOGOLD     ref_obj:oath176@55:36|HOME=function:d4_bareblock/class_defn:work@feeder176
+      TOGOLD     ref_obj:oscar176@55:26|HOME=function:d4_bareblock/class_defn:work@feeder176
+      TOGOLD     ref_obj:papa176@64:26|HOME=function:d5_namedblock/class_defn:work@feeder176
+      TOGOLD     ref_obj:romeo176@92:27|HOME=function:d9_shapes/class_defn:work@feeder176
+      TOGOLD     ref_obj:tango176@102:32|HOME=function:d11_nested/class_defn:work@feeder176
+      TOGOLD     ref_obj:vic176@112:25|HOME=task:d12_fork/class_defn:work@feeder176
+-- elab, POSITION KEY (--drop=RECV)
+   == ARG (A: pristine) AGREE=8 G-ONLY=0 O-ONLY=0 DIFF=12
+   == ARG (B: patched)  AGREE=16 G-ONLY=0 O-ONLY=0 DIFF=4
+      TOGOLD=8 AWAY=0 MOVEDWRONG=0 STILLWRONG=4
+   == OBJ (A: pristine) AGREE=26 G-ONLY=0 O-ONLY=0 DIFF=11
+   == OBJ (B: patched)  AGREE=26 G-ONLY=0 O-ONLY=0 DIFF=11
+      TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=11
+   == REF (A: pristine) AGREE=47 G-ONLY=0 O-ONLY=0 DIFF=24
+   == REF (B: patched)  AGREE=56 G-ONLY=0 O-ONLY=0 DIFF=15
+      TOGOLD=9 AWAY=0 MOVEDWRONG=0 STILLWRONG=15
+

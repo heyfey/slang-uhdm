@@ -3368,6 +3368,19 @@ struct RecvCallArg52 {
     explicit RecvCallArg52(int& d) : p(&d), saved(d) { d = d + 1; }
     ~RecvCallArg52() { *p = saved; }
 };
+// § classInBodyRecvCallArgNoBind52 — the same SILENCER, raised only when a
+// predicate says so (the ClassArgBindIf38 shape).  The INTERFACE-method-call
+// arm is reached in BOTH statement and expression position from one place, so
+// it cannot use the unconditional form the three hier_path mints use; see
+// SITE 5 in ExprEmit.cpp's interface arm.
+struct RecvCallArgIf52 {
+    int* p;
+    int saved;
+    RecvCallArgIf52(int& d, bool on) : p(&d), saved(d) {
+        if (on) d = d + 1;
+    }
+    ~RecvCallArgIf52() { *p = saved; }
+};
 // § newArrayArgNoBind16 — the DYNAMIC-ARRAY `new[...]` ARGUMENT window (see
 // newArrayArgDepth16 in UhdmExporter.h for the producer decode).  A SILENCER,
 // raised around the size expression and the copy source of the NewArray arm and
@@ -21731,6 +21744,225 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                    dot1));
                         mfc->Prefix(pr);
                         auto* margs = s.MakeAnyVec();
+                        // ===== § ifaceRecvCallArgTakesTheOrdinaryWindow176 ===
+                        // AN INTERFACE-METHOD CALL'S ARGUMENTS BIND EXACTLY
+                        // WHERE AN ORDINARY CALL'S ARGUMENTS BIND, AND NOWHERE
+                        // ELSE.  This arm's comment above already says "args
+                        // bind normally", and in the home it was decoded on —
+                        // a MODULE calling through an interface PORT — they
+                        // did, because `classMethodNoBind` is not set there.
+                        // Inside a CLASS METHOD it is, and the arm never
+                        // opened § classArgBind12's window, so every argument
+                        // of `vif.m(x)` stayed bare where golden binds it.
+                        // DIRECTION: ADD (a vpiActual that was absent); never
+                        // reshape, never delete.
+                        //
+                        // SURELOG, READ, NOT INFERRED.  A statement-position
+                        // `recv.meth(args)` whose leaf is a plain StringConst
+                        // enters `CompileHelper::compileTfCall`'s LAST arm
+                        // (src/DesignCompile/CompileHelper.cpp:4211-4237): the
+                        // sibling of the name is a `paConstant_bit_select`, so
+                        // a `method_func_call` is minted, named after the
+                        // METHOD, with an unbound `ref_obj` prefix named after
+                        // the receiver — and `fcall->VpiParent(pexpr)` PARENTS
+                        // THE CALL AT THE STATEMENT.  `getTaskFunc(name=recv)`
+                        // then fails (nothing is named `vpi_vif`), so no
+                        // vpiFunction link is attached — golden's call is
+                        // NOLINK, exactly as ours is.  Its arguments are
+                        // compiled at :4329-4333 by
+                        // `compileTfCallArguments(..., call, ...)` with THE
+                        // CALL AS `pexpr`, so each reference's
+                        // `bindVariable(component, pexpr, name, …)`
+                        // (CompileExpression.cpp:2989-2995) climbs
+                        // `pexpr->VpiParent()` — call → begin → function/task
+                        // (CompileStmt.cpp:3089-3151) — and returns the
+                        // matching `Io_decls`/`Variables` entry.  NOTHING in
+                        // that path looks at the receiver's TYPE: a virtual
+                        // interface handle, a real interface port and an
+                        // ordinary object all take the same road.  So the
+                        // golden value here is § classArgBind12's and
+                        // § controlBodyNoBind28's, verbatim, and this window
+                        // is theirs — the SAME counter, not a new one, so the
+                        // depth gate, the § 57/64 block-local carve-out and
+                        // the class-PROPERTY silence all keep applying
+                        // unchanged.
+                        //
+                        // THE CORPUS HEAD — MiniAmiq default and testflags, 29
+                        // cmp lines, ONE head, the two logs byte-identical,
+                        // `LHS: io_decl(a_test_name) / RHS: <null>` (the
+                        // SINGULAR `ref_obj::Actual_group` arm, BaseClass.h
+                        // :187-193, the `lhs != nullptr && rhs == nullptr`
+                        // arm that names the VALUE; golden holds the io_decl
+                        // and WE hold
+                        // nothing).  svaunit `svaunit_vpi_wrapper.svh:91-95`:
+                        //
+                        //   virtual function void set_test_name_vpi(string a_test_name);
+                        //      test_name = a_test_name;                 // 92
+                        //      vpi_vif.set_test_name(a_test_name);      // 94
+                        //   endfunction
+                        //
+                        // and the same file's ten vif-receiver argument cells
+                        // are the whole law in one class: golden BINDS at 94:29
+                        // and at 628:52 (both control depth 0) and leaves the
+                        // other EIGHT bare — 619:50/61, 555, 575, 597, 641, 664
+                        // are all inside `if (assertion != null) begin` (depth
+                        // 1) and 78:31 is the class PROPERTY `test_name`.
+                        // Line 92 is an assignment RHS: bare on both sides, and
+                        // that is why it is not the head.
+                        //
+                        // THE RECEIVER-SPELLING GATE, and it is Surelog's own
+                        // dispatch, not a guess.  `compileTfCall` reaches the
+                        // arm above ONLY for a leaf that is a plain
+                        // StringConst: a `paImplicit_class_handle`
+                        // (`this.`/`super.`) and a `paClass_scope` (`c::s.`)
+                        // are handed to `compileComplexFuncCall` instead
+                        // (:4194-4211), which builds a different object
+                        // entirely.  Our arm finds the receiver by
+                        // `raw.find_last_of('.')`, which happily accepts those
+                        // spellings and a MULTI-NAME receiver too, so the
+                        // window asks the question Surelog's dispatch asks:
+                        // is the receiver text ONE name?  Measured, arm C, DEF
+                        // view, one Surelog golden:
+                        //   s_plain  `plain176.poke176(alfa176)`        golden BOUND  -> opens
+                        //   s_local  a LOCAL handle `grab176.poke176`   golden BOUND  -> opens
+                        //   s_formal the handle is the method's FORMAL   golden BOUND  -> opens
+                        //   s_index  `bank176[1].poke176(delta176)`     golden BOUND  -> opens
+                        //            (golden also DROPS the subscript from the
+                        //             prefix NAME, which we do not — residue R2;
+                        //             the ARGUMENT still moves TOWARD golden)
+                        //   s_spaced `plain176 . poke176(eta176)`       golden BOUND  -> opens
+                        //   s_this   `this.plain176.poke176(beta176)`   golden BARE   -> DECLINES
+                        //            (golden's object is a `method_func_call`
+                        //             NAMED `this` with a STRING-constant
+                        //             prefix — § thisRecvCall11's road)
+                        //   s_deep   `nest176.deep176.poke176(gamma176)` golden has NO
+                        //            such call at all -> DECLINES
+                        //   s_scoped `spelling176::stat176.poke176(...)` Surelog REFUSES
+                        //            to compile (CP0332) -> DECLINES; the `:'
+                        //            conjunct has no golden cell of its own and
+                        //            is written for exactness with the dispatch
+                        //            it mirrors, exactly as the `plainH` test
+                        //            ~100 lines above is.
+                        //
+                        // WHAT DOES NOT MOVE, MEASURED (arm B homes, arm D
+                        // argument kinds, DEF view, one golden each):
+                        //   * a MODULE function and a module procedural block
+                        //     calling through an interface PORT (b `c_mod_fn`,
+                        //     `c_mod_proc`) were ALREADY bound on both sides —
+                        //     the window is inert where `classMethodNoBind` is
+                        //     clear, which is every home this arm was
+                        //     originally decoded on;
+                        //   * an OUT-OF-BODY class method (b `c_pkg_oob`,
+                        //     `c_pkg_oobtask`) was already bound on both sides;
+                        //   * a $unit class and a PACKAGE class in-body method
+                        //     (b `c_unit_inbody`, `c_pkg_inbody`) are golden
+                        //     BOUND and move, like the corpus cell;
+                        //   * depth: d1 (depth 0) golden BOUND; d2 (depth 1)
+                        //     and d6 (depth 2) golden BARE and stay bare —
+                        //     § controlBodyNoBind28 is a separate disjunct of
+                        //     the bind gate and this window does not lift it;
+                        //     a bare `begin` (d4), a NAMED block (d5) and a
+                        //     `fork` arm (d12) raise no depth and bind, a
+                        //     `while` body (d13) does and does not;
+                        //   * d3 `a_blk1` — a local declared IN the block that
+                        //     raised the depth — binds at depth 1, which is
+                        //     § blockLocalSameCtrlDepthArgBinds57/64's
+                        //     carve-out reading this window, and golden has it
+                        //     BOUND (the corpus says the same:
+                        //     svaunit_vpi_interface.sv:467/482/498 bind the
+                        //     foreach-block local `enable_sva` while leaving
+                        //     the FORMAL `a_test_name` bare);
+                        //   * a class PROPERTY (d7 `a_prop`), a STATIC property,
+                        //     a class PARAMETER (d7b) and a CONCATENATION
+                        //     operand (d10) are golden BARE and were already
+                        //     bare — there is no symbol half to this law and
+                        //     none is invented.
+                        //
+                        // THE HOME CONJUNCT, and it is a COUNTER-WITNESS, not
+                        // a tidy-up.  This window exists to lift ONE silence —
+                        // `classMethodNoBind`, which is set only inside a class
+                        // method body — so it is raised only there.  Where the
+                        // flag is clear the arm already binds whatever the
+                        // ordinary path binds (arm B's module function, module
+                        // initial block and out-of-body method are bound on
+                        // BOTH sides before and after), and opening a window
+                        // there would be a bind with NO DEPTH GATE, because
+                        // § controlBodyNoBind28 is itself written
+                        // `curSubClassScope9 && !curSubOob9 && …`.  The corpus
+                        // has the cell that would have cost: svaunit
+                        // `svaunit_vpi_interface.sv:506-517`, an INTERFACE's own
+                        // function, whose `get_cover_statistics_dpi(…,
+                        // nof_attempts_failed_covered, …)` at 512:72 / 513:16
+                        // sits two control bodies down (`foreach` then `if`) and
+                        // is golden BARE, one line under a `control_assertion_dpi
+                        // (…, a_sim_time)` at 383:56 that is golden BOUND at
+                        // depth 0.  A home-blind window would have bound the
+                        // first pair AWAY from golden.  (Both of those cells are
+                        // BARE on our side today for a different reason and stay
+                        // exactly as they are: residue R1.)
+                        const bool ifaceArgWin176 =
+                            curSubClassScope9 && !curSubOob9 &&
+                            recv1.find('.') == std::string::npos &&
+                            recv1.find(':') == std::string::npos;
+                        ClassArgBindIf38 cab176(classArgBindDepth12,
+                                                ifaceArgWin176);
+                        // NOTE § classInBodyRecvCallArgNoBind52 — SITE 5
+                        // (VERIFIER FIX, r10v176).  THE SILENCER PASS 52 NEVER
+                        // REACHED, AND THE WINDOW ABOVE IS WHAT MADE IT VISIBLE.
+                        //
+                        // § 52 is owed around the argument list of EVERY
+                        // receiver-qualified call our emitter renders in
+                        // EXPRESSION position, and pass 52's own integration
+                        // note (SITE 4, ~line 21330) counted only the
+                        // `MakeHier_path` mints — this arm mints a
+                        // `method_func_call` with a `Prefix` instead and so was
+                        // never counted.  The omission was INERT while
+                        // `classMethodNoBind` silenced these arguments anyway;
+                        // § ifaceRecvCallArgTakesTheOrdinaryWindow176 lifts
+                        // that silence and the omission becomes a BIND WHERE
+                        // GOLDEN IS BARE.
+                        //
+                        // WHY THIS ARM AND NOT THE OTHERS: a plain ONE-NAME
+                        // receiver in expression position never gets here — it
+                        // is rendered as a hier_path further up, where § 52's
+                        // SITE 1/3 already raise the counter.  A SUBSCRIPTED
+                        // receiver (`row[2].weigh(x)`) does get here, which is
+                        // why the face is invisible until you write one.
+                        //
+                        // MEASURED, arm S (v176_s_exprpos.sv), one Surelog
+                        // golden, DEF and ELAB, LHS always golden:
+                        //   s1  `lone.set(a)`             STATEMENT  plain  G=BOUND
+                        //   s2  `row[2].set(b)`           STATEMENT  index  G=BOUND
+                        //   s3  `x = lone.weigh(c)`       ASSIGN RHS plain  G=BARE
+                        //   s4  `x = row[2].weigh(d)`     ASSIGN RHS index  G=BARE
+                        //   s5  `if (lone.weigh(e)==0)`   CONDITION  plain  G=BARE
+                        //   s6  `if (row[2].weigh(f)==0)` CONDITION  index  G=BARE
+                        //   s7  `return lone.weigh(g)`    RETURN     plain  G=BARE
+                        //   s8  `return row[2].weigh(h)`  RETURN     index  G=BARE
+                        //   s9  `x = row[2].weigh(i)+3`   OPERAND    index  G=BARE
+                        //   s10 `lone.set(row[2].weigh(j))` NESTED   index  G=BARE
+                        //   s11 `lone.set(lone.weigh(k))`   NESTED   plain  G=BARE
+                        //   s12 `row[2].set(l)` one body down        index  G=BARE
+                        // Without this line s4/s8/s9/s10 bound their argument
+                        // where golden leaves it bare (four AWAY cells), and
+                        // s6 kept a PRE-EXISTING bind of the same shape — an
+                        // if/case CONDITION clears `classMethodNoBind`, so that
+                        // one was already wrong before this pass and this
+                        // silencer takes it TO golden as well.  s1/s2 are the
+                        // corpus face and are untouched: `callStmtCtx0` is TRUE
+                        // for both of svaunit's cells,
+                        // `svaunit_vpi_wrapper.svh:94` and `:628`.
+                        //
+                        // The counter is § 52's OWN, so the gate that reads it
+                        // (`curSubClassScope9 && !curSubOob9 &&
+                        // recvCallArgDepth52 > 0`) is unchanged: a MODULE
+                        // function, an INTERFACE's own subroutine and an
+                        // OUT-OF-BODY method are all outside it and cannot move.
+                        // `callStmtCtx0` and NOT the member `callStmtContext`,
+                        // for the reason line ~22314 gives: the member is
+                        // clobbered by the argument walk itself.
+                        RecvCallArgIf52 rca52I(recvCallArgDepth52,
+                                               !callStmtCtx0);
                         // § writtenCallArgs16 — only the actuals WRITTEN at
                         // the call site; a defaulted formal is slang's, not
                         // Surelog's.

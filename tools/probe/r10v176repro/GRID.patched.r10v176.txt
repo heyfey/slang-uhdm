@@ -1,0 +1,212 @@
+r10v176 — VERIFIER ARM SCORES.  MEASUREMENT ONLY; the official uhdm-cmp is the judge.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.  A=pristine b49636…, B as labelled.
+
+===== v176_p_modport.sv — A=pristine  B=PATCHED (10dc137e…) =====
+   361 /tmp/v176_g_p_modport/cen.g.txt
+   428 /tmp/v176_g_p_modport/cen.a.txt
+   428 /tmp/v176_g_p_modport/cen.b.txt
+  1217 total
+6
+cmp rc=255 a def lines=29 heads=1
+cmp rc=255 b def lines=2490 heads=1
+cmp rc=255 a elab lines=2498 heads=1
+cmp rc=255 b elab lines=2498 heads=1
+== ARG (A: pristine) AGREE=2 G-ONLY=0 O-ONLY=0 DIFF=6
+           G={'BOUND=io_decl:quill_QQ': 1}
+           O={'BARE': 1}
+           G={'BOUND=io_decl:satchel_QQ': 1}
+           O={'BARE': 1}
+           G={'BOUND=io_decl:tuck_QQ': 1}
+           O={'BARE': 1}
+           G={'BOUND=io_decl:vellum_QQ': 1}
+           O={'BARE': 1}
+           G={'BOUND=io_decl:wharf_QQ': 1}
+           O={'BARE': 1}
+           G={'BOUND=io_decl:rasp_QQ': 1}
+           O={'BARE': 1}
+== ARG (B: patched)  AGREE=8 G-ONLY=0 O-ONLY=0 DIFF=0
+   TOGOLD=6 AWAY=0 MOVEDWRONG=0 STILLWRONG=0
+   TOGOLD     CALL=method_func_call:punch_qq|NOLINK|POS=0|REF=ref_obj:quill_QQ@25:24|HOME=function:p1_modport/class_defn:work@Rider_QQ
+   TOGOLD     CALL=method_func_call:punch_qq|NOLINK|POS=0|REF=ref_obj:satchel_QQ@35:24|HOME=function:p3_whole/class_defn:work@Rider_QQ
+   TOGOLD     CALL=method_func_call:punch_qq|NOLINK|POS=0|REF=ref_obj:tuck_QQ@41:24|HOME=function:new/class_defn:work@Rider_QQ
+   TOGOLD     CALL=method_func_call:punch_qq|NOLINK|POS=0|REF=ref_obj:vellum_QQ@47:24|HOME=function:p5_pair/class_defn:work@Rider_QQ
+   TOGOLD     CALL=method_func_call:punch_qq|NOLINK|POS=0|REF=ref_obj:wharf_QQ@61:27|HOME=function:n1_modhome/class_defn:Inner_QQ
+   TOGOLD     CALL=method_func_call:shove_qq|NOLINK|POS=0|REF=ref_obj:rasp_QQ@30:24|HOME=task:p2_modtask/class_defn:work@Rider_QQ
+== OBJ (A: pristine) AGREE=33 G-ONLY=0 O-ONLY=0 DIFF=1
+           G={'16': 1}
+           O={'15': 1}
+== OBJ (B: patched)  AGREE=33 G-ONLY=0 O-ONLY=0 DIFF=1
+   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=1
+== REF (A: pristine) AGREE=62 G-ONLY=0 O-ONLY=0 DIFF=10
+           G={'BOUND=io_decl:quill_QQ': 1}
+           O={'BARE': 1}
+           G={'BOUND=io_decl:rasp_QQ': 1}
+           O={'BARE': 1}
+           G={'BOUND=io_decl:satchel_QQ': 1}
+           O={'BARE': 1}
+           G={'BOUND=io_decl:tuck_QQ': 1}
+           O={'BARE': 1}
+           G={'BOUND=io_decl:vellum_QQ': 1}
+           O={'BARE': 1}
+           G={'BOUND=io_decl:wharf_QQ': 1}
+           O={'BARE': 1}
+           G={'BOUND=logic_net:wired_qq': 1}
+           O={'BARE': 1}
+           G={'BOUND=logic_net:wired_qq': 1}
+           O={'BARE': 1}
+           G={'BOUND=logic_net:wired_qq': 1}
+           O={'BARE': 1}
+           G={'BOUND=logic_net:wired_qq': 1}
+           O={'BARE': 1}
+== REF (B: patched)  AGREE=68 G-ONLY=0 O-ONLY=0 DIFF=4
+   TOGOLD=6 AWAY=0 MOVEDWRONG=0 STILLWRONG=4
+   TOGOLD     ref_obj:quill_QQ@25:24|HOME=function:p1_modport/class_defn:work@Rider_QQ
+   TOGOLD     ref_obj:rasp_QQ@30:24|HOME=task:p2_modtask/class_defn:work@Rider_QQ
+   TOGOLD     ref_obj:satchel_QQ@35:24|HOME=function:p3_whole/class_defn:work@Rider_QQ
+   TOGOLD     ref_obj:tuck_QQ@41:24|HOME=function:new/class_defn:work@Rider_QQ
+   TOGOLD     ref_obj:vellum_QQ@47:24|HOME=function:p5_pair/class_defn:work@Rider_QQ
+   TOGOLD     ref_obj:wharf_QQ@61:27|HOME=function:n1_modhome/class_defn:Inner_QQ
+
+===== v176_q_argtext.sv — A=pristine  B=PATCHED (10dc137e…) =====
+  238 /tmp/v176_g_q_argtext/cen.g.txt
+  354 /tmp/v176_g_q_argtext/cen.a.txt
+  354 /tmp/v176_g_q_argtext/cen.b.txt
+  946 total
+6
+cmp rc=255 a def lines=29 heads=1
+cmp rc=255 b def lines=29 heads=1
+cmp rc=255 a elab lines=32 heads=1
+cmp rc=255 b elab lines=32 heads=1
+==          (A: pristine) AGREE=0 G-ONLY=0 O-ONLY=1 DIFF=0
+==          (B: patched)  AGREE=0 G-ONLY=0 O-ONLY=1 DIFF=0
+   TOGOLD=0 AWAY=0 MOVEDWRONG=1 STILLWRONG=0
+   MOVEDWRONG POS=0|REF=ref_obj:juliet_ZZ@86:18|HOME=function:q10_multiline/class_defn:work@Loader_ZZ
+           G={}
+           A={'BARE': 1}
+           B={'BOUND=io_decl:juliet_ZZ': 1}
+==         @85:7 (A: pristine) AGREE=0 G-ONLY=0 O-ONLY=1 DIFF=0
+==         @85:7 (B: patched)  AGREE=0 G-ONLY=0 O-ONLY=1 DIFF=0
+   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=1
+== ARG (A: pristine) AGREE=3 G-ONLY=1 O-ONLY=1 DIFF=8
+           G={'BARE': 1}
+           O={'BOUND=int_var:peg_ZZ': 1}
+           G={'BOUND=io_decl:india_ZZ': 1}
+           O={'BARE': 1}
+           G={'BOUND=io_decl:able_ZZ': 1}
+           O={'BARE': 1}
+           G={'BOUND=io_decl:baker_ZZ': 1}
+           O={'BARE': 1}
+           G={'BOUND=io_decl:carl_ZZ': 1}
+           O={'BARE': 1}
+           G={'BOUND=io_decl:hotel_ZZ': 1}
+           O={'BARE': 1}
+           G={'BOUND=io_decl:dog_ZZ': 1}
+           O={'BARE': 1}
+           G={'BOUND=io_decl:easy_ZZ': 1}
+           O={'BARE': 1}
+== ARG (B: patched)  AGREE=5 G-ONLY=1 O-ONLY=1 DIFF=6
+   TOGOLD=3 AWAY=1 MOVEDWRONG=0 STILLWRONG=7
+   TOGOLD     CALL=method_func_call:feed_ZZ|NOLINK|POS=1|REF=ref_obj:baker_ZZ@43:31|HOME=function:q2_nodot/class_defn:work@Loader_ZZ
+   TOGOLD     CALL=method_func_call:feed_ZZ|NOLINK|POS=1|REF=ref_obj:carl_ZZ@48:41|HOME=function:q3_scopedarg/class_defn:work@Loader_ZZ
+   TOGOLD     CALL=method_func_call:solo_ZZ|NOLINK|POS=0|REF=ref_obj:easy_ZZ@59:31|HOME=function:q5_plainidx/class_defn:work@Loader_ZZ
+   AWAY       CALL=method_func_call:gauge_ZZ|NOLINK|POS=0|REF=ref_obj:fox_ZZ@64:43|HOME=function:q6_nested/class_defn:work@Loader_ZZ
+           G={'BARE': 1}
+           A={'BARE': 1}
+           B={'BOUND=io_decl:fox_ZZ': 1}
+== OBJ (A: pristine) AGREE=29 G-ONLY=1 O-ONLY=0 DIFF=5
+           G={'3': 1}
+           O={'2': 1}
+           G={'24': 1}
+           O={'22': 1}
+           G={'4': 1}
+           O={'2': 1}
+           G={'20': 1}
+           O={'21': 1}
+           G={'52': 1}
+           O={'55': 1}
+== OBJ (B: patched)  AGREE=29 G-ONLY=1 O-ONLY=0 DIFF=5
+   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=6
+== REF (A: pristine) AGREE=35 G-ONLY=10 O-ONLY=12 DIFF=12
+           G={'BOUND=io_decl:able_ZZ': 1}
+           O={'BARE': 1}
+           G={'BOUND=io_decl:baker_ZZ': 1}
+           O={'BARE': 1}
+           G={'BARE': 1}
+           O={'BOUND=int_var:peg_ZZ': 1}
+           G={'BOUND=io_decl:carl_ZZ': 1}
+           O={'BARE': 1}
+           G={'BOUND=io_decl:dog_ZZ': 1}
+           O={'BARE': 1}
+           G={'BOUND=io_decl:easy_ZZ': 1}
+           O={'BARE': 1}
+           G={'BOUND=io_decl:hotel_ZZ': 1}
+           O={'BARE': 1}
+           G={'BOUND=io_decl:india_ZZ': 1}
+           O={'BARE': 1}
+           G={'BOUND=io_decl:juliet_ZZ': 1}
+           O={'BARE': 1}
+           G={'BOUND=logic_net:pipe_a_ZZ': 1}
+           O={'BARE': 1}
+           G={'BOUND=logic_net:pipe_a_ZZ': 1}
+           O={'BARE': 1}
+           G={'BOUND=logic_net:pipe_b_ZZ': 1}
+           O={'BARE': 1}
+== REF (B: patched)  AGREE=38 G-ONLY=10 O-ONLY=12 DIFF=9
+   TOGOLD=4 AWAY=1 MOVEDWRONG=0 STILLWRONG=30
+   TOGOLD     ref_obj:baker_ZZ@43:31|HOME=function:q2_nodot/class_defn:work@Loader_ZZ
+   TOGOLD     ref_obj:carl_ZZ@48:41|HOME=function:q3_scopedarg/class_defn:work@Loader_ZZ
+   TOGOLD     ref_obj:easy_ZZ@59:31|HOME=function:q5_plainidx/class_defn:work@Loader_ZZ
+   TOGOLD     ref_obj:juliet_ZZ@86:18|HOME=function:q10_multiline/class_defn:work@Loader_ZZ
+   AWAY       ref_obj:fox_ZZ@64:43|HOME=function:q6_nested/class_defn:work@Loader_ZZ
+           G={'BARE': 1}
+           A={'BARE': 1}
+           B={'BOUND=io_decl:fox_ZZ': 1}
+
+===== v176_r_multi.sv — A=pristine  B=PATCHED (10dc137e…) =====
+  297 /tmp/v176_g_r_multi/cen.g.txt
+  346 /tmp/v176_g_r_multi/cen.a.txt
+  346 /tmp/v176_g_r_multi/cen.b.txt
+  989 total
+6
+cmp rc=255 a def lines=18 heads=1
+cmp rc=255 b def lines=18 heads=1
+cmp rc=255 a elab lines=18 heads=1
+cmp rc=255 b elab lines=18 heads=1
+== ARG (A: pristine) AGREE=7 G-ONLY=2 O-ONLY=2 DIFF=1
+           G={'BOUND=io_decl:mead_88': 1}
+           O={'BARE': 1}
+== ARG (B: patched)  AGREE=8 G-ONLY=2 O-ONLY=2 DIFF=0
+   TOGOLD=1 AWAY=0 MOVEDWRONG=0 STILLWRONG=4
+   TOGOLD     CALL=method_func_call:pour_88|NOLINK|POS=0|REF=ref_obj:mead_88@21:24|HOME=function:r1_fill/class_defn:work@Vessel_88
+== OBJ (A: pristine) AGREE=34 G-ONLY=0 O-ONLY=0 DIFF=6
+           G={'21': 1}
+           O={'24': 1}
+           G={'40': 1}
+           O={'46': 1}
+           G={'9': 1}
+           O={'7': 1}
+           G={'6': 1}
+           O={'8': 1}
+           G={'5': 1}
+           O={'6': 1}
+           G={'64': 1}
+           O={'67': 1}
+== OBJ (B: patched)  AGREE=34 G-ONLY=0 O-ONLY=0 DIFF=6
+   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=6
+== REF (A: pristine) AGREE=56 G-ONLY=8 O-ONLY=7 DIFF=5
+           G={'BOUND=interface_inst:': 1}
+           O={'BOUND=module_inst:': 1}
+           G={'BOUND=logic_net:main_88': 1}
+           O={'BARE': 1}
+           G={'BOUND=logic_net:main_88': 1}
+           O={'BARE': 1}
+           G={'BOUND=logic_net:main_88': 1}
+           O={'BARE': 1}
+           G={'BOUND=io_decl:mead_88': 1}
+           O={'BARE': 1}
+== REF (B: patched)  AGREE=57 G-ONLY=8 O-ONLY=7 DIFF=4
+   TOGOLD=1 AWAY=0 MOVEDWRONG=0 STILLWRONG=19
+   TOGOLD     ref_obj:mead_88@21:24|HOME=function:r1_fill/class_defn:work@Vessel_88
+
+===== v176_s_exprpos.sv — A=pristine  B=PATCHED (10dc137e…) =====
+             ^^^^^^
