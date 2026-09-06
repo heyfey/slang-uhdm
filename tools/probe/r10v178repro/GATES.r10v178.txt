@@ -1,0 +1,89 @@
+r10v178 — THE VERIFIER'S OWN GATE BATTERY.  Every number below was measured on
+the verifier's OWN two builds, in the verifier's OWN worktrees and workdirs.
+MEASUREMENT ONLY except uhdm-cmp / verify_golden.py, which ARE the judges.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+BASE                4b2b5d06 (fresh worktrees /tmp/wt_v178pris and /tmp/wt_v178)
+pristine binary     md5 252ab5fad779054d39ef74d7dde18edc   (frozen chmod 555)
+patched  binary     md5 1fc0285162673a878ae95a50430f4126   (frozen chmod 555)
+                    -- BOTH md5s equal the implementer's, bit for bit; the
+                       patch applied to a FRESH 4b2b5d06 worktree with rc 0.
+
+(1) BUILD           both, -j 2, md5s taken separately.                   OK
+(2) GOLDENS         patched  23 PASS / 0 FAIL   (SLANG_UHDM exported per binary)
+                    pristine 23 PASS / 0 FAIL
+                    SLANG_UHDM=/bin/false  0 PASS / 23 FAIL              OK
+(3) uhdm2rtlil      testflags CMP_EQUAL 679 / SLANG_REJECT 50 / SURELOG_FAIL 2
+                    default   CMP_EQUAL 679 / SLANG_REJECT 50 / SURELOG_FAIL 2
+                    ct8rows committed-baseline vs patched  tf   PASS (0 rows)
+                    ct8rows pristine        vs patched  tf   PASS (0 rows)
+                    ct8rows pristine        vs patched  def  PASS (0 rows)
+                    ct8rows committed-baseline vs pristine tf PASS (0 rows)
+                    byteverify SELFCHECK=1  MOVERS 0 / 1358, paths identical
+(4) surelog         1588 row-modes, --mode both
+                    ct8rows committed-baseline vs patched   PASS (0 rows)
+                    ct8rows committed-baseline vs pristine  PASS (0 rows)
+                    ct8rows pristine         vs patched     PASS (0 rows)
+                    NO ROW CONVERTED; results/*.csv NEVER written.
+(5) byteverify      SELFCHECK=1 over 956 databases, PATH_SETS_IDENTICAL:
+                      MOVERS 5 / 956
+                        default/SeqDriver  default/MiniAmiq
+                        testflags/SeqDriver testflags/MiniAmiq   <- PREDICTED
+                        default/Scoreboard                       <- THE COIN
+                      order-blind, workdir-normalised whole-dump diff per mover:
+                        SeqDriver x2, MiniAmiq x2 : 72 lines, 72 removals,
+                          0 additions = 36 `vpiActual:` edges + their 36
+                          rendered targets, per database.
+                        Scoreboard/default        : 0 lines  -> the documented
+                          ~50/50 coin, NOT this law (RESUME.md 9).
+                      (the implementer's own run reported 4/956; the fifth is
+                       the coin landing the other way, and it is attributed.)
+PREDICTION FIRST    predict178.py run on the VERIFIER'S OWN PRISTINE census
+                    (956 databases censused) named, before the patched sweep
+                    was read: SeqDriver.default/.testflags and
+                    MiniAmiq.default/.testflags, 36 cells each, 144 total —
+                    exactly the four that moved.
+HEADS               rowheads.sh, pristine -> patched:
+                      SeqDriver  default    33 / 1  ->  142 / 1   HEAD CHANGED
+                      SeqDriver  testflags  33 / 1  ->  142 / 1   HEAD CHANGED
+                      MiniAmiq   default    33 / 1  ->  116 / 1   HEAD CHANGED
+                      MiniAmiq   testflags  33 / 1  ->  116 / 1   HEAD CHANGED
+                      SimpleUVM x2, Scoreboard/default, BuildUVMPkg x2,
+                      Earlgrey_0_1 x2, Rggen/default: cmp log BYTE-IDENTICAL.
+                    The pristine head is the `LHS: <null>` mirror on the
+                    constant 32'h04c11db6 at uvm_misc.svh:368:36; the patched
+                    head is logic_typespec(uvm_bitstream_t) at
+                    uvm_object_globals.svh:49, and `UVM_STR_CRC` occurs ZERO
+                    times in the patched log.  The head OBJECT changed.
+CENSUS (corpus)     PREF over the nine UVM row-modes, golden/pristine/patched:
+                      GOLD 1800  PRIS 1792  PATCH 1792
+                      TOGOLD 144   AWAY 0   MOVED-WRONG 0   STILL-WRONG 64
+                    REF (EVERY reference, SeqDriver/default, 77534 rows):
+                      TOGOLD 18   AWAY 0   MOVED-WRONG 0
+                    OBJ (kind counts, SeqDriver/default): diff EMPTY — nothing
+                      created, destroyed or re-typed.
+CANARIES            surelog    ok=52 changed=0 absent=0
+                    uhdm2rtlil ok=8  changed=0 absent=0
+                    ctcan2 EXPECT_UNKNOWN=1 PASS, EXPECT_UNKNOWN=6 PASS
+                    canaudit  audited=29  UNCOVERED=0  FENCE-BREACH=0
+PROTECTED DBs       InterfaceModPort, BlackParrotComplex, YosysOldOr byte-SAME
+                    both modes; SVSwitch 4842211c4030; YosysVerx 6ccda350c24a.
+BOUNDARY (wide)     LISTED=4904 FENCED_SKIPPED=0 PROCESSED=4904 MOVED=11
+                    NO_OUTPUT_PAIRS=380, ASYMMETRIC 0, PROCESSED-ASSERT-OK.
+                    11 = 4 of the implementer's arms + 5 of the verifier's
+                    + the 2 § 169 arms.  NOTHING ELSE MOVED — uvm176's,
+                    uvm171's, uvm165's and uvm173's committed arms are all
+                    byte-identical between the two binaries.
+                    The two § 169 arms re-measured against a FRESH Surelog
+                    golden: 18 cells TOGOLD, 0 AWAY, 0 MOVED-WRONG;
+                    g169_b_forms.sv's cmp log is BYTE-IDENTICAL (58 lines,
+                    same head) and v169_g_control.sv goes 33 lines / 1 head
+                    -> 0 lines / 0 heads, i.e. EQUAL to golden.
+DETERMINISM         SeqDriver/default rebuilt three times from its own source
+                    directory: md5 cc1dc5c9b5be... on all three, equal to the
+                    sweep's database.  Arm a_kinds likewise 3/3 identical.
+cmds.txt AUDIT      surelog  1573 files, 1523 name /tmp/v178_<side>.bin, the
+                    other 50 are golden-cache-hit rows with no slang call.
+                    uhdm2rtlil 1462 files, 1458 name it, 4 are SURELOG_FAIL.
+                    ZERO cmds.txt in either sweep, either side, names the
+                    main-tree binary.

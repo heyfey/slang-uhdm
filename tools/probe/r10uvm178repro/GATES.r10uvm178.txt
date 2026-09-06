@@ -1,0 +1,79 @@
+r10uvm178 — THE GATES.  Every number here was produced by the OFFICIAL harness
+(scripts/verify_golden.py, tests/check_goldens.sh, ~/.local/bin/uhdm-cmp) on the
+two FROZEN binaries; results/*.csv were READ ONLY and nothing was promoted.
+GOLDEN_DEFER was never set.  The four slang-fenced tests were never dispatched.
+
+BASE 4b2b5d06   worktree /tmp/wt_r10uvm178
+pristine binary md5 252ab5fad779054d39ef74d7dde18edc  (chmod 555; BYTE-IDENTICAL
+                to the binary the campaign landed at this BASE)
+patched  binary md5 1fc0285162673a878ae95a50430f4126  (chmod 555)
+
+(1) BUILD — both binaries built -j 2 in this pass's own worktree, md5 taken
+    separately, frozen chmod 555 BEFORE any sweep.
+
+(2) GOLDENS
+    patched   PASS=23 FAIL=0
+    pristine  PASS=23 FAIL=0
+    SLANG_UHDM=/bin/false  PASS=0 FAIL=23   (the negative control fires)
+    SLANG_UHDM was exported explicitly to EACH binary.
+
+(3) UHDM2RTLIL — both modes, 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+    ct8rows  testflags vs the committed baseline: PASS: every row byte-identical to the committed baseline
+    ct8rows  testflags vs the 4b2b5d06 control: PASS (measured on this same patched
+             sweep before the control set was rotated away — see the NOTE below)
+    ct8rows  default   vs the 4b2b5d06 control: PASS (same; see the NOTE below)
+    ct8rows  testflags vs THIS PASS'S OWN pristine sweep: PASS: every row byte-identical to the committed baseline
+    ct8rows  default   vs THIS PASS'S OWN pristine sweep: PASS: every row byte-identical to the committed baseline
+    byteverify SELFCHECK=1: MOVERS 0 / 1358, PATH_SETS_IDENTICAL, selfcheck 1357/1358
+
+(4) SURELOG — 1588 row-modes over 956 databases, mode both.
+    default   471 CMP_EQUAL / 283 SLANG_REJECT / 25 SURELOG_FAIL / 10 CMP_NOTEQUAL / 5 DEFERRED
+    testflags 466 CMP_EQUAL / 284 SLANG_REJECT / 23 SURELOG_FAIL /  9 CMP_NOTEQUAL / 5 DEFERRED
+              + 3 NO_DATABASE, 2 UNTRANSLATABLE, 1 TIMEOUT, 1 NO_UHDM
+    — identical to this pass's own pristine sweep, histogram for histogram.
+    NO ROW WAS CONVERTED in either direction.
+    ct8rows  vs the committed baseline: PASS: every row byte-identical to the committed baseline
+    ct8rows  vs the 4b2b5d06 control: PASS (same; see the NOTE below)
+    ct8rows  vs THIS PASS'S OWN pristine sweep: PASS: every row byte-identical to the committed baseline
+    byteverify SELFCHECK=1: MOVERS 4 / 956 — every one PREDICTED BY NAME (MOVERS.r10uvm178.txt)
+
+(5) CANARIES AND THE PROTECTED DATABASES
+    canaries surelog     ok=52 changed=0 absent=0
+    canaries uhdm2rtlil  ok=8  changed=0 absent=0
+    ctcan2 surelog / uhdm2rtlil: PASS / PASS
+    canaudit.sh canaries.sh ctcan2.sh: audited=29 UNCOVERED=0 FENCE-BREACH=0 PASS
+    InterfaceModPort 59a365f3ce2c (both modes)   BlackParrotComplex e3e354129d5a / 73a10e8217e5
+    YosysOldOr d68e0796d62c (both modes)         SVSwitch  PIN 4842211c4030 HELD
+                                                 YosysVerx PIN 6ccda350c24a HELD
+    — every one byte-identical between the pristine and the patched sweep.
+
+(6) THE HEADS (rowheads.sh; counts are cmp LINES then ^LHS: heads)
+    row-mode            pristine        patched
+    SeqDriver    x2      33  1          142  1   <- the head CLEARED, a NEW object
+    MiniAmiq     x2      33  1          116  1   <- the head CLEARED, a NEW object
+    SimpleUVM    x2      52  1           52  1   cmp log BYTE-IDENTICAL
+    Scoreboard  def      95  1           95  1   cmp log BYTE-IDENTICAL
+    BuildUVMPkg  x2      52  1           52  1   cmp log BYTE-IDENTICAL
+    Earlgrey_0_1 def     31  1           31  1   cmp log BYTE-IDENTICAL
+    Earlgrey_0_1 tf      48  1           48  1   cmp log BYTE-IDENTICAL
+    Rggen       def       0  0            0  0   CMP_EQUAL, unchanged
+    (Scoreboard/testflags and Rggen/testflags print SKIP-NOFILE; expected.)
+
+(7) EVERY cmds.txt AUDITED BY BINARY PATH — 1523 + 1458 + 1154 + 1458 lines name
+    /tmp/r10uvm178_pris.bin or /tmp/r10uvm178_pat.bin; NOT ONE names the main-tree
+    build/slang-uhdm.
+
+NOTE ON THE ROTATED CONTROL SET.  The three ct8rows runs against
+/tmp/ctl_{sl,u2r,u2r_def}_4b2b5d06.csv were made on THIS patched sweep and all
+three read PASS.  The master then landed the sister pass (UVM 177) and rotated
+the control set forward, so those three files no longer exist and the lines
+above are the recorded results rather than a re-run.  The two comparisons that
+do not depend on the rotating control — the COMMITTED baselines in the worktree
+(results/golden_surelog.csv, results/gate_uhdm2rtlil.csv) and THIS PASS'S OWN
+pristine sweep — were re-run after the rotation and both still read PASS, and
+they are the stronger of the three anyway: this pass's own pristine sweep
+reproduced the committed baseline row for row before the patch was written.
+
+This patch is against BASE 4b2b5d06, which is what the brief pins.  The main
+tree has since moved to cf42ecc3 (UVM 177); the integration cycle re-applies
+and re-gates there.

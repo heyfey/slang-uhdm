@@ -1,0 +1,43 @@
+r10uvm178 — THE BYTE MOVERS.  MEASUREMENT ONLY.
+LHS is ALWAYS golden; RHS is ALWAYS ours.
+
+PREDICTED BY NAME, FROM PRISTINE DATABASES ONLY, BEFORE THE PATCHED SWEEP RAN
+(predict178.py over the pristine PREF census; PREDICT.r10uvm178.*.txt):
+  surelog     4 row-modes of 956 databases — SeqDriver x2, MiniAmiq x2,
+              36 face cells each (18 source cells x 2 listings)
+  uhdm2rtlil  0 row-modes of 1358 databases
+
+MEASURED (byteverify.sh SELFCHECK=1, patched vs this pass's own pristine sweep):
+  surelog     MOVERS 4 / 956 — exactly the four predicted, no other
+  uhdm2rtlil  MOVERS 0 / 1358
+  PATH_SETS_IDENTICAL on both; SELFCHECK 955/956 and 1357/1358 (the control fires)
+
+THE ATTRIBUTION — whole-dump, workdir-normalised, ORDER-BLIND (sorted) diff,
+pristine vs patched, per mover.  Every mover is 72 lines, ALL REMOVALS:
+
+  default/SeqDriver  added(>) = 0   removed(<) = 72
+  default/MiniAmiq  added(>) = 0   removed(<) = 72
+  testflags/SeqDriver  added(>) = 0   removed(<) = 72
+  testflags/MiniAmiq  added(>) = 0   removed(<) = 72
+
+The 72 removed lines are 36 'vpiActual:' labels and their 36 targets — one per
+predicted face cell.  Nothing is added anywhere.  SeqDriver/default's targets:
+      2     \_constant: , line:187:31, endln:187:32
+      2     \_constant: , line:189:31, endln:189:32
+      2     \_constant: , line:191:31, endln:191:32
+      2     \_constant: , line:193:31, endln:193:32
+      4     \_constant: , line:195:31, endln:195:32
+      4     \_constant: , line:208:30, endln:208:46
+      2     \_constant: , line:209:30, endln:209:46
+      2     \_constant: , line:217:31, endln:217:38
+      2     \_constant: , line:218:31, endln:218:46
+      2     \_constant: , line:219:31, endln:219:46
+      2     \_constant: , line:26:39, endln:26:82
+      2     \_constant: , line:27:39, endln:27:83
+      2     \_constant: , line:28:39, endln:28:69
+      2     \_constant: , line:29:39, endln:29:82
+      2     \_constant: , line:30:39, endln:30:73
+      2     \_constant: , line:368:36, endln:368:48
+
+Scoreboard/default — the documented ~50/50 COIN (RESUME.md §9) — did NOT move in
+this pass's sweeps: its database is byte-identical between the two binaries.

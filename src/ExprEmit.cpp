@@ -13084,20 +13084,154 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // def-view constant.
                 if (currentTf && pkgScopeInst) {
                     ref->VpiFullName(joinRef(prefix, nv.symbol.name));
-                    // § r10fsv3 S3b: the chain is VIEW-LOCAL — the elaborated
-                    // listing's body reaches the elaborated param_assign's own
-                    // constant (`NrMaxRules` in config_pkg::check_cfg is UINT:16
-                    // at size 32 there and size 64 in the def listing).
-                    auto pit2 = pkgParamDefRhs.find(&nv.symbol);
-                    if (pkgEmitTopView && pit2 != pkgParamDefRhs.end())
-                        ref->Actual_group(pit2->second);
-                    else if (auto pit = pkgParamConst.find(&nv.symbol);
-                             pit != pkgParamConst.end())
-                        ref->Actual_group(pit->second);
-                    else if (pit2 != pkgParamDefRhs.end())
-                        // Non-constant def Rhs (an operation) chains the same
-                        // way (Surelog value-ref chaining).
-                        ref->Actual_group(pit2->second);
+                    // § pkgCloneParamRefStaysBare178 (r10uvm178) — A PACKAGE
+                    // PARAMETER READ INSIDE A WILDCARD-IMPORT CLONE BODY KEEPS
+                    // A BARE `ref_obj`; ONLY THE PARAMETER'S HOME LISTING BINDS.
+                    //
+                    // THE HEAD (SeqDriver x2 AND MiniAmiq x2, 33 cmp lines, one
+                    // head each, at 4b2b5d06) is the SINGULAR `SafeCompare`
+                    // mirror — `LHS: <null>` with a full RHS, so the object the
+                    // judge stopped on lives in OUR database: the `constant`
+                    // `32'h04c11db6` that is the Rhs of
+                    // `param_assign UVM_STR_CRC_POLYNOMIAL`, uvm-1.2
+                    // `base/uvm_misc.svh:368:36`.  The reference is
+                    // `crc1 ^= UVM_STR_CRC_POLYNOMIAL;` at `:385:21`, three
+                    // control levels deep inside the free package function
+                    // `uvm_pkg::uvm_oneway_hash`.
+                    //
+                    // THE COPY MAP is what names the law.  The reference exists
+                    // FOUR times per database — the home package's AllPackages
+                    // and TopPackages listings, and the SAME TWO listings of the
+                    // package that wildcard-imports it, which carries a
+                    // `clone_tree` COPY of the home's whole subroutine listing
+                    // (§ collectPkgTfListing).  Golden, both rows:
+                    //   ALL uvm_pkg     BOUND -> constant@368:36
+                    //   TOP uvm_pkg     BOUND -> constant@368:36
+                    //   ALL <importer>  BARE          (adpcm_pkg / svaunit_pkg)
+                    //   TOP <importer>  BARE
+                    // and we bound all four.  The two importer copies are the
+                    // whole disagreement; the two home copies were already right
+                    // and must stay bound (they are the AWAY column).
+                    //
+                    // SURELOG.  The ONLY site that binds a package-parameter
+                    // reference to the param_assign's *Rhs* — which is what
+                    // golden's home copies hold — is
+                    // `UhdmWriter::lateBinding`, UhdmWriter.cpp:3814-3821:
+                    //     if (m && m->Param_assigns())
+                    //       for (auto p : *m->Param_assigns())
+                    //         if (p->Lhs()->VpiName() == name)
+                    //           if (m->UhdmType() == uhdmpackage)
+                    //             ref->Actual_group(p->Rhs());
+                    // and it walks `mod->getLateBinding()` (UhdmWriter.cpp:3296)
+                    // — the DesignComponent's own registration list of ref_obj
+                    // POINTERS.  `CompileHelper::importPackage` copies that list
+                    // into the importer by pointer (CompileHelper.cpp:191-193,
+                    // `for (auto& var : def->getLateBinding()) scope->
+                    // needLateBinding(var);`) — the ORIGINALS — while the bodies
+                    // themselves are `clone_tree`d a hundred lines later
+                    // (CompileHelper.cpp:319-325).  The CLONE's `ref_obj` is a
+                    // fresh object on NO late-binding list, so nothing ever
+                    // binds it; and `ref_obj::DeepCopy`'s carry-over
+                    // (`if (!clone->Actual_group()) clone->Actual_group((any*)
+                    // Actual_group())`) copies nothing either, because
+                    // `lateBinding` runs in the WRITER, long after the import.
+                    // Both of the importer's listings therefore hold a bare ref.
+                    //
+                    // THE GATE has three terms, every one measured on a grid
+                    // arm, and it SUPPRESSES ONLY where golden holds a bare
+                    // `ref_obj` — never where golden holds no reference at all:
+                    //
+                    //  (1) `pkgImportCloneEmit` — the listing test, the same one
+                    //      § 169 uses for its fold window and § 9 uses for the
+                    //      enum-constant arm of this very code path.  It names
+                    //      BOTH of the importer's listings, which is what the
+                    //      copy map asks for.  A package that merely CARRIES a
+                    //      clone still binds its OWN parameters from its own
+                    //      bodies (arm C `Renest178::renest_read178`, which does
+                    //      not move).
+                    //
+                    //  (2) the parameter's home IS the package whose listing was
+                    //      cloned.  A clone body that reads a THIRD package's
+                    //      parameter — one wildcard-imported into the cloned
+                    //      package — has no reference in golden AT ALL: the
+                    //      home's own compile already substituted the value, so
+                    //      the clone carries a `constant` (arm C
+                    //      `Renest178::wild_read178` reading `Src178::
+                    //      src_poly178`, absent from golden in every listing).
+                    //      That cell is the FOLD family's residue, not this
+                    //      one's, and it must not move.
+                    //
+                    //  (3) the reference is not an OPERAND of the RETURN
+                    //      expression § 169/§ 30's `Reduce::Yes` window already
+                    //      owns.  `return a + stepB178` folds the parameter
+                    //      operand in golden's clone (arm B `b_bin178`, a
+                    //      `constant` there and in the elaborated home listing),
+                    //      while `return b_xor178(polyB178)` does NOT — the
+                    //      reduce descends into an operation's operands and into
+                    //      a SYSTEM call's arguments, and not into a USER
+                    //      call's, which is why the test is the parent's KIND
+                    //      and not `pkgRetTopExpr8` alone.  Measured on nine
+                    //      written forms across two arms: golden holds a
+                    //      `constant` for `return a + stepB178` (arm B
+                    //      `b_bin178`), `return kb169 + 1`, `return kb169 ? 2 :
+                    //      3`, `return {sb169, sb169}` and `return
+                    //      $clog2(kb169)` (§ 169's own `g169_b_forms.sv`, whose
+                    //      cells this pass therefore leaves exactly where they
+                    //      were), and a BARE `ref_obj` for `return
+                    //      b_xor178(polyB178)` — arm B `b_arg178`, one of this
+                    //      law's own TOGOLD cells.
+                    //
+                    // THE CLONE'S HOME is taken from `currentSubSym` — the
+                    // HOME's own subroutine symbol, which is what a clone body
+                    // re-walks — and NOT from `pkgImportCloneHomePkg`, which
+                    // the class-method clone path deliberately leaves null
+                    // (ParamEmit `emitImportedPkgClassMethodClones`; the field
+                    // feeds `pendingFuncRet`'s return-variable patching and
+                    // must keep its meaning).  The walk finds the home package
+                    // for BOTH clone halves: the free subroutine's parent scope
+                    // IS the package, and an OUT-OF-BODY class method's is the
+                    // class whose parent is the package.  Arm E measures both
+                    // halves side by side — golden's importer listing is BARE
+                    // in all four cells (`free_xor178`, `EK178::oob_xor178`,
+                    // `::oob_arg178`, `::oob_str178`), in both listings, and an
+                    // IN-BODY method is never cloned at all.
+                    const slang::ast::Symbol* cloneHome178 = nullptr;
+                    if (pkgImportCloneEmit && currentSubSym)
+                        for (auto sc178 = currentSubSym->getParentScope(); sc178;
+                             sc178 = sc178->asSymbol().getParentScope()) {
+                            auto k178 = sc178->asSymbol().kind;
+                            if (k178 == SymbolKind::Package) {
+                                cloneHome178 = &sc178->asSymbol();
+                                break;
+                            }
+                            if (k178 == SymbolKind::InstanceBody ||
+                                k178 == SymbolKind::CompilationUnit)
+                                break;
+                        }
+                    const bool cloneOwnHomeParam178 =
+                        cloneHome178 && scope &&
+                        cloneHome178 == &scope->asSymbol();
+                    const bool retFoldOperand178 =
+                        pkgRetTopExpr8 && parent &&
+                        (parent->UhdmType() == UHDM::uhdmoperation ||
+                         parent->UhdmType() == UHDM::uhdmsys_func_call);
+                    if (!(cloneOwnHomeParam178 && !retFoldOperand178)) {
+                        // § r10fsv3 S3b: the chain is VIEW-LOCAL — the
+                        // elaborated listing's body reaches the elaborated
+                        // param_assign's own constant (`NrMaxRules` in
+                        // config_pkg::check_cfg is UINT:16 at size 32 there and
+                        // size 64 in the def listing).
+                        auto pit2 = pkgParamDefRhs.find(&nv.symbol);
+                        if (pkgEmitTopView && pit2 != pkgParamDefRhs.end())
+                            ref->Actual_group(pit2->second);
+                        else if (auto pit = pkgParamConst.find(&nv.symbol);
+                                 pit != pkgParamConst.end())
+                            ref->Actual_group(pit->second);
+                        else if (pit2 != pkgParamDefRhs.end())
+                            // Non-constant def Rhs (an operation) chains the
+                            // same way (Surelog value-ref chaining).
+                            ref->Actual_group(pit2->second);
+                    }
                     ref->VpiParent(parent);
                     setLoc(ref, expr.sourceRange);
                     return ref;

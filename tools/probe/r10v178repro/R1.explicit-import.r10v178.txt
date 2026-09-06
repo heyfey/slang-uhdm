@@ -1,0 +1,19 @@
+COPY MAP for reference name containing "c3_k" — golden then ours
+  ---- GOLDEN ----
+    ALL[3] C3_V#225                                | home -::c3_rd                                 |   17:65  | assignment/begin/function/package | BOUND -> constant()@16:38-16:51#239
+    ALL[4] Tri_V#409                               | home -::c3_rd                                 |   17:65  | assignment/begin/function/package | BARE
+    ALL[6] Exp_V#722                               | home -::c3_rd                                 |   17:65  | assignment/begin/function/package | BARE
+    TOP[3] C3_V#3                                  | home -::c3_rd                                 |   17:65  | assignment/begin/function/package | BOUND -> constant()@16:38-16:51#204
+    TOP[4] Tri_V#4                                 | home -::c3_rd                                 |   17:65  | assignment/begin/function/package | BARE
+    TOP[6] Exp_V#6                                 | home -::c3_rd                                 |   17:65  | assignment/begin/function/package | BARE
+    (6 copies)
+  ---- OURS ----
+    ALL[3] C3_V#76                                 | home -::c3_rd                                 |   17:65  | assignment/begin/function/package | BOUND -> constant()@16:38-16:51#80
+    ALL[4] Tri_V#102                               | home -::c3_rd                                 |   17:65  | assignment/begin/function/package | BARE
+    ALL[6] Exp_V#281                               | home -::c3_rd                                 |   17:65  | assignment/begin/function/package | BOUND -> constant()@16:38-16:51#80
+    ALL[6] Exp_V#281                               | home -::exp_rd                                |   38:66  | assignment/begin/function/package | BOUND -> constant()@16:38-16:51#80
+    TOP[3] C3_V#404                                | home -::c3_rd                                 |   17:65  | assignment/begin/function/package | BOUND -> constant()@16:38-16:51#408
+    TOP[4] Tri_V#430                               | home -::c3_rd                                 |   17:65  | assignment/begin/function/package | BARE
+    TOP[6] Exp_V#609                               | home -::c3_rd                                 |   17:65  | assignment/begin/function/package | BOUND -> constant()@16:38-16:51#613
+    TOP[6] Exp_V#609                               | home -::exp_rd                                |   38:66  | assignment/begin/function/package | BOUND -> constant()@16:38-16:51#613
+    (8 copies)

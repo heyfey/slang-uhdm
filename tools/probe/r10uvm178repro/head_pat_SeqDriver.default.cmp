@@ -1,0 +1,142 @@
+LHS:
+decompile:
+logic_typespec: (uvm_bitstream_t), id:184529, line:49:9, endln:49:42
+|vpiParent:
+\_ref_typespec: (adpcm_pkg::uvm_bitstream_to_string::_t::uvm_bitstream_t), id:184528
+|vpiName:uvm_bitstream_t
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+|vpiRange:
+\_range: , id:184530, line:49:22, endln:49:42
+  |vpiParent:
+  \_logic_typespec: (uvm_bitstream_t), id:184529, line:49:9, endln:49:42
+  |vpiLeftRange:
+  \_constant: , id:184531, line:49:23, endln:49:37
+    |vpiParent:
+    \_range: , id:184530, line:49:22, endln:49:42
+    |vpiDecompile:4095
+    |vpiSize:64
+    |INT:4095
+    |vpiConstType:7
+  |vpiRightRange:
+  \_constant: , id:184532, line:49:40, endln:49:41
+    |vpiParent:
+    \_range: , id:184530, line:49:22, endln:49:42
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+|vpiSigned:1
+
+decompile:
+logic_typespec: (uvm_bitstream_t), id:184529, line:49:9, endln:49:42
+|vpiParent:
+\_ref_typespec: (adpcm_pkg::uvm_bitstream_to_string::_t::uvm_bitstream_t), id:184528
+|vpiName:uvm_bitstream_t
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+|vpiRange:
+\_range: , id:184530, line:49:22, endln:49:42
+  |vpiParent:
+  \_logic_typespec: (uvm_bitstream_t), id:184529, line:49:9, endln:49:42
+  |vpiLeftRange:
+  \_constant: , id:184531, line:49:23, endln:49:37
+    |vpiParent:
+    \_range: , id:184530, line:49:22, endln:49:42
+    |vpiDecompile:4095
+    |vpiSize:64
+    |INT:4095
+    |vpiConstType:7
+  |vpiRightRange:
+  \_constant: , id:184532, line:49:40, endln:49:41
+    |vpiParent:
+    \_range: , id:184530, line:49:22, endln:49:42
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+|vpiSigned:1
+RHS:
+decompile:
+logic_typespec: (uvm_pkg::uvm_bitstream_t), id:413, line:49:9, endln:49:42
+|vpiParent:
+\_package: uvm_pkg (uvm_pkg::), id:146, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+|vpiName:uvm_pkg::uvm_bitstream_t
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:146, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+|vpiRange:
+\_range: , id:414, line:49:22, endln:49:42
+  |vpiParent:
+  \_logic_typespec: (uvm_pkg::uvm_bitstream_t), id:413, line:49:9, endln:49:42
+  |vpiLeftRange:
+  \_operation: , id:415, line:49:23, endln:49:39
+    |vpiParent:
+    \_range: , id:414, line:49:22, endln:49:42
+    |vpiOpType:11
+    |vpiOperand:
+    \_ref_obj: (uvm_pkg::uvm_pkg::uvm_bitstream_t::UVM_STREAMBITS), id:416, line:49:23, endln:49:37
+      |vpiParent:
+      \_operation: , id:415, line:49:23, endln:49:39
+      |vpiName:UVM_STREAMBITS
+      |vpiFullName:uvm_pkg::uvm_pkg::uvm_bitstream_t::UVM_STREAMBITS
+      |vpiActual:
+      \_constant: , id:192, line:39:28, endln:39:32
+    |vpiOperand:
+    \_constant: , id:417, line:49:38, endln:49:39
+      |vpiParent:
+      \_operation: , id:415, line:49:23, endln:49:39
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:418, line:49:40, endln:49:41
+    |vpiParent:
+    \_range: , id:414, line:49:22, endln:49:42
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+|vpiSigned:1
+
+decompile:
+logic_typespec: (uvm_pkg::uvm_bitstream_t), id:413, line:49:9, endln:49:42
+|vpiParent:
+\_package: uvm_pkg (uvm_pkg::), id:146, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+|vpiName:uvm_pkg::uvm_bitstream_t
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:146, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+|vpiRange:
+\_range: , id:414, line:49:22, endln:49:42
+  |vpiParent:
+  \_logic_typespec: (uvm_pkg::uvm_bitstream_t), id:413, line:49:9, endln:49:42
+  |vpiLeftRange:
+  \_operation: , id:415, line:49:23, endln:49:39
+    |vpiParent:
+    \_range: , id:414, line:49:22, endln:49:42
+    |vpiOpType:11
+    |vpiOperand:
+    \_ref_obj: (uvm_pkg::uvm_pkg::uvm_bitstream_t::UVM_STREAMBITS), id:416, line:49:23, endln:49:37
+      |vpiParent:
+      \_operation: , id:415, line:49:23, endln:49:39
+      |vpiName:UVM_STREAMBITS
+      |vpiFullName:uvm_pkg::uvm_pkg::uvm_bitstream_t::UVM_STREAMBITS
+      |vpiActual:
+      \_constant: , id:192, line:39:28, endln:39:32
+    |vpiOperand:
+    \_constant: , id:417, line:49:38, endln:49:39
+      |vpiParent:
+      \_operation: , id:415, line:49:23, endln:49:39
+      |vpiDecompile:1
+      |vpiSize:64
+      |UINT:1
+      |vpiConstType:9
+  |vpiRightRange:
+  \_constant: , id:418, line:49:40, endln:49:41
+    |vpiParent:
+    \_range: , id:414, line:49:22, endln:49:42
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+|vpiSigned:1

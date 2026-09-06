@@ -1,0 +1,82 @@
+design::Compare r=-14
+HEAD LHS(golden) = logic_typespec(uvm_bitstream_t)@49:9-49:42#184529
+HEAD RHS(ours)   = logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#413
+HEAD RHS parent chain:
+    < package(uvm_pkg)@28:1-39:11#146
+    < design(work@top_tb)@0:0-0:0#1
+HEAD RHS listing: ALL[1] uvm_pkg#146
+MIRROR REFERENCE SCAN — every edge of OURS that lands on the head, and golden's:
+  ours   package(uvm_pkg)@28:1-39:11#146  [ALL[1] uvm_pkg#146]
+      edge vpiType=725 (vector index 6)
+      golden package(uvm_pkg)@28:1-39:11#1 [TOP[1] uvm_pkg#1] -> vector present size 89, [6] = enum_typespec(uvm_pkg::uvm_active_passive_enum)@532:52-532:53#1673
+      golden package(uvm_pkg)@28:1-39:11#59742 [ALL[1] uvm_pkg#59742] -> vector present size 46, [6] = logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#60919
+  ours   range()@49:22-49:42#414  [ALL[1] uvm_pkg#146]
+      edge vpiType=81 (singular)
+      golden range()@49:22-49:42#60914 [ALL[1] uvm_pkg#59742] -> singular logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#60919
+  ours   ref_typespec()@0:0-0:0#1538  [<no-package-ancestor>]
+      edge vpiType=700 (singular)
+      golden ref_typespec()@0:0-0:0#2881 [<no-package-ancestor>] -> singular logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#1539
+      golden ref_typespec()@0:0-0:0#62069 [<no-package-ancestor>] -> singular logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#60919
+  ours   ref_typespec()@0:0-0:0#1782  [<no-package-ancestor>]
+      edge vpiType=700 (singular)
+      golden ref_typespec()@0:0-0:0#3133 [<no-package-ancestor>] -> singular logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#1539
+      golden ref_typespec()@0:0-0:0#62325 [<no-package-ancestor>] -> singular logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#60919
+  ours   ref_typespec()@0:0-0:0#2676  [<no-package-ancestor>]
+      edge vpiType=700 (singular)
+      golden ref_typespec()@0:0-0:0#22802 [<no-package-ancestor>] -> singular logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#1539
+      golden ref_typespec()@0:0-0:0#81939 [<no-package-ancestor>] -> singular logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#60919
+  ours   ref_typespec()@0:0-0:0#4369  [<no-package-ancestor>]
+      edge vpiType=700 (singular)
+      golden ref_typespec()@0:0-0:0#2881 [<no-package-ancestor>] -> singular logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#1539
+      golden ref_typespec()@0:0-0:0#62069 [<no-package-ancestor>] -> singular logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#60919
+  ours   ref_typespec()@0:0-0:0#4611  [<no-package-ancestor>]
+      edge vpiType=700 (singular)
+      golden ref_typespec()@0:0-0:0#3133 [<no-package-ancestor>] -> singular logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#1539
+      golden ref_typespec()@0:0-0:0#62325 [<no-package-ancestor>] -> singular logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#60919
+  ours   ref_typespec()@0:0-0:0#5514  [<no-package-ancestor>]
+      edge vpiType=700 (singular)
+      golden ref_typespec()@0:0-0:0#22802 [<no-package-ancestor>] -> singular logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#1539
+      golden ref_typespec()@0:0-0:0#81939 [<no-package-ancestor>] -> singular logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#60919
+  ours   ref_typespec()@0:0-0:0#297819  [<no-package-ancestor>]
+      edge vpiType=700 (singular)
+      golden ref_typespec()@0:0-0:0#2916 [<no-package-ancestor>] -> singular logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#1539
+      golden ref_typespec()@0:0-0:0#10429 [<no-package-ancestor>] -> singular logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#1539
+      golden ref_typespec()@0:0-0:0#17136 [<no-package-ancestor>] -> singular logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#1539
+      golden ref_typespec()@0:0-0:0#62106 [<no-package-ancestor>] -> singular logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#60919
+      golden ref_typespec()@0:0-0:0#69579 [<no-package-ancestor>] -> singular logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#60919
+      golden ref_typespec()@0:0-0:0#76270 [<no-package-ancestor>] -> singular logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#60919
+      golden ref_typespec()@0:0-0:0#256776 [<no-package-ancestor>] -> singular logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#1539
+      golden ref_typespec()@0:0-0:0#273174 [<no-package-ancestor>] -> singular logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#1539
+      golden ref_typespec()@0:0-0:0#295166 [<no-package-ancestor>] -> singular logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#1539
+  ours   ref_typespec()@0:0-0:0#128431  [<no-package-ancestor>]
+      edge vpiType=700 (singular)
+      golden ref_typespec()@0:0-0:0#3634 [<no-package-ancestor>] -> singular logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#1539
+      golden ref_typespec()@0:0-0:0#62798 [<no-package-ancestor>] -> singular logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#60919
+  ours   ref_typespec()@0:0-0:0#132527  [<no-package-ancestor>]
+      edge vpiType=700 (singular)
+      golden ref_typespec()@0:0-0:0#7834 [<no-package-ancestor>] -> singular logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#1539
+      golden ref_typespec()@0:0-0:0#66972 [<no-package-ancestor>] -> singular logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#60919
+  ours   ref_typespec()@0:0-0:0#134531  [<no-package-ancestor>]
+      edge vpiType=700 (singular)
+
+=== MiniAmiq (the SAME next head, the same family) ===
+design::Compare r=-14
+HEAD LHS(golden) = logic_typespec(uvm_bitstream_t)@49:9-49:42#120409
+HEAD RHS(ours)   = logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#3635
+HEAD RHS parent chain:
+    < interface_inst()@25:1-647:13#300424
+    < design(unnamed)@0:0-0:0#1
+HEAD RHS listing: <no-package-ancestor>
+MIRROR REFERENCE SCAN — every edge of OURS that lands on the head, and golden's:
+  ours   class_defn(svaunit_base)@25:1-405:9#184145  [TOP[2] svaunit_pkg#181518]
+      edge vpiType=725 (vector index 12)
+      golden class_defn(svaunit_base)@25:1-405:9#332 [TOP[2] svaunit_pkg#325] -> vector present size 123, [12] = logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#1546
+  ours   class_defn(svaunit_base_sequence)@55:1-380:9#184704  [TOP[2] svaunit_pkg#181518]
+      edge vpiType=725 (vector index 12)
+      golden class_defn(svaunit_base_sequence)@55:1-380:9#334 [TOP[2] svaunit_pkg#325] -> vector present size 123, [12] = logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#1546
+  ours   class_defn(svaunit_concurrent_assertion_details)@27:1-141:9#185565  [TOP[2] svaunit_pkg#181518]
+      edge vpiType=725 (vector index 12)
+      golden class_defn(svaunit_concurrent_assertion_details)@27:1-141:9#327 [TOP[2] svaunit_pkg#325] -> vector present size 124, [12] = logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#1546
+  ours   class_defn(svaunit_concurrent_assertion_info)@29:1-375:9#185818  [TOP[2] svaunit_pkg#181518]
+      edge vpiType=725 (vector index 12)
+      golden class_defn(svaunit_concurrent_assertion_info)@29:1-375:9#328 [TOP[2] svaunit_pkg#325] -> vector present size 124, [12] = logic_typespec(uvm_pkg::uvm_bitstream_t)@49:9-49:42#1546

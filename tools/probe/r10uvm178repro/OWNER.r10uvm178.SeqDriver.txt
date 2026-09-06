@@ -1,0 +1,38 @@
+design::Compare r=-1
+HEAD LHS(golden) = <null>
+HEAD RHS(ours)   = constant()@368:36-368:48#367
+HEAD RHS parent chain:
+    < param_assign()@368:11-368:48#366
+    < package(uvm_pkg)@28:1-39:11#146
+    < design(work@top_tb)@0:0-0:0#1
+HEAD RHS listing: ALL[1] uvm_pkg#146
+MIRROR REFERENCE SCAN — every edge of OURS that lands on the head, and golden's:
+  ours   param_assign()@368:11-368:48#366  [ALL[1] uvm_pkg#146]
+      edge vpiType=82 (singular)
+      golden param_assign()@368:11-368:48#2490 [TOP[1] uvm_pkg#1] -> singular constant()@368:36-368:48#2494
+      golden param_assign()@368:11-368:48#61676 [ALL[1] uvm_pkg#59742] -> singular constant()@368:36-368:48#61680
+  ours   ref_obj(UVM_STR_CRC_POLYNOMIAL)@385:21-385:43#1255  [ALL[1] uvm_pkg#146]
+      edge vpiType=700 (singular)
+      golden ref_obj(UVM_STR_CRC_POLYNOMIAL)@385:21-385:43#2598 [TOP[1] uvm_pkg#1] -> singular constant()@368:36-368:48#2494
+      golden ref_obj(UVM_STR_CRC_POLYNOMIAL)@385:21-385:43#61784 [ALL[1] uvm_pkg#59742] -> singular constant()@368:36-368:48#61680
+  ours   ref_obj(UVM_STR_CRC_POLYNOMIAL)@385:21-385:43#4088  [ALL[2] adpcm_pkg#3057]
+      edge vpiType=700 (singular)
+      golden ref_obj(UVM_STR_CRC_POLYNOMIAL)@385:21-385:43#120067 [TOP[2] adpcm_pkg#325] -> singular <null>
+      golden ref_obj(UVM_STR_CRC_POLYNOMIAL)@385:21-385:43#184194 [ALL[2] adpcm_pkg#183384] -> singular <null>
+  ours   ref_typespec()@0:0-0:0#368  [ALL[1] uvm_pkg#146]
+      edge vpiType=81 (singular)
+      golden ref_typespec()@0:0-0:0#2500 [TOP[1] uvm_pkg#1] -> singular constant()@368:36-368:48#2494
+      golden ref_typespec()@0:0-0:0#61686 [ALL[1] uvm_pkg#59742] -> singular constant()@368:36-368:48#61680
+COPY MAP for reference name containing "UVM_STR_CRC_POLYNOMIAL" — golden then ours
+  ---- GOLDEN ----
+    ALL[1] uvm_pkg#59742                           | home -::uvm_oneway_hash                       |  385:21  | assignment/begin/if_stmt/begin | BOUND -> constant()@368:36-368:48#61680
+    ALL[2] adpcm_pkg#183384                        | home -::uvm_oneway_hash                       |  385:21  | assignment/begin/if_stmt/begin | BARE
+    TOP[1] uvm_pkg#1                               | home -::uvm_oneway_hash                       |  385:21  | assignment/begin/if_stmt/begin | BOUND -> constant()@368:36-368:48#2494
+    TOP[2] adpcm_pkg#325                           | home -::uvm_oneway_hash                       |  385:21  | assignment/begin/if_stmt/begin | BARE
+    (4 copies)
+  ---- OURS ----
+    ALL[1] uvm_pkg#146                             | home -::uvm_oneway_hash                       |  385:21  | assignment/begin/if_stmt/begin | BOUND -> constant()@368:36-368:48#367
+    ALL[2] adpcm_pkg#3057                          | home -::uvm_oneway_hash                       |  385:21  | assignment/begin/if_stmt/begin | BOUND -> constant()@368:36-368:48#367
+    TOP[1] uvm_pkg#6049                            | home -::uvm_oneway_hash                       |  385:21  | assignment/begin/if_stmt/begin | BOUND -> constant()@368:36-368:48#6299
+    TOP[2] adpcm_pkg#181474                        | home -::uvm_oneway_hash                       |  385:21  | assignment/begin/if_stmt/begin | BOUND -> constant()@368:36-368:48#181724
+    (4 copies)

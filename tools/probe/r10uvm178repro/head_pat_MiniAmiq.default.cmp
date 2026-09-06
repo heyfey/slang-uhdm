@@ -1,0 +1,116 @@
+LHS:
+decompile:
+logic_typespec: (uvm_bitstream_t), id:120409, line:49:9, endln:49:42
+|vpiParent:
+\_ref_typespec: (svaunit_pkg::uvm_bitstream_to_string::_t::uvm_bitstream_t), id:120408
+|vpiName:uvm_bitstream_t
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+|vpiRange:
+\_range: , id:120410, line:49:22, endln:49:42
+  |vpiParent:
+  \_logic_typespec: (uvm_bitstream_t), id:120409, line:49:9, endln:49:42
+  |vpiLeftRange:
+  \_constant: , id:120411, line:49:23, endln:49:37
+    |vpiParent:
+    \_range: , id:120410, line:49:22, endln:49:42
+    |vpiDecompile:4095
+    |vpiSize:64
+    |INT:4095
+    |vpiConstType:7
+  |vpiRightRange:
+  \_constant: , id:120412, line:49:40, endln:49:41
+    |vpiParent:
+    \_range: , id:120410, line:49:22, endln:49:42
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+|vpiSigned:1
+
+decompile:
+logic_typespec: (uvm_bitstream_t), id:120409, line:49:9, endln:49:42
+|vpiParent:
+\_ref_typespec: (svaunit_pkg::uvm_bitstream_to_string::_t::uvm_bitstream_t), id:120408
+|vpiName:uvm_bitstream_t
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+|vpiRange:
+\_range: , id:120410, line:49:22, endln:49:42
+  |vpiParent:
+  \_logic_typespec: (uvm_bitstream_t), id:120409, line:49:9, endln:49:42
+  |vpiLeftRange:
+  \_constant: , id:120411, line:49:23, endln:49:37
+    |vpiParent:
+    \_range: , id:120410, line:49:22, endln:49:42
+    |vpiDecompile:4095
+    |vpiSize:64
+    |INT:4095
+    |vpiConstType:7
+  |vpiRightRange:
+  \_constant: , id:120412, line:49:40, endln:49:41
+    |vpiParent:
+    \_range: , id:120410, line:49:22, endln:49:42
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+|vpiSigned:1
+RHS:
+decompile:
+logic_typespec: (uvm_pkg::uvm_bitstream_t), id:3635, line:49:9, endln:49:42
+|vpiParent:
+\_interface_inst: work@svaunit_vpi_interface (work@svaunit_vpi_interface), id:300424, file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_vpi_interface.sv, line:25:1, endln:647:13
+|vpiName:uvm_pkg::uvm_bitstream_t
+|vpiInstance:
+\_package: svaunit_pkg (svaunit_pkg::), id:3074, file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_pkg.sv, line:24:1, endln:73:11
+|vpiRange:
+\_range: , id:3636, line:49:22, endln:49:42
+  |vpiParent:
+  \_logic_typespec: (uvm_pkg::uvm_bitstream_t), id:3635, line:49:9, endln:49:42
+  |vpiLeftRange:
+  \_constant: , id:3637, line:49:23, endln:49:37
+    |vpiParent:
+    \_range: , id:3636, line:49:22, endln:49:42
+    |vpiDecompile:4095
+    |vpiSize:64
+    |INT:4095
+    |vpiConstType:7
+  |vpiRightRange:
+  \_constant: , id:3638, line:49:40, endln:49:41
+    |vpiParent:
+    \_range: , id:3636, line:49:22, endln:49:42
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+|vpiSigned:1
+
+decompile:
+logic_typespec: (uvm_pkg::uvm_bitstream_t), id:3635, line:49:9, endln:49:42
+|vpiParent:
+\_interface_inst: work@svaunit_vpi_interface (work@svaunit_vpi_interface), id:300424, file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_vpi_interface.sv, line:25:1, endln:647:13
+|vpiName:uvm_pkg::uvm_bitstream_t
+|vpiInstance:
+\_package: svaunit_pkg (svaunit_pkg::), id:3074, file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_pkg.sv, line:24:1, endln:73:11
+|vpiRange:
+\_range: , id:3636, line:49:22, endln:49:42
+  |vpiParent:
+  \_logic_typespec: (uvm_pkg::uvm_bitstream_t), id:3635, line:49:9, endln:49:42
+  |vpiLeftRange:
+  \_constant: , id:3637, line:49:23, endln:49:37
+    |vpiParent:
+    \_range: , id:3636, line:49:22, endln:49:42
+    |vpiDecompile:4095
+    |vpiSize:64
+    |INT:4095
+    |vpiConstType:7
+  |vpiRightRange:
+  \_constant: , id:3638, line:49:40, endln:49:41
+    |vpiParent:
+    \_range: , id:3636, line:49:22, endln:49:42
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+|vpiSigned:1

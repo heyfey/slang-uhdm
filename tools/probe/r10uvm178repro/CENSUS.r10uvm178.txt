@@ -1,0 +1,109 @@
+r10uvm178 — THE CENSUS.  MEASUREMENT ONLY; the official uhdm-cmp is the judge.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+Families (ct178cen.cpp):
+  PREF — every reference in a PACKAGE-rooted subroutine body whose name is a
+         PARAMETER's, keyed by LISTING (design::AllPackages / TopPackages, by
+         ROLE + package NAME, never an index or an id) x COPY (that package's
+         name) x HOME (subroutine + container) x span.  The family this law moves.
+  REF  — EVERY reference object in the database.  The MUST-NOT-MOVE family.
+  OBJ  — one row per UHDM kind with its count.  Nothing may be created,
+         destroyed or re-typed.
+The DEF/ELAB RUN is NOT part of any key (RESUME.md §9); the caller tags each run.
+
+############ THE NINE UVM ROW-MODES, ALL THREE FAMILIES ############
+
+---- PREF ----
+ROW-MODE                      GOLD    PRIS   PATCH  TOGOLD    AWAY MVWRONG STILLWR
+BuildUVMPkg.default             76      76      76       0       0       0       4
+BuildUVMPkg.testflags           76      76      76       0       0       0       4
+MiniAmiq.default               252     250     250      36       0       0      14
+MiniAmiq.testflags             252     250     250      36       0       0      14
+Scoreboard.default             214     214     214       0       0       0       0
+SeqDriver.default              252     250     250      36       0       0      14
+SeqDriver.testflags            252     250     250      36       0       0      14
+SimpleUVM.default              213     213     213       0       0       0       0
+SimpleUVM.testflags            213     213     213       0       0       0       0
+TOTAL                         1800    1792    1792     144       0       0      64
+
+---- REF ----
+ROW-MODE                      GOLD    PRIS   PATCH  TOGOLD    AWAY MVWRONG STILLWR
+BuildUVMPkg.default          44276   44273   44273       0       0       0    1535
+BuildUVMPkg.testflags        44276   44273   44273       0       0       0    1535
+MiniAmiq.default             79783   79758   79758      18       0       0    7844
+MiniAmiq.testflags           79783   79758   79758      18       0       0    7844
+Scoreboard.default           45532   45530   45530       0       0       0    4986
+SeqDriver.default            77558   77534   77534      18       0       0    8028
+SeqDriver.testflags          77558   77534   77534      18       0       0    8028
+SimpleUVM.default            45361   45357   45357       0       0       0    5381
+SimpleUVM.testflags          45361   45357   45357       0       0       0    5381
+TOTAL                       539488  539374  539374      72       0       0   50562
+
+---- OBJ ----
+ROW-MODE                      GOLD    PRIS   PATCH  TOGOLD    AWAY MVWRONG STILLWR
+BuildUVMPkg.default             82      82      82       0       0       0      22
+BuildUVMPkg.testflags           82      82      82       0       0       0      22
+MiniAmiq.default                91      89      89       0       0       0      52
+MiniAmiq.testflags              91      89      89       0       0       0      52
+Scoreboard.default              88      88      88       0       0       0      27
+SeqDriver.default               94      95      95       0       0       0      48
+SeqDriver.testflags             94      95      95       0       0       0      48
+SimpleUVM.default               95      95      95       0       0       0      30
+SimpleUVM.testflags             95      95      95       0       0       0      30
+TOTAL                          812     810     810       0       0       0     331
+
+############ THE WHOLE SURELOG CORPUS (956 databases, PREF) ############
+ROW-MODE                      GOLD    PRIS   PATCH  TOGOLD    AWAY MVWRONG STILLWR
+MiniAmiq.default               252     250     250      36       0       0      14
+MiniAmiq.testflags             252     250     250      36       0       0      14
+SeqDriver.default              252     250     250      36       0       0      14
+SeqDriver.testflags            252     250     250      36       0       0      14
+TOTAL                         3164    3390    3390     144       0       0     261
+(every other row-mode: TOGOLD 0 AWAY 0 MOVED-WRONG 0 — only the four moved)
+
+############ THE WHOLE UHDM2RTLIL CORPUS (1358 databases, PREF) ############
+ROW-MODE                      GOLD    PRIS   PATCH  TOGOLD    AWAY MVWRONG STILLWR
+TOTAL                           14      14      14       0       0       0       0
+
+############ THE MOVED CELLS, NINE UVM ROW-MODES, PREF ############
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_component::apply_config_settings/package:adpcm_pkg|REF=ref_obj:UVM_CHECK_FIELDS@3167:35 :: gold={'BARE': 1} pris={'BOUND=constant:@209:30': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_component::apply_config_settings/package:adpcm_pkg|REF=ref_obj:UVM_CHECK_FIELDS@3167:35 :: gold={'BARE': 1} pris={'BOUND=constant:@209:30': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_object::compare/package:adpcm_pkg|REF=ref_obj:UVM_COMPARE@1100:35 :: gold={'BARE': 1} pris={'BOUND=constant:@189:31': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_object::compare/package:adpcm_pkg|REF=ref_obj:UVM_COMPARE@1100:35 :: gold={'BARE': 1} pris={'BOUND=constant:@189:31': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_object::copy/package:adpcm_pkg|REF=ref_obj:UVM_COPY@1026:33 :: gold={'BARE': 1} pris={'BOUND=constant:@187:31': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_object::copy/package:adpcm_pkg|REF=ref_obj:UVM_COPY@1026:33 :: gold={'BARE': 1} pris={'BOUND=constant:@187:31': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_object::m_pack/package:adpcm_pkg|REF=ref_obj:UVM_PACK@1156:34 :: gold={'BARE': 1} pris={'BOUND=constant:@195:31': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_object::m_pack/package:adpcm_pkg|REF=ref_obj:UVM_PACK@1156:34 :: gold={'BARE': 1} pris={'BOUND=constant:@195:31': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_object::m_unpack_post/package:adpcm_pkg|REF=ref_obj:UVM_UNPACK@1231:34 :: gold={'BARE': 1} pris={'BOUND=constant:@208:30': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_object::m_unpack_post/package:adpcm_pkg|REF=ref_obj:UVM_UNPACK@1231:34 :: gold={'BARE': 1} pris={'BOUND=constant:@208:30': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_object::record/package:adpcm_pkg|REF=ref_obj:UVM_RECORD@1305:34 :: gold={'BARE': 1} pris={'BOUND=constant:@193:31': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_object::record/package:adpcm_pkg|REF=ref_obj:UVM_RECORD@1305:34 :: gold={'BARE': 1} pris={'BOUND=constant:@193:31': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_object::set_int_local/package:adpcm_pkg|REF=ref_obj:UVM_SETINT@933:34 :: gold={'BARE': 1} pris={'BOUND=constant:@217:31': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_object::set_int_local/package:adpcm_pkg|REF=ref_obj:UVM_SETINT@933:34 :: gold={'BARE': 1} pris={'BOUND=constant:@217:31': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_object::set_object_local/package:adpcm_pkg|REF=ref_obj:UVM_SETOBJ@963:34 :: gold={'BARE': 1} pris={'BOUND=constant:@218:31': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_object::set_object_local/package:adpcm_pkg|REF=ref_obj:UVM_SETOBJ@963:34 :: gold={'BARE': 1} pris={'BOUND=constant:@218:31': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_object::set_string_local/package:adpcm_pkg|REF=ref_obj:UVM_SETSTR@985:34 :: gold={'BARE': 1} pris={'BOUND=constant:@219:31': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_object::set_string_local/package:adpcm_pkg|REF=ref_obj:UVM_SETSTR@985:34 :: gold={'BARE': 1} pris={'BOUND=constant:@219:31': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_object::sprint/package:adpcm_pkg|REF=ref_obj:UVM_PRINT@897:36 :: gold={'BARE': 1} pris={'BOUND=constant:@191:31': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_object::sprint/package:adpcm_pkg|REF=ref_obj:UVM_PRINT@897:36 :: gold={'BARE': 1} pris={'BOUND=constant:@191:31': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_oneway_hash/package:adpcm_pkg|REF=ref_obj:UVM_STR_CRC_POLYNOMIAL@385:21 :: gold={'BARE': 1} pris={'BOUND=constant:@368:36': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_oneway_hash/package:adpcm_pkg|REF=ref_obj:UVM_STR_CRC_POLYNOMIAL@385:21 :: gold={'BARE': 1} pris={'BOUND=constant:@368:36': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_packer::pack_object/package:adpcm_pkg|REF=ref_obj:UVM_PACK@650:44 :: gold={'BARE': 1} pris={'BOUND=constant:@195:31': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_packer::pack_object/package:adpcm_pkg|REF=ref_obj:UVM_PACK@650:44 :: gold={'BARE': 1} pris={'BOUND=constant:@195:31': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_packer::unpack_object/package:adpcm_pkg|REF=ref_obj:UVM_UNPACK@851:44 :: gold={'BARE': 1} pris={'BOUND=constant:@208:30': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_packer::unpack_object/package:adpcm_pkg|REF=ref_obj:UVM_UNPACK@851:44 :: gold={'BARE': 1} pris={'BOUND=constant:@208:30': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_root::report_header/package:adpcm_pkg|REF=ref_obj:uvm_cdn_copyright@363:15 :: gold={'BARE': 1} pris={'BOUND=constant:@27:39': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_root::report_header/package:adpcm_pkg|REF=ref_obj:uvm_cdn_copyright@363:15 :: gold={'BARE': 1} pris={'BOUND=constant:@27:39': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_root::report_header/package:adpcm_pkg|REF=ref_obj:uvm_cy_copyright@365:15 :: gold={'BARE': 1} pris={'BOUND=constant:@29:39': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_root::report_header/package:adpcm_pkg|REF=ref_obj:uvm_cy_copyright@365:15 :: gold={'BARE': 1} pris={'BOUND=constant:@29:39': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_root::report_header/package:adpcm_pkg|REF=ref_obj:uvm_mgc_copyright@362:15 :: gold={'BARE': 1} pris={'BOUND=constant:@26:39': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_root::report_header/package:adpcm_pkg|REF=ref_obj:uvm_mgc_copyright@362:15 :: gold={'BARE': 1} pris={'BOUND=constant:@26:39': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_root::report_header/package:adpcm_pkg|REF=ref_obj:uvm_nv_copyright@366:15 :: gold={'BARE': 1} pris={'BOUND=constant:@30:39': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_root::report_header/package:adpcm_pkg|REF=ref_obj:uvm_nv_copyright@366:15 :: gold={'BARE': 1} pris={'BOUND=constant:@30:39': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_root::report_header/package:adpcm_pkg|REF=ref_obj:uvm_snps_copyright@364:15 :: gold={'BARE': 1} pris={'BOUND=constant:@28:39': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=adpcm_pkg|HOME=function:uvm_root::report_header/package:adpcm_pkg|REF=ref_obj:uvm_snps_copyright@364:15 :: gold={'BARE': 1} pris={'BOUND=constant:@28:39': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=svaunit_pkg|HOME=function:uvm_component::apply_config_settings/package:svaunit_pkg|REF=ref_obj:UVM_CHECK_FIELDS@3167:35 :: gold={'BARE': 1} pris={'BOUND=constant:@209:30': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=svaunit_pkg|HOME=function:uvm_component::apply_config_settings/package:svaunit_pkg|REF=ref_obj:UVM_CHECK_FIELDS@3167:35 :: gold={'BARE': 1} pris={'BOUND=constant:@209:30': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=svaunit_pkg|HOME=function:uvm_object::compare/package:svaunit_pkg|REF=ref_obj:UVM_COMPARE@1100:35 :: gold={'BARE': 1} pris={'BOUND=constant:@189:31': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=svaunit_pkg|HOME=function:uvm_object::compare/package:svaunit_pkg|REF=ref_obj:UVM_COMPARE@1100:35 :: gold={'BARE': 1} pris={'BOUND=constant:@189:31': 1} patch={'BARE': 1}
+  ... (144 TOGOLD cells in total: 36 per moving row-mode = 18 source cells x 2 listings)

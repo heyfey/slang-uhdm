@@ -1,0 +1,72 @@
+MOVED 0001_g178_a_copy.sv/def 16 lines
+MOVED 0002_g178_b_pos.sv/def 12 lines
+MOVED 0004_g178_d_depth.sv/def 20 lines
+MOVED 0005_g178_e_oob.sv/def 16 lines
+bound178.sh: line 35: 1907792 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound178.sh: line 35: 1907810 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound178.sh: line 35: 1909830 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound178.sh: line 35: 1909848 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+MOVED 2432_r10uvm169repro_g169_b_forms.sv/def 16 lines
+bound178.sh: line 35: 2241675 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound178.sh: line 35: 2241763 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound178.sh: line 35: 2251455 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound178.sh: line 35: 2251493 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound178.sh: line 35: 2258535 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound178.sh: line 35: 2258593 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound178.sh: line 35: 2335632 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound178.sh: line 35: 2335650 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound178.sh: line 35: 2335716 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound178.sh: line 35: 2335734 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+MOVED 3701_r10v169repro_v169_g_control.sv/def 20 lines
+bound178.sh: line 35: 2371988 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound178.sh: line 35: 2372006 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound178.sh: line 35: 2372517 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound178.sh: line 35: 2372535 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound178.sh: line 35: 2377132 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound178.sh: line 35: 2377150 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound178.sh: line 35: 2377575 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound178.sh: line 35: 2377593 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound178.sh: line 35: 2380071 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound178.sh: line 35: 2380089 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound178.sh: line 35: 2380422 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound178.sh: line 35: 2380440 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound178.sh: line 35: 2432287 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound178.sh: line 35: 2432305 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound178.sh: line 35: 2432371 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound178.sh: line 35: 2432392 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound178.sh: line 35: 2432461 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound178.sh: line 35: 2432479 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+LISTED=4899 FENCED_SKIPPED=0 PROCESSED=4899 MOVED=6 NO_OUTPUT_PAIRS=380
+PROCESSED-ASSERT-OK
+BDONE
+
+############ THE ARMS THAT MOVED, RE-MEASURED AGAINST GOLDEN ############
+
+Four of the six are THIS PASS'S OWN arms (g178_a_copy, g178_b_pos — its own
+cells only, its head is elsewhere — g178_d_depth, g178_e_oob).  g178_c_home did
+not move: every cell it holds is one the gate deliberately refuses.
+
+TWO EARLIER-PASS ARMS MOVED, both § 169's — the wildcard-import-clone family
+this law shares.  Each was rebuilt against a FRESH Surelog golden and scored:
+
+  tools/probe/r10uvm169repro/g169_b_forms.sv
+      official cmp  pristine 58 lines / 1 head  ->  patched 58 lines / 1 head
+      the cmp log is BYTE-IDENTICAL: the judge sees no change at all
+      PREF census  TOGOLD 8   AWAY 0   MOVED-WRONG 0   (8 cells moved TOWARD golden)
+
+  tools/probe/r10v169repro/v169_g_control.sv
+      official cmp  pristine 33 lines / 1 head  ->  patched 0 lines / 0 heads
+      THE ARM NOW COMPARES EQUAL TO GOLDEN.
+      PREF census  TOGOLD 10  AWAY 0   MOVED-WRONG 0
+
+  combined: TOGOLD 18, AWAY 0, MOVED-WRONG 0.  Both move TOWARD golden.
+
+NOT A MOVER, but recorded because an EARLIER build of this same patch moved it:
+  tools/probe/r10buvm22repro/g22.sv held a BUILD-LAYOUT-DERIVED integer in an
+  ASSOCIATIVE-ARRAY typespec range bound (a class-scope `[string]` typedef):
+  golden holds `constant STRING:associative`, both binaries hold an integer that
+  is deterministic per binary and shifts by exactly one page when the binary
+  grows.  g22 contains no package-to-package import, so this law's gate can never
+  fire in it; the official cmp log was byte-identical (3438 lines, 1 head) on
+  both binaries.  It is an UNINITIALISED-READ residue of another family and is
+  recorded as R3 in the README.

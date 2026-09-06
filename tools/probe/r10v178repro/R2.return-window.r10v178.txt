@@ -1,0 +1,140 @@
+COPY MAP for reference name containing "PV" — golden then ours
+  ---- GOLDEN ----
+    ALL[1] Rho_home_V#438                          | home -::p_asgn                                |   64:16  | assignment/begin/function/package | BOUND -> constant()@11:22-11:23#471
+    ALL[1] Rho_home_V#438                          | home -::p_callarg                             |   46:21  | func_call/operation/return_stmt/function | BOUND -> constant()@11:22-11:23#471
+    ALL[1] Rho_home_V#438                          | home -::p_caseitem                            |   24:28  | begin/function/package/design | BOUND -> constant()@11:22-11:23#471
+    ALL[1] Rho_home_V#438                          | home -::p_casesel                             |   21:25  | begin/function/package/design | BOUND -> constant()@11:22-11:23#471
+    ALL[1] Rho_home_V#438                          | home -::p_concat                              |   36:22  | operation/return_stmt/function/package | BARE
+    ALL[1] Rho_home_V#438                          | home -::p_cond                                |   15:27  | operation/begin/function/package | BOUND -> constant()@11:22-11:23#471
+    ALL[1] Rho_home_V#438                          | home -::p_forbound                            |   39:39  | operation/for_stmt/begin/function | BOUND -> constant()@11:22-11:23#471
+    ALL[1] Rho_home_V#438                          | home -::p_index                               |   33:25  | bit_select/assignment/begin/function | BOUND -> constant()@11:22-11:23#471
+    ALL[1] Rho_home_V#438                          | home -::p_index                               |   33:45  | bit_select/return_stmt/begin/function | BOUND -> constant()@11:22-11:23#471
+    ALL[1] Rho_home_V#438                          | home -::p_retbare                             |   61:12  | return_stmt/function/package/design | BOUND -> constant()@11:22-11:23#471
+    ALL[1] Rho_home_V#438                          | home -::p_retbin                              |   58:16  | operation/return_stmt/function/package | BOUND -> constant()@11:22-11:23#471
+    ALL[1] Rho_home_V#438                          | home -::p_retcall                             |   52:21  | func_call/return_stmt/function/package | BOUND -> constant()@11:22-11:23#471
+    ALL[1] Rho_home_V#438                          | home -::p_retsys                              |   55:19  | sys_func_call/return_stmt/function/package | BOUND -> constant()@11:22-11:23#471
+    ALL[1] Rho_home_V#438                          | home -::p_sysarg                              |   49:19  | sys_func_call/operation/return_stmt/function | BOUND -> constant()@11:22-11:23#471
+    ALL[1] Rho_home_V#438                          | home -::p_ternarm                             |   30:22  | operation/return_stmt/function/package | BOUND -> constant()@11:22-11:23#471
+    ALL[1] Rho_home_V#438                          | home -::p_terncond                            |   27:13  | operation/operation/return_stmt/function | BOUND -> constant()@11:22-11:23#471
+    ALL[1] Rho_home_V#438                          | home -::p_twice                               |   67:24  | assignment/begin/function/package | BOUND -> constant()@11:22-11:23#471
+    ALL[1] Rho_home_V#438                          | home -::p_twice                               |   67:36  | operation/assignment/begin/function | BOUND -> constant()@11:22-11:23#471
+    ALL[1] Rho_home_V#438                          | home -::p_twoparams                           |   70:24  | assignment/begin/function/package | BOUND -> constant()@11:22-11:23#471
+    ALL[1] Rho_home_V#438                          | home -::p_varinit                             |   42:13  | assignment/begin/function/package | BOUND -> constant()@11:22-11:23#471
+    ALL[1] Rho_home_V#438                          | home -::p_while                               |   18:30  | operation/while_stmt/begin/function | BOUND -> constant()@11:22-11:23#471
+    ALL[2] Sigma_imp_V#1203                        | home -::p_asgn                                |   64:16  | assignment/begin/function/package | BARE
+    ALL[2] Sigma_imp_V#1203                        | home -::p_caseitem                            |   24:28  | case_item/case_stmt/begin/function | BARE
+    ALL[2] Sigma_imp_V#1203                        | home -::p_casesel                             |   21:25  | case_stmt/begin/function/package | BARE
+    ALL[2] Sigma_imp_V#1203                        | home -::p_cond                                |   15:27  | operation/if_stmt/begin/function | BARE
+    ALL[2] Sigma_imp_V#1203                        | home -::p_forbound                            |   39:39  | operation/for_stmt/begin/function | BARE
+    ALL[2] Sigma_imp_V#1203                        | home -::p_index                               |   33:25  | bit_select/assignment/begin/function | BARE
+    ALL[2] Sigma_imp_V#1203                        | home -::p_twice                               |   67:24  | assignment/begin/function/package | BARE
+    ALL[2] Sigma_imp_V#1203                        | home -::p_twice                               |   67:36  | operation/assignment/begin/function | BARE
+    ALL[2] Sigma_imp_V#1203                        | home -::p_twoparams                           |   70:24  | assignment/begin/function/package | BARE
+    ALL[2] Sigma_imp_V#1203                        | home -::p_varinit                             |   42:13  | assignment/begin/function/package | BARE
+    ALL[2] Sigma_imp_V#1203                        | home -::p_while                               |   18:30  | operation/while_stmt/begin/function | BARE
+    TOP[1] Rho_home_V#1                            | home -::p_asgn                                |   64:16  | assignment/begin/function/package | BOUND -> constant()@11:22-11:23#35
+    TOP[1] Rho_home_V#1                            | home -::p_caseitem                            |   24:28  | begin/function/package/design | BOUND -> constant()@11:22-11:23#35
+    TOP[1] Rho_home_V#1                            | home -::p_casesel                             |   21:25  | begin/function/package/design | BOUND -> constant()@11:22-11:23#35
+    TOP[1] Rho_home_V#1                            | home -::p_cond                                |   15:27  | operation/begin/function/package | BOUND -> constant()@11:22-11:23#35
+    TOP[1] Rho_home_V#1                            | home -::p_forbound                            |   39:39  | operation/for_stmt/begin/function | BOUND -> constant()@11:22-11:23#35
+    TOP[1] Rho_home_V#1                            | home -::p_index                               |   33:25  | bit_select/assignment/begin/function | BOUND -> constant()@11:22-11:23#35
+    TOP[1] Rho_home_V#1                            | home -::p_twice                               |   67:24  | assignment/begin/function/package | BOUND -> constant()@11:22-11:23#35
+    TOP[1] Rho_home_V#1                            | home -::p_twice                               |   67:36  | operation/assignment/begin/function | BOUND -> constant()@11:22-11:23#35
+    TOP[1] Rho_home_V#1                            | home -::p_twoparams                           |   70:24  | assignment/begin/function/package | BOUND -> constant()@11:22-11:23#35
+    TOP[1] Rho_home_V#1                            | home -::p_varinit                             |   42:13  | assignment/begin/function/package | BOUND -> constant()@11:22-11:23#35
+    TOP[1] Rho_home_V#1                            | home -::p_while                               |   18:30  | operation/while_stmt/begin/function | BOUND -> constant()@11:22-11:23#35
+    TOP[2] Sigma_imp_V#2                           | home -::p_asgn                                |   64:16  | assignment/begin/function/package | BARE
+    TOP[2] Sigma_imp_V#2                           | home -::p_caseitem                            |   24:28  | case_item/case_stmt/begin/function | BARE
+    TOP[2] Sigma_imp_V#2                           | home -::p_casesel                             |   21:25  | case_stmt/begin/function/package | BARE
+    TOP[2] Sigma_imp_V#2                           | home -::p_cond                                |   15:27  | operation/if_stmt/begin/function | BARE
+    TOP[2] Sigma_imp_V#2                           | home -::p_forbound                            |   39:39  | operation/for_stmt/begin/function | BARE
+    TOP[2] Sigma_imp_V#2                           | home -::p_index                               |   33:25  | bit_select/assignment/begin/function | BARE
+    TOP[2] Sigma_imp_V#2                           | home -::p_twice                               |   67:24  | assignment/begin/function/package | BARE
+    TOP[2] Sigma_imp_V#2                           | home -::p_twice                               |   67:36  | operation/assignment/begin/function | BARE
+    TOP[2] Sigma_imp_V#2                           | home -::p_twoparams                           |   70:24  | assignment/begin/function/package | BARE
+    TOP[2] Sigma_imp_V#2                           | home -::p_varinit                             |   42:13  | assignment/begin/function/package | BARE
+    TOP[2] Sigma_imp_V#2                           | home -::p_while                               |   18:30  | operation/while_stmt/begin/function | BARE
+    (54 copies)
+  ---- OURS ----
+    ALL[1] Rho_home_V#2                            | home -::p_asgn                                |   64:16  | assignment/begin/function/package | BOUND -> constant()@11:22-11:23#6
+    ALL[1] Rho_home_V#2                            | home -::p_callarg                             |   46:21  | func_call/operation/return_stmt/function | BOUND -> constant()@11:22-11:23#6
+    ALL[1] Rho_home_V#2                            | home -::p_caseitem                            |   24:28  | begin/function/package/design | BOUND -> constant()@11:22-11:23#6
+    ALL[1] Rho_home_V#2                            | home -::p_casesel                             |   21:25  | begin/function/package/design | BOUND -> constant()@11:22-11:23#6
+    ALL[1] Rho_home_V#2                            | home -::p_concat                              |   36:22  | operation/return_stmt/function/package | BARE
+    ALL[1] Rho_home_V#2                            | home -::p_cond                                |   15:27  | operation/begin/function/package | BOUND -> constant()@11:22-11:23#6
+    ALL[1] Rho_home_V#2                            | home -::p_forbound                            |   39:39  | operation/for_stmt/begin/function | BOUND -> constant()@11:22-11:23#6
+    ALL[1] Rho_home_V#2                            | home -::p_index                               |   33:25  | bit_select/assignment/begin/function | BOUND -> constant()@11:22-11:23#6
+    ALL[1] Rho_home_V#2                            | home -::p_index                               |   33:45  | bit_select/return_stmt/begin/function | BOUND -> constant()@11:22-11:23#6
+    ALL[1] Rho_home_V#2                            | home -::p_retbare                             |   61:12  | return_stmt/function/package/design | BOUND -> constant()@11:22-11:23#6
+    ALL[1] Rho_home_V#2                            | home -::p_retbin                              |   58:16  | operation/return_stmt/function/package | BOUND -> constant()@11:22-11:23#6
+    ALL[1] Rho_home_V#2                            | home -::p_retcall                             |   52:21  | func_call/return_stmt/function/package | BOUND -> constant()@11:22-11:23#6
+    ALL[1] Rho_home_V#2                            | home -::p_retsys                              |   55:19  | sys_func_call/return_stmt/function/package | BOUND -> constant()@11:22-11:23#6
+    ALL[1] Rho_home_V#2                            | home -::p_sysarg                              |   49:19  | sys_func_call/operation/return_stmt/function | BOUND -> constant()@11:22-11:23#6
+    ALL[1] Rho_home_V#2                            | home -::p_ternarm                             |   30:22  | operation/return_stmt/function/package | BOUND -> constant()@11:22-11:23#6
+    ALL[1] Rho_home_V#2                            | home -::p_terncond                            |   27:13  | operation/operation/return_stmt/function | BOUND -> constant()@11:22-11:23#6
+    ALL[1] Rho_home_V#2                            | home -::p_twice                               |   67:24  | assignment/begin/function/package | BOUND -> constant()@11:22-11:23#6
+    ALL[1] Rho_home_V#2                            | home -::p_twice                               |   67:36  | operation/assignment/begin/function | BOUND -> constant()@11:22-11:23#6
+    ALL[1] Rho_home_V#2                            | home -::p_twoparams                           |   70:24  | assignment/begin/function/package | BOUND -> constant()@11:22-11:23#6
+    ALL[1] Rho_home_V#2                            | home -::p_varinit                             |   42:13  | assignment/begin/function/package | BOUND -> constant()@11:22-11:23#6
+    ALL[1] Rho_home_V#2                            | home -::p_while                               |   18:30  | operation/while_stmt/begin/function | BOUND -> constant()@11:22-11:23#6
+    ALL[2] Sigma_imp_V#378                         | home -::p_asgn                                |   64:16  | assignment/begin/function/package | BARE
+    ALL[2] Sigma_imp_V#378                         | home -::p_callarg                             |   46:21  | func_call/operation/return_stmt/function | BARE
+    ALL[2] Sigma_imp_V#378                         | home -::p_caseitem                            |   24:28  | begin/function/package/design | BARE
+    ALL[2] Sigma_imp_V#378                         | home -::p_casesel                             |   21:25  | begin/function/package/design | BARE
+    ALL[2] Sigma_imp_V#378                         | home -::p_concat                              |   36:22  | operation/return_stmt/function/package | BARE
+    ALL[2] Sigma_imp_V#378                         | home -::p_cond                                |   15:27  | operation/begin/function/package | BARE
+    ALL[2] Sigma_imp_V#378                         | home -::p_forbound                            |   39:39  | operation/for_stmt/begin/function | BARE
+    ALL[2] Sigma_imp_V#378                         | home -::p_index                               |   33:25  | bit_select/assignment/begin/function | BARE
+    ALL[2] Sigma_imp_V#378                         | home -::p_index                               |   33:45  | bit_select/return_stmt/begin/function | BARE
+    ALL[2] Sigma_imp_V#378                         | home -::p_retbin                              |   58:16  | operation/return_stmt/function/package | BOUND -> constant()@11:22-11:23#6
+    ALL[2] Sigma_imp_V#378                         | home -::p_retcall                             |   52:21  | func_call/return_stmt/function/package | BARE
+    ALL[2] Sigma_imp_V#378                         | home -::p_retsys                              |   55:19  | sys_func_call/return_stmt/function/package | BOUND -> constant()@11:22-11:23#6
+    ALL[2] Sigma_imp_V#378                         | home -::p_sysarg                              |   49:19  | sys_func_call/operation/return_stmt/function | BOUND -> constant()@11:22-11:23#6
+    ALL[2] Sigma_imp_V#378                         | home -::p_ternarm                             |   30:22  | operation/return_stmt/function/package | BOUND -> constant()@11:22-11:23#6
+    ALL[2] Sigma_imp_V#378                         | home -::p_terncond                            |   27:13  | operation/operation/return_stmt/function | BOUND -> constant()@11:22-11:23#6
+    ALL[2] Sigma_imp_V#378                         | home -::p_twice                               |   67:24  | assignment/begin/function/package | BARE
+    ALL[2] Sigma_imp_V#378                         | home -::p_twice                               |   67:36  | operation/assignment/begin/function | BARE
+    ALL[2] Sigma_imp_V#378                         | home -::p_twoparams                           |   70:24  | assignment/begin/function/package | BARE
+    ALL[2] Sigma_imp_V#378                         | home -::p_varinit                             |   42:13  | assignment/begin/function/package | BARE
+    ALL[2] Sigma_imp_V#378                         | home -::p_while                               |   18:30  | operation/while_stmt/begin/function | BARE
+    TOP[1] Rho_home_V#758                          | home -::p_asgn                                |   64:16  | assignment/begin/function/package | BOUND -> constant()@11:22-11:23#762
+    TOP[1] Rho_home_V#758                          | home -::p_callarg                             |   46:21  | func_call/operation/return_stmt/function | BOUND -> constant()@11:22-11:23#762
+    TOP[1] Rho_home_V#758                          | home -::p_caseitem                            |   24:28  | begin/function/package/design | BOUND -> constant()@11:22-11:23#762
+    TOP[1] Rho_home_V#758                          | home -::p_casesel                             |   21:25  | begin/function/package/design | BOUND -> constant()@11:22-11:23#762
+    TOP[1] Rho_home_V#758                          | home -::p_concat                              |   36:22  | operation/return_stmt/function/package | BARE
+    TOP[1] Rho_home_V#758                          | home -::p_cond                                |   15:27  | operation/begin/function/package | BOUND -> constant()@11:22-11:23#762
+    TOP[1] Rho_home_V#758                          | home -::p_forbound                            |   39:39  | operation/for_stmt/begin/function | BOUND -> constant()@11:22-11:23#762
+    TOP[1] Rho_home_V#758                          | home -::p_index                               |   33:25  | bit_select/assignment/begin/function | BOUND -> constant()@11:22-11:23#762
+    TOP[1] Rho_home_V#758                          | home -::p_index                               |   33:45  | bit_select/return_stmt/begin/function | BOUND -> constant()@11:22-11:23#762
+    TOP[1] Rho_home_V#758                          | home -::p_retbin                              |   58:16  | operation/return_stmt/function/package | BOUND -> constant()@11:22-11:23#762
+    TOP[1] Rho_home_V#758                          | home -::p_retcall                             |   52:21  | func_call/return_stmt/function/package | BOUND -> constant()@11:22-11:23#762
+    TOP[1] Rho_home_V#758                          | home -::p_retsys                              |   55:19  | sys_func_call/return_stmt/function/package | BOUND -> constant()@11:22-11:23#762
+    TOP[1] Rho_home_V#758                          | home -::p_sysarg                              |   49:19  | sys_func_call/operation/return_stmt/function | BOUND -> constant()@11:22-11:23#762
+    TOP[1] Rho_home_V#758                          | home -::p_ternarm                             |   30:22  | operation/return_stmt/function/package | BOUND -> constant()@11:22-11:23#762
+    TOP[1] Rho_home_V#758                          | home -::p_terncond                            |   27:13  | operation/operation/return_stmt/function | BOUND -> constant()@11:22-11:23#762
+    TOP[1] Rho_home_V#758                          | home -::p_twice                               |   67:24  | assignment/begin/function/package | BOUND -> constant()@11:22-11:23#762
+    TOP[1] Rho_home_V#758                          | home -::p_twice                               |   67:36  | operation/assignment/begin/function | BOUND -> constant()@11:22-11:23#762
+    TOP[1] Rho_home_V#758                          | home -::p_twoparams                           |   70:24  | assignment/begin/function/package | BOUND -> constant()@11:22-11:23#762
+    TOP[1] Rho_home_V#758                          | home -::p_varinit                             |   42:13  | assignment/begin/function/package | BOUND -> constant()@11:22-11:23#762
+    TOP[1] Rho_home_V#758                          | home -::p_while                               |   18:30  | operation/while_stmt/begin/function | BOUND -> constant()@11:22-11:23#762
+    TOP[2] Sigma_imp_V#1136                        | home -::p_asgn                                |   64:16  | assignment/begin/function/package | BARE
+    TOP[2] Sigma_imp_V#1136                        | home -::p_callarg                             |   46:21  | func_call/operation/return_stmt/function | BARE
+    TOP[2] Sigma_imp_V#1136                        | home -::p_caseitem                            |   24:28  | begin/function/package/design | BARE
+    TOP[2] Sigma_imp_V#1136                        | home -::p_casesel                             |   21:25  | begin/function/package/design | BARE
+    TOP[2] Sigma_imp_V#1136                        | home -::p_concat                              |   36:22  | operation/return_stmt/function/package | BARE
+    TOP[2] Sigma_imp_V#1136                        | home -::p_cond                                |   15:27  | operation/begin/function/package | BARE
+    TOP[2] Sigma_imp_V#1136                        | home -::p_forbound                            |   39:39  | operation/for_stmt/begin/function | BARE
+    TOP[2] Sigma_imp_V#1136                        | home -::p_index                               |   33:25  | bit_select/assignment/begin/function | BARE
+    TOP[2] Sigma_imp_V#1136                        | home -::p_index                               |   33:45  | bit_select/return_stmt/begin/function | BARE
+    TOP[2] Sigma_imp_V#1136                        | home -::p_retbin                              |   58:16  | operation/return_stmt/function/package | BOUND -> constant()@11:22-11:23#1140
+    TOP[2] Sigma_imp_V#1136                        | home -::p_retcall                             |   52:21  | func_call/return_stmt/function/package | BARE
+    TOP[2] Sigma_imp_V#1136                        | home -::p_retsys                              |   55:19  | sys_func_call/return_stmt/function/package | BOUND -> constant()@11:22-11:23#1140
+    TOP[2] Sigma_imp_V#1136                        | home -::p_sysarg                              |   49:19  | sys_func_call/operation/return_stmt/function | BOUND -> constant()@11:22-11:23#1140
+    TOP[2] Sigma_imp_V#1136                        | home -::p_ternarm                             |   30:22  | operation/return_stmt/function/package | BOUND -> constant()@11:22-11:23#1140
+    TOP[2] Sigma_imp_V#1136                        | home -::p_terncond                            |   27:13  | operation/operation/return_stmt/function | BOUND -> constant()@11:22-11:23#1140
+    TOP[2] Sigma_imp_V#1136                        | home -::p_twice                               |   67:24  | assignment/begin/function/package | BARE
+    TOP[2] Sigma_imp_V#1136                        | home -::p_twice                               |   67:36  | operation/assignment/begin/function | BARE
+    TOP[2] Sigma_imp_V#1136                        | home -::p_twoparams                           |   70:24  | assignment/begin/function/package | BARE
+    TOP[2] Sigma_imp_V#1136                        | home -::p_varinit                             |   42:13  | assignment/begin/function/package | BARE
+    TOP[2] Sigma_imp_V#1136                        | home -::p_while                               |   18:30  | operation/while_stmt/begin/function | BARE
+    (81 copies)

@@ -1,0 +1,2 @@
+PREDICTED MOVERS — row-modes holding at least one face cell
+PREDICTED 0 row-mode(s) of 1358 censused

@@ -1,0 +1,196 @@
+ROW-MODE                      GOLD    PRIS   PATCH  TOGOLD    AWAY MVWRONG STILLWR
+a_copy.def                      10      18      18       8       0       0       8
+a_copy.elab                     20      36      36       0       0       0       8
+b_pos.def                       14      26      26       6       0       0      12
+b_pos.elab                      28     124     124       0       0       0      48
+c_home.def                       4      12      12       0       0       0       8
+c_home.elab                      8      24      24       0       0       0       8
+d_depth.def                     21      31      31      10       0       0      10
+d_depth.elab                    47      67      67       0       0       0      10
+e_oob.def                       17      17      17       8       0       0       0
+e_oob.elab                      34     110     110       0       0       0      38
+TOTAL                          203     465     465      32       0       0     150
+
+MOVED CELLS (every one, most-severe first):
+  STILL-WRONG PREF|LST=ALL|PKG=B_clone178|HOME=function:b_bin178/package:B_clone178|REF=ref_obj:a@35:12 :: gold={} ours={'BOUND=io_decl:a@34:45': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=B_clone178|HOME=function:b_bin178/package:B_clone178|REF=ref_obj:stepB178@35:16 :: gold={} ours={'BOUND=constant:@12:28': 1}
+  STILL-WRONG PREF|LST=ALL|PKG=B_clone178|HOME=function:b_bin178/package:B_clone178|REF=ref_obj:stepB178@35:16 :: gold={} ours={'BOUND=parameter:stepB178@12:17': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=B_clone178|HOME=function:b_cond178/package:B_clone178|REF=ref_obj:a@22:9 :: gold={} ours={'BOUND=io_decl:a@21:59': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=B_clone178|HOME=function:b_xor178/package:B_clone178|REF=ref_obj:a@16:9 :: gold={} ours={'BOUND=io_decl:a@14:71': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=B_clone178|HOME=function:b_xor178/package:B_clone178|REF=ref_obj:r@16:5 :: gold={} ours={'BOUND=long_int_var:r@15:22': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=B_clone178|HOME=function:b_xor178/package:B_clone178|REF=ref_obj:r@17:5 :: gold={} ours={'BOUND=long_int_var:r@15:22': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=B_clone178|HOME=function:b_xor178/package:B_clone178|REF=ref_obj:r@18:12 :: gold={} ours={'BOUND=long_int_var:r@15:22': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=B_clone178|HOME=function:c_arg178/package:B_clone178|REF=ref_obj:polyB178@58:21 :: gold={} ours={'BOUND=constant:@11:41': 1}
+  STILL-WRONG PREF|LST=ALL|PKG=B_clone178|HOME=function:c_arg178/package:B_clone178|REF=ref_obj:polyB178@58:21 :: gold={} ours={'BOUND=parameter:polyB178@11:30': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=B_clone178|HOME=function:c_bin178/package:B_clone178|REF=ref_obj:a@50:12 :: gold={} ours={'BOUND=io_decl:a@49:45': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=B_clone178|HOME=function:c_bin178/package:B_clone178|REF=ref_obj:stepB178@50:16 :: gold={} ours={'BOUND=constant:@12:28': 1}
+  STILL-WRONG PREF|LST=ALL|PKG=B_clone178|HOME=function:c_bin178/package:B_clone178|REF=ref_obj:stepB178@50:16 :: gold={} ours={'BOUND=parameter:stepB178@12:17': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=B_clone178|HOME=function:c_cond178/package:B_clone178|REF=ref_obj:a@62:9 :: gold={} ours={'BOUND=io_decl:a@61:59': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=B_clone178|HOME=function:c_cond178/package:B_clone178|REF=ref_obj:polyB178@62:14 :: gold={} ours={'BOUND=constant:@11:41': 1}
+  STILL-WRONG PREF|LST=ALL|PKG=B_clone178|HOME=function:c_cond178/package:B_clone178|REF=ref_obj:polyB178@62:14 :: gold={} ours={'BOUND=parameter:polyB178@11:30': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=B_clone178|HOME=function:c_ret178/package:B_clone178|REF=ref_obj:polyB178@54:12 :: gold={} ours={'BOUND=constant:@11:41': 1}
+  STILL-WRONG PREF|LST=ALL|PKG=B_clone178|HOME=function:c_ret178/package:B_clone178|REF=ref_obj:polyB178@54:12 :: gold={} ours={'BOUND=parameter:polyB178@11:30': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=B_clone178|HOME=function:c_xor178/package:B_clone178|REF=ref_obj:a@44:9 :: gold={} ours={'BOUND=io_decl:a@42:71': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=B_clone178|HOME=function:c_xor178/package:B_clone178|REF=ref_obj:polyB178@45:10 :: gold={} ours={'BOUND=constant:@11:41': 1}
+  STILL-WRONG PREF|LST=ALL|PKG=B_clone178|HOME=function:c_xor178/package:B_clone178|REF=ref_obj:polyB178@45:10 :: gold={} ours={'BOUND=parameter:polyB178@11:30': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=B_clone178|HOME=function:c_xor178/package:B_clone178|REF=ref_obj:r@44:5 :: gold={} ours={'BOUND=long_int_var:r@43:22': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=B_clone178|HOME=function:c_xor178/package:B_clone178|REF=ref_obj:r@45:5 :: gold={} ours={'BOUND=long_int_var:r@43:22': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=B_clone178|HOME=function:c_xor178/package:B_clone178|REF=ref_obj:r@46:12 :: gold={} ours={'BOUND=long_int_var:r@43:22': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=B_home178|HOME=function:b_bin178/package:B_home178|REF=ref_obj:a@35:12 :: gold={} ours={'BOUND=io_decl:a@34:45': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=B_home178|HOME=function:b_cond178/package:B_home178|REF=ref_obj:a@22:9 :: gold={} ours={'BOUND=io_decl:a@21:59': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=B_home178|HOME=function:b_xor178/package:B_home178|REF=ref_obj:a@16:9 :: gold={} ours={'BOUND=io_decl:a@14:71': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=B_home178|HOME=function:b_xor178/package:B_home178|REF=ref_obj:r@16:5 :: gold={} ours={'BOUND=long_int_var:r@15:22': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=B_home178|HOME=function:b_xor178/package:B_home178|REF=ref_obj:r@17:5 :: gold={} ours={'BOUND=long_int_var:r@15:22': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=B_home178|HOME=function:b_xor178/package:B_home178|REF=ref_obj:r@18:12 :: gold={} ours={'BOUND=long_int_var:r@15:22': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=Crc_one|HOME=function:one_hash178/package:Crc_one|REF=ref_obj:CRC_SEED_178@27:10 :: gold={} ours={'BOUND=constant:@13:28': 1}
+  STILL-WRONG PREF|LST=ALL|PKG=Crc_one|HOME=function:one_hash178/package:Crc_one|REF=ref_obj:CRC_SEED_178@27:10 :: gold={} ours={'BOUND=parameter:CRC_SEED_178@13:13': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=D_clone178|HOME=function:e0_178/package:D_clone178|REF=ref_obj:dPoly178@75:13 :: gold={} ours={'BOUND=constant:@9:35': 1}
+  STILL-WRONG PREF|LST=ALL|PKG=D_clone178|HOME=function:e0_178/package:D_clone178|REF=ref_obj:dPoly178@75:13 :: gold={} ours={'BOUND=parameter:dPoly178@9:24': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=D_clone178|HOME=function:e1_178/package:D_clone178|REF=ref_obj:dPoly178@82:20 :: gold={} ours={'BOUND=constant:@9:35': 1}
+  STILL-WRONG PREF|LST=ALL|PKG=D_clone178|HOME=function:e1_178/package:D_clone178|REF=ref_obj:dPoly178@82:20 :: gold={} ours={'BOUND=parameter:dPoly178@9:24': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=D_clone178|HOME=function:e2_178/package:D_clone178|REF=ref_obj:dPoly178@90:23 :: gold={} ours={'BOUND=constant:@9:35': 1}
+  STILL-WRONG PREF|LST=ALL|PKG=D_clone178|HOME=function:e2_178/package:D_clone178|REF=ref_obj:dPoly178@90:23 :: gold={} ours={'BOUND=parameter:dPoly178@9:24': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=D_clone178|HOME=function:e3_178/package:D_clone178|REF=ref_obj:dPoly178@100:16 :: gold={} ours={'BOUND=constant:@9:35': 1}
+  STILL-WRONG PREF|LST=ALL|PKG=D_clone178|HOME=function:e3_178/package:D_clone178|REF=ref_obj:dPoly178@100:16 :: gold={} ours={'BOUND=parameter:dPoly178@9:24': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=D_clone178|HOME=function:e4_178/package:D_clone178|REF=ref_obj:dPoly178@114:44 :: gold={} ours={'BOUND=constant:@9:35': 1}
+  STILL-WRONG PREF|LST=ALL|PKG=D_clone178|HOME=function:e4_178/package:D_clone178|REF=ref_obj:dPoly178@114:44 :: gold={} ours={'BOUND=parameter:dPoly178@9:24': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=E_home178|HOME=function:EK178::oob_xor178/package:E_home178|REF=ref_obj:a@35:9 :: gold={} ours={'BOUND=io_decl:a@33:44': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=E_home178|HOME=function:EK178::oob_xor178/package:E_home178|REF=ref_obj:r@35:5 :: gold={} ours={'BOUND=int_var:r@34:9': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=E_home178|HOME=function:EK178::oob_xor178/package:E_home178|REF=ref_obj:r@36:5 :: gold={} ours={'BOUND=int_var:r@34:9': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=E_home178|HOME=function:EK178::oob_xor178/package:E_home178|REF=ref_obj:r@37:12 :: gold={} ours={'BOUND=int_var:r@34:9': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=E_home178|HOME=function:free_xor178/package:E_home178|REF=ref_obj:a@28:9 :: gold={} ours={'BOUND=io_decl:a@26:48': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=E_home178|HOME=function:free_xor178/package:E_home178|REF=ref_obj:r@28:5 :: gold={} ours={'BOUND=int_var:r@27:9': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=E_home178|HOME=function:free_xor178/package:E_home178|REF=ref_obj:r@29:5 :: gold={} ours={'BOUND=int_var:r@27:9': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=E_home178|HOME=function:free_xor178/package:E_home178|REF=ref_obj:r@30:12 :: gold={} ours={'BOUND=int_var:r@27:9': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=E_imp178|HOME=function:EK178::oob_xor178/package:E_imp178|REF=ref_obj:a@35:9 :: gold={} ours={'BOUND=io_decl:a@33:44': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=E_imp178|HOME=function:EK178::oob_xor178/package:E_imp178|REF=ref_obj:r@35:5 :: gold={} ours={'BOUND=int_var:r@34:9': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=E_imp178|HOME=function:EK178::oob_xor178/package:E_imp178|REF=ref_obj:r@36:5 :: gold={} ours={'BOUND=int_var:r@34:9': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=E_imp178|HOME=function:EK178::oob_xor178/package:E_imp178|REF=ref_obj:r@37:12 :: gold={} ours={'BOUND=int_var:r@34:9': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=E_imp178|HOME=function:free_xor178/package:E_imp178|REF=ref_obj:a@28:9 :: gold={} ours={'BOUND=io_decl:a@26:48': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=E_imp178|HOME=function:free_xor178/package:E_imp178|REF=ref_obj:r@28:5 :: gold={} ours={'BOUND=int_var:r@27:9': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=E_imp178|HOME=function:free_xor178/package:E_imp178|REF=ref_obj:r@29:5 :: gold={} ours={'BOUND=int_var:r@27:9': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=E_imp178|HOME=function:free_xor178/package:E_imp178|REF=ref_obj:r@30:12 :: gold={} ours={'BOUND=int_var:r@27:9': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=E_imp178|HOME=function:imp_own178/package:E_imp178|REF=ref_obj:a@54:12 :: gold={} ours={'BOUND=io_decl:a@53:47': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=Expl178|HOME=function:expl_read178/package:Expl178|REF=ref_obj:src_poly178@50:10 :: gold={} ours={'BOUND=constant:@15:31': 1}
+  STILL-WRONG PREF|LST=ALL|PKG=Expl178|HOME=function:expl_read178/package:Expl178|REF=ref_obj:src_poly178@50:10 :: gold={} ours={'BOUND=parameter:src_poly178@15:17': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=K3|HOME=function:k3_hash/package:K3|REF=ref_obj:CRC_SEED_178@54:10 :: gold={} ours={'BOUND=constant:@13:28': 1}
+  STILL-WRONG PREF|LST=ALL|PKG=K3|HOME=function:k3_hash/package:K3|REF=ref_obj:CRC_SEED_178@54:10 :: gold={} ours={'BOUND=parameter:CRC_SEED_178@13:13': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=Kalpha|HOME=function:alpha_hash/package:Kalpha|REF=ref_obj:CRC_SEED_178@37:10 :: gold={} ours={'BOUND=constant:@13:28': 1}
+  STILL-WRONG PREF|LST=ALL|PKG=Kalpha|HOME=function:alpha_hash/package:Kalpha|REF=ref_obj:CRC_SEED_178@37:10 :: gold={} ours={'BOUND=parameter:CRC_SEED_178@13:13': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=Own178|HOME=function:scoped_read178/package:Own178|REF=ref_obj:src_alt178@30:10 :: gold={} ours={'BOUND=constant:@16:31': 1}
+  STILL-WRONG PREF|LST=ALL|PKG=Own178|HOME=function:scoped_read178/package:Own178|REF=ref_obj:src_alt178@30:10 :: gold={} ours={'BOUND=constant:@16:31': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=Renest178|HOME=function:wild_read178/package:Renest178|REF=ref_obj:src_poly178@40:10 :: gold={} ours={'BOUND=constant:@15:31': 1}
+  STILL-WRONG PREF|LST=ALL|PKG=Renest178|HOME=function:wild_read178/package:Renest178|REF=ref_obj:src_poly178@40:10 :: gold={} ours={'BOUND=parameter:src_poly178@15:17': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=Wild178|HOME=function:wild_read178/package:Wild178|REF=ref_obj:src_poly178@40:10 :: gold={} ours={'BOUND=constant:@15:31': 1}
+  STILL-WRONG PREF|LST=ALL|PKG=Wild178|HOME=function:wild_read178/package:Wild178|REF=ref_obj:src_poly178@40:10 :: gold={} ours={'BOUND=parameter:src_poly178@15:17': 2}
+  STILL-WRONG PREF|LST=ALL|PKG=kBeta|HOME=function:beta_hash/package:kBeta|REF=ref_obj:CRC_SEED_178@45:16 :: gold={} ours={'BOUND=constant:@13:28': 1}
+  STILL-WRONG PREF|LST=ALL|PKG=kBeta|HOME=function:beta_hash/package:kBeta|REF=ref_obj:CRC_SEED_178@45:16 :: gold={} ours={'BOUND=parameter:CRC_SEED_178@13:13': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=B_clone178|HOME=function:b_bin178/package:B_clone178|REF=ref_obj:a@35:12 :: gold={} ours={'BOUND=io_decl:a@34:45': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=B_clone178|HOME=function:b_bin178/package:B_clone178|REF=ref_obj:stepB178@35:16 :: gold={} ours={'BOUND=constant:@12:28': 1}
+  STILL-WRONG PREF|LST=TOP|PKG=B_clone178|HOME=function:b_bin178/package:B_clone178|REF=ref_obj:stepB178@35:16 :: gold={} ours={'BOUND=parameter:stepB178@12:17': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=B_clone178|HOME=function:b_cond178/package:B_clone178|REF=ref_obj:a@22:9 :: gold={} ours={'BOUND=io_decl:a@21:59': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=B_clone178|HOME=function:b_xor178/package:B_clone178|REF=ref_obj:a@16:9 :: gold={} ours={'BOUND=io_decl:a@14:71': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=B_clone178|HOME=function:b_xor178/package:B_clone178|REF=ref_obj:r@16:5 :: gold={} ours={'BOUND=long_int_var:r@15:22': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=B_clone178|HOME=function:b_xor178/package:B_clone178|REF=ref_obj:r@17:5 :: gold={} ours={'BOUND=long_int_var:r@15:22': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=B_clone178|HOME=function:b_xor178/package:B_clone178|REF=ref_obj:r@18:12 :: gold={} ours={'BOUND=long_int_var:r@15:22': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=B_clone178|HOME=function:c_arg178/package:B_clone178|REF=ref_obj:polyB178@58:21 :: gold={} ours={'BOUND=constant:@11:41': 1}
+  STILL-WRONG PREF|LST=TOP|PKG=B_clone178|HOME=function:c_arg178/package:B_clone178|REF=ref_obj:polyB178@58:21 :: gold={} ours={'BOUND=parameter:polyB178@11:30': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=B_clone178|HOME=function:c_bin178/package:B_clone178|REF=ref_obj:a@50:12 :: gold={} ours={'BOUND=io_decl:a@49:45': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=B_clone178|HOME=function:c_bin178/package:B_clone178|REF=ref_obj:stepB178@50:16 :: gold={} ours={'BOUND=constant:@12:28': 1}
+  STILL-WRONG PREF|LST=TOP|PKG=B_clone178|HOME=function:c_bin178/package:B_clone178|REF=ref_obj:stepB178@50:16 :: gold={} ours={'BOUND=parameter:stepB178@12:17': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=B_clone178|HOME=function:c_cond178/package:B_clone178|REF=ref_obj:a@62:9 :: gold={} ours={'BOUND=io_decl:a@61:59': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=B_clone178|HOME=function:c_cond178/package:B_clone178|REF=ref_obj:polyB178@62:14 :: gold={} ours={'BOUND=constant:@11:41': 1}
+  STILL-WRONG PREF|LST=TOP|PKG=B_clone178|HOME=function:c_cond178/package:B_clone178|REF=ref_obj:polyB178@62:14 :: gold={} ours={'BOUND=parameter:polyB178@11:30': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=B_clone178|HOME=function:c_xor178/package:B_clone178|REF=ref_obj:a@44:9 :: gold={} ours={'BOUND=io_decl:a@42:71': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=B_clone178|HOME=function:c_xor178/package:B_clone178|REF=ref_obj:polyB178@45:10 :: gold={} ours={'BOUND=constant:@11:41': 1}
+  STILL-WRONG PREF|LST=TOP|PKG=B_clone178|HOME=function:c_xor178/package:B_clone178|REF=ref_obj:polyB178@45:10 :: gold={} ours={'BOUND=parameter:polyB178@11:30': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=B_clone178|HOME=function:c_xor178/package:B_clone178|REF=ref_obj:r@44:5 :: gold={} ours={'BOUND=long_int_var:r@43:22': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=B_clone178|HOME=function:c_xor178/package:B_clone178|REF=ref_obj:r@45:5 :: gold={} ours={'BOUND=long_int_var:r@43:22': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=B_clone178|HOME=function:c_xor178/package:B_clone178|REF=ref_obj:r@46:12 :: gold={} ours={'BOUND=long_int_var:r@43:22': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=B_home178|HOME=function:b_bin178/package:B_home178|REF=ref_obj:a@35:12 :: gold={} ours={'BOUND=io_decl:a@34:45': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=B_home178|HOME=function:b_bin178/package:B_home178|REF=ref_obj:stepB178@35:16 :: gold={} ours={'BOUND=constant:@12:28': 1}
+  STILL-WRONG PREF|LST=TOP|PKG=B_home178|HOME=function:b_bin178/package:B_home178|REF=ref_obj:stepB178@35:16 :: gold={} ours={'BOUND=parameter:stepB178@12:17': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=B_home178|HOME=function:b_cond178/package:B_home178|REF=ref_obj:a@22:9 :: gold={} ours={'BOUND=io_decl:a@21:59': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=B_home178|HOME=function:b_xor178/package:B_home178|REF=ref_obj:a@16:9 :: gold={} ours={'BOUND=io_decl:a@14:71': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=B_home178|HOME=function:b_xor178/package:B_home178|REF=ref_obj:r@16:5 :: gold={} ours={'BOUND=long_int_var:r@15:22': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=B_home178|HOME=function:b_xor178/package:B_home178|REF=ref_obj:r@17:5 :: gold={} ours={'BOUND=long_int_var:r@15:22': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=B_home178|HOME=function:b_xor178/package:B_home178|REF=ref_obj:r@18:12 :: gold={} ours={'BOUND=long_int_var:r@15:22': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=Crc_one|HOME=function:one_hash178/package:Crc_one|REF=ref_obj:CRC_SEED_178@27:10 :: gold={} ours={'BOUND=constant:@13:28': 1}
+  STILL-WRONG PREF|LST=TOP|PKG=Crc_one|HOME=function:one_hash178/package:Crc_one|REF=ref_obj:CRC_SEED_178@27:10 :: gold={} ours={'BOUND=parameter:CRC_SEED_178@13:13': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=D_clone178|HOME=function:e0_178/package:D_clone178|REF=ref_obj:dPoly178@75:13 :: gold={} ours={'BOUND=constant:@9:35': 1}
+  STILL-WRONG PREF|LST=TOP|PKG=D_clone178|HOME=function:e0_178/package:D_clone178|REF=ref_obj:dPoly178@75:13 :: gold={} ours={'BOUND=parameter:dPoly178@9:24': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=D_clone178|HOME=function:e1_178/package:D_clone178|REF=ref_obj:dPoly178@82:20 :: gold={} ours={'BOUND=constant:@9:35': 1}
+  STILL-WRONG PREF|LST=TOP|PKG=D_clone178|HOME=function:e1_178/package:D_clone178|REF=ref_obj:dPoly178@82:20 :: gold={} ours={'BOUND=parameter:dPoly178@9:24': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=D_clone178|HOME=function:e2_178/package:D_clone178|REF=ref_obj:dPoly178@90:23 :: gold={} ours={'BOUND=constant:@9:35': 1}
+  STILL-WRONG PREF|LST=TOP|PKG=D_clone178|HOME=function:e2_178/package:D_clone178|REF=ref_obj:dPoly178@90:23 :: gold={} ours={'BOUND=parameter:dPoly178@9:24': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=D_clone178|HOME=function:e3_178/package:D_clone178|REF=ref_obj:dPoly178@100:16 :: gold={} ours={'BOUND=constant:@9:35': 1}
+  STILL-WRONG PREF|LST=TOP|PKG=D_clone178|HOME=function:e3_178/package:D_clone178|REF=ref_obj:dPoly178@100:16 :: gold={} ours={'BOUND=parameter:dPoly178@9:24': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=D_clone178|HOME=function:e4_178/package:D_clone178|REF=ref_obj:dPoly178@114:44 :: gold={} ours={'BOUND=constant:@9:35': 1}
+  STILL-WRONG PREF|LST=TOP|PKG=D_clone178|HOME=function:e4_178/package:D_clone178|REF=ref_obj:dPoly178@114:44 :: gold={} ours={'BOUND=parameter:dPoly178@9:24': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=E_home178|HOME=function:free_xor178/package:E_home178|REF=ref_obj:a@28:9 :: gold={} ours={'BOUND=io_decl:a@26:48': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=E_home178|HOME=function:free_xor178/package:E_home178|REF=ref_obj:r@28:5 :: gold={} ours={'BOUND=int_var:r@27:9': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=E_home178|HOME=function:free_xor178/package:E_home178|REF=ref_obj:r@29:5 :: gold={} ours={'BOUND=int_var:r@27:9': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=E_home178|HOME=function:free_xor178/package:E_home178|REF=ref_obj:r@30:12 :: gold={} ours={'BOUND=int_var:r@27:9': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=E_home178|HOME=function:in_body178/class_defn:EK178|REF=ref_obj:a@17:11 :: gold={} ours={'BARE': 1, 'BOUND=io_decl:a@15:39': 1}
+  STILL-WRONG PREF|LST=TOP|PKG=E_home178|HOME=function:in_body178/class_defn:EK178|REF=ref_obj:r@17:7 :: gold={} ours={'BARE': 1, 'BOUND=int_var:r@16:11': 1}
+  STILL-WRONG PREF|LST=TOP|PKG=E_home178|HOME=function:in_body178/class_defn:EK178|REF=ref_obj:r@18:7 :: gold={} ours={'BARE': 1, 'BOUND=int_var:r@16:11': 1}
+  STILL-WRONG PREF|LST=TOP|PKG=E_home178|HOME=function:in_body178/class_defn:EK178|REF=ref_obj:r@19:14 :: gold={} ours={'BARE': 1, 'BOUND=int_var:r@16:11': 1}
+  STILL-WRONG PREF|LST=TOP|PKG=E_home178|HOME=function:oob_xor178/class_defn:EK178|REF=ref_obj:a@35:9 :: gold={} ours={'BOUND=io_decl:a@33:44': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=E_home178|HOME=function:oob_xor178/class_defn:EK178|REF=ref_obj:r@35:5 :: gold={} ours={'BOUND=int_var:r@34:9': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=E_home178|HOME=function:oob_xor178/class_defn:EK178|REF=ref_obj:r@36:5 :: gold={} ours={'BOUND=int_var:r@34:9': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=E_home178|HOME=function:oob_xor178/class_defn:EK178|REF=ref_obj:r@37:12 :: gold={} ours={'BOUND=int_var:r@34:9': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=E_imp178|HOME=function:EK178::oob_xor178/package:E_imp178|REF=ref_obj:a@35:9 :: gold={} ours={'BOUND=io_decl:a@33:44': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=E_imp178|HOME=function:EK178::oob_xor178/package:E_imp178|REF=ref_obj:r@35:5 :: gold={} ours={'BOUND=int_var:r@34:9': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=E_imp178|HOME=function:EK178::oob_xor178/package:E_imp178|REF=ref_obj:r@36:5 :: gold={} ours={'BOUND=int_var:r@34:9': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=E_imp178|HOME=function:EK178::oob_xor178/package:E_imp178|REF=ref_obj:r@37:12 :: gold={} ours={'BOUND=int_var:r@34:9': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=E_imp178|HOME=function:free_xor178/package:E_imp178|REF=ref_obj:a@28:9 :: gold={} ours={'BOUND=io_decl:a@26:48': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=E_imp178|HOME=function:free_xor178/package:E_imp178|REF=ref_obj:r@28:5 :: gold={} ours={'BOUND=int_var:r@27:9': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=E_imp178|HOME=function:free_xor178/package:E_imp178|REF=ref_obj:r@29:5 :: gold={} ours={'BOUND=int_var:r@27:9': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=E_imp178|HOME=function:free_xor178/package:E_imp178|REF=ref_obj:r@30:12 :: gold={} ours={'BOUND=int_var:r@27:9': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=E_imp178|HOME=function:imp_own178/package:E_imp178|REF=ref_obj:a@54:12 :: gold={} ours={'BOUND=io_decl:a@53:47': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=Expl178|HOME=function:expl_read178/package:Expl178|REF=ref_obj:src_poly178@50:10 :: gold={} ours={'BOUND=constant:@15:31': 1}
+  STILL-WRONG PREF|LST=TOP|PKG=Expl178|HOME=function:expl_read178/package:Expl178|REF=ref_obj:src_poly178@50:10 :: gold={} ours={'BOUND=parameter:src_poly178@15:17': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=K3|HOME=function:k3_hash/package:K3|REF=ref_obj:CRC_SEED_178@54:10 :: gold={} ours={'BOUND=constant:@13:28': 1}
+  STILL-WRONG PREF|LST=TOP|PKG=K3|HOME=function:k3_hash/package:K3|REF=ref_obj:CRC_SEED_178@54:10 :: gold={} ours={'BOUND=parameter:CRC_SEED_178@13:13': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=Kalpha|HOME=function:alpha_hash/package:Kalpha|REF=ref_obj:CRC_SEED_178@37:10 :: gold={} ours={'BOUND=constant:@13:28': 1}
+  STILL-WRONG PREF|LST=TOP|PKG=Kalpha|HOME=function:alpha_hash/package:Kalpha|REF=ref_obj:CRC_SEED_178@37:10 :: gold={} ours={'BOUND=parameter:CRC_SEED_178@13:13': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=Own178|HOME=function:scoped_read178/package:Own178|REF=ref_obj:src_alt178@30:10 :: gold={} ours={'BOUND=constant:@16:31': 1}
+  STILL-WRONG PREF|LST=TOP|PKG=Own178|HOME=function:scoped_read178/package:Own178|REF=ref_obj:src_alt178@30:10 :: gold={} ours={'BOUND=constant:@16:31': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=Renest178|HOME=function:wild_read178/package:Renest178|REF=ref_obj:src_poly178@40:10 :: gold={} ours={'BOUND=constant:@15:31': 1}
+  STILL-WRONG PREF|LST=TOP|PKG=Renest178|HOME=function:wild_read178/package:Renest178|REF=ref_obj:src_poly178@40:10 :: gold={} ours={'BOUND=parameter:src_poly178@15:17': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=Wild178|HOME=function:wild_read178/package:Wild178|REF=ref_obj:src_poly178@40:10 :: gold={} ours={'BOUND=constant:@15:31': 1}
+  STILL-WRONG PREF|LST=TOP|PKG=Wild178|HOME=function:wild_read178/package:Wild178|REF=ref_obj:src_poly178@40:10 :: gold={} ours={'BOUND=parameter:src_poly178@15:17': 2}
+  STILL-WRONG PREF|LST=TOP|PKG=kBeta|HOME=function:beta_hash/package:kBeta|REF=ref_obj:CRC_SEED_178@45:16 :: gold={} ours={'BOUND=constant:@13:28': 1}
+  STILL-WRONG PREF|LST=TOP|PKG=kBeta|HOME=function:beta_hash/package:kBeta|REF=ref_obj:CRC_SEED_178@45:16 :: gold={} ours={'BOUND=parameter:CRC_SEED_178@13:13': 2}
+  TOGOLD      PREF|LST=ALL|PKG=B_clone178|HOME=function:b_arg178/package:B_clone178|REF=ref_obj:polyB178@27:21 :: gold={'BARE': 1} pris={'BOUND=constant:@11:41': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=B_clone178|HOME=function:b_cond178/package:B_clone178|REF=ref_obj:polyB178@22:14 :: gold={'BARE': 1} pris={'BOUND=constant:@11:41': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=B_clone178|HOME=function:b_xor178/package:B_clone178|REF=ref_obj:polyB178@17:10 :: gold={'BARE': 1} pris={'BOUND=constant:@11:41': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=Crc_one|HOME=function:home_hash178/package:Crc_one|REF=ref_obj:CRC_SEED_178@17:12 :: gold={'BARE': 1} pris={'BOUND=constant:@13:28': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=D_clone178|HOME=function:d0_178/package:D_clone178|REF=ref_obj:dPoly178@13:13 :: gold={'BARE': 1} pris={'BOUND=constant:@9:35': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=D_clone178|HOME=function:d1_178/package:D_clone178|REF=ref_obj:dPoly178@20:20 :: gold={'BARE': 1} pris={'BOUND=constant:@9:35': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=D_clone178|HOME=function:d2_178/package:D_clone178|REF=ref_obj:dPoly178@28:23 :: gold={'BARE': 1} pris={'BOUND=constant:@9:35': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=D_clone178|HOME=function:d3_178/package:D_clone178|REF=ref_obj:dPoly178@38:16 :: gold={'BARE': 1} pris={'BOUND=constant:@9:35': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=D_clone178|HOME=function:d4_178/package:D_clone178|REF=ref_obj:dPoly178@52:44 :: gold={'BARE': 1} pris={'BOUND=constant:@9:35': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=E_imp178|HOME=function:EK178::oob_arg178/package:E_imp178|REF=ref_obj:eeMask178@41:24 :: gold={'BARE': 1} pris={'BOUND=constant:@11:29': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=E_imp178|HOME=function:EK178::oob_str178/package:E_imp178|REF=ref_obj:eeTag178@46:9 :: gold={'BARE': 1} pris={'BOUND=constant:@12:31': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=E_imp178|HOME=function:EK178::oob_xor178/package:E_imp178|REF=ref_obj:eeMask178@36:10 :: gold={'BARE': 1} pris={'BOUND=constant:@11:29': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=E_imp178|HOME=function:free_xor178/package:E_imp178|REF=ref_obj:eeMask178@29:10 :: gold={'BARE': 1} pris={'BOUND=constant:@11:29': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=K3|HOME=function:home_hash178/package:K3|REF=ref_obj:CRC_SEED_178@17:12 :: gold={'BARE': 1} pris={'BOUND=constant:@13:28': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=Kalpha|HOME=function:home_hash178/package:Kalpha|REF=ref_obj:CRC_SEED_178@17:12 :: gold={'BARE': 1} pris={'BOUND=constant:@13:28': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=ALL|PKG=kBeta|HOME=function:home_hash178/package:kBeta|REF=ref_obj:CRC_SEED_178@17:12 :: gold={'BARE': 1} pris={'BOUND=constant:@13:28': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=TOP|PKG=B_clone178|HOME=function:b_arg178/package:B_clone178|REF=ref_obj:polyB178@27:21 :: gold={'BARE': 1} pris={'BOUND=constant:@11:41': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=TOP|PKG=B_clone178|HOME=function:b_cond178/package:B_clone178|REF=ref_obj:polyB178@22:14 :: gold={'BARE': 1} pris={'BOUND=constant:@11:41': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=TOP|PKG=B_clone178|HOME=function:b_xor178/package:B_clone178|REF=ref_obj:polyB178@17:10 :: gold={'BARE': 1} pris={'BOUND=constant:@11:41': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=TOP|PKG=Crc_one|HOME=function:home_hash178/package:Crc_one|REF=ref_obj:CRC_SEED_178@17:12 :: gold={'BARE': 1} pris={'BOUND=constant:@13:28': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=TOP|PKG=D_clone178|HOME=function:d0_178/package:D_clone178|REF=ref_obj:dPoly178@13:13 :: gold={'BARE': 1} pris={'BOUND=constant:@9:35': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=TOP|PKG=D_clone178|HOME=function:d1_178/package:D_clone178|REF=ref_obj:dPoly178@20:20 :: gold={'BARE': 1} pris={'BOUND=constant:@9:35': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=TOP|PKG=D_clone178|HOME=function:d2_178/package:D_clone178|REF=ref_obj:dPoly178@28:23 :: gold={'BARE': 1} pris={'BOUND=constant:@9:35': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=TOP|PKG=D_clone178|HOME=function:d3_178/package:D_clone178|REF=ref_obj:dPoly178@38:16 :: gold={'BARE': 1} pris={'BOUND=constant:@9:35': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=TOP|PKG=D_clone178|HOME=function:d4_178/package:D_clone178|REF=ref_obj:dPoly178@52:44 :: gold={'BARE': 1} pris={'BOUND=constant:@9:35': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=TOP|PKG=E_imp178|HOME=function:EK178::oob_arg178/package:E_imp178|REF=ref_obj:eeMask178@41:24 :: gold={'BARE': 1} pris={'BOUND=constant:@11:29': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=TOP|PKG=E_imp178|HOME=function:EK178::oob_str178/package:E_imp178|REF=ref_obj:eeTag178@46:9 :: gold={'BARE': 1} pris={'BOUND=constant:@12:31': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=TOP|PKG=E_imp178|HOME=function:EK178::oob_xor178/package:E_imp178|REF=ref_obj:eeMask178@36:10 :: gold={'BARE': 1} pris={'BOUND=constant:@11:29': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=TOP|PKG=E_imp178|HOME=function:free_xor178/package:E_imp178|REF=ref_obj:eeMask178@29:10 :: gold={'BARE': 1} pris={'BOUND=constant:@11:29': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=TOP|PKG=K3|HOME=function:home_hash178/package:K3|REF=ref_obj:CRC_SEED_178@17:12 :: gold={'BARE': 1} pris={'BOUND=constant:@13:28': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=TOP|PKG=Kalpha|HOME=function:home_hash178/package:Kalpha|REF=ref_obj:CRC_SEED_178@17:12 :: gold={'BARE': 1} pris={'BOUND=constant:@13:28': 1} patch={'BARE': 1}
+  TOGOLD      PREF|LST=TOP|PKG=kBeta|HOME=function:home_hash178/package:kBeta|REF=ref_obj:CRC_SEED_178@17:12 :: gold={'BARE': 1} pris={'BOUND=constant:@13:28': 1} patch={'BARE': 1}
