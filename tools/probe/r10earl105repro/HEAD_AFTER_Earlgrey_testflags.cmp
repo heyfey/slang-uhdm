@@ -1,0 +1,26 @@
+LHS:
+decompile:
+constant: , id:1054135
+|vpiDecompile:63
+|vpiSize:8
+|UINT:63
+|vpiConstType:9
+
+decompile:
+constant: , id:1054135
+|vpiDecompile:63
+|vpiSize:8
+|UINT:63
+|vpiConstType:9
+RHS:
+decompile:
+constant: , id:1479540, line:39:24, endln:39:38
+|vpiSize:64
+|UINT:63
+|vpiConstType:9
+
+decompile:
+constant: , id:1479540, line:39:24, endln:39:38
+|vpiSize:64
+|UINT:63
+|vpiConstType:9

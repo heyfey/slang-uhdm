@@ -1,0 +1,220 @@
+r10earl105 -- PREDICTION, MADE FROM PRISTINE DATABASES AND THE SURELOG DECODE
+BEFORE THE PATCHED SWEEPS WERE READ, AND THE MEASURED OUTCOME BESIDE IT.
+MEASUREMENT ONLY.  BASE cd1e4c0a, branch auto5h.
+Pristine binary f03b9172df4dcc0900ab7af35d35ffa5, patched 44486814fbddd146e2af71c4fddc0310.
+
+===============================================================================
+1. THE HEAD, re-measured on THIS pass's OWN pristine build
+===============================================================================
+rowheads.sh over this pass's own pristine surelog sweep (SLANG_UHDM exported to
+the frozen pristine binary):
+
+  Earlgrey_0_1 testflags   50 cmp lines / 1 head   (grep -c '^LHS:' = 1)  <- MINE
+  Earlgrey_0_1 default     31 cmp lines / 1 head   (a DIFFERENT object)
+  SeqDriver / SimpleUVM   338 / 1 both modes
+  Scoreboard  default     95 / 1     MiniAmiq 106 / 1 both modes
+  BuildUVMPkg              29 / 1 both modes       Rggen default 0 / 0
+
+THE HEAD (HEAD_BEFORE_Earlgrey_testflags.cmp), pinmux.sv:176:
+
+  LHS (golden)  constant  176:43-176:64
+                |vpiParent  param_assign 53:56-54:59
+                |vpiDecompile 32'b11111111111111111111111111111111
+                |vpiSize 32   BIN:1111...   vpiConstType 3
+                |vpiTypespec ref_typespec {work@top_earlgrey.u_pinmux}
+                             |vpiActual int_typespec (LOC-LESS, UINT:1)
+  RHS (ours)    ref_obj   176:43-176:64
+                work@top_earlgrey.u_pinmux.gen_mio_out[0].MioPeriphHasSleepMode
+                |vpiActual parameter work@top_earlgrey.u_pinmux
+                                     .MioPeriphHasSleepMode 53:56-53:77
+
+  pinmux.sv:176  assign sleep_mux =
+                     $bits(sleep_mux)'({MioPeriphHasSleepMode, 1'b1, 1'b1, 1'b1});
+                 inside `for (genvar k = 0; k < NMioPads; k++) begin : gen_mio_out`
+
+THE DIFFERING EDGE.  The two sides are an Operands element of the CONCAT
+(`op33`) under the `$bits` CAST (`op67`), and they are different KINDS, so
+`BaseClass::Compare` fails at `VpiType` and the whole object is the head.  The
+substituted constant's TYPESPEC -- r10earl104's loc-less `int_typespec UINT:1`
+-- is NOT reachable on the pristine binary (Compare stops before
+`constant::Compare` reads `Typespec`); it becomes reachable the moment we emit
+a constant, and it must then match.  It does: the copy MINTS A FRESH
+int_typespec whose fields are taken from the `param_assign` Rhs's own -- which
+IS r10earl104's mint, loc-less and `UINT:1`.  (It is minted rather than shared
+because `clone_tree` deep-copies: sharing removed 4 weakly-referenced tail
+entries from uhdm2rtlil `read_remux` and 24 from `multiplier`, moving those
+rows' dump column from `match` to `differ`.  Measured, then fixed.)
+
+COUPLING TO r10earl104, ANSWERED: the substituted constant does NOT depend on
+earl104's positive determination.  Surelog CLONES whatever the `param_assign`
+Rhs holds -- arm g1_enc105's `PBIN`/`PHEX` (no replication, no mint) are copied
+with their DECLARED `logic_typespec`, and only `PREPL`/`MioPeriphHasSleepMode`
+carry the loc-less `int_typespec` because THEIR param_assign does.  earl104's
+law is untouched by this pass and is not consulted by it.
+
+===============================================================================
+2. THE SURELOG DECODE -- the substitution rule, read out of the source
+===============================================================================
+`CompileHelper::compileExpression`, the simple-identifier arm,
+Surelog/src/DesignCompile/CompileExpression.cpp:2918-2975:
+
+    if (component && (result == nullptr))
+      if (VectorOfparam_assign *pas = component->getParam_assigns())
+        for (param_assign *param_ass : *pas)
+          if (param_ass->Lhs()->VpiName() == name)
+            if ((reduce == Reduce::Yes) || (paramFromPackage && const Rhs))
+              if (substituteAssignedValue(param_ass->Rhs(), compileDesign)) {
+                result = UHDM::clone_tree(param_ass->Rhs(), &elaboratorContext);
+                result->VpiParent(param_ass);
+                fC->populateCoreMembers(child, child, result);   // the READ's span
+              }
+    ...
+    if (result == nullptr) { ref = s.MakeRef_obj(); ... }          // what WE emit
+
+i.e. a CLONE of the parameter's own `param_assign` Rhs, re-parented at the
+`param_assign` and re-anchored at the READ's span; the `ref_obj` we emit is
+that arm's `result == nullptr` fallback thirty lines below.  A clone carries
+the source constant's ENCODING and its TYPESPEC.  `substituteAssignedValue`
+(CompileExpression.cpp:83) only ever refuses a concat / assignment-pattern
+operation when `--parameterssubstitution` is off, which it is not here.
+
+NOT `UhdmWriter::writeCont_assign` (UhdmWriter.cpp:2090): that path reduces a
+cont_assign Rhs only when `bindVariable` finds the Lhs, and `bindVariable`'s
+scope-walking overload (CompileStmt.cpp:3089) switches on function / task /
+begin / module_inst ONLY -- from a `gen_scope` it falls through to the
+enclosing `module_inst` and NEVER finds a gen-LOCAL declaration, which
+`sleep_mux` is.  The substitution is the GENERATE ELABORATION's, compiled with
+`Reduce::Yes`, which is also why the DEF view keeps the `ref_obj` on both
+sides (measured: h1's DEF row is SAME).
+
+===============================================================================
+3. THE READ POSITIONS AND HOMES, MEASURED ON GOLDEN BEFORE THE LAW
+===============================================================================
+Golden COPIES the `param_assign` Rhs verbatim -- BIN / HEX / bit-vector
+spelling, size, constType and the declared typespec -- at EVERY operand
+position of an ELABORATED TOP-LEVEL loop-generate cont_assign:
+
+  g2_pos105 (top module):   plain concat operand under a $bits cast, the LONE
+                            Rhs, a binary operand, a concat operand beside a
+                            signal, a unary operand, a replication-folded
+                            parameter   -> COPY  (we minted a UINT decimal)
+                            a $clog2 ARGUMENT                    -> COPY
+                                        (we keep the ref: `callArgDepth == 0`)
+  g3_sel105 (top module):   replication COUNT, bit-select INDEX,
+                            indexed-part-select BASE, part-select BOUND, an
+                            index written as an OPERATION, a ternary CONDITION
+                                                                 -> COPY
+  h2_child105 / g4_home105: the SAME shapes in a CHILD instance and in an
+                            INTERFACE                            -> COPY
+                                        (we keep the ref entirely)
+
+Golden KEEPS the `ref_obj` -- the must-stay floor, all measured:
+  * a GEN-LOCAL localparam                     g4 `n3`, and every loop GENVAR
+  * a gen scope NESTED inside another          g4 `gen_n.n6`;
+    ibex_cs_registers.sv:795 `CSR_OFF_PMP_CFG` in `g_pmp_registers.g_pmp_csrs`;
+    prim_cipher_pkg `PRINCE_SBOX4` in `gen_outer_round[i].gen_inner[j]`;
+    GenScopeHierPath3 `CHUNK` / `step` in `steps[i].outer[j]`
+  * a parameter whose elaborated `param_assign` Rhs is still an OPERATION
+    (rv_dm.sv:104 `DebugHartInfo`, an assignment pattern)
+
+===============================================================================
+4. THE CENSUS PREDICTION -- movers BY NAME, from PRISTINE databases
+===============================================================================
+cen105 over the WHOLE surelog corpus (956 databases) and the WHOLE uhdm2rtlil
+corpus (1358 databases), pristine only.  Calibration golden-vs-golden FIRST:
+h1/h2 `agree=102 disagree=0 only_golden=0 only_ours=0`.
+
+surelog, ELAB | genloop cells (13 070 total, 12 736 census rows):
+      499  constant > ref_obj      golden substitutes, we do not
+              261  genvar `i`               GEN-LOCAL  -> NOT TOUCHED
+              116  IDW    (tlul_socket_m1)  -> MOVES
+               64  MioPeriphHasSleepMode    -> MOVES  (the head)
+               58  STIDW  (tlul_socket_m1)  -> MOVES
+      174  constant > constant      we substitute, typespec missing -> MOVES
+      200  ref_obj  > ref_obj       a DIFFERENT family (name/actual), untouched
+     1642  ref_obj  SAME            1544 GENVARS + 19 must-stay non-genvars
+                                    (CSR_OFF_PMP_CFG 16, PRINCE_SBOX4 6,
+                                     DebugHartInfo 1, GenScopeHierPath3 3)
+      354  constant SAME            already correct; golden's payload IS the
+                                    pa-copy, so the copy equals what we emit
+
+EVERY ELAB|genloop cell in the surelog corpus outside Earlgrey_0_1 is a SAME
+`ref_obj`, and every one is either a GENVAR or a read from a NESTED gen scope
+(GenScopeHierPath3 63, CaseDefault 4, CarryAdd 4, GenForIfaceLocalparamBound 1,
+GenForIfaceLocalparamNestedGen 1) -- the law's two fences cover all 73.
+
+uhdm2rtlil: 264 census rows in 1358 databases, of which ELAB|genloop is 50 and
+ALL FIFTY ARE `SAME` CONSTANTS (multiplier, read_remux,
+SumOfParametersInNestedForLoops, ParameterInGenScopeInitializedWithLongConstant)
+-- already substituted, already equal to golden, i.e. already the pa-copy.
+
+PREDICTION, WRITTEN DOWN BEFORE THE PATCHED SWEEPS WERE READ:
+  * EXACTLY TWO DATABASES MOVE -- Earlgrey_0_1 default and Earlgrey_0_1
+    testflags.  uhdm2rtlil: ZERO movers.
+  * No row converts in either corpus, in either mode.
+  * (The `174 constant > constant` TS=NONE cells above were predicted to move
+    and DID NOT: they sit in a select position whose `param_assign` Rhs
+    typespec ref is bound late, so the law declines them.  Recorded as
+    residue R2 -- a forgone win, not a regression.)
+  * AWAY-GOLDEN 0 and MOVED-WRONG 0 on both corpora.
+  * The head OBJECT is GONE from Earlgrey testflags; the default-mode head
+    (`LHS: <null>` on u_pinmux.gen_mio_periph_in[0].data_mux) is a different
+    object and does NOT move.
+
+===============================================================================
+5. WHAT ACTUALLY HAPPENED
+===============================================================================
+byteverify.sh SELFCHECK=1, patched sweep vs this pass's OWN pristine sweep,
+both binaries frozen chmod 555 at immutable paths, every cmds.txt audited BY
+BINARY PATH (2981 of 3035 per sweep name the frozen binary, the other 54 carry
+no `slang:` line at all; 0 of 6070 name the main-tree binary):
+
+  uhdm2rtlil  MOVERS 0 / 1358   PATH_SETS_IDENTICAL, SELFCHECK 1357/1358
+  surelog     MOVERS 3 /  956   PATH_SETS_IDENTICAL, SELFCHECK  955/956
+      ./default/Earlgrey_0_1      patched 02b37834ae6d  pristine 5b86d1db45c6
+      ./testflags/Earlgrey_0_1    patched da7542fd91e5  pristine 57e778aad5aa
+      ./default/Scoreboard        patched 6e8702880da6  pristine 71d51148be4a
+
+  -- the two PREDICTED databases, plus Scoreboard/default, which is RESUME.md
+     section 9's recorded COIN and is attributed as such: 92 raw changed dump
+     lines and ZERO order-blind (sorted-dump) changed lines, and cen105 finds
+     ZERO cont_assign parameter cells in Scoreboard on either side, so this law
+     cannot reach it.
+
+CENSUS RE-SCORED over the same fixed universe (score105.py asserts
+GOLDEN-SIDE-IDENTICAL first and refuses to score otherwise):
+
+                        surelog (12 736 cells)   uhdm2rtlil (264 cells)
+  AWAY-GOLDEN                  0                        0
+  MOVED-WRONG                  0                        0
+  TO-GOLDEN                  238                        0
+  UNMOVED-GOOD            10 331                      260
+  UNMOVED-BAD              1 898                        4
+  UNREACHABLE                269                        0
+  UNREACHABLE-CHANGED          0                        0
+  ADDED / REMOVED           0 / 0                    0 / 0
+and identically 0 / 0 on the --judge projection.
+
+The 238 TO-GOLDEN cells are the three PREDICTED families and nothing else:
+  116  IDW                    (tlul_socket_m1, both modes)
+   58  STIDW                  (tlul_socket_m1, both modes)
+   64  MioPeriphHasSleepMode  (pinmux.sv:176, both modes -- the head)
+
+WHOLE-DUMP ATTRIBUTION (workdir-normalised, ATTRIB.r10earl105.txt): 2470
+changed lines in default (of 4 717 838) and 2534 in testflags (of 6 714 445),
+and EVERY ONE names `MioPeriphHasSleepMode`, `IDW` or `STIDW`, or the constant /
+ref_typespec / int_typespec that replaces one.  Nothing else in either database
+moved.
+
+HEADS AFTER (rowheads.sh, this pass's own sweeps):
+  Earlgrey_0_1 testflags  50/1 -> 26/1  the head OBJECT at pinmux.sv:176 is
+                                        GONE; the new head is a DIFFERENT
+                                        object (R0 below)
+  Earlgrey_0_1 default    31/1 -> 31/1  BYTE-IDENTICAL head log
+                                        (`LHS: <null>` on
+                                        u_pinmux.gen_mio_periph_in[0].data_mux)
+  SeqDriver, SimpleUVM (both modes)  338/1 -> 338/1
+  BuildUVMPkg (both modes)            29/1 ->  29/1
+  Scoreboard default                  95/1 ->  95/1
+  MiniAmiq (both modes)              106/1 -> 106/1
+  Rggen default                        0/0 ->   0/0

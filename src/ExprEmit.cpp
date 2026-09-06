@@ -9198,6 +9198,22 @@ static const Scope* enclosingBody95(const Symbol& sym) {
     return nullptr;
 }
 
+// § genCaTopLoopParamPaCopy105 (r10earl105) — THE SPELLING SANITY GUARD on a
+// COPIED constant.  Surelog writes a based literal's `VpiDecompile` WITH its
+// base prefix (`4'b0010`, `4'h2`); our own elaborated `param_assign` Rhs
+// sometimes carries the bare digits instead (`0010`) — r10earl64's own arm
+// `gA_earl64` instantiates `parameter int unsigned P` as `4'b0010` and our
+// param_assign Rhs reads `vpiDecompile:0010` where golden reads `4'b0010`.
+// `constant::Compare` READS VpiDecompile, so copying that spelling into the
+// read site would SPREAD a defect that belongs to another law.  When the
+// source's spelling and its `vpiConstType` disagree this way the copy is
+// DECLINED and pristine's answer stands: a forgone win, never a regression.
+static bool baseSpellingOk105(int32_t ct, const std::string& dec) {
+    if (ct != vpiBinaryConst && ct != vpiOctConst && ct != vpiHexConst)
+        return true;
+    return dec.find('\'') != std::string::npos;
+}
+
 const Scope* UhdmExporter::genCaPoolScope95For(const Symbol& blk) const {
     const Scope* body95 = enclosingBody95(blk);
     // ONE EMITTED LEVEL UP.  `genEmitStack95` holds only the blocks that
@@ -15972,8 +15988,25 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 bool caLoopSelPos21 =
                     inPsBound || selIdxScopeDepth > 0 ||
                     (parent && parent->UhdmType() == UHDM::uhdmbit_select);
+                // § genCaTopLoopParamPaCopy105 (r10earl105) — THE CHILD-
+                // INSTANCE HALF OF THE PLAIN OPERAND POSITION.  A TOP-LEVEL
+                // loop-generate body substitutes an enclosing-instance
+                // parameter read at EVERY operand position, and the
+                // instance's DEPTH does not enter the question: `u_pinmux`
+                // is a child of `top_earlgrey` and golden still substitutes
+                // at pinmux.sv:176.  `genCaChildLoopFold21` is already
+                // exactly "a TOP-LEVEL loop body in a CHILD instance"
+                // (`parentFull == prefix` is the nesting test), so the new
+                // window is that flag without `caLoopSelPos21`.  It is
+                // ANSWERED ONLY BY THE PA-COPY BELOW: when the parameter has
+                // no elaborated `param_assign` constant to copy, the walk
+                // falls through and the `ref_obj` pristine emitted survives.
+                const bool loopPlainNew105 =
+                    !genCaLoopParamFold && genCaChildLoopFold21 &&
+                    !caLoopSelPos21;
                 if ((genCaLoopParamFold ||
-                     (genCaChildLoopFold21 && caLoopSelPos21)) &&
+                     (genCaChildLoopFold21 && caLoopSelPos21) ||
+                     loopPlainNew105) &&
                     (!inLhs || inPsBound) && callArgDepth == 0 &&
                     nv.symbol.kind == SymbolKind::Parameter) {
                     bool outerParam9 = false;
@@ -15990,6 +16023,30 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                     auto& psL9 = nv.symbol.as<ParameterSymbol>();
                     auto& cvL9 = psL9.getValue();
+                    // § genCaTopLoopParamPaCopy105 — WHEN THE MINT BELOW *IS*
+                    // THE CLONE.  The `param_assign` Rhs constant's own
+                    // `ref_typespec` is bound LATE for most parameters (the
+                    // elaborated param typespec is minted in the write phase —
+                    // the same seam `substNdaParamRefs` records), so the copy
+                    // below can only read it when it was set EAGERLY.  For a
+                    // PREDEFINED-INTEGER (or untyped) parameter the mint
+                    // already builds exactly golden's clone — measured on
+                    // g5_int105 with its leaf as the TOP module, where all
+                    // seven positions are byte-identical to golden — so the
+                    // new child window may fall through to it.  A `logic` /
+                    // `bit` VECTOR parameter's clone carries a
+                    // logic_/bit_typespec that this pass does not build, so
+                    // the new window DECLINES it and pristine's `ref_obj`
+                    // stands (residue R1, measured in g1/g2/g3/g4).
+                    bool intAtom105 =
+                        psL9.getType().getCanonicalType().isPredefinedInteger();
+                    if (!intAtom105)
+                        if (auto dtA5 = psL9.getDeclaredType()) {
+                            auto tsA5 = dtA5->getTypeSyntax();
+                            if (!tsA5 ||
+                                tsA5->kind == syntax::SyntaxKind::ImplicitType)
+                                intAtom105 = true;
+                        }
                     // OUTSIDE a select bound Surelog hands back the module
                     // param's OWN elaborated constant (parented at its
                     // param_assign, typespec named at the module); inside a
@@ -16033,7 +16090,164 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // where we used to leave a ref.  Corpus: the surviving
                     // top_earlgrey pair at ibex_prefetch_buffer.sv:89:59,
                     // `rdata_outstanding_q[NUM_REQS-1-i]` in gen_rd_rev.
-                    if (outerParam9 && (inPsBound || pa9 || caLoopSelPos21) &&
+                    // § genCaTopLoopParamPaCopy105 (r10earl105) — THE VALUE IS
+                    // A VERBATIM COPY OF THE PARAMETER'S OWN ELABORATED
+                    // `param_assign` Rhs CONSTANT, never a freshly minted UINT
+                    // decimal.
+                    //
+                    // DECODED, not guessed.  `CompileHelper::compileExpression`
+                    // answers a simple identifier that matches a `param_assign`
+                    // on the enclosing `DesignComponent`
+                    // (Surelog/src/DesignCompile/CompileExpression.cpp:2918-
+                    // 2975) with, when `reduce == Reduce::Yes` and
+                    // `substituteAssignedValue` agrees,
+                    //     result = UHDM::clone_tree(param_ass->Rhs(), ...);
+                    //     result->VpiParent(param_ass);
+                    //     fC->populateCoreMembers(child, child, result);
+                    // — a CLONE of the parameter's own Rhs, re-parented at the
+                    // `param_assign` and re-anchored at the READ's span; the
+                    // `ref_obj` we emit is that arm's `result == nullptr`
+                    // fallback thirty lines below it.  A clone carries the
+                    // source constant's ENCODING and its TYPESPEC, so a BIN /
+                    // HEX / bit-vector parameter reads back in its own
+                    // spelling, which the decimal mint below flattens.  This
+                    // is the same § genCaLpPaCopy the NON-loop gen scope's arm
+                    // already takes — the loop body was the outlier.
+                    //
+                    // FENCED to the constant Rhs: a STRUCT- or ARRAY-typed
+                    // parameter whose elaborated Rhs is still an OPERATION is
+                    // left alone, and golden keeps the `ref_obj` on exactly
+                    // those (rv_dm.sv:104 `DebugHartInfo`, an assignment
+                    // pattern; prim_cipher_pkg's `PRINCE_SBOX4`).
+                    // IT IS A CLONE, NOT AN ALIAS.  `clone_tree` deep-copies,
+                    // so golden's substituted constant carries its OWN
+                    // typespec object -- one per READ -- and those objects sit
+                    // in the `_weaklyReferenced:` tail of the dump.  Sharing
+                    // the `param_assign` Rhs's object instead REMOVES them:
+                    // measured, uhdm2rtlil `read_remux` lost 4 tail entries and
+                    // `multiplier` 24, moving the CSV's dump column from
+                    // `match` to `differ` on rows the judge still calls
+                    // CMP_EQUAL.  So the typespec is MINTED FRESH here, field
+                    // for field, exactly as pristine already minted one.
+                    //
+                    // FENCED to an `int_typespec` source: that is the only kind
+                    // the measured population holds (`MioPeriphHasSleepMode`
+                    // carries r10earl104's loc-less mint, `IDW` / `STIDW` carry
+                    // `int_typespec@10:12-10:15,signed` / `@73:14-73:26`, and
+                    // every uhdm2rtlil cell is an `int` parameter).  A
+                    // `logic_typespec` / `bit_typespec` source would need its
+                    // RANGE subtree cloned too; those cells are measured in
+                    // g1_enc105 / g2_pos105 / g3_sel105 and recorded as residue
+                    // R1 rather than half-copied.
+                    if (outerParam9 && (inPsBound || pa9 || caLoopSelPos21 ||
+                                        loopPlainNew105))
+                        if (auto pit5 = elabParamPa.find(&nv.symbol);
+                            pit5 != elabParamPa.end() && pit5->second)
+                            if (auto* pr5 = pit5->second->Rhs();
+                                pr5 && pr5->UhdmType() == UHDM::uhdmconstant) {
+                                auto* src5 = (UHDM::constant*)pr5;
+                                const UHDM::int_typespec* sits5 = nullptr;
+                                if (auto* srt5 = src5->Typespec())
+                                    if (auto* sa5 = srt5->Actual_typespec())
+                                        sits5 = any_cast<
+                                            const UHDM::int_typespec*>(
+                                            (const UHDM::any*)sa5);
+                                if (sits5 &&
+                                    baseSpellingOk105(
+                                        src5->VpiConstType(),
+                                        std::string(src5->VpiDecompile()))) {
+                                    auto* c5 = s.MakeConstant();
+                                    c5->VpiDecompile(
+                                        std::string(src5->VpiDecompile()));
+                                    c5->VpiSize(src5->VpiSize());
+                                    c5->VpiValue(std::string(src5->VpiValue()));
+                                    c5->VpiConstType(src5->VpiConstType());
+                                    setLoc(c5, expr.sourceRange);
+                                    std::string tsN5 =
+                                        genCaSelBasePfx.empty() ? prefix
+                                                                : genCaSelBasePfx;
+                                    if (pa9) {
+                                        c5->VpiParent(pa9);
+                                        if (mi9 && genCaSelBasePfx.empty())
+                                            tsN5 = mi9->VpiFullName();
+                                    }
+                                    else
+                                        c5->VpiParent(parent);
+                                    auto* rt5 = s.MakeRef_typespec();
+                                    rt5->VpiFullName(tsN5);
+                                    rt5->VpiParent(c5);
+                                    auto* its5 = s.MakeInt_typespec();
+                                    its5->VpiParent(rt5);
+                                    if (!sits5->VpiFile().empty())
+                                        its5->VpiFile(
+                                            std::string(sits5->VpiFile()));
+                                    its5->VpiLineNo(sits5->VpiLineNo());
+                                    its5->VpiColumnNo(sits5->VpiColumnNo());
+                                    its5->VpiEndLineNo(sits5->VpiEndLineNo());
+                                    its5->VpiEndColumnNo(
+                                        sits5->VpiEndColumnNo());
+                                    its5->VpiSigned(sits5->VpiSigned());
+                                    if (!sits5->VpiValue().empty())
+                                        its5->VpiValue(
+                                            std::string(sits5->VpiValue()));
+                                    rt5->Actual_typespec(its5);
+                                    c5->Typespec(rt5);
+                                    return c5;
+                                }
+                            }
+                    // § genCaTopLoopParamPaCopy105 — THE ENCODING HALF, for the
+                    // NEW window when the source typespec is bound late.  The
+                    // clone's ENCODING never depends on the typespec ref being
+                    // resolvable, and it is not the decimal the mint below
+                    // builds whenever the parameter was OVERRIDDEN at
+                    // instantiation in a non-decimal spelling: r10earl64's own
+                    // arms `gA_earl64` / `v4_homes64` instantiate one
+                    // `parameter int P = 2` as `4'b0010`, `4'h2` and an
+                    // expression, and golden's substituted constant is
+                    // `BIN:0010` size 4 / `HEX:2` / `INT:2` — that instance's
+                    // `param_assign` Rhs verbatim — where a decimal mint says
+                    // `UINT:2` size 32.  So in the new window the ENCODING is
+                    // always copied when the parameter's own elaborated
+                    // `param_assign` Rhs is a constant; only the TYPESPEC needs
+                    // the `intAtom105` guarantee (that the mint below builds
+                    // the same object the clone would).
+                    //
+                    // The WIDTH is re-decided, not copied: Surelog re-runs
+                    // `CompileHelper::adjustSize` against the parameter's
+                    // DECLARED typespec on the substituted value, so
+                    // `parameter int P = 2` instantiated as `4'h2` reads back
+                    // `HEX:2` at size 32, not at the override's size 4.  That
+                    // is § `elabCaPortParamPaCopy64`'s decode and
+                    // `adjustCopiedParamConst64` is REUSED here rather than
+                    // re-derived; when it refuses (an untyped or non-integral
+                    // parameter) the copy is declined and the walk falls
+                    // through, so it can only ever cost a win.
+                    const UHDM::constant* encSrc105 = nullptr;
+                    std::string ev105, ed105;
+                    int32_t ect105 = 0, esz105 = 0;
+                    if (loopPlainNew105 && intAtom105)
+                        if (auto pit6 = elabParamPa.find(&nv.symbol);
+                            pit6 != elabParamPa.end() && pit6->second)
+                            if (auto* pr6 = pit6->second->Rhs();
+                                pr6 && pr6->UhdmType() == UHDM::uhdmconstant) {
+                                auto* sc6 = (const UHDM::constant*)pr6;
+                                if (adjustCopiedParamConst64(psL9, sc6, ev105,
+                                                             ect105, esz105,
+                                                             ed105) &&
+                                    baseSpellingOk105(ect105, ed105))
+                                    encSrc105 = sc6;
+                            }
+                    // The NEW child-instance plain window is answered ONLY
+                    // when the clone can be reproduced EXACTLY: by the eager
+                    // typespec copy above, or by this encoding copy.  With
+                    // neither, the walk falls through this arm entirely and
+                    // pristine's `ref_obj` stands — the decimal mint is NEVER
+                    // newly applied there, because a decimal is not what the
+                    // clone says whenever the override was written in another
+                    // base.
+                    if (outerParam9 && (!loopPlainNew105 || encSrc105) &&
+                        (inPsBound || pa9 || caLoopSelPos21 ||
+                         (loopPlainNew105 && encSrc105)) &&
                         cvL9.isInteger() && !cvL9.integer().hasUnknown()) {
                         auto* c9 = s.MakeConstant();
                         std::string dL9 = cvL9.integer().toString(
@@ -16042,6 +16256,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         c9->VpiSize((int32_t)psL9.getType().getBitWidth());
                         c9->VpiValue("UINT:" + dL9);
                         c9->VpiConstType(vpiUIntConst);
+                        if (encSrc105) {
+                            c9->VpiDecompile(ed105);
+                            c9->VpiSize(esz105);
+                            c9->VpiValue(ev105);
+                            c9->VpiConstType(ect105);
+                        }
                         setLoc(c9, expr.sourceRange);
                         std::string tsName9 = prefix;
                         if (pa9) {

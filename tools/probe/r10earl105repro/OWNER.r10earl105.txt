@@ -1,0 +1,86 @@
+r10earl105 -- OWNER DECODE of the Earlgrey_0_1/testflags head at pinmux.sv:176
+MEASUREMENT ONLY.  golden cache = /home/heyfey/.cache/slang-uhdm-goldens/d7348d2d2fe67abe767b
+
+######## GOLDEN side: the SUBSTITUTED CONSTANT (first target of 32 -- one per gen_mio_out iteration)
+TARGETS at 176:43-176:64 kind=constant: 32
+
+== TARGET constant id:640534 
+  vpiParent chain (what the DUMP shows):
+  > constant 176:43-176:64 
+    > param_assign 53:56-54:59 
+      > module_inst 623:3-653:5 work@top_earlgrey.u_pinmux
+        > module_inst 5:1-1022:10 work@top_earlgrey
+          > design 0:0-0:0 work@prim_sync_reqack
+  VECTOR  operation op=33 176:42-176:84  Operands[0]
+    holder chain:
+  > operation 176:42-176:84 
+    > operation 176:24-176:85 
+      > cont_assign 176:12-176:85 
+  VECTOR  operation op=33 176:42-176:84  Operands[0]
+    holder chain:
+  > operation 176:42-176:84 
+    > operation 176:24-176:85 
+      > cont_assign 176:12-176:85 
+        > gen_scope 169:41-183:6 work@top_earlgrey.u_pinmux.gen_mio_out[0]
+          > gen_scope_array 169:41-183:6 work@top_earlgrey.u_pinmux.gen_mio_out[0]
+            > module_inst 623:3-653:5 work@top_earlgrey.u_pinmux
+              > module_inst 5:1-1022:10 work@top_earlgrey
+                > design 0:0-0:0 work@prim_sync_reqack
+  containers: VECTOR=2 SINGULAR=0
+
+
+######## OURS, PRISTINE: the ref_obj we emitted
+TARGETS at 176:43-176:64 kind=ref_obj: 65
+
+== TARGET ref_obj id:115510 work@pinmux.gen_mio_out.MioPeriphHasSleepMode
+  vpiParent chain (what the DUMP shows):
+  > ref_obj 176:43-176:64 work@pinmux.gen_mio_out.MioPeriphHasSleepMode
+    > operation 176:42-176:84 
+      > operation 176:24-176:85 
+        > cont_assign 176:12-176:85 
+          > named_begin 0:0-0:0 work@pinmux.gen_mio_out
+            > gen_for 0:0-0:0 
+              > module_inst 10:1-303:19 work@pinmux
+                > design 0:0-0:0 work@prim_sync_reqack
+  VECTOR  operation op=33 176:42-176:84  Operands[0]
+    holder chain:
+  > operation 176:42-176:84 
+    > operation 176:24-176:85 
+      > cont_assign 176:12-176:85 
+        > named_begin 0:0-0:0 work@pinmux.gen_mio_out
+          > gen_for 0:0-0:0 
+            > module_inst 10:1-303:19 work@pinmux
+              > design 0:0-0:0 work@prim_sync_reqack
+  containers: VECTOR=1 SINGULAR=0
+
+== TARGET ref_obj id:500233 work@top_earlgrey.u_pinmux.gen_mio_out[0].MioPeriphHasSleepMode
+  vpiParent chain (what the DUMP shows):
+  > ref_obj 176:43-176:64 work@top_earlgrey.u_pinmux.gen_mio_out[0].MioPeriphHasSleepMode
+
+######## OURS, PATCHED: the constant we now emit
+TARGETS at 176:43-176:64 kind=constant: 32
+
+== TARGET constant id:500234 
+  vpiParent chain (what the DUMP shows):
+  > constant 176:43-176:64 
+    > param_assign 53:56-54:59 
+      > module_inst 623:3-653:5 work@top_earlgrey.u_pinmux
+        > module_inst 5:1-1022:10 work@top_earlgrey
+          > design 0:0-0:0 work@prim_sync_reqack
+  VECTOR  operation op=33 176:42-176:84  Operands[0]
+    holder chain:
+  > operation 176:42-176:84 
+    > operation 176:24-176:85 
+      > cont_assign 176:12-176:85 
+        > gen_scope 169:41-183:6 work@top_earlgrey.u_pinmux.gen_mio_out[0]
+          > gen_scope_array 169:41-183:6 work@top_earlgrey.u_pinmux.gen_mio_out[0]
+            > module_inst 623:3-653:5 work@top_earlgrey.u_pinmux
+              > module_inst 5:1-1022:10 work@top_earlgrey
+                > design 0:0-0:0 work@prim_sync_reqack
+  VECTOR  operation op=33 176:42-176:84  Operands[0]
+    holder chain:
+  > operation 176:42-176:84 
+    > operation 176:24-176:85 
+      > cont_assign 176:12-176:85 
+        > gen_scope 169:41-183:6 work@top_earlgrey.u_pinmux.gen_mio_out[0]
+          > gen_scope_array 169:41-183:6 work@top_earlgrey.u_pinmux.gen_mio_out[0]

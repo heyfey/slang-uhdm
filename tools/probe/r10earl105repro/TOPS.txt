@@ -1,0 +1,6 @@
+# r10earl105 -- the -top each arm must be built with.  Kept OUT of the .sv
+# files so the committed arms are byte-identical to the ones the wide boundary
+# measured (a comment line would shift every span in this README).
+g4_home105 g4_home105
+g5_int105 g5_int105
+h2_child105 h2_child105

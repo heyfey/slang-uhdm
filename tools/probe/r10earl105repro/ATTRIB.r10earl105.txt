@@ -1,0 +1,98 @@
+r10earl105 -- WHOLE-DUMP ATTRIBUTION, workdir-normalised, sectioned at the
+_weaklyReferenced: marker.  MEASUREMENT ONLY.  Every changed line of every
+moved database, classified by shape.
+
+######## Earlgrey_0_1 / default   dump lines=4717838  weaklyReferenced marker at line 3823176
+CHANGED LINES: 2470
+  BODY 2023   TAIL (weaklyReferenced, unreachable to the judge) 447
+  -- every changed line, by shape (digits normalised to N; < pristine, > patched):
+    238   BODY > \_constant: , line:N:N, endln:N:N
+    119   TAIL > |vpiParent:
+    119   BODY > |vpiTypespec:
+    119   BODY > |vpiSize:N
+    119   BODY > |vpiParent:
+    119   BODY > |vpiConstType:N
+    119   BODY > |vpiActual:
+    119   BODY > \_param_assign: , line:N:N, endln:N:N
+    119   BODY < \_operation: , line:N:N, endln:N:N
+     87   TAIL > \_ref_typespec: (work@top_earlgrey.u_xbar_main.u_smN_N)
+     87   TAIL > \_int_typespec: , line:N:N, endln:N:N
+     87   BODY > |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N
+     87   BODY > |vpiDecompile:N
+     87   BODY > |UINT:N
+     87   BODY > \_ref_typespec: (work@top_earlgrey.u_xbar_main.u_smN_N)
+     87   BODY > \_int_typespec: , line:N:N, endln:N:N
+     58   TAIL > |vpiSigned:N
+     58   BODY < |vpiName:IDW
+     32   TAIL > |UINT:N
+     32   TAIL > \_ref_typespec: (work@top_earlgrey.u_pinmux)
+     32   TAIL > \_int_typespec: 
+     32   BODY < |vpiName:MioPeriphHasSleepMode
+     32   BODY < |vpiFullName:work@top_earlgrey.u_pinmux.gen_mio_out[N].MioPeriphHasSleepMode
+     32   BODY > |vpiFullName:work@top_earlgrey.u_pinmux
+     32   BODY > |vpiDecompile:N'bN
+     32   BODY > \_ref_typespec: (work@top_earlgrey.u_pinmux)
+     32   BODY < \_ref_obj: (work@top_earlgrey.u_pinmux.gen_mio_out[N].MioPeriphHasSleepMode), line:N:N, endln:N:N
+     32   BODY > \_int_typespec: 
+     32   BODY > |BIN:N
+     29   BODY < |vpiName:STIDW
+     29   BODY < |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[i].a_source[IDW - N-:N].a_source.IDW
+     29   BODY < |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].STIDW
+     29   BODY < |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].IDW
+     29   BODY < \_ref_obj: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[i].a_source[IDW - N-:N].a_source.IDW), line:N:N, endln:N:N
+     29   BODY < \_ref_obj: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].STIDW), line:N:N, endln:N:N
+     29   BODY < \_ref_obj: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].IDW), line:N:N, endln:N:N
+
+######## Earlgrey_0_1 / testflags   dump lines=6714445  weaklyReferenced marker at line 4682963
+CHANGED LINES: 2534
+  BODY 608   TAIL (weaklyReferenced, unreachable to the judge) 1926
+  -- every changed line, by shape (digits normalised to N; < pristine, > patched):
+    206   TAIL > |vpiParent:
+    174   TAIL > \_ref_typespec: (work@top_earlgrey.u_xbar_main.u_smN_N)
+    174   TAIL > \_int_typespec: , line:N:N, endln:N:N
+    174   TAIL > \_constant: , line:N:N, endln:N:N
+    119   TAIL > |UINT:N
+     87   TAIL > |vpiTypespec:
+     87   TAIL > |vpiSize:N
+     87   TAIL > |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N
+     87   TAIL > |vpiDecompile:N
+     87   TAIL > |vpiConstType:N
+     87   TAIL > |vpiActual:
+     87   TAIL > \_param_assign: , line:N:N, endln:N:N
+     87   TAIL < \_operation: , line:N:N, endln:N:N
+     64   BODY > \_constant: , line:N:N, endln:N:N
+     58   TAIL > |vpiSigned:N
+     58   TAIL < |vpiName:IDW
+     32   TAIL > \_ref_typespec: (work@top_earlgrey.u_pinmux)
+     32   TAIL > \_int_typespec: 
+     32   BODY > |vpiTypespec:
+     32   BODY > |vpiSize:N
+     32   BODY > |vpiParent:
+     32   BODY < |vpiName:MioPeriphHasSleepMode
+     32   BODY < |vpiFullName:work@top_earlgrey.u_pinmux.gen_mio_out[N].MioPeriphHasSleepMode
+     32   BODY > |vpiFullName:work@top_earlgrey.u_pinmux
+     32   BODY > |vpiDecompile:N'bN
+     32   BODY > |vpiConstType:N
+     32   BODY > |vpiActual:
+     32   BODY < |vpiActual:
+     32   BODY > \_ref_typespec: (work@top_earlgrey.u_pinmux)
+     32   BODY < \_ref_obj: (work@top_earlgrey.u_pinmux.gen_mio_out[N].MioPeriphHasSleepMode), line:N:N, endln:N:N
+     32   BODY < \_parameter: (work@top_earlgrey.u_pinmux.MioPeriphHasSleepMode), line:N:N, endln:N:N
+     32   BODY > \_param_assign: , line:N:N, endln:N:N
+     32   BODY < \_operation: , line:N:N, endln:N:N
+     32   BODY > \_int_typespec: 
+     32   BODY > |BIN:N
+     29   TAIL < |vpiName:STIDW
+     29   TAIL < |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[i].a_source[IDW - N-:N].a_source.IDW
+     29   TAIL < |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].STIDW
+     29   TAIL < |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].IDW
+     29   TAIL < \_ref_obj: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[i].a_source[IDW - N-:N].a_source.IDW), line:N:N, endln:N:N
+     29   TAIL < \_ref_obj: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].STIDW), line:N:N, endln:N:N
+     29   TAIL < \_ref_obj: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].IDW), line:N:N, endln:N:N
+
+######## Scoreboard / default -- THE COIN, not this law
+RESUME.md section 9: Scoreboard/default is a ~50/50 coin per invocation
+(svunit_pkg vpiTaskFunc list ORDER flip, ~92 dump lines).
+  raw changed lines            : 92
+  ORDER-BLIND (sorted dumps)   : 0   -> the coin, attributed
+  cen105 cont_assign param cells in Scoreboard, either side: 0

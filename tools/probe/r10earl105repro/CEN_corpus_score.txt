@@ -1,0 +1,94 @@
+r10earl105 -- THE CORPUS THREE-WAY SCORE.  MEASUREMENT ONLY.
+pristine sweep vs patched sweep, both on this pass's OWN frozen binaries
+(pristine f03b9172df4dcc0900ab7af35d35ffa5, patched 44486814fbddd146e2af71c4fddc0310).
+
+######## surelog (956 databases) full-payload
+# pristine cells=12736 (dupkeys 0)  patched cells=12736 (dupkeys 0)
+GOLDEN-SIDE-IDENTICAL on 12736 shared cells
+
+== AWAY-GOLDEN (the only regression class): 0
+== AWAY-GOLDEN (the only regression class): 0
+
+== MOVED-WRONG: 0
+== SCORE
+  AWAY-GOLDEN         0
+  MOVED-WRONG         0
+  TO-GOLDEN         238
+  UNMOVED-GOOD    10331
+  UNMOVED-BAD      1898
+  UNREACHABLE       269
+  UNREACHABLE-CHANGED       0
+  ADDED               0
+  REMOVED             0
+
+== FAMILIES
+
+######## surelog (956 databases) --judge
+# pristine cells=12736 (dupkeys 0)  patched cells=12736 (dupkeys 0)
+GOLDEN-SIDE-IDENTICAL on 12736 shared cells
+
+== AWAY-GOLDEN (the only regression class): 0
+== AWAY-GOLDEN (the only regression class): 0
+
+== MOVED-WRONG: 0
+== SCORE (--judge projection)
+  AWAY-GOLDEN         0
+  MOVED-WRONG         0
+  TO-GOLDEN         238
+  UNMOVED-GOOD    10353
+  UNMOVED-BAD      1876
+  UNREACHABLE       269
+  UNREACHABLE-CHANGED       0
+  ADDED               0
+  REMOVED             0
+
+== FAMILIES
+
+######## uhdm2rtlil (1358 databases) full-payload
+# pristine cells=264 (dupkeys 0)  patched cells=264 (dupkeys 0)
+GOLDEN-SIDE-IDENTICAL on 264 shared cells
+
+== AWAY-GOLDEN (the only regression class): 0
+== AWAY-GOLDEN (the only regression class): 0
+
+== MOVED-WRONG: 0
+== SCORE
+  AWAY-GOLDEN         0
+  MOVED-WRONG         0
+  TO-GOLDEN           0
+  UNMOVED-GOOD      260
+  UNMOVED-BAD         4
+  UNREACHABLE         0
+  UNREACHABLE-CHANGED       0
+  ADDED               0
+  REMOVED             0
+
+== FAMILIES
+
+######## uhdm2rtlil (1358 databases) --judge
+# pristine cells=264 (dupkeys 0)  patched cells=264 (dupkeys 0)
+GOLDEN-SIDE-IDENTICAL on 264 shared cells
+
+== AWAY-GOLDEN (the only regression class): 0
+== AWAY-GOLDEN (the only regression class): 0
+
+== MOVED-WRONG: 0
+== SCORE (--judge projection)
+  AWAY-GOLDEN         0
+  MOVED-WRONG         0
+  TO-GOLDEN           0
+  UNMOVED-GOOD      260
+  UNMOVED-BAD         4
+  UNREACHABLE         0
+  UNREACHABLE-CHANGED       0
+  ADDED               0
+  REMOVED             0
+
+== FAMILIES
+
+######## TO-GOLDEN FAMILIES (surelog, full payload)
+FAM	   116	TO-GOLDEN	ref_obj,name=IDW,act=<null>  >  constant,sz=32,ct=9,v=UINT:8,dc=8,TS=int_typespec@10:12-10:15,signed
+FAM	    40	TO-GOLDEN	ref_obj,name=STIDW,act=<null>  >  constant,sz=32,ct=9,v=UINT:1,dc=1,TS=int_typespec@73:14-73:26
+FAM	    32	TO-GOLDEN	ref_obj,name=MioPeriphHasSleepMode,act=parameter  >  constant,sz=32,ct=3,v=BIN:11111111111111111111111111111111,dc=32'b11111111111111111111111111111111,TS=int_typespec@LOCLESS,val=UINT:1
+FAM	    32	TO-GOLDEN	ref_obj,name=MioPeriphHasSleepMode,act=<null>  >  constant,sz=32,ct=3,v=BIN:11111111111111111111111111111111,dc=32'b11111111111111111111111111111111,TS=int_typespec@LOCLESS,val=UINT:1
+FAM	    18	TO-GOLDEN	ref_obj,name=STIDW,act=<null>  >  constant,sz=32,ct=9,v=UINT:2,dc=2,TS=int_typespec@73:14-73:26
