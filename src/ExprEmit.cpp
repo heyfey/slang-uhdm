@@ -22200,10 +22200,24 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // positional `aes_mul2(aes_mul2(x))` stamps both the nested
                 // call and the `x` ref with the same `int` formal.
                 bool namedArgs9 = false;
-                if (auto* isy9 =
-                        expr.syntax
-                            ? expr.syntax->as_if<syntax::InvocationExpressionSyntax>()
-                            : nullptr) {
+                // § shellCallKeepsItsSyntax167 — THE SECOND READER.  This arm
+                // (the RECEIVER-LESS `func_call` / `task_call`) re-implements
+                // § writtenCallArgs16 inline and read `expr.syntax` DIRECTLY,
+                // so for a call unwrapped out of a bad-expression shell — where
+                // the syntax lives on the WRAPPER — `nWritten9` stayed the
+                // BOUND count and every bare call inside a shell listed the
+                // callee's defaulted formals (grid arm B `sh_pkg_pos`,
+                // `sh_in_pos`, `sh_pkg_task`, `sh_in_task`: golden 1, ours 3).
+                // `callInvocation167` IS `expr.syntax->as_if<...>()` whenever
+                // the call has a syntax node of its own, so nothing off the
+                // shell can move; and it is deliberately the WHOLE block, not
+                // the count alone, because `namedArgs9` and — through
+                // `namedTfSlots4` below — § namedTfArgsFormalSlots4 read the
+                // same list: a shelled NAMED bare call must take the FORMAL-SLOT
+                // shape golden gives it, not the positional trim, or it would
+                // go SHORT of golden (arm B `sh_pkg_named` / `sh_in_named`,
+                // golden 3 of 3 formals).
+                if (auto* isy9 = callInvocation167(call)) {
                     nWritten9 =
                         isy9->arguments ? isy9->arguments->parameters.size() : 0;
                     if (isy9->arguments)
@@ -31947,6 +31961,31 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     (iv2.child->kind == ExpressionKind::Call ||
                      iv2.child->kind == ExpressionKind::Invalid))
                     callStmtContext = true;
+                // § shellCallKeepsItsSyntax167 — THE ONE SITE.  The shell the
+                // arm above unwraps is the ONLY holder of the call's
+                // `InvocationExpressionSyntax`: `CallExpression::fromArgs`
+                // emplaces the call with `syntax` UNSET and hands back
+                // `badExpr(comp, result)`, and `Expression::create` then stamps
+                // the invocation syntax on the WRAPPER
+                // (`Expression.cpp:1002`).  Without this the written-argument
+                // decoders in EmitHelpers.h see `call.syntax == nullptr`, fall
+                // back to `call.arguments().size()`, and list the callee's
+                // DEFAULTED FORMALS as if the call site had written them — the
+                // SeqDriver x2 / SimpleUVM x2 head at uvm-1.2
+                // `base/uvm_misc.svh:720`, where golden lists the FIVE written
+                // arguments of `comp.uvm_report_fatal(...)` and we listed
+                // seven.  Keyed on the EXACT child pointer, so a syntax-less
+                // call nested inside one of THIS call's arguments cannot read
+                // it, and scoped to the unwrap alone.
+                ShellCallSyntax167 sh167(
+                    (iv2.child->kind == ExpressionKind::Call &&
+                     !iv2.child->syntax)
+                        ? iv2.child
+                        : nullptr,
+                    expr.syntax
+                        ? expr.syntax
+                              ->as_if<syntax::InvocationExpressionSyntax>()
+                        : nullptr);
                 auto* r103 = emitExpr(*iv2.child, parent, prefix, netMap);
                 callStmtContext = false;
                 return r103;

@@ -4505,10 +4505,68 @@ inline bool declaredTimeLiteralParam(const slang::ast::ParameterSymbol& ps) {
 // Only valid where `arguments()` excludes the receiver — user subroutine
 // calls.  A BUILT-IN method passes its receiver as `arguments()[0]`, so those
 // sites must keep counting the bound list.
+// ------------------------------------------ § shellCallKeepsItsSyntax167
+//
+// A CALL THAT REACHES THE EMITTER AS THE SALVAGED CHILD OF A BAD-EXPRESSION
+// SHELL HAS NO `syntax` OF ITS OWN, AND EVERY WRITTEN-ARGUMENT DECODER BELOW
+// THEN DEGRADES TO THE BOUND LIST.
+//
+// THE SLANG MECHANISM, READ NOT GUESSED.  `CallExpression::bindArgs`
+// (`slang/source/ast/expressions/CallExpression.cpp:214-280`) walks the
+// FORMALS, not the written actuals: a formal with no written actual takes
+// `expr = formal->getDefaultValue()` (`:259`), and ANY bad argument sets
+// `bad |= expr->bad()` (`:277`).  `fromArgs` then mints the call and throws
+// the SHELL over it —
+//
+//     auto result = comp.emplace<CallExpression>(...);   // :316, syntax UNSET
+//     if (bad) return badExpr(comp, result);             // :318-319
+//
+// — and `badExpr` is `alloc.emplace<InvalidExpression>(expr, ErrorType)`
+// (`Expression.cpp:1609-1611`), which does not touch the child.  Back in
+// `Expression::create`, `result->syntax = &syntax` (`Expression.cpp:1002`)
+// stamps the `InvocationExpressionSyntax` on the SHELL.  So the call object
+// the emitter finally emits — § invalidShellKeepsStmtPos103 unwraps it —
+// carries `syntax == nullptr`, `writtenCallArgs16` falls back to
+// `call.arguments().size()`, and the callee's DEFAULTED FORMALS are appended
+// to the vpiArgument list as if they had been written.
+//
+// The shell's own syntax IS the call's invocation syntax.  This guard hands it
+// back, keyed on the EXACT child pointer so a nested syntax-less call inside an
+// argument can never read it, and every decoder below then answers exactly what
+// it would have answered had slang not wrapped the call.
+inline const slang::ast::Expression* shellCall167 = nullptr;
+inline const syntax::InvocationExpressionSyntax* shellInv167 = nullptr;
+
+struct ShellCallSyntax167 {
+    const slang::ast::Expression* pc;
+    const syntax::InvocationExpressionSyntax* pi;
+    ShellCallSyntax167(const slang::ast::Expression* c,
+                       const syntax::InvocationExpressionSyntax* i)
+        : pc(shellCall167), pi(shellInv167) {
+        if (c && i) {
+            shellCall167 = c;
+            shellInv167 = i;
+        }
+    }
+    ~ShellCallSyntax167() {
+        shellCall167 = pc;
+        shellInv167 = pi;
+    }
+};
+
+// The ONE accessor every written-argument decoder starts from.  Identical to
+// the expression it replaces whenever the call has a syntax node of its own.
+inline const syntax::InvocationExpressionSyntax* callInvocation167(
+    const CallExpression& call) {
+    if (call.syntax)
+        return call.syntax->as_if<syntax::InvocationExpressionSyntax>();
+    return (static_cast<const slang::ast::Expression*>(&call) == shellCall167)
+               ? shellInv167
+               : nullptr;
+}
+
 inline size_t writtenCallArgs16(const CallExpression& call) {
-    if (auto* isy = call.syntax
-                        ? call.syntax->as_if<syntax::InvocationExpressionSyntax>()
-                        : nullptr)
+    if (auto* isy = callInvocation167(call))
         return isy->arguments ? isy->arguments->parameters.size() : 0;
     return call.arguments().size();
 }
@@ -4554,9 +4612,9 @@ inline std::span<const Expression* const> writtenArgs16(
 // a named argument anywhere, or no empty slot at all.
 inline const syntax::ArgumentListSyntax* callArgList24(
     const CallExpression& call) {
-    auto* isy = call.syntax
-                    ? call.syntax->as_if<syntax::InvocationExpressionSyntax>()
-                    : nullptr;
+    // § shellCallKeepsItsSyntax167 — the same accessor, so an empty slot in a
+    // shell-wrapped call is read from the SAME list the count above reads.
+    auto* isy = callInvocation167(call);
     return isy ? isy->arguments : nullptr;
 }
 
@@ -4663,9 +4721,9 @@ inline bool writtenFormalIdx4(
 inline std::span<const Expression* const> writtenArgsInOrder4(
     const CallExpression& call, const slang::ast::SubroutineSymbol& sub,
     std::vector<const Expression*>& buf) {
-    auto* isy = call.syntax
-                    ? call.syntax->as_if<syntax::InvocationExpressionSyntax>()
-                    : nullptr;
+    // § shellCallKeepsItsSyntax167 — the same accessor, so a NAMED call inside
+    // a shell is remapped by the SAME rule as one outside it.
+    auto* isy = callInvocation167(call);
     if (!isy || !isy->arguments)
         return writtenArgs16(call);
     auto all = call.arguments();
@@ -4709,9 +4767,12 @@ inline bool namedTfSlots4(const CallExpression& call,
                           const slang::ast::SubroutineSymbol& sub,
                           std::vector<bool>& written) {
     written.clear();
-    auto* isy = call.syntax
-                    ? call.syntax->as_if<syntax::InvocationExpressionSyntax>()
-                    : nullptr;
+    // § shellCallKeepsItsSyntax167 — the same accessor.  A RECEIVER-LESS call
+    // written with NAMED association is the ONE face where golden lists an
+    // UNWRITTEN formal (one slot per formal, in formal order), so this decoder
+    // must see the shell's syntax too: without it a shelled named call would
+    // take the positional trim and go SHORT of golden.
+    auto* isy = callInvocation167(call);
     if (!isy || !isy->arguments)
         return false;
     auto formals = sub.getArguments();

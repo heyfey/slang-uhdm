@@ -1,0 +1,58 @@
+r10uvm167 — THE A-PRIORI PREDICTION, made from PRISTINE databases only
+(the pristine sweep + the Surelog goldens; the patched binary was not run).
+
+THE LAW'S BUCKET is a CALL CELL whose ARGUMENT VECTOR is LONGER in ours
+than in golden — the only bucket the filter can move — and its complement,
+GOLDEN-LONGER, is the AWAY column.  A cell whose golden and our COPY COUNT
+differ (the elaborated listing duplicates a body a different number of
+times) is a LISTING residue, not a vector one, and is excluded: the filter
+below keeps only cells where the two sides have the SAME number of copies.
+
+== SURELOG (956 databases, both modes) ==
+-- rows=956 skipped=617
+-- directions:
+      2 GOLDEN-LONGER
+  35272 ONESIDED
+    114 OURS-LONGER
+     36 SAME-TOTAL
+---- sl: TRUE VECTOR-SIZE cells, OURS LONGER (the law's bucket):
+         2  default/MiniAmiq-544c7f61
+         2  default/Scoreboard-59431470
+         2  default/SeqDriver-32af76aa
+         2  default/SimpleUVM-1dc93a62
+         2  testflags/MiniAmiq-544c7f61
+         2  testflags/SeqDriver-32af76aa
+         2  testflags/SimpleUVM-1dc93a62
+---- sl: TRUE VECTOR-SIZE cells, GOLDEN LONGER (the AWAY direction):
+       (none)
+---- sl: the cells, BY NAME (14):
+       OURS-LONGER    default/MiniAmiq-544c7f61      uvm_report_fatal@720:14-720:30  G=[5] O=[7]
+       OURS-LONGER    default/MiniAmiq-544c7f61      uvm_report_warning@725:14-725:32  G=[5] O=[7]
+       OURS-LONGER    default/Scoreboard-59431470    uvm_report_fatal@720:14-720:30  G=[5] O=[7]
+       OURS-LONGER    default/Scoreboard-59431470    uvm_report_warning@725:14-725:32  G=[5] O=[7]
+       OURS-LONGER    default/SeqDriver-32af76aa     uvm_report_fatal@720:14-720:30  G=[5] O=[7]
+       OURS-LONGER    default/SeqDriver-32af76aa     uvm_report_warning@725:14-725:32  G=[5] O=[7]
+       OURS-LONGER    default/SimpleUVM-1dc93a62     uvm_report_fatal@720:14-720:30  G=[5] O=[7]
+       OURS-LONGER    default/SimpleUVM-1dc93a62     uvm_report_warning@725:14-725:32  G=[5] O=[7]
+       OURS-LONGER    testflags/MiniAmiq-544c7f61    uvm_report_fatal@720:14-720:30  G=[5] O=[7]
+       OURS-LONGER    testflags/MiniAmiq-544c7f61    uvm_report_warning@725:14-725:32  G=[5] O=[7]
+       OURS-LONGER    testflags/SeqDriver-32af76aa   uvm_report_fatal@720:14-720:30  G=[5] O=[7]
+       OURS-LONGER    testflags/SeqDriver-32af76aa   uvm_report_warning@725:14-725:32  G=[5] O=[7]
+       OURS-LONGER    testflags/SimpleUVM-1dc93a62   uvm_report_fatal@720:14-720:30  G=[5] O=[7]
+       OURS-LONGER    testflags/SimpleUVM-1dc93a62   uvm_report_warning@725:14-725:32  G=[5] O=[7]
+
+---- u2r: the cells, BY NAME (0):
+       (none)
+
+
+== THE TWO GOLDEN-LONGER ROWS THE COPY-COUNT FILTER REMOVED, for the record ==
+testflags/Earlgrey_0_1-71da2fd7	GOLDEN-LONGER	sys_func_call|$warning|637:12-637:67|<module_inst:i_dm_csrs<module_inst:u_dm_top<module_inst:work@top_earlgrey|SPELL=none	G=[1, 1]	O=[1]
+testflags/Earlgrey_0_1-71da2fd7	GOLDEN-LONGER	sys_func_call|$warning|168:18-168:76|<module_inst:i_dm_sba<module_inst:u_dm_top<module_inst:work@top_earlgrey|SPELL=none	G=[1, 1]	O=[1]
+  (both are $warning SYSTEM calls listed TWICE by golden and ONCE by us — a
+   LISTING-count residue on a call kind this law never touches; Earlgrey_0_1
+   is byte-identical on the two binaries.)
+
+== PREDICTION vs MEASUREMENT ==
+  PREDICTED to move: default/{MiniAmiq,Scoreboard,SeqDriver,SimpleUVM},
+                     testflags/{MiniAmiq,SeqDriver,SimpleUVM}  = 7 databases, 14 cells
+  MEASURED movers  : the SAME 7 databases (byteverify SELFCHECK=1, 7/956), 0/1358 on uhdm2rtlil

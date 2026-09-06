@@ -1,0 +1,36 @@
+r10uvm167 — THE WIDE BOUNDARY GATE (bound167.sh, descended from bound166.sh).
+Run over a COPY of the WHOLE tools/probe tree — top level AND SUBDIRECTORIES —
+in BOTH views, on BOTH frozen binaries, children </dev/null, the file list on
+fd 3, PROCESSED asserted against LISTED, scratch keyed on the RELATIVE path.
+
+LISTED=4689 PROCESSED=4689 PRODUCED_DBS=4533 MOVED_ARMS=4 RC_DIFFS=0
+
+THE MOVED ARMS:
+r10uvm167repro/g167_a_shell.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm167repro/g167_b_spell.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm167repro/g167_c_homes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v103repro/arms/v103_c5_slots.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+THREE of the four are THIS PASS'S OWN GRID ARMS — the POSITIVE CONTROL that
+proves the gate can see — and the fourth, g167_d_decline.sv, is BYTE-IDENTICAL,
+which is exactly what it exists to be.
+
+THE ONE FOREIGN ARM: r10v103repro/arms/v103_c5_slots.sv, the verifier arm of
+§ invalidShellKeepsStmtPos103 — i.e. THIS LAW'S OWN POPULATION, a call inside a
+bad-expression shell with EMPTY ARGUMENT SLOTS.  Re-measured against a Surelog
+golden built for it, both views:
+  CALL  -- MOVED-TOWARD=2  MOVED-WRONG/AWAY=0  ORPHAN=0
+  ARG   -- MOVED-TOWARD=8  MOVED-WRONG/AWAY=2  ORPHAN=0
+  OBJ   -- MOVED-TOWARD=6  MOVED-WRONG/AWAY=0  ORPHAN=0
+  and THE JUDGE:
+  ARM                    VIEW  PRIS_LINES  PAT_LINES P_HEADS Q_HEADS
+  w_v103c5               def          176          0       1       0  rc=255/0
+  w_v103c5               elab         208          0       1       0  rc=255/0
+  -- SKIP-NOFILE=0
+
+  The arm goes from 176 (def) / 208 (elab) cmp lines to ZERO — CMP_EQUAL to
+  golden in BOTH VIEWS.  The two ARG cells scored WRONG are an elaborated-view
+  COPY-COUNT residue (golden lists E2's slots once, our elab listing twice) that
+  the judge does not reach; their CONTENT is golden's, slot for slot:
+    WRONG    G=1 A=0 B=2  ARG|elab|method_func_call|p3|15:28-15:30|<function:E2<class_defn:Sl8<package:Pc8|#0|constant|15:34-15:34|0
+    WRONG    G=1 A=0 B=2  ARG|elab|method_func_call|p3|15:28-15:30|<function:E2<class_defn:Sl8<package:Pc8|#1|hier_path|15:36-15:47|-

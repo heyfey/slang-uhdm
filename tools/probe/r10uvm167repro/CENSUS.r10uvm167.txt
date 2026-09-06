@@ -1,0 +1,73 @@
+r10uvm167 — THE FAMILY CENSUS (nine UVM row-modes; Scoreboard/testflags has no golden).
+MEASUREMENT ONLY.  LHS golden, A = pristine, B = patched.
+== rows ==
+ROW default/SeqDriver-32af76aa
+ROW testflags/SeqDriver-32af76aa
+ROW default/SimpleUVM-1dc93a62
+ROW testflags/SimpleUVM-1dc93a62
+ROW default/Scoreboard-59431470
+SKIP-NOFILE testflags/Scoreboard-59431470 g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm
+ROW default/MiniAmiq-544c7f61
+ROW testflags/MiniAmiq-544c7f61
+ROW default/BuildUVMPkg-bf853d43
+ROW testflags/BuildUVMPkg-bf853d43
+== family CALL ==
+TOWARD   14
+RESHAPE-TOWARD 0
+AWAY     0
+RESHAPE-AWAY 0
+WRONG    0
+ORPHAN   0
+STILL    160202
+  TOWARD   G=(1, (('N=5', 1),)) A=(1, (('N=7', 1),)) B=(1, (('N=5', 1),))  CALL|default.MiniAmiq-544c7f61|method_func_call|uvm_report_fatal|720:14-720:30|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|SPELL=ref_obj
+  TOWARD   G=(1, (('N=5', 1),)) A=(1, (('N=7', 1),)) B=(1, (('N=5', 1),))  CALL|default.MiniAmiq-544c7f61|method_func_call|uvm_report_warning|725:14-725:32|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|SPELL=ref_obj
+  TOWARD   G=(1, (('N=5', 1),)) A=(1, (('N=7', 1),)) B=(1, (('N=5', 1),))  CALL|default.Scoreboard-59431470|method_func_call|uvm_report_fatal|720:14-720:30|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|SPELL=ref_obj
+  TOWARD   G=(1, (('N=5', 1),)) A=(1, (('N=7', 1),)) B=(1, (('N=5', 1),))  CALL|default.Scoreboard-59431470|method_func_call|uvm_report_warning|725:14-725:32|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|SPELL=ref_obj
+  TOWARD   G=(1, (('N=5', 1),)) A=(1, (('N=7', 1),)) B=(1, (('N=5', 1),))  CALL|default.SeqDriver-32af76aa|method_func_call|uvm_report_fatal|720:14-720:30|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|SPELL=ref_obj
+  TOWARD   G=(1, (('N=5', 1),)) A=(1, (('N=7', 1),)) B=(1, (('N=5', 1),))  CALL|default.SeqDriver-32af76aa|method_func_call|uvm_report_warning|725:14-725:32|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|SPELL=ref_obj
+  TOWARD   G=(1, (('N=5', 1),)) A=(1, (('N=7', 1),)) B=(1, (('N=5', 1),))  CALL|default.SimpleUVM-1dc93a62|method_func_call|uvm_report_fatal|720:14-720:30|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|SPELL=ref_obj
+  TOWARD   G=(1, (('N=5', 1),)) A=(1, (('N=7', 1),)) B=(1, (('N=5', 1),))  CALL|default.SimpleUVM-1dc93a62|method_func_call|uvm_report_warning|725:14-725:32|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|SPELL=ref_obj
+  TOWARD   G=(1, (('N=5', 1),)) A=(1, (('N=7', 1),)) B=(1, (('N=5', 1),))  CALL|testflags.MiniAmiq-544c7f61|method_func_call|uvm_report_fatal|720:14-720:30|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|SPELL=ref_obj
+  TOWARD   G=(1, (('N=5', 1),)) A=(1, (('N=7', 1),)) B=(1, (('N=5', 1),))  CALL|testflags.MiniAmiq-544c7f61|method_func_call|uvm_report_warning|725:14-725:32|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|SPELL=ref_obj
+  TOWARD   G=(1, (('N=5', 1),)) A=(1, (('N=7', 1),)) B=(1, (('N=5', 1),))  CALL|testflags.SeqDriver-32af76aa|method_func_call|uvm_report_fatal|720:14-720:30|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|SPELL=ref_obj
+  TOWARD   G=(1, (('N=5', 1),)) A=(1, (('N=7', 1),)) B=(1, (('N=5', 1),))  CALL|testflags.SeqDriver-32af76aa|method_func_call|uvm_report_warning|725:14-725:32|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|SPELL=ref_obj
+  TOWARD   G=(1, (('N=5', 1),)) A=(1, (('N=7', 1),)) B=(1, (('N=5', 1),))  CALL|testflags.SimpleUVM-1dc93a62|method_func_call|uvm_report_fatal|720:14-720:30|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|SPELL=ref_obj
+  TOWARD   G=(1, (('N=5', 1),)) A=(1, (('N=7', 1),)) B=(1, (('N=5', 1),))  CALL|testflags.SimpleUVM-1dc93a62|method_func_call|uvm_report_warning|725:14-725:32|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|SPELL=ref_obj
+-- MOVED-TOWARD=14  MOVED-WRONG/AWAY=0  ORPHAN=0
+== family ARG ==
+TOWARD   28
+RESHAPE-TOWARD 0
+AWAY     0
+RESHAPE-AWAY 0
+WRONG    0
+ORPHAN   0
+STILL    322094
+  TOWARD   G=0 A=1 B=0  ARG|default.MiniAmiq-544c7f61|method_func_call|uvm_report_fatal|720:14-720:30|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|#5|constant|236:33-236:35|""
+  TOWARD   G=0 A=1 B=0  ARG|default.MiniAmiq-544c7f61|method_func_call|uvm_report_fatal|720:14-720:30|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|#6|constant|237:37-237:38|0
+  TOWARD   G=0 A=1 B=0  ARG|default.MiniAmiq-544c7f61|method_func_call|uvm_report_warning|725:14-725:32|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|#5|constant|171:36-171:38|""
+  TOWARD   G=0 A=1 B=0  ARG|default.MiniAmiq-544c7f61|method_func_call|uvm_report_warning|725:14-725:32|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|#6|constant|172:39-172:40|0
+  TOWARD   G=0 A=1 B=0  ARG|default.Scoreboard-59431470|method_func_call|uvm_report_fatal|720:14-720:30|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|#5|constant|236:33-236:35|""
+  TOWARD   G=0 A=1 B=0  ARG|default.Scoreboard-59431470|method_func_call|uvm_report_fatal|720:14-720:30|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|#6|constant|237:37-237:38|0
+  TOWARD   G=0 A=1 B=0  ARG|default.Scoreboard-59431470|method_func_call|uvm_report_warning|725:14-725:32|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|#5|constant|171:36-171:38|""
+  TOWARD   G=0 A=1 B=0  ARG|default.Scoreboard-59431470|method_func_call|uvm_report_warning|725:14-725:32|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|#6|constant|172:39-172:40|0
+  TOWARD   G=0 A=1 B=0  ARG|default.SeqDriver-32af76aa|method_func_call|uvm_report_fatal|720:14-720:30|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|#5|constant|236:33-236:35|""
+  TOWARD   G=0 A=1 B=0  ARG|default.SeqDriver-32af76aa|method_func_call|uvm_report_fatal|720:14-720:30|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|#6|constant|237:37-237:38|0
+  TOWARD   G=0 A=1 B=0  ARG|default.SeqDriver-32af76aa|method_func_call|uvm_report_warning|725:14-725:32|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|#5|constant|171:36-171:38|""
+  TOWARD   G=0 A=1 B=0  ARG|default.SeqDriver-32af76aa|method_func_call|uvm_report_warning|725:14-725:32|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|#6|constant|172:39-172:40|0
+  TOWARD   G=0 A=1 B=0  ARG|default.SimpleUVM-1dc93a62|method_func_call|uvm_report_fatal|720:14-720:30|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|#5|constant|236:33-236:35|""
+  TOWARD   G=0 A=1 B=0  ARG|default.SimpleUVM-1dc93a62|method_func_call|uvm_report_fatal|720:14-720:30|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|#6|constant|237:37-237:38|0
+  TOWARD   G=0 A=1 B=0  ARG|default.SimpleUVM-1dc93a62|method_func_call|uvm_report_warning|725:14-725:32|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|#5|constant|171:36-171:38|""
+  TOWARD   G=0 A=1 B=0  ARG|default.SimpleUVM-1dc93a62|method_func_call|uvm_report_warning|725:14-725:32|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|#6|constant|172:39-172:40|0
+  TOWARD   G=0 A=1 B=0  ARG|testflags.MiniAmiq-544c7f61|method_func_call|uvm_report_fatal|720:14-720:30|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|#5|constant|236:33-236:35|""
+  TOWARD   G=0 A=1 B=0  ARG|testflags.MiniAmiq-544c7f61|method_func_call|uvm_report_fatal|720:14-720:30|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|#6|constant|237:37-237:38|0
+  TOWARD   G=0 A=1 B=0  ARG|testflags.MiniAmiq-544c7f61|method_func_call|uvm_report_warning|725:14-725:32|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|#5|constant|171:36-171:38|""
+  TOWARD   G=0 A=1 B=0  ARG|testflags.MiniAmiq-544c7f61|method_func_call|uvm_report_warning|725:14-725:32|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|#6|constant|172:39-172:40|0
+  TOWARD   G=0 A=1 B=0  ARG|testflags.SeqDriver-32af76aa|method_func_call|uvm_report_fatal|720:14-720:30|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|#5|constant|236:33-236:35|""
+  TOWARD   G=0 A=1 B=0  ARG|testflags.SeqDriver-32af76aa|method_func_call|uvm_report_fatal|720:14-720:30|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|#6|constant|237:37-237:38|0
+  TOWARD   G=0 A=1 B=0  ARG|testflags.SeqDriver-32af76aa|method_func_call|uvm_report_warning|725:14-725:32|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|#5|constant|171:36-171:38|""
+  TOWARD   G=0 A=1 B=0  ARG|testflags.SeqDriver-32af76aa|method_func_call|uvm_report_warning|725:14-725:32|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|#6|constant|172:39-172:40|0
+  TOWARD   G=0 A=1 B=0  ARG|testflags.SimpleUVM-1dc93a62|method_func_call|uvm_report_fatal|720:14-720:30|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|#5|constant|236:33-236:35|""
+  TOWARD   G=0 A=1 B=0  ARG|testflags.SimpleUVM-1dc93a62|method_func_call|uvm_report_fatal|720:14-720:30|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|#6|constant|237:37-237:38|0
+  TOWARD   G=0 A=1 B=0  ARG|testflags.SimpleUVM-1dc93a62|method_func_call|uvm_report_warning|725:14-725:32|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|#5|constant|171:36-171:38|""
+  TOWARD   G=0 A=1 B=0  ARG|testflags.SimpleUVM-1dc93a62|method_func_call|uvm_report_warning|725:14-725:32|<function:get_config<class_defn:uvm_utils<package:uvm_pkg|#6|constant|172:39-172:40|0
+-- MOVED-TOWARD=28  MOVED-WRONG/AWAY=0  ORPHAN=0

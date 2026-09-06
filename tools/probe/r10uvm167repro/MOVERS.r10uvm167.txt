@@ -1,0 +1,110 @@
+r10uvm167 — MOVER ATTRIBUTION, ORDER-BLIND (attrib167.sh).
+Both databases dumped with uhdm-dump, the WORKDIR PATH normalised away
+(dump paths embed it), both sides SORTED before the diff — RESUME §9's
+requirement, because default/Scoreboard is a ~50/50 COIN (~92 dump lines
+of svunit_pkg vpiTaskFunc order) that a raw diff cannot separate from a law.
+
+== default/MiniAmiq-544c7f61  pristine=1890653 patched=1890623 lines
+== order-blind differing lines: 30
+      4 <                   |vpiParent:
+      4 <                   |vpiConstType:N
+      4 <                 |vpiArgument:
+      4 <                 \_constant: , line:N:N, endln:N:N
+      2 <                   |vpiSize:N
+      2 <                   |vpiDecompile:N
+      2 <                   |vpiDecompile:""
+      2 <                   |UINT:N
+      2 <                   |STRING:
+      2 <                   \_method_func_call: (uvm_report_warning), line:N:N, endln:N:N
+      2 <                   \_method_func_call: (uvm_report_fatal), line:N:N, endln:N:N
+
+== default/Scoreboard-59431470  pristine=1100372 patched=1100342 lines
+== order-blind differing lines: 30
+      4 <                   |vpiParent:
+      4 <                   |vpiConstType:N
+      4 <                 |vpiArgument:
+      4 <                 \_constant: , line:N:N, endln:N:N
+      2 <                   |vpiSize:N
+      2 <                   |vpiDecompile:N
+      2 <                   |vpiDecompile:""
+      2 <                   |UINT:N
+      2 <                   |STRING:
+      2 <                   \_method_func_call: (uvm_report_warning), line:N:N, endln:N:N
+      2 <                   \_method_func_call: (uvm_report_fatal), line:N:N, endln:N:N
+
+== default/SeqDriver-32af76aa  pristine=1816172 patched=1816142 lines
+== order-blind differing lines: 30
+      4 <                   |vpiParent:
+      4 <                   |vpiConstType:N
+      4 <                 |vpiArgument:
+      4 <                 \_constant: , line:N:N, endln:N:N
+      2 <                   |vpiSize:N
+      2 <                   |vpiDecompile:N
+      2 <                   |vpiDecompile:""
+      2 <                   |UINT:N
+      2 <                   |STRING:
+      2 <                   \_method_func_call: (uvm_report_warning), line:N:N, endln:N:N
+      2 <                   \_method_func_call: (uvm_report_fatal), line:N:N, endln:N:N
+
+== default/SimpleUVM-1dc93a62  pristine=1103812 patched=1103782 lines
+== order-blind differing lines: 30
+      4 <                   |vpiParent:
+      4 <                   |vpiConstType:N
+      4 <                 |vpiArgument:
+      4 <                 \_constant: , line:N:N, endln:N:N
+      2 <                   |vpiSize:N
+      2 <                   |vpiDecompile:N
+      2 <                   |vpiDecompile:""
+      2 <                   |UINT:N
+      2 <                   |STRING:
+      2 <                   \_method_func_call: (uvm_report_warning), line:N:N, endln:N:N
+      2 <                   \_method_func_call: (uvm_report_fatal), line:N:N, endln:N:N
+
+== testflags/MiniAmiq-544c7f61  pristine=1890653 patched=1890623 lines
+== order-blind differing lines: 30
+      4 <                   |vpiParent:
+      4 <                   |vpiConstType:N
+      4 <                 |vpiArgument:
+      4 <                 \_constant: , line:N:N, endln:N:N
+      2 <                   |vpiSize:N
+      2 <                   |vpiDecompile:N
+      2 <                   |vpiDecompile:""
+      2 <                   |UINT:N
+      2 <                   |STRING:
+      2 <                   \_method_func_call: (uvm_report_warning), line:N:N, endln:N:N
+      2 <                   \_method_func_call: (uvm_report_fatal), line:N:N, endln:N:N
+
+== testflags/SeqDriver-32af76aa  pristine=1816232 patched=1816202 lines
+== order-blind differing lines: 30
+      4 <                   |vpiParent:
+      4 <                   |vpiConstType:N
+      4 <                 |vpiArgument:
+      4 <                 \_constant: , line:N:N, endln:N:N
+      2 <                   |vpiSize:N
+      2 <                   |vpiDecompile:N
+      2 <                   |vpiDecompile:""
+      2 <                   |UINT:N
+      2 <                   |STRING:
+      2 <                   \_method_func_call: (uvm_report_warning), line:N:N, endln:N:N
+      2 <                   \_method_func_call: (uvm_report_fatal), line:N:N, endln:N:N
+
+== testflags/SimpleUVM-1dc93a62  pristine=1103872 patched=1103842 lines
+== order-blind differing lines: 30
+      4 <                   |vpiParent:
+      4 <                   |vpiConstType:N
+      4 <                 |vpiArgument:
+      4 <                 \_constant: , line:N:N, endln:N:N
+      2 <                   |vpiSize:N
+      2 <                   |vpiDecompile:N
+      2 <                   |vpiDecompile:""
+      2 <                   |UINT:N
+      2 <                   |STRING:
+      2 <                   \_method_func_call: (uvm_report_warning), line:N:N, endln:N:N
+      2 <                   \_method_func_call: (uvm_report_fatal), line:N:N, endln:N:N
+
+EVERY mover: 30 differing lines, EVERY ONE a DELETION ('<'), and every one
+inside the two calls the census named — the four defaulted-formal constants
+(2 per call x 2 calls) with their vpiParent / vpiArgument / vpiDecompile /
+value / vpiConstType lines.  NOT ONE LINE OUTSIDE THE LAW.
+default/Scoreboard is the COIN and it did not land this run: its 30 lines
+are this law's 30 and nothing else.
