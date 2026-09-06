@@ -1,0 +1,19 @@
+CAND default/BuildUVMPkg-bf853d43 14
+CAND default/CarryAdd-6c706196 2
+CAND default/Earlgrey_0_1-71da2fd7 35
+CAND default/GenScopeHierPath3-0764c28e 3
+CAND default/MiniAmiq-544c7f61 13
+CAND default/Rggen-50ccbd70 46
+CAND default/Scoreboard-59431470 13
+CAND default/Scr1SvTests-b87ba20c 4
+CAND default/SeqDriver-32af76aa 13
+CAND default/SimpleUVM-1dc93a62 13
+CAND testflags/BuildUVMPkg-bf853d43 14
+CAND testflags/CarryAdd-6c706196 2
+CAND testflags/Earlgrey_0_1-71da2fd7 35
+CAND testflags/GenScopeHierPath3-0764c28e 3
+CAND testflags/MiniAmiq-544c7f61 13
+CAND testflags/Scr1SvTests-b87ba20c 4
+CAND testflags/SeqDriver-32af76aa 13
+CAND testflags/SimpleUVM-1dc93a62 13
+-- scanned=956 CAND=18 CENFAIL=0

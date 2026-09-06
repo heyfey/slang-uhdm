@@ -1,0 +1,60 @@
+v6_away plain SLRC=0 PRC=0 ARC=0 cmp_pris=30 cmp_patch=30
+  AWAY        29:25-29:52|bit_select:chan,indexed_part_select:fld,
+      G ['chan[z].fld[0+:8 - INNER]']
+      P ['chan[z].fld[0+:8 - INNER]']
+      A ['chan[z].fld[0+:8 - 4]', 'chan[z].fld[0+:8 - INNER]']
+  AWAY        31:25-31:52|bit_select:chan,indexed_part_select:fld,
+      G ['chan[z].fld[8 - INNER-:3]']
+      P ['chan[z].fld[8 - INNER-:3]']
+      A ['chan[z].fld[8 - 4-:3]', 'chan[z].fld[8 - INNER-:3]']
+  AWAY        33:25-33:52|bit_select:chan,indexed_part_select:fld,
+      G ['chan[z].fld[0+:2 * INNER]']
+      P ['chan[z].fld[0+:2 * INNER]']
+      A ['chan[z].fld[0+:2 * 4]', 'chan[z].fld[0+:2 * INNER]']
+  MOVEDWRONG  35:25-35:54|bit_select:chan,indexed_part_select:fld,
+      G ['chan[z].fld[0+:9 - INNER]', 'chan[z].fld[0+:MOD - INNER]']
+      P ['chan[z].fld[0+:MOD - INNER]']
+      A ['chan[z].fld[0+:9 - 4]', 'chan[z].fld[0+:MOD - INNER]']
+  TOGOLD      37:25-37:50|bit_select:chan,indexed_part_select:fld,
+      G ['chan[z].fld[0+:9 - 5]', 'chan[z].fld[0+:MOD - 5]']
+      P ['chan[z].fld[0+:MOD - 5]']
+      A ['chan[z].fld[0+:9 - 5]', 'chan[z].fld[0+:MOD - 5]']
+  STILLWRONG  41:25-41:46|bit_select:chan,indexed_part_select:fld,
+      G ['chan[z].fld[0+:INNER]']
+      P ['chan[z].fld[0+:4]', 'chan[z].fld[0+:INNER]']
+      A ['chan[z].fld[0+:4]', 'chan[z].fld[0+:INNER]']
+  TOGOLD      43:25-43:50|bit_select:chan,indexed_part_select:fld,
+      G ['chan[0].fld[0+:9 - 0]', 'chan[0].fld[0+:MOD - 0]']
+      P ['chan[0].fld[0+:MOD - 0]']
+      A ['chan[0].fld[0+:9 - 0]', 'chan[0].fld[0+:MOD - 0]']
+  TALLY[v6_away_plain] SAME_AGREE=1 TOGOLD=2 AWAY=3 MOVEDWRONG=1 STILLWRONG=1 ONESIDED=0
+v6_away elab SLRC=0 PRC=0 ARC=0 cmp_pris=30 cmp_patch=30
+  AWAY        29:25-29:52|bit_select:chan,indexed_part_select:fld,
+      G ['chan[z].fld[0+:8 - INNER]']
+      P ['chan[z].fld[0+:8 - INNER]']
+      A ['chan[z].fld[0+:8 - 4]', 'chan[z].fld[0+:8 - INNER]']
+  AWAY        31:25-31:52|bit_select:chan,indexed_part_select:fld,
+      G ['chan[z].fld[8 - INNER-:3]']
+      P ['chan[z].fld[8 - INNER-:3]']
+      A ['chan[z].fld[8 - 4-:3]', 'chan[z].fld[8 - INNER-:3]']
+  AWAY        33:25-33:52|bit_select:chan,indexed_part_select:fld,
+      G ['chan[z].fld[0+:2 * INNER]']
+      P ['chan[z].fld[0+:2 * INNER]']
+      A ['chan[z].fld[0+:2 * 4]', 'chan[z].fld[0+:2 * INNER]']
+  MOVEDWRONG  35:25-35:54|bit_select:chan,indexed_part_select:fld,
+      G ['chan[z].fld[0+:9 - INNER]', 'chan[z].fld[0+:MOD - INNER]']
+      P ['chan[z].fld[0+:MOD - INNER]']
+      A ['chan[z].fld[0+:9 - 4]', 'chan[z].fld[0+:MOD - INNER]']
+  TOGOLD      37:25-37:50|bit_select:chan,indexed_part_select:fld,
+      G ['chan[z].fld[0+:9 - 5]', 'chan[z].fld[0+:MOD - 5]']
+      P ['chan[z].fld[0+:MOD - 5]']
+      A ['chan[z].fld[0+:9 - 5]', 'chan[z].fld[0+:MOD - 5]']
+  STILLWRONG  41:25-41:46|bit_select:chan,indexed_part_select:fld,
+      G ['chan[z].fld[0+:INNER]']
+      P ['chan[z].fld[0+:4]', 'chan[z].fld[0+:INNER]']
+      A ['chan[z].fld[0+:4]', 'chan[z].fld[0+:INNER]']
+  TOGOLD      43:25-43:50|bit_select:chan,indexed_part_select:fld,
+      G ['chan[0].fld[0+:9 - 0]', 'chan[0].fld[0+:MOD - 0]']
+      P ['chan[0].fld[0+:MOD - 0]']
+      A ['chan[0].fld[0+:9 - 0]', 'chan[0].fld[0+:MOD - 0]']
+  TALLY[v6_away_elab] SAME_AGREE=1 TOGOLD=2 AWAY=3 MOVEDWRONG=1 STILLWRONG=1 ONESIDED=0

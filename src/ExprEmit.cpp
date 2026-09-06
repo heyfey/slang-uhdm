@@ -28178,6 +28178,270 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             rs.getSelectionKind() == RangeSelectionKind::Simple
                                 ? SelWidthFold{}
                                 : selWidthParamFold(rs.right());
+                        // § hpSelHalfOpParamFold110 — an ARITHMETIC half of an
+                        // indexed part-select renders its PARAMETER LEAVES at
+                        // their values while the OPERATOR SURVIVES.
+                        //
+                        // Decoded from Surelog, not inferred.  A hier_path's
+                        // VpiName is composed in `compileSelectExpression`
+                        // (CompileExpression.cpp:1477-1485): the select object
+                        // is built by `compilePartSelectRange` (:4227) and the
+                        // name is IMMEDIATELY appended as
+                        // `decompileHelper(sel)` (CompileHelper.cpp:2544),
+                        // whose indexed_part_select row is
+                        //     "[" + dh(Base_expr) + ('+'|'-') + ":"
+                        //         + dh(Width_expr) + "]"
+                        // and whose `operation` row is `ExprEval::prettyPrint`
+                        // — which prints a binary operation as
+                        // `op0 " " token " " op1` (ExprEval.cpp:1081-1087) and
+                        // has NO parenthesis node at all.
+                        //
+                        // `compilePartSelectRange` compiles BOTH halves with
+                        // the caller's `reduce`, so in the ELABORATED view each
+                        // half's parameter LEAVES come back as `constant`s —
+                        // but it only calls `reduceExpr` on the select when
+                        // BOTH halves are ALREADY constants.  A half that is an
+                        // OPERATION therefore survives the name composition
+                        // UNFOLDED, and the name is written from
+                        // `prettyPrint(operation)` over its folded leaves.
+                        // UHDM's post-export ElaboratorContext/UhdmAdjuster
+                        // later replaces that operation with the folded
+                        // constant and never re-renders the name — which is
+                        // why golden's stored Width_expr at the head is the
+                        // `vpiIntConst` 6 while its NAME still says `8 - 2`.
+                        // (That is r10uvm94's measured "fossil" class: every
+                        // one of its 380 name/object disagreements carries a
+                        // constType-7 half.  A transcription off the FINAL
+                        // tree cannot reach them; an emitter that renders the
+                        // half from the SOURCE tree with folded leaves can.)
+                        //
+                        // Measured cells, Earlgrey_0_1 tlul_socket_m1.sv:
+                        //   :97  `tl_h_i[i].a_source[0+:(IDW-STIDW)]`
+                        //        golden `[0+:8 - 1]` / `[0+:8 - 2]`  (WIDTH)
+                        //   :105 `tl_h_i[i].a_source[IDW-1 -: STIDW]`
+                        //        golden `[8 - 1-:1]` / `[8 - 1-:2]`  (BASE)
+                        // The DEF-view copy of the same two paths keeps the
+                        // IDENTIFIERS on BOTH sides (`[0+:IDW - STIDW]`,
+                        // `[IDW - 1-:STIDW]`, one object each) because Surelog
+                        // compiles the definition with Reduce::No — and this
+                        // site is the ELABORATED builder, so the DEF copy
+                        // (TypeEmit.cpp's § hpSelParenStrip) never enters here.
+                        //
+                        // THE GATE is the TIGHT direction and fail-closed: the
+                        // half must be ONE binary `+`/`-`/`*`/`/` — the same
+                        // four operators `spaceOps9` already spaces here — over
+                        // TWO LEAVES, each either an integer literal (rendered
+                        // from its own written text, so a based literal is
+                        // never re-spelled in decimal) or a parameter read that
+                        // passes `selWidthParamFold`'s OWN symbol test
+                        // (§ hierSelWidthOvParamNoFold: a localparam or a
+                        // package parameter folds; an OVERRIDABLE module
+                        // parameter does NOT, because at definition-compile
+                        // time it has no settled value).  At least one leaf
+                        // must actually fold, so a half with no parameter in it
+                        // returns `ok=false` and the pre-existing rendering
+                        // runs BYTE FOR BYTE.
+                        std::function<bool(const Expression&, std::string&, bool&)>
+                            renderHalf110 = [&](const Expression& h110,
+                                                std::string& out110,
+                                                bool& folded110) -> bool {
+                            auto& hs110 = stripImplicitConv(h110);
+                            // LEAF 1 -- an integer literal renders from its OWN
+                            // WRITTEN TEXT, never re-spelled: golden's
+                            // `[0+:9 - 4'd3]` keeps the based literal (arm g2
+                            // cell f9).
+                            if (hs110.kind == ExpressionKind::IntegerLiteral) {
+                                out110 = selName(
+                                    std::string(rawText(hs110.sourceRange)));
+                                return !out110.empty();
+                            }
+                            // LEAF 2 -- a parameter read renders at its VALUE,
+                            // through `selWidthParamFold`'s OWN symbol test.
+                            // A GENVAR-derived parameter is EXCLUDED: golden
+                            // keeps the genvar SPELLED in a path name
+                            // (§ hpNameBareIdxFold69's own measured note, and
+                            // arm g2 cell fb: `chan[z].fld[z * LCB+:4]` reads
+                            // `[z * 3+:4]` -- the localparam folds, `z` does
+                            // not).  `isFromGenvar` is the same distinguisher
+                            // § hpConnElemIdxFold17 already uses.
+                            if (hs110.kind == ExpressionKind::NamedValue) {
+                                auto& sy110 =
+                                    hs110.as<NamedValueExpression>().symbol;
+                                if (sy110.kind == SymbolKind::Parameter &&
+                                    sy110.as<ParameterSymbol>().isFromGenvar()) {
+                                    out110 = selName(std::string(
+                                        rawText(hs110.sourceRange)));
+                                    return !out110.empty();
+                                }
+                                // r10v110 — A PARAMETER DECLARED INSIDE THE
+                                // GENERATE BLOCK IS SPELLED, NOT FOLDED, exactly
+                                // like the genvar one line up.  Surelog composes
+                                // this name while it is elaborating that very
+                                // generate scope, so a parameter LOCAL to the
+                                // scope has no settled value to print yet and
+                                // `prettyPrint` falls back to its name, while a
+                                // MODULE-scope or PACKAGE-scope parameter — which
+                                // was elaborated before the scope was entered —
+                                // prints its value.
+                                //
+                                // MEASURED, arm `v6_away`, both views, golden
+                                // `-elabuhdm` and `-parse` alike, with
+                                // `localparam int unsigned INNER = 4` declared in
+                                // the `for` body and `MOD = 9` at module scope:
+                                //   [0+:(8 - INNER)]   golden `8 - INNER`
+                                //   [(8 - INNER)-:3]   golden `8 - INNER-:3`
+                                //   [0+:(2 * INNER)]   golden `2 * INNER`
+                                //   [0+:(MOD - INNER)] golden `9 - INNER`
+                                // Without this test the first three are an AWAY:
+                                // the source text ALREADY equals what golden
+                                // renders, so the PRISTINE binary was RIGHT there
+                                // and folding `INNER` makes it wrong.  (The same
+                                // distinguisher is missing one level down in
+                                // § elabHierSelWidthFold, which folds a BARE
+                                // gen-block-local width — a PRE-EXISTING defect
+                                // this pass does not touch; see the verifier's
+                                // residue V-R1.)
+                                bool genLocal110 = false;
+                                for (auto sc110 = sy110.getParentScope(); sc110;
+                                     sc110 = sc110->asSymbol().getParentScope()) {
+                                    auto k110 = sc110->asSymbol().kind;
+                                    if (k110 == SymbolKind::GenerateBlock ||
+                                        k110 == SymbolKind::GenerateBlockArray) {
+                                        genLocal110 = true;
+                                        break;
+                                    }
+                                    if (k110 == SymbolKind::InstanceBody ||
+                                        k110 == SymbolKind::Package ||
+                                        k110 == SymbolKind::CompilationUnit ||
+                                        k110 == SymbolKind::Subroutine)
+                                        break;
+                                }
+                                if (genLocal110) {
+                                    out110 = selName(std::string(
+                                        rawText(hs110.sourceRange)));
+                                    return !out110.empty();
+                                }
+                                SelWidthFold lf110 = selWidthParamFold(hs110);
+                                if (!lf110.ok)
+                                    return false;
+                                out110 = lf110.text;
+                                folded110 = true;
+                                return true;
+                            }
+                            // NODE -- one of the four binary operators
+                            // `spaceOps9` already spaces here, rendered exactly
+                            // as `ExprEval::prettyPrint` renders a binary
+                            // operation: `op0 " " token " " op1`, and with NO
+                            // parenthesis node, so every parenthesis written in
+                            // the source disappears (§ hpSelParenStrip's
+                            // measured rule, one level down).
+                            if (hs110.kind != ExpressionKind::BinaryOp)
+                                return false;
+                            auto& be110 = hs110.as<BinaryExpression>();
+                            const char* tok110 = nullptr;
+                            switch (be110.op) {
+                                case BinaryOperator::Add: tok110 = "+"; break;
+                                case BinaryOperator::Subtract: tok110 = "-"; break;
+                                case BinaryOperator::Multiply: tok110 = "*"; break;
+                                case BinaryOperator::Divide: tok110 = "/"; break;
+                                default: return false;
+                            }
+                            std::string l110, r110s;
+                            if (!renderHalf110(be110.left(), l110, folded110) ||
+                                !renderHalf110(be110.right(), r110s, folded110))
+                                return false;
+                            out110 = l110 + " " + tok110 + " " + r110s;
+                            return true;
+                        };
+                        // THE SCOPE GATE, measured on arm g6 one axis at a
+                        // time and NOT assumed.  Surelog folds a select half's
+                        // parameter leaves ONLY where the select sits inside
+                        // EXACTLY ONE level of generate scope:
+                        //   g6 v0  module body, no generate      -> SYMBOLIC
+                        //   g6 v1  for-generate, param bound     -> FOLDED
+                        //   g6 v2  for-generate, const receiver  -> FOLDED
+                        //   g6 v3  for-generate, literal bound 3 -> FOLDED
+                        //   g6 v4  for-generate, ONE iteration   -> FOLDED
+                        //   g6 v5  one iteration, genvar receiver-> FOLDED
+                        //   g6 v6  one for level                 -> FOLDED
+                        //   g6 v7  TWO for levels                -> SYMBOLIC
+                        //   g6 v8  if-generate                   -> FOLDED
+                        //   g6 v9  if INSIDE a for               -> SYMBOLIC
+                        // and arm g3's homes agree cell for cell (always_comb,
+                        // initial, always_ff, a function body and a plain
+                        // module-scope assign all stay SYMBOLIC; only its
+                        // single if-generate folds).  So the axis is neither
+                        // "elaborated", nor "for versus if", nor the loop
+                        // bound, nor the receiver's index -- it is the DEPTH of
+                        // the generate nesting, and only depth 1 folds.  The
+                        // depth is read off the UHDM PARENT CHAIN of the object
+                        // this path is being attached to, which is where the
+                        // path actually lands, rather than off `currentScope`
+                        // (RESUME.md section 9: `currentScope` is STALE
+                        // throughout `emitInstance`).
+                        auto genDepth110 = [](const UHDM::any* p110) -> int {
+                            int d110 = 0;
+                            for (const UHDM::any* w110 = p110; w110;
+                                 w110 = w110->VpiParent()) {
+                                UHDM::UHDM_OBJECT_TYPE t110 = w110->UhdmType();
+                                if (t110 == UHDM::uhdmgen_scope) {
+                                    d110++;
+                                    if (d110 > 1)
+                                        return d110;
+                                }
+                                else if (t110 == UHDM::uhdmmodule_inst ||
+                                         t110 == UHDM::uhdminterface_inst ||
+                                         t110 == UHDM::uhdmpackage ||
+                                         t110 == UHDM::uhdmclass_defn ||
+                                         t110 == UHDM::uhdmprogram)
+                                    break;
+                            }
+                            return d110;
+                        };
+                        const bool genScope110 = genDepth110(parent) == 1;
+                        auto halfOpFold110 =
+                            [&](const Expression& h) -> SelWidthFold {
+                            SelWidthFold r110;
+                            if (!genScope110)
+                                return r110;
+                            // The half must be an OPERATION: a bare leaf is
+                            // § elabHierSelWidthFold's business, not this law's,
+                            // and re-deciding it here could only disagree with
+                            // it.
+                            if (stripImplicitConv(h).kind != ExpressionKind::BinaryOp)
+                                return r110;
+                            std::string t110;
+                            bool folded110 = false;
+                            if (!renderHalf110(h, t110, folded110) || !folded110)
+                                return r110;
+                            r110.ok = true;
+                            r110.text = t110;
+                            return r110;
+                        };
+                        const bool idxSel110 =
+                            rs.getSelectionKind() != RangeSelectionKind::Simple;
+                        SelWidthFold bf110 =
+                            idxSel110 ? halfOpFold110(rs.left()) : SelWidthFold{};
+                        SelWidthFold wf110 =
+                            (idxSel110 && !wf9.ok) ? halfOpFold110(rs.right())
+                                                   : SelWidthFold{};
+                        // The BASE half's rendering, shared by every arm below:
+                        // the folded operation when the law fires, otherwise the
+                        // pre-existing operator-spaced source text.
+                        auto baseTxt110 = [&]() -> std::string {
+                            if (bf110.ok)
+                                return bf110.text;
+                            return spaceOps9(selName(
+                                std::string(rawText(rs.left().sourceRange))));
+                        };
+                        auto widthTxt110 = [&]() -> std::string {
+                            if (wf9.ok)
+                                return wf9.text;
+                            if (wf110.ok)
+                                return wf110.text;
+                            return selName(
+                                std::string(rawText(rs.right().sourceRange)));
+                        };
                         std::string selText;
                         if (rs.getSelectionKind() == RangeSelectionKind::Simple)
                             selText = selName(baseDotted) + "[" +
@@ -28186,32 +28450,18 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         else if (stripImplicitConv(rs.left()).kind ==
                                  ExpressionKind::NamedValue)
                             selText = selName(rawText(expr.sourceRange));
-                        else if (wf9.ok)
-                            selText =
-                                selName(baseDotted) + "[" +
-                                spaceOps9(selName(std::string(
-                                    rawText(rs.left().sourceRange)))) +
-                                (rs.getSelectionKind() ==
-                                         RangeSelectionKind::IndexedUp
-                                     ? "+:"
-                                     : "-:") +
-                                wf9.text + "]";
                         else
                             // An ARITHMETIC indexed base decompiles with
                             // operator spacing (sub.src[i*8+:8] ->
                             // sub.src[i * 8+:8]); the +:/-: token and the
                             // width stay tight (Surelog).
                             selText =
-                                selName(baseDotted) + "[" +
-                                spaceOps9(selName(std::string(
-                                    rawText(rs.left().sourceRange)))) +
+                                selName(baseDotted) + "[" + baseTxt110() +
                                 (rs.getSelectionKind() ==
                                          RangeSelectionKind::IndexedUp
                                      ? "+:"
                                      : "-:") +
-                                selName(std::string(
-                                    rawText(rs.right().sourceRange))) +
-                                "]";
+                                widthTxt110() + "]";
                         // § hpConnElemIdxFold17 — the NAME, re-rendered from
                         // the FOLDED elements exactly as Surelog's
                         // decompileHelper concatenation builds it.  Nothing is
@@ -28230,18 +28480,18 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             else
                                 selText =
                                     selName(bd17) + "[" +
-                                    (baseFold17.ok
-                                         ? baseFold17.txt
-                                         : spaceOps9(selName(std::string(
-                                               rawText(rs.left().sourceRange))))) +
+                                    // § hpConnElemIdxFold17's own GENVAR fold
+                                    // still wins the base when it fired; below
+                                    // it § hpSelHalfOpParamFold110 renders the
+                                    // arithmetic half, and below THAT the
+                                    // pre-existing source text.
+                                    (baseFold17.ok ? baseFold17.txt
+                                                   : baseTxt110()) +
                                     (rs.getSelectionKind() ==
                                              RangeSelectionKind::IndexedUp
                                          ? "+:"
                                          : "-:") +
-                                    (wf9.ok ? wf9.text
-                                            : selName(std::string(rawText(
-                                                  rs.right().sourceRange)))) +
-                                    "]";
+                                    widthTxt110() + "]";
                         }
                         auto* hp = s.MakeHier_path();
                         hp->VpiName(selText);

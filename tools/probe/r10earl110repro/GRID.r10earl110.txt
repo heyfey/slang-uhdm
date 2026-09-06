@@ -1,0 +1,361 @@
+r10earl110 GRID -- golden / pristine / patched, 6 arms x 2 views.
+MEASUREMENT ONLY.  LHS is ALWAYS golden.
+
+ARM              VIEW    SLRC   PRC   ARC   PRIS c/h  PATCH c/h
+g1_head110       plain      0     0     0       30/1       30/1
+g1_head110       elab       0     0     0       30/1       30/1
+g2_fence110      plain      0     0     0       30/1       30/1
+g2_fence110      elab       0     0     0       30/1       30/1
+g3_home110       plain      0     0     0      196/1      196/1
+g3_home110       elab       0     0     0      196/1      196/1
+g4_recv110       plain      0     0     0       32/1       32/1
+g4_recv110       elab       0     0     0       32/1       32/1
+g5_neg110        plain      0     0     0       30/1       30/1
+g5_neg110        elab       0     0     0       30/1       30/1
+g6_scope110      plain      0     0     0       30/1       30/1
+g6_scope110      elab       0     0     0       30/1       30/1
+
+===== g1_head110_elab
+TOGOLD      g1_head110_elab|27:48-27:78|bit_select:inbus,indexed_part_select:payl,
+    G ['inbus[q].payl[0+:8 - 2]', 'inbus[q].payl[0+:WFULL - WSUB]']
+    P ['inbus[q].payl[0+:WFULL - WSUB]', 'inbus[q].payl[0+:WFULL-WSUB]']
+    A ['inbus[q].payl[0+:8 - 2]', 'inbus[q].payl[0+:WFULL - WSUB]']
+TOGOLD      g1_head110_elab|29:40-29:70|bit_select:inbus,indexed_part_select:payl,
+    G ['inbus[q].payl[8 - 1-:2]', 'inbus[q].payl[WFULL - 1-:WSUB]']
+    P ['inbus[q].payl[WFULL - 1-:2]', 'inbus[q].payl[WFULL - 1-:WSUB]']
+    A ['inbus[q].payl[8 - 1-:2]', 'inbus[q].payl[WFULL - 1-:WSUB]']
+STILLWRONG  g1_head110_elab|31:28-31:57|bit_select:inbus,part_select:payl,
+    G ['inbus[q].payl[8 - 1:2]', 'inbus[q].payl[WFULL - 1:WSUB]']
+    P ['inbus[q].payl[WFULL - 1 : WSUB]', 'inbus[q].payl[WFULL - 1:2]']
+    A ['inbus[q].payl[WFULL - 1 : WSUB]', 'inbus[q].payl[WFULL - 1:2]']
+TALLY SAME_AGREE=3 TOGOLD=2 AWAY=0 MOVEDWRONG=0 STILLWRONG=1 G-ONLY=0 O-ONLY=0
+===== g1_head110_plain
+TOGOLD      g1_head110_plain|27:48-27:78|bit_select:inbus,indexed_part_select:payl,
+    G ['inbus[q].payl[0+:8 - 2]', 'inbus[q].payl[0+:WFULL - WSUB]']
+    P ['inbus[q].payl[0+:WFULL - WSUB]', 'inbus[q].payl[0+:WFULL-WSUB]']
+    A ['inbus[q].payl[0+:8 - 2]', 'inbus[q].payl[0+:WFULL - WSUB]']
+TOGOLD      g1_head110_plain|29:40-29:70|bit_select:inbus,indexed_part_select:payl,
+    G ['inbus[q].payl[8 - 1-:2]', 'inbus[q].payl[WFULL - 1-:WSUB]']
+    P ['inbus[q].payl[WFULL - 1-:2]', 'inbus[q].payl[WFULL - 1-:WSUB]']
+    A ['inbus[q].payl[8 - 1-:2]', 'inbus[q].payl[WFULL - 1-:WSUB]']
+STILLWRONG  g1_head110_plain|31:28-31:57|bit_select:inbus,part_select:payl,
+    G ['inbus[q].payl[8 - 1:2]', 'inbus[q].payl[WFULL - 1:WSUB]']
+    P ['inbus[q].payl[WFULL - 1 : WSUB]', 'inbus[q].payl[WFULL - 1:2]']
+    A ['inbus[q].payl[WFULL - 1 : WSUB]', 'inbus[q].payl[WFULL - 1:2]']
+TALLY SAME_AGREE=3 TOGOLD=2 AWAY=0 MOVEDWRONG=0 STILLWRONG=1 G-ONLY=0 O-ONLY=0
+===== g2_fence110_elab
+TOGOLD      g2_fence110_elab|20:26-20:51|bit_select:chan,indexed_part_select:fld,
+    G ['chan[z].fld[0+:9 - 3]', 'chan[z].fld[0+:LCA - LCB]']
+    P ['chan[z].fld[0+:LCA - LCB]', 'chan[z].fld[0+:LCA-LCB]']
+    A ['chan[z].fld[0+:9 - 3]', 'chan[z].fld[0+:LCA - LCB]']
+TOGOLD      g2_fence110_elab|22:26-22:49|bit_select:chan,indexed_part_select:fld,
+    G ['chan[z].fld[0+:3 + 3]', 'chan[z].fld[0+:LCB + 3]']
+    P ['chan[z].fld[0+:LCB + 3]', 'chan[z].fld[0+:LCB+3]']
+    A ['chan[z].fld[0+:3 + 3]', 'chan[z].fld[0+:LCB + 3]']
+TOGOLD      g2_fence110_elab|24:26-24:49|bit_select:chan,indexed_part_select:fld,
+    G ['chan[z].fld[0+:3 * 2]', 'chan[z].fld[0+:LCB * 2]']
+    P ['chan[z].fld[0+:LCB * 2]', 'chan[z].fld[0+:LCB*2]']
+    A ['chan[z].fld[0+:3 * 2]', 'chan[z].fld[0+:LCB * 2]']
+TOGOLD      g2_fence110_elab|26:26-26:49|bit_select:chan,indexed_part_select:fld,
+    G ['chan[z].fld[0+:9 / 3]', 'chan[z].fld[0+:LCA / 3]']
+    P ['chan[z].fld[0+:LCA / 3]', 'chan[z].fld[0+:LCA/3]']
+    A ['chan[z].fld[0+:9 / 3]', 'chan[z].fld[0+:LCA / 3]']
+MOVEDWRONG  g2_fence110_elab|28:26-28:58|bit_select:chan,indexed_part_select:fld,
+    G ['chan[z].fld[0+:6 - 1]']
+    P ['chan[z].fld[0+:pk2_110::PKW - 1]', 'chan[z].fld[0+:pk2_110::PKW-1]']
+    A ['chan[z].fld[0+:6 - 1]', 'chan[z].fld[0+:pk2_110::PKW - 1]']
+STILLWRONG  g2_fence110_elab|30:26-30:49|bit_select:chan,indexed_part_select:fld,
+    G ['chan[z].fld[0+:5 - 1]', 'chan[z].fld[0+:OVW - 1]']
+    P ['chan[z].fld[0+:OVW - 1]', 'chan[z].fld[0+:OVW-1]']
+    A ['chan[z].fld[0+:OVW - 1]', 'chan[z].fld[0+:OVW-1]']
+TOGOLD      g2_fence110_elab|32:26-32:53|bit_select:chan,indexed_part_select:fld,
+    G ['chan[z].fld[0+:9 - 3 - 1]', 'chan[z].fld[0+:LCA - LCB - 1]']
+    P ['chan[z].fld[0+:LCA - LCB - 1]', 'chan[z].fld[0+:LCA-LCB-1]']
+    A ['chan[z].fld[0+:9 - 3 - 1]', 'chan[z].fld[0+:LCA - LCB - 1]']
+STILLWRONG  g2_fence110_elab|34:26-34:57|bit_select:chan,indexed_part_select:fld,
+    G ['chan[z].fld[0+:$clog2(2) + 1]', 'chan[z].fld[0+:$clog2(NCH) + 1]']
+    P ['chan[z].fld[0+:$clog2(NCH)+1]', 'chan[z].fld[0+:$clog2NCH + 1]']
+    A ['chan[z].fld[0+:$clog2(NCH)+1]', 'chan[z].fld[0+:$clog2NCH + 1]']
+TOGOLD      g2_fence110_elab|36:26-36:52|bit_select:chan,indexed_part_select:fld,
+    G ["chan[z].fld[0+:9 - 4'd3]", "chan[z].fld[0+:LCA - 4'd3]"]
+    P ["chan[z].fld[0+:LCA - 4'd3]", "chan[z].fld[0+:LCA-4'd3]"]
+    A ["chan[z].fld[0+:9 - 4'd3]", "chan[z].fld[0+:LCA - 4'd3]"]
+STILLWRONG  g2_fence110_elab|38:26-38:47|bit_select:chan,indexed_part_select:fld,
+    G ['chan[z].fld[0+:9 - 3]']
+    P ['chan[z].fld[0+:9 - 3]', 'chan[z].fld[0+:9-3]']
+    A ['chan[z].fld[0+:9 - 3]', 'chan[z].fld[0+:9-3]']
+TOGOLD      g2_fence110_elab|40:26-40:49|bit_select:chan,indexed_part_select:fld,
+    G ['chan[z].fld[z * 3+:4]', 'chan[z].fld[z * LCB+:4]']
+    P ['chan[z].fld[z * LCB+:4]']
+    A ['chan[z].fld[z * 3+:4]', 'chan[z].fld[z * LCB+:4]']
+TOGOLD      g2_fence110_elab|42:26-42:57|bit_select:chan,indexed_part_select:fld,
+    G ['chan[z].fld[9 + 2-:9 - 3]', 'chan[z].fld[LCA + 2-:LCA - LCB]']
+    P ['chan[z].fld[LCA + 2-:LCA - LCB]', 'chan[z].fld[LCA + 2-:LCA-LCB]']
+    A ['chan[z].fld[9 + 2-:9 - 3]', 'chan[z].fld[LCA + 2-:LCA - LCB]']
+TALLY SAME_AGREE=0 TOGOLD=8 AWAY=0 MOVEDWRONG=1 STILLWRONG=3 G-ONLY=0 O-ONLY=0
+===== g2_fence110_plain
+TOGOLD      g2_fence110_plain|20:26-20:51|bit_select:chan,indexed_part_select:fld,
+    G ['chan[z].fld[0+:9 - 3]', 'chan[z].fld[0+:LCA - LCB]']
+    P ['chan[z].fld[0+:LCA - LCB]', 'chan[z].fld[0+:LCA-LCB]']
+    A ['chan[z].fld[0+:9 - 3]', 'chan[z].fld[0+:LCA - LCB]']
+TOGOLD      g2_fence110_plain|22:26-22:49|bit_select:chan,indexed_part_select:fld,
+    G ['chan[z].fld[0+:3 + 3]', 'chan[z].fld[0+:LCB + 3]']
+    P ['chan[z].fld[0+:LCB + 3]', 'chan[z].fld[0+:LCB+3]']
+    A ['chan[z].fld[0+:3 + 3]', 'chan[z].fld[0+:LCB + 3]']
+TOGOLD      g2_fence110_plain|24:26-24:49|bit_select:chan,indexed_part_select:fld,
+    G ['chan[z].fld[0+:3 * 2]', 'chan[z].fld[0+:LCB * 2]']
+    P ['chan[z].fld[0+:LCB * 2]', 'chan[z].fld[0+:LCB*2]']
+    A ['chan[z].fld[0+:3 * 2]', 'chan[z].fld[0+:LCB * 2]']
+TOGOLD      g2_fence110_plain|26:26-26:49|bit_select:chan,indexed_part_select:fld,
+    G ['chan[z].fld[0+:9 / 3]', 'chan[z].fld[0+:LCA / 3]']
+    P ['chan[z].fld[0+:LCA / 3]', 'chan[z].fld[0+:LCA/3]']
+    A ['chan[z].fld[0+:9 / 3]', 'chan[z].fld[0+:LCA / 3]']
+MOVEDWRONG  g2_fence110_plain|28:26-28:58|bit_select:chan,indexed_part_select:fld,
+    G ['chan[z].fld[0+:6 - 1]']
+    P ['chan[z].fld[0+:pk2_110::PKW - 1]', 'chan[z].fld[0+:pk2_110::PKW-1]']
+    A ['chan[z].fld[0+:6 - 1]', 'chan[z].fld[0+:pk2_110::PKW - 1]']
+STILLWRONG  g2_fence110_plain|30:26-30:49|bit_select:chan,indexed_part_select:fld,
+    G ['chan[z].fld[0+:5 - 1]', 'chan[z].fld[0+:OVW - 1]']
+    P ['chan[z].fld[0+:OVW - 1]', 'chan[z].fld[0+:OVW-1]']
+    A ['chan[z].fld[0+:OVW - 1]', 'chan[z].fld[0+:OVW-1]']
+TOGOLD      g2_fence110_plain|32:26-32:53|bit_select:chan,indexed_part_select:fld,
+    G ['chan[z].fld[0+:9 - 3 - 1]', 'chan[z].fld[0+:LCA - LCB - 1]']
+    P ['chan[z].fld[0+:LCA - LCB - 1]', 'chan[z].fld[0+:LCA-LCB-1]']
+    A ['chan[z].fld[0+:9 - 3 - 1]', 'chan[z].fld[0+:LCA - LCB - 1]']
+STILLWRONG  g2_fence110_plain|34:26-34:57|bit_select:chan,indexed_part_select:fld,
+    G ['chan[z].fld[0+:$clog2(2) + 1]', 'chan[z].fld[0+:$clog2(NCH) + 1]']
+    P ['chan[z].fld[0+:$clog2(NCH)+1]', 'chan[z].fld[0+:$clog2NCH + 1]']
+    A ['chan[z].fld[0+:$clog2(NCH)+1]', 'chan[z].fld[0+:$clog2NCH + 1]']
+TOGOLD      g2_fence110_plain|36:26-36:52|bit_select:chan,indexed_part_select:fld,
+    G ["chan[z].fld[0+:9 - 4'd3]", "chan[z].fld[0+:LCA - 4'd3]"]
+    P ["chan[z].fld[0+:LCA - 4'd3]", "chan[z].fld[0+:LCA-4'd3]"]
+    A ["chan[z].fld[0+:9 - 4'd3]", "chan[z].fld[0+:LCA - 4'd3]"]
+STILLWRONG  g2_fence110_plain|38:26-38:47|bit_select:chan,indexed_part_select:fld,
+    G ['chan[z].fld[0+:9 - 3]']
+    P ['chan[z].fld[0+:9 - 3]', 'chan[z].fld[0+:9-3]']
+    A ['chan[z].fld[0+:9 - 3]', 'chan[z].fld[0+:9-3]']
+TOGOLD      g2_fence110_plain|40:26-40:49|bit_select:chan,indexed_part_select:fld,
+    G ['chan[z].fld[z * 3+:4]', 'chan[z].fld[z * LCB+:4]']
+    P ['chan[z].fld[z * LCB+:4]']
+    A ['chan[z].fld[z * 3+:4]', 'chan[z].fld[z * LCB+:4]']
+TOGOLD      g2_fence110_plain|42:26-42:57|bit_select:chan,indexed_part_select:fld,
+    G ['chan[z].fld[9 + 2-:9 - 3]', 'chan[z].fld[LCA + 2-:LCA - LCB]']
+    P ['chan[z].fld[LCA + 2-:LCA - LCB]', 'chan[z].fld[LCA + 2-:LCA-LCB]']
+    A ['chan[z].fld[9 + 2-:9 - 3]', 'chan[z].fld[LCA + 2-:LCA - LCB]']
+TALLY SAME_AGREE=0 TOGOLD=8 AWAY=0 MOVEDWRONG=1 STILLWRONG=3 G-ONLY=0 O-ONLY=0
+===== g3_home110_elab
+STILLWRONG  g3_home110_elab|17:24-17:47|bit_select:slot,indexed_part_select:wrd,
+    G ['slot[0].wrd[0+:HA - HB]']
+    P ['slot[0].wrd[0+:HA-HB]']
+    A ['slot[0].wrd[0+:HA-HB]']
+STILLWRONG  g3_home110_elab|19:29-19:52|bit_select:slot,indexed_part_select:wrd,
+    G ['slot[0].wrd[0+:HA - HB]']
+    P ['slot[0].wrd[0+:HA-HB]']
+    A ['slot[0].wrd[0+:HA-HB]']
+STILLWRONG  g3_home110_elab|21:25-21:48|bit_select:slot,indexed_part_select:wrd,
+    G ['slot[1].wrd[0+:HA - HB]']
+    P ['slot[1].wrd[0+:HA-HB]']
+    A ['slot[1].wrd[0+:HA-HB]']
+TOGOLD      g3_home110_elab|26:26-26:49|bit_select:slot,indexed_part_select:wrd,
+    G ['slot[1].wrd[0+:7 - 2]', 'slot[1].wrd[0+:HA - HB]']
+    P ['slot[1].wrd[0+:HA - HB]', 'slot[1].wrd[0+:HA-HB]']
+    A ['slot[1].wrd[0+:7 - 2]', 'slot[1].wrd[0+:HA - HB]']
+STILLWRONG  g3_home110_elab|33:28-33:51|bit_select:slot,indexed_part_select:wrd,
+    G ['slot[0].wrd[0+:HA - HB]']
+    P ['slot[0].wrd[0+:HA-HB]']
+    A ['slot[0].wrd[0+:HA-HB]']
+STILLWRONG  g3_home110_elab|38:21-38:44|bit_select:slot,indexed_part_select:wrd,
+    G ['slot[0].wrd[0+:HA - HB]']
+    P ['slot[0].wrd[0+:HA-HB]']
+    A ['slot[0].wrd[0+:HA-HB]']
+TALLY SAME_AGREE=1 TOGOLD=1 AWAY=0 MOVEDWRONG=0 STILLWRONG=5 G-ONLY=0 O-ONLY=0
+===== g3_home110_plain
+STILLWRONG  g3_home110_plain|17:24-17:47|bit_select:slot,indexed_part_select:wrd,
+    G ['slot[0].wrd[0+:HA - HB]']
+    P ['slot[0].wrd[0+:HA-HB]']
+    A ['slot[0].wrd[0+:HA-HB]']
+STILLWRONG  g3_home110_plain|19:29-19:52|bit_select:slot,indexed_part_select:wrd,
+    G ['slot[0].wrd[0+:HA - HB]']
+    P ['slot[0].wrd[0+:HA-HB]']
+    A ['slot[0].wrd[0+:HA-HB]']
+STILLWRONG  g3_home110_plain|21:25-21:48|bit_select:slot,indexed_part_select:wrd,
+    G ['slot[1].wrd[0+:HA - HB]']
+    P ['slot[1].wrd[0+:HA-HB]']
+    A ['slot[1].wrd[0+:HA-HB]']
+TOGOLD      g3_home110_plain|26:26-26:49|bit_select:slot,indexed_part_select:wrd,
+    G ['slot[1].wrd[0+:7 - 2]', 'slot[1].wrd[0+:HA - HB]']
+    P ['slot[1].wrd[0+:HA - HB]', 'slot[1].wrd[0+:HA-HB]']
+    A ['slot[1].wrd[0+:7 - 2]', 'slot[1].wrd[0+:HA - HB]']
+STILLWRONG  g3_home110_plain|33:28-33:51|bit_select:slot,indexed_part_select:wrd,
+    G ['slot[0].wrd[0+:HA - HB]']
+    P ['slot[0].wrd[0+:HA-HB]']
+    A ['slot[0].wrd[0+:HA-HB]']
+STILLWRONG  g3_home110_plain|38:21-38:44|bit_select:slot,indexed_part_select:wrd,
+    G ['slot[0].wrd[0+:HA - HB]']
+    P ['slot[0].wrd[0+:HA-HB]']
+    A ['slot[0].wrd[0+:HA-HB]']
+TALLY SAME_AGREE=1 TOGOLD=1 AWAY=0 MOVEDWRONG=0 STILLWRONG=5 G-ONLY=0 O-ONLY=0
+===== g4_recv110_elab
+STILLWRONG  g4_recv110_elab|28:24-28:47|bit_select:oarr,indexed_part_select:top,
+    G ['oarr[0].top[0+:RA - RB]']
+    P ['oarr[0].top[0+:RA-RB]']
+    A ['oarr[0].top[0+:RA-RB]']
+STILLWRONG  g4_recv110_elab|30:24-30:45|ref_obj:oflat,indexed_part_select:top,
+    G ['oflat.top[0+:RA - RB]']
+    P ['oflat.top[0+:(RA - RB]']
+    A ['oflat.top[0+:(RA - RB]']
+STILLWRONG  g4_recv110_elab|32:24-32:48|ref_obj:oflat,ref_obj:sub,indexed_part_select:lo,
+    G ['oflat.sub.lo[0+:RA - RB]']
+    P ['oflat.sub.lo[0+:(RA - RB]']
+    A ['oflat.sub.lo[0+:(RA - RB]']
+STILLWRONG  g4_recv110_elab|34:24-34:50|bit_select:oarr,ref_obj:sub,indexed_part_select:hi,
+    G ['oarr[1].sub.hi[0+:RA - RB]']
+    P ['oarr[1].sub.hi[0+:RA-RB]']
+    A ['oarr[1].sub.hi[0+:RA-RB]']
+G-ONLY      g4_recv110_elab|36:24-36:49|bit_select:o2d,bit_select:,indexed_part_select:top,
+    G ['o2d[0][1].top[0+:RA - RB]']
+    P []
+    A []
+O-ONLY      g4_recv110_elab|36:24-36:49|bit_select:o2d,indexed_part_select:top,
+    G []
+    P ['o2d[0][1].top[0+:RA-RB]']
+    A ['o2d[0][1].top[0+:RA-RB]']
+STILLWRONG  g4_recv110_elab|38:24-38:48|bit_select:ifa,indexed_part_select:wline,
+    G ['ifa[0].wline[0+:RA - RB]']
+    P ['ifa[0].wline[0+:RA-RB]']
+    A ['ifa[0].wline[0+:RA-RB]']
+STILLWRONG  g4_recv110_elab|40:34-40:57|bit_select:oarr,indexed_part_select:top,
+    G ['oarr[0].top[0+:5]', 'oarr[0].top[0+:RA - RB]']
+    P ['oarr[0].top[0+:RA-RB]']
+    A ['oarr[0].top[0+:RA-RB]']
+TALLY SAME_AGREE=0 TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=6 G-ONLY=1 O-ONLY=1
+===== g4_recv110_plain
+STILLWRONG  g4_recv110_plain|28:24-28:47|bit_select:oarr,indexed_part_select:top,
+    G ['oarr[0].top[0+:RA - RB]']
+    P ['oarr[0].top[0+:RA-RB]']
+    A ['oarr[0].top[0+:RA-RB]']
+STILLWRONG  g4_recv110_plain|30:24-30:45|ref_obj:oflat,indexed_part_select:top,
+    G ['oflat.top[0+:RA - RB]']
+    P ['oflat.top[0+:(RA - RB]']
+    A ['oflat.top[0+:(RA - RB]']
+STILLWRONG  g4_recv110_plain|32:24-32:48|ref_obj:oflat,ref_obj:sub,indexed_part_select:lo,
+    G ['oflat.sub.lo[0+:RA - RB]']
+    P ['oflat.sub.lo[0+:(RA - RB]']
+    A ['oflat.sub.lo[0+:(RA - RB]']
+STILLWRONG  g4_recv110_plain|34:24-34:50|bit_select:oarr,ref_obj:sub,indexed_part_select:hi,
+    G ['oarr[1].sub.hi[0+:RA - RB]']
+    P ['oarr[1].sub.hi[0+:RA-RB]']
+    A ['oarr[1].sub.hi[0+:RA-RB]']
+G-ONLY      g4_recv110_plain|36:24-36:49|bit_select:o2d,bit_select:,indexed_part_select:top,
+    G ['o2d[0][1].top[0+:RA - RB]']
+    P []
+    A []
+O-ONLY      g4_recv110_plain|36:24-36:49|bit_select:o2d,indexed_part_select:top,
+    G []
+    P ['o2d[0][1].top[0+:RA-RB]']
+    A ['o2d[0][1].top[0+:RA-RB]']
+STILLWRONG  g4_recv110_plain|38:24-38:48|bit_select:ifa,indexed_part_select:wline,
+    G ['ifa[0].wline[0+:RA - RB]']
+    P ['ifa[0].wline[0+:RA-RB]']
+    A ['ifa[0].wline[0+:RA-RB]']
+STILLWRONG  g4_recv110_plain|40:34-40:57|bit_select:oarr,indexed_part_select:top,
+    G ['oarr[0].top[0+:5]', 'oarr[0].top[0+:RA - RB]']
+    P ['oarr[0].top[0+:RA-RB]']
+    A ['oarr[0].top[0+:RA-RB]']
+TALLY SAME_AGREE=0 TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=6 G-ONLY=1 O-ONLY=1
+===== g5_neg110_elab
+STILLWRONG  g5_neg110_elab|18:26-18:48|bit_select:narr,indexed_part_select:val,
+    G ['narr[g5].val[0+:8 - 2]']
+    P ['narr[g5].val[0+:8 - 2]', 'narr[g5].val[0+:8-2]']
+    A ['narr[g5].val[0+:8 - 2]', 'narr[g5].val[0+:8-2]']
+TALLY SAME_AGREE=5 TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=1 G-ONLY=0 O-ONLY=0
+===== g5_neg110_plain
+STILLWRONG  g5_neg110_plain|18:26-18:48|bit_select:narr,indexed_part_select:val,
+    G ['narr[g5].val[0+:8 - 2]']
+    P ['narr[g5].val[0+:8 - 2]', 'narr[g5].val[0+:8-2]']
+    A ['narr[g5].val[0+:8 - 2]', 'narr[g5].val[0+:8-2]']
+TALLY SAME_AGREE=5 TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=1 G-ONLY=0 O-ONLY=0
+===== g6_scope110_elab
+STILLWRONG  g6_scope110_elab|16:24-16:46|bit_select:arr6,indexed_part_select:w6,
+    G ['arr6[0].w6[0+:SA - SB]']
+    P ['arr6[0].w6[0+:SA-SB]']
+    A ['arr6[0].w6[0+:SA-SB]']
+TOGOLD      g6_scope110_elab|19:26-19:49|bit_select:arr6,indexed_part_select:w6,
+    G ['arr6[k1].w6[0+:7 - 2]', 'arr6[k1].w6[0+:SA - SB]']
+    P ['arr6[k1].w6[0+:SA - SB]', 'arr6[k1].w6[0+:SA-SB]']
+    A ['arr6[k1].w6[0+:7 - 2]', 'arr6[k1].w6[0+:SA - SB]']
+TOGOLD      g6_scope110_elab|23:26-23:48|bit_select:arr6,indexed_part_select:w6,
+    G ['arr6[0].w6[0+:7 - 2]', 'arr6[0].w6[0+:SA - SB]']
+    P ['arr6[0].w6[0+:SA - SB]', 'arr6[0].w6[0+:SA-SB]']
+    A ['arr6[0].w6[0+:7 - 2]', 'arr6[0].w6[0+:SA - SB]']
+TOGOLD      g6_scope110_elab|27:26-27:48|bit_select:arr6,indexed_part_select:w6,
+    G ['arr6[0].w6[0+:7 - 2]', 'arr6[0].w6[0+:SA - SB]']
+    P ['arr6[0].w6[0+:SA - SB]', 'arr6[0].w6[0+:SA-SB]']
+    A ['arr6[0].w6[0+:7 - 2]', 'arr6[0].w6[0+:SA - SB]']
+TOGOLD      g6_scope110_elab|31:26-31:48|bit_select:arr6,indexed_part_select:w6,
+    G ['arr6[0].w6[0+:7 - 2]', 'arr6[0].w6[0+:SA - SB]']
+    P ['arr6[0].w6[0+:SA - SB]', 'arr6[0].w6[0+:SA-SB]']
+    A ['arr6[0].w6[0+:7 - 2]', 'arr6[0].w6[0+:SA - SB]']
+TOGOLD      g6_scope110_elab|35:26-35:49|bit_select:arr6,indexed_part_select:w6,
+    G ['arr6[k5].w6[0+:7 - 2]', 'arr6[k5].w6[0+:SA - SB]']
+    P ['arr6[k5].w6[0+:SA - SB]', 'arr6[k5].w6[0+:SA-SB]']
+    A ['arr6[k5].w6[0+:7 - 2]', 'arr6[k5].w6[0+:SA - SB]']
+TOGOLD      g6_scope110_elab|39:26-39:49|bit_select:arr6,indexed_part_select:w6,
+    G ['arr6[k6].w6[0+:7 - 2]', 'arr6[k6].w6[0+:SA - SB]']
+    P ['arr6[k6].w6[0+:SA - SB]', 'arr6[k6].w6[0+:SA-SB]']
+    A ['arr6[k6].w6[0+:7 - 2]', 'arr6[k6].w6[0+:SA - SB]']
+STILLWRONG  g6_scope110_elab|44:28-44:51|bit_select:arr6,indexed_part_select:w6,
+    G ['arr6[k7].w6[0+:SA - SB]']
+    P ['arr6[k7].w6[0+:SA-SB]']
+    A ['arr6[k7].w6[0+:SA-SB]']
+TOGOLD      g6_scope110_elab|49:26-49:48|bit_select:arr6,indexed_part_select:w6,
+    G ['arr6[0].w6[0+:7 - 2]', 'arr6[0].w6[0+:SA - SB]']
+    P ['arr6[0].w6[0+:SA - SB]', 'arr6[0].w6[0+:SA-SB]']
+    A ['arr6[0].w6[0+:7 - 2]', 'arr6[0].w6[0+:SA - SB]']
+STILLWRONG  g6_scope110_elab|54:28-54:51|bit_select:arr6,indexed_part_select:w6,
+    G ['arr6[k9].w6[0+:SA - SB]']
+    P ['arr6[k9].w6[0+:SA - SB]', 'arr6[k9].w6[0+:SA-SB]']
+    A ['arr6[k9].w6[0+:SA - SB]', 'arr6[k9].w6[0+:SA-SB]']
+TALLY SAME_AGREE=0 TOGOLD=7 AWAY=0 MOVEDWRONG=0 STILLWRONG=3 G-ONLY=0 O-ONLY=0
+===== g6_scope110_plain
+STILLWRONG  g6_scope110_plain|16:24-16:46|bit_select:arr6,indexed_part_select:w6,
+    G ['arr6[0].w6[0+:SA - SB]']
+    P ['arr6[0].w6[0+:SA-SB]']
+    A ['arr6[0].w6[0+:SA-SB]']
+TOGOLD      g6_scope110_plain|19:26-19:49|bit_select:arr6,indexed_part_select:w6,
+    G ['arr6[k1].w6[0+:7 - 2]', 'arr6[k1].w6[0+:SA - SB]']
+    P ['arr6[k1].w6[0+:SA - SB]', 'arr6[k1].w6[0+:SA-SB]']
+    A ['arr6[k1].w6[0+:7 - 2]', 'arr6[k1].w6[0+:SA - SB]']
+TOGOLD      g6_scope110_plain|23:26-23:48|bit_select:arr6,indexed_part_select:w6,
+    G ['arr6[0].w6[0+:7 - 2]', 'arr6[0].w6[0+:SA - SB]']
+    P ['arr6[0].w6[0+:SA - SB]', 'arr6[0].w6[0+:SA-SB]']
+    A ['arr6[0].w6[0+:7 - 2]', 'arr6[0].w6[0+:SA - SB]']
+TOGOLD      g6_scope110_plain|27:26-27:48|bit_select:arr6,indexed_part_select:w6,
+    G ['arr6[0].w6[0+:7 - 2]', 'arr6[0].w6[0+:SA - SB]']
+    P ['arr6[0].w6[0+:SA - SB]', 'arr6[0].w6[0+:SA-SB]']
+    A ['arr6[0].w6[0+:7 - 2]', 'arr6[0].w6[0+:SA - SB]']
+TOGOLD      g6_scope110_plain|31:26-31:48|bit_select:arr6,indexed_part_select:w6,
+    G ['arr6[0].w6[0+:7 - 2]', 'arr6[0].w6[0+:SA - SB]']
+    P ['arr6[0].w6[0+:SA - SB]', 'arr6[0].w6[0+:SA-SB]']
+    A ['arr6[0].w6[0+:7 - 2]', 'arr6[0].w6[0+:SA - SB]']
+TOGOLD      g6_scope110_plain|35:26-35:49|bit_select:arr6,indexed_part_select:w6,
+    G ['arr6[k5].w6[0+:7 - 2]', 'arr6[k5].w6[0+:SA - SB]']
+    P ['arr6[k5].w6[0+:SA - SB]', 'arr6[k5].w6[0+:SA-SB]']
+    A ['arr6[k5].w6[0+:7 - 2]', 'arr6[k5].w6[0+:SA - SB]']
+TOGOLD      g6_scope110_plain|39:26-39:49|bit_select:arr6,indexed_part_select:w6,
+    G ['arr6[k6].w6[0+:7 - 2]', 'arr6[k6].w6[0+:SA - SB]']
+    P ['arr6[k6].w6[0+:SA - SB]', 'arr6[k6].w6[0+:SA-SB]']
+    A ['arr6[k6].w6[0+:7 - 2]', 'arr6[k6].w6[0+:SA - SB]']
+STILLWRONG  g6_scope110_plain|44:28-44:51|bit_select:arr6,indexed_part_select:w6,
+    G ['arr6[k7].w6[0+:SA - SB]']
+    P ['arr6[k7].w6[0+:SA-SB]']
+    A ['arr6[k7].w6[0+:SA-SB]']
+TOGOLD      g6_scope110_plain|49:26-49:48|bit_select:arr6,indexed_part_select:w6,
+    G ['arr6[0].w6[0+:7 - 2]', 'arr6[0].w6[0+:SA - SB]']
+    P ['arr6[0].w6[0+:SA - SB]', 'arr6[0].w6[0+:SA-SB]']
+    A ['arr6[0].w6[0+:7 - 2]', 'arr6[0].w6[0+:SA - SB]']
+STILLWRONG  g6_scope110_plain|54:28-54:51|bit_select:arr6,indexed_part_select:w6,
+    G ['arr6[k9].w6[0+:SA - SB]']
+    P ['arr6[k9].w6[0+:SA - SB]', 'arr6[k9].w6[0+:SA-SB]']
+    A ['arr6[k9].w6[0+:SA - SB]', 'arr6[k9].w6[0+:SA-SB]']
+TALLY SAME_AGREE=0 TOGOLD=7 AWAY=0 MOVEDWRONG=0 STILLWRONG=3 G-ONLY=0 O-ONLY=0

@@ -1,0 +1,42 @@
+== ITERATION 0 : design::Compare -> -17
+   HEAD LHS(golden) = hier_path id:1615258  tlul_socket_m1.sv 97:7-97:41
+   HEAD RHS(ours)   = hier_path id:1292361   97:7-97:41
+  LHS(golden) hier_path VpiName='tl_h_i[i].a_source[0+:8 - 2]'  Path_elems=2  Root_value=<null>  @tlul_socket_m1.sv 97:7-97:41
+      [0] bit_select name='tl_h_i'
+         index: ref_obj name='i' actual=parameter('i') actual=array_var('tl_h_i')
+      [1] indexed_part_select name='a_source' ipsType=1 constSel=1
+         base: constant name='' dec='0' size=64 ct=9
+         width: constant name='' dec='6' size=64 ct=7 actual=typespec_member('a_source')
+  RHS(ours)   hier_path VpiName='tl_h_i[i].a_source[0+:IDW-STIDW]'  Path_elems=2  Root_value=<null>  @ 97:7-97:41
+      [0] bit_select name='tl_h_i'
+         index: ref_obj name='i' actual=parameter('i') actual=array_var('tl_h_i')
+      [1] indexed_part_select name='a_source' ipsType=1 constSel=1
+         base: constant name='' dec='0' size=64 ct=9
+         width: constant name='' dec='6' size=64 ct=7 actual=typespec_member('a_source')
+   SIZE TEST: 2 vs 2 -> EQUAL (the size arm did NOT fire)
+   VPINAME  : golden='tl_h_i[i].a_source[0+:8 - 2]'
+              ours  ='tl_h_i[i].a_source[0+:IDW-STIDW]'  -> DIFFERS
+   MASKED ours' VpiName := golden's; re-running.
+== ITERATION 1 : design::Compare -> -17
+   HEAD LHS(golden) = hier_path id:1615266  tlul_socket_m1.sv 105:33-105:67
+   HEAD RHS(ours)   = hier_path id:1292369   105:33-105:67
+  LHS(golden) hier_path VpiName='tl_h_i[i].a_source[8 - 1-:2]'  Path_elems=2  Root_value=<null>  @tlul_socket_m1.sv 105:33-105:67
+      [0] bit_select name='tl_h_i'
+         index: ref_obj name='i' actual=parameter('i') actual=array_var('tl_h_i')
+      [1] indexed_part_select name='a_source' ipsType=2 constSel=1
+         base: constant name='' dec='7' size=64 ct=7
+         width: constant name='' dec='2' size=32 ct=9 actual=typespec_member('a_source')
+  RHS(ours)   hier_path VpiName='tl_h_i[i].a_source[IDW - 1-:2]'  Path_elems=2  Root_value=<null>  @ 105:33-105:67
+      [0] bit_select name='tl_h_i'
+         index: ref_obj name='i' actual=parameter('i') actual=array_var('tl_h_i')
+      [1] indexed_part_select name='a_source' ipsType=2 constSel=1
+         base: constant name='' dec='7' size=64 ct=7
+         width: constant name='' dec='2' size=32 ct=9 actual=typespec_member('a_source')
+   SIZE TEST: 2 vs 2 -> EQUAL (the size arm did NOT fire)
+   VPINAME  : golden='tl_h_i[i].a_source[8 - 1-:2]'
+              ours  ='tl_h_i[i].a_source[IDW - 1-:2]'  -> DIFFERS
+   MASKED ours' VpiName := golden's; re-running.
+== ITERATION 2 : design::Compare -> 1
+   HEAD LHS(golden) = ref_typespec id:793443   0:0-0:0
+   HEAD RHS(ours)   = <null> id:0  <null>
+   NOT a hier_path pair -- the family is exhausted here.

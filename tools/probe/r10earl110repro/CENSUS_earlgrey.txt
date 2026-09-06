@@ -1,0 +1,218 @@
+TOGOLD      earl_testflags|105:33-105:67|bit_select:tl_h_i,indexed_part_select:a_source,
+    G ['tl_h_i[i].a_source[8 - 1-:1]', 'tl_h_i[i].a_source[8 - 1-:2]', 'tl_h_i[i].a_source[IDW - 1-:STIDW]']
+    P ['tl_h_i[i].a_source[IDW - 1-:1]', 'tl_h_i[i].a_source[IDW - 1-:2]', 'tl_h_i[i].a_source[IDW - 1-:STIDW]']
+    A ['tl_h_i[i].a_source[8 - 1-:1]', 'tl_h_i[i].a_source[8 - 1-:2]', 'tl_h_i[i].a_source[IDW - 1-:STIDW]']
+STILLWRONG  earl_testflags|109:19-109:36|bit_select:tl_h_i,ref_obj:a_valid,
+    G ['tl_h_i[0].a_valid', 'tl_h_i[1].a_valid', 'tl_h_i[2].a_valid', 'tl_h_i[i].a_valid']
+    P ['tl_h_i[i].a_valid']
+    A ['tl_h_i[i].a_valid']
+STILLWRONG  earl_testflags|110:19-110:37|bit_select:tl_h_i,ref_obj:a_opcode,
+    G ['tl_h_i[0].a_opcode', 'tl_h_i[1].a_opcode', 'tl_h_i[2].a_opcode', 'tl_h_i[i].a_opcode']
+    P ['tl_h_i[i].a_opcode']
+    A ['tl_h_i[i].a_opcode']
+STILLWRONG  earl_testflags|111:19-111:36|bit_select:tl_h_i,ref_obj:a_param,
+    G ['tl_h_i[0].a_param', 'tl_h_i[1].a_param', 'tl_h_i[2].a_param', 'tl_h_i[i].a_param']
+    P ['tl_h_i[i].a_param']
+    A ['tl_h_i[i].a_param']
+STILLWRONG  earl_testflags|112:19-112:35|bit_select:tl_h_i,ref_obj:a_size,
+    G ['tl_h_i[0].a_size', 'tl_h_i[1].a_size', 'tl_h_i[2].a_size', 'tl_h_i[i].a_size']
+    P ['tl_h_i[i].a_size']
+    A ['tl_h_i[i].a_size']
+STILLWRONG  earl_testflags|114:19-114:38|bit_select:tl_h_i,ref_obj:a_address,
+    G ['tl_h_i[0].a_address', 'tl_h_i[1].a_address', 'tl_h_i[2].a_address', 'tl_h_i[i].a_address']
+    P ['tl_h_i[i].a_address']
+    A ['tl_h_i[i].a_address']
+STILLWRONG  earl_testflags|115:19-115:35|bit_select:tl_h_i,ref_obj:a_mask,
+    G ['tl_h_i[0].a_mask', 'tl_h_i[1].a_mask', 'tl_h_i[2].a_mask', 'tl_h_i[i].a_mask']
+    P ['tl_h_i[i].a_mask']
+    A ['tl_h_i[i].a_mask']
+STILLWRONG  earl_testflags|116:19-116:35|bit_select:tl_h_i,ref_obj:a_data,
+    G ['tl_h_i[0].a_data', 'tl_h_i[1].a_data', 'tl_h_i[2].a_data', 'tl_h_i[i].a_data']
+    P ['tl_h_i[i].a_data']
+    A ['tl_h_i[i].a_data']
+STILLWRONG  earl_testflags|117:19-117:35|bit_select:tl_h_i,ref_obj:a_user,
+    G ['tl_h_i[0].a_user', 'tl_h_i[1].a_user', 'tl_h_i[2].a_user', 'tl_h_i[i].a_user']
+    P ['tl_h_i[i].a_user']
+    A ['tl_h_i[i].a_user']
+STILLWRONG  earl_testflags|118:19-118:36|bit_select:tl_h_i,ref_obj:d_ready,
+    G ['tl_h_i[0].d_ready', 'tl_h_i[1].d_ready', 'tl_h_i[2].d_ready', 'tl_h_i[i].d_ready']
+    P ['tl_h_i[i].d_ready']
+    A ['tl_h_i[i].d_ready']
+O-ONLY      earl_testflags|130:12-130:29|bit_select:tl_u_o,ref_obj:a_valid,
+    G []
+    P ['tl_u_o[i].a_valid']
+    A ['tl_u_o[i].a_valid']
+O-ONLY      earl_testflags|133:12-133:30|bit_select:tl_u_o,ref_obj:a_opcode,
+    G []
+    P ['tl_u_o[i].a_opcode']
+    A ['tl_u_o[i].a_opcode']
+O-ONLY      earl_testflags|134:12-134:29|bit_select:tl_u_o,ref_obj:a_param,
+    G []
+    P ['tl_u_o[i].a_param']
+    A ['tl_u_o[i].a_param']
+O-ONLY      earl_testflags|135:12-135:28|bit_select:tl_u_o,ref_obj:a_size,
+    G []
+    P ['tl_u_o[i].a_size']
+    A ['tl_u_o[i].a_size']
+O-ONLY      earl_testflags|136:12-136:30|bit_select:tl_u_o,ref_obj:a_source,
+    G []
+    P ['tl_u_o[i].a_source']
+    A ['tl_u_o[i].a_source']
+O-ONLY      earl_testflags|137:12-137:31|bit_select:tl_u_o,ref_obj:a_address,
+    G []
+    P ['tl_u_o[i].a_address']
+    A ['tl_u_o[i].a_address']
+O-ONLY      earl_testflags|138:12-138:28|bit_select:tl_u_o,ref_obj:a_mask,
+    G []
+    P ['tl_u_o[i].a_mask']
+    A ['tl_u_o[i].a_mask']
+O-ONLY      earl_testflags|139:12-139:28|bit_select:tl_u_o,ref_obj:a_data,
+    G []
+    P ['tl_u_o[i].a_data']
+    A ['tl_u_o[i].a_data']
+O-ONLY      earl_testflags|140:12-140:28|bit_select:tl_u_o,ref_obj:a_user,
+    G []
+    P ['tl_u_o[i].a_user']
+    A ['tl_u_o[i].a_user']
+O-ONLY      earl_testflags|178:12-178:29|bit_select:tl_u_o,ref_obj:d_ready,
+    G []
+    P ['tl_u_o[i].d_ready']
+    A ['tl_u_o[i].d_ready']
+G-ONLY      earl_testflags|84:32-84:54|ref_obj:fifo_rdata,part_select:data,
+    G ['fifo_rdata.data[31:24]']
+    P []
+    A []
+O-ONLY      earl_testflags|84:33-84:55|ref_obj:fifo_rdata,part_select:data,
+    G []
+    P ['fifo_rdata.data[31:24]']
+    A ['fifo_rdata.data[31:24]']
+G-ONLY      earl_testflags|85:32-85:54|ref_obj:fifo_rdata,part_select:data,
+    G ['fifo_rdata.data[31:16]']
+    P []
+    A []
+O-ONLY      earl_testflags|85:33-85:55|ref_obj:fifo_rdata,part_select:data,
+    G []
+    P ['fifo_rdata.data[31:16]']
+    A ['fifo_rdata.data[31:16]']
+G-ONLY      earl_testflags|86:32-86:54|ref_obj:fifo_rdata,part_select:data,
+    G ['fifo_rdata.data[31:8]']
+    P []
+    A []
+O-ONLY      earl_testflags|86:33-86:55|ref_obj:fifo_rdata,part_select:data,
+    G []
+    P ['fifo_rdata.data[31:8]']
+    A ['fifo_rdata.data[31:8]']
+TOGOLD      earl_testflags|97:7-97:41|bit_select:tl_h_i,indexed_part_select:a_source,
+    G ['tl_h_i[i].a_source[0+:8 - 1]', 'tl_h_i[i].a_source[0+:8 - 2]', 'tl_h_i[i].a_source[0+:IDW - STIDW]']
+    P ['tl_h_i[i].a_source[0+:IDW - STIDW]', 'tl_h_i[i].a_source[0+:IDW-STIDW]']
+    A ['tl_h_i[i].a_source[0+:8 - 1]', 'tl_h_i[i].a_source[0+:8 - 2]', 'tl_h_i[i].a_source[0+:IDW - STIDW]']
+TALLY SAME_AGREE=3648 TOGOLD=2 AWAY=0 MOVEDWRONG=0 STILLWRONG=9 G-ONLY=3 O-ONLY=13
+TOGOLD      earl_default|105:33-105:67|bit_select:tl_h_i,indexed_part_select:a_source,
+    G ['tl_h_i[i].a_source[8 - 1-:1]', 'tl_h_i[i].a_source[8 - 1-:2]', 'tl_h_i[i].a_source[IDW - 1-:STIDW]']
+    P ['tl_h_i[i].a_source[IDW - 1-:1]', 'tl_h_i[i].a_source[IDW - 1-:2]', 'tl_h_i[i].a_source[IDW - 1-:STIDW]']
+    A ['tl_h_i[i].a_source[8 - 1-:1]', 'tl_h_i[i].a_source[8 - 1-:2]', 'tl_h_i[i].a_source[IDW - 1-:STIDW]']
+STILLWRONG  earl_default|109:19-109:36|bit_select:tl_h_i,ref_obj:a_valid,
+    G ['tl_h_i[0].a_valid', 'tl_h_i[1].a_valid', 'tl_h_i[2].a_valid', 'tl_h_i[i].a_valid']
+    P ['tl_h_i[i].a_valid']
+    A ['tl_h_i[i].a_valid']
+STILLWRONG  earl_default|110:19-110:37|bit_select:tl_h_i,ref_obj:a_opcode,
+    G ['tl_h_i[0].a_opcode', 'tl_h_i[1].a_opcode', 'tl_h_i[2].a_opcode', 'tl_h_i[i].a_opcode']
+    P ['tl_h_i[i].a_opcode']
+    A ['tl_h_i[i].a_opcode']
+STILLWRONG  earl_default|111:19-111:36|bit_select:tl_h_i,ref_obj:a_param,
+    G ['tl_h_i[0].a_param', 'tl_h_i[1].a_param', 'tl_h_i[2].a_param', 'tl_h_i[i].a_param']
+    P ['tl_h_i[i].a_param']
+    A ['tl_h_i[i].a_param']
+STILLWRONG  earl_default|112:19-112:35|bit_select:tl_h_i,ref_obj:a_size,
+    G ['tl_h_i[0].a_size', 'tl_h_i[1].a_size', 'tl_h_i[2].a_size', 'tl_h_i[i].a_size']
+    P ['tl_h_i[i].a_size']
+    A ['tl_h_i[i].a_size']
+STILLWRONG  earl_default|114:19-114:38|bit_select:tl_h_i,ref_obj:a_address,
+    G ['tl_h_i[0].a_address', 'tl_h_i[1].a_address', 'tl_h_i[2].a_address', 'tl_h_i[i].a_address']
+    P ['tl_h_i[i].a_address']
+    A ['tl_h_i[i].a_address']
+STILLWRONG  earl_default|115:19-115:35|bit_select:tl_h_i,ref_obj:a_mask,
+    G ['tl_h_i[0].a_mask', 'tl_h_i[1].a_mask', 'tl_h_i[2].a_mask', 'tl_h_i[i].a_mask']
+    P ['tl_h_i[i].a_mask']
+    A ['tl_h_i[i].a_mask']
+STILLWRONG  earl_default|116:19-116:35|bit_select:tl_h_i,ref_obj:a_data,
+    G ['tl_h_i[0].a_data', 'tl_h_i[1].a_data', 'tl_h_i[2].a_data', 'tl_h_i[i].a_data']
+    P ['tl_h_i[i].a_data']
+    A ['tl_h_i[i].a_data']
+STILLWRONG  earl_default|117:19-117:35|bit_select:tl_h_i,ref_obj:a_user,
+    G ['tl_h_i[0].a_user', 'tl_h_i[1].a_user', 'tl_h_i[2].a_user', 'tl_h_i[i].a_user']
+    P ['tl_h_i[i].a_user']
+    A ['tl_h_i[i].a_user']
+STILLWRONG  earl_default|118:19-118:36|bit_select:tl_h_i,ref_obj:d_ready,
+    G ['tl_h_i[0].d_ready', 'tl_h_i[1].d_ready', 'tl_h_i[2].d_ready', 'tl_h_i[i].d_ready']
+    P ['tl_h_i[i].d_ready']
+    A ['tl_h_i[i].d_ready']
+O-ONLY      earl_default|130:12-130:29|bit_select:tl_u_o,ref_obj:a_valid,
+    G []
+    P ['tl_u_o[i].a_valid']
+    A ['tl_u_o[i].a_valid']
+O-ONLY      earl_default|133:12-133:30|bit_select:tl_u_o,ref_obj:a_opcode,
+    G []
+    P ['tl_u_o[i].a_opcode']
+    A ['tl_u_o[i].a_opcode']
+O-ONLY      earl_default|134:12-134:29|bit_select:tl_u_o,ref_obj:a_param,
+    G []
+    P ['tl_u_o[i].a_param']
+    A ['tl_u_o[i].a_param']
+O-ONLY      earl_default|135:12-135:28|bit_select:tl_u_o,ref_obj:a_size,
+    G []
+    P ['tl_u_o[i].a_size']
+    A ['tl_u_o[i].a_size']
+O-ONLY      earl_default|136:12-136:30|bit_select:tl_u_o,ref_obj:a_source,
+    G []
+    P ['tl_u_o[i].a_source']
+    A ['tl_u_o[i].a_source']
+O-ONLY      earl_default|137:12-137:31|bit_select:tl_u_o,ref_obj:a_address,
+    G []
+    P ['tl_u_o[i].a_address']
+    A ['tl_u_o[i].a_address']
+O-ONLY      earl_default|138:12-138:28|bit_select:tl_u_o,ref_obj:a_mask,
+    G []
+    P ['tl_u_o[i].a_mask']
+    A ['tl_u_o[i].a_mask']
+O-ONLY      earl_default|139:12-139:28|bit_select:tl_u_o,ref_obj:a_data,
+    G []
+    P ['tl_u_o[i].a_data']
+    A ['tl_u_o[i].a_data']
+O-ONLY      earl_default|140:12-140:28|bit_select:tl_u_o,ref_obj:a_user,
+    G []
+    P ['tl_u_o[i].a_user']
+    A ['tl_u_o[i].a_user']
+O-ONLY      earl_default|178:12-178:29|bit_select:tl_u_o,ref_obj:d_ready,
+    G []
+    P ['tl_u_o[i].d_ready']
+    A ['tl_u_o[i].d_ready']
+G-ONLY      earl_default|84:32-84:54|ref_obj:fifo_rdata,part_select:data,
+    G ['fifo_rdata.data[31:24]']
+    P []
+    A []
+O-ONLY      earl_default|84:33-84:55|ref_obj:fifo_rdata,part_select:data,
+    G []
+    P ['fifo_rdata.data[31:24]']
+    A ['fifo_rdata.data[31:24]']
+G-ONLY      earl_default|85:32-85:54|ref_obj:fifo_rdata,part_select:data,
+    G ['fifo_rdata.data[31:16]']
+    P []
+    A []
+O-ONLY      earl_default|85:33-85:55|ref_obj:fifo_rdata,part_select:data,
+    G []
+    P ['fifo_rdata.data[31:16]']
+    A ['fifo_rdata.data[31:16]']
+G-ONLY      earl_default|86:32-86:54|ref_obj:fifo_rdata,part_select:data,
+    G ['fifo_rdata.data[31:8]']
+    P []
+    A []
+O-ONLY      earl_default|86:33-86:55|ref_obj:fifo_rdata,part_select:data,
+    G []
+    P ['fifo_rdata.data[31:8]']
+    A ['fifo_rdata.data[31:8]']
+TOGOLD      earl_default|97:7-97:41|bit_select:tl_h_i,indexed_part_select:a_source,
+    G ['tl_h_i[i].a_source[0+:8 - 1]', 'tl_h_i[i].a_source[0+:8 - 2]', 'tl_h_i[i].a_source[0+:IDW - STIDW]']
+    P ['tl_h_i[i].a_source[0+:IDW - STIDW]', 'tl_h_i[i].a_source[0+:IDW-STIDW]']
+    A ['tl_h_i[i].a_source[0+:8 - 1]', 'tl_h_i[i].a_source[0+:8 - 2]', 'tl_h_i[i].a_source[0+:IDW - STIDW]']
+TALLY SAME_AGREE=3648 TOGOLD=2 AWAY=0 MOVEDWRONG=0 STILLWRONG=9 G-ONLY=3 O-ONLY=13

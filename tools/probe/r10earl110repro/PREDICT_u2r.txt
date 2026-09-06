@@ -1,0 +1,21 @@
+CAND default/carryadd-a3e88f54 2
+CAND default/gen_test5-c31fbabd 3
+CAND default/iface_arr_struct_field_partsel-b87a2e5f 1
+CAND default/iface_ff_genvar_partsel-e98381d4 2
+CAND default/iface_scalar_localparam-a7441da3 1
+CAND default/iface_struct_field_partsel-917f9147 1
+CAND default/indexed_partsel_array-552f1b4f 1
+CAND default/IndexedPartSelectInFor-82c0f181 1
+CAND default/jeras_tcb_gpio-ae64260e 2
+CAND default/rotate-01bb0f1a 1
+CAND testflags/carryadd-a3e88f54 2
+CAND testflags/gen_test5-c31fbabd 3
+CAND testflags/iface_arr_struct_field_partsel-b87a2e5f 1
+CAND testflags/iface_ff_genvar_partsel-e98381d4 2
+CAND testflags/iface_scalar_localparam-a7441da3 1
+CAND testflags/iface_struct_field_partsel-917f9147 1
+CAND testflags/indexed_partsel_array-552f1b4f 1
+CAND testflags/IndexedPartSelectInFor-82c0f181 1
+CAND testflags/jeras_tcb_gpio-ae64260e 2
+CAND testflags/rotate-01bb0f1a 1
+-- scanned=1358 CAND=20 CENFAIL=0

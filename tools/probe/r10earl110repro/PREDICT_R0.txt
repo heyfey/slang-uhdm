@@ -1,0 +1,81 @@
+r10earl110 -- THE MOVER PREDICTION, WRITTEN BEFORE THE PATCHED SWEEPS RAN
+=========================================================================
+Made from PRISTINE databases ONLY (predict110.sh over this pass's own pristine
+verify_golden workdirs), plus the law's two gates.  MEASUREMENT ONLY; the
+official uhdm-cmp is the sole judge.
+
+THE OVER-PREDICTION (predict110.sh, the regex superset -- any hier_path NAME
+with a bracket half holding both an IDENTIFIER and an arithmetic operator):
+  surelog      scanned=956   CAND=18  CENFAIL=0   (PREDICT_sl.txt)
+  uhdm2rtlil   scanned=1358  CAND=20  CENFAIL=0   (PREDICT_u2r.txt)
+
+NARROWING, candidate by candidate, against the law's THREE conditions --
+(a) the half belongs to an INDEXED part-select on a DOTTED-base hier_path (the
+    ExprEmit `baseDotted` builder), not a bit_select INDEX and not a SIMPLE
+    `[l:r]` part select (whose bounds go through `renderBound9`, untouched);
+(b) the half is a BinaryOp +-*/ over leaves, at least one of them a parameter
+    `selWidthParamFold` folds (a GENVAR renders as its NAME and does NOT count);
+(c) the select sits at generate-nesting DEPTH EXACTLY 1.
+
+  surelog
+    BuildUVMPkg/MiniAmiq/Scoreboard/SeqDriver/SimpleUVM  x2 modes
+        `fields[idx +- 1].get_*` / `m_fields[...]`  -- bit_select INDEX in a
+        method-call path, condition (a) fails.
+        `rw.data[i * 8+:8]`, `accesses[i0].data[i1 * 8+:8]`,
+        `rw.value[idx][8 * i+:8]` -- class-method LOOP VARIABLES, not
+        parameters: (b) fails; and a class method is depth 0: (c) fails.
+        -> NO MOVE
+    CarryAdd x2      `STAGE[i - 1].C`          -- bit_select index, (a) fails.
+    GenScopeHierPath3 x2  `steps[...]` three    -- bit_select indices, (a).
+    Rggen (default only)  `apb_if.paddr[ADDRESS_WIDTH - 1:0]` SIMPLE, (a);
+        `bit_field_if.read_*[<lit> + <lit> * <genvar>+:<lit>]` -- literals and
+        genvars only, no parameter folds, (b) fails.   -> NO MOVE
+    Scr1SvTests x2   SIMPLE part select + bit_select indices, (a) fails.
+    Earlgrey_0_1 x2  `tl_h_i[i].a_source[0+:IDW-STIDW]` and
+        `tl_h_i[i].a_source[IDW - 1-:1]` / `[IDW - 1-:2]` -- indexed part
+        selects, localparam leaves, inside ONE generate level
+        (tlul_socket_m1.sv `gen_host_fifo`).  Its other 24 candidate names are
+        SIMPLE part selects or bare-parameter halves and do not qualify.
+        -> MOVE
+
+  uhdm2rtlil
+    carryadd / rotate / gen_test5      bit_select indices, (a) fails.
+    iface_arr_struct_field_partsel / iface_scalar_localparam /
+    iface_struct_field_partsel / jeras_tcb_gpio     SIMPLE `[l:r]`, (a) fails.
+    iface_ff_genvar_partsel / IndexedPartSelectInFor
+        `sub.src[i * 8+:8]`, `keymgr_key_i.key[0][i * 32+:32]` -- the only
+        non-literal leaf is a GENVAR, so nothing folds, (b) fails.
+    indexed_partsel_array  `a[0].source[base-:2]` -- the base half is a bare
+        NamedValue, not a BinaryOp, (b) fails.
+        -> NO MOVE, any row, either mode
+
+THE PREDICTION
+  surelog     EXACTLY TWO byte movers: Earlgrey_0_1/default and
+              Earlgrey_0_1/testflags.  Every other row-database byte-identical.
+              (Scoreboard/default is the documented ~50/50 COIN -- RESUME.md
+              section 9 -- so if it moves it must show ZERO lines in the
+              order-blind sorted-dump diff and is NOT this law's.)
+  uhdm2rtlil  ZERO byte movers, both modes.
+  rows        ZERO status/dump rows change in either corpus; no conversion is
+              claimed.
+  heads       Earlgrey_0_1/testflags 176 -> fewer, one head; Earlgrey_0_1/
+              default 31 lines UNCHANGED and its cmp log BYTE-IDENTICAL;
+              every other row's cmp log byte-identical.
+
+R0 (the head this pass hands on), read off the mask ladder in
+OWNER.r10earl110.txt BEFORE the patch existed and confirmed on the patched
+binary afterwards:
+  Earlgrey_0_1/testflags, 17 cmp lines, ONE head, a SINGULAR field with
+  RHS <null> --
+    LHS  ref_typespec (work@top_earlgrey.u_xbar_main.u_sm1_17) id:793443
+         |vpiParent -> constant  tlul_socket_m1.sv 105:61-105:66   (the folded
+                       `STIDW` WIDTH of `tl_h_i[i].a_source[IDW-1 -: STIDW]`)
+         |vpiActual  -> int_typespec  73:14-73:26  (the `localparam int
+                       unsigned STIDW` DECLARATION)
+    RHS  <null>
+  i.e. golden stamps a folded MODULE-localparam select bound with that
+  localparam's own declaration typespec, and ours leaves the constant bare.
+  That is the § elabHierSelWidthFold / `stampFoldedPkgParamTs` family, whose
+  declaration comment (include/UhdmExporter.h) currently records "A MODULE-scope
+  parameter has no such object and is left bare" -- this cell says otherwise for
+  a MODULE LOCALPARAM and is the next pass's decode.

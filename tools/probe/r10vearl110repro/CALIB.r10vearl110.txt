@@ -1,0 +1,13 @@
+CALIB v1_scope plain cells=13 DIFF=0
+CALIB v1_scope elab cells=13 DIFF=0
+CALIB v2_modnest plain cells=3 DIFF=0
+CALIB v2_modnest elab cells=3 DIFF=0
+CALIB v3_shape plain cells=27 DIFF=0
+CALIB v3_shape elab cells=27 DIFF=0
+CALIB v4_pair plain cells=8 DIFF=0
+CALIB v4_pair elab cells=8 DIFF=0
+CALIB v5_value plain cells=16 DIFF=0
+CALIB v5_value elab cells=16 DIFF=0
+CALIB v6_away plain cells=11 DIFF=0
+CALIB v6_away elab cells=11 DIFF=0
+CALIB TOTAL cells=156 DIFF=0

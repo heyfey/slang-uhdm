@@ -1,0 +1,217 @@
+r10earl110 -- the FOREIGN arms the WIDE BOUNDARY flagged, SCORED against a fresh Surelog golden.
+MEASUREMENT ONLY.  LHS is ALWAYS golden.
+
+===== r10buvm22repro_g22elab
+TALLY SAME_AGREE=4 TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=0 G-ONLY=0 O-ONLY=0
+
+===== r10buvm22repro_g22plain
+TALLY SAME_AGREE=4 TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=0 G-ONLY=0 O-ONLY=0
+
+===== r10earl34repro_a2_shapeelab
+STILLWRONG  r10earl34repro_a2_shapeelab|74:21-74:62|bit_select:tl_h_i,indexed_part_select:a_source,
+    G ['tl_h_i[0].a_source[0+:FromPkg - FromClog]']
+    P ['tl_h_i[0].a_source[0+:FromPkg-FromClog]']
+    A ['tl_h_i[0].a_source[0+:FromPkg-FromClog]']
+STILLWRONG  r10earl34repro_a2_shapeelab|76:21-76:49|bit_select:tl_h_i,indexed_part_select:a_source,
+    G ['tl_h_i[0].a_source[0+:LocLp]']
+    P ['tl_h_i[0].a_source[0+:6]']
+    A ['tl_h_i[0].a_source[0+:6]']
+STILLWRONG  r10earl34repro_a2_shapeelab|79:21-79:50|bit_select:tl_h_i,part_select:a_source,
+    G ['tl_h_i[0].a_source[8 - 1:0]']
+    P ['tl_h_i[0].a_source[PkgLp - 1:0]']
+    A ['tl_h_i[0].a_source[PkgLp - 1:0]']
+TOGOLD      r10earl34repro_a2_shapeelab|90:25-90:67|bit_select:tl_h_i,indexed_part_select:a_source,
+    G ['tl_h_i[gi].a_source[0+:9 - 5]']
+    P ['tl_h_i[gi].a_source[0+:FromPkg-FromClog]']
+    A ['tl_h_i[gi].a_source[0+:9 - 5]']
+TALLY SAME_AGREE=21 TOGOLD=1 AWAY=0 MOVEDWRONG=0 STILLWRONG=3 G-ONLY=0 O-ONLY=0
+
+===== r10earl34repro_a2_shapeplain
+STILLWRONG  r10earl34repro_a2_shapeplain|74:21-74:62|bit_select:tl_h_i,indexed_part_select:a_source,
+    G ['tl_h_i[0].a_source[0+:FromPkg - FromClog]']
+    P ['tl_h_i[0].a_source[0+:FromPkg-FromClog]']
+    A ['tl_h_i[0].a_source[0+:FromPkg-FromClog]']
+STILLWRONG  r10earl34repro_a2_shapeplain|76:21-76:49|bit_select:tl_h_i,indexed_part_select:a_source,
+    G ['tl_h_i[0].a_source[0+:LocLp]']
+    P ['tl_h_i[0].a_source[0+:6]']
+    A ['tl_h_i[0].a_source[0+:6]']
+STILLWRONG  r10earl34repro_a2_shapeplain|79:21-79:50|bit_select:tl_h_i,part_select:a_source,
+    G ['tl_h_i[0].a_source[8 - 1:0]']
+    P ['tl_h_i[0].a_source[PkgLp - 1:0]']
+    A ['tl_h_i[0].a_source[PkgLp - 1:0]']
+TOGOLD      r10earl34repro_a2_shapeplain|90:25-90:67|bit_select:tl_h_i,indexed_part_select:a_source,
+    G ['tl_h_i[gi].a_source[0+:9 - 5]']
+    P ['tl_h_i[gi].a_source[0+:FromPkg-FromClog]']
+    A ['tl_h_i[gi].a_source[0+:9 - 5]']
+TALLY SAME_AGREE=21 TOGOLD=1 AWAY=0 MOVEDWRONG=0 STILLWRONG=3 G-ONLY=0 O-ONLY=0
+
+===== r10earl69repro_a1_hpname69elab
+TOGOLD      r10earl69repro_a1_hpname69elab|50:20-50:45|bit_select:read_buf,indexed_part_select:addr,
+    G ['read_buf[i].addr[7 + i+:8]', 'read_buf[i].addr[PP + i+:8]']
+    P ['read_buf[i].addr[PP + i+:8]']
+    A ['read_buf[i].addr[7 + i+:8]', 'read_buf[i].addr[PP + i+:8]']
+O-ONLY      r10earl69repro_a1_hpname69elab|65:20-65:24|bit_select:marr,indexed_part_select:addr,
+    G []
+    P ['marr[i][1].addr[PP+:PW]']
+    A ['marr[i][1].addr[PP+:PW]']
+G-ONLY      r10earl69repro_a1_hpname69elab|65:20-65:43|bit_select:marr,bit_select:,indexed_part_select:addr,
+    G ['marr[i][1].addr[7+:8]', 'marr[i][1].addr[PP+:PW]']
+    P []
+    A []
+O-ONLY      r10earl69repro_a1_hpname69elab|65:20-65:43|ref_obj:marr[i][1],indexed_part_select:addr,
+    G []
+    P ['marr[i][1].addr[7+:8]']
+    A ['marr[i][1].addr[7+:8]']
+STILLWRONG  r10earl69repro_a1_hpname69elab|77:22-77:46|bit_select:read_buf,indexed_part_select:addr,
+    G ['read_buf[i].addr[PP+:PW]']
+    P ['read_buf[i].addr[PP+:8]']
+    A ['read_buf[i].addr[PP+:8]']
+STILLWRONG  r10earl69repro_a1_hpname69elab|83:18-83:42|bit_select:read_buf,indexed_part_select:addr,
+    G ['read_buf[0].addr[LP+:LW]']
+    P ['read_buf[0].addr[LP+:8]']
+    A ['read_buf[0].addr[LP+:8]']
+TALLY SAME_AGREE=20 TOGOLD=1 AWAY=0 MOVEDWRONG=0 STILLWRONG=2 G-ONLY=1 O-ONLY=2
+
+===== r10earl69repro_a1_hpname69plain
+TOGOLD      r10earl69repro_a1_hpname69plain|50:20-50:45|bit_select:read_buf,indexed_part_select:addr,
+    G ['read_buf[i].addr[7 + i+:8]', 'read_buf[i].addr[PP + i+:8]']
+    P ['read_buf[i].addr[PP + i+:8]']
+    A ['read_buf[i].addr[7 + i+:8]', 'read_buf[i].addr[PP + i+:8]']
+O-ONLY      r10earl69repro_a1_hpname69plain|65:20-65:24|bit_select:marr,indexed_part_select:addr,
+    G []
+    P ['marr[i][1].addr[PP+:PW]']
+    A ['marr[i][1].addr[PP+:PW]']
+G-ONLY      r10earl69repro_a1_hpname69plain|65:20-65:43|bit_select:marr,bit_select:,indexed_part_select:addr,
+    G ['marr[i][1].addr[7+:8]', 'marr[i][1].addr[PP+:PW]']
+    P []
+    A []
+O-ONLY      r10earl69repro_a1_hpname69plain|65:20-65:43|ref_obj:marr[i][1],indexed_part_select:addr,
+    G []
+    P ['marr[i][1].addr[7+:8]']
+    A ['marr[i][1].addr[7+:8]']
+STILLWRONG  r10earl69repro_a1_hpname69plain|77:22-77:46|bit_select:read_buf,indexed_part_select:addr,
+    G ['read_buf[i].addr[PP+:PW]']
+    P ['read_buf[i].addr[PP+:8]']
+    A ['read_buf[i].addr[PP+:8]']
+STILLWRONG  r10earl69repro_a1_hpname69plain|83:18-83:42|bit_select:read_buf,indexed_part_select:addr,
+    G ['read_buf[0].addr[LP+:LW]']
+    P ['read_buf[0].addr[LP+:8]']
+    A ['read_buf[0].addr[LP+:8]']
+TALLY SAME_AGREE=20 TOGOLD=1 AWAY=0 MOVEDWRONG=0 STILLWRONG=2 G-ONLY=1 O-ONLY=2
+
+===== r10earl69repro_a2_fence69elab
+TOGOLD      r10earl69repro_a2_fence69elab|30:20-30:37|bit_select:st,indexed_part_select:a,
+    G ['st[i].a[5 - 1+:4]', 'st[i].a[QP - 1+:QW]']
+    P ['st[i].a[QP - 1+:4]', 'st[i].a[QP - 1+:QW]']
+    A ['st[i].a[5 - 1+:4]', 'st[i].a[QP - 1+:QW]']
+STILLWRONG  r10earl69repro_a2_fence69elab|31:20-31:36|bit_select:st,part_select:a,
+    G ['st[i].a[5:5 - 4]', 'st[i].a[QP:QP - 4]']
+    P ['st[i].a[5:QP - 4]', 'st[i].a[QP:QP - 4]']
+    A ['st[i].a[5:QP - 4]', 'st[i].a[QP:QP - 4]']
+STILLWRONG  r10earl69repro_a2_fence69elab|33:20-33:40|bit_select:st,indexed_part_select:a,
+    G ['st[i].a[5+:4]', 'st[i].a[5+:QW]']
+    P ['st[i].a[q69::QP+:4]', 'st[i].a[q69::QP+:QW]']
+    A ['st[i].a[q69::QP+:4]', 'st[i].a[q69::QP+:QW]']
+STILLWRONG  r10earl69repro_a2_fence69elab|37:20-37:40|bit_select:st,indexed_part_select:a,
+    G ['st[i].a[+:4]', 'st[i].a[+:QW]']
+    P ['st[i].a[fn69(1)+:4]', 'st[i].a[fn691+:QW]']
+    A ['st[i].a[fn69(1)+:4]', 'st[i].a[fn691+:QW]']
+STILLWRONG  r10earl69repro_a2_fence69elab|39:20-39:39|bit_select:st,indexed_part_select:a,
+    G ['st[i].a[[0]+:4]', 'st[i].a[[0]+:QW]']
+    P ['st[i].a[idx[0]+:4]', 'st[i].a[idx[0]+:QW]']
+    A ['st[i].a[idx[0]+:4]', 'st[i].a[idx[0]+:QW]']
+O-ONLY      r10earl69repro_a2_fence69elab|45:20-45:23|bit_select:st2,indexed_part_select:a,
+    G []
+    P ['st2[QP][i].a[QP+:QW]']
+    A ['st2[QP][i].a[QP+:QW]']
+G-ONLY      r10earl69repro_a2_fence69elab|45:20-45:40|bit_select:st2,bit_select:,indexed_part_select:a,
+    G ['st2[5][i].a[5+:4]', 'st2[QP][i].a[QP+:QW]']
+    P []
+    A []
+O-ONLY      r10earl69repro_a2_fence69elab|45:20-45:40|ref_obj:st2[QP][i],indexed_part_select:a,
+    G []
+    P ['st2[QP][i].a[5+:4]']
+    A ['st2[QP][i].a[5+:4]']
+O-ONLY      r10earl69repro_a2_fence69elab|47:20-47:23|bit_select:st2,indexed_part_select:b,
+    G []
+    P ['st2[i][QP].b[LQ+:LW]']
+    A ['st2[i][QP].b[LQ+:LW]']
+G-ONLY      r10earl69repro_a2_fence69elab|47:20-47:40|bit_select:st2,bit_select:,indexed_part_select:b,
+    G ['st2[i][5].b[5+:4]', 'st2[i][QP].b[LQ+:LW]']
+    P []
+    A []
+O-ONLY      r10earl69repro_a2_fence69elab|47:20-47:40|ref_obj:st2[i][QP],indexed_part_select:b,
+    G []
+    P ['st2[i][QP].b[5+:4]']
+    A ['st2[i][QP].b[5+:4]']
+STILLWRONG  r10earl69repro_a2_fence69elab|56:18-56:33|bit_select:st,indexed_part_select:a,
+    G ['st[0].a[LQ+:LW]']
+    P ['st[0].a[LQ+:4]']
+    A ['st[0].a[LQ+:4]']
+STILLWRONG  r10earl69repro_a2_fence69elab|57:18-57:35|bit_select:st,indexed_part_select:a,
+    G ['st[0].a[5 - 1+:4]']
+    P ['st[0].a[QP - 1+:4]']
+    A ['st[0].a[QP - 1+:4]']
+TALLY SAME_AGREE=10 TOGOLD=1 AWAY=0 MOVEDWRONG=0 STILLWRONG=6 G-ONLY=2 O-ONLY=4
+
+===== r10earl69repro_a2_fence69plain
+TOGOLD      r10earl69repro_a2_fence69plain|30:20-30:37|bit_select:st,indexed_part_select:a,
+    G ['st[i].a[5 - 1+:4]', 'st[i].a[QP - 1+:QW]']
+    P ['st[i].a[QP - 1+:4]', 'st[i].a[QP - 1+:QW]']
+    A ['st[i].a[5 - 1+:4]', 'st[i].a[QP - 1+:QW]']
+STILLWRONG  r10earl69repro_a2_fence69plain|31:20-31:36|bit_select:st,part_select:a,
+    G ['st[i].a[5:5 - 4]', 'st[i].a[QP:QP - 4]']
+    P ['st[i].a[5:QP - 4]', 'st[i].a[QP:QP - 4]']
+    A ['st[i].a[5:QP - 4]', 'st[i].a[QP:QP - 4]']
+STILLWRONG  r10earl69repro_a2_fence69plain|33:20-33:40|bit_select:st,indexed_part_select:a,
+    G ['st[i].a[5+:4]', 'st[i].a[5+:QW]']
+    P ['st[i].a[q69::QP+:4]', 'st[i].a[q69::QP+:QW]']
+    A ['st[i].a[q69::QP+:4]', 'st[i].a[q69::QP+:QW]']
+STILLWRONG  r10earl69repro_a2_fence69plain|37:20-37:40|bit_select:st,indexed_part_select:a,
+    G ['st[i].a[+:4]', 'st[i].a[+:QW]']
+    P ['st[i].a[fn69(1)+:4]', 'st[i].a[fn691+:QW]']
+    A ['st[i].a[fn69(1)+:4]', 'st[i].a[fn691+:QW]']
+STILLWRONG  r10earl69repro_a2_fence69plain|39:20-39:39|bit_select:st,indexed_part_select:a,
+    G ['st[i].a[[0]+:4]', 'st[i].a[[0]+:QW]']
+    P ['st[i].a[idx[0]+:4]', 'st[i].a[idx[0]+:QW]']
+    A ['st[i].a[idx[0]+:4]', 'st[i].a[idx[0]+:QW]']
+O-ONLY      r10earl69repro_a2_fence69plain|45:20-45:23|bit_select:st2,indexed_part_select:a,
+    G []
+    P ['st2[QP][i].a[QP+:QW]']
+    A ['st2[QP][i].a[QP+:QW]']
+G-ONLY      r10earl69repro_a2_fence69plain|45:20-45:40|bit_select:st2,bit_select:,indexed_part_select:a,
+    G ['st2[5][i].a[5+:4]', 'st2[QP][i].a[QP+:QW]']
+    P []
+    A []
+O-ONLY      r10earl69repro_a2_fence69plain|45:20-45:40|ref_obj:st2[QP][i],indexed_part_select:a,
+    G []
+    P ['st2[QP][i].a[5+:4]']
+    A ['st2[QP][i].a[5+:4]']
+O-ONLY      r10earl69repro_a2_fence69plain|47:20-47:23|bit_select:st2,indexed_part_select:b,
+    G []
+    P ['st2[i][QP].b[LQ+:LW]']
+    A ['st2[i][QP].b[LQ+:LW]']
+G-ONLY      r10earl69repro_a2_fence69plain|47:20-47:40|bit_select:st2,bit_select:,indexed_part_select:b,
+    G ['st2[i][5].b[5+:4]', 'st2[i][QP].b[LQ+:LW]']
+    P []
+    A []
+O-ONLY      r10earl69repro_a2_fence69plain|47:20-47:40|ref_obj:st2[i][QP],indexed_part_select:b,
+    G []
+    P ['st2[i][QP].b[5+:4]']
+    A ['st2[i][QP].b[5+:4]']
+STILLWRONG  r10earl69repro_a2_fence69plain|56:18-56:33|bit_select:st,indexed_part_select:a,
+    G ['st[0].a[LQ+:LW]']
+    P ['st[0].a[LQ+:4]']
+    A ['st[0].a[LQ+:4]']
+STILLWRONG  r10earl69repro_a2_fence69plain|57:18-57:35|bit_select:st,indexed_part_select:a,
+    G ['st[0].a[5 - 1+:4]']
+    P ['st[0].a[QP - 1+:4]']
+    A ['st[0].a[QP - 1+:4]']
+TALLY SAME_AGREE=10 TOGOLD=1 AWAY=0 MOVEDWRONG=0 STILLWRONG=6 G-ONLY=2 O-ONLY=4
+
+===== r10uvm154_l154elab
+TALLY SAME_AGREE=0 TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=0 G-ONLY=0 O-ONLY=0
+
+===== r10uvm154_l154plain
+TALLY SAME_AGREE=0 TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=0 G-ONLY=0 O-ONLY=0
+
