@@ -1,0 +1,142 @@
+r10uvm173 — THE CORPUS CENSUS AND THE MOVER LEDGER.  MEASUREMENT ONLY.
+LHS is ALWAYS golden (Surelog).  a = PRISTINE fb82059559765e79eee43ee365aa4879,
+b = PATCHED 52a3bbc93edd57b0fb5a4a143252ef43.  BASE d53fbaad.
+
+== PREDICTION, made from PRISTINE databases BEFORE the patched sweep ==
+(The prediction was first run with an earlier WOULDMOVE test keyed on the CALLEE'S
+ home package name; the committed ct173bind uses the WRITTEN test the cross-package
+ arm settled on.  Both name the SAME 17 + 20 databases; the per-cell counts differ
+ slightly (SeqDriver/MiniAmiq 2004 -> 2026, SimpleUVM 1013 -> 1013).  The listing
+ below is the COMMITTED tool's.)
+-- surelog corpus (predsweep173.sh, 956 databases scanned):
+-- databases scanned=956  with-movers=17  restore-fail=0
+WOULDMOVE 2026 default/MiniAmiq-544c7f61/slang.uhdm
+WOULDMOVE 2026 default/SeqDriver-32af76aa/slang.uhdm
+WOULDMOVE 2026 testflags/MiniAmiq-544c7f61/slang.uhdm
+WOULDMOVE 2026 testflags/SeqDriver-32af76aa/slang.uhdm
+WOULDMOVE 1013 default/Scoreboard-59431470/slang.uhdm
+WOULDMOVE 1013 default/SimpleUVM-1dc93a62/slang.uhdm
+WOULDMOVE 1013 testflags/SimpleUVM-1dc93a62/slang.uhdm
+WOULDMOVE 1001 default/BuildUVMPkg-bf853d43/slang.uhdm
+WOULDMOVE 1001 testflags/BuildUVMPkg-bf853d43/slang.uhdm
+WOULDMOVE 49 default/Earlgrey_0_1-71da2fd7/slang.uhdm
+WOULDMOVE 49 testflags/Earlgrey_0_1-71da2fd7/slang.uhdm
+WOULDMOVE 3 default/EvalFuncNamed-89c15204/slang.uhdm
+WOULDMOVE 3 default/FuncStructVal-564cdfb7/slang.uhdm
+WOULDMOVE 3 testflags/EvalFuncNamed-89c15204/slang.uhdm
+WOULDMOVE 3 testflags/FuncStructVal-564cdfb7/slang.uhdm
+WOULDMOVE 1 default/PackFuncParent-6e036905/slang.uhdm
+WOULDMOVE 1 testflags/PackFuncParent-6e036905/slang.uhdm
+-- uhdm2rtlil corpus (1358 databases scanned):
+-- databases scanned=1358  with-movers=20  restore-fail=0
+WOULDMOVE 7 default/jeras_union-31d30c1d/slang.uhdm
+WOULDMOVE 7 testflags/jeras_union-31d30c1d/slang.uhdm
+WOULDMOVE 6 default/rp32_r5p_alu-c9c477ec/slang.uhdm
+WOULDMOVE 6 default/rp32_r5p_bru-aad2f09e/slang.uhdm
+WOULDMOVE 6 default/rp32_r5p_mdu-0de6e8a4/slang.uhdm
+WOULDMOVE 6 default/rp32_r5p_wbu-ad685a2e/slang.uhdm
+WOULDMOVE 6 testflags/rp32_r5p_alu-c9c477ec/slang.uhdm
+WOULDMOVE 6 testflags/rp32_r5p_bru-aad2f09e/slang.uhdm
+WOULDMOVE 6 testflags/rp32_r5p_mdu-0de6e8a4/slang.uhdm
+WOULDMOVE 6 testflags/rp32_r5p_wbu-ad685a2e/slang.uhdm
+WOULDMOVE 2 default/NestedCallsOfTheSameFunction-d2fe54ed/slang.uhdm
+WOULDMOVE 2 default/package_task_func-2363acdf/slang.uhdm
+WOULDMOVE 2 testflags/NestedCallsOfTheSameFunction-d2fe54ed/slang.uhdm
+WOULDMOVE 2 testflags/package_task_func-2363acdf/slang.uhdm
+WOULDMOVE 1 default/FunctionCallsFunctionWithIndexedPartSelectAsArgument-c500c3a8/slang.uhdm
+WOULDMOVE 1 default/ImportedFunctionUsesAnotherFunction-534730f9/slang.uhdm
+WOULDMOVE 1 default/ReturnFunctionCall-1dd5d472/slang.uhdm
+WOULDMOVE 1 testflags/FunctionCallsFunctionWithIndexedPartSelectAsArgument-c500c3a8/slang.uhdm
+WOULDMOVE 1 testflags/ImportedFunctionUsesAnotherFunction-534730f9/slang.uhdm
+WOULDMOVE 1 testflags/ReturnFunctionCall-1dd5d472/slang.uhdm
+
+== REALISED MOVERS (byteverify.sh, SELFCHECK=1) ==
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm  patched=b0191500ed20 pristine=aeae01475464
+MOVER ./default/Earlgrey_0_1-71da2fd7/slang.uhdm  patched=a967d66abd9d pristine=02b37834ae6d
+MOVER ./default/EvalFuncNamed-89c15204/slang.uhdm  patched=b5e5411cf2e0 pristine=2fc3d71101eb
+MOVER ./default/FuncStructVal-564cdfb7/slang.uhdm  patched=2b9f48abf9f6 pristine=3148ad7221d0
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=fbcf93a0c9e6 pristine=82e5a3c667ad
+MOVER ./default/PackFuncParent-6e036905/slang.uhdm  patched=0dd67126cd49 pristine=64a4c9711b6c
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=43b529fcf7d6 pristine=b7877ce4df14
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=0eacbde6882d pristine=bd24d7afda04
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=1ff4e58f68e8 pristine=ee9a5c89c3fa
+MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  patched=b0191500ed20 pristine=aeae01475464
+MOVER ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm  patched=f051b405e2e0 pristine=6d603492b6f9
+MOVER ./testflags/EvalFuncNamed-89c15204/slang.uhdm  patched=8af68171ab22 pristine=44f161808756
+MOVER ./testflags/FuncStructVal-564cdfb7/slang.uhdm  patched=14d59d4f3acc pristine=b956ad7bbac8
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=fbcf93a0c9e6 pristine=82e5a3c667ad
+MOVER ./testflags/PackFuncParent-6e036905/slang.uhdm  patched=362628744eae pristine=3795c464540c
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=e6598b46dc01 pristine=eb5a06e4bcf7
+MOVER ./testflags/SimpleUVM-1dc93a62/slang.uhdm  patched=ae9fe8a7b188 pristine=8fe10ad0653f
+MOVERS: 17 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVER ./default/FunctionCallsFunctionWithIndexedPartSelectAsArgument-c500c3a8/slang.uhdm  patched=c51eb787bd68 pristine=287c5dad09a6
+MOVER ./default/ImportedFunctionUsesAnotherFunction-534730f9/slang.uhdm  patched=19de094d73d1 pristine=e42d1d0a20d4
+MOVER ./default/jeras_union-31d30c1d/slang.uhdm  patched=e6db10a1310d pristine=0b70f634c5d6
+MOVER ./default/NestedCallsOfTheSameFunction-d2fe54ed/slang.uhdm  patched=3d68e38d9c0d pristine=ac59559ddfd9
+MOVER ./default/package_task_func-2363acdf/slang.uhdm  patched=9fb823a1e1a3 pristine=c94452f35456
+MOVER ./default/ReturnFunctionCall-1dd5d472/slang.uhdm  patched=22cad7fe0106 pristine=aa94c014a0fa
+MOVER ./default/rp32_r5p_alu-c9c477ec/slang.uhdm  patched=23f999f1533a pristine=f29e5901b5e7
+MOVER ./default/rp32_r5p_bru-aad2f09e/slang.uhdm  patched=0981ad5ff0e1 pristine=eca132d3f293
+MOVER ./default/rp32_r5p_mdu-0de6e8a4/slang.uhdm  patched=db799dd64437 pristine=97c02c8f3e87
+MOVER ./default/rp32_r5p_wbu-ad685a2e/slang.uhdm  patched=148d792d527a pristine=f3991e36b45d
+MOVER ./testflags/FunctionCallsFunctionWithIndexedPartSelectAsArgument-c500c3a8/slang.uhdm  patched=dc154beea22d pristine=54e29a045c70
+MOVER ./testflags/ImportedFunctionUsesAnotherFunction-534730f9/slang.uhdm  patched=bf0ead37be20 pristine=feeb442ac911
+MOVER ./testflags/jeras_union-31d30c1d/slang.uhdm  patched=0da710267dc8 pristine=2998769c0cc4
+MOVER ./testflags/NestedCallsOfTheSameFunction-d2fe54ed/slang.uhdm  patched=95b389b3b0e9 pristine=e085eeb8da11
+MOVER ./testflags/package_task_func-2363acdf/slang.uhdm  patched=e07f91aa1f70 pristine=16c0e0bd5f02
+MOVER ./testflags/ReturnFunctionCall-1dd5d472/slang.uhdm  patched=037d1f4fe1c0 pristine=1c1eaad78e1c
+MOVER ./testflags/rp32_r5p_alu-c9c477ec/slang.uhdm  patched=3de1b2001224 pristine=dda9f51715a2
+MOVER ./testflags/rp32_r5p_bru-aad2f09e/slang.uhdm  patched=582da1204c8a pristine=8a1b1114cc8d
+MOVER ./testflags/rp32_r5p_mdu-0de6e8a4/slang.uhdm  patched=3ea8d3bd1a29 pristine=dfde6c1be8f8
+MOVER ./testflags/rp32_r5p_wbu-ad685a2e/slang.uhdm  patched=730457cb4f4a pristine=839883cdf42e
+MOVERS: 20 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+
+PREDICTED 17/956 + 20/1358 BY NAME; REALISED exactly those 37 databases and no other.
+(Scoreboard/testflags and Rggen/testflags are SKIP-NOFILE — no golden — so the
+ Scoreboard prediction realises in the default mode only: 17, not 18.)
+
+== SCORE, span-blind multiset (no generated Compare reads a span) ==
+SeqDriver        default   TOTAL TO-GOLDEN=434 AWAY-GOLDEN=0 STILL-WRONG=2417 UNMOVED-OK=16 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+SeqDriver        testflags TOTAL TO-GOLDEN=434 AWAY-GOLDEN=0 STILL-WRONG=2417 UNMOVED-OK=16 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+SimpleUVM        default   TOTAL TO-GOLDEN=2016 AWAY-GOLDEN=0 STILL-WRONG=17 UNMOVED-OK=8 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+SimpleUVM        testflags TOTAL TO-GOLDEN=2016 AWAY-GOLDEN=0 STILL-WRONG=17 UNMOVED-OK=8 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+Scoreboard       default   TOTAL TO-GOLDEN=2016 AWAY-GOLDEN=0 STILL-WRONG=17 UNMOVED-OK=8 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+MiniAmiq         default   TOTAL TO-GOLDEN=434 AWAY-GOLDEN=0 STILL-WRONG=2417 UNMOVED-OK=16 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+MiniAmiq         testflags TOTAL TO-GOLDEN=434 AWAY-GOLDEN=0 STILL-WRONG=2417 UNMOVED-OK=16 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+BuildUVMPkg      default   TOTAL TO-GOLDEN=1978 AWAY-GOLDEN=0 STILL-WRONG=30 UNMOVED-OK=7 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+BuildUVMPkg      testflags TOTAL TO-GOLDEN=1978 AWAY-GOLDEN=0 STILL-WRONG=30 UNMOVED-OK=7 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+Earlgrey_0_1     default   TOTAL TO-GOLDEN=98 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+Earlgrey_0_1     testflags TOTAL TO-GOLDEN=98 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+FuncStructVal    default   TOTAL TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+FuncStructVal    testflags TOTAL TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+EvalFuncNamed    default   TOTAL TO-GOLDEN=2 AWAY-GOLDEN=0 STILL-WRONG=4 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+EvalFuncNamed    testflags TOTAL TO-GOLDEN=2 AWAY-GOLDEN=0 STILL-WRONG=6 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+PackFuncParent   default   TOTAL TO-GOLDEN=2 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+PackFuncParent   testflags TOTAL TO-GOLDEN=2 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+FunctionCallsFunctionWithIndexedPartSelectAsArgument default   TOTAL TO-GOLDEN=2 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+FunctionCallsFunctionWithIndexedPartSelectAsArgument testflags TOTAL TO-GOLDEN=2 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+ImportedFunctionUsesAnotherFunction                  default   TOTAL TO-GOLDEN=2 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+ImportedFunctionUsesAnotherFunction                  testflags TOTAL TO-GOLDEN=2 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+jeras_union                                          default   TOTAL TO-GOLDEN=14 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+jeras_union                                          testflags TOTAL TO-GOLDEN=14 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+NestedCallsOfTheSameFunction                         default   TOTAL TO-GOLDEN=4 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+NestedCallsOfTheSameFunction                         testflags TOTAL TO-GOLDEN=4 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+package_task_func                                    default   TOTAL TO-GOLDEN=4 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+package_task_func                                    testflags TOTAL TO-GOLDEN=4 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+ReturnFunctionCall                                   default   TOTAL TO-GOLDEN=2 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+ReturnFunctionCall                                   testflags TOTAL TO-GOLDEN=2 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+rp32_r5p_alu                                         default   TOTAL TO-GOLDEN=12 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+rp32_r5p_alu                                         testflags TOTAL TO-GOLDEN=12 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+rp32_r5p_bru                                         default   TOTAL TO-GOLDEN=12 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+rp32_r5p_bru                                         testflags TOTAL TO-GOLDEN=12 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+rp32_r5p_mdu                                         default   TOTAL TO-GOLDEN=12 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+rp32_r5p_mdu                                         testflags TOTAL TO-GOLDEN=12 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+rp32_r5p_wbu                                         default   TOTAL TO-GOLDEN=12 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+rp32_r5p_wbu                                         testflags TOTAL TO-GOLDEN=12 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0

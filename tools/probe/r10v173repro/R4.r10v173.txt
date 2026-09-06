@@ -1,0 +1,101 @@
+r10v173 — THE R4 RESIDUE AT CORPUS SCALE (measurement only).
+R4 = golden's DEF listing carries ONE call at ONE span TWICE and binds one copy
+to the def twin and one to the elaborated twin.  Both binaries put both copies on
+ONE twin, so each scores exactly one of the two right: pristine the elaborated one,
+patched the def one.  Every AWAY name below also appears as a TO-GOLDEN name in the
+same run — a relabelling, not a loss — and the official cmp does not move
+(SeqDriver 33 -> 33, MiniAmiq 40 -> 40, head logs byte-identical).
+
+== SeqDriver/MiniAmiq, def listing, --nospan --setmode ==
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_bitstream_to_string
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_create_random_seed
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_dpi_get_next_arg_c
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_dpi_get_tool_name_c
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_dpi_get_tool_version_c
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_glob_to_re
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_hdl_concat2string
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_hdl_deposit
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_hdl_force
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_hdl_read
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_hdl_release_and_read
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_instance_scope
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_integral_to_string
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_is_match
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_leaf_scope
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_object_value_str
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_oneway_hash
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_re_match
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_report
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_report_enabled
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_report_error
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_report_fatal
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_report_info
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_report_warning
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_revision_string
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_split_string
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_string_to_action
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_string_to_severity
+[def] AWAY-GOLDEN g=1 a=1 b=0  BIND PKGDEF->PKGELAB func_call uvm_dpi_get_next_arg_c
+[def] AWAY-GOLDEN g=1 a=1 b=0  BIND PKGDEF->PKGELAB func_call uvm_dpi_get_tool_name_c
+[def] AWAY-GOLDEN g=1 a=1 b=0  BIND PKGDEF->PKGELAB func_call uvm_dpi_get_tool_version_c
+[def] AWAY-GOLDEN g=1 a=1 b=0  BIND PKGDEF->PKGELAB func_call uvm_glob_to_re
+[def] AWAY-GOLDEN g=1 a=1 b=0  BIND PKGDEF->PKGELAB func_call uvm_hdl_force
+[def] AWAY-GOLDEN g=1 a=1 b=0  BIND PKGDEF->PKGELAB func_call uvm_hdl_release_and_read
+[def] AWAY-GOLDEN g=1 a=1 b=0  BIND PKGDEF->PKGELAB func_call uvm_instance_scope
+[def] AWAY-GOLDEN g=1 a=1 b=0  BIND PKGDEF->PKGELAB func_call uvm_oneway_hash
+[def] AWAY-GOLDEN g=1 a=1 b=0  BIND PKGDEF->PKGELAB func_call uvm_re_match
+[def] AWAY-GOLDEN g=1 a=1 b=0  BIND PKGDEF->PKGELAB func_call uvm_report
+[def] TO-GOLDEN=28 AWAY-GOLDEN=10 STILL-WRONG=5 UNMOVED-OK=26
+
+== the same ten names, entering PKGDEF->PKGDEF as TO-GOLDEN ==
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_dpi_get_next_arg_c
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_dpi_get_tool_name_c
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_dpi_get_tool_version_c
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_glob_to_re
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_hdl_force
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_hdl_release_and_read
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_instance_scope
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_oneway_hash
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_re_match
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call uvm_report
+
+== one cell in full (SeqDriver, uvm_re_match): golden holds BOTH buckets ==
+-- g
+      1 BIND PKGDEF->PKGDEF func_call uvm_re_match 403:11
+      1 BIND PKGDEF->PKGELAB func_call uvm_re_match 403:11
+      1 BIND PKGELAB->PKGELAB func_call uvm_re_match 1087:10
+      1 BIND PKGELAB->PKGELAB func_call uvm_re_match 223:12
+      2 BIND PKGELAB->PKGELAB func_call uvm_re_match 403:11
+      1 BIND PKGELAB->PKGELAB func_call uvm_re_match 404:15
+-- a
+      2 BIND PKGDEF->PKGELAB func_call uvm_re_match 403:11
+      1 BIND PKGELAB->PKGELAB func_call uvm_re_match 1087:10
+      1 BIND PKGELAB->PKGELAB func_call uvm_re_match 223:12
+      2 BIND PKGELAB->PKGELAB func_call uvm_re_match 403:11
+      1 BIND PKGELAB->PKGELAB func_call uvm_re_match 404:15
+-- b
+      2 BIND PKGDEF->PKGDEF func_call uvm_re_match 403:11
+      1 BIND PKGELAB->PKGELAB func_call uvm_re_match 1087:10
+      1 BIND PKGELAB->PKGELAB func_call uvm_re_match 223:12
+      2 BIND PKGELAB->PKGELAB func_call uvm_re_match 403:11
+      1 BIND PKGELAB->PKGELAB func_call uvm_re_match 404:15
+
+== EvalFuncNamed, the smallest instance: simple_minus 11:22 ==
+-- g
+BIND PKGDEF->PKGDEF func_call simple_func 20:27
+BIND PKGDEF->PKGDEF func_call simple_minus 11:22
+BIND PKGDEF->PKGELAB func_call simple_minus 11:22
+BIND PKGELAB->PKGELAB func_call simple_minus 11:22
+BIND PKGELAB->PKGELAB func_call simple_minus 11:22
+-- a
+BIND PKGDEF->PKGELAB func_call simple_func 20:27
+BIND PKGDEF->PKGELAB func_call simple_minus 11:22
+BIND PKGDEF->PKGELAB func_call simple_minus 11:22
+BIND PKGELAB->PKGELAB func_call simple_minus 11:22
+BIND PKGELAB->PKGELAB func_call simple_minus 11:22
+-- b
+BIND PKGDEF->PKGDEF func_call simple_func 20:27
+BIND PKGDEF->PKGDEF func_call simple_minus 11:22
+BIND PKGDEF->PKGDEF func_call simple_minus 11:22
+BIND PKGELAB->PKGELAB func_call simple_minus 11:22
+BIND PKGELAB->PKGELAB func_call simple_minus 11:22

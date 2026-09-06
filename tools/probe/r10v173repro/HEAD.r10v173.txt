@@ -1,0 +1,165 @@
+r10v173 — THE HEAD, REPRODUCED.  LHS is ALWAYS golden.
+
+== the OLD head (pristine binary), SimpleUVM/default, 17 cmp lines, 1 head ==
+LHS: <null>
+RHS:
+decompile:
+ref_typespec: (uvm_pkg::uvm_is_match::s), id:5786
+|vpiParent:
+\_ref_obj: (uvm_pkg::uvm_is_match::s), id:5785, line:403:24, endln:403:25
+|vpiFullName:uvm_pkg::uvm_is_match::s
+|vpiActual:
+\_string_typespec: , id:3966, line:23:50, endln:23:56
+
+decompile:
+ref_typespec: (uvm_pkg::uvm_is_match::s), id:5786
+|vpiParent:
+\_ref_obj: (uvm_pkg::uvm_is_match::s), id:5785, line:403:24, endln:403:25
+|vpiFullName:uvm_pkg::uvm_is_match::s
+|vpiActual:
+\_string_typespec: , id:3966, line:23:50, endln:23:56
+
+== the pairing prover (ct173seed): which golden object was on the other side ==
+-- no seed
+r=-1
+ LHS=<null>
+ RHS=ref_typespec()@0:0-0:0#5786
+   R< ref_typespec()@0:0-0:0#5786
+   R< ref_obj(s)@403:24-403:25#5785
+   R< func_call(uvm_re_match)@403:11-403:31#5784
+-- seed golden's DEF-listing ref_obj(s)@403:24 #82114
+SEEDED ref_obj(s)@403:24-403:25#82114
+r=-1
+ LHS=<null>
+ RHS=ref_typespec()@0:0-0:0#5788
+   R< ref_typespec()@0:0-0:0#5788
+   R< ref_obj(str)@403:27-403:30#5787
+-- seed golden's ELAB-listing ref_obj(s)@403:24 #22977
+SEEDED ref_obj(s)@403:24-403:25#22977
+r=-1
+ LHS=<null>
+ RHS=ref_typespec()@0:0-0:0#5786
+   R< ref_typespec()@0:0-0:0#5786
+   R< ref_obj(s)@403:24-403:25#5785
+
+== the typespec framing, REFUTED: ct173cen over uvm_is_match/uvm_re_match/uvm_glob_to_re ==
+   golden cells=69  ours cells=69  diff lines=0
+GOLDEN DEF|FREE|FUNC:uvm_is_match|uvm_re_match|DPI|ref_obj|FORMAL|string_typespec|403:27|1|str TS=0
+GOLDEN DEF|FREE|FUNC:uvm_is_match|uvm_re_match|DPI|ref_obj|VAR|string_typespec|403:24|0|s TS=0
+GOLDEN ELAB|FREE|FUNC:uvm_is_match|uvm_re_match|DPI|ref_obj|FORMAL|string_typespec|403:27|1|str TS=1
+GOLDEN ELAB|FREE|FUNC:uvm_is_match|uvm_re_match|DPI|ref_obj|VAR|string_typespec|403:24|0|s TS=1
+OURS   DEF|FREE|FUNC:uvm_is_match|uvm_re_match|DPI|ref_obj|FORMAL|string_typespec|403:27|1|str TS=0
+OURS   DEF|FREE|FUNC:uvm_is_match|uvm_re_match|DPI|ref_obj|VAR|string_typespec|403:24|0|s TS=0
+OURS   ELAB|FREE|FUNC:uvm_is_match|uvm_re_match|DPI|ref_obj|FORMAL|string_typespec|403:27|1|str TS=1
+OURS   ELAB|FREE|FUNC:uvm_is_match|uvm_re_match|DPI|ref_obj|VAR|string_typespec|403:24|0|s TS=1
+
+== the law, ct173bind on SimpleUVM/default ==
+-- GOLDEN
+   COUNT CLSALL->PKGELAB func_call                      12
+   COUNT MODALL->PKGELAB task_call                      1
+   COUNT MODTOP->PKGELAB func_call                      2
+   COUNT PKGDEF->PKGDEF func_call                       1014
+   COUNT PKGDEF->PKGDEF task_call                       5
+   COUNT PKGDEF->PKGELAB func_call                      3
+   COUNT PKGELAB->PKGELAB func_call                     1900
+   COUNT PKGELAB->PKGELAB task_call                     16
+-- PRISTINE
+   COUNT CLSALL->PKGELAB func_call                      12
+   COUNT MODALL->PKGELAB task_call                      1
+   COUNT MODTOP->PKGELAB func_call                      2
+   COUNT PKGDEF->PKGDEF func_call                       1
+   COUNT PKGDEF->PKGDEF task_call                       4
+   COUNT PKGDEF->PKGELAB func_call                      1016
+   COUNT PKGDEF->PKGELAB task_call                      1
+   COUNT PKGELAB->PKGDEF task_call                      5
+   COUNT PKGELAB->PKGELAB func_call                     1900
+   COUNT PKGELAB->PKGELAB task_call                     11
+   COUNT WOULDMOVE                                      1013
+-- PATCHED
+   COUNT CLSALL->PKGELAB func_call                      12
+   COUNT MODALL->PKGELAB task_call                      1
+   COUNT MODTOP->PKGELAB func_call                      2
+   COUNT PKGDEF->PKGDEF func_call                       1009
+   COUNT PKGDEF->PKGDEF task_call                       4
+   COUNT PKGDEF->PKGELAB func_call                      8
+   COUNT PKGDEF->PKGELAB task_call                      1
+   COUNT PKGELAB->PKGDEF task_call                      5
+   COUNT PKGELAB->PKGELAB func_call                     1900
+   COUNT PKGELAB->PKGELAB task_call                     11
+   COUNT WOULDMOVE                                      5
+
+== the pre-existing rule's WITNESS still reads the same on all three (EvalFunc) ==
+-- GOLDEN
+   BIND MODALL->MODALL func_call foo 56:13
+   BIND MODALL->MODALL func_call log2 64:25
+   BIND MODALL->MODALL func_call log2_2 66:25
+   BIND MODALL->MODALL func_call vbits 65:25
+   BIND MODALL->PKGELAB func_call prim_util_pkg::vbits 67:25
+   BIND PKGDEF->PKGELAB func_call prim_util_pkg::_clog2 14:31
+   BIND PKGELAB->PKGELAB func_call prim_util_pkg::_clog2 14:31
+-- PRISTINE
+   BIND MODALL->MODALL func_call foo 56:13
+   BIND MODALL->MODALL func_call log2 64:25
+   BIND MODALL->MODALL func_call log2_2 66:25
+   BIND MODALL->MODALL func_call vbits 65:25
+   BIND MODALL->PKGELAB func_call prim_util_pkg::vbits 67:25
+   BIND PKGDEF->PKGELAB func_call prim_util_pkg::_clog2 14:31
+   BIND PKGELAB->PKGELAB func_call prim_util_pkg::_clog2 14:31
+-- PATCHED
+   BIND MODALL->MODALL func_call foo 56:13
+   BIND MODALL->MODALL func_call log2 64:25
+   BIND MODALL->MODALL func_call log2_2 66:25
+   BIND MODALL->MODALL func_call vbits 65:25
+   BIND MODALL->PKGELAB func_call prim_util_pkg::vbits 67:25
+   BIND PKGDEF->PKGELAB func_call prim_util_pkg::_clog2 14:31
+   BIND PKGELAB->PKGELAB func_call prim_util_pkg::_clog2 14:31
+
+== the NEW head (patched binary), SimpleUVM/default, 40 cmp lines, 1 head — R0 ==
+LHS:
+decompile:
+sys_func_call: ($bits), id:69190, line:731:34, endln:731:39
+|vpiParent:
+\_operation: , id:69188, line:731:19, endln:731:45
+|vpiArgument:
+\_byte_var: (uvm_pkg::uvm_packer::pack_bytes), id:69191, line:731:40, endln:731:44
+  |vpiParent:
+  \_sys_func_call: ($bits), id:69190, line:731:34, endln:731:39
+  |vpiFullName:uvm_pkg::uvm_packer::pack_bytes
+|vpiName:$bits
+
+decompile:
+sys_func_call: ($bits), id:69190, line:731:34, endln:731:39
+|vpiParent:
+\_operation: , id:69188, line:731:19, endln:731:45
+|vpiArgument:
+\_byte_var: (uvm_pkg::uvm_packer::pack_bytes), id:69191, line:731:40, endln:731:44
+  |vpiParent:
+  \_sys_func_call: ($bits), id:69190, line:731:34, endln:731:39
+  |vpiFullName:uvm_pkg::uvm_packer::pack_bytes
+|vpiName:$bits
+RHS:
+decompile:
+constant: , id:132083, line:731:34, endln:731:45
+|vpiParent:
+\_operation: , id:132079, line:731:19, endln:731:45
+|vpiDecompile:8
+|vpiSize:64
+|UINT:8
+|vpiConstType:9
+
+decompile:
+constant: , id:132083, line:731:34, endln:731:45
+|vpiParent:
+\_operation: , id:132079, line:731:19, endln:731:45
+|vpiDecompile:8
+|vpiSize:64
+|UINT:8
+|vpiConstType:9
+
+== the old head object is GONE from the patched cmp log ==
+   'uvm_is_match' mentions: pristine=6 patched=0
+
+== the dump is BLIND to this law (path-normalised, order-blind uhdm-dump diff) ==
+   Scoreboard/default  1100350 lines  difflines=0
+   SimpleUVM/default   1103790 lines  difflines=0
+   MiniAmiq/default    1890662 lines  difflines=0

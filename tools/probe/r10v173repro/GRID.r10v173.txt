@@ -1,0 +1,113 @@
+r10v173 — VERIFIER GRID.  LHS is ALWAYS golden (Surelog); a=PRISTINE b=PATCHED.
+Every arm compiled by Surelog and by BOTH frozen binaries in BOTH views (grid173.sh);
+every rc recorded; the official uhdm-cmp line count printed per view per binary.
+
+=== g173_a_qual
+   cmp rc=255 a def lines=90 heads=1
+   cmp rc=255 b def lines=90 heads=1
+   cmp rc=255 a elab lines=90 heads=1
+   cmp rc=255 b elab lines=90 heads=1
+   NOSPAN-multiset : TOTAL TO-GOLDEN=9 AWAY-GOLDEN=0 STILL-WRONG=12 UNMOVED-OK=3 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+   NOSPAN+SETMODE  : TOTAL TO-GOLDEN=3 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=3 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+   ALL-BUCKET a-vs-b def difflines=10
+   ALL-BUCKET a-vs-b elab difflines=11
+=== g173_b_cross
+   cmp rc=255 a def lines=914 heads=1
+   cmp rc=255 b def lines=914 heads=1
+   cmp rc=255 a elab lines=1020 heads=1
+   cmp rc=255 b elab lines=1020 heads=1
+   NOSPAN-multiset : TOTAL TO-GOLDEN=8 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=6 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+   NOSPAN+SETMODE  : TOTAL TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=6 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+   ALL-BUCKET a-vs-b def difflines=8
+   ALL-BUCKET a-vs-b elab difflines=9
+=== g173_c_homes
+   cmp rc=255 a def lines=17 heads=1
+   cmp rc=255 b def lines=17 heads=1
+   cmp rc=255 a elab lines=17 heads=1
+   cmp rc=255 b elab lines=17 heads=1
+   NOSPAN-multiset : TOTAL TO-GOLDEN=28 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=3 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+   NOSPAN+SETMODE  : TOTAL TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=4 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+   ALL-BUCKET a-vs-b def difflines=18
+   ALL-BUCKET a-vs-b elab difflines=19
+=== g173_d_notmove
+   cmp rc=255 a def lines=17 heads=1
+   cmp rc=255 b def lines=17 heads=1
+   cmp rc=255 a elab lines=17 heads=1
+   cmp rc=255 b elab lines=17 heads=1
+   NOSPAN-multiset : TOTAL TO-GOLDEN=0 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=2 MISSING-SIDES=0
+   NOSPAN+SETMODE  : TOTAL TO-GOLDEN=0 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=2 MISSING-SIDES=0
+   ALL-BUCKET a-vs-b def difflines=0
+   ALL-BUCKET a-vs-b elab difflines=0
+=== w173_p_collide
+   cmp rc=255 a def lines=530 heads=1
+   cmp rc=255 b def lines=530 heads=1
+   cmp rc=255 a elab lines=86 heads=1
+   cmp rc=255 b elab lines=86 heads=1
+   NOSPAN-multiset : TOTAL TO-GOLDEN=12 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=3 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+   NOSPAN+SETMODE  : TOTAL TO-GOLDEN=9 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=5 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+   ALL-BUCKET a-vs-b def difflines=10
+   ALL-BUCKET a-vs-b elab difflines=11
+=== w173_q_formals
+   cmp rc=255 a def lines=17 heads=1
+   cmp rc=255 b def lines=17 heads=1
+   cmp rc=255 a elab lines=17 heads=1
+   cmp rc=255 b elab lines=17 heads=1
+   NOSPAN-multiset : TOTAL TO-GOLDEN=40 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=30 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+   NOSPAN+SETMODE  : TOTAL TO-GOLDEN=27 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=27 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+   ALL-BUCKET a-vs-b def difflines=24
+   ALL-BUCKET a-vs-b elab difflines=25
+=== w173_r_context
+   cmp rc=255 a def lines=17 heads=1
+   cmp rc=255 b def lines=17 heads=1
+   cmp rc=255 a elab lines=17 heads=1
+   cmp rc=255 b elab lines=17 heads=1
+   NOSPAN-multiset : TOTAL TO-GOLDEN=48 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=32 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+   NOSPAN+SETMODE  : TOTAL TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=6 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+   ALL-BUCKET a-vs-b def difflines=28
+   ALL-BUCKET a-vs-b elab difflines=29
+=== w173_s_shadow
+   cmp rc=255 a def lines=90 heads=1
+   cmp rc=255 b def lines=90 heads=1
+   rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/v173_grid/w173_s_shadow/g_elab /tmp/wt_v173/tools/probe/r10v173repro/w173_s_shadow.sv
+   cmp rc=255 a elab lines=90 heads=1
+   cmp rc=255 b elab lines=90 heads=1
+   NOSPAN-multiset : TOTAL TO-GOLDEN=15 AWAY-GOLDEN=0 STILL-WRONG=16 UNMOVED-OK=6 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+   NOSPAN+SETMODE  : TOTAL TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=6 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+   ALL-BUCKET a-vs-b def difflines=14
+   ALL-BUCKET a-vs-b elab difflines=15
+=== w173_t_imports
+   cmp rc=255 a def lines=90 heads=1
+   cmp rc=255 b def lines=90 heads=1
+   cmp rc=255 a elab lines=90 heads=1
+   cmp rc=255 b elab lines=90 heads=1
+   NOSPAN-multiset : TOTAL TO-GOLDEN=8 AWAY-GOLDEN=0 STILL-WRONG=39 UNMOVED-OK=9 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+   NOSPAN+SETMODE  : TOTAL TO-GOLDEN=7 AWAY-GOLDEN=2 STILL-WRONG=0 UNMOVED-OK=11 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+   ALL-BUCKET a-vs-b def difflines=20
+   ALL-BUCKET a-vs-b elab difflines=21
+=== w173_u_negctl
+   cmp rc=255 a def lines=17 heads=1
+   cmp rc=255 b def lines=17 heads=1
+   cmp rc=255 a elab lines=17 heads=1
+   cmp rc=255 b elab lines=17 heads=1
+   NOSPAN-multiset : TOTAL TO-GOLDEN=0 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=2 MISSING-SIDES=0
+   NOSPAN+SETMODE  : TOTAL TO-GOLDEN=0 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=2 MISSING-SIDES=0
+   ALL-BUCKET a-vs-b def difflines=0
+   ALL-BUCKET a-vs-b elab difflines=0
+=== w173_v_paramcls
+   cmp rc=255 a def lines=44 heads=1
+   cmp rc=255 b def lines=44 heads=1
+   cmp rc=255 a elab lines=44 heads=1
+   cmp rc=255 b elab lines=44 heads=1
+   NOSPAN-multiset : TOTAL TO-GOLDEN=4 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=3 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+   NOSPAN+SETMODE  : TOTAL TO-GOLDEN=3 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=3 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+   ALL-BUCKET a-vs-b def difflines=6
+   ALL-BUCKET a-vs-b elab difflines=7
+=== w173_w_orders
+   cmp rc=255 a def lines=29 heads=1
+   cmp rc=255 b def lines=29 heads=1
+   cmp rc=255 a elab lines=90 heads=1
+   cmp rc=255 b elab lines=90 heads=1
+   NOSPAN-multiset : TOTAL TO-GOLDEN=18 AWAY-GOLDEN=0 STILL-WRONG=27 UNMOVED-OK=9 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+   NOSPAN+SETMODE  : TOTAL TO-GOLDEN=12 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=14 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+   ALL-BUCKET a-vs-b def difflines=16
+   ALL-BUCKET a-vs-b elab difflines=17

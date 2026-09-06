@@ -1,0 +1,96 @@
+r10uvm173 — THE CENSUS.  MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog).
+
+== A. THE ARGUMENT TYPESPEC-EDGE CENSUS (ct173cen) — the brief's framing, REFUTED ==
+-- golden, every DPI-call argument cell in SimpleUVM:
+CELL DEF|FREE|FUNC:uvm_is_match|uvm_glob_to_re|DPI|ref_obj|FORMAL|string_typespec|402:22|0|expr TS=0
+CELL DEF|FREE|FUNC:uvm_is_match|uvm_re_match|DPI|ref_obj|FORMAL|string_typespec|403:27|1|str TS=0
+CELL DEF|FREE|FUNC:uvm_is_match|uvm_re_match|DPI|ref_obj|VAR|string_typespec|403:24|0|s TS=0
+CELL ELAB|FREE|FUNC:uvm_is_match|uvm_glob_to_re|DPI|ref_obj|FORMAL|string_typespec|402:22|0|expr TS=0
+CELL ELAB|FREE|FUNC:uvm_is_match|uvm_re_match|DPI|ref_obj|FORMAL|string_typespec|403:27|1|str TS=1
+CELL ELAB|FREE|FUNC:uvm_is_match|uvm_re_match|DPI|ref_obj|VAR|string_typespec|403:24|0|s TS=1
+CELL ELAB|METHOD|FUNC:lookup_regex|uvm_glob_to_re|DPI|ref_obj|BARE|-ref_obj|1083:25|0|re TS=0
+CELL ELAB|METHOD|FUNC:lookup_regex|uvm_re_match|DPI|ref_obj|BARE|-ref_obj|1087:23|0|re TS=0
+CELL ELAB|METHOD|FUNC:lookup_regex|uvm_re_match|DPI|ref_obj|BARE|-ref_obj|1087:27|1|name TS=0
+CELL ELAB|METHOD|FUNC:match_scope|uvm_re_match|DPI|ref_obj|BARE|-ref_obj|404:28|0|scope TS=0
+CELL ELAB|METHOD|FUNC:match_scope|uvm_re_match|DPI|ref_obj|BARE|-ref_obj|404:35|1|s TS=0
+CELL ELAB|METHOD|FUNC:set_scope|uvm_glob_to_re|DPI|ref_obj|BARE|-ref_obj|386:28|0|s TS=0
+CELL ELAB|METHOD|FUNC:set|uvm_glob_to_re|DPI|ref_obj|BARE|-ref_obj|223:40|0|inst_name TS=0
+CELL ELAB|METHOD|FUNC:set|uvm_re_match|DPI|func_call|BARE|-func_call|223:25|0|uvm_glob_to_re TS=0
+CELL ELAB|METHOD|FUNC:set|uvm_re_match|DPI|hier_path|BARE|-hier_path|223:51|1|w.inst_name TS=0
+-- ours (pristine), the same cells:
+CELL DEF|FREE|FUNC:uvm_is_match|uvm_glob_to_re|DPI|ref_obj|FORMAL|string_typespec|402:22|0|expr TS=0
+CELL DEF|FREE|FUNC:uvm_is_match|uvm_re_match|DPI|ref_obj|FORMAL|string_typespec|403:27|1|str TS=0
+CELL DEF|FREE|FUNC:uvm_is_match|uvm_re_match|DPI|ref_obj|VAR|string_typespec|403:24|0|s TS=0
+CELL ELAB|FREE|FUNC:uvm_is_match|uvm_glob_to_re|DPI|ref_obj|FORMAL|string_typespec|402:22|0|expr TS=0
+CELL ELAB|FREE|FUNC:uvm_is_match|uvm_re_match|DPI|ref_obj|FORMAL|string_typespec|403:27|1|str TS=1
+CELL ELAB|FREE|FUNC:uvm_is_match|uvm_re_match|DPI|ref_obj|VAR|string_typespec|403:24|0|s TS=1
+CELL ELAB|METHOD|FUNC:lookup_regex|uvm_glob_to_re|DPI|ref_obj|BARE|-ref_obj|1083:25|0|re TS=0
+CELL ELAB|METHOD|FUNC:lookup_regex|uvm_re_match|DPI|ref_obj|BARE|-ref_obj|1087:23|0|re TS=0
+CELL ELAB|METHOD|FUNC:lookup_regex|uvm_re_match|DPI|ref_obj|BARE|-ref_obj|1087:27|1|name TS=0
+CELL ELAB|METHOD|FUNC:match_scope|uvm_re_match|DPI|ref_obj|BARE|-ref_obj|404:28|0|scope TS=0
+CELL ELAB|METHOD|FUNC:match_scope|uvm_re_match|DPI|ref_obj|BARE|-ref_obj|404:35|1|s TS=0
+CELL ELAB|METHOD|FUNC:set_scope|uvm_glob_to_re|DPI|ref_obj|BARE|-ref_obj|386:28|0|s TS=0
+CELL ELAB|METHOD|FUNC:set|uvm_glob_to_re|DPI|ref_obj|BARE|-ref_obj|223:40|0|inst_name TS=0
+CELL ELAB|METHOD|FUNC:set|uvm_re_match|DPI|func_call|BARE|-func_call|223:25|0|uvm_glob_to_re TS=0
+CELL ELAB|METHOD|FUNC:set|uvm_re_match|DPI|hier_path|BARE|-hier_path|223:51|1|w.inst_name TS=0
+-- whole-database diff of the two censuses, restricted to those calls:
+IDENTICAL — no typespec mover exists here
+
+== B. THE CALLEE-LISTING CENSUS (ct173bind), SimpleUVM, PRISTINE vs GOLDEN ==
+-- golden:
+COUNT CLSALL->PKGELAB func_call                      12
+COUNT MODALL->PKGELAB task_call                      1
+COUNT MODTOP->PKGELAB func_call                      2
+COUNT PKGDEF->PKGDEF func_call                       1014
+COUNT PKGDEF->PKGDEF task_call                       5
+COUNT PKGDEF->PKGELAB func_call                      3
+COUNT PKGELAB->PKGELAB func_call                     1900
+COUNT PKGELAB->PKGELAB task_call                     16
+-- ours (pristine):
+COUNT CLSALL->PKGELAB func_call                      12
+COUNT MODALL->PKGELAB task_call                      1
+COUNT MODTOP->PKGELAB func_call                      2
+COUNT PKGDEF->PKGDEF func_call                       1
+COUNT PKGDEF->PKGDEF task_call                       4
+COUNT PKGDEF->PKGELAB func_call                      1016
+COUNT PKGDEF->PKGELAB task_call                      1
+COUNT PKGELAB->PKGDEF task_call                      5
+COUNT PKGELAB->PKGELAB func_call                     1900
+COUNT PKGELAB->PKGELAB task_call                     11
+COUNT WOULDMOVE                                      1013
+
+== C. GOLDEN'S THREE PKGDEF->PKGELAB EXCEPTIONS, BY NAME ==
+BIND PKGDEF->PKGELAB func_call uvm_pkg::m_uvm_string_queue_join 115:41
+BIND PKGDEF->PKGELAB func_call uvm_pkg::m_uvm_string_queue_join 115:45
+BIND PKGDEF->PKGELAB func_call uvm_pkg::m_uvm_string_queue_join 115:46
+COUNT PKGDEF->PKGELAB func_call                      3
+   (uvm_macros.svh:37 `define UVM_STRING_QUEUE_STREAMING_PACK(q)
+    uvm_pkg::m_uvm_string_queue_join(q) — the PACKAGE-QUALIFIED spelling.)
+
+== D. THE REFERRER SETS (ct173who) — the law as two sets ==
+-- golden, DEF-listing uvm_is_match #60224:
+TARGET function(uvm_is_match)@400:1-404:12#60224 parent=package(uvm_pkg)@28:1-39:11#59737
+  begin()@402:3-402:28#82103  --edge 81 singular-->
+  bit_var()@400:10-400:13#82095  --edge 81 singular-->
+  func_call(uvm_is_match)@918:13-918:92#63747  --edge 20 singular-->
+  func_call(uvm_is_match)@1167:13-1167:47#64392  --edge 20 singular-->
+  func_call(uvm_is_match)@1362:13-1362:78#64831  --edge 20 singular-->
+  func_call(uvm_is_match)@1363:13-1363:73#64839  --edge 20 singular-->
+  func_call(uvm_is_match)@1386:11-1386:89#64939  --edge 20 singular-->
+  func_call(uvm_is_match)@1453:11-1453:71#65141  --edge 20 singular-->
+  func_call(uvm_is_match)@1630:30-1631:46#65872  --edge 20 singular-->
+  func_call(uvm_is_match)@613:7-613:53#75749  --edge 20 singular-->
+  func_call(uvm_is_match)@3352:6-3352:50#80386  --edge 20 singular-->
+  func_call(uvm_is_match)@3414:11-3414:54#80549  --edge 20 singular-->
+  func_call(uvm_is_match)@3501:7-3501:45#80895  --edge 20 singular-->
+  func_call(uvm_is_match)@3572:10-3572:48#81140  --edge 20 singular-->
+  io_decl(expr)@400:35-400:39#82097  --edge 81 singular-->
+  io_decl(str)@400:48-400:51#82100  --edge 81 singular-->
+  package(uvm_pkg)@28:1-39:11#59737  --edge 127 [365]-->
+-- ours, DEF-listing uvm_is_match #2837:
+TARGET function(uvm_is_match)@400:1-404:12#2837 parent=package(uvm_pkg)@28:1-39:11#158
+  begin()@402:3-402:28#2850  --edge 81 singular-->
+  bit_var()@400:10-400:13#2838  --edge 81 singular-->
+  io_decl(expr)@400:35-400:39#2841  --edge 81 singular-->
+  io_decl(str)@400:48-400:51#2844  --edge 81 singular-->
+  package(uvm_pkg)@28:1-39:11#158  --edge 127 [365]-->

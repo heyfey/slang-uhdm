@@ -1,0 +1,296 @@
+r10uvm173 — THE GRID.  MEASUREMENT ONLY; the official uhdm-cmp is the judge.
+LHS is ALWAYS golden (Surelog); column a = PRISTINE (md5 fb82059559765e79eee43ee365aa4879),
+column b = PATCHED (md5 52a3bbc93edd57b0fb5a4a143252ef43).  BASE d53fbaad.
+Every arm is built in BOTH views (Surelog -elabuhdm / ours --elabuhdm) because
+the law IS a DEF/ELAB split and one view cannot see it.
+
+######## g173_a_qual ########
+    | // r10uvm173 arm A — THE WRITTEN QUALIFIER, one package, six call sites.
+    | // The law under test: a call emitted inside the package's DEF listing binds
+    | // THAT listing's twin of the callee; only the package-qualified spelling is
+    | // re-pointed at the elaborated twin.  Names are deliberately UNRELATED to each
+    | // other and to the arm letter (an a_t/b_t/c_t grid is self-confirming).
+    | package quill_pkg;
+    | 
+    |   function automatic int unsigned tally(int unsigned seed);
+    |     int unsigned acc;
+    |     acc = seed;
+    |     for (int unsigned k = 0; k < 3; k++)
+    |       acc = acc + k;
+    ...
+-- official cmp (a and b must never differ; the arms' own heads belong to other families):
+cmp rc=255 a def lines=90 heads=1
+cmp rc=255 b def lines=90 heads=1
+cmp rc=255 a elab lines=90 heads=1
+cmp rc=255 b elab lines=90 heads=1
+-- rc census (an rc=139 segfault must never read as a result):
+   rc=0 count: 6
+   non-zero  : 0
+-- PKGDEF cells scored against golden (multiset):
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call tally 18:12
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call tally 29:12
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call tally 33:9
+[def] TO-GOLDEN   g=0 a=1 b=0  BIND PKGDEF->PKGELAB func_call tally 18:12
+[def] TO-GOLDEN   g=0 a=1 b=0  BIND PKGDEF->PKGELAB func_call tally 29:12
+[def] TO-GOLDEN   g=0 a=1 b=0  BIND PKGDEF->PKGELAB func_call tally 33:9
+[def] TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=3
+[elab] TO-GOLDEN   g=2 a=1 b=2  BIND PKGDEF->PKGDEF func_call tally 18:12
+[elab] TO-GOLDEN   g=2 a=1 b=2  BIND PKGDEF->PKGDEF func_call tally 29:12
+[elab] AWAY-GOLDEN g=1 a=1 b=2  BIND PKGDEF->PKGDEF func_call tally 33:9
+[elab] STILL-WRONG g=1 a=2 b=2  BIND PKGDEF->PKGELAB func_call quill_pkg::tally 37:9
+[elab] TO-GOLDEN   g=0 a=1 b=0  BIND PKGDEF->PKGELAB func_call tally 18:12
+[elab] TO-GOLDEN   g=0 a=1 b=0  BIND PKGDEF->PKGELAB func_call tally 29:12
+[elab] TO-GOLDEN   g=0 a=1 b=0  BIND PKGDEF->PKGELAB func_call tally 33:9
+[elab] TO-GOLDEN=5 AWAY-GOLDEN=1 STILL-WRONG=2 UNMOVED-OK=4
+TOTAL TO-GOLDEN=11 AWAY-GOLDEN=1 STILL-WRONG=2 UNMOVED-OK=7 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+-- PKGDEF cells scored against golden (bucket membership, copy-count-blind):
+[def] TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=3
+[elab] TO-GOLDEN=3 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=6
+TOTAL TO-GOLDEN=9 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=9 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+-- WHOLE-arm a-vs-b mover list (arm D must be EMPTY):
+   [def] 6a7,9
+   [def] > BIND PKGDEF->PKGDEF func_call tally 18:12
+   [def] > BIND PKGDEF->PKGDEF func_call tally 29:12
+   [def] > BIND PKGDEF->PKGDEF func_call tally 33:9
+   [def] 10,12d12
+   [def] < BIND PKGDEF->PKGELAB func_call tally 18:12 WOULDMOVE
+   [def] < BIND PKGDEF->PKGELAB func_call tally 29:12 WOULDMOVE
+   [def] < BIND PKGDEF->PKGELAB func_call tally 33:9 WOULDMOVE
+   [def] 24c24,25
+   [def] < COUNT PKGDEF->PKGELAB func_call                      6
+   [def] ---
+   [def] > COUNT PKGDEF->PKGDEF func_call                       3
+   [def] > COUNT PKGDEF->PKGELAB func_call                      3
+   [def] 26d26
+   [def] < COUNT WOULDMOVE                                      3
+   [elab] 16a17
+   [elab] > BIND PKGDEF->PKGDEF func_call tally 18:12
+   [elab] 17a19,20
+   [elab] > BIND PKGDEF->PKGDEF func_call tally 29:12
+   [elab] > BIND PKGDEF->PKGDEF func_call tally 33:9
+   [elab] 25,27d27
+   [elab] < BIND PKGDEF->PKGELAB func_call tally 18:12 WOULDMOVE
+   [elab] < BIND PKGDEF->PKGELAB func_call tally 29:12 WOULDMOVE
+   [elab] < BIND PKGDEF->PKGELAB func_call tally 33:9 WOULDMOVE
+   [elab] 49,50c49,50
+   [elab] < COUNT PKGDEF->PKGDEF func_call                       3
+   [elab] < COUNT PKGDEF->PKGELAB func_call                      9
+   [elab] ---
+   [elab] > COUNT PKGDEF->PKGDEF func_call                       6
+   [elab] > COUNT PKGDEF->PKGELAB func_call                      6
+   [elab] 52d51
+   [elab] < COUNT WOULDMOVE                                      3
+
+######## g173_b_cross ########
+    | // r10uvm173 arm B — TWO PACKAGES.  A call inside one package's DEF listing to
+    | // ANOTHER package's function is the shape the law's gate deliberately does NOT
+    | // claim (no golden in the corpus writes it), so this arm exists to record what
+    | // golden does there and to prove the gate leaves it where it was.
+    | package flintPkg;
+    |   function automatic int unsigned emberCount(int unsigned v);
+    |     return v + 11;
+    |   endfunction
+    |   task automatic emberTask(input int unsigned v, output int unsigned o);
+    |     o = v + 12;
+    |   endtask
+    | endpackage
+    ...
+-- official cmp (a and b must never differ; the arms' own heads belong to other families):
+cmp rc=255 a def lines=914 heads=1
+cmp rc=255 b def lines=914 heads=1
+cmp rc=255 a elab lines=1020 heads=1
+cmp rc=255 b elab lines=1020 heads=1
+-- rc census (an rc=139 segfault must never read as a result):
+   rc=0 count: 6
+   non-zero  : 0
+-- PKGDEF cells scored against golden (multiset):
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call emberCount 19:12
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call wickBare 30:12
+[def] TO-GOLDEN   g=0 a=1 b=0  BIND PKGDEF->PKGELAB func_call emberCount 19:12
+[def] TO-GOLDEN   g=0 a=1 b=0  BIND PKGDEF->PKGELAB func_call wickBare 30:12
+[def] TO-GOLDEN=4 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=2
+[elab] TO-GOLDEN   g=2 a=1 b=2  BIND PKGDEF->PKGDEF func_call emberCount 19:12
+[elab] TO-GOLDEN   g=2 a=1 b=2  BIND PKGDEF->PKGDEF func_call wickBare 30:12
+[elab] TO-GOLDEN   g=0 a=1 b=0  BIND PKGDEF->PKGELAB func_call emberCount 19:12
+[elab] TO-GOLDEN   g=0 a=1 b=0  BIND PKGDEF->PKGELAB func_call wickBare 30:12
+[elab] TO-GOLDEN=4 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=4
+TOTAL TO-GOLDEN=8 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=6 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+-- PKGDEF cells scored against golden (bucket membership, copy-count-blind):
+[def] TO-GOLDEN=4 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=2
+[elab] TO-GOLDEN=2 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=4
+TOTAL TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=6 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+-- WHOLE-arm a-vs-b mover list (arm D must be EMPTY):
+   [def] 5c5,6
+   [def] < BIND PKGDEF->PKGELAB func_call emberCount 19:12 WOULDMOVE
+   [def] ---
+   [def] > BIND PKGDEF->PKGDEF func_call emberCount 19:12
+   [def] > BIND PKGDEF->PKGDEF func_call wickBare 30:12
+   [def] 8d8
+   [def] < BIND PKGDEF->PKGELAB func_call wickBare 30:12 WOULDMOVE
+   [def] 16c16,17
+   [def] < COUNT PKGDEF->PKGELAB func_call                      4
+   [def] ---
+   [def] > COUNT PKGDEF->PKGDEF func_call                       2
+   [def] > COUNT PKGDEF->PKGELAB func_call                      2
+   [def] 18d18
+   [def] < COUNT WOULDMOVE                                      2
+   [elab] 11a12,13
+   [elab] > BIND PKGDEF->PKGDEF func_call emberCount 19:12
+   [elab] > BIND PKGDEF->PKGDEF func_call wickBare 30:12
+   [elab] 13d14
+   [elab] < BIND PKGDEF->PKGELAB func_call emberCount 19:12 WOULDMOVE
+   [elab] 18d18
+   [elab] < BIND PKGDEF->PKGELAB func_call wickBare 30:12 WOULDMOVE
+   [elab] 32,33c32,33
+   [elab] < COUNT PKGDEF->PKGDEF func_call                       2
+   [elab] < COUNT PKGDEF->PKGELAB func_call                      6
+   [elab] ---
+   [elab] > COUNT PKGDEF->PKGDEF func_call                       4
+   [elab] > COUNT PKGDEF->PKGELAB func_call                      4
+   [elab] 35d34
+   [elab] < COUNT WOULDMOVE                                      2
+
+######## g173_c_homes ########
+    | // r10uvm173 arm C — THE HOMES.  The same discriminator read from every place
+    | // a package-internal call can be written: a free function, a task, an IN-CLASS
+    | // method, an OUT-OF-BODY class method (the shape uvm_pkg's DEF listing is made
+    | // of), a class-property initializer, and a package-scope variable initializer.
+    | // Recursion and a self-call are included because a def-listing body that calls
+    | // ITSELF is the one cell where the two twins are the same source function.
+    | package Marlowe_pkg;
+    | 
+    |   function automatic int unsigned rungOf(int unsigned d);
+    |     return d * 3;
+    |   endfunction
+    | 
+    ...
+-- official cmp (a and b must never differ; the arms' own heads belong to other families):
+cmp rc=255 a def lines=17 heads=1
+cmp rc=255 b def lines=17 heads=1
+cmp rc=255 a elab lines=17 heads=1
+cmp rc=255 b elab lines=17 heads=1
+-- rc census (an rc=139 segfault must never read as a result):
+   rc=0 count: 6
+   non-zero  : 0
+-- PKGDEF cells scored against golden (multiset):
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call rungOf 18:28
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call rungOf 22:9
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call rungOf 41:12
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call rungOf 45:27
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call spiral 18:12
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call spiral 22:21
+[def] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call spiral 41:24
+[def] TO-GOLDEN   g=0 a=1 b=0  BIND PKGDEF->PKGELAB func_call rungOf 18:28
+[def] TO-GOLDEN   g=0 a=1 b=0  BIND PKGDEF->PKGELAB func_call rungOf 22:9
+[def] TO-GOLDEN   g=0 a=1 b=0  BIND PKGDEF->PKGELAB func_call rungOf 41:12
+[def] TO-GOLDEN   g=0 a=1 b=0  BIND PKGDEF->PKGELAB func_call rungOf 45:27
+[def] TO-GOLDEN   g=0 a=1 b=0  BIND PKGDEF->PKGELAB func_call spiral 18:12
+[def] TO-GOLDEN   g=0 a=1 b=0  BIND PKGDEF->PKGELAB func_call spiral 22:21
+[def] TO-GOLDEN   g=0 a=1 b=0  BIND PKGDEF->PKGELAB func_call spiral 41:24
+[def] TO-GOLDEN=14 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=1
+[elab] TO-GOLDEN   g=2 a=1 b=2  BIND PKGDEF->PKGDEF func_call rungOf 18:28
+[elab] TO-GOLDEN   g=2 a=1 b=2  BIND PKGDEF->PKGDEF func_call rungOf 22:9
+[elab] TO-GOLDEN   g=2 a=1 b=2  BIND PKGDEF->PKGDEF func_call rungOf 41:12
+[elab] TO-GOLDEN   g=1 a=0 b=1  BIND PKGDEF->PKGDEF func_call rungOf 45:27
+[elab] TO-GOLDEN   g=2 a=1 b=2  BIND PKGDEF->PKGDEF func_call spiral 18:12
+[elab] TO-GOLDEN   g=2 a=1 b=2  BIND PKGDEF->PKGDEF func_call spiral 22:21
+[elab] TO-GOLDEN   g=2 a=1 b=2  BIND PKGDEF->PKGDEF func_call spiral 41:24
+[elab] TO-GOLDEN   g=0 a=1 b=0  BIND PKGDEF->PKGELAB func_call rungOf 18:28
+[elab] TO-GOLDEN   g=0 a=1 b=0  BIND PKGDEF->PKGELAB func_call rungOf 22:9
+[elab] TO-GOLDEN   g=0 a=1 b=0  BIND PKGDEF->PKGELAB func_call rungOf 41:12
+[elab] TO-GOLDEN   g=0 a=1 b=0  BIND PKGDEF->PKGELAB func_call rungOf 45:27
+[elab] TO-GOLDEN   g=0 a=1 b=0  BIND PKGDEF->PKGELAB func_call spiral 18:12
+[elab] TO-GOLDEN   g=0 a=1 b=0  BIND PKGDEF->PKGELAB func_call spiral 22:21
+[elab] TO-GOLDEN   g=0 a=1 b=0  BIND PKGDEF->PKGELAB func_call spiral 41:24
+[elab] TO-GOLDEN=14 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=2
+TOTAL TO-GOLDEN=28 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=3 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+-- PKGDEF cells scored against golden (bucket membership, copy-count-blind):
+[def] TO-GOLDEN=14 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=1
+[elab] TO-GOLDEN=8 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=7
+TOTAL TO-GOLDEN=22 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=8 EMPTY-GOLDEN-VIEWS=0 MISSING-SIDES=0
+-- WHOLE-arm a-vs-b mover list (arm D must be EMPTY):
+   [def] 6a7,13
+   [def] > BIND PKGDEF->PKGDEF func_call rungOf 18:28
+   [def] > BIND PKGDEF->PKGDEF func_call rungOf 22:9
+   [def] > BIND PKGDEF->PKGDEF func_call rungOf 41:12
+   [def] > BIND PKGDEF->PKGDEF func_call rungOf 45:27
+   [def] > BIND PKGDEF->PKGDEF func_call spiral 18:12
+   [def] > BIND PKGDEF->PKGDEF func_call spiral 22:21
+   [def] > BIND PKGDEF->PKGDEF func_call spiral 41:24
+   [def] 8,14d14
+   [def] < BIND PKGDEF->PKGELAB func_call rungOf 18:28 WOULDMOVE
+   [def] < BIND PKGDEF->PKGELAB func_call rungOf 22:9 WOULDMOVE
+   [def] < BIND PKGDEF->PKGELAB func_call rungOf 41:12 WOULDMOVE
+   [def] < BIND PKGDEF->PKGELAB func_call rungOf 45:27 WOULDMOVE
+   [def] < BIND PKGDEF->PKGELAB func_call spiral 18:12 WOULDMOVE
+   [def] < BIND PKGDEF->PKGELAB func_call spiral 22:21 WOULDMOVE
+   [def] < BIND PKGDEF->PKGELAB func_call spiral 41:24 WOULDMOVE
+   [def] 30c30,31
+   [def] < COUNT PKGDEF->PKGELAB func_call                      8
+   [def] ---
+   [def] > COUNT PKGDEF->PKGDEF func_call                       7
+   [def] > COUNT PKGDEF->PKGELAB func_call                      1
+   [def] 32d32
+   [def] < COUNT WOULDMOVE                                      7
+   [elab] 17a18
+   [elab] > BIND PKGDEF->PKGDEF func_call rungOf 18:28
+   [elab] 18a20,21
+   [elab] > BIND PKGDEF->PKGDEF func_call rungOf 22:9
+   [elab] > BIND PKGDEF->PKGDEF func_call rungOf 41:12
+   [elab] 19a23,24
+   [elab] > BIND PKGDEF->PKGDEF func_call rungOf 45:27
+   [elab] > BIND PKGDEF->PKGDEF func_call spiral 18:12
+   [elab] 21a27,28
+   [elab] > BIND PKGDEF->PKGDEF func_call spiral 22:21
+   [elab] > BIND PKGDEF->PKGDEF func_call spiral 41:24
+   [elab] 25,31d31
+   [elab] < BIND PKGDEF->PKGELAB func_call rungOf 18:28 WOULDMOVE
+   [elab] < BIND PKGDEF->PKGELAB func_call rungOf 22:9 WOULDMOVE
+   [elab] < BIND PKGDEF->PKGELAB func_call rungOf 41:12 WOULDMOVE
+   [elab] < BIND PKGDEF->PKGELAB func_call rungOf 45:27 WOULDMOVE
+   [elab] < BIND PKGDEF->PKGELAB func_call spiral 18:12 WOULDMOVE
+   [elab] < BIND PKGDEF->PKGELAB func_call spiral 22:21 WOULDMOVE
+   [elab] < BIND PKGDEF->PKGELAB func_call spiral 41:24 WOULDMOVE
+   [elab] 60,61c60,61
+   [elab] < COUNT PKGDEF->PKGDEF func_call                       6
+   [elab] < COUNT PKGDEF->PKGELAB func_call                      9
+   [elab] ---
+   [elab] > COUNT PKGDEF->PKGDEF func_call                       13
+   [elab] > COUNT PKGDEF->PKGELAB func_call                      2
+   [elab] 63d62
+   [elab] < COUNT WOULDMOVE                                      7
+
+######## g173_d_notmove ########
+    | // r10uvm173 arm D — THE CELLS THE LAW MUST NOT TOUCH.  Everything here is a
+    | // call whose callee is NOT a package function reached from that package's own
+    | // DEF listing: module-scope subroutines, a module function calling a package
+    | // function, a class in a package called from a module, a DPI import, and a
+    | // system call.  Every cell must stay byte-identical across the two binaries.
+    | package Prosody_pkg;
+    |   function automatic int unsigned cadence(int unsigned v);
+    |     return v + 5;
+    |   endfunction
+    |   class Meter;
+    |     function int unsigned beat(int unsigned v);
+    |       return cadence(v);
+    ...
+-- official cmp (a and b must never differ; the arms' own heads belong to other families):
+cmp rc=255 a def lines=17 heads=1
+cmp rc=255 b def lines=17 heads=1
+cmp rc=255 a elab lines=17 heads=1
+cmp rc=255 b elab lines=17 heads=1
+-- rc census (an rc=139 segfault must never read as a result):
+   rc=0 count: 6
+   non-zero  : 0
+-- PKGDEF cells scored against golden (multiset):
+[def] EMPTY-GOLDEN — this view tests nothing
+[elab] EMPTY-GOLDEN — this view tests nothing
+TOTAL TO-GOLDEN=0 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=2 MISSING-SIDES=0
+-- PKGDEF cells scored against golden (bucket membership, copy-count-blind):
+[def] EMPTY-GOLDEN — this view tests nothing
+[elab] EMPTY-GOLDEN — this view tests nothing
+TOTAL TO-GOLDEN=0 AWAY-GOLDEN=0 STILL-WRONG=0 UNMOVED-OK=0 EMPTY-GOLDEN-VIEWS=2 MISSING-SIDES=0
+-- WHOLE-arm a-vs-b mover list (arm D must be EMPTY):
+   [def] NO CELL MOVED
+   [elab] NO CELL MOVED
+

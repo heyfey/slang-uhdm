@@ -1,0 +1,87 @@
+r10uvm173 — THE GATE BATTERY.  The official ~/git-repos/UHDM/build/bin/uhdm-cmp
+and scripts/verify_golden.py are the authorities for every number here.
+LHS is ALWAYS golden (Surelog).  BASE d53fbaad.  slang was NOT patched;
+results/*.csv were READ ONLY; nothing was promoted; NO CORPUS ROW WAS CONVERTED;
+GOLDEN_DEFER was never set.
+
+== (1) BUILD ==
+pristine  md5 fb82059559765e79eee43ee365aa4879  (clean d53fbaad worktree, chmod 555 at /tmp/r10uvm173_bin/pris.bin)
+patched   md5 52a3bbc93edd57b0fb5a4a143252ef43  (chmod 555 at /tmp/r10uvm173_bin/pat.bin)
+production surface: src/UhdmExporter.cpp  +92 / -0  (one gate, no behaviour outside it)
+
+== (2) GOLDENS ==
+SLANG_UHDM=<patched> tests/check_goldens.sh : PASS=23 FAIL=0
+SLANG_UHDM=/bin/false (negative control)    : PASS=0  FAIL=23
+
+== (3) uhdm2rtlil, testflags + default ==
+-- testflags vs the committed baseline results/gate_uhdm2rtlil.csv:
+  testflags  base:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+  testflags  fresh:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  testflags  base:      52      183 differ     496 match 
+  testflags  fresh:      52      183 differ     496 match 
+PASS: every row byte-identical to the committed baseline
+-- testflags vs THIS pass's own pristine control:
+  testflags  base:      52      183 differ     496 match 
+  testflags  fresh:      52      183 differ     496 match 
+PASS: every row byte-identical to the committed baseline
+-- default vs THIS pass's own pristine control:
+  default  base:      52      187 differ     492 match 
+  default  fresh:      52      187 differ     492 match 
+PASS: every row byte-identical to the committed baseline
+
+== (4) surelog corpus, --mode both (1588 rows) ==
+-- vs the committed baseline results/golden_surelog.csv:
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     323      245 differ     226 match 
+  default  fresh:     323      245 differ     226 match 
+  testflags  base:     328      300 differ     166 match 
+  testflags  fresh:     328      300 differ     166 match 
+PASS: every row byte-identical to the committed baseline
+-- vs THIS pass's own pristine control:
+  testflags  base:     328      300 differ     166 match 
+  testflags  fresh:     328      300 differ     166 match 
+PASS: every row byte-identical to the committed baseline
+NO ROW WAS CONVERTED in either direction.
+
+== (5) BYTE VERIFIER, SELFCHECK=1, against THIS pass's own pristine controls ==
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVERS: 17 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 20 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+Every mover was PREDICTED BY NAME from the pristine databases before the patched
+sweep ran (predsweep173.sh; see CENSUS.MOVERS.r10uvm173.txt) and every one scores
+AWAY-GOLDEN=0.
+
+== CANARIES ==
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+(canaudit FENCE-BREACH=0; the four slang-fenced tests are FENCED= skips only and
+ were never dispatched by any driver in this directory.)
+
+== PROTECTED DATABASES, md5 pristine vs patched ==
+  InterfaceModPort     default   pris=59a365f3ce2c pat=59a365f3ce2c SAME
+  InterfaceModPort     testflags pris=59a365f3ce2c pat=59a365f3ce2c SAME
+  BlackParrotComplex   default   pris=e3e354129d5a pat=e3e354129d5a SAME
+  BlackParrotComplex   testflags pris=73a10e8217e5 pat=73a10e8217e5 SAME
+  YosysOldOr           default   pris=d68e0796d62c pat=d68e0796d62c SAME
+  YosysOldOr           testflags pris=d68e0796d62c pat=d68e0796d62c SAME
+  SVSwitch             default   pris=4842211c4030 pat=4842211c4030 SAME
+  SVSwitch             testflags pris=4842211c4030 pat=4842211c4030 SAME
+  YosysVerx            default   pris=6ccda350c24a pat=6ccda350c24a SAME
+  YosysVerx            testflags pris=6ccda350c24a pat=6ccda350c24a SAME
+  (SVSwitch pin 4842211c4030 and YosysVerx pin 6ccda350c24a both held.)
+
+== EVERY cmds.txt AUDITED BY BINARY PATH (not by the string 'slang-uhdm', which
+   also matches the goldens cache) ==
+  /tmp/r10uvm173_wd/pat_full/sl  cmds.txt=1573  slang lines NOT naming the frozen patched binary=0
+  /tmp/r10uvm173_wd/pat_full/u2r  cmds.txt=1462  slang lines NOT naming the frozen patched binary=0
+  /tmp/r10uvm173_wd/pris_full/sl  cmds.txt=1573  slang lines NOT naming the frozen pristine binary=0
+  /tmp/r10uvm173_wd/pris_full/u2r  cmds.txt=1462  slang lines NOT naming the frozen pristine binary=0

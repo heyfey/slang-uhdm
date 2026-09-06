@@ -1,0 +1,95 @@
+r10uvm173 — HEAD DECODE.  MEASUREMENT ONLY; the official uhdm-cmp is the judge.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.  BASE d53fbaad.
+golden: SimpleUVM golden cache 0abe1b16d20a6f7e4a93 (uvm-1.2)
+ours  : pristine md5 fb82059559765e79eee43ee365aa4879
+
+== 1. THE OFFICIAL HEAD (rowheads.sh, SimpleUVM default == testflags, 17 lines, 1 head) ==
+LHS: <null>
+RHS:
+decompile:
+ref_typespec: (uvm_pkg::uvm_is_match::s), id:5786
+|vpiParent:
+\_ref_obj: (uvm_pkg::uvm_is_match::s), id:5785, line:403:24, endln:403:25
+|vpiFullName:uvm_pkg::uvm_is_match::s
+|vpiActual:
+\_string_typespec: , id:3966, line:23:50, endln:23:56
+
+decompile:
+ref_typespec: (uvm_pkg::uvm_is_match::s), id:5786
+|vpiParent:
+\_ref_obj: (uvm_pkg::uvm_is_match::s), id:5785, line:403:24, endln:403:25
+|vpiFullName:uvm_pkg::uvm_is_match::s
+|vpiActual:
+\_string_typespec: , id:3966, line:23:50, endln:23:56
+
+== 2. THE MIRROR OWNER-FINDER (ct173own) — the head is OURS, golden's edge unset ==
+design::Compare r=-1
+HEAD LHS(golden) = <null>
+HEAD RHS(ours)   = ref_typespec()@0:0-0:0#5798
+HEAD RHS parent chain:
+    < ref_obj(s)@403:24-403:25#5797
+    < func_call(uvm_re_match)@403:11-403:31#5796
+    < operation()@403:11-403:36#5795
+    < return_stmt()@403:3-403:9#5794
+    < begin()@402:3-402:28#5789
+    < function(uvm_is_match)@400:1-404:12#5776
+    < package(uvm_pkg)@28:1-39:11#3069
+    < design(work@top)@0:0-0:0#1
+MIRROR REFERENCE SCAN — every edge of OURS that lands on the head, and golden's:
+  ours   ref_obj(s)@403:24-403:25#5797
+      edge vpiType=605 (singular)   cast=-
+      golden ref_obj(s)@403:24-403:25#22977 -> singular ref_typespec()@0:0-0:0#22980
+      golden ref_obj(s)@403:24-403:25#82114 -> singular <null>
+REFERENCES IN FUNCTION MATCHING "uvm_is_match" — golden then ours:
+  ---- GOLDEN ----
+     402:22  expr           cast=-                BOUND -> io_decl(expr)@400:35-400:39#22960
+     402:22  expr           cast=-                BOUND -> io_decl(expr)@400:35-400:39#82097
+     402:3   s              cast=-                BOUND -> string_var(s)@401:10-401:11#22968
+     402:3   s              cast=-                BOUND -> string_var(s)@401:10-401:11#82105
+     403:24  s              cast=-                BOUND -> string_var(s)@401:10-401:11#22968
+     403:24  s              cast=-                BOUND -> string_var(s)@401:10-401:11#82105
+     403:27  str            cast=-                BOUND -> io_decl(str)@400:48-400:51#22963
+     403:27  str            cast=-                BOUND -> io_decl(str)@400:48-400:51#82100
+  ---- OURS ----
+     402:22  expr           cast=-                BOUND -> io_decl(expr)@400:35-400:39#2841
+     402:22  expr           cast=-                BOUND -> io_decl(expr)@400:35-400:39#5780
+     402:3   s              cast=-                BOUND -> string_var(s)@401:10-401:11#2848
+     402:3   s              cast=-                BOUND -> string_var(s)@401:10-401:11#5787
+     403:24  s              cast=-                BOUND -> string_var(s)@401:10-401:11#2848
+     403:24  s              cast=-                BOUND -> string_var(s)@401:10-401:11#5787
+     403:27  str            cast=-                BOUND -> io_decl(str)@400:48-400:51#2844
+     403:27  str            cast=-                BOUND -> io_decl(str)@400:48-400:51#5783
+
+== 3. THE PAIRING PROVER (ct173seed) — WHICH golden object was the judge holding? ==
+-- seed golden's DEF-listing ref_obj(s)@403:24 #82114:
+SEEDED ref_obj(s)@403:24-403:25#82114
+r=-1
+ LHS=<null>
+ RHS=ref_typespec()@0:0-0:0#5800
+   R< ref_typespec()@0:0-0:0#5800
+   R< ref_obj(str)@403:27-403:30#5799
+   R< func_call(uvm_re_match)@403:11-403:31#5796
+   R< operation()@403:11-403:36#5795
+   R< return_stmt()@403:3-403:9#5794
+   R< begin()@402:3-402:28#5789
+   R< function(uvm_is_match)@400:1-404:12#5776
+   R< package(uvm_pkg)@28:1-39:11#3069
+   R< design(work@top)@0:0-0:0#1
+-- seed golden's ELAB-listing ref_obj(s)@403:24 #22977:
+SEEDED ref_obj(s)@403:24-403:25#22977
+r=-1
+ LHS=<null>
+ RHS=ref_typespec()@0:0-0:0#5798
+   R< ref_typespec()@0:0-0:0#5798
+   R< ref_obj(s)@403:24-403:25#5797
+   R< func_call(uvm_re_match)@403:11-403:31#5796
+   R< operation()@403:11-403:36#5795
+   R< return_stmt()@403:3-403:9#5794
+   R< begin()@402:3-402:28#5789
+   R< function(uvm_is_match)@400:1-404:12#5776
+   R< package(uvm_pkg)@28:1-39:11#3069
+   R< design(work@top)@0:0-0:0#1
+
+VERDICT: seeding the DEF-listing object MOVES the head to the next argument;
+seeding the ELAB-listing one changes nothing.  The judge was pairing GOLDEN'S
+DEF-LISTING body against OUR ELABORATED body.  Not a typespec defect.
