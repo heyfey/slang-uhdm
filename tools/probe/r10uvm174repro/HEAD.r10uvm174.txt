@@ -1,0 +1,53 @@
+design::Compare r=49
+HEAD LHS(golden) = sys_func_call($bits)@731:34-731:39#69190  [ROOT:design:work@top]
+HEAD RHS(ours)   = constant()@731:34-731:45#132083  [ROOT:design:work@top]
+HEAD LHS(golden) parent chain:
+    < operation()@731:19-731:45#69188
+    < assignment()@731:8-731:45#69184
+    < begin()@733:4-734:22#69180
+    < function(uvm_packer::pack_bytes)@730:1-757:12#59959
+    < package(uvm_pkg)@28:1-39:11#59737
+    < design(work@top)@0:0-0:0#194978
+HEAD RHS(ours) parent chain:
+    < operation()@731:19-731:45#132079
+    < assignment()@731:8-731:45#132078
+    < begin()@733:4-734:22#132077
+    < function(uvm_packer::pack_bytes)@730:1-757:12#132062
+    < package(uvm_pkg)@28:1-39:11#146
+    < design(work@top)@0:0-0:0#1
+FIELDS of HEAD LHS(golden):
+    sys_func_call VpiName=$bits
+    arg[0] = byte_var()@731:40-731:44#69191   parent=sys_func_call($bits)@731:34-731:39#69190
+FIELDS of HEAD RHS(ours):
+    constant VpiValue=UINT:8 VpiDecompile=8 VpiSize=64 VpiConstType=9 Typespec=<null>
+EDGE SCAN — every edge of golden that lands on the head, and ours's:
+  golden byte_var()@731:40-731:44#69191
+      edge vpiType=81 (singular)
+      ours NO COUNTERPART for the referrer
+  golden operation()@731:19-731:45#69188
+      edge vpiType=97 (vector index 1)
+      ours operation()@731:19-731:45#132079 [ROOT:design:work@top] -> vector present size 2, [1] = constant()@731:34-731:45#132083
+EDGE SCAN — every edge of ours that lands on the head, and golden's:
+  ours operation()@731:19-731:45#132079
+      edge vpiType=97 (vector index 1)
+      golden operation()@731:19-731:45#69188 [ROOT:design:work@top] -> vector present size 2, [1] = sys_func_call($bits)@731:34-731:39#69190
+---- OBJECTS ON THE NAMED LINES, GOLDEN ----
+  ROOT:design:work@top   constant()@731:29-731:33                       <operation::731<begin::726<if_else::722<begin::716<if_else::716<begin::704<function:m_begin_tr:701<class_defn:uvm_transaction:124<package:uvm_pkg:28<design:work@top:0 val=UINT:0 size=64 ctype=11
+  ROOT:design:work@top   constant()@731:29-731:33                       <operation::731<begin::726<if_else::722<begin::716<if_else::716<begin::704<function:uvm_transaction::m_begin_tr:701<package:uvm_pkg:28<design:work@top:0 val=UINT:0 size=64 ctype=11
+  ROOT:design:work@top   constant()@731:34-731:39                       <operation::731<assignment::731<begin::733<function:pack_bytes:730<class_defn:uvm_packer:39<package:uvm_pkg:28<design:work@top:0 val=UINT:8 size=64 ctype=9
+  ROOT:design:work@top   constant()@731:44-731:46                       <method_func_call:substr:731<hier_path:args[i].substr:731<func_call:m_process_inst_override:731<begin::730<foreach_stmt::730<begin::729<function:m_do_factory_settings:726<class_defn:uvm_root:71<package:uvm_pkg:28<design:work@top:0 val=UINT:23 size=64 ctype=9
+  ROOT:design:work@top   constant()@731:44-731:46                       <method_func_call:substr:731<hier_path:args[i].substr:731<func_call:m_process_inst_override:731<begin::730<foreach_stmt::730<begin::729<function:uvm_root::m_do_factory_settings:726<package:uvm_pkg:28<design:work@top:0 val=UINT:23 size=64 ctype=9
+  ROOT:design:work@top   constant()@731:62-731:63                       <operation::731<method_func_call:substr:731<hier_path:args[i].substr:731<func_call:m_process_inst_override:731<begin::730<foreach_stmt::730<begin::729<function:m_do_factory_settings:726<class_defn:uvm_root:71<package:uvm_pkg:28<design:work@top:0 val=UINT:1 size=64 ctype=9
+  ROOT:design:work@top   constant()@731:62-731:63                       <operation::731<method_func_call:substr:731<hier_path:args[i].substr:731<func_call:m_process_inst_override:731<begin::730<foreach_stmt::730<begin::729<function:uvm_root::m_do_factory_settings:726<package:uvm_pkg:28<design:work@top:0 val=UINT:1 size=64 ctype=9
+  ROOT:design:work@top   sys_func_call($bits)@731:34-731:39             <operation::731<assignment::731<begin::733<function:uvm_packer::pack_bytes:730<package:uvm_pkg:28<design:work@top:0 args=byte_var()@731:40-731:44 
+  ROOT:design:work@top   sys_func_call($cast)@731:10-731:24             <begin::730<foreach_stmt::730<begin::711<function:add_by_name:706<class_defn:uvm_callbacks:469<package:uvm_pkg:28<design:work@top:0 args=ref_obj(t)@731:16-731:17 bit_select(cq)@731:21-731:22 
+---- OBJECTS ON THE NAMED LINES, OURS ----
+  ROOT:design:work@top   constant()@731:29-731:33                       <operation::731<begin::726<if_else::722<begin::716<if_else::716<begin::704<function:m_begin_tr:701<class_defn:uvm_transaction:124<package:uvm_pkg:28<design:work@top:0 val=UINT:0 size=64 ctype=11
+  ROOT:design:work@top   constant()@731:29-731:33                       <operation::731<begin::726<if_else::722<begin::716<if_else::716<begin::704<function:uvm_transaction::m_begin_tr:701<package:uvm_pkg:28<design:work@top:0 val=UINT:0 size=64 ctype=11
+  ROOT:design:work@top   constant()@731:34-731:45                       <operation::731<assignment::731<begin::733<function:pack_bytes:730<class_defn:uvm_packer:39<package:uvm_pkg:28<design:work@top:0 val=UINT:8 size=64 ctype=9
+  ROOT:design:work@top   constant()@731:34-731:45                       <operation::731<assignment::731<begin::733<function:uvm_packer::pack_bytes:730<package:uvm_pkg:28<design:work@top:0 val=UINT:8 size=64 ctype=9
+  ROOT:design:work@top   constant()@731:44-731:46                       <method_func_call:substr:731<hier_path:args[i].substr:731<func_call:m_process_inst_override:731<begin::730<foreach_stmt::730<begin::729<function:m_do_factory_settings:726<class_defn:uvm_root:71<package:uvm_pkg:28<design:work@top:0 val=UINT:23 size=64 ctype=9
+  ROOT:design:work@top   constant()@731:44-731:46                       <method_func_call:substr:731<hier_path:args[i].substr:731<func_call:m_process_inst_override:731<begin::730<foreach_stmt::730<begin::729<function:uvm_root::m_do_factory_settings:726<package:uvm_pkg:28<design:work@top:0 val=UINT:23 size=64 ctype=9
+  ROOT:design:work@top   constant()@731:62-731:63                       <operation::731<method_func_call:substr:731<hier_path:args[i].substr:731<func_call:m_process_inst_override:731<begin::730<foreach_stmt::730<begin::729<function:m_do_factory_settings:726<class_defn:uvm_root:71<package:uvm_pkg:28<design:work@top:0 val=UINT:1 size=64 ctype=9
+  ROOT:design:work@top   constant()@731:62-731:63                       <operation::731<method_func_call:substr:731<hier_path:args[i].substr:731<func_call:m_process_inst_override:731<begin::730<foreach_stmt::730<begin::729<function:uvm_root::m_do_factory_settings:726<package:uvm_pkg:28<design:work@top:0 val=UINT:1 size=64 ctype=9
+  ROOT:design:work@top   sys_func_call($cast)@731:10-731:24             <begin::730<foreach_stmt::730<begin::711<function:add_by_name:706<class_defn:uvm_callbacks:469<package:uvm_pkg:28<design:work@top:0 args=ref_obj(t)@731:16-731:17 bit_select(cq)@731:21-731:22 

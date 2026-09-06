@@ -1,0 +1,303 @@
+r10uvm174 — THE GRID.  MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog).
+Column a = pristine (md5 9853d69d43a9cf87884b368be6f16c7f), column b = patched (md5 9b5f05dfd8e3b7688267182183b4c173).
+
+== PRE-CODE READING: golden measured per face BEFORE the gate was written (a and b both = pristine) ==
+---- g174_a_forms.sv
+[def] cells=37  OK=26  TO-GOLDEN=0  AWAY-GOLDEN=0  STILL-WRONG=11
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:quartzPkg | function:Prism::outBlockQuery|PKGLIST|OOBNAME | $bits @29:12
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:quartzPkg | function:Prism::outBlockQuery|PKGLIST|OOBNAME | $bits @29:26
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:quartzPkg | function:Prism::outBlockQuery|PKGLIST|OOBNAME | $bits @29:39
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:quartzPkg | function:Prism::outBlockQuery|PKGLIST|OOBNAME | $bits @29:57
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:quartzPkg | function:Prism::outBlockQuery|PKGLIST|OOBNAME | $bits @30:12
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:quartzPkg | function:Prism::outBlockQuery|PKGLIST|OOBNAME | $bits @30:31
+    STILL-WRONG  g=0 a=1 b=1  PKGELAB:quartzPkg | function:freeQuery|PKGLIST|BARENAME | $bits @40:42
+    STILL-WRONG  g=0 a=1 b=1  PKGELAB:quartzPkg | function:freeQuery|PKGLIST|BARENAME | $bits @40:57
+    STILL-WRONG  g=1 a=0 b=0  PKGELAB:quartzPkg | function:outBlockQuery|CLASSBODY|BARENAME | $bits @30:31
+    STILL-WRONG  g=0 a=1 b=1  PKGELAB:quartzPkg | function:outBlockQuery|CLASSBODY|BARENAME | $bits @32:12
+    STILL-WRONG  g=0 a=1 b=1  PKGELAB:quartzPkg | function:outBlockQuery|CLASSBODY|BARENAME | $bits @32:27
+[elab] cells=37  OK=26  TO-GOLDEN=0  AWAY-GOLDEN=0  STILL-WRONG=11
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:quartzPkg | function:Prism::outBlockQuery|PKGLIST|OOBNAME | $bits @29:12
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:quartzPkg | function:Prism::outBlockQuery|PKGLIST|OOBNAME | $bits @29:26
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:quartzPkg | function:Prism::outBlockQuery|PKGLIST|OOBNAME | $bits @29:39
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:quartzPkg | function:Prism::outBlockQuery|PKGLIST|OOBNAME | $bits @29:57
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:quartzPkg | function:Prism::outBlockQuery|PKGLIST|OOBNAME | $bits @30:12
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:quartzPkg | function:Prism::outBlockQuery|PKGLIST|OOBNAME | $bits @30:31
+    STILL-WRONG  g=0 a=1 b=1  PKGELAB:quartzPkg | function:freeQuery|PKGLIST|BARENAME | $bits @40:42
+    STILL-WRONG  g=0 a=1 b=1  PKGELAB:quartzPkg | function:freeQuery|PKGLIST|BARENAME | $bits @40:57
+    STILL-WRONG  g=1 a=0 b=0  PKGELAB:quartzPkg | function:outBlockQuery|CLASSBODY|BARENAME | $bits @30:31
+    STILL-WRONG  g=0 a=1 b=1  PKGELAB:quartzPkg | function:outBlockQuery|CLASSBODY|BARENAME | $bits @32:12
+    STILL-WRONG  g=0 a=1 b=1  PKGELAB:quartzPkg | function:outBlockQuery|CLASSBODY|BARENAME | $bits @32:27
+TOTAL OK=52 TO-GOLDEN=0 AWAY-GOLDEN=0 STILL-WRONG=22 EMPTY-GOLDEN-VIEWS=0
+---- g174_b_sysfns.sv
+[def] cells=30  OK=25  TO-GOLDEN=0  AWAY-GOLDEN=0  STILL-WRONG=5
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:flintPkg | function:Splinter::probeAll|PKGLIST|OOBNAME | $bits @15:12
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:flintPkg | function:Splinter::probeAll|PKGLIST|OOBNAME | $bits @15:26
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:flintPkg | task:Splinter::probeTask|PKGLIST|OOBNAME | $bits @24:12
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:flintPkg | task:Splinter::probeTask|PKGLIST|OOBNAME | $bits @24:56
+    STILL-WRONG  g=0 a=1 b=1  PKGELAB:flintPkg | function:probeAll|CLASSBODY|BARENAME | $clog2 @16:29
+[elab] cells=30  OK=25  TO-GOLDEN=0  AWAY-GOLDEN=0  STILL-WRONG=5
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:flintPkg | function:Splinter::probeAll|PKGLIST|OOBNAME | $bits @15:12
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:flintPkg | function:Splinter::probeAll|PKGLIST|OOBNAME | $bits @15:26
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:flintPkg | task:Splinter::probeTask|PKGLIST|OOBNAME | $bits @24:12
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:flintPkg | task:Splinter::probeTask|PKGLIST|OOBNAME | $bits @24:56
+    STILL-WRONG  g=0 a=1 b=1  PKGELAB:flintPkg | function:probeAll|CLASSBODY|BARENAME | $clog2 @16:29
+TOTAL OK=50 TO-GOLDEN=0 AWAY-GOLDEN=0 STILL-WRONG=10 EMPTY-GOLDEN-VIEWS=0
+---- g174_c_homes.sv
+[def] cells=16  OK=9  TO-GOLDEN=0  AWAY-GOLDEN=0  STILL-WRONG=7
+    STILL-WRONG  g=0 a=1 b=1  PKGDEF:lanternPkg | <none>|PKGLIST|BARENAME | $bits @10:19
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:lanternPkg | function:Beacon::new|PKGLIST|OOBNAME | $bits @26:29
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:lanternPkg | function:Beacon::new|PKGLIST|OOBNAME | $bits @26:43
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:lanternPkg | function:Beacon::outMethod|PKGLIST|OOBNAME | $bits @30:12
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:lanternPkg | function:Beacon::outMethod|PKGLIST|OOBNAME | $bits @30:26
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:lanternPkg | task:Beacon::outTask|PKGLIST|OOBNAME | $bits @34:12
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:lanternPkg | task:Beacon::outTask|PKGLIST|OOBNAME | $bits @34:26
+[elab] cells=16  OK=8  TO-GOLDEN=0  AWAY-GOLDEN=0  STILL-WRONG=8
+    STILL-WRONG  g=0 a=1 b=1  PKGDEF:lanternPkg | <none>|PKGLIST|BARENAME | $bits @10:19
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:lanternPkg | function:Beacon::new|PKGLIST|OOBNAME | $bits @26:29
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:lanternPkg | function:Beacon::new|PKGLIST|OOBNAME | $bits @26:43
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:lanternPkg | function:Beacon::outMethod|PKGLIST|OOBNAME | $bits @30:12
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:lanternPkg | function:Beacon::outMethod|PKGLIST|OOBNAME | $bits @30:26
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:lanternPkg | task:Beacon::outTask|PKGLIST|OOBNAME | $bits @34:12
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:lanternPkg | task:Beacon::outTask|PKGLIST|OOBNAME | $bits @34:26
+    STILL-WRONG  g=0 a=1 b=1  PKGELAB:lanternPkg | task:outTask|CLASSBODY|BARENAME | $bits @34:44
+TOTAL OK=17 TO-GOLDEN=0 AWAY-GOLDEN=0 STILL-WRONG=15 EMPTY-GOLDEN-VIEWS=0
+---- g174_d_import.sv
+[def] cells=11  OK=6  TO-GOLDEN=0  AWAY-GOLDEN=0  STILL-WRONG=5
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:emberPkg | function:Kindling::gauge|PKGLIST|OOBNAME | $bits @14:12
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:emberPkg | function:Kindling::gauge|PKGLIST|OOBNAME | $bits @14:26
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:emberPkg | function:Kindling::gauge|PKGLIST|OOBNAME | $bits @14:64
+    STILL-WRONG  g=0 a=1 b=1  PKGDEF:sootPkg | function:freeGauge|PKGLIST|BARENAME | $bits @17:12
+    STILL-WRONG  g=0 a=1 b=1  PKGDEF:sootPkg | function:freeGauge|PKGLIST|BARENAME | $bits @17:26
+[elab] cells=12  OK=7  TO-GOLDEN=0  AWAY-GOLDEN=0  STILL-WRONG=5
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:emberPkg | function:Kindling::gauge|PKGLIST|OOBNAME | $bits @14:12
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:emberPkg | function:Kindling::gauge|PKGLIST|OOBNAME | $bits @14:26
+    STILL-WRONG  g=1 a=0 b=0  PKGDEF:emberPkg | function:Kindling::gauge|PKGLIST|OOBNAME | $bits @14:64
+    STILL-WRONG  g=0 a=1 b=1  PKGDEF:sootPkg | function:freeGauge|PKGLIST|BARENAME | $bits @17:12
+    STILL-WRONG  g=0 a=1 b=1  PKGDEF:sootPkg | function:freeGauge|PKGLIST|BARENAME | $bits @17:26
+TOTAL OK=13 TO-GOLDEN=0 AWAY-GOLDEN=0 STILL-WRONG=10 EMPTY-GOLDEN-VIEWS=0
+---- g174_e_notmove.sv
+[def] cells=2  OK=0  TO-GOLDEN=0  AWAY-GOLDEN=0  STILL-WRONG=2
+    STILL-WRONG  g=1 a=0 b=0  MODDEF:work@winchTop | function:Capstan::haul|PKGLIST|OOBNAME | $bits @30:44
+    STILL-WRONG  g=0 a=1 b=1  MODDEF:work@winchTop | function:haul|CLASSBODY|BARENAME | $bits @30:44
+[elab] cells=4  OK=0  TO-GOLDEN=0  AWAY-GOLDEN=0  STILL-WRONG=4
+    STILL-WRONG  g=1 a=0 b=0  MODDEF:work@winchTop | function:Capstan::haul|PKGLIST|OOBNAME | $bits @30:44
+    STILL-WRONG  g=0 a=1 b=1  MODDEF:work@winchTop | function:haul|CLASSBODY|BARENAME | $bits @30:44
+    STILL-WRONG  g=1 a=0 b=0  MODELAB:work@winchTop | function:Capstan::haul|PKGLIST|OOBNAME | $bits @30:44
+    STILL-WRONG  g=0 a=1 b=1  MODELAB:work@winchTop | function:haul|CLASSBODY|BARENAME | $bits @30:44
+TOTAL OK=0 TO-GOLDEN=0 AWAY-GOLDEN=0 STILL-WRONG=6 EMPTY-GOLDEN-VIEWS=0
+
+== POST-CODE: pristine vs patched ==
+---- g174_a_forms.sv
+  official cmp (LHS golden):
+    cmp rc=255 a def lines=40 heads=1
+    cmp rc=255 b def lines=18 heads=1
+    cmp rc=255 a elab lines=40 heads=1
+    cmp rc=255 b elab lines=18 heads=1
+  non-zero rc: 0
+  exact positions:
+    [def] cells=37  OK=26  TO-GOLDEN=6  AWAY-GOLDEN=0  STILL-WRONG=5
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:quartzPkg | function:Prism::outBlockQuery|PKGLIST|OOBNAME | $bits @29:12
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:quartzPkg | function:Prism::outBlockQuery|PKGLIST|OOBNAME | $bits @29:26
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:quartzPkg | function:Prism::outBlockQuery|PKGLIST|OOBNAME | $bits @29:39
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:quartzPkg | function:Prism::outBlockQuery|PKGLIST|OOBNAME | $bits @29:57
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:quartzPkg | function:Prism::outBlockQuery|PKGLIST|OOBNAME | $bits @30:12
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:quartzPkg | function:Prism::outBlockQuery|PKGLIST|OOBNAME | $bits @30:31
+        STILL-WRONG  g=0 a=1 b=1  PKGELAB:quartzPkg | function:freeQuery|PKGLIST|BARENAME | $bits @40:42
+        STILL-WRONG  g=0 a=1 b=1  PKGELAB:quartzPkg | function:freeQuery|PKGLIST|BARENAME | $bits @40:57
+        STILL-WRONG  g=1 a=0 b=0  PKGELAB:quartzPkg | function:outBlockQuery|CLASSBODY|BARENAME | $bits @30:31
+        STILL-WRONG  g=0 a=1 b=1  PKGELAB:quartzPkg | function:outBlockQuery|CLASSBODY|BARENAME | $bits @32:12
+        STILL-WRONG  g=0 a=1 b=1  PKGELAB:quartzPkg | function:outBlockQuery|CLASSBODY|BARENAME | $bits @32:27
+    [elab] cells=37  OK=26  TO-GOLDEN=6  AWAY-GOLDEN=0  STILL-WRONG=5
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:quartzPkg | function:Prism::outBlockQuery|PKGLIST|OOBNAME | $bits @29:12
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:quartzPkg | function:Prism::outBlockQuery|PKGLIST|OOBNAME | $bits @29:26
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:quartzPkg | function:Prism::outBlockQuery|PKGLIST|OOBNAME | $bits @29:39
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:quartzPkg | function:Prism::outBlockQuery|PKGLIST|OOBNAME | $bits @29:57
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:quartzPkg | function:Prism::outBlockQuery|PKGLIST|OOBNAME | $bits @30:12
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:quartzPkg | function:Prism::outBlockQuery|PKGLIST|OOBNAME | $bits @30:31
+        STILL-WRONG  g=0 a=1 b=1  PKGELAB:quartzPkg | function:freeQuery|PKGLIST|BARENAME | $bits @40:42
+        STILL-WRONG  g=0 a=1 b=1  PKGELAB:quartzPkg | function:freeQuery|PKGLIST|BARENAME | $bits @40:57
+        STILL-WRONG  g=1 a=0 b=0  PKGELAB:quartzPkg | function:outBlockQuery|CLASSBODY|BARENAME | $bits @30:31
+        STILL-WRONG  g=0 a=1 b=1  PKGELAB:quartzPkg | function:outBlockQuery|CLASSBODY|BARENAME | $bits @32:12
+        STILL-WRONG  g=0 a=1 b=1  PKGELAB:quartzPkg | function:outBlockQuery|CLASSBODY|BARENAME | $bits @32:27
+    TOTAL OK=52 TO-GOLDEN=12 AWAY-GOLDEN=0 STILL-WRONG=10 EMPTY-GOLDEN-VIEWS=0
+  span-blind multiset:
+    [def] cells=23  OK=14  TO-GOLDEN=6  AWAY-GOLDEN=0  STILL-WRONG=3
+    [elab] cells=23  OK=14  TO-GOLDEN=6  AWAY-GOLDEN=0  STILL-WRONG=3
+    TOTAL OK=28 TO-GOLDEN=12 AWAY-GOLDEN=0 STILL-WRONG=6 EMPTY-GOLDEN-VIEWS=0
+---- g174_b_sysfns.sv
+  official cmp (LHS golden):
+    cmp rc=255 a def lines=40 heads=1
+    cmp rc=255 b def lines=62 heads=1
+    cmp rc=255 a elab lines=40 heads=1
+    cmp rc=0 b elab lines=0 heads=0
+  non-zero rc: 0
+  exact positions:
+    [def] cells=30  OK=25  TO-GOLDEN=4  AWAY-GOLDEN=0  STILL-WRONG=1
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:flintPkg | function:Splinter::probeAll|PKGLIST|OOBNAME | $bits @15:12
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:flintPkg | function:Splinter::probeAll|PKGLIST|OOBNAME | $bits @15:26
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:flintPkg | task:Splinter::probeTask|PKGLIST|OOBNAME | $bits @24:12
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:flintPkg | task:Splinter::probeTask|PKGLIST|OOBNAME | $bits @24:56
+        STILL-WRONG  g=0 a=1 b=1  PKGELAB:flintPkg | function:probeAll|CLASSBODY|BARENAME | $clog2 @16:29
+    [elab] cells=30  OK=25  TO-GOLDEN=4  AWAY-GOLDEN=0  STILL-WRONG=1
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:flintPkg | function:Splinter::probeAll|PKGLIST|OOBNAME | $bits @15:12
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:flintPkg | function:Splinter::probeAll|PKGLIST|OOBNAME | $bits @15:26
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:flintPkg | task:Splinter::probeTask|PKGLIST|OOBNAME | $bits @24:12
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:flintPkg | task:Splinter::probeTask|PKGLIST|OOBNAME | $bits @24:56
+        STILL-WRONG  g=0 a=1 b=1  PKGELAB:flintPkg | function:probeAll|CLASSBODY|BARENAME | $clog2 @16:29
+    TOTAL OK=50 TO-GOLDEN=8 AWAY-GOLDEN=0 STILL-WRONG=2 EMPTY-GOLDEN-VIEWS=0
+  span-blind multiset:
+    [def] cells=29  OK=24  TO-GOLDEN=4  AWAY-GOLDEN=0  STILL-WRONG=1
+    [elab] cells=29  OK=24  TO-GOLDEN=4  AWAY-GOLDEN=0  STILL-WRONG=1
+    TOTAL OK=48 TO-GOLDEN=8 AWAY-GOLDEN=0 STILL-WRONG=2 EMPTY-GOLDEN-VIEWS=0
+---- g174_c_homes.sv
+  official cmp (LHS golden):
+    cmp rc=255 a def lines=40 heads=1
+    cmp rc=255 b def lines=40 heads=1
+    cmp rc=255 a elab lines=40 heads=1
+    cmp rc=255 b elab lines=40 heads=1
+  non-zero rc: 0
+  exact positions:
+    [def] cells=16  OK=9  TO-GOLDEN=6  AWAY-GOLDEN=0  STILL-WRONG=1
+        STILL-WRONG  g=0 a=1 b=1  PKGDEF:lanternPkg | <none>|PKGLIST|BARENAME | $bits @10:19
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:lanternPkg | function:Beacon::new|PKGLIST|OOBNAME | $bits @26:29
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:lanternPkg | function:Beacon::new|PKGLIST|OOBNAME | $bits @26:43
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:lanternPkg | function:Beacon::outMethod|PKGLIST|OOBNAME | $bits @30:12
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:lanternPkg | function:Beacon::outMethod|PKGLIST|OOBNAME | $bits @30:26
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:lanternPkg | task:Beacon::outTask|PKGLIST|OOBNAME | $bits @34:12
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:lanternPkg | task:Beacon::outTask|PKGLIST|OOBNAME | $bits @34:26
+    [elab] cells=16  OK=8  TO-GOLDEN=6  AWAY-GOLDEN=0  STILL-WRONG=2
+        STILL-WRONG  g=0 a=1 b=1  PKGDEF:lanternPkg | <none>|PKGLIST|BARENAME | $bits @10:19
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:lanternPkg | function:Beacon::new|PKGLIST|OOBNAME | $bits @26:29
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:lanternPkg | function:Beacon::new|PKGLIST|OOBNAME | $bits @26:43
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:lanternPkg | function:Beacon::outMethod|PKGLIST|OOBNAME | $bits @30:12
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:lanternPkg | function:Beacon::outMethod|PKGLIST|OOBNAME | $bits @30:26
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:lanternPkg | task:Beacon::outTask|PKGLIST|OOBNAME | $bits @34:12
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:lanternPkg | task:Beacon::outTask|PKGLIST|OOBNAME | $bits @34:26
+        STILL-WRONG  g=0 a=1 b=1  PKGELAB:lanternPkg | task:outTask|CLASSBODY|BARENAME | $bits @34:44
+    TOTAL OK=17 TO-GOLDEN=12 AWAY-GOLDEN=0 STILL-WRONG=3 EMPTY-GOLDEN-VIEWS=0
+  span-blind multiset:
+    [def] cells=13  OK=6  TO-GOLDEN=6  AWAY-GOLDEN=0  STILL-WRONG=1
+    [elab] cells=13  OK=5  TO-GOLDEN=6  AWAY-GOLDEN=0  STILL-WRONG=2
+    TOTAL OK=11 TO-GOLDEN=12 AWAY-GOLDEN=0 STILL-WRONG=3 EMPTY-GOLDEN-VIEWS=0
+---- g174_d_import.sv
+  official cmp (LHS golden):
+    cmp rc=255 a def lines=40 heads=1
+    cmp rc=255 b def lines=62 heads=1
+    cmp rc=255 a elab lines=40 heads=1
+    cmp rc=255 b elab lines=62 heads=1
+  non-zero rc: 0
+  exact positions:
+    [def] cells=11  OK=6  TO-GOLDEN=3  AWAY-GOLDEN=0  STILL-WRONG=2
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:emberPkg | function:Kindling::gauge|PKGLIST|OOBNAME | $bits @14:12
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:emberPkg | function:Kindling::gauge|PKGLIST|OOBNAME | $bits @14:26
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:emberPkg | function:Kindling::gauge|PKGLIST|OOBNAME | $bits @14:64
+        STILL-WRONG  g=0 a=1 b=1  PKGDEF:sootPkg | function:freeGauge|PKGLIST|BARENAME | $bits @17:12
+        STILL-WRONG  g=0 a=1 b=1  PKGDEF:sootPkg | function:freeGauge|PKGLIST|BARENAME | $bits @17:26
+    [elab] cells=12  OK=7  TO-GOLDEN=3  AWAY-GOLDEN=0  STILL-WRONG=2
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:emberPkg | function:Kindling::gauge|PKGLIST|OOBNAME | $bits @14:12
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:emberPkg | function:Kindling::gauge|PKGLIST|OOBNAME | $bits @14:26
+        TO-GOLDEN    g=1 a=0 b=1  PKGDEF:emberPkg | function:Kindling::gauge|PKGLIST|OOBNAME | $bits @14:64
+        STILL-WRONG  g=0 a=1 b=1  PKGDEF:sootPkg | function:freeGauge|PKGLIST|BARENAME | $bits @17:12
+        STILL-WRONG  g=0 a=1 b=1  PKGDEF:sootPkg | function:freeGauge|PKGLIST|BARENAME | $bits @17:26
+    TOTAL OK=13 TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=4 EMPTY-GOLDEN-VIEWS=0
+  span-blind multiset:
+    [def] cells=10  OK=5  TO-GOLDEN=3  AWAY-GOLDEN=0  STILL-WRONG=2
+    [elab] cells=11  OK=6  TO-GOLDEN=3  AWAY-GOLDEN=0  STILL-WRONG=2
+    TOTAL OK=11 TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=4 EMPTY-GOLDEN-VIEWS=0
+---- g174_e_notmove.sv
+  official cmp (LHS golden):
+    cmp rc=255 a def lines=534 heads=1
+    cmp rc=255 b def lines=534 heads=1
+    cmp rc=255 a elab lines=538 heads=1
+    cmp rc=255 b elab lines=538 heads=1
+  non-zero rc: 0
+  exact positions:
+    [def] cells=2  OK=0  TO-GOLDEN=0  AWAY-GOLDEN=0  STILL-WRONG=2
+        STILL-WRONG  g=1 a=0 b=0  MODDEF:work@winchTop | function:Capstan::haul|PKGLIST|OOBNAME | $bits @30:44
+        STILL-WRONG  g=0 a=1 b=1  MODDEF:work@winchTop | function:haul|CLASSBODY|BARENAME | $bits @30:44
+    [elab] cells=4  OK=0  TO-GOLDEN=0  AWAY-GOLDEN=0  STILL-WRONG=4
+        STILL-WRONG  g=1 a=0 b=0  MODDEF:work@winchTop | function:Capstan::haul|PKGLIST|OOBNAME | $bits @30:44
+        STILL-WRONG  g=0 a=1 b=1  MODDEF:work@winchTop | function:haul|CLASSBODY|BARENAME | $bits @30:44
+        STILL-WRONG  g=1 a=0 b=0  MODELAB:work@winchTop | function:Capstan::haul|PKGLIST|OOBNAME | $bits @30:44
+        STILL-WRONG  g=0 a=1 b=1  MODELAB:work@winchTop | function:haul|CLASSBODY|BARENAME | $bits @30:44
+    TOTAL OK=0 TO-GOLDEN=0 AWAY-GOLDEN=0 STILL-WRONG=6 EMPTY-GOLDEN-VIEWS=0
+  span-blind multiset:
+    [def] cells=2  OK=0  TO-GOLDEN=0  AWAY-GOLDEN=0  STILL-WRONG=2
+    [elab] cells=4  OK=0  TO-GOLDEN=0  AWAY-GOLDEN=0  STILL-WRONG=4
+    TOTAL OK=0 TO-GOLDEN=0 AWAY-GOLDEN=0 STILL-WRONG=6 EMPTY-GOLDEN-VIEWS=0
+
+== GOLDEN's DEF-vs-ELAB fold matrix, arm A, read straight off the golden census ==
+-- golden, def view, every kept type-query:
+10:20	PKGELAB:quartzPkg <none>|CLASSBODY|BARENAME UINT:6
+10:22	PKGELAB:quartzPkg <none>|CLASSBODY|BARENAME UINT:0
+11:10	PKGELAB:quartzPkg <none>|CLASSBODY|BARENAME UINT:17
+11:13	PKGELAB:quartzPkg <none>|CLASSBODY|BARENAME UINT:0
+12:28	PKGELAB:quartzPkg <none>|CLASSBODY|BARENAME UINT:9
+16:17	- <none>|PKGLIST|BARENAME UINT:0
+17:14	PKGELAB:quartzPkg function:inBlockQuery|CLASSBODY|BARENAME UINT:8
+17:28	PKGELAB:quartzPkg function:inBlockQuery|CLASSBODY|BARENAME UINT:32
+17:41	PKGELAB:quartzPkg function:inBlockQuery|CLASSBODY|BARENAME UINT:16
+17:59	PKGELAB:quartzPkg function:inBlockQuery|CLASSBODY|BARENAME UINT:64
+18:14	PKGELAB:quartzPkg function:inBlockQuery|CLASSBODY|BARENAME UINT:12
+18:33	PKGELAB:quartzPkg function:inBlockQuery|CLASSBODY|BARENAME UINT:7
+19:14	PKGELAB:quartzPkg function:inBlockQuery|CLASSBODY|BARENAME UINT:18
+20:41	PKGELAB:quartzPkg function:inBlockQuery|CLASSBODY|BARENAME UINT:1
+28:15	- <none>|PKGLIST|BARENAME UINT:0
+28:15	- <none>|PKGLIST|BARENAME UINT:0
+29:12	PKGELAB:quartzPkg function:outBlockQuery|CLASSBODY|BARENAME UINT:132
+32:12	PKGELAB:quartzPkg function:outBlockQuery|CLASSBODY|BARENAME UINT:32
+32:27	PKGELAB:quartzPkg function:outBlockQuery|CLASSBODY|BARENAME UINT:0
+32:39	PKGDEF:quartzPkg function:Prism::outBlockQuery|PKGLIST|OOBNAME UINT:1
+3:31	- <none>|PKGLIST|BARENAME UINT:0
+37:15	- <none>|PKGLIST|BARENAME UINT:0
+37:15	- <none>|PKGLIST|BARENAME UINT:0
+38:12	PKGELAB:quartzPkg function:freeQuery|PKGLIST|BARENAME UINT:132
+40:42	PKGELAB:quartzPkg function:freeQuery|PKGLIST|BARENAME UINT:32
+40:57	PKGELAB:quartzPkg function:freeQuery|PKGLIST|BARENAME UINT:0
+40:69	PKGDEF:quartzPkg function:freeQuery|PKGLIST|BARENAME UINT:1
+49:40	MODDEF:work@quartzTop <none>|PKGLIST|BARENAME UINT:3
+49:69	MODDEF:work@quartzTop <none>|PKGLIST|BARENAME UINT:4
+50:38	MODDEF:work@quartzTop <none>|PKGLIST|BARENAME UINT:5
+57:33	- <none>|PKGLIST|BARENAME UINT:0
+60:29	- <none>|PKGLIST|BARENAME UINT:1
+6:18	PKGDEF:quartzPkg <none>|PKGLIST|BARENAME UINT:11
+6:18	PKGELAB:quartzPkg <none>|PKGLIST|BARENAME UINT:11
+6:21	PKGDEF:quartzPkg <none>|PKGLIST|BARENAME UINT:0
+6:21	PKGELAB:quartzPkg <none>|PKGLIST|BARENAME UINT:0
+63:29	- <none>|PKGLIST|BARENAME UINT:1
+66:41	- <none>|PKGLIST|BARENAME UINT:1
+7:25	PKGDEF:quartzPkg <none>|PKGLIST|BARENAME UINT:5
+7:25	PKGELAB:quartzPkg <none>|PKGLIST|BARENAME UINT:5
+PKGDEF:quartzPkg	function:freeQuery|PKGLIST|BARENAME	$bits	38	12
+PKGDEF:quartzPkg	function:freeQuery|PKGLIST|BARENAME	$bits	38	26
+PKGDEF:quartzPkg	function:freeQuery|PKGLIST|BARENAME	$bits	38	39
+PKGDEF:quartzPkg	function:freeQuery|PKGLIST|BARENAME	$bits	38	57
+PKGDEF:quartzPkg	function:freeQuery|PKGLIST|BARENAME	$bits	39	12
+PKGDEF:quartzPkg	function:freeQuery|PKGLIST|BARENAME	$bits	40	12
+PKGDEF:quartzPkg	function:freeQuery|PKGLIST|BARENAME	$bits	40	29
+PKGDEF:quartzPkg	function:freeQuery|PKGLIST|BARENAME	$bits	40	42
+PKGDEF:quartzPkg	function:freeQuery|PKGLIST|BARENAME	$bits	40	57
+PKGDEF:quartzPkg	function:Prism::outBlockQuery|PKGLIST|OOBNAME	$bits	29	12
+PKGDEF:quartzPkg	function:Prism::outBlockQuery|PKGLIST|OOBNAME	$bits	29	26
+PKGDEF:quartzPkg	function:Prism::outBlockQuery|PKGLIST|OOBNAME	$bits	29	39
+PKGDEF:quartzPkg	function:Prism::outBlockQuery|PKGLIST|OOBNAME	$bits	29	57
+PKGDEF:quartzPkg	function:Prism::outBlockQuery|PKGLIST|OOBNAME	$bits	30	12
+PKGDEF:quartzPkg	function:Prism::outBlockQuery|PKGLIST|OOBNAME	$bits	30	31
+PKGDEF:quartzPkg	function:Prism::outBlockQuery|PKGLIST|OOBNAME	$bits	31	12
+PKGDEF:quartzPkg	function:Prism::outBlockQuery|PKGLIST|OOBNAME	$bits	31	27
+PKGDEF:quartzPkg	function:Prism::outBlockQuery|PKGLIST|OOBNAME	$bits	31	44
+PKGDEF:quartzPkg	function:Prism::outBlockQuery|PKGLIST|OOBNAME	$bits	31	57
+PKGDEF:quartzPkg	function:Prism::outBlockQuery|PKGLIST|OOBNAME	$bits	32	12
+PKGDEF:quartzPkg	function:Prism::outBlockQuery|PKGLIST|OOBNAME	$bits	32	27
+PKGELAB:quartzPkg	function:freeQuery|PKGLIST|BARENAME	$bits	40	12
+PKGELAB:quartzPkg	function:freeQuery|PKGLIST|BARENAME	$bits	40	29
+PKGELAB:quartzPkg	function:inBlockQuery|CLASSBODY|BARENAME	$bits	19	29
+PKGELAB:quartzPkg	function:inBlockQuery|CLASSBODY|BARENAME	$bits	19	46
+PKGELAB:quartzPkg	function:inBlockQuery|CLASSBODY|BARENAME	$bits	19	59
+PKGELAB:quartzPkg	function:inBlockQuery|CLASSBODY|BARENAME	$bits	20	14
+PKGELAB:quartzPkg	function:inBlockQuery|CLASSBODY|BARENAME	$bits	20	29
+PKGELAB:quartzPkg	function:outBlockQuery|CLASSBODY|BARENAME	$bits	30	31
+PKGELAB:quartzPkg	function:outBlockQuery|CLASSBODY|BARENAME	$bits	31	12
+PKGELAB:quartzPkg	function:outBlockQuery|CLASSBODY|BARENAME	$bits	31	27
+PKGELAB:quartzPkg	function:outBlockQuery|CLASSBODY|BARENAME	$bits	31	44
+PKGELAB:quartzPkg	function:outBlockQuery|CLASSBODY|BARENAME	$bits	31	57

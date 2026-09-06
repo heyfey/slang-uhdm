@@ -1,0 +1,40 @@
+LHS:
+decompile:
+sys_func_call: ($bits), id:69190, line:731:34, endln:731:39
+|vpiParent:
+\_operation: , id:69188, line:731:19, endln:731:45
+|vpiArgument:
+\_byte_var: (uvm_pkg::uvm_packer::pack_bytes), id:69191, line:731:40, endln:731:44
+  |vpiParent:
+  \_sys_func_call: ($bits), id:69190, line:731:34, endln:731:39
+  |vpiFullName:uvm_pkg::uvm_packer::pack_bytes
+|vpiName:$bits
+
+decompile:
+sys_func_call: ($bits), id:69190, line:731:34, endln:731:39
+|vpiParent:
+\_operation: , id:69188, line:731:19, endln:731:45
+|vpiArgument:
+\_byte_var: (uvm_pkg::uvm_packer::pack_bytes), id:69191, line:731:40, endln:731:44
+  |vpiParent:
+  \_sys_func_call: ($bits), id:69190, line:731:34, endln:731:39
+  |vpiFullName:uvm_pkg::uvm_packer::pack_bytes
+|vpiName:$bits
+RHS:
+decompile:
+constant: , id:132083, line:731:34, endln:731:45
+|vpiParent:
+\_operation: , id:132079, line:731:19, endln:731:45
+|vpiDecompile:8
+|vpiSize:64
+|UINT:8
+|vpiConstType:9
+
+decompile:
+constant: , id:132083, line:731:34, endln:731:45
+|vpiParent:
+\_operation: , id:132079, line:731:19, endln:731:45
+|vpiDecompile:8
+|vpiSize:64
+|UINT:8
+|vpiConstType:9

@@ -1,0 +1,19 @@
+LISTED=4854
+PROCESSED=4854 MOVED_ARMS=13 RC_DIFFS=0
+ASSERT PROCESSED==LISTED OK
+-- moved arms:
+PROCESSED	r10buvm27repro/g27_b_shapes.sv	 def:MOVED:RCSAME:ra=0:rb=0 elab:MOVED:RCSAME:ra=0:rb=0
+PROCESSED	r10uvm174repro/g174_a_forms.sv	 def:MOVED:RCSAME:ra=0:rb=0 elab:MOVED:RCSAME:ra=0:rb=0
+PROCESSED	r10uvm174repro/g174_b_sysfns.sv	 def:MOVED:RCSAME:ra=0:rb=0 elab:MOVED:RCSAME:ra=0:rb=0
+PROCESSED	r10uvm174repro/g174_c_homes.sv	 def:MOVED:RCSAME:ra=0:rb=0 elab:MOVED:RCSAME:ra=0:rb=0
+PROCESSED	r10uvm174repro/g174_d_import.sv	 def:MOVED:RCSAME:ra=0:rb=0 elab:MOVED:RCSAME:ra=0:rb=0
+PROCESSED	r10uvm95repro/g95_a3_order.sv	 def:MOVED:RCSAME:ra=0:rb=0 elab:MOVED:RCSAME:ra=0:rb=0
+PROCESSED	r10uvm95repro/g95_a5_oob.sv	 def:MOVED:RCSAME:ra=0:rb=0 elab:MOVED:RCSAME:ra=0:rb=0
+PROCESSED	r10v174repro/v174_a_faces.sv	 def:MOVED:RCSAME:ra=0:rb=0 elab:MOVED:RCSAME:ra=0:rb=0
+PROCESSED	r10v174repro/v174_b_sysfns.sv	 def:MOVED:RCSAME:ra=0:rb=0 elab:MOVED:RCSAME:ra=0:rb=0
+PROCESSED	r10v174repro/v174_c_homes.sv	 def:MOVED:RCSAME:ra=0:rb=0 elab:MOVED:RCSAME:ra=0:rb=0
+PROCESSED	r10v174repro/v174_d_import.sv	 def:MOVED:RCSAME:ra=0:rb=0 elab:MOVED:RCSAME:ra=0:rb=0
+PROCESSED	r10v174repro/v174_g_multi.sv	 def:MOVED:RCSAME:ra=0:rb=0 elab:MOVED:RCSAME:ra=0:rb=0
+PROCESSED	r10v95repro/v95_b3_homes.sv	 def:MOVED:RCSAME:ra=0:rb=0 elab:MOVED:RCSAME:ra=0:rb=0
+-- rc-differing arms:
+EXIT=0

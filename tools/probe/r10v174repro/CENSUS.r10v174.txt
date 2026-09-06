@@ -1,0 +1,69 @@
+# r10v174 CENSUS — the nine realised movers, golden vs pristine vs patched
+# key = (listing, home, name, line, col); listings NEVER merged.
+
+===== default/BuildUVMPkg-bf853d43
+GOLDEN_KEEP=89 PRIS_KEEP=43 PAT_KEEP=89
+TO-GOLDEN=46 AWAY-GOLDEN=0 STILL-WRONG(golden keeps, we fold)=0 OURS-ONLY(we keep, golden folds)=0
+===== default/MiniAmiq-544c7f61
+GOLDEN_KEEP=67 PRIS_KEEP=50 PAT_KEEP=67
+TO-GOLDEN=17 AWAY-GOLDEN=0 STILL-WRONG(golden keeps, we fold)=0 OURS-ONLY(we keep, golden folds)=0
+===== default/Scoreboard-59431470
+GOLDEN_KEEP=49 PRIS_KEEP=32 PAT_KEEP=49
+TO-GOLDEN=17 AWAY-GOLDEN=0 STILL-WRONG(golden keeps, we fold)=0 OURS-ONLY(we keep, golden folds)=0
+===== default/SeqDriver-32af76aa
+GOLDEN_KEEP=67 PRIS_KEEP=50 PAT_KEEP=67
+TO-GOLDEN=17 AWAY-GOLDEN=0 STILL-WRONG(golden keeps, we fold)=0 OURS-ONLY(we keep, golden folds)=0
+===== default/SimpleUVM-1dc93a62
+GOLDEN_KEEP=49 PRIS_KEEP=32 PAT_KEEP=49
+TO-GOLDEN=17 AWAY-GOLDEN=0 STILL-WRONG(golden keeps, we fold)=0 OURS-ONLY(we keep, golden folds)=0
+===== testflags/BuildUVMPkg-bf853d43
+GOLDEN_KEEP=89 PRIS_KEEP=43 PAT_KEEP=89
+TO-GOLDEN=46 AWAY-GOLDEN=0 STILL-WRONG(golden keeps, we fold)=0 OURS-ONLY(we keep, golden folds)=0
+===== testflags/MiniAmiq-544c7f61
+GOLDEN_KEEP=67 PRIS_KEEP=50 PAT_KEEP=67
+TO-GOLDEN=17 AWAY-GOLDEN=0 STILL-WRONG(golden keeps, we fold)=0 OURS-ONLY(we keep, golden folds)=0
+===== testflags/SeqDriver-32af76aa
+GOLDEN_KEEP=67 PRIS_KEEP=50 PAT_KEEP=67
+TO-GOLDEN=17 AWAY-GOLDEN=0 STILL-WRONG(golden keeps, we fold)=0 OURS-ONLY(we keep, golden folds)=0
+===== testflags/SimpleUVM-1dc93a62
+GOLDEN_KEEP=49 PRIS_KEEP=32 PAT_KEEP=49
+TO-GOLDEN=17 AWAY-GOLDEN=0 STILL-WRONG(golden keeps, we fold)=0 OURS-ONLY(we keep, golden folds)=0
+
+# THE FENCE COUNTERFACTUAL — SeqDriver/default, patched-with-fence vs no-fence
+# (uhdm-cmp head count stays 33 on BOTH: the fence's necessity is invisible to the judge on this row)
+GOLDEN_KEEP=67 PRIS_KEEP=67 PAT_KEEP=101
+TO-GOLDEN=0 AWAY-GOLDEN=34 STILL-WRONG(golden keeps, we fold)=0 OURS-ONLY(we keep, golden folds)=0
+  AWAY-GOLDEN  PKGDEF:adpcm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits | 731 | 34
+  AWAY-GOLDEN  PKGDEF:adpcm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits | 752 | 47
+  AWAY-GOLDEN  PKGDEF:adpcm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits | 752 | 73
+  AWAY-GOLDEN  PKGDEF:adpcm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits | 763 | 34
+  AWAY-GOLDEN  PKGDEF:adpcm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits | 784 | 47
+  AWAY-GOLDEN  PKGDEF:adpcm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits | 784 | 72
+  AWAY-GOLDEN  PKGDEF:adpcm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits | 949 | 34
+  AWAY-GOLDEN  PKGDEF:adpcm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits | 966 | 26
+  AWAY-GOLDEN  PKGDEF:adpcm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits | 966 | 45
+  AWAY-GOLDEN  PKGDEF:adpcm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits | 968 | 26
+  AWAY-GOLDEN  PKGDEF:adpcm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits | 968 | 45
+  AWAY-GOLDEN  PKGDEF:adpcm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits | 979 | 34
+  AWAY-GOLDEN  PKGDEF:adpcm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits | 996 | 26
+  AWAY-GOLDEN  PKGDEF:adpcm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits | 996 | 44
+  AWAY-GOLDEN  PKGDEF:adpcm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits | 998 | 26
+  AWAY-GOLDEN  PKGDEF:adpcm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits | 998 | 44
+  AWAY-GOLDEN  PKGDEF:adpcm_pkg | function:uvm_reg_block::check_data_width|PKGLIST|OOBNAME | $bits | 944 | 17
+  AWAY-GOLDEN  PKGELAB:adpcm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits | 731 | 34
+  AWAY-GOLDEN  PKGELAB:adpcm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits | 752 | 47
+  AWAY-GOLDEN  PKGELAB:adpcm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits | 752 | 73
+  AWAY-GOLDEN  PKGELAB:adpcm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits | 763 | 34
+  AWAY-GOLDEN  PKGELAB:adpcm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits | 784 | 47
+  AWAY-GOLDEN  PKGELAB:adpcm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits | 784 | 72
+  AWAY-GOLDEN  PKGELAB:adpcm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits | 949 | 34
+  AWAY-GOLDEN  PKGELAB:adpcm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits | 966 | 26
+  AWAY-GOLDEN  PKGELAB:adpcm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits | 966 | 45
+  AWAY-GOLDEN  PKGELAB:adpcm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits | 968 | 26
+  AWAY-GOLDEN  PKGELAB:adpcm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits | 968 | 45
+  AWAY-GOLDEN  PKGELAB:adpcm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits | 979 | 34
+  AWAY-GOLDEN  PKGELAB:adpcm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits | 996 | 26
+  AWAY-GOLDEN  PKGELAB:adpcm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits | 996 | 44
+  AWAY-GOLDEN  PKGELAB:adpcm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits | 998 | 26
+  AWAY-GOLDEN  PKGELAB:adpcm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits | 998 | 44
+  AWAY-GOLDEN  PKGELAB:adpcm_pkg | function:uvm_reg_block::check_data_width|PKGLIST|OOBNAME | $bits | 944 | 17

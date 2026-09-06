@@ -1,0 +1,308 @@
+r10uvm174 — THE CENSUS.  MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog).
+
+== A. THE NINE UVM DATABASES, GOLDEN vs PRISTINE, keyed by listing x home x call x span ==
+BuildUVMPkg.default BOTH-KEEP=43 GOLDEN-ONLY=46 OURS-ONLY=0
+  GOLDEN-ONLY  listing=PKGDEF    home=PKGLIST|OOBNAME        call=$bits    n=46
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_bytes|PKGLIST|OOBNAME | $bits @22229:36 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_bytes|PKGLIST|OOBNAME | $bits @22234:39 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_bytes|PKGLIST|OOBNAME | $bits @22235:17 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_bytes|PKGLIST|OOBNAME | $bits @22235:32 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_bytes|PKGLIST|OOBNAME | $bits @22237:17 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_bytes|PKGLIST|OOBNAME | $bits @22237:32 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_bytes|PKGLIST|OOBNAME | $bits @22237:50 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_bytes|PKGLIST|OOBNAME | $bits @22237:73 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_bytes|PKGLIST|OOBNAME | $bits @22237:98 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_ints|PKGLIST|OOBNAME | $bits @22246:36 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_ints|PKGLIST|OOBNAME | $bits @22251:39 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_ints|PKGLIST|OOBNAME | $bits @22252:17 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_ints|PKGLIST|OOBNAME | $bits @22252:31 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_ints|PKGLIST|OOBNAME | $bits @22254:17 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_ints|PKGLIST|OOBNAME | $bits @22254:31 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_ints|PKGLIST|OOBNAME | $bits @22254:48 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_ints|PKGLIST|OOBNAME | $bits @22254:70 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_ints|PKGLIST|OOBNAME | $bits @22254:94 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_longints|PKGLIST|OOBNAME | $bits @22263:36 | arg=long_int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_longints|PKGLIST|OOBNAME | $bits @22268:39 | arg=long_int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_longints|PKGLIST|OOBNAME | $bits @22269:17 | arg=long_int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_longints|PKGLIST|OOBNAME | $bits @22269:35 | arg=long_int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_longints|PKGLIST|OOBNAME | $bits @22271:17 | arg=long_int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_longints|PKGLIST|OOBNAME | $bits @22271:35 | arg=long_int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_longints|PKGLIST|OOBNAME | $bits @22271:56 | arg=long_int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_longints|PKGLIST|OOBNAME | $bits @22271:82 | arg=long_int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_longints|PKGLIST|OOBNAME | $bits @22271:110 | arg=long_int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits @22555:34 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits @22583:53 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits @22583:79 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits @22594:34 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits @22622:53 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits @22622:78 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::set_packed_bytes|PKGLIST|OOBNAME | $bits @22340:22 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::set_packed_bytes|PKGLIST|OOBNAME | $bits @22341:15 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::set_packed_ints|PKGLIST|OOBNAME | $bits @22351:22 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::set_packed_ints|PKGLIST|OOBNAME | $bits @22352:15 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::set_packed_longints|PKGLIST|OOBNAME | $bits @22362:22 | arg=long_int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::set_packed_longints|PKGLIST|OOBNAME | $bits @22363:15 | arg=long_int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @22860:34 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @22886:26 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @22886:45 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @22897:34 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @22923:26 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @22923:44 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_reg_block::check_data_width|PKGLIST|OOBNAME | $bits @78222:17 | arg=ref_obj(uvm_reg_data_t)
+BuildUVMPkg.testflags BOTH-KEEP=43 GOLDEN-ONLY=46 OURS-ONLY=0
+  GOLDEN-ONLY  listing=PKGDEF    home=PKGLIST|OOBNAME        call=$bits    n=46
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_bytes|PKGLIST|OOBNAME | $bits @22229:36 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_bytes|PKGLIST|OOBNAME | $bits @22234:39 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_bytes|PKGLIST|OOBNAME | $bits @22235:17 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_bytes|PKGLIST|OOBNAME | $bits @22235:32 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_bytes|PKGLIST|OOBNAME | $bits @22237:17 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_bytes|PKGLIST|OOBNAME | $bits @22237:32 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_bytes|PKGLIST|OOBNAME | $bits @22237:50 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_bytes|PKGLIST|OOBNAME | $bits @22237:73 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_bytes|PKGLIST|OOBNAME | $bits @22237:98 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_ints|PKGLIST|OOBNAME | $bits @22246:36 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_ints|PKGLIST|OOBNAME | $bits @22251:39 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_ints|PKGLIST|OOBNAME | $bits @22252:17 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_ints|PKGLIST|OOBNAME | $bits @22252:31 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_ints|PKGLIST|OOBNAME | $bits @22254:17 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_ints|PKGLIST|OOBNAME | $bits @22254:31 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_ints|PKGLIST|OOBNAME | $bits @22254:48 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_ints|PKGLIST|OOBNAME | $bits @22254:70 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_ints|PKGLIST|OOBNAME | $bits @22254:94 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_longints|PKGLIST|OOBNAME | $bits @22263:36 | arg=long_int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_longints|PKGLIST|OOBNAME | $bits @22268:39 | arg=long_int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_longints|PKGLIST|OOBNAME | $bits @22269:17 | arg=long_int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_longints|PKGLIST|OOBNAME | $bits @22269:35 | arg=long_int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_longints|PKGLIST|OOBNAME | $bits @22271:17 | arg=long_int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_longints|PKGLIST|OOBNAME | $bits @22271:35 | arg=long_int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_longints|PKGLIST|OOBNAME | $bits @22271:56 | arg=long_int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_longints|PKGLIST|OOBNAME | $bits @22271:82 | arg=long_int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::get_packed_longints|PKGLIST|OOBNAME | $bits @22271:110 | arg=long_int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits @22555:34 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits @22583:53 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits @22583:79 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits @22594:34 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits @22622:53 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits @22622:78 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::set_packed_bytes|PKGLIST|OOBNAME | $bits @22340:22 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::set_packed_bytes|PKGLIST|OOBNAME | $bits @22341:15 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::set_packed_ints|PKGLIST|OOBNAME | $bits @22351:22 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::set_packed_ints|PKGLIST|OOBNAME | $bits @22352:15 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::set_packed_longints|PKGLIST|OOBNAME | $bits @22362:22 | arg=long_int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::set_packed_longints|PKGLIST|OOBNAME | $bits @22363:15 | arg=long_int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @22860:34 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @22886:26 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @22886:45 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @22897:34 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @22923:26 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @22923:44 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_reg_block::check_data_width|PKGLIST|OOBNAME | $bits @78222:17 | arg=ref_obj(uvm_reg_data_t)
+MiniAmiq.default BOTH-KEEP=50 GOLDEN-ONLY=17 OURS-ONLY=0
+  GOLDEN-ONLY  listing=PKGDEF    home=PKGLIST|OOBNAME        call=$bits    n=17
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits @731:34 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits @752:47 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits @752:73 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits @763:34 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits @784:47 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits @784:72 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @949:34 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @966:26 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @966:45 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @968:26 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @968:45 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @979:34 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @996:26 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @996:44 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @998:26 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @998:44 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_reg_block::check_data_width|PKGLIST|OOBNAME | $bits @944:17 | arg=ref_obj(uvm_reg_data_t)
+MiniAmiq.testflags BOTH-KEEP=50 GOLDEN-ONLY=17 OURS-ONLY=0
+  GOLDEN-ONLY  listing=PKGDEF    home=PKGLIST|OOBNAME        call=$bits    n=17
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits @731:34 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits @752:47 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits @752:73 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits @763:34 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits @784:47 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits @784:72 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @949:34 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @966:26 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @966:45 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @968:26 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @968:45 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @979:34 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @996:26 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @996:44 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @998:26 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @998:44 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_reg_block::check_data_width|PKGLIST|OOBNAME | $bits @944:17 | arg=ref_obj(uvm_reg_data_t)
+Scoreboard.default BOTH-KEEP=32 GOLDEN-ONLY=17 OURS-ONLY=0
+  GOLDEN-ONLY  listing=PKGDEF    home=PKGLIST|OOBNAME        call=$bits    n=17
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits @731:34 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits @752:47 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits @752:73 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits @763:34 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits @784:47 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits @784:72 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @949:34 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @966:26 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @966:45 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @968:26 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @968:45 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @979:34 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @996:26 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @996:44 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @998:26 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @998:44 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_reg_block::check_data_width|PKGLIST|OOBNAME | $bits @944:17 | arg=ref_obj(uvm_reg_data_t)
+SeqDriver.default BOTH-KEEP=50 GOLDEN-ONLY=17 OURS-ONLY=0
+  GOLDEN-ONLY  listing=PKGDEF    home=PKGLIST|OOBNAME        call=$bits    n=17
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits @731:34 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits @752:47 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits @752:73 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits @763:34 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits @784:47 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits @784:72 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @949:34 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @966:26 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @966:45 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @968:26 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @968:45 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @979:34 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @996:26 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @996:44 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @998:26 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @998:44 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_reg_block::check_data_width|PKGLIST|OOBNAME | $bits @944:17 | arg=ref_obj(uvm_reg_data_t)
+SeqDriver.testflags BOTH-KEEP=50 GOLDEN-ONLY=17 OURS-ONLY=0
+  GOLDEN-ONLY  listing=PKGDEF    home=PKGLIST|OOBNAME        call=$bits    n=17
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits @731:34 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits @752:47 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits @752:73 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits @763:34 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits @784:47 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits @784:72 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @949:34 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @966:26 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @966:45 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @968:26 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @968:45 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @979:34 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @996:26 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @996:44 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @998:26 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @998:44 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_reg_block::check_data_width|PKGLIST|OOBNAME | $bits @944:17 | arg=ref_obj(uvm_reg_data_t)
+SimpleUVM.default BOTH-KEEP=32 GOLDEN-ONLY=17 OURS-ONLY=0
+  GOLDEN-ONLY  listing=PKGDEF    home=PKGLIST|OOBNAME        call=$bits    n=17
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits @731:34 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits @752:47 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits @752:73 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits @763:34 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits @784:47 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits @784:72 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @949:34 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @966:26 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @966:45 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @968:26 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @968:45 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @979:34 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @996:26 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @996:44 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @998:26 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @998:44 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_reg_block::check_data_width|PKGLIST|OOBNAME | $bits @944:17 | arg=ref_obj(uvm_reg_data_t)
+SimpleUVM.testflags BOTH-KEEP=32 GOLDEN-ONLY=17 OURS-ONLY=0
+  GOLDEN-ONLY  listing=PKGDEF    home=PKGLIST|OOBNAME        call=$bits    n=17
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits @731:34 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits @752:47 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_bytes|PKGLIST|OOBNAME | $bits @752:73 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits @763:34 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits @784:47 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::pack_ints|PKGLIST|OOBNAME | $bits @784:72 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @949:34 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @966:26 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @966:45 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @968:26 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_bytes|PKGLIST|OOBNAME | $bits @968:45 | arg=byte_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @979:34 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @996:26 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @996:44 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @998:26 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_packer::unpack_ints|PKGLIST|OOBNAME | $bits @998:44 | arg=int_var()
+    GOLDEN-ONLY PKGDEF:uvm_pkg | function:uvm_reg_block::check_data_width|PKGLIST|OOBNAME | $bits @944:17 | arg=ref_obj(uvm_reg_data_t)
+
+== B. THE SAME NINE, PRISTINE (a) vs PATCHED (b), scored against golden ==
+== SimpleUVM default
+   exact  TOTAL OK=32 TO-GOLDEN=17 AWAY-GOLDEN=0 STILL-WRONG=0 EMPTY-GOLDEN-VIEWS=0
+   nospan TOTAL OK=32 TO-GOLDEN=17 AWAY-GOLDEN=0 STILL-WRONG=0 EMPTY-GOLDEN-VIEWS=0
+== SimpleUVM testflags
+   exact  TOTAL OK=32 TO-GOLDEN=17 AWAY-GOLDEN=0 STILL-WRONG=0 EMPTY-GOLDEN-VIEWS=0
+   nospan TOTAL OK=32 TO-GOLDEN=17 AWAY-GOLDEN=0 STILL-WRONG=0 EMPTY-GOLDEN-VIEWS=0
+== Scoreboard default
+   exact  TOTAL OK=32 TO-GOLDEN=17 AWAY-GOLDEN=0 STILL-WRONG=0 EMPTY-GOLDEN-VIEWS=0
+   nospan TOTAL OK=32 TO-GOLDEN=17 AWAY-GOLDEN=0 STILL-WRONG=0 EMPTY-GOLDEN-VIEWS=0
+SKIP-NOFILE Scoreboard testflags g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm a=/tmp/r10uvm174_wd_pris/sl/testflags/Scoreboard-59431470//slang.uhdm b=/tmp/r10uvm174_wd_pat/sl/testflags/Scoreboard-59431470/slang.uhdm
+== SeqDriver default
+   exact  TOTAL OK=50 TO-GOLDEN=17 AWAY-GOLDEN=0 STILL-WRONG=0 EMPTY-GOLDEN-VIEWS=0
+   nospan TOTAL OK=50 TO-GOLDEN=17 AWAY-GOLDEN=0 STILL-WRONG=0 EMPTY-GOLDEN-VIEWS=0
+== SeqDriver testflags
+   exact  TOTAL OK=50 TO-GOLDEN=17 AWAY-GOLDEN=0 STILL-WRONG=0 EMPTY-GOLDEN-VIEWS=0
+   nospan TOTAL OK=50 TO-GOLDEN=17 AWAY-GOLDEN=0 STILL-WRONG=0 EMPTY-GOLDEN-VIEWS=0
+== MiniAmiq default
+   exact  TOTAL OK=50 TO-GOLDEN=17 AWAY-GOLDEN=0 STILL-WRONG=0 EMPTY-GOLDEN-VIEWS=0
+   nospan TOTAL OK=50 TO-GOLDEN=17 AWAY-GOLDEN=0 STILL-WRONG=0 EMPTY-GOLDEN-VIEWS=0
+== MiniAmiq testflags
+   exact  TOTAL OK=50 TO-GOLDEN=17 AWAY-GOLDEN=0 STILL-WRONG=0 EMPTY-GOLDEN-VIEWS=0
+   nospan TOTAL OK=50 TO-GOLDEN=17 AWAY-GOLDEN=0 STILL-WRONG=0 EMPTY-GOLDEN-VIEWS=0
+== BuildUVMPkg default
+   exact  TOTAL OK=43 TO-GOLDEN=46 AWAY-GOLDEN=0 STILL-WRONG=0 EMPTY-GOLDEN-VIEWS=0
+   nospan TOTAL OK=43 TO-GOLDEN=46 AWAY-GOLDEN=0 STILL-WRONG=0 EMPTY-GOLDEN-VIEWS=0
+== BuildUVMPkg testflags
+   exact  TOTAL OK=43 TO-GOLDEN=46 AWAY-GOLDEN=0 STILL-WRONG=0 EMPTY-GOLDEN-VIEWS=0
+   nospan TOTAL OK=43 TO-GOLDEN=46 AWAY-GOLDEN=0 STILL-WRONG=0 EMPTY-GOLDEN-VIEWS=0
+
+== C. THE PREDICTION, made from PRISTINE databases BEFORE the patched sweep ==
+WINDOW w=23 c=0 /tmp/r10uvm174_wd_pris/sl/default/ApbSlave-71ff1b05/slang.uhdm
+WINDOW w=927 c=34 /tmp/r10uvm174_wd_pris/sl/default/BuildUVMPkg-bf853d43/slang.uhdm
+MOVER c=34 w=927 /tmp/r10uvm174_wd_pris/sl/default/BuildUVMPkg-bf853d43/slang.uhdm
+WINDOW w=1672 c=34 /tmp/r10uvm174_wd_pris/sl/default/MiniAmiq-544c7f61/slang.uhdm
+MOVER c=34 w=1672 /tmp/r10uvm174_wd_pris/sl/default/MiniAmiq-544c7f61/slang.uhdm
+WINDOW w=859 c=17 /tmp/r10uvm174_wd_pris/sl/default/Scoreboard-59431470/slang.uhdm
+MOVER c=17 w=859 /tmp/r10uvm174_wd_pris/sl/default/Scoreboard-59431470/slang.uhdm
+WINDOW w=1672 c=34 /tmp/r10uvm174_wd_pris/sl/default/SeqDriver-32af76aa/slang.uhdm
+MOVER c=34 w=1672 /tmp/r10uvm174_wd_pris/sl/default/SeqDriver-32af76aa/slang.uhdm
+WINDOW w=836 c=17 /tmp/r10uvm174_wd_pris/sl/default/SimpleUVM-1dc93a62/slang.uhdm
+MOVER c=17 w=836 /tmp/r10uvm174_wd_pris/sl/default/SimpleUVM-1dc93a62/slang.uhdm
+WINDOW w=23 c=0 /tmp/r10uvm174_wd_pris/sl/testflags/ApbSlave-71ff1b05/slang.uhdm
+WINDOW w=927 c=34 /tmp/r10uvm174_wd_pris/sl/testflags/BuildUVMPkg-bf853d43/slang.uhdm
+MOVER c=34 w=927 /tmp/r10uvm174_wd_pris/sl/testflags/BuildUVMPkg-bf853d43/slang.uhdm
+WINDOW w=1672 c=34 /tmp/r10uvm174_wd_pris/sl/testflags/MiniAmiq-544c7f61/slang.uhdm
+MOVER c=34 w=1672 /tmp/r10uvm174_wd_pris/sl/testflags/MiniAmiq-544c7f61/slang.uhdm
+WINDOW w=1672 c=34 /tmp/r10uvm174_wd_pris/sl/testflags/SeqDriver-32af76aa/slang.uhdm
+MOVER c=34 w=1672 /tmp/r10uvm174_wd_pris/sl/testflags/SeqDriver-32af76aa/slang.uhdm
+WINDOW w=836 c=17 /tmp/r10uvm174_wd_pris/sl/testflags/SimpleUVM-1dc93a62/slang.uhdm
+MOVER c=17 w=836 /tmp/r10uvm174_wd_pris/sl/testflags/SimpleUVM-1dc93a62/slang.uhdm
+SCANNED=956 POSSIBLE(WINDOWS>0)=11 PREDICTED_MOVERS=9 SCANFAIL=0
+-- uhdm2rtlil:
+SCANNED=1358 POSSIBLE(WINDOWS>0)=0 PREDICTED_MOVERS=0 SCANFAIL=0
+
+== D. THE REALISED MOVERS (byteverify SELFCHECK=1) ==
+surelog:
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm  patched=022feb63f620 pristine=b0191500ed20
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=40ba8d4cb369 pristine=c5c2eef09d80
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=a4eaa5fb2daa pristine=43b529fcf7d6
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=6908baf09814 pristine=0eacbde6882d
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=9add88aa77e6 pristine=1ff4e58f68e8
+MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  patched=022feb63f620 pristine=b0191500ed20
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=40ba8d4cb369 pristine=c5c2eef09d80
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=ef4e4586f1ff pristine=e6598b46dc01
+MOVER ./testflags/SimpleUVM-1dc93a62/slang.uhdm  patched=c30c2bd76851 pristine=ae9fe8a7b188
+MOVERS: 9 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+uhdm2rtlil:
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged

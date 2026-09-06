@@ -1,0 +1,143 @@
+r10uvm174 — THE GATES.  Every number below is a RUN.  MEASUREMENT ONLY;
+results/*.csv were READ ONLY, nothing was promoted, NO CORPUS ROW WAS CONVERTED,
+GOLDEN_DEFER was never set, slang was NOT patched.
+
+(1) BUILD
+  pristine  md5 9853d69d43a9cf87884b368be6f16c7f   (clean a0a33bb3 worktree, chmod 555 before any sweep)
+  patched   md5 9b5f05dfd8e3b7688267182183b4c173   (chmod 555 before any sweep)
+
+(2) GOLDENS, SLANG_UHDM exported explicitly to EACH binary
+  pristine : PASS=23 FAIL=0
+  patched  : PASS=23 FAIL=0
+  /bin/false negative control : PASS=0 FAIL=23
+
+(3) uhdm2rtlil, BOTH modes, patched
+  [testflags] 731 tests
+    CMP_EQUAL: 679
+    SLANG_REJECT: 50
+    SURELOG_FAIL: 2
+  [default] 731 tests
+    CMP_EQUAL: 679
+    SLANG_REJECT: 50
+    SURELOG_FAIL: 2
+  ct8rows vs committed results/gate_uhdm2rtlil.csv :
+    PASS: every row byte-identical to the committed baseline
+  ct8rows tf  vs this pass's own PRISTINE control :
+    PASS: every row byte-identical to the committed baseline
+  ct8rows def vs this pass's own PRISTINE control :
+    PASS: every row byte-identical to the committed baseline
+
+(4) surelog corpus, --mode both, patched
+  [default] 794 tests
+    CMP_EQUAL: 471
+    SLANG_REJECT: 283
+    SURELOG_FAIL: 25
+    CMP_NOTEQUAL: 10
+    DEFERRED: 5
+  
+  [testflags] 794 tests
+    CMP_EQUAL: 466
+    SLANG_REJECT: 284
+    SURELOG_FAIL: 23
+    CMP_NOTEQUAL: 9
+    DEFERRED: 5
+    NO_DATABASE: 3
+    UNTRANSLATABLE: 2
+    TIMEOUT: 1
+    NO_UHDM: 1
+  ct8rows vs committed results/golden_surelog.csv (status AND dump columns, 1588 rows):
+    PASS: every row byte-identical to the committed baseline
+  ct8rows vs this pass's own PRISTINE control :
+    PASS: every row byte-identical to the committed baseline
+  NO ROW WAS CONVERTED in either direction.
+
+(5) BYTEVERIFY, SELFCHECK=1 — every mover PREDICTED BY NAME from pristine databases
+    BEFORE the patched sweep (see CENSUS §C).
+  surelog:
+    databases: patched=956 pristine=956
+    PATH_SETS_IDENTICAL (956 paths)
+    MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm  patched=022feb63f620 pristine=b0191500ed20
+    MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=40ba8d4cb369 pristine=c5c2eef09d80
+    MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=a4eaa5fb2daa pristine=43b529fcf7d6
+    MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=6908baf09814 pristine=0eacbde6882d
+    MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=9add88aa77e6 pristine=1ff4e58f68e8
+    MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  patched=022feb63f620 pristine=b0191500ed20
+    MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=40ba8d4cb369 pristine=c5c2eef09d80
+    MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=ef4e4586f1ff pristine=e6598b46dc01
+    MOVER ./testflags/SimpleUVM-1dc93a62/slang.uhdm  patched=c30c2bd76851 pristine=ae9fe8a7b188
+    MOVERS: 9 / 956
+    SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+  uhdm2rtlil:
+    databases: patched=1358 pristine=1358
+    PATH_SETS_IDENTICAL (1358 paths)
+    MOVERS: 0 / 1358
+    SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+  PREDICTED = {SimpleUVM, Scoreboard, SeqDriver, MiniAmiq, BuildUVMPkg} x the modes
+  that have a database = 9.  REALISED = the same 9, and no other, of 956.  0 of 1358.
+
+(6) CANARIES
+  surelog    ---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+  uhdm2rtlil ---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+  ctcan2 sl  PASS: every supplementary canary row is byte-identical to the baseline.
+  ctcan2 u2r PASS: every supplementary canary row is byte-identical to the baseline.
+  canaudit  ---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+  canaudit  PASS: every brief-protected name and family is carried by a script that RUNS here.
+
+(7) PROTECTED DATABASES, md5 of the database itself, pristine vs patched
+  InterfaceModPort     default   pris=59a365f3ce2c pat=59a365f3ce2c SAME
+  InterfaceModPort     testflags pris=59a365f3ce2c pat=59a365f3ce2c SAME
+  BlackParrotComplex   default   pris=e3e354129d5a pat=e3e354129d5a SAME
+  BlackParrotComplex   testflags pris=73a10e8217e5 pat=73a10e8217e5 SAME
+  YosysOldOr           default   pris=d68e0796d62c pat=d68e0796d62c SAME
+  YosysOldOr           testflags pris=d68e0796d62c pat=d68e0796d62c SAME
+  SVSwitch             default   pris=4842211c4030 pat=4842211c4030 SAME
+  SVSwitch             testflags pris=4842211c4030 pat=4842211c4030 SAME
+  YosysVerx            default   pris=6ccda350c24a pat=6ccda350c24a SAME
+  YosysVerx            testflags pris=6ccda350c24a pat=6ccda350c24a SAME
+  SVSwitch pin 4842211c4030 HELD; YosysVerx pin 6ccda350c24a HELD.
+
+(8) THE HEADS (rowheads.sh on each workdir; counts are DEPTH, not distance)
+  -- PRISTINE
+  TEST           MODE      CMPLINES  HEADS NOTE
+  SeqDriver      default         33      1 cmp rc=255
+  SeqDriver      testflags       33      1 cmp rc=255
+  SimpleUVM      default         40      1 cmp rc=255
+  SimpleUVM      testflags       40      1 cmp rc=255
+  Scoreboard     default         95      1 cmp rc=255
+  Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+  MiniAmiq       default         40      1 cmp rc=255
+  MiniAmiq       testflags       40      1 cmp rc=255
+  BuildUVMPkg    default         52      1 cmp rc=255
+  BuildUVMPkg    testflags       52      1 cmp rc=255
+  Earlgrey_0_1   default         31      1 cmp rc=255
+  Earlgrey_0_1   testflags      122      1 cmp rc=255
+  Rggen          default          0      0 cmp rc=0
+  Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+  -- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+  -- PATCHED
+  TEST           MODE      CMPLINES  HEADS NOTE
+  SeqDriver      default         33      1 cmp rc=255
+  SeqDriver      testflags       33      1 cmp rc=255
+  SimpleUVM      default         52      1 cmp rc=255
+  SimpleUVM      testflags       52      1 cmp rc=255
+  Scoreboard     default         95      1 cmp rc=255
+  Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+  MiniAmiq       default         40      1 cmp rc=255
+  MiniAmiq       testflags       40      1 cmp rc=255
+  BuildUVMPkg    default         52      1 cmp rc=255
+  BuildUVMPkg    testflags       52      1 cmp rc=255
+  Earlgrey_0_1   default         31      1 cmp rc=255
+  Earlgrey_0_1   testflags      122      1 cmp rc=255
+  Rggen          default          0      0 cmp rc=0
+  Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+  -- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+
+(9) BOUNDARY: see BOUNDARY.r10uvm174.txt
+  LISTED=4847 PROCESSED=4847 PRODUCED_DBS=4690 MOVED_ARMS=8 RC_DIFFS=0
+  armjudge174: arms judged=8  AWAY-GOLDEN rows=0  EMPTY-GOLDEN rows=0  MISSING=0
+
+(10) THE SCOREBOARD/default COIN, attributed ORDER-BLIND
+  path-normalised, sorted uhdm-dump of pristine (1100350 lines) vs patched (1100385):
+  268 diff lines, EVERY ONE the law's: 17 constants removed, 34 sys_func_call lines
+  added, 17 typed argument variables (8 byte_var, 8 int_var, 1 ref_obj) and their
+  fields.  ZERO svunit_pkg listing-order lines.  See DUMPDIFF.Scoreboard.default.r10uvm174.txt.

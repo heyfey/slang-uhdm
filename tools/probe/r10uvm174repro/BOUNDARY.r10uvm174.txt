@@ -1,0 +1,112 @@
+r10uvm174 — THE BOUNDARY.  MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog).
+bound174.sh over a COPY of the WHOLE committed probe tree, top level AND
+subdirectories, both views, both frozen binaries; the file list read on fd 3,
+every child </dev/null, scratch keyed on the RELATIVE path, PROCESSED asserted.
+This pass's own g174_*.sv are the POSITIVE CONTROL; g174_e_notmove.sv is the
+NEGATIVE control and did NOT move.
+
+LISTED=4847 PROCESSED=4847 PRODUCED_DBS=4690 MOVED_ARMS=8 RC_DIFFS=0
+
+The four slang-fenced tests are a FENCED= list only (see canaudit.sh, which
+carries the names): zero files in the arm tree match any of them, none was
+dispatched by any driver here, and canaudit reports FENCE-BREACH=0.
+
+== the arms that moved ==
+r10buvm27repro/g27_b_shapes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm174repro/g174_a_forms.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm174repro/g174_b_sysfns.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm174repro/g174_c_homes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm174repro/g174_d_import.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm95repro/g95_a3_order.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm95repro/g95_a5_oob.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v95repro/v95_b3_homes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+== armjudge174.sh: the verdict on every one, rebuilt against a FRESH Surelog golden ==
+---- r10buvm27repro_g27_b_shapes.sv
+    cmp rc=255 a def lines=122 heads=1
+    cmp rc=255 b def lines=122 heads=1
+    cmp rc=255 a elab lines=122 heads=1
+    cmp rc=255 b elab lines=122 heads=1
+    PKGDEF nospan : TOTAL OK=6 TO-GOLDEN=2 AWAY-GOLDEN=0 STILL-WRONG=0 EMPTY-GOLDEN-VIEWS=0
+    ALL exact     : TOTAL OK=40 TO-GOLDEN=2 AWAY-GOLDEN=0 STILL-WRONG=15 EMPTY-GOLDEN-VIEWS=0
+    ALL nospan    : TOTAL OK=12 TO-GOLDEN=2 AWAY-GOLDEN=0 STILL-WRONG=11 EMPTY-GOLDEN-VIEWS=0
+    head object, pristine then patched (def view):
+      a: array_var: (pB::pdyn), id:981, line:81:17, endln:81:21
+      b: array_var: (pB::pdyn), id:981, line:81:17, endln:81:21
+---- r10uvm174repro_g174_a_forms.sv
+    cmp rc=255 a def lines=40 heads=1
+    cmp rc=255 b def lines=18 heads=1
+    cmp rc=255 a elab lines=40 heads=1
+    cmp rc=255 b elab lines=18 heads=1
+    PKGDEF nospan : TOTAL OK=18 TO-GOLDEN=12 AWAY-GOLDEN=0 STILL-WRONG=0 EMPTY-GOLDEN-VIEWS=0
+    ALL exact     : TOTAL OK=52 TO-GOLDEN=12 AWAY-GOLDEN=0 STILL-WRONG=10 EMPTY-GOLDEN-VIEWS=0
+    ALL nospan    : TOTAL OK=28 TO-GOLDEN=12 AWAY-GOLDEN=0 STILL-WRONG=6 EMPTY-GOLDEN-VIEWS=0
+    head object, pristine then patched (def view):
+      a: sys_func_call: ($bits), id:180, line:29:12, endln:29:17
+      b: int_typespec: , id:347, line:12:16, endln:12:19
+---- r10uvm174repro_g174_b_sysfns.sv
+    cmp rc=255 a def lines=40 heads=1
+    cmp rc=255 b def lines=62 heads=1
+    cmp rc=255 a elab lines=40 heads=1
+    cmp rc=0 b elab lines=0 heads=0
+    PKGDEF nospan : TOTAL OK=24 TO-GOLDEN=8 AWAY-GOLDEN=0 STILL-WRONG=0 EMPTY-GOLDEN-VIEWS=0
+    ALL exact     : TOTAL OK=50 TO-GOLDEN=8 AWAY-GOLDEN=0 STILL-WRONG=2 EMPTY-GOLDEN-VIEWS=0
+    ALL nospan    : TOTAL OK=48 TO-GOLDEN=8 AWAY-GOLDEN=0 STILL-WRONG=2 EMPTY-GOLDEN-VIEWS=0
+    head object, pristine then patched (def view):
+      a: sys_func_call: ($bits), id:93, line:15:12, endln:15:17
+      b: constant: , id:22, line:15:12, endln:15:23
+---- r10uvm174repro_g174_c_homes.sv
+    cmp rc=255 a def lines=40 heads=1
+    cmp rc=255 b def lines=40 heads=1
+    cmp rc=255 a elab lines=40 heads=1
+    cmp rc=255 b elab lines=40 heads=1
+    PKGDEF nospan : TOTAL OK=8 TO-GOLDEN=12 AWAY-GOLDEN=0 STILL-WRONG=2 EMPTY-GOLDEN-VIEWS=0
+    ALL exact     : TOTAL OK=17 TO-GOLDEN=12 AWAY-GOLDEN=0 STILL-WRONG=3 EMPTY-GOLDEN-VIEWS=0
+    ALL nospan    : TOTAL OK=11 TO-GOLDEN=12 AWAY-GOLDEN=0 STILL-WRONG=3 EMPTY-GOLDEN-VIEWS=0
+    head object, pristine then patched (def view):
+      a: constant: , id:325, line:10:19, endln:10:24
+      b: constant: , id:325, line:10:19, endln:10:24
+---- r10uvm174repro_g174_d_import.sv
+    cmp rc=255 a def lines=40 heads=1
+    cmp rc=255 b def lines=62 heads=1
+    cmp rc=255 a elab lines=40 heads=1
+    cmp rc=255 b elab lines=62 heads=1
+    PKGDEF nospan : TOTAL OK=6 TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=4 EMPTY-GOLDEN-VIEWS=0
+    ALL exact     : TOTAL OK=13 TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=4 EMPTY-GOLDEN-VIEWS=0
+    ALL nospan    : TOTAL OK=11 TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG=4 EMPTY-GOLDEN-VIEWS=0
+    head object, pristine then patched (def view):
+      a: sys_func_call: ($bits), id:56, line:14:12, endln:14:17
+      b: constant: , id:23, line:14:12, endln:14:23
+---- r10uvm95repro_g95_a3_order.sv
+    cmp rc=255 a def lines=32 heads=1
+    cmp rc=255 b def lines=32 heads=1
+    cmp rc=255 a elab lines=32 heads=1
+    cmp rc=255 b elab lines=32 heads=1
+    PKGDEF nospan : TOTAL OK=0 TO-GOLDEN=2 AWAY-GOLDEN=0 STILL-WRONG=0 EMPTY-GOLDEN-VIEWS=0
+    ALL exact     : TOTAL OK=58 TO-GOLDEN=2 AWAY-GOLDEN=0 STILL-WRONG=2 EMPTY-GOLDEN-VIEWS=0
+    ALL nospan    : TOTAL OK=52 TO-GOLDEN=2 AWAY-GOLDEN=0 STILL-WRONG=2 EMPTY-GOLDEN-VIEWS=0
+    head object, pristine then patched (def view):
+      a: byte_typespec: , id:79, line:6:30, endln:6:34
+      b: byte_typespec: , id:79, line:6:30, endln:6:34
+---- r10uvm95repro_g95_a5_oob.sv
+    cmp rc=255 a def lines=36 heads=1
+    cmp rc=255 b def lines=38 heads=1
+    cmp rc=255 a elab lines=36 heads=1
+    cmp rc=255 b elab lines=38 heads=1
+    PKGDEF nospan : TOTAL OK=4 TO-GOLDEN=8 AWAY-GOLDEN=0 STILL-WRONG=0 EMPTY-GOLDEN-VIEWS=0
+    ALL exact     : TOTAL OK=16 TO-GOLDEN=8 AWAY-GOLDEN=0 STILL-WRONG=2 EMPTY-GOLDEN-VIEWS=0
+    ALL nospan    : TOTAL OK=12 TO-GOLDEN=8 AWAY-GOLDEN=0 STILL-WRONG=2 EMPTY-GOLDEN-VIEWS=0
+    head object, pristine then patched (def view):
+      a: sys_func_call: ($bits), id:113, line:26:9, endln:26:14
+      b: sys_func_call: ($bits), id:44, line:28:9, endln:28:23
+---- r10v95repro_v95_b3_homes.sv
+    cmp rc=255 a def lines=40 heads=1
+    cmp rc=255 b def lines=106 heads=1
+    cmp rc=255 a elab lines=40 heads=1
+    cmp rc=255 b elab lines=114 heads=1
+    PKGDEF nospan : TOTAL OK=6 TO-GOLDEN=2 AWAY-GOLDEN=0 STILL-WRONG=0 EMPTY-GOLDEN-VIEWS=0
+    ALL exact     : TOTAL OK=26 TO-GOLDEN=2 AWAY-GOLDEN=0 STILL-WRONG=4 EMPTY-GOLDEN-VIEWS=0
+    ALL nospan    : TOTAL OK=20 TO-GOLDEN=2 AWAY-GOLDEN=0 STILL-WRONG=4 EMPTY-GOLDEN-VIEWS=0
+    head object, pristine then patched (def view):
+      a: sys_func_call: ($bits), id:185, line:35:13, endln:35:18
+      b: constant: , id:105, line:42:12, endln:42:25

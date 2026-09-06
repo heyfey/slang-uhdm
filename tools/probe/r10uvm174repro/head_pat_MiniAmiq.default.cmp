@@ -1,0 +1,40 @@
+LHS:
+decompile:
+bit_select: (checks_details[details_index]), id:255810, line:233:24, endln:233:38
+|vpiParent:
+\_hier_path: (checks_details[details_index].tests_names), id:255808, line:233:24, endln:233:105
+|vpiName:checks_details
+|vpiFullName:checks_details[details_index]
+|vpiIndex:
+\_ref_obj: (svaunit_pkg::svaunit_immediate_assertion_info::get_checks::details_index), id:255809, line:233:39, endln:233:52
+  |vpiParent:
+  \_hier_path: (checks_details[details_index].tests_names), id:255808, line:233:24, endln:233:105
+  |vpiName:details_index
+  |vpiFullName:svaunit_pkg::svaunit_immediate_assertion_info::get_checks::details_index
+
+decompile:
+bit_select: (checks_details[details_index]), id:255810, line:233:24, endln:233:38
+|vpiParent:
+\_hier_path: (checks_details[details_index].tests_names), id:255808, line:233:24, endln:233:105
+|vpiName:checks_details
+|vpiFullName:checks_details[details_index]
+|vpiIndex:
+\_ref_obj: (svaunit_pkg::svaunit_immediate_assertion_info::get_checks::details_index), id:255809, line:233:39, endln:233:52
+  |vpiParent:
+  \_hier_path: (checks_details[details_index].tests_names), id:255808, line:233:24, endln:233:105
+  |vpiName:details_index
+  |vpiFullName:svaunit_pkg::svaunit_immediate_assertion_info::get_checks::details_index
+RHS:
+decompile:
+ref_obj: (svaunit_pkg::svaunit_immediate_assertion_info::get_checks::checks_details[details_index]), id:187446, line:233:24, endln:233:53
+|vpiParent:
+\_hier_path: (checks_details[details_index].tests_names), id:187445, line:233:24, endln:233:105
+|vpiName:checks_details[details_index]
+|vpiFullName:svaunit_pkg::svaunit_immediate_assertion_info::get_checks::checks_details[details_index]
+
+decompile:
+ref_obj: (svaunit_pkg::svaunit_immediate_assertion_info::get_checks::checks_details[details_index]), id:187446, line:233:24, endln:233:53
+|vpiParent:
+\_hier_path: (checks_details[details_index].tests_names), id:187445, line:233:24, endln:233:105
+|vpiName:checks_details[details_index]
+|vpiFullName:svaunit_pkg::svaunit_immediate_assertion_info::get_checks::checks_details[details_index]

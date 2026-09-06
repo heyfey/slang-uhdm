@@ -1,0 +1,268 @@
+70421a70422,70424
+>             \_byte_var: (uvm_pkg::uvm_packer::pack_bytes), line:731:40, endln:731:44
+>                       \_byte_var: (uvm_pkg::uvm_packer::pack_bytes::value), line:752:53, endln:752:57
+>                       \_byte_var: (uvm_pkg::uvm_packer::pack_bytes::value), line:752:79, endln:752:83
+70447a70451,70455
+>             \_byte_var: (uvm_pkg::uvm_packer::unpack_bytes), line:949:40, endln:949:44
+>                             \_byte_var: (uvm_pkg::uvm_packer::unpack_bytes::value), line:966:32, endln:966:36
+>                             \_byte_var: (uvm_pkg::uvm_packer::unpack_bytes::value), line:966:51, endln:966:55
+>                             \_byte_var: (uvm_pkg::uvm_packer::unpack_bytes::value), line:968:32, endln:968:36
+>                             \_byte_var: (uvm_pkg::uvm_packer::unpack_bytes::value), line:968:51, endln:968:55
+129692d129699
+<           \_constant: , line:731:34, endln:731:45
+130005d130011
+<                     \_constant: , line:752:47, endln:752:58
+130008d130013
+<                     \_constant: , line:752:73, endln:752:84
+130099d130103
+<           \_constant: , line:763:34, endln:763:44
+130302d130305
+<                     \_constant: , line:784:47, endln:784:57
+130304d130306
+<                     \_constant: , line:784:72, endln:784:82
+131902d131903
+<           \_constant: , line:944:17, endln:944:38
+131964d131964
+<           \_constant: , line:949:34, endln:949:45
+132142d132141
+<                           \_constant: , line:966:26, endln:966:37
+132150d132148
+<                           \_constant: , line:966:45, endln:966:56
+132168d132165
+<                           \_constant: , line:968:26, endln:968:37
+132170d132166
+<                           \_constant: , line:968:45, endln:968:56
+132299d132294
+<           \_constant: , line:979:34, endln:979:44
+132441d132435
+<                           \_constant: , line:996:26, endln:996:36
+132446d132439
+<                           \_constant: , line:996:44, endln:996:54
+132459d132451
+<                           \_constant: , line:998:26, endln:998:36
+132461d132452
+<                           \_constant: , line:998:44, endln:998:54
+226759a226751
+>             \_int_var: (uvm_pkg::uvm_packer::pack_ints), line:763:40, endln:763:43
+226773a226766,226767
+>                       \_int_var: (uvm_pkg::uvm_packer::pack_ints::value), line:784:53, endln:784:56
+>                       \_int_var: (uvm_pkg::uvm_packer::pack_ints::value), line:784:78, endln:784:81
+227033a227028
+>             \_int_var: (uvm_pkg::uvm_packer::unpack_ints), line:979:40, endln:979:43
+227045a227041,227044
+>                             \_int_var: (uvm_pkg::uvm_packer::unpack_ints::value), line:996:32, endln:996:35
+>                             \_int_var: (uvm_pkg::uvm_packer::unpack_ints::value), line:996:50, endln:996:53
+>                             \_int_var: (uvm_pkg::uvm_packer::unpack_ints::value), line:998:32, endln:998:35
+>                             \_int_var: (uvm_pkg::uvm_packer::unpack_ints::value), line:998:50, endln:998:53
+334068a334068
+>             \_ref_obj: (uvm_pkg::uvm_reg_block::check_data_width.uvm_reg_data_t), line:944:23, endln:944:37
+404021a404022,404055
+>               \_sys_func_call: ($bits), line:731:34, endln:731:45
+>           \_sys_func_call: ($bits), line:731:34, endln:731:45
+>                         \_sys_func_call: ($bits), line:752:47, endln:752:58
+>                     \_sys_func_call: ($bits), line:752:47, endln:752:58
+>                         \_sys_func_call: ($bits), line:752:73, endln:752:84
+>                     \_sys_func_call: ($bits), line:752:73, endln:752:84
+>               \_sys_func_call: ($bits), line:763:34, endln:763:44
+>           \_sys_func_call: ($bits), line:763:34, endln:763:44
+>                         \_sys_func_call: ($bits), line:784:47, endln:784:57
+>                     \_sys_func_call: ($bits), line:784:47, endln:784:57
+>                         \_sys_func_call: ($bits), line:784:72, endln:784:82
+>                     \_sys_func_call: ($bits), line:784:72, endln:784:82
+>               \_sys_func_call: ($bits), line:944:17, endln:944:38
+>           \_sys_func_call: ($bits), line:944:17, endln:944:38
+>               \_sys_func_call: ($bits), line:949:34, endln:949:45
+>           \_sys_func_call: ($bits), line:949:34, endln:949:45
+>                               \_sys_func_call: ($bits), line:966:26, endln:966:37
+>                           \_sys_func_call: ($bits), line:966:26, endln:966:37
+>                               \_sys_func_call: ($bits), line:966:45, endln:966:56
+>                           \_sys_func_call: ($bits), line:966:45, endln:966:56
+>                               \_sys_func_call: ($bits), line:968:26, endln:968:37
+>                           \_sys_func_call: ($bits), line:968:26, endln:968:37
+>                               \_sys_func_call: ($bits), line:968:45, endln:968:56
+>                           \_sys_func_call: ($bits), line:968:45, endln:968:56
+>               \_sys_func_call: ($bits), line:979:34, endln:979:44
+>           \_sys_func_call: ($bits), line:979:34, endln:979:44
+>                               \_sys_func_call: ($bits), line:996:26, endln:996:36
+>                           \_sys_func_call: ($bits), line:996:26, endln:996:36
+>                               \_sys_func_call: ($bits), line:996:44, endln:996:54
+>                           \_sys_func_call: ($bits), line:996:44, endln:996:54
+>                               \_sys_func_call: ($bits), line:998:26, endln:998:36
+>                           \_sys_func_call: ($bits), line:998:26, endln:998:36
+>                               \_sys_func_call: ($bits), line:998:44, endln:998:54
+>                           \_sys_func_call: ($bits), line:998:44, endln:998:54
+423468,423471d423501
+<                             |UINT:32
+<                             |UINT:32
+<                             |UINT:32
+<                             |UINT:32
+423516,423517d423545
+<                       |UINT:32
+<                       |UINT:32
+423590,423591d423617
+<             |UINT:32
+<             |UINT:32
+424031d424056
+<             |UINT:64
+424256,424259d424280
+<                             |UINT:8
+<                             |UINT:8
+<                             |UINT:8
+<                             |UINT:8
+424321,424322d424341
+<                       |UINT:8
+<                       |UINT:8
+424407,424408d424425
+<             |UINT:8
+<             |UINT:8
+481509a481527,481534
+>                             |vpiArgument:
+>                             |vpiArgument:
+>                             |vpiArgument:
+>                             |vpiArgument:
+>                             |vpiArgument:
+>                             |vpiArgument:
+>                             |vpiArgument:
+>                             |vpiArgument:
+486847a486873,486876
+>                       |vpiArgument:
+>                       |vpiArgument:
+>                       |vpiArgument:
+>                       |vpiArgument:
+501576a501606,501610
+>             |vpiArgument:
+>             |vpiArgument:
+>             |vpiArgument:
+>             |vpiArgument:
+>             |vpiArgument:
+544813,544820d544846
+<                             |vpiConstType:9
+<                             |vpiConstType:9
+<                             |vpiConstType:9
+<                             |vpiConstType:9
+<                             |vpiConstType:9
+<                             |vpiConstType:9
+<                             |vpiConstType:9
+<                             |vpiConstType:9
+546583,546586d546608
+<                       |vpiConstType:9
+<                       |vpiConstType:9
+<                       |vpiConstType:9
+<                       |vpiConstType:9
+551067,551071d551088
+<             |vpiConstType:9
+<             |vpiConstType:9
+<             |vpiConstType:9
+<             |vpiConstType:9
+<             |vpiConstType:9
+566527,566530d566543
+<                             |vpiDecompile:32
+<                             |vpiDecompile:32
+<                             |vpiDecompile:32
+<                             |vpiDecompile:32
+566575,566576d566587
+<                       |vpiDecompile:32
+<                       |vpiDecompile:32
+566647,566648d566657
+<             |vpiDecompile:32
+<             |vpiDecompile:32
+567201d567209
+<             |vpiDecompile:64
+567431,567434d567438
+<                             |vpiDecompile:8
+<                             |vpiDecompile:8
+<                             |vpiDecompile:8
+<                             |vpiDecompile:8
+567496,567497d567499
+<                       |vpiDecompile:8
+<                       |vpiDecompile:8
+567580,567581d567581
+<             |vpiDecompile:8
+<             |vpiDecompile:8
+614289a614290
+>               |vpiFullName:uvm_pkg::uvm_packer::pack_bytes
+614362a614364,614365
+>                         |vpiFullName:uvm_pkg::uvm_packer::pack_bytes::value
+>                         |vpiFullName:uvm_pkg::uvm_packer::pack_bytes::value
+614478a614482
+>               |vpiFullName:uvm_pkg::uvm_packer::pack_ints
+614551a614556,614557
+>                         |vpiFullName:uvm_pkg::uvm_packer::pack_ints::value
+>                         |vpiFullName:uvm_pkg::uvm_packer::pack_ints::value
+615060a615067
+>               |vpiFullName:uvm_pkg::uvm_packer::unpack_bytes
+615127a615135,615138
+>                               |vpiFullName:uvm_pkg::uvm_packer::unpack_bytes::value
+>                               |vpiFullName:uvm_pkg::uvm_packer::unpack_bytes::value
+>                               |vpiFullName:uvm_pkg::uvm_packer::unpack_bytes::value
+>                               |vpiFullName:uvm_pkg::uvm_packer::unpack_bytes::value
+615281a615293
+>               |vpiFullName:uvm_pkg::uvm_packer::unpack_ints
+615348a615361,615364
+>                               |vpiFullName:uvm_pkg::uvm_packer::unpack_ints::value
+>                               |vpiFullName:uvm_pkg::uvm_packer::unpack_ints::value
+>                               |vpiFullName:uvm_pkg::uvm_packer::unpack_ints::value
+>                               |vpiFullName:uvm_pkg::uvm_packer::unpack_ints::value
+623685a623702
+>               |vpiFullName:uvm_pkg::uvm_reg_block::check_data_width.uvm_reg_data_t
+703383a703401,703412
+>                             |vpiName:$bits
+>                             |vpiName:$bits
+>                             |vpiName:$bits
+>                             |vpiName:$bits
+>                             |vpiName:$bits
+>                             |vpiName:$bits
+>                             |vpiName:$bits
+>                             |vpiName:$bits
+>                       |vpiName:$bits
+>                       |vpiName:$bits
+>                       |vpiName:$bits
+>                       |vpiName:$bits
+703401a703431,703435
+>             |vpiName:$bits
+>             |vpiName:$bits
+>             |vpiName:$bits
+>             |vpiName:$bits
+>             |vpiName:$bits
+785615a785650
+>               |vpiName:uvm_reg_data_t
+840460a840496,840503
+>                               |vpiParent:
+>                               |vpiParent:
+>                               |vpiParent:
+>                               |vpiParent:
+>                               |vpiParent:
+>                               |vpiParent:
+>                               |vpiParent:
+>                               |vpiParent:
+856864a856908,856911
+>                         |vpiParent:
+>                         |vpiParent:
+>                         |vpiParent:
+>                         |vpiParent:
+930614a930662,930666
+>               |vpiParent:
+>               |vpiParent:
+>               |vpiParent:
+>               |vpiParent:
+>               |vpiParent:
+1022113,1022120d1022164
+<                             |vpiSize:64
+<                             |vpiSize:64
+<                             |vpiSize:64
+<                             |vpiSize:64
+<                             |vpiSize:64
+<                             |vpiSize:64
+<                             |vpiSize:64
+<                             |vpiSize:64
+1024585,1024588d1024628
+<                       |vpiSize:64
+<                       |vpiSize:64
+<                       |vpiSize:64
+<                       |vpiSize:64
+1030263,1030267d1030302
+<             |vpiSize:64
+<             |vpiSize:64
+<             |vpiSize:64
+<             |vpiSize:64
+<             |vpiSize:64

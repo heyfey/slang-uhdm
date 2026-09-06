@@ -25446,6 +25446,51 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // the only one we still folded there (PackageEval, AllPackageSignal).
             if (curPkgEmitSym && !pkgEmitTopView)
                 bitsKeep = true;
+            // § pkgDefClassCloneNoBitsFold174 — ...AND THE `C::m` CLONES THAT
+            // LISTING CARRIES ARE PART OF IT.
+            //
+            // `FunctorCompilePackage` (Surelog CompilePackage.cpp:60-68)
+            // compiles every package TWICE, the elaborated `Package` with
+            // `Reduce::Yes` and its `getUnElabPackage()` twin with
+            // `Reduce::No`, and `CompilePackage::compile` (:80) sets
+            // `m_helper.setElabMode(reduce == Reduce::Yes)` from that same
+            // argument.  `compileBits` (CompileExpression.cpp:4726-4736) has
+            // exactly two roads to a constant and BOTH are gated on
+            // `reduce == Reduce::Yes`; the only thing that can PROMOTE a
+            // `Reduce::No` compile is `if (m_elabMode && (reduce ==
+            // Reduce::No) && tps) … reduce = Reduce::Yes` (:4729), and in the
+            // un-elaborated package compile `m_elabMode` is false too.  So in
+            // the DEF listing nothing reduces — and an OUT-OF-BODY class-method
+            // DEFINITION written at package scope is compiled by THAT pass
+            // (`UhdmWriter::writePackage`'s `::`-split later files the
+            // elaborated copy under the class_defn, UhdmWriter.cpp:1254),
+            // which is why golden's def listing keeps `$bits(byte)` in
+            // `uvm_packer::pack_bytes` while its class_defn twin folds it.
+            //
+            // Our emitter builds those clones in `emitPackageClassMethodClones`
+            // (ParamEmit.cpp), which runs under `if (topView)` because it needs
+            // the class_defns the top pass just created — so `pkgEmitTopView`
+            // is TRUE there and the guard above cannot see them.
+            // `pkgClassTfClone` is exactly the window, the same signal
+            // § `pkgTdRangeViewFold18` already uses for the same reason.
+            //
+            // THE FENCE — a WILDCARD-IMPORT clone is NOT this listing.  Golden's
+            // importer copies the home package's ELABORATED object and keeps the
+            // fold in BOTH of the importer's views (§ `negLitPkgRetFold86` arm
+            // a4; measured again here on `g174_d_import.sv`, where golden folds
+            // all four `$bits` of `sootPkg`'s copy of `emberPkg::Kindling::gauge`
+            // in the def AND the elab listing, as we already do).
+            // `emitImportedPkgClassMethodClones` sets `pkgClassTfClone` too, so
+            // without this clause the gate would move eight measured cells AWAY.
+            //
+            // `bitsOutOfBlock95()` (§ `bitsOutOfBlockNoReduce95`, r10uvm95,
+            // decoded there and left uncalled for this pass) is the STATED GATE
+            // == CODE GATE half: the listing carries `extern`-declared method
+            // DEFINITIONS and nothing else, so the predicate that names the
+            // shape also certifies it.
+            if (pkgClassTfClone && !pkgImportCloneEmit && !importCloneEmit &&
+                bitsOutOfBlock95())
+                bitsKeep = true;
             // § bitsOwnClassPropFold61 — and a CLASS BODY overrides both of
             // the above.  This sits AFTER the package guard on purpose: uvm-1.2
             // declares every class inside `uvm_pkg`, so a check placed before
@@ -25482,11 +25527,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 bitsKeep = true;
                 ownPropFold61 = false;
             }
-            // § bitsOutOfBlockNoReduce95 is DECODED BUT NOT SHIPPED — see
-            // `bitsOutOfBlock95` for the law and tools/probe/r10uvm95repro's
-            // README for why: golden splits it by package COPY (the def
-            // listing keeps, the top listing folds) and this pass has not
-            // decoded that split.  It is the next head (R0).
+            // § bitsOutOfBlockNoReduce95's package-COPY split IS decoded and
+            // IS shipped, by § pkgDefClassCloneNoBitsFold174 above: it is DEF
+            // listing versus ELABORATED listing, gated on the package clone
+            // window.  What is still open is the MODULE's own `C::m` listing
+            // (uvm174 residue R5) — not this site, and no longer the head.
             if (name == "$bits" && !bitsKeep) {
                 bool localParamArg =
                     !call.arguments().empty() &&

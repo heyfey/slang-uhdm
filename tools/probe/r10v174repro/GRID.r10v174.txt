@@ -1,0 +1,245 @@
+# r10v174 GRID — the verifier's seven arms, both views, LHS is ALWAYS golden
+
+===== v174_a_faces [def]
+GOLDEN_KEEP=55 PRIS_KEEP=43 PAT_KEEP=54
+TO-GOLDEN=11 AWAY-GOLDEN=0 STILL-WRONG(golden keeps, we fold)=1 OURS-ONLY(we keep, golden folds)=0
+  TO-GOLDEN    PKGDEF:quarryPkg | function:Flint::outerQuery|PKGLIST|OOBNAME | $bits | 46 | 18
+  TO-GOLDEN    PKGDEF:quarryPkg | function:Flint::outerQuery|PKGLIST|OOBNAME | $bits | 46 | 32
+  TO-GOLDEN    PKGDEF:quarryPkg | function:Flint::outerQuery|PKGLIST|OOBNAME | $bits | 46 | 45
+  TO-GOLDEN    PKGDEF:quarryPkg | function:Flint::outerQuery|PKGLIST|OOBNAME | $bits | 46 | 63
+  TO-GOLDEN    PKGDEF:quarryPkg | function:Flint::outerQuery|PKGLIST|OOBNAME | $bits | 47 | 18
+  TO-GOLDEN    PKGDEF:quarryPkg | function:Flint::outerQuery|PKGLIST|OOBNAME | $bits | 48 | 18
+  TO-GOLDEN    PKGDEF:quarryPkg | function:Flint::outerQuery|PKGLIST|OOBNAME | $bits | 48 | 37
+  TO-GOLDEN    PKGDEF:quarryPkg | function:Flint::outerQuery|PKGLIST|OOBNAME | $bits | 48 | 54
+  TO-GOLDEN    PKGDEF:quarryPkg | task:Flint::outerTask|PKGLIST|OOBNAME | $bits | 59 | 14
+  TO-GOLDEN    PKGDEF:quarryPkg | task:Flint::outerTask|PKGLIST|OOBNAME | $bits | 59 | 58
+  TO-GOLDEN    PKGDEF:quarryPkg | task:Flint::outerTask|PKGLIST|OOBNAME | $bits | 60 | 14
+  STILL-WRONG  PKGELAB:quarryPkg | function:outerQuery|CLASSBODY|BARENAME | $bits | 48 | 54
+===== v174_a_faces [elab]
+GOLDEN_KEEP=52 PRIS_KEEP=43 PAT_KEEP=54
+TO-GOLDEN=11 AWAY-GOLDEN=0 STILL-WRONG(golden keeps, we fold)=1 OURS-ONLY(we keep, golden folds)=3
+  TO-GOLDEN    PKGDEF:quarryPkg | function:Flint::outerQuery|PKGLIST|OOBNAME | $bits | 46 | 18
+  TO-GOLDEN    PKGDEF:quarryPkg | function:Flint::outerQuery|PKGLIST|OOBNAME | $bits | 46 | 32
+  TO-GOLDEN    PKGDEF:quarryPkg | function:Flint::outerQuery|PKGLIST|OOBNAME | $bits | 46 | 45
+  TO-GOLDEN    PKGDEF:quarryPkg | function:Flint::outerQuery|PKGLIST|OOBNAME | $bits | 46 | 63
+  TO-GOLDEN    PKGDEF:quarryPkg | function:Flint::outerQuery|PKGLIST|OOBNAME | $bits | 47 | 18
+  TO-GOLDEN    PKGDEF:quarryPkg | function:Flint::outerQuery|PKGLIST|OOBNAME | $bits | 48 | 18
+  TO-GOLDEN    PKGDEF:quarryPkg | function:Flint::outerQuery|PKGLIST|OOBNAME | $bits | 48 | 37
+  TO-GOLDEN    PKGDEF:quarryPkg | function:Flint::outerQuery|PKGLIST|OOBNAME | $bits | 48 | 54
+  TO-GOLDEN    PKGDEF:quarryPkg | task:Flint::outerTask|PKGLIST|OOBNAME | $bits | 59 | 14
+  TO-GOLDEN    PKGDEF:quarryPkg | task:Flint::outerTask|PKGLIST|OOBNAME | $bits | 59 | 58
+  TO-GOLDEN    PKGDEF:quarryPkg | task:Flint::outerTask|PKGLIST|OOBNAME | $bits | 60 | 14
+  STILL-WRONG  PKGELAB:quarryPkg | function:outerQuery|CLASSBODY|BARENAME | $bits | 48 | 54
+  OURS-ONLY    PKGELAB:quarryPkg | task:outerTask|CLASSBODY|BARENAME | $bits | 59 | 28
+  OURS-ONLY    PKGELAB:quarryPkg | task:outerTask|CLASSBODY|BARENAME | $bits | 59 | 44
+  OURS-ONLY    PKGELAB:quarryPkg | task:outerTask|CLASSBODY|BARENAME | $bits | 60 | 31
+-- official cmp + rc census:
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/v174_scratch/arm_v174_a_faces/g_def /tmp/wt_v174/tools/probe/r10v174repro/v174_a_faces.sv
+rc=0 /tmp/v174_bin/pris.bin /tmp/wt_v174/tools/probe/r10v174repro/v174_a_faces.sv -o /tmp/v174_scratch/arm_v174_a_faces/a_def.uhdm
+rc=0 /tmp/v174_bin/pat.bin /tmp/wt_v174/tools/probe/r10v174repro/v174_a_faces.sv -o /tmp/v174_scratch/arm_v174_a_faces/b_def.uhdm
+cmp rc=255 a def lines=3182 heads=1
+cmp rc=255 b def lines=3236 heads=1
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/v174_scratch/arm_v174_a_faces/g_elab /tmp/wt_v174/tools/probe/r10v174repro/v174_a_faces.sv
+rc=0 /tmp/v174_bin/pris.bin /tmp/wt_v174/tools/probe/r10v174repro/v174_a_faces.sv --elabuhdm -o /tmp/v174_scratch/arm_v174_a_faces/a_elab.uhdm
+rc=0 /tmp/v174_bin/pat.bin /tmp/wt_v174/tools/probe/r10v174repro/v174_a_faces.sv --elabuhdm -o /tmp/v174_scratch/arm_v174_a_faces/b_elab.uhdm
+cmp rc=255 a elab lines=3278 heads=1
+cmp rc=255 b elab lines=3332 heads=1
+
+===== v174_b_sysfns [def]
+GOLDEN_KEEP=51 PRIS_KEEP=49 PAT_KEEP=51
+TO-GOLDEN=2 AWAY-GOLDEN=0 STILL-WRONG(golden keeps, we fold)=0 OURS-ONLY(we keep, golden folds)=0
+  TO-GOLDEN    PKGDEF:lathePkg | function:Wicket::probeOut|PKGLIST|OOBNAME | $bits | 29 | 35
+  TO-GOLDEN    PKGDEF:lathePkg | task:Wicket::probeOutTask|PKGLIST|OOBNAME | $bits | 35 | 61
+===== v174_b_sysfns [elab]
+GOLDEN_KEEP=51 PRIS_KEEP=49 PAT_KEEP=51
+TO-GOLDEN=2 AWAY-GOLDEN=0 STILL-WRONG(golden keeps, we fold)=0 OURS-ONLY(we keep, golden folds)=0
+  TO-GOLDEN    PKGDEF:lathePkg | function:Wicket::probeOut|PKGLIST|OOBNAME | $bits | 29 | 35
+  TO-GOLDEN    PKGDEF:lathePkg | task:Wicket::probeOutTask|PKGLIST|OOBNAME | $bits | 35 | 61
+-- official cmp + rc census:
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/v174_scratch/arm_v174_b_sysfns/g_def /tmp/wt_v174/tools/probe/r10v174repro/v174_b_sysfns.sv
+rc=0 /tmp/v174_bin/pris.bin /tmp/wt_v174/tools/probe/r10v174repro/v174_b_sysfns.sv -o /tmp/v174_scratch/arm_v174_b_sysfns/a_def.uhdm
+rc=0 /tmp/v174_bin/pat.bin /tmp/wt_v174/tools/probe/r10v174repro/v174_b_sysfns.sv -o /tmp/v174_scratch/arm_v174_b_sysfns/b_def.uhdm
+cmp rc=255 a def lines=42 heads=1
+cmp rc=0 b def lines=0 heads=0
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/v174_scratch/arm_v174_b_sysfns/g_elab /tmp/wt_v174/tools/probe/r10v174repro/v174_b_sysfns.sv
+rc=0 /tmp/v174_bin/pris.bin /tmp/wt_v174/tools/probe/r10v174repro/v174_b_sysfns.sv --elabuhdm -o /tmp/v174_scratch/arm_v174_b_sysfns/a_elab.uhdm
+rc=0 /tmp/v174_bin/pat.bin /tmp/wt_v174/tools/probe/r10v174repro/v174_b_sysfns.sv --elabuhdm -o /tmp/v174_scratch/arm_v174_b_sysfns/b_elab.uhdm
+cmp rc=255 a elab lines=42 heads=1
+cmp rc=0 b elab lines=0 heads=0
+
+===== v174_c_homes [def]
+GOLDEN_KEEP=18 PRIS_KEEP=13 PAT_KEEP=17
+TO-GOLDEN=4 AWAY-GOLDEN=0 STILL-WRONG(golden keeps, we fold)=2 OURS-ONLY(we keep, golden folds)=1
+  TO-GOLDEN    PKGDEF:trestlePkg | function:Bosun::hawseOut|PKGLIST|OOBNAME | $bits | 37 | 25
+  TO-GOLDEN    PKGDEF:trestlePkg | function:Bosun::hawseOut|PKGLIST|OOBNAME | $bits | 40 | 7
+  TO-GOLDEN    PKGDEF:trestlePkg | function:Bosun::new|PKGLIST|OOBNAME | $bits | 28 | 22
+  TO-GOLDEN    PKGDEF:trestlePkg | task:Bosun::hawseOutTask|PKGLIST|OOBNAME | $bits | 49 | 15
+  STILL-WRONG  PKGDEF:trestlePkg | function:Bosun::hawseOut|PKGLIST|OOBNAME | $bits | 33 | 29
+  STILL-WRONG  PKGDEF:trestlePkg | function:Bosun::new|PKGLIST|OOBNAME | $bits | 27 | 40
+  OURS-ONLY    PKGDEF:trestlePkg | <none>|PKGLIST|BARENAME | $bits | 12 | 19
+===== v174_c_homes [elab]
+GOLDEN_KEEP=18 PRIS_KEEP=13 PAT_KEEP=17
+TO-GOLDEN=4 AWAY-GOLDEN=0 STILL-WRONG(golden keeps, we fold)=2 OURS-ONLY(we keep, golden folds)=1
+  TO-GOLDEN    PKGDEF:trestlePkg | function:Bosun::hawseOut|PKGLIST|OOBNAME | $bits | 37 | 25
+  TO-GOLDEN    PKGDEF:trestlePkg | function:Bosun::hawseOut|PKGLIST|OOBNAME | $bits | 40 | 7
+  TO-GOLDEN    PKGDEF:trestlePkg | function:Bosun::new|PKGLIST|OOBNAME | $bits | 28 | 22
+  TO-GOLDEN    PKGDEF:trestlePkg | task:Bosun::hawseOutTask|PKGLIST|OOBNAME | $bits | 49 | 15
+  STILL-WRONG  PKGDEF:trestlePkg | function:Bosun::hawseOut|PKGLIST|OOBNAME | $bits | 33 | 29
+  STILL-WRONG  PKGDEF:trestlePkg | function:Bosun::new|PKGLIST|OOBNAME | $bits | 27 | 40
+  OURS-ONLY    PKGDEF:trestlePkg | <none>|PKGLIST|BARENAME | $bits | 12 | 19
+-- official cmp + rc census:
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/v174_scratch/arm_v174_c_homes/g_def /tmp/wt_v174/tools/probe/r10v174repro/v174_c_homes.sv
+rc=0 /tmp/v174_bin/pris.bin /tmp/wt_v174/tools/probe/r10v174repro/v174_c_homes.sv -o /tmp/v174_scratch/arm_v174_c_homes/a_def.uhdm
+rc=0 /tmp/v174_bin/pat.bin /tmp/wt_v174/tools/probe/r10v174repro/v174_c_homes.sv -o /tmp/v174_scratch/arm_v174_c_homes/b_def.uhdm
+cmp rc=255 a def lines=40 heads=1
+cmp rc=255 b def lines=40 heads=1
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/v174_scratch/arm_v174_c_homes/g_elab /tmp/wt_v174/tools/probe/r10v174repro/v174_c_homes.sv
+rc=0 /tmp/v174_bin/pris.bin /tmp/wt_v174/tools/probe/r10v174repro/v174_c_homes.sv --elabuhdm -o /tmp/v174_scratch/arm_v174_c_homes/a_elab.uhdm
+rc=0 /tmp/v174_bin/pat.bin /tmp/wt_v174/tools/probe/r10v174repro/v174_c_homes.sv --elabuhdm -o /tmp/v174_scratch/arm_v174_c_homes/b_elab.uhdm
+cmp rc=255 a elab lines=40 heads=1
+cmp rc=255 b elab lines=40 heads=1
+
+===== v174_d_import [def]
+GOLDEN_KEEP=16 PRIS_KEEP=16 PAT_KEEP=22
+TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG(golden keeps, we fold)=0 OURS-ONLY(we keep, golden folds)=6
+  TO-GOLDEN    PKGDEF:anvilPkg | function:Bellows::forgeOut|PKGLIST|OOBNAME | $bits | 12 | 16
+  TO-GOLDEN    PKGDEF:anvilPkg | function:Bellows::forgeOut|PKGLIST|OOBNAME | $bits | 12 | 30
+  TO-GOLDEN    PKGDEF:anvilPkg | function:Bellows::forgeOut|PKGLIST|OOBNAME | $bits | 12 | 43
+  TO-GOLDEN    PKGDEF:quenchPkg | function:Tuyere::blastOut|PKGLIST|OOBNAME | $bits | 41 | 16
+  TO-GOLDEN    PKGDEF:quenchPkg | function:Tuyere::blastOut|PKGLIST|OOBNAME | $bits | 41 | 30
+  TO-GOLDEN    PKGDEF:quenchPkg | function:Tuyere::blastOut|PKGLIST|OOBNAME | $bits | 41 | 66
+  OURS-ONLY    PKGDEF:cinderPkg | function:freeForge|PKGLIST|BARENAME | $bits | 15 | 17
+  OURS-ONLY    PKGDEF:cinderPkg | function:freeForge|PKGLIST|BARENAME | $bits | 15 | 31
+  OURS-ONLY    PKGDEF:quenchPkg | function:freeForge|PKGLIST|BARENAME | $bits | 15 | 17
+  OURS-ONLY    PKGDEF:quenchPkg | function:freeForge|PKGLIST|BARENAME | $bits | 15 | 31
+  OURS-ONLY    PKGDEF:slagPkg | function:freeForge|PKGLIST|BARENAME | $bits | 15 | 17
+  OURS-ONLY    PKGDEF:slagPkg | function:freeForge|PKGLIST|BARENAME | $bits | 15 | 31
+===== v174_d_import [elab]
+GOLDEN_KEEP=18 PRIS_KEEP=18 PAT_KEEP=24
+TO-GOLDEN=6 AWAY-GOLDEN=0 STILL-WRONG(golden keeps, we fold)=0 OURS-ONLY(we keep, golden folds)=6
+  TO-GOLDEN    PKGDEF:anvilPkg | function:Bellows::forgeOut|PKGLIST|OOBNAME | $bits | 12 | 16
+  TO-GOLDEN    PKGDEF:anvilPkg | function:Bellows::forgeOut|PKGLIST|OOBNAME | $bits | 12 | 30
+  TO-GOLDEN    PKGDEF:anvilPkg | function:Bellows::forgeOut|PKGLIST|OOBNAME | $bits | 12 | 43
+  TO-GOLDEN    PKGDEF:quenchPkg | function:Tuyere::blastOut|PKGLIST|OOBNAME | $bits | 41 | 16
+  TO-GOLDEN    PKGDEF:quenchPkg | function:Tuyere::blastOut|PKGLIST|OOBNAME | $bits | 41 | 30
+  TO-GOLDEN    PKGDEF:quenchPkg | function:Tuyere::blastOut|PKGLIST|OOBNAME | $bits | 41 | 66
+  OURS-ONLY    PKGDEF:cinderPkg | function:freeForge|PKGLIST|BARENAME | $bits | 15 | 17
+  OURS-ONLY    PKGDEF:cinderPkg | function:freeForge|PKGLIST|BARENAME | $bits | 15 | 31
+  OURS-ONLY    PKGDEF:quenchPkg | function:freeForge|PKGLIST|BARENAME | $bits | 15 | 17
+  OURS-ONLY    PKGDEF:quenchPkg | function:freeForge|PKGLIST|BARENAME | $bits | 15 | 31
+  OURS-ONLY    PKGDEF:slagPkg | function:freeForge|PKGLIST|BARENAME | $bits | 15 | 17
+  OURS-ONLY    PKGDEF:slagPkg | function:freeForge|PKGLIST|BARENAME | $bits | 15 | 31
+-- official cmp + rc census:
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/v174_scratch/arm_v174_d_import/g_def /tmp/wt_v174/tools/probe/r10v174repro/v174_d_import.sv
+rc=0 /tmp/v174_bin/pris.bin /tmp/wt_v174/tools/probe/r10v174repro/v174_d_import.sv -o /tmp/v174_scratch/arm_v174_d_import/a_def.uhdm
+rc=0 /tmp/v174_bin/pat.bin /tmp/wt_v174/tools/probe/r10v174repro/v174_d_import.sv -o /tmp/v174_scratch/arm_v174_d_import/b_def.uhdm
+cmp rc=255 a def lines=40 heads=1
+cmp rc=255 b def lines=17 heads=1
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/v174_scratch/arm_v174_d_import/g_elab /tmp/wt_v174/tools/probe/r10v174repro/v174_d_import.sv
+rc=0 /tmp/v174_bin/pris.bin /tmp/wt_v174/tools/probe/r10v174repro/v174_d_import.sv --elabuhdm -o /tmp/v174_scratch/arm_v174_d_import/a_elab.uhdm
+rc=0 /tmp/v174_bin/pat.bin /tmp/wt_v174/tools/probe/r10v174repro/v174_d_import.sv --elabuhdm -o /tmp/v174_scratch/arm_v174_d_import/b_elab.uhdm
+cmp rc=255 a elab lines=40 heads=1
+cmp rc=255 b elab lines=40 heads=1
+
+===== v174_e_nonpkg [def]
+GOLDEN_KEEP=4 PRIS_KEEP=3 PAT_KEEP=3
+TO-GOLDEN=0 AWAY-GOLDEN=0 STILL-WRONG(golden keeps, we fold)=4 OURS-ONLY(we keep, golden folds)=3
+  STILL-WRONG  - | function:Collar::tieOut|PKGLIST|OOBNAME | $bits | 44 | 28
+  STILL-WRONG  - | function:Fascia::boardOut|PKGLIST|OOBNAME | $bits | 57 | 30
+  STILL-WRONG  - | function:Loft::eaveOut|PKGLIST|OOBNAME | $bits | 13 | 27
+  STILL-WRONG  MODDEF:work@gableTop | function:Truss::webOut|PKGLIST|OOBNAME | $bits | 30 | 28
+  OURS-ONLY    - | function:boardOut|CLASSBODY|BARENAME | $bits | 57 | 30
+  OURS-ONLY    CLASSDEF:work@Loft | function:eaveOut|PKGLIST|BARENAME | $bits | 13 | 27
+  OURS-ONLY    MODDEF:work@gableTop | function:webOut|CLASSBODY|BARENAME | $bits | 30 | 28
+===== v174_e_nonpkg [elab]
+GOLDEN_KEEP=5 PRIS_KEEP=4 PAT_KEEP=4
+TO-GOLDEN=0 AWAY-GOLDEN=0 STILL-WRONG(golden keeps, we fold)=5 OURS-ONLY(we keep, golden folds)=4
+  STILL-WRONG  - | function:Collar::tieOut|PKGLIST|OOBNAME | $bits | 44 | 28
+  STILL-WRONG  - | function:Fascia::boardOut|PKGLIST|OOBNAME | $bits | 57 | 30
+  STILL-WRONG  - | function:Loft::eaveOut|PKGLIST|OOBNAME | $bits | 13 | 27
+  STILL-WRONG  MODDEF:work@gableTop | function:Truss::webOut|PKGLIST|OOBNAME | $bits | 30 | 28
+  STILL-WRONG  MODELAB:work@gableTop | function:Truss::webOut|PKGLIST|OOBNAME | $bits | 30 | 28
+  OURS-ONLY    - | function:boardOut|CLASSBODY|BARENAME | $bits | 57 | 30
+  OURS-ONLY    CLASSDEF:work@Loft | function:eaveOut|PKGLIST|BARENAME | $bits | 13 | 27
+  OURS-ONLY    MODDEF:work@gableTop | function:webOut|CLASSBODY|BARENAME | $bits | 30 | 28
+  OURS-ONLY    MODELAB:work@gableTop | function:webOut|CLASSBODY|BARENAME | $bits | 30 | 28
+-- official cmp + rc census:
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/v174_scratch/arm_v174_e_nonpkg/g_def /tmp/wt_v174/tools/probe/r10v174repro/v174_e_nonpkg.sv
+rc=0 /tmp/v174_bin/pris.bin /tmp/wt_v174/tools/probe/r10v174repro/v174_e_nonpkg.sv -o /tmp/v174_scratch/arm_v174_e_nonpkg/a_def.uhdm
+rc=0 /tmp/v174_bin/pat.bin /tmp/wt_v174/tools/probe/r10v174repro/v174_e_nonpkg.sv -o /tmp/v174_scratch/arm_v174_e_nonpkg/b_def.uhdm
+cmp rc=255 a def lines=4898 heads=1
+cmp rc=255 b def lines=4898 heads=1
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/v174_scratch/arm_v174_e_nonpkg/g_elab /tmp/wt_v174/tools/probe/r10v174repro/v174_e_nonpkg.sv
+rc=0 /tmp/v174_bin/pris.bin /tmp/wt_v174/tools/probe/r10v174repro/v174_e_nonpkg.sv --elabuhdm -o /tmp/v174_scratch/arm_v174_e_nonpkg/a_elab.uhdm
+rc=0 /tmp/v174_bin/pat.bin /tmp/wt_v174/tools/probe/r10v174repro/v174_e_nonpkg.sv --elabuhdm -o /tmp/v174_scratch/arm_v174_e_nonpkg/b_elab.uhdm
+cmp rc=255 a elab lines=5532 heads=1
+cmp rc=255 b elab lines=5532 heads=1
+
+===== v174_f_edge [def]
+GOLDEN_KEEP=16 PRIS_KEEP=16 PAT_KEEP=16
+TO-GOLDEN=0 AWAY-GOLDEN=0 STILL-WRONG(golden keeps, we fold)=0 OURS-ONLY(we keep, golden folds)=0
+===== v174_f_edge [elab]
+GOLDEN_KEEP=16 PRIS_KEEP=16 PAT_KEEP=16
+TO-GOLDEN=0 AWAY-GOLDEN=0 STILL-WRONG(golden keeps, we fold)=0 OURS-ONLY(we keep, golden folds)=0
+-- official cmp + rc census:
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/v174_scratch/arm_v174_f_edge/g_def /tmp/wt_v174/tools/probe/r10v174repro/v174_f_edge.sv
+rc=0 /tmp/v174_bin/pris.bin /tmp/wt_v174/tools/probe/r10v174repro/v174_f_edge.sv -o /tmp/v174_scratch/arm_v174_f_edge/a_def.uhdm
+rc=0 /tmp/v174_bin/pat.bin /tmp/wt_v174/tools/probe/r10v174repro/v174_f_edge.sv -o /tmp/v174_scratch/arm_v174_f_edge/b_def.uhdm
+cmp rc=255 a def lines=17 heads=1
+cmp rc=255 b def lines=17 heads=1
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/v174_scratch/arm_v174_f_edge/g_elab /tmp/wt_v174/tools/probe/r10v174repro/v174_f_edge.sv
+rc=0 /tmp/v174_bin/pris.bin /tmp/wt_v174/tools/probe/r10v174repro/v174_f_edge.sv --elabuhdm -o /tmp/v174_scratch/arm_v174_f_edge/a_elab.uhdm
+rc=0 /tmp/v174_bin/pat.bin /tmp/wt_v174/tools/probe/r10v174repro/v174_f_edge.sv --elabuhdm -o /tmp/v174_scratch/arm_v174_f_edge/b_elab.uhdm
+cmp rc=255 a elab lines=17 heads=1
+cmp rc=255 b elab lines=17 heads=1
+
+===== v174_g_multi [def]
+GOLDEN_KEEP=36 PRIS_KEEP=20 PAT_KEEP=36
+TO-GOLDEN=16 AWAY-GOLDEN=0 STILL-WRONG(golden keeps, we fold)=0 OURS-ONLY(we keep, golden folds)=0
+  TO-GOLDEN    PKGDEF:alcovePkg | function:Candle::burnOut|PKGLIST|OOBNAME | $bits | 25 | 15
+  TO-GOLDEN    PKGDEF:alcovePkg | function:Candle::burnOut|PKGLIST|OOBNAME | $bits | 25 | 58
+  TO-GOLDEN    PKGDEF:alcovePkg | function:Lantern::glowOut|PKGLIST|OOBNAME | $bits | 34 | 15
+  TO-GOLDEN    PKGDEF:alcovePkg | function:Lantern::glowOut|PKGLIST|OOBNAME | $bits | 34 | 60
+  TO-GOLDEN    PKGDEF:alcovePkg | function:Sconce::douseOut|PKGLIST|OOBNAME | $bits | 16 | 16
+  TO-GOLDEN    PKGDEF:alcovePkg | function:Sconce::lightOut|PKGLIST|OOBNAME | $bits | 13 | 16
+  TO-GOLDEN    PKGDEF:alcovePkg | function:Sconce::lightOut|PKGLIST|OOBNAME | $bits | 13 | 45
+  TO-GOLDEN    PKGDEF:cloisterPkg | function:Vault::springOut|PKGLIST|OOBNAME | $bits | 49 | 17
+  TO-GOLDEN    PKGDEF:cloisterPkg | function:Vault::springOut|PKGLIST|OOBNAME | $bits | 49 | 49
+  TO-GOLDEN    PKGDEF:cloisterPkg | function:Vault::springOut|PKGLIST|OOBNAME | $bits | 50 | 17
+  TO-GOLDEN    PKGDEF:cloisterPkg | task:Vault::springOutTask|PKGLIST|OOBNAME | $bits | 54 | 13
+  TO-GOLDEN    PKGDEF:narthexPkg | function:Lintel::bearOut|PKGLIST|OOBNAME | $bits | 72 | 15
+  TO-GOLDEN    PKGDEF:narthexPkg | function:Lintel::bearOut|PKGLIST|OOBNAME | $bits | 72 | 45
+  TO-GOLDEN    PKGDEF:narthexPkg | function:Portal::swingOut|PKGLIST|OOBNAME | $bits | 65 | 16
+  TO-GOLDEN    PKGDEF:narthexPkg | function:Portal::swingOut|PKGLIST|OOBNAME | $bits | 65 | 44
+  TO-GOLDEN    PKGDEF:narthexPkg | function:Portal::swingOut|PKGLIST|OOBNAME | $bits | 65 | 66
+===== v174_g_multi [elab]
+GOLDEN_KEEP=36 PRIS_KEEP=20 PAT_KEEP=36
+TO-GOLDEN=16 AWAY-GOLDEN=0 STILL-WRONG(golden keeps, we fold)=0 OURS-ONLY(we keep, golden folds)=0
+  TO-GOLDEN    PKGDEF:alcovePkg | function:Candle::burnOut|PKGLIST|OOBNAME | $bits | 25 | 15
+  TO-GOLDEN    PKGDEF:alcovePkg | function:Candle::burnOut|PKGLIST|OOBNAME | $bits | 25 | 58
+  TO-GOLDEN    PKGDEF:alcovePkg | function:Lantern::glowOut|PKGLIST|OOBNAME | $bits | 34 | 15
+  TO-GOLDEN    PKGDEF:alcovePkg | function:Lantern::glowOut|PKGLIST|OOBNAME | $bits | 34 | 60
+  TO-GOLDEN    PKGDEF:alcovePkg | function:Sconce::douseOut|PKGLIST|OOBNAME | $bits | 16 | 16
+  TO-GOLDEN    PKGDEF:alcovePkg | function:Sconce::lightOut|PKGLIST|OOBNAME | $bits | 13 | 16
+  TO-GOLDEN    PKGDEF:alcovePkg | function:Sconce::lightOut|PKGLIST|OOBNAME | $bits | 13 | 45
+  TO-GOLDEN    PKGDEF:cloisterPkg | function:Vault::springOut|PKGLIST|OOBNAME | $bits | 49 | 17
+  TO-GOLDEN    PKGDEF:cloisterPkg | function:Vault::springOut|PKGLIST|OOBNAME | $bits | 49 | 49
+  TO-GOLDEN    PKGDEF:cloisterPkg | function:Vault::springOut|PKGLIST|OOBNAME | $bits | 50 | 17
+  TO-GOLDEN    PKGDEF:cloisterPkg | task:Vault::springOutTask|PKGLIST|OOBNAME | $bits | 54 | 13
+  TO-GOLDEN    PKGDEF:narthexPkg | function:Lintel::bearOut|PKGLIST|OOBNAME | $bits | 72 | 15
+  TO-GOLDEN    PKGDEF:narthexPkg | function:Lintel::bearOut|PKGLIST|OOBNAME | $bits | 72 | 45
+  TO-GOLDEN    PKGDEF:narthexPkg | function:Portal::swingOut|PKGLIST|OOBNAME | $bits | 65 | 16
+  TO-GOLDEN    PKGDEF:narthexPkg | function:Portal::swingOut|PKGLIST|OOBNAME | $bits | 65 | 44
+  TO-GOLDEN    PKGDEF:narthexPkg | function:Portal::swingOut|PKGLIST|OOBNAME | $bits | 65 | 66
+-- official cmp + rc census:
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/v174_scratch/arm_v174_g_multi/g_def /tmp/wt_v174/tools/probe/r10v174repro/v174_g_multi.sv
+rc=0 /tmp/v174_bin/pris.bin /tmp/wt_v174/tools/probe/r10v174repro/v174_g_multi.sv -o /tmp/v174_scratch/arm_v174_g_multi/a_def.uhdm
+rc=0 /tmp/v174_bin/pat.bin /tmp/wt_v174/tools/probe/r10v174repro/v174_g_multi.sv -o /tmp/v174_scratch/arm_v174_g_multi/b_def.uhdm
+cmp rc=255 a def lines=40 heads=1
+cmp rc=255 b def lines=18 heads=1
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/v174_scratch/arm_v174_g_multi/g_elab /tmp/wt_v174/tools/probe/r10v174repro/v174_g_multi.sv
+rc=0 /tmp/v174_bin/pris.bin /tmp/wt_v174/tools/probe/r10v174repro/v174_g_multi.sv --elabuhdm -o /tmp/v174_scratch/arm_v174_g_multi/a_elab.uhdm
+rc=0 /tmp/v174_bin/pat.bin /tmp/wt_v174/tools/probe/r10v174repro/v174_g_multi.sv --elabuhdm -o /tmp/v174_scratch/arm_v174_g_multi/b_elab.uhdm
+cmp rc=255 a elab lines=40 heads=1
+cmp rc=255 b elab lines=18 heads=1
+
