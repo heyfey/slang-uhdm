@@ -1,0 +1,80 @@
+r10uvm180 — THE BYTE MOVERS AND THEIR ATTRIBUTION.
+
+byteverify.sh SELFCHECK=1, patched sweep vs this pass's OWN pristine sweep:
+  surelog     MOVERS 4 / 956     PATH_SETS_IDENTICAL   SELFCHECK 955/956 flagged
+  uhdm2rtlil  MOVERS 0 / 1358    PATH_SETS_IDENTICAL   SELFCHECK 1357/1358 flagged
+
+PREDICTED BY NAME, from OUR PRISTINE DATABASES ONLY — predict180 opens no
+golden and no patched artifact, so the prediction cannot be back-fitted to the
+result it is checked against, whichever order the two are run in.  Over all 956
+surelog and all 1358 uhdm2rtlil pristine databases it named exactly:
+  MOVER PREDICT MOVER n=6 default/MiniAmiq-544c7f61/slang.uhdm
+  MOVER PREDICT MOVER n=6 default/SeqDriver-32af76aa/slang.uhdm
+  MOVER PREDICT MOVER n=6 testflags/MiniAmiq-544c7f61/slang.uhdm
+  MOVER PREDICT MOVER n=6 testflags/SeqDriver-32af76aa/slang.uhdm
+  (uhdm2rtlil: none)
+and byteverify then measured exactly those four, and zero.
+
+Per-mover whole-dump, workdir-normalised, ORDER-BLIND (sorted) diff:
+  default_SeqDriver-32af76aa         changed=23  removals=2  additions=21
+  default_MiniAmiq-544c7f61          changed=23  removals=2  additions=21
+  testflags_SeqDriver-32af76aa       changed=23  removals=2  additions=21
+  testflags_MiniAmiq-544c7f61        changed=23  removals=2  additions=21
+
+ATTRIBUTION.  Every changed line in every one of the four either NAMES one of
+the law's seven typedefs (uvm_bitstream_t, uvm_integral_t, uvm_pack_bitstream_t,
+uvm_reg_addr_t, uvm_reg_cvr_t, uvm_reg_data_logic_t, uvm_reg_data_t) or is a
+structural line of one of their typespecs.  Changed lines that are NEITHER:
+  default_SeqDriver-32af76aa         0
+  default_MiniAmiq-544c7f61          0
+  testflags_SeqDriver-32af76aa       0
+  testflags_MiniAmiq-544c7f61        0
+
+SeqDriver/default's whole 23-line delta, verbatim:
+  414638,414639d414637
+  <             \_logic_typespec: (uvm_bitstream_t), line:483:42, endln:483:57
+  <             \_logic_typespec: (uvm_bitstream_t), line:483:42, endln:483:57
+  414654a414653,414654
+  >             \_logic_typespec: (uvm_bitstream_t), line:49:9, endln:49:42
+  >             \_logic_typespec: (uvm_bitstream_t), line:49:9, endln:49:42
+  415062a415063,415066
+  >     \_logic_typespec: (uvm_reg_data_logic_t), line:66:10, endln:66:33
+  >     \_logic_typespec: (uvm_reg_data_logic_t), line:66:10, endln:66:33
+  > \_logic_typespec: (uvm_reg_data_logic_t), line:66:10, endln:66:33
+  > \_logic_typespec: (uvm_reg_data_logic_t), line:66:10, endln:66:33
+  497676a497681,497682
+  >   \_package: adpcm_pkg (adpcm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/testbench.sv, line:10:1, endln:207:22
+  >   \_package: adpcm_pkg (adpcm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/testbench.sv, line:10:1, endln:207:22
+  515510a515517,515518
+  >   \_range: , line:66:25, endln:66:33
+  >   \_range: , line:66:25, endln:66:33
+  614543a614552
+  >   \_ref_typespec: (uvm_reg_data_logic_t)
+  802302a802312
+  >     |vpiActual:
+  1103695a1103706
+  >     |vpiFullName:uvm_reg_data_logic_t
+  1128206a1128218,1128219
+  >   |vpiInstance:
+  >   |vpiInstance:
+  1299899a1299913,1299914
+  >   |vpiName:uvm_reg_data_logic_t
+  >   |vpiName:uvm_reg_data_logic_t
+  1641191a1641207
+  >     |vpiParent:
+  1652138a1652155,1652156
+  >   |vpiRange:
+  >   |vpiRange:
+  1777325a1777344
+  >   |vpiTypedefAlias:
+
+A NOTE ON THE SIZE OF THIS DELTA.  It is SMALL because the dump cannot see
+most of what this law does: re-pointing a reference from LAW S's home copy to
+the clone's copy moves an EDGE between objects that both already exist and are
+both already printed.  g180_c_home.sv is the clean demonstration — its two
+databases differ in BYTES while their uhdm-dump output is byte-identical.
+The instruments that DO see it are ct180cen / ct180ref (the censuses) and
+predict180 (the corpus-wide structural scan); see CENSUS.r10uvm180.txt.
+
+The documented Scoreboard/default COIN did not flip in this pass's sweeps: its
+database is byte-identical between the two binaries and byteverify did not list it.

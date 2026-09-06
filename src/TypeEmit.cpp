@@ -6,6 +6,8 @@
 //------------------------------------------------------------------------------
 #include "UhdmExporter.h"
 
+#include <uhdm/UhdmListener.h>
+
 #include "EmitHelpers.h"
 #include "slang/syntax/SyntaxTree.h"
 
@@ -7532,7 +7534,7 @@ UHDM::typespec* UhdmExporter::bareScalarTdCopyOfFresh16(
 // per-listing-object memo hands the SAME bare copy to the home body and the
 // clone.  uhdm-cmp does not compare identity, but it does compare VpiName one
 // level down through Typedef_alias, so the clone needs its own copy.
-void UhdmExporter::importCloneBareTdAlias16() {
+void UhdmExporter::importCloneBareTdAlias16(UHDM::design* d) {
     if ((pkgImportCloneTfs16.empty() && importElemTdRefs16.empty()) ||
         pkgScalarTd16.empty())
         return;
@@ -7621,6 +7623,97 @@ void UhdmExporter::importCloneBareTdAlias16() {
         if (auto* cp = cloneCopyOf(src))
             rt->Actual_typespec(cp);
     };
+    // § cloneBodyBareTdAlias180 (r10uvm180) — THE SAME CLONE, ALL THE WAY
+    // DOWN.  The two loops above reach a clone body's OWN listings only: its
+    // `Io_decls` vector and its `Variables` vector.  A clone body binds this
+    // family of typespecs in two more places, and both were still holding the
+    // HOME package's qualified listing object:
+    //
+    //   * a local declared inside a `begin` / `fork` / loop body, which hangs
+    //     off THAT scope's `Variables` vector, not the subroutine's;
+    //   * an EXPRESSION's typespec — a call argument's `ref_obj`, an operand
+    //     of a condition — which hangs off no listing at all.
+    //
+    // The rule is the SAME rule, and it is Surelog's: `writeDataTypes`
+    // (UhdmWriter.cpp:775-796) applies the `p::t` prefix IN PLACE while the
+    // HOME package's `datatypeMap` walk runs, and `CompileHelper::importPackage`
+    // (CompileHelper.cpp:299-330) `clone_tree`s the imported subroutine listing
+    // into the importer at COMPILE time — before that walk.  So nothing inside
+    // a clone body is ever the object that got prefixed, at any depth and in
+    // any role.
+    //
+    // MEASURED, SeqDriver/default, the clone `adpcm_pkg`'s two listings:
+    //   `ct180cen` (every io_decl and variable in every package subroutine
+    //   body, keyed listing|role|class|function|block-depth|name@line:col):
+    //   agree 5033, differ 94 — ALL 94 in `ALL[2] adpcm_pkg` (47) and
+    //   `TOP[2] adpcm_pkg` (47), at block depth 1..5 and never 0, every one
+    //   `gold=[t -> t]` against `ours=[t -> uvm_pkg::t]`.  Our copy's OWN name
+    //   is already bare — LAW S made it — only its ALIAS TARGET was the home
+    //   package's qualified listing object.
+    //   `ct180ref` (every `ref_typespec` reachable DOWN a package subroutine's
+    //   statement tree, keyed on that path): agree 648, differ 19.
+    // The clone cells that ALREADY agreed are the ones our emitter also lists
+    // in the subroutine's own `Variables` vector, which the loops above
+    // reached; this pass is idempotent on them, because `listingOf` returns
+    // null the moment the target is a bare copy.
+    //
+    // WHY UHDM's OWN LISTENER.  Our `ref_typespec` objects are UNPARENTED — a
+    // `VpiParent` climb from one reaches no package — so neither an arena scan
+    // nor any upward key can tell a clone body's ref from a home body's, and a
+    // hand-rolled descent would silently miss whichever statement or
+    // expression kind it forgot.  `UhdmListener` is UHDM's own generated
+    // traversal: it walks the design once (its `visited` set makes it O(N)) and
+    // hands every callback the CALLSTACK, which IS the downward path.
+    //
+    // THE GATE, and why it is not the recorded dead-end.  NO NAME IS WRITTEN
+    // HERE.  Only a LINK is re-pointed, only when the innermost subroutine on
+    // the callstack is in `pkgImportCloneTfs16` (a wildcard-import package
+    // clone body), only when NOTHING SHARED — a `class_defn` or another
+    // typespec — stands between that subroutine and the ref (those objects
+    // belong to the class world both producers reach by other routes, and § 16
+    // must not follow a `class_typespec` into one), and only onto the copy the
+    // pre-existing clone machinery already mints.  A uniform `pkg::`
+    // requalification is what the recorded naming dead-end forbids; this is
+    // the opposite — one clone-gated re-point of an existing link.
+    class CloneBodyTdRebind180 final : public UHDM::UhdmListener {
+      public:
+        const std::set<const UHDM::task_func*>* clones = nullptr;
+        std::function<void(UHDM::ref_typespec*)>* rebind = nullptr;
+        void enterRef_typespec(
+            const UHDM::ref_typespec* const o) override {
+            const auto& cs = getCallstack();
+            // `enterRef_typespec` is called with the ref itself already pushed,
+            // so the search starts one below it.
+            for (int i = (int)cs.size() - 2; i >= 0; --i) {
+                const UHDM::UHDM_OBJECT_TYPE k = cs[i]->UhdmType();
+                if (k == UHDM::uhdmfunction || k == UHDM::uhdmtask) {
+                    auto* tf = (const UHDM::task_func*)cs[i];
+                    // THE ONE EXCEPTION, and it is MEASURED, not reasoned:
+                    // a clone function's RETURN VARIABLE keeps the HOME's
+                    // QUALIFIED target.  Golden, on r10uvm169's `g169_a_import`
+                    // and r10v169's `v169_i_multi` (both already committed
+                    // arms), gives `p169i`'s clone of `f_typ169` a return
+                    // `bit_var` whose typespec still aliases `p169h::v169_t`,
+                    // while every io_decl and every body local of the same
+                    // clone is bare.  Surelog's reason is that the return
+                    // variable is minted from the subroutine's declared return
+                    // type at WRITE time, after `writeDataTypes` has already
+                    // prefixed the home listing object in place, so it is the
+                    // one part of a clone whose chain was never re-minted.
+                    // Without this line those two arms score AWAY=1 each.
+                    if (i + 1 < (int)cs.size() &&
+                        cs[i + 1] == (const UHDM::any*)tf->Return())
+                        return;
+                    if (clones->count(tf))
+                        (*rebind)((UHDM::ref_typespec*)o);
+                    return;
+                }
+                if (k == UHDM::uhdmclass_defn ||
+                    any_cast<const UHDM::typespec*>(cs[i]))
+                    return;
+            }
+        }
+    };
     for (auto* tf : pkgImportCloneTfs16) {
         auto* m = (UHDM::task_func*)tf;
         if (m->Io_decls())
@@ -7629,6 +7722,14 @@ void UhdmExporter::importCloneBareTdAlias16() {
         if (m->Variables())
             for (auto* v : *m->Variables())
                 rebind(v->Typespec());
+    }
+    if (d && !pkgImportCloneTfs16.empty()) {
+        std::function<void(UHDM::ref_typespec*)> rb180 =
+            [&](UHDM::ref_typespec* rt) { rebind(rt); };
+        CloneBodyTdRebind180 l180;
+        l180.clones = &pkgImportCloneTfs16;
+        l180.rebind = &rb180;
+        l180.listenDesign(d);
     }
     // § importElemBareTdAlias — the same clone-flavoured copy at the
     // Elem_typespec of a MODULE's materialized wildcard-import copy of a

@@ -625,7 +625,7 @@ private:
     // pair, where `p_imp`'s copy of `p_decl::free_fn` reads
     // io0 -> `bt` -> `bt` against the home copy's io0 -> `bt` -> `p_decl::bt`,
     // in the def AND elab package views alike.
-    void importCloneBareTdAlias16();
+    void importCloneBareTdAlias16(UHDM::design* d);
     // § cloneAliasTopTarget19 (r10earl19) — § modScalarTdTopInstance's ALIAS
     // half, at the one position no parent walk can classify.  A LAW-S-shaped
     // per-declaration CLONE is UNPARENTED, so modOwnedTs15 dies on it and

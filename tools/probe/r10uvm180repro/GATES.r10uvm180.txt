@@ -1,0 +1,84 @@
+r10uvm180 — THE LANDING GATE BATTERY, as run, in order.
+BASE 87074d42.  Both binaries built in THIS pass's own worktree at a clean
+87074d42 (patched = pristine + the one-file patch) and frozen `chmod 555`
+BEFORE any sweep.  Every sweep's cmds.txt was audited BY BINARY PATH.
+`GOLDEN_DEFER` stayed unset.  results/*.csv were READ ONLY.  NO CORPUS ROW WAS
+CONVERTED.  The four slang-fenced tests were never dispatched.
+
+(1) BUILD
+    pristine  md5 32978f1be49b524fca38801f8a56ad50
+    patched   md5 14a355f3b04a10e6313cd65e95e2c270
+    cmake --build build -j 2, `Built target slang_uhdm`, no errors.
+    REPRODUCIBILITY: /tmp/r10uvm180.patch applied to a FRESH 87074d42 worktree
+    (git apply -3, clean, 0 conflict markers) and rebuilt there produces md5
+    14a355f3b04a10e6313cd65e95e2c270 — byte-identical — and that binary passes
+    tests/check_goldens.sh 23 PASS / 0 FAIL.
+
+(2) GOLDEN DUMP TESTS (SLANG_UHDM exported explicitly to EACH binary)
+    pristine  PASS 23  FAIL 0
+    patched   PASS 23  FAIL 0
+    SLANG_UHDM=/bin/false (negative control)  FAIL 23  PASS 0
+
+(3) uhdm2rtlil, testflags AND default
+    pristine  CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2   (both modes)
+    patched   CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2   (both modes)
+    ct8rows patched vs results/gate_uhdm2rtlil.csv          PASS (0 rows differ)
+    ct8rows patched vs this pass's own pristine, testflags  PASS (0 rows differ)
+    ct8rows patched vs this pass's own pristine, default    PASS (0 rows differ)
+    every cmds.txt `slang:` path = the frozen binary, and only that one.
+
+(4) SURELOG, --mode both (1588 row-modes over 956 databases)
+    pristine sweep reproduced results/golden_surelog.csv ROW FOR ROW before a
+    line of the patch was written (ct8rows PASS, status AND dump column).
+    ct8rows patched vs results/golden_surelog.csv           PASS (0 rows differ)
+    ct8rows patched vs this pass's own pristine sweep       PASS (0 rows differ)
+    NO ROW WAS CONVERTED IN EITHER DIRECTION.
+    every cmds.txt `slang:` path = the frozen binary, and only that one.
+
+(5) BYTE MOVERS (byteverify.sh SELFCHECK=1), against this pass's own pristine
+    surelog     MOVERS 4 / 956    PATH_SETS_IDENTICAL   SELFCHECK 955/956 flagged
+    uhdm2rtlil  MOVERS 0 / 1358   PATH_SETS_IDENTICAL   SELFCHECK 1357/1358 flagged
+    ALL FOUR WERE PREDICTED BY NAME FROM THE PRISTINE DATABASES ALONE, before
+    the patched sweep's byteverify ran (predict180 over all 956 + 1358
+    pristine databases: exactly these four, and zero uhdm2rtlil).
+    Run again over the 956 PATCHED surelog databases, predict180 reports
+    0 flagged / 0 problems: the law leaves no cell of its family behind.
+    Attribution: MOVERS.r10uvm180.txt.
+
+(6) HEADS (rowheads.sh, this pass's own sweeps)
+    TEST          MODE       PRISTINE      PATCHED
+    SeqDriver     default    142 / 1       29 / 1     <- the head CLEARED
+    SeqDriver     testflags  142 / 1       29 / 1     <- the head CLEARED
+    MiniAmiq      default    116 / 1       26 / 1     <- the head CLEARED
+    MiniAmiq      testflags  116 / 1       26 / 1     <- the head CLEARED
+    SimpleUVM     default     29 / 1       29 / 1
+    SimpleUVM     testflags   29 / 1       29 / 1
+    Scoreboard    default     95 / 1       95 / 1
+    BuildUVMPkg   default     52 / 1       52 / 1
+    BuildUVMPkg   testflags   52 / 1       52 / 1
+    Earlgrey_0_1  default     31 / 1       31 / 1
+    Earlgrey_0_1  testflags  176 / 1      176 / 1
+    Rggen         default      0 / 0        0 / 0
+    (Scoreboard/testflags and Rggen/testflags are the expected SKIP-NOFILE.)
+    Every non-moving row's cmp log is BYTE-IDENTICAL between the two binaries.
+
+(7) THE ARM GRID AND THE WIDE BOUNDARY
+    see GRID.r10uvm180.txt and BOUNDARY.r10uvm180.txt.
+
+(8) CANARIES
+    canaries.sh  surelog     ok=52 changed=0 absent=0
+    canaries.sh  uhdm2rtlil  ok=8  changed=0 absent=0
+    ctcan2.sh    EXPECT_UNKNOWN=1 surelog     PASS
+    ctcan2.sh    EXPECT_UNKNOWN=6 uhdm2rtlil  PASS
+    canaudit.sh canaries.sh ctcan2.sh   audited=29 UNCOVERED=0 FENCE-BREACH=0  PASS
+    protected databases, md5 pristine vs patched:
+      InterfaceModPort    59a365f3ce2c  ==  59a365f3ce2c
+      BlackParrotComplex  e3e354129d5a  ==  e3e354129d5a
+      YosysOldOr          d68e0796d62c  ==  d68e0796d62c
+      SVSwitch            4842211c4030  (the pinned value, both binaries)
+      YosysVerx           6ccda350c24a  (the pinned value, both binaries)
+
+(9) THE DOCUMENTED COIN
+    Scoreboard/default is a ~50/50 coin per invocation (RESUME §9).  It did not
+    flip here: its database is BYTE-IDENTICAL between the two binaries in this
+    pass's sweeps, and byteverify did not list it.

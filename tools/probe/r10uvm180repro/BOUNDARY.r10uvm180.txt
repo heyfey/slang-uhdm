@@ -1,0 +1,66 @@
+r10uvm180 — THE WIDE BOUNDARY GATE.
+bound180.sh (r10uvm178repro/bound178.sh, verbatim): EVERY .sv/.v under a COPY
+of tools/probe, BOTH binaries, DEF and ELAB, file list read on fd 3 with
+children </dev/null, subdirectory arms included, PROCESSED asserted, fenced
+names skipped and COUNTED.
+
+LISTED=4932 FENCED_SKIPPED=0 PROCESSED=4932 MOVED=18 NO_OUTPUT_PAIRS=380
+PROCESSED-ASSERT-OK
+ASYMMETRIC_OUTPUT lines: 0
+Segmentation faults: 32 — they occur in PAIRS,
+one for each binary on the same arm and view, so they are PRE-EXISTING and
+symmetric; those arms produce no output on either binary and are counted in
+NO_OUTPUT_PAIRS.
+
+THE 18 MOVED CELLS = 9 arms × 2 views.  EVERY ONE was then scored by the
+OFFICIAL uhdm-cmp against a FRESH Surelog golden, on BOTH binaries and in BOTH
+views (GRID.r10uvm180.txt).  Nothing regressed; AWAY=0 and MOVED-WRONG=0
+everywhere.
+
+  MOVED 0068_probe_r10buvm22repro_g22.sv/def 12 lines
+  MOVED 0068_probe_r10buvm22repro_g22.sv/elab 12 lines
+  MOVED 0180_probe_r10buvm8repro_vxpkg8.sv/def 62 lines
+  MOVED 0180_probe_r10buvm8repro_vxpkg8.sv/elab 62 lines
+  MOVED 2182_probe_r10uvm123repro_g123_c_otherpkg.sv/def 75 lines
+  MOVED 2182_probe_r10uvm123repro_g123_c_otherpkg.sv/elab 75 lines
+  MOVED 2360_probe_r10uvm154repro_l154_noenum.sv/def 8 lines
+  MOVED 2360_probe_r10uvm154repro_l154_noenum.sv/elab 8 lines
+  MOVED 2482_probe_r10uvm180repro_g180_a_kinds.sv/def 4 lines
+  MOVED 2482_probe_r10uvm180repro_g180_a_kinds.sv/elab 2 lines
+  MOVED 2483_probe_r10uvm180repro_g180_b_depth.sv/def 128 lines
+  MOVED 2483_probe_r10uvm180repro_g180_b_depth.sv/elab 130 lines
+  MOVED 2485_probe_r10uvm180repro_g180_d_class.sv/def 100 lines
+  MOVED 2485_probe_r10uvm180repro_g180_d_class.sv/elab 100 lines
+  MOVED 3235_probe_r10v123repro_v123_b_bounds.sv/def 164 lines
+  MOVED 3235_probe_r10v123repro_v123_b_bounds.sv/elab 164 lines
+  MOVED 3236_probe_r10v123repro_v123_c_kinds.sv/def 132 lines
+  MOVED 3236_probe_r10v123repro_v123_c_kinds.sv/elab 160 lines
+
+  arm                     official uhdm-cmp, pristine -> patched      verdict
+  ----------------------- ----------------------------------------- ---------------------------
+  buvm8/vxpkg8            112/1 -> 0/0  (def and elab)               EQUAL TO GOLDEN
+  uvm123/g123_c_otherpkg  112/1 -> 0/0  (def and elab)               EQUAL TO GOLDEN
+  uvm180/g180_a_kinds     116/1 -> 0/0  (def and elab)               EQUAL TO GOLDEN
+  v123/v123_b_bounds      elab 112/1 -> 62/1; def 33/1 unchanged     TOGOLD 10, AWAY 0
+  v123/v123_c_kinds       unchanged (5804/1 def, 6462/1 elab)        TOGOLD 20, AWAY 0
+  uvm180/g180_b_depth     unchanged (116/1 both views)               TOGOLD 23, AWAY 0
+  uvm180/g180_d_class     def 112/1 -> 590/1, elab 698/1 unchanged   TOGOLD 6, AWAY 0; the def
+                                                                     head CLEARED and a
+                                                                     class-method residue
+                                                                     surfaced under it
+  buvm22/g22              unchanged (3438/1 both views)              R4 FALSE MOVER
+  uvm154/l154_noenum      unchanged (17/1 both views)                R4 FALSE MOVER
+
+R4, the two false movers: each holds a build-layout-derived integer that shifts
+when the binary grows.  l154_noenum's entire 8-line delta is
+  vpiDecompile:22593273 / UINT:22593273  ->  vpiDecompile:22605561 / UINT:22605561
+and g22's is the same shape.  Both are invisible to the judge (their official
+cmp logs are identical on the two binaries).  This is r10uvm178's R3, still open.
+
+THE BOUNDARY UNDER-REPORTS THIS FAMILY, and that was measured here:
+g180_c_home.sv is NOT in the list above, yet its two databases differ in BYTES
+(md5 16de209d3dba... vs 02d1cbd90963... on the elab pair) and ct180grid finds 16
+changed cells in it.  uhdm-dump prints the same objects the same number of times
+and only the EDGES between them moved.  A pass in this family must not treat a
+clean bound*.sh run as proof; predict180 over the corpus is the instrument that
+sees it (CENSUS.r10uvm180.txt).

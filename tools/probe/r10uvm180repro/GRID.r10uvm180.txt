@@ -1,0 +1,127 @@
+r10uvm180 — the arm grid.  Five purpose-built arms + every arm the WIDE boundary
+flagged, each compiled by BOTH binaries in BOTH views against a FRESH Surelog
+golden built by grid180.sh.  The official uhdm-cmp line/head counts are the
+judge; score180.py's TOGOLD/AWAY/MOVED-WRONG is the cell-level reading.
+'a' = the PRISTINE binary, 'b' = the PATCHED binary.
+
+==== a_kinds ====
+cmp rc=255 a def lines=116 heads=1
+cmp rc=0 b def lines=0 heads=0
+cmp rc=255 a elab lines=116 heads=1
+cmp rc=0 b elab lines=0 heads=0
+SCORE a_kinds/def TOGOLD=2 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 AGREE-BOTH=60 KEY-GAP-pris=132 KEY-GAP-pat=132 cells=313
+SCORE a_kinds/elab TOGOLD=15 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 AGREE-BOTH=225 KEY-GAP-pris=58 KEY-GAP-pat=58 cells=432
+
+==== b_depth ====
+cmp rc=255 a def lines=116 heads=1
+cmp rc=255 b def lines=116 heads=1
+cmp rc=255 a elab lines=116 heads=1
+cmp rc=255 b elab lines=116 heads=1
+SCORE b_depth/def TOGOLD=2 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 AGREE-BOTH=13 KEY-GAP-pris=89 KEY-GAP-pat=89 cells=188
+SCORE b_depth/elab TOGOLD=21 AWAY=0 MOVED-WRONG=0 STILL-WRONG=12 AGREE-BOTH=93 KEY-GAP-pris=55 KEY-GAP-pat=55 cells=275
+
+==== c_home ====
+cmp rc=255 a def lines=112 heads=1
+cmp rc=255 b def lines=112 heads=1
+cmp rc=255 a elab lines=112 heads=1
+cmp rc=255 b elab lines=112 heads=1
+SCORE c_home/def TOGOLD=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=1 AGREE-BOTH=14 KEY-GAP-pris=35 KEY-GAP-pat=35 cells=84
+SCORE c_home/elab TOGOLD=4 AWAY=0 MOVED-WRONG=0 STILL-WRONG=8 AGREE-BOTH=63 KEY-GAP-pris=15 KEY-GAP-pat=15 cells=129
+
+==== d_class ====
+cmp rc=255 a def lines=112 heads=1
+cmp rc=255 b def lines=590 heads=1
+cmp rc=255 a elab lines=698 heads=1
+cmp rc=255 b elab lines=698 heads=1
+SCORE d_class/def TOGOLD=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 AGREE-BOTH=10 KEY-GAP-pris=24 KEY-GAP-pat=24 cells=54
+SCORE d_class/elab TOGOLD=6 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 AGREE-BOTH=42 KEY-GAP-pris=7 KEY-GAP-pat=7 cells=82
+
+==== e_chain ====
+cmp rc=255 a def lines=1280 heads=1
+cmp rc=255 b def lines=1280 heads=1
+cmp rc=255 a elab lines=1350 heads=1
+cmp rc=255 b elab lines=1350 heads=1
+SCORE e_chain/def TOGOLD=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 AGREE-BOTH=12 KEY-GAP-pris=48 KEY-GAP-pat=48 cells=98
+SCORE e_chain/elab TOGOLD=6 AWAY=0 MOVED-WRONG=0 STILL-WRONG=1 AGREE-BOTH=54 KEY-GAP-pris=29 KEY-GAP-pat=29 cells=149
+
+==== vxpkg8 ====
+cmp rc=255 a def lines=112 heads=1
+cmp rc=0 b def lines=0 heads=0
+cmp rc=255 a elab lines=112 heads=1
+cmp rc=0 b elab lines=0 heads=0
+SCORE vxpkg8/def TOGOLD=2 AWAY=0 MOVED-WRONG=0 STILL-WRONG=8 AGREE-BOTH=22 KEY-GAP-pris=0 KEY-GAP-pat=0 cells=32
+SCORE vxpkg8/elab TOGOLD=2 AWAY=0 MOVED-WRONG=0 STILL-WRONG=12 AGREE-BOTH=34 KEY-GAP-pris=0 KEY-GAP-pat=0 cells=56
+
+==== g123_c_otherpkg ====
+cmp rc=255 a def lines=112 heads=1
+cmp rc=0 b def lines=0 heads=0
+cmp rc=255 a elab lines=112 heads=1
+cmp rc=0 b elab lines=0 heads=0
+SCORE g123_c_otherpkg/def TOGOLD=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 AGREE-BOTH=19 KEY-GAP-pris=12 KEY-GAP-pat=12 cells=41
+SCORE g123_c_otherpkg/elab TOGOLD=4 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 AGREE-BOTH=56 KEY-GAP-pris=6 KEY-GAP-pat=6 cells=82
+
+==== v123_b_bounds ====
+cmp rc=255 a def lines=33 heads=1
+cmp rc=255 b def lines=33 heads=1
+cmp rc=255 a elab lines=112 heads=1
+cmp rc=255 b elab lines=62 heads=1
+SCORE v123_b_bounds/def TOGOLD=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 AGREE-BOTH=54 KEY-GAP-pris=44 KEY-GAP-pat=44 cells=145
+SCORE v123_b_bounds/elab TOGOLD=10 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 AGREE-BOTH=189 KEY-GAP-pris=4 KEY-GAP-pat=4 cells=252
+
+==== v123_c_kinds ====
+cmp rc=255 a def lines=5804 heads=1
+cmp rc=255 b def lines=5804 heads=1
+cmp rc=255 a elab lines=6462 heads=1
+cmp rc=255 b elab lines=6462 heads=1
+SCORE v123_c_kinds/def TOGOLD=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=7 AGREE-BOTH=63 KEY-GAP-pris=150 KEY-GAP-pat=150 cells=352
+SCORE v123_c_kinds/elab TOGOLD=20 AWAY=0 MOVED-WRONG=0 STILL-WRONG=14 AGREE-BOTH=234 KEY-GAP-pris=80 KEY-GAP-pat=80 cells=580
+
+==== g169_a_import ====
+cmp rc=255 a def lines=64 heads=1
+cmp rc=255 b def lines=64 heads=1
+cmp rc=255 a elab lines=64 heads=1
+cmp rc=255 b elab lines=64 heads=1
+SCORE g169_a_import/def TOGOLD=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=6 AGREE-BOTH=83 KEY-GAP-pris=21 KEY-GAP-pat=21 cells=110
+SCORE g169_a_import/elab TOGOLD=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=6 AGREE-BOTH=83 KEY-GAP-pris=21 KEY-GAP-pat=21 cells=110
+
+==== v169_i_multi ====
+cmp rc=255 a def lines=84 heads=1
+cmp rc=255 b def lines=84 heads=1
+cmp rc=255 a elab lines=84 heads=1
+cmp rc=255 b elab lines=84 heads=1
+SCORE v169_i_multi/def TOGOLD=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=18 AGREE-BOTH=45 KEY-GAP-pris=20 KEY-GAP-pat=20 cells=88
+SCORE v169_i_multi/elab TOGOLD=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=18 AGREE-BOTH=45 KEY-GAP-pris=20 KEY-GAP-pat=20 cells=88
+
+==== v4_crosspkg ====
+cmp rc=255 a def lines=100 heads=1
+cmp rc=255 b def lines=100 heads=1
+cmp rc=255 a elab lines=100 heads=1
+cmp rc=255 b elab lines=100 heads=1
+SCORE v4_crosspkg/def TOGOLD=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=2 AGREE-BOTH=15 KEY-GAP-pris=4 KEY-GAP-pat=4 cells=24
+SCORE v4_crosspkg/elab TOGOLD=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=2 AGREE-BOTH=16 KEY-GAP-pris=4 KEY-GAP-pat=4 cells=25
+
+==== v5_prefix ====
+cmp rc=255 a def lines=126 heads=1
+cmp rc=255 b def lines=126 heads=1
+cmp rc=255 a elab lines=126 heads=1
+cmp rc=255 b elab lines=126 heads=1
+SCORE v5_prefix/def TOGOLD=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=2 AGREE-BOTH=29 KEY-GAP-pris=2 KEY-GAP-pat=2 cells=34
+SCORE v5_prefix/elab TOGOLD=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=2 AGREE-BOTH=29 KEY-GAP-pris=2 KEY-GAP-pat=2 cells=34
+
+==== g22 ====
+cmp rc=255 a def lines=3438 heads=1
+cmp rc=255 b def lines=3438 heads=1
+cmp rc=255 a elab lines=3438 heads=1
+cmp rc=255 b elab lines=3438 heads=1
+SCORE g22/def TOGOLD=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=7 AGREE-BOTH=13 KEY-GAP-pris=22 KEY-GAP-pat=22 cells=48
+SCORE g22/elab TOGOLD=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=6 AGREE-BOTH=6 KEY-GAP-pris=14 KEY-GAP-pat=14 cells=32
+
+==== l154_noenum ====
+cmp rc=255 a def lines=17 heads=1
+cmp rc=255 b def lines=17 heads=1
+cmp rc=255 a elab lines=17 heads=1
+cmp rc=255 b elab lines=17 heads=1
+SCORE l154_noenum/def TOGOLD=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 AGREE-BOTH=0 KEY-GAP-pris=0 KEY-GAP-pat=0 cells=0
+SCORE l154_noenum/elab TOGOLD=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 AGREE-BOTH=0 KEY-GAP-pris=0 KEY-GAP-pat=0 cells=0
+
+GRID TOTALS over all 15 arms × 2 views: TOGOLD=94  AWAY=0  MOVED-WRONG=0

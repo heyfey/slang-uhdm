@@ -1,0 +1,34 @@
+CENSCORE BuildUVMPkg/default TOGOLD=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 AGREE-BOTH=3494 KEY-GAPS=631 cells=4125
+CENSCORE BuildUVMPkg/testflags TOGOLD=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 AGREE-BOTH=3494 KEY-GAPS=631 cells=4125
+CENSCORE MiniAmiq/default TOGOLD=94 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 AGREE-BOTH=5218 KEY-GAPS=1431 cells=6743
+CENSCORE MiniAmiq/testflags TOGOLD=94 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 AGREE-BOTH=5218 KEY-GAPS=1431 cells=6743
+CENSCORE Scoreboard/default TOGOLD=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 AGREE-BOTH=3713 KEY-GAPS=592 cells=4305
+CENSCORE SeqDriver/default TOGOLD=94 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 AGREE-BOTH=5033 KEY-GAPS=1431 cells=6558
+CENSCORE SeqDriver/testflags TOGOLD=94 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 AGREE-BOTH=5033 KEY-GAPS=1431 cells=6558
+CENSCORE SimpleUVM/default TOGOLD=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 AGREE-BOTH=3697 KEY-GAPS=587 cells=4284
+CENSCORE SimpleUVM/testflags TOGOLD=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 AGREE-BOTH=3697 KEY-GAPS=587 cells=4284
+
+---- the wide ref_typespec census (ct180ref), per row-mode ----
+ref.BuildUVMPkg.default PRIS: REFCENSUS agree=1111 differ=6 only-golden=29 only-ours=20 total=1166
+ref.BuildUVMPkg.default PAT : REFCENSUS agree=1111 differ=6 only-golden=29 only-ours=20 total=1166
+ref.BuildUVMPkg.testflags PRIS: REFCENSUS agree=1111 differ=6 only-golden=29 only-ours=20 total=1166
+ref.BuildUVMPkg.testflags PAT : REFCENSUS agree=1111 differ=6 only-golden=29 only-ours=20 total=1166
+ref.MiniAmiq.default PRIS: REFCENSUS agree=1607 differ=19 only-golden=1868 only-ours=1481 total=4975
+ref.MiniAmiq.default PAT : REFCENSUS agree=1626 differ=0 only-golden=1868 only-ours=1481 total=4975
+ref.MiniAmiq.testflags PRIS: REFCENSUS agree=1607 differ=19 only-golden=1868 only-ours=1481 total=4975
+ref.MiniAmiq.testflags PAT : REFCENSUS agree=1626 differ=0 only-golden=1868 only-ours=1481 total=4975
+ref.Scoreboard.default PRIS: REFCENSUS agree=1007 differ=0 only-golden=102 only-ours=26 total=1135
+ref.Scoreboard.default PAT : REFCENSUS agree=1007 differ=0 only-golden=102 only-ours=26 total=1135
+ref.SeqDriver.default PRIS: REFCENSUS agree=1607 differ=19 only-golden=1868 only-ours=1484 total=4978
+ref.SeqDriver.default PAT : REFCENSUS agree=1626 differ=0 only-golden=1868 only-ours=1484 total=4978
+ref.SeqDriver.testflags PRIS: REFCENSUS agree=1607 differ=19 only-golden=1868 only-ours=1484 total=4978
+ref.SeqDriver.testflags PAT : REFCENSUS agree=1626 differ=0 only-golden=1868 only-ours=1484 total=4978
+ref.SimpleUVM.default PRIS: REFCENSUS agree=1000 differ=0 only-golden=102 only-ours=26 total=1128
+ref.SimpleUVM.default PAT : REFCENSUS agree=1000 differ=0 only-golden=102 only-ours=26 total=1128
+ref.SimpleUVM.testflags PRIS: REFCENSUS agree=1000 differ=0 only-golden=102 only-ours=26 total=1128
+ref.SimpleUVM.testflags PAT : REFCENSUS agree=1000 differ=0 only-golden=102 only-ours=26 total=1128
+
+---- the corpus-wide completeness scan (predict180, OUR databases only) ----
+pristine surelog     956 databases: 4 flagged (the four moving row-modes), 0 problems
+pristine uhdm2rtlil 1358 databases: 0 flagged, 0 problems
+PATCHED  surelog     956 databases: 0 flagged, 0 problems  <- the law leaves no cell of its family behind

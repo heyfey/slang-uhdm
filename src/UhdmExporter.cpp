@@ -7234,7 +7234,7 @@ UHDM::design* UhdmExporter::exportDesign() {
     // § importCloneBareTdAlias16: inside a wildcard-import CLONE body the
     // alias target of that bare copy is bare too.  Right after LAW S, whose
     // memo it re-points.
-    importCloneBareTdAlias16();
+    importCloneBareTdAlias16(d);
     // § cloneAliasTopTarget19 — the def->top question for the ALIAS TARGET of
     // a clone no parent walk can classify (the clone is unparented, so
     // ownership has to be read off the BINDING ref).  After both alias passes
