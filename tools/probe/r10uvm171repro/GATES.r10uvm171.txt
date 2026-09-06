@@ -1,0 +1,88 @@
+# r10uvm171 — THE GATE BATTERY.  BASE 3d549e59.  Judge: the official
+# ~/git-repos/UHDM/build/bin/uhdm-cmp.  Both binaries FROZEN (chmod 555) at
+# immutable paths BEFORE any sweep; every cmds.txt audited by BINARY PATH.
+
+(1) BUILD, both binaries
+    pristine  600f33a71a99d749f2ca8f9223d6d20e
+              — built fresh in this pass's own worktree at 3d549e59 and
+                BYTE-IDENTICAL to the main tree's build/slang-uhdm
+    patched   40f4e1997a14ba258c37b706bb4ce319
+    cmake --build … -j 2, no ' error ' lines, 'Built target slang_uhdm', RC=0.
+
+(2) GOLDEN DUMP TESTS (SLANG_UHDM exported explicitly to EACH binary)
+    SLANG_UHDM=<patched>  tests/check_goldens.sh   PASS=23  FAIL=0
+    SLANG_UHDM=/bin/false tests/check_goldens.sh   PASS=0   FAIL=23   (negative control)
+
+(3) uhdm2rtlil, BOTH modes, --jobs 2, this pass's own --out/--workdir
+    cmds.txt binary path audit:  slang:   /tmp/r10uvm171_pat2.bin
+    ct8rows results/gate_uhdm2rtlil.csv   vs u2r_tf.csv   PASS (0 differing rows)
+    ct8rows /tmp/ctl_u2r_3d549e59.csv     vs u2r_tf.csv   PASS
+    ct8rows /tmp/ctl_u2r_def_3d549e59.csv vs u2r_def.csv  PASS
+    byteverify default    PATH_SETS_IDENTICAL (679)  MOVERS 0/679  SELFCHECK 678/679
+    byteverify testflags  PATH_SETS_IDENTICAL (679)  MOVERS 0/679  SELFCHECK 678/679
+
+(4) surelog corpus, --mode both, --jobs 2
+    cmds.txt binary path audit:  slang:   /tmp/r10uvm171_pat2.bin
+    ct8rows results/golden_surelog.csv vs sl.csv   PASS (0 differing rows over 1588)
+    ct8rows /tmp/ctl_sl_3d549e59.csv   vs sl.csv   PASS
+    NO ROW CONVERTED; results/*.csv NOT EDITED (read-only, as required).
+
+(5) BYTE MOVERS, surelog — SELFCHECK=1
+    PATH_SETS_IDENTICAL (956)   MOVERS 7 / 956   SELFCHECK 955/956
+    every mover named and attributed in PREDICT.r10uvm171.txt:
+      SeqDriver x2, MiniAmiq x2   PREDICTED BY NAME; order-blind +16 lines, -0
+      BuildUVMPkg x2              order-only inside the weaklyReferenced tail
+      Scoreboard/default          the documented 92-line coin, order-blind 0
+
+(6) HEADS (rowheads.sh; SeqDriver SimpleUVM Scoreboard MiniAmiq BuildUVMPkg
+    Earlgrey_0_1 Rggen).  SKIP-NOFILE on Scoreboard/testflags and Rggen/testflags
+    is expected.
+                     pristine        patched
+    SeqDriver  def      27 / 1  ->     33 / 1   HEAD OBJECT CHANGED (R0)
+    SeqDriver  tf       27 / 1  ->     33 / 1   HEAD OBJECT CHANGED (R0)
+    SimpleUVM  def/tf   17 / 1  ->     17 / 1   cmp text IDENTICAL
+    Scoreboard def      95 / 1  ->     95 / 1   cmp text IDENTICAL
+    MiniAmiq   def/tf  106 / 1  ->    106 / 1   cmp text IDENTICAL
+    BuildUVMPkg def/tf 106 / 1  ->    106 / 1   cmp text IDENTICAL
+    Earlgrey_0_1 def    31 / 1  ->     31 / 1   cmp text IDENTICAL
+    Earlgrey_0_1 tf     26 / 1  ->     26 / 1   cmp text IDENTICAL
+    Rggen      def       0 / 0  ->      0 / 0   cmp text IDENTICAL
+
+(7) CANARIES
+    canaries.sh sl.csv  vs results/golden_surelog.csv     ok=52 changed=0 absent=0
+    canaries.sh u2r_tf  vs results/gate_uhdm2rtlil.csv    ok=8  changed=0 absent=0
+    EXPECT_UNKNOWN=1 ctcan2.sh (surelog)                  PASS
+    EXPECT_UNKNOWN=6 ctcan2.sh (u2r)                      PASS
+    canaudit.sh canaries.sh ctcan2.sh   audited=29 UNCOVERED=0 FENCE-BREACH=0  PASS
+    (the four slang-fenced tests are listed only as FENCED and are NEVER dispatched)
+
+(8) PROTECTED DATABASES, by name, md5 patched vs pristine control
+    InterfaceModPort    def/tf   59a365f3ce2c = 59a365f3ce2c
+    BlackParrotComplex  def      e3e354129d5a = e3e354129d5a
+    BlackParrotComplex  tf       73a10e8217e5 = 73a10e8217e5
+    YosysOldOr          def/tf   d68e0796d62c = d68e0796d62c
+    SVSwitch            def/tf   4842211c4030 = 4842211c4030   (brief's pin)
+    YosysVerx           def/tf   6ccda350c24a = 6ccda350c24a   (brief's pin)
+
+(9) BOUNDARY — see BOUNDARY.r10uvm171.txt
+    LISTED=4780 PROCESSED=4780 PRODUCED_DBS=4623 MOVED_ARMS=12 RC_DIFFS=0
+    3 moved arms are this pass's own (the positive control: the gate CAN see);
+    the other 9 are order-only, content identical, cmp text identical.
+
+(10) STATUS HISTOGRAMS — pristine control vs patched sweep, identical on every
+     row of both corpora (the check that catches an rc=139 segfault recorded as
+     SLANG_REJECT wearing the last stderr warning, RESUME §9):
+
+  surelog (1588 rows), BOTH:
+    CMP_EQUAL 937  CMP_NOTEQUAL 19  DEFERRED 10  NO_DATABASE 3  NO_UHDM 1
+    SLANG_REJECT 567  SURELOG_FAIL 48  TIMEOUT 1  UNTRANSLATABLE 2
+
+  uhdm2rtlil (731 rows), BOTH MODES, BOTH BINARIES:
+    CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2      (the brief's 679/50/2)
+
+(11) REPRODUCIBILITY
+     The patch applied to a FRESH 3d549e59 worktree (git apply -3, rc 0, no
+     conflict markers) and built independently reproduces the gated binary byte
+     for byte: 40f4e1997a14ba258c37b706bb4ce319.  Patch surface: src/, include/,
+     tools/probe/r10uvm171repro/ and nothing else.  Fence check on the patch
+     (the four slang-fenced names): 0 files each.

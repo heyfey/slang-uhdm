@@ -1,0 +1,133 @@
+# r10uvm171 — THE OWNER-FINDER REPORT (ct171own.cpp, r10uvm161's form).
+# MEASUREMENT ONLY; it links the SAME generated Compare the official uhdm-cmp
+# uses.  Run on SeqDriver/default at 3d549e59: golden vs PRISTINE ours.
+# LHS is golden, RHS is ours.
+#
+# READ THE 'REFERENCE SCAN' SECTION: it enumerates EVERY golden edge that lands
+# on the head with the generated, kind-agnostic GetByVpiType, so no field is
+# named by hand and none can be missed by omission.  Four vpiActual (700) edges
+# are <null> on our side; the vpiReturn (666) edge AGREES.
+
+design::Compare r=1
+HEAD LHS = string_var()@340:10-340:16#2425
+HEAD RHS = <null>
+HEAD LHS parent chain:
+    < function(uvm_instance_scope)@340:1-358:12#445
+    < package(uvm_pkg)@28:1-39:11#1
+    < design(work@top_tb)@0:0-0:0#325863
+PARENT-CHAIN PROBE (top down; REPRO = this pair's own Compare gives the same head):
+  design(work@top_tb)@0:0-0:0#325863                         ourMatches=1 repro=1 REPRO
+  package(uvm_pkg)@28:1-39:11#1                              ourMatches=2 repro=0 no-repro
+  function(uvm_instance_scope)@340:1-358:12#445              ourMatches=2 repro=0 no-repro
+  string_var()@340:10-340:16#2425                            ourMatches=2 repro=0 no-repro
+DESCENT (each step = a child pair whose own Compare reproduces the head):
+  [0] design(work@top_tb)@0:0-0:0#325863
+      vs design(work@top_tb)@0:0-0:0#1
+  [1] package(uvm_pkg)@28:1-39:11#59742
+      vs package(uvm_pkg)@28:1-39:11#146   (AMBIGUOUS: more than one child reproduces)
+  [2] array_var(uvm_random_seed_table_lookup)@328:14-328:42#318962
+      vs array_var(uvm_random_seed_table_lookup)@328:14-328:42#781   (AMBIGUOUS: more than one child reproduces)
+  [3] class_var()@328:14-328:42#318960
+      vs class_var()@328:14-328:42#785   (AMBIGUOUS: more than one child reproduces)
+  [4] ref_typespec()@0:0-0:0#318961
+      vs ref_typespec()@0:0-0:0#786
+  STOP: no child pair reproduces the head -> the edge is a FIELD of the pair above
+OWNER PAIR:
+  FIELDS of ref_typespec()@0:0-0:0#318961
+         vs ref_typespec()@0:0-0:0#786
+    ref_typespec::Actual_typespec LHS=class_typespec(uvm_seed_map)@328:1-328:13#318954           RHS=class_typespec(uvm_seed_map)@328:1-328:13#784
+REFERENCE SCAN — every golden edge that lands on the head, and ours:
+  golden bit_select(uvm_instance_scope)@352:26-352:29#119933
+      edge vpiType=700 (singular)
+      ours   bit_select(uvm_instance_scope)@352:26-352:29#3965 -> singular <null>
+      ours   bit_select(uvm_instance_scope)@352:26-352:29#182009 -> singular <null>
+  golden bit_select(uvm_instance_scope)@354:28-354:33#119947
+      edge vpiType=700 (singular)
+      ours   bit_select(uvm_instance_scope)@354:28-354:33#3979 -> singular <null>
+      ours   bit_select(uvm_instance_scope)@354:28-354:33#182023 -> singular <null>
+  golden bit_select(uvm_instance_scope)@352:26-352:29#184060
+      edge vpiType=700 (singular)
+      ours   bit_select(uvm_instance_scope)@352:26-352:29#3965 -> singular <null>
+      ours   bit_select(uvm_instance_scope)@352:26-352:29#182009 -> singular <null>
+  golden bit_select(uvm_instance_scope)@354:28-354:33#184074
+      edge vpiType=700 (singular)
+      ours   bit_select(uvm_instance_scope)@354:28-354:33#3979 -> singular <null>
+      ours   bit_select(uvm_instance_scope)@354:28-354:33#182023 -> singular <null>
+  golden function(uvm_instance_scope)@340:1-358:12#445
+      edge vpiType=666 (singular)
+      ours   function(uvm_instance_scope)@340:1-358:12#1103 -> singular string_var()@340:10-340:16#1104
+      ours   function(uvm_instance_scope)@340:1-358:12#6689 -> singular string_var()@340:10-340:16#6690
+  golden function(uvm_instance_scope)@340:1-358:12#119902
+      edge vpiType=666 (singular)
+      ours   function(uvm_instance_scope)@340:1-358:12#3936 -> singular string_var()@340:10-340:16#6690
+      ours   function(uvm_instance_scope)@340:1-358:12#181980 -> singular string_var()@340:10-340:16#6690
+  golden function(uvm_instance_scope)@340:1-358:12#184029
+      edge vpiType=666 (singular)
+      ours   function(uvm_instance_scope)@340:1-358:12#3936 -> singular string_var()@340:10-340:16#6690
+      ours   function(uvm_instance_scope)@340:1-358:12#181980 -> singular string_var()@340:10-340:16#6690
+  golden ref_obj(uvm_instance_scope)@346:6-346:24#119918
+      edge vpiType=700 (singular)
+      ours   NO COUNTERPART for the referrer
+  golden ref_obj(uvm_instance_scope)@347:12-347:30#119921
+      edge vpiType=700 (singular)
+      ours   ref_obj(uvm_instance_scope)@347:12-347:30#3952 -> singular string_var()@340:10-340:16#6690
+      ours   ref_obj(uvm_instance_scope)@347:12-347:30#181996 -> singular string_var()@340:10-340:16#6690
+  golden ref_obj(uvm_instance_scope)@349:11-349:29#119923
+      edge vpiType=700 (singular)
+      ours   ref_obj(uvm_instance_scope)@349:11-349:29#3954 -> singular string_var()@340:10-340:16#6690
+      ours   ref_obj(uvm_instance_scope)@349:11-349:29#181998 -> singular string_var()@340:10-340:16#6690
+  golden ref_obj(uvm_instance_scope)@351:9-351:27#119928
+      edge vpiType=700 (singular)
+      ours   ref_obj(uvm_instance_scope)@351:9-351:27#3960 -> singular <null>
+      ours   ref_obj(uvm_instance_scope)@351:9-351:27#182004 -> singular <null>
+  golden ref_obj(uvm_instance_scope)@356:76-356:94#119959
+      edge vpiType=700 (singular)
+      ours   ref_obj(uvm_instance_scope)@356:76-356:94#3990 -> singular string_var()@340:10-340:16#6690
+      ours   ref_obj(uvm_instance_scope)@356:76-356:94#182034 -> singular string_var()@340:10-340:16#6690
+  golden ref_obj(uvm_instance_scope)@357:24-357:42#119962
+      edge vpiType=700 (singular)
+      ours   ref_obj(uvm_instance_scope)@357:24-357:42#3994 -> singular <null>
+      ours   ref_obj(uvm_instance_scope)@357:24-357:42#182038 -> singular <null>
+  golden ref_obj(pos)@357:52-357:55#119965
+      edge vpiType=700 (singular)
+      ours   ref_obj(pos)@357:52-357:55#3997 -> singular int_var(pos)@342:7-342:10#6697
+      ours   ref_obj(pos)@357:52-357:55#182041 -> singular int_var(pos)@342:7-342:10#6697
+  golden ref_obj(uvm_instance_scope)@357:3-357:21#119966
+      edge vpiType=700 (singular)
+      ours   ref_obj(uvm_instance_scope)@357:3-357:21#3992 -> singular string_var()@340:10-340:16#6690
+      ours   ref_obj(uvm_instance_scope)@357:3-357:21#182036 -> singular string_var()@340:10-340:16#6690
+  golden ref_obj(uvm_instance_scope)@346:6-346:24#184045
+      edge vpiType=700 (singular)
+      ours   NO COUNTERPART for the referrer
+  golden ref_obj(uvm_instance_scope)@347:12-347:30#184048
+      edge vpiType=700 (singular)
+      ours   ref_obj(uvm_instance_scope)@347:12-347:30#3952 -> singular string_var()@340:10-340:16#6690
+      ours   ref_obj(uvm_instance_scope)@347:12-347:30#181996 -> singular string_var()@340:10-340:16#6690
+  golden ref_obj(uvm_instance_scope)@349:11-349:29#184050
+      edge vpiType=700 (singular)
+      ours   ref_obj(uvm_instance_scope)@349:11-349:29#3954 -> singular string_var()@340:10-340:16#6690
+      ours   ref_obj(uvm_instance_scope)@349:11-349:29#181998 -> singular string_var()@340:10-340:16#6690
+  golden ref_obj(uvm_instance_scope)@351:9-351:27#184055
+      edge vpiType=700 (singular)
+      ours   ref_obj(uvm_instance_scope)@351:9-351:27#3960 -> singular <null>
+      ours   ref_obj(uvm_instance_scope)@351:9-351:27#182004 -> singular <null>
+  golden ref_obj(uvm_instance_scope)@356:76-356:94#184086
+      edge vpiType=700 (singular)
+      ours   ref_obj(uvm_instance_scope)@356:76-356:94#3990 -> singular string_var()@340:10-340:16#6690
+      ours   ref_obj(uvm_instance_scope)@356:76-356:94#182034 -> singular string_var()@340:10-340:16#6690
+  golden ref_obj(uvm_instance_scope)@357:24-357:42#184089
+      edge vpiType=700 (singular)
+      ours   ref_obj(uvm_instance_scope)@357:24-357:42#3994 -> singular <null>
+      ours   ref_obj(uvm_instance_scope)@357:24-357:42#182038 -> singular <null>
+  golden ref_obj(pos)@357:52-357:55#184092
+      edge vpiType=700 (singular)
+      ours   ref_obj(pos)@357:52-357:55#3997 -> singular int_var(pos)@342:7-342:10#6697
+      ours   ref_obj(pos)@357:52-357:55#182041 -> singular int_var(pos)@342:7-342:10#6697
+  golden ref_obj(uvm_instance_scope)@357:3-357:21#184093
+      edge vpiType=700 (singular)
+      ours   ref_obj(uvm_instance_scope)@357:3-357:21#3992 -> singular string_var()@340:10-340:16#6690
+      ours   ref_obj(uvm_instance_scope)@357:3-357:21#182036 -> singular string_var()@340:10-340:16#6690
+  golden ref_typespec()@0:0-0:0#2426
+      edge vpiType=81 (singular)
+      ours   ref_typespec()@0:0-0:0#1106 -> singular string_var()@340:10-340:16#1104
+      ours   ref_typespec()@0:0-0:0#6692 -> singular string_var()@340:10-340:16#6690

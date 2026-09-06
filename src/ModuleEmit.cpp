@@ -24409,6 +24409,19 @@ void UhdmExporter::drainFuncRet(bool pkgOnly) {
             for (auto* r : pf.refs)
                 if (!funcRetSelBound.count(r))
                     r->Actual_group(rv9 ? rv9 : pf.bindVar);
+            // § retNameSelBindsHomeReturnInCloneOnly171 — the SELECT and
+            // METHOD-RECEIVER references take the SAME target the bare ones
+            // just took, which is what golden's single `string_var` shows: all
+            // nine references in the clone body land on ONE object.  Placed
+            // INSIDE the `pf.bindVar` branch and nowhere else — the home
+            // package's own views fall through to the per-reference local mint
+            // below, where golden's answer is BARE and `selRefs171` is empty by
+            // construction (the collector is armed for clone bodies only).
+            // `!Actual_group()` keeps this incapable of overwriting a binding
+            // some earlier law already made.
+            for (auto* r : pf.selRefs171)
+                if (!r->Actual_group())
+                    r->Actual_group(rv9 ? rv9 : pf.bindVar);
             continue;
         }
         for (auto* r : pf.refs) {

@@ -1,0 +1,69 @@
+# r10uvm171 — THE MOVER PREDICTION, made from PRISTINE databases BEFORE the
+# patched sweep, and the outcome measured against it.
+#
+# Instrument: ct171pred.cpp (one database, one row per return-name select /
+# method-receiver), driven over every row of the PRISTINE control workdirs at
+# 3d549e59 by predsweep171.sh, joined per row by score171.py.
+
+PREDICTED, BY NAME
+  surelog     SeqDriver   default   8 cells  (351:9 ref_obj, 352:26 bit_select,
+                                              354:28 bit_select, 357:24 ref_obj;
+                                              2 clone copies each)
+  surelog     SeqDriver   testflags 8 cells
+  surelog     MiniAmiq    default   8 cells
+  surelog     MiniAmiq    testflags 8 cells
+  uhdm2rtlil  (both modes)          NOTHING
+  TOTAL 32 cells TO-GOLDEN, 0 AWAY.
+
+  Every other row with candidates (33 surelog rows, 17 u2r rows) scores
+  TO-GOLDEN=0 AWAY=0 on the pristine binary: golden and we already agree there.
+
+  The corpus DOES hold return-name part_select / indexed_part_select
+  candidates — 50 rows on surelog, 12 on u2r — and every one of them is in a
+  MODULE function (`<module_inst:`), never in a package import clone, so the
+  clone gate excludes them by construction.  This is why sites 3 and 4 (added
+  because the GRID convicted the first cut) move no corpus cell.
+
+MEASURED (byteverify.sh, patched sweep vs the 3d549e59 control sweep)
+  uhdm2rtlil  default    MOVERS 0 / 679     SELFCHECK 678/679
+  uhdm2rtlil  testflags  MOVERS 0 / 679     SELFCHECK 678/679
+  surelog     both       MOVERS 7 / 956     SELFCHECK 955/956
+
+  ./default/SeqDriver-32af76aa      PREDICTED   order-blind: 16 lines ADDED, 0 removed
+  ./testflags/SeqDriver-32af76aa    PREDICTED   order-blind: 16 lines ADDED, 0 removed
+  ./default/MiniAmiq-544c7f61       PREDICTED   order-blind: 16 lines ADDED, 0 removed
+  ./testflags/MiniAmiq-544c7f61     PREDICTED   order-blind: 16 lines ADDED, 0 removed
+  ./default/BuildUVMPkg-bf853d43    NOT PREDICTED — see below
+  ./testflags/BuildUVMPkg-bf853d43  NOT PREDICTED — see below
+  ./default/Scoreboard-59431470     NOT PREDICTED — see below
+
+  The 16 added lines per predicted row are EXACTLY the law: 8 objects x
+  (one `|vpiActual:` line + one
+  `\_string_var: (uvm_pkg::uvm_instance_scope), line:340:10, endln:340:16`
+  target line).  NOTHING is removed on any of the four.
+
+THE THREE UNPREDICTED MOVERS, attributed
+  Both are ORDER-ONLY: the uhdm-dump path-normalised ORDER-BLIND diff (sort
+  both dumps, then diff) is 0 lines ADDED and 0 REMOVED for all three, and the
+  official uhdm-cmp output is BYTE-IDENTICAL pristine vs patched for all three
+  (`head_pris_*.cmp` vs `head_pat_*.cmp` for BuildUVMPkg x2 and Scoreboard).
+
+  BuildUVMPkg (both modes, same bytes in both): REPRODUCIBLE per binary — the
+  pristine binary gives one hash on three consecutive runs from one cwd and the
+  patched binary another — and the raw (unsorted) dump diff is 132 lines whose
+  FIRST differing line is 1077431 of 1077633, i.e. entirely inside the
+  `\_weaklyReferenced:` TAIL that begins at line 1007562.  RESUME §9: the
+  weaklyReferenced tail is unreachable to the judge.  An arena-tail listing
+  order shift with zero content change.
+
+  Scoreboard/default: raw dump diff is 92 lines and the order-blind diff is 0 —
+  the DOCUMENTED COIN, line for line (RESUME §9: "svunit_pkg `vpiTaskFunc` list
+  ORDER flip, ~92 dump lines").  Attributed order-blind, as the coin law
+  requires.
+
+  The SAME order-only signature appears on the 9 pre-existing boundary arms
+  (BOUNDARY.r10uvm171.txt): 0 added / 0 removed in both views on every one, and
+  on the smallest of them (r10uvm125repro/g125_a_dirs.sv) the whole raw
+  difference is ONE `bit_typespec (wide_t)` block of 13 lines changing position
+  at line 1897 of 1935, inside the `\_weaklyReferenced:` tail that starts at
+  line 1799.

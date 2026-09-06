@@ -1,0 +1,347 @@
+# r10v171 — ADVERSARIAL VERIFICATION of r10uvm171
+#   § retNameSelBindsHomeReturnInCloneOnly171
+# BASE 3d549e59.  Judge: the official ~/git-repos/UHDM/build/bin/uhdm-cmp.
+# LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+# Everything below was MEASURED in this verifier's own worktrees
+# (/tmp/wt_v171 patched, /tmp/wt_v171pris pristine) on binaries this verifier
+# built itself.  No number is carried forward from the implementer's report.
+
+VERDICT: ACCEPT — no fix needed.  0 pristine-right -> patched-wrong cells over
+9 arms x 2 views, and 0 AWAY-GOLDEN cells anywhere.
+
+===============================================================================
+1. BINARIES — rebuilt independently, byte-for-byte
+===============================================================================
+pristine  /tmp/v171_pris.bin  600f33a71a99d749f2ca8f9223d6d20e
+          = the MAIN TREE's own build/slang-uhdm at 3d549e59 (same md5)
+patched   /tmp/v171_pat.bin   40f4e1997a14ba258c37b706bb4ce319
+
+`git apply -3 /tmp/r10uvm171.patch` on a FRESH 3d549e59 worktree: rc 0,
+0 conflict markers in src/ or include/.
+Surface audited file-by-file: production = include/UhdmExporter.h,
+src/ExprEmit.cpp, src/ModuleEmit.cpp, src/TaskFuncEmit.cpp; everything else is
+tools/probe/r10uvm171repro/.  results/*.csv NOT touched (git diff -- results/
+is 0 lines).  Fence check: each of the four slang-fenced test names (read from
+canaudit.sh's own fence list, never spelled here) appears in 0 patch files
+outside canaudit.sh itself.
+Both binaries frozen chmod 555 BEFORE any sweep.  SLANG_UHDM exported
+explicitly per binary; EVERY cmds.txt audited by binary PATH:
+   u2r     1458/1462 carry /tmp/v171_pris.bin (control) resp. /tmp/v171_pat.bin
+   surelog 1523/1573 likewise
+   MAIN-TREE binary path: 0 files, both corpora, both arms.
+
+===============================================================================
+2. GATES — reproduced, all green
+===============================================================================
+(1) build both, md5s                                          above
+(2) goldens  patched 23 PASS / 0 FAIL      pristine 23 PASS / 0 FAIL
+    negative control SLANG_UHDM=/bin/false 0 PASS / 23 FAIL
+(3) uhdm2rtlil  patched 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL,
+    BOTH modes; identical to the pristine control.
+    ct8rows vs results/gate_uhdm2rtlil.csv  PASS
+    ct8rows vs my pristine control, testflags PASS
+    ct8rows vs my pristine control, default   PASS
+    (status AND dump column; the baseline was measured FIRST)
+    SELFCHECK=1 byteverify u2r: MOVERS 0 / 1358, PATH_SETS_IDENTICAL.
+(4) surelog --mode both:
+    default   471 CMP_EQUAL 10 CMP_NOTEQUAL 5 DEFERRED 283 SLANG_REJECT
+              25 SURELOG_FAIL
+    testflags 466 CMP_EQUAL  9 CMP_NOTEQUAL 5 DEFERRED  3 NO_DATABASE
+              1 NO_UHDM 284 SLANG_REJECT 23 SURELOG_FAIL 1 TIMEOUT
+              2 UNTRANSLATABLE
+    IDENTICAL to the pristine control, histogram for histogram.
+    ct8rows vs results/golden_surelog.csv : 0 differing ROWS over 1588
+    ct8rows vs my pristine control        : 0 differing ROWS over 1588
+    NO ROW CONVERTED.  results/*.csv NOT EDITED.
+(5) SELFCHECK=1 byteverify surelog: MOVERS 7 / 956, SELFCHECK 955/956,
+    PATH_SETS_IDENTICAL (956 paths).  Every mover named and attributed in §3.
+
+===============================================================================
+3. THE MOVER SET — PREDICTED BY NAME from PRISTINE databases, then measured
+===============================================================================
+PREDICTION (ct171pred on the PRISTINE database, before looking at the patched
+sweep).  SeqDriver/default, golden vs ours, 30 candidates a side:
+
+  <function:uvm_instance_scope <package:uvm_pkg    BARE / BARE   (4 spans x2)
+  <function:uvm_instance_scope <package:adpcm_pkg  BOUND/ BARE   (4 spans x2)
+  12 x <class_defn:...> rows                       BARE / BARE
+
+MiniAmiq/default, 36 candidates a side, the same shape with svaunit_pkg as the
+importing package: 4 spans x 2 copies golden-BOUND / ours-BARE.
+=> PREDICTED MOVERS BY NAME: SeqDriver x2, MiniAmiq x2 on surelog; NOTHING on
+   uhdm2rtlil.  (The 12 class rows are the negative control INSIDE the same
+   database: clone-only on both axes, independently confirmed.)
+
+MEASURED, order-blind (uhdm-dump, workdir path normalised, sorted):
+
+  ./default/SeqDriver-32af76aa      added 16  removed 0   PREDICTED
+  ./testflags/SeqDriver-32af76aa    added 16  removed 0   PREDICTED
+  ./default/MiniAmiq-544c7f61       added 16  removed 0   PREDICTED
+  ./testflags/MiniAmiq-544c7f61     added 16  removed 0   PREDICTED
+  ./default/BuildUVMPkg-bf853d43    added  0  removed 0   order-only
+  ./testflags/BuildUVMPkg-bf853d43  added  0  removed 0   order-only
+  ./default/Scoreboard-59431470     added  0  removed 0   the documented COIN
+                                    (raw 92 lines, order-blind 0)
+
+The +16 on SeqDriver is exactly 8 x `\_string_var: (uvm_pkg::uvm_instance_scope)`
+plus 8 x `|vpiActual:` — 8 objects (4 spans x 2 copies) gaining a binding, and
+NOTHING removed.
+
+TOWARD GOLDEN, measured with ct171pred against each row's own golden:
+  SeqDriver default/testflags   listing diff-lines 18 -> 2
+  MiniAmiq  default/testflags   listing diff-lines 18 -> 2
+The residual 2 are the pre-existing `uvm_vreg::allocate` span residue
+(1022:41 / 1030:18 ours vs 120:33 golden), BARE on both sides before and after
+and owned by another pass.  AWAY-GOLDEN 0.
+
+===============================================================================
+4. HEADS — measured on both sweeps with rowheads.sh
+===============================================================================
+                   pristine     patched
+  SeqDriver    def   27 / 1  ->  33 / 1   HEAD OBJECT CHANGED
+  SeqDriver    tf    27 / 1  ->  33 / 1   HEAD OBJECT CHANGED
+  SimpleUVM  def/tf  17 / 1  ->  17 / 1
+  Scoreboard   def   95 / 1  ->  95 / 1
+  MiniAmiq   def/tf 106 / 1  -> 106 / 1
+  BuildUVMPkg def/tf 106 / 1  -> 106 / 1
+  Earlgrey_0_1 def   31 / 1  ->  31 / 1
+  Earlgrey_0_1 tf    26 / 1  ->  26 / 1
+  Rggen        def    0 / 0  ->   0 / 0
+(Scoreboard/testflags and Rggen/testflags: SKIP-NOFILE, expected.)
+
+BYTE-COMPARING the cmp texts pristine vs patched, file by file: SeqDriver
+default and testflags CHANGED; the other ten are IDENTICAL.
+
+The pristine head is the singular SafeCompare naming a VALUE —
+  LHS: string_var (uvm_pkg::uvm_instance_scope) id:2425 @340:10-340:16
+  RHS: <null>
+— read out of uhdm-cmp's STDERR by this verifier, not carried forward.
+The patched head is the MIRROR overload (LHS: <null>): our
+`constant 32'h04c11db6 id:367` under `param_assign id:366` @368:36-368:48
+with `ref_typespec (uvm_pkg) -> int_typespec`.  The line count rose because
+the head OBJECT changed; that is the new head's decompile size.
+=> the implementer's R0 is confirmed exactly as written.
+
+===============================================================================
+5. CANARIES / PINS
+===============================================================================
+canaries.sh surelog   ok=52 changed=0 absent=0
+canaries.sh u2r       ok=8  changed=0 absent=0
+ctcan2.sh   surelog   ok=58 changed=0  PASS
+ctcan2.sh   u2r       ok=1  changed=0  PASS
+canaudit.sh           audited=29 UNCOVERED=0 FENCE-BREACH=0
+                      (the four fenced names: "not dispatched by any driver")
+Protected databases, md5 pristine vs patched, both modes:
+  InterfaceModPort   59a365f3ce2c  SAME
+  BlackParrotComplex e3e354129d5a / 73a10e8217e5  SAME
+  YosysOldOr         d68e0796d62c  SAME
+  SVSwitch           4842211c4030  SAME   (brief pin held)
+  YosysVerx          6ccda350c24a  SAME   (brief pin held)
+
+===============================================================================
+6. BOUNDARY — re-run independently over the WHOLE probe tree
+===============================================================================
+LISTED=4784 PROCESSED=4784 PRODUCED_DBS=4627 MOVED_ARMS=15 RC_DIFFS=0
+  3  r10uvm171repro/g171_*.sv      this pass's own arms   (positive control)
+  4  r10v171repro/v171_*.sv        this verifier's arms   (positive control)
+  8  pre-existing arms             ALL order-only
+
+The 8 pre-existing movers, each re-measured against a freshly built Surelog
+golden in BOTH views:
+
+  ARM                                  ADDED REMOVED  cmp pris  cmp pat  text
+  r10buvm9repro/w8v_pkgkinds.sv          0*     0*      9694     9694  IDENTICAL
+  r10uvm123repro/g123_c_otherpkg.sv      0*     0*       112      112  IDENTICAL
+  r10uvm15repro/t25/t.sv                 0*     0*       503      503  IDENTICAL
+  r10uvm41repro/t58a/dut.sv              0*     0*      1479     1479  IDENTICAL
+  r10v123repro/v123_b_bounds.sv          0*     0*        33       33  IDENTICAL
+  r10v123repro/v123_c_kinds.sv           0*     0*      5804     5804  IDENTICAL
+  r10v123repro/v123_f_multi.sv           0*     0*        26       26  IDENTICAL
+  r10v125repro/arms/v2_faces.sv          0*     0*         0        0  IDENTICAL
+  (* the raw sorted diff shows 1 added / 1 removed, which is uhdm-dump's own
+     first line naming the file, `o.uhdm:` vs `q.uhdm:`.  Content: identical.)
+
+On g123_c_otherpkg the whole RAW difference is one 13-line
+`bit_typespec (cone_BT)` block changing POSITION inside the
+`\_weaklyReferenced:` tail — unreachable to the judge (RESUME §9).  Both files
+are the same SIZE (18903 bytes).
+
+MUST-STAY CONTROLS: every arm of r10uvm169repro (4), r10uvm167repro (4),
+r10uvm155repro (5), r10uvm165repro (4), r10v169repro (10), r10uvm89repro (2),
+r10uvm77/78/79repro (9/8/8), r10buvm14repro (1), r10uvm84/85repro (23/23),
+r10uvm82repro (7), r10uvm91repro (5), r10buvm3/15repro (4/9),
+r10sd8repro (37), r10sd12repro (108) is BYTE-IDENTICAL under the patch.
+uvm169's clone listings are undisturbed.
+
+FINDING (methodological, not a defect): the SET of order-only movers is
+ENVIRONMENT-DEPENDENT, not a property of the patch.  The implementer measured
+9 (g125_a_dirs, uvm31/t41b, uvm36/t48a, uvm42/t59a, v123_e_spelling + 4 shared);
+this verifier measures 8 (buvm9/w8v_pkgkinds, uvm15/t25/t, uvm41/t58a,
+v123_f_multi + the same 4 shared) on BYTE-IDENTICAL binaries.  Both sets are
+reproducible in their own environment: a pristine-vs-PRISTINE boundary over the
+56 arms of those ten families reports MOVED_ARMS=0, and a pristine-vs-patched
+re-run over the same 56 reproduces exactly this verifier's 8.  Six repeat runs
+of the pristine binary on two of the arms give ONE md5 each, so this is not
+run-to-run nondeterminism inside a run — it is the weaklyReferenced tail's
+ordering responding to an allocation-pattern change (PendingFuncRet grew a
+std::vector member).  Content and judge output are identical either way, so no
+gate is weakened; but a future pass must NOT treat a named order-only mover
+list as reproducible across machines.
+
+===============================================================================
+7. THE LAW, BROKEN AGAINST — 9 arms x 2 views, scored DIRECTIONALLY
+===============================================================================
+vgrid171.sh builds the Surelog golden and BOTH binaries in BOTH views;
+vscore171.py joins the three ct171pred listings as MULTISETS keyed on
+(line:col, kind, enclosing subroutine) — the home chain is evidence, never a
+key — and classifies each key:
+  BROKE = pristine agreed with golden, patched does not  (the regression face)
+  OVER  = patched binds where golden does NOT            (AWAY-GOLDEN)
+  UNDER = golden binds where patched does not            (a miss/residue)
+The DEF and ELAB listings are NEVER merged.
+
+ARM                       VIEW  KEYS  BROKE  OVER  UNDER  FIXED  cmp A -> B
+g171_a_pos.sv (impl.)     def     28      0     0      0     28  13/1 ->  0/0
+g171_a_pos.sv             elab    63      0     0      0      0   0/0 ->  0/0
+g171_b_homes.sv (impl.)   def     21      0     0      0     12  15/1 -> 15/1
+g171_b_homes.sv           elab    45      0     0      0      0  15/1 -> 15/1
+g171_c_shapes.sv (impl.)  def     88      0     0      0     88  13/1 ->  0/0
+g171_c_shapes.sv          elab   198      0     0      0      0   0/0 ->  0/0
+v171_a_selonly.sv         def     10      0     0      8      2  13/1 -> 13/1
+v171_a_selonly.sv         elab    10      0     0      0      0   0/0 ->  0/0
+v171_b_faces.sv           def     28      0     0      5     23  73/1 -> 73/1
+v171_b_faces.sv           elab    28      0     0      0      0  77/1 -> 77/1
+v171_c_homes.sv           def     15      0     0      0      3  15/1 -> 15/1
+v171_c_homes.sv           elab    15      0     0      0      0  15/1 -> 15/1
+v171_d_types.sv           def     16      0     0     11      4  1769/1 -> 1769/1
+v171_d_types.sv           elab    16      0     0      0      0  1933/1 -> 1933/1
+v171_e_import.sv          def      6      0     0      3      3  13/1 -> 24/1
+v171_e_import.sv          elab     6      0     0      0      0  24/1 -> 24/1
+
+  TOTAL   BROKE = 0     OVER (AWAY-GOLDEN) = 0
+
+(The one "OVER" vscore171 prints for v171_d_types/elab, key 54:5, reads
+ a=[4,0] b=[4,0]: pristine and patched are IDENTICAL there and golden holds a
+ different COPY COUNT.  Pre-existing, not this patch.)
+
+WHAT EACH ARM PUTS UNDER THE LAW
+  v171_a_selonly.sv  a clone body whose return name is touched ONLY in a select
+                     or receiver position — bit_select / part_select / indexed
+                     part_select / built-in receiver — plus one MIXED control.
+  v171_b_faces.sv    leading decl block; decls inside a named begin; a mid-body
+                     nested begin; three levels of nested begins each with
+                     locals; return name read-only; a function whose only local
+                     is the return-typed one; automatic; static; void function;
+                     task; the return name SHADOWED by a same-spelled local in a
+                     named begin; a two-deep method-receiver chain.  THREE
+                     importers of the one home package.
+  v171_c_homes.sv    package free fn / class IN-BODY method / class OUT-OF-BODY
+                     method / MODULE function (with the part-select family) /
+                     INTERFACE function, over 1..3 module instances.
+  v171_d_types.sv    unpacked-array, queue, dynamic-array, packed-struct,
+                     associative-array and CLASS-HANDLE returns in a clone.
+  v171_e_import.sv   WILDCARD import / EXPLICIT `import pkg::fn` / a two-hop
+                     import chain A->B->C / a wildcard importer that calls with
+                     the `pkg::` qualification / a MODULE-level wildcard import.
+
+TWO POSITIVE FINDINGS THE ARMS PRODUCED
+
+(a) THE SYMBOL-KEYED DISCRIMINATOR IS CORRECT, AND A TEXT TEST WOULD HAVE BEEN
+    WRONG.  v171_b_faces.sv's `f_shadow` declares `string f_shadow;` inside a
+    named begin and selects it.  Golden's own dump binds those references to
+       string_var (faces_home_171::f_shadow::sb171::f_shadow) @124:14
+    — the SHADOWING BLOCK LOCAL, not the home function's Return.  The patch
+    leaves them bare (OVER=0): site 2 reads the symbol off `recv` and sites 1/3/4
+    off `nv.symbol`, so the shadowing local never reaches the home-return bind.
+    A name-text implementation would have produced 3 AWAY-GOLDEN keys here.
+
+(b) THE TWO-HOP IMPORT CHAIN AND THE QUALIFIED-CALL IMPORTER BOTH BIND.
+    v171_e_import.sv: golden binds a_fn's select/receiver in impb_wild_171
+    (direct wildcard), impd_chain_171 (A->B->C) and impe_qual_171; the patch
+    binds all three.  Only the EXPLICIT-import clone is missed (residue R-V3).
+
+===============================================================================
+8. CODE REVIEW — the four sites, the gate, the drain
+===============================================================================
+* The collector `funcRetSelRefs171` is a POINTER whose only non-null assignment
+  is `pkgImportCloneEmit ? &pendingFuncRet[pfIdx].selRefs171 : nullptr`,
+  saved/restored around the body walk exactly like `funcRetRefs`.  Verified that
+  `emitTaskFuncs` is NEVER re-entered from inside a body walk (its only twelve
+  callers are scope-level: UhdmExporter.cpp:1912/6210, ParamEmit.cpp:20686/
+  20774/22843/22974/23199, ModuleEmit.cpp:1357/1379/14611/26736; TaskFuncEmit.cpp
+  holds only the definition) — so `&pendingFuncRet[pfIdx]` cannot dangle through
+  a reallocation, and the patch adds no new lifetime exposure.
+* `pkgImportCloneEmit` is ALSO true in `emitImportedPkgClassMethodClones`
+  (ParamEmit.cpp:23180), so a class-method clone DOES fill `selRefs171`.  It is
+  harmless: that path sets `pkgImportCloneRetVar = nullptr`, so `pf.bindVar` is
+  null, the drain's `pf.bindVar` branch is never entered and the collected
+  objects are dropped — which is what golden wants (arm v171_c_homes.sv: the
+  class in-body and out-of-body methods agree with golden, 0 OVER, both views).
+* `selRefs171` is appended at the END of `PendingFuncRet`, so the existing
+  11-element aggregate initialiser at TaskFuncEmit.cpp:6374 still lines up field
+  for field and `selRefs171` is value-initialised.  Checked field by field.
+* The pool is disjoint from `refs`, so the collected objects never reach
+  `drainFuncRet`'s per-reference local mint, nor `classRetNameRefs37`, nor
+  `retNameRefs56`.  That last one matters: `retNameNoBind56`'s law B UNBINDS any
+  return-name ref whose vpiParent is a `hier_path` (TypeEmit.cpp:7862) — exactly
+  the shape site 2 mints.  Because the receiver refs live in `selRefs171` they
+  escape that drop, which is what the measurement demands, and law B's own
+  population is untouched.
+* `!Actual_group()` in the drain makes the new loop incapable of overwriting an
+  earlier law's binding.
+
+===============================================================================
+9. RESIDUES the verification found (all pristine == patched; none is a
+   regression; ranked by how much of the law they leave on the table)
+===============================================================================
+R-V1  A CLONE BODY WITH NO **BARE** REFERENCE NEVER DRAINS.  `drainFuncRet`'s
+      loop head skips an entry on `pf.refs.empty()` before it can reach the
+      `pf.bindVar` branch, so `selRefs171` is dropped whenever the return name
+      is touched only in select/receiver position.  Golden BINDS there.
+      Measured: v171_a_selonly.sv, 8 keys UNDER — `so_bitonly` (3 bit_selects),
+      `so_partonly` (2 part_selects), `so_ipsonly` (2 indexed part_selects),
+      `so_recvonly` (1 receiver); and again in v171_b_faces.sv `f_readonly`
+      @73:21 and in v171_d_types.sv `t_arr` (4) and `t_assoc` (3).
+      Minimal shape of a fix: widen the guard to
+      `pf.refs.empty() && pf.selRefs171.empty()`.  Corpus-INVISIBLE at
+      3d549e59 (no such body in either corpus), so it is a residue, not a gate
+      failure.  16 keys total across the arms.
+
+R-V2  THE LEADING ELEMENT OF A **NON-BUILT-IN** hier_path ON THE RETURN NAME.
+      Site 2 fires only in the built-in-method arm and only for a ONE-NAME
+      receiver (`k74 == 0 && dots.size() == 1`).  Golden binds the leading
+      ref_obj of the OTHER hier_path shapes too:
+        v171_b_faces.sv  f_deep   @138:10  `f_deep.substr(0,3).len()`  (2-deep)
+        v171_d_types.sv  t_struct @37:14   `t_struct.hi = 8'h56;`      (member)
+        v171_d_types.sv  t_handle @55:14, @56:9, @56:40  (member + a USER
+                         method call on a class-handle return)
+      Corpus-invisible at 3d549e59.  6 keys.
+
+R-V3  THE EXPLICIT IMPORT CLONE.  The gate is `pkgImportCloneEmit`, i.e. the
+      WILDCARD clone.  v171_e_import.sv shows golden binding the same cells in
+      an `import impa_171::a_fn;` clone (`<package:impc_expl_171`, 2 copies x 3
+      spans = the 3 UNDER keys) where the patch leaves them bare.  The two-hop
+      chain and the qualified-call importer both already bind.  Corpus-invisible.
+
+R-V4  (informational, another pass's) `f_shadow`'s inner block-local selects:
+      golden binds them to the shadowing `string_var`, we leave them bare on
+      BOTH binaries.  § localBlockStmtSelBinds122's territory, not this law's.
+
+R-V5  (informational) v171_e_import.sv's own head after the law clears:
+      golden makes `func_call (a_fn)` + operation for `a_fn().len()`, we make a
+      `hier_path (a_fn().len)` whose leading `ref_obj` is literally named
+      `a_fn()`.  Present in the PRISTINE database too (21 occurrences on both
+      sides); the patch only UNMASKED it.  Proven pre-existing by an order-blind
+      dump diff of the two arms' databases: the ONLY difference is 36 added
+      `vpiActual`/`string_var` lines, 0 removed.
+
+R0 (unchanged from the implementer, INDEPENDENTLY CONFIRMED) — SeqDriver both
+   modes, 33 cmp lines / 1 head, the MIRROR overload `LHS: <null>`: our
+   `constant 32'h04c11db6 id:367` under `param_assign id:366`
+   (uvm_misc.svh:368, `parameter UVM_STR_CRC_POLYNOMIAL = 32'h04c11db6;`)
+   carrying `ref_typespec (uvm_pkg) -> int_typespec @368:1-368:48` where golden
+   lists nothing.
+
+INTEGRATOR NOTE (verified): MiniAmiq x2 are byte movers here whose HEAD does
+not move (106/1 -> 106/1, cmp text byte-identical).  r10uvm170 owns that head.
+Both passes write MiniAmiq bytes — integrate one at a time.

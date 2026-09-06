@@ -24899,6 +24899,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                          astRecv128[k74].second)
                                            : SourceRange(nmStart0,
                                                          nmStart0 + dn0.size()));
+                            // § retNameSelBindsHomeReturnInCloneOnly171 —
+                            // SITE 2 of 4, the METHOD-RECEIVER spelling
+                            // (`uvm_instance_scope.len()` @351:9 and
+                            // `uvm_instance_scope.substr(0,pos)` @357:24).
+                            // Only the FIRST element of a ONE-NAME receiver
+                            // can be the return name — a deeper receiver's
+                            // leading name is a handle or an array, never the
+                            // subroutine's own return value — so the symbol is
+                            // read off `recv` itself rather than off the name
+                            // TEXT `dn0`, which cannot tell a shadowing local
+                            // of the same spelling apart.  A no-op unless a
+                            // wildcard-import CLONE body is being walked.
+                            if (k74 == 0 && dots.size() == 1) {
+                                const Expression& rb171 =
+                                    stripImplicitConv(*recv);
+                                if (rb171.kind == ExpressionKind::NamedValue)
+                                    noteRetNameSelRef171(
+                                        &rb171.as<NamedValueExpression>().symbol,
+                                        r0);
+                            }
                             elems->push_back(r0);
                             nmStart0 = nmStart0 + dn0.size() + 1;
                         }
@@ -26381,6 +26401,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // funcRetRefs push site (openmsp430 one_hot16/one_hot8).
             else if (funcRetSym && &nv.symbol == funcRetSym && inLhs)
                 noteSelectObj(&nv.symbol, bs);
+            // § retNameSelBindsHomeReturnInCloneOnly171 — SITE 1 of 4, the
+            // SELECT spelling (`c = uvm_instance_scope[pos];` @352:26 and
+            // `c = uvm_instance_scope[--pos];` @354:28).  A no-op unless a
+            // wildcard-import CLONE body is being walked; the drain does the
+            // binding, so nothing here depends on the home return object
+            // existing yet.  Deliberately OUTSIDE the netMap if/else above:
+            // the return name is never in netMap, and this must fire whether
+            // or not the select is an lvalue (golden binds both of these RHS
+            // ones).  Law: include/UhdmExporter.h, `grep -n 171`.
+            noteRetNameSelRef171(&nv.symbol, bs);
             // Surelog anchors rvalue bit_selects at the index expression,
             // but lvalue ones span the whole select.
             // PARAM-INIT selects span the WHOLE select (func_upto's
@@ -27947,6 +27977,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 ips->VpiDefName(nv.symbol.name);
                 ips->VpiFullName(joinRef(prefix, nv.symbol.name));
                 ips->VpiParent(parent);
+                // § retNameSelBindsHomeReturnInCloneOnly171 — SITE 3 of 4.
+                // The INDEXED PART-SELECT spelling of the same law, placed
+                // immediately after the mint so every early return below it is
+                // covered.  Arm `g171_a_pos.sv` cell `pv_shape[kx +: 2]` @40:5
+                // is the golden that put it here: without this line the arm's
+                // clone listing was BARE where golden is BOUND, on the very
+                // same body whose bit_select two lines up had already moved.
+                noteRetNameSelRef171(&nv.symbol, ips);
                 // An indexed part-select write re-points whole refs only when
                 // the base is a net (module reg); local vars keep their binding.
                 if (auto nit = netMap.find(&nv.symbol);
@@ -28105,6 +28143,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             psel->VpiName(nv.symbol.name);
             psel->VpiDefName(nv.symbol.name);
             psel->VpiParent(parent);
+            // § retNameSelBindsHomeReturnInCloneOnly171 — SITE 4 of 4, the
+            // SIMPLE PART-SELECT (`pv_shape[7:4]` @39:5 of arm
+            // `g171_a_pos.sv`).  Same gate, same target, same placement rule
+            // as the indexed twin above.
+            noteRetNameSelRef171(&nv.symbol, psel);
             // Simple (constant) part-select writes do NOT re-point whole refs.
             // Fullname is frozen from the parent chain (matches Surelog's
             // lazily-computed values, incl. the doubled name under a

@@ -416,6 +416,15 @@ private:
         // `tsInst` — the value every typespec the subroutine mints already
         // takes — captured at PUSH time because the drain runs design-final.
         UHDM::instance* tsInst3 = nullptr;
+        // § retNameSelBindsHomeReturnInCloneOnly171 — the SELECT / METHOD-
+        // RECEIVER references to the return name, kept APART from `refs`.
+        // They take the clone's home-return binding and NOTHING else: they
+        // must never reach `drainFuncRet`'s per-reference local mint, nor the
+        // design-final unbind pools (`classRetNameRefs37`, `retNameRefs56`),
+        // both of which are keyed on `refs` and both of which golden's answer
+        // here contradicts.  Filled only while a wildcard-import CLONE body is
+        // being walked (see `funcRetSelRefs171`).
+        std::vector<UHDM::ref_obj*> selRefs171;
     };
 
     struct PendingParamTs {
@@ -7370,6 +7379,101 @@ private:
     std::vector<UHDM::ref_typespec*> pendingSignedCastTs;
     const slang::ast::Symbol* funcRetSym = nullptr;
     std::vector<UHDM::ref_obj*>* funcRetRefs = nullptr;
+    // § retNameSelBindsHomeReturnInCloneOnly171 (r10uvm171) — THE LAW.
+    //
+    // *IN A WILDCARD-IMPORT **CLONE** OF A PACKAGE'S FREE SUBROUTINE, A
+    // **SELECT** ON THE RETURN NAME (`uvm_instance_scope[pos]`) AND THE
+    // **METHOD-RECEIVER** SPELLING OF IT (`uvm_instance_scope.len()`,
+    // `uvm_instance_scope.substr(0,pos)`) BIND THE **HOME** FUNCTION'S OWN
+    // `Return` VARIABLE — THE SAME OBJECT A BARE REFERENCE THERE ALREADY
+    // BINDS.  AT HOME (THE DECLARING PACKAGE'S OWN VIEWS) AND IN A CLASS
+    // METHOD ANYWHERE, BOTH POSITIONS STAY **BARE**.*
+    //
+    // THE HEAD.  SeqDriver, BOTH MODES, 27 cmp lines / 1 head at 3d549e59:
+    //   LHS  string_var (uvm_pkg::uvm_instance_scope) @340:10-340:16
+    //   RHS  <null>
+    // BaseClass.h's SINGULAR `SafeCompare` naming a VALUE (RESUME §9).  The
+    // owner-finder (`tools/probe/r10uvm171repro/ct171own.cpp`, r10uvm161's
+    // form) names the failing edges outright — `vpiActual` (relation 700) of
+    //   bit_select @352:26  `c = uvm_instance_scope[pos];`
+    //   bit_select @354:28  `c = uvm_instance_scope[--pos];`
+    //   ref_obj    @351:9   `pos = uvm_instance_scope.len()-1;`
+    //   ref_obj    @357:24  `uvm_instance_scope = uvm_instance_scope.substr(0,pos);`
+    // (uvm-1.2 src/base/uvm_misc.svh:340-357) — and shows the `Return` edge
+    // (relation 666) itself AGREEING on both sides: the head is a BINDING, not
+    // a missing return variable and not a declaration listing.
+    //
+    // THE GOLDEN GRID (`ct171list.cpp`, SeqDriver, every copy of every
+    // return-name select in the database, 30 rows a side):
+    //   home                                            golden   ours(pristine)
+    //   <function:uvm_instance_scope <package:uvm_pkg     BARE       BARE   (x2 spans x2 copies)
+    //   <function:uvm_instance_scope <package:adpcm_pkg   BOUND      BARE   (x4 spans x2 copies)  <- the law
+    //   <function:… <class_defn:… <package:uvm_pkg        BARE       BARE   (12 rows: uvm_packer::
+    //                                                                        unpack_field/_int/_string,
+    //                                                                        uvm_mem_mam::reserve_region/
+    //                                                                        convert2string, uvm_vreg::
+    //                                                                        allocate/convert2string,
+    //                                                                        uvm_report_catcher::
+    //                                                                        get_report_catcher,
+    //                                                                        uvm_report_message::
+    //                                                                        new_report_message)
+    // The DECLARING package's own views keep both positions BARE and the class
+    // methods keep them BARE — so the law is CLONE-ONLY on both axes, and the
+    // twelve class rows are its negative control inside the very same
+    // database.
+    //
+    // SURELOG.  The clone is a SECOND COMPILE of the same body in the
+    // importing package's scope, and by then the subroutine's return variable
+    // is in the listing the name resolver reads: `CompileHelper::bindVariable`
+    // (CompileStmt.cpp:3089) answers a name out of the enclosing scope's
+    // `Variables()`, and a function's `Return` variable IS listed there (the
+    // golden dump prints `string_var (uvm_pkg::uvm_instance_scope)` under the
+    // function's `vpiVariables` beside `c` and `pos`).  At home the body was
+    // compiled before that listing existed, so the same two positions stay
+    // bare; `UhdmWriter::lateBinding` (UhdmWriter.cpp:3294-3383) cannot rescue
+    // them either, because its `uhdmfunction` arm tests
+    // `parent->VpiName() == name` FIRST and `break`s — the same `break` that
+    // § `tfItemBodyLocal148` already cites for the bare-reference half.
+    //
+    // WHY IT IS THE **SAME** OBJECT.  Golden binds all nine references in the
+    // clone body — the four here and the five bare ones (@346:6, @347:12,
+    // @349:11, @356:76, @357:3) — to ONE `string_var`, the HOME function's
+    // `Return`.  We already bind the five (`drainFuncRet`'s `pf.bindVar` /
+    // `rv9` branch, r10evfn 1's law); this law hands the other four the SAME
+    // target and mints nothing.
+    //
+    // THE FOUR SITES, and why they are the only four: the population is
+    // "reference to the return name that is NOT a plain `ref_obj`", and in
+    // this emitter exactly four arms build one — the `ElementSelect` arm's
+    // `bit_select`, the built-in method arm's leading path element (the `dots`
+    // loop that mints one `ref_obj` per receiver name), and the two
+    // `RangeSelect` arms (`indexed_part_select` and `part_select`).  All four
+    // are gated on `funcRetSelRefs171 != nullptr`, which is non-null ONLY
+    // while a wildcard-import clone body is walked, so every other body in the
+    // corpus emits byte-identically.
+    //
+    // THE PART-SELECT PAIR WAS MEASURED, NOT ASSUMED.  The first cut had only
+    // the first two sites and the grid arm `g171_a_pos.sv` convicted it:
+    // `pv_shape[7:4]` @39:5 and `pv_shape[kx +: 2]` @40:5 read golden-BOUND /
+    // patched-BARE on the same body whose `bit_select` two lines up had
+    // already moved.  They move no CORPUS cell — every return-name
+    // `part_select`/`indexed_part_select` in either corpus (50 rows surelog,
+    // 12 u2r) lives in a MODULE function, which the clone gate excludes by
+    // construction.
+    //
+    // NOT THIS LAW: the DECLARING package's own DEF or elaborated view (golden
+    // BARE — the four `<package:uvm_pkg` rows above); a CLASS method's return
+    // name in either position (golden BARE — the twelve class rows); a select
+    // on an ORDINARY local or formal (already bound on both sides, and never
+    // routed here); and the bare-reference positions, which are `refs`' and
+    // keep every design-final law that pool carries.
+    std::vector<UHDM::ref_obj*>* funcRetSelRefs171 = nullptr;
+    void noteRetNameSelRef171(const slang::ast::Symbol* sym,
+                              UHDM::ref_obj* r) {
+        if (!funcRetSelRefs171 || !funcRetSym || !r || sym != funcRetSym)
+            return;
+        funcRetSelRefs171->push_back(r);
+    }
     // In shared processes, only call-argument refs count for var typespec
     // reparenting (Surelog computes arg types; plain refs don't touch ts).
     bool inProcessEmit = false;

@@ -1,0 +1,45 @@
+# r10uvm171 — the pristine-vs-golden candidate census (MEASUREMENT ONLY).
+# ct171list per row over the PRISTINE control workdirs at 3d549e59, joined by score171.py.
+# Key: (line:col, kind, BOUND|BARE); the home chain is evidence, never a key.
+
+## surelog corpus, both modes
+MiniAmiq-544c7f61                              agree=27    TO-GOLDEN=8    AWAY=0    OTHER=2
+      TO-GOLDEN   351:9   ref_obj              golden B=2 b=2 | ours B=0 b=4
+      TO-GOLDEN   352:26  bit_select           golden B=2 b=2 | ours B=0 b=4
+      TO-GOLDEN   354:28  bit_select           golden B=2 b=2 | ours B=0 b=4
+      TO-GOLDEN   357:24  ref_obj              golden B=2 b=2 | ours B=0 b=4
+SeqDriver-32af76aa                             agree=21    TO-GOLDEN=8    AWAY=0    OTHER=2
+      TO-GOLDEN   351:9   ref_obj              golden B=2 b=2 | ours B=0 b=4
+      TO-GOLDEN   352:26  bit_select           golden B=2 b=2 | ours B=0 b=4
+      TO-GOLDEN   354:28  bit_select           golden B=2 b=2 | ours B=0 b=4
+      TO-GOLDEN   357:24  ref_obj              golden B=2 b=2 | ours B=0 b=4
+MiniAmiq-544c7f61                              agree=27    TO-GOLDEN=8    AWAY=0    OTHER=2
+      TO-GOLDEN   351:9   ref_obj              golden B=2 b=2 | ours B=0 b=4
+      TO-GOLDEN   352:26  bit_select           golden B=2 b=2 | ours B=0 b=4
+      TO-GOLDEN   354:28  bit_select           golden B=2 b=2 | ours B=0 b=4
+      TO-GOLDEN   357:24  ref_obj              golden B=2 b=2 | ours B=0 b=4
+SeqDriver-32af76aa                             agree=21    TO-GOLDEN=8    AWAY=0    OTHER=2
+      TO-GOLDEN   351:9   ref_obj              golden B=2 b=2 | ours B=0 b=4
+      TO-GOLDEN   352:26  bit_select           golden B=2 b=2 | ours B=0 b=4
+      TO-GOLDEN   354:28  bit_select           golden B=2 b=2 | ours B=0 b=4
+      TO-GOLDEN   357:24  ref_obj              golden B=2 b=2 | ours B=0 b=4
+TOTAL rows=35 agree=337 TO-GOLDEN=32 AWAY=0 OTHER=14
+
+## uhdm2rtlil, default
+TOTAL rows=17 agree=666 TO-GOLDEN=0 AWAY=0 OTHER=0
+## uhdm2rtlil, testflags
+TOTAL rows=17 agree=666 TO-GOLDEN=0 AWAY=0 OTHER=0
+
+## scan coverage (a scan that reaches nothing must never read as no-candidates)
+-- rows=1573 SKIP=617 WITH-CANDIDATES=35
+-- rows=731 SKIP=52 WITH-CANDIDATES=17
+-- rows=731 SKIP=52 WITH-CANDIDATES=17
+
+## POST-PATCH — the SAME scan over the PATCHED surelog sweep
+TOTAL rows=35 agree=369 TO-GOLDEN=0 AWAY=0 OTHER=14
+   (surelog, both modes: agree 337 -> 369, i.e. EXACTLY the 32 predicted cells
+    moved; TO-GOLDEN 0 and AWAY 0 after, MOVED-WRONG 0.  The 14 OTHER cells are
+    span residues belonging to other passes and are untouched: 1022:41 vs
+    1030:18 and 120:33 in uvm_vreg::allocate, BARE on both sides before and
+    after.)
+-- rows=1573 SKIP=617 WITH-CANDIDATES=35

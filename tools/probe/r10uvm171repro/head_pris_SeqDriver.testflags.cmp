@@ -1,0 +1,27 @@
+LHS:
+decompile:
+string_var: (uvm_pkg::uvm_instance_scope), id:2425, line:340:10, endln:340:16
+|vpiParent:
+\_function: (uvm_pkg::uvm_instance_scope), id:445, line:340:1, endln:358:12
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_instance_scope), id:2426
+  |vpiParent:
+  \_string_var: (uvm_pkg::uvm_instance_scope), id:2425, line:340:10, endln:340:16
+  |vpiFullName:uvm_pkg::uvm_instance_scope
+  |vpiActual:
+  \_string_typespec: , id:2424, line:340:10, endln:340:16
+|vpiFullName:uvm_pkg::uvm_instance_scope
+
+decompile:
+string_var: (uvm_pkg::uvm_instance_scope), id:2425, line:340:10, endln:340:16
+|vpiParent:
+\_function: (uvm_pkg::uvm_instance_scope), id:445, line:340:1, endln:358:12
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_instance_scope), id:2426
+  |vpiParent:
+  \_string_var: (uvm_pkg::uvm_instance_scope), id:2425, line:340:10, endln:340:16
+  |vpiFullName:uvm_pkg::uvm_instance_scope
+  |vpiActual:
+  \_string_typespec: , id:2424, line:340:10, endln:340:16
+|vpiFullName:uvm_pkg::uvm_instance_scope
+RHS: <null>

@@ -6381,6 +6381,16 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         auto* savedRefs = funcRetRefs;
         funcRetSym = sub.returnValVar;
         funcRetRefs = &pendingFuncRet[pfIdx].refs;
+        // § retNameSelBindsHomeReturnInCloneOnly171 — the collector is armed
+        // for a WILDCARD-IMPORT CLONE body and for nothing else.  The gate is
+        // the pointer itself, so every home-package and class body walks with
+        // it null and cannot push a single object: that is what makes the
+        // four mint sites incapable of moving a cell outside the clone views.
+        // Its lifetime is exactly `funcRetRefs`' — same entry, same save and
+        // restore around the body walk.
+        auto* savedSelRefs171 = funcRetSelRefs171;
+        funcRetSelRefs171 =
+            pkgImportCloneEmit ? &pendingFuncRet[pfIdx].selRefs171 : nullptr;
         auto* savedTf = currentTf;
         currentTf = tf;
         auto* savedSubSym = currentSubSym;
@@ -6657,6 +6667,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         currentSubSym = savedSubSym;
         funcRetSym = savedSym;
         funcRetRefs = savedRefs;
+        funcRetSelRefs171 = savedSelRefs171;
 
         if (info)
             info->taskFuncs.push_back(tf);

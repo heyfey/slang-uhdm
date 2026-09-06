@@ -1,0 +1,41 @@
+# r10uvm171 — GRID (grid171.sh; Surelog golden + BOTH binaries, BOTH views).
+# Scored as DIFF-LINES between each binary's ct171pred listing and GOLDEN's.
+# The DEF and ELAB listings are kept in SEPARATE files and never merged
+# (r10uvm166 §6 / r10v169's listcheck law).
+
+ARM        VIEW  CELLS  PRISTINE-vs-GOLDEN   PATCHED-vs-GOLDEN
+a_pos      def   29     28                   0
+a_pos      elab  64     0                    0
+b_homes    def   22     12                   0
+b_homes    elab  46     0                    0
+c_shapes   def   89     88                   0
+c_shapes   elab  199    0                    0
+
+(CELLS counts include ct171pred's trailing CAND= line, so the candidate counts
+are 28 / 63, 21 / 45 and 88 / 198.)
+
+THE OFFICIAL JUDGE ON THE SAME ARMS (uhdm-cmp, pristine -> patched, cmp lines):
+
+  g171_a_pos.sv     def   27 -> 0   TOWARD-GOLDEN, heads 1 -> 0   (CMP_EQUAL)
+  g171_a_pos.sv     elab   0 -> 0   SAME
+  g171_c_shapes.sv  def   27 -> 0   TOWARD-GOLDEN, heads 1 -> 0   (CMP_EQUAL)
+  g171_c_shapes.sv  elab   0 -> 0   SAME
+  g171_b_homes.sv   def   31 -> 31  SAME, head UNMOVED
+  g171_b_homes.sv   elab  31 -> 31  SAME, head UNMOVED
+
+  b_homes' residual head is a PRE-EXISTING, unrelated defect on the OUT-OF-BODY
+  class method (`bit_select (home_src_171::OutBody171::mth_out::mth_out)`
+  @34:5) — the very construct Surelog itself refuses:
+
+    [ERR:UH0725] g171_b_homes.sv:33:10: Unresolved hierarchical reference
+                 "mth_out.len".
+
+  Surelog's ELAB run of that arm exits rc=4 for it and still writes the
+  database, so the arm's 45 golden cells are real and are scored.  Recorded,
+  not hidden.  Every other command in every arm is rc=0.
+
+WHAT THE GRID CHANGED IN THE LAW.  g171_a_pos.sv's FIRST run scored the
+patched binary at 8 diff-lines, not 0: `pv_shape[7:4]` @39:5 (part_select) and
+`pv_shape[kx +: 2]` @40:5 (indexed_part_select) were golden-BOUND and
+patched-BARE while the bit_select two lines above them had already moved.
+Sites 3 and 4 exist because the arm convicted the first cut.

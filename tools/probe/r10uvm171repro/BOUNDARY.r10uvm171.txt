@@ -1,0 +1,77 @@
+# r10uvm171 — THE BOUNDARY GATE (bound171.sh over a COPY of the whole probe tree).
+# Compiles EVERY .sv/.v, top level AND SUBDIRECTORIES, in BOTH views, with the
+# pristine and the patched binary; children get </dev/null, the file list is read
+# on fd 3, PROCESSED is asserted against LISTED, scratch is keyed on the RELATIVE
+# path.  This pass's own g171_*.sv are the POSITIVE CONTROL.
+
+LISTED=4780 PROCESSED=4780 PRODUCED_DBS=4623 MOVED_ARMS=12 RC_DIFFS=0
+
+MOVED ARMS (12):
+r10uvm123repro/g123_c_otherpkg.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm125repro/g125_a_dirs.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm171repro/g171_a_pos.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10uvm171repro/g171_b_homes.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10uvm171repro/g171_c_shapes.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10uvm31repro/t41b/dut.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm36repro/t48a/dut.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm42repro/t59a/dut.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v123repro/v123_b_bounds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v123repro/v123_c_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v123repro/v123_e_spelling.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v125repro/arms/v2_faces.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+THE 3 OWN ARMS — the positive control, scored by the OFFICIAL uhdm-cmp:
+  g171_a_pos.sv     def   27 -> 0  TOWARD-GOLDEN (heads 1 -> 0)
+  g171_a_pos.sv     elab   0 -> 0  SAME
+  g171_c_shapes.sv  def   27 -> 0  TOWARD-GOLDEN (heads 1 -> 0)
+  g171_c_shapes.sv  elab   0 -> 0  SAME
+  g171_b_homes.sv   def   31 -> 31 SAME (pre-existing out-of-body head, unmoved)
+  g171_b_homes.sv   elab  31 -> 31 SAME
+
+THE 9 PRE-EXISTING ARMS — ORDER-ONLY, content identical, cmp identical:
+  uhdm-dump path-normalised diff, sorted (added / removed) per view:
+ARM                                        VIEW   ADDED  REMOVED
+r10uvm123repro/g123_c_otherpkg.sv          def        0        0
+r10uvm123repro/g123_c_otherpkg.sv          elab       0        0
+r10uvm125repro/g125_a_dirs.sv              def        0        0
+r10uvm125repro/g125_a_dirs.sv              elab       0        0
+r10uvm31repro/t41b/dut.sv                  def        0        0
+r10uvm31repro/t41b/dut.sv                  elab       0        0
+r10uvm36repro/t48a/dut.sv                  def        0        0
+r10uvm36repro/t48a/dut.sv                  elab       0        0
+r10uvm42repro/t59a/dut.sv                  def        0        0
+r10uvm42repro/t59a/dut.sv                  elab       0        0
+r10v123repro/v123_b_bounds.sv              def        0        0
+r10v123repro/v123_b_bounds.sv              elab       0        0
+r10v123repro/v123_c_kinds.sv               def        0        0
+r10v123repro/v123_c_kinds.sv               elab       0        0
+r10v123repro/v123_e_spelling.sv            def        0        0
+r10v123repro/v123_e_spelling.sv            elab       0        0
+r10v125repro/arms/v2_faces.sv              def        0        0
+r10v125repro/arms/v2_faces.sv              elab       0        0
+
+  and the OFFICIAL uhdm-cmp on each of them, pristine vs patched:
+r10uvm123repro/g123_c_otherpkg.sv          def        112      112 SAME (heads 1->1)
+r10uvm123repro/g123_c_otherpkg.sv          elab       112      112 SAME (heads 1->1)
+r10uvm125repro/g125_a_dirs.sv              def          0        0 SAME (heads 0->0)
+r10uvm125repro/g125_a_dirs.sv              elab         0        0 SAME (heads 0->0)
+r10uvm31repro/t41b/dut.sv                  def        124      124 SAME (heads 1->1)
+r10uvm31repro/t41b/dut.sv                  elab       124      124 SAME (heads 1->1)
+r10uvm36repro/t48a/dut.sv                  def          0        0 SAME (heads 0->0)
+r10uvm36repro/t48a/dut.sv                  elab         0        0 SAME (heads 0->0)
+r10uvm42repro/t59a/dut.sv                  def       1239     1239 SAME (heads 1->1)
+r10uvm42repro/t59a/dut.sv                  elab      1705     1705 SAME (heads 1->1)
+r10v123repro/v123_b_bounds.sv              def         33       33 SAME (heads 1->1)
+r10v123repro/v123_b_bounds.sv              elab       112      112 SAME (heads 1->1)
+r10v123repro/v123_c_kinds.sv               def       5804     5804 SAME (heads 1->1)
+r10v123repro/v123_c_kinds.sv               elab      6462     6462 SAME (heads 1->1)
+r10v123repro/v123_e_spelling.sv            def       1130     1130 SAME (heads 1->1)
+r10v123repro/v123_e_spelling.sv            elab      1218     1218 SAME (heads 1->1)
+r10v125repro/arms/v2_faces.sv              def          0        0 SAME (heads 0->0)
+r10v125repro/arms/v2_faces.sv              elab         0        0 SAME (heads 0->0)
+
+  Every one SAME: same cmp line count, same head count, byte-identical cmp text.
+  On the smallest (r10uvm125repro/g125_a_dirs.sv) the whole RAW difference is one
+  `bit_typespec (wide_t)` block of 13 lines changing position at line 1897 of 1935,
+  inside the `\_weaklyReferenced:` tail that begins at line 1799 — unreachable to
+  the judge (RESUME §9).
