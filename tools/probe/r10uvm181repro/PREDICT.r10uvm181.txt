@@ -1,0 +1,24 @@
+r10uvm181 — MOVER PREDICTION from PRISTINE databases, made BEFORE the patched sweep.
+MEASUREMENT ONLY.  Only the counts and the MOVER lines are recorded here: the
+per-database raw log names every row in the corpus and is scratch by policy.
+
+==== surelog corpus (956 databases)
+LISTED=956 PROCESSED=956
+PROCESSED-ASSERT-OK
+NO_DB (rows with no slang.uhdm to read, fenced rows among them)=617
+MOVERS=9
+default/BuildUVMPkg-bf853d43 PREDICT loopvar=0 blockvar=24 bodies=10 MOVER
+default/MiniAmiq-544c7f61 PREDICT loopvar=63 blockvar=97 bodies=18 MOVER
+default/Scoreboard-59431470 PREDICT loopvar=0 blockvar=33 bodies=8 MOVER
+default/SeqDriver-32af76aa PREDICT loopvar=63 blockvar=97 bodies=18 MOVER
+default/SimpleUVM-1dc93a62 PREDICT loopvar=0 blockvar=33 bodies=8 MOVER
+testflags/BuildUVMPkg-bf853d43 PREDICT loopvar=0 blockvar=24 bodies=10 MOVER
+testflags/MiniAmiq-544c7f61 PREDICT loopvar=63 blockvar=97 bodies=18 MOVER
+testflags/SeqDriver-32af76aa PREDICT loopvar=63 blockvar=97 bodies=18 MOVER
+testflags/SimpleUVM-1dc93a62 PREDICT loopvar=0 blockvar=33 bodies=8 MOVER
+
+==== uhdm2rtlil corpus (1358 databases)
+LISTED=1358 PROCESSED=1358
+PROCESSED-ASSERT-OK
+NO_DB (rows with no slang.uhdm to read, fenced rows among them)=104
+MOVERS=0

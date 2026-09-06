@@ -1,0 +1,63 @@
+r10v181 — THE ADVERSARIAL GOLDEN GRID.  MEASUREMENT ONLY; uhdm-cmp judges.
+Every arm built as GOLDEN (Surelog, def AND elab) plus BOTH frozen binaries,
+scored three-way by the implementer's score181.py (multiset, per-occurrence).
+
+==== a_use
+SCORE a_use TOGOLD=13 AWAY=0 MOVED-WRONG=0 STILL-WRONG=40 AGREE-BOTH=111 CARD-DIFF=6 ONLY-GOLDEN=1 KEY-GAP-pris=0 KEY-GAP-pat=0 faces=165 | OCCURRENCES right 838 -> 864 REGRESSION-CELLS=0 GAIN-CELLS=13
+==== b_prefix
+SCORE b_prefix TOGOLD=16 AWAY=0 MOVED-WRONG=0 STILL-WRONG=4 AGREE-BOTH=273 CARD-DIFF=4 ONLY-GOLDEN=0 KEY-GAP-pris=2 KEY-GAP-pat=2 faces=295 | OCCURRENCES right 1166 -> 1212 REGRESSION-CELLS=0 GAIN-CELLS=16
+==== c_homes
+SCORE c_homes TOGOLD=30 AWAY=0 MOVED-WRONG=0 STILL-WRONG=168 AGREE-BOTH=120 CARD-DIFF=29 ONLY-GOLDEN=0 KEY-GAP-pris=3 KEY-GAP-pat=3 faces=321 | OCCURRENCES right 834 -> 894 REGRESSION-CELLS=0 GAIN-CELLS=30
+==== g_scopes
+SCORE g_scopes TOGOLD=8 AWAY=0 MOVED-WRONG=0 STILL-WRONG=26 AGREE-BOTH=96 CARD-DIFF=10 ONLY-GOLDEN=0 KEY-GAP-pris=0 KEY-GAP-pat=0 faces=130 | OCCURRENCES right 696 -> 714 REGRESSION-CELLS=0 GAIN-CELLS=8
+==== h_nofe
+SCORE h_nofe TOGOLD=6 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 AGREE-BOTH=170 CARD-DIFF=0 ONLY-GOLDEN=0 KEY-GAP-pris=0 KEY-GAP-pat=0 faces=176 | OCCURRENCES right 705 -> 723 REGRESSION-CELLS=0 GAIN-CELLS=6
+==== e_idx
+SCORE e_idx TOGOLD=1 AWAY=0 MOVED-WRONG=0 STILL-WRONG=1 AGREE-BOTH=23 CARD-DIFF=1 ONLY-GOLDEN=0 KEY-GAP-pris=1 KEY-GAP-pat=1 faces=26 | OCCURRENCES right 94 -> 96 REGRESSION-CELLS=0 GAIN-CELLS=1
+==== f_mix
+SCORE f_mix TOGOLD=2 AWAY=0 MOVED-WRONG=0 STILL-WRONG=1 AGREE-BOTH=34 CARD-DIFF=1 ONLY-GOLDEN=0 KEY-GAP-pris=1 KEY-GAP-pat=1 faces=38 | OCCURRENCES right 138 -> 144 REGRESSION-CELLS=0 GAIN-CELLS=2
+
+AWAY=0 and REGRESSION-CELLS=0 in ALL SEVEN.  MOVED-WRONG=0 in all seven
+(the implementer's arm B keeps its documented never-right shadowing cell).
+
+THE IMPLEMENTER'S OWN FOUR ARMS, REBUILT AND RESCORED HERE:
+  a_kinds      TOGOLD=21 AWAY=0 MOVED-WRONG=0 REGRESSION-CELLS=0  right 831 -> 877
+  b_dims       TOGOLD=19 AWAY=0 MOVED-WRONG=1 REGRESSION-CELLS=0  right 594 -> 632
+  c_home       TOGOLD=6  AWAY=0 MOVED-WRONG=0 REGRESSION-CELLS=0  right 300 -> 312
+  d_negatives  TOGOLD=4  AWAY=0 MOVED-WRONG=0 REGRESSION-CELLS=0  right 706 -> 714
+  — TOGOLD 21/19/6/4 and the 831->877 / 594->632 occurrence counts are the
+    implementer's reported figures, reproduced exactly.
+
+THE JUDGE ON THE TWO MINIMAL ARMS (no earlier head to mask them):
+  v181_e_idxbase.sv  pristine def 29 cmp lines / 1 head   patched def 0 lines / EQUAL
+  v181_f_mixed.sv    pristine def 29 cmp lines / 1 head   patched def 0 lines / EQUAL
+  both elab views EQUAL on both binaries.
+  Two whole designs cross from CMP_NOTEQUAL to CMP_EQUAL on this law alone.
+
+WHICH SCOPES MOVED (census rows differing between the two binaries):
+  v181_a_use.sv    52 rows, ALL in thurible_imp   (the clone)
+  v181_b_prefix.sv 92 rows, ALL in baldric_imp    (the clone)
+  v181_c_homes.sv 120 rows, 60 in caravel_impone + 60 in caravel_imptwo
+                  caravel_home (the HOME listing), caravel_impexp (an EXPLICIT
+                  import) and MOD:caravel_mod (a module that wildcard-imports,
+                  instantiated x3) are BYTE-IDENTICAL between the two binaries.
+
+THE NEGATIVES THAT HELD (golden BARE, both binaries BARE, in the clone):
+  ref_obj:rerebrace_prop      a class-property method-call PREFIX
+  ref_obj:baldric_pkghandle   a package-variable method-call PREFIX
+  ref_obj:besagew             a member of a CLASS-scope struct typedef (LAW-PCB)
+  ref_obj:rerebrace_pkgtyped  a class PROPERTY of package-scope struct type
+  bit_select:rerebrace_structarr  a class PROPERTY array indexed by the loop var
+  ref_obj:poleyn              the middle element of a three-deep package path
+  this. / the implicit return name / a class property reached bare
+
+THE SHADOWING CELLS (v181_g_scopes.sv, clone, DEF view) — golden and BOTH binaries:
+  scarp@31:7  -> int_var:scarp@29:11   (the foreach block's own)
+  scarp@34:9  -> int_var:scarp@33:13   (begin : ravelin's own)
+  scarp@35:25 -> int_var:scarp@33:13
+  scarp@39:24 -> int_var:scarp@29:11   (begin : demilune has no scarp: the outer)
+  scarp@48:9  -> int_var:scarp@47:13   (begin : hornwork's own)
+  scarp@49:25 -> int_var:scarp@47:13
+  and what MOVED there is the block-local ARRAY as the foreach's array
+  (ref_var:glacis, bit_select:glacis -> array_var:glacis@30:11) and the nested
+  loop variable embrasure — both BARE -> golden's answer.

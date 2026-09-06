@@ -1,0 +1,35 @@
+r10uvm181 — CENSUS (ct181cen, golden vs ours; multiset join over every reference)
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog), RHS is ALWAYS ours.
+
+==== SeqDriver / default
+-- PRISTINE
+BUCKET                     MISS    EXTRA BINDWRONG       OK   ONLY-G   ONLY-O
+EMPTYTF|LOOPVAR              63        0         0       99       23       23
+EMPTYTF|OTHER                80        0        39     2961      330      332
+HASLOCALS|LOOPVAR           287        6         4     2966      420      420
+HASLOCALS|OTHER              63       55       531    65304     4193     4168
+TOTAL MISS=493 EXTRA=61 BINDWRONG=574
+-- PATCHED
+BUCKET                     MISS    EXTRA BINDWRONG       OK   ONLY-G   ONLY-O
+EMPTYTF|LOOPVAR              23        0         0      139       23       23
+EMPTYTF|OTHER                 0        0        39     3041      330      332
+HASLOCALS|LOOPVAR           287        6         4     2966      420      420
+HASLOCALS|OTHER              63       55       531    65304     4193     4168
+TOTAL MISS=373 EXTRA=61 BINDWRONG=574
+
+==== MiniAmiq / default
+-- PRISTINE
+BUCKET                     MISS    EXTRA BINDWRONG       OK   ONLY-G   ONLY-O
+EMPTYTF|LOOPVAR              63        0         0      111       23       23
+EMPTYTF|OTHER                80        0         0     3193      332      334
+HASLOCALS|LOOPVAR           287        6         4     3219      441      422
+HASLOCALS|OTHER              82       70       132    67326     4282     4275
+TOTAL MISS=512 EXTRA=76 BINDWRONG=136
+-- PATCHED
+BUCKET                     MISS    EXTRA BINDWRONG       OK   ONLY-G   ONLY-O
+EMPTYTF|LOOPVAR              23        0         0      151       23       23
+EMPTYTF|OTHER                 0        0         0     3273      332      334
+HASLOCALS|LOOPVAR           287        6         4     3219      441      422
+HASLOCALS|OTHER              82       70       132    67326     4282     4275
+TOTAL MISS=392 EXTRA=76 BINDWRONG=136
+

@@ -1,0 +1,50 @@
+r10v181 — the WIDE BOUNDARY, run by the ADVERSARIAL VERIFIER on its own binaries.
+ROOT = a copy of the whole of tools/probe INCLUDING this directory's arms.
+PRI = pristine e2190dd4 (md5 0ce904c202e59398919f9f5e423a5167)
+PAT = patched          (md5 571c08c5990c3654d23a2f8b0c3bea44)
+
+MOVED 0053_r10buvm19repro_grid19.sv/def 72 lines
+MOVED 2497_r10uvm181repro_g181_a_kinds.sv/def 84 lines
+MOVED 2497_r10uvm181repro_g181_a_kinds.sv/elab 24 lines
+MOVED 2498_r10uvm181repro_g181_b_dims.sv/def 80 lines
+MOVED 2499_r10uvm181repro_g181_c_home.sv/def 24 lines
+MOVED 2500_r10uvm181repro_g181_d_negatives.sv/def 16 lines
+MOVED 2506_r10uvm21repro_t32d_t.sv/def 40 lines
+MOVED 3744_r10v171repro_v171_b_faces.sv/def 36 lines
+MOVED 3744_r10v171repro_v171_b_faces.sv/elab 26 lines
+MOVED 3811_r10v181repro_v181_a_use.sv/def 52 lines
+MOVED 3812_r10v181repro_v181_b_prefix.sv/def 64 lines
+MOVED 3812_r10v181repro_v181_b_prefix.sv/elab 88 lines
+MOVED 3813_r10v181repro_v181_c_homes.sv/def 120 lines
+MOVED 3814_r10v181repro_v181_e_idxbase.sv/def 4 lines
+MOVED 3815_r10v181repro_v181_f_mixed.sv/def 8 lines
+MOVED 3815_r10v181repro_v181_f_mixed.sv/elab 4 lines
+MOVED 4112_r10vbuvm19repro_vg19c.sv/def 16 lines
+LISTED=4972 FENCED_SKIPPED=0 PROCESSED=4972 MOVED=17 NO_OUTPUT_PAIRS=380
+PROCESSED-ASSERT-OK
+
+The last two arms of this directory were written after the ROOT snapshot and
+were swept separately (their own LISTED=2 PROCESSED=2 run):
+MOVED 0001_v181_g_scopes.sv/def 32 lines
+MOVED 0001_v181_g_scopes.sv/elab 8 lines
+MOVED 0002_v181_h_nofe.sv/def 24 lines
+MOVED 0002_v181_h_nofe.sv/elab 274 lines
+LISTED=2 FENCED_SKIPPED=0 PROCESSED=2 MOVED=4 NO_OUTPUT_PAIRS=0
+PROCESSED-ASSERT-OK
+
+No ASYMMETRIC_OUTPUT anywhere: the 380 NO_OUTPUT_PAIRS are arms on which BOTH
+binaries decline or segfault identically.
+
+READ THE LINE COUNTS WITH CARE — a dump-based boundary OVER-reports this law.
+v181_h_nofe.sv/elab is the worked example: the patched dump is 234 lines SHORTER
+(9488 -> 9254) and yet the two databases hold the SAME OBJECTS, kind for kind:
+  P TOTAL=1546   Q TOTAL=1546   every per-kind count equal
+uhdm-dump is a TREE walk; once a vpiActual edge is filled the walker reaches an
+already-visited node and prints the short form instead of re-expanding the
+subtree, so filling edges can SHRINK the dump.  Object-population equality is
+the structural statement, and it holds on EVERY arm and EVERY corpus mover:
+  arms: a_use, b_prefix, c_homes, e_idxbase, f_mixed, g_scopes, h_nofe — def and
+        elab, OBJECT-POPULATION-IDENTICAL (1166/2055, 1447/2515, 1343/2564,
+        280/420, 359/550, 1004/1747, 1546/1546)
+  corpus: SeqDriver 299429/299441, MiniAmiq 310097, Scoreboard 183926 — identical.
+This law fills edges.  It mints nothing and it drops nothing.

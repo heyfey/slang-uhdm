@@ -1,0 +1,29 @@
+LHS:
+decompile:
+ref_var: (uvm_pkg::uvm_table_printer::calculate_max_widths::j), id:8259, line:1018:19, endln:1018:20
+|vpiParent:
+\_foreach_stmt: (uvm_pkg::uvm_table_printer::calculate_max_widths), id:8255, line:1018:4, endln:1018:11
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_table_printer::calculate_max_widths::j), id:8261
+  |vpiParent:
+  \_ref_var: (uvm_pkg::uvm_table_printer::calculate_max_widths::j), id:8259, line:1018:19, endln:1018:20
+  |vpiFullName:uvm_pkg::uvm_table_printer::calculate_max_widths::j
+  |vpiActual:
+  \_array_typespec: , id:323113
+|vpiName:j
+|vpiFullName:uvm_pkg::uvm_table_printer::calculate_max_widths::j
+
+decompile:
+ref_var: (uvm_pkg::uvm_table_printer::calculate_max_widths::j), id:8259, line:1018:19, endln:1018:20
+|vpiParent:
+\_foreach_stmt: (uvm_pkg::uvm_table_printer::calculate_max_widths), id:8255, line:1018:4, endln:1018:11
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_table_printer::calculate_max_widths::j), id:8261
+  |vpiParent:
+  \_ref_var: (uvm_pkg::uvm_table_printer::calculate_max_widths::j), id:8259, line:1018:19, endln:1018:20
+  |vpiFullName:uvm_pkg::uvm_table_printer::calculate_max_widths::j
+  |vpiActual:
+  \_array_typespec: , id:323113
+|vpiName:j
+|vpiFullName:uvm_pkg::uvm_table_printer::calculate_max_widths::j
+RHS: <null>

@@ -1,0 +1,13 @@
+LHS:
+decompile:
+func_call: (max), id:190554
+|vpiParent:
+\_hier_path: (q.max), id:190551, line:1054:12, endln:1054:17
+|vpiName:max
+
+decompile:
+func_call: (max), id:190554
+|vpiParent:
+\_hier_path: (q.max), id:190551, line:1054:12, endln:1054:17
+|vpiName:max
+RHS: <null>

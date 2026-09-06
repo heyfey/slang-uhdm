@@ -1,0 +1,80 @@
+r10v181 — THE SIX GATES, re-run by the adversarial verifier on binaries it built.
+
+(1) BUILD — two fresh worktrees at e2190dd4, cmake Release, -j 2, md5 separately.
+    pristine /tmp/wt_v181pris/build/slang-uhdm  0ce904c202e59398919f9f5e423a5167
+    patched  /tmp/wt_v181/build/slang-uhdm      571c08c5990c3654d23a2f8b0c3bea44
+    BOTH md5s equal the implementer's — the build is reproducible.
+    0 errors, [100%] Built target slang_uhdm, both.  Frozen chmod 555 before any sweep.
+
+(2) GOLDENS — SLANG_UHDM exported explicitly to EACH binary.
+    pristine 23 PASS / 0 FAIL
+    patched  23 PASS / 0 FAIL
+    SLANG_UHDM=/bin/false  0 PASS / 23 FAIL      (negative control)
+
+(3) UHDM2RTLIL — both modes, both binaries, own workdirs.
+    testflags 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+    default   679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+    ct8rows patched vs committed results/gate_uhdm2rtlil.csv : PASS (0 differing rows)
+    ct8rows patched vs this verifier's pristine, testflags   : PASS
+    ct8rows patched vs this verifier's pristine, default     : PASS
+    cmds.txt audit BY BINARY PATH: 1458 refs to /tmp/v181_pat.bin (patched run) and
+    1458 to /tmp/v181_pris.bin (pristine run); ZERO to the main-tree binary.
+
+(4) SURELOG --mode both — 794 tests x 2 modes = 1588 rows, identical histograms:
+    default   471 CMP_EQUAL / 283 SLANG_REJECT / 25 SURELOG_FAIL / 10 CMP_NOTEQUAL / 5 DEFERRED
+    testflags 466 CMP_EQUAL / 284 SLANG_REJECT / 23 SURELOG_FAIL / 9 CMP_NOTEQUAL / 5 DEFERRED
+              + 3 NO_DATABASE / 2 UNTRANSLATABLE / 1 TIMEOUT / 1 NO_UHDM
+    ct8rows patched vs committed results/golden_surelog.csv : PASS (0 / 1588)
+    ct8rows patched vs this verifier's pristine             : PASS
+    ct8rows pristine vs committed                           : PASS
+    NO ROW CONVERTED.  CMP_NOTEQUAL stays 10 + 9.  results/*.csv read only.
+    cmds.txt audit: 1573 files, 1523 binary refs, all frozen, none main-tree.
+
+(5) BYTEVERIFY SELFCHECK=1 — patched vs THIS VERIFIER'S OWN pristine workdir.
+    surelog     MOVERS 5 / 956    PATH_SETS_IDENTICAL   SELFCHECK 955/956 flagged
+    uhdm2rtlil  MOVERS 0 / 1358   PATH_SETS_IDENTICAL   SELFCHECK 1357/1358 flagged
+    FIVE, not four.  Attributed order-blind (sorted, path-normalised uhdm-dump):
+      default/Scoreboard-59431470   ADDED   0  REMOVED 0   <- the documented COIN
+      default/SeqDriver-32af76aa     ADDED 240  REMOVED 0
+      default/MiniAmiq-544c7f61      ADDED 240  REMOVED 0
+      testflags/SeqDriver-32af76aa   ADDED 240  REMOVED 0
+      testflags/MiniAmiq-544c7f61    ADDED 240  REMOVED 0
+    Scoreboard's dump is order-blind IDENTICAL and its head file is byte-identical:
+    its bytes moved and its content did not (RESUME.md section 9's ~50/50 coin).
+    It was inside the implementer's PREDICTED set (loopvar=0 blockvar=33), so no
+    mover of either run is unpredicted.
+    Object populations of all five, pristine vs patched: IDENTICAL kind for kind.
+    NOTE the pristine SeqDriver/default hash differs between the implementer's run
+    (7a7425c14fb6) and this one (769dbc6e12ba) while every PATCHED hash agrees:
+    SeqDriver/default is nondeterministic per invocation too, and the order-blind
+    diff (240 added / 0 REMOVED) is what survives it.
+
+(6) CANARIES AND PINS
+    canaries surelog     ok=52 changed=0 absent=0
+    canaries uhdm2rtlil  ok=8  changed=0 absent=0
+    ctcan2 surelog PASS   ctcan2 uhdm2rtlil PASS
+    canaudit.sh canaries.sh ctcan2.sh : audited=29 UNCOVERED=0 FENCE-BREACH=0
+    InterfaceModPort   59a365f3ce2c  SAME (both modes)
+    BlackParrotComplex e3e354129d5a / 73a10e8217e5  SAME
+    YosysOldOr         d68e0796d62c  SAME (both modes)
+    SVSwitch           4842211c4030  PINNED
+    YosysVerx          6ccda350c24a  PINNED
+
+(7) HEADS — tools/probe/r10uvm67repro/rowheads.sh, both binaries.
+    SeqDriver  default   29 -> 13   1 head
+    SeqDriver  testflags 29 -> 13   1 head
+    every other row unchanged, and its head file BYTE-IDENTICAL between binaries:
+    SimpleUVM 664681, Scoreboard 95, MiniAmiq 26, BuildUVMPkg 52,
+    Earlgrey_0_1 31 (default) / 17 (testflags), Rggen 0.
+    The committed head_pat_ and head_pris_ SeqDriver .cmp artefacts both reproduce
+    BYTE-IDENTICALLY here.
+
+(8) PATCH HYGIENE
+    git apply --check on a FRESH e2190dd4 worktree: clean.
+    git diff e2190dd4 in the applied worktree == the patch, byte for byte.
+    surface: src/TaskFuncEmit.cpp + tools/probe/r10uvm181repro/ ONLY.
+    no results/*.csv edit, no conflict marker, no stray file, no hard-coded
+    other-pass path, no rm -rf on shared scratch.
+    the four slang-fenced names: 0 mentions in the patch outside canaudit.sh,
+    and no driver here dispatches them (FENCED_SKIPPED=0 because no arm FILE is
+    named after one).

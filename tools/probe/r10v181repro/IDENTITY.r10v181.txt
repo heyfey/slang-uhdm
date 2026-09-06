@@ -1,0 +1,52 @@
+r10v181 — THE IDENTITY QUESTION: is the bind target the SHARED object or a
+MINTED twin?  MEASUREMENT ONLY.  ctv181id.cpp / ctv181graph.cpp.
+
+WHY A NEW INSTRUMENT.  ct181grid.cpp prints a target as kind:name@line:col.
+A foreach loop's LISTING ref_var and the law cloneLoopVarShared37 object it
+points at share all three, so score181.py cannot tell 'bound to the listing
+entry' from 'bound to the shared object' — and the pass's central claim is
+exactly that identity.  ctv181id labels each body reference RELATIVE to its
+own loop: SHARED / LISTING-REF / OTHER:<face> / BARE.
+
+DEF VIEW, GOLDEN vs PRISTINE vs PATCHED
+  arm            golden                       pristine                 patched
+  v181_a_use     SHARED=44 BARE=22            SHARED=20 BARE=49        SHARED=44 BARE=25
+  v181_b_prefix  SHARED=14 OTHER=6 BARE=10    SHARED=6 OTHER=2 BARE=25 SHARED=14 OTHER=6 BARE=13
+  v181_c_homes   SHARED=80 BARE=19            SHARED=16 BARE=95        SHARED=76 BARE=35
+
+The patched binary binds the SHARED object, not a minted twin, and reaches
+golden's own SHARED count exactly in two of the three arms.  OTHER never grows
+where golden has none: nothing points at a manufactured object.
+
+THE CORPUS (SeqDriver/default, golden vs both binaries, multiset join per cell,
+the same instrument):
+  occurrences right 1793 -> 1833   REGRESSION-CELLS=0   GAIN-CELLS=20
+  golden BARE=801 OTHER=4 SHARED=1144
+  pristine BARE=1145 SHARED=1108      patched BARE=1105 SHARED=1148
+  LISTING-REF does not occur at all — not in golden, not in either binary.
+
+R-V1 — THE ONE CELL WHERE PRISTINE WAS RIGHT AND PATCHED IS NOT.
+ctv181graph on v181_f_mixed.sv, ELAB database, clone package harquebus_imp,
+petronel_cls::falconet181_empty, foreach at 26:5 (N1 = the listing ref_var,
+N0 = its vpiActual, the shared object):
+
+  golden, def-view copies:  wickyard@28:41 -> N0     wickyard@29:51 -> N1
+  pristine, same copies:    wickyard@28:41 -> BARE   wickyard@29:51 -> N1
+  patched,  same copies:    wickyard@28:41 -> N0     wickyard@29:51 -> N0
+  golden/pristine/patched, elab-view copies: both -> N2  (all three agree)
+
+  28:41 is a call ARGUMENT (this.falconet181_helper(wickyard)); 29:51 is the
+  INDEX of a hier_path BASE (petronel_structarr[wickyard].matchcord).  Golden
+  binds them to DIFFERENT objects in that copy; we now bind both to the shared
+  one.  Pristine matched golden on 29:51 by accident, having left 28:41 bare.
+
+  IT IS NOT JUDGE-VISIBLE AND IT IS NOT A CORPUS CELL.
+  * uhdm-cmp on v181_f_mixed.sv: pristine 29 lines / 1 head NOT-EQUAL,
+    patched 0 lines / EQUAL, in BOTH views.  Same for v181_e_idxbase.sv.
+  * the DEF-view database of the same file has golden binding ALL occurrences
+    to the shared object, which the patched binary matches exactly.
+  * LISTING-REF does not occur in the corpus (above).
+  ref_var::Compare DOES read Actual_group (generated ref_var.cpp:112), so the
+  chain golden's N1 -> N0 vs our N0 -> null is in principle readable; the
+  visited-set short-circuit in BaseClass::Compare is why it is not read here.
+  Whoever takes that chain should start at this arm.

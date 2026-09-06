@@ -173,7 +173,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-09-06 17:50, HEAD = the earl111 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-09-06 18:30, HEAD = the uvm181 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 471/481 comparable
 equal (10 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
@@ -182,7 +182,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 
 | row-mode(s) | head (official cmp lines = head-object DEPTH, not distance) | family / next law |
 |---|---|---|
-| SeqDriver×2 | 29 (depth, ONE object both modes) | a FOREACH LOOP VARIABLE's TYPESPEC, the singular mirror with golden's side full: uvm_printer.svh:1018, ref_var (j) under the foreach in uvm_table_printer::calculate_max_widths — golden hangs vpiTypespec -> ref_typespec -> array_typespec; ours hangs none — a HOME question adjacent to the committed § cloneLoopVarShared37 — queued (uvm181) (uvm180 landed: 142→29, § cloneBodyBareTdAlias180 — a clone body's typedef alias target is bare at every depth and role EXCEPT the return variable; the 46-vs-89 count was golden's own def/elab split, ours equal in all four listings; verifier ACCEPT, production byte-identical) |
+| SeqDriver×2 | 13 (depth, ONE object both modes) | a hier_path's TRAILING ELEMENT for a BUILT-IN ARRAY REDUCTION method read as a value: uvm_printer.svh:1054, qq = q.max in uvm_table_printer::emit — golden appends a func_call (max) element to the hier_path (q.max) and our Path_elems is one short — a NEW family adjacent to the committed § builtinRecvMultiDimStepIsBitSelectChain14 — open (uvm181 landed: 29→13, § cloneBodyIsAScopeEvenWithNoOwnLocals181 — a wildcard-import clone body is a clone-binding scope whether or not the subroutine declares own-level locals; the brief's typespec framing was refuted by the owner-finder before any code (the failed-LHS printout is the VALUE of the missing actual edge); the clone-body registration was gated on a non-empty own-level local map and the innermost-out climb is the only path to block-locals and foreach loop variables, so the fix registers the body unconditionally; verifier ACCEPT, eight new arms at AWAY 0, an identity instrument proving the SHARED object is bound, never a mint) |
 | MiniAmiq×2 | 26 (depth, ONE object both modes) | golden an unsupported_typespec (arg) at 622:11 vs ours a resolved string_typespec at 614:42 on uvm_has_wildcard(string arg) in the svaunit_pkg clone — the unsupported-typespec DEGRADE family (uvm170's law is the model) — open (uvm180 landed: 116→26, same law as the SeqDriver row) |
 | SimpleUVM×2 | 664681 (the next head OBJECT's decompile size — the top module instance prints whole; ONE head, a depth artifact) | the design Compare's order flipped sign and the descent names the failing pair: task_call (run_test) at testbench.sv:56:5 -> task_call::Task — a field inside uvm_pkg::run_test (uvm_globals.svh:38-44); both task objects share face and span, so READ THE FIELD before choosing a direction — open (uvm179 landed: 29→664681, § recvCallArgRefVarLocalNeverBinds179 — a def-package call argument's ref_var local never binds: the eager binder recurses on a null parent on the expression road, and the late-binding pass skips ref_var declarations with its module mint guarded on module scopes; two lines on an existing counter plus an inert-by-measurement def-package conjunct, reported as inert; verifier ACCEPT, evidence stacked) |
 | BuildUVMPkg×2 | 52 (depth, ONE object both modes — the logs byte-identical) | the next head the uvm170 README R0 section names (a uvm_printer-family object; decode with the owner-finder first) — open (uvm170 landed: 106→52, § dpiExportedPkgSubBareOwnTdUnsupported170 — a DPI export written ABOVE a package subroutine compiles the body one pass EARLY, before the typedefs exist, so a BARE same-package enum/struct/union typedef cast target degrades to an unsupported_typespec named as written with the home-package instance link; export-below, scoped/imported/keyword spellings and non-datastructure typedefs all resolve; verifier ACCEPT WITH FIX — two fences: the import-replay memo (emplace does not overwrite) and the forward-typedef fence; grid 25 TOWARD / 0 AWAY after, the 46-arm floor byte-identical; R1 records golden's own per-database copy split, four judge-invisible copy-cells) |
@@ -193,7 +193,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 112 verifier fix-before-landing re-cuts (255 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 112 verifier fix-before-landing re-cuts (256 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

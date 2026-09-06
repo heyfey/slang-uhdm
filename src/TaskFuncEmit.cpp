@@ -6683,8 +6683,38 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 if (local9)
                     lm9.emplace(std::string(sy9->name), ob9);
             }
-            if (!lm9.empty())
-                pkgCloneBodyLocals9[tf] = std::move(lm9);
+            // § cloneBodyIsAScopeEvenWithNoOwnLocals181 — REGISTER THE BODY
+            // WHETHER OR NOT `lm9` HAS ANYTHING IN IT.  `lm9` holds only the
+            // subroutine's OWN formals and function-scope locals; the two
+            // targets that matter most to a clone are found by the CLIMB in
+            // `pkgCloneHierBind9`'s `bind9`, not by this map at all — a
+            // BLOCK-local (`blockVar9`) and a foreach LOOP VARIABLE
+            // (`loopVar37`, § pkgCloneLoopVarBind37, whose object is in no
+            // Variables() listing anywhere).  `bind9` reaches that climb only
+            // after `pkgCloneBodyLocals9.find(tf9)` succeeds, so an
+            // `if (!lm9.empty())` guard silently switched the WHOLE clone-body
+            // binding law off for any subroutine that declares nothing at its
+            // own level.
+            //
+            // `uvm_table_printer::calculate_max_widths` (uvm-1.2
+            // base/uvm_printer.svh:1013) is exactly that shape — `function
+            // void ...();` with no formals, no return variable and every
+            // declaration inside the `foreach (m_rows[j])` block — so its
+            // clone's `m_rows[j]` index reference stayed BARE where golden
+            // binds it to the § cloneLoopVarShared37 object, while
+            // `uvm_table_printer::emit` (:1036, which owns `string s;` …)
+            // bound its `foreach (m_rows[i])` index normally.  That pair is
+            // the whole distinguisher: same package, same class, same
+            // statement shape, one line of difference in the DECLARATION
+            // count of the enclosing subroutine.
+            //
+            // Surelog has no such condition: `importPackage` re-resolves a
+            // clone body's names against the IMPORTING package's symbol table
+            // for every cloned subroutine alike, so an empty own-scope is not
+            // a reason to stop being a clone-binding scope.  The map itself
+            // is still the last resort in `bind9`, and an empty one simply
+            // finds nothing — no cell can move on the map's account.
+            pkgCloneBodyLocals9[tf] = std::move(lm9);
         }
         bool paUsed9 = tfBodyPaUsed9;
         bool tdListed157 = tfBodyTdListed157;

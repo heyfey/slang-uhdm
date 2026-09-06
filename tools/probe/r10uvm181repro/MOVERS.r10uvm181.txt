@@ -1,0 +1,47 @@
+r10uvm181 — MOVERS, attributed line by line, ORDER-BLIND (sorted, path-normalised uhdm-dump).
+MEASUREMENT ONLY.  4 movers over 956 surelog databases, 0 over 1358 uhdm2rtlil ones.
+
+==== default/MiniAmiq-544c7f61
+  order-blind diff: 240 lines  REMOVED=0  ADDED=240
+  the added lines are vpiActual edges and the objects they name, in these clone bodies:
+     28 uvm_pkg::uvm_sequencer_base::grant_queued_locks
+     16 uvm_pkg::uvm_table_printer::calculate_max_widths
+      8 uvm_pkg::uvm_reg_block::lock_model
+      4 uvm_pkg::uvm_reg_block::sample_values
+      4 uvm_pkg::uvm_reg_block::needs_update
+      2 uvm_pkg::uvm_reg_block::Xinit_address_mapsX
+      2 uvm_pkg::uvm_component::m_get_tr_database
+
+==== default/SeqDriver-32af76aa
+  order-blind diff: 240 lines  REMOVED=0  ADDED=240
+  the added lines are vpiActual edges and the objects they name, in these clone bodies:
+     28 uvm_pkg::uvm_sequencer_base::grant_queued_locks
+     16 uvm_pkg::uvm_table_printer::calculate_max_widths
+      8 uvm_pkg::uvm_reg_block::lock_model
+      4 uvm_pkg::uvm_reg_block::sample_values
+      4 uvm_pkg::uvm_reg_block::needs_update
+      2 uvm_pkg::uvm_reg_block::Xinit_address_mapsX
+      2 uvm_pkg::uvm_component::m_get_tr_database
+
+==== testflags/MiniAmiq-544c7f61
+  order-blind diff: 240 lines  REMOVED=0  ADDED=240
+  the added lines are vpiActual edges and the objects they name, in these clone bodies:
+     28 uvm_pkg::uvm_sequencer_base::grant_queued_locks
+     16 uvm_pkg::uvm_table_printer::calculate_max_widths
+      8 uvm_pkg::uvm_reg_block::lock_model
+      4 uvm_pkg::uvm_reg_block::sample_values
+      4 uvm_pkg::uvm_reg_block::needs_update
+      2 uvm_pkg::uvm_reg_block::Xinit_address_mapsX
+      2 uvm_pkg::uvm_component::m_get_tr_database
+
+==== testflags/SeqDriver-32af76aa
+  order-blind diff: 240 lines  REMOVED=0  ADDED=240
+  the added lines are vpiActual edges and the objects they name, in these clone bodies:
+     28 uvm_pkg::uvm_sequencer_base::grant_queued_locks
+     16 uvm_pkg::uvm_table_printer::calculate_max_widths
+      8 uvm_pkg::uvm_reg_block::lock_model
+      4 uvm_pkg::uvm_reg_block::sample_values
+      4 uvm_pkg::uvm_reg_block::needs_update
+      2 uvm_pkg::uvm_reg_block::Xinit_address_mapsX
+      2 uvm_pkg::uvm_component::m_get_tr_database
+

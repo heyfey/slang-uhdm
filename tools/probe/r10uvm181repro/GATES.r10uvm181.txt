@@ -1,0 +1,89 @@
+r10uvm181 — GATES.  Every gate run in the pass worktree with the two FROZEN binaries.
+  pristine (e2190dd4)  md5 0ce904c202e59398919f9f5e423a5167
+  patched              md5 571c08c5990c3654d23a2f8b0c3bea44
+
+(1) BUILD: both binaries built -j 2, md5s above.
+
+(2) GOLDENS
+    pristine PASS=23 FAIL=0
+    patched  PASS=23 FAIL=0
+    SLANG_UHDM=/bin/false  PASS=0 FAIL=23   (negative control)
+
+(3) uhdm2rtlil — ct8rows, baseline FIRST
+baseline: 732 lines = 731 ROWS (the header is not a row)
+fresh   : 732 lines = 731 ROWS
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+---- per-mode STATUS histogram (baseline -> fresh)
+  testflags  base:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+  testflags  fresh:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  testflags  base:      52      183 differ     496 match 
+  testflags  fresh:      52      183 differ     496 match 
+PASS: every row byte-identical to the committed baseline
+
+baseline: 732 lines = 731 ROWS (the header is not a row)
+fresh   : 732 lines = 731 ROWS
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+PASS: every row byte-identical to the committed baseline
+
+(4) surelog — ct8rows over 1588 rows, vs the COMMITTED baseline
+baseline: 1589 lines = 1588 ROWS (the header is not a row)
+fresh   : 1589 lines = 1588 ROWS
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     471 CMP_EQUAL      10 CMP_NOTEQUAL       5 DEFERRED     283 SLANG_REJECT      25 SURELOG_FAIL 
+  default  fresh:     471 CMP_EQUAL      10 CMP_NOTEQUAL       5 DEFERRED     283 SLANG_REJECT      25 SURELOG_FAIL 
+  testflags  base:     466 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  testflags  fresh:     466 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     323      245 differ     226 match 
+  default  fresh:     323      245 differ     226 match 
+  testflags  base:     328      300 differ     166 match 
+  testflags  fresh:     328      300 differ     166 match 
+PASS: every row byte-identical to the committed baseline
+
+    NO ROW CONVERTED: the CMP_NOTEQUAL population is 10 (default) + 9 (testflags), unchanged.
+
+(5) BYTEVERIFY  SELFCHECK=1 (patched vs MY OWN pristine control workdir)
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=b6237288ea29 pristine=ace66564d4c5
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=c057713ca9e8 pristine=7a7425c14fb6
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=b6237288ea29 pristine=ace66564d4c5
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=c575ef3b7cea pristine=dcb23f7435a9
+MOVERS: 4 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+
+    Every mover was PREDICTED BY NAME from PRISTINE databases before the patched sweep:
+default/MiniAmiq-544c7f61 PREDICT loopvar=63 blockvar=97 bodies=18 MOVER
+default/SeqDriver-32af76aa PREDICT loopvar=63 blockvar=97 bodies=18 MOVER
+testflags/MiniAmiq-544c7f61 PREDICT loopvar=63 blockvar=97 bodies=18 MOVER
+testflags/SeqDriver-32af76aa PREDICT loopvar=63 blockvar=97 bodies=18 MOVER
+    (the loopvar>0 sub-prediction names exactly the four movers; the three loopvar=0
+     rows -- BuildUVMPkg, Scoreboard, SimpleUVM -- are the block-local half, which the
+     ordinary emission path already bound, so they did not move.)
+
+(6) CANARIES
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+
+---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+
+    PROTECTED DATABASES (md5 12, pristine vs patched):
+      InterfaceModPort psl 59a365f3ce2c
+      InterfaceModPort qsl 59a365f3ce2c
+      BlackParrotComplex psl 73a10e8217e5
+      BlackParrotComplex qsl 73a10e8217e5
+      YosysOldOr psl d68e0796d62c
+      YosysOldOr qsl d68e0796d62c
+      SVSwitch psl 4842211c4030
+      SVSwitch qsl 4842211c4030
+      YosysVerx psl 6ccda350c24a
+      YosysVerx qsl 6ccda350c24a
