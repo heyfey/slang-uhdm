@@ -1,0 +1,379 @@
+g1_home109_elab          BOTH-SAME 39  TO-GOLDEN 1  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 0  ONLY-GOLDEN 0  ONLY-OURS 0
+  TO-GOLDEN   g1_home109_elab	port@work@g1_home109.u_c.in_size_i@15:36-15:45	logic_typespec	0L	15:17-15:21
+      pris  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+g1_home109_plain         BOTH-SAME 39  TO-GOLDEN 1  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 0  ONLY-GOLDEN 0  ONLY-OURS 0
+  TO-GOLDEN   g1_home109_plain	port@work@g1_home109.u_c.in_size_i@15:36-15:45	logic_typespec	0L	15:17-15:21
+      pris  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+g2_stale109_elab         BOTH-SAME 37  TO-GOLDEN 1  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 0  ONLY-GOLDEN 0  ONLY-OURS 0
+  TO-GOLDEN   g2_stale109_elab	port@work@g2_stale109.u_a.in_size_i@26:33-26:42	logic_typespec	0L	26:17-26:21
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+g2_stale109_plain        BOTH-SAME 37  TO-GOLDEN 1  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 0  ONLY-GOLDEN 0  ONLY-OURS 0
+  TO-GOLDEN   g2_stale109_plain	port@work@g2_stale109.u_a.in_size_i@26:33-26:42	logic_typespec	0L	26:17-26:21
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+g3_kind109_elab          BOTH-SAME 96  TO-GOLDEN 3  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 13  ONLY-GOLDEN 2  ONLY-OURS 2
+  UNMOVED-WRONG g3_kind109_elab	logic_net@work@g3_kind109.u_k.k_byt_i@34:32-34:39	logic_typespec	0L	34:17-34:24
+      ours  ['constant|n=-|dc=6|sz=8|v=UINT:6|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=6|sz=8|v=INT:6|ts=int_typespec/S|ct=7']
+  UNMOVED-WRONG g3_kind109_elab	logic_net@work@g3_kind109.u_k.k_ibl_i@47:32-47:39	logic_typespec	0L	47:17-47:24
+      ours  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=6|sz=8|v=INT:6|ts=int_typespec/S|ct=7']
+  UNMOVED-WRONG g3_kind109_elab	logic_net@work@g3_kind109.u_k.k_ius_i@46:32-46:39	logic_typespec	0L	46:17-46:24
+      ours  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/u|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=NONE|ct=9']
+  UNMOVED-WRONG g3_kind109_elab	logic_net@work@g3_kind109.u_k.k_log_i@33:32-33:39	logic_typespec	0L	33:17-33:24
+      ours  ['constant|n=-|dc=6|sz=8|v=UINT:6|ts=int_typespec/u|ct=9']
+      gold  ['constant|n=-|dc=6|sz=8|v=INT:6|ts=NONE|ct=7']
+  UNMOVED-WRONG g3_kind109_elab	logic_net@work@g3_kind109.u_k.k_pki_i@38:32-38:39	logic_typespec	0L	38:17-38:23
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=7|sz=32|v=UINT:7|ts=NONE|ct=9']
+  UNMOVED-WRONG g3_kind109_elab	logic_net@work@g3_kind109.u_k.k_sho_i@37:32-37:39	logic_typespec	0L	37:17-37:24
+      ours  ['constant|n=-|dc=6|sz=16|v=UINT:6|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=6|sz=16|v=INT:6|ts=int_typespec/S|ct=7']
+  UNMOVED-WRONG g3_kind109_elab	port@work@g3_kind109.u_k.k_byt_i@34:32-34:39	logic_typespec	0L	34:17-34:24
+      ours  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=8|v=INT:6|ts=int_typespec/S|ct=7']
+  UNMOVED-WRONG g3_kind109_elab	port@work@g3_kind109.u_k.k_ibl_i@47:32-47:39	logic_typespec	0L	47:17-47:24
+      ours  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=8|v=INT:6|ts=int_typespec/S|ct=7']
+  TO-GOLDEN   g3_kind109_elab	port@work@g3_kind109.u_k.k_int_i@32:32-32:39	logic_typespec	0L	32:17-32:24
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g3_kind109_elab	port@work@g3_kind109.u_k.k_isg_i@48:32-48:39	logic_typespec	0L	48:17-48:24
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g3_kind109_elab	port@work@g3_kind109.u_k.k_ius_i@46:32-46:39	logic_typespec	0L	46:17-46:24
+      ours  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=NONE|ct=9']
+  UNMOVED-WRONG g3_kind109_elab	port@work@g3_kind109.u_k.k_log_i@33:32-33:39	logic_typespec	0L	33:17-33:24
+      ours  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=8|v=INT:6|ts=NONE|ct=7']
+  UNMOVED-WRONG g3_kind109_elab	port@work@g3_kind109.u_k.k_pki_i@38:32-38:39	logic_typespec	0L	38:17-38:23
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=7|sz=32|v=UINT:7|ts=NONE|ct=9']
+  TO-GOLDEN   g3_kind109_elab	port@work@g3_kind109.u_k.k_rev_i@45:32-45:39	logic_typespec	0R	45:19-45:26
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g3_kind109_elab	port@work@g3_kind109.u_k.k_sho_i@37:32-37:39	logic_typespec	0L	37:17-37:24
+      ours  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=16|v=INT:6|ts=int_typespec/S|ct=7']
+  UNMOVED-WRONG g3_kind109_elab	port@work@g3_kind109.u_k.k_unt_i@35:32-35:39	logic_typespec	0L	35:17-35:24
+      ours  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=NONE|ct=9']
+g3_kind109_plain         BOTH-SAME 96  TO-GOLDEN 3  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 13  ONLY-GOLDEN 2  ONLY-OURS 2
+  UNMOVED-WRONG g3_kind109_plain	logic_net@work@g3_kind109.u_k.k_byt_i@34:32-34:39	logic_typespec	0L	34:17-34:24
+      ours  ['constant|n=-|dc=6|sz=8|v=UINT:6|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=6|sz=8|v=INT:6|ts=int_typespec/S|ct=7']
+  UNMOVED-WRONG g3_kind109_plain	logic_net@work@g3_kind109.u_k.k_ibl_i@47:32-47:39	logic_typespec	0L	47:17-47:24
+      ours  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=6|sz=8|v=INT:6|ts=int_typespec/S|ct=7']
+  UNMOVED-WRONG g3_kind109_plain	logic_net@work@g3_kind109.u_k.k_ius_i@46:32-46:39	logic_typespec	0L	46:17-46:24
+      ours  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/u|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=NONE|ct=9']
+  UNMOVED-WRONG g3_kind109_plain	logic_net@work@g3_kind109.u_k.k_log_i@33:32-33:39	logic_typespec	0L	33:17-33:24
+      ours  ['constant|n=-|dc=6|sz=8|v=UINT:6|ts=int_typespec/u|ct=9']
+      gold  ['constant|n=-|dc=6|sz=8|v=INT:6|ts=NONE|ct=7']
+  UNMOVED-WRONG g3_kind109_plain	logic_net@work@g3_kind109.u_k.k_pki_i@38:32-38:39	logic_typespec	0L	38:17-38:23
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=7|sz=32|v=UINT:7|ts=NONE|ct=9']
+  UNMOVED-WRONG g3_kind109_plain	logic_net@work@g3_kind109.u_k.k_sho_i@37:32-37:39	logic_typespec	0L	37:17-37:24
+      ours  ['constant|n=-|dc=6|sz=16|v=UINT:6|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=6|sz=16|v=INT:6|ts=int_typespec/S|ct=7']
+  UNMOVED-WRONG g3_kind109_plain	port@work@g3_kind109.u_k.k_byt_i@34:32-34:39	logic_typespec	0L	34:17-34:24
+      ours  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=8|v=INT:6|ts=int_typespec/S|ct=7']
+  UNMOVED-WRONG g3_kind109_plain	port@work@g3_kind109.u_k.k_ibl_i@47:32-47:39	logic_typespec	0L	47:17-47:24
+      ours  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=8|v=INT:6|ts=int_typespec/S|ct=7']
+  TO-GOLDEN   g3_kind109_plain	port@work@g3_kind109.u_k.k_int_i@32:32-32:39	logic_typespec	0L	32:17-32:24
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g3_kind109_plain	port@work@g3_kind109.u_k.k_isg_i@48:32-48:39	logic_typespec	0L	48:17-48:24
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g3_kind109_plain	port@work@g3_kind109.u_k.k_ius_i@46:32-46:39	logic_typespec	0L	46:17-46:24
+      ours  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=NONE|ct=9']
+  UNMOVED-WRONG g3_kind109_plain	port@work@g3_kind109.u_k.k_log_i@33:32-33:39	logic_typespec	0L	33:17-33:24
+      ours  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=8|v=INT:6|ts=NONE|ct=7']
+  UNMOVED-WRONG g3_kind109_plain	port@work@g3_kind109.u_k.k_pki_i@38:32-38:39	logic_typespec	0L	38:17-38:23
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=7|sz=32|v=UINT:7|ts=NONE|ct=9']
+  TO-GOLDEN   g3_kind109_plain	port@work@g3_kind109.u_k.k_rev_i@45:32-45:39	logic_typespec	0R	45:19-45:26
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g3_kind109_plain	port@work@g3_kind109.u_k.k_sho_i@37:32-37:39	logic_typespec	0L	37:17-37:24
+      ours  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=16|v=INT:6|ts=int_typespec/S|ct=7']
+  UNMOVED-WRONG g3_kind109_plain	port@work@g3_kind109.u_k.k_unt_i@35:32-35:39	logic_typespec	0L	35:17-35:24
+      ours  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=NONE|ct=9']
+g4_type109_elab          BOTH-SAME 114  TO-GOLDEN 2  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 24  ONLY-GOLDEN 0  ONLY-OURS 0
+  UNMOVED-WRONG g4_type109_elab	logic_net@work@g4_type109.u_t.n_bit1@46:74-46:80	logic_typespec	0L	46:63-46:69
+      ours  ['constant|n=-|dc=1|sz=1|v=UINT:1|ts=int_typespec/u|ct=9']
+      gold  ["constant|n=-|dc=1'b1|sz=1|v=BIN:1|ts=NONE|ct=3"]
+  UNMOVED-WRONG g4_type109_elab	logic_net@work@g4_type109.u_t.n_bit8@47:47-47:53	logic_typespec	0L	47:36-47:42
+      ours  ['constant|n=-|dc=6|sz=8|v=UINT:6|ts=int_typespec/u|ct=9']
+      gold  ['constant|n=-|dc=6|sz=8|v=INT:6|ts=NONE|ct=7']
+  UNMOVED-WRONG g4_type109_elab	logic_net@work@g4_type109.u_t.n_byte@46:47-46:53	logic_typespec	0L	46:36-46:42
+      ours  ['constant|n=-|dc=6|sz=8|v=UINT:6|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=6|sz=8|v=UINT:6|ts=NONE|ct=9']
+  UNMOVED-WRONG g4_type109_elab	logic_net@work@g4_type109.u_t.n_integ@45:47-45:54	logic_typespec	0L	45:36-45:43
+      ours  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=NONE|ct=9']
+  UNMOVED-WRONG g4_type109_elab	logic_net@work@g4_type109.u_t.n_log16@47:74-47:81	logic_typespec	0L	47:63-47:70
+      ours  ['constant|n=-|dc=6|sz=16|v=UINT:6|ts=int_typespec/u|ct=9']
+      gold  ['constant|n=-|dc=6|sz=16|v=INT:6|ts=NONE|ct=7']
+  UNMOVED-WRONG g4_type109_elab	logic_net@work@g4_type109.u_t.n_log1@47:20-47:26	logic_typespec	0L	47:9-47:15
+      ours  ['constant|n=-|dc=1|sz=1|v=UINT:1|ts=int_typespec/u|ct=9']
+      gold  ["constant|n=-|dc=1'b1|sz=1|v=BIN:1|ts=NONE|ct=3"]
+  UNMOVED-WRONG g4_type109_elab	logic_net@work@g4_type109.u_t.n_long@45:74-45:80	logic_typespec	0L	45:63-45:69
+      ours  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+  UNMOVED-WRONG g4_type109_elab	logic_net@work@g4_type109.u_t.n_short@46:20-46:27	logic_typespec	0L	46:9-46:16
+      ours  ['constant|n=-|dc=6|sz=16|v=UINT:6|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=6|sz=16|v=UINT:6|ts=NONE|ct=9']
+  UNMOVED-WRONG g4_type109_elab	logic_net@work@g4_type109.u_t.p_bit1_i@35:31-35:39	logic_typespec	0L	35:17-35:23
+      ours  ['constant|n=-|dc=1|sz=1|v=UINT:1|ts=int_typespec/u|ct=9']
+      gold  ["constant|n=-|dc=1'b1|sz=1|v=BIN:1|ts=NONE|ct=3"]
+  UNMOVED-WRONG g4_type109_elab	logic_net@work@g4_type109.u_t.p_bit8_i@37:31-37:39	logic_typespec	0L	37:17-37:23
+      ours  ['constant|n=-|dc=6|sz=8|v=UINT:6|ts=int_typespec/u|ct=9']
+      gold  ['constant|n=-|dc=6|sz=8|v=INT:6|ts=NONE|ct=7']
+  UNMOVED-WRONG g4_type109_elab	logic_net@work@g4_type109.u_t.p_byte_i@34:31-34:39	logic_typespec	0L	34:17-34:23
+      ours  ['constant|n=-|dc=6|sz=8|v=UINT:6|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=6|sz=8|v=UINT:6|ts=NONE|ct=9']
+  UNMOVED-WRONG g4_type109_elab	logic_net@work@g4_type109.u_t.p_integ_i@31:31-31:40	logic_typespec	0L	31:17-31:24
+      ours  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=NONE|ct=9']
+  UNMOVED-WRONG g4_type109_elab	logic_net@work@g4_type109.u_t.p_log16_i@38:31-38:40	logic_typespec	0L	38:17-38:24
+      ours  ['constant|n=-|dc=6|sz=16|v=UINT:6|ts=int_typespec/u|ct=9']
+      gold  ['constant|n=-|dc=6|sz=16|v=INT:6|ts=NONE|ct=7']
+  UNMOVED-WRONG g4_type109_elab	logic_net@work@g4_type109.u_t.p_log1_i@36:31-36:39	logic_typespec	0L	36:17-36:23
+      ours  ['constant|n=-|dc=1|sz=1|v=UINT:1|ts=int_typespec/u|ct=9']
+      gold  ["constant|n=-|dc=1'b1|sz=1|v=BIN:1|ts=NONE|ct=3"]
+  UNMOVED-WRONG g4_type109_elab	logic_net@work@g4_type109.u_t.p_long_i@32:31-32:39	logic_typespec	0L	32:17-32:23
+      ours  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+  UNMOVED-WRONG g4_type109_elab	logic_net@work@g4_type109.u_t.p_short_i@33:31-33:40	logic_typespec	0L	33:17-33:24
+      ours  ['constant|n=-|dc=6|sz=16|v=UINT:6|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=6|sz=16|v=UINT:6|ts=NONE|ct=9']
+  UNMOVED-WRONG g4_type109_elab	port@work@g4_type109.u_t.p_bit1_i@35:31-35:39	logic_typespec	0L	35:17-35:23
+      ours  ['constant|n=-|dc=1|sz=64|v=UINT:1|ts=NONE|ct=9']
+      gold  ["constant|n=-|dc=1'b1|sz=1|v=BIN:1|ts=NONE|ct=3"]
+  UNMOVED-WRONG g4_type109_elab	port@work@g4_type109.u_t.p_bit8_i@37:31-37:39	logic_typespec	0L	37:17-37:23
+      ours  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=8|v=INT:6|ts=NONE|ct=7']
+  UNMOVED-WRONG g4_type109_elab	port@work@g4_type109.u_t.p_byte_i@34:31-34:39	logic_typespec	0L	34:17-34:23
+      ours  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=8|v=UINT:6|ts=NONE|ct=9']
+  TO-GOLDEN   g4_type109_elab	port@work@g4_type109.u_t.p_int_i@30:31-30:38	logic_typespec	0L	30:17-30:22
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g4_type109_elab	port@work@g4_type109.u_t.p_intc_i@41:31-41:39	logic_typespec	0L	41:17-41:23
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g4_type109_elab	port@work@g4_type109.u_t.p_integ_i@31:31-31:40	logic_typespec	0L	31:17-31:24
+      ours  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=NONE|ct=9']
+  UNMOVED-WRONG g4_type109_elab	port@work@g4_type109.u_t.p_log16_i@38:31-38:40	logic_typespec	0L	38:17-38:24
+      ours  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=16|v=INT:6|ts=NONE|ct=7']
+  UNMOVED-WRONG g4_type109_elab	port@work@g4_type109.u_t.p_log1_i@36:31-36:39	logic_typespec	0L	36:17-36:23
+      ours  ['constant|n=-|dc=1|sz=64|v=UINT:1|ts=NONE|ct=9']
+      gold  ["constant|n=-|dc=1'b1|sz=1|v=BIN:1|ts=NONE|ct=3"]
+  UNMOVED-WRONG g4_type109_elab	port@work@g4_type109.u_t.p_short_i@33:31-33:40	logic_typespec	0L	33:17-33:24
+      ours  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=16|v=UINT:6|ts=NONE|ct=9']
+  UNMOVED-WRONG g4_type109_elab	port@work@g4_type109.u_t.p_untl_i@39:31-39:39	logic_typespec	0L	39:17-39:23
+      ours  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=NONE|ct=9']
+g4_type109_plain         BOTH-SAME 114  TO-GOLDEN 2  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 24  ONLY-GOLDEN 0  ONLY-OURS 0
+  UNMOVED-WRONG g4_type109_plain	logic_net@work@g4_type109.u_t.n_bit1@46:74-46:80	logic_typespec	0L	46:63-46:69
+      ours  ['constant|n=-|dc=1|sz=1|v=UINT:1|ts=int_typespec/u|ct=9']
+      gold  ["constant|n=-|dc=1'b1|sz=1|v=BIN:1|ts=NONE|ct=3"]
+  UNMOVED-WRONG g4_type109_plain	logic_net@work@g4_type109.u_t.n_bit8@47:47-47:53	logic_typespec	0L	47:36-47:42
+      ours  ['constant|n=-|dc=6|sz=8|v=UINT:6|ts=int_typespec/u|ct=9']
+      gold  ['constant|n=-|dc=6|sz=8|v=INT:6|ts=NONE|ct=7']
+  UNMOVED-WRONG g4_type109_plain	logic_net@work@g4_type109.u_t.n_byte@46:47-46:53	logic_typespec	0L	46:36-46:42
+      ours  ['constant|n=-|dc=6|sz=8|v=UINT:6|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=6|sz=8|v=UINT:6|ts=NONE|ct=9']
+  UNMOVED-WRONG g4_type109_plain	logic_net@work@g4_type109.u_t.n_integ@45:47-45:54	logic_typespec	0L	45:36-45:43
+      ours  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=NONE|ct=9']
+  UNMOVED-WRONG g4_type109_plain	logic_net@work@g4_type109.u_t.n_log16@47:74-47:81	logic_typespec	0L	47:63-47:70
+      ours  ['constant|n=-|dc=6|sz=16|v=UINT:6|ts=int_typespec/u|ct=9']
+      gold  ['constant|n=-|dc=6|sz=16|v=INT:6|ts=NONE|ct=7']
+  UNMOVED-WRONG g4_type109_plain	logic_net@work@g4_type109.u_t.n_log1@47:20-47:26	logic_typespec	0L	47:9-47:15
+      ours  ['constant|n=-|dc=1|sz=1|v=UINT:1|ts=int_typespec/u|ct=9']
+      gold  ["constant|n=-|dc=1'b1|sz=1|v=BIN:1|ts=NONE|ct=3"]
+  UNMOVED-WRONG g4_type109_plain	logic_net@work@g4_type109.u_t.n_long@45:74-45:80	logic_typespec	0L	45:63-45:69
+      ours  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+  UNMOVED-WRONG g4_type109_plain	logic_net@work@g4_type109.u_t.n_short@46:20-46:27	logic_typespec	0L	46:9-46:16
+      ours  ['constant|n=-|dc=6|sz=16|v=UINT:6|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=6|sz=16|v=UINT:6|ts=NONE|ct=9']
+  UNMOVED-WRONG g4_type109_plain	logic_net@work@g4_type109.u_t.p_bit1_i@35:31-35:39	logic_typespec	0L	35:17-35:23
+      ours  ['constant|n=-|dc=1|sz=1|v=UINT:1|ts=int_typespec/u|ct=9']
+      gold  ["constant|n=-|dc=1'b1|sz=1|v=BIN:1|ts=NONE|ct=3"]
+  UNMOVED-WRONG g4_type109_plain	logic_net@work@g4_type109.u_t.p_bit8_i@37:31-37:39	logic_typespec	0L	37:17-37:23
+      ours  ['constant|n=-|dc=6|sz=8|v=UINT:6|ts=int_typespec/u|ct=9']
+      gold  ['constant|n=-|dc=6|sz=8|v=INT:6|ts=NONE|ct=7']
+  UNMOVED-WRONG g4_type109_plain	logic_net@work@g4_type109.u_t.p_byte_i@34:31-34:39	logic_typespec	0L	34:17-34:23
+      ours  ['constant|n=-|dc=6|sz=8|v=UINT:6|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=6|sz=8|v=UINT:6|ts=NONE|ct=9']
+  UNMOVED-WRONG g4_type109_plain	logic_net@work@g4_type109.u_t.p_integ_i@31:31-31:40	logic_typespec	0L	31:17-31:24
+      ours  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=NONE|ct=9']
+  UNMOVED-WRONG g4_type109_plain	logic_net@work@g4_type109.u_t.p_log16_i@38:31-38:40	logic_typespec	0L	38:17-38:24
+      ours  ['constant|n=-|dc=6|sz=16|v=UINT:6|ts=int_typespec/u|ct=9']
+      gold  ['constant|n=-|dc=6|sz=16|v=INT:6|ts=NONE|ct=7']
+  UNMOVED-WRONG g4_type109_plain	logic_net@work@g4_type109.u_t.p_log1_i@36:31-36:39	logic_typespec	0L	36:17-36:23
+      ours  ['constant|n=-|dc=1|sz=1|v=UINT:1|ts=int_typespec/u|ct=9']
+      gold  ["constant|n=-|dc=1'b1|sz=1|v=BIN:1|ts=NONE|ct=3"]
+  UNMOVED-WRONG g4_type109_plain	logic_net@work@g4_type109.u_t.p_long_i@32:31-32:39	logic_typespec	0L	32:17-32:23
+      ours  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+  UNMOVED-WRONG g4_type109_plain	logic_net@work@g4_type109.u_t.p_short_i@33:31-33:40	logic_typespec	0L	33:17-33:24
+      ours  ['constant|n=-|dc=6|sz=16|v=UINT:6|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=6|sz=16|v=UINT:6|ts=NONE|ct=9']
+  UNMOVED-WRONG g4_type109_plain	port@work@g4_type109.u_t.p_bit1_i@35:31-35:39	logic_typespec	0L	35:17-35:23
+      ours  ['constant|n=-|dc=1|sz=64|v=UINT:1|ts=NONE|ct=9']
+      gold  ["constant|n=-|dc=1'b1|sz=1|v=BIN:1|ts=NONE|ct=3"]
+  UNMOVED-WRONG g4_type109_plain	port@work@g4_type109.u_t.p_bit8_i@37:31-37:39	logic_typespec	0L	37:17-37:23
+      ours  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=8|v=INT:6|ts=NONE|ct=7']
+  UNMOVED-WRONG g4_type109_plain	port@work@g4_type109.u_t.p_byte_i@34:31-34:39	logic_typespec	0L	34:17-34:23
+      ours  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=8|v=UINT:6|ts=NONE|ct=9']
+  TO-GOLDEN   g4_type109_plain	port@work@g4_type109.u_t.p_int_i@30:31-30:38	logic_typespec	0L	30:17-30:22
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g4_type109_plain	port@work@g4_type109.u_t.p_intc_i@41:31-41:39	logic_typespec	0L	41:17-41:23
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g4_type109_plain	port@work@g4_type109.u_t.p_integ_i@31:31-31:40	logic_typespec	0L	31:17-31:24
+      ours  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=NONE|ct=9']
+  UNMOVED-WRONG g4_type109_plain	port@work@g4_type109.u_t.p_log16_i@38:31-38:40	logic_typespec	0L	38:17-38:24
+      ours  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=16|v=INT:6|ts=NONE|ct=7']
+  UNMOVED-WRONG g4_type109_plain	port@work@g4_type109.u_t.p_log1_i@36:31-36:39	logic_typespec	0L	36:17-36:23
+      ours  ['constant|n=-|dc=1|sz=64|v=UINT:1|ts=NONE|ct=9']
+      gold  ["constant|n=-|dc=1'b1|sz=1|v=BIN:1|ts=NONE|ct=3"]
+  UNMOVED-WRONG g4_type109_plain	port@work@g4_type109.u_t.p_short_i@33:31-33:40	logic_typespec	0L	33:17-33:24
+      ours  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=16|v=UINT:6|ts=NONE|ct=9']
+  UNMOVED-WRONG g4_type109_plain	port@work@g4_type109.u_t.p_untl_i@39:31-39:39	logic_typespec	0L	39:17-39:23
+      ours  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=NONE|ct=9']
+g5_neg109_elab           BOTH-SAME 62  TO-GOLDEN 1  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 9  ONLY-GOLDEN 2  ONLY-OURS 2
+  UNMOVED-WRONG g5_neg109_elab	logic_net@work@g5_neg109.u_k.n_pki_i@53:33-53:40	logic_typespec	0L	53:17-53:25
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=7|sz=32|v=UINT:7|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_neg109_elab	logic_net@work@g5_neg109.u_k.n_unit_i@54:33-54:41	logic_typespec	0L	54:17-54:25
+      ours  ['constant|n=-|dc=5|sz=64|v=UINT:5|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=5|sz=32|v=UINT:5|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_neg109_elab	logic_var@work@g5_neg109.u_k.gblk[0].gv@69:25-69:27	logic_typespec	0L	69:14-69:21
+      ours  ['constant|n=-|dc=4|sz=64|v=UINT:4|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=4|sz=32|v=UINT:4|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g5_neg109_elab	logic_var@work@g5_neg109.u_k.gblk[1].gv@69:25-69:27	logic_typespec	0L	69:14-69:21
+      ours  ['constant|n=-|dc=4|sz=64|v=UINT:4|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=4|sz=32|v=UINT:4|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g5_neg109_elab	logic_var@work@g5_neg109.u_k.n_tdf_i@55:33-55:40	logic_typespec	0L	25:18-25:26
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=7|sz=32|v=UINT:7|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g5_neg109_elab	port@work@g5_kid109.n_tdf_i@55:33-55:40	logic_typespec	0L	25:18-25:26
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=7|sz=32|v=UINT:7|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g5_neg109_elab	port@work@g5_neg109.u_k.n_loc_i@56:33-56:40	logic_typespec	0L	56:17-56:23
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g5_neg109_elab	port@work@g5_neg109.u_k.n_pki_i@53:33-53:40	logic_typespec	0L	53:17-53:25
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=7|sz=32|v=UINT:7|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_neg109_elab	port@work@g5_neg109.u_k.n_tdf_i@55:33-55:40	logic_typespec	0L	25:18-25:26
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=7|sz=32|v=UINT:7|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g5_neg109_elab	port@work@g5_neg109.u_k.n_unit_i@54:33-54:41	logic_typespec	0L	54:17-54:25
+      ours  ['constant|n=-|dc=5|sz=64|v=UINT:5|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=5|sz=32|v=UINT:5|ts=NONE|ct=9']
+g5_neg109_plain          BOTH-SAME 62  TO-GOLDEN 1  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 9  ONLY-GOLDEN 2  ONLY-OURS 2
+  UNMOVED-WRONG g5_neg109_plain	logic_net@work@g5_neg109.u_k.n_pki_i@53:33-53:40	logic_typespec	0L	53:17-53:25
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=7|sz=32|v=UINT:7|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_neg109_plain	logic_net@work@g5_neg109.u_k.n_unit_i@54:33-54:41	logic_typespec	0L	54:17-54:25
+      ours  ['constant|n=-|dc=5|sz=64|v=UINT:5|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=5|sz=32|v=UINT:5|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_neg109_plain	logic_var@work@g5_neg109.u_k.gblk[0].gv@69:25-69:27	logic_typespec	0L	69:14-69:21
+      ours  ['constant|n=-|dc=4|sz=64|v=UINT:4|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=4|sz=32|v=UINT:4|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g5_neg109_plain	logic_var@work@g5_neg109.u_k.gblk[1].gv@69:25-69:27	logic_typespec	0L	69:14-69:21
+      ours  ['constant|n=-|dc=4|sz=64|v=UINT:4|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=4|sz=32|v=UINT:4|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g5_neg109_plain	logic_var@work@g5_neg109.u_k.n_tdf_i@55:33-55:40	logic_typespec	0L	25:18-25:26
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=7|sz=32|v=UINT:7|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g5_neg109_plain	port@work@g5_kid109.n_tdf_i@55:33-55:40	logic_typespec	0L	25:18-25:26
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=7|sz=32|v=UINT:7|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g5_neg109_plain	port@work@g5_neg109.u_k.n_loc_i@56:33-56:40	logic_typespec	0L	56:17-56:23
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g5_neg109_plain	port@work@g5_neg109.u_k.n_pki_i@53:33-53:40	logic_typespec	0L	53:17-53:25
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=7|sz=32|v=UINT:7|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_neg109_plain	port@work@g5_neg109.u_k.n_tdf_i@55:33-55:40	logic_typespec	0L	25:18-25:26
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=7|sz=32|v=UINT:7|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g5_neg109_plain	port@work@g5_neg109.u_k.n_unit_i@54:33-54:41	logic_typespec	0L	54:17-54:25
+      ours  ['constant|n=-|dc=5|sz=64|v=UINT:5|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=5|sz=32|v=UINT:5|ts=NONE|ct=9']
+g6_carrier109_elab       BOTH-SAME 65  TO-GOLDEN 7  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 0  ONLY-GOLDEN 0  ONLY-OURS 0
+  TO-GOLDEN   g6_carrier109_elab	port@work@g6_carrier109.u_c.c_2d_i@25:32-25:38	logic_typespec	0L	25:17-25:21
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g6_carrier109_elab	port@work@g6_carrier109.u_c.c_2db_i@26:32-26:39	logic_typespec	1L	26:22-26:26
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g6_carrier109_elab	port@work@g6_carrier109.u_c.c_in_i@22:32-22:38	logic_typespec	0L	22:17-22:21
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g6_carrier109_elab	port@work@g6_carrier109.u_c.c_io_io@24:32-24:39	logic_typespec	0L	24:17-24:21
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g6_carrier109_elab	port@work@g6_carrier109.u_c.c_out_o@23:32-23:39	logic_typespec	0L	23:17-23:21
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g6_carrier109_elab	port@work@g6_carrier109.u_c.c_unp_i@27:32-27:39	logic_typespec	0L	27:17-27:21
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g6_carrier109_elab	port@work@g6_carrier109.u_c.c_var_i@28:32-28:39	logic_typespec	0L	28:21-28:25
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+g6_carrier109_plain      BOTH-SAME 65  TO-GOLDEN 7  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 0  ONLY-GOLDEN 0  ONLY-OURS 0
+  TO-GOLDEN   g6_carrier109_plain	port@work@g6_carrier109.u_c.c_2d_i@25:32-25:38	logic_typespec	0L	25:17-25:21
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g6_carrier109_plain	port@work@g6_carrier109.u_c.c_2db_i@26:32-26:39	logic_typespec	1L	26:22-26:26
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g6_carrier109_plain	port@work@g6_carrier109.u_c.c_in_i@22:32-22:38	logic_typespec	0L	22:17-22:21
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g6_carrier109_plain	port@work@g6_carrier109.u_c.c_io_io@24:32-24:39	logic_typespec	0L	24:17-24:21
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g6_carrier109_plain	port@work@g6_carrier109.u_c.c_out_o@23:32-23:39	logic_typespec	0L	23:17-23:21
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g6_carrier109_plain	port@work@g6_carrier109.u_c.c_unp_i@27:32-27:39	logic_typespec	0L	27:17-27:21
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g6_carrier109_plain	port@work@g6_carrier109.u_c.c_var_i@28:32-28:39	logic_typespec	0L	28:21-28:25
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+-- TOTAL BOTH-SAME 826  TO-GOLDEN 30  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 92  ONLY-GOLDEN 8  ONLY-OURS 8

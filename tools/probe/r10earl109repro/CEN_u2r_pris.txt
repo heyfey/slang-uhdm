@@ -1,0 +1,3 @@
+tags: golden 1044  ours 970  SCORED(intersection) 970
+WHOLE CENSUS  BOTH-SAME 153632  FLIP 44  ONLY-GOLDEN 1562  ONLY-OURS 388
+THE LAW'S CELLS (port carrier, golden UINT+SIGNED int_typespec, ours the same value with NO typespec): 0

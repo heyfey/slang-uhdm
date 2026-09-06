@@ -1,0 +1,707 @@
+g5_enc82_elab            BOTH-SAME 817  TO-GOLDEN 4  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 105  ONLY-GOLDEN 0  ONLY-OURS 2
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.n_PKD@194:17-194:22	logic_typespec	0L	194:10-194:13
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ["constant|n=-|dc=8'd8|sz=32|v=DEC:8|ts=int_typespec/S|ct=1"]
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.n_PKV@188:17-188:22	logic_typespec	0L	188:10-188:13
+      ours  ['constant|n=-|dc=7|sz=4|v=UINT:7|ts=bit_typespec|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=bit_typespec|ct=5"]
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.v_LPB@159:17-159:22	packed_array_typespec	0L	159:10-159:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=LPB|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.v_LPI@153:17-153:22	packed_array_typespec	0L	153:10-153:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=LPI|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.v_LPU@156:17-156:22	packed_array_typespec	0L	156:10-156:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=LPU|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.v_LPV@162:17-162:22	packed_array_typespec	0L	162:10-162:13
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ['ref_obj|n=LPV|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.v_LPX@165:17-165:22	packed_array_typespec	0L	165:10-165:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=LPX|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.v_NOB@84:17-84:22	packed_array_typespec	0L	84:10-84:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=NOB|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.v_NOD@105:17-105:22	packed_array_typespec	0L	105:10-105:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=NOD|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.v_NOG@93:17-93:22	packed_array_typespec	0L	93:10-93:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=NOG|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.v_NOI@78:17-78:22	packed_array_typespec	0L	78:10-78:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=NOI|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.v_NOL@90:17-90:22	packed_array_typespec	0L	90:10-90:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=NOL|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.v_NOS@87:17-87:22	packed_array_typespec	0L	87:10-87:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=NOS|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.v_NOU@81:17-81:22	packed_array_typespec	0L	81:10-81:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=NOU|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.v_NOV@96:17-96:22	packed_array_typespec	0L	96:10-96:13
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ['ref_obj|n=NOV|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.v_NOW@99:17-99:22	packed_array_typespec	0L	99:10-99:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=NOW|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.v_NOX@108:17-108:22	packed_array_typespec	0L	108:10-108:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=NOX|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.v_NOZ@102:17-102:22	packed_array_typespec	0L	102:10-102:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=NOZ|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.v_OVA@150:17-150:22	packed_array_typespec	0L	150:10-150:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=OVA|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.v_OVB@117:17-117:22	packed_array_typespec	0L	117:10-117:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=OVB|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.v_OVE@135:17-135:22	packed_array_typespec	0L	135:10-135:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=OVE|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.v_OVH@123:17-123:22	packed_array_typespec	0L	123:10-123:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=OVH|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.v_OVI@111:17-111:22	packed_array_typespec	0L	111:10-111:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=OVI|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.v_OVJ@144:17-144:22	packed_array_typespec	0L	144:10-144:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=OVJ|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.v_OVK@147:17-147:22	packed_array_typespec	0L	147:10-147:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=OVK|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.v_OVN@129:17-129:22	packed_array_typespec	0L	129:10-129:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=OVN|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.v_OVP@141:17-141:22	packed_array_typespec	0L	141:10-141:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=OVP|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.v_OVQ@138:17-138:22	packed_array_typespec	0L	138:10-138:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=OVQ|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.v_OVU@114:17-114:22	packed_array_typespec	0L	114:10-114:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=OVU|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.v_OVV@120:17-120:22	packed_array_typespec	0L	120:10-120:13
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ['ref_obj|n=OVV|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.v_OVW@132:17-132:22	packed_array_typespec	0L	132:10-132:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=OVW|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.v_OVX@126:17-126:22	packed_array_typespec	0L	126:10-126:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=OVX|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.v_PKD@195:17-195:22	packed_array_typespec	0L	195:10-195:13
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ["constant|n=-|dc=8'd8|sz=32|v=DEC:8|ts=int_typespec/S|ct=1"]
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.v_PKV@189:17-189:22	packed_array_typespec	0L	189:10-189:13
+      ours  ['constant|n=-|dc=7|sz=4|v=UINT:7|ts=bit_typespec|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=bit_typespec|ct=5"]
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@hop_leaf82.v_HOP@320:17-320:22	packed_array_typespec	0L	320:11-320:13
+      ours  ['constant|n=-|dc=40|sz=64|v=UINT:40|ts=NONE|ct=9']
+      gold  ['ref_obj|n=HW|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@top5_82.ia.p_NOB@48:18-48:23	logic_typespec	0L	48:11-48:14
+      ours  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@top5_82.ia.p_NOD@55:18-55:23	logic_typespec	0L	55:11-55:14
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=INT:8|ts=int_typespec/S|ct=7']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@top5_82.ia.p_NOG@51:18-51:23	logic_typespec	0L	51:11-51:14
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@top5_82.ia.p_NOL@50:18-50:23	logic_typespec	0L	50:11-50:14
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@top5_82.ia.p_NOS@49:18-49:23	logic_typespec	0L	49:11-49:14
+      ours  ['constant|n=-|dc=8|sz=16|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=16|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@top5_82.ia.p_NOV@52:18-52:23	logic_typespec	0L	52:11-52:14
+      ours  ['constant|n=-|dc=7|sz=4|v=UINT:7|ts=int_typespec/u|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=NONE|ct=5"]
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@top5_82.ia.p_NOW@53:18-53:23	logic_typespec	0L	53:11-53:14
+      ours  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=int_typespec/u|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@top5_82.ia.p_NOZ@54:18-54:23	logic_typespec	0L	54:11-54:14
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/u|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@top5_82.ia.p_OVH@61:18-61:23	logic_typespec	0L	61:11-61:14
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=INT:8|ts=NONE|ct=7']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@top5_82.ia.p_OVV@60:18-60:23	logic_typespec	0L	60:11-60:14
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=NONE|ct=5"]
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@top5_82.ib.p_NOB@48:18-48:23	logic_typespec	0L	48:11-48:14
+      ours  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@top5_82.ib.p_NOD@55:18-55:23	logic_typespec	0L	55:11-55:14
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=INT:8|ts=int_typespec/S|ct=7']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@top5_82.ib.p_NOG@51:18-51:23	logic_typespec	0L	51:11-51:14
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@top5_82.ib.p_NOL@50:18-50:23	logic_typespec	0L	50:11-50:14
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@top5_82.ib.p_NOS@49:18-49:23	logic_typespec	0L	49:11-49:14
+      ours  ['constant|n=-|dc=8|sz=16|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=16|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@top5_82.ib.p_NOV@52:18-52:23	logic_typespec	0L	52:11-52:14
+      ours  ['constant|n=-|dc=7|sz=4|v=UINT:7|ts=int_typespec/u|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=NONE|ct=5"]
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@top5_82.ib.p_NOW@53:18-53:23	logic_typespec	0L	53:11-53:14
+      ours  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=int_typespec/u|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@top5_82.ib.p_NOZ@54:18-54:23	logic_typespec	0L	54:11-54:14
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/u|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@top5_82.ib.p_OVH@61:18-61:23	logic_typespec	0L	61:11-61:14
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=INT:8|ts=NONE|ct=7']
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@top5_82.ib.p_OVV@60:18-60:23	logic_typespec	0L	60:11-60:14
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=NONE|ct=5"]
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ia.n_LPB@158:17-158:22	logic_typespec	0L	158:10-158:13
+      ours  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ia.n_LPV@161:17-161:22	logic_typespec	0L	161:10-161:13
+      ours  ['constant|n=-|dc=7|sz=4|v=UINT:7|ts=int_typespec/u|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=NONE|ct=5"]
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ia.n_NOB@83:17-83:22	logic_typespec	0L	83:10-83:13
+      ours  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ia.n_NOD@104:17-104:22	logic_typespec	0L	104:10-104:13
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=INT:8|ts=int_typespec/S|ct=7']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ia.n_NOG@92:17-92:22	logic_typespec	0L	92:10-92:13
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ia.n_NOL@89:17-89:22	logic_typespec	0L	89:10-89:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ia.n_NOS@86:17-86:22	logic_typespec	0L	86:10-86:13
+      ours  ['constant|n=-|dc=8|sz=16|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=16|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ia.n_NOV@95:17-95:22	logic_typespec	0L	95:10-95:13
+      ours  ['constant|n=-|dc=7|sz=4|v=UINT:7|ts=int_typespec/u|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=NONE|ct=5"]
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ia.n_NOW@98:17-98:22	logic_typespec	0L	98:10-98:13
+      ours  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=int_typespec/u|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ia.n_NOZ@101:17-101:22	logic_typespec	0L	101:10-101:13
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/u|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ia.n_OVH@122:17-122:22	logic_typespec	0L	122:10-122:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=INT:8|ts=NONE|ct=7']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ia.n_OVV@119:17-119:22	logic_typespec	0L	119:10-119:13
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=NONE|ct=5"]
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ia.n_PKB@176:17-176:22	logic_typespec	0L	176:10-176:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ia.n_PKD@194:17-194:22	logic_typespec	0L	194:10-194:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=INT:8|ts=NONE|ct=7']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ia.n_PKG@185:17-185:22	logic_typespec	0L	185:10-185:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ia.n_PKI@167:17-167:22	logic_typespec	0L	167:10-167:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ia.n_PKM@170:17-170:22	logic_typespec	0L	170:10-170:13
+      ours  ['constant|n=-|dc=7|sz=64|v=INT:7|ts=NONE|ct=7']
+      gold  ['constant|n=-|dc=7|sz=32|v=INT:7|ts=NONE|ct=7']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ia.n_PKS@179:17-179:22	logic_typespec	0L	179:10-179:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=16|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ia.n_PKV@188:17-188:22	logic_typespec	0L	188:10-188:13
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=NONE|ct=5"]
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ia.n_PKW@191:17-191:22	logic_typespec	0L	191:10-191:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ia.n_PKX@197:17-197:22	logic_typespec	0L	197:10-197:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ib.n_LPB@158:17-158:22	logic_typespec	0L	158:10-158:13
+      ours  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ib.n_LPV@161:17-161:22	logic_typespec	0L	161:10-161:13
+      ours  ['constant|n=-|dc=7|sz=4|v=UINT:7|ts=int_typespec/u|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=NONE|ct=5"]
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ib.n_NOB@83:17-83:22	logic_typespec	0L	83:10-83:13
+      ours  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ib.n_NOD@104:17-104:22	logic_typespec	0L	104:10-104:13
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=INT:8|ts=int_typespec/S|ct=7']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ib.n_NOG@92:17-92:22	logic_typespec	0L	92:10-92:13
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ib.n_NOL@89:17-89:22	logic_typespec	0L	89:10-89:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ib.n_NOS@86:17-86:22	logic_typespec	0L	86:10-86:13
+      ours  ['constant|n=-|dc=8|sz=16|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=16|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ib.n_NOV@95:17-95:22	logic_typespec	0L	95:10-95:13
+      ours  ['constant|n=-|dc=7|sz=4|v=UINT:7|ts=int_typespec/u|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=NONE|ct=5"]
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ib.n_NOW@98:17-98:22	logic_typespec	0L	98:10-98:13
+      ours  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=int_typespec/u|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ib.n_NOZ@101:17-101:22	logic_typespec	0L	101:10-101:13
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/u|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ib.n_OVH@122:17-122:22	logic_typespec	0L	122:10-122:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=INT:8|ts=NONE|ct=7']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ib.n_OVV@119:17-119:22	logic_typespec	0L	119:10-119:13
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=NONE|ct=5"]
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ib.n_PKB@176:17-176:22	logic_typespec	0L	176:10-176:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ib.n_PKD@194:17-194:22	logic_typespec	0L	194:10-194:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=INT:8|ts=NONE|ct=7']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ib.n_PKG@185:17-185:22	logic_typespec	0L	185:10-185:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ib.n_PKI@167:17-167:22	logic_typespec	0L	167:10-167:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ib.n_PKM@170:17-170:22	logic_typespec	0L	170:10-170:13
+      ours  ['constant|n=-|dc=7|sz=64|v=INT:7|ts=NONE|ct=7']
+      gold  ['constant|n=-|dc=7|sz=32|v=INT:7|ts=NONE|ct=7']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ib.n_PKS@179:17-179:22	logic_typespec	0L	179:10-179:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=16|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ib.n_PKV@188:17-188:22	logic_typespec	0L	188:10-188:13
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=NONE|ct=5"]
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ib.n_PKW@191:17-191:22	logic_typespec	0L	191:10-191:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	logic_var@work@top5_82.ib.n_PKX@197:17-197:22	logic_typespec	0L	197:10-197:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	port@work@top5_82.ia.p_NOD@55:18-55:23	logic_typespec	0L	55:11-55:14
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=INT:8|ts=int_typespec/S|ct=7']
+  TO-GOLDEN   g5_enc82_elab	port@work@top5_82.ia.p_NOI@46:18-46:23	logic_typespec	0L	46:11-46:14
+      pris  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	port@work@top5_82.ia.p_NOV@52:18-52:23	logic_typespec	0L	52:11-52:14
+      ours  ['constant|n=-|dc=7|sz=4|v=UINT:7|ts=NONE|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=NONE|ct=5"]
+  TO-GOLDEN   g5_enc82_elab	port@work@top5_82.ia.p_NOX@56:18-56:23	logic_typespec	0L	56:11-56:14
+      pris  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	port@work@top5_82.ia.p_OVH@61:18-61:23	logic_typespec	0L	61:11-61:14
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=INT:8|ts=NONE|ct=7']
+  UNMOVED-WRONG g5_enc82_elab	port@work@top5_82.ia.p_OVV@60:18-60:23	logic_typespec	0L	60:11-60:14
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=NONE|ct=5"]
+  UNMOVED-WRONG g5_enc82_elab	port@work@top5_82.ib.p_NOD@55:18-55:23	logic_typespec	0L	55:11-55:14
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=INT:8|ts=int_typespec/S|ct=7']
+  TO-GOLDEN   g5_enc82_elab	port@work@top5_82.ib.p_NOI@46:18-46:23	logic_typespec	0L	46:11-46:14
+      pris  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	port@work@top5_82.ib.p_NOV@52:18-52:23	logic_typespec	0L	52:11-52:14
+      ours  ['constant|n=-|dc=7|sz=4|v=UINT:7|ts=NONE|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=NONE|ct=5"]
+  TO-GOLDEN   g5_enc82_elab	port@work@top5_82.ib.p_NOX@56:18-56:23	logic_typespec	0L	56:11-56:14
+      pris  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	port@work@top5_82.ib.p_OVH@61:18-61:23	logic_typespec	0L	61:11-61:14
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=INT:8|ts=NONE|ct=7']
+  UNMOVED-WRONG g5_enc82_elab	port@work@top5_82.ib.p_OVV@60:18-60:23	logic_typespec	0L	60:11-60:14
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=NONE|ct=5"]
+g5_enc82_plain           BOTH-SAME 817  TO-GOLDEN 4  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 105  ONLY-GOLDEN 0  ONLY-OURS 2
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.n_PKD@194:17-194:22	logic_typespec	0L	194:10-194:13
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ["constant|n=-|dc=8'd8|sz=32|v=DEC:8|ts=int_typespec/S|ct=1"]
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.n_PKV@188:17-188:22	logic_typespec	0L	188:10-188:13
+      ours  ['constant|n=-|dc=7|sz=4|v=UINT:7|ts=bit_typespec|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=bit_typespec|ct=5"]
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.v_LPB@159:17-159:22	packed_array_typespec	0L	159:10-159:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=LPB|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.v_LPI@153:17-153:22	packed_array_typespec	0L	153:10-153:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=LPI|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.v_LPU@156:17-156:22	packed_array_typespec	0L	156:10-156:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=LPU|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.v_LPV@162:17-162:22	packed_array_typespec	0L	162:10-162:13
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ['ref_obj|n=LPV|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.v_LPX@165:17-165:22	packed_array_typespec	0L	165:10-165:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=LPX|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.v_NOB@84:17-84:22	packed_array_typespec	0L	84:10-84:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=NOB|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.v_NOD@105:17-105:22	packed_array_typespec	0L	105:10-105:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=NOD|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.v_NOG@93:17-93:22	packed_array_typespec	0L	93:10-93:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=NOG|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.v_NOI@78:17-78:22	packed_array_typespec	0L	78:10-78:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=NOI|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.v_NOL@90:17-90:22	packed_array_typespec	0L	90:10-90:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=NOL|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.v_NOS@87:17-87:22	packed_array_typespec	0L	87:10-87:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=NOS|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.v_NOU@81:17-81:22	packed_array_typespec	0L	81:10-81:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=NOU|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.v_NOV@96:17-96:22	packed_array_typespec	0L	96:10-96:13
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ['ref_obj|n=NOV|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.v_NOW@99:17-99:22	packed_array_typespec	0L	99:10-99:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=NOW|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.v_NOX@108:17-108:22	packed_array_typespec	0L	108:10-108:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=NOX|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.v_NOZ@102:17-102:22	packed_array_typespec	0L	102:10-102:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=NOZ|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.v_OVA@150:17-150:22	packed_array_typespec	0L	150:10-150:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=OVA|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.v_OVB@117:17-117:22	packed_array_typespec	0L	117:10-117:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=OVB|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.v_OVE@135:17-135:22	packed_array_typespec	0L	135:10-135:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=OVE|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.v_OVH@123:17-123:22	packed_array_typespec	0L	123:10-123:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=OVH|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.v_OVI@111:17-111:22	packed_array_typespec	0L	111:10-111:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=OVI|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.v_OVJ@144:17-144:22	packed_array_typespec	0L	144:10-144:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=OVJ|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.v_OVK@147:17-147:22	packed_array_typespec	0L	147:10-147:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=OVK|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.v_OVN@129:17-129:22	packed_array_typespec	0L	129:10-129:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=OVN|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.v_OVP@141:17-141:22	packed_array_typespec	0L	141:10-141:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=OVP|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.v_OVQ@138:17-138:22	packed_array_typespec	0L	138:10-138:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=OVQ|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.v_OVU@114:17-114:22	packed_array_typespec	0L	114:10-114:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=OVU|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.v_OVV@120:17-120:22	packed_array_typespec	0L	120:10-120:13
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ['ref_obj|n=OVV|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.v_OVW@132:17-132:22	packed_array_typespec	0L	132:10-132:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=OVW|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.v_OVX@126:17-126:22	packed_array_typespec	0L	126:10-126:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['ref_obj|n=OVX|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.v_PKD@195:17-195:22	packed_array_typespec	0L	195:10-195:13
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ["constant|n=-|dc=8'd8|sz=32|v=DEC:8|ts=int_typespec/S|ct=1"]
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.v_PKV@189:17-189:22	packed_array_typespec	0L	189:10-189:13
+      ours  ['constant|n=-|dc=7|sz=4|v=UINT:7|ts=bit_typespec|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=bit_typespec|ct=5"]
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@hop_leaf82.v_HOP@320:17-320:22	packed_array_typespec	0L	320:11-320:13
+      ours  ['constant|n=-|dc=40|sz=64|v=UINT:40|ts=NONE|ct=9']
+      gold  ['ref_obj|n=HW|dc=|sz=0|v=|ts=NONE|act=-']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@top5_82.ia.p_NOB@48:18-48:23	logic_typespec	0L	48:11-48:14
+      ours  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@top5_82.ia.p_NOD@55:18-55:23	logic_typespec	0L	55:11-55:14
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=INT:8|ts=int_typespec/S|ct=7']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@top5_82.ia.p_NOG@51:18-51:23	logic_typespec	0L	51:11-51:14
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@top5_82.ia.p_NOL@50:18-50:23	logic_typespec	0L	50:11-50:14
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@top5_82.ia.p_NOS@49:18-49:23	logic_typespec	0L	49:11-49:14
+      ours  ['constant|n=-|dc=8|sz=16|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=16|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@top5_82.ia.p_NOV@52:18-52:23	logic_typespec	0L	52:11-52:14
+      ours  ['constant|n=-|dc=7|sz=4|v=UINT:7|ts=int_typespec/u|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=NONE|ct=5"]
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@top5_82.ia.p_NOW@53:18-53:23	logic_typespec	0L	53:11-53:14
+      ours  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=int_typespec/u|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@top5_82.ia.p_NOZ@54:18-54:23	logic_typespec	0L	54:11-54:14
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/u|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@top5_82.ia.p_OVH@61:18-61:23	logic_typespec	0L	61:11-61:14
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=INT:8|ts=NONE|ct=7']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@top5_82.ia.p_OVV@60:18-60:23	logic_typespec	0L	60:11-60:14
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=NONE|ct=5"]
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@top5_82.ib.p_NOB@48:18-48:23	logic_typespec	0L	48:11-48:14
+      ours  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@top5_82.ib.p_NOD@55:18-55:23	logic_typespec	0L	55:11-55:14
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=INT:8|ts=int_typespec/S|ct=7']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@top5_82.ib.p_NOG@51:18-51:23	logic_typespec	0L	51:11-51:14
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@top5_82.ib.p_NOL@50:18-50:23	logic_typespec	0L	50:11-50:14
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@top5_82.ib.p_NOS@49:18-49:23	logic_typespec	0L	49:11-49:14
+      ours  ['constant|n=-|dc=8|sz=16|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=16|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@top5_82.ib.p_NOV@52:18-52:23	logic_typespec	0L	52:11-52:14
+      ours  ['constant|n=-|dc=7|sz=4|v=UINT:7|ts=int_typespec/u|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=NONE|ct=5"]
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@top5_82.ib.p_NOW@53:18-53:23	logic_typespec	0L	53:11-53:14
+      ours  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=int_typespec/u|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@top5_82.ib.p_NOZ@54:18-54:23	logic_typespec	0L	54:11-54:14
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/u|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@top5_82.ib.p_OVH@61:18-61:23	logic_typespec	0L	61:11-61:14
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=INT:8|ts=NONE|ct=7']
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@top5_82.ib.p_OVV@60:18-60:23	logic_typespec	0L	60:11-60:14
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=NONE|ct=5"]
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ia.n_LPB@158:17-158:22	logic_typespec	0L	158:10-158:13
+      ours  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ia.n_LPV@161:17-161:22	logic_typespec	0L	161:10-161:13
+      ours  ['constant|n=-|dc=7|sz=4|v=UINT:7|ts=int_typespec/u|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=NONE|ct=5"]
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ia.n_NOB@83:17-83:22	logic_typespec	0L	83:10-83:13
+      ours  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ia.n_NOD@104:17-104:22	logic_typespec	0L	104:10-104:13
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=INT:8|ts=int_typespec/S|ct=7']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ia.n_NOG@92:17-92:22	logic_typespec	0L	92:10-92:13
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ia.n_NOL@89:17-89:22	logic_typespec	0L	89:10-89:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ia.n_NOS@86:17-86:22	logic_typespec	0L	86:10-86:13
+      ours  ['constant|n=-|dc=8|sz=16|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=16|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ia.n_NOV@95:17-95:22	logic_typespec	0L	95:10-95:13
+      ours  ['constant|n=-|dc=7|sz=4|v=UINT:7|ts=int_typespec/u|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=NONE|ct=5"]
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ia.n_NOW@98:17-98:22	logic_typespec	0L	98:10-98:13
+      ours  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=int_typespec/u|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ia.n_NOZ@101:17-101:22	logic_typespec	0L	101:10-101:13
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/u|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ia.n_OVH@122:17-122:22	logic_typespec	0L	122:10-122:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=INT:8|ts=NONE|ct=7']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ia.n_OVV@119:17-119:22	logic_typespec	0L	119:10-119:13
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=NONE|ct=5"]
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ia.n_PKB@176:17-176:22	logic_typespec	0L	176:10-176:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ia.n_PKD@194:17-194:22	logic_typespec	0L	194:10-194:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=INT:8|ts=NONE|ct=7']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ia.n_PKG@185:17-185:22	logic_typespec	0L	185:10-185:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ia.n_PKI@167:17-167:22	logic_typespec	0L	167:10-167:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ia.n_PKM@170:17-170:22	logic_typespec	0L	170:10-170:13
+      ours  ['constant|n=-|dc=7|sz=64|v=INT:7|ts=NONE|ct=7']
+      gold  ['constant|n=-|dc=7|sz=32|v=INT:7|ts=NONE|ct=7']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ia.n_PKS@179:17-179:22	logic_typespec	0L	179:10-179:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=16|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ia.n_PKV@188:17-188:22	logic_typespec	0L	188:10-188:13
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=NONE|ct=5"]
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ia.n_PKW@191:17-191:22	logic_typespec	0L	191:10-191:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ia.n_PKX@197:17-197:22	logic_typespec	0L	197:10-197:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ib.n_LPB@158:17-158:22	logic_typespec	0L	158:10-158:13
+      ours  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ib.n_LPV@161:17-161:22	logic_typespec	0L	161:10-161:13
+      ours  ['constant|n=-|dc=7|sz=4|v=UINT:7|ts=int_typespec/u|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=NONE|ct=5"]
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ib.n_NOB@83:17-83:22	logic_typespec	0L	83:10-83:13
+      ours  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ib.n_NOD@104:17-104:22	logic_typespec	0L	104:10-104:13
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=INT:8|ts=int_typespec/S|ct=7']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ib.n_NOG@92:17-92:22	logic_typespec	0L	92:10-92:13
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ib.n_NOL@89:17-89:22	logic_typespec	0L	89:10-89:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ib.n_NOS@86:17-86:22	logic_typespec	0L	86:10-86:13
+      ours  ['constant|n=-|dc=8|sz=16|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=8|sz=16|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ib.n_NOV@95:17-95:22	logic_typespec	0L	95:10-95:13
+      ours  ['constant|n=-|dc=7|sz=4|v=UINT:7|ts=int_typespec/u|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=NONE|ct=5"]
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ib.n_NOW@98:17-98:22	logic_typespec	0L	98:10-98:13
+      ours  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=int_typespec/u|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ib.n_NOZ@101:17-101:22	logic_typespec	0L	101:10-101:13
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/u|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ib.n_OVH@122:17-122:22	logic_typespec	0L	122:10-122:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=INT:8|ts=NONE|ct=7']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ib.n_OVV@119:17-119:22	logic_typespec	0L	119:10-119:13
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=NONE|ct=5"]
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ib.n_PKB@176:17-176:22	logic_typespec	0L	176:10-176:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ib.n_PKD@194:17-194:22	logic_typespec	0L	194:10-194:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=INT:8|ts=NONE|ct=7']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ib.n_PKG@185:17-185:22	logic_typespec	0L	185:10-185:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ib.n_PKI@167:17-167:22	logic_typespec	0L	167:10-167:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ib.n_PKM@170:17-170:22	logic_typespec	0L	170:10-170:13
+      ours  ['constant|n=-|dc=7|sz=64|v=INT:7|ts=NONE|ct=7']
+      gold  ['constant|n=-|dc=7|sz=32|v=INT:7|ts=NONE|ct=7']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ib.n_PKS@179:17-179:22	logic_typespec	0L	179:10-179:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=16|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ib.n_PKV@188:17-188:22	logic_typespec	0L	188:10-188:13
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=NONE|ct=5"]
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ib.n_PKW@191:17-191:22	logic_typespec	0L	191:10-191:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	logic_var@work@top5_82.ib.n_PKX@197:17-197:22	logic_typespec	0L	197:10-197:13
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	port@work@top5_82.ia.p_NOD@55:18-55:23	logic_typespec	0L	55:11-55:14
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=INT:8|ts=int_typespec/S|ct=7']
+  TO-GOLDEN   g5_enc82_plain	port@work@top5_82.ia.p_NOI@46:18-46:23	logic_typespec	0L	46:11-46:14
+      pris  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	port@work@top5_82.ia.p_NOV@52:18-52:23	logic_typespec	0L	52:11-52:14
+      ours  ['constant|n=-|dc=7|sz=4|v=UINT:7|ts=NONE|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=NONE|ct=5"]
+  TO-GOLDEN   g5_enc82_plain	port@work@top5_82.ia.p_NOX@56:18-56:23	logic_typespec	0L	56:11-56:14
+      pris  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	port@work@top5_82.ia.p_OVH@61:18-61:23	logic_typespec	0L	61:11-61:14
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=INT:8|ts=NONE|ct=7']
+  UNMOVED-WRONG g5_enc82_plain	port@work@top5_82.ia.p_OVV@60:18-60:23	logic_typespec	0L	60:11-60:14
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=NONE|ct=5"]
+  UNMOVED-WRONG g5_enc82_plain	port@work@top5_82.ib.p_NOD@55:18-55:23	logic_typespec	0L	55:11-55:14
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=INT:8|ts=int_typespec/S|ct=7']
+  TO-GOLDEN   g5_enc82_plain	port@work@top5_82.ib.p_NOI@46:18-46:23	logic_typespec	0L	46:11-46:14
+      pris  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	port@work@top5_82.ib.p_NOV@52:18-52:23	logic_typespec	0L	52:11-52:14
+      ours  ['constant|n=-|dc=7|sz=4|v=UINT:7|ts=NONE|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=NONE|ct=5"]
+  TO-GOLDEN   g5_enc82_plain	port@work@top5_82.ib.p_NOX@56:18-56:23	logic_typespec	0L	56:11-56:14
+      pris  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	port@work@top5_82.ib.p_OVH@61:18-61:23	logic_typespec	0L	61:11-61:14
+      ours  ['constant|n=-|dc=8|sz=64|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=8|v=INT:8|ts=NONE|ct=7']
+  UNMOVED-WRONG g5_enc82_plain	port@work@top5_82.ib.p_OVV@60:18-60:23	logic_typespec	0L	60:11-60:14
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ["constant|n=-|dc=4'h7|sz=4|v=HEX:7|ts=NONE|ct=5"]
+vq_elab                  BOTH-SAME 64  TO-GOLDEN 1  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 7  ONLY-GOLDEN 2  ONLY-OURS 2
+  UNMOVED-WRONG vq_elab	logic_net@work@vqtop.u.pb_i@30:30-30:34	logic_typespec	0L	30:17-30:19
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=7|sz=8|v=UINT:7|ts=NONE|ct=9']
+  UNMOVED-WRONG vq_elab	logic_net@work@vqtop.u.pi_i@25:30-25:34	logic_typespec	0L	25:17-25:19
+      ours  ['constant|n=-|dc=4|sz=64|v=UINT:4|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=4|sz=32|v=UINT:4|ts=NONE|ct=9']
+  UNMOVED-WRONG vq_elab	logic_net@work@vqtop.u.pl_i@29:30-29:34	logic_typespec	0L	29:17-29:19
+      ours  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=8|v=UINT:6|ts=NONE|ct=9']
+  UNMOVED-WRONG vq_elab	port@work@vqtop.u.pb_i@30:30-30:34	logic_typespec	0L	30:17-30:19
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=7|sz=8|v=UINT:7|ts=NONE|ct=9']
+  UNMOVED-WRONG vq_elab	port@work@vqtop.u.pi_i@25:30-25:34	logic_typespec	0L	25:17-25:19
+      ours  ['constant|n=-|dc=4|sz=64|v=UINT:4|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=4|sz=32|v=UINT:4|ts=NONE|ct=9']
+  UNMOVED-WRONG vq_elab	port@work@vqtop.u.pl_i@29:30-29:34	logic_typespec	0L	29:17-29:19
+      ours  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=8|v=UINT:6|ts=NONE|ct=9']
+  TO-GOLDEN   vq_elab	port@work@vqtop.u.pm_i@27:30-27:34	logic_typespec	0L	27:17-27:19
+      pris  ['constant|n=-|dc=3|sz=32|v=UINT:3|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=3|sz=32|v=UINT:3|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG vq_elab	port@work@vqtop.u.t_i@34:30-34:33	packed_array_typespec	0L	34:17-34:19
+      ours  ['constant|n=-|dc=4|sz=32|v=UINT:4|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=4|sz=32|v=UINT:4|ts=NONE|ct=9']
+vq_plain                 BOTH-SAME 64  TO-GOLDEN 1  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 7  ONLY-GOLDEN 2  ONLY-OURS 2
+  UNMOVED-WRONG vq_plain	logic_net@work@vqtop.u.pb_i@30:30-30:34	logic_typespec	0L	30:17-30:19
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=7|sz=8|v=UINT:7|ts=NONE|ct=9']
+  UNMOVED-WRONG vq_plain	logic_net@work@vqtop.u.pi_i@25:30-25:34	logic_typespec	0L	25:17-25:19
+      ours  ['constant|n=-|dc=4|sz=64|v=UINT:4|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=4|sz=32|v=UINT:4|ts=NONE|ct=9']
+  UNMOVED-WRONG vq_plain	logic_net@work@vqtop.u.pl_i@29:30-29:34	logic_typespec	0L	29:17-29:19
+      ours  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=8|v=UINT:6|ts=NONE|ct=9']
+  UNMOVED-WRONG vq_plain	port@work@vqtop.u.pb_i@30:30-30:34	logic_typespec	0L	30:17-30:19
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=7|sz=8|v=UINT:7|ts=NONE|ct=9']
+  UNMOVED-WRONG vq_plain	port@work@vqtop.u.pi_i@25:30-25:34	logic_typespec	0L	25:17-25:19
+      ours  ['constant|n=-|dc=4|sz=64|v=UINT:4|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=4|sz=32|v=UINT:4|ts=NONE|ct=9']
+  UNMOVED-WRONG vq_plain	port@work@vqtop.u.pl_i@29:30-29:34	logic_typespec	0L	29:17-29:19
+      ours  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=8|v=UINT:6|ts=NONE|ct=9']
+  TO-GOLDEN   vq_plain	port@work@vqtop.u.pm_i@27:30-27:34	logic_typespec	0L	27:17-27:19
+      pris  ['constant|n=-|dc=3|sz=32|v=UINT:3|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=3|sz=32|v=UINT:3|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG vq_plain	port@work@vqtop.u.t_i@34:30-34:33	packed_array_typespec	0L	34:17-34:19
+      ours  ['constant|n=-|dc=4|sz=32|v=UINT:4|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=4|sz=32|v=UINT:4|ts=NONE|ct=9']
+-- TOTAL BOTH-SAME 1762  TO-GOLDEN 10  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 224  ONLY-GOLDEN 4  ONLY-OURS 8

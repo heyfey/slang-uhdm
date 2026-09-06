@@ -1,0 +1,41 @@
+r10earl109 -- THE THREE MOVERS, attributed ORDER-BLIND from workdir-normalised
+uhdm-dump output.  MEASUREMENT ONLY.
+
+== Earlgrey_0_1 / default   (244 MB dump) ==
+unsorted 10 lines, ORDER-BLIND 10 lines -- a real content move
+4400930c4400930
+<       |vpiSize:64
+---
+>       |vpiSize:32
+4400931a4400932,4400937
+>       |vpiTypespec:
+>       \_ref_typespec: 
+>         |vpiParent:
+>         \_constant: , line:54:17, endln:54:21
+>         |vpiActual:
+>         \_int_typespec: 
+4400940a4400947,4400948
+> \_int_typespec: 
+>   |vpiSigned:1
+
+== Earlgrey_0_1 / testflags (360 MB dump) ==
+unsorted 10 lines, ORDER-BLIND 10 lines -- a real content move
+5976703c5976703
+<       |vpiSize:64
+---
+>       |vpiSize:32
+5976704a5976705,5976710
+>       |vpiTypespec:
+>       \_ref_typespec: 
+>         |vpiParent:
+>         \_constant: , line:54:17, endln:54:21
+>         |vpiActual:
+>         \_int_typespec: 
+5976713a5976720,5976721
+> \_int_typespec: 
+>   |vpiSigned:1
+
+== Scoreboard / default ==
+unsorted 92 lines, ORDER-BLIND 0 lines -- the documented svunit_pkg vpiTaskFunc
+list-order COIN (RESUME.md section 9), not a content move.  Its head log is
+byte-identical before and after.

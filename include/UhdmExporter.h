@@ -6888,6 +6888,21 @@ private:
     // Set around ELAB net-ts creation: the owning net/var's fullname (bare
     // param-ref bounds clone a ts ref scoped by it).
     std::string boundOwnerFullName;
+    // § elabPortBoundIntParamTs109 -- set around an ELABORATED instance
+    // PORT's own typespec build (and ONLY there): the scope that port's
+    // declaration lives in.  `currentScope` is STALE at that site, so a bare
+    // param-name packed bound folded there binds in a foreign body; this is
+    // the recovery scope, and its being set is also what licenses the BARE
+    // ts ref golden gives that copy (the net/var copy is named by
+    // `boundOwnerFullName` instead).
+    const slang::ast::Scope* elabPortBoundScope109 = nullptr;
+    // The parameter an ELAB PORT's bare-identifier bound names, when it is an
+    // `int`-typed, non-overridden parameter of that port's own instance body --
+    // the ONLY shape whose golden encoding (the parameter's width, UINT, ct 9
+    // and a bare SIGNED int_typespec) this tree can already write.  Null
+    // otherwise, which leaves every other written kind exactly as it was.
+    const slang::ast::ParameterSymbol* elabPortIntBoundParam109(
+        const slang::syntax::ExpressionSyntax* bsyn);
     // Set while emitting a property-decl body: formal refs (which bind as
     // Invalid) resolve through this scope to implicit module wires.
     const slang::ast::Scope* propDeclScope = nullptr;

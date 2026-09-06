@@ -1,0 +1,176 @@
+LHS:
+decompile:
+hier_path: (tl_h_i[i].a_source[0+:8 - 2]), id:1615258, line:97:7, endln:97:41
+|vpiParent:
+\_operation: , id:1615257, line:96:25, endln:99:6
+|vpiActual:
+\_bit_select: (tl_h_i[i]), id:1615259, line:97:7, endln:97:13
+  |vpiParent:
+  \_hier_path: (tl_h_i[i].a_source[0+:8 - 2]), id:1615258, line:97:7, endln:97:41
+  |vpiName:tl_h_i
+  |vpiFullName:tl_h_i[i]
+  |vpiActual:
+  \_array_var: (work@top_earlgrey.u_xbar_main.u_sm1_17.tl_h_i), id:793264, line:39:29, endln:39:35
+  |vpiIndex:
+  \_ref_obj: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].tl_h_i[i].a_source[0+:8 - 2].i), id:1615260, line:97:14, endln:97:15
+    |vpiParent:
+    \_bit_select: (tl_h_i[i]), id:1615259, line:97:7, endln:97:13
+    |vpiName:i
+    |vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].tl_h_i[i].a_source[0+:8 - 2].i
+    |vpiActual:
+    \_parameter: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].i), id:1079071, line:89:0
+|vpiActual:
+\_indexed_part_select: (tl_h_i[i].a_source[0+:8 - 2]), id:1615261, line:97:17, endln:97:40
+  |vpiParent:
+  \_hier_path: (tl_h_i[i].a_source[0+:8 - 2]), id:1615258, line:97:7, endln:97:41
+  |vpiName:a_source
+  |vpiFullName:tl_h_i[i].a_source[0+:8 - 2]
+  |vpiActual:
+  \_typespec_member: (a_source), id:6610, line:37:35, endln:37:43
+  |vpiConstantSelect:1
+  |vpiIndexedPartSelectType:1
+  |vpiBaseExpr:
+  \_constant: , id:793422, line:97:26, endln:97:27
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+  |vpiWidthExpr:
+  \_constant: , id:1802739, line:97:30, endln:97:39
+    |vpiDecompile:6
+    |vpiSize:64
+    |INT:6
+    |vpiConstType:7
+|vpiName:tl_h_i[i].a_source[0+:8 - 2]
+
+decompile:
+hier_path: (tl_h_i[i].a_source[0+:8 - 2]), id:1615258, line:97:7, endln:97:41
+|vpiParent:
+\_operation: , id:1615257, line:96:25, endln:99:6
+|vpiActual:
+\_bit_select: (tl_h_i[i]), id:1615259, line:97:7, endln:97:13
+  |vpiParent:
+  \_hier_path: (tl_h_i[i].a_source[0+:8 - 2]), id:1615258, line:97:7, endln:97:41
+  |vpiName:tl_h_i
+  |vpiFullName:tl_h_i[i]
+  |vpiActual:
+  \_array_var: (work@top_earlgrey.u_xbar_main.u_sm1_17.tl_h_i), id:793264, line:39:29, endln:39:35
+  |vpiIndex:
+  \_ref_obj: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].tl_h_i[i].a_source[0+:8 - 2].i), id:1615260, line:97:14, endln:97:15
+    |vpiParent:
+    \_bit_select: (tl_h_i[i]), id:1615259, line:97:7, endln:97:13
+    |vpiName:i
+    |vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].tl_h_i[i].a_source[0+:8 - 2].i
+    |vpiActual:
+    \_parameter: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].i), id:1079071, line:89:0
+|vpiActual:
+\_indexed_part_select: (tl_h_i[i].a_source[0+:8 - 2]), id:1615261, line:97:17, endln:97:40
+  |vpiParent:
+  \_hier_path: (tl_h_i[i].a_source[0+:8 - 2]), id:1615258, line:97:7, endln:97:41
+  |vpiName:a_source
+  |vpiFullName:tl_h_i[i].a_source[0+:8 - 2]
+  |vpiActual:
+  \_typespec_member: (a_source), id:6610, line:37:35, endln:37:43
+  |vpiConstantSelect:1
+  |vpiIndexedPartSelectType:1
+  |vpiBaseExpr:
+  \_constant: , id:793422, line:97:26, endln:97:27
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+  |vpiWidthExpr:
+  \_constant: , id:1802739, line:97:30, endln:97:39
+    |vpiDecompile:6
+    |vpiSize:64
+    |INT:6
+    |vpiConstType:7
+|vpiName:tl_h_i[i].a_source[0+:8 - 2]
+RHS:
+decompile:
+hier_path: (tl_h_i[i].a_source[0+:IDW-STIDW]), id:1292361, line:97:7, endln:97:41
+|vpiParent:
+\_operation: , id:1292360, line:96:25, endln:99:6
+|vpiActual:
+\_bit_select: (tl_h_i[i]), id:1292362, line:97:7, endln:97:13
+  |vpiParent:
+  \_hier_path: (tl_h_i[i].a_source[0+:IDW-STIDW]), id:1292361, line:97:7, endln:97:41
+  |vpiName:tl_h_i
+  |vpiFullName:tl_h_i[i]
+  |vpiActual:
+  \_array_var: (work@top_earlgrey.u_xbar_main.u_sm1_17.tl_h_i), id:631918, line:39:29, endln:39:35
+  |vpiIndex:
+  \_ref_obj: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].i), id:1292363, line:97:14, endln:97:15
+    |vpiParent:
+    \_bit_select: (tl_h_i[i]), id:1292362, line:97:7, endln:97:13
+    |vpiName:i
+    |vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].i
+    |vpiActual:
+    \_parameter: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].i), id:632692, line:89:0
+|vpiActual:
+\_indexed_part_select: (tl_h_i[i].a_source[0+:IDW-STIDW]), id:1292364, line:97:17, endln:97:39
+  |vpiParent:
+  \_hier_path: (tl_h_i[i].a_source[0+:IDW-STIDW]), id:1292361, line:97:7, endln:97:41
+  |vpiName:a_source
+  |vpiFullName:tl_h_i[i].a_source[0+:IDW-STIDW]
+  |vpiActual:
+  \_typespec_member: (a_source), id:19012, line:37:35, endln:37:43
+  |vpiConstantSelect:1
+  |vpiIndexedPartSelectType:1
+  |vpiBaseExpr:
+  \_constant: , id:633341, line:97:26, endln:97:27
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+  |vpiWidthExpr:
+  \_constant: , id:1480539, line:97:30, endln:97:39
+    |vpiDecompile:6
+    |vpiSize:64
+    |INT:6
+    |vpiConstType:7
+|vpiName:tl_h_i[i].a_source[0+:IDW-STIDW]
+
+decompile:
+hier_path: (tl_h_i[i].a_source[0+:IDW-STIDW]), id:1292361, line:97:7, endln:97:41
+|vpiParent:
+\_operation: , id:1292360, line:96:25, endln:99:6
+|vpiActual:
+\_bit_select: (tl_h_i[i]), id:1292362, line:97:7, endln:97:13
+  |vpiParent:
+  \_hier_path: (tl_h_i[i].a_source[0+:IDW-STIDW]), id:1292361, line:97:7, endln:97:41
+  |vpiName:tl_h_i
+  |vpiFullName:tl_h_i[i]
+  |vpiActual:
+  \_array_var: (work@top_earlgrey.u_xbar_main.u_sm1_17.tl_h_i), id:631918, line:39:29, endln:39:35
+  |vpiIndex:
+  \_ref_obj: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].i), id:1292363, line:97:14, endln:97:15
+    |vpiParent:
+    \_bit_select: (tl_h_i[i]), id:1292362, line:97:7, endln:97:13
+    |vpiName:i
+    |vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].i
+    |vpiActual:
+    \_parameter: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].i), id:632692, line:89:0
+|vpiActual:
+\_indexed_part_select: (tl_h_i[i].a_source[0+:IDW-STIDW]), id:1292364, line:97:17, endln:97:39
+  |vpiParent:
+  \_hier_path: (tl_h_i[i].a_source[0+:IDW-STIDW]), id:1292361, line:97:7, endln:97:41
+  |vpiName:a_source
+  |vpiFullName:tl_h_i[i].a_source[0+:IDW-STIDW]
+  |vpiActual:
+  \_typespec_member: (a_source), id:19012, line:37:35, endln:37:43
+  |vpiConstantSelect:1
+  |vpiIndexedPartSelectType:1
+  |vpiBaseExpr:
+  \_constant: , id:633341, line:97:26, endln:97:27
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+  |vpiWidthExpr:
+  \_constant: , id:1480539, line:97:30, endln:97:39
+    |vpiDecompile:6
+    |vpiSize:64
+    |INT:6
+    |vpiConstType:7
+|vpiName:tl_h_i[i].a_source[0+:IDW-STIDW]

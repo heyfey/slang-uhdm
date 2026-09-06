@@ -314,6 +314,88 @@ std::optional<int32_t> UhdmExporter::ovActualStoredWidth82(
     return w;
 }
 
+// § elabPortBoundIntParamTs109 (r10earl109) — the parameter an ELABORATED
+// instance PORT's bare-identifier packed bound names, resolved in THAT PORT'S
+// OWN scope.
+//
+// `currentScope` is assigned only in `emitModuleDef` / `emitModuleDefPorts` and
+// never inside `emitInstance` (RESUME.md §9, earl57 R3), so by the time an
+// instance's port typespecs are built — after its CHILDREN have been walked —
+// it names the last child definition's body.  The corpus witness is
+// `usbdev_usbif.sv:54 input logic [PktW:0] in_size_i`: the ELAB NET of that
+// signal, built BEFORE the children, folds `PktW` at 32; the ELAB PORT's own
+// copy, built after, binds in `usbdev_linkstate` and falls out at the unsized
+// 64 with no typespec.
+//
+// Admitted shape, and ONLY it: a BARE identifier naming a NON-OVERRIDDEN
+// parameter of the port's own INSTANCE BODY whose type is the `int` KEYWORD.
+// Golden's ELAB PORT bound and its ELAB NET bound carry the same payload in
+// every cell of `g3_kind109` / `g4_type109`, and `int` (with either a literal
+// or a computed initializer) is the one type where OUR net half is already
+// exactly golden — `integer` (32-bit, signed, but golden gives it NO ts ref),
+// `shortint` / `byte` / `bit` / `logic` / `logic [N:0]` and an UNTYPED
+// parameter each want a different encoding that this tree does not write
+// correctly for the net copy either, so re-encoding their port copies would
+// move a cell from one wrong shape to another (MOVED-WRONG).  Those are R1/R2.
+const ParameterSymbol* UhdmExporter::elabPortIntBoundParam109(
+    const syntax::ExpressionSyntax* bsyn) {
+    if (!elabPortBoundScope109 || !bsyn ||
+        bsyn->kind != syntax::SyntaxKind::IdentifierName)
+        return nullptr;
+    std::string nm109(
+        bsyn->as<syntax::IdentifierNameSyntax>().identifier.valueText());
+    auto* sy109 = Lookup::unqualified(*elabPortBoundScope109, nm109);
+    if (!sy109 || sy109->kind != SymbolKind::Parameter)
+        return nullptr;
+    auto& p109 = sy109->as<ParameterSymbol>();
+    // The port's own instance body — the scope is per-instance by construction,
+    // which is the whole point of not asking `currentScope`.
+    auto* psc109 = p109.getParentScope();
+    if (!psc109 || psc109->asSymbol().kind != SymbolKind::InstanceBody)
+        return nullptr;
+    // § overriddenBoundParamNoFoldTs19 / § rangeBoundStoredWidth82 own the
+    // OVERRIDDEN case and give it NO ts ref at the unsized 64; leave it there.
+    if (isOverriddenParam(p109))
+        return nullptr;
+    auto& ct109 = p109.getType().getCanonicalType();
+    if (ct109.kind != SymbolKind::PredefinedIntegerType ||
+        ct109.as<PredefinedIntegerType>().integerKind !=
+            PredefinedIntegerType::Int)
+        return nullptr;
+    // ...and SIGNED.  `parameter int unsigned NOZ = 8` is the same keyword and
+    // the same 32 bits, and golden gives ITS port bound size 32 with NO ts ref
+    // at all — which is what we already write, so a signedness-blind gate
+    // turned a right cell wrong.  Convicted by the WIDE BOUNDARY on
+    // r10earl82repro's own `g5_enc82.sv` p_NOZ, in both views, not by the
+    // corpus and not by this pass's first four arms; `g3_kind109` k_ius_i
+    // carries it here now.
+    if (!p109.getType().isSigned())
+        return nullptr;
+    // ...and its initializer must not be a BASED literal.  `parameter int NOD =
+    // 8'd8` folds in golden at the LITERAL's own width and encoding — size 8,
+    // `INT:8`, vpiConstType 7 — not at the parameter's 32/UINT/9, so lending it
+    // the ts ref moves a wrong cell to a differently wrong one (MOVED-WRONG).
+    // This is the same refusal § rangeBoundStoredWidth82's `pkgVarDimBoundEnc82`
+    // makes, for the same reason and on the same witness family (g5_enc82
+    // p_NOD); `g3_kind109` k_ibl_i carries it here.
+    if (auto* in109 = p109.getInitializer()) {
+        auto& si109 = stripImplicitConv(*in109);
+        if (si109.kind == ExpressionKind::IntegerLiteral &&
+            rawText(si109.sourceRange).find('\'') != std::string::npos)
+            return nullptr;
+    }
+    // An IMPLICITLY typed parameter can canonicalise to `int` as well
+    // (`localparam P = 6`), and golden gives ITS port bound no ts ref at all
+    // (g4 `p_untl_i`: size 32, ts NONE).  Only the written `int` keyword.
+    auto dt109 = p109.getDeclaredType();
+    if (!dt109)
+        return nullptr;
+    auto* tsy109 = dt109->getTypeSyntax();
+    if (!tsy109 || tsy109->kind == syntax::SyntaxKind::ImplicitType)
+        return nullptr;
+    return &p109;
+}
+
 // § rangeBoundStoredWidth82 — THE DECLARATION-SIDE COPY of a packed dimension.
 // See the law at the declaration in UhdmExporter.h.  Returns a fully encoded
 // constant (value / size / constType / decompile) built by the SAME
@@ -5022,7 +5104,76 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                         digits.c_str(),
                                         ovW82 ? std::to_string(*ovW82).c_str()
                                               : "-");
-                            if (unitBoundParam) {
+                            // § elabPortBoundIntParamTs109 (r10earl109) --
+                            // THE ELABORATED PORT'S OWN COPY of a bare
+                            // param-name bound.  It is built inside
+                            // emitInstance, AFTER this instance's children,
+                            // where `currentScope` names the last child
+                            // DEFINITION's body (RESUME section 9), so the bind
+                            // above resolved a foreign scope -- or nothing at
+                            // all -- and both `boundParam` and `elabModPar` are
+                            // the wrong answer to a per-instance question.
+                            // `elabPortIntBoundParam109` re-reads the name in
+                            // the PORT'S OWN declaring scope and admits only
+                            // the one shape whose golden encoding this tree can
+                            // already write: an `int`-typed, non-overridden
+                            // parameter of that instance body -> the
+                            // parameter's width, UINT, vpiConstType 9 and a
+                            // BARE (fullname-less) ref to a SIGNED, LOCATIONLESS
+                            // int_typespec.  Golden's ELAB PORT bound and its
+                            // ELAB NET bound carry the same payload in every
+                            // cell of g3/g4; this arm is the port half of the
+                            // ONE cell where our net half is already golden.
+                            // Corpus: usbdev_usbif.sv:54 `input logic [PktW:0]
+                            // in_size_i` over `localparam int PktW =
+                            // $clog2(MaxPktSizeByte)`.
+                            if (auto* ip109 = elabPortIntBoundParam109(bsyn)) {
+                                // THE ENCODING IS NOT PART OF THE SIZE
+                                // QUESTION (r10v109).  Only VpiSize and the
+                                // ts ref are this law's; the INT/ct7 vs
+                                // UINT/ct9 pick belongs to
+                                // § defNetBoundPkgIntEnc and is read off the
+                                // parameter's OWN stored encoding
+                                // (`paramIntEnc`: a `/`, a `%`, a signed `**`
+                                // or the `X-1` subtract form), exactly as the
+                                // package-parameter bound builder at
+                                // TypeEmit.cpp ~501 already does.  Hard-coding
+                                // UINT here overwrote a RIGHT field with a
+                                // WRONG one on every `int` localparam with an
+                                // arithmetic initializer whose port bound the
+                                // non-stale path already encoded correctly
+                                // (`localparam int D = MaxA/8` -> golden
+                                // `INT:8` ct 7; the pristine tree wrote ct 7
+                                // and the first draft of this arm wrote ct 9).
+                                // It also gives a NEGATIVE folded bound
+                                // (`localparam int N = 2 - 3` -> golden
+                                // `INT:-1` ct 7) the encoding it already had.
+                                // The corpus head is untouched: its
+                                // `localparam int PktW = $clog2(...)` is a
+                                // SYSTEM CALL, which `analyzeParamEnc` does
+                                // not mark, so it keeps UINT / ct 9.
+                                bool ie109 = false;
+                                if (auto iet109 = paramIntEnc.find(ip109);
+                                    iet109 != paramIntEnc.end())
+                                    ie109 = iet109->second;
+                                c->VpiSize(
+                                    (int32_t)ip109->getType().getBitWidth());
+                                c->VpiConstType(ie109 ? vpiIntConst
+                                                      : vpiUIntConst);
+                                c->VpiValue((ie109 ? "INT:" : "UINT:") +
+                                            digits);
+                                auto* rt109 = s.MakeRef_typespec();
+                                rt109->VpiParent(c);
+                                auto* its109 = s.MakeInt_typespec();
+                                its109->VpiSigned(true);
+                                // NO location: golden's int_typespec here is
+                                // span-less (own109 on the corpus head reads
+                                // tsspan=0:0-0:0), unlike the net copy's, which
+                                // takes the parameter's type-syntax span.
+                                rt109->Actual_typespec(its109);
+                                c->Typespec(rt109);
+                            }
+                            else if (unitBoundParam) {
                                 c->VpiSize((int32_t)unitBoundParam->getType()
                                                .getBitWidth());
                                 c->VpiConstType(vpiUIntConst);

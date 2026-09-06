@@ -1,0 +1,46 @@
+ARENA 1061095 objects
+TARGETS at id:729390: 1
+
+== TARGET constant id:729390 usbdev_usbif.sv 54:17-54:21
+   payload: constant dc="6" sz=32 val=UINT:6 ts=int_typespec#729391 SIGNED tsval="" tsspan=0:0-0:0 ct=9
+   vpiParent chain (what the DUMP shows):
+  > constant id:729390 usbdev_usbif.sv 54:17-54:21 
+    > range id:729389 usbdev_usbif.sv 54:16-54:24 
+      > logic_typespec id:729394 usbdev_usbif.sv 54:10-54:24 
+   RANGE  id:729389 54:16-54:24 Left_expr   (right=constant dc="0" sz=64 val=UINT:0 ts=NONE ct=9)
+   RANGES-HOLDER logic_typespec id:729394 54:10-54:24   Ranges[0]
+     holder chain:
+     > logic_typespec id:729394 usbdev_usbif.sv 54:10-54:24 
+   REF_TS id:1576416 fullname="work@top_earlgrey.u_usbdev.usbdev_impl.in_size_i"  <- port id:1576412 usbdev_usbif.sv 54:36-54:45 in_size_i
+     carrier chain:
+     > module_inst id:1067813 usbdev.sv 455:3-530:5 work@top_earlgrey.u_usbdev.usbdev_impl
+       > module_inst id:1067023 top_earlgrey.sv 777:3-831:5 work@top_earlgrey.u_usbdev
+         > module_inst id:972058 top_earlgrey.sv 5:1-1022:10 work@top_earlgrey
+           > design id:919334  0:0-0:0 work@prim_sync_reqack
+   containers: RANGES=1 RANGES-HOLDERS=1 REF_TS=1
+ARENA 1482382 objects
+TARGETS at id:580709: 1
+
+== TARGET constant id:580709  54:17-54:21
+   payload: constant dc="6" sz=64 val=UINT:6 ts=NONE ct=9
+   vpiParent chain (what the DUMP shows):
+  > constant id:580709  54:17-54:21 
+    > range id:580708  54:16-54:24 
+      > logic_typespec id:580707  54:10-54:24 
+   RANGE  id:580708 54:16-54:24 Left_expr   (right=constant dc="0" sz=64 val=UINT:0 ts=NONE ct=9)
+   RANGES-HOLDER logic_typespec id:580707 54:10-54:24   Ranges[0]
+     holder chain:
+     > logic_typespec id:580707  54:10-54:24 
+   REF_TS id:580706 fullname="work@top_earlgrey.u_usbdev.usbdev_impl.in_size_i"  <- port id:580702  54:36-54:45 in_size_i
+     carrier chain:
+     > module_inst id:576410 usbdev.sv 455:3-530:5 work@top_earlgrey.u_usbdev.usbdev_impl
+       > module_inst id:573182 top_earlgrey.sv 777:3-831:5 work@top_earlgrey.u_usbdev
+         > module_inst id:189339 top_earlgrey.sv 5:1-1022:10 work@top_earlgrey
+           > design id:1  0:0-0:0 work@prim_sync_reqack
+   REF_TS id:1253517 fullname="work@top_earlgrey.u_usbdev.usbdev_impl.in_size_i"  <- port id:1253513  54:36-54:45 in_size_i
+     carrier chain:
+     > module_inst id:576410 usbdev.sv 455:3-530:5 work@top_earlgrey.u_usbdev.usbdev_impl
+       > module_inst id:573182 top_earlgrey.sv 777:3-831:5 work@top_earlgrey.u_usbdev
+         > module_inst id:189339 top_earlgrey.sv 5:1-1022:10 work@top_earlgrey
+           > design id:1  0:0-0:0 work@prim_sync_reqack
+   containers: RANGES=1 RANGES-HOLDERS=1 REF_TS=2

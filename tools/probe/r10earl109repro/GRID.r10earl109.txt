@@ -1,0 +1,272 @@
+r10earl109 -- THE GRID.  MEASUREMENT ONLY; the official uhdm-cmp is the sole
+acceptance judge.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+PRISTINE md5 4240036c187c394c758e629799b3bd1c
+PATCHED  md5 0cc21f5211296045f6c32efe344fd9a9
+
+== 1. uhdm-cmp lines/heads per arm, BOTH VIEWS ==
+ARM              VIEW    SLRC   PRC   ARC   PRIS c/h  PATCH c/h
+g1_home109       plain      0     0     0       15/1        0/0
+g1_home109       elab       0     0     0       15/1        0/0
+g2_stale109      plain      0     0     0       48/1        0/0
+g2_stale109      elab       0     0     0       48/1        0/0
+g3_kind109       plain      0     0     0       20/1       20/1
+g3_kind109       elab       0     0     0       20/1       20/1
+g4_type109       plain      0     0     0       17/1       17/1
+g4_type109       elab       0     0     0       17/1       17/1
+g5_neg109        plain      0     0     0       50/1       50/1
+g5_neg109        elab       0     0     0       50/1       50/1
+g6_carrier109    plain      0     0     0       48/1        0/0
+g6_carrier109    elab       0     0     0       48/1        0/0
+
+== 2. THE THREE-WAY CENSUS SCORE (cen109 + score109.py, deduped, both views) ==
+g1_home109_elab          BOTH-SAME 39  TO-GOLDEN 1  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 0  ONLY-GOLDEN 0  ONLY-OURS 0
+g1_home109_plain         BOTH-SAME 39  TO-GOLDEN 1  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 0  ONLY-GOLDEN 0  ONLY-OURS 0
+g2_stale109_elab         BOTH-SAME 37  TO-GOLDEN 1  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 0  ONLY-GOLDEN 0  ONLY-OURS 0
+g2_stale109_plain        BOTH-SAME 37  TO-GOLDEN 1  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 0  ONLY-GOLDEN 0  ONLY-OURS 0
+g3_kind109_elab          BOTH-SAME 96  TO-GOLDEN 3  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 13  ONLY-GOLDEN 2  ONLY-OURS 2
+g3_kind109_plain         BOTH-SAME 96  TO-GOLDEN 3  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 13  ONLY-GOLDEN 2  ONLY-OURS 2
+g4_type109_elab          BOTH-SAME 114  TO-GOLDEN 2  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 24  ONLY-GOLDEN 0  ONLY-OURS 0
+g4_type109_plain         BOTH-SAME 114  TO-GOLDEN 2  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 24  ONLY-GOLDEN 0  ONLY-OURS 0
+g5_neg109_elab           BOTH-SAME 62  TO-GOLDEN 1  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 9  ONLY-GOLDEN 2  ONLY-OURS 2
+g5_neg109_plain          BOTH-SAME 62  TO-GOLDEN 1  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 9  ONLY-GOLDEN 2  ONLY-OURS 2
+g6_carrier109_elab       BOTH-SAME 65  TO-GOLDEN 7  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 0  ONLY-GOLDEN 0  ONLY-OURS 0
+g6_carrier109_plain      BOTH-SAME 65  TO-GOLDEN 7  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 0  ONLY-GOLDEN 0  ONLY-OURS 0
+-- TOTAL BOTH-SAME 826  TO-GOLDEN 30  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 92  ONLY-GOLDEN 8  ONLY-OURS 8
+
+== 3. EVERY CELL THE LAW MOVED, arm by arm, with its golden ==
+g1_home109_elab          BOTH-SAME 39  TO-GOLDEN 1  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 0  ONLY-GOLDEN 0  ONLY-OURS 0
+  TO-GOLDEN   g1_home109_elab	port@work@g1_home109.u_c.in_size_i@15:36-15:45	logic_typespec	0L	15:17-15:21
+      pris  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+g1_home109_plain         BOTH-SAME 39  TO-GOLDEN 1  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 0  ONLY-GOLDEN 0  ONLY-OURS 0
+  TO-GOLDEN   g1_home109_plain	port@work@g1_home109.u_c.in_size_i@15:36-15:45	logic_typespec	0L	15:17-15:21
+      pris  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+g2_stale109_elab         BOTH-SAME 37  TO-GOLDEN 1  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 0  ONLY-GOLDEN 0  ONLY-OURS 0
+  TO-GOLDEN   g2_stale109_elab	port@work@g2_stale109.u_a.in_size_i@26:33-26:42	logic_typespec	0L	26:17-26:21
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+g2_stale109_plain        BOTH-SAME 37  TO-GOLDEN 1  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 0  ONLY-GOLDEN 0  ONLY-OURS 0
+  TO-GOLDEN   g2_stale109_plain	port@work@g2_stale109.u_a.in_size_i@26:33-26:42	logic_typespec	0L	26:17-26:21
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+g3_kind109_elab          BOTH-SAME 96  TO-GOLDEN 3  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 13  ONLY-GOLDEN 2  ONLY-OURS 2
+  UNMOVED-WRONG g3_kind109_elab	logic_net@work@g3_kind109.u_k.k_byt_i@34:32-34:39	logic_typespec	0L	34:17-34:24
+      ours  ['constant|n=-|dc=6|sz=8|v=UINT:6|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=6|sz=8|v=INT:6|ts=int_typespec/S|ct=7']
+--
+  TO-GOLDEN   g3_kind109_elab	port@work@g3_kind109.u_k.k_int_i@32:32-32:39	logic_typespec	0L	32:17-32:24
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g3_kind109_elab	port@work@g3_kind109.u_k.k_isg_i@48:32-48:39	logic_typespec	0L	48:17-48:24
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g3_kind109_elab	port@work@g3_kind109.u_k.k_ius_i@46:32-46:39	logic_typespec	0L	46:17-46:24
+--
+  TO-GOLDEN   g3_kind109_elab	port@work@g3_kind109.u_k.k_rev_i@45:32-45:39	logic_typespec	0R	45:19-45:26
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g3_kind109_elab	port@work@g3_kind109.u_k.k_sho_i@37:32-37:39	logic_typespec	0L	37:17-37:24
+--
+g3_kind109_plain         BOTH-SAME 96  TO-GOLDEN 3  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 13  ONLY-GOLDEN 2  ONLY-OURS 2
+  UNMOVED-WRONG g3_kind109_plain	logic_net@work@g3_kind109.u_k.k_byt_i@34:32-34:39	logic_typespec	0L	34:17-34:24
+      ours  ['constant|n=-|dc=6|sz=8|v=UINT:6|ts=int_typespec/S|ct=9']
+      gold  ['constant|n=-|dc=6|sz=8|v=INT:6|ts=int_typespec/S|ct=7']
+--
+  TO-GOLDEN   g3_kind109_plain	port@work@g3_kind109.u_k.k_int_i@32:32-32:39	logic_typespec	0L	32:17-32:24
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g3_kind109_plain	port@work@g3_kind109.u_k.k_isg_i@48:32-48:39	logic_typespec	0L	48:17-48:24
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g3_kind109_plain	port@work@g3_kind109.u_k.k_ius_i@46:32-46:39	logic_typespec	0L	46:17-46:24
+--
+  TO-GOLDEN   g3_kind109_plain	port@work@g3_kind109.u_k.k_rev_i@45:32-45:39	logic_typespec	0R	45:19-45:26
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g3_kind109_plain	port@work@g3_kind109.u_k.k_sho_i@37:32-37:39	logic_typespec	0L	37:17-37:24
+--
+g4_type109_elab          BOTH-SAME 114  TO-GOLDEN 2  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 24  ONLY-GOLDEN 0  ONLY-OURS 0
+  UNMOVED-WRONG g4_type109_elab	logic_net@work@g4_type109.u_t.n_bit1@46:74-46:80	logic_typespec	0L	46:63-46:69
+      ours  ['constant|n=-|dc=1|sz=1|v=UINT:1|ts=int_typespec/u|ct=9']
+      gold  ["constant|n=-|dc=1'b1|sz=1|v=BIN:1|ts=NONE|ct=3"]
+--
+  TO-GOLDEN   g4_type109_elab	port@work@g4_type109.u_t.p_int_i@30:31-30:38	logic_typespec	0L	30:17-30:22
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g4_type109_elab	port@work@g4_type109.u_t.p_intc_i@41:31-41:39	logic_typespec	0L	41:17-41:23
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g4_type109_elab	port@work@g4_type109.u_t.p_integ_i@31:31-31:40	logic_typespec	0L	31:17-31:24
+--
+g4_type109_plain         BOTH-SAME 114  TO-GOLDEN 2  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 24  ONLY-GOLDEN 0  ONLY-OURS 0
+  UNMOVED-WRONG g4_type109_plain	logic_net@work@g4_type109.u_t.n_bit1@46:74-46:80	logic_typespec	0L	46:63-46:69
+      ours  ['constant|n=-|dc=1|sz=1|v=UINT:1|ts=int_typespec/u|ct=9']
+      gold  ["constant|n=-|dc=1'b1|sz=1|v=BIN:1|ts=NONE|ct=3"]
+--
+  TO-GOLDEN   g4_type109_plain	port@work@g4_type109.u_t.p_int_i@30:31-30:38	logic_typespec	0L	30:17-30:22
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g4_type109_plain	port@work@g4_type109.u_t.p_intc_i@41:31-41:39	logic_typespec	0L	41:17-41:23
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g4_type109_plain	port@work@g4_type109.u_t.p_integ_i@31:31-31:40	logic_typespec	0L	31:17-31:24
+--
+g5_neg109_elab           BOTH-SAME 62  TO-GOLDEN 1  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 9  ONLY-GOLDEN 2  ONLY-OURS 2
+  UNMOVED-WRONG g5_neg109_elab	logic_net@work@g5_neg109.u_k.n_pki_i@53:33-53:40	logic_typespec	0L	53:17-53:25
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=7|sz=32|v=UINT:7|ts=NONE|ct=9']
+--
+  TO-GOLDEN   g5_neg109_elab	port@work@g5_neg109.u_k.n_loc_i@56:33-56:40	logic_typespec	0L	56:17-56:23
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g5_neg109_elab	port@work@g5_neg109.u_k.n_pki_i@53:33-53:40	logic_typespec	0L	53:17-53:25
+--
+g5_neg109_plain          BOTH-SAME 62  TO-GOLDEN 1  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 9  ONLY-GOLDEN 2  ONLY-OURS 2
+  UNMOVED-WRONG g5_neg109_plain	logic_net@work@g5_neg109.u_k.n_pki_i@53:33-53:40	logic_typespec	0L	53:17-53:25
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=7|sz=32|v=UINT:7|ts=NONE|ct=9']
+--
+  TO-GOLDEN   g5_neg109_plain	port@work@g5_neg109.u_k.n_loc_i@56:33-56:40	logic_typespec	0L	56:17-56:23
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g5_neg109_plain	port@work@g5_neg109.u_k.n_pki_i@53:33-53:40	logic_typespec	0L	53:17-53:25
+--
+g6_carrier109_elab       BOTH-SAME 65  TO-GOLDEN 7  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 0  ONLY-GOLDEN 0  ONLY-OURS 0
+  TO-GOLDEN   g6_carrier109_elab	port@work@g6_carrier109.u_c.c_2d_i@25:32-25:38	logic_typespec	0L	25:17-25:21
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g6_carrier109_elab	port@work@g6_carrier109.u_c.c_2db_i@26:32-26:39	logic_typespec	1L	26:22-26:26
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g6_carrier109_elab	port@work@g6_carrier109.u_c.c_in_i@22:32-22:38	logic_typespec	0L	22:17-22:21
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g6_carrier109_elab	port@work@g6_carrier109.u_c.c_io_io@24:32-24:39	logic_typespec	0L	24:17-24:21
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g6_carrier109_elab	port@work@g6_carrier109.u_c.c_out_o@23:32-23:39	logic_typespec	0L	23:17-23:21
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g6_carrier109_elab	port@work@g6_carrier109.u_c.c_unp_i@27:32-27:39	logic_typespec	0L	27:17-27:21
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g6_carrier109_elab	port@work@g6_carrier109.u_c.c_var_i@28:32-28:39	logic_typespec	0L	28:21-28:25
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+g6_carrier109_plain      BOTH-SAME 65  TO-GOLDEN 7  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 0  ONLY-GOLDEN 0  ONLY-OURS 0
+  TO-GOLDEN   g6_carrier109_plain	port@work@g6_carrier109.u_c.c_2d_i@25:32-25:38	logic_typespec	0L	25:17-25:21
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g6_carrier109_plain	port@work@g6_carrier109.u_c.c_2db_i@26:32-26:39	logic_typespec	1L	26:22-26:26
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g6_carrier109_plain	port@work@g6_carrier109.u_c.c_in_i@22:32-22:38	logic_typespec	0L	22:17-22:21
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g6_carrier109_plain	port@work@g6_carrier109.u_c.c_io_io@24:32-24:39	logic_typespec	0L	24:17-24:21
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g6_carrier109_plain	port@work@g6_carrier109.u_c.c_out_o@23:32-23:39	logic_typespec	0L	23:17-23:21
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g6_carrier109_plain	port@work@g6_carrier109.u_c.c_unp_i@27:32-27:39	logic_typespec	0L	27:17-27:21
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+  TO-GOLDEN   g6_carrier109_plain	port@work@g6_carrier109.u_c.c_var_i@28:32-28:39	logic_typespec	0L	28:21-28:25
+      pris  ['constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9']
+-- TOTAL BOTH-SAME 826  TO-GOLDEN 30  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 92  ONLY-GOLDEN 8  ONLY-OURS 8
+
+== 4. THE MUST-NOT-MOVE HALF: the earlier passes' own arms, judged ==
+g5_enc82_elab            BOTH-SAME 817  TO-GOLDEN 4  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 105  ONLY-GOLDEN 0  ONLY-OURS 2
+g5_enc82_plain           BOTH-SAME 817  TO-GOLDEN 4  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 105  ONLY-GOLDEN 0  ONLY-OURS 2
+vq_elab                  BOTH-SAME 64  TO-GOLDEN 1  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 7  ONLY-GOLDEN 2  ONLY-OURS 2
+vq_plain                 BOTH-SAME 64  TO-GOLDEN 1  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 7  ONLY-GOLDEN 2  ONLY-OURS 2
+-- TOTAL BOTH-SAME 1762  TO-GOLDEN 10  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 224  ONLY-GOLDEN 4  ONLY-OURS 8
+g5_enc82_elab            BOTH-SAME 817  TO-GOLDEN 4  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 105  ONLY-GOLDEN 0  ONLY-OURS 2
+  UNMOVED-WRONG g5_enc82_elab	logic_net@work@enc82.n_PKD@194:17-194:22	logic_typespec	0L	194:10-194:13
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ["constant|n=-|dc=8'd8|sz=32|v=DEC:8|ts=int_typespec/S|ct=1"]
+--
+  TO-GOLDEN   g5_enc82_elab	port@work@top5_82.ia.p_NOI@46:18-46:23	logic_typespec	0L	46:11-46:14
+      pris  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	port@work@top5_82.ia.p_NOV@52:18-52:23	logic_typespec	0L	52:11-52:14
+--
+  TO-GOLDEN   g5_enc82_elab	port@work@top5_82.ia.p_NOX@56:18-56:23	logic_typespec	0L	56:11-56:14
+      pris  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	port@work@top5_82.ia.p_OVH@61:18-61:23	logic_typespec	0L	61:11-61:14
+--
+  TO-GOLDEN   g5_enc82_elab	port@work@top5_82.ib.p_NOI@46:18-46:23	logic_typespec	0L	46:11-46:14
+      pris  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	port@work@top5_82.ib.p_NOV@52:18-52:23	logic_typespec	0L	52:11-52:14
+--
+  TO-GOLDEN   g5_enc82_elab	port@work@top5_82.ib.p_NOX@56:18-56:23	logic_typespec	0L	56:11-56:14
+      pris  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g5_enc82_elab	port@work@top5_82.ib.p_OVH@61:18-61:23	logic_typespec	0L	61:11-61:14
+--
+g5_enc82_plain           BOTH-SAME 817  TO-GOLDEN 4  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 105  ONLY-GOLDEN 0  ONLY-OURS 2
+  UNMOVED-WRONG g5_enc82_plain	logic_net@work@enc82.n_PKD@194:17-194:22	logic_typespec	0L	194:10-194:13
+      ours  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+      gold  ["constant|n=-|dc=8'd8|sz=32|v=DEC:8|ts=int_typespec/S|ct=1"]
+--
+  TO-GOLDEN   g5_enc82_plain	port@work@top5_82.ia.p_NOI@46:18-46:23	logic_typespec	0L	46:11-46:14
+      pris  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	port@work@top5_82.ia.p_NOV@52:18-52:23	logic_typespec	0L	52:11-52:14
+--
+  TO-GOLDEN   g5_enc82_plain	port@work@top5_82.ia.p_NOX@56:18-56:23	logic_typespec	0L	56:11-56:14
+      pris  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	port@work@top5_82.ia.p_OVH@61:18-61:23	logic_typespec	0L	61:11-61:14
+--
+  TO-GOLDEN   g5_enc82_plain	port@work@top5_82.ib.p_NOI@46:18-46:23	logic_typespec	0L	46:11-46:14
+      pris  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	port@work@top5_82.ib.p_NOV@52:18-52:23	logic_typespec	0L	52:11-52:14
+--
+  TO-GOLDEN   g5_enc82_plain	port@work@top5_82.ib.p_NOX@56:18-56:23	logic_typespec	0L	56:11-56:14
+      pris  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=8|sz=32|v=UINT:8|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG g5_enc82_plain	port@work@top5_82.ib.p_OVH@61:18-61:23	logic_typespec	0L	61:11-61:14
+--
+vq_elab                  BOTH-SAME 64  TO-GOLDEN 1  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 7  ONLY-GOLDEN 2  ONLY-OURS 2
+  UNMOVED-WRONG vq_elab	logic_net@work@vqtop.u.pb_i@30:30-30:34	logic_typespec	0L	30:17-30:19
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=7|sz=8|v=UINT:7|ts=NONE|ct=9']
+--
+  TO-GOLDEN   vq_elab	port@work@vqtop.u.pm_i@27:30-27:34	logic_typespec	0L	27:17-27:19
+      pris  ['constant|n=-|dc=3|sz=32|v=UINT:3|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=3|sz=32|v=UINT:3|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG vq_elab	port@work@vqtop.u.t_i@34:30-34:33	packed_array_typespec	0L	34:17-34:19
+--
+vq_plain                 BOTH-SAME 64  TO-GOLDEN 1  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 7  ONLY-GOLDEN 2  ONLY-OURS 2
+  UNMOVED-WRONG vq_plain	logic_net@work@vqtop.u.pb_i@30:30-30:34	logic_typespec	0L	30:17-30:19
+      ours  ['constant|n=-|dc=7|sz=64|v=UINT:7|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=7|sz=8|v=UINT:7|ts=NONE|ct=9']
+--
+  TO-GOLDEN   vq_plain	port@work@vqtop.u.pm_i@27:30-27:34	logic_typespec	0L	27:17-27:19
+      pris  ['constant|n=-|dc=3|sz=32|v=UINT:3|ts=NONE|ct=9']
+      gold  ['constant|n=-|dc=3|sz=32|v=UINT:3|ts=int_typespec/S|ct=9']
+  UNMOVED-WRONG vq_plain	port@work@vqtop.u.t_i@34:30-34:33	packed_array_typespec	0L	34:17-34:19
+--
+-- TOTAL BOTH-SAME 1762  TO-GOLDEN 10  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 224  ONLY-GOLDEN 4  ONLY-OURS 8
+
+== 5. THE TWO EARLIER-PASS ARMS THE WIDE BOUNDARY FOUND (judged against golden) ==
+g5_enc82_elab            BOTH-SAME 817  TO-GOLDEN 4  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 105  ONLY-GOLDEN 0  ONLY-OURS 2
+g5_enc82_plain           BOTH-SAME 817  TO-GOLDEN 4  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 105  ONLY-GOLDEN 0  ONLY-OURS 2
+vq_elab                  BOTH-SAME 64  TO-GOLDEN 1  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 7  ONLY-GOLDEN 2  ONLY-OURS 2
+vq_plain                 BOTH-SAME 64  TO-GOLDEN 1  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 7  ONLY-GOLDEN 2  ONLY-OURS 2
+-- TOTAL BOTH-SAME 1762  TO-GOLDEN 10  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 224  ONLY-GOLDEN 4  ONLY-OURS 8
+
+== 6. THE TWO LAYOUT-ARTIFACT FILES (NOT this law; uhdm-cmp unchanged) ==
+g22          3438/1 -> 3438/1     l154_noenum  17/1 -> 17/1
+g22_elab                 BOTH-SAME 53  TO-GOLDEN 0  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 0  ONLY-GOLDEN 69  ONLY-OURS 53
+g22_plain                BOTH-SAME 59  TO-GOLDEN 0  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 0  ONLY-GOLDEN 75  ONLY-OURS 47
+l154_noenum_elab         BOTH-SAME 4  TO-GOLDEN 0  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 0  ONLY-GOLDEN 2  ONLY-OURS 4
+l154_noenum_plain        BOTH-SAME 4  TO-GOLDEN 0  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 0  ONLY-GOLDEN 2  ONLY-OURS 4
+-- TOTAL BOTH-SAME 120  TO-GOLDEN 0  AWAY-GOLDEN 0  STILL-WRONG 0  UNMOVED-WRONG 0  ONLY-GOLDEN 148  ONLY-OURS 108

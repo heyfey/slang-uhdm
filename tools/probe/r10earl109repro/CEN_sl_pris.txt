@@ -1,0 +1,11 @@
+tags: golden 972  ours 631  SCORED(intersection) 631
+WHOLE CENSUS  BOTH-SAME 309996  FLIP 18  ONLY-GOLDEN 20752  ONLY-OURS 6300
+THE LAW'S CELLS (port carrier, golden UINT+SIGNED int_typespec, ours the same value with NO typespec): 2
+  default__Earlgrey_0_1
+      port@work@top_earlgrey.u_usbdev.usbdev_impl.in_size_i@54:36-54:45	logic_typespec	0L	54:17-54:21
+      ours constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9
+      gold constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9
+  testflags__Earlgrey_0_1
+      port@work@top_earlgrey.u_usbdev.usbdev_impl.in_size_i@54:36-54:45	logic_typespec	0L	54:17-54:21
+      ours constant|n=-|dc=6|sz=64|v=UINT:6|ts=NONE|ct=9
+      gold constant|n=-|dc=6|sz=32|v=UINT:6|ts=int_typespec/S|ct=9

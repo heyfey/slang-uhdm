@@ -1,0 +1,20 @@
+370653a370654
+>         \_constant: , line:54:17, endln:54:21
+803457a803459
+>         \_int_typespec: 
+805825a805828
+> \_int_typespec: 
+2336008a2336012
+>       \_ref_typespec: 
+3025856a3025861
+>         |vpiActual:
+5846466a5846472
+>         |vpiParent:
+6346332a6346339
+>   |vpiSigned:1
+6379739a6379747
+>       |vpiSize:32
+6476367d6476374
+<       |vpiSize:64
+6648788a6648796
+>       |vpiTypespec:

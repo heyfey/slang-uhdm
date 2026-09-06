@@ -1,0 +1,154 @@
+r10earl109 — THE PREDICTION, WRITTEN FROM PRISTINE DATABASES BEFORE ANY
+PATCHED SWEEP
+=======================================================================
+MEASUREMENT ONLY.  The official ~/git-repos/UHDM/build/bin/uhdm-cmp is the sole
+acceptance judge.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+BASE 644e74ee, branch auto5h, worktree /tmp/wt_r10earl109.
+Pristine binary md5 4240036c187c394c758e629799b3bd1c — BYTE-IDENTICAL to the
+main tree's own build at 644e74ee, so the base is confirmed, not assumed.
+Both binaries frozen chmod 555 at immutable paths before any sweep.
+
+1. THE HEAD, re-measured on THIS pass's own pristine build
+   rowheads.sh: Earlgrey_0_1 default 31 lines / 1 head, testflags 48 / 1.
+   Only testflags is this pass's; the default head is the pre-existing
+   u_pinmux.gen_mio_periph_in[0].data_mux null r10earl107 named.
+
+   testflags head (HEAD_BEFORE_Earlgrey_testflags.cmp):
+     LHS (golden) constant id:729390  usbdev_usbif.sv 54:17-54:21
+        |vpiDecompile:6 |vpiSize:32 |UINT:6 |vpiConstType:9
+        |vpiTypespec -> ref_typespec (NO fullname) -> int_typespec vpiSigned:1
+        |vpiParent -> range 54:16-54:24
+     RHS (ours)   constant id:580709  54:17-54:21
+        |vpiDecompile:6 |vpiSize:64 |UINT:6 |vpiConstType:9  and NO typespec
+
+   WHICH FIELD FAILS FIRST, read out of the generated Compares
+   (~/git-repos/UHDM/build/generated/src/{BaseClass,expr,constant}.cpp and
+   ~/.local/include/uhdm/BaseClass.h):
+     1-3 BaseClass::Compare  VpiType / VpiName / VpiDefName   equal
+     4   expr::Compare       VpiDecompile   "6" vs "6"        equal
+     5   expr::Compare       VpiSize        32 vs 64   <- THE FIRST FAILURE
+     6   expr::Compare       Typespec       int_typespec ref vs <null>
+     7   constant::Compare   VpiConstType   9 on both
+   No location is read anywhere, and `range::Compare` reads VpiSize then
+   Left_expr then Right_expr, so the walk reaches this bound because the RIGHT
+   bound (`0`, size 64 on both sides) is equal.
+
+2. THE OWNER, enumerated (own109.cpp, OWNER.r10earl109.txt)
+   The dump's parent chain stops at a bare logic_typespec, so the owner had to
+   be enumerated over three edges the earlier owner-finders never walk: the
+   `range` holding the bound, the object whose `Ranges()` holds that range, and
+   every `ref_typespec` whose `Actual_typespec()` is that typespec.
+
+     golden constant#729390 <- range#729389 Left_expr
+                            <- logic_typespec#729394 Ranges[0]
+                            <- ref_typespec#1576416
+                               "work@top_earlgrey.u_usbdev.usbdev_impl.in_size_i"
+                            <- port#1576412 in_size_i 54:36-54:45
+                            <- module_inst work@top_earlgrey.u_usbdev.usbdev_impl
+                            <- module_inst work@top_earlgrey.u_usbdev
+                            <- module_inst work@top_earlgrey
+     ours   constant#580709 <- the IDENTICAL chain, object for object
+                               (two ref_typespec holders on our side, one on
+                               golden's: a pre-existing duplicate-port residue,
+                               invisible to the judge, which no Compare reads)
+
+   So the owner is the ELABORATED INSTANCE PORT's own vpiTypedef typespec —
+   NOT the net of the same signal, whose copy is already exactly golden.
+
+   ```systemverilog
+   usbdev_usbif.sv:20  localparam int PktW = $clog2(MaxPktSizeByte);
+   usbdev_usbif.sv:54  input logic [PktW:0] in_size_i,
+   usbdev_usbif.sv:342 usbdev_linkstate u_usbdev_linkstate ( ... );
+   ```
+
+3. OUR OBJECT'S ORIGIN, MEASURED (R10E24_BNDDBG plus a temporary scope probe)
+   The bound is folded TWICE for this one declaration, and the two calls differ:
+
+     sym=in_size_i bound=PktW cs=usbdev_usbif    own="...usbdev_impl.in_size_i"
+                              par=PktW bp=1 sz=32     <- the ELAB NET copy
+     sym=in_size_i bound=PktW cs=usbdev_linkstate own=""
+                              par=-    bp=0 sz=64     <- the ELAB PORT copy
+
+   `currentScope` is assigned ONLY in emitModuleDef (ModuleEmit.cpp:591) and
+   emitModuleDefPorts (:2457), never inside emitInstance (RESUME.md section 9,
+   earl57 R3).  The elaborated port typespecs are built AFTER the instance's
+   CHILDREN, so by then `currentScope` names the last child definition's body —
+   here `usbdev_linkstate`, which usbdev_usbif instantiates at :342.  The bind
+   resolves nothing, both `boundParam` and `elabModPar` come back null, and the
+   fold falls out of the chain at the unsized 64; `boundOwnerFullName` is empty
+   at that site too, so no ts ref is minted either.  BOTH halves of the head
+   are that one stale scope.
+
+4. THE SURELOG SIDE, and the fold matrix
+   CompileHelper::compileRanges (CompileExpression.cpp:3632) reduces BOTH
+   bounds through reduceExpr when reduce == Reduce::Yes, so an elaborated
+   port's dimension is folded with the instance's parameter values.  What the
+   folded constant then CARRIES is what this pass had to measure, and the
+   matrix (g3_kind109, g4_type109, both views) is:
+
+     written bound          golden ELAB PORT bound  (== golden's ELAB NET bound)
+     ---------------------  -------------------------------------------------
+     bare `int` param          sz 32  UINT  ct 9  ts SIGNED int_typespec
+     bare `int signed` param   sz 32  UINT  ct 9  ts SIGNED int_typespec
+     bare `int unsigned` param sz 32  UINT  ct 9  ts NONE
+     bare `int` param = 8'd6   sz  8  INT   ct 7  ts SIGNED int_typespec
+     bare `integer` param      sz 32  UINT  ct 9  ts NONE
+     bare `shortint` param     sz 16  UINT  ct 9  ts NONE
+     bare `byte` param         sz  8  UINT  ct 9  ts NONE
+     bare `bit`/`logic` param  sz  1  BIN   ct 3  ts NONE
+     bare `bit [7:0]` param    sz  8  INT   ct 7  ts NONE
+     bare `logic [15:0]` param sz 16  INT   ct 7  ts NONE
+     bare `longint` param      sz 64  UINT  ct 9  ts NONE
+     bare UNTYPED literal      sz 32  UINT  ct 9  ts NONE
+     bare UNTYPED computed     sz 64  UINT  ct 9  ts NONE
+     bare PACKAGE param        sz 32  UINT  ct 9  ts NONE
+     bare OVERRIDDEN param     unchanged (earl19/24/82 own it)
+     <param>-<lit> / +<lit>    64, unchanged
+     literal / $clog2(...)     64, unchanged
+
+   OUR net half is already exactly golden for the `int` / `int signed` rows and
+   for the untyped rows; it is WRONG for every other typed row.  So the law may
+   only reach the `int`, signed, non-based-literal, non-overridden row — every
+   other port copy would move from one wrong shape to another (MOVED-WRONG).
+
+5. THE MOVER SET, PREDICTED BY NAME
+   cen109 over BOTH corpora on the PRISTINE binary
+   (CEN_sl_pris.txt / CEN_u2r_pris.txt, golden sides CEN_*_gold.txt):
+
+     uhdm2rtlil  970 databases joined.  WHOLE CENSUS  BOTH-SAME 153632  FLIP 44
+                 ONLY-GOLDEN 1562  ONLY-OURS 388
+                 THE LAW'S CELLS: ZERO.  Nothing to fix, nothing to break, and
+                 the 153632-row agreement is the instrument's calibration.
+     surelog     631 databases joined.  WHOLE CENSUS  BOTH-SAME 309996  FLIP 18
+                 ONLY-GOLDEN 20752  ONLY-OURS 6300
+                 THE LAW'S CELLS: TWO, and they are
+                     default__Earlgrey_0_1    port@work@top_earlgrey.u_usbdev.
+                                              usbdev_impl.in_size_i  54:17-54:21
+                     testflags__Earlgrey_0_1  the same declaration
+                 The other 16 flips are named and are NOT this family:
+                   MiniAmiq / SeqDriver  io_decl `UVM_LARGE_STRING` bound whose
+                     ref_obj Actual_group we bind and golden leaves unbound (4)
+                   UnionCast  typespec_member bounds whose golden VALUE keeps
+                     the written leading zero (`UINT:00` vs our `UINT:0`) (12)
+
+   PREDICTION: EXACTLY TWO DATABASES MOVE — Earlgrey_0_1 default and
+   Earlgrey_0_1 testflags.  uhdm2rtlil: ZERO movers in either mode.
+
+6. THE ROW PREDICTION
+   Earlgrey_0_1/testflags: the head OBJECT is destroyed; the row stays
+   CMP_NOTEQUAL on a NEW head in a different family (counts are DEPTH, not
+   distance — RESUME.md section 9).
+   Earlgrey_0_1/default: the head is a different object already, so that row
+   keeps its head byte-identical while its database moves.
+   NO ROW CONVERTS.  Every other row byte-identical; goldens 23 PASS / 0 FAIL.
+
+7. THE GRID PREDICTION, measured on the frozen pair before the corpus sweeps
+   g1_home109   (the corpus shape, one child)     15/1 -> 0/0 EQUAL
+   g2_stale109  (the corpus shape, stale scope)   48/1 -> 0/0 EQUAL
+   g3_kind109   (18 written kinds)                20/1 unchanged, 3 cells win
+   g4_type109   (12 parameter types x port+net)   17/1 unchanged, 2 cells win
+   g5_neg109    (the must-not-move half)          50/1 unchanged, 1 control win
+   g6_carrier109(8 carriers)                      48/1 -> 0/0 EQUAL, 7 wins
+   Three-way score over all six arms x two views:
+     TO-GOLDEN 30   AWAY-GOLDEN 0   STILL-WRONG 0

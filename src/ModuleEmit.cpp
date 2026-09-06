@@ -11434,8 +11434,28 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 pendingElabPortTs.push_back({rt, internal, &ps, &def, currentScope,
                                              elabInstanceTs, tfContext});
             else {
-                if (!pts)
+                if (!pts) {
+                    // § elabPortBoundIntParamTs109 -- the ELABORATED instance
+                    // PORT's own vpiTypedef typespec is built HERE, inside
+                    // emitInstance, where `currentScope` is STALE: it is
+                    // assigned only in emitModuleDef / emitModuleDefPorts, so
+                    // after this instance's CHILDREN have been walked it names
+                    // the LAST CHILD DEFINITION's body (RESUME section 9,
+                    // earl57 R3).  A packed-dimension bound written as a bare
+                    // parameter name then binds in a foreign body, resolves
+                    // nothing, and falls out at the unsized 64 with no
+                    // typespec -- while the ELAB NET of the same signal, built
+                    // BEFORE the children, folds correctly.  Hand the bound
+                    // builder the scope the port's declaration actually lives
+                    // in; the flag is also the licence for the BARE
+                    // (fullname-less) ts ref golden gives THIS copy, since
+                    // `boundOwnerFullName` is only ever set around the net/var
+                    // build.
+                    auto* svPbs109 = elabPortBoundScope109;
+                    elabPortBoundScope109 = internal->getParentScope();
                     pts = makeTypespec(*internal, nullptr, &ps);
+                    elabPortBoundScope109 = svPbs109;
+                }
                 rt->Actual_typespec(pts);
             }
             p->Typespec(rt);

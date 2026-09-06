@@ -1,0 +1,19 @@
+228306a228307
+>         \_constant: , line:54:17, endln:54:21
+498832a498834,498835
+>         \_int_typespec: 
+> \_int_typespec: 
+1599378a1599382
+>       \_ref_typespec: 
+2069679a2069684
+>         |vpiActual:
+4019230a4019236
+>         |vpiParent:
+4416499a4416506
+>   |vpiSigned:1
+4448311a4448319
+>       |vpiSize:32
+4540543d4540550
+<       |vpiSize:64
+4665844a4665852
+>       |vpiTypespec:
