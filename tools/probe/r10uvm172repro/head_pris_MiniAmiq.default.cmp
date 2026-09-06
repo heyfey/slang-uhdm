@@ -1,0 +1,40 @@
+LHS:
+decompile:
+func_call: (copy), id:254781, line:155:10, endln:155:56
+|vpiParent:
+\_begin: (svaunit_pkg::svaunit_immediate_assertion_details::copy), id:254778, line:154:35, endln:156:10
+|vpiName:copy
+|vpiFunction:
+\_function: (svaunit_pkg::svaunit_immediate_assertion_details::copy), id:254757, line:149:4, endln:167:15
+
+decompile:
+func_call: (copy), id:254781, line:155:10, endln:155:56
+|vpiParent:
+\_begin: (svaunit_pkg::svaunit_immediate_assertion_details::copy), id:254778, line:154:35, endln:156:10
+|vpiName:copy
+|vpiFunction:
+\_function: (svaunit_pkg::svaunit_immediate_assertion_details::copy), id:254757, line:149:4, endln:167:15
+RHS:
+decompile:
+method_func_call: (tests_names), id:186842, line:155:15, endln:155:26
+|vpiParent:
+\_begin: (svaunit_pkg::svaunit_immediate_assertion_details::copy), id:186841, line:154:35, endln:156:10
+|vpiName:tests_names
+|vpiPrefix:
+\_ref_obj: (svaunit_pkg::svaunit_immediate_assertion_details::copy::copy), id:186843, line:155:10, endln:155:14
+  |vpiParent:
+  \_method_func_call: (tests_names), id:186842, line:155:15, endln:155:26
+  |vpiName:copy
+  |vpiFullName:svaunit_pkg::svaunit_immediate_assertion_details::copy::copy
+
+decompile:
+method_func_call: (tests_names), id:186842, line:155:15, endln:155:26
+|vpiParent:
+\_begin: (svaunit_pkg::svaunit_immediate_assertion_details::copy), id:186841, line:154:35, endln:156:10
+|vpiName:tests_names
+|vpiPrefix:
+\_ref_obj: (svaunit_pkg::svaunit_immediate_assertion_details::copy::copy), id:186843, line:155:10, endln:155:14
+  |vpiParent:
+  \_method_func_call: (tests_names), id:186842, line:155:15, endln:155:26
+  |vpiName:copy
+  |vpiFullName:svaunit_pkg::svaunit_immediate_assertion_details::copy::copy

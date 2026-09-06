@@ -1,0 +1,30 @@
+r10uvm172 — CENSUS, PRISTINE, the nine UVM row-modes (score172.py over ct172cen listings)
+
+BuildUVMPkg                  default   TOTAL 5091  AGREE=5086  G-ONLY=1  LINKONLY=3  O-ONLY=1
+MiniAmiq                     default   TOTAL 5128  AGREE=5113  COLLAPSE=11  G-ONLY=3  LINKONLY=1
+Scoreboard                   default   TOTAL 4861  AGREE=4860  LINKONLY=1
+SeqDriver                    default   TOTAL 4840  AGREE=4839  LINKONLY=1
+SimpleUVM                    default   TOTAL 4834  AGREE=4833  LINKONLY=1
+-- scored=481 SKIP=308
+
+BuildUVMPkg                  testflags TOTAL 5091  AGREE=5086  G-ONLY=1  LINKONLY=3  O-ONLY=1
+MiniAmiq                     testflags TOTAL 5128  AGREE=5113  COLLAPSE=11  G-ONLY=3  LINKONLY=1
+SKIP testflags Scoreboard
+SeqDriver                    testflags TOTAL 4840  AGREE=4839  LINKONLY=1
+SimpleUVM                    testflags TOTAL 4834  AGREE=4833  LINKONLY=1
+-- scored=475 SKIP=309
+
+=== the eleven MiniAmiq COLLAPSE cells (default; testflags identical) ===
+TOTAL 5128  AGREE=5113  COLLAPSE=11  G-ONLY=3  LINKONLY=1
+COLLAPSE  L155#0 sub=copy                          G=['kind=func_call name=copy link=F:copy pfx=- args=-1'] | O=['kind=method_func_call name=tests_names link=F:0 pfx=copy args=-1']
+COLLAPSE  L159#0 sub=copy                          G=['kind=func_call name=copy link=F:copy pfx=- args=-1'] | O=['kind=method_func_call name=attempt_time link=F:0 pfx=copy args=-1']
+COLLAPSE  L163#0 sub=copy                          G=['kind=func_call name=copy link=F:copy pfx=- args=-1'] | O=['kind=method_func_call name=check_states link=F:0 pfx=copy args=-1']
+COLLAPSE  L230#0 sub=get_checks                    G=['kind=func_call name=get_checks link=F:get_checks pfx=- args=-1'] | O=['kind=method_func_call name=checks_details link=F:0 pfx=get_checks args=-1']
+COLLAPSE  L310#0 sub=reset_assertion               G=['kind=func_call name=control_assertion_dpi link=F:control_assertion_dpi pfx=- args=3'] | O=['kind=method_func_call name=control_assertion_dpi link=F:0 pfx=control_assertion_dpi(a_sva args=3']
+COLLAPSE  L334#0 sub=disable_assertion             G=['kind=func_call name=control_assertion_dpi link=F:control_assertion_dpi pfx=- args=3'] | O=['kind=method_func_call name=control_assertion_dpi link=F:0 pfx=control_assertion_dpi(a_sva args=3']
+COLLAPSE  L358#0 sub=enable_assertion              G=['kind=func_call name=control_assertion_dpi link=F:control_assertion_dpi pfx=- args=3'] | O=['kind=method_func_call name=control_assertion_dpi link=F:0 pfx=control_assertion_dpi(a_sva args=3']
+COLLAPSE  L383#0 sub=kill_assertion                G=['kind=func_call name=control_assertion_dpi link=F:control_assertion_dpi pfx=- args=3'] | O=['kind=method_func_call name=control_assertion_dpi link=F:0 pfx=control_assertion_dpi(a_sva args=3']
+COLLAPSE  L408#0 sub=disable_step_assertion        G=['kind=func_call name=control_assertion_dpi link=F:control_assertion_dpi pfx=- args=3'] | O=['kind=method_func_call name=control_assertion_dpi link=F:0 pfx=control_assertion_dpi(a_sva args=3']
+COLLAPSE  L434#0 sub=enable_step_assertion         G=['kind=func_call name=control_assertion_dpi link=F:control_assertion_dpi pfx=- args=3'] | O=['kind=method_func_call name=control_assertion_dpi link=F:0 pfx=control_assertion_dpi(a_sva args=3']
+COLLAPSE  L512#0 sub=update_coverage               G=['kind=func_call name=get_cover_statistics_dpi link=F:get_cover_statistics_dpi pfx=- args=3'] | O=['kind=method_func_call name=get_cover_statistics_dpi link=F:0 pfx=get_cover_statistics_dpi(cover_info[index] args=3']
+LINKONLY  L503#0 sub=uvm_root::run_test            G=['kind=task_call name=uvm_phase::m_run_phases link=T:m_run_phases pfx=- args=-1', 'kind=task_call name=uvm_phase::m_run_phases link=T:uvm_phase::m_run_phases pfx=- args=-1'] | O=['kind=task_call name=uvm_phase::m_run_phases link=T:m_run_phases pfx=- args=-1']

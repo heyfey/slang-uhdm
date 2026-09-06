@@ -1,0 +1,17 @@
+LHS: <null>
+RHS:
+decompile:
+ref_typespec: (uvm_pkg::uvm_is_match::s), id:5786
+|vpiParent:
+\_ref_obj: (uvm_pkg::uvm_is_match::s), id:5785, line:403:24, endln:403:25
+|vpiFullName:uvm_pkg::uvm_is_match::s
+|vpiActual:
+\_string_typespec: , id:3966, line:23:50, endln:23:56
+
+decompile:
+ref_typespec: (uvm_pkg::uvm_is_match::s), id:5786
+|vpiParent:
+\_ref_obj: (uvm_pkg::uvm_is_match::s), id:5785, line:403:24, endln:403:25
+|vpiFullName:uvm_pkg::uvm_is_match::s
+|vpiActual:
+\_string_typespec: , id:3966, line:23:50, endln:23:56

@@ -3799,6 +3799,31 @@ private:
     // the call emitter needs: whether the body being emitted is a class
     // method, and whether it was written out of body.  Kept separate from
     // classMethodNoBind, which if/case CONDITIONS toggle off mid-body.
+    // § recvNamesSubroutineCollapsesStmtCall172 — a STATEMENT call whose
+    // chain's BASE identifier is also the name of a task or function that
+    // Surelog's `getTaskFunc` would find collapses to ONE bare
+    // `func_call`/`task_call` named after that identifier, spanned over the
+    // whole call statement and linked to the subroutine, with NO prefix.  The
+    // whole decode, the measured reach of the name search, the argument rule
+    // and the three declined shapes are written out at the definition in
+    // src/StmtEmit.cpp; `stmtCallCollapseSub172` is the search and
+    // `emitCollapsedStmtCall172` the emitter, called from the
+    // `StatementKind::ExpressionStatement` arm BEFORE any shape is minted
+    // (Surelog discards its own `method_func_call` and `Purge()`s it away; we
+    // never purge, so nothing may be minted and abandoned here).
+    const slang::ast::SubroutineSymbol* stmtCallCollapseSub172(
+        std::string_view base) const;
+    /// Collapsed statement calls whose callee was not in `subMap` yet — a
+    /// module task or a $unit free subroutine declared AFTER the caller.
+    /// Drained design-final, next to drainScopedCallBind26().
+    std::vector<std::pair<UHDM::tf_call*, const slang::ast::SubroutineSymbol*>>
+        pendingCollapseLink172;
+    void drainCollapseLink172();
+    UHDM::any* emitCollapsedStmtCall172(const slang::ast::Expression& e,
+                                        UHDM::BaseClass* parent,
+                                        const std::string& prefix,
+                                        NetMap& netMap);
+
     bool curSubClassScope9 = false;
     bool curSubOob9 = false;
     // § foreachElabLoopVarAnyKindBinds17 — the HOME half of that law: the

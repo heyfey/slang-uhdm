@@ -1882,7 +1882,12 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         incDecStmtPos21 = true;
                 }
             }
-            auto* r = emitExpr(es.expr, parent, prefix, netMap);
+            // § recvNamesSubroutineCollapsesStmtCall172 — decided BEFORE any
+            // shape is minted: Surelog throws its own method_func_call away and
+            // `Purge()`s it out of the database, and we do not purge.
+            auto* r = emitCollapsedStmtCall172(es.expr, parent, prefix, netMap);
+            if (!r)
+                r = emitExpr(es.expr, parent, prefix, netMap);
             incDecStmtPos21 = false;
             callStmtContext = false;
             // § localBlockStmtSelBinds122 — this statement is a DIRECT member
@@ -6096,6 +6101,361 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                           : stmt.sourceRange.start());
             return nullptr;
     }
+}
+
+// ===========================================================================
+// § recvNamesSubroutineCollapsesStmtCall172 — A STATEMENT CALL WHOSE CHAIN'S
+// **BASE IDENTIFIER** IS ALSO A SUBROUTINE NAME COLLAPSES TO ONE BARE
+// `func_call` / `task_call` LINKED TO THAT SUBROUTINE.
+//
+// THE HEAD (MiniAmiq, both modes, 40 cmp lines, ONE head, the two logs
+// byte-identical).  `svaunit_immediate_assertion_details.svh:155`
+//
+//     function svaunit_immediate_assertion_details copy();
+//       ...
+//       foreach(tests_names[index]) begin
+//         copy.tests_names.push_back(tests_names[index]);
+//       end
+//
+// golden  func_call (copy)                @155:10-155:56  vpiFunction -> function(copy)@149:4
+// ours    method_func_call (tests_names)  @155:15-155:26  vpiPrefix   -> ref_obj(copy)
+//
+// The owner is the foreach body's `begin` @154:35-156:10 and the edge is its
+// `vpiStmt` VECTOR (relation 104), index 0, size 1 on BOTH sides — so nothing
+// is missing on either side and `BaseClass::Compare`'s very first line, the
+// `VpiType` difference, is where the judge stops.  (`ct172own.cpp` prints the
+// owner, the edge and both field vectors; §1 of this pass's README.)
+//
+// THE DECODE — `~/git-repos/Surelog`, READ, NOT INFERRED.
+// `CompileStmt.cpp:250` sends every `paSubroutine_call_statement` to
+// `CompileHelper::compileTfCall` (`CompileHelper.cpp:4135`).  Its USER-CALL arm
+// (`:4216-4251`) reads the FIRST name node, builds the
+// `method_func_call{vpiPrefix}` this emitter already reproduces, and then does
+// this:
+//
+//     std::pair<task_func*, DesignComponent*> ret =
+//         getTaskFunc(name, component, compileDesign, nullptr, nullptr);
+//     task_func* tf = ret.first;
+//     if (tf) {
+//       if (tf->UhdmType() == uhdmfunction) {
+//         func_call* fcall = s.MakeFunc_call();
+//         fcall->Function(any_cast<function*>(tf));
+//         call = fcall;                       // <- THE METHOD CALL IS DROPPED
+//       } else {
+//         task_call* tcall = s.MakeTask_call();
+//         tcall->Task(any_cast<task*>(tf));
+//         call = tcall;
+//       }
+//       call->VpiParent(pexpr);
+//     }
+//     ...
+//     if (call->VpiName().empty()) call->VpiName(name);          // the BASE name
+//     if (call->VpiLineNo() == 0)
+//       fC->populateCoreMembers(Tf_call_stmt, Tf_call_stmt, call); // WHOLE stmt
+//     NodeId argListNode = fC->Sibling(tfNameNode);               // see ARGS
+//
+// `name` is `fC->SymName(dollar_or_string)` — the chain's FIRST name node, the
+// subscript never read (§ selRecvStmtCallBareNames124's law, same function).
+// The whole rest of the written chain — every further name, the method, its
+// arguments — is DISCARDED.  Surelog `Purge()`s its serializer
+// (`CompileDesign.cpp:89`) so the abandoned `method_func_call` never reaches the
+// database; WE DO NOT PURGE, which is why this law is decided BEFORE anything is
+// minted rather than by re-shaping an object afterwards.
+//
+// HOW FAR THE NAME SEARCH REACHES (`getTaskFunc`, `CompileExpression.cpp:349`),
+// measured cell by cell on golden in `g172_b_name.sv` / `g172_c_home.sv` /
+// `g172_d_scope.sv`, both views:
+//
+//   COLLAPSES                                   | DOES NOT COLLAPSE
+//   -------------------------------------------+---------------------------------
+//   the enclosing function's own return name    | an INHERITED base-class method
+//     (b06, C1, C4, C6, e06-e11, the head)      |   name (d01) — `getTaskFunc`
+//   another METHOD of the enclosing class (b02) |   walks `getParentScope()`, never
+//   a TASK of the enclosing class (b03)         |   a base class
+//   a wildcard-imported package FUNCTION (b04)  | a method of ANOTHER class (b07)
+//   a wildcard-imported package TASK (b05)      | a NOT-imported package function
+//   a $unit-scope free function (d02)           |   (d04)
+//   an imported package function (d03)          | a MODULE function seen from a
+//   the enclosing module's own function/task    |   CLASS home (d05)
+//     (C6, C7, d09b)                            | an OUT-OF-BODY class method's own
+//                                               |   return name (C3) — such a body
+//                                               |   is compiled in the enclosing
+//                                               |   PACKAGE's scope, where the
+//                                               |   class's methods are invisible
+//
+// A TASK name yields a `task_call` with `vpiTask` (b03, b05, d09b, f08); a
+// FUNCTION name a `func_call` with `vpiFunction`.  DEF and ELAB are identical in
+// every cell, and the wildcard-import CLONE of a package function collapses
+// exactly like its home copy (arm C, four copies of `pkgcpy172`).
+//
+// THE ARGUMENTS follow `argListNode = fC->Sibling(tfNameNode)`, where
+// `tfNameNode` is the chain's SECOND name node:
+//   * a TWO-name chain (`recv.m(a,b)`) — the sibling IS the written
+//     `paList_of_arguments`, so the WRITTEN actuals survive, bound exactly as
+//     an ordinary call's (arm F f01-f03, f05, f07, f08: golden's arg refs carry
+//     `vpiActual` to the body local / formal / class property);
+//   * a THREE-OR-MORE-name chain (`recv.mem.m(a)`) — the sibling is the empty
+//     select between the second name and the third, and NO argument is compiled
+//     (the head itself, f04, f06, arm A c01-c05, e05).
+//
+// DELIBERATELY OUT, each measured and named in the README's residues:
+//   * a chain whose SECOND component carries a SUBSCRIPT
+//     (`recv.arr[1].m(5)`): Surelog's `argListNode` lands on that subscript and
+//     compiles its INDEX as the call's one argument (arm A c06, golden
+//     `args=1`).  ZERO corpus cells (r10uvm124's residue R1 says the same of
+//     its own sibling field), so this predicate DECLINES there and the cell is
+//     left exactly as it was;
+//   * a statement call written where there is NO enclosing subroutine — a
+//     module `initial`/`always` body (arm F f09).  `currentScope` is STALE
+//     throughout `emitInstance` (RESUME.md §9), so there is no sound scope
+//     handle to search from and the law declines;
+//   * `this.`/`super.`-rooted chains, `pkg::f(x)` and every non-name callee:
+//     Surelog reaches those through `compileComplexFuncCall`, a different
+//     function with a different answer, and the flattener below refuses them by
+//     syntax kind.
+// ===========================================================================
+
+namespace {
+// One WRITTEN name component of a statement call's callee.
+struct CalleeName172 {
+    std::string text;      // the identifier ALONE — never the subscript
+    bool selected = false; // the component carries `[...]`
+};
+
+// Flatten slang's LEFT-ASSOCIATIVE `ScopedName` tree into the written name
+// components, left to right.  ONLY the DOT separator: a `::` is Surelog's
+// `paClass_scope` road and `this`/`super` its `paImplicit_class_handle` road,
+// both of which have different answers and both of which parse to syntax kinds
+// this walk refuses outright.
+bool flattenCallee172(const slang::syntax::SyntaxNode& n,
+                      std::vector<CalleeName172>& out) {
+    switch (n.kind) {
+        case syntax::SyntaxKind::IdentifierName: {
+            auto t = n.as<syntax::IdentifierNameSyntax>().identifier.valueText();
+            if (t.empty())
+                return false;
+            out.push_back({std::string(t), false});
+            return true;
+        }
+        case syntax::SyntaxKind::IdentifierSelectName: {
+            auto& isn = n.as<syntax::IdentifierSelectNameSyntax>();
+            auto t = isn.identifier.valueText();
+            if (t.empty())
+                return false;
+            out.push_back({std::string(t), !isn.selectors.empty()});
+            return true;
+        }
+        case syntax::SyntaxKind::ScopedName: {
+            auto& sn = n.as<syntax::ScopedNameSyntax>();
+            if (sn.separator.kind != slang::parsing::TokenKind::Dot)
+                return false;
+            return sn.left && sn.right && flattenCallee172(*sn.left, out) &&
+                   flattenCallee172(*sn.right, out);
+        }
+        default:
+            return false;
+    }
+}
+}  // namespace
+
+// § recvNamesSubroutineCollapsesStmtCall172 — the NAME SEARCH, transcribed from
+// `CompileHelper::getTaskFunc` and gated by the two facts that decide which
+// `DesignComponent` Surelog is compiling the body in: an IN-BODY class method is
+// compiled in the CLASS, an OUT-OF-BODY definition in the enclosing PACKAGE
+// (the same `curSubOob9` split § classArgBind12 and § tfItemBodyLocal148 read).
+const slang::ast::SubroutineSymbol* UhdmExporter::stmtCallCollapseSub172(
+    std::string_view base) const {
+    if (base.empty() || !currentSubSym)
+        return nullptr;
+    // A DECLARED member of `sc` and nothing else.  `Scope::find` on a
+    // `ClassType` ALSO answers a name DECLARED IN A BASE CLASS, and golden
+    // does not collapse an inherited method name (arm D cell d01 — the first
+    // cut of this law moved it and the arm convicted it): `getTaskFunc` reads
+    // `comp->getTask_funcs()` and walks `getParentScope()`, never a base.  The
+    // discriminator is the FOUND SYMBOL's own parent scope.
+    auto asSub = [](const slang::ast::Scope* sc0, std::string_view n0)
+        -> const slang::ast::SubroutineSymbol* {
+        const slang::ast::Symbol* sym = sc0->find(n0);
+        if (!sym || sym->getParentScope() != sc0)
+            return nullptr;
+        if (sym->kind == SymbolKind::Subroutine)
+            return &sym->as<slang::ast::SubroutineSymbol>();
+        if (sym->kind == SymbolKind::MethodPrototype)
+            return sym->as<slang::ast::MethodPrototypeSymbol>().getSubroutine();
+        return nullptr;
+    };
+    const slang::ast::Scope* sc = currentSubSym->getParentScope();
+    // An OUT-OF-BODY class method is compiled in the class's CONTAINER, so the
+    // class's own methods are NOT in the search (arm C cell C3 is the measured
+    // negative control: golden leaves `oobcpy172.oq172.push_back(...)` a
+    // method_func_call in all four copies).  The container is the nearest
+    // enclosing NON-CLASS scope — see the nested-class note just below.
+    if (sc && curSubOob9)
+        while (sc && sc->asSymbol().kind == SymbolKind::ClassType)
+            sc = sc->asSymbol().getParentScope();
+    // (1) THE SCOPE CHAIN — `while (comp) { comp->getTask_funcs(); comp =
+    //     comp->getParentScope(); }`.  DIRECT members only: `Scope::find` never
+    //     follows a base class, and golden does not collapse an inherited
+    //     method name (arm D cell d01).
+    //
+    //     AND IT NEVER SEES AN ENCLOSING CLASS EITHER.  Surelog builds an INNER
+    //     class with its OUTER class's CONTAINER as the parent scope —
+    //     `new ClassDefinition(class_name, …, m_class->getContainer(), …)`,
+    //     CompileClass.cpp:693 — so the `getParentScope()` walk steps from a
+    //     nested class straight to the enclosing package/module/file.  Measured
+    //     on golden in r10v172repro arm 4 cell v4_11: inside
+    //     `Outer4172::Inner4172::iprobe172`, golden keeps
+    //     `outfn172.q172.push_back(...)` (the OUTER class's method name) a
+    //     `method_func_call`, while it collapses the package function named on
+    //     the very next line.  Walking into the outer class here made a cell
+    //     that AGREED with golden disagree.
+    std::vector<const slang::ast::Scope*> chain;
+    for (const slang::ast::Scope* c = sc; c; c = c->asSymbol().getParentScope()) {
+        if (!chain.empty() && c->asSymbol().kind == SymbolKind::ClassType)
+            continue;
+        chain.push_back(c);
+    }
+    for (const slang::ast::Scope* c : chain)
+        if (auto* r = asSub(c, base))
+            return r;
+    // (2) THE IMPORTED PACKAGES — `getFuncFromPackage`, which walks
+    //     `getAccessPackages()` TRANSITIVELY with a visited set.
+    std::vector<const slang::ast::Scope*> work(chain.begin(), chain.end());
+    std::set<const slang::ast::Symbol*> seen;
+    for (size_t i = 0; i < work.size(); i++) {
+        for (auto& mem : work[i]->members()) {
+            const slang::ast::PackageSymbol* pk = nullptr;
+            if (mem.kind == SymbolKind::WildcardImport)
+                pk = mem.as<slang::ast::WildcardImportSymbol>().getPackage();
+            else if (mem.kind == SymbolKind::ExplicitImport)
+                pk = mem.as<slang::ast::ExplicitImportSymbol>().package();
+            if (!pk || !seen.insert(pk).second)
+                continue;
+            if (auto* r = asSub(pk, base))
+                return r;
+            work.push_back(pk);
+        }
+    }
+    // (3) THE COMPILATION UNITS — `getTaskFunc`'s FileContent loops, which
+    //     reach every file's $unit-scope free subroutines (arm D cell d02).
+    for (auto* cu : comp.getCompilationUnits())
+        if (auto* r = asSub(cu, base))
+            return r;
+    return nullptr;
+}
+
+// § recvNamesSubroutineCollapsesStmtCall172 — the EMITTER.  Returns null (and
+// changes nothing) unless every condition of the law above holds.
+UHDM::any* UhdmExporter::emitCollapsedStmtCall172(const slang::ast::Expression& e,
+                                                  UHDM::BaseClass* parent,
+                                                  const std::string& prefix,
+                                                  NetMap& netMap) {
+    if (e.kind != ExpressionKind::Call || !e.syntax || !currentSubSym)
+        return nullptr;
+    auto& call = e.as<CallExpression>();
+    // The WRITTEN callee: unwrap the `with`-clause carrier, then the
+    // invocation, leaving the dotted NAME Surelog reads its name nodes off.
+    const syntax::SyntaxNode* n = e.syntax;
+    if (n->kind == syntax::SyntaxKind::ArrayOrRandomizeMethodExpression)
+        n = n->as<syntax::ArrayOrRandomizeMethodExpressionSyntax>().method;
+    if (n && n->kind == syntax::SyntaxKind::InvocationExpression)
+        n = n->as<syntax::InvocationExpressionSyntax>().left;
+    if (!n)
+        return nullptr;
+    std::vector<CalleeName172> comps;
+    if (!flattenCallee172(*n, comps) || comps.size() < 2)
+        return nullptr;
+    // The SECOND component's subscript is the one field Surelog reads that this
+    // law does not model (README residue R1; zero corpus cells).
+    if (comps.size() > 2 && comps[1].selected)
+        return nullptr;
+    if (comps.back().selected)
+        return nullptr;
+    const slang::ast::SubroutineSymbol* tf172 =
+        stmtCallCollapseSub172(comps[0].text);
+    if (!tf172)
+        return nullptr;
+    // § retNameRecvCollapse69 ALREADY OWNS THE NARROW CASE and must keep it.
+    // That law is this one restricted to a receiver of EXACTLY ONE component
+    // that is EXACTLY the enclosing function's own return name, and it carries
+    // its own argument window (§ retNameRecvCollapseArgsBindLikeBody15, whose
+    // cells are `uvm_pkg.sv:23233 get_link.set(lhs, rhs)` and friends).  The
+    // first cut of THIS law ran first and re-emitted those cells with a
+    // different argument shape; `uvm_misc.svh:437`
+    // `uvm_object_value_str.itoa(v.get_inst_id());` — AGREEING with golden in
+    // every pristine UVM row — became the new head of SeqDriver, SimpleUVM,
+    // Scoreboard and BuildUVMPkg.  Declining here is what keeps § 69's whole
+    // population byte-identical; what this law ADDS is exactly the two shapes
+    // § 69's own text ranks as residues: a receiver of TWO OR MORE components
+    // whose FIRST segment collapses (§ 69: "arm a3 cell N6 ... ZERO corpus
+    // population, so it is left to § deepRecvCall11 and ranked as a residue" —
+    // it is the MiniAmiq head), and a base identifier that names a subroutine
+    // OTHER than the enclosing one.
+    if (comps.size() == 2 && tf172 == currentSubSym)
+        return nullptr;
+    const bool isTask =
+        tf172->subroutineKind == slang::ast::SubroutineKind::Task;
+    UHDM::tf_call* fc = isTask ? (UHDM::tf_call*)s.MakeTask_call()
+                               : (UHDM::tf_call*)s.MakeFunc_call();
+    fc->VpiName(comps[0].text);
+    fc->VpiParent(parent);
+    // THE SPAN is the whole `Subroutine_call` node — `e.syntax`'s range, which
+    // for the `with` forms runs THROUGH the clause (the same range
+    // § stmtBuiltinBodyIsBareRecvCall151 takes for its own bare call).
+    setLoc(fc, e.syntax->sourceRange());
+    // THE LINK.  A `task*` in `Function()` (or the mirror) would be a link
+    // disagreement, so the stored object's own UhdmType decides.
+    bool linked172 = false;
+    if (auto it = subMap.find(tf172); it != subMap.end() && it->second.tf) {
+        UHDM::task_func* tfo = it->second.tf;
+        if (!isTask && tfo->UhdmType() == UHDM::uhdmfunction) {
+            ((UHDM::func_call*)fc)->Function((UHDM::function*)tfo);
+            linked172 = true;
+        } else if (isTask && tfo->UhdmType() == UHDM::uhdmtask) {
+            ((UHDM::task_call*)fc)->Task((UHDM::task*)tfo);
+            linked172 = true;
+        }
+    }
+    // The link is taken IMMEDIATELY whenever `subMap` already holds the
+    // callee, so a package's DEF and ELABORATED views each link THEIR OWN copy
+    // (a design-final drain would give both views whichever copy the map ended
+    // up holding).  Only a callee not yet emitted at all — a module task or a
+    // $unit free function declared after the caller (arm D cells d02, d09b) —
+    // is deferred, and there is exactly one copy of those to link.
+    if (!linked172)
+        pendingCollapseLink172.push_back({fc, tf172});
+    // THE ARGUMENTS — see the law: a TWO-name chain keeps the written actuals,
+    // a longer chain keeps none.  A built-in method's receiver rides in
+    // `arguments()[0]` (§ scopedBuiltinRecvIsChain1's discriminator, the `$`
+    // test included) and is never an argument.
+    if (comps.size() == 2) {
+        // THE ARGUMENTS ARE ORDINARY EXPRESSIONS.  Surelog compiles them with
+        // `compileTfCallArguments`, the same function every other call uses;
+        // leaving `callStmtContext` raised emitted the argument
+        // `v.get_inst_id()` in STATEMENT shape (a `method_func_call` with a
+        // `vpiPrefix`) where golden holds the expression-position `hier_path`.
+        bool savedSC172 = callStmtContext;
+        callStmtContext = false;
+        size_t a0 = 0;
+        if (!call.thisClass() && call.isSystemCall() && !call.arguments().empty()) {
+            std::string_view sn172 = call.getSubroutineName();
+            if (sn172.empty() || sn172[0] != '$')
+                a0 = 1;
+        }
+        auto* args = s.MakeAnyVec();
+        for (size_t ai = a0; ai < call.arguments().size(); ai++) {
+            bool fs172 = forceConstParent;
+            if (isLiteralExpr(*call.arguments()[ai]))
+                forceConstParent = true;
+            if (auto* a172 = emitExpr(*call.arguments()[ai], fc, prefix, netMap))
+                args->push_back(a172);
+            forceConstParent = fs172;
+        }
+        if (!args->empty())
+            fc->Tf_call_args(args);
+        callStmtContext = savedSC172;
+    }
+    return fc;
 }
 
 // § droppedCall14 — a call on a handle whose declared type is an UNSPECIALIZED

@@ -7198,6 +7198,10 @@ UHDM::design* UhdmExporter::exportDesign() {
     drainBodyOpArgTs();
     // Deferred `Class::f()` -> out-of-body task_func links (§ ...26).
     drainScopedCallBind26();
+    // § recvNamesSubroutineCollapsesStmtCall172 — the LATE half of the link:
+    // a collapsed call whose callee had not been emitted when the caller's
+    // body was walked.  Same shape (and same kind guard) as §26's drain.
+    drainCollapseLink172();
     // § pkgVarInitCmViewClone111 — IMMEDIATELY AFTER that drain: a package
     // variable initializer's `C::m()` binds the `C::m` listing entry of the
     // package VIEW it lives in, where that view has one.  The drain above is
@@ -7870,6 +7874,23 @@ UHDM::design* UhdmExporter::exportDesign() {
 // registered on the enclosing package/file before any variable elaborates);
 // our package-variable initializers run before the package's task_funcs are
 // emitted, so the same link is made here instead.
+void UhdmExporter::drainCollapseLink172() {
+    for (auto& [c172, sym172] : pendingCollapseLink172) {
+        auto it172 = subMap.find(sym172);
+        if (it172 == subMap.end() || !it172->second.tf)
+            continue;
+        if (c172->UhdmType() == UHDM::uhdmfunc_call) {
+            if (it172->second.tf->UhdmType() == UHDM::uhdmfunction)
+                ((UHDM::func_call*)c172)->Function(
+                    (UHDM::function*)it172->second.tf);
+        } else if (c172->UhdmType() == UHDM::uhdmtask_call) {
+            if (it172->second.tf->UhdmType() == UHDM::uhdmtask)
+                ((UHDM::task_call*)c172)->Task((UHDM::task*)it172->second.tf);
+        }
+    }
+    pendingCollapseLink172.clear();
+}
+
 void UhdmExporter::drainScopedCallBind26() {
     for (auto& [c26, sym26] : pendingScopedCallBind26) {
         auto it26 = subMap.find(sym26);

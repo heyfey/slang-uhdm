@@ -1,0 +1,53 @@
+design::Compare r=-629
+HEAD LHS = func_call(copy)@155:10-155:56#254781
+HEAD RHS = method_func_call(tests_names)@155:15-155:26#186842
+HEAD KINDS: LHS=°‰¬ÿ RHS=   (DIFFERENT KIND -> BaseClass::Compare's VpiType line failed FIRST; no field beyond it was read)
+HEAD LHS parent chain:
+    < begin()@154:35-156:10#254778
+    < foreach_stmt()@154:7-154:14#254771
+    < begin()@152:7-152:36#254762
+    < function(copy)@149:4-167:15#254757
+    < class_defn(svaunit_immediate_assertion_details)@25:1-168:9#329
+    < package(svaunit_pkg)@24:1-73:11#325
+    < design(unnamed)@0:0-0:0#339431
+PARENT-CHAIN PROBE (top down; REPRO = this pair's own Compare gives the same head):
+  design(unnamed)@0:0-0:0#339431                             ourMatches=1 repro=1 REPRO
+  package(svaunit_pkg)@24:1-73:11#325                        ourMatches=2 repro=2 REPRO
+  class_defn(svaunit_immediate_assertion_details)@25:1-168:9#329 ourMatches=1 repro=0 no-repro
+  function(copy)@149:4-167:15#254757                         ourMatches=1 repro=0 no-repro
+  begin()@152:7-152:36#254762                                ourMatches=1 repro=1 REPRO
+  foreach_stmt()@154:7-154:14#254771                         ourMatches=1 repro=1 REPRO
+  begin()@154:35-156:10#254778                               ourMatches=1 repro=1 REPRO
+  func_call(copy)@155:10-155:56#254781                       ourMatches=0 repro=0 NO COUNTERPART
+DESCENT (each step = a child pair whose own Compare reproduces the head):
+  [0] begin()@154:35-156:10#254778
+      vs begin()@154:35-156:10#186841
+      (golden child func_call(copy)@155:10-155:56#254781 has NO counterpart under our owner)
+  STOP: no child pair reproduces the head -> the edge is a FIELD of the pair above
+OWNER PAIR:
+  FIELDS of begin()@154:35-156:10#254778
+         vs begin()@154:35-156:10#186841
+    -- scope::Compare vector order --
+    Property_decls           LHS=null   RHS=null  
+    Sequence_decls           LHS=null   RHS=null  
+    Concurrent_assertions    LHS=null   RHS=null  
+    Named_events             LHS=null   RHS=null  
+    Named_event_arrays       LHS=null   RHS=null  
+    Variables                LHS=null   RHS=null  
+    Virtual_interface_vars   LHS=null   RHS=null  
+    Logic_vars               LHS=null   RHS=null  
+    Array_vars               LHS=null   RHS=null  
+    Array_var_mems           LHS=null   RHS=null  
+    Parameters               LHS=null   RHS=null  
+    Param_assigns            LHS=null   RHS=null  
+    Scopes                   LHS=null   RHS=null  
+    Typespecs                LHS=null   RHS=null  
+    Instance_items           LHS=null   RHS=null  
+    Let_decls                LHS=null   RHS=null  
+    Attributes               LHS=null   RHS=null  
+    begin::Stmts             LHS=1      RHS=1     
+        [0] LHS=func_call(copy)@155:10-155:56#254781                       RHS=method_func_call(tests_names)@155:15-155:26#186842
+REFERENCE SCAN â€” every golden edge that lands on the head, and ours:
+  golden begin()@154:35-156:10#254778
+      edge vpiType=104 (vector index 0)
+      ours   begin()@154:35-156:10#186841 -> vector present size 1, [0] = method_func_call(tests_names)@155:15-155:26#186842

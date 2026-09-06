@@ -1,0 +1,41 @@
+r10v172 — GATES, all measured on binaries this verifier built and sweeps it owns.
+pristine fb82059559765e79eee43ee365aa4879 (== main tree build/slang-uhdm at d53fbaad)
+implementer 01bb3fd9524dbf34f3dc255634a90b86  VERIFIED f0abe23d44f53867fec9dc2f8298dc58
+
+goldens  pristine 23 PASS / 0 FAIL | implementer 23/0 | VERIFIED 23/0 | SLANG_UHDM=/bin/false 0 PASS / 23 FAIL
+
+surelog 1588 rows both modes:
+  implementer vs results/golden_surelog.csv : PASS (0 differing rows, status AND dump)
+  implementer vs own pristine sweep         : PASS
+  VERIFIED    vs results/golden_surelog.csv : PASS
+  VERIFIED    vs own pristine sweep         : PASS
+  status histogram identical row for row - no hidden segfault, NO ROW CONVERTED, results/*.csv untouched
+
+uhdm2rtlil both modes: 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL under both patched binaries
+  ct8rows vs gate_uhdm2rtlil.csv, vs own pristine tf, vs own pristine def: 3 x PASS (both binaries)
+
+byteverify SELFCHECK=1:
+  implementer vs pristine  surelog MOVERS 2/956 (MiniAmiq default+testflags, 948816f7ae30 vs 82e5a3c667ad)  SELFCHECK 955/956
+  VERIFIED    vs pristine  surelog MOVERS 2/956 (the SAME two, the SAME hashes)                            SELFCHECK 955/956
+  VERIFIED    vs implementer surelog MOVERS 0/956   <- the fix is byte-invisible on the corpus
+  implementer vs pristine  u2r     MOVERS 0/1358   SELFCHECK 1357/1358
+  VERIFIED    vs pristine  u2r     MOVERS 0/1358   SELFCHECK 1357/1358
+
+mover attribution (id-normalised, ORDER-BLIND sorted whole-dump diff of MiniAmiq/default):
+  48 lines, exactly svaunit_immediate_assertion_details.svh:155,159,163 (func_call copy)
+  and svaunit_immediate_assertion_info.svh:230 (func_call get_checks). Nothing else.
+
+heads (rowheads.sh): all 12 measured row-modes identical between implementer and VERIFIED;
+  MiniAmiq 40/1 -> 40/1, head OBJECT func_call(copy)@155:10 -> bit_select(checks_details)@233:24,
+  both modes byte-identical md5 dcb32643befb0ac9228b8caa64eb082c;
+  the other 10 row-mode cmp logs byte-identical to pristine (Scoreboard/default included).
+
+canaries ok=52 changed=0 (surelog) / ok=8 changed=0 (u2r); ctcan2 PASS x2;
+canaudit audited=29 UNCOVERED=0 FENCE-BREACH=0
+SVSwitch 4842211c4030  YosysVerx 6ccda350c24a  InterfaceModPort/BlackParrotComplex/YosysOldOr byte-identical
+
+cmds.txt audit BY BINARY PATH, file by file:
+  slpat 1573, slpris 1573, slfix 1573, u2rpat 1462, u2rpris 1462, u2rfix 1462
+  every 'slang:' line names that arm's frozen binary and no other; the 50 files with no 'slang:' line are golden-cache-only rows
+
+wide boundary pristine vs VERIFIED: LISTED=4818 PROCESSED=4818 PRODUCED_DBS=4661 MOVED_ARMS=16 RC_DIFFS=0

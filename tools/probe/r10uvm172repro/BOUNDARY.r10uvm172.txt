@@ -1,0 +1,27 @@
+r10uvm172 — THE WIDE BOUNDARY GATE (wide172.sh over a COPY of the whole committed probe tree)
+
+LISTED=4813 PROCESSED=4813 PRODUCED_DBS=4656 MOVED_ARMS=11 RC_DIFFS=0
+
+== MOVED ARMS ==
+probe/r10buvm22repro/g22.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+probe/r10uvm154repro/l154_noenum.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm172repro/g172_a_shape.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm172repro/g172_b_name.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm172repro/g172_c_home.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm172repro/g172_d_scope.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm172repro/g172_e_deep.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm172repro/g172_f_args.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm69repro/a3_recv.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v151repro/v151_6_shadow.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v151repro/v151_8_tfname.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+== attribution ==
+6 x probe/r10uvm172repro/g172_*.sv        THIS PASS'S OWN ARMS (the positive control)
+probe/r10buvm22repro/g22.sv               r10uvm154's ADDRESS-DERIVED residue: the only dump difference is
+probe/r10uvm154repro/l154_noenum.sv       |UINT:22580129 -> |UINT:22584225 (and its vpiDecompile twin)
+probe/r10uvm69repro/a3_recv.sv            uvm69's OWN residue cell N6: 40/1 -> 0/0 CMP_EQUAL (def AND elab)
+probe/r10v151repro/v151_6_shadow.sv       uvm151's VERIFIER arms for THIS law, written as known-wrong
+probe/r10v151repro/v151_8_tfname.sv       residues: every moved cell now MATCHES GOLDEN (see README §14)
+
+== the FLOOR: not one arm of r10uvm171, r10uvm169, r10uvm167, r10uvm89, r10uvm77-79,
+   r10uvm82-91, r10buvm3-15 or r10sd8-12 is among the movers — all byte-identical.

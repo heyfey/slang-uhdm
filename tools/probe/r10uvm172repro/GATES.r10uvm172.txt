@@ -1,0 +1,186 @@
+r10uvm172 — GATES, all on the frozen binaries
+pristine  fb82059559765e79eee43ee365aa4879 (byte-identical to the main tree's build/slang-uhdm at d53fbaad)
+patched   01bb3fd9524dbf34f3dc255634a90b86
+
+== goldens ==
+patched  PASS=23 FAIL=0
+pristine PASS=23 FAIL=0
+SLANG_UHDM=/bin/false PASS=0 FAIL=23
+
+== surelog corpus, both modes ==
+    937 CMP_EQUAL
+    567 SLANG_REJECT
+     48 SURELOG_FAIL
+     19 CMP_NOTEQUAL
+     10 DEFERRED
+      3 NO_DATABASE
+      2 UNTRANSLATABLE
+      1 TIMEOUT
+      1 status
+      1 NO_UHDM
+PASS: every row byte-identical to the committed baseline
+PASS: every row byte-identical to the committed baseline
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=948816f7ae30 pristine=82e5a3c667ad
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=948816f7ae30 pristine=82e5a3c667ad
+MOVERS: 2 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+
+== uhdm2rtlil, both modes ==
+PASS: every row byte-identical to the committed baseline
+PASS: every row byte-identical to the committed baseline
+PASS: every row byte-identical to the committed baseline
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+
+== canaries ==
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+
+== protected databases (md5 12) ==
+InterfaceModPort     default   pris=59a365f3ce2c pat=59a365f3ce2c SAME
+InterfaceModPort     testflags pris=59a365f3ce2c pat=59a365f3ce2c SAME
+BlackParrotComplex   default   pris=e3e354129d5a pat=e3e354129d5a SAME
+BlackParrotComplex   testflags pris=73a10e8217e5 pat=73a10e8217e5 SAME
+YosysOldOr           default   pris=d68e0796d62c pat=d68e0796d62c SAME
+YosysOldOr           testflags pris=d68e0796d62c pat=d68e0796d62c SAME
+SVSwitch             default   pris=4842211c4030 pat=4842211c4030 SAME
+SVSwitch             testflags pris=4842211c4030 pat=4842211c4030 SAME
+YosysVerx            default   pris=6ccda350c24a pat=6ccda350c24a SAME
+YosysVerx            testflags pris=6ccda350c24a pat=6ccda350c24a SAME
+
+== heads (cmp LOG md5, not just the line count) ==
+SeqDriver.default        860d6c15bb46 860d6c15bb46 IDENTICAL
+SeqDriver.testflags      3c37fcb97201 3c37fcb97201 IDENTICAL
+SimpleUVM.default        75ee6b8193a4 75ee6b8193a4 IDENTICAL
+SimpleUVM.testflags      58482989f8db 58482989f8db IDENTICAL
+Scoreboard.default       a545f4d99e6c a545f4d99e6c IDENTICAL
+MiniAmiq.default         68d1ca6bd216 dcb32643befb CHANGED
+MiniAmiq.testflags       68d1ca6bd216 dcb32643befb CHANGED
+BuildUVMPkg.default      ddc90caa664d ddc90caa664d IDENTICAL
+BuildUVMPkg.testflags    ddc90caa664d ddc90caa664d IDENTICAL
+Earlgrey_0_1.default     950764852393 950764852393 IDENTICAL
+Earlgrey_0_1.testflags   0a826f3956a0 0a826f3956a0 IDENTICAL
+Rggen.default            d41d8cd98f00 d41d8cd98f00 IDENTICAL
+
+== mover attribution (order-blind, id-stripped dump diff, MiniAmiq) ==
+48
+243957a243958,243960
+>               \_func_call: (copy), line:155:10, endln:155:56
+>               \_func_call: (copy), line:159:10, endln:159:58
+>               \_func_call: (copy), line:163:10, endln:163:58
+245413a245417
+>           \_func_call: (get_checks), line:230:7, endln:230:41
+277480a277485,277487
+>                 \_function: (svaunit_pkg::svaunit_immediate_assertion_details::copy), line:149:4, endln:167:15
+>                 \_function: (svaunit_pkg::svaunit_immediate_assertion_details::copy), line:149:4, endln:167:15
+>                 \_function: (svaunit_pkg::svaunit_immediate_assertion_details::copy), line:149:4, endln:167:15
+277558a277566
+>             \_function: (svaunit_pkg::svaunit_immediate_assertion_info::get_checks), line:222:4, endln:250:15
+434726,434727d434733
+<                   \_method_func_call: (attempt_time), line:159:15, endln:159:27
+<               \_method_func_call: (attempt_time), line:159:15, endln:159:27
+435029,435032d435034
+<               \_method_func_call: (checks_details), line:230:18, endln:230:32
+<           \_method_func_call: (checks_details), line:230:18, endln:230:32
+<                   \_method_func_call: (check_states), line:163:15, endln:163:27
+<               \_method_func_call: (check_states), line:163:15, endln:163:27
+460175,460176d460176
+<                   \_method_func_call: (tests_names), line:155:15, endln:155:26
+<               \_method_func_call: (tests_names), line:155:15, endln:155:26
+551104,551106d551103
+<                 \_ref_obj: (svaunit_pkg::svaunit_immediate_assertion_details::copy::copy), line:155:10, endln:155:14
+<                 \_ref_obj: (svaunit_pkg::svaunit_immediate_assertion_details::copy::copy), line:159:10, endln:159:14
+<                 \_ref_obj: (svaunit_pkg::svaunit_immediate_assertion_details::copy::copy), line:163:10, endln:163:14
+551213d551209
+<             \_ref_obj: (svaunit_pkg::svaunit_immediate_assertion_info::get_checks::get_checks), line:230:7, endln:230:17
+1022787,1022789d1022782
+<                   |vpiFullName:svaunit_pkg::svaunit_immediate_assertion_details::copy::copy
+<                   |vpiFullName:svaunit_pkg::svaunit_immediate_assertion_details::copy::copy
+<                   |vpiFullName:svaunit_pkg::svaunit_immediate_assertion_details::copy::copy
+1023262d1023254
+<               |vpiFullName:svaunit_pkg::svaunit_immediate_assertion_info::get_checks::get_checks
+1150316a1150309,1150311
+>                 |vpiFunction:
+>                 |vpiFunction:
+>                 |vpiFunction:
+1151414a1151410
+>             |vpiFunction:
+1223271d1223266
+<                 |vpiName:attempt_time
+1229262d1229256
+<             |vpiName:checks_details
+1229321d1229314
+<                 |vpiName:check_states
+1231805,1231807c1231798,1231800
+<                   |vpiName:copy
+<                   |vpiName:copy
+<                   |vpiName:copy
+---
+>                 |vpiName:copy
+>                 |vpiName:copy
+>                 |vpiName:copy
+1244209c1244202
+<               |vpiName:get_checks
+---
+>             |vpiName:get_checks
+1331792d1331784
+<                 |vpiName:tests_names
+1545198,1545200d1545189
+<                   |vpiParent:
+<                   |vpiParent:
+<                   |vpiParent:
+1597212d1597200
+<               |vpiParent:
+1715297,1715299d1715284
+<                 |vpiPrefix:
+<                 |vpiPrefix:
+<                 |vpiPrefix:
+1715701d1715685
+<             |vpiPrefix:
+
+== uhdm2rtlil status histograms (patched) ==
+testflags:
+    679 CMP_EQUAL
+     50 SLANG_REJECT
+      2 SURELOG_FAIL
+      1 status
+default:
+    679 CMP_EQUAL
+     50 SLANG_REJECT
+      2 SURELOG_FAIL
+      1 status
+
+== surelog status histogram, PRISTINE vs PATCHED (identical) ==
+pristine:
+    937 CMP_EQUAL
+    567 SLANG_REJECT
+     48 SURELOG_FAIL
+     19 CMP_NOTEQUAL
+     10 DEFERRED
+      3 NO_DATABASE
+      2 UNTRANSLATABLE
+      1 TIMEOUT
+      1 status
+      1 NO_UHDM
+patched:
+    937 CMP_EQUAL
+    567 SLANG_REJECT
+     48 SURELOG_FAIL
+     19 CMP_NOTEQUAL
+     10 DEFERRED
+      3 NO_DATABASE
+      2 UNTRANSLATABLE
+      1 TIMEOUT
+      1 status
+      1 NO_UHDM
+
+== r10uvm69repro/a3_recv.sv re-measured against its own Surelog golden ==
+def   pristine 40 lines / 1 head  ->  patched 0 / 0   CMP_EQUAL
+elab  pristine 44 lines / 1 head  ->  patched 0 / 0   CMP_EQUAL

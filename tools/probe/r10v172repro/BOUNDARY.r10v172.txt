@@ -1,0 +1,33 @@
+r10v172 — the WIDE BOUNDARY GATE re-run PRISTINE vs the VERIFIED (fixed) binary
+
+LISTED=4818 PROCESSED=4818 PRODUCED_DBS=4661 MOVED_ARMS=16 RC_DIFFS=0
+
+== MOVED ARMS ==
+probe/r10buvm22repro/g22.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+probe/r10uvm154repro/l154_noenum.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm172repro/g172_a_shape.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm172repro/g172_b_name.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm172repro/g172_c_home.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm172repro/g172_d_scope.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm172repro/g172_e_deep.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm172repro/g172_f_args.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm69repro/a3_recv.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v151repro/v151_6_shadow.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v151repro/v151_8_tfname.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v172repro/v172_1_import.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v172repro/v172_2_order.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v172repro/v172_3_pos.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v172repro/v172_4_home.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v172repro/v172_5_shape.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+== attribution ==
+6 x r10uvm172repro/g172_*.sv   the implementer's own arms (positive control)
+5 x r10v172repro/v172_*.sv     this verifier's own arms (positive control; arm 6 was written after this run)
+r10buvm22repro/g22.sv          r10uvm154's ADDRESS-DERIVED residue: the ONLY dump difference is
+r10uvm154repro/l154_noenum.sv  |UINT:22580985 -> |UINT:22585081 and its vpiDecompile twin (14 / 10 id-normalised lines)
+r10uvm69repro/a3_recv.sv       uvm69's residue cell N6: pristine heads=1 -> fixed heads=0 CMP_EQUAL, def AND elab
+r10v151repro/v151_6_shadow.sv  uvm151's verifier arms for THIS law: moved cells match golden; the
+r10v151repro/v151_8_tfname.sv  keyword-array-method cells (R7) do NOT — both arms' heads unchanged
+
+== the FLOOR: not one arm of r10uvm171, r10uvm169, r10uvm167, r10uvm89, r10uvm77-79,
+   r10uvm82-91, r10buvm3-15 or r10sd8-12 is among the movers.

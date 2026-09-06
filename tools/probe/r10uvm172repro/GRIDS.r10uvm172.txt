@@ -1,0 +1,66 @@
+ARM        VIEW   CELLS   PRIS-raw  PATCH-raw   PRIS-set  PATCH-set
+a_shape    def       22         10          2         10          2
+a_shape    elab      44         20          4         10          2
+-- rc census a_shape:
+rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/r10uvm172_g4/a_shape/g_def /tmp/wt_r10uvm172/tools/probe/r10uvm172repro/g172_a_shape.sv
+rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/r10uvm172_g4/a_shape/g_elab /tmp/wt_r10uvm172/tools/probe/r10uvm172repro/g172_a_shape.sv
+-- SET diff vs golden, PATCHED, def:
+9c9
+< @:29:7-29:35 kind=func_call name=cpy172 link=F:cpy172 pfx=- args=1 sub=cpy172
+---
+> @:29:14-29:21 kind=method_func_call name=iarr172 link=F:<null> pfx=ref_obj(cpy172) args=1 sub=cpy172
+-- SET diff vs golden, PATCHED, elab:
+9c9
+< @:29:7-29:35 kind=func_call name=cpy172 link=F:cpy172 pfx=- args=1 sub=cpy172
+---
+> @:29:14-29:21 kind=method_func_call name=iarr172 link=F:<null> pfx=ref_obj(cpy172) args=1 sub=cpy172
+
+ARM        VIEW   CELLS   PRIS-raw  PATCH-raw   PRIS-set  PATCH-set
+b_name     def       16         10          0         10          0
+b_name     elab      20         24         12         10          0
+-- rc census b_name:
+   all rc=0
+-- SET diff vs golden, PATCHED, def:
+-- SET diff vs golden, PATCHED, elab:
+
+ARM        VIEW   CELLS   PRIS-raw  PATCH-raw   PRIS-set  PATCH-set
+c_home     def       45         12          0          6          0
+c_home     elab      90         33          7          6          0
+-- rc census c_home:
+   all rc=0
+-- SET diff vs golden, PATCHED, def:
+-- SET diff vs golden, PATCHED, elab:
+
+ARM        VIEW   CELLS   PRIS-raw  PATCH-raw   PRIS-set  PATCH-set
+d_scope    def       23          8          0          8          0
+d_scope    elab      50         29         11          8          0
+-- rc census d_scope:
+   all rc=0
+-- SET diff vs golden, PATCHED, def:
+-- SET diff vs golden, PATCHED, elab:
+
+ARM        VIEW   CELLS   PRIS-raw  PATCH-raw   PRIS-set  PATCH-set
+e_deep     def       22         20          0         20          0
+e_deep     elab      54         59          5         20          0
+-- rc census e_deep:
+rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/r10uvm172_g4/e_deep/g_def /tmp/wt_r10uvm172/tools/probe/r10uvm172repro/g172_e_deep.sv
+rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/r10uvm172_g4/e_deep/g_elab /tmp/wt_r10uvm172/tools/probe/r10uvm172repro/g172_e_deep.sv
+-- SET diff vs golden, PATCHED, def:
+-- SET diff vs golden, PATCHED, elab:
+
+ARM        VIEW   CELLS   PRIS-raw  PATCH-raw   PRIS-set  PATCH-set
+f_args     def       18         18          2         18          2
+f_args     elab      35         37          5         23          2
+-- rc census f_args:
+   all rc=0
+-- SET diff vs golden, PATCHED, def:
+13c13
+< @:62:5-62:37 kind=func_call name=fmodfn172 link=F:fmodfn172 pfx=- args=-1 sub=-
+---
+> @:62:15-62:20 kind=method_func_call name=fq172 link=F:<null> pfx=ref_obj(fmodfn172) args=-1 sub=-
+-- SET diff vs golden, PATCHED, elab:
+13c13
+< @:62:5-62:37 kind=func_call name=fmodfn172 link=F:fmodfn172 pfx=- args=-1 sub=-
+---
+> @:62:15-62:20 kind=method_func_call name=fq172 link=F:<null> pfx=ref_obj(fmodfn172) args=-1 sub=-
+

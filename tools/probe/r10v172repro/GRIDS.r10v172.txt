@@ -1,0 +1,99 @@
+r10v172 — THE SIX ADVERSARIAL ARMS.  A = PRISTINE (fb820595), B = VERIFIED (f0abe23d).
+Deduped ct172list diff-lines against the Surelog GOLDEN of the same arm; DEF and ELAB never merged.
+The official uhdm-cmp head count for each (golden, ours) pair is printed underneath.
+
+## v172_1_import.sv
+def   cells=18 A(pristine)=20 B(verified)=0
+  --- PATCHED vs GOLDEN:
+elab  cells=20 A(pristine)=20 B(verified)=0
+  --- PATCHED vs GOLDEN:
+   judge def  pristine  lines=68    heads=1
+   judge def  verified  lines=68    heads=1
+   judge elab pristine  lines=68    heads=1
+   judge elab verified  lines=68    heads=1
+   rc census: 6 ok / 0 nonzero
+
+## v172_2_order.sv
+def   cells=6 A(pristine)=6 B(verified)=4
+  --- PATCHED vs GOLDEN:
+     -@:39:26-39:58 kind=task_call name=clash172 link=T:clash172 pfx=- args=-1 sub=probe172
+     -@:40:26-40:59 kind=func_call name=clash2172 link=F:clash2172 pfx=- args=-1 sub=probe172
+     +@:39:26-39:58 kind=func_call name=clash172 link=F:clash172 pfx=- args=-1 sub=probe172
+     +@:40:26-40:59 kind=task_call name=clash2172 link=T:clash2172 pfx=- args=-1 sub=probe172
+elab  cells=7 A(pristine)=6 B(verified)=2
+  --- PATCHED vs GOLDEN:
+     +@:39:26-39:58 kind=func_call name=clash172 link=F:clash172 pfx=- args=-1 sub=probe172
+     +@:40:26-40:59 kind=task_call name=clash2172 link=T:clash2172 pfx=- args=-1 sub=probe172
+   judge def  pristine  lines=20    heads=1
+   judge def  verified  lines=16    heads=1
+   judge elab pristine  lines=22    heads=1
+   judge elab verified  lines=2492  heads=1
+   rc census: 6 ok / 0 nonzero
+
+## v172_3_pos.sv
+def   cells=19 A(pristine)=12 B(verified)=0
+  --- PATCHED vs GOLDEN:
+elab  cells=23 A(pristine)=15 B(verified)=1
+  --- PATCHED vs GOLDEN:
+     +@:0:0-0:0 kind=func_call name=size link=F:<null> pfx=- args=-1 sub=size172
+   judge def  pristine  lines=20    heads=1
+   judge def  verified  lines=0     heads=0
+   judge elab pristine  lines=22    heads=1
+   judge elab verified  lines=0     heads=0
+   rc census: 6 ok / 0 nonzero
+
+## v172_4_home.sv
+def   cells=40 A(pristine)=32 B(verified)=1
+  --- PATCHED vs GOLDEN:
+     +@:123:23-123:53 kind=func_call name=mfn172 link=F:<null> pfx=- args=-1 sub=gprobe172
+elab  cells=45 A(pristine)=36 B(verified)=5
+  --- PATCHED vs GOLDEN:
+     +@:0:0-0:0 kind=method_func_call name=new link=F:<null> pfx=- args=-1 sub=probe4172
+     +@:0:0-0:0 kind=method_func_call name=new link=F:<null> pfx=- args=-1 sub=protoprobe172
+     +@:0:0-0:0 kind=method_func_call name=new link=F:<null> pfx=- args=-1 sub=sprobe172
+     +@:123:23-123:53 kind=func_call name=mfn172 link=F:<null> pfx=- args=-1 sub=gprobe172
+     +@:141:26-141:35 kind=method_func_call name=iprobe172 link=F:iprobe172 pfx=ref_obj(in172) args=-1 sub=-
+   judge def  pristine  lines=20    heads=1
+   judge def  verified  lines=388   heads=1
+   judge elab pristine  lines=22    heads=1
+   judge elab verified  lines=398   heads=1
+   rc census: 6 ok / 0 nonzero
+
+## v172_5_shape.sv
+def   cells=26 A(pristine)=30 B(verified)=4
+  --- PATCHED vs GOLDEN:
+     -@:109:5-109:37 kind=func_call name=modfn172 link=F:modfn172 pfx=- args=-1 sub=-
+     +@:109:14-109:18 kind=method_func_call name=q172 link=F:<null> pfx=ref_obj(modfn172) args=-1 sub=-
+     -@:97:5-97:37 kind=func_call name=modfn172 link=F:modfn172 pfx=- args=-1 sub=-
+     +@:97:14-97:18 kind=method_func_call name=q172 link=F:<null> pfx=ref_obj(modfn172) args=-1 sub=-
+elab  cells=31 A(pristine)=35 B(verified)=4
+  --- PATCHED vs GOLDEN:
+     -@:109:5-109:37 kind=func_call name=modfn172 link=F:modfn172 pfx=- args=-1 sub=-
+     +@:109:14-109:18 kind=method_func_call name=q172 link=F:<null> pfx=ref_obj(modfn172) args=-1 sub=-
+     -@:97:5-97:37 kind=func_call name=modfn172 link=F:modfn172 pfx=- args=-1 sub=-
+     +@:97:14-97:18 kind=method_func_call name=q172 link=F:<null> pfx=ref_obj(modfn172) args=-1 sub=-
+   judge def  pristine  lines=20    heads=1
+   judge def  verified  lines=20    heads=1
+   judge elab pristine  lines=24    heads=1
+   judge elab verified  lines=22    heads=1
+   rc census: 4 ok / 2 nonzero
+
+## v172_6_edge.sv
+def   cells=15 A(pristine)=16 B(verified)=4
+  --- PATCHED vs GOLDEN:
+     -@:41:7-41:34 kind=func_call name=idx6172 link=F:idx6172 pfx=- args=1 sub=edges172
+     -@:43:7-43:35 kind=func_call name=idx6172 link=F:idx6172 pfx=- args=1 sub=edges172
+     +@:41:15-41:21 kind=method_func_call name=arr172 link=F:<null> pfx=ref_obj(idx6172) args=1 sub=edges172
+     +@:43:15-43:21 kind=method_func_call name=arr172 link=F:<null> pfx=ref_obj(idx6172) args=1 sub=edges172
+elab  cells=17 A(pristine)=17 B(verified)=4
+  --- PATCHED vs GOLDEN:
+     -@:41:7-41:34 kind=func_call name=idx6172 link=F:idx6172 pfx=- args=1 sub=edges172
+     -@:43:7-43:35 kind=func_call name=idx6172 link=F:idx6172 pfx=- args=1 sub=edges172
+     +@:41:15-41:21 kind=method_func_call name=arr172 link=F:<null> pfx=ref_obj(idx6172) args=1 sub=edges172
+     +@:43:15-43:21 kind=method_func_call name=arr172 link=F:<null> pfx=ref_obj(idx6172) args=1 sub=edges172
+   judge def  pristine  lines=36    heads=1
+   judge def  verified  lines=36    heads=1
+   judge elab pristine  lines=38    heads=1
+   judge elab verified  lines=38    heads=1
+   rc census: 4 ok / 2 nonzero
+
