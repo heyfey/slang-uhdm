@@ -1,0 +1,157 @@
+r10earl104 -- PREDICTION, MADE FROM PRISTINE DATABASES BEFORE A LINE OF THE LAW
+WAS WRITTEN, AND THE MEASURED OUTCOME BESIDE IT.  MEASUREMENT ONLY.
+BASE 4fbf5d0, branch auto5h.  Pristine 3002e867e713, patched 03e245f81087.
+
+===============================================================================
+1. THE HEAD, re-measured on this pass's OWN pristine build
+===============================================================================
+rowheads.sh over this pass's own pristine surelog sweep:
+
+  Earlgrey_0_1 default    34 cmp lines / 1 head   (grep -c '^LHS:' = 1)
+  Earlgrey_0_1 testflags  34 cmp lines / 1 head
+and the two modes' head logs are BYTE-IDENTICAL (HEAD_BEFORE_Earlgrey_*.cmp):
+
+  LHS (golden)  int_typespec  id 595640   no location, no name, no range
+                |UINT:1
+  RHS (ours)    logic_typespec id 772036  no location
+                |vpiRange -> range |vpiLeftRange constant UINT:31
+                                   |vpiRightRange constant UINT:0
+
+OWNER (own104.cpp = earl102's owner-finder verbatim; OWNER.r10earl104.txt):
+ONE holder on each side and the SAME one, so this is a Typespec EDGE and not a
+container --
+
+  module_inst work@top_earlgrey.u_pinmux
+    > Param_assigns > param_assign 53:56-54:59            pinmux.sv
+      > Rhs constant 54:22-54:59   (the folded {32{1'b1}} replication)
+        > Typespec ref_typespec {work@top_earlgrey.u_pinmux}
+          > THE HEAD
+
+  pinmux.sv:53  localparam logic [pinmux_reg_pkg::NMioPeriphOut-1:0]
+                                 MioPeriphHasSleepMode
+  pinmux.sv:54       = {pinmux_reg_pkg::NMioPeriphOut{1'b1}};
+  pinmux_reg_pkg.sv  parameter int NMioPeriphOut = 32;
+
+===============================================================================
+2. THE POSITIVE READ ENUMERATION -- PREDICTED CELL BY CELL, FROM THE SYNTAX
+===============================================================================
+The head parameter's reads, enumerated from pinmux.sv itself (grep over the
+whole file, every occurrence, not a scan's opinion):
+
+  MioPeriphHasSleepMode   declared :53-54, read at :176 and NOWHERE ELSE
+      :176  assign sleep_mux =
+                 $bits(sleep_mux)'({MioPeriphHasSleepMode, 1'b1, 1'b1, 1'b1});
+            -- a BARE read, inside `for (genvar k = 0; k < NMioPads; k++)
+               begin : gen_mio_out`, i.e. a generate scope.
+            CLASS = bare / generate-scope cont-assign -> NEITHER enumeration
+            fires -> THE MINT FIRES.  Golden holds int_typespec UINT:1.
+  DioPeriphHasSleepMode   declared :55, read at :108 and :194
+      both `if (DioPeriphHasSleepMode[k])` -- a SELECT in a generate-if
+      condition -> replFoldElabSelRead104 BLOCKS -> the declared
+      logic_typespec[14:0] stays, which is what golden holds.
+  DioPeriphHasWkup        declared :57, read at :215
+      `if (DioPeriphHasWkup[k])` -- same class, same answer.
+
+PREDICTED: the head clears in BOTH modes and the two Dio parameters do not move.
+
+===============================================================================
+3. THE CENSUS PREDICTION -- movers BY NAME, from pristine databases
+===============================================================================
+cen104 over the WHOLE surelog corpus (956 databases) and the WHOLE uhdm2rtlil
+corpus (1358 databases), pristine only, BEFORE the law existed.  Calibration
+golden-vs-golden FIRST: Earlgrey/default agree=13190 disagree=0 only_golden=0
+only_ours=0; SeqDriver/default agree=472 disagree=0.
+
+  cells where golden holds a LOC-LESS int_typespec and we hold a logic_typespec,
+  ANY origin, ANY view, BOTH corpora:                              EXACTLY 2
+      default|Earlgrey_0_1    ELAB work@top_earlgrey.u_pinmux.MioPeriphHasSleepMode 53:56-54:59
+      testflags|Earlgrey_0_1  ELAB work@top_earlgrey.u_pinmux.MioPeriphHasSleepMode 53:56-54:59
+  uhdm2rtlil ELAB op34 param_assign cells, ANY kind:               EXACTLY 0
+      -- nothing to fix and nothing to break, and that is also the instrument's
+         calibration over 1358 databases.
+
+THE UNIVERSE THE LAW COULD TOUCH (ELAB view, op34 origin, OURS a loc-less
+logic_typespec): 84 cells in surelog, of which 82 AGREE with golden today --
+i.e. 82 cells where a mint would be AWAY-GOLDEN.  Every one of them was checked
+against its source BEFORE the build:
+
+  38/mode  Earlgrey  u_pinmux.DioPeriphHasSleepMode, u_pinmux.DioPeriphHasWkup
+                     -> SELECT in a generate-if condition          BLOCKED
+           Earlgrey  u_xbar_*.u_s1n_*.DReqPass/DRspPass/DReqDepth/DRspDepth
+                     tlul_socket_1n.sv:184-187 `.ReqPass(DReqPass[i])`,
+                     `.ReqDepth(DReqDepth[i*4+:4])`
+                     -> SELECT in an instance parameter override   BLOCKED
+           Earlgrey  u_xbar_*.u_sm1_*.HReqPass/HRspPass/HReqDepth/HRspDepth
+                     tlul_socket_m1.sv:122-125, same shape         BLOCKED
+   2/mode  ElabCParam  all_zero.DReqDepth, socket_1n.DReqDepth
+                     dut.sv:42/46 `DReqDepth[1*4+:4]`, `.ReqDepth(DReqDepth[i*4+:4])`
+                                                                   BLOCKED
+   1/mode  BitSelect   dut.AlertAsyncOn
+                     dut.sv:9/12 `AlertAsyncOn[0]`, `.AsyncOn(AlertAsyncOn[i])`
+                                                                   BLOCKED
+
+PREDICTION, WRITTEN DOWN BEFORE THE PATCHED SWEEP:
+  * EXACTLY TWO DATABASES MOVE -- Earlgrey_0_1 default and Earlgrey_0_1
+    testflags.  uhdm2rtlil: ZERO movers.
+  * No row converts in either corpus, in either mode.
+  * ReplicationPassedToInstance stays CMP_EQUAL and BYTE-UNCHANGED: it holds
+    ZERO op34 param_assign cells at all, so the law cannot reach it.
+  * AWAY-GOLDEN 0 and MOVED-WRONG 0 on both corpora.
+
+===============================================================================
+4. WHAT ACTUALLY HAPPENED
+===============================================================================
+byteverify.sh SELFCHECK=1, patched sweep vs this pass's OWN pristine sweep,
+both binaries frozen chmod 555 at immutable paths, every cmds.txt audited BY
+BINARY PATH (2981 of 3035 name the frozen binary, the other 54 have no slang:
+line at all; 0 of 6070 name the main-tree binary):
+
+  uhdm2rtlil  MOVERS 0 / 1358   PATH_SETS_IDENTICAL, SELFCHECK 1357/1358
+  surelog     MOVERS 2 /  956   PATH_SETS_IDENTICAL, SELFCHECK  955/956
+      ./default/Earlgrey_0_1     patched 5b86d1db45c6  pristine 2ea0cb924f32
+      ./testflags/Earlgrey_0_1   patched 57e778aad5aa  pristine 2b5e58514535
+  -- the two PREDICTED databases and NOTHING ELSE.  Scoreboard/default did not
+     flip its coin this run.
+
+CENSUS RE-SCORED over the same fixed universe (score104.py asserts
+GOLDEN-SIDE-IDENTICAL first and refuses to score otherwise):
+
+                        surelog (39 986 cells)   uhdm2rtlil (68 518 cells)
+  AWAY-GOLDEN                  0                        0
+  MOVED-WRONG                  0                        0
+  TO-GOLDEN                    2                        0
+  UNMOVED-GOOD             5 573                   27 320
+  UNMOVED-BAD             34 411                   41 198
+  ADDED / REMOVED           0 / 0                    0 / 0
+and identically 0 / 0 on the --judge, --ts and --ts --judge projections.
+
+WHOLE-DUMP ATTRIBUTION (workdir-normalised, ATTRIB.r10earl104.txt):
+15 changed lines in default (of 4 717 847) and 15 in testflags (of 6 714 454).
+One hunk per mode lies in the BODY -- the `logic_typespec` -> `int_typespec`
+swap under
+  module_inst work@top_earlgrey.u_pinmux > param_assign 53:56-54:59
+    > constant 54:22-54:59 > ref_typespec{work@top_earlgrey.u_pinmux}
+-- and the other two hunks (the new typespec's own listing entry, the old one's
+range subtree) are BELOW the `_weaklyReferenced:` marker.  Nothing else moved.
+
+HEADS AFTER:
+  Earlgrey_0_1 default    34/1 -> 31/1   the head OBJECT is GONE; the new head
+                                          is `LHS: <null>` on
+                                          u_pinmux.gen_mio_periph_in[0].data_mux,
+                                          a subtree the attribution proves
+                                          BYTE-IDENTICAL between the binaries,
+                                          i.e. it was already there and masked.
+  Earlgrey_0_1 testflags  34/1 -> 50/1   the head OBJECT is GONE; the new head
+                                          is one level deeper at pinmux.sv:176,
+                                          where golden substitutes the folded
+                                          constant -- carrying THIS SAME
+                                          int_typespec -- and we still emit a
+                                          ref_obj to the parameter.  The line
+                                          count is the NEW head's decompile
+                                          size (a 32-bit BIN), not a partial
+                                          fix (RESUME.md section 9).
+  SeqDriver, SimpleUVM (both modes)  82/1 -> 82/1
+  BuildUVMPkg (both modes)           29/1 -> 29/1
+  Scoreboard default                145/1 -> 145/1
+  MiniAmiq (both modes)             106/1 -> 106/1
+  Rggen default                       0/0 -> 0/0

@@ -1,0 +1,102 @@
+r10vearl104 WIDE BOUNDARY -- MEASUREMENT ONLY.
+Every .sv/.v under tools/probe of the PATCHED worktree at ANY depth (path
+depths 4-10, subdirectory arms included) PLUS this verifier's seven arms,
+both views, both frozen binaries, workdir-normalised uhdm-dump byte-compare.
+File list read on fd 3, children </dev/null, PROCESSED asserted == LISTED.
+
+LISTED=4686 PROCESSED=4686 identical=8934 DIFFERING=62 no_output=376
+
+-- rc by side (A=patched B=pristine): symmetric in every class --
+0 A 8623
+0 B 8623
+139 A 14
+139 B 14
+3 A 362
+3 B 362
+4 A 373
+4 B 373
+
+FENCED = 0.  The four slang-fenced names appear
+0 times in the list and were never dispatched.
+
+DIFFERING=62 = the 50 the pass reported + this verifier's own 6 arms x 2 views.
+no_output=376 = the pass's 374 + w1_hier104 x 2 views (slang legitimately
+refuses it: a hierarchical name is not allowed in a constant expression).
+
+-- the differing arms --
+      2 r10buvm22repro/g22.sv
+      2 r10earl104repro/g1_form104.sv
+      2 r10earl104repro/g2_type104.sv
+      2 r10earl104repro/g3_home104.sv
+      2 r10earl104repro/g4_cons104.sv
+      2 r10earl104repro/g5_gscope104.sv
+      2 r10earl104repro/g6_mix104.sv
+      2 r10earl104repro/g7_pos104.sv
+      2 r10earl104repro/va1_read104.sv
+      2 r10earl104repro/va2_home104.sv
+      2 r10earl104repro/va3_more104.sv
+      2 r10earl104repro/va4_bare104.sv
+      2 r10earl104repro/va5_edge104.sv
+      2 r10earl55repro/a1_earl55.sv
+      2 r10earl55repro/a4_earl55.sv
+      2 r10earl55repro/a5_earl55.sv
+      2 r10earl55repro/v2_v55.sv
+      2 r10earl55repro/v5_v55.sv
+      2 r10earl55repro/v7_v55.sv
+      2 r10earl55repro/v8_v55.sv
+      2 r10earl86repro/g3_anc86.sv
+      2 r10uvm154repro/l154_noenum.sv
+      2 r10v85repro/arms/va5_ctx85.sv
+      2 r10v85repro/arms/va6_unbased85.sv
+      2 r10v86repro/arms/vaB_tern86.sv
+      2 r10vearl104repro/w2_ifport104.sv
+      2 r10vearl104repro/w3_shape104.sv
+      2 r10vearl104repro/w4_pos104.sv
+      2 r10vearl104repro/w5_cross104.sv
+      2 r10vearl104repro/w6_more104.sv
+      2 r10vearl104repro/w7_depth104.sv
+
+-- attribution of the SIX arms that are neither this pass's nor earl55's --
+   position of the first changed line vs the _weaklyReferenced marker, and
+   the OFFICIAL uhdm-cmp on both binaries.
+r10buvm22repro/g22                 plain changed=12   firsthunk=5118     marker=4356     TAIL
+r10buvm22repro/g22                 elab  changed=12   firsthunk=8095     marker=6471     TAIL
+r10uvm154repro/l154_noenum         plain changed=8    firsthunk=678      marker=645      TAIL
+r10uvm154repro/l154_noenum         elab  changed=8    firsthunk=714      marker=646      TAIL
+r10earl86repro/g3_anc86            plain changed=45   firsthunk=2618     marker=4761     BODY
+r10earl86repro/g3_anc86            elab  changed=45   firsthunk=2419     marker=4197     BODY
+r10v85repro/arms/va5_ctx85         plain changed=15   firsthunk=1678     marker=2288     BODY
+r10v85repro/arms/va5_ctx85         elab  changed=15   firsthunk=1679     marker=2365     BODY
+r10v85repro/arms/va6_unbased85     plain changed=15   firsthunk=1815     marker=2049     BODY
+r10v85repro/arms/va6_unbased85     elab  changed=15   firsthunk=1786     marker=1985     BODY
+r10v86repro/arms/vaB_tern86        plain changed=30   firsthunk=2758     marker=4059     BODY
+r10v86repro/arms/vaB_tern86        elab  changed=30   firsthunk=2458     marker=3405     BODY
+
+  uhdm-cmp g22                pris 1719/1 -> pat 1719/1   (cmp output byte-identical)
+  uhdm-cmp l154_noenum        pris 8/1 -> pat 8/1   (cmp output byte-identical)
+  uhdm-cmp g3_anc86           pris 16/1 -> pat 16/1   (cmp output byte-identical)
+  uhdm-cmp va5_ctx85          pris 12/1 -> pat 12/1   (cmp output byte-identical)
+  uhdm-cmp va6_unbased85      pris 32/1 -> pat 32/1   (cmp output byte-identical)
+  uhdm-cmp vaB_tern86         pris 16/1 -> pat 16/1   (cmp output byte-identical)
+
+g22 / l154_noenum: every changed line is BELOW the _weaklyReferenced marker
+  (uvm154's address-layout stamp).  RESUME.md section 9 (earl60's brief-
+  refutation): the tail is unreachable to the judge; never count tail stamps.
+
+g3_anc86 / va5_ctx85 / vaB_tern86: the typespec column moves on cells the
+  judge cannot reach.  In all six cells GOLDEN's Rhs is an unfolded
+  'operation' (op34) and ours is a 'constant', ON BOTH BINARIES.  Read from
+  UHDM/build/generated/src/param_assign.cpp:112 --
+     if ((r = SafeCompare(lhs->Rhs(), rhs->Rhs(), context)) != 0) return r;
+  runs BEFORE Lhs and before anything under the constant, and
+  BaseClass::Compare fails on VpiType (vpiOperation vs vpiConstant) first.
+  These are the recorded over-folds of srlgUnsizedBasedShiftBail85 and
+  earl86's ternary-bail family (residue R1), untouched by this pass.
+
+va6_unbased85 z08 = {4{'1}}: golden's typespec is a loc-less int_typespec
+  too, so on the typespec column this cell moves TO GOLDEN; only the
+  judge-invisible VpiValue and the constant's pre-existing VpiSize differ.
+
+PROOF THAT NONE OF THE SIX IS JUDGE-REACHABLE: the official uhdm-cmp's
+ENTIRE output -- stdout body AND the stderr head -- is BYTE-IDENTICAL
+between the pristine and the patched binary on all six arms.

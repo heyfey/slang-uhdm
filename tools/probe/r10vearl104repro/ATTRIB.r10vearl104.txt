@@ -1,0 +1,61 @@
+r10vearl104 ATTRIBUTION -- the whole-dump, workdir-normalised uhdm-dump diff
+of the ONLY two databases that moved, re-measured by the verifier.
+
+===== Earlgrey_0_1 / default   pristine=4717847 patched=4717838 lines
+      changed lines = 15   _weaklyReferenced marker at 3823176
+2592728c2592728
+<           \_logic_typespec: 
+---
+>           \_int_typespec: 
+4269372a4269373,4269374
+> \_int_typespec: 
+>   |UINT:1
+4716915,4716925d4716916
+< \_logic_typespec: 
+<   |vpiRange:
+<   \_range: 
+<     |vpiParent:
+<     \_logic_typespec: 
+<     |vpiLeftRange:
+<     \_constant: 
+<       |UINT:31
+<     |vpiRightRange:
+<     \_constant: 
+<       |UINT:0
+
+===== Earlgrey_0_1 / testflags   pristine=6714454 patched=6714445 lines
+      changed lines = 15   _weaklyReferenced marker at 4682963
+3114092c3114092
+<           \_logic_typespec: 
+---
+>           \_int_typespec: 
+5719022a5719023,5719024
+> \_int_typespec: 
+>   |UINT:1
+6700868,6700878d6700869
+< \_logic_typespec: 
+<   |vpiRange:
+<   \_range: 
+<     |vpiParent:
+<     \_logic_typespec: 
+<     |vpiLeftRange:
+<     \_constant: 
+<       |UINT:31
+<     |vpiRightRange:
+<     \_constant: 
+<       |UINT:0
+
+The single BODY hunk in each mode sits inside
+  module_inst work@top_earlgrey.u_pinmux
+    > param_assign 53:56-54:59            (MioPeriphHasSleepMode)
+      > Rhs constant 54:22-54:59          (the folded {32{1'b1}})
+        > Typespec ref_typespec{work@top_earlgrey.u_pinmux} > vpiActual
+and swaps logic_typespec -> int_typespec.  The other two hunks per mode are
+BELOW the _weaklyReferenced marker: the new typespec's own listing entry with
+its |UINT:1, and the old one's 11-line range subtree.
+
+NOTHING ELSE in either database moved.  In particular the
+u_pinmux.gen_mio_periph_in[0].data_mux subtree -- which becomes the DEFAULT
+mode's next head -- is byte-identical between the two binaries, line numbers
+included, so that head is PRE-EXISTING and was masked by the one this pass
+cleared.

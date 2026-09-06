@@ -1,0 +1,102 @@
+##### corpus=sl payload='default'
+PAYLOAD RHS+TYPESPEC FULL-STRING
+GOLDEN-SIDE-IDENTICAL over 39986 shared keys
+AWAY-GOLDEN         0
+MOVED-WRONG         0
+TO-GOLDEN           2
+UNMOVED-GOOD     5573
+UNMOVED-BAD     34411
+ADDED               0
+REMOVED             0
+
+##### corpus=sl payload='--judge'
+PAYLOAD RHS+TYPESPEC JUDGE-VISIBLE-FIELDS
+GOLDEN-SIDE-IDENTICAL over 39986 shared keys
+AWAY-GOLDEN         0
+MOVED-WRONG         0
+TO-GOLDEN           2
+UNMOVED-GOOD    38749
+UNMOVED-BAD      1235
+ADDED               0
+REMOVED             0
+
+##### corpus=sl payload='--ts'
+PAYLOAD TYPESPEC-ONLY FULL-STRING
+GOLDEN-SIDE-IDENTICAL over 39986 shared keys
+AWAY-GOLDEN         0
+MOVED-WRONG         0
+TO-GOLDEN           2
+UNMOVED-GOOD     5577
+UNMOVED-BAD     34407
+ADDED               0
+REMOVED             0
+
+##### corpus=sl payload='--ts --judge'
+PAYLOAD TYPESPEC-ONLY JUDGE-VISIBLE-FIELDS
+GOLDEN-SIDE-IDENTICAL over 39986 shared keys
+AWAY-GOLDEN         0
+MOVED-WRONG         0
+TO-GOLDEN           2
+UNMOVED-GOOD    39378
+UNMOVED-BAD       606
+ADDED               0
+REMOVED             0
+
+##### corpus=u2r payload='default'
+PAYLOAD RHS+TYPESPEC FULL-STRING
+GOLDEN-SIDE-IDENTICAL over 68518 shared keys
+AWAY-GOLDEN         0
+MOVED-WRONG         0
+TO-GOLDEN           0
+UNMOVED-GOOD    27320
+UNMOVED-BAD     41198
+ADDED               0
+REMOVED             0
+
+##### corpus=u2r payload='--judge'
+PAYLOAD RHS+TYPESPEC JUDGE-VISIBLE-FIELDS
+GOLDEN-SIDE-IDENTICAL over 68518 shared keys
+AWAY-GOLDEN         0
+MOVED-WRONG         0
+TO-GOLDEN           0
+UNMOVED-GOOD    68392
+UNMOVED-BAD       126
+ADDED               0
+REMOVED             0
+
+##### corpus=u2r payload='--ts'
+PAYLOAD TYPESPEC-ONLY FULL-STRING
+GOLDEN-SIDE-IDENTICAL over 68518 shared keys
+AWAY-GOLDEN         0
+MOVED-WRONG         0
+TO-GOLDEN           0
+UNMOVED-GOOD    27322
+UNMOVED-BAD     41196
+ADDED               0
+REMOVED             0
+
+##### corpus=u2r payload='--ts --judge'
+PAYLOAD TYPESPEC-ONLY JUDGE-VISIBLE-FIELDS
+GOLDEN-SIDE-IDENTICAL over 68518 shared keys
+AWAY-GOLDEN         0
+MOVED-WRONG         0
+TO-GOLDEN           0
+UNMOVED-GOOD    68500
+UNMOVED-BAD        18
+ADDED               0
+REMOVED             0
+
+##### the TWO TO-GOLDEN cells, in full
+TO-GOLDEN           2
+UNMOVED-GOOD     5573
+UNMOVED-BAD     34411
+ADDED               0
+--
+TO-GOLDEN default|Earlgrey_0_1	ELAB|work@top_earlgrey.u_pinmux.MioPeriphHasSleepMode|53:56-54:59	op34
+    G    constant,sz=32,ct=3,v=BIN:11111111111111111111111111111111	int_typespec@LOCLESS,val=UINT:1
+    pris constant,sz=32,ct=3,v=BIN:11111111111111111111111111111111	logic_typespec@LOCLESS,ranges=[UINT:31:UINT:0]
+    patc constant,sz=32,ct=3,v=BIN:11111111111111111111111111111111	int_typespec@LOCLESS,val=UINT:1
+TO-GOLDEN testflags|Earlgrey_0_1	ELAB|work@top_earlgrey.u_pinmux.MioPeriphHasSleepMode|53:56-54:59	op34
+    G    constant,sz=32,ct=3,v=BIN:11111111111111111111111111111111	int_typespec@LOCLESS,val=UINT:1
+    pris constant,sz=32,ct=3,v=BIN:11111111111111111111111111111111	logic_typespec@LOCLESS,ranges=[UINT:31:UINT:0]
+    patc constant,sz=32,ct=3,v=BIN:11111111111111111111111111111111	int_typespec@LOCLESS,val=UINT:1

@@ -1,0 +1,76 @@
+r10vearl104 GATES -- every headline number of the pass re-measured from
+scratch by the verifier: own worktrees at 4fbf5d0, own builds, own frozen
+binaries, own sweeps, own controls.  GOLDEN_DEFER unset throughout;
+results/*.csv read only.
+
+| gate | verifier's measurement |
+|---|---|
+| patch applies clean on a fresh 4fbf5d0 | yes; surface = src/ParamEmit.cpp + include/UhdmExporter.h + tools/probe/r10earl104repro/ only; results/*.csv untouched |
+| fence check (the four slang-fenced names) | 0 / 0 / 0 / 0 -- none appears in the patch outside canaudit.sh |
+| pristine binary md5 | 3002e867e7137c2e5b2e2236d846dc2f  (the pass reported 3002e867e713) |
+| patched binary md5  | 03e245f8108782c43b9605b3c3593d80  (the pass reported 03e245f81087) |
+| goldens, SLANG_UHDM exported explicitly to the PRISTINE binary | PASS 23 / FAIL 0 |
+| goldens, SLANG_UHDM exported explicitly to the PATCHED binary  | PASS 23 / FAIL 0 |
+| negative control SLANG_UHDM=/bin/false | PASS 0 / FAIL 23 |
+| surelog 1588 rows: committed results/golden_surelog.csv vs PATCHED | ct8rows PASS, 0 differing rows |
+| surelog: committed baseline vs PRISTINE | ct8rows PASS, 0 differing rows |
+| surelog: verifier's own PRISTINE sweep vs PATCHED | ct8rows PASS, 0 differing rows (status AND dump column) |
+| surelog status histogram, both binaries | CMP_EQUAL 937, SLANG_REJECT 567, SURELOG_FAIL 48, CMP_NOTEQUAL 19, DEFERRED 10, NO_DATABASE 3, UNTRANSLATABLE 2, TIMEOUT 1, NO_UHDM 1 -- IDENTICAL |
+| NO ROW CONVERTS | confirmed; Earlgrey_0_1 default and testflags both stay CMP_NOTEQUAL |
+| u2r testflags: committed results/gate_uhdm2rtlil.csv vs PATCHED | ct8rows PASS, 0 differing rows |
+| u2r testflags: PRISTINE vs PATCHED | ct8rows PASS, 0 differing rows |
+| u2r default:  PRISTINE vs PATCHED  | ct8rows PASS, 0 differing rows |
+| surelog byteverify SELFCHECK=1 | PATH_SETS_IDENTICAL (956); MOVERS 2/956; SELFCHECK 955/956 |
+|   mover 1 | ./default/Earlgrey_0_1     5b86d1db45c6 <- 2ea0cb924f32 |
+|   mover 2 | ./testflags/Earlgrey_0_1   57e778aad5aa <- 2b5e58514535 |
+| u2r byteverify SELFCHECK=1 | PATH_SETS_IDENTICAL (1358); MOVERS 0/1358; SELFCHECK 1357/1358 |
+| attribution of the two movers | 15 changed dump lines per mode, one BODY hunk each, all inside the head's own chain (ATTRIB.r10vearl104.txt) |
+| canaries.sh surelog | ok=52 changed=0 absent=0 |
+| canaries.sh u2r | ok=8 changed=0 absent=0 |
+| ctcan2.sh surelog | PASS, ok=58 changed=0 |
+| ctcan2.sh u2r | PASS, ok=1 changed=0 |
+| canaudit.sh canaries.sh ctcan2.sh | PASS, audited=29 UNCOVERED=0 FENCE-BREACH=0 |
+| protected DBs, both modes, both binaries | InterfaceModPort 59a365f3ce2c; BlackParrotComplex e3e354129d5a / 73a10e8217e5; YosysOldOr d68e0796d62c -- all byte-identical |
+| SVSwitch pin | 4842211c4030 on both binaries, both modes |
+| YosysVerx pin | 6ccda350c24a on both binaries, both modes |
+| ReplicationPassedToInstance | 761e1d318376 (default) / 48d4b425cfca (testflags), byte-identical on both binaries |
+| wide boundary | LISTED=PROCESSED=4686, identical=8934, DIFFERING=62, no_output=376; rc symmetric A/B in every class incl. 14 rc=139 per side; FENCED=0 |
+| cmds.txt audit BY BINARY PATH | 3035 files per sweep; 2981 name the frozen binary; 0 of 6070 name the main-tree binary or either worktree build |
+| GOLDEN_DEFER | unset |
+
+HEADS (rowheads.sh on the verifier's own sweeps):
+
+ROW              MODE       PRISTINE   PATCHED
+  SeqDriver        default     82/1       82/1
+  SeqDriver        testflags   82/1       82/1
+  SimpleUVM        default     82/1       82/1
+  SimpleUVM        testflags   82/1       82/1
+  Scoreboard       default     145/1      145/1
+  MiniAmiq         default     106/1      106/1
+  MiniAmiq         testflags   106/1      106/1
+  BuildUVMPkg      default     29/1       29/1
+  BuildUVMPkg      testflags   29/1       29/1
+  Earlgrey_0_1     default     34/1       31/1     <- head object GONE
+  Earlgrey_0_1     testflags   34/1       50/1     <- head object GONE
+  Rggen            default     0/0        0/0
+  (SKIP-NOFILE on Scoreboard/testflags and Rggen/testflags, as expected)
+
+ONE head per run everywhere (grep -c '^LHS:' = 1).  Scoreboard/default did
+not flip its coin in either sweep -- byteverify reports it as no mover.
+
+THE HEAD, BEFORE (both modes, byte-identical logs):
+  LHS golden  int_typespec  id 595640  loc-less, no name, no range, |UINT:1
+  RHS ours    logic_typespec id 772036 loc-less, range [31:0]
+THE HEAD, AFTER:
+  default    LHS: <null> on logic_var
+             work@top_earlgrey.u_pinmux.gen_mio_periph_in[0].data_mux at 157:39
+             -- a DIFFERENT, PRE-EXISTING object; the attribution proves its
+             subtree byte-identical between the two binaries.
+  testflags  golden substitutes the folded constant id 640534 at 176:43
+             (carrying int_typespec id 640536, the very typespec this pass
+             started emitting) where we emit a ref_obj to
+             gen_mio_out[0].MioPeriphHasSleepMode -- the R0 the pass named.
+
+DETERMINISM: a standalone re-run of the Earlgrey default command line
+reproduces the sweep hashes exactly (patched 5b86d1db45c6, pristine
+2ea0cb924f32).  Runtime on that design: 3 s pristine, 3-4 s patched.

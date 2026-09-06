@@ -1,0 +1,117 @@
+r10vearl104 VERIFIER GRID -- MEASUREMENT ONLY.  pacen.py census (uhdm-dump
+text, independent of the pass's cen104.cpp) x v104score.py three-way join.
+Pristine 3002e867e713 / patched 03e245f81087, both frozen chmod 555.
+full = (Rhs kind, typespec string, constant encoding); ts = typespec only;
+enc  = constant encoding only.
+
+== the verifier's OWN adversarial arms (w2-w7, 301 shared keys) ==
+PROJ=full  SCORE AWAY=0 TOGOLD=55 MOVEDWRONG=1 STILLWRONG=6 UNMOVEDGOOD=239 ADDED=0 REMOVED=0
+PROJ=ts    SCORE AWAY=0 TOGOLD=56 MOVEDWRONG=0 STILLWRONG=5 UNMOVEDGOOD=240 ADDED=0 REMOVED=0
+PROJ=enc   SCORE AWAY=0 TOGOLD=0 MOVEDWRONG=0 STILLWRONG=3 UNMOVEDGOOD=298 ADDED=0 REMOVED=0
+
+== the pass's OWN arms re-scored by this instrument (g1-g7, va1-va5, vb1-vb4) ==
+PROJ=full  SCORE AWAY=0 TOGOLD=74 MOVEDWRONG=0 STILLWRONG=19 UNMOVEDGOOD=355 ADDED=0 REMOVED=0
+PROJ=ts    SCORE AWAY=0 TOGOLD=74 MOVEDWRONG=0 STILLWRONG=17 UNMOVEDGOOD=357 ADDED=0 REMOVED=0
+PROJ=enc   SCORE AWAY=0 TOGOLD=0 MOVEDWRONG=0 STILLWRONG=7 UNMOVEDGOOD=441 ADDED=0 REMOVED=0
+
+== earl55's thirteen arms ==
+PROJ=full  SCORE AWAY=0 TOGOLD=45 MOVEDWRONG=1 STILLWRONG=33 UNMOVEDGOOD=349 ADDED=0 REMOVED=0
+PROJ=ts    SCORE AWAY=0 TOGOLD=46 MOVEDWRONG=0 STILLWRONG=27 UNMOVEDGOOD=355 ADDED=0 REMOVED=0
+PROJ=enc   SCORE AWAY=0 TOGOLD=0 MOVEDWRONG=0 STILLWRONG=13 UNMOVEDGOOD=415 ADDED=0 REMOVED=0
+
+== the six NON-PASS arms the wide boundary flagged ==
+PROJ=full  SCORE AWAY=0 TOGOLD=0 MOVEDWRONG=7 STILLWRONG=25 UNMOVEDGOOD=139 ADDED=0 REMOVED=0
+PROJ=ts    SCORE AWAY=0 TOGOLD=1 MOVEDWRONG=6 STILLWRONG=21 UNMOVEDGOOD=143 ADDED=0 REMOVED=0
+PROJ=enc   SCORE AWAY=0 TOGOLD=0 MOVEDWRONG=0 STILLWRONG=28 UNMOVEDGOOD=143 ADDED=0 REMOVED=0
+
+AWAY-GOLDEN is 0 in EVERY column of EVERY group.  Every MOVED-WRONG cell is
+listed below with its reason; none is reachable by the official judge.
+
+== official uhdm-cmp per arm, pristine -> patched (elab view, lines/heads) ==
+vb1_netrange       18/1 -> 18/1
+vb2_genfor         0/0 -> 0/0
+vb3_tdefrange      24/1 -> 24/1
+vb4_instarr        0/0 -> 0/0
+va1_read104        24/1 -> 24/1
+va2_home104        39/1 -> 39/1
+va3_more104        14/1 -> 14/1
+va4_bare104        17/1 -> 26/1
+va5_edge104        17/1 -> 17/1
+g1_form104         17/1 -> 25/1
+g2_type104         17/1 -> 9/1
+g3_home104         39/1 -> 39/1
+g4_cons104         17/1 -> 26/1
+g5_gscope104       17/1 -> 26/1
+g6_mix104          17/1 -> 26/1
+g7_pos104          17/1 -> 25/1
+a1_earl55          17/1 -> 26/1
+a2_earl55          17/1 -> 17/1
+a3_earl55          26/1 -> 26/1
+a4_earl55          26/1 -> 26/1
+a5_earl55          39/1 -> 39/1
+v1_v55             25/1 -> 25/1
+v2_v55             63/1 -> 63/1
+v3_v55             111/1 -> 111/1
+v4_v55             17/1 -> 17/1
+v5_v55             41/1 -> 41/1
+v6_v55             98/1 -> 98/1
+v7_v55             37/1 -> 37/1
+v8_v55             70/1 -> 70/1
+g22                1719/1 -> 1719/1
+l154_noenum        8/1 -> 8/1
+g3_anc86           16/1 -> 16/1
+va5_ctx85          12/1 -> 12/1
+va6_unbased85      32/1 -> 32/1
+vaB_tern86         16/1 -> 16/1
+
+vb2_genfor 0/0 -> 0/0 and vb4_instarr 0/0 -> 0/0: the r10earl103 verifier's two
+CMP_EQUAL -> CMP_NOTEQUAL convictions STAY EQUAL.  No arm anywhere in the wide
+boundary went from 0 cmp lines to a head.
+
+== MOVED-WRONG detail, ts projection, all four groups ==
+MOVED-WRONG  g3_anc86         ELAB  work@top86_anc.i0.a_rep @27:31:27:64
+      golden : operation | ref_typespec LOCLESS name=work@top86_anc.i0 ACT{logic_typespec SPAN27:14:27:30 name=}
+      pris   : constant | ref_typespec LOCLESS name=work@top86_anc.i0 ACT{logic_typespec LOCLESS name=}
+      patched: constant | ref_typespec LOCLESS name=work@top86_anc.i0 ACT{int_typespec LOCLESS name=}
+MOVED-WRONG  g3_anc86         ELAB  work@top86_anc.i1.a_rep @27:31:27:64
+      golden : operation | ref_typespec LOCLESS name=work@top86_anc.i1 ACT{logic_typespec SPAN27:14:27:30 name=}
+      pris   : constant | ref_typespec LOCLESS name=work@top86_anc.i1 ACT{logic_typespec LOCLESS name=}
+      patched: constant | ref_typespec LOCLESS name=work@top86_anc.i1 ACT{int_typespec LOCLESS name=}
+MOVED-WRONG  g3_anc86         ELAB  work@top86_anc.i2.a_rep @27:31:27:64
+      golden : operation | ref_typespec LOCLESS name=work@top86_anc.i2 ACT{logic_typespec SPAN27:14:27:30 name=}
+      pris   : constant | ref_typespec LOCLESS name=work@top86_anc.i2 ACT{logic_typespec LOCLESS name=}
+      patched: constant | ref_typespec LOCLESS name=work@top86_anc.i2 ACT{int_typespec LOCLESS name=}
+MOVED-WRONG  va5_ctx85        ELAB  work@va5_ctx85.q3 @40:27:40:50
+      golden : operation | ref_typespec LOCLESS name=work@va5_ctx85 ACT{logic_typespec SPAN40:14:40:26 name=}
+      pris   : constant | ref_typespec LOCLESS name=work@va5_ctx85 ACT{logic_typespec LOCLESS name=}
+      patched: constant | ref_typespec LOCLESS name=work@va5_ctx85 ACT{int_typespec LOCLESS name=}
+MOVED-WRONG  vaB_tern86       ELAB  work@top86_vB.i0.t_rep @24:31:24:67
+      golden : operation | ref_typespec LOCLESS name=work@top86_vB.i0 ACT{logic_typespec SPAN24:14:24:30 name=}
+      pris   : constant | ref_typespec LOCLESS name=work@top86_vB.i0 ACT{logic_typespec LOCLESS name=}
+      patched: constant | ref_typespec LOCLESS name=work@top86_vB.i0 ACT{int_typespec LOCLESS name=}
+MOVED-WRONG  vaB_tern86       ELAB  work@top86_vB.i1.t_rep @24:31:24:67
+      golden : operation | ref_typespec LOCLESS name=work@top86_vB.i1 ACT{logic_typespec SPAN24:14:24:30 name=}
+      pris   : constant | ref_typespec LOCLESS name=work@top86_vB.i1 ACT{logic_typespec LOCLESS name=}
+      patched: constant | ref_typespec LOCLESS name=work@top86_vB.i1 ACT{int_typespec LOCLESS name=}
+
+== STILL-WRONG (forgone wins) on the verifier's own arms ==
+STILL-WRONG  w3_shape104      ELAB  work@w3_shape104.u_s2.X @7:59:7:72
+      golden : constant | ref_typespec LOCLESS name=work@w3_shape104.u_s2 ACT{int_typespec LOCLESS name=}
+      pris   : constant | ref_typespec LOCLESS name=work@w3_shape104.u_s2 ACT{logic_typespec LOCLESS name=}
+      patched: constant | ref_typespec LOCLESS name=work@w3_shape104.u_s2 ACT{logic_typespec LOCLESS name=}
+STILL-WRONG  w4_pos104        ELAB  work@w4_pos104.u_q3.X @15:26:15:39
+      golden : constant | ref_typespec LOCLESS name=work@w4_pos104.u_q3 ACT{int_typespec LOCLESS name=}
+      pris   : constant | ref_typespec LOCLESS name=work@w4_pos104.u_q3 ACT{logic_typespec LOCLESS name=}
+      patched: constant | ref_typespec LOCLESS name=work@w4_pos104.u_q3 ACT{logic_typespec LOCLESS name=}
+STILL-WRONG  w4_pos104        ELAB  work@w4_pos104.u_q6.X @38:26:38:39
+      golden : constant | ref_typespec LOCLESS name=work@w4_pos104.u_q6 ACT{int_typespec LOCLESS name=}
+      pris   : constant | ref_typespec LOCLESS name=work@w4_pos104.u_q6 ACT{logic_typespec LOCLESS name=}
+      patched: constant | ref_typespec LOCLESS name=work@w4_pos104.u_q6 ACT{logic_typespec LOCLESS name=}
+STILL-WRONG  w6_more104       ELAB  work@w6_more104.u_r9.X @58:26:58:39
+      golden : constant | ref_typespec LOCLESS name=work@w6_more104.u_r9 ACT{int_typespec LOCLESS name=}
+      pris   : constant | ref_typespec LOCLESS name=work@w6_more104.u_r9 ACT{logic_typespec LOCLESS name=}
+      patched: constant | ref_typespec LOCLESS name=work@w6_more104.u_r9 ACT{logic_typespec LOCLESS name=}
+STILL-WRONG  w7_depth104      ELAB  work@w7_depth104.u_w7.D @5:26:5:39
+      golden : constant | ref_typespec LOCLESS name=work@w7_depth104.u_w7 ACT{int_typespec LOCLESS name=}
+      pris   : constant | ref_typespec LOCLESS name=work@w7_depth104.u_w7 ACT{logic_typespec LOCLESS name=}
+      patched: constant | ref_typespec LOCLESS name=work@w7_depth104.u_w7 ACT{logic_typespec LOCLESS name=}

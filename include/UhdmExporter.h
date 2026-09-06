@@ -1743,6 +1743,14 @@ private:
     // whose RHS constant-FOLDS (Surelog's reduction resolves each name it
     // meets through getObject/setRange).  Cached per instance body.
     bool paramCaFoldRead(const slang::ast::ParameterSymbol& ps);
+    // § replFoldElabSelRead104 — the POSITIVE read enumeration a replication
+    // fold's minted typespec is decided by: every SELECTED reference to the
+    // parameter in its home module/interface/program declaration's SYNTAX that
+    // is NOT inside a procedural block, a function/task body or an assertion.
+    // Cached per enclosing declaration syntax node.
+    bool replFoldElabSelRead104(const slang::ast::ParameterSymbol& ps);
+    std::map<const slang::syntax::SyntaxNode*, std::set<std::string_view>>
+        declElabSel104;
     // § pkgParamOwnDefRange.  True when the parameter is declared in a PACKAGE
     // and the listing being emitted right now is that package's own DEF view.
     bool pkgParamOwnDefView(const slang::ast::ParameterSymbol& ps) const;

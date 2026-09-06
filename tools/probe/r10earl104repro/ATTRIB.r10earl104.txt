@@ -1,0 +1,94 @@
+r10earl104 WHOLE-DUMP ATTRIBUTION -- workdir-normalised uhdm-dump diff, pristine vs patched.
+
+===== Earlgrey_0_1 / default   dump lines pristine=4717847 patched=4717838
+      changed lines = 15   weaklyReferenced marker at line 3823176
+      hunk at 2592728 : BODY (judge-reachable)
+      hunk at 4269372 : weaklyReferenced TAIL (unreachable to the judge)
+      hunk at 4716915 : weaklyReferenced TAIL (unreachable to the judge)
+--- the diff ---
+2592728c2592728
+<           \_logic_typespec: 
+---
+>           \_int_typespec: 
+4269372a4269373,4269374
+> \_int_typespec: 
+>   |UINT:1
+4716915,4716925d4716916
+< \_logic_typespec: 
+<   |vpiRange:
+<   \_range: 
+<     |vpiParent:
+<     \_logic_typespec: 
+<     |vpiLeftRange:
+<     \_constant: 
+<       |UINT:31
+<     |vpiRightRange:
+<     \_constant: 
+<       |UINT:0
+--- the enclosing chain of the BODY hunk (pristine) ---
+      \_module_inst: work@pinmux (work@top_earlgrey.u_pinmux), file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_systems_top_earlgrey_0.1/rtl/autogen/top_earlgrey.sv, line:623:3, endln:653:5
+      |vpiRhs:
+      \_constant: , line:54:22, endln:54:59
+        |vpiParent:
+        \_param_assign: , line:53:56, endln:54:59
+        |vpiDecompile:32'b11111111111111111111111111111111
+        |vpiSize:32
+        |BIN:11111111111111111111111111111111
+        |vpiTypespec:
+        \_ref_typespec: (work@top_earlgrey.u_pinmux)
+          |vpiParent:
+          \_constant: , line:54:22, endln:54:59
+          |vpiFullName:work@top_earlgrey.u_pinmux
+          |vpiActual:
+          \_logic_typespec: 
+        |vpiConstType:3
+      |vpiLhs:
+
+===== Earlgrey_0_1 / testflags   dump lines pristine=6714454 patched=6714445
+      changed lines = 15   weaklyReferenced marker at line 4682963
+      hunk at 3114092 : BODY (judge-reachable)
+      hunk at 5719022 : weaklyReferenced TAIL (unreachable to the judge)
+      hunk at 6700868 : weaklyReferenced TAIL (unreachable to the judge)
+--- the diff ---
+3114092c3114092
+<           \_logic_typespec: 
+---
+>           \_int_typespec: 
+5719022a5719023,5719024
+> \_int_typespec: 
+>   |UINT:1
+6700868,6700878d6700869
+< \_logic_typespec: 
+<   |vpiRange:
+<   \_range: 
+<     |vpiParent:
+<     \_logic_typespec: 
+<     |vpiLeftRange:
+<     \_constant: 
+<       |UINT:31
+<     |vpiRightRange:
+<     \_constant: 
+<       |UINT:0
+--- the enclosing chain of the BODY hunk (pristine) ---
+      \_module_inst: work@pinmux (work@top_earlgrey.u_pinmux), file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_systems_top_earlgrey_0.1/rtl/autogen/top_earlgrey.sv, line:623:3, endln:653:5
+      |vpiRhs:
+      \_constant: , line:54:22, endln:54:59
+        |vpiParent:
+        \_param_assign: , line:53:56, endln:54:59
+        |vpiDecompile:32'b11111111111111111111111111111111
+        |vpiSize:32
+        |BIN:11111111111111111111111111111111
+        |vpiTypespec:
+        \_ref_typespec: (work@top_earlgrey.u_pinmux)
+          |vpiParent:
+          \_constant: , line:54:22, endln:54:59
+          |vpiFullName:work@top_earlgrey.u_pinmux
+          |vpiActual:
+          \_logic_typespec: 
+        |vpiConstType:3
+      |vpiLhs:
+
+Every changed line in both modes lies inside
+  module_inst work@top_earlgrey.u_pinmux > param_assign 53:56-54:59 > constant 54:22-54:59 > ref_typespec{work@top_earlgrey.u_pinmux}.
+Nothing else in either database moved; the gen_mio_periph_in[0].data_mux subtree that
+carries the new DEFAULT head is byte-identical between the two binaries.

@@ -1,0 +1,13 @@
+r10earl104 OWNER DECODE -- MEASUREMENT ONLY (own104.cpp = earl102's owner-finder, verbatim)
+
+== GOLDEN, head object id 595640 ==
+=== OBJ #595640 int_typespec name=~ span=0:0-0:0 file=
+     SELFPAR <- <null>
+  TSREF     ref#596080   full=work@top_earlgrey.u_pinmux     <- constant[~]@54:22-54:59#596079 <- param_assign[~]@53:56-54:59#596078 <- module_inst[u_pinmux]{work@top_earlgrey.u_pinmux}@623:3-653:5#1041350 <- module_inst[work@top_earlgrey]@5:1-1022:10#972058 <- design[work@prim_sync_reqack]@0:0-0:0#919334
+  TOTALS containers=1 boundof=0
+
+== OURS (pristine), head object id 772036 ==
+=== OBJ #772036 logic_typespec name=~ span=0:0-0:0 file=
+     SELFPAR <- <null>
+  TSREF     ref#463127   full=work@top_earlgrey.u_pinmux     <- constant[~]@54:22-54:59#463126 <- param_assign[~]@53:56-54:59#463125 <- module_inst[u_pinmux]{work@top_earlgrey.u_pinmux}@623:3-653:5#462852 <- module_inst[work@top_earlgrey]@5:1-1022:10#189339 <- design[work@prim_sync_reqack]@0:0-0:0#1
+  TOTALS containers=1 boundof=0

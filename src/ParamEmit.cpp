@@ -9752,8 +9752,54 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             // had no fence and attrib55 caught exactly that
                             // cell as a STILL-WRONG reshape.  Same domain as
                             // § replFoldTs9 below: ELAB view, module scope.
-                            if (rct.getBitWidth() == 1 && topView &&
-                                !inPackage) {
+                            // § replFoldElabSelRead104 (r10earl104) — at width
+                            // > 1 the mint is the SAME object, and the READER
+                            // decides.  The condition is POSITIVE and it is
+                            // the CONJUNCTION of the two enumerations that
+                            // between them cover every position measured to
+                            // take the mint away:
+                            //   * `paramCaFoldRead` (AST) — a read inside a
+                            //     continuous assign whose RHS folds, an
+                            //     instance's parameter override or port
+                            //     connection, or an instantiated generate
+                            //     block's body.  It is the ONLY test that sees
+                            //     a BARE module-body read (g4.c3 `assign o2 =
+                            //     X;`, g4.c9 `|X`, g7.k6 `$bits(X)`), and it
+                            //     correctly does NOT see a bare read from
+                            //     inside a generate scope — which is THE
+                            //     HEAD's own shape (g5.d4, pinmux.sv:176).
+                            //   * `replFoldElabSelRead104` (SYNTAX) — every
+                            //     SELECTED reference outside a procedural
+                            //     block, a subroutine body and an assertion:
+                            //     the declared ranges, the dimensions, the
+                            //     generate conditions and the loop-generate
+                            //     controls that neither AST scan enters.  This
+                            //     is r10earl103's twelve convictions, and
+                            //     `vb2_genfor` / `vb4_instarr` — its two
+                            //     CMP_EQUAL -> CMP_NOTEQUAL cells — are
+                            //     blocked here by a select in a loop-generate
+                            //     stop expression and in an instance array's
+                            //     dimension.
+                            // Either one firing BLOCKS the mint, so an
+                            // unenumerated read position costs a WIN and never
+                            // a regression: the cell simply keeps the declared
+                            // bounds it already had.  The over-blocks are
+                            // listed at replFoldElabSelRead104.
+                            // `!isImported` keeps the question inside the body
+                            // that OWNS the parameter: both enumerations
+                            // resolve against the enclosing InstanceBody /
+                            // module declaration and an imported package
+                            // parameter has neither, so "no read" would be an
+                            // artefact of asking the wrong scope.
+                            // At width 1 the reader is NOT consulted —
+                            // § replFoldTsW1's own 25 cells answer int_typespec
+                            // for every consumer with no exception.
+                            const bool replRead104 =
+                                paramCaFoldRead(ps) ||
+                                replFoldElabSelRead104(ps);
+                            if (topView && !inPackage &&
+                                (rct.getBitWidth() == 1 ||
+                                 (!isImported && !replRead104))) {
                                 auto* itsW1 = s.MakeInt_typespec();
                                 auto& rxW1 = scv.as<ReplicationExpression>();
                                 int32_t ow1 =
@@ -16200,6 +16246,179 @@ bool UhdmExporter::paramNameIsRead(const ParameterSymbol& ps) {
     auto wit = declIdentCountsWide50.find(decl);
     return wit != declIdentCountsWide50.end() &&
            wit->second.count(ps.name) != 0;
+}
+
+// ---------------------------------------------------------------------------
+// § replFoldElabSelRead104 (r10earl104) — the POSITIVE READ ENUMERATION for
+// the folded REPLICATION constant's minted typespec.
+//
+// § replFoldTsW1 (earl55) mints the loc-less `int_typespec UINT:<operand
+// width>` only at declared width 1.  At width > 1 the READER decides, and
+// r10earl103 tried to decide it NEGATIVELY — "no reader found by the two AST
+// scans (§ caOperandScanRead49 / § selectReadNeedsReduce50), therefore no
+// reader".  Those scans walk continuous assigns, instance overrides / port
+// connections and instantiated generate BODIES and NOTHING ELSE, and the
+// verifier convicted twelve shapes they never enter, two of them CMP_EQUAL ->
+// CMP_NOTEQUAL (`vb2_genfor`, `vb4_instarr`).  "Not found by a scan that does
+// not look" is not a measurement.
+//
+// This function is the POSITIVE half: the parameter's reads are ENUMERATED
+// FROM THE SYNTAX of its home declaration and classified, and the mint is
+// BLOCKED whenever the enumeration finds a read that Surelog's elaborator
+// provably resolves through getObject.  When in doubt the mint does NOT fire —
+// pristine (the declared bounds) is then the answer, so an unenumerated
+// position costs a WIN, never a regression.
+//
+// WHAT THE ENUMERATION FINDS, MEASURED CELL BY CELL (one module, one
+// `localparam logic [3:0] X = {4{1'b1}}`, exactly ONE read; golden
+// `int_typespec@LOCLESS UINT:1` = the mint SURVIVES the read, golden
+// `logic_typespec[3:0]` = the read TOOK IT AWAY).  Arms g4/g5/g7 of this pass
+// and va1-va5/vb1-vb4 of r10earl103's verifier:
+//
+//   SELECTED read (`X[0]`), the read TAKES THE MINT AWAY -> BLOCK
+//     net / variable declared range          va1.r5, va1.rc, vb1_netrange
+//     typedef declared range                 va1.r8, vb3_tdefrange
+//     packed struct member range (module)    va3.s1
+//     unpacked array dimension               va3.s3
+//     another parameter's DIMENSION          va3.s6
+//     instance ARRAY dimension               va1.re, vb4_instarr
+//     loop-generate control expressions      va1.r4, va3.s8, vb2_genfor
+//     generate-if / generate-case condition  g4.c5, g5.d3, g6.f3, va1.ra
+//     net range inside a generate scope      va3.s5, g7.k8
+//     parameter initializer in a gen scope   va3.s4
+//     continuous assign / override / port    g4.c1, g4.c7, va2.h5, va3.s7,
+//                                            va3.sa, va5.e3, va2.ifr4
+//   SELECTED read that does NOT take it away -> DO NOT BLOCK
+//     inside a procedural block              va1.r9, va1.rd, g4.c8, g4.ca,
+//                                            and its own local decl range g7.k9
+//     inside a function body                 va5.e4, g6.f6, and its own local
+//                                            decl range va3.s2
+//     inside a task body                     g7.kc
+//     inside a concurrent assertion          va5.e2
+//   BARE read (`X`, `|X`, `$clog2(X)`), NEVER blocked HERE
+//     generate-if condition                  g7.k1   KEEPS the mint
+//     generate-case condition / item label   g7.k2, g7.k3   KEEP
+//     net range / instance-array range       g7.k4, g7.k5, va4.b1, va4.b3  KEEP
+//     loop-generate control                  va4.b2  KEEPS
+//     another parameter's initializer        va1.r2, va1.r3, va4.b4  KEEP
+//     bare parameter-override actual         g4.c6, g7.k7  KEEP
+//     inside a generate scope's cont-assign  g5.d1, d4, d5, d6  KEEP
+//                                            (d4 is THE HEAD's own shape)
+//     module-body cont-assign that FOLDS     g4.c3, g4.c9, g5.d7, g5.d8,
+//                                            g7.k6 ($bits(X))  TAKE IT AWAY —
+//       and those are exactly what `paramCaFoldRead` already decides from the
+//       AST, which is why this enumeration counts SELECTS ONLY and the two
+//       tests are ANDed at the call site.  g7.k1/k2/k3 REFUTE r10earl103's
+//       `paramGenCondRead103`, which harvested a BARE generate-condition name
+//       as well and would have thrown those three cells away.
+//
+// The three EXCLUDED contexts are the ones Surelog never constant-evaluates at
+// elaboration: a procedural block, a subroutine body and an assertion are
+// compiled, not folded, so the name is never resolved through getObject and
+// `CompileHelper::setRange` never rewrites the constant's typespec.  A
+// declaration WRITTEN INSIDE one of them (g7.k9's `automatic logic [X[0]:0]`,
+// va3.s2's function local) rides the same exclusion and golden agrees.
+//
+// KNOWN OVER-BLOCKS, each a FORGONE WIN and none a regression (the cell keeps
+// pristine's declared typespec, which is what it already had):
+//   * a select in a MODULE-LEVEL parameter initializer (va1.r1) — golden keeps
+//     the mint there but drops it for the same select in a GEN-SCOPE parameter
+//     initializer (va3.s4), and this walk does not separate them.
+//   * a select in a NON-CONSTANT cont-assign expression (va5/g7.kd, g4.c2,
+//     g4.ce) — golden keeps the mint; the walk cannot see that a net operand
+//     stopped the reduction.
+//   * a select inside an UNINSTANTIATED generate branch (va5.e1, g6.f2) —
+//     golden keeps the mint; syntax cannot tell `if (0)` from `if (1)` and the
+//     instantiated twin (va3.s5) must stay blocked.
+//   * a select in a packed struct member range inside a generate scope
+//     (g7.kb) — golden keeps the mint; the module-level twin (va3.s1) does not.
+//
+// The name is matched by TEXT inside one declaration, exactly as
+// paramNameIsRead does: a same-named symbol in a nested scope can only ADD a
+// block, i.e. forgo a win.
+// ---------------------------------------------------------------------------
+namespace {
+
+// The two syntax shapes a SELECTED reference takes: `X[0]` written as a NAME
+// (`IdentifierSelectName`) and `X[0]` written as an EXPRESSION
+// (`ElementSelectExpression` over an `IdentifierName`).  Both cover a
+// bit-select and a part-select — the selector's own kind is irrelevant here.
+std::string_view srlgSelName104(const syntax::SyntaxNode& n) {
+    if (n.kind == syntax::SyntaxKind::IdentifierSelectName)
+        return n.as<syntax::IdentifierSelectNameSyntax>()
+            .identifier.valueText();
+    if (n.kind == syntax::SyntaxKind::ElementSelectExpression) {
+        auto* l = n.as<syntax::ElementSelectExpressionSyntax>().left.get();
+        if (l && l->kind == syntax::SyntaxKind::IdentifierName)
+            return l->as<syntax::IdentifierNameSyntax>()
+                .identifier.valueText();
+    }
+    return {};
+}
+
+// The contexts Surelog COMPILES rather than constant-evaluates: the whole
+// subtree is skipped, declarations written inside it included.
+bool srlgNoFoldCtx104(const syntax::SyntaxNode& n) {
+    switch (n.kind) {
+        case syntax::SyntaxKind::AlwaysBlock:
+        case syntax::SyntaxKind::AlwaysCombBlock:
+        case syntax::SyntaxKind::AlwaysFFBlock:
+        case syntax::SyntaxKind::AlwaysLatchBlock:
+        case syntax::SyntaxKind::InitialBlock:
+        case syntax::SyntaxKind::FinalBlock:
+        case syntax::SyntaxKind::FunctionDeclaration:
+        case syntax::SyntaxKind::TaskDeclaration:
+        case syntax::SyntaxKind::ConcurrentAssertionMember:
+        case syntax::SyntaxKind::ImmediateAssertionMember:
+        case syntax::SyntaxKind::PropertyDeclaration:
+        case syntax::SyntaxKind::SequenceDeclaration:
+        case syntax::SyntaxKind::CovergroupDeclaration:
+        case syntax::SyntaxKind::AssertPropertyStatement:
+        case syntax::SyntaxKind::AssumePropertyStatement:
+        case syntax::SyntaxKind::CoverPropertyStatement:
+        case syntax::SyntaxKind::CoverSequenceStatement:
+        case syntax::SyntaxKind::RestrictPropertyStatement:
+        case syntax::SyntaxKind::ImmediateAssertStatement:
+        case syntax::SyntaxKind::ImmediateAssumeStatement:
+        case syntax::SyntaxKind::ImmediateCoverStatement:
+            return true;
+        default:
+            return false;
+    }
+}
+
+void collectElabSel104(const syntax::SyntaxNode& n,
+                       std::set<std::string_view>& out) {
+    if (srlgNoFoldCtx104(n))
+        return;
+    if (auto nm = srlgSelName104(n); !nm.empty())
+        out.insert(nm);
+    for (size_t i = 0, e = n.getChildCount(); i < e; i++)
+        if (auto* c = n.childNode(i))
+            collectElabSel104(*c, out);
+}
+
+} // namespace
+
+bool UhdmExporter::replFoldElabSelRead104(const ParameterSymbol& ps) {
+    auto* syn = ps.getSyntax();
+    if (!syn)
+        return true; // no syntax to enumerate -> do not mint
+    const syntax::SyntaxNode* decl = nullptr;
+    for (const syntax::SyntaxNode* q = syn->parent; q; q = q->parent)
+        if (q->kind == syntax::SyntaxKind::ModuleDeclaration ||
+            q->kind == syntax::SyntaxKind::InterfaceDeclaration ||
+            q->kind == syntax::SyntaxKind::ProgramDeclaration)
+            decl = q;
+    if (!decl)
+        return true; // not module-homed -> do not mint
+    auto it = declElabSel104.find(decl);
+    if (it == declElabSel104.end()) {
+        std::set<std::string_view> sel;
+        collectElabSel104(*decl, sel);
+        it = declElabSel104.emplace(decl, std::move(sel)).first;
+    }
+    return it->second.count(ps.name) != 0;
 }
 
 // The SAME getObject/setRange rewrite, reached the other way: Surelog REDUCES

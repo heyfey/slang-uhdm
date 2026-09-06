@@ -1,0 +1,161 @@
+r10earl104 -- THE SIX BOUNDARY ARMS THAT ARE NOT THIS PASS'S OWN, scored against GOLDEN.
+The official uhdm-cmp (lines/heads) is byte-identical on ALL SIX between the two binaries.
+
+== uhdm-cmp, PRISTINE ==
+ARM                VIEW     SLRC  OURRC CMPLINES  HEADS  CENSUS
+g22                plain       0      4     1719      1  SUMMARY	agree=1	disagree=0	only_golden=0	only_ours=0
+g22                elab        0      4     1719      1  SUMMARY	agree=2	disagree=0	only_golden=0	only_ours=0
+l154_noenum        plain       0      0        8      1  SUMMARY	agree=0	disagree=0	only_golden=0	only_ours=0
+l154_noenum        elab        0      0        8      1  SUMMARY	agree=0	disagree=0	only_golden=0	only_ours=0
+g3_anc86           plain       0      0       31      1  SUMMARY	agree=14	disagree=57	only_golden=3	only_ours=0
+g3_anc86           elab        0      0       16      1  SUMMARY	agree=14	disagree=57	only_golden=3	only_ours=0
+va5_ctx85          plain       0      0       47      1  SUMMARY	agree=3	disagree=10	only_golden=0	only_ours=0
+va5_ctx85          elab        0      0       12      1  SUMMARY	agree=3	disagree=10	only_golden=0	only_ours=0
+va6_unbased85      plain       0      0       32      1  SUMMARY	agree=15	disagree=17	only_golden=0	only_ours=0
+va6_unbased85      elab        0      0       32      1  SUMMARY	agree=15	disagree=17	only_golden=0	only_ours=0
+vaB_tern86         plain       0      0      123      1  SUMMARY	agree=11	disagree=42	only_golden=0	only_ours=0
+vaB_tern86         elab        0      0       16      1  SUMMARY	agree=11	disagree=42	only_golden=0	only_ours=0
+
+== uhdm-cmp, PATCHED ==
+ARM                VIEW     SLRC  OURRC CMPLINES  HEADS  CENSUS
+g22                plain       0      4     1719      1  SUMMARY	agree=1	disagree=0	only_golden=0	only_ours=0
+g22                elab        0      4     1719      1  SUMMARY	agree=2	disagree=0	only_golden=0	only_ours=0
+l154_noenum        plain       0      0        8      1  SUMMARY	agree=0	disagree=0	only_golden=0	only_ours=0
+l154_noenum        elab        0      0        8      1  SUMMARY	agree=0	disagree=0	only_golden=0	only_ours=0
+g3_anc86           plain       0      0       31      1  SUMMARY	agree=14	disagree=57	only_golden=3	only_ours=0
+g3_anc86           elab        0      0       16      1  SUMMARY	agree=14	disagree=57	only_golden=3	only_ours=0
+va5_ctx85          plain       0      0       47      1  SUMMARY	agree=3	disagree=10	only_golden=0	only_ours=0
+va5_ctx85          elab        0      0       12      1  SUMMARY	agree=3	disagree=10	only_golden=0	only_ours=0
+va6_unbased85      plain       0      0       32      1  SUMMARY	agree=15	disagree=17	only_golden=0	only_ours=0
+va6_unbased85      elab        0      0       32      1  SUMMARY	agree=15	disagree=17	only_golden=0	only_ours=0
+vaB_tern86         plain       0      0      123      1  SUMMARY	agree=11	disagree=42	only_golden=0	only_ours=0
+vaB_tern86         elab        0      0       16      1  SUMMARY	agree=11	disagree=42	only_golden=0	only_ours=0
+
+== three-way census score, four payloads ==
+--- payload='default'
+PAYLOAD RHS+TYPESPEC FULL-STRING
+GOLDEN-SIDE-IDENTICAL over 341 shared keys
+AWAY-GOLDEN         0
+MOVED-WRONG        14
+TO-GOLDEN           0
+UNMOVED-GOOD       89
+UNMOVED-BAD       238
+ADDED               0
+REMOVED             0
+--- payload='--judge'
+PAYLOAD RHS+TYPESPEC JUDGE-VISIBLE-FIELDS
+GOLDEN-SIDE-IDENTICAL over 341 shared keys
+AWAY-GOLDEN         0
+MOVED-WRONG        14
+TO-GOLDEN           0
+UNMOVED-GOOD      269
+UNMOVED-BAD        58
+ADDED               0
+REMOVED             0
+--- payload='--ts'
+PAYLOAD TYPESPEC-ONLY FULL-STRING
+GOLDEN-SIDE-IDENTICAL over 341 shared keys
+AWAY-GOLDEN         0
+MOVED-WRONG        14
+TO-GOLDEN           0
+UNMOVED-GOOD       89
+UNMOVED-BAD       238
+ADDED               0
+REMOVED             0
+--- payload='--ts --judge'
+PAYLOAD TYPESPEC-ONLY JUDGE-VISIBLE-FIELDS
+GOLDEN-SIDE-IDENTICAL over 341 shared keys
+AWAY-GOLDEN         2
+MOVED-WRONG        10
+TO-GOLDEN           2
+UNMOVED-GOOD      317
+UNMOVED-BAD        10
+ADDED               0
+REMOVED             0
+
+== every moved cell, in full ==
+AWAY-GOLDEN         0
+MOVED-WRONG        14
+TO-GOLDEN           0
+UNMOVED-GOOD       89
+UNMOVED-BAD       238
+ADDED               0
+REMOVED             0
+MOVED-WRONG g3_anc86_elab	ELAB|work@top86_anc.i0.a_rep|27:31-27:64	op34  [RHS-KIND-DIFFERS: the judge stops at the Rhs, this typespec is UNREACHABLE]
+    G    operation,op=34	logic_typespec@g3_anc86.sv:27:14-27:30,ranges=[operation:UINT:0]
+    pris constant,sz=32,ct=3,v=BIN:0000000000000000000000000010001100000000000000000000000000100011	logic_typespec@LOCLESS,ranges=[UINT:16:UINT:0]
+    patc constant,sz=32,ct=3,v=BIN:0000000000000000000000000010001100000000000000000000000000100011	int_typespec@LOCLESS,val=UINT:32
+MOVED-WRONG g3_anc86_elab	ELAB|work@top86_anc.i1.a_rep|27:31-27:64	op34  [RHS-KIND-DIFFERS: the judge stops at the Rhs, this typespec is UNREACHABLE]
+    G    operation,op=34	logic_typespec@g3_anc86.sv:27:14-27:30,ranges=[operation:UINT:0]
+    pris constant,sz=32,ct=3,v=BIN:0000000000000000000000000010001100000000000000000000000000100011	logic_typespec@LOCLESS,ranges=[UINT:17:UINT:0]
+    patc constant,sz=32,ct=3,v=BIN:0000000000000000000000000010001100000000000000000000000000100011	int_typespec@LOCLESS,val=UINT:32
+MOVED-WRONG g3_anc86_elab	ELAB|work@top86_anc.i2.a_rep|27:31-27:64	op34  [RHS-KIND-DIFFERS: the judge stops at the Rhs, this typespec is UNREACHABLE]
+    G    operation,op=34	logic_typespec@g3_anc86.sv:27:14-27:30,ranges=[operation:UINT:0]
+    pris constant,sz=32,ct=3,v=BIN:0000000000000000000000000010001100000000000000000000000000100011	logic_typespec@LOCLESS,ranges=[UINT:18:UINT:0]
+    patc constant,sz=32,ct=3,v=BIN:0000000000000000000000000010001100000000000000000000000000100011	int_typespec@LOCLESS,val=UINT:32
+MOVED-WRONG g3_anc86_plain	ELAB|work@top86_anc.i0.a_rep|27:31-27:64	op34  [RHS-KIND-DIFFERS: the judge stops at the Rhs, this typespec is UNREACHABLE]
+    G    operation,op=34	logic_typespec@g3_anc86.sv:27:14-27:30,ranges=[operation:UINT:0]
+    pris constant,sz=32,ct=3,v=BIN:0000000000000000000000000010001100000000000000000000000000100011	logic_typespec@LOCLESS,ranges=[UINT:16:UINT:0]
+    patc constant,sz=32,ct=3,v=BIN:0000000000000000000000000010001100000000000000000000000000100011	int_typespec@LOCLESS,val=UINT:32
+MOVED-WRONG g3_anc86_plain	ELAB|work@top86_anc.i1.a_rep|27:31-27:64	op34  [RHS-KIND-DIFFERS: the judge stops at the Rhs, this typespec is UNREACHABLE]
+    G    operation,op=34	logic_typespec@g3_anc86.sv:27:14-27:30,ranges=[operation:UINT:0]
+    pris constant,sz=32,ct=3,v=BIN:0000000000000000000000000010001100000000000000000000000000100011	logic_typespec@LOCLESS,ranges=[UINT:17:UINT:0]
+    patc constant,sz=32,ct=3,v=BIN:0000000000000000000000000010001100000000000000000000000000100011	int_typespec@LOCLESS,val=UINT:32
+MOVED-WRONG g3_anc86_plain	ELAB|work@top86_anc.i2.a_rep|27:31-27:64	op34  [RHS-KIND-DIFFERS: the judge stops at the Rhs, this typespec is UNREACHABLE]
+    G    operation,op=34	logic_typespec@g3_anc86.sv:27:14-27:30,ranges=[operation:UINT:0]
+    pris constant,sz=32,ct=3,v=BIN:0000000000000000000000000010001100000000000000000000000000100011	logic_typespec@LOCLESS,ranges=[UINT:18:UINT:0]
+    patc constant,sz=32,ct=3,v=BIN:0000000000000000000000000010001100000000000000000000000000100011	int_typespec@LOCLESS,val=UINT:32
+MOVED-WRONG va5_ctx85_elab	ELAB|work@va5_ctx85.q3|40:27-40:50	op34  [RHS-KIND-DIFFERS: the judge stops at the Rhs, this typespec is UNREACHABLE]
+    G    operation,op=34	logic_typespec@va5_ctx85.sv:40:14-40:26,ranges=[UINT:31:UINT:0]
+    pris constant,sz=4,ct=3,v=BIN:1111	logic_typespec@LOCLESS,ranges=[UINT:31:UINT:0]
+    patc constant,sz=4,ct=3,v=BIN:1111	int_typespec@LOCLESS,val=UINT:1
+MOVED-WRONG va5_ctx85_plain	ELAB|work@va5_ctx85.q3|40:27-40:50	op34  [RHS-KIND-DIFFERS: the judge stops at the Rhs, this typespec is UNREACHABLE]
+    G    operation,op=34	logic_typespec@va5_ctx85.sv:40:14-40:26,ranges=[UINT:31:UINT:0]
+    pris constant,sz=4,ct=3,v=BIN:1111	logic_typespec@LOCLESS,ranges=[UINT:31:UINT:0]
+    patc constant,sz=4,ct=3,v=BIN:1111	int_typespec@LOCLESS,val=UINT:1
+MOVED-WRONG va6_unbased85_elab	ELAB|work@va6_unbased85.z08|12:27-12:40	op34
+    G    constant,sz=-4,ct=3,v=BIN:1111	int_typespec@LOCLESS,val=UINT:-1
+    pris constant,sz=4,ct=3,v=BIN:1111	logic_typespec@LOCLESS,ranges=[UINT:31:UINT:0]
+    patc constant,sz=4,ct=3,v=BIN:1111	int_typespec@LOCLESS,val=UINT:1
+MOVED-WRONG va6_unbased85_plain	ELAB|work@va6_unbased85.z08|12:27-12:40	op34
+    G    constant,sz=-4,ct=3,v=BIN:1111	int_typespec@LOCLESS,val=UINT:-1
+    pris constant,sz=4,ct=3,v=BIN:1111	logic_typespec@LOCLESS,ranges=[UINT:31:UINT:0]
+    patc constant,sz=4,ct=3,v=BIN:1111	int_typespec@LOCLESS,val=UINT:1
+MOVED-WRONG vaB_tern86_elab	ELAB|work@top86_vB.i0.t_rep|24:31-24:67	op34  [RHS-KIND-DIFFERS: the judge stops at the Rhs, this typespec is UNREACHABLE]
+    G    operation,op=34	logic_typespec@vaB_tern86.sv:24:14-24:30,ranges=[operation:UINT:0]
+    pris constant,sz=32,ct=3,v=BIN:0000000000000000000000010000000000000000000000000000000100000000	logic_typespec@LOCLESS,ranges=[UINT:21:UINT:0]
+    patc constant,sz=32,ct=3,v=BIN:0000000000000000000000010000000000000000000000000000000100000000	int_typespec@LOCLESS,val=UINT:32
+MOVED-WRONG vaB_tern86_elab	ELAB|work@top86_vB.i1.t_rep|24:31-24:67	op34  [RHS-KIND-DIFFERS: the judge stops at the Rhs, this typespec is UNREACHABLE]
+    G    operation,op=34	logic_typespec@vaB_tern86.sv:24:14-24:30,ranges=[operation:UINT:0]
+    pris constant,sz=32,ct=3,v=BIN:0000000000000000000000000010000000000000000000000000000000100000	logic_typespec@LOCLESS,ranges=[UINT:22:UINT:0]
+    patc constant,sz=32,ct=3,v=BIN:0000000000000000000000000010000000000000000000000000000000100000	int_typespec@LOCLESS,val=UINT:32
+MOVED-WRONG vaB_tern86_plain	ELAB|work@top86_vB.i0.t_rep|24:31-24:67	op34  [RHS-KIND-DIFFERS: the judge stops at the Rhs, this typespec is UNREACHABLE]
+    G    operation,op=34	logic_typespec@vaB_tern86.sv:24:14-24:30,ranges=[operation:UINT:0]
+    pris constant,sz=32,ct=3,v=BIN:0000000000000000000000010000000000000000000000000000000100000000	logic_typespec@LOCLESS,ranges=[UINT:21:UINT:0]
+    patc constant,sz=32,ct=3,v=BIN:0000000000000000000000010000000000000000000000000000000100000000	int_typespec@LOCLESS,val=UINT:32
+MOVED-WRONG vaB_tern86_plain	ELAB|work@top86_vB.i1.t_rep|24:31-24:67	op34  [RHS-KIND-DIFFERS: the judge stops at the Rhs, this typespec is UNREACHABLE]
+    G    operation,op=34	logic_typespec@vaB_tern86.sv:24:14-24:30,ranges=[operation:UINT:0]
+    pris constant,sz=32,ct=3,v=BIN:0000000000000000000000000010000000000000000000000000000000100000	logic_typespec@LOCLESS,ranges=[UINT:22:UINT:0]
+    patc constant,sz=32,ct=3,v=BIN:0000000000000000000000000010000000000000000000000000000000100000	int_typespec@LOCLESS,val=UINT:32
+
+== the two uvm arms: every changed dump line is BELOW the _weaklyReferenced marker ==
+r10buvm22repro_g22/plain changed=12 marker_line=4356 first_hunk=5118c5118
+    5118c5118
+    <         |vpiDecompile:22544089
+    ---
+    >         |vpiDecompile:22539993
+r10buvm22repro_g22/elab changed=12 marker_line=6471 first_hunk=8095c8095
+    8095c8095
+    <         |vpiDecompile:22544089
+    ---
+    >         |vpiDecompile:22539993
+r10uvm154repro_l154_noenum/plain changed=8 marker_line=645 first_hunk=678c678
+    678c678
+    <         |vpiDecompile:22544089
+    ---
+    >         |vpiDecompile:22539993
+r10uvm154repro_l154_noenum/elab changed=8 marker_line=646 first_hunk=714c714
+    714c714
+    <         |vpiDecompile:22544089
+    ---
+    >         |vpiDecompile:22539993

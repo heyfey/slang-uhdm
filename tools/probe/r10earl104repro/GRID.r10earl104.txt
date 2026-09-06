@@ -1,0 +1,450 @@
+r10earl104 GRID -- 26 arms x {plain, elab}, PRISTINE vs PATCHED, MEASUREMENT ONLY.
+The official uhdm-cmp lines/heads are printed beside the census verdict; the
+three-way score below is what AWAY-GOLDEN / MOVED-WRONG are read from.
+
+== PRISTINE ==
+ARM                VIEW     SLRC  OURRC CMPLINES  HEADS  CENSUS
+g1_form104         plain       0      0       17      1  SUMMARY	agree=10	disagree=25	only_golden=0	only_ours=0
+g1_form104         elab        0      0       17      1  SUMMARY	agree=10	disagree=25	only_golden=0	only_ours=0
+g2_type104         plain       0      0       17      1  SUMMARY	agree=14	disagree=8	only_golden=0	only_ours=0
+g2_type104         elab        0      0       17      1  SUMMARY	agree=14	disagree=8	only_golden=0	only_ours=0
+g3_home104         plain       0      0       39      1  SUMMARY	agree=9	disagree=9	only_golden=0	only_ours=0
+g3_home104         elab        0      0       39      1  SUMMARY	agree=9	disagree=9	only_golden=1	only_ours=1
+g4_cons104         plain       0      0       17      1  SUMMARY	agree=46	disagree=19	only_golden=0	only_ours=0
+g4_cons104         elab        0      0       17      1  SUMMARY	agree=46	disagree=19	only_golden=0	only_ours=0
+g5_gscope104       plain       0      0       17      1  SUMMARY	agree=30	disagree=53	only_golden=0	only_ours=0
+g5_gscope104       elab        0      0       17      1  SUMMARY	agree=30	disagree=53	only_golden=0	only_ours=0
+g6_mix104          plain       0      0       17      1  SUMMARY	agree=11	disagree=3	only_golden=0	only_ours=0
+g6_mix104          elab        0      0       17      1  SUMMARY	agree=11	disagree=3	only_golden=0	only_ours=0
+g7_pos104          plain       0      0       17      1  SUMMARY	agree=17	disagree=33	only_golden=0	only_ours=0
+g7_pos104          elab        0      0       17      1  SUMMARY	agree=17	disagree=33	only_golden=0	only_ours=0
+va1_read104        plain       0      0       24      1  SUMMARY	agree=44	disagree=29	only_golden=0	only_ours=0
+va1_read104        elab        0      0       24      1  SUMMARY	agree=44	disagree=29	only_golden=0	only_ours=0
+va2_home104        plain       0      0       39      1  SUMMARY	agree=11	disagree=22	only_golden=0	only_ours=0
+va2_home104        elab        0      0       39      1  SUMMARY	agree=11	disagree=22	only_golden=0	only_ours=0
+va3_more104        plain       0      0       14      1  SUMMARY	agree=20	disagree=6	only_golden=1	only_ours=0
+va3_more104        elab        0      0       14      1  SUMMARY	agree=20	disagree=6	only_golden=1	only_ours=0
+va4_bare104        plain       0      0       17      1  SUMMARY	agree=5	disagree=5	only_golden=1	only_ours=0
+va4_bare104        elab        0      0       17      1  SUMMARY	agree=5	disagree=5	only_golden=1	only_ours=0
+va5_edge104        plain       0      0       17      1  SUMMARY	agree=5	disagree=3	only_golden=0	only_ours=0
+va5_edge104        elab        0      0       17      1  SUMMARY	agree=5	disagree=3	only_golden=0	only_ours=0
+vb1_netrange       plain       0      0       18      1  SUMMARY	agree=2	disagree=0	only_golden=0	only_ours=0
+vb1_netrange       elab        0      0       18      1  SUMMARY	agree=2	disagree=0	only_golden=0	only_ours=0
+vb2_genfor         plain       0      0        0      0  SUMMARY	agree=2	disagree=0	only_golden=0	only_ours=0
+vb2_genfor         elab        0      0        0      0  SUMMARY	agree=2	disagree=0	only_golden=0	only_ours=0
+vb3_tdefrange      plain       0      0       24      1  SUMMARY	agree=2	disagree=0	only_golden=0	only_ours=0
+vb3_tdefrange      elab        0      0       24      1  SUMMARY	agree=2	disagree=0	only_golden=0	only_ours=0
+vb4_instarr        plain       0      0        0      0  SUMMARY	agree=2	disagree=3	only_golden=0	only_ours=0
+vb4_instarr        elab        0      0        0      0  SUMMARY	agree=2	disagree=3	only_golden=0	only_ours=0
+a1_earl55          plain       0      0       17      1  SUMMARY	agree=56	disagree=41	only_golden=0	only_ours=0
+a1_earl55          elab        0      0       17      1  SUMMARY	agree=56	disagree=41	only_golden=0	only_ours=0
+a4_earl55          plain       0      0       24      1  SUMMARY	agree=56	disagree=17	only_golden=0	only_ours=0
+a4_earl55          elab        0      0       26      1  SUMMARY	agree=56	disagree=17	only_golden=0	only_ours=0
+a5_earl55          plain       0      0       39      1  SUMMARY	agree=28	disagree=13	only_golden=0	only_ours=0
+a5_earl55          elab        0      0       39      1  SUMMARY	agree=28	disagree=13	only_golden=0	only_ours=0
+v1_v55             plain       0      0       25      1  SUMMARY	agree=27	disagree=3	only_golden=0	only_ours=0
+v1_v55             elab        0      0       25      1  SUMMARY	agree=27	disagree=3	only_golden=0	only_ours=0
+v2_v55             plain       0      0       63      1  SUMMARY	agree=21	disagree=9	only_golden=0	only_ours=0
+v2_v55             elab        0      0       63      1  SUMMARY	agree=21	disagree=9	only_golden=0	only_ours=0
+v4_v55             plain       0      0       17      1  SUMMARY	agree=9	disagree=7	only_golden=0	only_ours=0
+v4_v55             elab        0      0       17      1  SUMMARY	agree=9	disagree=7	only_golden=0	only_ours=0
+v5_v55             plain       0      0       41      1  SUMMARY	agree=21	disagree=6	only_golden=0	only_ours=0
+v5_v55             elab        0      0       41      1  SUMMARY	agree=21	disagree=6	only_golden=0	only_ours=0
+v6_v55             plain       0      0       98      1  SUMMARY	agree=13	disagree=6	only_golden=0	only_ours=0
+v6_v55             elab        0      0       98      1  SUMMARY	agree=13	disagree=6	only_golden=0	only_ours=0
+v7_v55             plain       0      0       37      1  SUMMARY	agree=8	disagree=2	only_golden=0	only_ours=0
+v7_v55             elab        0      0       37      1  SUMMARY	agree=8	disagree=2	only_golden=0	only_ours=0
+v8_v55             plain       0      0       70      1  SUMMARY	agree=11	disagree=1	only_golden=0	only_ours=0
+v8_v55             elab        0      0       70      1  SUMMARY	agree=11	disagree=1	only_golden=0	only_ours=0
+
+== PATCHED ==
+ARM                VIEW     SLRC  OURRC CMPLINES  HEADS  CENSUS
+g1_form104         plain       0      0       25      1  SUMMARY	agree=17	disagree=18	only_golden=0	only_ours=0
+g1_form104         elab        0      0       25      1  SUMMARY	agree=17	disagree=18	only_golden=0	only_ours=0
+g2_type104         plain       0      0        9      1  SUMMARY	agree=18	disagree=4	only_golden=0	only_ours=0
+g2_type104         elab        0      0        9      1  SUMMARY	agree=18	disagree=4	only_golden=0	only_ours=0
+g3_home104         plain       0      0       39      1  SUMMARY	agree=14	disagree=4	only_golden=0	only_ours=0
+g3_home104         elab        0      0       39      1  SUMMARY	agree=14	disagree=4	only_golden=1	only_ours=1
+g4_cons104         plain       0      0       24      1  SUMMARY	agree=56	disagree=9	only_golden=0	only_ours=0
+g4_cons104         elab        0      0       26      1  SUMMARY	agree=56	disagree=9	only_golden=0	only_ours=0
+g5_gscope104       plain       0      0       21      1  SUMMARY	agree=40	disagree=43	only_golden=0	only_ours=0
+g5_gscope104       elab        0      0       26      1  SUMMARY	agree=40	disagree=43	only_golden=0	only_ours=0
+g6_mix104          plain       0      0       21      1  SUMMARY	agree=14	disagree=0	only_golden=0	only_ours=0
+g6_mix104          elab        0      0       26      1  SUMMARY	agree=14	disagree=0	only_golden=0	only_ours=0
+g7_pos104          plain       0      0       25      1  SUMMARY	agree=27	disagree=23	only_golden=0	only_ours=0
+g7_pos104          elab        0      0       25      1  SUMMARY	agree=27	disagree=23	only_golden=0	only_ours=0
+va1_read104        plain       0      0       24      1  SUMMARY	agree=56	disagree=17	only_golden=0	only_ours=0
+va1_read104        elab        0      0       24      1  SUMMARY	agree=56	disagree=17	only_golden=0	only_ours=0
+va2_home104        plain       0      0       39      1  SUMMARY	agree=17	disagree=16	only_golden=0	only_ours=0
+va2_home104        elab        0      0       39      1  SUMMARY	agree=17	disagree=16	only_golden=0	only_ours=0
+va3_more104        plain       0      0       14      1  SUMMARY	agree=21	disagree=5	only_golden=1	only_ours=0
+va3_more104        elab        0      0       14      1  SUMMARY	agree=21	disagree=5	only_golden=1	only_ours=0
+va4_bare104        plain       0      0       24      1  SUMMARY	agree=9	disagree=1	only_golden=1	only_ours=0
+va4_bare104        elab        0      0       26      1  SUMMARY	agree=9	disagree=1	only_golden=1	only_ours=0
+va5_edge104        plain       0      0       17      1  SUMMARY	agree=7	disagree=1	only_golden=0	only_ours=0
+va5_edge104        elab        0      0       17      1  SUMMARY	agree=7	disagree=1	only_golden=0	only_ours=0
+vb1_netrange       plain       0      0       18      1  SUMMARY	agree=2	disagree=0	only_golden=0	only_ours=0
+vb1_netrange       elab        0      0       18      1  SUMMARY	agree=2	disagree=0	only_golden=0	only_ours=0
+vb2_genfor         plain       0      0        0      0  SUMMARY	agree=2	disagree=0	only_golden=0	only_ours=0
+vb2_genfor         elab        0      0        0      0  SUMMARY	agree=2	disagree=0	only_golden=0	only_ours=0
+vb3_tdefrange      plain       0      0       24      1  SUMMARY	agree=2	disagree=0	only_golden=0	only_ours=0
+vb3_tdefrange      elab        0      0       24      1  SUMMARY	agree=2	disagree=0	only_golden=0	only_ours=0
+vb4_instarr        plain       0      0        0      0  SUMMARY	agree=2	disagree=3	only_golden=0	only_ours=0
+vb4_instarr        elab        0      0        0      0  SUMMARY	agree=2	disagree=3	only_golden=0	only_ours=0
+a1_earl55          plain       0      0       24      1  SUMMARY	agree=85	disagree=12	only_golden=0	only_ours=0
+a1_earl55          elab        0      0       26      1  SUMMARY	agree=85	disagree=12	only_golden=0	only_ours=0
+a4_earl55          plain       0      0       24      1  SUMMARY	agree=64	disagree=9	only_golden=0	only_ours=0
+a4_earl55          elab        0      0       26      1  SUMMARY	agree=64	disagree=9	only_golden=0	only_ours=0
+a5_earl55          plain       0      0       39      1  SUMMARY	agree=29	disagree=12	only_golden=0	only_ours=0
+a5_earl55          elab        0      0       39      1  SUMMARY	agree=29	disagree=12	only_golden=0	only_ours=0
+v1_v55             plain       0      0       25      1  SUMMARY	agree=27	disagree=3	only_golden=0	only_ours=0
+v1_v55             elab        0      0       25      1  SUMMARY	agree=27	disagree=3	only_golden=0	only_ours=0
+v2_v55             plain       0      0       63      1  SUMMARY	agree=25	disagree=5	only_golden=0	only_ours=0
+v2_v55             elab        0      0       63      1  SUMMARY	agree=25	disagree=5	only_golden=0	only_ours=0
+v4_v55             plain       0      0       17      1  SUMMARY	agree=9	disagree=7	only_golden=0	only_ours=0
+v4_v55             elab        0      0       17      1  SUMMARY	agree=9	disagree=7	only_golden=0	only_ours=0
+v5_v55             plain       0      0       41      1  SUMMARY	agree=22	disagree=5	only_golden=0	only_ours=0
+v5_v55             elab        0      0       41      1  SUMMARY	agree=22	disagree=5	only_golden=0	only_ours=0
+v6_v55             plain       0      0       98      1  SUMMARY	agree=13	disagree=6	only_golden=0	only_ours=0
+v6_v55             elab        0      0       98      1  SUMMARY	agree=13	disagree=6	only_golden=0	only_ours=0
+v7_v55             plain       0      0       37      1  SUMMARY	agree=10	disagree=0	only_golden=0	only_ours=0
+v7_v55             elab        0      0       37      1  SUMMARY	agree=10	disagree=0	only_golden=0	only_ours=0
+v8_v55             plain       0      0       70      1  SUMMARY	agree=12	disagree=0	only_golden=0	only_ours=0
+v8_v55             elab        0      0       70      1  SUMMARY	agree=12	disagree=0	only_golden=0	only_ours=0
+
+== THREE-WAY SCORE over every arm cell, four payload projections ==
+--- payload='default'
+PAYLOAD RHS+TYPESPEC FULL-STRING
+GOLDEN-SIDE-IDENTICAL over 1606 shared keys
+AWAY-GOLDEN         0
+MOVED-WRONG         0
+TO-GOLDEN         240
+UNMOVED-GOOD      960
+UNMOVED-BAD       406
+ADDED               0
+REMOVED             0
+--- payload='--judge'
+PAYLOAD RHS+TYPESPEC JUDGE-VISIBLE-FIELDS
+GOLDEN-SIDE-IDENTICAL over 1606 shared keys
+AWAY-GOLDEN         0
+MOVED-WRONG         0
+TO-GOLDEN         240
+UNMOVED-GOOD     1266
+UNMOVED-BAD       100
+ADDED               0
+REMOVED             0
+--- payload='--ts'
+PAYLOAD TYPESPEC-ONLY FULL-STRING
+GOLDEN-SIDE-IDENTICAL over 1606 shared keys
+AWAY-GOLDEN         0
+MOVED-WRONG         0
+TO-GOLDEN         240
+UNMOVED-GOOD      972
+UNMOVED-BAD       394
+ADDED               0
+REMOVED             0
+--- payload='--ts --judge'
+PAYLOAD TYPESPEC-ONLY JUDGE-VISIBLE-FIELDS
+GOLDEN-SIDE-IDENTICAL over 1606 shared keys
+AWAY-GOLDEN         0
+MOVED-WRONG         0
+TO-GOLDEN         240
+UNMOVED-GOOD     1294
+UNMOVED-BAD        72
+ADDED               0
+REMOVED             0
+
+== THE 240 TO-GOLDEN CELLS ==
+TO-GOLDEN         240
+TO-GOLDEN a1_earl55_elab	ELAB|work@a1_earl55.BT15|40:27-40:44	op34
+TO-GOLDEN a1_earl55_elab	ELAB|work@a1_earl55.BT32|42:27-42:44	op34
+TO-GOLDEN a1_earl55_elab	ELAB|work@a1_earl55.LG15|24:29-24:46	op34
+TO-GOLDEN a1_earl55_elab	ELAB|work@a1_earl55.LG16|25:29-25:46	op34
+TO-GOLDEN a1_earl55_elab	ELAB|work@a1_earl55.LG17|26:29-26:46	op34
+TO-GOLDEN a1_earl55_elab	ELAB|work@a1_earl55.LG2|17:28-17:43	op34
+TO-GOLDEN a1_earl55_elab	ELAB|work@a1_earl55.LG31|27:29-27:46	op34
+TO-GOLDEN a1_earl55_elab	ELAB|work@a1_earl55.LG32|28:29-28:46	op34
+TO-GOLDEN a1_earl55_elab	ELAB|work@a1_earl55.LG33|29:29-29:46	op34
+TO-GOLDEN a1_earl55_elab	ELAB|work@a1_earl55.LG3|18:28-18:43	op34
+TO-GOLDEN a1_earl55_elab	ELAB|work@a1_earl55.LG4|19:28-19:43	op34
+TO-GOLDEN a1_earl55_elab	ELAB|work@a1_earl55.LG5|20:28-20:43	op34
+TO-GOLDEN a1_earl55_elab	ELAB|work@a1_earl55.LG63|30:29-30:46	op34
+TO-GOLDEN a1_earl55_elab	ELAB|work@a1_earl55.LG64|31:29-31:46	op34
+TO-GOLDEN a1_earl55_elab	ELAB|work@a1_earl55.LG65|32:29-32:46	op34
+TO-GOLDEN a1_earl55_elab	ELAB|work@a1_earl55.LG7|21:28-21:43	op34
+TO-GOLDEN a1_earl55_elab	ELAB|work@a1_earl55.LG8|22:28-22:43	op34
+TO-GOLDEN a1_earl55_elab	ELAB|work@a1_earl55.LG9|23:28-23:43	op34
+TO-GOLDEN a1_earl55_elab	ELAB|work@a1_earl55.LM15|35:27-35:44	op34
+TO-GOLDEN a1_earl55_elab	ELAB|work@a1_earl55.LM32|36:27-36:44	op34
+TO-GOLDEN a1_earl55_elab	ELAB|work@a1_earl55.OW2|51:27-51:44	op34
+TO-GOLDEN a1_earl55_elab	ELAB|work@a1_earl55.OW4|52:27-52:42	op34
+TO-GOLDEN a1_earl55_elab	ELAB|work@a1_earl55.OW8|53:27-53:42	op34
+TO-GOLDEN a1_earl55_elab	ELAB|work@a1_earl55.PG15|56:36-56:60	op34
+TO-GOLDEN a1_earl55_elab	ELAB|work@a1_earl55.PG32|57:36-57:60	op34
+TO-GOLDEN a1_earl55_elab	ELAB|work@a1_earl55.RG15|41:27-41:44	op34
+TO-GOLDEN a1_earl55_elab	ELAB|work@a1_earl55.RG32|43:27-43:44	op34
+TO-GOLDEN a1_earl55_elab	ELAB|work@a1_earl55.ZG15|60:29-60:46	op34
+TO-GOLDEN a1_earl55_elab	ELAB|work@a1_earl55.ZG32|61:29-61:46	op34
+TO-GOLDEN a1_earl55_plain	ELAB|work@a1_earl55.BT15|40:27-40:44	op34
+TO-GOLDEN a1_earl55_plain	ELAB|work@a1_earl55.BT32|42:27-42:44	op34
+TO-GOLDEN a1_earl55_plain	ELAB|work@a1_earl55.LG15|24:29-24:46	op34
+TO-GOLDEN a1_earl55_plain	ELAB|work@a1_earl55.LG16|25:29-25:46	op34
+TO-GOLDEN a1_earl55_plain	ELAB|work@a1_earl55.LG17|26:29-26:46	op34
+TO-GOLDEN a1_earl55_plain	ELAB|work@a1_earl55.LG2|17:28-17:43	op34
+TO-GOLDEN a1_earl55_plain	ELAB|work@a1_earl55.LG31|27:29-27:46	op34
+TO-GOLDEN a1_earl55_plain	ELAB|work@a1_earl55.LG32|28:29-28:46	op34
+TO-GOLDEN a1_earl55_plain	ELAB|work@a1_earl55.LG33|29:29-29:46	op34
+TO-GOLDEN a1_earl55_plain	ELAB|work@a1_earl55.LG3|18:28-18:43	op34
+TO-GOLDEN a1_earl55_plain	ELAB|work@a1_earl55.LG4|19:28-19:43	op34
+TO-GOLDEN a1_earl55_plain	ELAB|work@a1_earl55.LG5|20:28-20:43	op34
+TO-GOLDEN a1_earl55_plain	ELAB|work@a1_earl55.LG63|30:29-30:46	op34
+TO-GOLDEN a1_earl55_plain	ELAB|work@a1_earl55.LG64|31:29-31:46	op34
+TO-GOLDEN a1_earl55_plain	ELAB|work@a1_earl55.LG65|32:29-32:46	op34
+TO-GOLDEN a1_earl55_plain	ELAB|work@a1_earl55.LG7|21:28-21:43	op34
+TO-GOLDEN a1_earl55_plain	ELAB|work@a1_earl55.LG8|22:28-22:43	op34
+TO-GOLDEN a1_earl55_plain	ELAB|work@a1_earl55.LG9|23:28-23:43	op34
+TO-GOLDEN a1_earl55_plain	ELAB|work@a1_earl55.LM15|35:27-35:44	op34
+TO-GOLDEN a1_earl55_plain	ELAB|work@a1_earl55.LM32|36:27-36:44	op34
+TO-GOLDEN a1_earl55_plain	ELAB|work@a1_earl55.OW2|51:27-51:44	op34
+TO-GOLDEN a1_earl55_plain	ELAB|work@a1_earl55.OW4|52:27-52:42	op34
+TO-GOLDEN a1_earl55_plain	ELAB|work@a1_earl55.OW8|53:27-53:42	op34
+TO-GOLDEN a1_earl55_plain	ELAB|work@a1_earl55.PG15|56:36-56:60	op34
+TO-GOLDEN a1_earl55_plain	ELAB|work@a1_earl55.PG32|57:36-57:60	op34
+TO-GOLDEN a1_earl55_plain	ELAB|work@a1_earl55.RG15|41:27-41:44	op34
+TO-GOLDEN a1_earl55_plain	ELAB|work@a1_earl55.RG32|43:27-43:44	op34
+TO-GOLDEN a1_earl55_plain	ELAB|work@a1_earl55.ZG15|60:29-60:46	op34
+TO-GOLDEN a1_earl55_plain	ELAB|work@a1_earl55.ZG32|61:29-61:46	op34
+TO-GOLDEN a4_earl55_elab	ELAB|work@a4_earl55.u_c0_15.X|182:29-182:43	op34
+TO-GOLDEN a4_earl55_elab	ELAB|work@a4_earl55.u_c0_4.X|114:28-114:41	op34
+TO-GOLDEN a4_earl55_elab	ELAB|work@a4_earl55.u_c6_15.X|220:29-220:43	op34
+TO-GOLDEN a4_earl55_elab	ELAB|work@a4_earl55.u_c6_4.X|152:28-152:41	op34
+TO-GOLDEN a4_earl55_elab	ELAB|work@a4_earl55.u_c8_15.X|232:29-232:43	op34
+TO-GOLDEN a4_earl55_elab	ELAB|work@a4_earl55.u_c8_4.X|164:28-164:41	op34
+TO-GOLDEN a4_earl55_elab	ELAB|work@a4_earl55.u_ca_15.X|244:29-244:43	op34
+TO-GOLDEN a4_earl55_elab	ELAB|work@a4_earl55.u_ca_4.X|176:28-176:41	op34
+TO-GOLDEN a4_earl55_plain	ELAB|work@a4_earl55.u_c0_15.X|182:29-182:43	op34
+TO-GOLDEN a4_earl55_plain	ELAB|work@a4_earl55.u_c0_4.X|114:28-114:41	op34
+TO-GOLDEN a4_earl55_plain	ELAB|work@a4_earl55.u_c6_15.X|220:29-220:43	op34
+TO-GOLDEN a4_earl55_plain	ELAB|work@a4_earl55.u_c6_4.X|152:28-152:41	op34
+TO-GOLDEN a4_earl55_plain	ELAB|work@a4_earl55.u_c8_15.X|232:29-232:43	op34
+TO-GOLDEN a4_earl55_plain	ELAB|work@a4_earl55.u_c8_4.X|164:28-164:41	op34
+TO-GOLDEN a4_earl55_plain	ELAB|work@a4_earl55.u_ca_15.X|244:29-244:43	op34
+TO-GOLDEN a4_earl55_plain	ELAB|work@a4_earl55.u_ca_4.X|176:28-176:41	op34
+TO-GOLDEN a5_earl55_elab	ELAB|work@a5_earl55.u_e4.I|52:31-52:44	op34
+TO-GOLDEN a5_earl55_plain	ELAB|work@a5_earl55.u_e4.I|52:31-52:44	op34
+TO-GOLDEN g1_form104_elab	ELAB|work@g1_form104.u_a1.X|20:40-20:53	op34
+TO-GOLDEN g1_form104_elab	ELAB|work@g1_form104.u_a2.X|22:43-22:57	op34
+TO-GOLDEN g1_form104_elab	ELAB|work@g1_form104.u_a3.X|23:50-23:71	op34
+TO-GOLDEN g1_form104_elab	ELAB|work@g1_form104.u_a4.X|25:45-25:63	op34
+TO-GOLDEN g1_form104_elab	ELAB|work@g1_form104.u_a5.X|26:40-26:53	op34
+TO-GOLDEN g1_form104_elab	ELAB|work@g1_form104.u_a6.X|27:40-27:58	op34
+TO-GOLDEN g1_form104_elab	ELAB|work@g1_form104.u_ac.X|36:40-36:63	op34
+TO-GOLDEN g1_form104_plain	ELAB|work@g1_form104.u_a1.X|20:40-20:53	op34
+TO-GOLDEN g1_form104_plain	ELAB|work@g1_form104.u_a2.X|22:43-22:57	op34
+TO-GOLDEN g1_form104_plain	ELAB|work@g1_form104.u_a3.X|23:50-23:71	op34
+TO-GOLDEN g1_form104_plain	ELAB|work@g1_form104.u_a4.X|25:45-25:63	op34
+TO-GOLDEN g1_form104_plain	ELAB|work@g1_form104.u_a5.X|26:40-26:53	op34
+TO-GOLDEN g1_form104_plain	ELAB|work@g1_form104.u_a6.X|27:40-27:58	op34
+TO-GOLDEN g1_form104_plain	ELAB|work@g1_form104.u_ac.X|36:40-36:63	op34
+TO-GOLDEN g2_type104_elab	ELAB|work@g2_type104.u_b1.X|13:46-13:59	op34
+TO-GOLDEN g2_type104_elab	ELAB|work@g2_type104.u_b4.X|16:46-16:59	op34
+TO-GOLDEN g2_type104_elab	ELAB|work@g2_type104.u_b8.X|20:46-20:59	op34
+TO-GOLDEN g2_type104_elab	ELAB|work@g2_type104.u_ba.X|22:46-22:59	op34
+TO-GOLDEN g2_type104_plain	ELAB|work@g2_type104.u_b1.X|13:46-13:59	op34
+TO-GOLDEN g2_type104_plain	ELAB|work@g2_type104.u_b4.X|16:46-16:59	op34
+TO-GOLDEN g2_type104_plain	ELAB|work@g2_type104.u_b8.X|20:46-20:59	op34
+TO-GOLDEN g2_type104_plain	ELAB|work@g2_type104.u_ba.X|22:46-22:59	op34
+TO-GOLDEN g3_home104_elab	ELAB|work@g3_home104.TX|21:26-21:40	op34
+TO-GOLDEN g3_home104_elab	ELAB|work@g3_home104.u_e1.X|24:39-24:52	op34
+TO-GOLDEN g3_home104_elab	ELAB|work@g3_home104.u_e2.X|25:39-25:52	op34
+TO-GOLDEN g3_home104_elab	ELAB|work@g3_home104.u_e3.X|26:39-26:52	op34
+TO-GOLDEN g3_home104_elab	ELAB|work@g3_home104.u_if.IX|11:26-11:40	?
+TO-GOLDEN g3_home104_plain	ELAB|work@g3_home104.TX|21:26-21:40	op34
+TO-GOLDEN g3_home104_plain	ELAB|work@g3_home104.u_e1.X|24:39-24:52	op34
+TO-GOLDEN g3_home104_plain	ELAB|work@g3_home104.u_e2.X|25:39-25:52	op34
+TO-GOLDEN g3_home104_plain	ELAB|work@g3_home104.u_e3.X|26:39-26:52	op34
+TO-GOLDEN g3_home104_plain	ELAB|work@g3_home104.u_if.IX|11:26-11:40	?
+TO-GOLDEN g4_cons104_elab	ELAB|work@g4_cons104.u_c0_32.X|152:29-152:43	op34
+TO-GOLDEN g4_cons104_elab	ELAB|work@g4_cons104.u_c0_4.X|47:28-47:41	op34
+TO-GOLDEN g4_cons104_elab	ELAB|work@g4_cons104.u_c6_32.X|194:29-194:43	op34
+TO-GOLDEN g4_cons104_elab	ELAB|work@g4_cons104.u_c6_4.X|89:28-89:41	op34
+TO-GOLDEN g4_cons104_elab	ELAB|work@g4_cons104.u_c8_32.X|208:29-208:43	op34
+TO-GOLDEN g4_cons104_elab	ELAB|work@g4_cons104.u_c8_4.X|103:28-103:41	op34
+TO-GOLDEN g4_cons104_elab	ELAB|work@g4_cons104.u_ca_32.X|222:29-222:43	op34
+TO-GOLDEN g4_cons104_elab	ELAB|work@g4_cons104.u_ca_4.X|117:28-117:41	op34
+TO-GOLDEN g4_cons104_elab	ELAB|work@g4_cons104.u_cd_32.X|243:29-243:43	op34
+TO-GOLDEN g4_cons104_elab	ELAB|work@g4_cons104.u_cd_4.X|138:28-138:41	op34
+TO-GOLDEN g4_cons104_plain	ELAB|work@g4_cons104.u_c0_32.X|152:29-152:43	op34
+TO-GOLDEN g4_cons104_plain	ELAB|work@g4_cons104.u_c0_4.X|47:28-47:41	op34
+TO-GOLDEN g4_cons104_plain	ELAB|work@g4_cons104.u_c6_32.X|194:29-194:43	op34
+TO-GOLDEN g4_cons104_plain	ELAB|work@g4_cons104.u_c6_4.X|89:28-89:41	op34
+TO-GOLDEN g4_cons104_plain	ELAB|work@g4_cons104.u_c8_32.X|208:29-208:43	op34
+TO-GOLDEN g4_cons104_plain	ELAB|work@g4_cons104.u_c8_4.X|103:28-103:41	op34
+TO-GOLDEN g4_cons104_plain	ELAB|work@g4_cons104.u_ca_32.X|222:29-222:43	op34
+TO-GOLDEN g4_cons104_plain	ELAB|work@g4_cons104.u_ca_4.X|117:28-117:41	op34
+TO-GOLDEN g4_cons104_plain	ELAB|work@g4_cons104.u_cd_32.X|243:29-243:43	op34
+TO-GOLDEN g4_cons104_plain	ELAB|work@g4_cons104.u_cd_4.X|138:28-138:41	op34
+TO-GOLDEN g5_gscope104_elab	ELAB|work@g5_gscope104.u_d1_32.X|151:29-151:43	op34
+TO-GOLDEN g5_gscope104_elab	ELAB|work@g5_gscope104.u_d1_4.X|38:28-38:41	op34
+TO-GOLDEN g5_gscope104_elab	ELAB|work@g5_gscope104.u_d4_32.X|184:29-184:43	op34
+TO-GOLDEN g5_gscope104_elab	ELAB|work@g5_gscope104.u_d4_4.X|71:28-71:41	op34
+TO-GOLDEN g5_gscope104_elab	ELAB|work@g5_gscope104.u_d5_32.X|197:29-197:43	op34
+TO-GOLDEN g5_gscope104_elab	ELAB|work@g5_gscope104.u_d5_4.X|84:28-84:41	op34
+TO-GOLDEN g5_gscope104_elab	ELAB|work@g5_gscope104.u_d6_32.X|209:29-209:43	op34
+TO-GOLDEN g5_gscope104_elab	ELAB|work@g5_gscope104.u_d6_4.X|96:28-96:41	op34
+TO-GOLDEN g5_gscope104_elab	ELAB|work@g5_gscope104.u_da_32.X|253:29-253:43	op34
+TO-GOLDEN g5_gscope104_elab	ELAB|work@g5_gscope104.u_da_4.X|140:28-140:41	op34
+TO-GOLDEN g5_gscope104_plain	ELAB|work@g5_gscope104.u_d1_32.X|151:29-151:43	op34
+TO-GOLDEN g5_gscope104_plain	ELAB|work@g5_gscope104.u_d1_4.X|38:28-38:41	op34
+TO-GOLDEN g5_gscope104_plain	ELAB|work@g5_gscope104.u_d4_32.X|184:29-184:43	op34
+TO-GOLDEN g5_gscope104_plain	ELAB|work@g5_gscope104.u_d4_4.X|71:28-71:41	op34
+TO-GOLDEN g5_gscope104_plain	ELAB|work@g5_gscope104.u_d5_32.X|197:29-197:43	op34
+TO-GOLDEN g5_gscope104_plain	ELAB|work@g5_gscope104.u_d5_4.X|84:28-84:41	op34
+TO-GOLDEN g5_gscope104_plain	ELAB|work@g5_gscope104.u_d6_32.X|209:29-209:43	op34
+TO-GOLDEN g5_gscope104_plain	ELAB|work@g5_gscope104.u_d6_4.X|96:28-96:41	op34
+TO-GOLDEN g5_gscope104_plain	ELAB|work@g5_gscope104.u_da_32.X|253:29-253:43	op34
+TO-GOLDEN g5_gscope104_plain	ELAB|work@g5_gscope104.u_da_4.X|140:28-140:41	op34
+TO-GOLDEN g6_mix104_elab	ELAB|work@g6_mix104.u_f1.XU|14:26-14:40	op34
+TO-GOLDEN g6_mix104_elab	ELAB|work@g6_mix104.u_f2.X|19:26-19:39	op34
+TO-GOLDEN g6_mix104_elab	ELAB|work@g6_mix104.u_f6.X|46:26-46:39	op34
+TO-GOLDEN g6_mix104_plain	ELAB|work@g6_mix104.u_f1.XU|14:26-14:40	op34
+TO-GOLDEN g6_mix104_plain	ELAB|work@g6_mix104.u_f2.X|19:26-19:39	op34
+TO-GOLDEN g6_mix104_plain	ELAB|work@g6_mix104.u_f6.X|46:26-46:39	op34
+TO-GOLDEN g7_pos104_elab	ELAB|work@g7_pos104.u_k1.X|12:28-12:41	op34
+TO-GOLDEN g7_pos104_elab	ELAB|work@g7_pos104.u_k2.X|18:28-18:41	op34
+TO-GOLDEN g7_pos104_elab	ELAB|work@g7_pos104.u_k3.X|27:28-27:41	op34
+TO-GOLDEN g7_pos104_elab	ELAB|work@g7_pos104.u_k4.X|37:28-37:41	op34
+TO-GOLDEN g7_pos104_elab	ELAB|work@g7_pos104.u_k5.X|44:28-44:41	op34
+TO-GOLDEN g7_pos104_elab	ELAB|work@g7_pos104.u_k7.X|59:28-59:41	op34
+TO-GOLDEN g7_pos104_elab	ELAB|work@g7_pos104.u_k9.X|75:28-75:41	op34
+TO-GOLDEN g7_pos104_elab	ELAB|work@g7_pos104.u_ka.X|86:28-86:41	op34
+TO-GOLDEN g7_pos104_elab	ELAB|work@g7_pos104.u_kc.X|102:28-102:41	op34
+TO-GOLDEN g7_pos104_elab	ELAB|work@g7_pos104.u_ke.X|120:28-120:41	op34
+TO-GOLDEN g7_pos104_plain	ELAB|work@g7_pos104.u_k1.X|12:28-12:41	op34
+TO-GOLDEN g7_pos104_plain	ELAB|work@g7_pos104.u_k2.X|18:28-18:41	op34
+TO-GOLDEN g7_pos104_plain	ELAB|work@g7_pos104.u_k3.X|27:28-27:41	op34
+TO-GOLDEN g7_pos104_plain	ELAB|work@g7_pos104.u_k4.X|37:28-37:41	op34
+TO-GOLDEN g7_pos104_plain	ELAB|work@g7_pos104.u_k5.X|44:28-44:41	op34
+TO-GOLDEN g7_pos104_plain	ELAB|work@g7_pos104.u_k7.X|59:28-59:41	op34
+TO-GOLDEN g7_pos104_plain	ELAB|work@g7_pos104.u_k9.X|75:28-75:41	op34
+TO-GOLDEN g7_pos104_plain	ELAB|work@g7_pos104.u_ka.X|86:28-86:41	op34
+TO-GOLDEN g7_pos104_plain	ELAB|work@g7_pos104.u_kc.X|102:28-102:41	op34
+TO-GOLDEN g7_pos104_plain	ELAB|work@g7_pos104.u_ke.X|120:28-120:41	op34
+TO-GOLDEN v2_v55_elab	ELAB|work@v2_v55.u_p3.W2|64:27-64:42	op34
+TO-GOLDEN v2_v55_elab	ELAB|work@v2_v55.u_p3.W32|65:27-65:43	op34
+TO-GOLDEN v2_v55_elab	ELAB|work@v2_v55.u_p3.W64S|67:34-67:51	op34
+TO-GOLDEN v2_v55_elab	ELAB|work@v2_v55.u_p3.W64|66:27-66:43	op34
+TO-GOLDEN v2_v55_plain	ELAB|work@v2_v55.u_p3.W2|64:27-64:42	op34
+TO-GOLDEN v2_v55_plain	ELAB|work@v2_v55.u_p3.W32|65:27-65:43	op34
+TO-GOLDEN v2_v55_plain	ELAB|work@v2_v55.u_p3.W64S|67:34-67:51	op34
+TO-GOLDEN v2_v55_plain	ELAB|work@v2_v55.u_p3.W64|66:27-66:43	op34
+TO-GOLDEN v5_v55_elab	ELAB|work@v5_v55.u_r3.M15|64:27-64:43	op34
+TO-GOLDEN v5_v55_plain	ELAB|work@v5_v55.u_r3.M15|64:27-64:43	op34
+TO-GOLDEN v7_v55_elab	ELAB|work@v7_v55.u_t1.BE|36:34-36:48	op34
+TO-GOLDEN v7_v55_elab	ELAB|work@v7_v55.u_t1.BS|35:34-35:48	op34
+TO-GOLDEN v7_v55_plain	ELAB|work@v7_v55.u_t1.BE|36:34-36:48	op34
+TO-GOLDEN v7_v55_plain	ELAB|work@v7_v55.u_t1.BS|35:34-35:48	op34
+TO-GOLDEN v8_v55_elab	ELAB|work@v8_v55.u_w0.R2|22:27-22:42	op34
+TO-GOLDEN v8_v55_plain	ELAB|work@v8_v55.u_w0.R2|22:27-22:42	op34
+TO-GOLDEN va1_read104_elab	ELAB|work@va1_read104.u_r2_32.X|57:29-57:43	op34
+TO-GOLDEN va1_read104_elab	ELAB|work@va1_read104.u_r2_4.X|50:28-50:41	op34
+TO-GOLDEN va1_read104_elab	ELAB|work@va1_read104.u_r3_32.X|71:29-71:43	op34
+TO-GOLDEN va1_read104_elab	ELAB|work@va1_read104.u_r3_4.X|64:28-64:41	op34
+TO-GOLDEN va1_read104_elab	ELAB|work@va1_read104.u_r7_32.X|122:29-122:43	op34
+TO-GOLDEN va1_read104_elab	ELAB|work@va1_read104.u_r7_4.X|114:28-114:41	op34
+TO-GOLDEN va1_read104_elab	ELAB|work@va1_read104.u_r9_32.X|156:29-156:43	op34
+TO-GOLDEN va1_read104_elab	ELAB|work@va1_read104.u_r9_4.X|148:28-148:41	op34
+TO-GOLDEN va1_read104_elab	ELAB|work@va1_read104.u_rb_32.X|195:29-195:43	op34
+TO-GOLDEN va1_read104_elab	ELAB|work@va1_read104.u_rb_4.X|186:28-186:41	op34
+TO-GOLDEN va1_read104_elab	ELAB|work@va1_read104.u_rd_32.X|229:29-229:43	op34
+TO-GOLDEN va1_read104_elab	ELAB|work@va1_read104.u_rd_4.X|220:28-220:41	op34
+TO-GOLDEN va1_read104_plain	ELAB|work@va1_read104.u_r2_32.X|57:29-57:43	op34
+TO-GOLDEN va1_read104_plain	ELAB|work@va1_read104.u_r2_4.X|50:28-50:41	op34
+TO-GOLDEN va1_read104_plain	ELAB|work@va1_read104.u_r3_32.X|71:29-71:43	op34
+TO-GOLDEN va1_read104_plain	ELAB|work@va1_read104.u_r3_4.X|64:28-64:41	op34
+TO-GOLDEN va1_read104_plain	ELAB|work@va1_read104.u_r7_32.X|122:29-122:43	op34
+TO-GOLDEN va1_read104_plain	ELAB|work@va1_read104.u_r7_4.X|114:28-114:41	op34
+TO-GOLDEN va1_read104_plain	ELAB|work@va1_read104.u_r9_32.X|156:29-156:43	op34
+TO-GOLDEN va1_read104_plain	ELAB|work@va1_read104.u_r9_4.X|148:28-148:41	op34
+TO-GOLDEN va1_read104_plain	ELAB|work@va1_read104.u_rb_32.X|195:29-195:43	op34
+TO-GOLDEN va1_read104_plain	ELAB|work@va1_read104.u_rb_4.X|186:28-186:41	op34
+TO-GOLDEN va1_read104_plain	ELAB|work@va1_read104.u_rd_32.X|229:29-229:43	op34
+TO-GOLDEN va1_read104_plain	ELAB|work@va1_read104.u_rd_4.X|220:28-220:41	op34
+TO-GOLDEN va2_home104_elab	ELAB|work@va2_home104.u_h1_32.X|24:29-24:43	op34
+TO-GOLDEN va2_home104_elab	ELAB|work@va2_home104.u_h1_4.X|20:28-20:41	op34
+TO-GOLDEN va2_home104_elab	ELAB|work@va2_home104.u_h4a.X|30:28-30:41	op34
+TO-GOLDEN va2_home104_elab	ELAB|work@va2_home104.u_h4b.X|30:28-30:41	op34
+TO-GOLDEN va2_home104_elab	ELAB|work@va2_home104.u_h4c.X|30:28-30:41	op34
+TO-GOLDEN va2_home104_elab	ELAB|work@va2_home104.u_if4.XI|5:29-5:44	?
+TO-GOLDEN va2_home104_plain	ELAB|work@va2_home104.u_h1_32.X|24:29-24:43	op34
+TO-GOLDEN va2_home104_plain	ELAB|work@va2_home104.u_h1_4.X|20:28-20:41	op34
+TO-GOLDEN va2_home104_plain	ELAB|work@va2_home104.u_h4a.X|30:28-30:41	op34
+TO-GOLDEN va2_home104_plain	ELAB|work@va2_home104.u_h4b.X|30:28-30:41	op34
+TO-GOLDEN va2_home104_plain	ELAB|work@va2_home104.u_h4c.X|30:28-30:41	op34
+TO-GOLDEN va2_home104_plain	ELAB|work@va2_home104.u_if4.XI|5:29-5:44	?
+TO-GOLDEN va3_more104_elab	ELAB|work@va3_more104.u_s2.X|11:28-11:41	op34
+TO-GOLDEN va3_more104_plain	ELAB|work@va3_more104.u_s2.X|11:28-11:41	op34
+TO-GOLDEN va4_bare104_elab	ELAB|work@va4_bare104.u_b1.X|3:28-3:41	op34
+TO-GOLDEN va4_bare104_elab	ELAB|work@va4_bare104.u_b2.X|7:28-7:41	op34
+TO-GOLDEN va4_bare104_elab	ELAB|work@va4_bare104.u_b3.X|13:28-13:41	op34
+TO-GOLDEN va4_bare104_elab	ELAB|work@va4_bare104.u_b4.X|17:28-17:41	op34
+TO-GOLDEN va4_bare104_plain	ELAB|work@va4_bare104.u_b1.X|3:28-3:41	op34
+TO-GOLDEN va4_bare104_plain	ELAB|work@va4_bare104.u_b2.X|7:28-7:41	op34
+TO-GOLDEN va4_bare104_plain	ELAB|work@va4_bare104.u_b3.X|13:28-13:41	op34
+TO-GOLDEN va4_bare104_plain	ELAB|work@va4_bare104.u_b4.X|17:28-17:41	op34
+TO-GOLDEN va5_edge104_elab	ELAB|work@va5_edge104.u_e2.X|8:28-8:41	op34
+TO-GOLDEN va5_edge104_elab	ELAB|work@va5_edge104.u_e4.X|18:28-18:41	op34
+TO-GOLDEN va5_edge104_plain	ELAB|work@va5_edge104.u_e2.X|8:28-8:41	op34
+TO-GOLDEN va5_edge104_plain	ELAB|work@va5_edge104.u_e4.X|18:28-18:41	op34
+
+== EVERY FORGONE CELL still holding pristine's declared typespec where golden holds the loc-less int_typespec (STILL-WRONG, not AWAY) ==
+a4_earl55_elab	work@a4_earl55.u_c2_15.X
+a4_earl55_elab	work@a4_earl55.u_c2_4.X
+a4_earl55_plain	work@a4_earl55.u_c2_15.X
+a4_earl55_plain	work@a4_earl55.u_c2_4.X
+a5_earl55_elab	work@a5_earl55.u_e3.G
+a5_earl55_elab	work@a5_earl55.u_e5.gen_b[0].J
+a5_earl55_elab	work@a5_earl55.u_e5.gen_b[1].J
+a5_earl55_elab	work@a5_earl55.u_e6.K
+a5_earl55_plain	work@a5_earl55.u_e3.G
+a5_earl55_plain	work@a5_earl55.u_e5.gen_b[0].J
+a5_earl55_plain	work@a5_earl55.u_e5.gen_b[1].J
+a5_earl55_plain	work@a5_earl55.u_e6.K
+g1_form104_elab	work@g1_form104.u_aa.X
+g1_form104_plain	work@g1_form104.u_aa.X
+g2_type104_elab	work@g2_type104.u_b3.X
+g2_type104_plain	work@g2_type104.u_b3.X
+g3_home104_elab	work@g3_home104.u_e4.g[0].GX
+g3_home104_elab	work@g3_home104.u_e4.g[1].GX
+g3_home104_plain	work@g3_home104.u_e4.g[0].GX
+g3_home104_plain	work@g3_home104.u_e4.g[1].GX
+g4_cons104_elab	work@g4_cons104.u_c2_32.X
+g4_cons104_elab	work@g4_cons104.u_c2_4.X
+g4_cons104_elab	work@g4_cons104.u_ce_32.X
+g4_cons104_elab	work@g4_cons104.u_ce_4.X
+g4_cons104_plain	work@g4_cons104.u_c2_32.X
+g4_cons104_plain	work@g4_cons104.u_c2_4.X
+g4_cons104_plain	work@g4_cons104.u_ce_32.X
+g4_cons104_plain	work@g4_cons104.u_ce_4.X
+g7_pos104_elab	work@g7_pos104.u_kb.X
+g7_pos104_elab	work@g7_pos104.u_kd.X
+g7_pos104_plain	work@g7_pos104.u_kb.X
+g7_pos104_plain	work@g7_pos104.u_kd.X
+v1_v55_elab	work@v1_v55.u_n6.Y
+v1_v55_plain	work@v1_v55.u_n6.Y
+v4_v55_elab	work@v4_v55.u_q4.u_n2.S
+v4_v55_plain	work@v4_v55.u_q4.u_n2.S
+v6_v55_elab	work@v6_v55.u_s2.gf[0].gt.NG
+v6_v55_elab	work@v6_v55.u_s2.gf[1].ge.NH
+v6_v55_elab	work@v6_v55.u_s4b.OV
+v6_v55_plain	work@v6_v55.u_s2.gf[0].gt.NG
+v6_v55_plain	work@v6_v55.u_s2.gf[1].ge.NH
+v6_v55_plain	work@v6_v55.u_s4b.OV
+va1_read104_elab	work@va1_read104.u_r1_32.X
+va1_read104_elab	work@va1_read104.u_r1_4.X
+va1_read104_plain	work@va1_read104.u_r1_32.X
+va1_read104_plain	work@va1_read104.u_r1_4.X
+va3_more104_elab	work@va3_more104.u_s9.X
+va3_more104_plain	work@va3_more104.u_s9.X
+va5_edge104_elab	work@va5_edge104.u_e1.X
+va5_edge104_plain	work@va5_edge104.u_e1.X

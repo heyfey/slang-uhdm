@@ -1,0 +1,16 @@
+LHS: <null>
+RHS:
+decompile:
+logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[0].data_mux), id:499221, line:157:39, endln:157:47
+|vpiParent:
+\_gen_scope: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[0]), id:499218, line:156:45, endln:163:6
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[0].data_mux), id:499227
+  |vpiParent:
+  \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[0].data_mux), id:499221, line:157:39, endln:157:47
+  |vpiFullName:work@top_earlgrey.u_pinmux.gen_mio_periph_in[0].data_mux
+  |vpiActual:
+  \_logic_typespec: , id:499223, line:157:5, endln:157:38
+|vpiName:data_mux
+|vpiFullName:work@top_earlgrey.u_pinmux.gen_mio_periph_in[0].data_mux
+|vpiVisibility:1
