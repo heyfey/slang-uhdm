@@ -1,0 +1,16 @@
+MOVED 2445_r10uvm175repro_g175_a_pos.sv/def 84 lines
+MOVED 2445_r10uvm175repro_g175_a_pos.sv/elab 201 lines
+MOVED 2446_r10uvm175repro_g175_b_idx.sv/def 145 lines
+MOVED 2446_r10uvm175repro_g175_b_idx.sv/elab 999 lines
+MOVED 2447_r10uvm175repro_g175_c_tail.sv/def 96 lines
+MOVED 2447_r10uvm175repro_g175_c_tail.sv/elab 240 lines
+MOVED 2448_r10uvm175repro_g175_d_home.sv/def 156 lines
+MOVED 2448_r10uvm175repro_g175_d_home.sv/elab 440 lines
+MOVED 2449_r10uvm175repro_g175_e_sel.sv/def 68 lines
+MOVED 2449_r10uvm175repro_g175_e_sel.sv/elab 252 lines
+MOVED 2450_r10uvm175repro_g175_f_fence.sv/def 36 lines
+MOVED 2450_r10uvm175repro_g175_f_fence.sv/elab 90 lines
+MOVED 2761_r10uvm74repro_v74_edge.sv/def 12 lines
+MOVED 2761_r10uvm74repro_v74_edge.sv/elab 67 lines
+LISTED=4848 FENCED_SKIPPED=0 PROCESSED=4848 MOVED=14 NO_OUTPUT_PAIRS=378
+PROCESSED-ASSERT-OK

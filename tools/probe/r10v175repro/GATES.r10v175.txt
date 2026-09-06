@@ -1,0 +1,135 @@
+# r10v175 — the ADVERSARIAL VERIFIER's OWN reproduction of every r10uvm175
+# headline number.  Nothing here is an acceptance judge: the official
+# uhdm-cmp and scripts/verify_golden.py are the authorities.
+# LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+# slang was NOT patched.  results/*.csv were READ-ONLY; NOTHING promoted;
+# NO CORPUS ROW CONVERTED.  GOLDEN_DEFER stayed unset.  The four slang-fenced
+# tests were never dispatched and are named in no artifact here.
+
+## (0) SURFACE
+patch /tmp/r10uvm175.patch applied CLEAN to a FRESH a0a33bb3 worktree
+  38 files (2 M + 36 A), 0 stray, 0 conflict markers
+  fence check (the four fenced names, outside canaudit.sh's own list): 0 hits
+  files under results/ touched by the diff: 0
+  production surface: src/ExprEmit.cpp ONLY (one gate expression + its decode)
+  build warnings: 20 before, 20 after, the SAME 20 (path prefix aside)
+
+## (1) BINARIES — built by the verifier from its own worktrees, -j 2
+pristine 9853d69d43a9cf87884b368be6f16c7f  == the main tree's build/slang-uhdm
+patched  b49636170347560e90432e4e18a11f3b
+both frozen chmod 555 at /tmp/v175_bin_{pris,pat} BEFORE any sweep
+  -> both md5s reproduce the implementer's exactly.
+
+## (2) GOLDENS (SLANG_UHDM exported EXPLICITLY to each binary)
+patched  PASS=23 FAIL=0
+pristine PASS=23 FAIL=0
+SLANG_UHDM=/bin/false  PASS=0 FAIL=23   (negative control)
+
+## (3) uhdm2rtlil — testflags AND default, own sweeps for BOTH binaries
+status histogram, all four sweeps: CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+ct8rows (status AND dump column):
+  committed baseline vs pristine/testflags  PASS 0 differing rows
+  committed baseline vs patched /testflags  PASS 0 differing rows
+  pristine vs patched, testflags            PASS 0 differing rows
+  pristine vs patched, default              PASS 0 differing rows
+
+## (4) surelog — --mode both, 1588 rows, own sweeps for BOTH binaries
+status histogram identical under both binaries:
+  CMP_EQUAL 937  SLANG_REJECT 567  SURELOG_FAIL 48  CMP_NOTEQUAL 19
+  DEFERRED 10  NO_DATABASE 3  UNTRANSLATABLE 2  TIMEOUT 1  NO_UHDM 1
+  (no new SLANG_REJECT => the rc=139-wearing-a-warning trap is clear)
+ct8rows:
+  committed baseline vs pristine  PASS 0 differing rows
+  committed baseline vs patched   PASS 0 differing rows
+  pristine vs patched             PASS 0 differing rows
+NO ROW CONVERTED in either direction.
+
+## (5) cmds.txt AUDIT, file by file, BY BINARY PATH
+surelog/patched     1573 cmds.txt, 1523 carry a `slang:` line, 1523/1523 name
+                    /tmp/v175_bin_pat, ZERO name any main-tree build.
+                    The 50 without a slang line are rows whose GOLDEN side
+                    failed (spot-checked: only a `surelog:` line present).
+surelog/pristine    1523/1523 name /tmp/v175_bin_pris, 0 main-tree.
+uhdm2rtlil/patched  1458/1458 name /tmp/v175_bin_pat, 0 main-tree.
+
+## (6) BYTE MOVERS (SELFCHECK=1)
+surelog     MOVERS 3 / 956    SELFCHECK 955/956   PATH_SETS_IDENTICAL
+  ./default/MiniAmiq-544c7f61/slang.uhdm     PREDICTED
+  ./testflags/MiniAmiq-544c7f61/slang.uhdm   PREDICTED
+  ./default/Scoreboard-59431470/slang.uhdm   the documented COIN
+uhdm2rtlil  MOVERS 0 / 1358   SELFCHECK 1357/1358 PATH_SETS_IDENTICAL
+
+A-PRIORI PREDICTION re-run on the VERIFIER'S OWN PRISTINE databases, before
+looking at the patched ones:
+  CAND 1 default/MiniAmiq-544c7f61/slang.uhdm
+  CAND 1 testflags/MiniAmiq-544c7f61/slang.uhdm
+  -- PREDICT surelog scanned=956 SKIP=0 ROWS-WITH-CANDIDATES=2
+
+ORDER-BLIND ATTRIBUTION (sorted, id-stripped, workdir-normalised dumps):
+  Scoreboard/default   0 differing lines  => the coin, not this law
+  MiniAmiq             12 differing lines, ONE cell, byte-identical to the
+                       implementer's MOVERS artifact:
+                         + bit_select (checks_details[details_index]) 233:24-233:38
+                             |vpiName:checks_details
+                             |vpiFullName:checks_details[details_index]
+                             |vpiIndex -> ref_obj (...::details_index) 233:39-233:52
+                         - ref_obj (...::checks_details[details_index]) 233:24-233:53
+
+## (7) HEADS — rowheads.sh on BOTH of the verifier's own sweeps
+                pristine    patched
+SeqDriver    def   33/1  ->   33/1   cmp log BYTE-IDENTICAL
+SeqDriver    tf    33/1  ->   33/1   cmp log BYTE-IDENTICAL
+SimpleUVM    def   40/1  ->   40/1   cmp log BYTE-IDENTICAL
+SimpleUVM    tf    40/1  ->   40/1   cmp log BYTE-IDENTICAL
+Scoreboard   def   95/1  ->   95/1   cmp log BYTE-IDENTICAL
+MiniAmiq     def   40/1  ->   29/1   CLEARED
+MiniAmiq     tf    40/1  ->   29/1   CLEARED
+BuildUVMPkg  def   52/1  ->   52/1   cmp log BYTE-IDENTICAL
+BuildUVMPkg  tf    52/1  ->   52/1   cmp log BYTE-IDENTICAL
+Earlgrey_0_1 def   31/1  ->   31/1   cmp log BYTE-IDENTICAL
+Earlgrey_0_1 tf   122/1  ->  122/1   cmp log BYTE-IDENTICAL
+Rggen        def    0/0  ->    0/0   CMP_EQUAL
+(SKIP-NOFILE on Scoreboard/testflags and Rggen/testflags, as expected)
+MiniAmiq cmp-log md5  dcb32643befb -> d10e1669eb7a, the two modes byte-identical
+to each other on BOTH binaries, and byte-identical to the pass's committed
+head_pris_default_MiniAmiq.cmp / head_pat_default_MiniAmiq.cmp.
+
+## (8) CANARIES and PROTECTED DATABASES
+canaries surelog     ok=52 changed=0 absent=0
+canaries uhdm2rtlil  ok=8  changed=0 absent=0
+ctcan2 surelog / uhdm2rtlil: PASS, PASS
+canaudit (run from r10uvm175repro): audited=29 UNCOVERED=0 FENCE-BREACH=0  PASS
+InterfaceModPort/def+tf   59a365f3ce2c  SAME
+BlackParrotComplex/def    e3e354129d5a  SAME
+BlackParrotComplex/tf     73a10e8217e5  SAME
+YosysOldOr/def+tf         d68e0796d62c  SAME
+SVSwitch/def+tf           4842211c4030  SAME   (the pinned value)
+YosysVerx/def+tf          6ccda350c24a  SAME   (the pinned value)
+
+## (9) THE WIDE BOUNDARY, re-run by the verifier over its own binaries
+LISTED=4848 FENCED_SKIPPED=0 PROCESSED=4848 MOVED=14 NO_OUTPUT_PAIRS=378
+PROCESSED-ASSERT-OK          ASYMMETRIC_OUTPUT: 0
+the 14: r10uvm175repro's own six arms x two views (12), and
+        r10uvm74repro/v74_edge.sv def+elab (2) — that pass's declared residue
+        R2 cell, which moves TOGOLD in both views.
+NOT ONE arm of r10uvm172, r10uvm124, r10uvm89, r10uvm77-79, r10buvm14,
+r10uvm84/85, r10uvm82-91, r10buvm3-15 or r10sd8-12 moved.
+
+## (10) THE CORPUS FACE CENSUS, re-run on the verifier's own sweeps
+-- WFACE surelog/PRISTINE  rows=956 SKIP=617
+   GOLDEN withpaths=324 this_super=0 SUBSCRIPTED-REFOBJ=0 BITSEL=2 PLAIN=322
+   OURS   withpaths=324 this_super=0 SUBSCRIPTED-REFOBJ=2 BITSEL=0 PLAIN=322
+   FACEDIFF rows: default/MiniAmiq-544c7f61, testflags/MiniAmiq-544c7f61
+-- WFACE surelog/PATCHED   rows=956 SKIP=617
+   GOLDEN withpaths=324 this_super=0 SUBSCRIPTED-REFOBJ=0 BITSEL=2 PLAIN=322
+   OURS   withpaths=324 this_super=0 SUBSCRIPTED-REFOBJ=0 BITSEL=2 PLAIN=322
+   FACEDIFF rows: NONE
+-- WFACE uhdm2rtlil/PATCHED rows=1358 SKIP=104   GOLDEN withpaths=0 OURS withpaths=0
+
+## (11) THE PASS'S OWN GRID, re-run by the verifier — reproduced LINE FOR LINE
+All 24 score lines of GRID.r10uvm175.txt reproduce exactly:
+  TOGOLD 76 / AWAY 0 / MOVEDWRONG 2 / STILLWRONG 4   (full shape)
+  TOGOLD 78 / AWAY 0 / MOVEDWRONG 0 / STILLWRONG 0   (judge-visible)
+The pass's CALIB total (116 golden-vs-golden cells, 0 DIFF) sums correctly from
+its own artifact; the verifier's own calibration on three fresh arms built twice
+in two directories: 33 cells, 0 DIFF.

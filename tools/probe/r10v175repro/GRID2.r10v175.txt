@@ -1,0 +1,135 @@
+tmp__v175_arms__v175_scope.def  TOGOLD=5
+    TOGOLD      20:16|ribs[seat].marks
+        G: bit_select|ribs|20:16-20:20|idx=ref_obj@20:21-20:25^hier_path;ref_obj|marks|20:27-20:32|idx=-;method_func_call|find_index|20:33-20:43|idx=-
+        O: bit_select|ribs|20:16-20:20|idx=ref_obj@20:21-20:25^hier_path;ref_obj|marks|20:27-20:32|idx=-;method_func_call|find_index|20:33-20:43|idx=-
+    TOGOLD      21:16|ribs[seat].loads
+        G: bit_select|ribs|21:16-21:20|idx=ref_obj@21:21-21:25^hier_path;ref_obj|loads|21:27-21:32|idx=-;method_func_call|sum|21:33-21:36|idx=-
+        O: bit_select|ribs|21:16-21:20|idx=ref_obj@21:21-21:25^hier_path;ref_obj|loads|21:27-21:32|idx=-;method_func_call|sum|21:33-21:36|idx=-
+    TOGOLD      30:13|f.ribs[seat].loads
+        G: ref_obj|f|30:13-30:14|idx=-;bit_select|ribs|30:15-30:19|idx=ref_obj@30:20-30:24^hier_path;ref_obj|loads|30:26-30:31|idx=-;method_func_call|sum|30:32-30:35|idx=-
+        O: ref_obj|f|30:13-30:14|idx=-;bit_select|ribs|30:15-30:19|idx=ref_obj@30:20-30:24^hier_path;ref_obj|loads|30:26-30:31|idx=-;method_func_call|sum|30:32-30:35|idx=-
+    TOGOLD      34:25|f.ribs[gi].loads
+        G: ref_obj|f|34:25-34:26|idx=-;bit_select|ribs|34:27-34:31|idx=ref_obj@34:32-34:34^hier_path;ref_obj|loads|34:36-34:41|idx=-;method_func_call|sum|34:42-34:45|idx=-
+        O: ref_obj|f|34:25-34:26|idx=-;bit_select|ribs|34:27-34:31|idx=ref_obj@34:32-34:34^hier_path;ref_obj|loads|34:36-34:41|idx=-;method_func_call|sum|34:42-34:45|idx=-
+    TOGOLD      49:15|dials[pin].units
+        G: bit_select|dials|49:15-49:20|idx=ref_obj@49:21-49:24^hier_path;ref_obj|units|49:26-49:31|idx=-;method_func_call|sum|49:32-49:35|idx=-
+        O: bit_select|dials|49:15-49:20|idx=ref_obj@49:21-49:24^hier_path;ref_obj|units|49:26-49:31|idx=-;method_func_call|sum|49:32-49:35|idx=-
+tmp__v175_arms__v175_scope.def/judge  TOGOLD=5
+  RAWDIFF tmp__v175_arms__v175_scope.def ordered=88 orderblind=88
+  JUDGE tmp__v175_arms__v175_scope.def pris rc=255 lines=392 heads=1
+  JUDGE tmp__v175_arms__v175_scope.def pat rc=255 lines=392 heads=1
+  RCS tmp__v175_arms__v175_scope.def rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__v175_arms__v175_scope.elab  TOGOLD=5
+    TOGOLD      20:16|ribs[seat].marks
+        G: bit_select|ribs|20:16-20:20|idx=ref_obj@20:21-20:25^bit_select;ref_obj|marks|20:27-20:32|idx=-;method_func_call|find_index|20:33-20:43|idx=-
+        O: bit_select|ribs|20:16-20:20|idx=ref_obj@20:21-20:25^bit_select;ref_obj|marks|20:27-20:32|idx=-;method_func_call|find_index|20:33-20:43|idx=-
+    TOGOLD      21:16|ribs[seat].loads
+        G: bit_select|ribs|21:16-21:20|idx=ref_obj@21:21-21:25^bit_select;ref_obj|loads|21:27-21:32|idx=-;method_func_call|sum|21:33-21:36|idx=-
+        O: bit_select|ribs|21:16-21:20|idx=ref_obj@21:21-21:25^bit_select;ref_obj|loads|21:27-21:32|idx=-;method_func_call|sum|21:33-21:36|idx=-
+    TOGOLD      30:13|f.ribs[seat].loads
+        G: ref_obj|f|30:13-30:14|idx=-;bit_select|ribs|30:15-30:19|idx=ref_obj@30:20-30:24^bit_select;ref_obj|loads|30:26-30:31|idx=-;method_func_call|sum|30:32-30:35|idx=- || ref_obj|f|30:13-30:14|idx=-;bit_select|ribs|30:15-30:19|idx=ref_obj@30:20-30:24^hier_path;ref_obj|loads|30:26-30:31|idx=-;method_func_call|sum|30:32-30:35|idx=-
+        O: ref_obj|f|30:13-30:14|idx=-;bit_select|ribs|30:15-30:19|idx=ref_obj@30:20-30:24^bit_select;ref_obj|loads|30:26-30:31|idx=-;method_func_call|sum|30:32-30:35|idx=- || ref_obj|f|30:13-30:14|idx=-;bit_select|ribs|30:15-30:19|idx=ref_obj@30:20-30:24^hier_path;ref_obj|loads|30:26-30:31|idx=-;method_func_call|sum|30:32-30:35|idx=-
+    TOGOLD      34:25|f.ribs[gi].loads
+        G: ref_obj|f|34:25-34:26|idx=-;bit_select|ribs|34:27-34:31|idx=ref_obj@34:32-34:34^bit_select;ref_obj|loads|34:36-34:41|idx=-;method_func_call|sum|34:42-34:45|idx=- || ref_obj|f|34:25-34:26|idx=-;bit_select|ribs|34:27-34:31|idx=ref_obj@34:32-34:34^hier_path;ref_obj|loads|34:36-34:41|idx=-;method_func_call|sum|34:42-34:45|idx=-
+        O: ref_obj|f|34:25-34:26|idx=-;bit_select|ribs|34:27-34:31|idx=ref_obj@34:32-34:34^bit_select;ref_obj|loads|34:36-34:41|idx=-;method_func_call|sum|34:42-34:45|idx=- || ref_obj|f|34:25-34:26|idx=-;bit_select|ribs|34:27-34:31|idx=ref_obj@34:32-34:34^hier_path;ref_obj|loads|34:36-34:41|idx=-;method_func_call|sum|34:42-34:45|idx=-
+    TOGOLD      49:15|dials[pin].units
+        G: bit_select|dials|49:15-49:20|idx=ref_obj@49:21-49:24^bit_select;ref_obj|units|49:26-49:31|idx=-;method_func_call|sum|49:32-49:35|idx=-
+        O: bit_select|dials|49:15-49:20|idx=ref_obj@49:21-49:24^bit_select;ref_obj|units|49:26-49:31|idx=-;method_func_call|sum|49:32-49:35|idx=-
+tmp__v175_arms__v175_scope.elab/judge  TOGOLD=5
+  RAWDIFF tmp__v175_arms__v175_scope.elab ordered=253 orderblind=253
+  JUDGE tmp__v175_arms__v175_scope.elab pris rc=255 lines=408 heads=1
+  JUDGE tmp__v175_arms__v175_scope.elab pat rc=255 lines=408 heads=1
+  RCS tmp__v175_arms__v175_scope.elab rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__v175_arms__v175_face.def  G-ONLY=1  TOGOLD=12
+    TOGOLD      18:16|crates[].runes
+        G: bit_select|crates|18:16-18:22|idx=hier_path@18:23-18:34^hier_path;ref_obj|runes|18:36-18:41|idx=-;method_func_call|find_index|18:42-18:52|idx=-
+        O: bit_select|crates|18:16-18:22|idx=hier_path@18:23-18:34^hier_path;ref_obj|runes|18:36-18:41|idx=-;method_func_call|find_index|18:42-18:52|idx=-
+    G-ONLY      18:23|helper.tick
+        G: 
+        O: 
+    TOGOLD      20:16|crates[berth].cargo
+        G: bit_select|crates|20:16-20:22|idx=ref_obj@20:23-20:28^hier_path;ref_obj|cargo|20:30-20:35|idx=-;method_func_call|min|20:36-20:39|idx=-
+        O: bit_select|crates|20:16-20:22|idx=ref_obj@20:23-20:28^hier_path;ref_obj|cargo|20:30-20:35|idx=-;method_func_call|min|20:36-20:39|idx=-
+    TOGOLD      21:16|crates[berth].cargo
+        G: bit_select|crates|21:16-21:22|idx=ref_obj@21:23-21:28^hier_path;ref_obj|cargo|21:30-21:35|idx=-;method_func_call|max|21:36-21:39|idx=-
+        O: bit_select|crates|21:16-21:22|idx=ref_obj@21:23-21:28^hier_path;ref_obj|cargo|21:30-21:35|idx=-;method_func_call|max|21:36-21:39|idx=-
+    TOGOLD      22:16|crates[berth].cargo
+        G: bit_select|crates|22:16-22:22|idx=ref_obj@22:23-22:28^hier_path;ref_obj|cargo|22:30-22:35|idx=-;method_func_call|unique|22:36-22:42|idx=-
+        O: bit_select|crates|22:16-22:22|idx=ref_obj@22:23-22:28^hier_path;ref_obj|cargo|22:30-22:35|idx=-;method_func_call|unique|22:36-22:42|idx=-
+    TOGOLD      23:16|crates[berth].cargo
+        G: bit_select|crates|23:16-23:22|idx=ref_obj@23:23-23:28^hier_path;ref_obj|cargo|23:30-23:35|idx=-;method_func_call|unique_index|23:36-23:48|idx=-
+        O: bit_select|crates|23:16-23:22|idx=ref_obj@23:23-23:28^hier_path;ref_obj|cargo|23:30-23:35|idx=-;method_func_call|unique_index|23:36-23:48|idx=-
+    TOGOLD      25:16|crates[berth].runes
+        G: bit_select|crates|25:16-25:22|idx=ref_obj@25:23-25:28^hier_path;ref_obj|runes|25:30-25:35|idx=-;method_func_call|find_last_index|25:36-25:51|idx=-
+        O: bit_select|crates|25:16-25:22|idx=ref_obj@25:23-25:28^hier_path;ref_obj|runes|25:30-25:35|idx=-;method_func_call|find_last_index|25:36-25:51|idx=-
+    TOGOLD      27:16|crates[berth].cargo
+        G: bit_select|crates|27:16-27:22|idx=ref_obj@27:23-27:28^hier_path;ref_obj|cargo|27:30-27:35|idx=-;method_func_call|sum|27:36-27:39|idx=-
+        O: bit_select|crates|27:16-27:22|idx=ref_obj@27:23-27:28^hier_path;ref_obj|cargo|27:30-27:35|idx=-;method_func_call|sum|27:36-27:39|idx=-
+    TOGOLD      28:16|crates[perch].cargo
+        G: bit_select|crates|28:16-28:22|idx=ref_obj@28:23-28:28^hier_path;ref_obj|cargo|28:30-28:35|idx=-;method_func_call|sum|28:36-28:39|idx=-
+        O: bit_select|crates|28:16-28:22|idx=ref_obj@28:23-28:28^hier_path;ref_obj|cargo|28:30-28:35|idx=-;method_func_call|sum|28:36-28:39|idx=-
+    TOGOLD      30:15|crates[berth].cargo
+        G: bit_select|crates|30:15-30:21|idx=ref_obj@30:22-30:27^hier_path;ref_obj|cargo|30:29-30:34|idx=-;method_func_call|sum|30:35-30:38|idx=-
+        O: bit_select|crates|30:15-30:21|idx=ref_obj@30:22-30:27^hier_path;ref_obj|cargo|30:29-30:34|idx=-;method_func_call|sum|30:35-30:38|idx=-
+    TOGOLD      34:13|crates[berth].cargo
+        G: bit_select|crates|34:13-34:19|idx=ref_obj@34:20-34:25^hier_path;ref_obj|cargo|34:27-34:32|idx=-;method_func_call|sum|34:33-34:36|idx=-
+        O: bit_select|crates|34:13-34:19|idx=ref_obj@34:20-34:25^hier_path;ref_obj|cargo|34:27-34:32|idx=-;method_func_call|sum|34:33-34:36|idx=-
+    TOGOLD      39:15|crates[berth].cargo
+        G: bit_select|crates|39:15-39:21|idx=ref_obj@39:22-39:27^hier_path;ref_obj|cargo|39:29-39:34|idx=-;method_func_call|sum|39:35-39:38|idx=-
+        O: bit_select|crates|39:15-39:21|idx=ref_obj@39:22-39:27^hier_path;ref_obj|cargo|39:29-39:34|idx=-;method_func_call|sum|39:35-39:38|idx=-
+    TOGOLD      42:14|crates[berth].cargo
+        G: bit_select|crates|42:14-42:20|idx=ref_obj@42:21-42:26^hier_path;ref_obj|cargo|42:28-42:33|idx=-;method_func_call|sum|42:34-42:37|idx=-
+        O: bit_select|crates|42:14-42:20|idx=ref_obj@42:21-42:26^hier_path;ref_obj|cargo|42:28-42:33|idx=-;method_func_call|sum|42:34-42:37|idx=-
+tmp__v175_arms__v175_face.def/judge  G-ONLY=1  TOGOLD=12
+  RAWDIFF tmp__v175_arms__v175_face.def ordered=158 orderblind=158
+  JUDGE tmp__v175_arms__v175_face.def pris rc=255 lines=58 heads=1
+  JUDGE tmp__v175_arms__v175_face.def pat rc=255 lines=29 heads=1
+  RCS tmp__v175_arms__v175_face.def rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__v175_arms__v175_face.elab  G-ONLY=1  TOGOLD=12
+    TOGOLD      18:16|crates[].runes
+        G: bit_select|crates|18:16-18:22|idx=hier_path@18:23-18:34^bit_select;ref_obj|runes|18:36-18:41|idx=-;method_func_call|find_index|18:42-18:52|idx=- || bit_select|crates|18:16-18:22|idx=hier_path@18:23-18:34^hier_path;ref_obj|runes|18:36-18:41|idx=-;method_func_call|find_index|18:42-18:52|idx=-
+        O: bit_select|crates|18:16-18:22|idx=hier_path@18:23-18:34^bit_select;ref_obj|runes|18:36-18:41|idx=-;method_func_call|find_index|18:42-18:52|idx=- || bit_select|crates|18:16-18:22|idx=hier_path@18:23-18:34^hier_path;ref_obj|runes|18:36-18:41|idx=-;method_func_call|find_index|18:42-18:52|idx=-
+    G-ONLY      18:23|helper.tick
+        G: 
+        O: 
+    TOGOLD      20:16|crates[berth].cargo
+        G: bit_select|crates|20:16-20:22|idx=ref_obj@20:23-20:28^bit_select;ref_obj|cargo|20:30-20:35|idx=-;method_func_call|min|20:36-20:39|idx=- || bit_select|crates|20:16-20:22|idx=ref_obj@20:23-20:28^hier_path;ref_obj|cargo|20:30-20:35|idx=-;method_func_call|min|20:36-20:39|idx=-
+        O: bit_select|crates|20:16-20:22|idx=ref_obj@20:23-20:28^bit_select;ref_obj|cargo|20:30-20:35|idx=-;method_func_call|min|20:36-20:39|idx=- || bit_select|crates|20:16-20:22|idx=ref_obj@20:23-20:28^hier_path;ref_obj|cargo|20:30-20:35|idx=-;method_func_call|min|20:36-20:39|idx=-
+    TOGOLD      21:16|crates[berth].cargo
+        G: bit_select|crates|21:16-21:22|idx=ref_obj@21:23-21:28^bit_select;ref_obj|cargo|21:30-21:35|idx=-;method_func_call|max|21:36-21:39|idx=- || bit_select|crates|21:16-21:22|idx=ref_obj@21:23-21:28^hier_path;ref_obj|cargo|21:30-21:35|idx=-;method_func_call|max|21:36-21:39|idx=-
+        O: bit_select|crates|21:16-21:22|idx=ref_obj@21:23-21:28^bit_select;ref_obj|cargo|21:30-21:35|idx=-;method_func_call|max|21:36-21:39|idx=- || bit_select|crates|21:16-21:22|idx=ref_obj@21:23-21:28^hier_path;ref_obj|cargo|21:30-21:35|idx=-;method_func_call|max|21:36-21:39|idx=-
+    TOGOLD      22:16|crates[berth].cargo
+        G: bit_select|crates|22:16-22:22|idx=ref_obj@22:23-22:28^bit_select;ref_obj|cargo|22:30-22:35|idx=-;method_func_call|unique|22:36-22:42|idx=- || bit_select|crates|22:16-22:22|idx=ref_obj@22:23-22:28^hier_path;ref_obj|cargo|22:30-22:35|idx=-;method_func_call|unique|22:36-22:42|idx=-
+        O: bit_select|crates|22:16-22:22|idx=ref_obj@22:23-22:28^bit_select;ref_obj|cargo|22:30-22:35|idx=-;method_func_call|unique|22:36-22:42|idx=- || bit_select|crates|22:16-22:22|idx=ref_obj@22:23-22:28^hier_path;ref_obj|cargo|22:30-22:35|idx=-;method_func_call|unique|22:36-22:42|idx=-
+    TOGOLD      23:16|crates[berth].cargo
+        G: bit_select|crates|23:16-23:22|idx=ref_obj@23:23-23:28^bit_select;ref_obj|cargo|23:30-23:35|idx=-;method_func_call|unique_index|23:36-23:48|idx=- || bit_select|crates|23:16-23:22|idx=ref_obj@23:23-23:28^hier_path;ref_obj|cargo|23:30-23:35|idx=-;method_func_call|unique_index|23:36-23:48|idx=-
+        O: bit_select|crates|23:16-23:22|idx=ref_obj@23:23-23:28^bit_select;ref_obj|cargo|23:30-23:35|idx=-;method_func_call|unique_index|23:36-23:48|idx=- || bit_select|crates|23:16-23:22|idx=ref_obj@23:23-23:28^hier_path;ref_obj|cargo|23:30-23:35|idx=-;method_func_call|unique_index|23:36-23:48|idx=-
+    TOGOLD      25:16|crates[berth].runes
+        G: bit_select|crates|25:16-25:22|idx=ref_obj@25:23-25:28^bit_select;ref_obj|runes|25:30-25:35|idx=-;method_func_call|find_last_index|25:36-25:51|idx=- || bit_select|crates|25:16-25:22|idx=ref_obj@25:23-25:28^hier_path;ref_obj|runes|25:30-25:35|idx=-;method_func_call|find_last_index|25:36-25:51|idx=-
+        O: bit_select|crates|25:16-25:22|idx=ref_obj@25:23-25:28^bit_select;ref_obj|runes|25:30-25:35|idx=-;method_func_call|find_last_index|25:36-25:51|idx=- || bit_select|crates|25:16-25:22|idx=ref_obj@25:23-25:28^hier_path;ref_obj|runes|25:30-25:35|idx=-;method_func_call|find_last_index|25:36-25:51|idx=-
+    TOGOLD      27:16|crates[berth].cargo
+        G: bit_select|crates|27:16-27:22|idx=ref_obj@27:23-27:28^bit_select;ref_obj|cargo|27:30-27:35|idx=-;method_func_call|sum|27:36-27:39|idx=- || bit_select|crates|27:16-27:22|idx=ref_obj@27:23-27:28^hier_path;ref_obj|cargo|27:30-27:35|idx=-;method_func_call|sum|27:36-27:39|idx=-
+        O: bit_select|crates|27:16-27:22|idx=ref_obj@27:23-27:28^bit_select;ref_obj|cargo|27:30-27:35|idx=-;method_func_call|sum|27:36-27:39|idx=- || bit_select|crates|27:16-27:22|idx=ref_obj@27:23-27:28^hier_path;ref_obj|cargo|27:30-27:35|idx=-;method_func_call|sum|27:36-27:39|idx=-
+    TOGOLD      28:16|crates[perch].cargo
+        G: bit_select|crates|28:16-28:22|idx=ref_obj@28:23-28:28^bit_select;ref_obj|cargo|28:30-28:35|idx=-;method_func_call|sum|28:36-28:39|idx=- || bit_select|crates|28:16-28:22|idx=ref_obj@28:23-28:28^hier_path;ref_obj|cargo|28:30-28:35|idx=-;method_func_call|sum|28:36-28:39|idx=-
+        O: bit_select|crates|28:16-28:22|idx=ref_obj@28:23-28:28^bit_select;ref_obj|cargo|28:30-28:35|idx=-;method_func_call|sum|28:36-28:39|idx=- || bit_select|crates|28:16-28:22|idx=ref_obj@28:23-28:28^hier_path;ref_obj|cargo|28:30-28:35|idx=-;method_func_call|sum|28:36-28:39|idx=-
+    TOGOLD      30:15|crates[berth].cargo
+        G: bit_select|crates|30:15-30:21|idx=ref_obj@30:22-30:27^bit_select;ref_obj|cargo|30:29-30:34|idx=-;method_func_call|sum|30:35-30:38|idx=- || bit_select|crates|30:15-30:21|idx=ref_obj@30:22-30:27^hier_path;ref_obj|cargo|30:29-30:34|idx=-;method_func_call|sum|30:35-30:38|idx=-
+        O: bit_select|crates|30:15-30:21|idx=ref_obj@30:22-30:27^bit_select;ref_obj|cargo|30:29-30:34|idx=-;method_func_call|sum|30:35-30:38|idx=- || bit_select|crates|30:15-30:21|idx=ref_obj@30:22-30:27^hier_path;ref_obj|cargo|30:29-30:34|idx=-;method_func_call|sum|30:35-30:38|idx=-
+    TOGOLD      34:13|crates[berth].cargo
+        G: bit_select|crates|34:13-34:19|idx=ref_obj@34:20-34:25^bit_select;ref_obj|cargo|34:27-34:32|idx=-;method_func_call|sum|34:33-34:36|idx=- || bit_select|crates|34:13-34:19|idx=ref_obj@34:20-34:25^hier_path;ref_obj|cargo|34:27-34:32|idx=-;method_func_call|sum|34:33-34:36|idx=-
+        O: bit_select|crates|34:13-34:19|idx=ref_obj@34:20-34:25^bit_select;ref_obj|cargo|34:27-34:32|idx=-;method_func_call|sum|34:33-34:36|idx=- || bit_select|crates|34:13-34:19|idx=ref_obj@34:20-34:25^hier_path;ref_obj|cargo|34:27-34:32|idx=-;method_func_call|sum|34:33-34:36|idx=-
+    TOGOLD      39:15|crates[berth].cargo
+        G: bit_select|crates|39:15-39:21|idx=ref_obj@39:22-39:27^bit_select;ref_obj|cargo|39:29-39:34|idx=-;method_func_call|sum|39:35-39:38|idx=- || bit_select|crates|39:15-39:21|idx=ref_obj@39:22-39:27^hier_path;ref_obj|cargo|39:29-39:34|idx=-;method_func_call|sum|39:35-39:38|idx=-
+        O: bit_select|crates|39:15-39:21|idx=ref_obj@39:22-39:27^bit_select;ref_obj|cargo|39:29-39:34|idx=-;method_func_call|sum|39:35-39:38|idx=- || bit_select|crates|39:15-39:21|idx=ref_obj@39:22-39:27^hier_path;ref_obj|cargo|39:29-39:34|idx=-;method_func_call|sum|39:35-39:38|idx=-
+    TOGOLD      42:14|crates[berth].cargo
+        G: bit_select|crates|42:14-42:20|idx=ref_obj@42:21-42:26^bit_select;ref_obj|cargo|42:28-42:33|idx=-;method_func_call|sum|42:34-42:37|idx=- || bit_select|crates|42:14-42:20|idx=ref_obj@42:21-42:26^hier_path;ref_obj|cargo|42:28-42:33|idx=-;method_func_call|sum|42:34-42:37|idx=-
+        O: bit_select|crates|42:14-42:20|idx=ref_obj@42:21-42:26^bit_select;ref_obj|cargo|42:28-42:33|idx=-;method_func_call|sum|42:34-42:37|idx=- || bit_select|crates|42:14-42:20|idx=ref_obj@42:21-42:26^hier_path;ref_obj|cargo|42:28-42:33|idx=-;method_func_call|sum|42:34-42:37|idx=-
+tmp__v175_arms__v175_face.elab/judge  G-ONLY=1  TOGOLD=12
+  RAWDIFF tmp__v175_arms__v175_face.elab ordered=1355 orderblind=1129
+  JUDGE tmp__v175_arms__v175_face.elab pris rc=255 lines=70 heads=1
+  JUDGE tmp__v175_arms__v175_face.elab pat rc=0 lines=0 heads=0
+  RCS tmp__v175_arms__v175_face.elab rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+LISTED=2 PROCESSED=2
+PROCESSED-ASSERT-OK
+GRID2_DONE_0

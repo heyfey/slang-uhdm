@@ -1,0 +1,1026 @@
+tmp__v175_arms__v175_deep.def  SAME_AGREE=1  TOGOLD=6
+    TOGOLD      22:15|booms[idx].lone.names
+        G: bit_select|booms|22:15-22:20|idx=ref_obj@22:21-22:24^hier_path;ref_obj|lone|22:26-22:30|idx=-;ref_obj|names|22:31-22:36|idx=-;method_func_call|find_index|22:37-22:47|idx=-
+        O: bit_select|booms|22:15-22:20|idx=ref_obj@22:21-22:24^hier_path;ref_obj|lone|22:26-22:30|idx=-;ref_obj|names|22:31-22:36|idx=-;method_func_call|find_index|22:37-22:47|idx=-
+    TOGOLD      24:15|solo.spars[jdx].names
+        G: ref_obj|solo|24:15-24:19|idx=-;bit_select|spars|24:20-24:25|idx=ref_obj@24:26-24:29^hier_path;ref_obj|names|24:31-24:36|idx=-;method_func_call|find_index|24:37-24:47|idx=-
+        O: ref_obj|solo|24:15-24:19|idx=-;bit_select|spars|24:20-24:25|idx=ref_obj@24:26-24:29^hier_path;ref_obj|names|24:31-24:36|idx=-;method_func_call|find_index|24:37-24:47|idx=-
+    TOGOLD      26:15|booms[idx].spars[jdx].names
+        G: bit_select|booms|26:15-26:20|idx=ref_obj@26:21-26:24^hier_path;bit_select|spars|26:26-26:31|idx=ref_obj@26:32-26:35^hier_path;ref_obj|names|26:37-26:42|idx=-;method_func_call|find_index|26:43-26:53|idx=-
+        O: bit_select|booms|26:15-26:20|idx=ref_obj@26:21-26:24^hier_path;bit_select|spars|26:26-26:31|idx=ref_obj@26:32-26:35^hier_path;ref_obj|names|26:37-26:42|idx=-;method_func_call|find_index|26:43-26:53|idx=-
+    TOGOLD      30:15|booms[idx].spars[jdx].loads
+        G: bit_select|booms|30:15-30:20|idx=ref_obj@30:21-30:24^hier_path;bit_select|spars|30:26-30:31|idx=ref_obj@30:32-30:35^hier_path;ref_obj|loads|30:37-30:42|idx=-;method_func_call|sum|30:43-30:46|idx=-
+        O: bit_select|booms|30:15-30:20|idx=ref_obj@30:21-30:24^hier_path;bit_select|spars|30:26-30:31|idx=ref_obj@30:32-30:35^hier_path;ref_obj|loads|30:37-30:42|idx=-;method_func_call|sum|30:43-30:46|idx=-
+    TOGOLD      32:15|solo.spars[jdx].loads
+        G: ref_obj|solo|32:15-32:19|idx=-;bit_select|spars|32:20-32:25|idx=ref_obj@32:26-32:29^hier_path;ref_obj|loads|32:31-32:36|idx=-;method_func_call|sum|32:37-32:40|idx=-
+        O: ref_obj|solo|32:15-32:19|idx=-;bit_select|spars|32:20-32:25|idx=ref_obj@32:26-32:29^hier_path;ref_obj|loads|32:31-32:36|idx=-;method_func_call|sum|32:37-32:40|idx=-
+    TOGOLD      34:15|planks[idx].lone.names
+        G: bit_select|planks|34:15-34:21|idx=ref_obj@34:22-34:25^hier_path;ref_obj|lone|34:27-34:31|idx=-;ref_obj|names|34:32-34:37|idx=-;method_func_call|find_index|34:38-34:48|idx=-
+        O: bit_select|planks|34:15-34:21|idx=ref_obj@34:22-34:25^hier_path;ref_obj|lone|34:27-34:31|idx=-;ref_obj|names|34:32-34:37|idx=-;method_func_call|find_index|34:38-34:48|idx=-
+tmp__v175_arms__v175_deep.def/judge  SAME_AGREE=1  TOGOLD=6
+  RAWDIFF tmp__v175_arms__v175_deep.def ordered=98 orderblind=98
+  JUDGE tmp__v175_arms__v175_deep.def pris rc=255 lines=40 heads=1
+  JUDGE tmp__v175_arms__v175_deep.def pat rc=0 lines=0 heads=0
+  RCS tmp__v175_arms__v175_deep.def rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__v175_arms__v175_deep.elab  SAME_AGREE=1  TOGOLD=6
+    TOGOLD      22:15|booms[idx].lone.names
+        G: bit_select|booms|22:15-22:20|idx=ref_obj@22:21-22:24^bit_select;ref_obj|lone|22:26-22:30|idx=-;ref_obj|names|22:31-22:36|idx=-;method_func_call|find_index|22:37-22:47|idx=-
+        O: bit_select|booms|22:15-22:20|idx=ref_obj@22:21-22:24^bit_select;ref_obj|lone|22:26-22:30|idx=-;ref_obj|names|22:31-22:36|idx=-;method_func_call|find_index|22:37-22:47|idx=-
+    TOGOLD      24:15|solo.spars[jdx].names
+        G: ref_obj|solo|24:15-24:19|idx=-;bit_select|spars|24:20-24:25|idx=ref_obj@24:26-24:29^bit_select;ref_obj|names|24:31-24:36|idx=-;method_func_call|find_index|24:37-24:47|idx=-
+        O: ref_obj|solo|24:15-24:19|idx=-;bit_select|spars|24:20-24:25|idx=ref_obj@24:26-24:29^bit_select;ref_obj|names|24:31-24:36|idx=-;method_func_call|find_index|24:37-24:47|idx=-
+    TOGOLD      26:15|booms[idx].spars[jdx].names
+        G: bit_select|booms|26:15-26:20|idx=ref_obj@26:21-26:24^bit_select;bit_select|spars|26:26-26:31|idx=ref_obj@26:32-26:35^bit_select;ref_obj|names|26:37-26:42|idx=-;method_func_call|find_index|26:43-26:53|idx=-
+        O: bit_select|booms|26:15-26:20|idx=ref_obj@26:21-26:24^bit_select;bit_select|spars|26:26-26:31|idx=ref_obj@26:32-26:35^bit_select;ref_obj|names|26:37-26:42|idx=-;method_func_call|find_index|26:43-26:53|idx=-
+    TOGOLD      30:15|booms[idx].spars[jdx].loads
+        G: bit_select|booms|30:15-30:20|idx=ref_obj@30:21-30:24^bit_select;bit_select|spars|30:26-30:31|idx=ref_obj@30:32-30:35^bit_select;ref_obj|loads|30:37-30:42|idx=-;method_func_call|sum|30:43-30:46|idx=-
+        O: bit_select|booms|30:15-30:20|idx=ref_obj@30:21-30:24^bit_select;bit_select|spars|30:26-30:31|idx=ref_obj@30:32-30:35^bit_select;ref_obj|loads|30:37-30:42|idx=-;method_func_call|sum|30:43-30:46|idx=-
+    TOGOLD      32:15|solo.spars[jdx].loads
+        G: ref_obj|solo|32:15-32:19|idx=-;bit_select|spars|32:20-32:25|idx=ref_obj@32:26-32:29^bit_select;ref_obj|loads|32:31-32:36|idx=-;method_func_call|sum|32:37-32:40|idx=-
+        O: ref_obj|solo|32:15-32:19|idx=-;bit_select|spars|32:20-32:25|idx=ref_obj@32:26-32:29^bit_select;ref_obj|loads|32:31-32:36|idx=-;method_func_call|sum|32:37-32:40|idx=-
+    TOGOLD      34:15|planks[idx].lone.names
+        G: bit_select|planks|34:15-34:21|idx=ref_obj@34:22-34:25^bit_select;ref_obj|lone|34:27-34:31|idx=-;ref_obj|names|34:32-34:37|idx=-;method_func_call|find_index|34:38-34:48|idx=-
+        O: bit_select|planks|34:15-34:21|idx=ref_obj@34:22-34:25^bit_select;ref_obj|lone|34:27-34:31|idx=-;ref_obj|names|34:32-34:37|idx=-;method_func_call|find_index|34:38-34:48|idx=-
+tmp__v175_arms__v175_deep.elab/judge  SAME_AGREE=1  TOGOLD=6
+  RAWDIFF tmp__v175_arms__v175_deep.elab ordered=221 orderblind=213
+  JUDGE tmp__v175_arms__v175_deep.elab pris rc=255 lines=48 heads=1
+  JUDGE tmp__v175_arms__v175_deep.elab pat rc=0 lines=0 heads=0
+  RCS tmp__v175_arms__v175_deep.elab rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__v175_arms__v175_home.def  SAME_AGREE=1  TOGOLD=8
+    TOGOLD      16:15|trays[lane].words
+        G: bit_select|trays|16:15-16:20|idx=ref_obj@16:21-16:25^hier_path;ref_obj|words|16:27-16:32|idx=-;method_func_call|find_index|16:33-16:43|idx=-
+        O: bit_select|trays|16:15-16:20|idx=ref_obj@16:21-16:25^hier_path;ref_obj|words|16:27-16:32|idx=-;method_func_call|find_index|16:33-16:43|idx=-
+    TOGOLD      19:16|trays[lane].heft
+        G: bit_select|trays|19:16-19:21|idx=ref_obj@19:22-19:26^hier_path;ref_obj|heft|19:28-19:32|idx=-;method_func_call|sum|19:33-19:36|idx=-
+        O: bit_select|trays|19:16-19:21|idx=ref_obj@19:22-19:26^hier_path;ref_obj|heft|19:28-19:32|idx=-;method_func_call|sum|19:33-19:36|idx=-
+    TOGOLD      22:18|r.trays[lane].heft
+        G: ref_obj|r|22:18-22:19|idx=-;bit_select|trays|22:20-22:25|idx=ref_obj@22:26-22:30^hier_path;ref_obj|heft|22:32-22:36|idx=-;method_func_call|sum|22:37-22:40|idx=-
+        O: ref_obj|r|22:18-22:19|idx=-;bit_select|trays|22:20-22:25|idx=ref_obj@22:26-22:30^hier_path;ref_obj|heft|22:32-22:36|idx=-;method_func_call|sum|22:37-22:40|idx=-
+    TOGOLD      26:13|trays[lane].words
+        G: bit_select|trays|26:13-26:18|idx=ref_obj@26:19-26:23^hier_path;ref_obj|words|26:25-26:30|idx=-;method_func_call|find_index|26:31-26:41|idx=-
+        O: bit_select|trays|26:13-26:18|idx=ref_obj@26:19-26:23^hier_path;ref_obj|words|26:25-26:30|idx=-;method_func_call|find_index|26:31-26:41|idx=-
+    TOGOLD      33:12|r.trays[lane].heft
+        G: ref_obj|r|33:12-33:13|idx=-;bit_select|trays|33:14-33:19|idx=ref_obj@33:20-33:24^hier_path;ref_obj|heft|33:26-33:30|idx=-;method_func_call|sum|33:31-33:34|idx=-
+        O: ref_obj|r|33:12-33:13|idx=-;bit_select|trays|33:14-33:19|idx=ref_obj@33:20-33:24^hier_path;ref_obj|heft|33:26-33:30|idx=-;method_func_call|sum|33:31-33:34|idx=-
+    TOGOLD      45:14|shelf.trays[lane].heft
+        G: ref_obj|shelf|45:14-45:19|idx=-;bit_select|trays|45:20-45:25|idx=ref_obj@45:26-45:30^hier_path;ref_obj|heft|45:32-45:36|idx=-;method_func_call|sum|45:37-45:40|idx=-
+        O: ref_obj|shelf|45:14-45:19|idx=-;bit_select|trays|45:20-45:25|idx=ref_obj@45:26-45:30^hier_path;ref_obj|heft|45:32-45:36|idx=-;method_func_call|sum|45:37-45:40|idx=-
+    TOGOLD      49:14|shelf.trays[lane].heft
+        G: ref_obj|shelf|49:14-49:19|idx=-;bit_select|trays|49:20-49:25|idx=ref_obj@49:26-49:30^hier_path;ref_obj|heft|49:32-49:36|idx=-;method_func_call|sum|49:37-49:40|idx=-
+        O: ref_obj|shelf|49:14-49:19|idx=-;bit_select|trays|49:20-49:25|idx=ref_obj@49:26-49:30^hier_path;ref_obj|heft|49:32-49:36|idx=-;method_func_call|sum|49:37-49:40|idx=-
+    TOGOLD      53:12|shelf.trays[lane2].heft
+        G: ref_obj|shelf|53:12-53:17|idx=-;bit_select|trays|53:18-53:23|idx=ref_obj@53:24-53:29^hier_path;ref_obj|heft|53:31-53:35|idx=-;method_func_call|sum|53:36-53:39|idx=-
+        O: ref_obj|shelf|53:12-53:17|idx=-;bit_select|trays|53:18-53:23|idx=ref_obj@53:24-53:29^hier_path;ref_obj|heft|53:31-53:35|idx=-;method_func_call|sum|53:36-53:39|idx=-
+tmp__v175_arms__v175_home.def/judge  SAME_AGREE=1  TOGOLD=8
+  RAWDIFF tmp__v175_arms__v175_home.def ordered=136 orderblind=136
+  JUDGE tmp__v175_arms__v175_home.def pris rc=255 lines=44 heads=1
+  JUDGE tmp__v175_arms__v175_home.def pat rc=255 lines=17 heads=1
+  RCS tmp__v175_arms__v175_home.def rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__v175_arms__v175_home.elab  SAME_AGREE=1  TOGOLD=8
+    TOGOLD      16:15|trays[lane].words
+        G: bit_select|trays|16:15-16:20|idx=ref_obj@16:21-16:25^bit_select;ref_obj|words|16:27-16:32|idx=-;method_func_call|find_index|16:33-16:43|idx=-
+        O: bit_select|trays|16:15-16:20|idx=ref_obj@16:21-16:25^bit_select;ref_obj|words|16:27-16:32|idx=-;method_func_call|find_index|16:33-16:43|idx=-
+    TOGOLD      19:16|trays[lane].heft
+        G: bit_select|trays|19:16-19:21|idx=ref_obj@19:22-19:26^bit_select;ref_obj|heft|19:28-19:32|idx=-;method_func_call|sum|19:33-19:36|idx=-
+        O: bit_select|trays|19:16-19:21|idx=ref_obj@19:22-19:26^bit_select;ref_obj|heft|19:28-19:32|idx=-;method_func_call|sum|19:33-19:36|idx=-
+    TOGOLD      22:18|r.trays[lane].heft
+        G: ref_obj|r|22:18-22:19|idx=-;bit_select|trays|22:20-22:25|idx=ref_obj@22:26-22:30^bit_select;ref_obj|heft|22:32-22:36|idx=-;method_func_call|sum|22:37-22:40|idx=-
+        O: ref_obj|r|22:18-22:19|idx=-;bit_select|trays|22:20-22:25|idx=ref_obj@22:26-22:30^bit_select;ref_obj|heft|22:32-22:36|idx=-;method_func_call|sum|22:37-22:40|idx=-
+    TOGOLD      26:13|trays[lane].words
+        G: bit_select|trays|26:13-26:18|idx=ref_obj@26:19-26:23^bit_select;ref_obj|words|26:25-26:30|idx=-;method_func_call|find_index|26:31-26:41|idx=- || bit_select|trays|26:13-26:18|idx=ref_obj@26:19-26:23^hier_path;ref_obj|words|26:25-26:30|idx=-;method_func_call|find_index|26:31-26:41|idx=-
+        O: bit_select|trays|26:13-26:18|idx=ref_obj@26:19-26:23^bit_select;ref_obj|words|26:25-26:30|idx=-;method_func_call|find_index|26:31-26:41|idx=- || bit_select|trays|26:13-26:18|idx=ref_obj@26:19-26:23^hier_path;ref_obj|words|26:25-26:30|idx=-;method_func_call|find_index|26:31-26:41|idx=-
+    TOGOLD      33:12|r.trays[lane].heft
+        G: ref_obj|r|33:12-33:13|idx=-;bit_select|trays|33:14-33:19|idx=ref_obj@33:20-33:24^bit_select;ref_obj|heft|33:26-33:30|idx=-;method_func_call|sum|33:31-33:34|idx=- || ref_obj|r|33:12-33:13|idx=-;bit_select|trays|33:14-33:19|idx=ref_obj@33:20-33:24^hier_path;ref_obj|heft|33:26-33:30|idx=-;method_func_call|sum|33:31-33:34|idx=-
+        O: ref_obj|r|33:12-33:13|idx=-;bit_select|trays|33:14-33:19|idx=ref_obj@33:20-33:24^bit_select;ref_obj|heft|33:26-33:30|idx=-;method_func_call|sum|33:31-33:34|idx=- || ref_obj|r|33:12-33:13|idx=-;bit_select|trays|33:14-33:19|idx=ref_obj@33:20-33:24^hier_path;ref_obj|heft|33:26-33:30|idx=-;method_func_call|sum|33:31-33:34|idx=-
+    TOGOLD      45:14|shelf.trays[lane].heft
+        G: ref_obj|shelf|45:14-45:19|idx=-;bit_select|trays|45:20-45:25|idx=ref_obj@45:26-45:30^bit_select;ref_obj|heft|45:32-45:36|idx=-;method_func_call|sum|45:37-45:40|idx=- || ref_obj|shelf|45:14-45:19|idx=-;bit_select|trays|45:20-45:25|idx=ref_obj@45:26-45:30^hier_path;ref_obj|heft|45:32-45:36|idx=-;method_func_call|sum|45:37-45:40|idx=-
+        O: ref_obj|shelf|45:14-45:19|idx=-;bit_select|trays|45:20-45:25|idx=ref_obj@45:26-45:30^bit_select;ref_obj|heft|45:32-45:36|idx=-;method_func_call|sum|45:37-45:40|idx=- || ref_obj|shelf|45:14-45:19|idx=-;bit_select|trays|45:20-45:25|idx=ref_obj@45:26-45:30^hier_path;ref_obj|heft|45:32-45:36|idx=-;method_func_call|sum|45:37-45:40|idx=-
+    TOGOLD      49:14|shelf.trays[lane].heft
+        G: ref_obj|shelf|49:14-49:19|idx=-;bit_select|trays|49:20-49:25|idx=ref_obj@49:26-49:30^bit_select;ref_obj|heft|49:32-49:36|idx=-;method_func_call|sum|49:37-49:40|idx=- || ref_obj|shelf|49:14-49:19|idx=-;bit_select|trays|49:20-49:25|idx=ref_obj@49:26-49:30^hier_path;ref_obj|heft|49:32-49:36|idx=-;method_func_call|sum|49:37-49:40|idx=-
+        O: ref_obj|shelf|49:14-49:19|idx=-;bit_select|trays|49:20-49:25|idx=ref_obj@49:26-49:30^bit_select;ref_obj|heft|49:32-49:36|idx=-;method_func_call|sum|49:37-49:40|idx=- || ref_obj|shelf|49:14-49:19|idx=-;bit_select|trays|49:20-49:25|idx=ref_obj@49:26-49:30^hier_path;ref_obj|heft|49:32-49:36|idx=-;method_func_call|sum|49:37-49:40|idx=-
+    TOGOLD      53:12|shelf.trays[lane2].heft
+        G: ref_obj|shelf|53:12-53:17|idx=-;bit_select|trays|53:18-53:23|idx=ref_obj@53:24-53:29^bit_select;ref_obj|heft|53:31-53:35|idx=-;method_func_call|sum|53:36-53:39|idx=- || ref_obj|shelf|53:12-53:17|idx=-;bit_select|trays|53:18-53:23|idx=ref_obj@53:24-53:29^hier_path;ref_obj|heft|53:31-53:35|idx=-;method_func_call|sum|53:36-53:39|idx=-
+        O: ref_obj|shelf|53:12-53:17|idx=-;bit_select|trays|53:18-53:23|idx=ref_obj@53:24-53:29^bit_select;ref_obj|heft|53:31-53:35|idx=-;method_func_call|sum|53:36-53:39|idx=- || ref_obj|shelf|53:12-53:17|idx=-;bit_select|trays|53:18-53:23|idx=ref_obj@53:24-53:29^hier_path;ref_obj|heft|53:31-53:35|idx=-;method_func_call|sum|53:36-53:39|idx=-
+tmp__v175_arms__v175_home.elab/judge  SAME_AGREE=1  TOGOLD=8
+  RAWDIFF tmp__v175_arms__v175_home.elab ordered=431 orderblind=375
+  JUDGE tmp__v175_arms__v175_home.elab pris rc=255 lines=44 heads=1
+  JUDGE tmp__v175_arms__v175_home.elab pat rc=255 lines=17 heads=1
+  RCS tmp__v175_arms__v175_home.elab rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__v175_arms__v175_kind.def  G-ONLY=4  O-ONLY=4  TOGOLD=6
+    TOGOLD      21:14|crates[4'd2].glyphs
+        G: bit_select|crates|21:14-21:20|idx=constant@21:21-21:25^-;ref_obj|glyphs|21:27-21:33|idx=-;method_func_call|find_index|21:34-21:44|idx=-
+        O: bit_select|crates|21:14-21:20|idx=constant@21:21-21:25^-;ref_obj|glyphs|21:27-21:33|idx=-;method_func_call|find_index|21:34-21:44|idx=-
+    TOGOLD      23:14|crates['h2].glyphs
+        G: bit_select|crates|23:14-23:20|idx=constant@23:21-23:24^-;ref_obj|glyphs|23:26-23:32|idx=-;method_func_call|find_index|23:33-23:43|idx=-
+        O: bit_select|crates|23:14-23:20|idx=constant@23:21-23:24^-;ref_obj|glyphs|23:26-23:32|idx=-;method_func_call|find_index|23:33-23:43|idx=-
+    O-ONLY      25:14|crates[ 2 ].glyphs
+        G: 
+        O: 
+    G-ONLY      25:14|crates[2].glyphs
+        G: 
+        O: 
+    TOGOLD      27:14|crates[NOTCH].glyphs
+        G: bit_select|crates|27:14-27:20|idx=ref_obj@27:21-27:26^hier_path;ref_obj|glyphs|27:28-27:34|idx=-;method_func_call|find_index|27:35-27:45|idx=-
+        O: bit_select|crates|27:14-27:20|idx=ref_obj@27:21-27:26^hier_path;ref_obj|glyphs|27:28-27:34|idx=-;method_func_call|find_index|27:35-27:45|idx=-
+    G-ONLY      29:14|crates[[cursorA]].glyphs
+        G: 
+        O: 
+    O-ONLY      29:14|crates[route[cursorA]].glyphs
+        G: 
+        O: 
+    O-ONLY      31:14|crates[cursorA + (cursorB)].glyphs
+        G: 
+        O: 
+    G-ONLY      31:14|crates[cursorA + cursorB].glyphs
+        G: 
+        O: 
+    TOGOLD      33:16|crates[cursorA + 1].weights
+        G: bit_select|crates|33:16-33:22|idx=operation@33:23-33:34^hier_path;ref_obj|weights|33:36-33:43|idx=-;method_func_call|sum|33:44-33:47|idx=-
+        O: bit_select|crates|33:16-33:22|idx=operation@33:23-33:34^hier_path;ref_obj|weights|33:36-33:43|idx=-;method_func_call|sum|33:44-33:47|idx=-
+    TOGOLD      35:16|twoD[cursorA][cursorB].weights
+        G: bit_select|twoD|35:16-35:20|idx=ref_obj@35:21-35:28^hier_path;bit_select||35:21-35:28|idx=ref_obj@35:30-35:37^hier_path;ref_obj|weights|35:39-35:46|idx=-;method_func_call|sum|35:47-35:50|idx=-
+        O: bit_select|twoD|35:16-35:20|idx=ref_obj@35:21-35:28^hier_path;bit_select||35:21-35:28|idx=ref_obj@35:30-35:37^hier_path;ref_obj|weights|35:39-35:46|idx=-;method_func_call|sum|35:47-35:50|idx=-
+    TOGOLD      37:16|webs["hollow"].weights
+        G: bit_select|webs|37:16-37:20|idx=constant@37:21-37:29^-;ref_obj|weights|37:31-37:38|idx=-;method_func_call|sum|37:39-37:42|idx=-
+        O: bit_select|webs|37:16-37:20|idx=constant@37:21-37:29^-;ref_obj|weights|37:31-37:38|idx=-;method_func_call|sum|37:39-37:42|idx=-
+    G-ONLY      39:16|crates[].weights
+        G: 
+        O: 
+    O-ONLY      39:16|crates[int'(cursorA)].weights
+        G: 
+        O: 
+tmp__v175_arms__v175_kind.def/judge  G-ONLY=4  O-ONLY=4  TOGOLD=6
+  RAWDIFF tmp__v175_arms__v175_kind.def ordered=159 orderblind=159
+  JUDGE tmp__v175_arms__v175_kind.def pris rc=255 lines=40 heads=1
+  JUDGE tmp__v175_arms__v175_kind.def pat rc=255 lines=184 heads=1
+  RCS tmp__v175_arms__v175_kind.def rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__v175_arms__v175_kind.elab  G-ONLY=4  O-ONLY=4  TOGOLD=6
+    TOGOLD      21:14|crates[4'd2].glyphs
+        G: bit_select|crates|21:14-21:20|idx=constant@21:21-21:25^-;ref_obj|glyphs|21:27-21:33|idx=-;method_func_call|find_index|21:34-21:44|idx=-
+        O: bit_select|crates|21:14-21:20|idx=constant@21:21-21:25^-;ref_obj|glyphs|21:27-21:33|idx=-;method_func_call|find_index|21:34-21:44|idx=-
+    TOGOLD      23:14|crates['h2].glyphs
+        G: bit_select|crates|23:14-23:20|idx=constant@23:21-23:24^-;ref_obj|glyphs|23:26-23:32|idx=-;method_func_call|find_index|23:33-23:43|idx=- || bit_select|crates|23:14-23:20|idx=constant@23:21-23:24^bit_select;ref_obj|glyphs|23:26-23:32|idx=-;method_func_call|find_index|23:33-23:43|idx=-
+        O: bit_select|crates|23:14-23:20|idx=constant@23:21-23:24^-;ref_obj|glyphs|23:26-23:32|idx=-;method_func_call|find_index|23:33-23:43|idx=- || bit_select|crates|23:14-23:20|idx=constant@23:21-23:24^bit_select;ref_obj|glyphs|23:26-23:32|idx=-;method_func_call|find_index|23:33-23:43|idx=-
+    O-ONLY      25:14|crates[ 2 ].glyphs
+        G: 
+        O: 
+    G-ONLY      25:14|crates[2].glyphs
+        G: 
+        O: 
+    TOGOLD      27:14|crates[NOTCH].glyphs
+        G: bit_select|crates|27:14-27:20|idx=ref_obj@27:21-27:26^bit_select;ref_obj|glyphs|27:28-27:34|idx=-;method_func_call|find_index|27:35-27:45|idx=- || bit_select|crates|27:14-27:20|idx=ref_obj@27:21-27:26^hier_path;ref_obj|glyphs|27:28-27:34|idx=-;method_func_call|find_index|27:35-27:45|idx=-
+        O: bit_select|crates|27:14-27:20|idx=ref_obj@27:21-27:26^bit_select;ref_obj|glyphs|27:28-27:34|idx=-;method_func_call|find_index|27:35-27:45|idx=- || bit_select|crates|27:14-27:20|idx=ref_obj@27:21-27:26^hier_path;ref_obj|glyphs|27:28-27:34|idx=-;method_func_call|find_index|27:35-27:45|idx=-
+    G-ONLY      29:14|crates[[cursorA]].glyphs
+        G: 
+        O: 
+    O-ONLY      29:14|crates[route[cursorA]].glyphs
+        G: 
+        O: 
+    O-ONLY      31:14|crates[cursorA + (cursorB)].glyphs
+        G: 
+        O: 
+    G-ONLY      31:14|crates[cursorA + cursorB].glyphs
+        G: 
+        O: 
+    TOGOLD      33:16|crates[cursorA + 1].weights
+        G: bit_select|crates|33:16-33:22|idx=operation@33:23-33:34^-;ref_obj|weights|33:36-33:43|idx=-;method_func_call|sum|33:44-33:47|idx=- || bit_select|crates|33:16-33:22|idx=operation@33:23-33:34^bit_select;ref_obj|weights|33:36-33:43|idx=-;method_func_call|sum|33:44-33:47|idx=-
+        O: bit_select|crates|33:16-33:22|idx=operation@33:23-33:34^-;ref_obj|weights|33:36-33:43|idx=-;method_func_call|sum|33:44-33:47|idx=- || bit_select|crates|33:16-33:22|idx=operation@33:23-33:34^bit_select;ref_obj|weights|33:36-33:43|idx=-;method_func_call|sum|33:44-33:47|idx=-
+    TOGOLD      35:16|twoD[cursorA][cursorB].weights
+        G: bit_select|twoD|35:16-35:20|idx=ref_obj@35:21-35:28^bit_select;bit_select||35:21-35:28|idx=ref_obj@35:30-35:37^bit_select;ref_obj|weights|35:39-35:46|idx=-;method_func_call|sum|35:47-35:50|idx=- || bit_select|twoD|35:16-35:20|idx=ref_obj@35:21-35:28^hier_path;bit_select||35:21-35:28|idx=ref_obj@35:30-35:37^hier_path;ref_obj|weights|35:39-35:46|idx=-;method_func_call|sum|35:47-35:50|idx=-
+        O: bit_select|twoD|35:16-35:20|idx=ref_obj@35:21-35:28^bit_select;bit_select||35:21-35:28|idx=ref_obj@35:30-35:37^bit_select;ref_obj|weights|35:39-35:46|idx=-;method_func_call|sum|35:47-35:50|idx=- || bit_select|twoD|35:16-35:20|idx=ref_obj@35:21-35:28^hier_path;bit_select||35:21-35:28|idx=ref_obj@35:30-35:37^hier_path;ref_obj|weights|35:39-35:46|idx=-;method_func_call|sum|35:47-35:50|idx=-
+    TOGOLD      37:16|webs["hollow"].weights
+        G: bit_select|webs|37:16-37:20|idx=constant@37:21-37:29^-;ref_obj|weights|37:31-37:38|idx=-;method_func_call|sum|37:39-37:42|idx=-
+        O: bit_select|webs|37:16-37:20|idx=constant@37:21-37:29^-;ref_obj|weights|37:31-37:38|idx=-;method_func_call|sum|37:39-37:42|idx=-
+    G-ONLY      39:16|crates[].weights
+        G: 
+        O: 
+    O-ONLY      39:16|crates[int'(cursorA)].weights
+        G: 
+        O: 
+tmp__v175_arms__v175_kind.elab/judge  G-ONLY=4  O-ONLY=4  TOGOLD=6
+  RAWDIFF tmp__v175_arms__v175_kind.elab ordered=943 orderblind=873
+  JUDGE tmp__v175_arms__v175_kind.elab pris rc=255 lines=44 heads=1
+  JUDGE tmp__v175_arms__v175_kind.elab pat rc=255 lines=208 heads=1
+  RCS tmp__v175_arms__v175_kind.elab rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__v175_arms__v175_pos.def  SAME_AGREE=1  TOGOLD=9
+    TOGOLD      18:14|hoppers[slot].tags
+        G: bit_select|hoppers|18:14-18:21|idx=ref_obj@18:22-18:26^hier_path;ref_obj|tags|18:28-18:32|idx=-;method_func_call|find_index|18:33-18:43|idx=-
+        O: bit_select|hoppers|18:14-18:21|idx=ref_obj@18:22-18:26^hier_path;ref_obj|tags|18:28-18:32|idx=-;method_func_call|find_index|18:33-18:43|idx=-
+    TOGOLD      20:21|hoppers[slot].mass
+        G: bit_select|hoppers|20:21-20:28|idx=ref_obj@20:29-20:33^hier_path;ref_obj|mass|20:35-20:39|idx=-;method_func_call|sum|20:40-20:43|idx=-
+        O: bit_select|hoppers|20:21-20:28|idx=ref_obj@20:29-20:33^hier_path;ref_obj|mass|20:35-20:39|idx=-;method_func_call|sum|20:40-20:43|idx=-
+    TOGOLD      22:12|hoppers[slot].mass
+        G: bit_select|hoppers|22:12-22:19|idx=ref_obj@22:20-22:24^hier_path;ref_obj|mass|22:26-22:30|idx=-;method_func_call|sum|22:31-22:34|idx=-
+        O: bit_select|hoppers|22:12-22:19|idx=ref_obj@22:20-22:24^hier_path;ref_obj|mass|22:26-22:30|idx=-;method_func_call|sum|22:31-22:34|idx=-
+    TOGOLD      24:29|hoppers[slot].mass
+        G: bit_select|hoppers|24:29-24:36|idx=ref_obj@24:37-24:41^hier_path;ref_obj|mass|24:43-24:47|idx=-;method_func_call|sum|24:48-24:51|idx=-
+        O: bit_select|hoppers|24:29-24:36|idx=ref_obj@24:37-24:41^hier_path;ref_obj|mass|24:43-24:47|idx=-;method_func_call|sum|24:48-24:51|idx=-
+    TOGOLD      27:16|hoppers[k].tags
+        G: bit_select|hoppers|27:16-27:23|idx=ref_obj@27:24-27:25^hier_path;ref_obj|tags|27:27-27:31|idx=-;method_func_call|find_index|27:32-27:42|idx=-
+        O: bit_select|hoppers|27:16-27:23|idx=ref_obj@27:24-27:25^hier_path;ref_obj|tags|27:27-27:31|idx=-;method_func_call|find_index|27:32-27:42|idx=-
+    TOGOLD      30:14|pouch["west"].tags
+        G: bit_select|pouch|30:14-30:19|idx=constant@30:20-30:26^-;ref_obj|tags|30:28-30:32|idx=-;method_func_call|find_index|30:33-30:43|idx=-
+        O: bit_select|pouch|30:14-30:19|idx=constant@30:20-30:26^-;ref_obj|tags|30:28-30:32|idx=-;method_func_call|find_index|30:33-30:43|idx=-
+    TOGOLD      31:14|pouch["west"].tags
+        G: bit_select|pouch|31:14-31:19|idx=constant@31:20-31:26^-;ref_obj|tags|31:28-31:32|idx=-;method_func_call|find_index|31:33-31:43|idx=-
+        O: bit_select|pouch|31:14-31:19|idx=constant@31:20-31:26^-;ref_obj|tags|31:28-31:32|idx=-;method_func_call|find_index|31:33-31:43|idx=-
+    TOGOLD      32:14|pouch["west"].tags
+        G: bit_select|pouch|32:14-32:19|idx=constant@32:20-32:26^-;ref_obj|tags|32:28-32:32|idx=-;method_func_call|find_index|32:33-32:43|idx=-
+        O: bit_select|pouch|32:14-32:19|idx=constant@32:20-32:26^-;ref_obj|tags|32:28-32:32|idx=-;method_func_call|find_index|32:33-32:43|idx=-
+    TOGOLD      36:16|hoppers[slot].mass
+        G: bit_select|hoppers|36:16-36:23|idx=ref_obj@36:24-36:28^hier_path;ref_obj|mass|36:30-36:34|idx=-;method_func_call|sum|36:35-36:38|idx=-
+        O: bit_select|hoppers|36:16-36:23|idx=ref_obj@36:24-36:28^hier_path;ref_obj|mass|36:30-36:34|idx=-;method_func_call|sum|36:35-36:38|idx=-
+tmp__v175_arms__v175_pos.def/judge  SAME_AGREE=1  TOGOLD=9
+  RAWDIFF tmp__v175_arms__v175_pos.def ordered=112 orderblind=112
+  JUDGE tmp__v175_arms__v175_pos.def pris rc=255 lines=40 heads=1
+  JUDGE tmp__v175_arms__v175_pos.def pat rc=255 lines=29 heads=1
+  RCS tmp__v175_arms__v175_pos.def rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__v175_arms__v175_pos.elab  SAME_AGREE=1  TOGOLD=9
+    TOGOLD      18:14|hoppers[slot].tags
+        G: bit_select|hoppers|18:14-18:21|idx=ref_obj@18:22-18:26^bit_select;ref_obj|tags|18:28-18:32|idx=-;method_func_call|find_index|18:33-18:43|idx=- || bit_select|hoppers|18:14-18:21|idx=ref_obj@18:22-18:26^hier_path;ref_obj|tags|18:28-18:32|idx=-;method_func_call|find_index|18:33-18:43|idx=-
+        O: bit_select|hoppers|18:14-18:21|idx=ref_obj@18:22-18:26^bit_select;ref_obj|tags|18:28-18:32|idx=-;method_func_call|find_index|18:33-18:43|idx=- || bit_select|hoppers|18:14-18:21|idx=ref_obj@18:22-18:26^hier_path;ref_obj|tags|18:28-18:32|idx=-;method_func_call|find_index|18:33-18:43|idx=-
+    TOGOLD      20:21|hoppers[slot].mass
+        G: bit_select|hoppers|20:21-20:28|idx=ref_obj@20:29-20:33^bit_select;ref_obj|mass|20:35-20:39|idx=-;method_func_call|sum|20:40-20:43|idx=- || bit_select|hoppers|20:21-20:28|idx=ref_obj@20:29-20:33^hier_path;ref_obj|mass|20:35-20:39|idx=-;method_func_call|sum|20:40-20:43|idx=-
+        O: bit_select|hoppers|20:21-20:28|idx=ref_obj@20:29-20:33^bit_select;ref_obj|mass|20:35-20:39|idx=-;method_func_call|sum|20:40-20:43|idx=- || bit_select|hoppers|20:21-20:28|idx=ref_obj@20:29-20:33^hier_path;ref_obj|mass|20:35-20:39|idx=-;method_func_call|sum|20:40-20:43|idx=-
+    TOGOLD      22:12|hoppers[slot].mass
+        G: bit_select|hoppers|22:12-22:19|idx=ref_obj@22:20-22:24^bit_select;ref_obj|mass|22:26-22:30|idx=-;method_func_call|sum|22:31-22:34|idx=- || bit_select|hoppers|22:12-22:19|idx=ref_obj@22:20-22:24^hier_path;ref_obj|mass|22:26-22:30|idx=-;method_func_call|sum|22:31-22:34|idx=-
+        O: bit_select|hoppers|22:12-22:19|idx=ref_obj@22:20-22:24^bit_select;ref_obj|mass|22:26-22:30|idx=-;method_func_call|sum|22:31-22:34|idx=- || bit_select|hoppers|22:12-22:19|idx=ref_obj@22:20-22:24^hier_path;ref_obj|mass|22:26-22:30|idx=-;method_func_call|sum|22:31-22:34|idx=-
+    TOGOLD      24:29|hoppers[slot].mass
+        G: bit_select|hoppers|24:29-24:36|idx=ref_obj@24:37-24:41^bit_select;ref_obj|mass|24:43-24:47|idx=-;method_func_call|sum|24:48-24:51|idx=- || bit_select|hoppers|24:29-24:36|idx=ref_obj@24:37-24:41^hier_path;ref_obj|mass|24:43-24:47|idx=-;method_func_call|sum|24:48-24:51|idx=-
+        O: bit_select|hoppers|24:29-24:36|idx=ref_obj@24:37-24:41^bit_select;ref_obj|mass|24:43-24:47|idx=-;method_func_call|sum|24:48-24:51|idx=- || bit_select|hoppers|24:29-24:36|idx=ref_obj@24:37-24:41^hier_path;ref_obj|mass|24:43-24:47|idx=-;method_func_call|sum|24:48-24:51|idx=-
+    TOGOLD      27:16|hoppers[k].tags
+        G: bit_select|hoppers|27:16-27:23|idx=ref_obj@27:24-27:25^bit_select;ref_obj|tags|27:27-27:31|idx=-;method_func_call|find_index|27:32-27:42|idx=- || bit_select|hoppers|27:16-27:23|idx=ref_obj@27:24-27:25^hier_path;ref_obj|tags|27:27-27:31|idx=-;method_func_call|find_index|27:32-27:42|idx=-
+        O: bit_select|hoppers|27:16-27:23|idx=ref_obj@27:24-27:25^bit_select;ref_obj|tags|27:27-27:31|idx=-;method_func_call|find_index|27:32-27:42|idx=- || bit_select|hoppers|27:16-27:23|idx=ref_obj@27:24-27:25^hier_path;ref_obj|tags|27:27-27:31|idx=-;method_func_call|find_index|27:32-27:42|idx=-
+    TOGOLD      30:14|pouch["west"].tags
+        G: bit_select|pouch|30:14-30:19|idx=constant@30:20-30:26^-;ref_obj|tags|30:28-30:32|idx=-;method_func_call|find_index|30:33-30:43|idx=-
+        O: bit_select|pouch|30:14-30:19|idx=constant@30:20-30:26^-;ref_obj|tags|30:28-30:32|idx=-;method_func_call|find_index|30:33-30:43|idx=-
+    TOGOLD      31:14|pouch["west"].tags
+        G: bit_select|pouch|31:14-31:19|idx=constant@31:20-31:26^-;ref_obj|tags|31:28-31:32|idx=-;method_func_call|find_index|31:33-31:43|idx=-
+        O: bit_select|pouch|31:14-31:19|idx=constant@31:20-31:26^-;ref_obj|tags|31:28-31:32|idx=-;method_func_call|find_index|31:33-31:43|idx=-
+    TOGOLD      32:14|pouch["west"].tags
+        G: bit_select|pouch|32:14-32:19|idx=constant@32:20-32:26^-;ref_obj|tags|32:28-32:32|idx=-;method_func_call|find_index|32:33-32:43|idx=-
+        O: bit_select|pouch|32:14-32:19|idx=constant@32:20-32:26^-;ref_obj|tags|32:28-32:32|idx=-;method_func_call|find_index|32:33-32:43|idx=-
+    TOGOLD      36:16|hoppers[slot].mass
+        G: bit_select|hoppers|36:16-36:23|idx=ref_obj@36:24-36:28^bit_select;ref_obj|mass|36:30-36:34|idx=-;method_func_call|sum|36:35-36:38|idx=- || bit_select|hoppers|36:16-36:23|idx=ref_obj@36:24-36:28^hier_path;ref_obj|mass|36:30-36:34|idx=-;method_func_call|sum|36:35-36:38|idx=-
+        O: bit_select|hoppers|36:16-36:23|idx=ref_obj@36:24-36:28^bit_select;ref_obj|mass|36:30-36:34|idx=-;method_func_call|sum|36:35-36:38|idx=- || bit_select|hoppers|36:16-36:23|idx=ref_obj@36:24-36:28^hier_path;ref_obj|mass|36:30-36:34|idx=-;method_func_call|sum|36:35-36:38|idx=-
+tmp__v175_arms__v175_pos.elab/judge  SAME_AGREE=1  TOGOLD=9
+  RAWDIFF tmp__v175_arms__v175_pos.elab ordered=1183 orderblind=1063
+  JUDGE tmp__v175_arms__v175_pos.elab pris rc=255 lines=48 heads=1
+  JUDGE tmp__v175_arms__v175_pos.elab pat rc=0 lines=0 heads=0
+  RCS tmp__v175_arms__v175_pos.elab rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm175repro__g175_a_pos.def  SAME_AGREE=3  TOGOLD=5
+    TOGOLD      23:18|crop[seat].tagset
+        G: bit_select|crop|23:18-23:22|idx=ref_obj@23:23-23:27^hier_path;ref_obj|tagset|23:29-23:35|idx=-;method_func_call|find_index|23:36-23:46|idx=-
+        O: bit_select|crop|23:18-23:22|idx=ref_obj@23:23-23:27^hier_path;ref_obj|tagset|23:29-23:35|idx=-;method_func_call|find_index|23:36-23:46|idx=-
+    TOGOLD      25:18|lone.stalk[slot].tagset
+        G: ref_obj|lone|25:18-25:22|idx=-;bit_select|stalk|25:23-25:28|idx=ref_obj@25:29-25:33^hier_path;ref_obj|tagset|25:35-25:41|idx=-;method_func_call|find_index|25:42-25:52|idx=-
+        O: ref_obj|lone|25:18-25:22|idx=-;bit_select|stalk|25:23-25:28|idx=ref_obj@25:29-25:33^hier_path;ref_obj|tagset|25:35-25:41|idx=-;method_func_call|find_index|25:42-25:52|idx=-
+    TOGOLD      27:18|rows[seat].stalk[slot].tagset
+        G: bit_select|rows|27:18-27:22|idx=ref_obj@27:23-27:27^hier_path;bit_select|stalk|27:29-27:34|idx=ref_obj@27:35-27:39^hier_path;ref_obj|tagset|27:41-27:47|idx=-;method_func_call|find_index|27:48-27:58|idx=-
+        O: bit_select|rows|27:18-27:22|idx=ref_obj@27:23-27:27^hier_path;bit_select|stalk|27:29-27:34|idx=ref_obj@27:35-27:39^hier_path;ref_obj|tagset|27:41-27:47|idx=-;method_func_call|find_index|27:48-27:58|idx=-
+    TOGOLD      33:18|lone.stalk[slot].numset
+        G: ref_obj|lone|33:18-33:22|idx=-;bit_select|stalk|33:23-33:28|idx=ref_obj@33:29-33:33^hier_path;ref_obj|numset|33:35-33:41|idx=-;method_func_call|find_index|33:42-33:52|idx=-
+        O: ref_obj|lone|33:18-33:22|idx=-;bit_select|stalk|33:23-33:28|idx=ref_obj@33:29-33:33^hier_path;ref_obj|numset|33:35-33:41|idx=-;method_func_call|find_index|33:42-33:52|idx=-
+    TOGOLD      35:18|rows[seat].stalk[slot].tagset
+        G: bit_select|rows|35:18-35:22|idx=ref_obj@35:23-35:27^hier_path;bit_select|stalk|35:29-35:34|idx=ref_obj@35:35-35:39^hier_path;ref_obj|tagset|35:41-35:47|idx=-;method_func_call|find_index|35:48-35:58|idx=-
+        O: bit_select|rows|35:18-35:22|idx=ref_obj@35:23-35:27^hier_path;bit_select|stalk|35:29-35:34|idx=ref_obj@35:35-35:39^hier_path;ref_obj|tagset|35:41-35:47|idx=-;method_func_call|find_index|35:48-35:58|idx=-
+tmp__wt_v175__tools__probe__r10uvm175repro__g175_a_pos.def/judge  SAME_AGREE=3  TOGOLD=5
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm175repro__g175_a_pos.def ordered=86 orderblind=86
+  JUDGE tmp__wt_v175__tools__probe__r10uvm175repro__g175_a_pos.def pris rc=255 lines=40 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm175repro__g175_a_pos.def pat rc=0 lines=0 heads=0
+  RCS tmp__wt_v175__tools__probe__r10uvm175repro__g175_a_pos.def rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm175repro__g175_a_pos.elab  SAME_AGREE=3  TOGOLD=5
+    TOGOLD      23:18|crop[seat].tagset
+        G: bit_select|crop|23:18-23:22|idx=ref_obj@23:23-23:27^bit_select;ref_obj|tagset|23:29-23:35|idx=-;method_func_call|find_index|23:36-23:46|idx=-
+        O: bit_select|crop|23:18-23:22|idx=ref_obj@23:23-23:27^bit_select;ref_obj|tagset|23:29-23:35|idx=-;method_func_call|find_index|23:36-23:46|idx=-
+    TOGOLD      25:18|lone.stalk[slot].tagset
+        G: ref_obj|lone|25:18-25:22|idx=-;bit_select|stalk|25:23-25:28|idx=ref_obj@25:29-25:33^bit_select;ref_obj|tagset|25:35-25:41|idx=-;method_func_call|find_index|25:42-25:52|idx=-
+        O: ref_obj|lone|25:18-25:22|idx=-;bit_select|stalk|25:23-25:28|idx=ref_obj@25:29-25:33^bit_select;ref_obj|tagset|25:35-25:41|idx=-;method_func_call|find_index|25:42-25:52|idx=-
+    TOGOLD      27:18|rows[seat].stalk[slot].tagset
+        G: bit_select|rows|27:18-27:22|idx=ref_obj@27:23-27:27^bit_select;bit_select|stalk|27:29-27:34|idx=ref_obj@27:35-27:39^bit_select;ref_obj|tagset|27:41-27:47|idx=-;method_func_call|find_index|27:48-27:58|idx=-
+        O: bit_select|rows|27:18-27:22|idx=ref_obj@27:23-27:27^bit_select;bit_select|stalk|27:29-27:34|idx=ref_obj@27:35-27:39^bit_select;ref_obj|tagset|27:41-27:47|idx=-;method_func_call|find_index|27:48-27:58|idx=-
+    TOGOLD      33:18|lone.stalk[slot].numset
+        G: ref_obj|lone|33:18-33:22|idx=-;bit_select|stalk|33:23-33:28|idx=ref_obj@33:29-33:33^bit_select;ref_obj|numset|33:35-33:41|idx=-;method_func_call|find_index|33:42-33:52|idx=-
+        O: ref_obj|lone|33:18-33:22|idx=-;bit_select|stalk|33:23-33:28|idx=ref_obj@33:29-33:33^bit_select;ref_obj|numset|33:35-33:41|idx=-;method_func_call|find_index|33:42-33:52|idx=-
+    TOGOLD      35:18|rows[seat].stalk[slot].tagset
+        G: bit_select|rows|35:18-35:22|idx=ref_obj@35:23-35:27^bit_select;bit_select|stalk|35:29-35:34|idx=ref_obj@35:35-35:39^bit_select;ref_obj|tagset|35:41-35:47|idx=-;method_func_call|find_index|35:48-35:58|idx=-
+        O: bit_select|rows|35:18-35:22|idx=ref_obj@35:23-35:27^bit_select;bit_select|stalk|35:29-35:34|idx=ref_obj@35:35-35:39^bit_select;ref_obj|tagset|35:41-35:47|idx=-;method_func_call|find_index|35:48-35:58|idx=-
+tmp__wt_v175__tools__probe__r10uvm175repro__g175_a_pos.elab/judge  SAME_AGREE=3  TOGOLD=5
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm175repro__g175_a_pos.elab ordered=203 orderblind=203
+  JUDGE tmp__wt_v175__tools__probe__r10uvm175repro__g175_a_pos.elab pris rc=255 lines=48 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm175repro__g175_a_pos.elab pat rc=0 lines=0 heads=0
+  RCS tmp__wt_v175__tools__probe__r10uvm175repro__g175_a_pos.elab rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm175repro__g175_b_idx.def  G-ONLY=1  O-ONLY=1  SAME_AGREE=1  TOGOLD=9
+    TOGOLD      22:15|casks[2].labels
+        G: bit_select|casks|22:15-22:20|idx=constant@22:21-22:22^-;ref_obj|labels|22:24-22:30|idx=-;method_func_call|find_index|22:31-22:41|idx=-
+        O: bit_select|casks|22:15-22:20|idx=constant@22:21-22:22^-;ref_obj|labels|22:24-22:30|idx=-;method_func_call|find_index|22:31-22:41|idx=-
+    TOGOLD      24:15|casks[cursor].labels
+        G: bit_select|casks|24:15-24:20|idx=ref_obj@24:21-24:27^hier_path;ref_obj|labels|24:29-24:35|idx=-;method_func_call|find_index|24:36-24:46|idx=-
+        O: bit_select|casks|24:15-24:20|idx=ref_obj@24:21-24:27^hier_path;ref_obj|labels|24:29-24:35|idx=-;method_func_call|find_index|24:36-24:46|idx=-
+    TOGOLD      26:15|casks[cursor + 1].labels
+        G: bit_select|casks|26:15-26:20|idx=operation@26:21-26:31^hier_path;ref_obj|labels|26:33-26:39|idx=-;method_func_call|find_index|26:40-26:50|idx=-
+        O: bit_select|casks|26:15-26:20|idx=operation@26:21-26:31^hier_path;ref_obj|labels|26:33-26:39|idx=-;method_func_call|find_index|26:40-26:50|idx=-
+    TOGOLD      28:15|byword["north"].labels
+        G: bit_select|byword|28:15-28:21|idx=constant@28:22-28:29^-;ref_obj|labels|28:31-28:37|idx=-;method_func_call|find_index|28:38-28:48|idx=-
+        O: bit_select|byword|28:15-28:21|idx=constant@28:22-28:29^-;ref_obj|labels|28:31-28:37|idx=-;method_func_call|find_index|28:38-28:48|idx=-
+    TOGOLD      30:15|casks[SUMMER].labels
+        G: bit_select|casks|30:15-30:20|idx=ref_obj@30:21-30:27^hier_path;ref_obj|labels|30:29-30:35|idx=-;method_func_call|find_index|30:36-30:46|idx=-
+        O: bit_select|casks|30:15-30:20|idx=ref_obj@30:21-30:27^hier_path;ref_obj|labels|30:29-30:35|idx=-;method_func_call|find_index|30:36-30:46|idx=-
+    TOGOLD      32:15|casks[PLOT].labels
+        G: bit_select|casks|32:15-32:20|idx=ref_obj@32:21-32:25^hier_path;ref_obj|labels|32:27-32:33|idx=-;method_func_call|find_index|32:34-32:44|idx=-
+        O: bit_select|casks|32:15-32:20|idx=ref_obj@32:21-32:25^hier_path;ref_obj|labels|32:27-32:33|idx=-;method_func_call|find_index|32:34-32:44|idx=-
+    G-ONLY      34:15|casks[].labels
+        G: 
+        O: 
+    O-ONLY      34:15|casks[pick()].labels
+        G: 
+        O: 
+    TOGOLD      36:15|grid2[1][cursor].labels
+        G: bit_select|grid2|36:15-36:20|idx=constant@36:21-36:22^-;bit_select||36:21-36:22|idx=ref_obj@36:24-36:30^hier_path;ref_obj|labels|36:32-36:38|idx=-;method_func_call|find_index|36:39-36:49|idx=-
+        O: bit_select|grid2|36:15-36:20|idx=constant@36:21-36:22^-;bit_select||36:21-36:22|idx=ref_obj@36:24-36:30^hier_path;ref_obj|labels|36:32-36:38|idx=-;method_func_call|find_index|36:39-36:49|idx=-
+    TOGOLD      38:15|dyn[cursor].labels
+        G: bit_select|dyn|38:15-38:18|idx=ref_obj@38:19-38:25^hier_path;ref_obj|labels|38:27-38:33|idx=-;method_func_call|find_index|38:34-38:44|idx=-
+        O: bit_select|dyn|38:15-38:18|idx=ref_obj@38:19-38:25^hier_path;ref_obj|labels|38:27-38:33|idx=-;method_func_call|find_index|38:34-38:44|idx=-
+    TOGOLD      40:15|fixed[cursor].labels
+        G: bit_select|fixed|40:15-40:20|idx=ref_obj@40:21-40:27^hier_path;ref_obj|labels|40:29-40:35|idx=-;method_func_call|find_index|40:36-40:46|idx=-
+        O: bit_select|fixed|40:15-40:20|idx=ref_obj@40:21-40:27^hier_path;ref_obj|labels|40:29-40:35|idx=-;method_func_call|find_index|40:36-40:46|idx=-
+tmp__wt_v175__tools__probe__r10uvm175repro__g175_b_idx.def/judge  G-ONLY=1  O-ONLY=1  SAME_AGREE=1  TOGOLD=9
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm175repro__g175_b_idx.def ordered=147 orderblind=147
+  JUDGE tmp__wt_v175__tools__probe__r10uvm175repro__g175_b_idx.def pris rc=255 lines=40 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm175repro__g175_b_idx.def pat rc=255 lines=188 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm175repro__g175_b_idx.def rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm175repro__g175_b_idx.elab  G-ONLY=1  O-ONLY=1  SAME_AGREE=1  TOGOLD=9
+    TOGOLD      22:15|casks[2].labels
+        G: bit_select|casks|22:15-22:20|idx=constant@22:21-22:22^-;ref_obj|labels|22:24-22:30|idx=-;method_func_call|find_index|22:31-22:41|idx=-
+        O: bit_select|casks|22:15-22:20|idx=constant@22:21-22:22^-;ref_obj|labels|22:24-22:30|idx=-;method_func_call|find_index|22:31-22:41|idx=-
+    TOGOLD      24:15|casks[cursor].labels
+        G: bit_select|casks|24:15-24:20|idx=ref_obj@24:21-24:27^bit_select;ref_obj|labels|24:29-24:35|idx=-;method_func_call|find_index|24:36-24:46|idx=- || bit_select|casks|24:15-24:20|idx=ref_obj@24:21-24:27^hier_path;ref_obj|labels|24:29-24:35|idx=-;method_func_call|find_index|24:36-24:46|idx=-
+        O: bit_select|casks|24:15-24:20|idx=ref_obj@24:21-24:27^bit_select;ref_obj|labels|24:29-24:35|idx=-;method_func_call|find_index|24:36-24:46|idx=- || bit_select|casks|24:15-24:20|idx=ref_obj@24:21-24:27^hier_path;ref_obj|labels|24:29-24:35|idx=-;method_func_call|find_index|24:36-24:46|idx=-
+    TOGOLD      26:15|casks[cursor + 1].labels
+        G: bit_select|casks|26:15-26:20|idx=operation@26:21-26:31^-;ref_obj|labels|26:33-26:39|idx=-;method_func_call|find_index|26:40-26:50|idx=- || bit_select|casks|26:15-26:20|idx=operation@26:21-26:31^bit_select;ref_obj|labels|26:33-26:39|idx=-;method_func_call|find_index|26:40-26:50|idx=-
+        O: bit_select|casks|26:15-26:20|idx=operation@26:21-26:31^-;ref_obj|labels|26:33-26:39|idx=-;method_func_call|find_index|26:40-26:50|idx=- || bit_select|casks|26:15-26:20|idx=operation@26:21-26:31^bit_select;ref_obj|labels|26:33-26:39|idx=-;method_func_call|find_index|26:40-26:50|idx=-
+    TOGOLD      28:15|byword["north"].labels
+        G: bit_select|byword|28:15-28:21|idx=constant@28:22-28:29^-;ref_obj|labels|28:31-28:37|idx=-;method_func_call|find_index|28:38-28:48|idx=-
+        O: bit_select|byword|28:15-28:21|idx=constant@28:22-28:29^-;ref_obj|labels|28:31-28:37|idx=-;method_func_call|find_index|28:38-28:48|idx=-
+    TOGOLD      30:15|casks[SUMMER].labels
+        G: bit_select|casks|30:15-30:20|idx=ref_obj@30:21-30:27^bit_select;ref_obj|labels|30:29-30:35|idx=-;method_func_call|find_index|30:36-30:46|idx=- || bit_select|casks|30:15-30:20|idx=ref_obj@30:21-30:27^hier_path;ref_obj|labels|30:29-30:35|idx=-;method_func_call|find_index|30:36-30:46|idx=-
+        O: bit_select|casks|30:15-30:20|idx=ref_obj@30:21-30:27^bit_select;ref_obj|labels|30:29-30:35|idx=-;method_func_call|find_index|30:36-30:46|idx=- || bit_select|casks|30:15-30:20|idx=ref_obj@30:21-30:27^hier_path;ref_obj|labels|30:29-30:35|idx=-;method_func_call|find_index|30:36-30:46|idx=-
+    TOGOLD      32:15|casks[PLOT].labels
+        G: bit_select|casks|32:15-32:20|idx=ref_obj@32:21-32:25^bit_select;ref_obj|labels|32:27-32:33|idx=-;method_func_call|find_index|32:34-32:44|idx=- || bit_select|casks|32:15-32:20|idx=ref_obj@32:21-32:25^hier_path;ref_obj|labels|32:27-32:33|idx=-;method_func_call|find_index|32:34-32:44|idx=-
+        O: bit_select|casks|32:15-32:20|idx=ref_obj@32:21-32:25^bit_select;ref_obj|labels|32:27-32:33|idx=-;method_func_call|find_index|32:34-32:44|idx=- || bit_select|casks|32:15-32:20|idx=ref_obj@32:21-32:25^hier_path;ref_obj|labels|32:27-32:33|idx=-;method_func_call|find_index|32:34-32:44|idx=-
+    G-ONLY      34:15|casks[].labels
+        G: 
+        O: 
+    O-ONLY      34:15|casks[pick()].labels
+        G: 
+        O: 
+    TOGOLD      36:15|grid2[1][cursor].labels
+        G: bit_select|grid2|36:15-36:20|idx=constant@36:21-36:22^-;bit_select||36:21-36:22|idx=ref_obj@36:24-36:30^bit_select;ref_obj|labels|36:32-36:38|idx=-;method_func_call|find_index|36:39-36:49|idx=- || bit_select|grid2|36:15-36:20|idx=constant@36:21-36:22^-;bit_select||36:21-36:22|idx=ref_obj@36:24-36:30^hier_path;ref_obj|labels|36:32-36:38|idx=-;method_func_call|find_index|36:39-36:49|idx=-
+        O: bit_select|grid2|36:15-36:20|idx=constant@36:21-36:22^-;bit_select||36:21-36:22|idx=ref_obj@36:24-36:30^bit_select;ref_obj|labels|36:32-36:38|idx=-;method_func_call|find_index|36:39-36:49|idx=- || bit_select|grid2|36:15-36:20|idx=constant@36:21-36:22^-;bit_select||36:21-36:22|idx=ref_obj@36:24-36:30^hier_path;ref_obj|labels|36:32-36:38|idx=-;method_func_call|find_index|36:39-36:49|idx=-
+    TOGOLD      38:15|dyn[cursor].labels
+        G: bit_select|dyn|38:15-38:18|idx=ref_obj@38:19-38:25^bit_select;ref_obj|labels|38:27-38:33|idx=-;method_func_call|find_index|38:34-38:44|idx=- || bit_select|dyn|38:15-38:18|idx=ref_obj@38:19-38:25^hier_path;ref_obj|labels|38:27-38:33|idx=-;method_func_call|find_index|38:34-38:44|idx=-
+        O: bit_select|dyn|38:15-38:18|idx=ref_obj@38:19-38:25^bit_select;ref_obj|labels|38:27-38:33|idx=-;method_func_call|find_index|38:34-38:44|idx=- || bit_select|dyn|38:15-38:18|idx=ref_obj@38:19-38:25^hier_path;ref_obj|labels|38:27-38:33|idx=-;method_func_call|find_index|38:34-38:44|idx=-
+    TOGOLD      40:15|fixed[cursor].labels
+        G: bit_select|fixed|40:15-40:20|idx=ref_obj@40:21-40:27^bit_select;ref_obj|labels|40:29-40:35|idx=-;method_func_call|find_index|40:36-40:46|idx=- || bit_select|fixed|40:15-40:20|idx=ref_obj@40:21-40:27^hier_path;ref_obj|labels|40:29-40:35|idx=-;method_func_call|find_index|40:36-40:46|idx=-
+        O: bit_select|fixed|40:15-40:20|idx=ref_obj@40:21-40:27^bit_select;ref_obj|labels|40:29-40:35|idx=-;method_func_call|find_index|40:36-40:46|idx=- || bit_select|fixed|40:15-40:20|idx=ref_obj@40:21-40:27^hier_path;ref_obj|labels|40:29-40:35|idx=-;method_func_call|find_index|40:36-40:46|idx=-
+tmp__wt_v175__tools__probe__r10uvm175repro__g175_b_idx.elab/judge  G-ONLY=1  O-ONLY=1  SAME_AGREE=1  TOGOLD=9
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm175repro__g175_b_idx.elab ordered=1001 orderblind=985
+  JUDGE tmp__wt_v175__tools__probe__r10uvm175repro__g175_b_idx.elab pris rc=255 lines=44 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm175repro__g175_b_idx.elab pat rc=255 lines=212 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm175repro__g175_b_idx.elab rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm175repro__g175_c_tail.def  SAME_AGREE=2  STILLWRONG=2  TOGOLD=8
+    TOGOLD      21:15|holds[berth].manifest
+        G: bit_select|holds|21:15-21:20|idx=ref_obj@21:21-21:26^hier_path;ref_obj|manifest|21:28-21:36|idx=-;method_func_call|find_index|21:37-21:47|idx=-
+        O: bit_select|holds|21:15-21:20|idx=ref_obj@21:21-21:26^hier_path;ref_obj|manifest|21:28-21:36|idx=-;method_func_call|find_index|21:37-21:47|idx=-
+    TOGOLD      23:15|holds[berth].weights
+        G: bit_select|holds|23:15-23:20|idx=ref_obj@23:21-23:26^hier_path;ref_obj|weights|23:28-23:35|idx=-;method_func_call|find|23:36-23:40|idx=-
+        O: bit_select|holds|23:15-23:20|idx=ref_obj@23:21-23:26^hier_path;ref_obj|weights|23:28-23:35|idx=-;method_func_call|find|23:36-23:40|idx=-
+    TOGOLD      25:15|holds[berth].weights
+        G: bit_select|holds|25:15-25:20|idx=ref_obj@25:21-25:26^hier_path;ref_obj|weights|25:28-25:35|idx=-;method_func_call|find_first|25:36-25:46|idx=-
+        O: bit_select|holds|25:15-25:20|idx=ref_obj@25:21-25:26^hier_path;ref_obj|weights|25:28-25:35|idx=-;method_func_call|find_first|25:36-25:46|idx=-
+    TOGOLD      27:15|holds[berth].weights
+        G: bit_select|holds|27:15-27:20|idx=ref_obj@27:21-27:26^hier_path;ref_obj|weights|27:28-27:35|idx=-;method_func_call|find_first_index|27:36-27:52|idx=-
+        O: bit_select|holds|27:15-27:20|idx=ref_obj@27:21-27:26^hier_path;ref_obj|weights|27:28-27:35|idx=-;method_func_call|find_first_index|27:36-27:52|idx=-
+    TOGOLD      29:15|holds[berth].weights
+        G: bit_select|holds|29:15-29:20|idx=ref_obj@29:21-29:26^hier_path;ref_obj|weights|29:28-29:35|idx=-;method_func_call|min|29:36-29:39|idx=-
+        O: bit_select|holds|29:15-29:20|idx=ref_obj@29:21-29:26^hier_path;ref_obj|weights|29:28-29:35|idx=-;method_func_call|min|29:36-29:39|idx=-
+    TOGOLD      31:15|holds[berth].weights
+        G: bit_select|holds|31:15-31:20|idx=ref_obj@31:21-31:26^hier_path;ref_obj|weights|31:28-31:35|idx=-;method_func_call|max|31:36-31:39|idx=-
+        O: bit_select|holds|31:15-31:20|idx=ref_obj@31:21-31:26^hier_path;ref_obj|weights|31:28-31:35|idx=-;method_func_call|max|31:36-31:39|idx=-
+    TOGOLD      33:15|holds[berth].weights
+        G: bit_select|holds|33:15-33:20|idx=ref_obj@33:21-33:26^hier_path;ref_obj|weights|33:28-33:35|idx=-;method_func_call|unique|33:36-33:42|idx=-
+        O: bit_select|holds|33:15-33:20|idx=ref_obj@33:21-33:26^hier_path;ref_obj|weights|33:28-33:35|idx=-;method_func_call|unique|33:36-33:42|idx=-
+    TOGOLD      35:13|holds[berth].weights
+        G: bit_select|holds|35:13-35:18|idx=ref_obj@35:19-35:24^hier_path;ref_obj|weights|35:26-35:33|idx=-;method_func_call|sum|35:34-35:37|idx=-
+        O: bit_select|holds|35:13-35:18|idx=ref_obj@35:19-35:24^hier_path;ref_obj|weights|35:26-35:33|idx=-;method_func_call|sum|35:34-35:37|idx=-
+    STILLWRONG  43:13|holds[berth].heft
+        G: bit_select|holds|43:13-43:18|idx=ref_obj@43:19-43:24^hier_path;method_func_call|heft|43:26-43:30|idx=-
+        O: bit_select|holds|43:13-43:18|idx=ref_obj@43:19-43:24^bit_select;method_func_call|heft|43:26-43:30|idx=-
+    STILLWRONG  45:13|holds[berth]
+        G: bit_select|holds|45:19-45:24|idx=ref_obj@45:19-45:24^bit_select;method_func_call|randomize|<noloc>|idx=-
+        O: bit_select|holds|45:13-45:18|idx=ref_obj@45:19-45:24^hier_path;method_func_call|randomize|<noloc>|idx=-
+tmp__wt_v175__tools__probe__r10uvm175repro__g175_c_tail.def/judge  SAME_AGREE=4  TOGOLD=8
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm175repro__g175_c_tail.def ordered=98 orderblind=98
+  JUDGE tmp__wt_v175__tools__probe__r10uvm175repro__g175_c_tail.def pris rc=255 lines=40 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm175repro__g175_c_tail.def pat rc=0 lines=0 heads=0
+  RCS tmp__wt_v175__tools__probe__r10uvm175repro__g175_c_tail.def rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm175repro__g175_c_tail.elab  SAME_AGREE=2  STILLWRONG=2  TOGOLD=8
+    TOGOLD      21:15|holds[berth].manifest
+        G: bit_select|holds|21:15-21:20|idx=ref_obj@21:21-21:26^bit_select;ref_obj|manifest|21:28-21:36|idx=-;method_func_call|find_index|21:37-21:47|idx=- || bit_select|holds|21:15-21:20|idx=ref_obj@21:21-21:26^hier_path;ref_obj|manifest|21:28-21:36|idx=-;method_func_call|find_index|21:37-21:47|idx=-
+        O: bit_select|holds|21:15-21:20|idx=ref_obj@21:21-21:26^bit_select;ref_obj|manifest|21:28-21:36|idx=-;method_func_call|find_index|21:37-21:47|idx=- || bit_select|holds|21:15-21:20|idx=ref_obj@21:21-21:26^hier_path;ref_obj|manifest|21:28-21:36|idx=-;method_func_call|find_index|21:37-21:47|idx=-
+    TOGOLD      23:15|holds[berth].weights
+        G: bit_select|holds|23:15-23:20|idx=ref_obj@23:21-23:26^bit_select;ref_obj|weights|23:28-23:35|idx=-;method_func_call|find|23:36-23:40|idx=- || bit_select|holds|23:15-23:20|idx=ref_obj@23:21-23:26^hier_path;ref_obj|weights|23:28-23:35|idx=-;method_func_call|find|23:36-23:40|idx=-
+        O: bit_select|holds|23:15-23:20|idx=ref_obj@23:21-23:26^bit_select;ref_obj|weights|23:28-23:35|idx=-;method_func_call|find|23:36-23:40|idx=- || bit_select|holds|23:15-23:20|idx=ref_obj@23:21-23:26^hier_path;ref_obj|weights|23:28-23:35|idx=-;method_func_call|find|23:36-23:40|idx=-
+    TOGOLD      25:15|holds[berth].weights
+        G: bit_select|holds|25:15-25:20|idx=ref_obj@25:21-25:26^bit_select;ref_obj|weights|25:28-25:35|idx=-;method_func_call|find_first|25:36-25:46|idx=- || bit_select|holds|25:15-25:20|idx=ref_obj@25:21-25:26^hier_path;ref_obj|weights|25:28-25:35|idx=-;method_func_call|find_first|25:36-25:46|idx=-
+        O: bit_select|holds|25:15-25:20|idx=ref_obj@25:21-25:26^bit_select;ref_obj|weights|25:28-25:35|idx=-;method_func_call|find_first|25:36-25:46|idx=- || bit_select|holds|25:15-25:20|idx=ref_obj@25:21-25:26^hier_path;ref_obj|weights|25:28-25:35|idx=-;method_func_call|find_first|25:36-25:46|idx=-
+    TOGOLD      27:15|holds[berth].weights
+        G: bit_select|holds|27:15-27:20|idx=ref_obj@27:21-27:26^bit_select;ref_obj|weights|27:28-27:35|idx=-;method_func_call|find_first_index|27:36-27:52|idx=- || bit_select|holds|27:15-27:20|idx=ref_obj@27:21-27:26^hier_path;ref_obj|weights|27:28-27:35|idx=-;method_func_call|find_first_index|27:36-27:52|idx=-
+        O: bit_select|holds|27:15-27:20|idx=ref_obj@27:21-27:26^bit_select;ref_obj|weights|27:28-27:35|idx=-;method_func_call|find_first_index|27:36-27:52|idx=- || bit_select|holds|27:15-27:20|idx=ref_obj@27:21-27:26^hier_path;ref_obj|weights|27:28-27:35|idx=-;method_func_call|find_first_index|27:36-27:52|idx=-
+    TOGOLD      29:15|holds[berth].weights
+        G: bit_select|holds|29:15-29:20|idx=ref_obj@29:21-29:26^bit_select;ref_obj|weights|29:28-29:35|idx=-;method_func_call|min|29:36-29:39|idx=- || bit_select|holds|29:15-29:20|idx=ref_obj@29:21-29:26^hier_path;ref_obj|weights|29:28-29:35|idx=-;method_func_call|min|29:36-29:39|idx=-
+        O: bit_select|holds|29:15-29:20|idx=ref_obj@29:21-29:26^bit_select;ref_obj|weights|29:28-29:35|idx=-;method_func_call|min|29:36-29:39|idx=- || bit_select|holds|29:15-29:20|idx=ref_obj@29:21-29:26^hier_path;ref_obj|weights|29:28-29:35|idx=-;method_func_call|min|29:36-29:39|idx=-
+    TOGOLD      31:15|holds[berth].weights
+        G: bit_select|holds|31:15-31:20|idx=ref_obj@31:21-31:26^bit_select;ref_obj|weights|31:28-31:35|idx=-;method_func_call|max|31:36-31:39|idx=- || bit_select|holds|31:15-31:20|idx=ref_obj@31:21-31:26^hier_path;ref_obj|weights|31:28-31:35|idx=-;method_func_call|max|31:36-31:39|idx=-
+        O: bit_select|holds|31:15-31:20|idx=ref_obj@31:21-31:26^bit_select;ref_obj|weights|31:28-31:35|idx=-;method_func_call|max|31:36-31:39|idx=- || bit_select|holds|31:15-31:20|idx=ref_obj@31:21-31:26^hier_path;ref_obj|weights|31:28-31:35|idx=-;method_func_call|max|31:36-31:39|idx=-
+    TOGOLD      33:15|holds[berth].weights
+        G: bit_select|holds|33:15-33:20|idx=ref_obj@33:21-33:26^bit_select;ref_obj|weights|33:28-33:35|idx=-;method_func_call|unique|33:36-33:42|idx=- || bit_select|holds|33:15-33:20|idx=ref_obj@33:21-33:26^hier_path;ref_obj|weights|33:28-33:35|idx=-;method_func_call|unique|33:36-33:42|idx=-
+        O: bit_select|holds|33:15-33:20|idx=ref_obj@33:21-33:26^bit_select;ref_obj|weights|33:28-33:35|idx=-;method_func_call|unique|33:36-33:42|idx=- || bit_select|holds|33:15-33:20|idx=ref_obj@33:21-33:26^hier_path;ref_obj|weights|33:28-33:35|idx=-;method_func_call|unique|33:36-33:42|idx=-
+    TOGOLD      35:13|holds[berth].weights
+        G: bit_select|holds|35:13-35:18|idx=ref_obj@35:19-35:24^bit_select;ref_obj|weights|35:26-35:33|idx=-;method_func_call|sum|35:34-35:37|idx=- || bit_select|holds|35:13-35:18|idx=ref_obj@35:19-35:24^hier_path;ref_obj|weights|35:26-35:33|idx=-;method_func_call|sum|35:34-35:37|idx=-
+        O: bit_select|holds|35:13-35:18|idx=ref_obj@35:19-35:24^bit_select;ref_obj|weights|35:26-35:33|idx=-;method_func_call|sum|35:34-35:37|idx=- || bit_select|holds|35:13-35:18|idx=ref_obj@35:19-35:24^hier_path;ref_obj|weights|35:26-35:33|idx=-;method_func_call|sum|35:34-35:37|idx=-
+    STILLWRONG  43:13|holds[berth].heft
+        G: bit_select|holds|43:13-43:18|idx=ref_obj@43:19-43:24^bit_select;method_func_call|heft|43:26-43:30|idx=- || bit_select|holds|43:13-43:18|idx=ref_obj@43:19-43:24^hier_path;method_func_call|heft|43:26-43:30|idx=-
+        O: bit_select|holds|43:13-43:18|idx=ref_obj@43:19-43:24^bit_select;method_func_call|heft|43:26-43:30|idx=-
+    STILLWRONG  45:13|holds[berth]
+        G: bit_select|holds|45:19-45:24|idx=ref_obj@45:19-45:24^bit_select;method_func_call|randomize|<noloc>|idx=-
+        O: bit_select|holds|45:13-45:18|idx=ref_obj@45:19-45:24^bit_select;method_func_call|randomize|<noloc>|idx=- || bit_select|holds|45:13-45:18|idx=ref_obj@45:19-45:24^hier_path;method_func_call|randomize|<noloc>|idx=-
+tmp__wt_v175__tools__probe__r10uvm175repro__g175_c_tail.elab/judge  SAME_AGREE=4  TOGOLD=8
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm175repro__g175_c_tail.elab ordered=242 orderblind=242
+  JUDGE tmp__wt_v175__tools__probe__r10uvm175repro__g175_c_tail.elab pris rc=255 lines=48 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm175repro__g175_c_tail.elab pat rc=0 lines=0 heads=0
+  RCS tmp__wt_v175__tools__probe__r10uvm175repro__g175_c_tail.elab rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm175repro__g175_d_home.def  SAME_AGREE=2  TOGOLD=10
+    TOGOLD      16:16|chutes[lane].stamps
+        G: bit_select|chutes|16:16-16:22|idx=ref_obj@16:23-16:27^hier_path;ref_obj|stamps|16:29-16:35|idx=-;method_func_call|find_index|16:36-16:46|idx=-
+        O: bit_select|chutes|16:16-16:22|idx=ref_obj@16:23-16:27^hier_path;ref_obj|stamps|16:29-16:35|idx=-;method_func_call|find_index|16:36-16:46|idx=-
+    TOGOLD      21:22|chutes[lane].stamps
+        G: bit_select|chutes|21:22-21:28|idx=ref_obj@21:29-21:33^hier_path;ref_obj|stamps|21:35-21:41|idx=-;method_func_call|find_index|21:42-21:52|idx=-
+        O: bit_select|chutes|21:22-21:28|idx=ref_obj@21:29-21:33^hier_path;ref_obj|stamps|21:35-21:41|idx=-;method_func_call|find_index|21:42-21:52|idx=-
+    TOGOLD      23:12|chutes[lane].digits
+        G: bit_select|chutes|23:12-23:18|idx=ref_obj@23:19-23:23^hier_path;ref_obj|digits|23:25-23:31|idx=-;method_func_call|sum|23:32-23:35|idx=-
+        O: bit_select|chutes|23:12-23:18|idx=ref_obj@23:19-23:23^hier_path;ref_obj|digits|23:25-23:31|idx=-;method_func_call|sum|23:32-23:35|idx=-
+    TOGOLD      25:11|chutes[lane].digits
+        G: bit_select|chutes|25:11-25:17|idx=ref_obj@25:18-25:22^hier_path;ref_obj|digits|25:24-25:30|idx=-;method_func_call|sum|25:31-25:34|idx=-
+        O: bit_select|chutes|25:11-25:17|idx=ref_obj@25:18-25:22^hier_path;ref_obj|digits|25:24-25:30|idx=-;method_func_call|sum|25:31-25:34|idx=-
+    TOGOLD      28:18|chutes[k].stamps
+        G: bit_select|chutes|28:18-28:24|idx=ref_obj@28:25-28:26^hier_path;ref_obj|stamps|28:28-28:34|idx=-;method_func_call|find_index|28:35-28:45|idx=-
+        O: bit_select|chutes|28:18-28:24|idx=ref_obj@28:25-28:26^hier_path;ref_obj|stamps|28:28-28:34|idx=-;method_func_call|find_index|28:35-28:45|idx=-
+    TOGOLD      34:14|chutes[lane].stamps
+        G: bit_select|chutes|34:14-34:20|idx=ref_obj@34:21-34:25^hier_path;ref_obj|stamps|34:27-34:33|idx=-;method_func_call|find_index|34:34-34:44|idx=-
+        O: bit_select|chutes|34:14-34:20|idx=ref_obj@34:21-34:25^hier_path;ref_obj|stamps|34:27-34:33|idx=-;method_func_call|find_index|34:34-34:44|idx=-
+    TOGOLD      39:9|hp.chutes[lane].stamps
+        G: ref_obj|hp|39:9-39:11|idx=-;bit_select|chutes|39:12-39:18|idx=ref_obj@39:19-39:23^hier_path;ref_obj|stamps|39:25-39:31|idx=-;method_func_call|find_index|39:32-39:42|idx=-
+        O: ref_obj|hp|39:9-39:11|idx=-;bit_select|chutes|39:12-39:18|idx=ref_obj@39:19-39:23^hier_path;ref_obj|stamps|39:25-39:31|idx=-;method_func_call|find_index|39:32-39:42|idx=-
+    TOGOLD      49:11|rig.chutes[1].stamps
+        G: ref_obj|rig|49:11-49:14|idx=-;bit_select|chutes|49:15-49:21|idx=constant@49:22-49:23^-;ref_obj|stamps|49:25-49:31|idx=-;method_func_call|find_index|49:32-49:42|idx=-
+        O: ref_obj|rig|49:11-49:14|idx=-;bit_select|chutes|49:15-49:21|idx=constant@49:22-49:23^-;ref_obj|stamps|49:25-49:31|idx=-;method_func_call|find_index|49:32-49:42|idx=-
+    TOGOLD      53:11|rig.chutes[2].stamps
+        G: ref_obj|rig|53:11-53:14|idx=-;bit_select|chutes|53:15-53:21|idx=constant@53:22-53:23^-;ref_obj|stamps|53:25-53:31|idx=-;method_func_call|find_index|53:32-53:42|idx=-
+        O: ref_obj|rig|53:11-53:14|idx=-;bit_select|chutes|53:15-53:21|idx=constant@53:22-53:23^-;ref_obj|stamps|53:25-53:31|idx=-;method_func_call|find_index|53:32-53:42|idx=-
+    TOGOLD      58:9|rig.chutes[lane].stamps
+        G: ref_obj|rig|58:9-58:12|idx=-;bit_select|chutes|58:13-58:19|idx=ref_obj@58:20-58:24^hier_path;ref_obj|stamps|58:26-58:32|idx=-;method_func_call|find_index|58:33-58:43|idx=-
+        O: ref_obj|rig|58:9-58:12|idx=-;bit_select|chutes|58:13-58:19|idx=ref_obj@58:20-58:24^hier_path;ref_obj|stamps|58:26-58:32|idx=-;method_func_call|find_index|58:33-58:43|idx=-
+tmp__wt_v175__tools__probe__r10uvm175repro__g175_d_home.def/judge  SAME_AGREE=2  TOGOLD=10
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm175repro__g175_d_home.def ordered=158 orderblind=158
+  JUDGE tmp__wt_v175__tools__probe__r10uvm175repro__g175_d_home.def pris rc=255 lines=44 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm175repro__g175_d_home.def pat rc=255 lines=29 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm175repro__g175_d_home.def rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm175repro__g175_d_home.elab  SAME_AGREE=2  TOGOLD=10
+    TOGOLD      16:16|chutes[lane].stamps
+        G: bit_select|chutes|16:16-16:22|idx=ref_obj@16:23-16:27^bit_select;ref_obj|stamps|16:29-16:35|idx=-;method_func_call|find_index|16:36-16:46|idx=-
+        O: bit_select|chutes|16:16-16:22|idx=ref_obj@16:23-16:27^bit_select;ref_obj|stamps|16:29-16:35|idx=-;method_func_call|find_index|16:36-16:46|idx=-
+    TOGOLD      21:22|chutes[lane].stamps
+        G: bit_select|chutes|21:22-21:28|idx=ref_obj@21:29-21:33^bit_select;ref_obj|stamps|21:35-21:41|idx=-;method_func_call|find_index|21:42-21:52|idx=- || bit_select|chutes|21:22-21:28|idx=ref_obj@21:29-21:33^hier_path;ref_obj|stamps|21:35-21:41|idx=-;method_func_call|find_index|21:42-21:52|idx=-
+        O: bit_select|chutes|21:22-21:28|idx=ref_obj@21:29-21:33^bit_select;ref_obj|stamps|21:35-21:41|idx=-;method_func_call|find_index|21:42-21:52|idx=- || bit_select|chutes|21:22-21:28|idx=ref_obj@21:29-21:33^hier_path;ref_obj|stamps|21:35-21:41|idx=-;method_func_call|find_index|21:42-21:52|idx=-
+    TOGOLD      23:12|chutes[lane].digits
+        G: bit_select|chutes|23:12-23:18|idx=ref_obj@23:19-23:23^bit_select;ref_obj|digits|23:25-23:31|idx=-;method_func_call|sum|23:32-23:35|idx=- || bit_select|chutes|23:12-23:18|idx=ref_obj@23:19-23:23^hier_path;ref_obj|digits|23:25-23:31|idx=-;method_func_call|sum|23:32-23:35|idx=-
+        O: bit_select|chutes|23:12-23:18|idx=ref_obj@23:19-23:23^bit_select;ref_obj|digits|23:25-23:31|idx=-;method_func_call|sum|23:32-23:35|idx=- || bit_select|chutes|23:12-23:18|idx=ref_obj@23:19-23:23^hier_path;ref_obj|digits|23:25-23:31|idx=-;method_func_call|sum|23:32-23:35|idx=-
+    TOGOLD      25:11|chutes[lane].digits
+        G: bit_select|chutes|25:11-25:17|idx=ref_obj@25:18-25:22^bit_select;ref_obj|digits|25:24-25:30|idx=-;method_func_call|sum|25:31-25:34|idx=- || bit_select|chutes|25:11-25:17|idx=ref_obj@25:18-25:22^hier_path;ref_obj|digits|25:24-25:30|idx=-;method_func_call|sum|25:31-25:34|idx=-
+        O: bit_select|chutes|25:11-25:17|idx=ref_obj@25:18-25:22^bit_select;ref_obj|digits|25:24-25:30|idx=-;method_func_call|sum|25:31-25:34|idx=- || bit_select|chutes|25:11-25:17|idx=ref_obj@25:18-25:22^hier_path;ref_obj|digits|25:24-25:30|idx=-;method_func_call|sum|25:31-25:34|idx=-
+    TOGOLD      28:18|chutes[k].stamps
+        G: bit_select|chutes|28:18-28:24|idx=ref_obj@28:25-28:26^bit_select;ref_obj|stamps|28:28-28:34|idx=-;method_func_call|find_index|28:35-28:45|idx=- || bit_select|chutes|28:18-28:24|idx=ref_obj@28:25-28:26^hier_path;ref_obj|stamps|28:28-28:34|idx=-;method_func_call|find_index|28:35-28:45|idx=-
+        O: bit_select|chutes|28:18-28:24|idx=ref_obj@28:25-28:26^bit_select;ref_obj|stamps|28:28-28:34|idx=-;method_func_call|find_index|28:35-28:45|idx=- || bit_select|chutes|28:18-28:24|idx=ref_obj@28:25-28:26^hier_path;ref_obj|stamps|28:28-28:34|idx=-;method_func_call|find_index|28:35-28:45|idx=-
+    TOGOLD      34:14|chutes[lane].stamps
+        G: bit_select|chutes|34:14-34:20|idx=ref_obj@34:21-34:25^bit_select;ref_obj|stamps|34:27-34:33|idx=-;method_func_call|find_index|34:34-34:44|idx=- || bit_select|chutes|34:14-34:20|idx=ref_obj@34:21-34:25^hier_path;ref_obj|stamps|34:27-34:33|idx=-;method_func_call|find_index|34:34-34:44|idx=-
+        O: bit_select|chutes|34:14-34:20|idx=ref_obj@34:21-34:25^bit_select;ref_obj|stamps|34:27-34:33|idx=-;method_func_call|find_index|34:34-34:44|idx=- || bit_select|chutes|34:14-34:20|idx=ref_obj@34:21-34:25^hier_path;ref_obj|stamps|34:27-34:33|idx=-;method_func_call|find_index|34:34-34:44|idx=-
+    TOGOLD      39:9|hp.chutes[lane].stamps
+        G: ref_obj|hp|39:9-39:11|idx=-;bit_select|chutes|39:12-39:18|idx=ref_obj@39:19-39:23^bit_select;ref_obj|stamps|39:25-39:31|idx=-;method_func_call|find_index|39:32-39:42|idx=- || ref_obj|hp|39:9-39:11|idx=-;bit_select|chutes|39:12-39:18|idx=ref_obj@39:19-39:23^hier_path;ref_obj|stamps|39:25-39:31|idx=-;method_func_call|find_index|39:32-39:42|idx=-
+        O: ref_obj|hp|39:9-39:11|idx=-;bit_select|chutes|39:12-39:18|idx=ref_obj@39:19-39:23^bit_select;ref_obj|stamps|39:25-39:31|idx=-;method_func_call|find_index|39:32-39:42|idx=- || ref_obj|hp|39:9-39:11|idx=-;bit_select|chutes|39:12-39:18|idx=ref_obj@39:19-39:23^hier_path;ref_obj|stamps|39:25-39:31|idx=-;method_func_call|find_index|39:32-39:42|idx=-
+    TOGOLD      49:11|rig.chutes[1].stamps
+        G: ref_obj|rig|49:11-49:14|idx=-;bit_select|chutes|49:15-49:21|idx=constant@49:22-49:23^-;ref_obj|stamps|49:25-49:31|idx=-;method_func_call|find_index|49:32-49:42|idx=-
+        O: ref_obj|rig|49:11-49:14|idx=-;bit_select|chutes|49:15-49:21|idx=constant@49:22-49:23^-;ref_obj|stamps|49:25-49:31|idx=-;method_func_call|find_index|49:32-49:42|idx=-
+    TOGOLD      53:11|rig.chutes[2].stamps
+        G: ref_obj|rig|53:11-53:14|idx=-;bit_select|chutes|53:15-53:21|idx=constant@53:22-53:23^-;ref_obj|stamps|53:25-53:31|idx=-;method_func_call|find_index|53:32-53:42|idx=-
+        O: ref_obj|rig|53:11-53:14|idx=-;bit_select|chutes|53:15-53:21|idx=constant@53:22-53:23^-;ref_obj|stamps|53:25-53:31|idx=-;method_func_call|find_index|53:32-53:42|idx=-
+    TOGOLD      58:9|rig.chutes[lane].stamps
+        G: ref_obj|rig|58:9-58:12|idx=-;bit_select|chutes|58:13-58:19|idx=ref_obj@58:20-58:24^bit_select;ref_obj|stamps|58:26-58:32|idx=-;method_func_call|find_index|58:33-58:43|idx=- || ref_obj|rig|58:9-58:12|idx=-;bit_select|chutes|58:13-58:19|idx=ref_obj@58:20-58:24^hier_path;ref_obj|stamps|58:26-58:32|idx=-;method_func_call|find_index|58:33-58:43|idx=-
+        O: ref_obj|rig|58:9-58:12|idx=-;bit_select|chutes|58:13-58:19|idx=ref_obj@58:20-58:24^bit_select;ref_obj|stamps|58:26-58:32|idx=-;method_func_call|find_index|58:33-58:43|idx=- || ref_obj|rig|58:9-58:12|idx=-;bit_select|chutes|58:13-58:19|idx=ref_obj@58:20-58:24^hier_path;ref_obj|stamps|58:26-58:32|idx=-;method_func_call|find_index|58:33-58:43|idx=-
+tmp__wt_v175__tools__probe__r10uvm175repro__g175_d_home.elab/judge  SAME_AGREE=2  TOGOLD=10
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm175repro__g175_d_home.elab ordered=442 orderblind=392
+  JUDGE tmp__wt_v175__tools__probe__r10uvm175repro__g175_d_home.elab pris rc=255 lines=44 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm175repro__g175_d_home.elab pat rc=255 lines=17 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm175repro__g175_d_home.elab rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm175repro__g175_e_sel.def  G-ONLY=4  MOVEDWRONG=1  O-ONLY=3  TOGOLD=3
+    TOGOLD      27:13|decks[cursor].knots
+        G: bit_select|decks|27:13-27:18|idx=ref_obj@27:19-27:25^hier_path;ref_obj|knots|27:27-27:32|idx=-;method_func_call|find_index|27:33-27:43|idx=-
+        O: bit_select|decks|27:13-27:18|idx=ref_obj@27:19-27:25^hier_path;ref_obj|knots|27:27-27:32|idx=-;method_func_call|find_index|27:33-27:43|idx=-
+    TOGOLD      29:13|slab[1][cursor].knots
+        G: bit_select|slab|29:13-29:17|idx=constant@29:18-29:19^-;bit_select||29:18-29:19|idx=ref_obj@29:21-29:27^hier_path;ref_obj|knots|29:29-29:34|idx=-;method_func_call|find_index|29:35-29:45|idx=-
+        O: bit_select|slab|29:13-29:17|idx=constant@29:18-29:19^-;bit_select||29:18-29:19|idx=ref_obj@29:21-29:27^hier_path;ref_obj|knots|29:29-29:34|idx=-;method_func_call|find_index|29:35-29:45|idx=-
+    MOVEDWRONG  31:13|decks[].knots
+        G: bit_select|decks|31:13-31:18|idx=hier_path@31:19-31:25^hier_path;ref_obj|knots|31:34-31:39|idx=-;method_func_call|find_index|31:40-31:50|idx=-
+        O: bit_select|decks|31:13-31:18|idx=hier_path@31:19-31:32^hier_path;ref_obj|knots|31:34-31:39|idx=-;method_func_call|find_index|31:40-31:50|idx=-
+    G-ONLY      31:19|helper.nail
+        G: 
+        O: 
+    G-ONLY      33:13|this.decks.knots
+        G: 
+        O: 
+    O-ONLY      33:13|this.decks[cursor].knots
+        G: 
+        O: 
+    G-ONLY      35:13|super.inherited.knots
+        G: 
+        O: 
+    O-ONLY      35:13|super.inherited[cursor].knots
+        G: 
+        O: 
+    TOGOLD      37:13|tier[cursor].knots
+        G: bit_select|tier|37:13-37:17|idx=ref_obj@37:18-37:24^hier_path;ref_obj|knots|37:26-37:31|idx=-;method_func_call|find_index|37:32-37:42|idx=-
+        O: bit_select|tier|37:13-37:17|idx=ref_obj@37:18-37:24^hier_path;ref_obj|knots|37:26-37:31|idx=-;method_func_call|find_index|37:32-37:42|idx=-
+    G-ONLY      44:16|this.decks.knots.size
+        G: 
+        O: 
+    O-ONLY      44:16|this.decks[cursor].knots.size
+        G: 
+        O: 
+tmp__wt_v175__tools__probe__r10uvm175repro__g175_e_sel.def/judge  G-ONLY=4  O-ONLY=3  TOGOLD=4
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm175repro__g175_e_sel.def ordered=70 orderblind=70
+  JUDGE tmp__wt_v175__tools__probe__r10uvm175repro__g175_e_sel.def pris rc=255 lines=40 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm175repro__g175_e_sel.def pat rc=255 lines=134 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm175repro__g175_e_sel.def rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm175repro__g175_e_sel.elab  G-ONLY=4  MOVEDWRONG=1  O-ONLY=3  TOGOLD=3
+    TOGOLD      27:13|decks[cursor].knots
+        G: bit_select|decks|27:13-27:18|idx=ref_obj@27:19-27:25^bit_select;ref_obj|knots|27:27-27:32|idx=-;method_func_call|find_index|27:33-27:43|idx=-
+        O: bit_select|decks|27:13-27:18|idx=ref_obj@27:19-27:25^bit_select;ref_obj|knots|27:27-27:32|idx=-;method_func_call|find_index|27:33-27:43|idx=-
+    TOGOLD      29:13|slab[1][cursor].knots
+        G: bit_select|slab|29:13-29:17|idx=constant@29:18-29:19^-;bit_select||29:18-29:19|idx=ref_obj@29:21-29:27^bit_select;ref_obj|knots|29:29-29:34|idx=-;method_func_call|find_index|29:35-29:45|idx=-
+        O: bit_select|slab|29:13-29:17|idx=constant@29:18-29:19^-;bit_select||29:18-29:19|idx=ref_obj@29:21-29:27^bit_select;ref_obj|knots|29:29-29:34|idx=-;method_func_call|find_index|29:35-29:45|idx=-
+    MOVEDWRONG  31:13|decks[].knots
+        G: bit_select|decks|31:13-31:18|idx=hier_path@31:19-31:25^bit_select;ref_obj|knots|31:34-31:39|idx=-;method_func_call|find_index|31:40-31:50|idx=-
+        O: bit_select|decks|31:13-31:18|idx=hier_path@31:19-31:32^bit_select;ref_obj|knots|31:34-31:39|idx=-;method_func_call|find_index|31:40-31:50|idx=-
+    G-ONLY      31:19|helper.nail
+        G: 
+        O: 
+    G-ONLY      33:13|this.decks.knots
+        G: 
+        O: 
+    O-ONLY      33:13|this.decks[cursor].knots
+        G: 
+        O: 
+    G-ONLY      35:13|super.inherited.knots
+        G: 
+        O: 
+    O-ONLY      35:13|super.inherited[cursor].knots
+        G: 
+        O: 
+    TOGOLD      37:13|tier[cursor].knots
+        G: bit_select|tier|37:13-37:17|idx=ref_obj@37:18-37:24^bit_select;ref_obj|knots|37:26-37:31|idx=-;method_func_call|find_index|37:32-37:42|idx=-
+        O: bit_select|tier|37:13-37:17|idx=ref_obj@37:18-37:24^bit_select;ref_obj|knots|37:26-37:31|idx=-;method_func_call|find_index|37:32-37:42|idx=-
+    G-ONLY      44:16|this.decks.knots.size
+        G: 
+        O: 
+    O-ONLY      44:16|this.decks[cursor].knots.size
+        G: 
+        O: 
+tmp__wt_v175__tools__probe__r10uvm175repro__g175_e_sel.elab/judge  G-ONLY=4  O-ONLY=3  TOGOLD=4
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm175repro__g175_e_sel.elab ordered=254 orderblind=226
+  JUDGE tmp__wt_v175__tools__probe__r10uvm175repro__g175_e_sel.elab pris rc=255 lines=48 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm175repro__g175_e_sel.elab pat rc=255 lines=154 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm175repro__g175_e_sel.elab rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm175repro__g175_f_fence.def  SAME_AGREE=4  TOGOLD=3
+    TOGOLD      34:17|shelves[slot].words
+        G: bit_select|shelves|34:17-34:24|idx=ref_obj@34:25-34:29^hier_path;ref_obj|words|34:31-34:36|idx=-;method_func_call|find_index|34:37-34:47|idx=-
+        O: bit_select|shelves|34:17-34:24|idx=ref_obj@34:25-34:29^hier_path;ref_obj|words|34:31-34:36|idx=-;method_func_call|find_index|34:37-34:47|idx=-
+    TOGOLD      35:17|shelves[slot].words
+        G: bit_select|shelves|35:17-35:24|idx=ref_obj@35:25-35:29^hier_path;ref_obj|words|35:31-35:36|idx=-;method_func_call|find_index|35:37-35:47|idx=-
+        O: bit_select|shelves|35:17-35:24|idx=ref_obj@35:25-35:29^hier_path;ref_obj|words|35:31-35:36|idx=-;method_func_call|find_index|35:37-35:47|idx=-
+    TOGOLD      36:17|shelves[slot].words
+        G: bit_select|shelves|36:17-36:24|idx=ref_obj@36:25-36:29^hier_path;ref_obj|words|36:31-36:36|idx=-;method_func_call|find_index|36:37-36:47|idx=-
+        O: bit_select|shelves|36:17-36:24|idx=ref_obj@36:25-36:29^hier_path;ref_obj|words|36:31-36:36|idx=-;method_func_call|find_index|36:37-36:47|idx=-
+tmp__wt_v175__tools__probe__r10uvm175repro__g175_f_fence.def/judge  SAME_AGREE=4  TOGOLD=3
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm175repro__g175_f_fence.def ordered=38 orderblind=38
+  JUDGE tmp__wt_v175__tools__probe__r10uvm175repro__g175_f_fence.def pris rc=255 lines=135 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm175repro__g175_f_fence.def pat rc=255 lines=135 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm175repro__g175_f_fence.def rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm175repro__g175_f_fence.elab  SAME_AGREE=4  TOGOLD=3
+    TOGOLD      34:17|shelves[slot].words
+        G: bit_select|shelves|34:17-34:24|idx=ref_obj@34:25-34:29^bit_select;ref_obj|words|34:31-34:36|idx=-;method_func_call|find_index|34:37-34:47|idx=- || bit_select|shelves|34:17-34:24|idx=ref_obj@34:25-34:29^hier_path;ref_obj|words|34:31-34:36|idx=-;method_func_call|find_index|34:37-34:47|idx=-
+        O: bit_select|shelves|34:17-34:24|idx=ref_obj@34:25-34:29^bit_select;ref_obj|words|34:31-34:36|idx=-;method_func_call|find_index|34:37-34:47|idx=- || bit_select|shelves|34:17-34:24|idx=ref_obj@34:25-34:29^hier_path;ref_obj|words|34:31-34:36|idx=-;method_func_call|find_index|34:37-34:47|idx=-
+    TOGOLD      35:17|shelves[slot].words
+        G: bit_select|shelves|35:17-35:24|idx=ref_obj@35:25-35:29^bit_select;ref_obj|words|35:31-35:36|idx=-;method_func_call|find_index|35:37-35:47|idx=- || bit_select|shelves|35:17-35:24|idx=ref_obj@35:25-35:29^hier_path;ref_obj|words|35:31-35:36|idx=-;method_func_call|find_index|35:37-35:47|idx=-
+        O: bit_select|shelves|35:17-35:24|idx=ref_obj@35:25-35:29^bit_select;ref_obj|words|35:31-35:36|idx=-;method_func_call|find_index|35:37-35:47|idx=- || bit_select|shelves|35:17-35:24|idx=ref_obj@35:25-35:29^hier_path;ref_obj|words|35:31-35:36|idx=-;method_func_call|find_index|35:37-35:47|idx=-
+    TOGOLD      36:17|shelves[slot].words
+        G: bit_select|shelves|36:17-36:24|idx=ref_obj@36:25-36:29^bit_select;ref_obj|words|36:31-36:36|idx=-;method_func_call|find_index|36:37-36:47|idx=- || bit_select|shelves|36:17-36:24|idx=ref_obj@36:25-36:29^hier_path;ref_obj|words|36:31-36:36|idx=-;method_func_call|find_index|36:37-36:47|idx=-
+        O: bit_select|shelves|36:17-36:24|idx=ref_obj@36:25-36:29^bit_select;ref_obj|words|36:31-36:36|idx=-;method_func_call|find_index|36:37-36:47|idx=- || bit_select|shelves|36:17-36:24|idx=ref_obj@36:25-36:29^hier_path;ref_obj|words|36:31-36:36|idx=-;method_func_call|find_index|36:37-36:47|idx=-
+tmp__wt_v175__tools__probe__r10uvm175repro__g175_f_fence.elab/judge  SAME_AGREE=4  TOGOLD=3
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm175repro__g175_f_fence.elab ordered=92 orderblind=92
+  JUDGE tmp__wt_v175__tools__probe__r10uvm175repro__g175_f_fence.elab pris rc=255 lines=135 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm175repro__g175_f_fence.elab pat rc=255 lines=135 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm175repro__g175_f_fence.elab rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm74repro__b1_idxkind.def  SAME_AGREE=9
+tmp__wt_v175__tools__probe__r10uvm74repro__b1_idxkind.def/judge  SAME_AGREE=9
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm74repro__b1_idxkind.def ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm74repro__b1_idxkind.def pris rc=0 lines=0 heads=0
+  JUDGE tmp__wt_v175__tools__probe__r10uvm74repro__b1_idxkind.def pat rc=0 lines=0 heads=0
+  RCS tmp__wt_v175__tools__probe__r10uvm74repro__b1_idxkind.def rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm74repro__b1_idxkind.elab  SAME_AGREE=9
+tmp__wt_v175__tools__probe__r10uvm74repro__b1_idxkind.elab/judge  SAME_AGREE=9
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm74repro__b1_idxkind.elab ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm74repro__b1_idxkind.elab pris rc=0 lines=0 heads=0
+  JUDGE tmp__wt_v175__tools__probe__r10uvm74repro__b1_idxkind.elab pat rc=0 lines=0 heads=0
+  RCS tmp__wt_v175__tools__probe__r10uvm74repro__b1_idxkind.elab rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm74repro__b2_position.def  SAME_AGREE=6
+tmp__wt_v175__tools__probe__r10uvm74repro__b2_position.def/judge  SAME_AGREE=6
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm74repro__b2_position.def ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm74repro__b2_position.def pris rc=0 lines=0 heads=0
+  JUDGE tmp__wt_v175__tools__probe__r10uvm74repro__b2_position.def pat rc=0 lines=0 heads=0
+  RCS tmp__wt_v175__tools__probe__r10uvm74repro__b2_position.def rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm74repro__b2_position.elab  SAME_AGREE=6
+tmp__wt_v175__tools__probe__r10uvm74repro__b2_position.elab/judge  SAME_AGREE=6
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm74repro__b2_position.elab ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm74repro__b2_position.elab pris rc=0 lines=0 heads=0
+  JUDGE tmp__wt_v175__tools__probe__r10uvm74repro__b2_position.elab pat rc=0 lines=0 heads=0
+  RCS tmp__wt_v175__tools__probe__r10uvm74repro__b2_position.elab rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm74repro__b3_context.def  SAME_AGREE=5  STILLWRONG=1
+    STILLWRONG  45:11|iq[i].getv
+        G: bit_select|iq|45:11-45:13|idx=ref_obj@45:14-45:15^hier_path;method_func_call|getv|45:17-45:21|idx=-
+        O: bit_select|iq|45:11-45:13|idx=ref_obj@45:14-45:15^bit_select;method_func_call|getv|45:17-45:21|idx=-
+tmp__wt_v175__tools__probe__r10uvm74repro__b3_context.def/judge  SAME_AGREE=6
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm74repro__b3_context.def ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm74repro__b3_context.def pris rc=255 lines=330 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm74repro__b3_context.def pat rc=255 lines=330 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm74repro__b3_context.def rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm74repro__b3_context.elab  SAME_AGREE=5  STILLWRONG=1
+    STILLWRONG  45:11|iq[i].getv
+        G: bit_select|iq|45:11-45:13|idx=ref_obj@45:14-45:15^bit_select;method_func_call|getv|45:17-45:21|idx=- || bit_select|iq|45:11-45:13|idx=ref_obj@45:14-45:15^hier_path;method_func_call|getv|45:17-45:21|idx=-
+        O: bit_select|iq|45:11-45:13|idx=ref_obj@45:14-45:15^bit_select;method_func_call|getv|45:17-45:21|idx=-
+tmp__wt_v175__tools__probe__r10uvm74repro__b3_context.elab/judge  SAME_AGREE=6
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm74repro__b3_context.elab ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm74repro__b3_context.elab pris rc=255 lines=342 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm74repro__b3_context.elab pat rc=255 lines=342 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm74repro__b3_context.elab rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm74repro__b4_foldidx.def  G-ONLY=2  O-ONLY=2  SAME_AGREE=3
+    G-ONLY      23:11|sq[2].len
+        G: 
+        O: 
+    O-ONLY      23:11|sq[p4::PK].len
+        G: 
+        O: 
+    G-ONLY      24:11|sq[2].len
+        G: 
+        O: 
+    O-ONLY      24:11|sq[PK].len
+        G: 
+        O: 
+tmp__wt_v175__tools__probe__r10uvm74repro__b4_foldidx.def/judge  G-ONLY=2  O-ONLY=2  SAME_AGREE=3
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm74repro__b4_foldidx.def ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm74repro__b4_foldidx.def pris rc=255 lines=110 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm74repro__b4_foldidx.def pat rc=255 lines=110 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm74repro__b4_foldidx.def rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm74repro__b4_foldidx.elab  G-ONLY=2  O-ONLY=2  SAME_AGREE=2  STILLWRONG=1
+    G-ONLY      23:11|sq[2].len
+        G: 
+        O: 
+    O-ONLY      23:11|sq[p4::PK].len
+        G: 
+        O: 
+    G-ONLY      24:11|sq[2].len
+        G: 
+        O: 
+    O-ONLY      24:11|sq[PK].len
+        G: 
+        O: 
+    STILLWRONG  27:11|sq[1 + 1].len
+        G: bit_select|sq|27:11-27:13|idx=constant@27:14-27:19^-;method_func_call|len|27:21-27:24|idx=- || bit_select|sq|27:11-27:13|idx=operation@27:14-27:19^bit_select;method_func_call|len|27:21-27:24|idx=- || bit_select|sq|27:11-27:13|idx=operation@27:14-27:19^hier_path;method_func_call|len|27:21-27:24|idx=-
+        O: bit_select|sq|27:11-27:13|idx=constant@27:14-27:19^-;method_func_call|len|27:21-27:24|idx=- || bit_select|sq|27:11-27:13|idx=operation@27:14-27:19^-;method_func_call|len|27:21-27:24|idx=- || bit_select|sq|27:11-27:13|idx=operation@27:14-27:19^bit_select;method_func_call|len|27:21-27:24|idx=-
+tmp__wt_v175__tools__probe__r10uvm74repro__b4_foldidx.elab/judge  G-ONLY=2  O-ONLY=2  SAME_AGREE=2  STILLWRONG=1
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm74repro__b4_foldidx.elab ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm74repro__b4_foldidx.elab pris rc=255 lines=118 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm74repro__b4_foldidx.elab pat rc=255 lines=118 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm74repro__b4_foldidx.elab rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm74repro__v74_edge2.def  G-ONLY=4  O-ONLY=3  SAME_AGREE=4
+    O-ONLY      18:11|sq[2 ].len
+        G: 
+        O: 
+    G-ONLY      18:11|sq[2].len
+        G: 
+        O: 
+    G-ONLY      24:11|sq[].len
+        G: 
+        O: 
+    O-ONLY      24:11|sq[int'(i)].len
+        G: 
+        O: 
+    G-ONLY      26:11|this.sq.len
+        G: 
+        O: 
+    O-ONLY      26:11|this.sq[i].len
+        G: 
+        O: 
+    G-ONLY      28:11|sq[i].len
+        G: 
+        O: 
+tmp__wt_v175__tools__probe__r10uvm74repro__v74_edge2.def/judge  G-ONLY=4  O-ONLY=3  SAME_AGREE=4
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm74repro__v74_edge2.def ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm74repro__v74_edge2.def pris rc=255 lines=92 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm74repro__v74_edge2.def pat rc=255 lines=92 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm74repro__v74_edge2.def rc_sl=0 rc_pris=4 rc_pat=4 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm74repro__v74_edge2.elab  G-ONLY=4  O-ONLY=3  SAME_AGREE=4
+    O-ONLY      18:11|sq[2 ].len
+        G: 
+        O: 
+    G-ONLY      18:11|sq[2].len
+        G: 
+        O: 
+    G-ONLY      24:11|sq[].len
+        G: 
+        O: 
+    O-ONLY      24:11|sq[int'(i)].len
+        G: 
+        O: 
+    G-ONLY      26:11|this.sq.len
+        G: 
+        O: 
+    O-ONLY      26:11|this.sq[i].len
+        G: 
+        O: 
+    G-ONLY      28:11|sq[i].len
+        G: 
+        O: 
+tmp__wt_v175__tools__probe__r10uvm74repro__v74_edge2.elab/judge  G-ONLY=4  O-ONLY=3  SAME_AGREE=4
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm74repro__v74_edge2.elab ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm74repro__v74_edge2.elab pris rc=255 lines=100 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm74repro__v74_edge2.elab pat rc=255 lines=100 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm74repro__v74_edge2.elab rc_sl=4 rc_pris=4 rc_pat=4 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm74repro__v74_edge.def  G-ONLY=2  O-ONLY=2  SAME_AGREE=8  STILLWRONG=2  TOGOLD=1
+    STILLWRONG  45:14|ih.k
+        G: ref_obj|ih|45:17-45:18|idx=-;ref_obj|k|45:17-45:18|idx=-
+        O: ref_obj|ih|45:14-45:16|idx=-;ref_obj|k|45:17-45:18|idx=-
+    G-ONLY      47:11|sq[].len
+        G: 
+        O: 
+    O-ONLY      47:11|sq[fidx(i)].len
+        G: 
+        O: 
+    O-ONLY      56:11|sq[ 2 ].len
+        G: 
+        O: 
+    G-ONLY      56:11|sq[2].len
+        G: 
+        O: 
+    STILLWRONG  62:11|mq[i].lq[j].getl
+        G: bit_select|mq|62:11-62:13|idx=ref_obj@62:14-62:15^hier_path;bit_select|lq|62:17-62:19|idx=ref_obj@62:20-62:21^hier_path;method_func_call|getl|62:23-62:27|idx=-
+        O: bit_select|mq|62:11-62:13|idx=ref_obj@62:14-62:15^bit_select;bit_select|lq|62:17-62:19|idx=ref_obj@62:20-62:21^bit_select;method_func_call|getl|62:23-62:27|idx=-
+    TOGOLD      73:11|mq[i].iq
+        G: bit_select|mq|73:11-73:13|idx=ref_obj@73:14-73:15^hier_path;ref_obj|iq|73:17-73:19|idx=-;method_func_call|sum|73:20-73:23|idx=-
+        O: bit_select|mq|73:11-73:13|idx=ref_obj@73:14-73:15^hier_path;ref_obj|iq|73:17-73:19|idx=-;method_func_call|sum|73:20-73:23|idx=-
+tmp__wt_v175__tools__probe__r10uvm74repro__v74_edge.def/judge  G-ONLY=2  O-ONLY=2  SAME_AGREE=10  TOGOLD=1
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm74repro__v74_edge.def ordered=14 orderblind=14
+  JUDGE tmp__wt_v175__tools__probe__r10uvm74repro__v74_edge.def pris rc=255 lines=432 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm74repro__v74_edge.def pat rc=255 lines=432 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm74repro__v74_edge.def rc_sl=4 rc_pris=4 rc_pat=4 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm74repro__v74_edge.elab  G-ONLY=2  O-ONLY=2  SAME_AGREE=7  STILLWRONG=3  TOGOLD=1
+    STILLWRONG  43:11|qq[i][j].len
+        G: bit_select|qq|43:11-43:13|idx=ref_obj@43:14-43:15^bit_select;bit_select||43:14-43:15|idx=ref_obj@43:17-43:18^bit_select;method_func_call|len|43:20-43:23|idx=- || bit_select|qq|43:11-43:13|idx=ref_obj@43:14-43:15^hier_path;bit_select||43:14-43:15|idx=ref_obj@43:17-43:18^hier_path;method_func_call|len|43:20-43:23|idx=-
+        O: bit_select|qq|43:11-43:13|idx=ref_obj@43:14-43:15^bit_select;bit_select||43:14-43:15|idx=ref_obj@43:17-43:18^bit_select || bit_select|qq|43:11-43:13|idx=ref_obj@43:14-43:15^bit_select;bit_select||43:14-43:15|idx=ref_obj@43:17-43:18^bit_select;method_func_call|len|43:20-43:23|idx=- || bit_select|qq|43:11-43:13|idx=ref_obj@43:14-43:15^hier_path;bit_select||43:14-43:15|idx=ref_obj@43:17-43:18^hier_path;method_func_call|len|43:20-43:23|idx=-
+    STILLWRONG  45:14|ih.k
+        G: ref_obj|ih|45:17-45:18|idx=-;ref_obj|k|45:17-45:18|idx=-
+        O: ref_obj|ih|45:14-45:16|idx=-;ref_obj|k|45:17-45:18|idx=-
+    G-ONLY      47:11|sq[].len
+        G: 
+        O: 
+    O-ONLY      47:11|sq[fidx(i)].len
+        G: 
+        O: 
+    O-ONLY      56:11|sq[ 2 ].len
+        G: 
+        O: 
+    G-ONLY      56:11|sq[2].len
+        G: 
+        O: 
+    STILLWRONG  62:11|mq[i].lq[j].getl
+        G: bit_select|mq|62:11-62:13|idx=ref_obj@62:14-62:15^bit_select;bit_select|lq|62:17-62:19|idx=ref_obj@62:20-62:21^bit_select;method_func_call|getl|62:23-62:27|idx=- || bit_select|mq|62:11-62:13|idx=ref_obj@62:14-62:15^hier_path;bit_select|lq|62:17-62:19|idx=ref_obj@62:20-62:21^hier_path;method_func_call|getl|62:23-62:27|idx=-
+        O: bit_select|mq|62:11-62:13|idx=ref_obj@62:14-62:15^bit_select;bit_select|lq|62:17-62:19|idx=ref_obj@62:20-62:21^bit_select;method_func_call|getl|62:23-62:27|idx=-
+    TOGOLD      73:11|mq[i].iq
+        G: bit_select|mq|73:11-73:13|idx=ref_obj@73:14-73:15^bit_select;ref_obj|iq|73:17-73:19|idx=-;method_func_call|sum|73:20-73:23|idx=-
+        O: bit_select|mq|73:11-73:13|idx=ref_obj@73:14-73:15^bit_select;ref_obj|iq|73:17-73:19|idx=-;method_func_call|sum|73:20-73:23|idx=-
+tmp__wt_v175__tools__probe__r10uvm74repro__v74_edge.elab/judge  G-ONLY=2  O-ONLY=2  SAME_AGREE=9  STILLWRONG=1  TOGOLD=1
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm74repro__v74_edge.elab ordered=69 orderblind=55
+  JUDGE tmp__wt_v175__tools__probe__r10uvm74repro__v74_edge.elab pris rc=255 lines=386 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm74repro__v74_edge.elab pat rc=255 lines=386 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm74repro__v74_edge.elab rc_sl=4 rc_pris=4 rc_pat=4 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm124repro__g124_a_kinds.def: NO-GOLDEN-CELLS rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm124repro__g124_a_kinds.def ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm124repro__g124_a_kinds.def pris rc=255 lines=802 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm124repro__g124_a_kinds.def pat rc=255 lines=802 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm124repro__g124_a_kinds.def rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm124repro__g124_a_kinds.elab: NO-GOLDEN-CELLS rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm124repro__g124_a_kinds.elab ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm124repro__g124_a_kinds.elab pris rc=255 lines=882 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm124repro__g124_a_kinds.elab pat rc=255 lines=882 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm124repro__g124_a_kinds.elab rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm124repro__g124_b_meths.def: NO-GOLDEN-CELLS rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm124repro__g124_b_meths.def ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm124repro__g124_b_meths.def pris rc=255 lines=666 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm124repro__g124_b_meths.def pat rc=255 lines=666 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm124repro__g124_b_meths.def rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm124repro__g124_b_meths.elab: NO-GOLDEN-CELLS rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm124repro__g124_b_meths.elab ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm124repro__g124_b_meths.elab pris rc=255 lines=746 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm124repro__g124_b_meths.elab pat rc=255 lines=746 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm124repro__g124_b_meths.elab rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm124repro__g124_c_homes.def: NO-GOLDEN-CELLS rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm124repro__g124_c_homes.def ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm124repro__g124_c_homes.def pris rc=255 lines=134 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm124repro__g124_c_homes.def pat rc=255 lines=134 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm124repro__g124_c_homes.def rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm124repro__g124_c_homes.elab: NO-GOLDEN-CELLS rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm124repro__g124_c_homes.elab ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm124repro__g124_c_homes.elab pris rc=255 lines=142 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm124repro__g124_c_homes.elab pat rc=255 lines=142 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm124repro__g124_c_homes.elab rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm124repro__g124_d_chain.def: NO-GOLDEN-CELLS rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm124repro__g124_d_chain.def ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm124repro__g124_d_chain.def pris rc=255 lines=594 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm124repro__g124_d_chain.def pat rc=255 lines=594 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm124repro__g124_d_chain.def rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm124repro__g124_d_chain.elab: NO-GOLDEN-CELLS rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm124repro__g124_d_chain.elab ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm124repro__g124_d_chain.elab pris rc=255 lines=658 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm124repro__g124_d_chain.elab pat rc=255 lines=658 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm124repro__g124_d_chain.elab rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm124repro__g124_e_expr.def  SAME_AGREE=5  STILLWRONG=2
+    STILLWRONG  18:14|Bay[Zx].Count
+        G: bit_select|Bay|18:14-18:17|idx=ref_obj@18:18-18:20^hier_path;method_func_call|Count|18:22-18:27|idx=-
+        O: bit_select|Bay|18:14-18:17|idx=ref_obj@18:18-18:20^bit_select;method_func_call|Count|18:22-18:27|idx=-
+    STILLWRONG  21:23|Named[Wx].Count
+        G: bit_select|Named|21:23-21:28|idx=ref_obj@21:29-21:31^hier_path;method_func_call|Count|21:33-21:38|idx=-
+        O: bit_select|Named|21:23-21:28|idx=ref_obj@21:29-21:31^bit_select;method_func_call|Count|21:33-21:38|idx=-
+tmp__wt_v175__tools__probe__r10uvm124repro__g124_e_expr.def/judge  SAME_AGREE=7
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm124repro__g124_e_expr.def ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm124repro__g124_e_expr.def pris rc=255 lines=1386 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm124repro__g124_e_expr.def pat rc=255 lines=1386 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm124repro__g124_e_expr.def rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm124repro__g124_e_expr.elab  SAME_AGREE=5  STILLWRONG=2
+    STILLWRONG  18:14|Bay[Zx].Count
+        G: bit_select|Bay|18:14-18:17|idx=ref_obj@18:18-18:20^bit_select;method_func_call|Count|18:22-18:27|idx=- || bit_select|Bay|18:14-18:17|idx=ref_obj@18:18-18:20^hier_path;method_func_call|Count|18:22-18:27|idx=-
+        O: bit_select|Bay|18:14-18:17|idx=ref_obj@18:18-18:20^bit_select;method_func_call|Count|18:22-18:27|idx=-
+    STILLWRONG  21:23|Named[Wx].Count
+        G: bit_select|Named|21:23-21:28|idx=ref_obj@21:29-21:31^bit_select;method_func_call|Count|21:33-21:38|idx=- || bit_select|Named|21:23-21:28|idx=ref_obj@21:29-21:31^hier_path;method_func_call|Count|21:33-21:38|idx=-
+        O: bit_select|Named|21:23-21:28|idx=ref_obj@21:29-21:31^bit_select;method_func_call|Count|21:33-21:38|idx=-
+tmp__wt_v175__tools__probe__r10uvm124repro__g124_e_expr.elab/judge  SAME_AGREE=7
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm124repro__g124_e_expr.elab ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm124repro__g124_e_expr.elab pris rc=255 lines=1630 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm124repro__g124_e_expr.elab pat rc=255 lines=1630 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm124repro__g124_e_expr.elab rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm124repro__g124_f_fence.def: NO-GOLDEN-CELLS rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm124repro__g124_f_fence.def ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm124repro__g124_f_fence.def pris rc=255 lines=526 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm124repro__g124_f_fence.def pat rc=255 lines=526 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm124repro__g124_f_fence.def rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm124repro__g124_f_fence.elab: NO-GOLDEN-CELLS rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm124repro__g124_f_fence.elab ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm124repro__g124_f_fence.elab pris rc=255 lines=582 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm124repro__g124_f_fence.elab pat rc=255 lines=582 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm124repro__g124_f_fence.elab rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm172repro__g172_a_shape.def  SAME_AGREE=7
+tmp__wt_v175__tools__probe__r10uvm172repro__g172_a_shape.def/judge  SAME_AGREE=7
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm172repro__g172_a_shape.def ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm172repro__g172_a_shape.def pris rc=255 lines=72 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm172repro__g172_a_shape.def pat rc=255 lines=72 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm172repro__g172_a_shape.def rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm172repro__g172_a_shape.elab  SAME_AGREE=7
+tmp__wt_v175__tools__probe__r10uvm172repro__g172_a_shape.elab/judge  SAME_AGREE=7
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm172repro__g172_a_shape.elab ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm172repro__g172_a_shape.elab pris rc=255 lines=72 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm172repro__g172_a_shape.elab pat rc=255 lines=72 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm172repro__g172_a_shape.elab rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm172repro__g172_b_name.def: NO-GOLDEN-CELLS rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm172repro__g172_b_name.def ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm172repro__g172_b_name.def pris rc=0 lines=0 heads=0
+  JUDGE tmp__wt_v175__tools__probe__r10uvm172repro__g172_b_name.def pat rc=0 lines=0 heads=0
+  RCS tmp__wt_v175__tools__probe__r10uvm172repro__g172_b_name.def rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm172repro__g172_b_name.elab: NO-GOLDEN-CELLS rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm172repro__g172_b_name.elab ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm172repro__g172_b_name.elab pris rc=0 lines=0 heads=0
+  JUDGE tmp__wt_v175__tools__probe__r10uvm172repro__g172_b_name.elab pat rc=0 lines=0 heads=0
+  RCS tmp__wt_v175__tools__probe__r10uvm172repro__g172_b_name.elab rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm172repro__g172_c_home.def  SAME_AGREE=1
+tmp__wt_v175__tools__probe__r10uvm172repro__g172_c_home.def/judge  SAME_AGREE=1
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm172repro__g172_c_home.def ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm172repro__g172_c_home.def pris rc=255 lines=27 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm172repro__g172_c_home.def pat rc=255 lines=27 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm172repro__g172_c_home.def rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm172repro__g172_c_home.elab  SAME_AGREE=1
+tmp__wt_v175__tools__probe__r10uvm172repro__g172_c_home.elab/judge  SAME_AGREE=1
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm172repro__g172_c_home.elab ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm172repro__g172_c_home.elab pris rc=0 lines=0 heads=0
+  JUDGE tmp__wt_v175__tools__probe__r10uvm172repro__g172_c_home.elab pat rc=0 lines=0 heads=0
+  RCS tmp__wt_v175__tools__probe__r10uvm172repro__g172_c_home.elab rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm172repro__g172_d_scope.def: NO-GOLDEN-CELLS rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm172repro__g172_d_scope.def ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm172repro__g172_d_scope.def pris rc=0 lines=0 heads=0
+  JUDGE tmp__wt_v175__tools__probe__r10uvm172repro__g172_d_scope.def pat rc=0 lines=0 heads=0
+  RCS tmp__wt_v175__tools__probe__r10uvm172repro__g172_d_scope.def rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm172repro__g172_d_scope.elab: NO-GOLDEN-CELLS rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm172repro__g172_d_scope.elab ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm172repro__g172_d_scope.elab pris rc=0 lines=0 heads=0
+  JUDGE tmp__wt_v175__tools__probe__r10uvm172repro__g172_d_scope.elab pat rc=0 lines=0 heads=0
+  RCS tmp__wt_v175__tools__probe__r10uvm172repro__g172_d_scope.elab rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm172repro__g172_e_deep.def: NO-GOLDEN-CELLS rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm172repro__g172_e_deep.def ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm172repro__g172_e_deep.def pris rc=255 lines=16 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm172repro__g172_e_deep.def pat rc=255 lines=16 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm172repro__g172_e_deep.def rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm172repro__g172_e_deep.elab: NO-GOLDEN-CELLS rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm172repro__g172_e_deep.elab ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm172repro__g172_e_deep.elab pris rc=255 lines=16 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm172repro__g172_e_deep.elab pat rc=255 lines=16 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm172repro__g172_e_deep.elab rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm172repro__g172_f_args.def: NO-GOLDEN-CELLS rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm172repro__g172_f_args.def ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm172repro__g172_f_args.def pris rc=255 lines=29 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm172repro__g172_f_args.def pat rc=255 lines=29 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm172repro__g172_f_args.def rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10uvm172repro__g172_f_args.elab: NO-GOLDEN-CELLS rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+  RAWDIFF tmp__wt_v175__tools__probe__r10uvm172repro__g172_f_args.elab ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10uvm172repro__g172_f_args.elab pris rc=255 lines=16 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10uvm172repro__g172_f_args.elab pat rc=255 lines=16 heads=1
+  RCS tmp__wt_v175__tools__probe__r10uvm172repro__g172_f_args.elab rc_sl=4 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10buvm14repro__a1_dims14.def  G-ONLY=3  O-ONLY=2  SAME_AGREE=13
+    G-ONLY      41:12|m1[].size
+        G: 
+        O: 
+    O-ONLY      41:12|m1[hh.s1[a]].size
+        G: 
+        O: 
+    G-ONLY      41:15|hh.s1[a]
+        G: 
+        O: 
+    G-ONLY      42:12|qn[[i]].size
+        G: 
+        O: 
+    O-ONLY      42:12|qn[idxarr[i]].size
+        G: 
+        O: 
+tmp__wt_v175__tools__probe__r10buvm14repro__a1_dims14.def/judge  G-ONLY=3  O-ONLY=2  SAME_AGREE=13
+  RAWDIFF tmp__wt_v175__tools__probe__r10buvm14repro__a1_dims14.def ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10buvm14repro__a1_dims14.def pris rc=255 lines=29 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10buvm14repro__a1_dims14.def pat rc=255 lines=29 heads=1
+  RCS tmp__wt_v175__tools__probe__r10buvm14repro__a1_dims14.def rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+tmp__wt_v175__tools__probe__r10buvm14repro__a1_dims14.elab  G-ONLY=3  O-ONLY=2  SAME_AGREE=13
+    G-ONLY      41:12|m1[].size
+        G: 
+        O: 
+    O-ONLY      41:12|m1[hh.s1[a]].size
+        G: 
+        O: 
+    G-ONLY      41:15|hh.s1[a]
+        G: 
+        O: 
+    G-ONLY      42:12|qn[[i]].size
+        G: 
+        O: 
+    O-ONLY      42:12|qn[idxarr[i]].size
+        G: 
+        O: 
+tmp__wt_v175__tools__probe__r10buvm14repro__a1_dims14.elab/judge  G-ONLY=3  O-ONLY=2  SAME_AGREE=13
+  RAWDIFF tmp__wt_v175__tools__probe__r10buvm14repro__a1_dims14.elab ordered=2 orderblind=2
+  JUDGE tmp__wt_v175__tools__probe__r10buvm14repro__a1_dims14.elab pris rc=255 lines=126 heads=1
+  JUDGE tmp__wt_v175__tools__probe__r10buvm14repro__a1_dims14.elab pat rc=255 lines=126 heads=1
+  RCS tmp__wt_v175__tools__probe__r10buvm14repro__a1_dims14.elab rc_sl=0 rc_pris=0 rc_pat=0 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+LISTED=29 PROCESSED=29
+PROCESSED-ASSERT-OK
+GRID_DONE_0
+
+## --- arm G (v175_solo.sv), run separately; see SOLO.r10v175.txt ---
+solo.def  MOVEDWRONG=5  SAME_AGREE=1
+solo.def/judge  MOVEDWRONG=1  SAME_AGREE=1  TOGOLD=4
+  RCS solo.def rc_sl=0 rc_pris=4 rc_pat=4 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+solo.elab  MOVEDWRONG=5  STILLWRONG=1
+solo.elab/judge  MOVEDWRONG=1  SAME_AGREE=1  TOGOLD=4
+  RCS solo.elab rc_sl=0 rc_pris=4 rc_pat=4 rc_dump_g=0 rc_dump_pris=0 rc_dump_pat=0 
+## --- arm G2 (v175_solo2.sv): both binaries REJECT it (rc=3); golden only ---

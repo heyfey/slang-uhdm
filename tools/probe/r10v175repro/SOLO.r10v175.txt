@@ -1,0 +1,82 @@
+# r10v175 — SOLO: the ONE-COMPONENT subscripted `with`-form receiver.
+# MEASUREMENT ONLY.  The official uhdm-cmp is the judge.
+# LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+#
+# THE FINDING (verifier residue R7).  r10uvm175's law says the `with` clause
+# "cannot change an element's shape ... every position, every index kind, every
+# locator method and every home give the SAME bit_select with and without the
+# clause."  That is true of every MULTI-component receiver measured (arms A-F,
+# and this verifier's P/D/K/H/S/F arms).  It is NOT true of a receiver written
+# as ONE subscripted component: there the clause moves the bit_select's SPAN.
+#
+# The face is UNTESTED by the pass: arm A's cell labelled
+#   "// p_solo: ONE component, subscripted (the array-of-queues cell)"
+# is written `solo.tagset.find_index() with (...)`, which is TWO components and
+# carries NO subscript.  The cell the comment names is not in any arm.
+#
+# JUDGE IMPACT: NONE.  The differing fields are the bit_select's SPAN and the
+# index's vpiParent, and no generated Compare reads either (RESUME.md §9).
+# CORPUS IMPACT: NONE.  The whole-corpus face census finds 324 `with`-form
+# paths in golden with exactly 2 subscripted ones, both the MiniAmiq
+# MULTI-component cell; uhdm2rtlil holds zero `with`-form paths at all.
+# The patch MOVES these cells TOWARD golden (kind, VpiName, index presence and
+# index kind all become golden's); it never moves one away.
+
+## v175_solo2.sv — GOLDEN ONLY, the discriminator isolated.
+## (Both binaries reject this arm, rc=3 `class array property element`, so the
+##  golden alone answers the question — recorded, not hidden.)
+## One component, one array, the SAME method with and without the clause:
+
+DEF view
+  11:16|nest[slot]              bit_select|nest|11:21-11:25|idx=ref_obj@11:21-11:25^bit_select;method_func_call|sum|11:27-11:30
+        nest[slot].sum() with (item)          <- span = the INDEX
+  13:16|nest[slot].sum          bit_select|nest|13:16-13:20|idx=ref_obj@13:21-13:25^hier_path;method_func_call|sum|13:27-13:30
+        nest[slot].sum()                      <- span = the BASE NAME
+  15:16|nest[slot].size         bit_select|nest|15:16-15:20|idx=ref_obj@15:21-15:25^hier_path;method_func_call|size|15:27-15:31
+        nest[slot].size()                     <- span = the BASE NAME
+  17:16|nest[slot]              bit_select|nest|17:21-17:25|idx=ref_obj@17:21-17:25^bit_select;method_func_call|find_index|17:27-17:37
+        nest[slot].find_index() with (...)    <- span = the INDEX
+  19:16|nest[slot].find_index   bit_select|nest|19:16-19:20|idx=ref_obj@19:21-19:25^hier_path;method_func_call|find_index|19:27-19:37
+        nest[slot].find_index()               <- span = the BASE NAME
+
+ELAB view — the SPAN split is IDENTICAL; the index's vpiParent is `bit_select`
+on every row, so vpiParent is not a stable discriminator (golden itself carries
+both parentings for the same cell across its DEF and ELAB copies).
+
+## v175_solo.sv — golden / pristine / patched, DEF view
+-- golden
+14:15|nest[slot]	bit_select|nest|14:20-14:24|idx=ref_obj@14:20-14:24^bit_select;method_func_call|sum|14:26-14:29|idx=-
+16:15|fixmat[slot]	bit_select|fixmat|16:22-16:26|idx=ref_obj@16:22-16:26^bit_select;method_func_call|sum|16:28-16:31|idx=-
+18:15|assoc["keel"]	bit_select|assoc|18:21-18:27|idx=constant@18:21-18:27^bit_select;method_func_call|sum|18:29-18:32|idx=-
+20:15|dyn2[slot]	bit_select|dyn2|20:20-20:24|idx=ref_obj@20:20-20:24^bit_select;method_func_call|sum|20:26-20:29|idx=-
+24:16|nest[slot]	bit_select|nest|24:21-24:25|idx=ref_obj@24:21-24:25^bit_select;method_func_call|find_index|24:27-24:37|idx=-
+26:15|nest[slot].size	bit_select|nest|26:15-26:19|idx=ref_obj@26:20-26:24^hier_path;method_func_call|size|26:26-26:30|idx=-
+-- pristine
+14:15|nest[slot]	ref_obj|nest[slot]|14:15-14:25|idx=-;method_func_call|sum|14:26-14:29|idx=-
+16:15|fixmat[slot]	ref_obj|fixmat[slot]|16:15-16:27|idx=-;method_func_call|sum|16:28-16:31|idx=-
+18:15|assoc["keel"]	ref_obj|assoc["keel"]|18:15-18:28|idx=-;method_func_call|sum|18:29-18:32|idx=-
+20:15|dyn2[slot]	ref_obj|dyn2[slot]|20:15-20:25|idx=-;method_func_call|sum|20:26-20:29|idx=-
+24:16|nest[slot]	ref_obj|nest[slot]|24:16-24:26|idx=-;method_func_call|find_index|24:27-24:37|idx=-
+26:15|nest[slot].size	bit_select|nest|26:15-26:19|idx=ref_obj@26:20-26:24^hier_path;method_func_call|size|26:26-26:30|idx=-
+-- patched
+14:15|nest[slot]	bit_select|nest|14:15-14:19|idx=ref_obj@14:20-14:24^hier_path;method_func_call|sum|14:26-14:29|idx=-
+16:15|fixmat[slot]	bit_select|fixmat|16:15-16:21|idx=ref_obj@16:22-16:26^hier_path;method_func_call|sum|16:28-16:31|idx=-
+18:15|assoc["keel"]	bit_select|assoc|18:15-18:20|idx=constant@18:21-18:27^-;method_func_call|sum|18:29-18:32|idx=-
+20:15|dyn2[slot]	bit_select|dyn2|20:15-20:19|idx=ref_obj@20:20-20:24^hier_path;method_func_call|sum|20:26-20:29|idx=-
+24:16|nest[slot]	bit_select|nest|24:16-24:20|idx=ref_obj@24:21-24:25^hier_path;method_func_call|find_index|24:27-24:37|idx=-
+26:15|nest[slot].size	bit_select|nest|26:15-26:19|idx=ref_obj@26:20-26:24^hier_path;method_func_call|size|26:26-26:30|idx=-
+
+## the score, both columns
+solo.def        MOVEDWRONG=5  SAME_AGREE=1
+solo.def/judge  MOVEDWRONG=1  SAME_AGREE=1  TOGOLD=4
+solo.elab       MOVEDWRONG=5  STILLWRONG=1
+solo.elab/judge MOVEDWRONG=1  SAME_AGREE=1  TOGOLD=4
+
+FOUR of the five cells reach golden on every field a generated Compare reads.
+The fifth, `assoc["keel"]`, reads MOVEDWRONG in the judge column only because
+of a REGEX NIT in `score175.py`'s `judgeform`: `IDXSPAN` strips
+`@<span>^<parent-kind>` with `[a-z_]*`, which does not match the `-` written
+for an UNPARENTED index, so `idx=constant@^-` (ours, the bare-constant arm's
+deliberate no-vpiParent) fails to equal `idx=constant@^` (golden).  The nit
+over-reports difference and can never hide an AWAY, so it does not weaken any
+gate; it slightly under-counts the judge column's TOGOLD.

@@ -1,0 +1,11 @@
+FACEDIFF default/MiniAmiq-544c7f61/ G(sub=0 bit=1) O(sub=1 bit=0)
+FACEDIFF testflags/MiniAmiq-544c7f61/ G(sub=0 bit=1) O(sub=1 bit=0)
+-- WFACE surelog/pristine rows=956 SKIP=617
+   GOLDEN withpaths=324 this_super=0 SUBSCRIPTED-REFOBJ=0 BITSEL=2 PLAIN=322
+   OURS   withpaths=324 this_super=0 SUBSCRIPTED-REFOBJ=2 BITSEL=0 PLAIN=322
+-- WFACE surelog/patched rows=956 SKIP=617
+   GOLDEN withpaths=324 this_super=0 SUBSCRIPTED-REFOBJ=0 BITSEL=2 PLAIN=322
+   OURS   withpaths=324 this_super=0 SUBSCRIPTED-REFOBJ=0 BITSEL=2 PLAIN=322
+-- WFACE uhdm2rtlil/pristine rows=1358 SKIP=104
+   GOLDEN withpaths=0 this_super=0 SUBSCRIPTED-REFOBJ=0 BITSEL=0 PLAIN=0
+   OURS   withpaths=0 this_super=0 SUBSCRIPTED-REFOBJ=0 BITSEL=0 PLAIN=0

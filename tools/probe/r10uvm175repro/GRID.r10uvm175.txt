@@ -1,0 +1,350 @@
+g175_a_pos.def  SAME_AGREE=3  TOGOLD=5
+    TOGOLD      23:18|crop[seat].tagset
+        G: bit_select|crop|23:18-23:22|idx=ref_obj@23:23-23:27^hier_path;ref_obj|tagset|23:29-23:35|idx=-;method_func_call|find_index|23:36-23:46|idx=-
+        O: bit_select|crop|23:18-23:22|idx=ref_obj@23:23-23:27^hier_path;ref_obj|tagset|23:29-23:35|idx=-;method_func_call|find_index|23:36-23:46|idx=-
+    TOGOLD      25:18|lone.stalk[slot].tagset
+        G: ref_obj|lone|25:18-25:22|idx=-;bit_select|stalk|25:23-25:28|idx=ref_obj@25:29-25:33^hier_path;ref_obj|tagset|25:35-25:41|idx=-;method_func_call|find_index|25:42-25:52|idx=-
+        O: ref_obj|lone|25:18-25:22|idx=-;bit_select|stalk|25:23-25:28|idx=ref_obj@25:29-25:33^hier_path;ref_obj|tagset|25:35-25:41|idx=-;method_func_call|find_index|25:42-25:52|idx=-
+    TOGOLD      27:18|rows[seat].stalk[slot].tagset
+        G: bit_select|rows|27:18-27:22|idx=ref_obj@27:23-27:27^hier_path;bit_select|stalk|27:29-27:34|idx=ref_obj@27:35-27:39^hier_path;ref_obj|tagset|27:41-27:47|idx=-;method_func_call|find_index|27:48-27:58|idx=-
+        O: bit_select|rows|27:18-27:22|idx=ref_obj@27:23-27:27^hier_path;bit_select|stalk|27:29-27:34|idx=ref_obj@27:35-27:39^hier_path;ref_obj|tagset|27:41-27:47|idx=-;method_func_call|find_index|27:48-27:58|idx=-
+    TOGOLD      33:18|lone.stalk[slot].numset
+        G: ref_obj|lone|33:18-33:22|idx=-;bit_select|stalk|33:23-33:28|idx=ref_obj@33:29-33:33^hier_path;ref_obj|numset|33:35-33:41|idx=-;method_func_call|find_index|33:42-33:52|idx=-
+        O: ref_obj|lone|33:18-33:22|idx=-;bit_select|stalk|33:23-33:28|idx=ref_obj@33:29-33:33^hier_path;ref_obj|numset|33:35-33:41|idx=-;method_func_call|find_index|33:42-33:52|idx=-
+    TOGOLD      35:18|rows[seat].stalk[slot].tagset
+        G: bit_select|rows|35:18-35:22|idx=ref_obj@35:23-35:27^hier_path;bit_select|stalk|35:29-35:34|idx=ref_obj@35:35-35:39^hier_path;ref_obj|tagset|35:41-35:47|idx=-;method_func_call|find_index|35:48-35:58|idx=-
+        O: bit_select|rows|35:18-35:22|idx=ref_obj@35:23-35:27^hier_path;bit_select|stalk|35:29-35:34|idx=ref_obj@35:35-35:39^hier_path;ref_obj|tagset|35:41-35:47|idx=-;method_func_call|find_index|35:48-35:58|idx=-
+g175_a_pos.def/judge  SAME_AGREE=3  TOGOLD=5
+  JUDGE g175_a_pos.def pris rc=255 lines=40 heads=1
+  JUDGE g175_a_pos.def pat rc=0 lines=0 heads=0
+g175_a_pos.elab  SAME_AGREE=3  TOGOLD=5
+    TOGOLD      23:18|crop[seat].tagset
+        G: bit_select|crop|23:18-23:22|idx=ref_obj@23:23-23:27^bit_select;ref_obj|tagset|23:29-23:35|idx=-;method_func_call|find_index|23:36-23:46|idx=-
+        O: bit_select|crop|23:18-23:22|idx=ref_obj@23:23-23:27^bit_select;ref_obj|tagset|23:29-23:35|idx=-;method_func_call|find_index|23:36-23:46|idx=-
+    TOGOLD      25:18|lone.stalk[slot].tagset
+        G: ref_obj|lone|25:18-25:22|idx=-;bit_select|stalk|25:23-25:28|idx=ref_obj@25:29-25:33^bit_select;ref_obj|tagset|25:35-25:41|idx=-;method_func_call|find_index|25:42-25:52|idx=-
+        O: ref_obj|lone|25:18-25:22|idx=-;bit_select|stalk|25:23-25:28|idx=ref_obj@25:29-25:33^bit_select;ref_obj|tagset|25:35-25:41|idx=-;method_func_call|find_index|25:42-25:52|idx=-
+    TOGOLD      27:18|rows[seat].stalk[slot].tagset
+        G: bit_select|rows|27:18-27:22|idx=ref_obj@27:23-27:27^bit_select;bit_select|stalk|27:29-27:34|idx=ref_obj@27:35-27:39^bit_select;ref_obj|tagset|27:41-27:47|idx=-;method_func_call|find_index|27:48-27:58|idx=-
+        O: bit_select|rows|27:18-27:22|idx=ref_obj@27:23-27:27^bit_select;bit_select|stalk|27:29-27:34|idx=ref_obj@27:35-27:39^bit_select;ref_obj|tagset|27:41-27:47|idx=-;method_func_call|find_index|27:48-27:58|idx=-
+    TOGOLD      33:18|lone.stalk[slot].numset
+        G: ref_obj|lone|33:18-33:22|idx=-;bit_select|stalk|33:23-33:28|idx=ref_obj@33:29-33:33^bit_select;ref_obj|numset|33:35-33:41|idx=-;method_func_call|find_index|33:42-33:52|idx=-
+        O: ref_obj|lone|33:18-33:22|idx=-;bit_select|stalk|33:23-33:28|idx=ref_obj@33:29-33:33^bit_select;ref_obj|numset|33:35-33:41|idx=-;method_func_call|find_index|33:42-33:52|idx=-
+    TOGOLD      35:18|rows[seat].stalk[slot].tagset
+        G: bit_select|rows|35:18-35:22|idx=ref_obj@35:23-35:27^bit_select;bit_select|stalk|35:29-35:34|idx=ref_obj@35:35-35:39^bit_select;ref_obj|tagset|35:41-35:47|idx=-;method_func_call|find_index|35:48-35:58|idx=-
+        O: bit_select|rows|35:18-35:22|idx=ref_obj@35:23-35:27^bit_select;bit_select|stalk|35:29-35:34|idx=ref_obj@35:35-35:39^bit_select;ref_obj|tagset|35:41-35:47|idx=-;method_func_call|find_index|35:48-35:58|idx=-
+g175_a_pos.elab/judge  SAME_AGREE=3  TOGOLD=5
+  JUDGE g175_a_pos.elab pris rc=255 lines=48 heads=1
+  JUDGE g175_a_pos.elab pat rc=0 lines=0 heads=0
+g175_b_idx.def  G-ONLY=1  O-ONLY=1  SAME_AGREE=1  TOGOLD=9
+    TOGOLD      22:15|casks[2].labels
+        G: bit_select|casks|22:15-22:20|idx=constant@22:21-22:22^-;ref_obj|labels|22:24-22:30|idx=-;method_func_call|find_index|22:31-22:41|idx=-
+        O: bit_select|casks|22:15-22:20|idx=constant@22:21-22:22^-;ref_obj|labels|22:24-22:30|idx=-;method_func_call|find_index|22:31-22:41|idx=-
+    TOGOLD      24:15|casks[cursor].labels
+        G: bit_select|casks|24:15-24:20|idx=ref_obj@24:21-24:27^hier_path;ref_obj|labels|24:29-24:35|idx=-;method_func_call|find_index|24:36-24:46|idx=-
+        O: bit_select|casks|24:15-24:20|idx=ref_obj@24:21-24:27^hier_path;ref_obj|labels|24:29-24:35|idx=-;method_func_call|find_index|24:36-24:46|idx=-
+    TOGOLD      26:15|casks[cursor + 1].labels
+        G: bit_select|casks|26:15-26:20|idx=operation@26:21-26:31^hier_path;ref_obj|labels|26:33-26:39|idx=-;method_func_call|find_index|26:40-26:50|idx=-
+        O: bit_select|casks|26:15-26:20|idx=operation@26:21-26:31^hier_path;ref_obj|labels|26:33-26:39|idx=-;method_func_call|find_index|26:40-26:50|idx=-
+    TOGOLD      28:15|byword["north"].labels
+        G: bit_select|byword|28:15-28:21|idx=constant@28:22-28:29^-;ref_obj|labels|28:31-28:37|idx=-;method_func_call|find_index|28:38-28:48|idx=-
+        O: bit_select|byword|28:15-28:21|idx=constant@28:22-28:29^-;ref_obj|labels|28:31-28:37|idx=-;method_func_call|find_index|28:38-28:48|idx=-
+    TOGOLD      30:15|casks[SUMMER].labels
+        G: bit_select|casks|30:15-30:20|idx=ref_obj@30:21-30:27^hier_path;ref_obj|labels|30:29-30:35|idx=-;method_func_call|find_index|30:36-30:46|idx=-
+        O: bit_select|casks|30:15-30:20|idx=ref_obj@30:21-30:27^hier_path;ref_obj|labels|30:29-30:35|idx=-;method_func_call|find_index|30:36-30:46|idx=-
+    TOGOLD      32:15|casks[PLOT].labels
+        G: bit_select|casks|32:15-32:20|idx=ref_obj@32:21-32:25^hier_path;ref_obj|labels|32:27-32:33|idx=-;method_func_call|find_index|32:34-32:44|idx=-
+        O: bit_select|casks|32:15-32:20|idx=ref_obj@32:21-32:25^hier_path;ref_obj|labels|32:27-32:33|idx=-;method_func_call|find_index|32:34-32:44|idx=-
+    G-ONLY      34:15|casks[].labels
+        G: 
+        O: 
+    O-ONLY      34:15|casks[pick()].labels
+        G: 
+        O: 
+    TOGOLD      36:15|grid2[1][cursor].labels
+        G: bit_select|grid2|36:15-36:20|idx=constant@36:21-36:22^-;bit_select||36:21-36:22|idx=ref_obj@36:24-36:30^hier_path;ref_obj|labels|36:32-36:38|idx=-;method_func_call|find_index|36:39-36:49|idx=-
+        O: bit_select|grid2|36:15-36:20|idx=constant@36:21-36:22^-;bit_select||36:21-36:22|idx=ref_obj@36:24-36:30^hier_path;ref_obj|labels|36:32-36:38|idx=-;method_func_call|find_index|36:39-36:49|idx=-
+    TOGOLD      38:15|dyn[cursor].labels
+        G: bit_select|dyn|38:15-38:18|idx=ref_obj@38:19-38:25^hier_path;ref_obj|labels|38:27-38:33|idx=-;method_func_call|find_index|38:34-38:44|idx=-
+        O: bit_select|dyn|38:15-38:18|idx=ref_obj@38:19-38:25^hier_path;ref_obj|labels|38:27-38:33|idx=-;method_func_call|find_index|38:34-38:44|idx=-
+    TOGOLD      40:15|fixed[cursor].labels
+        G: bit_select|fixed|40:15-40:20|idx=ref_obj@40:21-40:27^hier_path;ref_obj|labels|40:29-40:35|idx=-;method_func_call|find_index|40:36-40:46|idx=-
+        O: bit_select|fixed|40:15-40:20|idx=ref_obj@40:21-40:27^hier_path;ref_obj|labels|40:29-40:35|idx=-;method_func_call|find_index|40:36-40:46|idx=-
+g175_b_idx.def/judge  G-ONLY=1  O-ONLY=1  SAME_AGREE=1  TOGOLD=9
+  JUDGE g175_b_idx.def pris rc=255 lines=40 heads=1
+  JUDGE g175_b_idx.def pat rc=255 lines=188 heads=1
+g175_b_idx.elab  G-ONLY=1  O-ONLY=1  SAME_AGREE=1  TOGOLD=9
+    TOGOLD      22:15|casks[2].labels
+        G: bit_select|casks|22:15-22:20|idx=constant@22:21-22:22^-;ref_obj|labels|22:24-22:30|idx=-;method_func_call|find_index|22:31-22:41|idx=-
+        O: bit_select|casks|22:15-22:20|idx=constant@22:21-22:22^-;ref_obj|labels|22:24-22:30|idx=-;method_func_call|find_index|22:31-22:41|idx=-
+    TOGOLD      24:15|casks[cursor].labels
+        G: bit_select|casks|24:15-24:20|idx=ref_obj@24:21-24:27^bit_select;ref_obj|labels|24:29-24:35|idx=-;method_func_call|find_index|24:36-24:46|idx=- || bit_select|casks|24:15-24:20|idx=ref_obj@24:21-24:27^hier_path;ref_obj|labels|24:29-24:35|idx=-;method_func_call|find_index|24:36-24:46|idx=-
+        O: bit_select|casks|24:15-24:20|idx=ref_obj@24:21-24:27^bit_select;ref_obj|labels|24:29-24:35|idx=-;method_func_call|find_index|24:36-24:46|idx=- || bit_select|casks|24:15-24:20|idx=ref_obj@24:21-24:27^hier_path;ref_obj|labels|24:29-24:35|idx=-;method_func_call|find_index|24:36-24:46|idx=-
+    TOGOLD      26:15|casks[cursor + 1].labels
+        G: bit_select|casks|26:15-26:20|idx=operation@26:21-26:31^-;ref_obj|labels|26:33-26:39|idx=-;method_func_call|find_index|26:40-26:50|idx=- || bit_select|casks|26:15-26:20|idx=operation@26:21-26:31^bit_select;ref_obj|labels|26:33-26:39|idx=-;method_func_call|find_index|26:40-26:50|idx=-
+        O: bit_select|casks|26:15-26:20|idx=operation@26:21-26:31^-;ref_obj|labels|26:33-26:39|idx=-;method_func_call|find_index|26:40-26:50|idx=- || bit_select|casks|26:15-26:20|idx=operation@26:21-26:31^bit_select;ref_obj|labels|26:33-26:39|idx=-;method_func_call|find_index|26:40-26:50|idx=-
+    TOGOLD      28:15|byword["north"].labels
+        G: bit_select|byword|28:15-28:21|idx=constant@28:22-28:29^-;ref_obj|labels|28:31-28:37|idx=-;method_func_call|find_index|28:38-28:48|idx=-
+        O: bit_select|byword|28:15-28:21|idx=constant@28:22-28:29^-;ref_obj|labels|28:31-28:37|idx=-;method_func_call|find_index|28:38-28:48|idx=-
+    TOGOLD      30:15|casks[SUMMER].labels
+        G: bit_select|casks|30:15-30:20|idx=ref_obj@30:21-30:27^bit_select;ref_obj|labels|30:29-30:35|idx=-;method_func_call|find_index|30:36-30:46|idx=- || bit_select|casks|30:15-30:20|idx=ref_obj@30:21-30:27^hier_path;ref_obj|labels|30:29-30:35|idx=-;method_func_call|find_index|30:36-30:46|idx=-
+        O: bit_select|casks|30:15-30:20|idx=ref_obj@30:21-30:27^bit_select;ref_obj|labels|30:29-30:35|idx=-;method_func_call|find_index|30:36-30:46|idx=- || bit_select|casks|30:15-30:20|idx=ref_obj@30:21-30:27^hier_path;ref_obj|labels|30:29-30:35|idx=-;method_func_call|find_index|30:36-30:46|idx=-
+    TOGOLD      32:15|casks[PLOT].labels
+        G: bit_select|casks|32:15-32:20|idx=ref_obj@32:21-32:25^bit_select;ref_obj|labels|32:27-32:33|idx=-;method_func_call|find_index|32:34-32:44|idx=- || bit_select|casks|32:15-32:20|idx=ref_obj@32:21-32:25^hier_path;ref_obj|labels|32:27-32:33|idx=-;method_func_call|find_index|32:34-32:44|idx=-
+        O: bit_select|casks|32:15-32:20|idx=ref_obj@32:21-32:25^bit_select;ref_obj|labels|32:27-32:33|idx=-;method_func_call|find_index|32:34-32:44|idx=- || bit_select|casks|32:15-32:20|idx=ref_obj@32:21-32:25^hier_path;ref_obj|labels|32:27-32:33|idx=-;method_func_call|find_index|32:34-32:44|idx=-
+    G-ONLY      34:15|casks[].labels
+        G: 
+        O: 
+    O-ONLY      34:15|casks[pick()].labels
+        G: 
+        O: 
+    TOGOLD      36:15|grid2[1][cursor].labels
+        G: bit_select|grid2|36:15-36:20|idx=constant@36:21-36:22^-;bit_select||36:21-36:22|idx=ref_obj@36:24-36:30^bit_select;ref_obj|labels|36:32-36:38|idx=-;method_func_call|find_index|36:39-36:49|idx=- || bit_select|grid2|36:15-36:20|idx=constant@36:21-36:22^-;bit_select||36:21-36:22|idx=ref_obj@36:24-36:30^hier_path;ref_obj|labels|36:32-36:38|idx=-;method_func_call|find_index|36:39-36:49|idx=-
+        O: bit_select|grid2|36:15-36:20|idx=constant@36:21-36:22^-;bit_select||36:21-36:22|idx=ref_obj@36:24-36:30^bit_select;ref_obj|labels|36:32-36:38|idx=-;method_func_call|find_index|36:39-36:49|idx=- || bit_select|grid2|36:15-36:20|idx=constant@36:21-36:22^-;bit_select||36:21-36:22|idx=ref_obj@36:24-36:30^hier_path;ref_obj|labels|36:32-36:38|idx=-;method_func_call|find_index|36:39-36:49|idx=-
+    TOGOLD      38:15|dyn[cursor].labels
+        G: bit_select|dyn|38:15-38:18|idx=ref_obj@38:19-38:25^bit_select;ref_obj|labels|38:27-38:33|idx=-;method_func_call|find_index|38:34-38:44|idx=- || bit_select|dyn|38:15-38:18|idx=ref_obj@38:19-38:25^hier_path;ref_obj|labels|38:27-38:33|idx=-;method_func_call|find_index|38:34-38:44|idx=-
+        O: bit_select|dyn|38:15-38:18|idx=ref_obj@38:19-38:25^bit_select;ref_obj|labels|38:27-38:33|idx=-;method_func_call|find_index|38:34-38:44|idx=- || bit_select|dyn|38:15-38:18|idx=ref_obj@38:19-38:25^hier_path;ref_obj|labels|38:27-38:33|idx=-;method_func_call|find_index|38:34-38:44|idx=-
+    TOGOLD      40:15|fixed[cursor].labels
+        G: bit_select|fixed|40:15-40:20|idx=ref_obj@40:21-40:27^bit_select;ref_obj|labels|40:29-40:35|idx=-;method_func_call|find_index|40:36-40:46|idx=- || bit_select|fixed|40:15-40:20|idx=ref_obj@40:21-40:27^hier_path;ref_obj|labels|40:29-40:35|idx=-;method_func_call|find_index|40:36-40:46|idx=-
+        O: bit_select|fixed|40:15-40:20|idx=ref_obj@40:21-40:27^bit_select;ref_obj|labels|40:29-40:35|idx=-;method_func_call|find_index|40:36-40:46|idx=- || bit_select|fixed|40:15-40:20|idx=ref_obj@40:21-40:27^hier_path;ref_obj|labels|40:29-40:35|idx=-;method_func_call|find_index|40:36-40:46|idx=-
+g175_b_idx.elab/judge  G-ONLY=1  O-ONLY=1  SAME_AGREE=1  TOGOLD=9
+  JUDGE g175_b_idx.elab pris rc=255 lines=44 heads=1
+  JUDGE g175_b_idx.elab pat rc=255 lines=212 heads=1
+g175_c_tail.def  SAME_AGREE=2  STILLWRONG=2  TOGOLD=8
+    TOGOLD      21:15|holds[berth].manifest
+        G: bit_select|holds|21:15-21:20|idx=ref_obj@21:21-21:26^hier_path;ref_obj|manifest|21:28-21:36|idx=-;method_func_call|find_index|21:37-21:47|idx=-
+        O: bit_select|holds|21:15-21:20|idx=ref_obj@21:21-21:26^hier_path;ref_obj|manifest|21:28-21:36|idx=-;method_func_call|find_index|21:37-21:47|idx=-
+    TOGOLD      23:15|holds[berth].weights
+        G: bit_select|holds|23:15-23:20|idx=ref_obj@23:21-23:26^hier_path;ref_obj|weights|23:28-23:35|idx=-;method_func_call|find|23:36-23:40|idx=-
+        O: bit_select|holds|23:15-23:20|idx=ref_obj@23:21-23:26^hier_path;ref_obj|weights|23:28-23:35|idx=-;method_func_call|find|23:36-23:40|idx=-
+    TOGOLD      25:15|holds[berth].weights
+        G: bit_select|holds|25:15-25:20|idx=ref_obj@25:21-25:26^hier_path;ref_obj|weights|25:28-25:35|idx=-;method_func_call|find_first|25:36-25:46|idx=-
+        O: bit_select|holds|25:15-25:20|idx=ref_obj@25:21-25:26^hier_path;ref_obj|weights|25:28-25:35|idx=-;method_func_call|find_first|25:36-25:46|idx=-
+    TOGOLD      27:15|holds[berth].weights
+        G: bit_select|holds|27:15-27:20|idx=ref_obj@27:21-27:26^hier_path;ref_obj|weights|27:28-27:35|idx=-;method_func_call|find_first_index|27:36-27:52|idx=-
+        O: bit_select|holds|27:15-27:20|idx=ref_obj@27:21-27:26^hier_path;ref_obj|weights|27:28-27:35|idx=-;method_func_call|find_first_index|27:36-27:52|idx=-
+    TOGOLD      29:15|holds[berth].weights
+        G: bit_select|holds|29:15-29:20|idx=ref_obj@29:21-29:26^hier_path;ref_obj|weights|29:28-29:35|idx=-;method_func_call|min|29:36-29:39|idx=-
+        O: bit_select|holds|29:15-29:20|idx=ref_obj@29:21-29:26^hier_path;ref_obj|weights|29:28-29:35|idx=-;method_func_call|min|29:36-29:39|idx=-
+    TOGOLD      31:15|holds[berth].weights
+        G: bit_select|holds|31:15-31:20|idx=ref_obj@31:21-31:26^hier_path;ref_obj|weights|31:28-31:35|idx=-;method_func_call|max|31:36-31:39|idx=-
+        O: bit_select|holds|31:15-31:20|idx=ref_obj@31:21-31:26^hier_path;ref_obj|weights|31:28-31:35|idx=-;method_func_call|max|31:36-31:39|idx=-
+    TOGOLD      33:15|holds[berth].weights
+        G: bit_select|holds|33:15-33:20|idx=ref_obj@33:21-33:26^hier_path;ref_obj|weights|33:28-33:35|idx=-;method_func_call|unique|33:36-33:42|idx=-
+        O: bit_select|holds|33:15-33:20|idx=ref_obj@33:21-33:26^hier_path;ref_obj|weights|33:28-33:35|idx=-;method_func_call|unique|33:36-33:42|idx=-
+    TOGOLD      35:13|holds[berth].weights
+        G: bit_select|holds|35:13-35:18|idx=ref_obj@35:19-35:24^hier_path;ref_obj|weights|35:26-35:33|idx=-;method_func_call|sum|35:34-35:37|idx=-
+        O: bit_select|holds|35:13-35:18|idx=ref_obj@35:19-35:24^hier_path;ref_obj|weights|35:26-35:33|idx=-;method_func_call|sum|35:34-35:37|idx=-
+    STILLWRONG  43:13|holds[berth].heft
+        G: bit_select|holds|43:13-43:18|idx=ref_obj@43:19-43:24^hier_path;method_func_call|heft|43:26-43:30|idx=-
+        O: bit_select|holds|43:13-43:18|idx=ref_obj@43:19-43:24^bit_select;method_func_call|heft|43:26-43:30|idx=-
+    STILLWRONG  45:13|holds[berth]
+        G: bit_select|holds|45:19-45:24|idx=ref_obj@45:19-45:24^bit_select;method_func_call|randomize|<noloc>|idx=-
+        O: bit_select|holds|45:13-45:18|idx=ref_obj@45:19-45:24^hier_path;method_func_call|randomize|<noloc>|idx=-
+g175_c_tail.def/judge  SAME_AGREE=4  TOGOLD=8
+  JUDGE g175_c_tail.def pris rc=255 lines=40 heads=1
+  JUDGE g175_c_tail.def pat rc=0 lines=0 heads=0
+g175_c_tail.elab  SAME_AGREE=2  STILLWRONG=2  TOGOLD=8
+    TOGOLD      21:15|holds[berth].manifest
+        G: bit_select|holds|21:15-21:20|idx=ref_obj@21:21-21:26^bit_select;ref_obj|manifest|21:28-21:36|idx=-;method_func_call|find_index|21:37-21:47|idx=- || bit_select|holds|21:15-21:20|idx=ref_obj@21:21-21:26^hier_path;ref_obj|manifest|21:28-21:36|idx=-;method_func_call|find_index|21:37-21:47|idx=-
+        O: bit_select|holds|21:15-21:20|idx=ref_obj@21:21-21:26^bit_select;ref_obj|manifest|21:28-21:36|idx=-;method_func_call|find_index|21:37-21:47|idx=- || bit_select|holds|21:15-21:20|idx=ref_obj@21:21-21:26^hier_path;ref_obj|manifest|21:28-21:36|idx=-;method_func_call|find_index|21:37-21:47|idx=-
+    TOGOLD      23:15|holds[berth].weights
+        G: bit_select|holds|23:15-23:20|idx=ref_obj@23:21-23:26^bit_select;ref_obj|weights|23:28-23:35|idx=-;method_func_call|find|23:36-23:40|idx=- || bit_select|holds|23:15-23:20|idx=ref_obj@23:21-23:26^hier_path;ref_obj|weights|23:28-23:35|idx=-;method_func_call|find|23:36-23:40|idx=-
+        O: bit_select|holds|23:15-23:20|idx=ref_obj@23:21-23:26^bit_select;ref_obj|weights|23:28-23:35|idx=-;method_func_call|find|23:36-23:40|idx=- || bit_select|holds|23:15-23:20|idx=ref_obj@23:21-23:26^hier_path;ref_obj|weights|23:28-23:35|idx=-;method_func_call|find|23:36-23:40|idx=-
+    TOGOLD      25:15|holds[berth].weights
+        G: bit_select|holds|25:15-25:20|idx=ref_obj@25:21-25:26^bit_select;ref_obj|weights|25:28-25:35|idx=-;method_func_call|find_first|25:36-25:46|idx=- || bit_select|holds|25:15-25:20|idx=ref_obj@25:21-25:26^hier_path;ref_obj|weights|25:28-25:35|idx=-;method_func_call|find_first|25:36-25:46|idx=-
+        O: bit_select|holds|25:15-25:20|idx=ref_obj@25:21-25:26^bit_select;ref_obj|weights|25:28-25:35|idx=-;method_func_call|find_first|25:36-25:46|idx=- || bit_select|holds|25:15-25:20|idx=ref_obj@25:21-25:26^hier_path;ref_obj|weights|25:28-25:35|idx=-;method_func_call|find_first|25:36-25:46|idx=-
+    TOGOLD      27:15|holds[berth].weights
+        G: bit_select|holds|27:15-27:20|idx=ref_obj@27:21-27:26^bit_select;ref_obj|weights|27:28-27:35|idx=-;method_func_call|find_first_index|27:36-27:52|idx=- || bit_select|holds|27:15-27:20|idx=ref_obj@27:21-27:26^hier_path;ref_obj|weights|27:28-27:35|idx=-;method_func_call|find_first_index|27:36-27:52|idx=-
+        O: bit_select|holds|27:15-27:20|idx=ref_obj@27:21-27:26^bit_select;ref_obj|weights|27:28-27:35|idx=-;method_func_call|find_first_index|27:36-27:52|idx=- || bit_select|holds|27:15-27:20|idx=ref_obj@27:21-27:26^hier_path;ref_obj|weights|27:28-27:35|idx=-;method_func_call|find_first_index|27:36-27:52|idx=-
+    TOGOLD      29:15|holds[berth].weights
+        G: bit_select|holds|29:15-29:20|idx=ref_obj@29:21-29:26^bit_select;ref_obj|weights|29:28-29:35|idx=-;method_func_call|min|29:36-29:39|idx=- || bit_select|holds|29:15-29:20|idx=ref_obj@29:21-29:26^hier_path;ref_obj|weights|29:28-29:35|idx=-;method_func_call|min|29:36-29:39|idx=-
+        O: bit_select|holds|29:15-29:20|idx=ref_obj@29:21-29:26^bit_select;ref_obj|weights|29:28-29:35|idx=-;method_func_call|min|29:36-29:39|idx=- || bit_select|holds|29:15-29:20|idx=ref_obj@29:21-29:26^hier_path;ref_obj|weights|29:28-29:35|idx=-;method_func_call|min|29:36-29:39|idx=-
+    TOGOLD      31:15|holds[berth].weights
+        G: bit_select|holds|31:15-31:20|idx=ref_obj@31:21-31:26^bit_select;ref_obj|weights|31:28-31:35|idx=-;method_func_call|max|31:36-31:39|idx=- || bit_select|holds|31:15-31:20|idx=ref_obj@31:21-31:26^hier_path;ref_obj|weights|31:28-31:35|idx=-;method_func_call|max|31:36-31:39|idx=-
+        O: bit_select|holds|31:15-31:20|idx=ref_obj@31:21-31:26^bit_select;ref_obj|weights|31:28-31:35|idx=-;method_func_call|max|31:36-31:39|idx=- || bit_select|holds|31:15-31:20|idx=ref_obj@31:21-31:26^hier_path;ref_obj|weights|31:28-31:35|idx=-;method_func_call|max|31:36-31:39|idx=-
+    TOGOLD      33:15|holds[berth].weights
+        G: bit_select|holds|33:15-33:20|idx=ref_obj@33:21-33:26^bit_select;ref_obj|weights|33:28-33:35|idx=-;method_func_call|unique|33:36-33:42|idx=- || bit_select|holds|33:15-33:20|idx=ref_obj@33:21-33:26^hier_path;ref_obj|weights|33:28-33:35|idx=-;method_func_call|unique|33:36-33:42|idx=-
+        O: bit_select|holds|33:15-33:20|idx=ref_obj@33:21-33:26^bit_select;ref_obj|weights|33:28-33:35|idx=-;method_func_call|unique|33:36-33:42|idx=- || bit_select|holds|33:15-33:20|idx=ref_obj@33:21-33:26^hier_path;ref_obj|weights|33:28-33:35|idx=-;method_func_call|unique|33:36-33:42|idx=-
+    TOGOLD      35:13|holds[berth].weights
+        G: bit_select|holds|35:13-35:18|idx=ref_obj@35:19-35:24^bit_select;ref_obj|weights|35:26-35:33|idx=-;method_func_call|sum|35:34-35:37|idx=- || bit_select|holds|35:13-35:18|idx=ref_obj@35:19-35:24^hier_path;ref_obj|weights|35:26-35:33|idx=-;method_func_call|sum|35:34-35:37|idx=-
+        O: bit_select|holds|35:13-35:18|idx=ref_obj@35:19-35:24^bit_select;ref_obj|weights|35:26-35:33|idx=-;method_func_call|sum|35:34-35:37|idx=- || bit_select|holds|35:13-35:18|idx=ref_obj@35:19-35:24^hier_path;ref_obj|weights|35:26-35:33|idx=-;method_func_call|sum|35:34-35:37|idx=-
+    STILLWRONG  43:13|holds[berth].heft
+        G: bit_select|holds|43:13-43:18|idx=ref_obj@43:19-43:24^bit_select;method_func_call|heft|43:26-43:30|idx=- || bit_select|holds|43:13-43:18|idx=ref_obj@43:19-43:24^hier_path;method_func_call|heft|43:26-43:30|idx=-
+        O: bit_select|holds|43:13-43:18|idx=ref_obj@43:19-43:24^bit_select;method_func_call|heft|43:26-43:30|idx=-
+    STILLWRONG  45:13|holds[berth]
+        G: bit_select|holds|45:19-45:24|idx=ref_obj@45:19-45:24^bit_select;method_func_call|randomize|<noloc>|idx=-
+        O: bit_select|holds|45:13-45:18|idx=ref_obj@45:19-45:24^bit_select;method_func_call|randomize|<noloc>|idx=- || bit_select|holds|45:13-45:18|idx=ref_obj@45:19-45:24^hier_path;method_func_call|randomize|<noloc>|idx=-
+g175_c_tail.elab/judge  SAME_AGREE=4  TOGOLD=8
+  JUDGE g175_c_tail.elab pris rc=255 lines=48 heads=1
+  JUDGE g175_c_tail.elab pat rc=0 lines=0 heads=0
+g175_d_home.def  SAME_AGREE=2  TOGOLD=10
+    TOGOLD      16:16|chutes[lane].stamps
+        G: bit_select|chutes|16:16-16:22|idx=ref_obj@16:23-16:27^hier_path;ref_obj|stamps|16:29-16:35|idx=-;method_func_call|find_index|16:36-16:46|idx=-
+        O: bit_select|chutes|16:16-16:22|idx=ref_obj@16:23-16:27^hier_path;ref_obj|stamps|16:29-16:35|idx=-;method_func_call|find_index|16:36-16:46|idx=-
+    TOGOLD      21:22|chutes[lane].stamps
+        G: bit_select|chutes|21:22-21:28|idx=ref_obj@21:29-21:33^hier_path;ref_obj|stamps|21:35-21:41|idx=-;method_func_call|find_index|21:42-21:52|idx=-
+        O: bit_select|chutes|21:22-21:28|idx=ref_obj@21:29-21:33^hier_path;ref_obj|stamps|21:35-21:41|idx=-;method_func_call|find_index|21:42-21:52|idx=-
+    TOGOLD      23:12|chutes[lane].digits
+        G: bit_select|chutes|23:12-23:18|idx=ref_obj@23:19-23:23^hier_path;ref_obj|digits|23:25-23:31|idx=-;method_func_call|sum|23:32-23:35|idx=-
+        O: bit_select|chutes|23:12-23:18|idx=ref_obj@23:19-23:23^hier_path;ref_obj|digits|23:25-23:31|idx=-;method_func_call|sum|23:32-23:35|idx=-
+    TOGOLD      25:11|chutes[lane].digits
+        G: bit_select|chutes|25:11-25:17|idx=ref_obj@25:18-25:22^hier_path;ref_obj|digits|25:24-25:30|idx=-;method_func_call|sum|25:31-25:34|idx=-
+        O: bit_select|chutes|25:11-25:17|idx=ref_obj@25:18-25:22^hier_path;ref_obj|digits|25:24-25:30|idx=-;method_func_call|sum|25:31-25:34|idx=-
+    TOGOLD      28:18|chutes[k].stamps
+        G: bit_select|chutes|28:18-28:24|idx=ref_obj@28:25-28:26^hier_path;ref_obj|stamps|28:28-28:34|idx=-;method_func_call|find_index|28:35-28:45|idx=-
+        O: bit_select|chutes|28:18-28:24|idx=ref_obj@28:25-28:26^hier_path;ref_obj|stamps|28:28-28:34|idx=-;method_func_call|find_index|28:35-28:45|idx=-
+    TOGOLD      34:14|chutes[lane].stamps
+        G: bit_select|chutes|34:14-34:20|idx=ref_obj@34:21-34:25^hier_path;ref_obj|stamps|34:27-34:33|idx=-;method_func_call|find_index|34:34-34:44|idx=-
+        O: bit_select|chutes|34:14-34:20|idx=ref_obj@34:21-34:25^hier_path;ref_obj|stamps|34:27-34:33|idx=-;method_func_call|find_index|34:34-34:44|idx=-
+    TOGOLD      39:9|hp.chutes[lane].stamps
+        G: ref_obj|hp|39:9-39:11|idx=-;bit_select|chutes|39:12-39:18|idx=ref_obj@39:19-39:23^hier_path;ref_obj|stamps|39:25-39:31|idx=-;method_func_call|find_index|39:32-39:42|idx=-
+        O: ref_obj|hp|39:9-39:11|idx=-;bit_select|chutes|39:12-39:18|idx=ref_obj@39:19-39:23^hier_path;ref_obj|stamps|39:25-39:31|idx=-;method_func_call|find_index|39:32-39:42|idx=-
+    TOGOLD      49:11|rig.chutes[1].stamps
+        G: ref_obj|rig|49:11-49:14|idx=-;bit_select|chutes|49:15-49:21|idx=constant@49:22-49:23^-;ref_obj|stamps|49:25-49:31|idx=-;method_func_call|find_index|49:32-49:42|idx=-
+        O: ref_obj|rig|49:11-49:14|idx=-;bit_select|chutes|49:15-49:21|idx=constant@49:22-49:23^-;ref_obj|stamps|49:25-49:31|idx=-;method_func_call|find_index|49:32-49:42|idx=-
+    TOGOLD      53:11|rig.chutes[2].stamps
+        G: ref_obj|rig|53:11-53:14|idx=-;bit_select|chutes|53:15-53:21|idx=constant@53:22-53:23^-;ref_obj|stamps|53:25-53:31|idx=-;method_func_call|find_index|53:32-53:42|idx=-
+        O: ref_obj|rig|53:11-53:14|idx=-;bit_select|chutes|53:15-53:21|idx=constant@53:22-53:23^-;ref_obj|stamps|53:25-53:31|idx=-;method_func_call|find_index|53:32-53:42|idx=-
+    TOGOLD      58:9|rig.chutes[lane].stamps
+        G: ref_obj|rig|58:9-58:12|idx=-;bit_select|chutes|58:13-58:19|idx=ref_obj@58:20-58:24^hier_path;ref_obj|stamps|58:26-58:32|idx=-;method_func_call|find_index|58:33-58:43|idx=-
+        O: ref_obj|rig|58:9-58:12|idx=-;bit_select|chutes|58:13-58:19|idx=ref_obj@58:20-58:24^hier_path;ref_obj|stamps|58:26-58:32|idx=-;method_func_call|find_index|58:33-58:43|idx=-
+g175_d_home.def/judge  SAME_AGREE=2  TOGOLD=10
+  JUDGE g175_d_home.def pris rc=255 lines=44 heads=1
+  JUDGE g175_d_home.def pat rc=255 lines=29 heads=1
+g175_d_home.elab  SAME_AGREE=2  TOGOLD=10
+    TOGOLD      16:16|chutes[lane].stamps
+        G: bit_select|chutes|16:16-16:22|idx=ref_obj@16:23-16:27^bit_select;ref_obj|stamps|16:29-16:35|idx=-;method_func_call|find_index|16:36-16:46|idx=-
+        O: bit_select|chutes|16:16-16:22|idx=ref_obj@16:23-16:27^bit_select;ref_obj|stamps|16:29-16:35|idx=-;method_func_call|find_index|16:36-16:46|idx=-
+    TOGOLD      21:22|chutes[lane].stamps
+        G: bit_select|chutes|21:22-21:28|idx=ref_obj@21:29-21:33^bit_select;ref_obj|stamps|21:35-21:41|idx=-;method_func_call|find_index|21:42-21:52|idx=- || bit_select|chutes|21:22-21:28|idx=ref_obj@21:29-21:33^hier_path;ref_obj|stamps|21:35-21:41|idx=-;method_func_call|find_index|21:42-21:52|idx=-
+        O: bit_select|chutes|21:22-21:28|idx=ref_obj@21:29-21:33^bit_select;ref_obj|stamps|21:35-21:41|idx=-;method_func_call|find_index|21:42-21:52|idx=- || bit_select|chutes|21:22-21:28|idx=ref_obj@21:29-21:33^hier_path;ref_obj|stamps|21:35-21:41|idx=-;method_func_call|find_index|21:42-21:52|idx=-
+    TOGOLD      23:12|chutes[lane].digits
+        G: bit_select|chutes|23:12-23:18|idx=ref_obj@23:19-23:23^bit_select;ref_obj|digits|23:25-23:31|idx=-;method_func_call|sum|23:32-23:35|idx=- || bit_select|chutes|23:12-23:18|idx=ref_obj@23:19-23:23^hier_path;ref_obj|digits|23:25-23:31|idx=-;method_func_call|sum|23:32-23:35|idx=-
+        O: bit_select|chutes|23:12-23:18|idx=ref_obj@23:19-23:23^bit_select;ref_obj|digits|23:25-23:31|idx=-;method_func_call|sum|23:32-23:35|idx=- || bit_select|chutes|23:12-23:18|idx=ref_obj@23:19-23:23^hier_path;ref_obj|digits|23:25-23:31|idx=-;method_func_call|sum|23:32-23:35|idx=-
+    TOGOLD      25:11|chutes[lane].digits
+        G: bit_select|chutes|25:11-25:17|idx=ref_obj@25:18-25:22^bit_select;ref_obj|digits|25:24-25:30|idx=-;method_func_call|sum|25:31-25:34|idx=- || bit_select|chutes|25:11-25:17|idx=ref_obj@25:18-25:22^hier_path;ref_obj|digits|25:24-25:30|idx=-;method_func_call|sum|25:31-25:34|idx=-
+        O: bit_select|chutes|25:11-25:17|idx=ref_obj@25:18-25:22^bit_select;ref_obj|digits|25:24-25:30|idx=-;method_func_call|sum|25:31-25:34|idx=- || bit_select|chutes|25:11-25:17|idx=ref_obj@25:18-25:22^hier_path;ref_obj|digits|25:24-25:30|idx=-;method_func_call|sum|25:31-25:34|idx=-
+    TOGOLD      28:18|chutes[k].stamps
+        G: bit_select|chutes|28:18-28:24|idx=ref_obj@28:25-28:26^bit_select;ref_obj|stamps|28:28-28:34|idx=-;method_func_call|find_index|28:35-28:45|idx=- || bit_select|chutes|28:18-28:24|idx=ref_obj@28:25-28:26^hier_path;ref_obj|stamps|28:28-28:34|idx=-;method_func_call|find_index|28:35-28:45|idx=-
+        O: bit_select|chutes|28:18-28:24|idx=ref_obj@28:25-28:26^bit_select;ref_obj|stamps|28:28-28:34|idx=-;method_func_call|find_index|28:35-28:45|idx=- || bit_select|chutes|28:18-28:24|idx=ref_obj@28:25-28:26^hier_path;ref_obj|stamps|28:28-28:34|idx=-;method_func_call|find_index|28:35-28:45|idx=-
+    TOGOLD      34:14|chutes[lane].stamps
+        G: bit_select|chutes|34:14-34:20|idx=ref_obj@34:21-34:25^bit_select;ref_obj|stamps|34:27-34:33|idx=-;method_func_call|find_index|34:34-34:44|idx=- || bit_select|chutes|34:14-34:20|idx=ref_obj@34:21-34:25^hier_path;ref_obj|stamps|34:27-34:33|idx=-;method_func_call|find_index|34:34-34:44|idx=-
+        O: bit_select|chutes|34:14-34:20|idx=ref_obj@34:21-34:25^bit_select;ref_obj|stamps|34:27-34:33|idx=-;method_func_call|find_index|34:34-34:44|idx=- || bit_select|chutes|34:14-34:20|idx=ref_obj@34:21-34:25^hier_path;ref_obj|stamps|34:27-34:33|idx=-;method_func_call|find_index|34:34-34:44|idx=-
+    TOGOLD      39:9|hp.chutes[lane].stamps
+        G: ref_obj|hp|39:9-39:11|idx=-;bit_select|chutes|39:12-39:18|idx=ref_obj@39:19-39:23^bit_select;ref_obj|stamps|39:25-39:31|idx=-;method_func_call|find_index|39:32-39:42|idx=- || ref_obj|hp|39:9-39:11|idx=-;bit_select|chutes|39:12-39:18|idx=ref_obj@39:19-39:23^hier_path;ref_obj|stamps|39:25-39:31|idx=-;method_func_call|find_index|39:32-39:42|idx=-
+        O: ref_obj|hp|39:9-39:11|idx=-;bit_select|chutes|39:12-39:18|idx=ref_obj@39:19-39:23^bit_select;ref_obj|stamps|39:25-39:31|idx=-;method_func_call|find_index|39:32-39:42|idx=- || ref_obj|hp|39:9-39:11|idx=-;bit_select|chutes|39:12-39:18|idx=ref_obj@39:19-39:23^hier_path;ref_obj|stamps|39:25-39:31|idx=-;method_func_call|find_index|39:32-39:42|idx=-
+    TOGOLD      49:11|rig.chutes[1].stamps
+        G: ref_obj|rig|49:11-49:14|idx=-;bit_select|chutes|49:15-49:21|idx=constant@49:22-49:23^-;ref_obj|stamps|49:25-49:31|idx=-;method_func_call|find_index|49:32-49:42|idx=-
+        O: ref_obj|rig|49:11-49:14|idx=-;bit_select|chutes|49:15-49:21|idx=constant@49:22-49:23^-;ref_obj|stamps|49:25-49:31|idx=-;method_func_call|find_index|49:32-49:42|idx=-
+    TOGOLD      53:11|rig.chutes[2].stamps
+        G: ref_obj|rig|53:11-53:14|idx=-;bit_select|chutes|53:15-53:21|idx=constant@53:22-53:23^-;ref_obj|stamps|53:25-53:31|idx=-;method_func_call|find_index|53:32-53:42|idx=-
+        O: ref_obj|rig|53:11-53:14|idx=-;bit_select|chutes|53:15-53:21|idx=constant@53:22-53:23^-;ref_obj|stamps|53:25-53:31|idx=-;method_func_call|find_index|53:32-53:42|idx=-
+    TOGOLD      58:9|rig.chutes[lane].stamps
+        G: ref_obj|rig|58:9-58:12|idx=-;bit_select|chutes|58:13-58:19|idx=ref_obj@58:20-58:24^bit_select;ref_obj|stamps|58:26-58:32|idx=-;method_func_call|find_index|58:33-58:43|idx=- || ref_obj|rig|58:9-58:12|idx=-;bit_select|chutes|58:13-58:19|idx=ref_obj@58:20-58:24^hier_path;ref_obj|stamps|58:26-58:32|idx=-;method_func_call|find_index|58:33-58:43|idx=-
+        O: ref_obj|rig|58:9-58:12|idx=-;bit_select|chutes|58:13-58:19|idx=ref_obj@58:20-58:24^bit_select;ref_obj|stamps|58:26-58:32|idx=-;method_func_call|find_index|58:33-58:43|idx=- || ref_obj|rig|58:9-58:12|idx=-;bit_select|chutes|58:13-58:19|idx=ref_obj@58:20-58:24^hier_path;ref_obj|stamps|58:26-58:32|idx=-;method_func_call|find_index|58:33-58:43|idx=-
+g175_d_home.elab/judge  SAME_AGREE=2  TOGOLD=10
+  JUDGE g175_d_home.elab pris rc=255 lines=44 heads=1
+  JUDGE g175_d_home.elab pat rc=255 lines=17 heads=1
+g175_e_sel.def  G-ONLY=4  MOVEDWRONG=1  O-ONLY=3  TOGOLD=3
+    TOGOLD      27:13|decks[cursor].knots
+        G: bit_select|decks|27:13-27:18|idx=ref_obj@27:19-27:25^hier_path;ref_obj|knots|27:27-27:32|idx=-;method_func_call|find_index|27:33-27:43|idx=-
+        O: bit_select|decks|27:13-27:18|idx=ref_obj@27:19-27:25^hier_path;ref_obj|knots|27:27-27:32|idx=-;method_func_call|find_index|27:33-27:43|idx=-
+    TOGOLD      29:13|slab[1][cursor].knots
+        G: bit_select|slab|29:13-29:17|idx=constant@29:18-29:19^-;bit_select||29:18-29:19|idx=ref_obj@29:21-29:27^hier_path;ref_obj|knots|29:29-29:34|idx=-;method_func_call|find_index|29:35-29:45|idx=-
+        O: bit_select|slab|29:13-29:17|idx=constant@29:18-29:19^-;bit_select||29:18-29:19|idx=ref_obj@29:21-29:27^hier_path;ref_obj|knots|29:29-29:34|idx=-;method_func_call|find_index|29:35-29:45|idx=-
+    MOVEDWRONG  31:13|decks[].knots
+        G: bit_select|decks|31:13-31:18|idx=hier_path@31:19-31:25^hier_path;ref_obj|knots|31:34-31:39|idx=-;method_func_call|find_index|31:40-31:50|idx=-
+        O: bit_select|decks|31:13-31:18|idx=hier_path@31:19-31:32^hier_path;ref_obj|knots|31:34-31:39|idx=-;method_func_call|find_index|31:40-31:50|idx=-
+    G-ONLY      31:19|helper.nail
+        G: 
+        O: 
+    G-ONLY      33:13|this.decks.knots
+        G: 
+        O: 
+    O-ONLY      33:13|this.decks[cursor].knots
+        G: 
+        O: 
+    G-ONLY      35:13|super.inherited.knots
+        G: 
+        O: 
+    O-ONLY      35:13|super.inherited[cursor].knots
+        G: 
+        O: 
+    TOGOLD      37:13|tier[cursor].knots
+        G: bit_select|tier|37:13-37:17|idx=ref_obj@37:18-37:24^hier_path;ref_obj|knots|37:26-37:31|idx=-;method_func_call|find_index|37:32-37:42|idx=-
+        O: bit_select|tier|37:13-37:17|idx=ref_obj@37:18-37:24^hier_path;ref_obj|knots|37:26-37:31|idx=-;method_func_call|find_index|37:32-37:42|idx=-
+    G-ONLY      44:16|this.decks.knots.size
+        G: 
+        O: 
+    O-ONLY      44:16|this.decks[cursor].knots.size
+        G: 
+        O: 
+g175_e_sel.def/judge  G-ONLY=4  O-ONLY=3  TOGOLD=4
+  JUDGE g175_e_sel.def pris rc=255 lines=40 heads=1
+  JUDGE g175_e_sel.def pat rc=255 lines=134 heads=1
+g175_e_sel.elab  G-ONLY=4  MOVEDWRONG=1  O-ONLY=3  TOGOLD=3
+    TOGOLD      27:13|decks[cursor].knots
+        G: bit_select|decks|27:13-27:18|idx=ref_obj@27:19-27:25^bit_select;ref_obj|knots|27:27-27:32|idx=-;method_func_call|find_index|27:33-27:43|idx=-
+        O: bit_select|decks|27:13-27:18|idx=ref_obj@27:19-27:25^bit_select;ref_obj|knots|27:27-27:32|idx=-;method_func_call|find_index|27:33-27:43|idx=-
+    TOGOLD      29:13|slab[1][cursor].knots
+        G: bit_select|slab|29:13-29:17|idx=constant@29:18-29:19^-;bit_select||29:18-29:19|idx=ref_obj@29:21-29:27^bit_select;ref_obj|knots|29:29-29:34|idx=-;method_func_call|find_index|29:35-29:45|idx=-
+        O: bit_select|slab|29:13-29:17|idx=constant@29:18-29:19^-;bit_select||29:18-29:19|idx=ref_obj@29:21-29:27^bit_select;ref_obj|knots|29:29-29:34|idx=-;method_func_call|find_index|29:35-29:45|idx=-
+    MOVEDWRONG  31:13|decks[].knots
+        G: bit_select|decks|31:13-31:18|idx=hier_path@31:19-31:25^bit_select;ref_obj|knots|31:34-31:39|idx=-;method_func_call|find_index|31:40-31:50|idx=-
+        O: bit_select|decks|31:13-31:18|idx=hier_path@31:19-31:32^bit_select;ref_obj|knots|31:34-31:39|idx=-;method_func_call|find_index|31:40-31:50|idx=-
+    G-ONLY      31:19|helper.nail
+        G: 
+        O: 
+    G-ONLY      33:13|this.decks.knots
+        G: 
+        O: 
+    O-ONLY      33:13|this.decks[cursor].knots
+        G: 
+        O: 
+    G-ONLY      35:13|super.inherited.knots
+        G: 
+        O: 
+    O-ONLY      35:13|super.inherited[cursor].knots
+        G: 
+        O: 
+    TOGOLD      37:13|tier[cursor].knots
+        G: bit_select|tier|37:13-37:17|idx=ref_obj@37:18-37:24^bit_select;ref_obj|knots|37:26-37:31|idx=-;method_func_call|find_index|37:32-37:42|idx=-
+        O: bit_select|tier|37:13-37:17|idx=ref_obj@37:18-37:24^bit_select;ref_obj|knots|37:26-37:31|idx=-;method_func_call|find_index|37:32-37:42|idx=-
+    G-ONLY      44:16|this.decks.knots.size
+        G: 
+        O: 
+    O-ONLY      44:16|this.decks[cursor].knots.size
+        G: 
+        O: 
+g175_e_sel.elab/judge  G-ONLY=4  O-ONLY=3  TOGOLD=4
+  JUDGE g175_e_sel.elab pris rc=255 lines=48 heads=1
+  JUDGE g175_e_sel.elab pat rc=255 lines=154 heads=1
+g175_f_fence.def  SAME_AGREE=4  TOGOLD=3
+    TOGOLD      34:17|shelves[slot].words
+        G: bit_select|shelves|34:17-34:24|idx=ref_obj@34:25-34:29^hier_path;ref_obj|words|34:31-34:36|idx=-;method_func_call|find_index|34:37-34:47|idx=-
+        O: bit_select|shelves|34:17-34:24|idx=ref_obj@34:25-34:29^hier_path;ref_obj|words|34:31-34:36|idx=-;method_func_call|find_index|34:37-34:47|idx=-
+    TOGOLD      35:17|shelves[slot].words
+        G: bit_select|shelves|35:17-35:24|idx=ref_obj@35:25-35:29^hier_path;ref_obj|words|35:31-35:36|idx=-;method_func_call|find_index|35:37-35:47|idx=-
+        O: bit_select|shelves|35:17-35:24|idx=ref_obj@35:25-35:29^hier_path;ref_obj|words|35:31-35:36|idx=-;method_func_call|find_index|35:37-35:47|idx=-
+    TOGOLD      36:17|shelves[slot].words
+        G: bit_select|shelves|36:17-36:24|idx=ref_obj@36:25-36:29^hier_path;ref_obj|words|36:31-36:36|idx=-;method_func_call|find_index|36:37-36:47|idx=-
+        O: bit_select|shelves|36:17-36:24|idx=ref_obj@36:25-36:29^hier_path;ref_obj|words|36:31-36:36|idx=-;method_func_call|find_index|36:37-36:47|idx=-
+g175_f_fence.def/judge  SAME_AGREE=4  TOGOLD=3
+  JUDGE g175_f_fence.def pris rc=255 lines=135 heads=1
+  JUDGE g175_f_fence.def pat rc=255 lines=135 heads=1
+g175_f_fence.elab  SAME_AGREE=4  TOGOLD=3
+    TOGOLD      34:17|shelves[slot].words
+        G: bit_select|shelves|34:17-34:24|idx=ref_obj@34:25-34:29^bit_select;ref_obj|words|34:31-34:36|idx=-;method_func_call|find_index|34:37-34:47|idx=- || bit_select|shelves|34:17-34:24|idx=ref_obj@34:25-34:29^hier_path;ref_obj|words|34:31-34:36|idx=-;method_func_call|find_index|34:37-34:47|idx=-
+        O: bit_select|shelves|34:17-34:24|idx=ref_obj@34:25-34:29^bit_select;ref_obj|words|34:31-34:36|idx=-;method_func_call|find_index|34:37-34:47|idx=- || bit_select|shelves|34:17-34:24|idx=ref_obj@34:25-34:29^hier_path;ref_obj|words|34:31-34:36|idx=-;method_func_call|find_index|34:37-34:47|idx=-
+    TOGOLD      35:17|shelves[slot].words
+        G: bit_select|shelves|35:17-35:24|idx=ref_obj@35:25-35:29^bit_select;ref_obj|words|35:31-35:36|idx=-;method_func_call|find_index|35:37-35:47|idx=- || bit_select|shelves|35:17-35:24|idx=ref_obj@35:25-35:29^hier_path;ref_obj|words|35:31-35:36|idx=-;method_func_call|find_index|35:37-35:47|idx=-
+        O: bit_select|shelves|35:17-35:24|idx=ref_obj@35:25-35:29^bit_select;ref_obj|words|35:31-35:36|idx=-;method_func_call|find_index|35:37-35:47|idx=- || bit_select|shelves|35:17-35:24|idx=ref_obj@35:25-35:29^hier_path;ref_obj|words|35:31-35:36|idx=-;method_func_call|find_index|35:37-35:47|idx=-
+    TOGOLD      36:17|shelves[slot].words
+        G: bit_select|shelves|36:17-36:24|idx=ref_obj@36:25-36:29^bit_select;ref_obj|words|36:31-36:36|idx=-;method_func_call|find_index|36:37-36:47|idx=- || bit_select|shelves|36:17-36:24|idx=ref_obj@36:25-36:29^hier_path;ref_obj|words|36:31-36:36|idx=-;method_func_call|find_index|36:37-36:47|idx=-
+        O: bit_select|shelves|36:17-36:24|idx=ref_obj@36:25-36:29^bit_select;ref_obj|words|36:31-36:36|idx=-;method_func_call|find_index|36:37-36:47|idx=- || bit_select|shelves|36:17-36:24|idx=ref_obj@36:25-36:29^hier_path;ref_obj|words|36:31-36:36|idx=-;method_func_call|find_index|36:37-36:47|idx=-
+g175_f_fence.elab/judge  SAME_AGREE=4  TOGOLD=3
+  JUDGE g175_f_fence.elab pris rc=255 lines=135 heads=1
+  JUDGE g175_f_fence.elab pat rc=255 lines=135 heads=1
+LISTED=6 PROCESSED=6
+PROCESSED-ASSERT-OK

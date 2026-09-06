@@ -1,0 +1,41 @@
+design::Compare r=-502
+HEAD LHS = bit_select(checks_details)@233:24-233:38#255810
+HEAD RHS = ref_obj(checks_details[details_index])@233:24-233:53#187429
+HEAD KINDS: LHS=bit_select RHS=ref_obj  (DIFFERENT KIND -> BaseClass::Compare's VpiType line failed FIRST; no field beyond it was read)
+HEAD LHS parent chain:
+    < hier_path(checks_details[details_index].tests_names)@233:24-233:105#255808
+    < assignment()@233:10-233:105#255806
+    < begin()@232:46-243:10#255805
+    < foreach_stmt()@232:7-232:14#255798
+    < begin()@227:7-227:26#255775
+    < function(get_checks)@222:4-222:11#255767
+    < class_defn(svaunit_immediate_assertion_info)@25:1-281:9#330
+    < package(svaunit_pkg)@24:1-73:11#325
+    < design(unnamed)@0:0-0:0#339431
+PARENT-CHAIN PROBE (top down; REPRO = this pair's own Compare gives the same head):
+  design(unnamed)@0:0-0:0#339431                             ourMatches=1 repro=1 REPRO
+  package(svaunit_pkg)@24:1-73:11#325                        ourMatches=2 repro=2 REPRO
+  class_defn(svaunit_immediate_assertion_info)@25:1-281:9#330 ourMatches=1 repro=0 no-repro
+  function(get_checks)@222:4-222:11#255767                   ourMatches=0 repro=0 NO COUNTERPART
+  begin()@227:7-227:26#255775                                ourMatches=1 repro=0 no-repro
+  foreach_stmt()@232:7-232:14#255798                         ourMatches=1 repro=1 REPRO
+  begin()@232:46-243:10#255805                               ourMatches=1 repro=1 REPRO
+  assignment()@233:10-233:105#255806                         ourMatches=1 repro=1 REPRO
+  hier_path(checks_details[details_index].tests_names)@233:24-233:105#255808 ourMatches=1 repro=1 REPRO
+  bit_select(checks_details)@233:24-233:38#255810            ourMatches=0 repro=0 NO COUNTERPART
+DESCENT (each step = a child pair whose own Compare reproduces the head):
+  [0] hier_path(checks_details[details_index].tests_names)@233:24-233:105#255808
+      vs hier_path(checks_details[details_index].tests_names)@233:24-233:105#187428
+      (golden child bit_select(checks_details)@233:24-233:38#255810 has NO counterpart under our owner)
+  STOP: no child pair reproduces the head -> the edge is a FIELD of the pair above
+OWNER PAIR:
+  FIELDS of hier_path(checks_details[details_index].tests_names)@233:24-233:105#255808
+         vs hier_path(checks_details[details_index].tests_names)@233:24-233:105#187428
+    hier_path::Path_elems    LHS=3      RHS=3     
+        [0] LHS=bit_select(checks_details)@233:24-233:38#255810            RHS=ref_obj(checks_details[details_index])@233:24-233:53#187429
+        [1] LHS=ref_obj(tests_names)@233:54-233:65#255811                  RHS=ref_obj(tests_names)@233:54-233:65#187430
+        [2] LHS=method_func_call(find_index)@233:66-233:76#255812          RHS=method_func_call(find_index)@233:66-233:76#187431
+REFERENCE SCAN — every golden edge that lands on the head, and ours:
+  golden hier_path(checks_details[details_index].tests_names)@233:24-233:105#255808
+      edge vpiType=700 (vector index 0)
+      ours   hier_path(checks_details[details_index].tests_names)@233:24-233:105#187428 -> vector present size 3, [0] = ref_obj(checks_details[details_index])@233:24-233:53#187429

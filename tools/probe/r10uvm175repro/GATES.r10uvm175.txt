@@ -1,0 +1,54 @@
+# r10uvm175 — THE GATES.  Every number here was produced by the committed
+# harnesses; the official uhdm-cmp and scripts/verify_golden.py are the
+# authorities.  LHS is ALWAYS golden.  slang was NOT patched; results/*.csv
+# were READ ONLY; nothing was promoted and NO CORPUS ROW CONVERTED.
+# GOLDEN_DEFER stayed unset.  The four slang-fenced tests were never
+# dispatched and are named only inside canaudit.sh's own fence list.
+
+## (1) BINARIES
+pristine md5 9853d69d43a9cf87884b368be6f16c7f  (built from this pass's OWN worktree
+         at a clean a0a33bb3 and BYTE-IDENTICAL to the main tree's build/slang-uhdm)
+patched  md5 b49636170347560e90432e4e18a11f3b
+both frozen chmod 555 at immutable paths BEFORE any sweep; every cmds.txt audited
+by BINARY PATH: surelog 1523/1523 and uhdm2rtlil 1458/1458 name the frozen patched
+binary, ZERO name the main-tree build/slang-uhdm (the rest are rows whose GOLDEN side
+failed, so no slang line exists).
+
+## (2) GOLDENS
+patched  PASS=23 FAIL=0
+pristine PASS=23 FAIL=0
+SLANG_UHDM=/bin/false  PASS=0 FAIL=23   (negative control)
+
+## (3) uhdm2rtlil — testflags + default
+PASS: every row byte-identical to the committed baseline
+PASS: every row byte-identical to the committed baseline
+PASS: every row byte-identical to the committed baseline
+
+## (4) surelog — both modes, 1588 rows
+PASS: every row byte-identical to the committed baseline
+PASS: every row byte-identical to the committed baseline
+NO ROW CONVERTED in either direction.
+
+## (5) BYTE VERIFY (SELFCHECK=1)
+surelog     MOVERS 3 / 956    SELFCHECK 955/956
+uhdm2rtlil  MOVERS 0 / 1358   SELFCHECK 1357/1358
+see MOVERS.r10uvm175.txt for the a-priori prediction and the attribution.
+
+## CANARIES
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+
+## PROTECTED DATABASES (md5, first 12)
+InterfaceModPort/default pris=59a365f3ce2c pat=59a365f3ce2c SAME
+InterfaceModPort/testflags pris=59a365f3ce2c pat=59a365f3ce2c SAME
+BlackParrotComplex/default pris=e3e354129d5a pat=e3e354129d5a SAME
+BlackParrotComplex/testflags pris=73a10e8217e5 pat=73a10e8217e5 SAME
+YosysOldOr/default pris=d68e0796d62c pat=d68e0796d62c SAME
+YosysOldOr/testflags pris=d68e0796d62c pat=d68e0796d62c SAME
+SVSwitch/default pris=4842211c4030 pat=4842211c4030 SAME
+SVSwitch/testflags pris=4842211c4030 pat=4842211c4030 SAME
+YosysVerx/default pris=6ccda350c24a pat=6ccda350c24a SAME
+YosysVerx/testflags pris=6ccda350c24a pat=6ccda350c24a SAME

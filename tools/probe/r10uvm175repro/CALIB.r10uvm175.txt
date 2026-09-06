@@ -1,0 +1,14 @@
+CALIB g175_a_pos.def  AGREE=8
+CALIB g175_a_pos.elab  AGREE=8
+CALIB g175_b_idx.def  AGREE=11
+CALIB g175_b_idx.elab  AGREE=11
+CALIB g175_c_tail.def  AGREE=12
+CALIB g175_c_tail.elab  AGREE=12
+CALIB g175_d_home.def  AGREE=12
+CALIB g175_d_home.elab  AGREE=12
+CALIB g175_e_sel.def  AGREE=8
+CALIB g175_e_sel.elab  AGREE=8
+CALIB g175_f_fence.def  AGREE=7
+CALIB g175_f_fence.elab  AGREE=7
+LISTED=6 PROCESSED=6
+PROCESSED-ASSERT-OK

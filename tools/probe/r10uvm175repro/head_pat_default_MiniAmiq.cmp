@@ -1,0 +1,29 @@
+LHS:
+decompile:
+io_decl: (a_test_name), id:261648, line:91:51, endln:91:62
+|vpiParent:
+\_function: (svaunit_pkg::svaunit_vpi_wrapper::set_test_name_vpi), id:261647, line:91:4, endln:91:11
+|vpiDirection:1
+|vpiName:a_test_name
+|vpiTypedef:
+\_ref_typespec: (svaunit_pkg::svaunit_vpi_wrapper::set_test_name_vpi::a_test_name), id:261650
+  |vpiParent:
+  \_io_decl: (a_test_name), id:261648, line:91:51, endln:91:62
+  |vpiFullName:svaunit_pkg::svaunit_vpi_wrapper::set_test_name_vpi::a_test_name
+  |vpiActual:
+  \_string_typespec: , id:261649, line:91:44, endln:91:50
+
+decompile:
+io_decl: (a_test_name), id:261648, line:91:51, endln:91:62
+|vpiParent:
+\_function: (svaunit_pkg::svaunit_vpi_wrapper::set_test_name_vpi), id:261647, line:91:4, endln:91:11
+|vpiDirection:1
+|vpiName:a_test_name
+|vpiTypedef:
+\_ref_typespec: (svaunit_pkg::svaunit_vpi_wrapper::set_test_name_vpi::a_test_name), id:261650
+  |vpiParent:
+  \_io_decl: (a_test_name), id:261648, line:91:51, endln:91:62
+  |vpiFullName:svaunit_pkg::svaunit_vpi_wrapper::set_test_name_vpi::a_test_name
+  |vpiActual:
+  \_string_typespec: , id:261649, line:91:44, endln:91:50
+RHS: <null>

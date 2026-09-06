@@ -1,0 +1,4 @@
+CAND 1 default/MiniAmiq-544c7f61/slang.uhdm
+CAND 1 testflags/MiniAmiq-544c7f61/slang.uhdm
+-- PREDICT surelog scanned=956 SKIP=0 ROWS-WITH-CANDIDATES=2
+-- PREDICT uhdm2rtlil scanned=1358 SKIP=0 ROWS-WITH-CANDIDATES=0

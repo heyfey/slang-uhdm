@@ -1,0 +1,57 @@
+# r10uvm175 — THE FLOOR: the ONE foreign committed arm the wide boundary moved,
+# re-measured against its OWN Surelog golden in BOTH views.  LHS is ALWAYS golden.
+# It is r10uvm74's v74_edge.sv:73 — that pass's declared residue R2 cell,
+#   'a with-clause over an INDEXED receiver: no measured cell exists', fenced out
+#   by !withExpr9 and left for a later pass.  This is that pass.
+
+-- def  rcs: rc_sl=4 rc_pris=4 rc_pat=4 
+v74_edge.def  G-ONLY=2  O-ONLY=2  SAME_AGREE=8  STILLWRONG=2  TOGOLD=1
+    STILLWRONG  45:14|ih.k
+        G: ref_obj|ih|45:17-45:18|idx=-;ref_obj|k|45:17-45:18|idx=-
+        O: ref_obj|ih|45:14-45:16|idx=-;ref_obj|k|45:17-45:18|idx=-
+    G-ONLY      47:11|sq[].len
+        G: 
+        O: 
+    O-ONLY      47:11|sq[fidx(i)].len
+        G: 
+        O: 
+    O-ONLY      56:11|sq[ 2 ].len
+        G: 
+        O: 
+    G-ONLY      56:11|sq[2].len
+        G: 
+        O: 
+    STILLWRONG  62:11|mq[i].lq[j].getl
+        G: bit_select|mq|62:11-62:13|idx=ref_obj@62:14-62:15^hier_path;bit_select|lq|62:17-62:19|idx=ref_obj@62:20-62:21^hier_path;method_func_call|getl|62:23-62:27|idx=-
+        O: bit_select|mq|62:11-62:13|idx=ref_obj@62:14-62:15^bit_select;bit_select|lq|62:17-62:19|idx=ref_obj@62:20-62:21^bit_select;method_func_call|getl|62:23-62:27|idx=-
+    TOGOLD      73:11|mq[i].iq
+        G: bit_select|mq|73:11-73:13|idx=ref_obj@73:14-73:15^hier_path;ref_obj|iq|73:17-73:19|idx=-;method_func_call|sum|73:20-73:23|idx=-
+        O: bit_select|mq|73:11-73:13|idx=ref_obj@73:14-73:15^hier_path;ref_obj|iq|73:17-73:19|idx=-;method_func_call|sum|73:20-73:23|idx=-
+
+-- elab  rcs: rc_sl=4 rc_pris=4 rc_pat=4 
+v74_edge.elab  G-ONLY=2  O-ONLY=2  SAME_AGREE=7  STILLWRONG=3  TOGOLD=1
+    STILLWRONG  43:11|qq[i][j].len
+        G: bit_select|qq|43:11-43:13|idx=ref_obj@43:14-43:15^bit_select;bit_select||43:14-43:15|idx=ref_obj@43:17-43:18^bit_select;method_func_call|len|43:20-43:23|idx=- || bit_select|qq|43:11-43:13|idx=ref_obj@43:14-43:15^hier_path;bit_select||43:14-43:15|idx=ref_obj@43:17-43:18^hier_path;method_func_call|len|43:20-43:23|idx=-
+        O: bit_select|qq|43:11-43:13|idx=ref_obj@43:14-43:15^bit_select;bit_select||43:14-43:15|idx=ref_obj@43:17-43:18^bit_select || bit_select|qq|43:11-43:13|idx=ref_obj@43:14-43:15^bit_select;bit_select||43:14-43:15|idx=ref_obj@43:17-43:18^bit_select;method_func_call|len|43:20-43:23|idx=- || bit_select|qq|43:11-43:13|idx=ref_obj@43:14-43:15^hier_path;bit_select||43:14-43:15|idx=ref_obj@43:17-43:18^hier_path;method_func_call|len|43:20-43:23|idx=-
+    STILLWRONG  45:14|ih.k
+        G: ref_obj|ih|45:17-45:18|idx=-;ref_obj|k|45:17-45:18|idx=-
+        O: ref_obj|ih|45:14-45:16|idx=-;ref_obj|k|45:17-45:18|idx=-
+    G-ONLY      47:11|sq[].len
+        G: 
+        O: 
+    O-ONLY      47:11|sq[fidx(i)].len
+        G: 
+        O: 
+    O-ONLY      56:11|sq[ 2 ].len
+        G: 
+        O: 
+    G-ONLY      56:11|sq[2].len
+        G: 
+        O: 
+    STILLWRONG  62:11|mq[i].lq[j].getl
+        G: bit_select|mq|62:11-62:13|idx=ref_obj@62:14-62:15^bit_select;bit_select|lq|62:17-62:19|idx=ref_obj@62:20-62:21^bit_select;method_func_call|getl|62:23-62:27|idx=- || bit_select|mq|62:11-62:13|idx=ref_obj@62:14-62:15^hier_path;bit_select|lq|62:17-62:19|idx=ref_obj@62:20-62:21^hier_path;method_func_call|getl|62:23-62:27|idx=-
+        O: bit_select|mq|62:11-62:13|idx=ref_obj@62:14-62:15^bit_select;bit_select|lq|62:17-62:19|idx=ref_obj@62:20-62:21^bit_select;method_func_call|getl|62:23-62:27|idx=-
+    TOGOLD      73:11|mq[i].iq
+        G: bit_select|mq|73:11-73:13|idx=ref_obj@73:14-73:15^bit_select;ref_obj|iq|73:17-73:19|idx=-;method_func_call|sum|73:20-73:23|idx=-
+        O: bit_select|mq|73:11-73:13|idx=ref_obj@73:14-73:15^bit_select;ref_obj|iq|73:17-73:19|idx=-;method_func_call|sum|73:20-73:23|idx=-
+

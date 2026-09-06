@@ -24771,10 +24771,46 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // declaration carries the law and the refusal rule;
                         // `stepSel74[k]` is non-null for exactly the steps the
                         // TEXT wrote with one index AND the bound tree confirms.
-                        // The `with`-clause form is deliberately OUT: it has
-                        // its own fullname regime (every element scoped) and
-                        // NO measured cell — README residue R2.
-                        bool idxSteps74 = !withExpr9 && stepOk23;
+                        //
+                        // § withRecvIndexedStepIsBitSelect175 — THE
+                        // `with`-CLAUSE FORM IS IN, and r10uvm74's README
+                        // residue R2 ("no measured cell exists") is closed.
+                        // Surelog builds BOTH forms in ONE loop:
+                        // `compileComplexFuncCall`'s `while (dotedName)`
+                        // (CompileExpression.cpp:5498-5692) mints the
+                        // `bit_select` at :5587-5595 — VpiName the pending
+                        // `tmpName`, VpiFullName the CUMULATIVE written
+                        // `the_name`, VpiIndex the compiled index parented at
+                        // the PATH, span `populateCoreMembers(name, name)` of
+                        // the PREVIOUS name node — and only reaches the
+                        // `with` at :5665 (`fcall->With(...)`), long after
+                        // every element exists.  The clause is never read by
+                        // the element builder, so it cannot change an
+                        // element's shape, and the grids measure that cell for
+                        // cell on golden: every position, every index kind,
+                        // every locator method and every home give the SAME
+                        // `bit_select` with and without the clause.
+                        //
+                        // THE ONE DECLINE: a receiver rooted at an IMPLICIT
+                        // CLASS HANDLE (`this.q[i]…`, `super.q[i]…`).  That
+                        // spelling takes Surelog's `paImplicit_class_handle`
+                        // road, which builds a DIFFERENT object — golden drops
+                        // the subscript AND the method element, leaving
+                        // `ref_obj(this) ref_obj(q) ref_obj(...)` with the
+                        // handle's own span on both of the first two (arm E
+                        // cells s_thisrecv / s_superrecv, measured on golden).
+                        // Our pristine path there disagrees with golden in its
+                        // element COUNT already — a `hier_path::Path_elems`
+                        // SIZE MISMATCH, where the vector overload sets both
+                        // containers and NO element field is ever read
+                        // (RESUME.md §9) — so it is § this./super.'s family
+                        // (r10uvm84/85), not this one, and this law leaves it
+                        // exactly as r10uvm74 left it.
+                        bool implicitRoot175 =
+                            !dots.empty() &&
+                            (dots[0] == "this" || dots[0] == "super");
+                        bool idxSteps74 =
+                            stepOk23 && (!withExpr9 || !implicitRoot175);
                         // A bit_select's fullname is the CUMULATIVE dotted path
                         // through this step, which at the BASE is just the
                         // written component: golden `mq[i]` at the base and

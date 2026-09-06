@@ -1,0 +1,35 @@
+# r10uvm175 — CENSUS: the hier_path element-shape vectors, nine UVM row-modes
+# LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.  MEASUREMENT ONLY.
+
+## PRISTINE (golden vs ours)
+SeqDriver-32af76aa/default(rcg=0,rcp=0)  AGREE=3863  DIFF=502  G-ONLY=198  O-ONLY=323
+SeqDriver-32af76aa/testflags(rcg=0,rcp=0)  AGREE=3863  DIFF=502  G-ONLY=198  O-ONLY=323
+SimpleUVM-1dc93a62/default(rcg=0,rcp=0)  AGREE=3974  DIFF=371  G-ONLY=199  O-ONLY=324
+SimpleUVM-1dc93a62/testflags(rcg=0,rcp=0)  AGREE=3974  DIFF=371  G-ONLY=199  O-ONLY=324
+Scoreboard-59431470/default(rcg=0,rcp=0)  AGREE=3987  DIFF=371  G-ONLY=200  O-ONLY=325
+MiniAmiq-544c7f61/default(rcg=0,rcp=0)  AGREE=4023  DIFF=588  G-ONLY=201  O-ONLY=331
+MiniAmiq-544c7f61/testflags(rcg=0,rcp=0)  AGREE=4023  DIFF=588  G-ONLY=201  O-ONLY=331
+BuildUVMPkg-bf853d43/default(rcg=0,rcp=0)  AGREE=4280  DIFF=407  G-ONLY=1  O-ONLY=47
+BuildUVMPkg-bf853d43/testflags(rcg=0,rcp=0)  AGREE=4280  DIFF=407  G-ONLY=1  O-ONLY=47
+
+## PATCHED (golden vs pristine vs patched)
+SeqDriver-32af76aa/default(rcg=0,rcp=0)  G-ONLY=198  O-ONLY=323  SAME_AGREE=3863  STILLWRONG=502
+SeqDriver-32af76aa/testflags(rcg=0,rcp=0)  G-ONLY=198  O-ONLY=323  SAME_AGREE=3863  STILLWRONG=502
+SimpleUVM-1dc93a62/default(rcg=0,rcp=0)  G-ONLY=199  O-ONLY=324  SAME_AGREE=3974  STILLWRONG=371
+SimpleUVM-1dc93a62/testflags(rcg=0,rcp=0)  G-ONLY=199  O-ONLY=324  SAME_AGREE=3974  STILLWRONG=371
+Scoreboard-59431470/default(rcg=0,rcp=0)  G-ONLY=200  O-ONLY=325  SAME_AGREE=3987  STILLWRONG=371
+MiniAmiq-544c7f61/default(rcg=0,rcp=0)  G-ONLY=201  O-ONLY=331  SAME_AGREE=4023  STILLWRONG=587  TOGOLD=1
+MiniAmiq-544c7f61/testflags(rcg=0,rcp=0)  G-ONLY=201  O-ONLY=331  SAME_AGREE=4023  STILLWRONG=587  TOGOLD=1
+BuildUVMPkg-bf853d43/default(rcg=0,rcp=0)  G-ONLY=1  O-ONLY=47  SAME_AGREE=4280  STILLWRONG=407
+BuildUVMPkg-bf853d43/testflags(rcg=0,rcp=0)  G-ONLY=1  O-ONLY=47  SAME_AGREE=4280  STILLWRONG=407
+
+## THE ONE MOVED CELL (MiniAmiq, both modes)
+MiniAmiq-544c7f61/default(rcg=0,rcp=0)  G-ONLY=201  O-ONLY=331  SAME_AGREE=4023  STILLWRONG=587  TOGOLD=1
+    G-ONLY      L0:0|
+        G: 
+        O: 
+--
+    TOGOLD      L233:24|checks_details[details_index].tests_names
+        G: bit_select|checks_details|233:24-233:38|idx=ref_obj@233:39-233:52^hier_path;ref_obj|tests_names|233:54-233:65|idx=-;method_func_call|find_index|233:66-233:76|idx=-
+        O: bit_select|checks_details|233:24-233:38|idx=ref_obj@233:39-233:52^hier_path;ref_obj|tests_names|233:54-233:65|idx=-;method_func_call|find_index|233:66-233:76|idx=-
+    O-ONLY      L234:39|rg.get_full_name

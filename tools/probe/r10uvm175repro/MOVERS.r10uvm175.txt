@@ -1,0 +1,39 @@
+# r10uvm175 — MOVERS and their ATTRIBUTION.  MEASUREMENT ONLY.  LHS is ALWAYS golden.
+
+## surelog, 956 databases
+MOVERS: 3 / 956   SELFCHECK 955/956
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm    PREDICTED (predict175, from the pristine DBs alone)
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  PREDICTED
+MOVER ./default/Scoreboard-59431470/slang.uhdm  NOT predicted — THE COIN (RESUME.md §9)
+
+## uhdm2rtlil, 1358 databases
+MOVERS: 0 / 1358  SELFCHECK 1357/1358
+
+## Scoreboard/default — the ORDER-BLIND attribution (sorted, workdir-normalised, id-stripped dumps)
+diff lines: 0   => the svunit_pkg vpiTaskFunc ORDER flip, not this law.  Its cmp log is byte-identical before and after (md5 a545f4d99e6c).
+
+## MiniAmiq — the ORDER-BLIND attribution, 12 lines, ONE cell
+103893a103894
+>                   \_bit_select: (checks_details[details_index]), line:233:24, endln:233:38
+318900a318902
+>                       \_hier_path: (checks_details[details_index].tests_names), line:233:24, endln:233:105
+551187c551189
+<                   \_ref_obj: (svaunit_pkg::svaunit_immediate_assertion_info::get_checks::checks_details[details_index]), line:233:24, endln:233:53
+---
+>                     \_ref_obj: (svaunit_pkg::svaunit_immediate_assertion_info::get_checks::details_index), line:233:39, endln:233:52
+1019103a1019106
+>                     |vpiFullName:checks_details[details_index]
+1023205d1023207
+<                     |vpiFullName:svaunit_pkg::svaunit_immediate_assertion_info::get_checks::checks_details[details_index]
+1023210a1023213
+>                       |vpiFullName:svaunit_pkg::svaunit_immediate_assertion_info::get_checks::details_index
+1156116a1156120
+>                     |vpiIndex:
+1229242a1229247
+>                     |vpiName:checks_details
+1229266d1229270
+<                     |vpiName:checks_details[details_index]
+1235139a1235144
+>                       |vpiName:details_index
+1482278a1482284
+>                       |vpiParent:
