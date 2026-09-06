@@ -1,0 +1,44 @@
+== r10v177 BOUNDARY — the whole probe tree, top level AND subdirectories, both views,
+   pristine vs the binary named, children </dev/null, list on fd 3, PROCESSED asserted.
+
+-- r10uvm177's patch AS SUBMITTED (binary 447ba723ecfb17bbd37505068bce7ce0):
+LISTED=4877 PROCESSED=4877 PRODUCED_DBS=4719 MOVED_ARMS=26 RC_DIFFS=0
+
+-- the VERIFIED patch (binary 676dac3fd2c178d9128825b0d0201ee4):
+LISTED=4877 PROCESSED=4877 PRODUCED_DBS=4719 MOVED_ARMS=26 RC_DIFFS=0
+
+The two moved-arm SETS are identical:
+   (identical)
+
+-- the moved arms:
+r10buvm22repro/g22b.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10buvm22repro/g22.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10uvm140repro/g140_a_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm140repro/g140_b_homes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm177repro/g177_a_alias.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm177repro/g177_b_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm177repro/g177_c_homes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm177repro/g177_d_bounds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm58repro/w4_aliasret.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm91repro/v91_a3_order.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v140repro/v140_p_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v140repro/v140_q_homes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v140repro/v140_r_import.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v140repro/v140_t_order.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v140repro/v140_w_inherit.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v177repro/v177_1_ifprog.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v177repro/v177_2_clone.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v177repro/v177_3_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v177repro/v177_4_cls.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v177repro/v177_5_inh.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10vbuvm20repro/v1_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10vbuvm20repro/v4_crosspkg.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10vbuvm20repro/v9_tdoftd.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10vbuvm22repro/v2_rettypes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10vbuvm22repro/v3_kinds.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10vbuvm22repro/v6_nasty.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+NOTE: v177_6_shadow.sv and v177_7_native.sv were written AFTER this tree copy and are
+not in it; both are judged directly (GRID.r10v177.txt), MOVED-WRONG=0 in both views.
+
+Every moved arm is judged against GOLDEN in ARMS.r10v177.txt.

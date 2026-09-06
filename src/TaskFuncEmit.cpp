@@ -3689,6 +3689,21 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     case UnpackedTdRetKind22::Unchanged:
                         break;
                 }
+            // § ownNamedAliasRetIsRefVar177 — THE HEAD'S OWN SITE.  A return
+            // type written as a BARE NAME resolving to a typedef of a NAMED
+            // TYPE declared in the very component compiling this listing has
+            // no typespec yet when Surelog's `compileVariable` runs
+            // (`ElaborationStep::bindTypedefs_` binds it afterwards), so
+            // `getSimpleVarFromTypespec` is never reached and the object is
+            // the bare `ref_var` of CompileType.cpp:421.  The SimpleUVM head
+            // is `uvm_sequencer_base::get_arbitration` returning
+            // `UVM_SEQ_ARB_TYPE` in the package's DEF listing.  Law, the
+            // listing axis and the cells that must NOT move: src/EmitHelpers.h.
+            if (!crossImplicitRet && !lateRv10 &&
+                ownNamedAliasRetIsRefVar177(
+                    sub, sub.getReturnType(), curPkgEmitSym && !pkgEmitTopView,
+                    pkgClassTfClone != nullptr && !pkgImportCloneEmit))
+                lateRv10 = s.MakeRef_var();
             auto* rv =
                 crossImplicitRet
                     ? (UHDM::variables*)s.MakeRef_var()

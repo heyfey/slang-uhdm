@@ -1,0 +1,242 @@
+== r10v177 — THE SAME 7 ARMS against r10uvm177's patch AS SUBMITTED (the regression)
+[1_ifprog] view=def CELLS=23 AGREE-PRIS=17 AGREE-PAT=23 FIXED=6 MOVED-WRONG=0 STILL-WRONG=0 MOVED-STILL-WRONG=0
+   FIXED              uhdmallClasses (work@UnitCls9::ucVia) line:63:3 | G=ref_var enum_typespec UcRef | PRIS=enum_var enum_typespec UcRef | PAT=ref_var enum_typespec UcRef
+   FIXED              uhdmallInterfaces (work@Wire9.ifTiny) line:21:3 | G=ref_var byte_typespec TinyRef | PRIS=byte_var byte_typespec TinyRef | PAT=ref_var byte_typespec TinyRef
+   FIXED              uhdmallInterfaces (work@Wire9.ifVia) line:20:3 | G=ref_var enum_typespec LevelRef | PRIS=enum_var enum_typespec LevelRef | PAT=ref_var enum_typespec LevelRef
+   FIXED              uhdmallModules (work@Holder9.mdVia) line:49:3 | G=ref_var enum_typespec ModRef | PRIS=enum_var enum_typespec ModRef | PAT=ref_var enum_typespec ModRef
+   FIXED              uhdmallModules (work@Holder9::InModCls::cmVia) line:43:5 | G=ref_var enum_typespec CmRef | PRIS=enum_var enum_typespec CmRef | PAT=ref_var enum_typespec CmRef
+   FIXED              uhdmallPrograms (work@Runner9.pgVia) line:30:3 | G=ref_var enum_typespec StageRef | PRIS=enum_var enum_typespec StageRef | PAT=ref_var enum_typespec StageRef
+[1_ifprog] view=elab CELLS=39 AGREE-PRIS=30 AGREE-PAT=39 FIXED=9 MOVED-WRONG=0 STILL-WRONG=0 MOVED-STILL-WRONG=0
+   FIXED              uhdmallClasses (work@UnitCls9::ucVia) line:63:3 | G=ref_var enum_typespec UcRef | PRIS=enum_var enum_typespec UcRef | PAT=ref_var enum_typespec UcRef
+   FIXED              uhdmallInterfaces (work@Wire9.ifTiny) line:21:3 | G=ref_var byte_typespec TinyRef | PRIS=byte_var byte_typespec TinyRef | PAT=ref_var byte_typespec TinyRef
+   FIXED              uhdmallInterfaces (work@Wire9.ifVia) line:20:3 | G=ref_var enum_typespec LevelRef | PRIS=enum_var enum_typespec LevelRef | PAT=ref_var enum_typespec LevelRef
+   FIXED              uhdmallModules (work@Holder9.mdVia) line:49:3 | G=ref_var enum_typespec ModRef | PRIS=enum_var enum_typespec ModRef | PAT=ref_var enum_typespec ModRef
+   FIXED              uhdmallModules (work@Holder9::InModCls::cmVia) line:43:5 | G=ref_var enum_typespec CmRef | PRIS=enum_var enum_typespec CmRef | PAT=ref_var enum_typespec CmRef
+   FIXED              uhdmallPrograms (work@Runner9.pgVia) line:30:3 | G=ref_var enum_typespec StageRef | PRIS=enum_var enum_typespec StageRef | PAT=ref_var enum_typespec StageRef
+   FIXED              uhdmtopModules (work@Holder9.mdVia) line:49:3 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (work@Holder9::InModCls::cmVia) line:43:5 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (work@UnitCls9::ucVia) line:63:3 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+TOTAL-MOVED-WRONG=0
+[2_clone] view=def CELLS=50 AGREE-PRIS=37 AGREE-PAT=40 FIXED=3 MOVED-WRONG=0 STILL-WRONG=9 MOVED-STILL-WRONG=1
+   STILL-WRONG        uhdmallPackages (alsop9::Vault9::oobDirect) line:30:3 | G=enum_var - - | PRIS=enum_var enum_typespec homep9::HpBase | PAT=enum_var enum_typespec homep9::HpBase
+   STILL-WRONG        uhdmallPackages (alsop9::Vault9::oobVia) line:29:3 | G=enum_var - - | PRIS=enum_var enum_typespec homep9::HpRef | PAT=enum_var enum_typespec homep9::HpRef
+   FIXED              uhdmallPackages (homep9::Vault9::oobVia) line:29:3 | G=ref_var enum_typespec homep9::HpRef | PRIS=enum_var enum_typespec homep9::HpRef | PAT=ref_var enum_typespec homep9::HpRef
+   MOVED-STILL-WRONG  uhdmallPackages (homep9::freeIntVia) line:21:3 | G=ref_var int_typespec homep9::HpIntRef | PRIS=int_var int_typespec HpIntRef | PAT=ref_var int_typespec HpIntRef
+   FIXED              uhdmallPackages (homep9::freeVia) line:20:3 | G=ref_var enum_typespec homep9::HpRef | PRIS=enum_var enum_typespec homep9::HpRef | PAT=ref_var enum_typespec homep9::HpRef
+   STILL-WRONG        uhdmallPackages (userp9::freeIntVia) line:21:3 | G=int_var int_typespec homep9::HpIntRef | PRIS=int_var int_typespec HpIntRef | PAT=int_var int_typespec HpIntRef
+   FIXED              uhdmallPackages (userp9::ownVia) line:39:3 | G=ref_var enum_typespec userp9::UpRef | PRIS=enum_var enum_typespec userp9::UpRef | PAT=ref_var enum_typespec userp9::UpRef
+   STILL-WRONG        uhdmtopPackages (alsop9::Vault9::oobDirect) line:30:3 | G=enum_var - - | PRIS=enum_var enum_typespec homep9::HpBase | PAT=enum_var enum_typespec homep9::HpBase
+   STILL-WRONG        uhdmtopPackages (alsop9::Vault9::oobVia) line:29:3 | G=enum_var - - | PRIS=enum_var enum_typespec homep9::HpRef | PAT=enum_var enum_typespec homep9::HpRef
+   STILL-WRONG        uhdmtopPackages (homep9::Vault9::oobDirect) line:30:3 | G=enum_var - - | PRIS=enum_var enum_typespec homep9::HpBase | PAT=enum_var enum_typespec homep9::HpBase
+   STILL-WRONG        uhdmtopPackages (homep9::Vault9::oobVia) line:29:3 | G=enum_var - - | PRIS=enum_var enum_typespec homep9::HpRef | PAT=enum_var enum_typespec homep9::HpRef
+   STILL-WRONG        uhdmtopPackages (userp9::Vault9::oobDirect) line:30:3 | G=enum_var - - | PRIS=enum_var enum_typespec homep9::HpBase | PAT=enum_var enum_typespec homep9::HpBase
+   STILL-WRONG        uhdmtopPackages (userp9::Vault9::oobVia) line:29:3 | G=enum_var - - | PRIS=enum_var enum_typespec homep9::HpRef | PAT=enum_var enum_typespec homep9::HpRef
+[2_clone] view=elab CELLS=92 AGREE-PRIS=69 AGREE-PAT=76 FIXED=7 MOVED-WRONG=0 STILL-WRONG=15 MOVED-STILL-WRONG=1
+   STILL-WRONG        uhdmallModules (alsop9::freeVia) line:20:3 | G=<absent> | PRIS=- - - | PAT=- - -
+   STILL-WRONG        uhdmallModules (userp9::freeDirect) line:19:3 | G=<absent> | PRIS=- - - | PAT=- - -
+   STILL-WRONG        uhdmallPackages (alsop9::Vault9::oobDirect) line:30:3 | G=enum_var - - | PRIS=enum_var enum_typespec homep9::HpBase | PAT=enum_var enum_typespec homep9::HpBase
+   STILL-WRONG        uhdmallPackages (alsop9::Vault9::oobVia) line:29:3 | G=enum_var - - | PRIS=enum_var enum_typespec homep9::HpRef | PAT=enum_var enum_typespec homep9::HpRef
+   FIXED              uhdmallPackages (homep9::Vault9::oobVia) line:29:3 | G=ref_var enum_typespec homep9::HpRef | PRIS=enum_var enum_typespec homep9::HpRef | PAT=ref_var enum_typespec homep9::HpRef
+   MOVED-STILL-WRONG  uhdmallPackages (homep9::freeIntVia) line:21:3 | G=ref_var int_typespec homep9::HpIntRef | PRIS=int_var int_typespec HpIntRef | PAT=ref_var int_typespec HpIntRef
+   FIXED              uhdmallPackages (homep9::freeVia) line:20:3 | G=ref_var enum_typespec homep9::HpRef | PRIS=enum_var enum_typespec homep9::HpRef | PAT=ref_var enum_typespec homep9::HpRef
+   STILL-WRONG        uhdmallPackages (userp9::freeIntVia) line:21:3 | G=int_var int_typespec homep9::HpIntRef | PRIS=int_var int_typespec HpIntRef | PAT=int_var int_typespec HpIntRef
+   FIXED              uhdmallPackages (userp9::ownVia) line:39:3 | G=ref_var enum_typespec userp9::UpRef | PRIS=enum_var enum_typespec userp9::UpRef | PAT=ref_var enum_typespec userp9::UpRef
+   STILL-WRONG        uhdmtopModules (alsop9::freeDirect) line:19:3 | G=enum_var - - | PRIS=<absent> | PAT=<absent>
+   STILL-WRONG        uhdmtopModules (alsop9::freeIntVia) line:21:3 | G=int_var - - | PRIS=<absent> | PAT=<absent>
+   FIXED              uhdmtopModules (homep9::Vault9::oobVia) line:29:3 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (homep9::freeIntVia) line:21:3 | G=ref_var - - | PRIS=int_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (homep9::freeVia) line:20:3 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   STILL-WRONG        uhdmtopModules (userp9::freeIntVia) line:21:3 | G=int_var - - | PRIS=<absent> | PAT=<absent>
+   STILL-WRONG        uhdmtopModules (userp9::freeVia) line:20:3 | G=enum_var - - | PRIS=<absent> | PAT=<absent>
+   FIXED              uhdmtopModules (userp9::ownVia) line:39:3 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   STILL-WRONG        uhdmtopPackages (alsop9::Vault9::oobDirect) line:30:3 | G=enum_var - - | PRIS=enum_var enum_typespec homep9::HpBase | PAT=enum_var enum_typespec homep9::HpBase
+   STILL-WRONG        uhdmtopPackages (alsop9::Vault9::oobVia) line:29:3 | G=enum_var - - | PRIS=enum_var enum_typespec homep9::HpRef | PAT=enum_var enum_typespec homep9::HpRef
+   STILL-WRONG        uhdmtopPackages (homep9::Vault9::oobDirect) line:30:3 | G=enum_var - - | PRIS=enum_var enum_typespec homep9::HpBase | PAT=enum_var enum_typespec homep9::HpBase
+   STILL-WRONG        uhdmtopPackages (homep9::Vault9::oobVia) line:29:3 | G=enum_var - - | PRIS=enum_var enum_typespec homep9::HpRef | PAT=enum_var enum_typespec homep9::HpRef
+   STILL-WRONG        uhdmtopPackages (userp9::Vault9::oobDirect) line:30:3 | G=enum_var - - | PRIS=enum_var enum_typespec homep9::HpBase | PAT=enum_var enum_typespec homep9::HpBase
+   STILL-WRONG        uhdmtopPackages (userp9::Vault9::oobVia) line:29:3 | G=enum_var - - | PRIS=enum_var enum_typespec homep9::HpRef | PAT=enum_var enum_typespec homep9::HpRef
+TOTAL-MOVED-WRONG=0
+[3_kinds] view=def CELLS=49 AGREE-PRIS=22 AGREE-PAT=33 FIXED=11 MOVED-WRONG=0 STILL-WRONG=10 MOVED-STILL-WRONG=6
+   FIXED              uhdmallPackages (zed9::zAssigned) line:68:3 | G=ref_var enum_typespec zed9::ModeA | PRIS=enum_var enum_typespec zed9::ModeA | PAT=ref_var enum_typespec zed9::ModeA
+   FIXED              uhdmallPackages (zed9::zBag) line:56:3 | G=ref_var union_typespec zed9::BagVia | PRIS=union_var union_typespec zed9::BagVia | PAT=ref_var union_typespec zed9::BagVia
+   STILL-WRONG        uhdmallPackages (zed9::zCage) line:63:3 | G=ref_var class_typespec zed9::CageHandle | PRIS=ref_var class_typespec  | PAT=ref_var class_typespec 
+   STILL-WRONG        uhdmallPackages (zed9::zCage2) line:64:3 | G=ref_var class_typespec zed9::CageHandle2 | PRIS=ref_var class_typespec  | PAT=ref_var class_typespec 
+   FIXED              uhdmallPackages (zed9::zChain2) line:52:3 | G=ref_var enum_typespec zed9::ModeChain2 | PRIS=enum_var enum_typespec zed9::ModeChain2 | PAT=ref_var enum_typespec zed9::ModeChain2
+   FIXED              uhdmallPackages (zed9::zChain3) line:53:3 | G=ref_var enum_typespec zed9::MODE_CHAIN3 | PRIS=enum_var enum_typespec zed9::MODE_CHAIN3 | PAT=ref_var enum_typespec zed9::MODE_CHAIN3
+   MOVED-STILL-WRONG  uhdmallPackages (zed9::zCount) line:61:3 | G=ref_var int_typespec zed9::CountVia | PRIS=int_var int_typespec CountVia | PAT=ref_var int_typespec CountVia
+   MOVED-STILL-WRONG  uhdmallPackages (zed9::zFlag) line:60:3 | G=ref_var bit_typespec zed9::FlagVia | PRIS=bit_var bit_typespec FlagVia | PAT=ref_var bit_typespec FlagVia
+   FIXED              uhdmallPackages (zed9::zFloat) line:59:3 | G=ref_var real_typespec zed9::FloatVia | PRIS=real_var real_typespec zed9::FloatVia | PAT=ref_var real_typespec zed9::FloatVia
+   FIXED              uhdmallPackages (zed9::zModeA) line:49:3 | G=ref_var enum_typespec zed9::ModeA | PRIS=enum_var enum_typespec zed9::ModeA | PAT=ref_var enum_typespec zed9::ModeA
+   FIXED              uhdmallPackages (zed9::zModeB) line:50:3 | G=ref_var enum_typespec zed9::modeB | PRIS=enum_var enum_typespec zed9::modeB | PAT=ref_var enum_typespec zed9::modeB
+   MOVED-STILL-WRONG  uhdmallPackages (zed9::zQueue) line:62:3 | G=ref_var array_typespec zed9::ByteQVia | PRIS=logic_var byte_typespec  | PAT=ref_var byte_typespec 
+   FIXED              uhdmallPackages (zed9::zReadBack) line:71:3 | G=ref_var enum_typespec zed9::ModeA | PRIS=enum_var enum_typespec zed9::ModeA | PAT=ref_var enum_typespec zed9::ModeA
+   FIXED              uhdmallPackages (zed9::zRec) line:55:3 | G=ref_var struct_typespec zed9::RecVia | PRIS=struct_var struct_typespec zed9::RecVia | PAT=ref_var struct_typespec zed9::RecVia
+   MOVED-STILL-WRONG  uhdmallPackages (zed9::zScopedInner) line:65:3 | G=ref_var unsupported_typespec zed9::ScopedInnerVia | PRIS=enum_var enum_typespec zed9::ScopedInnerVia | PAT=ref_var enum_typespec zed9::ScopedInnerVia
+   MOVED-STILL-WRONG  uhdmallPackages (zed9::zSelected) line:75:3 | G=ref_var logic_typespec zed9::WordVia | PRIS=logic_var logic_typespec WordVia | PAT=ref_var logic_typespec WordVia
+   FIXED              uhdmallPackages (zed9::zText) line:58:3 | G=ref_var string_typespec zed9::TextVia | PRIS=string_var string_typespec zed9::TextVia | PAT=ref_var string_typespec zed9::TextVia
+   MOVED-STILL-WRONG  uhdmallPackages (zed9::zWord) line:57:3 | G=ref_var logic_typespec zed9::WordVia | PRIS=logic_var logic_typespec WordVia | PAT=ref_var logic_typespec WordVia
+   FIXED              uhdmtopPackages (zed9::Cage9::cgVia) line:42:5 | G=ref_var enum_typespec InnerVia | PRIS=enum_var enum_typespec InnerVia | PAT=ref_var enum_typespec InnerVia
+   STILL-WRONG        uhdmtopPackages (zed9::zCage) line:63:3 | G=ref_var class_typespec zed9::CageHandle | PRIS=ref_var class_typespec  | PAT=ref_var class_typespec 
+   STILL-WRONG        uhdmtopPackages (zed9::zCage2) line:64:3 | G=ref_var class_typespec zed9::CageHandle2 | PRIS=ref_var class_typespec  | PAT=ref_var class_typespec 
+   STILL-WRONG        uhdmtopPackages (zed9::zCount) line:61:3 | G=int_var int_typespec zed9::CountVia | PRIS=int_var int_typespec CountVia | PAT=int_var int_typespec CountVia
+   STILL-WRONG        uhdmtopPackages (zed9::zFlag) line:60:3 | G=bit_var bit_typespec zed9::FlagVia | PRIS=bit_var bit_typespec FlagVia | PAT=bit_var bit_typespec FlagVia
+   STILL-WRONG        uhdmtopPackages (zed9::zQueue) line:62:3 | G=array_var array_typespec zed9::ByteQVia | PRIS=logic_var byte_typespec  | PAT=logic_var byte_typespec 
+   STILL-WRONG        uhdmtopPackages (zed9::zScopedInner) line:65:3 | G=ref_var unsupported_typespec zed9::ScopedInnerVia | PRIS=enum_var enum_typespec zed9::ScopedInnerVia | PAT=enum_var enum_typespec zed9::ScopedInnerVia
+   STILL-WRONG        uhdmtopPackages (zed9::zSelected) line:75:3 | G=logic_var logic_typespec zed9::WordVia | PRIS=logic_var logic_typespec WordVia | PAT=logic_var logic_typespec WordVia
+   STILL-WRONG        uhdmtopPackages (zed9::zWord) line:57:3 | G=logic_var logic_typespec zed9::WordVia | PRIS=logic_var logic_typespec WordVia | PAT=logic_var logic_typespec WordVia
+[3_kinds] view=elab CELLS=98 AGREE-PRIS=52 AGREE-PAT=80 FIXED=28 MOVED-WRONG=0 STILL-WRONG=12 MOVED-STILL-WRONG=6
+   STILL-WRONG        uhdmallModules (zed9::zQueue) line:62:3 | G=array_var - - | PRIS=logic_var - - | PAT=logic_var - -
+   STILL-WRONG        uhdmallModules (zed9::zScopedInner) line:65:3 | G=ref_var - - | PRIS=enum_var - - | PAT=enum_var - -
+   FIXED              uhdmallPackages (zed9::zAssigned) line:68:3 | G=ref_var enum_typespec zed9::ModeA | PRIS=enum_var enum_typespec zed9::ModeA | PAT=ref_var enum_typespec zed9::ModeA
+   FIXED              uhdmallPackages (zed9::zBag) line:56:3 | G=ref_var union_typespec zed9::BagVia | PRIS=union_var union_typespec zed9::BagVia | PAT=ref_var union_typespec zed9::BagVia
+   STILL-WRONG        uhdmallPackages (zed9::zCage) line:63:3 | G=ref_var class_typespec zed9::CageHandle | PRIS=ref_var class_typespec  | PAT=ref_var class_typespec 
+   STILL-WRONG        uhdmallPackages (zed9::zCage2) line:64:3 | G=ref_var class_typespec zed9::CageHandle2 | PRIS=ref_var class_typespec  | PAT=ref_var class_typespec 
+   FIXED              uhdmallPackages (zed9::zChain2) line:52:3 | G=ref_var enum_typespec zed9::ModeChain2 | PRIS=enum_var enum_typespec zed9::ModeChain2 | PAT=ref_var enum_typespec zed9::ModeChain2
+   FIXED              uhdmallPackages (zed9::zChain3) line:53:3 | G=ref_var enum_typespec zed9::MODE_CHAIN3 | PRIS=enum_var enum_typespec zed9::MODE_CHAIN3 | PAT=ref_var enum_typespec zed9::MODE_CHAIN3
+   MOVED-STILL-WRONG  uhdmallPackages (zed9::zCount) line:61:3 | G=ref_var int_typespec zed9::CountVia | PRIS=int_var int_typespec CountVia | PAT=ref_var int_typespec CountVia
+   MOVED-STILL-WRONG  uhdmallPackages (zed9::zFlag) line:60:3 | G=ref_var bit_typespec zed9::FlagVia | PRIS=bit_var bit_typespec FlagVia | PAT=ref_var bit_typespec FlagVia
+   FIXED              uhdmallPackages (zed9::zFloat) line:59:3 | G=ref_var real_typespec zed9::FloatVia | PRIS=real_var real_typespec zed9::FloatVia | PAT=ref_var real_typespec zed9::FloatVia
+   FIXED              uhdmallPackages (zed9::zModeA) line:49:3 | G=ref_var enum_typespec zed9::ModeA | PRIS=enum_var enum_typespec zed9::ModeA | PAT=ref_var enum_typespec zed9::ModeA
+   FIXED              uhdmallPackages (zed9::zModeB) line:50:3 | G=ref_var enum_typespec zed9::modeB | PRIS=enum_var enum_typespec zed9::modeB | PAT=ref_var enum_typespec zed9::modeB
+   MOVED-STILL-WRONG  uhdmallPackages (zed9::zQueue) line:62:3 | G=ref_var array_typespec zed9::ByteQVia | PRIS=logic_var byte_typespec  | PAT=ref_var byte_typespec 
+   FIXED              uhdmallPackages (zed9::zReadBack) line:71:3 | G=ref_var enum_typespec zed9::ModeA | PRIS=enum_var enum_typespec zed9::ModeA | PAT=ref_var enum_typespec zed9::ModeA
+   FIXED              uhdmallPackages (zed9::zRec) line:55:3 | G=ref_var struct_typespec zed9::RecVia | PRIS=struct_var struct_typespec zed9::RecVia | PAT=ref_var struct_typespec zed9::RecVia
+   MOVED-STILL-WRONG  uhdmallPackages (zed9::zScopedInner) line:65:3 | G=ref_var unsupported_typespec zed9::ScopedInnerVia | PRIS=enum_var enum_typespec zed9::ScopedInnerVia | PAT=ref_var enum_typespec zed9::ScopedInnerVia
+   MOVED-STILL-WRONG  uhdmallPackages (zed9::zSelected) line:75:3 | G=ref_var logic_typespec zed9::WordVia | PRIS=logic_var logic_typespec WordVia | PAT=ref_var logic_typespec WordVia
+   FIXED              uhdmallPackages (zed9::zText) line:58:3 | G=ref_var string_typespec zed9::TextVia | PRIS=string_var string_typespec zed9::TextVia | PAT=ref_var string_typespec zed9::TextVia
+   MOVED-STILL-WRONG  uhdmallPackages (zed9::zWord) line:57:3 | G=ref_var logic_typespec zed9::WordVia | PRIS=logic_var logic_typespec WordVia | PAT=ref_var logic_typespec WordVia
+   FIXED              uhdmtopModules (zed9::Cage9::cgVia) line:42:5 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (zed9::zAssigned) line:68:3 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (zed9::zBag) line:56:3 | G=ref_var - - | PRIS=union_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (zed9::zChain2) line:52:3 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (zed9::zChain3) line:53:3 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (zed9::zCount) line:61:3 | G=ref_var - - | PRIS=int_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (zed9::zFlag) line:60:3 | G=ref_var - - | PRIS=bit_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (zed9::zFloat) line:59:3 | G=ref_var - - | PRIS=real_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (zed9::zModeA) line:49:3 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (zed9::zModeB) line:50:3 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (zed9::zQueue) line:62:3 | G=ref_var - - | PRIS=logic_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (zed9::zReadBack) line:71:3 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (zed9::zRec) line:55:3 | G=ref_var - - | PRIS=struct_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (zed9::zScopedInner) line:65:3 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (zed9::zSelected) line:75:3 | G=ref_var - - | PRIS=logic_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (zed9::zText) line:58:3 | G=ref_var - - | PRIS=string_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (zed9::zWord) line:57:3 | G=ref_var - - | PRIS=logic_var - - | PAT=ref_var - -
+   FIXED              uhdmtopPackages (zed9::Cage9::cgVia) line:42:5 | G=ref_var enum_typespec InnerVia | PRIS=enum_var enum_typespec InnerVia | PAT=ref_var enum_typespec InnerVia
+   STILL-WRONG        uhdmtopPackages (zed9::zCage) line:63:3 | G=ref_var class_typespec zed9::CageHandle | PRIS=ref_var class_typespec  | PAT=ref_var class_typespec 
+   STILL-WRONG        uhdmtopPackages (zed9::zCage2) line:64:3 | G=ref_var class_typespec zed9::CageHandle2 | PRIS=ref_var class_typespec  | PAT=ref_var class_typespec 
+   STILL-WRONG        uhdmtopPackages (zed9::zCount) line:61:3 | G=int_var int_typespec zed9::CountVia | PRIS=int_var int_typespec CountVia | PAT=int_var int_typespec CountVia
+   STILL-WRONG        uhdmtopPackages (zed9::zFlag) line:60:3 | G=bit_var bit_typespec zed9::FlagVia | PRIS=bit_var bit_typespec FlagVia | PAT=bit_var bit_typespec FlagVia
+   STILL-WRONG        uhdmtopPackages (zed9::zQueue) line:62:3 | G=array_var array_typespec zed9::ByteQVia | PRIS=logic_var byte_typespec  | PAT=logic_var byte_typespec 
+   STILL-WRONG        uhdmtopPackages (zed9::zScopedInner) line:65:3 | G=ref_var unsupported_typespec zed9::ScopedInnerVia | PRIS=enum_var enum_typespec zed9::ScopedInnerVia | PAT=enum_var enum_typespec zed9::ScopedInnerVia
+   STILL-WRONG        uhdmtopPackages (zed9::zSelected) line:75:3 | G=logic_var logic_typespec zed9::WordVia | PRIS=logic_var logic_typespec WordVia | PAT=logic_var logic_typespec WordVia
+   STILL-WRONG        uhdmtopPackages (zed9::zWord) line:57:3 | G=logic_var logic_typespec zed9::WordVia | PRIS=logic_var logic_typespec WordVia | PAT=logic_var logic_typespec WordVia
+TOTAL-MOVED-WRONG=0
+[4_cls] view=def CELLS=32 AGREE-PRIS=22 AGREE-PAT=29 FIXED=7 MOVED-WRONG=0 STILL-WRONG=3 MOVED-STILL-WRONG=0
+   FIXED              uhdmallPackages (genp9::Deck9::deckPkgVia) line:56:3 | G=ref_var enum_typespec genp9::RootRef | PRIS=enum_var enum_typespec genp9::RootRef | PAT=ref_var enum_typespec genp9::RootRef
+   FIXED              uhdmallPackages (genp9::Deck9::deckStaticVia) line:58:3 | G=ref_var enum_typespec genp9::RootRef | PRIS=enum_var enum_typespec genp9::RootRef | PAT=ref_var enum_typespec genp9::RootRef
+   FIXED              uhdmtopPackages (genp9::Base9::baseOwn) line:20:5 | G=ref_var enum_typespec BaseRef | PRIS=enum_var enum_typespec BaseRef | PAT=ref_var enum_typespec BaseRef
+   STILL-WRONG        uhdmtopPackages (genp9::Box9::boxOob) line:41:5 | G=ref_var enum_typespec BoxRef | PRIS=class_var unsupported_typespec Box9::BoxRef | PAT=class_var unsupported_typespec Box9::BoxRef
+   FIXED              uhdmtopPackages (genp9::Box9::boxOwn) line:39:5 | G=ref_var enum_typespec BoxRef | PRIS=enum_var enum_typespec BoxRef | PAT=ref_var enum_typespec BoxRef
+   FIXED              uhdmtopPackages (genp9::Box9::boxPay) line:40:5 | G=ref_var int_typespec PayRef | PRIS=int_var int_typespec PayRef | PAT=ref_var int_typespec PayRef
+   STILL-WRONG        uhdmtopPackages (genp9::Deck9::deckClsVia) line:49:5 | G=ref_var enum_typespec DeckRef | PRIS=class_var unsupported_typespec Deck9::DeckRef | PAT=class_var unsupported_typespec Deck9::DeckRef
+   FIXED              uhdmtopPackages (genp9::Deck9::deckInBody) line:53:5 | G=ref_var enum_typespec DeckRef | PRIS=enum_var enum_typespec DeckRef | PAT=ref_var enum_typespec DeckRef
+   STILL-WRONG        uhdmtopPackages (genp9::Deriv9::derInherited) line:29:5 | G=ref_var enum_typespec BaseRef | PRIS=enum_var enum_typespec BaseRef | PAT=enum_var enum_typespec BaseRef
+   FIXED              uhdmtopPackages (genp9::Deriv9::derOwn) line:30:5 | G=ref_var enum_typespec DerivRef | PRIS=enum_var enum_typespec DerivRef | PAT=ref_var enum_typespec DerivRef
+[4_cls] view=elab CELLS=64 AGREE-PRIS=44 AGREE-PAT=58 FIXED=14 MOVED-WRONG=0 STILL-WRONG=6 MOVED-STILL-WRONG=0
+   FIXED              uhdmallPackages (genp9::Deck9::deckPkgVia) line:56:3 | G=ref_var enum_typespec genp9::RootRef | PRIS=enum_var enum_typespec genp9::RootRef | PAT=ref_var enum_typespec genp9::RootRef
+   FIXED              uhdmallPackages (genp9::Deck9::deckStaticVia) line:58:3 | G=ref_var enum_typespec genp9::RootRef | PRIS=enum_var enum_typespec genp9::RootRef | PAT=ref_var enum_typespec genp9::RootRef
+   FIXED              uhdmtopModules (genp9::Base9::baseOwn) line:20:5 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   STILL-WRONG        uhdmtopModules (genp9::Box9::boxOob) line:41:5 | G=ref_var - - | PRIS=class_var - - | PAT=class_var - -
+   FIXED              uhdmtopModules (genp9::Box9::boxOwn) line:39:5 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (genp9::Box9::boxPay) line:40:5 | G=ref_var - - | PRIS=int_var - - | PAT=ref_var - -
+   STILL-WRONG        uhdmtopModules (genp9::Deck9::deckClsVia) line:49:5 | G=ref_var - - | PRIS=class_var - - | PAT=class_var - -
+   FIXED              uhdmtopModules (genp9::Deck9::deckInBody) line:53:5 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (genp9::Deck9::deckPkgVia) line:56:3 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (genp9::Deck9::deckStaticVia) line:58:3 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   STILL-WRONG        uhdmtopModules (genp9::Deriv9::derInherited) line:29:5 | G=ref_var - - | PRIS=enum_var - - | PAT=enum_var - -
+   FIXED              uhdmtopModules (genp9::Deriv9::derOwn) line:30:5 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   FIXED              uhdmtopPackages (genp9::Base9::baseOwn) line:20:5 | G=ref_var enum_typespec BaseRef | PRIS=enum_var enum_typespec BaseRef | PAT=ref_var enum_typespec BaseRef
+   STILL-WRONG        uhdmtopPackages (genp9::Box9::boxOob) line:41:5 | G=ref_var enum_typespec BoxRef | PRIS=class_var unsupported_typespec Box9::BoxRef | PAT=class_var unsupported_typespec Box9::BoxRef
+   FIXED              uhdmtopPackages (genp9::Box9::boxOwn) line:39:5 | G=ref_var enum_typespec BoxRef | PRIS=enum_var enum_typespec BoxRef | PAT=ref_var enum_typespec BoxRef
+   FIXED              uhdmtopPackages (genp9::Box9::boxPay) line:40:5 | G=ref_var int_typespec PayRef | PRIS=int_var int_typespec PayRef | PAT=ref_var int_typespec PayRef
+   STILL-WRONG        uhdmtopPackages (genp9::Deck9::deckClsVia) line:49:5 | G=ref_var enum_typespec DeckRef | PRIS=class_var unsupported_typespec Deck9::DeckRef | PAT=class_var unsupported_typespec Deck9::DeckRef
+   FIXED              uhdmtopPackages (genp9::Deck9::deckInBody) line:53:5 | G=ref_var enum_typespec DeckRef | PRIS=enum_var enum_typespec DeckRef | PAT=ref_var enum_typespec DeckRef
+   STILL-WRONG        uhdmtopPackages (genp9::Deriv9::derInherited) line:29:5 | G=ref_var enum_typespec BaseRef | PRIS=enum_var enum_typespec BaseRef | PAT=enum_var enum_typespec BaseRef
+   FIXED              uhdmtopPackages (genp9::Deriv9::derOwn) line:30:5 | G=ref_var enum_typespec DerivRef | PRIS=enum_var enum_typespec DerivRef | PAT=ref_var enum_typespec DerivRef
+TOTAL-MOVED-WRONG=0
+[5_inh] view=def CELLS=21 AGREE-PRIS=14 AGREE-PAT=18 FIXED=4 MOVED-WRONG=0 STILL-WRONG=3 MOVED-STILL-WRONG=0
+   FIXED              uhdmtopPackages (inhp5::Aaa5::aOwnVia) line:24:5 | G=ref_var enum_typespec AaaRef | PRIS=enum_var enum_typespec AaaRef | PAT=ref_var enum_typespec AaaRef
+   FIXED              uhdmtopPackages (inhp5::Bbb5::bOwnVia) line:47:5 | G=ref_var enum_typespec BbbRef | PRIS=enum_var enum_typespec BbbRef | PAT=ref_var enum_typespec BbbRef
+   STILL-WRONG        uhdmtopPackages (inhp5::Kid5::kGrandVia) line:53:5 | G=ref_var enum_typespec AaaRef | PRIS=enum_var enum_typespec AaaRef | PAT=enum_var enum_typespec AaaRef
+   FIXED              uhdmtopPackages (inhp5::Yyy5::yOwnVia) line:39:5 | G=ref_var enum_typespec YyyRef | PRIS=enum_var enum_typespec YyyRef | PAT=ref_var enum_typespec YyyRef
+   STILL-WRONG        uhdmtopPackages (inhp5::Zzz5::zInhDirect) line:30:5 | G=ref_var enum_typespec AaaDirect | PRIS=enum_var enum_typespec AaaDirect | PAT=enum_var enum_typespec AaaDirect
+   STILL-WRONG        uhdmtopPackages (inhp5::Zzz5::zInhVia) line:31:5 | G=ref_var enum_typespec AaaRef | PRIS=enum_var enum_typespec AaaRef | PAT=enum_var enum_typespec AaaRef
+   FIXED              uhdmtopPackages (inhp5::Zzz5::zOwnVia) line:32:5 | G=ref_var enum_typespec ZzzRef | PRIS=enum_var enum_typespec ZzzRef | PAT=ref_var enum_typespec ZzzRef
+[5_inh] view=elab CELLS=42 AGREE-PRIS=28 AGREE-PAT=36 FIXED=8 MOVED-WRONG=0 STILL-WRONG=6 MOVED-STILL-WRONG=0
+   FIXED              uhdmtopModules (inhp5::Aaa5::aOwnVia) line:24:5 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (inhp5::Bbb5::bOwnVia) line:47:5 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   STILL-WRONG        uhdmtopModules (inhp5::Kid5::kGrandVia) line:53:5 | G=ref_var - - | PRIS=enum_var - - | PAT=enum_var - -
+   FIXED              uhdmtopModules (inhp5::Yyy5::yOwnVia) line:39:5 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   STILL-WRONG        uhdmtopModules (inhp5::Zzz5::zInhDirect) line:30:5 | G=ref_var - - | PRIS=enum_var - - | PAT=enum_var - -
+   STILL-WRONG        uhdmtopModules (inhp5::Zzz5::zInhVia) line:31:5 | G=ref_var - - | PRIS=enum_var - - | PAT=enum_var - -
+   FIXED              uhdmtopModules (inhp5::Zzz5::zOwnVia) line:32:5 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   FIXED              uhdmtopPackages (inhp5::Aaa5::aOwnVia) line:24:5 | G=ref_var enum_typespec AaaRef | PRIS=enum_var enum_typespec AaaRef | PAT=ref_var enum_typespec AaaRef
+   FIXED              uhdmtopPackages (inhp5::Bbb5::bOwnVia) line:47:5 | G=ref_var enum_typespec BbbRef | PRIS=enum_var enum_typespec BbbRef | PAT=ref_var enum_typespec BbbRef
+   STILL-WRONG        uhdmtopPackages (inhp5::Kid5::kGrandVia) line:53:5 | G=ref_var enum_typespec AaaRef | PRIS=enum_var enum_typespec AaaRef | PAT=enum_var enum_typespec AaaRef
+   FIXED              uhdmtopPackages (inhp5::Yyy5::yOwnVia) line:39:5 | G=ref_var enum_typespec YyyRef | PRIS=enum_var enum_typespec YyyRef | PAT=ref_var enum_typespec YyyRef
+   STILL-WRONG        uhdmtopPackages (inhp5::Zzz5::zInhDirect) line:30:5 | G=ref_var enum_typespec AaaDirect | PRIS=enum_var enum_typespec AaaDirect | PAT=enum_var enum_typespec AaaDirect
+   STILL-WRONG        uhdmtopPackages (inhp5::Zzz5::zInhVia) line:31:5 | G=ref_var enum_typespec AaaRef | PRIS=enum_var enum_typespec AaaRef | PAT=enum_var enum_typespec AaaRef
+   FIXED              uhdmtopPackages (inhp5::Zzz5::zOwnVia) line:32:5 | G=ref_var enum_typespec ZzzRef | PRIS=enum_var enum_typespec ZzzRef | PAT=ref_var enum_typespec ZzzRef
+TOTAL-MOVED-WRONG=0
+[6_shadow] view=def CELLS=29 AGREE-PRIS=13 AGREE-PAT=22 FIXED=10 MOVED-WRONG=1 STILL-WRONG=0 MOVED-STILL-WRONG=6
+   FIXED              uhdmallInterfaces (work@shadow_if2.ifBare) line:102:3 | G=ref_var enum_typespec IfBareBase | PRIS=enum_var enum_typespec IfBareBase | PAT=ref_var enum_typespec IfBareBase
+   FIXED              uhdmallInterfaces (work@shadow_if2.ifScoped) line:101:3 | G=ref_var enum_typespec IfScopedBase | PRIS=enum_var enum_typespec IfScopedBase | PAT=ref_var enum_typespec IfScopedBase
+   MOVED-STILL-WRONG  uhdmallInterfaces (work@shadow_if2.ifShadowed) line:103:3 | G=enum_var enum_typespec Outer2::Plain_e | PRIS=enum_var enum_typespec Plain_e | PAT=ref_var enum_typespec Plain_e
+   FIXED              uhdmallModules (work@shadow_top2.modBare) line:37:3 | G=ref_var enum_typespec ModBareBase | PRIS=enum_var enum_typespec ModBareBase | PAT=ref_var enum_typespec ModBareBase
+   FIXED              uhdmallModules (work@shadow_top2.modScoped) line:36:3 | G=ref_var enum_typespec ModScopedBase | PRIS=enum_var enum_typespec ModScopedBase | PAT=ref_var enum_typespec ModScopedBase
+   MOVED-STILL-WRONG  uhdmallModules (work@shadow_top2.modShadowed) line:40:3 | G=enum_var enum_typespec Outer2::Shadowed_e | PRIS=enum_var enum_typespec Shadowed_e | PAT=ref_var enum_typespec Shadowed_e
+   FIXED              uhdmallModules (work@shadow_top2::InModA::mScoped) line:44:5 | G=ref_var enum_typespec UniqScoped | PRIS=enum_var enum_typespec UniqScoped | PAT=ref_var enum_typespec UniqScoped
+   FIXED              uhdmallModules (work@shadow_top2::InModB::mBare) line:48:5 | G=ref_var enum_typespec UniqBare | PRIS=enum_var enum_typespec UniqBare | PAT=ref_var enum_typespec UniqBare
+   MOVED-STILL-WRONG  uhdmallModules (work@shadow_top2::InModC::mShadScoped) line:52:5 | G=enum_var enum_typespec Outer2::Plain_e | PRIS=enum_var enum_typespec Plain_e | PAT=ref_var enum_typespec Plain_e
+   MOVED-STILL-WRONG  uhdmallModules (work@shadow_top2::InModD::mShadBare) line:57:5 | G=enum_var enum_typespec Outer2::Plain_e | PRIS=enum_var enum_typespec Plain_e | PAT=ref_var enum_typespec Plain_e
+   FIXED              uhdmallPackages (Holder2::pkgBare) line:91:3 | G=ref_var enum_typespec Holder2::PkgBareBase | PRIS=enum_var enum_typespec Holder2::PkgBareBase | PAT=ref_var enum_typespec Holder2::PkgBareBase
+   FIXED              uhdmallPackages (Holder2::pkgScoped) line:90:3 | G=ref_var enum_typespec Holder2::PkgScopedBase | PRIS=enum_var enum_typespec Holder2::PkgScopedBase | PAT=ref_var enum_typespec Holder2::PkgScopedBase
+   MOVED-WRONG        uhdmallPackages (Holder2::pkgShadowed) line:92:3 | G=enum_var enum_typespec Outer2::Plain_e | PRIS=enum_var enum_typespec Outer2::Plain_e | PAT=ref_var enum_typespec Outer2::Plain_e
+   FIXED              uhdmtopPackages (Holder2::PkgA::pScoped) line:71:5 | G=ref_var enum_typespec UniqScoped | PRIS=enum_var enum_typespec UniqScoped | PAT=ref_var enum_typespec UniqScoped
+   FIXED              uhdmtopPackages (Holder2::PkgB::pBare) line:75:5 | G=ref_var enum_typespec UniqBare | PRIS=enum_var enum_typespec UniqBare | PAT=ref_var enum_typespec UniqBare
+   MOVED-STILL-WRONG  uhdmtopPackages (Holder2::PkgC::pShadScoped) line:79:5 | G=enum_var enum_typespec Outer2::Plain_e | PRIS=enum_var enum_typespec Plain_e | PAT=ref_var enum_typespec Plain_e
+   MOVED-STILL-WRONG  uhdmtopPackages (Holder2::PkgD::pShadBare) line:84:5 | G=enum_var enum_typespec Outer2::Plain_e | PRIS=enum_var enum_typespec Plain_e | PAT=ref_var enum_typespec Plain_e
+[6_shadow] view=elab CELLS=55 AGREE-PRIS=31 AGREE-PAT=42 FIXED=18 MOVED-WRONG=7 STILL-WRONG=0 MOVED-STILL-WRONG=6
+   FIXED              uhdmallInterfaces (work@shadow_if2.ifBare) line:102:3 | G=ref_var enum_typespec IfBareBase | PRIS=enum_var enum_typespec IfBareBase | PAT=ref_var enum_typespec IfBareBase
+   FIXED              uhdmallInterfaces (work@shadow_if2.ifScoped) line:101:3 | G=ref_var enum_typespec IfScopedBase | PRIS=enum_var enum_typespec IfScopedBase | PAT=ref_var enum_typespec IfScopedBase
+   MOVED-STILL-WRONG  uhdmallInterfaces (work@shadow_if2.ifShadowed) line:103:3 | G=enum_var enum_typespec Outer2::Plain_e | PRIS=enum_var enum_typespec Plain_e | PAT=ref_var enum_typespec Plain_e
+   FIXED              uhdmallModules (work@shadow_top2.modBare) line:37:3 | G=ref_var enum_typespec ModBareBase | PRIS=enum_var enum_typespec ModBareBase | PAT=ref_var enum_typespec ModBareBase
+   FIXED              uhdmallModules (work@shadow_top2.modScoped) line:36:3 | G=ref_var enum_typespec ModScopedBase | PRIS=enum_var enum_typespec ModScopedBase | PAT=ref_var enum_typespec ModScopedBase
+   MOVED-STILL-WRONG  uhdmallModules (work@shadow_top2.modShadowed) line:40:3 | G=enum_var enum_typespec Outer2::Shadowed_e | PRIS=enum_var enum_typespec Shadowed_e | PAT=ref_var enum_typespec Shadowed_e
+   FIXED              uhdmallModules (work@shadow_top2::InModA::mScoped) line:44:5 | G=ref_var enum_typespec UniqScoped | PRIS=enum_var enum_typespec UniqScoped | PAT=ref_var enum_typespec UniqScoped
+   FIXED              uhdmallModules (work@shadow_top2::InModB::mBare) line:48:5 | G=ref_var enum_typespec UniqBare | PRIS=enum_var enum_typespec UniqBare | PAT=ref_var enum_typespec UniqBare
+   MOVED-STILL-WRONG  uhdmallModules (work@shadow_top2::InModC::mShadScoped) line:52:5 | G=enum_var enum_typespec Outer2::Plain_e | PRIS=enum_var enum_typespec Plain_e | PAT=ref_var enum_typespec Plain_e
+   MOVED-STILL-WRONG  uhdmallModules (work@shadow_top2::InModD::mShadBare) line:57:5 | G=enum_var enum_typespec Outer2::Plain_e | PRIS=enum_var enum_typespec Plain_e | PAT=ref_var enum_typespec Plain_e
+   FIXED              uhdmallPackages (Holder2::pkgBare) line:91:3 | G=ref_var enum_typespec Holder2::PkgBareBase | PRIS=enum_var enum_typespec Holder2::PkgBareBase | PAT=ref_var enum_typespec Holder2::PkgBareBase
+   FIXED              uhdmallPackages (Holder2::pkgScoped) line:90:3 | G=ref_var enum_typespec Holder2::PkgScopedBase | PRIS=enum_var enum_typespec Holder2::PkgScopedBase | PAT=ref_var enum_typespec Holder2::PkgScopedBase
+   MOVED-WRONG        uhdmallPackages (Holder2::pkgShadowed) line:92:3 | G=enum_var enum_typespec Outer2::Plain_e | PRIS=enum_var enum_typespec Outer2::Plain_e | PAT=ref_var enum_typespec Outer2::Plain_e
+   FIXED              uhdmtopModules (Holder2::PkgA::pScoped) line:71:5 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (Holder2::PkgB::pBare) line:75:5 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   MOVED-WRONG        uhdmtopModules (Holder2::PkgC::pShadScoped) line:79:5 | G=enum_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   MOVED-WRONG        uhdmtopModules (Holder2::PkgD::pShadBare) line:84:5 | G=enum_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (Holder2::pkgBare) line:91:3 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (Holder2::pkgScoped) line:90:3 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   MOVED-WRONG        uhdmtopModules (Holder2::pkgShadowed) line:92:3 | G=enum_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (work@shadow_top2.modBare) line:37:3 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (work@shadow_top2.modScoped) line:36:3 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   MOVED-WRONG        uhdmtopModules (work@shadow_top2.modShadowed) line:40:3 | G=enum_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (work@shadow_top2::InModA::mScoped) line:44:5 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (work@shadow_top2::InModB::mBare) line:48:5 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   MOVED-WRONG        uhdmtopModules (work@shadow_top2::InModC::mShadScoped) line:52:5 | G=enum_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   MOVED-WRONG        uhdmtopModules (work@shadow_top2::InModD::mShadBare) line:57:5 | G=enum_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   FIXED              uhdmtopPackages (Holder2::PkgA::pScoped) line:71:5 | G=ref_var enum_typespec UniqScoped | PRIS=enum_var enum_typespec UniqScoped | PAT=ref_var enum_typespec UniqScoped
+   FIXED              uhdmtopPackages (Holder2::PkgB::pBare) line:75:5 | G=ref_var enum_typespec UniqBare | PRIS=enum_var enum_typespec UniqBare | PAT=ref_var enum_typespec UniqBare
+   MOVED-STILL-WRONG  uhdmtopPackages (Holder2::PkgC::pShadScoped) line:79:5 | G=enum_var enum_typespec Outer2::Plain_e | PRIS=enum_var enum_typespec Plain_e | PAT=ref_var enum_typespec Plain_e
+   MOVED-STILL-WRONG  uhdmtopPackages (Holder2::PkgD::pShadBare) line:84:5 | G=enum_var enum_typespec Outer2::Plain_e | PRIS=enum_var enum_typespec Plain_e | PAT=ref_var enum_typespec Plain_e
+TOTAL-MOVED-WRONG=8

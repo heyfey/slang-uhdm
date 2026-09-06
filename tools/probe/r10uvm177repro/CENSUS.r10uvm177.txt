@@ -1,0 +1,208 @@
+r10uvm177 — THE RETURN-VARIABLE CENSUS over the NINE UVM DATABASES.
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog).  Key = (listing, home,
+function name, return-var line:col); value = (var kind, typespec kind,
+typespec name).  The typespec SPAN is deliberately OUT of the verdict:
+uhdm-cmp reads no span.
+
+== golden-vs-golden calibration: golden's OWN answer per home ============
+   every golden row whose return typespec is an enum_typespec, by
+   OOBNAME/BARENAME home and variable kind:
+-- BuildUVMPkg.default.gold.tsv
+      3      BARENAME	class_var
+     55      BARENAME	enum_var
+      1      BARENAME	ref_var
+      2      OOBNAME	class_var
+     11      OOBNAME	enum_var
+      1      OOBNAME	ref_var
+-- BuildUVMPkg.testflags.gold.tsv
+      3      BARENAME	class_var
+     55      BARENAME	enum_var
+      1      BARENAME	ref_var
+      2      OOBNAME	class_var
+     11      OOBNAME	enum_var
+      1      OOBNAME	ref_var
+-- MiniAmiq.default.gold.tsv
+     50      BARENAME	enum_var
+     23      OOBNAME	enum_var
+      1      OOBNAME	ref_var
+-- MiniAmiq.testflags.gold.tsv
+     50      BARENAME	enum_var
+     23      OOBNAME	enum_var
+      1      OOBNAME	ref_var
+-- Scoreboard.default.gold.tsv
+     44      BARENAME	enum_var
+      8      OOBNAME	enum_var
+      1      OOBNAME	ref_var
+-- SeqDriver.default.gold.tsv
+     42      BARENAME	enum_var
+     23      OOBNAME	enum_var
+      1      OOBNAME	ref_var
+-- SeqDriver.testflags.gold.tsv
+     42      BARENAME	enum_var
+     23      OOBNAME	enum_var
+      1      OOBNAME	ref_var
+-- SimpleUVM.default.gold.tsv
+     42      BARENAME	enum_var
+      7      OOBNAME	enum_var
+      1      OOBNAME	ref_var
+-- SimpleUVM.testflags.gold.tsv
+     42      BARENAME	enum_var
+      7      OOBNAME	enum_var
+      1      OOBNAME	ref_var
+
+== every golden ref_var whose return typespec is an enum_typespec ========
+BuildUVMPkg.default.gold.tsv	PKGDEF:uvm_pkg	PKGLIST:-|OOBNAME	uvm_sequencer_base::get_arbitration	ref_var	uvm_pkg::UVM_SEQ_ARB_TYPE
+BuildUVMPkg.default.gold.tsv	PKGELAB:uvm_pkg	CLASSBODY:uvm_copier|BARENAME	object_copied	ref_var	recursion_state_e
+BuildUVMPkg.testflags.gold.tsv	PKGDEF:uvm_pkg	PKGLIST:-|OOBNAME	uvm_sequencer_base::get_arbitration	ref_var	uvm_pkg::UVM_SEQ_ARB_TYPE
+BuildUVMPkg.testflags.gold.tsv	PKGELAB:uvm_pkg	CLASSBODY:uvm_copier|BARENAME	object_copied	ref_var	recursion_state_e
+MiniAmiq.default.gold.tsv	PKGDEF:uvm_pkg	PKGLIST:-|OOBNAME	uvm_sequencer_base::get_arbitration	ref_var	uvm_pkg::UVM_SEQ_ARB_TYPE
+MiniAmiq.testflags.gold.tsv	PKGDEF:uvm_pkg	PKGLIST:-|OOBNAME	uvm_sequencer_base::get_arbitration	ref_var	uvm_pkg::UVM_SEQ_ARB_TYPE
+Scoreboard.default.gold.tsv	PKGDEF:uvm_pkg	PKGLIST:-|OOBNAME	uvm_sequencer_base::get_arbitration	ref_var	uvm_pkg::UVM_SEQ_ARB_TYPE
+SeqDriver.default.gold.tsv	PKGDEF:uvm_pkg	PKGLIST:-|OOBNAME	uvm_sequencer_base::get_arbitration	ref_var	uvm_pkg::UVM_SEQ_ARB_TYPE
+SeqDriver.testflags.gold.tsv	PKGDEF:uvm_pkg	PKGLIST:-|OOBNAME	uvm_sequencer_base::get_arbitration	ref_var	uvm_pkg::UVM_SEQ_ARB_TYPE
+SimpleUVM.default.gold.tsv	PKGDEF:uvm_pkg	PKGLIST:-|OOBNAME	uvm_sequencer_base::get_arbitration	ref_var	uvm_pkg::UVM_SEQ_ARB_TYPE
+SimpleUVM.testflags.gold.tsv	PKGDEF:uvm_pkg	PKGLIST:-|OOBNAME	uvm_sequencer_base::get_arbitration	ref_var	uvm_pkg::UVM_SEQ_ARB_TYPE
+
+== golden-vs-ours JOIN, pristine then patched ============================
+### SimpleUVM/default PRISTINE
+== SimpleUVM/default pris (span_in_key=False)
+   AGREE   1950
+   DIFF    104
+   G-ONLY  353
+   O-ONLY  353
+   DIFF    55  G=('ref_var', 'class_typespec', 'type_id')   O=('ref_var', 'class_typespec', '')
+### SimpleUVM/default PATCHED
+== SimpleUVM/default pat (span_in_key=False)
+   AGREE   1951
+   DIFF    103
+   G-ONLY  353
+   O-ONLY  353
+   DIFF    55  G=('ref_var', 'class_typespec', 'type_id')   O=('ref_var', 'class_typespec', '')
+### SimpleUVM/testflags PRISTINE
+== SimpleUVM/testflags pris (span_in_key=False)
+   AGREE   1950
+   DIFF    104
+   G-ONLY  353
+   O-ONLY  353
+   DIFF    55  G=('ref_var', 'class_typespec', 'type_id')   O=('ref_var', 'class_typespec', '')
+### SimpleUVM/testflags PATCHED
+== SimpleUVM/testflags pat (span_in_key=False)
+   AGREE   1951
+   DIFF    103
+   G-ONLY  353
+   O-ONLY  353
+   DIFF    55  G=('ref_var', 'class_typespec', 'type_id')   O=('ref_var', 'class_typespec', '')
+### SeqDriver/default PRISTINE
+== SeqDriver/default pris (span_in_key=False)
+   AGREE   2754
+   DIFF    111
+   G-ONLY  353
+   O-ONLY  353
+   DIFF    58  G=('ref_var', 'class_typespec', 'type_id')   O=('ref_var', 'class_typespec', '')
+### SeqDriver/default PATCHED
+== SeqDriver/default pat (span_in_key=False)
+   AGREE   2755
+   DIFF    110
+   G-ONLY  353
+   O-ONLY  353
+   DIFF    58  G=('ref_var', 'class_typespec', 'type_id')   O=('ref_var', 'class_typespec', '')
+### SeqDriver/testflags PRISTINE
+== SeqDriver/testflags pris (span_in_key=False)
+   AGREE   2754
+   DIFF    111
+   G-ONLY  353
+   O-ONLY  353
+   DIFF    58  G=('ref_var', 'class_typespec', 'type_id')   O=('ref_var', 'class_typespec', '')
+### SeqDriver/testflags PATCHED
+== SeqDriver/testflags pat (span_in_key=False)
+   AGREE   2755
+   DIFF    110
+   G-ONLY  353
+   O-ONLY  353
+   DIFF    58  G=('ref_var', 'class_typespec', 'type_id')   O=('ref_var', 'class_typespec', '')
+### Scoreboard/default PRISTINE
+== Scoreboard/default pris (span_in_key=False)
+   AGREE   1971
+   DIFF    105
+   G-ONLY  362
+   O-ONLY  362
+   DIFF    56  G=('ref_var', 'class_typespec', 'type_id')   O=('ref_var', 'class_typespec', '')
+### Scoreboard/default PATCHED
+== Scoreboard/default pat (span_in_key=False)
+   AGREE   1972
+   DIFF    104
+   G-ONLY  362
+   O-ONLY  362
+   DIFF    56  G=('ref_var', 'class_typespec', 'type_id')   O=('ref_var', 'class_typespec', '')
+### MiniAmiq/default PRISTINE
+== MiniAmiq/default pris (span_in_key=False)
+   AGREE   2888
+   DIFF    118
+   G-ONLY  355
+   O-ONLY  355
+   DIFF    65  G=('ref_var', 'class_typespec', 'type_id')   O=('ref_var', 'class_typespec', '')
+### MiniAmiq/default PATCHED
+== MiniAmiq/default pat (span_in_key=False)
+   AGREE   2889
+   DIFF    117
+   G-ONLY  355
+   O-ONLY  355
+   DIFF    65  G=('ref_var', 'class_typespec', 'type_id')   O=('ref_var', 'class_typespec', '')
+### MiniAmiq/testflags PRISTINE
+== MiniAmiq/testflags pris (span_in_key=False)
+   AGREE   2888
+   DIFF    118
+   G-ONLY  355
+   O-ONLY  355
+   DIFF    65  G=('ref_var', 'class_typespec', 'type_id')   O=('ref_var', 'class_typespec', '')
+### MiniAmiq/testflags PATCHED
+== MiniAmiq/testflags pat (span_in_key=False)
+   AGREE   2889
+   DIFF    117
+   G-ONLY  355
+   O-ONLY  355
+   DIFF    65  G=('ref_var', 'class_typespec', 'type_id')   O=('ref_var', 'class_typespec', '')
+### BuildUVMPkg/default PRISTINE
+== BuildUVMPkg/default pris (span_in_key=False)
+   AGREE   2258
+   DIFF    130
+   G-ONLY  409
+   O-ONLY  409
+   DIFF    87  G=('ref_var', 'class_typespec', 'type_id')   O=('ref_var', 'class_typespec', '')
+### BuildUVMPkg/default PATCHED
+== BuildUVMPkg/default pat (span_in_key=False)
+   AGREE   2259
+   DIFF    129
+   G-ONLY  409
+   O-ONLY  409
+   DIFF    87  G=('ref_var', 'class_typespec', 'type_id')   O=('ref_var', 'class_typespec', '')
+### BuildUVMPkg/testflags PRISTINE
+== BuildUVMPkg/testflags pris (span_in_key=False)
+   AGREE   2258
+   DIFF    130
+   G-ONLY  409
+   O-ONLY  409
+   DIFF    87  G=('ref_var', 'class_typespec', 'type_id')   O=('ref_var', 'class_typespec', '')
+### BuildUVMPkg/testflags PATCHED
+== BuildUVMPkg/testflags pat (span_in_key=False)
+   AGREE   2259
+   DIFF    129
+   G-ONLY  409
+   O-ONLY  409
+   DIFF    87  G=('ref_var', 'class_typespec', 'type_id')   O=('ref_var', 'class_typespec', '')
+
+== the ONE cell that moved, in every one of the nine =====================
+   G=(ref_var, enum_typespec, uvm_pkg::UVM_SEQ_ARB_TYPE)
+   pristine O=(enum_var,...)  ->  patched O=(ref_var,...)
+   key = (PKGDEF:uvm_pkg, PKGLIST:-|OOBNAME,
+          uvm_sequencer_base::get_arbitration, 1389:10 / 53467:10)
+   AGREE per database: pris -> pat
+     SimpleUVM/default  1950 -> 1951
+     SimpleUVM/testflags  1950 -> 1951
+     SeqDriver/default  2754 -> 2755
+     SeqDriver/testflags  2754 -> 2755
+     Scoreboard/default  1971 -> 1972
+     MiniAmiq/default  2888 -> 2889
+     MiniAmiq/testflags  2888 -> 2889
+     BuildUVMPkg/default  2258 -> 2259
+     BuildUVMPkg/testflags  2258 -> 2259

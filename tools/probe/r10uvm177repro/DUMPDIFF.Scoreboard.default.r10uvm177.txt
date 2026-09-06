@@ -1,0 +1,6 @@
+138820,138821d138819
+<         \_enum_var: (uvm_pkg::uvm_sequencer_base::get_arbitration), line:1389:10, endln:1389:26
+<     \_enum_var: (uvm_pkg::uvm_sequencer_base::get_arbitration), line:1389:10, endln:1389:26
+375072a375071,375072
+>         \_ref_var: (uvm_pkg::uvm_sequencer_base::get_arbitration), line:1389:10, endln:1389:26
+>     \_ref_var: (uvm_pkg::uvm_sequencer_base::get_arbitration), line:1389:10, endln:1389:26

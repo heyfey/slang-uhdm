@@ -1,0 +1,122 @@
+LHS:
+decompile:
+operation: , id:709890, line:108:17, endln:108:41
+|vpiParent:
+\_param_assign: , id:709883, line:9:17, endln:9:31
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_pwrmgr.i_cdc.i_ast_sync), id:709891
+  |vpiParent:
+  \_operation: , id:709890, line:108:17, endln:108:41
+  |vpiFullName:work@top_earlgrey.u_pwrmgr.i_cdc.i_ast_sync
+  |vpiActual:
+  \_struct_typespec: (pwrmgr_pkg::pwr_ast_rsp_t), id:709892, line:31:11, endln:36:4
+|vpiOpType:75
+|vpiOperand:
+\_constant: , id:709914, line:47:19, endln:47:24
+  |vpiParent:
+  \_operation: , id:709890, line:108:17, endln:108:41
+  |vpiDecompile:2'b01
+  |vpiSize:2
+  |BIN:01
+  |vpiConstType:3
+|vpiOperand:
+\_constant: , id:709915, line:48:19, endln:48:24
+  |vpiParent:
+  \_operation: , id:709890, line:108:17, endln:108:41
+  |vpiDecompile:2'b01
+  |vpiSize:2
+  |BIN:01
+  |vpiConstType:3
+|vpiOperand:
+\_constant: , id:709916, line:49:17, endln:49:22
+  |vpiParent:
+  \_operation: , id:709890, line:108:17, endln:108:41
+  |vpiDecompile:2'b10
+  |vpiSize:2
+  |BIN:10
+  |vpiConstType:3
+|vpiOperand:
+\_constant: , id:709917, line:50:15, endln:50:19
+  |vpiParent:
+  \_operation: , id:709890, line:108:17, endln:108:41
+  |vpiDecompile:1'b0
+  |vpiSize:1
+  |BIN:0
+  |vpiConstType:3
+
+decompile:
+operation: , id:709890, line:108:17, endln:108:41
+|vpiParent:
+\_param_assign: , id:709883, line:9:17, endln:9:31
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_pwrmgr.i_cdc.i_ast_sync), id:709891
+  |vpiParent:
+  \_operation: , id:709890, line:108:17, endln:108:41
+  |vpiFullName:work@top_earlgrey.u_pwrmgr.i_cdc.i_ast_sync
+  |vpiActual:
+  \_struct_typespec: (pwrmgr_pkg::pwr_ast_rsp_t), id:709892, line:31:11, endln:36:4
+|vpiOpType:75
+|vpiOperand:
+\_constant: , id:709914, line:47:19, endln:47:24
+  |vpiParent:
+  \_operation: , id:709890, line:108:17, endln:108:41
+  |vpiDecompile:2'b01
+  |vpiSize:2
+  |BIN:01
+  |vpiConstType:3
+|vpiOperand:
+\_constant: , id:709915, line:48:19, endln:48:24
+  |vpiParent:
+  \_operation: , id:709890, line:108:17, endln:108:41
+  |vpiDecompile:2'b01
+  |vpiSize:2
+  |BIN:01
+  |vpiConstType:3
+|vpiOperand:
+\_constant: , id:709916, line:49:17, endln:49:22
+  |vpiParent:
+  \_operation: , id:709890, line:108:17, endln:108:41
+  |vpiDecompile:2'b10
+  |vpiSize:2
+  |BIN:10
+  |vpiConstType:3
+|vpiOperand:
+\_constant: , id:709917, line:50:15, endln:50:19
+  |vpiParent:
+  \_operation: , id:709890, line:108:17, endln:108:41
+  |vpiDecompile:1'b0
+  |vpiSize:1
+  |BIN:0
+  |vpiConstType:3
+RHS:
+decompile:
+constant: , id:557631, line:9:30, endln:9:31
+|vpiParent:
+\_param_assign: , id:557630, line:9:17, endln:9:31
+|vpiDecompile:0
+|vpiSize:1
+|UINT:0
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_pwrmgr.i_cdc.i_ast_sync), id:557632
+  |vpiParent:
+  \_constant: , id:557631, line:9:30, endln:9:31
+  |vpiFullName:work@top_earlgrey.u_pwrmgr.i_cdc.i_ast_sync
+  |vpiActual:
+  \_bit_typespec: , id:50949, line:9:13, endln:9:16
+|vpiConstType:9
+
+decompile:
+constant: , id:557631, line:9:30, endln:9:31
+|vpiParent:
+\_param_assign: , id:557630, line:9:17, endln:9:31
+|vpiDecompile:0
+|vpiSize:1
+|UINT:0
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_pwrmgr.i_cdc.i_ast_sync), id:557632
+  |vpiParent:
+  \_constant: , id:557631, line:9:30, endln:9:31
+  |vpiFullName:work@top_earlgrey.u_pwrmgr.i_cdc.i_ast_sync
+  |vpiActual:
+  \_bit_typespec: , id:50949, line:9:13, endln:9:16
+|vpiConstType:9

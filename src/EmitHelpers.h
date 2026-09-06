@@ -3985,6 +3985,262 @@ inline UnpackedTdRetKind22 unpackedTdRetVarKind22(
 }
 
 // ---------------------------------------------------------------------------
+// § ownNamedAliasRetIsRefVar177
+//
+// THE LAW.  A function's RETURN VARIABLE is Surelog's bare `ref_var` — not the
+// kind-specific `enum_var` / `struct_var` / `int_var` / … — exactly when the
+// return type is written as a BARE NAME that resolves to a typedef which
+//   (a) is DECLARED IN THE VERY COMPONENT that is compiling this listing, and
+//   (b) has a NAMED TYPE as its own written base (`typedef <name> T;`), not an
+//       inline `enum {…}` / `struct {…}` / keyword / vector base.
+//
+// WHY, read off Surelog.  `CompileHelper::compileVariable`'s `slStringConst`
+// arm (src/DesignCompile/CompileType.cpp:337-345) is
+//
+//     if (const DataType* dt = component->getDataType(typeName)) {
+//       dt = dt->getActual();
+//       if (typespec* tps = dt->getTypespec())
+//         if (variables* var = getSimpleVarFromTypespec(tps, ranges, cd)) …
+//
+// and `getSimpleVarFromTypespec` (CompileType.cpp:78-248) is what turns an
+// `enum_typespec` into an `enum_var`, a `struct_typespec` into a `struct_var`,
+// an `int_typespec` into an `int_var`, and so on.  When that lookup yields NO
+// typespec the arm is skipped and control falls to the last resort of the same
+// switch (CompileType.cpp:421-434), `ref_var* ref = s.MakeRef_var();` carrying
+// only the `compileTypespec` result — and `compileStmt`'s function-return site
+// (CompileStmt.cpp:2403-2410) then clears its `VpiName`, which is why golden's
+// object is a NAMELESS `ref_var`.
+//
+// A typedef whose base is a NAMED TYPE gets neither an `m_definition` nor a
+// typespec while its own component compiles: `ElaborationStep::bindTypedefs_`
+// (src/DesignCompile/ElaborationStep.cpp:267-285, the `prevDef == nullptr`
+// arm) is what calls `setDefinition` / `compileTypespec` for it, and that step
+// runs AFTER every component's compile.  A typedef with an inline or keyword
+// base is typespec'd by the component compile itself, and a typedef reached
+// through an import / `$unit` / a `pkg::` scope belongs to a component that
+// was already compiled and bound.  Hence: OWN component + NAMED base, and
+// nothing else, takes the fallback.
+//
+// THE LISTING AXIS, measured (grid arms `g177_a_alias.sv` / `g177_c_homes.sv`,
+// golden columns):
+//   * PACKAGE — the DEF listing only.  `free_alias` @41:12 is a `ref_var` under
+//     `PKGDEF:zpk177` and an `enum_var` under `PKGELAB:zpk177`: the elaborated
+//     package listing is a SECOND compile that runs after the bind.  The
+//     out-of-body `C::m` clones the DEF listing carries answer with it
+//     (`Kls177::x_oob_alias`, `Kls177::z_oob_alias3`, `Kls177::p_oob_alias2`),
+//     which is the SimpleUVM head: `uvm_sequencer_base::get_arbitration`
+//     returning `UVM_SEQ_ARB_TYPE`, `typedef uvm_sequencer_arb_mode
+//     UVM_SEQ_ARB_TYPE;` (uvm-1.2 uvm_object_globals.svh:370).
+//   * MODULE — BOTH listings (`k_modvia` is a `ref_var` under `MODDEF:` and
+//     under `MODELAB:` alike; the module's subroutine objects are not recompiled
+//     for the elaborated listing).
+//   * CLASS — every listing (`d_ib_clsalias`, a class-scope alias named from an
+//     in-body method, is a `ref_var` in the class body listing).
+//
+// AND WHAT DOES NOT MOVE, measured on the same golden columns:
+//   `free_direct` / `b_ib_direct` / `e_ib_clsdirect` / `k_moddirect` (an inline
+//   enum base), `h_scopedvia` / `h_scopeddir` (a `pkg::`-scoped spelling, which
+//   takes `compileVariable`'s `paClass_scope` arm instead), `h_unitvia` /
+//   `k_unitvia` (a `$unit` alias), `k_impvia` (an alias imported from another
+//   package), `d_farvia` (an alias imported wholesale from another package),
+//   `unit_fn` (a `$unit` FUNCTION returning a `$unit` alias — golden is an
+//   `enum_var`, so the CompilationUnit exclusion below is MEASURED and not a
+//   conservative guess), `cv_inherited` / `cv_inh_direct` (an alias inherited
+//   from a BASE class), and every package alias named from a CLASS body
+//   (`a_ib_alias` / `c_ib_alias3` / `x_oob_alias`'s class-listing copy).
+//
+// This runs only where § classTdLocalVarKindFollowsCompileOrder10 answered
+// `Resolved` and § namedBaseUnpackedTdRetVar22 answered `Unchanged`, so both
+// of those laws' cells are untouched by construction; the class-handle arm of
+// § aliasClassRefVar10 in `makeReturnVar` already answers `ref_var` for the
+// spellings the two overlap on, so this term changes nothing there either.
+//
+// @param sub        the function being emitted
+// @param defPkgView true while the PACKAGE's DEF listing is being emitted
+//                   (`curPkgEmitSym && !pkgEmitTopView`)
+// @param pkgClone   true while this function is the package DEF listing's OWN
+//                   out-of-body `C::m` clone (`pkgClassTfClone != nullptr &&
+//                   !pkgImportCloneEmit`), in which case the compiling
+//                   component is the PACKAGE and not the class the method is
+//                   written in.  A WILDCARD-IMPORT clone is deliberately NOT
+//                   this: the compiling component is then the IMPORTING
+//                   package, which compiles after the home package's typedefs
+//                   are bound, so golden keeps the resolved kind.  MEASURED —
+//                   `adpcm_pkg` (SeqDriver) and `svaunit_pkg` (MiniAmiq) each
+//                   carry a clone of `uvm_sequencer_base::get_arbitration`
+//                   whose golden Return is an `enum_var` in both their DEF and
+//                   ELAB listings, against the `ref_var` uvm_pkg's own DEF
+//                   listing gets for the very same method.  Without this
+//                   exclusion those four cells move AWAY from golden.
+// § ownNamedAliasNameIsNotShadowing177v — THE SHADOW GATE, term (5) of
+// § ownNamedAliasRetIsRefVar177.  ADDED BY THE ADVERSARIAL VERIFIER r10v177;
+// the seven golden cells that convict the ungated form are in
+// `tools/probe/r10v177repro/v177_6_shadow.sv` and in the boundary arm
+// `tools/probe/r10v140repro/v140_r_import.sv` that first exposed it.
+//
+// THE LAW.  § 177's fallthrough happens because `component->getDataType(name)`
+// finds NOTHING to hand `getSimpleVarFromTypespec`.  It finds something — and
+// the return therefore takes the RESOLVED kind — whenever ANOTHER, already
+// BOUND type of the SAME NAME is visible where the component compiles:
+// Surelog's component datatype map does not honour the inner declaration's
+// shadowing, so the name hits the OUTER entry.
+//
+// MEASURED, golden, `v177_6_shadow.sv` (four homes x two base spellings):
+//   `Plain_e` / `Shadowed_e` — a name ALSO reachable through the component's
+//   own (or an enclosing scope's) `import Outer2::*` — is golden `enum_var`
+//   with the typespec named `Outer2::Plain_e`, i.e. THE OUTER OBJECT, in ALL
+//   SEVEN of: a package free function (`Holder2::pkgShadowed`), a module
+//   function (`modShadowed`), an interface function (`ifShadowed`), a
+//   module-homed class's method with a SCOPED base (`InModC::mShadScoped`) and
+//   with a BARE local base (`InModD::mShadBare`), and the package-homed pair
+//   (`PkgC::pShadScoped`, `PkgD::pShadBare`).  Their unshadowed twins in the
+//   same file — `PkgScopedBase` / `PkgBareBase` / `ModScopedBase` /
+//   `ModBareBase` / `IfScopedBase` / `IfBareBase` / `UniqScoped` / `UniqBare` —
+//   are golden `ref_var` and MUST still move, which is why this gate asks
+//   about the NAME and never about the base's spelling: the scoped-base cells
+//   split BOTH ways on shadowing alone.
+//
+// The corpus cell is unaffected: `uvm_pkg::UVM_SEQ_ARB_TYPE` is declared once
+// and imported from nowhere.
+//
+// `Scope::find` is DIRECT MEMBERS ONLY (slang `source/ast/Scope.cpp:582-584`),
+// so the imports are asked separately, exactly as
+// § blockLocalTdDeclIsRefVarUnsupported155's shadow gate does.
+// THE SELF-IMPORT TRAP, and why this cannot call `importedTypeLike155`
+// unchanged.  `import uvm_pkg::*;` written at FILE scope lands in the shared
+// compilation unit under `--single-unit`, which is an ENCLOSING scope of
+// `uvm_pkg` itself — so a wildcard scan there hands back
+// `uvm_pkg::UVM_SEQ_ARB_TYPE`, THE VERY ALIAS being asked about, and an
+// exclusion that does not skip it kills the pass's own head.  MEASURED: the
+// first cut of this gate left SimpleUVM/default and Scoreboard/default
+// byte-identical to pristine (7 movers instead of 9) while SimpleUVM/testflags
+// — the same sources WITHOUT `--single-unit` — still moved.  A hit is a
+// SHADOW only when it is a DIFFERENT symbol.
+inline bool sameNamedOuterTypeVisible177v(const slang::ast::Scope& sc,
+                                          std::string_view nm,
+                                          const slang::ast::Symbol& self) {
+    for (const auto& m : sc.members()) {
+        if (m.kind != slang::ast::SymbolKind::ExplicitImport || m.name != nm)
+            continue;
+        if (const slang::ast::Symbol* is =
+                m.as<slang::ast::ExplicitImportSymbol>().importedSymbol())
+            if (is != &self && typeLike155(*is))
+                return true;
+    }
+    if (auto* wd = sc.getWildcardImportData()) {
+        for (const slang::ast::WildcardImportSymbol* wi : wd->wildcardImports) {
+            if (const slang::ast::PackageSymbol* pkg = wi->getPackage())
+                if (const slang::ast::Symbol* hit = pkg->find(nm))
+                    if (hit != &self && typeLike155(*hit))
+                        return true;
+        }
+    }
+    return false;
+}
+
+inline bool ownNamedAliasNameIsNotShadowing177v(
+    const slang::ast::TypeAliasType& ta) {
+    const std::string_view nm = ta.name;
+    if (nm.empty())
+        return true;
+    const slang::ast::Symbol& self = ta;
+    // IMPORTS ONLY — and that is MEASURED, not a simplification.  A same-named
+    // type that is merely a NATIVE member of an enclosing scope does NOT make
+    // the return resolve: golden answers `ref_var` for a derived class
+    // re-typedefing its own package's name (`r10v140repro/v140_w_inherit.sv`
+    // `Kiln_pkg::Urn::urnShadowed`) and for all six pairings of
+    // `v177_7_native.sv` — `$unit`<->package (`Native7::pkgTwin`),
+    // `$unit`<->module (`modTwin`), package<->class (`Inner7::clsTwin`),
+    // module<->class (`InMod7::imTwin`) and the two-deep derived class
+    // (`Deep7::deepTwin`).  A gate that also declined those cost one of the
+    // pass's own fixed cells and bought nothing.  Only an IMPORT injects an
+    // already-bound entry into the compiling component's datatype map, which
+    // is what makes `getSimpleVarFromTypespec` reachable — the same reading
+    // § blockLocalTdDeclIsRefVarUnsupported155's shadow gate arrived at
+    // ("the probe asks about IMPORTS ONLY and never about the design at
+    // large").
+    for (const slang::ast::Scope* sc = ta.getParentScope(); sc;
+         sc = sc->asSymbol().getParentScope())
+        // The DECLARING scope is asked too: that is where `Holder2::Plain_e`
+        // collides with `import Outer2::*`.
+        if (sameNamedOuterTypeVisible177v(*sc, nm, self))
+            return false;
+    return true;
+}
+
+inline bool ownNamedAliasRetIsRefVar177(const slang::ast::SubroutineSymbol& sub,
+                                        const slang::ast::Type& retType,
+                                        bool defPkgView, bool pkgClone) {
+    // (1) THE RETURN TYPE IS A TYPEDEF.
+    if (retType.kind != slang::ast::SymbolKind::TypeAlias)
+        return false;
+    const auto& ta = retType.as<slang::ast::TypeAliasType>();
+    // (2) THE RETURN TYPE IS WRITTEN AS A BARE NAME.  A `pkg::T` spelling takes
+    // Surelog's `paClass_scope` arm, which looks the typedef up in the NAMED
+    // package and always resolves (`h_scopedvia`, `h_scopeddir`).
+    const slang::syntax::SyntaxNode* rsyn = returnTypeSyntax(sub);
+    if (!rsyn || rsyn->kind != slang::syntax::SyntaxKind::NamedType)
+        return false;
+    const auto& nts = rsyn->as<slang::syntax::NamedTypeSyntax>();
+    if (!nts.name || nts.name->kind != slang::syntax::SyntaxKind::IdentifierName)
+        return false;
+    // (3) THE TYPEDEF'S OWN WRITTEN BASE IS A NAMED TYPE.  A `parameter type`
+    // is a TypeAlias in slang but has no TypedefDeclaration syntax, so it is
+    // excluded here as well as by § typeParamRetIsRefVar58 upstream.
+    const slang::syntax::SyntaxNode* tsyn = ta.getSyntax();
+    if (!tsyn ||
+        tsyn->kind != slang::syntax::SyntaxKind::TypedefDeclaration)
+        return false;
+    const auto& tds = tsyn->as<slang::syntax::TypedefDeclarationSyntax>();
+    if (!tds.type || tds.type->kind != slang::syntax::SyntaxKind::NamedType)
+        return false;
+    const slang::ast::Scope* osc = ta.getParentScope();
+    if (!osc)
+        return false;
+    const slang::ast::Symbol& owner = osc->asSymbol();
+    // (5) THE NAME IS NOT SHADOWING AN OUTER, ALREADY-BOUND TYPE.
+    // Added by the adversarial verifier r10v177 — see
+    // § ownNamedAliasNameIsNotShadowing177v just above, which carries the
+    // seven golden cells that convict the ungated form.
+    if (ownNamedAliasNameIsNotShadowing177v(ta) == false)
+        return false;
+    // (4) THE TYPEDEF IS DECLARED IN THE COMPONENT COMPILING THIS LISTING.
+    const TdDeclCtx10 ctx = tdDeclCtx10(sub);
+    if (pkgClone) {
+        // The package's own compile of `function T C::m();` — the component is
+        // the PACKAGE the clone lands in, never the class `C`.
+        for (const slang::ast::Scope* sc = sub.getParentScope(); sc;
+             sc = sc->asSymbol().getParentScope()) {
+            const slang::ast::Symbol& ss = sc->asSymbol();
+            if (ss.kind == slang::ast::SymbolKind::Package)
+                return &ss == &owner;
+            if (ss.kind == slang::ast::SymbolKind::CompilationUnit ||
+                ss.kind == slang::ast::SymbolKind::InstanceBody)
+                return false;
+        }
+        return false;
+    }
+    if (ctx.cls)
+        return &owner == (const slang::ast::Symbol*)ctx.cls;
+    // A free subroutine: walk out to its own package / module.  `$unit` is
+    // excluded on measurement — a compilation-unit typedef is bound before
+    // every component compile, and golden answers `k_unitvia` (a module
+    // function) and `unit_fn` (a `$unit` function naming a `$unit` alias, arm
+    // D) with the RESOLVED kind, not a `ref_var`.
+    for (const slang::ast::Scope* sc = sub.getParentScope(); sc;
+         sc = sc->asSymbol().getParentScope()) {
+        const slang::ast::Symbol& ss = sc->asSymbol();
+        if (ss.kind == slang::ast::SymbolKind::Package)
+            return defPkgView && &ss == &owner;
+        if (ss.kind == slang::ast::SymbolKind::InstanceBody)
+            return &ss == &owner;
+        if (ss.kind == slang::ast::SymbolKind::CompilationUnit)
+            return false;
+    }
+    return false;
+}
+
+// ---------------------------------------------------------------------------
 // § declArrayElemKindIsDeclKind12
 //
 // THE LAW.  The ELEMENT variable of a DECLARATOR-ARRAY declaration at

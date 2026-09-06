@@ -1,0 +1,170 @@
+r10uvm177 — THE HEAD, DECODED.  MEASUREMENT ONLY; the official uhdm-cmp
+is the sole judge.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+== 1. the pristine head, SimpleUVM/default (52 cmp lines, 1 ^LHS: line)
+LHS:
+decompile:
+ref_var: (uvm_pkg::uvm_sequencer_base::get_arbitration), id:84392, line:1389:10, endln:1389:26
+|vpiParent:
+\_function: (uvm_pkg::uvm_sequencer_base::get_arbitration), id:60267, line:1389:1, endln:1391:12
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_sequencer_base::get_arbitration), id:84393
+  |vpiParent:
+  \_ref_var: (uvm_pkg::uvm_sequencer_base::get_arbitration), id:84392, line:1389:10, endln:1389:26
+  |vpiFullName:uvm_pkg::uvm_sequencer_base::get_arbitration
+  |vpiActual:
+  \_enum_typespec: (uvm_pkg::UVM_SEQ_ARB_TYPE), id:2305, line:332:40, endln:332:56
+|vpiFullName:uvm_pkg::uvm_sequencer_base::get_arbitration
+
+decompile:
+ref_var: (uvm_pkg::uvm_sequencer_base::get_arbitration), id:84392, line:1389:10, endln:1389:26
+|vpiParent:
+\_function: (uvm_pkg::uvm_sequencer_base::get_arbitration), id:60267, line:1389:1, endln:1391:12
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_sequencer_base::get_arbitration), id:84393
+  |vpiParent:
+  \_ref_var: (uvm_pkg::uvm_sequencer_base::get_arbitration), id:84392, line:1389:10, endln:1389:26
+  |vpiFullName:uvm_pkg::uvm_sequencer_base::get_arbitration
+  |vpiActual:
+  \_enum_typespec: (uvm_pkg::UVM_SEQ_ARB_TYPE), id:2305, line:332:40, endln:332:56
+|vpiFullName:uvm_pkg::uvm_sequencer_base::get_arbitration
+RHS:
+decompile:
+enum_var: (uvm_pkg::uvm_sequencer_base::get_arbitration), id:146063, line:1389:10, endln:1389:26
+|vpiParent:
+\_function: (uvm_pkg::uvm_sequencer_base::get_arbitration), id:146062, line:1389:1, endln:1391:12
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_sequencer_base::get_arbitration), id:146064
+  |vpiParent:
+  \_enum_var: (uvm_pkg::uvm_sequencer_base::get_arbitration), id:146063, line:1389:10, endln:1389:26
+  |vpiFullName:uvm_pkg::uvm_sequencer_base::get_arbitration
+  |vpiActual:
+  \_enum_typespec: (uvm_pkg::UVM_SEQ_ARB_TYPE), id:498, line:359:1, endln:367:26
+|vpiFullName:uvm_pkg::uvm_sequencer_base::get_arbitration
+
+decompile:
+enum_var: (uvm_pkg::uvm_sequencer_base::get_arbitration), id:146063, line:1389:10, endln:1389:26
+|vpiParent:
+\_function: (uvm_pkg::uvm_sequencer_base::get_arbitration), id:146062, line:1389:1, endln:1391:12
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_sequencer_base::get_arbitration), id:146064
+  |vpiParent:
+  \_enum_var: (uvm_pkg::uvm_sequencer_base::get_arbitration), id:146063, line:1389:10, endln:1389:26
+  |vpiFullName:uvm_pkg::uvm_sequencer_base::get_arbitration
+  |vpiActual:
+  \_enum_typespec: (uvm_pkg::UVM_SEQ_ARB_TYPE), id:498, line:359:1, endln:367:26
+|vpiFullName:uvm_pkg::uvm_sequencer_base::get_arbitration
+
+== 2. ct177own, the owner-finder: every `function` at line 1389, both sides
+=== GOLDEN: every `function` at line 1389 ===
+GOLDEN fn function(get_arbitration)@1389:1-1391:12#855
+   chain=<class_defn:uvm_sequencer_base:41<package:uvm_pkg:28<design:work@top:0
+   Return = enum_var()@1389:10-1389:26#25313  fullname=uvm_pkg::uvm_sequencer_base::get_arbitration signed=0
+   Return.Typespec = ref_typespec()@0:0-0:0#25314
+     actual enum_typespec(uvm_pkg::UVM_SEQ_ARB_TYPE)@332:40-332:56#2305  parentchain=<class_defn:work@env:7<design:work@top:0
+    Instance = package(uvm_pkg)@28:1-39:11#1
+    Typedef_alias = ref_typespec()@0:0-0:0#2312 -> enum_typespec(uvm_pkg::uvm_sequencer_arb_mode)@359:1-367:26#2298
+    Base_typespec = <null> -> <null>
+    Enum_consts = 6
+      enum_const(UVM_SEQ_ARB_FIFO)@361:3-361:19#2306 val=INT:0 decomp=0
+      enum_const(UVM_SEQ_ARB_WEIGHTED)@362:3-362:23#2307 val=INT:1 decomp=1
+      enum_const(UVM_SEQ_ARB_RANDOM)@363:3-363:21#2308 val=INT:2 decomp=2
+      enum_const(UVM_SEQ_ARB_STRICT_FIFO)@364:3-364:26#2309 val=INT:3 decomp=3
+      enum_const(UVM_SEQ_ARB_STRICT_RANDOM)@365:3-365:28#2310 val=INT:4 decomp=4
+      enum_const(UVM_SEQ_ARB_USER)@366:3-366:19#2311 val=INT:5 decomp=5
+   --- who else points at that typespec ---
+  GOLDEN ref_typespec#25309 parent=io_decl(val)@1381:68-1381:71#25308
+  GOLDEN ref_typespec#25314 parent=enum_var()@1389:10-1389:26#25313
+  GOLDEN ref_typespec#84387 parent=io_decl(val)@1381:68-1381:71#84385
+  GOLDEN ref_typespec#84393 parent=ref_var()@1389:10-1389:26#84392
+  GOLDEN ref_typespec#172577 parent=io_decl(val)@332:57-332:60#172576
+  GOLDEN ref_typespec#172580 parent=enum_var()@340:19-340:35#172579
+  GOLDEN TOTAL refs = 6
+GOLDEN fn function(add_hdl_path_slice)@1389:1-1405:12#995
+   chain=<class_defn:uvm_reg:37<package:uvm_pkg:28<design:work@top:0
+   Return = <null>
+GOLDEN fn function(uvm_sequencer_base::get_arbitration)@1389:1-1391:12#60267
+   chain=<package:uvm_pkg:28<design:work@top:0
+   Return = ref_var()@1389:10-1389:26#84392  fullname=uvm_pkg::uvm_sequencer_base::get_arbitration signed=0
+   Return.Typespec = ref_typespec()@0:0-0:0#84393
+     actual enum_typespec(uvm_pkg::UVM_SEQ_ARB_TYPE)@332:40-332:56#2305  parentchain=<class_defn:work@env:7<design:work@top:0
+    Instance = package(uvm_pkg)@28:1-39:11#1
+    Typedef_alias = ref_typespec()@0:0-0:0#2312 -> enum_typespec(uvm_pkg::uvm_sequencer_arb_mode)@359:1-367:26#2298
+    Base_typespec = <null> -> <null>
+    Enum_consts = 6
+      enum_const(UVM_SEQ_ARB_FIFO)@361:3-361:19#2306 val=INT:0 decomp=0
+      enum_const(UVM_SEQ_ARB_WEIGHTED)@362:3-362:23#2307 val=INT:1 decomp=1
+      enum_const(UVM_SEQ_ARB_RANDOM)@363:3-363:21#2308 val=INT:2 decomp=2
+      enum_const(UVM_SEQ_ARB_STRICT_FIFO)@364:3-364:26#2309 val=INT:3 decomp=3
+      enum_const(UVM_SEQ_ARB_STRICT_RANDOM)@365:3-365:28#2310 val=INT:4 decomp=4
+      enum_const(UVM_SEQ_ARB_USER)@366:3-366:19#2311 val=INT:5 decomp=5
+   --- who else points at that typespec ---
+  GOLDEN ref_typespec#25309 parent=io_decl(val)@1381:68-1381:71#25308
+  GOLDEN ref_typespec#25314 parent=enum_var()@1389:10-1389:26#25313
+  GOLDEN ref_typespec#84387 parent=io_decl(val)@1381:68-1381:71#84385
+  GOLDEN ref_typespec#84393 parent=ref_var()@1389:10-1389:26#84392
+  GOLDEN ref_typespec#172577 parent=io_decl(val)@332:57-332:60#172576
+  GOLDEN ref_typespec#172580 parent=enum_var()@340:19-340:35#172579
+  GOLDEN TOTAL refs = 6
+GOLDEN fn function(uvm_reg::add_hdl_path_slice)@1389:1-1405:12#60407
+   chain=<package:uvm_pkg:28<design:work@top:0
+   Return = <null>
+=== OURS  : every `function` at line 1389 ===
+OURS   fn function(add_hdl_path_slice)@1389:1-1405:12#56007
+   chain=<class_defn:uvm_reg:37<package:uvm_pkg:28<design:work@top:0
+   Return = <null>
+OURS   fn function(get_arbitration)@1389:1-1391:12#103749
+   chain=<class_defn:uvm_sequencer_base:41<package:uvm_pkg:28<design:work@top:0
+   Return = enum_var()@1389:10-1389:26#103750  fullname=uvm_pkg::uvm_sequencer_base::get_arbitration signed=0
+   Return.Typespec = ref_typespec()@0:0-0:0#103751
+     actual enum_typespec(uvm_pkg::UVM_SEQ_ARB_TYPE)@359:1-367:26#498  parentchain=<module_inst:work@top:44<design:work@top:0
+    Instance = package(uvm_pkg)@28:1-39:11#146
+    Typedef_alias = ref_typespec()@0:0-0:0#505 -> enum_typespec(uvm_pkg::uvm_sequencer_arb_mode)@359:1-367:26#3412
+    Base_typespec = <null> -> <null>
+    Enum_consts = 6
+      enum_const(UVM_SEQ_ARB_FIFO)@361:3-361:19#499 val=INT:0 decomp=0
+      enum_const(UVM_SEQ_ARB_WEIGHTED)@362:3-362:23#500 val=INT:1 decomp=1
+      enum_const(UVM_SEQ_ARB_RANDOM)@363:3-363:21#501 val=INT:2 decomp=2
+      enum_const(UVM_SEQ_ARB_STRICT_FIFO)@364:3-364:26#502 val=INT:3 decomp=3
+      enum_const(UVM_SEQ_ARB_STRICT_RANDOM)@365:3-365:28#503 val=INT:4 decomp=4
+      enum_const(UVM_SEQ_ARB_USER)@366:3-366:19#504 val=INT:5 decomp=5
+   --- who else points at that typespec ---
+  OURS   ref_typespec#101520 parent=io_decl(val)@1381:68-1381:71#101519
+  OURS   ref_typespec#101523 parent=enum_var()@1389:10-1389:26#101522
+  OURS   ref_typespec#103745 parent=io_decl(val)@1381:68-1381:71#103744
+  OURS   ref_typespec#103751 parent=enum_var()@1389:10-1389:26#103750
+  OURS   ref_typespec#146058 parent=io_decl(val)@1381:68-1381:71#146057
+  OURS   ref_typespec#146064 parent=enum_var()@1389:10-1389:26#146063
+  OURS   TOTAL refs = 6
+OURS   fn function(uvm_sequencer_base::get_arbitration)@1389:1-1391:12#146062
+   chain=<package:uvm_pkg:28<design:work@top:0
+   Return = enum_var()@1389:10-1389:26#146063  fullname=uvm_pkg::uvm_sequencer_base::get_arbitration signed=0
+   Return.Typespec = ref_typespec()@0:0-0:0#146064
+     actual enum_typespec(uvm_pkg::UVM_SEQ_ARB_TYPE)@359:1-367:26#498  parentchain=<module_inst:work@top:44<design:work@top:0
+    Instance = package(uvm_pkg)@28:1-39:11#146
+    Typedef_alias = ref_typespec()@0:0-0:0#505 -> enum_typespec(uvm_pkg::uvm_sequencer_arb_mode)@359:1-367:26#3412
+    Base_typespec = <null> -> <null>
+    Enum_consts = 6
+      enum_const(UVM_SEQ_ARB_FIFO)@361:3-361:19#499 val=INT:0 decomp=0
+      enum_const(UVM_SEQ_ARB_WEIGHTED)@362:3-362:23#500 val=INT:1 decomp=1
+      enum_const(UVM_SEQ_ARB_RANDOM)@363:3-363:21#501 val=INT:2 decomp=2
+      enum_const(UVM_SEQ_ARB_STRICT_FIFO)@364:3-364:26#502 val=INT:3 decomp=3
+      enum_const(UVM_SEQ_ARB_STRICT_RANDOM)@365:3-365:28#503 val=INT:4 decomp=4
+      enum_const(UVM_SEQ_ARB_USER)@366:3-366:19#504 val=INT:5 decomp=5
+   --- who else points at that typespec ---
+  OURS   ref_typespec#101520 parent=io_decl(val)@1381:68-1381:71#101519
+  OURS   ref_typespec#101523 parent=enum_var()@1389:10-1389:26#101522
+  OURS   ref_typespec#103745 parent=io_decl(val)@1381:68-1381:71#103744
+  OURS   ref_typespec#103751 parent=enum_var()@1389:10-1389:26#103750
+  OURS   ref_typespec#146058 parent=io_decl(val)@1381:68-1381:71#146057
+  OURS   ref_typespec#146064 parent=enum_var()@1389:10-1389:26#146063
+  OURS   TOTAL refs = 6
+OURS   fn function(uvm_reg::add_hdl_path_slice)@1389:1-1405:12#154895
+   chain=<package:uvm_pkg:28<design:work@top:0
+   Return = <null>
+=== TYPESPEC-vs-TYPESPEC generated Compare: r=4386
+    failedLhs=ref_var()@1389:10-1389:26#84392
+    failedRhs=enum_var()@1389:10-1389:26#146063
+=== RETURN-vs-RETURN generated Compare: r=4386
+    failedLhs=ref_var()@1389:10-1389:26#84392
+    failedRhs=enum_var()@1389:10-1389:26#146063

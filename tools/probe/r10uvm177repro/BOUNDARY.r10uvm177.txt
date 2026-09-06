@@ -1,0 +1,183 @@
+r10uvm177 — THE BOUNDARY GATE and the JUDGE of every arm it moved.
+MEASUREMENT ONLY; the official uhdm-cmp is run per moved arm per view by
+grid177.sh (see each judge workdir's cmds.txt).  LHS is ALWAYS golden.
+
+== bound177.sh over a COPY of the whole probe tree, both views, both binaries
+LISTED=4872 PROCESSED=4872 PRODUCED_DBS=4714 MOVED_ARMS=21 RC_DIFFS=0
+   (this pass's own g177_*.sv arms are the POSITIVE CONTROL: a gate that
+    reported zero movers over them could not see.)
+
+== the arms whose DATABASE BYTES moved
+probe/r10buvm22repro/g22b.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10buvm22repro/g22.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+probe/r10uvm140repro/g140_a_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm140repro/g140_b_homes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm177repro/g177_a_alias.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm177repro/g177_b_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm177repro/g177_c_homes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm177repro/g177_d_bounds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm58repro/w4_aliasret.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm91repro/v91_a3_order.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v140repro/v140_p_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v140repro/v140_q_homes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v140repro/v140_r_import.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v140repro/v140_t_order.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v140repro/v140_w_inherit.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10vbuvm20repro/v1_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10vbuvm20repro/v4_crosspkg.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10vbuvm20repro/v9_tdoftd.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10vbuvm22repro/v2_rettypes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10vbuvm22repro/v3_kinds.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+probe/r10vbuvm22repro/v6_nasty.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+== the verdict per moved arm, golden vs pristine vs patched
+   MOVED-WRONG = cells that AGREED with golden and stopped agreeing.
+#### probe/r10buvm22repro/g22b.sv
+    cmp rc=255 a def lines=1144 heads=1
+    cmp rc=255 b def lines=1144 heads=1
+    cmp rc=255 a elab lines=1144 heads=1
+    cmp rc=255 b elab lines=1144 heads=1
+    == view=def  positions=37  A(pristine)_ok=19 B(patched)_ok=21  FIXED=2 MOVED-WRONG=0 MOVED-STILL-WRONG=1
+    == view=elab  positions=44  A(pristine)_ok=19 B(patched)_ok=21  FIXED=2 MOVED-WRONG=0 MOVED-STILL-WRONG=1
+#### probe/r10buvm22repro/g22.sv
+    cmp rc=255 a def lines=3438 heads=1
+    cmp rc=255 b def lines=3438 heads=1
+    cmp rc=255 a elab lines=3438 heads=1
+    cmp rc=255 b elab lines=3438 heads=1
+    == view=def  positions=104  A(pristine)_ok=58 B(patched)_ok=58  FIXED=0 MOVED-WRONG=0 MOVED-STILL-WRONG=2
+    == view=elab  positions=181  A(pristine)_ok=86 B(patched)_ok=86  FIXED=0 MOVED-WRONG=0 MOVED-STILL-WRONG=2
+#### probe/r10uvm140repro/g140/a/kinds.sv
+    cmp rc=255 a def lines=1156 heads=1
+    cmp rc=255 b def lines=1156 heads=1
+    cmp rc=255 a elab lines=1212 heads=1
+    cmp rc=255 b elab lines=1212 heads=1
+    == view=def  positions=26  A(pristine)_ok=23 B(patched)_ok=25  FIXED=2 MOVED-WRONG=0 MOVED-STILL-WRONG=0
+    == view=elab  positions=29  A(pristine)_ok=26 B(patched)_ok=28  FIXED=2 MOVED-WRONG=0 MOVED-STILL-WRONG=0
+#### probe/r10uvm140repro/g140/b/homes.sv
+    cmp rc=255 a def lines=52 heads=1
+    cmp rc=255 b def lines=56 heads=1
+    cmp rc=255 a elab lines=52 heads=1
+    cmp rc=255 b elab lines=60 heads=1
+    == view=def  positions=35  A(pristine)_ok=23 B(patched)_ok=28  FIXED=5 MOVED-WRONG=0 MOVED-STILL-WRONG=0
+    == view=elab  positions=57  A(pristine)_ok=36 B(patched)_ok=42  FIXED=6 MOVED-WRONG=0 MOVED-STILL-WRONG=0
+#### probe/r10uvm177repro/g177/a/alias.sv
+    cmp rc=255 a def lines=52 heads=1
+    cmp rc=255 b def lines=2302 heads=1
+    cmp rc=255 a elab lines=52 heads=1
+    cmp rc=255 b elab lines=2290 heads=1
+    == view=def  positions=41  A(pristine)_ok=23 B(patched)_ok=29  FIXED=6 MOVED-WRONG=0 MOVED-STILL-WRONG=0
+    == view=elab  positions=53  A(pristine)_ok=35 B(patched)_ok=41  FIXED=6 MOVED-WRONG=0 MOVED-STILL-WRONG=0
+#### probe/r10uvm177repro/g177/b/kinds.sv
+    cmp rc=255 a def lines=3544 heads=1
+    cmp rc=255 b def lines=3544 heads=1
+    cmp rc=255 a elab lines=3576 heads=1
+    cmp rc=255 b elab lines=3576 heads=1
+    == view=def  positions=49  A(pristine)_ok=26 B(patched)_ok=31  FIXED=5 MOVED-WRONG=0 MOVED-STILL-WRONG=4
+    == view=elab  positions=69  A(pristine)_ok=37 B(patched)_ok=42  FIXED=5 MOVED-WRONG=0 MOVED-STILL-WRONG=4
+#### probe/r10uvm177repro/g177/c/homes.sv
+    cmp rc=255 a def lines=172 heads=1
+    cmp rc=255 b def lines=172 heads=1
+    cmp rc=255 a elab lines=172 heads=1
+    cmp rc=255 b elab lines=172 heads=1
+    == view=def  positions=27  A(pristine)_ok=23 B(patched)_ok=27  FIXED=4 MOVED-WRONG=0 MOVED-STILL-WRONG=0
+    == view=elab  positions=38  A(pristine)_ok=33 B(patched)_ok=38  FIXED=5 MOVED-WRONG=0 MOVED-STILL-WRONG=0
+#### probe/r10uvm177repro/g177/d/bounds.sv
+    cmp rc=255 a def lines=1406 heads=1
+    cmp rc=255 b def lines=1406 heads=1
+    cmp rc=255 a elab lines=1406 heads=1
+    cmp rc=255 b elab lines=1406 heads=1
+    == view=def  positions=27  A(pristine)_ok=15 B(patched)_ok=18  FIXED=3 MOVED-WRONG=0 MOVED-STILL-WRONG=2
+    == view=elab  positions=32  A(pristine)_ok=15 B(patched)_ok=17  FIXED=2 MOVED-WRONG=0 MOVED-STILL-WRONG=3
+#### probe/r10uvm58repro/w4/aliasret.sv
+    cmp rc=255 a def lines=56 heads=1
+    cmp rc=255 b def lines=56 heads=1
+    cmp rc=255 a elab lines=56 heads=1
+    cmp rc=255 b elab lines=56 heads=1
+    == view=def  positions=14  A(pristine)_ok=10 B(patched)_ok=10  FIXED=0 MOVED-WRONG=0 MOVED-STILL-WRONG=1
+    == view=elab  positions=14  A(pristine)_ok=9 B(patched)_ok=9  FIXED=0 MOVED-WRONG=0 MOVED-STILL-WRONG=1
+#### probe/r10uvm91repro/v91/a3/order.sv
+    cmp rc=255 a def lines=26 heads=1
+    cmp rc=255 b def lines=26 heads=1
+    cmp rc=255 a elab lines=26 heads=1
+    cmp rc=255 b elab lines=26 heads=1
+    == view=def  positions=13  A(pristine)_ok=9 B(patched)_ok=9  FIXED=0 MOVED-WRONG=0 MOVED-STILL-WRONG=1
+    == view=elab  positions=13  A(pristine)_ok=9 B(patched)_ok=9  FIXED=0 MOVED-WRONG=0 MOVED-STILL-WRONG=1
+#### probe/r10v140repro/v140/p/kinds.sv
+    cmp rc=255 a def lines=1184 heads=1
+    cmp rc=255 b def lines=1184 heads=1
+    cmp rc=255 a elab lines=1240 heads=1
+    cmp rc=255 b elab lines=1240 heads=1
+    == view=def  positions=26  A(pristine)_ok=23 B(patched)_ok=25  FIXED=2 MOVED-WRONG=0 MOVED-STILL-WRONG=0
+    == view=elab  positions=26  A(pristine)_ok=23 B(patched)_ok=25  FIXED=2 MOVED-WRONG=0 MOVED-STILL-WRONG=0
+#### probe/r10v140repro/v140/q/homes.sv
+    cmp rc=255 a def lines=52 heads=1
+    cmp rc=255 b def lines=56 heads=1
+    cmp rc=255 a elab lines=52 heads=1
+    cmp rc=255 b elab lines=60 heads=1
+    == view=def  positions=38  A(pristine)_ok=27 B(patched)_ok=31  FIXED=4 MOVED-WRONG=0 MOVED-STILL-WRONG=0
+    == view=elab  positions=58  A(pristine)_ok=36 B(patched)_ok=41  FIXED=5 MOVED-WRONG=0 MOVED-STILL-WRONG=0
+#### probe/r10v140repro/v140/r/import.sv
+    cmp rc=255 a def lines=52 heads=1
+    cmp rc=255 b def lines=286 heads=1
+    cmp rc=255 a elab lines=52 heads=1
+    cmp rc=255 b elab lines=286 heads=1
+    == view=def  positions=26  A(pristine)_ok=22 B(patched)_ok=25  FIXED=3 MOVED-WRONG=0 MOVED-STILL-WRONG=1
+    == view=elab  positions=48  A(pristine)_ok=35 B(patched)_ok=38  FIXED=3 MOVED-WRONG=0 MOVED-STILL-WRONG=2
+#### probe/r10v140repro/v140/t/order.sv
+    cmp rc=255 a def lines=52 heads=1
+    cmp rc=255 b def lines=818 heads=1
+    cmp rc=255 a elab lines=52 heads=1
+    cmp rc=255 b elab lines=826 heads=1
+    == view=def  positions=25  A(pristine)_ok=21 B(patched)_ok=24  FIXED=3 MOVED-WRONG=0 MOVED-STILL-WRONG=0
+    == view=elab  positions=25  A(pristine)_ok=21 B(patched)_ok=24  FIXED=3 MOVED-WRONG=0 MOVED-STILL-WRONG=0
+#### probe/r10v140repro/v140/w/inherit.sv
+    cmp rc=255 a def lines=17 heads=1
+    cmp rc=255 b def lines=17 heads=1
+    cmp rc=255 a elab lines=17 heads=1
+    cmp rc=255 b elab lines=17 heads=1
+    == view=def  positions=20  A(pristine)_ok=17 B(patched)_ok=18  FIXED=1 MOVED-WRONG=0 MOVED-STILL-WRONG=0
+    == view=elab  positions=20  A(pristine)_ok=13 B(patched)_ok=13  FIXED=0 MOVED-WRONG=0 MOVED-STILL-WRONG=1
+#### probe/r10vbuvm20repro/v1/kinds.sv
+    cmp rc=255 a def lines=42 heads=1
+    cmp rc=255 b def lines=42 heads=1
+    cmp rc=255 a elab lines=42 heads=1
+    cmp rc=255 b elab lines=42 heads=1
+    == view=def  positions=60  A(pristine)_ok=22 B(patched)_ok=22  FIXED=0 MOVED-WRONG=0 MOVED-STILL-WRONG=1
+    == view=elab  positions=77  A(pristine)_ok=35 B(patched)_ok=35  FIXED=0 MOVED-WRONG=0 MOVED-STILL-WRONG=1
+#### probe/r10vbuvm20repro/v4/crosspkg.sv
+    cmp rc=255 a def lines=52 heads=1
+    cmp rc=255 b def lines=100 heads=1
+    cmp rc=255 a elab lines=52 heads=1
+    cmp rc=255 b elab lines=100 heads=1
+    == view=def  positions=28  A(pristine)_ok=16 B(patched)_ok=16  FIXED=0 MOVED-WRONG=0 MOVED-STILL-WRONG=1
+    == view=elab  positions=35  A(pristine)_ok=20 B(patched)_ok=20  FIXED=0 MOVED-WRONG=0 MOVED-STILL-WRONG=1
+#### probe/r10vbuvm20repro/v9/tdoftd.sv
+    cmp rc=255 a def lines=52 heads=1
+    cmp rc=255 b def lines=100 heads=1
+    cmp rc=255 a elab lines=52 heads=1
+    cmp rc=255 b elab lines=100 heads=1
+    == view=def  positions=20  A(pristine)_ok=10 B(patched)_ok=10  FIXED=0 MOVED-WRONG=0 MOVED-STILL-WRONG=3
+    == view=elab  positions=24  A(pristine)_ok=11 B(patched)_ok=11  FIXED=0 MOVED-WRONG=0 MOVED-STILL-WRONG=3
+#### probe/r10vbuvm22repro/v2/rettypes.sv
+    cmp rc=255 a def lines=2668 heads=1
+    cmp rc=255 b def lines=2668 heads=1
+    cmp rc=255 a elab lines=3312 heads=1
+    cmp rc=255 b elab lines=3312 heads=1
+    == view=def  positions=63  A(pristine)_ok=35 B(patched)_ok=35  FIXED=0 MOVED-WRONG=0 MOVED-STILL-WRONG=1
+    == view=elab  positions=70  A(pristine)_ok=37 B(patched)_ok=37  FIXED=0 MOVED-WRONG=0 MOVED-STILL-WRONG=1
+#### probe/r10vbuvm22repro/v3/kinds.sv
+    cmp rc=255 a def lines=1700 heads=1
+    cmp rc=255 b def lines=1700 heads=1
+    cmp rc=255 a elab lines=2300 heads=1
+    cmp rc=255 b elab lines=2300 heads=1
+    == view=def  positions=63  A(pristine)_ok=28 B(patched)_ok=29  FIXED=1 MOVED-WRONG=0 MOVED-STILL-WRONG=0
+    == view=elab  positions=70  A(pristine)_ok=29 B(patched)_ok=30  FIXED=1 MOVED-WRONG=0 MOVED-STILL-WRONG=0
+#### probe/r10vbuvm22repro/v6/nasty.sv
+    cmp rc=255 a def lines=2688 heads=1
+    cmp rc=255 b def lines=2688 heads=1
+    cmp rc=255 a elab lines=3582 heads=1
+    cmp rc=255 b elab lines=3582 heads=1
+    == view=def  positions=31  A(pristine)_ok=13 B(patched)_ok=13  FIXED=0 MOVED-WRONG=0 MOVED-STILL-WRONG=1
+    == view=elab  positions=40  A(pristine)_ok=13 B(patched)_ok=13  FIXED=0 MOVED-WRONG=0 MOVED-STILL-WRONG=1
+
+ARMS-JUDGED=21  ARMS-WITH-MOVED-WRONG=0

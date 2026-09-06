@@ -1,0 +1,107 @@
+== r10v177 GATES — the VERIFIED patch (/tmp/r10uvm177.verified.patch), rebuilt from scratch by the verifier
+
+BASE 0ae0ad69   worktrees /tmp/wt_v177 (patched) and /tmp/wt_v177pris (clean)
+binaries, all frozen chmod 555 before any sweep:
+a70f55847d13f3bb67224e7c5049ba18  /tmp/v177_bin/pris.bin
+447ba723ecfb17bbd37505068bce7ce0  /tmp/v177_bin/pat.bin
+676dac3fd2c178d9128825b0d0201ee4  /tmp/v177_bin/fix3.bin
+
+-- (1) goldens, per binary, SLANG_UHDM exported explicitly
+pristine  PASS=23 FAIL=0
+submitted PASS=23 FAIL=0
+verified  PASS=23 FAIL=0
+/bin/false negative control PASS=0 FAIL=23
+
+-- (3) uhdm2rtlil, both modes, VERIFIED binary
+  CMP_EQUAL: 679
+  SLANG_REJECT: 50
+  SURELOG_FAIL: 2
+  CMP_EQUAL: 679
+  SLANG_REJECT: 50
+  SURELOG_FAIL: 2
+ct8rows vs COMMITTED baseline (testflags):
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+PASS: every row byte-identical to the committed baseline
+ct8rows vs MY OWN pristine control (testflags):
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+PASS: every row byte-identical to the committed baseline
+ct8rows vs MY OWN pristine control (default):
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+PASS: every row byte-identical to the committed baseline
+
+-- (4) surelog corpus, both modes, VERIFIED binary; NO ROW CONVERTED
+baseline: 1589 lines = 1588 ROWS (the header is not a row)
+fresh   : 1589 lines = 1588 ROWS
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+PASS: every row byte-identical to the committed baseline
+vs MY OWN pristine control:
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+PASS: every row byte-identical to the committed baseline
+
+-- (5) byteverify SELFCHECK=1
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm  patched=5f5641e96734 pristine=022feb63f620
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=7ffafed91a15 pristine=5724c070a160
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=3083f1ef634a pristine=5345d15862b2
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=b98b3c9300fb pristine=6908baf09814
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=b1446fe819d8 pristine=9add88aa77e6
+MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  patched=5f5641e96734 pristine=022feb63f620
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=7ffafed91a15 pristine=5724c070a160
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=94008f640994 pristine=ef4e4586f1ff
+MOVER ./testflags/SimpleUVM-1dc93a62/slang.uhdm  patched=daa3837cb0e7 pristine=c30c2bd76851
+MOVERS: 9 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+
+-- movers ATTRIBUTED order-blind (vretscan177 sorts its rows, so ordering cancels)
+   all nine: enum_var -> ref_var at uvm_pkg::uvm_sequencer_base::get_arbitration, and nothing else
+
+-- movers PREDICTED BY NAME from PRISTINE + GOLDEN databases, before the patched sweep
+SCANNED=956 CANDIDATE_DBS=9 NOGOLDEN=0 SCANFAIL=0
+SCANNED=1358 CANDIDATE_DBS=0 NOGOLDEN=0 SCANFAIL=0
+   PREDICTED 9 surelog / 0 uhdm2rtlil; OBSERVED exactly those.
+
+-- heads (rowheads.sh), pristine -> verified
+TEST MODE CMPLINES HEADS	CMPLINES HEADS
+SeqDriver default 33 1	33 1
+SeqDriver testflags 33 1	33 1
+SimpleUVM default 52 1	29 1
+SimpleUVM testflags 52 1	29 1
+Scoreboard default 95 1	95 1
+Scoreboard testflags - -	- -
+MiniAmiq default 29 1	29 1
+MiniAmiq testflags 29 1	29 1
+BuildUVMPkg default 52 1	52 1
+BuildUVMPkg testflags 52 1	52 1
+Earlgrey_0_1 default 31 1	31 1
+Earlgrey_0_1 testflags 122 1	122 1
+Rggen default 0 0	0 0
+Rggen testflags - -	- -
+-- measured=12 SKIP-NOFILE=2 UNKNOWN-NAME=0	SKIP-NOFILE=2 UNKNOWN-NAME=0
+
+-- canaries / ctcan2 / canaudit
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+
+-- protected databases, verified vs pristine
+InterfaceModPort/default 59a365f3ce2c SAME
+InterfaceModPort/testflags 59a365f3ce2c SAME
+BlackParrotComplex/default e3e354129d5a SAME
+BlackParrotComplex/testflags 73a10e8217e5 SAME
+YosysOldOr/default d68e0796d62c SAME
+YosysOldOr/testflags d68e0796d62c SAME
+SVSwitch/default 4842211c4030 SAME
+SVSwitch/testflags 4842211c4030 SAME
+YosysVerx/default 6ccda350c24a SAME
+YosysVerx/testflags 6ccda350c24a SAME
+
+-- cmds.txt audit, by BINARY PATH, every file
+sl_fix3 :  1523 /tmp/v177_bin/fix3.bin
+u2r_fix3:  1458 /tmp/v177_bin/fix3.bin

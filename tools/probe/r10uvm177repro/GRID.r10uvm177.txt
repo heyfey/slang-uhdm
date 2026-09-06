@@ -1,0 +1,1384 @@
+r10uvm177 — THE GRIDS.  MEASUREMENT ONLY; the official uhdm-cmp is the
+sole judge and is run per arm per view (see each workdir's cmds.txt).
+LHS is ALWAYS golden (Surelog).  A = the PRISTINE binary, B = the PATCHED
+binary.  MOVED-WRONG counts cells that AGREED with golden and stopped
+agreeing: it is 0 in every arm and every view.
+
+############ arm a  (g177_a_alias.sv)
+cmp rc=255 a def lines=52 heads=1
+cmp rc=255 b def lines=2302 heads=1
+cmp rc=255 a elab lines=52 heads=1
+cmp rc=255 b elab lines=2290 heads=1
+== view=def  positions=41  A(pristine)_ok=23 B(patched)_ok=29  FIXED=6 MOVED-WRONG=0 MOVED-STILL-WRONG=0
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'new', '3:23')
+        G=[('class_var', 'class_typespec', '')]
+        A=[('class_var', 'class_typespec', '')]
+        B=[('class_var', 'class_typespec', '')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'num', '6:14')
+        G=[('int_var', 'int_typespec', '')]
+        A=[('int_var', 'int_typespec', '')]
+        B=[('int_var', 'int_typespec', '')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'try_get', '18:14')
+        G=[('int_var', 'int_typespec', '')]
+        A=[('int_var', 'int_typespec', '')]
+        B=[('int_var', 'int_typespec', '')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'try_peek', '24:14')
+        G=[('int_var', 'int_typespec', '')]
+        A=[('int_var', 'int_typespec', '')]
+        B=[('int_var', 'int_typespec', '')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'try_put', '0:0')
+        G=[('logic_var', '<nots>', '-')]
+        A=[('logic_var', '<nots>', '-')]
+        B=[('logic_var', '<nots>', '-')]
+  .... ('CLASSDEF:work@process', 'PKGLIST:-|BARENAME', 'self', '34:21')
+        G=[('class_var', 'class_typespec', '')]
+        A=[('class_var', 'class_typespec', '')]
+        B=[('class_var', 'class_typespec', '')]
+  .... ('CLASSDEF:work@process', 'PKGLIST:-|BARENAME', 'status', '37:14')
+        G=[('enum_var', 'enum_typespec', 'state')]
+        A=[('enum_var', 'enum_typespec', 'state')]
+        B=[('enum_var', 'enum_typespec', 'state')]
+  .... ('CLASSDEF:work@semaphore', 'PKGLIST:-|BARENAME', 'new', '57:22')
+        G=[('class_var', 'class_typespec', '')]
+        A=[('class_var', 'class_typespec', '')]
+        B=[('class_var', 'class_typespec', '')]
+  .... ('CLASSDEF:work@semaphore', 'PKGLIST:-|BARENAME', 'try_get', '66:14')
+        G=[('int_var', 'int_typespec', '')]
+        A=[('int_var', 'int_typespec', '')]
+        B=[('int_var', 'int_typespec', '')]
+  .... ('MODDEF:work@tp177', 'PKGLIST:-|BARENAME', 'm_alias', '48:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+  .... ('MODDEF:work@tp177', 'PKGLIST:-|BARENAME', 'm_direct', '49:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+  .... ('MODDEF:work@tp177', 'PKGLIST:-|BARENAME', 'm_walias', '50:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+  A!.. ('PKGDEF:zpk177', 'PKGLIST:-|BARENAME', 'free_alias', '41:12')
+        G=[('ref_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        B=[('ref_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+  A!.. ('PKGDEF:zpk177', 'PKGLIST:-|BARENAME', 'free_alias3', '43:12')
+        G=[('ref_var', 'enum_typespec', 'zpk177::mid3')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::mid3')]
+        B=[('ref_var', 'enum_typespec', 'zpk177::mid3')]
+  .... ('PKGDEF:zpk177', 'PKGLIST:-|BARENAME', 'free_direct', '42:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+  A!.. ('PKGDEF:zpk177', 'PKGLIST:-|OOBNAME', 'Kls177::p_oob_alias2', '37:12')
+        G=[('ref_var', 'enum_typespec', 'zpk177::Alias2R')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::Alias2R')]
+        B=[('ref_var', 'enum_typespec', 'zpk177::Alias2R')]
+  .... ('PKGDEF:zpk177', 'PKGLIST:-|OOBNAME', 'Kls177::q_oob_clsalias', '38:12')
+        G=[('class_var', 'unsupported_typespec', 'Kls177::wcls_alias')]
+        A=[('class_var', 'unsupported_typespec', 'Kls177::wcls_alias')]
+        B=[('class_var', 'unsupported_typespec', 'Kls177::wcls_alias')]
+  .... ('PKGDEF:zpk177', 'PKGLIST:-|OOBNAME', 'Kls177::r_oob_clsdirect', '39:12')
+        G=[('class_var', 'enum_typespec', 'wclass_e')]
+        A=[('class_var', 'enum_typespec', 'wclass_e')]
+        B=[('class_var', 'enum_typespec', 'wclass_e')]
+  A!.. ('PKGDEF:zpk177', 'PKGLIST:-|OOBNAME', 'Kls177::x_oob_alias', '34:12')
+        G=[('ref_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        B=[('ref_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+  .... ('PKGDEF:zpk177', 'PKGLIST:-|OOBNAME', 'Kls177::y_oob_direct', '35:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+  A!.. ('PKGDEF:zpk177', 'PKGLIST:-|OOBNAME', 'Kls177::z_oob_alias3', '36:12')
+        G=[('ref_var', 'enum_typespec', 'zpk177::mid3')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::mid3')]
+        B=[('ref_var', 'enum_typespec', 'zpk177::mid3')]
+  .... ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'a_ib_alias', '27:14')
+        G=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+  .... ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'b_ib_direct', '28:14')
+        G=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+  .... ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'c_ib_alias3', '29:14')
+        G=[('enum_var', 'enum_typespec', 'zpk177::mid3')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::mid3')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::mid3')]
+  A!.. ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'd_ib_clsalias', '30:14')
+        G=[('ref_var', 'enum_typespec', 'wcls_alias')]
+        A=[('enum_var', 'enum_typespec', 'wcls_alias')]
+        B=[('ref_var', 'enum_typespec', 'wcls_alias')]
+  .... ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'e_ib_clsdirect', '31:14')
+        G=[('enum_var', 'enum_typespec', 'wclass_e')]
+        A=[('enum_var', 'enum_typespec', 'wclass_e')]
+        B=[('enum_var', 'enum_typespec', 'wclass_e')]
+  A!B! ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'p_oob_alias2', '23:21')
+        G=[('enum_var', 'enum_typespec', 'zpk177::Alias2R')]
+        A=[]
+        B=[]
+  A!B! ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'p_oob_alias2', '37:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::Alias2R')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::Alias2R'), ('enum_var', 'enum_typespec', 'zpk177::Alias2R')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::Alias2R'), ('enum_var', 'enum_typespec', 'zpk177::Alias2R')]
+  A!B! ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'q_oob_clsalias', '24:21')
+        G=[('ref_var', 'enum_typespec', 'wcls_alias')]
+        A=[]
+        B=[]
+  A!B! ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'q_oob_clsalias', '38:12')
+        G=[('class_var', 'unsupported_typespec', 'Kls177::wcls_alias')]
+        A=[('class_var', 'unsupported_typespec', 'Kls177::wcls_alias'), ('class_var', 'unsupported_typespec', 'Kls177::wcls_alias')]
+        B=[('class_var', 'unsupported_typespec', 'Kls177::wcls_alias'), ('class_var', 'unsupported_typespec', 'Kls177::wcls_alias')]
+  A!B! ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'r_oob_clsdirect', '25:21')
+        G=[('enum_var', 'enum_typespec', 'wclass_e')]
+        A=[]
+        B=[]
+  A!B! ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'r_oob_clsdirect', '39:12')
+        G=[('class_var', 'enum_typespec', 'wclass_e')]
+        A=[('class_var', 'enum_typespec', 'wclass_e'), ('class_var', 'enum_typespec', 'wclass_e')]
+        B=[('class_var', 'enum_typespec', 'wclass_e'), ('class_var', 'enum_typespec', 'wclass_e')]
+  A!B! ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'x_oob_alias', '20:21')
+        G=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        A=[]
+        B=[]
+  A!B! ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'x_oob_alias', '34:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T'), ('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T'), ('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+  A!B! ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'y_oob_direct', '21:21')
+        G=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+        A=[]
+        B=[]
+  A!B! ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'y_oob_direct', '35:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e'), ('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e'), ('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+  A!B! ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'z_oob_alias3', '22:21')
+        G=[('enum_var', 'enum_typespec', 'zpk177::mid3')]
+        A=[]
+        B=[]
+  A!B! ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'z_oob_alias3', '36:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::mid3')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::mid3'), ('enum_var', 'enum_typespec', 'zpk177::mid3')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::mid3'), ('enum_var', 'enum_typespec', 'zpk177::mid3')]
+  .... ('PKGELAB:zpk177', 'PKGLIST:-|BARENAME', 'free_alias', '41:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+  .... ('PKGELAB:zpk177', 'PKGLIST:-|BARENAME', 'free_alias3', '43:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::mid3')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::mid3')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::mid3')]
+  .... ('PKGELAB:zpk177', 'PKGLIST:-|BARENAME', 'free_direct', '42:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+== view=elab  positions=53  A(pristine)_ok=35 B(patched)_ok=41  FIXED=6 MOVED-WRONG=0 MOVED-STILL-WRONG=0
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'new', '3:23')
+        G=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+        A=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+        B=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'num', '6:14')
+        G=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+        A=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+        B=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'try_get', '18:14')
+        G=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+        A=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+        B=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'try_peek', '24:14')
+        G=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+        A=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+        B=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'try_put', '0:0')
+        G=[('logic_var', '<nots>', '-'), ('logic_var', '<nots>', '-')]
+        A=[('logic_var', '<nots>', '-'), ('logic_var', '<nots>', '-')]
+        B=[('logic_var', '<nots>', '-'), ('logic_var', '<nots>', '-')]
+  .... ('CLASSDEF:work@process', 'PKGLIST:-|BARENAME', 'self', '34:21')
+        G=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+        A=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+        B=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+  .... ('CLASSDEF:work@process', 'PKGLIST:-|BARENAME', 'status', '37:14')
+        G=[('enum_var', 'enum_typespec', 'state'), ('enum_var', 'enum_typespec', 'state')]
+        A=[('enum_var', 'enum_typespec', 'state'), ('enum_var', 'enum_typespec', 'state')]
+        B=[('enum_var', 'enum_typespec', 'state'), ('enum_var', 'enum_typespec', 'state')]
+  .... ('CLASSDEF:work@semaphore', 'PKGLIST:-|BARENAME', 'new', '57:22')
+        G=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+        A=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+        B=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+  .... ('CLASSDEF:work@semaphore', 'PKGLIST:-|BARENAME', 'try_get', '66:14')
+        G=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+        A=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+        B=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+  .... ('MODDEF:work@tp177', 'PKGLIST:-|BARENAME', 'm_alias', '48:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+  .... ('MODDEF:work@tp177', 'PKGLIST:-|BARENAME', 'm_direct', '49:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+  .... ('MODDEF:work@tp177', 'PKGLIST:-|BARENAME', 'm_walias', '50:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+  .... ('MODELAB:work@tp177', 'PKGLIST:-|BARENAME', 'free_alias', '41:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+  .... ('MODELAB:work@tp177', 'PKGLIST:-|BARENAME', 'free_alias3', '43:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::mid3')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::mid3')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::mid3')]
+  .... ('MODELAB:work@tp177', 'PKGLIST:-|BARENAME', 'free_direct', '42:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+  .... ('MODELAB:work@tp177', 'PKGLIST:-|BARENAME', 'm_alias', '48:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+  .... ('MODELAB:work@tp177', 'PKGLIST:-|BARENAME', 'm_direct', '49:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+  .... ('MODELAB:work@tp177', 'PKGLIST:-|BARENAME', 'm_walias', '50:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+  .... ('MODELAB:work@tp177', 'PKGLIST:-|BARENAME', 'p_oob_alias2', '37:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::Alias2R')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::Alias2R')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::Alias2R')]
+  .... ('MODELAB:work@tp177', 'PKGLIST:-|BARENAME', 'q_oob_clsalias', '38:12')
+        G=[('class_var', 'unsupported_typespec', 'Kls177::wcls_alias')]
+        A=[('class_var', 'unsupported_typespec', 'Kls177::wcls_alias')]
+        B=[('class_var', 'unsupported_typespec', 'Kls177::wcls_alias')]
+  .... ('MODELAB:work@tp177', 'PKGLIST:-|BARENAME', 'r_oob_clsdirect', '39:12')
+        G=[('class_var', 'enum_typespec', 'wclass_e')]
+        A=[('class_var', 'enum_typespec', 'wclass_e')]
+        B=[('class_var', 'enum_typespec', 'wclass_e')]
+  .... ('MODELAB:work@tp177', 'PKGLIST:-|BARENAME', 'x_oob_alias', '34:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+  .... ('MODELAB:work@tp177', 'PKGLIST:-|BARENAME', 'y_oob_direct', '35:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+  .... ('MODELAB:work@tp177', 'PKGLIST:-|BARENAME', 'z_oob_alias3', '36:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::mid3')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::mid3')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::mid3')]
+  A!.. ('PKGDEF:zpk177', 'PKGLIST:-|BARENAME', 'free_alias', '41:12')
+        G=[('ref_var', 'enum_typespec', 'zpk177::QALIAS_T'), ('ref_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T'), ('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        B=[('ref_var', 'enum_typespec', 'zpk177::QALIAS_T'), ('ref_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+  A!.. ('PKGDEF:zpk177', 'PKGLIST:-|BARENAME', 'free_alias3', '43:12')
+        G=[('ref_var', 'enum_typespec', 'zpk177::mid3'), ('ref_var', 'enum_typespec', 'zpk177::mid3')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::mid3'), ('enum_var', 'enum_typespec', 'zpk177::mid3')]
+        B=[('ref_var', 'enum_typespec', 'zpk177::mid3'), ('ref_var', 'enum_typespec', 'zpk177::mid3')]
+  .... ('PKGDEF:zpk177', 'PKGLIST:-|BARENAME', 'free_direct', '42:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e'), ('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e'), ('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e'), ('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+  A!.. ('PKGDEF:zpk177', 'PKGLIST:-|OOBNAME', 'Kls177::p_oob_alias2', '37:12')
+        G=[('ref_var', 'enum_typespec', 'zpk177::Alias2R'), ('ref_var', 'enum_typespec', 'zpk177::Alias2R')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::Alias2R'), ('enum_var', 'enum_typespec', 'zpk177::Alias2R')]
+        B=[('ref_var', 'enum_typespec', 'zpk177::Alias2R'), ('ref_var', 'enum_typespec', 'zpk177::Alias2R')]
+  .... ('PKGDEF:zpk177', 'PKGLIST:-|OOBNAME', 'Kls177::q_oob_clsalias', '38:12')
+        G=[('class_var', 'unsupported_typespec', 'Kls177::wcls_alias'), ('class_var', 'unsupported_typespec', 'Kls177::wcls_alias')]
+        A=[('class_var', 'unsupported_typespec', 'Kls177::wcls_alias'), ('class_var', 'unsupported_typespec', 'Kls177::wcls_alias')]
+        B=[('class_var', 'unsupported_typespec', 'Kls177::wcls_alias'), ('class_var', 'unsupported_typespec', 'Kls177::wcls_alias')]
+  .... ('PKGDEF:zpk177', 'PKGLIST:-|OOBNAME', 'Kls177::r_oob_clsdirect', '39:12')
+        G=[('class_var', 'enum_typespec', 'wclass_e'), ('class_var', 'enum_typespec', 'wclass_e')]
+        A=[('class_var', 'enum_typespec', 'wclass_e'), ('class_var', 'enum_typespec', 'wclass_e')]
+        B=[('class_var', 'enum_typespec', 'wclass_e'), ('class_var', 'enum_typespec', 'wclass_e')]
+  A!.. ('PKGDEF:zpk177', 'PKGLIST:-|OOBNAME', 'Kls177::x_oob_alias', '34:12')
+        G=[('ref_var', 'enum_typespec', 'zpk177::QALIAS_T'), ('ref_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T'), ('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        B=[('ref_var', 'enum_typespec', 'zpk177::QALIAS_T'), ('ref_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+  .... ('PKGDEF:zpk177', 'PKGLIST:-|OOBNAME', 'Kls177::y_oob_direct', '35:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e'), ('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e'), ('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e'), ('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+  A!.. ('PKGDEF:zpk177', 'PKGLIST:-|OOBNAME', 'Kls177::z_oob_alias3', '36:12')
+        G=[('ref_var', 'enum_typespec', 'zpk177::mid3'), ('ref_var', 'enum_typespec', 'zpk177::mid3')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::mid3'), ('enum_var', 'enum_typespec', 'zpk177::mid3')]
+        B=[('ref_var', 'enum_typespec', 'zpk177::mid3'), ('ref_var', 'enum_typespec', 'zpk177::mid3')]
+  .... ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'a_ib_alias', '27:14')
+        G=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T'), ('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T'), ('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T'), ('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+  .... ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'b_ib_direct', '28:14')
+        G=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e'), ('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e'), ('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e'), ('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+  .... ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'c_ib_alias3', '29:14')
+        G=[('enum_var', 'enum_typespec', 'zpk177::mid3'), ('enum_var', 'enum_typespec', 'zpk177::mid3')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::mid3'), ('enum_var', 'enum_typespec', 'zpk177::mid3')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::mid3'), ('enum_var', 'enum_typespec', 'zpk177::mid3')]
+  A!.. ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'd_ib_clsalias', '30:14')
+        G=[('ref_var', 'enum_typespec', 'wcls_alias'), ('ref_var', 'enum_typespec', 'wcls_alias')]
+        A=[('enum_var', 'enum_typespec', 'wcls_alias'), ('enum_var', 'enum_typespec', 'wcls_alias')]
+        B=[('ref_var', 'enum_typespec', 'wcls_alias'), ('ref_var', 'enum_typespec', 'wcls_alias')]
+  .... ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'e_ib_clsdirect', '31:14')
+        G=[('enum_var', 'enum_typespec', 'wclass_e'), ('enum_var', 'enum_typespec', 'wclass_e')]
+        A=[('enum_var', 'enum_typespec', 'wclass_e'), ('enum_var', 'enum_typespec', 'wclass_e')]
+        B=[('enum_var', 'enum_typespec', 'wclass_e'), ('enum_var', 'enum_typespec', 'wclass_e')]
+  A!B! ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'p_oob_alias2', '23:21')
+        G=[('enum_var', 'enum_typespec', 'zpk177::Alias2R'), ('enum_var', 'enum_typespec', 'zpk177::Alias2R')]
+        A=[]
+        B=[]
+  A!B! ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'p_oob_alias2', '37:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::Alias2R'), ('enum_var', 'enum_typespec', 'zpk177::Alias2R')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::Alias2R'), ('enum_var', 'enum_typespec', 'zpk177::Alias2R'), ('enum_var', 'enum_typespec', 'zpk177::Alias2R'), ('enum_var', 'enum_typespec', 'zpk177::Alias2R')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::Alias2R'), ('enum_var', 'enum_typespec', 'zpk177::Alias2R'), ('enum_var', 'enum_typespec', 'zpk177::Alias2R'), ('enum_var', 'enum_typespec', 'zpk177::Alias2R')]
+  A!B! ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'q_oob_clsalias', '24:21')
+        G=[('ref_var', 'enum_typespec', 'wcls_alias'), ('ref_var', 'enum_typespec', 'wcls_alias')]
+        A=[]
+        B=[]
+  A!B! ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'q_oob_clsalias', '38:12')
+        G=[('class_var', 'unsupported_typespec', 'Kls177::wcls_alias'), ('class_var', 'unsupported_typespec', 'Kls177::wcls_alias')]
+        A=[('class_var', 'unsupported_typespec', 'Kls177::wcls_alias'), ('class_var', 'unsupported_typespec', 'Kls177::wcls_alias'), ('class_var', 'unsupported_typespec', 'Kls177::wcls_alias'), ('class_var', 'unsupported_typespec', 'Kls177::wcls_alias')]
+        B=[('class_var', 'unsupported_typespec', 'Kls177::wcls_alias'), ('class_var', 'unsupported_typespec', 'Kls177::wcls_alias'), ('class_var', 'unsupported_typespec', 'Kls177::wcls_alias'), ('class_var', 'unsupported_typespec', 'Kls177::wcls_alias')]
+  A!B! ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'r_oob_clsdirect', '25:21')
+        G=[('enum_var', 'enum_typespec', 'wclass_e'), ('enum_var', 'enum_typespec', 'wclass_e')]
+        A=[]
+        B=[]
+  A!B! ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'r_oob_clsdirect', '39:12')
+        G=[('class_var', 'enum_typespec', 'wclass_e'), ('class_var', 'enum_typespec', 'wclass_e')]
+        A=[('class_var', 'enum_typespec', 'wclass_e'), ('class_var', 'enum_typespec', 'wclass_e'), ('class_var', 'enum_typespec', 'wclass_e'), ('class_var', 'enum_typespec', 'wclass_e')]
+        B=[('class_var', 'enum_typespec', 'wclass_e'), ('class_var', 'enum_typespec', 'wclass_e'), ('class_var', 'enum_typespec', 'wclass_e'), ('class_var', 'enum_typespec', 'wclass_e')]
+  A!B! ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'x_oob_alias', '20:21')
+        G=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T'), ('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        A=[]
+        B=[]
+  A!B! ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'x_oob_alias', '34:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T'), ('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T'), ('enum_var', 'enum_typespec', 'zpk177::QALIAS_T'), ('enum_var', 'enum_typespec', 'zpk177::QALIAS_T'), ('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T'), ('enum_var', 'enum_typespec', 'zpk177::QALIAS_T'), ('enum_var', 'enum_typespec', 'zpk177::QALIAS_T'), ('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+  A!B! ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'y_oob_direct', '21:21')
+        G=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e'), ('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+        A=[]
+        B=[]
+  A!B! ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'y_oob_direct', '35:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e'), ('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e'), ('enum_var', 'enum_typespec', 'zpk177::rdirect_e'), ('enum_var', 'enum_typespec', 'zpk177::rdirect_e'), ('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e'), ('enum_var', 'enum_typespec', 'zpk177::rdirect_e'), ('enum_var', 'enum_typespec', 'zpk177::rdirect_e'), ('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+  A!B! ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'z_oob_alias3', '22:21')
+        G=[('enum_var', 'enum_typespec', 'zpk177::mid3'), ('enum_var', 'enum_typespec', 'zpk177::mid3')]
+        A=[]
+        B=[]
+  A!B! ('PKGELAB:zpk177', 'CLASSBODY:Kls177|BARENAME', 'z_oob_alias3', '36:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::mid3'), ('enum_var', 'enum_typespec', 'zpk177::mid3')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::mid3'), ('enum_var', 'enum_typespec', 'zpk177::mid3'), ('enum_var', 'enum_typespec', 'zpk177::mid3'), ('enum_var', 'enum_typespec', 'zpk177::mid3')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::mid3'), ('enum_var', 'enum_typespec', 'zpk177::mid3'), ('enum_var', 'enum_typespec', 'zpk177::mid3'), ('enum_var', 'enum_typespec', 'zpk177::mid3')]
+  .... ('PKGELAB:zpk177', 'PKGLIST:-|BARENAME', 'free_alias', '41:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T'), ('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T'), ('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::QALIAS_T'), ('enum_var', 'enum_typespec', 'zpk177::QALIAS_T')]
+  .... ('PKGELAB:zpk177', 'PKGLIST:-|BARENAME', 'free_alias3', '43:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::mid3'), ('enum_var', 'enum_typespec', 'zpk177::mid3')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::mid3'), ('enum_var', 'enum_typespec', 'zpk177::mid3')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::mid3'), ('enum_var', 'enum_typespec', 'zpk177::mid3')]
+  .... ('PKGELAB:zpk177', 'PKGLIST:-|BARENAME', 'free_direct', '42:12')
+        G=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e'), ('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+        A=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e'), ('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+        B=[('enum_var', 'enum_typespec', 'zpk177::rdirect_e'), ('enum_var', 'enum_typespec', 'zpk177::rdirect_e')]
+
+############ arm b  (g177_b_kinds.sv)
+rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/r10uvm177_g/b2/g_def /tmp/wt_r10uvm177/tools/probe/r10uvm177repro/g177_b_kinds.sv
+cmp rc=255 a def lines=3544 heads=1
+cmp rc=255 b def lines=3544 heads=1
+rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/r10uvm177_g/b2/g_elab /tmp/wt_r10uvm177/tools/probe/r10uvm177repro/g177_b_kinds.sv
+cmp rc=255 a elab lines=3576 heads=1
+cmp rc=255 b elab lines=3576 heads=1
+== view=def  positions=49  A(pristine)_ok=26 B(patched)_ok=31  FIXED=5 MOVED-WRONG=0 MOVED-STILL-WRONG=4
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'new', '3:23')
+        G=[('class_var', 'class_typespec', '')]
+        A=[('class_var', 'class_typespec', '')]
+        B=[('class_var', 'class_typespec', '')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'num', '6:14')
+        G=[('int_var', 'int_typespec', '')]
+        A=[('int_var', 'int_typespec', '')]
+        B=[('int_var', 'int_typespec', '')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'try_get', '18:14')
+        G=[('int_var', 'int_typespec', '')]
+        A=[('int_var', 'int_typespec', '')]
+        B=[('int_var', 'int_typespec', '')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'try_peek', '24:14')
+        G=[('int_var', 'int_typespec', '')]
+        A=[('int_var', 'int_typespec', '')]
+        B=[('int_var', 'int_typespec', '')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'try_put', '0:0')
+        G=[('logic_var', '<nots>', '-')]
+        A=[('logic_var', '<nots>', '-')]
+        B=[('logic_var', '<nots>', '-')]
+  .... ('CLASSDEF:work@process', 'PKGLIST:-|BARENAME', 'self', '34:21')
+        G=[('class_var', 'class_typespec', '')]
+        A=[('class_var', 'class_typespec', '')]
+        B=[('class_var', 'class_typespec', '')]
+  .... ('CLASSDEF:work@process', 'PKGLIST:-|BARENAME', 'status', '37:14')
+        G=[('enum_var', 'enum_typespec', 'state')]
+        A=[('enum_var', 'enum_typespec', 'state')]
+        B=[('enum_var', 'enum_typespec', 'state')]
+  .... ('CLASSDEF:work@semaphore', 'PKGLIST:-|BARENAME', 'new', '57:22')
+        G=[('class_var', 'class_typespec', '')]
+        A=[('class_var', 'class_typespec', '')]
+        B=[('class_var', 'class_typespec', '')]
+  .... ('CLASSDEF:work@semaphore', 'PKGLIST:-|BARENAME', 'try_get', '66:14')
+        G=[('int_var', 'int_typespec', '')]
+        A=[('int_var', 'int_typespec', '')]
+        B=[('int_var', 'int_typespec', '')]
+  .... ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_byte_d', '54:12')
+        G=[('byte_var', 'byte_typespec', 'byte_direct')]
+        A=[('byte_var', 'byte_typespec', 'byte_direct')]
+        B=[('byte_var', 'byte_typespec', 'byte_direct')]
+  A!B! ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_byte_v', '55:12')
+        G=[('ref_var', 'byte_typespec', 'bpk177::ByteVia')]
+        A=[('byte_var', 'byte_typespec', 'ByteVia')]
+        B=[('ref_var', 'byte_typespec', 'ByteVia')]
+  A!B! ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_cls_d', '56:12')
+        G=[('ref_var', 'unsupported_typespec', 'cls_direct')]
+        A=[('ref_var', 'class_typespec', '')]
+        B=[('ref_var', 'class_typespec', '')]
+  A!B! ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_cls_v', '57:12')
+        G=[('ref_var', 'unsupported_typespec', 'bpk177::ClsVia')]
+        A=[('ref_var', 'class_typespec', '')]
+        B=[('ref_var', 'class_typespec', '')]
+  .... ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_enum_d', '40:12')
+        G=[('enum_var', 'enum_typespec', 'bpk177::enum_direct')]
+        A=[('enum_var', 'enum_typespec', 'bpk177::enum_direct')]
+        B=[('enum_var', 'enum_typespec', 'bpk177::enum_direct')]
+  A!.. ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_enum_v', '41:12')
+        G=[('ref_var', 'enum_typespec', 'bpk177::Enum_Via')]
+        A=[('enum_var', 'enum_typespec', 'bpk177::Enum_Via')]
+        B=[('ref_var', 'enum_typespec', 'bpk177::Enum_Via')]
+  .... ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_int_d', '46:12')
+        G=[('int_var', 'int_typespec', 'int_direct')]
+        A=[('int_var', 'int_typespec', 'int_direct')]
+        B=[('int_var', 'int_typespec', 'int_direct')]
+  A!B! ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_int_v', '47:12')
+        G=[('ref_var', 'int_typespec', 'bpk177::IntVia')]
+        A=[('int_var', 'int_typespec', 'IntVia')]
+        B=[('ref_var', 'int_typespec', 'IntVia')]
+  A!B! ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_real_d', '52:12')
+        G=[('real_var', 'real_typespec', 'real_direct')]
+        A=[('real_var', 'real_typespec', 'bpk177::real_direct')]
+        B=[('real_var', 'real_typespec', 'bpk177::real_direct')]
+  A!.. ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_real_v', '53:12')
+        G=[('ref_var', 'real_typespec', 'bpk177::RealVia')]
+        A=[('real_var', 'real_typespec', 'bpk177::RealVia')]
+        B=[('ref_var', 'real_typespec', 'bpk177::RealVia')]
+  A!B! ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_str_d', '50:12')
+        G=[('string_var', 'string_typespec', 'str_direct')]
+        A=[('string_var', 'string_typespec', 'bpk177::str_direct')]
+        B=[('string_var', 'string_typespec', 'bpk177::str_direct')]
+  A!.. ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_str_v', '51:12')
+        G=[('ref_var', 'string_typespec', 'bpk177::StrVia')]
+        A=[('string_var', 'string_typespec', 'bpk177::StrVia')]
+        B=[('ref_var', 'string_typespec', 'bpk177::StrVia')]
+  .... ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_struct_d', '42:12')
+        G=[('struct_var', 'struct_typespec', 'bpk177::struct_direct')]
+        A=[('struct_var', 'struct_typespec', 'bpk177::struct_direct')]
+        B=[('struct_var', 'struct_typespec', 'bpk177::struct_direct')]
+  A!.. ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_struct_v', '43:12')
+        G=[('ref_var', 'struct_typespec', 'bpk177::STRUCT_VIA')]
+        A=[('struct_var', 'struct_typespec', 'bpk177::STRUCT_VIA')]
+        B=[('ref_var', 'struct_typespec', 'bpk177::STRUCT_VIA')]
+  A!B! ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_ua_d', '58:12')
+        G=[('array_var', 'array_typespec', 'ua_base')]
+        A=[('array_var', 'int_typespec', '')]
+        B=[('array_var', 'int_typespec', '')]
+  A!B! ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_ua_v', '59:12')
+        G=[('ref_var', 'array_typespec', 'bpk177::UaVia')]
+        A=[('array_var', 'int_typespec', '')]
+        B=[('ref_var', 'int_typespec', '')]
+  .... ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_union_d', '44:12')
+        G=[('union_var', 'union_typespec', 'bpk177::union_direct')]
+        A=[('union_var', 'union_typespec', 'bpk177::union_direct')]
+        B=[('union_var', 'union_typespec', 'bpk177::union_direct')]
+  A!.. ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_union_v', '45:12')
+        G=[('ref_var', 'union_typespec', 'bpk177::unionVia')]
+        A=[('union_var', 'union_typespec', 'bpk177::unionVia')]
+        B=[('ref_var', 'union_typespec', 'bpk177::unionVia')]
+  .... ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_vec_d', '48:12')
+        G=[('bit_var', 'bit_typespec', 'vec_direct')]
+        A=[('bit_var', 'bit_typespec', 'vec_direct')]
+        B=[('bit_var', 'bit_typespec', 'vec_direct')]
+  A!B! ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_vec_v', '49:12')
+        G=[('ref_var', 'bit_typespec', 'bpk177::VecVia')]
+        A=[('bit_var', 'bit_typespec', 'VecVia')]
+        B=[('ref_var', 'bit_typespec', 'VecVia')]
+  .... ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_byte_d', '54:12')
+        G=[('byte_var', 'byte_typespec', 'byte_direct')]
+        A=[('byte_var', 'byte_typespec', 'byte_direct')]
+        B=[('byte_var', 'byte_typespec', 'byte_direct')]
+  A!B! ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_byte_v', '55:12')
+        G=[('byte_var', 'byte_typespec', 'bpk177::ByteVia')]
+        A=[('byte_var', 'byte_typespec', 'ByteVia')]
+        B=[('byte_var', 'byte_typespec', 'ByteVia')]
+  A!B! ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_cls_d', '56:12')
+        G=[('ref_var', 'unsupported_typespec', 'bpk177::ClsVia')]
+        A=[('ref_var', 'class_typespec', '')]
+        B=[('ref_var', 'class_typespec', '')]
+  A!B! ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_cls_v', '57:12')
+        G=[('ref_var', 'unsupported_typespec', 'bpk177::ClsVia')]
+        A=[('ref_var', 'class_typespec', '')]
+        B=[('ref_var', 'class_typespec', '')]
+  .... ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_enum_d', '40:12')
+        G=[('enum_var', 'enum_typespec', 'bpk177::enum_direct')]
+        A=[('enum_var', 'enum_typespec', 'bpk177::enum_direct')]
+        B=[('enum_var', 'enum_typespec', 'bpk177::enum_direct')]
+  .... ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_enum_v', '41:12')
+        G=[('enum_var', 'enum_typespec', 'bpk177::Enum_Via')]
+        A=[('enum_var', 'enum_typespec', 'bpk177::Enum_Via')]
+        B=[('enum_var', 'enum_typespec', 'bpk177::Enum_Via')]
+  .... ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_int_d', '46:12')
+        G=[('int_var', 'int_typespec', 'int_direct')]
+        A=[('int_var', 'int_typespec', 'int_direct')]
+        B=[('int_var', 'int_typespec', 'int_direct')]
+  A!B! ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_int_v', '47:12')
+        G=[('int_var', 'int_typespec', 'bpk177::IntVia')]
+        A=[('int_var', 'int_typespec', 'IntVia')]
+        B=[('int_var', 'int_typespec', 'IntVia')]
+  A!B! ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_real_d', '52:12')
+        G=[('real_var', 'real_typespec', 'real_direct')]
+        A=[('real_var', 'real_typespec', 'bpk177::real_direct')]
+        B=[('real_var', 'real_typespec', 'bpk177::real_direct')]
+  .... ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_real_v', '53:12')
+        G=[('real_var', 'real_typespec', 'bpk177::RealVia')]
+        A=[('real_var', 'real_typespec', 'bpk177::RealVia')]
+        B=[('real_var', 'real_typespec', 'bpk177::RealVia')]
+  A!B! ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_str_d', '50:12')
+        G=[('string_var', 'string_typespec', 'str_direct')]
+        A=[('string_var', 'string_typespec', 'bpk177::str_direct')]
+        B=[('string_var', 'string_typespec', 'bpk177::str_direct')]
+  .... ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_str_v', '51:12')
+        G=[('string_var', 'string_typespec', 'bpk177::StrVia')]
+        A=[('string_var', 'string_typespec', 'bpk177::StrVia')]
+        B=[('string_var', 'string_typespec', 'bpk177::StrVia')]
+  .... ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_struct_d', '42:12')
+        G=[('struct_var', 'struct_typespec', 'bpk177::struct_direct')]
+        A=[('struct_var', 'struct_typespec', 'bpk177::struct_direct')]
+        B=[('struct_var', 'struct_typespec', 'bpk177::struct_direct')]
+  .... ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_struct_v', '43:12')
+        G=[('struct_var', 'struct_typespec', 'bpk177::STRUCT_VIA')]
+        A=[('struct_var', 'struct_typespec', 'bpk177::STRUCT_VIA')]
+        B=[('struct_var', 'struct_typespec', 'bpk177::STRUCT_VIA')]
+  A!B! ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_ua_d', '58:12')
+        G=[('array_var', 'array_typespec', 'ua_base')]
+        A=[('array_var', 'int_typespec', '')]
+        B=[('array_var', 'int_typespec', '')]
+  A!B! ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_ua_v', '59:12')
+        G=[('array_var', 'array_typespec', 'bpk177::UaVia')]
+        A=[('array_var', 'int_typespec', '')]
+        B=[('array_var', 'int_typespec', '')]
+  .... ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_union_d', '44:12')
+        G=[('union_var', 'union_typespec', 'bpk177::union_direct')]
+        A=[('union_var', 'union_typespec', 'bpk177::union_direct')]
+        B=[('union_var', 'union_typespec', 'bpk177::union_direct')]
+  .... ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_union_v', '45:12')
+        G=[('union_var', 'union_typespec', 'bpk177::unionVia')]
+        A=[('union_var', 'union_typespec', 'bpk177::unionVia')]
+        B=[('union_var', 'union_typespec', 'bpk177::unionVia')]
+  .... ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_vec_d', '48:12')
+        G=[('bit_var', 'bit_typespec', 'vec_direct')]
+        A=[('bit_var', 'bit_typespec', 'vec_direct')]
+        B=[('bit_var', 'bit_typespec', 'vec_direct')]
+  A!B! ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_vec_v', '49:12')
+        G=[('bit_var', 'bit_typespec', 'bpk177::VecVia')]
+        A=[('bit_var', 'bit_typespec', 'VecVia')]
+        B=[('bit_var', 'bit_typespec', 'VecVia')]
+== view=elab  positions=69  A(pristine)_ok=37 B(patched)_ok=42  FIXED=5 MOVED-WRONG=0 MOVED-STILL-WRONG=4
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'new', '3:23')
+        G=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+        A=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+        B=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'num', '6:14')
+        G=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+        A=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+        B=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'try_get', '18:14')
+        G=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+        A=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+        B=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'try_peek', '24:14')
+        G=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+        A=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+        B=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'try_put', '0:0')
+        G=[('logic_var', '<nots>', '-'), ('logic_var', '<nots>', '-')]
+        A=[('logic_var', '<nots>', '-'), ('logic_var', '<nots>', '-')]
+        B=[('logic_var', '<nots>', '-'), ('logic_var', '<nots>', '-')]
+  .... ('CLASSDEF:work@process', 'PKGLIST:-|BARENAME', 'self', '34:21')
+        G=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+        A=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+        B=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+  .... ('CLASSDEF:work@process', 'PKGLIST:-|BARENAME', 'status', '37:14')
+        G=[('enum_var', 'enum_typespec', 'state'), ('enum_var', 'enum_typespec', 'state')]
+        A=[('enum_var', 'enum_typespec', 'state'), ('enum_var', 'enum_typespec', 'state')]
+        B=[('enum_var', 'enum_typespec', 'state'), ('enum_var', 'enum_typespec', 'state')]
+  .... ('CLASSDEF:work@semaphore', 'PKGLIST:-|BARENAME', 'new', '57:22')
+        G=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+        A=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+        B=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+  .... ('CLASSDEF:work@semaphore', 'PKGLIST:-|BARENAME', 'try_get', '66:14')
+        G=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+        A=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+        B=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+  .... ('MODELAB:work@bt177', 'PKGLIST:-|BARENAME', 'f_byte_d', '54:12')
+        G=[('byte_var', 'byte_typespec', 'byte_direct')]
+        A=[('byte_var', 'byte_typespec', 'byte_direct')]
+        B=[('byte_var', 'byte_typespec', 'byte_direct')]
+  A!B! ('MODELAB:work@bt177', 'PKGLIST:-|BARENAME', 'f_byte_v', '55:12')
+        G=[('byte_var', 'byte_typespec', 'bpk177::ByteVia')]
+        A=[('byte_var', 'byte_typespec', 'ByteVia')]
+        B=[('byte_var', 'byte_typespec', 'ByteVia')]
+  A!B! ('MODELAB:work@bt177', 'PKGLIST:-|BARENAME', 'f_cls_d', '56:12')
+        G=[('ref_var', 'unsupported_typespec', 'bpk177::ClsVia')]
+        A=[('ref_var', 'class_typespec', '')]
+        B=[('ref_var', 'class_typespec', '')]
+  A!B! ('MODELAB:work@bt177', 'PKGLIST:-|BARENAME', 'f_cls_v', '57:12')
+        G=[('ref_var', 'unsupported_typespec', 'bpk177::ClsVia')]
+        A=[('ref_var', 'class_typespec', '')]
+        B=[('ref_var', 'class_typespec', '')]
+  .... ('MODELAB:work@bt177', 'PKGLIST:-|BARENAME', 'f_enum_d', '40:12')
+        G=[('enum_var', 'enum_typespec', 'bpk177::enum_direct')]
+        A=[('enum_var', 'enum_typespec', 'bpk177::enum_direct')]
+        B=[('enum_var', 'enum_typespec', 'bpk177::enum_direct')]
+  .... ('MODELAB:work@bt177', 'PKGLIST:-|BARENAME', 'f_enum_v', '41:12')
+        G=[('enum_var', 'enum_typespec', 'bpk177::Enum_Via')]
+        A=[('enum_var', 'enum_typespec', 'bpk177::Enum_Via')]
+        B=[('enum_var', 'enum_typespec', 'bpk177::Enum_Via')]
+  .... ('MODELAB:work@bt177', 'PKGLIST:-|BARENAME', 'f_int_d', '46:12')
+        G=[('int_var', 'int_typespec', 'int_direct')]
+        A=[('int_var', 'int_typespec', 'int_direct')]
+        B=[('int_var', 'int_typespec', 'int_direct')]
+  A!B! ('MODELAB:work@bt177', 'PKGLIST:-|BARENAME', 'f_int_v', '47:12')
+        G=[('int_var', 'int_typespec', 'bpk177::IntVia')]
+        A=[('int_var', 'int_typespec', 'IntVia')]
+        B=[('int_var', 'int_typespec', 'IntVia')]
+  A!B! ('MODELAB:work@bt177', 'PKGLIST:-|BARENAME', 'f_real_d', '52:12')
+        G=[('real_var', 'real_typespec', 'real_direct')]
+        A=[('real_var', 'real_typespec', 'bpk177::real_direct')]
+        B=[('real_var', 'real_typespec', 'bpk177::real_direct')]
+  .... ('MODELAB:work@bt177', 'PKGLIST:-|BARENAME', 'f_real_v', '53:12')
+        G=[('real_var', 'real_typespec', 'bpk177::RealVia')]
+        A=[('real_var', 'real_typespec', 'bpk177::RealVia')]
+        B=[('real_var', 'real_typespec', 'bpk177::RealVia')]
+  A!B! ('MODELAB:work@bt177', 'PKGLIST:-|BARENAME', 'f_str_d', '50:12')
+        G=[('string_var', 'string_typespec', 'str_direct')]
+        A=[('string_var', 'string_typespec', 'bpk177::str_direct')]
+        B=[('string_var', 'string_typespec', 'bpk177::str_direct')]
+  .... ('MODELAB:work@bt177', 'PKGLIST:-|BARENAME', 'f_str_v', '51:12')
+        G=[('string_var', 'string_typespec', 'bpk177::StrVia')]
+        A=[('string_var', 'string_typespec', 'bpk177::StrVia')]
+        B=[('string_var', 'string_typespec', 'bpk177::StrVia')]
+  .... ('MODELAB:work@bt177', 'PKGLIST:-|BARENAME', 'f_struct_d', '42:12')
+        G=[('struct_var', 'struct_typespec', 'bpk177::struct_direct')]
+        A=[('struct_var', 'struct_typespec', 'bpk177::struct_direct')]
+        B=[('struct_var', 'struct_typespec', 'bpk177::struct_direct')]
+  .... ('MODELAB:work@bt177', 'PKGLIST:-|BARENAME', 'f_struct_v', '43:12')
+        G=[('struct_var', 'struct_typespec', 'bpk177::STRUCT_VIA')]
+        A=[('struct_var', 'struct_typespec', 'bpk177::STRUCT_VIA')]
+        B=[('struct_var', 'struct_typespec', 'bpk177::STRUCT_VIA')]
+  A!B! ('MODELAB:work@bt177', 'PKGLIST:-|BARENAME', 'f_ua_d', '58:12')
+        G=[('array_var', 'array_typespec', 'ua_base')]
+        A=[('array_var', 'int_typespec', '')]
+        B=[('array_var', 'int_typespec', '')]
+  A!B! ('MODELAB:work@bt177', 'PKGLIST:-|BARENAME', 'f_ua_v', '59:12')
+        G=[('array_var', 'array_typespec', 'bpk177::UaVia')]
+        A=[('array_var', 'int_typespec', '')]
+        B=[('array_var', 'int_typespec', '')]
+  .... ('MODELAB:work@bt177', 'PKGLIST:-|BARENAME', 'f_union_d', '44:12')
+        G=[('union_var', 'union_typespec', 'bpk177::union_direct')]
+        A=[('union_var', 'union_typespec', 'bpk177::union_direct')]
+        B=[('union_var', 'union_typespec', 'bpk177::union_direct')]
+  .... ('MODELAB:work@bt177', 'PKGLIST:-|BARENAME', 'f_union_v', '45:12')
+        G=[('union_var', 'union_typespec', 'bpk177::unionVia')]
+        A=[('union_var', 'union_typespec', 'bpk177::unionVia')]
+        B=[('union_var', 'union_typespec', 'bpk177::unionVia')]
+  .... ('MODELAB:work@bt177', 'PKGLIST:-|BARENAME', 'f_vec_d', '48:12')
+        G=[('bit_var', 'bit_typespec', 'vec_direct')]
+        A=[('bit_var', 'bit_typespec', 'vec_direct')]
+        B=[('bit_var', 'bit_typespec', 'vec_direct')]
+  A!B! ('MODELAB:work@bt177', 'PKGLIST:-|BARENAME', 'f_vec_v', '49:12')
+        G=[('bit_var', 'bit_typespec', 'bpk177::VecVia')]
+        A=[('bit_var', 'bit_typespec', 'VecVia')]
+        B=[('bit_var', 'bit_typespec', 'VecVia')]
+  .... ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_byte_d', '54:12')
+        G=[('byte_var', 'byte_typespec', 'byte_direct'), ('byte_var', 'byte_typespec', 'byte_direct')]
+        A=[('byte_var', 'byte_typespec', 'byte_direct'), ('byte_var', 'byte_typespec', 'byte_direct')]
+        B=[('byte_var', 'byte_typespec', 'byte_direct'), ('byte_var', 'byte_typespec', 'byte_direct')]
+  A!B! ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_byte_v', '55:12')
+        G=[('ref_var', 'byte_typespec', 'bpk177::ByteVia'), ('ref_var', 'byte_typespec', 'bpk177::ByteVia')]
+        A=[('byte_var', 'byte_typespec', 'ByteVia'), ('byte_var', 'byte_typespec', 'ByteVia')]
+        B=[('ref_var', 'byte_typespec', 'ByteVia'), ('ref_var', 'byte_typespec', 'ByteVia')]
+  A!B! ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_cls_d', '56:12')
+        G=[('ref_var', 'unsupported_typespec', 'cls_direct'), ('ref_var', 'unsupported_typespec', 'cls_direct')]
+        A=[('ref_var', 'class_typespec', ''), ('ref_var', 'class_typespec', '')]
+        B=[('ref_var', 'class_typespec', ''), ('ref_var', 'class_typespec', '')]
+  A!B! ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_cls_v', '57:12')
+        G=[('ref_var', 'unsupported_typespec', 'bpk177::ClsVia'), ('ref_var', 'unsupported_typespec', 'bpk177::ClsVia')]
+        A=[('ref_var', 'class_typespec', ''), ('ref_var', 'class_typespec', '')]
+        B=[('ref_var', 'class_typespec', ''), ('ref_var', 'class_typespec', '')]
+  .... ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_enum_d', '40:12')
+        G=[('enum_var', 'enum_typespec', 'bpk177::enum_direct'), ('enum_var', 'enum_typespec', 'bpk177::enum_direct')]
+        A=[('enum_var', 'enum_typespec', 'bpk177::enum_direct'), ('enum_var', 'enum_typespec', 'bpk177::enum_direct')]
+        B=[('enum_var', 'enum_typespec', 'bpk177::enum_direct'), ('enum_var', 'enum_typespec', 'bpk177::enum_direct')]
+  A!.. ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_enum_v', '41:12')
+        G=[('ref_var', 'enum_typespec', 'bpk177::Enum_Via'), ('ref_var', 'enum_typespec', 'bpk177::Enum_Via')]
+        A=[('enum_var', 'enum_typespec', 'bpk177::Enum_Via'), ('enum_var', 'enum_typespec', 'bpk177::Enum_Via')]
+        B=[('ref_var', 'enum_typespec', 'bpk177::Enum_Via'), ('ref_var', 'enum_typespec', 'bpk177::Enum_Via')]
+  .... ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_int_d', '46:12')
+        G=[('int_var', 'int_typespec', 'int_direct'), ('int_var', 'int_typespec', 'int_direct')]
+        A=[('int_var', 'int_typespec', 'int_direct'), ('int_var', 'int_typespec', 'int_direct')]
+        B=[('int_var', 'int_typespec', 'int_direct'), ('int_var', 'int_typespec', 'int_direct')]
+  A!B! ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_int_v', '47:12')
+        G=[('ref_var', 'int_typespec', 'bpk177::IntVia'), ('ref_var', 'int_typespec', 'bpk177::IntVia')]
+        A=[('int_var', 'int_typespec', 'IntVia'), ('int_var', 'int_typespec', 'IntVia')]
+        B=[('ref_var', 'int_typespec', 'IntVia'), ('ref_var', 'int_typespec', 'IntVia')]
+  A!B! ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_real_d', '52:12')
+        G=[('real_var', 'real_typespec', 'real_direct'), ('real_var', 'real_typespec', 'real_direct')]
+        A=[('real_var', 'real_typespec', 'bpk177::real_direct'), ('real_var', 'real_typespec', 'bpk177::real_direct')]
+        B=[('real_var', 'real_typespec', 'bpk177::real_direct'), ('real_var', 'real_typespec', 'bpk177::real_direct')]
+  A!.. ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_real_v', '53:12')
+        G=[('ref_var', 'real_typespec', 'bpk177::RealVia'), ('ref_var', 'real_typespec', 'bpk177::RealVia')]
+        A=[('real_var', 'real_typespec', 'bpk177::RealVia'), ('real_var', 'real_typespec', 'bpk177::RealVia')]
+        B=[('ref_var', 'real_typespec', 'bpk177::RealVia'), ('ref_var', 'real_typespec', 'bpk177::RealVia')]
+  A!B! ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_str_d', '50:12')
+        G=[('string_var', 'string_typespec', 'str_direct'), ('string_var', 'string_typespec', 'str_direct')]
+        A=[('string_var', 'string_typespec', 'bpk177::str_direct'), ('string_var', 'string_typespec', 'bpk177::str_direct')]
+        B=[('string_var', 'string_typespec', 'bpk177::str_direct'), ('string_var', 'string_typespec', 'bpk177::str_direct')]
+  A!.. ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_str_v', '51:12')
+        G=[('ref_var', 'string_typespec', 'bpk177::StrVia'), ('ref_var', 'string_typespec', 'bpk177::StrVia')]
+        A=[('string_var', 'string_typespec', 'bpk177::StrVia'), ('string_var', 'string_typespec', 'bpk177::StrVia')]
+        B=[('ref_var', 'string_typespec', 'bpk177::StrVia'), ('ref_var', 'string_typespec', 'bpk177::StrVia')]
+  .... ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_struct_d', '42:12')
+        G=[('struct_var', 'struct_typespec', 'bpk177::struct_direct'), ('struct_var', 'struct_typespec', 'bpk177::struct_direct')]
+        A=[('struct_var', 'struct_typespec', 'bpk177::struct_direct'), ('struct_var', 'struct_typespec', 'bpk177::struct_direct')]
+        B=[('struct_var', 'struct_typespec', 'bpk177::struct_direct'), ('struct_var', 'struct_typespec', 'bpk177::struct_direct')]
+  A!.. ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_struct_v', '43:12')
+        G=[('ref_var', 'struct_typespec', 'bpk177::STRUCT_VIA'), ('ref_var', 'struct_typespec', 'bpk177::STRUCT_VIA')]
+        A=[('struct_var', 'struct_typespec', 'bpk177::STRUCT_VIA'), ('struct_var', 'struct_typespec', 'bpk177::STRUCT_VIA')]
+        B=[('ref_var', 'struct_typespec', 'bpk177::STRUCT_VIA'), ('ref_var', 'struct_typespec', 'bpk177::STRUCT_VIA')]
+  A!B! ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_ua_d', '58:12')
+        G=[('array_var', 'array_typespec', 'ua_base'), ('array_var', 'array_typespec', 'ua_base')]
+        A=[('array_var', 'int_typespec', ''), ('array_var', 'int_typespec', '')]
+        B=[('array_var', 'int_typespec', ''), ('array_var', 'int_typespec', '')]
+  A!B! ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_ua_v', '59:12')
+        G=[('ref_var', 'array_typespec', 'bpk177::UaVia'), ('ref_var', 'array_typespec', 'bpk177::UaVia')]
+        A=[('array_var', 'int_typespec', ''), ('array_var', 'int_typespec', '')]
+        B=[('ref_var', 'int_typespec', ''), ('ref_var', 'int_typespec', '')]
+  .... ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_union_d', '44:12')
+        G=[('union_var', 'union_typespec', 'bpk177::union_direct'), ('union_var', 'union_typespec', 'bpk177::union_direct')]
+        A=[('union_var', 'union_typespec', 'bpk177::union_direct'), ('union_var', 'union_typespec', 'bpk177::union_direct')]
+        B=[('union_var', 'union_typespec', 'bpk177::union_direct'), ('union_var', 'union_typespec', 'bpk177::union_direct')]
+  A!.. ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_union_v', '45:12')
+        G=[('ref_var', 'union_typespec', 'bpk177::unionVia'), ('ref_var', 'union_typespec', 'bpk177::unionVia')]
+        A=[('union_var', 'union_typespec', 'bpk177::unionVia'), ('union_var', 'union_typespec', 'bpk177::unionVia')]
+        B=[('ref_var', 'union_typespec', 'bpk177::unionVia'), ('ref_var', 'union_typespec', 'bpk177::unionVia')]
+  .... ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_vec_d', '48:12')
+        G=[('bit_var', 'bit_typespec', 'vec_direct'), ('bit_var', 'bit_typespec', 'vec_direct')]
+        A=[('bit_var', 'bit_typespec', 'vec_direct'), ('bit_var', 'bit_typespec', 'vec_direct')]
+        B=[('bit_var', 'bit_typespec', 'vec_direct'), ('bit_var', 'bit_typespec', 'vec_direct')]
+  A!B! ('PKGDEF:bpk177', 'PKGLIST:-|BARENAME', 'f_vec_v', '49:12')
+        G=[('ref_var', 'bit_typespec', 'bpk177::VecVia'), ('ref_var', 'bit_typespec', 'bpk177::VecVia')]
+        A=[('bit_var', 'bit_typespec', 'VecVia'), ('bit_var', 'bit_typespec', 'VecVia')]
+        B=[('ref_var', 'bit_typespec', 'VecVia'), ('ref_var', 'bit_typespec', 'VecVia')]
+  .... ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_byte_d', '54:12')
+        G=[('byte_var', 'byte_typespec', 'byte_direct'), ('byte_var', 'byte_typespec', 'byte_direct')]
+        A=[('byte_var', 'byte_typespec', 'byte_direct'), ('byte_var', 'byte_typespec', 'byte_direct')]
+        B=[('byte_var', 'byte_typespec', 'byte_direct'), ('byte_var', 'byte_typespec', 'byte_direct')]
+  A!B! ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_byte_v', '55:12')
+        G=[('byte_var', 'byte_typespec', 'bpk177::ByteVia'), ('byte_var', 'byte_typespec', 'bpk177::ByteVia')]
+        A=[('byte_var', 'byte_typespec', 'ByteVia'), ('byte_var', 'byte_typespec', 'ByteVia')]
+        B=[('byte_var', 'byte_typespec', 'ByteVia'), ('byte_var', 'byte_typespec', 'ByteVia')]
+  A!B! ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_cls_d', '56:12')
+        G=[('ref_var', 'unsupported_typespec', 'bpk177::ClsVia'), ('ref_var', 'unsupported_typespec', 'bpk177::ClsVia')]
+        A=[('ref_var', 'class_typespec', ''), ('ref_var', 'class_typespec', '')]
+        B=[('ref_var', 'class_typespec', ''), ('ref_var', 'class_typespec', '')]
+  A!B! ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_cls_v', '57:12')
+        G=[('ref_var', 'unsupported_typespec', 'bpk177::ClsVia'), ('ref_var', 'unsupported_typespec', 'bpk177::ClsVia')]
+        A=[('ref_var', 'class_typespec', ''), ('ref_var', 'class_typespec', '')]
+        B=[('ref_var', 'class_typespec', ''), ('ref_var', 'class_typespec', '')]
+  .... ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_enum_d', '40:12')
+        G=[('enum_var', 'enum_typespec', 'bpk177::enum_direct'), ('enum_var', 'enum_typespec', 'bpk177::enum_direct')]
+        A=[('enum_var', 'enum_typespec', 'bpk177::enum_direct'), ('enum_var', 'enum_typespec', 'bpk177::enum_direct')]
+        B=[('enum_var', 'enum_typespec', 'bpk177::enum_direct'), ('enum_var', 'enum_typespec', 'bpk177::enum_direct')]
+  .... ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_enum_v', '41:12')
+        G=[('enum_var', 'enum_typespec', 'bpk177::Enum_Via'), ('enum_var', 'enum_typespec', 'bpk177::Enum_Via')]
+        A=[('enum_var', 'enum_typespec', 'bpk177::Enum_Via'), ('enum_var', 'enum_typespec', 'bpk177::Enum_Via')]
+        B=[('enum_var', 'enum_typespec', 'bpk177::Enum_Via'), ('enum_var', 'enum_typespec', 'bpk177::Enum_Via')]
+  .... ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_int_d', '46:12')
+        G=[('int_var', 'int_typespec', 'int_direct'), ('int_var', 'int_typespec', 'int_direct')]
+        A=[('int_var', 'int_typespec', 'int_direct'), ('int_var', 'int_typespec', 'int_direct')]
+        B=[('int_var', 'int_typespec', 'int_direct'), ('int_var', 'int_typespec', 'int_direct')]
+  A!B! ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_int_v', '47:12')
+        G=[('int_var', 'int_typespec', 'bpk177::IntVia'), ('int_var', 'int_typespec', 'bpk177::IntVia')]
+        A=[('int_var', 'int_typespec', 'IntVia'), ('int_var', 'int_typespec', 'IntVia')]
+        B=[('int_var', 'int_typespec', 'IntVia'), ('int_var', 'int_typespec', 'IntVia')]
+  A!B! ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_real_d', '52:12')
+        G=[('real_var', 'real_typespec', 'real_direct'), ('real_var', 'real_typespec', 'real_direct')]
+        A=[('real_var', 'real_typespec', 'bpk177::real_direct'), ('real_var', 'real_typespec', 'bpk177::real_direct')]
+        B=[('real_var', 'real_typespec', 'bpk177::real_direct'), ('real_var', 'real_typespec', 'bpk177::real_direct')]
+  .... ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_real_v', '53:12')
+        G=[('real_var', 'real_typespec', 'bpk177::RealVia'), ('real_var', 'real_typespec', 'bpk177::RealVia')]
+        A=[('real_var', 'real_typespec', 'bpk177::RealVia'), ('real_var', 'real_typespec', 'bpk177::RealVia')]
+        B=[('real_var', 'real_typespec', 'bpk177::RealVia'), ('real_var', 'real_typespec', 'bpk177::RealVia')]
+  A!B! ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_str_d', '50:12')
+        G=[('string_var', 'string_typespec', 'str_direct'), ('string_var', 'string_typespec', 'str_direct')]
+        A=[('string_var', 'string_typespec', 'bpk177::str_direct'), ('string_var', 'string_typespec', 'bpk177::str_direct')]
+        B=[('string_var', 'string_typespec', 'bpk177::str_direct'), ('string_var', 'string_typespec', 'bpk177::str_direct')]
+  .... ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_str_v', '51:12')
+        G=[('string_var', 'string_typespec', 'bpk177::StrVia'), ('string_var', 'string_typespec', 'bpk177::StrVia')]
+        A=[('string_var', 'string_typespec', 'bpk177::StrVia'), ('string_var', 'string_typespec', 'bpk177::StrVia')]
+        B=[('string_var', 'string_typespec', 'bpk177::StrVia'), ('string_var', 'string_typespec', 'bpk177::StrVia')]
+  .... ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_struct_d', '42:12')
+        G=[('struct_var', 'struct_typespec', 'bpk177::struct_direct'), ('struct_var', 'struct_typespec', 'bpk177::struct_direct')]
+        A=[('struct_var', 'struct_typespec', 'bpk177::struct_direct'), ('struct_var', 'struct_typespec', 'bpk177::struct_direct')]
+        B=[('struct_var', 'struct_typespec', 'bpk177::struct_direct'), ('struct_var', 'struct_typespec', 'bpk177::struct_direct')]
+  .... ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_struct_v', '43:12')
+        G=[('struct_var', 'struct_typespec', 'bpk177::STRUCT_VIA'), ('struct_var', 'struct_typespec', 'bpk177::STRUCT_VIA')]
+        A=[('struct_var', 'struct_typespec', 'bpk177::STRUCT_VIA'), ('struct_var', 'struct_typespec', 'bpk177::STRUCT_VIA')]
+        B=[('struct_var', 'struct_typespec', 'bpk177::STRUCT_VIA'), ('struct_var', 'struct_typespec', 'bpk177::STRUCT_VIA')]
+  A!B! ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_ua_d', '58:12')
+        G=[('array_var', 'array_typespec', 'ua_base'), ('array_var', 'array_typespec', 'ua_base')]
+        A=[('array_var', 'int_typespec', ''), ('array_var', 'int_typespec', '')]
+        B=[('array_var', 'int_typespec', ''), ('array_var', 'int_typespec', '')]
+  A!B! ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_ua_v', '59:12')
+        G=[('array_var', 'array_typespec', 'bpk177::UaVia'), ('array_var', 'array_typespec', 'bpk177::UaVia')]
+        A=[('array_var', 'int_typespec', ''), ('array_var', 'int_typespec', '')]
+        B=[('array_var', 'int_typespec', ''), ('array_var', 'int_typespec', '')]
+  .... ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_union_d', '44:12')
+        G=[('union_var', 'union_typespec', 'bpk177::union_direct'), ('union_var', 'union_typespec', 'bpk177::union_direct')]
+        A=[('union_var', 'union_typespec', 'bpk177::union_direct'), ('union_var', 'union_typespec', 'bpk177::union_direct')]
+        B=[('union_var', 'union_typespec', 'bpk177::union_direct'), ('union_var', 'union_typespec', 'bpk177::union_direct')]
+  .... ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_union_v', '45:12')
+        G=[('union_var', 'union_typespec', 'bpk177::unionVia'), ('union_var', 'union_typespec', 'bpk177::unionVia')]
+        A=[('union_var', 'union_typespec', 'bpk177::unionVia'), ('union_var', 'union_typespec', 'bpk177::unionVia')]
+        B=[('union_var', 'union_typespec', 'bpk177::unionVia'), ('union_var', 'union_typespec', 'bpk177::unionVia')]
+  .... ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_vec_d', '48:12')
+        G=[('bit_var', 'bit_typespec', 'vec_direct'), ('bit_var', 'bit_typespec', 'vec_direct')]
+        A=[('bit_var', 'bit_typespec', 'vec_direct'), ('bit_var', 'bit_typespec', 'vec_direct')]
+        B=[('bit_var', 'bit_typespec', 'vec_direct'), ('bit_var', 'bit_typespec', 'vec_direct')]
+  A!B! ('PKGELAB:bpk177', 'PKGLIST:-|BARENAME', 'f_vec_v', '49:12')
+        G=[('bit_var', 'bit_typespec', 'bpk177::VecVia'), ('bit_var', 'bit_typespec', 'bpk177::VecVia')]
+        A=[('bit_var', 'bit_typespec', 'VecVia'), ('bit_var', 'bit_typespec', 'VecVia')]
+        B=[('bit_var', 'bit_typespec', 'VecVia'), ('bit_var', 'bit_typespec', 'VecVia')]
+
+############ arm c  (g177_c_homes.sv)
+cmp rc=255 a def lines=172 heads=1
+cmp rc=255 b def lines=172 heads=1
+cmp rc=255 a elab lines=172 heads=1
+cmp rc=255 b elab lines=172 heads=1
+== view=def  positions=27  A(pristine)_ok=23 B(patched)_ok=27  FIXED=4 MOVED-WRONG=0 MOVED-STILL-WRONG=0
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'new', '3:23')
+        G=[('class_var', 'class_typespec', '')]
+        A=[('class_var', 'class_typespec', '')]
+        B=[('class_var', 'class_typespec', '')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'num', '6:14')
+        G=[('int_var', 'int_typespec', '')]
+        A=[('int_var', 'int_typespec', '')]
+        B=[('int_var', 'int_typespec', '')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'try_get', '18:14')
+        G=[('int_var', 'int_typespec', '')]
+        A=[('int_var', 'int_typespec', '')]
+        B=[('int_var', 'int_typespec', '')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'try_peek', '24:14')
+        G=[('int_var', 'int_typespec', '')]
+        A=[('int_var', 'int_typespec', '')]
+        B=[('int_var', 'int_typespec', '')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'try_put', '0:0')
+        G=[('logic_var', '<nots>', '-')]
+        A=[('logic_var', '<nots>', '-')]
+        B=[('logic_var', '<nots>', '-')]
+  .... ('CLASSDEF:work@process', 'PKGLIST:-|BARENAME', 'self', '34:21')
+        G=[('class_var', 'class_typespec', '')]
+        A=[('class_var', 'class_typespec', '')]
+        B=[('class_var', 'class_typespec', '')]
+  .... ('CLASSDEF:work@process', 'PKGLIST:-|BARENAME', 'status', '37:14')
+        G=[('enum_var', 'enum_typespec', 'state')]
+        A=[('enum_var', 'enum_typespec', 'state')]
+        B=[('enum_var', 'enum_typespec', 'state')]
+  .... ('CLASSDEF:work@semaphore', 'PKGLIST:-|BARENAME', 'new', '57:22')
+        G=[('class_var', 'class_typespec', '')]
+        A=[('class_var', 'class_typespec', '')]
+        B=[('class_var', 'class_typespec', '')]
+  .... ('CLASSDEF:work@semaphore', 'PKGLIST:-|BARENAME', 'try_get', '66:14')
+        G=[('int_var', 'int_typespec', '')]
+        A=[('int_var', 'int_typespec', '')]
+        B=[('int_var', 'int_typespec', '')]
+  .... ('MODDEF:work@cmod177', 'PKGLIST:-|BARENAME', 'k_impvia', '44:12')
+        G=[('enum_var', 'enum_typespec', 'nearpk177::NearVia')]
+        A=[('enum_var', 'enum_typespec', 'nearpk177::NearVia')]
+        B=[('enum_var', 'enum_typespec', 'nearpk177::NearVia')]
+  .... ('MODDEF:work@cmod177', 'PKGLIST:-|BARENAME', 'k_moddirect', '42:12')
+        G=[('enum_var', 'enum_typespec', 'mod_enum')]
+        A=[('enum_var', 'enum_typespec', 'mod_enum')]
+        B=[('enum_var', 'enum_typespec', 'mod_enum')]
+  A!.. ('MODDEF:work@cmod177', 'PKGLIST:-|BARENAME', 'k_modvia', '43:12')
+        G=[('ref_var', 'enum_typespec', 'ModVia')]
+        A=[('enum_var', 'enum_typespec', 'ModVia')]
+        B=[('ref_var', 'enum_typespec', 'ModVia')]
+  .... ('MODDEF:work@cmod177', 'PKGLIST:-|BARENAME', 'k_unitvia', '45:12')
+        G=[('enum_var', 'enum_typespec', 'UnitVia')]
+        A=[('enum_var', 'enum_typespec', 'UnitVia')]
+        B=[('enum_var', 'enum_typespec', 'UnitVia')]
+  .... ('PKGDEF:nearpk177', 'PKGLIST:-|BARENAME', 'h_direct', '24:12')
+        G=[('enum_var', 'enum_typespec', 'nearpk177::near_enum')]
+        A=[('enum_var', 'enum_typespec', 'nearpk177::near_enum')]
+        B=[('enum_var', 'enum_typespec', 'nearpk177::near_enum')]
+  A!.. ('PKGDEF:nearpk177', 'PKGLIST:-|BARENAME', 'h_farvia', '27:12')
+        G=[('ref_var', 'enum_typespec', 'nearpk177::ViaOfForeignVia')]
+        A=[('enum_var', 'enum_typespec', 'nearpk177::ViaOfForeignVia')]
+        B=[('ref_var', 'enum_typespec', 'nearpk177::ViaOfForeignVia')]
+  A!.. ('PKGDEF:nearpk177', 'PKGLIST:-|BARENAME', 'h_impvia', '26:12')
+        G=[('ref_var', 'enum_typespec', 'nearpk177::ImportedVia')]
+        A=[('enum_var', 'enum_typespec', 'nearpk177::ImportedVia')]
+        B=[('ref_var', 'enum_typespec', 'nearpk177::ImportedVia')]
+  A!.. ('PKGDEF:nearpk177', 'PKGLIST:-|BARENAME', 'h_localvia', '25:12')
+        G=[('ref_var', 'enum_typespec', 'nearpk177::NearVia')]
+        A=[('enum_var', 'enum_typespec', 'nearpk177::NearVia')]
+        B=[('ref_var', 'enum_typespec', 'nearpk177::NearVia')]
+  .... ('PKGDEF:nearpk177', 'PKGLIST:-|BARENAME', 'h_scopeddir', '29:12')
+        G=[('enum_var', 'enum_typespec', 'farpk177::far_enum')]
+        A=[('enum_var', 'enum_typespec', 'farpk177::far_enum')]
+        B=[('enum_var', 'enum_typespec', 'farpk177::far_enum')]
+  .... ('PKGDEF:nearpk177', 'PKGLIST:-|BARENAME', 'h_scopedint', '34:12')
+        G=[('int_var', 'int_typespec', 'farpk177::FarIntVia')]
+        A=[('int_var', 'int_typespec', 'farpk177::FarIntVia')]
+        B=[('int_var', 'int_typespec', 'farpk177::FarIntVia')]
+  .... ('PKGDEF:nearpk177', 'PKGLIST:-|BARENAME', 'h_scopedvia', '28:12')
+        G=[('enum_var', 'enum_typespec', 'farpk177::FarVia')]
+        A=[('enum_var', 'enum_typespec', 'farpk177::FarVia')]
+        B=[('enum_var', 'enum_typespec', 'farpk177::FarVia')]
+  .... ('PKGELAB:nearpk177', 'PKGLIST:-|BARENAME', 'h_direct', '24:12')
+        G=[('enum_var', 'enum_typespec', 'nearpk177::near_enum')]
+        A=[('enum_var', 'enum_typespec', 'nearpk177::near_enum')]
+        B=[('enum_var', 'enum_typespec', 'nearpk177::near_enum')]
+  .... ('PKGELAB:nearpk177', 'PKGLIST:-|BARENAME', 'h_farvia', '27:12')
+        G=[('enum_var', 'enum_typespec', 'nearpk177::ViaOfForeignVia')]
+        A=[('enum_var', 'enum_typespec', 'nearpk177::ViaOfForeignVia')]
+        B=[('enum_var', 'enum_typespec', 'nearpk177::ViaOfForeignVia')]
+  .... ('PKGELAB:nearpk177', 'PKGLIST:-|BARENAME', 'h_impvia', '26:12')
+        G=[('enum_var', 'enum_typespec', 'nearpk177::ImportedVia')]
+        A=[('enum_var', 'enum_typespec', 'nearpk177::ImportedVia')]
+        B=[('enum_var', 'enum_typespec', 'nearpk177::ImportedVia')]
+  .... ('PKGELAB:nearpk177', 'PKGLIST:-|BARENAME', 'h_localvia', '25:12')
+        G=[('enum_var', 'enum_typespec', 'nearpk177::NearVia')]
+        A=[('enum_var', 'enum_typespec', 'nearpk177::NearVia')]
+        B=[('enum_var', 'enum_typespec', 'nearpk177::NearVia')]
+  .... ('PKGELAB:nearpk177', 'PKGLIST:-|BARENAME', 'h_scopeddir', '29:12')
+        G=[('enum_var', 'enum_typespec', 'farpk177::far_enum')]
+        A=[('enum_var', 'enum_typespec', 'farpk177::far_enum')]
+        B=[('enum_var', 'enum_typespec', 'farpk177::far_enum')]
+  .... ('PKGELAB:nearpk177', 'PKGLIST:-|BARENAME', 'h_scopedint', '34:12')
+        G=[('int_var', 'int_typespec', 'farpk177::FarIntVia')]
+        A=[('int_var', 'int_typespec', 'farpk177::FarIntVia')]
+        B=[('int_var', 'int_typespec', 'farpk177::FarIntVia')]
+  .... ('PKGELAB:nearpk177', 'PKGLIST:-|BARENAME', 'h_scopedvia', '28:12')
+        G=[('enum_var', 'enum_typespec', 'farpk177::FarVia')]
+        A=[('enum_var', 'enum_typespec', 'farpk177::FarVia')]
+        B=[('enum_var', 'enum_typespec', 'farpk177::FarVia')]
+== view=elab  positions=38  A(pristine)_ok=33 B(patched)_ok=38  FIXED=5 MOVED-WRONG=0 MOVED-STILL-WRONG=0
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'new', '3:23')
+        G=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+        A=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+        B=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'num', '6:14')
+        G=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+        A=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+        B=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'try_get', '18:14')
+        G=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+        A=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+        B=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'try_peek', '24:14')
+        G=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+        A=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+        B=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'try_put', '0:0')
+        G=[('logic_var', '<nots>', '-'), ('logic_var', '<nots>', '-')]
+        A=[('logic_var', '<nots>', '-'), ('logic_var', '<nots>', '-')]
+        B=[('logic_var', '<nots>', '-'), ('logic_var', '<nots>', '-')]
+  .... ('CLASSDEF:work@process', 'PKGLIST:-|BARENAME', 'self', '34:21')
+        G=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+        A=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+        B=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+  .... ('CLASSDEF:work@process', 'PKGLIST:-|BARENAME', 'status', '37:14')
+        G=[('enum_var', 'enum_typespec', 'state'), ('enum_var', 'enum_typespec', 'state')]
+        A=[('enum_var', 'enum_typespec', 'state'), ('enum_var', 'enum_typespec', 'state')]
+        B=[('enum_var', 'enum_typespec', 'state'), ('enum_var', 'enum_typespec', 'state')]
+  .... ('CLASSDEF:work@semaphore', 'PKGLIST:-|BARENAME', 'new', '57:22')
+        G=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+        A=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+        B=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+  .... ('CLASSDEF:work@semaphore', 'PKGLIST:-|BARENAME', 'try_get', '66:14')
+        G=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+        A=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+        B=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+  .... ('MODDEF:work@cmod177', 'PKGLIST:-|BARENAME', 'k_impvia', '44:12')
+        G=[('enum_var', 'enum_typespec', 'nearpk177::NearVia')]
+        A=[('enum_var', 'enum_typespec', 'nearpk177::NearVia')]
+        B=[('enum_var', 'enum_typespec', 'nearpk177::NearVia')]
+  .... ('MODDEF:work@cmod177', 'PKGLIST:-|BARENAME', 'k_moddirect', '42:12')
+        G=[('enum_var', 'enum_typespec', 'mod_enum')]
+        A=[('enum_var', 'enum_typespec', 'mod_enum')]
+        B=[('enum_var', 'enum_typespec', 'mod_enum')]
+  A!.. ('MODDEF:work@cmod177', 'PKGLIST:-|BARENAME', 'k_modvia', '43:12')
+        G=[('ref_var', 'enum_typespec', 'ModVia')]
+        A=[('enum_var', 'enum_typespec', 'ModVia')]
+        B=[('ref_var', 'enum_typespec', 'ModVia')]
+  .... ('MODDEF:work@cmod177', 'PKGLIST:-|BARENAME', 'k_unitvia', '45:12')
+        G=[('enum_var', 'enum_typespec', 'UnitVia')]
+        A=[('enum_var', 'enum_typespec', 'UnitVia')]
+        B=[('enum_var', 'enum_typespec', 'UnitVia')]
+  .... ('MODELAB:work@cmod177', 'PKGLIST:-|BARENAME', 'h_direct', '24:12')
+        G=[('enum_var', 'enum_typespec', 'nearpk177::near_enum')]
+        A=[('enum_var', 'enum_typespec', 'nearpk177::near_enum')]
+        B=[('enum_var', 'enum_typespec', 'nearpk177::near_enum')]
+  .... ('MODELAB:work@cmod177', 'PKGLIST:-|BARENAME', 'h_farvia', '27:12')
+        G=[('enum_var', 'enum_typespec', 'nearpk177::ViaOfForeignVia')]
+        A=[('enum_var', 'enum_typespec', 'nearpk177::ViaOfForeignVia')]
+        B=[('enum_var', 'enum_typespec', 'nearpk177::ViaOfForeignVia')]
+  .... ('MODELAB:work@cmod177', 'PKGLIST:-|BARENAME', 'h_impvia', '26:12')
+        G=[('enum_var', 'enum_typespec', 'nearpk177::ImportedVia')]
+        A=[('enum_var', 'enum_typespec', 'nearpk177::ImportedVia')]
+        B=[('enum_var', 'enum_typespec', 'nearpk177::ImportedVia')]
+  .... ('MODELAB:work@cmod177', 'PKGLIST:-|BARENAME', 'h_localvia', '25:12')
+        G=[('enum_var', 'enum_typespec', 'nearpk177::NearVia')]
+        A=[('enum_var', 'enum_typespec', 'nearpk177::NearVia')]
+        B=[('enum_var', 'enum_typespec', 'nearpk177::NearVia')]
+  .... ('MODELAB:work@cmod177', 'PKGLIST:-|BARENAME', 'h_scopeddir', '29:12')
+        G=[('enum_var', 'enum_typespec', 'farpk177::far_enum')]
+        A=[('enum_var', 'enum_typespec', 'farpk177::far_enum')]
+        B=[('enum_var', 'enum_typespec', 'farpk177::far_enum')]
+  .... ('MODELAB:work@cmod177', 'PKGLIST:-|BARENAME', 'h_scopedint', '34:12')
+        G=[('int_var', 'int_typespec', 'farpk177::FarIntVia')]
+        A=[('int_var', 'int_typespec', 'farpk177::FarIntVia')]
+        B=[('int_var', 'int_typespec', 'farpk177::FarIntVia')]
+  .... ('MODELAB:work@cmod177', 'PKGLIST:-|BARENAME', 'h_scopedvia', '28:12')
+        G=[('enum_var', 'enum_typespec', 'farpk177::FarVia')]
+        A=[('enum_var', 'enum_typespec', 'farpk177::FarVia')]
+        B=[('enum_var', 'enum_typespec', 'farpk177::FarVia')]
+  .... ('MODELAB:work@cmod177', 'PKGLIST:-|BARENAME', 'k_impvia', '44:12')
+        G=[('enum_var', 'enum_typespec', 'nearpk177::NearVia')]
+        A=[('enum_var', 'enum_typespec', 'nearpk177::NearVia')]
+        B=[('enum_var', 'enum_typespec', 'nearpk177::NearVia')]
+  .... ('MODELAB:work@cmod177', 'PKGLIST:-|BARENAME', 'k_moddirect', '42:12')
+        G=[('enum_var', 'enum_typespec', 'mod_enum')]
+        A=[('enum_var', 'enum_typespec', 'mod_enum')]
+        B=[('enum_var', 'enum_typespec', 'mod_enum')]
+  A!.. ('MODELAB:work@cmod177', 'PKGLIST:-|BARENAME', 'k_modvia', '43:12')
+        G=[('ref_var', 'enum_typespec', 'ModVia')]
+        A=[('enum_var', 'enum_typespec', 'ModVia')]
+        B=[('ref_var', 'enum_typespec', 'ModVia')]
+  .... ('MODELAB:work@cmod177', 'PKGLIST:-|BARENAME', 'k_unitvia', '45:12')
+        G=[('enum_var', 'enum_typespec', 'UnitVia')]
+        A=[('enum_var', 'enum_typespec', 'UnitVia')]
+        B=[('enum_var', 'enum_typespec', 'UnitVia')]
+  .... ('PKGDEF:nearpk177', 'PKGLIST:-|BARENAME', 'h_direct', '24:12')
+        G=[('enum_var', 'enum_typespec', 'nearpk177::near_enum'), ('enum_var', 'enum_typespec', 'nearpk177::near_enum')]
+        A=[('enum_var', 'enum_typespec', 'nearpk177::near_enum'), ('enum_var', 'enum_typespec', 'nearpk177::near_enum')]
+        B=[('enum_var', 'enum_typespec', 'nearpk177::near_enum'), ('enum_var', 'enum_typespec', 'nearpk177::near_enum')]
+  A!.. ('PKGDEF:nearpk177', 'PKGLIST:-|BARENAME', 'h_farvia', '27:12')
+        G=[('ref_var', 'enum_typespec', 'nearpk177::ViaOfForeignVia'), ('ref_var', 'enum_typespec', 'nearpk177::ViaOfForeignVia')]
+        A=[('enum_var', 'enum_typespec', 'nearpk177::ViaOfForeignVia'), ('enum_var', 'enum_typespec', 'nearpk177::ViaOfForeignVia')]
+        B=[('ref_var', 'enum_typespec', 'nearpk177::ViaOfForeignVia'), ('ref_var', 'enum_typespec', 'nearpk177::ViaOfForeignVia')]
+  A!.. ('PKGDEF:nearpk177', 'PKGLIST:-|BARENAME', 'h_impvia', '26:12')
+        G=[('ref_var', 'enum_typespec', 'nearpk177::ImportedVia'), ('ref_var', 'enum_typespec', 'nearpk177::ImportedVia')]
+        A=[('enum_var', 'enum_typespec', 'nearpk177::ImportedVia'), ('enum_var', 'enum_typespec', 'nearpk177::ImportedVia')]
+        B=[('ref_var', 'enum_typespec', 'nearpk177::ImportedVia'), ('ref_var', 'enum_typespec', 'nearpk177::ImportedVia')]
+  A!.. ('PKGDEF:nearpk177', 'PKGLIST:-|BARENAME', 'h_localvia', '25:12')
+        G=[('ref_var', 'enum_typespec', 'nearpk177::NearVia'), ('ref_var', 'enum_typespec', 'nearpk177::NearVia')]
+        A=[('enum_var', 'enum_typespec', 'nearpk177::NearVia'), ('enum_var', 'enum_typespec', 'nearpk177::NearVia')]
+        B=[('ref_var', 'enum_typespec', 'nearpk177::NearVia'), ('ref_var', 'enum_typespec', 'nearpk177::NearVia')]
+  .... ('PKGDEF:nearpk177', 'PKGLIST:-|BARENAME', 'h_scopeddir', '29:12')
+        G=[('enum_var', 'enum_typespec', 'farpk177::far_enum'), ('enum_var', 'enum_typespec', 'farpk177::far_enum')]
+        A=[('enum_var', 'enum_typespec', 'farpk177::far_enum'), ('enum_var', 'enum_typespec', 'farpk177::far_enum')]
+        B=[('enum_var', 'enum_typespec', 'farpk177::far_enum'), ('enum_var', 'enum_typespec', 'farpk177::far_enum')]
+  .... ('PKGDEF:nearpk177', 'PKGLIST:-|BARENAME', 'h_scopedint', '34:12')
+        G=[('int_var', 'int_typespec', 'farpk177::FarIntVia'), ('int_var', 'int_typespec', 'farpk177::FarIntVia')]
+        A=[('int_var', 'int_typespec', 'farpk177::FarIntVia'), ('int_var', 'int_typespec', 'farpk177::FarIntVia')]
+        B=[('int_var', 'int_typespec', 'farpk177::FarIntVia'), ('int_var', 'int_typespec', 'farpk177::FarIntVia')]
+  .... ('PKGDEF:nearpk177', 'PKGLIST:-|BARENAME', 'h_scopedvia', '28:12')
+        G=[('enum_var', 'enum_typespec', 'farpk177::FarVia'), ('enum_var', 'enum_typespec', 'farpk177::FarVia')]
+        A=[('enum_var', 'enum_typespec', 'farpk177::FarVia'), ('enum_var', 'enum_typespec', 'farpk177::FarVia')]
+        B=[('enum_var', 'enum_typespec', 'farpk177::FarVia'), ('enum_var', 'enum_typespec', 'farpk177::FarVia')]
+  .... ('PKGELAB:nearpk177', 'PKGLIST:-|BARENAME', 'h_direct', '24:12')
+        G=[('enum_var', 'enum_typespec', 'nearpk177::near_enum'), ('enum_var', 'enum_typespec', 'nearpk177::near_enum')]
+        A=[('enum_var', 'enum_typespec', 'nearpk177::near_enum'), ('enum_var', 'enum_typespec', 'nearpk177::near_enum')]
+        B=[('enum_var', 'enum_typespec', 'nearpk177::near_enum'), ('enum_var', 'enum_typespec', 'nearpk177::near_enum')]
+  .... ('PKGELAB:nearpk177', 'PKGLIST:-|BARENAME', 'h_farvia', '27:12')
+        G=[('enum_var', 'enum_typespec', 'nearpk177::ViaOfForeignVia'), ('enum_var', 'enum_typespec', 'nearpk177::ViaOfForeignVia')]
+        A=[('enum_var', 'enum_typespec', 'nearpk177::ViaOfForeignVia'), ('enum_var', 'enum_typespec', 'nearpk177::ViaOfForeignVia')]
+        B=[('enum_var', 'enum_typespec', 'nearpk177::ViaOfForeignVia'), ('enum_var', 'enum_typespec', 'nearpk177::ViaOfForeignVia')]
+  .... ('PKGELAB:nearpk177', 'PKGLIST:-|BARENAME', 'h_impvia', '26:12')
+        G=[('enum_var', 'enum_typespec', 'nearpk177::ImportedVia'), ('enum_var', 'enum_typespec', 'nearpk177::ImportedVia')]
+        A=[('enum_var', 'enum_typespec', 'nearpk177::ImportedVia'), ('enum_var', 'enum_typespec', 'nearpk177::ImportedVia')]
+        B=[('enum_var', 'enum_typespec', 'nearpk177::ImportedVia'), ('enum_var', 'enum_typespec', 'nearpk177::ImportedVia')]
+  .... ('PKGELAB:nearpk177', 'PKGLIST:-|BARENAME', 'h_localvia', '25:12')
+        G=[('enum_var', 'enum_typespec', 'nearpk177::NearVia'), ('enum_var', 'enum_typespec', 'nearpk177::NearVia')]
+        A=[('enum_var', 'enum_typespec', 'nearpk177::NearVia'), ('enum_var', 'enum_typespec', 'nearpk177::NearVia')]
+        B=[('enum_var', 'enum_typespec', 'nearpk177::NearVia'), ('enum_var', 'enum_typespec', 'nearpk177::NearVia')]
+  .... ('PKGELAB:nearpk177', 'PKGLIST:-|BARENAME', 'h_scopeddir', '29:12')
+        G=[('enum_var', 'enum_typespec', 'farpk177::far_enum'), ('enum_var', 'enum_typespec', 'farpk177::far_enum')]
+        A=[('enum_var', 'enum_typespec', 'farpk177::far_enum'), ('enum_var', 'enum_typespec', 'farpk177::far_enum')]
+        B=[('enum_var', 'enum_typespec', 'farpk177::far_enum'), ('enum_var', 'enum_typespec', 'farpk177::far_enum')]
+  .... ('PKGELAB:nearpk177', 'PKGLIST:-|BARENAME', 'h_scopedint', '34:12')
+        G=[('int_var', 'int_typespec', 'farpk177::FarIntVia'), ('int_var', 'int_typespec', 'farpk177::FarIntVia')]
+        A=[('int_var', 'int_typespec', 'farpk177::FarIntVia'), ('int_var', 'int_typespec', 'farpk177::FarIntVia')]
+        B=[('int_var', 'int_typespec', 'farpk177::FarIntVia'), ('int_var', 'int_typespec', 'farpk177::FarIntVia')]
+  .... ('PKGELAB:nearpk177', 'PKGLIST:-|BARENAME', 'h_scopedvia', '28:12')
+        G=[('enum_var', 'enum_typespec', 'farpk177::FarVia'), ('enum_var', 'enum_typespec', 'farpk177::FarVia')]
+        A=[('enum_var', 'enum_typespec', 'farpk177::FarVia'), ('enum_var', 'enum_typespec', 'farpk177::FarVia')]
+        B=[('enum_var', 'enum_typespec', 'farpk177::FarVia'), ('enum_var', 'enum_typespec', 'farpk177::FarVia')]
+
+############ arm d  (g177_d_bounds.sv)
+cmp rc=255 a def lines=1406 heads=1
+cmp rc=255 b def lines=1406 heads=1
+cmp rc=255 a elab lines=1406 heads=1
+cmp rc=255 b elab lines=1406 heads=1
+== view=def  positions=27  A(pristine)_ok=15 B(patched)_ok=18  FIXED=3 MOVED-WRONG=0 MOVED-STILL-WRONG=2
+  .... ('-', 'PKGLIST:-|BARENAME', 'unit_fn', '13:10')
+        G=[('enum_var', 'enum_typespec', 'DUnitVia')]
+        A=[('enum_var', 'enum_typespec', 'DUnitVia')]
+        B=[('enum_var', 'enum_typespec', 'DUnitVia')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'new', '3:23')
+        G=[('class_var', 'class_typespec', '')]
+        A=[('class_var', 'class_typespec', '')]
+        B=[('class_var', 'class_typespec', '')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'num', '6:14')
+        G=[('int_var', 'int_typespec', '')]
+        A=[('int_var', 'int_typespec', '')]
+        B=[('int_var', 'int_typespec', '')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'try_get', '18:14')
+        G=[('int_var', 'int_typespec', '')]
+        A=[('int_var', 'int_typespec', '')]
+        B=[('int_var', 'int_typespec', '')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'try_peek', '24:14')
+        G=[('int_var', 'int_typespec', '')]
+        A=[('int_var', 'int_typespec', '')]
+        B=[('int_var', 'int_typespec', '')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'try_put', '0:0')
+        G=[('logic_var', '<nots>', '-')]
+        A=[('logic_var', '<nots>', '-')]
+        B=[('logic_var', '<nots>', '-')]
+  .... ('CLASSDEF:work@process', 'PKGLIST:-|BARENAME', 'self', '34:21')
+        G=[('class_var', 'class_typespec', '')]
+        A=[('class_var', 'class_typespec', '')]
+        B=[('class_var', 'class_typespec', '')]
+  .... ('CLASSDEF:work@process', 'PKGLIST:-|BARENAME', 'status', '37:14')
+        G=[('enum_var', 'enum_typespec', 'state')]
+        A=[('enum_var', 'enum_typespec', 'state')]
+        B=[('enum_var', 'enum_typespec', 'state')]
+  .... ('CLASSDEF:work@semaphore', 'PKGLIST:-|BARENAME', 'new', '57:22')
+        G=[('class_var', 'class_typespec', '')]
+        A=[('class_var', 'class_typespec', '')]
+        B=[('class_var', 'class_typespec', '')]
+  .... ('CLASSDEF:work@semaphore', 'PKGLIST:-|BARENAME', 'try_get', '66:14')
+        G=[('int_var', 'int_typespec', '')]
+        A=[('int_var', 'int_typespec', '')]
+        B=[('int_var', 'int_typespec', '')]
+  A!B! ('PKGDEF:dpk177', 'PKGLIST:-|BARENAME', 'd_clsvia', '58:12')
+        G=[('ref_var', 'class_typespec', 'dpk177::FwdVia')]
+        A=[('ref_var', 'class_typespec', '')]
+        B=[('ref_var', 'class_typespec', '')]
+  .... ('PKGDEF:dpk177', 'PKGLIST:-|BARENAME', 'd_farvia', '55:12')
+        G=[('enum_var', 'enum_typespec', 'dbase177::BbaseVia')]
+        A=[('enum_var', 'enum_typespec', 'dbase177::BbaseVia')]
+        B=[('enum_var', 'enum_typespec', 'dbase177::BbaseVia')]
+  A!.. ('PKGDEF:dpk177', 'PKGLIST:-|BARENAME', 'd_impvia', '54:12')
+        G=[('ref_var', 'enum_typespec', 'dpk177::ImpVia')]
+        A=[('enum_var', 'enum_typespec', 'dpk177::ImpVia')]
+        B=[('ref_var', 'enum_typespec', 'dpk177::ImpVia')]
+  A!B! ('PKGDEF:dpk177', 'PKGLIST:-|BARENAME', 'd_qdirect', '57:12')
+        G=[('array_var', 'array_typespec', 'dq_base')]
+        A=[('array_var', 'int_typespec', '')]
+        B=[('array_var', 'int_typespec', '')]
+  A!B! ('PKGDEF:dpk177', 'PKGLIST:-|BARENAME', 'd_qvia', '56:12')
+        G=[('ref_var', 'array_typespec', 'dpk177::DqVia')]
+        A=[('array_var', 'int_typespec', '')]
+        B=[('ref_var', 'int_typespec', '')]
+  .... ('PKGELAB:dpk177', 'CLASSBODY:Child177|BARENAME', 'cv_inh_direct', '37:14')
+        G=[('ref_var', 'enum_typespec', 'par_e')]
+        A=[('ref_var', 'enum_typespec', 'par_e')]
+        B=[('ref_var', 'enum_typespec', 'par_e')]
+  .... ('PKGELAB:dpk177', 'CLASSBODY:Child177|BARENAME', 'cv_inherited', '35:14')
+        G=[('ref_var', 'enum_typespec', 'ParVia')]
+        A=[('ref_var', 'enum_typespec', 'ParVia')]
+        B=[('ref_var', 'enum_typespec', 'ParVia')]
+  A!.. ('PKGELAB:dpk177', 'CLASSBODY:Child177|BARENAME', 'cv_own', '36:14')
+        G=[('ref_var', 'enum_typespec', 'ChiVia')]
+        A=[('enum_var', 'enum_typespec', 'ChiVia')]
+        B=[('ref_var', 'enum_typespec', 'ChiVia')]
+  A!.. ('PKGELAB:dpk177', 'CLASSBODY:Parent177|BARENAME', 'pv_own', '28:14')
+        G=[('ref_var', 'enum_typespec', 'ParVia')]
+        A=[('enum_var', 'enum_typespec', 'ParVia')]
+        B=[('ref_var', 'enum_typespec', 'ParVia')]
+  A!B! ('PKGELAB:dpk177', 'CLASSBODY:Parm177|BARENAME', 't_param', '43:14')
+        G=[('ref_var', 'int_typespec', 'TVia')]
+        A=[('ref_var', 'int_typespec', '')]
+        B=[('ref_var', 'int_typespec', '')]
+  A!B! ('PKGELAB:dpk177', 'CLASSBODY:Parm177|BARENAME', 'tv_param', '42:14')
+        G=[('ref_var', 'int_typespec', 'TVia')]
+        A=[]
+        B=[]
+  A!B! ('PKGELAB:dpk177', 'CLASSBODY:Parm177|BARENAME', 'tv_param', '65:26')
+        G=[]
+        A=[('int_var', 'int_typespec', 'TVia')]
+        B=[('ref_var', 'int_typespec', 'TVia')]
+  A!B! ('PKGELAB:dpk177', 'PKGLIST:-|BARENAME', 'd_clsvia', '58:12')
+        G=[('ref_var', 'class_typespec', 'dpk177::FwdVia')]
+        A=[('ref_var', 'class_typespec', '')]
+        B=[('ref_var', 'class_typespec', '')]
+  .... ('PKGELAB:dpk177', 'PKGLIST:-|BARENAME', 'd_farvia', '55:12')
+        G=[('enum_var', 'enum_typespec', 'dbase177::BbaseVia')]
+        A=[('enum_var', 'enum_typespec', 'dbase177::BbaseVia')]
+        B=[('enum_var', 'enum_typespec', 'dbase177::BbaseVia')]
+  .... ('PKGELAB:dpk177', 'PKGLIST:-|BARENAME', 'd_impvia', '54:12')
+        G=[('enum_var', 'enum_typespec', 'dpk177::ImpVia')]
+        A=[('enum_var', 'enum_typespec', 'dpk177::ImpVia')]
+        B=[('enum_var', 'enum_typespec', 'dpk177::ImpVia')]
+  A!B! ('PKGELAB:dpk177', 'PKGLIST:-|BARENAME', 'd_qdirect', '57:12')
+        G=[('array_var', 'array_typespec', 'dq_base')]
+        A=[('array_var', 'int_typespec', '')]
+        B=[('array_var', 'int_typespec', '')]
+  A!B! ('PKGELAB:dpk177', 'PKGLIST:-|BARENAME', 'd_qvia', '56:12')
+        G=[('array_var', 'array_typespec', 'dpk177::DqVia')]
+        A=[('array_var', 'int_typespec', '')]
+        B=[('array_var', 'int_typespec', '')]
+== view=elab  positions=32  A(pristine)_ok=15 B(patched)_ok=17  FIXED=2 MOVED-WRONG=0 MOVED-STILL-WRONG=3
+  .... ('-', 'PKGLIST:-|BARENAME', 'unit_fn', '13:10')
+        G=[('enum_var', 'enum_typespec', 'DUnitVia')]
+        A=[('enum_var', 'enum_typespec', 'DUnitVia')]
+        B=[('enum_var', 'enum_typespec', 'DUnitVia')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'new', '3:23')
+        G=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+        A=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+        B=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'num', '6:14')
+        G=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+        A=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+        B=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'try_get', '18:14')
+        G=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+        A=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+        B=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'try_peek', '24:14')
+        G=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+        A=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+        B=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+  .... ('CLASSDEF:work@mailbox', 'PKGLIST:-|BARENAME', 'try_put', '0:0')
+        G=[('logic_var', '<nots>', '-'), ('logic_var', '<nots>', '-')]
+        A=[('logic_var', '<nots>', '-'), ('logic_var', '<nots>', '-')]
+        B=[('logic_var', '<nots>', '-'), ('logic_var', '<nots>', '-')]
+  .... ('CLASSDEF:work@process', 'PKGLIST:-|BARENAME', 'self', '34:21')
+        G=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+        A=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+        B=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+  .... ('CLASSDEF:work@process', 'PKGLIST:-|BARENAME', 'status', '37:14')
+        G=[('enum_var', 'enum_typespec', 'state'), ('enum_var', 'enum_typespec', 'state')]
+        A=[('enum_var', 'enum_typespec', 'state'), ('enum_var', 'enum_typespec', 'state')]
+        B=[('enum_var', 'enum_typespec', 'state'), ('enum_var', 'enum_typespec', 'state')]
+  .... ('CLASSDEF:work@semaphore', 'PKGLIST:-|BARENAME', 'new', '57:22')
+        G=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+        A=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+        B=[('class_var', 'class_typespec', ''), ('class_var', 'class_typespec', '')]
+  .... ('CLASSDEF:work@semaphore', 'PKGLIST:-|BARENAME', 'try_get', '66:14')
+        G=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+        A=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+        B=[('int_var', 'int_typespec', ''), ('int_var', 'int_typespec', '')]
+  A!B! ('MODELAB:work@dtop177', 'PKGLIST:-|BARENAME', 'd_clsvia', '58:12')
+        G=[('ref_var', 'class_typespec', 'dpk177::FwdVia')]
+        A=[('ref_var', 'class_typespec', '')]
+        B=[('ref_var', 'class_typespec', '')]
+  .... ('MODELAB:work@dtop177', 'PKGLIST:-|BARENAME', 'd_farvia', '55:12')
+        G=[('enum_var', 'enum_typespec', 'dbase177::BbaseVia')]
+        A=[('enum_var', 'enum_typespec', 'dbase177::BbaseVia')]
+        B=[('enum_var', 'enum_typespec', 'dbase177::BbaseVia')]
+  .... ('MODELAB:work@dtop177', 'PKGLIST:-|BARENAME', 'd_impvia', '54:12')
+        G=[('enum_var', 'enum_typespec', 'dpk177::ImpVia')]
+        A=[('enum_var', 'enum_typespec', 'dpk177::ImpVia')]
+        B=[('enum_var', 'enum_typespec', 'dpk177::ImpVia')]
+  A!B! ('MODELAB:work@dtop177', 'PKGLIST:-|BARENAME', 'd_qdirect', '57:12')
+        G=[('array_var', 'array_typespec', 'dq_base')]
+        A=[('array_var', 'int_typespec', '')]
+        B=[('array_var', 'int_typespec', '')]
+  A!B! ('MODELAB:work@dtop177', 'PKGLIST:-|BARENAME', 'd_qvia', '56:12')
+        G=[('array_var', 'array_typespec', 'dpk177::DqVia')]
+        A=[('array_var', 'int_typespec', '')]
+        B=[('array_var', 'int_typespec', '')]
+  A!B! ('PKGDEF:dpk177', 'PKGLIST:-|BARENAME', 'd_clsvia', '58:12')
+        G=[('ref_var', 'class_typespec', 'dpk177::FwdVia'), ('ref_var', 'class_typespec', 'dpk177::FwdVia')]
+        A=[('ref_var', 'class_typespec', ''), ('ref_var', 'class_typespec', '')]
+        B=[('ref_var', 'class_typespec', ''), ('ref_var', 'class_typespec', '')]
+  .... ('PKGDEF:dpk177', 'PKGLIST:-|BARENAME', 'd_farvia', '55:12')
+        G=[('enum_var', 'enum_typespec', 'dbase177::BbaseVia'), ('enum_var', 'enum_typespec', 'dbase177::BbaseVia')]
+        A=[('enum_var', 'enum_typespec', 'dbase177::BbaseVia'), ('enum_var', 'enum_typespec', 'dbase177::BbaseVia')]
+        B=[('enum_var', 'enum_typespec', 'dbase177::BbaseVia'), ('enum_var', 'enum_typespec', 'dbase177::BbaseVia')]
+  A!.. ('PKGDEF:dpk177', 'PKGLIST:-|BARENAME', 'd_impvia', '54:12')
+        G=[('ref_var', 'enum_typespec', 'dpk177::ImpVia'), ('ref_var', 'enum_typespec', 'dpk177::ImpVia')]
+        A=[('enum_var', 'enum_typespec', 'dpk177::ImpVia'), ('enum_var', 'enum_typespec', 'dpk177::ImpVia')]
+        B=[('ref_var', 'enum_typespec', 'dpk177::ImpVia'), ('ref_var', 'enum_typespec', 'dpk177::ImpVia')]
+  A!B! ('PKGDEF:dpk177', 'PKGLIST:-|BARENAME', 'd_qdirect', '57:12')
+        G=[('array_var', 'array_typespec', 'dq_base'), ('array_var', 'array_typespec', 'dq_base')]
+        A=[('array_var', 'int_typespec', ''), ('array_var', 'int_typespec', '')]
+        B=[('array_var', 'int_typespec', ''), ('array_var', 'int_typespec', '')]
+  A!B! ('PKGDEF:dpk177', 'PKGLIST:-|BARENAME', 'd_qvia', '56:12')
+        G=[('ref_var', 'array_typespec', 'dpk177::DqVia'), ('ref_var', 'array_typespec', 'dpk177::DqVia')]
+        A=[('array_var', 'int_typespec', ''), ('array_var', 'int_typespec', '')]
+        B=[('ref_var', 'int_typespec', ''), ('ref_var', 'int_typespec', '')]
+  A!B! ('PKGELAB:dpk177', 'CLASSBODY:Child177|BARENAME', 'cv_inh_direct', '37:14')
+        G=[('ref_var', 'enum_typespec', 'par_e'), ('ref_var', 'enum_typespec', 'par_e')]
+        A=[('ref_var', 'enum_typespec', 'par_e'), ('ref_var', 'enum_typespec', 'par_e'), ('ref_var', 'enum_typespec', 'par_e')]
+        B=[('ref_var', 'enum_typespec', 'par_e'), ('ref_var', 'enum_typespec', 'par_e'), ('ref_var', 'enum_typespec', 'par_e')]
+  A!B! ('PKGELAB:dpk177', 'CLASSBODY:Child177|BARENAME', 'cv_inherited', '35:14')
+        G=[('ref_var', 'enum_typespec', 'ParVia'), ('ref_var', 'enum_typespec', 'ParVia')]
+        A=[('ref_var', 'enum_typespec', 'ParVia'), ('ref_var', 'enum_typespec', 'ParVia'), ('ref_var', 'enum_typespec', 'ParVia')]
+        B=[('ref_var', 'enum_typespec', 'ParVia'), ('ref_var', 'enum_typespec', 'ParVia'), ('ref_var', 'enum_typespec', 'ParVia')]
+  A!B! ('PKGELAB:dpk177', 'CLASSBODY:Child177|BARENAME', 'cv_own', '36:14')
+        G=[('ref_var', 'enum_typespec', 'ChiVia'), ('ref_var', 'enum_typespec', 'ChiVia')]
+        A=[('enum_var', 'enum_typespec', 'ChiVia'), ('enum_var', 'enum_typespec', 'ChiVia'), ('enum_var', 'enum_typespec', 'ChiVia')]
+        B=[('ref_var', 'enum_typespec', 'ChiVia'), ('ref_var', 'enum_typespec', 'ChiVia'), ('ref_var', 'enum_typespec', 'ChiVia')]
+  A!.. ('PKGELAB:dpk177', 'CLASSBODY:Parent177|BARENAME', 'pv_own', '28:14')
+        G=[('ref_var', 'enum_typespec', 'ParVia'), ('ref_var', 'enum_typespec', 'ParVia')]
+        A=[('enum_var', 'enum_typespec', 'ParVia'), ('enum_var', 'enum_typespec', 'ParVia')]
+        B=[('ref_var', 'enum_typespec', 'ParVia'), ('ref_var', 'enum_typespec', 'ParVia')]
+  A!B! ('PKGELAB:dpk177', 'CLASSBODY:Parm177|BARENAME', 't_param', '43:14')
+        G=[('ref_var', 'int_typespec', 'TVia'), ('ref_var', 'int_typespec', 'TVia')]
+        A=[('ref_var', 'int_typespec', ''), ('ref_var', 'int_typespec', '')]
+        B=[('ref_var', 'int_typespec', ''), ('ref_var', 'int_typespec', '')]
+  A!B! ('PKGELAB:dpk177', 'CLASSBODY:Parm177|BARENAME', 'tv_param', '42:14')
+        G=[('ref_var', 'int_typespec', 'TVia'), ('ref_var', 'int_typespec', 'TVia')]
+        A=[]
+        B=[]
+  A!B! ('PKGELAB:dpk177', 'CLASSBODY:Parm177|BARENAME', 'tv_param', '65:26')
+        G=[]
+        A=[('int_var', 'int_typespec', 'TVia'), ('int_var', 'int_typespec', 'TVia')]
+        B=[('ref_var', 'int_typespec', 'TVia'), ('ref_var', 'int_typespec', 'TVia')]
+  A!B! ('PKGELAB:dpk177', 'PKGLIST:-|BARENAME', 'd_clsvia', '58:12')
+        G=[('ref_var', 'class_typespec', 'dpk177::FwdVia'), ('ref_var', 'class_typespec', 'dpk177::FwdVia')]
+        A=[('ref_var', 'class_typespec', ''), ('ref_var', 'class_typespec', '')]
+        B=[('ref_var', 'class_typespec', ''), ('ref_var', 'class_typespec', '')]
+  .... ('PKGELAB:dpk177', 'PKGLIST:-|BARENAME', 'd_farvia', '55:12')
+        G=[('enum_var', 'enum_typespec', 'dbase177::BbaseVia'), ('enum_var', 'enum_typespec', 'dbase177::BbaseVia')]
+        A=[('enum_var', 'enum_typespec', 'dbase177::BbaseVia'), ('enum_var', 'enum_typespec', 'dbase177::BbaseVia')]
+        B=[('enum_var', 'enum_typespec', 'dbase177::BbaseVia'), ('enum_var', 'enum_typespec', 'dbase177::BbaseVia')]
+  .... ('PKGELAB:dpk177', 'PKGLIST:-|BARENAME', 'd_impvia', '54:12')
+        G=[('enum_var', 'enum_typespec', 'dpk177::ImpVia'), ('enum_var', 'enum_typespec', 'dpk177::ImpVia')]
+        A=[('enum_var', 'enum_typespec', 'dpk177::ImpVia'), ('enum_var', 'enum_typespec', 'dpk177::ImpVia')]
+        B=[('enum_var', 'enum_typespec', 'dpk177::ImpVia'), ('enum_var', 'enum_typespec', 'dpk177::ImpVia')]
+  A!B! ('PKGELAB:dpk177', 'PKGLIST:-|BARENAME', 'd_qdirect', '57:12')
+        G=[('array_var', 'array_typespec', 'dq_base'), ('array_var', 'array_typespec', 'dq_base')]
+        A=[('array_var', 'int_typespec', ''), ('array_var', 'int_typespec', '')]
+        B=[('array_var', 'int_typespec', ''), ('array_var', 'int_typespec', '')]
+  A!B! ('PKGELAB:dpk177', 'PKGLIST:-|BARENAME', 'd_qvia', '56:12')
+        G=[('array_var', 'array_typespec', 'dpk177::DqVia'), ('array_var', 'array_typespec', 'dpk177::DqVia')]
+        A=[('array_var', 'int_typespec', ''), ('array_var', 'int_typespec', '')]
+        B=[('array_var', 'int_typespec', ''), ('array_var', 'int_typespec', '')]
+

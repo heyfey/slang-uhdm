@@ -1,0 +1,77 @@
+== r10v177 — THE R0 CORRECTION.  The head r10uvm177 hands on is NOT what its README says.
+
+r10uvm177 §8 states: 'a typedef REQ param_t; written INSIDE a method body ... golden
+materialises nothing at all - a body-local TYPEDEF is a type declaration, not a variable.'
+Both halves are wrong, and the correction changes what the next pass must do.
+
+-- (a) uvm-1.2 uvm_sequencer_param_base.svh, lines 264-272 (line 270 is the head's site):
+     1	// send_request
+     2	// ------------
+     3	
+     4	function void uvm_sequencer_param_base::send_request(uvm_sequence_base sequence_ptr,
+     5	                                                     uvm_sequence_item t,
+     6	                                                     bit rerandomize = 0);
+     7	  REQ param_t;
+     8	
+     9	  if (sequence_ptr == null) begin
+   Line 270 is 'REQ param_t;' -- a plain LOCAL VARIABLE of the class type parameter REQ.
+   There is no typedef anywhere in send_request.
+
+-- (b) golden DOES list the object.  Its own dump, uvm_pkg's DEF listing:
+  \_function: (uvm_pkg::uvm_sequencer_param_base::send_request), line:267:1, endln:304:12
+    |vpiParent:
+    \_package: uvm_pkg (uvm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+    |vpiName:uvm_sequencer_param_base::send_request
+    |vpiFullName:uvm_pkg::uvm_sequencer_param_base::send_request
+    |vpiVariables:
+    \_ref_var: (uvm_pkg::uvm_sequencer_param_base::send_request::param_t), line:270:7, endln:270:14
+      |vpiParent:
+      \_begin: (uvm_pkg::uvm_sequencer_param_base::send_request), line:272:3, endln:274:6
+      |vpiTypespec:
+      \_ref_typespec: (uvm_pkg::uvm_sequencer_param_base::send_request::param_t)
+        |vpiParent:
+        \_ref_var: (uvm_pkg::uvm_sequencer_param_base::send_request::param_t), line:270:7, endln:270:14
+        |vpiFullName:uvm_pkg::uvm_sequencer_param_base::send_request::param_t
+        |vpiActual:
+        \_unsupported_typespec: (REQ), line:270:3, endln:270:6
+      |vpiName:param_t
+      |vpiFullName:uvm_pkg::uvm_sequencer_param_base::send_request::param_t
+    |vpiVisibility:1
+   ... and again in the begin block's vpiVariables, and again in the ELAB listing:
+139856	|uhdmallPackages:
+139862	|uhdmallPackages:
+139920	|uhdmallPackages:
+140086	|uhdmallPackages:
+530043	|uhdmtopPackages:
+530049	|uhdmtopPackages:
+530107	|uhdmtopPackages:
+530273	|uhdmtopPackages:
+   golden 8 occurrences, ours 9.
+
+-- (c) THE EXTRA ONE, and therefore the real head: an ARGUMENT reference we BIND and
+   golden leaves unbound.  ours, at 297:26 (m_req_fifo.try_put(param_t)):
+              |vpiArgument:
+              \_ref_obj: (uvm_pkg::uvm_sequencer_param_base::send_request::param_t), line:297:26, endln:297:33
+                |vpiParent:
+                \_method_func_call: (try_put), line:297:18, endln:297:25
+                |vpiName:param_t
+                |vpiFullName:uvm_pkg::uvm_sequencer_param_base::send_request::param_t
+                |vpiActual:
+                \_ref_var: (uvm_pkg::uvm_sequencer_param_base::send_request::param_t), line:270:7, endln:270:14
+              |vpiName:try_put
+   golden, the same argument:
+              \_ref_obj: (uvm_pkg::uvm_sequencer_param_base::send_request::m_req_fifo.try_put::param_t), line:297:26, endln:297:33
+                |vpiParent:
+                \_method_func_call: (try_put), line:297:18, endln:297:25
+                |vpiName:param_t
+                |vpiFullName:uvm_pkg::uvm_sequencer_param_base::send_request::m_req_fifo.try_put::param_t
+              |vpiName:try_put
+            |vpiName:m_req_fifo.try_put
+
+R0 (corrected): a reference to a subroutine local written as an ARGUMENT of a
+method_func_call on a hierarchical receiver is UNBOUND in golden -- the ref_obj carries
+no vpiActual, and its (dump-only) fullname is scoped under the CALL
+(...send_request::m_req_fifo.try_put::param_t), not under the subroutine.  We bind it to
+the local's ref_var.  The judged field is ref_obj::Actual_group, the SINGULAR overload of
+RESUME §9 (buvm13/15's shape), which is why the head prints 'LHS: <null>' with a full RHS.
+Deleting the Variables entry, as r10uvm177's R0 directs, would move a cell AWAY from golden.

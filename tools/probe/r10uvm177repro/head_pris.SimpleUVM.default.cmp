@@ -1,0 +1,52 @@
+LHS:
+decompile:
+ref_var: (uvm_pkg::uvm_sequencer_base::get_arbitration), id:84392, line:1389:10, endln:1389:26
+|vpiParent:
+\_function: (uvm_pkg::uvm_sequencer_base::get_arbitration), id:60267, line:1389:1, endln:1391:12
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_sequencer_base::get_arbitration), id:84393
+  |vpiParent:
+  \_ref_var: (uvm_pkg::uvm_sequencer_base::get_arbitration), id:84392, line:1389:10, endln:1389:26
+  |vpiFullName:uvm_pkg::uvm_sequencer_base::get_arbitration
+  |vpiActual:
+  \_enum_typespec: (uvm_pkg::UVM_SEQ_ARB_TYPE), id:2305, line:332:40, endln:332:56
+|vpiFullName:uvm_pkg::uvm_sequencer_base::get_arbitration
+
+decompile:
+ref_var: (uvm_pkg::uvm_sequencer_base::get_arbitration), id:84392, line:1389:10, endln:1389:26
+|vpiParent:
+\_function: (uvm_pkg::uvm_sequencer_base::get_arbitration), id:60267, line:1389:1, endln:1391:12
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_sequencer_base::get_arbitration), id:84393
+  |vpiParent:
+  \_ref_var: (uvm_pkg::uvm_sequencer_base::get_arbitration), id:84392, line:1389:10, endln:1389:26
+  |vpiFullName:uvm_pkg::uvm_sequencer_base::get_arbitration
+  |vpiActual:
+  \_enum_typespec: (uvm_pkg::UVM_SEQ_ARB_TYPE), id:2305, line:332:40, endln:332:56
+|vpiFullName:uvm_pkg::uvm_sequencer_base::get_arbitration
+RHS:
+decompile:
+enum_var: (uvm_pkg::uvm_sequencer_base::get_arbitration), id:146063, line:1389:10, endln:1389:26
+|vpiParent:
+\_function: (uvm_pkg::uvm_sequencer_base::get_arbitration), id:146062, line:1389:1, endln:1391:12
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_sequencer_base::get_arbitration), id:146064
+  |vpiParent:
+  \_enum_var: (uvm_pkg::uvm_sequencer_base::get_arbitration), id:146063, line:1389:10, endln:1389:26
+  |vpiFullName:uvm_pkg::uvm_sequencer_base::get_arbitration
+  |vpiActual:
+  \_enum_typespec: (uvm_pkg::UVM_SEQ_ARB_TYPE), id:498, line:359:1, endln:367:26
+|vpiFullName:uvm_pkg::uvm_sequencer_base::get_arbitration
+
+decompile:
+enum_var: (uvm_pkg::uvm_sequencer_base::get_arbitration), id:146063, line:1389:10, endln:1389:26
+|vpiParent:
+\_function: (uvm_pkg::uvm_sequencer_base::get_arbitration), id:146062, line:1389:1, endln:1391:12
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_sequencer_base::get_arbitration), id:146064
+  |vpiParent:
+  \_enum_var: (uvm_pkg::uvm_sequencer_base::get_arbitration), id:146063, line:1389:10, endln:1389:26
+  |vpiFullName:uvm_pkg::uvm_sequencer_base::get_arbitration
+  |vpiActual:
+  \_enum_typespec: (uvm_pkg::UVM_SEQ_ARB_TYPE), id:498, line:359:1, endln:367:26
+|vpiFullName:uvm_pkg::uvm_sequencer_base::get_arbitration

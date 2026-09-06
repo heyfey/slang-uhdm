@@ -1,0 +1,106 @@
+== r10v177 — ARM JUDGEMENT against GOLDEN of every arm the boundary moved, plus the controls
+
+-- THE 21 arms r10uvm177's own boundary moved, pristine vs the patch AS SUBMITTED:
+r10buvm22repro_g22                         TOTAL-MOVED-WRONG=0
+r10buvm22repro_g22b                        TOTAL-MOVED-WRONG=0
+r10uvm140repro_g140_a_kinds                TOTAL-MOVED-WRONG=0
+r10uvm140repro_g140_b_homes                TOTAL-MOVED-WRONG=0
+r10uvm177repro_g177_a_alias                TOTAL-MOVED-WRONG=0
+r10uvm177repro_g177_b_kinds                TOTAL-MOVED-WRONG=0
+r10uvm177repro_g177_c_homes                TOTAL-MOVED-WRONG=0
+r10uvm177repro_g177_d_bounds               TOTAL-MOVED-WRONG=0
+r10uvm58repro_w4_aliasret                  TOTAL-MOVED-WRONG=0
+r10uvm91repro_v91_a3_order                 TOTAL-MOVED-WRONG=0
+r10v140repro_v140_p_kinds                  TOTAL-MOVED-WRONG=0
+r10v140repro_v140_q_homes                  TOTAL-MOVED-WRONG=0
+r10v140repro_v140_r_import                 TOTAL-MOVED-WRONG=1
+r10v140repro_v140_t_order                  TOTAL-MOVED-WRONG=0
+r10v140repro_v140_w_inherit                TOTAL-MOVED-WRONG=0
+r10vbuvm20repro_v1_kinds                   TOTAL-MOVED-WRONG=0
+r10vbuvm20repro_v4_crosspkg                TOTAL-MOVED-WRONG=0
+r10vbuvm20repro_v9_tdoftd                  TOTAL-MOVED-WRONG=0
+r10vbuvm22repro_v2_rettypes                TOTAL-MOVED-WRONG=0
+r10vbuvm22repro_v3_kinds                   TOTAL-MOVED-WRONG=0
+r10vbuvm22repro_v6_nasty                   TOTAL-MOVED-WRONG=0
+
+-- the same 21, pristine vs the VERIFIED patch:
+r10buvm22repro_g22                         TOTAL-MOVED-WRONG=0
+r10buvm22repro_g22b                        TOTAL-MOVED-WRONG=0
+r10uvm140repro_g140_a_kinds                TOTAL-MOVED-WRONG=0
+r10uvm140repro_g140_b_homes                TOTAL-MOVED-WRONG=0
+r10uvm177repro_g177_a_alias                TOTAL-MOVED-WRONG=0
+r10uvm177repro_g177_b_kinds                TOTAL-MOVED-WRONG=0
+r10uvm177repro_g177_c_homes                TOTAL-MOVED-WRONG=0
+r10uvm177repro_g177_d_bounds               TOTAL-MOVED-WRONG=0
+r10uvm58repro_w4_aliasret                  TOTAL-MOVED-WRONG=0
+r10uvm91repro_v91_a3_order                 TOTAL-MOVED-WRONG=0
+r10v140repro_v140_p_kinds                  TOTAL-MOVED-WRONG=0
+r10v140repro_v140_q_homes                  TOTAL-MOVED-WRONG=0
+r10v140repro_v140_r_import                 TOTAL-MOVED-WRONG=0
+r10v140repro_v140_t_order                  TOTAL-MOVED-WRONG=0
+r10v140repro_v140_w_inherit                TOTAL-MOVED-WRONG=0
+r10vbuvm20repro_v1_kinds                   TOTAL-MOVED-WRONG=0
+r10vbuvm20repro_v4_crosspkg                TOTAL-MOVED-WRONG=0
+r10vbuvm20repro_v9_tdoftd                  TOTAL-MOVED-WRONG=0
+r10vbuvm22repro_v2_rettypes                TOTAL-MOVED-WRONG=0
+r10vbuvm22repro_v3_kinds                   TOTAL-MOVED-WRONG=0
+r10vbuvm22repro_v6_nasty                   TOTAL-MOVED-WRONG=0
+
+-- THE REGRESSION, in full (as submitted):
+[r10v140repro_v140_r_import] view=def CELLS=26 AGREE-PRIS=22 AGREE-PAT=25 FIXED=3 MOVED-WRONG=0 STILL-WRONG=0 MOVED-STILL-WRONG=1
+   MOVED-STILL-WRONG  uhdmallModules (work@bellows_top::Anvil::clsShadowed) line:34:5 | G=enum_var enum_typespec Forge_pkg::HeatBand_e | PRIS=enum_var enum_typespec HeatBand_e | PAT=ref_var enum_typespec HeatBand_e
+   FIXED              uhdmallPackages (Forge_pkg::forgeAlt) line:19:3 | G=ref_var enum_typespec Forge_pkg::heat_band_alias2 | PRIS=enum_var enum_typespec Forge_pkg::heat_band_alias2 | PAT=ref_var enum_typespec Forge_pkg::heat_band_alias2
+   FIXED              uhdmallPackages (Forge_pkg::forgeWild) line:18:3 | G=ref_var enum_typespec Forge_pkg::HeatBand_e | PRIS=enum_var enum_typespec Forge_pkg::HeatBand_e | PAT=ref_var enum_typespec Forge_pkg::HeatBand_e
+   FIXED              uhdmallPackages (Forge_pkg::forgeWord) line:22:3 | G=ref_var struct_typespec Forge_pkg::EmberWord_s | PRIS=struct_var struct_typespec Forge_pkg::EmberWord_s | PAT=ref_var struct_typespec Forge_pkg::EmberWord_s
+[r10v140repro_v140_r_import] view=elab CELLS=52 AGREE-PRIS=45 AGREE-PAT=50 FIXED=6 MOVED-WRONG=1 STILL-WRONG=0 MOVED-STILL-WRONG=1
+   MOVED-STILL-WRONG  uhdmallModules (work@bellows_top::Anvil::clsShadowed) line:34:5 | G=enum_var enum_typespec Forge_pkg::HeatBand_e | PRIS=enum_var enum_typespec HeatBand_e | PAT=ref_var enum_typespec HeatBand_e
+   FIXED              uhdmallPackages (Forge_pkg::forgeAlt) line:19:3 | G=ref_var enum_typespec Forge_pkg::heat_band_alias2 | PRIS=enum_var enum_typespec Forge_pkg::heat_band_alias2 | PAT=ref_var enum_typespec Forge_pkg::heat_band_alias2
+   FIXED              uhdmallPackages (Forge_pkg::forgeWild) line:18:3 | G=ref_var enum_typespec Forge_pkg::HeatBand_e | PRIS=enum_var enum_typespec Forge_pkg::HeatBand_e | PAT=ref_var enum_typespec Forge_pkg::HeatBand_e
+   FIXED              uhdmallPackages (Forge_pkg::forgeWord) line:22:3 | G=ref_var struct_typespec Forge_pkg::EmberWord_s | PRIS=struct_var struct_typespec Forge_pkg::EmberWord_s | PAT=ref_var struct_typespec Forge_pkg::EmberWord_s
+   FIXED              uhdmtopModules (Forge_pkg::forgeAlt) line:19:3 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (Forge_pkg::forgeWild) line:18:3 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (Forge_pkg::forgeWord) line:22:3 | G=ref_var - - | PRIS=struct_var - - | PAT=ref_var - -
+   MOVED-WRONG        uhdmtopModules (work@bellows_top::Anvil::clsShadowed) line:34:5 | G=enum_var - - | PRIS=enum_var - - | PAT=ref_var - -
+TOTAL-MOVED-WRONG=1
+
+-- the same arm, VERIFIED patch:
+[r10v140repro_v140_r_import] view=def CELLS=26 AGREE-PRIS=22 AGREE-PAT=25 FIXED=3 MOVED-WRONG=0 STILL-WRONG=1 MOVED-STILL-WRONG=0
+   STILL-WRONG        uhdmallModules (work@bellows_top::Anvil::clsShadowed) line:34:5 | G=enum_var enum_typespec Forge_pkg::HeatBand_e | PRIS=enum_var enum_typespec HeatBand_e | PAT=enum_var enum_typespec HeatBand_e
+   FIXED              uhdmallPackages (Forge_pkg::forgeAlt) line:19:3 | G=ref_var enum_typespec Forge_pkg::heat_band_alias2 | PRIS=enum_var enum_typespec Forge_pkg::heat_band_alias2 | PAT=ref_var enum_typespec Forge_pkg::heat_band_alias2
+   FIXED              uhdmallPackages (Forge_pkg::forgeWild) line:18:3 | G=ref_var enum_typespec Forge_pkg::HeatBand_e | PRIS=enum_var enum_typespec Forge_pkg::HeatBand_e | PAT=ref_var enum_typespec Forge_pkg::HeatBand_e
+   FIXED              uhdmallPackages (Forge_pkg::forgeWord) line:22:3 | G=ref_var struct_typespec Forge_pkg::EmberWord_s | PRIS=struct_var struct_typespec Forge_pkg::EmberWord_s | PAT=ref_var struct_typespec Forge_pkg::EmberWord_s
+[r10v140repro_v140_r_import] view=elab CELLS=52 AGREE-PRIS=45 AGREE-PAT=51 FIXED=6 MOVED-WRONG=0 STILL-WRONG=1 MOVED-STILL-WRONG=0
+   STILL-WRONG        uhdmallModules (work@bellows_top::Anvil::clsShadowed) line:34:5 | G=enum_var enum_typespec Forge_pkg::HeatBand_e | PRIS=enum_var enum_typespec HeatBand_e | PAT=enum_var enum_typespec HeatBand_e
+   FIXED              uhdmallPackages (Forge_pkg::forgeAlt) line:19:3 | G=ref_var enum_typespec Forge_pkg::heat_band_alias2 | PRIS=enum_var enum_typespec Forge_pkg::heat_band_alias2 | PAT=ref_var enum_typespec Forge_pkg::heat_band_alias2
+   FIXED              uhdmallPackages (Forge_pkg::forgeWild) line:18:3 | G=ref_var enum_typespec Forge_pkg::HeatBand_e | PRIS=enum_var enum_typespec Forge_pkg::HeatBand_e | PAT=ref_var enum_typespec Forge_pkg::HeatBand_e
+   FIXED              uhdmallPackages (Forge_pkg::forgeWord) line:22:3 | G=ref_var struct_typespec Forge_pkg::EmberWord_s | PRIS=struct_var struct_typespec Forge_pkg::EmberWord_s | PAT=ref_var struct_typespec Forge_pkg::EmberWord_s
+   FIXED              uhdmtopModules (Forge_pkg::forgeAlt) line:19:3 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (Forge_pkg::forgeWild) line:18:3 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   FIXED              uhdmtopModules (Forge_pkg::forgeWord) line:22:3 | G=ref_var - - | PRIS=struct_var - - | PAT=ref_var - -
+TOTAL-MOVED-WRONG=0
+
+-- the cell an OVER-TIGHT first cut of the fix lost, and its recovery (v140_w_inherit):
+[r10v140repro_v140_w_inherit] view=def CELLS=19 AGREE-PRIS=18 AGREE-PAT=19 FIXED=1 MOVED-WRONG=0 STILL-WRONG=0 MOVED-STILL-WRONG=0
+   FIXED              uhdmtopPackages (Kiln_pkg::Urn::urnShadowed) line:29:5 | G=ref_var enum_typespec BurnStage_e | PRIS=enum_var enum_typespec BurnStage_e | PAT=ref_var enum_typespec BurnStage_e
+[r10v140repro_v140_w_inherit] view=elab CELLS=38 AGREE-PRIS=36 AGREE-PAT=38 FIXED=2 MOVED-WRONG=0 STILL-WRONG=0 MOVED-STILL-WRONG=0
+   FIXED              uhdmtopModules (Kiln_pkg::Urn::urnShadowed) line:29:5 | G=ref_var - - | PRIS=enum_var - - | PAT=ref_var - -
+   FIXED              uhdmtopPackages (Kiln_pkg::Urn::urnShadowed) line:29:5 | G=ref_var enum_typespec BurnStage_e | PRIS=enum_var enum_typespec BurnStage_e | PAT=ref_var enum_typespec BurnStage_e
+TOTAL-MOVED-WRONG=0
+
+-- CONTROL ARMS r10uvm169/171/173/174, pristine vs the VERIFIED patch:
+g169_a_import                              TOTAL-MOVED-WRONG=0
+g169_b_forms                               TOTAL-MOVED-WRONG=0
+g169_c_homes                               TOTAL-MOVED-WRONG=0
+g169_d_scopes                              TOTAL-MOVED-WRONG=0
+g171_a_pos                                 TOTAL-MOVED-WRONG=0
+g171_b_homes                               TOTAL-MOVED-WRONG=0
+g171_c_shapes                              TOTAL-MOVED-WRONG=0
+g173_a_qual                                TOTAL-MOVED-WRONG=0
+g173_b_cross                               TOTAL-MOVED-WRONG=0
+g173_c_homes                               TOTAL-MOVED-WRONG=0
+g173_d_notmove                             TOTAL-MOVED-WRONG=0
+g174_a_forms                               TOTAL-MOVED-WRONG=0
+g174_b_sysfns                              TOTAL-MOVED-WRONG=0
+g174_c_homes                               TOTAL-MOVED-WRONG=0
+g174_d_import                              TOTAL-MOVED-WRONG=0
+g174_e_notmove                             TOTAL-MOVED-WRONG=0
