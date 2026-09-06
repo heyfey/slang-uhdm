@@ -1,0 +1,95 @@
+LHS: <null>
+RHS:
+decompile:
+class_typespec: (type_id), id:180279, line:483:12, endln:483:34
+|vpiParent:
+\_class_defn: (work@my_scoreboard), id:180271, file:/home/heyfey/git-repos/Surelog/third_party/tests/Scoreboard/design.sv, line:7:1, endln:24:9
+|vpiName:type_id
+|vpiTypedefAlias:
+\_ref_typespec: (work@my_scoreboard::type_id), id:183360
+  |vpiParent:
+  \_class_typespec: (type_id), id:180279, line:483:12, endln:483:34
+  |vpiFullName:work@my_scoreboard::type_id
+  |vpiActual:
+  \_class_typespec: (type_id), id:6303, line:483:12, endln:483:34
+|vpiParameter:
+\_type_parameter: (work@my_scoreboard::type_id::T), id:180280
+  |vpiParent:
+  \_class_typespec: (type_id), id:180279, line:483:12, endln:483:34
+  |vpiName:T
+  |vpiFullName:work@my_scoreboard::type_id::T
+  |vpiTypespec:
+  \_ref_typespec: (work@my_scoreboard::type_id::T), id:180281
+    |vpiParent:
+    \_type_parameter: (work@my_scoreboard::type_id::T), id:180280
+    |vpiFullName:work@my_scoreboard::type_id::T
+    |vpiActual:
+    \_class_typespec: (my_scoreboard), id:180282, line:468:35, endln:468:57
+|vpiParamAssign:
+\_param_assign: , id:180283
+  |vpiParent:
+  \_class_typespec: (type_id), id:180279, line:483:12, endln:483:34
+  |vpiRhs:
+  \_type_parameter: (work@my_scoreboard::type_id::T), id:180280
+  |vpiLhs:
+  \_type_parameter: (uvm_pkg::uvm_component_registry::T), id:17447, line:51:37, endln:51:38
+    |vpiParent:
+    \_class_defn: (uvm_pkg::uvm_component_registry), id:17441, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_registry.svh, line:51:1, endln:173:9
+    |vpiName:T
+    |vpiFullName:uvm_pkg::uvm_component_registry::T
+    |vpiTypespec:
+    \_ref_typespec: (uvm_pkg::uvm_component_registry::T), id:17448
+      |vpiParent:
+      \_type_parameter: (uvm_pkg::uvm_component_registry::T), id:17447, line:51:37, endln:51:38
+      |vpiFullName:uvm_pkg::uvm_component_registry::T
+      |vpiActual:
+      \_class_typespec: (uvm_component), id:17449, line:51:39, endln:51:52
+|vpiClassDefn:
+\_class_defn: (uvm_pkg::uvm_component_registry), id:17441, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_registry.svh, line:51:1, endln:173:9
+
+decompile:
+class_typespec: (type_id), id:180279, line:483:12, endln:483:34
+|vpiParent:
+\_class_defn: (work@my_scoreboard), id:180271, file:/home/heyfey/git-repos/Surelog/third_party/tests/Scoreboard/design.sv, line:7:1, endln:24:9
+|vpiName:type_id
+|vpiTypedefAlias:
+\_ref_typespec: (work@my_scoreboard::type_id), id:183360
+  |vpiParent:
+  \_class_typespec: (type_id), id:180279, line:483:12, endln:483:34
+  |vpiFullName:work@my_scoreboard::type_id
+  |vpiActual:
+  \_class_typespec: (type_id), id:6303, line:483:12, endln:483:34
+|vpiParameter:
+\_type_parameter: (work@my_scoreboard::type_id::T), id:180280
+  |vpiParent:
+  \_class_typespec: (type_id), id:180279, line:483:12, endln:483:34
+  |vpiName:T
+  |vpiFullName:work@my_scoreboard::type_id::T
+  |vpiTypespec:
+  \_ref_typespec: (work@my_scoreboard::type_id::T), id:180281
+    |vpiParent:
+    \_type_parameter: (work@my_scoreboard::type_id::T), id:180280
+    |vpiFullName:work@my_scoreboard::type_id::T
+    |vpiActual:
+    \_class_typespec: (my_scoreboard), id:180282, line:468:35, endln:468:57
+|vpiParamAssign:
+\_param_assign: , id:180283
+  |vpiParent:
+  \_class_typespec: (type_id), id:180279, line:483:12, endln:483:34
+  |vpiRhs:
+  \_type_parameter: (work@my_scoreboard::type_id::T), id:180280
+  |vpiLhs:
+  \_type_parameter: (uvm_pkg::uvm_component_registry::T), id:17447, line:51:37, endln:51:38
+    |vpiParent:
+    \_class_defn: (uvm_pkg::uvm_component_registry), id:17441, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_registry.svh, line:51:1, endln:173:9
+    |vpiName:T
+    |vpiFullName:uvm_pkg::uvm_component_registry::T
+    |vpiTypespec:
+    \_ref_typespec: (uvm_pkg::uvm_component_registry::T), id:17448
+      |vpiParent:
+      \_type_parameter: (uvm_pkg::uvm_component_registry::T), id:17447, line:51:37, endln:51:38
+      |vpiFullName:uvm_pkg::uvm_component_registry::T
+      |vpiActual:
+      \_class_typespec: (uvm_component), id:17449, line:51:39, endln:51:52
+|vpiClassDefn:
+\_class_defn: (uvm_pkg::uvm_component_registry), id:17441, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_registry.svh, line:51:1, endln:173:9

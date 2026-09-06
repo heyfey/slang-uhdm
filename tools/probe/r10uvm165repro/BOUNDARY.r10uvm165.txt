@@ -1,0 +1,31 @@
+r10uvm165 — THE WIDE BOUNDARY GATE (bound165.sh over a COPY of the whole probe tree)
+MEASUREMENT ONLY.  Top level AND subdirectories, BOTH views, BOTH binaries,
+every child </dev/null, the file list on fd 3, PROCESSED asserted against
+LISTED, scratch keyed on the RELATIVE path.
+pristine ac0350d07c685ac10b106abce26ec554  patched 8bac95ba55a581dfcc3c903251686479
+
+LISTED=4678 PROCESSED=4678 PRODUCED_DBS=4522 MOVED_ARMS=4 RC_DIFFS=0
+
+THE MOVERS:
+r10uvm165repro/g165_b_home.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm165repro/g165_c_forms.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm165repro/g165_d_notmove.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm59repro/a1_witness.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+Three of the four are THIS PASS'S OWN ARMS — the POSITIVE CONTROL: a gate
+that reports zero movers over them cannot see.  (g165_a_sep.sv does NOT move:
+it holds no dropped call, and it is EQUAL to golden under both binaries.)
+
+THE ONE ARM OUTSIDE THIS PASS — r10uvm59repro/a1_witness.sv — is r10uvm59's
+own reduction of the SAME corpus statement (uvm_registry's set_type_alias
+passing alias_name to a call inside an if body).  Censused against ITS OWN
+Surelog golden, both views:
+-- def REF: golden-vs-PRISTINE 4   golden-vs-PATCHED 2
+   def TOWARD    ref_obj|alias_name|65:29|/method_func_call:note/begin/if_stmt/function:set_type_alias/class_defn:w59/package:p59a1/design:unnamed  G={'ACT=NONE': 1} pris={'ACT=io_decl:alias_name': 1} pat={'ACT=NONE': 1}
+-- elab REF: golden-vs-PRISTINE 14   golden-vs-PATCHED 12
+   elab TOWARD    ref_obj|alias_name|65:29|/method_func_call:note/begin/if_stmt/function:set_type_alias/class_defn:w59/package:p59a1/design:unnamed  G={'ACT=NONE': 1, 'ACT=io_decl:alias_name': 1} pris={'ACT=io_decl:alias_name': 2} pat={'ACT=NONE': 1, 'ACT=io_decl:alias_name': 1}
+TOTALS {'TOWARD': 2, 'MOVED': 2}
+
+  golden-vs-PRISTINE def 4 -> golden-vs-PATCHED def 2
+  golden-vs-PRISTINE elab 14 -> golden-vs-PATCHED elab 12
+  2 cells moved, BOTH TOWARD.  MOVED-WRONG 0, AWAY 0.

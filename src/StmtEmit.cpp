@@ -6168,11 +6168,25 @@ UHDM::any* UhdmExporter::emitDroppedCall14(const syntax::ExpressionSyntax& e,
         setLoc(pr, baseRng);
         mfc->Prefix(pr);
         auto* args = s.MakeAnyVec();
+        // § droppedCallArgTakesTheOrdinaryWindow165 — the sentence above says
+        // "the same ClassArgBind12 window a valid class-method call opens",
+        // and that window is TOP-LEVEL ONLY: § controlBodyNoBind28 shuts it
+        // for an IN-BODY class method inside any conditional or loop body.
+        // This re-emitter reproduced the window's ADD and not its DEPTH gate,
+        // so a dropped call one control body down bound what golden leaves
+        // bare.  Surelog never learns that slang rejected the call — it
+        // compiles the statement normally — so the golden value here is
+        // § classArgBind12 / § controlBodyNoBind28's and nothing else, and the
+        // gate is theirs, verbatim: `curSubClassScope9 && !curSubOob9 &&
+        // ctrlBodyDepth28 > 0`.  See include/UhdmExporter.h for the law, its
+        // Surelog decode and every measured arm cell.
+        const bool argBind165 =
+            !(curSubClassScope9 && !curSubOob9 && ctrlBodyDepth28 > 0);
         if (inv.arguments)
             for (auto* a : inv.arguments->parameters)
                 args->push_back(emitDroppedArg14(
                     *connActualSyntax(a->as<syntax::OrderedArgumentSyntax>().expr),
-                    mfc, prefix, netMap, /*bind=*/true));
+                    mfc, prefix, netMap, /*bind=*/argBind165));
         if (!args->empty())
             mfc->Tf_call_args(args);
         return mfc;
@@ -6407,11 +6421,17 @@ UHDM::any* UhdmExporter::emitDroppedIdxCall26(const syntax::ExpressionSyntax& e,
         setLoc(pr, baseRng);
         mfc->Prefix(pr);
         auto* args = s.MakeAnyVec();
+        // § droppedCallArgTakesTheOrdinaryWindow165 — this arm IS
+        // § droppedCall14's statement object (its own comment says so), so it
+        // owes the same DEPTH gate; a subscripted receiver changes the prefix
+        // and nothing about where Surelog's `bindVariable` walk arrives.
+        const bool argBind165 =
+            !(curSubClassScope9 && !curSubOob9 && ctrlBodyDepth28 > 0);
         if (inv.arguments)
             for (auto* a : inv.arguments->parameters)
                 args->push_back(emitDroppedArg14(
                     *connActualSyntax(a->as<syntax::OrderedArgumentSyntax>().expr),
-                    mfc, prefix, netMap, /*bind=*/true));
+                    mfc, prefix, netMap, /*bind=*/argBind165));
         if (!args->empty())
             mfc->Tf_call_args(args);
         return mfc;

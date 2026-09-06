@@ -1299,6 +1299,96 @@ private:
                                     UHDM::BaseClass* parent,
                                     const std::string& prefix, NetMap& netMap,
                                     bool stmtCtx);
+    // ===== § droppedCallArgTakesTheOrdinaryWindow165 — THE LAW (r10uvm165) ====
+    // A **DROPPED** CALL'S ARGUMENTS BIND EXACTLY WHERE A VALID CALL'S
+    // ARGUMENTS BIND, AND NOWHERE ELSE.  Surelog is never told that slang
+    // rejected the statement — it compiles the call like any other — so the
+    // golden value of such an argument is § classArgBind12's and
+    // § controlBodyNoBind28's, verbatim.  § droppedCall14's statement-position
+    // re-emitter (`emitDroppedCall14`, and § droppedIdxRecvCall26's twin)
+    // reproduced the window's ADD (`bind = true`, its own comment: "the same
+    // ClassArgBind12 window a valid class-method call opens") and NOT its DEPTH
+    // gate, so a dropped call one control body down bound what golden leaves
+    // bare.  DIRECTION: SUPPRESS (remove a vpiActual we minted; never delete
+    // an object, never reshape).
+    //
+    // THE CORPUS HEAD — BuildUVMPkg default and testflags, 29 cmp lines, ONE
+    // head, the two logs byte-identical, `LHS: <null> / RHS: io_decl
+    // (alias_name)` (the MIRROR singular `ref_obj::Actual_group` arm,
+    // BaseClass.h:191-193).  `uvm-1.2`-era `uvm_registry.svh:594-603`, flattened
+    // into `uvm_pkg.sv` at 14091-14100:
+    //
+    //   static function void set_type_alias(string alias_name);      // 14091
+    //      m__type_aliases.push_back(alias_name);                    // 14092
+    //      m__type_aliases.sort();                                   // 14093
+    //      if (uvm_pkg::get_core_state() != UVM_CORE_UNINITIALIZED) begin
+    //         uvm_factory factory = uvm_factory::get();              // 14095
+    //         Tregistry rgtry = Tregistry::get();                    // 14096
+    //         if (factory.is_type_registered(rgtry)) begin           // 14097
+    //            factory.set_type_alias(alias_name,rgtry);           // 14098
+    //
+    // GOLDEN binds `alias_name` at 14092 (control depth 0) and leaves it BARE
+    // at 14098 (depth 2); we bound BOTH.  `uvm_registry_common` is a
+    // PARAMETERIZED class whose `Tregistry` defaults to `int`, so in the
+    // DEFAULT SPECIALIZATION `factory.set_type_alias(alias_name, rgtry)` hands
+    // an `int` where a `uvm_object_wrapper` is wanted; slang rejects the
+    // statement (diagnostics are suppressed inside a generic class body, which
+    // is why the file still compiles) and § droppedCall14's re-emitter built
+    // the call from the syntax — binding its arguments unconditionally.
+    //
+    // NOT A MISSING WINDOW — MEASURED, NOT ASSUMED.  The brief read this head
+    // as a bind WINDOW that closes at 14098 and not at 14092.  There is no such
+    // window: a WELL-TYPED call written in the very same block is already BARE
+    // on both sides (arm B h13 `pelt.keep(tag_nm)` at depth 1: golden BARE,
+    // pristine BARE, patched BARE), so § classArgBind12 / § controlBodyNoBind28
+    // were doing their job everywhere the ordinary path runs.  The DROPPED
+    // re-emitter simply never asked them.
+    //
+    // THE GATE IS § controlBodyNoBind28's OWN, verbatim:
+    //     curSubClassScope9 && !curSubOob9 && ctrlBodyDepth28 > 0  -> no bind.
+    // Each conjunct is a measured cell that fails without it (arm B, DEF view,
+    // one Surelog golden, both binaries):
+    //   * `ctrlBodyDepth28 > 0` — h01 (depth 0, formal) golden BOUND and stays
+    //     BOUND; h14 (depth 2, the corpus shape) golden BARE.  A plain `begin`
+    //     (h07), a NAMED block (h21) and a `fork` arm (h22) raise no depth and
+    //     keep binding, exactly as golden has them.
+    //   * `!curSubOob9` — h61/h62, an OUT-OF-BODY definition of the same
+    //     method: golden BINDS at depth 0 AND at depth 1, on both binaries.  A
+    //     depth-only gate would have taken h62 AWAY.
+    //   * `curSubClassScope9` — § 28's own home test; a dropped call can only
+    //     arise where slang suppresses its diagnostics, i.e. inside a generic
+    //     class body, so this conjunct is inert and is written for exactness
+    //     with the law it mirrors rather than for a cell of its own.
+    // A `$unit`-scope generic class needs NO extra term: arm C u01/u02 (depth
+    // 0) are golden-BOUND and stay bound, u03 (depth 1) is golden-BARE and
+    // moves — `unitSubNoBind9` has no cell here.
+    //
+    // WHAT NEVER BOUND AND STILL DOES NOT: the bind reads
+    // `currentSubSym->find(name)`, which sees only the subroutine's own formals
+    // and body locals, so a class PROPERTY (arm C f05/f15), a PACKAGE variable
+    // (f06/f16), a class PARAMETER (f09) and a DOTTED PAIR `a.b` (f07/f08/f17)
+    // are BARE in golden and were already bare here — there is no symbol half
+    // to this law and none is invented.  The EXPRESSION-position arm of
+    // § droppedCall14 (`bind = false`) is untouched: f21/f22/f23 and the
+    // return-position f41/f42 are BARE on both sides before and after.
+    //
+    // VERIFIER NOTE (r10v165, § shadowedBlockLocal165v) — the one thing
+    // `currentSubSym->find` DOES reach that this law does not model.  § 57 /
+    // § 64's carve-out (a variable declared in an UNNAMED statement block at
+    // the SAME ctrlBodyDepth28 BINDS inside a § 12 argument window even at
+    // depth > 0) applies to a DROPPED call too, because Surelog never learns
+    // the call was dropped.  Normally it cannot be reproduced from here: the
+    // block local lives in slang's own StatementBlockSymbol scope and `find`
+    // resolves in the SUBROUTINE's, so it returns null and the reference is
+    // bare on both binaries (`r10v165repro/v165_b_shadow.sv` b_blk / b_blk0:
+    // golden BOUND, pristine BARE, patched BARE — residue R-blklocal, owned by
+    // neither).  But when the block local SHADOWS a formal or a body local,
+    // `find` SUCCEEDS on the outer symbol: the pristine binary then emitted a
+    // `vpiActual` pointing at the FORMAL's `io_decl` where golden points at the
+    // block's `string_var` (s_shad, s_shad2).  That cell was already WRONG, so
+    // suppressing it is SIDEWAYS on the judge, never a regression — measured,
+    // both views, target-aware census.  A future pass that implements § 57 here
+    // must bind the BLOCK's symbol, not whatever `find` happens to return.
     UHDM::any* emitDroppedArg14(const slang::syntax::ExpressionSyntax& ae,
                                 UHDM::BaseClass* parent,
                                 const std::string& argPfx, NetMap& netMap,

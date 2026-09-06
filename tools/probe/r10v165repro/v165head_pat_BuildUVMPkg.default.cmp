@@ -1,0 +1,60 @@
+LHS:
+decompile:
+constant: , id:2991, line:8504:47, endln:8504:67
+|vpiParent:
+\_param_assign: , id:2974, line:8504:26, endln:8504:67
+|vpiDecompile:3
+|INT:3
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg), id:2992
+  |vpiParent:
+  \_constant: , id:2991, line:8504:47, endln:8504:67
+  |vpiFullName:uvm_pkg
+  |vpiActual:
+  \_enum_typespec: (uvm_pkg::uvm_core_state), id:2958, line:8490:1, endln:8501:18
+|vpiConstType:7
+
+decompile:
+constant: , id:2991, line:8504:47, endln:8504:67
+|vpiParent:
+\_param_assign: , id:2974, line:8504:26, endln:8504:67
+|vpiDecompile:3
+|INT:3
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg), id:2992
+  |vpiParent:
+  \_constant: , id:2991, line:8504:47, endln:8504:67
+  |vpiFullName:uvm_pkg
+  |vpiActual:
+  \_enum_typespec: (uvm_pkg::uvm_core_state), id:2958, line:8490:1, endln:8501:18
+|vpiConstType:7
+RHS:
+decompile:
+constant: , id:2939, line:8504:47, endln:8504:67
+|vpiParent:
+\_param_assign: , id:2938, line:8504:26, endln:8504:67
+|vpiDecompile:3
+|UINT:3
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg), id:2940
+  |vpiParent:
+  \_constant: , id:2939, line:8504:47, endln:8504:67
+  |vpiFullName:uvm_pkg
+  |vpiActual:
+  \_enum_typespec: (uvm_pkg::uvm_core_state), id:3105, line:8490:1, endln:8501:18
+|vpiConstType:9
+
+decompile:
+constant: , id:2939, line:8504:47, endln:8504:67
+|vpiParent:
+\_param_assign: , id:2938, line:8504:26, endln:8504:67
+|vpiDecompile:3
+|UINT:3
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg), id:2940
+  |vpiParent:
+  \_constant: , id:2939, line:8504:47, endln:8504:67
+  |vpiFullName:uvm_pkg
+  |vpiActual:
+  \_enum_typespec: (uvm_pkg::uvm_core_state), id:3105, line:8490:1, endln:8501:18
+|vpiConstType:9

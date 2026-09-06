@@ -1,0 +1,212 @@
+r10uvm165 — THE GRID (four arms x two views, one Surelog golden per arm)
+MEASUREMENT ONLY.  LHS is always golden (Surelog), RHS always ours.
+grid165.sh records every command WITH ITS BINARY PATH and every rc in each
+workdir's cmds.txt; every non-zero rc line is printed below.
+pristine md5 ac0350d07c685ac10b106abce26ec554, patched 8bac95ba55a581dfcc3c903251686479.
+
+================================================ g165_a_sep
+-- non-zero rc lines in cmds.txt:
+   (none)
+-- the OFFICIAL judge on this arm (uhdm-cmp golden vs each binary):
+   def  pristine 0 cmp lines / 0 heads    patched 0 / 0
+   elab  pristine 0 cmp lines / 0 heads    patched 0 / 0
+-- the REF census (kind|name|span|full parent chain in the key):
+-- def REF: golden-vs-PRISTINE 0   golden-vs-PATCHED 0
+-- elab REF: golden-vs-PRISTINE 32   golden-vs-PATCHED 32
+TOTALS {}
+-- the CAS census (CTX x CAST x HOME):
+-- def CAS: golden-vs-PRISTINE 0   golden-vs-PATCHED 0
+-- elab CAS: golden-vs-PRISTINE 32   golden-vs-PATCHED 32
+TOTALS {}
+================================================ g165_b_home
+-- non-zero rc lines in cmds.txt:
+   (none)
+-- the OFFICIAL judge on this arm (uhdm-cmp golden vs each binary):
+   def  pristine 29 cmp lines / 1 heads    patched 102 / 1
+   elab  pristine 110 cmp lines / 1 heads    patched 110 / 1
+-- the REF census (kind|name|span|full parent chain in the key):
+-- def REF: golden-vs-PRISTINE 33   golden-vs-PATCHED 9
+   def TOWARD    ref_obj|perch|43:25|/method_func_call:absent/begin/if_stmt/begin/function:run/class_defn:InBody165/package:hpk165/design:work@modhome165  G={'ACT=NONE': 1} pris={'ACT=int_var:perch': 1} pat={'ACT=NONE': 1}
+   def TOWARD    ref_obj|perch|62:33|/method_func_call:absent/case_item/case_stmt/begin/function:run/class_defn:InBody165/package:hpk165/design:work@modhome165  G={'ACT=NONE': 1} pris={'ACT=int_var:perch': 1} pat={'ACT=NONE': 1}
+   def TOWARD    ref_obj|tag_nm|42:25|/method_func_call:absent/begin/if_stmt/begin/function:run/class_defn:InBody165/package:hpk165/design:work@modhome165  G={'ACT=NONE': 1} pris={'ACT=io_decl:tag_nm': 1} pat={'ACT=NONE': 1}
+   def TOWARD    ref_obj|tag_nm|48:28|/method_func_call:absent/begin/if_stmt/begin/if_else/begin/function:run/class_defn:InBody165/package:hpk165/design:work@modhome165  G={'ACT=NONE': 1} pris={'ACT=io_decl:tag_nm': 1} pat={'ACT=NONE': 1}
+   def TOWARD    ref_obj|tag_nm|52:25|/method_func_call:absent/begin/if_else/begin/function:run/class_defn:InBody165/package:hpk165/design:work@modhome165  G={'ACT=NONE': 1} pris={'ACT=io_decl:tag_nm': 1} pat={'ACT=NONE': 1}
+   def TOWARD    ref_obj|tag_nm|55:25|/method_func_call:absent/begin/while_stmt/begin/function:run/class_defn:InBody165/package:hpk165/design:work@modhome165  G={'ACT=NONE': 1} pris={'ACT=io_decl:tag_nm': 1} pat={'ACT=NONE': 1}
+   def TOWARD    ref_obj|tag_nm|58:25|/method_func_call:absent/begin/for_stmt/begin/function:run/class_defn:InBody165/package:hpk165/design:work@modhome165  G={'ACT=NONE': 1} pris={'ACT=io_decl:tag_nm': 1} pat={'ACT=NONE': 1}
+   def TOWARD    ref_obj|tag_nm|61:27|/method_func_call:absent/case_item/case_stmt/begin/function:run/class_defn:InBody165/package:hpk165/design:work@modhome165  G={'ACT=NONE': 1} pris={'ACT=io_decl:tag_nm': 1} pat={'ACT=NONE': 1}
+   def TOWARD    ref_obj|tag_nm|65:25|/method_func_call:absent/begin/repeat/begin/function:run/class_defn:InBody165/package:hpk165/design:work@modhome165  G={'ACT=NONE': 1} pris={'ACT=io_decl:tag_nm': 1} pat={'ACT=NONE': 1}
+   def TOWARD    ref_obj|tag_nm|78:25|/method_func_call:absent/begin/if_stmt/begin/function:meth/class_defn:InBody165/package:hpk165/design:work@modhome165  G={'ACT=NONE': 1} pris={'ACT=io_decl:tag_nm': 1} pat={'ACT=NONE': 1}
+   def TOWARD    ref_obj|tag_nm|84:25|/method_func_call:absent/begin/if_stmt/begin/task:tsk/class_defn:InBody165/package:hpk165/design:work@modhome165  G={'ACT=NONE': 1} pris={'ACT=io_decl:tag_nm': 1} pat={'ACT=NONE': 1}
+   def TOWARD    ref_obj|tag_nm|92:25|/method_func_call:absent/begin/if_stmt/begin/function:new/class_defn:InBody165/package:hpk165/design:work@modhome165  G={'ACT=NONE': 1} pris={'ACT=io_decl:tag_nm': 1} pat={'ACT=NONE': 1}
+-- elab REF: golden-vs-PRISTINE 95   golden-vs-PATCHED 75
+   elab TOWARD    ref_obj|perch|43:25|/method_func_call:absent/begin/if_stmt/begin/function:run/class_defn:InBody165/package:hpk165/design:work@modhome165  G={'ACT=NONE': 1, 'ACT=int_var:perch': 1} pris={'ACT=int_var:perch': 2} pat={'ACT=NONE': 1, 'ACT=int_var:perch': 1}
+   elab TOWARD    ref_obj|perch|62:33|/method_func_call:absent/case_item/case_stmt/begin/function:run/class_defn:InBody165/package:hpk165/design:work@modhome165  G={'ACT=NONE': 1, 'ACT=int_var:perch': 1} pris={'ACT=int_var:perch': 2} pat={'ACT=NONE': 1, 'ACT=int_var:perch': 1}
+   elab TOWARD    ref_obj|tag_nm|42:25|/method_func_call:absent/begin/if_stmt/begin/function:run/class_defn:InBody165/package:hpk165/design:work@modhome165  G={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1} pris={'ACT=io_decl:tag_nm': 2} pat={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1}
+   elab TOWARD    ref_obj|tag_nm|48:28|/method_func_call:absent/begin/if_stmt/begin/if_else/begin/function:run/class_defn:InBody165/package:hpk165/design:work@modhome165  G={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1} pris={'ACT=io_decl:tag_nm': 2} pat={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1}
+   elab TOWARD    ref_obj|tag_nm|52:25|/method_func_call:absent/begin/if_else/begin/function:run/class_defn:InBody165/package:hpk165/design:work@modhome165  G={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1} pris={'ACT=io_decl:tag_nm': 2} pat={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1}
+   elab TOWARD    ref_obj|tag_nm|55:25|/method_func_call:absent/begin/while_stmt/begin/function:run/class_defn:InBody165/package:hpk165/design:work@modhome165  G={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1} pris={'ACT=io_decl:tag_nm': 2} pat={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1}
+   elab TOWARD    ref_obj|tag_nm|58:25|/method_func_call:absent/begin/for_stmt/begin/function:run/class_defn:InBody165/package:hpk165/design:work@modhome165  G={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1} pris={'ACT=io_decl:tag_nm': 2} pat={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1}
+   elab TOWARD    ref_obj|tag_nm|61:27|/method_func_call:absent/case_item/case_stmt/begin/function:run/class_defn:InBody165/package:hpk165/design:work@modhome165  G={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1} pris={'ACT=io_decl:tag_nm': 2} pat={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1}
+   elab TOWARD    ref_obj|tag_nm|65:25|/method_func_call:absent/begin/repeat/begin/function:run/class_defn:InBody165/package:hpk165/design:work@modhome165  G={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1} pris={'ACT=io_decl:tag_nm': 2} pat={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1}
+   elab SIDEWAYS  ref_obj|tag_nm|78:25|/method_func_call:absent/begin/if_stmt/begin/function:meth/class_defn:InBody165/package:hpk165/design:work@modhome165  G={'ACT=io_decl:tag_nm': 1} pris={'ACT=io_decl:tag_nm': 2} pat={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1}  dist pris=1 pat=1
+   elab SIDEWAYS  ref_obj|tag_nm|84:25|/method_func_call:absent/begin/if_stmt/begin/task:tsk/class_defn:InBody165/package:hpk165/design:work@modhome165  G={'ACT=io_decl:tag_nm': 1} pris={'ACT=io_decl:tag_nm': 2} pat={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1}  dist pris=1 pat=1
+   elab TOWARD    ref_obj|tag_nm|92:25|/method_func_call:absent/begin/if_stmt/begin/function:new/class_defn:InBody165/package:hpk165/design:work@modhome165  G={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1} pris={'ACT=io_decl:tag_nm': 2} pat={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1}
+TOTALS {'TOWARD': 22, 'MOVED': 24, 'SIDEWAYS': 2}
+-- the CAS census (CTX x CAST x HOME):
+-- def CAS: golden-vs-PRISTINE 29   golden-vs-PATCHED 5
+   def TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|perch|43:25  G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+   def TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|perch|62:33  G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+   def TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|42:25  G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+   def TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|48:28  G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+   def TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|52:25  G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+   def TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|55:25  G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+   def TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|58:25  G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+   def TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|61:27  G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+   def TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|65:25  G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+   def TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|78:25  G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+   def TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|92:25  G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+   def TOWARD    CTX=arg|CAST=none|HOME=task@class_defn|ref_obj|tag_nm|84:25  G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+-- elab CAS: golden-vs-PRISTINE 79   golden-vs-PATCHED 59
+   elab TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|perch|43:25  G={'BARE': 1, 'BOUND': 1} pris={'BOUND': 2} pat={'BARE': 1, 'BOUND': 1}
+   elab TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|perch|62:33  G={'BARE': 1, 'BOUND': 1} pris={'BOUND': 2} pat={'BARE': 1, 'BOUND': 1}
+   elab TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|42:25  G={'BARE': 1, 'BOUND': 1} pris={'BOUND': 2} pat={'BARE': 1, 'BOUND': 1}
+   elab TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|48:28  G={'BARE': 1, 'BOUND': 1} pris={'BOUND': 2} pat={'BARE': 1, 'BOUND': 1}
+   elab TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|52:25  G={'BARE': 1, 'BOUND': 1} pris={'BOUND': 2} pat={'BARE': 1, 'BOUND': 1}
+   elab TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|55:25  G={'BARE': 1, 'BOUND': 1} pris={'BOUND': 2} pat={'BARE': 1, 'BOUND': 1}
+   elab TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|58:25  G={'BARE': 1, 'BOUND': 1} pris={'BOUND': 2} pat={'BARE': 1, 'BOUND': 1}
+   elab TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|61:27  G={'BARE': 1, 'BOUND': 1} pris={'BOUND': 2} pat={'BARE': 1, 'BOUND': 1}
+   elab TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|65:25  G={'BARE': 1, 'BOUND': 1} pris={'BOUND': 2} pat={'BARE': 1, 'BOUND': 1}
+   elab SIDEWAYS  CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|78:25  G={'BOUND': 1} pris={'BOUND': 2} pat={'BARE': 1, 'BOUND': 1}  dist pris=1 pat=1
+   elab TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|92:25  G={'BARE': 1, 'BOUND': 1} pris={'BOUND': 2} pat={'BARE': 1, 'BOUND': 1}
+   elab SIDEWAYS  CTX=arg|CAST=none|HOME=task@class_defn|ref_obj|tag_nm|84:25  G={'BOUND': 1} pris={'BOUND': 2} pat={'BARE': 1, 'BOUND': 1}  dist pris=1 pat=1
+TOTALS {'TOWARD': 22, 'MOVED': 24, 'SIDEWAYS': 2}
+================================================ g165_c_forms
+-- non-zero rc lines in cmds.txt:
+   (none)
+-- the OFFICIAL judge on this arm (uhdm-cmp golden vs each binary):
+   def  pristine 29 cmp lines / 1 heads    patched 0 / 0
+   elab  pristine 0 cmp lines / 0 heads    patched 0 / 0
+-- the REF census (kind|name|span|full parent chain in the key):
+-- def REF: golden-vs-PRISTINE 14   golden-vs-PATCHED 0
+   def TOWARD    ref_obj|cog|53:26|/method_func_call:absent/begin/if_stmt/begin/function:run/class_defn:Forms165/package:fpk165/design:unnamed  G={'ACT=NONE': 1} pris={'ACT=io_decl:cog': 1} pat={'ACT=NONE': 1}
+   def TOWARD    ref_obj|cog|55:34|/method_func_call:absent/begin/if_stmt/begin/function:run/class_defn:Forms165/package:fpk165/design:unnamed  G={'ACT=NONE': 1} pris={'ACT=io_decl:cog': 1} pat={'ACT=NONE': 1}
+   def TOWARD    ref_obj|label_nm|85:29|/method_func_call:absent/begin/if_stmt/begin/if_stmt/begin/function:set_label/class_defn:Forms165/package:fpk165/design:unnamed  G={'ACT=NONE': 1} pris={'ACT=io_decl:label_nm': 1} pat={'ACT=NONE': 1}
+   def TOWARD    ref_obj|perch|54:26|/method_func_call:absent/begin/if_stmt/begin/function:run/class_defn:Forms165/package:fpk165/design:unnamed  G={'ACT=NONE': 1} pris={'ACT=int_var:perch': 1} pat={'ACT=NONE': 1}
+   def TOWARD    ref_obj|tag_nm|14:23|/method_func_call:absent/begin/if_stmt/begin/function:run/class_defn:work@UnitCache165/design:unnamed  G={'ACT=NONE': 1} pris={'ACT=io_decl:tag_nm': 1} pat={'ACT=NONE': 1}
+   def TOWARD    ref_obj|tag_nm|52:26|/method_func_call:absent/begin/if_stmt/begin/function:run/class_defn:Forms165/package:fpk165/design:unnamed  G={'ACT=NONE': 1} pris={'ACT=io_decl:tag_nm': 1} pat={'ACT=NONE': 1}
+   def TOWARD    ref_obj|tag_nm|55:26|/method_func_call:absent/begin/if_stmt/begin/function:run/class_defn:Forms165/package:fpk165/design:unnamed  G={'ACT=NONE': 1} pris={'ACT=io_decl:tag_nm': 1} pat={'ACT=NONE': 1}
+-- elab REF: golden-vs-PRISTINE 36   golden-vs-PATCHED 22
+   elab TOWARD    ref_obj|cog|53:26|/method_func_call:absent/begin/if_stmt/begin/function:run/class_defn:Forms165/package:fpk165/design:unnamed  G={'ACT=NONE': 1, 'ACT=io_decl:cog': 1} pris={'ACT=io_decl:cog': 2} pat={'ACT=NONE': 1, 'ACT=io_decl:cog': 1}
+   elab TOWARD    ref_obj|cog|55:34|/method_func_call:absent/begin/if_stmt/begin/function:run/class_defn:Forms165/package:fpk165/design:unnamed  G={'ACT=NONE': 1, 'ACT=io_decl:cog': 1} pris={'ACT=io_decl:cog': 2} pat={'ACT=NONE': 1, 'ACT=io_decl:cog': 1}
+   elab TOWARD    ref_obj|label_nm|85:29|/method_func_call:absent/begin/if_stmt/begin/if_stmt/begin/function:set_label/class_defn:Forms165/package:fpk165/design:unnamed  G={'ACT=NONE': 1, 'ACT=io_decl:label_nm': 1} pris={'ACT=io_decl:label_nm': 2} pat={'ACT=NONE': 1, 'ACT=io_decl:label_nm': 1}
+   elab TOWARD    ref_obj|perch|54:26|/method_func_call:absent/begin/if_stmt/begin/function:run/class_defn:Forms165/package:fpk165/design:unnamed  G={'ACT=NONE': 1, 'ACT=int_var:perch': 1} pris={'ACT=int_var:perch': 2} pat={'ACT=NONE': 1, 'ACT=int_var:perch': 1}
+   elab TOWARD    ref_obj|tag_nm|14:23|/method_func_call:absent/begin/if_stmt/begin/function:run/class_defn:work@UnitCache165/design:unnamed  G={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1} pris={'ACT=io_decl:tag_nm': 2} pat={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1}
+   elab TOWARD    ref_obj|tag_nm|52:26|/method_func_call:absent/begin/if_stmt/begin/function:run/class_defn:Forms165/package:fpk165/design:unnamed  G={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1} pris={'ACT=io_decl:tag_nm': 2} pat={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1}
+   elab TOWARD    ref_obj|tag_nm|55:26|/method_func_call:absent/begin/if_stmt/begin/function:run/class_defn:Forms165/package:fpk165/design:unnamed  G={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1} pris={'ACT=io_decl:tag_nm': 2} pat={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1}
+TOTALS {'TOWARD': 14, 'MOVED': 14}
+-- the CAS census (CTX x CAST x HOME):
+-- def CAS: golden-vs-PRISTINE 14   golden-vs-PATCHED 0
+   def TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|cog|53:26  G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+   def TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|cog|55:34  G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+   def TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|label_nm|85:29  G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+   def TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|perch|54:26  G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+   def TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|14:23  G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+   def TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|52:26  G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+   def TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|55:26  G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+-- elab CAS: golden-vs-PRISTINE 36   golden-vs-PATCHED 22
+   elab TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|cog|53:26  G={'BARE': 1, 'BOUND': 1} pris={'BOUND': 2} pat={'BARE': 1, 'BOUND': 1}
+   elab TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|cog|55:34  G={'BARE': 1, 'BOUND': 1} pris={'BOUND': 2} pat={'BARE': 1, 'BOUND': 1}
+   elab TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|label_nm|85:29  G={'BARE': 1, 'BOUND': 1} pris={'BOUND': 2} pat={'BARE': 1, 'BOUND': 1}
+   elab TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|perch|54:26  G={'BARE': 1, 'BOUND': 1} pris={'BOUND': 2} pat={'BARE': 1, 'BOUND': 1}
+   elab TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|14:23  G={'BARE': 1, 'BOUND': 1} pris={'BOUND': 2} pat={'BARE': 1, 'BOUND': 1}
+   elab TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|52:26  G={'BARE': 1, 'BOUND': 1} pris={'BOUND': 2} pat={'BARE': 1, 'BOUND': 1}
+   elab TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|55:26  G={'BARE': 1, 'BOUND': 1} pris={'BOUND': 2} pat={'BARE': 1, 'BOUND': 1}
+TOTALS {'TOWARD': 14, 'MOVED': 14}
+================================================ g165_d_notmove
+-- non-zero rc lines in cmds.txt:
+   (none)
+-- the OFFICIAL judge on this arm (uhdm-cmp golden vs each binary):
+   def  pristine 29 cmp lines / 1 heads    patched 102 / 1
+   elab  pristine 110 cmp lines / 1 heads    patched 110 / 1
+-- the REF census (kind|name|span|full parent chain in the key):
+-- def REF: golden-vs-PRISTINE 22   golden-vs-PATCHED 4
+   def TOWARD    ref_obj|tag_nm|31:31|/method_func_call:absent/begin/if_stmt/begin/function:idx/class_defn:Warren165/package:dpk165/design:unnamed  G={'ACT=NONE': 1} pris={'ACT=io_decl:tag_nm': 1} pat={'ACT=NONE': 1}
+   def TOWARD    ref_obj|tag_nm|56:25|/method_func_call:absent/if_else/begin/function:bodies/class_defn:Warren165/package:dpk165/design:unnamed  G={'ACT=NONE': 1} pris={'ACT=io_decl:tag_nm': 1} pat={'ACT=NONE': 1}
+   def TOWARD    ref_obj|tag_nm|58:25|/method_func_call:absent/if_else/begin/function:bodies/class_defn:Warren165/package:dpk165/design:unnamed  G={'ACT=NONE': 1} pris={'ACT=io_decl:tag_nm': 1} pat={'ACT=NONE': 1}
+   def TOWARD    ref_obj|tag_nm|60:25|/method_func_call:absent/while_stmt/begin/function:bodies/class_defn:Warren165/package:dpk165/design:unnamed  G={'ACT=NONE': 1} pris={'ACT=io_decl:tag_nm': 1} pat={'ACT=NONE': 1}
+   def TOWARD    ref_obj|tag_nm|62:25|/method_func_call:absent/do_while/begin/function:bodies/class_defn:Warren165/package:dpk165/design:unnamed  G={'ACT=NONE': 1} pris={'ACT=io_decl:tag_nm': 1} pat={'ACT=NONE': 1}
+   def TOWARD    ref_obj|tag_nm|65:25|/method_func_call:absent/repeat/begin/function:bodies/class_defn:Warren165/package:dpk165/design:unnamed  G={'ACT=NONE': 1} pris={'ACT=io_decl:tag_nm': 1} pat={'ACT=NONE': 1}
+   def TOWARD    ref_obj|tag_nm|67:25|/method_func_call:absent/for_stmt/begin/function:bodies/class_defn:Warren165/package:dpk165/design:unnamed  G={'ACT=NONE': 1} pris={'ACT=io_decl:tag_nm': 1} pat={'ACT=NONE': 1}
+   def TOWARD    ref_obj|tag_nm|69:25|/method_func_call:absent/foreach_stmt/begin/function:bodies/class_defn:Warren165/package:dpk165/design:unnamed  G={'ACT=NONE': 1} pris={'ACT=io_decl:tag_nm': 1} pat={'ACT=NONE': 1}
+   def TOWARD    ref_obj|tag_nm|71:27|/method_func_call:absent/case_item/case_stmt/begin/function:bodies/class_defn:Warren165/package:dpk165/design:unnamed  G={'ACT=NONE': 1} pris={'ACT=io_decl:tag_nm': 1} pat={'ACT=NONE': 1}
+-- elab REF: golden-vs-PRISTINE 56   golden-vs-PATCHED 40
+   elab SIDEWAYS  ref_obj|tag_nm|31:31|/method_func_call:absent/begin/if_stmt/begin/function:idx/class_defn:Warren165/package:dpk165/design:unnamed  G={'ACT=io_decl:tag_nm': 1} pris={'ACT=io_decl:tag_nm': 2} pat={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1}  dist pris=1 pat=1
+   elab TOWARD    ref_obj|tag_nm|56:25|/method_func_call:absent/if_else/begin/function:bodies/class_defn:Warren165/package:dpk165/design:unnamed  G={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1} pris={'ACT=io_decl:tag_nm': 2} pat={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1}
+   elab TOWARD    ref_obj|tag_nm|58:25|/method_func_call:absent/if_else/begin/function:bodies/class_defn:Warren165/package:dpk165/design:unnamed  G={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1} pris={'ACT=io_decl:tag_nm': 2} pat={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1}
+   elab TOWARD    ref_obj|tag_nm|60:25|/method_func_call:absent/while_stmt/begin/function:bodies/class_defn:Warren165/package:dpk165/design:unnamed  G={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1} pris={'ACT=io_decl:tag_nm': 2} pat={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1}
+   elab TOWARD    ref_obj|tag_nm|62:25|/method_func_call:absent/do_while/begin/function:bodies/class_defn:Warren165/package:dpk165/design:unnamed  G={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1} pris={'ACT=io_decl:tag_nm': 2} pat={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1}
+   elab TOWARD    ref_obj|tag_nm|65:25|/method_func_call:absent/repeat/begin/function:bodies/class_defn:Warren165/package:dpk165/design:unnamed  G={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1} pris={'ACT=io_decl:tag_nm': 2} pat={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1}
+   elab TOWARD    ref_obj|tag_nm|67:25|/method_func_call:absent/for_stmt/begin/function:bodies/class_defn:Warren165/package:dpk165/design:unnamed  G={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1} pris={'ACT=io_decl:tag_nm': 2} pat={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1}
+   elab TOWARD    ref_obj|tag_nm|69:25|/method_func_call:absent/foreach_stmt/begin/function:bodies/class_defn:Warren165/package:dpk165/design:unnamed  G={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1} pris={'ACT=io_decl:tag_nm': 2} pat={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1}
+   elab TOWARD    ref_obj|tag_nm|71:27|/method_func_call:absent/case_item/case_stmt/begin/function:bodies/class_defn:Warren165/package:dpk165/design:unnamed  G={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1} pris={'ACT=io_decl:tag_nm': 2} pat={'ACT=NONE': 1, 'ACT=io_decl:tag_nm': 1}
+TOTALS {'TOWARD': 17, 'MOVED': 18, 'SIDEWAYS': 1}
+-- the CAS census (CTX x CAST x HOME):
+-- def CAS: golden-vs-PRISTINE 18   golden-vs-PATCHED 0
+   def TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|31:31  G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+   def TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|56:25  G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+   def TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|58:25  G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+   def TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|60:25  G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+   def TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|62:25  G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+   def TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|65:25  G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+   def TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|67:25  G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+   def TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|69:25  G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+   def TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|71:27  G={'BARE': 1} pris={'BOUND': 1} pat={'BARE': 1}
+-- elab CAS: golden-vs-PRISTINE 52   golden-vs-PATCHED 36
+   elab SIDEWAYS  CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|31:31  G={'BOUND': 1} pris={'BOUND': 2} pat={'BARE': 1, 'BOUND': 1}  dist pris=1 pat=1
+   elab TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|56:25  G={'BARE': 1, 'BOUND': 1} pris={'BOUND': 2} pat={'BARE': 1, 'BOUND': 1}
+   elab TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|58:25  G={'BARE': 1, 'BOUND': 1} pris={'BOUND': 2} pat={'BARE': 1, 'BOUND': 1}
+   elab TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|60:25  G={'BARE': 1, 'BOUND': 1} pris={'BOUND': 2} pat={'BARE': 1, 'BOUND': 1}
+   elab TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|62:25  G={'BARE': 1, 'BOUND': 1} pris={'BOUND': 2} pat={'BARE': 1, 'BOUND': 1}
+   elab TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|65:25  G={'BARE': 1, 'BOUND': 1} pris={'BOUND': 2} pat={'BARE': 1, 'BOUND': 1}
+   elab TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|67:25  G={'BARE': 1, 'BOUND': 1} pris={'BOUND': 2} pat={'BARE': 1, 'BOUND': 1}
+   elab TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|69:25  G={'BARE': 1, 'BOUND': 1} pris={'BOUND': 2} pat={'BARE': 1, 'BOUND': 1}
+   elab TOWARD    CTX=arg|CAST=none|HOME=function@class_defn|ref_obj|tag_nm|71:27  G={'BARE': 1, 'BOUND': 1} pris={'BOUND': 2} pat={'BARE': 1, 'BOUND': 1}
+TOTALS {'TOWARD': 17, 'MOVED': 18, 'SIDEWAYS': 1}
+
+================================================ the ONE boundary arm outside this pass
+r10uvm59repro/a1_witness.sv — r10uvm59's own reduction of the SAME corpus
+statement (uvm_registry's set_type_alias / alias_name):
+-- def REF: golden-vs-PRISTINE 4   golden-vs-PATCHED 2
+   def TOWARD    ref_obj|alias_name|65:29|/method_func_call:note/begin/if_stmt/function:set_type_alias/class_defn:w59/package:p59a1/design:unnamed  G={'ACT=NONE': 1} pris={'ACT=io_decl:alias_name': 1} pat={'ACT=NONE': 1}
+-- elab REF: golden-vs-PRISTINE 14   golden-vs-PATCHED 12
+   elab TOWARD    ref_obj|alias_name|65:29|/method_func_call:note/begin/if_stmt/function:set_type_alias/class_defn:w59/package:p59a1/design:unnamed  G={'ACT=NONE': 1, 'ACT=io_decl:alias_name': 1} pris={'ACT=io_decl:alias_name': 2} pat={'ACT=NONE': 1, 'ACT=io_decl:alias_name': 1}
+TOTALS {'TOWARD': 2, 'MOVED': 2}
+
+================================================================================
+THE TWO ARMS WHOSE DEF cmp LINE COUNT GOES UP (29 -> 102)
+
+A cmp line count is the HEAD OBJECT'S decompile size (RESUME.md §7), so a count
+that RISES while the head object CHANGES is a cleared head, not a regression.
+On g165_b_home.sv and g165_d_notmove.sv the PRISTINE def head is this pass's own
+over-bind:
+
+    LHS: <null>
+    RHS: io_decl (tag_nm) ...        (the MIRROR singular ref_obj::Actual_group)
+
+and it is GONE in the patched database.  The NEW head on both arms is a
+NAMED-BLOCK PREFIX residue of a different law -- golden's `named_begin` holds a
+statement whose argument reference is named `<block>::tag_nm` on one side and
+not the other:
+
+    LHS: named_begin (hpk165::InBody165::run::hnb165)       @67:9   (arm B)
+    LHS: named_begin (dpk165::Warren165::carriers::nblk165) @45:9   (arm D)
+
+It is PRE-EXISTING: the ONLY difference between the pristine and the patched
+database of either arm is the removal of vpiActual edges (18 dump lines on arm
+D def, 24 on arm B def, order-blind and indent-blind, all of them `<`), so the
+`named_begin` objects are byte-identical under both binaries.  Arm A
+(g165_a_sep.sv) has no named block and is EQUAL under both binaries in both
+views, which is where that residue is absent.
+
+g165_c_forms.sv is the arm that CLEARS: def 29 cmp lines / 1 head -> 0 / 0,
+elab 0 / 0 throughout.

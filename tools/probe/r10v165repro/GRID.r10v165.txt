@@ -1,0 +1,163 @@
+r10v165 — ADVERSARIAL GRID, five arms x two views, target-aware ARG census
+MEASUREMENT ONLY.  LHS is always golden (Surelog), RHS always ours.
+
+binaries: pristine ac0350d07c685ac10b106abce26ec554  patched 8bac95ba55a581dfcc3c903251686479
+          both built by the VERIFIER from fresh b9d5c606 worktrees and frozen chmod 555
+
+wA.def TOWARD       ARG|ref_obj|wick|104:25|call=method_func_call(stow)@104:20  G={'BARE': 1} pris={'BOUND->io_decl(wick)@101:31': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wA.def TOWARD       ARG|ref_obj|wick|26:25|call=method_func_call(stow)@26:20  G={'BARE': 1} pris={'BOUND->io_decl(wick)@23:39': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wA.def TOWARD       ARG|ref_obj|wick|28:28|call=method_func_call(stow)@28:23  G={'BARE': 1} pris={'BOUND->io_decl(wick)@23:39': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wA.def TOWARD       ARG|ref_obj|wick|30:31|call=method_func_call(stow)@30:26  G={'BARE': 1} pris={'BOUND->io_decl(wick)@23:39': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wA.def TOWARD       ARG|ref_obj|wick|40:27|call=method_func_call(stow)@40:22  G={'BARE': 1} pris={'BOUND->io_decl(wick)@37:50': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wA.def TOWARD       ARG|ref_obj|wick|41:33|call=method_func_call(stow)@41:28  G={'BARE': 1} pris={'BOUND->io_decl(wick)@37:50': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wA.def TOWARD       ARG|ref_obj|wick|42:33|call=method_func_call(stow)@42:28  G={'BARE': 1} pris={'BOUND->io_decl(wick)@37:50': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wA.def TOWARD       ARG|ref_obj|wick|46:31|call=method_func_call(stow)@46:26  G={'BARE': 1} pris={'BOUND->io_decl(wick)@37:50': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wA.def TOWARD       ARG|ref_obj|wick|49:31|call=method_func_call(stow)@49:26  G={'BARE': 1} pris={'BOUND->io_decl(wick)@37:50': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wA.def TOWARD       ARG|ref_obj|wick|52:44|call=method_func_call(stow)@52:39  G={'BARE': 1} pris={'BOUND->io_decl(wick)@37:50': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wA.def TOWARD       ARG|ref_obj|wick|53:46|call=method_func_call(stow)@53:41  G={'BARE': 1} pris={'BOUND->io_decl(wick)@37:50': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wA.def TOWARD       ARG|ref_obj|wick|55:37|call=method_func_call(stow)@55:32  G={'BARE': 1} pris={'BOUND->io_decl(wick)@37:50': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wA.def TOWARD       ARG|ref_obj|wick|56:42|call=method_func_call(stow)@56:37  G={'BARE': 1} pris={'BOUND->io_decl(wick)@37:50': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wA.def TOWARD       ARG|ref_obj|wick|57:27|call=method_func_call(stow)@57:22  G={'BARE': 1} pris={'BOUND->io_decl(wick)@37:50': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wA.def TOWARD       ARG|ref_obj|wick|61:25|call=method_func_call(stow)@61:20  G={'BARE': 1} pris={'BOUND->io_decl(wick)@37:50': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wA.def TOWARD       ARG|ref_obj|wick|66:28|call=method_func_call(stow)@66:23  G={'BARE': 1} pris={'BOUND->io_decl(wick)@37:50': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wA.def TOWARD       ARG|ref_obj|wick|80:25|call=method_func_call(stow)@80:20  G={'BARE': 1} pris={'BOUND->io_decl(wick)@77:41': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wA.def TOWARD       ARG|ref_obj|wick|85:25|call=method_func_call(stow)@85:20  G={'BARE': 1} pris={'BOUND->io_decl(wick)@77:41': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wA.def TOWARD       ARG|ref_obj|wick|88:33|call=method_func_call(stow)@88:28  G={'BARE': 1} pris={'BOUND->io_decl(wick)@77:41': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wA.def TOWARD       ARG|ref_obj|wick|90:25|call=method_func_call(stow)@90:20  G={'BARE': 1} pris={'BOUND->io_decl(wick)@77:41': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wA.def TOWARD       ARG|ref_obj|wick|94:25|call=method_func_call(stow)@94:20  G={'BARE': 1} pris={'BOUND->io_decl(wick)@77:41': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wA.def TOWARD       ARG|ref_obj|wick|96:25|call=method_func_call(stow)@96:20  G={'BARE': 1} pris={'BOUND->io_decl(wick)@77:41': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wA.def SUMMARY {'OK': 4, 'TOWARD': 22}  total_idents=26  DIST pris=44 pat=0
+wA.elab TOWARD       ARG|ref_obj|wick|26:25|call=method_func_call(stow)@26:20  G={'BARE': 1, 'BOUND->io_decl(wick)@23:39': 1} pris={'BOUND->io_decl(wick)@23:39': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@23:39': 1}  dist pris=2 pat=0
+wA.elab TOWARD       ARG|ref_obj|wick|28:28|call=method_func_call(stow)@28:23  G={'BARE': 1, 'BOUND->io_decl(wick)@23:39': 1} pris={'BOUND->io_decl(wick)@23:39': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@23:39': 1}  dist pris=2 pat=0
+wA.elab TOWARD       ARG|ref_obj|wick|30:31|call=method_func_call(stow)@30:26  G={'BARE': 1, 'BOUND->io_decl(wick)@23:39': 1} pris={'BOUND->io_decl(wick)@23:39': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@23:39': 1}  dist pris=2 pat=0
+wA.elab TOWARD       ARG|ref_obj|wick|40:27|call=method_func_call(stow)@40:22  G={'BARE': 1, 'BOUND->io_decl(wick)@37:50': 1} pris={'BOUND->io_decl(wick)@37:50': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@37:50': 1}  dist pris=2 pat=0
+wA.elab TOWARD       ARG|ref_obj|wick|41:33|call=method_func_call(stow)@41:28  G={'BARE': 1, 'BOUND->io_decl(wick)@37:50': 1} pris={'BOUND->io_decl(wick)@37:50': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@37:50': 1}  dist pris=2 pat=0
+wA.elab TOWARD       ARG|ref_obj|wick|42:33|call=method_func_call(stow)@42:28  G={'BARE': 1, 'BOUND->io_decl(wick)@37:50': 1} pris={'BOUND->io_decl(wick)@37:50': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@37:50': 1}  dist pris=2 pat=0
+wA.elab TOWARD       ARG|ref_obj|wick|46:31|call=method_func_call(stow)@46:26  G={'BARE': 1, 'BOUND->io_decl(wick)@37:50': 1} pris={'BOUND->io_decl(wick)@37:50': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@37:50': 1}  dist pris=2 pat=0
+wA.elab TOWARD       ARG|ref_obj|wick|49:31|call=method_func_call(stow)@49:26  G={'BARE': 1, 'BOUND->io_decl(wick)@37:50': 1} pris={'BOUND->io_decl(wick)@37:50': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@37:50': 1}  dist pris=2 pat=0
+wA.elab TOWARD       ARG|ref_obj|wick|52:44|call=method_func_call(stow)@52:39  G={'BARE': 1, 'BOUND->io_decl(wick)@37:50': 1} pris={'BOUND->io_decl(wick)@37:50': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@37:50': 1}  dist pris=2 pat=0
+wA.elab TOWARD       ARG|ref_obj|wick|53:46|call=method_func_call(stow)@53:41  G={'BARE': 1, 'BOUND->io_decl(wick)@37:50': 1} pris={'BOUND->io_decl(wick)@37:50': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@37:50': 1}  dist pris=2 pat=0
+wA.elab TOWARD       ARG|ref_obj|wick|55:37|call=method_func_call(stow)@55:32  G={'BARE': 1, 'BOUND->io_decl(wick)@37:50': 1} pris={'BOUND->io_decl(wick)@37:50': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@37:50': 1}  dist pris=2 pat=0
+wA.elab TOWARD       ARG|ref_obj|wick|56:42|call=method_func_call(stow)@56:37  G={'BARE': 1, 'BOUND->io_decl(wick)@37:50': 1} pris={'BOUND->io_decl(wick)@37:50': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@37:50': 1}  dist pris=2 pat=0
+wA.elab TOWARD       ARG|ref_obj|wick|57:27|call=method_func_call(stow)@57:22  G={'BARE': 1, 'BOUND->io_decl(wick)@37:50': 1} pris={'BOUND->io_decl(wick)@37:50': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@37:50': 1}  dist pris=2 pat=0
+wA.elab TOWARD       ARG|ref_obj|wick|61:25|call=method_func_call(stow)@61:20  G={'BARE': 1, 'BOUND->io_decl(wick)@37:50': 1} pris={'BOUND->io_decl(wick)@37:50': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@37:50': 1}  dist pris=2 pat=0
+wA.elab TOWARD       ARG|ref_obj|wick|66:28|call=method_func_call(stow)@66:23  G={'BARE': 1, 'BOUND->io_decl(wick)@37:50': 1} pris={'BOUND->io_decl(wick)@37:50': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@37:50': 1}  dist pris=2 pat=0
+wA.elab TOWARD       ARG|ref_obj|wick|80:25|call=method_func_call(stow)@80:20  G={'BARE': 1, 'BOUND->io_decl(wick)@77:41': 1} pris={'BOUND->io_decl(wick)@77:41': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@77:41': 1}  dist pris=2 pat=0
+wA.elab TOWARD       ARG|ref_obj|wick|85:25|call=method_func_call(stow)@85:20  G={'BARE': 1, 'BOUND->io_decl(wick)@77:41': 1} pris={'BOUND->io_decl(wick)@77:41': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@77:41': 1}  dist pris=2 pat=0
+wA.elab TOWARD       ARG|ref_obj|wick|88:33|call=method_func_call(stow)@88:28  G={'BARE': 1, 'BOUND->io_decl(wick)@77:41': 1} pris={'BOUND->io_decl(wick)@77:41': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@77:41': 1}  dist pris=2 pat=0
+wA.elab TOWARD       ARG|ref_obj|wick|90:25|call=method_func_call(stow)@90:20  G={'BARE': 1, 'BOUND->io_decl(wick)@77:41': 1} pris={'BOUND->io_decl(wick)@77:41': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@77:41': 1}  dist pris=2 pat=0
+wA.elab TOWARD       ARG|ref_obj|wick|94:25|call=method_func_call(stow)@94:20  G={'BARE': 1, 'BOUND->io_decl(wick)@77:41': 1} pris={'BOUND->io_decl(wick)@77:41': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@77:41': 1}  dist pris=2 pat=0
+wA.elab TOWARD       ARG|ref_obj|wick|96:25|call=method_func_call(stow)@96:20  G={'BARE': 1, 'BOUND->io_decl(wick)@77:41': 1} pris={'BOUND->io_decl(wick)@77:41': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@77:41': 1}  dist pris=2 pat=0
+wA.elab SUMMARY {'OK': 5, 'TOWARD': 21}  total_idents=26  DIST pris=42 pat=0
+wb_shadow.def STILL-WRONG  ARG|bit_select|m_vec|58:28|call=method_func_call(stow)@58:17  G={'BARE': 1} pris={} pat={}  dist pris=1 pat=1
+wb_shadow.def STILL-WRONG  ARG|bit_select|m_vec|61:31|call=method_func_call(stow)@61:20  G={'BARE': 1} pris={} pat={}  dist pris=1 pat=1
+wb_shadow.def STILL-WRONG  ARG|operation||57:22|call=method_func_call(stow)@57:17  G={'BARE': 1} pris={} pat={}  dist pris=1 pat=1
+wb_shadow.def STILL-WRONG  ARG|operation||60:25|call=method_func_call(stow)@60:20  G={'BARE': 1} pris={} pat={}  dist pris=1 pat=1
+wb_shadow.def TOWARD       ARG|ref_obj|cogs|74:37|call=method_func_call(stow)@74:20  G={'BARE': 1} pris={'BOUND->io_decl(cogs)@66:57': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wb_shadow.def SIDEWAYS     ARG|ref_obj|knob|36:25|call=method_func_call(stow)@36:20  G={'BOUND->int_var(knob)@34:17': 1} pris={'BOUND->io_decl(knob)@26:48': 1} pat={'BARE': 1}  dist pris=2 pat=2
+wb_shadow.def TOWARD       ARG|ref_obj|knob|73:31|call=method_func_call(stow)@73:20  G={'BARE': 1} pris={'BOUND->io_decl(knob)@66:47': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wb_shadow.def TOWARD       ARG|ref_obj|knob|74:31|call=method_func_call(stow)@74:20  G={'BARE': 1} pris={'BOUND->io_decl(knob)@66:47': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wb_shadow.def STILL-WRONG  ARG|ref_obj|msg2|51:25|call=method_func_call(stow)@51:20  G={'BOUND->string_var(msg2)@49:20': 1} pris={'BARE': 1} pat={'BARE': 1}  dist pris=2 pat=2
+wb_shadow.def STILL-WRONG  ARG|ref_obj|msg|45:25|call=method_func_call(stow)@45:20  G={'BOUND->string_var(msg)@43:20': 1} pris={'BARE': 1} pat={'BARE': 1}  dist pris=2 pat=2
+wb_shadow.def SIDEWAYS     ARG|ref_obj|wick|31:25|call=method_func_call(stow)@31:20  G={'BOUND->string_var(wick)@29:20': 1} pris={'BOUND->io_decl(wick)@26:38': 1} pat={'BARE': 1}  dist pris=2 pat=2
+wb_shadow.def TOWARD       ARG|ref_obj|wick|46:25|call=method_func_call(stow)@46:20  G={'BARE': 1} pris={'BOUND->io_decl(wick)@41:35': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wb_shadow.def TOWARD       ARG|ref_obj|wick|72:25|call=method_func_call(stow)@72:20  G={'BARE': 1} pris={'BOUND->io_decl(wick)@66:37': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wb_shadow.def TOWARD       ARG|ref_obj|wick|73:25|call=method_func_call(stow)@73:20  G={'BARE': 1} pris={'BOUND->io_decl(wick)@66:37': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wb_shadow.def TOWARD       ARG|ref_obj|wick|74:25|call=method_func_call(stow)@74:20  G={'BARE': 1} pris={'BOUND->io_decl(wick)@66:37': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wb_shadow.def TOWARD       ARG|ref_obj|wick|75:25|call=method_func_call(stow)@75:20  G={'BARE': 1} pris={'BOUND->io_decl(wick)@66:37': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wb_shadow.def TOWARD       ARG|ref_obj|wick|83:25|call=method_func_call(stow)@83:20  G={'BARE': 1} pris={'BOUND->io_decl(wick)@80:36': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wb_shadow.def SUMMARY {'STILL-WRONG': 6, 'OK': 13, 'TOWARD': 9, 'SIDEWAYS': 2}  total_idents=30  DIST pris=30 pat=12
+wb_shadow.elab STILL-WRONG  ARG|bit_select|m_vec|58:28|call=method_func_call(stow)@58:17  G={'BARE': 1, 'BOUND->array_var(m_vec)@23:18': 1} pris={} pat={}  dist pris=2 pat=2
+wb_shadow.elab STILL-WRONG  ARG|bit_select|m_vec|61:31|call=method_func_call(stow)@61:20  G={'BARE': 1, 'BOUND->array_var(m_vec)@23:18': 1} pris={} pat={}  dist pris=2 pat=2
+wb_shadow.elab STILL-WRONG  ARG|operation||57:22|call=method_func_call(stow)@57:17  G={'BARE': 2} pris={} pat={}  dist pris=2 pat=2
+wb_shadow.elab STILL-WRONG  ARG|operation||60:25|call=method_func_call(stow)@60:20  G={'BARE': 2} pris={} pat={}  dist pris=2 pat=2
+wb_shadow.elab SIDEWAYS     ARG|ref_obj|knob|36:25|call=method_func_call(stow)@36:20  G={'BOUND->int_var(knob)@34:17': 2} pris={'BOUND->int_var(knob)@34:17': 1, 'BOUND->io_decl(knob)@26:48': 1} pat={'BARE': 1, 'BOUND->int_var(knob)@34:17': 1}  dist pris=2 pat=2
+wb_shadow.elab STILL-WRONG  ARG|ref_obj|msg2|51:25|call=method_func_call(stow)@51:20  G={'BOUND->string_var(msg2)@49:20': 2} pris={'BARE': 1, 'BOUND->string_var(msg2)@49:20': 1} pat={'BARE': 1, 'BOUND->string_var(msg2)@49:20': 1}  dist pris=2 pat=2
+wb_shadow.elab STILL-WRONG  ARG|ref_obj|msg|45:25|call=method_func_call(stow)@45:20  G={'BOUND->string_var(msg)@43:20': 2} pris={'BARE': 1, 'BOUND->string_var(msg)@43:20': 1} pat={'BARE': 1, 'BOUND->string_var(msg)@43:20': 1}  dist pris=2 pat=2
+wb_shadow.elab SIDEWAYS     ARG|ref_obj|wick|31:25|call=method_func_call(stow)@31:20  G={'BOUND->string_var(wick)@29:20': 2} pris={'BOUND->io_decl(wick)@26:38': 1, 'BOUND->string_var(wick)@29:20': 1} pat={'BARE': 1, 'BOUND->string_var(wick)@29:20': 1}  dist pris=2 pat=2
+wb_shadow.elab TOWARD       ARG|ref_obj|wick|46:25|call=method_func_call(stow)@46:20  G={'BARE': 1, 'BOUND->io_decl(wick)@41:35': 1} pris={'BOUND->io_decl(wick)@41:35': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@41:35': 1}  dist pris=2 pat=0
+wb_shadow.elab TOWARD       ARG|ref_obj|wick|83:25|call=method_func_call(stow)@83:20  G={'BARE': 1, 'BOUND->io_decl(wick)@80:36': 1} pris={'BOUND->io_decl(wick)@80:36': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@80:36': 1}  dist pris=2 pat=0
+wb_shadow.elab SUMMARY {'STILL-WRONG': 6, 'OK': 20, 'SIDEWAYS': 2, 'TOWARD': 2}  total_idents=30  DIST pris=20 pat=16
+wc_homes.def TOWARD       ARG|ref_obj|wick|105:25|call=method_func_call(stow)@105:20  G={'BARE': 1} pris={'BOUND->io_decl(wick)@102:23': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wc_homes.def STILL-WRONG  ARG|ref_obj|wick|111:27|call=method_func_call(this)@111:15  G={'BARE': 1} pris={} pat={}  dist pris=1 pat=1
+wc_homes.def STILL-WRONG  ARG|ref_obj|wick|115:30|call=method_func_call(this)@115:18  G={'BARE': 1} pris={} pat={}  dist pris=1 pat=1
+wc_homes.def STILL-WRONG  ARG|ref_obj|wick|136:22|call=method_func_call(stow)@136:17  G={'BOUND->io_decl(wick)@135:33': 1} pris={} pat={}  dist pris=1 pat=1
+wc_homes.def STILL-WRONG  ARG|ref_obj|wick|138:25|call=method_func_call(stow)@138:20  G={'BARE': 1} pris={} pat={}  dist pris=1 pat=1
+wc_homes.def STILL-WRONG  ARG|ref_obj|wick|140:28|call=method_func_call(stow)@140:23  G={'BARE': 1} pris={} pat={}  dist pris=1 pat=1
+wc_homes.def TOWARD       ARG|ref_obj|wick|22:22|call=method_func_call(stow)@22:17  G={'BARE': 1} pris={'BOUND->io_decl(wick)@19:30': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wc_homes.def TOWARD       ARG|ref_obj|wick|24:25|call=method_func_call(stow)@24:20  G={'BARE': 1} pris={'BOUND->io_decl(wick)@19:30': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wc_homes.def TOWARD       ARG|ref_obj|wick|26:28|call=method_func_call(stow)@26:23  G={'BARE': 1} pris={'BOUND->io_decl(wick)@19:30': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wc_homes.def TOWARD       ARG|ref_obj|wick|83:25|call=method_func_call(stow)@83:20  G={'BARE': 1} pris={'BOUND->io_decl(wick)@80:27': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wc_homes.def TOWARD       ARG|ref_obj|wick|91:27|call=method_func_call(stow)@91:22  G={'BARE': 1} pris={'BOUND->io_decl(wick)@87:39': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wc_homes.def TOWARD       ARG|ref_obj|wick|98:25|call=method_func_call(stow)@98:20  G={'BARE': 1} pris={'BOUND->io_decl(wick)@95:40': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wc_homes.def SUMMARY {'OK': 15, 'TOWARD': 7, 'STILL-WRONG': 5}  total_idents=27  DIST pris=19 pat=5
+wc_homes.elab STILL-WRONG  ARG|ref_obj|wick|111:27|call=method_func_call(this)@111:15  G={'BOUND->io_decl(wick)@110:34': 1} pris={} pat={}  dist pris=1 pat=1
+wc_homes.elab STILL-WRONG  ARG|ref_obj|wick|115:30|call=method_func_call(this)@115:18  G={'BOUND->io_decl(wick)@110:34': 1} pris={} pat={}  dist pris=1 pat=1
+wc_homes.elab STILL-WRONG  ARG|ref_obj|wick|136:22|call=method_func_call(stow)@136:17  G={'BOUND->io_decl(wick)@135:33': 3} pris={} pat={}  dist pris=3 pat=3
+wc_homes.elab STILL-WRONG  ARG|ref_obj|wick|138:25|call=method_func_call(stow)@138:20  G={'BARE': 1, 'BOUND->io_decl(wick)@135:33': 2} pris={} pat={}  dist pris=3 pat=3
+wc_homes.elab STILL-WRONG  ARG|ref_obj|wick|140:28|call=method_func_call(stow)@140:23  G={'BARE': 1, 'BOUND->io_decl(wick)@135:33': 2} pris={} pat={}  dist pris=3 pat=3
+wc_homes.elab TOWARD       ARG|ref_obj|wick|22:22|call=method_func_call(stow)@22:17  G={'BARE': 1, 'BOUND->io_decl(wick)@19:30': 1} pris={'BOUND->io_decl(wick)@19:30': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@19:30': 1}  dist pris=2 pat=0
+wc_homes.elab TOWARD       ARG|ref_obj|wick|24:25|call=method_func_call(stow)@24:20  G={'BARE': 1, 'BOUND->io_decl(wick)@19:30': 1} pris={'BOUND->io_decl(wick)@19:30': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@19:30': 1}  dist pris=2 pat=0
+wc_homes.elab TOWARD       ARG|ref_obj|wick|26:28|call=method_func_call(stow)@26:23  G={'BARE': 1, 'BOUND->io_decl(wick)@19:30': 1} pris={'BOUND->io_decl(wick)@19:30': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@19:30': 1}  dist pris=2 pat=0
+wc_homes.elab STILL-WRONG  ARG|ref_obj|wick|52:19|call=method_func_call(stow)@52:14  G={'BOUND->io_decl(wick)@51:35': 6} pris={'BOUND->io_decl(wick)@51:35': 5} pat={'BOUND->io_decl(wick)@51:35': 5}  dist pris=1 pat=1
+wc_homes.elab STILL-WRONG  ARG|ref_obj|wick|54:22|call=method_func_call(stow)@54:17  G={'BOUND->io_decl(wick)@51:35': 6} pris={'BOUND->io_decl(wick)@51:35': 5} pat={'BOUND->io_decl(wick)@51:35': 5}  dist pris=1 pat=1
+wc_homes.elab STILL-WRONG  ARG|ref_obj|wick|56:25|call=method_func_call(stow)@56:20  G={'BOUND->io_decl(wick)@51:35': 6} pris={'BOUND->io_decl(wick)@51:35': 5} pat={'BOUND->io_decl(wick)@51:35': 5}  dist pris=1 pat=1
+wc_homes.elab STILL-WRONG  ARG|ref_obj|wick|58:28|call=method_func_call(stow)@58:23  G={'BOUND->io_decl(wick)@51:35': 6} pris={'BOUND->io_decl(wick)@51:35': 5} pat={'BOUND->io_decl(wick)@51:35': 5}  dist pris=1 pat=1
+wc_homes.elab STILL-WRONG  ARG|ref_obj|wick|68:27|call=method_func_call(stow)@68:22  G={'BOUND->io_decl(wick)@64:36': 6} pris={'BOUND->io_decl(wick)@64:36': 5} pat={'BOUND->io_decl(wick)@64:36': 5}  dist pris=1 pat=1
+wc_homes.elab TOWARD       ARG|ref_obj|wick|83:25|call=method_func_call(stow)@83:20  G={'BARE': 1, 'BOUND->io_decl(wick)@80:27': 1} pris={'BOUND->io_decl(wick)@80:27': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@80:27': 1}  dist pris=2 pat=0
+wc_homes.elab STILL-WRONG  ARG|ref_obj|wick|89:24|call=method_func_call(stow)@89:19  G={'BOUND->io_decl(wick)@87:39': 2} pris={'BOUND->io_decl(wick)@87:39': 4} pat={'BOUND->io_decl(wick)@87:39': 4}  dist pris=2 pat=2
+wc_homes.elab SIDEWAYS     ARG|ref_obj|wick|91:27|call=method_func_call(stow)@91:22  G={'BARE': 1, 'BOUND->io_decl(wick)@87:39': 1} pris={'BOUND->io_decl(wick)@87:39': 4} pat={'BARE': 1, 'BOUND->io_decl(wick)@87:39': 3}  dist pris=4 pat=2
+wc_homes.elab STILL-WRONG  ARG|ref_obj|work@vmod_c.deep.wick|52:19|call=method_func_call(stow)@52:14  G={'BOUND->io_decl(wick)@51:35': 1} pris={} pat={}  dist pris=1 pat=1
+wc_homes.elab STILL-WRONG  ARG|ref_obj|work@vmod_c.deep.wick|54:22|call=method_func_call(stow)@54:17  G={'BOUND->io_decl(wick)@51:35': 1} pris={} pat={}  dist pris=1 pat=1
+wc_homes.elab STILL-WRONG  ARG|ref_obj|work@vmod_c.deep.wick|56:25|call=method_func_call(stow)@56:20  G={'BOUND->io_decl(wick)@51:35': 1} pris={} pat={}  dist pris=1 pat=1
+wc_homes.elab STILL-WRONG  ARG|ref_obj|work@vmod_c.deep.wick|58:28|call=method_func_call(stow)@58:23  G={'BOUND->io_decl(wick)@51:35': 1} pris={} pat={}  dist pris=1 pat=1
+wc_homes.elab STILL-WRONG  ARG|ref_obj|work@vmod_c.sdeep.wick|68:27|call=method_func_call(stow)@68:22  G={'BOUND->io_decl(wick)@64:36': 1} pris={} pat={}  dist pris=1 pat=1
+wc_homes.elab SUMMARY {'OK': 11, 'STILL-WRONG': 16, 'TOWARD': 4, 'SIDEWAYS': 1}  total_idents=32  DIST pris=35 pat=25
+wd_idxrecv.def TOWARD       ARG|ref_obj|wick|24:29|call=method_func_call(stow)@24:24  G={'BARE': 1} pris={'BOUND->io_decl(wick)@18:35': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wd_idxrecv.def TOWARD       ARG|ref_obj|wick|25:27|call=method_func_call(stow)@25:22  G={'BARE': 1} pris={'BOUND->io_decl(wick)@18:35': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wd_idxrecv.def TOWARD       ARG|ref_obj|wick|26:29|call=method_func_call(stow)@26:24  G={'BARE': 1} pris={'BOUND->io_decl(wick)@18:35': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wd_idxrecv.def TOWARD       ARG|ref_obj|wick|27:29|call=method_func_call(stow)@27:24  G={'BARE': 1} pris={'BOUND->io_decl(wick)@18:35': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wd_idxrecv.def TOWARD       ARG|ref_obj|wick|29:32|call=method_func_call(stow)@29:27  G={'BARE': 1} pris={'BOUND->io_decl(wick)@18:35': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wd_idxrecv.def TOWARD       ARG|ref_obj|wick|31:35|call=method_func_call(stow)@31:30  G={'BARE': 1} pris={'BOUND->io_decl(wick)@18:35': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wd_idxrecv.def TOWARD       ARG|ref_obj|wick|38:36|call=method_func_call(stow)@38:31  G={'BARE': 1} pris={'BOUND->io_decl(wick)@37:37': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wd_idxrecv.def TOWARD       ARG|ref_obj|wick|39:36|call=method_func_call(stow)@39:31  G={'BARE': 1} pris={'BOUND->io_decl(wick)@37:37': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wd_idxrecv.def TOWARD       ARG|ref_obj|wick|41:31|call=method_func_call(stow)@41:26  G={'BARE': 1} pris={'BOUND->io_decl(wick)@37:37': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wd_idxrecv.def TOWARD       ARG|ref_obj|wick|42:37|call=method_func_call(stow)@42:32  G={'BARE': 1} pris={'BOUND->io_decl(wick)@37:37': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wd_idxrecv.def TOWARD       ARG|ref_obj|wick|45:35|call=method_func_call(stow)@45:30  G={'BARE': 1} pris={'BOUND->io_decl(wick)@37:37': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wd_idxrecv.def TOWARD       ARG|ref_obj|wick|47:29|call=method_func_call(stow)@47:24  G={'BARE': 1} pris={'BOUND->io_decl(wick)@37:37': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wd_idxrecv.def TOWARD       ARG|ref_obj|wick|69:26|call=method_func_call(stow)@69:21  G={'BARE': 1} pris={'BOUND->io_decl(wick)@66:34': 1} pat={'BARE': 1}  dist pris=2 pat=0
+wd_idxrecv.def SUMMARY {'OK': 9, 'TOWARD': 13}  total_idents=22  DIST pris=26 pat=0
+wd_idxrecv.elab TOWARD       ARG|ref_obj|wick|24:29|call=method_func_call(stow)@24:24  G={'BARE': 1, 'BOUND->io_decl(wick)@18:35': 1} pris={'BOUND->io_decl(wick)@18:35': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@18:35': 1}  dist pris=2 pat=0
+wd_idxrecv.elab TOWARD       ARG|ref_obj|wick|25:27|call=method_func_call(stow)@25:22  G={'BARE': 1, 'BOUND->io_decl(wick)@18:35': 1} pris={'BOUND->io_decl(wick)@18:35': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@18:35': 1}  dist pris=2 pat=0
+wd_idxrecv.elab TOWARD       ARG|ref_obj|wick|26:29|call=method_func_call(stow)@26:24  G={'BARE': 1, 'BOUND->io_decl(wick)@18:35': 1} pris={'BOUND->io_decl(wick)@18:35': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@18:35': 1}  dist pris=2 pat=0
+wd_idxrecv.elab TOWARD       ARG|ref_obj|wick|27:29|call=method_func_call(stow)@27:24  G={'BARE': 1, 'BOUND->io_decl(wick)@18:35': 1} pris={'BOUND->io_decl(wick)@18:35': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@18:35': 1}  dist pris=2 pat=0
+wd_idxrecv.elab TOWARD       ARG|ref_obj|wick|29:32|call=method_func_call(stow)@29:27  G={'BARE': 1, 'BOUND->io_decl(wick)@18:35': 1} pris={'BOUND->io_decl(wick)@18:35': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@18:35': 1}  dist pris=2 pat=0
+wd_idxrecv.elab TOWARD       ARG|ref_obj|wick|31:35|call=method_func_call(stow)@31:30  G={'BARE': 1, 'BOUND->io_decl(wick)@18:35': 1} pris={'BOUND->io_decl(wick)@18:35': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@18:35': 1}  dist pris=2 pat=0
+wd_idxrecv.elab TOWARD       ARG|ref_obj|wick|38:36|call=method_func_call(stow)@38:31  G={'BARE': 1, 'BOUND->io_decl(wick)@37:37': 1} pris={'BOUND->io_decl(wick)@37:37': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@37:37': 1}  dist pris=2 pat=0
+wd_idxrecv.elab TOWARD       ARG|ref_obj|wick|39:36|call=method_func_call(stow)@39:31  G={'BARE': 1, 'BOUND->io_decl(wick)@37:37': 1} pris={'BOUND->io_decl(wick)@37:37': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@37:37': 1}  dist pris=2 pat=0
+wd_idxrecv.elab TOWARD       ARG|ref_obj|wick|41:31|call=method_func_call(stow)@41:26  G={'BARE': 1, 'BOUND->io_decl(wick)@37:37': 1} pris={'BOUND->io_decl(wick)@37:37': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@37:37': 1}  dist pris=2 pat=0
+wd_idxrecv.elab TOWARD       ARG|ref_obj|wick|42:37|call=method_func_call(stow)@42:32  G={'BARE': 1, 'BOUND->io_decl(wick)@37:37': 1} pris={'BOUND->io_decl(wick)@37:37': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@37:37': 1}  dist pris=2 pat=0
+wd_idxrecv.elab TOWARD       ARG|ref_obj|wick|45:35|call=method_func_call(stow)@45:30  G={'BARE': 1, 'BOUND->io_decl(wick)@37:37': 1} pris={'BOUND->io_decl(wick)@37:37': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@37:37': 1}  dist pris=2 pat=0
+wd_idxrecv.elab TOWARD       ARG|ref_obj|wick|47:29|call=method_func_call(stow)@47:24  G={'BARE': 1, 'BOUND->io_decl(wick)@37:37': 1} pris={'BOUND->io_decl(wick)@37:37': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@37:37': 1}  dist pris=2 pat=0
+wd_idxrecv.elab STILL-WRONG  ARG|ref_obj|wick|53:32|call=method_func_call(stow)@53:27  G={'BARE': 1, 'BOUND->int_var(wick)@11:18': 1} pris={'BARE': 1, 'BOUND->int_var(m_fix)@11:18': 1} pat={'BARE': 1, 'BOUND->int_var(m_fix)@11:18': 1}  dist pris=2 pat=2
+wd_idxrecv.elab STILL-WRONG  ARG|ref_obj|wick|54:30|call=method_func_call(stow)@54:25  G={'BARE': 1, 'BOUND->int_var(wick)@11:18': 1} pris={'BARE': 1, 'BOUND->int_var(m_fix)@11:18': 1} pat={'BARE': 1, 'BOUND->int_var(m_fix)@11:18': 1}  dist pris=2 pat=2
+wd_idxrecv.elab STILL-WRONG  ARG|ref_obj|wick|58:35|call=method_func_call(stow)@58:30  G={'BARE': 1, 'BOUND->int_var(wick)@11:18': 1} pris={'BARE': 1, 'BOUND->int_var(m_fix)@11:18': 1} pat={'BARE': 1, 'BOUND->int_var(m_fix)@11:18': 1}  dist pris=2 pat=2
+wd_idxrecv.elab STILL-WRONG  ARG|ref_obj|wick|59:36|call=method_func_call(stow)@59:31  G={'BARE': 1, 'BOUND->int_var(wick)@12:18': 1} pris={'BARE': 1, 'BOUND->int_var(m_que)@12:18': 1} pat={'BARE': 1, 'BOUND->int_var(m_que)@12:18': 1}  dist pris=2 pat=2
+wd_idxrecv.elab SUMMARY {'OK': 6, 'TOWARD': 12, 'STILL-WRONG': 4}  total_idents=22  DIST pris=32 pat=8
+
+we_assert.def TOWARD       ARG|ref_obj|wick|31:28|call=method_func_call(stow)@31:23  G={'BARE': 1} pris={'BOUND->io_decl(wick)@18:36': 1} pat={'BARE': 1}  dist pris=2 pat=0
+we_assert.def SUMMARY {'OK': 12, 'TOWARD': 1}  total_idents=13  DIST pris=2 pat=0
+we_assert.elab TOWARD       ARG|ref_obj|wick|31:28|call=method_func_call(stow)@31:23  G={'BARE': 1, 'BOUND->io_decl(wick)@18:36': 1} pris={'BOUND->io_decl(wick)@18:36': 2} pat={'BARE': 1, 'BOUND->io_decl(wick)@18:36': 1}  dist pris=2 pat=0
+we_assert.elab SUMMARY {'OK': 12, 'TOWARD': 1}  total_idents=13  DIST pris=2 pat=0
+
+---- r10uvm59repro/a1_witness.sv (the ONE arm outside this pass that the wide boundary moved)
+u59.def TOWARD       ARG|ref_obj|alias_name|65:29|call=method_func_call(note)@65:17  G={'BARE': 1} pris={'BOUND->io_decl(alias_name)@61:48': 1} pat={'BARE': 1}  dist pris=2 pat=0
+u59.def STILL-WRONG  ARG|ref_obj|rgtry|65:22|call=method_func_call(note)@65:17  G={'BOUND->ref_var(rgtry)@64:19': 1} pris={'BARE': 1} pat={'BARE': 1}  dist pris=2 pat=2
+u59.def SUMMARY {'OK': 4, 'TOWARD': 1, 'STILL-WRONG': 1}  total_idents=6  DIST pris=4 pat=2
+u59.elab TOWARD       ARG|ref_obj|alias_name|65:29|call=method_func_call(note)@65:17  G={'BARE': 1, 'BOUND->io_decl(alias_name)@61:48': 1} pris={'BOUND->io_decl(alias_name)@61:48': 2} pat={'BARE': 1, 'BOUND->io_decl(alias_name)@61:48': 1}  dist pris=2 pat=0
+u59.elab STILL-WRONG  ARG|ref_obj|rgtry|65:22|call=method_func_call(note)@65:17  G={'BOUND->ref_var(rgtry)@64:19': 2} pris={'BARE': 1, 'BOUND->ref_var(rgtry)@64:19': 1} pat={'BARE': 1, 'BOUND->ref_var(rgtry)@64:19': 1}  dist pris=2 pat=2
+u59.elab SUMMARY {'OK': 4, 'TOWARD': 1, 'STILL-WRONG': 1}  total_idents=6  DIST pris=4 pat=2
+
+---- THE CORPUS ROW: BuildUVMPkg/default, every call argument in the database
+BUP TOWARD       ARG|ref_obj|alias_name|14098:35|call=method_func_call(set_type_alias)@14098:20  G={'BARE': 1} pris={'BOUND->io_decl(alias_name)@14091:46': 1} pat={'BARE': 1}  dist pris=2 pat=0
+BUP SUMMARY {'OK': 16009, 'STILL-WRONG': 86, 'TOWARD': 1}  total_idents=16096  DIST pris=158 pat=156

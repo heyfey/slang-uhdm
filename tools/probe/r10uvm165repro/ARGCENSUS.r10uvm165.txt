@@ -1,0 +1,1581 @@
+r10uvm165 — THE ARG CENSUS over the NINE UVM DATABASES x BOTH MODES
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog), RHS ALWAYS ours.
+
+Every CALL ARGUMENT in the nine databases that compile a UVM tree —
+BuildUVMPkg / MiniAmiq / SeqDriver / SimpleUVM x default and testflags, plus
+Scoreboard/default (Scoreboard/testflags is SLANG_REJECT and has no database:
+census165.sh prints SKIP-NOFILE and COUNTS it) — keyed by the WINDOW SHAPE
+this law is written in: the call's POSITION (statement vs expression), its
+RECEIVER kind, the CONTROL-BODY DEPTH, and the enclosing subroutine's HOME,
+against BOUND / BARE on both sides.  Multiset join; both one-sided sets.
+
+The DIFFERENCE the patch makes, in one line: golden-vs-ours disagreeing cells
+320 -> 318.  The two that go are the head, once per mode; NOTHING is
+introduced:
+
+  cells FIXED:
+  default.BuildUVMPkg-bf853d43  POS=stmt|RECV=prefix|D=2|HOME=function@class_defn  ref_obj|alias_name|14098:35  golden=BARE ours=BOUND
+  testflags.BuildUVMPkg-bf853d43  POS=stmt|RECV=prefix|D=2|HOME=function@class_defn  ref_obj|alias_name|14098:35  golden=BARE ours=BOUND
+  cells INTRODUCED: (none)
+
+################################################################ PRISTINE
+rows censused: 9
+POS      RECV      D   HOME                       G-BOUND  G-BARE  O-BOUND  O-BARE
+expr     bare      0   function@class_defn            143     577      143     577
+expr     bare      0   function@module_inst             1       0        1       0
+expr     bare      0   function@package               263     121      231     113
+expr     bare      0   none@none                       28     320       28     408
+expr     bare      0   task@class_defn                  0      18        0      18
+expr     bare      1   function@class_defn             95     532       95     532
+expr     bare      1   function@package               175      78      151      78
+expr     bare      2   function@class_defn             49       5       49       5
+expr     bare      2   function@package               109      17       85      17
+expr     hierpath  0   function@class_defn           1152    2366     1152    2366
+expr     hierpath  0   function@package              1770     361     2388     367
+expr     hierpath  0   task@class_defn                 39     111       39     111
+expr     hierpath  0   task@package                    51      23       75      23
+expr     hierpath  1   function@class_defn            584    1622      584    1622
+expr     hierpath  1   function@design                  0      14        0      14
+expr     hierpath  1   function@package              1669     376     1213     384
+expr     hierpath  1   task@class_defn                 29     118       29     118
+expr     hierpath  1   task@package                    69      26       61      26
+expr     hierpath  2   function@class_defn            490     834      490     834
+expr     hierpath  2   function@package              1144     369     1000     369
+expr     hierpath  2   task@class_defn                 77     194       77     194
+expr     hierpath  2   task@package                   173      44      173      44
+expr     hierpath  3   function@class_defn            113     495      113     495
+expr     hierpath  3   function@package               193     380      217     388
+expr     hierpath  3   task@class_defn                  0      47        0      47
+expr     hierpath  3   task@package                    16      19        0      19
+expr     hierpath  4   function@class_defn             58     117       58     117
+expr     hierpath  4   function@package               174     107      134      99
+expr     hierpath  4   task@class_defn                  0      18        0      18
+expr     hierpath  5   function@class_defn             59     144       59     144
+expr     hierpath  5   function@package               103     105       87     105
+expr     hierpath  6   function@class_defn              4      17        4      17
+expr     hierpath  6   function@package                 8       7        8       7
+expr     hierpath  7   function@class_defn             22       5       22       5
+expr     hierpath  7   function@package                 8      25       24      25
+expr     hierpath  8   function@package                16       0        0       0
+expr     hierpath  9   function@class_defn              4       3        4       3
+expr     hierpath  9   function@package                 8       7        8       7
+expr     none      0   function@class_defn           1007     625     1007     625
+expr     none      0   function@design                  0       4        0       4
+expr     none      0   function@package              1591     236     1719     244
+expr     none      0   none@none                        0       8        0       8
+expr     none      0   task@class_defn                200     101      200     101
+expr     none      0   task@package                   284      72      460     104
+expr     none      1   function@class_defn            303     639      303     639
+expr     none      1   function@design                  0       6        0       6
+expr     none      1   function@package               725     202      613     218
+expr     none      1   task@class_defn                 20      44       20      44
+expr     none      1   task@package                   204      76       36      52
+expr     none      2   function@class_defn            312     607      312     607
+expr     none      2   function@design                  0       8        0       8
+expr     none      2   function@package               483     465      635     521
+expr     none      2   task@class_defn                 35      68       35      68
+expr     none      2   task@package                    50     117       50     141
+expr     none      3   function@class_defn            130     223      130     223
+expr     none      3   function@design                  0       6        0       6
+expr     none      3   function@package               409     325      289     301
+expr     none      3   task@class_defn                 36      72       36      72
+expr     none      3   task@package                    82     162       74     130
+expr     none      4   function@class_defn             43      48       43      48
+expr     none      4   function@package               163     112       83      64
+expr     none      4   task@class_defn                 27      45       27      45
+expr     none      4   task@package                    49      87       49      87
+expr     none      5   function@class_defn             32      30       32      30
+expr     none      5   function@package                72      37       72      37
+expr     none      6   function@class_defn             14      21       14      21
+expr     none      6   function@package                38      37       38      37
+expr     prefix    0   function@class_defn              9      22        9      22
+expr     prefix    0   function@package                 9       0       17       0
+expr     prefix    0   task@class_defn                 18       0       18       0
+expr     prefix    0   task@package                    34       0       34       0
+expr     prefix    1   function@class_defn              0      30        0      30
+expr     prefix    1   function@package                 8       0        0       0
+expr     prefix    2   function@class_defn             18      18       18      18
+expr     prefix    2   function@package                32      36       32      36
+expr     syscall   0   function@class_defn           1134     428     1134     430
+expr     syscall   0   function@design                  0      28        0      28
+expr     syscall   0   function@package               340     121      428     120
+expr     syscall   0   initial@design                   0       4        0       0
+expr     syscall   0   none@none                        0       2        0       2
+expr     syscall   0   task@class_defn                 80      42       80      42
+expr     syscall   0   task@module_inst                 3       0        3       0
+expr     syscall   0   task@package                    61      33      125      33
+expr     syscall   1   function@class_defn            444    2270      444    2270
+expr     syscall   1   function@package              1717     663     1677     663
+expr     syscall   1   initial@design                   0       2        0       0
+expr     syscall   1   task@class_defn                394     136      394     136
+expr     syscall   1   task@module_inst                 6       0        6       0
+expr     syscall   1   task@package                   778     172      738     180
+expr     syscall   10  function@class_defn              7       0        7       0
+expr     syscall   10  function@package                15       0       15       0
+expr     syscall   2   function@class_defn            479    1527      479    1527
+expr     syscall   2   function@design                  0      34        0      34
+expr     syscall   2   function@package              1150    1410     1134    1426
+expr     syscall   2   task@class_defn                120     531      120     531
+expr     syscall   2   task@package                   370     593      346     585
+expr     syscall   3   function@class_defn            175     607      175     607
+expr     syscall   3   function@package               371     540      363     548
+expr     syscall   3   task@class_defn                 98     488       98     488
+expr     syscall   3   task@package                   240     340      240     340
+expr     syscall   4   function@class_defn            240     424      240     424
+expr     syscall   4   function@package               545     554      505     538
+expr     syscall   4   task@class_defn                 76     528       76     528
+expr     syscall   4   task@package                   108     113      108     113
+expr     syscall   5   function@class_defn             44     222       44     222
+expr     syscall   5   function@package               135     230      135     230
+expr     syscall   5   task@class_defn                  0     509        0     509
+expr     syscall   5   task@package                    16      52       16      52
+expr     syscall   6   function@class_defn             20      91       20      91
+expr     syscall   6   function@package                36       0       36       0
+expr     syscall   6   task@class_defn                  0     153        0     153
+expr     syscall   6   task@package                    16      18       16      18
+expr     syscall   7   function@class_defn              0      27        0      27
+expr     syscall   8   task@class_defn                  0      50        0      50
+expr     syscall   8   task@package                    32      66       32      66
+expr     syscall   9   function@class_defn              0       2        0       2
+stmt     bare      0   function@class_defn           4293     828     4293     828
+stmt     bare      0   function@package               342       0      342       0
+stmt     none      0   function@class_defn           4131    1306     4131    1306
+stmt     none      0   function@design                  4      14        0       4
+stmt     none      0   function@package              3797     255     3957    1231
+stmt     none      0   initial@design                   0       4        0       0
+stmt     none      0   task@class_defn               1275     618     1275     618
+stmt     none      0   task@package                  1741     161     1741     593
+stmt     none      1   function@class_defn           4772    3554     4772    3554
+stmt     none      1   function@design                  0      52        0      52
+stmt     none      1   function@package              5703    2395     5671    4035
+stmt     none      1   initial@design                   0       2        0       0
+stmt     none      1   task@class_defn               1350    1622     1350    1622
+stmt     none      1   task@package                  1697     879     1697    1055
+stmt     none      10  function@class_defn              7       0        7       0
+stmt     none      10  function@package                 7       8        7       8
+stmt     none      2   function@class_defn           3044    2543     3044    2543
+stmt     none      2   function@design                  0      22        0      14
+stmt     none      2   function@package              4093    5199     4053    3175
+stmt     none      2   task@class_defn                928    1251      928    1251
+stmt     none      2   task@package                  1067    1062     1067     742
+stmt     none      3   function@class_defn           1030     706     1030     706
+stmt     none      3   function@design                  0      14        0      14
+stmt     none      3   function@package              1332    1463     1340    1135
+stmt     none      3   task@class_defn                560     711      560     711
+stmt     none      3   task@package                   753     742      753     710
+stmt     none      4   function@class_defn            571     362      571     362
+stmt     none      4   function@package               770     793      738     729
+stmt     none      4   task@class_defn                263     307      263     307
+stmt     none      4   task@package                   287     402      287     242
+stmt     none      5   function@class_defn            288     334      288     334
+stmt     none      5   function@package               462     628      462     436
+stmt     none      5   task@class_defn                112     159      112     159
+stmt     none      5   task@package                   112     144      112      96
+stmt     none      6   function@class_defn            121     142      121     142
+stmt     none      6   function@package               205     189      205     173
+stmt     none      6   task@class_defn                 27      36       27      36
+stmt     none      6   task@package                    27      72       27      24
+stmt     none      7   function@class_defn             79     120       79     120
+stmt     none      7   function@package               191     177      191     145
+stmt     none      7   task@class_defn                 36       0       36       0
+stmt     none      7   task@package                    36       0       36      32
+stmt     none      8   function@class_defn              7      28        7      28
+stmt     none      8   function@package                31      44       31      44
+stmt     none      8   task@class_defn                 18       0       18       0
+stmt     none      8   task@package                    18      48       18      16
+stmt     none      9   function@class_defn              7       7        7       7
+stmt     none      9   function@package                23       7       23       7
+stmt     prefix    0   function@class_defn           5333    1932     5329    1936
+stmt     prefix    0   function@design                 24       0        0      38
+stmt     prefix    0   function@module_inst             0       2        0       2
+stmt     prefix    0   function@package              3244     882     3292     842
+stmt     prefix    0   task@class_defn               1956     936     1956     936
+stmt     prefix    0   task@package                  2020      89     2020      89
+stmt     prefix    1   function@class_defn           1748    2301     1748    2301
+stmt     prefix    1   function@design                  6       6        0      12
+stmt     prefix    1   function@package              2715    1246     2715    1238
+stmt     prefix    1   task@class_defn               2159    1692     2159    1692
+stmt     prefix    1   task@package                  3789     342     3789     342
+stmt     prefix    10  function@class_defn              0       4        0       4
+stmt     prefix    2   function@class_defn            679    1320      681    1318
+stmt     prefix    2   function@design                  0      10        0      18
+stmt     prefix    2   function@package              1146     701     1154     709
+stmt     prefix    2   task@class_defn                800     641      800     641
+stmt     prefix    2   task@package                  1400     425     1400     425
+stmt     prefix    3   function@class_defn            294     652      294     652
+stmt     prefix    3   function@design                  0      12        0      12
+stmt     prefix    3   function@package               502     185      486     185
+stmt     prefix    3   task@class_defn                141     667      141     667
+stmt     prefix    3   task@package                   297     334      297     334
+stmt     prefix    4   function@class_defn            199     607      199     607
+stmt     prefix    4   function@design                  0       6        0       6
+stmt     prefix    4   function@package               338     587      338     587
+stmt     prefix    4   task@class_defn                 78      37       78      37
+stmt     prefix    4   task@package                   109      59      109      59
+stmt     prefix    5   function@class_defn             16     139       16     139
+stmt     prefix    5   function@package                12      41       12      41
+stmt     prefix    5   task@class_defn                 20       9       20       9
+stmt     prefix    5   task@package                    27       9       27       9
+stmt     prefix    6   function@class_defn             25      87       25      87
+stmt     prefix    6   function@package                32       0       32       0
+stmt     prefix    7   function@class_defn              0      75        0      75
+stmt     prefix    8   function@class_defn             18       0       18       0
+stmt     prefix    8   function@package                16      18       16      18
+stmt     prefix    9   function@class_defn              0      10        0      10
+stmt     syscall   0   function@class_defn            424     567      424     567
+stmt     syscall   0   function@package               344     335      376     335
+stmt     syscall   0   initial@module_inst              4       0        4       0
+stmt     syscall   0   task@class_defn                 55      61       55      61
+stmt     syscall   0   task@module_inst                 5       0        5       0
+stmt     syscall   0   task@package                    34       1       34       1
+stmt     syscall   1   function@class_defn            380    1301      380    1301
+stmt     syscall   1   function@package               322     696      338     696
+stmt     syscall   1   task@class_defn                 19      89       19      89
+stmt     syscall   1   task@module_inst                 6       0        6       0
+stmt     syscall   1   task@package                    35      21       35      21
+stmt     syscall   2   function@class_defn            309    1121      309    1121
+stmt     syscall   2   function@package               449     404      449     404
+stmt     syscall   2   task@class_defn                  2      31        2      31
+stmt     syscall   2   task@package                     2       4        2       4
+stmt     syscall   3   function@class_defn             21     119       21     119
+stmt     syscall   3   function@package                62       0       30       0
+stmt     syscall   3   task@class_defn                  0      27        0      27
+stmt     syscall   4   function@class_defn             21       7       21       7
+stmt     syscall   4   function@package                30       0       30       0
+stmt     syscall   4   task@class_defn                  0       4        0       4
+stmt     syscall   5   function@class_defn             21      25       21      25
+stmt     syscall   5   function@package                30       0       30       0
+stmt     syscall   6   function@class_defn             21       7       21       7
+stmt     syscall   6   function@package                30       0       30       0
+stmt     syscall   6   task@class_defn                  0      54        0      54
+stmt     syscall   7   function@class_defn             14       0       14       0
+stmt     syscall   7   function@package                30       0       30       0
+stmt     syscall   8   function@class_defn             14       0       14       0
+stmt     syscall   8   function@package                30       0       30       0
+stmt     syscall   9   function@package                16       0        0       0
+
+golden-vs-ours DISAGREEING CELLS (joined on kind|name|span): 320
+  default.BuildUVMPkg-bf853d43  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|param_t|54020:26  golden=BARE ours=BOUND
+  default.BuildUVMPkg-bf853d43  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|t|54474:26  golden=BARE ours=BOUND
+  default.BuildUVMPkg-bf853d43  POS=stmt|RECV=prefix|D=2|HOME=function@class_defn  ref_obj|alias_name|14098:35  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|child|1824:25  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|m_sequencer_id|605:42  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|param_t|297:26  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|stream|2665:26  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|stream|2666:45  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|t|284:26  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=0|HOME=task@package  ref_obj|default_sequence|1647:53  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=0|HOME=task@package  ref_obj|default_sequence|1648:62  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=1|HOME=function@package  bit_select|args|3399:44  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=1|HOME=function@package  bit_select|split_vals|675:39  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|obj|890:29  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|obj|909:43  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|setting|3399:48  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|this|2155:144  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|this|2160:146  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|this|2164:150  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=2|HOME=function@package  ref_obj|m_max_value|1080:39  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=3|HOME=function@package  ref_obj|i|767:65  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=3|HOME=function@package  ref_obj|info|767:55  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=3|HOME=function@package  ref_obj|wrapper|1476:47  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=7|HOME=function@package  ref_obj|succ|1907:29  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=7|HOME=function@package  ref_obj|succ|1955:29  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=0|HOME=function@package  ref_obj|comp|613:32  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=0|HOME=task@package  ref_obj|rw|1524:28  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=0|HOME=task@package  ref_obj|rw|1524:36  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=0|HOME=task@package  ref_obj|rw|1634:28  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=0|HOME=task@package  ref_obj|rw|1634:36  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=1|HOME=function@package  bit_select|args|3501:25  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=1|HOME=function@package  bit_select|args|3572:28  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=1|HOME=function@package  ref_obj|i|1131:31  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=1|HOME=task@package  ref_obj|rw|1634:22  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|args|3483:62  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|args|3487:36  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|args|3553:60  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|args|3557:38  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|avail_sequences|791:37  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|avail_sequences|814:67  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|avail_sequences|834:66  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  ref_obj|full_inst_path|1453:40  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  ref_obj|qc|1453:24  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  ref_obj|sequence_ptr|1275:55  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=3|HOME=function@package  bit_select|avail_sequences|840:71  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=3|HOME=function@package  ref_obj|full_inst_path|1363:42  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=3|HOME=function@package  ref_obj|qc|1362:26  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=3|HOME=function@package  ref_obj|qc|1363:26  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=0|HOME=function@package  ref_obj|factory|1709:21  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=0|HOME=task@package  ref_obj|factory|1647:23  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=1|HOME=function@package  ref_obj|rs|1269:23  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=1|HOME=function@package  ref_obj|rw|1724:41  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=1|HOME=task@package  ref_obj|req_item|764:17  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=2|HOME=function@package  bit_select|q|149:247  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=2|HOME=function@package  ref_obj|idx|149:249  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=2|HOME=function@package  ref_obj|rw|1732:40  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=3|HOME=function@package  ref_obj|f|1475:23  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=3|HOME=function@package  ref_obj|rw|1740:43  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=0|HOME=function@design  ref_obj|a_test_name|123:25  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=1|HOME=function@package  bit_select|q|668:31  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=1|HOME=function@package  ref_obj|idx|668:33  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=2|HOME=function@package  bit_select|not_blocked_seqs|698:32  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=2|HOME=function@package  ref_obj|i|1386:50  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=2|HOME=function@package  ref_obj|idx|698:49  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=2|HOME=function@package  ref_obj|setting|3414:24  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=3|HOME=function@package  ref_obj|i|1167:45  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=3|HOME=function@package  ref_obj|i|918:53  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=3|HOME=function@package  ref_obj|obj|918:72  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@class_defn  ref_obj|a_sim_time|628:52  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@class_defn  ref_obj|a_test_name|94:29  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|a_test_name|309:24  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|a_test_name|333:24  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|a_test_name|357:24  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|a_test_name|382:24  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|a_test_name|407:24  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|a_test_name|433:24  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|disable_sva|333:37  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|enable_sva|309:37  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|enable_sva|357:37  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|enable_sva|382:37  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|enable_sva|407:37  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|enable_sva|433:37  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=1|HOME=function@design  ref_obj|disable_sva|482:50  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=1|HOME=function@design  ref_obj|disable_sva|498:50  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=1|HOME=function@design  ref_obj|enable_sva|467:50  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=2|HOME=function@package  bit_select|fields|290:48  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=2|HOME=function@package  bit_select|not_blocked_seqs|697:24  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=2|HOME=function@package  ref_obj|i|290:48  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=2|HOME=function@package  ref_obj|idx|697:41  golden=BOUND ours=BARE
+  default.Scoreboard-59431470  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|param_t|297:26  golden=BARE ours=BOUND
+  default.Scoreboard-59431470  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|t|284:26  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|child|1824:25  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|m_sequencer_id|605:42  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|param_t|297:26  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|stream|2665:26  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|stream|2666:45  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|t|284:26  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=0|HOME=task@package  ref_obj|default_sequence|1647:53  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=0|HOME=task@package  ref_obj|default_sequence|1648:62  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=1|HOME=function@package  bit_select|args|3399:44  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=1|HOME=function@package  bit_select|split_vals|675:39  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|obj|890:29  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|obj|909:43  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|setting|3399:48  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|this|2155:144  golden=BOUND ours=BARE
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|this|2160:146  golden=BOUND ours=BARE
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|this|2164:150  golden=BOUND ours=BARE
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=2|HOME=function@package  ref_obj|m_max_value|1080:39  golden=BOUND ours=BARE
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=3|HOME=function@package  ref_obj|i|767:65  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=3|HOME=function@package  ref_obj|info|767:55  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=3|HOME=function@package  ref_obj|wrapper|1476:47  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=7|HOME=function@package  ref_obj|succ|1907:29  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=7|HOME=function@package  ref_obj|succ|1955:29  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=0|HOME=function@package  ref_obj|comp|613:32  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=0|HOME=task@package  ref_obj|rw|1524:28  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=0|HOME=task@package  ref_obj|rw|1524:36  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=0|HOME=task@package  ref_obj|rw|1634:28  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=0|HOME=task@package  ref_obj|rw|1634:36  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=1|HOME=function@package  bit_select|args|3501:25  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=1|HOME=function@package  bit_select|args|3572:28  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=1|HOME=function@package  ref_obj|i|1131:31  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=1|HOME=task@package  ref_obj|rw|1634:22  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|args|3483:62  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|args|3487:36  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|args|3553:60  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|args|3557:38  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|avail_sequences|791:37  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|avail_sequences|814:67  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|avail_sequences|834:66  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  ref_obj|full_inst_path|1453:40  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  ref_obj|qc|1453:24  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  ref_obj|sequence_ptr|1275:55  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=3|HOME=function@package  bit_select|avail_sequences|840:71  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=3|HOME=function@package  ref_obj|full_inst_path|1363:42  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=3|HOME=function@package  ref_obj|qc|1362:26  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=3|HOME=function@package  ref_obj|qc|1363:26  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=0|HOME=function@package  ref_obj|factory|1709:21  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=0|HOME=task@package  ref_obj|factory|1647:23  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=1|HOME=function@package  ref_obj|rs|1269:23  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=1|HOME=function@package  ref_obj|rw|1724:41  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=1|HOME=task@package  ref_obj|req_item|764:17  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=2|HOME=function@package  bit_select|q|149:247  golden=BOUND ours=BARE
+  default.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=2|HOME=function@package  ref_obj|idx|149:249  golden=BOUND ours=BARE
+  default.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=2|HOME=function@package  ref_obj|rw|1732:40  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=3|HOME=function@package  ref_obj|f|1475:23  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=3|HOME=function@package  ref_obj|rw|1740:43  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=stmt|RECV=none|D=1|HOME=function@package  bit_select|q|668:31  golden=BOUND ours=BARE
+  default.SeqDriver-32af76aa  POS=stmt|RECV=none|D=1|HOME=function@package  ref_obj|idx|668:33  golden=BOUND ours=BARE
+  default.SeqDriver-32af76aa  POS=stmt|RECV=none|D=2|HOME=function@package  bit_select|not_blocked_seqs|698:32  golden=BOUND ours=BARE
+  default.SeqDriver-32af76aa  POS=stmt|RECV=none|D=2|HOME=function@package  ref_obj|i|1386:50  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=stmt|RECV=none|D=2|HOME=function@package  ref_obj|idx|698:49  golden=BOUND ours=BARE
+  default.SeqDriver-32af76aa  POS=stmt|RECV=none|D=2|HOME=function@package  ref_obj|setting|3414:24  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=stmt|RECV=none|D=3|HOME=function@package  ref_obj|i|1167:45  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=stmt|RECV=none|D=3|HOME=function@package  ref_obj|i|918:53  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=stmt|RECV=none|D=3|HOME=function@package  ref_obj|obj|918:72  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=stmt|RECV=prefix|D=2|HOME=function@package  bit_select|fields|290:48  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=stmt|RECV=prefix|D=2|HOME=function@package  bit_select|not_blocked_seqs|697:24  golden=BOUND ours=BARE
+  default.SeqDriver-32af76aa  POS=stmt|RECV=prefix|D=2|HOME=function@package  ref_obj|i|290:48  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=stmt|RECV=prefix|D=2|HOME=function@package  ref_obj|idx|697:41  golden=BOUND ours=BARE
+  default.SimpleUVM-1dc93a62  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|param_t|297:26  golden=BARE ours=BOUND
+  default.SimpleUVM-1dc93a62  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|t|284:26  golden=BARE ours=BOUND
+  testflags.BuildUVMPkg-bf853d43  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|param_t|54020:26  golden=BARE ours=BOUND
+  testflags.BuildUVMPkg-bf853d43  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|t|54474:26  golden=BARE ours=BOUND
+  testflags.BuildUVMPkg-bf853d43  POS=stmt|RECV=prefix|D=2|HOME=function@class_defn  ref_obj|alias_name|14098:35  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|child|1824:25  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|m_sequencer_id|605:42  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|param_t|297:26  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|stream|2665:26  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|stream|2666:45  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|t|284:26  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=0|HOME=task@package  ref_obj|default_sequence|1647:53  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=0|HOME=task@package  ref_obj|default_sequence|1648:62  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=1|HOME=function@package  bit_select|args|3399:44  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=1|HOME=function@package  bit_select|split_vals|675:39  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|obj|890:29  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|obj|909:43  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|setting|3399:48  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|this|2155:144  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|this|2160:146  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|this|2164:150  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=2|HOME=function@package  ref_obj|m_max_value|1080:39  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=3|HOME=function@package  ref_obj|i|767:65  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=3|HOME=function@package  ref_obj|info|767:55  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=3|HOME=function@package  ref_obj|wrapper|1476:47  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=7|HOME=function@package  ref_obj|succ|1907:29  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=7|HOME=function@package  ref_obj|succ|1955:29  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=0|HOME=function@package  ref_obj|comp|613:32  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=0|HOME=task@package  ref_obj|rw|1524:28  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=0|HOME=task@package  ref_obj|rw|1524:36  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=0|HOME=task@package  ref_obj|rw|1634:28  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=0|HOME=task@package  ref_obj|rw|1634:36  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=1|HOME=function@package  bit_select|args|3501:25  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=1|HOME=function@package  bit_select|args|3572:28  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=1|HOME=function@package  ref_obj|i|1131:31  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=1|HOME=task@package  ref_obj|rw|1634:22  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|args|3483:62  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|args|3487:36  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|args|3553:60  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|args|3557:38  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|avail_sequences|791:37  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|avail_sequences|814:67  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|avail_sequences|834:66  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  ref_obj|full_inst_path|1453:40  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  ref_obj|qc|1453:24  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  ref_obj|sequence_ptr|1275:55  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=3|HOME=function@package  bit_select|avail_sequences|840:71  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=3|HOME=function@package  ref_obj|full_inst_path|1363:42  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=3|HOME=function@package  ref_obj|qc|1362:26  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=3|HOME=function@package  ref_obj|qc|1363:26  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=0|HOME=function@package  ref_obj|factory|1709:21  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=0|HOME=task@package  ref_obj|factory|1647:23  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=1|HOME=function@package  ref_obj|rs|1269:23  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=1|HOME=function@package  ref_obj|rw|1724:41  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=1|HOME=task@package  ref_obj|req_item|764:17  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=2|HOME=function@package  bit_select|q|149:247  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=2|HOME=function@package  ref_obj|idx|149:249  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=2|HOME=function@package  ref_obj|rw|1732:40  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=3|HOME=function@package  ref_obj|f|1475:23  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=3|HOME=function@package  ref_obj|rw|1740:43  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=0|HOME=function@design  ref_obj|a_test_name|123:25  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=1|HOME=function@package  bit_select|q|668:31  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=1|HOME=function@package  ref_obj|idx|668:33  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=2|HOME=function@package  bit_select|not_blocked_seqs|698:32  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=2|HOME=function@package  ref_obj|i|1386:50  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=2|HOME=function@package  ref_obj|idx|698:49  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=2|HOME=function@package  ref_obj|setting|3414:24  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=3|HOME=function@package  ref_obj|i|1167:45  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=3|HOME=function@package  ref_obj|i|918:53  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=3|HOME=function@package  ref_obj|obj|918:72  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@class_defn  ref_obj|a_sim_time|628:52  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@class_defn  ref_obj|a_test_name|94:29  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|a_test_name|309:24  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|a_test_name|333:24  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|a_test_name|357:24  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|a_test_name|382:24  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|a_test_name|407:24  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|a_test_name|433:24  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|disable_sva|333:37  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|enable_sva|309:37  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|enable_sva|357:37  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|enable_sva|382:37  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|enable_sva|407:37  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|enable_sva|433:37  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=1|HOME=function@design  ref_obj|disable_sva|482:50  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=1|HOME=function@design  ref_obj|disable_sva|498:50  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=1|HOME=function@design  ref_obj|enable_sva|467:50  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=2|HOME=function@package  bit_select|fields|290:48  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=2|HOME=function@package  bit_select|not_blocked_seqs|697:24  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=2|HOME=function@package  ref_obj|i|290:48  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=2|HOME=function@package  ref_obj|idx|697:41  golden=BOUND ours=BARE
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|child|1824:25  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|m_sequencer_id|605:42  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|param_t|297:26  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|stream|2665:26  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|stream|2666:45  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|t|284:26  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=0|HOME=task@package  ref_obj|default_sequence|1647:53  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=0|HOME=task@package  ref_obj|default_sequence|1648:62  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=1|HOME=function@package  bit_select|args|3399:44  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=1|HOME=function@package  bit_select|split_vals|675:39  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|obj|890:29  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|obj|909:43  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|setting|3399:48  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|this|2155:144  golden=BOUND ours=BARE
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|this|2160:146  golden=BOUND ours=BARE
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|this|2164:150  golden=BOUND ours=BARE
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=2|HOME=function@package  ref_obj|m_max_value|1080:39  golden=BOUND ours=BARE
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=3|HOME=function@package  ref_obj|i|767:65  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=3|HOME=function@package  ref_obj|info|767:55  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=3|HOME=function@package  ref_obj|wrapper|1476:47  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=7|HOME=function@package  ref_obj|succ|1907:29  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=7|HOME=function@package  ref_obj|succ|1955:29  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=0|HOME=function@package  ref_obj|comp|613:32  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=0|HOME=task@package  ref_obj|rw|1524:28  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=0|HOME=task@package  ref_obj|rw|1524:36  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=0|HOME=task@package  ref_obj|rw|1634:28  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=0|HOME=task@package  ref_obj|rw|1634:36  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=1|HOME=function@package  bit_select|args|3501:25  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=1|HOME=function@package  bit_select|args|3572:28  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=1|HOME=function@package  ref_obj|i|1131:31  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=1|HOME=task@package  ref_obj|rw|1634:22  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|args|3483:62  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|args|3487:36  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|args|3553:60  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|args|3557:38  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|avail_sequences|791:37  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|avail_sequences|814:67  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|avail_sequences|834:66  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  ref_obj|full_inst_path|1453:40  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  ref_obj|qc|1453:24  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  ref_obj|sequence_ptr|1275:55  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=3|HOME=function@package  bit_select|avail_sequences|840:71  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=3|HOME=function@package  ref_obj|full_inst_path|1363:42  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=3|HOME=function@package  ref_obj|qc|1362:26  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=3|HOME=function@package  ref_obj|qc|1363:26  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=0|HOME=function@package  ref_obj|factory|1709:21  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=0|HOME=task@package  ref_obj|factory|1647:23  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=1|HOME=function@package  ref_obj|rs|1269:23  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=1|HOME=function@package  ref_obj|rw|1724:41  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=1|HOME=task@package  ref_obj|req_item|764:17  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=2|HOME=function@package  bit_select|q|149:247  golden=BOUND ours=BARE
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=2|HOME=function@package  ref_obj|idx|149:249  golden=BOUND ours=BARE
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=2|HOME=function@package  ref_obj|rw|1732:40  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=3|HOME=function@package  ref_obj|f|1475:23  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=3|HOME=function@package  ref_obj|rw|1740:43  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=stmt|RECV=none|D=1|HOME=function@package  bit_select|q|668:31  golden=BOUND ours=BARE
+  testflags.SeqDriver-32af76aa  POS=stmt|RECV=none|D=1|HOME=function@package  ref_obj|idx|668:33  golden=BOUND ours=BARE
+  testflags.SeqDriver-32af76aa  POS=stmt|RECV=none|D=2|HOME=function@package  bit_select|not_blocked_seqs|698:32  golden=BOUND ours=BARE
+  testflags.SeqDriver-32af76aa  POS=stmt|RECV=none|D=2|HOME=function@package  ref_obj|i|1386:50  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=stmt|RECV=none|D=2|HOME=function@package  ref_obj|idx|698:49  golden=BOUND ours=BARE
+  testflags.SeqDriver-32af76aa  POS=stmt|RECV=none|D=2|HOME=function@package  ref_obj|setting|3414:24  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=stmt|RECV=none|D=3|HOME=function@package  ref_obj|i|1167:45  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=stmt|RECV=none|D=3|HOME=function@package  ref_obj|i|918:53  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=stmt|RECV=none|D=3|HOME=function@package  ref_obj|obj|918:72  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=stmt|RECV=prefix|D=2|HOME=function@package  bit_select|fields|290:48  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=stmt|RECV=prefix|D=2|HOME=function@package  bit_select|not_blocked_seqs|697:24  golden=BOUND ours=BARE
+  testflags.SeqDriver-32af76aa  POS=stmt|RECV=prefix|D=2|HOME=function@package  ref_obj|i|290:48  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=stmt|RECV=prefix|D=2|HOME=function@package  ref_obj|idx|697:41  golden=BOUND ours=BARE
+  testflags.SimpleUVM-1dc93a62  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|param_t|297:26  golden=BARE ours=BOUND
+  testflags.SimpleUVM-1dc93a62  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|t|284:26  golden=BARE ours=BOUND
+
+ONLY-GOLDEN keys: 24072   ONLY-OURS keys: 24053
+  ONLY-G POS=expr|RECV=bare|D=0|HOME=function@package  x40
+  ONLY-G POS=expr|RECV=bare|D=1|HOME=function@class_defn  x312
+  ONLY-G POS=expr|RECV=bare|D=1|HOME=function@package  x24
+  ONLY-G POS=expr|RECV=bare|D=2|HOME=function@package  x24
+  ONLY-G POS=expr|RECV=hierpath|D=0|HOME=function@package  x18
+  ONLY-G POS=expr|RECV=hierpath|D=1|HOME=function@package  x648
+  ONLY-G POS=expr|RECV=hierpath|D=1|HOME=task@package  x24
+  ONLY-G POS=expr|RECV=hierpath|D=2|HOME=function@class_defn  x64
+  ONLY-G POS=expr|RECV=hierpath|D=2|HOME=function@package  x312
+  ONLY-G POS=expr|RECV=hierpath|D=2|HOME=task@package  x16
+  ONLY-G POS=expr|RECV=hierpath|D=3|HOME=function@package  x32
+  ONLY-G POS=expr|RECV=hierpath|D=3|HOME=task@package  x16
+  ONLY-G POS=expr|RECV=hierpath|D=4|HOME=function@package  x64
+  ONLY-G POS=expr|RECV=hierpath|D=4|HOME=task@class_defn  x14
+  ONLY-G POS=expr|RECV=hierpath|D=5|HOME=function@package  x16
+  ONLY-G POS=expr|RECV=hierpath|D=8|HOME=function@package  x16
+  ONLY-G POS=expr|RECV=none|D=0|HOME=function@package  x16
+  ONLY-G POS=expr|RECV=none|D=1|HOME=function@package  x160
+  ONLY-G POS=expr|RECV=none|D=1|HOME=task@package  x208
+  ONLY-G POS=expr|RECV=none|D=2|HOME=function@package  x64
+  ONLY-G POS=expr|RECV=none|D=2|HOME=task@package  x16
+  ONLY-G POS=expr|RECV=none|D=3|HOME=function@class_defn  x21
+  ONLY-G POS=expr|RECV=none|D=3|HOME=function@package  x317
+  ONLY-G POS=expr|RECV=none|D=3|HOME=task@package  x40
+  ONLY-G POS=expr|RECV=none|D=4|HOME=function@class_defn  x21
+  ONLY-G POS=expr|RECV=none|D=4|HOME=function@package  x173
+  ONLY-G POS=expr|RECV=prefix|D=1|HOME=function@package  x8
+  ONLY-G POS=expr|RECV=syscall|D=0|HOME=function@class_defn  x25
+  ONLY-G POS=expr|RECV=syscall|D=0|HOME=function@package  x20
+  ONLY-G POS=expr|RECV=syscall|D=0|HOME=initial@design  x4
+  ONLY-G POS=expr|RECV=syscall|D=0|HOME=task@module_inst  x3
+  ONLY-G POS=expr|RECV=syscall|D=1|HOME=function@class_defn  x65
+  ONLY-G POS=expr|RECV=syscall|D=1|HOME=function@package  x231
+  ONLY-G POS=expr|RECV=syscall|D=1|HOME=initial@design  x2
+  ONLY-G POS=expr|RECV=syscall|D=1|HOME=task@class_defn  x262
+  ONLY-G POS=expr|RECV=syscall|D=1|HOME=task@module_inst  x6
+  ONLY-G POS=expr|RECV=syscall|D=1|HOME=task@package  x604
+  ONLY-G POS=expr|RECV=syscall|D=2|HOME=function@class_defn  x618
+  ONLY-G POS=expr|RECV=syscall|D=2|HOME=function@package  x990
+  ONLY-G POS=expr|RECV=syscall|D=2|HOME=task@class_defn  x283
+  ONLY-G POS=expr|RECV=syscall|D=2|HOME=task@package  x416
+  ONLY-G POS=expr|RECV=syscall|D=3|HOME=function@class_defn  x229
+  ONLY-G POS=expr|RECV=syscall|D=3|HOME=function@package  x491
+  ONLY-G POS=expr|RECV=syscall|D=3|HOME=task@class_defn  x386
+  ONLY-G POS=expr|RECV=syscall|D=3|HOME=task@package  x345
+  ONLY-G POS=expr|RECV=syscall|D=4|HOME=function@class_defn  x175
+  ONLY-G POS=expr|RECV=syscall|D=4|HOME=function@package  x341
+  ONLY-G POS=expr|RECV=syscall|D=4|HOME=task@class_defn  x364
+  ONLY-G POS=expr|RECV=syscall|D=4|HOME=task@package  x120
+  ONLY-G POS=expr|RECV=syscall|D=5|HOME=function@class_defn  x49
+  ONLY-G POS=expr|RECV=syscall|D=5|HOME=function@package  x105
+  ONLY-G POS=expr|RECV=syscall|D=5|HOME=task@class_defn  x343
+  ONLY-G POS=expr|RECV=syscall|D=5|HOME=task@package  x60
+  ONLY-G POS=expr|RECV=syscall|D=6|HOME=function@class_defn  x35
+  ONLY-G POS=expr|RECV=syscall|D=6|HOME=task@class_defn  x119
+  ONLY-G POS=expr|RECV=syscall|D=6|HOME=task@package  x30
+  ONLY-G POS=expr|RECV=syscall|D=8|HOME=task@class_defn  x42
+  ONLY-G POS=expr|RECV=syscall|D=8|HOME=task@package  x90
+  ONLY-G POS=stmt|RECV=none|D=0|HOME=function@design  x16
+  ONLY-G POS=stmt|RECV=none|D=0|HOME=function@package  x64
+  ONLY-G POS=stmt|RECV=none|D=0|HOME=initial@design  x4
+  ONLY-G POS=stmt|RECV=none|D=1|HOME=function@class_defn  x212
+  ONLY-G POS=stmt|RECV=none|D=1|HOME=function@package  x613
+  ONLY-G POS=stmt|RECV=none|D=1|HOME=initial@design  x2
+  ONLY-G POS=stmt|RECV=none|D=1|HOME=task@class_defn  x165
+  ONLY-G POS=stmt|RECV=none|D=1|HOME=task@package  x591
+  ONLY-G POS=stmt|RECV=none|D=2|HOME=function@class_defn  x1233
+  ONLY-G POS=stmt|RECV=none|D=2|HOME=function@design  x8
+  ONLY-G POS=stmt|RECV=none|D=2|HOME=function@package  x4153
+  ONLY-G POS=stmt|RECV=none|D=2|HOME=task@class_defn  x343
+  ONLY-G POS=stmt|RECV=none|D=2|HOME=task@package  x824
+  ONLY-G POS=stmt|RECV=none|D=3|HOME=function@class_defn  x481
+  ONLY-G POS=stmt|RECV=none|D=3|HOME=function@package  x1198
+  ONLY-G POS=stmt|RECV=none|D=3|HOME=task@class_defn  x338
+  ONLY-G POS=stmt|RECV=none|D=3|HOME=task@package  x491
+  ONLY-G POS=stmt|RECV=none|D=4|HOME=function@class_defn  x112
+  ONLY-G POS=stmt|RECV=none|D=4|HOME=function@package  x307
+  ONLY-G POS=stmt|RECV=none|D=4|HOME=task@class_defn  x147
+  ONLY-G POS=stmt|RECV=none|D=4|HOME=task@package  x327
+  ONLY-G POS=stmt|RECV=none|D=5|HOME=function@class_defn  x252
+  ONLY-G POS=stmt|RECV=none|D=5|HOME=function@package  x732
+  ONLY-G POS=stmt|RECV=none|D=5|HOME=task@class_defn  x105
+  ONLY-G POS=stmt|RECV=none|D=5|HOME=task@package  x170
+  ONLY-G POS=stmt|RECV=none|D=6|HOME=function@class_defn  x133
+  ONLY-G POS=stmt|RECV=none|D=6|HOME=function@package  x241
+  ONLY-G POS=stmt|RECV=none|D=6|HOME=task@class_defn  x49
+  ONLY-G POS=stmt|RECV=none|D=6|HOME=task@package  x93
+  ONLY-G POS=stmt|RECV=none|D=7|HOME=function@class_defn  x84
+  ONLY-G POS=stmt|RECV=none|D=7|HOME=function@package  x212
+  ONLY-G POS=stmt|RECV=none|D=8|HOME=task@class_defn  x14
+  ONLY-G POS=stmt|RECV=none|D=8|HOME=task@package  x62
+  ONLY-G POS=stmt|RECV=prefix|D=0|HOME=function@class_defn  x4
+  ONLY-G POS=stmt|RECV=prefix|D=0|HOME=function@design  x24
+  ONLY-G POS=stmt|RECV=prefix|D=0|HOME=function@package  x40
+  ONLY-G POS=stmt|RECV=prefix|D=1|HOME=function@class_defn  x25
+  ONLY-G POS=stmt|RECV=prefix|D=1|HOME=function@design  x6
+  ONLY-G POS=stmt|RECV=prefix|D=1|HOME=function@package  x50
+  ONLY-G POS=stmt|RECV=prefix|D=2|HOME=function@class_defn  x25
+  ONLY-G POS=stmt|RECV=prefix|D=2|HOME=function@package  x71
+  ONLY-G POS=stmt|RECV=prefix|D=2|HOME=task@class_defn  x7
+  ONLY-G POS=stmt|RECV=prefix|D=3|HOME=function@class_defn  x7
+  ONLY-G POS=stmt|RECV=prefix|D=3|HOME=function@package  x16
+  ONLY-G POS=stmt|RECV=syscall|D=0|HOME=function@class_defn  x36
+  ONLY-G POS=stmt|RECV=syscall|D=0|HOME=function@package  x68
+  ONLY-G POS=stmt|RECV=syscall|D=1|HOME=function@class_defn  x54
+  ONLY-G POS=stmt|RECV=syscall|D=1|HOME=function@package  x134
+  ONLY-G POS=stmt|RECV=syscall|D=2|HOME=function@package  x48
+  ONLY-G POS=stmt|RECV=syscall|D=3|HOME=function@package  x48
+  ONLY-G POS=stmt|RECV=syscall|D=4|HOME=function@package  x16
+  ONLY-G POS=stmt|RECV=syscall|D=5|HOME=function@package  x16
+  ONLY-G POS=stmt|RECV=syscall|D=6|HOME=function@package  x16
+  ONLY-G POS=stmt|RECV=syscall|D=7|HOME=function@package  x16
+  ONLY-G POS=stmt|RECV=syscall|D=8|HOME=function@package  x16
+  ONLY-G POS=stmt|RECV=syscall|D=9|HOME=function@package  x16
+  ONLY-O POS=expr|RECV=bare|D=0|HOME=none@none  x88
+  ONLY-O POS=expr|RECV=bare|D=1|HOME=function@class_defn  x312
+  ONLY-O POS=expr|RECV=hierpath|D=0|HOME=function@package  x642
+  ONLY-O POS=expr|RECV=hierpath|D=0|HOME=task@package  x24
+  ONLY-O POS=expr|RECV=hierpath|D=1|HOME=function@package  x200
+  ONLY-O POS=expr|RECV=hierpath|D=1|HOME=task@package  x16
+  ONLY-O POS=expr|RECV=hierpath|D=2|HOME=function@class_defn  x64
+  ONLY-O POS=expr|RECV=hierpath|D=2|HOME=function@package  x168
+  ONLY-O POS=expr|RECV=hierpath|D=2|HOME=task@package  x16
+  ONLY-O POS=expr|RECV=hierpath|D=3|HOME=function@package  x64
+  ONLY-O POS=expr|RECV=hierpath|D=4|HOME=function@package  x16
+  ONLY-O POS=expr|RECV=hierpath|D=4|HOME=task@class_defn  x14
+  ONLY-O POS=expr|RECV=hierpath|D=7|HOME=function@package  x16
+  ONLY-O POS=expr|RECV=none|D=0|HOME=function@package  x152
+  ONLY-O POS=expr|RECV=none|D=0|HOME=task@package  x208
+  ONLY-O POS=expr|RECV=none|D=1|HOME=function@package  x64
+  ONLY-O POS=expr|RECV=none|D=1|HOME=task@package  x16
+  ONLY-O POS=expr|RECV=none|D=2|HOME=function@package  x272
+  ONLY-O POS=expr|RECV=none|D=2|HOME=task@package  x40
+  ONLY-O POS=expr|RECV=none|D=3|HOME=function@class_defn  x21
+  ONLY-O POS=expr|RECV=none|D=3|HOME=function@package  x173
+  ONLY-O POS=expr|RECV=none|D=4|HOME=function@class_defn  x21
+  ONLY-O POS=expr|RECV=none|D=4|HOME=function@package  x45
+  ONLY-O POS=expr|RECV=prefix|D=0|HOME=function@package  x8
+  ONLY-O POS=expr|RECV=syscall|D=0|HOME=function@class_defn  x27
+  ONLY-O POS=expr|RECV=syscall|D=0|HOME=function@package  x107
+  ONLY-O POS=expr|RECV=syscall|D=0|HOME=task@module_inst  x3
+  ONLY-O POS=expr|RECV=syscall|D=0|HOME=task@package  x64
+  ONLY-O POS=expr|RECV=syscall|D=1|HOME=function@class_defn  x65
+  ONLY-O POS=expr|RECV=syscall|D=1|HOME=function@package  x191
+  ONLY-O POS=expr|RECV=syscall|D=1|HOME=task@class_defn  x262
+  ONLY-O POS=expr|RECV=syscall|D=1|HOME=task@module_inst  x6
+  ONLY-O POS=expr|RECV=syscall|D=1|HOME=task@package  x572
+  ONLY-O POS=expr|RECV=syscall|D=2|HOME=function@class_defn  x618
+  ONLY-O POS=expr|RECV=syscall|D=2|HOME=function@package  x990
+  ONLY-O POS=expr|RECV=syscall|D=2|HOME=task@class_defn  x283
+  ONLY-O POS=expr|RECV=syscall|D=2|HOME=task@package  x384
+  ONLY-O POS=expr|RECV=syscall|D=3|HOME=function@class_defn  x229
+  ONLY-O POS=expr|RECV=syscall|D=3|HOME=function@package  x491
+  ONLY-O POS=expr|RECV=syscall|D=3|HOME=task@class_defn  x386
+  ONLY-O POS=expr|RECV=syscall|D=3|HOME=task@package  x345
+  ONLY-O POS=expr|RECV=syscall|D=4|HOME=function@class_defn  x175
+  ONLY-O POS=expr|RECV=syscall|D=4|HOME=function@package  x285
+  ONLY-O POS=expr|RECV=syscall|D=4|HOME=task@class_defn  x364
+  ONLY-O POS=expr|RECV=syscall|D=4|HOME=task@package  x120
+  ONLY-O POS=expr|RECV=syscall|D=5|HOME=function@class_defn  x49
+  ONLY-O POS=expr|RECV=syscall|D=5|HOME=function@package  x105
+  ONLY-O POS=expr|RECV=syscall|D=5|HOME=task@class_defn  x343
+  ONLY-O POS=expr|RECV=syscall|D=5|HOME=task@package  x60
+  ONLY-O POS=expr|RECV=syscall|D=6|HOME=function@class_defn  x35
+  ONLY-O POS=expr|RECV=syscall|D=6|HOME=task@class_defn  x119
+  ONLY-O POS=expr|RECV=syscall|D=6|HOME=task@package  x30
+  ONLY-O POS=expr|RECV=syscall|D=8|HOME=task@class_defn  x42
+  ONLY-O POS=expr|RECV=syscall|D=8|HOME=task@package  x90
+  ONLY-O POS=stmt|RECV=none|D=0|HOME=function@design  x2
+  ONLY-O POS=stmt|RECV=none|D=0|HOME=function@package  x1200
+  ONLY-O POS=stmt|RECV=none|D=0|HOME=task@package  x432
+  ONLY-O POS=stmt|RECV=none|D=1|HOME=function@class_defn  x212
+  ONLY-O POS=stmt|RECV=none|D=1|HOME=function@package  x2221
+  ONLY-O POS=stmt|RECV=none|D=1|HOME=task@class_defn  x165
+  ONLY-O POS=stmt|RECV=none|D=1|HOME=task@package  x767
+  ONLY-O POS=stmt|RECV=none|D=2|HOME=function@class_defn  x1233
+  ONLY-O POS=stmt|RECV=none|D=2|HOME=function@package  x2089
+  ONLY-O POS=stmt|RECV=none|D=2|HOME=task@class_defn  x343
+  ONLY-O POS=stmt|RECV=none|D=2|HOME=task@package  x504
+  ONLY-O POS=stmt|RECV=none|D=3|HOME=function@class_defn  x481
+  ONLY-O POS=stmt|RECV=none|D=3|HOME=function@package  x878
+  ONLY-O POS=stmt|RECV=none|D=3|HOME=task@class_defn  x338
+  ONLY-O POS=stmt|RECV=none|D=3|HOME=task@package  x459
+  ONLY-O POS=stmt|RECV=none|D=4|HOME=function@class_defn  x112
+  ONLY-O POS=stmt|RECV=none|D=4|HOME=function@package  x211
+  ONLY-O POS=stmt|RECV=none|D=4|HOME=task@class_defn  x147
+  ONLY-O POS=stmt|RECV=none|D=4|HOME=task@package  x167
+  ONLY-O POS=stmt|RECV=none|D=5|HOME=function@class_defn  x252
+  ONLY-O POS=stmt|RECV=none|D=5|HOME=function@package  x540
+  ONLY-O POS=stmt|RECV=none|D=5|HOME=task@class_defn  x105
+  ONLY-O POS=stmt|RECV=none|D=5|HOME=task@package  x122
+  ONLY-O POS=stmt|RECV=none|D=6|HOME=function@class_defn  x133
+  ONLY-O POS=stmt|RECV=none|D=6|HOME=function@package  x225
+  ONLY-O POS=stmt|RECV=none|D=6|HOME=task@class_defn  x49
+  ONLY-O POS=stmt|RECV=none|D=6|HOME=task@package  x45
+  ONLY-O POS=stmt|RECV=none|D=7|HOME=function@class_defn  x84
+  ONLY-O POS=stmt|RECV=none|D=7|HOME=function@package  x180
+  ONLY-O POS=stmt|RECV=none|D=7|HOME=task@package  x32
+  ONLY-O POS=stmt|RECV=none|D=8|HOME=task@class_defn  x14
+  ONLY-O POS=stmt|RECV=none|D=8|HOME=task@package  x30
+  ONLY-O POS=stmt|RECV=prefix|D=0|HOME=function@class_defn  x4
+  ONLY-O POS=stmt|RECV=prefix|D=0|HOME=function@design  x38
+  ONLY-O POS=stmt|RECV=prefix|D=0|HOME=function@package  x48
+  ONLY-O POS=stmt|RECV=prefix|D=1|HOME=function@class_defn  x25
+  ONLY-O POS=stmt|RECV=prefix|D=1|HOME=function@design  x6
+  ONLY-O POS=stmt|RECV=prefix|D=1|HOME=function@package  x42
+  ONLY-O POS=stmt|RECV=prefix|D=2|HOME=function@class_defn  x25
+  ONLY-O POS=stmt|RECV=prefix|D=2|HOME=function@design  x8
+  ONLY-O POS=stmt|RECV=prefix|D=2|HOME=function@package  x87
+  ONLY-O POS=stmt|RECV=prefix|D=2|HOME=task@class_defn  x7
+  ONLY-O POS=stmt|RECV=prefix|D=3|HOME=function@class_defn  x7
+  ONLY-O POS=stmt|RECV=syscall|D=0|HOME=function@class_defn  x36
+  ONLY-O POS=stmt|RECV=syscall|D=0|HOME=function@package  x100
+  ONLY-O POS=stmt|RECV=syscall|D=1|HOME=function@class_defn  x54
+  ONLY-O POS=stmt|RECV=syscall|D=1|HOME=function@package  x150
+  ONLY-O POS=stmt|RECV=syscall|D=2|HOME=function@package  x48
+  ONLY-O POS=stmt|RECV=syscall|D=3|HOME=function@package  x16
+  ONLY-O POS=stmt|RECV=syscall|D=4|HOME=function@package  x16
+  ONLY-O POS=stmt|RECV=syscall|D=5|HOME=function@package  x16
+  ONLY-O POS=stmt|RECV=syscall|D=6|HOME=function@package  x16
+  ONLY-O POS=stmt|RECV=syscall|D=7|HOME=function@package  x16
+  ONLY-O POS=stmt|RECV=syscall|D=8|HOME=function@package  x16
+
+################################################################ PATCHED
+rows censused: 9
+POS      RECV      D   HOME                       G-BOUND  G-BARE  O-BOUND  O-BARE
+expr     bare      0   function@class_defn            143     577      143     577
+expr     bare      0   function@module_inst             1       0        1       0
+expr     bare      0   function@package               263     121      231     113
+expr     bare      0   none@none                       28     320       28     408
+expr     bare      0   task@class_defn                  0      18        0      18
+expr     bare      1   function@class_defn             95     532       95     532
+expr     bare      1   function@package               175      78      151      78
+expr     bare      2   function@class_defn             49       5       49       5
+expr     bare      2   function@package               109      17       85      17
+expr     hierpath  0   function@class_defn           1152    2366     1152    2366
+expr     hierpath  0   function@package              1770     361     2388     367
+expr     hierpath  0   task@class_defn                 39     111       39     111
+expr     hierpath  0   task@package                    51      23       75      23
+expr     hierpath  1   function@class_defn            584    1622      584    1622
+expr     hierpath  1   function@design                  0      14        0      14
+expr     hierpath  1   function@package              1669     376     1213     384
+expr     hierpath  1   task@class_defn                 29     118       29     118
+expr     hierpath  1   task@package                    69      26       61      26
+expr     hierpath  2   function@class_defn            490     834      490     834
+expr     hierpath  2   function@package              1144     369     1000     369
+expr     hierpath  2   task@class_defn                 77     194       77     194
+expr     hierpath  2   task@package                   173      44      173      44
+expr     hierpath  3   function@class_defn            113     495      113     495
+expr     hierpath  3   function@package               193     380      217     388
+expr     hierpath  3   task@class_defn                  0      47        0      47
+expr     hierpath  3   task@package                    16      19        0      19
+expr     hierpath  4   function@class_defn             58     117       58     117
+expr     hierpath  4   function@package               174     107      134      99
+expr     hierpath  4   task@class_defn                  0      18        0      18
+expr     hierpath  5   function@class_defn             59     144       59     144
+expr     hierpath  5   function@package               103     105       87     105
+expr     hierpath  6   function@class_defn              4      17        4      17
+expr     hierpath  6   function@package                 8       7        8       7
+expr     hierpath  7   function@class_defn             22       5       22       5
+expr     hierpath  7   function@package                 8      25       24      25
+expr     hierpath  8   function@package                16       0        0       0
+expr     hierpath  9   function@class_defn              4       3        4       3
+expr     hierpath  9   function@package                 8       7        8       7
+expr     none      0   function@class_defn           1007     625     1007     625
+expr     none      0   function@design                  0       4        0       4
+expr     none      0   function@package              1591     236     1719     244
+expr     none      0   none@none                        0       8        0       8
+expr     none      0   task@class_defn                200     101      200     101
+expr     none      0   task@package                   284      72      460     104
+expr     none      1   function@class_defn            303     639      303     639
+expr     none      1   function@design                  0       6        0       6
+expr     none      1   function@package               725     202      613     218
+expr     none      1   task@class_defn                 20      44       20      44
+expr     none      1   task@package                   204      76       36      52
+expr     none      2   function@class_defn            312     607      312     607
+expr     none      2   function@design                  0       8        0       8
+expr     none      2   function@package               483     465      635     521
+expr     none      2   task@class_defn                 35      68       35      68
+expr     none      2   task@package                    50     117       50     141
+expr     none      3   function@class_defn            130     223      130     223
+expr     none      3   function@design                  0       6        0       6
+expr     none      3   function@package               409     325      289     301
+expr     none      3   task@class_defn                 36      72       36      72
+expr     none      3   task@package                    82     162       74     130
+expr     none      4   function@class_defn             43      48       43      48
+expr     none      4   function@package               163     112       83      64
+expr     none      4   task@class_defn                 27      45       27      45
+expr     none      4   task@package                    49      87       49      87
+expr     none      5   function@class_defn             32      30       32      30
+expr     none      5   function@package                72      37       72      37
+expr     none      6   function@class_defn             14      21       14      21
+expr     none      6   function@package                38      37       38      37
+expr     prefix    0   function@class_defn              9      22        9      22
+expr     prefix    0   function@package                 9       0       17       0
+expr     prefix    0   task@class_defn                 18       0       18       0
+expr     prefix    0   task@package                    34       0       34       0
+expr     prefix    1   function@class_defn              0      30        0      30
+expr     prefix    1   function@package                 8       0        0       0
+expr     prefix    2   function@class_defn             18      18       18      18
+expr     prefix    2   function@package                32      36       32      36
+expr     syscall   0   function@class_defn           1134     428     1134     430
+expr     syscall   0   function@design                  0      28        0      28
+expr     syscall   0   function@package               340     121      428     120
+expr     syscall   0   initial@design                   0       4        0       0
+expr     syscall   0   none@none                        0       2        0       2
+expr     syscall   0   task@class_defn                 80      42       80      42
+expr     syscall   0   task@module_inst                 3       0        3       0
+expr     syscall   0   task@package                    61      33      125      33
+expr     syscall   1   function@class_defn            444    2270      444    2270
+expr     syscall   1   function@package              1717     663     1677     663
+expr     syscall   1   initial@design                   0       2        0       0
+expr     syscall   1   task@class_defn                394     136      394     136
+expr     syscall   1   task@module_inst                 6       0        6       0
+expr     syscall   1   task@package                   778     172      738     180
+expr     syscall   10  function@class_defn              7       0        7       0
+expr     syscall   10  function@package                15       0       15       0
+expr     syscall   2   function@class_defn            479    1527      479    1527
+expr     syscall   2   function@design                  0      34        0      34
+expr     syscall   2   function@package              1150    1410     1134    1426
+expr     syscall   2   task@class_defn                120     531      120     531
+expr     syscall   2   task@package                   370     593      346     585
+expr     syscall   3   function@class_defn            175     607      175     607
+expr     syscall   3   function@package               371     540      363     548
+expr     syscall   3   task@class_defn                 98     488       98     488
+expr     syscall   3   task@package                   240     340      240     340
+expr     syscall   4   function@class_defn            240     424      240     424
+expr     syscall   4   function@package               545     554      505     538
+expr     syscall   4   task@class_defn                 76     528       76     528
+expr     syscall   4   task@package                   108     113      108     113
+expr     syscall   5   function@class_defn             44     222       44     222
+expr     syscall   5   function@package               135     230      135     230
+expr     syscall   5   task@class_defn                  0     509        0     509
+expr     syscall   5   task@package                    16      52       16      52
+expr     syscall   6   function@class_defn             20      91       20      91
+expr     syscall   6   function@package                36       0       36       0
+expr     syscall   6   task@class_defn                  0     153        0     153
+expr     syscall   6   task@package                    16      18       16      18
+expr     syscall   7   function@class_defn              0      27        0      27
+expr     syscall   8   task@class_defn                  0      50        0      50
+expr     syscall   8   task@package                    32      66       32      66
+expr     syscall   9   function@class_defn              0       2        0       2
+stmt     bare      0   function@class_defn           4293     828     4293     828
+stmt     bare      0   function@package               342       0      342       0
+stmt     none      0   function@class_defn           4131    1306     4131    1306
+stmt     none      0   function@design                  4      14        0       4
+stmt     none      0   function@package              3797     255     3957    1231
+stmt     none      0   initial@design                   0       4        0       0
+stmt     none      0   task@class_defn               1275     618     1275     618
+stmt     none      0   task@package                  1741     161     1741     593
+stmt     none      1   function@class_defn           4772    3554     4772    3554
+stmt     none      1   function@design                  0      52        0      52
+stmt     none      1   function@package              5703    2395     5671    4035
+stmt     none      1   initial@design                   0       2        0       0
+stmt     none      1   task@class_defn               1350    1622     1350    1622
+stmt     none      1   task@package                  1697     879     1697    1055
+stmt     none      10  function@class_defn              7       0        7       0
+stmt     none      10  function@package                 7       8        7       8
+stmt     none      2   function@class_defn           3044    2543     3044    2543
+stmt     none      2   function@design                  0      22        0      14
+stmt     none      2   function@package              4093    5199     4053    3175
+stmt     none      2   task@class_defn                928    1251      928    1251
+stmt     none      2   task@package                  1067    1062     1067     742
+stmt     none      3   function@class_defn           1030     706     1030     706
+stmt     none      3   function@design                  0      14        0      14
+stmt     none      3   function@package              1332    1463     1340    1135
+stmt     none      3   task@class_defn                560     711      560     711
+stmt     none      3   task@package                   753     742      753     710
+stmt     none      4   function@class_defn            571     362      571     362
+stmt     none      4   function@package               770     793      738     729
+stmt     none      4   task@class_defn                263     307      263     307
+stmt     none      4   task@package                   287     402      287     242
+stmt     none      5   function@class_defn            288     334      288     334
+stmt     none      5   function@package               462     628      462     436
+stmt     none      5   task@class_defn                112     159      112     159
+stmt     none      5   task@package                   112     144      112      96
+stmt     none      6   function@class_defn            121     142      121     142
+stmt     none      6   function@package               205     189      205     173
+stmt     none      6   task@class_defn                 27      36       27      36
+stmt     none      6   task@package                    27      72       27      24
+stmt     none      7   function@class_defn             79     120       79     120
+stmt     none      7   function@package               191     177      191     145
+stmt     none      7   task@class_defn                 36       0       36       0
+stmt     none      7   task@package                    36       0       36      32
+stmt     none      8   function@class_defn              7      28        7      28
+stmt     none      8   function@package                31      44       31      44
+stmt     none      8   task@class_defn                 18       0       18       0
+stmt     none      8   task@package                    18      48       18      16
+stmt     none      9   function@class_defn              7       7        7       7
+stmt     none      9   function@package                23       7       23       7
+stmt     prefix    0   function@class_defn           5333    1932     5329    1936
+stmt     prefix    0   function@design                 24       0        0      38
+stmt     prefix    0   function@module_inst             0       2        0       2
+stmt     prefix    0   function@package              3244     882     3292     842
+stmt     prefix    0   task@class_defn               1956     936     1956     936
+stmt     prefix    0   task@package                  2020      89     2020      89
+stmt     prefix    1   function@class_defn           1748    2301     1748    2301
+stmt     prefix    1   function@design                  6       6        0      12
+stmt     prefix    1   function@package              2715    1246     2715    1238
+stmt     prefix    1   task@class_defn               2159    1692     2159    1692
+stmt     prefix    1   task@package                  3789     342     3789     342
+stmt     prefix    10  function@class_defn              0       4        0       4
+stmt     prefix    2   function@class_defn            679    1320      679    1320
+stmt     prefix    2   function@design                  0      10        0      18
+stmt     prefix    2   function@package              1146     701     1154     709
+stmt     prefix    2   task@class_defn                800     641      800     641
+stmt     prefix    2   task@package                  1400     425     1400     425
+stmt     prefix    3   function@class_defn            294     652      294     652
+stmt     prefix    3   function@design                  0      12        0      12
+stmt     prefix    3   function@package               502     185      486     185
+stmt     prefix    3   task@class_defn                141     667      141     667
+stmt     prefix    3   task@package                   297     334      297     334
+stmt     prefix    4   function@class_defn            199     607      199     607
+stmt     prefix    4   function@design                  0       6        0       6
+stmt     prefix    4   function@package               338     587      338     587
+stmt     prefix    4   task@class_defn                 78      37       78      37
+stmt     prefix    4   task@package                   109      59      109      59
+stmt     prefix    5   function@class_defn             16     139       16     139
+stmt     prefix    5   function@package                12      41       12      41
+stmt     prefix    5   task@class_defn                 20       9       20       9
+stmt     prefix    5   task@package                    27       9       27       9
+stmt     prefix    6   function@class_defn             25      87       25      87
+stmt     prefix    6   function@package                32       0       32       0
+stmt     prefix    7   function@class_defn              0      75        0      75
+stmt     prefix    8   function@class_defn             18       0       18       0
+stmt     prefix    8   function@package                16      18       16      18
+stmt     prefix    9   function@class_defn              0      10        0      10
+stmt     syscall   0   function@class_defn            424     567      424     567
+stmt     syscall   0   function@package               344     335      376     335
+stmt     syscall   0   initial@module_inst              4       0        4       0
+stmt     syscall   0   task@class_defn                 55      61       55      61
+stmt     syscall   0   task@module_inst                 5       0        5       0
+stmt     syscall   0   task@package                    34       1       34       1
+stmt     syscall   1   function@class_defn            380    1301      380    1301
+stmt     syscall   1   function@package               322     696      338     696
+stmt     syscall   1   task@class_defn                 19      89       19      89
+stmt     syscall   1   task@module_inst                 6       0        6       0
+stmt     syscall   1   task@package                    35      21       35      21
+stmt     syscall   2   function@class_defn            309    1121      309    1121
+stmt     syscall   2   function@package               449     404      449     404
+stmt     syscall   2   task@class_defn                  2      31        2      31
+stmt     syscall   2   task@package                     2       4        2       4
+stmt     syscall   3   function@class_defn             21     119       21     119
+stmt     syscall   3   function@package                62       0       30       0
+stmt     syscall   3   task@class_defn                  0      27        0      27
+stmt     syscall   4   function@class_defn             21       7       21       7
+stmt     syscall   4   function@package                30       0       30       0
+stmt     syscall   4   task@class_defn                  0       4        0       4
+stmt     syscall   5   function@class_defn             21      25       21      25
+stmt     syscall   5   function@package                30       0       30       0
+stmt     syscall   6   function@class_defn             21       7       21       7
+stmt     syscall   6   function@package                30       0       30       0
+stmt     syscall   6   task@class_defn                  0      54        0      54
+stmt     syscall   7   function@class_defn             14       0       14       0
+stmt     syscall   7   function@package                30       0       30       0
+stmt     syscall   8   function@class_defn             14       0       14       0
+stmt     syscall   8   function@package                30       0       30       0
+stmt     syscall   9   function@package                16       0        0       0
+
+golden-vs-ours DISAGREEING CELLS (joined on kind|name|span): 318
+  default.BuildUVMPkg-bf853d43  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|param_t|54020:26  golden=BARE ours=BOUND
+  default.BuildUVMPkg-bf853d43  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|t|54474:26  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|child|1824:25  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|m_sequencer_id|605:42  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|param_t|297:26  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|stream|2665:26  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|stream|2666:45  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|t|284:26  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=0|HOME=task@package  ref_obj|default_sequence|1647:53  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=0|HOME=task@package  ref_obj|default_sequence|1648:62  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=1|HOME=function@package  bit_select|args|3399:44  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=1|HOME=function@package  bit_select|split_vals|675:39  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|obj|890:29  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|obj|909:43  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|setting|3399:48  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|this|2155:144  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|this|2160:146  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|this|2164:150  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=2|HOME=function@package  ref_obj|m_max_value|1080:39  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=3|HOME=function@package  ref_obj|i|767:65  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=3|HOME=function@package  ref_obj|info|767:55  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=3|HOME=function@package  ref_obj|wrapper|1476:47  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=7|HOME=function@package  ref_obj|succ|1907:29  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=7|HOME=function@package  ref_obj|succ|1955:29  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=0|HOME=function@package  ref_obj|comp|613:32  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=0|HOME=task@package  ref_obj|rw|1524:28  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=0|HOME=task@package  ref_obj|rw|1524:36  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=0|HOME=task@package  ref_obj|rw|1634:28  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=0|HOME=task@package  ref_obj|rw|1634:36  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=1|HOME=function@package  bit_select|args|3501:25  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=1|HOME=function@package  bit_select|args|3572:28  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=1|HOME=function@package  ref_obj|i|1131:31  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=1|HOME=task@package  ref_obj|rw|1634:22  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|args|3483:62  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|args|3487:36  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|args|3553:60  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|args|3557:38  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|avail_sequences|791:37  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|avail_sequences|814:67  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|avail_sequences|834:66  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  ref_obj|full_inst_path|1453:40  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  ref_obj|qc|1453:24  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  ref_obj|sequence_ptr|1275:55  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=3|HOME=function@package  bit_select|avail_sequences|840:71  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=3|HOME=function@package  ref_obj|full_inst_path|1363:42  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=3|HOME=function@package  ref_obj|qc|1362:26  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=none|D=3|HOME=function@package  ref_obj|qc|1363:26  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=0|HOME=function@package  ref_obj|factory|1709:21  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=0|HOME=task@package  ref_obj|factory|1647:23  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=1|HOME=function@package  ref_obj|rs|1269:23  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=1|HOME=function@package  ref_obj|rw|1724:41  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=1|HOME=task@package  ref_obj|req_item|764:17  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=2|HOME=function@package  bit_select|q|149:247  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=2|HOME=function@package  ref_obj|idx|149:249  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=2|HOME=function@package  ref_obj|rw|1732:40  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=3|HOME=function@package  ref_obj|f|1475:23  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=3|HOME=function@package  ref_obj|rw|1740:43  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=0|HOME=function@design  ref_obj|a_test_name|123:25  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=1|HOME=function@package  bit_select|q|668:31  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=1|HOME=function@package  ref_obj|idx|668:33  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=2|HOME=function@package  bit_select|not_blocked_seqs|698:32  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=2|HOME=function@package  ref_obj|i|1386:50  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=2|HOME=function@package  ref_obj|idx|698:49  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=2|HOME=function@package  ref_obj|setting|3414:24  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=3|HOME=function@package  ref_obj|i|1167:45  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=3|HOME=function@package  ref_obj|i|918:53  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=3|HOME=function@package  ref_obj|obj|918:72  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@class_defn  ref_obj|a_sim_time|628:52  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@class_defn  ref_obj|a_test_name|94:29  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|a_test_name|309:24  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|a_test_name|333:24  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|a_test_name|357:24  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|a_test_name|382:24  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|a_test_name|407:24  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|a_test_name|433:24  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|disable_sva|333:37  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|enable_sva|309:37  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|enable_sva|357:37  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|enable_sva|382:37  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|enable_sva|407:37  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|enable_sva|433:37  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=1|HOME=function@design  ref_obj|disable_sva|482:50  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=1|HOME=function@design  ref_obj|disable_sva|498:50  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=1|HOME=function@design  ref_obj|enable_sva|467:50  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=2|HOME=function@package  bit_select|fields|290:48  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=2|HOME=function@package  bit_select|not_blocked_seqs|697:24  golden=BOUND ours=BARE
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=2|HOME=function@package  ref_obj|i|290:48  golden=BARE ours=BOUND
+  default.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=2|HOME=function@package  ref_obj|idx|697:41  golden=BOUND ours=BARE
+  default.Scoreboard-59431470  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|param_t|297:26  golden=BARE ours=BOUND
+  default.Scoreboard-59431470  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|t|284:26  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|child|1824:25  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|m_sequencer_id|605:42  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|param_t|297:26  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|stream|2665:26  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|stream|2666:45  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|t|284:26  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=0|HOME=task@package  ref_obj|default_sequence|1647:53  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=0|HOME=task@package  ref_obj|default_sequence|1648:62  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=1|HOME=function@package  bit_select|args|3399:44  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=1|HOME=function@package  bit_select|split_vals|675:39  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|obj|890:29  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|obj|909:43  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|setting|3399:48  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|this|2155:144  golden=BOUND ours=BARE
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|this|2160:146  golden=BOUND ours=BARE
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|this|2164:150  golden=BOUND ours=BARE
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=2|HOME=function@package  ref_obj|m_max_value|1080:39  golden=BOUND ours=BARE
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=3|HOME=function@package  ref_obj|i|767:65  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=3|HOME=function@package  ref_obj|info|767:55  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=3|HOME=function@package  ref_obj|wrapper|1476:47  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=7|HOME=function@package  ref_obj|succ|1907:29  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=7|HOME=function@package  ref_obj|succ|1955:29  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=0|HOME=function@package  ref_obj|comp|613:32  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=0|HOME=task@package  ref_obj|rw|1524:28  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=0|HOME=task@package  ref_obj|rw|1524:36  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=0|HOME=task@package  ref_obj|rw|1634:28  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=0|HOME=task@package  ref_obj|rw|1634:36  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=1|HOME=function@package  bit_select|args|3501:25  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=1|HOME=function@package  bit_select|args|3572:28  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=1|HOME=function@package  ref_obj|i|1131:31  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=1|HOME=task@package  ref_obj|rw|1634:22  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|args|3483:62  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|args|3487:36  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|args|3553:60  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|args|3557:38  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|avail_sequences|791:37  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|avail_sequences|814:67  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|avail_sequences|834:66  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  ref_obj|full_inst_path|1453:40  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  ref_obj|qc|1453:24  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  ref_obj|sequence_ptr|1275:55  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=3|HOME=function@package  bit_select|avail_sequences|840:71  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=3|HOME=function@package  ref_obj|full_inst_path|1363:42  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=3|HOME=function@package  ref_obj|qc|1362:26  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=none|D=3|HOME=function@package  ref_obj|qc|1363:26  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=0|HOME=function@package  ref_obj|factory|1709:21  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=0|HOME=task@package  ref_obj|factory|1647:23  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=1|HOME=function@package  ref_obj|rs|1269:23  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=1|HOME=function@package  ref_obj|rw|1724:41  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=1|HOME=task@package  ref_obj|req_item|764:17  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=2|HOME=function@package  bit_select|q|149:247  golden=BOUND ours=BARE
+  default.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=2|HOME=function@package  ref_obj|idx|149:249  golden=BOUND ours=BARE
+  default.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=2|HOME=function@package  ref_obj|rw|1732:40  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=3|HOME=function@package  ref_obj|f|1475:23  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=3|HOME=function@package  ref_obj|rw|1740:43  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=stmt|RECV=none|D=1|HOME=function@package  bit_select|q|668:31  golden=BOUND ours=BARE
+  default.SeqDriver-32af76aa  POS=stmt|RECV=none|D=1|HOME=function@package  ref_obj|idx|668:33  golden=BOUND ours=BARE
+  default.SeqDriver-32af76aa  POS=stmt|RECV=none|D=2|HOME=function@package  bit_select|not_blocked_seqs|698:32  golden=BOUND ours=BARE
+  default.SeqDriver-32af76aa  POS=stmt|RECV=none|D=2|HOME=function@package  ref_obj|i|1386:50  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=stmt|RECV=none|D=2|HOME=function@package  ref_obj|idx|698:49  golden=BOUND ours=BARE
+  default.SeqDriver-32af76aa  POS=stmt|RECV=none|D=2|HOME=function@package  ref_obj|setting|3414:24  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=stmt|RECV=none|D=3|HOME=function@package  ref_obj|i|1167:45  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=stmt|RECV=none|D=3|HOME=function@package  ref_obj|i|918:53  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=stmt|RECV=none|D=3|HOME=function@package  ref_obj|obj|918:72  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=stmt|RECV=prefix|D=2|HOME=function@package  bit_select|fields|290:48  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=stmt|RECV=prefix|D=2|HOME=function@package  bit_select|not_blocked_seqs|697:24  golden=BOUND ours=BARE
+  default.SeqDriver-32af76aa  POS=stmt|RECV=prefix|D=2|HOME=function@package  ref_obj|i|290:48  golden=BARE ours=BOUND
+  default.SeqDriver-32af76aa  POS=stmt|RECV=prefix|D=2|HOME=function@package  ref_obj|idx|697:41  golden=BOUND ours=BARE
+  default.SimpleUVM-1dc93a62  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|param_t|297:26  golden=BARE ours=BOUND
+  default.SimpleUVM-1dc93a62  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|t|284:26  golden=BARE ours=BOUND
+  testflags.BuildUVMPkg-bf853d43  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|param_t|54020:26  golden=BARE ours=BOUND
+  testflags.BuildUVMPkg-bf853d43  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|t|54474:26  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|child|1824:25  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|m_sequencer_id|605:42  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|param_t|297:26  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|stream|2665:26  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|stream|2666:45  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|t|284:26  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=0|HOME=task@package  ref_obj|default_sequence|1647:53  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=0|HOME=task@package  ref_obj|default_sequence|1648:62  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=1|HOME=function@package  bit_select|args|3399:44  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=1|HOME=function@package  bit_select|split_vals|675:39  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|obj|890:29  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|obj|909:43  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|setting|3399:48  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|this|2155:144  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|this|2160:146  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|this|2164:150  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=2|HOME=function@package  ref_obj|m_max_value|1080:39  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=3|HOME=function@package  ref_obj|i|767:65  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=3|HOME=function@package  ref_obj|info|767:55  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=3|HOME=function@package  ref_obj|wrapper|1476:47  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=7|HOME=function@package  ref_obj|succ|1907:29  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=hierpath|D=7|HOME=function@package  ref_obj|succ|1955:29  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=0|HOME=function@package  ref_obj|comp|613:32  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=0|HOME=task@package  ref_obj|rw|1524:28  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=0|HOME=task@package  ref_obj|rw|1524:36  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=0|HOME=task@package  ref_obj|rw|1634:28  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=0|HOME=task@package  ref_obj|rw|1634:36  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=1|HOME=function@package  bit_select|args|3501:25  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=1|HOME=function@package  bit_select|args|3572:28  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=1|HOME=function@package  ref_obj|i|1131:31  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=1|HOME=task@package  ref_obj|rw|1634:22  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|args|3483:62  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|args|3487:36  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|args|3553:60  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|args|3557:38  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|avail_sequences|791:37  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|avail_sequences|814:67  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|avail_sequences|834:66  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  ref_obj|full_inst_path|1453:40  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  ref_obj|qc|1453:24  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=2|HOME=function@package  ref_obj|sequence_ptr|1275:55  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=3|HOME=function@package  bit_select|avail_sequences|840:71  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=3|HOME=function@package  ref_obj|full_inst_path|1363:42  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=3|HOME=function@package  ref_obj|qc|1362:26  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=none|D=3|HOME=function@package  ref_obj|qc|1363:26  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=0|HOME=function@package  ref_obj|factory|1709:21  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=0|HOME=task@package  ref_obj|factory|1647:23  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=1|HOME=function@package  ref_obj|rs|1269:23  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=1|HOME=function@package  ref_obj|rw|1724:41  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=1|HOME=task@package  ref_obj|req_item|764:17  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=2|HOME=function@package  bit_select|q|149:247  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=2|HOME=function@package  ref_obj|idx|149:249  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=2|HOME=function@package  ref_obj|rw|1732:40  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=3|HOME=function@package  ref_obj|f|1475:23  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=expr|RECV=syscall|D=3|HOME=function@package  ref_obj|rw|1740:43  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=0|HOME=function@design  ref_obj|a_test_name|123:25  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=1|HOME=function@package  bit_select|q|668:31  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=1|HOME=function@package  ref_obj|idx|668:33  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=2|HOME=function@package  bit_select|not_blocked_seqs|698:32  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=2|HOME=function@package  ref_obj|i|1386:50  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=2|HOME=function@package  ref_obj|idx|698:49  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=2|HOME=function@package  ref_obj|setting|3414:24  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=3|HOME=function@package  ref_obj|i|1167:45  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=3|HOME=function@package  ref_obj|i|918:53  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=none|D=3|HOME=function@package  ref_obj|obj|918:72  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@class_defn  ref_obj|a_sim_time|628:52  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@class_defn  ref_obj|a_test_name|94:29  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|a_test_name|309:24  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|a_test_name|333:24  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|a_test_name|357:24  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|a_test_name|382:24  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|a_test_name|407:24  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|a_test_name|433:24  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|disable_sva|333:37  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|enable_sva|309:37  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|enable_sva|357:37  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|enable_sva|382:37  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|enable_sva|407:37  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=0|HOME=function@design  ref_obj|enable_sva|433:37  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=1|HOME=function@design  ref_obj|disable_sva|482:50  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=1|HOME=function@design  ref_obj|disable_sva|498:50  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=1|HOME=function@design  ref_obj|enable_sva|467:50  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=2|HOME=function@package  bit_select|fields|290:48  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=2|HOME=function@package  bit_select|not_blocked_seqs|697:24  golden=BOUND ours=BARE
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=2|HOME=function@package  ref_obj|i|290:48  golden=BARE ours=BOUND
+  testflags.MiniAmiq-544c7f61  POS=stmt|RECV=prefix|D=2|HOME=function@package  ref_obj|idx|697:41  golden=BOUND ours=BARE
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|child|1824:25  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|m_sequencer_id|605:42  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|param_t|297:26  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|stream|2665:26  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|stream|2666:45  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|t|284:26  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=0|HOME=task@package  ref_obj|default_sequence|1647:53  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=0|HOME=task@package  ref_obj|default_sequence|1648:62  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=1|HOME=function@package  bit_select|args|3399:44  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=1|HOME=function@package  bit_select|split_vals|675:39  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|obj|890:29  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|obj|909:43  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|setting|3399:48  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|this|2155:144  golden=BOUND ours=BARE
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|this|2160:146  golden=BOUND ours=BARE
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=1|HOME=function@package  ref_obj|this|2164:150  golden=BOUND ours=BARE
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=2|HOME=function@package  ref_obj|m_max_value|1080:39  golden=BOUND ours=BARE
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=3|HOME=function@package  ref_obj|i|767:65  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=3|HOME=function@package  ref_obj|info|767:55  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=3|HOME=function@package  ref_obj|wrapper|1476:47  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=7|HOME=function@package  ref_obj|succ|1907:29  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=hierpath|D=7|HOME=function@package  ref_obj|succ|1955:29  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=0|HOME=function@package  ref_obj|comp|613:32  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=0|HOME=task@package  ref_obj|rw|1524:28  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=0|HOME=task@package  ref_obj|rw|1524:36  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=0|HOME=task@package  ref_obj|rw|1634:28  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=0|HOME=task@package  ref_obj|rw|1634:36  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=1|HOME=function@package  bit_select|args|3501:25  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=1|HOME=function@package  bit_select|args|3572:28  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=1|HOME=function@package  ref_obj|i|1131:31  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=1|HOME=task@package  ref_obj|rw|1634:22  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|args|3483:62  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|args|3487:36  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|args|3553:60  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|args|3557:38  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|avail_sequences|791:37  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|avail_sequences|814:67  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  bit_select|avail_sequences|834:66  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  ref_obj|full_inst_path|1453:40  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  ref_obj|qc|1453:24  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=2|HOME=function@package  ref_obj|sequence_ptr|1275:55  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=3|HOME=function@package  bit_select|avail_sequences|840:71  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=3|HOME=function@package  ref_obj|full_inst_path|1363:42  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=3|HOME=function@package  ref_obj|qc|1362:26  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=none|D=3|HOME=function@package  ref_obj|qc|1363:26  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=0|HOME=function@package  ref_obj|factory|1709:21  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=0|HOME=task@package  ref_obj|factory|1647:23  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=1|HOME=function@package  ref_obj|rs|1269:23  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=1|HOME=function@package  ref_obj|rw|1724:41  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=1|HOME=task@package  ref_obj|req_item|764:17  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=2|HOME=function@package  bit_select|q|149:247  golden=BOUND ours=BARE
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=2|HOME=function@package  ref_obj|idx|149:249  golden=BOUND ours=BARE
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=2|HOME=function@package  ref_obj|rw|1732:40  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=3|HOME=function@package  ref_obj|f|1475:23  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=expr|RECV=syscall|D=3|HOME=function@package  ref_obj|rw|1740:43  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=stmt|RECV=none|D=1|HOME=function@package  bit_select|q|668:31  golden=BOUND ours=BARE
+  testflags.SeqDriver-32af76aa  POS=stmt|RECV=none|D=1|HOME=function@package  ref_obj|idx|668:33  golden=BOUND ours=BARE
+  testflags.SeqDriver-32af76aa  POS=stmt|RECV=none|D=2|HOME=function@package  bit_select|not_blocked_seqs|698:32  golden=BOUND ours=BARE
+  testflags.SeqDriver-32af76aa  POS=stmt|RECV=none|D=2|HOME=function@package  ref_obj|i|1386:50  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=stmt|RECV=none|D=2|HOME=function@package  ref_obj|idx|698:49  golden=BOUND ours=BARE
+  testflags.SeqDriver-32af76aa  POS=stmt|RECV=none|D=2|HOME=function@package  ref_obj|setting|3414:24  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=stmt|RECV=none|D=3|HOME=function@package  ref_obj|i|1167:45  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=stmt|RECV=none|D=3|HOME=function@package  ref_obj|i|918:53  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=stmt|RECV=none|D=3|HOME=function@package  ref_obj|obj|918:72  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=stmt|RECV=prefix|D=2|HOME=function@package  bit_select|fields|290:48  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=stmt|RECV=prefix|D=2|HOME=function@package  bit_select|not_blocked_seqs|697:24  golden=BOUND ours=BARE
+  testflags.SeqDriver-32af76aa  POS=stmt|RECV=prefix|D=2|HOME=function@package  ref_obj|i|290:48  golden=BARE ours=BOUND
+  testflags.SeqDriver-32af76aa  POS=stmt|RECV=prefix|D=2|HOME=function@package  ref_obj|idx|697:41  golden=BOUND ours=BARE
+  testflags.SimpleUVM-1dc93a62  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|param_t|297:26  golden=BARE ours=BOUND
+  testflags.SimpleUVM-1dc93a62  POS=expr|RECV=hierpath|D=0|HOME=function@package  ref_obj|t|284:26  golden=BARE ours=BOUND
+
+ONLY-GOLDEN keys: 24070   ONLY-OURS keys: 24051
+  ONLY-G POS=expr|RECV=bare|D=0|HOME=function@package  x40
+  ONLY-G POS=expr|RECV=bare|D=1|HOME=function@class_defn  x312
+  ONLY-G POS=expr|RECV=bare|D=1|HOME=function@package  x24
+  ONLY-G POS=expr|RECV=bare|D=2|HOME=function@package  x24
+  ONLY-G POS=expr|RECV=hierpath|D=0|HOME=function@package  x18
+  ONLY-G POS=expr|RECV=hierpath|D=1|HOME=function@package  x648
+  ONLY-G POS=expr|RECV=hierpath|D=1|HOME=task@package  x24
+  ONLY-G POS=expr|RECV=hierpath|D=2|HOME=function@class_defn  x64
+  ONLY-G POS=expr|RECV=hierpath|D=2|HOME=function@package  x312
+  ONLY-G POS=expr|RECV=hierpath|D=2|HOME=task@package  x16
+  ONLY-G POS=expr|RECV=hierpath|D=3|HOME=function@package  x32
+  ONLY-G POS=expr|RECV=hierpath|D=3|HOME=task@package  x16
+  ONLY-G POS=expr|RECV=hierpath|D=4|HOME=function@package  x64
+  ONLY-G POS=expr|RECV=hierpath|D=4|HOME=task@class_defn  x14
+  ONLY-G POS=expr|RECV=hierpath|D=5|HOME=function@package  x16
+  ONLY-G POS=expr|RECV=hierpath|D=8|HOME=function@package  x16
+  ONLY-G POS=expr|RECV=none|D=0|HOME=function@package  x16
+  ONLY-G POS=expr|RECV=none|D=1|HOME=function@package  x160
+  ONLY-G POS=expr|RECV=none|D=1|HOME=task@package  x208
+  ONLY-G POS=expr|RECV=none|D=2|HOME=function@package  x64
+  ONLY-G POS=expr|RECV=none|D=2|HOME=task@package  x16
+  ONLY-G POS=expr|RECV=none|D=3|HOME=function@class_defn  x21
+  ONLY-G POS=expr|RECV=none|D=3|HOME=function@package  x317
+  ONLY-G POS=expr|RECV=none|D=3|HOME=task@package  x40
+  ONLY-G POS=expr|RECV=none|D=4|HOME=function@class_defn  x21
+  ONLY-G POS=expr|RECV=none|D=4|HOME=function@package  x173
+  ONLY-G POS=expr|RECV=prefix|D=1|HOME=function@package  x8
+  ONLY-G POS=expr|RECV=syscall|D=0|HOME=function@class_defn  x25
+  ONLY-G POS=expr|RECV=syscall|D=0|HOME=function@package  x20
+  ONLY-G POS=expr|RECV=syscall|D=0|HOME=initial@design  x4
+  ONLY-G POS=expr|RECV=syscall|D=0|HOME=task@module_inst  x3
+  ONLY-G POS=expr|RECV=syscall|D=1|HOME=function@class_defn  x65
+  ONLY-G POS=expr|RECV=syscall|D=1|HOME=function@package  x231
+  ONLY-G POS=expr|RECV=syscall|D=1|HOME=initial@design  x2
+  ONLY-G POS=expr|RECV=syscall|D=1|HOME=task@class_defn  x262
+  ONLY-G POS=expr|RECV=syscall|D=1|HOME=task@module_inst  x6
+  ONLY-G POS=expr|RECV=syscall|D=1|HOME=task@package  x604
+  ONLY-G POS=expr|RECV=syscall|D=2|HOME=function@class_defn  x618
+  ONLY-G POS=expr|RECV=syscall|D=2|HOME=function@package  x990
+  ONLY-G POS=expr|RECV=syscall|D=2|HOME=task@class_defn  x283
+  ONLY-G POS=expr|RECV=syscall|D=2|HOME=task@package  x416
+  ONLY-G POS=expr|RECV=syscall|D=3|HOME=function@class_defn  x229
+  ONLY-G POS=expr|RECV=syscall|D=3|HOME=function@package  x491
+  ONLY-G POS=expr|RECV=syscall|D=3|HOME=task@class_defn  x386
+  ONLY-G POS=expr|RECV=syscall|D=3|HOME=task@package  x345
+  ONLY-G POS=expr|RECV=syscall|D=4|HOME=function@class_defn  x175
+  ONLY-G POS=expr|RECV=syscall|D=4|HOME=function@package  x341
+  ONLY-G POS=expr|RECV=syscall|D=4|HOME=task@class_defn  x364
+  ONLY-G POS=expr|RECV=syscall|D=4|HOME=task@package  x120
+  ONLY-G POS=expr|RECV=syscall|D=5|HOME=function@class_defn  x49
+  ONLY-G POS=expr|RECV=syscall|D=5|HOME=function@package  x105
+  ONLY-G POS=expr|RECV=syscall|D=5|HOME=task@class_defn  x343
+  ONLY-G POS=expr|RECV=syscall|D=5|HOME=task@package  x60
+  ONLY-G POS=expr|RECV=syscall|D=6|HOME=function@class_defn  x35
+  ONLY-G POS=expr|RECV=syscall|D=6|HOME=task@class_defn  x119
+  ONLY-G POS=expr|RECV=syscall|D=6|HOME=task@package  x30
+  ONLY-G POS=expr|RECV=syscall|D=8|HOME=task@class_defn  x42
+  ONLY-G POS=expr|RECV=syscall|D=8|HOME=task@package  x90
+  ONLY-G POS=stmt|RECV=none|D=0|HOME=function@design  x16
+  ONLY-G POS=stmt|RECV=none|D=0|HOME=function@package  x64
+  ONLY-G POS=stmt|RECV=none|D=0|HOME=initial@design  x4
+  ONLY-G POS=stmt|RECV=none|D=1|HOME=function@class_defn  x212
+  ONLY-G POS=stmt|RECV=none|D=1|HOME=function@package  x613
+  ONLY-G POS=stmt|RECV=none|D=1|HOME=initial@design  x2
+  ONLY-G POS=stmt|RECV=none|D=1|HOME=task@class_defn  x165
+  ONLY-G POS=stmt|RECV=none|D=1|HOME=task@package  x591
+  ONLY-G POS=stmt|RECV=none|D=2|HOME=function@class_defn  x1233
+  ONLY-G POS=stmt|RECV=none|D=2|HOME=function@design  x8
+  ONLY-G POS=stmt|RECV=none|D=2|HOME=function@package  x4153
+  ONLY-G POS=stmt|RECV=none|D=2|HOME=task@class_defn  x343
+  ONLY-G POS=stmt|RECV=none|D=2|HOME=task@package  x824
+  ONLY-G POS=stmt|RECV=none|D=3|HOME=function@class_defn  x481
+  ONLY-G POS=stmt|RECV=none|D=3|HOME=function@package  x1198
+  ONLY-G POS=stmt|RECV=none|D=3|HOME=task@class_defn  x338
+  ONLY-G POS=stmt|RECV=none|D=3|HOME=task@package  x491
+  ONLY-G POS=stmt|RECV=none|D=4|HOME=function@class_defn  x112
+  ONLY-G POS=stmt|RECV=none|D=4|HOME=function@package  x307
+  ONLY-G POS=stmt|RECV=none|D=4|HOME=task@class_defn  x147
+  ONLY-G POS=stmt|RECV=none|D=4|HOME=task@package  x327
+  ONLY-G POS=stmt|RECV=none|D=5|HOME=function@class_defn  x252
+  ONLY-G POS=stmt|RECV=none|D=5|HOME=function@package  x732
+  ONLY-G POS=stmt|RECV=none|D=5|HOME=task@class_defn  x105
+  ONLY-G POS=stmt|RECV=none|D=5|HOME=task@package  x170
+  ONLY-G POS=stmt|RECV=none|D=6|HOME=function@class_defn  x133
+  ONLY-G POS=stmt|RECV=none|D=6|HOME=function@package  x241
+  ONLY-G POS=stmt|RECV=none|D=6|HOME=task@class_defn  x49
+  ONLY-G POS=stmt|RECV=none|D=6|HOME=task@package  x93
+  ONLY-G POS=stmt|RECV=none|D=7|HOME=function@class_defn  x84
+  ONLY-G POS=stmt|RECV=none|D=7|HOME=function@package  x212
+  ONLY-G POS=stmt|RECV=none|D=8|HOME=task@class_defn  x14
+  ONLY-G POS=stmt|RECV=none|D=8|HOME=task@package  x62
+  ONLY-G POS=stmt|RECV=prefix|D=0|HOME=function@class_defn  x4
+  ONLY-G POS=stmt|RECV=prefix|D=0|HOME=function@design  x24
+  ONLY-G POS=stmt|RECV=prefix|D=0|HOME=function@package  x40
+  ONLY-G POS=stmt|RECV=prefix|D=1|HOME=function@class_defn  x25
+  ONLY-G POS=stmt|RECV=prefix|D=1|HOME=function@design  x6
+  ONLY-G POS=stmt|RECV=prefix|D=1|HOME=function@package  x50
+  ONLY-G POS=stmt|RECV=prefix|D=2|HOME=function@class_defn  x23
+  ONLY-G POS=stmt|RECV=prefix|D=2|HOME=function@package  x71
+  ONLY-G POS=stmt|RECV=prefix|D=2|HOME=task@class_defn  x7
+  ONLY-G POS=stmt|RECV=prefix|D=3|HOME=function@class_defn  x7
+  ONLY-G POS=stmt|RECV=prefix|D=3|HOME=function@package  x16
+  ONLY-G POS=stmt|RECV=syscall|D=0|HOME=function@class_defn  x36
+  ONLY-G POS=stmt|RECV=syscall|D=0|HOME=function@package  x68
+  ONLY-G POS=stmt|RECV=syscall|D=1|HOME=function@class_defn  x54
+  ONLY-G POS=stmt|RECV=syscall|D=1|HOME=function@package  x134
+  ONLY-G POS=stmt|RECV=syscall|D=2|HOME=function@package  x48
+  ONLY-G POS=stmt|RECV=syscall|D=3|HOME=function@package  x48
+  ONLY-G POS=stmt|RECV=syscall|D=4|HOME=function@package  x16
+  ONLY-G POS=stmt|RECV=syscall|D=5|HOME=function@package  x16
+  ONLY-G POS=stmt|RECV=syscall|D=6|HOME=function@package  x16
+  ONLY-G POS=stmt|RECV=syscall|D=7|HOME=function@package  x16
+  ONLY-G POS=stmt|RECV=syscall|D=8|HOME=function@package  x16
+  ONLY-G POS=stmt|RECV=syscall|D=9|HOME=function@package  x16
+  ONLY-O POS=expr|RECV=bare|D=0|HOME=none@none  x88
+  ONLY-O POS=expr|RECV=bare|D=1|HOME=function@class_defn  x312
+  ONLY-O POS=expr|RECV=hierpath|D=0|HOME=function@package  x642
+  ONLY-O POS=expr|RECV=hierpath|D=0|HOME=task@package  x24
+  ONLY-O POS=expr|RECV=hierpath|D=1|HOME=function@package  x200
+  ONLY-O POS=expr|RECV=hierpath|D=1|HOME=task@package  x16
+  ONLY-O POS=expr|RECV=hierpath|D=2|HOME=function@class_defn  x64
+  ONLY-O POS=expr|RECV=hierpath|D=2|HOME=function@package  x168
+  ONLY-O POS=expr|RECV=hierpath|D=2|HOME=task@package  x16
+  ONLY-O POS=expr|RECV=hierpath|D=3|HOME=function@package  x64
+  ONLY-O POS=expr|RECV=hierpath|D=4|HOME=function@package  x16
+  ONLY-O POS=expr|RECV=hierpath|D=4|HOME=task@class_defn  x14
+  ONLY-O POS=expr|RECV=hierpath|D=7|HOME=function@package  x16
+  ONLY-O POS=expr|RECV=none|D=0|HOME=function@package  x152
+  ONLY-O POS=expr|RECV=none|D=0|HOME=task@package  x208
+  ONLY-O POS=expr|RECV=none|D=1|HOME=function@package  x64
+  ONLY-O POS=expr|RECV=none|D=1|HOME=task@package  x16
+  ONLY-O POS=expr|RECV=none|D=2|HOME=function@package  x272
+  ONLY-O POS=expr|RECV=none|D=2|HOME=task@package  x40
+  ONLY-O POS=expr|RECV=none|D=3|HOME=function@class_defn  x21
+  ONLY-O POS=expr|RECV=none|D=3|HOME=function@package  x173
+  ONLY-O POS=expr|RECV=none|D=4|HOME=function@class_defn  x21
+  ONLY-O POS=expr|RECV=none|D=4|HOME=function@package  x45
+  ONLY-O POS=expr|RECV=prefix|D=0|HOME=function@package  x8
+  ONLY-O POS=expr|RECV=syscall|D=0|HOME=function@class_defn  x27
+  ONLY-O POS=expr|RECV=syscall|D=0|HOME=function@package  x107
+  ONLY-O POS=expr|RECV=syscall|D=0|HOME=task@module_inst  x3
+  ONLY-O POS=expr|RECV=syscall|D=0|HOME=task@package  x64
+  ONLY-O POS=expr|RECV=syscall|D=1|HOME=function@class_defn  x65
+  ONLY-O POS=expr|RECV=syscall|D=1|HOME=function@package  x191
+  ONLY-O POS=expr|RECV=syscall|D=1|HOME=task@class_defn  x262
+  ONLY-O POS=expr|RECV=syscall|D=1|HOME=task@module_inst  x6
+  ONLY-O POS=expr|RECV=syscall|D=1|HOME=task@package  x572
+  ONLY-O POS=expr|RECV=syscall|D=2|HOME=function@class_defn  x618
+  ONLY-O POS=expr|RECV=syscall|D=2|HOME=function@package  x990
+  ONLY-O POS=expr|RECV=syscall|D=2|HOME=task@class_defn  x283
+  ONLY-O POS=expr|RECV=syscall|D=2|HOME=task@package  x384
+  ONLY-O POS=expr|RECV=syscall|D=3|HOME=function@class_defn  x229
+  ONLY-O POS=expr|RECV=syscall|D=3|HOME=function@package  x491
+  ONLY-O POS=expr|RECV=syscall|D=3|HOME=task@class_defn  x386
+  ONLY-O POS=expr|RECV=syscall|D=3|HOME=task@package  x345
+  ONLY-O POS=expr|RECV=syscall|D=4|HOME=function@class_defn  x175
+  ONLY-O POS=expr|RECV=syscall|D=4|HOME=function@package  x285
+  ONLY-O POS=expr|RECV=syscall|D=4|HOME=task@class_defn  x364
+  ONLY-O POS=expr|RECV=syscall|D=4|HOME=task@package  x120
+  ONLY-O POS=expr|RECV=syscall|D=5|HOME=function@class_defn  x49
+  ONLY-O POS=expr|RECV=syscall|D=5|HOME=function@package  x105
+  ONLY-O POS=expr|RECV=syscall|D=5|HOME=task@class_defn  x343
+  ONLY-O POS=expr|RECV=syscall|D=5|HOME=task@package  x60
+  ONLY-O POS=expr|RECV=syscall|D=6|HOME=function@class_defn  x35
+  ONLY-O POS=expr|RECV=syscall|D=6|HOME=task@class_defn  x119
+  ONLY-O POS=expr|RECV=syscall|D=6|HOME=task@package  x30
+  ONLY-O POS=expr|RECV=syscall|D=8|HOME=task@class_defn  x42
+  ONLY-O POS=expr|RECV=syscall|D=8|HOME=task@package  x90
+  ONLY-O POS=stmt|RECV=none|D=0|HOME=function@design  x2
+  ONLY-O POS=stmt|RECV=none|D=0|HOME=function@package  x1200
+  ONLY-O POS=stmt|RECV=none|D=0|HOME=task@package  x432
+  ONLY-O POS=stmt|RECV=none|D=1|HOME=function@class_defn  x212
+  ONLY-O POS=stmt|RECV=none|D=1|HOME=function@package  x2221
+  ONLY-O POS=stmt|RECV=none|D=1|HOME=task@class_defn  x165
+  ONLY-O POS=stmt|RECV=none|D=1|HOME=task@package  x767
+  ONLY-O POS=stmt|RECV=none|D=2|HOME=function@class_defn  x1233
+  ONLY-O POS=stmt|RECV=none|D=2|HOME=function@package  x2089
+  ONLY-O POS=stmt|RECV=none|D=2|HOME=task@class_defn  x343
+  ONLY-O POS=stmt|RECV=none|D=2|HOME=task@package  x504
+  ONLY-O POS=stmt|RECV=none|D=3|HOME=function@class_defn  x481
+  ONLY-O POS=stmt|RECV=none|D=3|HOME=function@package  x878
+  ONLY-O POS=stmt|RECV=none|D=3|HOME=task@class_defn  x338
+  ONLY-O POS=stmt|RECV=none|D=3|HOME=task@package  x459
+  ONLY-O POS=stmt|RECV=none|D=4|HOME=function@class_defn  x112
+  ONLY-O POS=stmt|RECV=none|D=4|HOME=function@package  x211
+  ONLY-O POS=stmt|RECV=none|D=4|HOME=task@class_defn  x147
+  ONLY-O POS=stmt|RECV=none|D=4|HOME=task@package  x167
+  ONLY-O POS=stmt|RECV=none|D=5|HOME=function@class_defn  x252
+  ONLY-O POS=stmt|RECV=none|D=5|HOME=function@package  x540
+  ONLY-O POS=stmt|RECV=none|D=5|HOME=task@class_defn  x105
+  ONLY-O POS=stmt|RECV=none|D=5|HOME=task@package  x122
+  ONLY-O POS=stmt|RECV=none|D=6|HOME=function@class_defn  x133
+  ONLY-O POS=stmt|RECV=none|D=6|HOME=function@package  x225
+  ONLY-O POS=stmt|RECV=none|D=6|HOME=task@class_defn  x49
+  ONLY-O POS=stmt|RECV=none|D=6|HOME=task@package  x45
+  ONLY-O POS=stmt|RECV=none|D=7|HOME=function@class_defn  x84
+  ONLY-O POS=stmt|RECV=none|D=7|HOME=function@package  x180
+  ONLY-O POS=stmt|RECV=none|D=7|HOME=task@package  x32
+  ONLY-O POS=stmt|RECV=none|D=8|HOME=task@class_defn  x14
+  ONLY-O POS=stmt|RECV=none|D=8|HOME=task@package  x30
+  ONLY-O POS=stmt|RECV=prefix|D=0|HOME=function@class_defn  x4
+  ONLY-O POS=stmt|RECV=prefix|D=0|HOME=function@design  x38
+  ONLY-O POS=stmt|RECV=prefix|D=0|HOME=function@package  x48
+  ONLY-O POS=stmt|RECV=prefix|D=1|HOME=function@class_defn  x25
+  ONLY-O POS=stmt|RECV=prefix|D=1|HOME=function@design  x6
+  ONLY-O POS=stmt|RECV=prefix|D=1|HOME=function@package  x42
+  ONLY-O POS=stmt|RECV=prefix|D=2|HOME=function@class_defn  x23
+  ONLY-O POS=stmt|RECV=prefix|D=2|HOME=function@design  x8
+  ONLY-O POS=stmt|RECV=prefix|D=2|HOME=function@package  x87
+  ONLY-O POS=stmt|RECV=prefix|D=2|HOME=task@class_defn  x7
+  ONLY-O POS=stmt|RECV=prefix|D=3|HOME=function@class_defn  x7
+  ONLY-O POS=stmt|RECV=syscall|D=0|HOME=function@class_defn  x36
+  ONLY-O POS=stmt|RECV=syscall|D=0|HOME=function@package  x100
+  ONLY-O POS=stmt|RECV=syscall|D=1|HOME=function@class_defn  x54
+  ONLY-O POS=stmt|RECV=syscall|D=1|HOME=function@package  x150
+  ONLY-O POS=stmt|RECV=syscall|D=2|HOME=function@package  x48
+  ONLY-O POS=stmt|RECV=syscall|D=3|HOME=function@package  x16
+  ONLY-O POS=stmt|RECV=syscall|D=4|HOME=function@package  x16
+  ONLY-O POS=stmt|RECV=syscall|D=5|HOME=function@package  x16
+  ONLY-O POS=stmt|RECV=syscall|D=6|HOME=function@package  x16
+  ONLY-O POS=stmt|RECV=syscall|D=7|HOME=function@package  x16
+  ONLY-O POS=stmt|RECV=syscall|D=8|HOME=function@package  x16

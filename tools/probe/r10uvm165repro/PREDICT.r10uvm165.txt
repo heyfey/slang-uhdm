@@ -1,0 +1,32 @@
+r10uvm165 — THE A-PRIORI PREDICTION (ct165pred over EVERY pristine database)
+MEASUREMENT ONLY.  Made from PRISTINE databases before any patched database existed.
+
+surelog corpus:
+-- databases=956  rows-with-cells=11  restore-fail=0
+-- PRED cells: 2
+-- INERT-OOB cells: 24687
+-- INERT-D0 cells: 6222
+-- INERT-BLK cells: 335
+-- MOVER ROW: default/BuildUVMPkg-bf853d43
+-- MOVER ROW: testflags/BuildUVMPkg-bf853d43
+
+PRED	default/BuildUVMPkg-bf853d43	alias_name:14098:35		depth=2	fn=set_type_alias@14091-14091	inbody=1	direct=1	act=io_decl@14091
+PRED	testflags/BuildUVMPkg-bf853d43	alias_name:14098:35		depth=2	fn=set_type_alias@14091-14091	inbody=1	direct=1	act=io_decl@14091
+
+uhdm2rtlil corpus:
+-- databases=1358  rows-with-cells=0  restore-fail=0
+-- PRED cells: 0
+-- INERT-OOB cells: 0
+-- INERT-D0 cells: 0
+-- INERT-BLK cells: 0
+
+THE OUTCOME (byteverify, patched vs pristine sweeps):
+  surelog     MOVERS 3 / 956 — default/BuildUVMPkg + testflags/BuildUVMPkg (the two
+              PREDICTED rows) and default/Scoreboard, the known ~50/50 COIN
+              (RESUME.md §9): its ORDER-BLIND sorted-dump diff is 0 lines.
+  uhdm2rtlil  MOVERS 0 / 1358 — as predicted (0 cells of ANY class in all 1358).
+
+Each BuildUVMPkg database's order-blind, indent-blind dump diff is EXACTLY two
+lines, both REMOVED, and they are the one cell:
+  > \_io_decl: (alias_name), line:14091:46, endln:14091:56
+  > |vpiActual:

@@ -1,0 +1,43 @@
+r10uvm165 — THE CORPUS CENSUS (the two moved databases, cell for cell)
+MEASUREMENT ONLY.  LHS is always golden (Surelog), RHS always ours.
+
+byteverify (SELFCHECK=1), patched sweep vs this pass's own pristine sweep:
+  surelog     MOVERS 3 / 956   (SELFCHECK 955/956 flagged)
+  uhdm2rtlil  MOVERS 0 / 1358  (SELFCHECK 1357/1358 flagged)
+
+  ./default/BuildUVMPkg-bf853d43/slang.uhdm    PREDICTED
+  ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  PREDICTED
+  ./default/Scoreboard-59431470/slang.uhdm     THE COIN (RESUME.md §9): its
+      ORDER-BLIND sorted-dump diff against the pristine database is 0 lines.
+
+THE TWO BuildUVMPkg DATABASES, order-blind AND indent-blind dump diff
+(pristine '>' , patched '<'), the WHOLE difference:
+227247a227248
+> \_io_decl: (alias_name), line:14091:46, endln:14091:56
+418444a418446
+> |vpiActual:
+
+THE CELL, both sides, through ct165cen (CTX x CAST x HOME):
+  golden  CAS|G|CTX=arg|...|ref_obj|alias_name|14092:32|BOUND
+  golden  CAS|G|CTX=arg|...|ref_obj|alias_name|14098:35|BARE     <- the head
+  pris    CAS|O|CTX=arg|...|ref_obj|alias_name|14092:32|BOUND
+  pris    CAS|O|CTX=arg|...|ref_obj|alias_name|14098:35|BOUND    <- ours
+  patched CAS|O|CTX=arg|...|ref_obj|alias_name|14098:35|BARE     <- TOWARD
+
+THE FIVE CENSUS FAMILIES, multiset distance to golden, per row:
+  -- default
+     REF  golden-vs-PRISTINE 2532   golden-vs-PATCHED 2530   PRISTINE-vs-PATCHED 2
+     TYP  golden-vs-PRISTINE 1292   golden-vs-PATCHED 1292   PRISTINE-vs-PATCHED 0
+     VAR  golden-vs-PRISTINE 266    golden-vs-PATCHED 266    PRISTINE-vs-PATCHED 0
+     CNT  golden-vs-PRISTINE 88     golden-vs-PATCHED 88     PRISTINE-vs-PATCHED 0
+     OBJ  golden-vs-PRISTINE 19729  golden-vs-PATCHED 19729  PRISTINE-vs-PATCHED 0
+  -- testflags
+     REF  golden-vs-PRISTINE 2532   golden-vs-PATCHED 2530   PRISTINE-vs-PATCHED 2
+     TYP  golden-vs-PRISTINE 1292   golden-vs-PATCHED 1292   PRISTINE-vs-PATCHED 0
+     VAR  golden-vs-PRISTINE 266    golden-vs-PATCHED 266    PRISTINE-vs-PATCHED 0
+     CNT  golden-vs-PRISTINE 88     golden-vs-PATCHED 88     PRISTINE-vs-PATCHED 0
+     OBJ  golden-vs-PRISTINE 19729  golden-vs-PATCHED 19729  PRISTINE-vs-PATCHED 0
+
+  REF moves by exactly 2 multiset lines (the wrong value out, the right value
+  in) = ONE cell, TOWARD.  TYP / VAR / CNT / OBJ move 0 lines: no object was
+  created, destroyed, re-typed or re-listed.
