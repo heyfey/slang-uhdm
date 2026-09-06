@@ -1,0 +1,128 @@
+r10uvm179 — THE PATCHED SimpleUVM/default HEAD, FIRST 120 LINES ONLY.
+The full cmp log is 664681 lines / 32 MB and is NOT committed: the head object
+is now a whole `module_inst work@top`, so the LINE COUNT IS ITS DECOMPILE SIZE
+and carries no information beyond 'the head object changed' (RESUME.md §7).
+The object and the failing FIELD are decoded in OWNER.next.r10uvm179.txt.
+Counts: pristine 29 lines / 1 head -> patched 664681 lines / 1 head; testflags
+identical in both cases.  cmp rc=255 both.
+----------------------------------------------------------------------
+LHS:
+decompile:
+module_inst: work@top (work@top), id:197492, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+|vpiParent:
+\_design: (work@top), id:194978
+|vpiFullName:work@top
+|vpiParameter:
+\_parameter: (work@top.UVM_ABSTRACT), id:119719, line:201:11, endln:201:23
+  |vpiParent:
+  \_module_inst: work@top (work@top), id:197492, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+  |UINT:16384
+  |vpiTypespec:
+  \_ref_typespec: (work@top.UVM_ABSTRACT), id:119720
+    |vpiParent:
+    \_parameter: (work@top.UVM_ABSTRACT), id:119719, line:201:11, endln:201:23
+    |vpiFullName:work@top.UVM_ABSTRACT
+    |vpiActual:
+    \_int_typespec: , id:119721, line:201:1, endln:201:37
+  |vpiName:UVM_ABSTRACT
+  |vpiFullName:work@top.UVM_ABSTRACT
+  |vpiImported:uvm_pkg
+|vpiParameter:
+\_parameter: (work@top.UVM_ALL_ON), id:119722, line:181:11, endln:181:21
+  |vpiParent:
+  \_module_inst: work@top (work@top), id:197492, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+  |BIN:000000101010101
+  |vpiName:UVM_ALL_ON
+  |vpiFullName:work@top.UVM_ALL_ON
+  |vpiImported:uvm_pkg
+|vpiParameter:
+\_parameter: (work@top.UVM_CHECK_FIELDS), id:119723, line:209:11, endln:209:27
+  |vpiParent:
+  \_module_inst: work@top (work@top), id:197492, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+  |UINT:131075
+  |vpiTypespec:
+  \_ref_typespec: (work@top.UVM_CHECK_FIELDS), id:119724
+    |vpiParent:
+    \_parameter: (work@top.UVM_CHECK_FIELDS), id:119723, line:209:11, endln:209:27
+    |vpiFullName:work@top.UVM_CHECK_FIELDS
+    |vpiActual:
+    \_int_typespec: , id:119725, line:209:1, endln:209:48
+  |vpiName:UVM_CHECK_FIELDS
+  |vpiFullName:work@top.UVM_CHECK_FIELDS
+  |vpiImported:uvm_pkg
+|vpiParameter:
+\_parameter: (work@top.UVM_COMPARE), id:119726, line:189:11, endln:189:22
+  |vpiParent:
+  \_module_inst: work@top (work@top), id:197492, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+  |UINT:4
+  |vpiTypespec:
+  \_ref_typespec: (work@top.UVM_COMPARE), id:119727
+    |vpiParent:
+    \_parameter: (work@top.UVM_COMPARE), id:119726, line:189:11, endln:189:22
+    |vpiFullName:work@top.UVM_COMPARE
+    |vpiActual:
+    \_int_typespec: , id:119728, line:189:1, endln:189:36
+  |vpiName:UVM_COMPARE
+  |vpiFullName:work@top.UVM_COMPARE
+  |vpiImported:uvm_pkg
+|vpiParameter:
+\_parameter: (work@top.UVM_COPY), id:119729, line:187:11, endln:187:19
+  |vpiParent:
+  \_module_inst: work@top (work@top), id:197492, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+  |UINT:1
+  |vpiTypespec:
+  \_ref_typespec: (work@top.UVM_COPY), id:119730
+    |vpiParent:
+    \_parameter: (work@top.UVM_COPY), id:119729, line:187:11, endln:187:19
+    |vpiFullName:work@top.UVM_COPY
+    |vpiActual:
+    \_int_typespec: , id:119731, line:187:1, endln:187:36
+  |vpiName:UVM_COPY
+  |vpiFullName:work@top.UVM_COPY
+  |vpiImported:uvm_pkg
+|vpiParameter:
+\_parameter: (work@top.UVM_DEFAULT), id:119732, line:180:11, endln:180:22
+  |vpiParent:
+  \_module_inst: work@top (work@top), id:197492, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+  |BIN:000010101010101
+  |vpiName:UVM_DEFAULT
+  |vpiFullName:work@top.UVM_DEFAULT
+  |vpiImported:uvm_pkg
+|vpiParameter:
+\_parameter: (work@top.UVM_END_DATA_EXTRA), id:119733, line:210:11, endln:210:29
+  |vpiParent:
+  \_module_inst: work@top (work@top), id:197492, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+  |UINT:131076
+  |vpiTypespec:
+  \_ref_typespec: (work@top.UVM_END_DATA_EXTRA), id:119734
+    |vpiParent:
+    \_parameter: (work@top.UVM_END_DATA_EXTRA), id:119733, line:210:11, endln:210:29
+    |vpiFullName:work@top.UVM_END_DATA_EXTRA
+    |vpiActual:
+    \_int_typespec: , id:119735, line:210:1, endln:210:50
+  |vpiName:UVM_END_DATA_EXTRA
+  |vpiFullName:work@top.UVM_END_DATA_EXTRA
+  |vpiImported:uvm_pkg
+|vpiParameter:
+\_parameter: (work@top.UVM_END_FUNCS), id:119736, line:220:11, endln:220:24
+  |vpiParent:
+  \_module_inst: work@top (work@top), id:197492, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+  |UINT:131080
+  |vpiTypespec:
+  \_ref_typespec: (work@top.UVM_END_FUNCS), id:119737
+    |vpiParent:
+    \_parameter: (work@top.UVM_END_FUNCS), id:119736, line:220:11, endln:220:24
+    |vpiFullName:work@top.UVM_END_FUNCS
+    |vpiActual:
+    \_int_typespec: , id:119738, line:220:1, endln:220:41
+  |vpiName:UVM_END_FUNCS
+  |vpiFullName:work@top.UVM_END_FUNCS
+  |vpiImported:uvm_pkg
+|vpiParameter:
+\_parameter: (work@top.UVM_FLAGS), id:119739, line:207:11, endln:207:20
+  |vpiParent:
+  \_module_inst: work@top (work@top), id:197492, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+  |UINT:131073
+  |vpiTypespec:
+  \_ref_typespec: (work@top.UVM_FLAGS), id:119740
+    |vpiParent:

@@ -1,0 +1,31 @@
+r10uvm179 — THE NEXT HEAD (R0) ON SimpleUVM, decoded with ct179own's
+PARENT-CHAIN PROBE + DESCENT.  MEASUREMENT ONLY.  Only the first 25 lines of
+the tool's output are kept: the REFERENCE SCAN that follows enumerates every
+edge of the design that lands on `module_inst work@top` (hundreds of nets),
+which is noise once the DESCENT has named the failing pair.
+----------------------------------------------------------------------
+design::Compare r=1
+HEAD LHS = module_inst()@44:1-71:10#197492
+HEAD RHS = <null>
+HEAD LHS parent chain:
+    < design(work@top)@0:0-0:0#194978
+PARENT-CHAIN PROBE (top down; REPRO = this pair's own Compare gives the same head):
+  design(work@top)@0:0-0:0#194978                            ourMatches=1 repro=1 REPRO
+  module_inst()@44:1-71:10#197492                            ourMatches=1 repro=1 REPRO
+DESCENT (each step = a child pair whose own Compare reproduces the head):
+  [0] module_inst()@44:1-71:10#197492
+      vs module_inst()@44:1-71:10#178975
+  [1] initial()@50:3-57:6#120600
+      vs initial()@50:3-57:6#179331   (AMBIGUOUS: more than one child reproduces)
+  [2] begin()@50:11-57:6#120601
+      vs begin()@50:11-57:6#179332
+  [3] task_call(run_test)@56:5-56:15#120611
+      vs task_call(run_test)@56:5-56:15#179342
+  STOP: no child pair reproduces the head -> the edge is a FIELD of the pair above
+OWNER PAIR:
+  FIELDS of task_call(run_test)@56:5-56:15#120611
+         vs task_call(run_test)@56:5-56:15#179342
+    tf_call::Tf_call_args    LHS=null   RHS=null  
+    task_call::Task          LHS=task(run_test)@38:1-44:8#766                               RHS=task(run_test)@38:1-44:8#5020
+REFERENCE SCAN — every golden edge that lands on the head, and ours:
+  golden design(work@top)@0:0-0:0#194978

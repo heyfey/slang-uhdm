@@ -671,6 +671,24 @@ bool UhdmExporter::refVarLocalNoBind5(const slang::ast::Symbol& sym,
             return false;
     }
     bool window = classArgBindDepth12 > 0 || condBindDepth5 > 0;
+    // § recvCallArgRefVarLocalNeverBinds179 (r10uvm179) — THE WINDOW DOES NOT
+    // REACH INTO THE ARGUMENT LIST OF A ONE-NAME-RECEIVER CLASS-METHOD CALL IN
+    // EXPRESSION POSITION, IN THE PACKAGE'S UN-ELABORATED LISTING.  This is
+    // § refVarLocalWindowBinds5's OWN residue R1, named at the predicate's
+    // declaration in include/UhdmExporter.h with its two corpus cells; the law,
+    // the two-stage Surelog decode and the twenty-eight measured arm cells are
+    // written out there.  DIRECTION: SUPPRESS (a vpiActual that was present
+    // goes away; nothing is reshaped and nothing is created).
+    //
+    // It reads the counter § oobRefVarLocalHoistNet107 already raises at
+    // exactly the arm Surelog's road corresponds to, so the two halves of the
+    // same Surelog behaviour cannot drift apart: on that road the compile-time
+    // bind ALWAYS fails, and the write-time late binder skips a `ref_var`
+    // candidate — so the reference takes the module's minted wire where a
+    // module hoists the body (§ 107, the class-body listing) and stays BARE
+    // where none does (this law, the def-package listing).
+    if (recvUserMethodArgDepth107 > 0 && pkgDefViewBody9)
+        window = false;
     return !(sameDepth && window);
 }
 

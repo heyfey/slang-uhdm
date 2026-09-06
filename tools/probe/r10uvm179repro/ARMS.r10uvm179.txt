@@ -1,0 +1,125 @@
+r10uvm179 — THE BOUNDARY, and the EARLIER-PASS ARMS THAT MOVED, RE-MEASURED
+AGAINST GOLDEN.  MEASUREMENT ONLY.
+
+The wide gate (bound179.sh, PRI=/tmp/r10uvm179_pris.bin PAT=/tmp/r10uvm179_pat.bin,
+ROOT = a COPY of tools/probe) is BOUNDARY.r10uvm179.txt:
+    LISTED=4909 FENCED_SKIPPED=0 PROCESSED=4909 MOVED=30 NO_OUTPUT_PAIRS=380
+    PROCESSED-ASSERT-OK      ASYMMETRIC_OUTPUT=0
+Every SEGFAULT line in that log is PAIRED ($PRI and $PAT on the same arm, the
+same view): pre-existing, not introduced, and it is why the gate reports
+ASYMMETRIC_OUTPUT 0 rather than a mover.
+
+The 30 moved arm-views:
+   8 are THIS PASS'S OWN arms (g179_a/b/c/d x def,elab) — the positive control
+     that proves the gate can see.
+  22 belong to the TWO passes whose law this one extends and whose own residue
+     named these cells: r10buvm5 (§ refVarLocalWindowBinds5, a1_refvarbind) and
+     r10uvm107 / r10v107 (§ oobRefVarLocalHoistNet107, g107_a1 and v107_b1, b3,
+     b4, b5, b7, b8, b9, b10, b12).  NOT ONE OTHER PASS'S ARM MOVED — none of
+     r10uvm176, 177, 175, 172, 171, 170, 165, 164, 161, 124, 89, 77-79, 82-91,
+     r10buvm3-4/6-15 or r10sd8-12.
+
+Each of the 11 moved files was rebuilt against a FRESH Surelog golden with
+grid179.sh and scored golden-vs-pristine-vs-patched, DEF and ELAB, every family:
+
+== a1_refvarbind
+     cmp rc=255 a def lines=29 heads=1
+     cmp rc=0 b def lines=0 heads=0
+     cmp rc=0 a elab lines=0 heads=0
+     cmp rc=0 b elab lines=0 heads=0
+     def  ARG/OBJ/REF:    TOGOLD=1 AWAY=0 MOVEDWRONG=0 STILLWRONG=0|   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=2|   TOGOLD=1 AWAY=0 MOVEDWRONG=0 STILLWRONG=0|
+     elab  ARG/OBJ/REF:    TOGOLD=1 AWAY=0 MOVEDWRONG=0 STILLWRONG=0|   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=11|   TOGOLD=1 AWAY=0 MOVEDWRONG=0 STILLWRONG=2|
+== g107_a1
+     cmp rc=255 a def lines=29 heads=1
+     cmp rc=255 b def lines=3542 heads=1
+     cmp rc=255 a elab lines=2541 heads=1
+     cmp rc=255 b elab lines=2541 heads=1
+     def  ARG/OBJ/REF:    TOGOLD=2 AWAY=0 MOVEDWRONG=0 STILLWRONG=0|   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=7|   TOGOLD=2 AWAY=0 MOVEDWRONG=0 STILLWRONG=0|
+     elab  ARG/OBJ/REF:    TOGOLD=2 AWAY=0 MOVEDWRONG=0 STILLWRONG=0|   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=11|   TOGOLD=2 AWAY=0 MOVEDWRONG=0 STILLWRONG=0|
+== v107_b1
+     cmp rc=255 a def lines=29 heads=1
+     cmp rc=255 b def lines=3170 heads=1
+     cmp rc=255 a elab lines=2051 heads=1
+     cmp rc=255 b elab lines=2051 heads=1
+     def  ARG/OBJ/REF:    TOGOLD=3 AWAY=0 MOVEDWRONG=0 STILLWRONG=0|   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=7|   TOGOLD=6 AWAY=0 MOVEDWRONG=0 STILLWRONG=0|
+     elab  ARG/OBJ/REF:    TOGOLD=2 AWAY=0 MOVEDWRONG=0 STILLWRONG=0|   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=10|   TOGOLD=2 AWAY=0 MOVEDWRONG=0 STILLWRONG=0|
+== v107_b3
+     cmp rc=255 a def lines=29 heads=1
+     cmp rc=255 b def lines=449 heads=1
+     cmp rc=255 a elab lines=515 heads=1
+     cmp rc=255 b elab lines=515 heads=1
+     def  ARG/OBJ/REF:    TOGOLD=1 AWAY=0 MOVEDWRONG=0 STILLWRONG=2|   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=7|   TOGOLD=1 AWAY=0 MOVEDWRONG=0 STILLWRONG=11|
+     elab  ARG/OBJ/REF:    TOGOLD=1 AWAY=0 MOVEDWRONG=0 STILLWRONG=4|   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=10|   TOGOLD=1 AWAY=0 MOVEDWRONG=0 STILLWRONG=8|
+== v107_b4
+     cmp rc=255 a def lines=29 heads=1
+     cmp rc=255 b def lines=510 heads=1
+     cmp rc=255 a elab lines=377 heads=1
+     cmp rc=255 b elab lines=377 heads=1
+     def  ARG/OBJ/REF:    TOGOLD=1 AWAY=0 MOVEDWRONG=0 STILLWRONG=0|   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=7|   TOGOLD=1 AWAY=0 MOVEDWRONG=0 STILLWRONG=0|
+     elab  ARG/OBJ/REF:    TOGOLD=1 AWAY=0 MOVEDWRONG=0 STILLWRONG=0|   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=10|   TOGOLD=1 AWAY=0 MOVEDWRONG=0 STILLWRONG=0|
+== v107_b5
+     cmp rc=255 a def lines=29 heads=1
+     cmp rc=255 b def lines=29 heads=1
+     cmp rc=255 a elab lines=1333 heads=1
+     cmp rc=255 b elab lines=1333 heads=1
+     def  ARG/OBJ/REF:    TOGOLD=1 AWAY=0 MOVEDWRONG=0 STILLWRONG=3|   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=7|   TOGOLD=1 AWAY=0 MOVEDWRONG=0 STILLWRONG=3|
+     elab  ARG/OBJ/REF:    TOGOLD=1 AWAY=0 MOVEDWRONG=0 STILLWRONG=3|   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=20|   TOGOLD=1 AWAY=0 MOVEDWRONG=0 STILLWRONG=3|
+== v107_b7
+     cmp rc=255 a def lines=29 heads=1
+     cmp rc=255 b def lines=1038 heads=1
+     cmp rc=255 a elab lines=685 heads=1
+     cmp rc=255 b elab lines=685 heads=1
+     def  ARG/OBJ/REF:    TOGOLD=2 AWAY=0 MOVEDWRONG=0 STILLWRONG=0|   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=7|   TOGOLD=2 AWAY=0 MOVEDWRONG=0 STILLWRONG=0|
+     elab  ARG/OBJ/REF:    TOGOLD=2 AWAY=0 MOVEDWRONG=0 STILLWRONG=0|   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=10|   TOGOLD=2 AWAY=0 MOVEDWRONG=0 STILLWRONG=0|
+== v107_b8
+     cmp rc=255 a def lines=29 heads=1
+     cmp rc=255 b def lines=2118 heads=1
+     cmp rc=255 a elab lines=1497 heads=1
+     cmp rc=255 b elab lines=1497 heads=1
+     def  ARG/OBJ/REF:    TOGOLD=3 AWAY=0 MOVEDWRONG=0 STILLWRONG=0|   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=8|   TOGOLD=3 AWAY=0 MOVEDWRONG=0 STILLWRONG=0|
+     elab  ARG/OBJ/REF:    TOGOLD=3 AWAY=0 MOVEDWRONG=0 STILLWRONG=0|   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=12|   TOGOLD=3 AWAY=0 MOVEDWRONG=0 STILLWRONG=0|
+== v107_b9
+     cmp rc=255 a def lines=29 heads=1
+     cmp rc=255 b def lines=33 heads=1
+     cmp rc=255 a elab lines=2149 heads=1
+     cmp rc=255 b elab lines=2149 heads=1
+     def  ARG/OBJ/REF:    TOGOLD=9 AWAY=0 MOVEDWRONG=1 STILLWRONG=4|   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=7|   TOGOLD=9 AWAY=0 MOVEDWRONG=1 STILLWRONG=4|
+     elab  ARG/OBJ/REF:    TOGOLD=9 AWAY=0 MOVEDWRONG=1 STILLWRONG=4|   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=10|   TOGOLD=9 AWAY=0 MOVEDWRONG=1 STILLWRONG=4|
+== v107_b10
+     cmp rc=255 a def lines=29 heads=1
+     cmp rc=255 b def lines=33 heads=1
+     cmp rc=255 a elab lines=2113 heads=1
+     cmp rc=255 b elab lines=2113 heads=1
+     def  ARG/OBJ/REF:    TOGOLD=8 AWAY=0 MOVEDWRONG=2 STILLWRONG=4|   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=8|   TOGOLD=8 AWAY=0 MOVEDWRONG=2 STILLWRONG=4|
+     elab  ARG/OBJ/REF:    TOGOLD=8 AWAY=0 MOVEDWRONG=2 STILLWRONG=4|   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=11|   TOGOLD=8 AWAY=0 MOVEDWRONG=2 STILLWRONG=4|
+== v107_b12
+     cmp rc=255 a def lines=29 heads=1
+     cmp rc=0 b def lines=0 heads=0
+     cmp rc=0 a elab lines=0 heads=0
+     cmp rc=0 b elab lines=0 heads=0
+     def  ARG/OBJ/REF:    TOGOLD=1 AWAY=0 MOVEDWRONG=0 STILLWRONG=0|   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=1|   TOGOLD=1 AWAY=0 MOVEDWRONG=0 STILLWRONG=0|
+     elab  ARG/OBJ/REF:    TOGOLD=1 AWAY=0 MOVEDWRONG=0 STILLWRONG=0|   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=5|   TOGOLD=1 AWAY=0 MOVEDWRONG=0 STILLWRONG=0|
+
+THE THREE MOVED-WRONG CELLS (v107_b9 pm_pkg9; v107_b10 pm_pkg10, pm_unit10),
+in full — a body local whose NAME is also a PACKAGE (or $unit) PARAMETER:
+  v107_b9  pm_pkg9
+     GOLDEN:       2 BOUND=constant: 
+     PRIST.:       1 BOUND=logic_net:pm_pkg9       1 BOUND=ref_var:pm_pkg9 
+     PATCH.:       1 BARE       1 BOUND=logic_net:pm_pkg9 
+  v107_b10  pm_pkg10
+     GOLDEN:       2 BOUND=constant: 
+     PRIST.:       1 BOUND=logic_net:pm_pkg10       1 BOUND=ref_var:pm_pkg10 
+     PATCH.:       1 BARE       1 BOUND=logic_net:pm_pkg10 
+  v107_b10  pm_unit10
+     GOLDEN:       2 BOUND=parameter:pm_unit10 
+     PRIST.:       1 BOUND=logic_net:pm_unit10       1 BOUND=ref_var:pm_unit10 
+     PATCH.:       1 BARE       1 BOUND=logic_net:pm_unit10 
+
+  GOLDEN BINDS THE PARAMETER (the package listing is the LAST WRITER in
+  UhdmWriter::lateBinding's function/task arm — § tfItemLocalLosesToPkgVar148 /
+  § pkgSubRefBindsPkgVarOverFormal81).  NEITHER BINARY DOES: pristine bound the
+  shadowed local's own ref_var, patched leaves it BARE.  The cell was WRONG
+  BEFORE AND IS WRONG AFTER; this law did not create it and cannot fix it
+  (binding the ref_var would be a second wrong answer).  ZERO CORPUS CELLS —
+  the 956-database face census scores AWAY 0 and MOVED-WRONG 0.  Recorded as
+  RESIDUE R4 and handed on as the pass's R0b.

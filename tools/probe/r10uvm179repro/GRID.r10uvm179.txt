@@ -1,0 +1,653 @@
+r10uvm179 — THE GRID.  MEASUREMENT ONLY; the official uhdm-cmp is the sole judge.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+Driver: grid179.sh <arm.sv> <pristine> <patched> <workdir> <ct179cen>, which builds
+the Surelog golden and BOTH frozen binaries in BOTH views and records every rc.
+
+BINARIES: pristine /tmp/r10uvm179_pris.bin md5 3eb10767c383f6ca2086f359842a4e98
+          patched  /tmp/r10uvm179_pat.bin  md5 9af644fd7023a6661a2976fbd0c0033a
+
+############ ARM a  (rc audit: 6 commands rc=0, 0 non-zero)
+cmp rc=255 a def lines=29 heads=1
+cmp rc=255 b def lines=29 heads=1
+cmp rc=255 a elab lines=3671 heads=1
+cmp rc=255 b elab lines=3671 heads=1
+---- DEF
+== ARG (A: pristine) AGREE=28 G-ONLY=0 O-ONLY=0 DIFF=5
+   DIFF  CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@69:15|HOME=function:c179::f_cond/package:pa179
+           G={'BARE': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@84:17|HOME=function:c179::f_case/package:pa179
+           G={'BARE': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@92:19|HOME=function:c179::f_assert/package:pa179
+           G={'BARE': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  CALL=method_func_call:exists|RECV=HP1/ref_obj:amap|NOLINK|POS=0|REF=ref_obj:v@137:21|HOME=function:c179::n_bi_cond/package:pa179
+           G={'BARE': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  CALL=method_func_call:exists|RECV=HP1/ref_obj:amap|NOLINK|POS=0|REF=ref_obj:v@137:21|HOME=function:n_bi_cond/class_defn:c179
+           G={'BOUND=logic_net:v': 1}
+           O={'BOUND=ref_var:v': 1}
+== ARG (B: patched)  AGREE=31 G-ONLY=0 O-ONLY=0 DIFF=2
+   TOGOLD=3 AWAY=0 MOVEDWRONG=0 STILLWRONG=2
+   TOGOLD     CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@69:15|HOME=function:c179::f_cond/package:pa179
+   TOGOLD     CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@84:17|HOME=function:c179::f_case/package:pa179
+   TOGOLD     CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@92:19|HOME=function:c179::f_assert/package:pa179
+== OBJ (A: pristine) AGREE=33 G-ONLY=0 O-ONLY=1 DIFF=6
+   DIFF  class_typespec
+           G={'22': 1}
+           O={'53': 1}
+   DIFF  constant
+           G={'49': 1}
+           O={'50': 1}
+   DIFF  import_typespec
+           G={'1': 1}
+           O={'2': 1}
+   DIFF  logic_net
+           G={'4': 1}
+           O={'5': 1}
+   DIFF  ref_typespec
+           G={'73': 1}
+           O={'75': 1}
+   DIFF  type_parameter
+           G={'1': 1}
+           O={'3': 1}
+   O-ONLY param_assign = {'2': 1}
+== OBJ (B: patched)  AGREE=33 G-ONLY=0 O-ONLY=1 DIFF=6
+   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=7
+== REF (A: pristine) AGREE=113 G-ONLY=0 O-ONLY=0 DIFF=5
+   DIFF  ref_obj:v@137:21|HOME=function:c179::n_bi_cond/package:pa179
+           G={'BARE': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  ref_obj:v@137:21|HOME=function:n_bi_cond/class_defn:c179
+           G={'BOUND=logic_net:v': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  ref_obj:v@69:15|HOME=function:c179::f_cond/package:pa179
+           G={'BARE': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  ref_obj:v@84:17|HOME=function:c179::f_case/package:pa179
+           G={'BARE': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  ref_obj:v@92:19|HOME=function:c179::f_assert/package:pa179
+           G={'BARE': 1}
+           O={'BOUND=ref_var:v': 1}
+== REF (B: patched)  AGREE=116 G-ONLY=0 O-ONLY=0 DIFF=2
+   TOGOLD=3 AWAY=0 MOVEDWRONG=0 STILLWRONG=2
+   TOGOLD     ref_obj:v@69:15|HOME=function:c179::f_cond/package:pa179
+   TOGOLD     ref_obj:v@84:17|HOME=function:c179::f_case/package:pa179
+   TOGOLD     ref_obj:v@92:19|HOME=function:c179::f_assert/package:pa179
+---- ELAB (--set, see score179.py's header for why)
+== ARG (A: pristine) AGREE=54 G-ONLY=0 O-ONLY=0 DIFF=5
+   DIFF  CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@69:15|HOME=function:c179::f_cond/package:pa179
+           G={'BARE': 1, 'BOUND=ref_var:v': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@84:17|HOME=function:c179::f_case/package:pa179
+           G={'BARE': 1, 'BOUND=ref_var:v': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@92:19|HOME=function:c179::f_assert/package:pa179
+           G={'BARE': 1, 'BOUND=ref_var:v': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  CALL=method_func_call:exists|RECV=HP1/ref_obj:amap|NOLINK|POS=0|REF=ref_obj:v@137:21|HOME=function:c179::n_bi_cond/package:pa179
+           G={'BARE': 1, 'BOUND=ref_var:v': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  CALL=method_func_call:exists|RECV=HP1/ref_obj:amap|NOLINK|POS=0|REF=ref_obj:v@137:21|HOME=function:n_bi_cond/class_defn:c179
+           G={'BOUND=int_var:v': 1, 'BOUND=logic_net:v': 1}
+           O={'BOUND=int_var:v': 1, 'BOUND=ref_var:v': 1}
+== ARG (B: patched)  AGREE=57 G-ONLY=0 O-ONLY=0 DIFF=2
+   TOGOLD=3 AWAY=0 MOVEDWRONG=0 STILLWRONG=2
+   TOGOLD     CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@69:15|HOME=function:c179::f_cond/package:pa179
+   TOGOLD     CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@84:17|HOME=function:c179::f_case/package:pa179
+   TOGOLD     CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@92:19|HOME=function:c179::f_assert/package:pa179
+== OBJ (A: pristine) AGREE=26 G-ONLY=0 O-ONLY=2 DIFF=13
+   DIFF  class_typespec
+           G={'22': 1}
+           O={'53': 1}
+   DIFF  constant
+           G={'49': 1}
+           O={'52': 1}
+   DIFF  func_call
+           G={'10': 1}
+           O={'14': 1}
+   DIFF  function
+           G={'134': 1}
+           O={'150': 1}
+   DIFF  import_typespec
+           G={'1': 1}
+           O={'2': 1}
+   DIFF  io_decl
+           G={'38': 1}
+           O={'44': 1}
+   DIFF  logic_net
+           G={'4': 1}
+           O={'5': 1}
+   DIFF  logic_var
+           G={'1': 1}
+           O={'3': 1}
+   DIFF  module_inst
+           G={'2': 1}
+           O={'4': 1}
+   DIFF  ref_obj
+           G={'222': 1}
+           O={'236': 1}
+   DIFF  ref_typespec
+           G={'197': 1}
+           O={'214': 1}
+   DIFF  task
+           G={'10': 1}
+           O={'20': 1}
+   DIFF  type_parameter
+           G={'1': 1}
+           O={'3': 1}
+   O-ONLY param_assign = {'7': 1}
+   O-ONLY parameter = {'4': 1}
+== OBJ (B: patched)  AGREE=26 G-ONLY=0 O-ONLY=2 DIFF=13
+   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=15
+== REF (A: pristine) AGREE=170 G-ONLY=0 O-ONLY=1 DIFF=5
+   DIFF  ref_obj:v@137:21|HOME=function:c179::n_bi_cond/package:pa179
+           G={'BARE': 1, 'BOUND=ref_var:v': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  ref_obj:v@137:21|HOME=function:n_bi_cond/class_defn:c179
+           G={'BOUND=int_var:v': 1, 'BOUND=logic_net:v': 1}
+           O={'BOUND=int_var:v': 1, 'BOUND=ref_var:v': 1}
+   DIFF  ref_obj:v@69:15|HOME=function:c179::f_cond/package:pa179
+           G={'BARE': 1, 'BOUND=ref_var:v': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  ref_obj:v@84:17|HOME=function:c179::f_case/package:pa179
+           G={'BARE': 1, 'BOUND=ref_var:v': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  ref_obj:v@92:19|HOME=function:c179::f_assert/package:pa179
+           G={'BARE': 1, 'BOUND=ref_var:v': 1}
+           O={'BOUND=ref_var:v': 1}
+   O-ONLY ref_obj:free179@0:0|HOME=-:-/-:- = {'BARE': 1}
+== REF (B: patched)  AGREE=173 G-ONLY=0 O-ONLY=1 DIFF=2
+   TOGOLD=3 AWAY=0 MOVEDWRONG=0 STILLWRONG=3
+   TOGOLD     ref_obj:v@69:15|HOME=function:c179::f_cond/package:pa179
+   TOGOLD     ref_obj:v@84:17|HOME=function:c179::f_case/package:pa179
+   TOGOLD     ref_obj:v@92:19|HOME=function:c179::f_assert/package:pa179
+
+############ ARM b  (rc audit: 6 commands rc=0, 0 non-zero)
+cmp rc=255 a def lines=29 heads=1
+cmp rc=255 b def lines=29 heads=1
+cmp rc=255 a elab lines=5542 heads=1
+cmp rc=255 b elab lines=5542 heads=1
+---- DEF
+== ARG (A: pristine) AGREE=14 G-ONLY=0 O-ONLY=0 DIFF=6
+   DIFF  CALL=method_func_call:ask|RECV=HP1/bit_select:bank|NOLINK|POS=0|REF=ref_obj:v@71:21|HOME=function:c179b::r_index/package:pb179
+           G={'BARE': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  CALL=method_func_call:ask|RECV=HP1/bit_select:bank|NOLINK|POS=0|REF=ref_obj:v@71:21|HOME=function:r_index/class_defn:c179b
+           G={'BOUND=logic_net:v': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  CALL=method_func_call:ask|RECV=HP1/ref_obj:loc|NOLINK|POS=0|REF=ref_obj:v@56:17|HOME=function:c179b::r_local/package:pb179
+           G={'BARE': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@50:15|HOME=function:c179b::r_prop/package:pb179
+           G={'BARE': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  CALL=method_func_call:ask|RECV=HP2/ref_obj:mid/ref_obj:leaf|NOLINK|POS=0|REF=ref_obj:v@66:22|HOME=function:c179b::r_chain/package:pb179
+           G={'BARE': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  CALL=method_func_call:ask|RECV=HP2/ref_obj:mid/ref_obj:leaf|NOLINK|POS=0|REF=ref_obj:v@66:22|HOME=function:r_chain/class_defn:c179b
+           G={'BOUND=logic_net:v': 1}
+           O={'BOUND=ref_var:v': 1}
+== ARG (B: patched)  AGREE=16 G-ONLY=0 O-ONLY=0 DIFF=4
+   TOGOLD=2 AWAY=0 MOVEDWRONG=0 STILLWRONG=4
+   TOGOLD     CALL=method_func_call:ask|RECV=HP1/ref_obj:loc|NOLINK|POS=0|REF=ref_obj:v@56:17|HOME=function:c179b::r_local/package:pb179
+   TOGOLD     CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@50:15|HOME=function:c179b::r_prop/package:pb179
+== OBJ (A: pristine) AGREE=31 G-ONLY=0 O-ONLY=1 DIFF=7
+   DIFF  class_defn
+           G={'13': 1}
+           O={'14': 1}
+   DIFF  class_typespec
+           G={'21': 1}
+           O={'43': 1}
+   DIFF  constant
+           G={'52': 1}
+           O={'54': 1}
+   DIFF  import_typespec
+           G={'2': 1}
+           O={'4': 1}
+   DIFF  logic_net
+           G={'4': 1}
+           O={'5': 1}
+   DIFF  ref_typespec
+           G={'69': 1}
+           O={'71': 1}
+   DIFF  type_parameter
+           G={'1': 1}
+           O={'3': 1}
+   O-ONLY param_assign = {'2': 1}
+== OBJ (B: patched)  AGREE=31 G-ONLY=0 O-ONLY=1 DIFF=7
+   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=8
+== REF (A: pristine) AGREE=73 G-ONLY=0 O-ONLY=0 DIFF=6
+   DIFF  ref_obj:v@50:15|HOME=function:c179b::r_prop/package:pb179
+           G={'BARE': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  ref_obj:v@56:17|HOME=function:c179b::r_local/package:pb179
+           G={'BARE': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  ref_obj:v@66:22|HOME=function:c179b::r_chain/package:pb179
+           G={'BARE': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  ref_obj:v@66:22|HOME=function:r_chain/class_defn:c179b
+           G={'BOUND=logic_net:v': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  ref_obj:v@71:21|HOME=function:c179b::r_index/package:pb179
+           G={'BARE': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  ref_obj:v@71:21|HOME=function:r_index/class_defn:c179b
+           G={'BOUND=logic_net:v': 1}
+           O={'BOUND=ref_var:v': 1}
+== REF (B: patched)  AGREE=75 G-ONLY=0 O-ONLY=0 DIFF=4
+   TOGOLD=2 AWAY=0 MOVEDWRONG=0 STILLWRONG=4
+   TOGOLD     ref_obj:v@50:15|HOME=function:c179b::r_prop/package:pb179
+   TOGOLD     ref_obj:v@56:17|HOME=function:c179b::r_local/package:pb179
+---- ELAB (--set, see score179.py's header for why)
+== ARG (A: pristine) AGREE=29 G-ONLY=0 O-ONLY=0 DIFF=6
+   DIFF  CALL=method_func_call:ask|RECV=HP1/bit_select:bank|NOLINK|POS=0|REF=ref_obj:v@71:21|HOME=function:c179b::r_index/package:pb179
+           G={'BARE': 1, 'BOUND=ref_var:v': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  CALL=method_func_call:ask|RECV=HP1/bit_select:bank|NOLINK|POS=0|REF=ref_obj:v@71:21|HOME=function:r_index/class_defn:c179b
+           G={'BOUND=logic_net:v': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  CALL=method_func_call:ask|RECV=HP1/ref_obj:loc|NOLINK|POS=0|REF=ref_obj:v@56:17|HOME=function:c179b::r_local/package:pb179
+           G={'BARE': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@50:15|HOME=function:c179b::r_prop/package:pb179
+           G={'BARE': 1, 'BOUND=ref_var:v': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  CALL=method_func_call:ask|RECV=HP2/ref_obj:mid/ref_obj:leaf|NOLINK|POS=0|REF=ref_obj:v@66:22|HOME=function:c179b::r_chain/package:pb179
+           G={'BARE': 1, 'BOUND=ref_var:v': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  CALL=method_func_call:ask|RECV=HP2/ref_obj:mid/ref_obj:leaf|NOLINK|POS=0|REF=ref_obj:v@66:22|HOME=function:r_chain/class_defn:c179b
+           G={'BOUND=class_var:leaf': 1, 'BOUND=logic_net:v': 1}
+           O={'BOUND=class_var:leaf': 1, 'BOUND=ref_var:v': 1}
+== ARG (B: patched)  AGREE=31 G-ONLY=0 O-ONLY=0 DIFF=4
+   TOGOLD=2 AWAY=0 MOVEDWRONG=0 STILLWRONG=4
+   TOGOLD     CALL=method_func_call:ask|RECV=HP1/ref_obj:loc|NOLINK|POS=0|REF=ref_obj:v@56:17|HOME=function:c179b::r_local/package:pb179
+   TOGOLD     CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@50:15|HOME=function:c179b::r_prop/package:pb179
+== OBJ (A: pristine) AGREE=24 G-ONLY=0 O-ONLY=2 DIFF=14
+   DIFF  class_defn
+           G={'13': 1}
+           O={'14': 1}
+   DIFF  class_typespec
+           G={'21': 1}
+           O={'43': 1}
+   DIFF  constant
+           G={'52': 1}
+           O={'61': 1}
+   DIFF  function
+           G={'105': 1}
+           O={'118': 1}
+   DIFF  import_typespec
+           G={'2': 1}
+           O={'4': 1}
+   DIFF  io_decl
+           G={'44': 1}
+           O={'52': 1}
+   DIFF  logic_net
+           G={'4': 1}
+           O={'5': 1}
+   DIFF  logic_var
+           G={'3': 1}
+           O={'7': 1}
+   DIFF  method_func_call
+           G={'48': 1}
+           O={'49': 1}
+   DIFF  module_inst
+           G={'2': 1}
+           O={'6': 1}
+   DIFF  ref_obj
+           G={'137': 1}
+           O={'155': 1}
+   DIFF  ref_typespec
+           G={'166': 1}
+           O={'188': 1}
+   DIFF  task
+           G={'9': 1}
+           O={'18': 1}
+   DIFF  type_parameter
+           G={'1': 1}
+           O={'3': 1}
+   O-ONLY param_assign = {'11': 1}
+   O-ONLY parameter = {'8': 1}
+== OBJ (B: patched)  AGREE=24 G-ONLY=0 O-ONLY=2 DIFF=14
+   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=16
+== REF (A: pristine) AGREE=113 G-ONLY=0 O-ONLY=2 DIFF=6
+   DIFF  ref_obj:v@50:15|HOME=function:c179b::r_prop/package:pb179
+           G={'BARE': 1, 'BOUND=ref_var:v': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  ref_obj:v@56:17|HOME=function:c179b::r_local/package:pb179
+           G={'BARE': 1, 'BOUND=class_var:loc': 1}
+           O={'BOUND=class_var:loc': 1, 'BOUND=ref_var:v': 1}
+   DIFF  ref_obj:v@66:22|HOME=function:c179b::r_chain/package:pb179
+           G={'BARE': 1, 'BOUND=ref_var:v': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  ref_obj:v@66:22|HOME=function:r_chain/class_defn:c179b
+           G={'BOUND=class_var:leaf': 1, 'BOUND=logic_net:v': 1}
+           O={'BOUND=class_var:leaf': 1, 'BOUND=ref_var:v': 1}
+   DIFF  ref_obj:v@71:21|HOME=function:c179b::r_index/package:pb179
+           G={'BARE': 1, 'BOUND=ref_var:v': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  ref_obj:v@71:21|HOME=function:r_index/class_defn:c179b
+           G={'BOUND=class_var:v': 1, 'BOUND=logic_net:v': 1}
+           O={'BOUND=class_var:v': 1, 'BOUND=ref_var:v': 1}
+   O-ONLY ref_obj:free179b@0:0|HOME=-:-/-:- = {'BARE': 1}
+   O-ONLY ref_obj:held179b@0:0|HOME=-:-/-:- = {'BARE': 1}
+== REF (B: patched)  AGREE=115 G-ONLY=0 O-ONLY=2 DIFF=4
+   TOGOLD=2 AWAY=0 MOVEDWRONG=0 STILLWRONG=6
+   TOGOLD     ref_obj:v@50:15|HOME=function:c179b::r_prop/package:pb179
+   TOGOLD     ref_obj:v@56:17|HOME=function:c179b::r_local/package:pb179
+
+############ ARM c  (rc audit: 6 commands rc=0, 0 non-zero)
+cmp rc=255 a def lines=29 heads=1
+cmp rc=255 b def lines=22 heads=1
+cmp rc=255 a elab lines=22 heads=1
+cmp rc=255 b elab lines=22 heads=1
+---- DEF
+== ARG (A: pristine) AGREE=20 G-ONLY=0 O-ONLY=0 DIFF=4
+   DIFF  CALL=method_func_call:ask2|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@87:16|HOME=function:c179c::k_two/package:pc179
+           G={'BARE': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:bv@93:17|HOME=function:c179c::k_blk1/package:pc179
+           G={'BARE': 1}
+           O={'BOUND=ref_var:bv': 1}
+   DIFF  CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@43:15|HOME=function:c179c::k_local/package:pc179
+           G={'BARE': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@82:22|HOME=function:c179c::k_nested/package:pc179
+           G={'BARE': 1}
+           O={'BOUND=ref_var:v': 1}
+== ARG (B: patched)  AGREE=24 G-ONLY=0 O-ONLY=0 DIFF=0
+   TOGOLD=4 AWAY=0 MOVEDWRONG=0 STILLWRONG=0
+   TOGOLD     CALL=method_func_call:ask2|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@87:16|HOME=function:c179c::k_two/package:pc179
+   TOGOLD     CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:bv@93:17|HOME=function:c179c::k_blk1/package:pc179
+   TOGOLD     CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@43:15|HOME=function:c179c::k_local/package:pc179
+   TOGOLD     CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@82:22|HOME=function:c179c::k_nested/package:pc179
+== OBJ (A: pristine) AGREE=24 G-ONLY=0 O-ONLY=1 DIFF=7
+   DIFF  class_typespec
+           G={'12': 1}
+           O={'26': 1}
+   DIFF  constant
+           G={'77': 1}
+           O={'78': 1}
+   DIFF  import_typespec
+           G={'1': 1}
+           O={'2': 1}
+   DIFF  logic_net
+           G={'6': 1}
+           O={'7': 1}
+   DIFF  ref_typespec
+           G={'46': 1}
+           O={'48': 1}
+   DIFF  type_parameter
+           G={'1': 1}
+           O={'3': 1}
+   DIFF  unsupported_typespec
+           G={'14': 1}
+           O={'12': 1}
+   O-ONLY param_assign = {'2': 1}
+== OBJ (B: patched)  AGREE=24 G-ONLY=0 O-ONLY=1 DIFF=7
+   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=8
+== REF (A: pristine) AGREE=98 G-ONLY=0 O-ONLY=0 DIFF=5
+   DIFF  ref_obj:bv@93:17|HOME=function:c179c::k_blk1/package:pc179
+           G={'BARE': 1}
+           O={'BOUND=ref_var:bv': 1}
+   DIFF  ref_obj:v@43:15|HOME=function:c179c::k_local/package:pc179
+           G={'BARE': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  ref_obj:v@77:17|HOME=function:c179c::k_oper/package:pc179
+           G={'BARE': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  ref_obj:v@82:22|HOME=function:c179c::k_nested/package:pc179
+           G={'BARE': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  ref_obj:v@87:16|HOME=function:c179c::k_two/package:pc179
+           G={'BARE': 1}
+           O={'BOUND=ref_var:v': 1}
+== REF (B: patched)  AGREE=103 G-ONLY=0 O-ONLY=0 DIFF=0
+   TOGOLD=5 AWAY=0 MOVEDWRONG=0 STILLWRONG=0
+   TOGOLD     ref_obj:bv@93:17|HOME=function:c179c::k_blk1/package:pc179
+   TOGOLD     ref_obj:v@43:15|HOME=function:c179c::k_local/package:pc179
+   TOGOLD     ref_obj:v@77:17|HOME=function:c179c::k_oper/package:pc179
+   TOGOLD     ref_obj:v@82:22|HOME=function:c179c::k_nested/package:pc179
+   TOGOLD     ref_obj:v@87:16|HOME=function:c179c::k_two/package:pc179
+---- ELAB (--set, see score179.py's header for why)
+== ARG (A: pristine) AGREE=44 G-ONLY=0 O-ONLY=0 DIFF=4
+   DIFF  CALL=method_func_call:ask2|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@87:16|HOME=function:c179c::k_two/package:pc179
+           G={'BARE': 1, 'BOUND=ref_var:v': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:bv@93:17|HOME=function:c179c::k_blk1/package:pc179
+           G={'BARE': 1, 'BOUND=ref_var:bv': 1}
+           O={'BOUND=ref_var:bv': 1}
+   DIFF  CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@43:15|HOME=function:c179c::k_local/package:pc179
+           G={'BARE': 1, 'BOUND=ref_var:v': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@82:22|HOME=function:c179c::k_nested/package:pc179
+           G={'BARE': 1, 'BOUND=ref_var:v': 1}
+           O={'BOUND=ref_var:v': 1}
+== ARG (B: patched)  AGREE=48 G-ONLY=0 O-ONLY=0 DIFF=0
+   TOGOLD=4 AWAY=0 MOVEDWRONG=0 STILLWRONG=0
+   TOGOLD     CALL=method_func_call:ask2|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@87:16|HOME=function:c179c::k_two/package:pc179
+   TOGOLD     CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:bv@93:17|HOME=function:c179c::k_blk1/package:pc179
+   TOGOLD     CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@43:15|HOME=function:c179c::k_local/package:pc179
+   TOGOLD     CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@82:22|HOME=function:c179c::k_nested/package:pc179
+== OBJ (A: pristine) AGREE=21 G-ONLY=0 O-ONLY=1 DIFF=10
+   DIFF  class_typespec
+           G={'12': 1}
+           O={'26': 1}
+   DIFF  constant
+           G={'77': 1}
+           O={'78': 1}
+   DIFF  function
+           G={'78': 1}
+           O={'87': 1}
+   DIFF  import_typespec
+           G={'1': 1}
+           O={'2': 1}
+   DIFF  io_decl
+           G={'37': 1}
+           O={'44': 1}
+   DIFF  logic_net
+           G={'6': 1}
+           O={'7': 1}
+   DIFF  ref_typespec
+           G={'97': 1}
+           O={'109': 1}
+   DIFF  task
+           G={'9': 1}
+           O={'18': 1}
+   DIFF  type_parameter
+           G={'1': 1}
+           O={'3': 1}
+   DIFF  unsupported_typespec
+           G={'14': 1}
+           O={'12': 1}
+   O-ONLY param_assign = {'3': 1}
+== OBJ (B: patched)  AGREE=21 G-ONLY=0 O-ONLY=1 DIFF=10
+   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=11
+== REF (A: pristine) AGREE=150 G-ONLY=0 O-ONLY=0 DIFF=4
+   DIFF  ref_obj:bv@93:17|HOME=function:c179c::k_blk1/package:pc179
+           G={'BARE': 1, 'BOUND=ref_var:bv': 1}
+           O={'BOUND=ref_var:bv': 1}
+   DIFF  ref_obj:v@43:15|HOME=function:c179c::k_local/package:pc179
+           G={'BARE': 1, 'BOUND=ref_var:v': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  ref_obj:v@82:22|HOME=function:c179c::k_nested/package:pc179
+           G={'BARE': 1, 'BOUND=ref_var:v': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  ref_obj:v@87:16|HOME=function:c179c::k_two/package:pc179
+           G={'BARE': 1, 'BOUND=ref_var:v': 1}
+           O={'BOUND=ref_var:v': 1}
+== REF (B: patched)  AGREE=154 G-ONLY=0 O-ONLY=0 DIFF=0
+   TOGOLD=4 AWAY=0 MOVEDWRONG=0 STILLWRONG=0
+   TOGOLD     ref_obj:bv@93:17|HOME=function:c179c::k_blk1/package:pc179
+   TOGOLD     ref_obj:v@43:15|HOME=function:c179c::k_local/package:pc179
+   TOGOLD     ref_obj:v@82:22|HOME=function:c179c::k_nested/package:pc179
+   TOGOLD     ref_obj:v@87:16|HOME=function:c179c::k_two/package:pc179
+
+############ ARM d  (rc audit: 6 commands rc=0, 0 non-zero)
+cmp rc=255 a def lines=29 heads=1
+cmp rc=255 b def lines=406 heads=1
+cmp rc=255 a elab lines=807 heads=1
+cmp rc=255 b elab lines=807 heads=1
+---- DEF
+== ARG (A: pristine) AGREE=6 G-ONLY=1 O-ONLY=1 DIFF=3
+   DIFF  CALL=method_func_call:ask|RECV=HP1/ref_obj:si|NOLINK|POS=0|REF=ref_obj:di@81:16|HOME=function:h_iface_fn/interface_inst:<anon>
+           G={'BOUND=class_var:di': 1}
+           O={'BARE': 1}
+   DIFF  CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@37:15|HOME=function:c179d::h_pkg_oob/package:pd179
+           G={'BARE': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@42:15|HOME=task:c179d::h_pkg_oobtask/package:pd179
+           G={'BARE': 1}
+           O={'BOUND=ref_var:v': 1}
+   G-ONLY CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@71:13|HOME=function:c179u::h_unit_oob/design:work@top179d = {'BARE': 1}
+   O-ONLY CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@71:13|HOME=function:h_unit_oob/class_defn:work@c179u = {'BOUND=ref_var:v': 1}
+== ARG (B: patched)  AGREE=8 G-ONLY=1 O-ONLY=1 DIFF=1
+   TOGOLD=2 AWAY=0 MOVEDWRONG=0 STILLWRONG=3
+   TOGOLD     CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@37:15|HOME=function:c179d::h_pkg_oob/package:pd179
+   TOGOLD     CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@42:15|HOME=task:c179d::h_pkg_oobtask/package:pd179
+== OBJ (A: pristine) AGREE=28 G-ONLY=0 O-ONLY=1 DIFF=6
+   DIFF  class_typespec
+           G={'27': 1}
+           O={'37': 1}
+   DIFF  constant
+           G={'33': 1}
+           O={'34': 1}
+   DIFF  import_typespec
+           G={'2': 1}
+           O={'3': 1}
+   DIFF  logic_net
+           G={'10': 1}
+           O={'12': 1}
+   DIFF  ref_typespec
+           G={'55': 1}
+           O={'59': 1}
+   DIFF  type_parameter
+           G={'2': 1}
+           O={'6': 1}
+   O-ONLY param_assign = {'4': 1}
+== OBJ (B: patched)  AGREE=28 G-ONLY=0 O-ONLY=1 DIFF=6
+   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=7
+== REF (A: pristine) AGREE=29 G-ONLY=4 O-ONLY=4 DIFF=4
+   DIFF  ref_obj:di@81:16|HOME=function:h_iface_fn/interface_inst:<anon>
+           G={'BOUND=class_var:di': 1}
+           O={'BARE': 1}
+   DIFF  ref_obj:v@37:15|HOME=function:c179d::h_pkg_oob/package:pd179
+           G={'BARE': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  ref_obj:v@42:15|HOME=task:c179d::h_pkg_oobtask/package:pd179
+           G={'BARE': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  ref_obj:wi@81:26|HOME=function:h_iface_fn/interface_inst:<anon>
+           G={'BOUND=int_var:wi': 1}
+           O={'BARE': 1}
+   G-ONLY ref_obj:s@71:7|HOME=function:c179u::h_unit_oob/design:work@top179d = {'BARE': 1}
+   G-ONLY ref_obj:v@71:13|HOME=function:c179u::h_unit_oob/design:work@top179d = {'BARE': 1}
+   G-ONLY ref_obj:w@71:22|HOME=function:c179u::h_unit_oob/design:work@top179d = {'BARE': 1}
+   G-ONLY ref_var:v@70:5|HOME=function:c179u::h_unit_oob/design:work@top179d = {'BARE': 1}
+   O-ONLY ref_obj:s@71:7|HOME=function:h_unit_oob/class_defn:work@c179u = {'BARE': 1}
+   O-ONLY ref_obj:v@71:13|HOME=function:h_unit_oob/class_defn:work@c179u = {'BOUND=ref_var:v': 1}
+   O-ONLY ref_obj:w@71:22|HOME=function:h_unit_oob/class_defn:work@c179u = {'BARE': 1}
+   O-ONLY ref_var:v@70:5|HOME=function:h_unit_oob/class_defn:work@c179u = {'BARE': 1}
+== REF (B: patched)  AGREE=31 G-ONLY=4 O-ONLY=4 DIFF=2
+   TOGOLD=2 AWAY=0 MOVEDWRONG=0 STILLWRONG=10
+   TOGOLD     ref_obj:v@37:15|HOME=function:c179d::h_pkg_oob/package:pd179
+   TOGOLD     ref_obj:v@42:15|HOME=task:c179d::h_pkg_oobtask/package:pd179
+---- ELAB (--set, see score179.py's header for why)
+== ARG (A: pristine) AGREE=15 G-ONLY=1 O-ONLY=2 DIFF=3
+   DIFF  CALL=method_func_call:ask|RECV=HP1/ref_obj:si|NOLINK|POS=0|REF=ref_obj:di@81:16|HOME=function:h_iface_fn/interface_inst:<anon>
+           G={'BOUND=class_var:di': 1}
+           O={'BARE': 1}
+   DIFF  CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@37:15|HOME=function:c179d::h_pkg_oob/package:pd179
+           G={'BARE': 1, 'BOUND=ref_var:v': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@42:15|HOME=task:c179d::h_pkg_oobtask/package:pd179
+           G={'BARE': 1, 'BOUND=ref_var:v': 1}
+           O={'BOUND=ref_var:v': 1}
+   G-ONLY CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@71:13|HOME=function:c179u::h_unit_oob/design:work@top179d = {'BARE': 1}
+   O-ONLY CALL=method_func_call:ask|RECV=HP1/ref_obj:s|FUNC|POS=0|REF=ref_obj:v@71:13|HOME=function:h_unit_oob/class_defn:work@c179u = {'BOUND=class_var:s': 1}
+   O-ONLY CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@71:13|HOME=function:h_unit_oob/class_defn:work@c179u = {'BOUND=ref_var:v': 1}
+== ARG (B: patched)  AGREE=17 G-ONLY=1 O-ONLY=2 DIFF=1
+   TOGOLD=2 AWAY=0 MOVEDWRONG=0 STILLWRONG=4
+   TOGOLD     CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@37:15|HOME=function:c179d::h_pkg_oob/package:pd179
+   TOGOLD     CALL=method_func_call:ask|RECV=HP1/ref_obj:s|NOLINK|POS=0|REF=ref_obj:v@42:15|HOME=task:c179d::h_pkg_oobtask/package:pd179
+== OBJ (A: pristine) AGREE=17 G-ONLY=0 O-ONLY=1 DIFF=17
+   DIFF  assignment
+           G={'22': 1}
+           O={'23': 1}
+   DIFF  begin
+           G={'22': 1}
+           O={'23': 1}
+   DIFF  class_typespec
+           G={'27': 1}
+           O={'37': 1}
+   DIFF  constant
+           G={'33': 1}
+           O={'34': 1}
+   DIFF  function
+           G={'41': 1}
+           O={'45': 1}
+   DIFF  hier_path
+           G={'25': 1}
+           O={'26': 1}
+   DIFF  if_stmt
+           G={'23': 1}
+           O={'24': 1}
+   DIFF  import_typespec
+           G={'2': 1}
+           O={'3': 1}
+   DIFF  io_decl
+           G={'22': 1}
+           O={'28': 1}
+   DIFF  logic_net
+           G={'10': 1}
+           O={'12': 1}
+   DIFF  method_func_call
+           G={'27': 1}
+           O={'28': 1}
+   DIFF  operation
+           G={'23': 1}
+           O={'24': 1}
+   DIFF  ref_obj
+           G={'68': 1}
+           O={'71': 1}
+   DIFF  ref_typespec
+           G={'94': 1}
+           O={'120': 1}
+   DIFF  ref_var
+           G={'17': 1}
+           O={'19': 1}
+   DIFF  task
+           G={'15': 1}
+           O={'25': 1}
+   DIFF  type_parameter
+           G={'2': 1}
+           O={'6': 1}
+   O-ONLY param_assign = {'6': 1}
+== OBJ (B: patched)  AGREE=17 G-ONLY=0 O-ONLY=1 DIFF=17
+   TOGOLD=0 AWAY=0 MOVEDWRONG=0 STILLWRONG=18
+== REF (A: pristine) AGREE=48 G-ONLY=4 O-ONLY=4 DIFF=3
+   DIFF  ref_obj:di@81:16|HOME=function:h_iface_fn/interface_inst:<anon>
+           G={'BOUND=class_var:di': 1}
+           O={'BARE': 1}
+   DIFF  ref_obj:v@37:15|HOME=function:c179d::h_pkg_oob/package:pd179
+           G={'BARE': 1, 'BOUND=ref_var:v': 1}
+           O={'BOUND=ref_var:v': 1}
+   DIFF  ref_obj:v@42:15|HOME=task:c179d::h_pkg_oobtask/package:pd179
+           G={'BARE': 1, 'BOUND=ref_var:v': 1}
+           O={'BOUND=ref_var:v': 1}
+   G-ONLY ref_obj:s@71:7|HOME=function:c179u::h_unit_oob/design:work@top179d = {'BARE': 1}
+   G-ONLY ref_obj:v@71:13|HOME=function:c179u::h_unit_oob/design:work@top179d = {'BARE': 1}
+   G-ONLY ref_obj:w@71:22|HOME=function:c179u::h_unit_oob/design:work@top179d = {'BARE': 1}
+   G-ONLY ref_var:v@70:5|HOME=function:c179u::h_unit_oob/design:work@top179d = {'BARE': 1}
+   O-ONLY ref_obj:s@71:7|HOME=function:h_unit_oob/class_defn:work@c179u = {'BARE': 1, 'BOUND=class_var:s': 1}
+   O-ONLY ref_obj:v@71:13|HOME=function:h_unit_oob/class_defn:work@c179u = {'BOUND=class_var:s': 1, 'BOUND=ref_var:v': 1}
+   O-ONLY ref_obj:w@71:22|HOME=function:h_unit_oob/class_defn:work@c179u = {'BARE': 1, 'BOUND=int_var:w': 1}
+   O-ONLY ref_var:v@70:5|HOME=function:h_unit_oob/class_defn:work@c179u = {'BARE': 1, 'BOUND=ref_var:v': 1}
+== REF (B: patched)  AGREE=50 G-ONLY=4 O-ONLY=4 DIFF=1
+   TOGOLD=2 AWAY=0 MOVEDWRONG=0 STILLWRONG=9
+   TOGOLD     ref_obj:v@37:15|HOME=function:c179d::h_pkg_oob/package:pd179
+   TOGOLD     ref_obj:v@42:15|HOME=task:c179d::h_pkg_oobtask/package:pd179
+

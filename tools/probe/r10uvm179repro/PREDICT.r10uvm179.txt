@@ -1,0 +1,47 @@
+r10uvm179 — THE A-PRIORI MOVER PREDICTION, made from PRISTINE DATABASES ALONE,
+BEFORE the patched sweep was run.  MEASUREMENT ONLY.
+
+Instrument: ct179cen --face --nospan over the pass's own pristine verify_golden
+workdirs (surelog 956 databases, uhdm2rtlil 1358), BOTH sides.
+
+THE FACE (this pass's, not r10uvm176's): every ARG row of a method call that is
+an ELEMENT OF A hier_path — the road CompileHelper::compileComplexFuncCall
+(CompileExpression.cpp:5678-5708) builds for an EXPRESSION-position call on a
+hierarchical receiver.
+
+surelog face rows (both sides): 23754
+uhdm2rtlil face rows (both sides): 0  <- THE WHOLE u2r CORPUS HOLDS NO CELL OF THIS FACE
+
+OUR pristine face cells that carry BOUND=ref_var (the ONLY value this law can move): 154
+  ... all 154 of them under a PACKAGE home (the def-package clone), none anywhere else:
+    154 package
+
+PREDICTED MOVING DATABASES, BY NAME (9):
+      2 default/BuildUVMPkg
+     36 default/MiniAmiq
+      2 default/Scoreboard
+     36 default/SeqDriver
+      2 default/SimpleUVM
+      2 testflags/BuildUVMPkg
+     36 testflags/MiniAmiq
+     36 testflags/SeqDriver
+      2 testflags/SimpleUVM
+
+PREDICTED MOVING CELLS, BY CALLEE (138 move, 16 do NOT):
+     25 try_get
+     24 m_find_successor_by_name
+     24 m_find_successor
+     24 m_find_predecessor_by_name
+     24 m_find_predecessor
+     17 try_put
+     16 exists
+
+  try_get/try_put/m_find_* = 138 USER method calls -> the arm that raises
+  recvUserMethodArgDepth107 -> PREDICTED BOUND=ref_var -> BARE.
+  exists = 16 BUILT-IN method calls -> a DIFFERENT emitter arm, which raises
+  no such counter -> PREDICTED NOT TO MOVE (this pass's residue R1; arm A
+  cell a16 measured it on one golden).
+
+PREDICTED NON-MOVERS: every other surelog database (947) and all 1358
+uhdm2rtlil databases.  Scoreboard/testflags and Rggen/testflags produce NO
+database at all on either binary and therefore cannot move.

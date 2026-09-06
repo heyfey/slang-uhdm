@@ -1,0 +1,151 @@
+r10v179 — VERIFIER GATE TRANSCRIPT (measurement only; uhdm-cmp is the judge)
+BASE cf42ecc3   pristine md5 3eb10767c383f6ca2086f359842a4e98   patched md5 9af644fd7023a6661a2976fbd0c0033a
+
+[apply] git apply -3 on FRESH cf42ecc3: rc=0, surface = RESUME.md include/UhdmExporter.h src/ExprEmit.cpp tools/probe/r10uvm179repro/ ONLY
+[fence] the four slang-fenced names in patch: 0/0/0/0
+[goldens] pristine PASS=23 FAIL=0 | patched PASS=23 FAIL=0 | SLANG_UHDM=/bin/false PASS=0 FAIL=23
+[u2r] tf pris 679/50/2  tf pat 679/50/2  def pris 679/50/2  def pat 679/50/2
+[u2r ct8rows] baseline-vs-pat PASS ; baseline-vs-pris PASS ; pris-vs-pat tf PASS ; pris-vs-pat def PASS
+[u2r byteverify] MOVERS 0/1358  PATH_SETS_IDENTICAL  SELFCHECK 1357/1358 flagged
+[surelog] 1588 rows both binaries, histogram identical to results/golden_surelog.csv in every bucket (SLANG_REJECT 567)
+[surelog ct8rows] baseline-vs-pat PASS ; baseline-vs-pris PASS ; pris-vs-pat PASS  (0 differing rows over 1588, status AND dump; NO ROW CONVERTED)
+[surelog byteverify] MOVERS 9/956, all nine PREDICTED BY NAME; each is exactly 4 order-blind dump lines (2 removed vpiActual)
+[cmds audit] 3146 surelog + 2924 u2r cmds.txt, 0 name the main-tree binary
+[canaries] surelog ok=52 changed=0 ; u2r ok=8 changed=0 ; ctcan2 PASS x2 ; canaudit audited=29 UNCOVERED=0 FENCE-BREACH=0 PASS
+[protected] InterfaceModPort/BlackParrotComplex/YosysOldOr byte-identical; SVSwitch 4842211c4030; YosysVerx 6ccda350c24a
+[boundary] LISTED=4913 FENCED_SKIPPED=0 PROCESSED=4913 MOVED=38 NO_OUTPUT_PAIRS=380 ASYMMETRIC_OUTPUT=0 PROCESSED-ASSERT-OK
+
+== heads (rowheads.sh, this verifier's own sweeps)
+
+PRISTINE HEADS
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         33      1 cmp rc=255
+SeqDriver      testflags       33      1 cmp rc=255
+SimpleUVM      default         29      1 cmp rc=255
+SimpleUVM      testflags       29      1 cmp rc=255
+Scoreboard     default         95      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default         33      1 cmp rc=255
+MiniAmiq       testflags       33      1 cmp rc=255
+BuildUVMPkg    default         52      1 cmp rc=255
+BuildUVMPkg    testflags       52      1 cmp rc=255
+Earlgrey_0_1   default         31      1 cmp rc=255
+Earlgrey_0_1   testflags       48      1 cmp rc=255
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+
+PATCHED HEADS
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         33      1 cmp rc=255
+SeqDriver      testflags       33      1 cmp rc=255
+SimpleUVM      default     664681      1 cmp rc=255
+SimpleUVM      testflags   664681      1 cmp rc=255
+Scoreboard     default         95      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default         33      1 cmp rc=255
+MiniAmiq       testflags       33      1 cmp rc=255
+BuildUVMPkg    default         52      1 cmp rc=255
+BuildUVMPkg    testflags       52      1 cmp rc=255
+Earlgrey_0_1   default         31      1 cmp rc=255
+Earlgrey_0_1   testflags       48      1 cmp rc=255
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+
+== arm scores (vscore179.py, this verifier's own instrument)
+== A-def  keys G=99 P=99 X=99 | vs-golden disagreeing  pristine=11  patched=8
+== A-def  MOVED=3 TOGOLD=3 AWAY=0 MOVEDWRONG=0 UNMOVED=96
+== A-elab  keys G=195 P=195 X=195 | vs-golden disagreeing  pristine=14  patched=11
+== A-elab  MOVED=3 TOGOLD=3 AWAY=0 MOVEDWRONG=0 UNMOVED=192
+== B-def  keys G=132 P=132 X=132 | vs-golden disagreeing  pristine=10  patched=4
+== B-def  MOVED=8 TOGOLD=6 AWAY=0 MOVEDWRONG=2 UNMOVED=124
+== B-elab  keys G=249 P=249 X=249 | vs-golden disagreeing  pristine=9  patched=4
+== B-elab  MOVED=7 TOGOLD=5 AWAY=0 MOVEDWRONG=2 UNMOVED=242
+== C-def  keys G=49 P=49 X=49 | vs-golden disagreeing  pristine=10  patched=8
+== C-def  MOVED=2 TOGOLD=2 AWAY=0 MOVEDWRONG=0 UNMOVED=50
+== C-elab  keys G=98 P=94 X=94 | vs-golden disagreeing  pristine=65  patched=63
+== C-elab  MOVED=2 TOGOLD=2 AWAY=0 MOVEDWRONG=0 UNMOVED=102
+== D-def  keys G=56 P=56 X=56 | vs-golden disagreeing  pristine=3  patched=0
+== D-def  MOVED=3 TOGOLD=3 AWAY=0 MOVEDWRONG=0 UNMOVED=53
+== D-elab  keys G=98 P=98 X=98 | vs-golden disagreeing  pristine=3  patched=0
+== D-elab  MOVED=3 TOGOLD=3 AWAY=0 MOVEDWRONG=0 UNMOVED=95
+== E-def  keys G=16 P=16 X=16 | vs-golden disagreeing  pristine=0  patched=0
+== E-def  MOVED=0 TOGOLD=0 AWAY=0 MOVEDWRONG=0 UNMOVED=16
+== E-elab  keys G=46 P=46 X=46 | vs-golden disagreeing  pristine=0  patched=0
+== E-elab  MOVED=0 TOGOLD=0 AWAY=0 MOVEDWRONG=0 UNMOVED=46
+== F-def  keys G=14 P=14 X=14 | vs-golden disagreeing  pristine=1  patched=0
+== F-def  MOVED=1 TOGOLD=1 AWAY=0 MOVEDWRONG=0 UNMOVED=13
+== F-elab  keys G=21 P=21 X=21 | vs-golden disagreeing  pristine=8  patched=8
+== F-elab  MOVED=1 TOGOLD=0 AWAY=0 MOVEDWRONG=1 UNMOVED=20
+
+== the 11 moved boundary arm files, rebuilt against FRESH goldens
+a1_refvarbind cmp rc=255 a def lines=29 heads=1
+a1_refvarbind cmp rc=0 b def lines=0 heads=0
+a1_refvarbind cmp rc=0 a elab lines=0 heads=0
+a1_refvarbind cmp rc=0 b elab lines=0 heads=0
+== a1_refvarbind-def  MOVED=1 TOGOLD=1 AWAY=0 MOVEDWRONG=0 UNMOVED=93
+== a1_refvarbind-elab  MOVED=1 TOGOLD=1 AWAY=0 MOVEDWRONG=0 UNMOVED=139
+g107_a1 cmp rc=255 a def lines=29 heads=1
+g107_a1 cmp rc=255 b def lines=3542 heads=1
+g107_a1 cmp rc=255 a elab lines=2541 heads=1
+g107_a1 cmp rc=255 b elab lines=2541 heads=1
+== g107_a1-def  MOVED=2 TOGOLD=2 AWAY=0 MOVEDWRONG=0 UNMOVED=83
+== g107_a1-elab  MOVED=2 TOGOLD=2 AWAY=0 MOVEDWRONG=0 UNMOVED=161
+v107_b1 cmp rc=255 a def lines=29 heads=1
+v107_b1 cmp rc=255 b def lines=3170 heads=1
+v107_b1 cmp rc=255 a elab lines=2051 heads=1
+v107_b1 cmp rc=255 b elab lines=2051 heads=1
+== v107_b1-def  MOVED=6 TOGOLD=6 AWAY=0 MOVEDWRONG=0 UNMOVED=50
+== v107_b1-elab  MOVED=2 TOGOLD=2 AWAY=0 MOVEDWRONG=0 UNMOVED=108
+v107_b3 cmp rc=255 a def lines=29 heads=1
+v107_b3 cmp rc=255 b def lines=449 heads=1
+v107_b3 cmp rc=255 a elab lines=515 heads=1
+v107_b3 cmp rc=255 b elab lines=515 heads=1
+== v107_b3-def  MOVED=1 TOGOLD=1 AWAY=0 MOVEDWRONG=0 UNMOVED=20
+== v107_b3-elab  MOVED=1 TOGOLD=1 AWAY=0 MOVEDWRONG=0 UNMOVED=32
+v107_b4 cmp rc=255 a def lines=29 heads=1
+v107_b4 cmp rc=255 b def lines=510 heads=1
+v107_b4 cmp rc=255 a elab lines=377 heads=1
+v107_b4 cmp rc=255 b elab lines=377 heads=1
+== v107_b4-def  MOVED=1 TOGOLD=1 AWAY=0 MOVEDWRONG=0 UNMOVED=11
+== v107_b4-elab  MOVED=1 TOGOLD=1 AWAY=0 MOVEDWRONG=0 UNMOVED=17
+v107_b5 cmp rc=255 a def lines=29 heads=1
+v107_b5 cmp rc=255 b def lines=29 heads=1
+v107_b5 cmp rc=255 a elab lines=1333 heads=1
+v107_b5 cmp rc=255 b elab lines=1333 heads=1
+== v107_b5-def  MOVED=1 TOGOLD=1 AWAY=0 MOVEDWRONG=0 UNMOVED=28
+== v107_b5-elab  MOVED=1 TOGOLD=1 AWAY=0 MOVEDWRONG=0 UNMOVED=55
+v107_b7 cmp rc=255 a def lines=29 heads=1
+v107_b7 cmp rc=255 b def lines=1038 heads=1
+v107_b7 cmp rc=255 a elab lines=685 heads=1
+v107_b7 cmp rc=255 b elab lines=685 heads=1
+== v107_b7-def  MOVED=2 TOGOLD=2 AWAY=0 MOVEDWRONG=0 UNMOVED=18
+== v107_b7-elab  MOVED=2 TOGOLD=2 AWAY=0 MOVEDWRONG=0 UNMOVED=36
+v107_b8 cmp rc=255 a def lines=29 heads=1
+v107_b8 cmp rc=255 b def lines=2118 heads=1
+v107_b8 cmp rc=255 a elab lines=1497 heads=1
+v107_b8 cmp rc=255 b elab lines=1497 heads=1
+== v107_b8-def  MOVED=3 TOGOLD=3 AWAY=0 MOVEDWRONG=0 UNMOVED=37
+== v107_b8-elab  MOVED=3 TOGOLD=3 AWAY=0 MOVEDWRONG=0 UNMOVED=70
+v107_b9 cmp rc=255 a def lines=29 heads=1
+v107_b9 cmp rc=255 b def lines=33 heads=1
+v107_b9 cmp rc=255 a elab lines=2149 heads=1
+v107_b9 cmp rc=255 b elab lines=2149 heads=1
+== v107_b9-def  MOVED=10 TOGOLD=9 AWAY=0 MOVEDWRONG=1 UNMOVED=53
+== v107_b9-elab  MOVED=10 TOGOLD=9 AWAY=0 MOVEDWRONG=1 UNMOVED=114
+v107_b10 cmp rc=255 a def lines=29 heads=1
+v107_b10 cmp rc=255 b def lines=33 heads=1
+v107_b10 cmp rc=255 a elab lines=2113 heads=1
+v107_b10 cmp rc=255 b elab lines=2113 heads=1
+== v107_b10-def  MOVED=10 TOGOLD=8 AWAY=0 MOVEDWRONG=2 UNMOVED=52
+== v107_b10-elab  MOVED=10 TOGOLD=8 AWAY=0 MOVEDWRONG=2 UNMOVED=112
+v107_b12 cmp rc=255 a def lines=29 heads=1
+v107_b12 cmp rc=0 b def lines=0 heads=0
+v107_b12 cmp rc=0 a elab lines=0 heads=0
+v107_b12 cmp rc=0 b elab lines=0 heads=0
+== v107_b12-def  MOVED=1 TOGOLD=1 AWAY=0 MOVEDWRONG=0 UNMOVED=11
+== v107_b12-elab  MOVED=1 TOGOLD=1 AWAY=0 MOVEDWRONG=0 UNMOVED=17
+
+== the refutation of r10uvm177's R0 (SimpleUVM/default, whole-dump occurrences of the ref_var DECL object)
+golden 8   pristine 9   PATCHED 8

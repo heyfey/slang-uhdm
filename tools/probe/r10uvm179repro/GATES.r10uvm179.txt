@@ -1,0 +1,97 @@
+r10uvm179 — THE GATES.  The official uhdm-cmp and scripts/verify_golden.py are
+the only authorities here.  slang was NOT patched.  results/*.csv were READ
+ONLY.  Nothing was promoted and NO CORPUS ROW WAS CONVERTED.  GOLDEN_DEFER
+stayed unset.  The four slang-fenced tests were never dispatched and are named
+only inside canaudit.sh's own fence list.
+
+(1) BUILD, both binaries, -j 2, md5 taken separately
+    pristine  /tmp/r10uvm179_pris.bin  md5 3eb10767c383f6ca2086f359842a4e98
+              built from THIS pass's own worktree at a clean cf42ecc3 and frozen
+              chmod 555 before any sweep
+    patched   /tmp/r10uvm179_pat.bin   md5 9af644fd7023a6661a2976fbd0c0033a
+              frozen chmod 555.  Rebuilt twice more in-place (once to restore the
+              shipped form after the counter-witness, once after the header
+              documentation) and reproduced the SAME md5 both times.
+    counter-witness (evidence only, never gated, never shipped)
+              /tmp/r10uvm179_cw.bin      md5 f515307642e289633b96e449a18113c4
+
+(2) GOLDEN DUMP TESTS, SLANG_UHDM exported EXPLICITLY to each binary
+    pristine  PASS=23 FAIL=0
+    patched   PASS=23 FAIL=0
+    SLANG_UHDM=/bin/false   PASS=0 FAIL=23   (the negative control)
+
+(3) uhdm2rtlil
+    testflags status: CMP_EQUAL 679 / SLANG_REJECT 50 / SURELOG_FAIL 2 — identical
+      on both binaries.
+    ct8rows vs results/gate_uhdm2rtlil.csv        PASS (0 differing rows)
+    ct8rows vs this pass's OWN pristine sweep, testflags   PASS
+    ct8rows vs this pass's OWN pristine sweep, default     PASS
+
+(4) surelog --mode both, 1588 rows
+    status histogram IDENTICAL on both binaries:
+      CMP_EQUAL 937  SLANG_REJECT 567  SURELOG_FAIL 48  CMP_NOTEQUAL 19
+      DEFERRED 10  NO_DATABASE 3  UNTRANSLATABLE 2  TIMEOUT 1  NO_UHDM 1
+      (equal SLANG_REJECT counts is also the check that no rc=139 segfault was
+       introduced — verify_golden.py files one as SLANG_REJECT, RESUME.md §9)
+    ct8rows vs results/golden_surelog.csv         PASS — 0 differing rows over
+      1588, status AND dump column.  NO ROW CONVERTED.
+    ct8rows vs this pass's OWN pristine sweep     PASS
+    This pass's pristine sweep reproduced results/golden_surelog.csv row for row.
+
+(5) BYTE MOVERS, SELFCHECK=1
+    surelog     PATH_SETS_IDENTICAL (956) ; MOVERS 9 / 956 ; SELFCHECK 955/956
+    uhdm2rtlil  PATH_SETS_IDENTICAL (1358); MOVERS 0 / 1358; SELFCHECK 1357/1358
+    All 9 were PREDICTED BY NAME from pristine databases BEFORE the patched
+    sweep ran (PREDICT.r10uvm179.txt), and 0/1358 was predicted too.
+    Each mover attributed by an ORDER-BLIND, path-normalised uhdm-dump diff:
+      default/BuildUVMPkg-bf853d43: 4 lines, all four the SAME two edges
+      default/MiniAmiq-544c7f61: 4 lines, all four the SAME two edges
+      default/Scoreboard-59431470: 4 lines, all four the SAME two edges
+      default/SeqDriver-32af76aa: 4 lines, all four the SAME two edges
+      default/SimpleUVM-1dc93a62: 4 lines, all four the SAME two edges
+      testflags/BuildUVMPkg-bf853d43: 4 lines, all four the SAME two edges
+      testflags/MiniAmiq-544c7f61: 4 lines, all four the SAME two edges
+      testflags/SeqDriver-32af76aa: 4 lines, all four the SAME two edges
+      testflags/SimpleUVM-1dc93a62: 4 lines, all four the SAME two edges
+    the four lines, identical in all nine (SimpleUVM/default shown):
+      377446d377445
+      <                 \_ref_var: (uvm_pkg::uvm_sequencer::item_done::t), line:278:7, endln:278:8
+      377464d377462
+      <                 \_ref_var: (uvm_pkg::uvm_sequencer_param_base::send_request::param_t), line:270:7, endln:270:14
+      451532,451533d451529
+      <                 |vpiActual:
+      <                 |vpiActual:
+    Scoreboard/default is the documented ~50/50 COIN; its ORDER-BLIND diff is
+    these same four lines and nothing else, so it is attributed to this law.
+
+(6) CANARIES
+    canaries.sh surelog     ok=52 changed=0 absent=0
+    canaries.sh uhdm2rtlil  ok=8  changed=0 absent=0
+    ctcan2.sh EXPECT_UNKNOWN=1 (surelog)     PASS
+    ctcan2.sh EXPECT_UNKNOWN=6 (uhdm2rtlil)  PASS
+    canaudit.sh canaries.sh ctcan2.sh: audited=29 UNCOVERED=0 FENCE-BREACH=0 PASS
+    protected databases, md5 pristine vs patched:
+      InterfaceModPort  59a365f3ce2c both modes, SAME
+      BlackParrotComplex e3e354129d5a / 73a10e8217e5, SAME
+      YosysOldOr        d68e0796d62c both modes, SAME
+      SVSwitch          4842211c4030  <- ON THE PIN
+      YosysVerx         6ccda350c24a  <- ON THE PIN
+
+(7) BINARY-PATH AUDIT of every cmds.txt
+    surelog workdir    1573 cmds.txt, 1523 name /tmp/r10uvm179_pris.bin (or _pat),
+                       0 name the MAIN-TREE binary
+    uhdm2rtlil workdir 1462 cmds.txt, 1458 named, 0 name the MAIN-TREE binary
+    (the unnamed remainder are rows where slang was never invoked)
+
+(8) THE PATCH IS THE ARTIFACT
+    /tmp/r10uvm179.patch applies CLEAN to a FRESH cf42ecc3 worktree (git apply -3,
+    rc 0, 0 conflict markers) and rebuilding there reproduces the byte-identical
+    binary — see the last line of this file.
+
+(9) THE FRESH-WORKTREE REPRODUCTION
+    git worktree add /tmp/wt_r10uvm179_fresh cf42ecc3
+    git apply -3 /tmp/r10uvm179.patch   -> rc 0, applied cleanly, 0 conflict markers
+    cmake --build build -j 2            -> Built target slang_uhdm
+    md5sum build/slang-uhdm             -> 9af644fd7023a6661a2976fbd0c0033a
+    BYTE-IDENTICAL to the frozen patched binary every number above was measured
+    on.  The patch IS the artifact.

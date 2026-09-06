@@ -1,0 +1,47 @@
+r10uvm179 — THE WHOLE-CORPUS FACE, both sides, before and after.
+MEASUREMENT ONLY; the official uhdm-cmp is the sole judge.
+Instrument: wface179.sh / cen179.sh --face --nospan over this pass's OWN
+pristine and patched verify_golden workdirs.
+
+surelog: 956 comparable databases (SKIP 617 = rows with no database on one side)
+uhdm2rtlil: 1358 databases -> ZERO face rows.  The u2r corpus holds no cell of
+this face at all, which is why its byte movers are 0/1358.
+
+golden face keys: 10314   golden rows identical across the two runs: True
+FACEDIFF 78 -> 60   MOVED=18 TOGOLD=18 AWAY=0 MOVEDWRONG=0
+  MOVER default/BuildUVMPkg|CALL=method_func_call:try_get|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:t|HOME=function:uvm_sequencer::item_done/package:uvm_pkg
+     G= {'BARE': 1}  pris= {'BOUND=ref_var:t': 1}  pat= {'BARE': 1}
+  MOVER default/BuildUVMPkg|CALL=method_func_call:try_put|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:param_t|HOME=function:uvm_sequencer_param_base::send_request/package:uvm_pkg
+     G= {'BARE': 1}  pris= {'BOUND=ref_var:param_t': 1}  pat= {'BARE': 1}
+  MOVER default/MiniAmiq|CALL=method_func_call:try_get|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:t|HOME=function:uvm_sequencer::item_done/package:uvm_pkg
+     G= {'BARE': 1}  pris= {'BOUND=ref_var:t': 1}  pat= {'BARE': 1}
+  MOVER default/MiniAmiq|CALL=method_func_call:try_put|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:param_t|HOME=function:uvm_sequencer_param_base::send_request/package:uvm_pkg
+     G= {'BARE': 1}  pris= {'BOUND=ref_var:param_t': 1}  pat= {'BARE': 1}
+  MOVER default/Scoreboard|CALL=method_func_call:try_get|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:t|HOME=function:uvm_sequencer::item_done/package:uvm_pkg
+     G= {'BARE': 1}  pris= {'BOUND=ref_var:t': 1}  pat= {'BARE': 1}
+  MOVER default/Scoreboard|CALL=method_func_call:try_put|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:param_t|HOME=function:uvm_sequencer_param_base::send_request/package:uvm_pkg
+     G= {'BARE': 1}  pris= {'BOUND=ref_var:param_t': 1}  pat= {'BARE': 1}
+  MOVER default/SeqDriver|CALL=method_func_call:try_get|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:t|HOME=function:uvm_sequencer::item_done/package:uvm_pkg
+     G= {'BARE': 1}  pris= {'BOUND=ref_var:t': 1}  pat= {'BARE': 1}
+  MOVER default/SeqDriver|CALL=method_func_call:try_put|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:param_t|HOME=function:uvm_sequencer_param_base::send_request/package:uvm_pkg
+     G= {'BARE': 1}  pris= {'BOUND=ref_var:param_t': 1}  pat= {'BARE': 1}
+  MOVER default/SimpleUVM|CALL=method_func_call:try_get|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:t|HOME=function:uvm_sequencer::item_done/package:uvm_pkg
+     G= {'BARE': 1}  pris= {'BOUND=ref_var:t': 1}  pat= {'BARE': 1}
+  MOVER default/SimpleUVM|CALL=method_func_call:try_put|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:param_t|HOME=function:uvm_sequencer_param_base::send_request/package:uvm_pkg
+     G= {'BARE': 1}  pris= {'BOUND=ref_var:param_t': 1}  pat= {'BARE': 1}
+  MOVER testflags/BuildUVMPkg|CALL=method_func_call:try_get|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:t|HOME=function:uvm_sequencer::item_done/package:uvm_pkg
+     G= {'BARE': 1}  pris= {'BOUND=ref_var:t': 1}  pat= {'BARE': 1}
+  MOVER testflags/BuildUVMPkg|CALL=method_func_call:try_put|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:param_t|HOME=function:uvm_sequencer_param_base::send_request/package:uvm_pkg
+     G= {'BARE': 1}  pris= {'BOUND=ref_var:param_t': 1}  pat= {'BARE': 1}
+  MOVER testflags/MiniAmiq|CALL=method_func_call:try_get|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:t|HOME=function:uvm_sequencer::item_done/package:uvm_pkg
+     G= {'BARE': 1}  pris= {'BOUND=ref_var:t': 1}  pat= {'BARE': 1}
+  MOVER testflags/MiniAmiq|CALL=method_func_call:try_put|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:param_t|HOME=function:uvm_sequencer_param_base::send_request/package:uvm_pkg
+     G= {'BARE': 1}  pris= {'BOUND=ref_var:param_t': 1}  pat= {'BARE': 1}
+  MOVER testflags/SeqDriver|CALL=method_func_call:try_get|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:t|HOME=function:uvm_sequencer::item_done/package:uvm_pkg
+     G= {'BARE': 1}  pris= {'BOUND=ref_var:t': 1}  pat= {'BARE': 1}
+  MOVER testflags/SeqDriver|CALL=method_func_call:try_put|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:param_t|HOME=function:uvm_sequencer_param_base::send_request/package:uvm_pkg
+     G= {'BARE': 1}  pris= {'BOUND=ref_var:param_t': 1}  pat= {'BARE': 1}
+  MOVER testflags/SimpleUVM|CALL=method_func_call:try_get|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:t|HOME=function:uvm_sequencer::item_done/package:uvm_pkg
+     G= {'BARE': 1}  pris= {'BOUND=ref_var:t': 1}  pat= {'BARE': 1}
+  MOVER testflags/SimpleUVM|CALL=method_func_call:try_put|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:param_t|HOME=function:uvm_sequencer_param_base::send_request/package:uvm_pkg
+     G= {'BARE': 1}  pris= {'BOUND=ref_var:param_t': 1}  pat= {'BARE': 1}

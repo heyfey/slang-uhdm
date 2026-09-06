@@ -1,0 +1,33 @@
+r10uvm179 — THE JUDGE DECODE.  MEASUREMENT ONLY; ct179own links the SAME
+generated Compare the official uhdm-cmp runs and only reports.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+ROW: SimpleUVM / default, this pass's OWN pristine sweep (binary md5
+3eb10767c383f6ca2086f359842a4e98), whose 956-row surelog sweep reproduced
+results/golden_surelog.csv row for row (ct8rows PASS, 0 differing rows).
+rowheads.sh on it: SimpleUVM default 29 cmp lines 1 head; testflags 29 / 1.
+
+design::Compare r=-1
+HEAD LHS = <null>
+HEAD RHS = ref_var(param_t)@270:7-270:14#147021
+HEAD RHS parent chain:
+    < begin()@272:3-274:6#147024
+    < function(uvm_sequencer_param_base::send_request)@267:1-304:12#147009
+    < package(uvm_pkg)@28:1-39:11#146
+    < design(work@top)@0:0-0:0#1
+MIRROR REFERENCE SCAN — every edge of OURS that lands on the head, and golden's:
+  ours   begin()@272:3-274:6#147024
+      edge vpiType=100 (vector index 0)
+      golden begin()@272:3-274:6#85355 -> vector present size 1, [0] = ref_var(param_t)@270:7-270:14#85357
+  ours   function(uvm_sequencer_param_base::send_request)@267:1-304:12#147009
+      edge vpiType=100 (vector index 0)
+      golden function(uvm_sequencer_param_base::send_request)@267:1-304:12#60286 -> vector present size 1, [0] = ref_var(param_t)@270:7-270:14#85357
+  ours   ref_obj(param_t)@281:13-281:20#147051
+      edge vpiType=700 (singular)
+      golden ref_obj(param_t)@281:13-281:20#85385 -> singular ref_var(param_t)@270:7-270:14#85357
+  ours   ref_obj(param_t)@297:26-297:33#147105
+      edge vpiType=700 (singular)
+      golden ref_obj(param_t)@297:26-297:33#85438 -> singular <null>
+  ours   ref_typespec()@0:0-0:0#147022
+      edge vpiType=81 (singular)
+      golden ref_typespec()@0:0-0:0#85358 -> singular ref_var(param_t)@270:7-270:14#85357

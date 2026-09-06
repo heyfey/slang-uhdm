@@ -3152,8 +3152,13 @@ private:
     // Surelog compiles that form through `compileComplexFuncCall`, which never
     // parents the call before compiling its arguments, so
     // `CompileHelper::bindVariable`'s walk up `pexpr->VpiParent()` dead-ends
-    // and the reference lands in the late-binding pool.  Read by exactly one
-    // predicate.
+    // and the reference lands in the late-binding pool.  Read by exactly TWO
+    // predicates, which are the two halves of that one Surelog behaviour:
+    // `oobRefVarLocalHoistNet107` says where the reference goes when a module
+    // hoists the body (the minted wire), and
+    // § recvCallArgRefVarLocalNeverBinds179 (r10uvm179), inside
+    // `refVarLocalNoBind5`, says it goes NOWHERE in the def-package listing,
+    // which no module hoists.  Widening this counter therefore widens BOTH.
     int recvUserMethodArgDepth107 = 0;
     // § collArgNamedBlkLocalNoBind15 (VERIFIER FIX, r10buvm15) — depth of
     // § retNameRecvCollapse69 COLLAPSED-CALL argument nesting.  It exists ONLY
@@ -5598,6 +5603,105 @@ private:
     // spells `send_request::m_req_fifo.try_put::param_t` — so the two corpus
     // cells (uvm_pkg 54020, 54474) cannot go byte-equal from the binding alone,
     // and a gate written blind here would have been unmeasurable.
+    //
+    // ===== § recvCallArgRefVarLocalNeverBinds179 (r10uvm179) — R1, CLOSED. ====
+    //
+    //   *A `ref_var` SUBROUTINE LOCAL PASSED AS AN ARGUMENT OF A CALL ON A
+    //   HIERARCHICAL RECEIVER IN EXPRESSION POSITION BINDS NOTHING IN THE
+    //   PACKAGE'S UN-ELABORATED LISTING, IN EVERY HOME AND AT EVERY DEPTH —
+    //   the § 5 window does not reach into that argument list at all.*
+    //
+    // THE SURELOG DECODE, TWO STAGES, BOTH READ (not inferred).
+    //
+    // (1) COMPILE TIME — the bind ALWAYS fails on this road.
+    //     `CompileHelper::compileComplexFuncCall`
+    //     (src/DesignCompile/CompileExpression.cpp:5678-5708) mints the
+    //     `method_func_call`, compiles its arguments with THE CALL AS `pexpr`
+    //         :5682  compileTfCallArguments(..., fcall, ...)
+    //     and only AFTERWARDS parents it
+    //         :5689  if (fcall != nullptr) fcall->VpiParent(path);
+    //         :5708  path->VpiParent(pexpr);
+    //     `compileExpression`'s name arm (CompileExpression.cpp:2982-3000)
+    //     calls `bindVariable(component, pexpr, name, …)`;
+    //     `CompileHelper::bindVariable` (CompileStmt.cpp:3089-3151) has NO arm
+    //     for a `method_func_call`, so it recurses on `scope->VpiParent()`,
+    //     which is STILL NULL, and returns at :3092 (`if (scope == nullptr)
+    //     return nullptr`).  Every argument on this road goes to
+    //     `needLateBinding` instead.  The STATEMENT-position road does not:
+    //     `compileTfCall`'s dotted arm (CompileHelper.cpp:4224-4237) sets
+    //     `fcall->VpiParent(pexpr)` BEFORE `compileTfCallArguments` at :4329,
+    //     and so does `compileComplexFuncCall`'s `this.`/handle arm
+    //     (CompileExpression.cpp:5176 before :5180).
+    //
+    // (2) WRITE TIME — the late binder binds most of them and SKIPS exactly
+    //     this one.  `UhdmWriter::lateBinding` (UhdmWriter.cpp:3294) walks the
+    //     REFERENCE's parent chain, which is complete by then, and every arm
+    //     it has (`uhdmfunction` :3387/:3397, `uhdmtask` :3442/:3452,
+    //     `uhdmbegin` :3556, the package arms) carries
+    //         if (decl->UhdmType() == uhdmref_var) continue;
+    //     so a `ref_var` DECLARATION can never answer.  The walk falls through
+    //     to the module-level mint (:3982-4004, a `logic_net`) — which fires
+    //     ONLY when the scope being written is a module/interface/program, i.e.
+    //     § oobRefVarLocalHoistNet107's case — and, for a PACKAGE scope, binds
+    //     NOTHING AT ALL.  That asymmetry is the whole law: the class-body
+    //     listing takes the wire, the def-package listing stays BARE.
+    //
+    // THE FACE SAYS IT, 956 DATABASES WIDE.  Over every argument of a call that
+    // is an element of a `hier_path`, both sides, golden BINDS 512 of
+    // SimpleUVM's 1076 such cells — `io_decl` 294, `int_var` 46, `string_var`
+    // 46, `logic_net` 54, … — so "this road never binds" would be FALSE.  What
+    // golden never binds on it is a `ref_var`, and the whole corpus disagreed
+    // with us in exactly TWO cells per row-mode.
+    //
+    // MEASURED (arm cell -> golden), g179_a_face.sv / _b_recv.sv / _c_arg.sv /
+    // _d_home.sv, ONE Surelog golden each, DEF and ELAB, out-of-body unless
+    // marked.  MOVED cells are marked *:
+    //   a01 * `if (s.ask(v) == 0)`      if CONDITION       -> BARE
+    //   a04 * `case (s.ask(v))`         case CONDITION     -> BARE
+    //   a05 * `assert (s.ask(v) == 0)`  assert CONDITION   -> BARE
+    //   a02   `s.take(v);`              STATEMENT          -> BOUND (ref_var)
+    //   a03   `w = s.ask(v);`           assignment RHS     -> BARE (agreed)
+    //   a06   `while (s.ask(v) == 99)`  while CONDITION    -> BARE (agreed)
+    //   a07   `w = s.ask(v) + 1;`       an OPERAND         -> BARE (agreed)
+    //   a10   `if (free179(v) == 0)`    RECEIVER-LESS call -> BOUND (ref_var)
+    //   a12   `if ($cast(v, plain))`    $cast argument     -> BOUND (ref_var)
+    //   a14   `free179v(v);`            receiver-less stmt -> BOUND (ref_var)
+    //   a15   `qv.push_back(v);`        BUILT-IN, stmt     -> BOUND (ref_var)
+    //   a16   `if (amap.exists(v))`     BUILT-IN, cond     -> BARE  (residue R1)
+    //   a20/a21 the same two positions with a RESOLVABLE local type -> BOUND
+    //   ib_cond the IN-BODY twin                           -> BARE (§ 52 owns it)
+    //   b01 * one class-PROPERTY receiver                  -> BARE
+    //   b02 * a body-LOCAL handle receiver                 -> BARE
+    //   b04   `mid.leaf.ask(v)` an a.b CHAIN               -> BARE  (residue R2)
+    //   b05   `bank[1].ask(v)`  an INDEXED receiver        -> BARE  (residue R2)
+    //   b11/b14/b15 the STATEMENT twins of b01/b04/b05     -> BOUND (agreed)
+    //   b20/b21 a VIRTUAL-INTERFACE receiver, r10uvm176's face -> agreed, unmoved
+    //   c00 * depth 0 / c01 depth 1 / c02 depth 2 (§ 5's depth gate already
+    //         leaves c01/c02 bare, and golden agrees)
+    //   c10/c11 a FORMAL, c20 a class PROPERTY, c30 a LITERAL, c40/c41 a
+    //         RESOLVED local: none of them is a `ref_var`, none moves
+    //   c60 * the ref inside a NESTED call, c70 * one of TWO arguments,
+    //   c80 * a local declared IN the block that raised the depth
+    //   d01 IN-BODY (§ 52), d02 * / d03 * the out-of-body FUNCTION and TASK,
+    //   d05 a $unit class's out-of-body method (residue R3),
+    //   d06 an INTERFACE's own function (pre-existing, mirror direction),
+    //   d07/d08 a MODULE FUNCTION and a MODULE PROCESS — THE CONTROL: their
+    //         locals are resolvable, so this predicate never fires there and
+    //         both are unchanged on both binaries.
+    // Grids: DEF TOGOLD 11 / AWAY 0 / MOVED-WRONG 0; ELAB the same 11/0/0.
+    //
+    // THE `pkgDefViewBody9` CONJUNCT names the listing golden leaves bare.  In
+    // an `--elabuhdm` run golden's package home carries BOTH copies — arm A
+    // f_cond, `{BARE, BOUND=ref_var}` — and the patched binary reproduces that
+    // multiset exactly.  A HOME-BLIND intermediate (md5
+    // f515307642e289633b96e449a18113c4, built and measured, kept only as
+    // evidence) produces a BYTE-IDENTICAL database on every arm and on
+    // MiniAmiq, so the conjunct is INERT on every cell this pass could
+    // measure; it is written for exactness with the listing the decode names,
+    // not on the strength of a moved cell.
+    //
+    // DIRECTION: SUPPRESS.  Nothing is created, reshaped or re-typed (the
+    // nine-row OBJ census moves 0 lines).
     bool refVarLocalNoBind5(const slang::ast::Symbol& sym,
                             const UHDM::any* declObj) const;
     // § oobRefVarLocalHoistNet107 (r10uvm107) — THE LAW.

@@ -1,0 +1,81 @@
+== ARG: golden keys 114044  ours(pristine) 114199  ours(patched) 114199
+   golden rows identical across the two runs: True
+   disagreeing 14499 -> 14481   MOVED=18 TOGOLD=18 AWAY=0 MOVEDWRONG=0
+     MOVER default/BuildUVMPkg|CALL=method_func_call:try_get|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:t@54474:26|HOME=function:uvm_sequencer::item_done/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:t': 1}  pat= {'BARE': 1}
+     MOVER default/BuildUVMPkg|CALL=method_func_call:try_put|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:param_t@54020:26|HOME=function:uvm_sequencer_param_base::send_request/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:param_t': 1}  pat= {'BARE': 1}
+     MOVER default/MiniAmiq|CALL=method_func_call:try_get|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:t@284:26|HOME=function:uvm_sequencer::item_done/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:t': 1}  pat= {'BARE': 1}
+     MOVER default/MiniAmiq|CALL=method_func_call:try_put|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:param_t@297:26|HOME=function:uvm_sequencer_param_base::send_request/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:param_t': 1}  pat= {'BARE': 1}
+     MOVER default/Scoreboard|CALL=method_func_call:try_get|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:t@284:26|HOME=function:uvm_sequencer::item_done/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:t': 1}  pat= {'BARE': 1}
+     MOVER default/Scoreboard|CALL=method_func_call:try_put|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:param_t@297:26|HOME=function:uvm_sequencer_param_base::send_request/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:param_t': 1}  pat= {'BARE': 1}
+     MOVER default/SeqDriver|CALL=method_func_call:try_get|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:t@284:26|HOME=function:uvm_sequencer::item_done/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:t': 1}  pat= {'BARE': 1}
+     MOVER default/SeqDriver|CALL=method_func_call:try_put|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:param_t@297:26|HOME=function:uvm_sequencer_param_base::send_request/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:param_t': 1}  pat= {'BARE': 1}
+     MOVER default/SimpleUVM|CALL=method_func_call:try_get|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:t@284:26|HOME=function:uvm_sequencer::item_done/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:t': 1}  pat= {'BARE': 1}
+     MOVER default/SimpleUVM|CALL=method_func_call:try_put|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:param_t@297:26|HOME=function:uvm_sequencer_param_base::send_request/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:param_t': 1}  pat= {'BARE': 1}
+     MOVER testflags/BuildUVMPkg|CALL=method_func_call:try_get|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:t@54474:26|HOME=function:uvm_sequencer::item_done/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:t': 1}  pat= {'BARE': 1}
+     MOVER testflags/BuildUVMPkg|CALL=method_func_call:try_put|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:param_t@54020:26|HOME=function:uvm_sequencer_param_base::send_request/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:param_t': 1}  pat= {'BARE': 1}
+     MOVER testflags/MiniAmiq|CALL=method_func_call:try_get|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:t@284:26|HOME=function:uvm_sequencer::item_done/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:t': 1}  pat= {'BARE': 1}
+     MOVER testflags/MiniAmiq|CALL=method_func_call:try_put|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:param_t@297:26|HOME=function:uvm_sequencer_param_base::send_request/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:param_t': 1}  pat= {'BARE': 1}
+     MOVER testflags/SeqDriver|CALL=method_func_call:try_get|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:t@284:26|HOME=function:uvm_sequencer::item_done/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:t': 1}  pat= {'BARE': 1}
+     MOVER testflags/SeqDriver|CALL=method_func_call:try_put|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:param_t@297:26|HOME=function:uvm_sequencer_param_base::send_request/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:param_t': 1}  pat= {'BARE': 1}
+     MOVER testflags/SimpleUVM|CALL=method_func_call:try_get|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:t@284:26|HOME=function:uvm_sequencer::item_done/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:t': 1}  pat= {'BARE': 1}
+     MOVER testflags/SimpleUVM|CALL=method_func_call:try_put|RECV=HP1/ref_obj:m_req_fifo|NOLINK|POS=0|REF=ref_obj:param_t@297:26|HOME=function:uvm_sequencer_param_base::send_request/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:param_t': 1}  pat= {'BARE': 1}
+== REF: golden keys 461077  ours(pristine) 458295  ours(patched) 458295
+   golden rows identical across the two runs: True
+   disagreeing 48679 -> 48661   MOVED=18 TOGOLD=18 AWAY=0 MOVEDWRONG=0
+     MOVER default/BuildUVMPkg|ref_obj:param_t@54020:26|HOME=function:uvm_sequencer_param_base::send_request/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:param_t': 1}  pat= {'BARE': 1}
+     MOVER default/BuildUVMPkg|ref_obj:t@54474:26|HOME=function:uvm_sequencer::item_done/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:t': 1}  pat= {'BARE': 1}
+     MOVER default/MiniAmiq|ref_obj:param_t@297:26|HOME=function:uvm_sequencer_param_base::send_request/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:param_t': 1}  pat= {'BARE': 1}
+     MOVER default/MiniAmiq|ref_obj:t@284:26|HOME=function:uvm_sequencer::item_done/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:t': 1}  pat= {'BARE': 1}
+     MOVER default/Scoreboard|ref_obj:param_t@297:26|HOME=function:uvm_sequencer_param_base::send_request/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:param_t': 1}  pat= {'BARE': 1}
+     MOVER default/Scoreboard|ref_obj:t@284:26|HOME=function:uvm_sequencer::item_done/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:t': 1}  pat= {'BARE': 1}
+     MOVER default/SeqDriver|ref_obj:param_t@297:26|HOME=function:uvm_sequencer_param_base::send_request/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:param_t': 1}  pat= {'BARE': 1}
+     MOVER default/SeqDriver|ref_obj:t@284:26|HOME=function:uvm_sequencer::item_done/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:t': 1}  pat= {'BARE': 1}
+     MOVER default/SimpleUVM|ref_obj:param_t@297:26|HOME=function:uvm_sequencer_param_base::send_request/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:param_t': 1}  pat= {'BARE': 1}
+     MOVER default/SimpleUVM|ref_obj:t@284:26|HOME=function:uvm_sequencer::item_done/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:t': 1}  pat= {'BARE': 1}
+     MOVER testflags/BuildUVMPkg|ref_obj:param_t@54020:26|HOME=function:uvm_sequencer_param_base::send_request/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:param_t': 1}  pat= {'BARE': 1}
+     MOVER testflags/BuildUVMPkg|ref_obj:t@54474:26|HOME=function:uvm_sequencer::item_done/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:t': 1}  pat= {'BARE': 1}
+     MOVER testflags/MiniAmiq|ref_obj:param_t@297:26|HOME=function:uvm_sequencer_param_base::send_request/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:param_t': 1}  pat= {'BARE': 1}
+     MOVER testflags/MiniAmiq|ref_obj:t@284:26|HOME=function:uvm_sequencer::item_done/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:t': 1}  pat= {'BARE': 1}
+     MOVER testflags/SeqDriver|ref_obj:param_t@297:26|HOME=function:uvm_sequencer_param_base::send_request/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:param_t': 1}  pat= {'BARE': 1}
+     MOVER testflags/SeqDriver|ref_obj:t@284:26|HOME=function:uvm_sequencer::item_done/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:t': 1}  pat= {'BARE': 1}
+     MOVER testflags/SimpleUVM|ref_obj:param_t@297:26|HOME=function:uvm_sequencer_param_base::send_request/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:param_t': 1}  pat= {'BARE': 1}
+     MOVER testflags/SimpleUVM|ref_obj:t@284:26|HOME=function:uvm_sequencer::item_done/package:uvm_pkg
+        G= {'BARE': 1}  pris= {'BOUND=ref_var:t': 1}  pat= {'BARE': 1}
+== OBJ: golden keys 812  ours(pristine) 810  ours(patched) 810
+   golden rows identical across the two runs: True
+   disagreeing 329 -> 329   MOVED=0 TOGOLD=0 AWAY=0 MOVEDWRONG=0
