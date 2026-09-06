@@ -1,0 +1,98 @@
+r10earl108 — THE GOLDEN GRID (grid108.sh) and THE THREE-WAY SCORE
+=================================================================
+MEASUREMENT ONLY.  The official ~/git-repos/UHDM/build/bin/uhdm-cmp is the
+sole acceptance judge.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+Four arms x two views.  The golden is built HERE by
+~/git-repos/Surelog/build/bin/surelog; both FROZEN binaries are run against it;
+every producer's rc is recorded and a missing database is printed as REJECT and
+COUNTED (none were).
+
+pristine fd2870e34b3081cb23199acbdfdf838d
+patched  b3b43f254fac7ddfd263e87681d097a7
+
+ARM              VIEW    SLRC   PRC   ARC   PRIS c/h  PATCH c/h
+g1_home108       plain      0     0     0      122/1        0/0
+g1_home108       elab       0     0     0      122/1        0/0
+g2_form108       plain      0     0     0      122/1       24/1
+g2_form108       elab       0     0     0      122/1       24/1
+g3_src108        plain      0     0     0     4576/1     4576/1
+g3_src108        elab       0     0     0     4576/1     4576/1
+g4_fence108      plain      0     0     0       44/1       44/1
+g4_fence108      elab       0     0     0       44/1       44/1
+
+g1_home108 IS THE CORPUS SHAPE reduced -- a wildcard-imported packed-struct
+package parameter overriding a child's `parameter bit ResetValue = 0` -- and it
+goes EQUAL IN BOTH VIEWS.  The other three arms are matrices whose FIRST failure
+is one of the residues below, not this law, which is what the census is for.
+
+THE FORMAL-TYPE MATRIX (g2_form108: ONE source, ONE actual, TWELVE formals).
+Golden first; `SUBST` = the flattened op75 survives as the param_assign Rhs.
+
+  formal            Surelog typespec     golden            patched ours
+  bit               bit_typespec         SUBST             SUBST      TO-GOLDEN
+  int               int_typespec         SUBST             SUBST      TO-GOLDEN
+  integer           integer_typespec     SUBST             SUBST      TO-GOLDEN
+  byte              byte_typespec        SUBST             SUBST      TO-GOLDEN
+  untyped           int_typespec         SUBST             SUBST (pre-existing)
+  q108::rsp_t       struct_typespec      SUBST             SUBST (LANDED, unmoved)
+  bit [6:0]         bit_typespec+range   SUBST, REVERSED   declined (residue R2)
+  bit, NO DEFAULT   bit_typespec         SUBST             declined (residue R3)
+  logic             logic_typespec       COLLAPSED 1'd5    declined (residue R1)
+  logic [0:0]       logic_typespec       COLLAPSED 1'd5    declined (residue R1)
+  logic [2:0]       logic_typespec       COLLAPSED 3'd37   declined (residue R1)
+  logic [6:0]       logic_typespec       COLLAPSED 7'd44   declined (already SAME)
+
+THE ACTUAL-KIND MATRIX (g3_src108: ONE formal `bit`, ELEVEN actuals):
+
+  actual                                          verdict
+  bare wildcard-imported struct param             TO-GOLDEN
+  the SAME param written `pkg::`-QUALIFIED        TO-GOLDEN
+  a MODULE-LOCAL struct localparam                TO-GOLDEN
+  a POSITIONAL pattern in the referenced param    TO-GOLDEN
+  a `default:` FILL in the referenced param       TO-GOLDEN
+  a NESTED struct member in the referenced param  TO-GOLDEN
+  UNBASED-UNSIZED member values ('1/'0)           TO-GOLDEN
+  a pattern written INLINE at the connection      declined (residue R4)
+  an INT LITERAL actual                           control, unmoved
+  an EXPRESSION actual                            control, unmoved
+  a plain INT package param actual                control, unmoved
+
+THE THREE-WAY SCORE (cen108 --raw over the SAME golden, score108.py; the
+scorer REFUSES to score two runs whose golden side differs):
+
+g1_home108_elab        TO_GOLDEN=1 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=1 SAME=4 ONLY_SIDED=0 ONLY_ONE_RUN=0
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=elab|work@g1_home108.i_sync.ResetValue|26:17-26:31|ov=1
+g1_home108_plain       TO_GOLDEN=1 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=1 SAME=4 ONLY_SIDED=0 ONLY_ONE_RUN=0
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=plain|work@g1_home108.i_sync.ResetValue|26:17-26:31|ov=1
+g2_form108_elab        TO_GOLDEN=4 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=7 SAME=15 ONLY_SIDED=0 ONLY_ONE_RUN=0
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=elab|work@g2_form108.i_a.R|24:30-24:35|ov=1
+   TO_GOLDEN    FORMAL=int_typespec                KEY=elab|work@g2_form108.i_b.R|28:30-28:35|ov=1
+   TO_GOLDEN    FORMAL=integer_typespec            KEY=elab|work@g2_form108.i_j.R|60:34-60:39|ov=1
+   TO_GOLDEN    FORMAL=byte_typespec               KEY=elab|work@g2_form108.i_l.R|68:31-68:36|ov=1
+g2_form108_plain       TO_GOLDEN=4 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=7 SAME=15 ONLY_SIDED=0 ONLY_ONE_RUN=0
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=plain|work@g2_form108.i_a.R|24:30-24:35|ov=1
+   TO_GOLDEN    FORMAL=int_typespec                KEY=plain|work@g2_form108.i_b.R|28:30-28:35|ov=1
+   TO_GOLDEN    FORMAL=integer_typespec            KEY=plain|work@g2_form108.i_j.R|60:34-60:39|ov=1
+   TO_GOLDEN    FORMAL=byte_typespec               KEY=plain|work@g2_form108.i_l.R|68:31-68:36|ov=1
+g3_src108_elab         TO_GOLDEN=7 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=6 SAME=13 ONLY_SIDED=0 ONLY_ONE_RUN=0
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=elab|work@g3_src108.i_a.R|34:30-34:35|ov=1
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=elab|work@g3_src108.i_b.R|34:30-34:35|ov=1
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=elab|work@g3_src108.i_d.R|34:30-34:35|ov=1
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=elab|work@g3_src108.i_g.R|34:30-34:35|ov=1
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=elab|work@g3_src108.i_h.R|34:30-34:35|ov=1
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=elab|work@g3_src108.i_i.R|34:30-34:35|ov=1
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=elab|work@g3_src108.i_j.R|34:30-34:35|ov=1
+g3_src108_plain        TO_GOLDEN=7 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=6 SAME=13 ONLY_SIDED=0 ONLY_ONE_RUN=0
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=plain|work@g3_src108.i_a.R|34:30-34:35|ov=1
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=plain|work@g3_src108.i_b.R|34:30-34:35|ov=1
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=plain|work@g3_src108.i_d.R|34:30-34:35|ov=1
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=plain|work@g3_src108.i_g.R|34:30-34:35|ov=1
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=plain|work@g3_src108.i_h.R|34:30-34:35|ov=1
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=plain|work@g3_src108.i_i.R|34:30-34:35|ov=1
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=plain|work@g3_src108.i_j.R|34:30-34:35|ov=1
+g4_fence108_elab       TO_GOLDEN=0 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=3 SAME=8 ONLY_SIDED=0 ONLY_ONE_RUN=0
+g4_fence108_plain      TO_GOLDEN=0 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=3 SAME=8 ONLY_SIDED=0 ONLY_ONE_RUN=0
+
+24 cells move, EVERY ONE of them ONTO golden; AWAY-GOLDEN 0 and MOVED-WRONG 0
+on every arm in every view.

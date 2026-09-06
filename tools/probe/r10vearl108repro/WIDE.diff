@@ -1,0 +1,6 @@
+plain tools/probe/r10earl108repro/g1_home108.sv
+elab tools/probe/r10earl108repro/g1_home108.sv
+plain tools/probe/r10earl108repro/g2_form108.sv
+elab tools/probe/r10earl108repro/g2_form108.sv
+plain tools/probe/r10earl108repro/g3_src108.sv
+elab tools/probe/r10earl108repro/g3_src108.sv

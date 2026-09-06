@@ -1,0 +1,4 @@
+surelog_corpus         TO_GOLDEN=2 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=2256 SAME=35922 ONLY_SIDED=10261 ONLY_ONE_RUN=0
+   TO_GOLDEN    FORMAL=bit_typespec                Earlgrey_0_1-71da2fd7||KEY=default|work@top_earlgrey.u_pwrmgr.i_cdc.i_ast_sync.ResetValue|9:17-9:31|ov=1
+   TO_GOLDEN    FORMAL=bit_typespec                Earlgrey_0_1-71da2fd7||KEY=testflags|work@top_earlgrey.u_pwrmgr.i_cdc.i_ast_sync.ResetValue|9:17-9:31|ov=1
+u2r_corpus             TO_GOLDEN=0 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=18 SAME=67602 ONLY_SIDED=60 ONLY_ONE_RUN=0

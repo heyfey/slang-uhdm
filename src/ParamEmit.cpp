@@ -5480,6 +5480,76 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // fullnames — i.e. exactly the packed shape (InterfaceParamOverrideProp
         // `tif #(CFG_OVR)`).
         bool unpStructOvRef9 = false;
+        // § ovStructPatNonStructFormal108 — ...and the SAME substitution when
+        // the FORMAL IS NOT AN AGGREGATE AT ALL.  Surelog decides this on the
+        // FORMAL's UHDM TYPESPEC KIND and NOT on whether the formal is a
+        // struct: `NetlistElaboration::elab_parameters_`
+        // (NetlistElaboration.cpp:238-317) keeps the instance's COMPLEX VALUE —
+        // the referenced struct parameter's already-flattened `op75` — as the
+        // child `param_assign`'s Rhs under a "Don't reduce these operations"
+        // guard that tests only `VpiOpType() == vpiAssignmentPatternOp`, and
+        // the ONLY thing that can collapse it back to a constant afterwards is
+        // `CompileHelper::expandPatternAssignment`'s `uhdmlogic_typespec` arm
+        // (CompileHelper.cpp:5303).  Every other formal typespec returns
+        // `result = rhs` and the operation survives.
+        // Earlgrey `prim_flop_2sync #(.ResetValue(PWR_AST_RSP_SYNC_DEFAULT))`,
+        // whose formal is `parameter bit ResetValue = 0`.
+        //
+        // THE TWO FENCES, each with its own golden witness (g2_form108):
+        //  * a `logic`/`reg` formal (a `logic_typespec`, with OR without a
+        //    packed range) is the ONE kind Surelog collapses — and it collapses
+        //    with an OUT-OF-BOUNDS read: `values` is sized at the FORMAL's
+        //    width while the assembling loop runs over `patternSize` (the
+        //    STRUCT's), so `logic [2:0]` answers `3'd37` and `logic` answers
+        //    `1'd5` for a 7-bit `'{2'b01,2'b01,2'b10,1'b0}`.  Declined.
+        //  * a formal carrying a PACKED RANGE (`bit [6:0]`) still substitutes,
+        //    but `reorderAssignmentPattern` (CompileExpression.cpp:5888)
+        //    REVERSES the operand vector for a descending range.  Declined —
+        //    the operand ORDER is compare-visible and no corpus cell varies it.
+        // So the admitted formals are the RANGE-LESS non-`logic` integrals:
+        // `bit`, and the predefined integer atoms (`int` / `integer` / `byte` /
+        // `shortint` / `longint` / `time`), which is also what an UNTYPED
+        // `parameter R = 0` canonicalises to.
+        bool ovNonStructPat108 = false;
+        {
+            auto& fk108 = ps.getType().getCanonicalType();
+            bool admit108 =
+                fk108.kind == SymbolKind::PredefinedIntegerType ||
+                (fk108.kind == SymbolKind::ScalarType &&
+                 fk108.as<ScalarType>().scalarKind == ScalarType::Bit);
+            if (admit108 && topView && overridden && boundInit) {
+                auto& bi108 = stripImplicitConv(*boundInit);
+                const Symbol* rs108 = nullptr;
+                if (bi108.kind == ExpressionKind::NamedValue)
+                    rs108 = &bi108.as<NamedValueExpression>().symbol;
+                else if (bi108.kind == ExpressionKind::HierarchicalValue)
+                    rs108 = &bi108.as<HierarchicalValueExpression>().symbol;
+                if (rs108 && rs108->kind == SymbolKind::Parameter &&
+                    rs108->as<ParameterSymbol>()
+                            .getType()
+                            .getCanonicalType()
+                            .kind == SymbolKind::PackedStructType)
+                    if (auto* rin108 =
+                            rs108->as<ParameterSymbol>().getInitializer()) {
+                        auto& si108 = stripImplicitConv(*rin108);
+                        if (si108.kind ==
+                                ExpressionKind::StructuredAssignmentPattern ||
+                            si108.kind ==
+                                ExpressionKind::SimpleAssignmentPattern) {
+                            structOvPat = &si108;
+                            structOvLoc = bi108.sourceRange;
+                            // The member walk and the op75's struct typespec
+                            // BOTH follow the ACTUAL's type — the formal has no
+                            // fields to match the substituted pattern's
+                            // memberSetters against.  This is the shadowed-
+                            // override machinery (structOvRefParam) reused
+                            // verbatim; only the admission test is new.
+                            structOvRefParam = &rs108->as<ParameterSymbol>();
+                            ovNonStructPat108 = true;
+                        }
+                    }
+            }
+        }
         if (topView && overridden && boundInit &&
             (ps.getType().getCanonicalType().kind ==
                  SymbolKind::PackedStructType ||
@@ -8098,7 +8168,15 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             // TypeEmit's emitSyntaxExpr, so a spliced tree substitutes its
             // resolvable siblings too (scr1_dp_memory's SCR1_NBYTES -> INT:4
             // size 64 inside RAM_SIZE_WORDS).
-            if (!rhs && topView && !elabMiseval9 && !elabOvMiseval9) {
+            // § ovStructPatNonStructFormal108 — when the substituted pattern
+            // owns this Rhs the DECLARATION DEFAULT is not rendered at all.
+            // `init0` for an overridden param is `defaultInit`, so without this
+            // the whole block below re-emits the formal's own default (the
+            // Earlgrey cell: `parameter bit ResetValue = 0` -> the one-bit
+            // `0`), and the flat arm further down is never reached because it
+            // is guarded on `!rhs`.
+            if (!rhs && topView && !elabMiseval9 && !elabOvMiseval9 &&
+                !ovNonStructPat108) {
                 if (init->kind == ExpressionKind::IntegerLiteral) {
                     forceConstParent = true;
                     rhs = emitExpr(*init, pa, prefix, netMap);
@@ -10101,7 +10179,13 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                               : structRefPat9
                                   ? structRefPat9->kind
                                   : stripImplicitConv(*init).kind;
+                    // § ovStructPatNonStructFormal108 — the substituted
+                    // pattern is the ACTUAL's, so a NON-aggregate formal
+                    // reaches the same flat walk; every rule below that reads
+                    // `pctS` is gated on `inPackage` or `isImported`, neither
+                    // of which a child instance's own formal can be.
                     structPat = (pctS.kind == SymbolKind::PackedStructType ||
+                                 ovNonStructPat108 ||
                                  (unpStructOvRef9 &&
                                   pctS.kind == SymbolKind::UnpackedStructType)) &&
                                 (k0 == ExpressionKind::StructuredAssignmentPattern ||

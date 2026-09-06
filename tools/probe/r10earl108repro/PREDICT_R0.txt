@@ -1,0 +1,93 @@
+r10earl108 — THE PREDICTION, WRITTEN BEFORE THE PATCHED SWEEPS
+==============================================================
+MEASUREMENT ONLY.  The official ~/git-repos/UHDM/build/bin/uhdm-cmp is the sole
+acceptance judge.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+BASE bb2d4f24.  Pristine binary md5 fd2870e34b3081cb23199acbdfdf838d (identical
+to r10earl107's landed build).  Patched b3b43f254fac7ddfd263e87681d097a7.
+Both frozen chmod 555 before any sweep.
+
+1. THE HEAD, re-measured on THIS pass's own pristine build
+   rowheads.sh: Earlgrey_0_1 default 31 lines / 1 head, testflags 122 / 1.
+   Only testflags is this pass's; the default head is the pre-existing
+   u_pinmux.gen_mio_periph_in[0].data_mux null (r10earl107 named it).
+
+   testflags head:
+     LHS operation id:709890 op=75  pwrmgr_cdc.sv:108:17-108:41
+         |vpiParent -> param_assign id:709883 prim_flop_2sync.sv:9:17-9:31
+         |vpiTypespec -> ref_typespec (work@top_earlgrey.u_pwrmgr.i_cdc.i_ast_sync)
+                         -> struct_typespec pwrmgr_pkg::pwr_ast_rsp_t 31:11-36:4
+         |vpiOperand x4  2'b01/2/BIN, 2'b01/2/BIN, 2'b10/2/BIN, 1'b0/1/BIN
+                         at pwrmgr_pkg.sv:47,48,49,50 — the MEMBER spans
+     RHS constant  id:557631 prim_flop_2sync.sv:9:30-9:31
+         |vpiDecompile:0 |vpiSize:1 |UINT:0 |vpiConstType:9
+         |vpiTypespec -> ref_typespec (work@top_earlgrey.u_pwrmgr.i_cdc.i_ast_sync)
+                         -> bit_typespec 9:13-9:16
+
+   THE JUDGE FAILS AT STEP 1.  `BaseClass::Compare` reads VpiType first, and
+   this is operation vs constant — a WHOLE-OBJECT question, not a field one.
+   Neither side's location is read anywhere.  Both sides already carry the SAME
+   connection-scoped ref_typespec fullname; only the ACTUAL typespec behind it
+   differs (the ACTUAL param's struct vs the FORMAL's bit).
+
+2. OUR OBJECT'S ORIGIN, MEASURED (not assumed) — o1/o2 discriminator
+   The override is NOT dropped and NOT rejected: it is FOLDED EARLY at the
+   FORMAL's width and anchored at the DEFAULT initializer's span.  Two arms
+   that differ only in one bit prove it:
+     o1  the actual's LSB member `main_pok: 1'b1`, formal default 0 -> ours UINT:1
+     o2  the actual's LSB member `main_pok: 1'b0`, formal default 1 -> ours UINT:0
+   The value tracks the ACTUAL, so the object is the converted override
+   (slang narrows the 7-bit struct to the `bit` formal), rendered by
+   ParamEmit.cpp's topView fold block because `structOvPat` was gated on the
+   FORMAL being a struct and never fired.
+
+3. THE SURELOG DECODE, read out of the source
+   NetlistElaboration.cpp:238-317 (`elab_parameters_`): when the instance has a
+   COMPLEX VALUE for the parameter and that value is a `vpiAssignmentPatternOp`,
+   the param_assign Rhs IS that operation — "Don't reduce these operations".
+   The ONLY thing that can turn it back into a constant is
+   CompileHelper.cpp:5303 (`expandPatternAssignment`), whose collapse arm is
+   `tps->UhdmType() == uhdmlogic_typespec` and nothing else.
+   The FORMAL-TYPE matrix, measured on g2_form108 (one source, one actual,
+   twelve formals) and matching that read EXACTLY:
+     bit / int / integer / byte / untyped / struct  -> the op75 SURVIVES
+     bit [6:0]                                      -> survives, but
+                                                       reorderAssignmentPattern
+                                                       (CompileExpression.cpp:5888)
+                                                       REVERSES the operands
+     logic / logic [6:0] / logic [2:0] / logic [0:0] -> COLLAPSED, and the
+                                                       collapse reads `values`
+                                                       OUT OF BOUNDS: 7'd44 at
+                                                       the struct width but
+                                                       3'd37 and 1'd5 below it
+
+4. THE MOVER SET, PREDICTED BY NAME
+   surelog corpus: EXACTLY ONE database, Earlgrey_0_1, in BOTH modes.
+   uhdm2rtlil: ZERO in either mode.
+   Inside them EXACTLY ONE cell per mode, named:
+     work@top_earlgrey.u_pwrmgr.i_cdc.i_ast_sync.ResetValue   (param_assign
+       9:17-9:31, vpiOverriden 1, FORMAL bit_typespec)
+   from {constant, dc "0", sz 1, UINT:0, ct 9, ts bit_typespec} to golden's
+   {operation op75, 4 BIN operands at the member widths, ts struct_typespec
+   pwrmgr_pkg::pwr_ast_rsp_t, conn-scoped ref fullname}.
+   This is the whole population: the pristine param_assign census over BOTH
+   corpora (cen108, 956 + 1358 databases, PROCESSED asserted) finds exactly TWO
+   rows whose golden side is an assignment-pattern operation while ours is a
+   constant at a NON-struct, NON-logic formal — the two above.
+
+5. THE ROW PREDICTION
+   Earlgrey_0_1/testflags: the head OBJECT is destroyed; the row stays
+   CMP_NOTEQUAL on a NEW head (counts are DEPTH, not distance).
+   Earlgrey_0_1/default: the head is a DIFFERENT object already
+   (u_pinmux.gen_mio_periph_in[0].data_mux), so that row stays CMP_NOTEQUAL on
+   the SAME head while its bytes move.
+   NO ROW CONVERTS.  Every other row byte-identical; goldens 23 PASS / 0 FAIL.
+
+6. THE GRID PREDICTION (measured before the sweeps, on the frozen pair)
+   g1_home108 (the corpus shape reduced) plain+elab: 122/1 -> 0/0, EQUAL.
+   g2_form108 (12 formals)  : 122/1 -> 24/1, four cells TO-GOLDEN per view.
+   g3_src108  (11 actuals)  : head unchanged (a different first failure),
+                              seven cells TO-GOLDEN per view.
+   g4_fence108 (the fences) : 44/1 unchanged, ZERO cells move.
+   Three-way score over all four arms x two views:
+     TO_GOLDEN 24, AWAY_GOLDEN 0, MOVED_WRONG 0.

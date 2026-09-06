@@ -1,0 +1,27 @@
+ARM              VIEW    SLRC   PRC   ARC   PRIS c/h  PATCH c/h
+v1_types108      plain      0     0     0      122/1       44/1
+v1_types108      elab       0     0     0      122/1       44/1
+v2_shape108      plain      0     0     0     3212/1     3212/1
+v2_shape108      elab       0     0     0      122/1      164/1
+m_gen108         plain      0     0     0      122/1        0/0
+m_gen108         elab       0     0     0      122/1        0/0
+m_if108          plain      0     0     0      122/1      164/1
+m_if108          elab       0     0     0      122/1      164/1
+m_ifs108         plain      0     0     0        0/0        0/0
+m_ifs108         elab       0     0     0        0/0        0/0
+m_par108         plain      0     0     0     2428/1     2428/1
+m_par108         elab       0     0     0     2428/1     2428/1
+m_par2108        plain      0     0     0      122/1      122/1
+m_par2108        elab       0     0     0      122/1      122/1
+m_wide108        plain      0     0     0      106/1        0/0
+m_wide108        elab       0     0     0      106/1        0/0
+m_nest108        plain      0     0     0      132/1        0/0
+m_nest108        elab       0     0     0      132/1        0/0
+m_defp108        plain      4     0     0       17/1       17/1
+m_defp108        elab       4     0     0       17/1       17/1
+m_multi108       plain      0     0     0      122/1        0/0
+m_multi108       elab       0     0     0      122/1        0/0
+m_arr108         plain      0     0     0      122/1        0/0
+m_arr108         elab       0     0     0      122/1        0/0
+m_hier108        plain      0     0     0       17/1       17/1
+m_hier108        elab       0     0     0       17/1       17/1

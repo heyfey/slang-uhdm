@@ -1,0 +1,164 @@
+LHS:
+decompile:
+struct_typespec: (v108p::rsp_t), id:1039, line:2:11, endln:7:4
+|vpiParent:
+\_ref_typespec: (work@m_if108.i_if), id:1038
+|vpiName:v108p::rsp_t
+|vpiInstance:
+\_package: v108p (v108p::), id:1, file:/tmp/wt_v108/tools/probe/r10vearl108repro/m_if108.sv, line:1:1, endln:14:11
+|vpiPacked:1
+|vpiTypespecMember:
+\_typespec_member: (a), id:1040, line:3:17, endln:3:18
+  |vpiParent:
+  \_struct_typespec: (v108p::rsp_t), id:1039, line:2:11, endln:7:4
+  |vpiName:a
+  |vpiTypespec:
+  \_ref_typespec: (work@m_if108.i_if.v108p::rsp_t.a), id:1041
+    |vpiParent:
+    \_typespec_member: (a), id:1040, line:3:17, endln:3:18
+    |vpiFullName:work@m_if108.i_if.v108p::rsp_t.a
+    |vpiActual:
+    \_logic_typespec: , id:1042, line:3:5, endln:3:16
+  |vpiRefFile:/tmp/wt_v108/tools/probe/r10vearl108repro/m_if108.sv
+  |vpiRefLineNo:3
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:3
+  |vpiRefEndColumnNo:16
+|vpiTypespecMember:
+\_typespec_member: (b), id:1046, line:4:17, endln:4:18
+  |vpiParent:
+  \_struct_typespec: (v108p::rsp_t), id:1039, line:2:11, endln:7:4
+  |vpiName:b
+  |vpiTypespec:
+  \_ref_typespec: (work@m_if108.i_if.v108p::rsp_t.b), id:1047
+    |vpiParent:
+    \_typespec_member: (b), id:1046, line:4:17, endln:4:18
+    |vpiFullName:work@m_if108.i_if.v108p::rsp_t.b
+    |vpiActual:
+    \_logic_typespec: , id:1048, line:4:5, endln:4:16
+  |vpiRefFile:/tmp/wt_v108/tools/probe/r10vearl108repro/m_if108.sv
+  |vpiRefLineNo:4
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:4
+  |vpiRefEndColumnNo:16
+|vpiTypespecMember:
+\_typespec_member: (c), id:1052, line:5:17, endln:5:18
+  |vpiParent:
+  \_struct_typespec: (v108p::rsp_t), id:1039, line:2:11, endln:7:4
+  |vpiName:c
+  |vpiTypespec:
+  \_ref_typespec: (work@m_if108.i_if.v108p::rsp_t.c), id:1053
+    |vpiParent:
+    \_typespec_member: (c), id:1052, line:5:17, endln:5:18
+    |vpiFullName:work@m_if108.i_if.v108p::rsp_t.c
+    |vpiActual:
+    \_logic_typespec: , id:1054, line:5:5, endln:5:16
+  |vpiRefFile:/tmp/wt_v108/tools/probe/r10vearl108repro/m_if108.sv
+  |vpiRefLineNo:5
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:5
+  |vpiRefEndColumnNo:16
+|vpiTypespecMember:
+\_typespec_member: (d), id:1058, line:6:17, endln:6:18
+  |vpiParent:
+  \_struct_typespec: (v108p::rsp_t), id:1039, line:2:11, endln:7:4
+  |vpiName:d
+  |vpiTypespec:
+  \_ref_typespec: (work@m_if108.i_if.v108p::rsp_t.d), id:1059
+    |vpiParent:
+    \_typespec_member: (d), id:1058, line:6:17, endln:6:18
+    |vpiFullName:work@m_if108.i_if.v108p::rsp_t.d
+    |vpiActual:
+    \_logic_typespec: , id:1060, line:6:5, endln:6:10
+  |vpiRefFile:/tmp/wt_v108/tools/probe/r10vearl108repro/m_if108.sv
+  |vpiRefLineNo:6
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:6
+  |vpiRefEndColumnNo:10
+
+decompile:
+struct_typespec: (v108p::rsp_t), id:1039, line:2:11, endln:7:4
+|vpiParent:
+\_ref_typespec: (work@m_if108.i_if), id:1038
+|vpiName:v108p::rsp_t
+|vpiInstance:
+\_package: v108p (v108p::), id:1, file:/tmp/wt_v108/tools/probe/r10vearl108repro/m_if108.sv, line:1:1, endln:14:11
+|vpiPacked:1
+|vpiTypespecMember:
+\_typespec_member: (a), id:1040, line:3:17, endln:3:18
+  |vpiParent:
+  \_struct_typespec: (v108p::rsp_t), id:1039, line:2:11, endln:7:4
+  |vpiName:a
+  |vpiTypespec:
+  \_ref_typespec: (work@m_if108.i_if.v108p::rsp_t.a), id:1041
+    |vpiParent:
+    \_typespec_member: (a), id:1040, line:3:17, endln:3:18
+    |vpiFullName:work@m_if108.i_if.v108p::rsp_t.a
+    |vpiActual:
+    \_logic_typespec: , id:1042, line:3:5, endln:3:16
+  |vpiRefFile:/tmp/wt_v108/tools/probe/r10vearl108repro/m_if108.sv
+  |vpiRefLineNo:3
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:3
+  |vpiRefEndColumnNo:16
+|vpiTypespecMember:
+\_typespec_member: (b), id:1046, line:4:17, endln:4:18
+  |vpiParent:
+  \_struct_typespec: (v108p::rsp_t), id:1039, line:2:11, endln:7:4
+  |vpiName:b
+  |vpiTypespec:
+  \_ref_typespec: (work@m_if108.i_if.v108p::rsp_t.b), id:1047
+    |vpiParent:
+    \_typespec_member: (b), id:1046, line:4:17, endln:4:18
+    |vpiFullName:work@m_if108.i_if.v108p::rsp_t.b
+    |vpiActual:
+    \_logic_typespec: , id:1048, line:4:5, endln:4:16
+  |vpiRefFile:/tmp/wt_v108/tools/probe/r10vearl108repro/m_if108.sv
+  |vpiRefLineNo:4
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:4
+  |vpiRefEndColumnNo:16
+|vpiTypespecMember:
+\_typespec_member: (c), id:1052, line:5:17, endln:5:18
+  |vpiParent:
+  \_struct_typespec: (v108p::rsp_t), id:1039, line:2:11, endln:7:4
+  |vpiName:c
+  |vpiTypespec:
+  \_ref_typespec: (work@m_if108.i_if.v108p::rsp_t.c), id:1053
+    |vpiParent:
+    \_typespec_member: (c), id:1052, line:5:17, endln:5:18
+    |vpiFullName:work@m_if108.i_if.v108p::rsp_t.c
+    |vpiActual:
+    \_logic_typespec: , id:1054, line:5:5, endln:5:16
+  |vpiRefFile:/tmp/wt_v108/tools/probe/r10vearl108repro/m_if108.sv
+  |vpiRefLineNo:5
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:5
+  |vpiRefEndColumnNo:16
+|vpiTypespecMember:
+\_typespec_member: (d), id:1058, line:6:17, endln:6:18
+  |vpiParent:
+  \_struct_typespec: (v108p::rsp_t), id:1039, line:2:11, endln:7:4
+  |vpiName:d
+  |vpiTypespec:
+  \_ref_typespec: (work@m_if108.i_if.v108p::rsp_t.d), id:1059
+    |vpiParent:
+    \_typespec_member: (d), id:1058, line:6:17, endln:6:18
+    |vpiFullName:work@m_if108.i_if.v108p::rsp_t.d
+    |vpiActual:
+    \_logic_typespec: , id:1060, line:6:5, endln:6:10
+  |vpiRefFile:/tmp/wt_v108/tools/probe/r10vearl108repro/m_if108.sv
+  |vpiRefLineNo:6
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:6
+  |vpiRefEndColumnNo:10
+RHS:
+decompile:
+bit_typespec: , id:551, line:16:29, endln:16:32
+|vpiParent:
+\_ref_typespec: (work@m_if108.i_if.R), id:484
+
+decompile:
+bit_typespec: , id:551, line:16:29, endln:16:32
+|vpiParent:
+\_ref_typespec: (work@m_if108.i_if.R), id:484

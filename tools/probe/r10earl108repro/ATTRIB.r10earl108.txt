@@ -1,0 +1,86 @@
+r10earl108 — THE ORDER-BLIND WHOLE-DUMP ATTRIBUTION OF EVERY MOVER
+MEASUREMENT ONLY.  The official uhdm-cmp is the sole acceptance judge.
+
+byteverify SELFCHECK=1: surelog MOVERS 3 / 956, uhdm2rtlil MOVERS 0 / 1358,
+PATH_SETS_IDENTICAL on both.
+
+Path-normalised uhdm-dump, SORTED (order-blind) then diffed:
+  default/Earlgrey_0_1     198 lines
+  testflags/Earlgrey_0_1   198 lines
+  default/Scoreboard         0 lines  <- the documented ~50/50 COIN
+                                        (RESUME.md section 9: svunit_pkg
+                                        vpiTaskFunc list ORDER flip / macro-
+                                        buffer SourceLocation ordering under
+                                        slang's parallel parse).  Its head log
+                                        is byte-identical before and after.
+
+The UNSORTED unified diff of the testflags mover has exactly TWO hunks and
+ZERO unrelated lines:
+
+@@ -3696184,20 +3696184,49 @@
+           \_module_inst: work@prim_flop_2sync (work@top_earlgrey.u_pwrmgr.i_cdc.i_ast_sync), file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_ip_pwrmgr_0.1/rtl/pwrmgr_cdc.sv, line:106:3, endln:114:5
+           |vpiOverriden:1
+           |vpiRhs:
+-          \_constant: , line:9:30, endln:9:31
++          \_operation: , line:108:17, endln:108:41
+             |vpiParent:
+             \_param_assign: , line:9:17, endln:9:31
+-            |vpiDecompile:0
+-            |vpiSize:1
+-            |UINT:0
+             |vpiTypespec:
+             \_ref_typespec: (work@top_earlgrey.u_pwrmgr.i_cdc.i_ast_sync)
+               |vpiParent:
+-              \_constant: , line:9:30, endln:9:31
++              \_operation: , line:108:17, endln:108:41
+               |vpiFullName:work@top_earlgrey.u_pwrmgr.i_cdc.i_ast_sync
+               |vpiActual:
+-              \_bit_typespec: , line:9:13, endln:9:16
+-            |vpiConstType:9
++              \_struct_typespec: (pwrmgr_pkg::pwr_ast_rsp_t), line:31:11, endln:36:4
++            |vpiOpType:75
++            |vpiOperand:
++            \_constant: , line:47:19, endln:47:24
++              |vpiParent:
++              \_operation: , line:108:17, endln:108:41
++              |vpiDecompile:2'b01
++              |vpiSize:2
++              |BIN:01
++              |vpiConstType:3
++            |vpiOperand:
++            \_constant: , line:48:19, endln:48:24
++              |vpiParent:
++              \_operation: , line:108:17, endln:108:41
++              |vpiDecompile:2'b01
++              |vpiSize:2
++              |BIN:01
++              |vpiConstType:3
++            |vpiOperand:
++            \_constant: , line:49:17, endln:49:22
++              |vpiParent:
++              \_operation: , line:108:17, endln:108:41
++              |vpiDecompile:2'b10
++              |vpiSize:2
++              |BIN:10
++              |vpiConstType:3
++            |vpiOperand:
++            \_constant: , line:50:15, endln:50:19
++              |vpiParent:
++              \_operation: , line:108:17, endln:108:41
++              |vpiDecompile:1'b0
++              |vpiSize:1
++              |BIN:0
++              |vpiConstType:3
+           |vpiLhs:
+           \_parameter: (work@top_earlgrey.u_pwrmgr.i_cdc.i_ast_sync.ResetValue), line:9:17, endln:9:27
+         |vpiDefName:work@prim_flop_2sync
+@@ -5938591,6 +5938620,161 @@
+
+...and the second hunk is the newly minted instance-scoped struct typespec
+clone pwrmgr_pkg::pwr_ast_rsp_t with its four typespec_members, their
+ref_typespecs (fullname work@top_earlgrey.u_pwrmgr.i_cdc.i_ast_sync.
+pwrmgr_pkg::pwr_ast_rsp_t.<member>) and the four member logic_typespecs with
+their ranges — 161 added lines, all of them that one typespec tree.
+
+The DEFAULT-mode mover is the SAME two hunks (202 diff lines, of which two are
+the uhdm-dump header's own workdir path).

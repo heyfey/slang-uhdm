@@ -1,0 +1,88 @@
+m_arr108_elab          TO_GOLDEN=3 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=1 SAME=6 ONLY_SIDED=0 ONLY_ONE_RUN=0
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=elab|work@m_arr108.i_a[0].R|16:30-16:35|ov=1
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=elab|work@m_arr108.i_a[1].R|16:30-16:35|ov=1
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=elab|work@m_arr108.i_a[2].R|16:30-16:35|ov=1
+m_arr108_plain         TO_GOLDEN=3 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=1 SAME=6 ONLY_SIDED=0 ONLY_ONE_RUN=0
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=plain|work@m_arr108.i_a[0].R|16:30-16:35|ov=1
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=plain|work@m_arr108.i_a[1].R|16:30-16:35|ov=1
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=plain|work@m_arr108.i_a[2].R|16:30-16:35|ov=1
+m_defp108_elab         TO_GOLDEN=0 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=2 SAME=6 ONLY_SIDED=0 ONLY_ONE_RUN=0
+m_defp108_plain        TO_GOLDEN=0 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=2 SAME=6 ONLY_SIDED=0 ONLY_ONE_RUN=0
+m_gen108_elab          TO_GOLDEN=0 AWAY_GOLDEN=0 MOVED_WRONG=3 STILL_WRONG=1 SAME=6 ONLY_SIDED=0 ONLY_ONE_RUN=0
+   MOVED_WRONG  FORMAL=bit_typespec                KEY=elab|work@m_gen108.gfor[0].i_g.R|16:30-16:35|ov=1
+   MOVED_WRONG  FORMAL=bit_typespec                KEY=elab|work@m_gen108.gfor[1].i_g.R|16:30-16:35|ov=1
+   MOVED_WRONG  FORMAL=bit_typespec                KEY=elab|work@m_gen108.gif.i_h.R|16:30-16:35|ov=1
+m_gen108_plain         TO_GOLDEN=0 AWAY_GOLDEN=0 MOVED_WRONG=3 STILL_WRONG=1 SAME=6 ONLY_SIDED=0 ONLY_ONE_RUN=0
+   MOVED_WRONG  FORMAL=bit_typespec                KEY=plain|work@m_gen108.gfor[0].i_g.R|16:30-16:35|ov=1
+   MOVED_WRONG  FORMAL=bit_typespec                KEY=plain|work@m_gen108.gfor[1].i_g.R|16:30-16:35|ov=1
+   MOVED_WRONG  FORMAL=bit_typespec                KEY=plain|work@m_gen108.gif.i_h.R|16:30-16:35|ov=1
+m_hier108_elab         TO_GOLDEN=1 AWAY_GOLDEN=0 MOVED_WRONG=1 STILL_WRONG=3 SAME=5 ONLY_SIDED=0 ONLY_ONE_RUN=0
+   MOVED_WRONG  FORMAL=bit_typespec                KEY=elab|work@m_hier108.gb.i_x.R|17:30-17:35|ov=1
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=elab|work@m_hier108.i_y.R|17:30-17:35|ov=1
+m_hier108_plain        TO_GOLDEN=1 AWAY_GOLDEN=0 MOVED_WRONG=1 STILL_WRONG=3 SAME=5 ONLY_SIDED=0 ONLY_ONE_RUN=0
+   MOVED_WRONG  FORMAL=bit_typespec                KEY=plain|work@m_hier108.gb.i_x.R|17:30-17:35|ov=1
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=plain|work@m_hier108.i_y.R|17:30-17:35|ov=1
+m_if108_elab           TO_GOLDEN=0 AWAY_GOLDEN=0 MOVED_WRONG=1 STILL_WRONG=1 SAME=6 ONLY_SIDED=0 ONLY_ONE_RUN=0
+   MOVED_WRONG  FORMAL=bit_typespec                KEY=elab|work@m_if108.i_if.R|16:33-16:38|ov=1
+m_if108_plain          TO_GOLDEN=0 AWAY_GOLDEN=0 MOVED_WRONG=1 STILL_WRONG=1 SAME=6 ONLY_SIDED=0 ONLY_ONE_RUN=0
+   MOVED_WRONG  FORMAL=bit_typespec                KEY=plain|work@m_if108.i_if.R|16:33-16:38|ov=1
+m_ifs108_elab          TO_GOLDEN=0 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=1 SAME=7 ONLY_SIDED=0 ONLY_ONE_RUN=0
+m_ifs108_plain         TO_GOLDEN=0 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=1 SAME=7 ONLY_SIDED=0 ONLY_ONE_RUN=0
+m_multi108_elab        TO_GOLDEN=1 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=1 SAME=8 ONLY_SIDED=0 ONLY_ONE_RUN=0
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=elab|work@m_multi108.i_1.R|17:30-17:35|ov=1
+m_multi108_plain       TO_GOLDEN=1 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=1 SAME=8 ONLY_SIDED=0 ONLY_ONE_RUN=0
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=plain|work@m_multi108.i_1.R|17:30-17:35|ov=1
+m_nest108_elab         TO_GOLDEN=1 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=1 SAME=6 ONLY_SIDED=0 ONLY_ONE_RUN=0
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=elab|work@m_nest108.i_n.R|16:30-16:35|ov=1
+m_nest108_plain        TO_GOLDEN=1 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=1 SAME=6 ONLY_SIDED=0 ONLY_ONE_RUN=0
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=plain|work@m_nest108.i_n.R|16:30-16:35|ov=1
+m_par108_elab          TO_GOLDEN=0 AWAY_GOLDEN=0 MOVED_WRONG=1 STILL_WRONG=2 SAME=7 ONLY_SIDED=0 ONLY_ONE_RUN=0
+   MOVED_WRONG  FORMAL=bit_typespec                KEY=elab|work@m_par108.i_q.i_p.R|17:30-17:35|ov=1
+m_par108_plain         TO_GOLDEN=0 AWAY_GOLDEN=0 MOVED_WRONG=1 STILL_WRONG=2 SAME=7 ONLY_SIDED=0 ONLY_ONE_RUN=0
+   MOVED_WRONG  FORMAL=bit_typespec                KEY=plain|work@m_par108.i_q.i_p.R|17:30-17:35|ov=1
+m_par2108_elab         TO_GOLDEN=0 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=2 SAME=8 ONLY_SIDED=0 ONLY_ONE_RUN=0
+m_par2108_plain        TO_GOLDEN=0 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=2 SAME=8 ONLY_SIDED=0 ONLY_ONE_RUN=0
+m_wide108_elab         TO_GOLDEN=1 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=1 SAME=6 ONLY_SIDED=0 ONLY_ONE_RUN=0
+   TO_GOLDEN    FORMAL=int_typespec                KEY=elab|work@m_wide108.i_w.R|16:30-16:35|ov=1
+m_wide108_plain        TO_GOLDEN=1 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=1 SAME=6 ONLY_SIDED=0 ONLY_ONE_RUN=0
+   TO_GOLDEN    FORMAL=int_typespec                KEY=plain|work@m_wide108.i_w.R|16:30-16:35|ov=1
+v1_types108_elab       TO_GOLDEN=9 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=2 SAME=11 ONLY_SIDED=0 ONLY_ONE_RUN=0
+   TO_GOLDEN    FORMAL=short_int_typespec          KEY=elab|work@v1_types108.i_a.R|16:42-16:47|ov=1
+   TO_GOLDEN    FORMAL=long_int_typespec           KEY=elab|work@v1_types108.i_b.R|17:42-17:47|ov=1
+   TO_GOLDEN    FORMAL=time_typespec               KEY=elab|work@v1_types108.i_c.R|18:42-18:47|ov=1
+   TO_GOLDEN    FORMAL=int_typespec                KEY=elab|work@v1_types108.i_d.R|19:42-19:47|ov=1
+   TO_GOLDEN    FORMAL=byte_typespec               KEY=elab|work@v1_types108.i_e.R|20:42-20:47|ov=1
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=elab|work@v1_types108.i_f.R|21:42-21:47|ov=1
+   TO_GOLDEN    FORMAL=short_int_typespec          KEY=elab|work@v1_types108.i_g.R|22:44-22:49|ov=1
+   TO_GOLDEN    FORMAL=long_int_typespec           KEY=elab|work@v1_types108.i_h.R|23:44-23:49|ov=1
+   TO_GOLDEN    FORMAL=integer_typespec            KEY=elab|work@v1_types108.i_i.R|24:42-24:47|ov=1
+v1_types108_plain      TO_GOLDEN=9 AWAY_GOLDEN=0 MOVED_WRONG=0 STILL_WRONG=2 SAME=11 ONLY_SIDED=0 ONLY_ONE_RUN=0
+   TO_GOLDEN    FORMAL=short_int_typespec          KEY=plain|work@v1_types108.i_a.R|16:42-16:47|ov=1
+   TO_GOLDEN    FORMAL=long_int_typespec           KEY=plain|work@v1_types108.i_b.R|17:42-17:47|ov=1
+   TO_GOLDEN    FORMAL=time_typespec               KEY=plain|work@v1_types108.i_c.R|18:42-18:47|ov=1
+   TO_GOLDEN    FORMAL=int_typespec                KEY=plain|work@v1_types108.i_d.R|19:42-19:47|ov=1
+   TO_GOLDEN    FORMAL=byte_typespec               KEY=plain|work@v1_types108.i_e.R|20:42-20:47|ov=1
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=plain|work@v1_types108.i_f.R|21:42-21:47|ov=1
+   TO_GOLDEN    FORMAL=short_int_typespec          KEY=plain|work@v1_types108.i_g.R|22:44-22:49|ov=1
+   TO_GOLDEN    FORMAL=long_int_typespec           KEY=plain|work@v1_types108.i_h.R|23:44-23:49|ov=1
+   TO_GOLDEN    FORMAL=integer_typespec            KEY=plain|work@v1_types108.i_i.R|24:42-24:47|ov=1
+v2_shape108_elab       TO_GOLDEN=4 AWAY_GOLDEN=0 MOVED_WRONG=5 STILL_WRONG=6 SAME=17 ONLY_SIDED=0 ONLY_ONE_RUN=0
+   MOVED_WRONG  FORMAL=bit_typespec                KEY=elab|work@v2_shape108.gfor[0].i_g.R|16:30-16:35|ov=1
+   MOVED_WRONG  FORMAL=bit_typespec                KEY=elab|work@v2_shape108.gfor[1].i_g.R|16:30-16:35|ov=1
+   MOVED_WRONG  FORMAL=bit_typespec                KEY=elab|work@v2_shape108.gif.i_h.R|16:30-16:35|ov=1
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=elab|work@v2_shape108.i_1.R|16:30-16:35|ov=1
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=elab|work@v2_shape108.i_2.R|16:30-16:35|ov=1
+   MOVED_WRONG  FORMAL=bit_typespec                KEY=elab|work@v2_shape108.i_if.R|25:33-25:38|ov=1
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=elab|work@v2_shape108.i_m.i_n.R|16:30-16:35|ov=1
+   MOVED_WRONG  FORMAL=bit_typespec                KEY=elab|work@v2_shape108.i_q.i_p.R|16:30-16:35|ov=1
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=elab|work@v2_shape108.i_two.R|21:31-21:36|ov=1
+v2_shape108_plain      TO_GOLDEN=4 AWAY_GOLDEN=0 MOVED_WRONG=5 STILL_WRONG=6 SAME=17 ONLY_SIDED=0 ONLY_ONE_RUN=0
+   MOVED_WRONG  FORMAL=bit_typespec                KEY=plain|work@v2_shape108.gfor[0].i_g.R|16:30-16:35|ov=1
+   MOVED_WRONG  FORMAL=bit_typespec                KEY=plain|work@v2_shape108.gfor[1].i_g.R|16:30-16:35|ov=1
+   MOVED_WRONG  FORMAL=bit_typespec                KEY=plain|work@v2_shape108.gif.i_h.R|16:30-16:35|ov=1
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=plain|work@v2_shape108.i_1.R|16:30-16:35|ov=1
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=plain|work@v2_shape108.i_2.R|16:30-16:35|ov=1
+   MOVED_WRONG  FORMAL=bit_typespec                KEY=plain|work@v2_shape108.i_if.R|25:33-25:38|ov=1
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=plain|work@v2_shape108.i_m.i_n.R|16:30-16:35|ov=1
+   MOVED_WRONG  FORMAL=bit_typespec                KEY=plain|work@v2_shape108.i_q.i_p.R|16:30-16:35|ov=1
+   TO_GOLDEN    FORMAL=bit_typespec                KEY=plain|work@v2_shape108.i_two.R|21:31-21:36|ov=1
