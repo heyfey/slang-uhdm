@@ -1,0 +1,58 @@
+LHS:
+decompile:
+logic_net: (work@p4_head117.hrsp_fifo_i), id:464, line:47:21, endln:47:32
+|vpiParent:
+\_module_inst: work@p4_head117 (work@p4_head117), id:439, file:/tmp/wt_r10earl117/tools/probe/r10earl117repro/p4_head117.sv, line:39:1, endln:68:10
+|vpiTypespec:
+\_ref_typespec: (work@p4_head117.hrsp_fifo_i), id:465
+  |vpiParent:
+  \_logic_net: (work@p4_head117.hrsp_fifo_i), id:464, line:47:21, endln:47:32
+  |vpiFullName:work@p4_head117.hrsp_fifo_i
+  |vpiActual:
+  \_struct_typespec: (p4p117::d2h_t), id:2, line:16:11, endln:47:36
+|vpiName:hrsp_fifo_i
+|vpiFullName:work@p4_head117.hrsp_fifo_i
+|vpiNetType:1
+
+decompile:
+logic_net: (work@p4_head117.hrsp_fifo_i), id:464, line:47:21, endln:47:32
+|vpiParent:
+\_module_inst: work@p4_head117 (work@p4_head117), id:439, file:/tmp/wt_r10earl117/tools/probe/r10earl117repro/p4_head117.sv, line:39:1, endln:68:10
+|vpiTypespec:
+\_ref_typespec: (work@p4_head117.hrsp_fifo_i), id:465
+  |vpiParent:
+  \_logic_net: (work@p4_head117.hrsp_fifo_i), id:464, line:47:21, endln:47:32
+  |vpiFullName:work@p4_head117.hrsp_fifo_i
+  |vpiActual:
+  \_struct_typespec: (p4p117::d2h_t), id:2, line:16:11, endln:47:36
+|vpiName:hrsp_fifo_i
+|vpiFullName:work@p4_head117.hrsp_fifo_i
+|vpiNetType:1
+RHS:
+decompile:
+logic_net: (work@p4_head117.hrsp_fifo_i), id:43, line:47:21, endln:47:32
+|vpiParent:
+\_module_inst: work@p4_head117 (work@p4_head117), id:30, file:/tmp/wt_r10earl117/tools/probe/r10earl117repro/p4_head117.sv, line:39:1, endln:68:10
+|vpiTypespec:
+\_ref_typespec: (work@p4_head117.hrsp_fifo_i), id:44
+  |vpiParent:
+  \_logic_net: (work@p4_head117.hrsp_fifo_i), id:43, line:47:21, endln:47:32
+  |vpiFullName:work@p4_head117.hrsp_fifo_i
+  |vpiActual:
+  \_struct_typespec: (p4p117::d2h_t), id:17, line:16:11, endln:47:36
+|vpiName:hrsp_fifo_i
+|vpiFullName:work@p4_head117.hrsp_fifo_i
+
+decompile:
+logic_net: (work@p4_head117.hrsp_fifo_i), id:43, line:47:21, endln:47:32
+|vpiParent:
+\_module_inst: work@p4_head117 (work@p4_head117), id:30, file:/tmp/wt_r10earl117/tools/probe/r10earl117repro/p4_head117.sv, line:39:1, endln:68:10
+|vpiTypespec:
+\_ref_typespec: (work@p4_head117.hrsp_fifo_i), id:44
+  |vpiParent:
+  \_logic_net: (work@p4_head117.hrsp_fifo_i), id:43, line:47:21, endln:47:32
+  |vpiFullName:work@p4_head117.hrsp_fifo_i
+  |vpiActual:
+  \_struct_typespec: (p4p117::d2h_t), id:17, line:16:11, endln:47:36
+|vpiName:hrsp_fifo_i
+|vpiFullName:work@p4_head117.hrsp_fifo_i

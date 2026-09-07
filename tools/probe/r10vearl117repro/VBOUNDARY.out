@@ -1,0 +1,64 @@
+LISTED=5154  FENCED_REMOVED=0  (of 5154 found)
+/tmp/wt_vearl117/tools/probe/r10earl117repro/wide117.sh: line 20: 2794606 Segmentation fault      "$BIN" $FLAGS "$b" -o slang.uhdm > slang.log 2>&1 < /dev/null
+/tmp/wt_vearl117/tools/probe/r10earl117repro/wide117.sh: line 20: 2794693 Segmentation fault      "$BIN" $FLAGS "$b" -o slang.uhdm > slang.log 2>&1 < /dev/null
+/tmp/wt_vearl117/tools/probe/r10earl117repro/wide117.sh: line 20: 2800328 Segmentation fault      "$BIN" $FLAGS "$b" -o slang.uhdm > slang.log 2>&1 < /dev/null
+/tmp/wt_vearl117/tools/probe/r10earl117repro/wide117.sh: line 20: 2800448 Segmentation fault      "$BIN" $FLAGS "$b" -o slang.uhdm > slang.log 2>&1 < /dev/null
+/tmp/wt_vearl117/tools/probe/r10earl117repro/wide117.sh: line 20: 3275496 Segmentation fault      "$BIN" $FLAGS "$b" -o slang.uhdm > slang.log 2>&1 < /dev/null
+/tmp/wt_vearl117/tools/probe/r10earl117repro/wide117.sh: line 20: 3275553 Segmentation fault      "$BIN" $FLAGS "$b" -o slang.uhdm > slang.log 2>&1 < /dev/null
+/tmp/wt_vearl117/tools/probe/r10earl117repro/wide117.sh: line 20: 3283447 Segmentation fault      "$BIN" $FLAGS "$b" -o slang.uhdm > slang.log 2>&1 < /dev/null
+/tmp/wt_vearl117/tools/probe/r10earl117repro/wide117.sh: line 20: 3283501 Segmentation fault      "$BIN" $FLAGS "$b" -o slang.uhdm > slang.log 2>&1 < /dev/null
+/tmp/wt_vearl117/tools/probe/r10earl117repro/wide117.sh: line 20: 3290342 Segmentation fault      "$BIN" $FLAGS "$b" -o slang.uhdm > slang.log 2>&1 < /dev/null
+/tmp/wt_vearl117/tools/probe/r10earl117repro/wide117.sh: line 20: 3290383 Segmentation fault      "$BIN" $FLAGS "$b" -o slang.uhdm > slang.log 2>&1 < /dev/null
+/tmp/wt_vearl117/tools/probe/r10earl117repro/wide117.sh: line 20: 3451575 Segmentation fault      "$BIN" $FLAGS "$b" -o slang.uhdm > slang.log 2>&1 < /dev/null
+/tmp/wt_vearl117/tools/probe/r10earl117repro/wide117.sh: line 20: 3451634 Segmentation fault      "$BIN" $FLAGS "$b" -o slang.uhdm > slang.log 2>&1 < /dev/null
+/tmp/wt_vearl117/tools/probe/r10earl117repro/wide117.sh: line 20: 3451816 Segmentation fault      "$BIN" $FLAGS "$b" -o slang.uhdm > slang.log 2>&1 < /dev/null
+/tmp/wt_vearl117/tools/probe/r10earl117repro/wide117.sh: line 20: 3451881 Segmentation fault      "$BIN" $FLAGS "$b" -o slang.uhdm > slang.log 2>&1 < /dev/null
+/tmp/wt_vearl117/tools/probe/r10earl117repro/wide117.sh: line 20: 3568977 Segmentation fault      "$BIN" $FLAGS "$b" -o slang.uhdm > slang.log 2>&1 < /dev/null
+/tmp/wt_vearl117/tools/probe/r10earl117repro/wide117.sh: line 20: 3569023 Segmentation fault      "$BIN" $FLAGS "$b" -o slang.uhdm > slang.log 2>&1 < /dev/null
+/tmp/wt_vearl117/tools/probe/r10earl117repro/wide117.sh: line 20: 3570418 Segmentation fault      "$BIN" $FLAGS "$b" -o slang.uhdm > slang.log 2>&1 < /dev/null
+/tmp/wt_vearl117/tools/probe/r10earl117repro/wide117.sh: line 20: 3570452 Segmentation fault      "$BIN" $FLAGS "$b" -o slang.uhdm > slang.log 2>&1 < /dev/null
+/tmp/wt_vearl117/tools/probe/r10earl117repro/wide117.sh: line 20: 3582545 Segmentation fault      "$BIN" $FLAGS "$b" -o slang.uhdm > slang.log 2>&1 < /dev/null
+/tmp/wt_vearl117/tools/probe/r10earl117repro/wide117.sh: line 20: 3582593 Segmentation fault      "$BIN" $FLAGS "$b" -o slang.uhdm > slang.log 2>&1 < /dev/null
+/tmp/wt_vearl117/tools/probe/r10earl117repro/wide117.sh: line 20: 3583733 Segmentation fault      "$BIN" $FLAGS "$b" -o slang.uhdm > slang.log 2>&1 < /dev/null
+/tmp/wt_vearl117/tools/probe/r10earl117repro/wide117.sh: line 20: 3583767 Segmentation fault      "$BIN" $FLAGS "$b" -o slang.uhdm > slang.log 2>&1 < /dev/null
+/tmp/wt_vearl117/tools/probe/r10earl117repro/wide117.sh: line 20: 3590183 Segmentation fault      "$BIN" $FLAGS "$b" -o slang.uhdm > slang.log 2>&1 < /dev/null
+/tmp/wt_vearl117/tools/probe/r10earl117repro/wide117.sh: line 20: 3590232 Segmentation fault      "$BIN" $FLAGS "$b" -o slang.uhdm > slang.log 2>&1 < /dev/null
+/tmp/wt_vearl117/tools/probe/r10earl117repro/wide117.sh: line 20: 3591090 Segmentation fault      "$BIN" $FLAGS "$b" -o slang.uhdm > slang.log 2>&1 < /dev/null
+/tmp/wt_vearl117/tools/probe/r10earl117repro/wide117.sh: line 20: 3591137 Segmentation fault      "$BIN" $FLAGS "$b" -o slang.uhdm > slang.log 2>&1 < /dev/null
+/tmp/wt_vearl117/tools/probe/r10earl117repro/wide117.sh: line 20: 3743177 Segmentation fault      "$BIN" $FLAGS "$b" -o slang.uhdm > slang.log 2>&1 < /dev/null
+/tmp/wt_vearl117/tools/probe/r10earl117repro/wide117.sh: line 20: 3743395 Segmentation fault      "$BIN" $FLAGS "$b" -o slang.uhdm > slang.log 2>&1 < /dev/null
+/tmp/wt_vearl117/tools/probe/r10earl117repro/wide117.sh: line 20: 3743760 Segmentation fault      "$BIN" $FLAGS "$b" -o slang.uhdm > slang.log 2>&1 < /dev/null
+/tmp/wt_vearl117/tools/probe/r10earl117repro/wide117.sh: line 20: 3744013 Segmentation fault      "$BIN" $FLAGS "$b" -o slang.uhdm > slang.log 2>&1 < /dev/null
+/tmp/wt_vearl117/tools/probe/r10earl117repro/wide117.sh: line 20: 3744425 Segmentation fault      "$BIN" $FLAGS "$b" -o slang.uhdm > slang.log 2>&1 < /dev/null
+/tmp/wt_vearl117/tools/probe/r10earl117repro/wide117.sh: line 20: 3744631 Segmentation fault      "$BIN" $FLAGS "$b" -o slang.uhdm > slang.log 2>&1 < /dev/null
+PROCESSED=5154 identical=9896 DIFFERING=18 no_output=394
+-- rc by side --
+A/0 9523
+A/139 16
+A/3 378
+A/4 391
+B/0 9523
+B/139 16
+B/3 378
+B/4 391
+-- differing --
+  elab r10earl116repro/q4_head116.sv
+  elab r10earl117repro/p1_car117.sv
+  elab r10earl117repro/p2_shape117.sv
+  elab r10earl117repro/p3_fence117.sv
+  elab r10earl117repro/p4_head117.sv
+  elab r10vearl117repro/va1_calls117.sv
+  elab r10vearl117repro/va2_carrier117.sv
+  elab r10vearl117repro/va3_scope117.sv
+  elab r10vearl117repro/va4_index117.sv
+  plain r10earl116repro/q4_head116.sv
+  plain r10earl117repro/p1_car117.sv
+  plain r10earl117repro/p2_shape117.sv
+  plain r10earl117repro/p3_fence117.sv
+  plain r10earl117repro/p4_head117.sv
+  plain r10vearl117repro/va1_calls117.sv
+  plain r10vearl117repro/va2_carrier117.sv
+  plain r10vearl117repro/va3_scope117.sv
+  plain r10vearl117repro/va4_index117.sv
+PROCESSED==LISTED (5154)
+DONE_WIDE

@@ -1,0 +1,9 @@
+ARM                VIEW    SLRC   PRC   ARC   PRIS c/h  PATCH c/h   DUMPDIFF
+va1_calls117       plain      0     0     0       58/1       58/1        130
+va1_calls117       elab       0     0     0       58/1       58/1        162
+va2_carrier117     plain      0     0     0       58/1       58/1        226
+va2_carrier117     elab       0     0     0       58/1       58/1        282
+va3_scope117       plain      0     0     0       30/1       30/1        370
+va3_scope117       elab       0     0     0       30/1       30/1        488
+va4_index117       plain      0     0     0       58/1       58/1         50
+va4_index117       elab       0     0     0       58/1       58/1         62

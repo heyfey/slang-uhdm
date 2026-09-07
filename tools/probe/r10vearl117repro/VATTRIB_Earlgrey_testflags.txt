@@ -1,0 +1,13 @@
+OB=580
+     58 |vpiName:i
+     58 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N].i
+     58 |vpiActual:
+     58 \_ref_obj: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N].i), line:N:N, endln:N:N
+     58 \_parameter: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N].i), line:N:N
+=== ADDED
+     58 |vpiSize:N
+     58 |vpiDecompile:N
+     58 |vpiConstType:N
+     58 |UINT:N
+     58 \_constant: , line:N:N, endln:N:N
+DONE_TF

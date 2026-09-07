@@ -1,0 +1,27 @@
+r10earl117 — THE MUST-STAY COLUMN, scored on its own (spelled117.py).
+MEASUREMENT ONLY.  LHS is ALWAYS golden; RHS is ALWAYS ours.
+
+Restricted to the cells where GOLDEN's payload contains a ref_obj — every
+select bound Surelog itself left as an identifier.  SPELLED_BROKEN and
+SPELLED_MOVEDWRONG must be ABSENT from every row (the scorer prints them only
+when they are nonzero, and names the offending keys).
+
+== THE SHIPPED CUT, four arms x two views ==
+p1_car117            plain  FOLDED_AGREE 8  FOLDED_FIXED 3  FOLDED_STILL 4  OTHER_AGREE 1  SPELLED_AGREE 8
+p1_car117            elab   FOLDED_AGREE 8  FOLDED_FIXED 3  FOLDED_STILL 4  OTHER_AGREE 1  SPELLED_AGREE 8
+p2_shape117          plain  FOLDED_AGREE 10  FOLDED_FIXED 7  FOLDED_STILL 1  SPELLED_AGREE 11
+p2_shape117          elab   FOLDED_AGREE 10  FOLDED_FIXED 7  FOLDED_STILL 1  SPELLED_AGREE 11
+p3_fence117          plain  FOLDED_AGREE 17  FOLDED_FIXED 4  FOLDED_STILL 4  OTHER_AGREE 2  SPELLED_AGREE 13
+p3_fence117          elab   FOLDED_AGREE 18  FOLDED_FIXED 4  FOLDED_STILL 4  OTHER_AGREE 1  SPELLED_AGREE 13
+p4_head117           plain  FOLDED_AGREE 2  FOLDED_FIXED 2  SPELLED_AGREE 1
+p4_head117           elab   FOLDED_AGREE 2  FOLDED_FIXED 2  SPELLED_AGREE 1
+
+== r10earl116's q4_head116, the one other arm the wide boundary flagged ==
+  plain  FOLDED_AGREE 2  FOLDED_FIXED 1  SPELLED_AGREE 1
+  elab   FOLDED_AGREE 2  FOLDED_FIXED 1  SPELLED_AGREE 1
+
+SPELLED_BROKEN occurrences above: 0
+
+== THE NO-FENCE CUT, for contrast (the same scorer, the same goldens) ==
+  p3_fence117    plain  FOLDED_AGREE 17  FOLDED_FIXED 4  FOLDED_STILL 4  OTHER_AGREE 2  SPELLED_AGREE 10  SPELLED_BROKEN 3
+  p3_fence117    elab   FOLDED_AGREE 18  FOLDED_FIXED 4  FOLDED_STILL 4  OTHER_AGREE 1  SPELLED_AGREE 10  SPELLED_BROKEN 3

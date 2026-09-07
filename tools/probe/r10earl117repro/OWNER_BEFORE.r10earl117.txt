@@ -1,0 +1,318 @@
+== ITERATION 0 : design::Compare -> -601
+   HEAD LHS(golden) = constant id:797692  tlul_socket_m1.sv 241:32-241:33
+        payload: constant name='' dec='0' size=64 value='UINT:0' ts=<null> ct=9  @tlul_socket_m1.sv 241:32-241:33
+   HEAD RHS(ours)   = ref_obj id:635315   241:32-241:33
+        payload: ref_obj name='i' size=0 ts=<null> actual=parameter('i')[val=UINT:0]  @ 241:32-241:33
+   -- FIELD BISECTION (generated Compare order) --
+      BaseClass VpiType   : 7 (constant) vs 608 (ref_obj) -> -601
+      *** the head is decided HERE; every later field is
+          unreachable (BaseClass::Compare returns on VpiType).
+      BaseClass VpiName   : '' vs 'i' -> -1
+      expr VpiDecompile   : '0' vs ''
+      expr VpiSize        : 64 vs 0 -> 64
+      expr Typespec       : <null> vs <null>
+      expr VpiValue       : 'UINT:0' vs ''
+   -- OWNER CHAIN (golden) --
+     |vpiParent -> bit_select name='hfifo_rspvalid' size=0 ts=<null> actual=logic_var('hfifo_rspvalid') index=constant[dec=0][val=UINT:0]  @tlul_socket_m1.sv 241:32-241:33
+       |vpiParent -> operation name='' size=0 ts=<null> optype=75 ops=10  @tlul_socket_m1.sv 240:29-251:6
+         |vpiParent -> cont_assign name=''  @tlul_socket_m1.sv 240:12-251:6
+           |vpiParent -> gen_scope name=''  @tlul_socket_m1.sv 233:36-252:6
+             |vpiParent -> gen_scope_array name='gen_idrouting[0]'  @tlul_socket_m1.sv 233:36-252:6
+               |vpiParent -> module_inst name='u_sm1_17' dn='work@tlul_socket_m1'  @xbar_main.sv 532:3-545:5
+                 |vpiParent -> module_inst name='u_xbar_main' dn='work@xbar_main'  @top_earlgrey.sv 888:3-927:5
+   -- OWNER CHAIN (ours  ) --
+     |vpiParent -> bit_select name='hfifo_rspvalid' size=0 ts=<null> actual=logic_var('hfifo_rspvalid') index=ref_obj('i')  @ 241:32-241:33
+       |vpiParent -> operation name='' size=0 ts=<null> optype=75 ops=10  @ 240:29-251:6
+         |vpiParent -> cont_assign name=''  @ 240:12-251:6
+           |vpiParent -> gen_scope name=''  @ 233:36-252:6
+             |vpiParent -> gen_scope_array name='gen_idrouting[0]'  @ 233:36-252:6
+               |vpiParent -> module_inst name='u_sm1_17' dn='work@tlul_socket_m1'  @xbar_main.sv 532:3-545:5
+                 |vpiParent -> module_inst name='u_xbar_main' dn='work@xbar_main'  @top_earlgrey.sv 888:3-927:5
+   GOLDEN pattern siblings (10 operands of optype 75):
+      d_valid      bit_select name='hfifo_rspvalid' size=0 ts=<null> actual=logic_var('hfifo_rspvalid') index=constant[dec=0][val=UINT:0]  @tlul_socket_m1.sv 241:32-241:33
+      d_opcode     hier_path name='drsp_fifo_o.d_opcode' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 242:17-242:37
+      d_param      hier_path name='drsp_fifo_o.d_param' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 243:17-243:36
+      d_size       hier_path name='drsp_fifo_o.d_size' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 244:17-244:35
+      d_source     ref_obj name='hfifo_rspid' size=0 ts=<null> actual=logic_var('hfifo_rspid')  @tlul_socket_m1.sv 245:17-245:28
+      d_sink       hier_path name='drsp_fifo_o.d_sink' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 246:17-246:35
+      d_data       hier_path name='drsp_fifo_o.d_data' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 247:17-247:35
+      d_user       hier_path name='drsp_fifo_o.d_user' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 248:17-248:35
+      d_error      hier_path name='drsp_fifo_o.d_error' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 249:17-249:36
+      a_ready      bit_select name='hgrant' size=0 ts=<null> actual=logic_var('hgrant') index=constant[dec=0][val=UINT:0]  @tlul_socket_m1.sv 250:24-250:25
+   OURS   pattern siblings (10 operands of optype 75):
+      d_valid      bit_select name='hfifo_rspvalid' size=0 ts=<null> actual=logic_var('hfifo_rspvalid') index=ref_obj('i')  @ 241:32-241:33
+      d_opcode     hier_path name='drsp_fifo_o.d_opcode' size=0 ts=ref_typespec->struct_typespec  @ 242:17-242:37
+      d_param      hier_path name='drsp_fifo_o.d_param' size=0 ts=ref_typespec->struct_typespec  @ 243:17-243:36
+      d_size       hier_path name='drsp_fifo_o.d_size' size=0 ts=ref_typespec->struct_typespec  @ 244:17-244:35
+      d_source     ref_obj name='hfifo_rspid' size=0 ts=<null> actual=logic_var('hfifo_rspid')  @ 245:17-245:28
+      d_sink       hier_path name='drsp_fifo_o.d_sink' size=0 ts=ref_typespec->struct_typespec  @ 246:17-246:35
+      d_data       hier_path name='drsp_fifo_o.d_data' size=0 ts=ref_typespec->struct_typespec  @ 247:17-247:35
+      d_user       hier_path name='drsp_fifo_o.d_user' size=0 ts=ref_typespec->struct_typespec  @ 248:17-248:35
+      d_error      hier_path name='drsp_fifo_o.d_error' size=0 ts=ref_typespec->struct_typespec  @ 249:17-249:36
+      a_ready      bit_select name='hgrant' size=0 ts=<null> actual=logic_var('hgrant') index=ref_obj('i')  @ 250:24-250:25
+   MASKED golden bit_select's VpiIndex := OURS; re-running.
+== ITERATION 1 : design::Compare -> -601
+   HEAD LHS(golden) = constant id:797751  tlul_socket_m1.sv 250:24-250:25
+        payload: constant name='' dec='0' size=64 value='UINT:0' ts=<null> ct=9  @tlul_socket_m1.sv 250:24-250:25
+   HEAD RHS(ours)   = ref_obj id:635366   250:24-250:25
+        payload: ref_obj name='i' size=0 ts=<null> actual=parameter('i')[val=UINT:0]  @ 250:24-250:25
+   -- FIELD BISECTION (generated Compare order) --
+      BaseClass VpiType   : 7 (constant) vs 608 (ref_obj) -> -601
+      *** the head is decided HERE; every later field is
+          unreachable (BaseClass::Compare returns on VpiType).
+      BaseClass VpiName   : '' vs 'i' -> -1
+      expr VpiDecompile   : '0' vs ''
+      expr VpiSize        : 64 vs 0 -> 64
+      expr Typespec       : <null> vs <null>
+      expr VpiValue       : 'UINT:0' vs ''
+   -- OWNER CHAIN (golden) --
+     |vpiParent -> bit_select name='hgrant' size=0 ts=<null> actual=logic_var('hgrant') index=constant[dec=0][val=UINT:0]  @tlul_socket_m1.sv 250:24-250:25
+       |vpiParent -> operation name='' size=0 ts=<null> optype=75 ops=10  @tlul_socket_m1.sv 240:29-251:6
+         |vpiParent -> cont_assign name=''  @tlul_socket_m1.sv 240:12-251:6
+           |vpiParent -> gen_scope name=''  @tlul_socket_m1.sv 233:36-252:6
+             |vpiParent -> gen_scope_array name='gen_idrouting[0]'  @tlul_socket_m1.sv 233:36-252:6
+               |vpiParent -> module_inst name='u_sm1_17' dn='work@tlul_socket_m1'  @xbar_main.sv 532:3-545:5
+                 |vpiParent -> module_inst name='u_xbar_main' dn='work@xbar_main'  @top_earlgrey.sv 888:3-927:5
+   -- OWNER CHAIN (ours  ) --
+     |vpiParent -> bit_select name='hgrant' size=0 ts=<null> actual=logic_var('hgrant') index=ref_obj('i')  @ 250:24-250:25
+       |vpiParent -> operation name='' size=0 ts=<null> optype=75 ops=10  @ 240:29-251:6
+         |vpiParent -> cont_assign name=''  @ 240:12-251:6
+           |vpiParent -> gen_scope name=''  @ 233:36-252:6
+             |vpiParent -> gen_scope_array name='gen_idrouting[0]'  @ 233:36-252:6
+               |vpiParent -> module_inst name='u_sm1_17' dn='work@tlul_socket_m1'  @xbar_main.sv 532:3-545:5
+                 |vpiParent -> module_inst name='u_xbar_main' dn='work@xbar_main'  @top_earlgrey.sv 888:3-927:5
+   GOLDEN pattern siblings (10 operands of optype 75):
+      d_valid      bit_select name='hfifo_rspvalid' size=0 ts=<null> actual=logic_var('hfifo_rspvalid') index=ref_obj('i')  @tlul_socket_m1.sv 241:32-241:33
+      d_opcode     hier_path name='drsp_fifo_o.d_opcode' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 242:17-242:37
+      d_param      hier_path name='drsp_fifo_o.d_param' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 243:17-243:36
+      d_size       hier_path name='drsp_fifo_o.d_size' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 244:17-244:35
+      d_source     ref_obj name='hfifo_rspid' size=0 ts=<null> actual=logic_var('hfifo_rspid')  @tlul_socket_m1.sv 245:17-245:28
+      d_sink       hier_path name='drsp_fifo_o.d_sink' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 246:17-246:35
+      d_data       hier_path name='drsp_fifo_o.d_data' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 247:17-247:35
+      d_user       hier_path name='drsp_fifo_o.d_user' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 248:17-248:35
+      d_error      hier_path name='drsp_fifo_o.d_error' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 249:17-249:36
+      a_ready      bit_select name='hgrant' size=0 ts=<null> actual=logic_var('hgrant') index=constant[dec=0][val=UINT:0]  @tlul_socket_m1.sv 250:24-250:25
+   OURS   pattern siblings (10 operands of optype 75):
+      d_valid      bit_select name='hfifo_rspvalid' size=0 ts=<null> actual=logic_var('hfifo_rspvalid') index=ref_obj('i')  @ 241:32-241:33
+      d_opcode     hier_path name='drsp_fifo_o.d_opcode' size=0 ts=ref_typespec->struct_typespec  @ 242:17-242:37
+      d_param      hier_path name='drsp_fifo_o.d_param' size=0 ts=ref_typespec->struct_typespec  @ 243:17-243:36
+      d_size       hier_path name='drsp_fifo_o.d_size' size=0 ts=ref_typespec->struct_typespec  @ 244:17-244:35
+      d_source     ref_obj name='hfifo_rspid' size=0 ts=<null> actual=logic_var('hfifo_rspid')  @ 245:17-245:28
+      d_sink       hier_path name='drsp_fifo_o.d_sink' size=0 ts=ref_typespec->struct_typespec  @ 246:17-246:35
+      d_data       hier_path name='drsp_fifo_o.d_data' size=0 ts=ref_typespec->struct_typespec  @ 247:17-247:35
+      d_user       hier_path name='drsp_fifo_o.d_user' size=0 ts=ref_typespec->struct_typespec  @ 248:17-248:35
+      d_error      hier_path name='drsp_fifo_o.d_error' size=0 ts=ref_typespec->struct_typespec  @ 249:17-249:36
+      a_ready      bit_select name='hgrant' size=0 ts=<null> actual=logic_var('hgrant') index=ref_obj('i')  @ 250:24-250:25
+   MASKED golden bit_select's VpiIndex := OURS; re-running.
+== ITERATION 2 : design::Compare -> -601
+   HEAD LHS(golden) = constant id:797803  tlul_socket_m1.sv 241:32-241:33
+        payload: constant name='' dec='1' size=64 value='UINT:1' ts=<null> ct=9  @tlul_socket_m1.sv 241:32-241:33
+   HEAD RHS(ours)   = ref_obj id:635423   241:32-241:33
+        payload: ref_obj name='i' size=0 ts=<null> actual=parameter('i')[val=UINT:1]  @ 241:32-241:33
+   -- FIELD BISECTION (generated Compare order) --
+      BaseClass VpiType   : 7 (constant) vs 608 (ref_obj) -> -601
+      *** the head is decided HERE; every later field is
+          unreachable (BaseClass::Compare returns on VpiType).
+      BaseClass VpiName   : '' vs 'i' -> -1
+      expr VpiDecompile   : '1' vs ''
+      expr VpiSize        : 64 vs 0 -> 64
+      expr Typespec       : <null> vs <null>
+      expr VpiValue       : 'UINT:1' vs ''
+   -- OWNER CHAIN (golden) --
+     |vpiParent -> bit_select name='hfifo_rspvalid' size=0 ts=<null> actual=logic_var('hfifo_rspvalid') index=constant[dec=1][val=UINT:1]  @tlul_socket_m1.sv 241:32-241:33
+       |vpiParent -> operation name='' size=0 ts=<null> optype=75 ops=10  @tlul_socket_m1.sv 240:29-251:6
+         |vpiParent -> cont_assign name=''  @tlul_socket_m1.sv 240:12-251:6
+           |vpiParent -> gen_scope name=''  @tlul_socket_m1.sv 233:36-252:6
+             |vpiParent -> gen_scope_array name='gen_idrouting[1]'  @tlul_socket_m1.sv 233:36-252:6
+               |vpiParent -> module_inst name='u_sm1_17' dn='work@tlul_socket_m1'  @xbar_main.sv 532:3-545:5
+                 |vpiParent -> module_inst name='u_xbar_main' dn='work@xbar_main'  @top_earlgrey.sv 888:3-927:5
+   -- OWNER CHAIN (ours  ) --
+     |vpiParent -> bit_select name='hfifo_rspvalid' size=0 ts=<null> actual=logic_var('hfifo_rspvalid') index=ref_obj('i')  @ 241:32-241:33
+       |vpiParent -> operation name='' size=0 ts=<null> optype=75 ops=10  @ 240:29-251:6
+         |vpiParent -> cont_assign name=''  @ 240:12-251:6
+           |vpiParent -> gen_scope name=''  @ 233:36-252:6
+             |vpiParent -> gen_scope_array name='gen_idrouting[1]'  @ 233:36-252:6
+               |vpiParent -> module_inst name='u_sm1_17' dn='work@tlul_socket_m1'  @xbar_main.sv 532:3-545:5
+                 |vpiParent -> module_inst name='u_xbar_main' dn='work@xbar_main'  @top_earlgrey.sv 888:3-927:5
+   GOLDEN pattern siblings (10 operands of optype 75):
+      d_valid      bit_select name='hfifo_rspvalid' size=0 ts=<null> actual=logic_var('hfifo_rspvalid') index=constant[dec=1][val=UINT:1]  @tlul_socket_m1.sv 241:32-241:33
+      d_opcode     hier_path name='drsp_fifo_o.d_opcode' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 242:17-242:37
+      d_param      hier_path name='drsp_fifo_o.d_param' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 243:17-243:36
+      d_size       hier_path name='drsp_fifo_o.d_size' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 244:17-244:35
+      d_source     ref_obj name='hfifo_rspid' size=0 ts=<null> actual=logic_var('hfifo_rspid')  @tlul_socket_m1.sv 245:17-245:28
+      d_sink       hier_path name='drsp_fifo_o.d_sink' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 246:17-246:35
+      d_data       hier_path name='drsp_fifo_o.d_data' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 247:17-247:35
+      d_user       hier_path name='drsp_fifo_o.d_user' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 248:17-248:35
+      d_error      hier_path name='drsp_fifo_o.d_error' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 249:17-249:36
+      a_ready      bit_select name='hgrant' size=0 ts=<null> actual=logic_var('hgrant') index=constant[dec=1][val=UINT:1]  @tlul_socket_m1.sv 250:24-250:25
+   OURS   pattern siblings (10 operands of optype 75):
+      d_valid      bit_select name='hfifo_rspvalid' size=0 ts=<null> actual=logic_var('hfifo_rspvalid') index=ref_obj('i')  @ 241:32-241:33
+      d_opcode     hier_path name='drsp_fifo_o.d_opcode' size=0 ts=ref_typespec->struct_typespec  @ 242:17-242:37
+      d_param      hier_path name='drsp_fifo_o.d_param' size=0 ts=ref_typespec->struct_typespec  @ 243:17-243:36
+      d_size       hier_path name='drsp_fifo_o.d_size' size=0 ts=ref_typespec->struct_typespec  @ 244:17-244:35
+      d_source     ref_obj name='hfifo_rspid' size=0 ts=<null> actual=logic_var('hfifo_rspid')  @ 245:17-245:28
+      d_sink       hier_path name='drsp_fifo_o.d_sink' size=0 ts=ref_typespec->struct_typespec  @ 246:17-246:35
+      d_data       hier_path name='drsp_fifo_o.d_data' size=0 ts=ref_typespec->struct_typespec  @ 247:17-247:35
+      d_user       hier_path name='drsp_fifo_o.d_user' size=0 ts=ref_typespec->struct_typespec  @ 248:17-248:35
+      d_error      hier_path name='drsp_fifo_o.d_error' size=0 ts=ref_typespec->struct_typespec  @ 249:17-249:36
+      a_ready      bit_select name='hgrant' size=0 ts=<null> actual=logic_var('hgrant') index=ref_obj('i')  @ 250:24-250:25
+   MASKED golden bit_select's VpiIndex := OURS; re-running.
+== ITERATION 3 : design::Compare -> -601
+   HEAD LHS(golden) = constant id:797862  tlul_socket_m1.sv 250:24-250:25
+        payload: constant name='' dec='1' size=64 value='UINT:1' ts=<null> ct=9  @tlul_socket_m1.sv 250:24-250:25
+   HEAD RHS(ours)   = ref_obj id:635474   250:24-250:25
+        payload: ref_obj name='i' size=0 ts=<null> actual=parameter('i')[val=UINT:1]  @ 250:24-250:25
+   -- FIELD BISECTION (generated Compare order) --
+      BaseClass VpiType   : 7 (constant) vs 608 (ref_obj) -> -601
+      *** the head is decided HERE; every later field is
+          unreachable (BaseClass::Compare returns on VpiType).
+      BaseClass VpiName   : '' vs 'i' -> -1
+      expr VpiDecompile   : '1' vs ''
+      expr VpiSize        : 64 vs 0 -> 64
+      expr Typespec       : <null> vs <null>
+      expr VpiValue       : 'UINT:1' vs ''
+   -- OWNER CHAIN (golden) --
+     |vpiParent -> bit_select name='hgrant' size=0 ts=<null> actual=logic_var('hgrant') index=constant[dec=1][val=UINT:1]  @tlul_socket_m1.sv 250:24-250:25
+       |vpiParent -> operation name='' size=0 ts=<null> optype=75 ops=10  @tlul_socket_m1.sv 240:29-251:6
+         |vpiParent -> cont_assign name=''  @tlul_socket_m1.sv 240:12-251:6
+           |vpiParent -> gen_scope name=''  @tlul_socket_m1.sv 233:36-252:6
+             |vpiParent -> gen_scope_array name='gen_idrouting[1]'  @tlul_socket_m1.sv 233:36-252:6
+               |vpiParent -> module_inst name='u_sm1_17' dn='work@tlul_socket_m1'  @xbar_main.sv 532:3-545:5
+                 |vpiParent -> module_inst name='u_xbar_main' dn='work@xbar_main'  @top_earlgrey.sv 888:3-927:5
+   -- OWNER CHAIN (ours  ) --
+     |vpiParent -> bit_select name='hgrant' size=0 ts=<null> actual=logic_var('hgrant') index=ref_obj('i')  @ 250:24-250:25
+       |vpiParent -> operation name='' size=0 ts=<null> optype=75 ops=10  @ 240:29-251:6
+         |vpiParent -> cont_assign name=''  @ 240:12-251:6
+           |vpiParent -> gen_scope name=''  @ 233:36-252:6
+             |vpiParent -> gen_scope_array name='gen_idrouting[1]'  @ 233:36-252:6
+               |vpiParent -> module_inst name='u_sm1_17' dn='work@tlul_socket_m1'  @xbar_main.sv 532:3-545:5
+                 |vpiParent -> module_inst name='u_xbar_main' dn='work@xbar_main'  @top_earlgrey.sv 888:3-927:5
+   GOLDEN pattern siblings (10 operands of optype 75):
+      d_valid      bit_select name='hfifo_rspvalid' size=0 ts=<null> actual=logic_var('hfifo_rspvalid') index=ref_obj('i')  @tlul_socket_m1.sv 241:32-241:33
+      d_opcode     hier_path name='drsp_fifo_o.d_opcode' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 242:17-242:37
+      d_param      hier_path name='drsp_fifo_o.d_param' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 243:17-243:36
+      d_size       hier_path name='drsp_fifo_o.d_size' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 244:17-244:35
+      d_source     ref_obj name='hfifo_rspid' size=0 ts=<null> actual=logic_var('hfifo_rspid')  @tlul_socket_m1.sv 245:17-245:28
+      d_sink       hier_path name='drsp_fifo_o.d_sink' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 246:17-246:35
+      d_data       hier_path name='drsp_fifo_o.d_data' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 247:17-247:35
+      d_user       hier_path name='drsp_fifo_o.d_user' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 248:17-248:35
+      d_error      hier_path name='drsp_fifo_o.d_error' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 249:17-249:36
+      a_ready      bit_select name='hgrant' size=0 ts=<null> actual=logic_var('hgrant') index=constant[dec=1][val=UINT:1]  @tlul_socket_m1.sv 250:24-250:25
+   OURS   pattern siblings (10 operands of optype 75):
+      d_valid      bit_select name='hfifo_rspvalid' size=0 ts=<null> actual=logic_var('hfifo_rspvalid') index=ref_obj('i')  @ 241:32-241:33
+      d_opcode     hier_path name='drsp_fifo_o.d_opcode' size=0 ts=ref_typespec->struct_typespec  @ 242:17-242:37
+      d_param      hier_path name='drsp_fifo_o.d_param' size=0 ts=ref_typespec->struct_typespec  @ 243:17-243:36
+      d_size       hier_path name='drsp_fifo_o.d_size' size=0 ts=ref_typespec->struct_typespec  @ 244:17-244:35
+      d_source     ref_obj name='hfifo_rspid' size=0 ts=<null> actual=logic_var('hfifo_rspid')  @ 245:17-245:28
+      d_sink       hier_path name='drsp_fifo_o.d_sink' size=0 ts=ref_typespec->struct_typespec  @ 246:17-246:35
+      d_data       hier_path name='drsp_fifo_o.d_data' size=0 ts=ref_typespec->struct_typespec  @ 247:17-247:35
+      d_user       hier_path name='drsp_fifo_o.d_user' size=0 ts=ref_typespec->struct_typespec  @ 248:17-248:35
+      d_error      hier_path name='drsp_fifo_o.d_error' size=0 ts=ref_typespec->struct_typespec  @ 249:17-249:36
+      a_ready      bit_select name='hgrant' size=0 ts=<null> actual=logic_var('hgrant') index=ref_obj('i')  @ 250:24-250:25
+   MASKED golden bit_select's VpiIndex := OURS; re-running.
+== ITERATION 4 : design::Compare -> -601
+   HEAD LHS(golden) = constant id:797914  tlul_socket_m1.sv 241:32-241:33
+        payload: constant name='' dec='2' size=64 value='UINT:2' ts=<null> ct=9  @tlul_socket_m1.sv 241:32-241:33
+   HEAD RHS(ours)   = ref_obj id:635531   241:32-241:33
+        payload: ref_obj name='i' size=0 ts=<null> actual=parameter('i')[val=UINT:2]  @ 241:32-241:33
+   -- FIELD BISECTION (generated Compare order) --
+      BaseClass VpiType   : 7 (constant) vs 608 (ref_obj) -> -601
+      *** the head is decided HERE; every later field is
+          unreachable (BaseClass::Compare returns on VpiType).
+      BaseClass VpiName   : '' vs 'i' -> -1
+      expr VpiDecompile   : '2' vs ''
+      expr VpiSize        : 64 vs 0 -> 64
+      expr Typespec       : <null> vs <null>
+      expr VpiValue       : 'UINT:2' vs ''
+   -- OWNER CHAIN (golden) --
+     |vpiParent -> bit_select name='hfifo_rspvalid' size=0 ts=<null> actual=logic_var('hfifo_rspvalid') index=constant[dec=2][val=UINT:2]  @tlul_socket_m1.sv 241:32-241:33
+       |vpiParent -> operation name='' size=0 ts=<null> optype=75 ops=10  @tlul_socket_m1.sv 240:29-251:6
+         |vpiParent -> cont_assign name=''  @tlul_socket_m1.sv 240:12-251:6
+           |vpiParent -> gen_scope name=''  @tlul_socket_m1.sv 233:36-252:6
+             |vpiParent -> gen_scope_array name='gen_idrouting[2]'  @tlul_socket_m1.sv 233:36-252:6
+               |vpiParent -> module_inst name='u_sm1_17' dn='work@tlul_socket_m1'  @xbar_main.sv 532:3-545:5
+                 |vpiParent -> module_inst name='u_xbar_main' dn='work@xbar_main'  @top_earlgrey.sv 888:3-927:5
+   -- OWNER CHAIN (ours  ) --
+     |vpiParent -> bit_select name='hfifo_rspvalid' size=0 ts=<null> actual=logic_var('hfifo_rspvalid') index=ref_obj('i')  @ 241:32-241:33
+       |vpiParent -> operation name='' size=0 ts=<null> optype=75 ops=10  @ 240:29-251:6
+         |vpiParent -> cont_assign name=''  @ 240:12-251:6
+           |vpiParent -> gen_scope name=''  @ 233:36-252:6
+             |vpiParent -> gen_scope_array name='gen_idrouting[2]'  @ 233:36-252:6
+               |vpiParent -> module_inst name='u_sm1_17' dn='work@tlul_socket_m1'  @xbar_main.sv 532:3-545:5
+                 |vpiParent -> module_inst name='u_xbar_main' dn='work@xbar_main'  @top_earlgrey.sv 888:3-927:5
+   GOLDEN pattern siblings (10 operands of optype 75):
+      d_valid      bit_select name='hfifo_rspvalid' size=0 ts=<null> actual=logic_var('hfifo_rspvalid') index=constant[dec=2][val=UINT:2]  @tlul_socket_m1.sv 241:32-241:33
+      d_opcode     hier_path name='drsp_fifo_o.d_opcode' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 242:17-242:37
+      d_param      hier_path name='drsp_fifo_o.d_param' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 243:17-243:36
+      d_size       hier_path name='drsp_fifo_o.d_size' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 244:17-244:35
+      d_source     ref_obj name='hfifo_rspid' size=0 ts=<null> actual=logic_var('hfifo_rspid')  @tlul_socket_m1.sv 245:17-245:28
+      d_sink       hier_path name='drsp_fifo_o.d_sink' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 246:17-246:35
+      d_data       hier_path name='drsp_fifo_o.d_data' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 247:17-247:35
+      d_user       hier_path name='drsp_fifo_o.d_user' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 248:17-248:35
+      d_error      hier_path name='drsp_fifo_o.d_error' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 249:17-249:36
+      a_ready      bit_select name='hgrant' size=0 ts=<null> actual=logic_var('hgrant') index=constant[dec=2][val=UINT:2]  @tlul_socket_m1.sv 250:24-250:25
+   OURS   pattern siblings (10 operands of optype 75):
+      d_valid      bit_select name='hfifo_rspvalid' size=0 ts=<null> actual=logic_var('hfifo_rspvalid') index=ref_obj('i')  @ 241:32-241:33
+      d_opcode     hier_path name='drsp_fifo_o.d_opcode' size=0 ts=ref_typespec->struct_typespec  @ 242:17-242:37
+      d_param      hier_path name='drsp_fifo_o.d_param' size=0 ts=ref_typespec->struct_typespec  @ 243:17-243:36
+      d_size       hier_path name='drsp_fifo_o.d_size' size=0 ts=ref_typespec->struct_typespec  @ 244:17-244:35
+      d_source     ref_obj name='hfifo_rspid' size=0 ts=<null> actual=logic_var('hfifo_rspid')  @ 245:17-245:28
+      d_sink       hier_path name='drsp_fifo_o.d_sink' size=0 ts=ref_typespec->struct_typespec  @ 246:17-246:35
+      d_data       hier_path name='drsp_fifo_o.d_data' size=0 ts=ref_typespec->struct_typespec  @ 247:17-247:35
+      d_user       hier_path name='drsp_fifo_o.d_user' size=0 ts=ref_typespec->struct_typespec  @ 248:17-248:35
+      d_error      hier_path name='drsp_fifo_o.d_error' size=0 ts=ref_typespec->struct_typespec  @ 249:17-249:36
+      a_ready      bit_select name='hgrant' size=0 ts=<null> actual=logic_var('hgrant') index=ref_obj('i')  @ 250:24-250:25
+   MASKED golden bit_select's VpiIndex := OURS; re-running.
+== ITERATION 5 : design::Compare -> -601
+   HEAD LHS(golden) = constant id:797973  tlul_socket_m1.sv 250:24-250:25
+        payload: constant name='' dec='2' size=64 value='UINT:2' ts=<null> ct=9  @tlul_socket_m1.sv 250:24-250:25
+   HEAD RHS(ours)   = ref_obj id:635582   250:24-250:25
+        payload: ref_obj name='i' size=0 ts=<null> actual=parameter('i')[val=UINT:2]  @ 250:24-250:25
+   -- FIELD BISECTION (generated Compare order) --
+      BaseClass VpiType   : 7 (constant) vs 608 (ref_obj) -> -601
+      *** the head is decided HERE; every later field is
+          unreachable (BaseClass::Compare returns on VpiType).
+      BaseClass VpiName   : '' vs 'i' -> -1
+      expr VpiDecompile   : '2' vs ''
+      expr VpiSize        : 64 vs 0 -> 64
+      expr Typespec       : <null> vs <null>
+      expr VpiValue       : 'UINT:2' vs ''
+   -- OWNER CHAIN (golden) --
+     |vpiParent -> bit_select name='hgrant' size=0 ts=<null> actual=logic_var('hgrant') index=constant[dec=2][val=UINT:2]  @tlul_socket_m1.sv 250:24-250:25
+       |vpiParent -> operation name='' size=0 ts=<null> optype=75 ops=10  @tlul_socket_m1.sv 240:29-251:6
+         |vpiParent -> cont_assign name=''  @tlul_socket_m1.sv 240:12-251:6
+           |vpiParent -> gen_scope name=''  @tlul_socket_m1.sv 233:36-252:6
+             |vpiParent -> gen_scope_array name='gen_idrouting[2]'  @tlul_socket_m1.sv 233:36-252:6
+               |vpiParent -> module_inst name='u_sm1_17' dn='work@tlul_socket_m1'  @xbar_main.sv 532:3-545:5
+                 |vpiParent -> module_inst name='u_xbar_main' dn='work@xbar_main'  @top_earlgrey.sv 888:3-927:5
+   -- OWNER CHAIN (ours  ) --
+     |vpiParent -> bit_select name='hgrant' size=0 ts=<null> actual=logic_var('hgrant') index=ref_obj('i')  @ 250:24-250:25
+       |vpiParent -> operation name='' size=0 ts=<null> optype=75 ops=10  @ 240:29-251:6
+         |vpiParent -> cont_assign name=''  @ 240:12-251:6
+           |vpiParent -> gen_scope name=''  @ 233:36-252:6
+             |vpiParent -> gen_scope_array name='gen_idrouting[2]'  @ 233:36-252:6
+               |vpiParent -> module_inst name='u_sm1_17' dn='work@tlul_socket_m1'  @xbar_main.sv 532:3-545:5
+                 |vpiParent -> module_inst name='u_xbar_main' dn='work@xbar_main'  @top_earlgrey.sv 888:3-927:5
+   GOLDEN pattern siblings (10 operands of optype 75):
+      d_valid      bit_select name='hfifo_rspvalid' size=0 ts=<null> actual=logic_var('hfifo_rspvalid') index=ref_obj('i')  @tlul_socket_m1.sv 241:32-241:33
+      d_opcode     hier_path name='drsp_fifo_o.d_opcode' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 242:17-242:37
+      d_param      hier_path name='drsp_fifo_o.d_param' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 243:17-243:36
+      d_size       hier_path name='drsp_fifo_o.d_size' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 244:17-244:35
+      d_source     ref_obj name='hfifo_rspid' size=0 ts=<null> actual=logic_var('hfifo_rspid')  @tlul_socket_m1.sv 245:17-245:28
+      d_sink       hier_path name='drsp_fifo_o.d_sink' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 246:17-246:35
+      d_data       hier_path name='drsp_fifo_o.d_data' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 247:17-247:35
+      d_user       hier_path name='drsp_fifo_o.d_user' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 248:17-248:35
+      d_error      hier_path name='drsp_fifo_o.d_error' size=0 ts=ref_typespec->struct_typespec  @tlul_socket_m1.sv 249:17-249:36
+      a_ready      bit_select name='hgrant' size=0 ts=<null> actual=logic_var('hgrant') index=constant[dec=2][val=UINT:2]  @tlul_socket_m1.sv 250:24-250:25
+   OURS   pattern siblings (10 operands of optype 75):
+      d_valid      bit_select name='hfifo_rspvalid' size=0 ts=<null> actual=logic_var('hfifo_rspvalid') index=ref_obj('i')  @ 241:32-241:33
+      d_opcode     hier_path name='drsp_fifo_o.d_opcode' size=0 ts=ref_typespec->struct_typespec  @ 242:17-242:37
+      d_param      hier_path name='drsp_fifo_o.d_param' size=0 ts=ref_typespec->struct_typespec  @ 243:17-243:36
+      d_size       hier_path name='drsp_fifo_o.d_size' size=0 ts=ref_typespec->struct_typespec  @ 244:17-244:35
+      d_source     ref_obj name='hfifo_rspid' size=0 ts=<null> actual=logic_var('hfifo_rspid')  @ 245:17-245:28
+      d_sink       hier_path name='drsp_fifo_o.d_sink' size=0 ts=ref_typespec->struct_typespec  @ 246:17-246:35
+      d_data       hier_path name='drsp_fifo_o.d_data' size=0 ts=ref_typespec->struct_typespec  @ 247:17-247:35
+      d_user       hier_path name='drsp_fifo_o.d_user' size=0 ts=ref_typespec->struct_typespec  @ 248:17-248:35
+      d_error      hier_path name='drsp_fifo_o.d_error' size=0 ts=ref_typespec->struct_typespec  @ 249:17-249:36
+      a_ready      bit_select name='hgrant' size=0 ts=<null> actual=logic_var('hgrant') index=ref_obj('i')  @ 250:24-250:25
+   MASKED golden bit_select's VpiIndex := OURS; re-running.

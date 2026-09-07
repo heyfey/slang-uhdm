@@ -1,0 +1,58 @@
+LHS:
+decompile:
+logic_net: (work@p2_shape117.o1), id:1002, line:34:17, endln:34:19
+|vpiParent:
+\_module_inst: work@p2_shape117 (work@p2_shape117), id:973, file:/tmp/wt_r10earl117/tools/probe/r10earl117repro/p2_shape117.sv, line:26:1, endln:80:10
+|vpiTypespec:
+\_ref_typespec: (work@p2_shape117.o1), id:1003
+  |vpiParent:
+  \_logic_net: (work@p2_shape117.o1), id:1002, line:34:17, endln:34:19
+  |vpiFullName:work@p2_shape117.o1
+  |vpiActual:
+  \_struct_typespec: (p2p117::t_t), id:2, line:19:11, endln:40:23
+|vpiName:o1
+|vpiFullName:work@p2_shape117.o1
+|vpiNetType:1
+
+decompile:
+logic_net: (work@p2_shape117.o1), id:1002, line:34:17, endln:34:19
+|vpiParent:
+\_module_inst: work@p2_shape117 (work@p2_shape117), id:973, file:/tmp/wt_r10earl117/tools/probe/r10earl117repro/p2_shape117.sv, line:26:1, endln:80:10
+|vpiTypespec:
+\_ref_typespec: (work@p2_shape117.o1), id:1003
+  |vpiParent:
+  \_logic_net: (work@p2_shape117.o1), id:1002, line:34:17, endln:34:19
+  |vpiFullName:work@p2_shape117.o1
+  |vpiActual:
+  \_struct_typespec: (p2p117::t_t), id:2, line:19:11, endln:40:23
+|vpiName:o1
+|vpiFullName:work@p2_shape117.o1
+|vpiNetType:1
+RHS:
+decompile:
+logic_net: (work@p2_shape117.o1), id:47, line:34:17, endln:34:19
+|vpiParent:
+\_module_inst: work@p2_shape117 (work@p2_shape117), id:30, file:/tmp/wt_r10earl117/tools/probe/r10earl117repro/p2_shape117.sv, line:26:1, endln:80:10
+|vpiTypespec:
+\_ref_typespec: (work@p2_shape117.o1), id:48
+  |vpiParent:
+  \_logic_net: (work@p2_shape117.o1), id:47, line:34:17, endln:34:19
+  |vpiFullName:work@p2_shape117.o1
+  |vpiActual:
+  \_struct_typespec: (p2p117::t_t), id:17, line:19:11, endln:40:23
+|vpiName:o1
+|vpiFullName:work@p2_shape117.o1
+
+decompile:
+logic_net: (work@p2_shape117.o1), id:47, line:34:17, endln:34:19
+|vpiParent:
+\_module_inst: work@p2_shape117 (work@p2_shape117), id:30, file:/tmp/wt_r10earl117/tools/probe/r10earl117repro/p2_shape117.sv, line:26:1, endln:80:10
+|vpiTypespec:
+\_ref_typespec: (work@p2_shape117.o1), id:48
+  |vpiParent:
+  \_logic_net: (work@p2_shape117.o1), id:47, line:34:17, endln:34:19
+  |vpiFullName:work@p2_shape117.o1
+  |vpiActual:
+  \_struct_typespec: (p2p117::t_t), id:17, line:19:11, endln:40:23
+|vpiName:o1
+|vpiFullName:work@p2_shape117.o1

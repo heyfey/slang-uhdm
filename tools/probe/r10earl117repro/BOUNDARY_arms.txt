@@ -1,0 +1,56 @@
+r10earl117 — THE WIDE BOUNDARY's flagged arms, RE-SCORED.
+MEASUREMENT ONLY.  LHS is ALWAYS golden; RHS is ALWAYS ours.
+
+The wide boundary over 5150 .sv/.v files under tools/probe, both views, both
+frozen binaries, flagged 10 of 9906 comparable file/views: this pass's own
+four arms (8) and r10earl116's HEAD REPRODUCER q4_head116 (2).  Every one of
+the other 5145 files is BYTE-IDENTICAL between the two binaries in both views.
+
+== q4_head116, in THIS pass's two families (cen117.py) ==
+  plain  CALIB FAMILY FX  SAME_AGREE 4  TOGOLD 0  AWAY 0  MOVEDWRONG 0  STILLWRONG 0  NOGOLD_MOVED 0
+  plain  SCORE FAMILY FX  SAME_AGREE 3  TOGOLD 1  AWAY 0  MOVEDWRONG 0  STILLWRONG 0  NOGOLD_MOVED 0
+  plain  CALIB FAMILY F0  SAME_AGREE 4  TOGOLD 0  AWAY 0  MOVEDWRONG 0  STILLWRONG 0  NOGOLD_MOVED 0
+  plain  SCORE FAMILY F0  SAME_AGREE 3  TOGOLD 1  AWAY 0  MOVEDWRONG 0  STILLWRONG 0  NOGOLD_MOVED 0
+  elab   CALIB FAMILY FX  SAME_AGREE 4  TOGOLD 0  AWAY 0  MOVEDWRONG 0  STILLWRONG 0  NOGOLD_MOVED 0
+  elab   SCORE FAMILY FX  SAME_AGREE 3  TOGOLD 1  AWAY 0  MOVEDWRONG 0  STILLWRONG 0  NOGOLD_MOVED 0
+  elab   CALIB FAMILY F0  SAME_AGREE 4  TOGOLD 0  AWAY 0  MOVEDWRONG 0  STILLWRONG 0  NOGOLD_MOVED 0
+  elab   SCORE FAMILY F0  SAME_AGREE 3  TOGOLD 1  AWAY 0  MOVEDWRONG 0  STILLWRONG 0  NOGOLD_MOVED 0
+
+== q4_head116, the per-CELL table ==
+### q4_head116 plain   keys gold=4 pris=4 patch=4
+  KEYSET IDENTICAL pristine vs patched (no span moved)
+  TOGOLD      48:44-48:45|bit_select|rspvalid_i|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@<null> x3
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+### q4_head116 elab   keys gold=4 pris=4 patch=4
+  KEYSET IDENTICAL pristine vs patched (no span moved)
+  TOGOLD      48:44-48:45|bit_select|rspvalid_i|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@parameter x3
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+
+== q4_head116, THE MUST-STAY COLUMN (spelled117.py) ==
+  plain  FOLDED_AGREE 2  FOLDED_FIXED 1  SPELLED_AGREE 1
+  elab   FOLDED_AGREE 2  FOLDED_FIXED 1  SPELLED_AGREE 1
+
+== EVERY FLAGGED ARM RE-SCORED IN r10earl116's OWN FAMILY (sig116: the
+   assignment-pattern FLATTENED-NESS census, keyed on Lhs kind / Lhs actual
+   kind / scope / depth / carrier).  A cell that moved there would be this
+   pass moving r10earl116's law, which it must not.
+  q4_head116     plain  earl116-family pristine-vs-patched: IDENTICAL  patched-vs-golden: AGREES
+  q4_head116     elab   earl116-family pristine-vs-patched: IDENTICAL  patched-vs-golden: AGREES
+  p1_car117      plain  earl116-family pristine-vs-patched: IDENTICAL  patched-vs-golden: AGREES
+  p1_car117      elab   earl116-family pristine-vs-patched: IDENTICAL  patched-vs-golden: AGREES
+  p2_shape117    plain  earl116-family pristine-vs-patched: IDENTICAL  patched-vs-golden: AGREES
+  p2_shape117    elab   earl116-family pristine-vs-patched: IDENTICAL  patched-vs-golden: AGREES
+  p3_fence117    plain  earl116-family pristine-vs-patched: IDENTICAL  patched-vs-golden: AGREES
+  p3_fence117    elab   earl116-family pristine-vs-patched: IDENTICAL  patched-vs-golden: AGREES
+  p4_head117     plain  earl116-family pristine-vs-patched: IDENTICAL  patched-vs-golden: AGREES
+  p4_head117     elab   earl116-family pristine-vs-patched: IDENTICAL  patched-vs-golden: AGREES
+
+== THE TWO MOVING CORPUS DATABASES, re-scored in r10earl116's OWN family ==
+  Earlgrey_0_1/default    earl116-family census BYTE-IDENTICAL pristine vs patched (131 rows)
+  Earlgrey_0_1/testflags  earl116-family census BYTE-IDENTICAL pristine vs patched (131 rows)
+  i.e. every TAGGED/FLAT cell r10earl116's § patCaFlatLhsWholeName116 owns is
+  exactly where that pass left it; this law moves select INDICES and nothing else.

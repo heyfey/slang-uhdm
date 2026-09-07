@@ -1,0 +1,232 @@
+### p1_car117 plain   keys gold=24 pris=24 patch=24
+  KEYSET IDENTICAL pristine vs patched (no span moved)
+  TOGOLD      66:14-66:15|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@<null> x3
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+  TOGOLD      67:15-67:16|bit_select|gv|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@<null> x3
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+  STILLWRONG  68:29-68:30|var_select|ua|cont_assign|gen_scope|1|1|R|dim0
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@<null> x3
+      A: ref_obj:i@<null> x3
+  STILLWRONG  69:16-69:17|var_select|m2|cont_assign|gen_scope|1|1|R|dim0
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@<null> x3
+      A: ref_obj:i@<null> x3
+  STILLWRONG  69:29-69:30|var_select|m2|cont_assign|gen_scope|1|1|R|dim1
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@<null> x3
+      A: ref_obj:i@<null> x3
+  STILLWRONG  71:15-71:16|indexed_part_select|v|cont_assign|gen_scope|1|1|R|base
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@<null> x3
+      A: ref_obj:i@<null> x3
+  TOGOLD      72:16-72:17|bit_select|pin|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@<null> x3
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+### p1_car117 elab   keys gold=24 pris=24 patch=24
+  KEYSET IDENTICAL pristine vs patched (no span moved)
+  TOGOLD      66:14-66:15|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@parameter x3
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+  TOGOLD      67:15-67:16|bit_select|gv|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@parameter x3
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+  STILLWRONG  68:29-68:30|var_select|ua|cont_assign|gen_scope|1|1|R|dim0
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@parameter x3
+      A: ref_obj:i@parameter x3
+  STILLWRONG  69:16-69:17|var_select|m2|cont_assign|gen_scope|1|1|R|dim0
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@parameter x3
+      A: ref_obj:i@parameter x3
+  STILLWRONG  69:29-69:30|var_select|m2|cont_assign|gen_scope|1|1|R|dim1
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@parameter x3
+      A: ref_obj:i@parameter x3
+  STILLWRONG  71:15-71:16|indexed_part_select|v|cont_assign|gen_scope|1|1|R|base
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@parameter x3
+      A: ref_obj:i@parameter x3
+  TOGOLD      72:16-72:17|bit_select|pin|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@parameter x3
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+### p2_shape117 plain   keys gold=29 pris=29 patch=29
+  KEYSET IDENTICAL pristine vs patched (no span moved)
+  TOGOLD      49:27-49:28|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@<null> x3
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+  TOGOLD      51:24-51:25|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@<null> x3
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+  TOGOLD      53:24-53:25|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@<null> x3
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+  TOGOLD      55:33-55:34|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@<null> x3
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+  STILLWRONG  57:32-57:33|bit_select|v|assignment|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@<null> x3
+      A: ref_obj:i@<null> x3
+  TOGOLD      62:32-62:33|bit_select|v|cont_assign|gen_scope|2|1|R|idx
+      G: constant:0#64#9 x2,constant:1#64#9 x2,constant:2#64#9 x2
+      P: ref_obj:i@<null> x6
+      A: constant:0#64#9 x2,constant:1#64#9 x2,constant:2#64#9 x2
+  TOGOLD      66:29-66:30|bit_select|v|cont_assign|gen_scope|2|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@<null> x3
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+  TOGOLD      70:27-70:28|bit_select|v|cont_assign|gen_scope|2|1|R|idx
+      G: constant:0#64#9 x1
+      P: ref_obj:i@<null> x1
+      A: constant:0#64#9 x1
+### p2_shape117 elab   keys gold=29 pris=29 patch=29
+  KEYSET IDENTICAL pristine vs patched (no span moved)
+  TOGOLD      49:27-49:28|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@parameter x3
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+  TOGOLD      51:24-51:25|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@parameter x3
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+  TOGOLD      53:24-53:25|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@parameter x3
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+  TOGOLD      55:33-55:34|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@parameter x3
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+  STILLWRONG  57:32-57:33|bit_select|v|assignment|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@parameter x3
+      A: ref_obj:i@parameter x3
+  TOGOLD      62:32-62:33|bit_select|v|cont_assign|gen_scope|2|1|R|idx
+      G: constant:0#64#9 x2,constant:1#64#9 x2,constant:2#64#9 x2
+      P: ref_obj:i@parameter x6
+      A: constant:0#64#9 x2,constant:1#64#9 x2,constant:2#64#9 x2
+  TOGOLD      66:29-66:30|bit_select|v|cont_assign|gen_scope|2|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@parameter x3
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+  TOGOLD      70:27-70:28|bit_select|v|cont_assign|gen_scope|2|1|R|idx
+      G: constant:0#64#9 x1
+      P: ref_obj:i@parameter x1
+      A: constant:0#64#9 x1
+### p3_fence117 plain   keys gold=40 pris=40 patch=40
+  KEYSET IDENTICAL pristine vs patched (no span moved)
+  STILLWRONG  104:34-104:35|bit_select|tl_h_i|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:g@<null> x3
+      A: ref_obj:g@<null> x3
+  STILLWRONG  104:46-104:49|indexed_part_select|a_source|cont_assign|gen_scope|1|1|R|base
+      G: constant:7#64#7 x3
+      P: 
+      A: 
+  STILLWRONG  104:46-104:51|indexed_part_select|a_source|cont_assign|gen_scope|1|1|R|base
+      G: 
+      P: operation:- x3
+      A: operation:- x3
+  TOGOLD      76:29-76:30|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@<null> x3
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+  TOGOLD      84:19-84:20|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@<null> x3
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+  STILLWRONG  85:19-85:20|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+      G: constant:1#64#9 x1,constant:2#64#9 x1,constant:3#64#9 x1
+      P: 
+      A: 
+  STILLWRONG  85:19-85:22|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+      G: 
+      P: operation:- x3
+      A: operation:- x3
+  STILLWRONG  86:19-86:21|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+      G: constant:1#32#9 x3
+      P: ref_obj:LB@<null> x3
+      A: ref_obj:LB@<null> x3
+  TOGOLD      91:31-91:32|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@<null> x3
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+  TOGOLD      91:43-91:44|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@<null> x3
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+### p3_fence117 elab   keys gold=40 pris=40 patch=40
+  KEYSET IDENTICAL pristine vs patched (no span moved)
+  STILLWRONG  104:34-104:35|bit_select|tl_h_i|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:g@parameter x3
+      A: ref_obj:g@parameter x3
+  STILLWRONG  104:46-104:49|indexed_part_select|a_source|cont_assign|gen_scope|1|1|R|base
+      G: constant:7#64#7 x3
+      P: 
+      A: 
+  STILLWRONG  104:46-104:51|indexed_part_select|a_source|cont_assign|gen_scope|1|1|R|base
+      G: 
+      P: constant:7#64#7 x3
+      A: constant:7#64#7 x3
+  TOGOLD      76:29-76:30|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@parameter x3
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+  TOGOLD      84:19-84:20|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@parameter x3
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+  STILLWRONG  85:19-85:20|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+      G: constant:1#64#9 x1,constant:2#64#9 x1,constant:3#64#9 x1
+      P: 
+      A: 
+  STILLWRONG  85:19-85:22|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+      G: 
+      P: operation:- x3
+      A: operation:- x3
+  STILLWRONG  86:19-86:21|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+      G: constant:1#32#9 x3
+      P: ref_obj:LB@parameter x3
+      A: ref_obj:LB@parameter x3
+  TOGOLD      91:31-91:32|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@parameter x3
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+  TOGOLD      91:43-91:44|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@parameter x3
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+### p4_head117 plain   keys gold=5 pris=5 patch=5
+  KEYSET IDENTICAL pristine vs patched (no span moved)
+  TOGOLD      57:32-57:33|bit_select|hfifo_rspvalid|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@<null> x3
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+  TOGOLD      59:24-59:25|bit_select|hgrant|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@<null> x3
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+### p4_head117 elab   keys gold=5 pris=5 patch=5
+  KEYSET IDENTICAL pristine vs patched (no span moved)
+  TOGOLD      57:32-57:33|bit_select|hfifo_rspvalid|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@parameter x3
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+  TOGOLD      59:24-59:25|bit_select|hgrant|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1
+      P: ref_obj:i@parameter x3
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1

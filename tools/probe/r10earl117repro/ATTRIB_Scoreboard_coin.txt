@@ -1,0 +1,8 @@
+== RAW (order-sensitive) whole-dump diff
+  lines: 81
+== ORDER-BLIND (sorted) whole-dump diff
+  lines: 0
+== ORDER-BLIND diff BY SECTION (0 = before the first uhdmtopModules = DEF,
+   1..n = ELAB, the LAST section is the weaklyReferenced TAIL, NOT COUNTED)
+== CHANGED LINE SHAPES (order-blind, added side)
+== CHANGED LINE SHAPES (order-blind, removed side)

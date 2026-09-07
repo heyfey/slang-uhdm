@@ -1,0 +1,30 @@
+LHS:
+decompile:
+logic_net: (work@p3_fence117.tl_h_i), id:1624, line:54:28, endln:54:34
+|vpiParent:
+\_module_inst: work@p3_fence117 (work@p3_fence117), id:1600, file:/tmp/wt_r10earl117/tools/probe/r10earl117repro/p3_fence117.sv, line:47:1, endln:110:10
+|vpiName:tl_h_i
+|vpiFullName:work@p3_fence117.tl_h_i
+|vpiNetType:1
+
+decompile:
+logic_net: (work@p3_fence117.tl_h_i), id:1624, line:54:28, endln:54:34
+|vpiParent:
+\_module_inst: work@p3_fence117 (work@p3_fence117), id:1600, file:/tmp/wt_r10earl117/tools/probe/r10earl117repro/p3_fence117.sv, line:47:1, endln:110:10
+|vpiName:tl_h_i
+|vpiFullName:work@p3_fence117.tl_h_i
+|vpiNetType:1
+RHS:
+decompile:
+logic_net: (work@p3_fence117.tl_h_i), id:152, line:54:28, endln:54:34
+|vpiParent:
+\_module_inst: work@p3_fence117 (work@p3_fence117), id:126, file:/tmp/wt_r10earl117/tools/probe/r10earl117repro/p3_fence117.sv, line:47:1, endln:110:10
+|vpiName:tl_h_i
+|vpiFullName:work@p3_fence117.tl_h_i
+
+decompile:
+logic_net: (work@p3_fence117.tl_h_i), id:152, line:54:28, endln:54:34
+|vpiParent:
+\_module_inst: work@p3_fence117 (work@p3_fence117), id:126, file:/tmp/wt_r10earl117/tools/probe/r10earl117repro/p3_fence117.sv, line:47:1, endln:110:10
+|vpiName:tl_h_i
+|vpiFullName:work@p3_fence117.tl_h_i

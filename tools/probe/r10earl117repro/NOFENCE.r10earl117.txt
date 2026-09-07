@@ -1,0 +1,72 @@
+r10earl117 — THE NO-FENCE CUT, BUILT AND CONVICTED.
+MEASUREMENT ONLY.  LHS is ALWAYS golden; RHS is ALWAYS ours.
+
+A second binary (md5 88732eb14e3fd1c39783baca886632a4) was built from the
+SHIPPED tree with ONE line neutered — § patCaGenIdxNeverInUserCallArg112v's
+user-call-argument test inside patCaGenIdxFold112 — so that fence (f) is
+MEASURED on this pass's carrier and not inherited from r10vearl112's
+write-up.  Everything else is identical.  Scored against the SAME goldens as
+the shipped cut.
+
+  p1_car117      plain  FAMILY FX  SAME_AGREE 17  TOGOLD 3  AWAY 0  MOVEDWRONG 0  STILLWRONG 4  NOGOLD_MOVED 0
+  p1_car117      elab   FAMILY FX  SAME_AGREE 17  TOGOLD 3  AWAY 0  MOVEDWRONG 0  STILLWRONG 4  NOGOLD_MOVED 0
+  p2_shape117    plain  FAMILY FX  SAME_AGREE 21  TOGOLD 7  AWAY 0  MOVEDWRONG 0  STILLWRONG 1  NOGOLD_MOVED 0
+  p2_shape117    elab   FAMILY FX  SAME_AGREE 21  TOGOLD 7  AWAY 0  MOVEDWRONG 0  STILLWRONG 1  NOGOLD_MOVED 0
+  p3_fence117    plain  FAMILY FX  SAME_AGREE 29  TOGOLD 4  AWAY 3  MOVEDWRONG 0  STILLWRONG 4  NOGOLD_MOVED 0
+  p3_fence117    elab   FAMILY FX  SAME_AGREE 29  TOGOLD 4  AWAY 3  MOVEDWRONG 0  STILLWRONG 4  NOGOLD_MOVED 0
+  p4_head117     plain  FAMILY FX  SAME_AGREE 3  TOGOLD 2  AWAY 0  MOVEDWRONG 0  STILLWRONG 0  NOGOLD_MOVED 0
+  p4_head117     elab   FAMILY FX  SAME_AGREE 3  TOGOLD 2  AWAY 0  MOVEDWRONG 0  STILLWRONG 0  NOGOLD_MOVED 0
+
+== THE CELLS THE NO-FENCE CUT MOVES AWAY FROM GOLDEN ==
+  p1_car117 plain FAMILY FX  SAME_AGREE 17  TOGOLD 3  AWAY 0  MOVEDWRONG 0  STILLWRONG 4  NOGOLD_MOVED 0
+  p1_car117 plain   TOGOLD       p1_car117_plain                          67:15-67:16|bit_select|gv|cont_assign|gen_scope|1|1|R|idx
+  p1_car117 elab FAMILY FX  SAME_AGREE 17  TOGOLD 3  AWAY 0  MOVEDWRONG 0  STILLWRONG 4  NOGOLD_MOVED 0
+  p1_car117 elab   TOGOLD       p1_car117_elab                           72:16-72:17|bit_select|pin|cont_assign|gen_scope|1|1|R|idx
+  p2_shape117 plain FAMILY FX  SAME_AGREE 21  TOGOLD 7  AWAY 0  MOVEDWRONG 0  STILLWRONG 1  NOGOLD_MOVED 0
+  p2_shape117 plain   TOGOLD       p2_shape117_plain                        70:27-70:28|bit_select|v|cont_assign|gen_scope|2|1|R|idx
+  p2_shape117 elab FAMILY FX  SAME_AGREE 21  TOGOLD 7  AWAY 0  MOVEDWRONG 0  STILLWRONG 1  NOGOLD_MOVED 0
+  p2_shape117 elab   TOGOLD       p2_shape117_elab                         55:33-55:34|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+  p3_fence117 plain FAMILY FX  SAME_AGREE 29  TOGOLD 4  AWAY 3  MOVEDWRONG 0  STILLWRONG 4  NOGOLD_MOVED 0
+  p3_fence117 plain   TOGOLD       p3_fence117_plain                        91:43-91:44|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+  p3_fence117 plain --
+  p3_fence117 plain   AWAY         p3_fence117_plain                        75:22-75:23|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+  p3_fence117 plain       pris={('ref_obj', 'i@<null>'): 3}  patch={('constant', '0#64#9'): 1, ('constant', '1#64#9'): 1, ('constant', '2#64#9'): 1}
+  p3_fence117 plain   AWAY         p3_fence117_plain                        78:32-78:33|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+  p3_fence117 plain       pris={('ref_obj', 'i@<null>'): 3}  patch={('constant', '0#64#9'): 1, ('constant', '1#64#9'): 1, ('constant', '2#64#9'): 1}
+  p3_fence117 plain   AWAY         p3_fence117_plain                        77:32-77:33|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+  p3_fence117 plain       pris={('ref_obj', 'i@<null>'): 3}  patch={('constant', '0#64#9'): 1, ('constant', '1#64#9'): 1, ('constant', '2#64#9'): 1}
+  p3_fence117 elab FAMILY FX  SAME_AGREE 29  TOGOLD 4  AWAY 3  MOVEDWRONG 0  STILLWRONG 4  NOGOLD_MOVED 0
+  p3_fence117 elab   TOGOLD       p3_fence117_elab                         76:29-76:30|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+  p3_fence117 elab --
+  p3_fence117 elab   AWAY         p3_fence117_elab                         77:32-77:33|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+  p3_fence117 elab       pris={('ref_obj', 'i@parameter'): 3}  patch={('constant', '0#64#9'): 1, ('constant', '1#64#9'): 1, ('constant', '2#64#9'): 1}
+  p3_fence117 elab   AWAY         p3_fence117_elab                         75:22-75:23|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+  p3_fence117 elab       pris={('ref_obj', 'i@parameter'): 3}  patch={('constant', '0#64#9'): 1, ('constant', '1#64#9'): 1, ('constant', '2#64#9'): 1}
+  p3_fence117 elab   AWAY         p3_fence117_elab                         78:32-78:33|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+  p3_fence117 elab       pris={('ref_obj', 'i@parameter'): 3}  patch={('constant', '0#64#9'): 1, ('constant', '1#64#9'): 1, ('constant', '2#64#9'): 1}
+  p4_head117 plain FAMILY FX  SAME_AGREE 3  TOGOLD 2  AWAY 0  MOVEDWRONG 0  STILLWRONG 0  NOGOLD_MOVED 0
+  p4_head117 plain   TOGOLD       p4_head117_plain                         57:32-57:33|bit_select|hfifo_rspvalid|cont_assign|gen_scope|1|1|R|idx
+  p4_head117 elab FAMILY FX  SAME_AGREE 3  TOGOLD 2  AWAY 0  MOVEDWRONG 0  STILLWRONG 0  NOGOLD_MOVED 0
+  p4_head117 elab   TOGOLD       p4_head117_elab                          57:32-57:33|bit_select|hfifo_rspvalid|cont_assign|gen_scope|1|1|R|idx
+
+== THE MUST-STAY COLUMN under the no-fence cut ==
+  p1_car117      plain  FOLDED_AGREE 8  FOLDED_FIXED 3  FOLDED_STILL 4  OTHER_AGREE 1  SPELLED_AGREE 8
+  p1_car117      elab   FOLDED_AGREE 8  FOLDED_FIXED 3  FOLDED_STILL 4  OTHER_AGREE 1  SPELLED_AGREE 8
+  p2_shape117    plain  FOLDED_AGREE 10  FOLDED_FIXED 7  FOLDED_STILL 1  SPELLED_AGREE 11
+  p2_shape117    elab   FOLDED_AGREE 10  FOLDED_FIXED 7  FOLDED_STILL 1  SPELLED_AGREE 11
+  p3_fence117    plain  FOLDED_AGREE 17  FOLDED_FIXED 4  FOLDED_STILL 4  OTHER_AGREE 2  SPELLED_AGREE 10  SPELLED_BROKEN 3
+  !! SPELLED            p3_fence117_plain                        75:22-75:23|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+       pris={('ref_obj', 'i@<null>'): 3} patch={('constant', '0#64#9'): 1, ('constant', '1#64#9'): 1, ('constant', '2#64#9'): 1}
+  !! SPELLED            p3_fence117_plain                        77:32-77:33|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+       pris={('ref_obj', 'i@<null>'): 3} patch={('constant', '0#64#9'): 1, ('constant', '1#64#9'): 1, ('constant', '2#64#9'): 1}
+  !! SPELLED            p3_fence117_plain                        78:32-78:33|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+       pris={('ref_obj', 'i@<null>'): 3} patch={('constant', '0#64#9'): 1, ('constant', '1#64#9'): 1, ('constant', '2#64#9'): 1}
+  p3_fence117    elab   FOLDED_AGREE 18  FOLDED_FIXED 4  FOLDED_STILL 4  OTHER_AGREE 1  SPELLED_AGREE 10  SPELLED_BROKEN 3
+  !! SPELLED            p3_fence117_elab                         75:22-75:23|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+       pris={('ref_obj', 'i@parameter'): 3} patch={('constant', '0#64#9'): 1, ('constant', '1#64#9'): 1, ('constant', '2#64#9'): 1}
+  !! SPELLED            p3_fence117_elab                         77:32-77:33|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+       pris={('ref_obj', 'i@parameter'): 3} patch={('constant', '0#64#9'): 1, ('constant', '1#64#9'): 1, ('constant', '2#64#9'): 1}
+  !! SPELLED            p3_fence117_elab                         78:32-78:33|bit_select|v|cont_assign|gen_scope|1|1|R|idx
+       pris={('ref_obj', 'i@parameter'): 3} patch={('constant', '0#64#9'): 1, ('constant', '1#64#9'): 1, ('constant', '2#64#9'): 1}
+  p4_head117     plain  FOLDED_AGREE 2  FOLDED_FIXED 2  SPELLED_AGREE 1
+  p4_head117     elab   FOLDED_AGREE 2  FOLDED_FIXED 2  SPELLED_AGREE 1

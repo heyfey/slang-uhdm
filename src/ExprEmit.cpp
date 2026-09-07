@@ -7960,13 +7960,46 @@ struct PatValGuard112 {
 //   (d) the index resolves to a `Parameter` (a genvar or a localparam; a plain
 //       variable index has no value and golden keeps it) with a KNOWN integer
 //       value — abstain otherwise.
-//   (e) SITE: only the component-select index of this builder.  The value the
-//       pattern member itself takes, the select BOUNDS, and every other index
-//       in the design are untouched.
+//   (e) SITE: only a select's INDEX.  The value the pattern member itself
+//       takes, the select BOUNDS, and every other index in the design are
+//       untouched.
 //   (f) NOT INSIDE A USER SUBROUTINE CALL'S ARGUMENT LIST
 //       (§ patCaGenIdxNeverInUserCallArg112v, added by r10vearl112 after five
 //       measured pristine-right -> patched-wrong cells) — the decode and the
 //       golden grid are at the test itself, below.
+//
+// § patCaGenIdxBareBitSel117 (r10earl117) — THE THIRD CALL SITE, AND WHY THE
+// SAME GATE CARRIES IT.  Sites 1 and 2 are inside `emitMixedHierPath` and
+// therefore only ever see a DOTTED path's component-select index.  A select on
+// a PLAIN name (`hfifo_rspvalid[i]`, `hgrant[i]`) is built by the
+// `ExpressionKind::ElementSelect` NamedValue-base arm at ExprEmit ~27260-27545
+// and was never offered to this helper — the Earlgrey_0_1/testflags head at
+// `tlul_socket_m1.sv:241:32` and the five objects behind it on the judge's own
+// ladder.  Every fence above transfers unchanged EXCEPT (c), which is
+// STRUCTURALLY VACUOUS at the new site: a bare `bit_select`'s `VpiName` /
+// `VpiFullName` are the BASE name alone (ExprEmit ~27266), no bracket text is
+// composed from the index there, and `hpNameBareIdxFold69` is a hier_path
+// renderer that never sees this object — so there is no name for the fold to
+// keep consistent, and earl110's `a_source[IDW-1 -: STIDW]` half stays on its
+// own arm because that expression is a RangeSelect and never reaches this case
+// at all.
+//
+// THE CARRIER BOUNDARY, measured on golden in arm `p1_car117` (both views, all
+// three unrollings), because "the index of a select inside a pattern" is NOT
+// uniformly folded:
+//     bit-select index, module-scope packed vector        FOLDED  (c1, the head)
+//     bit-select index, gen-local packed vector           FOLDED  (c2)
+//     bit-select index, input PORT vector                 FOLDED  (c8)
+//     dotted element index (earl112's own carrier)        FOLDED  (c3, already ours)
+//     var_select dimension (`ua[i][0]`, `m2[i][0]`)       FOLDED  (c4/c5) — residue
+//     indexed-part-select BASE (`v[i +: 1]`)              FOLDED  (c7)  — residue
+//     PART-SELECT bounds (`v[i+1:i]`)                     **SPELLED** (c6)
+//     the pattern's own Lhs index (`wout[i]`)             **SPELLED** (pattern depth 0)
+//     the same bit-select in a PLAIN cont_assign          **SPELLED** (c10)
+// The two SPELLED select shapes are unreachable from this site by construction
+// (a RangeSelect is a different `ExpressionKind`; an Lhs index is emitted with
+// `patValDepth112 == 0`), and the two FOLDED shapes this pass does not ship are
+// stated as residues rather than dressed up — see the pass README.
 // The NAME needs no separate rendering: § hpNameBareIdxFold69 already composes
 // it from the OBJECTS (`decompileHelper`'s constant row) at the end of this
 // builder, which is exactly Surelog's own order.
@@ -27461,6 +27494,52 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 callArgDepth - sysCallArgDepth22 == 0)
                 if (auto* f81 = connBitSelIdxModParamFold81(es.selector(), bs))
                     ix = f81;
+            // § patCaGenIdxValueRender112 — SITE 3 of 3, THE BARE BIT-SELECT
+            // (r10earl117, § patCaGenIdxBareBitSel117).  Sites 1 and 2 are
+            // inside `emitMixedHierPath`, so they reach only a DOTTED path's
+            // component-select index; a select on a PLAIN name — the Earlgrey
+            // head's `hfifo_rspvalid[i]` at `tlul_socket_m1.sv:241:32` and its
+            // twin `hgrant[i]` at :250:24 — is built HERE and was never
+            // offered to the helper.  The MACHINERY was already complete: the
+            // `PatValGuard112` that raises `patValDepth112` wraps the whole
+            // StructuredAssignmentPattern / SimpleAssignmentPattern operand
+            // walk (ExprEmit ~29724 and ~30901), so the flag is live over this
+            // subtree whether or not r10earl116 left the operand tagged; only
+            // the SITE test was short.  Surelog reaches the same object by the
+            // same road: `compileAssignmentPattern` turns `reduce` to
+            // `Reduce::Yes` for an instance (CompileExpression.cpp:3686-3689)
+            // and compiles every member value with it (:3735/:3745), and
+            // `CompileHelper::compileSelectExpression` (:1258) hands that
+            // inherited `reduce` to the index expression of its BARE
+            // `bit_select` arm (:1307-1338) exactly as it does to the
+            // hier_path arm (:5582-5591); the substitution itself is the
+            // `if ((reduce == Reduce::Yes) && instance) sval =
+            // instance->getValue(name);` of the identifier arm (:2853-2855).
+            //
+            // Placed AFTER the index emission and gated on the result still
+            // being a `ref_obj`, exactly the way § connBitSelIdxModParamFold81
+            // above and both of § patCaGenIdxValueRender112's own sites are:
+            // an index some earlier law already folds (a module parameter
+            // through § connBitSelIdxModParamFold81, a gen-scope localparam
+            // through § genLpBitSelIdxOneHopFold67, an operation through
+            // § genvarConnFold) arrives here as a `constant` and is untouched
+            // BY CONSTRUCTION, so this site cannot move a cell that already
+            // agrees with golden.  Every other fence — the gen-scope
+            // continuous assign, the pattern-value depth, the USER-call
+            // argument, `isFromGenvar()`, the known integer value — lives in
+            // the helper and is measured cell by cell in `GRID.r10earl117.txt`.
+            //
+            // The constant takes the bit_select as its `VpiParent`, which is
+            // golden's own parenting (`HEAD_BEFORE_Earlgrey_testflags.cmp`:
+            // `constant … |vpiParent: \_bit_select`) and is what the pristine
+            // `ref_obj` it replaces already had.  `VpiParent` is read by no
+            // generated `Compare` (RESUME.md §9) — it is here to keep the
+            // BYTES converging, which is the instrument GATE 5 uses.
+            if (ix && ix->UhdmType() == UHDM::uhdmref_obj)
+                if (auto* f117 = patCaGenIdxFold112(es.selector())) {
+                    f117->VpiParent(bs);
+                    ix = f117;
+                }
             if (ix)
                 bs->VpiIndex((UHDM::expr*)ix);
             return bs;

@@ -1,0 +1,41 @@
+##### Earlgrey_0_1 default
+== RAW (order-sensitive) whole-dump diff
+  lines: 696
+== ORDER-BLIND (sorted) whole-dump diff
+  lines: 533
+== ORDER-BLIND diff BY SECTION (0 = before the first uhdmtopModules = DEF,
+   1..n = ELAB, the LAST section is the weaklyReferenced TAIL, NOT COUNTED)
+    174 < sec=10
+    290 > sec=10
+== CHANGED LINE SHAPES (order-blind, added side)
+     58 |vpiSize:N
+     58 |vpiDecompile:N
+     58 |vpiConstType:N
+     58 |UINT:N
+     58 \_constant: , line:N:N, endln:N:N
+== CHANGED LINE SHAPES (order-blind, removed side)
+     58 |vpiName:i
+     58 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N].i
+     58 \_ref_obj: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N].i), line:N:N, endln:N:N
+##### Earlgrey_0_1 testflags
+== RAW (order-sensitive) whole-dump diff
+  lines: 812
+== ORDER-BLIND (sorted) whole-dump diff
+  lines: 679
+== ORDER-BLIND diff BY SECTION (0 = before the first uhdmtopModules = DEF,
+   1..n = ELAB, the LAST section is the weaklyReferenced TAIL, NOT COUNTED)
+    290 < sec=10
+    290 > sec=10
+== CHANGED LINE SHAPES (order-blind, added side)
+     58 |vpiSize:N
+     58 |vpiDecompile:N
+     58 |vpiConstType:N
+     58 |UINT:N
+     58 \_constant: , line:N:N, endln:N:N
+== CHANGED LINE SHAPES (order-blind, removed side)
+     58 |vpiName:i
+     58 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N].i
+     58 |vpiActual:
+     58 \_ref_obj: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N].i), line:N:N, endln:N:N
+     58 \_parameter: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N].i), line:N:N
+ATTRDONE

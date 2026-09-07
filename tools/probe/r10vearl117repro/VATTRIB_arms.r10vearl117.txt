@@ -1,0 +1,127 @@
+=== ARM DUMP-DIFF ATTRIBUTION (order-blind, path-normalised) — r10vearl117 adversarial arms
+-- vgrid/va1_calls117_plain  RAW=130
+     16 > |vpiSize:N
+     16 < |vpiName:j
+     16 < |vpiFullName:work@vaN_callsN.gen_call[N].j
+     16 > |vpiDecompile:N
+     16 > |vpiConstType:N
+     16 > |UINT:N
+     16 < \_ref_obj: , line:N:N, endln:N:N
+     16 > \_constant: , line:N:N, endln:N:N
+      1 < pris.uhdm: Restored design Pre-Elab: 
+      1 > patched.uhdm: Restored design Pre-Elab: 
+-- vgrid/va1_calls117_elab  RAW=162
+     16 > |vpiSize:N
+     16 < |vpiName:j
+     16 < |vpiFullName:work@vaN_callsN.gen_call[N].j
+     16 > |vpiDecompile:N
+     16 > |vpiConstType:N
+     16 < |vpiActual:
+     16 > |UINT:N
+     16 < \_ref_obj: , line:N:N, endln:N:N
+     16 < \_parameter: , line:N:N
+     16 > \_constant: , line:N:N, endln:N:N
+      1 < pris.uhdm: Restored design Pre-Elab: 
+      1 > patched.uhdm: Restored design Pre-Elab: 
+-- vgrid/va2_carrier117_plain  RAW=226
+     28 > |vpiSize:N
+     28 < |vpiName:j
+     28 < |vpiFullName:work@vaN_carrierN.gen_car[N].j
+     28 > |vpiDecompile:N
+     28 > |vpiConstType:N
+     28 > |UINT:N
+     28 < \_ref_obj: , line:N:N, endln:N:N
+     28 > \_constant: , line:N:N, endln:N:N
+      1 < pris.uhdm: Restored design Pre-Elab: 
+      1 > patched.uhdm: Restored design Pre-Elab: 
+-- vgrid/va2_carrier117_elab  RAW=282
+     28 > |vpiSize:N
+     28 < |vpiName:j
+     28 < |vpiFullName:work@vaN_carrierN.gen_car[N].j
+     28 > |vpiDecompile:N
+     28 > |vpiConstType:N
+     28 < |vpiActual:
+     28 > |UINT:N
+     28 < \_ref_obj: , line:N:N, endln:N:N
+     28 < \_parameter: , line:N:N
+     28 > \_constant: , line:N:N, endln:N:N
+      1 < pris.uhdm: Restored design Pre-Elab: 
+      1 > patched.uhdm: Restored design Pre-Elab: 
+-- vgrid/va3_scope117_plain  RAW=370
+     46 > |vpiSize:N
+     46 > |vpiDecompile:N
+     46 > |vpiConstType:N
+     46 > |UINT:N
+     46 < \_ref_obj: , line:N:N, endln:N:N
+     46 > \_constant: , line:N:N, endln:N:N
+     28 < |vpiName:j
+     16 < |vpiName:m
+     16 < |vpiFullName:work@vaN_scopeN.gen_scope[N].gen_inner[N].m
+     16 < |vpiFullName:work@vaN_scopeN.gen_scope[N].gen_inner[N].j
+      4 < |vpiFullName:work@vaN_scopeN.gen_scope[N].j
+      4 < |vpiFullName:work@vaN_scopeN.gen_scope[N].gen_ifno.j
+      4 < |vpiFullName:work@vaN_scopeN.gen_scope[N].gen_caseN.j
+      2 < |vpiName:q
+-- vgrid/va3_scope117_elab  RAW=488
+     50 < \_ref_obj: , line:N:N, endln:N:N
+     50 > \_constant: , line:N:N, endln:N:N
+     47 < |vpiActual:
+     47 < \_parameter: , line:N:N
+     46 > |vpiSize:N
+     46 > |vpiDecompile:N
+     46 > |vpiConstType:N
+     46 > |UINT:N
+     32 < |vpiName:j
+     16 < |vpiName:m
+     16 < |vpiFullName:work@vaN_scopeN.gen_scope[N].gen_inner[N].m
+     16 < |vpiFullName:work@vaN_scopeN.gen_scope[N].gen_inner[N].j
+      8 < |vpiFullName:work@vaN_scopeN.gen_scope[N].j
+      4 < |vpiParent:
+-- vgrid/va4_index117_plain  RAW=50
+      6 > |vpiSize:N
+      6 < |vpiName:i
+      6 < |vpiFullName:work@vaN_indexN.gen_out[N].i
+      6 > |vpiDecompile:N
+      6 > |vpiConstType:N
+      6 > |UINT:N
+      6 < \_ref_obj: , line:N:N, endln:N:N
+      6 > \_constant: , line:N:N, endln:N:N
+      1 < pris.uhdm: Restored design Pre-Elab: 
+      1 > patched.uhdm: Restored design Pre-Elab: 
+-- vgrid/va4_index117_elab  RAW=62
+      6 > |vpiSize:N
+      6 < |vpiName:i
+      6 < |vpiFullName:work@vaN_indexN.gen_out[N].i
+      6 > |vpiDecompile:N
+      6 > |vpiConstType:N
+      6 < |vpiActual:
+      6 > |UINT:N
+      6 < \_ref_obj: , line:N:N, endln:N:N
+      6 < \_parameter: , line:N:N
+      6 > \_constant: , line:N:N, endln:N:N
+      1 < pris.uhdm: Restored design Pre-Elab: 
+      1 > patched.uhdm: Restored design Pre-Elab: 
+-- vq4/q4_head116_plain  RAW=26
+      3 > |vpiSize:N
+      3 < |vpiName:i
+      3 < |vpiFullName:work@qN_headN.gen_idrouting[N].i
+      3 > |vpiDecompile:N
+      3 > |vpiConstType:N
+      3 > |UINT:N
+      3 < \_ref_obj: , line:N:N, endln:N:N
+      3 > \_constant: , line:N:N, endln:N:N
+      1 < pris.uhdm: Restored design Pre-Elab: 
+      1 > patched.uhdm: Restored design Pre-Elab: 
+-- vq4/q4_head116_elab  RAW=32
+      3 > |vpiSize:N
+      3 < |vpiName:i
+      3 < |vpiFullName:work@qN_headN.gen_idrouting[N].i
+      3 > |vpiDecompile:N
+      3 > |vpiConstType:N
+      3 < |vpiActual:
+      3 > |UINT:N
+      3 < \_ref_obj: , line:N:N, endln:N:N
+      3 < \_parameter: , line:N:N
+      3 > \_constant: , line:N:N, endln:N:N
+      1 < pris.uhdm: Restored design Pre-Elab: 
+      1 > patched.uhdm: Restored design Pre-Elab: 

@@ -1,0 +1,122 @@
+r10vearl117 — THE ADVERSARIAL VERIFIER'S OWN GATE BATTERY, run end to end on
+binaries THIS VERIFIER BUILT.  MEASUREMENT ONLY for the probes; the official
+uhdm-cmp and scripts/verify_golden.py are the authorities.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+BASE cc77bafe.  Fresh worktrees /tmp/wt_vearl117 (patched) and
+/tmp/wt_vearl117pris (pristine), both `git worktree add ... cc77bafe`.
+Both binaries frozen `chmod 555` BEFORE any sweep.
+
+GATE 1 — BUILD (cmake -j 2, md5 taken separately, per binary)
+   pristine  /tmp/vearl117_pris.bin      md5 fdcdcfce45ae27fbcb3b9fd8560cfa7c
+   patched   /tmp/vearl117_pat.bin       md5 bedbfc2053724475e877f555bd149bc3
+   no-fence  /tmp/vearl117_nofence.bin   md5 88732eb14e3fd1c39783baca886632a4
+   ALL THREE md5s are BIT-IDENTICAL to the implementer's, built independently
+   in this verifier's own worktrees.  The no-fence cut was produced by this
+   verifier neutering § patCaGenIdxNeverInUserCallArg112v's test itself.
+   The patch applied to a FOURTH fresh cc77bafe worktree with `git apply -3`:
+   rc 0, 0 conflict markers, src/ExprEmit.cpp and the whole probe directory
+   byte-identical to the measured tree.
+
+GATE 2 — GOLDENS (SLANG_UHDM exported explicitly to EACH binary)
+   patched  : 23 PASS / 0 FAIL
+   pristine : 23 PASS / 0 FAIL
+   SLANG_UHDM=/bin/false : 0 PASS / 23 FAIL   (negative control)
+
+GATE 3 — uhdm2rtlil, testflags AND default, this verifier's OWN sweeps
+   patched  : CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2  (both modes)
+   pristine : CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2  (both modes)
+   ct8rows vs results/gate_uhdm2rtlil.csv        : PASS, 0 differing rows
+   ct8rows vs this verifier's pristine u2r_tf    : PASS, 0 differing rows
+   ct8rows vs this verifier's pristine u2r_def   : PASS, 0 differing rows
+   SELFCHECK=1 byteverify (A vs P)               : MOVERS 0 / 1358,
+                                                   SELFCHECK 1357 / 1358 flagged
+
+GATE 4 — surelog, --mode both, 956 databases over 1588 rows
+   patched  testflags: CMP_EQUAL 467  CMP_NOTEQUAL 8
+   pristine testflags: CMP_EQUAL 466  CMP_NOTEQUAL 9
+   (default identical on both binaries: CMP_NOTEQUAL 10)
+   ct8rows vs results/golden_surelog.csv AND vs this verifier's OWN pristine
+   sweep: EXACTLY ONE DIFFERING ROW in each, and it is the SAME CONVERSION —
+   QUOTED IN FULL.  results/*.csv WAS NOT EDITED; nothing was promoted:
+
+     < Earlgrey_0_1,testflags,CMP_NOTEQUAL,decompile:,,
+     > Earlgrey_0_1,testflags,CMP_EQUAL,,,
+
+GATE 5 — SELFCHECK=1 byteverify, surelog, and the mover attribution
+   PATH_SETS_IDENTICAL (956 paths).  MOVERS 3 / 956; SELFCHECK 955 / 956.
+     ./testflags/Earlgrey_0_1   <- predicted by name
+     ./default/Earlgrey_0_1     <- predicted by name
+     ./default/Scoreboard       <- the documented parallel-parse COIN
+   ATTRIBUTION, this verifier's own path-normalised ORDER-BLIND whole-dump diff
+   (4.7 M-line dumps):
+     default    RAW 464  ORDER-BLIND 464:
+                removed 58 x { \_ref_obj (...gen_idrouting[N].i), |vpiName:i,
+                               |vpiFullName:... }
+                added   58 x { \_constant, |vpiDecompile, |vpiSize, |UINT,
+                               |vpiConstType }
+                NOTHING ELSE.
+     testflags  ORDER-BLIND 580:
+                the same 58 removed blocks PLUS their bound
+                { |vpiActual:, \_parameter (...gen_idrouting[N].i) },
+                added the same 58 constants.  NOTHING ELSE.
+     Scoreboard RAW 118  ORDER-BLIND **0**  -> the coin, not this law.
+   58 per database is exactly the number the pass PREDICTED BY NAME before its
+   patched sweep existed.
+
+CMDS.TXT BINARY AUDIT — every `slang:` line of every cmds.txt, both sweeps,
+both corpora, by PATH:
+   wdA/sl  1523 x /tmp/vearl117_pat.bin      wdA/u2r 1458 x /tmp/vearl117_pat.bin
+   wdP/sl  1523 x /tmp/vearl117_pris.bin     wdP/u2r 1458 x /tmp/vearl117_pris.bin
+   5962 lines, ZERO naming the main-tree binary.
+
+ROW HEADS (rowheads.sh, this verifier's own sweeps, pristine -> patched)
+   SeqDriver    default    58/1 -> 58/1     SeqDriver    testflags  58/1 -> 58/1
+   SimpleUVM    default 664681/1 -> same    SimpleUVM    testflags 664681/1 -> same
+   Scoreboard   default    95/1 -> 95/1     Scoreboard   testflags  SKIP-NOFILE
+   MiniAmiq     default    58/1 -> 58/1     MiniAmiq     testflags  58/1 -> 58/1
+   BuildUVMPkg  default   300/1 -> 300/1    BuildUVMPkg  testflags 300/1 -> 300/1
+   Earlgrey_0_1 default    31/1 -> 31/1     Earlgrey_0_1 testflags  36/1 -> **0/0**
+   Rggen        default     0/0 -> 0/0      Rggen        testflags  SKIP-NOFILE
+   Earlgrey_0_1/default's cmp log is BYTE-IDENTICAL before and after.
+   Earlgrey_0_1/testflags AFTER is a 0-byte file, uhdm-cmp rc 0.
+
+CANARIES
+   canaries.sh vs results/golden_surelog.csv  : ok=51 changed=1 absent=0
+       the ONE changed row: Earlgrey_0_1 testflags CMP_NOTEQUAL/ -> CMP_EQUAL/
+   canaries.sh vs results/gate_uhdm2rtlil.csv : ok=8  changed=0 absent=0
+   EXPECT_UNKNOWN=1 ctcan2.sh (surelog)       : ok=58 changed=0 — PASS
+   EXPECT_UNKNOWN=6 ctcan2.sh (uhdm2rtlil)    : ok=1  changed=0 — PASS
+   canaudit.sh canaries.sh ctcan2.sh          : audited=29 UNCOVERED=0
+                                                FENCE-BREACH=0 — PASS
+
+PROTECTED DATABASES, by name, patched vs pristine md5 (first 12)
+   InterfaceModPort   default/testflags SAME 59a365f3ce2c
+   BlackParrotComplex default e3e354129d5a / testflags 73a10e8217e5  SAME
+   YosysOldOr         default/testflags SAME d68e0796d62c
+   SVSwitch           default/testflags SAME 4842211c4030  <- the brief's PIN, exact
+   YosysVerx          default/testflags SAME 6ccda350c24a  <- the brief's PIN, exact
+
+WIDE BOUNDARY — every .sv/.v under tools/probe at ANY depth (now 5154 files:
+the pass's 5150 plus this verifier's four adversarial arms), both views, both
+frozen binaries, workdir-normalised dump byte-compare:
+   LISTED=5154  FENCED_REMOVED=0
+   PROCESSED=5154 identical=9896 DIFFERING=18 no_output=394
+   PROCESSED==LISTED (5154)
+   rc by side: A/0 9523  A/3 378  A/4 391  A/139 16
+               B/0 9523  B/3 378  B/4 391  B/139 16   -- IDENTICAL per side
+   the 18 differing file/views are, in full: this verifier's four arms (8),
+   the pass's four arms (8), and r10earl116repro/q4_head116.sv (2).  Nothing
+   else in 5145 other probe sources moved a byte on either binary — which is
+   r10earl110-116's arms re-run at the strictest possible resolution.
+
+PATCH HYGIENE
+   surface = src/ExprEmit.cpp + tools/probe/r10earl117repro/ ONLY (64 files)
+   fence check (the four slang-fenced names, read out of canaudit.sh's own
+   FENCED= list, appearing anywhere outside canaudit.sh): 0
+   results/*.csv edits: 0.  GOLDEN_DEFER: never set (mentioned only in prose).
+   no probe driver hard-codes another pass's paths; every `rm -rf` is on this
+   pass's own $OUT/$STAGE/$COPY variables, all overridable (this verifier
+   overrode them and the drivers ran clean).
+   The four slang-fenced test names appear ONLY inside canaudit.sh's FENCED=
+   list and were never dispatched by this verifier either.

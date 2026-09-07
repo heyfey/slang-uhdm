@@ -1,0 +1,58 @@
+LHS:
+decompile:
+logic_net: (work@p1_car117.sarr), id:894, line:48:26, endln:48:30
+|vpiParent:
+\_module_inst: work@p1_car117 (work@p1_car117), id:842, file:/tmp/wt_r10earl117/tools/probe/r10earl117repro/p1_car117.sv, line:37:1, endln:79:10
+|vpiTypespec:
+\_ref_typespec: (work@p1_car117.sarr), id:895
+  |vpiParent:
+  \_logic_net: (work@p1_car117.sarr), id:894, line:48:26, endln:48:30
+  |vpiFullName:work@p1_car117.sarr
+  |vpiActual:
+  \_struct_typespec: (p1p117::s_t), id:2, line:22:11, endln:48:34
+|vpiName:sarr
+|vpiFullName:work@p1_car117.sarr
+|vpiNetType:1
+
+decompile:
+logic_net: (work@p1_car117.sarr), id:894, line:48:26, endln:48:30
+|vpiParent:
+\_module_inst: work@p1_car117 (work@p1_car117), id:842, file:/tmp/wt_r10earl117/tools/probe/r10earl117repro/p1_car117.sv, line:37:1, endln:79:10
+|vpiTypespec:
+\_ref_typespec: (work@p1_car117.sarr), id:895
+  |vpiParent:
+  \_logic_net: (work@p1_car117.sarr), id:894, line:48:26, endln:48:30
+  |vpiFullName:work@p1_car117.sarr
+  |vpiActual:
+  \_struct_typespec: (p1p117::s_t), id:2, line:22:11, endln:48:34
+|vpiName:sarr
+|vpiFullName:work@p1_car117.sarr
+|vpiNetType:1
+RHS:
+decompile:
+logic_net: (work@p1_car117.sarr), id:102, line:48:26, endln:48:30
+|vpiParent:
+\_module_inst: work@p1_car117 (work@p1_car117), id:86, file:/tmp/wt_r10earl117/tools/probe/r10earl117repro/p1_car117.sv, line:37:1, endln:79:10
+|vpiTypespec:
+\_ref_typespec: (work@p1_car117.sarr), id:103
+  |vpiParent:
+  \_logic_net: (work@p1_car117.sarr), id:102, line:48:26, endln:48:30
+  |vpiFullName:work@p1_car117.sarr
+  |vpiActual:
+  \_struct_typespec: (p1p117::s_t), id:45, line:22:11, endln:48:34
+|vpiName:sarr
+|vpiFullName:work@p1_car117.sarr
+
+decompile:
+logic_net: (work@p1_car117.sarr), id:102, line:48:26, endln:48:30
+|vpiParent:
+\_module_inst: work@p1_car117 (work@p1_car117), id:86, file:/tmp/wt_r10earl117/tools/probe/r10earl117repro/p1_car117.sv, line:37:1, endln:79:10
+|vpiTypespec:
+\_ref_typespec: (work@p1_car117.sarr), id:103
+  |vpiParent:
+  \_logic_net: (work@p1_car117.sarr), id:102, line:48:26, endln:48:30
+  |vpiFullName:work@p1_car117.sarr
+  |vpiActual:
+  \_struct_typespec: (p1p117::s_t), id:45, line:22:11, endln:48:34
+|vpiName:sarr
+|vpiFullName:work@p1_car117.sarr

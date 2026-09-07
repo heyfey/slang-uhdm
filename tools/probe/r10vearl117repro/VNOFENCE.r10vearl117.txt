@@ -1,0 +1,96 @@
+### va1_calls117 plain  NO-FENCE CUT (md5 88732eb14e3fd1c39783baca886632a4) vs PRISTINE
+### va1_calls117 plain   keys gold=16 pris=17 patch=17
+  KEYSET IDENTICAL pristine vs patched (no span moved)
+  MOVEDWRONG  57:35-57:36|bit_select|BUS|cont_assign|gen_scope|1|1|R|idx
+      G: 
+      P: ref_obj:j@<null> x4
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1,constant:3#64#9 x1
+  AWAY        58:31-58:32|bit_select|BUS|cont_assign|gen_scope|1|1|R|idx
+      G: ref_obj:j@<null> x4
+      P: ref_obj:j@<null> x4
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1,constant:3#64#9 x1
+  AWAY        59:38-59:39|bit_select|BUS|cont_assign|gen_scope|1|1|R|idx
+      G: ref_obj:j@<null> x4
+      P: ref_obj:j@<null> x4
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1,constant:3#64#9 x1
+  AWAY        60:31-60:32|bit_select|BUS|cont_assign|gen_scope|1|1|R|idx
+      G: ref_obj:j@<null> x4
+      P: ref_obj:j@<null> x4
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1,constant:3#64#9 x1
+  TOGOLD      63:18-63:19|bit_select|BUS|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1,constant:3#64#9 x1
+      P: ref_obj:j@<null> x4
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1,constant:3#64#9 x1
+  TOGOLD      63:26-63:27|bit_select|BUS|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1,constant:3#64#9 x1
+      P: ref_obj:j@<null> x4
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1,constant:3#64#9 x1
+  TOGOLD      64:22-64:23|bit_select|BUS|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1,constant:3#64#9 x1
+      P: ref_obj:j@<null> x4
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1,constant:3#64#9 x1
+  AWAY        65:44-65:45|bit_select|BUS|cont_assign|gen_scope|1|1|R|idx
+      G: ref_obj:j@<null> x4
+      P: ref_obj:j@<null> x4
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1,constant:3#64#9 x1
+  TOGOLD      66:32-66:33|bit_select|BUS|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1,constant:3#64#9 x1
+      P: ref_obj:j@<null> x4
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1,constant:3#64#9 x1
+SPELLED plain  FOLDED_AGREE 4  FOLDED_FIXED 4  SPELLED_AGREE 4  SPELLED_BROKEN 4
+  !! SPELLED            va1_calls117_plain                       59:38-59:39|bit_select|BUS|cont_assign|gen_scope|1|1|R|idx
+       pris={('ref_obj', 'j@<null>'): 4} patch={('constant', '0#64#9'): 1, ('constant', '1#64#9'): 1, ('constant', '2#64#9'): 1, ('constant', '3#64#9'): 1}
+  !! SPELLED            va1_calls117_plain                       60:31-60:32|bit_select|BUS|cont_assign|gen_scope|1|1|R|idx
+       pris={('ref_obj', 'j@<null>'): 4} patch={('constant', '0#64#9'): 1, ('constant', '1#64#9'): 1, ('constant', '2#64#9'): 1, ('constant', '3#64#9'): 1}
+  !! SPELLED            va1_calls117_plain                       58:31-58:32|bit_select|BUS|cont_assign|gen_scope|1|1|R|idx
+       pris={('ref_obj', 'j@<null>'): 4} patch={('constant', '0#64#9'): 1, ('constant', '1#64#9'): 1, ('constant', '2#64#9'): 1, ('constant', '3#64#9'): 1}
+  !! SPELLED            va1_calls117_plain                       65:44-65:45|bit_select|BUS|cont_assign|gen_scope|1|1|R|idx
+       pris={('ref_obj', 'j@<null>'): 4} patch={('constant', '0#64#9'): 1, ('constant', '1#64#9'): 1, ('constant', '2#64#9'): 1, ('constant', '3#64#9'): 1}
+### va1_calls117 elab  NO-FENCE CUT (md5 88732eb14e3fd1c39783baca886632a4) vs PRISTINE
+### va1_calls117 elab   keys gold=16 pris=17 patch=17
+  KEYSET IDENTICAL pristine vs patched (no span moved)
+  MOVEDWRONG  57:35-57:36|bit_select|BUS|cont_assign|gen_scope|1|1|R|idx
+      G: 
+      P: ref_obj:j@parameter x4
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1,constant:3#64#9 x1
+  AWAY        58:31-58:32|bit_select|BUS|cont_assign|gen_scope|1|1|R|idx
+      G: ref_obj:j@parameter x4
+      P: ref_obj:j@parameter x4
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1,constant:3#64#9 x1
+  AWAY        59:38-59:39|bit_select|BUS|cont_assign|gen_scope|1|1|R|idx
+      G: ref_obj:j@parameter x4
+      P: ref_obj:j@parameter x4
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1,constant:3#64#9 x1
+  AWAY        60:31-60:32|bit_select|BUS|cont_assign|gen_scope|1|1|R|idx
+      G: ref_obj:j@parameter x4
+      P: ref_obj:j@parameter x4
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1,constant:3#64#9 x1
+  TOGOLD      63:18-63:19|bit_select|BUS|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1,constant:3#64#9 x1
+      P: ref_obj:j@parameter x4
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1,constant:3#64#9 x1
+  TOGOLD      63:26-63:27|bit_select|BUS|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1,constant:3#64#9 x1
+      P: ref_obj:j@parameter x4
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1,constant:3#64#9 x1
+  TOGOLD      64:22-64:23|bit_select|BUS|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1,constant:3#64#9 x1
+      P: ref_obj:j@parameter x4
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1,constant:3#64#9 x1
+  AWAY        65:44-65:45|bit_select|BUS|cont_assign|gen_scope|1|1|R|idx
+      G: ref_obj:j@parameter x4
+      P: ref_obj:j@parameter x4
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1,constant:3#64#9 x1
+  TOGOLD      66:32-66:33|bit_select|BUS|cont_assign|gen_scope|1|1|R|idx
+      G: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1,constant:3#64#9 x1
+      P: ref_obj:j@parameter x4
+      A: constant:0#64#9 x1,constant:1#64#9 x1,constant:2#64#9 x1,constant:3#64#9 x1
+SPELLED elab   FOLDED_AGREE 4  FOLDED_FIXED 4  SPELLED_AGREE 4  SPELLED_BROKEN 4
+  !! SPELLED            va1_calls117_elab                        58:31-58:32|bit_select|BUS|cont_assign|gen_scope|1|1|R|idx
+       pris={('ref_obj', 'j@parameter'): 4} patch={('constant', '0#64#9'): 1, ('constant', '1#64#9'): 1, ('constant', '2#64#9'): 1, ('constant', '3#64#9'): 1}
+  !! SPELLED            va1_calls117_elab                        65:44-65:45|bit_select|BUS|cont_assign|gen_scope|1|1|R|idx
+       pris={('ref_obj', 'j@parameter'): 4} patch={('constant', '0#64#9'): 1, ('constant', '1#64#9'): 1, ('constant', '2#64#9'): 1, ('constant', '3#64#9'): 1}
+  !! SPELLED            va1_calls117_elab                        60:31-60:32|bit_select|BUS|cont_assign|gen_scope|1|1|R|idx
+       pris={('ref_obj', 'j@parameter'): 4} patch={('constant', '0#64#9'): 1, ('constant', '1#64#9'): 1, ('constant', '2#64#9'): 1, ('constant', '3#64#9'): 1}
+  !! SPELLED            va1_calls117_elab                        59:38-59:39|bit_select|BUS|cont_assign|gen_scope|1|1|R|idx
+       pris={('ref_obj', 'j@parameter'): 4} patch={('constant', '0#64#9'): 1, ('constant', '1#64#9'): 1, ('constant', '2#64#9'): 1, ('constant', '3#64#9'): 1}

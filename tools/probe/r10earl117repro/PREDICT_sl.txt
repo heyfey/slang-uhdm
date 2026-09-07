@@ -1,0 +1,16 @@
+PREDICTED CANDIDATE CELLS (upper bound), by database  [unbound=False anysel=False]
+  testflags/Earlgrey_0_1-71da2fd7                cells=58    golden#64#9=58    golden-other=0
+TOTAL databases=1 cells=58 golden#64#9=58 golden-other=0
+
+PREDICTED CANDIDATE CELLS (upper bound), by database  [unbound=True anysel=False]
+  default/Earlgrey_0_1-71da2fd7                  cells=58    golden#64#9=58    golden-other=0
+  testflags/Earlgrey_0_1-71da2fd7                cells=58    golden#64#9=58    golden-other=0
+TOTAL databases=2 cells=116 golden#64#9=116 golden-other=0
+
+PREDICTED CANDIDATE CELLS (upper bound), by database  [unbound=True anysel=True]
+  default/Earlgrey_0_1-71da2fd7                  cells=58    golden#64#9=58    golden-other=0
+  testflags/Earlgrey_0_1-71da2fd7                cells=58    golden#64#9=58    golden-other=0
+TOTAL databases=2 cells=116 golden#64#9=116 golden-other=0
+BY CARRIER (select kind | bound position):
+  bit_select|idx                 cells=116
+

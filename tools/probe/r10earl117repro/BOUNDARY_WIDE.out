@@ -1,0 +1,24 @@
+LISTED=5150  FENCED_REMOVED=0  (of 5150 found)
+PROCESSED=5150 identical=9896 DIFFERING=10 no_output=394
+-- rc by side --
+A/0 9515
+A/139 16
+A/3 378
+A/4 391
+B/0 9515
+B/139 16
+B/3 378
+B/4 391
+-- differing --
+  elab r10earl116repro/q4_head116.sv
+  elab r10earl117repro/p1_car117.sv
+  elab r10earl117repro/p2_shape117.sv
+  elab r10earl117repro/p3_fence117.sv
+  elab r10earl117repro/p4_head117.sv
+  plain r10earl116repro/q4_head116.sv
+  plain r10earl117repro/p1_car117.sv
+  plain r10earl117repro/p2_shape117.sv
+  plain r10earl117repro/p3_fence117.sv
+  plain r10earl117repro/p4_head117.sv
+PROCESSED==LISTED (5150)
+WIDEDONE

@@ -1,0 +1,35 @@
+=== CALIBRATION golden-vs-golden, CORPUS ===
+surelog CALIB FAMILY FX  SAME_AGREE 22583  TOGOLD 0  AWAY 0  MOVEDWRONG 0  STILLWRONG 0  NOGOLD_MOVED 0
+surelog CALIB FAMILY F0  SAME_AGREE 3857  TOGOLD 0  AWAY 0  MOVEDWRONG 0  STILLWRONG 0  NOGOLD_MOVED 0
+=== SCORE ===
+surelog FAMILY FX  SAME_AGREE 22503  TOGOLD 4  AWAY 0  MOVEDWRONG 0  STILLWRONG 76  NOGOLD_MOVED 0
+surelog FAMILY F0  SAME_AGREE 3845  TOGOLD 4  AWAY 0  MOVEDWRONG 0  STILLWRONG 8  NOGOLD_MOVED 0
+surelog:
+ACCOUNTING PASS  LISTED=1573 PROCESSED=956 SKIPPED=617 TOOLFAIL=0
+uhdm2rtlil:
+ACCOUNTING PASS  LISTED=1462 PROCESSED=1358 SKIPPED=104 TOOLFAIL=0
+FAMILY FX  SAME_AGREE 22503  TOGOLD 4  AWAY 0  MOVEDWRONG 0  STILLWRONG 76  NOGOLD_MOVED 0
+  TOGOLD       default/Earlgrey_0_1-71da2fd7            250:24-250:25|bit_select|hgrant|cont_assign|gen_scope|1|1|R|idx
+      pris={('ref_obj', 'i@<null>'): 29}  patch={('constant', '0#64#9'): 13, ('constant', '1#64#9'): 13, ('constant', '2#64#9'): 3}
+  TOGOLD       default/Earlgrey_0_1-71da2fd7            241:32-241:33|bit_select|hfifo_rspvalid|cont_assign|gen_scope|1|1|R|idx
+      pris={('ref_obj', 'i@<null>'): 29}  patch={('constant', '0#64#9'): 13, ('constant', '1#64#9'): 13, ('constant', '2#64#9'): 3}
+  TOGOLD       testflags/Earlgrey_0_1-71da2fd7          250:24-250:25|bit_select|hgrant|cont_assign|gen_scope|1|1|R|idx
+      pris={('ref_obj', 'i@parameter'): 29}  patch={('constant', '0#64#9'): 13, ('constant', '1#64#9'): 13, ('constant', '2#64#9'): 3}
+  TOGOLD       testflags/Earlgrey_0_1-71da2fd7          241:32-241:33|bit_select|hfifo_rspvalid|cont_assign|gen_scope|1|1|R|idx
+      pris={('ref_obj', 'i@parameter'): 29}  patch={('constant', '0#64#9'): 13, ('constant', '1#64#9'): 13, ('constant', '2#64#9'): 3}
+GOLDEN HALVES BYTE-IDENTICAL between the two sweeps (sl): yes
+
+REMAINING sig117 DIVERGENT CELL CLASSES on the PATCHED surelog census:
+  part_select|left|cont_assign|module_inst|nopat|R|operation-><absent>       cells=56    dbs=5
+  part_select|right|cont_assign|module_inst|nopat|R|constant-><absent>       cells=56    dbs=5
+  part_select|right|cont_assign|module_inst|nopat|R|operation-><absent>      cells=16    dbs=2
+  var_select|dim0|assignment|module_inst|nopat|L|bit_select-><absent>        cells=8     dbs=2
+  bit_select|idx|assignment|module_inst|nopat|L|bit_select-><absent>         cells=8     dbs=2
+  bit_select|idx|cont_assign|module_inst|nopat|R|constant-><absent>          cells=8     dbs=2
+  part_select|right|assignment|module_inst|nopat|R|constant-><absent>        cells=4     dbs=2
+  bit_select|idx|assignment|module_inst|nopat|L|constant-><absent>           cells=4     dbs=2
+  part_select|left|assignment|module_inst|nopat|R|operation-><absent>        cells=2     dbs=1
+  part_select|left|assignment|module_inst|nopat|R|constant,operation-><absent> cells=2     dbs=1
+  indexed_part_select|width|cont_assign|module_inst|nopat|R|operation-><absent> cells=1     dbs=1
+  indexed_part_select|width|cont_assign|module_inst|nopat|R|constant-><absent> cells=1     dbs=1
+TOTAL classes=12 cells=166 ; classes with PAT>0 = 0

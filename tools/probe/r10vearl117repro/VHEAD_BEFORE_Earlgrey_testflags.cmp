@@ -1,0 +1,36 @@
+LHS:
+decompile:
+constant: , id:797692, line:241:32, endln:241:33
+|vpiParent:
+\_bit_select: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0].hfifo_rspvalid), id:797694, line:241:32, endln:241:33
+|vpiDecompile:0
+|vpiSize:64
+|UINT:0
+|vpiConstType:9
+
+decompile:
+constant: , id:797692, line:241:32, endln:241:33
+|vpiParent:
+\_bit_select: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0].hfifo_rspvalid), id:797694, line:241:32, endln:241:33
+|vpiDecompile:0
+|vpiSize:64
+|UINT:0
+|vpiConstType:9
+RHS:
+decompile:
+ref_obj: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0].i), id:635315, line:241:32, endln:241:33
+|vpiParent:
+\_bit_select: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0].hfifo_rspvalid), id:635314, line:241:32, endln:241:33
+|vpiName:i
+|vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0].i
+|vpiActual:
+\_parameter: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0].i), id:635272, line:233:0
+
+decompile:
+ref_obj: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0].i), id:635315, line:241:32, endln:241:33
+|vpiParent:
+\_bit_select: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0].hfifo_rspvalid), id:635314, line:241:32, endln:241:33
+|vpiName:i
+|vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0].i
+|vpiActual:
+\_parameter: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0].i), id:635272, line:233:0
