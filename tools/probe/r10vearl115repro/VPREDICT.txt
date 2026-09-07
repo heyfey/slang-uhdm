@@ -1,0 +1,16 @@
+# r10vearl115 -- the VERIFIER'S OWN mover prediction, from PRISTINE databases only.
+# vpredict115 applies NO fence: it counts every cell the consumer walk could reach.
+
+surelog corpus, 956 pristine databases:
+VPREDICT	testflags/Earlgrey_0_1-71da2fd7/slang.uhdm	bound_nonfirst_cells=464	paths=464
+  TOTAL bound non-first cells: 464
+  ROWS predicted to move: 1
+
+uhdm2rtlil corpus, 1358 pristine databases:
+  TOTAL bound non-first cells: 0
+  ROWS predicted to move: 0
+0
+
+SAME PREDICTOR RE-RUN ON THE PATCHED SWEEP (956 databases):
+  rows still holding bound non-first cells: 0
+0

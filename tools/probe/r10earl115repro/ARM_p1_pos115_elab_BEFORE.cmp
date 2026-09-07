@@ -1,0 +1,37 @@
+LHS: <null>
+RHS:
+decompile:
+typespec_member: (a_valid), id:89, line:34:17, endln:34:24
+|vpiParent:
+\_struct_typespec: (p115p::h2d_t), id:88, line:33:11, endln:37:4
+|vpiName:a_valid
+|vpiTypespec:
+\_ref_typespec: (p115p::p115p::h2d_t::a_valid), id:91
+  |vpiParent:
+  \_typespec_member: (a_valid), id:89, line:34:17, endln:34:24
+  |vpiFullName:p115p::p115p::h2d_t::a_valid
+  |vpiActual:
+  \_logic_typespec: , id:41, line:34:5, endln:34:10
+|vpiRefFile:/tmp/wt_r10earl115/tools/probe/r10earl115repro/p1_pos115.sv
+|vpiRefLineNo:34
+|vpiRefColumnNo:5
+|vpiRefEndLineNo:34
+|vpiRefEndColumnNo:10
+
+decompile:
+typespec_member: (a_valid), id:89, line:34:17, endln:34:24
+|vpiParent:
+\_struct_typespec: (p115p::h2d_t), id:88, line:33:11, endln:37:4
+|vpiName:a_valid
+|vpiTypespec:
+\_ref_typespec: (p115p::p115p::h2d_t::a_valid), id:91
+  |vpiParent:
+  \_typespec_member: (a_valid), id:89, line:34:17, endln:34:24
+  |vpiFullName:p115p::p115p::h2d_t::a_valid
+  |vpiActual:
+  \_logic_typespec: , id:41, line:34:5, endln:34:10
+|vpiRefFile:/tmp/wt_r10earl115/tools/probe/r10earl115repro/p1_pos115.sv
+|vpiRefLineNo:34
+|vpiRefColumnNo:5
+|vpiRefEndLineNo:34
+|vpiRefEndColumnNo:10

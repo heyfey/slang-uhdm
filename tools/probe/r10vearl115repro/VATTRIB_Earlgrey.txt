@@ -1,0 +1,32 @@
+== RAW (order-sensitive) whole-dump diff
+  lines: 1396
+== ORDER-BLIND (sorted) whole-dump diff
+  lines: 949
+== ORDER-BLIND diff BY SECTION (0 = before the first uhdmtopModules = DEF,
+   1..n = ELAB, the LAST section is the weaklyReferenced TAIL, NOT COUNTED)
+      1 < sec=0
+      1 > sec=0
+    928 < sec=10
+== CHANGED LINE SHAPES (order-blind, added side)
+      1 /WD/slP/testflags/Earlgrey_N_N-HASH/slang.uhdm: Restored design Pre-Elab: 
+== CHANGED LINE SHAPES (order-blind, removed side)
+    464 |vpiActual:
+     29 \_typespec_member: (d_user), line:N:N, endln:N:N
+     29 \_typespec_member: (d_size), line:N:N, endln:N:N
+     29 \_typespec_member: (d_sink), line:N:N, endln:N:N
+     29 \_typespec_member: (d_ready), line:N:N, endln:N:N
+     29 \_typespec_member: (d_param), line:N:N, endln:N:N
+     29 \_typespec_member: (d_opcode), line:N:N, endln:N:N
+     29 \_typespec_member: (d_error), line:N:N, endln:N:N
+     29 \_typespec_member: (d_data), line:N:N, endln:N:N
+     29 \_typespec_member: (a_valid), line:N:N, endln:N:N
+     29 \_typespec_member: (a_user), line:N:N, endln:N:N
+     29 \_typespec_member: (a_size), line:N:N, endln:N:N
+     29 \_typespec_member: (a_param), line:N:N, endln:N:N
+     29 \_typespec_member: (a_opcode), line:N:N, endln:N:N
+     29 \_typespec_member: (a_mask), line:N:N, endln:N:N
+     29 \_typespec_member: (a_data), line:N:N, endln:N:N
+     29 \_typespec_member: (a_address), line:N:N, endln:N:N
+      1 /WD/slR/testflags/Earlgrey_N_N-HASH/slang.uhdm: Restored design Pre-Elab: 
+
+[exited with code 0]

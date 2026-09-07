@@ -1,0 +1,7 @@
+THE THREE PLAIN-VIEW DIFFERING FILES ARE THE DOCUMENTED PARALLEL-PARSE COIN
+(RESUME.md section 9): three runs of the PRISTINE binary alone on each file
+give three DIFFERENT hashes.  The plain view runs with NO --elabuhdm, so
+this law's post-elaborator pass cannot run there at all.
+  g22.sv          69d5044378c3 980fc6bfc331 4367bdfacdd6  NONDETERMINISTIC
+  l154_noenum.sv  d86059c7d2d9 401779241ca2 35ddf34cf8a8  NONDETERMINISTIC
+  g185_e_kinds.sv ea064ab51e87 64c830a7abc7 11c2631d4e8d  NONDETERMINISTIC

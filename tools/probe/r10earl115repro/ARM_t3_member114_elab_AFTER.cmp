@@ -1,0 +1,358 @@
+LHS:
+decompile:
+tagged_pattern: , id:886, line:71:26, endln:71:38
+|vpiParent:
+\_operation: , id:880, line:71:19, endln:72:31
+|vpiPattern:
+\_hier_path: (nest_i[0].lo), id:881, line:71:26, endln:71:38
+  |vpiParent:
+  \_operation: , id:880, line:71:19, endln:72:31
+  |vpiActual:
+  \_bit_select: (nest_i[0]), id:884, line:71:26, endln:71:32
+    |vpiParent:
+    \_hier_path: (nest_i[0].lo), id:881, line:71:26, endln:71:38
+    |vpiName:nest_i
+    |vpiFullName:nest_i[0]
+    |vpiActual:
+    \_array_net: (work@t3_member114.nest_i), id:560, line:36:23, endln:36:29
+    |vpiIndex:
+    \_constant: , id:882, line:71:33, endln:71:34
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiActual:
+  \_ref_obj: (work@t3_member114.gen_m4[0].lo), id:885, line:71:36, endln:71:38
+    |vpiParent:
+    \_hier_path: (nest_i[0].lo), id:881, line:71:26, endln:71:38
+    |vpiName:lo
+    |vpiFullName:work@t3_member114.gen_m4[0].lo
+  |vpiExpr:
+  \_array_net: (work@t3_member114.nest_i), id:560, line:36:23, endln:36:29
+    |vpiParent:
+    \_module_inst: work@t3_member114 (work@t3_member114), id:1732, file:/tmp/wt_r10earl115/tools/probe/r10earl114repro/t3_member114.sv, line:33:1, endln:149:10
+    |vpiSize:1
+    |vpiName:nest_i
+    |vpiFullName:work@t3_member114.nest_i
+    |vpiRange:
+    \_range: , id:551, line:36:31, endln:36:32
+      |vpiParent:
+      \_array_net: (work@t3_member114.nest_i), id:560, line:36:23, endln:36:29
+      |vpiLeftRange:
+      \_constant: , id:552
+        |vpiParent:
+        \_range: , id:551, line:36:31, endln:36:32
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_operation: , id:556, line:36:31, endln:36:32
+        |vpiParent:
+        \_range: , id:551, line:36:31, endln:36:32
+        |vpiOpType:11
+        |vpiOperand:
+        \_constant: , id:553, line:36:31, endln:36:32
+          |vpiParent:
+          \_operation: , id:556, line:36:31, endln:36:32
+          |vpiDecompile:3
+          |vpiSize:32
+          |UINT:3
+          |vpiTypespec:
+          \_ref_typespec: (work@t3_member114.nest_i), id:555
+            |vpiParent:
+            \_constant: , id:553, line:36:31, endln:36:32
+            |vpiFullName:work@t3_member114.nest_i
+            |vpiActual:
+            \_int_typespec: , id:554
+          |vpiConstType:9
+        |vpiOperand:
+        \_constant: , id:557
+          |vpiSize:64
+          |INT:1
+          |vpiConstType:7
+    |vpiNet:
+    \_struct_net: (work@t3_member114.nest_i.nest_i), id:558, line:36:23, endln:36:33
+      |vpiParent:
+      \_array_net: (work@t3_member114.nest_i), id:560, line:36:23, endln:36:29
+      |vpiTypespec:
+      \_ref_typespec: (work@t3_member114.nest_i.nest_i), id:559
+        |vpiParent:
+        \_struct_net: (work@t3_member114.nest_i.nest_i), id:558, line:36:23, endln:36:33
+        |vpiFullName:work@t3_member114.nest_i.nest_i
+        |vpiActual:
+        \_struct_typespec: (p114m::hi_t), id:37, line:27:11, endln:30:4
+      |vpiName:nest_i
+      |vpiFullName:work@t3_member114.nest_i.nest_i
+  |vpiName:nest_i[0].lo
+|vpiTypespec:
+\_ref_typespec: (work@t3_member114.gen_m4[0]), id:888
+  |vpiParent:
+  \_tagged_pattern: , id:886, line:71:26, endln:71:38
+  |vpiFullName:work@t3_member114.gen_m4[0]
+  |vpiActual:
+  \_string_typespec: (lo), id:887, line:71:22, endln:71:24
+
+decompile:
+tagged_pattern: , id:886, line:71:26, endln:71:38
+|vpiParent:
+\_operation: , id:880, line:71:19, endln:72:31
+|vpiPattern:
+\_hier_path: (nest_i[0].lo), id:881, line:71:26, endln:71:38
+  |vpiParent:
+  \_operation: , id:880, line:71:19, endln:72:31
+  |vpiActual:
+  \_bit_select: (nest_i[0]), id:884, line:71:26, endln:71:32
+    |vpiParent:
+    \_hier_path: (nest_i[0].lo), id:881, line:71:26, endln:71:38
+    |vpiName:nest_i
+    |vpiFullName:nest_i[0]
+    |vpiActual:
+    \_array_net: (work@t3_member114.nest_i), id:560, line:36:23, endln:36:29
+    |vpiIndex:
+    \_constant: , id:882, line:71:33, endln:71:34
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiActual:
+  \_ref_obj: (work@t3_member114.gen_m4[0].lo), id:885, line:71:36, endln:71:38
+    |vpiParent:
+    \_hier_path: (nest_i[0].lo), id:881, line:71:26, endln:71:38
+    |vpiName:lo
+    |vpiFullName:work@t3_member114.gen_m4[0].lo
+  |vpiExpr:
+  \_array_net: (work@t3_member114.nest_i), id:560, line:36:23, endln:36:29
+    |vpiParent:
+    \_module_inst: work@t3_member114 (work@t3_member114), id:1732, file:/tmp/wt_r10earl115/tools/probe/r10earl114repro/t3_member114.sv, line:33:1, endln:149:10
+    |vpiSize:1
+    |vpiName:nest_i
+    |vpiFullName:work@t3_member114.nest_i
+    |vpiRange:
+    \_range: , id:551, line:36:31, endln:36:32
+      |vpiParent:
+      \_array_net: (work@t3_member114.nest_i), id:560, line:36:23, endln:36:29
+      |vpiLeftRange:
+      \_constant: , id:552
+        |vpiParent:
+        \_range: , id:551, line:36:31, endln:36:32
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_operation: , id:556, line:36:31, endln:36:32
+        |vpiParent:
+        \_range: , id:551, line:36:31, endln:36:32
+        |vpiOpType:11
+        |vpiOperand:
+        \_constant: , id:553, line:36:31, endln:36:32
+          |vpiParent:
+          \_operation: , id:556, line:36:31, endln:36:32
+          |vpiDecompile:3
+          |vpiSize:32
+          |UINT:3
+          |vpiTypespec:
+          \_ref_typespec: (work@t3_member114.nest_i), id:555
+            |vpiParent:
+            \_constant: , id:553, line:36:31, endln:36:32
+            |vpiFullName:work@t3_member114.nest_i
+            |vpiActual:
+            \_int_typespec: , id:554
+          |vpiConstType:9
+        |vpiOperand:
+        \_constant: , id:557
+          |vpiSize:64
+          |INT:1
+          |vpiConstType:7
+    |vpiNet:
+    \_struct_net: (work@t3_member114.nest_i.nest_i), id:558, line:36:23, endln:36:33
+      |vpiParent:
+      \_array_net: (work@t3_member114.nest_i), id:560, line:36:23, endln:36:29
+      |vpiTypespec:
+      \_ref_typespec: (work@t3_member114.nest_i.nest_i), id:559
+        |vpiParent:
+        \_struct_net: (work@t3_member114.nest_i.nest_i), id:558, line:36:23, endln:36:33
+        |vpiFullName:work@t3_member114.nest_i.nest_i
+        |vpiActual:
+        \_struct_typespec: (p114m::hi_t), id:37, line:27:11, endln:30:4
+      |vpiName:nest_i
+      |vpiFullName:work@t3_member114.nest_i.nest_i
+  |vpiName:nest_i[0].lo
+|vpiTypespec:
+\_ref_typespec: (work@t3_member114.gen_m4[0]), id:888
+  |vpiParent:
+  \_tagged_pattern: , id:886, line:71:26, endln:71:38
+  |vpiFullName:work@t3_member114.gen_m4[0]
+  |vpiActual:
+  \_string_typespec: (lo), id:887, line:71:22, endln:71:24
+RHS:
+decompile:
+hier_path: (nest_i[0].lo), id:1468, line:71:26, endln:71:38
+|vpiParent:
+\_operation: , id:1467, line:71:19, endln:72:31
+|vpiActual:
+\_bit_select: (nest_i[0]), id:1469, line:71:26, endln:71:32
+  |vpiParent:
+  \_hier_path: (nest_i[0].lo), id:1468, line:71:26, endln:71:38
+  |vpiName:nest_i
+  |vpiFullName:nest_i[0]
+  |vpiActual:
+  \_array_net: (work@t3_member114.nest_i), id:543, line:36:23, endln:36:29
+  |vpiIndex:
+  \_constant: , id:747, line:71:33, endln:71:34
+    |vpiParent:
+    \_bit_select: (nest_i[0]), id:745, line:71:26, endln:71:32
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+|vpiActual:
+\_ref_obj: (work@t3_member114.gen_m4[0].lo), id:1470, line:71:36, endln:71:38
+  |vpiParent:
+  \_hier_path: (nest_i[0].lo), id:1468, line:71:26, endln:71:38
+  |vpiName:lo
+  |vpiFullName:work@t3_member114.gen_m4[0].lo
+|vpiExpr:
+\_array_net: (work@t3_member114.nest_i), id:543, line:36:23, endln:36:29
+  |vpiParent:
+  \_module_inst: work@t3_member114 (work@t3_member114), id:522, file:/tmp/wt_r10earl115/tools/probe/r10earl114repro/t3_member114.sv, line:33:1, endln:149:10
+  |vpiSize:1
+  |vpiName:nest_i
+  |vpiFullName:work@t3_member114.nest_i
+  |vpiRange:
+  \_range: , id:544, line:36:31, endln:36:32
+    |vpiParent:
+    \_array_net: (work@t3_member114.nest_i), id:543, line:36:23, endln:36:29
+    |vpiLeftRange:
+    \_constant: , id:545
+      |vpiParent:
+      \_range: , id:544, line:36:31, endln:36:32
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_operation: , id:546, line:36:31, endln:36:32
+      |vpiParent:
+      \_range: , id:544, line:36:31, endln:36:32
+      |vpiOpType:11
+      |vpiOperand:
+      \_constant: , id:547, line:36:31, endln:36:32
+        |vpiParent:
+        \_operation: , id:546, line:36:31, endln:36:32
+        |vpiDecompile:3
+        |vpiSize:32
+        |UINT:3
+        |vpiTypespec:
+        \_ref_typespec: (work@t3_member114.nest_i), id:548
+          |vpiParent:
+          \_constant: , id:547, line:36:31, endln:36:32
+          |vpiFullName:work@t3_member114.nest_i
+          |vpiActual:
+          \_int_typespec: , id:549
+        |vpiConstType:9
+      |vpiOperand:
+      \_constant: , id:550
+        |vpiSize:64
+        |INT:1
+        |vpiConstType:7
+  |vpiNet:
+  \_struct_net: (work@t3_member114.nest_i.nest_i), id:551, line:36:23, endln:36:33
+    |vpiParent:
+    \_array_net: (work@t3_member114.nest_i), id:543, line:36:23, endln:36:29
+    |vpiTypespec:
+    \_ref_typespec: (work@t3_member114.nest_i.nest_i), id:552
+      |vpiParent:
+      \_struct_net: (work@t3_member114.nest_i.nest_i), id:551, line:36:23, endln:36:33
+      |vpiFullName:work@t3_member114.nest_i.nest_i
+      |vpiActual:
+      \_struct_typespec: (p114m::hi_t), id:73, line:27:11, endln:30:4
+    |vpiName:nest_i
+    |vpiFullName:work@t3_member114.nest_i.nest_i
+|vpiName:nest_i[0].lo
+
+decompile:
+hier_path: (nest_i[0].lo), id:1468, line:71:26, endln:71:38
+|vpiParent:
+\_operation: , id:1467, line:71:19, endln:72:31
+|vpiActual:
+\_bit_select: (nest_i[0]), id:1469, line:71:26, endln:71:32
+  |vpiParent:
+  \_hier_path: (nest_i[0].lo), id:1468, line:71:26, endln:71:38
+  |vpiName:nest_i
+  |vpiFullName:nest_i[0]
+  |vpiActual:
+  \_array_net: (work@t3_member114.nest_i), id:543, line:36:23, endln:36:29
+  |vpiIndex:
+  \_constant: , id:747, line:71:33, endln:71:34
+    |vpiParent:
+    \_bit_select: (nest_i[0]), id:745, line:71:26, endln:71:32
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+|vpiActual:
+\_ref_obj: (work@t3_member114.gen_m4[0].lo), id:1470, line:71:36, endln:71:38
+  |vpiParent:
+  \_hier_path: (nest_i[0].lo), id:1468, line:71:26, endln:71:38
+  |vpiName:lo
+  |vpiFullName:work@t3_member114.gen_m4[0].lo
+|vpiExpr:
+\_array_net: (work@t3_member114.nest_i), id:543, line:36:23, endln:36:29
+  |vpiParent:
+  \_module_inst: work@t3_member114 (work@t3_member114), id:522, file:/tmp/wt_r10earl115/tools/probe/r10earl114repro/t3_member114.sv, line:33:1, endln:149:10
+  |vpiSize:1
+  |vpiName:nest_i
+  |vpiFullName:work@t3_member114.nest_i
+  |vpiRange:
+  \_range: , id:544, line:36:31, endln:36:32
+    |vpiParent:
+    \_array_net: (work@t3_member114.nest_i), id:543, line:36:23, endln:36:29
+    |vpiLeftRange:
+    \_constant: , id:545
+      |vpiParent:
+      \_range: , id:544, line:36:31, endln:36:32
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_operation: , id:546, line:36:31, endln:36:32
+      |vpiParent:
+      \_range: , id:544, line:36:31, endln:36:32
+      |vpiOpType:11
+      |vpiOperand:
+      \_constant: , id:547, line:36:31, endln:36:32
+        |vpiParent:
+        \_operation: , id:546, line:36:31, endln:36:32
+        |vpiDecompile:3
+        |vpiSize:32
+        |UINT:3
+        |vpiTypespec:
+        \_ref_typespec: (work@t3_member114.nest_i), id:548
+          |vpiParent:
+          \_constant: , id:547, line:36:31, endln:36:32
+          |vpiFullName:work@t3_member114.nest_i
+          |vpiActual:
+          \_int_typespec: , id:549
+        |vpiConstType:9
+      |vpiOperand:
+      \_constant: , id:550
+        |vpiSize:64
+        |INT:1
+        |vpiConstType:7
+  |vpiNet:
+  \_struct_net: (work@t3_member114.nest_i.nest_i), id:551, line:36:23, endln:36:33
+    |vpiParent:
+    \_array_net: (work@t3_member114.nest_i), id:543, line:36:23, endln:36:29
+    |vpiTypespec:
+    \_ref_typespec: (work@t3_member114.nest_i.nest_i), id:552
+      |vpiParent:
+      \_struct_net: (work@t3_member114.nest_i.nest_i), id:551, line:36:23, endln:36:33
+      |vpiFullName:work@t3_member114.nest_i.nest_i
+      |vpiActual:
+      \_struct_typespec: (p114m::hi_t), id:73, line:27:11, endln:30:4
+    |vpiName:nest_i
+    |vpiFullName:work@t3_member114.nest_i.nest_i
+|vpiName:nest_i[0].lo

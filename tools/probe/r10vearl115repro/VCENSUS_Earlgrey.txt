@@ -1,0 +1,8 @@
+# r10vearl115 -- the ONE moving corpus row, scored cell by cell against its golden.
+# row: surelog testflags/Earlgrey_0_1 (golden d7348d2d2fe67abe767b/golden.uhdm)
+# vsig115 = instance-keyed MULTISET scorer; LHS is ALWAYS golden.
+
+three-way (golden, pristine, patched): -- VX GOLDENONLY=32  MOVEDCLOSER=261  NOGOLD=32  SAME_AGREE=28157  STILLWRONG=2007  TOGOLD=91 -- V0 GOLDENONLY=6  MOVEDCLOSER=27  NOGOLD=26  SAME_AGREE=10039  STILLWRONG=1677  TOGOLD=7 
+CALIBRATION golden-vs-golden:         -- VX SAME_AGREE=30548 -- V0 SAME_AGREE=11756 
+
+golden VROW cells 223529 / ours 227175 -- the R1 multiplicity residue, identical on both binaries

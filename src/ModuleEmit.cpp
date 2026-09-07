@@ -13355,6 +13355,149 @@ void UhdmExporter::applyCaCastAdjust106(UHDM::design* d) {
             walk(t);
 }
 
+// § patGenCaHierPathElemNoBind115 (r10earl115) — THE CONSUMER.  The decode and
+// every gate is written out at the RECORD site in `emitBlock` below; this is
+// only the walk that finds the elaborator's clones of the recorded
+// cont_assigns and clears the field.
+//
+// The walk is `applyCaCastAdjust106`'s, deliberately: TOP MODULES ONLY, so the
+// definition listing cannot move (its pattern-carried paths are bare on both
+// sides, in every arm and in both corpora), and gen scopes only, so a
+// module-scope pattern — which golden DOES bind through, arm t3 cells d0 and
+// `v_o` — is out of reach by construction.
+void UhdmExporter::applyPatCaElemUnbind115(UHDM::design* d) {
+    if (!d || patCaElemUnbind115.empty())
+        return;
+    auto keyOf = [](const std::string& full, uint32_t l, uint32_t c, uint32_t el,
+                    uint32_t ec, const std::string& nm) {
+        return full + "@" + std::to_string(l) + ":" + std::to_string(c) + "-" +
+               std::to_string(el) + ":" + std::to_string(ec) + "#" + nm;
+    };
+    std::set<std::string> want;
+    for (auto& e : patCaElemUnbind115)
+        want.insert(
+            keyOf(e.scopeFull, e.line, e.col, e.endLine, e.endCol, e.lhsName));
+    // `hier_path::Compare` runs the VECTOR SafeCompare over `Path_elems`, so
+    // each element is compared with its OWN generated Compare -- and
+    // `ref_obj::Compare` (which `bit_select`, `var_select` and `ref_var`
+    // inherit) reads `Actual_group`.  Those are the four kinds
+    // `ElaboratorListener::leaveRef_obj` writes and the four this clears.
+    auto unbind115 = [](UHDM::any* e) {
+        if (!e)
+            return;
+        switch (e->UhdmType()) {
+            case UHDM::uhdmref_obj:
+                ((UHDM::ref_obj*)e)->Actual_group(nullptr);
+                break;
+            case UHDM::uhdmref_var:
+                ((UHDM::ref_var*)e)->Actual_group(nullptr);
+                break;
+            case UHDM::uhdmbit_select:
+                ((UHDM::bit_select*)e)->Actual_group(nullptr);
+                break;
+            case UHDM::uhdmvar_select:
+                ((UHDM::var_select*)e)->Actual_group(nullptr);
+                break;
+            default:
+                break;
+        }
+    };
+    auto strip115 = [&](UHDM::cont_assign* ca) {
+        auto* r = (UHDM::any*)ca->Rhs();
+        if (!r || r->UhdmType() != UHDM::uhdmoperation)
+            return;
+        auto* op = (UHDM::operation*)r;
+        if (op->VpiOpType() != vpiAssignmentPatternOp || !op->Operands())
+            return;
+        for (auto* o : *op->Operands()) {
+            if (!o || o->UhdmType() != UHDM::uhdmhier_path)
+                continue;
+            auto* es = ((UHDM::hier_path*)o)->Path_elems();
+            if (!es)
+                continue;
+            // THE FIRST ELEMENT IS GOLDEN'S AND STAYS: measured on the arm
+            // grid and on the corpus head, golden binds `Path_elems[0]` to the
+            // root object (`array_var` / `array_net` / `struct_var`) and we
+            // already do -- this pass touches ONLY the elements after it.
+            for (size_t i = 1; i < es->size(); i++)
+                unbind115((*es)[i]);
+        }
+    };
+    // THE NESTED-INSTANCE FENCE, convicted by the wide boundary before this
+    // shipped.  r10vearl113's arm `v4_ctx113` instantiates ONE child module
+    // four ways: twice at module scope (`u_a`, `u_b`) and twice INSIDE a
+    // generate block (`u_c` under `gen_inst[0]` / `gen_inst[1]`).  Golden
+    // leaves the trailing element bare in `u_a` / `u_b` and BINDS IT in `u_c`
+    // — the binding follows whether the enclosing module instance is itself
+    // inside a generate scope, read straight off the parent chain of golden's
+    // own objects (`chain115`).  `genAbove` carries that down the walk, so the
+    // law is declined below a module boundary crossed from within a gen scope.
+    // Without it those cells scored AWAY 2.
+    std::function<void(UHDM::any*, bool)> walk = [&](UHDM::any* sc,
+                                                     bool genAbove) {
+        if (!sc)
+            return;
+        UHDM::VectorOfcont_assign* cas = nullptr;
+        UHDM::VectorOfgen_scope_array* gsas = nullptr;
+        UHDM::VectorOfmodule_inst* mods = nullptr;
+        UHDM::VectorOfinterface_inst* ifs = nullptr;
+        std::string full;
+        bool isGenScope = false;
+        bool nextGenAbove = genAbove;
+        if (auto* mi = any_cast<UHDM::module_inst*>(sc)) {
+            cas = mi->Cont_assigns();
+            gsas = mi->Gen_scope_arrays();
+            mods = mi->Modules();
+            ifs = mi->Interfaces();
+        }
+        else if (auto* ii = any_cast<UHDM::interface_inst*>(sc)) {
+            cas = ii->Cont_assigns();
+            gsas = ii->Gen_scope_arrays();
+            ifs = ii->Interfaces();
+        }
+        else if (auto* gs = any_cast<UHDM::gen_scope*>(sc)) {
+            cas = gs->Cont_assigns();
+            gsas = gs->Gen_scope_arrays();
+            mods = gs->Modules();
+            ifs = gs->Interfaces();
+            full = gs->VpiFullName();
+            isGenScope = true;
+            nextGenAbove = true;   // a module BELOW this gen scope is fenced
+        }
+        else if (auto* ga = any_cast<UHDM::gen_scope_array*>(sc)) {
+            if (ga->Gen_scopes())
+                for (auto* g : *ga->Gen_scopes())
+                    walk(g, genAbove);
+            return;
+        }
+        if (isGenScope && !genAbove && cas && !full.empty())
+            for (auto* ca : *cas) {
+                auto* lh = (UHDM::any*)ca->Lhs();
+                if (!lh)
+                    continue;
+                std::string lnm(lh->VpiName());
+                if (lnm.empty())
+                    continue;
+                if (want.count(keyOf(full, ca->VpiLineNo(), ca->VpiColumnNo(),
+                                     ca->VpiEndLineNo(), ca->VpiEndColumnNo(),
+                                     lnm)))
+                    strip115(ca);
+            }
+        if (gsas)
+            for (auto* g : *gsas)
+                walk(g, genAbove);
+        if (mods)
+            for (auto* mm : *mods)
+                walk(mm, nextGenAbove);
+        if (ifs)
+            for (auto* ii2 : *ifs)
+                walk(ii2, nextGenAbove);
+    };
+    if (d->TopModules())
+        for (auto* t : *d->TopModules())
+            walk(t, false);
+}
+
 void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance* m,
                                  const std::string& prefix, NetMap& netMap) {
     // An instance whose parameter override reads a member-leftover struct
@@ -16248,6 +16391,170 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                          sm->getColumnNumber(sr9.start()),
                          sm->getLineNumber(sr9.end()),
                          sm->getColumnNumber(sr9.end()), lts9});
+                    // § patGenCaHierPathElemNoBind115 (r10earl115) — THE RECORD SITE.
+                    //
+                    // THE FIELD.  `hier_path::Compare` (UHDM generated) runs the
+                    // VECTOR SafeCompare over `Path_elems`, and each element is
+                    // compared with its own generated `Compare`; `ref_obj::Compare`
+                    // (inherited by `bit_select`, `var_select` and `ref_var`) reads
+                    // `Actual_group`.  On the corpus head and on arm `t3_member114`'s
+                    // elaborated view the judge stops there with `LHS: <null>` against
+                    // our `typespec_member`, i.e. golden leaves the TRAILING member
+                    // element BARE and we bind it.  The FIRST element is NOT part of
+                    // this: golden binds `Path_elems[0]` to the root object and so do
+                    // we, on every arm cell and in the corpus (measured, not assumed —
+                    // the pass brief's "our first element is bare" is REFUTED).
+                    //
+                    // THE PRODUCER, READ IN UHDM'S OWN SOURCE.  Both emitters hand the
+                    // SAME `UHDM::ElaboratorContext` the same job (uhdm_main.cpp
+                    // mirrors `UhdmWriter.cpp:5195-5199` argument for argument), and
+                    // BEFORE it runs the two databases AGREE: in the plain view every
+                    // path element of every arm is bare on both sides (105/93/58/78
+                    // cells, `SAME_AGREE`, 0 differing). What differs is the SHAPE of
+                    // the operand list the elaborator is handed:
+                    //
+                    //   `cont_assign::DeepClone` (~/git-repos/UHDM/templates/
+                    //   clone_tree.cpp:764-826) deep-clones the Rhs and then, when the
+                    //   Lhs is a `ref_obj` bound to a `struct_var`, runs
+                    //   `ExprEval::flattenPatternAssignments` (ExprEval.cpp:750-935)
+                    //   over it and REPLACES the operand vector.  That function bails
+                    //   at the FIRST operand that is not a `tagged_pattern`
+                    //   (`uhdmconstant` and `uhdmoperation` both `return result`).
+                    //
+                    //   `hier_path::DeepClone` (clone_tree.cpp:895-2190) walks
+                    //   `Path_elems` PAIRWISE and resolves each element against the
+                    //   PRECEDING one's `Actual_group`; its `uhdmarray_var` arm walks
+                    //   `array_typespec -> Elem_typespec -> struct_typespec` and binds
+                    //   the element to the matching `typespec_member`.  The
+                    //   predecessor is bound in the same walk, because
+                    //   `bit_select::DeepCopy` ends in
+                    //   `ElaboratorListener::leaveBit_select` -> `leaveRef_obj`
+                    //   (ElaboratorListener.cpp:1499-1508) -> `bindAny`, which answers
+                    //   the ROOT's name out of the enclosing instance's netMap.
+                    //
+                    // Surelog hands the elaborator an UNFLATTENED tagged-pattern
+                    // operation (measured directly: `surelog -parse -elab` on the arm
+                    // shows `CA -> operation -> tagged_pattern x3`); THIS emitter hands
+                    // it the already-flattened list `flattenPatternCaRhs` built, so the
+                    // pairwise resolver reaches our hier_paths and binds every element
+                    // after the first.  Hence a POST-ELABORATOR pass and not an
+                    // emission-time change: the objects the served design holds are the
+                    // elaborator's clones of the emitted ones.
+                    //
+                    // THE GATE, ALL THREE HALVES MEASURED ON r10earl114's OWN ARMS
+                    // (golden, elaborated view, gen scope, this field):
+                    //   * KEYED (structured) pattern, target declared IN the generate
+                    //     block — arm t3 all seven member kinds and all five depths,
+                    //     t2 c1, t1 r1/r2: golden BARE.  RECORDED.
+                    //   * a SELECT Lhs (`x3_arr[i] = '{…}`, arm t4 f3): golden BARE —
+                    //     `cont_assign::DeepClone`'s flatten needs
+                    //     `Actual_group<struct_var>` and a `bit_select` Lhs answers the
+                    //     ARRAY, so Surelog's own flatten never runs there either.
+                    //     RECORDED.
+                    //   * a WHOLE-NAME Lhs whose target is declared OUTSIDE the
+                    //     generate block (`x2_modtgt`, arm t4 f2 = r10earl113's x2):
+                    //     golden BINDS both elements and so do we, today.  NOT
+                    //     RECORDED — this is the AWAY risk and it is fenced by name.
+                    // and two shapes this site cannot reach at all, which is why they
+                    // need no test: a POSITIONAL pattern (arm t2 c2 — golden BINDS, and
+                    // `patFlat9` above requires `StructuredAssignmentPattern`), and a
+                    // pattern in an `always_comb` / `initial` (arm t2 c6/c7 — golden
+                    // BARE, and both emitters already agree).
+                    {
+                        auto& lc115 = stripImplicitConv(ae.left());
+                        const Symbol* lsym115 = nullptr;
+                        bool lhsWholeRef115 = lc115.kind == ExpressionKind::NamedValue;
+                        {
+                            const Expression* b115 = &lc115;
+                            for (int g115 = 0; g115 < 16; g115++) {
+                                if (b115->kind == ExpressionKind::ElementSelect)
+                                    b115 = &stripImplicitConv(
+                                        b115->as<ElementSelectExpression>().value());
+                                else if (b115->kind == ExpressionKind::RangeSelect)
+                                    b115 = &stripImplicitConv(
+                                        b115->as<RangeSelectExpression>().value());
+                                else if (b115->kind == ExpressionKind::MemberAccess)
+                                    b115 = &stripImplicitConv(
+                                        b115->as<MemberAccessExpression>().value());
+                                else
+                                    break;
+                            }
+                            if (b115->kind == ExpressionKind::NamedValue)
+                                lsym115 = &b115->as<NamedValueExpression>().symbol;
+                        }
+                        bool lhsGenLocal115 = false;
+                        if (lsym115) {
+                            auto* sc115 = lsym115->getParentScope();
+                            for (int d115 = 0; sc115 && d115 < 32; d115++) {
+                                auto k115 = sc115->asSymbol().kind;
+                                if (k115 == SymbolKind::GenerateBlock ||
+                                    k115 == SymbolKind::GenerateBlockArray) {
+                                    lhsGenLocal115 = true;
+                                    break;
+                                }
+                                if (k115 != SymbolKind::StatementBlock)
+                                    break;
+                                sc115 = sc115->asSymbol().getParentScope();
+                            }
+                        }
+                        // THE NAMESAKE FENCE, CONVICTED BY THE WIDE BOUNDARY
+                        // BEFORE IT SHIPPED.  r10vearl113's own arms
+                        // `v6_name113` (g2 a module-body NET of the same name,
+                        // g5 the module's own PORT, g3 a namesake declared
+                        // AFTER the block) and `v1_decl113` (a3, a module-body
+                        // variable shadowed by the gen-local one) hold a
+                        // gen-local pattern target whose name ALSO exists at
+                        // MODULE scope, and golden BINDS the trailing element
+                        // there — its elaborated population is a MIXTURE of
+                        // bound and bare copies where the plain shape is bare
+                        // only.  Without this test those cells scored AWAY 10 /
+                        // 2 / 12 in the wide boundary's re-score: pristine-right
+                        // going patched-wrong on legal SV.  An ENCLOSING
+                        // GENERATE BLOCK's namesake does NOT count (arm
+                        // `v6_name113` g4 keeps the law and is measured
+                        // SAME_AGREE), which is why the lookup is the
+                        // InstanceBody's own scope and not a walk.
+                        //
+                        // THE WALK CLIMBS PAST THE MODULE BOUNDARY, and that
+                        // half was convicted by r10earl113's own arm cell a7
+                        // (`v1_decl113`, the namesake declared ONE HIERARCHY
+                        // LEVEL UP, in the PARENT module): golden binds there
+                        // too, and a walk that stopped at this module's own
+                        // body scored AWAY 4.  It is the same recursion
+                        // `CompileHelper::bindVariable` performs —
+                        // `bindVariable(component, scope->VpiParent(), …)` —
+                        // which is exactly what that arm's own comment says.
+                        bool lhsNamesake115 = false;
+                        if (lsym115 && lhsGenLocal115) {
+                            const slang::ast::Scope* w9 =
+                                lsym115->getParentScope();
+                            for (int h9 = 0; w9 && h9 < 64; h9++) {
+                                if (w9->asSymbol().kind ==
+                                    SymbolKind::InstanceBody) {
+                                    if (auto* ns9 = w9->find(
+                                            std::string(lsym115->name));
+                                        ns9 && ns9 != lsym115) {
+                                        lhsNamesake115 = true;
+                                        break;
+                                    }
+                                    // climb into the PARENT instance
+                                    auto& ib9 = w9->asSymbol()
+                                                    .as<InstanceBodySymbol>();
+                                    auto* pi9 = ib9.parentInstance;
+                                    w9 = pi9 ? pi9->getParentScope() : nullptr;
+                                    continue;
+                                }
+                                w9 = w9->asSymbol().getParentScope();
+                            }
+                        }
+                        if (lsym115 && !lsym115->name.empty() &&
+                            !lhsNamesake115 &&
+                            !(lhsWholeRef115 && !lhsGenLocal115))
+                            patCaElemUnbind115.push_back(
+                                {fullName, ca->VpiLineNo(), ca->VpiColumnNo(),
+                                 ca->VpiEndLineNo(), ca->VpiEndColumnNo(),
+                                 std::string(lsym115->name)});
+                    }
                 }
                 inGenScopeCaRhs = false;
                 castSiteScope57 = savedCastSiteScope57;

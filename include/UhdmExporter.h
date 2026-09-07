@@ -117,6 +117,18 @@ public:
     /// folds).  See the decode at the record site in ModuleEmit.cpp.
     void applyCaCastAdjust106(UHDM::design* d);
 
+    /// § patGenCaHierPathElemNoBind115 (r10earl115) — the POST-ELABORATOR half
+    /// of the pattern-carried `hier_path` law.  A gen-scope continuous assign
+    /// whose Rhs THIS emitter pre-flattened (`flattenPatternCaRhs`) hands
+    /// UHDM's `cont_assign::DeepClone` an operand list of bare `hier_path`s,
+    /// which `hier_path::DeepClone`'s pairwise resolver then binds element by
+    /// element; Surelog hands it TAGGED PATTERNS and its elaborated paths come
+    /// out with every NON-FIRST element unbound.  Runs after
+    /// `UHDM::UhdmAdjuster` for the same reason `applyCaCastAdjust106` does —
+    /// the objects in the served design are the elaborator's CLONES of the
+    /// emitted ones.  See the decode at the record site in ModuleEmit.cpp.
+    void applyPatCaElemUnbind115(UHDM::design* d);
+
     /// Mirrors Surelog without -nobuiltin: synthesize the `builtin` package
     /// (five empty class_defns) and treat @a builtinFile as the fake
     /// <cwd>/builtin.sv compilation unit holding mailbox/process/semaphore.
@@ -5753,6 +5765,21 @@ private:
         std::string lhsName;
     };
     std::vector<CaCastAdjust106> caCastAdjust106;
+    // § patGenCaHierPathElemNoBind115 (r10earl115) — one entry per ELABORATED
+    // gen-scope cont_assign whose STRUCTURED-pattern Rhs this emitter
+    // pre-flattened AND whose Lhs is not the one shape golden binds through
+    // (a WHOLE-NAME reference to a target declared OUTSIDE the generate
+    // block — arm t4 f2).  Keyed exactly like § genCaCastFoldAdjustSize106:
+    // gen-scope FULLNAME + the cont_assign's SPAN + the Lhs BASE NAME, because
+    // UHDM's elaborator CLONES the gen-scope tree between the record and the
+    // consume, so a pointer would name an object the served design does not
+    // hold.
+    struct PatCaElemUnbind115 {
+        std::string scopeFull;
+        uint32_t line = 0, col = 0, endLine = 0, endCol = 0;
+        std::string lhsName;
+    };
+    std::vector<PatCaElemUnbind115> patCaElemUnbind115;
     std::set<const slang::ast::SubroutineSymbol*> contAssignRhsCallees9;
     bool contAssignRhsCalleesBuilt9 = false;
     /// § pkgSubEvaluatedFromParamInit9 — the design-wide sibling of

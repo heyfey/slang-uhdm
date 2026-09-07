@@ -1,0 +1,26 @@
+ACCOUNTING PASS  LISTED=1573 PROCESSED=956 SKIPPED=617 TOOLFAIL=0
+SUMMARY	testflags/Earlgrey_0_1-71da2fd7	bound_nonfirst_in_genpat=464	PREDICT_MOVE=464	FENCED_KEEP=0
+--- predicted MOVE cells by row ---
+    464 testflags/Earlgrey_0_1-71da2fd7
+--- predicted FENCED-KEEP cells by row ---
+--- first 20 predicted cells ---
+MOVE	testflags/Earlgrey_0_1-71da2fd7	109:19	tl_h_i[0].a_valid	[1]	typespec_member(a_valid)->null
+MOVE	testflags/Earlgrey_0_1-71da2fd7	110:19	tl_h_i[0].a_opcode	[1]	typespec_member(a_opcode)->null
+MOVE	testflags/Earlgrey_0_1-71da2fd7	111:19	tl_h_i[0].a_param	[1]	typespec_member(a_param)->null
+MOVE	testflags/Earlgrey_0_1-71da2fd7	112:19	tl_h_i[0].a_size	[1]	typespec_member(a_size)->null
+MOVE	testflags/Earlgrey_0_1-71da2fd7	114:19	tl_h_i[0].a_address	[1]	typespec_member(a_address)->null
+MOVE	testflags/Earlgrey_0_1-71da2fd7	115:19	tl_h_i[0].a_mask	[1]	typespec_member(a_mask)->null
+MOVE	testflags/Earlgrey_0_1-71da2fd7	116:19	tl_h_i[0].a_data	[1]	typespec_member(a_data)->null
+MOVE	testflags/Earlgrey_0_1-71da2fd7	117:19	tl_h_i[0].a_user	[1]	typespec_member(a_user)->null
+MOVE	testflags/Earlgrey_0_1-71da2fd7	118:19	tl_h_i[0].d_ready	[1]	typespec_member(d_ready)->null
+MOVE	testflags/Earlgrey_0_1-71da2fd7	109:19	tl_h_i[1].a_valid	[1]	typespec_member(a_valid)->null
+MOVE	testflags/Earlgrey_0_1-71da2fd7	110:19	tl_h_i[1].a_opcode	[1]	typespec_member(a_opcode)->null
+MOVE	testflags/Earlgrey_0_1-71da2fd7	111:19	tl_h_i[1].a_param	[1]	typespec_member(a_param)->null
+MOVE	testflags/Earlgrey_0_1-71da2fd7	112:19	tl_h_i[1].a_size	[1]	typespec_member(a_size)->null
+MOVE	testflags/Earlgrey_0_1-71da2fd7	114:19	tl_h_i[1].a_address	[1]	typespec_member(a_address)->null
+MOVE	testflags/Earlgrey_0_1-71da2fd7	115:19	tl_h_i[1].a_mask	[1]	typespec_member(a_mask)->null
+MOVE	testflags/Earlgrey_0_1-71da2fd7	116:19	tl_h_i[1].a_data	[1]	typespec_member(a_data)->null
+MOVE	testflags/Earlgrey_0_1-71da2fd7	117:19	tl_h_i[1].a_user	[1]	typespec_member(a_user)->null
+MOVE	testflags/Earlgrey_0_1-71da2fd7	118:19	tl_h_i[1].d_ready	[1]	typespec_member(d_ready)->null
+MOVE	testflags/Earlgrey_0_1-71da2fd7	109:19	tl_h_i[2].a_valid	[1]	typespec_member(a_valid)->null
+MOVE	testflags/Earlgrey_0_1-71da2fd7	110:19	tl_h_i[2].a_opcode	[1]	typespec_member(a_opcode)->null

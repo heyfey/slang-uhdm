@@ -1,0 +1,6 @@
+ORDER-BLIND attribution of the SECOND surelog mover, default/Scoreboard:
+  order-blind (sorted) whole-dump diff = 4 lines, being ONE line on each side:
+  the dump's own header naming the workdir path.  ZERO content differs.
+  RESUME.md section 9: Scoreboard/default is a ~50/50 parallel-parse COIN per
+  invocation.  Its uhdm-cmp log is BYTE-IDENTICAL to the pristine one (95 lines,
+  1 head), so the judge does not see it either.

@@ -1,0 +1,37 @@
+LHS: <null>
+RHS:
+decompile:
+typespec_member: (a_valid), id:52, line:19:17, endln:19:24
+|vpiParent:
+\_struct_typespec: (p114m::h2d_t), id:51, line:18:11, endln:22:4
+|vpiName:a_valid
+|vpiTypespec:
+\_ref_typespec: (p114m::p114m::h2d_t::a_valid), id:54
+  |vpiParent:
+  \_typespec_member: (a_valid), id:52, line:19:17, endln:19:24
+  |vpiFullName:p114m::p114m::h2d_t::a_valid
+  |vpiActual:
+  \_logic_typespec: , id:13, line:19:5, endln:19:10
+|vpiRefFile:/tmp/wt_r10earl115/tools/probe/r10earl114repro/t3_member114.sv
+|vpiRefLineNo:19
+|vpiRefColumnNo:5
+|vpiRefEndLineNo:19
+|vpiRefEndColumnNo:10
+
+decompile:
+typespec_member: (a_valid), id:52, line:19:17, endln:19:24
+|vpiParent:
+\_struct_typespec: (p114m::h2d_t), id:51, line:18:11, endln:22:4
+|vpiName:a_valid
+|vpiTypespec:
+\_ref_typespec: (p114m::p114m::h2d_t::a_valid), id:54
+  |vpiParent:
+  \_typespec_member: (a_valid), id:52, line:19:17, endln:19:24
+  |vpiFullName:p114m::p114m::h2d_t::a_valid
+  |vpiActual:
+  \_logic_typespec: , id:13, line:19:5, endln:19:10
+|vpiRefFile:/tmp/wt_r10earl115/tools/probe/r10earl114repro/t3_member114.sv
+|vpiRefLineNo:19
+|vpiRefColumnNo:5
+|vpiRefEndLineNo:19
+|vpiRefEndColumnNo:10

@@ -1,0 +1,81 @@
+r10vearl115 -- THE GATE BATTERY, RE-RUN FROM SCRATCH BY THE VERIFIER
+====================================================================
+Both binaries built by the verifier in its OWN worktrees at a clean 89631b31,
+frozen chmod 555 at /tmp/vearl115_bin/{pristine,patched} BEFORE any sweep.
+
+(1) BUILD + md5
+    pristine  fc4c6d192b7e39bf2e48728a17a6e29f   <- implementer's number, EXACT
+    patched   3c7aef193c82b156aee0ff76a5de2a89   <- implementer's number, EXACT
+    0 compile errors either side.
+
+(2) GOLDENS (SLANG_UHDM exported explicitly per binary)
+    patched  23 PASS / 0 FAIL
+    pristine 23 PASS / 0 FAIL
+    SLANG_UHDM=/bin/false  0 PASS / 23 FAIL     (the negative control)
+
+(3) cmds.txt AUDIT BY BINARY PATH
+    slP   1573 cmds.txt, 1523 slang lines, ALL /tmp/vearl115_bin/patched
+    slR   1573 cmds.txt, 1523 slang lines, ALL /tmp/vearl115_bin/pristine
+    u2rP  1462 cmds.txt, 1458 slang lines, ALL /tmp/vearl115_bin/patched
+    u2rR  1462 cmds.txt, 1458 slang lines, ALL /tmp/vearl115_bin/pristine
+    ZERO references to any other slang-uhdm binary in any of the 6070 files.
+
+(4) uhdm2rtlil, BOTH modes, 731 rows each
+    patched  tf  CMP_EQUAL 679 / SLANG_REJECT 50 / SURELOG_FAIL 2
+    patched  def CMP_EQUAL 679 / SLANG_REJECT 50 / SURELOG_FAIL 2
+    pristine identical in both modes.
+    ct8rows WHOLE-ROW (status AND dump column):
+      results/gate_uhdm2rtlil.csv -> patched tf     0 differing ROWS  PASS
+      pristine tf                 -> patched tf     0 differing ROWS  PASS
+      pristine def                -> patched def    0 differing ROWS  PASS
+
+(5) surelog, --mode both, 1588 rows
+    patched  default   CMP_EQUAL 471 CMP_NOTEQUAL 10 DEFERRED 5 SLANG_REJECT 283 SURELOG_FAIL 25
+    patched  testflags CMP_EQUAL 466 CMP_NOTEQUAL  9 DEFERRED 5 SLANG_REJECT 284 SURELOG_FAIL 23
+                       NO_DATABASE 3 NO_UHDM 1 TIMEOUT 1 UNTRANSLATABLE 2
+    pristine histograms IDENTICAL, mode for mode, status for status.
+    ct8rows WHOLE-ROW:
+      results/golden_surelog.csv -> patched    0 differing ROWS  PASS
+      results/golden_surelog.csv -> pristine   0 differing ROWS  PASS
+      pristine                   -> patched    0 differing ROWS  PASS
+    NO ROW CONVERTED, in either direction, in either corpus.
+
+(6) byteverify.sh SELFCHECK=1
+    uhdm2rtlil  PATH_SETS_IDENTICAL (1358)  MOVERS 0 / 1358   SELFCHECK 1357/1358
+    surelog     PATH_SETS_IDENTICAL (956)   MOVERS 2 /  956   SELFCHECK  955/956
+      MOVER ./testflags/Earlgrey_0_1-71da2fd7  -- THE PREDICTED ROW
+      MOVER ./default/Scoreboard-59431470      -- the documented parallel-parse COIN:
+            order-blind whole-dump diff = 4 lines, both of them the dump's own
+            header naming the workdir; ZERO content; its uhdm-cmp log is
+            BYTE-IDENTICAL to the pristine one (VATTRIB_Scoreboard_coin.txt).
+
+(7) PREDICTION, made from PRISTINE databases FIRST, with the VERIFIER'S OWN
+    fence-free predictor (vpredict115, a strict SUPERSET of the law's gate)
+    surelog     464 bound non-first cells in exactly ONE row: testflags/Earlgrey_0_1
+    uhdm2rtlil  0 cells, 0 rows over 1358 databases
+    SAME PREDICTOR ON THE PATCHED SWEEP: 0 rows still holding such a cell.
+    The measured mover ROW SET == the predicted ROW SET.
+
+(8) ATTRIBUTION of the one real mover (VATTRIB_Earlgrey.txt)
+    RAW 1396 / ORDER-BLIND 949, in ONE ELAB section (sec=10)
+    ADDED   1 line  -- the dump's own workdir header.  ZERO CONTENT ADDED.
+    REMOVED 464 |vpiActual:  +  16 typespec_member names x 29 gen instances = 464
+    which is exactly the 464 cells predicted from the pristine database.
+
+(9) rowheads (VHEADS_*.txt)
+    Earlgrey_0_1/testflags  37 cmp lines / 1 head  ->  92 / 1  ON A DIFFERENT OBJECT
+       before: LHS <null> vs our typespec_member(a_valid) @ tlul_pkg.sv:33
+       after : golden's tagged_pattern @ tlul_socket_m1.sv:241:17 vs our flattened operand
+    EVERY OTHER ROW'S CMP LOG IS BYTE-IDENTICAL between the two binaries:
+       SeqDriver 62/62, SimpleUVM 664681, Scoreboard/default 95, MiniAmiq 62/62,
+       BuildUVMPkg 36/36, Earlgrey_0_1/default 31, Rggen/default 0.
+
+(10) CANARIES
+    canaries.sh surelog     ok=52 changed=0 absent=0
+    canaries.sh uhdm2rtlil  ok=8  changed=0 absent=0
+    ctcan2.sh   PASS on both corpora
+    canaudit.sh canaries.sh ctcan2.sh  ->  audited=29 UNCOVERED=0 FENCE-BREACH=0
+    PROTECTED DBs, by name, md5 pristine vs patched, BOTH MODES -- all SAME:
+      InterfaceModPort 59a365f3ce2c | BlackParrotComplex e3e354129d5a / 73a10e8217e5
+      YosysOldOr d68e0796d62c | SVSwitch 4842211c4030 | YosysVerx 6ccda350c24a
+    The four slang-fenced tests were never dispatched.

@@ -496,6 +496,15 @@ int main(int argc, char** argv) {
             // replaced that Rhs with the ADJUSTED constant before the adjuster
             // ever saw it.  A no-op when the Rhs is still an operation.
             exporter.applyCaCastAdjust106(design);
+
+            // § patGenCaHierPathElemNoBind115 (r10earl115) — the CONSUMER half
+            // of the pattern-carried `hier_path` element law.  It has to run
+            // HERE, after the elaborator, because the elaborator is what binds
+            // those elements at all: `hier_path::DeepClone`'s pairwise
+            // resolver reaches our pre-flattened operand list where Surelog's
+            // tagged-pattern list keeps it out.  A no-op wherever nothing was
+            // recorded (the whole uhdm2rtlil corpus, measured).
+            exporter.applyPatCaElemUnbind115(design);
         }
 
         if (synthSubset) {
