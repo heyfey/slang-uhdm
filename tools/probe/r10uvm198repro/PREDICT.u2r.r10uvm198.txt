@@ -1,0 +1,8 @@
+# r10uvm198 — THE A-PRIORI PREDICTION over the 1358-row UHDM2RTLIL corpus.
+# STRICT movers: NONE.  The WIDE bound is EMPTY over every database — the law
+# cannot reach this corpus at all (no wildcard-import clone of an out-of-body
+# class method exists in it).
+
+-- scanned=1358 NODB=104 FENCED=0
+(no PREDCELLS row with a non-zero column)
+-- scanned=1358 NODB=104 FENCED=0

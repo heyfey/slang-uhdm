@@ -1,0 +1,59 @@
+r10uvm198 — THE MOVERS, PREDICTED BY NAME FIRST.  MEASUREMENT ONLY.
+
+THE PREDICTION (PREDICT.surelog.r10uvm198.txt / PREDICT.u2r.r10uvm198.txt) was
+written by predict198.sh + ct198pred from the PRISTINE sweep workdirs ALONE,
+before the patched sweep was read:
+
+  surelog     scanned=948 NODB=617 FENCED=8
+    PREDCELLS MiniAmiq,default    strict=8   PREDCELLS MiniAmiq,testflags  strict=8
+    PREDCELLS SeqDriver,default   strict=8   PREDCELLS SeqDriver,testflags strict=8
+    every other row strict=0 (BuildUVMPkg x2, SimpleUVM x2, Scoreboard,
+    ApbSlave x2 all read strict=0 with a non-empty WIDE bound, i.e. they HAVE
+    clone-body locals and none of them is typed by a class-scope typedef)
+  uhdm2rtlil  scanned=1358 NODB=104 FENCED=0
+    no row: the WIDE bound is EMPTY over the whole corpus
+
+The eight cells per row, by name (SeqDriver; MiniAmiq is the same four
+declarations under svaunit_pkg), two views each:
+  adpcm_pkg uvm_component::m_set_cl_verb              begin@3392:22 slot 0 `setting`
+                                        struct_typespec m_verbosity_setting@1686:11
+  adpcm_pkg uvm_component::m_set_cl_action            begin@3474:23 slot 0 `t`
+                                     struct_typespec uvm_cmdline_parsed_arg_t@1701:9
+  adpcm_pkg uvm_component::m_set_cl_sev               begin@3545:23 slot 0 `t`
+                                     struct_typespec uvm_cmdline_parsed_arg_t@1701:9
+  adpcm_pkg uvm_component::m_apply_verbosity_settings begin@3614:14 slot 0 `setting`
+                                        struct_typespec m_verbosity_setting@1686:11
+
+THE BYTE VERIFIER (SELFCHECK=1 byteverify.sh, this pass's own two sweeps):
+  surelog     MOVERS 5 / 956, SELFCHECK 955/956 flagged
+                ./default/SeqDriver-32af76aa      PREDICTED
+                ./testflags/SeqDriver-32af76aa    PREDICTED
+                ./default/MiniAmiq-544c7f61       PREDICTED
+                ./testflags/MiniAmiq-544c7f61     PREDICTED
+                ./default/Scoreboard-59431470     THE COIN — attributed below
+  uhdm2rtlil  MOVERS 0 / 1358, SELFCHECK 1357/1358 flagged
+
+THE COIN, ATTRIBUTED ORDER-BLIND (attrib198.sh; RESUME.md §9 forbids reading it
+any other way).  Scoreboard/default is a ~50/50 per-invocation flip of the
+svunit_pkg `vpiTaskFunc` list ORDER:
+  plain dump diff        94 lines  (46 `\_function:`/`\_task:` + `|vpiTaskFunc:`
+                                    lines moved as a block, the known ~92-line
+                                    shape)
+  ORDER-BLIND dump diff   0 lines  (banner excluded; the banner's own two lines
+                                    are the workdir path)
+  => zero content moved.  The row is a coin, not a mover of this law; the
+  census scores it TO-GOLDEN 0 / AWAY-GOLDEN 0 / MOVED-WRONG 0 and its cmp
+  head is unchanged at 95 lines.
+
+THE ROW GATES
+  surelog   patched vs THIS PASS'S OWN PRISTINE : 0 differing rows / 1588
+            patched vs the COMMITTED baseline   : 1 differing row —
+              < Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+              > Earlgrey_0_1,testflags,CMP_EQUAL,,,
+            which is present IDENTICALLY in this pass's own PRISTINE sweep:
+            a uhdm-dump TIMEOUT on that giant design under sweep load leaves the
+            dump column empty (verify_golden.py returns '' on a dump timeout).
+            The STATUS stays CMP_EQUAL on both binaries; nothing about the row
+            moved with the patch.
+  u2r       testflags and default, vs the committed baseline AND vs this pass's
+            own pristine: every row byte-identical.

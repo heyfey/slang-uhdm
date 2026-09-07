@@ -1,0 +1,93 @@
+r10uvm198 — THE FULL DECODE.  MEASUREMENT ONLY.  LHS is ALWAYS golden.
+
+A. THE JUDGE (ct198own, pristine SeqDriver/default pair)
+   design::Compare r=3364
+   HEAD LHS(golden) = unsupported_typespec(m_verbosity_setting)@3393:5-3393:24
+   HEAD RHS(ours)   = struct_typespec(m_verbosity_setting)@1686:11-1692:4
+   The FAILING FIELD is the KIND: both sides are present, so BaseClass::Compare's
+   VpiType line fails before VpiName (which AGREES on both sides) and before
+   Instance (which does not: golden `package uvm_pkg`, ours null).  No span and
+   no vpiParent is read by any generated Compare.
+
+   THE OWNER — golden's head has exactly ONE referrer, and it is the edge the
+   judge walked:
+     REF .Actual_typespec rel1 ref_typespec#204662
+       < ref_var(setting)@3393:25-3393:32 < begin@3392:22 < foreach_stmt@3392:3
+       < begin@3387:3 < function(uvm_component::m_set_cl_verb)@3375:1
+       < package(adpcm_pkg) < design
+   The variable is a `ref_var` on BOTH sides at the SAME span: only the typespec
+   edge disagrees.
+
+   THE MINT — golden holds SIX unsupported_typespec objects named
+   m_verbosity_setting, refs=1 each, ALL instanced at `package uvm_pkg` and ALL
+   under `package adpcm_pkg`: three per view (m_set_cl_verb once,
+   m_apply_verbosity_settings twice — its fork local is listed twice).  Golden
+   mints ONE PLACEHOLDER PER DECLARATION and shares none.  Its HOME (uvm_pkg)
+   views and its class views hold NONE.
+   Ours holds ONE struct_typespec with ELEVEN referrers: class_defn.Typespecs[0],
+   two class-property struct_vars, two class-view declarations, two uvm_pkg-view
+   declarations and FOUR adpcm_pkg clone-view declarations.  Only those last four
+   may move; the census scores the other seven and they did not.
+
+   THE ABLATION — masking the golden head in a fresh CompareContext moves the
+   judge to unsupported_typespec(uvm_cmdline_parsed_arg_t)@3475:3 against our
+   struct_typespec(uvm_cmdline_parsed_arg_t)@1701:9 — the SAME law one typedef
+   over.  The head was a FAMILY, not an object, which is why the law had to be
+   written for the construct and not for the cell.
+
+B. SURELOG — WHY THE CLONE KEEPS A PLACEHOLDER THE HOME DOES NOT
+   The question was whether the importer RE-COMPILES the cloned body in its own
+   scope (§ 36's "window") or COPIES a home object.  It copies, and three sites
+   say so:
+
+   1. CompileType.cpp:421-431 — compileVariable's final arm mints a `ref_var`
+      and, when compileTypespec answered an unsupported_typespec, registers the
+      declaration for late repair: `component->needLateTypedefBinding(ref)`.
+      CompileStmt.cpp:1799-1806 does the same for the block-item form.  A
+      class-scope typedef is not in the PACKAGE's data-type map and an
+      out-of-body method is a PACKAGE item, so the HOME's own copy takes this arm
+      — which is exactly why golden's variable is a `ref_var` in the HOME as well
+      as in the clone (grid arm A, every cell, both views).
+   2. CompilePackage.cpp:141-151 and :167-170 — the importing package's
+      CollectType::FUNCTION pass calls CompileHelper::importPackage, and
+      CompileHelper.cpp:299-324 deep-copies every imported task_func with
+      UHDM::clone_tree when the importer is a package.  This happens in the
+      COMPILE step, i.e. BEFORE elaboration: the copy carries a COPY of the
+      placeholder, vpiInstance (the HOME package) included.
+   3. ElaborationStep.cpp:303-321 (and :334-408) — bindTypedefs_ walks
+      `comp->getLateTypedefBinding()` and records
+      `getSwapedObjects().emplace(orig_ut, tps)`, keyed on the ORIGINAL
+      placeholder POINTER; :415 then applies it with swapTypespecPointersInUhdm
+      (body :554-637), which rewrites every expr's Typespec across the WHOLE
+      serializer (:632-634 — a `variables` IS-A `expr`).  The clone's
+      ref_typespec points at ITS OWN copied object, which is not a key in that
+      map.  The home is repaired; the copy never is.
+
+   Everything the grid measures follows from this with no extra predicate:
+     * the KIND of the typedef is irrelevant — nothing in the mechanism reads it
+       (arm B: struct, enum, union, string, packed vector, int, alias-of-package-
+       typedef and class-handle typedef all degrade);
+     * the DECLARING SCOPE decides — a PACKAGE typedef resolves at first compile,
+       is never registered for repair, and its copy carries the real typespec
+       (arm A's controls, of the very same struct kind, in the very same body);
+     * every DECLARING CLASS shape behaves alike — plain, nested, parameterised,
+       and INHERITED from a base class (arm C);
+     * every SITE behaves alike — tf-item, tf-item with initialiser, named begin,
+       loop body, if arm, case item, fork arm (arm D);
+     * the HOME's def, elab and class views keep the resolved object (arm A).
+
+C. SLANG — WHERE OURS DIFFERS AND WHAT THE PATCH CHANGES
+   makeTypespec answers from the CLASS's own table whatever body is being
+   emitted, so we resolve the typedef everywhere.  The clone is emitted by
+   ParamEmit.cpp's package class-method clone driver (~23637), which sets
+   importCopyTsInst to the HOME package's def object and collects the clone's
+   typespecs into importCopyTsFixups — the list that re-points them at the
+   ELABORATED home once both package views exist.
+   The patch adds ONE gated mint, at the two local-declaration sites, using that
+   same pointer and that same hand-off:
+     src/EmitHelpers.h      clsScopedTdLocalName198 — the predicate and the name
+     src/TaskFuncEmit.cpp   SITE 1 of 2, the subroutine-body local
+     src/StmtEmit.cpp       SITE 2 of 2, the block-item local (the corpus head)
+   Both arms are LAST in their site's placeholder chain, so § 115, § 105, § 155
+   and § 11 — each of which owns its cells in EVERY view, home included — keep
+   theirs, and this law takes only what is left inside a clone.

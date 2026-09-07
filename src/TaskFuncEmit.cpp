@@ -6335,6 +6335,69 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     }
                     vrt->Actual_typespec(uts11);
                 }
+                // § classScopedTdImportCopyLocalUnsupported198, SITE 1 of 2 —
+                // the SUBROUTINE-BODY local.  src/EmitHelpers.h carries the
+                // law, the Surelog decode and the grid198 cell behind every
+                // one of its clauses.  Only the KIND, the NAME and the
+                // INSTANCE move; the variable's own class, span, parent, full
+                // name and vpiAutomatic stay exactly where the surrounding
+                // laws put them (golden's clone cell is the `ref_var` /
+                // `class_var` we already emit, arm A/B/C/D every cell).
+                //
+                // LAST in the chain on purpose: § 115's builtin class, § 105's
+                // out-of-body class TYPE PARAMETER, § 155's statement-scope
+                // typedef and § 11's claim-losing `Owner::td` each own their
+                // cells in EVERY view, home included, and this law owns only
+                // what is left over inside a CLONE.  The instance is the one
+                // every other typespec of a cloned body takes — the HOME
+                // package, re-pointed at its ELABORATED view by
+                // `importCopyTsFixups` once both views exist, the same
+                // hand-off § 36 gives the FORMAL half.
+                //
+                // § clsScopedTdLocalCloneIsClassMethodOnly198v (VERIFIER FIX).
+                // `importCopyTsInst` alone is THREE clone drivers, not one:
+                // ParamEmit.cpp:20962 and :21044 clone an imported package
+                // FREE SUBROUTINE, and only :23646 clones an out-of-body CLASS
+                // METHOD — which is the construct this law was decoded on
+                // ("a class method DEFINED OUT OF BODY is a package-scope
+                // item").  `pkgClassTfClone` is set by that third driver and
+                // by nothing the free-subroutine halves do, so
+                // `importCopyTsInst && pkgClassTfClone` is exactly the
+                // imported class-method clone (ParamEmit.cpp:23244's own-class
+                // pass sets `pkgClassTfClone` with `importCopyTsInst` NULL, so
+                // the conjunction excludes it too).
+                //
+                // MEASURED, one real Surelog golden, arm `v198_5_imports`
+                // (`AditV5::clsStV5 scopedV5;` written in the package FREE
+                // function `freeV5`, cloned by `import quarryV5::freeV5` and
+                // by two wildcard importers): in the ELABORATED view golden
+                // keeps the copies that land under a `class_defn` or a
+                // `module_inst` RESOLVED (`struct_typespec clsStV5`, no
+                // instance) and degrades only the ones directly under the
+                // importing PACKAGE — and OUR free-subroutine clone hands the
+                // same typespec to both, so firing here wrote
+                // `unsupported_typespec` into NINE cells that the pristine
+                // binary had RIGHT (AWAY-GOLDEN 9).  The class-method clone
+                // has no such coupling: its package-listing copy and its
+                // class/module copies are separate objects from separate
+                // drivers, and the same arm scores that half TO-GOLDEN with
+                // AWAY-GOLDEN 0 (`clsStV5 tfClsV5` / `blkClsV5`).  The free
+                // subroutine's own degradation is left as this pass's residue,
+                // not guessed at.
+                else if (std::string nm198 =
+                             (importCopyTsInst && pkgClassTfClone)
+                                 ? clsScopedTdLocalName198(fmv)
+                                 : std::string{};
+                         !nm198.empty()) {
+                    auto* uts198 = s.MakeUnsupported_typespec();
+                    uts198->VpiName(nm198);
+                    if (auto* lsyn198 = fmv.getDeclaredType()->getTypeSyntax())
+                        setLoc(uts198, lsyn198->sourceRange());
+                    uts198->Instance(importCopyTsInst);
+                    if (importCopyTsCollect)
+                        importCopyTsCollect->push_back(uts198);
+                    vrt->Actual_typespec(uts198);
+                }
                 else {
                     vrt->Actual_typespec(vts);
                     deferForeignTopTs(fmv, vrt, vts);

@@ -1,0 +1,52 @@
+r10uvm198 — THE WIDE BOUNDARY GATE (bound198.sh, run from a COPY of the whole
+probe tree so no path filter can hide an arm).  MEASUREMENT ONLY.
+
+  LISTED=5226 PROCESSED=5226 PRODUCED_DBS=5041 MOVED_ARMS=8 RC_DIFFS=0
+
+PROCESSED == LISTED (the assertion the driver exits 3 on), children read the
+file list on fd 3 with </dev/null, scratch keyed on the RELATIVE path.
+
+THE EIGHT MOVED ARMS
+  5 are THIS PASS'S OWN grid arms — the POSITIVE CONTROL that the gate can see:
+      r10uvm198repro/grid198/g198_a_homes.sv
+      r10uvm198repro/grid198/g198_b_kinds.sv
+      r10uvm198repro/grid198/g198_c_scopes.sv
+      r10uvm198repro/grid198/g198_d_sites.sv
+      r10uvm198repro/grid198/g198_e_head.sv
+  3 are OTHER PASSES' arms, each rebuilt against its OWN real Surelog golden in
+  BOTH views and scored with ct198cen + score198.py:
+
+    r10buvm9repro/w4v_imports.sv     def  TO-GOLDEN 2  AWAY 0  MOVED-WRONG 0
+                                     elab TO-GOLDEN 4  AWAY 0  MOVED-WRONG 0
+      the cells: `w4a::akc::f`'s body local `ak_s v` (a CLASS-scope typedef) in
+      the w4b clone, in the w4c clone reached through w4b's RE-EXPORT, and (in
+      the elaborated view) in the clone copies the importing class view and the
+      importing MODULE `w4m` hold — golden reads `unsupported_typespec ak_s
+      @package w4a` on every one of them and ours was the resolved struct.  The
+      re-export chain still takes the ORIGINAL home package w4a, which golden
+      confirms.  The same file's THREE-segment spelling `w4a::akc::ak_s` in
+      `w4c::ck::g` is DECLINED by the law's stated fence and did NOT move: it
+      stays our `struct_typespec ak_s` on both binaries, where golden reads
+      `unsupported_typespec w4a::ak_s` instanced at the DECLARING package w4c —
+      a different name AND a different instance from this law's, which is why
+      the fence is a fence and not a gap to close blind (residue R4).
+
+    r10v181repro/v181_b_prefix.sv    def  TO-GOLDEN 2  AWAY 0  MOVED-WRONG 0
+                                     elab TO-GOLDEN 2  AWAY 0  MOVED-WRONG 0
+    r10v181repro/v181_h_nofe.sv      def  TO-GOLDEN 2  AWAY 0  MOVED-WRONG 0
+                                     elab TO-GOLDEN 2  AWAY 0  MOVED-WRONG 0
+      both arms' moved cells are the same shape — `baldric_imp`'s clone of an
+      out-of-body method whose body local is typed by the class-scope
+      `cuirass_t`: golden `unsupported_typespec cuirass_t @package baldric_home`,
+      ours was `struct_typespec cuirass_t` with no instance.  Each arm's own
+      uhdm-cmp line count is UNCHANGED across the two binaries (226/242 and
+      58/58, one head each), so neither arm's own law lost its cell.
+
+  RC_DIFFS=0: no arm's exit status moved, and the 185 arms that produce no
+  database (PRODUCED_DBS 5041 of 5226) fail identically on both binaries —
+  including the pre-existing elaboration SEGFAULTs, which segfault on BOTH.
+
+THE COMMITTED FLOOR that had to stay: § classScopedTdImportCopyUnsupported36's
+arms, uvm170's arms and both its fences, uvm183's clone-foreach arms, uvm195's
+unbound-listing arms, uvm181-194's floor, uvm82-91, buvm3-15 and sd8-12 — NONE
+of them is among the eight moved arms except the three named and scored above.

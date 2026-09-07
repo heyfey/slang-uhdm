@@ -1,0 +1,68 @@
+r10uvm198 — THE GRID.  Five arms, ONE REAL SURELOG GOLDEN each, BOTH views, BOTH
+binaries.  MEASUREMENT ONLY; the official uhdm-cmp is the sole judge.  LHS is
+ALWAYS golden.  Scored by score198.py over ct198cen rows (judge-visible payload
+only).  a = PRISTINE, b = PATCHED.
+
+arm A g198_a_homes   WHERE the typedef is declared (class vs package), with the
+                     package-STRUCT and package-INT controls in the same body
+arm B g198_b_kinds   every KIND of class-scope typedef + the § 36 FORMAL cell and
+                     the § 11 SCOPED spelling
+arm C g198_c_scopes  nested class / parameterised class / INHERITED from a base
+arm D g198_d_sites   tf-item, tf-item+initialiser, ARRAY, named begin, loop, if,
+                     case, fork
+arm E g198_e_head    the corpus head minimised (POSITIVE CONTROL)
+
+ARM        VIEW  SCORE
+a_homes    def   TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 3  AGREE 46  KEYS 55
+a_homes    elab  TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 11  AGREE 51  KEYS 68
+b_kinds    def   TO-GOLDEN 9  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 7  AGREE 35  KEYS 51
+b_kinds    elab  TO-GOLDEN 9  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 19  AGREE 35  KEYS 63
+c_scopes   def   TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 23  KEYS 27
+c_scopes   elab  TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 10  AGREE 17  KEYS 31
+d_sites    def   TO-GOLDEN 9  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 3  AGREE 43  KEYS 55
+d_sites    elab  TO-GOLDEN 9  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 11  AGREE 49  KEYS 69
+e_head     def   TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 24  KEYS 25
+e_head     elab  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 7  AGREE 21  KEYS 29
+
+uhdm-cmp on each arm (a = pristine, b = patched):
+-- a_homes
+cmp rc=255 a def lines=96 heads=1
+cmp rc=0 b def lines=0 heads=0
+cmp rc=255 a elab lines=96 heads=1
+cmp rc=0 b elab lines=0 heads=0
+-- b_kinds
+cmp rc=255 a def lines=90 heads=1
+cmp rc=255 b def lines=90 heads=1
+cmp rc=255 a elab lines=90 heads=1
+cmp rc=255 b elab lines=90 heads=1
+-- c_scopes
+cmp rc=255 a def lines=62 heads=1
+cmp rc=255 b def lines=18 heads=1
+cmp rc=255 a elab lines=18 heads=1
+cmp rc=255 b elab lines=18 heads=1
+-- d_sites
+cmp rc=255 a def lines=96 heads=1
+cmp rc=255 b def lines=26 heads=1
+cmp rc=255 a elab lines=37 heads=1
+cmp rc=255 b elab lines=37 heads=1
+-- e_head
+cmp rc=255 a def lines=650 heads=1
+cmp rc=255 b def lines=650 heads=1
+cmp rc=255 a elab lines=826 heads=1
+cmp rc=255 b elab lines=826 heads=1
+
+arm A goes CMP_EQUAL in BOTH views on the patched binary (cmp rc=0, 0 lines, 0
+heads, from 96 lines with one head on the pristine); arm C's def view drops 62 ->
+18 and arm D's 96 -> 26; arm B and arm E keep their own heads, which are other
+laws' cells (arm E's 650-line def head is the class_defn listing residue).
+
+EVERY REMAINING STILL-WRONG CELL IS PRE-EXISTING AND UNMOVED (pris == pat):
+  arm A/B  an AGGREGATE package typedef local in a clone takes the IMPORTING
+           package as its typespec instance where golden takes the HOME
+           (tfPkg198 / blkPkg198 / kPkg198) — residue R2
+  arm B    a class-scope UNION local resolves to a logic_typespec and a class
+           STRING local to an unnamed string_typespec IN THE HOME views, and
+           an alias-of-package-typedef's instance — residue R3
+  arm D    the ARRAY spelling's ELEMENT ref_var (slot 2), home and clone alike
+           — the stated ARRAY FENCE, residue R1
+  arm C/E  elaborated class_var listing cells (uvm195's R3), untouched

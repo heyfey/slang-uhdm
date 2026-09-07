@@ -1,0 +1,163 @@
+design::Compare r=3364
+HEAD LHS(golden) = unsupported_typespec(m_verbosity_setting)@uvm_component.svh:3393:5-3393:24#204663
+HEAD RHS(ours)   = struct_typespec(m_verbosity_setting)@:1686:11-1692:4#14791
+  golden owner chain:
+      < ref_typespec()@:0:0-0:0#204662
+      < ref_var(setting)@uvm_component.svh:3393:25-3393:32#204661
+      < begin()@uvm_component.svh:3392:22-3430:6#204660
+      < foreach_stmt()@uvm_component.svh:3392:3-3392:10#204653
+      < begin()@uvm_component.svh:3387:3-3387:23#204634
+      < function(uvm_component::m_set_cl_verb)@uvm_component.svh:3375:1-3457:12#204615
+      < package(adpcm_pkg)@testbench.sv:10:1-207:22#183384
+      < design(work@top_tb)@:0:0-0:0#325863
+  ours   owner chain:
+      < class_defn(uvm_component)@uvm_component.svh:60:9-1710:25#14707
+      < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#6049
+      < design(work@top_tb)@:0:0-0:0#1
+  golden head Instance = package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#1
+  ours   head Instance = <null>
+  GOLDEN referrers of unsupported_typespec(m_verbosity_setting)@uvm_component.svh:3393:5-3393:24#204663:
+      REF .Actual_typespec      rel1      ref_typespec()@:0:0-0:0#204662
+           owner chain:
+      < ref_var(setting)@uvm_component.svh:3393:25-3393:32#204661
+      < begin()@uvm_component.svh:3392:22-3430:6#204660
+      < foreach_stmt()@uvm_component.svh:3392:3-3392:10#204653
+      < begin()@uvm_component.svh:3387:3-3387:23#204634
+      < function(uvm_component::m_set_cl_verb)@uvm_component.svh:3375:1-3457:12#204615
+      < package(adpcm_pkg)@testbench.sv:10:1-207:22#183384
+      < design(work@top_tb)@:0:0-0:0#325863
+      REFERRERS=1
+  OURS   referrers of struct_typespec(m_verbosity_setting)@:1686:11-1692:4#14791:
+      REF .Typespecs            vec[0]    class_defn(uvm_component)@uvm_component.svh:60:9-1710:25#14707
+           owner chain:
+      < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#6049
+      < design(work@top_tb)@:0:0-0:0#1
+      REF .Actual_typespec      rel1      ref_typespec()@:0:0-0:0#14823
+           owner chain:
+      < struct_var()@:1694:23-1694:43#14822
+      < array_var(m_verbosity_settings)@:1694:23-1694:43#14824
+      < class_defn(uvm_component)@uvm_component.svh:60:9-1710:25#14707
+      < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#6049
+      < design(work@top_tb)@:0:0-0:0#1
+      REF .Actual_typespec      rel1      ref_typespec()@:0:0-0:0#14828
+           owner chain:
+      < struct_var()@:1695:30-1695:45#14827
+      < array_var(m_time_settings)@:1695:30-1695:45#14829
+      < class_defn(uvm_component)@uvm_component.svh:60:9-1710:25#14707
+      < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#6049
+      < design(work@top_tb)@:0:0-0:0#1
+      REF .Actual_typespec      rel1      ref_typespec()@:0:0-0:0#18824
+           owner chain:
+      < ref_var(setting)@:3393:25-3393:32#18823
+      < begin()@:3392:22-3430:6#18822
+      < foreach_stmt()@:3392:3-3392:10#18816
+      < begin()@:3387:3-3387:23#18798
+      < function(m_set_cl_verb)@:3375:1-3457:12#18779
+      < class_defn(uvm_component)@uvm_component.svh:60:9-1710:25#14707
+      < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#6049
+      < design(work@top_tb)@:0:0-0:0#1
+      REF .Actual_typespec      rel1      ref_typespec()@:0:0-0:0#19637
+           owner chain:
+      < ref_var(setting)@:3615:31-3615:38#19636
+      < assignment()@:3615:31-3615:64#19638
+      < begin()@:3614:14-3621:12#19635
+      < fork_stmt()@:3614:9-3621:22#19634
+      < begin()@:3611:12-3623:10#19620
+      < if_else()@:3605:7-3623:10#19591
+      < begin()@:3604:59-3626:8#19590
+      < if_stmt()@:3604:5-3626:8#19581
+      < begin()@:3603:36-3627:6#19580
+      < foreach_stmt()@:3603:3-3603:10#19573
+      < function(m_apply_verbosity_settings)@:3602:1-3628:12#19569
+      < class_defn(uvm_component)@uvm_component.svh:60:9-1710:25#14707
+      < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#6049
+      < design(work@top_tb)@:0:0-0:0#1
+      REF .Actual_typespec      rel1      ref_typespec()@:0:0-0:0#143751
+           owner chain:
+      < ref_var(setting)@:3393:25-3393:32#143750
+      < begin()@:3392:22-3430:6#143749
+      < foreach_stmt()@:3392:3-3392:10#143742
+      < begin()@:3387:3-3387:23#143724
+      < function(uvm_component::m_set_cl_verb)@:3375:1-3457:12#143705
+      < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#146
+      < design(work@top_tb)@:0:0-0:0#1
+      REF .Actual_typespec      rel1      ref_typespec()@:0:0-0:0#144572
+           owner chain:
+      < ref_var(setting)@:3615:31-3615:38#144571
+      < assignment()@:3615:31-3615:64#144573
+      < begin()@:3614:14-3621:12#144570
+      < fork_stmt()@:3614:9-3621:22#144569
+      < begin()@:3611:12-3623:10#144555
+      < if_else()@:3605:7-3623:10#144526
+      < begin()@:3604:59-3626:8#144525
+      < if_stmt()@:3604:5-3626:8#144516
+      < begin()@:3603:36-3627:6#144515
+      < foreach_stmt()@:3603:3-3603:10#144508
+      < function(uvm_component::m_apply_verbosity_settings)@:3602:1-3628:12#144504
+      < package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#146
+      < design(work@top_tb)@:0:0-0:0#1
+      REF .Actual_typespec      rel1      ref_typespec()@:0:0-0:0#202587
+           owner chain:
+      < ref_var(setting)@:3393:25-3393:32#202586
+      < begin()@:3392:22-3430:6#202585
+      < foreach_stmt()@:3392:3-3392:10#202575
+      < begin()@:3387:3-3387:23#202557
+      < function(uvm_component::m_set_cl_verb)@:3375:1-3457:12#202538
+      < package(adpcm_pkg)@testbench.sv:10:1-207:22#3057
+      < design(work@top_tb)@:0:0-0:0#1
+      REF .Actual_typespec      rel1      ref_typespec()@:0:0-0:0#203432
+           owner chain:
+      < ref_var(setting)@:3615:31-3615:38#203431
+      < assignment()@:3615:31-3615:64#203433
+      < begin()@:3614:14-3621:12#203430
+      < fork_stmt()@:3614:9-3621:22#203429
+      < begin()@:3611:12-3623:10#203415
+      < if_else()@:3605:7-3623:10#203386
+      < begin()@:3604:59-3626:8#203385
+      < if_stmt()@:3604:5-3626:8#203376
+      < begin()@:3603:36-3627:6#203375
+      < foreach_stmt()@:3603:3-3603:10#203365
+      < function(uvm_component::m_apply_verbosity_settings)@:3602:1-3628:12#203361
+      < package(adpcm_pkg)@testbench.sv:10:1-207:22#3057
+      < design(work@top_tb)@:0:0-0:0#1
+      REF .Actual_typespec      rel1      ref_typespec()@:0:0-0:0#256299
+           owner chain:
+      < ref_var(setting)@:3393:25-3393:32#256298
+      < begin()@:3392:22-3430:6#256297
+      < foreach_stmt()@:3392:3-3392:10#256290
+      < begin()@:3387:3-3387:23#256272
+      < function(uvm_component::m_set_cl_verb)@:3375:1-3457:12#256253
+      < package(adpcm_pkg)@testbench.sv:10:1-207:22#181474
+      < design(work@top_tb)@:0:0-0:0#1
+      REF .Actual_typespec      rel1      ref_typespec()@:0:0-0:0#257120
+           owner chain:
+      < ref_var(setting)@:3615:31-3615:38#257119
+      < assignment()@:3615:31-3615:64#257121
+      < begin()@:3614:14-3621:12#257118
+      < fork_stmt()@:3614:9-3621:22#257117
+      < begin()@:3611:12-3623:10#257103
+      < if_else()@:3605:7-3623:10#257074
+      < begin()@:3604:59-3626:8#257073
+      < if_stmt()@:3604:5-3626:8#257064
+      < begin()@:3603:36-3627:6#257063
+      < foreach_stmt()@:3603:3-3603:10#257056
+      < function(uvm_component::m_apply_verbosity_settings)@:3602:1-3628:12#257052
+      < package(adpcm_pkg)@testbench.sv:10:1-207:22#181474
+      < design(work@top_tb)@:0:0-0:0#1
+      REFERRERS=11
+  GOLDEN MINT CENSUS for unsupported_typespec named 'm_verbosity_setting':
+      OBJ unsupported_typespec(m_verbosity_setting)@uvm_component.svh:3393:5-3393:24#140536 inst=package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#1 refs=1 < begin: < begin: < function:uvm_component::m_set_cl_verb < package:adpcm_pkg
+      OBJ unsupported_typespec(m_verbosity_setting)@uvm_component.svh:3615:11-3615:30#141467 inst=package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#1 refs=1 < begin: < begin: < begin: < begin: < function:uvm_component::m_apply_verbosity_settings < package:adpcm_pkg
+      OBJ unsupported_typespec(m_verbosity_setting)@uvm_component.svh:3615:11-3615:30#141473 inst=package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#1 refs=1 < begin: < begin: < begin: < begin: < function:uvm_component::m_apply_verbosity_settings < package:adpcm_pkg
+      OBJ unsupported_typespec(m_verbosity_setting)@uvm_component.svh:3393:5-3393:24#204663 inst=package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#1 refs=1 < begin: < begin: < function:uvm_component::m_set_cl_verb < package:adpcm_pkg
+      OBJ unsupported_typespec(m_verbosity_setting)@uvm_component.svh:3615:11-3615:30#205594 inst=package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#1 refs=1 < begin: < begin: < begin: < begin: < function:uvm_component::m_apply_verbosity_settings < package:adpcm_pkg
+      OBJ unsupported_typespec(m_verbosity_setting)@uvm_component.svh:3615:11-3615:30#205600 inst=package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#1 refs=1 < begin: < begin: < begin: < begin: < function:uvm_component::m_apply_verbosity_settings < package:adpcm_pkg
+      OBJECTS=6
+  OURS   MINT CENSUS for struct_typespec named 'm_verbosity_setting':
+      OBJ struct_typespec(m_verbosity_setting)@:1686:11-1692:4#14791 inst=<null> refs=11 < class_defn:uvm_component < package:uvm_pkg
+      OBJECTS=1
+ABLATION (mask the golden head only):
+  design::Compare r=3364
+  NEXT LHS(golden) = unsupported_typespec(uvm_cmdline_parsed_arg_t)@uvm_component.svh:3475:3-3475:27#204985
+  NEXT RHS(ours)   = struct_typespec(uvm_cmdline_parsed_arg_t)@:1701:9-1705:2#14807
+  VERDICT: THE HEAD MOVED (this object was the whole head)

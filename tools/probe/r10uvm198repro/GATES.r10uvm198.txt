@@ -1,0 +1,84 @@
+r10uvm198 — EVERY GATE, VERBATIM.  MEASUREMENT ONLY; the official uhdm-cmp and
+scripts/verify_golden.py are the authorities.  BASE f7a77143.
+
+(1) THE TWO BINARIES, both built -j 2 in THIS pass's own worktree and frozen
+    chmod 555 BEFORE any sweep; md5 taken separately.
+      pristine  a2733a6622a01308a82a434a9e747d5e   (byte-identical to the
+                master's own pristine at f7a77143, /tmp/pris_a273.bin)
+      patched   ca837653759ad48756a9288c316d75d3
+    Every sweep exported SLANG_UHDM and every cmds.txt was audited by BINARY
+    PATH (not by the string "slang-uhdm", which also matches the golden cache):
+      $ grep -o '/tmp/r10uvm198_pris.bin' <wd>/default/SeqDriver-*/cmds.txt -> 1
+
+(2) GOLDEN DUMP TESTS
+      SLANG_UHDM=<patched>  bash tests/check_goldens.sh | grep -c '^PASS'  -> 23
+      SLANG_UHDM=<patched>  bash tests/check_goldens.sh | grep -c '^FAIL'  ->  0
+      SLANG_UHDM=<pristine> bash tests/check_goldens.sh | grep -c '^PASS'  -> 23
+      SLANG_UHDM=/bin/false bash tests/check_goldens.sh | grep -c '^FAIL'  -> 23
+                                                        (the negative control)
+
+(3) UHDM2RTLIL, both modes, jobs 2, this pass's own out/workdir
+      ct8rows results/gate_uhdm2rtlil.csv  <patched tf>   -> PASS (0 rows)
+      ct8rows <own pristine tf>            <patched tf>   -> PASS (0 rows)
+      ct8rows <own pristine default>       <patched def>  -> PASS (0 rows)
+      SELFCHECK=1 byteverify <patched wd> <pristine wd>
+          databases 1358/1358, PATH_SETS_IDENTICAL, MOVERS 0 / 1358,
+          SELFCHECK 1357/1358 flagged
+      679/50/2 status split unchanged in both modes.
+
+(4) SURELOG, --mode both, jobs 2, this pass's own out/workdir
+      ct8rows <own pristine> <patched>            -> 0 differing ROWS / 1588
+      ct8rows results/golden_surelog.csv <patched>-> 1 differing ROW:
+          < Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+          > Earlgrey_0_1,testflags,CMP_EQUAL,,,
+        NOT a conversion and NOT caused by this patch: the SAME row reads the
+        SAME way in this pass's own PRISTINE sweep (ct8rows baseline-vs-own-
+        pristine prints exactly this one row too).  It is a uhdm-dump TIMEOUT on
+        that design under sweep load — verify_golden.py records '' for the dump
+        column when the dump times out — and the STATUS stays CMP_EQUAL on both
+        binaries.  results/*.csv were NOT edited.  NO ROW WAS CONVERTED.
+      per-mode STATUS histograms identical baseline -> patched in both modes.
+      SELFCHECK=1 byteverify <patched wd> <pristine wd>
+          databases 956/956, PATH_SETS_IDENTICAL, MOVERS 5 / 956,
+          SELFCHECK 955/956 flagged; every mover named and attributed in
+          MOVERS.r10uvm198.txt (4 PREDICTED BY NAME from the pristine databases
+          alone, 1 the Scoreboard/default COIN, order-blind content diff 0).
+
+(5) HEADS (rowheads.sh, SeqDriver SimpleUVM Scoreboard MiniAmiq BuildUVMPkg
+    Earlgrey_0_1 Rggen; SKIP-NOFILE on Scoreboard/tf and Rggen/tf as always)
+      SeqDriver x2  198 -> 33   MiniAmiq x2  198 -> 33
+      SimpleUVM x2   62 ->  62  Scoreboard/def 95 -> 95
+      BuildUVMPkg x2  CMP_EQUAL -> CMP_EQUAL   (the protected rows)
+      Earlgrey_0_1/tf CMP_EQUAL -> CMP_EQUAL   (the protected row)
+      Earlgrey_0_1/def 56 -> 56   Rggen/def CMP_EQUAL -> CMP_EQUAL
+
+(6) CANARIES
+      canaries.sh <patched sl>  results/golden_surelog.csv    ok=51 changed=1
+        the one "changed" row is the Earlgrey_0_1/testflags dump column above,
+        and canaries.sh <own pristine> <baseline> reports the SAME ok=51
+        changed=1, while canaries.sh <patched> <OWN PRISTINE> reports
+        ok=52 changed=0.
+      canaries.sh <patched u2r tf> results/gate_uhdm2rtlil.csv ok=8 changed=0
+      EXPECT_UNKNOWN=1 ctcan2.sh golden_surelog.csv  <patched sl>     PASS
+      EXPECT_UNKNOWN=6 ctcan2.sh gate_uhdm2rtlil.csv <patched u2r tf> PASS
+      canaudit.sh canaries.sh ctcan2.sh:
+        audited=29 UNCOVERED=0 FENCE-BREACH=0, PASS
+      protected databases, patched sweep:
+        InterfaceModPort 59a365f3ce2c (both modes), BlackParrotComplex
+        e3e354129d5a / 73a10e8217e5, YosysOldOr d68e0796d62c — all
+        byte-identical to the pristine sweep (they are not among the 5 movers)
+        SVSwitch 4842211c4030 (both modes)   PIN HELD
+        YosysVerx 6ccda350c24a (both modes)  PIN HELD
+
+(7) THE WIDE BOUNDARY (BOUNDARY.r10uvm198.txt)
+      LISTED=5226 PROCESSED=5226 PRODUCED_DBS=5041 MOVED_ARMS=8 RC_DIFFS=0
+      5 own arms (the positive control) + 3 other arms, each rebuilt against its
+      own real Surelog golden: TO-GOLDEN 2/2/2 (def) and 4/2/2 (elab),
+      AWAY-GOLDEN 0, MOVED-WRONG 0.
+
+(8) THE GRID (GRIDS.r10uvm198.txt) — 5 arms, both views:
+      TO-GOLDEN 29 per view, AWAY-GOLDEN 0, MOVED-WRONG 0.
+    THE CORPUS CENSUS (CENSUS.r10uvm198.txt) — nine UVM row-modes, golden-vs-
+    golden calibrated first (every mover column 0):
+      SeqDriver x2 and MiniAmiq x2  TO-GOLDEN 4 keys (8 cells), AWAY 0, WRONG 0
+      SimpleUVM x2, Scoreboard/def, BuildUVMPkg x2  all three columns 0

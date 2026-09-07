@@ -1,0 +1,55 @@
+r10uvm198 — THE HEADS, BEFORE AND AFTER.  MEASUREMENT ONLY; the official
+uhdm-cmp is the sole judge.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+A cmp line count is the HEAD OBJECT'S decompile size (RESUME.md §7), not a
+distance.
+
+Both sweeps are this pass's OWN, from its own pinned workdirs, with the binary
+path audited in every cmds.txt:
+  pristine  /tmp/r10uvm198_pris.bin  md5 a2733a6622a01308a82a434a9e747d5e
+  patched   /tmp/r10uvm198_pat.bin   md5 ca837653759ad48756a9288c316d75d3
+
+PRISTINE (rowheads.sh, this pass's own f7a77143 build)
+  TEST           MODE      CMPLINES  HEADS
+  SeqDriver      default        198      1
+  SeqDriver      testflags      198      1
+  MiniAmiq       default        198      1
+  MiniAmiq       testflags      198      1
+  (MiniAmiq's two logs are byte-identical, md5 a013311fa9f4)
+
+  the pair, all four rows:
+  LHS: unsupported_typespec: (m_verbosity_setting), line:3393:5, endln:3393:24
+       |vpiParent: \_ref_typespec: (adpcm_pkg::uvm_component::m_set_cl_verb::setting)
+       |vpiName:m_verbosity_setting
+       |vpiInstance: \_package: uvm_pkg
+  RHS: struct_typespec: (m_verbosity_setting), line:1686:11, endln:1692:4
+       |vpiParent: \_class_defn: (uvm_pkg::uvm_component)
+       |vpiName:m_verbosity_setting
+       |vpiTypespecMember: comp / phase / offset / verbosity / id
+  (MiniAmiq reads svaunit_pkg where SeqDriver reads adpcm_pkg)
+
+PATCHED (same script, same workdir layout)
+  TEST           MODE      CMPLINES  HEADS
+  SeqDriver      default         33      1
+  SeqDriver      testflags       33      1
+  MiniAmiq       default         33      1
+  MiniAmiq       testflags       33      1
+  SimpleUVM      default/testflags   62      1   (unchanged)
+  Scoreboard     default             95      1   (unchanged)
+  BuildUVMPkg    default/testflags    0      0   (CMP_EQUAL, unchanged)
+  Earlgrey_0_1   default             56      1   (unchanged)
+  Earlgrey_0_1   testflags            0      0   (CMP_EQUAL, unchanged)
+  Rggen          default              0      0   (CMP_EQUAL, unchanged)
+
+  the NEW pair (R0), all four rows, one object:
+  LHS: <null>
+  RHS: constant: , line:410:30, endln:410:60
+       |vpiParent: \_param_assign: , line:410:11, endln:410:62
+       |vpiDecompile:115199  |vpiSize:32  |INT:115199  |vpiConstType:7
+       |vpiTypespec: \_ref_typespec: (adpcm_pkg) -> int_typespec @410:1-410:62
+  ct198own on the patched pair: the ONE edge golden leaves null is
+    REF .Rhs  rel1  param_assign()@410:11-410:62 < package(adpcm_pkg) < design
+  i.e. the IMPORT COPY of the package parameter
+  uvm_globals.svh:410 `parameter UVM_LARGE_STRING = UVM_LINE_WIDTH*UVM_NUM_LINES*8-1`
+  (= 115199) carries a FOLDED Rhs constant in ours and NO Rhs in golden.
+  MiniAmiq reads svaunit_pkg for the same object; its two modes are
+  byte-identical (md5 e97952f49811).

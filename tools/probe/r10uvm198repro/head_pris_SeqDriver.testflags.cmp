@@ -1,0 +1,198 @@
+LHS:
+decompile:
+unsupported_typespec: (m_verbosity_setting), id:204663, line:3393:5, endln:3393:24
+|vpiParent:
+\_ref_typespec: (adpcm_pkg::uvm_component::m_set_cl_verb::setting), id:204662
+|vpiName:m_verbosity_setting
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+
+decompile:
+unsupported_typespec: (m_verbosity_setting), id:204663, line:3393:5, endln:3393:24
+|vpiParent:
+\_ref_typespec: (adpcm_pkg::uvm_component::m_set_cl_verb::setting), id:204662
+|vpiName:m_verbosity_setting
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+RHS:
+decompile:
+struct_typespec: (m_verbosity_setting), id:14803, line:1686:11, endln:1692:4
+|vpiParent:
+\_class_defn: (uvm_pkg::uvm_component), id:14719, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_component.svh, line:60:9, endln:1710:25
+|vpiName:m_verbosity_setting
+|vpiTypespecMember:
+\_typespec_member: (comp), id:14804, line:1687:12, endln:1687:16
+  |vpiParent:
+  \_struct_typespec: (m_verbosity_setting), id:14803, line:1686:11, endln:1692:4
+  |vpiName:comp
+  |vpiTypespec:
+  \_ref_typespec: (uvm_component::m_verbosity_setting::comp), id:14806
+    |vpiParent:
+    \_typespec_member: (comp), id:14804, line:1687:12, endln:1687:16
+    |vpiFullName:uvm_component::m_verbosity_setting::comp
+    |vpiActual:
+    \_string_typespec: , id:14805, line:1687:5, endln:1687:11
+  |vpiRefFile:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_component.svh
+  |vpiRefLineNo:1687
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:1687
+  |vpiRefEndColumnNo:11
+|vpiTypespecMember:
+\_typespec_member: (phase), id:14807, line:1688:12, endln:1688:17
+  |vpiParent:
+  \_struct_typespec: (m_verbosity_setting), id:14803, line:1686:11, endln:1692:4
+  |vpiName:phase
+  |vpiTypespec:
+  \_ref_typespec: (uvm_component::m_verbosity_setting::phase), id:14809
+    |vpiParent:
+    \_typespec_member: (phase), id:14807, line:1688:12, endln:1688:17
+    |vpiFullName:uvm_component::m_verbosity_setting::phase
+    |vpiActual:
+    \_string_typespec: , id:14808, line:1688:5, endln:1688:11
+  |vpiRefFile:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_component.svh
+  |vpiRefLineNo:1688
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:1688
+  |vpiRefEndColumnNo:11
+|vpiTypespecMember:
+\_typespec_member: (offset), id:14810, line:1689:12, endln:1689:18
+  |vpiParent:
+  \_struct_typespec: (m_verbosity_setting), id:14803, line:1686:11, endln:1692:4
+  |vpiName:offset
+  |vpiTypespec:
+  \_ref_typespec: (uvm_component::m_verbosity_setting::offset), id:14812
+    |vpiParent:
+    \_typespec_member: (offset), id:14810, line:1689:12, endln:1689:18
+    |vpiFullName:uvm_component::m_verbosity_setting::offset
+    |vpiActual:
+    \_time_typespec: , id:14811, line:1689:5, endln:1689:9
+  |vpiRefFile:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_component.svh
+  |vpiRefLineNo:1689
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:1689
+  |vpiRefEndColumnNo:9
+|vpiTypespecMember:
+\_typespec_member: (verbosity), id:14813, line:1690:19, endln:1690:28
+  |vpiParent:
+  \_struct_typespec: (m_verbosity_setting), id:14803, line:1686:11, endln:1692:4
+  |vpiName:verbosity
+  |vpiTypespec:
+  \_ref_typespec: (uvm_component::m_verbosity_setting::verbosity), id:14815
+    |vpiParent:
+    \_typespec_member: (verbosity), id:14813, line:1690:19, endln:1690:28
+    |vpiFullName:uvm_component::m_verbosity_setting::verbosity
+    |vpiActual:
+    \_bit_typespec: , id:14814, line:1690:5, endln:1690:18
+  |vpiRefFile:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_component.svh
+  |vpiRefLineNo:1690
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:1690
+  |vpiRefEndColumnNo:18
+|vpiTypespecMember:
+\_typespec_member: (id), id:14816, line:1691:12, endln:1691:14
+  |vpiParent:
+  \_struct_typespec: (m_verbosity_setting), id:14803, line:1686:11, endln:1692:4
+  |vpiName:id
+  |vpiTypespec:
+  \_ref_typespec: (uvm_component::m_verbosity_setting::id), id:14818
+    |vpiParent:
+    \_typespec_member: (id), id:14816, line:1691:12, endln:1691:14
+    |vpiFullName:uvm_component::m_verbosity_setting::id
+    |vpiActual:
+    \_string_typespec: , id:14817, line:1691:5, endln:1691:11
+  |vpiRefFile:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_component.svh
+  |vpiRefLineNo:1691
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:1691
+  |vpiRefEndColumnNo:11
+
+decompile:
+struct_typespec: (m_verbosity_setting), id:14803, line:1686:11, endln:1692:4
+|vpiParent:
+\_class_defn: (uvm_pkg::uvm_component), id:14719, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_component.svh, line:60:9, endln:1710:25
+|vpiName:m_verbosity_setting
+|vpiTypespecMember:
+\_typespec_member: (comp), id:14804, line:1687:12, endln:1687:16
+  |vpiParent:
+  \_struct_typespec: (m_verbosity_setting), id:14803, line:1686:11, endln:1692:4
+  |vpiName:comp
+  |vpiTypespec:
+  \_ref_typespec: (uvm_component::m_verbosity_setting::comp), id:14806
+    |vpiParent:
+    \_typespec_member: (comp), id:14804, line:1687:12, endln:1687:16
+    |vpiFullName:uvm_component::m_verbosity_setting::comp
+    |vpiActual:
+    \_string_typespec: , id:14805, line:1687:5, endln:1687:11
+  |vpiRefFile:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_component.svh
+  |vpiRefLineNo:1687
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:1687
+  |vpiRefEndColumnNo:11
+|vpiTypespecMember:
+\_typespec_member: (phase), id:14807, line:1688:12, endln:1688:17
+  |vpiParent:
+  \_struct_typespec: (m_verbosity_setting), id:14803, line:1686:11, endln:1692:4
+  |vpiName:phase
+  |vpiTypespec:
+  \_ref_typespec: (uvm_component::m_verbosity_setting::phase), id:14809
+    |vpiParent:
+    \_typespec_member: (phase), id:14807, line:1688:12, endln:1688:17
+    |vpiFullName:uvm_component::m_verbosity_setting::phase
+    |vpiActual:
+    \_string_typespec: , id:14808, line:1688:5, endln:1688:11
+  |vpiRefFile:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_component.svh
+  |vpiRefLineNo:1688
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:1688
+  |vpiRefEndColumnNo:11
+|vpiTypespecMember:
+\_typespec_member: (offset), id:14810, line:1689:12, endln:1689:18
+  |vpiParent:
+  \_struct_typespec: (m_verbosity_setting), id:14803, line:1686:11, endln:1692:4
+  |vpiName:offset
+  |vpiTypespec:
+  \_ref_typespec: (uvm_component::m_verbosity_setting::offset), id:14812
+    |vpiParent:
+    \_typespec_member: (offset), id:14810, line:1689:12, endln:1689:18
+    |vpiFullName:uvm_component::m_verbosity_setting::offset
+    |vpiActual:
+    \_time_typespec: , id:14811, line:1689:5, endln:1689:9
+  |vpiRefFile:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_component.svh
+  |vpiRefLineNo:1689
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:1689
+  |vpiRefEndColumnNo:9
+|vpiTypespecMember:
+\_typespec_member: (verbosity), id:14813, line:1690:19, endln:1690:28
+  |vpiParent:
+  \_struct_typespec: (m_verbosity_setting), id:14803, line:1686:11, endln:1692:4
+  |vpiName:verbosity
+  |vpiTypespec:
+  \_ref_typespec: (uvm_component::m_verbosity_setting::verbosity), id:14815
+    |vpiParent:
+    \_typespec_member: (verbosity), id:14813, line:1690:19, endln:1690:28
+    |vpiFullName:uvm_component::m_verbosity_setting::verbosity
+    |vpiActual:
+    \_bit_typespec: , id:14814, line:1690:5, endln:1690:18
+  |vpiRefFile:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_component.svh
+  |vpiRefLineNo:1690
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:1690
+  |vpiRefEndColumnNo:18
+|vpiTypespecMember:
+\_typespec_member: (id), id:14816, line:1691:12, endln:1691:14
+  |vpiParent:
+  \_struct_typespec: (m_verbosity_setting), id:14803, line:1686:11, endln:1692:4
+  |vpiName:id
+  |vpiTypespec:
+  \_ref_typespec: (uvm_component::m_verbosity_setting::id), id:14818
+    |vpiParent:
+    \_typespec_member: (id), id:14816, line:1691:12, endln:1691:14
+    |vpiFullName:uvm_component::m_verbosity_setting::id
+    |vpiActual:
+    \_string_typespec: , id:14817, line:1691:5, endln:1691:11
+  |vpiRefFile:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_component.svh
+  |vpiRefLineNo:1691
+  |vpiRefColumnNo:5
+  |vpiRefEndLineNo:1691
+  |vpiRefEndColumnNo:11

@@ -1,0 +1,166 @@
+# r10v198 — THE VERIFIER'S OWN GATE BATTERY, run from its OWN worktrees at f7a77143.
+# MEASUREMENT ONLY except the official uhdm-cmp / verify_golden.py, which are the judges.
+
+## 1. BINARIES (built -j 2 in this verifier's own worktrees, md5 taken separately, frozen chmod 555)
+a2733a6622a01308a82a434a9e747d5e  /tmp/v198_pris.bin
+ca837653759ad48756a9288c316d75d3  /tmp/v198_pat.bin
+45c9dbce0ba3388284e78b4635bc267e  /tmp/v198_fix.bin
+   pristine  a2733a6622a01308a82a434a9e747d5e  == the implementer's claim AND /tmp/pris_a273.bin
+   patched   ca837653759ad48756a9288c316d75d3  == the implementer's claim, byte for byte
+   verified  45c9dbce0ba3388284e78b4635bc267e  (the implementer's patch + the verifier's fix)
+
+## 2. GOLDENS
+   pristine PASS=23 FAIL=0
+   patched  PASS=23 FAIL=0
+   verified PASS=23 FAIL=0
+   /bin/false negative control PASS=0 FAIL=23
+
+## 3. cmds.txt BINARY AUDIT (by PATH, every file of both sweeps)
+   pristine sweep: 3035 cmds.txt; the only slang binary named:
+     slang:   /tmp/v198_pris.bin
+   verified sweep: 3035 cmds.txt; the only slang binary named:
+     slang:   /tmp/v198_fix.bin
+
+## 4. ROW GATES (ct8rows.sh — status AND dump column)
+   u2r testflags vs committed baseline:
+PASS: every row byte-identical to the committed baseline
+   u2r testflags vs own pristine     :
+PASS: every row byte-identical to the committed baseline
+   u2r default   vs own pristine     :
+PASS: every row byte-identical to the committed baseline
+   surelog       vs own pristine     :
+PASS: every row byte-identical to the committed baseline
+   surelog       vs committed baseline (ONE row-side, quoted, NOT a conversion):
+---- WHOLE-ROW diff (status AND dump column): 1 differing ROWS (2 diff row-sides)
+< Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+> Earlgrey_0_1,testflags,CMP_EQUAL,,,
+   the SAME row-side in the VERIFIER'S OWN PRISTINE sweep vs the same baseline:
+---- WHOLE-ROW diff (status AND dump column): 1 differing ROWS (2 diff row-sides)
+< Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+> Earlgrey_0_1,testflags,CMP_EQUAL,,,
+   => a uhdm-dump TIMEOUT artifact of the dump column under sweep load; the STATUS stays
+      CMP_EQUAL on both binaries.  NO ROW CONVERTED; results/*.csv NOT edited.
+
+## 5. BYTE MOVERS (byteverify.sh SELFCHECK=1, verified vs own pristine)
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=8f8401a1e250 pristine=ee7883b6fabc
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=7e80ee1cf561 pristine=150505baf8e6
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=22a4ba6ff1e8 pristine=3c67844e4c99
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=8f8401a1e250 pristine=ee7883b6fabc
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=9e6db9e906b4 pristine=1d8d887ea03d
+MOVERS: 5 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+   the four PREDICTED BY NAME from the PRISTINE databases alone (committed
+   r10uvm198repro/PREDICT.surelog.r10uvm198.txt, re-read here):
+     1 PREDCELLS MiniAmiq,default strict=8 wide=5388
+     1 PREDCELLS MiniAmiq,testflags strict=8 wide=5388
+     1 PREDCELLS SeqDriver,default strict=8 wide=5388
+     1 PREDCELLS SeqDriver,testflags strict=8 wide=5388
+     u2r -- scanned=1358 NODB=104 FENCED=0
+     u2r -- scanned=1358 NODB=104 FENCED=0
+   the fifth mover, Scoreboard/default, is the ~50/50 COIN and is attributed ORDER-BLIND:
+     uhdm-dump both sides, workdir path normalised, sorted -> diff = 0 LINES (not 0 content
+     lines: the sorted dumps are IDENTICAL), so the byte difference is pure listing order.
+
+## 6. HEADS (rowheads.sh, official uhdm-cmp, both sweeps)
+--- PRISTINE
+--- PRISTINE (a2733a66)
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default        198      1 cmp rc=255
+SeqDriver      testflags      198      1 cmp rc=255
+SimpleUVM      default         62      1 cmp rc=255
+SimpleUVM      testflags       62      1 cmp rc=255
+Scoreboard     default         95      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default        198      1 cmp rc=255
+MiniAmiq       testflags      198      1 cmp rc=255
+BuildUVMPkg    default          0      0 cmp rc=0
+BuildUVMPkg    testflags        0      0 cmp rc=0
+Earlgrey_0_1   default         56      1 cmp rc=255
+Earlgrey_0_1   testflags        0      0 cmp rc=0
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+--- VERIFIED (45c9dbce)
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         33      1 cmp rc=255
+SeqDriver      testflags       33      1 cmp rc=255
+SimpleUVM      default         62      1 cmp rc=255
+SimpleUVM      testflags       62      1 cmp rc=255
+Scoreboard     default         95      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default         33      1 cmp rc=255
+MiniAmiq       testflags       33      1 cmp rc=255
+BuildUVMPkg    default          0      0 cmp rc=0
+BuildUVMPkg    testflags        0      0 cmp rc=0
+Earlgrey_0_1   default         56      1 cmp rc=255
+Earlgrey_0_1   testflags        0      0 cmp rc=0
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+
+## 7. THE IMPLEMENTER'S BINARY AND THE VERIFIED BINARY ARE CORPUS-IDENTICAL
+   the two binaries re-run on the moving rows from the tests' own source directories:
+   SeqDriver   pat=22a4ba6ff1e87e9c3deeff00cebf40e0  fix=22a4ba6ff1e87e9c3deeff00cebf40e0  BYTE-IDENTICAL
+   MiniAmiq    pat=fa86bbdb9482fd7ae7bdee0aa6b9ec59  fix=fa86bbdb9482fd7ae7bdee0aa6b9ec59  BYTE-IDENTICAL
+   => every corpus number the implementer reported holds verbatim for the verified binary.
+
+## 8. CANARIES / PINS
+   canaries surelog vs own pristine   : ---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+   canaries surelog vs committed base : ---- canary rows: ok=51 changed=1 absent=0 unknown-names=7
+     (the one 'changed' row is the Earlgrey_0_1/testflags dump-column timeout of gate 4,
+      identical on this verifier's own PRISTINE sweep)
+   canaries u2r                       : ---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+   ctcan2 surelog                     : PASS: every supplementary canary row is byte-identical to the baseline.
+   ctcan2 u2r                         : PASS: every supplementary canary row is byte-identical to the baseline.
+   canaudit (run in r10uvm198repro)   : PASS: every brief-protected name and family is carried by a script that RUNS here.
+   protected databases, verified vs own pristine (md5 first 12):
+     default/InterfaceModPort-a10293bb/         59a365f3ce2c IDENTICAL
+     testflags/InterfaceModPort-a10293bb/       59a365f3ce2c IDENTICAL
+     default/BlackParrotComplex-5bed297d/       e3e354129d5a IDENTICAL
+     testflags/BlackParrotComplex-5bed297d/     73a10e8217e5 IDENTICAL
+     default/YosysOldOr-02449e06/               d68e0796d62c IDENTICAL
+     testflags/YosysOldOr-02449e06/             d68e0796d62c IDENTICAL
+     default/SVSwitch-db796243/                 4842211c4030 IDENTICAL
+     testflags/SVSwitch-db796243/               4842211c4030 IDENTICAL
+     default/YosysVerx-3c02adf6/                6ccda350c24a IDENTICAL
+     testflags/YosysVerx-3c02adf6/              6ccda350c24a IDENTICAL
+     default/BuildUVMPkg-bf853d43/              68729cf77d77 IDENTICAL
+     testflags/BuildUVMPkg-bf853d43/            68729cf77d77 IDENTICAL
+     default/Earlgrey_0_1-71da2fd7/             1e0aa59f41df IDENTICAL
+     testflags/Earlgrey_0_1-71da2fd7/           2afc8c0f6b08 IDENTICAL
+     default/Rggen-50ccbd70/                    8c0f8a3e6f7b IDENTICAL
+     SVSwitch PIN 4842211c4030 HELD (both modes); YosysVerx PIN 6ccda350c24a HELD (both modes).
+
+## 9. THE FOUR PROTECTED CMP_EQUAL ROWS, verified sweep, from the sweep CSV
+     BuildUVMPkg,default,CMP_EQUAL,,,differ
+     BuildUVMPkg,testflags,CMP_EQUAL,,,differ
+     Earlgrey_0_1,default,CMP_NOTEQUAL,decompile:,,
+     Earlgrey_0_1,testflags,CMP_EQUAL,,,
+     Rggen,default,CMP_EQUAL,,,differ
+     Rggen,testflags,SURELOG_FAIL,[INF:UH0707] Elaborating UHDM...,,
+     rowheads reads rc=0 / 0 cmp lines / 0 heads on every one of them (section 6).
+
+## 10. THE CORPUS CENSUS (cen198.sh, golden-vs-golden calibrated FIRST)
+     SeqDriver    default   rc=0/0/0 cells=9651 TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2646  AGREE 14283  KEYS 16933
+     SeqDriver    default   GOLDEN-vs-GOLDEN TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 15752  KEYS 15752
+     SeqDriver    testflags rc=0/0/0 cells=9651 TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2646  AGREE 14283  KEYS 16933
+     SeqDriver    testflags GOLDEN-vs-GOLDEN TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 15752  KEYS 15752
+     SimpleUVM    default   rc=0/0/0 cells=5801 TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2301  AGREE 11212  KEYS 13513
+     SimpleUVM    default   GOLDEN-vs-GOLDEN TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 12380  KEYS 12380
+     SimpleUVM    testflags rc=0/0/0 cells=5801 TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2301  AGREE 11212  KEYS 13513
+     SimpleUVM    testflags GOLDEN-vs-GOLDEN TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 12380  KEYS 12380
+     Scoreboard   default   rc=0/0/0 cells=5851 TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2309  AGREE 11293  KEYS 13602
+     Scoreboard   default   GOLDEN-vs-GOLDEN TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 12465  KEYS 12465
+     SKIP-NOFILE Scoreboard testflags (g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+     MiniAmiq     default   rc=0/0/0 cells=10133 TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 3315  AGREE 14699  KEYS 18018
+     MiniAmiq     default   GOLDEN-vs-GOLDEN TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 16503  KEYS 16503
+     MiniAmiq     testflags rc=0/0/0 cells=10133 TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 3315  AGREE 14699  KEYS 18018
+     MiniAmiq     testflags GOLDEN-vs-GOLDEN TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 16503  KEYS 16503
+     BuildUVMPkg  default   rc=0/0/0 cells=5714 TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2030  AGREE 11397  KEYS 13427
+     BuildUVMPkg  default   GOLDEN-vs-GOLDEN TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 12431  KEYS 12431
+     BuildUVMPkg  testflags rc=0/0/0 cells=5714 TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2030  AGREE 11397  KEYS 13427
+     BuildUVMPkg  testflags GOLDEN-vs-GOLDEN TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 12431  KEYS 12431

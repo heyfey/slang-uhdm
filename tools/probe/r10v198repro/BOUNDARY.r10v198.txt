@@ -1,0 +1,92 @@
+# r10v198 — THE WIDE BOUNDARY, re-run by the verifier over a COPY of the whole probe tree
+# with PRIS=/tmp/v198_pris.bin PATCHED=<the VERIFIED binary>.  bound198.sh reads the file
+# list on fd 3, gives every child </dev/null, asserts PROCESSED == LISTED and keys scratch
+# on the RELATIVE path.  This pass's own grid198/g198_*.sv are the POSITIVE CONTROL.
+
+LISTED=5226 PROCESSED=5226 PRODUCED_DBS=5041 MOVED_ARMS=11 RC_DIFFS=0
+
+## THE ELEVEN MOVED ARMS
+r10buvm22repro/g22.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10buvm9repro/w4v_imports.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm154repro/l154_noenum.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm185repro/grid185/g185_e_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm198repro/grid198/g198_a_homes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm198repro/grid198/g198_b_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm198repro/grid198/g198_c_scopes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm198repro/grid198/g198_d_sites.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm198repro/grid198/g198_e_head.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v181repro/v181_b_prefix.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v181repro/v181_h_nofe.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+## 5 of 11 ARE THIS PASS'S OWN GRID (the positive control): grid198/g198_{a,b,c,d,e}*.sv
+
+## 3 of 11 ARE ARMS THE LAW LEGITIMATELY TOUCHES — each rebuilt against ITS OWN Surelog
+##   golden, BOTH views, and scored with ct198cen + score198.py:
+--- r10buvm9repro/w4v_imports.sv
+    cmp rc=255 a def lines=3734 heads=1
+    cmp rc=255 b def lines=3734 heads=1
+    cmp rc=255 a elab lines=3816 heads=1
+    cmp rc=255 b elab lines=3816 heads=1
+    def CEN: TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 28  AGREE 52  KEYS 82
+    def IO : TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 4  AGREE 46  KEYS 50
+    elab CEN: TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 82  AGREE 32  KEYS 118
+    elab IO : TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 40  AGREE 27  KEYS 67
+--- r10v181repro/v181_b_prefix.sv
+    cmp rc=255 a def lines=226 heads=1
+    cmp rc=255 b def lines=226 heads=1
+    cmp rc=255 a elab lines=242 heads=1
+    cmp rc=255 b elab lines=242 heads=1
+    def CEN: TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 5  AGREE 43  KEYS 50
+    def IO : TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 16  KEYS 16
+    elab CEN: TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 10  AGREE 38  KEYS 50
+    elab IO : TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 5  AGREE 11  KEYS 16
+--- r10v181repro/v181_h_nofe.sv
+    cmp rc=255 a def lines=58 heads=1
+    cmp rc=255 b def lines=58 heads=1
+    cmp rc=255 a elab lines=58 heads=1
+    cmp rc=255 b elab lines=58 heads=1
+    def CEN: TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 5  AGREE 30  KEYS 37
+    def IO : TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 11  KEYS 11
+    elab CEN: TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 10  AGREE 25  KEYS 37
+    elab IO : TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 5  AGREE 6  KEYS 11
+
+##   the cmp LINE COUNT of all three is UNCHANGED in both views; AWAY-GOLDEN 0 and
+##   MOVED-WRONG 0 everywhere, and the § 36 IO half moves nothing at all.
+
+## 3 of 11 ARE THE KNOWN STATIC-ADDRESS FALSE MOVER, and the census is the tell:
+##   r10buvm22repro/g22.sv, r10uvm154repro/l154_noenum.sv, r10uvm185repro/grid185/g185_e_kinds.sv
+##   Every byte that moves in these three is ONE address-derived constant on the range of a
+##   class-scoped associative-array typedef — 22650617 -> 22654713, EXACTLY 4096 apart, the
+##   same pair r10uvm154repro/l154_noenum.sv was committed to demonstrate — and EVERY diff
+##   line sits BELOW \_weaklyReferenced:, which the judge cannot reach (RESUME §9):
+     pc_r10buvm22repro_g22.sv                       weaklyReferenced@4357  diff hunks at 1 5119 5121 5167 5169 5215 5217   (dump 6395 lines)
+     pc_r10uvm154repro_l154_noenum.sv               weaklyReferenced@646  diff hunks at 1 679 681 720 722   (dump 772 lines)
+     pc_r10uvm185repro_grid185_g185_e_kinds.sv      weaklyReferenced@2690  diff hunks at 1 2931 2933 3157 3159 3379 3381   (dump 3437 lines)
+##   pristine is DETERMINISTIC on all three (5 runs, one md5 each), so this is not a coin;
+##   it is binary LAYOUT, and it moves for the verified binary and not for the implementer's
+##   only because the two link layouts differ.  Scored against their own goldens all three
+##   read EVERY mover column 0 and an UNCHANGED cmp line count:
+--- r10buvm22repro/g22.sv
+    cmp rc=255 a def lines=3438 heads=1
+    cmp rc=255 b def lines=3438 heads=1
+    cmp rc=255 a elab lines=3438 heads=1
+    cmp rc=255 b elab lines=3438 heads=1
+    def CEN: TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 11  KEYS 11
+    elab CEN: TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 5  AGREE 6  KEYS 11
+--- r10uvm154repro/l154_noenum.sv
+    cmp rc=255 a def lines=17 heads=1
+    cmp rc=255 b def lines=17 heads=1
+    cmp rc=255 a elab lines=17 heads=1
+    cmp rc=255 b elab lines=17 heads=1
+    def CEN: TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 11  KEYS 11
+    elab CEN: TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 5  AGREE 6  KEYS 11
+--- r10uvm185repro/grid185/g185_e_kinds.sv
+    cmp rc=255 a def lines=92 heads=1
+    cmp rc=255 b def lines=92 heads=1
+    cmp rc=255 a elab lines=92 heads=1
+    cmp rc=255 b elab lines=92 heads=1
+    def CEN: TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 11  KEYS 11
+    elab CEN: TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 5  AGREE 6  KEYS 11
+
+## THE FLOOR IS UNTOUCHED: no arm of § classScopedTdImportCopyUnsupported36, uvm170 (or
+## EITHER of its fences), uvm183, uvm195, uvm181-194, uvm82-91, buvm3-15 or sd8-12 moved.

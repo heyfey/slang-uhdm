@@ -1,0 +1,171 @@
+# r10v198 — THE VERIFIER'S ARMS.  MEASUREMENT ONLY; the official uhdm-cmp is the sole judge.
+# LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.  a = PRISTINE (a2733a66...), b = the
+# column named in the header.  One real Surelog golden per arm, BOTH views, every rc recorded.
+
+=================== COLUMN b = THE IMPLEMENTER'S PATCHED BINARY (ca837653...) ===================
+--- v198_1_shadow
+cmp rc=255 a def lines=56 heads=1
+cmp rc=255 b def lines=56 heads=1
+cmp rc=255 a elab lines=60 heads=1
+cmp rc=255 b elab lines=60 heads=1
+rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/v198_scratch/w_v198_1_shadow/g_elab /tmp/v198_scratch/arms/v198_1_shadow.sv
+  def CEN: TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 6  STILL-WRONG 33  AGREE 29  KEYS 71
+  def IO : TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 15  KEYS 15
+  elab CEN: TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 6  STILL-WRONG 53  AGREE 28  KEYS 90
+  elab IO : TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 6  AGREE 10  KEYS 16
+--- v198_2_kinds
+cmp rc=255 a def lines=92 heads=1
+cmp rc=255 b def lines=92 heads=1
+cmp rc=255 a elab lines=92 heads=1
+cmp rc=255 b elab lines=92 heads=1
+  def CEN: TO-GOLDEN 26  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 49  AGREE 64  KEYS 139
+  def IO : TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 11  KEYS 11
+  elab CEN: TO-GOLDEN 26  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 75  AGREE 80  KEYS 181
+  elab IO : TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 5  AGREE 6  KEYS 11
+--- v198_3_scopes
+cmp rc=255 a def lines=62 heads=1
+cmp rc=255 b def lines=1068 heads=1
+cmp rc=255 a elab lines=18 heads=1
+cmp rc=255 b elab lines=18 heads=1
+  def CEN: TO-GOLDEN 14  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 5  AGREE 51  KEYS 70
+  def IO : TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 11  KEYS 11
+  elab CEN: TO-GOLDEN 14  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 31  AGREE 44  KEYS 89
+  elab IO : TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 5  AGREE 6  KEYS 11
+--- v198_4_sites
+cmp rc=255 a def lines=96 heads=1
+cmp rc=255 b def lines=17 heads=1
+cmp rc=255 a elab lines=37 heads=1
+cmp rc=255 b elab lines=37 heads=1
+  def CEN: TO-GOLDEN 17  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 10  AGREE 73  KEYS 100
+  def IO : TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  AGREE 21  KEYS 23
+  elab CEN: TO-GOLDEN 17  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 19  AGREE 92  KEYS 128
+  elab IO : TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 7  AGREE 19  KEYS 26
+--- v198_5_imports
+cmp rc=255 a def lines=1732 heads=1
+cmp rc=255 b def lines=1732 heads=1
+cmp rc=255 a elab lines=1952 heads=1
+cmp rc=255 b elab lines=1944 heads=1
+  def CEN: TO-GOLDEN 9  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 6  AGREE 42  KEYS 57
+  def IO : TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 14  KEYS 14
+  elab CEN: TO-GOLDEN 9  AWAY-GOLDEN 9  MOVED-WRONG 0  STILL-WRONG 18  AGREE 50  KEYS 86
+  elab IO : TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 5  AGREE 12  KEYS 17
+--- v198_6_nestctl
+cmp rc=255 a def lines=706 heads=1
+cmp rc=255 b def lines=706 heads=1
+cmp rc=255 a elab lines=766 heads=1
+cmp rc=255 b elab lines=766 heads=1
+  def CEN: TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 3  AGREE 19  KEYS 22
+  def IO : TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 11  KEYS 11
+  elab CEN: TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 13  AGREE 12  KEYS 25
+  elab IO : TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 5  AGREE 6  KEYS 11
+
+=================== COLUMN b = THE VERIFIED BINARY (45c9dbce...) ===================
+--- v198_1_shadow
+cmp rc=255 a def lines=56 heads=1
+cmp rc=255 b def lines=56 heads=1
+cmp rc=255 a elab lines=60 heads=1
+cmp rc=255 b elab lines=60 heads=1
+rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/v198_scratch/f_v198_1_shadow/g_elab /tmp/v198_scratch/arms/v198_1_shadow.sv
+  def CEN: TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 6  STILL-WRONG 33  AGREE 29  KEYS 71
+  def IO : TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 15  KEYS 15
+  elab CEN: TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 6  STILL-WRONG 53  AGREE 28  KEYS 90
+  elab IO : TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 6  AGREE 10  KEYS 16
+--- v198_2_kinds
+cmp rc=255 a def lines=92 heads=1
+cmp rc=255 b def lines=92 heads=1
+cmp rc=255 a elab lines=92 heads=1
+cmp rc=255 b elab lines=92 heads=1
+  def CEN: TO-GOLDEN 26  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 49  AGREE 64  KEYS 139
+  def IO : TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 11  KEYS 11
+  elab CEN: TO-GOLDEN 26  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 75  AGREE 80  KEYS 181
+  elab IO : TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 5  AGREE 6  KEYS 11
+--- v198_3_scopes
+cmp rc=255 a def lines=62 heads=1
+cmp rc=255 b def lines=1068 heads=1
+cmp rc=255 a elab lines=18 heads=1
+cmp rc=255 b elab lines=18 heads=1
+  def CEN: TO-GOLDEN 14  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 5  AGREE 51  KEYS 70
+  def IO : TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 11  KEYS 11
+  elab CEN: TO-GOLDEN 14  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 31  AGREE 44  KEYS 89
+  elab IO : TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 5  AGREE 6  KEYS 11
+--- v198_4_sites
+cmp rc=255 a def lines=96 heads=1
+cmp rc=255 b def lines=17 heads=1
+cmp rc=255 a elab lines=37 heads=1
+cmp rc=255 b elab lines=37 heads=1
+  def CEN: TO-GOLDEN 17  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 10  AGREE 73  KEYS 100
+  def IO : TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  AGREE 21  KEYS 23
+  elab CEN: TO-GOLDEN 17  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 19  AGREE 92  KEYS 128
+  elab IO : TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 7  AGREE 19  KEYS 26
+--- v198_5_imports
+cmp rc=255 a def lines=1732 heads=1
+cmp rc=255 b def lines=1732 heads=1
+cmp rc=255 a elab lines=1952 heads=1
+cmp rc=255 b elab lines=1952 heads=1
+  def CEN: TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 12  AGREE 42  KEYS 57
+  def IO : TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 14  KEYS 14
+  elab CEN: TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 24  AGREE 59  KEYS 86
+  elab IO : TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 5  AGREE 12  KEYS 17
+--- v198_6_nestctl
+cmp rc=255 a def lines=706 heads=1
+cmp rc=255 b def lines=706 heads=1
+cmp rc=255 a elab lines=766 heads=1
+cmp rc=255 b elab lines=766 heads=1
+  def CEN: TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 3  AGREE 19  KEYS 22
+  def IO : TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 11  KEYS 11
+  elab CEN: TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 13  AGREE 12  KEYS 25
+  elab IO : TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 5  AGREE 6  KEYS 11
+
+=================== THE NINE AWAY-GOLDEN CELLS THE FIX REMOVED (arm 5, ELAB) ===================
+AWAY-GOLDEN CEN|begin:@29:5-29:29<class_defn:FlumeV5<package:raceV5|0|class_var|scopedV5
+    golden={'TS=struct_typespec:clsStV5:INST=-': 1}
+    pris  ={'TS=struct_typespec:clsStV5:INST=-': 1}
+    pat   ={'TS=unsupported_typespec:AditV5::clsStV5:INST=package:quarryV5': 1}
+AWAY-GOLDEN CEN|begin:@29:5-29:29<class_defn:OwnV5<package:sluiceV5|0|class_var|scopedV5
+    golden={'TS=struct_typespec:clsStV5:INST=-': 1}
+    pris  ={'TS=struct_typespec:clsStV5:INST=-': 1}
+    pat   ={'TS=unsupported_typespec:AditV5::clsStV5:INST=package:quarryV5': 1}
+AWAY-GOLDEN CEN|begin:@29:5-29:29<module_inst:work@topV5|0|class_var|scopedV5
+    golden={'TS=struct_typespec:clsStV5:INST=-': 1}
+    pris  ={'TS=struct_typespec:clsStV5:INST=-': 1}
+    pat   ={'TS=unsupported_typespec:AditV5::clsStV5:INST=package:quarryV5': 1}
+--
+AWAY-GOLDEN CEN|begin:@30:5-33:8<class_defn:FlumeV5<package:raceV5|0|class_var|blkScopedV5
+    golden={'TS=struct_typespec:clsStV5:INST=-': 1}
+    pris  ={'TS=struct_typespec:clsStV5:INST=-': 1}
+    pat   ={'TS=unsupported_typespec:AditV5::clsStV5:INST=package:quarryV5': 1}
+AWAY-GOLDEN CEN|begin:@30:5-33:8<class_defn:OwnV5<package:sluiceV5|0|class_var|blkScopedV5
+    golden={'TS=struct_typespec:clsStV5:INST=-': 1}
+    pris  ={'TS=struct_typespec:clsStV5:INST=-': 1}
+    pat   ={'TS=unsupported_typespec:AditV5::clsStV5:INST=package:quarryV5': 1}
+AWAY-GOLDEN CEN|begin:@30:5-33:8<module_inst:work@topV5|0|class_var|blkScopedV5
+    golden={'TS=struct_typespec:clsStV5:INST=-': 1}
+    pris  ={'TS=struct_typespec:clsStV5:INST=-': 1}
+    pat   ={'TS=unsupported_typespec:AditV5::clsStV5:INST=package:quarryV5': 1}
+--
+AWAY-GOLDEN CEN|function:freeV5@27:3-37:14<class_defn:FlumeV5<package:raceV5|0|class_var|scopedV5
+    golden={'TS=struct_typespec:clsStV5:INST=-': 1}
+    pris  ={'TS=struct_typespec:clsStV5:INST=-': 1}
+    pat   ={'TS=unsupported_typespec:AditV5::clsStV5:INST=package:quarryV5': 1}
+AWAY-GOLDEN CEN|function:freeV5@27:3-37:14<class_defn:OwnV5<package:sluiceV5|0|class_var|scopedV5
+    golden={'TS=struct_typespec:clsStV5:INST=-': 1}
+    pris  ={'TS=struct_typespec:clsStV5:INST=-': 1}
+    pat   ={'TS=unsupported_typespec:AditV5::clsStV5:INST=package:quarryV5': 1}
+AWAY-GOLDEN CEN|function:freeV5@27:3-37:14<module_inst:work@topV5|0|class_var|scopedV5
+    golden={'TS=struct_typespec:clsStV5:INST=-': 1}
+    pris  ={'TS=struct_typespec:clsStV5:INST=-': 1}
+    pat   ={'TS=unsupported_typespec:AditV5::clsStV5:INST=package:quarryV5': 1}
+
+=================== THE SAME CELLS ON THE VERIFIED BINARY ===================
+golden CEN|g|begin:@29:5-29:29<class_defn:FlumeV5<package:raceV5|0|class_var|scopedV5|TS=struct_typespec:clsStV5:INST=-
+golden CEN|g|begin:@29:5-29:29<class_defn:OwnV5<package:sluiceV5|0|class_var|scopedV5|TS=struct_typespec:clsStV5:INST=-
+golden CEN|g|begin:@29:5-29:29<module_inst:work@topV5|0|class_var|scopedV5|TS=struct_typespec:clsStV5:INST=-
+golden CEN|g|function:freeV5@27:3-37:14<class_defn:FlumeV5<package:raceV5|0|class_var|scopedV5|TS=struct_typespec:clsStV5:INST=-
+golden CEN|g|function:freeV5@27:3-37:14<class_defn:OwnV5<package:sluiceV5|0|class_var|scopedV5|TS=struct_typespec:clsStV5:INST=-
+golden CEN|g|function:freeV5@27:3-37:14<module_inst:work@topV5|0|class_var|scopedV5|TS=struct_typespec:clsStV5:INST=-
+verified CEN|b|begin:@29:5-29:29<class_defn:FlumeV5<package:raceV5|0|class_var|scopedV5|TS=struct_typespec:clsStV5:INST=-
+verified CEN|b|begin:@29:5-29:29<class_defn:OwnV5<package:sluiceV5|0|class_var|scopedV5|TS=struct_typespec:clsStV5:INST=-
+verified CEN|b|begin:@29:5-29:29<module_inst:work@topV5|0|class_var|scopedV5|TS=struct_typespec:clsStV5:INST=-
+verified CEN|b|function:freeV5@27:3-37:14<class_defn:FlumeV5<package:raceV5|0|class_var|scopedV5|TS=struct_typespec:clsStV5:INST=-
+verified CEN|b|function:freeV5@27:3-37:14<class_defn:OwnV5<package:sluiceV5|0|class_var|scopedV5|TS=struct_typespec:clsStV5:INST=-
+verified CEN|b|function:freeV5@27:3-37:14<module_inst:work@topV5|0|class_var|scopedV5|TS=struct_typespec:clsStV5:INST=-

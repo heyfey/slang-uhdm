@@ -2484,6 +2484,39 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             uts11->Instance(pkgScopeInst);
                         rt->Actual_typespec(uts11);
                     }
+                    // § classScopedTdImportCopyLocalUnsupported198, SITE 2 of
+                    // 2 — the BLOCK-ITEM local (`begin` / named `begin` /
+                    // `fork` arm / loop body / `if` arm / `case` item), which
+                    // is where the CORPUS head lives: `m_verbosity_setting
+                    // setting;` in the `begin` of `foreach(values[i])` inside
+                    // `uvm_component::m_set_cl_verb`, cloned into `adpcm_pkg`.
+                    // src/EmitHelpers.h carries the law and the grid198 cell
+                    // behind each clause; grid198 arm D scores this site on
+                    // its own at six different block shapes.  Same position in
+                    // the chain and same instance as SITE 1: the HOME package
+                    // through `importCopyTsInst`, joined to the def/elab
+                    // re-point list, and NOTHING else about the variable moves.
+                    // § clsScopedTdLocalCloneIsClassMethodOnly198v (VERIFIER
+                    // FIX) — the SITE 2 half of the same gate; TaskFuncEmit.cpp
+                    // SITE 1 carries the measurement.  `importCopyTsInst` names
+                    // THREE clone drivers and only ParamEmit.cpp:23646 (the
+                    // out-of-body CLASS METHOD) is this law's construct;
+                    // `pkgClassTfClone` is that driver's own window.
+                    else if (std::string nm198 =
+                                 (importCopyTsInst && pkgClassTfClone)
+                                     ? clsScopedTdLocalName198(bm)
+                                     : std::string{};
+                             !nm198.empty()) {
+                        auto* uts198 = s.MakeUnsupported_typespec();
+                        uts198->VpiName(nm198);
+                        if (auto* bsyn198 =
+                                bm.getDeclaredType()->getTypeSyntax())
+                            setLoc(uts198, bsyn198->sourceRange());
+                        uts198->Instance(importCopyTsInst);
+                        if (importCopyTsCollect)
+                            importCopyTsCollect->push_back(uts198);
+                        rt->Actual_typespec(uts198);
+                    }
                     else
                         rt->Actual_typespec(ts);
                     v->Typespec(rt);

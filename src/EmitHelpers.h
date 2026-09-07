@@ -4864,6 +4864,89 @@ inline bool scopedTdSegs11(const slang::ast::DeclaredType* dt,
     return walk(nt.name) && segs.size() >= 2;
 }
 
+// § classScopedTdImportCopyLocalUnsupported198 — THE NAME AND THE PREDICATE.
+//
+// > Inside a wildcard-import CLONE body, a LOCAL DECLARATION whose type is a
+// > typedef declared IN A CLASS degrades to an `unsupported_typespec` named AS
+// > WRITTEN and spanned at the written type name, instanced at the HOME
+// > package.  Its declaring scope decides it, not its kind, and the HOME's own
+// > views keep the resolved typespec.
+//
+// This is § classScopedTdImportCopyUnsupported36 one construct over: that law
+// owns the cloned method's FORMALS, this one its body's LOCALS, for the same
+// stated reason — a class method DEFINED OUT OF BODY is a package-scope item,
+// so an importer clones it as a package subroutine, and in that copy the
+// class's own type table is not in scope.  The Surelog mechanism is decoded in
+// the pass README: `CompileHelper::importPackage` (CompileHelper.cpp:299-324)
+// takes the copy with `UHDM::clone_tree` at COLLECT time, so the DEEP COPY of
+// the placeholder the home body was first compiled with is what the importer
+// keeps; `ElaborationStep::bindTypedefs_`'s repair
+// (ElaborationStep.cpp:311-321) is keyed on the ORIGINAL placeholder POINTER
+// (`getSwapedObjects()`), which the clone's copy is not, so only the home's is
+// swapped for the real typespec.
+//
+// The grid reads every cell off ONE real Surelog golden, both views:
+//   FIRES   grid198 arm A `tfCls198` / `blkCls198` (class STRUCT) AND
+//           `tfClsInt198` / `blkClsInt198` (class INT) — the KIND is
+//           irrelevant; arm B adds enum, union, string, packed vector, an
+//           alias OF a package typedef, a class-handle typedef and the SCOPED
+//           spelling `Kiln198::potSt198`; arm C adds a NESTED class
+//           (`Inner198::innerSt198`), a PARAMETERISED class (`paramSt198`) and
+//           a typedef INHERITED from a base class (`baseSt198`); arm D adds
+//           every site — tf-item, tf-item with initialiser, named begin, loop
+//           body, if arm, case item and fork arm.
+//   NOT     a PACKAGE-scope typedef local in the very same cloned body, of the
+//           SAME struct kind (arm A `tfPkg198` / `blkPkg198`, golden's
+//           `struct_typespec quarry198::pkgSt198`) — the control that keeps
+//           this law from degrading every clone local, exactly as § 36's
+//           `k50_t` keeps its own from degrading every clone formal;
+//   NOT     the HOME package's own def and elab copies, nor the class views
+//           (arm A, every cell: golden's resolved `struct_typespec clsSt198`);
+//   NOT     an ARRAY spelling, whose placeholder lives on the ELEMENT
+//           `ref_var` and not at these two sites — the same fence
+//           § oobClassTypeParamLocalUnsupported105 states (arm D `dArr198`
+//           slot 2 stays this pass's residue).
+//
+// The NAME is the WRITTEN one: the bare identifier for a bare spelling, and
+// `<first>::<last>` for a scoped one (golden's `Kiln198::potSt198`,
+// `Inner198::innerSt198`).  A spelling of more than two segments is DECLINED
+// rather than guessed at — no measured cell and no corpus row takes it.
+inline std::string clsScopedTdLocalName198(const slang::ast::Symbol& declSym) {
+    const slang::ast::DeclaredType* dt = declSym.getDeclaredType();
+    if (!dt)
+        return {};
+    const slang::ast::Type& ty = dt->getType();
+    // THE ARRAY FENCE (see above): an unpacked/queue/dynamic/associative local
+    // is modelled by its element variable, which is not this site.
+    const slang::ast::Type& cty = ty.getCanonicalType();
+    if (cty.kind == slang::ast::SymbolKind::FixedSizeUnpackedArrayType ||
+        cty.kind == slang::ast::SymbolKind::QueueType ||
+        cty.kind == slang::ast::SymbolKind::DynamicArrayType ||
+        cty.kind == slang::ast::SymbolKind::AssociativeArrayType)
+        return {};
+    if (ty.kind != slang::ast::SymbolKind::TypeAlias)
+        return {};
+    const slang::ast::Scope* ps =
+        ty.as<slang::ast::TypeAliasType>().getParentScope();
+    if (!ps || (ps->asSymbol().kind != slang::ast::SymbolKind::ClassType &&
+                ps->asSymbol().kind != slang::ast::SymbolKind::GenericClassDef))
+        return {};
+    std::vector<std::string_view> segs;
+    if (scopedTdSegs11(dt, segs)) {
+        if (segs.size() != 2)
+            return {};
+        return std::string(segs.front()) + "::" + std::string(segs.back());
+    }
+    if (auto* tsyn = dt->getTypeSyntax())
+        if (tsyn->kind == syntax::SyntaxKind::NamedType)
+            if (const syntax::NameSyntax* n =
+                    tsyn->as<syntax::NamedTypeSyntax>().name;
+                n && n->kind == syntax::SyntaxKind::IdentifierName)
+                return std::string(n->as<syntax::IdentifierNameSyntax>()
+                                       .identifier.valueText());
+    return {};
+}
+
 // The TypeAlias a `A::b(::c)` spelling names, or null — with the ROOT required
 // to be a CLASS, which is the whole difference between this law and the
 // package-scoped control (`g4` `p_scoped`, unmoved).

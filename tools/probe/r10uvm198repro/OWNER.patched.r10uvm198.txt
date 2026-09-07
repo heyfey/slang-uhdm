@@ -1,0 +1,22 @@
+design::Compare r=-1
+HEAD LHS(golden) = <null>
+HEAD RHS(ours)   = constant()@:410:30-410:60#3340
+  ours   owner chain:
+      < param_assign()@:410:11-410:62#3339
+      < package(adpcm_pkg)@testbench.sv:10:1-207:22#3057
+      < design(work@top_tb)@:0:0-0:0#1
+  ours   head Instance = <null>
+  OURS   referrers of constant()@:410:30-410:60#3340:
+      REF .Rhs                  rel1      param_assign()@:410:11-410:62#3339
+           owner chain:
+      < package(adpcm_pkg)@testbench.sv:10:1-207:22#3057
+      < design(work@top_tb)@:0:0-0:0#1
+      REF .Actual_group         rel1      ref_obj(UVM_LARGE_STRING)@:421:16-421:32#5693
+           owner chain:
+      < range()@:421:15-421:35#5692
+      < logic_typespec()@:421:10-421:35#5691
+      REF .Actual_group         rel1      ref_obj(UVM_LARGE_STRING)@:434:43-434:59#5711
+           owner chain:
+      < range()@:434:42-434:62#5710
+      < logic_typespec()@:434:36-434:41#5709
+      REFERRERS=3
