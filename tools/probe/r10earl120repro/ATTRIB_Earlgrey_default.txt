@@ -1,0 +1,25 @@
+== r10earl120 — the sectioned, path-normalised, ORDER-BLIND whole-dump attribution of the byte movers
+(attrib120.sh; the weaklyReferenced TAIL is never counted)
+=== default
+== RAW (order-sensitive) whole-dump diff
+  lines: 174
+== ORDER-BLIND (sorted) whole-dump diff
+  lines: 118
+== ORDER-BLIND diff BY SECTION (0 = before the first uhdmtopModules = DEF,
+   1..n = ELAB, the LAST section is the weaklyReferenced TAIL, NOT COUNTED)
+    116 > sec=10
+== CHANGED LINE SHAPES (order-blind, added side)
+     58 |vpiInstance:
+     58 \_package: top_pkg (top_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_N_N/src/lowrisc_constants_top_pkg_N/rtl/top_pkg.sv, line:N:N, endln:N:N
+== CHANGED LINE SHAPES (order-blind, removed side)
+=== testflags
+
+== the ORDER-BLIND diff itself, Earlgrey_0_1/default (first 6 of 116 lines, all ADDITIONS):
+1147373a1147374,1147431
+>   \_package: top_pkg (top_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_constants_top_pkg_0/rtl/t
+>   \_package: top_pkg (top_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_constants_top_pkg_0/rtl/t
+>   \_package: top_pkg (top_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_constants_top_pkg_0/rtl/t
+>   \_package: top_pkg (top_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_constants_top_pkg_0/rtl/t
+>   \_package: top_pkg (top_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_constants_top_pkg_0/rtl/t
+>   \_package: top_pkg (top_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_constants_top_pkg_0/rtl/t
+  … 58 x '|vpiInstance:' + 58 x the top_pkg line, 0 removals

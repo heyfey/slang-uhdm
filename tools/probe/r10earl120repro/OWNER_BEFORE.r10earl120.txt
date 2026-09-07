@@ -1,0 +1,111 @@
+golden objs=783183   ours objs=774373
+HEAD r=1
+  LHS: package(top_pkg)@top_pkg.sv:6:1-20:11#1
+  RHS: <null>
+BOTH SIDES PRESENT: no   (a <null> RHS is the SINGULAR overload's
+  lhs!=null && rhs==null branch: m_failedLhs is the POINTEE)
+
+== (A) FIELD SCAN — GOLDEN objects holding a compared singular edge to package(top_pkg)@top_pkg.sv:6:1-20:11#1
+   typespec::Instance  owner=int_typespec                  174
+   POOL total = 174
+
+== OUR counterpart of the head target: package(top_pkg)@top_pkg.sv:6:1-20:11#106
+== (A') FIELD SCAN — OURS, same edges to OUR top_pkg
+   typespec::Instance  owner=int_typespec                   24
+   POOL total = 24
+
+== GOLDEN pool members (first 10, with parent chain)
+   [0] int_typespec()@top_pkg.sv:8:12-8:15#40   via typespec::Instance
+        int_typespec()@top_pkg.sv:8:12-8:15#40
+        < parameter(TL_AW)@top_pkg.sv:8:16-8:21#41
+        < package(top_pkg)@top_pkg.sv:6:1-20:11#1
+        < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   [1] int_typespec()@top_pkg.sv:9:12-9:15#54   via typespec::Instance
+        int_typespec()@top_pkg.sv:9:12-9:15#54
+        < parameter(TL_DW)@top_pkg.sv:9:16-9:21#55
+        < package(top_pkg)@top_pkg.sv:6:1-20:11#1
+        < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   [2] int_typespec()@top_pkg.sv:10:12-10:15#67   via typespec::Instance
+        int_typespec()@top_pkg.sv:10:12-10:15#67
+        < parameter(TL_AIW)@top_pkg.sv:10:16-10:22#68
+        < package(top_pkg)@top_pkg.sv:6:1-20:11#1
+        < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   [3] int_typespec()@top_pkg.sv:11:12-11:15#80   via typespec::Instance
+        int_typespec()@top_pkg.sv:11:12-11:15#80
+        < parameter(TL_DIW)@top_pkg.sv:11:16-11:22#81
+        < package(top_pkg)@top_pkg.sv:6:1-20:11#1
+        < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   [4] int_typespec()@top_pkg.sv:12:12-12:15#93   via typespec::Instance
+        int_typespec()@top_pkg.sv:12:12-12:15#93
+        < parameter(TL_DUW)@top_pkg.sv:12:16-12:22#94
+        < package(top_pkg)@top_pkg.sv:6:1-20:11#1
+        < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   [5] int_typespec()@top_pkg.sv:13:12-13:15#106   via typespec::Instance
+        int_typespec()@top_pkg.sv:13:12-13:15#106
+        < parameter(TL_DBW)@top_pkg.sv:13:16-13:22#107
+        < package(top_pkg)@top_pkg.sv:6:1-20:11#1
+        < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   [6] int_typespec()@top_pkg.sv:14:12-14:15#131   via typespec::Instance
+        int_typespec()@top_pkg.sv:14:12-14:15#131
+        < parameter(TL_SZW)@top_pkg.sv:14:16-14:22#132
+        < package(top_pkg)@top_pkg.sv:6:1-20:11#1
+        < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   [7] int_typespec()@top_pkg.sv:15:12-15:15#162   via typespec::Instance
+        int_typespec()@top_pkg.sv:15:12-15:15#162
+        < parameter(FLASH_BANKS)@top_pkg.sv:15:16-15:27#163
+        < package(top_pkg)@top_pkg.sv:6:1-20:11#1
+        < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   [8] int_typespec()@top_pkg.sv:16:12-16:15#175   via typespec::Instance
+        int_typespec()@top_pkg.sv:16:12-16:15#175
+        < parameter(FLASH_PAGES_PER_BANK)@top_pkg.sv:16:16-16:36#176
+        < package(top_pkg)@top_pkg.sv:6:1-20:11#1
+        < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   [9] int_typespec()@top_pkg.sv:17:12-17:15#188   via typespec::Instance
+        int_typespec()@top_pkg.sv:17:12-17:15#188
+        < parameter(FLASH_WORDS_PER_PAGE)@top_pkg.sv:17:16-17:36#189
+        < package(top_pkg)@top_pkg.sv:6:1-20:11#1
+        < design(work@prim_sync_reqack)@:0:0-0:0#919334
+
+== (B) MASK-AND-RERUN
+   whole pool masked -> head MOVES: r=-4332 LHS=tagged_pattern()@tlul_socket_m1.sv:109:19-109:36#793454 RHS=hier_path(tl_h_i[0].a_valid)@:109:19-109:36#633370
+   BISECT-SPLIT: neither half alone moves the head — the walk
+   reaches MORE THAN ONE owner of this family; residual set = 3
+   REACHED[0] int_typespec()@top_pkg.sv:10:12-10:15#793425   via typespec::Instance
+        int_typespec()@top_pkg.sv:10:12-10:15#793425
+        < ref_typespec()@:0:0-0:0#793424
+        < constant()@tlul_socket_m1.sv:97:30-97:33#793423
+        < operation()@tlul_socket_m1.sv:97:30-97:39#793426
+        < indexed_part_select(a_source)@tlul_socket_m1.sv:97:17-97:40#793421
+        < hier_path(tl_h_i[i].a_source[0+:8 - 2])@tlul_socket_m1.sv:97:7-97:41#793418
+        < operation()@tlul_socket_m1.sv:96:25-99:6#793417
+        < cont_assign()@tlul_socket_m1.sv:96:12-99:6#793416
+        < gen_scope()@tlul_socket_m1.sv:89:36-139:6#1079065
+        < gen_scope_array(gen_host_fifo[0])@tlul_socket_m1.sv:89:36-139:6#1079064
+        < module_inst(u_sm1_17)@xbar_main.sv:532:3-545:5#1078832
+        < module_inst(u_xbar_main)@top_earlgrey.sv:888:3-927:5#1078111
+   REACHED[1] int_typespec()@top_pkg.sv:10:12-10:15#793439   via typespec::Instance
+        int_typespec()@top_pkg.sv:10:12-10:15#793439
+        < ref_typespec()@:0:0-0:0#793438
+        < constant()@tlul_socket_m1.sv:105:52-105:55#793437
+        < operation()@tlul_socket_m1.sv:105:52-105:57#793440
+        < indexed_part_select(a_source)@tlul_socket_m1.sv:105:43-105:66#793436
+        < hier_path(tl_h_i[i].a_source[8 - 1-:2])@tlul_socket_m1.sv:105:33-105:67#793433
+        < cont_assign()@tlul_socket_m1.sv:105:12-105:67#793432
+        < gen_scope()@tlul_socket_m1.sv:89:36-139:6#1079065
+        < gen_scope_array(gen_host_fifo[0])@tlul_socket_m1.sv:89:36-139:6#1079064
+        < module_inst(u_sm1_17)@xbar_main.sv:532:3-545:5#1078832
+        < module_inst(u_xbar_main)@top_earlgrey.sv:888:3-927:5#1078111
+        < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058
+   REACHED[2] int_typespec()@top_pkg.sv:10:12-10:15#794412   via typespec::Instance
+        int_typespec()@top_pkg.sv:10:12-10:15#794412
+        < ref_typespec()@:0:0-0:0#794411
+        < constant()@tlul_socket_m1.sv:97:30-97:33#794410
+        < operation()@tlul_socket_m1.sv:97:30-97:39#794413
+        < indexed_part_select(a_source)@tlul_socket_m1.sv:97:17-97:40#794408
+        < hier_path(tl_h_i[i].a_source[0+:8 - 2])@tlul_socket_m1.sv:97:7-97:41#794405
+        < operation()@tlul_socket_m1.sv:96:25-99:6#794404
+        < cont_assign()@tlul_socket_m1.sv:96:12-99:6#794403
+        < gen_scope()@tlul_socket_m1.sv:89:36-139:6#1079148
+        < gen_scope_array(gen_host_fifo[1])@tlul_socket_m1.sv:89:36-139:6#1079147
+        < module_inst(u_sm1_17)@xbar_main.sv:532:3-545:5#1078832
+        < module_inst(u_xbar_main)@top_earlgrey.sv:888:3-927:5#1078111

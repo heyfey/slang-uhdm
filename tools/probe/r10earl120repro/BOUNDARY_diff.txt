@@ -1,0 +1,3 @@
+plain r10earl120repro/a1_axis120.sv
+plain r10earl34repro/a2_shape.sv
+elab r10earl34repro/a2_shape.sv

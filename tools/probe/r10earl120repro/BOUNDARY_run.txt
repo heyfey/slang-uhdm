@@ -1,0 +1,17 @@
+LISTED=5242  FENCED_REMOVED=0  (of 5242 found)
+PROCESSED=5242 identical=10047 DIFFERING=3 no_output=434
+-- rc by side --
+A/0 9653
+A/139 16
+A/3 418
+A/4 397
+B/0 9653
+B/139 16
+B/3 418
+B/4 397
+-- differing --
+  elab r10earl34repro/a2_shape.sv
+  plain r10earl120repro/a1_axis120.sv
+  plain r10earl34repro/a2_shape.sv
+PROCESSED==LISTED (5242)
+DONE

@@ -1,0 +1,144 @@
+== r10earl120 GATES — every command and every number.  BASE af2e5142.
+
+-- (0) BINARIES
+0ec8f36d288c2d3a98fc17681473d4ff  /tmp/r10earl120_pris.bin
+926a8a5e290bbd464e28a34d7fd08fd4  /tmp/r10earl120_pat.bin
+0ec8f36d288c2d3a98fc17681473d4ff  /home/heyfey/git-repos/slang-uhdm/build/slang-uhdm
+-r-xr-xr-x /tmp/r10earl120_pat.bin
+-r-xr-xr-x /tmp/r10earl120_pris.bin
+
+-- (1) GOLDENS 23/0 on BOTH binaries, 0/23 on /bin/false
+pristine PASS=23 FAIL=0
+patched  PASS=23 FAIL=0
+/bin/false PASS=0 FAIL=23
+
+-- (2) uhdm2rtlil, BOTH MODES, BOTH BINARIES
+/tmp/r10earl120_u2r_pat_default.csv rows=731:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+/tmp/r10earl120_u2r_pat_testflags.csv rows=731:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+/tmp/r10earl120_u2r_pris_default.csv rows=731:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+/tmp/r10earl120_u2r_pris_testflags.csv rows=731:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+binary audit:
+slang:   /tmp/r10earl120_pat.bin
+slang:   /tmp/r10earl120_pris.bin
+
+-- (3) ct8rows uhdm2rtlil
+[pris vs pat, testflags]
+PASS: every row byte-identical to the committed baseline
+[pris vs pat, default]
+PASS: every row byte-identical to the committed baseline
+[committed gate vs pat, testflags]
+PASS: every row byte-identical to the committed baseline
+
+-- (4) surelog, BOTH MODES, BOTH BINARIES (1588 rows each)
+/tmp/r10earl120_sl_pris.csv rows=1588:     940 CMP_EQUAL      16 CMP_NOTEQUAL      10 DEFERRED       3 NO_DATABASE       1 NO_UHDM     567 SLANG_REJECT      48 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+/tmp/r10earl120_sl_pat.csv rows=1588:     940 CMP_EQUAL      16 CMP_NOTEQUAL      10 DEFERRED       3 NO_DATABASE       1 NO_UHDM     567 SLANG_REJECT      48 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+binary audit:
+slang:   /tmp/r10earl120_pris.bin
+slang:   /tmp/r10earl120_pat.bin
+[pris vs pat]
+PASS: every row byte-identical to the committed baseline
+[committed baseline vs pat] -- the ONE differing row-side, quoted, NOT a conversion:
+---- WHOLE-ROW diff (status AND dump column): 1 differing ROWS (2 diff row-sides)
+< Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+> Earlgrey_0_1,testflags,CMP_EQUAL,,,
+the SAME row-side in THIS pass's PRISTINE sweep:
+Earlgrey_0_1,testflags,CMP_EQUAL,,,
+
+-- (5) BYTEVERIFY (SELFCHECK=1)
+[uhdm2rtlil]
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+[surelog]
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/Earlgrey_0_1-71da2fd7/slang.uhdm  patched=fd5c626a6ab1 pristine=5aad57bfa064
+MOVER ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm  patched=92bf7b7facdc pristine=2afc8c0f6b08
+MOVERS: 2 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+
+-- (6) CANARIES / ctcan2 / canaudit / PROTECTED DB PINS
+[surelog canaries, PATCHED]
+---- canary rows: ok=51 changed=1 absent=0 unknown-names=7
+[surelog canaries, PRISTINE — the SAME changed row, so it is not the patch]
+---- canary rows: ok=51 changed=1 absent=0 unknown-names=7
+  Earlgrey_0_1                   testflags CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+[u2r canaries]
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+[ctcan2]
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+[canaudit]
+---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+[protected DB md5 prefixes, patched vs pristine]
+  InterfaceModPort default pat=59a365f3ce2c pris=59a365f3ce2c
+  InterfaceModPort testflags pat=59a365f3ce2c pris=59a365f3ce2c
+  BlackParrotComplex default pat=e3e354129d5a pris=e3e354129d5a
+  BlackParrotComplex testflags pat=73a10e8217e5 pris=73a10e8217e5
+  YosysOldOr default pat=d68e0796d62c pris=d68e0796d62c
+  YosysOldOr testflags pat=d68e0796d62c pris=d68e0796d62c
+  SVSwitch default pat=4842211c4030 pris=4842211c4030
+  SVSwitch testflags pat=4842211c4030 pris=4842211c4030
+  YosysVerx default pat=6ccda350c24a pris=6ccda350c24a
+  YosysVerx testflags pat=6ccda350c24a pris=6ccda350c24a
+
+-- (7) ROWHEADS (official uhdm-cmp on the named rows)
+[PRISTINE]
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         33      1 cmp rc=255
+SeqDriver      testflags       33      1 cmp rc=255
+SimpleUVM      default         17      1 cmp rc=255
+SimpleUVM      testflags       17      1 cmp rc=255
+Scoreboard     default         95      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default         33      1 cmp rc=255
+MiniAmiq       testflags       33      1 cmp rc=255
+BuildUVMPkg    default          0      0 cmp rc=0
+BuildUVMPkg    testflags        0      0 cmp rc=0
+Earlgrey_0_1   default        833      1 cmp rc=255
+Earlgrey_0_1   testflags        0      0 cmp rc=0
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+[PATCHED]
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         33      1 cmp rc=255
+SeqDriver      testflags       33      1 cmp rc=255
+SimpleUVM      default         17      1 cmp rc=255
+SimpleUVM      testflags       17      1 cmp rc=255
+Scoreboard     default         95      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default         33      1 cmp rc=255
+MiniAmiq       testflags       33      1 cmp rc=255
+BuildUVMPkg    default          0      0 cmp rc=0
+BuildUVMPkg    testflags        0      0 cmp rc=0
+Earlgrey_0_1   default        386      1 cmp rc=255
+Earlgrey_0_1   testflags        0      0 cmp rc=0
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+
+-- (8) WIDE BOUNDARY
+PROCESSED=5242 identical=10047 DIFFERING=3 no_output=434
+rc by side:
+A/0 9653
+A/139 16
+A/3 418
+A/4 397
+B/0 9653
+B/139 16
+B/3 418
+B/4 397
+SIGNAL lines by side:
+     16 rc=139 A
+     16 rc=139 B
+differing:
+elab r10earl34repro/a2_shape.sv
+plain r10earl120repro/a1_axis120.sv
+plain r10earl34repro/a2_shape.sv
+
+-- (9) PATCH REPRODUCTION
+/tmp/r10earl120.patch applied to a FRESH af2e5142 worktree and rebuilt there:
+926a8a5e290bbd464e28a34d7fd08fd4  /tmp/r10earl120_fresh/build/slang-uhdm
+926a8a5e290bbd464e28a34d7fd08fd4  /tmp/r10earl120_pat.bin

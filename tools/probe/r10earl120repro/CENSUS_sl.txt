@@ -1,0 +1,358 @@
+CELL CALIBRATION: golden halves of the two sweeps IDENTICAL (105741 keys, 247056 cells)
+
+-- CELL TALLY (keys / cells) --
+  FX NOGOLD_SAME              238 keys       290 cells
+  FX SAME_AGREE              2960 keys      3008 cells
+  FX STILL-WRONG            30421 keys     47582 cells
+  FX TO-GOLDEN                 52 keys       116 cells
+  REST NOGOLD_SAME            113 keys       226 cells
+  REST SAME_AGREE             576 keys      1242 cells
+  REST STILL-WRONG          71732 keys    195104 cells
+
+-- CELL MOVER ROWS (a row appears only if a cell of it moved) --
+  default    Earlgrey_0_1                   {'FX TO-GOLDEN': 26}
+  testflags  Earlgrey_0_1                   {'FX TO-GOLDEN': 26}
+
+-- CELL DETAIL (first 40) --
+  TO-GOLDEN    FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_17|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 3}
+        pristine={'<null>': 3}
+        patched ={'package:top_pkg': 3}
+  TO-GOLDEN    FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_17|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 3}
+        pristine={'<null>': 3}
+        patched ={'package:top_pkg': 3}
+  TO-GOLDEN    FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_18|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg': 2}
+  TO-GOLDEN    FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_18|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg': 2}
+  TO-GOLDEN    FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_19|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 3}
+        pristine={'<null>': 3}
+        patched ={'package:top_pkg': 3}
+  TO-GOLDEN    FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_19|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 3}
+        pristine={'<null>': 3}
+        patched ={'package:top_pkg': 3}
+  TO-GOLDEN    FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_20|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 3}
+        pristine={'<null>': 3}
+        patched ={'package:top_pkg': 3}
+  TO-GOLDEN    FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_20|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 3}
+        pristine={'<null>': 3}
+        patched ={'package:top_pkg': 3}
+  TO-GOLDEN    FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_23|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg': 2}
+  TO-GOLDEN    FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_23|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg': 2}
+  TO-GOLDEN    FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_24|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg': 2}
+  TO-GOLDEN    FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_24|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg': 2}
+  TO-GOLDEN    FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_25|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg': 2}
+  TO-GOLDEN    FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_25|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg': 2}
+  TO-GOLDEN    FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_26|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg': 2}
+  TO-GOLDEN    FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_26|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg': 2}
+  TO-GOLDEN    FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_27|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg': 2}
+  TO-GOLDEN    FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_27|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg': 2}
+  TO-GOLDEN    FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_28|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg': 2}
+  TO-GOLDEN    FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_28|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg': 2}
+  TO-GOLDEN    FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_29|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg': 2}
+  TO-GOLDEN    FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_29|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg': 2}
+  TO-GOLDEN    FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_30|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg': 2}
+  TO-GOLDEN    FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_30|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg': 2}
+  TO-GOLDEN    FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_31|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg': 2}
+  TO-GOLDEN    FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_31|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg': 2}
+  TO-GOLDEN    FX   testflags Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_17|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 3}
+        pristine={'<null>': 3}
+        patched ={'package:top_pkg': 3}
+  TO-GOLDEN    FX   testflags Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_17|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 3}
+        pristine={'<null>': 3}
+        patched ={'package:top_pkg': 3}
+  TO-GOLDEN    FX   testflags Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_18|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg': 2}
+  TO-GOLDEN    FX   testflags Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_18|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg': 2}
+  TO-GOLDEN    FX   testflags Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_19|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 3}
+        pristine={'<null>': 3}
+        patched ={'package:top_pkg': 3}
+  TO-GOLDEN    FX   testflags Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_19|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 3}
+        pristine={'<null>': 3}
+        patched ={'package:top_pkg': 3}
+  TO-GOLDEN    FX   testflags Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_20|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 3}
+        pristine={'<null>': 3}
+        patched ={'package:top_pkg': 3}
+  TO-GOLDEN    FX   testflags Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_20|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 3}
+        pristine={'<null>': 3}
+        patched ={'package:top_pkg': 3}
+  TO-GOLDEN    FX   testflags Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_23|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg': 2}
+  TO-GOLDEN    FX   testflags Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_23|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg': 2}
+  TO-GOLDEN    FX   testflags Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_24|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg': 2}
+  TO-GOLDEN    FX   testflags Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_24|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg': 2}
+  TO-GOLDEN    FX   testflags Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_25|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg': 2}
+  TO-GOLDEN    FX   testflags Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_25|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg': 2}
+
+CELL DETAIL_TOTAL 52
+
+ROLECELL CALIBRATION: golden halves of the two sweeps IDENTICAL (105741 keys, 247056 cells)
+
+-- ROLECELL TALLY (keys / cells) --
+  FX MOVED-WRONG               52 keys       116 cells
+  FX NOGOLD_SAME              238 keys       290 cells
+  FX SAME_AGREE              2873 keys      2921 cells
+  FX STILL-WRONG            30508 keys     47669 cells
+  REST NOGOLD_SAME            113 keys       226 cells
+  REST SAME_AGREE             576 keys      1242 cells
+  REST STILL-WRONG          71732 keys    195104 cells
+
+-- ROLECELL MOVER ROWS (a row appears only if a cell of it moved) --
+  default    Earlgrey_0_1                   {'FX MOVED-WRONG': 26}
+  testflags  Earlgrey_0_1                   {'FX MOVED-WRONG': 26}
+
+-- ROLECELL DETAIL (first 40) --
+  MOVED-WRONG  FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_17|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 3}
+        pristine={'<null>': 3}
+        patched ={'package:top_pkg All[1]': 3}
+  MOVED-WRONG  FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_17|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 3}
+        pristine={'<null>': 3}
+        patched ={'package:top_pkg All[1]': 3}
+  MOVED-WRONG  FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_18|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg All[1]': 2}
+  MOVED-WRONG  FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_18|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg All[1]': 2}
+  MOVED-WRONG  FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_19|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 3}
+        pristine={'<null>': 3}
+        patched ={'package:top_pkg All[1]': 3}
+  MOVED-WRONG  FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_19|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 3}
+        pristine={'<null>': 3}
+        patched ={'package:top_pkg All[1]': 3}
+  MOVED-WRONG  FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_20|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 3}
+        pristine={'<null>': 3}
+        patched ={'package:top_pkg All[1]': 3}
+  MOVED-WRONG  FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_20|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 3}
+        pristine={'<null>': 3}
+        patched ={'package:top_pkg All[1]': 3}
+  MOVED-WRONG  FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_23|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg All[1]': 2}
+  MOVED-WRONG  FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_23|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg All[1]': 2}
+  MOVED-WRONG  FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_24|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg All[1]': 2}
+  MOVED-WRONG  FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_24|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg All[1]': 2}
+  MOVED-WRONG  FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_25|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg All[1]': 2}
+  MOVED-WRONG  FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_25|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg All[1]': 2}
+  MOVED-WRONG  FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_26|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg All[1]': 2}
+  MOVED-WRONG  FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_26|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg All[1]': 2}
+  MOVED-WRONG  FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_27|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg All[1]': 2}
+  MOVED-WRONG  FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_27|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg All[1]': 2}
+  MOVED-WRONG  FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_28|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg All[1]': 2}
+  MOVED-WRONG  FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_28|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg All[1]': 2}
+  MOVED-WRONG  FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_29|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg All[1]': 2}
+  MOVED-WRONG  FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_29|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg All[1]': 2}
+  MOVED-WRONG  FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_30|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg All[1]': 2}
+  MOVED-WRONG  FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_30|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg All[1]': 2}
+  MOVED-WRONG  FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_31|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg All[1]': 2}
+  MOVED-WRONG  FX   default   Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_31|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg All[1]': 2}
+  MOVED-WRONG  FX   testflags Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_17|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 3}
+        pristine={'<null>': 3}
+        patched ={'package:top_pkg All[1]': 3}
+  MOVED-WRONG  FX   testflags Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_17|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 3}
+        pristine={'<null>': 3}
+        patched ={'package:top_pkg All[1]': 3}
+  MOVED-WRONG  FX   testflags Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_18|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg All[1]': 2}
+  MOVED-WRONG  FX   testflags Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_18|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg All[1]': 2}
+  MOVED-WRONG  FX   testflags Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_19|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 3}
+        pristine={'<null>': 3}
+        patched ={'package:top_pkg All[1]': 3}
+  MOVED-WRONG  FX   testflags Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_19|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 3}
+        pristine={'<null>': 3}
+        patched ={'package:top_pkg All[1]': 3}
+  MOVED-WRONG  FX   testflags Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_20|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 3}
+        pristine={'<null>': 3}
+        patched ={'package:top_pkg All[1]': 3}
+  MOVED-WRONG  FX   testflags Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_20|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 3}
+        pristine={'<null>': 3}
+        patched ={'package:top_pkg All[1]': 3}
+  MOVED-WRONG  FX   testflags Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_23|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg All[1]': 2}
+  MOVED-WRONG  FX   testflags Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_23|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg All[1]': 2}
+  MOVED-WRONG  FX   testflags Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_24|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg All[1]': 2}
+  MOVED-WRONG  FX   testflags Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_24|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg All[1]': 2}
+  MOVED-WRONG  FX   testflags Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_25|105:52-105:55|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg All[1]': 2}
+  MOVED-WRONG  FX   testflags Earlgrey_0_1             module_inst:work@top_earlgrey.u_xbar_main.u_sm1_25|97:30-97:33|int_typespec|10:12-10:15|s1
+        golden={'package:top_pkg Top[1]': 2}
+        pristine={'<null>': 2}
+        patched ={'package:top_pkg All[1]': 2}
+
+ROLECELL DETAIL_TOTAL 52
+

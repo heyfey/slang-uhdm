@@ -1,0 +1,2 @@
+PREDICT-MOVE rows=0 cells=0
+PREDICT-DECLINE rows=102 cells=302

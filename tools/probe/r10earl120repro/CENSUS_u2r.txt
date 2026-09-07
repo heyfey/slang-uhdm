@@ -1,0 +1,32 @@
+CELL CALIBRATION: golden halves of the two sweeps IDENTICAL (734 keys, 1138 cells)
+
+-- CELL TALLY (keys / cells) --
+  FX NOGOLD_SAME                8 keys         8 cells
+  FX SAME_AGREE               112 keys       112 cells
+  FX STILL-WRONG              308 keys       582 cells
+  REST NOGOLD_SAME              4 keys         4 cells
+  REST SAME_AGREE             108 keys       148 cells
+  REST STILL-WRONG            206 keys       296 cells
+
+-- CELL MOVER ROWS (a row appears only if a cell of it moved) --
+
+-- CELL DETAIL (first 40) --
+
+CELL DETAIL_TOTAL 0
+
+ROLECELL CALIBRATION: golden halves of the two sweeps IDENTICAL (734 keys, 1138 cells)
+
+-- ROLECELL TALLY (keys / cells) --
+  FX NOGOLD_SAME                8 keys         8 cells
+  FX SAME_AGREE               104 keys       104 cells
+  FX STILL-WRONG              316 keys       590 cells
+  REST NOGOLD_SAME              4 keys         4 cells
+  REST SAME_AGREE             108 keys       148 cells
+  REST STILL-WRONG            206 keys       296 cells
+
+-- ROLECELL MOVER ROWS (a row appears only if a cell of it moved) --
+
+-- ROLECELL DETAIL (first 40) --
+
+ROLECELL DETAIL_TOTAL 0
+

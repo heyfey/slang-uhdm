@@ -1,0 +1,4 @@
+PREDICT-MOVE rows=2 cells=116
+  PREDICT-MOVE default    Earlgrey_0_1                   26 keys 58 cells
+  PREDICT-MOVE testflags  Earlgrey_0_1                   26 keys 58 cells
+PREDICT-DECLINE rows=94 cells=4772

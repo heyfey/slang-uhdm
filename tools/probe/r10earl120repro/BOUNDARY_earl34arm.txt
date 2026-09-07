@@ -1,0 +1,58 @@
+== r10earl120 BOUNDARY re-measurement of the ONE earlier-pass arm that moved: tools/probe/r10earl34repro/a2_shape.sv
+cmp lines (official uhdm-cmp) — plain: pris 17 pat 17 ; elab: pris 16210 pat 16210
+
+--- plain view: cen120 CELL rows, G=golden P=pristine X=patched
+G CELL	1	module_inst:work@a2_shape|23:27-23:28|int_typespec|23:14-23:17|s1	package:e34b_pkg
+P CELL	1	module_inst:work@a2_shape|23:27-23:28|int_typespec|23:14-23:17|s1	package:e34b_pkg
+X CELL	1	module_inst:work@a2_shape|23:27-23:28|int_typespec|23:14-23:17|s1	package:e34b_pkg
+G CELL	1	module_inst:work@a2_shape|24:27-24:28|int_typespec|24:14-24:17|s1	package:e34b_pkg
+P CELL	1	module_inst:work@a2_shape|24:27-24:28|int_typespec|24:14-24:17|s1	package:e34b_pkg
+X CELL	1	module_inst:work@a2_shape|24:27-24:28|int_typespec|24:14-24:17|s1	package:e34b_pkg
+G CELL	2	module_inst:work@a2_shape|50:14-50:19|int_typespec|23:14-23:17|s1	package:e34b_pkg
+P CELL	2	module_inst:work@a2_shape|50:14-50:19|int_typespec|23:14-23:17|s1	package:e34b_pkg
+X CELL	2	module_inst:work@a2_shape|50:14-50:19|int_typespec|23:14-23:17|s1	package:e34b_pkg
+G CELL	2	module_inst:work@a2_shape|57:15-57:20|int_typespec|23:14-23:17|s1	package:e34b_pkg
+G CELL	1	module_inst:work@a2_shape|64:36-64:41|int_typespec|23:14-23:17|s1	package:e34b_pkg
+P CELL	1	module_inst:work@a2_shape|64:36-64:41|int_typespec|23:14-23:17|s1	package:e34b_pkg
+X CELL	1	module_inst:work@a2_shape|64:36-64:41|int_typespec|23:14-23:17|s1	package:e34b_pkg
+G CELL	1	module_inst:work@a2_shape|69:36-69:41|int_typespec|23:14-23:17|s1	package:e34b_pkg
+G CELL	1	module_inst:work@a2_shape|77:43-77:48|int_typespec|23:14-23:17|s1	package:e34b_pkg
+G CELL	1	module_inst:work@a2_shape|79:40-79:45|int_typespec|23:14-23:17|s1	package:e34b_pkg
+P CELL	2	module_inst:work@a2_shape|90:49-90:56|int_typespec|24:14-24:17|s1	<null>
+G CELL	2	module_inst:work@a2_shape|90:49-90:56|int_typespec|24:14-24:17|s1	package:e34b_pkg
+X CELL	2	module_inst:work@a2_shape|90:49-90:56|int_typespec|24:14-24:17|s1	package:e34b_pkg
+G CELL	2	module_inst:work@a2_shape|90:57-90:65|int_typespec|43:14-43:17|s1	<null>
+P CELL	2	module_inst:work@a2_shape|90:57-90:65|int_typespec|43:14-43:17|s1	<null>
+X CELL	2	module_inst:work@a2_shape|90:57-90:65|int_typespec|43:14-43:17|s1	<null>
+G CELL	2	module_inst:work@a2_shape|94:29-94:34|int_typespec|41:14-41:17|s1	<null>
+P CELL	2	module_inst:work@a2_shape|94:29-94:34|int_typespec|41:14-41:17|s1	<null>
+X CELL	2	module_inst:work@a2_shape|94:29-94:34|int_typespec|41:14-41:17|s1	<null>
+G CELL	1	<nohome>|42:29-42:39|int_typespec|24:14-24:17|s1	package:e34b_pkg
+
+--- elab view: cen120 CELL rows, G=golden P=pristine X=patched
+G CELL	1	module_inst:work@a2_shape|23:27-23:28|int_typespec|23:14-23:17|s1	package:e34b_pkg
+P CELL	1	module_inst:work@a2_shape|23:27-23:28|int_typespec|23:14-23:17|s1	package:e34b_pkg
+X CELL	1	module_inst:work@a2_shape|23:27-23:28|int_typespec|23:14-23:17|s1	package:e34b_pkg
+G CELL	1	module_inst:work@a2_shape|24:27-24:28|int_typespec|24:14-24:17|s1	package:e34b_pkg
+P CELL	1	module_inst:work@a2_shape|24:27-24:28|int_typespec|24:14-24:17|s1	package:e34b_pkg
+X CELL	1	module_inst:work@a2_shape|24:27-24:28|int_typespec|24:14-24:17|s1	package:e34b_pkg
+G CELL	2	module_inst:work@a2_shape|50:14-50:19|int_typespec|23:14-23:17|s1	package:e34b_pkg
+P CELL	2	module_inst:work@a2_shape|50:14-50:19|int_typespec|23:14-23:17|s1	package:e34b_pkg
+X CELL	2	module_inst:work@a2_shape|50:14-50:19|int_typespec|23:14-23:17|s1	package:e34b_pkg
+G CELL	2	module_inst:work@a2_shape|57:15-57:20|int_typespec|23:14-23:17|s1	package:e34b_pkg
+G CELL	1	module_inst:work@a2_shape|64:36-64:41|int_typespec|23:14-23:17|s1	package:e34b_pkg
+P CELL	1	module_inst:work@a2_shape|64:36-64:41|int_typespec|23:14-23:17|s1	package:e34b_pkg
+X CELL	1	module_inst:work@a2_shape|64:36-64:41|int_typespec|23:14-23:17|s1	package:e34b_pkg
+G CELL	1	module_inst:work@a2_shape|69:36-69:41|int_typespec|23:14-23:17|s1	package:e34b_pkg
+G CELL	1	module_inst:work@a2_shape|77:43-77:48|int_typespec|23:14-23:17|s1	package:e34b_pkg
+G CELL	1	module_inst:work@a2_shape|79:40-79:45|int_typespec|23:14-23:17|s1	package:e34b_pkg
+P CELL	2	module_inst:work@a2_shape|90:49-90:56|int_typespec|24:14-24:17|s1	<null>
+G CELL	2	module_inst:work@a2_shape|90:49-90:56|int_typespec|24:14-24:17|s1	package:e34b_pkg
+X CELL	2	module_inst:work@a2_shape|90:49-90:56|int_typespec|24:14-24:17|s1	package:e34b_pkg
+G CELL	2	module_inst:work@a2_shape|90:57-90:65|int_typespec|43:14-43:17|s1	<null>
+P CELL	2	module_inst:work@a2_shape|90:57-90:65|int_typespec|43:14-43:17|s1	<null>
+X CELL	2	module_inst:work@a2_shape|90:57-90:65|int_typespec|43:14-43:17|s1	<null>
+G CELL	2	module_inst:work@a2_shape|94:29-94:34|int_typespec|41:14-41:17|s1	<null>
+P CELL	2	module_inst:work@a2_shape|94:29-94:34|int_typespec|41:14-41:17|s1	<null>
+X CELL	2	module_inst:work@a2_shape|94:29-94:34|int_typespec|41:14-41:17|s1	<null>
+G CELL	1	<nohome>|42:29-42:39|int_typespec|24:14-24:17|s1	package:e34b_pkg

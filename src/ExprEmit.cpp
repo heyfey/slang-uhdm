@@ -16646,6 +16646,37 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     if (!sits5->VpiValue().empty())
                                         its5->VpiValue(
                                             std::string(sits5->VpiValue()));
+                                    // § paPaCopyTsInstance120 (r10earl120) —
+                                    // THE HOME INSTANCE TRAVELS WITH THE COPY.
+                                    // This mint stands in for Surelog's
+                                    // `UHDM::clone_tree(param_ass->Rhs())`
+                                    // (CompileExpression.cpp:2918-2975), and a
+                                    // clone of a typespec copies its
+                                    // `vpiInstance` VERBATIM:
+                                    // `typespec::DeepCopy`
+                                    // (UHDM/build/generated/src/typespec.cpp:
+                                    // 72-79) does
+                                    //     if (auto obj = Instance())
+                                    //         clone->Instance((instance*)obj);
+                                    // before the parent-derived override, and
+                                    // the parent here is a `ref_typespec`, not
+                                    // an `instance`, so the source's pointer is
+                                    // what survives.  Copying every other field
+                                    // of `sits5` but not this one left the copy
+                                    // instance-less, and `typespec::Compare`
+                                    // (typespec.cpp:96) reads `Instance()`:
+                                    // Earlgrey_0_1/default's head was exactly
+                                    // that — `LHS: package top_pkg` /
+                                    // `RHS: <null>` on the `IDW` copies in
+                                    // tlul_socket_m1's `gen_host_fifo`.
+                                    // IT IS A COPY, NOT A LOOKUP: a source
+                                    // typespec with no home (a MODULE-local
+                                    // localparam — `STIDW`, whose
+                                    // `int_typespec` golden leaves
+                                    // instance-less) copies the NULL, so an
+                                    // edge golden leaves null stays null.
+                                    if (auto* si5 = sits5->Instance())
+                                        its5->Instance((UHDM::instance*)si5);
                                     rt5->Actual_typespec(its5);
                                     c5->Typespec(rt5);
                                     return c5;

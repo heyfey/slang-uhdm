@@ -1,0 +1,28 @@
+== pkgobj120 top_pkg — GOLDEN vs PRISTINE vs PATCHED (Earlgrey_0_1/default)
+GOLDEN package objects named 'top_pkg': 2
+GOLDEN   id=1        role='TopPackages[1] ' params=11 paramAssigns=11 typespecs=0 Instance=<null>  <-typespec::Instance edges=174  typespecs-under=11
+GOLDEN   id=214      role='AllPackages[1] ' params=11 paramAssigns=11 typespecs=0 Instance=<null>  <-typespec::Instance edges=11  typespecs-under=11
+PRISTINE package objects named 'top_pkg': 2
+PRISTINE   id=106      role='AllPackages[1] ' params=11 paramAssigns=11 typespecs=0 Instance=<null>  <-typespec::Instance edges=24  typespecs-under=11
+PRISTINE   id=17552    role='TopPackages[1] ' params=11 paramAssigns=11 typespecs=0 Instance=<null>  <-typespec::Instance edges=78  typespecs-under=11
+PATCHED package objects named 'top_pkg': 2
+PATCHED   id=106      role='AllPackages[1] ' params=11 paramAssigns=11 typespecs=0 Instance=<null>  <-typespec::Instance edges=82  typespecs-under=11
+PATCHED   id=17552    role='TopPackages[1] ' params=11 paramAssigns=11 typespecs=0 Instance=<null>  <-typespec::Instance edges=78  typespecs-under=11
+
+== site120 — the head's own site, tlul_socket_m1 gen_host_fifo[0] IDW/STIDW
+-- GOLDEN
+G  Instance=package:top_pkg Top[1]        int_typespec()@top_pkg.sv:10:12-10:15#793425 < ref_typespec()@:0:0-0:0#793424 < constant()@tlul_socket_m1.sv:97:30-97:33#793423 < operation()@tlul_socket_m1.s
+G  Instance=<null>                        int_typespec()@tlul_socket_m1.sv:73:14-73:26#793429 < ref_typespec()@:0:0-0:0#793428 < constant()@tlul_socket_m1.sv:97:34-97:39#793427 < operation()@tlul_sock
+G  matched=2
+-- PRISTINE
+P  matched=0
+-- PATCHED
+X  matched=0
+-- PRISTINE (our copy at the same site)
+P  Instance=<null>                        int_typespec()@:10:12-10:15#633346 < ref_typespec()@:0:0-0:0#633345 < constant()@:97:30-97:33#633344 < param_assign()@:72:27-72:50#631902 < module_inst(u_sm1_
+P  Instance=<null>                        int_typespec()@:10:12-10:15#634082 < ref_typespec()@:0:0-0:0#634081 < constant()@:97:30-97:33#634080 < param_assign()@:72:27-72:50#631902 < module_inst(u_sm1_
+P  matched=2
+-- PATCHED
+X  Instance=package:top_pkg All[1]        int_typespec()@:10:12-10:15#633346 < ref_typespec()@:0:0-0:0#633345 < constant()@:97:30-97:33#633344 < param_assign()@:72:27-72:50#631902 < module_inst(u_sm1_
+X  Instance=package:top_pkg All[1]        int_typespec()@:10:12-10:15#634082 < ref_typespec()@:0:0-0:0#634081 < constant()@:97:30-97:33#634080 < param_assign()@:72:27-72:50#631902 < module_inst(u_sm1_
+X  matched=2
