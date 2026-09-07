@@ -1,0 +1,20 @@
+# r10earl114 -- INDEPENDENT wide-boundary accounting, derived from BOUNDARY_WIDE.rc
+# (the driver's own stdout echoes were lost to an output-file collision the
+#  first time; widerun114.sh now writes its list to $OUT.list, and this
+#  reconstruction from the per-invocation rc log is the stronger check anyway)
+LISTED (BOUNDARY_WIDE.all)          : 5050
+DISTINCT FILES IN THE rc LOG        : 5050
+FILES WITH != 4 rc LINES            : 0
+FILES LISTED BUT NEVER RUN          : 0
+FENCED-NAME HITS IN THE LIST        : 0
+
+PROCESSED=5050 identical=9688 DIFFERING=28 no_output=384
+-- rc by side (must be symmetric) --
+A/0 9327
+A/139 16
+A/3 368
+A/4 389
+B/0 9327
+B/139 16
+B/3 368
+B/4 389

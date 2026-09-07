@@ -1,0 +1,12 @@
+t1_root114 t1_root114
+t2_carrier114 t2_carrier114
+t3_member114 t3_member114
+t4_fence114 t4_fence114
+s1_scope113 s1_scope113
+s2_opkind113 s2_opkind113
+s3_carrier113 s3_carrier113
+s4_fence113 s4_fence113
+g1_head112 g1_head112
+g2_carrier112 g2_carrier112
+g3_depth112 g3_depth112
+g4_fence112 g4_fence112

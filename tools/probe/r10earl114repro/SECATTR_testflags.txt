@@ -1,0 +1,37 @@
+ADDED total 5076   by region {'DEF': 1, 'ELAB': 3248, 'TAIL': 1827}
+REMOVED total 1   by region {'DEF': 1}
+
+--- ADDED line shapes, DEF+ELAB only (the tail is not counted) ---
+   464                    |vpiParent:
+   464                    |vpiActual:
+   464                  |vpiTypespec:
+   261                    \_array_typespec: 
+   203                    \_struct_typespec: (tlul_pkg::tl_dNh_t), line:N:N, endln:N:N
+    29                  \_ref_typespec: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_valid)
+    29                    \_hier_path: (tl_h_i[N].a_valid), line:N:N, endln:N:N
+    29                    |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_valid
+    29                  \_ref_typespec: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_opcode)
+    29                    \_hier_path: (tl_h_i[N].a_opcode), line:N:N, endln:N:N
+    29                    |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_opcode
+    29                  \_ref_typespec: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_param)
+    29                    \_hier_path: (tl_h_i[N].a_param), line:N:N, endln:N:N
+    29                    |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_param
+    29                  \_ref_typespec: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_size)
+    29                    \_hier_path: (tl_h_i[N].a_size), line:N:N, endln:N:N
+    29                    |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_size
+    29                  \_ref_typespec: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_address)
+    29                    \_hier_path: (tl_h_i[N].a_address), line:N:N, endln:N:N
+    29                    |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_address
+    29                  \_ref_typespec: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_mask)
+    29                    \_hier_path: (tl_h_i[N].a_mask), line:N:N, endln:N:N
+    29                    |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_mask
+    29                  \_ref_typespec: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_data)
+    29                    \_hier_path: (tl_h_i[N].a_data), line:N:N, endln:N:N
+    29                    |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_data
+    29                  \_ref_typespec: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_user)
+    29                    \_hier_path: (tl_h_i[N].a_user), line:N:N, endln:N:N
+    29                    |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_user
+    29                  \_ref_typespec: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].d_ready)
+
+--- REMOVED line shapes, DEF+ELAB only ---
+     1  /WD/p_sl/testflags/Earlgrey_N_N-HASH/slang.uhdm: Restored design Pre-Elab: 

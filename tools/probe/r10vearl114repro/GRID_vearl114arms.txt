@@ -1,0 +1,60 @@
+== FINE KEY (span+name+chain) ==
+ARM v1_root114_elab  rows G/P/Q 84/210/210
+  TOGOLD=54  AWAY=0  MOVEDWRONG=0  SAME_AGREE=27  STILLWRONG=0  NOGOLD=9  NOGOLD_MOVED=0  NOOURS=3
+ARM v1_root114_plain  rows G/P/Q 84/90/90
+  TOGOLD=54  AWAY=0  MOVEDWRONG=0  SAME_AGREE=27  STILLWRONG=0  NOGOLD=9  NOGOLD_MOVED=0  NOOURS=3
+ARM v2_gen114_elab  rows G/P/Q 102/243/243
+  TOGOLD=27  AWAY=0  MOVEDWRONG=0  SAME_AGREE=48  STILLWRONG=24  NOGOLD=0  NOGOLD_MOVED=0  NOOURS=0
+ARM v2_gen114_plain  rows G/P/Q 99/99/99
+  TOGOLD=27  AWAY=0  MOVEDWRONG=0  SAME_AGREE=48  STILLWRONG=24  NOGOLD=0  NOGOLD_MOVED=0  NOOURS=0
+ARM v3_iface114_elab  rows G/P/Q 75/123/123
+  TOGOLD=18  AWAY=0  MOVEDWRONG=0  SAME_AGREE=18  STILLWRONG=18  NOGOLD=21  NOGOLD_MOVED=0  NOOURS=21
+ARM v3_iface114_plain  rows G/P/Q 75/75/75
+  TOGOLD=18  AWAY=0  MOVEDWRONG=0  SAME_AGREE=18  STILLWRONG=18  NOGOLD=21  NOGOLD_MOVED=0  NOOURS=21
+ARM v4_carrier114_elab  rows G/P/Q 72/147/147
+  TOGOLD=12  AWAY=0  MOVEDWRONG=0  SAME_AGREE=27  STILLWRONG=12  NOGOLD=24  NOGOLD_MOVED=0  NOOURS=9
+ARM v4_carrier114_plain  rows G/P/Q 60/75/75
+  TOGOLD=12  AWAY=0  MOVEDWRONG=0  SAME_AGREE=27  STILLWRONG=12  NOGOLD=24  NOGOLD_MOVED=0  NOOURS=9
+== TOTAL TOGOLD=222  AWAY=0  MOVEDWRONG=0  SAME_AGREE=240  STILLWRONG=108  NOGOLD=108  NOGOLD_MOVED=0  NOOURS=66
+== COARSE KEY (span+name) ==
+ARM v1_root114_elab  rows G/P/Q 84/210/210
+  TOGOLD=39  AWAY=0  MOVEDWRONG=0  SAME_AGREE=12  STILLWRONG=0  NOGOLD=3  NOGOLD_MOVED=0  NOOURS=3
+ARM v1_root114_plain  rows G/P/Q 84/90/90
+  TOGOLD=39  AWAY=0  MOVEDWRONG=0  SAME_AGREE=12  STILLWRONG=0  NOGOLD=3  NOGOLD_MOVED=0  NOOURS=3
+ARM v2_gen114_elab  rows G/P/Q 102/243/243
+  TOGOLD=21  AWAY=0  MOVEDWRONG=0  SAME_AGREE=24  STILLWRONG=6  NOGOLD=0  NOGOLD_MOVED=0  NOOURS=0
+ARM v2_gen114_plain  rows G/P/Q 99/99/99
+  TOGOLD=21  AWAY=0  MOVEDWRONG=0  SAME_AGREE=24  STILLWRONG=6  NOGOLD=0  NOGOLD_MOVED=0  NOOURS=0
+ARM v3_iface114_elab  rows G/P/Q 75/123/123
+[MOVEDWRONG] v3_iface114_elab|10:38-10:43|sig.v
+   G ['ts=<none>', "ts=rt(n='',dn='')->struct_typespec('pv114::vs_t')"]
+   P ['ts=<none>']
+   Q ["ts=rt(n='',dn='')->struct_typespec('pv114::vs_t')"]
+[MOVEDWRONG] v3_iface114_elab|10:49-10:55|sig.op
+   G ['ts=<none>', "ts=rt(n='',dn='')->struct_typespec('pv114::vs_t')"]
+   P ['ts=<none>']
+   Q ["ts=rt(n='',dn='')->struct_typespec('pv114::vs_t')"]
+[MOVEDWRONG] v3_iface114_elab|10:60-10:65|sig.d
+   G ['ts=<none>', "ts=rt(n='',dn='')->struct_typespec('pv114::vs_t')"]
+   P ['ts=<none>']
+   Q ["ts=rt(n='',dn='')->struct_typespec('pv114::vs_t')"]
+  TOGOLD=0  AWAY=0  MOVEDWRONG=3  SAME_AGREE=12  STILLWRONG=6  NOGOLD=3  NOGOLD_MOVED=0  NOOURS=18
+ARM v3_iface114_plain  rows G/P/Q 75/75/75
+[MOVEDWRONG] v3_iface114_plain|10:38-10:43|sig.v
+   G ['ts=<none>', "ts=rt(n='',dn='')->struct_typespec('pv114::vs_t')"]
+   P ['ts=<none>']
+   Q ["ts=rt(n='',dn='')->struct_typespec('pv114::vs_t')"]
+[MOVEDWRONG] v3_iface114_plain|10:49-10:55|sig.op
+   G ['ts=<none>', "ts=rt(n='',dn='')->struct_typespec('pv114::vs_t')"]
+   P ['ts=<none>']
+   Q ["ts=rt(n='',dn='')->struct_typespec('pv114::vs_t')"]
+[MOVEDWRONG] v3_iface114_plain|10:60-10:65|sig.d
+   G ['ts=<none>', "ts=rt(n='',dn='')->struct_typespec('pv114::vs_t')"]
+   P ['ts=<none>']
+   Q ["ts=rt(n='',dn='')->struct_typespec('pv114::vs_t')"]
+  TOGOLD=0  AWAY=0  MOVEDWRONG=3  SAME_AGREE=12  STILLWRONG=6  NOGOLD=3  NOGOLD_MOVED=0  NOOURS=18
+ARM v4_carrier114_elab  rows G/P/Q 72/147/147
+  TOGOLD=9  AWAY=0  MOVEDWRONG=0  SAME_AGREE=21  STILLWRONG=12  NOGOLD=6  NOGOLD_MOVED=0  NOOURS=6
+ARM v4_carrier114_plain  rows G/P/Q 60/75/75
+  TOGOLD=9  AWAY=0  MOVEDWRONG=0  SAME_AGREE=21  STILLWRONG=12  NOGOLD=6  NOGOLD_MOVED=0  NOOURS=6
+== TOTAL TOGOLD=138  AWAY=0  MOVEDWRONG=6  SAME_AGREE=138  STILLWRONG=48  NOGOLD=24  NOGOLD_MOVED=0  NOOURS=54

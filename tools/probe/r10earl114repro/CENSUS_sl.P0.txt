@@ -1,0 +1,243 @@
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|109:19-109:36|tl_h_i[0].a_valid
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 13}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|109:19-109:36|tl_h_i[1].a_valid
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 13}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|109:19-109:36|tl_h_i[2].a_valid
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 3}
+	P {'ts=<none>': 3}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|110:19-110:37|tl_h_i[0].a_opcode
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 13}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|110:19-110:37|tl_h_i[1].a_opcode
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 13}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|110:19-110:37|tl_h_i[2].a_opcode
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 3}
+	P {'ts=<none>': 3}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|111:19-111:36|tl_h_i[0].a_param
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 13}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|111:19-111:36|tl_h_i[1].a_param
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 13}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|111:19-111:36|tl_h_i[2].a_param
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 3}
+	P {'ts=<none>': 3}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|112:19-112:35|tl_h_i[0].a_size
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 13}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|112:19-112:35|tl_h_i[1].a_size
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 13}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|112:19-112:35|tl_h_i[2].a_size
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 3}
+	P {'ts=<none>': 3}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|114:19-114:38|tl_h_i[0].a_address
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 13}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|114:19-114:38|tl_h_i[1].a_address
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 13}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|114:19-114:38|tl_h_i[2].a_address
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 3}
+	P {'ts=<none>': 3}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|115:19-115:35|tl_h_i[0].a_mask
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 13}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|115:19-115:35|tl_h_i[1].a_mask
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 13}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|115:19-115:35|tl_h_i[2].a_mask
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 3}
+	P {'ts=<none>': 3}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|116:19-116:35|tl_h_i[0].a_data
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 13}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|116:19-116:35|tl_h_i[1].a_data
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 13}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|116:19-116:35|tl_h_i[2].a_data
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 3}
+	P {'ts=<none>': 3}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|117:19-117:35|tl_h_i[0].a_user
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 13}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|117:19-117:35|tl_h_i[1].a_user
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 13}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|117:19-117:35|tl_h_i[2].a_user
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 3}
+	P {'ts=<none>': 3}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|118:19-118:36|tl_h_i[0].d_ready
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 13}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|118:19-118:36|tl_h_i[1].d_ready
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 13}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|118:19-118:36|tl_h_i[2].d_ready
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 3}
+	P {'ts=<none>': 3}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|242:17-242:37|drsp_fifo_o.d_opcode
+	G {'ts=<none>': 1, "ts=ref_typespec(n='',dn='')->struct_typespec('tlul_pkg::tl_d2h_t')": 29}
+	P {'ts=<none>': 30}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|243:17-243:36|drsp_fifo_o.d_param
+	G {'ts=<none>': 1, "ts=ref_typespec(n='',dn='')->struct_typespec('tlul_pkg::tl_d2h_t')": 29}
+	P {'ts=<none>': 30}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|244:17-244:35|drsp_fifo_o.d_size
+	G {'ts=<none>': 1, "ts=ref_typespec(n='',dn='')->struct_typespec('tlul_pkg::tl_d2h_t')": 29}
+	P {'ts=<none>': 30}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|246:17-246:35|drsp_fifo_o.d_sink
+	G {'ts=<none>': 1, "ts=ref_typespec(n='',dn='')->struct_typespec('tlul_pkg::tl_d2h_t')": 29}
+	P {'ts=<none>': 30}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|247:17-247:35|drsp_fifo_o.d_data
+	G {'ts=<none>': 1, "ts=ref_typespec(n='',dn='')->struct_typespec('tlul_pkg::tl_d2h_t')": 29}
+	P {'ts=<none>': 30}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|248:17-248:35|drsp_fifo_o.d_user
+	G {'ts=<none>': 1, "ts=ref_typespec(n='',dn='')->struct_typespec('tlul_pkg::tl_d2h_t')": 29}
+	P {'ts=<none>': 30}
+TOGOLD	default/Earlgrey_0_1-71da2fd7|P0|249:17-249:36|drsp_fifo_o.d_error
+	G {'ts=<none>': 1, "ts=ref_typespec(n='',dn='')->struct_typespec('tlul_pkg::tl_d2h_t')": 29}
+	P {'ts=<none>': 30}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|109:19-109:36|tl_h_i[0].a_valid
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 39}
+	PATCHED {"ts=ref_typespec(n='',dn='')->array_typespec('')": 39}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|109:19-109:36|tl_h_i[1].a_valid
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 39}
+	PATCHED {"ts=ref_typespec(n='',dn='')->array_typespec('')": 39}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|109:19-109:36|tl_h_i[2].a_valid
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 3}
+	P {'ts=<none>': 9}
+	PATCHED {"ts=ref_typespec(n='',dn='')->array_typespec('')": 9}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|110:19-110:37|tl_h_i[0].a_opcode
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 39}
+	PATCHED {"ts=ref_typespec(n='',dn='')->array_typespec('')": 39}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|110:19-110:37|tl_h_i[1].a_opcode
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 39}
+	PATCHED {"ts=ref_typespec(n='',dn='')->array_typespec('')": 39}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|110:19-110:37|tl_h_i[2].a_opcode
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 3}
+	P {'ts=<none>': 9}
+	PATCHED {"ts=ref_typespec(n='',dn='')->array_typespec('')": 9}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|111:19-111:36|tl_h_i[0].a_param
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 39}
+	PATCHED {"ts=ref_typespec(n='',dn='')->array_typespec('')": 39}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|111:19-111:36|tl_h_i[1].a_param
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 39}
+	PATCHED {"ts=ref_typespec(n='',dn='')->array_typespec('')": 39}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|111:19-111:36|tl_h_i[2].a_param
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 3}
+	P {'ts=<none>': 9}
+	PATCHED {"ts=ref_typespec(n='',dn='')->array_typespec('')": 9}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|112:19-112:35|tl_h_i[0].a_size
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 39}
+	PATCHED {"ts=ref_typespec(n='',dn='')->array_typespec('')": 39}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|112:19-112:35|tl_h_i[1].a_size
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 39}
+	PATCHED {"ts=ref_typespec(n='',dn='')->array_typespec('')": 39}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|112:19-112:35|tl_h_i[2].a_size
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 3}
+	P {'ts=<none>': 9}
+	PATCHED {"ts=ref_typespec(n='',dn='')->array_typespec('')": 9}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|114:19-114:38|tl_h_i[0].a_address
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 39}
+	PATCHED {"ts=ref_typespec(n='',dn='')->array_typespec('')": 39}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|114:19-114:38|tl_h_i[1].a_address
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 39}
+	PATCHED {"ts=ref_typespec(n='',dn='')->array_typespec('')": 39}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|114:19-114:38|tl_h_i[2].a_address
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 3}
+	P {'ts=<none>': 9}
+	PATCHED {"ts=ref_typespec(n='',dn='')->array_typespec('')": 9}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|115:19-115:35|tl_h_i[0].a_mask
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 39}
+	PATCHED {"ts=ref_typespec(n='',dn='')->array_typespec('')": 39}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|115:19-115:35|tl_h_i[1].a_mask
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 39}
+	PATCHED {"ts=ref_typespec(n='',dn='')->array_typespec('')": 39}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|115:19-115:35|tl_h_i[2].a_mask
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 3}
+	P {'ts=<none>': 9}
+	PATCHED {"ts=ref_typespec(n='',dn='')->array_typespec('')": 9}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|116:19-116:35|tl_h_i[0].a_data
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 39}
+	PATCHED {"ts=ref_typespec(n='',dn='')->array_typespec('')": 39}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|116:19-116:35|tl_h_i[1].a_data
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 39}
+	PATCHED {"ts=ref_typespec(n='',dn='')->array_typespec('')": 39}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|116:19-116:35|tl_h_i[2].a_data
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 3}
+	P {'ts=<none>': 9}
+	PATCHED {"ts=ref_typespec(n='',dn='')->array_typespec('')": 9}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|117:19-117:35|tl_h_i[0].a_user
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 39}
+	PATCHED {"ts=ref_typespec(n='',dn='')->array_typespec('')": 39}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|117:19-117:35|tl_h_i[1].a_user
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 39}
+	PATCHED {"ts=ref_typespec(n='',dn='')->array_typespec('')": 39}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|117:19-117:35|tl_h_i[2].a_user
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 3}
+	P {'ts=<none>': 9}
+	PATCHED {"ts=ref_typespec(n='',dn='')->array_typespec('')": 9}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|118:19-118:36|tl_h_i[0].d_ready
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 39}
+	PATCHED {"ts=ref_typespec(n='',dn='')->array_typespec('')": 39}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|118:19-118:36|tl_h_i[1].d_ready
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 13}
+	P {'ts=<none>': 39}
+	PATCHED {"ts=ref_typespec(n='',dn='')->array_typespec('')": 39}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|118:19-118:36|tl_h_i[2].d_ready
+	G {"ts=ref_typespec(n='',dn='')->array_typespec('')": 3}
+	P {'ts=<none>': 9}
+	PATCHED {"ts=ref_typespec(n='',dn='')->array_typespec('')": 9}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|242:17-242:37|drsp_fifo_o.d_opcode
+	G {'ts=<none>': 1, "ts=ref_typespec(n='',dn='')->struct_typespec('tlul_pkg::tl_d2h_t')": 29}
+	P {'ts=<none>': 59}
+	PATCHED {'ts=<none>': 1, "ts=ref_typespec(n='',dn='')->struct_typespec('tlul_pkg::tl_d2h_t')": 58}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|243:17-243:36|drsp_fifo_o.d_param
+	G {'ts=<none>': 1, "ts=ref_typespec(n='',dn='')->struct_typespec('tlul_pkg::tl_d2h_t')": 29}
+	P {'ts=<none>': 59}
+	PATCHED {'ts=<none>': 1, "ts=ref_typespec(n='',dn='')->struct_typespec('tlul_pkg::tl_d2h_t')": 58}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|244:17-244:35|drsp_fifo_o.d_size
+	G {'ts=<none>': 1, "ts=ref_typespec(n='',dn='')->struct_typespec('tlul_pkg::tl_d2h_t')": 29}
+	P {'ts=<none>': 59}
+	PATCHED {'ts=<none>': 1, "ts=ref_typespec(n='',dn='')->struct_typespec('tlul_pkg::tl_d2h_t')": 58}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|246:17-246:35|drsp_fifo_o.d_sink
+	G {'ts=<none>': 1, "ts=ref_typespec(n='',dn='')->struct_typespec('tlul_pkg::tl_d2h_t')": 29}
+	P {'ts=<none>': 59}
+	PATCHED {'ts=<none>': 1, "ts=ref_typespec(n='',dn='')->struct_typespec('tlul_pkg::tl_d2h_t')": 58}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|247:17-247:35|drsp_fifo_o.d_data
+	G {'ts=<none>': 1, "ts=ref_typespec(n='',dn='')->struct_typespec('tlul_pkg::tl_d2h_t')": 29}
+	P {'ts=<none>': 59}
+	PATCHED {'ts=<none>': 1, "ts=ref_typespec(n='',dn='')->struct_typespec('tlul_pkg::tl_d2h_t')": 58}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|248:17-248:35|drsp_fifo_o.d_user
+	G {'ts=<none>': 1, "ts=ref_typespec(n='',dn='')->struct_typespec('tlul_pkg::tl_d2h_t')": 29}
+	P {'ts=<none>': 59}
+	PATCHED {'ts=<none>': 1, "ts=ref_typespec(n='',dn='')->struct_typespec('tlul_pkg::tl_d2h_t')": 58}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|249:17-249:36|drsp_fifo_o.d_error
+	G {'ts=<none>': 1, "ts=ref_typespec(n='',dn='')->struct_typespec('tlul_pkg::tl_d2h_t')": 29}
+	P {'ts=<none>': 59}
+	PATCHED {'ts=<none>': 1, "ts=ref_typespec(n='',dn='')->struct_typespec('tlul_pkg::tl_d2h_t')": 58}
+MODE 3-file (golden / pristine / patched)
+keys golden=52246 pristine=53240 patched=53240 joined=49427
+STRICT TOGOLD 34  AWAY 0  MOVEDWRONG 34  STILLWRONG 2995  SAME_AGREE 46364  G-ONLY 2819  O-ONLY 3813
+SHAPE  TOGOLD 68  AWAY 0  MOVEDWRONG 0  STILLWRONG 0  SAME_AGREE 49359  (of which COUNT-ONLY 2995)
+ONE-SIDED-CHANGED 0

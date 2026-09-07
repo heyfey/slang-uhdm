@@ -1,0 +1,10 @@
+# r10earl114 -- kinds114 --names DIFF, pristine vs patched, Earlgrey_0_1/default
+# (the FULL --names tables are reproduced by kinds114; only the DIFF is kept here)
+60c60
+< KIND	ref_typespec	110389
+---
+> KIND	ref_typespec	110853
+34609c34609
+< NAME	ref_typespec		110389
+---
+> NAME	ref_typespec		110853

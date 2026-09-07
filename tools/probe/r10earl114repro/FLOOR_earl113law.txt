@@ -1,0 +1,9 @@
+# r10earl114 -- r10earl113's OWN census (cen113: the pattern-operation FIRST
+# OPERAND -- size, decompile, value, const type, op type) re-scored by ITS OWN
+# instrument on all 16 arm/views of this pass's grid and r10earl113's.
+# The verdict that matters: TOGOLD 0 / AWAY 0 / MOVEDWRONG 0 / NOGOLD 0 --
+# not one cell of r10earl113's law moved.
+arm/views scored: 16
+-- TOTAL PX  NOGOLD_UNMOVED=130  ONESIDED=102  SAME_AGREE=340  STILLWRONG=5
+-- TOTAL P0  ONESIDED=2  SAME_AGREE=101  STILLWRONG=127
+-- TOTAL PR  ONESIDED=2  SAME_AGREE=100  STILLWRONG=128

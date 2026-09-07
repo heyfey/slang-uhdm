@@ -1,0 +1,231 @@
+v1_decl113_elab          PX  ONESIDED=10  SAME_AGREE=22  TOGOLD=28
+v1_decl113_elab          P0  SAME_AGREE=18  TOGOLD=28
+v1_decl113_elab          PR  SAME_AGREE=32  STILLWRONG=14
+v1_decl113_plain         PX  NOGOLD=10  ONESIDED=10  SAME_AGREE=22  TOGOLD=18
+v1_decl113_plain         P0  SAME_AGREE=18  TOGOLD=28
+v1_decl113_plain         PR  SAME_AGREE=46
+v2_pat113_elab           PX  NOGOLD_UNMOVED=6  ONESIDED=6  SAME_AGREE=30  TOGOLD=14
+v2_pat113_elab           P0  ONESIDED=2  SAME_AGREE=31  STILLWRONG=8  TOGOLD=14
+v2_pat113_elab           PR  ONESIDED=2  SAME_AGREE=30  STILLWRONG=23
+v2_pat113_plain          PX  NOGOLD=2  NOGOLD_UNMOVED=6  ONESIDED=4  SAME_AGREE=30  TOGOLD=12
+v2_pat113_plain          P0  ONESIDED=2  SAME_AGREE=31  STILLWRONG=8  TOGOLD=14
+v2_pat113_plain          PR  ONESIDED=2  SAME_AGREE=45  STILLWRONG=8
+v3_lhs113_elab           PX  NOGOLD=4  NOGOLD_UNMOVED=6  ONESIDED=14  SAME_AGREE=18  TOGOLD=12
+v3_lhs113_elab           P0  ONESIDED=10  SAME_AGREE=20  STILLWRONG=4  TOGOLD=12
+v3_lhs113_elab           PR  ONESIDED=10  SAME_AGREE=18  STILLWRONG=18
+v3_lhs113_plain          PX  NOGOLD_UNMOVED=6  ONESIDED=14  SAME_AGREE=18  TOGOLD=12
+v3_lhs113_plain          P0  ONESIDED=10  SAME_AGREE=20  STILLWRONG=4  TOGOLD=12
+v3_lhs113_plain          PR  ONESIDED=10  SAME_AGREE=28  STILLWRONG=8
+v4_ctx113_elab           PX  SAME_AGREE=4  TOGOLD=8
+v4_ctx113_elab           P0  SAME_AGREE=3  TOGOLD=4
+v4_ctx113_elab           PR  SAME_AGREE=5  STILLWRONG=2
+v4_ctx113_plain          PX  SAME_AGREE=4  TOGOLD=8
+v4_ctx113_plain          P0  SAME_AGREE=3  TOGOLD=4
+v4_ctx113_plain          PR  SAME_AGREE=7
+v5_iface113_elab         PX  NOGOLD=4  NOGOLD_UNMOVED=2  ONESIDED=8  SAME_AGREE=2
+v5_iface113_elab         P0  MOVEDWRONG=2  SAME_AGREE=4  TOGOLD=2
+v5_iface113_elab         PR  STILLWRONG=8
+v5_iface113_plain        PX  NOGOLD=4  NOGOLD_UNMOVED=2  ONESIDED=8  SAME_AGREE=2
+v5_iface113_plain        P0  MOVEDWRONG=2  SAME_AGREE=4  TOGOLD=2
+v5_iface113_plain        PR  SAME_AGREE=4  STILLWRONG=4
+v6_name113_elab          PX  NOGOLD=4  ONESIDED=16  SAME_AGREE=22  TOGOLD=24
+v6_name113_elab          P0  SAME_AGREE=21  TOGOLD=28
+v6_name113_elab          PR  SAME_AGREE=33  STILLWRONG=16
+v6_name113_plain         PX  NOGOLD=16  ONESIDED=16  SAME_AGREE=22  TOGOLD=12
+v6_name113_plain         P0  SAME_AGREE=21  TOGOLD=28
+v6_name113_plain         PR  SAME_AGREE=49
+-- TOTAL PX  NOGOLD=44  NOGOLD_UNMOVED=28  ONESIDED=106  SAME_AGREE=196  TOGOLD=148
+-- TOTAL P0  MOVEDWRONG=4  ONESIDED=24  SAME_AGREE=194  STILLWRONG=24  TOGOLD=176
+-- TOTAL PR  ONESIDED=24  SAME_AGREE=297  STILLWRONG=101
+   [NOGOLD] PX v1_decl113_plain v1_decl113_plain|PX|52:25-52:34|tl_i[0].v|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX v1_decl113_plain v1_decl113_plain|PX|52:25-52:34|tl_i[1].v|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX v1_decl113_plain v1_decl113_plain|PX|52:25-52:34|tl_i[2].v|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX v1_decl113_plain v1_decl113_plain|PX|52:39-52:48|tl_i[0].o|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX v1_decl113_plain v1_decl113_plain|PX|52:39-52:48|tl_i[1].o|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX v1_decl113_plain v1_decl113_plain|PX|52:39-52:48|tl_i[2].o|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX v1_decl113_plain v1_decl113_plain|PX|95:26-95:35|tl_i[0].v|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX v1_decl113_plain v1_decl113_plain|PX|95:26-95:35|tl_i[1].v|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX v1_decl113_plain v1_decl113_plain|PX|95:40-95:49|tl_i[0].o|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX v1_decl113_plain v1_decl113_plain|PX|95:40-95:49|tl_i[1].o|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX v2_pat113_plain v2_pat113_plain|PX|57:35-57:44|tl_i[0].o|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX v2_pat113_plain v2_pat113_plain|PX|57:35-57:44|tl_i[1].o|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX v3_lhs113_elab v3_lhs113_elab|PX|38:30-38:39|tl_i[0].v|sc=gen_scope|gd=1|car=cont_assign|lhs=bit_select->NOTS/act=array_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX v3_lhs113_elab v3_lhs113_elab|PX|38:30-38:39|tl_i[1].v|sc=gen_scope|gd=1|car=cont_assign|lhs=bit_select->NOTS/act=array_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX v3_lhs113_elab v3_lhs113_elab|PX|38:44-38:53|tl_i[0].o|sc=gen_scope|gd=1|car=cont_assign|lhs=bit_select->NOTS/act=array_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX v3_lhs113_elab v3_lhs113_elab|PX|38:44-38:53|tl_i[1].o|sc=gen_scope|gd=1|car=cont_assign|lhs=bit_select->NOTS/act=array_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX v5_iface113_elab v5_iface113_elab|PX|22:27-22:32|src.v|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=struct_net/rdecl=interface_inst/rts=struct_typespec('pv5113::zs_t')
+       G:None
+       P:{'ts=<none>': 2}
+       Q:{"ts=ref_typespec(n='',dn='')->struct_typespec('pv5113::zs_t')": 2}
+   [NOGOLD] PX v5_iface113_elab v5_iface113_elab|PX|22:37-22:42|src.o|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=struct_net/rdecl=interface_inst/rts=struct_typespec('pv5113::zs_t')
+       G:None
+       P:{'ts=<none>': 2}
+       Q:{"ts=ref_typespec(n='',dn='')->struct_typespec('pv5113::zs_t')": 2}
+   [NOGOLD] PX v5_iface113_elab v5_iface113_elab|PX|27:27-27:32|src.v|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=interface_inst|rv=struct_net/rdecl=interface_inst/rts=struct_typespec('pv5113::zs_t')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->struct_typespec('pv5113::zs_t')": 1}
+   [NOGOLD] PX v5_iface113_elab v5_iface113_elab|PX|27:37-27:42|src.o|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=interface_inst|rv=struct_net/rdecl=interface_inst/rts=struct_typespec('pv5113::zs_t')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->struct_typespec('pv5113::zs_t')": 1}
+   [MOVEDWRONG] P0 v5_iface113_elab v5_iface113_elab|P0|22:27-22:32|src.v
+       G:{'ts=<none>': 1, "ts=ref_typespec(n='',dn='')->struct_typespec('pv5113::zs_t')": 2}
+       P:{'ts=<none>': 2}
+       Q:{"ts=ref_typespec(n='',dn='')->struct_typespec('pv5113::zs_t')": 2}
+   [MOVEDWRONG] P0 v5_iface113_elab v5_iface113_elab|P0|22:37-22:42|src.o
+       G:{'ts=<none>': 1, "ts=ref_typespec(n='',dn='')->struct_typespec('pv5113::zs_t')": 2}
+       P:{'ts=<none>': 2}
+       Q:{"ts=ref_typespec(n='',dn='')->struct_typespec('pv5113::zs_t')": 2}
+   [NOGOLD] PX v5_iface113_plain v5_iface113_plain|PX|22:27-22:32|src.v|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=struct_net/rdecl=interface_inst/rts=struct_typespec('pv5113::zs_t')
+       G:None
+       P:{'ts=<none>': 2}
+       Q:{"ts=ref_typespec(n='',dn='')->struct_typespec('pv5113::zs_t')": 2}
+   [NOGOLD] PX v5_iface113_plain v5_iface113_plain|PX|22:37-22:42|src.o|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=struct_net/rdecl=interface_inst/rts=struct_typespec('pv5113::zs_t')
+       G:None
+       P:{'ts=<none>': 2}
+       Q:{"ts=ref_typespec(n='',dn='')->struct_typespec('pv5113::zs_t')": 2}
+   [NOGOLD] PX v5_iface113_plain v5_iface113_plain|PX|27:27-27:32|src.v|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=interface_inst|rv=struct_net/rdecl=interface_inst/rts=struct_typespec('pv5113::zs_t')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->struct_typespec('pv5113::zs_t')": 1}
+   [NOGOLD] PX v5_iface113_plain v5_iface113_plain|PX|27:37-27:42|src.o|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=interface_inst|rv=struct_net/rdecl=interface_inst/rts=struct_typespec('pv5113::zs_t')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->struct_typespec('pv5113::zs_t')": 1}
+   [MOVEDWRONG] P0 v5_iface113_plain v5_iface113_plain|P0|22:27-22:32|src.v
+       G:{'ts=<none>': 1, "ts=ref_typespec(n='',dn='')->struct_typespec('pv5113::zs_t')": 2}
+       P:{'ts=<none>': 2}
+       Q:{"ts=ref_typespec(n='',dn='')->struct_typespec('pv5113::zs_t')": 2}
+   [MOVEDWRONG] P0 v5_iface113_plain v5_iface113_plain|P0|22:37-22:42|src.o
+       G:{'ts=<none>': 1, "ts=ref_typespec(n='',dn='')->struct_typespec('pv5113::zs_t')": 2}
+       P:{'ts=<none>': 2}
+       Q:{"ts=ref_typespec(n='',dn='')->struct_typespec('pv5113::zs_t')": 2}
+   [NOGOLD] PX v6_name113_elab v6_name113_elab|PX|34:26-34:35|tl_i[0].v|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 3}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 3}
+   [NOGOLD] PX v6_name113_elab v6_name113_elab|PX|34:26-34:35|tl_i[1].v|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 3}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 3}
+   [NOGOLD] PX v6_name113_elab v6_name113_elab|PX|34:40-34:49|tl_i[0].o|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 3}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 3}
+   [NOGOLD] PX v6_name113_elab v6_name113_elab|PX|34:40-34:49|tl_i[1].o|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 3}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 3}
+   [NOGOLD] PX v6_name113_plain v6_name113_plain|PX|34:26-34:35|tl_i[0].v|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX v6_name113_plain v6_name113_plain|PX|34:26-34:35|tl_i[1].v|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX v6_name113_plain v6_name113_plain|PX|34:40-34:49|tl_i[0].o|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX v6_name113_plain v6_name113_plain|PX|34:40-34:49|tl_i[1].o|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX v6_name113_plain v6_name113_plain|PX|42:26-42:35|tl_i[0].v|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX v6_name113_plain v6_name113_plain|PX|42:26-42:35|tl_i[1].v|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX v6_name113_plain v6_name113_plain|PX|42:40-42:49|tl_i[0].o|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX v6_name113_plain v6_name113_plain|PX|42:40-42:49|tl_i[1].o|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX v6_name113_plain v6_name113_plain|PX|58:26-58:35|tl_i[0].v|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX v6_name113_plain v6_name113_plain|PX|58:26-58:35|tl_i[1].v|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX v6_name113_plain v6_name113_plain|PX|58:40-58:49|tl_i[0].o|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX v6_name113_plain v6_name113_plain|PX|58:40-58:49|tl_i[1].o|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX v6_name113_plain v6_name113_plain|PX|70:26-70:35|tl_i[0].v|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX v6_name113_plain v6_name113_plain|PX|70:26-70:35|tl_i[1].v|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX v6_name113_plain v6_name113_plain|PX|70:40-70:49|tl_i[0].o|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX v6_name113_plain v6_name113_plain|PX|70:40-70:49|tl_i[1].o|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}

@@ -1,0 +1,75 @@
+t1_root114_elab          PX  NOGOLD_UNMOVED=8  ONESIDED=6  SAME_AGREE=26  STILLWRONG=2  TOGOLD=12
+t1_root114_elab          P0  NOGOLD_UNMOVED=1  ONESIDED=1  SAME_AGREE=31  STILLWRONG=2  TOGOLD=12
+t1_root114_elab          PR  NOGOLD_UNMOVED=1  ONESIDED=1  SAME_AGREE=12  STILLWRONG=33
+t1_root114_plain         PX  NOGOLD_UNMOVED=8  ONESIDED=6  SAME_AGREE=26  STILLWRONG=2  TOGOLD=12
+t1_root114_plain         P0  NOGOLD_UNMOVED=1  ONESIDED=1  SAME_AGREE=31  STILLWRONG=2  TOGOLD=12
+t1_root114_plain         PR  NOGOLD_UNMOVED=1  ONESIDED=1  SAME_AGREE=40  STILLWRONG=5
+t2_carrier114_elab       PX  NOGOLD_UNMOVED=14  ONESIDED=18  SAME_AGREE=18  TOGOLD=6
+t2_carrier114_elab       P0  ONESIDED=6  SAME_AGREE=19  STILLWRONG=12  TOGOLD=6
+t2_carrier114_elab       PR  ONESIDED=6  SAME_AGREE=17  STILLWRONG=20
+t2_carrier114_plain      PX  NOGOLD_UNMOVED=14  ONESIDED=18  SAME_AGREE=18  TOGOLD=6
+t2_carrier114_plain      P0  ONESIDED=6  SAME_AGREE=19  STILLWRONG=12  TOGOLD=6
+t2_carrier114_plain      PR  ONESIDED=6  SAME_AGREE=25  STILLWRONG=12
+t3_member114_elab        PX  NOGOLD_UNMOVED=4  ONESIDED=4  SAME_AGREE=20  TOGOLD=28
+t3_member114_elab        P0  NOGOLD_UNMOVED=1  ONESIDED=4  SAME_AGREE=19  TOGOLD=28
+t3_member114_elab        PR  NOGOLD_UNMOVED=1  ONESIDED=4  SAME_AGREE=12  STILLWRONG=35
+t3_member114_plain       PX  NOGOLD_UNMOVED=4  ONESIDED=4  SAME_AGREE=20  TOGOLD=28
+t3_member114_plain       P0  NOGOLD_UNMOVED=1  ONESIDED=4  SAME_AGREE=19  TOGOLD=28
+t3_member114_plain       PR  NOGOLD_UNMOVED=1  ONESIDED=4  SAME_AGREE=47
+t4_fence114_elab         PX  NOGOLD=9  NOGOLD_UNMOVED=2  ONESIDED=7  SAME_AGREE=12  TOGOLD=15
+t4_fence114_elab         P0  ONESIDED=4  SAME_AGREE=16  TOGOLD=18
+t4_fence114_elab         PR  ONESIDED=4  SAME_AGREE=15  STILLWRONG=19
+t4_fence114_plain        PX  NOGOLD=3  NOGOLD_UNMOVED=2  ONESIDED=7  SAME_AGREE=12  TOGOLD=15
+t4_fence114_plain        P0  ONESIDED=4  SAME_AGREE=16  TOGOLD=18
+t4_fence114_plain        PR  ONESIDED=4  SAME_AGREE=31  STILLWRONG=3
+-- TOTAL PX  NOGOLD=12  NOGOLD_UNMOVED=56  ONESIDED=70  SAME_AGREE=152  STILLWRONG=4  TOGOLD=122
+-- TOTAL P0  NOGOLD_UNMOVED=4  ONESIDED=30  SAME_AGREE=170  STILLWRONG=28  TOGOLD=128
+-- TOTAL PR  NOGOLD_UNMOVED=4  ONESIDED=30  SAME_AGREE=199  STILLWRONG=127
+   [NOGOLD] PX t4_fence114_elab t4_fence114_elab|PX|77:34-77:51|tl_h_i[0].a_valid|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 2}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 2}
+   [NOGOLD] PX t4_fence114_elab t4_fence114_elab|PX|77:34-77:51|tl_h_i[1].a_valid|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 2}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 2}
+   [NOGOLD] PX t4_fence114_elab t4_fence114_elab|PX|77:34-77:51|tl_h_i[2].a_valid|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 2}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 2}
+   [NOGOLD] PX t4_fence114_elab t4_fence114_elab|PX|96:37-96:54|tl_h_i[0].a_valid|sc=gen_scope|gd=1|car=cont_assign|lhs=bit_select->NOTS/act=array_var/decl=module_inst|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX t4_fence114_elab t4_fence114_elab|PX|96:37-96:54|tl_h_i[1].a_valid|sc=gen_scope|gd=1|car=cont_assign|lhs=bit_select->NOTS/act=array_var/decl=module_inst|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX t4_fence114_elab t4_fence114_elab|PX|96:37-96:54|tl_h_i[2].a_valid|sc=gen_scope|gd=1|car=cont_assign|lhs=bit_select->NOTS/act=array_var/decl=module_inst|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX t4_fence114_elab t4_fence114_elab|PX|97:37-97:55|tl_h_i[0].a_opcode|sc=gen_scope|gd=1|car=cont_assign|lhs=bit_select->NOTS/act=array_var/decl=module_inst|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX t4_fence114_elab t4_fence114_elab|PX|97:37-97:55|tl_h_i[1].a_opcode|sc=gen_scope|gd=1|car=cont_assign|lhs=bit_select->NOTS/act=array_var/decl=module_inst|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX t4_fence114_elab t4_fence114_elab|PX|97:37-97:55|tl_h_i[2].a_opcode|sc=gen_scope|gd=1|car=cont_assign|lhs=bit_select->NOTS/act=array_var/decl=module_inst|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX t4_fence114_plain t4_fence114_plain|PX|77:34-77:51|tl_h_i[0].a_valid|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX t4_fence114_plain t4_fence114_plain|PX|77:34-77:51|tl_h_i[1].a_valid|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX t4_fence114_plain t4_fence114_plain|PX|77:34-77:51|tl_h_i[2].a_valid|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}

@@ -1,0 +1,40 @@
+-- calibrated arms=8  problems=0
+t1_root114_elab                                SAME_AGREE=46
+t1_root114_plain                               SAME_AGREE=46
+t2_carrier114_elab                             SAME_AGREE=42
+t2_carrier114_plain                            SAME_AGREE=42
+t3_member114_elab                              SAME_AGREE=52
+t3_member114_plain                             SAME_AGREE=52
+t4_fence114_elab                               SAME_AGREE=34
+t4_fence114_plain                              SAME_AGREE=34
+-- TOTAL  SAME_AGREE=348
+-- ALL THREE FAMILIES (PX / P0 / PR):
+t1_root114_elab          PX  SAME_AGREE=46
+t1_root114_elab          P0  SAME_AGREE=46
+t1_root114_elab          PR  SAME_AGREE=46
+t1_root114_plain         PX  SAME_AGREE=46
+t1_root114_plain         P0  SAME_AGREE=46
+t1_root114_plain         PR  SAME_AGREE=46
+t2_carrier114_elab       PX  SAME_AGREE=42
+t2_carrier114_elab       P0  SAME_AGREE=43
+t2_carrier114_elab       PR  SAME_AGREE=43
+t2_carrier114_plain      PX  SAME_AGREE=42
+t2_carrier114_plain      P0  SAME_AGREE=43
+t2_carrier114_plain      PR  SAME_AGREE=43
+t3_member114_elab        PX  SAME_AGREE=52
+t3_member114_elab        P0  SAME_AGREE=51
+t3_member114_elab        PR  SAME_AGREE=51
+t3_member114_plain       PX  SAME_AGREE=52
+t3_member114_plain       P0  SAME_AGREE=51
+t3_member114_plain       PR  SAME_AGREE=51
+t4_fence114_elab         PX  SAME_AGREE=34
+t4_fence114_elab         P0  SAME_AGREE=38
+t4_fence114_elab         PR  SAME_AGREE=38
+t4_fence114_plain        PX  SAME_AGREE=34
+t4_fence114_plain        P0  SAME_AGREE=38
+t4_fence114_plain        PR  SAME_AGREE=38
+-- TOTAL PX  SAME_AGREE=348
+-- TOTAL P0  SAME_AGREE=356
+-- TOTAL PR  SAME_AGREE=356
+(the ONLY verdict allowed above is SAME_AGREE / NOGOLD_UNMOVED / ONESIDED;
+ any TOGOLD, AWAY, MOVEDWRONG or STILLWRONG is instrument instability)

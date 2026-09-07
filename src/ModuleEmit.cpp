@@ -12082,8 +12082,133 @@ void UhdmExporter::flattenPatternCaRhs(UHDM::operation* op,
         if (b->kind != ExpressionKind::NamedValue)
             continue;
         if (auto nit = netMap.find(&b->as<NamedValueExpression>().symbol);
-            nit != netMap.end())
-            ((UHDM::hier_path*)ops[i])->Root_value(nit->second);
+            nit != netMap.end()) {
+            auto* hp114 = (UHDM::hier_path*)ops[i];
+            hp114->Root_value(nit->second);
+            // § patHierPathRootTs114 — THE ROOT VALUE AND THE TYPESPEC EDGE ARE
+            // ONE BINDING OFF ONE OBJECT.
+            //
+            // `CompileHelper::compileSelectExpression`
+            // (~/git-repos/Surelog/src/DesignCompile/CompileExpression.cpp:
+            // 5455-5496) writes both fields inside a SINGLE `if`:
+            //
+            //     UHDM::hier_path *path = s.MakeHier_path();
+            //     if (instance && (reduce == Reduce::Yes)) {
+            //       UHDM::any *rootValue = getObject(the_name, component, ...,
+            //                                        instance, pexpr);
+            //       if (rootValue) {
+            //         if (expr *expval = any_cast<expr *>(rootValue)) {
+            //           path->Root_value(rootValue);
+            //           if (ref_typespec *expval_rt = expval->Typespec()) {
+            //             if (path->Typespec() == nullptr) {
+            //               ref_typespec *path_rt = s.MakeRef_typespec();
+            //               path_rt->VpiParent(path);
+            //               path->Typespec(path_rt);
+            //             }
+            //             path->Typespec()->Actual_typespec(
+            //                 expval_rt->Actual_typespec());
+            //           }
+            //         } else if (UHDM::port *expval = any_cast<port *>(rootValue)) {
+            //           path->Root_value(expval->Low_conn());   // NO TYPESPEC
+            //         } else if (param_assign *passign = ...) { ... }
+            //       }
+            //     }
+            //
+            // So the object this site already binds as `Root_value` is the very
+            // object whose typespec golden re-hangs on the path, and the
+            // ref_typespec is MINTED PER PATH while the `Actual_typespec` is
+            // the ROOT's own object, SHARED.  Measured on both the corpus head
+            // and arm t1: golden's path ref_typespec is a different object from
+            // the root variable's (`SAME ref_typespec OBJECT: no`) and its
+            // Actual_typespec is the identical `array_typespec`
+            // (`SAME Actual_typespec OBJECT: YES`), with 28 ref_typespec
+            // objects in the Earlgrey database pointing at that one
+            // array_typespec — 1 owned by the `array_var` and 27 by
+            // `hier_path`s.
+            //
+            // THE MINT CARRIES NO NAME.  Surelog sets `VpiParent` and
+            // `Actual_typespec` and nothing else; `ref_typespec::Compare` reads
+            // `VpiName`, `VpiDefName` and `Actual_typespec`, so both strings
+            // being EMPTY is part of the compared shape.  `VpiFullName` is not
+            // compared and `ref_typespec::VpiFullName()` COMPUTES itself from
+            // the parent chain when unset (UHDM generated
+            // ref_typespec.cpp:43), which is how golden's dump prints the full
+            // dotted path without Surelog ever writing one.
+            //
+            // THE GATE IS THIS SITE.  `flattenPatternCaRhs` runs only for an
+            // ELABORATED generate-scope continuous assign whose Rhs is a
+            // STRUCTURED assignment pattern and whose Lhs is a packed struct —
+            // the carrier for which `compileAssignmentPattern`
+            // (CompileExpression.cpp:3688) sets `reduce = Reduce::Yes`, which
+            // is the same gate r10earl112's genvar-value law rides.  The
+            // typespec is taken from the SAME object bound above and only when
+            // that object HAS one, which is what fences the branches golden
+            // does not take: a `port` root (Root_value = its Low_conn, and NO
+            // typespec), a task_func `io_decl` root (a plain BaseClass — no
+            // branch runs at all) and an ANONYMOUS-typed root (no ref_typespec
+            // to copy).  A root object absent from `netMap` was already not
+            // bound here at all.
+            //
+            // THE GENERATE-LOCAL ROOT FENCE, CONVICTED BY ARM t1 BEFORE IT
+            // SHIPPED.  `getObject`'s netlist search
+            // (CompileExpression.cpp:150-232) looks in
+            //     array_nets() -> nets() -> variables() -> ports() ->
+            //     param_assigns()
+            // and NEVER in `array_vars()`, while
+            // `NetlistElaboration::elab_generates_`
+            // (~/git-repos/Surelog/src/DesignCompile/NetlistElaboration.cpp:
+            // 1819-1874) builds a generate instance's netlist and then hands
+            // the gen_scope exactly `netlist->nets()` and
+            // `netlist->array_vars()`.  A signal DECLARED IN A GENERATE BLOCK
+            // is therefore not answered by name: golden binds NEITHER
+            // `Root_value` NOR a typespec there, and Surelog's own elaborator
+            // says so out loud for the undotted form
+            // (`[ERR:UH0725] Unresolved hierarchical reference`).  MEASURED on
+            // arm t1: cells r4 (a gen-local packed struct), r5 (a gen-local
+            // struct net), r9 (a gen-local unpacked array) and r10 (an
+            // ENCLOSING generate block's local read from a nested one) are
+            // `rv=<none>` / `ts=<none>` in golden, while the module-scope and
+            // PORT roots of r1/r2 carry `rv=array_var` and the hung
+            // `array_typespec`.  Without this fence those cells scored
+            // SHAPE-AWAY in the P0 family -- pristine-right going
+            // patched-wrong on legal SV.
+            //
+            // Our own `Root_value` binding above already fires on a gen-local
+            // root (a pre-existing divergence, in a field `hier_path::Compare`
+            // does read); this law does not widen it and does not follow it
+            // there.
+            //
+            // THE NET-ROOT AXIS NEEDS NO SEPARATE FENCE, and that too is
+            // measured rather than assumed: an `array_net` root (arm t1 cells
+            // r3 `wire`-declared, r6 and r8, all pure-`logic` structs that
+            // Surelog models as nets) carries NO `ref_typespec` of its own ON
+            // EITHER SIDE, so `expval->Typespec()` is null in Surelog and the
+            // `rrt114` test below is null here -- one test, the same work in
+            // both emitters.
+            const slang::ast::Scope* rsc114 =
+                b->as<NamedValueExpression>().symbol.getParentScope();
+            bool rootGenLocal114 = false;
+            for (int d114 = 0; rsc114 && d114 < 32; d114++) {
+                auto rk114 = rsc114->asSymbol().kind;
+                if (rk114 == SymbolKind::GenerateBlock ||
+                    rk114 == SymbolKind::GenerateBlockArray) {
+                    rootGenLocal114 = true;
+                    break;
+                }
+                if (rk114 != SymbolKind::StatementBlock)
+                    break;
+                rsc114 = rsc114->asSymbol().getParentScope();
+            }
+            if (!rootGenLocal114 && !hp114->Typespec())
+                if (auto* rx114 = any_cast<UHDM::expr*>(nit->second))
+                    if (auto* rrt114 = rx114->Typespec())
+                        if (auto* ract114 = rrt114->Actual_typespec()) {
+                            auto* prt114 = s.MakeRef_typespec();
+                            prt114->VpiParent(hp114);
+                            prt114->Actual_typespec(ract114);
+                            hp114->Typespec(prt114);
+                        }
+        }
     }
 }
 

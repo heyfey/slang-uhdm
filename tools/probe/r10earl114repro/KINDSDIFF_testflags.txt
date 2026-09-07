@@ -1,0 +1,18 @@
+# r10earl114 -- kinds114 --names DIFF, pristine vs patched, Earlgrey_0_1/testflags
+# (the FULL --names tables are reproduced by kinds114; only the DIFF is kept here)
+3c3
+< KIND	array_typespec	825
+---
+> KIND	array_typespec	1086
+60c60
+< KIND	ref_typespec	188980
+---
+> KIND	ref_typespec	190169
+87c87
+< NAME	array_typespec		825
+---
+> NAME	array_typespec		1086
+34613c34613
+< NAME	ref_typespec		188980
+---
+> NAME	ref_typespec		190169

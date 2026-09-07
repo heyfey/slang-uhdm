@@ -1,0 +1,75 @@
+s1_scope113_elab         PX  NOGOLD=9  ONESIDED=3  SAME_AGREE=17  TOGOLD=24
+s1_scope113_elab         P0  SAME_AGREE=12  TOGOLD=27
+s1_scope113_elab         PR  SAME_AGREE=14  STILLWRONG=25
+s1_scope113_plain        PX  NOGOLD=3  ONESIDED=3  SAME_AGREE=17  TOGOLD=24
+s1_scope113_plain        P0  SAME_AGREE=12  TOGOLD=27
+s1_scope113_plain        PR  SAME_AGREE=36  STILLWRONG=3
+s2_opkind113_elab        PX  NOGOLD_UNMOVED=3  ONESIDED=3  SAME_AGREE=6  TOGOLD=3
+s2_opkind113_elab        P0  SAME_AGREE=11  STILLWRONG=6  TOGOLD=3
+s2_opkind113_elab        PR  SAME_AGREE=11  STILLWRONG=9
+s2_opkind113_plain       PX  NOGOLD_UNMOVED=3  ONESIDED=3  SAME_AGREE=6  TOGOLD=3
+s2_opkind113_plain       P0  SAME_AGREE=11  STILLWRONG=6  TOGOLD=3
+s2_opkind113_plain       PR  SAME_AGREE=14  STILLWRONG=6
+s3_carrier113_elab       PX  NOGOLD_UNMOVED=1  ONESIDED=3  SAME_AGREE=5  TOGOLD=3
+s3_carrier113_elab       P0  ONESIDED=3  SAME_AGREE=7  TOGOLD=3
+s3_carrier113_elab       PR  ONESIDED=3  SAME_AGREE=6  STILLWRONG=4
+s3_carrier113_plain      PX  NOGOLD_UNMOVED=1  ONESIDED=3  SAME_AGREE=5  TOGOLD=3
+s3_carrier113_plain      P0  ONESIDED=3  SAME_AGREE=7  TOGOLD=3
+s3_carrier113_plain      PR  ONESIDED=3  SAME_AGREE=10
+s4_fence113_elab         PX  SAME_AGREE=5  TOGOLD=9
+s4_fence113_elab         P0  SAME_AGREE=5  TOGOLD=9
+s4_fence113_elab         PR  SAME_AGREE=5  STILLWRONG=9
+s4_fence113_plain        PX  SAME_AGREE=5  TOGOLD=9
+s4_fence113_plain        P0  SAME_AGREE=5  TOGOLD=9
+s4_fence113_plain        PR  SAME_AGREE=14
+-- TOTAL PX  NOGOLD=12  NOGOLD_UNMOVED=8  ONESIDED=18  SAME_AGREE=66  TOGOLD=78
+-- TOTAL P0  ONESIDED=6  SAME_AGREE=70  STILLWRONG=12  TOGOLD=84
+-- TOTAL PR  ONESIDED=6  SAME_AGREE=110  STILLWRONG=56
+   [NOGOLD] PX s1_scope113_elab s1_scope113_elab|PX|121:37-121:54|tl_h_i[0].a_valid|sc=gen_scope|gd=1|car=cont_assign|lhs=bit_select->NOTS/act=array_var/decl=module_inst|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX s1_scope113_elab s1_scope113_elab|PX|121:37-121:54|tl_h_i[1].a_valid|sc=gen_scope|gd=1|car=cont_assign|lhs=bit_select->NOTS/act=array_var/decl=module_inst|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX s1_scope113_elab s1_scope113_elab|PX|121:37-121:54|tl_h_i[2].a_valid|sc=gen_scope|gd=1|car=cont_assign|lhs=bit_select->NOTS/act=array_var/decl=module_inst|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX s1_scope113_elab s1_scope113_elab|PX|122:37-122:55|tl_h_i[0].a_opcode|sc=gen_scope|gd=1|car=cont_assign|lhs=bit_select->NOTS/act=array_var/decl=module_inst|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX s1_scope113_elab s1_scope113_elab|PX|122:37-122:55|tl_h_i[1].a_opcode|sc=gen_scope|gd=1|car=cont_assign|lhs=bit_select->NOTS/act=array_var/decl=module_inst|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX s1_scope113_elab s1_scope113_elab|PX|122:37-122:55|tl_h_i[2].a_opcode|sc=gen_scope|gd=1|car=cont_assign|lhs=bit_select->NOTS/act=array_var/decl=module_inst|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX s1_scope113_elab s1_scope113_elab|PX|95:34-95:51|tl_h_i[0].a_valid|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 2}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 2}
+   [NOGOLD] PX s1_scope113_elab s1_scope113_elab|PX|95:34-95:51|tl_h_i[1].a_valid|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 2}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 2}
+   [NOGOLD] PX s1_scope113_elab s1_scope113_elab|PX|95:34-95:51|tl_h_i[2].a_valid|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 2}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 2}
+   [NOGOLD] PX s1_scope113_plain s1_scope113_plain|PX|95:34-95:51|tl_h_i[0].a_valid|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX s1_scope113_plain s1_scope113_plain|PX|95:34-95:51|tl_h_i[1].a_valid|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}
+   [NOGOLD] PX s1_scope113_plain s1_scope113_plain|PX|95:34-95:51|tl_h_i[2].a_valid|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|rv=array_var/rdecl=module_inst/rts=array_typespec('')
+       G:None
+       P:{'ts=<none>': 1}
+       Q:{"ts=ref_typespec(n='',dn='')->array_typespec('')": 1}

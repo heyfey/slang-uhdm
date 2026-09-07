@@ -1,0 +1,67 @@
+######## default
+== RAW (order-sensitive) whole-dump diff
+  lines: 3716
+== ORDER-BLIND (sorted) whole-dump diff
+  lines: 3407
+== ORDER-BLIND diff BY SECTION (0 = before the first uhdmtopModules = DEF,
+   1..n = ELAB, the LAST section is the weaklyReferenced TAIL, NOT COUNTED)
+      1 < sec=0
+      1 > sec=0
+   3248 > sec=10
+== CHANGED LINE SHAPES (order-blind, added side)
+    464 |vpiTypespec:
+    464 |vpiParent:
+    464 |vpiActual:
+    261 \_array_typespec: 
+    203 \_struct_typespec: (tlul_pkg::tl_dNh_t), line:N:N, endln:N:N
+     29 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N].drsp_fifo_o.d_user
+     29 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N].drsp_fifo_o.d_size
+     29 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N].drsp_fifo_o.d_sink
+     29 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N].drsp_fifo_o.d_param
+     29 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N].drsp_fifo_o.d_opcode
+     29 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N].drsp_fifo_o.d_error
+     29 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N].drsp_fifo_o.d_data
+     29 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].d_ready
+     29 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_valid
+     29 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_user
+     29 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_size
+     29 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_param
+     29 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_opcode
+     29 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_mask
+     29 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_data
+== CHANGED LINE SHAPES (order-blind, removed side)
+      1 /WD/p_sl/default/Earlgrey_N_N-HASH/slang.uhdm: Restored design Pre-Elab: 
+######## testflags
+== RAW (order-sensitive) whole-dump diff
+  lines: 5804
+== ORDER-BLIND (sorted) whole-dump diff
+  lines: 5265
+== ORDER-BLIND diff BY SECTION (0 = before the first uhdmtopModules = DEF,
+   1..n = ELAB, the LAST section is the weaklyReferenced TAIL, NOT COUNTED)
+      1 < sec=0
+      1 > sec=0
+   5075 > sec=10
+== CHANGED LINE SHAPES (order-blind, added side)
+    725 |vpiTypespec:
+    725 |vpiParent:
+    725 |vpiActual:
+    522 \_array_typespec: 
+    203 \_struct_typespec: (tlul_pkg::tl_dNh_t), line:N:N, endln:N:N
+     58 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].d_ready
+     58 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_valid
+     58 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_user
+     58 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_size
+     58 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_param
+     58 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_opcode
+     58 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_mask
+     58 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_data
+     58 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_address
+     58 \_ref_typespec: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].d_ready)
+     58 \_ref_typespec: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_valid)
+     58 \_ref_typespec: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_user)
+     58 \_ref_typespec: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_size)
+     58 \_ref_typespec: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_param)
+     58 \_ref_typespec: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].tl_h_i[N].a_opcode)
+== CHANGED LINE SHAPES (order-blind, removed side)
+      1 /WD/p_sl/testflags/Earlgrey_N_N-HASH/slang.uhdm: Restored design Pre-Elab: 
+DONE

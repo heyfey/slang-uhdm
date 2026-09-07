@@ -1,0 +1,53 @@
+LISTED                        : 5055
+FENCED-NAME HITS IN THE LIST  : 0
+DISTINCT FILES IN THE rc LOG  : 5055
+FILES WITH != 4 rc LINES      : 0
+FILES LISTED BUT NEVER RUN    : 0
+PROCESSED                     : 5055
+identical=9738  DIFFERING=36  no_output=336
+rc by side:
+   9383   A/0
+     16   A/139
+    320   A/3
+    391   A/4
+   9383   B/0
+     16   B/139
+    320   B/3
+    391   B/4
+DIFFERING cells:
+./r10earl113repro/s1_scope113.sv plain
+./r10earl113repro/s1_scope113.sv elab
+./r10earl113repro/s2_opkind113.sv plain
+./r10earl113repro/s2_opkind113.sv elab
+./r10earl113repro/s3_carrier113.sv plain
+./r10earl113repro/s3_carrier113.sv elab
+./r10earl113repro/s4_fence113.sv plain
+./r10earl113repro/s4_fence113.sv elab
+./r10earl114repro/t1_root114.sv plain
+./r10earl114repro/t1_root114.sv elab
+./r10earl114repro/t2_carrier114.sv plain
+./r10earl114repro/t2_carrier114.sv elab
+./r10earl114repro/t3_member114.sv plain
+./r10earl114repro/t3_member114.sv elab
+./r10earl114repro/t4_fence114.sv plain
+./r10earl114repro/t4_fence114.sv elab
+./r10vearl113repro/v1_decl113.sv plain
+./r10vearl113repro/v1_decl113.sv elab
+./r10vearl113repro/v2_pat113.sv plain
+./r10vearl113repro/v2_pat113.sv elab
+./r10vearl113repro/v3_lhs113.sv plain
+./r10vearl113repro/v3_lhs113.sv elab
+./r10vearl113repro/v4_ctx113.sv plain
+./r10vearl113repro/v4_ctx113.sv elab
+./r10vearl113repro/v5_iface113.sv plain
+./r10vearl113repro/v5_iface113.sv elab
+./r10vearl113repro/v6_name113.sv plain
+./r10vearl113repro/v6_name113.sv elab
+./r10vearl114repro/v1_root114.sv plain
+./r10vearl114repro/v1_root114.sv elab
+./r10vearl114repro/v2_gen114.sv plain
+./r10vearl114repro/v2_gen114.sv elab
+./r10vearl114repro/v3_iface114.sv plain
+./r10vearl114repro/v3_iface114.sv elab
+./r10vearl114repro/v4_carrier114.sv plain
+./r10vearl114repro/v4_carrier114.sv elab

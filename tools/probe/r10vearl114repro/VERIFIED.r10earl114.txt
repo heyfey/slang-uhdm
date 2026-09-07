@@ -1,0 +1,141 @@
+r10vearl114 -- ADVERSARIAL VERIFICATION TRANSCRIPT for r10earl114.
+MEASUREMENT ONLY; the official uhdm-cmp is the sole acceptance judge.
+LHS is ALWAYS golden.  BASE 362dcfa0.  VERDICT: ACCEPT.
+
+(0) THE PATCH
+    /tmp/r10earl114.patch  md5 c901362ed1b8dac944bcefa0711ce65b
+    applies clean on a FRESH 362dcfa0 (rc 0, 0 conflict markers)
+    `git diff 362dcfa0` after applying == the patch file, byte for byte
+    66 files: src/ModuleEmit.cpp + tools/probe/r10earl114repro/ ONLY
+    results/*.csv untouched; the four slang-fenced names appear in no
+    production or probe file outside canaudit.sh's own FENCED= list
+
+(1) BOTH BINARIES BUILT FROM SCRATCH IN THIS VERIFIER'S OWN WORKTREES, -j 2
+    pristine  8b1777950b91feef705565e6f16e8b0a  <- also the main tree's build
+    patched   fff26ad19801bf4bbf445db25df03f44
+    BOTH REPRODUCE THE IMPLEMENTER'S md5 BIT FOR BIT.  Frozen chmod 555 at
+    /tmp/vearl114_bin/{pristine,patched} BEFORE any sweep.
+
+(2) GOLDENS
+    patched  23 PASS / 0 FAIL
+    pristine 23 PASS / 0 FAIL
+    SLANG_UHDM=/bin/false   0 PASS / 23 FAIL   (the negative control)
+
+(3) cmds.txt AUDIT BY BINARY PATH -- four workdirs, file by file
+    p_sl   1573 cmds.txt, 1523 slang lines, ALL /tmp/vearl114_bin/patched
+    q_sl   1573 cmds.txt, 1523 slang lines, ALL /tmp/vearl114_bin/pristine
+    p_u2r  1462 cmds.txt, 1458 slang lines, ALL /tmp/vearl114_bin/patched
+    q_u2r  1462 cmds.txt, 1458 slang lines, ALL /tmp/vearl114_bin/pristine
+    cross-contamination 0/0/0/0; main-tree binary referenced 0 times anywhere
+
+(4) uhdm2rtlil, BOTH MODES, BOTH BINARIES
+    CMP_EQUAL 679 / SLANG_REJECT 50 / SURELOG_FAIL 2 -- identical histograms
+    ct8rows vs committed baseline          PASS (0 differing rows)
+    ct8rows vs this verifier's pristine    PASS, testflags AND default
+
+(5) surelog --mode both, 1588 rows, BOTH BINARIES -- IDENTICAL HISTOGRAMS
+    default   CMP_EQUAL 471 SLANG_REJECT 283 SURELOG_FAIL 25 CMP_NOTEQUAL 10 DEFERRED 5
+    testflags CMP_EQUAL 466 SLANG_REJECT 284 SURELOG_FAIL 23 CMP_NOTEQUAL 9 DEFERRED 5
+              NO_DATABASE 3 UNTRANSLATABLE 2 TIMEOUT 1 NO_UHDM 1
+    ct8rows vs committed baseline          PASS (0 differing rows)
+    ct8rows vs this verifier's pristine    PASS
+    NO ROW CONVERTED, in either direction.
+
+(6) byteverify SELFCHECK=1
+    uhdm2rtlil  MOVERS 0 / 1358   SELFCHECK 1357/1358 flagged
+    surelog     MOVERS 3 / 956    SELFCHECK  955/956  flagged
+      default/Earlgrey_0_1    PREDICTED
+      testflags/Earlgrey_0_1  PREDICTED
+      default/Scoreboard      THE DOCUMENTED COIN, PROVEN TWO WAYS:
+        * order-blind dump diff 0 lines, line counts identical (1100381),
+          against 78 raw order-flip lines;
+        * the PRISTINE BINARY ALONE, four invocations, produced THREE hashes
+          0d80f8f5d07e x2, 6b7c9be975d8, c09f5e4b3e5b -- and 6b7c9be975d8 is
+          exactly the hash byteverify attributed to the patched side.
+
+(7) rowheads (patched | pristine)
+    SeqDriver      31/31 | 31/31          SimpleUVM  664681 | 664681
+    Scoreboard/def    95 | 95             MiniAmiq    31/31 | 31/31
+    BuildUVMPkg    48/48 | 48/48          Rggen/def       0 | 0
+    Earlgrey/def      31 | 31             Earlgrey/tf    37 | 17   <- THE HEAD
+    EVERY rowhead cmp log BYTE-IDENTICAL between the two binaries EXCEPT
+    Earlgrey_0_1/testflags.
+
+(8) THE HEAD ADVANCED -- both cmp logs READ
+    before: LHS ref_typespec(...tl_h_i[0].a_valid) -> array_typespec, RHS <null>
+            = expr::Typespec, +1
+    after : LHS <null>, RHS typespec_member(a_valid) under struct_typespec
+            (tlul_pkg::tl_h2d_t) = Path_elems[..].Actual_group, -1
+    hier_path::Compare runs expr::Typespec BEFORE Path_elems, so the judge
+    descended ONE field on the SAME object.  ONE head before, ONE head after.
+    17 -> 37 is the new head object's DECOMPILE SIZE, not a distance.
+
+(9) CANARIES / PINS
+    canaries surelog ok=52 changed=0 ; u2r ok=8 changed=0
+    ctcan2 PASS x2
+    canaudit (implementer's dir)  audited=29 UNCOVERED=0 FENCE-BREACH=0
+    canaudit (this dir)           audited=29 UNCOVERED=0 FENCE-BREACH=0
+    10 protected pins ALL SAME: InterfaceModPort 59a365f3ce2c,
+    BlackParrotComplex e3e354129d5a / 73a10e8217e5, YosysOldOr d68e0796d62c,
+    SVSwitch 4842211c4030, YosysVerx 6ccda350c24a
+
+(10) THE WIDE BOUNDARY (this verifier's own, over the whole probe tree)
+    LISTED = PROCESSED = 5055 (5050 committed + this verifier's 5 new files)
+    FENCED-NAME HITS IN THE LIST 0 ; FILES WITH != 4 rc LINES 0 ;
+    FILES LISTED BUT NEVER RUN 0
+    identical=9738  DIFFERING=36  no_output=336
+    rc by side PERFECTLY SYMMETRIC: A/0 9383 B/0 9383, A/3 320 B/3 320,
+                                    A/4 391 B/4 391, A/139 16 B/139 16
+    DIFFERING 36 = earl113's 4 arms, vearl113's 6, earl114's 4 (the positive
+    control) and THIS verifier's 4, each in both views -- and NOTHING ELSE.
+    earl110's, earl111's, earl112's arms and their verifiers' are NOT in the
+    differing list at all: byte-identical from both binaries in both views.
+
+(11) THE MUST-STAY FLOOR, by the strongest possible statement
+    On all 20 earl113 / vearl113 arm/views the order-blind dump diff is
+    ADDED>0, REMOVED=0 -- the patch only ADDS, and the only added shapes are
+    the minted ref_typespec triple (vpiTypespec / vpiParent / vpiActual), its
+    actual typespec, and the hier_path + vpiFullName the dump prints under it.
+    Nothing any prior law produced was removed anywhere.
+    v6_name113 (earl113's NAME-WALK FENCE) and v5_iface113: official uhdm-cmp
+    log BYTE-IDENTICAL between the two binaries, both views.
+
+(12) THE LAW ATTACKED -- this verifier's own reader, scorer and arms
+    MY ARMS   fine   TOGOLD 222  AWAY 0  MOVEDWRONG 0
+    MY ARMS   coarse TOGOLD 138  AWAY 0  MOVEDWRONG 6  <- v3_iface114 only, see below
+    THEIRS    fine   TOGOLD 140  AWAY 0  MOVEDWRONG 0
+    THEIRS    coarse TOGOLD 128  AWAY 0  MOVEDWRONG 0  SAME_AGREE 170  STILLWRONG 28
+              (= their claimed P0 total, digit for digit, from another instrument)
+    earl113 family, 20 arm/views, fine AND coarse: AWAY 0; coarse MOVEDWRONG 4
+              = v5_iface113 x 2 cells x 2 views, and nothing else
+    CORPUS (the two databases that changed are the law's WHOLE corpus surface)
+              fine   TOGOLD 464 per mode, AWAY 0, MOVEDWRONG 0, STILLWRONG 0
+              coarse TOGOLD  68 total,     AWAY 0, MOVEDWRONG 0, STILLWRONG 0
+    8 further sampled corpus databases: goldenHungWeDont 0, unjustifiedHang 0,
+              cellsMovedVsPristine 0
+
+(13) NOTHING BUT THE ONE FIELD MOVED
+    Masking the typespec column out of every row (leaving VpiSize,
+    VpiDecompile, Path_elems count, Root_value kind+name, VpiName, span) and
+    diffing pristine against patched gives 0 differing lines on BOTH corpus
+    movers and on ALL SIXTEEN earl114 / vearl114 arm/views.
+
+(14) THE EXHAUSTIVE AWAY HUNT (28 database triples at once, no join key that
+     can hide a cell)
+    hung typespec-edge payload instances in OURS : 5620
+    NOT held by golden at the same span+name      : 0
+    the same count on the PRISTINE binary        : 0
+    NOT ONE UNJUSTIFIED HANG ANYWHERE.
+
+(15) IDENTITY, SHARING AND POPULATION
+    GOLDEN: path ref_typespec is a DIFFERENT object from the root's, 54/54;
+            its Actual_typespec IS the root's object, 54/54.  Minted per path,
+            target shared -- as claimed.
+    PATCHED: every hung path carries exactly its root's typespec edge,
+            0 mismatches.
+    The typespec population grows only as ARENA COPIES AT AN UNCHANGED
+    COORDINATE SET: zero new spans, zero removed spans.
+    Whole-dump, path-normalised, ORDER-BLIND, on the two movers:
+       default   ADDED 3248  REMOVED 0
+       testflags ADDED 5075  REMOVED 0
+    ZERO CONTENT REMOVED, in either mode.

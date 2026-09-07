@@ -1,0 +1,6 @@
+== ITERATION 0 : design::Compare -> -1
+   HEAD LHS(golden) = <null> id:0  <null>
+        payload: <null>
+   HEAD RHS(ours)   = typespec_member id:18993   33:35-33:42
+        payload: typespec_member name='a_valid'  @ 33:35-33:42
+   KIND MISMATCH or null side -- stop.
