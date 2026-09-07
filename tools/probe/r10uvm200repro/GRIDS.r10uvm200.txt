@@ -1,0 +1,552 @@
+=== g200_a_sites def
+STILL-WRONG  defmod|module_inst()|function(fa)|logic_var(loc2)|WA|8:14-8:16
+   golden=['constant|4:18-4:21']
+   pris  =['operation|4:18-4:23']
+   pat   =['operation|4:18-4:23']
+ONLY         defmod|module_inst()|function(fb)|io_decl(k)|WA|17:33-17:35
+   golden=['constant|4:18-4:21']
+   pris  =None
+   pat   =None
+ONLY         defpkg|package(pa200a)|function(fb)|io_decl(k)|WA|17:33-17:35
+   golden=['operation|4:18-4:23']
+   pris  =None
+   pat   =None
+TO-GOLDEN    defpkg|package(pb200a)|function(fa)|io_decl(x)|WA|5:41-5:43
+   golden=['NONE|-']
+   pris  =['constant|4:18-4:21']
+   pat   =['NONE|-']
+TO-GOLDEN-ARITY defpkg|package(pb200a)|function(fa)|logic_var(loc1)|WA|6:12-6:14
+   golden=['NONE|-', 'NONE|-']
+   pris  =['constant|4:18-4:21']
+   pat   =['NONE|-']
+ONLY         defpkg|package(pb200a)|function(fa)|logic_var(loc2)|WA|8:14-8:16
+   golden=['NONE|-']
+   pris  =None
+   pat   =None
+ONLY         defpkg|package(pb200a)|function(fb)|io_decl(k)|WA|17:33-17:35
+   golden=['NONE|-']
+   pris  =None
+   pat   =None
+TO-GOLDEN    defpkg|package(pb200a)|task(ta)|io_decl(y)|WA|14:24-14:26
+   golden=['NONE|-']
+   pris  =['constant|4:18-4:21']
+   pat   =['NONE|-']
+STILL-WRONG  elabmod|module_inst(work@top200a)|function(fa)|logic_var(loc2)|WA|8:14-8:16
+   golden=['constant|4:18-4:21']
+   pris  =['operation|4:18-4:23']
+   pat   =['operation|4:18-4:23']
+ONLY         elabmod|module_inst(work@top200a)|function(fb)|io_decl(k)|WA|17:33-17:35
+   golden=['constant|4:18-4:21']
+   pris  =None
+   pat   =None
+STILL-WRONG  elabpkg|package(pa200a)|function(fa)|logic_var(loc2)|WA|8:14-8:16
+   golden=['constant|4:18-4:21']
+   pris  =['operation|4:18-4:23']
+   pat   =['operation|4:18-4:23']
+ONLY         elabpkg|package(pa200a)|function(fb)|io_decl(k)|WA|17:33-17:35
+   golden=['constant|4:18-4:21']
+   pris  =None
+   pat   =None
+TO-GOLDEN    elabpkg|package(pb200a)|function(fa)|io_decl(x)|WA|5:41-5:43
+   golden=['NONE|-']
+   pris  =['constant|4:18-4:21']
+   pat   =['NONE|-']
+TO-GOLDEN-ARITY elabpkg|package(pb200a)|function(fa)|logic_var(loc1)|WA|6:12-6:14
+   golden=['NONE|-', 'NONE|-']
+   pris  =['constant|4:18-4:21']
+   pat   =['NONE|-']
+ONLY         elabpkg|package(pb200a)|function(fa)|logic_var(loc2)|WA|8:14-8:16
+   golden=['NONE|-']
+   pris  =None
+   pat   =None
+ONLY         elabpkg|package(pb200a)|function(fb)|io_decl(k)|WA|17:33-17:35
+   golden=['NONE|-']
+   pris  =None
+   pat   =None
+TO-GOLDEN    elabpkg|package(pb200a)|task(ta)|io_decl(y)|WA|14:24-14:26
+   golden=['NONE|-']
+   pris  =['constant|4:18-4:21']
+   pat   =['NONE|-']
+CELLS golden=108 pris=100 pat=100
+AGREE 91  TO-GOLDEN 4  TO-GOLDEN-ARITY 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 3
+ONLY-GOLDEN pris=8 pat=8   ONLY-OURS pris=0 pat=0
+=== g200_a_sites elab
+ONLY         defmod|module_inst()|function(fb)|io_decl(k)|WA|17:33-17:35
+   golden=['parameter|4:13-4:15']
+   pris  =None
+   pat   =None
+ONLY         defpkg|package(pa200a)|function(fb)|io_decl(k)|WA|17:33-17:35
+   golden=['parameter|4:13-4:15']
+   pris  =None
+   pat   =None
+STILL-WRONG  defpkg|package(pb200a)|function(fa)|logic_var(loc1)|WA|6:12-6:14
+   golden=['parameter|4:13-4:15', 'parameter|4:13-4:15']
+   pris  =['parameter|4:13-4:15']
+   pat   =['parameter|4:13-4:15']
+ONLY         defpkg|package(pb200a)|function(fa)|logic_var(loc2)|WA|8:14-8:16
+   golden=['parameter|4:13-4:15']
+   pris  =None
+   pat   =None
+ONLY         defpkg|package(pb200a)|function(fb)|io_decl(k)|WA|17:33-17:35
+   golden=['parameter|4:13-4:15']
+   pris  =None
+   pat   =None
+ONLY         elabmod|module_inst(work@top200a)|function(fb)|io_decl(k)|WA|17:33-17:35
+   golden=['parameter|4:13-4:15']
+   pris  =None
+   pat   =None
+ONLY         elabpkg|package(pa200a)|function(fb)|io_decl(k)|WA|17:33-17:35
+   golden=['parameter|4:13-4:15']
+   pris  =None
+   pat   =None
+STILL-WRONG  elabpkg|package(pb200a)|function(fa)|logic_var(loc1)|WA|6:12-6:14
+   golden=['parameter|4:13-4:15', 'parameter|4:13-4:15']
+   pris  =['parameter|4:13-4:15']
+   pat   =['parameter|4:13-4:15']
+ONLY         elabpkg|package(pb200a)|function(fa)|logic_var(loc2)|WA|8:14-8:16
+   golden=['parameter|4:13-4:15']
+   pris  =None
+   pat   =None
+ONLY         elabpkg|package(pb200a)|function(fb)|io_decl(k)|WA|17:33-17:35
+   golden=['parameter|4:13-4:15']
+   pris  =None
+   pat   =None
+CELLS golden=108 pris=100 pat=100
+AGREE 98  TO-GOLDEN 0  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2
+ONLY-GOLDEN pris=8 pat=8   ONLY-OURS pris=0 pat=0
+=== g200_b_kinds def
+STILL-WRONG  defmod|module_inst()|function(k4)|io_decl(a)|E1|15:43-15:45
+   golden=['enum_const|11:37-11:43']
+   pris  =['NONE|-']
+   pat   =['NONE|-']
+STILL-WRONG  defmod|module_inst()|function(k4)|logic_var()|E1|15:19-15:21
+   golden=['enum_const|11:37-11:43']
+   pris  =['NONE|-']
+   pat   =['NONE|-']
+ONLY         defmod|module_inst()|function(k5)|io_decl(a)|pc200b::WC|16:49-16:59
+   golden=None
+   pris  =['parameter|3:13-3:15']
+   pat   =['parameter|3:13-3:15']
+ONLY         defmod|module_inst()|function(k5)|logic_var()|pc200b::WC|16:19-16:29
+   golden=None
+   pris  =['parameter|3:13-3:15']
+   pat   =['parameter|3:13-3:15']
+ONLY         defmod|module_inst()|function(k6)|io_decl(a)|WC|17:43-17:45
+   golden=None
+   pris  =['constant|3:18-3:19']
+   pat   =['constant|3:18-3:19']
+ONLY         defmod|module_inst()|function(k6)|logic_var()|WC|17:19-17:21
+   golden=None
+   pris  =['constant|3:18-3:19']
+   pat   =['constant|3:18-3:19']
+STILL-WRONG  defpkg|package(pa200b)|function(k4)|io_decl(a)|E1|15:43-15:45
+   golden=['enum_const|11:37-11:43']
+   pris  =['NONE|-']
+   pat   =['NONE|-']
+STILL-WRONG  defpkg|package(pa200b)|function(k4)|logic_var()|E1|15:19-15:21
+   golden=['enum_const|11:37-11:43']
+   pris  =['NONE|-']
+   pat   =['NONE|-']
+ONLY         defpkg|package(pa200b)|function(k6)|io_decl(a)|WC|17:43-17:45
+   golden=None
+   pris  =['constant|3:18-3:19']
+   pat   =['constant|3:18-3:19']
+ONLY         defpkg|package(pa200b)|function(k6)|logic_var()|WC|17:19-17:21
+   golden=None
+   pris  =['constant|3:18-3:19']
+   pat   =['constant|3:18-3:19']
+TO-GOLDEN    defpkg|package(pb200b)|function(k1)|io_decl(a)|WLOC|12:43-12:47
+   golden=['NONE|-']
+   pris  =['constant|8:20-8:21']
+   pat   =['NONE|-']
+TO-GOLDEN    defpkg|package(pb200b)|function(k2)|io_decl(a)|WLP|13:43-13:46
+   golden=['NONE|-']
+   pris  =['constant|9:20-9:21']
+   pat   =['NONE|-']
+TO-GOLDEN    defpkg|package(pb200b)|function(k3)|io_decl(a)|WTY|14:43-14:46
+   golden=['NONE|-']
+   pris  =['constant|10:23-10:24']
+   pat   =['NONE|-']
+STILL-WRONG  defpkg|package(pb200b)|function(k4)|logic_var()|E1|15:19-15:21
+   golden=['enum_const|11:37-11:43']
+   pris  =['NONE|-']
+   pat   =['NONE|-']
+ONLY         defpkg|package(pb200b)|function(k5)|io_decl(a)|pc200b::WC|16:49-16:59
+   golden=None
+   pris  =['parameter|3:13-3:15']
+   pat   =['parameter|3:13-3:15']
+ONLY         defpkg|package(pb200b)|function(k5)|logic_var()|pc200b::WC|16:19-16:29
+   golden=None
+   pris  =['parameter|3:13-3:15']
+   pat   =['parameter|3:13-3:15']
+ONLY         defpkg|package(pb200b)|function(k6)|io_decl(a)|WC|17:43-17:45
+   golden=None
+   pris  =['constant|3:18-3:19']
+   pat   =['NONE|-']
+ONLY         defpkg|package(pb200b)|function(k6)|logic_var()|WC|17:19-17:21
+   golden=None
+   pris  =['constant|3:18-3:19']
+   pat   =['constant|3:18-3:19']
+TO-GOLDEN    defpkg|package(pb200b)|function(k7)|io_decl(a)|WLOC|18:45-18:49
+   golden=['NONE|-']
+   pris  =['constant|8:20-8:21']
+   pat   =['NONE|-']
+STILL-WRONG  elabmod|module_inst(work@top200b)|function(k4)|io_decl(a)|E1|15:43-15:45
+   golden=['enum_const|11:37-11:43']
+   pris  =['NONE|-']
+   pat   =['NONE|-']
+STILL-WRONG  elabmod|module_inst(work@top200b)|function(k4)|logic_var()|E1|15:19-15:21
+   golden=['enum_const|11:37-11:43']
+   pris  =['NONE|-']
+   pat   =['NONE|-']
+ONLY         elabmod|module_inst(work@top200b)|function(k5)|io_decl(a)|pc200b::WC|16:49-16:59
+   golden=None
+   pris  =['parameter|3:13-3:15']
+   pat   =['parameter|3:13-3:15']
+ONLY         elabmod|module_inst(work@top200b)|function(k5)|logic_var()|pc200b::WC|16:19-16:29
+   golden=None
+   pris  =['parameter|3:13-3:15']
+   pat   =['parameter|3:13-3:15']
+ONLY         elabmod|module_inst(work@top200b)|function(k6)|io_decl(a)|WC|17:43-17:45
+   golden=None
+   pris  =['constant|3:18-3:19']
+   pat   =['constant|3:18-3:19']
+ONLY         elabmod|module_inst(work@top200b)|function(k6)|logic_var()|WC|17:19-17:21
+   golden=None
+   pris  =['constant|3:18-3:19']
+   pat   =['constant|3:18-3:19']
+STILL-WRONG  elabpkg|package(pa200b)|function(k4)|io_decl(a)|E1|15:43-15:45
+   golden=['enum_const|11:37-11:43']
+   pris  =['NONE|-']
+   pat   =['NONE|-']
+STILL-WRONG  elabpkg|package(pa200b)|function(k4)|logic_var()|E1|15:19-15:21
+   golden=['enum_const|11:37-11:43']
+   pris  =['NONE|-']
+   pat   =['NONE|-']
+ONLY         elabpkg|package(pa200b)|function(k5)|io_decl(a)|pc200b::WC|16:49-16:59
+   golden=None
+   pris  =['parameter|3:13-3:15']
+   pat   =['parameter|3:13-3:15']
+ONLY         elabpkg|package(pa200b)|function(k5)|logic_var()|pc200b::WC|16:19-16:29
+   golden=None
+   pris  =['parameter|3:13-3:15']
+   pat   =['parameter|3:13-3:15']
+ONLY         elabpkg|package(pa200b)|function(k6)|io_decl(a)|WC|17:43-17:45
+   golden=None
+   pris  =['constant|3:18-3:19']
+   pat   =['constant|3:18-3:19']
+ONLY         elabpkg|package(pa200b)|function(k6)|logic_var()|WC|17:19-17:21
+   golden=None
+   pris  =['constant|3:18-3:19']
+   pat   =['constant|3:18-3:19']
+TO-GOLDEN    elabpkg|package(pb200b)|function(k1)|io_decl(a)|WLOC|12:43-12:47
+   golden=['NONE|-']
+   pris  =['constant|8:20-8:21']
+   pat   =['NONE|-']
+TO-GOLDEN    elabpkg|package(pb200b)|function(k2)|io_decl(a)|WLP|13:43-13:46
+   golden=['NONE|-']
+   pris  =['constant|9:20-9:21']
+   pat   =['NONE|-']
+TO-GOLDEN    elabpkg|package(pb200b)|function(k3)|io_decl(a)|WTY|14:43-14:46
+   golden=['NONE|-']
+   pris  =['constant|10:23-10:24']
+   pat   =['NONE|-']
+STILL-WRONG  elabpkg|package(pb200b)|function(k4)|logic_var()|E1|15:19-15:21
+   golden=['enum_const|11:37-11:43']
+   pris  =['NONE|-']
+   pat   =['NONE|-']
+ONLY         elabpkg|package(pb200b)|function(k5)|io_decl(a)|pc200b::WC|16:49-16:59
+   golden=None
+   pris  =['parameter|3:13-3:15']
+   pat   =['parameter|3:13-3:15']
+ONLY         elabpkg|package(pb200b)|function(k5)|logic_var()|pc200b::WC|16:19-16:29
+   golden=None
+   pris  =['parameter|3:13-3:15']
+   pat   =['parameter|3:13-3:15']
+ONLY         elabpkg|package(pb200b)|function(k6)|io_decl(a)|WC|17:43-17:45
+   golden=None
+   pris  =['constant|3:18-3:19']
+   pat   =['NONE|-']
+ONLY         elabpkg|package(pb200b)|function(k6)|logic_var()|WC|17:19-17:21
+   golden=None
+   pris  =['constant|3:18-3:19']
+   pat   =['constant|3:18-3:19']
+TO-GOLDEN    elabpkg|package(pb200b)|function(k7)|io_decl(a)|WLOC|18:45-18:49
+   golden=['NONE|-']
+   pris  =['constant|8:20-8:21']
+   pat   =['NONE|-']
+CELLS golden=146 pris=168 pat=168
+AGREE 128  TO-GOLDEN 8  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 10
+ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=22 pat=22
+=== g200_b_kinds elab
+ONLY         defmod|module_inst()|function(k5)|io_decl(a)|pc200b::WC|16:49-16:59
+   golden=None
+   pris  =['parameter|3:13-3:15']
+   pat   =['parameter|3:13-3:15']
+ONLY         defmod|module_inst()|function(k5)|logic_var()|pc200b::WC|16:19-16:29
+   golden=None
+   pris  =['parameter|3:13-3:15']
+   pat   =['parameter|3:13-3:15']
+ONLY         defmod|module_inst()|function(k6)|io_decl(a)|WC|17:43-17:45
+   golden=None
+   pris  =['parameter|3:13-3:15']
+   pat   =['parameter|3:13-3:15']
+ONLY         defmod|module_inst()|function(k6)|logic_var()|WC|17:19-17:21
+   golden=None
+   pris  =['parameter|3:13-3:15']
+   pat   =['parameter|3:13-3:15']
+STILL-WRONG  defpkg|package(pa200b)|function(k4)|io_decl(a)|E1|15:43-15:45
+   golden=['enum_const|11:37-11:43']
+   pris  =['NONE|-']
+   pat   =['NONE|-']
+STILL-WRONG  defpkg|package(pa200b)|function(k4)|logic_var()|E1|15:19-15:21
+   golden=['enum_const|11:37-11:43']
+   pris  =['NONE|-']
+   pat   =['NONE|-']
+ONLY         defpkg|package(pa200b)|function(k6)|io_decl(a)|WC|17:43-17:45
+   golden=None
+   pris  =['parameter|3:13-3:15']
+   pat   =['parameter|3:13-3:15']
+ONLY         defpkg|package(pa200b)|function(k6)|logic_var()|WC|17:19-17:21
+   golden=None
+   pris  =['parameter|3:13-3:15']
+   pat   =['parameter|3:13-3:15']
+ONLY         defpkg|package(pb200b)|function(k5)|io_decl(a)|pc200b::WC|16:49-16:59
+   golden=None
+   pris  =['parameter|3:13-3:15']
+   pat   =['parameter|3:13-3:15']
+ONLY         defpkg|package(pb200b)|function(k5)|logic_var()|pc200b::WC|16:19-16:29
+   golden=None
+   pris  =['parameter|3:13-3:15']
+   pat   =['parameter|3:13-3:15']
+ONLY         defpkg|package(pb200b)|function(k6)|io_decl(a)|WC|17:43-17:45
+   golden=None
+   pris  =['parameter|3:13-3:15']
+   pat   =['parameter|3:13-3:15']
+ONLY         defpkg|package(pb200b)|function(k6)|logic_var()|WC|17:19-17:21
+   golden=None
+   pris  =['parameter|3:13-3:15']
+   pat   =['parameter|3:13-3:15']
+ONLY         elabmod|module_inst(work@top200b)|function(k5)|io_decl(a)|pc200b::WC|16:49-16:59
+   golden=None
+   pris  =['parameter|3:13-3:15']
+   pat   =['parameter|3:13-3:15']
+ONLY         elabmod|module_inst(work@top200b)|function(k5)|logic_var()|pc200b::WC|16:19-16:29
+   golden=None
+   pris  =['parameter|3:13-3:15']
+   pat   =['parameter|3:13-3:15']
+ONLY         elabmod|module_inst(work@top200b)|function(k6)|io_decl(a)|WC|17:43-17:45
+   golden=None
+   pris  =['parameter|3:13-3:15']
+   pat   =['parameter|3:13-3:15']
+ONLY         elabmod|module_inst(work@top200b)|function(k6)|logic_var()|WC|17:19-17:21
+   golden=None
+   pris  =['parameter|3:13-3:15']
+   pat   =['parameter|3:13-3:15']
+ONLY         elabpkg|package(pa200b)|function(k5)|io_decl(a)|pc200b::WC|16:49-16:59
+   golden=None
+   pris  =['parameter|3:13-3:15']
+   pat   =['parameter|3:13-3:15']
+ONLY         elabpkg|package(pa200b)|function(k5)|logic_var()|pc200b::WC|16:19-16:29
+   golden=None
+   pris  =['parameter|3:13-3:15']
+   pat   =['parameter|3:13-3:15']
+ONLY         elabpkg|package(pa200b)|function(k6)|io_decl(a)|WC|17:43-17:45
+   golden=None
+   pris  =['parameter|3:13-3:15']
+   pat   =['parameter|3:13-3:15']
+ONLY         elabpkg|package(pa200b)|function(k6)|logic_var()|WC|17:19-17:21
+   golden=None
+   pris  =['parameter|3:13-3:15']
+   pat   =['parameter|3:13-3:15']
+ONLY         elabpkg|package(pb200b)|function(k5)|io_decl(a)|pc200b::WC|16:49-16:59
+   golden=None
+   pris  =['parameter|3:13-3:15']
+   pat   =['parameter|3:13-3:15']
+ONLY         elabpkg|package(pb200b)|function(k5)|logic_var()|pc200b::WC|16:19-16:29
+   golden=None
+   pris  =['parameter|3:13-3:15']
+   pat   =['parameter|3:13-3:15']
+ONLY         elabpkg|package(pb200b)|function(k6)|io_decl(a)|WC|17:43-17:45
+   golden=None
+   pris  =['parameter|3:13-3:15']
+   pat   =['parameter|3:13-3:15']
+ONLY         elabpkg|package(pb200b)|function(k6)|logic_var()|WC|17:19-17:21
+   golden=None
+   pris  =['parameter|3:13-3:15']
+   pat   =['parameter|3:13-3:15']
+CELLS golden=143 pris=165 pat=165
+AGREE 141  TO-GOLDEN 0  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2
+ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=22 pat=22
+=== g200_c_scopes def
+TO-GOLDEN    defpkg|package(pb200c)|function(C200::m1)|io_decl(a)|WD|20:47-20:49
+   golden=['NONE|-']
+   pris  =['constant|4:18-4:19']
+   pat   =['NONE|-']
+ONLY         defpkg|package(pb200c)|function(C200::m1)|logic_var(mloc)|WD|21:12-21:14
+   golden=['NONE|-', 'NONE|-']
+   pris  =None
+   pat   =None
+STILL-WRONG  elabpkg|package(pa200c)|function(m1)|io_decl(a)|WD|20:47-20:49
+   golden=['constant|4:18-4:19']
+   pris  =['constant|4:18-4:19', 'constant|4:18-4:19']
+   pat   =['constant|4:18-4:19', 'constant|4:18-4:19']
+ONLY         elabpkg|package(pa200c)|function(m1)|io_decl(a)|WD|7:50-7:52
+   golden=['NONE|-']
+   pris  =None
+   pat   =None
+STILL-WRONG  elabpkg|package(pa200c)|function(m1)|logic_var()|WD|20:19-20:21
+   golden=['constant|4:18-4:19']
+   pris  =['constant|4:18-4:19', 'constant|4:18-4:19']
+   pat   =['constant|4:18-4:19', 'constant|4:18-4:19']
+ONLY         elabpkg|package(pa200c)|function(m1)|logic_var()|WD|7:28-7:30
+   golden=['NONE|-']
+   pris  =None
+   pat   =None
+STILL-WRONG  elabpkg|package(pa200c)|function(m2)|io_decl(b)|WD|8:43-8:45
+   golden=['NONE|-']
+   pris  =['constant|4:18-4:19']
+   pat   =['constant|4:18-4:19']
+STILL-WRONG  elabpkg|package(pa200c)|function(m2)|logic_var()|WD|8:21-8:23
+   golden=['NONE|-']
+   pris  =['constant|4:18-4:19']
+   pat   =['constant|4:18-4:19']
+STILL-WRONG  elabpkg|package(pa200c)|function(n1)|io_decl(d)|WD|15:45-15:47
+   golden=['NONE|-']
+   pris  =['constant|4:18-4:19']
+   pat   =['constant|4:18-4:19']
+STILL-WRONG  elabpkg|package(pa200c)|function(n1)|logic_var()|WD|15:23-15:25
+   golden=['NONE|-']
+   pris  =['constant|4:18-4:19']
+   pat   =['constant|4:18-4:19']
+STILL-WRONG  elabpkg|package(pa200c)|function(new)|io_decl(c)|WD|11:31-11:33
+   golden=['NONE|-']
+   pris  =['constant|4:18-4:19']
+   pat   =['constant|4:18-4:19']
+TO-GOLDEN    elabpkg|package(pb200c)|function(C200::m1)|io_decl(a)|WD|20:47-20:49
+   golden=['NONE|-']
+   pris  =['constant|4:18-4:19']
+   pat   =['NONE|-']
+ONLY         elabpkg|package(pb200c)|function(C200::m1)|logic_var(mloc)|WD|21:12-21:14
+   golden=['NONE|-', 'NONE|-']
+   pris  =None
+   pat   =None
+CELLS golden=55 pris=51 pat=51
+AGREE 42  TO-GOLDEN 2  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 7
+ONLY-GOLDEN pris=4 pat=4   ONLY-OURS pris=0 pat=0
+=== g200_c_scopes elab
+ONLY         defpkg|package(pb200c)|function(C200::m1)|logic_var(mloc)|WD|21:12-21:14
+   golden=['parameter|4:13-4:15', 'parameter|4:13-4:15']
+   pris  =None
+   pat   =None
+STILL-WRONG  elabpkg|package(pa200c)|function(m1)|io_decl(a)|WD|20:47-20:49
+   golden=['parameter|4:13-4:15']
+   pris  =['parameter|4:13-4:15', 'parameter|4:13-4:15']
+   pat   =['parameter|4:13-4:15', 'parameter|4:13-4:15']
+ONLY         elabpkg|package(pa200c)|function(m1)|io_decl(a)|WD|7:50-7:52
+   golden=['parameter|4:13-4:15']
+   pris  =None
+   pat   =None
+STILL-WRONG  elabpkg|package(pa200c)|function(m1)|logic_var()|WD|20:19-20:21
+   golden=['parameter|4:13-4:15']
+   pris  =['parameter|4:13-4:15', 'parameter|4:13-4:15']
+   pat   =['parameter|4:13-4:15', 'parameter|4:13-4:15']
+ONLY         elabpkg|package(pa200c)|function(m1)|logic_var()|WD|7:28-7:30
+   golden=['parameter|4:13-4:15']
+   pris  =None
+   pat   =None
+ONLY         elabpkg|package(pb200c)|function(C200::m1)|logic_var(mloc)|WD|21:12-21:14
+   golden=['parameter|4:13-4:15', 'parameter|4:13-4:15']
+   pris  =None
+   pat   =None
+CELLS golden=55 pris=51 pat=51
+AGREE 49  TO-GOLDEN 0  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2
+ONLY-GOLDEN pris=4 pat=4   ONLY-OURS pris=0 pat=0
+=== g200_d_importers def
+STILL-WRONG  defpkg|package(pexp200d)|function(fd)|io_decl(a)|WE|6:41-6:43
+   golden=['NONE|-']
+   pris  =['constant|5:18-5:20']
+   pat   =['constant|5:18-5:20']
+TO-GOLDEN    defpkg|package(pmid200d)|function(fd)|io_decl(a)|WE|6:41-6:43
+   golden=['NONE|-']
+   pris  =['constant|5:18-5:20']
+   pat   =['NONE|-']
+TO-GOLDEN    defpkg|package(pouter200d)|function(fd)|io_decl(a)|WE|6:41-6:43
+   golden=['NONE|-']
+   pris  =['constant|5:18-5:20']
+   pat   =['NONE|-']
+ONLY         defprog|program()|function(fd)|-|a|7:10-7:11
+   golden=['io_decl|6:47-6:48']
+   pris  =None
+   pat   =None
+ONLY         defprog|program()|function(fd)|-|fd|7:5-7:7
+   golden=['logic_var|6:12-6:24']
+   pris  =None
+   pat   =None
+ONLY         defprog|program()|function(fd)|io_decl(a)|WE|6:41-6:43
+   golden=['constant|5:18-5:20']
+   pris  =None
+   pat   =None
+ONLY         defprog|program()|function(fd)|logic_var()|WE|6:19-6:21
+   golden=['constant|5:18-5:20']
+   pris  =None
+   pat   =None
+STILL-WRONG  elabpkg|package(pexp200d)|function(fd)|io_decl(a)|WE|6:41-6:43
+   golden=['NONE|-']
+   pris  =['constant|5:18-5:20']
+   pat   =['constant|5:18-5:20']
+TO-GOLDEN    elabpkg|package(pmid200d)|function(fd)|io_decl(a)|WE|6:41-6:43
+   golden=['NONE|-']
+   pris  =['constant|5:18-5:20']
+   pat   =['NONE|-']
+TO-GOLDEN    elabpkg|package(pouter200d)|function(fd)|io_decl(a)|WE|6:41-6:43
+   golden=['NONE|-']
+   pris  =['constant|5:18-5:20']
+   pat   =['NONE|-']
+CELLS golden=48 pris=44 pat=44
+AGREE 38  TO-GOLDEN 4  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2
+ONLY-GOLDEN pris=4 pat=4   ONLY-OURS pris=0 pat=0
+=== g200_d_importers elab
+STILL-WRONG  defpkg|package(pexp200d)|function(fd)|io_decl(a)|WE|6:41-6:43
+   golden=['NONE|-']
+   pris  =['constant|5:18-5:20']
+   pat   =['constant|5:18-5:20']
+ONLY         defprog|program()|function(fd)|-|a|7:10-7:11
+   golden=['io_decl|6:47-6:48']
+   pris  =None
+   pat   =None
+ONLY         defprog|program()|function(fd)|-|fd|7:5-7:7
+   golden=['logic_var|6:12-6:24']
+   pris  =None
+   pat   =None
+ONLY         defprog|program()|function(fd)|io_decl(a)|WE|6:41-6:43
+   golden=['parameter|5:13-5:15']
+   pris  =None
+   pat   =None
+ONLY         defprog|program()|function(fd)|logic_var()|WE|6:19-6:21
+   golden=['parameter|5:13-5:15']
+   pris  =None
+   pat   =None
+STILL-WRONG  elabpkg|package(pexp200d)|function(fd)|io_decl(a)|WE|6:41-6:43
+   golden=['NONE|-']
+   pris  =['parameter|5:13-5:15']
+   pat   =['parameter|5:13-5:15']
+CELLS golden=48 pris=44 pat=44
+AGREE 42  TO-GOLDEN 0  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2
+ONLY-GOLDEN pris=4 pat=4   ONLY-OURS pris=0 pat=0
+=== g200_e_head def
+TO-GOLDEN    defpkg|package(app200e)|function(bits_to_string200)|io_decl(str)|BIG200|10:44-10:50
+   golden=['NONE|-']
+   pris  =['constant|9:22-9:35']
+   pat   =['NONE|-']
+TO-GOLDEN    elabpkg|package(app200e)|function(bits_to_string200)|io_decl(str)|BIG200|10:44-10:50
+   golden=['NONE|-']
+   pris  =['constant|9:22-9:35']
+   pat   =['NONE|-']
+CELLS golden=26 pris=26 pat=26
+AGREE 24  TO-GOLDEN 2  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=0 pat=0
+=== g200_e_head elab
+CELLS golden=26 pris=26 pat=26
+AGREE 26  TO-GOLDEN 0  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=0 pat=0

@@ -6589,6 +6589,64 @@ private:
     // `operation` in the other, and without this flag both came out
     // `constant`.
     bool retLocalDefView67 = false;
+    // § impCloneDeclRangeNoBind200 — AN IMPORT CLONE'S OWN DECLARATIONS KEEP
+    // THE PRE-LATE-BINDING STATE OF THEIR TYPE RANGES.
+    //
+    // Surelog binds a package subroutine's `logic [PARAM:0]` range reference
+    // in the WRITE phase, not the compile phase: `compileExpression` cannot
+    // resolve the package's own parameter from inside the subroutine, mints a
+    // dangling `ref_obj` and files it on `component->needLateBinding(ref)`
+    // (CompileExpression.cpp:5769-5786), and `UhdmWriter::lateBinding`
+    // (UhdmWriter.cpp:3294) later walks THAT LIST and binds each ref to the
+    // package's own `param_assign` Rhs — `if (m && m->UhdmType() ==
+    // uhdmpackage) ref->Actual_group(p->Rhs());` (UhdmWriter.cpp:3814-3823),
+    // which is why the home's def listing binds the unreduced `operation` and
+    // its elab listing the folded `constant`.
+    //
+    // An IMPORTING PACKAGE materializes the subroutine at COLLECT time with
+    // `UHDM::clone_tree` (`CompileHelper::importPackage`,
+    // CompileHelper.cpp:299-324 and the explicit-item arm), long before that
+    // write phase.  `ref_obj::DeepClone` copies the pointer verbatim, so the
+    // copy inherits whatever the original held THEN — nothing.  The repair
+    // never reaches it: `importPackage` copies the HOME's late-binding
+    // requests (`for (auto& var : def->getLateBinding()) scope->needLateBinding
+    // (var);`, CompileHelper.cpp:191-193), i.e. the ORIGINAL objects, so the
+    // importing package's own `lateBinding` pass re-visits the home's refs
+    // (already bound, `if (ref->Actual_group()) continue;`) and never the
+    // clones.  The list is POINTER-KEYED, exactly like
+    // § classScopedTdImportCopyLocalUnsupported198's swap map.
+    //
+    // Golden therefore leaves EVERY such range ref of a CLONE'S OWN
+    // declarations — the `io_decl` formals and the body locals — with no
+    // `vpiActual`, in BOTH the importing package's listings, whatever the
+    // reference names (parameter, localparam, typed parameter, enum constant)
+    // and whatever the value shape (literal, folded expression, operand of a
+    // larger expression).  The RETURN is NOT one of them: `function::DeepClone`
+    // (UHDM clone_tree.cpp:469) pointer-copies `Return()` instead of cloning
+    // it, so the clone lists the home's already-bound return variable.
+    //
+    // Set at the two declaration sites in TaskFuncEmit (the FORMAL and the
+    // BODY LOCAL), gated on `pkgImportCloneEmit` — the WILDCARD clone drivers
+    // (the free subroutine and the class method), and deliberately NOT the
+    // broader `importCopyTsInst`, which also names the EXPLICIT `import p::f`
+    // clone.  THE FENCE IS OBJECT SAFETY, and it was measured, not assumed:
+    // the explicit-item driver does not set `pkgImportCloneEmit`, so its clone
+    // still overwrites `pkgElabSubTf` (TaskFuncEmit's "a wildcard-import CLONE
+    // is not that twin" registry) and a MODULE / INTERFACE that imports the
+    // same package then LISTS that clone object instead of the home's
+    // elaborated twin.  Declining on it therefore moved three cells AWAY from
+    // golden in grid arm D — `defmod` / `defiface` / `elabmod`
+    // `io_decl(a)` of `fd`, where golden lists the home's bound object.  The
+    // wildcard drivers are already fenced out of that registry, so the objects
+    // this law touches are reachable from the importing PACKAGE's listings
+    // only.  The explicit-item half stays a residue (R1), and it needs the
+    // twin-registry fence first, not this decline.
+    //
+    // A MODULE / INTERFACE / PROGRAM importer never sets the flag either, and
+    // must not: `importPackage` SHARES the home task_func for a non-package
+    // importer instead of cloning it, so golden's listing there shows the
+    // home's BOUND refs (grid arm D, `defprog` / `defmod`).
+    bool impCloneDeclRangeNoBind200 = false;
     std::map<const void*, UHDM::constant*> foldedRet;
     std::map<const void*, UHDM::typespec*> foldCloneTs;
     struct PendingParamCloneTs {

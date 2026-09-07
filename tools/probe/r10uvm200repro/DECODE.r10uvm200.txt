@@ -1,0 +1,213 @@
+r10uvm200 — THE DECODE, IN THE ORDER THE BRIEF ASKED FOR IT
+===========================================================
+MEASUREMENT ONLY.  The official ~/git-repos/UHDM/build/bin/uhdm-cmp is the sole
+acceptance judge.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+
+(1) THE JUDGE — THE BRIEF'S FRAMING IS REFUTED, AND THE OWNER-FINDER SAYS SO
+---------------------------------------------------------------------------
+The brief names the head as "golden's import copy of the UVM_LARGE_STRING
+param_assign has NO Rhs where ours holds the folded constant".  That is NOT the
+failing edge, and `ct200own` refutes it on the pristine pair in two steps.
+
+  * `--norhs` (every param_assign in the WHOLE serializer, both sides):
+
+        GOLDEN  PARAM_ASSIGN-TOTAL=652  NO-RHS=0
+        OURS    PARAM_ASSIGN-TOTAL=655  NO-RHS=0
+
+    NOT ONE param_assign on either side carries a null Rhs.  `param_assign::Rhs`
+    cannot be the edge.
+
+  * `--pa=adpcm_pkg` (every param_assign of the importing package's two
+    listings, with Rhs presence and kind) — 90 rows a side, PA-NO-RHS=0 on
+    BOTH, and the row the brief names reads IDENTICALLY:
+
+        GOLDEN defpkg  adpcm_pkg UVM_LARGE_STRING imp=uvm_pkg
+               rhs=constant[ct=7 sz=32 dec=115199]  uvm_globals.svh:410:11-410:62
+        OURS   defpkg  adpcm_pkg UVM_LARGE_STRING imp=uvm_pkg
+               rhs=constant[ct=7 sz=32 dec=115199]  :410:11-410:62
+
+    The import copy's Rhs AGREES, in both listings, on kind, const type, size
+    and decompile.
+
+THE REAL EDGE.  The head is a MIRROR head (`LHS: <null>` over our `constant`),
+and the SINGULAR `SafeCompare` overload that produced it names the VALUE, not
+the owner (RESUME §9).  `ct200own --refs` indexes every referrer of our
+constant #3340 and finds THREE:
+
+    REF .Rhs           rel1  param_assign()@410:11-410:62   (compares EQUAL)
+    REF .Actual_group  rel1  ref_obj(UVM_LARGE_STRING)@421:16-421:32
+    REF .Actual_group  rel1  ref_obj(UVM_LARGE_STRING)@434:43-434:59
+
+The param_assign edge is walked first and passes (the constants are identical),
+which marks the constant visited; the judge then meets the constant again
+through `ref_obj::Actual_group`, where GOLDEN CARRIES NOTHING.  The failing
+edge is therefore
+
+    ref_obj(UVM_LARGE_STRING)::Actual_group
+
+inside `logic [UVM_LARGE_STRING:0]` — the declared type of the `io_decl str` of
+uvm-1.2 `base/uvm_globals.svh:434`
+
+    function string uvm_bits_to_string(logic [UVM_LARGE_STRING:0] str);
+
+as the importing package `adpcm_pkg` (SeqDriver) / `svaunit_pkg` (MiniAmiq)
+holds it.  `ref_obj::Compare` reads `Actual_group` (generated ref_obj.cpp), so
+the census payload in `ct200cen` is exactly what the judge reads.
+
+THE POPULATION (`ct200own --edge=UVM_LARGE_STRING`, whole-serializer):
+GOLDEN holds 8 `ref_obj` named UVM_LARGE_STRING, BOUND=6 UNBOUND=2, and the two
+unbound ones are precisely `io_decl(str)` of `uvm_bits_to_string` under
+`package(adpcm_pkg)` — one per view.  Ours holds 10, BOUND=10 UNBOUND=0.
+
+THE COPIES (`ct200own --fn=uvm_bits_to_string`, four copies a side):
+
+    GOLDEN uvm_pkg  DEF   io_decl(str) range ref -> operation @410:30-410:62
+    GOLDEN uvm_pkg  ELAB  io_decl(str) range ref -> constant  @410:30-410:60
+    GOLDEN adpcm_pkg both io_decl(str) range ref -> <null>
+    GOLDEN every copy     RETURN string_var #23129 — THE SAME OBJECT in all
+                          four, i.e. the clone SHARES the home's return
+    OURS   adpcm_pkg both io_decl(str) range ref -> the importing package's own
+                          folded constant
+
+THE LADDER.  Not run on this head: the ablation is enough and cheaper.  Masking
+the golden side is impossible for a MIRROR head (there is no golden object to
+seed), so `ct200own`'s ablation seeds the OWNER instead; the arm-E minimisation
+below is the real ablation — it reproduces the head at 1/6000 the size (33 cmp
+lines, ONE head, the same shape) and CLEARS it.
+
+
+(2) SURELOG — THE CLONE FREEZES THE PRE-LATE-BINDING STATE
+----------------------------------------------------------
+Four sites, and they compose into one rule.
+
+  a. THE REFERENCE IS NOT BOUND WHEN IT IS COMPILED.
+     `CompileHelper::compileExpression`'s identifier arm cannot resolve a
+     package parameter from inside the subroutine, so it mints a dangling
+     `ref_obj` and FILES it:
+
+        Surelog/src/DesignCompile/CompileExpression.cpp:5769-5786
+            ref_obj *ref = s.MakeRef_obj();
+            ref->VpiName(n);  ...
+            else if (component) component->needLateBinding(ref);
+
+  b. THE REPAIR HAPPENS IN THE WRITE PHASE, OFF THAT LIST.
+     `UhdmWriter::lateBinding(s, mod, m)`:
+
+        Surelog/src/DesignCompile/UhdmWriter.cpp:3294
+            for (UHDM::ref_obj* ref : mod->getLateBinding()) {
+              if (ref->Actual_group()) continue;
+        Surelog/src/DesignCompile/UhdmWriter.cpp:3814-3823
+            if (m && m->Param_assigns()) {
+              for (auto p : *m->Param_assigns()) {
+                if (p->Lhs()->VpiName() == name) {
+                  // Do not bind blindly here, let the uhdmelab do this
+                  // correctly.  Unless we are in a package
+                  if (m && m->UhdmType() == uhdmpackage)
+                      ref->Actual_group(p->Rhs());
+
+     THE PACKAGE'S OWN param_assign Rhs is the actual — which is why golden's
+     HOME def listing binds the unreduced `operation` and its ELAB listing the
+     folded `constant`, the exact pair `--fn` prints above.
+
+  c. THE IMPORT COPY IS TAKEN LONG BEFORE THAT.
+     `CompilePackage::collectObjects_`'s `CollectType::FUNCTION` pass calls
+     `m_helper.importPackage(...)` (CompilePackage.cpp:141-151, :167-170), and
+     `CompileHelper::importPackage` deep-copies each imported task_func with
+     `UHDM::clone_tree` when the importer is a PACKAGE
+     (CompileHelper.cpp:299-324); the EXPLICIT-item arm does the same one
+     construct over.  `ref_obj::DeepClone` is the generated one — `*clone =
+     *this` then `BaseClass::DeepCopy`, which only re-parents — so the copy
+     inherits the pointer the original held AT CLONE TIME: null.
+
+  d. THE REPAIR CANNOT REACH THE COPY, BECAUSE THE LIST IS POINTER-KEYED.
+     `importPackage` copies the home's late-binding REQUESTS —
+
+        Surelog/src/DesignCompile/CompileHelper.cpp:191-193
+            for (auto& var : def->getLateBinding())
+              scope->needLateBinding(var);
+
+     — i.e. the ORIGINAL `ref_obj` objects.  When the importing package's own
+     `lateBinding` runs it therefore re-visits the HOME's refs (already bound,
+     `continue`) and never the clones.  Identical in shape to
+     § classScopedTdImportCopyLocalUnsupported198's `getSwapedObjects()` map and
+     to § impCopyStringConstSize's `clone_tree` copy: the import copy is a
+     SNAPSHOT, and every later repair keyed on the original misses it.
+
+  e. THE RETURN IS THE EXCEPTION, AND IT IS AN EXCEPTION IN UHDM, NOT SURELOG.
+     `function::DeepClone` (UHDM templates/clone_tree.cpp:469) does
+
+        if (auto obj = Return()) clone->Return((variables*)obj);
+
+     — a POINTER COPY, not a DeepClone, while `Io_decls` and `Variables` just
+     below are DeepCloned element by element.  So the clone lists the home's own
+     return variable, whose range ref the write phase DID bind.  That is why
+     golden's clone binds the return's range ref and nothing else of the
+     declaration family.
+
+  f. `-elabuhdm` UNDOES ALL OF IT.  UHDM's `ElaboratorListener::leaveRef_obj`
+     (templates/ElaboratorListener.cpp:1498-1507) re-binds every dangling
+     `ref_obj` it walks, so in the ELAB view golden's clone cells carry
+     `parameter` actuals and so do ours — measured on every grid arm, both
+     binaries, TO-GOLDEN 0 / AWAY 0 in the elab column.  The law is inert there
+     by construction, not by a fence.
+
+THE GRID TABLE (real Surelog goldens; the full runs are in GRIDS.r10uvm200.txt):
+
+  KIND-BLIND       parameter, localparam, `parameter int`, an ENUM CONSTANT,
+                   and a reference used as an OPERAND (`[WLOC*2:0]`) all lose
+                   the actual in the clone (arm B k1/k2/k3/k4/k7).
+  SHAPE-BLIND      a literal value (`WLIT = 7`) and a folded expression
+                   (`WEXP = 4*2-1`) behave identically (arm A / the e2 probe).
+  SITE-KEYED       io_decl formal, tf-level body local, named-begin body local
+                   and a FORMAL DEFAULT VALUE all go unbound; the RETURN stays
+                   bound; a LITERAL range (`logic [7:0]`) has no ref at all
+                   (arm A `flit`, arm B `f_num`).
+  SCOPE-KEYED      an out-of-body class method clone behaves exactly like a
+                   free subroutine (arm C `C200::m1`).
+  IMPORTER-KEYED   a PACKAGE importer clones (cells move); a MODULE, INTERFACE
+                   or PROGRAM importer SHARES the home task_func
+                   (`importPackage`'s non-package arm pushes `func` itself) and
+                   its listing keeps the home's BOUND refs (arm D).
+  BODY REFS UNMOVED  a body STATEMENT reference to the same parameter
+                   (`fb = k + WA`) is unbound in golden's clone AND in ours
+                   already (arm A) — this law does not touch it.
+
+
+(3) SLANG — ONE SITE WRITES IT, ONE GATE DECLINES IT
+----------------------------------------------------
+`src/TypeEmit.cpp` (~13583) is the only place our emitter binds a declared-type
+range reference in a package subroutine:
+
+    // Inside a package function's return/arg TYPE range (logic [PARAM-1:0]), a
+    // reference to a package parameter binds to that param's def-init constant
+    if (tfTypeScope && !ref->Actual_group() && !tdCloneRefNoBind18) { ... }
+
+`tfTypeScope` is set at four call sites in `src/TaskFuncEmit.cpp`: the RETURN
+(~3887 and ~4056), the FORMAL (~5138) and the BODY LOCAL (~5851).  The law adds
+one conjunct at the read site and sets its flag at the FORMAL and BODY-LOCAL
+sites only, so the return keeps its binding by construction.
+
+
+(4) THE CENSUS AND THE PREDICTION
+---------------------------------
+See PREDICT.surelog.r10uvm200.txt / PREDICT.u2r.r10uvm200.txt (written from the
+PRISTINE sweeps alone, before the patched sweep existed) and
+CENSUS.r10uvm200.txt.
+
+
+(5) THE FENCE THAT MADE AWAY-GOLDEN 0
+-------------------------------------
+The first cut gated on `importCopyTsInst` — the test that names ALL THREE clone
+drivers — and grid arm D convicted it: three cells moved AWAY from golden
+(`defmod` / `defiface` / `elabmod` `io_decl(a)` of `fd`).  The cause is a
+PRE-EXISTING object-identity residue, not this law: the EXPLICIT `import p::f`
+driver does not set `pkgImportCloneEmit`, so its clone overwrites
+`pkgElabSubTf` — the registry TaskFuncEmit documents as "a wildcard-import
+CLONE is not that twin" — and a module importing the SAME package then lists
+that clone object where golden lists the home's elaborated twin
+(`ct200own --lst=fd`: golden's defmod/defiface/defprog all hold #5 = pa200d's
+elab function; ours holds #170 = pexp200d's elab clone).  Narrowing the gate to
+`pkgImportCloneEmit` — the WILDCARD drivers, which ARE fenced out of that
+registry — takes AWAY-GOLDEN to 0 on every arm and leaves the explicit-item
+half as R1.

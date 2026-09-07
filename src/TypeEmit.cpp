@@ -13580,7 +13580,18 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             // § pkgTdCloneRefNoBind18: a bound INHERITED from a package
             // typedef into a per-declaration clone is re-minted, not
             // re-resolved — it stays dangling.
-            if (tfTypeScope && !ref->Actual_group() && !tdCloneRefNoBind18) {
+            // § impCloneDeclRangeNoBind200 — an IMPORT CLONE'S OWN declaration
+            // (a formal or a body local) keeps the PRE-LATE-BINDING state of
+            // its type range: Surelog binds these refs in the WRITE phase off
+            // a POINTER-KEYED list the clone is not on, so golden's copy has
+            // no vpiActual in either of the importing package's listings.  The
+            // whole law, its Surelog citations and its fences are in
+            // UhdmExporter.h; the flag is set at TaskFuncEmit's two
+            // declaration sites and nowhere else, so the clone's RETURN (the
+            // home's own already-bound variable, pointer-copied by
+            // `function::DeepClone`) and every non-clone listing are untouched.
+            if (tfTypeScope && !ref->Actual_group() && !tdCloneRefNoBind18 &&
+                !impCloneDeclRangeNoBind200) {
                 ASTContext tctx(*tfTypeScope, LookupLocation::max);
                 auto& be = Expression::bind(syn.as<syntax::ExpressionSyntax>(),
                                             tctx);

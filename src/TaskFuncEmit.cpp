@@ -5136,7 +5136,15 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 }
                 tfFormalTs = bodyIoTyped9;
                 tfTypeScope = pkgScope ? sub.getParentScope() : nullptr;
+                // § impCloneDeclRangeNoBind200, SITE 1 of 2 — the FORMAL.
+                // The corpus head lives here (uvm-1.2 uvm_globals.svh:434
+                // `function string uvm_bits_to_string(logic
+                // [UVM_LARGE_STRING:0] str)` cloned into adpcm_pkg /
+                // svaunit_pkg).  Not the return: the clone lists the HOME's
+                // return variable, which was bound before the clone existed.
+                impCloneDeclRangeNoBind200 = pkgImportCloneEmit;
                 ts = sharedTypespec(*arg, ioTs);
+                impCloneDeclRangeNoBind200 = false;
                 tfTypeScope = nullptr;
                 tfFormalTs = false;
                 tfContext = false;
@@ -5893,7 +5901,12 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         !blockItems9 &&
                         (sub.flags & MethodFlags::Constructor) ==
                             MethodFlags::None;
+                    // § impCloneDeclRangeNoBind200, SITE 2 of 2 — the BODY
+                    // LOCAL.  Same clone, same pre-late-binding state (grid
+                    // arm A `loc1`, arm C `mloc`).
+                    impCloneDeclRangeNoBind200 = pkgImportCloneEmit;
                     vts = makeTypespec(fmv);
+                    impCloneDeclRangeNoBind200 = false;
                     tfItemLocalClassTs142 = savedTfi142;
                     tdCloneRefNoBind18 = savedNb18;
                     tfTypeScope = savedTfS3;

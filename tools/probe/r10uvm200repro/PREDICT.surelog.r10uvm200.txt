@@ -1,0 +1,1616 @@
+PREDCELLS 1364_2005,default            strict=0 wide=0 modlisted-tfs=0
+NODB 3SigsSensList,default
+NODB AaFirstTest,default
+PREDCELLS AllBinding,default           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS AllPackageSignal,default     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS AlwaysNoElab,default         strict=0 wide=0 modlisted-tfs=0
+NODB AmiqEth,default
+NODB AmiqSimpleTestSuite,default
+PREDCELLS ApbSlave,default             strict=0 wide=0 modlisted-tfs=46
+NODB Ariane2024,default
+NODB Ariane,default
+NODB ArianeElab2,default
+NODB ArianeElab,default
+PREDCELLS ArrayExprFuncArg,default     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ArrayInst,default            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ArrayMethodIterator,default  strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ArrayNet,default             strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ArrayTypespec,default        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ArrayVarName,default         strict=0 wide=0 modlisted-tfs=0
+NODB Assert,default
+PREDCELLS AssertDelayError,default     strict=0 wide=0 modlisted-tfs=0
+NODB Assertions,default
+PREDCELLS AssertTempError,default      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS AssignmentPatternInAssignmentPattern,default strict=0 wide=0 modlisted-tfs=0
+NODB Assignments,default
+NODB AssignPatternArray,default
+NODB AssignPattern,default
+NODB AssignPlus,default
+PREDCELLS AssignRhsFlat,default        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS AssignSubs,default           strict=0 wide=0 modlisted-tfs=0
+NODB AssociativeArray,default
+NODB AssumeProp,default
+PREDCELLS Attributes2,default          strict=0 wide=0 modlisted-tfs=0
+NODB Attributes,default
+NODB AttributesNets,default
+NODB AVLMM,default
+NODB AxiInterconnect,default
+NODB AzadiRTL,default
+NODB BadLabel,default
+NODB BadScope,default
+PREDCELLS BasicOh,default              strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BeginKeywords,default        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BiasValue,default            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BinarySize,default           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BindHierPath,default         strict=0 wide=0 modlisted-tfs=0
+NODB BindingPort,default
+NODB Bindings,default
+NODB BindMethod,default
+NODB BindStmt2,default
+NODB BindStmt,default
+PREDCELLS BindVarsAndEnum,default      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BitComplex,default           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BitPartSelect,default        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BitRanges,default            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BitsArray,default            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BitSelect,default            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BitSelectExpr,default        strict=0 wide=0 modlisted-tfs=0
+NODB BitSelectHier,default
+PREDCELLS BitSelectPartSelectInFunction,default strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BitSelectSelect,default      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BitsHierPath,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BitsInGenBlock,default       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BitsLogic,default            strict=0 wide=0 modlisted-tfs=0
+NODB BitsOp,default
+NODB BitsStructMember,default
+PREDCELLS BlackBePipeInt,default       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BlackBox,default             strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BlackBoxInst,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BlackBoxInstTop,default      strict=0 wide=0 modlisted-tfs=0
+NODB BlackboxMissingDef,default
+PREDCELLS BlackBoxMod,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BlackBoxSubMod,default       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BlackConst,default           strict=0 wide=0 modlisted-tfs=0
+NODB BlackParrot,default
+PREDCELLS BlackParrotComplex,default   strict=0 wide=0 modlisted-tfs=0
+NODB BlackParrotConf,default
+NODB BlackParrotMuteErrors,default
+NODB BlackParrotParam,default
+PREDCELLS BlackParrotSkipParam,default strict=0 wide=0 modlisted-tfs=0
+NODB BlackParrotStructParam,default
+NODB BlackUcode,default
+NODB BlackUnicore,default
+PREDCELLS BlockingAssignRewrite,default strict=0 wide=0 modlisted-tfs=0
+NODB BuildOVMPkg,default
+PREDCELLS BuildUVMPkg,default          strict=0 wide=0 modlisted-tfs=0
+NODB BuiltInMethod,default
+PREDCELLS CarryAdd,default             strict=0 wide=0 modlisted-tfs=0
+PREDCELLS CarryTrans,default           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS CaseDefault,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS CaseExpression,default       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS CaseFullElab,default         strict=0 wide=0 modlisted-tfs=0
+NODB CaseInside,default
+NODB CastEnum,default
+NODB CastPartSelect,default
+NODB CastShift,default
+NODB CastStructMember,default
+PREDCELLS CastToParam,default          strict=0 wide=0 modlisted-tfs=0
+NODB CastTypespec,default
+NODB CastUnsigned,default
+PREDCELLS CastUnsized,default          strict=0 wide=0 modlisted-tfs=0
+NODB Cell,default
+PREDCELLS Chandle,default              strict=0 wide=0 modlisted-tfs=0
+NODB Checker,default
+PREDCELLS CheckerInst,default          strict=0 wide=0 modlisted-tfs=0
+NODB ClassCons,default
+NODB ClassExtendParam,default
+PREDCELLS ClassExtends,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ClassFsm,default             strict=0 wide=0 modlisted-tfs=0
+NODB ClassFuncProto,default
+NODB ClassFuncTask,default
+NODB ClassMemberFunc,default
+NODB ClassMemberRef,default
+NODB ClassMethodCall,default
+PREDCELLS ClassMini,default            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ClassParam,default           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ClassParamAsParam,default    strict=0 wide=0 modlisted-tfs=0
+NODB ClassScope,default
+PREDCELLS ClassTypeParam,default       strict=0 wide=0 modlisted-tfs=0
+NODB ClassTypeParamAlias,default
+PREDCELLS ClassVar,default             strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ClassVirtual,default         strict=0 wide=0 modlisted-tfs=0
+NODB ClockingBlock,default
+NODB ClockingDrive,default
+NODB ClockingSntx,default
+PREDCELLS ClogCast,default             strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ClogParam,default            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS CmdLineOverride,default      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS Compl1001,default            strict=0 wide=0 modlisted-tfs=0
+NODB ComplexBitSelect,default
+NODB ComplexEscaped,default
+PREDCELLS ComplexExprSize,default      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ComplexHierPath,default      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ComplexParamOverload2,default strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ComplexParamOverload,default strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ComplexVarSelect,default     strict=0 wide=0 modlisted-tfs=0
+NODB ConcatOrder,default
+NODB ConcatRadix,default
+NODB ConcatVal,default
+PREDCELLS ConcatWidth,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ConditionalOp,default        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS CondOpLazyEval,default       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS CondOpPattern,default        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS CondOpPred,default           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS Connection,default           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ConstantBits,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ConstantNoElabUhdm,default   strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ConstantRange,default        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ConstantWithElabUhdm,default strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ConstCapital,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ConstExpand,default          strict=0 wide=0 modlisted-tfs=0
+NODB ConstHighConn,default
+PREDCELLS ConstPort,default            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ContAssignConst,default      strict=0 wide=0 modlisted-tfs=0
+NODB ContAssign,default
+PREDCELLS Context,default              strict=0 wide=0 modlisted-tfs=0
+NODB CoresSweRV,default
+NODB CoresSweRVMP,default
+NODB Covergroup,default
+PREDCELLS CovMacro,default             strict=0 wide=0 modlisted-tfs=0
+PREDCELLS CrossFunc,default            strict=0 wide=0 modlisted-tfs=0
+NODB CrossItem,default
+PREDCELLS DashYTest,default            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS DataAttrib,default           strict=0 wide=0 modlisted-tfs=0
+NODB DecimalSize,default
+PREDCELLS DecValue,default             strict=0 wide=0 modlisted-tfs=0
+NODB DefaultAssign,default
+NODB DefaultNetType,default
+PREDCELLS DefaultPatternAssign,default strict=0 wide=0 modlisted-tfs=0
+PREDCELLS DefaultPatternInt,default    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS DefaultPatternModule,default strict=0 wide=0 modlisted-tfs=0
+PREDCELLS DefaultTag,default           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS DeferAssert,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS DefParamFromParam,default    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS DefParamIndex,default        strict=0 wide=0 modlisted-tfs=0
+NODB Delay2Param,default
+PREDCELLS DelayAssign,default          strict=0 wide=0 modlisted-tfs=0
+NODB DiffSimpleIncludeAndMacros,default
+PREDCELLS Disable,default              strict=0 wide=0 modlisted-tfs=0
+PREDCELLS DollarBits,default           strict=0 wide=0 modlisted-tfs=0
+NODB DollarBitsUnary,default
+NODB DollarRoot,default
+PREDCELLS DoubleLoop,default           strict=0 wide=0 modlisted-tfs=0
+NODB DoublePres,default
+NODB DoWhile,default
+PREDCELLS DpiChandle,default           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS DpiFunc,default              strict=0 wide=0 modlisted-tfs=0
+PREDCELLS DpiTask,default              strict=0 wide=0 modlisted-tfs=0
+NODB Driver,default
+PREDCELLS DynArrayKind,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS Earlgrey_0_1,default         strict=0 wide=0 modlisted-tfs=36
+NODB Earlgrey,default
+PREDCELLS EarlgreyPackParam,default    strict=0 wide=0 modlisted-tfs=0
+NODB Earlgrey_Verilator_0_1,default
+PREDCELLS ElabCParam,default           strict=0 wide=0 modlisted-tfs=0
+NODB ElabIf,default
+PREDCELLS ElabParam,default            strict=0 wide=0 modlisted-tfs=0
+NODB ElabSysCall,default
+PREDCELLS EmptyAssign,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS EnumConcat,default           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS EnumConst,default            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS EnumConstConcat,default      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS EnumConstElab,default        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS EnumImplicitVal,default      strict=0 wide=0 modlisted-tfs=0
+NODB EnumParenType,default
+PREDCELLS EnumVal,default              strict=0 wide=0 modlisted-tfs=0
+PREDCELLS EnumVar,default              strict=0 wide=0 modlisted-tfs=0
+NODB EnumVarNoTypedef,default
+NODB Escape,default
+PREDCELLS EvalFunc,default             strict=0 wide=0 modlisted-tfs=0
+NODB EvalFuncArray,default
+PREDCELLS EvalFuncCont,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS EvalFuncNamed,default        strict=0 wide=0 modlisted-tfs=4
+NODB EvalFuncPack,default
+PREDCELLS Event,default                strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ExpectStmt,default           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ExplicitPort,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ExplictiPorts,default        strict=0 wide=0 modlisted-tfs=0
+NODB ExponTimeIfElseGen,default
+PREDCELLS ExprEvalBits,default         strict=0 wide=0 modlisted-tfs=0
+NODB ExprEvalPartial,default
+PREDCELLS ExprReductionBits,default    strict=0 wide=0 modlisted-tfs=0
+NODB ExtendClassMember,default
+PREDCELLS FileList,default             strict=0 wide=0 modlisted-tfs=2
+NODB FileListWithCompressed,default
+FENCED default
+NODB FilePackageImport,default
+NODB FilePackUnion,default
+PREDCELLS FileParam,default            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FileResolutionFunction,default strict=0 wide=0 modlisted-tfs=0
+NODB FileTypespec,default
+PREDCELLS ForeachArray,default         strict=0 wide=0 modlisted-tfs=0
+NODB ForeachClass,default
+NODB ForeachClassParent,default
+NODB ForeachForeach,default
+PREDCELLS ForeachFunction,default      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ForeachSquare,default        strict=0 wide=0 modlisted-tfs=0
+NODB ForElab,default
+PREDCELLS ForLoop,default              strict=0 wide=0 modlisted-tfs=0
+NODB ForLoopBind,default
+PREDCELLS FSM2Always,default           strict=0 wide=0 modlisted-tfs=0
+NODB FSMBsp13,default
+PREDCELLS FSMFunction,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FSMSingleAlways,default      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS Func128Bits,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncAlias,default            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncArgDirection,default     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncArgs,default             strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncArgsByName,default       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncAttrib,default           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncBindGen,default          strict=0 wide=0 modlisted-tfs=0
+NODB FuncBinding2,default
+NODB FuncBinding,default
+PREDCELLS FuncCase,default             strict=0 wide=0 modlisted-tfs=2
+PREDCELLS FuncDeclScope,default        strict=0 wide=0 modlisted-tfs=0
+NODB FuncDef2,default
+NODB FuncDef,default
+NODB FuncDefaultVal,default
+PREDCELLS FuncInModule,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncIoTypespec,default       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncNoArgs,default           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncParam2,default           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncParam,default            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncRetArray,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncReturnRange,default      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncSideEffect,default       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncStatic,default           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncStruct,default           strict=0 wide=0 modlisted-tfs=2
+PREDCELLS FuncStructVal,default        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncStructValSimple,default  strict=0 wide=0 modlisted-tfs=0
+NODB FuncWidthScope,default
+NODB FuncWidthScopeOverride,default
+NODB GateLevel,default
+PREDCELLS Gates,default                strict=0 wide=0 modlisted-tfs=0
+PREDCELLS GenBlock,default             strict=0 wide=0 modlisted-tfs=0
+PREDCELLS GenBlockVar,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS GenCase,default              strict=0 wide=0 modlisted-tfs=0
+PREDCELLS GenCaseStmt,default          strict=0 wide=0 modlisted-tfs=0
+NODB GenerateAssigns,default
+PREDCELLS GenerateBlock2,default       strict=0 wide=0 modlisted-tfs=0
+NODB GenerateBlock,default
+NODB GenerateInterface,default
+NODB GenerateModule,default
+NODB GenerateRegion,default
+PREDCELLS GenerateUnnamed,default      strict=0 wide=0 modlisted-tfs=0
+NODB GenFor,default
+NODB GenForDec,default
+PREDCELLS GenForIfaceLocalparamBound,default strict=0 wide=0 modlisted-tfs=0
+PREDCELLS GenForIfaceLocalparamNestedGen,default strict=0 wide=0 modlisted-tfs=0
+PREDCELLS GenForStructParamBound,default strict=0 wide=0 modlisted-tfs=0
+NODB GenIf,default
+NODB GenIfElse,default
+PREDCELLS GenIfIfaceParamStructField,default strict=0 wide=0 modlisted-tfs=0
+NODB GenIfNamed,default
+NODB GenModHierPath,default
+PREDCELLS GenNet,default               strict=0 wide=0 modlisted-tfs=0
+PREDCELLS GenScopeFullName,default     strict=0 wide=0 modlisted-tfs=0
+NODB GenScopeFunc,default
+PREDCELLS GenScopeHierPath2,default    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS GenScopeHierPath3,default    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS GenScopeHierPath,default     strict=0 wide=0 modlisted-tfs=0
+NODB GenScopeShadow,default
+PREDCELLS GenStructAccess,default      strict=0 wide=0 modlisted-tfs=0
+NODB GenVarRef,default
+NODB Google,default
+PREDCELLS Guards,default               strict=0 wide=0 modlisted-tfs=0
+NODB HierBitSelect,default
+NODB HierBitSlice,default
+NODB HierMultiSelect,default
+PREDCELLS HierPathBeginBlock,default   strict=0 wide=0 modlisted-tfs=0
+PREDCELLS HierPathBind,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS HierPathCont,default         strict=0 wide=0 modlisted-tfs=0
+FENCED default
+PREDCELLS HierPathInterfBlock,default  strict=0 wide=0 modlisted-tfs=0
+NODB HierPathLhs,default
+NODB HierPathModule,default
+PREDCELLS HierPathOverride,default     strict=0 wide=0 modlisted-tfs=0
+NODB HierPathPackedArrayNet,default
+PREDCELLS HierPathPackedStruct,default strict=0 wide=0 modlisted-tfs=0
+NODB HierPathPackedVar,default
+PREDCELLS HierPathSelect,default       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS HierPathStruct,default       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS HierPathStructTypespec,default strict=0 wide=0 modlisted-tfs=0
+NODB HierPathTfArg,default
+PREDCELLS HierPathTypespec,default     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS HierPathUnpacked,default     strict=0 wide=0 modlisted-tfs=0
+NODB HierPathUnpackedInPacked,default
+PREDCELLS HierPathVarArray,default     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS HighConnPart,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS HighLow,default              strict=0 wide=0 modlisted-tfs=0
+NODB Ibex,default
+NODB IbexGoogle,default
+NODB Icarus,default
+PREDCELLS IfElseGen,default            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS IfElseIf1,default            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS IfElseIf2,default            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS IfElseIf3,default            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS Iff,default                  strict=0 wide=0 modlisted-tfs=0
+PREDCELLS IfGen1,default               strict=0 wide=0 modlisted-tfs=0
+PREDCELLS IfGen2,default               strict=0 wide=0 modlisted-tfs=0
+PREDCELLS IfGen3,default               strict=0 wide=0 modlisted-tfs=0
+PREDCELLS IfGenTypeBinding,default     strict=0 wide=0 modlisted-tfs=0
+NODB IllegalZeroValue,default
+PREDCELLS ImplFuncArg,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS Implicit,default             strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ImplicitArg,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ImplicitFunc,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ImplicitFuncArgAndReturn,default strict=0 wide=0 modlisted-tfs=0
+NODB ImplicitGenBlock,default
+PREDCELLS ImplicitPackedStructNet,default strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ImplicitParam,default        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ImplicitPort,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ImplicitPorts2,default       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ImplicitVarType,default      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ImportBinding,default        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ImportedTypespec,default     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ImportPackage,default        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS IncompFunc,default           strict=0 wide=0 modlisted-tfs=0
+NODB IncompTitan,default
+PREDCELLS IndexAssign,default          strict=0 wide=0 modlisted-tfs=0
+NODB IndexedSelect,default
+PREDCELLS IndexedSelectHex,default     strict=0 wide=0 modlisted-tfs=0
+NODB IndexPartSelectBind,default
+PREDCELLS IndexPartSel,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS InsideOp,default             strict=0 wide=0 modlisted-tfs=0
+PREDCELLS InstArray,default            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS IntegerConcat,default        strict=0 wide=0 modlisted-tfs=0
+NODB Interconnect,default
+PREDCELLS InterfaceBinding,default     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS InterfaceElab,default        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS InterfaceFuncCall,default    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS InterfaceModExp,default      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS InterfaceModPort,default     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS InterfaceParamOverrideProp,default strict=0 wide=0 modlisted-tfs=0
+PREDCELLS InterfaceProcess,default     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS InterfaceStructMemberPort,default strict=0 wide=0 modlisted-tfs=0
+PREDCELLS InterfaceUnpackedStructArrayDim,default strict=0 wide=0 modlisted-tfs=0
+PREDCELLS InterfAlways,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS InterfArrayBind,default      strict=0 wide=0 modlisted-tfs=0
+NODB InterfBinding,default
+PREDCELLS InterfHierPath,default       strict=0 wide=0 modlisted-tfs=0
+NODB InterfImport,default
+PREDCELLS InterfInst,default           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS InterfType,default           strict=0 wide=0 modlisted-tfs=0
+NODB InterfTypeBad,default
+PREDCELLS InterpElab1,default          strict=0 wide=0 modlisted-tfs=0
+NODB InvalidTypeParam,default
+PREDCELLS Inverter,default             strict=0 wide=0 modlisted-tfs=0
+PREDCELLS IOClassStruct,default        strict=0 wide=0 modlisted-tfs=0
+NODB IODataTypes,default
+PREDCELLS JKFlipflop,default           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS Kmac,default                 strict=0 wide=0 modlisted-tfs=0
+PREDCELLS LargeConst,default           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS LargeHexCast,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS LargeHex,default             strict=0 wide=0 modlisted-tfs=0
+PREDCELLS LargeHexString,default       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS LargeValue2Struct,default    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS LateBindingFuncArg,default   strict=0 wide=0 modlisted-tfs=0
+NODB LeftPadding,default
+NODB LegalPastFunc,default
+NODB LetExpr,default
+NODB LetInlined,default
+PREDCELLS LhsHierPath,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS LhsOp,default                strict=0 wide=0 modlisted-tfs=0
+NODB LibraryIntercon,default
+PREDCELLS LocalParam,default           strict=0 wide=0 modlisted-tfs=0
+NODB LocalScopeAssign,default
+PREDCELLS LocalScopeHierPath,default   strict=0 wide=0 modlisted-tfs=0
+PREDCELLS LocalVarTypespec,default     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS LogicArrayParam,default      strict=0 wide=0 modlisted-tfs=0
+NODB LogicCast,default
+PREDCELLS LogicSize,default            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS LogicTypedef,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS LogicTypespec,default        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS LongHex,default              strict=0 wide=0 modlisted-tfs=0
+NODB Loop,default
+NODB LoopParam,default
+NODB LoopParamOver,default
+PREDCELLS LoopVar,default              strict=0 wide=0 modlisted-tfs=0
+PREDCELLS LowMemLib,default            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS LowMemPkg,default            strict=0 wide=0 modlisted-tfs=0
+NODB Lpddr,default
+PREDCELLS MacroArgDefaultSpaces,default strict=0 wide=0 modlisted-tfs=0
+PREDCELLS MacroArgMismatch,default     strict=0 wide=0 modlisted-tfs=0
+NODB MaskNeg,default
+PREDCELLS MBadder,default              strict=0 wide=0 modlisted-tfs=0
+PREDCELL defpkg   pkg=svaunit_pkg              fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=svaunit_pkg              fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=svaunit_pkg              fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=svaunit_pkg              fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=svaunit_pkg              fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=svaunit_pkg              fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=svaunit_pkg              fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=svaunit_pkg              fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=svaunit_pkg              fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=svaunit_pkg              fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=svaunit_pkg              fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=svaunit_pkg              fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=svaunit_pkg              fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=svaunit_pkg              fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELLS MiniAmiq,default             strict=14 wide=14 modlisted-tfs=2532
+PREDCELLS MinTypMax,default            strict=0 wide=0 modlisted-tfs=0
+NODB ModPortArrayBind,default
+NODB ModPortHighConn,default
+NODB ModPortParam,default
+NODB ModPortRange,default
+NODB ModPortTest,default
+NODB Monitor,default
+PREDCELLS Moves,default                strict=0 wide=0 modlisted-tfs=0
+NODB MultContAssign,default
+NODB MultiConcat,default
+PREDCELLS MultiConcatValueSize,default strict=0 wide=0 modlisted-tfs=0
+NODB MultiIndexBind,default
+PREDCELLS MultiPartSelect,default      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS MultiPort,default            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS MultiSelect,default          strict=0 wide=0 modlisted-tfs=0
+NODB NameCollisionBind,default
+NODB NamedEventHierPath,default
+PREDCELLS NegInt,default               strict=0 wide=0 modlisted-tfs=0
+NODB NegParam,default
+NODB NetLValue,default
+NODB NetType,default
+PREDCELLS NonAnsiPort,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS NonSynthError,default        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS NonSynthUnusedMod,default    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS NoParamSubs,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS NoReducTypespec,default      strict=0 wide=0 modlisted-tfs=0
+NODB NyuziProcessor,default
+NODB OldLibrary,default
+PREDCELLS OneAnd,default               strict=0 wide=0 modlisted-tfs=0
+PREDCELLS OneClock,default             strict=0 wide=0 modlisted-tfs=0
+PREDCELLS OneDivider,default           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS OneFF,default                strict=0 wide=0 modlisted-tfs=0
+PREDCELLS OneImport,default            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS OneNet,default               strict=0 wide=0 modlisted-tfs=0
+PREDCELLS OneNetInterf,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS OneNetModPort,default        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS OneNetModPortGeneric,default strict=0 wide=0 modlisted-tfs=0
+PREDCELLS OneNetNonAnsi,default        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS OneNetRange,default          strict=0 wide=0 modlisted-tfs=0
+NODB Opentitan,default
+NODB OpTypespec,default
+NODB OrderedPortUnkownModule,default
+NODB OVMSwitch,default
+PREDCELLS PackageBind,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackageConst,default         strict=0 wide=0 modlisted-tfs=0
+NODB PackageDpi,default
+PREDCELLS PackageEval,default          strict=0 wide=0 modlisted-tfs=0
+NODB PackageFuncCall,default
+NODB PackageHierRef,default
+PREDCELLS PackageMemberTypespec,default strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackageNet,default           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackageOrder,default         strict=0 wide=0 modlisted-tfs=0
+NODB PackageParam,default
+PREDCELLS PackageParamConst,default    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackageType,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackageTypeParam,default     strict=0 wide=0 modlisted-tfs=0
+NODB PackageValue,default
+NODB PackageVar,default
+PREDCELLS PackDataType,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackedArrayAssign,default    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackedArrayBind,default      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackedArrayEnum,default      strict=0 wide=0 modlisted-tfs=0
+NODB PackedArrayHierPath,default
+PREDCELLS PackedArrayHighConn,default  strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackedArrayStruct,default    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackedArrayTypespec,default  strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackedEnum,default           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackedEnumPort,default       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackedEnumVar,default        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackedUnpackedIo,default     strict=0 wide=0 modlisted-tfs=0
+NODB PackEnumVal,default
+PREDCELLS PackFunc,default             strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackFuncParent,default       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackImport,default           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackStructField,default      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackStructVar,default        strict=0 wide=0 modlisted-tfs=0
+NODB ParamArray,default
+NODB ParamArraySelect,default
+PREDCELLS ParamArrayUnsizedPattern,default strict=0 wide=0 modlisted-tfs=0
+NODB ParamBitSelect,default
+PREDCELLS ParamByValue,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamCast,default            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamComplex,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamComplexVerilator,default strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamConcat,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamConst,default           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamConstPush,default       strict=0 wide=0 modlisted-tfs=0
+NODB ParamElab,default
+PREDCELLS ParamElabMulti,default       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamEquivOp,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamFile,default            strict=0 wide=0 modlisted-tfs=0
+NODB ParamFileMacro,default
+PREDCELLS ParamFileNoTop,default       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamFileOverr,default       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamFromPackage,default     strict=0 wide=0 modlisted-tfs=0
+NODB ParamIndex,default
+NODB ParamInFunc,default
+NODB ParamLine,default
+PREDCELLS ParamList,default            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamMultiConcat,default     strict=0 wide=0 modlisted-tfs=0
+NODB ParamNoDefault,default
+PREDCELLS ParamNoImport,default        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamNoSubst,default         strict=0 wide=0 modlisted-tfs=0
+NODB ParamOverload1,default
+PREDCELLS ParamOverload2,default       strict=0 wide=0 modlisted-tfs=0
+NODB ParamOverload3,default
+PREDCELLS ParamOverload4,default       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamOverloading,default     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamOverloadProp,default    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamRef,default             strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamScope,default           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamSubstituteComplex,default strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamTypespec2,default       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamTypespec,default        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PartSelect3,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PartSelect4,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PartSelectElab,default       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PartSelectHier,default       strict=0 wide=0 modlisted-tfs=0
+NODB PartSelectHierPath,default
+PREDCELLS PartSelectNoParent,default   strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PartSelectParent,default     strict=0 wide=0 modlisted-tfs=0
+NODB PartSelectRange,default
+PREDCELLS PAssignType,default          strict=0 wide=0 modlisted-tfs=0
+NODB PatAssignOp,default
+PREDCELLS PatternAssignInteger,default strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PatternAssignLogic,default   strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PatternAssignment,default    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PatternOrder,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PkgImportFunc,default        strict=0 wide=0 modlisted-tfs=0
+NODB PkgImportPkg,default
+PREDCELLS PortByName,default           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PortComplex,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PortDefaultValue,default     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PortExpr,default             strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PortInitVal2,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PortInitVal,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PortInterface,default        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PortMultiDim,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PortPackage,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PortRanges,default           strict=0 wide=0 modlisted-tfs=0
+NODB PortWildcard,default
+NODB PoundDelay,default
+PREDCELLS PoundDelayTask,default       strict=0 wide=0 modlisted-tfs=0
+NODB PoundParam,default
+NODB PPComment,default
+NODB PpLppdr,default
+PREDCELLS PPMacro,default              strict=0 wide=0 modlisted-tfs=0
+NODB PragmaProtect,default
+PREDCELLS PreProcDefine,default        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PreprocFunc,default          strict=0 wide=0 modlisted-tfs=0
+NODB PreprocLine,default
+NODB PreProcMacro,default
+NODB PreProcMacroFunc,default
+NODB PreprocString,default
+PREDCELLS PreprocTest,default          strict=0 wide=0 modlisted-tfs=0
+NODB PreprocUhdmCov,default
+PREDCELLS PrimTermExpr,default         strict=0 wide=0 modlisted-tfs=0
+NODB ProcForLoop,default
+PREDCELLS PropBinding,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS RangeInf,default             strict=0 wide=0 modlisted-tfs=0
+PREDCELLS RangeSelect,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ReorderPatt,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS RepeatStmt,default           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ReturnVal,default            strict=0 wide=0 modlisted-tfs=0
+NODB RewriteNonConstForLoopCond,default
+PREDCELLS Rggen,default                strict=0 wide=0 modlisted-tfs=2
+NODB RiscV,default
+NODB Rom,default
+NODB rp32,default
+PREDCELLS ScalarParam,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS Scoreboard,default           strict=0 wide=0 modlisted-tfs=46
+NODB Scr1,default
+PREDCELLS Scr1SvTests,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS SelectHierPath,default       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS Selects,default              strict=0 wide=0 modlisted-tfs=0
+PREDCELLS SelectSelect,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELL defpkg   pkg=adpcm_pkg                fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=adpcm_pkg                fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=adpcm_pkg                fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=adpcm_pkg                fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=adpcm_pkg                fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=adpcm_pkg                fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=adpcm_pkg                fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELLS SeqDriver,default            strict=7 wide=7 modlisted-tfs=7497
+PREDCELLS SequenceInst,default         strict=0 wide=0 modlisted-tfs=0
+NODB SeqUseNonTemp,default
+PREDCELLS ShiftX,default               strict=0 wide=0 modlisted-tfs=0
+PREDCELLS SignedBin,default            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS SignedBinConst,default       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS SignedParam,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS SignedPort2,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS SignedPort,default           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS SignedVsUnsignedPort,default strict=0 wide=0 modlisted-tfs=0
+PREDCELLS SignedWire,default           strict=0 wide=0 modlisted-tfs=0
+NODB SimpleClass1,default
+NODB SimpleClass2,default
+NODB SimpleClass,default
+NODB SimpleCmdLineTest,default
+PREDCELLS SimpleConstraint,default     strict=0 wide=0 modlisted-tfs=0
+NODB SimpleIncludeAndMacros,default
+NODB SimpleInterface,default
+NODB SimpleOVM,default
+NODB SimpleParserTest,default
+NODB SimpleParserTestCache,default
+NODB SimpleTask,default
+PREDCELLS SimpleUVM,default            strict=0 wide=0 modlisted-tfs=2877
+NODB SimpleVMM,default
+PREDCELLS SimplifyHierPath,default     strict=0 wide=0 modlisted-tfs=0
+NODB Sky130Cell,default
+NODB Sky130Udp,default
+NODB SplitFile,default
+PREDCELLS StandardBlock,default        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS StandardNetVar,default       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS StaticTask,default           strict=0 wide=0 modlisted-tfs=0
+NODB StreamingOp,default
+PREDCELLS StringConcat,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS StringMethod,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS StringParameter,default      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS StringPort,default           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS StringRange,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS StructAccess,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS StructArrayNet,default       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS StructNetUnionTypespec,default strict=0 wide=0 modlisted-tfs=0
+NODB StructStructHierPath,default
+PREDCELLS StructTypedef,default        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS StructUnsizedVal,default     strict=0 wide=0 modlisted-tfs=0
+NODB StructVar,default
+NODB StructVarImp,default
+PREDCELLS SurelogMacro,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS SVSwitch,default             strict=0 wide=0 modlisted-tfs=0
+NODB SynthFilterDollarError,default
+PREDCELLS SynthForeach,default         strict=0 wide=0 modlisted-tfs=0
+NODB SystemCall,default
+PREDCELLS SystemCallSize,default       strict=0 wide=0 modlisted-tfs=0
+NODB TaggedParam,default
+PREDCELLS TaggedPattern,default        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS TaggedPatternLogic,default   strict=0 wide=0 modlisted-tfs=0
+PREDCELLS TaskBind,default             strict=0 wide=0 modlisted-tfs=0
+NODB TaskDeclNoOrder,default
+PREDCELLS TaskDecls,default            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS TaskDeclTypes,default        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS TaskProto,default            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS TaskProtoDef,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS Ternary,default              strict=0 wide=0 modlisted-tfs=0
+PREDCELLS TernaryAssoc,default         strict=0 wide=0 modlisted-tfs=0
+NODB TestBasic,default
+NODB TestBatchMode,default
+NODB TestFileSplit,default
+NODB TestMacros,default
+NODB TestNoHash,default
+NODB TestSepCompBadPath,default
+NODB TestSepComp,default
+NODB TestSepCompNoHash,default
+PREDCELLS TfCalls,default              strict=0 wide=0 modlisted-tfs=0
+NODB ThisHier,default
+NODB TimeUnit,default
+NODB TNocBadType,default
+NODB Tnoc,default
+PREDCELLS TopFunc,default              strict=0 wide=0 modlisted-tfs=0
+FENCED default
+NODB TranslateOff,default
+PREDCELLS TypedefAlias,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS TypeDefGenScope,default      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS TypedefPack,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS TypedefRange,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS TypedefRangedFunctionReturn,default strict=0 wide=0 modlisted-tfs=0
+NODB TypeDefScope,default
+PREDCELLS TypedefUnpacked,default      strict=0 wide=0 modlisted-tfs=0
+NODB Typename,default
+NODB TypeParam2,default
+PREDCELLS TypeParam,default            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS TypeParamElab,default        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS TypeParamOverride,default    strict=0 wide=0 modlisted-tfs=0
+NODB TypespecBits,default
+PREDCELLS TypespecExpr,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS TypespecMask,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS Udp,default                  strict=0 wide=0 modlisted-tfs=0
+NODB UhdmCoverage,default
+PREDCELLS UnaryPlus,default            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS UnboundForLoop,default       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS UndersVal,default            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS UnelabPack,default           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS UnionCast,default            strict=0 wide=0 modlisted-tfs=2
+NODB Unisim,default
+NODB UnitAmiqEth,default
+NODB UnitClass,default
+NODB UnitConcat,default
+NODB UnitDefParam,default
+NODB UnitElab,default
+PREDCELLS UnitElabBlock,default        strict=0 wide=0 modlisted-tfs=0
+NODB UnitElabExternNested,default
+NODB UnitEnum,default
+NODB UnitForeach,default
+NODB UnitForLoop,default
+NODB UnitLibrary,default
+NODB UnitPackage,default
+NODB UnitPartSelect,default
+NODB UnitPython,default
+NODB UnitQueue,default
+NODB UnitSimpleIncludeAndMacros,default
+NODB UnitSVA,default
+NODB UnitTest,default
+NODB UnitThisNew,default
+PREDCELLS UnpackedTypespec,default     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS UnpackPort,default           strict=0 wide=0 modlisted-tfs=0
+FENCED default
+PREDCELLS UnsizeConstExpr,default      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS Unsized,default              strict=0 wide=0 modlisted-tfs=0
+PREDCELLS UnsizedArray,default         strict=0 wide=0 modlisted-tfs=0
+NODB UnsizedConstInst,default
+PREDCELLS UnsizedElabComp,default      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS UnsizedFunc,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS UnsizedLiteral1,default      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS UnsizedLiteral2,default      strict=0 wide=0 modlisted-tfs=0
+NODB UnsizedPacked,default
+PREDCELLS UnsizedParam,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS UnsupportedTypespecRange,default strict=0 wide=0 modlisted-tfs=0
+NODB UtdSV,default
+NODB UVMNestedSeq,default
+NODB UVMSwitch,default
+PREDCELLS Value4States,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS Values,default               strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ValueSize,default            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS VarDecl2,default             strict=0 wide=0 modlisted-tfs=0
+PREDCELLS VarDecl,default              strict=0 wide=0 modlisted-tfs=0
+NODB VarInFunc,default
+PREDCELLS VarRangeTypedef,default      strict=0 wide=0 modlisted-tfs=0
+NODB VarSelect,default
+PREDCELLS VarSelectGenStmt,default     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS VarType,default              strict=0 wide=0 modlisted-tfs=0
+NODB Verilator,default
+PREDCELLS VirtualClass,default         strict=0 wide=0 modlisted-tfs=0
+NODB VoidFuncReturn,default
+PREDCELLS Wand,default                 strict=0 wide=0 modlisted-tfs=0
+PREDCELLS WildConn,default             strict=0 wide=0 modlisted-tfs=0
+PREDCELLS WireLogicSize,default        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS WireType,default             strict=0 wide=0 modlisted-tfs=0
+PREDCELLS WireUnpacked,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS XValue,default               strict=0 wide=0 modlisted-tfs=0
+NODB Yosys,default
+PREDCELLS YosysBigSimAes,default       strict=0 wide=0 modlisted-tfs=0
+NODB YosysBigSimAmber23,default
+PREDCELLS YosysBigSimEllip,default     strict=0 wide=0 modlisted-tfs=0
+NODB YosysBigSimLm32,default
+NODB YosysBigSimOpenMsp,default
+NODB YosysBigSimPong,default
+PREDCELLS YosysBigSimReed,default      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS YosysBigSimSoft,default      strict=0 wide=0 modlisted-tfs=0
+NODB YosysCam,default
+NODB YosysDsp,default
+NODB YosysEth,default
+NODB YosysIce40,default
+PREDCELLS YosysMarlann,default         strict=0 wide=0 modlisted-tfs=0
+NODB YosysOldAes,default
+PREDCELLS YosysOldI2c,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS YosysOldOpen,default         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS YosysOldOr,default           strict=0 wide=0 modlisted-tfs=0
+NODB YosysOldSasc,default
+PREDCELLS YosysOldSimpleSpi,default    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS YosysOldSpi,default          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS YosysOldSsPcm,default        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS YosysOldSystem,default       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS YosysOldUsb,default          strict=0 wide=0 modlisted-tfs=0
+NODB YosysOpenSparc,default
+PREDCELLS YosysRiscv,default           strict=0 wide=0 modlisted-tfs=0
+NODB YosysSmall,default
+NODB YosysTests,default
+NODB YosysTestSuite,default
+PREDCELLS YosysVerx,default            strict=0 wide=0 modlisted-tfs=0
+NODB Zachjs,default
+PREDCELLS 1364_2005,testflags          strict=0 wide=0 modlisted-tfs=0
+NODB 3SigsSensList,testflags
+NODB AaFirstTest,testflags
+PREDCELLS AllBinding,testflags         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS AllPackageSignal,testflags   strict=0 wide=0 modlisted-tfs=0
+PREDCELLS AlwaysNoElab,testflags       strict=0 wide=0 modlisted-tfs=0
+NODB AmiqEth,testflags
+NODB AmiqSimpleTestSuite,testflags
+PREDCELLS ApbSlave,testflags           strict=0 wide=0 modlisted-tfs=46
+NODB Ariane,testflags
+NODB ArianeElab2,testflags
+NODB ArianeElab,testflags
+PREDCELLS ArrayExprFuncArg,testflags   strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ArrayInst,testflags          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ArrayMethodIterator,testflags strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ArrayNet,testflags           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ArrayTypespec,testflags      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ArrayVarName,testflags       strict=0 wide=0 modlisted-tfs=0
+NODB Assert,testflags
+PREDCELLS AssertDelayError,testflags   strict=0 wide=0 modlisted-tfs=0
+NODB Assertions,testflags
+PREDCELLS AssertTempError,testflags    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS AssignmentPatternInAssignmentPattern,testflags strict=0 wide=0 modlisted-tfs=0
+NODB Assignments,testflags
+NODB AssignPatternArray,testflags
+NODB AssignPattern,testflags
+NODB AssignPlus,testflags
+PREDCELLS AssignRhsFlat,testflags      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS AssignSubs,testflags         strict=0 wide=0 modlisted-tfs=0
+NODB AssociativeArray,testflags
+NODB AssumeProp,testflags
+PREDCELLS Attributes2,testflags        strict=0 wide=0 modlisted-tfs=0
+NODB Attributes,testflags
+NODB AttributesNets,testflags
+NODB AVLMM,testflags
+NODB AxiInterconnect,testflags
+NODB AzadiRTL,testflags
+NODB BadLabel,testflags
+NODB BadScope,testflags
+PREDCELLS BasicOh,testflags            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BeginKeywords,testflags      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BiasValue,testflags          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BinarySize,testflags         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BindHierPath,testflags       strict=0 wide=0 modlisted-tfs=0
+NODB BindingPort,testflags
+NODB Bindings,testflags
+NODB BindMethod,testflags
+NODB BindStmt2,testflags
+NODB BindStmt,testflags
+PREDCELLS BindVarsAndEnum,testflags    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BitComplex,testflags         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BitPartSelect,testflags      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BitRanges,testflags          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BitsArray,testflags          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BitSelect,testflags          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BitSelectExpr,testflags      strict=0 wide=0 modlisted-tfs=0
+NODB BitSelectHier,testflags
+PREDCELLS BitSelectPartSelectInFunction,testflags strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BitSelectSelect,testflags    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BitsHierPath,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BitsInGenBlock,testflags     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BitsLogic,testflags          strict=0 wide=0 modlisted-tfs=0
+NODB BitsOp,testflags
+NODB BitsStructMember,testflags
+PREDCELLS BlackBePipeInt,testflags     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BlackBox,testflags           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BlackBoxInst,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BlackBoxInstTop,testflags    strict=0 wide=0 modlisted-tfs=0
+NODB BlackboxMissingDef,testflags
+PREDCELLS BlackBoxMod,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BlackBoxSubMod,testflags     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS BlackConst,testflags         strict=0 wide=0 modlisted-tfs=0
+NODB BlackParrot,testflags
+PREDCELLS BlackParrotComplex,testflags strict=0 wide=0 modlisted-tfs=0
+NODB BlackParrotConf,testflags
+NODB BlackParrotMuteErrors,testflags
+NODB BlackParrotParam,testflags
+PREDCELLS BlackParrotSkipParam,testflags strict=0 wide=0 modlisted-tfs=0
+NODB BlackParrotStructParam,testflags
+NODB BlackUcode,testflags
+NODB BlackUnicore,testflags
+PREDCELLS BlockingAssignRewrite,testflags strict=0 wide=0 modlisted-tfs=0
+NODB BuildOVMPkg,testflags
+PREDCELLS BuildUVMPkg,testflags        strict=0 wide=0 modlisted-tfs=0
+NODB BuiltInMethod,testflags
+PREDCELLS CarryAdd,testflags           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS CarryTrans,testflags         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS CaseDefault,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS CaseExpression,testflags     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS CaseFullElab,testflags       strict=0 wide=0 modlisted-tfs=0
+NODB CaseInside,testflags
+NODB CastEnum,testflags
+NODB CastPartSelect,testflags
+NODB CastShift,testflags
+NODB CastStructMember,testflags
+PREDCELLS CastToParam,testflags        strict=0 wide=0 modlisted-tfs=0
+NODB CastTypespec,testflags
+NODB CastUnsigned,testflags
+PREDCELLS CastUnsized,testflags        strict=0 wide=0 modlisted-tfs=0
+NODB Cell,testflags
+PREDCELLS Chandle,testflags            strict=0 wide=0 modlisted-tfs=0
+NODB Checker,testflags
+PREDCELLS CheckerInst,testflags        strict=0 wide=0 modlisted-tfs=0
+NODB ClassCons,testflags
+NODB ClassExtendParam,testflags
+PREDCELLS ClassExtends,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ClassFsm,testflags           strict=0 wide=0 modlisted-tfs=0
+NODB ClassFuncProto,testflags
+NODB ClassFuncTask,testflags
+NODB ClassMemberFunc,testflags
+NODB ClassMemberRef,testflags
+NODB ClassMethodCall,testflags
+PREDCELLS ClassMini,testflags          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ClassParam,testflags         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ClassParamAsParam,testflags  strict=0 wide=0 modlisted-tfs=0
+NODB ClassScope,testflags
+PREDCELLS ClassTypeParam,testflags     strict=0 wide=0 modlisted-tfs=0
+NODB ClassTypeParamAlias,testflags
+PREDCELLS ClassVar,testflags           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ClassVirtual,testflags       strict=0 wide=0 modlisted-tfs=0
+NODB ClockingBlock,testflags
+NODB ClockingDrive,testflags
+NODB ClockingSntx,testflags
+PREDCELLS ClogCast,testflags           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ClogParam,testflags          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS CmdLineOverride,testflags    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS Compl1001,testflags          strict=0 wide=0 modlisted-tfs=0
+NODB ComplexBitSelect,testflags
+NODB ComplexEscaped,testflags
+PREDCELLS ComplexExprSize,testflags    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ComplexHierPath,testflags    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ComplexParamOverload2,testflags strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ComplexParamOverload,testflags strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ComplexVarSelect,testflags   strict=0 wide=0 modlisted-tfs=0
+NODB ConcatOrder,testflags
+NODB ConcatRadix,testflags
+NODB ConcatVal,testflags
+PREDCELLS ConcatWidth,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ConditionalOp,testflags      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS CondOpLazyEval,testflags     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS CondOpPattern,testflags      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS CondOpPred,testflags         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS Connection,testflags         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ConstantBits,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ConstantNoElabUhdm,testflags strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ConstantRange,testflags      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ConstantWithElabUhdm,testflags strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ConstCapital,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ConstExpand,testflags        strict=0 wide=0 modlisted-tfs=0
+NODB ConstHighConn,testflags
+PREDCELLS ConstPort,testflags          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ContAssignConst,testflags    strict=0 wide=0 modlisted-tfs=0
+NODB ContAssign,testflags
+PREDCELLS Context,testflags            strict=0 wide=0 modlisted-tfs=0
+NODB CoresSweRV,testflags
+NODB CoresSweRVMP,testflags
+NODB Covergroup,testflags
+PREDCELLS CovMacro,testflags           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS CrossFunc,testflags          strict=0 wide=0 modlisted-tfs=0
+NODB CrossItem,testflags
+PREDCELLS DashYTest,testflags          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS DataAttrib,testflags         strict=0 wide=0 modlisted-tfs=0
+NODB DecimalSize,testflags
+PREDCELLS DecValue,testflags           strict=0 wide=0 modlisted-tfs=0
+NODB DefaultAssign,testflags
+NODB DefaultNetType,testflags
+PREDCELLS DefaultPatternAssign,testflags strict=0 wide=0 modlisted-tfs=0
+PREDCELLS DefaultPatternInt,testflags  strict=0 wide=0 modlisted-tfs=0
+PREDCELLS DefaultPatternModule,testflags strict=0 wide=0 modlisted-tfs=0
+PREDCELLS DefaultTag,testflags         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS DeferAssert,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS DefParamFromParam,testflags  strict=0 wide=0 modlisted-tfs=0
+PREDCELLS DefParamIndex,testflags      strict=0 wide=0 modlisted-tfs=0
+NODB Delay2Param,testflags
+PREDCELLS DelayAssign,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS Disable,testflags            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS DollarBits,testflags         strict=0 wide=0 modlisted-tfs=0
+NODB DollarBitsUnary,testflags
+NODB DollarRoot,testflags
+PREDCELLS DoubleLoop,testflags         strict=0 wide=0 modlisted-tfs=0
+NODB DoublePres,testflags
+NODB DoWhile,testflags
+PREDCELLS DpiChandle,testflags         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS DpiFunc,testflags            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS DpiTask,testflags            strict=0 wide=0 modlisted-tfs=0
+NODB Driver,testflags
+PREDCELLS DynArrayKind,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS Earlgrey_0_1,testflags       strict=0 wide=0 modlisted-tfs=0
+NODB Earlgrey,testflags
+PREDCELLS EarlgreyPackParam,testflags  strict=0 wide=0 modlisted-tfs=0
+NODB Earlgrey_Verilator_0_1,testflags
+PREDCELLS ElabCParam,testflags         strict=0 wide=0 modlisted-tfs=0
+NODB ElabIf,testflags
+PREDCELLS ElabParam,testflags          strict=0 wide=0 modlisted-tfs=0
+NODB ElabSysCall,testflags
+PREDCELLS EmptyAssign,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS EnumConcat,testflags         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS EnumConst,testflags          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS EnumConstConcat,testflags    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS EnumConstElab,testflags      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS EnumImplicitVal,testflags    strict=0 wide=0 modlisted-tfs=0
+NODB EnumParenType,testflags
+PREDCELLS EnumVal,testflags            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS EnumVar,testflags            strict=0 wide=0 modlisted-tfs=0
+NODB EnumVarNoTypedef,testflags
+NODB Escape,testflags
+PREDCELLS EvalFunc,testflags           strict=0 wide=0 modlisted-tfs=0
+NODB EvalFuncArray,testflags
+PREDCELLS EvalFuncCont,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS EvalFuncNamed,testflags      strict=0 wide=0 modlisted-tfs=0
+NODB EvalFuncPack,testflags
+PREDCELLS Event,testflags              strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ExpectStmt,testflags         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ExplicitPort,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ExplictiPorts,testflags      strict=0 wide=0 modlisted-tfs=0
+NODB ExponTimeIfElseGen,testflags
+PREDCELLS ExprEvalBits,testflags       strict=0 wide=0 modlisted-tfs=0
+NODB ExprEvalPartial,testflags
+PREDCELLS ExprReductionBits,testflags  strict=0 wide=0 modlisted-tfs=0
+NODB ExtendClassMember,testflags
+PREDCELLS FileList,testflags           strict=0 wide=0 modlisted-tfs=0
+NODB FileListWithCompressed,testflags
+FENCED testflags
+NODB FilePackageImport,testflags
+NODB FilePackUnion,testflags
+PREDCELLS FileParam,testflags          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FileResolutionFunction,testflags strict=0 wide=0 modlisted-tfs=0
+NODB FileTypespec,testflags
+PREDCELLS ForeachArray,testflags       strict=0 wide=0 modlisted-tfs=0
+NODB ForeachClass,testflags
+NODB ForeachClassParent,testflags
+NODB ForeachForeach,testflags
+PREDCELLS ForeachFunction,testflags    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ForeachSquare,testflags      strict=0 wide=0 modlisted-tfs=0
+NODB ForElab,testflags
+PREDCELLS ForLoop,testflags            strict=0 wide=0 modlisted-tfs=0
+NODB ForLoopBind,testflags
+PREDCELLS FSM2Always,testflags         strict=0 wide=0 modlisted-tfs=0
+NODB FSMBsp13,testflags
+PREDCELLS FSMFunction,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FSMSingleAlways,testflags    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS Func128Bits,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncAlias,testflags          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncArgDirection,testflags   strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncArgs,testflags           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncArgsByName,testflags     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncAttrib,testflags         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncBindGen,testflags        strict=0 wide=0 modlisted-tfs=0
+NODB FuncBinding2,testflags
+NODB FuncBinding,testflags
+PREDCELLS FuncCase,testflags           strict=0 wide=0 modlisted-tfs=2
+PREDCELLS FuncDeclScope,testflags      strict=0 wide=0 modlisted-tfs=0
+NODB FuncDef2,testflags
+NODB FuncDef,testflags
+NODB FuncDefaultVal,testflags
+PREDCELLS FuncInModule,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncIoTypespec,testflags     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncNoArgs,testflags         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncParam2,testflags         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncParam,testflags          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncRetArray,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncReturnRange,testflags    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncSideEffect,testflags     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncStatic,testflags         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncStruct,testflags         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncStructVal,testflags      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS FuncStructValSimple,testflags strict=0 wide=0 modlisted-tfs=0
+NODB FuncWidthScope,testflags
+NODB FuncWidthScopeOverride,testflags
+NODB GateLevel,testflags
+PREDCELLS Gates,testflags              strict=0 wide=0 modlisted-tfs=0
+PREDCELLS GenBlock,testflags           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS GenBlockVar,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS GenCase,testflags            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS GenCaseStmt,testflags        strict=0 wide=0 modlisted-tfs=0
+NODB GenerateAssigns,testflags
+PREDCELLS GenerateBlock2,testflags     strict=0 wide=0 modlisted-tfs=0
+NODB GenerateBlock,testflags
+NODB GenerateInterface,testflags
+NODB GenerateModule,testflags
+NODB GenerateRegion,testflags
+PREDCELLS GenerateUnnamed,testflags    strict=0 wide=0 modlisted-tfs=0
+NODB GenFor,testflags
+NODB GenForDec,testflags
+PREDCELLS GenForIfaceLocalparamBound,testflags strict=0 wide=0 modlisted-tfs=0
+PREDCELLS GenForIfaceLocalparamNestedGen,testflags strict=0 wide=0 modlisted-tfs=0
+PREDCELLS GenForStructParamBound,testflags strict=0 wide=0 modlisted-tfs=0
+NODB GenIf,testflags
+NODB GenIfElse,testflags
+PREDCELLS GenIfIfaceParamStructField,testflags strict=0 wide=0 modlisted-tfs=0
+NODB GenIfNamed,testflags
+NODB GenModHierPath,testflags
+PREDCELLS GenNet,testflags             strict=0 wide=0 modlisted-tfs=0
+PREDCELLS GenScopeFullName,testflags   strict=0 wide=0 modlisted-tfs=0
+NODB GenScopeFunc,testflags
+PREDCELLS GenScopeHierPath2,testflags  strict=0 wide=0 modlisted-tfs=0
+PREDCELLS GenScopeHierPath3,testflags  strict=0 wide=0 modlisted-tfs=0
+PREDCELLS GenScopeHierPath,testflags   strict=0 wide=0 modlisted-tfs=0
+NODB GenScopeShadow,testflags
+PREDCELLS GenStructAccess,testflags    strict=0 wide=0 modlisted-tfs=0
+NODB GenVarRef,testflags
+NODB Google,testflags
+PREDCELLS Guards,testflags             strict=0 wide=0 modlisted-tfs=0
+NODB HierBitSelect,testflags
+NODB HierBitSlice,testflags
+NODB HierMultiSelect,testflags
+PREDCELLS HierPathBeginBlock,testflags strict=0 wide=0 modlisted-tfs=0
+PREDCELLS HierPathBind,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS HierPathCont,testflags       strict=0 wide=0 modlisted-tfs=0
+FENCED testflags
+PREDCELLS HierPathInterfBlock,testflags strict=0 wide=0 modlisted-tfs=0
+NODB HierPathLhs,testflags
+NODB HierPathModule,testflags
+PREDCELLS HierPathOverride,testflags   strict=0 wide=0 modlisted-tfs=0
+NODB HierPathPackedArrayNet,testflags
+PREDCELLS HierPathPackedStruct,testflags strict=0 wide=0 modlisted-tfs=0
+NODB HierPathPackedVar,testflags
+PREDCELLS HierPathSelect,testflags     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS HierPathStruct,testflags     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS HierPathStructTypespec,testflags strict=0 wide=0 modlisted-tfs=0
+NODB HierPathTfArg,testflags
+PREDCELLS HierPathTypespec,testflags   strict=0 wide=0 modlisted-tfs=0
+PREDCELLS HierPathUnpacked,testflags   strict=0 wide=0 modlisted-tfs=0
+NODB HierPathUnpackedInPacked,testflags
+PREDCELLS HierPathVarArray,testflags   strict=0 wide=0 modlisted-tfs=0
+PREDCELLS HighConnPart,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS HighLow,testflags            strict=0 wide=0 modlisted-tfs=0
+NODB Ibex,testflags
+NODB IbexGoogle,testflags
+NODB Icarus,testflags
+PREDCELLS IfElseGen,testflags          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS IfElseIf1,testflags          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS IfElseIf2,testflags          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS IfElseIf3,testflags          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS Iff,testflags                strict=0 wide=0 modlisted-tfs=0
+PREDCELLS IfGen1,testflags             strict=0 wide=0 modlisted-tfs=0
+PREDCELLS IfGen2,testflags             strict=0 wide=0 modlisted-tfs=0
+PREDCELLS IfGen3,testflags             strict=0 wide=0 modlisted-tfs=0
+PREDCELLS IfGenTypeBinding,testflags   strict=0 wide=0 modlisted-tfs=0
+NODB IllegalZeroValue,testflags
+PREDCELLS ImplFuncArg,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS Implicit,testflags           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ImplicitArg,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ImplicitFunc,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ImplicitFuncArgAndReturn,testflags strict=0 wide=0 modlisted-tfs=0
+NODB ImplicitGenBlock,testflags
+PREDCELLS ImplicitPackedStructNet,testflags strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ImplicitParam,testflags      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ImplicitPort,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ImplicitPorts2,testflags     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ImplicitVarType,testflags    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ImportBinding,testflags      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ImportedTypespec,testflags   strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ImportPackage,testflags      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS IncompFunc,testflags         strict=0 wide=0 modlisted-tfs=0
+NODB IncompTitan,testflags
+PREDCELLS IndexAssign,testflags        strict=0 wide=0 modlisted-tfs=0
+NODB IndexedSelect,testflags
+PREDCELLS IndexedSelectHex,testflags   strict=0 wide=0 modlisted-tfs=0
+NODB IndexPartSelectBind,testflags
+PREDCELLS IndexPartSel,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS InsideOp,testflags           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS InstArray,testflags          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS IntegerConcat,testflags      strict=0 wide=0 modlisted-tfs=0
+NODB Interconnect,testflags
+PREDCELLS InterfaceBinding,testflags   strict=0 wide=0 modlisted-tfs=0
+PREDCELLS InterfaceElab,testflags      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS InterfaceFuncCall,testflags  strict=0 wide=0 modlisted-tfs=0
+PREDCELLS InterfaceModExp,testflags    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS InterfaceModPort,testflags   strict=0 wide=0 modlisted-tfs=0
+PREDCELLS InterfaceParamOverrideProp,testflags strict=0 wide=0 modlisted-tfs=0
+PREDCELLS InterfaceProcess,testflags   strict=0 wide=0 modlisted-tfs=0
+PREDCELLS InterfaceStructMemberPort,testflags strict=0 wide=0 modlisted-tfs=0
+PREDCELLS InterfaceUnpackedStructArrayDim,testflags strict=0 wide=0 modlisted-tfs=0
+PREDCELLS InterfAlways,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS InterfArrayBind,testflags    strict=0 wide=0 modlisted-tfs=0
+NODB InterfBinding,testflags
+PREDCELLS InterfHierPath,testflags     strict=0 wide=0 modlisted-tfs=0
+NODB InterfImport,testflags
+PREDCELLS InterfInst,testflags         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS InterfType,testflags         strict=0 wide=0 modlisted-tfs=0
+NODB InterfTypeBad,testflags
+PREDCELLS InterpElab1,testflags        strict=0 wide=0 modlisted-tfs=0
+NODB InvalidTypeParam,testflags
+PREDCELLS Inverter,testflags           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS IOClassStruct,testflags      strict=0 wide=0 modlisted-tfs=0
+NODB IODataTypes,testflags
+PREDCELLS JKFlipflop,testflags         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS Kmac,testflags               strict=0 wide=0 modlisted-tfs=0
+PREDCELLS LargeConst,testflags         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS LargeHexCast,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS LargeHex,testflags           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS LargeHexString,testflags     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS LargeValue2Struct,testflags  strict=0 wide=0 modlisted-tfs=0
+PREDCELLS LateBindingFuncArg,testflags strict=0 wide=0 modlisted-tfs=0
+NODB LeftPadding,testflags
+NODB LegalPastFunc,testflags
+NODB LetExpr,testflags
+NODB LetInlined,testflags
+PREDCELLS LhsHierPath,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS LhsOp,testflags              strict=0 wide=0 modlisted-tfs=0
+NODB LibraryIntercon,testflags
+PREDCELLS LocalParam,testflags         strict=0 wide=0 modlisted-tfs=0
+NODB LocalScopeAssign,testflags
+PREDCELLS LocalScopeHierPath,testflags strict=0 wide=0 modlisted-tfs=0
+PREDCELLS LocalVarTypespec,testflags   strict=0 wide=0 modlisted-tfs=0
+PREDCELLS LogicArrayParam,testflags    strict=0 wide=0 modlisted-tfs=0
+NODB LogicCast,testflags
+PREDCELLS LogicSize,testflags          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS LogicTypedef,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS LogicTypespec,testflags      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS LongHex,testflags            strict=0 wide=0 modlisted-tfs=0
+NODB Loop,testflags
+NODB LoopParam,testflags
+NODB LoopParamOver,testflags
+PREDCELLS LoopVar,testflags            strict=0 wide=0 modlisted-tfs=0
+NODB LowMemLib,testflags
+NODB LowMemPkg,testflags
+NODB Lpddr,testflags
+PREDCELLS MacroArgDefaultSpaces,testflags strict=0 wide=0 modlisted-tfs=0
+PREDCELLS MacroArgMismatch,testflags   strict=0 wide=0 modlisted-tfs=0
+NODB MaskNeg,testflags
+PREDCELLS MBadder,testflags            strict=0 wide=0 modlisted-tfs=0
+PREDCELL defpkg   pkg=svaunit_pkg              fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=svaunit_pkg              fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=svaunit_pkg              fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=svaunit_pkg              fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=svaunit_pkg              fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=svaunit_pkg              fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=svaunit_pkg              fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=svaunit_pkg              fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=svaunit_pkg              fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=svaunit_pkg              fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=svaunit_pkg              fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=svaunit_pkg              fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=svaunit_pkg              fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=svaunit_pkg              fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELLS MiniAmiq,testflags           strict=14 wide=14 modlisted-tfs=2532
+PREDCELLS MinTypMax,testflags          strict=0 wide=0 modlisted-tfs=0
+NODB ModPortArrayBind,testflags
+NODB ModPortHighConn,testflags
+NODB ModPortParam,testflags
+NODB ModPortRange,testflags
+NODB ModPortTest,testflags
+NODB Monitor,testflags
+PREDCELLS Moves,testflags              strict=0 wide=0 modlisted-tfs=0
+NODB MultContAssign,testflags
+NODB MultiConcat,testflags
+PREDCELLS MultiConcatValueSize,testflags strict=0 wide=0 modlisted-tfs=0
+NODB MultiIndexBind,testflags
+PREDCELLS MultiPartSelect,testflags    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS MultiPort,testflags          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS MultiSelect,testflags        strict=0 wide=0 modlisted-tfs=0
+NODB NameCollisionBind,testflags
+NODB NamedEventHierPath,testflags
+PREDCELLS NegInt,testflags             strict=0 wide=0 modlisted-tfs=0
+NODB NegParam,testflags
+NODB NetLValue,testflags
+NODB NetType,testflags
+PREDCELLS NonAnsiPort,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS NonSynthError,testflags      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS NonSynthUnusedMod,testflags  strict=0 wide=0 modlisted-tfs=0
+PREDCELLS NoParamSubs,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS NoReducTypespec,testflags    strict=0 wide=0 modlisted-tfs=0
+NODB NyuziProcessor,testflags
+NODB OldLibrary,testflags
+PREDCELLS OneAnd,testflags             strict=0 wide=0 modlisted-tfs=0
+PREDCELLS OneClock,testflags           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS OneDivider,testflags         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS OneFF,testflags              strict=0 wide=0 modlisted-tfs=0
+PREDCELLS OneImport,testflags          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS OneNet,testflags             strict=0 wide=0 modlisted-tfs=0
+PREDCELLS OneNetInterf,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS OneNetModPort,testflags      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS OneNetModPortGeneric,testflags strict=0 wide=0 modlisted-tfs=0
+PREDCELLS OneNetNonAnsi,testflags      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS OneNetRange,testflags        strict=0 wide=0 modlisted-tfs=0
+NODB Opentitan,testflags
+NODB OpTypespec,testflags
+NODB OrderedPortUnkownModule,testflags
+NODB OVMSwitch,testflags
+PREDCELLS PackageBind,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackageConst,testflags       strict=0 wide=0 modlisted-tfs=0
+NODB PackageDpi,testflags
+PREDCELLS PackageEval,testflags        strict=0 wide=0 modlisted-tfs=0
+NODB PackageFuncCall,testflags
+NODB PackageHierRef,testflags
+PREDCELLS PackageMemberTypespec,testflags strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackageNet,testflags         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackageOrder,testflags       strict=0 wide=0 modlisted-tfs=0
+NODB PackageParam,testflags
+PREDCELLS PackageParamConst,testflags  strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackageType,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackageTypeParam,testflags   strict=0 wide=0 modlisted-tfs=0
+NODB PackageValue,testflags
+NODB PackageVar,testflags
+PREDCELLS PackDataType,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackedArrayAssign,testflags  strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackedArrayBind,testflags    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackedArrayEnum,testflags    strict=0 wide=0 modlisted-tfs=0
+NODB PackedArrayHierPath,testflags
+PREDCELLS PackedArrayHighConn,testflags strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackedArrayStruct,testflags  strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackedArrayTypespec,testflags strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackedEnum,testflags         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackedEnumPort,testflags     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackedEnumVar,testflags      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackedUnpackedIo,testflags   strict=0 wide=0 modlisted-tfs=0
+NODB PackEnumVal,testflags
+PREDCELLS PackFunc,testflags           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackFuncParent,testflags     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackImport,testflags         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackStructField,testflags    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PackStructVar,testflags      strict=0 wide=0 modlisted-tfs=0
+NODB ParamArray,testflags
+NODB ParamArraySelect,testflags
+PREDCELLS ParamArrayUnsizedPattern,testflags strict=0 wide=0 modlisted-tfs=0
+NODB ParamBitSelect,testflags
+PREDCELLS ParamByValue,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamCast,testflags          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamComplex,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamComplexVerilator,testflags strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamConcat,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamConst,testflags         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamConstPush,testflags     strict=0 wide=0 modlisted-tfs=0
+NODB ParamElab,testflags
+PREDCELLS ParamElabMulti,testflags     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamEquivOp,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamFile,testflags          strict=0 wide=0 modlisted-tfs=0
+NODB ParamFileMacro,testflags
+NODB ParamFileNoTop,testflags
+PREDCELLS ParamFileOverr,testflags     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamFromPackage,testflags   strict=0 wide=0 modlisted-tfs=0
+NODB ParamIndex,testflags
+NODB ParamInFunc,testflags
+NODB ParamLine,testflags
+PREDCELLS ParamList,testflags          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamMultiConcat,testflags   strict=0 wide=0 modlisted-tfs=0
+NODB ParamNoDefault,testflags
+PREDCELLS ParamNoImport,testflags      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamNoSubst,testflags       strict=0 wide=0 modlisted-tfs=0
+NODB ParamOverload1,testflags
+PREDCELLS ParamOverload2,testflags     strict=0 wide=0 modlisted-tfs=0
+NODB ParamOverload3,testflags
+PREDCELLS ParamOverload4,testflags     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamOverloading,testflags   strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamOverloadProp,testflags  strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamRef,testflags           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamScope,testflags         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamSubstituteComplex,testflags strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamTypespec2,testflags     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ParamTypespec,testflags      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PartSelect3,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PartSelect4,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PartSelectElab,testflags     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PartSelectHier,testflags     strict=0 wide=0 modlisted-tfs=0
+NODB PartSelectHierPath,testflags
+PREDCELLS PartSelectNoParent,testflags strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PartSelectParent,testflags   strict=0 wide=0 modlisted-tfs=0
+NODB PartSelectRange,testflags
+PREDCELLS PAssignType,testflags        strict=0 wide=0 modlisted-tfs=0
+NODB PatAssignOp,testflags
+PREDCELLS PatternAssignInteger,testflags strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PatternAssignLogic,testflags strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PatternAssignment,testflags  strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PatternOrder,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PkgImportFunc,testflags      strict=0 wide=0 modlisted-tfs=0
+NODB PkgImportPkg,testflags
+PREDCELLS PortByName,testflags         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PortComplex,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PortDefaultValue,testflags   strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PortExpr,testflags           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PortInitVal2,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PortInitVal,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PortInterface,testflags      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PortMultiDim,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PortPackage,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PortRanges,testflags         strict=0 wide=0 modlisted-tfs=0
+NODB PortWildcard,testflags
+NODB PoundDelay,testflags
+PREDCELLS PoundDelayTask,testflags     strict=0 wide=0 modlisted-tfs=0
+NODB PoundParam,testflags
+NODB PPComment,testflags
+NODB PpLppdr,testflags
+PREDCELLS PPMacro,testflags            strict=0 wide=0 modlisted-tfs=0
+NODB PragmaProtect,testflags
+PREDCELLS PreProcDefine,testflags      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS PreprocFunc,testflags        strict=0 wide=0 modlisted-tfs=0
+NODB PreprocLine,testflags
+NODB PreProcMacro,testflags
+NODB PreProcMacroFunc,testflags
+NODB PreprocString,testflags
+PREDCELLS PreprocTest,testflags        strict=0 wide=0 modlisted-tfs=0
+NODB PreprocUhdmCov,testflags
+PREDCELLS PrimTermExpr,testflags       strict=0 wide=0 modlisted-tfs=0
+NODB ProcForLoop,testflags
+PREDCELLS PropBinding,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS RangeInf,testflags           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS RangeSelect,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ReorderPatt,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS RepeatStmt,testflags         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ReturnVal,testflags          strict=0 wide=0 modlisted-tfs=0
+NODB RewriteNonConstForLoopCond,testflags
+NODB Rggen,testflags
+NODB RiscV,testflags
+NODB Rom,testflags
+NODB rp32,testflags
+PREDCELLS ScalarParam,testflags        strict=0 wide=0 modlisted-tfs=0
+NODB Scoreboard,testflags
+NODB Scr1,testflags
+PREDCELLS Scr1SvTests,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS SelectHierPath,testflags     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS Selects,testflags            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS SelectSelect,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELL defpkg   pkg=adpcm_pkg                fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=adpcm_pkg                fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=adpcm_pkg                fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=adpcm_pkg                fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=adpcm_pkg                fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=adpcm_pkg                fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELL elabpkg  pkg=adpcm_pkg                fn=uvm_bits_to_string                       decl=io_decl(str)                 ref=UVM_LARGE_STRING         home=uvm_pkg              actual=constant
+PREDCELLS SeqDriver,testflags          strict=7 wide=7 modlisted-tfs=7497
+PREDCELLS SequenceInst,testflags       strict=0 wide=0 modlisted-tfs=0
+NODB SeqUseNonTemp,testflags
+PREDCELLS ShiftX,testflags             strict=0 wide=0 modlisted-tfs=0
+PREDCELLS SignedBin,testflags          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS SignedBinConst,testflags     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS SignedParam,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS SignedPort2,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS SignedPort,testflags         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS SignedVsUnsignedPort,testflags strict=0 wide=0 modlisted-tfs=0
+PREDCELLS SignedWire,testflags         strict=0 wide=0 modlisted-tfs=0
+NODB SimpleClass1,testflags
+NODB SimpleClass2,testflags
+NODB SimpleClass,testflags
+NODB SimpleCmdLineTest,testflags
+PREDCELLS SimpleConstraint,testflags   strict=0 wide=0 modlisted-tfs=0
+NODB SimpleIncludeAndMacros,testflags
+NODB SimpleInterface,testflags
+NODB SimpleOVM,testflags
+NODB SimpleParserTest,testflags
+NODB SimpleParserTestCache,testflags
+NODB SimpleTask,testflags
+PREDCELLS SimpleUVM,testflags          strict=0 wide=0 modlisted-tfs=2877
+NODB SimpleVMM,testflags
+PREDCELLS SimplifyHierPath,testflags   strict=0 wide=0 modlisted-tfs=0
+NODB Sky130Cell,testflags
+NODB Sky130Udp,testflags
+NODB SplitFile,testflags
+PREDCELLS StandardBlock,testflags      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS StandardNetVar,testflags     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS StaticTask,testflags         strict=0 wide=0 modlisted-tfs=0
+NODB StreamingOp,testflags
+PREDCELLS StringConcat,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS StringMethod,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS StringParameter,testflags    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS StringPort,testflags         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS StringRange,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS StructAccess,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS StructArrayNet,testflags     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS StructNetUnionTypespec,testflags strict=0 wide=0 modlisted-tfs=0
+NODB StructStructHierPath,testflags
+PREDCELLS StructTypedef,testflags      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS StructUnsizedVal,testflags   strict=0 wide=0 modlisted-tfs=0
+NODB StructVar,testflags
+NODB StructVarImp,testflags
+PREDCELLS SurelogMacro,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS SVSwitch,testflags           strict=0 wide=0 modlisted-tfs=0
+NODB SynthFilterDollarError,testflags
+PREDCELLS SynthForeach,testflags       strict=0 wide=0 modlisted-tfs=0
+NODB SystemCall,testflags
+PREDCELLS SystemCallSize,testflags     strict=0 wide=0 modlisted-tfs=0
+NODB TaggedParam,testflags
+PREDCELLS TaggedPattern,testflags      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS TaggedPatternLogic,testflags strict=0 wide=0 modlisted-tfs=0
+PREDCELLS TaskBind,testflags           strict=0 wide=0 modlisted-tfs=0
+NODB TaskDeclNoOrder,testflags
+PREDCELLS TaskDecls,testflags          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS TaskDeclTypes,testflags      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS TaskProto,testflags          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS TaskProtoDef,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS Ternary,testflags            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS TernaryAssoc,testflags       strict=0 wide=0 modlisted-tfs=0
+NODB TestBasic,testflags
+NODB TestBatchMode,testflags
+NODB TestFileSplit,testflags
+NODB TestMacros,testflags
+NODB TestNoHash,testflags
+NODB TestSepCompBadPath,testflags
+NODB TestSepComp,testflags
+NODB TestSepCompNoHash,testflags
+PREDCELLS TfCalls,testflags            strict=0 wide=0 modlisted-tfs=0
+NODB ThisHier,testflags
+NODB TimeUnit,testflags
+NODB TNocBadType,testflags
+NODB Tnoc,testflags
+PREDCELLS TopFunc,testflags            strict=0 wide=0 modlisted-tfs=0
+FENCED testflags
+NODB TranslateOff,testflags
+PREDCELLS TypedefAlias,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS TypeDefGenScope,testflags    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS TypedefPack,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS TypedefRange,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS TypedefRangedFunctionReturn,testflags strict=0 wide=0 modlisted-tfs=0
+NODB TypeDefScope,testflags
+PREDCELLS TypedefUnpacked,testflags    strict=0 wide=0 modlisted-tfs=0
+NODB Typename,testflags
+NODB TypeParam2,testflags
+PREDCELLS TypeParam,testflags          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS TypeParamElab,testflags      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS TypeParamOverride,testflags  strict=0 wide=0 modlisted-tfs=0
+NODB TypespecBits,testflags
+PREDCELLS TypespecExpr,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS TypespecMask,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS Udp,testflags                strict=0 wide=0 modlisted-tfs=0
+NODB UhdmCoverage,testflags
+PREDCELLS UnaryPlus,testflags          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS UnboundForLoop,testflags     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS UndersVal,testflags          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS UnelabPack,testflags         strict=0 wide=0 modlisted-tfs=0
+PREDCELLS UnionCast,testflags          strict=0 wide=0 modlisted-tfs=0
+NODB Unisim,testflags
+NODB UnitAmiqEth,testflags
+NODB UnitClass,testflags
+NODB UnitConcat,testflags
+NODB UnitDefParam,testflags
+NODB UnitElab,testflags
+PREDCELLS UnitElabBlock,testflags      strict=0 wide=0 modlisted-tfs=0
+NODB UnitElabExternNested,testflags
+NODB UnitEnum,testflags
+NODB UnitForeach,testflags
+NODB UnitForLoop,testflags
+NODB UnitLibrary,testflags
+NODB UnitPackage,testflags
+NODB UnitPartSelect,testflags
+NODB UnitQueue,testflags
+NODB UnitSimpleIncludeAndMacros,testflags
+NODB UnitSVA,testflags
+NODB UnitTest,testflags
+NODB UnitThisNew,testflags
+PREDCELLS UnpackedTypespec,testflags   strict=0 wide=0 modlisted-tfs=0
+PREDCELLS UnpackPort,testflags         strict=0 wide=0 modlisted-tfs=0
+FENCED testflags
+PREDCELLS UnsizeConstExpr,testflags    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS Unsized,testflags            strict=0 wide=0 modlisted-tfs=0
+PREDCELLS UnsizedArray,testflags       strict=0 wide=0 modlisted-tfs=0
+NODB UnsizedConstInst,testflags
+PREDCELLS UnsizedElabComp,testflags    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS UnsizedFunc,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS UnsizedLiteral1,testflags    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS UnsizedLiteral2,testflags    strict=0 wide=0 modlisted-tfs=0
+NODB UnsizedPacked,testflags
+PREDCELLS UnsizedParam,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS UnsupportedTypespecRange,testflags strict=0 wide=0 modlisted-tfs=0
+NODB UtdSV,testflags
+NODB UVMNestedSeq,testflags
+NODB UVMSwitch,testflags
+PREDCELLS Value4States,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS Values,testflags             strict=0 wide=0 modlisted-tfs=0
+PREDCELLS ValueSize,testflags          strict=0 wide=0 modlisted-tfs=0
+PREDCELLS VarDecl2,testflags           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS VarDecl,testflags            strict=0 wide=0 modlisted-tfs=0
+NODB VarInFunc,testflags
+PREDCELLS VarRangeTypedef,testflags    strict=0 wide=0 modlisted-tfs=0
+NODB VarSelect,testflags
+PREDCELLS VarSelectGenStmt,testflags   strict=0 wide=0 modlisted-tfs=0
+PREDCELLS VarType,testflags            strict=0 wide=0 modlisted-tfs=0
+NODB Verilator,testflags
+PREDCELLS VirtualClass,testflags       strict=0 wide=0 modlisted-tfs=0
+NODB VoidFuncReturn,testflags
+PREDCELLS Wand,testflags               strict=0 wide=0 modlisted-tfs=0
+PREDCELLS WildConn,testflags           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS WireLogicSize,testflags      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS WireType,testflags           strict=0 wide=0 modlisted-tfs=0
+PREDCELLS WireUnpacked,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS XValue,testflags             strict=0 wide=0 modlisted-tfs=0
+NODB Yosys,testflags
+PREDCELLS YosysBigSimAes,testflags     strict=0 wide=0 modlisted-tfs=0
+NODB YosysBigSimAmber23,testflags
+NODB YosysBigSimLm32,testflags
+NODB YosysBigSimOpenMsp,testflags
+NODB YosysBigSimPong,testflags
+PREDCELLS YosysBigSimReed,testflags    strict=0 wide=0 modlisted-tfs=0
+PREDCELLS YosysBigSimSoft,testflags    strict=0 wide=0 modlisted-tfs=0
+NODB YosysCam,testflags
+NODB YosysDsp,testflags
+NODB YosysEth,testflags
+NODB YosysIce40,testflags
+PREDCELLS YosysMarlann,testflags       strict=0 wide=0 modlisted-tfs=0
+NODB YosysOldAes,testflags
+PREDCELLS YosysOldI2c,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS YosysOldOpen,testflags       strict=0 wide=0 modlisted-tfs=0
+PREDCELLS YosysOldOr,testflags         strict=0 wide=0 modlisted-tfs=0
+NODB YosysOldSasc,testflags
+PREDCELLS YosysOldSimpleSpi,testflags  strict=0 wide=0 modlisted-tfs=0
+PREDCELLS YosysOldSpi,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS YosysOldSsPcm,testflags      strict=0 wide=0 modlisted-tfs=0
+PREDCELLS YosysOldSystem,testflags     strict=0 wide=0 modlisted-tfs=0
+PREDCELLS YosysOldUsb,testflags        strict=0 wide=0 modlisted-tfs=0
+PREDCELLS YosysRiscv,testflags         strict=0 wide=0 modlisted-tfs=0
+NODB YosysSmall,testflags
+NODB YosysTests,testflags
+NODB YosysTestSuite,testflags
+PREDCELLS YosysVerx,testflags          strict=0 wide=0 modlisted-tfs=0
+NODB Zachjs,testflags
+-- scanned=948 NODB=617 FENCED=8

@@ -1,0 +1,132 @@
+r10uvm200 — THE CORPUS CENSUS over the UVM row-modes (+ Earlgrey, Rggen).
+MEASUREMENT ONLY.  LHS is ALWAYS golden.  Key = listing|scope|subroutine|holder|refname|refspan;
+payload = the ref_obj's Actual kind + span (NONE when it carries none) — what ref_obj::Compare reads.
+Each row is scored, then the GOLDEN-vs-GOLDEN calibration (RESUME §9) is printed under it.
+
+SeqDriver    default   rc=0/0/0 cells=64833 CELLS golden=63434 pris=63229 pat=63229
+AGREE 59301  TO-GOLDEN 2  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 806
+ONLY-GOLDEN pris=3325 pat=3325   ONLY-OURS pris=3120 pat=3120
+SeqDriver    default   GOLDEN-vs-GOLDEN CELLS golden=63434 pris=63434 pat=63434
+AGREE 63434  TO-GOLDEN 0  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=0 pat=0
+SeqDriver    testflags rc=0/0/0 cells=64833 CELLS golden=63434 pris=63229 pat=63229
+AGREE 59301  TO-GOLDEN 2  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 806
+ONLY-GOLDEN pris=3325 pat=3325   ONLY-OURS pris=3120 pat=3120
+SeqDriver    testflags GOLDEN-vs-GOLDEN CELLS golden=63434 pris=63434 pat=63434
+AGREE 63434  TO-GOLDEN 0  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=0 pat=0
+SimpleUVM    default   rc=0/0/0 cells=34544 CELLS golden=33976 pris=33828 pat=33828
+AGREE 32034  TO-GOLDEN 0  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 395
+ONLY-GOLDEN pris=1547 pat=1547   ONLY-OURS pris=1399 pat=1399
+SimpleUVM    default   GOLDEN-vs-GOLDEN CELLS golden=33976 pris=33976 pat=33976
+AGREE 33976  TO-GOLDEN 0  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=0 pat=0
+SimpleUVM    testflags rc=0/0/0 cells=34544 CELLS golden=33976 pris=33828 pat=33828
+AGREE 32034  TO-GOLDEN 0  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 395
+ONLY-GOLDEN pris=1547 pat=1547   ONLY-OURS pris=1399 pat=1399
+SimpleUVM    testflags GOLDEN-vs-GOLDEN CELLS golden=33976 pris=33976 pat=33976
+AGREE 33976  TO-GOLDEN 0  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=0 pat=0
+Scoreboard   default   rc=0/0/0 cells=45427 CELLS golden=44677 pris=44514 pat=44514
+AGREE 42513  TO-GOLDEN 0  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 162
+ONLY-GOLDEN pris=2002 pat=2002   ONLY-OURS pris=1839 pat=1839
+Scoreboard   default   GOLDEN-vs-GOLDEN CELLS golden=44677 pris=44677 pat=44677
+AGREE 44677  TO-GOLDEN 0  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=0 pat=0
+SKIP-NOFILE Scoreboard testflags (g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq     default   rc=0/0/0 cells=84169 CELLS golden=82155 pris=82028 pat=82028
+AGREE 77148  TO-GOLDEN 3  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 602
+ONLY-GOLDEN pris=4402 pat=4402   ONLY-OURS pris=4275 pat=4275
+MiniAmiq     default   GOLDEN-vs-GOLDEN CELLS golden=82155 pris=82155 pat=82155
+AGREE 82155  TO-GOLDEN 0  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=0 pat=0
+MiniAmiq     testflags rc=0/0/0 cells=84169 CELLS golden=82155 pris=82028 pat=82028
+AGREE 77148  TO-GOLDEN 3  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 602
+ONLY-GOLDEN pris=4402 pat=4402   ONLY-OURS pris=4275 pat=4275
+MiniAmiq     testflags GOLDEN-vs-GOLDEN CELLS golden=82155 pris=82155 pat=82155
+AGREE 82155  TO-GOLDEN 0  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=0 pat=0
+BuildUVMPkg  default   rc=0/0/0 cells=35491 CELLS golden=35371 pris=35504 pat=35504
+AGREE 34522  TO-GOLDEN 0  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 103
+ONLY-GOLDEN pris=746 pat=746   ONLY-OURS pris=879 pat=879
+BuildUVMPkg  default   GOLDEN-vs-GOLDEN CELLS golden=35371 pris=35371 pat=35371
+AGREE 35371  TO-GOLDEN 0  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=0 pat=0
+BuildUVMPkg  testflags rc=0/0/0 cells=35491 CELLS golden=35371 pris=35504 pat=35504
+AGREE 34522  TO-GOLDEN 0  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 103
+ONLY-GOLDEN pris=746 pat=746   ONLY-OURS pris=879 pat=879
+BuildUVMPkg  testflags GOLDEN-vs-GOLDEN CELLS golden=35371 pris=35371 pat=35371
+AGREE 35371  TO-GOLDEN 0  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=0 pat=0
+Earlgrey_0_1 default   rc=0/0/0 cells=47277 CELLS golden=45000 pris=44998 pat=44998
+AGREE 44910  TO-GOLDEN 0  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 14
+ONLY-GOLDEN pris=76 pat=76   ONLY-OURS pris=74 pat=74
+Earlgrey_0_1 default   GOLDEN-vs-GOLDEN CELLS golden=45000 pris=45000 pat=45000
+AGREE 45000  TO-GOLDEN 0  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=0 pat=0
+Earlgrey_0_1 testflags rc=0/0/0 cells=47249 CELLS golden=44978 pris=44976 pat=44976
+AGREE 44896  TO-GOLDEN 0  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 6
+ONLY-GOLDEN pris=76 pat=76   ONLY-OURS pris=74 pat=74
+Earlgrey_0_1 testflags GOLDEN-vs-GOLDEN CELLS golden=44978 pris=44978 pat=44978
+AGREE 44978  TO-GOLDEN 0  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=0 pat=0
+Rggen        default   rc=0/0/0 cells=2926 CELLS golden=1596 pris=1867 pat=1867
+AGREE 1585  TO-GOLDEN 0  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+ONLY-GOLDEN pris=11 pat=11   ONLY-OURS pris=282 pat=282
+Rggen        default   GOLDEN-vs-GOLDEN CELLS golden=1596 pris=1596 pat=1596
+AGREE 1596  TO-GOLDEN 0  TO-GOLDEN-ARITY 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+ONLY-GOLDEN pris=0 pat=0   ONLY-OURS pris=0 pat=0
+SKIP-NOFILE Rggen testflags (g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+CENDONE
+
+==== THE MOVED KEYS IN FULL ====
+---- SeqDriver.default
+TO-GOLDEN    defpkg|package(adpcm_pkg)|function(uvm_bits_to_string)|io_decl(str)|UVM_LARGE_STRING|434:43-434:59
+   golden=['NONE|-']
+   pris  =['constant|410:30-410:60']
+   pat   =['NONE|-']
+--
+TO-GOLDEN    elabpkg|package(adpcm_pkg)|function(uvm_bits_to_string)|io_decl(str)|UVM_LARGE_STRING|434:43-434:59
+   golden=['NONE|-']
+   pris  =['constant|410:30-410:60']
+   pat   =['NONE|-']
+---- SeqDriver.testflags
+TO-GOLDEN    defpkg|package(adpcm_pkg)|function(uvm_bits_to_string)|io_decl(str)|UVM_LARGE_STRING|434:43-434:59
+   golden=['NONE|-']
+   pris  =['constant|410:30-410:60']
+   pat   =['NONE|-']
+--
+TO-GOLDEN    elabpkg|package(adpcm_pkg)|function(uvm_bits_to_string)|io_decl(str)|UVM_LARGE_STRING|434:43-434:59
+   golden=['NONE|-']
+   pris  =['constant|410:30-410:60']
+   pat   =['NONE|-']
+---- MiniAmiq.default
+TO-GOLDEN    defiface|interface_inst()|function(uvm_bits_to_string)|io_decl(str)|UVM_LARGE_STRING|434:43-434:59
+   golden=['NONE|-']
+   pris  =['constant|410:30-410:60']
+   pat   =['NONE|-']
+--
+TO-GOLDEN    defpkg|package(svaunit_pkg)|function(uvm_bits_to_string)|io_decl(str)|UVM_LARGE_STRING|434:43-434:59
+   golden=['NONE|-']
+   pris  =['constant|410:30-410:60']
+   pat   =['NONE|-']
+--
+TO-GOLDEN    elabpkg|package(svaunit_pkg)|function(uvm_bits_to_string)|io_decl(str)|UVM_LARGE_STRING|434:43-434:59
+   golden=['NONE|-']
+   pris  =['constant|410:30-410:60']
+   pat   =['NONE|-']
+---- MiniAmiq.testflags
+TO-GOLDEN    defiface|interface_inst()|function(uvm_bits_to_string)|io_decl(str)|UVM_LARGE_STRING|434:43-434:59
+   golden=['NONE|-']
+   pris  =['constant|410:30-410:60']
+   pat   =['NONE|-']
+--
+TO-GOLDEN    defpkg|package(svaunit_pkg)|function(uvm_bits_to_string)|io_decl(str)|UVM_LARGE_STRING|434:43-434:59
+   golden=['NONE|-']
+   pris  =['constant|410:30-410:60']
+   pat   =['NONE|-']
+--
+TO-GOLDEN    elabpkg|package(svaunit_pkg)|function(uvm_bits_to_string)|io_decl(str)|UVM_LARGE_STRING|434:43-434:59
+   golden=['NONE|-']
+   pris  =['constant|410:30-410:60']
+   pat   =['NONE|-']

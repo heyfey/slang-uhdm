@@ -1,0 +1,57 @@
+r10uvm200 — THE BYTE MOVERS AND THEIR ATTRIBUTION.  MEASUREMENT ONLY.
+
+== byteverify.sh SELFCHECK=1, PATCHED vs this pass's OWN PRISTINE sweep
+surelog:
+  databases: patched=956 pristine=956 / PATH_SETS_IDENTICAL (956 paths)
+  MOVER ./default/MiniAmiq-544c7f61/slang.uhdm    patched=4dba776e3e35 pristine=7649f0c62a5a
+  MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=9455a56a1acf pristine=150505baf8e6
+  MOVER ./default/SeqDriver-32af76aa/slang.uhdm   patched=4791de490383 pristine=f98b6181931d
+  MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=4dba776e3e35 pristine=7649f0c62a5a
+  MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm patched=9c780cc9119c pristine=11e4c4e9cec1
+  MOVERS: 5 / 956    SELFCHECK: 955 / 956 flagged (the gate can see)
+uhdm2rtlil:
+  MOVERS: 0 / 1358   SELFCHECK: 1357 / 1358 flagged
+
+FOUR of the five were PREDICTED BY NAME from the PRISTINE databases alone
+(PREDICT.surelog.r10uvm200.txt, written before the patched binary existed):
+  SeqDriver,default  SeqDriver,testflags  MiniAmiq,default  MiniAmiq,testflags
+The fifth is default/Scoreboard, RESUME §9's ~50/50 COIN — its ORDER-BLIND
+sorted-dump diff is 0 CONTENT lines (see below).
+
+== attrib200.sh (uhdm-dump, workdir-normalised, id-stripped, plain AND order-blind)
+default    MiniAmiq       plain=6      order-blind=6     
+---- default MiniAmiq ORDER-BLIND diff, by line shape:
+      2 <       |vpiActual:
+      2 <       \_constant: , line:N:N, endln:N:N
+      1 > /default/MiniAmiq-NcNfN/slang.uhdm: Restored design Pre-Elab: 
+      1 < /default/MiniAmiq-NcNfN//slang.uhdm: Restored design Pre-Elab: 
+default    Scoreboard     plain=94     order-blind=2     
+---- default Scoreboard ORDER-BLIND diff, by line shape:
+      1 > /default/Scoreboard-N/slang.uhdm: Restored design Pre-Elab: 
+      1 < /default/Scoreboard-N//slang.uhdm: Restored design Pre-Elab: 
+default    SeqDriver      plain=6      order-blind=6     
+---- default SeqDriver ORDER-BLIND diff, by line shape:
+      2 <       |vpiActual:
+      2 <       \_constant: , line:N:N, endln:N:N
+      1 > /default/SeqDriver-NafNaa/slang.uhdm: Restored design Pre-Elab: 
+      1 < /default/SeqDriver-NafNaa//slang.uhdm: Restored design Pre-Elab: 
+testflags  MiniAmiq       plain=6      order-blind=6     
+---- testflags MiniAmiq ORDER-BLIND diff, by line shape:
+      2 <       |vpiActual:
+      2 <       \_constant: , line:N:N, endln:N:N
+      1 > /testflags/MiniAmiq-NcNfN/slang.uhdm: Restored design Pre-Elab: 
+      1 < /testflags/MiniAmiq-NcNfN//slang.uhdm: Restored design Pre-Elab: 
+testflags  SeqDriver      plain=6      order-blind=6     
+---- testflags SeqDriver ORDER-BLIND diff, by line shape:
+      2 <       |vpiActual:
+      2 <       \_constant: , line:N:N, endln:N:N
+      1 > /testflags/SeqDriver-NafNaa/slang.uhdm: Restored design Pre-Elab: 
+      1 < /testflags/SeqDriver-NafNaa//slang.uhdm: Restored design Pre-Elab: 
+
+READING IT.  Each moved target row loses exactly FOUR dump lines — two
+'|vpiActual:' and the two '\_constant:' lines under them, i.e. TWO removed
+bindings per row (the importing package's def and elab listings) — and ADDS
+NOTHING.  The single remaining < / > pair in every block is the driver's own
+path normalisation ('...-hash//slang.uhdm' vs '...-hash/slang.uhdm') on
+uhdm-dump's banner line, not content.  Scoreboard/default's order-blind diff
+is that banner pair and nothing else: 0 content lines.

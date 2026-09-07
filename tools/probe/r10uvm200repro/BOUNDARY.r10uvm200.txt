@@ -1,0 +1,28 @@
+r10uvm200 — THE WIDE BOUNDARY GATE.  MEASUREMENT ONLY.
+
+bound200.sh over a COPY of the WHOLE tools/probe tree (top level AND every
+subdirectory — sd8-12 keep arms in subdirs and a top-level glob would run
+nothing while printing green), BOTH views, BOTH frozen binaries, every child
+</dev/null, the file list read on fd 3, PROCESSED asserted against LISTED and
+scratch keyed on the RELATIVE path.
+
+LISTED=5243 PROCESSED=5243 PRODUCED_DBS=5058 MOVED_ARMS=5 RC_DIFFS=0
+
+MOVED_ARMS = 5, and ALL FIVE are this pass's OWN grid arms — the POSITIVE
+CONTROL that proves the gate can see.  NOT ONE earlier-pass arm moved:
+
+r10uvm200repro/grid200/g200_a_sites.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10uvm200repro/grid200/g200_b_kinds.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10uvm200repro/grid200/g200_c_scopes.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10uvm200repro/grid200/g200_d_importers.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10uvm200repro/grid200/g200_e_head.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+
+So the FLOOR is untouched in full — uvm198's five arms and its
+classScopedTdImportCopyLocalUnsupported198 cells, uvm197's
+impCopyStringConstSize size-stamp arms, uvm196's modUnitImportParamsTwice196
+arms, uvm188's render arms, uvm170/184-195's arms, and uvm82-91's 113,
+buvm3-15's 119 and sd8-12's 347 — every one byte-identical in both views.
+
+RC_DIFFS = 0.  185 arms produce no database on EITHER binary (5243 - 5058);
+the segfaulting arms segfault identically on both, which is what RC_DIFFS=0
+asserts — an rc=139 must never read as a result (RESUME.md §9).
