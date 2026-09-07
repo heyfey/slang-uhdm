@@ -1,0 +1,149 @@
+ARM v201_q_castref parse rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_q_castref.parse cellsG=56 cellsO=56 AGREE=56 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+TS PRIS:v201_q_castref.parse key=defif|interface_inst||work@i201vq|16:1|Q_D|p201vq|ct1/sz-1 pay=<unbound>/- G=0 O=2
+TS PRIS:v201_q_castref.parse key=defif|interface_inst||work@i201vq|16:1|Q_D|p201vq|ct1/sz-1 pay=<unbound>/int_typespec G=2 O=0
+ONLY-GOLDEN PRIS:v201_q_castref.parse key=defif|interface_inst||work@i201vq|16:1|Q_W2|p201vq|ct5/sz-1 n=2
+ONLY-OURS PRIS:v201_q_castref.parse key=defif|interface_inst||work@i201vq|16:1|Q_W2|p201vq|ct5/sz32 n=2
+TS PRIS:v201_q_castref.parse key=defpkg|package|p201vq|p201vq|7:1|Q_D|-|ct1/sz-1 pay=<unbound>/- G=0 O=1
+TS PRIS:v201_q_castref.parse key=defpkg|package|p201vq|p201vq|7:1|Q_D|-|ct1/sz-1 pay=<unbound>/int_typespec G=1 O=0
+TS PRIS:v201_q_castref.parse key=defpkg|package|p201vq|p201vq|7:1|Q_W|-|ct5/sz-1 pay=<unbound>/- G=0 O=1
+TS PRIS:v201_q_castref.parse key=defpkg|package|p201vq|p201vq|7:1|Q_W|-|ct5/sz-1 pay=<unbound>/int_typespec G=1 O=0
+TS PRIS:v201_q_castref.parse key=defprog|program||work@pr201vq|18:1|Q_D|p201vq|ct1/sz-1 pay=<unbound>/- G=0 O=2
+TS PRIS:v201_q_castref.parse key=defprog|program||work@pr201vq|18:1|Q_D|p201vq|ct1/sz-1 pay=<unbound>/int_typespec G=2 O=0
+ONLY-GOLDEN PRIS:v201_q_castref.parse key=defprog|program||work@pr201vq|18:1|Q_W2|p201vq|ct5/sz-1 n=2
+ONLY-OURS PRIS:v201_q_castref.parse key=defprog|program||work@pr201vq|18:1|Q_W2|p201vq|ct5/sz32 n=2
+TS PRIS:v201_q_castref.parse key=def|module_inst||work@m201vq|20:1|Q_D|p201vq|ct1/sz-1 pay=<unbound>/- G=0 O=2
+TS PRIS:v201_q_castref.parse key=def|module_inst||work@m201vq|20:1|Q_D|p201vq|ct1/sz-1 pay=<unbound>/int_typespec G=2 O=0
+ONLY-GOLDEN PRIS:v201_q_castref.parse key=def|module_inst||work@m201vq|20:1|Q_W2|p201vq|ct5/sz-1 n=2
+ONLY-OURS PRIS:v201_q_castref.parse key=def|module_inst||work@m201vq|20:1|Q_W2|p201vq|ct5/sz32 n=2
+TS PRIS:v201_q_castref.parse key=elabpkg|package|p201vq|p201vq|7:1|Q_D|-|ct1/sz-1 pay=<unbound>/- G=0 O=1
+TS PRIS:v201_q_castref.parse key=elabpkg|package|p201vq|p201vq|7:1|Q_D|-|ct1/sz-1 pay=<unbound>/int_typespec G=1 O=0
+ONLY-GOLDEN PRIS:v201_q_castref.parse key=elabpkg|package|p201vq|p201vq|7:1|Q_W2|-|ct5/sz-1 n=1
+ONLY-OURS PRIS:v201_q_castref.parse key=elabpkg|package|p201vq|p201vq|7:1|Q_W2|-|ct5/sz32 n=1
+TS PRIS:v201_q_castref.parse key=elabpkg|package|p201vq|p201vq|7:1|Q_W|-|ct5/sz-1 pay=<unbound>/- G=0 O=1
+TS PRIS:v201_q_castref.parse key=elabpkg|package|p201vq|p201vq|7:1|Q_W|-|ct5/sz-1 pay=<unbound>/int_typespec G=1 O=0
+TS PRIS:v201_q_castref.parse key=elab|module_inst|work@m201vq|work@m201vq|20:1|Q_D|p201vq|ct7/sz32 pay=-/- G=0 O=2
+TS PRIS:v201_q_castref.parse key=elab|module_inst|work@m201vq|work@m201vq|20:1|Q_D|p201vq|ct7/sz32 pay=int_typespec/int_typespec G=2 O=0
+ONLY-OURS PRIS:v201_q_castref.parse key=elab|module_inst|work@m201vq|work@m201vq|20:1|Q_W|p201vq|ct5/sz-1 n=2
+ONLY-GOLDEN PRIS:v201_q_castref.parse key=elab|module_inst|work@m201vq|work@m201vq|20:1|Q_W|p201vq|ct5/sz32 n=2
+CENSUM PRIS:v201_q_castref.parse cellsG=56 cellsO=56 AGREE=35 TS-DIFF=24 ONLY-GOLDEN=9 ONLY-OURS=9 UNEQUAL
+CMP PRIS:v201_q_castref.parse lines=11620 heads=1 rc=255
+TS PATCHED:v201_q_castref.parse key=defif|interface_inst||work@i201vq|16:1|Q_D|p201vq|ct1/sz-1 pay=<unbound>/- G=0 O=2
+TS PATCHED:v201_q_castref.parse key=defif|interface_inst||work@i201vq|16:1|Q_D|p201vq|ct1/sz-1 pay=<unbound>/int_typespec G=2 O=0
+ONLY-GOLDEN PATCHED:v201_q_castref.parse key=defif|interface_inst||work@i201vq|16:1|Q_W2|p201vq|ct5/sz-1 n=2
+ONLY-OURS PATCHED:v201_q_castref.parse key=defif|interface_inst||work@i201vq|16:1|Q_W2|p201vq|ct5/sz32 n=2
+TS PATCHED:v201_q_castref.parse key=defpkg|package|p201vq|p201vq|7:1|Q_D|-|ct1/sz-1 pay=<unbound>/- G=0 O=1
+TS PATCHED:v201_q_castref.parse key=defpkg|package|p201vq|p201vq|7:1|Q_D|-|ct1/sz-1 pay=<unbound>/int_typespec G=1 O=0
+TS PATCHED:v201_q_castref.parse key=defpkg|package|p201vq|p201vq|7:1|Q_W|-|ct5/sz-1 pay=<unbound>/- G=0 O=1
+TS PATCHED:v201_q_castref.parse key=defpkg|package|p201vq|p201vq|7:1|Q_W|-|ct5/sz-1 pay=<unbound>/int_typespec G=1 O=0
+TS PATCHED:v201_q_castref.parse key=defprog|program||work@pr201vq|18:1|Q_D|p201vq|ct1/sz-1 pay=<unbound>/- G=0 O=2
+TS PATCHED:v201_q_castref.parse key=defprog|program||work@pr201vq|18:1|Q_D|p201vq|ct1/sz-1 pay=<unbound>/int_typespec G=2 O=0
+ONLY-GOLDEN PATCHED:v201_q_castref.parse key=defprog|program||work@pr201vq|18:1|Q_W2|p201vq|ct5/sz-1 n=2
+ONLY-OURS PATCHED:v201_q_castref.parse key=defprog|program||work@pr201vq|18:1|Q_W2|p201vq|ct5/sz32 n=2
+TS PATCHED:v201_q_castref.parse key=def|module_inst||work@m201vq|20:1|Q_D|p201vq|ct1/sz-1 pay=<unbound>/- G=0 O=2
+TS PATCHED:v201_q_castref.parse key=def|module_inst||work@m201vq|20:1|Q_D|p201vq|ct1/sz-1 pay=<unbound>/int_typespec G=2 O=0
+ONLY-GOLDEN PATCHED:v201_q_castref.parse key=def|module_inst||work@m201vq|20:1|Q_W2|p201vq|ct5/sz-1 n=2
+ONLY-OURS PATCHED:v201_q_castref.parse key=def|module_inst||work@m201vq|20:1|Q_W2|p201vq|ct5/sz32 n=2
+TS PATCHED:v201_q_castref.parse key=elabpkg|package|p201vq|p201vq|7:1|Q_D|-|ct1/sz-1 pay=<unbound>/- G=0 O=1
+TS PATCHED:v201_q_castref.parse key=elabpkg|package|p201vq|p201vq|7:1|Q_D|-|ct1/sz-1 pay=<unbound>/int_typespec G=1 O=0
+ONLY-GOLDEN PATCHED:v201_q_castref.parse key=elabpkg|package|p201vq|p201vq|7:1|Q_W2|-|ct5/sz-1 n=1
+ONLY-OURS PATCHED:v201_q_castref.parse key=elabpkg|package|p201vq|p201vq|7:1|Q_W2|-|ct5/sz32 n=1
+TS PATCHED:v201_q_castref.parse key=elabpkg|package|p201vq|p201vq|7:1|Q_W|-|ct5/sz-1 pay=<unbound>/- G=0 O=1
+TS PATCHED:v201_q_castref.parse key=elabpkg|package|p201vq|p201vq|7:1|Q_W|-|ct5/sz-1 pay=<unbound>/int_typespec G=1 O=0
+TS PATCHED:v201_q_castref.parse key=elab|module_inst|work@m201vq|work@m201vq|20:1|Q_D|p201vq|ct7/sz32 pay=-/- G=0 O=2
+TS PATCHED:v201_q_castref.parse key=elab|module_inst|work@m201vq|work@m201vq|20:1|Q_D|p201vq|ct7/sz32 pay=int_typespec/int_typespec G=2 O=0
+ONLY-OURS PATCHED:v201_q_castref.parse key=elab|module_inst|work@m201vq|work@m201vq|20:1|Q_W|p201vq|ct5/sz-1 n=2
+ONLY-GOLDEN PATCHED:v201_q_castref.parse key=elab|module_inst|work@m201vq|work@m201vq|20:1|Q_W|p201vq|ct5/sz32 n=2
+CENSUM PATCHED:v201_q_castref.parse cellsG=56 cellsO=56 AGREE=35 TS-DIFF=24 ONLY-GOLDEN=9 ONLY-OURS=9 UNEQUAL
+CMP PATCHED:v201_q_castref.parse lines=11704 heads=1 rc=255
+ARM v201_q_castref elab rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_q_castref.elab cellsG=56 cellsO=56 AGREE=56 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+TS PRIS:v201_q_castref.elab key=defif|interface_inst||work@i201vq|16:1|Q_D|p201vq|ct1/sz-1 pay=<unbound>/- G=0 O=2
+TS PRIS:v201_q_castref.elab key=defif|interface_inst||work@i201vq|16:1|Q_D|p201vq|ct1/sz-1 pay=<unbound>/int_typespec G=2 O=0
+ONLY-GOLDEN PRIS:v201_q_castref.elab key=defif|interface_inst||work@i201vq|16:1|Q_W2|p201vq|ct5/sz-1 n=2
+ONLY-OURS PRIS:v201_q_castref.elab key=defif|interface_inst||work@i201vq|16:1|Q_W2|p201vq|ct5/sz32 n=2
+TS PRIS:v201_q_castref.elab key=defpkg|package|p201vq|p201vq|7:1|Q_D|-|ct1/sz-1 pay=<unbound>/- G=0 O=1
+TS PRIS:v201_q_castref.elab key=defpkg|package|p201vq|p201vq|7:1|Q_D|-|ct1/sz-1 pay=<unbound>/int_typespec G=1 O=0
+TS PRIS:v201_q_castref.elab key=defpkg|package|p201vq|p201vq|7:1|Q_W|-|ct5/sz-1 pay=<unbound>/- G=0 O=1
+TS PRIS:v201_q_castref.elab key=defpkg|package|p201vq|p201vq|7:1|Q_W|-|ct5/sz-1 pay=<unbound>/int_typespec G=1 O=0
+TS PRIS:v201_q_castref.elab key=defprog|program||work@pr201vq|18:1|Q_D|p201vq|ct1/sz-1 pay=<unbound>/- G=0 O=2
+TS PRIS:v201_q_castref.elab key=defprog|program||work@pr201vq|18:1|Q_D|p201vq|ct1/sz-1 pay=<unbound>/int_typespec G=2 O=0
+ONLY-GOLDEN PRIS:v201_q_castref.elab key=defprog|program||work@pr201vq|18:1|Q_W2|p201vq|ct5/sz-1 n=2
+ONLY-OURS PRIS:v201_q_castref.elab key=defprog|program||work@pr201vq|18:1|Q_W2|p201vq|ct5/sz32 n=2
+TS PRIS:v201_q_castref.elab key=def|module_inst||work@m201vq|20:1|Q_D|p201vq|ct1/sz-1 pay=<unbound>/- G=0 O=2
+TS PRIS:v201_q_castref.elab key=def|module_inst||work@m201vq|20:1|Q_D|p201vq|ct1/sz-1 pay=<unbound>/int_typespec G=2 O=0
+ONLY-GOLDEN PRIS:v201_q_castref.elab key=def|module_inst||work@m201vq|20:1|Q_W2|p201vq|ct5/sz-1 n=2
+ONLY-OURS PRIS:v201_q_castref.elab key=def|module_inst||work@m201vq|20:1|Q_W2|p201vq|ct5/sz32 n=2
+TS PRIS:v201_q_castref.elab key=elabpkg|package|p201vq|p201vq|7:1|Q_D|-|ct1/sz-1 pay=<unbound>/- G=0 O=1
+TS PRIS:v201_q_castref.elab key=elabpkg|package|p201vq|p201vq|7:1|Q_D|-|ct1/sz-1 pay=<unbound>/int_typespec G=1 O=0
+ONLY-GOLDEN PRIS:v201_q_castref.elab key=elabpkg|package|p201vq|p201vq|7:1|Q_W2|-|ct5/sz-1 n=1
+ONLY-OURS PRIS:v201_q_castref.elab key=elabpkg|package|p201vq|p201vq|7:1|Q_W2|-|ct5/sz32 n=1
+TS PRIS:v201_q_castref.elab key=elabpkg|package|p201vq|p201vq|7:1|Q_W|-|ct5/sz-1 pay=<unbound>/- G=0 O=1
+TS PRIS:v201_q_castref.elab key=elabpkg|package|p201vq|p201vq|7:1|Q_W|-|ct5/sz-1 pay=<unbound>/int_typespec G=1 O=0
+TS PRIS:v201_q_castref.elab key=elab|module_inst|work@m201vq|work@m201vq|20:1|Q_D|p201vq|ct7/sz32 pay=-/- G=0 O=2
+TS PRIS:v201_q_castref.elab key=elab|module_inst|work@m201vq|work@m201vq|20:1|Q_D|p201vq|ct7/sz32 pay=int_typespec/int_typespec G=2 O=0
+ONLY-OURS PRIS:v201_q_castref.elab key=elab|module_inst|work@m201vq|work@m201vq|20:1|Q_W|p201vq|ct5/sz-1 n=2
+ONLY-GOLDEN PRIS:v201_q_castref.elab key=elab|module_inst|work@m201vq|work@m201vq|20:1|Q_W|p201vq|ct5/sz32 n=2
+CENSUM PRIS:v201_q_castref.elab cellsG=56 cellsO=56 AGREE=35 TS-DIFF=24 ONLY-GOLDEN=9 ONLY-OURS=9 UNEQUAL
+CMP PRIS:v201_q_castref.elab lines=11622 heads=1 rc=255
+TS PATCHED:v201_q_castref.elab key=defif|interface_inst||work@i201vq|16:1|Q_D|p201vq|ct1/sz-1 pay=<unbound>/- G=0 O=2
+TS PATCHED:v201_q_castref.elab key=defif|interface_inst||work@i201vq|16:1|Q_D|p201vq|ct1/sz-1 pay=<unbound>/int_typespec G=2 O=0
+ONLY-GOLDEN PATCHED:v201_q_castref.elab key=defif|interface_inst||work@i201vq|16:1|Q_W2|p201vq|ct5/sz-1 n=2
+ONLY-OURS PATCHED:v201_q_castref.elab key=defif|interface_inst||work@i201vq|16:1|Q_W2|p201vq|ct5/sz32 n=2
+TS PATCHED:v201_q_castref.elab key=defpkg|package|p201vq|p201vq|7:1|Q_D|-|ct1/sz-1 pay=<unbound>/- G=0 O=1
+TS PATCHED:v201_q_castref.elab key=defpkg|package|p201vq|p201vq|7:1|Q_D|-|ct1/sz-1 pay=<unbound>/int_typespec G=1 O=0
+TS PATCHED:v201_q_castref.elab key=defpkg|package|p201vq|p201vq|7:1|Q_W|-|ct5/sz-1 pay=<unbound>/- G=0 O=1
+TS PATCHED:v201_q_castref.elab key=defpkg|package|p201vq|p201vq|7:1|Q_W|-|ct5/sz-1 pay=<unbound>/int_typespec G=1 O=0
+TS PATCHED:v201_q_castref.elab key=defprog|program||work@pr201vq|18:1|Q_D|p201vq|ct1/sz-1 pay=<unbound>/- G=0 O=2
+TS PATCHED:v201_q_castref.elab key=defprog|program||work@pr201vq|18:1|Q_D|p201vq|ct1/sz-1 pay=<unbound>/int_typespec G=2 O=0
+ONLY-GOLDEN PATCHED:v201_q_castref.elab key=defprog|program||work@pr201vq|18:1|Q_W2|p201vq|ct5/sz-1 n=2
+ONLY-OURS PATCHED:v201_q_castref.elab key=defprog|program||work@pr201vq|18:1|Q_W2|p201vq|ct5/sz32 n=2
+TS PATCHED:v201_q_castref.elab key=def|module_inst||work@m201vq|20:1|Q_D|p201vq|ct1/sz-1 pay=<unbound>/- G=0 O=2
+TS PATCHED:v201_q_castref.elab key=def|module_inst||work@m201vq|20:1|Q_D|p201vq|ct1/sz-1 pay=<unbound>/int_typespec G=2 O=0
+ONLY-GOLDEN PATCHED:v201_q_castref.elab key=def|module_inst||work@m201vq|20:1|Q_W2|p201vq|ct5/sz-1 n=2
+ONLY-OURS PATCHED:v201_q_castref.elab key=def|module_inst||work@m201vq|20:1|Q_W2|p201vq|ct5/sz32 n=2
+TS PATCHED:v201_q_castref.elab key=elabpkg|package|p201vq|p201vq|7:1|Q_D|-|ct1/sz-1 pay=<unbound>/- G=0 O=1
+TS PATCHED:v201_q_castref.elab key=elabpkg|package|p201vq|p201vq|7:1|Q_D|-|ct1/sz-1 pay=<unbound>/int_typespec G=1 O=0
+ONLY-GOLDEN PATCHED:v201_q_castref.elab key=elabpkg|package|p201vq|p201vq|7:1|Q_W2|-|ct5/sz-1 n=1
+ONLY-OURS PATCHED:v201_q_castref.elab key=elabpkg|package|p201vq|p201vq|7:1|Q_W2|-|ct5/sz32 n=1
+TS PATCHED:v201_q_castref.elab key=elabpkg|package|p201vq|p201vq|7:1|Q_W|-|ct5/sz-1 pay=<unbound>/- G=0 O=1
+TS PATCHED:v201_q_castref.elab key=elabpkg|package|p201vq|p201vq|7:1|Q_W|-|ct5/sz-1 pay=<unbound>/int_typespec G=1 O=0
+TS PATCHED:v201_q_castref.elab key=elab|module_inst|work@m201vq|work@m201vq|20:1|Q_D|p201vq|ct7/sz32 pay=-/- G=0 O=2
+TS PATCHED:v201_q_castref.elab key=elab|module_inst|work@m201vq|work@m201vq|20:1|Q_D|p201vq|ct7/sz32 pay=int_typespec/int_typespec G=2 O=0
+ONLY-OURS PATCHED:v201_q_castref.elab key=elab|module_inst|work@m201vq|work@m201vq|20:1|Q_W|p201vq|ct5/sz-1 n=2
+ONLY-GOLDEN PATCHED:v201_q_castref.elab key=elab|module_inst|work@m201vq|work@m201vq|20:1|Q_W|p201vq|ct5/sz32 n=2
+CENSUM PATCHED:v201_q_castref.elab cellsG=56 cellsO=56 AGREE=35 TS-DIFF=24 ONLY-GOLDEN=9 ONLY-OURS=9 UNEQUAL
+CMP PATCHED:v201_q_castref.elab lines=11706 heads=1 rc=255
+ARM v201_r_cliov parse rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_r_cliov.parse cellsG=26 cellsO=26 AGREE=26 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+TS PRIS:v201_r_cliov.parse key=def|module_inst||work@m201vr|12:1|R_B|p201vr|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_r_cliov.parse key=def|module_inst||work@m201vr|12:1|R_B|p201vr|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+ONLY-GOLDEN PRIS:v201_r_cliov.parse key=other|module_inst|u|work@leaf201vr|13:3|LP|-|ct9/sz32 n=1
+ONLY-OURS PRIS:v201_r_cliov.parse key=other|module_inst|u|work@leaf201vr|13:3|LP|-|ct9/sz64 n=1
+CENSUM PRIS:v201_r_cliov.parse cellsG=26 cellsO=26 AGREE=23 TS-DIFF=4 ONLY-GOLDEN=1 ONLY-OURS=1 UNEQUAL
+CMP PRIS:v201_r_cliov.parse lines=5706 heads=1 rc=255
+ONLY-GOLDEN PATCHED:v201_r_cliov.parse key=other|module_inst|u|work@leaf201vr|13:3|LP|-|ct9/sz32 n=1
+ONLY-OURS PATCHED:v201_r_cliov.parse key=other|module_inst|u|work@leaf201vr|13:3|LP|-|ct9/sz64 n=1
+CENSUM PATCHED:v201_r_cliov.parse cellsG=26 cellsO=26 AGREE=25 TS-DIFF=0 ONLY-GOLDEN=1 ONLY-OURS=1 UNEQUAL
+CMP PATCHED:v201_r_cliov.parse lines=5734 heads=1 rc=255
+ARM v201_r_cliov elab rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_r_cliov.elab cellsG=26 cellsO=26 AGREE=26 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+TS PRIS:v201_r_cliov.elab key=def|module_inst||work@m201vr|12:1|R_B|p201vr|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_r_cliov.elab key=def|module_inst||work@m201vr|12:1|R_B|p201vr|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+ONLY-GOLDEN PRIS:v201_r_cliov.elab key=other|module_inst|u|work@leaf201vr|13:3|LP|-|ct9/sz32 n=1
+ONLY-OURS PRIS:v201_r_cliov.elab key=other|module_inst|u|work@leaf201vr|13:3|LP|-|ct9/sz64 n=1
+CENSUM PRIS:v201_r_cliov.elab cellsG=26 cellsO=26 AGREE=23 TS-DIFF=4 ONLY-GOLDEN=1 ONLY-OURS=1 UNEQUAL
+CMP PRIS:v201_r_cliov.elab lines=5708 heads=1 rc=255
+ONLY-GOLDEN PATCHED:v201_r_cliov.elab key=other|module_inst|u|work@leaf201vr|13:3|LP|-|ct9/sz32 n=1
+ONLY-OURS PATCHED:v201_r_cliov.elab key=other|module_inst|u|work@leaf201vr|13:3|LP|-|ct9/sz64 n=1
+CENSUM PATCHED:v201_r_cliov.elab cellsG=26 cellsO=26 AGREE=25 TS-DIFF=0 ONLY-GOLDEN=1 ONLY-OURS=1 UNEQUAL
+CMP PATCHED:v201_r_cliov.elab lines=5736 heads=1 rc=255
+-- CALIB  4 arm-views  TS-DIFF 0  ONLY-GOLDEN 0  ONLY-OURS 0  AGREE 164
+-- PRIS  4 arm-views  TS-DIFF 56  ONLY-GOLDEN 20  ONLY-OURS 20  AGREE 116
+-- PATCHED  4 arm-views  TS-DIFF 48  ONLY-GOLDEN 20  ONLY-OURS 20  AGREE 120
+-- NONZERO RCs: 0
+-- CMP LINE DELTAS (pat-pris) per arm-view:
+   v201_q_castref.elab      pris=11622    pat=11706    delta=84
+   v201_q_castref.parse     pris=11620    pat=11704    delta=84
+   v201_r_cliov.elab        pris=5708     pat=5736     delta=28
+   v201_r_cliov.parse       pris=5706     pat=5734     delta=28

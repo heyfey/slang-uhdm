@@ -1,0 +1,260 @@
+# r10uvm201 — the compare-visible param_assign Rhs-CONSTANT TYPESPEC census, pristine.surelog.
+# LHS is ALWAYS golden.  Trimmed to the UNEQUAL rows plus the ROBUST totals;
+# the raw file's own '-- TOTALS' line must NOT be quoted (xargs -P interleave,
+# r10uvm199's R4 — see censum201.sh).
+
+CENSUM default/BlackParrotComplex-5bed297d cellsG=8 cellsO=9 AGREE=8 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=1 UNEQUAL
+CENSUM default/Earlgrey_0_1-71da2fd7 cellsG=13152 cellsO=13152 AGREE=13138 TS-DIFF=14 ONLY-GOLDEN=0 ONLY-OURS=14 UNEQUAL
+CENSUM default/MiniAmiq-544c7f61 cellsG=788 cellsO=788 AGREE=784 TS-DIFF=8 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CENSUM default/SeqDriver-32af76aa cellsG=563 cellsO=563 AGREE=559 TS-DIFF=8 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CENSUM default/SimpleUVM-1dc93a62 cellsG=338 cellsO=338 AGREE=334 TS-DIFF=8 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CENSUM testflags/BitSelectPartSelectInFunction-55cf72a7 cellsG=0 cellsO=1 AGREE=0 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=1 UNEQUAL
+CENSUM testflags/BlackParrotComplex-5bed297d cellsG=8 cellsO=9 AGREE=8 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=1 UNEQUAL
+CENSUM testflags/DefParamIndex-d97eddd3 cellsG=5 cellsO=9 AGREE=5 TS-DIFF=4 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CENSUM testflags/Earlgrey_0_1-71da2fd7 cellsG=17112 cellsO=19776 AGREE=17098 TS-DIFF=2582 ONLY-GOLDEN=0 ONLY-OURS=110 UNEQUAL
+CENSUM testflags/ElabCParam-49d9610e cellsG=32 cellsO=36 AGREE=32 TS-DIFF=4 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CENSUM testflags/EvalFunc-605d5b75 cellsG=6 cellsO=11 AGREE=6 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=5 UNEQUAL
+CENSUM testflags/<FENCED>-b8ba49d5 cellsG=1 cellsO=0 AGREE=0 TS-DIFF=0 ONLY-GOLDEN=1 ONLY-OURS=0 UNEQUAL
+CENSUM testflags/FuncInModule-e8506f84 cellsG=4 cellsO=8 AGREE=4 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=4 UNEQUAL
+CENSUM testflags/GenForIfaceLocalparamBound-fe9fe25d cellsG=3 cellsO=5 AGREE=3 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=2 UNEQUAL
+CENSUM testflags/GenForIfaceLocalparamNestedGen-0374ca75 cellsG=3 cellsO=4 AGREE=3 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=1 UNEQUAL
+CENSUM testflags/GenScopeHierPath-a2114f21 cellsG=20 cellsO=28 AGREE=20 TS-DIFF=8 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CENSUM testflags/IncompFunc-e8c8c983 cellsG=0 cellsO=1 AGREE=0 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=1 UNEQUAL
+CENSUM testflags/IndexedSelectHex-cd46669f cellsG=20 cellsO=28 AGREE=20 TS-DIFF=8 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CENSUM testflags/InterfaceElab-e41049d0 cellsG=2 cellsO=3 AGREE=2 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=1 UNEQUAL
+CENSUM testflags/InterfType-54ee30ac cellsG=2 cellsO=3 AGREE=2 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=1 UNEQUAL
+CENSUM testflags/MiniAmiq-544c7f61 cellsG=788 cellsO=788 AGREE=784 TS-DIFF=8 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CENSUM testflags/MultiConcatValueSize-8e3f2431 cellsG=8 cellsO=10 AGREE=8 TS-DIFF=2 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CENSUM testflags/OneNetRange-cf1f634a cellsG=12 cellsO=13 AGREE=12 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=1 UNEQUAL
+CENSUM testflags/ParamElabMulti-6f8060a1 cellsG=8 cellsO=10 AGREE=8 TS-DIFF=2 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CENSUM testflags/SeqDriver-32af76aa cellsG=563 cellsO=563 AGREE=559 TS-DIFF=8 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CENSUM testflags/SimpleUVM-1dc93a62 cellsG=338 cellsO=338 AGREE=334 TS-DIFF=8 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CENSUM testflags/StringRange-5305794a cellsG=9 cellsO=21 AGREE=9 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=12 UNEQUAL
+CENSUM testflags/UnsizedFunc-48c3dff8 cellsG=2 cellsO=5 AGREE=2 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=3 UNEQUAL
+
+TS default/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_lc_src|work@rstmgr_ctrl|133:3|OffDomains|rstmgr_pkg|ct7/sz32 pay=int_typespec/int_typespec G=2 O=1
+TS default/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_lc_src|work@rstmgr_ctrl|133:3|PowerDomains|rstmgr_pkg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=1
+TS default/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_sys_src|work@rstmgr_ctrl|144:3|OffDomains|rstmgr_pkg|ct7/sz32 pay=int_typespec/int_typespec G=2 O=1
+TS default/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_sys_src|work@rstmgr_ctrl|144:3|PowerDomains|rstmgr_pkg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=1
+TS default/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_erase_ctrl|work@flash_erase_ctrl|266:3|AddrW|flash_ctrl_pkg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=1
+TS default/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_erase_ctrl|work@flash_erase_ctrl|266:3|PagesPerBank|flash_ctrl_pkg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=1
+TS default/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_erase_ctrl|work@flash_erase_ctrl|266:3|WordsPerPage|flash_ctrl_pkg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=1
+TS default/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_mp|work@flash_mp|323:3|AllPagesW|flash_ctrl_pkg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=1
+TS default/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_mp|work@flash_mp|323:3|BankW|flash_ctrl_pkg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=1
+TS default/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_mp|work@flash_mp|323:3|MpRegions|flash_ctrl_pkg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=1
+TS default/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_mp|work@flash_mp|323:3|NumBanks|flash_ctrl_pkg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=1
+TS default/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_rv_timer|work@rv_timer|574:3|N_HARTS|rv_timer_reg_pkg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=1
+TS default/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_rv_timer|work@rv_timer|574:3|N_TIMERS|rv_timer_reg_pkg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=1
+TS default/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_usbdev|work@usbdev|777:3|NEndpoints|usbdev_reg_pkg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=1
+TS default/MiniAmiq-544c7f61 key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_END_FUNCS|svaunit_pkg|ct9/sz32 pay=-/int_typespec G=0 O=1
+TS default/MiniAmiq-544c7f61 key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_END_FUNCS|svaunit_pkg|ct9/sz32 pay=int_typespec/int_typespec G=1 O=0
+TS default/MiniAmiq-544c7f61 key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_END_FUNCS|uvm_pkg|ct9/sz32 pay=-/int_typespec G=0 O=1
+TS default/MiniAmiq-544c7f61 key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_END_FUNCS|uvm_pkg|ct9/sz32 pay=int_typespec/int_typespec G=1 O=0
+TS default/MiniAmiq-544c7f61 key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_SETINT|svaunit_pkg|ct9/sz32 pay=-/int_typespec G=0 O=1
+TS default/MiniAmiq-544c7f61 key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_SETINT|svaunit_pkg|ct9/sz32 pay=int_typespec/int_typespec G=1 O=0
+TS default/MiniAmiq-544c7f61 key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_SETINT|uvm_pkg|ct9/sz32 pay=-/int_typespec G=0 O=1
+TS default/MiniAmiq-544c7f61 key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_SETINT|uvm_pkg|ct9/sz32 pay=int_typespec/int_typespec G=1 O=0
+TS default/SeqDriver-32af76aa key=def|module_inst||work@top_tb|210:1|UVM_END_FUNCS|adpcm_pkg|ct9/sz32 pay=-/int_typespec G=0 O=1
+TS default/SeqDriver-32af76aa key=def|module_inst||work@top_tb|210:1|UVM_END_FUNCS|adpcm_pkg|ct9/sz32 pay=int_typespec/int_typespec G=1 O=0
+TS default/SeqDriver-32af76aa key=def|module_inst||work@top_tb|210:1|UVM_END_FUNCS|uvm_pkg|ct9/sz32 pay=-/int_typespec G=0 O=1
+TS default/SeqDriver-32af76aa key=def|module_inst||work@top_tb|210:1|UVM_END_FUNCS|uvm_pkg|ct9/sz32 pay=int_typespec/int_typespec G=1 O=0
+TS default/SeqDriver-32af76aa key=def|module_inst||work@top_tb|210:1|UVM_SETINT|adpcm_pkg|ct9/sz32 pay=-/int_typespec G=0 O=1
+TS default/SeqDriver-32af76aa key=def|module_inst||work@top_tb|210:1|UVM_SETINT|adpcm_pkg|ct9/sz32 pay=int_typespec/int_typespec G=1 O=0
+TS default/SeqDriver-32af76aa key=def|module_inst||work@top_tb|210:1|UVM_SETINT|uvm_pkg|ct9/sz32 pay=-/int_typespec G=0 O=1
+TS default/SeqDriver-32af76aa key=def|module_inst||work@top_tb|210:1|UVM_SETINT|uvm_pkg|ct9/sz32 pay=int_typespec/int_typespec G=1 O=0
+TS default/SimpleUVM-1dc93a62 key=def|module_inst||work@top|44:1|UVM_END_FUNCS|uvm_pkg|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS default/SimpleUVM-1dc93a62 key=def|module_inst||work@top|44:1|UVM_END_FUNCS|uvm_pkg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+TS default/SimpleUVM-1dc93a62 key=def|module_inst||work@top|44:1|UVM_SETINT|uvm_pkg|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS default/SimpleUVM-1dc93a62 key=def|module_inst||work@top|44:1|UVM_SETINT|uvm_pkg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+TS testflags/DefParamIndex-d97eddd3 key=other|module_inst|mod_b|work@hierdefparam_b|16:7|addvalue|-|ct9/sz8 pay=int_typespec/int_typespec G=4 O=8
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|gen_scope|||103:60|C0|-|ct7/sz32 pay=int_typespec/int_typespec G=28 O=56
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|gen_scope|||103:60|C1|-|ct7/sz32 pay=int_typespec/int_typespec G=28 O=56
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|gen_scope|||103:60|Pa|-|ct7/sz32 pay=int_typespec/int_typespec G=28 O=56
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|gen_scope|||48:56|Base0|-|ct7/sz32 pay=int_typespec/int_typespec G=16 O=32
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|gen_scope|||48:56|Base1|-|ct7/sz32 pay=int_typespec/int_typespec G=16 O=32
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|gen_scope|||52:12|PTRV_W|-|ct9/sz32 pay=int_typespec/int_typespec G=254 O=402
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|gen_scope|||52:12|PTR_WIDTH|-|ct9/sz32 pay=int_typespec/int_typespec G=254 O=402
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|gen_scope|||57:12|NumLevels|-|ct9/sz32 pay=int_typespec/int_typespec G=4 O=8
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|gen_scope|||63:58|C0|-|ct7/sz32 pay=int_typespec/int_typespec G=510 O=1020
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|gen_scope|||63:58|C1|-|ct7/sz32 pay=int_typespec/int_typespec G=510 O=1020
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|gen_scope|||63:58|Pa|-|ct7/sz32 pay=int_typespec/int_typespec G=510 O=1020
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|gen_scope|||88:58|Base0|-|ct7/sz32 pay=int_typespec/int_typespec G=12 O=24
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|gen_scope|||88:58|Base1|-|ct7/sz32 pay=int_typespec/int_typespec G=12 O=24
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_lc_src|work@rstmgr_ctrl|133:3|OffDomains|rstmgr_pkg|ct7/sz32 pay=int_typespec/int_typespec G=2 O=1
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_lc_src|work@rstmgr_ctrl|133:3|PowerDomains|rstmgr_pkg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=1
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|AddrBitsRemain|flash_phy_pkg|ct7/sz32 pay=int_typespec/int_typespec G=16 O=32
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|BankAddrW|flash_phy_pkg|ct9/sz32 pay=int_typespec/int_typespec G=16 O=32
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|BankW|flash_phy_pkg|ct9/sz32 pay=int_typespec/int_typespec G=16 O=32
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|BusWidth|flash_phy_pkg|ct9/sz32 pay=int_typespec/int_typespec G=16 O=32
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|BytesPerWord|flash_phy_pkg|ct9/sz32 pay=int_typespec/int_typespec G=16 O=32
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|DataWidth|flash_phy_pkg|ct9/sz32 pay=int_typespec/int_typespec G=16 O=32
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|FlashWordsPerPage|flash_phy_pkg|ct7/sz32 pay=int_typespec/int_typespec G=16 O=32
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|FlashWordsW|flash_phy_pkg|ct9/sz32 pay=int_typespec/int_typespec G=16 O=32
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|LsbAddrBit|flash_phy_pkg|ct9/sz32 pay=int_typespec/int_typespec G=16 O=32
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|NumBanks|flash_phy_pkg|ct9/sz32 pay=int_typespec/int_typespec G=16 O=32
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|NumBuf|flash_phy_pkg|ct9/sz32 pay=int_typespec/int_typespec G=16 O=32
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|PagesPerBank|flash_phy_pkg|ct9/sz32 pay=int_typespec/int_typespec G=16 O=32
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|PageW|flash_phy_pkg|ct9/sz32 pay=int_typespec/int_typespec G=16 O=32
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|PrimFlashAddrW|flash_phy_pkg|ct7/sz32 pay=int_typespec/int_typespec G=16 O=32
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|RspOrderDepth|flash_phy_pkg|ct9/sz32 pay=int_typespec/int_typespec G=16 O=32
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|RspOrderFifoWidth|flash_phy_pkg|ct9/sz32 pay=int_typespec/int_typespec G=16 O=32
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|WidthMultiple|flash_phy_pkg|ct7/sz32 pay=int_typespec/int_typespec G=16 O=32
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|WordSelW|flash_phy_pkg|ct9/sz32 pay=int_typespec/int_typespec G=16 O=32
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|WordsPerPage|flash_phy_pkg|ct9/sz32 pay=int_typespec/int_typespec G=16 O=32
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|WordW|flash_phy_pkg|ct9/sz32 pay=int_typespec/int_typespec G=16 O=32
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_slice|work@prim_fifo_sync|72:3|Depth|-|ct9/sz32 pay=int_typespec/int_typespec G=4 O=8
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_slice|work@prim_fifo_sync|72:3|DepthW|-|ct9/sz32 pay=int_typespec/int_typespec G=4 O=8
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_slice|work@prim_fifo_sync|72:3|DepthWNorm|-|ct9/sz32 pay=int_typespec/int_typespec G=4 O=8
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_slice|work@prim_fifo_sync|72:3|OutputZeroIfEmpty|-|ct3/sz1 pay=bit_typespec/bit_typespec G=4 O=8
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_slice|work@prim_fifo_sync|72:3|Pass|-|ct9/sz1 pay=bit_typespec/bit_typespec G=4 O=8
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_slice|work@prim_fifo_sync|72:3|Width|-|ct9/sz32 pay=int_typespec/int_typespec G=4 O=8
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_sync_n|work@prim_flop_2sync|64:5|ResetValue|-|ct9/sz1 pay=bit_typespec/bit_typespec G=4 O=8
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_sync_n|work@prim_flop_2sync|64:5|Width|-|ct9/sz32 pay=int_typespec/int_typespec G=4 O=8
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_sync_p|work@prim_flop_2sync|54:5|ResetValue|-|ct9/sz1 pay=bit_typespec/bit_typespec G=4 O=8
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_sync_p|work@prim_flop_2sync|54:5|Width|-|ct9/sz32 pay=int_typespec/int_typespec G=4 O=8
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_sys_src|work@rstmgr_ctrl|144:3|OffDomains|rstmgr_pkg|ct7/sz32 pay=int_typespec/int_typespec G=2 O=1
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_sys_src|work@rstmgr_ctrl|144:3|PowerDomains|rstmgr_pkg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=1
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_erase_ctrl|work@flash_erase_ctrl|266:3|AddrW|flash_ctrl_pkg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=1
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_erase_ctrl|work@flash_erase_ctrl|266:3|PagesPerBank|flash_ctrl_pkg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=1
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_erase_ctrl|work@flash_erase_ctrl|266:3|WordsPerPage|flash_ctrl_pkg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=1
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_mp|work@flash_mp|323:3|AllPagesW|flash_ctrl_pkg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=1
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_mp|work@flash_mp|323:3|BankW|flash_ctrl_pkg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=1
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_mp|work@flash_mp|323:3|MpRegions|flash_ctrl_pkg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=1
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_mp|work@flash_mp|323:3|NumBanks|flash_ctrl_pkg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=1
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_impl_generic|work@prim_generic_flash|41:5|AddrW|-|ct9/sz32 pay=int_typespec/int_typespec G=4 O=8
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_impl_generic|work@prim_generic_flash|41:5|BkEraseCycles|-|ct9/sz32 pay=int_typespec/int_typespec G=4 O=8
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_impl_generic|work@prim_generic_flash|41:5|DataWidth|-|ct9/sz32 pay=int_typespec/int_typespec G=4 O=8
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_impl_generic|work@prim_generic_flash|41:5|PagesPerBank|-|ct9/sz32 pay=int_typespec/int_typespec G=4 O=8
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_impl_generic|work@prim_generic_flash|41:5|PageW|-|ct9/sz32 pay=int_typespec/int_typespec G=4 O=8
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_impl_generic|work@prim_generic_flash|41:5|PgEraseCycles|-|ct9/sz32 pay=int_typespec/int_typespec G=4 O=8
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_impl_generic|work@prim_generic_flash|41:5|ProgCycles|-|ct9/sz32 pay=int_typespec/int_typespec G=4 O=8
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_impl_generic|work@prim_generic_flash|41:5|ReadCycles|-|ct9/sz32 pay=int_typespec/int_typespec G=4 O=8
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_impl_generic|work@prim_generic_flash|41:5|SkipInit|-|ct9/sz1 pay=bit_typespec/bit_typespec G=4 O=8
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_impl_generic|work@prim_generic_flash|41:5|WordsPerBank|-|ct7/sz32 pay=int_typespec/int_typespec G=4 O=8
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_impl_generic|work@prim_generic_flash|41:5|WordsPerPage|-|ct7/sz32 pay=int_typespec/int_typespec G=4 O=8
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_impl_generic|work@prim_generic_flash|41:5|WordW|-|ct9/sz32 pay=int_typespec/int_typespec G=4 O=8
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_impl_generic|work@prim_generic_pad_wrapper|39:5|AttrDw|-|ct9/sz32 pay=int_typespec/int_typespec G=100 O=194
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_impl_generic|work@prim_generic_ram_1p|35:5|Aw|-|ct9/sz32 pay=int_typespec/int_typespec G=6 O=18
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_impl_generic|work@prim_generic_ram_1p|35:5|DataBitsPerMask|-|ct9/sz32 pay=int_typespec/int_typespec G=6 O=18
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_impl_generic|work@prim_generic_ram_1p|35:5|Depth|-|ct7/sz32 pay=int_typespec/int_typespec G=4 O=16
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_impl_generic|work@prim_generic_ram_1p|35:5|MaskWidth|-|ct7/sz32 pay=int_typespec/int_typespec G=6 O=18
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_impl_generic|work@prim_generic_ram_1p|35:5|MemInitFile|-|ct6/sz0 pay=string_typespec/string_typespec G=6 O=18
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_impl_generic|work@prim_generic_ram_1p|35:5|Width|-|ct9/sz32 pay=int_typespec/int_typespec G=6 O=18
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_mem|work@prim_ram_1p|271:3|Aw|-|ct9/sz32 pay=int_typespec/int_typespec G=4 O=8
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_mem|work@prim_ram_1p|271:3|DataBitsPerMask|-|ct9/sz32 pay=int_typespec/int_typespec G=4 O=8
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_mem|work@prim_ram_1p|271:3|Depth|-|ct7/sz32 pay=int_typespec/int_typespec G=4 O=8
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_mem|work@prim_ram_1p|271:3|Impl|-|ct7/sz32 pay=enum_typespec/enum_typespec G=4 O=8
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_mem|work@prim_ram_1p|271:3|MemInitFile|-|ct6/sz0 pay=string_typespec/string_typespec G=4 O=8
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_mem|work@prim_ram_1p|271:3|Width|-|ct9/sz32 pay=int_typespec/int_typespec G=4 O=8
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_rv_timer|work@rv_timer|574:3|N_HARTS|rv_timer_reg_pkg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=1
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_rv_timer|work@rv_timer|574:3|N_TIMERS|rv_timer_reg_pkg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=1
+TS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_usbdev|work@usbdev|777:3|NEndpoints|usbdev_reg_pkg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=1
+TS testflags/ElabCParam-49d9610e key=other|gen_scope|||15:12|PTRV_W|-|ct9/sz32 pay=int_typespec/int_typespec G=4 O=8
+TS testflags/GenScopeHierPath-a2114f21 key=other|module_inst|u_impl_generic|work@prim_generic_pad_attr|37:7|PadType|-|ct3/sz3 pay=enum_typespec/enum_typespec G=8 O=16
+TS testflags/IndexedSelectHex-cd46669f key=other|module_inst|u_impl_generic|work@prim_generic_pad_attr|37:7|PadType|-|ct3/sz3 pay=enum_typespec/enum_typespec G=8 O=16
+TS testflags/MiniAmiq-544c7f61 key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_END_FUNCS|svaunit_pkg|ct9/sz32 pay=-/int_typespec G=0 O=1
+TS testflags/MiniAmiq-544c7f61 key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_END_FUNCS|svaunit_pkg|ct9/sz32 pay=int_typespec/int_typespec G=1 O=0
+TS testflags/MiniAmiq-544c7f61 key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_END_FUNCS|uvm_pkg|ct9/sz32 pay=-/int_typespec G=0 O=1
+TS testflags/MiniAmiq-544c7f61 key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_END_FUNCS|uvm_pkg|ct9/sz32 pay=int_typespec/int_typespec G=1 O=0
+TS testflags/MiniAmiq-544c7f61 key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_SETINT|svaunit_pkg|ct9/sz32 pay=-/int_typespec G=0 O=1
+TS testflags/MiniAmiq-544c7f61 key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_SETINT|svaunit_pkg|ct9/sz32 pay=int_typespec/int_typespec G=1 O=0
+TS testflags/MiniAmiq-544c7f61 key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_SETINT|uvm_pkg|ct9/sz32 pay=-/int_typespec G=0 O=1
+TS testflags/MiniAmiq-544c7f61 key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_SETINT|uvm_pkg|ct9/sz32 pay=int_typespec/int_typespec G=1 O=0
+TS testflags/MultiConcatValueSize-8e3f2431 key=other|module_inst|u_impl_generic|work@prim_generic_pad_attr|35:7|PadType|-|ct3/sz3 pay=enum_typespec/enum_typespec G=2 O=4
+TS testflags/ParamElabMulti-6f8060a1 key=other|module_inst|u_impl_generic|work@prim_generic_pad_attr|35:7|PadType|-|ct3/sz3 pay=enum_typespec/enum_typespec G=2 O=4
+TS testflags/SeqDriver-32af76aa key=def|module_inst||work@top_tb|210:1|UVM_END_FUNCS|adpcm_pkg|ct9/sz32 pay=-/int_typespec G=0 O=1
+TS testflags/SeqDriver-32af76aa key=def|module_inst||work@top_tb|210:1|UVM_END_FUNCS|adpcm_pkg|ct9/sz32 pay=int_typespec/int_typespec G=1 O=0
+TS testflags/SeqDriver-32af76aa key=def|module_inst||work@top_tb|210:1|UVM_END_FUNCS|uvm_pkg|ct9/sz32 pay=-/int_typespec G=0 O=1
+TS testflags/SeqDriver-32af76aa key=def|module_inst||work@top_tb|210:1|UVM_END_FUNCS|uvm_pkg|ct9/sz32 pay=int_typespec/int_typespec G=1 O=0
+TS testflags/SeqDriver-32af76aa key=def|module_inst||work@top_tb|210:1|UVM_SETINT|adpcm_pkg|ct9/sz32 pay=-/int_typespec G=0 O=1
+TS testflags/SeqDriver-32af76aa key=def|module_inst||work@top_tb|210:1|UVM_SETINT|adpcm_pkg|ct9/sz32 pay=int_typespec/int_typespec G=1 O=0
+TS testflags/SeqDriver-32af76aa key=def|module_inst||work@top_tb|210:1|UVM_SETINT|uvm_pkg|ct9/sz32 pay=-/int_typespec G=0 O=1
+TS testflags/SeqDriver-32af76aa key=def|module_inst||work@top_tb|210:1|UVM_SETINT|uvm_pkg|ct9/sz32 pay=int_typespec/int_typespec G=1 O=0
+TS testflags/SimpleUVM-1dc93a62 key=def|module_inst||work@top|44:1|UVM_END_FUNCS|uvm_pkg|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS testflags/SimpleUVM-1dc93a62 key=def|module_inst||work@top|44:1|UVM_END_FUNCS|uvm_pkg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+TS testflags/SimpleUVM-1dc93a62 key=def|module_inst||work@top|44:1|UVM_SETINT|uvm_pkg|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS testflags/SimpleUVM-1dc93a62 key=def|module_inst||work@top|44:1|UVM_SETINT|uvm_pkg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+
+ONLY-GOLDEN testflags/<FENCED>-b8ba49d5 key=elab|module_inst|work@top|work@top|11:1|D|-|ct3/sz17 n=1
+ONLY-OURS default/BlackParrotComplex-5bed297d key=elab|module_inst|work@top|work@top|3:1|routing_matrix_p|-|ct9/sz50 n=1
+ONLY-OURS default/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_lc_src|work@rstmgr_ctrl|133:3|OffDomains|-|ct7/sz32 n=1
+ONLY-OURS default/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_lc_src|work@rstmgr_ctrl|133:3|PowerDomains|-|ct9/sz32 n=1
+ONLY-OURS default/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_sys_src|work@rstmgr_ctrl|144:3|OffDomains|-|ct7/sz32 n=1
+ONLY-OURS default/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_sys_src|work@rstmgr_ctrl|144:3|PowerDomains|-|ct9/sz32 n=1
+ONLY-OURS default/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_erase_ctrl|work@flash_erase_ctrl|266:3|AddrW|-|ct9/sz32 n=1
+ONLY-OURS default/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_erase_ctrl|work@flash_erase_ctrl|266:3|PagesPerBank|-|ct9/sz32 n=1
+ONLY-OURS default/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_erase_ctrl|work@flash_erase_ctrl|266:3|WordsPerPage|-|ct9/sz32 n=1
+ONLY-OURS default/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_mp|work@flash_mp|323:3|AllPagesW|-|ct9/sz32 n=1
+ONLY-OURS default/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_mp|work@flash_mp|323:3|BankW|-|ct9/sz32 n=1
+ONLY-OURS default/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_mp|work@flash_mp|323:3|MpRegions|-|ct9/sz32 n=1
+ONLY-OURS default/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_mp|work@flash_mp|323:3|NumBanks|-|ct9/sz32 n=1
+ONLY-OURS default/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_rv_timer|work@rv_timer|574:3|N_HARTS|-|ct9/sz32 n=1
+ONLY-OURS default/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_rv_timer|work@rv_timer|574:3|N_TIMERS|-|ct9/sz32 n=1
+ONLY-OURS default/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_usbdev|work@usbdev|777:3|NEndpoints|-|ct9/sz32 n=1
+ONLY-OURS testflags/BitSelectPartSelectInFunction-55cf72a7 key=other|module_inst|||0:0|state|-|ct3/sz10 n=1
+ONLY-OURS testflags/BlackParrotComplex-5bed297d key=elab|module_inst|work@top|work@top|3:1|routing_matrix_p|-|ct9/sz50 n=1
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|||0:0|AES192Enable|-|ct9/sz1 n=9
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|||0:0|AES_CTRL_OFFSET|aes_reg_pkg|ct5/sz7 n=3
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|||0:0|AES_DATA_IN0_OFFSET|aes_reg_pkg|ct5/sz7 n=3
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|||0:0|AES_DATA_IN1_OFFSET|aes_reg_pkg|ct5/sz7 n=3
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|||0:0|AES_DATA_IN2_OFFSET|aes_reg_pkg|ct5/sz7 n=3
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|||0:0|AES_DATA_IN3_OFFSET|aes_reg_pkg|ct5/sz7 n=3
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|||0:0|AES_DATA_OUT0_OFFSET|aes_reg_pkg|ct5/sz7 n=3
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|||0:0|AES_DATA_OUT1_OFFSET|aes_reg_pkg|ct5/sz7 n=3
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|||0:0|AES_DATA_OUT2_OFFSET|aes_reg_pkg|ct5/sz7 n=3
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|||0:0|AES_DATA_OUT3_OFFSET|aes_reg_pkg|ct5/sz7 n=3
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|||0:0|AES_IV0_OFFSET|aes_reg_pkg|ct5/sz7 n=3
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|||0:0|AES_IV1_OFFSET|aes_reg_pkg|ct5/sz7 n=3
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|||0:0|AES_IV2_OFFSET|aes_reg_pkg|ct5/sz7 n=3
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|||0:0|AES_IV3_OFFSET|aes_reg_pkg|ct5/sz7 n=3
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|||0:0|AES_KEY0_OFFSET|aes_reg_pkg|ct5/sz7 n=3
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|||0:0|AES_KEY1_OFFSET|aes_reg_pkg|ct5/sz7 n=3
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|||0:0|AES_KEY2_OFFSET|aes_reg_pkg|ct5/sz7 n=3
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|||0:0|AES_KEY4_OFFSET|aes_reg_pkg|ct5/sz7 n=3
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|||0:0|AES_KEY5_OFFSET|aes_reg_pkg|ct5/sz7 n=3
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|||0:0|AES_KEY6_OFFSET|aes_reg_pkg|ct5/sz7 n=3
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|||0:0|AES_KEY7_OFFSET|aes_reg_pkg|ct5/sz7 n=3
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|||0:0|AES_STATUS_OFFSET|aes_reg_pkg|ct5/sz7 n=3
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|||0:0|AES_TRIGGER_OFFSET|aes_reg_pkg|ct5/sz7 n=3
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|||0:0|NumRegsData|aes_reg_pkg|ct9/sz32 n=3
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|||0:0|NumRegsIv|aes_reg_pkg|ct9/sz32 n=3
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|||0:0|NumRegsKey|aes_reg_pkg|ct9/sz32 n=3
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|||0:0|SBoxImpl|-|ct6/sz24 n=9
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_lc_src|work@rstmgr_ctrl|133:3|OffDomains|-|ct7/sz32 n=1
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_lc_src|work@rstmgr_ctrl|133:3|PowerDomains|-|ct9/sz32 n=1
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_sys_src|work@rstmgr_ctrl|144:3|OffDomains|-|ct7/sz32 n=1
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_sys_src|work@rstmgr_ctrl|144:3|PowerDomains|-|ct9/sz32 n=1
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_erase_ctrl|work@flash_erase_ctrl|266:3|AddrW|-|ct9/sz32 n=1
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_erase_ctrl|work@flash_erase_ctrl|266:3|PagesPerBank|-|ct9/sz32 n=1
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_erase_ctrl|work@flash_erase_ctrl|266:3|WordsPerPage|-|ct9/sz32 n=1
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_mp|work@flash_mp|323:3|AllPagesW|-|ct9/sz32 n=1
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_mp|work@flash_mp|323:3|BankW|-|ct9/sz32 n=1
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_mp|work@flash_mp|323:3|MpRegions|-|ct9/sz32 n=1
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_mp|work@flash_mp|323:3|NumBanks|-|ct9/sz32 n=1
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_rv_timer|work@rv_timer|574:3|N_HARTS|-|ct9/sz32 n=1
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_rv_timer|work@rv_timer|574:3|N_TIMERS|-|ct9/sz32 n=1
+ONLY-OURS testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_usbdev|work@usbdev|777:3|NEndpoints|-|ct9/sz32 n=1
+ONLY-OURS testflags/EvalFunc-605d5b75 key=other|module_inst|||0:0|log2RATIO1|-|ct9/sz64 n=1
+ONLY-OURS testflags/EvalFunc-605d5b75 key=other|module_inst|||0:0|log2RATIO2|-|ct7/sz64 n=1
+ONLY-OURS testflags/EvalFunc-605d5b75 key=other|module_inst|||0:0|log2RATIO3|-|ct9/sz64 n=1
+ONLY-OURS testflags/EvalFunc-605d5b75 key=other|module_inst|||0:0|log2RATIO4|-|ct7/sz64 n=1
+ONLY-OURS testflags/EvalFunc-605d5b75 key=other|module_inst|||0:0|RATIO|-|ct9/sz32 n=1
+ONLY-OURS testflags/FuncInModule-e8506f84 key=other|module_inst|||0:0|i|-|ct9/sz64 n=1
+ONLY-OURS testflags/FuncInModule-e8506f84 key=other|module_inst|||0:0|N|-|ct9/sz32 n=1
+ONLY-OURS testflags/FuncInModule-e8506f84 key=other|module_inst|||0:0|sub_n_list|-|ct3/sz64 n=1
+ONLY-OURS testflags/FuncInModule-e8506f84 key=other|module_inst|||0:0|WIDTH|-|ct9/sz32 n=1
+ONLY-OURS testflags/GenForIfaceLocalparamBound-fe9fe25d key=other|interface_inst|sub|work@bus_if|23:0|BYT|-|ct7/sz32 n=1
+ONLY-OURS testflags/GenForIfaceLocalparamBound-fe9fe25d key=other|interface_inst|sub|work@bus_if|23:0|DAT|-|ct9/sz32 n=1
+ONLY-OURS testflags/GenForIfaceLocalparamNestedGen-0374ca75 key=other|interface_inst|sub|work@bus_if|29:0|BYT|-|ct7/sz32 n=1
+ONLY-OURS testflags/IncompFunc-e8c8c983 key=other|module_inst|||0:0|out|-|ct0/sz3 n=1
+ONLY-OURS testflags/InterfaceElab-e41049d0 key=other|interface_inst|reg_bus|work@REG_BUS|23:0|ADDR_WIDTH|-|ct9/sz32 n=1
+ONLY-OURS testflags/InterfType-54ee30ac key=other|interface_inst|i_types|work@tnoc_types|15:0|PACKET_CONFIG|-|ct9/sz32 n=1
+ONLY-OURS testflags/OneNetRange-cf1f634a key=other|interface_inst|conntb|work@ConnectTB|3:0|width|-|ct9/sz32 n=1
+ONLY-OURS testflags/StringRange-5305794a key=other|module_inst|||0:0|inp|-|ct6/sz8 n=4
+ONLY-OURS testflags/StringRange-5305794a key=other|module_inst|||0:0|OUTPUT|-|ct6/sz24 n=8
+ONLY-OURS testflags/UnsizedFunc-48c3dff8 key=other|module_inst|||0:0|a|-|ct3/sz16 n=1
+ONLY-OURS testflags/UnsizedFunc-48c3dff8 key=other|module_inst|||0:0|get_1s|-|ct3/sz16 n=1
+ONLY-OURS testflags/UnsizedFunc-48c3dff8 key=other|module_inst|||0:0|LfsrDw|-|ct9/sz32 n=1
+
+-- ROBUST TOTAL (censum201.sh): records=956 rows=956 cellsG=48756 cellsO=51481 AGREE=48703 TS-DIFF=2672 ONLY-GOLDEN=1 ONLY-OURS=158 RECORDS-COMPLETE
+-- PROCESSED=956 LISTED=956 NOGOLDEN=0 RESTORE_FAILS=0 NONZERO_RC=0 MOVER_ROWS=0

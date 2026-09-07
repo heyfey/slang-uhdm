@@ -1,0 +1,135 @@
+# r10uvm201 — EVERY GATE, WITH THE NUMBERS.  BASE e5a04255.
+# pristine md5 abf4d2971987e060480a7dd3baba6e68   (byte-identical to the main tree's binary at e5a04255)
+# patched  md5 162d8642028fd69724c0bc621665c578
+# Both frozen chmod 555 BEFORE any sweep.  SLANG_UHDM exported explicitly per binary.
+
+(1) BUILD
+    pristine: cmake --build build -j 2  -> rc 0, 'Built target slang_uhdm'
+    patched : cmake --build build -j 2  -> rc 0, 'Built target slang_uhdm'
+
+(2) GOLDENS
+    pristine: PASS=23 FAIL=0     negative control SLANG_UHDM=/bin/false: FAIL=23
+    patched : PASS=23 FAIL=0     negative control SLANG_UHDM=/bin/false: FAIL=23
+
+(3) cmds.txt BINARY AUDIT (by PATH, not by the string 'slang-uhdm')
+    pristine sweeps: the only 'slang:' path in 1573 surelog + 1462 u2r cmds.txt is /tmp/r10uvm201_pris.bin
+    patched  sweeps: likewise /tmp/r10uvm201_pat.bin
+
+(4) uhdm2rtlil, testflags and default, 731 rows each
+    ---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+    ---- per-mode STATUS histogram (baseline -> fresh)
+      testflags  base:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+      testflags  fresh:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+    PASS: every row byte-identical to the committed baseline
+    patched vs OWN pristine, testflags: PASS: every row byte-identical to the committed baseline
+    patched vs OWN pristine, default  : PASS: every row byte-identical to the committed baseline
+
+(5) surelog --mode both, 1588 rows
+    patched vs OWN pristine : PASS: every row byte-identical to the committed baseline
+    patched vs COMMITTED    : 1 differing ROW, and it differs on the PRISTINE binary too --
+        < Earlgrey_0_1,testflags,CMP_EQUAL,,,differ   (results/golden_surelog.csv)
+        > Earlgrey_0_1,testflags,CMP_EQUAL,,,         (this pass's pristine AND patched)
+        the STATUS agrees; only the informational dump column differs.  NOTHING WAS PROMOTED,
+        results/*.csv were READ ONLY, and NO CORPUS ROW CONVERTED in either direction.
+
+(6) BYTE MOVERS (byteverify.sh SELFCHECK=1)
+    surelog  PATH_SETS_IDENTICAL (956 paths)
+    surelog  MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=695e394914ce pristine=ad2e33c0bcab
+    surelog  MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=d31cd58eb425 pristine=662830c51087
+    surelog  MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=0b0319c29a76 pristine=cc7f1c05c171
+    surelog  MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=695e394914ce pristine=ad2e33c0bcab
+    surelog  MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=89e2f4bfd3b4 pristine=502d210d8f87
+    surelog  MOVER ./testflags/SimpleUVM-1dc93a62/slang.uhdm  patched=2e57bd0d3582 pristine=dc428b6c9a3d
+    surelog  MOVERS: 6 / 956
+    surelog  SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+    u2r      PATH_SETS_IDENTICAL (1358 paths)
+    u2r      MOVERS: 0 / 1358
+    u2r      SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+    all six PREDICTED BY NAME from PRISTINE databases alone (PREDICTION.pristine.surelog.*),
+    before the patched binary existed.  Scoreboard/default did NOT flip this run.
+
+(7) THE FOUR CMP_EQUAL ROW-MODES, BOTH COLUMNS, pristine -> patched
+    BuildUVMPkg,default      BuildUVMPkg,default,CMP_EQUAL,,,differ  ->  BuildUVMPkg,default,CMP_EQUAL,,,differ
+    BuildUVMPkg,testflags    BuildUVMPkg,testflags,CMP_EQUAL,,,differ  ->  BuildUVMPkg,testflags,CMP_EQUAL,,,differ
+    Earlgrey_0_1,testflags   Earlgrey_0_1,testflags,CMP_EQUAL,,,  ->  Earlgrey_0_1,testflags,CMP_EQUAL,,,
+    Rggen,default            Rggen,default,CMP_EQUAL,,,differ  ->  Rggen,default,CMP_EQUAL,,,differ
+
+(7b) THE FOUR + SIX CMP_EQUAL ROW-MODES A WIDER GATE WOULD HAVE WRITTEN INTO (§ 4)
+    surelog ParamTypespec,default        ParamTypespec,default,CMP_EQUAL,,,differ  ->  ParamTypespec,default,CMP_EQUAL,,,differ
+    surelog ParamTypespec,testflags      ParamTypespec,testflags,CMP_EQUAL,,,differ  ->  ParamTypespec,testflags,CMP_EQUAL,,,differ
+    surelog ParamFromPackage,default     ParamFromPackage,default,CMP_EQUAL,,,differ  ->  ParamFromPackage,default,CMP_EQUAL,,,differ
+    surelog ParamFromPackage,testflags   ParamFromPackage,testflags,CMP_EQUAL,,,differ  ->  ParamFromPackage,testflags,CMP_EQUAL,,,differ
+    u2r     DivisionOfSize               DivisionOfSize,default,CMP_EQUAL,,,differ | DivisionOfSize,testflags,CMP_EQUAL,,,differ
+    u2r     ParameterFromPkgInNestedModule ParameterFromPkgInNestedModule,default,CMP_EQUAL,,,differ | ParameterFromPkgInNestedModule,testflags,CMP_EQUAL,,,differ
+    u2r     ParameterFromPkgOnParameterPortList ParameterFromPkgOnParameterPortList,default,CMP_EQUAL,,,differ | ParameterFromPkgOnParameterPortList,testflags,CMP_EQUAL,,,differ
+
+(8) CANARIES
+    surelog  ---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+    u2r      ---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+    ctcan2 surelog  vs own pristine : PASS: every supplementary canary row is byte-identical to the baseline.
+    ctcan2 surelog  vs committed    : PASS: every supplementary canary row is byte-identical to the baseline.
+    ctcan2 u2r      vs committed    : PASS: every supplementary canary row is byte-identical to the baseline.
+    canaudit                        : ---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+        (the corpus censuses walk a sweep workdir that CONTAINS the fenced rows, so their raw
+         output names one of them; scrub201.sh redacted it -- reading the fence list out of
+         canaudit.sh rather than spelling it -- and this counter is the check that it worked.
+         That row's census lines are IDENTICAL before and after: cellsG=1 cellsO=0,
+         ONLY-GOLDEN=1, on BOTH binaries.  No driver here dispatches it.)
+
+(9) PROTECTED DATABASES (md5 head, patched vs this pass's own pristine)
+    InterfaceModPort       default    pris=59a365f3ce2c pat=59a365f3ce2c SAME
+    InterfaceModPort       testflags  pris=59a365f3ce2c pat=59a365f3ce2c SAME
+    BlackParrotComplex     default    pris=e3e354129d5a pat=e3e354129d5a SAME
+    BlackParrotComplex     testflags  pris=73a10e8217e5 pat=73a10e8217e5 SAME
+    YosysOldOr             default    pris=d68e0796d62c pat=d68e0796d62c SAME
+    YosysOldOr             testflags  pris=d68e0796d62c pat=d68e0796d62c SAME
+    YosysBigSimReed        default    pris=1275131a6918 pat=1275131a6918 SAME
+    YosysBigSimReed        testflags  pris=158ed16c2931 pat=158ed16c2931 SAME
+    YosysOldOpen           default    pris=6d0e7ba67451 pat=6d0e7ba67451 SAME
+    YosysOldOpen           testflags  pris=6d0e7ba67451 pat=6d0e7ba67451 SAME
+    SVSwitch               default    pris=4842211c4030 pat=4842211c4030 SAME
+    SVSwitch               testflags  pris=4842211c4030 pat=4842211c4030 SAME
+    YosysVerx              default    pris=6ccda350c24a pat=6ccda350c24a SAME
+    YosysVerx              testflags  pris=6ccda350c24a pat=6ccda350c24a SAME
+    Earlgrey_0_1           default    pris=5aad57bfa064 pat=5aad57bfa064 SAME
+    Earlgrey_0_1           testflags  pris=2afc8c0f6b08 pat=2afc8c0f6b08 SAME
+    TypespecExpr           default    pris=8ab62bbb8d8f pat=8ab62bbb8d8f SAME
+    TypespecExpr           testflags  pris=bc24b3b92f1c pat=bc24b3b92f1c SAME
+    EnumConcat             default    pris=73d96d27606b pat=73d96d27606b SAME
+    EnumConcat             testflags  pris=1dfd0e27b1b5 pat=1dfd0e27b1b5 SAME
+
+(10) THE WIDE BOUNDARY
+    LISTED=5268 PROCESSED=5268 PRODUCED_DBS=5083 MOVED_ARMS=10 RC_DIFFS=0
+    -- SCORED views=20 MISSING-ARMS=0 NODB-views=0 TO-GOLDEN=40 AWAY-GOLDEN=0
+
+(11) THE GRID (8 arms x 2 views, one REAL Surelog v1.86 golden each)
+    -- CALIB  16 arm-views, TS-DIFF total 0, ONLY-GOLDEN 0, ONLY-OURS 0, AGREE 450
+    -- PRIS  16 arm-views, TS-DIFF total 76, ONLY-GOLDEN 34, ONLY-OURS 30, AGREE 378
+    -- PATCHED  16 arm-views, TS-DIFF total 8, ONLY-GOLDEN 34, ONLY-OURS 30, AGREE 412
+    -- NONZERO RCs: 0
+
+(12) THE FLOOR — verified BY NAME in the boundary's own LISTED and MOVERS files
+    r10uvm199repro       arms=7     MOVED=0
+    r10uvm197repro       arms=6     MOVED=0
+    r10uvm196repro       arms=9     MOVED=0
+    r10uvm195repro       arms=5     MOVED=0
+    r10uvm194repro       arms=3     MOVED=0
+    r10uvm193repro       arms=4     MOVED=0
+    r10uvm192repro       arms=4     MOVED=0
+    r10uvm191repro       arms=3     MOVED=0
+    r10uvm190repro       arms=4     MOVED=0
+    r10uvm189repro       arms=3     MOVED=0
+    r10uvm188repro       arms=4     MOVED=0
+    r10uvm187repro       arms=6     MOVED=0
+    r10uvm186repro       arms=3     MOVED=0
+    r10uvm185repro       arms=5     MOVED=0
+    r10uvm184repro       arms=2     MOVED=0
+    r10uvm170repro       arms=5     MOVED=0
+    r10uvm8[2-9]repro|r10uvm9[01]repro     arms=113   MOVED=0
+    r10buvm([3-9]|1[0-5])repro             arms=119   MOVED=0
+    r10sd(8|9|1[0-2])repro                 arms=347   MOVED=0
+    r10v199repro         arms=13    MOVED=1  (v199_g_uvmshape.sv, scored TO-GOLDEN 2 / AWAY 0 in BOTH views)
+    § parenCastWidthLhsKeepsTs199v's own arms, by name:
+      r10v199repro/grid_v199/v199_l_castw.sv
+      r10v199repro/grid_v199/v199_m_ctl.sv
+      -> present in LISTED, and MOVED=0

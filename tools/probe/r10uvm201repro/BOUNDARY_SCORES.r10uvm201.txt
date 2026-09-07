@@ -1,0 +1,21 @@
+r10uvm106repro/a1_bases.sv	def	AGREE 69->69	TS-DIFF 0->0	ONLY-G 21->21	ONLY-O 21->21	TO-GOLDEN 0	AWAY 0	rc=0/0/0
+r10uvm106repro/a1_bases.sv	elab	AGREE 69->69	TS-DIFF 0->0	ONLY-G 21->21	ONLY-O 21->21	TO-GOLDEN 0	AWAY 0	rc=0/0/0
+r10uvm201repro/grid201/g201_b_refs.sv	def	AGREE 29->33	TS-DIFF 8->0	ONLY-G 5->5	ONLY-O 5->5	TO-GOLDEN 4	AWAY 0	rc=0/0/0
+r10uvm201repro/grid201/g201_b_refs.sv	elab	AGREE 29->33	TS-DIFF 8->0	ONLY-G 5->5	ONLY-O 5->5	TO-GOLDEN 4	AWAY 0	rc=0/0/0
+r10uvm201repro/grid201/g201_c_uvmshape.sv	def	AGREE 49->53	TS-DIFF 8->0	ONLY-G 0->0	ONLY-O 0->0	TO-GOLDEN 4	AWAY 0	rc=0/0/0
+r10uvm201repro/grid201/g201_c_uvmshape.sv	elab	AGREE 49->53	TS-DIFF 8->0	ONLY-G 0->0	ONLY-O 0->0	TO-GOLDEN 4	AWAY 0	rc=0/0/0
+r10uvm201repro/grid201/g201_d_bodyimp.sv	def	AGREE 9->10	TS-DIFF 2->0	ONLY-G 0->0	ONLY-O 0->0	TO-GOLDEN 1	AWAY 0	rc=0/0/0
+r10uvm201repro/grid201/g201_d_bodyimp.sv	elab	AGREE 9->10	TS-DIFF 2->0	ONLY-G 0->0	ONLY-O 0->0	TO-GOLDEN 1	AWAY 0	rc=0/0/0
+r10uvm201repro/grid201/g201_e_explicit.sv	def	AGREE 10->12	TS-DIFF 4->0	ONLY-G 0->0	ONLY-O 0->0	TO-GOLDEN 2	AWAY 0	rc=0/0/0
+r10uvm201repro/grid201/g201_e_explicit.sv	elab	AGREE 10->12	TS-DIFF 4->0	ONLY-G 0->0	ONLY-O 0->0	TO-GOLDEN 2	AWAY 0	rc=0/0/0
+r10uvm201repro/grid201/g201_f_kinds.sv	def	AGREE 13->19	TS-DIFF 12->0	ONLY-G 0->0	ONLY-O 0->0	TO-GOLDEN 6	AWAY 0	rc=0/0/0
+r10uvm201repro/grid201/g201_f_kinds.sv	elab	AGREE 13->19	TS-DIFF 12->0	ONLY-G 0->0	ONLY-O 0->0	TO-GOLDEN 6	AWAY 0	rc=0/0/0
+r10uvm67repro/a1_pkgparamts.sv	def	AGREE 102->103	TS-DIFF 6->4	ONLY-G 8->8	ONLY-O 7->7	TO-GOLDEN 1	AWAY 0	rc=0/0/0
+r10uvm67repro/a1_pkgparamts.sv	elab	AGREE 102->103	TS-DIFF 6->4	ONLY-G 8->8	ONLY-O 7->7	TO-GOLDEN 1	AWAY 0	rc=0/0/0
+r10v106repro/b05_ctx.sv	def	AGREE 15->15	TS-DIFF 6->6	ONLY-G 13->13	ONLY-O 12->12	TO-GOLDEN 0	AWAY 0	rc=0/0/0
+r10v106repro/b05_ctx.sv	elab	AGREE 15->15	TS-DIFF 6->6	ONLY-G 13->13	ONLY-O 13->13	TO-GOLDEN 0	AWAY 0	rc=0/0/0
+r10v199repro/grid_v199/v199_g_uvmshape.sv	def	AGREE 45->47	TS-DIFF 4->0	ONLY-G 0->0	ONLY-O 0->0	TO-GOLDEN 2	AWAY 0	rc=0/0/0
+r10v199repro/grid_v199/v199_g_uvmshape.sv	elab	AGREE 45->47	TS-DIFF 4->0	ONLY-G 0->0	ONLY-O 0->0	TO-GOLDEN 2	AWAY 0	rc=0/0/0
+r10v93repro/v5_more93.sv	def	AGREE 26->26	TS-DIFF 0->0	ONLY-G 13->13	ONLY-O 4->4	TO-GOLDEN 0	AWAY 0	rc=0/0/0
+r10v93repro/v5_more93.sv	elab	AGREE 26->26	TS-DIFF 0->0	ONLY-G 13->13	ONLY-O 4->4	TO-GOLDEN 0	AWAY 0	rc=0/0/0
+-- SCORED views=20 MISSING-ARMS=0 NODB-views=0 TO-GOLDEN=40 AWAY-GOLDEN=0

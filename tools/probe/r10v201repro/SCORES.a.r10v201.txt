@@ -1,0 +1,101 @@
+NEUTRAL      v201_a_refforms.elab       def|module_inst||work@m201va|25:1|R_UDB|p201va|ct1/sz32
+             golden={} pris={'-': 2} pat={'int_typespec': 2}
+NEUTRAL      v201_a_refforms.elab       def|module_inst||work@m201va|25:1|R_UNB|p201va|ct9/sz32
+             golden={} pris={'-': 2} pat={'int_typespec': 2}
+NEUTRAL      v201_a_refforms.parse      def|module_inst||work@m201va|25:1|R_UDB|p201va|ct1/sz32
+             golden={} pris={'-': 2} pat={'int_typespec': 2}
+NEUTRAL      v201_a_refforms.parse      def|module_inst||work@m201va|25:1|R_UNB|p201va|ct9/sz32
+             golden={} pris={'-': 2} pat={'int_typespec': 2}
+NEUTRAL      v201_d_real.elab           def|module_inst||work@m201vd|13:1|D_SB|p201vd|ct9/sz24
+             golden={} pris={'-': 2} pat={'int_typespec': 2}
+NEUTRAL      v201_d_real.parse          def|module_inst||work@m201vd|13:1|D_SB|p201vd|ct9/sz24
+             golden={} pris={'-': 2} pat={'int_typespec': 2}
+NEUTRAL      v201_e_enum.elab           def|module_inst||work@m201ve|10:1|E_B|p201ve|ct9/sz2
+             golden={} pris={'-': 2} pat={'int_typespec': 2}
+NEUTRAL      v201_e_enum.elab           def|module_inst||work@m201ve|10:1|E_C|p201ve|ct7/sz2
+             golden={} pris={'-': 2} pat={'int_typespec': 2}
+NEUTRAL      v201_e_enum.parse          def|module_inst||work@m201ve|10:1|E_B|p201ve|ct9/sz2
+             golden={} pris={'-': 2} pat={'int_typespec': 2}
+NEUTRAL      v201_e_enum.parse          def|module_inst||work@m201ve|10:1|E_C|p201ve|ct7/sz2
+             golden={} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_a_refforms.elab       def|module_inst||work@m201va|25:1|R_DEC|p201va|ct9/sz32
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_a_refforms.elab       def|module_inst||work@m201va|25:1|R_INT|p201va|ct9/sz32
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_a_refforms.elab       def|module_inst||work@m201va|25:1|R_RNG|p201va|ct1/sz6
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_a_refforms.elab       def|module_inst||work@m201va|25:1|R_SGN|p201va|ct5/sz32
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_a_refforms.elab       def|module_inst||work@m201va|25:1|R_TNIB|p201va|ct5/sz4
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_a_refforms.parse      def|module_inst||work@m201va|25:1|R_DEC|p201va|ct9/sz32
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_a_refforms.parse      def|module_inst||work@m201va|25:1|R_INT|p201va|ct9/sz32
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_a_refforms.parse      def|module_inst||work@m201va|25:1|R_RNG|p201va|ct1/sz6
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_a_refforms.parse      def|module_inst||work@m201va|25:1|R_SGN|p201va|ct5/sz32
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_a_refforms.parse      def|module_inst||work@m201va|25:1|R_TNIB|p201va|ct5/sz4
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_b_typedlhs.elab       def|module_inst||work@m201vb|15:1|T_RNG|p201vb|ct9/sz6
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_b_typedlhs.elab       def|module_inst||work@m201vb|15:1|T_SGN|p201vb|ct9/sz32
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_b_typedlhs.parse      def|module_inst||work@m201vb|15:1|T_RNG|p201vb|ct9/sz6
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_b_typedlhs.parse      def|module_inst||work@m201vb|15:1|T_SGN|p201vb|ct9/sz32
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_c_localparam.elab     def|module_inst||work@m201vc|10:1|C_LB|p201vc|ct9/sz32
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_c_localparam.elab     def|module_inst||work@m201vc|10:1|C_LC|p201vc|ct9/sz32
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_c_localparam.elab     def|module_inst||work@m201vc|10:1|C_PB|p201vc|ct9/sz32
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_c_localparam.parse    def|module_inst||work@m201vc|10:1|C_LB|p201vc|ct9/sz32
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_c_localparam.parse    def|module_inst||work@m201vc|10:1|C_LC|p201vc|ct9/sz32
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_c_localparam.parse    def|module_inst||work@m201vc|10:1|C_PB|p201vc|ct9/sz32
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_f_xpkg.elab           def|module_inst||work@m201vf|14:1|F_B|p201vf2|ct9/sz32
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_f_xpkg.elab           def|module_inst||work@m201vf|14:1|F_C|p201vf2|ct9/sz32
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_f_xpkg.elab           def|module_inst||work@m201vf|14:1|F_D|p201vf2|ct9/sz32
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_f_xpkg.parse          def|module_inst||work@m201vf|14:1|F_B|p201vf2|ct9/sz32
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_f_xpkg.parse          def|module_inst||work@m201vf|14:1|F_C|p201vf2|ct9/sz32
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_f_xpkg.parse          def|module_inst||work@m201vf|14:1|F_D|p201vf2|ct9/sz32
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_g_expr.elab           def|module_inst||work@m201vg|13:1|G_E|p201vg|ct9/sz32
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_g_expr.parse          def|module_inst||work@m201vg|13:1|G_E|p201vg|ct9/sz32
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_h_ifprog.elab         defif|interface_inst||work@i201vh|9:1|H_B|p201vh|ct9/sz32
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_h_ifprog.elab         defprog|program||work@pr201vh|11:1|H_B|p201vh|ct9/sz32
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_h_ifprog.elab         def|module_inst||work@m201vh|13:1|H_B|p201vh|ct9/sz32
+             golden={'int_typespec': 3} pris={'-': 3} pat={'int_typespec': 3}
+TO-GOLDEN    v201_h_ifprog.parse        defif|interface_inst||work@i201vh|9:1|H_B|p201vh|ct9/sz32
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_h_ifprog.parse        defprog|program||work@pr201vh|11:1|H_B|p201vh|ct9/sz32
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_h_ifprog.parse        def|module_inst||work@m201vh|13:1|H_B|p201vh|ct9/sz32
+             golden={'int_typespec': 3} pris={'-': 3} pat={'int_typespec': 3}
+TO-GOLDEN    v201_i_explicit.elab       def|module_inst||work@m201vi|8:1|I_B|p201vi|ct9/sz32
+             golden={'int_typespec': 1} pris={'-': 1} pat={'int_typespec': 1}
+TO-GOLDEN    v201_i_explicit.parse      def|module_inst||work@m201vi|8:1|I_B|p201vi|ct9/sz32
+             golden={'int_typespec': 1} pris={'-': 1} pat={'int_typespec': 1}
+TO-GOLDEN    v201_j_nested.elab         def|module_inst||work@sub201vj|8:1|J_B|p201vj|ct9/sz32
+             golden={'int_typespec': 3} pris={'-': 3} pat={'int_typespec': 3}
+TO-GOLDEN    v201_j_nested.parse        def|module_inst||work@sub201vj|8:1|J_B|p201vj|ct9/sz32
+             golden={'int_typespec': 3} pris={'-': 3} pat={'int_typespec': 3}
+TO-GOLDEN    v201_l_class.elab          def|module_inst||work@m201vl|11:1|L_B|p201vl|ct9/sz32
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_l_class.parse         def|module_inst||work@m201vl|11:1|L_B|p201vl|ct9/sz32
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+-- SCORED cells-moved=50  {'TO-GOLDEN': 82, 'NEUTRAL': 10}

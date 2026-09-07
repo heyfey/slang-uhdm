@@ -1,0 +1,40 @@
+# r10uvm201 — THE ORDER-BLIND ATTRIBUTION of every byte mover (attrib201.sh).
+# LHS is ALWAYS golden.  Both dumps are path-normalised and SORTED before the
+# diff, so a pure ORDER flip (RESUME §9's Scoreboard coin) scores zero lines.
+
+default/SimpleUVM-1dc93a62/slang.uhdm  ORDER-BLIND ADDED=40 REMOVED=0 ADDED-THAT-ARE-NOT-typespec=24
+  Rhs/Lhs asymmetric param_assign cells: pristine [RHSGAP=4 LHSGAP=24] -> patched [RHSGAP=0 LHSGAP=24]
+testflags/SimpleUVM-1dc93a62/slang.uhdm  ORDER-BLIND ADDED=40 REMOVED=0 ADDED-THAT-ARE-NOT-typespec=24
+  Rhs/Lhs asymmetric param_assign cells: pristine [RHSGAP=4 LHSGAP=24] -> patched [RHSGAP=0 LHSGAP=24]
+default/SeqDriver-32af76aa/slang.uhdm  ORDER-BLIND ADDED=40 REMOVED=0 ADDED-THAT-ARE-NOT-typespec=24
+  Rhs/Lhs asymmetric param_assign cells: pristine [RHSGAP=4 LHSGAP=44] -> patched [RHSGAP=0 LHSGAP=44]
+testflags/SeqDriver-32af76aa/slang.uhdm  ORDER-BLIND ADDED=40 REMOVED=0 ADDED-THAT-ARE-NOT-typespec=24
+  Rhs/Lhs asymmetric param_assign cells: pristine [RHSGAP=4 LHSGAP=44] -> patched [RHSGAP=0 LHSGAP=44]
+default/MiniAmiq-544c7f61/slang.uhdm  ORDER-BLIND ADDED=40 REMOVED=0 ADDED-THAT-ARE-NOT-typespec=24
+  Rhs/Lhs asymmetric param_assign cells: pristine [RHSGAP=4 LHSGAP=72] -> patched [RHSGAP=0 LHSGAP=72]
+testflags/MiniAmiq-544c7f61/slang.uhdm  ORDER-BLIND ADDED=40 REMOVED=0 ADDED-THAT-ARE-NOT-typespec=24
+  Rhs/Lhs asymmetric param_assign cells: pristine [RHSGAP=4 LHSGAP=72] -> patched [RHSGAP=0 LHSGAP=72]
+default/Scoreboard-59431470/slang.uhdm  ORDER-BLIND ADDED=0 REMOVED=0 ADDED-THAT-ARE-NOT-typespec=0
+  Rhs/Lhs asymmetric param_assign cells: pristine [RHSGAP=0 LHSGAP=16] -> patched [RHSGAP=0 LHSGAP=16]
+-- TOTAL over the SIX byte movers plus Scoreboard: sorted-diff lines=240 ADDED-TOTAL=240 REMOVED-TOTAL=0
+
+## the 40 ADDED lines of SimpleUVM/default, in full — every one belongs to the
+## four minted ref_typespec -> int_typespec chains and to nothing else.
+      4       |vpiTypespec:
+      4   |vpiParent:
+      4         |vpiParent:
+      4         |vpiFullName:work@top
+      4         |vpiActual:
+      4   \_ref_typespec: (work@top)
+      4       \_ref_typespec: (work@top)
+      2 \_int_typespec: , line:220:1, endln:220:41
+      2         \_int_typespec: , line:220:1, endln:220:41
+      2 \_int_typespec: , line:217:1, endln:217:38
+      2         \_int_typespec: , line:217:1, endln:217:38
+      2         \_constant: , line:220:31, endln:220:41
+      2         \_constant: , line:217:31, endln:217:38
+
+## Scoreboard/default (RESUME §9's ~50/50 coin) did NOT flip in this run: it is
+## NOT among byteverify's six movers, and `cmp -s` on the pristine and patched
+## databases reports them byte-identical.  Its own attribution above is
+## ADDED 0 / REMOVED 0 and its RHSGAP is 0 before and after.

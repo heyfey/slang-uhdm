@@ -1,0 +1,10 @@
+# r10uvm201 - WHOLE-DATABASE OBJECT-KIND ATTRIBUTION, SimpleUVM/default.
+# LHS is ALWAYS golden.  Only kinds whose count MOVED between the two
+# binaries are listed; every other kind is identical.
+
+kind                         golden   pristine    patched   pris-gld    pat-gld
+int_typespec                   3022       3030       3034         +8        +12
+ref_typespec                  19364      18575      18579       -789       -785
+
+kinds whose count moved: 2  -- int_typespec ref_typespec
+totals: {'GOLDEN': 'total=188084', 'PRISTINE': 'total=184965', 'PATCHED': 'total=184973'}

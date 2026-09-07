@@ -1,0 +1,95 @@
+ARM v201_m_multi parse rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_m_multi.parse cellsG=11 cellsO=11 AGREE=11 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+TS PRIS:v201_m_multi.parse key=def|module_inst||work@leaf201vm|6:1|M_B|p201vm|ct9/sz32 pay=-/int_typespec G=0 O=1
+TS PRIS:v201_m_multi.parse key=def|module_inst||work@leaf201vm|6:1|M_B|p201vm|ct9/sz32 pay=int_typespec/int_typespec G=1 O=0
+CENSUM PRIS:v201_m_multi.parse cellsG=11 cellsO=11 AGREE=10 TS-DIFF=2 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CMP PRIS:v201_m_multi.parse lines=3124 heads=1 rc=255
+CENSUM PATCHED:v201_m_multi.parse cellsG=11 cellsO=11 AGREE=11 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+CMP PATCHED:v201_m_multi.parse lines=3138 heads=1 rc=255
+ARM v201_m_multi elab rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_m_multi.elab cellsG=11 cellsO=11 AGREE=11 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+TS PRIS:v201_m_multi.elab key=def|module_inst||work@leaf201vm|6:1|M_B|p201vm|ct9/sz32 pay=-/int_typespec G=0 O=1
+TS PRIS:v201_m_multi.elab key=def|module_inst||work@leaf201vm|6:1|M_B|p201vm|ct9/sz32 pay=int_typespec/int_typespec G=1 O=0
+CENSUM PRIS:v201_m_multi.elab cellsG=11 cellsO=11 AGREE=10 TS-DIFF=2 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CMP PRIS:v201_m_multi.elab lines=3126 heads=1 rc=255
+CENSUM PATCHED:v201_m_multi.elab cellsG=11 cellsO=11 AGREE=11 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+CMP PATCHED:v201_m_multi.elab lines=3140 heads=1 rc=255
+ARM v201_n_genarr parse rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_n_genarr.parse cellsG=12 cellsO=12 AGREE=12 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+CENSUM PRIS:v201_n_genarr.parse cellsG=12 cellsO=12 AGREE=12 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+CMP PRIS:v201_n_genarr.parse lines=3306 heads=1 rc=255
+CENSUM PATCHED:v201_n_genarr.parse cellsG=12 cellsO=12 AGREE=12 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+CMP PATCHED:v201_n_genarr.parse lines=3306 heads=1 rc=255
+ARM v201_n_genarr elab rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_n_genarr.elab cellsG=18 cellsO=18 AGREE=18 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+TS PRIS:v201_n_genarr.elab key=other|module_inst|u|work@leaf201vn|13:5|LP|-|ct9/sz32 pay=int_typespec/int_typespec G=4 O=2
+TS PRIS:v201_n_genarr.elab key=other|module_inst|u|work@leaf201vn|13:5|N_A|p201vn|ct9/sz32 pay=int_typespec/int_typespec G=4 O=2
+TS PRIS:v201_n_genarr.elab key=other|module_inst|u|work@leaf201vn|13:5|N_B|p201vn|ct9/sz32 pay=int_typespec/int_typespec G=4 O=2
+CENSUM PRIS:v201_n_genarr.elab cellsG=18 cellsO=12 AGREE=12 TS-DIFF=6 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CMP PRIS:v201_n_genarr.elab lines=3308 heads=1 rc=255
+TS PATCHED:v201_n_genarr.elab key=other|module_inst|u|work@leaf201vn|13:5|LP|-|ct9/sz32 pay=int_typespec/int_typespec G=4 O=2
+TS PATCHED:v201_n_genarr.elab key=other|module_inst|u|work@leaf201vn|13:5|N_A|p201vn|ct9/sz32 pay=int_typespec/int_typespec G=4 O=2
+TS PATCHED:v201_n_genarr.elab key=other|module_inst|u|work@leaf201vn|13:5|N_B|p201vn|ct9/sz32 pay=int_typespec/int_typespec G=4 O=2
+CENSUM PATCHED:v201_n_genarr.elab cellsG=18 cellsO=12 AGREE=12 TS-DIFF=6 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CMP PATCHED:v201_n_genarr.elab lines=3308 heads=1 rc=255
+ARM v201_o_ovr parse rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_o_ovr.parse cellsG=36 cellsO=36 AGREE=36 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+TS PRIS:v201_o_ovr.parse key=def|module_inst||work@m201vo|12:1|O_B|p201vo|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_o_ovr.parse key=def|module_inst||work@m201vo|12:1|O_B|p201vo|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+TS PRIS:v201_o_ovr.parse key=def|module_inst||work@m201vo|12:1|O_C|p201vo|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_o_ovr.parse key=def|module_inst||work@m201vo|12:1|O_C|p201vo|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+CENSUM PRIS:v201_o_ovr.parse cellsG=36 cellsO=36 AGREE=32 TS-DIFF=8 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CMP PRIS:v201_o_ovr.parse lines=7448 heads=1 rc=255
+CENSUM PATCHED:v201_o_ovr.parse cellsG=36 cellsO=36 AGREE=36 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+CMP PATCHED:v201_o_ovr.parse lines=7504 heads=1 rc=255
+ARM v201_o_ovr elab rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_o_ovr.elab cellsG=36 cellsO=36 AGREE=36 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+TS PRIS:v201_o_ovr.elab key=def|module_inst||work@m201vo|12:1|O_B|p201vo|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_o_ovr.elab key=def|module_inst||work@m201vo|12:1|O_B|p201vo|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+TS PRIS:v201_o_ovr.elab key=def|module_inst||work@m201vo|12:1|O_C|p201vo|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_o_ovr.elab key=def|module_inst||work@m201vo|12:1|O_C|p201vo|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+CENSUM PRIS:v201_o_ovr.elab cellsG=36 cellsO=36 AGREE=32 TS-DIFF=8 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CMP PRIS:v201_o_ovr.elab lines=7450 heads=1 rc=255
+CENSUM PATCHED:v201_o_ovr.elab cellsG=36 cellsO=36 AGREE=36 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+CMP PATCHED:v201_o_ovr.elab lines=7506 heads=1 rc=255
+ARM v201_p_reexport parse rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_p_reexport.parse cellsG=20 cellsO=20 AGREE=20 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+ONLY-GOLDEN PRIS:v201_p_reexport.parse key=defpkg|package|p201vp2|p201vp2|5:1|P_B|-|ct9/sz32 n=1
+TS PRIS:v201_p_reexport.parse key=def|module_inst||work@m201vp|11:1|P_A|p201vp2|ct9/sz32 pay=int_typespec/int_typespec G=4 O=2
+TS PRIS:v201_p_reexport.parse key=def|module_inst||work@m201vp|11:1|P_B|p201vp2|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_p_reexport.parse key=def|module_inst||work@m201vp|11:1|P_B|p201vp2|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+TS PRIS:v201_p_reexport.parse key=elab|module_inst|work@m201vp|work@m201vp|11:1|P_A|p201vp2|ct9/sz32 pay=int_typespec/int_typespec G=4 O=2
+CENSUM PRIS:v201_p_reexport.parse cellsG=20 cellsO=15 AGREE=13 TS-DIFF=8 ONLY-GOLDEN=1 ONLY-OURS=0 UNEQUAL
+CMP PRIS:v201_p_reexport.parse lines=4310 heads=1 rc=255
+ONLY-GOLDEN PATCHED:v201_p_reexport.parse key=defpkg|package|p201vp2|p201vp2|5:1|P_B|-|ct9/sz32 n=1
+TS PATCHED:v201_p_reexport.parse key=def|module_inst||work@m201vp|11:1|P_A|p201vp2|ct9/sz32 pay=int_typespec/int_typespec G=4 O=2
+TS PATCHED:v201_p_reexport.parse key=elab|module_inst|work@m201vp|work@m201vp|11:1|P_A|p201vp2|ct9/sz32 pay=int_typespec/int_typespec G=4 O=2
+CENSUM PATCHED:v201_p_reexport.parse cellsG=20 cellsO=15 AGREE=15 TS-DIFF=4 ONLY-GOLDEN=1 ONLY-OURS=0 UNEQUAL
+CMP PATCHED:v201_p_reexport.parse lines=4338 heads=1 rc=255
+ARM v201_p_reexport elab rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_p_reexport.elab cellsG=20 cellsO=20 AGREE=20 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+ONLY-GOLDEN PRIS:v201_p_reexport.elab key=defpkg|package|p201vp2|p201vp2|5:1|P_B|-|ct9/sz32 n=1
+TS PRIS:v201_p_reexport.elab key=def|module_inst||work@m201vp|11:1|P_A|p201vp2|ct9/sz32 pay=int_typespec/int_typespec G=4 O=2
+TS PRIS:v201_p_reexport.elab key=def|module_inst||work@m201vp|11:1|P_B|p201vp2|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_p_reexport.elab key=def|module_inst||work@m201vp|11:1|P_B|p201vp2|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+TS PRIS:v201_p_reexport.elab key=elab|module_inst|work@m201vp|work@m201vp|11:1|P_A|p201vp2|ct9/sz32 pay=int_typespec/int_typespec G=4 O=2
+CENSUM PRIS:v201_p_reexport.elab cellsG=20 cellsO=15 AGREE=13 TS-DIFF=8 ONLY-GOLDEN=1 ONLY-OURS=0 UNEQUAL
+CMP PRIS:v201_p_reexport.elab lines=4312 heads=1 rc=255
+ONLY-GOLDEN PATCHED:v201_p_reexport.elab key=defpkg|package|p201vp2|p201vp2|5:1|P_B|-|ct9/sz32 n=1
+TS PATCHED:v201_p_reexport.elab key=def|module_inst||work@m201vp|11:1|P_A|p201vp2|ct9/sz32 pay=int_typespec/int_typespec G=4 O=2
+TS PATCHED:v201_p_reexport.elab key=elab|module_inst|work@m201vp|work@m201vp|11:1|P_A|p201vp2|ct9/sz32 pay=int_typespec/int_typespec G=4 O=2
+CENSUM PATCHED:v201_p_reexport.elab cellsG=20 cellsO=15 AGREE=15 TS-DIFF=4 ONLY-GOLDEN=1 ONLY-OURS=0 UNEQUAL
+CMP PATCHED:v201_p_reexport.elab lines=4340 heads=1 rc=255
+-- CALIB  8 arm-views  TS-DIFF 0  ONLY-GOLDEN 0  ONLY-OURS 0  AGREE 164
+-- PRIS  8 arm-views  TS-DIFF 42  ONLY-GOLDEN 2  ONLY-OURS 0  AGREE 134
+-- PATCHED  8 arm-views  TS-DIFF 14  ONLY-GOLDEN 2  ONLY-OURS 0  AGREE 148
+-- NONZERO RCs: 0
+-- CMP LINE DELTAS (pat-pris) per arm-view:
+   v201_m_multi.elab        pris=3126     pat=3140     delta=14
+   v201_m_multi.parse       pris=3124     pat=3138     delta=14
+   v201_n_genarr.elab       pris=3308     pat=3308     delta=0
+   v201_n_genarr.parse      pris=3306     pat=3306     delta=0
+   v201_o_ovr.elab          pris=7450     pat=7506     delta=56
+   v201_o_ovr.parse         pris=7448     pat=7504     delta=56
+   v201_p_reexport.elab     pris=4312     pat=4340     delta=28
+   v201_p_reexport.parse    pris=4310     pat=4338     delta=28

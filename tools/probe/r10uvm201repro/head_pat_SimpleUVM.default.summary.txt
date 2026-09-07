@@ -1,0 +1,36 @@
+# r10uvm201 — the PATCHED SimpleUVM/default head, SUMMARISED.
+# The whole cmp log is 1327654 lines because the head OBJECT is now the
+# ELABORATED module_inst work@top, whose decompile is that big.  A cmp line count is
+# the head object's decompile size, NOT a distance (RESUME §9).  Reproduce with:
+#   uhdm-cmp <golden> <ours>   (heads: 1)
+
+## the head object, both sides
+LHS:
+decompile:
+module_inst: work@top (work@top), id:197492, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+|vpiParent:
+\_design: (work@top), id:194978
+|vpiFullName:work@top
+...
+RHS:
+decompile:
+module_inst: work@top (work@top), id:178975, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+|vpiParent:
+\_design: (work@top), id:1
+|vpiFullName:work@top
+
+## the VECTOR that differs — every |vpi<Vector> count, LHS(golden) vs RHS(ours)
+  3c3
+  <     450 |vpiNet
+  ---
+  >     420 |vpiNet
+
+## the vpiNet names GOLDEN has and we do not (with multiplicity)
+        4 \_logic_net: (work@top.bld)
+        4 \_logic_net: (work@top.clp)
+        4 \_logic_net: (work@top.common)
+        4 \_logic_net: (work@top.cs)
+        4 \_logic_net: (work@top.error_str)
+        2 \_logic_net: (work@top.top)
+        4 \_logic_net: (work@top.uvm_random_seed_table_lookup)
+        4 \_logic_net: (work@top.val)

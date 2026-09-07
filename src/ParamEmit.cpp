@@ -14541,6 +14541,84 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             ((UHDM::constant*)paRhs9)->Typespec(rtC9);
             rhsRt = rtC9;
         }
+        // § impFoldRhsMirrorsLhsTs201 — A MATERIALIZED IMPORT COPY'S FOLDED
+        // Rhs CONSTANT MIRRORS ITS OWN `param_assign` Lhs PARAMETER: when the
+        // Lhs carries the declaration's typespec, the constant carries a ref
+        // to one too.
+        //
+        // Surelog materializes an imported parameter by `clone_tree`-ing the
+        // package's own already-compiled `param_assign`
+        // (`CompileHelper::importPackage`, Surelog/src/DesignCompile/
+        // CompileHelper.cpp:238-273 — the model r10uvm197 decoded and
+        // r10uvm199 extended), so the copy carries exactly what the
+        // declaration carries.  And the declaration attaches ONE typespec to
+        // BOTH halves: CompileHelper.cpp:3788-3910 derives the implicit type
+        // from the REDUCED constant, hangs it on the parameter
+        // (`param->Typespec()->Actual_typespec(ts)`, once per const-type arm)
+        // and then, outside the switch and UNCONDITIONALLY, on the constant
+        // as well (`if (ts) { ... c->Typespec()->Actual_typespec(ts); }`).
+        // The two halves are therefore never independent — golden carries a
+        // typespec on a `param_assign` Lhs parameter if and only if it
+        // carries one on that assign's folded Rhs constant.  Measured, not
+        // assumed: over the SimpleUVM golden's 338 `param_assign` cells,
+        // `ct201cen --pred` reports RHSGAP = 0, and so does every golden of
+        // the corpus census.
+        //
+        // The gate reads the LHS PARAMETER rather than restating a
+        // declaration-form predicate, for the reason § impUnsizedBasedLhsNoTs199
+        // gives: both objects come out of the same cloned declaration, so
+        // every reason one has for carrying a typespec is a reason the other
+        // has, and restating the predicate would leave the two free to drift.
+        // It also keeps the mint at exactly the pristine-or-mirror value and
+        // never a third one.
+        //
+        // Our emitter already mints this ref for a module's OWN parameters
+        // (§ modPkgRefIntTsRhs9 just above) and for every literal-init form
+        // (the `wantTs` block at :7814), and the binding that gives an
+        // IMPORTED Rhs ref its own FRESH per-ref `int_typespec` — which is
+        // what golden builds, a distinct object from the parameter's own — is
+        // already written at :14971 (`if (!inPackage && isImported)`).  The
+        // one form that reached NEITHER is the materialized copy whose
+        // default is a BARE REFERENCE to a sibling package parameter
+        // (`parameter UVM_SETINT = UVM_SET;`, uvm_object_globals.svh:217, and
+        // `UVM_END_FUNCS = UVM_SETSTR` on :220): `wantTs` is true for it
+        // through `impCastFold9`, so the PARAMETER gets its typespec, but no
+        // branch ever built a ref on the folded constant and the late binder
+        // had nothing to bind.  Setting `rhsRt` here hands that cell to the
+        // existing binder untouched.
+        //
+        // THE GATE IS `prtLhs9` — the DEF-VIEW materialized copy's own Lhs
+        // parameter clone, § impUnsizedBasedLhsNoTs199's object, carrying a
+        // typespec — AND NOTHING WIDER, because "golden never leaves a folded
+        // Rhs constant bare under a typespec'd Lhs" is FALSE outside that one
+        // listing.  Two CMP_EQUAL corpus rows prove it, and both were read off
+        // the PRISTINE databases before this patch existed:
+        //
+        //   ParamFromPackage  `other` view, the CHILD INSTANCE listing
+        //                     (u_aes_cipher_core/work@aes_cipher_core@13:4)
+        //                     of `aes_pkg::X`: golden's Lhs carries a
+        //                     logic_typespec and its Rhs constant carries
+        //                     NONE.  Ours already matches.
+        //   ParamTypespec     `elab` view of `otp_ctrl_part_pkg::
+        //                     PartInvDefault`, whose def-view Rhs is an
+        //                     OPERATION that only the elaboration folds — to
+        //                     an UNLOCATED constant (span 0:0-0:0) that golden
+        //                     leaves bare.  Ours already matches.
+        //
+        // Neither constant is the `clone_tree` copy of the package's own
+        // reduced Rhs; they are re-folds minted where the instance was
+        // elaborated, and Surelog's `c->Typespec()` attach never runs for
+        // them.  A gate phrased on `isImported` alone would have written a
+        // typespec into both and taken two CMP_EQUAL rows AWAY from golden.
+        if (!rhsRt && prtLhs9 && paRhs9 &&
+            paRhs9->UhdmType() == UHDM::uhdmconstant &&
+            !((UHDM::constant*)paRhs9)->Typespec()) {
+            auto* rtI9 = s.MakeRef_typespec();
+            rtI9->VpiFullName(prefix);
+            rtI9->VpiParent(paRhs9);
+            ((UHDM::constant*)paRhs9)->Typespec(rtI9);
+            rhsRt = rtI9;
+        }
         // § pkgEnumParamDefRhs (r10earl4).  A MODULE parameter typed by a
         // PACKAGE ENUM typedef and defaulted to a QUALIFIED enum constant
         // (`parameter prim_pkg::impl_e Impl = prim_pkg::ImplGeneric;` — every

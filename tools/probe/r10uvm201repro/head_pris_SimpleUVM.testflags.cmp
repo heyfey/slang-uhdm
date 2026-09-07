@@ -1,0 +1,17 @@
+LHS:
+decompile:
+ref_typespec: (work@top), id:120084
+|vpiParent:
+\_constant: , id:120083, line:217:31, endln:217:38
+|vpiFullName:work@top
+|vpiActual:
+\_int_typespec: , id:120085, line:217:1, endln:217:38
+
+decompile:
+ref_typespec: (work@top), id:120084
+|vpiParent:
+\_constant: , id:120083, line:217:31, endln:217:38
+|vpiFullName:work@top
+|vpiActual:
+\_int_typespec: , id:120085, line:217:1, endln:217:38
+RHS: <null>

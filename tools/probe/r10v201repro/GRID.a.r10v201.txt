@@ -1,0 +1,581 @@
+ARM v201_a_refforms parse rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_a_refforms.parse cellsG=88 cellsO=88 AGREE=88 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+ONLY-GOLDEN PRIS:v201_a_refforms.parse key=def|module_inst||work@m201va|25:1|A_UNB|p201va|ct3/sz-1 n=2
+ONLY-OURS PRIS:v201_a_refforms.parse key=def|module_inst||work@m201va|25:1|A_UNB|p201va|ct3/sz32 n=2
+TS PRIS:v201_a_refforms.parse key=def|module_inst||work@m201va|25:1|R_DEC|p201va|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_a_refforms.parse key=def|module_inst||work@m201va|25:1|R_DEC|p201va|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+TS PRIS:v201_a_refforms.parse key=def|module_inst||work@m201va|25:1|R_INT|p201va|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_a_refforms.parse key=def|module_inst||work@m201va|25:1|R_INT|p201va|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+TS PRIS:v201_a_refforms.parse key=def|module_inst||work@m201va|25:1|R_RNG|p201va|ct1/sz6 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_a_refforms.parse key=def|module_inst||work@m201va|25:1|R_RNG|p201va|ct1/sz6 pay=int_typespec/- G=2 O=0
+TS PRIS:v201_a_refforms.parse key=def|module_inst||work@m201va|25:1|R_SGN|p201va|ct5/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_a_refforms.parse key=def|module_inst||work@m201va|25:1|R_SGN|p201va|ct5/sz32 pay=int_typespec/int_typespec G=2 O=0
+ONLY-GOLDEN PRIS:v201_a_refforms.parse key=def|module_inst||work@m201va|25:1|R_STR|p201va|ct6/sz40 n=2
+TS PRIS:v201_a_refforms.parse key=def|module_inst||work@m201va|25:1|R_TNIB|p201va|ct5/sz4 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_a_refforms.parse key=def|module_inst||work@m201va|25:1|R_TNIB|p201va|ct5/sz4 pay=int_typespec/int_typespec G=2 O=0
+ONLY-GOLDEN PRIS:v201_a_refforms.parse key=def|module_inst||work@m201va|25:1|R_UDB|p201va|ct1/sz-1 n=2
+ONLY-OURS PRIS:v201_a_refforms.parse key=def|module_inst||work@m201va|25:1|R_UDB|p201va|ct1/sz32 n=2
+ONLY-GOLDEN PRIS:v201_a_refforms.parse key=def|module_inst||work@m201va|25:1|R_UNB|p201va|ct3/sz-1 n=2
+ONLY-OURS PRIS:v201_a_refforms.parse key=def|module_inst||work@m201va|25:1|R_UNB|p201va|ct9/sz32 n=2
+ONLY-GOLDEN PRIS:v201_a_refforms.parse key=elabpkg|package|p201va|p201va|4:1|A_RNG|-|ct1/sz6 n=1
+ONLY-OURS PRIS:v201_a_refforms.parse key=elabpkg|package|p201va|p201va|4:1|A_RNG|-|ct7/sz6 n=1
+ONLY-GOLDEN PRIS:v201_a_refforms.parse key=elabpkg|package|p201va|p201va|4:1|A_UNB|-|ct3/sz-1 n=1
+ONLY-OURS PRIS:v201_a_refforms.parse key=elabpkg|package|p201va|p201va|4:1|A_UNB|-|ct9/sz64 n=1
+ONLY-GOLDEN PRIS:v201_a_refforms.parse key=elabpkg|package|p201va|p201va|4:1|R_RNG|-|ct1/sz6 n=1
+ONLY-OURS PRIS:v201_a_refforms.parse key=elabpkg|package|p201va|p201va|4:1|R_RNG|-|ct7/sz6 n=1
+TS PRIS:v201_a_refforms.parse key=elabpkg|package|p201va|p201va|4:1|R_STR|-|ct6/sz40 pay=-/- G=0 O=1
+TS PRIS:v201_a_refforms.parse key=elabpkg|package|p201va|p201va|4:1|R_STR|-|ct6/sz40 pay=string_typespec/string_typespec G=1 O=0
+ONLY-GOLDEN PRIS:v201_a_refforms.parse key=elabpkg|package|p201va|p201va|4:1|R_UDB|-|ct1/sz-1 n=1
+ONLY-OURS PRIS:v201_a_refforms.parse key=elabpkg|package|p201va|p201va|4:1|R_UDB|-|ct1/sz32 n=1
+ONLY-GOLDEN PRIS:v201_a_refforms.parse key=elabpkg|package|p201va|p201va|4:1|R_UNB|-|ct3/sz-1 n=1
+ONLY-OURS PRIS:v201_a_refforms.parse key=elabpkg|package|p201va|p201va|4:1|R_UNB|-|ct9/sz32 n=1
+ONLY-GOLDEN PRIS:v201_a_refforms.parse key=elab|module_inst|work@m201va|work@m201va|25:1|A_UDB|p201va|ct7/sz-1 n=2
+ONLY-OURS PRIS:v201_a_refforms.parse key=elab|module_inst|work@m201va|work@m201va|25:1|A_UDB|p201va|ct7/sz32 n=2
+ONLY-GOLDEN PRIS:v201_a_refforms.parse key=elab|module_inst|work@m201va|work@m201va|25:1|A_UNB|p201va|ct3/sz-1 n=2
+ONLY-OURS PRIS:v201_a_refforms.parse key=elab|module_inst|work@m201va|work@m201va|25:1|A_UNB|p201va|ct9/sz64 n=2
+TS PRIS:v201_a_refforms.parse key=elab|module_inst|work@m201va|work@m201va|25:1|R_RNG|p201va|ct7/sz6 pay=-/- G=2 O=0
+TS PRIS:v201_a_refforms.parse key=elab|module_inst|work@m201va|work@m201va|25:1|R_RNG|p201va|ct7/sz6 pay=int_typespec/int_typespec G=0 O=2
+TS PRIS:v201_a_refforms.parse key=elab|module_inst|work@m201va|work@m201va|25:1|R_STR|p201va|ct6/sz40 pay=-/- G=0 O=2
+TS PRIS:v201_a_refforms.parse key=elab|module_inst|work@m201va|work@m201va|25:1|R_STR|p201va|ct6/sz40 pay=string_typespec/string_typespec G=2 O=0
+ONLY-GOLDEN PRIS:v201_a_refforms.parse key=elab|module_inst|work@m201va|work@m201va|25:1|R_UDB|p201va|ct7/sz-1 n=2
+ONLY-OURS PRIS:v201_a_refforms.parse key=elab|module_inst|work@m201va|work@m201va|25:1|R_UDB|p201va|ct7/sz32 n=2
+ONLY-GOLDEN PRIS:v201_a_refforms.parse key=elab|module_inst|work@m201va|work@m201va|25:1|R_UNB|p201va|ct3/sz-1 n=2
+ONLY-OURS PRIS:v201_a_refforms.parse key=elab|module_inst|work@m201va|work@m201va|25:1|R_UNB|p201va|ct9/sz32 n=2
+CENSUM PRIS:v201_a_refforms.parse cellsG=88 cellsO=86 AGREE=52 TS-DIFF=30 ONLY-GOLDEN=21 ONLY-OURS=19 UNEQUAL
+CMP PRIS:v201_a_refforms.parse lines=16824 heads=1 rc=255
+ONLY-GOLDEN PATCHED:v201_a_refforms.parse key=def|module_inst||work@m201va|25:1|A_UNB|p201va|ct3/sz-1 n=2
+ONLY-OURS PATCHED:v201_a_refforms.parse key=def|module_inst||work@m201va|25:1|A_UNB|p201va|ct3/sz32 n=2
+TS PATCHED:v201_a_refforms.parse key=def|module_inst||work@m201va|25:1|R_RNG|p201va|ct1/sz6 pay=int_typespec/- G=2 O=0
+TS PATCHED:v201_a_refforms.parse key=def|module_inst||work@m201va|25:1|R_RNG|p201va|ct1/sz6 pay=int_typespec/int_typespec G=0 O=2
+ONLY-GOLDEN PATCHED:v201_a_refforms.parse key=def|module_inst||work@m201va|25:1|R_STR|p201va|ct6/sz40 n=2
+ONLY-GOLDEN PATCHED:v201_a_refforms.parse key=def|module_inst||work@m201va|25:1|R_UDB|p201va|ct1/sz-1 n=2
+ONLY-OURS PATCHED:v201_a_refforms.parse key=def|module_inst||work@m201va|25:1|R_UDB|p201va|ct1/sz32 n=2
+ONLY-GOLDEN PATCHED:v201_a_refforms.parse key=def|module_inst||work@m201va|25:1|R_UNB|p201va|ct3/sz-1 n=2
+ONLY-OURS PATCHED:v201_a_refforms.parse key=def|module_inst||work@m201va|25:1|R_UNB|p201va|ct9/sz32 n=2
+ONLY-GOLDEN PATCHED:v201_a_refforms.parse key=elabpkg|package|p201va|p201va|4:1|A_RNG|-|ct1/sz6 n=1
+ONLY-OURS PATCHED:v201_a_refforms.parse key=elabpkg|package|p201va|p201va|4:1|A_RNG|-|ct7/sz6 n=1
+ONLY-GOLDEN PATCHED:v201_a_refforms.parse key=elabpkg|package|p201va|p201va|4:1|A_UNB|-|ct3/sz-1 n=1
+ONLY-OURS PATCHED:v201_a_refforms.parse key=elabpkg|package|p201va|p201va|4:1|A_UNB|-|ct9/sz64 n=1
+ONLY-GOLDEN PATCHED:v201_a_refforms.parse key=elabpkg|package|p201va|p201va|4:1|R_RNG|-|ct1/sz6 n=1
+ONLY-OURS PATCHED:v201_a_refforms.parse key=elabpkg|package|p201va|p201va|4:1|R_RNG|-|ct7/sz6 n=1
+TS PATCHED:v201_a_refforms.parse key=elabpkg|package|p201va|p201va|4:1|R_STR|-|ct6/sz40 pay=-/- G=0 O=1
+TS PATCHED:v201_a_refforms.parse key=elabpkg|package|p201va|p201va|4:1|R_STR|-|ct6/sz40 pay=string_typespec/string_typespec G=1 O=0
+ONLY-GOLDEN PATCHED:v201_a_refforms.parse key=elabpkg|package|p201va|p201va|4:1|R_UDB|-|ct1/sz-1 n=1
+ONLY-OURS PATCHED:v201_a_refforms.parse key=elabpkg|package|p201va|p201va|4:1|R_UDB|-|ct1/sz32 n=1
+ONLY-GOLDEN PATCHED:v201_a_refforms.parse key=elabpkg|package|p201va|p201va|4:1|R_UNB|-|ct3/sz-1 n=1
+ONLY-OURS PATCHED:v201_a_refforms.parse key=elabpkg|package|p201va|p201va|4:1|R_UNB|-|ct9/sz32 n=1
+ONLY-GOLDEN PATCHED:v201_a_refforms.parse key=elab|module_inst|work@m201va|work@m201va|25:1|A_UDB|p201va|ct7/sz-1 n=2
+ONLY-OURS PATCHED:v201_a_refforms.parse key=elab|module_inst|work@m201va|work@m201va|25:1|A_UDB|p201va|ct7/sz32 n=2
+ONLY-GOLDEN PATCHED:v201_a_refforms.parse key=elab|module_inst|work@m201va|work@m201va|25:1|A_UNB|p201va|ct3/sz-1 n=2
+ONLY-OURS PATCHED:v201_a_refforms.parse key=elab|module_inst|work@m201va|work@m201va|25:1|A_UNB|p201va|ct9/sz64 n=2
+TS PATCHED:v201_a_refforms.parse key=elab|module_inst|work@m201va|work@m201va|25:1|R_RNG|p201va|ct7/sz6 pay=-/- G=2 O=0
+TS PATCHED:v201_a_refforms.parse key=elab|module_inst|work@m201va|work@m201va|25:1|R_RNG|p201va|ct7/sz6 pay=int_typespec/int_typespec G=0 O=2
+TS PATCHED:v201_a_refforms.parse key=elab|module_inst|work@m201va|work@m201va|25:1|R_STR|p201va|ct6/sz40 pay=-/- G=0 O=2
+TS PATCHED:v201_a_refforms.parse key=elab|module_inst|work@m201va|work@m201va|25:1|R_STR|p201va|ct6/sz40 pay=string_typespec/string_typespec G=2 O=0
+ONLY-GOLDEN PATCHED:v201_a_refforms.parse key=elab|module_inst|work@m201va|work@m201va|25:1|R_UDB|p201va|ct7/sz-1 n=2
+ONLY-OURS PATCHED:v201_a_refforms.parse key=elab|module_inst|work@m201va|work@m201va|25:1|R_UDB|p201va|ct7/sz32 n=2
+ONLY-GOLDEN PATCHED:v201_a_refforms.parse key=elab|module_inst|work@m201va|work@m201va|25:1|R_UNB|p201va|ct3/sz-1 n=2
+ONLY-OURS PATCHED:v201_a_refforms.parse key=elab|module_inst|work@m201va|work@m201va|25:1|R_UNB|p201va|ct9/sz32 n=2
+CENSUM PATCHED:v201_a_refforms.parse cellsG=88 cellsO=86 AGREE=60 TS-DIFF=14 ONLY-GOLDEN=21 ONLY-OURS=19 UNEQUAL
+CMP PATCHED:v201_a_refforms.parse lines=17020 heads=1 rc=255
+ARM v201_a_refforms elab rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_a_refforms.elab cellsG=88 cellsO=88 AGREE=88 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+ONLY-GOLDEN PRIS:v201_a_refforms.elab key=def|module_inst||work@m201va|25:1|A_UNB|p201va|ct3/sz-1 n=2
+ONLY-OURS PRIS:v201_a_refforms.elab key=def|module_inst||work@m201va|25:1|A_UNB|p201va|ct3/sz32 n=2
+TS PRIS:v201_a_refforms.elab key=def|module_inst||work@m201va|25:1|R_DEC|p201va|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_a_refforms.elab key=def|module_inst||work@m201va|25:1|R_DEC|p201va|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+TS PRIS:v201_a_refforms.elab key=def|module_inst||work@m201va|25:1|R_INT|p201va|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_a_refforms.elab key=def|module_inst||work@m201va|25:1|R_INT|p201va|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+TS PRIS:v201_a_refforms.elab key=def|module_inst||work@m201va|25:1|R_RNG|p201va|ct1/sz6 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_a_refforms.elab key=def|module_inst||work@m201va|25:1|R_RNG|p201va|ct1/sz6 pay=int_typespec/- G=2 O=0
+TS PRIS:v201_a_refforms.elab key=def|module_inst||work@m201va|25:1|R_SGN|p201va|ct5/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_a_refforms.elab key=def|module_inst||work@m201va|25:1|R_SGN|p201va|ct5/sz32 pay=int_typespec/int_typespec G=2 O=0
+ONLY-GOLDEN PRIS:v201_a_refforms.elab key=def|module_inst||work@m201va|25:1|R_STR|p201va|ct6/sz40 n=2
+TS PRIS:v201_a_refforms.elab key=def|module_inst||work@m201va|25:1|R_TNIB|p201va|ct5/sz4 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_a_refforms.elab key=def|module_inst||work@m201va|25:1|R_TNIB|p201va|ct5/sz4 pay=int_typespec/int_typespec G=2 O=0
+ONLY-GOLDEN PRIS:v201_a_refforms.elab key=def|module_inst||work@m201va|25:1|R_UDB|p201va|ct1/sz-1 n=2
+ONLY-OURS PRIS:v201_a_refforms.elab key=def|module_inst||work@m201va|25:1|R_UDB|p201va|ct1/sz32 n=2
+ONLY-GOLDEN PRIS:v201_a_refforms.elab key=def|module_inst||work@m201va|25:1|R_UNB|p201va|ct3/sz-1 n=2
+ONLY-OURS PRIS:v201_a_refforms.elab key=def|module_inst||work@m201va|25:1|R_UNB|p201va|ct9/sz32 n=2
+ONLY-GOLDEN PRIS:v201_a_refforms.elab key=elabpkg|package|p201va|p201va|4:1|A_RNG|-|ct1/sz6 n=1
+ONLY-OURS PRIS:v201_a_refforms.elab key=elabpkg|package|p201va|p201va|4:1|A_RNG|-|ct7/sz6 n=1
+ONLY-GOLDEN PRIS:v201_a_refforms.elab key=elabpkg|package|p201va|p201va|4:1|A_UNB|-|ct3/sz-1 n=1
+ONLY-OURS PRIS:v201_a_refforms.elab key=elabpkg|package|p201va|p201va|4:1|A_UNB|-|ct9/sz64 n=1
+ONLY-GOLDEN PRIS:v201_a_refforms.elab key=elabpkg|package|p201va|p201va|4:1|R_RNG|-|ct1/sz6 n=1
+ONLY-OURS PRIS:v201_a_refforms.elab key=elabpkg|package|p201va|p201va|4:1|R_RNG|-|ct7/sz6 n=1
+TS PRIS:v201_a_refforms.elab key=elabpkg|package|p201va|p201va|4:1|R_STR|-|ct6/sz40 pay=-/- G=0 O=1
+TS PRIS:v201_a_refforms.elab key=elabpkg|package|p201va|p201va|4:1|R_STR|-|ct6/sz40 pay=string_typespec/string_typespec G=1 O=0
+ONLY-GOLDEN PRIS:v201_a_refforms.elab key=elabpkg|package|p201va|p201va|4:1|R_UDB|-|ct1/sz-1 n=1
+ONLY-OURS PRIS:v201_a_refforms.elab key=elabpkg|package|p201va|p201va|4:1|R_UDB|-|ct1/sz32 n=1
+ONLY-GOLDEN PRIS:v201_a_refforms.elab key=elabpkg|package|p201va|p201va|4:1|R_UNB|-|ct3/sz-1 n=1
+ONLY-OURS PRIS:v201_a_refforms.elab key=elabpkg|package|p201va|p201va|4:1|R_UNB|-|ct9/sz32 n=1
+ONLY-GOLDEN PRIS:v201_a_refforms.elab key=elab|module_inst|work@m201va|work@m201va|25:1|A_UDB|p201va|ct7/sz-1 n=2
+ONLY-OURS PRIS:v201_a_refforms.elab key=elab|module_inst|work@m201va|work@m201va|25:1|A_UDB|p201va|ct7/sz32 n=2
+ONLY-GOLDEN PRIS:v201_a_refforms.elab key=elab|module_inst|work@m201va|work@m201va|25:1|A_UNB|p201va|ct3/sz-1 n=2
+ONLY-OURS PRIS:v201_a_refforms.elab key=elab|module_inst|work@m201va|work@m201va|25:1|A_UNB|p201va|ct9/sz64 n=2
+TS PRIS:v201_a_refforms.elab key=elab|module_inst|work@m201va|work@m201va|25:1|R_RNG|p201va|ct7/sz6 pay=-/- G=2 O=0
+TS PRIS:v201_a_refforms.elab key=elab|module_inst|work@m201va|work@m201va|25:1|R_RNG|p201va|ct7/sz6 pay=int_typespec/int_typespec G=0 O=2
+TS PRIS:v201_a_refforms.elab key=elab|module_inst|work@m201va|work@m201va|25:1|R_STR|p201va|ct6/sz40 pay=-/- G=0 O=2
+TS PRIS:v201_a_refforms.elab key=elab|module_inst|work@m201va|work@m201va|25:1|R_STR|p201va|ct6/sz40 pay=string_typespec/string_typespec G=2 O=0
+ONLY-GOLDEN PRIS:v201_a_refforms.elab key=elab|module_inst|work@m201va|work@m201va|25:1|R_UDB|p201va|ct7/sz-1 n=2
+ONLY-OURS PRIS:v201_a_refforms.elab key=elab|module_inst|work@m201va|work@m201va|25:1|R_UDB|p201va|ct7/sz32 n=2
+ONLY-GOLDEN PRIS:v201_a_refforms.elab key=elab|module_inst|work@m201va|work@m201va|25:1|R_UNB|p201va|ct3/sz-1 n=2
+ONLY-OURS PRIS:v201_a_refforms.elab key=elab|module_inst|work@m201va|work@m201va|25:1|R_UNB|p201va|ct9/sz32 n=2
+CENSUM PRIS:v201_a_refforms.elab cellsG=88 cellsO=86 AGREE=52 TS-DIFF=30 ONLY-GOLDEN=21 ONLY-OURS=19 UNEQUAL
+CMP PRIS:v201_a_refforms.elab lines=16826 heads=1 rc=255
+ONLY-GOLDEN PATCHED:v201_a_refforms.elab key=def|module_inst||work@m201va|25:1|A_UNB|p201va|ct3/sz-1 n=2
+ONLY-OURS PATCHED:v201_a_refforms.elab key=def|module_inst||work@m201va|25:1|A_UNB|p201va|ct3/sz32 n=2
+TS PATCHED:v201_a_refforms.elab key=def|module_inst||work@m201va|25:1|R_RNG|p201va|ct1/sz6 pay=int_typespec/- G=2 O=0
+TS PATCHED:v201_a_refforms.elab key=def|module_inst||work@m201va|25:1|R_RNG|p201va|ct1/sz6 pay=int_typespec/int_typespec G=0 O=2
+ONLY-GOLDEN PATCHED:v201_a_refforms.elab key=def|module_inst||work@m201va|25:1|R_STR|p201va|ct6/sz40 n=2
+ONLY-GOLDEN PATCHED:v201_a_refforms.elab key=def|module_inst||work@m201va|25:1|R_UDB|p201va|ct1/sz-1 n=2
+ONLY-OURS PATCHED:v201_a_refforms.elab key=def|module_inst||work@m201va|25:1|R_UDB|p201va|ct1/sz32 n=2
+ONLY-GOLDEN PATCHED:v201_a_refforms.elab key=def|module_inst||work@m201va|25:1|R_UNB|p201va|ct3/sz-1 n=2
+ONLY-OURS PATCHED:v201_a_refforms.elab key=def|module_inst||work@m201va|25:1|R_UNB|p201va|ct9/sz32 n=2
+ONLY-GOLDEN PATCHED:v201_a_refforms.elab key=elabpkg|package|p201va|p201va|4:1|A_RNG|-|ct1/sz6 n=1
+ONLY-OURS PATCHED:v201_a_refforms.elab key=elabpkg|package|p201va|p201va|4:1|A_RNG|-|ct7/sz6 n=1
+ONLY-GOLDEN PATCHED:v201_a_refforms.elab key=elabpkg|package|p201va|p201va|4:1|A_UNB|-|ct3/sz-1 n=1
+ONLY-OURS PATCHED:v201_a_refforms.elab key=elabpkg|package|p201va|p201va|4:1|A_UNB|-|ct9/sz64 n=1
+ONLY-GOLDEN PATCHED:v201_a_refforms.elab key=elabpkg|package|p201va|p201va|4:1|R_RNG|-|ct1/sz6 n=1
+ONLY-OURS PATCHED:v201_a_refforms.elab key=elabpkg|package|p201va|p201va|4:1|R_RNG|-|ct7/sz6 n=1
+TS PATCHED:v201_a_refforms.elab key=elabpkg|package|p201va|p201va|4:1|R_STR|-|ct6/sz40 pay=-/- G=0 O=1
+TS PATCHED:v201_a_refforms.elab key=elabpkg|package|p201va|p201va|4:1|R_STR|-|ct6/sz40 pay=string_typespec/string_typespec G=1 O=0
+ONLY-GOLDEN PATCHED:v201_a_refforms.elab key=elabpkg|package|p201va|p201va|4:1|R_UDB|-|ct1/sz-1 n=1
+ONLY-OURS PATCHED:v201_a_refforms.elab key=elabpkg|package|p201va|p201va|4:1|R_UDB|-|ct1/sz32 n=1
+ONLY-GOLDEN PATCHED:v201_a_refforms.elab key=elabpkg|package|p201va|p201va|4:1|R_UNB|-|ct3/sz-1 n=1
+ONLY-OURS PATCHED:v201_a_refforms.elab key=elabpkg|package|p201va|p201va|4:1|R_UNB|-|ct9/sz32 n=1
+ONLY-GOLDEN PATCHED:v201_a_refforms.elab key=elab|module_inst|work@m201va|work@m201va|25:1|A_UDB|p201va|ct7/sz-1 n=2
+ONLY-OURS PATCHED:v201_a_refforms.elab key=elab|module_inst|work@m201va|work@m201va|25:1|A_UDB|p201va|ct7/sz32 n=2
+ONLY-GOLDEN PATCHED:v201_a_refforms.elab key=elab|module_inst|work@m201va|work@m201va|25:1|A_UNB|p201va|ct3/sz-1 n=2
+ONLY-OURS PATCHED:v201_a_refforms.elab key=elab|module_inst|work@m201va|work@m201va|25:1|A_UNB|p201va|ct9/sz64 n=2
+TS PATCHED:v201_a_refforms.elab key=elab|module_inst|work@m201va|work@m201va|25:1|R_RNG|p201va|ct7/sz6 pay=-/- G=2 O=0
+TS PATCHED:v201_a_refforms.elab key=elab|module_inst|work@m201va|work@m201va|25:1|R_RNG|p201va|ct7/sz6 pay=int_typespec/int_typespec G=0 O=2
+TS PATCHED:v201_a_refforms.elab key=elab|module_inst|work@m201va|work@m201va|25:1|R_STR|p201va|ct6/sz40 pay=-/- G=0 O=2
+TS PATCHED:v201_a_refforms.elab key=elab|module_inst|work@m201va|work@m201va|25:1|R_STR|p201va|ct6/sz40 pay=string_typespec/string_typespec G=2 O=0
+ONLY-GOLDEN PATCHED:v201_a_refforms.elab key=elab|module_inst|work@m201va|work@m201va|25:1|R_UDB|p201va|ct7/sz-1 n=2
+ONLY-OURS PATCHED:v201_a_refforms.elab key=elab|module_inst|work@m201va|work@m201va|25:1|R_UDB|p201va|ct7/sz32 n=2
+ONLY-GOLDEN PATCHED:v201_a_refforms.elab key=elab|module_inst|work@m201va|work@m201va|25:1|R_UNB|p201va|ct3/sz-1 n=2
+ONLY-OURS PATCHED:v201_a_refforms.elab key=elab|module_inst|work@m201va|work@m201va|25:1|R_UNB|p201va|ct9/sz32 n=2
+CENSUM PATCHED:v201_a_refforms.elab cellsG=88 cellsO=86 AGREE=60 TS-DIFF=14 ONLY-GOLDEN=21 ONLY-OURS=19 UNEQUAL
+CMP PATCHED:v201_a_refforms.elab lines=17022 heads=1 rc=255
+ARM v201_b_typedlhs parse rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_b_typedlhs.parse cellsG=42 cellsO=42 AGREE=42 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+TS PRIS:v201_b_typedlhs.parse key=def|module_inst||work@m201vb|15:1|T_RNG|p201vb|ct9/sz6 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_b_typedlhs.parse key=def|module_inst||work@m201vb|15:1|T_RNG|p201vb|ct9/sz6 pay=int_typespec/int_typespec G=2 O=0
+TS PRIS:v201_b_typedlhs.parse key=def|module_inst||work@m201vb|15:1|T_SGN|p201vb|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_b_typedlhs.parse key=def|module_inst||work@m201vb|15:1|T_SGN|p201vb|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+ONLY-OURS PRIS:v201_b_typedlhs.parse key=elab|module_inst|work@m201vb|work@m201vb|15:1|T_BYTE|p201vb|ct9/sz32 n=2
+ONLY-GOLDEN PRIS:v201_b_typedlhs.parse key=elab|module_inst|work@m201vb|work@m201vb|15:1|T_BYTE|p201vb|ct9/sz8 n=2
+ONLY-OURS PRIS:v201_b_typedlhs.parse key=elab|module_inst|work@m201vb|work@m201vb|15:1|T_NIB|p201vb|ct9/sz32 n=2
+ONLY-GOLDEN PRIS:v201_b_typedlhs.parse key=elab|module_inst|work@m201vb|work@m201vb|15:1|T_NIB|p201vb|ct9/sz4 n=2
+CENSUM PRIS:v201_b_typedlhs.parse cellsG=42 cellsO=42 AGREE=34 TS-DIFF=8 ONLY-GOLDEN=4 ONLY-OURS=4 UNEQUAL
+CMP PRIS:v201_b_typedlhs.parse lines=9970 heads=1 rc=255
+ONLY-OURS PATCHED:v201_b_typedlhs.parse key=elab|module_inst|work@m201vb|work@m201vb|15:1|T_BYTE|p201vb|ct9/sz32 n=2
+ONLY-GOLDEN PATCHED:v201_b_typedlhs.parse key=elab|module_inst|work@m201vb|work@m201vb|15:1|T_BYTE|p201vb|ct9/sz8 n=2
+ONLY-OURS PATCHED:v201_b_typedlhs.parse key=elab|module_inst|work@m201vb|work@m201vb|15:1|T_NIB|p201vb|ct9/sz32 n=2
+ONLY-GOLDEN PATCHED:v201_b_typedlhs.parse key=elab|module_inst|work@m201vb|work@m201vb|15:1|T_NIB|p201vb|ct9/sz4 n=2
+CENSUM PATCHED:v201_b_typedlhs.parse cellsG=42 cellsO=42 AGREE=38 TS-DIFF=0 ONLY-GOLDEN=4 ONLY-OURS=4 UNEQUAL
+CMP PATCHED:v201_b_typedlhs.parse lines=10026 heads=1 rc=255
+ARM v201_b_typedlhs elab rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_b_typedlhs.elab cellsG=42 cellsO=42 AGREE=42 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+TS PRIS:v201_b_typedlhs.elab key=def|module_inst||work@m201vb|15:1|T_RNG|p201vb|ct9/sz6 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_b_typedlhs.elab key=def|module_inst||work@m201vb|15:1|T_RNG|p201vb|ct9/sz6 pay=int_typespec/int_typespec G=2 O=0
+TS PRIS:v201_b_typedlhs.elab key=def|module_inst||work@m201vb|15:1|T_SGN|p201vb|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_b_typedlhs.elab key=def|module_inst||work@m201vb|15:1|T_SGN|p201vb|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+ONLY-OURS PRIS:v201_b_typedlhs.elab key=elab|module_inst|work@m201vb|work@m201vb|15:1|T_BYTE|p201vb|ct9/sz32 n=2
+ONLY-GOLDEN PRIS:v201_b_typedlhs.elab key=elab|module_inst|work@m201vb|work@m201vb|15:1|T_BYTE|p201vb|ct9/sz8 n=2
+ONLY-OURS PRIS:v201_b_typedlhs.elab key=elab|module_inst|work@m201vb|work@m201vb|15:1|T_NIB|p201vb|ct9/sz32 n=2
+ONLY-GOLDEN PRIS:v201_b_typedlhs.elab key=elab|module_inst|work@m201vb|work@m201vb|15:1|T_NIB|p201vb|ct9/sz4 n=2
+CENSUM PRIS:v201_b_typedlhs.elab cellsG=42 cellsO=42 AGREE=34 TS-DIFF=8 ONLY-GOLDEN=4 ONLY-OURS=4 UNEQUAL
+CMP PRIS:v201_b_typedlhs.elab lines=9972 heads=1 rc=255
+ONLY-OURS PATCHED:v201_b_typedlhs.elab key=elab|module_inst|work@m201vb|work@m201vb|15:1|T_BYTE|p201vb|ct9/sz32 n=2
+ONLY-GOLDEN PATCHED:v201_b_typedlhs.elab key=elab|module_inst|work@m201vb|work@m201vb|15:1|T_BYTE|p201vb|ct9/sz8 n=2
+ONLY-OURS PATCHED:v201_b_typedlhs.elab key=elab|module_inst|work@m201vb|work@m201vb|15:1|T_NIB|p201vb|ct9/sz32 n=2
+ONLY-GOLDEN PATCHED:v201_b_typedlhs.elab key=elab|module_inst|work@m201vb|work@m201vb|15:1|T_NIB|p201vb|ct9/sz4 n=2
+CENSUM PATCHED:v201_b_typedlhs.elab cellsG=42 cellsO=42 AGREE=38 TS-DIFF=0 ONLY-GOLDEN=4 ONLY-OURS=4 UNEQUAL
+CMP PATCHED:v201_b_typedlhs.elab lines=10028 heads=1 rc=255
+ARM v201_c_localparam parse rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_c_localparam.parse cellsG=27 cellsO=27 AGREE=27 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+TS PRIS:v201_c_localparam.parse key=def|module_inst||work@m201vc|10:1|C_LB|p201vc|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_c_localparam.parse key=def|module_inst||work@m201vc|10:1|C_LB|p201vc|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+TS PRIS:v201_c_localparam.parse key=def|module_inst||work@m201vc|10:1|C_LC|p201vc|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_c_localparam.parse key=def|module_inst||work@m201vc|10:1|C_LC|p201vc|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+TS PRIS:v201_c_localparam.parse key=def|module_inst||work@m201vc|10:1|C_PB|p201vc|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_c_localparam.parse key=def|module_inst||work@m201vc|10:1|C_PB|p201vc|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+CENSUM PRIS:v201_c_localparam.parse cellsG=27 cellsO=27 AGREE=21 TS-DIFF=12 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CMP PRIS:v201_c_localparam.parse lines=6454 heads=1 rc=255
+CENSUM PATCHED:v201_c_localparam.parse cellsG=27 cellsO=27 AGREE=27 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+CMP PATCHED:v201_c_localparam.parse lines=6538 heads=1 rc=255
+ARM v201_c_localparam elab rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_c_localparam.elab cellsG=27 cellsO=27 AGREE=27 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+TS PRIS:v201_c_localparam.elab key=def|module_inst||work@m201vc|10:1|C_LB|p201vc|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_c_localparam.elab key=def|module_inst||work@m201vc|10:1|C_LB|p201vc|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+TS PRIS:v201_c_localparam.elab key=def|module_inst||work@m201vc|10:1|C_LC|p201vc|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_c_localparam.elab key=def|module_inst||work@m201vc|10:1|C_LC|p201vc|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+TS PRIS:v201_c_localparam.elab key=def|module_inst||work@m201vc|10:1|C_PB|p201vc|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_c_localparam.elab key=def|module_inst||work@m201vc|10:1|C_PB|p201vc|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+CENSUM PRIS:v201_c_localparam.elab cellsG=27 cellsO=27 AGREE=21 TS-DIFF=12 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CMP PRIS:v201_c_localparam.elab lines=6456 heads=1 rc=255
+CENSUM PATCHED:v201_c_localparam.elab cellsG=27 cellsO=27 AGREE=27 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+CMP PATCHED:v201_c_localparam.elab lines=6540 heads=1 rc=255
+ARM v201_d_real parse rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_d_real.parse cellsG=33 cellsO=33 AGREE=33 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+ONLY-GOLDEN PRIS:v201_d_real.parse key=def|module_inst||work@m201vd|13:1|D_RA|p201vd|ct2/sz32 n=2
+ONLY-OURS PRIS:v201_d_real.parse key=def|module_inst||work@m201vd|13:1|D_RA|p201vd|ct2/sz64 n=2
+ONLY-GOLDEN PRIS:v201_d_real.parse key=def|module_inst||work@m201vd|13:1|D_RB|p201vd|ct2/sz32 n=2
+ONLY-GOLDEN PRIS:v201_d_real.parse key=def|module_inst||work@m201vd|13:1|D_RC|p201vd|ct2/sz32 n=2
+ONLY-GOLDEN PRIS:v201_d_real.parse key=def|module_inst||work@m201vd|13:1|D_RT|p201vd|ct2/sz32 n=2
+ONLY-OURS PRIS:v201_d_real.parse key=def|module_inst||work@m201vd|13:1|D_RT|p201vd|ct2/sz64 n=2
+ONLY-GOLDEN PRIS:v201_d_real.parse key=def|module_inst||work@m201vd|13:1|D_SB|p201vd|ct6/sz24 n=2
+ONLY-OURS PRIS:v201_d_real.parse key=def|module_inst||work@m201vd|13:1|D_SB|p201vd|ct9/sz24 n=2
+ONLY-GOLDEN PRIS:v201_d_real.parse key=elabpkg|package|p201vd|p201vd|4:1|D_RA|-|ct2/sz32 n=1
+ONLY-OURS PRIS:v201_d_real.parse key=elabpkg|package|p201vd|p201vd|4:1|D_RA|-|ct2/sz64 n=1
+ONLY-GOLDEN PRIS:v201_d_real.parse key=elabpkg|package|p201vd|p201vd|4:1|D_RB|-|ct2/sz32 n=1
+ONLY-GOLDEN PRIS:v201_d_real.parse key=elabpkg|package|p201vd|p201vd|4:1|D_RC|-|ct2/sz32 n=1
+ONLY-GOLDEN PRIS:v201_d_real.parse key=elabpkg|package|p201vd|p201vd|4:1|D_RT|-|ct2/sz32 n=1
+ONLY-OURS PRIS:v201_d_real.parse key=elabpkg|package|p201vd|p201vd|4:1|D_RT|-|ct2/sz64 n=1
+TS PRIS:v201_d_real.parse key=elabpkg|package|p201vd|p201vd|4:1|D_SB|-|ct6/sz24 pay=int_typespec/int_typespec G=0 O=1
+TS PRIS:v201_d_real.parse key=elabpkg|package|p201vd|p201vd|4:1|D_SB|-|ct6/sz24 pay=string_typespec/string_typespec G=1 O=0
+ONLY-GOLDEN PRIS:v201_d_real.parse key=elab|module_inst|work@m201vd|work@m201vd|13:1|D_RB|p201vd|ct2/sz64 n=2
+ONLY-GOLDEN PRIS:v201_d_real.parse key=elab|module_inst|work@m201vd|work@m201vd|13:1|D_RC|p201vd|ct2/sz64 n=2
+TS PRIS:v201_d_real.parse key=elab|module_inst|work@m201vd|work@m201vd|13:1|D_SB|p201vd|ct6/sz24 pay=int_typespec/int_typespec G=0 O=2
+TS PRIS:v201_d_real.parse key=elab|module_inst|work@m201vd|work@m201vd|13:1|D_SB|p201vd|ct6/sz24 pay=string_typespec/string_typespec G=2 O=0
+CENSUM PRIS:v201_d_real.parse cellsG=33 cellsO=23 AGREE=12 TS-DIFF=6 ONLY-GOLDEN=18 ONLY-OURS=8 UNEQUAL
+CMP PRIS:v201_d_real.parse lines=7002 heads=1 rc=255
+ONLY-GOLDEN PATCHED:v201_d_real.parse key=def|module_inst||work@m201vd|13:1|D_RA|p201vd|ct2/sz32 n=2
+ONLY-OURS PATCHED:v201_d_real.parse key=def|module_inst||work@m201vd|13:1|D_RA|p201vd|ct2/sz64 n=2
+ONLY-GOLDEN PATCHED:v201_d_real.parse key=def|module_inst||work@m201vd|13:1|D_RB|p201vd|ct2/sz32 n=2
+ONLY-GOLDEN PATCHED:v201_d_real.parse key=def|module_inst||work@m201vd|13:1|D_RC|p201vd|ct2/sz32 n=2
+ONLY-GOLDEN PATCHED:v201_d_real.parse key=def|module_inst||work@m201vd|13:1|D_RT|p201vd|ct2/sz32 n=2
+ONLY-OURS PATCHED:v201_d_real.parse key=def|module_inst||work@m201vd|13:1|D_RT|p201vd|ct2/sz64 n=2
+ONLY-GOLDEN PATCHED:v201_d_real.parse key=def|module_inst||work@m201vd|13:1|D_SB|p201vd|ct6/sz24 n=2
+ONLY-OURS PATCHED:v201_d_real.parse key=def|module_inst||work@m201vd|13:1|D_SB|p201vd|ct9/sz24 n=2
+ONLY-GOLDEN PATCHED:v201_d_real.parse key=elabpkg|package|p201vd|p201vd|4:1|D_RA|-|ct2/sz32 n=1
+ONLY-OURS PATCHED:v201_d_real.parse key=elabpkg|package|p201vd|p201vd|4:1|D_RA|-|ct2/sz64 n=1
+ONLY-GOLDEN PATCHED:v201_d_real.parse key=elabpkg|package|p201vd|p201vd|4:1|D_RB|-|ct2/sz32 n=1
+ONLY-GOLDEN PATCHED:v201_d_real.parse key=elabpkg|package|p201vd|p201vd|4:1|D_RC|-|ct2/sz32 n=1
+ONLY-GOLDEN PATCHED:v201_d_real.parse key=elabpkg|package|p201vd|p201vd|4:1|D_RT|-|ct2/sz32 n=1
+ONLY-OURS PATCHED:v201_d_real.parse key=elabpkg|package|p201vd|p201vd|4:1|D_RT|-|ct2/sz64 n=1
+TS PATCHED:v201_d_real.parse key=elabpkg|package|p201vd|p201vd|4:1|D_SB|-|ct6/sz24 pay=int_typespec/int_typespec G=0 O=1
+TS PATCHED:v201_d_real.parse key=elabpkg|package|p201vd|p201vd|4:1|D_SB|-|ct6/sz24 pay=string_typespec/string_typespec G=1 O=0
+ONLY-GOLDEN PATCHED:v201_d_real.parse key=elab|module_inst|work@m201vd|work@m201vd|13:1|D_RB|p201vd|ct2/sz64 n=2
+ONLY-GOLDEN PATCHED:v201_d_real.parse key=elab|module_inst|work@m201vd|work@m201vd|13:1|D_RC|p201vd|ct2/sz64 n=2
+TS PATCHED:v201_d_real.parse key=elab|module_inst|work@m201vd|work@m201vd|13:1|D_SB|p201vd|ct6/sz24 pay=int_typespec/int_typespec G=0 O=2
+TS PATCHED:v201_d_real.parse key=elab|module_inst|work@m201vd|work@m201vd|13:1|D_SB|p201vd|ct6/sz24 pay=string_typespec/string_typespec G=2 O=0
+CENSUM PATCHED:v201_d_real.parse cellsG=33 cellsO=23 AGREE=12 TS-DIFF=6 ONLY-GOLDEN=18 ONLY-OURS=8 UNEQUAL
+CMP PATCHED:v201_d_real.parse lines=7030 heads=1 rc=255
+ARM v201_d_real elab rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_d_real.elab cellsG=33 cellsO=33 AGREE=33 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+ONLY-GOLDEN PRIS:v201_d_real.elab key=def|module_inst||work@m201vd|13:1|D_RA|p201vd|ct2/sz32 n=2
+ONLY-OURS PRIS:v201_d_real.elab key=def|module_inst||work@m201vd|13:1|D_RA|p201vd|ct2/sz64 n=2
+ONLY-GOLDEN PRIS:v201_d_real.elab key=def|module_inst||work@m201vd|13:1|D_RB|p201vd|ct2/sz32 n=2
+ONLY-GOLDEN PRIS:v201_d_real.elab key=def|module_inst||work@m201vd|13:1|D_RC|p201vd|ct2/sz32 n=2
+ONLY-GOLDEN PRIS:v201_d_real.elab key=def|module_inst||work@m201vd|13:1|D_RT|p201vd|ct2/sz32 n=2
+ONLY-OURS PRIS:v201_d_real.elab key=def|module_inst||work@m201vd|13:1|D_RT|p201vd|ct2/sz64 n=2
+ONLY-GOLDEN PRIS:v201_d_real.elab key=def|module_inst||work@m201vd|13:1|D_SB|p201vd|ct6/sz24 n=2
+ONLY-OURS PRIS:v201_d_real.elab key=def|module_inst||work@m201vd|13:1|D_SB|p201vd|ct9/sz24 n=2
+ONLY-GOLDEN PRIS:v201_d_real.elab key=elabpkg|package|p201vd|p201vd|4:1|D_RA|-|ct2/sz32 n=1
+ONLY-OURS PRIS:v201_d_real.elab key=elabpkg|package|p201vd|p201vd|4:1|D_RA|-|ct2/sz64 n=1
+ONLY-GOLDEN PRIS:v201_d_real.elab key=elabpkg|package|p201vd|p201vd|4:1|D_RB|-|ct2/sz32 n=1
+ONLY-GOLDEN PRIS:v201_d_real.elab key=elabpkg|package|p201vd|p201vd|4:1|D_RC|-|ct2/sz32 n=1
+ONLY-GOLDEN PRIS:v201_d_real.elab key=elabpkg|package|p201vd|p201vd|4:1|D_RT|-|ct2/sz32 n=1
+ONLY-OURS PRIS:v201_d_real.elab key=elabpkg|package|p201vd|p201vd|4:1|D_RT|-|ct2/sz64 n=1
+TS PRIS:v201_d_real.elab key=elabpkg|package|p201vd|p201vd|4:1|D_SB|-|ct6/sz24 pay=int_typespec/int_typespec G=0 O=1
+TS PRIS:v201_d_real.elab key=elabpkg|package|p201vd|p201vd|4:1|D_SB|-|ct6/sz24 pay=string_typespec/string_typespec G=1 O=0
+ONLY-GOLDEN PRIS:v201_d_real.elab key=elab|module_inst|work@m201vd|work@m201vd|13:1|D_RB|p201vd|ct2/sz64 n=2
+ONLY-GOLDEN PRIS:v201_d_real.elab key=elab|module_inst|work@m201vd|work@m201vd|13:1|D_RC|p201vd|ct2/sz64 n=2
+TS PRIS:v201_d_real.elab key=elab|module_inst|work@m201vd|work@m201vd|13:1|D_SB|p201vd|ct6/sz24 pay=int_typespec/int_typespec G=0 O=2
+TS PRIS:v201_d_real.elab key=elab|module_inst|work@m201vd|work@m201vd|13:1|D_SB|p201vd|ct6/sz24 pay=string_typespec/string_typespec G=2 O=0
+CENSUM PRIS:v201_d_real.elab cellsG=33 cellsO=23 AGREE=12 TS-DIFF=6 ONLY-GOLDEN=18 ONLY-OURS=8 UNEQUAL
+CMP PRIS:v201_d_real.elab lines=7004 heads=1 rc=255
+ONLY-GOLDEN PATCHED:v201_d_real.elab key=def|module_inst||work@m201vd|13:1|D_RA|p201vd|ct2/sz32 n=2
+ONLY-OURS PATCHED:v201_d_real.elab key=def|module_inst||work@m201vd|13:1|D_RA|p201vd|ct2/sz64 n=2
+ONLY-GOLDEN PATCHED:v201_d_real.elab key=def|module_inst||work@m201vd|13:1|D_RB|p201vd|ct2/sz32 n=2
+ONLY-GOLDEN PATCHED:v201_d_real.elab key=def|module_inst||work@m201vd|13:1|D_RC|p201vd|ct2/sz32 n=2
+ONLY-GOLDEN PATCHED:v201_d_real.elab key=def|module_inst||work@m201vd|13:1|D_RT|p201vd|ct2/sz32 n=2
+ONLY-OURS PATCHED:v201_d_real.elab key=def|module_inst||work@m201vd|13:1|D_RT|p201vd|ct2/sz64 n=2
+ONLY-GOLDEN PATCHED:v201_d_real.elab key=def|module_inst||work@m201vd|13:1|D_SB|p201vd|ct6/sz24 n=2
+ONLY-OURS PATCHED:v201_d_real.elab key=def|module_inst||work@m201vd|13:1|D_SB|p201vd|ct9/sz24 n=2
+ONLY-GOLDEN PATCHED:v201_d_real.elab key=elabpkg|package|p201vd|p201vd|4:1|D_RA|-|ct2/sz32 n=1
+ONLY-OURS PATCHED:v201_d_real.elab key=elabpkg|package|p201vd|p201vd|4:1|D_RA|-|ct2/sz64 n=1
+ONLY-GOLDEN PATCHED:v201_d_real.elab key=elabpkg|package|p201vd|p201vd|4:1|D_RB|-|ct2/sz32 n=1
+ONLY-GOLDEN PATCHED:v201_d_real.elab key=elabpkg|package|p201vd|p201vd|4:1|D_RC|-|ct2/sz32 n=1
+ONLY-GOLDEN PATCHED:v201_d_real.elab key=elabpkg|package|p201vd|p201vd|4:1|D_RT|-|ct2/sz32 n=1
+ONLY-OURS PATCHED:v201_d_real.elab key=elabpkg|package|p201vd|p201vd|4:1|D_RT|-|ct2/sz64 n=1
+TS PATCHED:v201_d_real.elab key=elabpkg|package|p201vd|p201vd|4:1|D_SB|-|ct6/sz24 pay=int_typespec/int_typespec G=0 O=1
+TS PATCHED:v201_d_real.elab key=elabpkg|package|p201vd|p201vd|4:1|D_SB|-|ct6/sz24 pay=string_typespec/string_typespec G=1 O=0
+ONLY-GOLDEN PATCHED:v201_d_real.elab key=elab|module_inst|work@m201vd|work@m201vd|13:1|D_RB|p201vd|ct2/sz64 n=2
+ONLY-GOLDEN PATCHED:v201_d_real.elab key=elab|module_inst|work@m201vd|work@m201vd|13:1|D_RC|p201vd|ct2/sz64 n=2
+TS PATCHED:v201_d_real.elab key=elab|module_inst|work@m201vd|work@m201vd|13:1|D_SB|p201vd|ct6/sz24 pay=int_typespec/int_typespec G=0 O=2
+TS PATCHED:v201_d_real.elab key=elab|module_inst|work@m201vd|work@m201vd|13:1|D_SB|p201vd|ct6/sz24 pay=string_typespec/string_typespec G=2 O=0
+CENSUM PATCHED:v201_d_real.elab cellsG=33 cellsO=23 AGREE=12 TS-DIFF=6 ONLY-GOLDEN=18 ONLY-OURS=8 UNEQUAL
+CMP PATCHED:v201_d_real.elab lines=7032 heads=1 rc=255
+ARM v201_e_enum parse rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_e_enum.parse cellsG=20 cellsO=20 AGREE=20 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+ONLY-OURS PRIS:v201_e_enum.parse key=def|module_inst||work@m201ve|10:1|E_A|p201ve|ct7/sz2 n=2
+ONLY-GOLDEN PRIS:v201_e_enum.parse key=def|module_inst||work@m201ve|10:1|E_A|p201ve|ct7/sz32 n=2
+ONLY-GOLDEN PRIS:v201_e_enum.parse key=def|module_inst||work@m201ve|10:1|E_B|p201ve|ct7/sz32 n=2
+ONLY-OURS PRIS:v201_e_enum.parse key=def|module_inst||work@m201ve|10:1|E_B|p201ve|ct9/sz2 n=2
+ONLY-OURS PRIS:v201_e_enum.parse key=def|module_inst||work@m201ve|10:1|E_C|p201ve|ct7/sz2 n=2
+ONLY-GOLDEN PRIS:v201_e_enum.parse key=def|module_inst||work@m201ve|10:1|E_C|p201ve|ct7/sz32 n=2
+ONLY-GOLDEN PRIS:v201_e_enum.parse key=elabpkg|package|p201ve|p201ve|2:1|E_A|-|ct7/sz32 n=1
+ONLY-OURS PRIS:v201_e_enum.parse key=elabpkg|package|p201ve|p201ve|2:1|E_A|-|ct9/sz64 n=1
+ONLY-GOLDEN PRIS:v201_e_enum.parse key=elabpkg|package|p201ve|p201ve|2:1|E_B|-|ct7/sz32 n=1
+ONLY-OURS PRIS:v201_e_enum.parse key=elabpkg|package|p201ve|p201ve|2:1|E_B|-|ct9/sz2 n=1
+ONLY-OURS PRIS:v201_e_enum.parse key=elabpkg|package|p201ve|p201ve|2:1|E_C|-|ct7/sz2 n=1
+ONLY-GOLDEN PRIS:v201_e_enum.parse key=elabpkg|package|p201ve|p201ve|2:1|E_C|-|ct7/sz32 n=1
+ONLY-GOLDEN PRIS:v201_e_enum.parse key=elab|module_inst|work@m201ve|work@m201ve|10:1|E_A|p201ve|ct7/sz32 n=2
+ONLY-OURS PRIS:v201_e_enum.parse key=elab|module_inst|work@m201ve|work@m201ve|10:1|E_A|p201ve|ct7/sz64 n=2
+ONLY-OURS PRIS:v201_e_enum.parse key=elab|module_inst|work@m201ve|work@m201ve|10:1|E_B|p201ve|ct7/sz2 n=2
+ONLY-GOLDEN PRIS:v201_e_enum.parse key=elab|module_inst|work@m201ve|work@m201ve|10:1|E_B|p201ve|ct7/sz32 n=2
+ONLY-OURS PRIS:v201_e_enum.parse key=elab|module_inst|work@m201ve|work@m201ve|10:1|E_C|p201ve|ct7/sz2 n=2
+ONLY-GOLDEN PRIS:v201_e_enum.parse key=elab|module_inst|work@m201ve|work@m201ve|10:1|E_C|p201ve|ct7/sz32 n=2
+CENSUM PRIS:v201_e_enum.parse cellsG=20 cellsO=20 AGREE=5 TS-DIFF=0 ONLY-GOLDEN=15 ONLY-OURS=15 UNEQUAL
+CMP PRIS:v201_e_enum.parse lines=5262 heads=1 rc=255
+ONLY-OURS PATCHED:v201_e_enum.parse key=def|module_inst||work@m201ve|10:1|E_A|p201ve|ct7/sz2 n=2
+ONLY-GOLDEN PATCHED:v201_e_enum.parse key=def|module_inst||work@m201ve|10:1|E_A|p201ve|ct7/sz32 n=2
+ONLY-GOLDEN PATCHED:v201_e_enum.parse key=def|module_inst||work@m201ve|10:1|E_B|p201ve|ct7/sz32 n=2
+ONLY-OURS PATCHED:v201_e_enum.parse key=def|module_inst||work@m201ve|10:1|E_B|p201ve|ct9/sz2 n=2
+ONLY-OURS PATCHED:v201_e_enum.parse key=def|module_inst||work@m201ve|10:1|E_C|p201ve|ct7/sz2 n=2
+ONLY-GOLDEN PATCHED:v201_e_enum.parse key=def|module_inst||work@m201ve|10:1|E_C|p201ve|ct7/sz32 n=2
+ONLY-GOLDEN PATCHED:v201_e_enum.parse key=elabpkg|package|p201ve|p201ve|2:1|E_A|-|ct7/sz32 n=1
+ONLY-OURS PATCHED:v201_e_enum.parse key=elabpkg|package|p201ve|p201ve|2:1|E_A|-|ct9/sz64 n=1
+ONLY-GOLDEN PATCHED:v201_e_enum.parse key=elabpkg|package|p201ve|p201ve|2:1|E_B|-|ct7/sz32 n=1
+ONLY-OURS PATCHED:v201_e_enum.parse key=elabpkg|package|p201ve|p201ve|2:1|E_B|-|ct9/sz2 n=1
+ONLY-OURS PATCHED:v201_e_enum.parse key=elabpkg|package|p201ve|p201ve|2:1|E_C|-|ct7/sz2 n=1
+ONLY-GOLDEN PATCHED:v201_e_enum.parse key=elabpkg|package|p201ve|p201ve|2:1|E_C|-|ct7/sz32 n=1
+ONLY-GOLDEN PATCHED:v201_e_enum.parse key=elab|module_inst|work@m201ve|work@m201ve|10:1|E_A|p201ve|ct7/sz32 n=2
+ONLY-OURS PATCHED:v201_e_enum.parse key=elab|module_inst|work@m201ve|work@m201ve|10:1|E_A|p201ve|ct7/sz64 n=2
+ONLY-OURS PATCHED:v201_e_enum.parse key=elab|module_inst|work@m201ve|work@m201ve|10:1|E_B|p201ve|ct7/sz2 n=2
+ONLY-GOLDEN PATCHED:v201_e_enum.parse key=elab|module_inst|work@m201ve|work@m201ve|10:1|E_B|p201ve|ct7/sz32 n=2
+ONLY-OURS PATCHED:v201_e_enum.parse key=elab|module_inst|work@m201ve|work@m201ve|10:1|E_C|p201ve|ct7/sz2 n=2
+ONLY-GOLDEN PATCHED:v201_e_enum.parse key=elab|module_inst|work@m201ve|work@m201ve|10:1|E_C|p201ve|ct7/sz32 n=2
+CENSUM PATCHED:v201_e_enum.parse cellsG=20 cellsO=20 AGREE=5 TS-DIFF=0 ONLY-GOLDEN=15 ONLY-OURS=15 UNEQUAL
+CMP PATCHED:v201_e_enum.parse lines=5318 heads=1 rc=255
+ARM v201_e_enum elab rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_e_enum.elab cellsG=20 cellsO=20 AGREE=20 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+ONLY-OURS PRIS:v201_e_enum.elab key=def|module_inst||work@m201ve|10:1|E_A|p201ve|ct7/sz2 n=2
+ONLY-GOLDEN PRIS:v201_e_enum.elab key=def|module_inst||work@m201ve|10:1|E_A|p201ve|ct7/sz32 n=2
+ONLY-GOLDEN PRIS:v201_e_enum.elab key=def|module_inst||work@m201ve|10:1|E_B|p201ve|ct7/sz32 n=2
+ONLY-OURS PRIS:v201_e_enum.elab key=def|module_inst||work@m201ve|10:1|E_B|p201ve|ct9/sz2 n=2
+ONLY-OURS PRIS:v201_e_enum.elab key=def|module_inst||work@m201ve|10:1|E_C|p201ve|ct7/sz2 n=2
+ONLY-GOLDEN PRIS:v201_e_enum.elab key=def|module_inst||work@m201ve|10:1|E_C|p201ve|ct7/sz32 n=2
+ONLY-GOLDEN PRIS:v201_e_enum.elab key=elabpkg|package|p201ve|p201ve|2:1|E_A|-|ct7/sz32 n=1
+ONLY-OURS PRIS:v201_e_enum.elab key=elabpkg|package|p201ve|p201ve|2:1|E_A|-|ct9/sz64 n=1
+ONLY-GOLDEN PRIS:v201_e_enum.elab key=elabpkg|package|p201ve|p201ve|2:1|E_B|-|ct7/sz32 n=1
+ONLY-OURS PRIS:v201_e_enum.elab key=elabpkg|package|p201ve|p201ve|2:1|E_B|-|ct9/sz2 n=1
+ONLY-OURS PRIS:v201_e_enum.elab key=elabpkg|package|p201ve|p201ve|2:1|E_C|-|ct7/sz2 n=1
+ONLY-GOLDEN PRIS:v201_e_enum.elab key=elabpkg|package|p201ve|p201ve|2:1|E_C|-|ct7/sz32 n=1
+ONLY-GOLDEN PRIS:v201_e_enum.elab key=elab|module_inst|work@m201ve|work@m201ve|10:1|E_A|p201ve|ct7/sz32 n=2
+ONLY-OURS PRIS:v201_e_enum.elab key=elab|module_inst|work@m201ve|work@m201ve|10:1|E_A|p201ve|ct7/sz64 n=2
+ONLY-OURS PRIS:v201_e_enum.elab key=elab|module_inst|work@m201ve|work@m201ve|10:1|E_B|p201ve|ct7/sz2 n=2
+ONLY-GOLDEN PRIS:v201_e_enum.elab key=elab|module_inst|work@m201ve|work@m201ve|10:1|E_B|p201ve|ct7/sz32 n=2
+ONLY-OURS PRIS:v201_e_enum.elab key=elab|module_inst|work@m201ve|work@m201ve|10:1|E_C|p201ve|ct7/sz2 n=2
+ONLY-GOLDEN PRIS:v201_e_enum.elab key=elab|module_inst|work@m201ve|work@m201ve|10:1|E_C|p201ve|ct7/sz32 n=2
+CENSUM PRIS:v201_e_enum.elab cellsG=20 cellsO=20 AGREE=5 TS-DIFF=0 ONLY-GOLDEN=15 ONLY-OURS=15 UNEQUAL
+CMP PRIS:v201_e_enum.elab lines=5264 heads=1 rc=255
+ONLY-OURS PATCHED:v201_e_enum.elab key=def|module_inst||work@m201ve|10:1|E_A|p201ve|ct7/sz2 n=2
+ONLY-GOLDEN PATCHED:v201_e_enum.elab key=def|module_inst||work@m201ve|10:1|E_A|p201ve|ct7/sz32 n=2
+ONLY-GOLDEN PATCHED:v201_e_enum.elab key=def|module_inst||work@m201ve|10:1|E_B|p201ve|ct7/sz32 n=2
+ONLY-OURS PATCHED:v201_e_enum.elab key=def|module_inst||work@m201ve|10:1|E_B|p201ve|ct9/sz2 n=2
+ONLY-OURS PATCHED:v201_e_enum.elab key=def|module_inst||work@m201ve|10:1|E_C|p201ve|ct7/sz2 n=2
+ONLY-GOLDEN PATCHED:v201_e_enum.elab key=def|module_inst||work@m201ve|10:1|E_C|p201ve|ct7/sz32 n=2
+ONLY-GOLDEN PATCHED:v201_e_enum.elab key=elabpkg|package|p201ve|p201ve|2:1|E_A|-|ct7/sz32 n=1
+ONLY-OURS PATCHED:v201_e_enum.elab key=elabpkg|package|p201ve|p201ve|2:1|E_A|-|ct9/sz64 n=1
+ONLY-GOLDEN PATCHED:v201_e_enum.elab key=elabpkg|package|p201ve|p201ve|2:1|E_B|-|ct7/sz32 n=1
+ONLY-OURS PATCHED:v201_e_enum.elab key=elabpkg|package|p201ve|p201ve|2:1|E_B|-|ct9/sz2 n=1
+ONLY-OURS PATCHED:v201_e_enum.elab key=elabpkg|package|p201ve|p201ve|2:1|E_C|-|ct7/sz2 n=1
+ONLY-GOLDEN PATCHED:v201_e_enum.elab key=elabpkg|package|p201ve|p201ve|2:1|E_C|-|ct7/sz32 n=1
+ONLY-GOLDEN PATCHED:v201_e_enum.elab key=elab|module_inst|work@m201ve|work@m201ve|10:1|E_A|p201ve|ct7/sz32 n=2
+ONLY-OURS PATCHED:v201_e_enum.elab key=elab|module_inst|work@m201ve|work@m201ve|10:1|E_A|p201ve|ct7/sz64 n=2
+ONLY-OURS PATCHED:v201_e_enum.elab key=elab|module_inst|work@m201ve|work@m201ve|10:1|E_B|p201ve|ct7/sz2 n=2
+ONLY-GOLDEN PATCHED:v201_e_enum.elab key=elab|module_inst|work@m201ve|work@m201ve|10:1|E_B|p201ve|ct7/sz32 n=2
+ONLY-OURS PATCHED:v201_e_enum.elab key=elab|module_inst|work@m201ve|work@m201ve|10:1|E_C|p201ve|ct7/sz2 n=2
+ONLY-GOLDEN PATCHED:v201_e_enum.elab key=elab|module_inst|work@m201ve|work@m201ve|10:1|E_C|p201ve|ct7/sz32 n=2
+CENSUM PATCHED:v201_e_enum.elab cellsG=20 cellsO=20 AGREE=5 TS-DIFF=0 ONLY-GOLDEN=15 ONLY-OURS=15 UNEQUAL
+CMP PATCHED:v201_e_enum.elab lines=5320 heads=1 rc=255
+ARM v201_f_xpkg parse rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_f_xpkg.parse cellsG=32 cellsO=32 AGREE=32 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+ONLY-GOLDEN PRIS:v201_f_xpkg.parse key=defpkg|package|p201vf2|p201vf2|7:1|F_C|-|ct9/sz32 n=1
+TS PRIS:v201_f_xpkg.parse key=def|module_inst||work@m201vf|14:1|F_B|p201vf2|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_f_xpkg.parse key=def|module_inst||work@m201vf|14:1|F_B|p201vf2|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+TS PRIS:v201_f_xpkg.parse key=def|module_inst||work@m201vf|14:1|F_C|p201vf2|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_f_xpkg.parse key=def|module_inst||work@m201vf|14:1|F_C|p201vf2|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+TS PRIS:v201_f_xpkg.parse key=def|module_inst||work@m201vf|14:1|F_D|p201vf2|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_f_xpkg.parse key=def|module_inst||work@m201vf|14:1|F_D|p201vf2|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+CENSUM PRIS:v201_f_xpkg.parse cellsG=32 cellsO=31 AGREE=25 TS-DIFF=12 ONLY-GOLDEN=1 ONLY-OURS=0 UNEQUAL
+CMP PRIS:v201_f_xpkg.parse lines=7172 heads=1 rc=255
+ONLY-GOLDEN PATCHED:v201_f_xpkg.parse key=defpkg|package|p201vf2|p201vf2|7:1|F_C|-|ct9/sz32 n=1
+CENSUM PATCHED:v201_f_xpkg.parse cellsG=32 cellsO=31 AGREE=31 TS-DIFF=0 ONLY-GOLDEN=1 ONLY-OURS=0 UNEQUAL
+CMP PATCHED:v201_f_xpkg.parse lines=7256 heads=1 rc=255
+ARM v201_f_xpkg elab rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_f_xpkg.elab cellsG=32 cellsO=32 AGREE=32 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+ONLY-GOLDEN PRIS:v201_f_xpkg.elab key=defpkg|package|p201vf2|p201vf2|7:1|F_C|-|ct9/sz32 n=1
+TS PRIS:v201_f_xpkg.elab key=def|module_inst||work@m201vf|14:1|F_B|p201vf2|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_f_xpkg.elab key=def|module_inst||work@m201vf|14:1|F_B|p201vf2|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+TS PRIS:v201_f_xpkg.elab key=def|module_inst||work@m201vf|14:1|F_C|p201vf2|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_f_xpkg.elab key=def|module_inst||work@m201vf|14:1|F_C|p201vf2|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+TS PRIS:v201_f_xpkg.elab key=def|module_inst||work@m201vf|14:1|F_D|p201vf2|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_f_xpkg.elab key=def|module_inst||work@m201vf|14:1|F_D|p201vf2|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+CENSUM PRIS:v201_f_xpkg.elab cellsG=32 cellsO=31 AGREE=25 TS-DIFF=12 ONLY-GOLDEN=1 ONLY-OURS=0 UNEQUAL
+CMP PRIS:v201_f_xpkg.elab lines=7174 heads=1 rc=255
+ONLY-GOLDEN PATCHED:v201_f_xpkg.elab key=defpkg|package|p201vf2|p201vf2|7:1|F_C|-|ct9/sz32 n=1
+CENSUM PATCHED:v201_f_xpkg.elab cellsG=32 cellsO=31 AGREE=31 TS-DIFF=0 ONLY-GOLDEN=1 ONLY-OURS=0 UNEQUAL
+CMP PATCHED:v201_f_xpkg.elab lines=7258 heads=1 rc=255
+ARM v201_g_expr parse rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_g_expr.parse cellsG=31 cellsO=31 AGREE=31 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+TS PRIS:v201_g_expr.parse key=def|module_inst||work@m201vg|13:1|G_E|p201vg|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_g_expr.parse key=def|module_inst||work@m201vg|13:1|G_E|p201vg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+TS PRIS:v201_g_expr.parse key=def|module_inst||work@m201vg|13:1|G_G|p201vg|ct9/sz32 pay=<unbound>/- G=0 O=2
+TS PRIS:v201_g_expr.parse key=def|module_inst||work@m201vg|13:1|G_G|p201vg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+ONLY-GOLDEN PRIS:v201_g_expr.parse key=elabpkg|package|p201vg|p201vg|3:1|G_G|-|ct9/sz32 n=1
+ONLY-OURS PRIS:v201_g_expr.parse key=elabpkg|package|p201vg|p201vg|3:1|G_G|-|ct9/sz64 n=1
+ONLY-GOLDEN PRIS:v201_g_expr.parse key=elab|module_inst|work@m201vg|work@m201vg|13:1|G_G|p201vg|ct9/sz32 n=2
+ONLY-OURS PRIS:v201_g_expr.parse key=elab|module_inst|work@m201vg|work@m201vg|13:1|G_G|p201vg|ct9/sz64 n=2
+CENSUM PRIS:v201_g_expr.parse cellsG=31 cellsO=31 AGREE=24 TS-DIFF=8 ONLY-GOLDEN=3 ONLY-OURS=3 UNEQUAL
+CMP PRIS:v201_g_expr.parse lines=8676 heads=1 rc=255
+TS PATCHED:v201_g_expr.parse key=def|module_inst||work@m201vg|13:1|G_G|p201vg|ct9/sz32 pay=<unbound>/- G=0 O=2
+TS PATCHED:v201_g_expr.parse key=def|module_inst||work@m201vg|13:1|G_G|p201vg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+ONLY-GOLDEN PATCHED:v201_g_expr.parse key=elabpkg|package|p201vg|p201vg|3:1|G_G|-|ct9/sz32 n=1
+ONLY-OURS PATCHED:v201_g_expr.parse key=elabpkg|package|p201vg|p201vg|3:1|G_G|-|ct9/sz64 n=1
+ONLY-GOLDEN PATCHED:v201_g_expr.parse key=elab|module_inst|work@m201vg|work@m201vg|13:1|G_G|p201vg|ct9/sz32 n=2
+ONLY-OURS PATCHED:v201_g_expr.parse key=elab|module_inst|work@m201vg|work@m201vg|13:1|G_G|p201vg|ct9/sz64 n=2
+CENSUM PATCHED:v201_g_expr.parse cellsG=31 cellsO=31 AGREE=26 TS-DIFF=4 ONLY-GOLDEN=3 ONLY-OURS=3 UNEQUAL
+CMP PATCHED:v201_g_expr.parse lines=8704 heads=1 rc=255
+ARM v201_g_expr elab rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_g_expr.elab cellsG=31 cellsO=31 AGREE=31 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+TS PRIS:v201_g_expr.elab key=def|module_inst||work@m201vg|13:1|G_E|p201vg|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_g_expr.elab key=def|module_inst||work@m201vg|13:1|G_E|p201vg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+TS PRIS:v201_g_expr.elab key=def|module_inst||work@m201vg|13:1|G_G|p201vg|ct9/sz32 pay=<unbound>/- G=0 O=2
+TS PRIS:v201_g_expr.elab key=def|module_inst||work@m201vg|13:1|G_G|p201vg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+ONLY-GOLDEN PRIS:v201_g_expr.elab key=elabpkg|package|p201vg|p201vg|3:1|G_G|-|ct9/sz32 n=1
+ONLY-OURS PRIS:v201_g_expr.elab key=elabpkg|package|p201vg|p201vg|3:1|G_G|-|ct9/sz64 n=1
+ONLY-GOLDEN PRIS:v201_g_expr.elab key=elab|module_inst|work@m201vg|work@m201vg|13:1|G_G|p201vg|ct9/sz32 n=2
+ONLY-OURS PRIS:v201_g_expr.elab key=elab|module_inst|work@m201vg|work@m201vg|13:1|G_G|p201vg|ct9/sz64 n=2
+CENSUM PRIS:v201_g_expr.elab cellsG=31 cellsO=31 AGREE=24 TS-DIFF=8 ONLY-GOLDEN=3 ONLY-OURS=3 UNEQUAL
+CMP PRIS:v201_g_expr.elab lines=8690 heads=1 rc=255
+TS PATCHED:v201_g_expr.elab key=def|module_inst||work@m201vg|13:1|G_G|p201vg|ct9/sz32 pay=<unbound>/- G=0 O=2
+TS PATCHED:v201_g_expr.elab key=def|module_inst||work@m201vg|13:1|G_G|p201vg|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+ONLY-GOLDEN PATCHED:v201_g_expr.elab key=elabpkg|package|p201vg|p201vg|3:1|G_G|-|ct9/sz32 n=1
+ONLY-OURS PATCHED:v201_g_expr.elab key=elabpkg|package|p201vg|p201vg|3:1|G_G|-|ct9/sz64 n=1
+ONLY-GOLDEN PATCHED:v201_g_expr.elab key=elab|module_inst|work@m201vg|work@m201vg|13:1|G_G|p201vg|ct9/sz32 n=2
+ONLY-OURS PATCHED:v201_g_expr.elab key=elab|module_inst|work@m201vg|work@m201vg|13:1|G_G|p201vg|ct9/sz64 n=2
+CENSUM PATCHED:v201_g_expr.elab cellsG=31 cellsO=31 AGREE=26 TS-DIFF=4 ONLY-GOLDEN=3 ONLY-OURS=3 UNEQUAL
+CMP PATCHED:v201_g_expr.elab lines=8718 heads=1 rc=255
+ARM v201_h_ifprog parse rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_h_ifprog.parse cellsG=23 cellsO=23 AGREE=23 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+TS PRIS:v201_h_ifprog.parse key=defif|interface_inst||work@i201vh|9:1|H_B|p201vh|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_h_ifprog.parse key=defif|interface_inst||work@i201vh|9:1|H_B|p201vh|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+TS PRIS:v201_h_ifprog.parse key=defprog|program||work@pr201vh|11:1|H_B|p201vh|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_h_ifprog.parse key=defprog|program||work@pr201vh|11:1|H_B|p201vh|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+TS PRIS:v201_h_ifprog.parse key=def|module_inst||work@m201vh|13:1|H_B|p201vh|ct9/sz32 pay=-/int_typespec G=0 O=3
+TS PRIS:v201_h_ifprog.parse key=def|module_inst||work@m201vh|13:1|H_B|p201vh|ct9/sz32 pay=int_typespec/int_typespec G=3 O=0
+CENSUM PRIS:v201_h_ifprog.parse cellsG=23 cellsO=23 AGREE=16 TS-DIFF=14 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CMP PRIS:v201_h_ifprog.parse lines=5452 heads=1 rc=255
+CENSUM PATCHED:v201_h_ifprog.parse cellsG=23 cellsO=23 AGREE=23 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+CMP PATCHED:v201_h_ifprog.parse lines=5550 heads=1 rc=255
+ARM v201_h_ifprog elab rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_h_ifprog.elab cellsG=23 cellsO=23 AGREE=23 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+TS PRIS:v201_h_ifprog.elab key=defif|interface_inst||work@i201vh|9:1|H_B|p201vh|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_h_ifprog.elab key=defif|interface_inst||work@i201vh|9:1|H_B|p201vh|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+TS PRIS:v201_h_ifprog.elab key=defprog|program||work@pr201vh|11:1|H_B|p201vh|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_h_ifprog.elab key=defprog|program||work@pr201vh|11:1|H_B|p201vh|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+TS PRIS:v201_h_ifprog.elab key=def|module_inst||work@m201vh|13:1|H_B|p201vh|ct9/sz32 pay=-/int_typespec G=0 O=3
+TS PRIS:v201_h_ifprog.elab key=def|module_inst||work@m201vh|13:1|H_B|p201vh|ct9/sz32 pay=int_typespec/int_typespec G=3 O=0
+CENSUM PRIS:v201_h_ifprog.elab cellsG=23 cellsO=23 AGREE=16 TS-DIFF=14 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CMP PRIS:v201_h_ifprog.elab lines=5454 heads=1 rc=255
+CENSUM PATCHED:v201_h_ifprog.elab cellsG=23 cellsO=23 AGREE=23 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+CMP PATCHED:v201_h_ifprog.elab lines=5552 heads=1 rc=255
+ARM v201_i_explicit parse rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_i_explicit.parse cellsG=10 cellsO=10 AGREE=10 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+TS PRIS:v201_i_explicit.parse key=def|module_inst||work@m201vi|8:1|I_B|p201vi|ct9/sz32 pay=-/int_typespec G=0 O=1
+TS PRIS:v201_i_explicit.parse key=def|module_inst||work@m201vi|8:1|I_B|p201vi|ct9/sz32 pay=int_typespec/int_typespec G=1 O=0
+CENSUM PRIS:v201_i_explicit.parse cellsG=10 cellsO=10 AGREE=9 TS-DIFF=2 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CMP PRIS:v201_i_explicit.parse lines=2960 heads=1 rc=255
+CENSUM PATCHED:v201_i_explicit.parse cellsG=10 cellsO=10 AGREE=10 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+CMP PATCHED:v201_i_explicit.parse lines=2974 heads=1 rc=255
+ARM v201_i_explicit elab rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_i_explicit.elab cellsG=10 cellsO=10 AGREE=10 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+TS PRIS:v201_i_explicit.elab key=def|module_inst||work@m201vi|8:1|I_B|p201vi|ct9/sz32 pay=-/int_typespec G=0 O=1
+TS PRIS:v201_i_explicit.elab key=def|module_inst||work@m201vi|8:1|I_B|p201vi|ct9/sz32 pay=int_typespec/int_typespec G=1 O=0
+CENSUM PRIS:v201_i_explicit.elab cellsG=10 cellsO=10 AGREE=9 TS-DIFF=2 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CMP PRIS:v201_i_explicit.elab lines=2962 heads=1 rc=255
+CENSUM PATCHED:v201_i_explicit.elab cellsG=10 cellsO=10 AGREE=10 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+CMP PATCHED:v201_i_explicit.elab lines=2976 heads=1 rc=255
+ARM v201_j_nested parse rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_j_nested.parse cellsG=25 cellsO=25 AGREE=25 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+TS PRIS:v201_j_nested.parse key=def|module_inst||work@sub201vj|8:1|J_B|p201vj|ct9/sz32 pay=-/int_typespec G=0 O=3
+TS PRIS:v201_j_nested.parse key=def|module_inst||work@sub201vj|8:1|J_B|p201vj|ct9/sz32 pay=int_typespec/int_typespec G=3 O=0
+CENSUM PRIS:v201_j_nested.parse cellsG=25 cellsO=25 AGREE=22 TS-DIFF=6 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CMP PRIS:v201_j_nested.parse lines=5528 heads=1 rc=255
+CENSUM PATCHED:v201_j_nested.parse cellsG=25 cellsO=25 AGREE=25 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+CMP PATCHED:v201_j_nested.parse lines=5570 heads=1 rc=255
+ARM v201_j_nested elab rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_j_nested.elab cellsG=25 cellsO=25 AGREE=25 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+TS PRIS:v201_j_nested.elab key=def|module_inst||work@sub201vj|8:1|J_B|p201vj|ct9/sz32 pay=-/int_typespec G=0 O=3
+TS PRIS:v201_j_nested.elab key=def|module_inst||work@sub201vj|8:1|J_B|p201vj|ct9/sz32 pay=int_typespec/int_typespec G=3 O=0
+CENSUM PRIS:v201_j_nested.elab cellsG=25 cellsO=25 AGREE=22 TS-DIFF=6 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CMP PRIS:v201_j_nested.elab lines=5530 heads=1 rc=255
+CENSUM PATCHED:v201_j_nested.elab cellsG=25 cellsO=25 AGREE=25 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+CMP PATCHED:v201_j_nested.elab lines=5572 heads=1 rc=255
+ARM v201_k_neg parse rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_k_neg.parse cellsG=7 cellsO=7 AGREE=7 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+CENSUM PRIS:v201_k_neg.parse cellsG=7 cellsO=7 AGREE=7 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+CMP PRIS:v201_k_neg.parse lines=2090 heads=1 rc=255
+CENSUM PATCHED:v201_k_neg.parse cellsG=7 cellsO=7 AGREE=7 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+CMP PATCHED:v201_k_neg.parse lines=2090 heads=1 rc=255
+ARM v201_k_neg elab rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_k_neg.elab cellsG=7 cellsO=7 AGREE=7 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+CENSUM PRIS:v201_k_neg.elab cellsG=7 cellsO=7 AGREE=7 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+CMP PRIS:v201_k_neg.elab lines=2092 heads=1 rc=255
+CENSUM PATCHED:v201_k_neg.elab cellsG=7 cellsO=7 AGREE=7 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+CMP PATCHED:v201_k_neg.elab lines=2092 heads=1 rc=255
+ARM v201_l_class parse rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_l_class.parse cellsG=17 cellsO=17 AGREE=17 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+TS PRIS:v201_l_class.parse key=def|module_inst||work@m201vl|11:1|L_B|p201vl|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_l_class.parse key=def|module_inst||work@m201vl|11:1|L_B|p201vl|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+ONLY-GOLDEN PRIS:v201_l_class.parse key=other|class_defn|c201vl||6:3|L_IN|-|ct9/sz32 n=1
+CENSUM PRIS:v201_l_class.parse cellsG=17 cellsO=16 AGREE=14 TS-DIFF=4 ONLY-GOLDEN=1 ONLY-OURS=0 UNEQUAL
+CMP PRIS:v201_l_class.parse lines=4192 heads=1 rc=255
+ONLY-GOLDEN PATCHED:v201_l_class.parse key=other|class_defn|c201vl||6:3|L_IN|-|ct9/sz32 n=1
+CENSUM PATCHED:v201_l_class.parse cellsG=17 cellsO=16 AGREE=16 TS-DIFF=0 ONLY-GOLDEN=1 ONLY-OURS=0 UNEQUAL
+CMP PATCHED:v201_l_class.parse lines=4220 heads=1 rc=255
+ARM v201_l_class elab rc_surelog=0 rc_pris=0 rc_pat=0 golden=yes
+CENSUM CALIB:v201_l_class.elab cellsG=17 cellsO=17 AGREE=17 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+TS PRIS:v201_l_class.elab key=def|module_inst||work@m201vl|11:1|L_B|p201vl|ct9/sz32 pay=-/int_typespec G=0 O=2
+TS PRIS:v201_l_class.elab key=def|module_inst||work@m201vl|11:1|L_B|p201vl|ct9/sz32 pay=int_typespec/int_typespec G=2 O=0
+ONLY-GOLDEN PRIS:v201_l_class.elab key=other|class_defn|c201vl||6:3|L_IN|-|ct9/sz32 n=1
+CENSUM PRIS:v201_l_class.elab cellsG=17 cellsO=16 AGREE=14 TS-DIFF=4 ONLY-GOLDEN=1 ONLY-OURS=0 UNEQUAL
+CMP PRIS:v201_l_class.elab lines=4038 heads=1 rc=255
+ONLY-GOLDEN PATCHED:v201_l_class.elab key=other|class_defn|c201vl||6:3|L_IN|-|ct9/sz32 n=1
+CENSUM PATCHED:v201_l_class.elab cellsG=17 cellsO=16 AGREE=16 TS-DIFF=0 ONLY-GOLDEN=1 ONLY-OURS=0 UNEQUAL
+CMP PATCHED:v201_l_class.elab lines=4066 heads=1 rc=255
+-- CALIB  24 arm-views  TS-DIFF 0  ONLY-GOLDEN 0  ONLY-OURS 0  AGREE 710
+-- PRIS  24 arm-views  TS-DIFF 204  ONLY-GOLDEN 126  ONLY-OURS 98  AGREE 482
+-- PATCHED  24 arm-views  TS-DIFF 48  ONLY-GOLDEN 126  ONLY-OURS 98  AGREE 560
+-- NONZERO RCs: 0
+-- CMP LINE DELTAS (pat-pris) per arm-view:
+   v201_a_refforms.elab     pris=16826    pat=17022    delta=196
+   v201_a_refforms.parse    pris=16824    pat=17020    delta=196
+   v201_b_typedlhs.elab     pris=9972     pat=10028    delta=56
+   v201_b_typedlhs.parse    pris=9970     pat=10026    delta=56
+   v201_c_localparam.elab   pris=6456     pat=6540     delta=84
+   v201_c_localparam.parse  pris=6454     pat=6538     delta=84
+   v201_d_real.elab         pris=7004     pat=7032     delta=28
+   v201_d_real.parse        pris=7002     pat=7030     delta=28
+   v201_e_enum.elab         pris=5264     pat=5320     delta=56
+   v201_e_enum.parse        pris=5262     pat=5318     delta=56
+   v201_f_xpkg.elab         pris=7174     pat=7258     delta=84
+   v201_f_xpkg.parse        pris=7172     pat=7256     delta=84
+   v201_g_expr.elab         pris=8690     pat=8718     delta=28
+   v201_g_expr.parse        pris=8676     pat=8704     delta=28
+   v201_h_ifprog.elab       pris=5454     pat=5552     delta=98
+   v201_h_ifprog.parse      pris=5452     pat=5550     delta=98
+   v201_i_explicit.elab     pris=2962     pat=2976     delta=14
+   v201_i_explicit.parse    pris=2960     pat=2974     delta=14
+   v201_j_nested.elab       pris=5530     pat=5572     delta=42
+   v201_j_nested.parse      pris=5528     pat=5570     delta=42
+   v201_k_neg.elab          pris=2092     pat=2092     delta=0
+   v201_k_neg.parse         pris=2090     pat=2090     delta=0
+   v201_l_class.elab        pris=4038     pat=4066     delta=28
+   v201_l_class.parse       pris=4192     pat=4220     delta=28

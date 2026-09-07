@@ -1,0 +1,10 @@
+# r10uvm201 — the compare-visible param_assign Rhs-CONSTANT TYPESPEC census, pristine.u2r.
+# LHS is ALWAYS golden.  Trimmed to the UNEQUAL rows plus the ROBUST totals;
+# the raw file's own '-- TOTALS' line must NOT be quoted (xargs -P interleave,
+# r10uvm199's R4 — see censum201.sh).
+
+
+
+
+-- ROBUST TOTAL (censum201.sh): records=1358 rows=1358 cellsG=67142 cellsO=67142 AGREE=67142 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 RECORDS-COMPLETE
+-- PROCESSED=1358 LISTED=1358 NOGOLDEN=0 RESTORE_FAILS=0 NONZERO_RC=0 MOVER_ROWS=0

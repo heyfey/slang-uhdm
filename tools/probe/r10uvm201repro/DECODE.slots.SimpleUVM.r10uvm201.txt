@@ -1,0 +1,298 @@
+# r10uvm201 — THE SLOT TABLE for the head parameter (uvm_object_globals.svh:217 UVM_SETINT) and its
+# sibling UVM_END_FUNCS (:220), plus the four forms that must NOT move.  LHS is ALWAYS golden.
+# GOLDEN = /home/heyfey/.cache/slang-uhdm-goldens/02575d101ccaaa38d155/golden.uhdm
+# OURS(pristine) = /tmp/r10uvm201_suvm/default/SimpleUVM-1dc93a62/slang.uhdm
+
+================ UVM_SETINT  GOLDEN
+SLOT other    class_defn(work@env/)@7:1                      Param_assigns[35]/90.Lhs  #187333 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref#187334(work@env::UVM_SETINT)->int_typespec#187335@217:1-217:38
+                                                           RHS=constant#187330@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref#187331(work@env)->int_typespec#187332@217:1-217:38
+SLOT other    class_defn(work@env/)@7:1                      Param_assigns[80]/90.Lhs  #187772 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref#187773(work@env::UVM_SETINT)->int_typespec#187774@217:1-217:38
+                                                           RHS=constant#187769@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref#187770(work@env)->int_typespec#187771@217:1-217:38
+SLOT def      module_inst(/work@top)@44:1                    Parameters[30]/90  #119801 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref#119802(work@top.UVM_SETINT)->int_typespec#119803@217:1-217:38
+SLOT def      module_inst(/work@top)@44:1                    Parameters[75]/90  #120240 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref#120241(work@top.UVM_SETINT)->int_typespec#120242@217:1-217:38
+SLOT def      module_inst(/work@top)@44:1                    Param_assigns[35]/90.Lhs  #120086 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref#120087(work@top.UVM_SETINT)->int_typespec#120088@217:1-217:38
+                                                           RHS=constant#120083@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref#120084(work@top)->int_typespec#120085@217:1-217:38
+SLOT def      module_inst(/work@top)@44:1                    Param_assigns[80]/90.Lhs  #120525 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref#120526(work@top.UVM_SETINT)->int_typespec#120527@217:1-217:38
+                                                           RHS=constant#120522@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref#120523(work@top)->int_typespec#120524@217:1-217:38
+SLOT elab     module_inst(work@top/work@top)@44:1            Parameters[30]/90  #197937 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref#197938(work@top.UVM_SETINT)->int_typespec#197939@217:1-217:38
+SLOT elab     module_inst(work@top/work@top)@44:1            Parameters[75]/90  #198067 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref#198068(work@top.UVM_SETINT)->int_typespec#198069@217:1-217:38
+SLOT elab     module_inst(work@top/work@top)@44:1            Param_assigns[35]/90.Lhs  #197937 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref#197938(work@top.UVM_SETINT)->int_typespec#197939@217:1-217:38
+                                                           RHS=constant#188711@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref#188712(work@top)->int_typespec#120088@217:1-217:38
+SLOT elab     module_inst(work@top/work@top)@44:1            Param_assigns[80]/90.Lhs  #197937 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref#197938(work@top.UVM_SETINT)->int_typespec#197939@217:1-217:38
+                                                           RHS=constant#188842@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref#188843(work@top)->int_typespec#120527@217:1-217:38
+SLOT elabpkg  package(uvm_pkg/uvm_pkg)@28:1                  Parameters[35]/45  #2155 @217:11-217:21 imported=-              PARAM-TS=ref#2167(uvm_pkg::UVM_SETINT)->int_typespec#2166@217:1-217:38
+SLOT elabpkg  package(uvm_pkg/uvm_pkg)@28:1                  Param_assigns[35]/45.Lhs  #2155 @217:11-217:21 imported=-              PARAM-TS=ref#2167(uvm_pkg::UVM_SETINT)->int_typespec#2166@217:1-217:38
+                                                           RHS=constant#2163@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref#2164(uvm_pkg)->int_typespec#2166@217:1-217:38
+SLOT defpkg   package(uvm_pkg/uvm_pkg)@28:1                  Parameters[35]/45  #61402 @217:11-217:21 imported=-              PARAM-TS=NO-TYPESPEC
+SLOT defpkg   package(uvm_pkg/uvm_pkg)@28:1                  Param_assigns[35]/45.Lhs  #61402 @217:11-217:21 imported=-              PARAM-TS=NO-TYPESPEC
+                                                           RHS=ref_obj#61408@217:31
+-- SLOTS UVM_SETINT /home/heyfey/.cache/slang-uhdm-goldens/02575d101ccaaa38d155/golden.uhdm n=14
+---------------- UVM_SETINT  OURS (pristine)
+SLOT other    class_defn(work@env/)@7:1                      Param_assigns[35]/90.Lhs  #184689 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref#3281(uvm_pkg::UVM_SETINT)->int_typespec#3285@217:1-217:38
+                                                           RHS=constant#3283@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref#3284(uvm_pkg)->int_typespec#3285@217:1-217:38
+SLOT other    class_defn(work@env/)@7:1                      Param_assigns[80]/90.Lhs  #184946 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref#3281(uvm_pkg::UVM_SETINT)->int_typespec#3285@217:1-217:38
+                                                           RHS=constant#3283@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref#3284(uvm_pkg)->int_typespec#3285@217:1-217:38
+SLOT def      module_inst(/work@top)@44:1                    Parameters[30]/90  #179342 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref#179343(work@top.UVM_SETINT)->int_typespec#179349@217:1-217:38
+SLOT def      module_inst(/work@top)@44:1                    Parameters[75]/90  #179815 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref#179816(work@top.UVM_SETINT)->int_typespec#179822@217:1-217:38
+SLOT def      module_inst(/work@top)@44:1                    Param_assigns[35]/90.Lhs  #179345 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref#179346(work@top.UVM_SETINT)->int_typespec#179350@217:1-217:38
+                                                           RHS=constant#179348@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=NO-TYPESPEC
+SLOT def      module_inst(/work@top)@44:1                    Param_assigns[80]/90.Lhs  #179818 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref#179819(work@top.UVM_SETINT)->int_typespec#179823@217:1-217:38
+                                                           RHS=constant#179821@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=NO-TYPESPEC
+SLOT elab     module_inst(work@top/work@top)@44:1            Parameters[30]/90  #180710 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref#180711(work@top.UVM_SETINT)->int_typespec#183442@217:1-217:38
+SLOT elab     module_inst(work@top/work@top)@44:1            Parameters[75]/90  #180935 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref#180936(work@top.UVM_SETINT)->int_typespec#183502@217:1-217:38
+SLOT elab     module_inst(work@top/work@top)@44:1            Param_assigns[35]/90.Lhs  #180710 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref#180711(work@top.UVM_SETINT)->int_typespec#183442@217:1-217:38
+                                                           RHS=constant#180713@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref#180714(work@top)->int_typespec#183442@217:1-217:38
+SLOT elab     module_inst(work@top/work@top)@44:1            Param_assigns[80]/90.Lhs  #180710 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref#180711(work@top.UVM_SETINT)->int_typespec#183442@217:1-217:38
+                                                           RHS=constant#180938@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref#180939(work@top)->int_typespec#183502@217:1-217:38
+SLOT defpkg   package(uvm_pkg/uvm_pkg)@28:1                  Parameters[35]/45  #348 @217:11-217:21 imported=-              PARAM-TS=NO-TYPESPEC
+SLOT defpkg   package(uvm_pkg/uvm_pkg)@28:1                  Param_assigns[35]/45.Lhs  #348 @217:11-217:21 imported=-              PARAM-TS=NO-TYPESPEC
+                                                           RHS=ref_obj#350@217:31
+SLOT elabpkg  package(uvm_pkg/uvm_pkg)@28:1                  Parameters[35]/45  #3280 @217:11-217:21 imported=-              PARAM-TS=ref#3281(uvm_pkg::UVM_SETINT)->int_typespec#3285@217:1-217:38
+SLOT elabpkg  package(uvm_pkg/uvm_pkg)@28:1                  Param_assigns[35]/45.Lhs  #3280 @217:11-217:21 imported=-              PARAM-TS=ref#3281(uvm_pkg::UVM_SETINT)->int_typespec#3285@217:1-217:38
+                                                           RHS=constant#3283@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref#3284(uvm_pkg)->int_typespec#3285@217:1-217:38
+-- SLOTS UVM_SETINT /tmp/r10uvm201_suvm/default/SimpleUVM-1dc93a62/slang.uhdm n=14
+
+================ UVM_END_FUNCS  GOLDEN
+SLOT other    class_defn(work@env/)@7:1                      Param_assigns[38]/90.Lhs  #187354 @220:11-220:24 imported=uvm_pkg        PARAM-TS=ref#187355(work@env::UVM_END_FUNCS)->int_typespec#187356@220:1-220:41
+                                                           RHS=constant#187351@220:31-220:41 ct=9 sz=32 val=UINT:131080 ts=ref#187352(work@env)->int_typespec#187353@220:1-220:41
+SLOT other    class_defn(work@env/)@7:1                      Param_assigns[83]/90.Lhs  #187793 @220:11-220:24 imported=uvm_pkg        PARAM-TS=ref#187794(work@env::UVM_END_FUNCS)->int_typespec#187795@220:1-220:41
+                                                           RHS=constant#187790@220:31-220:41 ct=9 sz=32 val=UINT:131080 ts=ref#187791(work@env)->int_typespec#187792@220:1-220:41
+SLOT def      module_inst(/work@top)@44:1                    Parameters[7]/90  #119736 @220:11-220:24 imported=uvm_pkg        PARAM-TS=ref#119737(work@top.UVM_END_FUNCS)->int_typespec#119738@220:1-220:41
+SLOT def      module_inst(/work@top)@44:1                    Parameters[52]/90  #120175 @220:11-220:24 imported=uvm_pkg        PARAM-TS=ref#120176(work@top.UVM_END_FUNCS)->int_typespec#120177@220:1-220:41
+SLOT def      module_inst(/work@top)@44:1                    Param_assigns[38]/90.Lhs  #120107 @220:11-220:24 imported=uvm_pkg        PARAM-TS=ref#120108(work@top.UVM_END_FUNCS)->int_typespec#120109@220:1-220:41
+                                                           RHS=constant#120104@220:31-220:41 ct=9 sz=32 val=UINT:131080 ts=ref#120105(work@top)->int_typespec#120106@220:1-220:41
+SLOT def      module_inst(/work@top)@44:1                    Param_assigns[83]/90.Lhs  #120546 @220:11-220:24 imported=uvm_pkg        PARAM-TS=ref#120547(work@top.UVM_END_FUNCS)->int_typespec#120548@220:1-220:41
+                                                           RHS=constant#120543@220:31-220:41 ct=9 sz=32 val=UINT:131080 ts=ref#120544(work@top)->int_typespec#120545@220:1-220:41
+SLOT elab     module_inst(work@top/work@top)@44:1            Parameters[7]/90  #197872 @220:11-220:24 imported=uvm_pkg        PARAM-TS=ref#197873(work@top.UVM_END_FUNCS)->int_typespec#197874@220:1-220:41
+SLOT elab     module_inst(work@top/work@top)@44:1            Parameters[52]/90  #198002 @220:11-220:24 imported=uvm_pkg        PARAM-TS=ref#198003(work@top.UVM_END_FUNCS)->int_typespec#198004@220:1-220:41
+SLOT elab     module_inst(work@top/work@top)@44:1            Param_assigns[38]/90.Lhs  #197872 @220:11-220:24 imported=uvm_pkg        PARAM-TS=ref#197873(work@top.UVM_END_FUNCS)->int_typespec#197874@220:1-220:41
+                                                           RHS=constant#188720@220:31-220:41 ct=9 sz=32 val=UINT:131080 ts=ref#188721(work@top)->int_typespec#120109@220:1-220:41
+SLOT elab     module_inst(work@top/work@top)@44:1            Param_assigns[83]/90.Lhs  #197872 @220:11-220:24 imported=uvm_pkg        PARAM-TS=ref#197873(work@top.UVM_END_FUNCS)->int_typespec#197874@220:1-220:41
+                                                           RHS=constant#188851@220:31-220:41 ct=9 sz=32 val=UINT:131080 ts=ref#188852(work@top)->int_typespec#120548@220:1-220:41
+SLOT elabpkg  package(uvm_pkg/uvm_pkg)@28:1                  Parameters[38]/45  #2214 @220:11-220:24 imported=-              PARAM-TS=ref#2226(uvm_pkg::UVM_END_FUNCS)->int_typespec#2225@220:1-220:41
+SLOT elabpkg  package(uvm_pkg/uvm_pkg)@28:1                  Param_assigns[38]/45.Lhs  #2214 @220:11-220:24 imported=-              PARAM-TS=ref#2226(uvm_pkg::UVM_END_FUNCS)->int_typespec#2225@220:1-220:41
+                                                           RHS=constant#2222@220:31-220:41 ct=9 sz=32 val=UINT:131080 ts=ref#2223(uvm_pkg)->int_typespec#2225@220:1-220:41
+SLOT defpkg   package(uvm_pkg/uvm_pkg)@28:1                  Parameters[38]/45  #61437 @220:11-220:24 imported=-              PARAM-TS=NO-TYPESPEC
+SLOT defpkg   package(uvm_pkg/uvm_pkg)@28:1                  Param_assigns[38]/45.Lhs  #61437 @220:11-220:24 imported=-              PARAM-TS=NO-TYPESPEC
+                                                           RHS=ref_obj#61443@220:31
+-- SLOTS UVM_END_FUNCS /home/heyfey/.cache/slang-uhdm-goldens/02575d101ccaaa38d155/golden.uhdm n=14
+---------------- UVM_END_FUNCS  OURS (pristine)
+SLOT other    class_defn(work@env/)@7:1                      Param_assigns[38]/90.Lhs  #184695 @220:11-220:24 imported=uvm_pkg        PARAM-TS=ref#3299(uvm_pkg::UVM_END_FUNCS)->int_typespec#3303@220:1-220:41
+                                                           RHS=constant#3301@220:31-220:41 ct=9 sz=32 val=UINT:131080 ts=ref#3302(uvm_pkg)->int_typespec#3303@220:1-220:41
+SLOT other    class_defn(work@env/)@7:1                      Param_assigns[83]/90.Lhs  #184952 @220:11-220:24 imported=uvm_pkg        PARAM-TS=ref#3299(uvm_pkg::UVM_END_FUNCS)->int_typespec#3303@220:1-220:41
+                                                           RHS=constant#3301@220:31-220:41 ct=9 sz=32 val=UINT:131080 ts=ref#3302(uvm_pkg)->int_typespec#3303@220:1-220:41
+SLOT def      module_inst(/work@top)@44:1                    Parameters[7]/90  #179371 @220:11-220:24 imported=uvm_pkg        PARAM-TS=ref#179372(work@top.UVM_END_FUNCS)->int_typespec#179378@220:1-220:41
+SLOT def      module_inst(/work@top)@44:1                    Parameters[52]/90  #179844 @220:11-220:24 imported=uvm_pkg        PARAM-TS=ref#179845(work@top.UVM_END_FUNCS)->int_typespec#179851@220:1-220:41
+SLOT def      module_inst(/work@top)@44:1                    Param_assigns[38]/90.Lhs  #179374 @220:11-220:24 imported=uvm_pkg        PARAM-TS=ref#179375(work@top.UVM_END_FUNCS)->int_typespec#179379@220:1-220:41
+                                                           RHS=constant#179377@220:31-220:41 ct=9 sz=32 val=UINT:131080 ts=NO-TYPESPEC
+SLOT def      module_inst(/work@top)@44:1                    Param_assigns[83]/90.Lhs  #179847 @220:11-220:24 imported=uvm_pkg        PARAM-TS=ref#179848(work@top.UVM_END_FUNCS)->int_typespec#179852@220:1-220:41
+                                                           RHS=constant#179850@220:31-220:41 ct=9 sz=32 val=UINT:131080 ts=NO-TYPESPEC
+SLOT elab     module_inst(work@top/work@top)@44:1            Parameters[7]/90  #180725 @220:11-220:24 imported=uvm_pkg        PARAM-TS=ref#180726(work@top.UVM_END_FUNCS)->int_typespec#183445@220:1-220:41
+SLOT elab     module_inst(work@top/work@top)@44:1            Parameters[52]/90  #180950 @220:11-220:24 imported=uvm_pkg        PARAM-TS=ref#180951(work@top.UVM_END_FUNCS)->int_typespec#183505@220:1-220:41
+SLOT elab     module_inst(work@top/work@top)@44:1            Param_assigns[38]/90.Lhs  #180725 @220:11-220:24 imported=uvm_pkg        PARAM-TS=ref#180726(work@top.UVM_END_FUNCS)->int_typespec#183445@220:1-220:41
+                                                           RHS=constant#180728@220:31-220:41 ct=9 sz=32 val=UINT:131080 ts=ref#180729(work@top)->int_typespec#183445@220:1-220:41
+SLOT elab     module_inst(work@top/work@top)@44:1            Param_assigns[83]/90.Lhs  #180725 @220:11-220:24 imported=uvm_pkg        PARAM-TS=ref#180726(work@top.UVM_END_FUNCS)->int_typespec#183445@220:1-220:41
+                                                           RHS=constant#180953@220:31-220:41 ct=9 sz=32 val=UINT:131080 ts=ref#180954(work@top)->int_typespec#183505@220:1-220:41
+SLOT defpkg   package(uvm_pkg/uvm_pkg)@28:1                  Parameters[38]/45  #361 @220:11-220:24 imported=-              PARAM-TS=NO-TYPESPEC
+SLOT defpkg   package(uvm_pkg/uvm_pkg)@28:1                  Param_assigns[38]/45.Lhs  #361 @220:11-220:24 imported=-              PARAM-TS=NO-TYPESPEC
+                                                           RHS=ref_obj#363@220:31
+SLOT elabpkg  package(uvm_pkg/uvm_pkg)@28:1                  Parameters[38]/45  #3298 @220:11-220:24 imported=-              PARAM-TS=ref#3299(uvm_pkg::UVM_END_FUNCS)->int_typespec#3303@220:1-220:41
+SLOT elabpkg  package(uvm_pkg/uvm_pkg)@28:1                  Param_assigns[38]/45.Lhs  #3298 @220:11-220:24 imported=-              PARAM-TS=ref#3299(uvm_pkg::UVM_END_FUNCS)->int_typespec#3303@220:1-220:41
+                                                           RHS=constant#3301@220:31-220:41 ct=9 sz=32 val=UINT:131080 ts=ref#3302(uvm_pkg)->int_typespec#3303@220:1-220:41
+-- SLOTS UVM_END_FUNCS /tmp/r10uvm201_suvm/default/SimpleUVM-1dc93a62/slang.uhdm n=14
+
+================ UVM_RADIX  GOLDEN
+SLOT other    class_defn(work@env/)@7:1                      Param_assigns[8]/90.Lhs  #187155 @99:11-99:20 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+                                                           RHS=constant#187153@99:23-99:32 ct=5 sz=-1 val=HEX:f000000 ts=ref#187154(work@env)-><unbound>#0@0:0-0:0
+SLOT other    class_defn(work@env/)@7:1                      Param_assigns[53]/90.Lhs  #187594 @99:11-99:20 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+                                                           RHS=constant#187592@99:23-99:32 ct=5 sz=-1 val=HEX:f000000 ts=ref#187593(work@env)-><unbound>#0@0:0-0:0
+SLOT def      module_inst(/work@top)@44:1                    Parameters[26]/90  #119791 @99:11-99:20 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+SLOT def      module_inst(/work@top)@44:1                    Parameters[71]/90  #120230 @99:11-99:20 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+SLOT def      module_inst(/work@top)@44:1                    Param_assigns[8]/90.Lhs  #119908 @99:11-99:20 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+                                                           RHS=constant#119906@99:23-99:32 ct=5 sz=-1 val=HEX:f000000 ts=ref#119907(work@top)-><unbound>#0@0:0-0:0
+SLOT def      module_inst(/work@top)@44:1                    Param_assigns[53]/90.Lhs  #120347 @99:11-99:20 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+                                                           RHS=constant#120345@99:23-99:32 ct=5 sz=-1 val=HEX:f000000 ts=ref#120346(work@top)-><unbound>#0@0:0-0:0
+SLOT elab     module_inst(work@top/work@top)@44:1            Parameters[26]/90  #197927 @99:11-99:20 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+SLOT elab     module_inst(work@top/work@top)@44:1            Parameters[71]/90  #198057 @99:11-99:20 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+SLOT elab     module_inst(work@top/work@top)@44:1            Param_assigns[8]/90.Lhs  #197927 @99:11-99:20 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+                                                           RHS=constant#188634@99:23-99:32 ct=5 sz=-1 val=HEX:f000000 ts=NO-TYPESPEC
+SLOT elab     module_inst(work@top/work@top)@44:1            Param_assigns[53]/90.Lhs  #197927 @99:11-99:20 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+                                                           RHS=constant#188765@99:23-99:32 ct=5 sz=-1 val=HEX:f000000 ts=NO-TYPESPEC
+SLOT elabpkg  package(uvm_pkg/uvm_pkg)@28:1                  Parameters[8]/45  #1582 @99:11-99:20 imported=-              PARAM-TS=NO-TYPESPEC
+SLOT elabpkg  package(uvm_pkg/uvm_pkg)@28:1                  Param_assigns[8]/45.Lhs  #1582 @99:11-99:20 imported=-              PARAM-TS=NO-TYPESPEC
+                                                           RHS=constant#1589@99:23-99:32 ct=5 sz=-1 val=HEX:f000000 ts=ref#1591(uvm_pkg)-><unbound>#0@0:0-0:0
+SLOT defpkg   package(uvm_pkg/uvm_pkg)@28:1                  Parameters[8]/45  #60962 @99:11-99:20 imported=-              PARAM-TS=NO-TYPESPEC
+SLOT defpkg   package(uvm_pkg/uvm_pkg)@28:1                  Param_assigns[8]/45.Lhs  #60962 @99:11-99:20 imported=-              PARAM-TS=NO-TYPESPEC
+                                                           RHS=constant#60969@99:23-99:32 ct=5 sz=-1 val=HEX:f000000 ts=ref#60971(uvm_pkg)-><unbound>#0@0:0-0:0
+-- SLOTS UVM_RADIX /home/heyfey/.cache/slang-uhdm-goldens/02575d101ccaaa38d155/golden.uhdm n=14
+---------------- UVM_RADIX  OURS (pristine)
+SLOT other    class_defn(work@env/)@7:1                      Param_assigns[8]/90.Lhs  #184635 @99:11-99:20 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+                                                           RHS=constant#3109@99:23-99:32 ct=5 sz=-1 val=HEX:f000000 ts=ref#3110(uvm_pkg)-><unbound>#0@0:0-0:0
+SLOT other    class_defn(work@env/)@7:1                      Param_assigns[53]/90.Lhs  #184892 @99:11-99:20 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+                                                           RHS=constant#3109@99:23-99:32 ct=5 sz=-1 val=HEX:f000000 ts=ref#3110(uvm_pkg)-><unbound>#0@0:0-0:0
+SLOT def      module_inst(/work@top)@44:1                    Parameters[26]/90  #179056 @99:11-99:20 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+SLOT def      module_inst(/work@top)@44:1                    Parameters[71]/90  #179529 @99:11-99:20 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+SLOT def      module_inst(/work@top)@44:1                    Param_assigns[8]/90.Lhs  #179059 @99:11-99:20 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+                                                           RHS=constant#179060@99:23-99:32 ct=5 sz=-1 val=HEX:f000000 ts=ref#179061(work@top)-><unbound>#0@0:0-0:0
+SLOT def      module_inst(/work@top)@44:1                    Param_assigns[53]/90.Lhs  #179532 @99:11-99:20 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+                                                           RHS=constant#179533@99:23-99:32 ct=5 sz=-1 val=HEX:f000000 ts=ref#179534(work@top)-><unbound>#0@0:0-0:0
+SLOT elab     module_inst(work@top/work@top)@44:1            Parameters[26]/90  #180575 @99:11-99:20 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+SLOT elab     module_inst(work@top/work@top)@44:1            Parameters[71]/90  #180800 @99:11-99:20 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+SLOT elab     module_inst(work@top/work@top)@44:1            Param_assigns[8]/90.Lhs  #180575 @99:11-99:20 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+                                                           RHS=constant#180578@99:23-99:32 ct=5 sz=-1 val=HEX:f000000 ts=NO-TYPESPEC
+SLOT elab     module_inst(work@top/work@top)@44:1            Param_assigns[53]/90.Lhs  #180575 @99:11-99:20 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+                                                           RHS=constant#180803@99:23-99:32 ct=5 sz=-1 val=HEX:f000000 ts=NO-TYPESPEC
+SLOT defpkg   package(uvm_pkg/uvm_pkg)@28:1                  Parameters[8]/45  #195 @99:11-99:20 imported=-              PARAM-TS=NO-TYPESPEC
+SLOT defpkg   package(uvm_pkg/uvm_pkg)@28:1                  Param_assigns[8]/45.Lhs  #195 @99:11-99:20 imported=-              PARAM-TS=NO-TYPESPEC
+                                                           RHS=constant#198@99:23-99:32 ct=5 sz=-1 val=HEX:f000000 ts=ref#199(uvm_pkg)-><unbound>#0@0:0-0:0
+SLOT elabpkg  package(uvm_pkg/uvm_pkg)@28:1                  Parameters[8]/45  #3106 @99:11-99:20 imported=-              PARAM-TS=NO-TYPESPEC
+SLOT elabpkg  package(uvm_pkg/uvm_pkg)@28:1                  Param_assigns[8]/45.Lhs  #3106 @99:11-99:20 imported=-              PARAM-TS=NO-TYPESPEC
+                                                           RHS=constant#3109@99:23-99:32 ct=5 sz=-1 val=HEX:f000000 ts=ref#3110(uvm_pkg)-><unbound>#0@0:0-0:0
+-- SLOTS UVM_RADIX /tmp/r10uvm201_suvm/default/SimpleUVM-1dc93a62/slang.uhdm n=14
+
+================ UVM_DEFAULT  GOLDEN
+SLOT other    class_defn(work@env/)@7:1                      Param_assigns[10]/90.Lhs  #187166 @180:11-180:22 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+                                                           RHS=constant#187164@180:29-180:46 ct=3 sz=-1 val=BIN:000010101010101 ts=ref#187165(work@env)-><unbound>#0@0:0-0:0
+SLOT other    class_defn(work@env/)@7:1                      Param_assigns[55]/90.Lhs  #187605 @180:11-180:22 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+                                                           RHS=constant#187603@180:29-180:46 ct=3 sz=-1 val=BIN:000010101010101 ts=ref#187604(work@env)-><unbound>#0@0:0-0:0
+SLOT def      module_inst(/work@top)@44:1                    Parameters[5]/90  #119732 @180:11-180:22 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+SLOT def      module_inst(/work@top)@44:1                    Parameters[50]/90  #120171 @180:11-180:22 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+SLOT def      module_inst(/work@top)@44:1                    Param_assigns[10]/90.Lhs  #119919 @180:11-180:22 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+                                                           RHS=constant#119917@180:29-180:46 ct=3 sz=-1 val=BIN:000010101010101 ts=ref#119918(work@top)-><unbound>#0@0:0-0:0
+SLOT def      module_inst(/work@top)@44:1                    Param_assigns[55]/90.Lhs  #120358 @180:11-180:22 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+                                                           RHS=constant#120356@180:29-180:46 ct=3 sz=-1 val=BIN:000010101010101 ts=ref#120357(work@top)-><unbound>#0@0:0-0:0
+SLOT elab     module_inst(work@top/work@top)@44:1            Parameters[5]/90  #197868 @180:11-180:22 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+SLOT elab     module_inst(work@top/work@top)@44:1            Parameters[50]/90  #197998 @180:11-180:22 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+SLOT elab     module_inst(work@top/work@top)@44:1            Param_assigns[10]/90.Lhs  #197868 @180:11-180:22 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+                                                           RHS=constant#188639@180:29-180:46 ct=3 sz=-1 val=BIN:000010101010101 ts=NO-TYPESPEC
+SLOT elab     module_inst(work@top/work@top)@44:1            Param_assigns[55]/90.Lhs  #197868 @180:11-180:22 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+                                                           RHS=constant#188770@180:29-180:46 ct=3 sz=-1 val=BIN:000010101010101 ts=NO-TYPESPEC
+SLOT elabpkg  package(uvm_pkg/uvm_pkg)@28:1                  Parameters[10]/45  #1687 @180:11-180:22 imported=-              PARAM-TS=NO-TYPESPEC
+SLOT elabpkg  package(uvm_pkg/uvm_pkg)@28:1                  Param_assigns[10]/45.Lhs  #1687 @180:11-180:22 imported=-              PARAM-TS=NO-TYPESPEC
+                                                           RHS=constant#1694@180:29-180:46 ct=3 sz=-1 val=BIN:000010101010101 ts=ref#1696(uvm_pkg)-><unbound>#0@0:0-0:0
+SLOT defpkg   package(uvm_pkg/uvm_pkg)@28:1                  Parameters[10]/45  #61067 @180:11-180:22 imported=-              PARAM-TS=NO-TYPESPEC
+SLOT defpkg   package(uvm_pkg/uvm_pkg)@28:1                  Param_assigns[10]/45.Lhs  #61067 @180:11-180:22 imported=-              PARAM-TS=NO-TYPESPEC
+                                                           RHS=constant#61074@180:29-180:46 ct=3 sz=-1 val=BIN:000010101010101 ts=ref#61076(uvm_pkg)-><unbound>#0@0:0-0:0
+-- SLOTS UVM_DEFAULT /home/heyfey/.cache/slang-uhdm-goldens/02575d101ccaaa38d155/golden.uhdm n=14
+---------------- UVM_DEFAULT  OURS (pristine)
+SLOT other    class_defn(work@env/)@7:1                      Param_assigns[10]/90.Lhs  #184639 @180:11-180:22 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+                                                           RHS=constant#3124@180:29-180:46 ct=3 sz=-1 val=BIN:000010101010101 ts=ref#3125(uvm_pkg)-><unbound>#0@0:0-0:0
+SLOT other    class_defn(work@env/)@7:1                      Param_assigns[55]/90.Lhs  #184896 @180:11-180:22 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+                                                           RHS=constant#3124@180:29-180:46 ct=3 sz=-1 val=BIN:000010101010101 ts=ref#3125(uvm_pkg)-><unbound>#0@0:0-0:0
+SLOT def      module_inst(/work@top)@44:1                    Parameters[5]/90  #179080 @180:11-180:22 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+SLOT def      module_inst(/work@top)@44:1                    Parameters[50]/90  #179553 @180:11-180:22 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+SLOT def      module_inst(/work@top)@44:1                    Param_assigns[10]/90.Lhs  #179083 @180:11-180:22 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+                                                           RHS=constant#179084@180:29-180:46 ct=3 sz=-1 val=BIN:000010101010101 ts=ref#179085(work@top)-><unbound>#0@0:0-0:0
+SLOT def      module_inst(/work@top)@44:1                    Param_assigns[55]/90.Lhs  #179556 @180:11-180:22 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+                                                           RHS=constant#179557@180:29-180:46 ct=3 sz=-1 val=BIN:000010101010101 ts=ref#179558(work@top)-><unbound>#0@0:0-0:0
+SLOT elab     module_inst(work@top/work@top)@44:1            Parameters[5]/90  #180585 @180:11-180:22 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+SLOT elab     module_inst(work@top/work@top)@44:1            Parameters[50]/90  #180810 @180:11-180:22 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+SLOT elab     module_inst(work@top/work@top)@44:1            Param_assigns[10]/90.Lhs  #180585 @180:11-180:22 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+                                                           RHS=constant#180588@180:29-180:46 ct=3 sz=-1 val=BIN:000010101010101 ts=NO-TYPESPEC
+SLOT elab     module_inst(work@top/work@top)@44:1            Param_assigns[55]/90.Lhs  #180585 @180:11-180:22 imported=uvm_pkg        PARAM-TS=NO-TYPESPEC
+                                                           RHS=constant#180813@180:29-180:46 ct=3 sz=-1 val=BIN:000010101010101 ts=NO-TYPESPEC
+SLOT defpkg   package(uvm_pkg/uvm_pkg)@28:1                  Parameters[10]/45  #210 @180:11-180:22 imported=-              PARAM-TS=NO-TYPESPEC
+SLOT defpkg   package(uvm_pkg/uvm_pkg)@28:1                  Param_assigns[10]/45.Lhs  #210 @180:11-180:22 imported=-              PARAM-TS=NO-TYPESPEC
+                                                           RHS=constant#213@180:29-180:46 ct=3 sz=-1 val=BIN:000010101010101 ts=ref#214(uvm_pkg)-><unbound>#0@0:0-0:0
+SLOT elabpkg  package(uvm_pkg/uvm_pkg)@28:1                  Parameters[10]/45  #3121 @180:11-180:22 imported=-              PARAM-TS=NO-TYPESPEC
+SLOT elabpkg  package(uvm_pkg/uvm_pkg)@28:1                  Param_assigns[10]/45.Lhs  #3121 @180:11-180:22 imported=-              PARAM-TS=NO-TYPESPEC
+                                                           RHS=constant#3124@180:29-180:46 ct=3 sz=-1 val=BIN:000010101010101 ts=ref#3125(uvm_pkg)-><unbound>#0@0:0-0:0
+-- SLOTS UVM_DEFAULT /tmp/r10uvm201_suvm/default/SimpleUVM-1dc93a62/slang.uhdm n=14
+
+================ UVM_MACRO_EXTRAS  GOLDEN
+SLOT other    class_defn(work@env/)@7:1                      Param_assigns[28]/90.Lhs  #187284 @206:11-206:27 imported=uvm_pkg        PARAM-TS=ref#187285(work@env::UVM_MACRO_EXTRAS)->int_typespec#187286@206:1-206:54
+                                                           RHS=constant#187281@206:32-206:33 ct=9 sz=32 val=UINT:131072 ts=ref#187282(work@env)->int_typespec#187283@206:1-206:54
+SLOT other    class_defn(work@env/)@7:1                      Param_assigns[73]/90.Lhs  #187723 @206:11-206:27 imported=uvm_pkg        PARAM-TS=ref#187724(work@env::UVM_MACRO_EXTRAS)->int_typespec#187725@206:1-206:54
+                                                           RHS=constant#187720@206:32-206:33 ct=9 sz=32 val=UINT:131072 ts=ref#187721(work@env)->int_typespec#187722@206:1-206:54
+SLOT def      module_inst(/work@top)@44:1                    Parameters[14]/90  #119755 @206:11-206:27 imported=uvm_pkg        PARAM-TS=ref#119756(work@top.UVM_MACRO_EXTRAS)->int_typespec#119757@206:1-206:54
+SLOT def      module_inst(/work@top)@44:1                    Parameters[59]/90  #120194 @206:11-206:27 imported=uvm_pkg        PARAM-TS=ref#120195(work@top.UVM_MACRO_EXTRAS)->int_typespec#120196@206:1-206:54
+SLOT def      module_inst(/work@top)@44:1                    Param_assigns[28]/90.Lhs  #120037 @206:11-206:27 imported=uvm_pkg        PARAM-TS=ref#120038(work@top.UVM_MACRO_EXTRAS)->int_typespec#120039@206:1-206:54
+                                                           RHS=constant#120034@206:32-206:33 ct=9 sz=32 val=UINT:131072 ts=ref#120035(work@top)->int_typespec#120036@206:1-206:54
+SLOT def      module_inst(/work@top)@44:1                    Param_assigns[73]/90.Lhs  #120476 @206:11-206:27 imported=uvm_pkg        PARAM-TS=ref#120477(work@top.UVM_MACRO_EXTRAS)->int_typespec#120478@206:1-206:54
+                                                           RHS=constant#120473@206:32-206:33 ct=9 sz=32 val=UINT:131072 ts=ref#120474(work@top)->int_typespec#120475@206:1-206:54
+SLOT elab     module_inst(work@top/work@top)@44:1            Parameters[14]/90  #197891 @206:11-206:27 imported=uvm_pkg        PARAM-TS=ref#197892(work@top.UVM_MACRO_EXTRAS)->int_typespec#197893@206:1-206:54
+SLOT elab     module_inst(work@top/work@top)@44:1            Parameters[59]/90  #198021 @206:11-206:27 imported=uvm_pkg        PARAM-TS=ref#198022(work@top.UVM_MACRO_EXTRAS)->int_typespec#198023@206:1-206:54
+SLOT elab     module_inst(work@top/work@top)@44:1            Param_assigns[28]/90.Lhs  #197891 @206:11-206:27 imported=uvm_pkg        PARAM-TS=ref#197892(work@top.UVM_MACRO_EXTRAS)->int_typespec#197893@206:1-206:54
+                                                           RHS=constant#188690@206:31-206:54 ct=9 sz=32 val=UINT:131072 ts=ref#188691(work@top)->int_typespec#120039@206:1-206:54
+SLOT elab     module_inst(work@top/work@top)@44:1            Param_assigns[73]/90.Lhs  #197891 @206:11-206:27 imported=uvm_pkg        PARAM-TS=ref#197892(work@top.UVM_MACRO_EXTRAS)->int_typespec#197893@206:1-206:54
+                                                           RHS=constant#188821@206:31-206:54 ct=9 sz=32 val=UINT:131072 ts=ref#188822(work@top)->int_typespec#120478@206:1-206:54
+SLOT elabpkg  package(uvm_pkg/uvm_pkg)@28:1                  Parameters[28]/45  #1994 @206:11-206:27 imported=-              PARAM-TS=ref#2015(uvm_pkg::UVM_MACRO_EXTRAS)->int_typespec#2014@206:1-206:54
+SLOT elabpkg  package(uvm_pkg/uvm_pkg)@28:1                  Param_assigns[28]/45.Lhs  #1994 @206:11-206:27 imported=-              PARAM-TS=ref#2015(uvm_pkg::UVM_MACRO_EXTRAS)->int_typespec#2014@206:1-206:54
+                                                           RHS=constant#2013@206:32-206:33 ct=9 sz=32 val=UINT:131072 ts=ref#2016(uvm_pkg)->int_typespec#2014@206:1-206:54
+SLOT defpkg   package(uvm_pkg/uvm_pkg)@28:1                  Parameters[28]/45  #61304 @206:11-206:27 imported=-              PARAM-TS=NO-TYPESPEC
+SLOT defpkg   package(uvm_pkg/uvm_pkg)@28:1                  Param_assigns[28]/45.Lhs  #61304 @206:11-206:27 imported=-              PARAM-TS=NO-TYPESPEC
+                                                           RHS=operation#61316@206:32
+-- SLOTS UVM_MACRO_EXTRAS /home/heyfey/.cache/slang-uhdm-goldens/02575d101ccaaa38d155/golden.uhdm n=14
+---------------- UVM_MACRO_EXTRAS  OURS (pristine)
+SLOT other    class_defn(work@env/)@7:1                      Param_assigns[28]/90.Lhs  #184675 @206:11-206:27 imported=uvm_pkg        PARAM-TS=ref#3239(uvm_pkg::UVM_MACRO_EXTRAS)->int_typespec#3243@206:1-206:54
+                                                           RHS=constant#3241@206:32-206:33 ct=9 sz=32 val=UINT:131072 ts=ref#3242(uvm_pkg)->int_typespec#3243@206:1-206:54
+SLOT other    class_defn(work@env/)@7:1                      Param_assigns[73]/90.Lhs  #184932 @206:11-206:27 imported=uvm_pkg        PARAM-TS=ref#3239(uvm_pkg::UVM_MACRO_EXTRAS)->int_typespec#3243@206:1-206:54
+                                                           RHS=constant#3241@206:32-206:33 ct=9 sz=32 val=UINT:131072 ts=ref#3242(uvm_pkg)->int_typespec#3243@206:1-206:54
+SLOT def      module_inst(/work@top)@44:1                    Parameters[14]/90  #179272 @206:11-206:27 imported=uvm_pkg        PARAM-TS=ref#179273(work@top.UVM_MACRO_EXTRAS)->int_typespec#179279@206:1-206:54
+SLOT def      module_inst(/work@top)@44:1                    Parameters[59]/90  #179745 @206:11-206:27 imported=uvm_pkg        PARAM-TS=ref#179746(work@top.UVM_MACRO_EXTRAS)->int_typespec#179752@206:1-206:54
+SLOT def      module_inst(/work@top)@44:1                    Param_assigns[28]/90.Lhs  #179275 @206:11-206:27 imported=uvm_pkg        PARAM-TS=ref#179276(work@top.UVM_MACRO_EXTRAS)->int_typespec#179281@206:1-206:54
+                                                           RHS=constant#179277@206:32-206:33 ct=9 sz=32 val=UINT:131072 ts=ref#179278(work@top)->int_typespec#179280@206:1-206:54
+SLOT def      module_inst(/work@top)@44:1                    Param_assigns[73]/90.Lhs  #179748 @206:11-206:27 imported=uvm_pkg        PARAM-TS=ref#179749(work@top.UVM_MACRO_EXTRAS)->int_typespec#179754@206:1-206:54
+                                                           RHS=constant#179750@206:32-206:33 ct=9 sz=32 val=UINT:131072 ts=ref#179751(work@top)->int_typespec#179753@206:1-206:54
+SLOT elab     module_inst(work@top/work@top)@44:1            Parameters[14]/90  #180675 @206:11-206:27 imported=uvm_pkg        PARAM-TS=ref#180676(work@top.UVM_MACRO_EXTRAS)->int_typespec#183435@206:1-206:54
+SLOT elab     module_inst(work@top/work@top)@44:1            Parameters[59]/90  #180900 @206:11-206:27 imported=uvm_pkg        PARAM-TS=ref#180901(work@top.UVM_MACRO_EXTRAS)->int_typespec#183495@206:1-206:54
+SLOT elab     module_inst(work@top/work@top)@44:1            Param_assigns[28]/90.Lhs  #180675 @206:11-206:27 imported=uvm_pkg        PARAM-TS=ref#180676(work@top.UVM_MACRO_EXTRAS)->int_typespec#183435@206:1-206:54
+                                                           RHS=constant#180678@206:32-206:33 ct=9 sz=32 val=UINT:131072 ts=ref#180679(work@top)->int_typespec#183435@206:1-206:54
+SLOT elab     module_inst(work@top/work@top)@44:1            Param_assigns[73]/90.Lhs  #180675 @206:11-206:27 imported=uvm_pkg        PARAM-TS=ref#180676(work@top.UVM_MACRO_EXTRAS)->int_typespec#183435@206:1-206:54
+                                                           RHS=constant#180903@206:32-206:33 ct=9 sz=32 val=UINT:131072 ts=ref#180904(work@top)->int_typespec#183495@206:1-206:54
+SLOT defpkg   package(uvm_pkg/uvm_pkg)@28:1                  Parameters[28]/45  #313 @206:11-206:27 imported=-              PARAM-TS=NO-TYPESPEC
+SLOT defpkg   package(uvm_pkg/uvm_pkg)@28:1                  Param_assigns[28]/45.Lhs  #313 @206:11-206:27 imported=-              PARAM-TS=NO-TYPESPEC
+                                                           RHS=operation#315@206:32
+SLOT elabpkg  package(uvm_pkg/uvm_pkg)@28:1                  Parameters[28]/45  #3238 @206:11-206:27 imported=-              PARAM-TS=ref#3239(uvm_pkg::UVM_MACRO_EXTRAS)->int_typespec#3243@206:1-206:54
+SLOT elabpkg  package(uvm_pkg/uvm_pkg)@28:1                  Param_assigns[28]/45.Lhs  #3238 @206:11-206:27 imported=-              PARAM-TS=ref#3239(uvm_pkg::UVM_MACRO_EXTRAS)->int_typespec#3243@206:1-206:54
+                                                           RHS=constant#3241@206:32-206:33 ct=9 sz=32 val=UINT:131072 ts=ref#3242(uvm_pkg)->int_typespec#3243@206:1-206:54
+-- SLOTS UVM_MACRO_EXTRAS /tmp/r10uvm201_suvm/default/SimpleUVM-1dc93a62/slang.uhdm n=14
+
+================ UVM_STREAMBITS  GOLDEN
+SLOT other    class_defn(work@env/)@7:1                      Param_assigns[7]/90.Lhs  #187149 @39:11-39:25 imported=uvm_pkg        PARAM-TS=ref#187150(work@env::UVM_STREAMBITS)->int_typespec#187151@39:1-39:32
+                                                           RHS=constant#187146@39:28-39:32 ct=9 sz=32 val=UINT:4096 ts=ref#187147(work@env)->int_typespec#187148@39:1-39:32
+SLOT other    class_defn(work@env/)@7:1                      Param_assigns[52]/90.Lhs  #187588 @39:11-39:25 imported=uvm_pkg        PARAM-TS=ref#187589(work@env::UVM_STREAMBITS)->int_typespec#187590@39:1-39:32
+                                                           RHS=constant#187585@39:28-39:32 ct=9 sz=32 val=UINT:4096 ts=ref#187586(work@env)->int_typespec#187587@39:1-39:32
+SLOT def      module_inst(/work@top)@44:1                    Parameters[36]/90  #119819 @39:11-39:25 imported=uvm_pkg        PARAM-TS=ref#119820(work@top.UVM_STREAMBITS)->int_typespec#119821@39:1-39:32
+SLOT def      module_inst(/work@top)@44:1                    Parameters[81]/90  #120258 @39:11-39:25 imported=uvm_pkg        PARAM-TS=ref#120259(work@top.UVM_STREAMBITS)->int_typespec#120260@39:1-39:32
+SLOT def      module_inst(/work@top)@44:1                    Param_assigns[7]/90.Lhs  #119902 @39:11-39:25 imported=uvm_pkg        PARAM-TS=ref#119903(work@top.UVM_STREAMBITS)->int_typespec#119904@39:1-39:32
+                                                           RHS=constant#119899@39:28-39:32 ct=9 sz=32 val=UINT:4096 ts=ref#119900(work@top)->int_typespec#119901@39:1-39:32
+SLOT def      module_inst(/work@top)@44:1                    Param_assigns[52]/90.Lhs  #120341 @39:11-39:25 imported=uvm_pkg        PARAM-TS=ref#120342(work@top.UVM_STREAMBITS)->int_typespec#120343@39:1-39:32
+                                                           RHS=constant#120338@39:28-39:32 ct=9 sz=32 val=UINT:4096 ts=ref#120339(work@top)->int_typespec#120340@39:1-39:32
+SLOT elab     module_inst(work@top/work@top)@44:1            Parameters[36]/90  #197955 @39:11-39:25 imported=uvm_pkg        PARAM-TS=ref#197956(work@top.UVM_STREAMBITS)->int_typespec#197957@39:1-39:32
+SLOT elab     module_inst(work@top/work@top)@44:1            Parameters[81]/90  #198085 @39:11-39:25 imported=uvm_pkg        PARAM-TS=ref#198086(work@top.UVM_STREAMBITS)->int_typespec#198087@39:1-39:32
+SLOT elab     module_inst(work@top/work@top)@44:1            Param_assigns[7]/90.Lhs  #197955 @39:11-39:25 imported=uvm_pkg        PARAM-TS=ref#197956(work@top.UVM_STREAMBITS)->int_typespec#197957@39:1-39:32
+                                                           RHS=constant#188631@39:28-39:32 ct=9 sz=32 val=UINT:4096 ts=ref#188632(work@top)->int_typespec#119904@39:1-39:32
+SLOT elab     module_inst(work@top/work@top)@44:1            Param_assigns[52]/90.Lhs  #197955 @39:11-39:25 imported=uvm_pkg        PARAM-TS=ref#197956(work@top.UVM_STREAMBITS)->int_typespec#197957@39:1-39:32
+                                                           RHS=constant#188762@39:28-39:32 ct=9 sz=32 val=UINT:4096 ts=ref#188763(work@top)->int_typespec#120343@39:1-39:32
+SLOT elabpkg  package(uvm_pkg/uvm_pkg)@28:1                  Parameters[7]/45  #1515 @39:11-39:25 imported=-              PARAM-TS=ref#1524(uvm_pkg::UVM_STREAMBITS)->int_typespec#1523@39:1-39:32
+SLOT elabpkg  package(uvm_pkg/uvm_pkg)@28:1                  Param_assigns[7]/45.Lhs  #1515 @39:11-39:25 imported=-              PARAM-TS=ref#1524(uvm_pkg::UVM_STREAMBITS)->int_typespec#1523@39:1-39:32
+                                                           RHS=constant#1522@39:28-39:32 ct=9 sz=32 val=UINT:4096 ts=ref#1525(uvm_pkg)->int_typespec#1523@39:1-39:32
+SLOT defpkg   package(uvm_pkg/uvm_pkg)@28:1                  Parameters[7]/45  #60898 @39:11-39:25 imported=-              PARAM-TS=ref#60907(uvm_pkg::UVM_STREAMBITS)->int_typespec#60906@39:1-39:32
+SLOT defpkg   package(uvm_pkg/uvm_pkg)@28:1                  Param_assigns[7]/45.Lhs  #60898 @39:11-39:25 imported=-              PARAM-TS=ref#60907(uvm_pkg::UVM_STREAMBITS)->int_typespec#60906@39:1-39:32
+                                                           RHS=constant#60905@39:28-39:32 ct=9 sz=64 val=UINT:4096 ts=ref#60908(uvm_pkg)->int_typespec#60906@39:1-39:32
+-- SLOTS UVM_STREAMBITS /home/heyfey/.cache/slang-uhdm-goldens/02575d101ccaaa38d155/golden.uhdm n=14
+---------------- UVM_STREAMBITS  OURS (pristine)
+SLOT other    class_defn(work@env/)@7:1                      Param_assigns[7]/90.Lhs  #184633 @39:11-39:25 imported=uvm_pkg        PARAM-TS=ref#3101(uvm_pkg::UVM_STREAMBITS)->int_typespec#3105@39:1-39:32
+                                                           RHS=constant#3103@39:28-39:32 ct=9 sz=32 val=UINT:4096 ts=ref#3104(uvm_pkg)->int_typespec#3105@39:1-39:32
+SLOT other    class_defn(work@env/)@7:1                      Param_assigns[52]/90.Lhs  #184890 @39:11-39:25 imported=uvm_pkg        PARAM-TS=ref#3101(uvm_pkg::UVM_STREAMBITS)->int_typespec#3105@39:1-39:32
+                                                           RHS=constant#3103@39:28-39:32 ct=9 sz=32 val=UINT:4096 ts=ref#3104(uvm_pkg)->int_typespec#3105@39:1-39:32
+SLOT def      module_inst(/work@top)@44:1                    Parameters[36]/90  #179046 @39:11-39:25 imported=uvm_pkg        PARAM-TS=ref#179047(work@top.UVM_STREAMBITS)->int_typespec#179053@39:1-39:32
+SLOT def      module_inst(/work@top)@44:1                    Parameters[81]/90  #179519 @39:11-39:25 imported=uvm_pkg        PARAM-TS=ref#179520(work@top.UVM_STREAMBITS)->int_typespec#179526@39:1-39:32
+SLOT def      module_inst(/work@top)@44:1                    Param_assigns[7]/90.Lhs  #179049 @39:11-39:25 imported=uvm_pkg        PARAM-TS=ref#179050(work@top.UVM_STREAMBITS)->int_typespec#179055@39:1-39:32
+                                                           RHS=constant#179051@39:28-39:32 ct=9 sz=32 val=UINT:4096 ts=ref#179052(work@top)->int_typespec#179054@39:1-39:32
+SLOT def      module_inst(/work@top)@44:1                    Param_assigns[52]/90.Lhs  #179522 @39:11-39:25 imported=uvm_pkg        PARAM-TS=ref#179523(work@top.UVM_STREAMBITS)->int_typespec#179528@39:1-39:32
+                                                           RHS=constant#179524@39:28-39:32 ct=9 sz=32 val=UINT:4096 ts=ref#179525(work@top)->int_typespec#179527@39:1-39:32
+SLOT elab     module_inst(work@top/work@top)@44:1            Parameters[36]/90  #180570 @39:11-39:25 imported=uvm_pkg        PARAM-TS=ref#180571(work@top.UVM_STREAMBITS)->int_typespec#183402@39:1-39:32
+SLOT elab     module_inst(work@top/work@top)@44:1            Parameters[81]/90  #180795 @39:11-39:25 imported=uvm_pkg        PARAM-TS=ref#180796(work@top.UVM_STREAMBITS)->int_typespec#183462@39:1-39:32
+SLOT elab     module_inst(work@top/work@top)@44:1            Param_assigns[7]/90.Lhs  #180570 @39:11-39:25 imported=uvm_pkg        PARAM-TS=ref#180571(work@top.UVM_STREAMBITS)->int_typespec#183402@39:1-39:32
+                                                           RHS=constant#180573@39:28-39:32 ct=9 sz=32 val=UINT:4096 ts=ref#180574(work@top)->int_typespec#183402@39:1-39:32
+SLOT elab     module_inst(work@top/work@top)@44:1            Param_assigns[52]/90.Lhs  #180570 @39:11-39:25 imported=uvm_pkg        PARAM-TS=ref#180571(work@top.UVM_STREAMBITS)->int_typespec#183402@39:1-39:32
+                                                           RHS=constant#180798@39:28-39:32 ct=9 sz=32 val=UINT:4096 ts=ref#180799(work@top)->int_typespec#183462@39:1-39:32
+SLOT defpkg   package(uvm_pkg/uvm_pkg)@28:1                  Parameters[7]/45  #189 @39:11-39:25 imported=-              PARAM-TS=ref#190(uvm_pkg::UVM_STREAMBITS)->int_typespec#194@39:1-39:32
+SLOT defpkg   package(uvm_pkg/uvm_pkg)@28:1                  Param_assigns[7]/45.Lhs  #189 @39:11-39:25 imported=-              PARAM-TS=ref#190(uvm_pkg::UVM_STREAMBITS)->int_typespec#194@39:1-39:32
+                                                           RHS=constant#192@39:28-39:32 ct=9 sz=64 val=UINT:4096 ts=ref#193(uvm_pkg)->int_typespec#194@39:1-39:32
+SLOT elabpkg  package(uvm_pkg/uvm_pkg)@28:1                  Parameters[7]/45  #3100 @39:11-39:25 imported=-              PARAM-TS=ref#3101(uvm_pkg::UVM_STREAMBITS)->int_typespec#3105@39:1-39:32
+SLOT elabpkg  package(uvm_pkg/uvm_pkg)@28:1                  Param_assigns[7]/45.Lhs  #3100 @39:11-39:25 imported=-              PARAM-TS=ref#3101(uvm_pkg::UVM_STREAMBITS)->int_typespec#3105@39:1-39:32
+                                                           RHS=constant#3103@39:28-39:32 ct=9 sz=32 val=UINT:4096 ts=ref#3104(uvm_pkg)->int_typespec#3105@39:1-39:32
+-- SLOTS UVM_STREAMBITS /tmp/r10uvm201_suvm/default/SimpleUVM-1dc93a62/slang.uhdm n=14

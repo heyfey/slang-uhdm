@@ -1,0 +1,17 @@
+NEUTRAL      v201_q_castref.elab        defif|interface_inst||work@i201vq|16:1|Q_W2|p201vq|ct5/sz32
+             golden={} pris={'-': 2} pat={'int_typespec': 2}
+NEUTRAL      v201_q_castref.elab        defprog|program||work@pr201vq|18:1|Q_W2|p201vq|ct5/sz32
+             golden={} pris={'-': 2} pat={'int_typespec': 2}
+NEUTRAL      v201_q_castref.elab        def|module_inst||work@m201vq|20:1|Q_W2|p201vq|ct5/sz32
+             golden={} pris={'-': 2} pat={'int_typespec': 2}
+NEUTRAL      v201_q_castref.parse       defif|interface_inst||work@i201vq|16:1|Q_W2|p201vq|ct5/sz32
+             golden={} pris={'-': 2} pat={'int_typespec': 2}
+NEUTRAL      v201_q_castref.parse       defprog|program||work@pr201vq|18:1|Q_W2|p201vq|ct5/sz32
+             golden={} pris={'-': 2} pat={'int_typespec': 2}
+NEUTRAL      v201_q_castref.parse       def|module_inst||work@m201vq|20:1|Q_W2|p201vq|ct5/sz32
+             golden={} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_r_cliov.elab          def|module_inst||work@m201vr|12:1|R_B|p201vr|ct9/sz32
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+TO-GOLDEN    v201_r_cliov.parse         def|module_inst||work@m201vr|12:1|R_B|p201vr|ct9/sz32
+             golden={'int_typespec': 2} pris={'-': 2} pat={'int_typespec': 2}
+-- SCORED cells-moved=8  {'NEUTRAL': 6, 'TO-GOLDEN': 4}

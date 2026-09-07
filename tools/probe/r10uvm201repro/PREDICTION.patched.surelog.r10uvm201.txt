@@ -1,0 +1,32 @@
+# r10uvm201 — the MOVER PREDICTOR, patched.surelog.  OURS-ONLY: no golden is read, so it
+# runs on every database our binary produced.  RHSGAP = the param_assign Lhs
+# parameter carries a typespec and its own folded Rhs CONSTANT does not.
+# The rows this pass MOVES are the RHSGAP cells whose vpiImported is SET *and*
+# which sit in the DEF-view materialized copy (the `prtLhs9` gate); the census
+# in CENSUS.* is what settles each against golden.
+
+PRED default/EnumConstElab-d1ef321b RHSGAP key=other|module_inst|staged_reg|work@prim_subreg|21:4|RESVAL|-|ct0/sz5 pay=-/logic_typespec
+PRED default/FuncNoArgs-3352cd3d RHSGAP key=elab|module_inst|work@my_opt_reduce_or|work@my_opt_reduce_or|1:1|_TECHMAP_CONSTMSK_A_|-|ct0/sz6 pay=-/logic_typespec
+PRED default/NoParamSubs-bf43c6f4 RHSGAP key=elab|module_inst|work@top|work@top|6:1|X|-|ct0/sz2 pay=-/logic_typespec
+PRED default/NoReducTypespec-e5536851 RHSGAP key=other|module_inst|i_axi_xbar|work@axi_xbar|27:3|Connectivity|-|ct9/sz25 pay=-/bit_typespec
+PRED default/PackedArrayHighConn-d5f4ff29 RHSGAP key=elab|module_inst|work@dut|work@dut|12:1|DioPadBank|-|ct3/sz2 pay=-/logic_typespec
+PRED default/ParamFromPackage-daf057b6 RHSGAP key=other|module_inst|u_aes_cipher_core|work@aes_cipher_core|13:4|X|aes_pkg|ct5/sz32 pay=-/logic_typespec
+PRED default/ParamNoSubst-c99f7a8c RHSGAP key=other|module_inst|ctrl_shadowed_reg|work@prim_subreg_shadow|25:3|RESVAL|-|ct0/sz32 pay=-/logic_typespec
+PRED default/ParamOverloading-addfdef8 RHSGAP key=other|module_inst|staged_reg|work@prim_subreg|18:4|RESVAL|-|ct0/sz5 pay=-/logic_typespec
+PRED default/ParamTypespec-4b51ea4f RHSGAP key=elab|module_inst|work@top|work@top|9:1|PartInvDefault|otp_ctrl_part_pkg|ct9/sz3 pay=-/logic_typespec
+PRED default/PAssignType-2de33ee2 RHSGAP key=other|module_inst|shadow_reg|work@shadow|25:3|RESVAL|-|ct0/sz32 pay=-/logic_typespec
+PRED default/PatternAssignLogic-0881d559 RHSGAP key=elab|module_inst|work@top|work@top|1:1|P|-|ct0/sz8 pay=-/logic_typespec
+PRED default/TypespecExpr-2b4155f3 RHSGAP key=other|module_inst|mod1|work@Mod1|9:4|PARAM|-|ct0/sz32 pay=-/logic_typespec
+PRED testflags/EnumConstElab-d1ef321b RHSGAP key=other|module_inst|staged_reg|work@prim_subreg|21:4|RESVAL|-|ct0/sz5 pay=-/logic_typespec
+PRED testflags/FuncNoArgs-3352cd3d RHSGAP key=elab|module_inst|work@my_opt_reduce_or|work@my_opt_reduce_or|1:1|_TECHMAP_CONSTMSK_A_|-|ct0/sz6 pay=-/logic_typespec
+PRED testflags/NoReducTypespec-e5536851 RHSGAP key=other|module_inst|i_axi_xbar|work@axi_xbar|27:3|Connectivity|-|ct9/sz25 pay=-/bit_typespec
+PRED testflags/PackedArrayHighConn-d5f4ff29 RHSGAP key=elab|module_inst|work@dut|work@dut|12:1|DioPadBank|-|ct3/sz2 pay=-/logic_typespec
+PRED testflags/ParamFromPackage-daf057b6 RHSGAP key=other|module_inst|u_aes_cipher_core|work@aes_cipher_core|13:4|X|aes_pkg|ct5/sz32 pay=-/logic_typespec
+PRED testflags/ParamOverloading-addfdef8 RHSGAP key=other|module_inst|staged_reg|work@prim_subreg|18:4|RESVAL|-|ct0/sz5 pay=-/logic_typespec
+PRED testflags/ParamTypespec-4b51ea4f RHSGAP key=elab|module_inst|work@top|work@top|9:1|PartInvDefault|otp_ctrl_part_pkg|ct9/sz3 pay=-/logic_typespec
+PRED testflags/PAssignType-2de33ee2 RHSGAP key=other|module_inst|shadow_reg|work@shadow|25:3|RESVAL|-|ct0/sz32 pay=-/logic_typespec
+PRED testflags/PatternAssignLogic-0881d559 RHSGAP key=elab|module_inst|work@top|work@top|1:1|P|-|ct0/sz8 pay=-/logic_typespec
+PRED testflags/TypespecExpr-2b4155f3 RHSGAP key=other|module_inst|mod1|work@Mod1|9:4|PARAM|-|ct0/sz32 pay=-/logic_typespec
+
+-- ROBUST TOTAL (censum201.sh): records=956 rows=956 cells=51481 RHSGAP=22 LHSGAP=519 RECORDS-COMPLETE
+-- PROCESSED=956 LISTED=956 NOGOLDEN=0 RESTORE_FAILS=0 NONZERO_RC=0 MOVER_ROWS=57
