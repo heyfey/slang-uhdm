@@ -3423,6 +3423,7 @@ inline TdLocalVarKind10 classTdLocalVarKind10(
                          : TdLocalVarKind10::RefVar;
 }
 
+
 // ---------------------------------------------------------------------------
 // § blockLocalTdDeclIsRefVarUnsupported155
 //
@@ -4239,6 +4240,283 @@ inline bool ownNamedAliasRetIsRefVar177(const slang::ast::SubroutineSymbol& sub,
     }
     return false;
 }
+
+// ---------------------------------------------------------------------------
+// § externProtoRetVarKindIsPrototypeCompile185
+//
+// THE LAW.  An `extern` class method has TWO `function` objects in the model —
+// the CLASS-BODY PROTOTYPE listing (no `Stmt`, spanning the `extern` keyword)
+// and the OUT-OF-BODY DEFINITION listing (the body) — and Surelog compiles the
+// PROTOTYPE listing's RETURN VARIABLE from the PROTOTYPE: with the CLASS as the
+// compiling component, and from the return type the PROTOTYPE LINE WRITES.  So
+// § classTdLocalVarKindFollowsCompileOrder10, which decides that variable's
+// class, must be asked about the MethodPrototypeSymbol there — never about the
+// out-of-body SubroutineSymbol, whose `outOfBlockIndex` and whose (differently
+// written) return type answer the DEFINITION listing's question instead.
+//
+// WHY, read off Surelog.  `CompileClass.cpp:526-577`, the `paMethod_prototype`
+// arm, calls `m_helper.compileFunction(m_class, fC, fC->Child(id), …)` — the
+// component is `m_class` and the file-content node is the PROTOTYPE's own
+// `Class_method`.  `compileFunction` (`CompileStmt.cpp:2384-2412`) then takes
+// `Return_data_type` out of THAT node and hands it to
+// `compileVariable(component, fC, Return_data_type, …)`, whose `paClass_scope`
+// arm (`CompileType.cpp:554-624`) is what law 10 models: it rebuilds
+// `<container>::<the one written segment>` and answers `getSimpleVarFromTypespec`
+// (an `enum_var` / `struct_var` / …) when that key resolves and a bare
+// `s.MakeClass_var()` when it does not.  The out-of-body DEFINITION listing is a
+// SECOND, SEPARATE `compileFunction` over the definition node, and it is the one
+// § classTdLocalVarKindFollowsCompileOrder10's `ctx.outOfBody` term already
+// models — that arm is untouched here.
+//
+// MEASURED, golden, on `tools/probe/r10sd12repro/grid10/g7_return_var.sv`, the
+// arm the shipped law10 was written against — golden emits BOTH objects and
+// they disagree with each other, which is the whole point:
+//
+//   extern function aholder::arec_t r_ext_early();   (prototype, line 36)
+//   function aholder::arec_t muser::r_ext_early();   (definition, line 40)
+//     golden PROTOTYPE listing  function@36:5-36:11  Return struct_var@36:21
+//     golden DEFINITION listing function@40:3-40:61  Return class_var @40:12
+//   extern function orec_t r_ext_own();              (prototype, line 37)
+//   function muser::orec_t muser::r_ext_own();       (definition, line 41)
+//     golden PROTOTYPE listing  function@37:5-37:11  Return struct_var@37:21
+//     golden DEFINITION listing function@41:3-41:61  Return class_var @41:12
+//
+// The two cells exercise the two halves independently: `r_ext_early` writes the
+// SAME scoped spelling on both lines and moves on the CONTEXT alone, while
+// `r_ext_own` writes a BARE own-class typedef on the prototype and the scoped
+// `muser::orec_t` on the definition (the LRM requires the scope out of body), so
+// it moves on the WRITTEN SPELLING as well.
+//
+// WHAT THIS DOES NOT CHANGE.  Only the KIND.  Golden also anchors the prototype
+// listing's return variable at the PROTOTYPE's return-type span (`36:21`,
+// `19055:27`) where we anchor it at the definition's (`40:12`, `20364:10`); no
+// generated `Compare` reads a line or a column (RESUME.md §9), the census
+// measures that family at 3296 cells over the nine UVM row-modes against this
+// law's 2, and moving it would move thousands of corpus bytes no compared field
+// can see.  It is recorded as R1 in the pass README and deliberately not made.
+//
+// TERM 2 — THE ARRAY ROW OUR RETURN-VAR FACTORY DOES NOT MODEL IS DECLINED.
+// When the lookup resolves, golden's class is whatever
+// `getSimpleVarFromTypespec` (`CompileType.cpp:78-248`) returns for the
+// typedef's typespec.  `makeReturnVar` models that table and `g185_e_kinds.sv`
+// scores all of it against golden: 17 kinds agree (enum, struct, packed struct,
+// packed union, int, byte, shortint, longint, integer, bit vector, logic vector,
+// packed 2-D array, real, shortreal, time, string, fixed unpacked array).  The
+// DYNAMIC / QUEUE / ASSOCIATIVE typedef does not — golden takes the
+// `uhdmarray_typespec` row and emits an `array_var` while our factory builds a
+// `logic_var` — so the law DECLINES those and hands the listing back to the
+// shipped chain unchanged.  MEASURED on BOTH spellings: `g22.sv` `po_q_int`
+// (bare) and `g185_e_kinds.sv` `k_dyn` / `k_q` / `k_assoc` (scoped).  R2.
+//
+// TERM 3 — A SCOPED SPELLING WHOSE TYPEDEF HAS A NAMED BASE IS `class_var`.
+// The `paClass_scope` arm resolves through `dtype->getTypespec()`, walking
+// `dtype->getDefinition()` when that is null, and BOTH of those are filled for a
+// typedef whose written base is a NAMED TYPE only by
+// `ElaborationStep::bindTypedefs_` (`ElaborationStep.cpp:267-285`, the
+// `prevDef == nullptr` arm), which runs AFTER every component compile.  So a
+// class-scoped `typedef <name> T;` has neither when the class body is compiled,
+// the loop finds nothing, and golden takes
+// `if (var == nullptr) var = s.MakeClass_var();` — the SAME fallback the
+// non-resolving order/reach answer produces.  MEASURED, golden,
+// `g185_e_kinds.sv`: `k_alias` (`typedef e_enum e_alias`), `k_xalias`
+// (`typedef ze185::z_enum e_xalias`) and `k_cls` (`typedef ae185 e_cls`, a class
+// handle — always a named base) are all `class_var`; without this term all three
+// move AWAY.  The head's own typedef is `typedef enum { … } recursion_state_e;`
+// — an INLINE base, bound by the class compile itself — which is why it
+// resolves.
+//
+// TERM 4 — A BARE SPELLING WHOSE TYPEDEF HAS A NAMED BASE IS `ref_var`.  Same
+// unbound typedef, different Surelog arm: a bare name goes to
+// `component->getDataType(typeName)` and falls through to
+// `CompileType.cpp:421`'s bare `MakeRef_var`, which is exactly what
+// § ownNamedAliasRetIsRefVar177 decoded — with the compiling component here
+// being the CLASS.  MEASURED, golden: `g185_a_context.sv` `e_own_alias`,
+// `r10buvm9repro/w6v_clsalias.sv` `f3`, `r10buvm22repro/g22.sv` `po_tdcls` /
+// `po_q_cls` / `po_f_cls`.
+//
+// THE TWO ARMS ARE NOT INTERCHANGEABLE, and that is measured: term 3 answers
+// `class_var` where term 4 answers `ref_var` for the very same typedef, because
+// the PROTOTYPE LINE's own spelling picks the arm.  `g185_a_context.sv` carries
+// the pair (`e_own_alias` bare vs `e_alias_scoped` scoped, one typedef).
+//
+// @param sub     the SubroutineSymbol being emitted (the out-of-body definition
+//                when `protoOf` is set — its body is what the definition
+//                listing carries)
+// @param protoOf the MethodPrototypeSymbol when THIS listing is the class-body
+//                prototype of an `extern` method, null in every other listing
+inline TdLocalVarKind10 externProtoRetVarKind185(
+    const slang::ast::SubroutineSymbol& sub,
+    const slang::ast::MethodPrototypeSymbol* protoOf) {
+    if (!protoOf) return classTdLocalVarKind10(sub);
+    const TdLocalVarKind10 k = classTdLocalVarKind10(*protoOf);
+    if (k != TdLocalVarKind10::Resolved) return k;
+    // TERMS 2-4 ARE ABOUT ONE POPULATION ONLY: a return type that IS a typedef
+    // OWNED BY A CLASS.  Anything else reaches `compileVariable` through an arm
+    // this law does not model, and answering here would be wrong in a way the
+    // grid catches — without this gate `g185_b_notmove.sv` `b_pkgalias`
+    // (a PACKAGE-level `typedef pkg_enum pkg_alias;` returned from an `extern`
+    // prototype) moves AWAY from golden's `enum_var`.
+    const slang::ast::Type& rt = protoOf->getReturnType();
+    if (rt.kind != slang::ast::SymbolKind::TypeAlias)
+        return TdLocalVarKind10::Resolved;
+    const auto& ta = rt.as<slang::ast::TypeAliasType>();
+    const slang::ast::Scope* osc = ta.getParentScope();
+    if (!osc || osc->asSymbol().kind != slang::ast::SymbolKind::ClassType)
+        return TdLocalVarKind10::Resolved;
+    const slang::ast::Symbol& owner = osc->asSymbol();
+    // TERM 2 — THE ONE ROW OF `getSimpleVarFromTypespec` OUR RETURN-VAR FACTORY
+    // DOES NOT MODEL IS DECLINED, ON BOTH SPELLINGS.  Golden takes the
+    // `uhdmarray_typespec` row and emits an `array_var` for a DYNAMIC / QUEUE /
+    // ASSOCIATIVE typedef; our factory has no model for it and builds a
+    // `logic_var`, which is a DIFFERENT wrong answer from the one we build
+    // today.  `return classTdLocalVarKind10(sub)` is this law DECLINING: it
+    // hands the listing back to the shipped chain, so the cell keeps the
+    // PRISTINE object exactly.  MEASURED both ways —
+    // `r10buvm22repro/g22.sv` `po_q_int` (`typedef int kq_int_t[$]`, named BARE
+    // on the prototype) and `g185_e_kinds.sv` `k_dyn` / `k_q` / `k_assoc`
+    // (SCOPED): golden `array_var`, ours `class_var`; without this term
+    // `po_q_int` is MOVED-WRONG to `logic_var`.  The residue is R2 in the pass
+    // README, with ZERO corpus population — the census over the nine UVM
+    // row-modes finds no prototype cell of the shape.  The FIXED unpacked array
+    // is NOT declined: `g185_e_kinds.sv` `k_arr` and `g185_a_context.sv`
+    // `e_own_arr` both resolve to golden's `array_var`.
+    switch (rt.getCanonicalType().kind) {
+        case slang::ast::SymbolKind::DynamicArrayType:
+        case slang::ast::SymbolKind::QueueType:
+        case slang::ast::SymbolKind::AssociativeArrayType:
+            return classTdLocalVarKind10(sub);
+        default:
+            break;
+    }
+    // THE PROTOTYPE'S OWN WRITTEN SPELLING picks Surelog's arm: `C::T` takes
+    // `paClass_scope` (term 3), a bare `T` takes `slStringConst` (term 4).
+    const slang::ast::DeclaredType* dt = protoOf->getDeclaredType();
+    const slang::syntax::SyntaxNode* rsyn = dt ? dt->getTypeSyntax() : nullptr;
+    const auto* nts = rsyn ? rsyn->as_if<slang::syntax::NamedTypeSyntax>()
+                           : nullptr;
+    if (!nts || !nts->name) return TdLocalVarKind10::Resolved;
+    const auto nk = nts->name->kind;
+    // A `parameter type` IS ALSO DECLINED.  slang models a class TYPE PARAMETER
+    // as a `TypeAliasType` owned by the class, but it has no
+    // `TypedefDeclaration` syntax and it is not a typedef at all — Surelog
+    // resolves it through the specialization, not through `getDataType`.
+    // § ownNamedAliasRetIsRefVar177 excludes it for exactly this reason
+    // (its term 3), and so must this law: without the exclusion
+    // `extern function T f();` on a parameterised class is MOVED AWAY from
+    // golden's `class_var` to a `ref_var`.  MEASURED, golden, on three
+    // committed boundary arms that the WIDE boundary caught and nothing else
+    // did — `r10uvm105repro/g105_a1.sv` `oob_ret` (`type T = d105a`),
+    // `r10v105repro/v105_b4.sv` `retm` (`type UT = du_b4`) and
+    // `r10v107repro/v107_b6.sv` `ret_bare` (`type T = d6`).
+    const slang::syntax::SyntaxNode* tsyn = ta.getSyntax();
+    if (!tsyn || tsyn->kind != slang::syntax::SyntaxKind::TypedefDeclaration)
+        return classTdLocalVarKind10(sub);
+    // IS THE TYPEDEF'S OWN WRITTEN BASE A NAMED TYPE?  `ElaborationStep::
+    // bindTypedefs_` binds those AFTER every component compile, so the class
+    // body sees neither a definition nor a typespec for them.
+    const auto& tds = tsyn->as<slang::syntax::TypedefDeclarationSyntax>();
+    const bool namedBase =
+        tds.type && tds.type->kind == slang::syntax::SyntaxKind::NamedType;
+    if (nk == slang::syntax::SyntaxKind::IdentifierName) {
+        // TERM 4 — THE BARE ARM'S OWN ANSWER IS `ref_var`, NOT THE RESOLVED
+        // KIND.  A bare name goes to `component->getDataType(typeName)`, and
+        // § ownNamedAliasRetIsRefVar177 already decoded what happens when that
+        // finds an unbound named-base typedef of the compiling component: the
+        // switch falls through to `CompileType.cpp:421`'s bare `MakeRef_var`.
+        // The compiling component here is the CLASS, so the term is exactly
+        // "the class's OWN named-base typedef".  MEASURED — `g185_a_context.sv`
+        // `e_own_alias`, `r10buvm9repro/w6v_clsalias.sv` `f3`
+        // (`typedef w6p::b_s n3_s;` named bare from the prototype) and
+        // `r10buvm22repro/g22.sv` `po_tdcls` / `po_q_cls` / `po_f_cls`: golden
+        // `ref_var` on every one.  Without this term they are MOVED-WRONG to
+        // the resolved kind.  The shadow gate is § 177's own, reused unchanged.
+        const TdDeclCtx10 pctx = tdDeclCtx10(*protoOf);
+        // V-FIX r10v185 — § externProtoBareRetReachesOwnTypedefOnly185v.
+        // THE BARE ARM REACHES THE COMPILING CLASS'S **OWN** TYPEDEF MAP AND
+        // NOTHING ELSE.  `component->getDataType(typeName)` is a lookup in the
+        // class component's own datatype map; it does NOT walk the inheritance
+        // chain, so a typedef the prototype's class INHERITED is not found and
+        // the switch falls through to `CompileType.cpp:421`'s bare
+        // `MakeRef_var` — the same object term 4 already names, for the same
+        // reason.  § classTdLocalVarKindFollowsCompileOrder10's bare arm
+        // answers this cell by its SIBLING-ORDER term instead (its own comment
+        // records inheritance as the one way a bare name reaches a non-`self`
+        // owner and states that the corpus never separates the two readings),
+        // and once the PROTOTYPE listing is decided by that law the two
+        // readings DO come apart — in the direction that moves cells off
+        // golden.
+        //
+        // MEASURED, golden, seven cells over four arms and BOTH views, and in
+        // BOTH sort directions so that no cell agrees merely because the names
+        // happened to sort the right way:
+        //   `v185_i_inherit.sv`  `i_inh_bare_enum` / `i_inh_bare_rec` /
+        //       `i_inh_bare_alias` / `i_inh_bare_int` — base `ab_base185`
+        //       sorts BEFORE the derived `cd_der185`, so the order term
+        //       RESOLVED them: golden `ref_var`, patch `enum_var` /
+        //       `struct_var` / `enum_var` / `int_var` (MOVED-WRONG)
+        //   `v185_i_inherit.sv`  `i_late_bare_enum` — base sorts AFTER, the
+        //       order term already answered `ref_var`; golden `ref_var` too,
+        //       so this cell is the negative control that the term does not
+        //       change
+        //   `v185_l_quals.sv`    `der_q185::l_virtual` — the same shape on a
+        //       virtual OVERRIDE
+        //   `v185_k_parm.sv`     `ck_der185::k_inhspec_bare` — the same shape
+        //       inheriting from a SPECIALIZATION
+        //   `v185_m_selfscope.sv` `cmod185::m_mod_bare_inh` — the same shape
+        //       inside a MODULE
+        // The IN-BODY twin (`i_body_bare_enum`) is golden `ref_var` and ours
+        // `enum_var` on BOTH binaries: a pre-existing residue of law 10's
+        // in-body arm that this term deliberately does not touch (R-V2).
+        if ((const slang::ast::Symbol*)pctx.cls != &owner)
+            return TdLocalVarKind10::RefVar;
+        if (namedBase && ownNamedAliasNameIsNotShadowing177v(ta))
+            return TdLocalVarKind10::RefVar;
+        return TdLocalVarKind10::Resolved;
+    }
+    if (nk != slang::syntax::SyntaxKind::ScopedName)
+        return TdLocalVarKind10::Resolved;
+    // V-FIX r10v185 — § externProtoScopedRetMustNameTheOwner185v.
+    // THE WRITTEN SCOPE MUST NAME THE TYPEDEF'S OWN OWNER.  The `paClass_scope`
+    // arm rebuilds ONE key from the SEGMENT AS WRITTEN and looks the leaf up in
+    // THAT container's own map — no inheritance walk — so
+    // `<derived>::<a typedef the derived class inherited>` finds nothing and
+    // golden takes `if (var == nullptr) var = s.MakeClass_var();`.
+    // § classTdLocalVarKindFollowsCompileOrder10's scoped arm checks the
+    // OWNER's reach and sort order but never that the WRITTEN segment names the
+    // owner, and for every site that law governs today the two coincide; the
+    // PROTOTYPE listing is the first site where they do not.
+    //
+    // MEASURED, golden, five cells over two arms and BOTH views:
+    //   `v185_m_selfscope.sv` `m_self_enum` / `m_self_rec` / `m_self_int`
+    //       (`cd_m185::<ab_m185's typedef>`, package scope) and
+    //       `m_mod_self_enum` (the same shape inside a MODULE): golden
+    //       `class_var`, PRISTINE `class_var`, and the patch moved every one of
+    //       them AWAY to `enum_var` / `struct_var` / `int_var`
+    //   `v185_i_inherit.sv`  `i_inh_selfscoped_enum` — the same shape, AWAY
+    // The controls that must NOT move are in the same arms and do not:
+    // `m_owner_enum` / `m_owner_rec` / `i_inh_scoped_enum` / `i_inh_scoped_rec`
+    // write the OWNER's own name for the very same typedefs and stay TOWARD,
+    // and `k_spec_early` (`ak_gen185#(8)::gk_enum`, whose written segment is a
+    // `ClassName` node) keeps resolving.
+    {
+        const auto& sn = nts->name->as<slang::syntax::ScopedNameSyntax>();
+        std::string_view seg;
+        if (sn.left->kind == slang::syntax::SyntaxKind::IdentifierName)
+            seg = sn.left->as<slang::syntax::IdentifierNameSyntax>()
+                      .identifier.valueText();
+        else if (sn.left->kind == slang::syntax::SyntaxKind::ClassName)
+            seg = sn.left->as<slang::syntax::ClassNameSyntax>()
+                      .identifier.valueText();
+        if (seg != owner.name) return TdLocalVarKind10::ClassVar;
+    }
+    // TERM 3 — a NAMED-BASE typedef is not bound yet where the class compiles,
+    // so the `paClass_scope` loop finds nothing and golden takes
+    // `if (var == nullptr) var = s.MakeClass_var();`.
+    if (namedBase) return TdLocalVarKind10::ClassVar;
+    return TdLocalVarKind10::Resolved;
+}
+// (PLACED HERE, after § ownNamedAliasRetIsRefVar177, because term 4 calls that
+//  law's own shadow gate `ownNamedAliasNameIsNotShadowing177v`.)
 
 // ---------------------------------------------------------------------------
 // § declArrayElemKindIsDeclKind12

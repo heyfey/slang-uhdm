@@ -1,0 +1,33 @@
+r10uvm185 — THE MOVER PREDICTION, made from the PRISTINE databases ALONE and
+BEFORE the patched sweep was read.  No golden is opened by predict185.sh.
+
+surelog corpus: SCANNED=956 CANDIDATE_ROWS=13 CANDIDATE_DBS=9
+uhdm2rtlil    : SCANNED=1358 CANDIDATE_ROWS=0 CANDIDATE_DBS=0
+
+---- candidate DBs (surelog)
+default/BuildUVMPkg-bf853d43	3
+default/MiniAmiq-544c7f61	1
+default/Scoreboard-59431470	1
+default/SeqDriver-32af76aa	1
+default/SimpleUVM-1dc93a62	1
+testflags/BuildUVMPkg-bf853d43	3
+testflags/MiniAmiq-544c7f61	1
+testflags/SeqDriver-32af76aa	1
+testflags/SimpleUVM-1dc93a62	1
+
+---- candidate rows (surelog): db | function fullname | function span | our kind | ts kind | ts name
+default/BuildUVMPkg-bf853d43	uvm_pkg::uvm_comparer::object_compared	20982:3-20982:9	class_var	enum_typespec	recursion_state_e
+default/BuildUVMPkg-bf853d43	uvm_pkg::uvm_printer::object_printed	19055:3-19055:9	class_var	enum_typespec	recursion_state_e
+default/BuildUVMPkg-bf853d43	uvm_pkg::uvm_set_get_dap_base::get	43834:4-43834:34	ref_var	int_typespec	-
+default/MiniAmiq-544c7f61	uvm_pkg::uvm_set_get_dap_base::get	71:4-71:34	ref_var	int_typespec	-
+default/Scoreboard-59431470	uvm_pkg::uvm_set_get_dap_base::get	71:4-71:34	ref_var	int_typespec	-
+default/SeqDriver-32af76aa	uvm_pkg::uvm_set_get_dap_base::get	71:4-71:34	ref_var	int_typespec	-
+default/SimpleUVM-1dc93a62	uvm_pkg::uvm_set_get_dap_base::get	71:4-71:34	ref_var	int_typespec	-
+testflags/BuildUVMPkg-bf853d43	uvm_pkg::uvm_comparer::object_compared	20982:3-20982:9	class_var	enum_typespec	recursion_state_e
+testflags/BuildUVMPkg-bf853d43	uvm_pkg::uvm_printer::object_printed	19055:3-19055:9	class_var	enum_typespec	recursion_state_e
+testflags/BuildUVMPkg-bf853d43	uvm_pkg::uvm_set_get_dap_base::get	43834:4-43834:34	ref_var	int_typespec	-
+testflags/MiniAmiq-544c7f61	uvm_pkg::uvm_set_get_dap_base::get	71:4-71:34	ref_var	int_typespec	-
+testflags/SeqDriver-32af76aa	uvm_pkg::uvm_set_get_dap_base::get	71:4-71:34	ref_var	int_typespec	-
+testflags/SimpleUVM-1dc93a62	uvm_pkg::uvm_set_get_dap_base::get	71:4-71:34	ref_var	int_typespec	-
+
+---- candidate rows (uhdm2rtlil): NONE

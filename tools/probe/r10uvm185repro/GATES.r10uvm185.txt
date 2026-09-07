@@ -1,0 +1,93 @@
+r10uvm185 — THE GATES, all run from this pass's OWN worktree at BASE b71d5feb
+with its OWN pinned workdirs and its OWN frozen binaries.  MEASUREMENT ONLY;
+`uhdm-cmp` and `scripts/verify_golden.py` are the authorities.
+
+BINARIES (both frozen chmod 555 BEFORE any sweep)
+  pristine  /tmp/<pass scratch>/pris   md5 bc09e77cf8fd251285c06f6f0b54a5bc
+            built from a clean b71d5feb worktree; BYTE-IDENTICAL to the
+            master's own pristine at b71d5feb (/tmp/pris_bc09.bin)
+  patched   /tmp/<pass scratch>/pat    md5 888a51d91d62274dde0c4843f008c488
+
+(1) BUILD              both, -j 2, 0 errors.  md5s above.
+
+(2) GOLDEN TESTS       SLANG_UHDM exported EXPLICITLY to each binary
+      patched                     PASS=23  FAIL=0
+      pristine                    PASS=23  FAIL=0
+      SLANG_UHDM=/bin/false       FAIL=23        (negative control)
+
+(3) uhdm2rtlil         --mode testflags and --mode default, --jobs 2,
+                       own --out / --workdir.  Every cmds.txt audited BY PATH:
+                       1458 rows, all naming this pass's frozen binary.
+      status histogram (testflags)  CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+      ct8rows vs results/gate_uhdm2rtlil.csv          0 differing ROWS
+      ct8rows vs /tmp/ctl_u2r_b71d5feb.csv            0 differing ROWS
+      ct8rows vs /tmp/ctl_u2r_def_b71d5feb.csv        0 differing ROWS
+      ct8rows patched vs this pass's OWN pristine     0 differing ROWS
+      (status AND dump column on every one)
+
+(4) surelog            --mode both, --jobs 2, own --out / --workdir.
+                       Every cmds.txt audited BY PATH: 1523 rows, all naming
+                       this pass's frozen binary.
+      ct8rows vs results/golden_surelog.csv           0 differing ROWS / 1588
+      ct8rows vs /tmp/ctl_sl_b71d5feb.csv             0 differing ROWS
+      ct8rows patched vs this pass's OWN pristine     0 differing ROWS
+      NO ROW CONVERTED in either direction; results/*.csv were READ ONLY.
+
+(5) BYTE MOVERS        SELFCHECK=1 byteverify.sh, patched vs own pristine
+      surelog     PATH_SETS_IDENTICAL (956 paths)   MOVERS 3 / 956
+                    ./default/BuildUVMPkg     bbf172cd412b <- 5c6a62b63407  PREDICTED
+                    ./testflags/BuildUVMPkg   bbf172cd412b <- 5c6a62b63407  PREDICTED
+                    ./default/Scoreboard      0d80f8f5d07e <- c09f5e4b3e5b  THE COIN
+                  SELFCHECK 955 / 956 flagged
+      uhdm2rtlil  PATH_SETS_IDENTICAL (1358 paths)  MOVERS 0 / 1358  PREDICTED
+                  SELFCHECK 1357 / 1358 flagged
+
+      PREDICTION, made from the PRISTINE databases ALONE and BEFORE the patched
+      sweep was read (predict185.sh opens no golden):
+        surelog     SCANNED=956   CANDIDATE_ROWS=13  CANDIDATE_DBS=9
+        uhdm2rtlil  SCANNED=1358  CANDIDATE_ROWS=0   CANDIDATE_DBS=0
+
+      ATTRIBUTION
+        BuildUVMPkg  path-normalised whole-dump diff = 4 lines = ONE object,
+                     `class_var` -> `enum_var` on
+                     uvm_pkg::uvm_printer::object_printed (the law's own cell).
+        Scoreboard   ORDERED dump diff 92 lines, ORDER-BLIND (sorted) diff 0 —
+                     RESUME.md §9's coin signature.  PROVEN a coin here: four
+                     harness runs of the PRISTINE binary alone gave
+                       0d80f8f5d07e / c09f5e4b3e5b / 0d80f8f5d07e / c09f5e4b3e5b
+                     i.e. the "patched" hash is one the PRISTINE binary produces.
+
+(6) HEADS              rowheads.sh on the patched sweep
+      SeqDriver     default    29    1        (unchanged)
+      SeqDriver     testflags  29    1        (unchanged)
+      SimpleUVM     default  664681  1        (unchanged)
+      SimpleUVM     testflags 664681 1        (unchanged)
+      Scoreboard    default    95    1        (unchanged)
+      Scoreboard    testflags   -    -        SKIP-NOFILE (expected)
+      MiniAmiq      default    29    1        (unchanged)
+      MiniAmiq      testflags  29    1        (unchanged)
+      BuildUVMPkg   default    48    1        52 -> 48  THIS PASS
+      BuildUVMPkg   testflags  48    1        52 -> 48  THIS PASS
+      Earlgrey_0_1  default    31    1        (unchanged)
+      Earlgrey_0_1  testflags 364    1        (unchanged)
+      Rggen         default     0    0        (unchanged)
+      Rggen         testflags   -    -        SKIP-NOFILE (expected)
+      BuildUVMPkg's two modes: databases byte-identical (bbf172cd412b…) and cmp
+      logs byte-identical (14154829ad19…), before and after.
+
+(7) CANARIES
+      canaries.sh  surelog     ok=52 changed=0 absent=0
+      canaries.sh  uhdm2rtlil  ok=8  changed=0 absent=0
+      ctcan2.sh    EXPECT_UNKNOWN=1 surelog     PASS
+      ctcan2.sh    EXPECT_UNKNOWN=6 uhdm2rtlil  PASS
+      canaudit.sh canaries.sh ctcan2.sh   audited=29 UNCOVERED=0 FENCE-BREACH=0
+      PROTECTED DATABASES, md5 pristine vs patched
+        InterfaceModPort    default/testflags  59a365f3ce2c  SAME
+        BlackParrotComplex  default e3e354129d5a / testflags 73a10e8217e5  SAME
+        YosysOldOr          default/testflags  d68e0796d62c  SAME
+        SVSwitch            default/testflags  4842211c4030  SAME (pinned value)
+        YosysVerx           default/testflags  6ccda350c24a  SAME (pinned value)
+
+(8) FENCE               the four slang-fenced tests were NEVER dispatched and
+                        appear only inside canaudit.sh's own fence list.  The
+                        wide boundary compiles tools/probe arms exclusively.

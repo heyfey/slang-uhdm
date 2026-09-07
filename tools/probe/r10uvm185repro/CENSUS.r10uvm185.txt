@@ -1,0 +1,46 @@
+r10uvm185 — THE CENSUS: the decoded face over the NINE UVM ROW-MODES, golden vs ours,
+BEFORE (this pass's own pristine sweep) and AFTER (its own patched sweep).
+MEASUREMENT ONLY.  LHS is ALWAYS golden.
+
+################ BEFORE — pristine, md5 bc09e77cf8fd251285c06f6f0b54a5bc
+== BuildUVMPkg.default        OTHER/AGREE=3690 OTHER/G-ONLY=1 OTHER/O-ONLY=1 PROTO/AGREE=592 PROTO/KIND-DIFF=1 PROTO/SPAN-DIFF=408
+== BuildUVMPkg.testflags      OTHER/AGREE=3690 OTHER/G-ONLY=1 OTHER/O-ONLY=1 PROTO/AGREE=592 PROTO/KIND-DIFF=1 PROTO/SPAN-DIFF=408
+== MiniAmiq.default           OTHER/AGREE=5213 OTHER/G-ONLY=2 OTHER/O-ONLY=2 OTHER/SPAN-DIFF=2 PROTO/AGREE=538 PROTO/SPAN-DIFF=353
+== MiniAmiq.testflags         OTHER/AGREE=5213 OTHER/G-ONLY=2 OTHER/O-ONLY=2 OTHER/SPAN-DIFF=2 PROTO/AGREE=538 PROTO/SPAN-DIFF=353
+== Scoreboard.default         OTHER/AGREE=3366 PROTO/AGREE=538 PROTO/SPAN-DIFF=362
+== SeqDriver.default          OTHER/AGREE=4929 PROTO/AGREE=529 PROTO/SPAN-DIFF=353
+== SeqDriver.testflags        OTHER/AGREE=4929 PROTO/AGREE=529 PROTO/SPAN-DIFF=353
+== SimpleUVM.default          OTHER/AGREE=3326 PROTO/AGREE=529 PROTO/SPAN-DIFF=353
+== SimpleUVM.testflags        OTHER/AGREE=3326 PROTO/AGREE=529 PROTO/SPAN-DIFF=353
+== TOTAL (nine UVM row-modes)
+   OTHER/AGREE          37682
+   OTHER/G-ONLY         6
+   OTHER/O-ONLY         6
+   OTHER/SPAN-DIFF      4
+   PROTO/AGREE          4914
+   PROTO/KIND-DIFF      2
+   PROTO/SPAN-DIFF      3296
+-- detail rows (KIND-DIFF and G-ONLY/O-ONLY on the PROTO arm)
+   BuildUVMPkg.default      PROTO KIND-DIFF uvm_pkg::uvm_printer::object_printed 19055:3 | L=('enum_var', '19055:27', 'enum_typespec', 'recursion_state_e') R=('class_var', '20364:10', 'enum_typespec', 'recursion_state_e')
+   BuildUVMPkg.testflags    PROTO KIND-DIFF uvm_pkg::uvm_printer::object_printed 19055:3 | L=('enum_var', '19055:27', 'enum_typespec', 'recursion_state_e') R=('class_var', '20364:10', 'enum_typespec', 'recursion_state_e')
+   (SPAN-DIFF rows suppressed; pass --all for every row)
+
+################ AFTER — patched, md5 888a51d91d62274dde0c4843f008c488
+== BuildUVMPkg.default        OTHER/AGREE=3690 OTHER/G-ONLY=1 OTHER/O-ONLY=1 PROTO/AGREE=592 PROTO/SPAN-DIFF=409
+== BuildUVMPkg.testflags      OTHER/AGREE=3690 OTHER/G-ONLY=1 OTHER/O-ONLY=1 PROTO/AGREE=592 PROTO/SPAN-DIFF=409
+== MiniAmiq.default           OTHER/AGREE=5213 OTHER/G-ONLY=2 OTHER/O-ONLY=2 OTHER/SPAN-DIFF=2 PROTO/AGREE=538 PROTO/SPAN-DIFF=353
+== MiniAmiq.testflags         OTHER/AGREE=5213 OTHER/G-ONLY=2 OTHER/O-ONLY=2 OTHER/SPAN-DIFF=2 PROTO/AGREE=538 PROTO/SPAN-DIFF=353
+== Scoreboard.default         OTHER/AGREE=3366 PROTO/AGREE=538 PROTO/SPAN-DIFF=362
+== SeqDriver.default          OTHER/AGREE=4929 PROTO/AGREE=529 PROTO/SPAN-DIFF=353
+== SeqDriver.testflags        OTHER/AGREE=4929 PROTO/AGREE=529 PROTO/SPAN-DIFF=353
+== SimpleUVM.default          OTHER/AGREE=3326 PROTO/AGREE=529 PROTO/SPAN-DIFF=353
+== SimpleUVM.testflags        OTHER/AGREE=3326 PROTO/AGREE=529 PROTO/SPAN-DIFF=353
+== TOTAL (nine UVM row-modes)
+   OTHER/AGREE          37682
+   OTHER/G-ONLY         6
+   OTHER/O-ONLY         6
+   OTHER/SPAN-DIFF      4
+   PROTO/AGREE          4914
+   PROTO/SPAN-DIFF      3298
+-- detail rows (KIND-DIFF and G-ONLY/O-ONLY on the PROTO arm)
+   (SPAN-DIFF rows suppressed; pass --all for every row)

@@ -1,0 +1,580 @@
+r10uvm185 — THE WIDE BOUNDARY.  MEASUREMENT ONLY.
+wide185.sh compiles EVERY .sv/.v under a COPY of tools/probe at ANY depth,
+top level AND subdirectories, in BOTH views, with both frozen binaries, and
+byte-compares the workdir-normalised dumps.  The file list is read on fd 3,
+children get </dev/null, PROCESSED is asserted against LISTED, scratch is
+keyed on the RELATIVE path.  No corpus test is dispatched by it at all.
+
+pristine md5 bc09e77cf8fd251285c06f6f0b54a5bc
+patched  md5 888a51d91d62274dde0c4843f008c488
+
+LISTED=5022
+PROCESSED=5022 identical=9624 DIFFERING=38 no_output=382
+
+rc histogram over 20088 compiles (5022 arms x 2 views x 2 binaries):
+rc=0 18546
+rc=139 32
+rc=3 732
+rc=4 778
+  rc=139 SEGFAULTS: 32, and they are SYMMETRIC — the rc of every (arm, view)
+  is identical on the two binaries.  RC_DIFFS=0.
+
+MOVED ARMS: 19 (38 arm-views).  FOUR of them are this pass's own grid arms,
+which is the POSITIVE CONTROL: a boundary that reports zero over them cannot
+see.  EVERY moved arm is scored against GOLDEN by attrib185.sh below —
+movement without a golden column proves nothing about direction.
+
+r10buvm22repro/g22.sv
+r10buvm9repro/v1inst9.sv
+r10buvm9repro/w3v_homes.sv
+r10buvm9repro/w6v_clsalias.sv
+r10sd10repro/grid10/g7_return_var.sv
+r10sd10repro/vgrid10/v5_oob_extern.sv
+r10sd11repro/grid10/g7_return_var.sv
+r10sd11repro/vgrid10/v5_oob_extern.sv
+r10sd12repro/grid10/g7_return_var.sv
+r10sd12repro/vgrid10/v5_oob_extern.sv
+r10uvm138repro/g138_c_homes.sv
+r10uvm177repro/g177_a_alias.sv
+r10uvm185repro/grid185/g185_a_context.sv
+r10uvm185repro/grid185/g185_c_reach.sv
+r10uvm185repro/grid185/g185_d_views.sv
+r10uvm185repro/grid185/g185_e_kinds.sv
+r10v138repro/v5_homes.sv
+r10v177repro/v177_4_cls.sv
+r10v97repro/v97_c7_usesites.sv
+
+############ ATTRIBUTION — attrib185.sh, golden vs pristine vs patched
+############ AWAY 0 and MOVED-WRONG 0 on every arm, both views.
+
+== r10buvm22repro/g22.sv/plain
+   AGREE=92 STAY-BAD=5 TOWARD=3
+     TOWARD      p22::K22::po_f_cls 112:5 stmt=0  G=ref_var@112:21 PRIS=class_var@120:12 PAT=ref_var@120:12
+     STAY-BAD    p22::K22::po_pq_cls 113:5 stmt=0  G=ref_var@113:21 PRIS=logic_var@121:12 PAT=logic_var@121:12
+     STAY-BAD    p22::K22::po_pq_cls 121:3 stmt=0  G=class_var@121:12 PRIS=logic_var@121:12 PAT=logic_var@121:12
+     STAY-BAD    p22::K22::po_pq_cls 121:3 stmt=0  G=class_var@121:12 PRIS=logic_var@121:12 PAT=logic_var@121:12
+     STAY-BAD    p22::K22::po_q_cls 108:5 stmt=0  G=ref_var@108:21 PRIS=class_var@116:12 PAT=class_var@116:12
+     STAY-BAD    p22::K22::po_q_int 109:5 stmt=0  G=array_var@109:21 PRIS=class_var@117:12 PAT=class_var@117:12
+     TOWARD      p22::K22::po_tdcls 110:5 stmt=0  G=ref_var@110:21 PRIS=class_var@118:12 PAT=ref_var@118:12
+     TOWARD      p22::K22::po_tdstruct 111:5 stmt=0  G=struct_var@111:21 PRIS=class_var@119:12 PAT=struct_var@119:12
+== r10buvm22repro/g22.sv/elab
+   AGREE=253 O-ONLY=52 STAY-BAD=13 TOWARD=6
+     TOWARD      p22::K22::po_f_cls 112:5 stmt=0  G=ref_var@112:21 PRIS=class_var@120:12 PAT=ref_var@120:12
+     TOWARD      p22::K22::po_f_cls 112:5 stmt=0  G=ref_var@112:21 PRIS=class_var@120:12 PAT=ref_var@120:12
+     O-ONLY      p22::K22::po_f_cls 120:3 stmt=0  G=None@- PRIS=class_var@120:12 PAT=class_var@120:12
+     O-ONLY      p22::K22::po_f_cls 120:3 stmt=0  G=None@- PRIS=class_var@120:12 PAT=class_var@120:12
+     STAY-BAD    p22::K22::po_pq_cls 113:5 stmt=0  G=ref_var@113:21 PRIS=logic_var@121:12 PAT=logic_var@121:12
+     STAY-BAD    p22::K22::po_pq_cls 113:5 stmt=0  G=ref_var@113:21 PRIS=logic_var@121:12 PAT=logic_var@121:12
+     STAY-BAD    p22::K22::po_pq_cls 121:3 stmt=0  G=class_var@121:12 PRIS=logic_var@121:12 PAT=logic_var@121:12
+     STAY-BAD    p22::K22::po_pq_cls 121:3 stmt=0  G=class_var@121:12 PRIS=logic_var@121:12 PAT=logic_var@121:12
+     STAY-BAD    p22::K22::po_pq_cls 121:3 stmt=0  G=class_var@121:12 PRIS=logic_var@121:12 PAT=logic_var@121:12
+     STAY-BAD    p22::K22::po_pq_cls 121:3 stmt=0  G=class_var@121:12 PRIS=logic_var@121:12 PAT=logic_var@121:12
+     O-ONLY      p22::K22::po_pq_cls 121:3 stmt=0  G=None@- PRIS=logic_var@121:12 PAT=logic_var@121:12
+     O-ONLY      p22::K22::po_pq_cls 121:3 stmt=0  G=None@- PRIS=logic_var@121:12 PAT=logic_var@121:12
+     STAY-BAD    p22::K22::po_pq_cls 121:3 stmt=0  G=class_var@121:12 PRIS=logic_var@121:12 PAT=logic_var@121:12
+     STAY-BAD    p22::K22::po_pq_cls 121:3 stmt=0  G=class_var@121:12 PRIS=logic_var@121:12 PAT=logic_var@121:12
+     STAY-BAD    p22::K22::po_pq_cls 121:3 stmt=0  G=class_var@121:12 PRIS=logic_var@121:12 PAT=logic_var@121:12
+     STAY-BAD    p22::K22::po_q_cls 108:5 stmt=0  G=ref_var@108:21 PRIS=class_var@116:12 PAT=class_var@116:12
+     STAY-BAD    p22::K22::po_q_cls 108:5 stmt=0  G=ref_var@108:21 PRIS=class_var@116:12 PAT=class_var@116:12
+     O-ONLY      p22::K22::po_q_cls 116:3 stmt=0  G=None@- PRIS=class_var@116:12 PAT=class_var@116:12
+     O-ONLY      p22::K22::po_q_cls 116:3 stmt=0  G=None@- PRIS=class_var@116:12 PAT=class_var@116:12
+     STAY-BAD    p22::K22::po_q_int 109:5 stmt=0  G=array_var@109:21 PRIS=class_var@117:12 PAT=class_var@117:12
+     STAY-BAD    p22::K22::po_q_int 109:5 stmt=0  G=array_var@109:21 PRIS=class_var@117:12 PAT=class_var@117:12
+     O-ONLY      p22::K22::po_q_int 117:3 stmt=0  G=None@- PRIS=class_var@117:12 PAT=class_var@117:12
+     O-ONLY      p22::K22::po_q_int 117:3 stmt=0  G=None@- PRIS=class_var@117:12 PAT=class_var@117:12
+     TOWARD      p22::K22::po_tdcls 110:5 stmt=0  G=ref_var@110:21 PRIS=class_var@118:12 PAT=ref_var@118:12
+     TOWARD      p22::K22::po_tdcls 110:5 stmt=0  G=ref_var@110:21 PRIS=class_var@118:12 PAT=ref_var@118:12
+     O-ONLY      p22::K22::po_tdcls 118:3 stmt=1  G=None@- PRIS=class_var@118:12 PAT=class_var@118:12
+     O-ONLY      p22::K22::po_tdcls 118:3 stmt=1  G=None@- PRIS=class_var@118:12 PAT=class_var@118:12
+     TOWARD      p22::K22::po_tdstruct 111:5 stmt=0  G=struct_var@111:21 PRIS=class_var@119:12 PAT=struct_var@119:12
+     TOWARD      p22::K22::po_tdstruct 111:5 stmt=0  G=struct_var@111:21 PRIS=class_var@119:12 PAT=struct_var@119:12
+     O-ONLY      p22::K22::po_tdstruct 119:3 stmt=1  G=None@- PRIS=class_var@119:12 PAT=class_var@119:12
+     O-ONLY      p22::K22::po_tdstruct 119:3 stmt=1  G=None@- PRIS=class_var@119:12 PAT=class_var@119:12
+     O-ONLY      p22::pf_a_cls 50:3 stmt=0  G=None@- PRIS=ref_var@50:12 PAT=ref_var@50:12
+     O-ONLY      p22::pf_a_cls 50:3 stmt=0  G=None@- PRIS=ref_var@50:12 PAT=ref_var@50:12
+     O-ONLY      p22::pf_a_int 51:3 stmt=0  G=None@- PRIS=array_var@51:12 PAT=array_var@51:12
+     O-ONLY      p22::pf_a_int 51:3 stmt=0  G=None@- PRIS=array_var@51:12 PAT=array_var@51:12
+     O-ONLY      p22::pf_d_cls 48:3 stmt=0  G=None@- PRIS=ref_var@48:12 PAT=ref_var@48:12
+     O-ONLY      p22::pf_d_cls 48:3 stmt=0  G=None@- PRIS=ref_var@48:12 PAT=ref_var@48:12
+     O-ONLY      p22::pf_d_int 49:3 stmt=0  G=None@- PRIS=array_var@49:12 PAT=array_var@49:12
+     O-ONLY      p22::pf_d_int 49:3 stmt=0  G=None@- PRIS=array_var@49:12 PAT=array_var@49:12
+     O-ONLY      p22::pf_f_cls 52:3 stmt=0  G=None@- PRIS=ref_var@52:12 PAT=ref_var@52:12
+     O-ONLY      p22::pf_f_cls 52:3 stmt=0  G=None@- PRIS=ref_var@52:12 PAT=ref_var@52:12
+     O-ONLY      p22::pf_f_int 53:3 stmt=0  G=None@- PRIS=array_var@53:12 PAT=array_var@53:12
+     O-ONLY      p22::pf_f_int 53:3 stmt=0  G=None@- PRIS=array_var@53:12 PAT=array_var@53:12
+     O-ONLY      p22::pf_int 37:3 stmt=1  G=None@- PRIS=int_var@37:12 PAT=int_var@37:12
+     O-ONLY      p22::pf_int 37:3 stmt=1  G=None@- PRIS=int_var@37:12 PAT=int_var@37:12
+     O-ONLY      p22::pf_q_cls 45:3 stmt=0  G=None@- PRIS=ref_var@45:12 PAT=ref_var@45:12
+     O-ONLY      p22::pf_q_cls 45:3 stmt=0  G=None@- PRIS=ref_var@45:12 PAT=ref_var@45:12
+     O-ONLY      p22::pf_q_int 46:3 stmt=0  G=None@- PRIS=array_var@46:12 PAT=array_var@46:12
+     O-ONLY      p22::pf_q_int 46:3 stmt=0  G=None@- PRIS=array_var@46:12 PAT=array_var@46:12
+     O-ONLY      p22::pf_q_struct 47:3 stmt=0  G=None@- PRIS=array_var@47:12 PAT=array_var@47:12
+     O-ONLY      p22::pf_q_struct 47:3 stmt=0  G=None@- PRIS=array_var@47:12 PAT=array_var@47:12
+     O-ONLY      p22::pf_tdalias 41:3 stmt=1  G=None@- PRIS=int_var@41:12 PAT=int_var@41:12
+     O-ONLY      p22::pf_tdalias 41:3 stmt=1  G=None@- PRIS=int_var@41:12 PAT=int_var@41:12
+     O-ONLY      p22::pf_tdcls 42:3 stmt=1  G=None@- PRIS=ref_var@42:12 PAT=ref_var@42:12
+     O-ONLY      p22::pf_tdcls 42:3 stmt=1  G=None@- PRIS=ref_var@42:12 PAT=ref_var@42:12
+     O-ONLY      p22::pf_tdenum 44:3 stmt=1  G=None@- PRIS=enum_var@44:12 PAT=enum_var@44:12
+     O-ONLY      p22::pf_tdenum 44:3 stmt=1  G=None@- PRIS=enum_var@44:12 PAT=enum_var@44:12
+     O-ONLY      p22::pf_tdint 39:3 stmt=1  G=None@- PRIS=int_var@39:12 PAT=int_var@39:12
+     O-ONLY      p22::pf_tdint 39:3 stmt=1  G=None@- PRIS=int_var@39:12 PAT=int_var@39:12
+     O-ONLY      p22::pf_tdstruct 43:3 stmt=1  G=None@- PRIS=struct_var@43:12 PAT=struct_var@43:12
+     O-ONLY      p22::pf_tdstruct 43:3 stmt=1  G=None@- PRIS=struct_var@43:12 PAT=struct_var@43:12
+     O-ONLY      p22::pf_tdvec 40:3 stmt=1  G=None@- PRIS=logic_var@40:12 PAT=logic_var@40:12
+     O-ONLY      p22::pf_tdvec 40:3 stmt=1  G=None@- PRIS=logic_var@40:12 PAT=logic_var@40:12
+     O-ONLY      p22::pf_vec 38:3 stmt=1  G=None@- PRIS=logic_var@38:12 PAT=logic_var@38:12
+     O-ONLY      p22::pf_vec 38:3 stmt=1  G=None@- PRIS=logic_var@38:12 PAT=logic_var@38:12
+     O-ONLY      work@top22::M22::mc_q_cls 156:5 stmt=0  G=None@- PRIS=ref_var@156:14 PAT=ref_var@156:14
+     O-ONLY      work@top22::M22::mc_q_cls 156:5 stmt=0  G=None@- PRIS=ref_var@156:14 PAT=ref_var@156:14
+     O-ONLY      work@top22::M22::mc_q_int 157:5 stmt=0  G=None@- PRIS=array_var@157:14 PAT=array_var@157:14
+     O-ONLY      work@top22::M22::mc_q_int 157:5 stmt=0  G=None@- PRIS=array_var@157:14 PAT=array_var@157:14
+     O-ONLY      work@top22::M22::mc_tdcls 158:5 stmt=1  G=None@- PRIS=ref_var@158:14 PAT=ref_var@158:14
+     O-ONLY      work@top22::M22::mc_tdcls 158:5 stmt=1  G=None@- PRIS=ref_var@158:14 PAT=ref_var@158:14
+== r10buvm9repro/v1inst9.sv/plain
+   AGREE=28 TOWARD=1
+     TOWARD      p9::a2::f2 16:5 stmt=0  G=enum_var@16:21 PRIS=class_var@18:12 PAT=enum_var@18:12
+== r10buvm9repro/v1inst9.sv/elab
+   AGREE=48 O-ONLY=8 TOWARD=2
+     TOWARD      p9::a2::f2 16:5 stmt=0  G=enum_var@16:21 PRIS=class_var@18:12 PAT=enum_var@18:12
+     TOWARD      p9::a2::f2 16:5 stmt=0  G=enum_var@16:21 PRIS=class_var@18:12 PAT=enum_var@18:12
+     O-ONLY      p9::a3::f3 23:5 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      p9::a4::f4 30:5 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      p9::a5::f5 37:5 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      p9::a7::f7 50:5 stmt=1  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      p9::a8::f8 56:5 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      p9::a8::f8 58:3 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      p9::a8::f8 58:3 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      p9::a9::f9 64:5 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+== r10buvm9repro/w3v_homes.sv/plain
+   AGREE=22 G-ONLY=10 O-ONLY=8 TOWARD=2
+     G-ONLY      ucl::f 15:1 stmt=1  G=-@0:0 PRIS=None@- PAT=None@-
+     G-ONLY      ucl::g 16:1 stmt=1  G=-@0:0 PRIS=None@- PAT=None@-
+     G-ONLY      ucl::h 17:1 stmt=1  G=class_var@17:10 PRIS=None@- PAT=None@-
+     G-ONLY      ucl::j 18:1 stmt=0  G=-@0:0 PRIS=None@- PAT=None@-
+     G-ONLY      uref::f 23:1 stmt=1  G=-@0:0 PRIS=None@- PAT=None@-
+     G-ONLY      work@icl::f 46:5 stmt=0  G=-@0:0 PRIS=None@- PAT=None@-
+     O-ONLY      work@ucl::f 15:1 stmt=1  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      work@ucl::g 16:1 stmt=1  G=None@- PRIS=-@0:0 PAT=-@0:0
+     TOWARD      work@ucl::h 12:3 stmt=0  G=int_var@12:19 PRIS=class_var@9:11 PAT=int_var@9:11
+     O-ONLY      work@ucl::h 17:1 stmt=1  G=None@- PRIS=class_var@9:11 PAT=class_var@9:11
+     O-ONLY      work@ucl::j 18:1 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      work@uref::f 23:1 stmt=1  G=None@- PRIS=-@0:0 PAT=-@0:0
+     G-ONLY      work@w3i.icl::f 48:3 stmt=1  G=-@0:0 PRIS=None@- PAT=None@-
+     G-ONLY      work@w3m.mcl::f 34:3 stmt=1  G=-@0:0 PRIS=None@- PAT=None@-
+     G-ONLY      work@w3m.mcl::h 35:3 stmt=1  G=class_var@35:12 PRIS=None@- PAT=None@-
+     G-ONLY      work@w3m.mcl::j 36:3 stmt=0  G=-@0:0 PRIS=None@- PAT=None@-
+     O-ONLY      work@w3m::mcl::f 34:3 stmt=1  G=None@- PRIS=-@0:0 PAT=-@0:0
+     TOWARD      work@w3m::mcl::h 31:5 stmt=0  G=int_var@31:21 PRIS=class_var@29:13 PAT=int_var@29:13
+     O-ONLY      work@w3m::mcl::h 35:3 stmt=1  G=None@- PRIS=class_var@29:13 PAT=class_var@29:13
+     O-ONLY      work@w3m::mcl::j 36:3 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+== r10buvm9repro/w3v_homes.sv/elab
+   AGREE=38 G-ONLY=13 O-ONLY=40 TOWARD=5
+     G-ONLY      ucl::f 15:1 stmt=1  G=-@0:0 PRIS=None@- PAT=None@-
+     G-ONLY      ucl::g 16:1 stmt=1  G=-@0:0 PRIS=None@- PAT=None@-
+     G-ONLY      ucl::h 17:1 stmt=1  G=class_var@17:10 PRIS=None@- PAT=None@-
+     G-ONLY      ucl::j 18:1 stmt=0  G=-@0:0 PRIS=None@- PAT=None@-
+     G-ONLY      uref::f 23:1 stmt=1  G=-@0:0 PRIS=None@- PAT=None@-
+     O-ONLY      w3p::outerc::f 59:5 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      w3p::outerc::innerc::f 56:7 stmt=1  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      w3p::outerc::innerc::f 56:7 stmt=1  G=None@- PRIS=-@0:0 PAT=-@0:0
+     G-ONLY      work@icl::f 46:5 stmt=0  G=-@0:0 PRIS=None@- PAT=None@-
+     O-ONLY      work@ucl::f 10:3 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      work@ucl::f 15:1 stmt=1  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      work@ucl::f 15:1 stmt=1  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      work@ucl::g 11:3 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      work@ucl::g 16:1 stmt=1  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      work@ucl::g 16:1 stmt=1  G=None@- PRIS=-@0:0 PAT=-@0:0
+     TOWARD      work@ucl::h 12:3 stmt=0  G=int_var@12:19 PRIS=class_var@9:11 PAT=int_var@9:11
+     TOWARD      work@ucl::h 12:3 stmt=0  G=int_var@12:19 PRIS=class_var@9:11 PAT=int_var@9:11
+     O-ONLY      work@ucl::h 17:1 stmt=1  G=None@- PRIS=class_var@9:11 PAT=class_var@9:11
+     O-ONLY      work@ucl::h 17:1 stmt=1  G=None@- PRIS=class_var@9:11 PAT=class_var@9:11
+     O-ONLY      work@ucl::j 13:3 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      work@ucl::j 18:1 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      work@ucl::j 18:1 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      work@uref::f 21:3 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      work@uref::f 23:1 stmt=1  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      work@uref::f 23:1 stmt=1  G=None@- PRIS=-@0:0 PAT=-@0:0
+     G-ONLY      work@w3i.icl::f 48:3 stmt=1  G=-@0:0 PRIS=None@- PAT=None@-
+     G-ONLY      work@w3m.mcl::f 34:3 stmt=1  G=-@0:0 PRIS=None@- PAT=None@-
+     G-ONLY      work@w3m.mcl::f 34:3 stmt=1  G=-@0:0 PRIS=None@- PAT=None@-
+     G-ONLY      work@w3m.mcl::h 35:3 stmt=1  G=class_var@35:12 PRIS=None@- PAT=None@-
+     G-ONLY      work@w3m.mcl::h 35:3 stmt=1  G=class_var@35:12 PRIS=None@- PAT=None@-
+     G-ONLY      work@w3m.mcl::j 36:3 stmt=0  G=-@0:0 PRIS=None@- PAT=None@-
+     G-ONLY      work@w3m.mcl::j 36:3 stmt=0  G=-@0:0 PRIS=None@- PAT=None@-
+     O-ONLY      work@w3m::mcl::f 30:5 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      work@w3m::mcl::f 30:5 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      work@w3m::mcl::f 30:5 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      work@w3m::mcl::f 34:3 stmt=1  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      work@w3m::mcl::f 34:3 stmt=1  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      work@w3m::mcl::f 34:3 stmt=1  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      work@w3m::mcl::f 34:3 stmt=1  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      work@w3m::mcl::f 34:3 stmt=1  G=None@- PRIS=-@0:0 PAT=-@0:0
+     TOWARD      work@w3m::mcl::h 31:5 stmt=0  G=int_var@31:21 PRIS=class_var@29:13 PAT=int_var@29:13
+     TOWARD      work@w3m::mcl::h 31:5 stmt=0  G=int_var@31:21 PRIS=class_var@29:13 PAT=int_var@29:13
+     TOWARD      work@w3m::mcl::h 31:5 stmt=0  G=int_var@31:21 PRIS=class_var@29:13 PAT=int_var@29:13
+     O-ONLY      work@w3m::mcl::h 31:5 stmt=0  G=None@- PRIS=class_var@29:13 PAT=int_var@29:13
+     O-ONLY      work@w3m::mcl::h 31:5 stmt=0  G=None@- PRIS=class_var@29:13 PAT=int_var@29:13
+     O-ONLY      work@w3m::mcl::h 35:3 stmt=1  G=None@- PRIS=class_var@29:13 PAT=class_var@29:13
+     O-ONLY      work@w3m::mcl::h 35:3 stmt=1  G=None@- PRIS=class_var@29:13 PAT=class_var@29:13
+     O-ONLY      work@w3m::mcl::h 35:3 stmt=1  G=None@- PRIS=class_var@29:13 PAT=class_var@29:13
+     O-ONLY      work@w3m::mcl::h 35:3 stmt=1  G=None@- PRIS=class_var@29:13 PAT=class_var@29:13
+     O-ONLY      work@w3m::mcl::h 35:3 stmt=1  G=None@- PRIS=class_var@29:13 PAT=class_var@29:13
+     O-ONLY      work@w3m::mcl::j 32:5 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      work@w3m::mcl::j 32:5 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      work@w3m::mcl::j 32:5 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      work@w3m::mcl::j 36:3 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      work@w3m::mcl::j 36:3 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      work@w3m::mcl::j 36:3 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      work@w3m::mcl::j 36:3 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      work@w3m::mcl::j 36:3 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+== r10buvm9repro/w6v_clsalias.sv/plain
+   AGREE=29 TOWARD=1
+     TOWARD      w6p::w6k::f3 25:5 stmt=0  G=ref_var@25:21 PRIS=class_var@33:12 PAT=ref_var@33:12
+== r10buvm9repro/w6v_clsalias.sv/elab
+   AGREE=51 O-ONLY=7 TOWARD=2
+     O-ONLY      w6p::w6k::f1 23:5 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      w6p::w6k::f2 24:5 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     TOWARD      w6p::w6k::f3 25:5 stmt=0  G=ref_var@25:21 PRIS=class_var@33:12 PAT=ref_var@33:12
+     TOWARD      w6p::w6k::f3 25:5 stmt=0  G=ref_var@25:21 PRIS=class_var@33:12 PAT=ref_var@33:12
+     O-ONLY      w6p::w6k::f4 26:5 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      w6p::w6k::f4 34:3 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      w6p::w6k::f4 34:3 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      w6p::w6k::f8 28:5 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      w6p::w6k::f9 29:5 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+== r10sd10repro/grid10/g7_return_var.sv/plain
+   AGREE=18 STAY-BAD=1 TOWARD=2
+     STAY-BAD    px::muser::r_early_cls 27:5 stmt=0  G=class_var@27:14 PRIS=ref_var@27:14 PAT=ref_var@27:14
+     TOWARD      px::muser::r_ext_early 36:5 stmt=0  G=struct_var@36:21 PRIS=class_var@40:12 PAT=struct_var@40:12
+     TOWARD      px::muser::r_ext_own 37:5 stmt=0  G=struct_var@37:21 PRIS=class_var@41:12 PAT=struct_var@41:12
+== r10sd10repro/grid10/g7_return_var.sv/elab
+   AGREE=36 STAY-BAD=2 TOWARD=4
+     STAY-BAD    px::muser::r_early_cls 27:5 stmt=0  G=class_var@27:14 PRIS=ref_var@27:14 PAT=ref_var@27:14
+     STAY-BAD    px::muser::r_early_cls 27:5 stmt=0  G=class_var@27:14 PRIS=ref_var@27:14 PAT=ref_var@27:14
+     TOWARD      px::muser::r_ext_early 36:5 stmt=0  G=struct_var@36:21 PRIS=class_var@40:12 PAT=struct_var@40:12
+     TOWARD      px::muser::r_ext_early 36:5 stmt=0  G=struct_var@36:21 PRIS=class_var@40:12 PAT=struct_var@40:12
+     TOWARD      px::muser::r_ext_own 37:5 stmt=0  G=struct_var@37:21 PRIS=class_var@41:12 PAT=struct_var@41:12
+     TOWARD      px::muser::r_ext_own 37:5 stmt=0  G=struct_var@37:21 PRIS=class_var@41:12 PAT=struct_var@41:12
+== r10sd10repro/vgrid10/v5_oob_extern.sv/plain
+   AGREE=14 TOWARD=1
+     TOWARD      px5::auser5::retown 12:5 stmt=0  G=struct_var@12:21 PRIS=class_var@25:12 PAT=struct_var@25:12
+== r10sd10repro/vgrid10/v5_oob_extern.sv/elab
+   AGREE=27 O-ONLY=1 TOWARD=2
+     O-ONLY      px5::auser5::f 11:5 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     TOWARD      px5::auser5::retown 12:5 stmt=0  G=struct_var@12:21 PRIS=class_var@25:12 PAT=struct_var@25:12
+     TOWARD      px5::auser5::retown 12:5 stmt=0  G=struct_var@12:21 PRIS=class_var@25:12 PAT=struct_var@25:12
+== r10sd11repro/grid10/g7_return_var.sv/plain
+   AGREE=18 STAY-BAD=1 TOWARD=2
+     STAY-BAD    px::muser::r_early_cls 27:5 stmt=0  G=class_var@27:14 PRIS=ref_var@27:14 PAT=ref_var@27:14
+     TOWARD      px::muser::r_ext_early 36:5 stmt=0  G=struct_var@36:21 PRIS=class_var@40:12 PAT=struct_var@40:12
+     TOWARD      px::muser::r_ext_own 37:5 stmt=0  G=struct_var@37:21 PRIS=class_var@41:12 PAT=struct_var@41:12
+== r10sd11repro/grid10/g7_return_var.sv/elab
+   AGREE=36 STAY-BAD=2 TOWARD=4
+     STAY-BAD    px::muser::r_early_cls 27:5 stmt=0  G=class_var@27:14 PRIS=ref_var@27:14 PAT=ref_var@27:14
+     STAY-BAD    px::muser::r_early_cls 27:5 stmt=0  G=class_var@27:14 PRIS=ref_var@27:14 PAT=ref_var@27:14
+     TOWARD      px::muser::r_ext_early 36:5 stmt=0  G=struct_var@36:21 PRIS=class_var@40:12 PAT=struct_var@40:12
+     TOWARD      px::muser::r_ext_early 36:5 stmt=0  G=struct_var@36:21 PRIS=class_var@40:12 PAT=struct_var@40:12
+     TOWARD      px::muser::r_ext_own 37:5 stmt=0  G=struct_var@37:21 PRIS=class_var@41:12 PAT=struct_var@41:12
+     TOWARD      px::muser::r_ext_own 37:5 stmt=0  G=struct_var@37:21 PRIS=class_var@41:12 PAT=struct_var@41:12
+== r10sd11repro/vgrid10/v5_oob_extern.sv/plain
+   AGREE=14 TOWARD=1
+     TOWARD      px5::auser5::retown 12:5 stmt=0  G=struct_var@12:21 PRIS=class_var@25:12 PAT=struct_var@25:12
+== r10sd11repro/vgrid10/v5_oob_extern.sv/elab
+   AGREE=27 O-ONLY=1 TOWARD=2
+     O-ONLY      px5::auser5::f 11:5 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     TOWARD      px5::auser5::retown 12:5 stmt=0  G=struct_var@12:21 PRIS=class_var@25:12 PAT=struct_var@25:12
+     TOWARD      px5::auser5::retown 12:5 stmt=0  G=struct_var@12:21 PRIS=class_var@25:12 PAT=struct_var@25:12
+== r10sd12repro/grid10/g7_return_var.sv/plain
+   AGREE=18 STAY-BAD=1 TOWARD=2
+     STAY-BAD    px::muser::r_early_cls 27:5 stmt=0  G=class_var@27:14 PRIS=ref_var@27:14 PAT=ref_var@27:14
+     TOWARD      px::muser::r_ext_early 36:5 stmt=0  G=struct_var@36:21 PRIS=class_var@40:12 PAT=struct_var@40:12
+     TOWARD      px::muser::r_ext_own 37:5 stmt=0  G=struct_var@37:21 PRIS=class_var@41:12 PAT=struct_var@41:12
+== r10sd12repro/grid10/g7_return_var.sv/elab
+   AGREE=36 STAY-BAD=2 TOWARD=4
+     STAY-BAD    px::muser::r_early_cls 27:5 stmt=0  G=class_var@27:14 PRIS=ref_var@27:14 PAT=ref_var@27:14
+     STAY-BAD    px::muser::r_early_cls 27:5 stmt=0  G=class_var@27:14 PRIS=ref_var@27:14 PAT=ref_var@27:14
+     TOWARD      px::muser::r_ext_early 36:5 stmt=0  G=struct_var@36:21 PRIS=class_var@40:12 PAT=struct_var@40:12
+     TOWARD      px::muser::r_ext_early 36:5 stmt=0  G=struct_var@36:21 PRIS=class_var@40:12 PAT=struct_var@40:12
+     TOWARD      px::muser::r_ext_own 37:5 stmt=0  G=struct_var@37:21 PRIS=class_var@41:12 PAT=struct_var@41:12
+     TOWARD      px::muser::r_ext_own 37:5 stmt=0  G=struct_var@37:21 PRIS=class_var@41:12 PAT=struct_var@41:12
+== r10sd12repro/vgrid10/v5_oob_extern.sv/plain
+   AGREE=14 TOWARD=1
+     TOWARD      px5::auser5::retown 12:5 stmt=0  G=struct_var@12:21 PRIS=class_var@25:12 PAT=struct_var@25:12
+== r10sd12repro/vgrid10/v5_oob_extern.sv/elab
+   AGREE=27 O-ONLY=1 TOWARD=2
+     O-ONLY      px5::auser5::f 11:5 stmt=0  G=None@- PRIS=-@0:0 PAT=-@0:0
+     TOWARD      px5::auser5::retown 12:5 stmt=0  G=struct_var@12:21 PRIS=class_var@25:12 PAT=struct_var@25:12
+     TOWARD      px5::auser5::retown 12:5 stmt=0  G=struct_var@12:21 PRIS=class_var@25:12 PAT=struct_var@25:12
+== r10uvm138repro/g138_c_homes.sv/plain
+   AGREE=34 TOWARD=1
+     TOWARD      p138c1::c138c::oob_cls 24:5 stmt=0  G=enum_var@24:21 PRIS=class_var@38:12 PAT=enum_var@38:12
+== r10uvm138repro/g138_c_homes.sv/elab
+   AGREE=65 O-ONLY=2 TOWARD=2
+     TOWARD      p138c1::c138c::oob_cls 24:5 stmt=0  G=enum_var@24:21 PRIS=class_var@38:12 PAT=enum_var@38:12
+     TOWARD      p138c1::c138c::oob_cls 24:5 stmt=0  G=enum_var@24:21 PRIS=class_var@38:12 PAT=enum_var@38:12
+     O-ONLY      p138c2::c138c::oob_cls 38:3 stmt=1  G=None@- PRIS=class_var@38:12 PAT=class_var@38:12
+     O-ONLY      p138c2::c138c::oob_cls 38:3 stmt=1  G=None@- PRIS=class_var@38:12 PAT=class_var@38:12
+== r10uvm177repro/g177_a_alias.sv/plain
+   AGREE=39 TOWARD=2
+     TOWARD      zpk177::Kls177::q_oob_clsalias 24:5 stmt=0  G=ref_var@24:21 PRIS=class_var@38:12 PAT=ref_var@38:12
+     TOWARD      zpk177::Kls177::r_oob_clsdirect 25:5 stmt=0  G=enum_var@25:21 PRIS=class_var@39:12 PAT=enum_var@39:12
+== r10uvm177repro/g177_a_alias.sv/elab
+   AGREE=87 TOWARD=4
+     TOWARD      zpk177::Kls177::q_oob_clsalias 24:5 stmt=0  G=ref_var@24:21 PRIS=class_var@38:12 PAT=ref_var@38:12
+     TOWARD      zpk177::Kls177::q_oob_clsalias 24:5 stmt=0  G=ref_var@24:21 PRIS=class_var@38:12 PAT=ref_var@38:12
+     TOWARD      zpk177::Kls177::r_oob_clsdirect 25:5 stmt=0  G=enum_var@25:21 PRIS=class_var@39:12 PAT=enum_var@39:12
+     TOWARD      zpk177::Kls177::r_oob_clsdirect 25:5 stmt=0  G=enum_var@25:21 PRIS=class_var@39:12 PAT=enum_var@39:12
+== r10uvm185repro/grid185/g185_a_context.sv/plain
+   AGREE=47 STAY-BAD=1 TOWARD=9
+     TOWARD      pa185::user185::e_early_enum 62:5 stmt=0  G=enum_var@62:21 PRIS=class_var@87:12 PAT=enum_var@87:12
+     TOWARD      pa185::user185::e_early_int 63:5 stmt=0  G=int_var@63:21 PRIS=class_var@25:13 PAT=int_var@25:13
+     TOWARD      pa185::user185::e_early_rec 61:5 stmt=0  G=struct_var@61:21 PRIS=class_var@86:12 PAT=struct_var@86:12
+     TOWARD      pa185::user185::e_early_vec 64:5 stmt=0  G=bit_var@64:21 PRIS=class_var@26:13 PAT=bit_var@26:13
+     TOWARD      pa185::user185::e_own_alias 75:5 stmt=0  G=ref_var@75:21 PRIS=class_var@95:12 PAT=ref_var@95:12
+     TOWARD      pa185::user185::e_own_arr 76:5 stmt=0  G=array_var@76:21 PRIS=class_var@96:12 PAT=array_var@96:12
+     TOWARD      pa185::user185::e_own_enum 74:5 stmt=0  G=enum_var@74:21 PRIS=class_var@93:12 PAT=enum_var@93:12
+     STAY-BAD    pa185::user185::e_own_q 77:5 stmt=0  G=array_var@77:21 PRIS=class_var@97:12 PAT=class_var@97:12
+     TOWARD      pa185::user185::e_own_rec 73:5 stmt=0  G=struct_var@73:21 PRIS=class_var@92:12 PAT=struct_var@92:12
+     TOWARD      pa185::user185::e_own_scoped 80:5 stmt=0  G=struct_var@80:21 PRIS=class_var@94:12 PAT=struct_var@94:12
+== r10uvm185repro/grid185/g185_a_context.sv/elab
+   AGREE=94 STAY-BAD=2 TOWARD=18
+     TOWARD      pa185::user185::e_early_enum 62:5 stmt=0  G=enum_var@62:21 PRIS=class_var@87:12 PAT=enum_var@87:12
+     TOWARD      pa185::user185::e_early_enum 62:5 stmt=0  G=enum_var@62:21 PRIS=class_var@87:12 PAT=enum_var@87:12
+     TOWARD      pa185::user185::e_early_int 63:5 stmt=0  G=int_var@63:21 PRIS=class_var@25:13 PAT=int_var@25:13
+     TOWARD      pa185::user185::e_early_int 63:5 stmt=0  G=int_var@63:21 PRIS=class_var@25:13 PAT=int_var@25:13
+     TOWARD      pa185::user185::e_early_rec 61:5 stmt=0  G=struct_var@61:21 PRIS=class_var@86:12 PAT=struct_var@86:12
+     TOWARD      pa185::user185::e_early_rec 61:5 stmt=0  G=struct_var@61:21 PRIS=class_var@86:12 PAT=struct_var@86:12
+     TOWARD      pa185::user185::e_early_vec 64:5 stmt=0  G=bit_var@64:21 PRIS=class_var@26:13 PAT=bit_var@26:13
+     TOWARD      pa185::user185::e_early_vec 64:5 stmt=0  G=bit_var@64:21 PRIS=class_var@26:13 PAT=bit_var@26:13
+     TOWARD      pa185::user185::e_own_alias 75:5 stmt=0  G=ref_var@75:21 PRIS=class_var@95:12 PAT=ref_var@95:12
+     TOWARD      pa185::user185::e_own_alias 75:5 stmt=0  G=ref_var@75:21 PRIS=class_var@95:12 PAT=ref_var@95:12
+     TOWARD      pa185::user185::e_own_arr 76:5 stmt=0  G=array_var@76:21 PRIS=class_var@96:12 PAT=array_var@96:12
+     TOWARD      pa185::user185::e_own_arr 76:5 stmt=0  G=array_var@76:21 PRIS=class_var@96:12 PAT=array_var@96:12
+     TOWARD      pa185::user185::e_own_enum 74:5 stmt=0  G=enum_var@74:21 PRIS=class_var@93:12 PAT=enum_var@93:12
+     TOWARD      pa185::user185::e_own_enum 74:5 stmt=0  G=enum_var@74:21 PRIS=class_var@93:12 PAT=enum_var@93:12
+     STAY-BAD    pa185::user185::e_own_q 77:5 stmt=0  G=array_var@77:21 PRIS=class_var@97:12 PAT=class_var@97:12
+     STAY-BAD    pa185::user185::e_own_q 77:5 stmt=0  G=array_var@77:21 PRIS=class_var@97:12 PAT=class_var@97:12
+     TOWARD      pa185::user185::e_own_rec 73:5 stmt=0  G=struct_var@73:21 PRIS=class_var@92:12 PAT=struct_var@92:12
+     TOWARD      pa185::user185::e_own_rec 73:5 stmt=0  G=struct_var@73:21 PRIS=class_var@92:12 PAT=struct_var@92:12
+     TOWARD      pa185::user185::e_own_scoped 80:5 stmt=0  G=struct_var@80:21 PRIS=class_var@94:12 PAT=struct_var@94:12
+     TOWARD      pa185::user185::e_own_scoped 80:5 stmt=0  G=struct_var@80:21 PRIS=class_var@94:12 PAT=struct_var@94:12
+== r10uvm185repro/grid185/g185_c_reach.sv/plain
+   AGREE=13 G-ONLY=9 O-ONLY=9 TOWARD=5
+     O-ONLY      pc185::outer185::inner185::c_inner_scoped 76:5 stmt=0  G=None@- PRIS=class_var@76:14 PAT=class_var@76:14
+     G-ONLY      pc185::outer185::inner185::c_inner_scoped 76:5 stmt=0  G=class_var@76:14 PRIS=None@- PAT=None@-
+     TOWARD      pc185::outer185::inner185::c_outer_td 65:7 stmt=0  G=struct_var@65:23 PRIS=class_var@74:14 PAT=struct_var@74:14
+     O-ONLY      pc185::outer185::inner185::c_outer_td 74:5 stmt=0  G=None@- PRIS=class_var@74:14 PAT=class_var@74:14
+     G-ONLY      pc185::outer185::inner185::c_outer_td 74:5 stmt=0  G=struct_var@74:14 PRIS=None@- PAT=None@-
+     TOWARD      pc185::outer185::inner185::c_topsib_td 67:7 stmt=0  G=struct_var@67:23 PRIS=class_var@75:14 PAT=struct_var@75:14
+     O-ONLY      pc185::outer185::inner185::c_topsib_td 75:5 stmt=0  G=None@- PRIS=class_var@75:14 PAT=class_var@75:14
+     G-ONLY      pc185::outer185::inner185::c_topsib_td 75:5 stmt=0  G=class_var@75:14 PRIS=None@- PAT=None@-
+     G-ONLY      u_user185::c_unit_own_bare 28:1 stmt=0  G=class_var@28:10 PRIS=None@- PAT=None@-
+     G-ONLY      u_user185::c_unit_own_scoped 29:1 stmt=0  G=class_var@29:10 PRIS=None@- PAT=None@-
+     G-ONLY      u_user185::c_unit_sibling 27:1 stmt=0  G=class_var@27:10 PRIS=None@- PAT=None@-
+     G-ONLY      work@top185c.mid185::c_mod_early 45:3 stmt=0  G=class_var@45:12 PRIS=None@- PAT=None@-
+     G-ONLY      work@top185c.mid185::c_mod_late 46:3 stmt=0  G=class_var@46:12 PRIS=None@- PAT=None@-
+     G-ONLY      work@top185c.mid185::c_mod_own_bare 47:3 stmt=0  G=class_var@47:12 PRIS=None@- PAT=None@-
+     TOWARD      work@top185c::mid185::c_mod_early 41:5 stmt=0  G=struct_var@41:21 PRIS=class_var@45:12 PAT=struct_var@45:12
+     O-ONLY      work@top185c::mid185::c_mod_early 45:3 stmt=0  G=None@- PRIS=class_var@45:12 PAT=class_var@45:12
+     O-ONLY      work@top185c::mid185::c_mod_late 46:3 stmt=0  G=None@- PRIS=class_var@46:12 PAT=class_var@46:12
+     TOWARD      work@top185c::mid185::c_mod_own_bare 43:5 stmt=0  G=enum_var@43:21 PRIS=class_var@47:12 PAT=enum_var@47:12
+     O-ONLY      work@top185c::mid185::c_mod_own_bare 47:3 stmt=0  G=None@- PRIS=class_var@47:12 PAT=class_var@47:12
+     TOWARD      work@u_user185::c_unit_own_bare 23:3 stmt=0  G=struct_var@23:19 PRIS=class_var@28:10 PAT=struct_var@28:10
+     O-ONLY      work@u_user185::c_unit_own_bare 28:1 stmt=0  G=None@- PRIS=class_var@28:10 PAT=class_var@28:10
+     O-ONLY      work@u_user185::c_unit_own_scoped 29:1 stmt=0  G=None@- PRIS=class_var@29:10 PAT=class_var@29:10
+     O-ONLY      work@u_user185::c_unit_sibling 27:1 stmt=0  G=None@- PRIS=class_var@27:10 PAT=class_var@27:10
+== r10uvm185repro/grid185/g185_c_reach.sv/elab
+   AGREE=27 G-ONLY=15 O-ONLY=45 TOWARD=12
+     O-ONLY      pc185::outer185::inner185::c_inner_scoped 69:7 stmt=0  G=None@- PRIS=class_var@76:14 PAT=class_var@76:14
+     O-ONLY      pc185::outer185::inner185::c_inner_scoped 69:7 stmt=0  G=None@- PRIS=class_var@76:14 PAT=class_var@76:14
+     O-ONLY      pc185::outer185::inner185::c_inner_scoped 76:5 stmt=0  G=None@- PRIS=class_var@76:14 PAT=class_var@76:14
+     O-ONLY      pc185::outer185::inner185::c_inner_scoped 76:5 stmt=0  G=None@- PRIS=class_var@76:14 PAT=class_var@76:14
+     O-ONLY      pc185::outer185::inner185::c_inner_scoped 76:5 stmt=0  G=None@- PRIS=class_var@76:14 PAT=class_var@76:14
+     O-ONLY      pc185::outer185::inner185::c_inner_scoped 76:5 stmt=0  G=None@- PRIS=class_var@76:14 PAT=class_var@76:14
+     G-ONLY      pc185::outer185::inner185::c_inner_scoped 76:5 stmt=0  G=class_var@76:14 PRIS=None@- PAT=None@-
+     G-ONLY      pc185::outer185::inner185::c_inner_scoped 76:5 stmt=0  G=class_var@76:14 PRIS=None@- PAT=None@-
+     TOWARD      pc185::outer185::inner185::c_outer_td 65:7 stmt=0  G=struct_var@65:23 PRIS=class_var@74:14 PAT=struct_var@74:14
+     TOWARD      pc185::outer185::inner185::c_outer_td 65:7 stmt=0  G=struct_var@65:23 PRIS=class_var@74:14 PAT=struct_var@74:14
+     O-ONLY      pc185::outer185::inner185::c_outer_td 65:7 stmt=0  G=None@- PRIS=class_var@74:14 PAT=struct_var@74:14
+     O-ONLY      pc185::outer185::inner185::c_outer_td 65:7 stmt=0  G=None@- PRIS=class_var@74:14 PAT=struct_var@74:14
+     O-ONLY      pc185::outer185::inner185::c_outer_td 74:5 stmt=0  G=None@- PRIS=class_var@74:14 PAT=class_var@74:14
+     O-ONLY      pc185::outer185::inner185::c_outer_td 74:5 stmt=0  G=None@- PRIS=class_var@74:14 PAT=class_var@74:14
+     O-ONLY      pc185::outer185::inner185::c_outer_td 74:5 stmt=0  G=None@- PRIS=class_var@74:14 PAT=class_var@74:14
+     O-ONLY      pc185::outer185::inner185::c_outer_td 74:5 stmt=0  G=None@- PRIS=class_var@74:14 PAT=class_var@74:14
+     G-ONLY      pc185::outer185::inner185::c_outer_td 74:5 stmt=0  G=struct_var@74:14 PRIS=None@- PAT=None@-
+     G-ONLY      pc185::outer185::inner185::c_outer_td 74:5 stmt=0  G=struct_var@74:14 PRIS=None@- PAT=None@-
+     TOWARD      pc185::outer185::inner185::c_topsib_td 67:7 stmt=0  G=struct_var@67:23 PRIS=class_var@75:14 PAT=struct_var@75:14
+     TOWARD      pc185::outer185::inner185::c_topsib_td 67:7 stmt=0  G=struct_var@67:23 PRIS=class_var@75:14 PAT=struct_var@75:14
+     O-ONLY      pc185::outer185::inner185::c_topsib_td 67:7 stmt=0  G=None@- PRIS=class_var@75:14 PAT=struct_var@75:14
+     O-ONLY      pc185::outer185::inner185::c_topsib_td 67:7 stmt=0  G=None@- PRIS=class_var@75:14 PAT=struct_var@75:14
+     O-ONLY      pc185::outer185::inner185::c_topsib_td 75:5 stmt=0  G=None@- PRIS=class_var@75:14 PAT=class_var@75:14
+     O-ONLY      pc185::outer185::inner185::c_topsib_td 75:5 stmt=0  G=None@- PRIS=class_var@75:14 PAT=class_var@75:14
+     O-ONLY      pc185::outer185::inner185::c_topsib_td 75:5 stmt=0  G=None@- PRIS=class_var@75:14 PAT=class_var@75:14
+     O-ONLY      pc185::outer185::inner185::c_topsib_td 75:5 stmt=0  G=None@- PRIS=class_var@75:14 PAT=class_var@75:14
+     G-ONLY      pc185::outer185::inner185::c_topsib_td 75:5 stmt=0  G=class_var@75:14 PRIS=None@- PAT=None@-
+     G-ONLY      pc185::outer185::inner185::c_topsib_td 75:5 stmt=0  G=class_var@75:14 PRIS=None@- PAT=None@-
+     G-ONLY      u_user185::c_unit_own_bare 28:1 stmt=0  G=class_var@28:10 PRIS=None@- PAT=None@-
+     G-ONLY      u_user185::c_unit_own_scoped 29:1 stmt=0  G=class_var@29:10 PRIS=None@- PAT=None@-
+     G-ONLY      u_user185::c_unit_sibling 27:1 stmt=0  G=class_var@27:10 PRIS=None@- PAT=None@-
+     G-ONLY      work@top185c.mid185::c_mod_early 45:3 stmt=0  G=class_var@45:12 PRIS=None@- PAT=None@-
+     G-ONLY      work@top185c.mid185::c_mod_early 45:3 stmt=0  G=class_var@45:12 PRIS=None@- PAT=None@-
+     G-ONLY      work@top185c.mid185::c_mod_late 46:3 stmt=0  G=class_var@46:12 PRIS=None@- PAT=None@-
+     G-ONLY      work@top185c.mid185::c_mod_late 46:3 stmt=0  G=class_var@46:12 PRIS=None@- PAT=None@-
+     G-ONLY      work@top185c.mid185::c_mod_own_bare 47:3 stmt=0  G=class_var@47:12 PRIS=None@- PAT=None@-
+     G-ONLY      work@top185c.mid185::c_mod_own_bare 47:3 stmt=0  G=class_var@47:12 PRIS=None@- PAT=None@-
+     TOWARD      work@top185c::mid185::c_mod_early 41:5 stmt=0  G=struct_var@41:21 PRIS=class_var@45:12 PAT=struct_var@45:12
+     TOWARD      work@top185c::mid185::c_mod_early 41:5 stmt=0  G=struct_var@41:21 PRIS=class_var@45:12 PAT=struct_var@45:12
+     TOWARD      work@top185c::mid185::c_mod_early 41:5 stmt=0  G=struct_var@41:21 PRIS=class_var@45:12 PAT=struct_var@45:12
+     O-ONLY      work@top185c::mid185::c_mod_early 41:5 stmt=0  G=None@- PRIS=class_var@45:12 PAT=struct_var@45:12
+     O-ONLY      work@top185c::mid185::c_mod_early 41:5 stmt=0  G=None@- PRIS=class_var@45:12 PAT=struct_var@45:12
+     O-ONLY      work@top185c::mid185::c_mod_early 45:3 stmt=0  G=None@- PRIS=class_var@45:12 PAT=class_var@45:12
+     O-ONLY      work@top185c::mid185::c_mod_early 45:3 stmt=0  G=None@- PRIS=class_var@45:12 PAT=class_var@45:12
+     O-ONLY      work@top185c::mid185::c_mod_early 45:3 stmt=0  G=None@- PRIS=class_var@45:12 PAT=class_var@45:12
+     O-ONLY      work@top185c::mid185::c_mod_early 45:3 stmt=0  G=None@- PRIS=class_var@45:12 PAT=class_var@45:12
+     O-ONLY      work@top185c::mid185::c_mod_early 45:3 stmt=0  G=None@- PRIS=class_var@45:12 PAT=class_var@45:12
+     O-ONLY      work@top185c::mid185::c_mod_late 42:5 stmt=0  G=None@- PRIS=class_var@46:12 PAT=class_var@46:12
+     O-ONLY      work@top185c::mid185::c_mod_late 42:5 stmt=0  G=None@- PRIS=class_var@46:12 PAT=class_var@46:12
+     O-ONLY      work@top185c::mid185::c_mod_late 46:3 stmt=0  G=None@- PRIS=class_var@46:12 PAT=class_var@46:12
+     O-ONLY      work@top185c::mid185::c_mod_late 46:3 stmt=0  G=None@- PRIS=class_var@46:12 PAT=class_var@46:12
+     O-ONLY      work@top185c::mid185::c_mod_late 46:3 stmt=0  G=None@- PRIS=class_var@46:12 PAT=class_var@46:12
+     O-ONLY      work@top185c::mid185::c_mod_late 46:3 stmt=0  G=None@- PRIS=class_var@46:12 PAT=class_var@46:12
+     O-ONLY      work@top185c::mid185::c_mod_late 46:3 stmt=0  G=None@- PRIS=class_var@46:12 PAT=class_var@46:12
+     TOWARD      work@top185c::mid185::c_mod_own_bare 43:5 stmt=0  G=enum_var@43:21 PRIS=class_var@47:12 PAT=enum_var@47:12
+     TOWARD      work@top185c::mid185::c_mod_own_bare 43:5 stmt=0  G=enum_var@43:21 PRIS=class_var@47:12 PAT=enum_var@47:12
+     TOWARD      work@top185c::mid185::c_mod_own_bare 43:5 stmt=0  G=enum_var@43:21 PRIS=class_var@47:12 PAT=enum_var@47:12
+     O-ONLY      work@top185c::mid185::c_mod_own_bare 43:5 stmt=0  G=None@- PRIS=class_var@47:12 PAT=enum_var@47:12
+     O-ONLY      work@top185c::mid185::c_mod_own_bare 43:5 stmt=0  G=None@- PRIS=class_var@47:12 PAT=enum_var@47:12
+     O-ONLY      work@top185c::mid185::c_mod_own_bare 47:3 stmt=0  G=None@- PRIS=class_var@47:12 PAT=class_var@47:12
+     O-ONLY      work@top185c::mid185::c_mod_own_bare 47:3 stmt=0  G=None@- PRIS=class_var@47:12 PAT=class_var@47:12
+     O-ONLY      work@top185c::mid185::c_mod_own_bare 47:3 stmt=0  G=None@- PRIS=class_var@47:12 PAT=class_var@47:12
+     O-ONLY      work@top185c::mid185::c_mod_own_bare 47:3 stmt=0  G=None@- PRIS=class_var@47:12 PAT=class_var@47:12
+     O-ONLY      work@top185c::mid185::c_mod_own_bare 47:3 stmt=0  G=None@- PRIS=class_var@47:12 PAT=class_var@47:12
+     TOWARD      work@u_user185::c_unit_own_bare 23:3 stmt=0  G=struct_var@23:19 PRIS=class_var@28:10 PAT=struct_var@28:10
+     TOWARD      work@u_user185::c_unit_own_bare 23:3 stmt=0  G=struct_var@23:19 PRIS=class_var@28:10 PAT=struct_var@28:10
+     O-ONLY      work@u_user185::c_unit_own_bare 28:1 stmt=0  G=None@- PRIS=class_var@28:10 PAT=class_var@28:10
+     O-ONLY      work@u_user185::c_unit_own_bare 28:1 stmt=0  G=None@- PRIS=class_var@28:10 PAT=class_var@28:10
+     O-ONLY      work@u_user185::c_unit_own_scoped 29:1 stmt=0  G=None@- PRIS=class_var@29:10 PAT=class_var@29:10
+     O-ONLY      work@u_user185::c_unit_own_scoped 29:1 stmt=0  G=None@- PRIS=class_var@29:10 PAT=class_var@29:10
+     O-ONLY      work@u_user185::c_unit_sibling 27:1 stmt=0  G=None@- PRIS=class_var@27:10 PAT=class_var@27:10
+     O-ONLY      work@u_user185::c_unit_sibling 27:1 stmt=0  G=None@- PRIS=class_var@27:10 PAT=class_var@27:10
+== r10uvm185repro/grid185/g185_d_views.sv/plain
+   AGREE=28 TOWARD=3
+     TOWARD      pd185::du185::d_early_enum 28:5 stmt=0  G=enum_var@28:21 PRIS=class_var@35:12 PAT=enum_var@35:12
+     TOWARD      pd185::du185::d_early_rec 27:5 stmt=0  G=struct_var@27:21 PRIS=class_var@34:12 PAT=struct_var@34:12
+     TOWARD      pd185::du185::d_own_bare 30:5 stmt=0  G=enum_var@30:21 PRIS=class_var@37:12 PAT=enum_var@37:12
+== r10uvm185repro/grid185/g185_d_views.sv/elab
+   AGREE=56 O-ONLY=8 TOWARD=6
+     TOWARD      pd185::du185::d_early_enum 28:5 stmt=0  G=enum_var@28:21 PRIS=class_var@35:12 PAT=enum_var@35:12
+     TOWARD      pd185::du185::d_early_enum 28:5 stmt=0  G=enum_var@28:21 PRIS=class_var@35:12 PAT=enum_var@35:12
+     TOWARD      pd185::du185::d_early_rec 27:5 stmt=0  G=struct_var@27:21 PRIS=class_var@34:12 PAT=struct_var@34:12
+     TOWARD      pd185::du185::d_early_rec 27:5 stmt=0  G=struct_var@27:21 PRIS=class_var@34:12 PAT=struct_var@34:12
+     TOWARD      pd185::du185::d_own_bare 30:5 stmt=0  G=enum_var@30:21 PRIS=class_var@37:12 PAT=enum_var@37:12
+     TOWARD      pd185::du185::d_own_bare 30:5 stmt=0  G=enum_var@30:21 PRIS=class_var@37:12 PAT=enum_var@37:12
+     O-ONLY      pd185_imp::du185::d_early_enum 35:3 stmt=0  G=None@- PRIS=class_var@35:12 PAT=class_var@35:12
+     O-ONLY      pd185_imp::du185::d_early_enum 35:3 stmt=0  G=None@- PRIS=class_var@35:12 PAT=class_var@35:12
+     O-ONLY      pd185_imp::du185::d_early_rec 34:3 stmt=0  G=None@- PRIS=class_var@34:12 PAT=class_var@34:12
+     O-ONLY      pd185_imp::du185::d_early_rec 34:3 stmt=0  G=None@- PRIS=class_var@34:12 PAT=class_var@34:12
+     O-ONLY      pd185_imp::du185::d_late_rec 36:3 stmt=0  G=None@- PRIS=class_var@36:12 PAT=class_var@36:12
+     O-ONLY      pd185_imp::du185::d_late_rec 36:3 stmt=0  G=None@- PRIS=class_var@36:12 PAT=class_var@36:12
+     O-ONLY      pd185_imp::du185::d_own_bare 37:3 stmt=0  G=None@- PRIS=class_var@37:12 PAT=class_var@37:12
+     O-ONLY      pd185_imp::du185::d_own_bare 37:3 stmt=0  G=None@- PRIS=class_var@37:12 PAT=class_var@37:12
+== r10uvm185repro/grid185/g185_e_kinds.sv/plain
+   AGREE=67 STAY-BAD=3 TOWARD=17
+     TOWARD      pe185::eu185::k_arr 70:5 stmt=0  G=array_var@70:21 PRIS=class_var@99:12 PAT=array_var@99:12
+     STAY-BAD    pe185::eu185::k_assoc 73:5 stmt=0  G=array_var@73:21 PRIS=class_var@102:12 PAT=class_var@102:12
+     TOWARD      pe185::eu185::k_bvec 60:5 stmt=0  G=bit_var@60:21 PRIS=class_var@34:13 PAT=bit_var@34:13
+     TOWARD      pe185::eu185::k_byte 56:5 stmt=0  G=byte_var@56:21 PRIS=class_var@30:13 PAT=byte_var@30:13
+     STAY-BAD    pe185::eu185::k_dyn 71:5 stmt=0  G=array_var@71:21 PRIS=class_var@100:12 PAT=class_var@100:12
+     TOWARD      pe185::eu185::k_enum 51:5 stmt=0  G=enum_var@51:21 PRIS=class_var@80:12 PAT=enum_var@80:12
+     TOWARD      pe185::eu185::k_int 55:5 stmt=0  G=int_var@55:21 PRIS=class_var@29:13 PAT=int_var@29:13
+     TOWARD      pe185::eu185::k_integer 59:5 stmt=0  G=integer_var@59:21 PRIS=class_var@33:13 PAT=integer_var@33:13
+     TOWARD      pe185::eu185::k_long 58:5 stmt=0  G=long_int_var@58:21 PRIS=class_var@32:13 PAT=long_int_var@32:13
+     TOWARD      pe185::eu185::k_lvec 61:5 stmt=0  G=logic_var@61:21 PRIS=class_var@90:12 PAT=logic_var@90:12
+     TOWARD      pe185::eu185::k_parr 67:5 stmt=0  G=bit_var@67:21 PRIS=class_var@41:13 PAT=bit_var@41:13
+     TOWARD      pe185::eu185::k_prec 53:5 stmt=0  G=struct_var@53:21 PRIS=class_var@82:12 PAT=struct_var@82:12
+     STAY-BAD    pe185::eu185::k_q 72:5 stmt=0  G=array_var@72:21 PRIS=class_var@101:12 PAT=class_var@101:12
+     TOWARD      pe185::eu185::k_real 62:5 stmt=0  G=real_var@62:21 PRIS=class_var@91:12 PAT=real_var@91:12
+     TOWARD      pe185::eu185::k_rec 52:5 stmt=0  G=struct_var@52:21 PRIS=class_var@81:12 PAT=struct_var@81:12
+     TOWARD      pe185::eu185::k_short 57:5 stmt=0  G=short_int_var@57:21 PRIS=class_var@31:13 PAT=short_int_var@31:13
+     TOWARD      pe185::eu185::k_sreal 65:5 stmt=0  G=short_real_var@65:21 PRIS=class_var@94:12 PAT=short_real_var@94:12
+     TOWARD      pe185::eu185::k_str 63:5 stmt=0  G=string_var@63:21 PRIS=class_var@92:12 PAT=string_var@92:12
+     TOWARD      pe185::eu185::k_time 66:5 stmt=0  G=time_var@66:21 PRIS=class_var@40:13 PAT=time_var@40:13
+     TOWARD      pe185::eu185::k_uni 54:5 stmt=0  G=union_var@54:21 PRIS=class_var@83:12 PAT=union_var@83:12
+== r10uvm185repro/grid185/g185_e_kinds.sv/elab
+   AGREE=134 STAY-BAD=6 TOWARD=34
+     TOWARD      pe185::eu185::k_arr 70:5 stmt=0  G=array_var@70:21 PRIS=class_var@99:12 PAT=array_var@99:12
+     TOWARD      pe185::eu185::k_arr 70:5 stmt=0  G=array_var@70:21 PRIS=class_var@99:12 PAT=array_var@99:12
+     STAY-BAD    pe185::eu185::k_assoc 73:5 stmt=0  G=array_var@73:21 PRIS=class_var@102:12 PAT=class_var@102:12
+     STAY-BAD    pe185::eu185::k_assoc 73:5 stmt=0  G=array_var@73:21 PRIS=class_var@102:12 PAT=class_var@102:12
+     TOWARD      pe185::eu185::k_bvec 60:5 stmt=0  G=bit_var@60:21 PRIS=class_var@34:13 PAT=bit_var@34:13
+     TOWARD      pe185::eu185::k_bvec 60:5 stmt=0  G=bit_var@60:21 PRIS=class_var@34:13 PAT=bit_var@34:13
+     TOWARD      pe185::eu185::k_byte 56:5 stmt=0  G=byte_var@56:21 PRIS=class_var@30:13 PAT=byte_var@30:13
+     TOWARD      pe185::eu185::k_byte 56:5 stmt=0  G=byte_var@56:21 PRIS=class_var@30:13 PAT=byte_var@30:13
+     STAY-BAD    pe185::eu185::k_dyn 71:5 stmt=0  G=array_var@71:21 PRIS=class_var@100:12 PAT=class_var@100:12
+     STAY-BAD    pe185::eu185::k_dyn 71:5 stmt=0  G=array_var@71:21 PRIS=class_var@100:12 PAT=class_var@100:12
+     TOWARD      pe185::eu185::k_enum 51:5 stmt=0  G=enum_var@51:21 PRIS=class_var@80:12 PAT=enum_var@80:12
+     TOWARD      pe185::eu185::k_enum 51:5 stmt=0  G=enum_var@51:21 PRIS=class_var@80:12 PAT=enum_var@80:12
+     TOWARD      pe185::eu185::k_int 55:5 stmt=0  G=int_var@55:21 PRIS=class_var@29:13 PAT=int_var@29:13
+     TOWARD      pe185::eu185::k_int 55:5 stmt=0  G=int_var@55:21 PRIS=class_var@29:13 PAT=int_var@29:13
+     TOWARD      pe185::eu185::k_integer 59:5 stmt=0  G=integer_var@59:21 PRIS=class_var@33:13 PAT=integer_var@33:13
+     TOWARD      pe185::eu185::k_integer 59:5 stmt=0  G=integer_var@59:21 PRIS=class_var@33:13 PAT=integer_var@33:13
+     TOWARD      pe185::eu185::k_long 58:5 stmt=0  G=long_int_var@58:21 PRIS=class_var@32:13 PAT=long_int_var@32:13
+     TOWARD      pe185::eu185::k_long 58:5 stmt=0  G=long_int_var@58:21 PRIS=class_var@32:13 PAT=long_int_var@32:13
+     TOWARD      pe185::eu185::k_lvec 61:5 stmt=0  G=logic_var@61:21 PRIS=class_var@90:12 PAT=logic_var@90:12
+     TOWARD      pe185::eu185::k_lvec 61:5 stmt=0  G=logic_var@61:21 PRIS=class_var@90:12 PAT=logic_var@90:12
+     TOWARD      pe185::eu185::k_parr 67:5 stmt=0  G=bit_var@67:21 PRIS=class_var@41:13 PAT=bit_var@41:13
+     TOWARD      pe185::eu185::k_parr 67:5 stmt=0  G=bit_var@67:21 PRIS=class_var@41:13 PAT=bit_var@41:13
+     TOWARD      pe185::eu185::k_prec 53:5 stmt=0  G=struct_var@53:21 PRIS=class_var@82:12 PAT=struct_var@82:12
+     TOWARD      pe185::eu185::k_prec 53:5 stmt=0  G=struct_var@53:21 PRIS=class_var@82:12 PAT=struct_var@82:12
+     STAY-BAD    pe185::eu185::k_q 72:5 stmt=0  G=array_var@72:21 PRIS=class_var@101:12 PAT=class_var@101:12
+     STAY-BAD    pe185::eu185::k_q 72:5 stmt=0  G=array_var@72:21 PRIS=class_var@101:12 PAT=class_var@101:12
+     TOWARD      pe185::eu185::k_real 62:5 stmt=0  G=real_var@62:21 PRIS=class_var@91:12 PAT=real_var@91:12
+     TOWARD      pe185::eu185::k_real 62:5 stmt=0  G=real_var@62:21 PRIS=class_var@91:12 PAT=real_var@91:12
+     TOWARD      pe185::eu185::k_rec 52:5 stmt=0  G=struct_var@52:21 PRIS=class_var@81:12 PAT=struct_var@81:12
+     TOWARD      pe185::eu185::k_rec 52:5 stmt=0  G=struct_var@52:21 PRIS=class_var@81:12 PAT=struct_var@81:12
+     TOWARD      pe185::eu185::k_short 57:5 stmt=0  G=short_int_var@57:21 PRIS=class_var@31:13 PAT=short_int_var@31:13
+     TOWARD      pe185::eu185::k_short 57:5 stmt=0  G=short_int_var@57:21 PRIS=class_var@31:13 PAT=short_int_var@31:13
+     TOWARD      pe185::eu185::k_sreal 65:5 stmt=0  G=short_real_var@65:21 PRIS=class_var@94:12 PAT=short_real_var@94:12
+     TOWARD      pe185::eu185::k_sreal 65:5 stmt=0  G=short_real_var@65:21 PRIS=class_var@94:12 PAT=short_real_var@94:12
+     TOWARD      pe185::eu185::k_str 63:5 stmt=0  G=string_var@63:21 PRIS=class_var@92:12 PAT=string_var@92:12
+     TOWARD      pe185::eu185::k_str 63:5 stmt=0  G=string_var@63:21 PRIS=class_var@92:12 PAT=string_var@92:12
+     TOWARD      pe185::eu185::k_time 66:5 stmt=0  G=time_var@66:21 PRIS=class_var@40:13 PAT=time_var@40:13
+     TOWARD      pe185::eu185::k_time 66:5 stmt=0  G=time_var@66:21 PRIS=class_var@40:13 PAT=time_var@40:13
+     TOWARD      pe185::eu185::k_uni 54:5 stmt=0  G=union_var@54:21 PRIS=class_var@83:12 PAT=union_var@83:12
+     TOWARD      pe185::eu185::k_uni 54:5 stmt=0  G=union_var@54:21 PRIS=class_var@83:12 PAT=union_var@83:12
+== r10v138repro/v5_homes.sv/plain
+   AGREE=30 TOWARD=1
+     TOWARD      v5p::CA::oob_cls 29:7 stmt=0  G=enum_var@29:23 PRIS=class_var@34:13 PAT=enum_var@34:13
+== r10v138repro/v5_homes.sv/elab
+   AGREE=57 G-ONLY=1 O-ONLY=1 TOWARD=2
+     TOWARD      v5p::CA::oob_cls 29:7 stmt=0  G=enum_var@29:23 PRIS=class_var@34:13 PAT=enum_var@34:13
+     TOWARD      v5p::CA::oob_cls 29:7 stmt=0  G=enum_var@29:23 PRIS=class_var@34:13 PAT=enum_var@34:13
+     O-ONLY      work@v5mod.mf_ret 44:4 stmt=1  G=None@- PRIS=enum_var@44:13 PAT=enum_var@44:13
+     G-ONLY      work@v5top.m1.mf_ret 44:4 stmt=1  G=enum_var@44:13 PRIS=None@- PAT=None@-
+== r10v177repro/v177_4_cls.sv/plain
+   AGREE=29 STAY-BAD=1 TOWARD=2
+     TOWARD      genp9::Box9::boxOob 41:5 stmt=0  G=ref_var@41:21 PRIS=class_var@43:12 PAT=ref_var@43:12
+     TOWARD      genp9::Deck9::deckClsVia 49:5 stmt=0  G=ref_var@49:21 PRIS=class_var@55:12 PAT=ref_var@55:12
+     STAY-BAD    genp9::Deriv9::derInherited 29:5 stmt=1  G=ref_var@29:14 PRIS=enum_var@29:14 PAT=enum_var@29:14
+== r10v177repro/v177_4_cls.sv/elab
+   AGREE=63 O-ONLY=3 STAY-BAD=2 TOWARD=4
+     TOWARD      genp9::Box9::boxOob 41:5 stmt=0  G=ref_var@41:21 PRIS=class_var@43:12 PAT=ref_var@43:12
+     TOWARD      genp9::Box9::boxOob 41:5 stmt=0  G=ref_var@41:21 PRIS=class_var@43:12 PAT=ref_var@43:12
+     TOWARD      genp9::Deck9::deckClsVia 49:5 stmt=0  G=ref_var@49:21 PRIS=class_var@55:12 PAT=ref_var@55:12
+     TOWARD      genp9::Deck9::deckClsVia 49:5 stmt=0  G=ref_var@49:21 PRIS=class_var@55:12 PAT=ref_var@55:12
+     STAY-BAD    genp9::Deriv9::derInherited 29:5 stmt=1  G=ref_var@29:14 PRIS=enum_var@29:14 PAT=enum_var@29:14
+     STAY-BAD    genp9::Deriv9::derInherited 29:5 stmt=1  G=ref_var@29:14 PRIS=enum_var@29:14 PAT=enum_var@29:14
+     O-ONLY      genp9::Deriv9::derInherited 29:5 stmt=1  G=None@- PRIS=enum_var@29:14 PAT=enum_var@29:14
+     O-ONLY      genp9::Deriv9::derOwn 30:5 stmt=1  G=None@- PRIS=ref_var@30:14 PAT=ref_var@30:14
+     O-ONLY      genp9::Deriv9::derPkgVia 31:5 stmt=1  G=None@- PRIS=enum_var@31:14 PAT=enum_var@31:14
+== r10v97repro/v97_c7_usesites.sv/plain
+   AGREE=17 TOWARD=1
+     TOWARD      p97c7::base97c7::f_oob 25:5 stmt=0  G=ref_var@25:21 PRIS=class_var@27:12 PAT=ref_var@27:12
+== r10v97repro/v97_c7_usesites.sv/elab
+   AGREE=31 O-ONLY=5 TOWARD=2
+     O-ONLY      p97c7::base97c7::f_arg 22:5 stmt=1  G=None@- PRIS=-@0:0 PAT=-@0:0
+     TOWARD      p97c7::base97c7::f_oob 25:5 stmt=0  G=ref_var@25:21 PRIS=class_var@27:12 PAT=ref_var@27:12
+     TOWARD      p97c7::base97c7::f_oob 25:5 stmt=0  G=ref_var@25:21 PRIS=class_var@27:12 PAT=ref_var@27:12
+     O-ONLY      p97c7::db97c7::f 35:5 stmt=1  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      p97c7::db97c7::f 35:5 stmt=1  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      p97c7::di97c7::f 31:5 stmt=1  G=None@- PRIS=-@0:0 PAT=-@0:0
+     O-ONLY      p97c7::di97c7::f 31:5 stmt=1  G=None@- PRIS=-@0:0 PAT=-@0:0

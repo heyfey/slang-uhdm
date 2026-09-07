@@ -3657,9 +3657,20 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // show the out-of-body arm.  On the corpus this is the
             // `uvm_resource_pool::lookup_name` family — six SeqDriver rows
             // returning `uvm_resource_types::rsrc_q_t`.
+            // § externProtoRetVarKindIsPrototypeCompile185 — THE HEAD'S OWN
+            // SITE.  In the CLASS-BODY PROTOTYPE listing of an `extern` method
+            // (`protoOf` set) Surelog compiles the return variable from the
+            // PROTOTYPE, in the class: law 10 must be asked about the
+            // MethodPrototypeSymbol, not about the out-of-body definition whose
+            // `outOfBlockIndex` and written spelling answer the DEFINITION
+            // listing's question.  The BuildUVMPkg head is `uvm_printer::
+            // object_printed` returning `uvm_policy::recursion_state_e`
+            // (uvm_pkg.sv:19055) — golden `enum_var`, ours `class_var`.  Law,
+            // Surelog's two `compileFunction` calls and the golden g7 table:
+            // src/EmitHelpers.h.
             UHDM::variables* lateRv10 = nullptr;
             if (!crossImplicitRet)
-                switch (classTdLocalVarKind10(sub)) {
+                switch (externProtoRetVarKind185(sub, protoOf)) {
                     case TdLocalVarKind10::ClassVar:
                         lateRv10 = s.MakeClass_var();
                         break;

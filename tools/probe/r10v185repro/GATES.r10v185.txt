@@ -1,0 +1,100 @@
+r10v185 — THE VERIFIER'S GATES.  Every number below was produced in this
+verifier's OWN worktrees (`/tmp/wt_v185`, `/tmp/wt_v185pris`, both at
+b71d5feb), with its OWN pinned workdirs and its OWN frozen binaries.
+MEASUREMENT ONLY; `uhdm-cmp` and `scripts/verify_golden.py` are the authorities.
+slang was NOT patched; `results/*.csv` were READ ONLY; nothing was promoted and
+NO CORPUS ROW CONVERTED; GOLDEN_DEFER stayed unset; the four slang-fenced tests
+were never dispatched.
+
+BINARIES — all three built by this verifier, -j 2, 0 errors, frozen chmod 555
+BEFORE any sweep, md5'd separately:
+  pristine   bc09e77cf8fd251285c06f6f0b54a5bc   clean b71d5feb worktree
+             — BYTE-IDENTICAL to the master's frozen pristine (/tmp/pris_bc09.bin)
+             and to the md5 the pass reported
+  patched    888a51d91d62274dde0c4843f008c488   the pass's patch, applied clean
+             on a FRESH b71d5feb — the md5 the pass reported, REPRODUCED
+  verified   88fb50c8b3f8c2a38bafbba57bd00b23   patched + the two V-FIX terms
+
+(1) BUILD              all three, -j 2, `grep -c ' error '` = 0 on every log.
+
+(2) GOLDEN TESTS       SLANG_UHDM exported EXPLICITLY per binary.
+      verified                    PASS=23  FAIL=0
+      patched                     PASS=23  FAIL=0
+      pristine                    PASS=23  FAIL=0
+      SLANG_UHDM=/bin/false       PASS=0   FAIL=23    (negative control)
+
+(3) uhdm2rtlil         --mode testflags AND --mode default, --jobs 2, own
+                       --out/--workdir.  cmds.txt audited BY PATH: 1458 rows
+                       naming /tmp/v185_bin/fix (and 1458 naming .../pat in the
+                       patched sweep) — the only other paths in them are golden
+                       CACHE entries, not binaries.
+      status histogram (both modes)   CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+      ct8rows verified vs results/gate_uhdm2rtlil.csv     0 differing ROWS
+      ct8rows verified vs /tmp control at b71d5feb (tf)   0 differing ROWS
+      ct8rows verified vs /tmp control at b71d5feb (def)  0 differing ROWS
+      ct8rows verified vs the pass's patched sweep        0 differing ROWS
+      (the same four, all PASS, for the pass's patched binary on its own)
+
+(4) surelog            --mode both, --jobs 2, own --out/--workdir.  cmds.txt
+                       audited BY PATH: 1523 rows naming the frozen binary.
+      status histogram (testflags)  CMP_EQUAL 466  SLANG_REJECT 284
+                                    SURELOG_FAIL 23  CMP_NOTEQUAL 9  DEFERRED 5
+                                    NO_DATABASE 3  UNTRANSLATABLE 2  TIMEOUT 1
+                                    NO_UHDM 1
+      ct8rows verified vs results/golden_surelog.csv      0 differing ROWS / 1588
+      ct8rows verified vs the b71d5feb control CSV        0 differing ROWS
+      ct8rows verified vs this verifier's OWN pristine    0 differing ROWS
+      ct8rows verified vs the pass's patched sweep        0 differing ROWS
+      NO ROW CONVERTED in either direction.
+
+(5) BYTE MOVERS        SELFCHECK=1 byteverify.sh.
+      surelog   verified vs own pristine   PATH_SETS_IDENTICAL (956)  MOVERS 2/956
+                  ./default/BuildUVMPkg    bbf172cd412b <- 5c6a62b63407
+                  ./testflags/BuildUVMPkg  bbf172cd412b <- 5c6a62b63407
+                (the pass PREDICTED both BY NAME; the hashes are the pass's own)
+      surelog   patched  vs own pristine   MOVERS 2/956  (the same two)
+      surelog   verified vs patched        MOVERS 0/956
+      u2r       verified vs own pristine   PATH_SETS_IDENTICAL (1358) MOVERS 0/1358
+      u2r       patched  vs own pristine   MOVERS 0/1358
+      Scoreboard/default did NOT move in ANY of this verifier's three sweeps —
+      independent corroboration that the pass's third mover was the coin
+      (RESUME.md §9) and not its law.
+
+      ATTRIBUTION of the two movers, order-blind: the workdir-normalised
+      uhdm-dump of BuildUVMPkg/default differs from pristine in FOUR lines,
+      ordered AND sorted alike, and they are ONE object printed twice:
+        - \_class_var: (uvm_pkg::uvm_printer::object_printed) line:20364:10
+        + \_enum_var:  (uvm_pkg::uvm_printer::object_printed) line:20364:10
+
+(6) HEADS              rowheads.sh on the verified sweep:
+      SeqDriver 29/29, SimpleUVM 664681/664681, Scoreboard/default 95,
+      MiniAmiq 29/29, BuildUVMPkg 48/48 (ONE head each), Earlgrey 31/364,
+      Rggen/default 0 — every row but BuildUVMPkg unchanged, and the pristine
+      sweep re-measured BuildUVMPkg at 52/52 first.  (SKIP-NOFILE on
+      Scoreboard/testflags and Rggen/testflags is expected.)
+
+(7) CANARIES           canaries.sh sl ok=52 changed=0; u2r ok=8 changed=0;
+      ctcan2 PASS on both corpora; canaudit `audited=29 UNCOVERED=0
+      FENCE-BREACH=0`.  Protected databases, verified vs pristine:
+      InterfaceModPort / BlackParrotComplex / YosysOldOr SAME (both modes),
+      SVSwitch 4842211c4030, YosysVerx 6ccda350c24a.
+
+(8) CENSUS             ct185cen + vcen185.py, golden vs ours, over the nine
+      measurable UVM row-modes, split by the PROTOTYPE (stmt=0) and DEFINITION
+      (stmt=1) arms:
+        PRISTINE  PROTO KIND-DIFF = 2 — BuildUVMPkg default AND testflags, the
+                  same cell both times:
+                    uvm_pkg::uvm_printer::object_printed 19055:3
+                    G=enum_var OURS=class_var
+        PATCHED   PROTO KIND-DIFF = 0
+        VERIFIED  PROTO KIND-DIFF = 0
+      and the DEFINITION arm's per-row AGREE counts are IDENTICAL on all three
+      binaries, cell for cell (3651/4836/3285/5116/3325 by row).  The pass's
+      "PROTO KIND-DIFF 2 -> 0" is reproduced independently.
+
+(9) WIDE BOUNDARY      see BOUNDARY.r10v185.txt — 5027 arms (the whole probe
+      tree plus this verifier's five), PROCESSED=5027, RC_DIFFS=0,
+      MOVED_ARMS=23 = the pass's 19 (name for name) + this verifier's 4;
+      AWAY 0 and MOVED-WRONG 0 against golden on all 18 attributed arms; and
+      all 19 committed moved arms BYTE-IDENTICAL between the patched and the
+      verified binary.

@@ -1,0 +1,412 @@
+r10v185 — THE VERIFIER'S GRID.  MEASUREMENT ONLY; the official `uhdm-cmp` is
+the judge.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+Five arms on the axes the pass's own decode did not enter — INHERITANCE, the
+WRITTEN-SCOPE-vs-OWNER split, intra-class DECLARATION ORDER, PARAMETERISATION,
+and method QUALIFIERS / NAME CASE / NAME COLLISION — each scored in BOTH views
+by r10uvm185repro's own `ct185cen` + `score185.py`, so the verifier's arms and
+the pass's arms are read by the SAME instrument on the SAME field (the `Return`
+variable's VARIABLE CLASS, which is what `task_func::Compare`'s `Return` edge
+reads through `BaseClass::Compare`'s VpiType line).
+
+pristine  bc09e77cf8fd251285c06f6f0b54a5bc
+patched   888a51d91d62274dde0c4843f008c488   (the pass's own)
+verified  88fb50c8b3f8c2a38bafbba57bd00b23   (patched + the two V-FIX terms)
+
+SCOREBOARD, both views, all five arms
+                      TOWARD   AWAY   MOVED-WRONG   STAY-BAD
+  the pass's patch      52      16         22           3
+  the verified patch    74       0          0           3
+
+`v185_j_order.sv` is REJECTED BY SLANG on BOTH binaries (rc=3, "identifier
+used before its declaration"): a class-scope typedef written AFTER the `extern`
+prototype that names it is not legal SV, so the intra-class DECLARATION-ORDER
+axis carries no cell on either side.  It is kept in the arm set as the record
+of an axis CLOSED BY THE LANGUAGE rather than left unmeasured — and because its
+rc must stay symmetric.
+
+The 3 STAY-BAD cells are ONE cell (`v185_i_inherit.sv` `i_body_bare_enum`,
+counted once in the plain view and twice in the elab view's two listings): an
+IN-BODY method returning a BARE INHERITED typedef, golden `ref_var` and ours
+`enum_var` on BOTH binaries.  It is § classTdLocalVarKindFollowsCompileOrder10's
+in-body arm, pre-existing, and neither patch touches it — residue R-V2.
+
+########## BEFORE THE V-FIX — pristine vs the pass's own patched binary (888a51d9…)
+== v185_i_inherit/plain
+   AGREE=32 AWAY=1 MOVED-WRONG=4 STAY-BAD=1 TOWARD=3
+     STAY-BAD    pi185::cd_der185::i_body_bare_enum 44:5 stmt=0  G=ref_var@44:14 PRIS=enum_var@44:14 PAT=enum_var@44:14
+     MOVED-WRONG pi185::cd_der185::i_inh_bare_alias 35:5 stmt=0  G=ref_var@35:21 PRIS=class_var@55:12 PAT=enum_var@55:12
+     MOVED-WRONG pi185::cd_der185::i_inh_bare_enum 33:5 stmt=0  G=ref_var@33:21 PRIS=class_var@53:12 PAT=enum_var@53:12
+     MOVED-WRONG pi185::cd_der185::i_inh_bare_int 36:5 stmt=0  G=ref_var@36:21 PRIS=class_var@23:13 PAT=int_var@23:13
+     MOVED-WRONG pi185::cd_der185::i_inh_bare_rec 34:5 stmt=0  G=ref_var@34:21 PRIS=class_var@54:12 PAT=struct_var@54:12
+     TOWARD      pi185::cd_der185::i_inh_scoped_enum 38:5 stmt=0  G=enum_var@38:21 PRIS=class_var@57:12 PAT=enum_var@57:12
+     TOWARD      pi185::cd_der185::i_inh_scoped_rec 39:5 stmt=0  G=struct_var@39:21 PRIS=class_var@58:12 PAT=struct_var@58:12
+     AWAY        pi185::cd_der185::i_inh_selfscoped_enum 42:5 stmt=0  G=class_var@42:21 PRIS=class_var@60:12 PAT=enum_var@60:12
+     TOWARD      pi185::md_der185::i_late_bare_enum 49:5 stmt=0  G=ref_var@49:21 PRIS=class_var@61:12 PAT=ref_var@61:12
+== v185_i_inherit/elab
+   AGREE=64 AWAY=2 MOVED-WRONG=8 O-ONLY=22 STAY-BAD=2 TOWARD=6
+     STAY-BAD    pi185::cd_der185::i_body_bare_enum 44:5 stmt=0  G=ref_var@44:14 PRIS=enum_var@44:14 PAT=enum_var@44:14
+     STAY-BAD    pi185::cd_der185::i_body_bare_enum 44:5 stmt=0  G=ref_var@44:14 PRIS=enum_var@44:14 PAT=enum_var@44:14
+     O-ONLY      pi185::cd_der185::i_body_bare_enum 44:5 stmt=0  G=None@- PRIS=enum_var@44:14 PAT=enum_var@44:14
+     O-ONLY      pi185::cd_der185::i_body_scoped_rec 45:5 stmt=0  G=None@- PRIS=struct_var@45:14 PAT=struct_var@45:14
+     MOVED-WRONG pi185::cd_der185::i_inh_bare_alias 35:5 stmt=0  G=ref_var@35:21 PRIS=class_var@55:12 PAT=enum_var@55:12
+     MOVED-WRONG pi185::cd_der185::i_inh_bare_alias 35:5 stmt=0  G=ref_var@35:21 PRIS=class_var@55:12 PAT=enum_var@55:12
+     O-ONLY      pi185::cd_der185::i_inh_bare_alias 35:5 stmt=0  G=None@- PRIS=class_var@55:12 PAT=enum_var@55:12
+     O-ONLY      pi185::cd_der185::i_inh_bare_alias 55:3 stmt=0  G=None@- PRIS=class_var@55:12 PAT=class_var@55:12
+     MOVED-WRONG pi185::cd_der185::i_inh_bare_enum 33:5 stmt=0  G=ref_var@33:21 PRIS=class_var@53:12 PAT=enum_var@53:12
+     MOVED-WRONG pi185::cd_der185::i_inh_bare_enum 33:5 stmt=0  G=ref_var@33:21 PRIS=class_var@53:12 PAT=enum_var@53:12
+     O-ONLY      pi185::cd_der185::i_inh_bare_enum 33:5 stmt=0  G=None@- PRIS=class_var@53:12 PAT=enum_var@53:12
+     O-ONLY      pi185::cd_der185::i_inh_bare_enum 53:3 stmt=0  G=None@- PRIS=class_var@53:12 PAT=class_var@53:12
+     MOVED-WRONG pi185::cd_der185::i_inh_bare_int 36:5 stmt=0  G=ref_var@36:21 PRIS=class_var@23:13 PAT=int_var@23:13
+     MOVED-WRONG pi185::cd_der185::i_inh_bare_int 36:5 stmt=0  G=ref_var@36:21 PRIS=class_var@23:13 PAT=int_var@23:13
+     O-ONLY      pi185::cd_der185::i_inh_bare_int 36:5 stmt=0  G=None@- PRIS=class_var@23:13 PAT=int_var@23:13
+     O-ONLY      pi185::cd_der185::i_inh_bare_int 56:3 stmt=0  G=None@- PRIS=class_var@23:13 PAT=class_var@23:13
+     MOVED-WRONG pi185::cd_der185::i_inh_bare_rec 34:5 stmt=0  G=ref_var@34:21 PRIS=class_var@54:12 PAT=struct_var@54:12
+     MOVED-WRONG pi185::cd_der185::i_inh_bare_rec 34:5 stmt=0  G=ref_var@34:21 PRIS=class_var@54:12 PAT=struct_var@54:12
+     O-ONLY      pi185::cd_der185::i_inh_bare_rec 34:5 stmt=0  G=None@- PRIS=class_var@54:12 PAT=struct_var@54:12
+     O-ONLY      pi185::cd_der185::i_inh_bare_rec 54:3 stmt=0  G=None@- PRIS=class_var@54:12 PAT=class_var@54:12
+     O-ONLY      pi185::cd_der185::i_inh_scoped_alias 40:5 stmt=0  G=None@- PRIS=class_var@59:12 PAT=class_var@59:12
+     O-ONLY      pi185::cd_der185::i_inh_scoped_alias 59:3 stmt=0  G=None@- PRIS=class_var@59:12 PAT=class_var@59:12
+     TOWARD      pi185::cd_der185::i_inh_scoped_enum 38:5 stmt=0  G=enum_var@38:21 PRIS=class_var@57:12 PAT=enum_var@57:12
+     TOWARD      pi185::cd_der185::i_inh_scoped_enum 38:5 stmt=0  G=enum_var@38:21 PRIS=class_var@57:12 PAT=enum_var@57:12
+     O-ONLY      pi185::cd_der185::i_inh_scoped_enum 38:5 stmt=0  G=None@- PRIS=class_var@57:12 PAT=enum_var@57:12
+     O-ONLY      pi185::cd_der185::i_inh_scoped_enum 57:3 stmt=0  G=None@- PRIS=class_var@57:12 PAT=class_var@57:12
+     TOWARD      pi185::cd_der185::i_inh_scoped_rec 39:5 stmt=0  G=struct_var@39:21 PRIS=class_var@58:12 PAT=struct_var@58:12
+     TOWARD      pi185::cd_der185::i_inh_scoped_rec 39:5 stmt=0  G=struct_var@39:21 PRIS=class_var@58:12 PAT=struct_var@58:12
+     O-ONLY      pi185::cd_der185::i_inh_scoped_rec 39:5 stmt=0  G=None@- PRIS=class_var@58:12 PAT=struct_var@58:12
+     O-ONLY      pi185::cd_der185::i_inh_scoped_rec 58:3 stmt=0  G=None@- PRIS=class_var@58:12 PAT=class_var@58:12
+     AWAY        pi185::cd_der185::i_inh_selfscoped_enum 42:5 stmt=0  G=class_var@42:21 PRIS=class_var@60:12 PAT=enum_var@60:12
+     AWAY        pi185::cd_der185::i_inh_selfscoped_enum 42:5 stmt=0  G=class_var@42:21 PRIS=class_var@60:12 PAT=enum_var@60:12
+     O-ONLY      pi185::cd_der185::i_inh_selfscoped_enum 42:5 stmt=0  G=None@- PRIS=class_var@60:12 PAT=enum_var@60:12
+     O-ONLY      pi185::cd_der185::i_inh_selfscoped_enum 60:3 stmt=0  G=None@- PRIS=class_var@60:12 PAT=class_var@60:12
+     TOWARD      pi185::md_der185::i_late_bare_enum 49:5 stmt=0  G=ref_var@49:21 PRIS=class_var@61:12 PAT=ref_var@61:12
+     TOWARD      pi185::md_der185::i_late_bare_enum 49:5 stmt=0  G=ref_var@49:21 PRIS=class_var@61:12 PAT=ref_var@61:12
+     O-ONLY      pi185::md_der185::i_late_bare_enum 49:5 stmt=0  G=None@- PRIS=class_var@61:12 PAT=ref_var@61:12
+     O-ONLY      pi185::md_der185::i_late_bare_enum 61:3 stmt=0  G=None@- PRIS=class_var@61:12 PAT=class_var@61:12
+     O-ONLY      pi185::md_der185::i_late_scoped_rec 50:5 stmt=0  G=None@- PRIS=class_var@62:12 PAT=class_var@62:12
+     O-ONLY      pi185::md_der185::i_late_scoped_rec 62:3 stmt=0  G=None@- PRIS=class_var@62:12 PAT=class_var@62:12
+== v185_j_order/plain  SKIP SLRC=0 v185_j_order/plain PRISRC=3 PATRC=3 
+== v185_j_order/elab  SKIP SLRC=0 v185_j_order/elab PRISRC=3 PATRC=3 
+== v185_k_parm/plain
+   AGREE=27 MOVED-WRONG=1 TOWARD=2
+     MOVED-WRONG pk185::ck_der185::k_inhspec_bare 41:5 stmt=0  G=ref_var@41:21 PRIS=class_var@50:12 PAT=enum_var@50:12
+     TOWARD      pk185::mk_user185::k_spec_early 33:5 stmt=0  G=enum_var@33:21 PRIS=class_var@46:12 PAT=enum_var@46:12
+     TOWARD      pk185::mk_user185::k_spec_early3 34:5 stmt=0  G=bit_var@34:21 PRIS=class_var@47:12 PAT=bit_var@47:12
+== v185_k_parm/elab
+   AGREE=54 MOVED-WRONG=2 O-ONLY=2 TOWARD=4
+     MOVED-WRONG pk185::ck_der185::k_inhspec_bare 41:5 stmt=0  G=ref_var@41:21 PRIS=class_var@50:12 PAT=enum_var@50:12
+     MOVED-WRONG pk185::ck_der185::k_inhspec_bare 41:5 stmt=0  G=ref_var@41:21 PRIS=class_var@50:12 PAT=enum_var@50:12
+     O-ONLY      pk185::ck_der185::k_inhspec_bare 41:5 stmt=0  G=None@- PRIS=class_var@50:12 PAT=enum_var@50:12
+     O-ONLY      pk185::ck_der185::k_inhspec_bare 50:3 stmt=0  G=None@- PRIS=class_var@50:12 PAT=class_var@50:12
+     TOWARD      pk185::mk_user185::k_spec_early 33:5 stmt=0  G=enum_var@33:21 PRIS=class_var@46:12 PAT=enum_var@46:12
+     TOWARD      pk185::mk_user185::k_spec_early 33:5 stmt=0  G=enum_var@33:21 PRIS=class_var@46:12 PAT=enum_var@46:12
+     TOWARD      pk185::mk_user185::k_spec_early3 34:5 stmt=0  G=bit_var@34:21 PRIS=class_var@47:12 PAT=bit_var@47:12
+     TOWARD      pk185::mk_user185::k_spec_early3 34:5 stmt=0  G=bit_var@34:21 PRIS=class_var@47:12 PAT=bit_var@47:12
+== v185_l_quals/plain
+   AGREE=29 MOVED-WRONG=1 TOWARD=9
+     TOWARD      pl185::ax185::l_cap_rec 26:5 stmt=0  G=struct_var@26:21 PRIS=class_var@45:12 PAT=struct_var@45:12
+     TOWARD      pl185::ax185::l_cap_shared 23:5 stmt=0  G=enum_var@23:21 PRIS=class_var@42:12 PAT=enum_var@42:12
+     TOWARD      pl185::ax185::l_own_shared_bare 24:5 stmt=0  G=enum_var@24:21 PRIS=class_var@43:12 PAT=enum_var@43:12
+     TOWARD      pl185::ax185::l_own_shared_scoped 25:5 stmt=0  G=enum_var@25:21 PRIS=class_var@44:12 PAT=enum_var@44:12
+     TOWARD      pl185::base_q185::l_local 34:5 stmt=0  G=enum_var@34:31 PRIS=class_var@50:12 PAT=enum_var@50:12
+     TOWARD      pl185::base_q185::l_plain 35:5 stmt=0  G=enum_var@35:31 PRIS=class_var@51:12 PAT=enum_var@51:12
+     TOWARD      pl185::base_q185::l_protected 33:5 stmt=0  G=enum_var@33:31 PRIS=class_var@49:12 PAT=enum_var@49:12
+     TOWARD      pl185::base_q185::l_static 32:5 stmt=0  G=enum_var@32:31 PRIS=class_var@48:12 PAT=enum_var@48:12
+     TOWARD      pl185::base_q185::l_virtual 31:5 stmt=0  G=enum_var@31:31 PRIS=class_var@47:12 PAT=enum_var@47:12
+     MOVED-WRONG pl185::der_q185::l_virtual 39:5 stmt=0  G=ref_var@39:29 PRIS=class_var@52:12 PAT=enum_var@52:12
+== v185_l_quals/elab
+   AGREE=58 MOVED-WRONG=2 O-ONLY=2 TOWARD=18
+     TOWARD      pl185::ax185::l_cap_rec 26:5 stmt=0  G=struct_var@26:21 PRIS=class_var@45:12 PAT=struct_var@45:12
+     TOWARD      pl185::ax185::l_cap_rec 26:5 stmt=0  G=struct_var@26:21 PRIS=class_var@45:12 PAT=struct_var@45:12
+     TOWARD      pl185::ax185::l_cap_shared 23:5 stmt=0  G=enum_var@23:21 PRIS=class_var@42:12 PAT=enum_var@42:12
+     TOWARD      pl185::ax185::l_cap_shared 23:5 stmt=0  G=enum_var@23:21 PRIS=class_var@42:12 PAT=enum_var@42:12
+     TOWARD      pl185::ax185::l_own_shared_bare 24:5 stmt=0  G=enum_var@24:21 PRIS=class_var@43:12 PAT=enum_var@43:12
+     TOWARD      pl185::ax185::l_own_shared_bare 24:5 stmt=0  G=enum_var@24:21 PRIS=class_var@43:12 PAT=enum_var@43:12
+     TOWARD      pl185::ax185::l_own_shared_scoped 25:5 stmt=0  G=enum_var@25:21 PRIS=class_var@44:12 PAT=enum_var@44:12
+     TOWARD      pl185::ax185::l_own_shared_scoped 25:5 stmt=0  G=enum_var@25:21 PRIS=class_var@44:12 PAT=enum_var@44:12
+     TOWARD      pl185::base_q185::l_local 34:5 stmt=0  G=enum_var@34:31 PRIS=class_var@50:12 PAT=enum_var@50:12
+     TOWARD      pl185::base_q185::l_local 34:5 stmt=0  G=enum_var@34:31 PRIS=class_var@50:12 PAT=enum_var@50:12
+     TOWARD      pl185::base_q185::l_plain 35:5 stmt=0  G=enum_var@35:31 PRIS=class_var@51:12 PAT=enum_var@51:12
+     TOWARD      pl185::base_q185::l_plain 35:5 stmt=0  G=enum_var@35:31 PRIS=class_var@51:12 PAT=enum_var@51:12
+     TOWARD      pl185::base_q185::l_protected 33:5 stmt=0  G=enum_var@33:31 PRIS=class_var@49:12 PAT=enum_var@49:12
+     TOWARD      pl185::base_q185::l_protected 33:5 stmt=0  G=enum_var@33:31 PRIS=class_var@49:12 PAT=enum_var@49:12
+     TOWARD      pl185::base_q185::l_static 32:5 stmt=0  G=enum_var@32:31 PRIS=class_var@48:12 PAT=enum_var@48:12
+     TOWARD      pl185::base_q185::l_static 32:5 stmt=0  G=enum_var@32:31 PRIS=class_var@48:12 PAT=enum_var@48:12
+     TOWARD      pl185::base_q185::l_virtual 31:5 stmt=0  G=enum_var@31:31 PRIS=class_var@47:12 PAT=enum_var@47:12
+     TOWARD      pl185::base_q185::l_virtual 31:5 stmt=0  G=enum_var@31:31 PRIS=class_var@47:12 PAT=enum_var@47:12
+     MOVED-WRONG pl185::der_q185::l_virtual 39:5 stmt=0  G=ref_var@39:29 PRIS=class_var@52:12 PAT=enum_var@52:12
+     MOVED-WRONG pl185::der_q185::l_virtual 39:5 stmt=0  G=ref_var@39:29 PRIS=class_var@52:12 PAT=enum_var@52:12
+     O-ONLY      pl185::der_q185::l_virtual 39:5 stmt=0  G=None@- PRIS=class_var@52:12 PAT=enum_var@52:12
+     O-ONLY      pl185::der_q185::l_virtual 52:3 stmt=0  G=None@- PRIS=class_var@52:12 PAT=class_var@52:12
+== v185_m_selfscope/plain
+   AGREE=25 AWAY=4 G-ONLY=3 MOVED-WRONG=1 O-ONLY=3 TOWARD=3
+     TOWARD      pm185::cd_m185::m_owner_enum 35:5 stmt=0  G=enum_var@35:21 PRIS=class_var@47:12 PAT=enum_var@47:12
+     TOWARD      pm185::cd_m185::m_owner_rec 36:5 stmt=0  G=struct_var@36:21 PRIS=class_var@48:12 PAT=struct_var@48:12
+     AWAY        pm185::cd_m185::m_self_enum 31:5 stmt=0  G=class_var@31:21 PRIS=class_var@44:12 PAT=enum_var@44:12
+     AWAY        pm185::cd_m185::m_self_int 33:5 stmt=0  G=class_var@33:21 PRIS=class_var@21:13 PAT=int_var@21:13
+     AWAY        pm185::cd_m185::m_self_rec 32:5 stmt=0  G=class_var@32:21 PRIS=class_var@45:12 PAT=struct_var@45:12
+     G-ONLY      work@top185m.cmod185::m_mod_bare_inh 66:3 stmt=0  G=class_var@66:12 PRIS=None@- PAT=None@-
+     G-ONLY      work@top185m.cmod185::m_mod_owner_rec 65:3 stmt=0  G=class_var@65:12 PRIS=None@- PAT=None@-
+     G-ONLY      work@top185m.cmod185::m_mod_self_enum 64:3 stmt=0  G=class_var@64:12 PRIS=None@- PAT=None@-
+     MOVED-WRONG work@top185m::cmod185::m_mod_bare_inh 62:5 stmt=0  G=ref_var@62:21 PRIS=class_var@66:12 PAT=enum_var@66:12
+     O-ONLY      work@top185m::cmod185::m_mod_bare_inh 66:3 stmt=0  G=None@- PRIS=class_var@66:12 PAT=class_var@66:12
+     TOWARD      work@top185m::cmod185::m_mod_owner_rec 61:5 stmt=0  G=struct_var@61:21 PRIS=class_var@65:12 PAT=struct_var@65:12
+     O-ONLY      work@top185m::cmod185::m_mod_owner_rec 65:3 stmt=0  G=None@- PRIS=class_var@65:12 PAT=class_var@65:12
+     AWAY        work@top185m::cmod185::m_mod_self_enum 60:5 stmt=0  G=class_var@60:21 PRIS=class_var@64:12 PAT=enum_var@64:12
+     O-ONLY      work@top185m::cmod185::m_mod_self_enum 64:3 stmt=0  G=None@- PRIS=class_var@64:12 PAT=class_var@64:12
+== v185_m_selfscope/elab
+   AGREE=50 AWAY=9 G-ONLY=6 MOVED-WRONG=3 O-ONLY=47 TOWARD=7
+     TOWARD      pm185::cd_m185::m_owner_enum 35:5 stmt=0  G=enum_var@35:21 PRIS=class_var@47:12 PAT=enum_var@47:12
+     TOWARD      pm185::cd_m185::m_owner_enum 35:5 stmt=0  G=enum_var@35:21 PRIS=class_var@47:12 PAT=enum_var@47:12
+     O-ONLY      pm185::cd_m185::m_owner_enum 35:5 stmt=0  G=None@- PRIS=class_var@47:12 PAT=enum_var@47:12
+     O-ONLY      pm185::cd_m185::m_owner_enum 47:3 stmt=0  G=None@- PRIS=class_var@47:12 PAT=class_var@47:12
+     TOWARD      pm185::cd_m185::m_owner_rec 36:5 stmt=0  G=struct_var@36:21 PRIS=class_var@48:12 PAT=struct_var@48:12
+     TOWARD      pm185::cd_m185::m_owner_rec 36:5 stmt=0  G=struct_var@36:21 PRIS=class_var@48:12 PAT=struct_var@48:12
+     O-ONLY      pm185::cd_m185::m_owner_rec 36:5 stmt=0  G=None@- PRIS=class_var@48:12 PAT=struct_var@48:12
+     O-ONLY      pm185::cd_m185::m_owner_rec 48:3 stmt=0  G=None@- PRIS=class_var@48:12 PAT=class_var@48:12
+     AWAY        pm185::cd_m185::m_self_enum 31:5 stmt=0  G=class_var@31:21 PRIS=class_var@44:12 PAT=enum_var@44:12
+     AWAY        pm185::cd_m185::m_self_enum 31:5 stmt=0  G=class_var@31:21 PRIS=class_var@44:12 PAT=enum_var@44:12
+     O-ONLY      pm185::cd_m185::m_self_enum 31:5 stmt=0  G=None@- PRIS=class_var@44:12 PAT=enum_var@44:12
+     O-ONLY      pm185::cd_m185::m_self_enum 44:3 stmt=0  G=None@- PRIS=class_var@44:12 PAT=class_var@44:12
+     AWAY        pm185::cd_m185::m_self_int 33:5 stmt=0  G=class_var@33:21 PRIS=class_var@21:13 PAT=int_var@21:13
+     AWAY        pm185::cd_m185::m_self_int 33:5 stmt=0  G=class_var@33:21 PRIS=class_var@21:13 PAT=int_var@21:13
+     O-ONLY      pm185::cd_m185::m_self_int 33:5 stmt=0  G=None@- PRIS=class_var@21:13 PAT=int_var@21:13
+     O-ONLY      pm185::cd_m185::m_self_int 46:3 stmt=0  G=None@- PRIS=class_var@21:13 PAT=class_var@21:13
+     AWAY        pm185::cd_m185::m_self_rec 32:5 stmt=0  G=class_var@32:21 PRIS=class_var@45:12 PAT=struct_var@45:12
+     AWAY        pm185::cd_m185::m_self_rec 32:5 stmt=0  G=class_var@32:21 PRIS=class_var@45:12 PAT=struct_var@45:12
+     O-ONLY      pm185::cd_m185::m_self_rec 32:5 stmt=0  G=None@- PRIS=class_var@45:12 PAT=struct_var@45:12
+     O-ONLY      pm185::cd_m185::m_self_rec 45:3 stmt=0  G=None@- PRIS=class_var@45:12 PAT=class_var@45:12
+     O-ONLY      pm185::mm_m185::m_owner_late_rec 41:5 stmt=0  G=None@- PRIS=class_var@50:12 PAT=class_var@50:12
+     O-ONLY      pm185::mm_m185::m_owner_late_rec 50:3 stmt=0  G=None@- PRIS=class_var@50:12 PAT=class_var@50:12
+     O-ONLY      pm185::mm_m185::m_self_late_enum 40:5 stmt=0  G=None@- PRIS=class_var@49:12 PAT=class_var@49:12
+     O-ONLY      pm185::mm_m185::m_self_late_enum 49:3 stmt=0  G=None@- PRIS=class_var@49:12 PAT=class_var@49:12
+     G-ONLY      work@top185m.cmod185::m_mod_bare_inh 66:3 stmt=0  G=class_var@66:12 PRIS=None@- PAT=None@-
+     G-ONLY      work@top185m.cmod185::m_mod_bare_inh 66:3 stmt=0  G=class_var@66:12 PRIS=None@- PAT=None@-
+     G-ONLY      work@top185m.cmod185::m_mod_owner_rec 65:3 stmt=0  G=class_var@65:12 PRIS=None@- PAT=None@-
+     G-ONLY      work@top185m.cmod185::m_mod_owner_rec 65:3 stmt=0  G=class_var@65:12 PRIS=None@- PAT=None@-
+     G-ONLY      work@top185m.cmod185::m_mod_self_enum 64:3 stmt=0  G=class_var@64:12 PRIS=None@- PAT=None@-
+     G-ONLY      work@top185m.cmod185::m_mod_self_enum 64:3 stmt=0  G=class_var@64:12 PRIS=None@- PAT=None@-
+     MOVED-WRONG work@top185m::cmod185::m_mod_bare_inh 62:5 stmt=0  G=ref_var@62:21 PRIS=class_var@66:12 PAT=enum_var@66:12
+     MOVED-WRONG work@top185m::cmod185::m_mod_bare_inh 62:5 stmt=0  G=ref_var@62:21 PRIS=class_var@66:12 PAT=enum_var@66:12
+     MOVED-WRONG work@top185m::cmod185::m_mod_bare_inh 62:5 stmt=0  G=ref_var@62:21 PRIS=class_var@66:12 PAT=enum_var@66:12
+     O-ONLY      work@top185m::cmod185::m_mod_bare_inh 62:5 stmt=0  G=None@- PRIS=class_var@66:12 PAT=enum_var@66:12
+     O-ONLY      work@top185m::cmod185::m_mod_bare_inh 62:5 stmt=0  G=None@- PRIS=class_var@66:12 PAT=enum_var@66:12
+     O-ONLY      work@top185m::cmod185::m_mod_bare_inh 62:5 stmt=0  G=None@- PRIS=class_var@66:12 PAT=enum_var@66:12
+     O-ONLY      work@top185m::cmod185::m_mod_bare_inh 62:5 stmt=0  G=None@- PRIS=class_var@66:12 PAT=enum_var@66:12
+     O-ONLY      work@top185m::cmod185::m_mod_bare_inh 66:3 stmt=0  G=None@- PRIS=class_var@66:12 PAT=class_var@66:12
+     O-ONLY      work@top185m::cmod185::m_mod_bare_inh 66:3 stmt=0  G=None@- PRIS=class_var@66:12 PAT=class_var@66:12
+     O-ONLY      work@top185m::cmod185::m_mod_bare_inh 66:3 stmt=0  G=None@- PRIS=class_var@66:12 PAT=class_var@66:12
+     O-ONLY      work@top185m::cmod185::m_mod_bare_inh 66:3 stmt=0  G=None@- PRIS=class_var@66:12 PAT=class_var@66:12
+     O-ONLY      work@top185m::cmod185::m_mod_bare_inh 66:3 stmt=0  G=None@- PRIS=class_var@66:12 PAT=class_var@66:12
+     O-ONLY      work@top185m::cmod185::m_mod_bare_inh 66:3 stmt=0  G=None@- PRIS=class_var@66:12 PAT=class_var@66:12
+     O-ONLY      work@top185m::cmod185::m_mod_bare_inh 66:3 stmt=0  G=None@- PRIS=class_var@66:12 PAT=class_var@66:12
+     TOWARD      work@top185m::cmod185::m_mod_owner_rec 61:5 stmt=0  G=struct_var@61:21 PRIS=class_var@65:12 PAT=struct_var@65:12
+     TOWARD      work@top185m::cmod185::m_mod_owner_rec 61:5 stmt=0  G=struct_var@61:21 PRIS=class_var@65:12 PAT=struct_var@65:12
+     TOWARD      work@top185m::cmod185::m_mod_owner_rec 61:5 stmt=0  G=struct_var@61:21 PRIS=class_var@65:12 PAT=struct_var@65:12
+     O-ONLY      work@top185m::cmod185::m_mod_owner_rec 61:5 stmt=0  G=None@- PRIS=class_var@65:12 PAT=struct_var@65:12
+     O-ONLY      work@top185m::cmod185::m_mod_owner_rec 61:5 stmt=0  G=None@- PRIS=class_var@65:12 PAT=struct_var@65:12
+     O-ONLY      work@top185m::cmod185::m_mod_owner_rec 61:5 stmt=0  G=None@- PRIS=class_var@65:12 PAT=struct_var@65:12
+     O-ONLY      work@top185m::cmod185::m_mod_owner_rec 61:5 stmt=0  G=None@- PRIS=class_var@65:12 PAT=struct_var@65:12
+     O-ONLY      work@top185m::cmod185::m_mod_owner_rec 65:3 stmt=0  G=None@- PRIS=class_var@65:12 PAT=class_var@65:12
+     O-ONLY      work@top185m::cmod185::m_mod_owner_rec 65:3 stmt=0  G=None@- PRIS=class_var@65:12 PAT=class_var@65:12
+     O-ONLY      work@top185m::cmod185::m_mod_owner_rec 65:3 stmt=0  G=None@- PRIS=class_var@65:12 PAT=class_var@65:12
+     O-ONLY      work@top185m::cmod185::m_mod_owner_rec 65:3 stmt=0  G=None@- PRIS=class_var@65:12 PAT=class_var@65:12
+     O-ONLY      work@top185m::cmod185::m_mod_owner_rec 65:3 stmt=0  G=None@- PRIS=class_var@65:12 PAT=class_var@65:12
+     O-ONLY      work@top185m::cmod185::m_mod_owner_rec 65:3 stmt=0  G=None@- PRIS=class_var@65:12 PAT=class_var@65:12
+     O-ONLY      work@top185m::cmod185::m_mod_owner_rec 65:3 stmt=0  G=None@- PRIS=class_var@65:12 PAT=class_var@65:12
+     AWAY        work@top185m::cmod185::m_mod_self_enum 60:5 stmt=0  G=class_var@60:21 PRIS=class_var@64:12 PAT=enum_var@64:12
+     AWAY        work@top185m::cmod185::m_mod_self_enum 60:5 stmt=0  G=class_var@60:21 PRIS=class_var@64:12 PAT=enum_var@64:12
+     AWAY        work@top185m::cmod185::m_mod_self_enum 60:5 stmt=0  G=class_var@60:21 PRIS=class_var@64:12 PAT=enum_var@64:12
+     O-ONLY      work@top185m::cmod185::m_mod_self_enum 60:5 stmt=0  G=None@- PRIS=class_var@64:12 PAT=enum_var@64:12
+     O-ONLY      work@top185m::cmod185::m_mod_self_enum 60:5 stmt=0  G=None@- PRIS=class_var@64:12 PAT=enum_var@64:12
+     O-ONLY      work@top185m::cmod185::m_mod_self_enum 60:5 stmt=0  G=None@- PRIS=class_var@64:12 PAT=enum_var@64:12
+     O-ONLY      work@top185m::cmod185::m_mod_self_enum 60:5 stmt=0  G=None@- PRIS=class_var@64:12 PAT=enum_var@64:12
+     O-ONLY      work@top185m::cmod185::m_mod_self_enum 64:3 stmt=0  G=None@- PRIS=class_var@64:12 PAT=class_var@64:12
+     O-ONLY      work@top185m::cmod185::m_mod_self_enum 64:3 stmt=0  G=None@- PRIS=class_var@64:12 PAT=class_var@64:12
+     O-ONLY      work@top185m::cmod185::m_mod_self_enum 64:3 stmt=0  G=None@- PRIS=class_var@64:12 PAT=class_var@64:12
+     O-ONLY      work@top185m::cmod185::m_mod_self_enum 64:3 stmt=0  G=None@- PRIS=class_var@64:12 PAT=class_var@64:12
+     O-ONLY      work@top185m::cmod185::m_mod_self_enum 64:3 stmt=0  G=None@- PRIS=class_var@64:12 PAT=class_var@64:12
+     O-ONLY      work@top185m::cmod185::m_mod_self_enum 64:3 stmt=0  G=None@- PRIS=class_var@64:12 PAT=class_var@64:12
+     O-ONLY      work@top185m::cmod185::m_mod_self_enum 64:3 stmt=0  G=None@- PRIS=class_var@64:12 PAT=class_var@64:12
+
+########## AFTER THE V-FIX — pristine vs the verified binary (88fb50c8…)
+== v185_i_inherit/plain
+   AGREE=33 STAY-BAD=1 TOWARD=7
+     STAY-BAD    pi185::cd_der185::i_body_bare_enum 44:5 stmt=0  G=ref_var@44:14 PRIS=enum_var@44:14 PAT=enum_var@44:14
+     TOWARD      pi185::cd_der185::i_inh_bare_alias 35:5 stmt=0  G=ref_var@35:21 PRIS=class_var@55:12 PAT=ref_var@55:12
+     TOWARD      pi185::cd_der185::i_inh_bare_enum 33:5 stmt=0  G=ref_var@33:21 PRIS=class_var@53:12 PAT=ref_var@53:12
+     TOWARD      pi185::cd_der185::i_inh_bare_int 36:5 stmt=0  G=ref_var@36:21 PRIS=class_var@23:13 PAT=ref_var@23:13
+     TOWARD      pi185::cd_der185::i_inh_bare_rec 34:5 stmt=0  G=ref_var@34:21 PRIS=class_var@54:12 PAT=ref_var@54:12
+     TOWARD      pi185::cd_der185::i_inh_scoped_enum 38:5 stmt=0  G=enum_var@38:21 PRIS=class_var@57:12 PAT=enum_var@57:12
+     TOWARD      pi185::cd_der185::i_inh_scoped_rec 39:5 stmt=0  G=struct_var@39:21 PRIS=class_var@58:12 PAT=struct_var@58:12
+     TOWARD      pi185::md_der185::i_late_bare_enum 49:5 stmt=0  G=ref_var@49:21 PRIS=class_var@61:12 PAT=ref_var@61:12
+== v185_i_inherit/elab
+   AGREE=66 O-ONLY=22 STAY-BAD=2 TOWARD=14
+     STAY-BAD    pi185::cd_der185::i_body_bare_enum 44:5 stmt=0  G=ref_var@44:14 PRIS=enum_var@44:14 PAT=enum_var@44:14
+     STAY-BAD    pi185::cd_der185::i_body_bare_enum 44:5 stmt=0  G=ref_var@44:14 PRIS=enum_var@44:14 PAT=enum_var@44:14
+     O-ONLY      pi185::cd_der185::i_body_bare_enum 44:5 stmt=0  G=None@- PRIS=enum_var@44:14 PAT=enum_var@44:14
+     O-ONLY      pi185::cd_der185::i_body_scoped_rec 45:5 stmt=0  G=None@- PRIS=struct_var@45:14 PAT=struct_var@45:14
+     TOWARD      pi185::cd_der185::i_inh_bare_alias 35:5 stmt=0  G=ref_var@35:21 PRIS=class_var@55:12 PAT=ref_var@55:12
+     TOWARD      pi185::cd_der185::i_inh_bare_alias 35:5 stmt=0  G=ref_var@35:21 PRIS=class_var@55:12 PAT=ref_var@55:12
+     O-ONLY      pi185::cd_der185::i_inh_bare_alias 35:5 stmt=0  G=None@- PRIS=class_var@55:12 PAT=ref_var@55:12
+     O-ONLY      pi185::cd_der185::i_inh_bare_alias 55:3 stmt=0  G=None@- PRIS=class_var@55:12 PAT=class_var@55:12
+     TOWARD      pi185::cd_der185::i_inh_bare_enum 33:5 stmt=0  G=ref_var@33:21 PRIS=class_var@53:12 PAT=ref_var@53:12
+     TOWARD      pi185::cd_der185::i_inh_bare_enum 33:5 stmt=0  G=ref_var@33:21 PRIS=class_var@53:12 PAT=ref_var@53:12
+     O-ONLY      pi185::cd_der185::i_inh_bare_enum 33:5 stmt=0  G=None@- PRIS=class_var@53:12 PAT=ref_var@53:12
+     O-ONLY      pi185::cd_der185::i_inh_bare_enum 53:3 stmt=0  G=None@- PRIS=class_var@53:12 PAT=class_var@53:12
+     TOWARD      pi185::cd_der185::i_inh_bare_int 36:5 stmt=0  G=ref_var@36:21 PRIS=class_var@23:13 PAT=ref_var@23:13
+     TOWARD      pi185::cd_der185::i_inh_bare_int 36:5 stmt=0  G=ref_var@36:21 PRIS=class_var@23:13 PAT=ref_var@23:13
+     O-ONLY      pi185::cd_der185::i_inh_bare_int 36:5 stmt=0  G=None@- PRIS=class_var@23:13 PAT=ref_var@23:13
+     O-ONLY      pi185::cd_der185::i_inh_bare_int 56:3 stmt=0  G=None@- PRIS=class_var@23:13 PAT=class_var@23:13
+     TOWARD      pi185::cd_der185::i_inh_bare_rec 34:5 stmt=0  G=ref_var@34:21 PRIS=class_var@54:12 PAT=ref_var@54:12
+     TOWARD      pi185::cd_der185::i_inh_bare_rec 34:5 stmt=0  G=ref_var@34:21 PRIS=class_var@54:12 PAT=ref_var@54:12
+     O-ONLY      pi185::cd_der185::i_inh_bare_rec 34:5 stmt=0  G=None@- PRIS=class_var@54:12 PAT=ref_var@54:12
+     O-ONLY      pi185::cd_der185::i_inh_bare_rec 54:3 stmt=0  G=None@- PRIS=class_var@54:12 PAT=class_var@54:12
+     O-ONLY      pi185::cd_der185::i_inh_scoped_alias 40:5 stmt=0  G=None@- PRIS=class_var@59:12 PAT=class_var@59:12
+     O-ONLY      pi185::cd_der185::i_inh_scoped_alias 59:3 stmt=0  G=None@- PRIS=class_var@59:12 PAT=class_var@59:12
+     TOWARD      pi185::cd_der185::i_inh_scoped_enum 38:5 stmt=0  G=enum_var@38:21 PRIS=class_var@57:12 PAT=enum_var@57:12
+     TOWARD      pi185::cd_der185::i_inh_scoped_enum 38:5 stmt=0  G=enum_var@38:21 PRIS=class_var@57:12 PAT=enum_var@57:12
+     O-ONLY      pi185::cd_der185::i_inh_scoped_enum 38:5 stmt=0  G=None@- PRIS=class_var@57:12 PAT=enum_var@57:12
+     O-ONLY      pi185::cd_der185::i_inh_scoped_enum 57:3 stmt=0  G=None@- PRIS=class_var@57:12 PAT=class_var@57:12
+     TOWARD      pi185::cd_der185::i_inh_scoped_rec 39:5 stmt=0  G=struct_var@39:21 PRIS=class_var@58:12 PAT=struct_var@58:12
+     TOWARD      pi185::cd_der185::i_inh_scoped_rec 39:5 stmt=0  G=struct_var@39:21 PRIS=class_var@58:12 PAT=struct_var@58:12
+     O-ONLY      pi185::cd_der185::i_inh_scoped_rec 39:5 stmt=0  G=None@- PRIS=class_var@58:12 PAT=struct_var@58:12
+     O-ONLY      pi185::cd_der185::i_inh_scoped_rec 58:3 stmt=0  G=None@- PRIS=class_var@58:12 PAT=class_var@58:12
+     O-ONLY      pi185::cd_der185::i_inh_selfscoped_enum 42:5 stmt=0  G=None@- PRIS=class_var@60:12 PAT=class_var@60:12
+     O-ONLY      pi185::cd_der185::i_inh_selfscoped_enum 60:3 stmt=0  G=None@- PRIS=class_var@60:12 PAT=class_var@60:12
+     TOWARD      pi185::md_der185::i_late_bare_enum 49:5 stmt=0  G=ref_var@49:21 PRIS=class_var@61:12 PAT=ref_var@61:12
+     TOWARD      pi185::md_der185::i_late_bare_enum 49:5 stmt=0  G=ref_var@49:21 PRIS=class_var@61:12 PAT=ref_var@61:12
+     O-ONLY      pi185::md_der185::i_late_bare_enum 49:5 stmt=0  G=None@- PRIS=class_var@61:12 PAT=ref_var@61:12
+     O-ONLY      pi185::md_der185::i_late_bare_enum 61:3 stmt=0  G=None@- PRIS=class_var@61:12 PAT=class_var@61:12
+     O-ONLY      pi185::md_der185::i_late_scoped_rec 50:5 stmt=0  G=None@- PRIS=class_var@62:12 PAT=class_var@62:12
+     O-ONLY      pi185::md_der185::i_late_scoped_rec 62:3 stmt=0  G=None@- PRIS=class_var@62:12 PAT=class_var@62:12
+== v185_j_order/plain  SKIP SLRC=0 v185_j_order/plain PRISRC=3 PATRC=3 
+== v185_j_order/elab  SKIP SLRC=0 v185_j_order/elab PRISRC=3 PATRC=3 
+== v185_k_parm/plain
+   AGREE=27 TOWARD=3
+     TOWARD      pk185::ck_der185::k_inhspec_bare 41:5 stmt=0  G=ref_var@41:21 PRIS=class_var@50:12 PAT=ref_var@50:12
+     TOWARD      pk185::mk_user185::k_spec_early 33:5 stmt=0  G=enum_var@33:21 PRIS=class_var@46:12 PAT=enum_var@46:12
+     TOWARD      pk185::mk_user185::k_spec_early3 34:5 stmt=0  G=bit_var@34:21 PRIS=class_var@47:12 PAT=bit_var@47:12
+== v185_k_parm/elab
+   AGREE=54 O-ONLY=2 TOWARD=6
+     TOWARD      pk185::ck_der185::k_inhspec_bare 41:5 stmt=0  G=ref_var@41:21 PRIS=class_var@50:12 PAT=ref_var@50:12
+     TOWARD      pk185::ck_der185::k_inhspec_bare 41:5 stmt=0  G=ref_var@41:21 PRIS=class_var@50:12 PAT=ref_var@50:12
+     O-ONLY      pk185::ck_der185::k_inhspec_bare 41:5 stmt=0  G=None@- PRIS=class_var@50:12 PAT=ref_var@50:12
+     O-ONLY      pk185::ck_der185::k_inhspec_bare 50:3 stmt=0  G=None@- PRIS=class_var@50:12 PAT=class_var@50:12
+     TOWARD      pk185::mk_user185::k_spec_early 33:5 stmt=0  G=enum_var@33:21 PRIS=class_var@46:12 PAT=enum_var@46:12
+     TOWARD      pk185::mk_user185::k_spec_early 33:5 stmt=0  G=enum_var@33:21 PRIS=class_var@46:12 PAT=enum_var@46:12
+     TOWARD      pk185::mk_user185::k_spec_early3 34:5 stmt=0  G=bit_var@34:21 PRIS=class_var@47:12 PAT=bit_var@47:12
+     TOWARD      pk185::mk_user185::k_spec_early3 34:5 stmt=0  G=bit_var@34:21 PRIS=class_var@47:12 PAT=bit_var@47:12
+== v185_l_quals/plain
+   AGREE=29 TOWARD=10
+     TOWARD      pl185::ax185::l_cap_rec 26:5 stmt=0  G=struct_var@26:21 PRIS=class_var@45:12 PAT=struct_var@45:12
+     TOWARD      pl185::ax185::l_cap_shared 23:5 stmt=0  G=enum_var@23:21 PRIS=class_var@42:12 PAT=enum_var@42:12
+     TOWARD      pl185::ax185::l_own_shared_bare 24:5 stmt=0  G=enum_var@24:21 PRIS=class_var@43:12 PAT=enum_var@43:12
+     TOWARD      pl185::ax185::l_own_shared_scoped 25:5 stmt=0  G=enum_var@25:21 PRIS=class_var@44:12 PAT=enum_var@44:12
+     TOWARD      pl185::base_q185::l_local 34:5 stmt=0  G=enum_var@34:31 PRIS=class_var@50:12 PAT=enum_var@50:12
+     TOWARD      pl185::base_q185::l_plain 35:5 stmt=0  G=enum_var@35:31 PRIS=class_var@51:12 PAT=enum_var@51:12
+     TOWARD      pl185::base_q185::l_protected 33:5 stmt=0  G=enum_var@33:31 PRIS=class_var@49:12 PAT=enum_var@49:12
+     TOWARD      pl185::base_q185::l_static 32:5 stmt=0  G=enum_var@32:31 PRIS=class_var@48:12 PAT=enum_var@48:12
+     TOWARD      pl185::base_q185::l_virtual 31:5 stmt=0  G=enum_var@31:31 PRIS=class_var@47:12 PAT=enum_var@47:12
+     TOWARD      pl185::der_q185::l_virtual 39:5 stmt=0  G=ref_var@39:29 PRIS=class_var@52:12 PAT=ref_var@52:12
+== v185_l_quals/elab
+   AGREE=58 O-ONLY=2 TOWARD=20
+     TOWARD      pl185::ax185::l_cap_rec 26:5 stmt=0  G=struct_var@26:21 PRIS=class_var@45:12 PAT=struct_var@45:12
+     TOWARD      pl185::ax185::l_cap_rec 26:5 stmt=0  G=struct_var@26:21 PRIS=class_var@45:12 PAT=struct_var@45:12
+     TOWARD      pl185::ax185::l_cap_shared 23:5 stmt=0  G=enum_var@23:21 PRIS=class_var@42:12 PAT=enum_var@42:12
+     TOWARD      pl185::ax185::l_cap_shared 23:5 stmt=0  G=enum_var@23:21 PRIS=class_var@42:12 PAT=enum_var@42:12
+     TOWARD      pl185::ax185::l_own_shared_bare 24:5 stmt=0  G=enum_var@24:21 PRIS=class_var@43:12 PAT=enum_var@43:12
+     TOWARD      pl185::ax185::l_own_shared_bare 24:5 stmt=0  G=enum_var@24:21 PRIS=class_var@43:12 PAT=enum_var@43:12
+     TOWARD      pl185::ax185::l_own_shared_scoped 25:5 stmt=0  G=enum_var@25:21 PRIS=class_var@44:12 PAT=enum_var@44:12
+     TOWARD      pl185::ax185::l_own_shared_scoped 25:5 stmt=0  G=enum_var@25:21 PRIS=class_var@44:12 PAT=enum_var@44:12
+     TOWARD      pl185::base_q185::l_local 34:5 stmt=0  G=enum_var@34:31 PRIS=class_var@50:12 PAT=enum_var@50:12
+     TOWARD      pl185::base_q185::l_local 34:5 stmt=0  G=enum_var@34:31 PRIS=class_var@50:12 PAT=enum_var@50:12
+     TOWARD      pl185::base_q185::l_plain 35:5 stmt=0  G=enum_var@35:31 PRIS=class_var@51:12 PAT=enum_var@51:12
+     TOWARD      pl185::base_q185::l_plain 35:5 stmt=0  G=enum_var@35:31 PRIS=class_var@51:12 PAT=enum_var@51:12
+     TOWARD      pl185::base_q185::l_protected 33:5 stmt=0  G=enum_var@33:31 PRIS=class_var@49:12 PAT=enum_var@49:12
+     TOWARD      pl185::base_q185::l_protected 33:5 stmt=0  G=enum_var@33:31 PRIS=class_var@49:12 PAT=enum_var@49:12
+     TOWARD      pl185::base_q185::l_static 32:5 stmt=0  G=enum_var@32:31 PRIS=class_var@48:12 PAT=enum_var@48:12
+     TOWARD      pl185::base_q185::l_static 32:5 stmt=0  G=enum_var@32:31 PRIS=class_var@48:12 PAT=enum_var@48:12
+     TOWARD      pl185::base_q185::l_virtual 31:5 stmt=0  G=enum_var@31:31 PRIS=class_var@47:12 PAT=enum_var@47:12
+     TOWARD      pl185::base_q185::l_virtual 31:5 stmt=0  G=enum_var@31:31 PRIS=class_var@47:12 PAT=enum_var@47:12
+     TOWARD      pl185::der_q185::l_virtual 39:5 stmt=0  G=ref_var@39:29 PRIS=class_var@52:12 PAT=ref_var@52:12
+     TOWARD      pl185::der_q185::l_virtual 39:5 stmt=0  G=ref_var@39:29 PRIS=class_var@52:12 PAT=ref_var@52:12
+     O-ONLY      pl185::der_q185::l_virtual 39:5 stmt=0  G=None@- PRIS=class_var@52:12 PAT=ref_var@52:12
+     O-ONLY      pl185::der_q185::l_virtual 52:3 stmt=0  G=None@- PRIS=class_var@52:12 PAT=class_var@52:12
+== v185_m_selfscope/plain
+   AGREE=29 G-ONLY=3 O-ONLY=3 TOWARD=4
+     TOWARD      pm185::cd_m185::m_owner_enum 35:5 stmt=0  G=enum_var@35:21 PRIS=class_var@47:12 PAT=enum_var@47:12
+     TOWARD      pm185::cd_m185::m_owner_rec 36:5 stmt=0  G=struct_var@36:21 PRIS=class_var@48:12 PAT=struct_var@48:12
+     G-ONLY      work@top185m.cmod185::m_mod_bare_inh 66:3 stmt=0  G=class_var@66:12 PRIS=None@- PAT=None@-
+     G-ONLY      work@top185m.cmod185::m_mod_owner_rec 65:3 stmt=0  G=class_var@65:12 PRIS=None@- PAT=None@-
+     G-ONLY      work@top185m.cmod185::m_mod_self_enum 64:3 stmt=0  G=class_var@64:12 PRIS=None@- PAT=None@-
+     TOWARD      work@top185m::cmod185::m_mod_bare_inh 62:5 stmt=0  G=ref_var@62:21 PRIS=class_var@66:12 PAT=ref_var@66:12
+     O-ONLY      work@top185m::cmod185::m_mod_bare_inh 66:3 stmt=0  G=None@- PRIS=class_var@66:12 PAT=class_var@66:12
+     TOWARD      work@top185m::cmod185::m_mod_owner_rec 61:5 stmt=0  G=struct_var@61:21 PRIS=class_var@65:12 PAT=struct_var@65:12
+     O-ONLY      work@top185m::cmod185::m_mod_owner_rec 65:3 stmt=0  G=None@- PRIS=class_var@65:12 PAT=class_var@65:12
+     O-ONLY      work@top185m::cmod185::m_mod_self_enum 64:3 stmt=0  G=None@- PRIS=class_var@64:12 PAT=class_var@64:12
+== v185_m_selfscope/elab
+   AGREE=59 G-ONLY=6 O-ONLY=47 TOWARD=10
+     TOWARD      pm185::cd_m185::m_owner_enum 35:5 stmt=0  G=enum_var@35:21 PRIS=class_var@47:12 PAT=enum_var@47:12
+     TOWARD      pm185::cd_m185::m_owner_enum 35:5 stmt=0  G=enum_var@35:21 PRIS=class_var@47:12 PAT=enum_var@47:12
+     O-ONLY      pm185::cd_m185::m_owner_enum 35:5 stmt=0  G=None@- PRIS=class_var@47:12 PAT=enum_var@47:12
+     O-ONLY      pm185::cd_m185::m_owner_enum 47:3 stmt=0  G=None@- PRIS=class_var@47:12 PAT=class_var@47:12
+     TOWARD      pm185::cd_m185::m_owner_rec 36:5 stmt=0  G=struct_var@36:21 PRIS=class_var@48:12 PAT=struct_var@48:12
+     TOWARD      pm185::cd_m185::m_owner_rec 36:5 stmt=0  G=struct_var@36:21 PRIS=class_var@48:12 PAT=struct_var@48:12
+     O-ONLY      pm185::cd_m185::m_owner_rec 36:5 stmt=0  G=None@- PRIS=class_var@48:12 PAT=struct_var@48:12
+     O-ONLY      pm185::cd_m185::m_owner_rec 48:3 stmt=0  G=None@- PRIS=class_var@48:12 PAT=class_var@48:12
+     O-ONLY      pm185::cd_m185::m_self_enum 31:5 stmt=0  G=None@- PRIS=class_var@44:12 PAT=class_var@44:12
+     O-ONLY      pm185::cd_m185::m_self_enum 44:3 stmt=0  G=None@- PRIS=class_var@44:12 PAT=class_var@44:12
+     O-ONLY      pm185::cd_m185::m_self_int 33:5 stmt=0  G=None@- PRIS=class_var@21:13 PAT=class_var@21:13
+     O-ONLY      pm185::cd_m185::m_self_int 46:3 stmt=0  G=None@- PRIS=class_var@21:13 PAT=class_var@21:13
+     O-ONLY      pm185::cd_m185::m_self_rec 32:5 stmt=0  G=None@- PRIS=class_var@45:12 PAT=class_var@45:12
+     O-ONLY      pm185::cd_m185::m_self_rec 45:3 stmt=0  G=None@- PRIS=class_var@45:12 PAT=class_var@45:12
+     O-ONLY      pm185::mm_m185::m_owner_late_rec 41:5 stmt=0  G=None@- PRIS=class_var@50:12 PAT=class_var@50:12
+     O-ONLY      pm185::mm_m185::m_owner_late_rec 50:3 stmt=0  G=None@- PRIS=class_var@50:12 PAT=class_var@50:12
+     O-ONLY      pm185::mm_m185::m_self_late_enum 40:5 stmt=0  G=None@- PRIS=class_var@49:12 PAT=class_var@49:12
+     O-ONLY      pm185::mm_m185::m_self_late_enum 49:3 stmt=0  G=None@- PRIS=class_var@49:12 PAT=class_var@49:12
+     G-ONLY      work@top185m.cmod185::m_mod_bare_inh 66:3 stmt=0  G=class_var@66:12 PRIS=None@- PAT=None@-
+     G-ONLY      work@top185m.cmod185::m_mod_bare_inh 66:3 stmt=0  G=class_var@66:12 PRIS=None@- PAT=None@-
+     G-ONLY      work@top185m.cmod185::m_mod_owner_rec 65:3 stmt=0  G=class_var@65:12 PRIS=None@- PAT=None@-
+     G-ONLY      work@top185m.cmod185::m_mod_owner_rec 65:3 stmt=0  G=class_var@65:12 PRIS=None@- PAT=None@-
+     G-ONLY      work@top185m.cmod185::m_mod_self_enum 64:3 stmt=0  G=class_var@64:12 PRIS=None@- PAT=None@-
+     G-ONLY      work@top185m.cmod185::m_mod_self_enum 64:3 stmt=0  G=class_var@64:12 PRIS=None@- PAT=None@-
+     TOWARD      work@top185m::cmod185::m_mod_bare_inh 62:5 stmt=0  G=ref_var@62:21 PRIS=class_var@66:12 PAT=ref_var@66:12
+     TOWARD      work@top185m::cmod185::m_mod_bare_inh 62:5 stmt=0  G=ref_var@62:21 PRIS=class_var@66:12 PAT=ref_var@66:12
+     TOWARD      work@top185m::cmod185::m_mod_bare_inh 62:5 stmt=0  G=ref_var@62:21 PRIS=class_var@66:12 PAT=ref_var@66:12
+     O-ONLY      work@top185m::cmod185::m_mod_bare_inh 62:5 stmt=0  G=None@- PRIS=class_var@66:12 PAT=ref_var@66:12
+     O-ONLY      work@top185m::cmod185::m_mod_bare_inh 62:5 stmt=0  G=None@- PRIS=class_var@66:12 PAT=ref_var@66:12
+     O-ONLY      work@top185m::cmod185::m_mod_bare_inh 62:5 stmt=0  G=None@- PRIS=class_var@66:12 PAT=ref_var@66:12
+     O-ONLY      work@top185m::cmod185::m_mod_bare_inh 62:5 stmt=0  G=None@- PRIS=class_var@66:12 PAT=ref_var@66:12
+     O-ONLY      work@top185m::cmod185::m_mod_bare_inh 66:3 stmt=0  G=None@- PRIS=class_var@66:12 PAT=class_var@66:12
+     O-ONLY      work@top185m::cmod185::m_mod_bare_inh 66:3 stmt=0  G=None@- PRIS=class_var@66:12 PAT=class_var@66:12
+     O-ONLY      work@top185m::cmod185::m_mod_bare_inh 66:3 stmt=0  G=None@- PRIS=class_var@66:12 PAT=class_var@66:12
+     O-ONLY      work@top185m::cmod185::m_mod_bare_inh 66:3 stmt=0  G=None@- PRIS=class_var@66:12 PAT=class_var@66:12
+     O-ONLY      work@top185m::cmod185::m_mod_bare_inh 66:3 stmt=0  G=None@- PRIS=class_var@66:12 PAT=class_var@66:12
+     O-ONLY      work@top185m::cmod185::m_mod_bare_inh 66:3 stmt=0  G=None@- PRIS=class_var@66:12 PAT=class_var@66:12
+     O-ONLY      work@top185m::cmod185::m_mod_bare_inh 66:3 stmt=0  G=None@- PRIS=class_var@66:12 PAT=class_var@66:12
+     TOWARD      work@top185m::cmod185::m_mod_owner_rec 61:5 stmt=0  G=struct_var@61:21 PRIS=class_var@65:12 PAT=struct_var@65:12
+     TOWARD      work@top185m::cmod185::m_mod_owner_rec 61:5 stmt=0  G=struct_var@61:21 PRIS=class_var@65:12 PAT=struct_var@65:12
+     TOWARD      work@top185m::cmod185::m_mod_owner_rec 61:5 stmt=0  G=struct_var@61:21 PRIS=class_var@65:12 PAT=struct_var@65:12
+     O-ONLY      work@top185m::cmod185::m_mod_owner_rec 61:5 stmt=0  G=None@- PRIS=class_var@65:12 PAT=struct_var@65:12
+     O-ONLY      work@top185m::cmod185::m_mod_owner_rec 61:5 stmt=0  G=None@- PRIS=class_var@65:12 PAT=struct_var@65:12
+     O-ONLY      work@top185m::cmod185::m_mod_owner_rec 61:5 stmt=0  G=None@- PRIS=class_var@65:12 PAT=struct_var@65:12
+     O-ONLY      work@top185m::cmod185::m_mod_owner_rec 61:5 stmt=0  G=None@- PRIS=class_var@65:12 PAT=struct_var@65:12
+     O-ONLY      work@top185m::cmod185::m_mod_owner_rec 65:3 stmt=0  G=None@- PRIS=class_var@65:12 PAT=class_var@65:12
+     O-ONLY      work@top185m::cmod185::m_mod_owner_rec 65:3 stmt=0  G=None@- PRIS=class_var@65:12 PAT=class_var@65:12
+     O-ONLY      work@top185m::cmod185::m_mod_owner_rec 65:3 stmt=0  G=None@- PRIS=class_var@65:12 PAT=class_var@65:12
+     O-ONLY      work@top185m::cmod185::m_mod_owner_rec 65:3 stmt=0  G=None@- PRIS=class_var@65:12 PAT=class_var@65:12
+     O-ONLY      work@top185m::cmod185::m_mod_owner_rec 65:3 stmt=0  G=None@- PRIS=class_var@65:12 PAT=class_var@65:12
+     O-ONLY      work@top185m::cmod185::m_mod_owner_rec 65:3 stmt=0  G=None@- PRIS=class_var@65:12 PAT=class_var@65:12
+     O-ONLY      work@top185m::cmod185::m_mod_owner_rec 65:3 stmt=0  G=None@- PRIS=class_var@65:12 PAT=class_var@65:12
+     O-ONLY      work@top185m::cmod185::m_mod_self_enum 60:5 stmt=0  G=None@- PRIS=class_var@64:12 PAT=class_var@64:12
+     O-ONLY      work@top185m::cmod185::m_mod_self_enum 60:5 stmt=0  G=None@- PRIS=class_var@64:12 PAT=class_var@64:12
+     O-ONLY      work@top185m::cmod185::m_mod_self_enum 60:5 stmt=0  G=None@- PRIS=class_var@64:12 PAT=class_var@64:12
+     O-ONLY      work@top185m::cmod185::m_mod_self_enum 60:5 stmt=0  G=None@- PRIS=class_var@64:12 PAT=class_var@64:12
+     O-ONLY      work@top185m::cmod185::m_mod_self_enum 64:3 stmt=0  G=None@- PRIS=class_var@64:12 PAT=class_var@64:12
+     O-ONLY      work@top185m::cmod185::m_mod_self_enum 64:3 stmt=0  G=None@- PRIS=class_var@64:12 PAT=class_var@64:12
+     O-ONLY      work@top185m::cmod185::m_mod_self_enum 64:3 stmt=0  G=None@- PRIS=class_var@64:12 PAT=class_var@64:12
+     O-ONLY      work@top185m::cmod185::m_mod_self_enum 64:3 stmt=0  G=None@- PRIS=class_var@64:12 PAT=class_var@64:12
+     O-ONLY      work@top185m::cmod185::m_mod_self_enum 64:3 stmt=0  G=None@- PRIS=class_var@64:12 PAT=class_var@64:12
+     O-ONLY      work@top185m::cmod185::m_mod_self_enum 64:3 stmt=0  G=None@- PRIS=class_var@64:12 PAT=class_var@64:12
+     O-ONLY      work@top185m::cmod185::m_mod_self_enum 64:3 stmt=0  G=None@- PRIS=class_var@64:12 PAT=class_var@64:12

@@ -1,0 +1,104 @@
+r10uvm185 — THE JUDGE DECODE (ct185own).  MEASUREMENT ONLY.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.  uhdm-cmp is the judge.
+
+################ BEFORE — pristine, md5 bc09e77cf8fd251285c06f6f0b54a5bc
+golden = ~/.cache/slang-uhdm-goldens/1d1c5ee1fda0267f8ebb/golden.uhdm (BuildUVMPkg default)
+
+design::Compare r=2
+HEAD LHS(golden) = enum_var()@uvm_pkg.sv:19055:27-19055:56#146491
+HEAD RHS(ours)   = class_var()@:20364:10-20364:39#52136
+  golden owner chain:
+      < function(object_printed)@uvm_pkg.sv:19055:3-19055:9#146489
+      < class_defn(uvm_printer)@uvm_pkg.sv:18932:9-19282:9#43
+      < package(uvm_pkg)@uvm_pkg.sv:7351:1-83263:11#1
+      < design(unnamed)@:0:0-0:0#191741
+  ours   owner chain:
+      < function(object_printed)@:19055:3-19055:9#52135
+      < class_defn(uvm_printer)@uvm_pkg.sv:18932:9-19282:9#51978
+      < package(uvm_pkg)@uvm_pkg.sv:7351:1-83263:11#2745
+      < design(unnamed)@:0:0-0:0#1
+  GOLDEN referrers of enum_var()@uvm_pkg.sv:19055:27-19055:56#146491:
+      REF .Return               rel1      function(object_printed)@uvm_pkg.sv:19055:3-19055:9#146489
+           owner chain:
+      < class_defn(uvm_printer)@uvm_pkg.sv:18932:9-19282:9#43
+      < package(uvm_pkg)@uvm_pkg.sv:7351:1-83263:11#1
+      < design(unnamed)@:0:0-0:0#191741
+      REFERRERS=1
+  OURS   referrers of class_var()@:20364:10-20364:39#52136:
+      REF .Return               rel1      function(object_printed)@:19055:3-19055:9#52135
+           owner chain:
+      < class_defn(uvm_printer)@uvm_pkg.sv:18932:9-19282:9#51978
+      < package(uvm_pkg)@uvm_pkg.sv:7351:1-83263:11#2745
+      < design(unnamed)@:0:0-0:0#1
+      REFERRERS=1
+  OWNER FIELD TABLE (judge order, function(object_printed)@uvm_pkg.sv:19055:3-19055:9#146489 vs function(object_printed)@:19055:3-19055:9#52135):
+      ok   VpiType              L=function                                       R=function
+      ok   VpiName              L=object_printed                                 R=object_printed
+      ok   VpiDefName           L=                                               R=
+      ok   VpiMethod            L=<unset>                                        R=<unset>
+      ok   VpiAccessType        L=<unset>                                        R=<unset>
+      ok   VpiVisibility        L=<unset>                                        R=<unset>
+      ok   VpiVirtual           L=<unset>                                        R=<unset>
+      ok   VpiAutomatic         L=<unset>                                        R=<unset>
+      ok   VpiDPIPure           L=<unset>                                        R=<unset>
+      ok   VpiDPIContext        L=<unset>                                        R=<unset>
+      ok   VpiDPICStr           L=<unset>                                        R=<unset>
+      ok   VpiDPICIdentifier    L=<unset>                                        R=<unset>
+      ok   Left_range           L=<null>                                         R=<null>
+      ok   Right_range          L=<null>                                         R=<null>
+    **FAIL Return               L=enum_var()@uvm_pkg.sv:19055:27-19055:56#146491 R=class_var()@:20364:10-20364:39#52136
+      ok   Class_defn           L=<null>                                         R=<null>   <- NEXT FIELD 1
+    **FAIL Io_decls             L=<2 elems>                                      R=<2 elems>   <- NEXT FIELD 2
+      ok   Stmt                 L=<null>                                         R=<null>
+      ok   Instance             L=<null>                                         R=<null>
+      ok   VpiSigned            L=<unset>                                        R=<unset>
+      ok   VpiSize              L=<unset>                                        R=<unset>
+      ok   VpiFuncType          L=<unset>                                        R=<unset>
+ABLATION (mask the golden head only):
+  design::Compare r=8
+  NEXT LHS(golden) = int_typespec(UVM_FILE)@uvm_pkg.sv:8459:9-8459:12#62665
+  NEXT RHS(ours)   = int_typespec()@:8461:11-8461:19#197
+  VERDICT: THE HEAD MOVED (this object was the whole head)
+CHAIN  0 r=2      LHS=enum_var()@uvm_pkg.sv:19055:27-19055:56#146491
+            RHS=class_var()@:20364:10-20364:39#52136
+CHAIN  1 r=8      LHS=int_typespec(UVM_FILE)@uvm_pkg.sv:8459:9-8459:12#62665
+            RHS=int_typespec()@:8461:11-8461:19#197
+CHAIN  2 r=8      LHS=int_typespec(UVM_FILE)@uvm_pkg.sv:8459:9-8459:12#62681
+            RHS=int_typespec()@:8462:11-8462:19#203
+CHAIN  3 r=8      LHS=int_typespec(UVM_FILE)@uvm_pkg.sv:8459:9-8459:12#62697
+            RHS=int_typespec()@:8463:11-8463:19#209
+CHAIN  4 r=-28    LHS=enum_const(UVM_DEEP)@uvm_pkg.sv:7932:3-7932:31#61526
+            RHS=enum_const(UVM_DEEP)@:7932:3-7932:31#296
+
+################ BEFORE — testflags (the same head; the two mode databases are byte-identical)
+design::Compare r=2
+HEAD LHS(golden) = enum_var()@uvm_pkg.sv:19055:27-19055:56#146491
+HEAD RHS(ours)   = class_var()@:20364:10-20364:39#52136
+  golden owner chain:
+
+################ AFTER — patched, md5 888a51d91d62274dde0c4843f008c488 — R0
+design::Compare r=8
+HEAD LHS(golden) = int_typespec(UVM_FILE)@uvm_pkg.sv:8459:9-8459:12#62665
+HEAD RHS(ours)   = int_typespec()@:8461:11-8461:19#197
+  golden owner chain:
+      < parameter(UVM_STDIN)@uvm_pkg.sv:8461:20-8461:29#62667
+      < package(uvm_pkg)@uvm_pkg.sv:7351:1-83263:11#60163
+      < design(unnamed)@:0:0-0:0#191741
+  ours   owner chain:
+      < parameter(UVM_STDIN)@:8461:20-8461:29#192
+      < package(uvm_pkg)@uvm_pkg.sv:7351:1-83263:11#2
+      < design(unnamed)@:0:0-0:0#1
+  OWNER PAIR is not a task_func pair: L=parameter(UVM_STDIN)@uvm_pkg.sv:8461:20-8461:29#62667 R=parameter(UVM_STDIN)@:8461:20-8461:29#192
+ABLATION (mask the golden head only):
+  design::Compare r=8
+  NEXT LHS(golden) = int_typespec(UVM_FILE)@uvm_pkg.sv:8459:9-8459:12#62681
+  NEXT RHS(ours)   = int_typespec()@:8462:11-8462:19#203
+  VERDICT: THE HEAD MOVED (this object was the whole head)
+CHAIN  0 r=8      LHS=int_typespec(UVM_FILE)@uvm_pkg.sv:8459:9-8459:12#62665
+            RHS=int_typespec()@:8461:11-8461:19#197
+CHAIN  1 r=8      LHS=int_typespec(UVM_FILE)@uvm_pkg.sv:8459:9-8459:12#62681
+            RHS=int_typespec()@:8462:11-8462:19#203
+CHAIN  2 r=8      LHS=int_typespec(UVM_FILE)@uvm_pkg.sv:8459:9-8459:12#62697
+            RHS=int_typespec()@:8463:11-8463:19#209
+CHAIN  3 r=-28    LHS=enum_const(UVM_DEEP)@uvm_pkg.sv:7932:3-7932:31#61526
+            RHS=enum_const(UVM_DEEP)@:7932:3-7932:31#296
