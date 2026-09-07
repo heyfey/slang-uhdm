@@ -1,0 +1,8 @@
+MOVED 2532_r10uvm186repro_g186_a_argdecl.sv/def 72 lines
+MOVED 2532_r10uvm186repro_g186_a_argdecl.sv/elab 56 lines
+MOVED 2533_r10uvm186repro_g186_b_listing.sv/def 16 lines
+MOVED 2533_r10uvm186repro_g186_b_listing.sv/elab 16 lines
+MOVED 2534_r10uvm186repro_g186_c_chain.sv/def 72 lines
+MOVED 2534_r10uvm186repro_g186_c_chain.sv/elab 72 lines
+LISTED=5049 FENCED_SKIPPED=0 PROCESSED=5049 MOVED=6 NO_OUTPUT_PAIRS=384
+PROCESSED-ASSERT-OK

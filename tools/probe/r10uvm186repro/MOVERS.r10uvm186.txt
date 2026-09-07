@@ -1,0 +1,60 @@
+default    MiniAmiq       plain=26     order-blind=26    
+---- default MiniAmiq ORDER-BLIND diff, by line shape:
+      4 >             |vpiActual:
+      4 >                 |vpiActual:
+      2 >                     |vpiActual:
+      2 >                       |vpiActual:
+      2 >                     \_io_decl: (addr), line:N:N, endln:N:N
+      2 >                 \_int_var: (uvm_pkg::uvm_reg_map::get_physical_addresses::n), line:N:N, endln:N:N
+      2 >                       \_int_var: (uvm_pkg::uvm_reg_map::get_physical_addresses::n), line:N:N, endln:N:N
+      2 >             \_int_var: (uvm_pkg::uvm_packer::get_ints::sz), line:N:N, endln:N:N
+      2 >             \_int_var: (uvm_pkg::uvm_packer::get_bytes::sz), line:N:N, endln:N:N
+      2 >                 \_array_var: (uvm_pkg::uvm_reg_map::get_physical_addresses::local_addr), line:N:N, endln:N:N
+      1 > /default/MiniAmiq-NcNfN/slang.uhdm: Restored design Pre-Elab: 
+      1 < /default/MiniAmiq-NcNfN//slang.uhdm: Restored design Pre-Elab: 
+default    Scoreboard     plain=28     order-blind=2     
+---- default Scoreboard ORDER-BLIND diff, by line shape:
+      1 > /default/Scoreboard-N/slang.uhdm: Restored design Pre-Elab: 
+      1 < /default/Scoreboard-N//slang.uhdm: Restored design Pre-Elab: 
+default    SeqDriver      plain=26     order-blind=26    
+---- default SeqDriver ORDER-BLIND diff, by line shape:
+      4 >             |vpiActual:
+      4 >                 |vpiActual:
+      2 >                     |vpiActual:
+      2 >                       |vpiActual:
+      2 >                     \_io_decl: (addr), line:N:N, endln:N:N
+      2 >                 \_int_var: (uvm_pkg::uvm_reg_map::get_physical_addresses::n), line:N:N, endln:N:N
+      2 >                       \_int_var: (uvm_pkg::uvm_reg_map::get_physical_addresses::n), line:N:N, endln:N:N
+      2 >             \_int_var: (uvm_pkg::uvm_packer::get_ints::sz), line:N:N, endln:N:N
+      2 >             \_int_var: (uvm_pkg::uvm_packer::get_bytes::sz), line:N:N, endln:N:N
+      2 >                 \_array_var: (uvm_pkg::uvm_reg_map::get_physical_addresses::local_addr), line:N:N, endln:N:N
+      1 > /default/SeqDriver-NafNaa/slang.uhdm: Restored design Pre-Elab: 
+      1 < /default/SeqDriver-NafNaa//slang.uhdm: Restored design Pre-Elab: 
+testflags  MiniAmiq       plain=26     order-blind=26    
+---- testflags MiniAmiq ORDER-BLIND diff, by line shape:
+      4 >             |vpiActual:
+      4 >                 |vpiActual:
+      2 >                     |vpiActual:
+      2 >                       |vpiActual:
+      2 >                     \_io_decl: (addr), line:N:N, endln:N:N
+      2 >                 \_int_var: (uvm_pkg::uvm_reg_map::get_physical_addresses::n), line:N:N, endln:N:N
+      2 >                       \_int_var: (uvm_pkg::uvm_reg_map::get_physical_addresses::n), line:N:N, endln:N:N
+      2 >             \_int_var: (uvm_pkg::uvm_packer::get_ints::sz), line:N:N, endln:N:N
+      2 >             \_int_var: (uvm_pkg::uvm_packer::get_bytes::sz), line:N:N, endln:N:N
+      2 >                 \_array_var: (uvm_pkg::uvm_reg_map::get_physical_addresses::local_addr), line:N:N, endln:N:N
+      1 > /testflags/MiniAmiq-NcNfN/slang.uhdm: Restored design Pre-Elab: 
+      1 < /testflags/MiniAmiq-NcNfN//slang.uhdm: Restored design Pre-Elab: 
+testflags  SeqDriver      plain=26     order-blind=26    
+---- testflags SeqDriver ORDER-BLIND diff, by line shape:
+      4 >             |vpiActual:
+      4 >                 |vpiActual:
+      2 >                     |vpiActual:
+      2 >                       |vpiActual:
+      2 >                     \_io_decl: (addr), line:N:N, endln:N:N
+      2 >                 \_int_var: (uvm_pkg::uvm_reg_map::get_physical_addresses::n), line:N:N, endln:N:N
+      2 >                       \_int_var: (uvm_pkg::uvm_reg_map::get_physical_addresses::n), line:N:N, endln:N:N
+      2 >             \_int_var: (uvm_pkg::uvm_packer::get_ints::sz), line:N:N, endln:N:N
+      2 >             \_int_var: (uvm_pkg::uvm_packer::get_bytes::sz), line:N:N, endln:N:N
+      2 >                 \_array_var: (uvm_pkg::uvm_reg_map::get_physical_addresses::local_addr), line:N:N, endln:N:N
+      1 > /testflags/SeqDriver-NafNaa/slang.uhdm: Restored design Pre-Elab: 
+      1 < /testflags/SeqDriver-NafNaa//slang.uhdm: Restored design Pre-Elab: 

@@ -1,0 +1,253 @@
+r10uvm186 GRID — § cloneNewArrayArgBindsOwnDecl186
+MEASUREMENT ONLY. LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+Each arm: ONE real Surelog golden, BOTH binaries, BOTH views, scored at
+IDENTITY granularity by score186.py over ct186new's LISTING-keyed multiset.
+pristine md5 8b1777950b91feef705565e6f16e8b0a   patched md5 85be7bc529abb997bc012034c968222b
+
+################ ARM A  (g186_a_argdecl.sv)
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/r10uvm186_scratch/arm_a/g_def g186_a_argdecl.sv
+rc=0 /tmp/r10uvm186_bin/pris.bin g186_a_argdecl.sv -o /tmp/r10uvm186_scratch/arm_a/a_def.uhdm
+rc=0 /tmp/r10uvm186_bin/pat.bin g186_a_argdecl.sv -o /tmp/r10uvm186_scratch/arm_a/b_def.uhdm
+cmp rc=255 a def lines=17 heads=1
+cmp rc=255 b def lines=17 heads=1
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/r10uvm186_scratch/arm_a/g_elab g186_a_argdecl.sv
+rc=0 /tmp/r10uvm186_bin/pris.bin g186_a_argdecl.sv --elabuhdm -o /tmp/r10uvm186_scratch/arm_a/a_elab.uhdm
+rc=0 /tmp/r10uvm186_bin/pat.bin g186_a_argdecl.sv --elabuhdm -o /tmp/r10uvm186_scratch/arm_a/b_elab.uhdm
+cmp rc=255 a elab lines=31 heads=1
+cmp rc=255 b elab lines=9212 heads=1
+---- view def
+TOWARD             14
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        15
+UNTOUCHED          16
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+    STILL-WRONG ('package:Gantry186', '100:18', 'loc186', 'arg0', 'DYN') G ('BARE', 'logic_net(loc186)@44:18') A ('BARE', 'BARE') B ('BARE', 'BARE')
+    STILL-WRONG ('package:Gantry186', '61:18', 'loc186', 'arg0', 'DYN') G ('BARE', 'logic_net(loc186)@44:18') A ('BARE', 'BARE') B ('BARE', 'BARE')
+    STILL-WRONG ('package:Gantry186', '62:18', 'fml_q', 'arg0', 'DYN') G ('BARE', 'logic_net(fml_q)@62:18') A ('BARE', 'BARE') B ('BARE', 'BARE')
+    STILL-WRONG ('package:Gantry186', '63:18', 'stat186', 'arg0', 'DYN') G ('BARE', 'logic_net(stat186)@63:18') A ('BARE', 'BARE') B ('BARE', 'BARE')
+    STILL-WRONG ('package:Gantry186', '68:18', 'loc186', 'arg0', 'DYN') G ('BARE', 'logic_net(loc186)@44:18') A ('BARE', 'BARE') B ('BARE', 'BARE')
+    STILL-WRONG ('package:Gantry186', '68:26', 'src186', 'arg1', 'DYN') G ('BARE', 'logic_net(src186)@47:26') A ('BARE', 'BARE') B ('BARE', 'BARE')
+    STILL-WRONG ('package:Gantry186', '69:18', 'loc186', 'arg0', 'DYN') G ('BARE', 'logic_net(loc186)@44:18') A ('BARE', 'BARE') B ('BARE', 'BARE')
+    STILL-WRONG ('package:Gantry186', '69:26', 'fml_src', 'arg1', 'DYN') G ('BARE', 'logic_net(fml_src)@69:26') A ('BARE', 'BARE') B ('BARE', 'BARE')
+    STILL-WRONG ('package:Gantry186', '77:20', 'blk186', 'arg0', 'DYN') G ('BARE', 'logic_net(blk186)@77:20') A ('BARE', 'BARE') B ('BARE', 'BARE')
+    STILL-WRONG ('package:Gantry186', '82:20', 'nak186', 'arg0', 'DYN') G ('BARE', 'logic_net(nak186)@82:20') A ('BARE', 'BARE') B ('BARE', 'BARE')
+    STILL-WRONG ('package:Gantry186+cls', '44:18', 'loc186', 'arg0', 'DYN') G ('logic_net(loc186)@44:18',) A ('BARE',) B ('BARE',)
+    STILL-WRONG ('package:Gantry186+cls', '45:19', 'm_girth', 'arg0', 'DYN') G ('logic_net(m_girth)@45:19',) A ('BARE',) B ('BARE',)
+    STILL-WRONG ('package:Gantry186+cls', '46:18', 'fml_w', 'arg0', 'DYN') G ('logic_net(fml_w)@46:18',) A ('BARE',) B ('BARE',)
+    STILL-WRONG ('package:Gantry186+cls', '47:18', 'loc186', 'arg0', 'DYN') G ('logic_net(loc186)@44:18',) A ('BARE',) B ('BARE',)
+    STILL-WRONG ('package:Gantry186+cls', '47:26', 'src186', 'arg1', 'DYN') G ('logic_net(src186)@47:26',) A ('BARE',) B ('BARE',)
+    TOWARD ('package:Stanchion186', '100:18', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@98:9', 'int_var(loc186)@98:9') A ('BARE', 'BARE') B ('int_var(loc186)@98:9', 'int_var(loc186)@98:9')
+    TOWARD ('package:Stanchion186', '44:18', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@40:10', 'int_var(loc186)@40:10') A ('BARE', 'BARE') B ('int_var(loc186)@40:10', 'int_var(loc186)@40:10')
+    TOWARD ('package:Stanchion186', '46:18', 'fml_w', 'arg0', 'DYN') G ('io_decl(fml_w)@38:46', 'io_decl(fml_w)@38:46') A ('BARE', 'BARE') B ('io_decl(fml_w)@38:46', 'io_decl(fml_w)@38:46')
+    TOWARD ('package:Stanchion186', '47:18', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@40:10', 'int_var(loc186)@40:10') A ('BARE', 'BARE') B ('int_var(loc186)@40:10', 'int_var(loc186)@40:10')
+    TOWARD ('package:Stanchion186', '47:26', 'src186', 'arg1', 'DYN') G ('array_var(src186)@41:10', 'array_var(src186)@41:10') A ('BARE', 'BARE') B ('array_var(src186)@41:10', 'array_var(src186)@41:10')
+    TOWARD ('package:Stanchion186', '61:18', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@53:11', 'int_var(loc186)@53:11') A ('BARE', 'BARE') B ('int_var(loc186)@53:11', 'int_var(loc186)@53:11')
+    TOWARD ('package:Stanchion186', '62:18', 'fml_q', 'arg0', 'DYN') G ('io_decl(fml_q)@51:48', 'io_decl(fml_q)@51:48') A ('BARE', 'BARE') B ('io_decl(fml_q)@51:48', 'io_decl(fml_q)@51:48')
+    TOWARD ('package:Stanchion186', '63:18', 'stat186', 'arg0', 'DYN') G ('int_var(stat186)@56:16', 'int_var(stat186)@56:16') A ('BARE', 'BARE') B ('int_var(stat186)@56:16', 'int_var(stat186)@56:16')
+    TOWARD ('package:Stanchion186', '68:18', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@53:11', 'int_var(loc186)@53:11') A ('BARE', 'BARE') B ('int_var(loc186)@53:11', 'int_var(loc186)@53:11')
+    TOWARD ('package:Stanchion186', '68:26', 'src186', 'arg1', 'DYN') G ('array_var(src186)@54:11', 'array_var(src186)@54:11') A ('BARE', 'BARE') B ('array_var(src186)@54:11', 'array_var(src186)@54:11')
+    TOWARD ('package:Stanchion186', '69:18', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@53:11', 'int_var(loc186)@53:11') A ('BARE', 'BARE') B ('int_var(loc186)@53:11', 'int_var(loc186)@53:11')
+    TOWARD ('package:Stanchion186', '69:26', 'fml_src', 'arg1', 'DYN') G ('io_decl(fml_src)@51:65', 'io_decl(fml_src)@51:65') A ('BARE', 'BARE') B ('io_decl(fml_src)@51:65', 'io_decl(fml_src)@51:65')
+    TOWARD ('package:Stanchion186', '77:20', 'blk186', 'arg0', 'DYN') G ('int_var(blk186)@75:11', 'int_var(blk186)@75:11') A ('BARE', 'BARE') B ('int_var(blk186)@75:11', 'int_var(blk186)@75:11')
+    TOWARD ('package:Stanchion186', '82:20', 'nak186', 'arg0', 'DYN') G ('int_var(nak186)@80:11', 'int_var(nak186)@80:11') A ('BARE', 'BARE') B ('int_var(nak186)@80:11', 'int_var(nak186)@80:11')
+---- view elab
+TOWARD             14
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        16
+UNTOUCHED          34
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+    STILL-WRONG ('module_inst:work@top186a', '64:18', 'pkgspan186', 'arg0', 'DYN') G ('int_var(pkgspan186)@22:16',) A ('BARE',) B ('BARE',)
+    STILL-WRONG ('package:Gantry186', '100:18', 'loc186', 'arg0', 'DYN') G ('BARE', 'int_var(loc186)@98:9', 'int_var(loc186)@98:9', 'logic_net(loc186)@44:18') A ('BARE', 'BARE', 'int_var(loc186)@98:9', 'int_var(loc186)@98:9') B ('BARE', 'BARE', 'int_var(loc186)@98:9', 'int_var(loc186)@98:9')
+    STILL-WRONG ('package:Gantry186', '61:18', 'loc186', 'arg0', 'DYN') G ('BARE', 'int_var(loc186)@53:11', 'int_var(loc186)@53:11', 'logic_net(loc186)@44:18') A ('BARE', 'BARE', 'int_var(loc186)@53:11', 'int_var(loc186)@53:11') B ('BARE', 'BARE', 'int_var(loc186)@53:11', 'int_var(loc186)@53:11')
+    STILL-WRONG ('package:Gantry186', '62:18', 'fml_q', 'arg0', 'DYN') G ('BARE', 'io_decl(fml_q)@51:48', 'io_decl(fml_q)@51:48', 'logic_net(fml_q)@62:18') A ('BARE', 'BARE', 'io_decl(fml_q)@51:48', 'io_decl(fml_q)@51:48') B ('BARE', 'BARE', 'io_decl(fml_q)@51:48', 'io_decl(fml_q)@51:48')
+    STILL-WRONG ('package:Gantry186', '63:18', 'stat186', 'arg0', 'DYN') G ('BARE', 'int_var(stat186)@56:16', 'int_var(stat186)@56:16', 'logic_net(stat186)@63:18') A ('BARE', 'BARE', 'int_var(stat186)@56:16', 'int_var(stat186)@56:16') B ('BARE', 'BARE', 'int_var(stat186)@56:16', 'int_var(stat186)@56:16')
+    STILL-WRONG ('package:Gantry186', '68:18', 'loc186', 'arg0', 'DYN') G ('BARE', 'int_var(loc186)@53:11', 'int_var(loc186)@53:11', 'logic_net(loc186)@44:18') A ('BARE', 'BARE', 'int_var(loc186)@53:11', 'int_var(loc186)@53:11') B ('BARE', 'BARE', 'int_var(loc186)@53:11', 'int_var(loc186)@53:11')
+    STILL-WRONG ('package:Gantry186', '68:26', 'src186', 'arg1', 'DYN') G ('BARE', 'array_var(src186)@54:11', 'array_var(src186)@54:11', 'logic_net(src186)@47:26') A ('BARE', 'BARE', 'array_var(src186)@54:11', 'array_var(src186)@54:11') B ('BARE', 'BARE', 'array_var(src186)@54:11', 'array_var(src186)@54:11')
+    STILL-WRONG ('package:Gantry186', '69:18', 'loc186', 'arg0', 'DYN') G ('BARE', 'int_var(loc186)@53:11', 'int_var(loc186)@53:11', 'logic_net(loc186)@44:18') A ('BARE', 'BARE', 'int_var(loc186)@53:11', 'int_var(loc186)@53:11') B ('BARE', 'BARE', 'int_var(loc186)@53:11', 'int_var(loc186)@53:11')
+    STILL-WRONG ('package:Gantry186', '69:26', 'fml_src', 'arg1', 'DYN') G ('BARE', 'io_decl(fml_src)@51:65', 'io_decl(fml_src)@51:65', 'logic_net(fml_src)@69:26') A ('BARE', 'BARE', 'io_decl(fml_src)@51:65', 'io_decl(fml_src)@51:65') B ('BARE', 'BARE', 'io_decl(fml_src)@51:65', 'io_decl(fml_src)@51:65')
+    STILL-WRONG ('package:Gantry186', '77:20', 'blk186', 'arg0', 'DYN') G ('BARE', 'int_var(blk186)@75:11', 'int_var(blk186)@75:11', 'logic_net(blk186)@77:20') A ('BARE', 'BARE', 'int_var(blk186)@75:11', 'int_var(blk186)@75:11') B ('BARE', 'BARE', 'int_var(blk186)@75:11', 'int_var(blk186)@75:11')
+    STILL-WRONG ('package:Gantry186', '82:20', 'nak186', 'arg0', 'DYN') G ('BARE', 'int_var(nak186)@80:11', 'int_var(nak186)@80:11', 'logic_net(nak186)@82:20') A ('BARE', 'BARE', 'int_var(nak186)@80:11', 'int_var(nak186)@80:11') B ('BARE', 'BARE', 'int_var(nak186)@80:11', 'int_var(nak186)@80:11')
+    STILL-WRONG ('package:Gantry186+cls', '44:18', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@40:10', 'logic_net(loc186)@44:18') A ('BARE', 'int_var(loc186)@40:10') B ('BARE', 'int_var(loc186)@40:10')
+    STILL-WRONG ('package:Gantry186+cls', '45:19', 'm_girth', 'arg0', 'DYN') G ('int_var(m_girth)@25:12', 'logic_net(m_girth)@45:19') A ('BARE', 'int_var(m_girth)@25:12') B ('BARE', 'int_var(m_girth)@25:12')
+    STILL-WRONG ('package:Gantry186+cls', '46:18', 'fml_w', 'arg0', 'DYN') G ('io_decl(fml_w)@38:46', 'logic_net(fml_w)@46:18') A ('BARE', 'io_decl(fml_w)@38:46') B ('BARE', 'io_decl(fml_w)@38:46')
+    STILL-WRONG ('package:Gantry186+cls', '47:18', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@40:10', 'logic_net(loc186)@44:18') A ('BARE', 'int_var(loc186)@40:10') B ('BARE', 'int_var(loc186)@40:10')
+    STILL-WRONG ('package:Gantry186+cls', '47:26', 'src186', 'arg1', 'DYN') G ('array_var(src186)@41:10', 'logic_net(src186)@47:26') A ('BARE', 'array_var(src186)@41:10') B ('BARE', 'array_var(src186)@41:10')
+    TOWARD ('package:Stanchion186', '100:18', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@98:9', 'int_var(loc186)@98:9', 'int_var(loc186)@98:9', 'int_var(loc186)@98:9') A ('BARE', 'BARE', 'int_var(loc186)@98:9', 'int_var(loc186)@98:9') B ('int_var(loc186)@98:9', 'int_var(loc186)@98:9', 'int_var(loc186)@98:9', 'int_var(loc186)@98:9')
+    TOWARD ('package:Stanchion186', '44:18', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@40:10', 'int_var(loc186)@40:10', 'int_var(loc186)@40:10', 'int_var(loc186)@40:10') A ('BARE', 'BARE', 'int_var(loc186)@40:10', 'int_var(loc186)@40:10') B ('int_var(loc186)@40:10', 'int_var(loc186)@40:10', 'int_var(loc186)@40:10', 'int_var(loc186)@40:10')
+    TOWARD ('package:Stanchion186', '46:18', 'fml_w', 'arg0', 'DYN') G ('io_decl(fml_w)@38:46', 'io_decl(fml_w)@38:46', 'io_decl(fml_w)@38:46', 'io_decl(fml_w)@38:46') A ('BARE', 'BARE', 'io_decl(fml_w)@38:46', 'io_decl(fml_w)@38:46') B ('io_decl(fml_w)@38:46', 'io_decl(fml_w)@38:46', 'io_decl(fml_w)@38:46', 'io_decl(fml_w)@38:46')
+    TOWARD ('package:Stanchion186', '47:18', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@40:10', 'int_var(loc186)@40:10', 'int_var(loc186)@40:10', 'int_var(loc186)@40:10') A ('BARE', 'BARE', 'int_var(loc186)@40:10', 'int_var(loc186)@40:10') B ('int_var(loc186)@40:10', 'int_var(loc186)@40:10', 'int_var(loc186)@40:10', 'int_var(loc186)@40:10')
+    TOWARD ('package:Stanchion186', '47:26', 'src186', 'arg1', 'DYN') G ('array_var(src186)@41:10', 'array_var(src186)@41:10', 'array_var(src186)@41:10', 'array_var(src186)@41:10') A ('BARE', 'BARE', 'array_var(src186)@41:10', 'array_var(src186)@41:10') B ('array_var(src186)@41:10', 'array_var(src186)@41:10', 'array_var(src186)@41:10', 'array_var(src186)@41:10')
+    TOWARD ('package:Stanchion186', '61:18', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@53:11', 'int_var(loc186)@53:11', 'int_var(loc186)@53:11', 'int_var(loc186)@53:11') A ('BARE', 'BARE', 'int_var(loc186)@53:11', 'int_var(loc186)@53:11') B ('int_var(loc186)@53:11', 'int_var(loc186)@53:11', 'int_var(loc186)@53:11', 'int_var(loc186)@53:11')
+    TOWARD ('package:Stanchion186', '62:18', 'fml_q', 'arg0', 'DYN') G ('io_decl(fml_q)@51:48', 'io_decl(fml_q)@51:48', 'io_decl(fml_q)@51:48', 'io_decl(fml_q)@51:48') A ('BARE', 'BARE', 'io_decl(fml_q)@51:48', 'io_decl(fml_q)@51:48') B ('io_decl(fml_q)@51:48', 'io_decl(fml_q)@51:48', 'io_decl(fml_q)@51:48', 'io_decl(fml_q)@51:48')
+    TOWARD ('package:Stanchion186', '63:18', 'stat186', 'arg0', 'DYN') G ('int_var(stat186)@56:16', 'int_var(stat186)@56:16', 'int_var(stat186)@56:16', 'int_var(stat186)@56:16') A ('BARE', 'BARE', 'int_var(stat186)@56:16', 'int_var(stat186)@56:16') B ('int_var(stat186)@56:16', 'int_var(stat186)@56:16', 'int_var(stat186)@56:16', 'int_var(stat186)@56:16')
+    TOWARD ('package:Stanchion186', '68:18', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@53:11', 'int_var(loc186)@53:11', 'int_var(loc186)@53:11', 'int_var(loc186)@53:11') A ('BARE', 'BARE', 'int_var(loc186)@53:11', 'int_var(loc186)@53:11') B ('int_var(loc186)@53:11', 'int_var(loc186)@53:11', 'int_var(loc186)@53:11', 'int_var(loc186)@53:11')
+    TOWARD ('package:Stanchion186', '68:26', 'src186', 'arg1', 'DYN') G ('array_var(src186)@54:11', 'array_var(src186)@54:11', 'array_var(src186)@54:11', 'array_var(src186)@54:11') A ('BARE', 'BARE', 'array_var(src186)@54:11', 'array_var(src186)@54:11') B ('array_var(src186)@54:11', 'array_var(src186)@54:11', 'array_var(src186)@54:11', 'array_var(src186)@54:11')
+    TOWARD ('package:Stanchion186', '69:18', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@53:11', 'int_var(loc186)@53:11', 'int_var(loc186)@53:11', 'int_var(loc186)@53:11') A ('BARE', 'BARE', 'int_var(loc186)@53:11', 'int_var(loc186)@53:11') B ('int_var(loc186)@53:11', 'int_var(loc186)@53:11', 'int_var(loc186)@53:11', 'int_var(loc186)@53:11')
+    TOWARD ('package:Stanchion186', '69:26', 'fml_src', 'arg1', 'DYN') G ('io_decl(fml_src)@51:65', 'io_decl(fml_src)@51:65', 'io_decl(fml_src)@51:65', 'io_decl(fml_src)@51:65') A ('BARE', 'BARE', 'io_decl(fml_src)@51:65', 'io_decl(fml_src)@51:65') B ('io_decl(fml_src)@51:65', 'io_decl(fml_src)@51:65', 'io_decl(fml_src)@51:65', 'io_decl(fml_src)@51:65')
+    TOWARD ('package:Stanchion186', '77:20', 'blk186', 'arg0', 'DYN') G ('int_var(blk186)@75:11', 'int_var(blk186)@75:11', 'int_var(blk186)@75:11', 'int_var(blk186)@75:11') A ('BARE', 'BARE', 'int_var(blk186)@75:11', 'int_var(blk186)@75:11') B ('int_var(blk186)@75:11', 'int_var(blk186)@75:11', 'int_var(blk186)@75:11', 'int_var(blk186)@75:11')
+    TOWARD ('package:Stanchion186', '82:20', 'nak186', 'arg0', 'DYN') G ('int_var(nak186)@80:11', 'int_var(nak186)@80:11', 'int_var(nak186)@80:11', 'int_var(nak186)@80:11') A ('BARE', 'BARE', 'int_var(nak186)@80:11', 'int_var(nak186)@80:11') B ('int_var(nak186)@80:11', 'int_var(nak186)@80:11', 'int_var(nak186)@80:11', 'int_var(nak186)@80:11')
+
+---- CALIBRATION golden/golden/golden (def), every column 0 but UNTOUCHED:
+TOWARD             0
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          45
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+
+################ ARM B  (g186_b_listing.sv)
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/r10uvm186_scratch/arm_b/g_def g186_b_listing.sv
+rc=0 /tmp/r10uvm186_bin/pris.bin g186_b_listing.sv -o /tmp/r10uvm186_scratch/arm_b/a_def.uhdm
+rc=0 /tmp/r10uvm186_bin/pat.bin g186_b_listing.sv -o /tmp/r10uvm186_scratch/arm_b/b_def.uhdm
+cmp rc=255 a def lines=1694 heads=1
+cmp rc=255 b def lines=1694 heads=1
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/r10uvm186_scratch/arm_b/g_elab g186_b_listing.sv
+rc=0 /tmp/r10uvm186_bin/pris.bin g186_b_listing.sv --elabuhdm -o /tmp/r10uvm186_scratch/arm_b/a_elab.uhdm
+rc=0 /tmp/r10uvm186_bin/pat.bin g186_b_listing.sv --elabuhdm -o /tmp/r10uvm186_scratch/arm_b/b_elab.uhdm
+cmp rc=255 a elab lines=2302 heads=1
+cmp rc=255 b elab lines=2302 heads=1
+---- view def
+TOWARD             4
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        6
+UNTOUCHED          1
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+    STILL-WRONG ('module_inst:', '72:18', 'loc186', 'arg0', 'DYN') G ('logic_net(loc186)@31:18',) A ('int_var(loc186)@70:9',) B ('int_var(loc186)@70:9',)
+    STILL-WRONG ('package:Astragal186', '39:18', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@37:9', 'int_var(loc186)@37:9') A ('BARE', 'BARE') B ('BARE', 'BARE')
+    STILL-WRONG ('package:Mullion186', '31:18', 'loc186', 'arg0', 'DYN') G ('BARE', 'logic_net(loc186)@31:18') A ('BARE', 'BARE') B ('BARE', 'BARE')
+    STILL-WRONG ('package:Mullion186', '32:18', 'loc186', 'arg0', 'DYN') G ('BARE', 'logic_net(loc186)@31:18') A ('BARE', 'BARE') B ('BARE', 'BARE')
+    STILL-WRONG ('package:Mullion186', '32:26', 'src186', 'arg1', 'DYN') G ('BARE', 'logic_net(src186)@32:26') A ('BARE', 'BARE') B ('BARE', 'BARE')
+    STILL-WRONG ('package:Mullion186', '39:18', 'loc186', 'arg0', 'DYN') G ('BARE', 'logic_net(loc186)@31:18') A ('BARE', 'BARE') B ('BARE', 'BARE')
+    TOWARD ('package:Newel186', '31:18', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@27:9', 'int_var(loc186)@27:9') A ('BARE', 'BARE') B ('int_var(loc186)@27:9', 'int_var(loc186)@27:9')
+    TOWARD ('package:Newel186', '32:18', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@27:9', 'int_var(loc186)@27:9') A ('BARE', 'BARE') B ('int_var(loc186)@27:9', 'int_var(loc186)@27:9')
+    TOWARD ('package:Newel186', '32:26', 'src186', 'arg1', 'DYN') G ('array_var(src186)@28:9', 'array_var(src186)@28:9') A ('BARE', 'BARE') B ('array_var(src186)@28:9', 'array_var(src186)@28:9')
+    TOWARD ('package:Newel186', '39:18', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@37:9', 'int_var(loc186)@37:9') A ('BARE', 'BARE') B ('int_var(loc186)@37:9', 'int_var(loc186)@37:9')
+---- view elab
+TOWARD             4
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        6
+UNTOUCHED          6
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+    STILL-WRONG ('module_inst:', '72:18', 'loc186', 'arg0', 'DYN') G ('logic_net(loc186)@31:18',) A ('int_var(loc186)@70:9',) B ('int_var(loc186)@70:9',)
+    STILL-WRONG ('package:Astragal186', '39:18', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@37:9', 'int_var(loc186)@37:9', 'int_var(loc186)@37:9', 'int_var(loc186)@37:9') A ('BARE', 'BARE', 'int_var(loc186)@37:9', 'int_var(loc186)@37:9') B ('BARE', 'BARE', 'int_var(loc186)@37:9', 'int_var(loc186)@37:9')
+    STILL-WRONG ('package:Mullion186', '31:18', 'loc186', 'arg0', 'DYN') G ('BARE', 'int_var(loc186)@27:9', 'int_var(loc186)@27:9', 'logic_net(loc186)@31:18') A ('BARE', 'BARE', 'int_var(loc186)@27:9', 'int_var(loc186)@27:9') B ('BARE', 'BARE', 'int_var(loc186)@27:9', 'int_var(loc186)@27:9')
+    STILL-WRONG ('package:Mullion186', '32:18', 'loc186', 'arg0', 'DYN') G ('BARE', 'int_var(loc186)@27:9', 'int_var(loc186)@27:9', 'logic_net(loc186)@31:18') A ('BARE', 'BARE', 'int_var(loc186)@27:9', 'int_var(loc186)@27:9') B ('BARE', 'BARE', 'int_var(loc186)@27:9', 'int_var(loc186)@27:9')
+    STILL-WRONG ('package:Mullion186', '32:26', 'src186', 'arg1', 'DYN') G ('BARE', 'array_var(src186)@28:9', 'array_var(src186)@28:9', 'logic_net(src186)@32:26') A ('BARE', 'BARE', 'array_var(src186)@28:9', 'array_var(src186)@28:9') B ('BARE', 'BARE', 'array_var(src186)@28:9', 'array_var(src186)@28:9')
+    STILL-WRONG ('package:Mullion186', '39:18', 'loc186', 'arg0', 'DYN') G ('BARE', 'int_var(loc186)@37:9', 'int_var(loc186)@37:9', 'logic_net(loc186)@31:18') A ('BARE', 'BARE', 'int_var(loc186)@37:9', 'int_var(loc186)@37:9') B ('BARE', 'BARE', 'int_var(loc186)@37:9', 'int_var(loc186)@37:9')
+    TOWARD ('package:Newel186', '31:18', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@27:9', 'int_var(loc186)@27:9', 'int_var(loc186)@27:9', 'int_var(loc186)@27:9') A ('BARE', 'BARE', 'int_var(loc186)@27:9', 'int_var(loc186)@27:9') B ('int_var(loc186)@27:9', 'int_var(loc186)@27:9', 'int_var(loc186)@27:9', 'int_var(loc186)@27:9')
+    TOWARD ('package:Newel186', '32:18', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@27:9', 'int_var(loc186)@27:9', 'int_var(loc186)@27:9', 'int_var(loc186)@27:9') A ('BARE', 'BARE', 'int_var(loc186)@27:9', 'int_var(loc186)@27:9') B ('int_var(loc186)@27:9', 'int_var(loc186)@27:9', 'int_var(loc186)@27:9', 'int_var(loc186)@27:9')
+    TOWARD ('package:Newel186', '32:26', 'src186', 'arg1', 'DYN') G ('array_var(src186)@28:9', 'array_var(src186)@28:9', 'array_var(src186)@28:9', 'array_var(src186)@28:9') A ('BARE', 'BARE', 'array_var(src186)@28:9', 'array_var(src186)@28:9') B ('array_var(src186)@28:9', 'array_var(src186)@28:9', 'array_var(src186)@28:9', 'array_var(src186)@28:9')
+    TOWARD ('package:Newel186', '39:18', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@37:9', 'int_var(loc186)@37:9', 'int_var(loc186)@37:9', 'int_var(loc186)@37:9') A ('BARE', 'BARE', 'int_var(loc186)@37:9', 'int_var(loc186)@37:9') B ('int_var(loc186)@37:9', 'int_var(loc186)@37:9', 'int_var(loc186)@37:9', 'int_var(loc186)@37:9')
+
+---- CALIBRATION golden/golden/golden (def), every column 0 but UNTOUCHED:
+TOWARD             0
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          11
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+
+################ ARM C  (g186_c_chain.sv)
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/r10uvm186_scratch/arm_c/g_def g186_c_chain.sv
+rc=0 /tmp/r10uvm186_bin/pris.bin g186_c_chain.sv -o /tmp/r10uvm186_scratch/arm_c/a_def.uhdm
+rc=0 /tmp/r10uvm186_bin/pat.bin g186_c_chain.sv -o /tmp/r10uvm186_scratch/arm_c/b_def.uhdm
+cmp rc=255 a def lines=2096 heads=1
+cmp rc=255 b def lines=2096 heads=1
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/r10uvm186_scratch/arm_c/g_elab g186_c_chain.sv
+rc=0 /tmp/r10uvm186_bin/pris.bin g186_c_chain.sv --elabuhdm -o /tmp/r10uvm186_scratch/arm_c/a_elab.uhdm
+rc=0 /tmp/r10uvm186_bin/pat.bin g186_c_chain.sv --elabuhdm -o /tmp/r10uvm186_scratch/arm_c/b_elab.uhdm
+cmp rc=255 a elab lines=2728 heads=1
+cmp rc=255 b elab lines=2728 heads=1
+---- view def
+TOWARD             18
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        6
+UNTOUCHED          3
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+    TOWARD ('package:Detent186', '27:19', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@23:9', 'int_var(loc186)@23:9') A ('BARE', 'BARE') B ('int_var(loc186)@23:9', 'int_var(loc186)@23:9')
+    TOWARD ('package:Detent186', '28:19', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@23:9', 'int_var(loc186)@23:9') A ('BARE', 'BARE') B ('int_var(loc186)@23:9', 'int_var(loc186)@23:9')
+    TOWARD ('package:Detent186', '28:27', 'src186', 'arg1', 'DYN') G ('array_var(src186)@24:9', 'array_var(src186)@24:9') A ('BARE', 'BARE') B ('array_var(src186)@24:9', 'array_var(src186)@24:9')
+    TOWARD ('package:Detent186', '35:18', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@33:9', 'int_var(loc186)@33:9') A ('BARE', 'BARE') B ('int_var(loc186)@33:9', 'int_var(loc186)@33:9')
+    TOWARD ('package:Detent186', '36:18', 'fml_s', 'arg0', 'DYN') G ('io_decl(fml_s)@31:45', 'io_decl(fml_s)@31:45') A ('BARE', 'BARE') B ('io_decl(fml_s)@31:45', 'io_decl(fml_s)@31:45')
+    TOWARD ('package:Detent186', '36:25', 'fml_bag', 'arg1', 'DYN') G ('io_decl(fml_bag)@31:62', 'io_decl(fml_bag)@31:62') A ('BARE', 'BARE') B ('io_decl(fml_bag)@31:62', 'io_decl(fml_bag)@31:62')
+    TOWARD ('package:Escape186', '27:19', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@23:9', 'int_var(loc186)@23:9') A ('BARE', 'BARE') B ('int_var(loc186)@23:9', 'int_var(loc186)@23:9')
+    TOWARD ('package:Escape186', '28:19', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@23:9', 'int_var(loc186)@23:9') A ('BARE', 'BARE') B ('int_var(loc186)@23:9', 'int_var(loc186)@23:9')
+    TOWARD ('package:Escape186', '28:27', 'src186', 'arg1', 'DYN') G ('array_var(src186)@24:9', 'array_var(src186)@24:9') A ('BARE', 'BARE') B ('array_var(src186)@24:9', 'array_var(src186)@24:9')
+    TOWARD ('package:Escape186', '35:18', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@33:9', 'int_var(loc186)@33:9') A ('BARE', 'BARE') B ('int_var(loc186)@33:9', 'int_var(loc186)@33:9')
+    TOWARD ('package:Escape186', '36:18', 'fml_s', 'arg0', 'DYN') G ('io_decl(fml_s)@31:45', 'io_decl(fml_s)@31:45') A ('BARE', 'BARE') B ('io_decl(fml_s)@31:45', 'io_decl(fml_s)@31:45')
+    TOWARD ('package:Escape186', '36:25', 'fml_bag', 'arg1', 'DYN') G ('io_decl(fml_bag)@31:62', 'io_decl(fml_bag)@31:62') A ('BARE', 'BARE') B ('io_decl(fml_bag)@31:62', 'io_decl(fml_bag)@31:62')
+    TOWARD ('package:Pawl186', '27:19', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@23:9', 'int_var(loc186)@23:9') A ('BARE', 'BARE') B ('int_var(loc186)@23:9', 'int_var(loc186)@23:9')
+    TOWARD ('package:Pawl186', '28:19', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@23:9', 'int_var(loc186)@23:9') A ('BARE', 'BARE') B ('int_var(loc186)@23:9', 'int_var(loc186)@23:9')
+    TOWARD ('package:Pawl186', '28:27', 'src186', 'arg1', 'DYN') G ('array_var(src186)@24:9', 'array_var(src186)@24:9') A ('BARE', 'BARE') B ('array_var(src186)@24:9', 'array_var(src186)@24:9')
+    TOWARD ('package:Pawl186', '35:18', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@33:9', 'int_var(loc186)@33:9') A ('BARE', 'BARE') B ('int_var(loc186)@33:9', 'int_var(loc186)@33:9')
+    TOWARD ('package:Pawl186', '36:18', 'fml_s', 'arg0', 'DYN') G ('io_decl(fml_s)@31:45', 'io_decl(fml_s)@31:45') A ('BARE', 'BARE') B ('io_decl(fml_s)@31:45', 'io_decl(fml_s)@31:45')
+    TOWARD ('package:Pawl186', '36:25', 'fml_bag', 'arg1', 'DYN') G ('io_decl(fml_bag)@31:62', 'io_decl(fml_bag)@31:62') A ('BARE', 'BARE') B ('io_decl(fml_bag)@31:62', 'io_decl(fml_bag)@31:62')
+    STILL-WRONG ('package:Ratchet186', '35:18', 'loc186', 'arg0', 'DYN') G ('BARE', 'logic_net(loc186)@27:19') A ('BARE', 'BARE') B ('BARE', 'BARE')
+    STILL-WRONG ('package:Ratchet186', '36:18', 'fml_s', 'arg0', 'DYN') G ('BARE', 'logic_net(fml_s)@36:18') A ('BARE', 'BARE') B ('BARE', 'BARE')
+    STILL-WRONG ('package:Ratchet186', '36:25', 'fml_bag', 'arg1', 'DYN') G ('BARE', 'logic_net(fml_bag)@36:25') A ('BARE', 'BARE') B ('BARE', 'BARE')
+    STILL-WRONG ('package:Ratchet186+cls', '27:19', 'loc186', 'arg0', 'DYN') G ('logic_net(loc186)@27:19',) A ('BARE',) B ('BARE',)
+    STILL-WRONG ('package:Ratchet186+cls', '28:19', 'loc186', 'arg0', 'DYN') G ('logic_net(loc186)@27:19',) A ('BARE',) B ('BARE',)
+    STILL-WRONG ('package:Ratchet186+cls', '28:27', 'src186', 'arg1', 'DYN') G ('logic_net(src186)@28:27',) A ('BARE',) B ('BARE',)
+---- view elab
+TOWARD             18
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        6
+UNTOUCHED          9
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+    TOWARD ('package:Detent186', '27:19', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@23:9', 'int_var(loc186)@23:9', 'int_var(loc186)@23:9', 'int_var(loc186)@23:9') A ('BARE', 'BARE', 'int_var(loc186)@23:9', 'int_var(loc186)@23:9') B ('int_var(loc186)@23:9', 'int_var(loc186)@23:9', 'int_var(loc186)@23:9', 'int_var(loc186)@23:9')
+    TOWARD ('package:Detent186', '28:19', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@23:9', 'int_var(loc186)@23:9', 'int_var(loc186)@23:9', 'int_var(loc186)@23:9') A ('BARE', 'BARE', 'int_var(loc186)@23:9', 'int_var(loc186)@23:9') B ('int_var(loc186)@23:9', 'int_var(loc186)@23:9', 'int_var(loc186)@23:9', 'int_var(loc186)@23:9')
+    TOWARD ('package:Detent186', '28:27', 'src186', 'arg1', 'DYN') G ('array_var(src186)@24:9', 'array_var(src186)@24:9', 'array_var(src186)@24:9', 'array_var(src186)@24:9') A ('BARE', 'BARE', 'array_var(src186)@24:9', 'array_var(src186)@24:9') B ('array_var(src186)@24:9', 'array_var(src186)@24:9', 'array_var(src186)@24:9', 'array_var(src186)@24:9')
+    TOWARD ('package:Detent186', '35:18', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@33:9', 'int_var(loc186)@33:9', 'int_var(loc186)@33:9', 'int_var(loc186)@33:9') A ('BARE', 'BARE', 'int_var(loc186)@33:9', 'int_var(loc186)@33:9') B ('int_var(loc186)@33:9', 'int_var(loc186)@33:9', 'int_var(loc186)@33:9', 'int_var(loc186)@33:9')
+    TOWARD ('package:Detent186', '36:18', 'fml_s', 'arg0', 'DYN') G ('io_decl(fml_s)@31:45', 'io_decl(fml_s)@31:45', 'io_decl(fml_s)@31:45', 'io_decl(fml_s)@31:45') A ('BARE', 'BARE', 'io_decl(fml_s)@31:45', 'io_decl(fml_s)@31:45') B ('io_decl(fml_s)@31:45', 'io_decl(fml_s)@31:45', 'io_decl(fml_s)@31:45', 'io_decl(fml_s)@31:45')
+    TOWARD ('package:Detent186', '36:25', 'fml_bag', 'arg1', 'DYN') G ('io_decl(fml_bag)@31:62', 'io_decl(fml_bag)@31:62', 'io_decl(fml_bag)@31:62', 'io_decl(fml_bag)@31:62') A ('BARE', 'BARE', 'io_decl(fml_bag)@31:62', 'io_decl(fml_bag)@31:62') B ('io_decl(fml_bag)@31:62', 'io_decl(fml_bag)@31:62', 'io_decl(fml_bag)@31:62', 'io_decl(fml_bag)@31:62')
+    TOWARD ('package:Escape186', '27:19', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@23:9', 'int_var(loc186)@23:9', 'int_var(loc186)@23:9', 'int_var(loc186)@23:9') A ('BARE', 'BARE', 'int_var(loc186)@23:9', 'int_var(loc186)@23:9') B ('int_var(loc186)@23:9', 'int_var(loc186)@23:9', 'int_var(loc186)@23:9', 'int_var(loc186)@23:9')
+    TOWARD ('package:Escape186', '28:19', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@23:9', 'int_var(loc186)@23:9', 'int_var(loc186)@23:9', 'int_var(loc186)@23:9') A ('BARE', 'BARE', 'int_var(loc186)@23:9', 'int_var(loc186)@23:9') B ('int_var(loc186)@23:9', 'int_var(loc186)@23:9', 'int_var(loc186)@23:9', 'int_var(loc186)@23:9')
+    TOWARD ('package:Escape186', '28:27', 'src186', 'arg1', 'DYN') G ('array_var(src186)@24:9', 'array_var(src186)@24:9', 'array_var(src186)@24:9', 'array_var(src186)@24:9') A ('BARE', 'BARE', 'array_var(src186)@24:9', 'array_var(src186)@24:9') B ('array_var(src186)@24:9', 'array_var(src186)@24:9', 'array_var(src186)@24:9', 'array_var(src186)@24:9')
+    TOWARD ('package:Escape186', '35:18', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@33:9', 'int_var(loc186)@33:9', 'int_var(loc186)@33:9', 'int_var(loc186)@33:9') A ('BARE', 'BARE', 'int_var(loc186)@33:9', 'int_var(loc186)@33:9') B ('int_var(loc186)@33:9', 'int_var(loc186)@33:9', 'int_var(loc186)@33:9', 'int_var(loc186)@33:9')
+    TOWARD ('package:Escape186', '36:18', 'fml_s', 'arg0', 'DYN') G ('io_decl(fml_s)@31:45', 'io_decl(fml_s)@31:45', 'io_decl(fml_s)@31:45', 'io_decl(fml_s)@31:45') A ('BARE', 'BARE', 'io_decl(fml_s)@31:45', 'io_decl(fml_s)@31:45') B ('io_decl(fml_s)@31:45', 'io_decl(fml_s)@31:45', 'io_decl(fml_s)@31:45', 'io_decl(fml_s)@31:45')
+    TOWARD ('package:Escape186', '36:25', 'fml_bag', 'arg1', 'DYN') G ('io_decl(fml_bag)@31:62', 'io_decl(fml_bag)@31:62', 'io_decl(fml_bag)@31:62', 'io_decl(fml_bag)@31:62') A ('BARE', 'BARE', 'io_decl(fml_bag)@31:62', 'io_decl(fml_bag)@31:62') B ('io_decl(fml_bag)@31:62', 'io_decl(fml_bag)@31:62', 'io_decl(fml_bag)@31:62', 'io_decl(fml_bag)@31:62')
+    TOWARD ('package:Pawl186', '27:19', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@23:9', 'int_var(loc186)@23:9', 'int_var(loc186)@23:9', 'int_var(loc186)@23:9') A ('BARE', 'BARE', 'int_var(loc186)@23:9', 'int_var(loc186)@23:9') B ('int_var(loc186)@23:9', 'int_var(loc186)@23:9', 'int_var(loc186)@23:9', 'int_var(loc186)@23:9')
+    TOWARD ('package:Pawl186', '28:19', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@23:9', 'int_var(loc186)@23:9', 'int_var(loc186)@23:9', 'int_var(loc186)@23:9') A ('BARE', 'BARE', 'int_var(loc186)@23:9', 'int_var(loc186)@23:9') B ('int_var(loc186)@23:9', 'int_var(loc186)@23:9', 'int_var(loc186)@23:9', 'int_var(loc186)@23:9')
+    TOWARD ('package:Pawl186', '28:27', 'src186', 'arg1', 'DYN') G ('array_var(src186)@24:9', 'array_var(src186)@24:9', 'array_var(src186)@24:9', 'array_var(src186)@24:9') A ('BARE', 'BARE', 'array_var(src186)@24:9', 'array_var(src186)@24:9') B ('array_var(src186)@24:9', 'array_var(src186)@24:9', 'array_var(src186)@24:9', 'array_var(src186)@24:9')
+    TOWARD ('package:Pawl186', '35:18', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@33:9', 'int_var(loc186)@33:9', 'int_var(loc186)@33:9', 'int_var(loc186)@33:9') A ('BARE', 'BARE', 'int_var(loc186)@33:9', 'int_var(loc186)@33:9') B ('int_var(loc186)@33:9', 'int_var(loc186)@33:9', 'int_var(loc186)@33:9', 'int_var(loc186)@33:9')
+    TOWARD ('package:Pawl186', '36:18', 'fml_s', 'arg0', 'DYN') G ('io_decl(fml_s)@31:45', 'io_decl(fml_s)@31:45', 'io_decl(fml_s)@31:45', 'io_decl(fml_s)@31:45') A ('BARE', 'BARE', 'io_decl(fml_s)@31:45', 'io_decl(fml_s)@31:45') B ('io_decl(fml_s)@31:45', 'io_decl(fml_s)@31:45', 'io_decl(fml_s)@31:45', 'io_decl(fml_s)@31:45')
+    TOWARD ('package:Pawl186', '36:25', 'fml_bag', 'arg1', 'DYN') G ('io_decl(fml_bag)@31:62', 'io_decl(fml_bag)@31:62', 'io_decl(fml_bag)@31:62', 'io_decl(fml_bag)@31:62') A ('BARE', 'BARE', 'io_decl(fml_bag)@31:62', 'io_decl(fml_bag)@31:62') B ('io_decl(fml_bag)@31:62', 'io_decl(fml_bag)@31:62', 'io_decl(fml_bag)@31:62', 'io_decl(fml_bag)@31:62')
+    STILL-WRONG ('package:Ratchet186', '35:18', 'loc186', 'arg0', 'DYN') G ('BARE', 'int_var(loc186)@33:9', 'int_var(loc186)@33:9', 'logic_net(loc186)@27:19') A ('BARE', 'BARE', 'int_var(loc186)@33:9', 'int_var(loc186)@33:9') B ('BARE', 'BARE', 'int_var(loc186)@33:9', 'int_var(loc186)@33:9')
+    STILL-WRONG ('package:Ratchet186', '36:18', 'fml_s', 'arg0', 'DYN') G ('BARE', 'io_decl(fml_s)@31:45', 'io_decl(fml_s)@31:45', 'logic_net(fml_s)@36:18') A ('BARE', 'BARE', 'io_decl(fml_s)@31:45', 'io_decl(fml_s)@31:45') B ('BARE', 'BARE', 'io_decl(fml_s)@31:45', 'io_decl(fml_s)@31:45')
+    STILL-WRONG ('package:Ratchet186', '36:25', 'fml_bag', 'arg1', 'DYN') G ('BARE', 'io_decl(fml_bag)@31:62', 'io_decl(fml_bag)@31:62', 'logic_net(fml_bag)@36:25') A ('BARE', 'BARE', 'io_decl(fml_bag)@31:62', 'io_decl(fml_bag)@31:62') B ('BARE', 'BARE', 'io_decl(fml_bag)@31:62', 'io_decl(fml_bag)@31:62')
+    STILL-WRONG ('package:Ratchet186+cls', '27:19', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@23:9', 'logic_net(loc186)@27:19') A ('BARE', 'int_var(loc186)@23:9') B ('BARE', 'int_var(loc186)@23:9')
+    STILL-WRONG ('package:Ratchet186+cls', '28:19', 'loc186', 'arg0', 'DYN') G ('int_var(loc186)@23:9', 'logic_net(loc186)@27:19') A ('BARE', 'int_var(loc186)@23:9') B ('BARE', 'int_var(loc186)@23:9')
+    STILL-WRONG ('package:Ratchet186+cls', '28:27', 'src186', 'arg1', 'DYN') G ('array_var(src186)@24:9', 'logic_net(src186)@28:27') A ('BARE', 'array_var(src186)@24:9') B ('BARE', 'array_var(src186)@24:9')
+
+---- CALIBRATION golden/golden/golden (def), every column 0 but UNTOUCHED:
+TOWARD             0
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          27
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+

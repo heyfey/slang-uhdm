@@ -1,0 +1,337 @@
+r10v186 VERIFIER GRID — five NEW adversarial arms, one REAL Surelog golden
+each, BOTH views, scored with the WHOLE-WINDOW census ct186v (which also
+carries every NESTED face inside a new[...] argument list — the faces
+r10uvm186's own ct186new census cannot see).
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+A = pristine 8b1777950b91feef705565e6f16e8b0a, B = patched 85be7bc529abb997bc012034c968222b.
+
+==================== ARM v186_a_retname
+-- every rc recorded (an rc=139 SEGFAULT must never read as a result):
+   (nothing above = every rc was 0)
+   cmp rc=255 a def lines=5124 heads=1
+   cmp rc=255 b def lines=5124 heads=1
+   cmp rc=255 a elab lines=6244 heads=1
+   cmp rc=255 b elab lines=6244 heads=1
+-- CALIBRATION golden vs golden vs golden, def (every column 0 but UNTOUCHED):
+   TOWARD             0
+   AWAY               0
+   MOVED-WRONG        0
+   STILL-WRONG        0
+   UNTOUCHED          30
+   ONLY-GOLDEN        0
+   ONLY-OURS          0
+   ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched, def:
+   TOWARD             10
+   AWAY               0
+   MOVED-WRONG        0
+   STILL-WRONG        12
+   UNTOUCHED          8
+   ONLY-GOLDEN        0
+   ONLY-OURS          0
+   ONLY-OURS-MOVED    0
+-- order-blind whole-dump diff pristine vs patched, def: 42 lines
+   of which vpiActual markers: 20
+   REMOVALS (excluding the dump path header): 0
+-- CALIBRATION golden vs golden vs golden, elab (every column 0 but UNTOUCHED):
+   TOWARD             0
+   AWAY               0
+   MOVED-WRONG        0
+   STILL-WRONG        0
+   UNTOUCHED          43
+   ONLY-GOLDEN        0
+   ONLY-OURS          0
+   ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched, elab:
+   TOWARD             10
+   AWAY               0
+   MOVED-WRONG        0
+   STILL-WRONG        13
+   UNTOUCHED          20
+   ONLY-GOLDEN        0
+   ONLY-OURS          0
+   ONLY-OURS-MOVED    0
+-- order-blind whole-dump diff pristine vs patched, elab: 51 lines
+   of which vpiActual markers: 20
+   REMOVALS (excluding the dump path header): 6
+-- MASK EXPERIMENT (ct186vseed): pre-seed EVERY golden ref inside a
+   new[...] window into CompareContext::m_visited and re-run the OFFICIAL
+   design::Compare against BOTH databases.  Same head masked == the
+   patched head was PRE-EXISTING and merely unmasked.
+   [def]
+     SEED 54 golden refs inside a `new[...]` window
+     UNMASKED pristine r=1 head package(Trellis186v)@18:1-88:11 / package(Trellis186v)@18:1-88:11
+     UNMASKED patched  r=1 head package(Trellis186v)@18:1-88:11 / package(Trellis186v)@18:1-88:11
+     MASKED   pristine r=1 head package(Trellis186v)@18:1-88:11 / package(Trellis186v)@18:1-88:11
+     MASKED   patched  r=1 head package(Trellis186v)@18:1-88:11 / package(Trellis186v)@18:1-88:11
+   [elab]
+     SEED 121 golden refs inside a `new[...]` window
+     UNMASKED pristine r=1 head package(Trellis186v)@18:1-88:11 / package(Trellis186v)@18:1-88:11
+     UNMASKED patched  r=1 head package(Trellis186v)@18:1-88:11 / package(Trellis186v)@18:1-88:11
+     MASKED   pristine r=1 head package(Trellis186v)@18:1-88:11 / package(Trellis186v)@18:1-88:11
+     MASKED   patched  r=1 head package(Trellis186v)@18:1-88:11 / package(Trellis186v)@18:1-88:11
+
+==================== ARM v186_b_position
+-- every rc recorded (an rc=139 SEGFAULT must never read as a result):
+   (nothing above = every rc was 0)
+   cmp rc=255 a def lines=5142 heads=1
+   cmp rc=255 b def lines=5142 heads=1
+   cmp rc=255 a elab lines=5894 heads=1
+   cmp rc=255 b elab lines=5894 heads=1
+-- CALIBRATION golden vs golden vs golden, def (every column 0 but UNTOUCHED):
+   TOWARD             0
+   AWAY               0
+   MOVED-WRONG        0
+   STILL-WRONG        0
+   UNTOUCHED          38
+   ONLY-GOLDEN        0
+   ONLY-OURS          0
+   ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched, def:
+   TOWARD             19
+   AWAY               0
+   MOVED-WRONG        0
+   STILL-WRONG        19
+   UNTOUCHED          0
+   ONLY-GOLDEN        0
+   ONLY-OURS          0
+   ONLY-OURS-MOVED    0
+-- order-blind whole-dump diff pristine vs patched, def: 78 lines
+   of which vpiActual markers: 38
+   REMOVALS (excluding the dump path header): 0
+-- CALIBRATION golden vs golden vs golden, elab (every column 0 but UNTOUCHED):
+   TOWARD             0
+   AWAY               0
+   MOVED-WRONG        0
+   STILL-WRONG        0
+   UNTOUCHED          57
+   ONLY-GOLDEN        0
+   ONLY-OURS          0
+   ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched, elab:
+   TOWARD             19
+   AWAY               0
+   MOVED-WRONG        0
+   STILL-WRONG        19
+   UNTOUCHED          19
+   ONLY-GOLDEN        0
+   ONLY-OURS          0
+   ONLY-OURS-MOVED    0
+-- order-blind whole-dump diff pristine vs patched, elab: 78 lines
+   of which vpiActual markers: 38
+   REMOVALS (excluding the dump path header): 0
+-- MASK EXPERIMENT (ct186vseed): pre-seed EVERY golden ref inside a
+   new[...] window into CompareContext::m_visited and re-run the OFFICIAL
+   design::Compare against BOTH databases.  Same head masked == the
+   patched head was PRE-EXISTING and merely unmasked.
+   [def]
+     SEED 76 golden refs inside a `new[...]` window
+     UNMASKED pristine r=1 head package(Baluster186v)@15:1-106:11 / package(Baluster186v)@15:1-106:11
+     UNMASKED patched  r=1 head package(Baluster186v)@15:1-106:11 / package(Baluster186v)@15:1-106:11
+     MASKED   pristine r=1 head package(Baluster186v)@15:1-106:11 / package(Baluster186v)@15:1-106:11
+     MASKED   patched  r=1 head package(Baluster186v)@15:1-106:11 / package(Baluster186v)@15:1-106:11
+   [elab]
+     SEED 171 golden refs inside a `new[...]` window
+     UNMASKED pristine r=1 head package(Baluster186v)@15:1-106:11 / package(Baluster186v)@15:1-106:11
+     UNMASKED patched  r=1 head package(Baluster186v)@15:1-106:11 / package(Baluster186v)@15:1-106:11
+     MASKED   pristine r=1 head package(Baluster186v)@15:1-106:11 / package(Baluster186v)@15:1-106:11
+     MASKED   patched  r=1 head package(Baluster186v)@15:1-106:11 / package(Baluster186v)@15:1-106:11
+
+==================== ARM v186_c_kinds
+-- every rc recorded (an rc=139 SEGFAULT must never read as a result):
+   (nothing above = every rc was 0)
+   cmp rc=255 a def lines=150 heads=1
+   cmp rc=255 b def lines=150 heads=1
+   cmp rc=255 a elab lines=150 heads=1
+   cmp rc=255 b elab lines=150 heads=1
+-- CALIBRATION golden vs golden vs golden, def (every column 0 but UNTOUCHED):
+   TOWARD             0
+   AWAY               0
+   MOVED-WRONG        0
+   STILL-WRONG        0
+   UNTOUCHED          32
+   ONLY-GOLDEN        0
+   ONLY-OURS          0
+   ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched, def:
+   TOWARD             14
+   AWAY               0
+   MOVED-WRONG        0
+   STILL-WRONG        16
+   UNTOUCHED          2
+   ONLY-GOLDEN        0
+   ONLY-OURS          0
+   ONLY-OURS-MOVED    0
+-- order-blind whole-dump diff pristine vs patched, def: 58 lines
+   of which vpiActual markers: 28
+   REMOVALS (excluding the dump path header): 0
+-- CALIBRATION golden vs golden vs golden, elab (every column 0 but UNTOUCHED):
+   TOWARD             0
+   AWAY               0
+   MOVED-WRONG        0
+   STILL-WRONG        0
+   UNTOUCHED          48
+   ONLY-GOLDEN        0
+   ONLY-OURS          0
+   ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched, elab:
+   TOWARD             12
+   AWAY               0
+   MOVED-WRONG        0
+   STILL-WRONG        12
+   UNTOUCHED          24
+   ONLY-GOLDEN        0
+   ONLY-OURS          0
+   ONLY-OURS-MOVED    0
+-- order-blind whole-dump diff pristine vs patched, elab: 50 lines
+   of which vpiActual markers: 24
+   REMOVALS (excluding the dump path header): 0
+-- MASK EXPERIMENT (ct186vseed): pre-seed EVERY golden ref inside a
+   new[...] window into CompareContext::m_visited and re-run the OFFICIAL
+   design::Compare against BOTH databases.  Same head masked == the
+   patched head was PRE-EXISTING and merely unmasked.
+   [def]
+     SEED 64 golden refs inside a `new[...]` window
+     UNMASKED pristine r=1 head array_typespec()@29:16-29:28 / array_typespec()@29:16-29:28
+     UNMASKED patched  r=1 head array_typespec()@29:16-29:28 / array_typespec()@29:16-29:28
+     MASKED   pristine r=1 head array_typespec()@29:16-29:28 / array_typespec()@29:16-29:28
+     MASKED   patched  r=1 head array_typespec()@29:16-29:28 / array_typespec()@29:16-29:28
+   [elab]
+     SEED 144 golden refs inside a `new[...]` window
+     UNMASKED pristine r=1 head array_typespec()@29:16-29:28 / array_typespec()@29:16-29:28
+     UNMASKED patched  r=1 head array_typespec()@29:16-29:28 / array_typespec()@29:16-29:28
+     MASKED   pristine r=1 head array_typespec()@29:16-29:28 / array_typespec()@29:16-29:28
+     MASKED   patched  r=1 head array_typespec()@29:16-29:28 / array_typespec()@29:16-29:28
+
+==================== ARM v186_d_listing
+-- every rc recorded (an rc=139 SEGFAULT must never read as a result):
+   (nothing above = every rc was 0)
+   cmp rc=255 a def lines=2238 heads=1
+   cmp rc=255 b def lines=2238 heads=1
+   cmp rc=255 a elab lines=2886 heads=1
+   cmp rc=255 b elab lines=2886 heads=1
+-- CALIBRATION golden vs golden vs golden, def (every column 0 but UNTOUCHED):
+   TOWARD             0
+   AWAY               0
+   MOVED-WRONG        0
+   STILL-WRONG        0
+   UNTOUCHED          30
+   ONLY-GOLDEN        0
+   ONLY-OURS          0
+   ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched, def:
+   TOWARD             10
+   AWAY               0
+   MOVED-WRONG        0
+   STILL-WRONG        5
+   UNTOUCHED          15
+   ONLY-GOLDEN        0
+   ONLY-OURS          0
+   ONLY-OURS-MOVED    0
+-- order-blind whole-dump diff pristine vs patched, def: 42 lines
+   of which vpiActual markers: 20
+   REMOVALS (excluding the dump path header): 0
+-- CALIBRATION golden vs golden vs golden, elab (every column 0 but UNTOUCHED):
+   TOWARD             0
+   AWAY               0
+   MOVED-WRONG        0
+   STILL-WRONG        0
+   UNTOUCHED          38
+   ONLY-GOLDEN        0
+   ONLY-OURS          0
+   ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched, elab:
+   TOWARD             10
+   AWAY               0
+   MOVED-WRONG        0
+   STILL-WRONG        10
+   UNTOUCHED          18
+   ONLY-GOLDEN        0
+   ONLY-OURS          0
+   ONLY-OURS-MOVED    0
+-- order-blind whole-dump diff pristine vs patched, elab: 42 lines
+   of which vpiActual markers: 20
+   REMOVALS (excluding the dump path header): 0
+-- MASK EXPERIMENT (ct186vseed): pre-seed EVERY golden ref inside a
+   new[...] window into CompareContext::m_visited and re-run the OFFICIAL
+   design::Compare against BOTH databases.  Same head masked == the
+   patched head was PRE-EXISTING and merely unmasked.
+   [def]
+     SEED 54 golden refs inside a `new[...]` window
+     UNMASKED pristine r=1 head package(Ogee186v)@25:1-52:11 / package(Ogee186v)@25:1-52:11
+     UNMASKED patched  r=1 head package(Ogee186v)@25:1-52:11 / package(Ogee186v)@25:1-52:11
+     MASKED   pristine r=1 head package(Ogee186v)@25:1-52:11 / package(Ogee186v)@25:1-52:11
+     MASKED   patched  r=1 head package(Ogee186v)@25:1-52:11 / package(Ogee186v)@25:1-52:11
+   [elab]
+     SEED 114 golden refs inside a `new[...]` window
+     UNMASKED pristine r=1 head package(Ogee186v)@25:1-52:11 / package(Ogee186v)@25:1-52:11
+     UNMASKED patched  r=1 head package(Ogee186v)@25:1-52:11 / package(Ogee186v)@25:1-52:11
+     MASKED   pristine r=1 head package(Ogee186v)@25:1-52:11 / package(Ogee186v)@25:1-52:11
+     MASKED   patched  r=1 head package(Ogee186v)@25:1-52:11 / package(Ogee186v)@25:1-52:11
+
+==================== ARM v186_e_instances
+-- every rc recorded (an rc=139 SEGFAULT must never read as a result):
+   (nothing above = every rc was 0)
+   cmp rc=255 a def lines=1450 heads=1
+   cmp rc=255 b def lines=1450 heads=1
+   cmp rc=255 a elab lines=1890 heads=1
+   cmp rc=255 b elab lines=1890 heads=1
+-- CALIBRATION golden vs golden vs golden, def (every column 0 but UNTOUCHED):
+   TOWARD             0
+   AWAY               0
+   MOVED-WRONG        0
+   STILL-WRONG        0
+   UNTOUCHED          12
+   ONLY-GOLDEN        0
+   ONLY-OURS          0
+   ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched, def:
+   TOWARD             6
+   AWAY               0
+   MOVED-WRONG        0
+   STILL-WRONG        6
+   UNTOUCHED          0
+   ONLY-GOLDEN        0
+   ONLY-OURS          0
+   ONLY-OURS-MOVED    0
+-- order-blind whole-dump diff pristine vs patched, def: 26 lines
+   of which vpiActual markers: 12
+   REMOVALS (excluding the dump path header): 0
+-- CALIBRATION golden vs golden vs golden, elab (every column 0 but UNTOUCHED):
+   TOWARD             0
+   AWAY               0
+   MOVED-WRONG        0
+   STILL-WRONG        0
+   UNTOUCHED          18
+   ONLY-GOLDEN        0
+   ONLY-OURS          0
+   ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched, elab:
+   TOWARD             6
+   AWAY               0
+   MOVED-WRONG        0
+   STILL-WRONG        6
+   UNTOUCHED          6
+   ONLY-GOLDEN        0
+   ONLY-OURS          0
+   ONLY-OURS-MOVED    0
+-- order-blind whole-dump diff pristine vs patched, elab: 26 lines
+   of which vpiActual markers: 12
+   REMOVALS (excluding the dump path header): 0
+-- MASK EXPERIMENT (ct186vseed): pre-seed EVERY golden ref inside a
+   new[...] window into CompareContext::m_visited and re-run the OFFICIAL
+   design::Compare against BOTH databases.  Same head masked == the
+   patched head was PRE-EXISTING and merely unmasked.
+   [def]
+     SEED 24 golden refs inside a `new[...]` window
+     UNMASKED pristine r=1 head package(Volute186v)@17:1-30:11 / package(Volute186v)@17:1-30:11
+     UNMASKED patched  r=1 head package(Volute186v)@17:1-30:11 / package(Volute186v)@17:1-30:11
+     MASKED   pristine r=1 head package(Volute186v)@17:1-30:11 / package(Volute186v)@17:1-30:11
+     MASKED   patched  r=1 head package(Volute186v)@17:1-30:11 / package(Volute186v)@17:1-30:11
+   [elab]
+     SEED 72 golden refs inside a `new[...]` window
+     UNMASKED pristine r=1 head package(Volute186v)@17:1-30:11 / package(Volute186v)@17:1-30:11
+     UNMASKED patched  r=1 head package(Volute186v)@17:1-30:11 / package(Volute186v)@17:1-30:11
+     MASKED   pristine r=1 head package(Volute186v)@17:1-30:11 / package(Volute186v)@17:1-30:11
+     MASKED   patched  r=1 head package(Volute186v)@17:1-30:11 / package(Volute186v)@17:1-30:11
+

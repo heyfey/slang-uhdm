@@ -1,0 +1,59 @@
+r10v186 — R-V1: the ONE pristine-right -> patched-wrong cell this verifier
+found, and the proof that the OFFICIAL JUDGE CANNOT READ IT.
+
+THE CELL.  v186_a_retname.sv, ELAB view only, the RETURN NAME of an
+OUT-OF-BODY CLASS METHOD used as a dynamic-array new[...] size argument in
+a wildcard-import clone:  dyn186v = new[sill186v];  (line 74:19, inside
+function int Newelpost186v::sill186v).  It is the ONLY dump line the patch
+REMOVES anywhere in 5053 boundary arms and 2314 corpus databases; every
+other change the patch makes is an ADDED vpiActual edge or its target.
+
+GOLDEN (elab), the four listings of that ref:
+             \_ref_obj: (Trellis186v::Newelpost186v::sill186v::sill186v), line:74:19, endln:74:27
+               |vpiFullName:Trellis186v::Newelpost186v::sill186v::sill186v
+             \_ref_obj: (Wainscot186v::Newelpost186v::sill186v::sill186v), line:74:19, endln:74:27
+               |vpiFullName:Wainscot186v::Newelpost186v::sill186v::sill186v
+               \_ref_obj: (Trellis186v::Newelpost186v::sill186v::sill186v), line:74:19, endln:74:27
+                 |vpiFullName:Trellis186v::Newelpost186v::sill186v::sill186v
+             \_ref_obj: (Wainscot186v::Newelpost186v::sill186v::sill186v), line:74:19, endln:74:27
+               |vpiFullName:Wainscot186v::Newelpost186v::sill186v::sill186v
+             \_ref_obj: (Wainscot186v::Newelpost186v::sill186v::sill186v), line:74:19, endln:74:27
+               |vpiFullName:Wainscot186v::Newelpost186v::sill186v::sill186v
+             \_ref_obj: (work@top186va.Newelpost186v::sill186v.sill186v), line:74:19, endln:74:27
+               |vpiFullName:work@top186va.Newelpost186v::sill186v.sill186v
+           \_ref_obj: (sill186v), line:74:19, endln:74:27
+           \_ref_obj: (sill186v), line:74:19, endln:74:27
+           \_ref_obj: (Wainscot186v::Newelpost186v::sill186v::sill186v), line:74:19, endln:74:27
+             |vpiFullName:Wainscot186v::Newelpost186v::sill186v::sill186v
+
+PRISTINE keeps a vpiFullName that MATCHES golden's; PATCHED has none:
+   <           \_ref_obj: (Wainscot186v::Newelpost186v::sill186v::sill186v), line:74:19, endln:74:27
+   >           \_ref_obj: (sill186v), line:74:19, endln:74:27
+   <             |vpiFullName:Wainscot186v::Newelpost186v::sill186v::sill186v
+   <           \_ref_obj: (Wainscot186v::Newelpost186v::sill186v::sill186v), line:74:19, endln:74:27
+   >           \_ref_obj: (sill186v), line:74:19, endln:74:27
+   <             |vpiFullName:Wainscot186v::Newelpost186v::sill186v::sill186v
+   >           \_ref_obj: (sill186v), line:74:19, endln:74:27
+
+WHY IT IS JUDGE-INVISIBLE, verified from the GENERATED Compare source and
+not carried forward from anyone's claim:
+   ~/git-repos/UHDM/build/generated/src/ref_obj.cpp, ref_obj::Compare reads
+     lhs->VpiDefName()
+     lhs->VpiGeneric()
+     lhs->VpiName()
+     lhs->VpiStructMember()
+     SafeCompare(lhs->Actual_group()
+     VpiType()
+   and NO generated Compare body in UHDM/build/generated/src/*.cpp reads
+   VpiFullName at all:
+     files whose Compare reads VpiFullName: 0
+
+CORPUS INCIDENCE: ZERO.  The order-blind mover attribution over all four
+real movers contains no removal line at all (MOVERS.r10v186.txt).
+
+VERDICT ON THE CELL: reported as a residue, NOT fixed.  It is one face, in
+one view, on a field no Compare reads, with zero corpus incidence; a
+production fix would add surface the judge cannot score.  r10uvm186's own
+R2 measured the same axis in the OTHER direction (keeping the clone's
+fullname costs one AWAY per key in the elab view) and refused it for the
+same reason.

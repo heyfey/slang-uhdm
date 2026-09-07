@@ -1,0 +1,207 @@
+r10v186 VERIFIER — r10uvm186's OWN three arms, RE-SCORED with the
+WHOLE-WINDOW census (ct186v).  The implementer's score186.py keys only on
+refs whose IMMEDIATE parent is the "new" call — the DIRECT Tf_call_args
+faces - while the gate it moves is guarded by newArrayArgDepth16 > 0, a
+WINDOW that also covers every NESTED expression in the argument list.
+A regression at a nested face is invisible to that scorer; this closes it.
+MEASUREMENT ONLY.  LHS golden, RHS ours.  A = pristine, B = patched.
+
+==================== r10uvm186 arm g186_a_argdecl.sv
+   (nothing above = every rc was 0)
+   cmp rc=255 a def lines=17 heads=1
+   cmp rc=255 b def lines=17 heads=1
+   cmp rc=255 a elab lines=31 heads=1
+   cmp rc=255 b elab lines=9212 heads=1
+-- CALIBRATION golden x3, def:
+   TOWARD             0
+   AWAY               0
+   MOVED-WRONG        0
+   STILL-WRONG        0
+   UNTOUCHED          55
+   ONLY-GOLDEN        0
+   ONLY-OURS          0
+   ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched, def:
+   TOWARD             18
+   AWAY               0
+   MOVED-WRONG        0
+   STILL-WRONG        21
+   UNTOUCHED          16
+   ONLY-GOLDEN        0
+   ONLY-OURS          0
+   ONLY-OURS-MOVED    0
+   order-blind dump diff def: 74 lines, vpiActual 36, REMOVALS 0
+-- CALIBRATION golden x3, elab:
+   TOWARD             0
+   AWAY               0
+   MOVED-WRONG        0
+   STILL-WRONG        0
+   UNTOUCHED          79
+   ONLY-GOLDEN        0
+   ONLY-OURS          0
+   ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched, elab:
+   TOWARD             14
+   AWAY               0
+   MOVED-WRONG        0
+   STILL-WRONG        16
+   UNTOUCHED          49
+   ONLY-GOLDEN        0
+   ONLY-OURS          0
+   ONLY-OURS-MOVED    0
+   order-blind dump diff elab: 58 lines, vpiActual 28, REMOVALS 0
+-- MASK EXPERIMENT (ct186vseed):
+   [def]
+     SEED 98 golden refs inside a `new[...]` window
+     UNMASKED pristine r=1 head logic_net(loc186)@44:18-44:24 / <null>
+     UNMASKED patched  r=1 head logic_net(loc186)@44:18-44:24 / <null>
+     MASKED   pristine r=1 head logic_net(m_stash)@45:5-45:12 / <null>
+     MASKED   patched  r=1 head logic_net(m_stash)@45:5-45:12 / <null>
+   [elab]
+     SEED 220 golden refs inside a `new[...]` window
+     UNMASKED pristine r=1 head int_var(loc186)@40:10-40:16 / <null>
+     UNMASKED patched  r=1 head module_inst()@125:1-134:10 / module_inst()@125:1-134:10
+     MASKED   pristine r=1 head module_inst()@125:1-134:10 / module_inst()@125:1-134:10
+     MASKED   patched  r=1 head module_inst()@125:1-134:10 / module_inst()@125:1-134:10
+
+==================== r10uvm186 arm g186_b_listing.sv
+   (nothing above = every rc was 0)
+   cmp rc=255 a def lines=1694 heads=1
+   cmp rc=255 b def lines=1694 heads=1
+   cmp rc=255 a elab lines=2302 heads=1
+   cmp rc=255 b elab lines=2302 heads=1
+-- CALIBRATION golden x3, def:
+   TOWARD             0
+   AWAY               0
+   MOVED-WRONG        0
+   STILL-WRONG        0
+   UNTOUCHED          11
+   ONLY-GOLDEN        0
+   ONLY-OURS          0
+   ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched, def:
+   TOWARD             4
+   AWAY               0
+   MOVED-WRONG        0
+   STILL-WRONG        6
+   UNTOUCHED          1
+   ONLY-GOLDEN        0
+   ONLY-OURS          0
+   ONLY-OURS-MOVED    0
+   order-blind dump diff def: 18 lines, vpiActual 8, REMOVALS 0
+-- CALIBRATION golden x3, elab:
+   TOWARD             0
+   AWAY               0
+   MOVED-WRONG        0
+   STILL-WRONG        0
+   UNTOUCHED          16
+   ONLY-GOLDEN        0
+   ONLY-OURS          0
+   ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched, elab:
+   TOWARD             4
+   AWAY               0
+   MOVED-WRONG        0
+   STILL-WRONG        6
+   UNTOUCHED          6
+   ONLY-GOLDEN        0
+   ONLY-OURS          0
+   ONLY-OURS-MOVED    0
+   order-blind dump diff elab: 18 lines, vpiActual 8, REMOVALS 0
+-- MASK EXPERIMENT (ct186vseed):
+   [def]
+     SEED 20 golden refs inside a `new[...]` window
+     UNMASKED pristine r=1 head package(Mullion186)@24:1-42:11 / package(Mullion186)@24:1-42:11
+     UNMASKED patched  r=1 head package(Mullion186)@24:1-42:11 / package(Mullion186)@24:1-42:11
+     MASKED   pristine r=1 head package(Mullion186)@24:1-42:11 / package(Mullion186)@24:1-42:11
+     MASKED   patched  r=1 head package(Mullion186)@24:1-42:11 / package(Mullion186)@24:1-42:11
+   [elab]
+     SEED 43 golden refs inside a `new[...]` window
+     UNMASKED pristine r=1 head package(Mullion186)@24:1-42:11 / package(Mullion186)@24:1-42:11
+     UNMASKED patched  r=1 head package(Mullion186)@24:1-42:11 / package(Mullion186)@24:1-42:11
+     MASKED   pristine r=1 head package(Mullion186)@24:1-42:11 / package(Mullion186)@24:1-42:11
+     MASKED   patched  r=1 head package(Mullion186)@24:1-42:11 / package(Mullion186)@24:1-42:11
+
+==================== r10uvm186 arm g186_c_chain.sv
+   (nothing above = every rc was 0)
+   cmp rc=255 a def lines=2096 heads=1
+   cmp rc=255 b def lines=2096 heads=1
+   cmp rc=255 a elab lines=2728 heads=1
+   cmp rc=255 b elab lines=2728 heads=1
+-- CALIBRATION golden x3, def:
+   TOWARD             0
+   AWAY               0
+   MOVED-WRONG        0
+   STILL-WRONG        0
+   UNTOUCHED          27
+   ONLY-GOLDEN        0
+   ONLY-OURS          0
+   ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched, def:
+   TOWARD             18
+   AWAY               0
+   MOVED-WRONG        0
+   STILL-WRONG        6
+   UNTOUCHED          3
+   ONLY-GOLDEN        0
+   ONLY-OURS          0
+   ONLY-OURS-MOVED    0
+   order-blind dump diff def: 74 lines, vpiActual 36, REMOVALS 0
+-- CALIBRATION golden x3, elab:
+   TOWARD             0
+   AWAY               0
+   MOVED-WRONG        0
+   STILL-WRONG        0
+   UNTOUCHED          33
+   ONLY-GOLDEN        0
+   ONLY-OURS          0
+   ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched, elab:
+   TOWARD             18
+   AWAY               0
+   MOVED-WRONG        0
+   STILL-WRONG        6
+   UNTOUCHED          9
+   ONLY-GOLDEN        0
+   ONLY-OURS          0
+   ONLY-OURS-MOVED    0
+   order-blind dump diff elab: 74 lines, vpiActual 36, REMOVALS 0
+-- MASK EXPERIMENT (ct186vseed):
+   [def]
+     SEED 48 golden refs inside a `new[...]` window
+     UNMASKED pristine r=1 head package(Ratchet186)@16:1-39:11 / package(Ratchet186)@16:1-39:11
+     UNMASKED patched  r=1 head package(Ratchet186)@16:1-39:11 / package(Ratchet186)@16:1-39:11
+     MASKED   pristine r=1 head package(Ratchet186)@16:1-39:11 / package(Ratchet186)@16:1-39:11
+     MASKED   patched  r=1 head package(Ratchet186)@16:1-39:11 / package(Ratchet186)@16:1-39:11
+   [elab]
+     SEED 102 golden refs inside a `new[...]` window
+     UNMASKED pristine r=1 head package(Ratchet186)@16:1-39:11 / package(Ratchet186)@16:1-39:11
+     UNMASKED patched  r=1 head package(Ratchet186)@16:1-39:11 / package(Ratchet186)@16:1-39:11
+     MASKED   pristine r=1 head package(Ratchet186)@16:1-39:11 / package(Ratchet186)@16:1-39:11
+     MASKED   patched  r=1 head package(Ratchet186)@16:1-39:11 / package(Ratchet186)@16:1-39:11
+
+==================== THE CORPUS, same experiment on the four movers
+-- SeqDriver/default  golden=/home/heyfey/.cache/slang-uhdm-goldens/b5b4389e30f948a6a29f
+   SEED 324 golden refs inside a `new[...]` window
+   UNMASKED pristine r=1 head int_var(sz)@485:7-485:9 / <null>
+   UNMASKED patched  r=-32 head constant()@1664:20-1664:21 / operation()@1664:21-1664:30
+   MASKED   pristine r=-32 head constant()@1664:20-1664:21 / operation()@1664:21-1664:30
+   MASKED   patched  r=-32 head constant()@1664:20-1664:21 / operation()@1664:21-1664:30
+-- SeqDriver/testflags  golden=/home/heyfey/.cache/slang-uhdm-goldens/dae43e130380ebfeaa07
+   SEED 324 golden refs inside a `new[...]` window
+   UNMASKED pristine r=1 head int_var(sz)@485:7-485:9 / <null>
+   UNMASKED patched  r=-32 head constant()@1664:20-1664:21 / operation()@1664:21-1664:30
+   MASKED   pristine r=-32 head constant()@1664:20-1664:21 / operation()@1664:21-1664:30
+   MASKED   patched  r=-32 head constant()@1664:20-1664:21 / operation()@1664:21-1664:30
+-- MiniAmiq/default  golden=/home/heyfey/.cache/slang-uhdm-goldens/373e21b8854542ba4b76
+   SEED 341 golden refs inside a `new[...]` window
+   UNMASKED pristine r=1 head int_var(sz)@485:7-485:9 / <null>
+   UNMASKED patched  r=-32 head constant()@1664:20-1664:21 / operation()@1664:21-1664:30
+   MASKED   pristine r=-32 head constant()@1664:20-1664:21 / operation()@1664:21-1664:30
+   MASKED   patched  r=-32 head constant()@1664:20-1664:21 / operation()@1664:21-1664:30
+-- MiniAmiq/testflags  golden=/home/heyfey/.cache/slang-uhdm-goldens/37dec59abc8b68674273
+   SEED 341 golden refs inside a `new[...]` window
+   UNMASKED pristine r=1 head int_var(sz)@485:7-485:9 / <null>
+   UNMASKED patched  r=-32 head constant()@1664:20-1664:21 / operation()@1664:21-1664:30
+   MASKED   pristine r=-32 head constant()@1664:20-1664:21 / operation()@1664:21-1664:30
+   MASKED   patched  r=-32 head constant()@1664:20-1664:21 / operation()@1664:21-1664:30

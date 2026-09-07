@@ -1,0 +1,133 @@
+r10uvm186 GATES — § cloneNewArrayArgBindsOwnDecl186.  MEASUREMENT ONLY;
+the official uhdm-cmp and scripts/verify_golden.py are the authorities.
+BASE 362dcfa0.  slang was NOT patched.  results/*.csv READ ONLY.
+NO CORPUS ROW CONVERTED.  GOLDEN_DEFER stayed unset.
+pristine md5 8b1777950b91feef705565e6f16e8b0a  (frozen chmod 555 before any sweep)
+patched  md5 85be7bc529abb997bc012034c968222b  (frozen chmod 555)
+
+== (1) GOLDENS
+pristine: PASS=23 FAIL=0
+patched : PASS=23 FAIL=0
+SLANG_UHDM=/bin/false negative control: FAIL=23 PASS=0
+
+== (2) cmds.txt AUDIT BY BINARY PATH (not by the string 'slang-uhdm')
+/tmp/r10uvm186_wdp/sl           1523 /tmp/r10uvm186_bin/pris.bin 
+/tmp/r10uvm186_wdq/sl           1523 /tmp/r10uvm186_bin/pat.bin 
+/tmp/r10uvm186_wdp/u2r          1458 /tmp/r10uvm186_bin/pris.bin 
+/tmp/r10uvm186_wdq/u2r          1458 /tmp/r10uvm186_bin/pat.bin 
+
+== (3) uhdm2rtlil (1358 databases)
+patched testflags: CMP_EQUAL:679SLANG_REJECT:50SURELOG_FAIL:2
+patched default  : CMP_EQUAL:679SLANG_REJECT:50SURELOG_FAIL:2
+PASS: every row byte-identical to the committed baseline
+PASS: every row byte-identical to the committed baseline
+PASS: every row byte-identical to the committed baseline
+
+== (4) surelog (956 databases, 1588 rows)
+[default] 794 tests
+  CMP_EQUAL: 471
+  SLANG_REJECT: 283
+  SURELOG_FAIL: 25
+  CMP_NOTEQUAL: 10
+  DEFERRED: 5
+
+[testflags] 794 tests
+  CMP_EQUAL: 466
+  SLANG_REJECT: 284
+  SURELOG_FAIL: 23
+  CMP_NOTEQUAL: 9
+  DEFERRED: 5
+  NO_DATABASE: 3
+  UNTRANSLATABLE: 2
+  TIMEOUT: 1
+  NO_UHDM: 1
+PASS: every row byte-identical to the committed baseline
+PASS: every row byte-identical to the committed baseline
+
+== (5) CANARIES / ctcan2 / canaudit
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+
+== (6) PROTECTED DATABASES (pristine vs patched md5, first 12)
+InterfaceModPort     default    pris=59a365f3ce2c pat=59a365f3ce2c SAME
+InterfaceModPort     testflags  pris=59a365f3ce2c pat=59a365f3ce2c SAME
+BlackParrotComplex   default    pris=e3e354129d5a pat=e3e354129d5a SAME
+BlackParrotComplex   testflags  pris=73a10e8217e5 pat=73a10e8217e5 SAME
+YosysOldOr           default    pris=d68e0796d62c pat=d68e0796d62c SAME
+YosysOldOr           testflags  pris=d68e0796d62c pat=d68e0796d62c SAME
+SVSwitch             default    pris=4842211c4030 pat=4842211c4030 SAME
+SVSwitch             testflags  pris=4842211c4030 pat=4842211c4030 SAME
+YosysVerx            default    pris=6ccda350c24a pat=6ccda350c24a SAME
+YosysVerx            testflags  pris=6ccda350c24a pat=6ccda350c24a SAME
+
+== (7) BYTE MOVERS (SELFCHECK=1)
+surelog:
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=4aeae3d22191 pristine=3f21e4797c99
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=0d80f8f5d07e pristine=ac27eb73c45b
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=075d0686d280 pristine=f455e1d2c25a
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=4aeae3d22191 pristine=3f21e4797c99
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=519b467361b2 pristine=35918bf3ae27
+MOVERS: 5 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+uhdm2rtlil:
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+
+== (8) HEADS (rowheads.sh)
+-- PRISTINE
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         31      1 cmp rc=255
+SeqDriver      testflags       31      1 cmp rc=255
+SimpleUVM      default     664681      1 cmp rc=255
+SimpleUVM      testflags   664681      1 cmp rc=255
+Scoreboard     default         95      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE
+MiniAmiq       default         31      1 cmp rc=255
+MiniAmiq       testflags       31      1 cmp rc=255
+BuildUVMPkg    default         48      1 cmp rc=255
+BuildUVMPkg    testflags       48      1 cmp rc=255
+Earlgrey_0_1   default         31      1 cmp rc=255
+Earlgrey_0_1   testflags       17      1 cmp rc=255
+Rggen          default          0      0 cmp rc=0   (CMP_EQUAL)
+Rggen          testflags        -      - SKIP-NOFILE
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+-- PATCHED
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         62      1 cmp rc=255
+SeqDriver      testflags       62      1 cmp rc=255
+SimpleUVM      default     664681      1 cmp rc=255
+SimpleUVM      testflags   664681      1 cmp rc=255
+Scoreboard     default         95      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE
+MiniAmiq       default         62      1 cmp rc=255
+MiniAmiq       testflags       62      1 cmp rc=255
+BuildUVMPkg    default         48      1 cmp rc=255
+BuildUVMPkg    testflags       48      1 cmp rc=255
+Earlgrey_0_1   default         31      1 cmp rc=255
+Earlgrey_0_1   testflags       17      1 cmp rc=255
+Rggen          default          0      0 cmp rc=0   (CMP_EQUAL)
+Rggen          testflags        -      - SKIP-NOFILE
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+
+== (9) WIDE BOUNDARY (a copy of the whole tools/probe tree, both binaries, both views)
+MOVED 2532_r10uvm186repro_g186_a_argdecl.sv/def 72 lines
+MOVED 2532_r10uvm186repro_g186_a_argdecl.sv/elab 56 lines
+MOVED 2533_r10uvm186repro_g186_b_listing.sv/def 16 lines
+MOVED 2533_r10uvm186repro_g186_b_listing.sv/elab 16 lines
+MOVED 2534_r10uvm186repro_g186_c_chain.sv/def 72 lines
+MOVED 2534_r10uvm186repro_g186_c_chain.sv/elab 72 lines
+LISTED=5049 FENCED_SKIPPED=0 PROCESSED=5049 MOVED=6 NO_OUTPUT_PAIRS=384
+PROCESSED-ASSERT-OK
+
+== (10) THE PATCH REPRODUCES THE TESTED BINARY
+/tmp/r10uvm186.patch applied to a FRESH 362dcfa0 worktree (git apply --check OK,
+no conflict markers) and built there with the same toolchain:
+  fresh tree build md5 = 85be7bc529abb997bc012034c968222b
+  frozen patched  md5 = 85be7bc529abb997bc012034c968222b   IDENTICAL

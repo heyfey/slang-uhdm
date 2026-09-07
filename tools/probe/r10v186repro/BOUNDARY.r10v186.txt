@@ -1,0 +1,93 @@
+r10v186 VERIFIER WIDE BOUNDARY — every .sv/.v under a COPY of the WHOLE
+tools/probe tree (this pass's arms and this verifier's five included),
+BOTH binaries, BOTH views, dumps compared byte-for-byte.
+fd-3 list, children </dev/null, PROCESSED asserted, scratch keyed on the
+RELATIVE path.  Driver: r10uvm186repro/bound186.sh with BWD set to this
+verifier's own scratch.
+
+== RUN 1 — the whole tree (5049 pass arms + this verifier's four written
+   at the time of the copy)
+MOVED 2532_r10uvm186repro_g186_a_argdecl.sv/def 72 lines
+MOVED 2532_r10uvm186repro_g186_a_argdecl.sv/elab 56 lines
+MOVED 2533_r10uvm186repro_g186_b_listing.sv/def 16 lines
+MOVED 2533_r10uvm186repro_g186_b_listing.sv/elab 16 lines
+MOVED 2534_r10uvm186repro_g186_c_chain.sv/def 72 lines
+MOVED 2534_r10uvm186repro_g186_c_chain.sv/elab 72 lines
+MOVED 3875_r10v186repro_v186_a_retname.sv/def 40 lines
+MOVED 3875_r10v186repro_v186_a_retname.sv/elab 49 lines
+MOVED 3876_r10v186repro_v186_b_position.sv/def 76 lines
+MOVED 3876_r10v186repro_v186_b_position.sv/elab 76 lines
+MOVED 3877_r10v186repro_v186_c_kinds.sv/def 56 lines
+MOVED 3877_r10v186repro_v186_c_kinds.sv/elab 48 lines
+MOVED 3878_r10v186repro_v186_d_listing.sv/def 40 lines
+MOVED 3878_r10v186repro_v186_d_listing.sv/elab 40 lines
+LISTED=5053 FENCED_SKIPPED=0 PROCESSED=5053 MOVED=14 NO_OUTPUT_PAIRS=384
+PROCESSED-ASSERT-OK
+
+== RUN 2 — a focused re-run that also carries this verifier's fifth arm
+   (v186_e_instances.sv, written after run 1's copy) together with the
+   uvm184 / v184 / uvm185 / uvm186 families
+MOVED 0008_r10uvm186repro_g186_a_argdecl.sv/def 72 lines
+MOVED 0008_r10uvm186repro_g186_a_argdecl.sv/elab 56 lines
+MOVED 0009_r10uvm186repro_g186_b_listing.sv/def 16 lines
+MOVED 0009_r10uvm186repro_g186_b_listing.sv/elab 16 lines
+MOVED 0010_r10uvm186repro_g186_c_chain.sv/def 72 lines
+MOVED 0010_r10uvm186repro_g186_c_chain.sv/elab 72 lines
+MOVED 0018_r10v186repro_v186_a_retname.sv/def 40 lines
+MOVED 0018_r10v186repro_v186_a_retname.sv/elab 49 lines
+MOVED 0019_r10v186repro_v186_b_position.sv/def 76 lines
+MOVED 0019_r10v186repro_v186_b_position.sv/elab 76 lines
+MOVED 0020_r10v186repro_v186_c_kinds.sv/def 56 lines
+MOVED 0020_r10v186repro_v186_c_kinds.sv/elab 48 lines
+MOVED 0021_r10v186repro_v186_d_listing.sv/def 40 lines
+MOVED 0021_r10v186repro_v186_d_listing.sv/elab 40 lines
+MOVED 0022_r10v186repro_v186_e_instances.sv/def 24 lines
+MOVED 0022_r10v186repro_v186_e_instances.sv/elab 24 lines
+LISTED=22 FENCED_SKIPPED=0 PROCESSED=22 MOVED=16 NO_OUTPUT_PAIRS=0
+PROCESSED-ASSERT-OK
+
+== PROTECTED FAMILIES: arms present in run 1 and MOVED count
+r10uvm184repro     arms=2    moved=0
+r10v184repro       arms=7    moved=0
+r10uvm185repro     arms=5    moved=0
+r10v185repro       arms=5    moved=0
+r10uvm181repro     arms=4    moved=0
+r10uvm182repro     arms=4    moved=0
+r10uvm183repro     arms=6    moved=0
+r10uvm82repro      arms=7    moved=0
+r10uvm91repro      arms=5    moved=0
+r10buvm3repro      arms=4    moved=0
+r10buvm15repro     arms=9    moved=0
+r10sd8repro        arms=37   moved=0
+r10sd12repro       arms=108  moved=0
+
+== The named § 184 arms and fences, by FILE NAME, in run 1:
+2525_r10uvm184repro_g184_a_recv.sv
+2526_r10uvm184repro_g184_b_kinds.sv
+3863_r10v184repro_gv184_c_argdecl.sv
+3864_r10v184repro_gv184_d_recvmeth.sv
+3865_r10v184repro_gv184_e_listing.sv
+3866_r10v184repro_gv184_f_stmtpos.sv
+3867_r10v184repro_gv184_g_retname.sv
+3868_r10v184repro_gv184_h_retpin.sv
+3869_r10v184repro_gv184_i_minimal.sv
+-- of those, MOVED: 0
+
+== REMOVAL SCAN over every MOVED arm-view (run 2 scratch): the patch adds
+   vpiActual edges and removes nothing, with ONE measured exception.
+0008_r10uvm186repro_g186_a_argdecl.sv          def   removals=0   additions=72
+0008_r10uvm186repro_g186_a_argdecl.sv          elab  removals=0   additions=56
+0009_r10uvm186repro_g186_b_listing.sv          def   removals=0   additions=16
+0009_r10uvm186repro_g186_b_listing.sv          elab  removals=0   additions=16
+0010_r10uvm186repro_g186_c_chain.sv            def   removals=0   additions=72
+0010_r10uvm186repro_g186_c_chain.sv            elab  removals=0   additions=72
+0018_r10v186repro_v186_a_retname.sv            def   removals=0   additions=40
+0018_r10v186repro_v186_a_retname.sv            elab  removals=6   additions=43
+0019_r10v186repro_v186_b_position.sv           def   removals=0   additions=76
+0019_r10v186repro_v186_b_position.sv           elab  removals=0   additions=76
+0020_r10v186repro_v186_c_kinds.sv              def   removals=0   additions=56
+0020_r10v186repro_v186_c_kinds.sv              elab  removals=0   additions=48
+0021_r10v186repro_v186_d_listing.sv            def   removals=0   additions=40
+0021_r10v186repro_v186_d_listing.sv            elab  removals=0   additions=40
+0022_r10v186repro_v186_e_instances.sv          def   removals=0   additions=24
+0022_r10v186repro_v186_e_instances.sv          elab  removals=0   additions=24

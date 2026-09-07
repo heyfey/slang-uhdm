@@ -1,0 +1,90 @@
+r10v186 — THE MOVED CELLS AND THE FENCE, read cell by cell out of the
+SeqDriver/default triple (golden / pristine / patched), whole-window census.
+MEASUREMENT ONLY.  LHS golden, RHS ours.
+
+== THE CLASS-PROPERTY FENCE the symbol half must keep refusing:
+   bits = new[m_packed_size]  (uvm-1.2 uvm_packer.svh:475), eleven lines
+   above the head, at the identical face
+   GOLDEN  package:adpcm_pkg              475:14  m_packed_size            d1  DYN BARE
+   GOLDEN  package:adpcm_pkg              475:14  m_packed_size            d1  DYN BARE
+   GOLDEN  package:uvm_pkg                475:14  m_packed_size            d1  DYN BARE
+   GOLDEN  package:uvm_pkg+cls            475:14  m_packed_size            d1  DYN logic_net(m_packed_size)@417:30
+   PRISTINE package:adpcm_pkg              475:14  m_packed_size            d1  DYN BARE
+   PRISTINE package:adpcm_pkg              475:14  m_packed_size            d1  DYN BARE
+   PRISTINE package:uvm_pkg                475:14  m_packed_size            d1  DYN BARE
+   PRISTINE package:uvm_pkg+cls            475:14  m_packed_size            d1  DYN logic_net(m_packed_size)@417:30
+   PATCHED  package:adpcm_pkg              475:14  m_packed_size            d1  DYN BARE
+   PATCHED  package:adpcm_pkg              475:14  m_packed_size            d1  DYN BARE
+   PATCHED  package:uvm_pkg                475:14  m_packed_size            d1  DYN BARE
+   PATCHED  package:uvm_pkg+cls            475:14  m_packed_size            d1  DYN logic_net(m_packed_size)@417:30
+   -> BARE in the two adpcm_pkg CLONE listings on all three sides.  The
+      class property is refused before and after; the patch does not touch it.
+
+== THE MOVED CELLS, in the two adpcm_pkg clone listings:
+-- GOLDEN 
+   package:adpcm_pkg              488:15  sz                       d1  DYN int_var(sz)@485:7
+   package:adpcm_pkg              488:15  sz                       d1  DYN int_var(sz)@485:7
+   package:adpcm_pkg              509:14  sz                       d1  DYN int_var(sz)@507:7
+   package:adpcm_pkg              509:14  sz                       d1  DYN int_var(sz)@507:7
+   package:adpcm_pkg             1427:25  n                        d1  DYN int_var(n)@1424:11
+   package:adpcm_pkg             1427:25  n                        d1  DYN int_var(n)@1424:11
+   package:adpcm_pkg             1467:19  local_addr               d2  DYN array_var(local_addr)@1408:20
+   package:adpcm_pkg             1467:19  local_addr               d2  DYN array_var(local_addr)@1408:20
+   package:adpcm_pkg             1467:39  local_addr               d1  DYN array_var(local_addr)@1408:20
+   package:adpcm_pkg             1467:39  local_addr               d1  DYN array_var(local_addr)@1408:20
+   package:adpcm_pkg             1491:22  n                        d2  DYN int_var(n)@1484:14
+   package:adpcm_pkg             1491:22  n                        d2  DYN int_var(n)@1484:14
+   package:adpcm_pkg             1491:44  addr                     d1  DYN io_decl(addr)@1405:69
+   package:adpcm_pkg             1491:44  addr                     d1  DYN io_decl(addr)@1405:69
+-- PRISTINE
+   package:adpcm_pkg              488:15  sz                       d1  DYN BARE
+   package:adpcm_pkg              488:15  sz                       d1  DYN BARE
+   package:adpcm_pkg              509:14  sz                       d1  DYN BARE
+   package:adpcm_pkg              509:14  sz                       d1  DYN BARE
+   package:adpcm_pkg             1427:25  n                        d1  DYN BARE
+   package:adpcm_pkg             1427:25  n                        d1  DYN BARE
+   package:adpcm_pkg             1467:19  local_addr               d2  DYN BARE
+   package:adpcm_pkg             1467:19  local_addr               d2  DYN BARE
+   package:adpcm_pkg             1467:39  local_addr               d1  DYN BARE
+   package:adpcm_pkg             1467:39  local_addr               d1  DYN BARE
+   package:adpcm_pkg             1491:22  n                        d2  DYN BARE
+   package:adpcm_pkg             1491:22  n                        d2  DYN BARE
+   package:adpcm_pkg             1491:44  addr                     d1  DYN BARE
+   package:adpcm_pkg             1491:44  addr                     d1  DYN BARE
+-- PATCHED 
+   package:adpcm_pkg              488:15  sz                       d1  DYN int_var(sz)@485:7
+   package:adpcm_pkg              488:15  sz                       d1  DYN int_var(sz)@485:7
+   package:adpcm_pkg              509:14  sz                       d1  DYN int_var(sz)@507:7
+   package:adpcm_pkg              509:14  sz                       d1  DYN int_var(sz)@507:7
+   package:adpcm_pkg             1427:25  n                        d1  DYN int_var(n)@1424:11
+   package:adpcm_pkg             1427:25  n                        d1  DYN int_var(n)@1424:11
+   package:adpcm_pkg             1467:19  local_addr               d2  DYN BARE
+   package:adpcm_pkg             1467:19  local_addr               d2  DYN BARE
+   package:adpcm_pkg             1467:39  local_addr               d1  DYN array_var(local_addr)@1408:20
+   package:adpcm_pkg             1467:39  local_addr               d1  DYN array_var(local_addr)@1408:20
+   package:adpcm_pkg             1491:22  n                        d2  DYN int_var(n)@1484:14
+   package:adpcm_pkg             1491:22  n                        d2  DYN int_var(n)@1484:14
+   package:adpcm_pkg             1491:44  addr                     d1  DYN io_decl(addr)@1405:69
+   package:adpcm_pkg             1491:44  addr                     d1  DYN io_decl(addr)@1405:69
+
+== THE EXACT MOVED-CELL SET, reconciled against the dump attribution:
+   SIX positions x TWO clone copies = TWELVE cells, and the order-blind dump
+   diff carries exactly TWELVE |vpiActual: markers and TWELVE targets.
+     488:15  sz          d1  -> int_var(sz)@485:7           get_bytes
+     509:14  sz          d1  -> int_var(sz)@507:7           get_ints
+    1427:25  n           d1  -> int_var(n)@1424:11          get_physical_addresses
+    1467:39  local_addr  d1  -> array_var(local_addr)@1408:20  the COPY SOURCE
+    1491:22  n           d2  -> int_var(n)@1484:14          NESTED, second routine
+    1491:44  addr        d1  -> io_decl(addr)@1405:69       a FORMAL copy source
+   NOTE for the landing write-up: r10uvm186's README summary says
+   '5 keys x 2 clone copies = 10 cells'; the measured set is SIX positions
+   and TWELVE cells.  His own attribution section already says 'twelve
+   markers and twelve targets', so this is a prose slip in the summary
+   table, not a measurement error, and the corrected count is above.
+
+== STILL-WRONG in the same listings (the implementer's R3), unchanged by
+   the patch on both binaries:
+    1467:19  local_addr  d2   golden array_var(local_addr)@1408:20, ours BARE
+    1491:26  sys_addr    d3   golden BARE-or-other, ours BARE
+   Both are hier_path / select-base faces built by another builder; neither
+   is a direct Tf_call_args element and neither is this law's population.

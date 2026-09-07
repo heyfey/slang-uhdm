@@ -1,0 +1,228 @@
+==== SeqDriver default  (rows g/a/b: 265/265/265)
+-- CALIBRATION golden vs golden vs golden (every column must be 0 but UNTOUCHED):
+TOWARD             0
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          186
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched:
+TOWARD             5
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        9
+UNTOUCHED          170
+ONLY-GOLDEN        2
+ONLY-OURS          2
+ONLY-OURS-MOVED    0
+    TOWARD ('package:adpcm_pkg', '1427:25', 'n', 'arg0', 'DYN') G ('int_var(n)@1424:11', 'int_var(n)@1424:11') A ('BARE', 'BARE') B ('int_var(n)@1424:11', 'int_var(n)@1424:11')
+    TOWARD ('package:adpcm_pkg', '1467:39', 'local_addr', 'arg1', 'DYN') G ('array_var(local_addr)@1408:20', 'array_var(local_addr)@1408:20') A ('BARE', 'BARE') B ('array_var(local_addr)@1408:20', 'array_var(local_addr)@1408:20')
+    TOWARD ('package:adpcm_pkg', '1491:44', 'addr', 'arg1', 'DYN') G ('io_decl(addr)@1405:69', 'io_decl(addr)@1405:69') A ('BARE', 'BARE') B ('io_decl(addr)@1405:69', 'io_decl(addr)@1405:69')
+    TOWARD ('package:adpcm_pkg', '488:15', 'sz', 'arg0', 'DYN') G ('int_var(sz)@485:7', 'int_var(sz)@485:7') A ('BARE', 'BARE') B ('int_var(sz)@485:7', 'int_var(sz)@485:7')
+    TOWARD ('package:adpcm_pkg', '509:14', 'sz', 'arg0', 'DYN') G ('int_var(sz)@507:7', 'int_var(sz)@507:7') A ('BARE', 'BARE') B ('int_var(sz)@507:7', 'int_var(sz)@507:7')
+    STILL-WRONG ('package:uvm_pkg+cls', '152:45', 'this', 'arg1', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+    STILL-WRONG ('package:uvm_pkg+cls', '228:47', 'this', 'arg1', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+    STILL-WRONG ('package:uvm_pkg+cls', '229:58', 'this', 'arg1', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+    STILL-WRONG ('package:uvm_pkg+cls', '231:45', 'this', 'arg1', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+    STILL-WRONG ('package:uvm_pkg+cls', '743:71', 'this', 'arg4', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+    STILL-WRONG ('package:uvm_pkg+cls', '750:65', 'this', 'arg4', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+    STILL-WRONG ('package:uvm_pkg+cls', '817:57', 'this', 'arg2', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+    STILL-WRONG ('package:uvm_pkg+cls', '874:52', 'this', 'arg2', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+    STILL-WRONG ('package:uvm_pkg+cls', '984:39', 'this', 'arg2', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+==== SeqDriver testflags  (rows g/a/b: 265/265/265)
+-- CALIBRATION golden vs golden vs golden (every column must be 0 but UNTOUCHED):
+TOWARD             0
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          186
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched:
+TOWARD             5
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        9
+UNTOUCHED          170
+ONLY-GOLDEN        2
+ONLY-OURS          2
+ONLY-OURS-MOVED    0
+    TOWARD ('package:adpcm_pkg', '1427:25', 'n', 'arg0', 'DYN') G ('int_var(n)@1424:11', 'int_var(n)@1424:11') A ('BARE', 'BARE') B ('int_var(n)@1424:11', 'int_var(n)@1424:11')
+    TOWARD ('package:adpcm_pkg', '1467:39', 'local_addr', 'arg1', 'DYN') G ('array_var(local_addr)@1408:20', 'array_var(local_addr)@1408:20') A ('BARE', 'BARE') B ('array_var(local_addr)@1408:20', 'array_var(local_addr)@1408:20')
+    TOWARD ('package:adpcm_pkg', '1491:44', 'addr', 'arg1', 'DYN') G ('io_decl(addr)@1405:69', 'io_decl(addr)@1405:69') A ('BARE', 'BARE') B ('io_decl(addr)@1405:69', 'io_decl(addr)@1405:69')
+    TOWARD ('package:adpcm_pkg', '488:15', 'sz', 'arg0', 'DYN') G ('int_var(sz)@485:7', 'int_var(sz)@485:7') A ('BARE', 'BARE') B ('int_var(sz)@485:7', 'int_var(sz)@485:7')
+    TOWARD ('package:adpcm_pkg', '509:14', 'sz', 'arg0', 'DYN') G ('int_var(sz)@507:7', 'int_var(sz)@507:7') A ('BARE', 'BARE') B ('int_var(sz)@507:7', 'int_var(sz)@507:7')
+    STILL-WRONG ('package:uvm_pkg+cls', '152:45', 'this', 'arg1', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+    STILL-WRONG ('package:uvm_pkg+cls', '228:47', 'this', 'arg1', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+    STILL-WRONG ('package:uvm_pkg+cls', '229:58', 'this', 'arg1', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+    STILL-WRONG ('package:uvm_pkg+cls', '231:45', 'this', 'arg1', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+    STILL-WRONG ('package:uvm_pkg+cls', '743:71', 'this', 'arg4', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+    STILL-WRONG ('package:uvm_pkg+cls', '750:65', 'this', 'arg4', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+    STILL-WRONG ('package:uvm_pkg+cls', '817:57', 'this', 'arg2', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+    STILL-WRONG ('package:uvm_pkg+cls', '874:52', 'this', 'arg2', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+    STILL-WRONG ('package:uvm_pkg+cls', '984:39', 'this', 'arg2', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+==== MiniAmiq default  (rows g/a/b: 274/274/274)
+-- CALIBRATION golden vs golden vs golden (every column must be 0 but UNTOUCHED):
+TOWARD             0
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          190
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched:
+TOWARD             5
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          183
+ONLY-GOLDEN        2
+ONLY-OURS          2
+ONLY-OURS-MOVED    0
+    TOWARD ('package:svaunit_pkg', '1427:25', 'n', 'arg0', 'DYN') G ('int_var(n)@1424:11', 'int_var(n)@1424:11') A ('BARE', 'BARE') B ('int_var(n)@1424:11', 'int_var(n)@1424:11')
+    TOWARD ('package:svaunit_pkg', '1467:39', 'local_addr', 'arg1', 'DYN') G ('array_var(local_addr)@1408:20', 'array_var(local_addr)@1408:20') A ('BARE', 'BARE') B ('array_var(local_addr)@1408:20', 'array_var(local_addr)@1408:20')
+    TOWARD ('package:svaunit_pkg', '1491:44', 'addr', 'arg1', 'DYN') G ('io_decl(addr)@1405:69', 'io_decl(addr)@1405:69') A ('BARE', 'BARE') B ('io_decl(addr)@1405:69', 'io_decl(addr)@1405:69')
+    TOWARD ('package:svaunit_pkg', '488:15', 'sz', 'arg0', 'DYN') G ('int_var(sz)@485:7', 'int_var(sz)@485:7') A ('BARE', 'BARE') B ('int_var(sz)@485:7', 'int_var(sz)@485:7')
+    TOWARD ('package:svaunit_pkg', '509:14', 'sz', 'arg0', 'DYN') G ('int_var(sz)@507:7', 'int_var(sz)@507:7') A ('BARE', 'BARE') B ('int_var(sz)@507:7', 'int_var(sz)@507:7')
+==== MiniAmiq testflags  (rows g/a/b: 274/274/274)
+-- CALIBRATION golden vs golden vs golden (every column must be 0 but UNTOUCHED):
+TOWARD             0
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          190
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched:
+TOWARD             5
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          183
+ONLY-GOLDEN        2
+ONLY-OURS          2
+ONLY-OURS-MOVED    0
+    TOWARD ('package:svaunit_pkg', '1427:25', 'n', 'arg0', 'DYN') G ('int_var(n)@1424:11', 'int_var(n)@1424:11') A ('BARE', 'BARE') B ('int_var(n)@1424:11', 'int_var(n)@1424:11')
+    TOWARD ('package:svaunit_pkg', '1467:39', 'local_addr', 'arg1', 'DYN') G ('array_var(local_addr)@1408:20', 'array_var(local_addr)@1408:20') A ('BARE', 'BARE') B ('array_var(local_addr)@1408:20', 'array_var(local_addr)@1408:20')
+    TOWARD ('package:svaunit_pkg', '1491:44', 'addr', 'arg1', 'DYN') G ('io_decl(addr)@1405:69', 'io_decl(addr)@1405:69') A ('BARE', 'BARE') B ('io_decl(addr)@1405:69', 'io_decl(addr)@1405:69')
+    TOWARD ('package:svaunit_pkg', '488:15', 'sz', 'arg0', 'DYN') G ('int_var(sz)@485:7', 'int_var(sz)@485:7') A ('BARE', 'BARE') B ('int_var(sz)@485:7', 'int_var(sz)@485:7')
+    TOWARD ('package:svaunit_pkg', '509:14', 'sz', 'arg0', 'DYN') G ('int_var(sz)@507:7', 'int_var(sz)@507:7') A ('BARE', 'BARE') B ('int_var(sz)@507:7', 'int_var(sz)@507:7')
+==== SimpleUVM default  (rows g/a/b: 189/189/189)
+-- CALIBRATION golden vs golden vs golden (every column must be 0 but UNTOUCHED):
+TOWARD             0
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          148
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched:
+TOWARD             0
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        9
+UNTOUCHED          138
+ONLY-GOLDEN        1
+ONLY-OURS          1
+ONLY-OURS-MOVED    0
+    STILL-WRONG ('package:uvm_pkg+cls', '152:45', 'this', 'arg1', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+    STILL-WRONG ('package:uvm_pkg+cls', '228:47', 'this', 'arg1', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+    STILL-WRONG ('package:uvm_pkg+cls', '229:58', 'this', 'arg1', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+    STILL-WRONG ('package:uvm_pkg+cls', '231:45', 'this', 'arg1', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+    STILL-WRONG ('package:uvm_pkg+cls', '743:71', 'this', 'arg4', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+    STILL-WRONG ('package:uvm_pkg+cls', '750:65', 'this', 'arg4', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+    STILL-WRONG ('package:uvm_pkg+cls', '817:57', 'this', 'arg2', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+    STILL-WRONG ('package:uvm_pkg+cls', '874:52', 'this', 'arg2', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+    STILL-WRONG ('package:uvm_pkg+cls', '984:39', 'this', 'arg2', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+==== SimpleUVM testflags  (rows g/a/b: 189/189/189)
+-- CALIBRATION golden vs golden vs golden (every column must be 0 but UNTOUCHED):
+TOWARD             0
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          148
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched:
+TOWARD             0
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        9
+UNTOUCHED          138
+ONLY-GOLDEN        1
+ONLY-OURS          1
+ONLY-OURS-MOVED    0
+    STILL-WRONG ('package:uvm_pkg+cls', '152:45', 'this', 'arg1', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+    STILL-WRONG ('package:uvm_pkg+cls', '228:47', 'this', 'arg1', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+    STILL-WRONG ('package:uvm_pkg+cls', '229:58', 'this', 'arg1', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+    STILL-WRONG ('package:uvm_pkg+cls', '231:45', 'this', 'arg1', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+    STILL-WRONG ('package:uvm_pkg+cls', '743:71', 'this', 'arg4', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+    STILL-WRONG ('package:uvm_pkg+cls', '750:65', 'this', 'arg4', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+    STILL-WRONG ('package:uvm_pkg+cls', '817:57', 'this', 'arg2', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+    STILL-WRONG ('package:uvm_pkg+cls', '874:52', 'this', 'arg2', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+    STILL-WRONG ('package:uvm_pkg+cls', '984:39', 'this', 'arg2', 'CLS') G ('logic_net(this)@902:36',) A ('logic_net(this)@152:45',) B ('logic_net(this)@152:45',)
+==== Scoreboard default  (rows g/a/b: 191/191/191)
+-- CALIBRATION golden vs golden vs golden (every column must be 0 but UNTOUCHED):
+TOWARD             0
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          150
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched:
+TOWARD             0
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          149
+ONLY-GOLDEN        1
+ONLY-OURS          1
+ONLY-OURS-MOVED    0
+SKIP-NOFILE Scoreboard testflags g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm p=/tmp/r10uvm186_wdp/sl/testflags/Scoreboard-59431470//slang.uhdm q=/tmp/r10uvm186_wdq/sl/testflags/Scoreboard-59431470/slang.uhdm
+==== BuildUVMPkg default  (rows g/a/b: 223/223/223)
+-- CALIBRATION golden vs golden vs golden (every column must be 0 but UNTOUCHED):
+TOWARD             0
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          223
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched:
+TOWARD             0
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          223
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+==== BuildUVMPkg testflags  (rows g/a/b: 223/223/223)
+-- CALIBRATION golden vs golden vs golden (every column must be 0 but UNTOUCHED):
+TOWARD             0
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          223
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched:
+TOWARD             0
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          223
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0

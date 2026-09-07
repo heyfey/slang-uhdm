@@ -1,0 +1,31 @@
+LHS:
+decompile:
+int_var: (uvm_pkg::uvm_packer::get_bytes::sz), id:9261, line:485:7, endln:485:9
+|vpiParent:
+\_begin: (uvm_pkg::uvm_packer::get_bytes), id:9259, line:486:3, endln:486:10
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_packer::get_bytes::sz), id:9262
+  |vpiParent:
+  \_int_var: (uvm_pkg::uvm_packer::get_bytes::sz), id:9261, line:485:7, endln:485:9
+  |vpiFullName:uvm_pkg::uvm_packer::get_bytes::sz
+  |vpiActual:
+  \_int_typespec: , id:9260, line:485:3, endln:485:6
+|vpiName:sz
+|vpiFullName:uvm_pkg::uvm_packer::get_bytes::sz
+|vpiSigned:1
+
+decompile:
+int_var: (uvm_pkg::uvm_packer::get_bytes::sz), id:9261, line:485:7, endln:485:9
+|vpiParent:
+\_begin: (uvm_pkg::uvm_packer::get_bytes), id:9259, line:486:3, endln:486:10
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_packer::get_bytes::sz), id:9262
+  |vpiParent:
+  \_int_var: (uvm_pkg::uvm_packer::get_bytes::sz), id:9261, line:485:7, endln:485:9
+  |vpiFullName:uvm_pkg::uvm_packer::get_bytes::sz
+  |vpiActual:
+  \_int_typespec: , id:9260, line:485:3, endln:485:6
+|vpiName:sz
+|vpiFullName:uvm_pkg::uvm_packer::get_bytes::sz
+|vpiSigned:1
+RHS: <null>

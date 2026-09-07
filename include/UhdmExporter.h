@@ -3260,6 +3260,80 @@ private:
     // golden and the law must not reach them.  Package / class / $unit homes
     // have no such elaborated module to hang a net on: a2 (a package and
     // NOTHING else, exactly BuildUVMPkg's shape) shows all 18 of them bare.
+    //
+    // § cloneNewArrayArgBindsOwnDecl186 (r10uvm186) — THE HOME GUARD'S OTHER
+    // HALF: **§ newArrayArgNoBind16 IS A HOME-LISTING LAW.**
+    //
+    // *IN A WILDCARD-IMPORT **CLONE** OF A PACKAGE SUBROUTINE, A
+    // SUBROUTINE-SCOPE NAME WRITTEN IN A DYNAMIC-ARRAY `new[...]` ARGUMENT
+    // LIST BINDS ITS OWN DECLARATION — THE HOME `int_var` / `array_var` /
+    // `io_decl` EVERY OTHER REFERENCE IN THAT CLONE BODY ALREADY BINDS — AND
+    // KEEPS ITS CLONE-SCOPED `vpiFullName`.  AT HOME IT STAYS BARE AND
+    // NAMELESS exactly as § newArrayArgNoBind16 says, AND IN THE ELABORATED
+    // MODULE IT KEEPS THE HOISTED WIRE § newArrayArgHoistNet130 mints.*
+    //
+    // THE HEAD (SeqDriver ×2 AND MiniAmiq ×2, 31 cmp lines, ONE `^LHS:`, the
+    // same object in all four row-modes at `362dcfa0`):
+    //   LHS  int_var (uvm_pkg::uvm_packer::get_bytes::sz) @485:7-485:9
+    //   RHS  <null>
+    // BaseClass.h's SINGULAR `SafeCompare` naming a VALUE (RESUME §9).
+    // `ct186skip.cpp` — the `CompareContext::m_visited` pre-seed, which makes
+    // the judge SKIP one golden object with no edit to either database — names
+    // the edge out of eleven candidate referrers: `vpiActual` of
+    // `ref_obj (sz) @488:15-488:17`, the SIZE ARGUMENT of `bytes = new[sz]`
+    // (uvm-1.2 uvm_packer.svh:488) in the **adpcm_pkg wildcard-import CLONE
+    // listing**, whose chain is
+    //   <method_func_call:new:488 <assignment:488 <begin:486
+    //   <function:uvm_packer::get_bytes:484 <package:adpcm_pkg:10
+    //   <design:work@top_tb
+    // Golden binds it to `int_var (sz) @485:7`; we leave it BARE.
+    //
+    // THE PRODUCER, and why the guard is exactly `pkgImportCloneEmit`.
+    // § newArrayArgNoBind16's whole decode is the UNPARENTED `fcall`:
+    // `CompileHelper::compileBlockingAssignment`'s `paDynamic_array_new` arm
+    // never calls `fcall->VpiParent(assign)`, so `CompileHelper::bindVariable`
+    // (CompileStmt.cpp:3089) walks a chain that is EMPTY and
+    // `UhdmWriter::lateBinding` fails for the same reason.  A WILDCARD-IMPORT
+    // CLONE is a COPY of that tree, and the copy is PARENTED: measured in the
+    // golden itself, `method_func_call (new) @488:11` carries NO `vpiParent`
+    // in the uvm_pkg home listing and in the elaborated `work@top_tb` listing,
+    // and DOES carry `vpiParent -> assignment @488:3` in both adpcm_pkg clone
+    // listings.  With a live parent chain the walk reaches
+    // `begin (uvm_packer::get_bytes)` and finds `sz` in its `Variables()` —
+    // which is why the clone's answer is the HOME declaration object and not a
+    // clone-local twin.  (`ct186new.cpp` turns that same asymmetry into the
+    // DYN classifier: a call POSITION is a dynamic-array `new[...]` when ANY
+    // instance of it in the database is unparented, which is how one census
+    // separates `d = new[n]` from `h = new(args)` on both sides.)
+    //
+    // THE SYMBOL HALF IS UNCHANGED, and the corpus carries its own
+    // counter-example.  `newArraySubScopeSym16` already answers FALSE for a
+    // CLASS PROPERTY, and golden agrees in the clone too: `bits =
+    // new[m_packed_size]` (uvm_packer.svh:475) is BARE in BOTH adpcm_pkg clone
+    // listings, while `bytes = new[sz]` eleven lines down is bound.  Five keys
+    // in the nine UVM databases are subroutine-scope and move — `get_bytes::sz`
+    // (int_var), `get_ints::sz` (int_var), `get_physical_addresses::n`
+    // (int_var), `::local_addr` (array_var, the COPY SOURCE `new[n](src)` at
+    // arg1) and `::addr` (io_decl, a FORMAL at arg1) — and `m_packed_size` is
+    // the sixth key at the same face that must NOT.
+    //
+    // THE FULLNAME IS **NOT** PART OF THIS LAW (R2).  Golden's clone does
+    // print `vpiFullName:adpcm_pkg::uvm_packer::get_bytes::sz` on the argument
+    // (and on `m_packed_size`, which stays BARE) where we print none, and
+    // gating `stripRefFullNames11` on the same flag does make the DEF-view
+    // clone listing byte-identical to golden — but the ELAB view shares those
+    // objects with the MODULE-HOISTED copy, whose golden name is
+    // `work@top.<sub>.<name>`, and arm A measures ONE AWAY PER KEY there.
+    // `VpiFullName` is read by NO generated `Compare` (RESUME §9), so the
+    // whole axis is worth nothing to the judge and the strip stays
+    // unconditional.  Both measurements are in the pass README.
+    //
+    // NOT THIS LAW: the home package's own views, the elaborated module's
+    // hoisted wire (§ newArrayArgHoistNet130 keeps it — that listing is a
+    // different emission and walks with `pkgImportCloneEmit` false), a CLASS
+    // PROPERTY at the same face, a PACKAGE variable (which never entered
+    // `bindVariable` and already binds), and the EXPLICIT-import copy
+    // (`importCloneEmit`), which this gate does not name.
     int newArrayArgDepth16 = 0;
     // § classInBodyRecvCallArgNoBind52 — depth of RECEIVER-QUALIFIED call
     // ARGUMENT nesting, i.e. a call rendered as the two-or-more element

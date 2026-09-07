@@ -1,0 +1,48 @@
+LHS:
+decompile:
+int_typespec: (UVM_FILE), id:62665, line:8459:9, endln:8459:12
+|vpiParent:
+\_parameter: (uvm_pkg::UVM_STDIN), id:62667, line:8461:20, endln:8461:29
+|vpiName:UVM_FILE
+|vpiTypedefAlias:
+\_ref_typespec: (uvm_pkg::UVM_STDIN::UVM_FILE), id:62666
+  |vpiParent:
+  \_int_typespec: (UVM_FILE), id:62665, line:8459:9, endln:8459:12
+  |vpiFullName:uvm_pkg::UVM_STDIN::UVM_FILE
+  |vpiActual:
+  \_int_typespec: (uvm_pkg::UVM_FILE), id:62664, line:8459:9, endln:8459:12
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:60163, file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:7351:1, endln:83263:11
+|vpiSigned:1
+
+decompile:
+int_typespec: (UVM_FILE), id:62665, line:8459:9, endln:8459:12
+|vpiParent:
+\_parameter: (uvm_pkg::UVM_STDIN), id:62667, line:8461:20, endln:8461:29
+|vpiName:UVM_FILE
+|vpiTypedefAlias:
+\_ref_typespec: (uvm_pkg::UVM_STDIN::UVM_FILE), id:62666
+  |vpiParent:
+  \_int_typespec: (UVM_FILE), id:62665, line:8459:9, endln:8459:12
+  |vpiFullName:uvm_pkg::UVM_STDIN::UVM_FILE
+  |vpiActual:
+  \_int_typespec: (uvm_pkg::UVM_FILE), id:62664, line:8459:9, endln:8459:12
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:60163, file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:7351:1, endln:83263:11
+|vpiSigned:1
+RHS:
+decompile:
+int_typespec: , id:197, line:8461:11, endln:8461:19
+|vpiParent:
+\_parameter: (uvm_pkg::UVM_STDIN), id:192, line:8461:20, endln:8461:29
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:2, file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:7351:1, endln:83263:11
+|vpiSigned:1
+
+decompile:
+int_typespec: , id:197, line:8461:11, endln:8461:19
+|vpiParent:
+\_parameter: (uvm_pkg::UVM_STDIN), id:192, line:8461:20, endln:8461:29
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:2, file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:7351:1, endln:83263:11
+|vpiSigned:1

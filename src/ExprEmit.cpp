@@ -17258,8 +17258,22 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // argument list, a SUBROUTINE-SCOPE name takes no actual.  See
                 // newArrayArgDepth16 in UhdmExporter.h for the producer decode
                 // and newArraySubScopeSym16 above for the symbol half.
+                // § cloneNewArrayArgBindsOwnDecl186 — THE HOME GUARD.  The
+                // silence is HOME-ONLY: § 16's whole producer decode is the
+                // UNPARENTED `fcall`, and a WILDCARD-IMPORT CLONE copies that
+                // tree WITH a parent (measured in the golden: the same
+                // `method_func_call (new) @488:11` has no `vpiParent` in the
+                // uvm_pkg home listing and in the elaborated `work@top_tb`
+                // one, and `vpiParent -> assignment @488:3` in both adpcm_pkg
+                // clone listings), so Surelog's walk reaches the enclosing
+                // `begin` and binds the name there.  The SYMBOL half stays
+                // exactly as it was — a class property is still refused, and
+                // the corpus proves it must be (`bits = new[m_packed_size]`
+                // is BARE in golden's clone while `bytes = new[sz]` is bound).
+                // See include/UhdmExporter.h.
                 bool newArrayArgNoBind16 =
-                    newArrayArgDepth16 > 0 && newArraySubScopeSym16(nv.symbol);
+                    newArrayArgDepth16 > 0 && newArraySubScopeSym16(nv.symbol) &&
+                    !pkgImportCloneEmit;
                 // § incDecStmtOperandBinds21 — the EXCEPTION term.  An
                 // increment/decrement STATEMENT's simple-name operand / select
                 // index binds its formal or subroutine local even inside an
@@ -32629,6 +32643,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     nargs->push_back(a9);
             if (!nargs->empty())
                 mfc->Tf_call_args(nargs);
+            // § cloneNewArrayArgBindsOwnDecl186, R-FULLNAME — MEASURED AND
+            // DELIBERATELY NOT TAKEN.  Golden strips the argument's
+            // `vpiFullName` in the HOME listing and keeps the clone-scoped one
+            // (`adpcm_pkg::uvm_packer::get_bytes::sz`) in both wildcard-import
+            // clone listings, so gating this call on `!pkgImportCloneEmit`
+            // makes the DEF-view clone listing byte-identical to golden — but
+            // it also renames the MODULE-HOISTED copy in the ELAB view, where
+            // golden's name is `work@top.<sub>.<name>` and the clone's objects
+            // are shared: arm A measures one AWAY per key there
+            // (`work@top186a.spandrel186.loc186` -> `Stanchion186::
+            // spandrel186::loc186`).  `VpiFullName` is read by no generated
+            // `Compare` (RESUME §9), so neither half is worth a cell to the
+            // judge and the AWAY is not worth taking.  The strip stays
+            // unconditional; the clone's missing fullname is R2.
             stripRefFullNames11(mfc);
             return mfc;
         }

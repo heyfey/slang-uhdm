@@ -1,0 +1,62 @@
+LHS:
+decompile:
+constant: , id:132495, line:1664:20, endln:1664:21
+|vpiParent:
+\_range: , id:132493, line:1664:20, endln:1664:31
+|vpiDecompile:associative
+|STRING:associative
+|vpiTypespec:
+\_ref_typespec: (svaunit_pkg::uvm_phase::get_adjacent_predecessor_nodes::predecessors), id:132496
+  |vpiParent:
+  \_constant: , id:132495, line:1664:20, endln:1664:21
+  |vpiFullName:svaunit_pkg::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+  |vpiActual:
+  \_class_typespec: (uvm_phase), id:132497, line:1664:21, endln:1664:30
+|vpiConstType:6
+
+decompile:
+constant: , id:132495, line:1664:20, endln:1664:21
+|vpiParent:
+\_range: , id:132493, line:1664:20, endln:1664:31
+|vpiDecompile:associative
+|STRING:associative
+|vpiTypespec:
+\_ref_typespec: (svaunit_pkg::uvm_phase::get_adjacent_predecessor_nodes::predecessors), id:132496
+  |vpiParent:
+  \_constant: , id:132495, line:1664:20, endln:1664:21
+  |vpiFullName:svaunit_pkg::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+  |vpiActual:
+  \_class_typespec: (uvm_phase), id:132497, line:1664:21, endln:1664:30
+|vpiConstType:6
+RHS:
+decompile:
+operation: , id:257987, line:1664:21, endln:1664:30
+|vpiParent:
+\_range: , id:257985, line:1664:21, endln:1664:30
+|vpiOpType:11
+|vpiOperand:
+\_ref_obj: (uvm_phase), id:257988, line:1664:21, endln:1664:30
+  |vpiParent:
+  \_operation: , id:257987, line:1664:21, endln:1664:30
+  |vpiName:uvm_phase
+|vpiOperand:
+\_constant: , id:257989
+  |vpiSize:64
+  |INT:1
+  |vpiConstType:7
+
+decompile:
+operation: , id:257987, line:1664:21, endln:1664:30
+|vpiParent:
+\_range: , id:257985, line:1664:21, endln:1664:30
+|vpiOpType:11
+|vpiOperand:
+\_ref_obj: (uvm_phase), id:257988, line:1664:21, endln:1664:30
+  |vpiParent:
+  \_operation: , id:257987, line:1664:21, endln:1664:30
+  |vpiName:uvm_phase
+|vpiOperand:
+\_constant: , id:257989
+  |vpiSize:64
+  |INT:1
+  |vpiConstType:7
