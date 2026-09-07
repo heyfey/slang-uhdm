@@ -17148,6 +17148,131 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             }
             if (!lhsSuppress && constRhsOwnLocal25)
                 lhsSuppress = true;
+            // § genCaCastRhsOwnLocalLhsNoBind118 (r10earl118) — the CAST
+            // sibling of § genCaConstRhsLhsNoBind25, and the Earlgrey_0_1
+            // DEFAULT head.  Surelog's `UhdmWriter::writeCont_assign`
+            // (src/DesignCompile/UhdmWriter.cpp:2121-2172) re-binds a
+            // continuous assign's target reference in exactly ONE place:
+            //     if (lhs is ref_obj) {
+            //       var = bindVariable(mod, m, lhs->VpiName(), ...);
+            //       if (var) { if (rhs is operation) { CLONE;
+            //                                          ref->Actual_group(var); } } }
+            // and `bindVariable` (CompileStmt.cpp:3089-3151) knows
+            // function / task / begin / module_inst ONLY — a `gen_scope` falls
+            // to the default and recurses to its PARENT — so for a target
+            // declared INSIDE the generate block `var` is null and that arm
+            // never runs.  A CAST is the one operation kind that carries its
+            // OWN `Typespec`, which is what takes the SECOND clone branch
+            // (UhdmWriter.cpp:2218-2242, `op->Typespec()` non-null →
+            // `clone_tree`), and the assign installed there carries NO actual
+            // on an own-scope generate-local target.
+            //
+            // MEASURED on arms a1_bind118 / a2_bind118 against the GOLDEN
+            // Surelog database, one gen block per row, both unrollings:
+            //   assign r4  = $bits(r4)'({...});    own-scope local   -> UNBOUND
+            //   assign r3  = 8'({...});            constant-width cast -> UNBOUND
+            //   assign r6  = $bits(r2)'({...});    cast, no self-ref -> UNBOUND
+            //   assign r11 = $bits(mod_vec)'(...); cast of a module var -> UNBOUND
+            //   assign r5  = $bits(r5)'(c);        SCALAR target      -> UNBOUND
+            //   assign s12 = byte8_t'({...});      TYPE-named cast    -> UNBOUND
+            //   assign s13 = 8'(signed'(din));     nested cast        -> UNBOUND
+            //   assign s8  = $bits(s8)'({...});    generate DEPTH 2   -> UNBOUND
+            //   assign r2/s2/s4/s5/s9 = <op>       any NON-cast operation -> BOUND
+            //   assign r7  = din;                  whole-ref Rhs      -> BOUND
+            //   assign s6  = $bits(s6)'({...});    ANCESTOR gen scope's
+            //                                      local, cast Rhs    -> BOUND
+            //   assign mod_cast = $bits(mod_cast)'(...);  MODULE-BODY target,
+            //                                      bindVariable FINDS it -> BOUND
+            // so the flag is OWN-SCOPE ONLY, exactly like
+            // § genCaConstRhsLhsNoBind25: the ancestor half is the one
+            // `bindGenLocal9`'s `allowAnc9` exists for and golden keeps it
+            // bound through a cast.  Generate DEPTH is not a discriminator and
+            // neither is the target's width.
+            //
+            // TWO WRITERS, the trap § genCaLiteralRhsLhsNoBind22 and
+            // § genCaConstRhsLhsNoBind25 both paid for: the ordinary emitExpr
+            // path writes the pointer first (silenced here through
+            // `lhsSuppress`/`suppressRefActual`) and the `bindGenLocal9`
+            // FALLBACK below writes it again, so this flag is read in BOTH
+            // places or the pointer stays.
+            bool castRhsOwnLocal118 = false;
+            if (rhs && rhs->UhdmType() == UHDM::uhdmoperation &&
+                ((UHDM::operation*)rhs)->VpiOpType() == vpiCastOp &&
+                stripImplicitConv(ae.left()).kind ==
+                    ExpressionKind::NamedValue) {
+                auto& ls118 = stripImplicitConv(ae.left())
+                                  .as<NamedValueExpression>()
+                                  .symbol;
+                if (ls118.kind == SymbolKind::Variable &&
+                    ls118.getParentScope() == static_cast<const Scope*>(&blk))
+                    castRhsOwnLocal118 = true;
+                // THE FENCE, and it is `bindVariable`'s OWN scope walk —
+                // § genScopeCaPatNoFirstSize113's, mirrored onto this flag.
+                // `bindVariable` (CompileStmt.cpp:3089-3151) matches BY NAME
+                // against each enclosing scope's `Variables()`/`Nets()` and
+                // recurses PAST `module_inst` into `scope->VpiParent()`, while
+                // knowing NOTHING about `gen_scope`.  So a generate-local
+                // target whose NAME is ALSO declared in an enclosing MODULE
+                // BODY — or in an ANCESTOR INSTANCE's body — IS found, `var`
+                // comes back non-null, and Surelog's :2165 arm re-binds the
+                // clone (to the NAMESAKE).  MEASURED as an AWAY-GOLDEN before
+                // the fence existed: arm a3_fence118 row f1
+                // (`logic [7:0] mod_ns;` declared in the module body AND
+                // generate-locally, `assign mod_ns = $bits(mod_ns)'(...)`)
+                // — golden BINDS it and the unfenced cut unbound it, one
+                // pristine-right → cut-wrong cell.
+                // WIDENED BY THE r10earl118 VERIFIER — the namesake walk must
+                // NOT stop at generate scopes.  `bindVariable`'s :2165 arm is
+                // only ONE of the two ways golden's target keeps an actual:
+                // the clone leg itself re-binds through
+                // `ref_obj::DeepCopy`'s `bindAny(VpiName())`
+                // (~/git-repos/UHDM/build/generated/src/ref_obj.cpp:104-110),
+                // whose name walk DOES see an ENCLOSING GENERATE scope while
+                // still not seeing the assigning scope's OWN local.  MEASURED
+                // against the GOLDEN database on arm v4_ancname (verifier),
+                // one gen block per row, every row a cast Rhs on an own-scope
+                // generate-local target:
+                //   a_var  namesake one gen level UP        -> golden BINDS it
+                //                                             to `ab[0].a_var`
+                //   e_late same, ancestor declared LATER    -> golden BINDS
+                //   f_deep namesake TWO gen levels up       -> golden BINDS
+                //   b_net  ancestor namesake is a NET       -> golden BINDS
+                //   d_sib  namesake in a SIBLING gen block  -> golden UNBOUND
+                //   a_free no namesake anywhere             -> golden UNBOUND
+                // so the walk skips ONLY the assigning scope itself and reads
+                // every enclosing scope, generate blocks included; a SIBLING
+                // is not on that chain and stays suppressed.  With the
+                // generate-scope skip in place those four rows scored
+                // AWAY-GOLDEN 3 / MOVED-WRONG 1 — pristine-right ->
+                // patched-wrong on legal SystemVerilog.
+                if (castRhsOwnLocal118) {
+                    std::string_view nm118 = ls118.name;
+                    for (const Scope* q = &blk; q && !nm118.empty();) {
+                        auto& qs118 = q->asSymbol();
+                        if (q != static_cast<const Scope*>(&blk))
+                            if (const Symbol* hit118 = q->find(nm118)) {
+                                const Symbol* v118 = hit118;
+                                if (v118->kind == SymbolKind::Port)
+                                    v118 = v118->as<PortSymbol>().internalSymbol;
+                                if (v118 &&
+                                    (v118->kind == SymbolKind::Variable ||
+                                     v118->kind == SymbolKind::Net)) {
+                                    castRhsOwnLocal118 = false;
+                                    break;
+                                }
+                            }
+                        if (qs118.kind == SymbolKind::InstanceBody) {
+                            auto* pi118 =
+                                qs118.as<InstanceBodySymbol>().parentInstance;
+                            q = pi118 ? pi118->getParentScope() : nullptr;
+                        } else {
+                            q = qs118.getParentScope();
+                        }
+                    }
+                }
+            }
+            if (!lhsSuppress && castRhsOwnLocal118)
+                lhsSuppress = true;
             if (lhsSuppress)
                 suppressRefActual = true;
             bool blkInLoop2 = false;
@@ -17309,8 +17434,11 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 // stayed bound both times.  MINT-SITE trap, one more time.
                 // § genCaConstRhsLhsNoBind25 — the SECOND writer of the same
                 // pointer (see the flag's own note at the lhsSuppress site).
+                // § genCaCastRhsOwnLocalLhsNoBind118 — the SECOND writer of the
+                // same pointer for the CAST leg (see the flag's own note at
+                // the lhsSuppress site).
                 if (!isLiteralExpr(stripImplicitConv(ae.right())) &&
-                    !constRhsOwnLocal25)
+                    !constRhsOwnLocal25 && !castRhsOwnLocal118)
                     bindGenLocal9((UHDM::any*)ca->Lhs(), ae.left(), true);
                 bindGenLocal9((UHDM::any*)ca->Rhs(), ae.right(), false);
             }

@@ -1,0 +1,5 @@
+-- PREDICTED MOVERS (ours BOUND on an op67/own gen-scope target) --
+  rows=0  cells=0
+-- GOLDEN on the SAME cells (must be <null> for a TO-GOLDEN move) --
+  rows where golden binds some such cell: 0 (must be 0)
+-- rows where OURS is ALREADY <null> on such a cell (no move) --

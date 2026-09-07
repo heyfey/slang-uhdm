@@ -1,0 +1,9 @@
+-- PREDICTED MOVERS (ours BOUND on an op67/own gen-scope target) --
+PREDICT-MOVE default   Earlgrey_0_1                 128 cells
+PREDICT-MOVE testflags Earlgrey_0_1                 128 cells
+  rows=2  cells=256
+-- GOLDEN on the SAME cells (must be <null> for a TO-GOLDEN move) --
+PREDICT-GOLD default   Earlgrey_0_1                 {'<null>': 128}
+PREDICT-GOLD testflags Earlgrey_0_1                 {'logic_var': 128}   <== GOLDEN BINDS SOME: would be AWAY
+  rows where golden binds some such cell: 1 (must be 0)
+-- rows where OURS is ALREADY <null> on such a cell (no move) --

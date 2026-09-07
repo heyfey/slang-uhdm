@@ -1,0 +1,3 @@
+ROW default/Earlgrey_0_1-71da2fd7 A=pris B=pat raw=256 orderblind=256
+ROW testflags/Earlgrey_0_1-71da2fd7 A=pris B=pat raw=0 orderblind=0
+ROW default/Scoreboard-59431470 A=pris B=pat raw=170 orderblind=0

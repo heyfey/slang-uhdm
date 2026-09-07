@@ -1,0 +1,109 @@
+== r10earl118 VERIFIER — GATES, all re-run from scratch on the verifier's OWN
+   worktrees (/tmp/wt_vearl118, /tmp/wt_vearl118pris, /tmp/wt_vearl118nf at c3e022a3),
+   OWN frozen binaries and OWN sweep workdirs.  BASE c3e022a3.
+
+-- binaries (chmod 555 before any sweep) --
+4a42bc7a0018bc97d6d57ceebe1a0a9d  pris.bin
+726b1d9e36054ae5bd68799d77c6c43b  pat.bin
+a32df35b524071be0685e1d5acf983c5  fix.bin
+1afae577863016698b0e548df314cbba  nf.bin
+   pris = clean c3e022a3, byte-identical to the main tree's build
+   pat  = /tmp/r10earl118.patch as submitted (implementer's md5 REPRODUCED)
+   fix  = the VERIFIED patch (fence widened to enclosing generate scopes)
+   nf   = the NO-FENCE cut (implementer's third binary md5 REPRODUCED)
+
+-- (1) goldens 23/0, negative control 0/23 --
+  pris  PASS=23 FAIL=0
+  pat  PASS=23 FAIL=0
+  fix  PASS=23 FAIL=0
+  /bin/false  PASS=0 FAIL=23
+
+-- (2) cmds.txt audit (binary PATH, per workdir) --
+  pris_sl  cmds=1573  main-tree-binary=0  named=/tmp/vearl118_bin_pris.bin 
+  pat_sl  cmds=1573  main-tree-binary=0  named=/tmp/vearl118_bin_pat.bin 
+  fix_sl  cmds=1573  main-tree-binary=0  named=/tmp/vearl118_bin_fix.bin 
+  pris_u2r  cmds=1462  main-tree-binary=0  named=/tmp/vearl118_bin_pris.bin 
+  pat_u2r  cmds=1462  main-tree-binary=0  named=/tmp/vearl118_bin_pat.bin 
+  fix_u2r  cmds=1462  main-tree-binary=0  named=/tmp/vearl118_bin_fix.bin 
+
+-- (3) rows: ct8rows.sh, WHOLE ROW incl. dump column --
+  golden_surelog.csv vs pris_sl.csv: PASS: every row byte-identical to the committed baseline
+  golden_surelog.csv vs pat_sl.csv: PASS: every row byte-identical to the committed baseline
+  golden_surelog.csv vs fix_sl.csv: PASS: every row byte-identical to the committed baseline
+  pris_sl.csv vs fix_sl.csv: PASS: every row byte-identical to the committed baseline
+  pat_sl.csv vs fix_sl.csv: PASS: every row byte-identical to the committed baseline
+  gate_uhdm2rtlil.csv vs pat_u2r_tf.csv: PASS: every row byte-identical to the committed baseline
+  gate_uhdm2rtlil.csv vs fix_u2r_tf.csv: PASS: every row byte-identical to the committed baseline
+  pris_u2r_def.csv vs fix_u2r_def.csv: PASS: every row byte-identical to the committed baseline
+
+-- status histograms (identical across all three binaries) --
+  pris_sl:     940 CMP_EQUAL      16 CMP_NOTEQUAL      10 DEFERRED       3 NO_DATABASE       1 NO_UHDM     567 SLANG_REJECT      48 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  pat_sl:     940 CMP_EQUAL      16 CMP_NOTEQUAL      10 DEFERRED       3 NO_DATABASE       1 NO_UHDM     567 SLANG_REJECT      48 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  fix_sl:     940 CMP_EQUAL      16 CMP_NOTEQUAL      10 DEFERRED       3 NO_DATABASE       1 NO_UHDM     567 SLANG_REJECT      48 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  pris_u2r_tf:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+  pat_u2r_tf:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+  fix_u2r_tf:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+  pris_u2r_def:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+  fix_u2r_def:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+
+-- protected rows, quoted verbatim (NO conversion in either direction) --
+  [results/golden_surelog.csv]
+    BuildUVMPkg,default,CMP_EQUAL,,,differ
+    BuildUVMPkg,testflags,CMP_EQUAL,,,differ
+    Earlgrey_0_1,default,CMP_NOTEQUAL,decompile:,,
+    Earlgrey_0_1,testflags,CMP_EQUAL,,,
+  [/tmp/vearl118_wd/fix_sl.csv]
+    BuildUVMPkg,default,CMP_EQUAL,,,differ
+    BuildUVMPkg,testflags,CMP_EQUAL,,,differ
+    Earlgrey_0_1,default,CMP_NOTEQUAL,decompile:,,
+    Earlgrey_0_1,testflags,CMP_EQUAL,,,
+
+-- (4) byte movers (byteverify.sh SELFCHECK=1) --
+  surelog  fix vs pris : MOVERS: 3 / 956
+  surelog  fix vs pat  : MOVERS: 0 / 956
+  u2r      fix vs pris : MOVERS: 0 / 1358
+  the three surelog movers, attributed order-blind (attrib_v118.sh):
+    ROW default/Earlgrey_0_1-71da2fd7 A=pris B=pat raw=256 orderblind=256
+    ROW testflags/Earlgrey_0_1-71da2fd7 A=pris B=pat raw=0 orderblind=0
+    ROW default/Scoreboard-59431470 A=pris B=pat raw=170 orderblind=0
+    default/Earlgrey_0_1  256 lines = 128 x |vpiActual: + 128 x \_logic_var:, ZERO added lines
+    Earlgrey unique logic_var NAME population, pristine vs fixed:
+      pris uniq_logic_var=12671
+      fix uniq_logic_var=12671
+      diff: 0
+
+-- (5) heads (rowheads.sh) --
+  pristine: Earlgrey_0_1/default 31 lines 1 head   | patched 56 lines 1 head | fixed 56 lines 1 head
+  every other named row identical on all three; Earlgrey_0_1/testflags 0 lines rc=0 (CMP_EQUAL) throughout
+
+-- (6) canaries --
+  canaries.sh sl  : ---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+  canaries.sh u2r : ---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+  ctcan2 sl       : PASS: every supplementary canary row is byte-identical to the baseline.
+  ctcan2 u2r      : PASS: every supplementary canary row is byte-identical to the baseline.
+  canaudit        : ---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+  protected DBs (pristine vs fixed md5, first 12):
+    default/InterfaceModPort-a10293bb 59a365f3ce2c -> 59a365f3ce2c SAME
+    testflags/InterfaceModPort-a10293bb 59a365f3ce2c -> 59a365f3ce2c SAME
+    default/BlackParrotComplex-5bed297d e3e354129d5a -> e3e354129d5a SAME
+    testflags/BlackParrotComplex-5bed297d 73a10e8217e5 -> 73a10e8217e5 SAME
+    default/YosysOldOr-02449e06 d68e0796d62c -> d68e0796d62c SAME
+    testflags/YosysOldOr-02449e06 d68e0796d62c -> d68e0796d62c SAME
+    default/SVSwitch-db796243 4842211c4030 -> 4842211c4030 SAME
+    testflags/SVSwitch-db796243 4842211c4030 -> 4842211c4030 SAME
+    default/YosysVerx-3c02adf6 6ccda350c24a -> 6ccda350c24a SAME
+    testflags/YosysVerx-3c02adf6 6ccda350c24a -> 6ccda350c24a SAME
+
+-- (7) wide boundary (5187 files x 2 views x 2 binaries) --
+  PROCESSED=5187 identical=9954 DIFFERING=26 no_output=394
+  PROCESSED==LISTED (5187); rc per side IDENTICAL:
+    A/0 9587
+    A/139 16
+    A/3 378
+    A/4 393
+    B/0 9587
+    B/139 16
+    B/3 378
+    B/4 393
+  reachable diff lines: plain 242 (ALL removed |vpiActual + its object), elab 0 -- see BOUNDARY_SECTIONED
+  all 19 differing files re-scored against GOLDEN: TO-GOLDEN 53, AWAY-GOLDEN 0, MOVED-WRONG 0 -- see BOUNDARY_ARMS

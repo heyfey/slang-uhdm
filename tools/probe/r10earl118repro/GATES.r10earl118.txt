@@ -1,0 +1,89 @@
+r10earl118 -- GATES, each one's own output, transcribed.
+BASE c3e022a3.  pristine /tmp/r10earl118_pris.bin  patched /tmp/r10earl118_pat.bin
+
+== (1) BUILD, -j 2, md5 SEPARATELY, both frozen chmod 555 BEFORE any sweep ==
+4a42bc7a0018bc97d6d57ceebe1a0a9d  /tmp/r10earl118_pris.bin
+726b1d9e36054ae5bd68799d77c6c43b  /tmp/r10earl118_pat.bin
+1afae577863016698b0e548df314cbba  /tmp/r10earl118_nofence.bin
+  (main tree build/slang-uhdm at c3e022a3:)
+4a42bc7a0018bc97d6d57ceebe1a0a9d  /home/heyfey/git-repos/slang-uhdm/build/slang-uhdm
+
+== (2) GOLDENS, SLANG_UHDM exported explicitly to EACH binary ==
+  patched : PASS=23 FAIL=0
+  pristine: PASS=23 FAIL=0
+  /bin/false (negative control): PASS=0 FAIL=23
+
+== (3) cmds.txt AUDITED BY BINARY PATH (0 may name the main-tree binary) ==
+  pris_sl      1523 slang:   /tmp/r10earl118_pris.bin 
+  pat_sl       1523 slang:   /tmp/r10earl118_pat.bin 
+  pris_u2r     1458 slang:   /tmp/r10earl118_pris.bin 
+  pat_u2r      1458 slang:   /tmp/r10earl118_pat.bin 
+
+== (4) ct8rows.sh -- status AND dump column, 0 differing rows everywhere ==
+  gate_uhdm2rtlil.csv                            vs pat_u2r_tf.csv                             : PASS: every row byte-identical to the committed baseline
+  ctl_u2r_c3e022a3.csv                           vs pat_u2r_tf.csv                             : PASS: every row byte-identical to the committed baseline
+  ctl_u2r_def_c3e022a3.csv                       vs pat_u2r_def.csv                            : PASS: every row byte-identical to the committed baseline
+  pris_u2r_tf.csv                                vs pat_u2r_tf.csv                             : PASS: every row byte-identical to the committed baseline
+  pris_u2r_def.csv                               vs pat_u2r_def.csv                            : PASS: every row byte-identical to the committed baseline
+  golden_surelog.csv                             vs pat_sl.csv                                 : PASS: every row byte-identical to the committed baseline
+  ctl_sl_c3e022a3.csv                            vs pat_sl.csv                                 : PASS: every row byte-identical to the committed baseline
+  pris_sl.csv                                    vs pat_sl.csv                                 : PASS: every row byte-identical to the committed baseline
+
+== (5) STATUS HISTOGRAMS, pristine vs patched, surelog corpus ==
+  IDENTICAL
+  CMP_EQUAL        940
+  CMP_NOTEQUAL     16
+  DEFERRED         10
+  NO_DATABASE      3
+  NO_UHDM          1
+  SLANG_REJECT     567
+  SURELOG_FAIL     48
+  TIMEOUT          1
+  UNTRANSLATABLE   2
+
+== (6) THE ROWS THAT MUST STAY -- quoted from the PATCHED sweep, no conversion ==
+  BuildUVMPkg,default,CMP_EQUAL,,,differ
+  BuildUVMPkg,testflags,CMP_EQUAL,,,differ
+  Earlgrey_0_1,default,CMP_NOTEQUAL,decompile:,,
+  Earlgrey_0_1,testflags,CMP_EQUAL,,,
+   (identical to the pristine sweep's four lines)
+
+== (7) byteverify.sh SELFCHECK=1 ==
+  sl   databases: patched=956 pristine=956
+  sl   PATH_SETS_IDENTICAL (956 paths)
+  sl   MOVER ./default/Earlgrey_0_1-71da2fd7/slang.uhdm  patched=1e0aa59f41df pristine=de90cf700833
+  sl   MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=7e80ee1cf561 pristine=150505baf8e6
+  sl   MOVER ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm  patched=2afc8c0f6b08 pristine=a70366357635
+  sl   MOVERS: 3 / 956
+  sl   SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+  u2r  databases: patched=1358 pristine=1358
+  u2r  PATH_SETS_IDENTICAL (1358 paths)
+  u2r  MOVERS: 0 / 1358
+  u2r  SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+
+== (8) CANARIES ==
+  sl   ---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+  u2r  ---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+  sl   PASS: every supplementary canary row is byte-identical to the baseline.
+  u2r  PASS: every supplementary canary row is byte-identical to the baseline.
+  ---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+  PASS: every brief-protected name and family is carried by a script that RUNS here.
+
+== (9) PROTECTED DATABASES BY NAME, patched vs pristine md5 ==
+  InterfaceModPort/default pat=59a365f3ce2c pris=59a365f3ce2c SAME
+  InterfaceModPort/testflags pat=59a365f3ce2c pris=59a365f3ce2c SAME
+  BlackParrotComplex/default pat=e3e354129d5a pris=e3e354129d5a SAME
+  BlackParrotComplex/testflags pat=73a10e8217e5 pris=73a10e8217e5 SAME
+  YosysOldOr/default pat=d68e0796d62c pris=d68e0796d62c SAME
+  YosysOldOr/testflags pat=d68e0796d62c pris=d68e0796d62c SAME
+  SVSwitch/default pat=4842211c4030 pris=4842211c4030 SAME
+  SVSwitch/testflags pat=4842211c4030 pris=4842211c4030 SAME
+  YosysVerx/default pat=6ccda350c24a pris=6ccda350c24a SAME
+  YosysVerx/testflags pat=6ccda350c24a pris=6ccda350c24a SAME
+
+== (10) rowheads.sh, the seven named rows, both binaries ==
+12c12
+< Earlgrey_0_1   default         31      1 cmp rc=255
+---
+> Earlgrey_0_1   default         56      1 cmp rc=255
+  (the only row that moves is Earlgrey_0_1/default 31/1 -> 56/1; cmp logs byte-identical on all the others)

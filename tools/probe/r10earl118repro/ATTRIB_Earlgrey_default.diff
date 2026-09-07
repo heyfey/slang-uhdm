@@ -1,0 +1,389 @@
+840712d840711
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[0].data_mux), line:171:44, endln:171:52
+840715d840713
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[0].oe_mux), line:171:54, endln:171:60
+840723d840720
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[0].sleep_mux), line:171:62, endln:171:71
+840726d840722
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[10].data_mux), line:171:44, endln:171:52
+840729d840724
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[10].oe_mux), line:171:54, endln:171:60
+840737d840731
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[10].sleep_mux), line:171:62, endln:171:71
+840740d840733
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[11].data_mux), line:171:44, endln:171:52
+840743d840735
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[11].oe_mux), line:171:54, endln:171:60
+840751d840742
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[11].sleep_mux), line:171:62, endln:171:71
+840754d840744
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[12].data_mux), line:171:44, endln:171:52
+840757d840746
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[12].oe_mux), line:171:54, endln:171:60
+840765d840753
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[12].sleep_mux), line:171:62, endln:171:71
+840768d840755
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[13].data_mux), line:171:44, endln:171:52
+840771d840757
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[13].oe_mux), line:171:54, endln:171:60
+840779d840764
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[13].sleep_mux), line:171:62, endln:171:71
+840782d840766
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[14].data_mux), line:171:44, endln:171:52
+840785d840768
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[14].oe_mux), line:171:54, endln:171:60
+840793d840775
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[14].sleep_mux), line:171:62, endln:171:71
+840796d840777
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[15].data_mux), line:171:44, endln:171:52
+840799d840779
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[15].oe_mux), line:171:54, endln:171:60
+840807d840786
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[15].sleep_mux), line:171:62, endln:171:71
+840810d840788
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[16].data_mux), line:171:44, endln:171:52
+840813d840790
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[16].oe_mux), line:171:54, endln:171:60
+840821d840797
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[16].sleep_mux), line:171:62, endln:171:71
+840824d840799
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[17].data_mux), line:171:44, endln:171:52
+840827d840801
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[17].oe_mux), line:171:54, endln:171:60
+840835d840808
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[17].sleep_mux), line:171:62, endln:171:71
+840838d840810
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[18].data_mux), line:171:44, endln:171:52
+840841d840812
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[18].oe_mux), line:171:54, endln:171:60
+840849d840819
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[18].sleep_mux), line:171:62, endln:171:71
+840852d840821
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[19].data_mux), line:171:44, endln:171:52
+840855d840823
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[19].oe_mux), line:171:54, endln:171:60
+840863d840830
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[19].sleep_mux), line:171:62, endln:171:71
+840866d840832
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[1].data_mux), line:171:44, endln:171:52
+840869d840834
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[1].oe_mux), line:171:54, endln:171:60
+840877d840841
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[1].sleep_mux), line:171:62, endln:171:71
+840880d840843
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[20].data_mux), line:171:44, endln:171:52
+840883d840845
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[20].oe_mux), line:171:54, endln:171:60
+840891d840852
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[20].sleep_mux), line:171:62, endln:171:71
+840894d840854
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[21].data_mux), line:171:44, endln:171:52
+840897d840856
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[21].oe_mux), line:171:54, endln:171:60
+840905d840863
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[21].sleep_mux), line:171:62, endln:171:71
+840908d840865
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[22].data_mux), line:171:44, endln:171:52
+840911d840867
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[22].oe_mux), line:171:54, endln:171:60
+840919d840874
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[22].sleep_mux), line:171:62, endln:171:71
+840922d840876
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[23].data_mux), line:171:44, endln:171:52
+840925d840878
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[23].oe_mux), line:171:54, endln:171:60
+840933d840885
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[23].sleep_mux), line:171:62, endln:171:71
+840936d840887
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[24].data_mux), line:171:44, endln:171:52
+840939d840889
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[24].oe_mux), line:171:54, endln:171:60
+840947d840896
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[24].sleep_mux), line:171:62, endln:171:71
+840950d840898
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[25].data_mux), line:171:44, endln:171:52
+840953d840900
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[25].oe_mux), line:171:54, endln:171:60
+840961d840907
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[25].sleep_mux), line:171:62, endln:171:71
+840964d840909
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[26].data_mux), line:171:44, endln:171:52
+840967d840911
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[26].oe_mux), line:171:54, endln:171:60
+840975d840918
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[26].sleep_mux), line:171:62, endln:171:71
+840978d840920
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[27].data_mux), line:171:44, endln:171:52
+840981d840922
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[27].oe_mux), line:171:54, endln:171:60
+840989d840929
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[27].sleep_mux), line:171:62, endln:171:71
+840992d840931
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[28].data_mux), line:171:44, endln:171:52
+840995d840933
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[28].oe_mux), line:171:54, endln:171:60
+841003d840940
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[28].sleep_mux), line:171:62, endln:171:71
+841006d840942
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[29].data_mux), line:171:44, endln:171:52
+841009d840944
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[29].oe_mux), line:171:54, endln:171:60
+841017d840951
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[29].sleep_mux), line:171:62, endln:171:71
+841020d840953
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[2].data_mux), line:171:44, endln:171:52
+841023d840955
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[2].oe_mux), line:171:54, endln:171:60
+841031d840962
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[2].sleep_mux), line:171:62, endln:171:71
+841034d840964
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[30].data_mux), line:171:44, endln:171:52
+841037d840966
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[30].oe_mux), line:171:54, endln:171:60
+841045d840973
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[30].sleep_mux), line:171:62, endln:171:71
+841048d840975
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[31].data_mux), line:171:44, endln:171:52
+841051d840977
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[31].oe_mux), line:171:54, endln:171:60
+841059d840984
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[31].sleep_mux), line:171:62, endln:171:71
+841062d840986
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[3].data_mux), line:171:44, endln:171:52
+841065d840988
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[3].oe_mux), line:171:54, endln:171:60
+841073d840995
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[3].sleep_mux), line:171:62, endln:171:71
+841076d840997
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[4].data_mux), line:171:44, endln:171:52
+841079d840999
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[4].oe_mux), line:171:54, endln:171:60
+841087d841006
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[4].sleep_mux), line:171:62, endln:171:71
+841090d841008
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[5].data_mux), line:171:44, endln:171:52
+841093d841010
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[5].oe_mux), line:171:54, endln:171:60
+841101d841017
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[5].sleep_mux), line:171:62, endln:171:71
+841104d841019
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[6].data_mux), line:171:44, endln:171:52
+841107d841021
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[6].oe_mux), line:171:54, endln:171:60
+841115d841028
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[6].sleep_mux), line:171:62, endln:171:71
+841118d841030
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[7].data_mux), line:171:44, endln:171:52
+841121d841032
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[7].oe_mux), line:171:54, endln:171:60
+841129d841039
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[7].sleep_mux), line:171:62, endln:171:71
+841132d841041
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[8].data_mux), line:171:44, endln:171:52
+841135d841043
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[8].oe_mux), line:171:54, endln:171:60
+841143d841050
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[8].sleep_mux), line:171:62, endln:171:71
+841146d841052
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[9].data_mux), line:171:44, endln:171:52
+841149d841054
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[9].oe_mux), line:171:54, endln:171:60
+841157d841061
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_out[9].sleep_mux), line:171:62, endln:171:71
+841160d841063
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[0].data_mux), line:157:39, endln:157:47
+841163d841065
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[10].data_mux), line:157:39, endln:157:47
+841166d841067
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[11].data_mux), line:157:39, endln:157:47
+841169d841069
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[12].data_mux), line:157:39, endln:157:47
+841172d841071
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[13].data_mux), line:157:39, endln:157:47
+841175d841073
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[14].data_mux), line:157:39, endln:157:47
+841178d841075
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[15].data_mux), line:157:39, endln:157:47
+841181d841077
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[16].data_mux), line:157:39, endln:157:47
+841184d841079
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[17].data_mux), line:157:39, endln:157:47
+841187d841081
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[18].data_mux), line:157:39, endln:157:47
+841190d841083
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[19].data_mux), line:157:39, endln:157:47
+841193d841085
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[1].data_mux), line:157:39, endln:157:47
+841196d841087
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[20].data_mux), line:157:39, endln:157:47
+841199d841089
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[21].data_mux), line:157:39, endln:157:47
+841202d841091
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[22].data_mux), line:157:39, endln:157:47
+841205d841093
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[23].data_mux), line:157:39, endln:157:47
+841208d841095
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[24].data_mux), line:157:39, endln:157:47
+841211d841097
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[25].data_mux), line:157:39, endln:157:47
+841214d841099
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[26].data_mux), line:157:39, endln:157:47
+841217d841101
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[27].data_mux), line:157:39, endln:157:47
+841220d841103
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[28].data_mux), line:157:39, endln:157:47
+841223d841105
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[29].data_mux), line:157:39, endln:157:47
+841226d841107
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[2].data_mux), line:157:39, endln:157:47
+841229d841109
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[30].data_mux), line:157:39, endln:157:47
+841232d841111
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[31].data_mux), line:157:39, endln:157:47
+841235d841113
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[3].data_mux), line:157:39, endln:157:47
+841238d841115
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[4].data_mux), line:157:39, endln:157:47
+841241d841117
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[5].data_mux), line:157:39, endln:157:47
+841244d841119
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[6].data_mux), line:157:39, endln:157:47
+841247d841121
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[7].data_mux), line:157:39, endln:157:47
+841250d841123
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[8].data_mux), line:157:39, endln:157:47
+841253d841125
+<             \_logic_var: (work@top_earlgrey.u_pinmux.gen_mio_periph_in[9].data_mux), line:157:39, endln:157:47
+2024943,2025070d2024814
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+<             |vpiActual:
+4727609c4727353
+< /WD/pris_sl/default/Earlgrey_0_1-HASH/slang.uhdm: Restored design Pre-Elab: 
+---
+> /WD/pat_sl/default/Earlgrey_0_1-HASH/slang.uhdm: Restored design Pre-Elab: 

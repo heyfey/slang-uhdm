@@ -1,0 +1,29 @@
+r10earl118 -- R2, an UNMASKED PRE-EXISTING SEGFAULT, reproduced.
+
+Deliberately NOT named `.sv`: every pass's wide boundary globs `*.sv` / `*.v`
+under `tools/probe`, and a file that crashes the binary there would print a
+SIGNAL line and a no_output cell in every FUTURE boundary run and read like
+that pass's own regression.  Rename to `.sv` to reproduce.
+
+  slang-uhdm --elabuhdm a4_procsegv118.sv       ->  rc 139 (SIGSEGV)
+  slang-uhdm            a4_procsegv118.sv       ->  rc 4   (warnings only)
+
+Measured at BASE c3e022a3 on BOTH this pass's binaries -- pristine
+md5 4a42bc7a0018bc97d6d57ceebe1a0a9d and patched alike -- so it is NOT this
+pass's, and § genCaCastRhsOwnLocalLhsNoBind118 neither causes nor cures it.
+It is the shape a3_fence118's `f6` row would have carried; the row was moved
+out of that arm so a3's ELABORATED column is measurable at all.
+
+The crash is a generate-scope PROCESS (not a cont_assign) whose statement is a
+cast of `$bits(<the process's own target>)`, under `--elabuhdm`.
+
+--------------------------------- the source ---------------------------------
+module a4_procsegv118 (input logic [7:0] din, output logic [7:0] dout);
+  logic [7:0] mod_arr [0:3];
+  for (genvar g = 0; g < 2; g++) begin : fb
+    logic [7:0] f6;
+    always_comb f6 = $bits(f6)'({din[3:0], 4'b0});
+  end
+  assign dout = mod_arr[0] ^ din ^ fb[1].f6;
+endmodule
+------------------------------------------------------------------------------

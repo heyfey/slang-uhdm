@@ -1,0 +1,32 @@
+CALIBRATION: golden halves of the two sweeps IDENTICAL (101307 keys, 462550 cells)
+
+-- TALLY (keys / cells) --
+  FX SAME_AGREE             662 keys     11550 cells
+  FX STILL-WRONG           2561 keys     44343 cells
+  FX TO-GOLDEN                4 keys       128 cells
+  REST NOGOLD_SAME           10 keys        16 cells
+  REST SAME_AGREE         17692 keys     81989 cells
+  REST STILL-WRONG        80388 keys    324540 cells
+
+-- MOVER ROWS (a row appears only if a cell of it moved) --
+  default    Earlgrey_0_1                 {'FX TO-GOLDEN': 4}
+
+-- DETAIL (first 60) --
+  TO-GOLDEN    FX   default   Earlgrey_0_1             work@pinmux|gen_scope|g1|ref_obj|data_mux|160:12-160:20
+        golden={'<null>': 32}
+        pristine={'logic_var': 32}
+        patched ={'<null>': 32}
+  TO-GOLDEN    FX   default   Earlgrey_0_1             work@pinmux|gen_scope|g1|ref_obj|data_mux|174:12-174:20
+        golden={'<null>': 32}
+        pristine={'logic_var': 32}
+        patched ={'<null>': 32}
+  TO-GOLDEN    FX   default   Earlgrey_0_1             work@pinmux|gen_scope|g1|ref_obj|oe_mux|175:12-175:18
+        golden={'<null>': 32}
+        pristine={'logic_var': 32}
+        patched ={'<null>': 32}
+  TO-GOLDEN    FX   default   Earlgrey_0_1             work@pinmux|gen_scope|g1|ref_obj|sleep_mux|176:12-176:21
+        golden={'<null>': 32}
+        pristine={'logic_var': 32}
+        patched ={'<null>': 32}
+
+DETAIL_TOTAL 4

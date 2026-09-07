@@ -1,0 +1,28 @@
+LHS:
+decompile:
+constant: , id:1054135
+|vpiDecompile:63
+|vpiSize:8
+|UINT:63
+|vpiConstType:9
+RHS:
+decompile:
+operation: , id:521938, line:39:24, endln:39:38
+|vpiParent:
+\_cont_assign: , id:521937, line:39:12, endln:39:38
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_padctrl.gen_generic), id:521940
+  |vpiParent:
+  \_operation: , id:521938, line:39:24, endln:39:38
+  |vpiFullName:work@top_earlgrey.u_padctrl.gen_generic
+  |vpiActual:
+  \_int_typespec: (AttrDw), id:521939, line:12:17, endln:12:17
+|vpiOpType:67
+|vpiOperand:
+\_constant: , id:521941, line:39:32, endln:39:37
+  |vpiParent:
+  \_operation: , id:521938, line:39:24, endln:39:38
+  |vpiDecompile:6'h3F
+  |vpiSize:6
+  |HEX:3F
+  |vpiConstType:5

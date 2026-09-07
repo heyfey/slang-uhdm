@@ -1,0 +1,50 @@
+-- rc histogram --
+     37 0
+      5 4
+-- CELLS --
+VIEW   ARM                KEY                                                        GOLDEN       PRISTINE     PATCHED      VERDICT
+elab   v4_ancname         work@v4_ancname|gen_scope|g2|constant||42:14-42:19         n/a          None         None         STILL-WRONG
+elab   v4_ancname         work@v4_ancname|gen_scope|g2|ref_obj|c_par|42:14-42:19     None         logic_var    logic_var    NOGOLD_SAME
+plain  a1_bind118         work@a1_bind118|gen_scope|g1|ref_obj|r11|77:12-77:15       <null>       logic_var    <null>       TO-GOLDEN
+plain  a1_bind118         work@a1_bind118|gen_scope|g1|ref_obj|r3|37:12-37:14        <null>       logic_var    <null>       TO-GOLDEN
+plain  a1_bind118         work@a1_bind118|gen_scope|g1|ref_obj|r4|42:12-42:14        <null>       logic_var    <null>       TO-GOLDEN
+plain  a1_bind118         work@a1_bind118|gen_scope|g1|ref_obj|r5|46:12-46:14        <null>       logic_var    <null>       TO-GOLDEN
+plain  a1_bind118         work@a1_bind118|gen_scope|g1|ref_obj|r6|51:12-51:14        <null>       logic_var    <null>       TO-GOLDEN
+plain  a2_bind118         work@a2_bind118|gen_scope|g1|ref_obj|s12|74:12-74:15       <null>       logic_var    <null>       TO-GOLDEN
+plain  a2_bind118         work@a2_bind118|gen_scope|g1|ref_obj|s13|78:12-78:15       <null>       logic_var    <null>       TO-GOLDEN
+plain  a2_bind118         work@a2_bind118|gen_scope|g1|ref_obj|s1|30:12-30:14        <null>       logic_var    logic_var    STILL-WRONG
+plain  a2_bind118         work@a2_bind118|gen_scope|g2|ref_obj|s8|60:14-60:16        <null>       logic_var    <null>       TO-GOLDEN
+plain  a3_fence118        work@a3_fence118|gen_scope|g1|ref_obj|f8|69:12-69:14       <null>       enum_var     <null>       TO-GOLDEN
+plain  a3_fence118        work@a3_fence118|gen_scope|g2|ref_obj|f7|63:14-63:16       <null>       logic_var    <null>       TO-GOLDEN
+plain  a3_fence118        work@a3_ifc118|gen_scope|g1|ref_obj|f9|13:12-13:14         <null>       logic_var    <null>       TO-GOLDEN
+plain  v1_castform        work@v1_castform|gen_scope|g1|ref_obj|c11|26:36-26:39      <null>       logic_var    <null>       TO-GOLDEN
+plain  v1_castform        work@v1_castform|gen_scope|g1|ref_obj|c12|27:36-27:39      <null>       logic_var    <null>       TO-GOLDEN
+plain  v1_castform        work@v1_castform|gen_scope|g1|ref_obj|c3|18:36-18:38       <null>       logic_var    <null>       TO-GOLDEN
+plain  v1_castform        work@v1_castform|gen_scope|g1|ref_obj|c4|19:36-19:38       <null>       struct_net   <null>       TO-GOLDEN
+plain  v1_castform        work@v1_castform|gen_scope|g1|ref_obj|c5|20:36-20:38       <null>       enum_var     <null>       TO-GOLDEN
+plain  v1_castform        work@v1_castform|gen_scope|g1|ref_obj|c6|21:36-21:38       <null>       logic_var    <null>       TO-GOLDEN
+plain  v1_castform        work@v1_castform|gen_scope|g1|ref_obj|c7|22:36-22:38       <null>       logic_var    <null>       TO-GOLDEN
+plain  v1_castform        work@v1_castform|gen_scope|g1|ref_obj|c8|23:36-23:38       <null>       logic_var    <null>       TO-GOLDEN
+plain  v2_fenceface       work@v2_child|gen_scope|g1|ref_obj|plain_c|14:33-14:40     <null>       logic_var    <null>       TO-GOLDEN
+plain  v2_fenceface       work@v2_fenceface|gen_scope|g2|ref_obj|free_ns|43:35-43:42 <null>       logic_var    <null>       TO-GOLDEN
+plain  v2_fenceface       work@v2_fenceface|gen_scope|g2|ref_obj|loc_ns|40:35-40:41  <null>       logic_var    <null>       TO-GOLDEN
+plain  v2_fenceface       work@v2_fenceface|gen_scope|g2|ref_obj|net_ns|36:35-36:41  logic_net    logic_var    logic_var    STILL-WRONG
+plain  v2_fenceface       work@v2_fenceface|gen_scope|g2|ref_obj|prm_ns|39:35-39:41  <null>       logic_var    <null>       TO-GOLDEN
+plain  v2_fenceface       work@v2_fenceface|gen_scope|g2|ref_obj|prt_ns|38:35-38:41  logic_net    logic_var    logic_var    STILL-WRONG
+plain  v2_fenceface       work@v2_fenceface|gen_scope|g2|ref_obj|typ_ns|41:35-41:41  <null>       logic_var    <null>       TO-GOLDEN
+plain  v3_shape           work@v3_shape|gen_scope|g1|ref_obj|k1|20:31-20:33          <null>       logic_var    <null>       TO-GOLDEN
+plain  v3_shape           work@v3_shape|gen_scope|g1|ref_obj|rd|40:29-40:31          <null>       logic_var    <null>       TO-GOLDEN
+plain  v3_shape           work@v3_shape|gen_scope|g1|ref_obj|u1|14:29-14:31          <null>       logic_var    <null>       TO-GOLDEN
+plain  v3_shape           work@v3_shape|gen_scope|g3|ref_obj|deep3|36:36-36:41       <null>       logic_var    <null>       TO-GOLDEN
+plain  v4_ancname         work@v4_ancname|gen_scope|g2|constant||42:14-42:19         n/a          None         None         STILL-WRONG
+plain  v4_ancname         work@v4_ancname|gen_scope|g2|ref_obj|a_free|21:14-21:20    <null>       logic_var    <null>       TO-GOLDEN
+plain  v4_ancname         work@v4_ancname|gen_scope|g2|ref_obj|b_net|33:14-33:19     logic_net    logic_var    logic_var    STILL-WRONG
+plain  v4_ancname         work@v4_ancname|gen_scope|g2|ref_obj|c_par|42:14-42:19     None         logic_var    <null>       NOGOLD_MOVED
+plain  v4_ancname         work@v4_ancname|gen_scope|g2|ref_obj|d_sib|54:14-54:19     <null>       logic_var    <null>       TO-GOLDEN
+
+-- ARM TALLY --
+  NOGOLD_MOVED   1
+  NOGOLD_SAME    1
+  SAME_AGREE     168
+  STILL-WRONG    6
+  TO-GOLDEN      30

@@ -1,0 +1,13 @@
+CALIBRATION: golden halves of the two sweeps IDENTICAL (3636 keys, 11360 cells)
+
+-- TALLY (keys / cells) --
+  FX SAME_AGREE             144 keys      3726 cells
+  FX STILL-WRONG             56 keys        70 cells
+  REST SAME_AGREE          2924 keys      6568 cells
+  REST STILL-WRONG          512 keys       996 cells
+
+-- MOVER ROWS (a row appears only if a cell of it moved) --
+
+-- DETAIL (first 60) --
+
+DETAIL_TOTAL 0

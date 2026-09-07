@@ -1,0 +1,13 @@
+-- rc histogram --
+      6 0
+-- CELLS --
+VIEW   ARM                KEY                                                        GOLDEN       PRISTINE     PATCHED      VERDICT
+plain  a3_fence118        work@a3_fence118|gen_scope|g1|ref_obj|f8|69:12-69:14       <null>       enum_var     <null>       TO-GOLDEN
+plain  a3_fence118        work@a3_fence118|gen_scope|g1|ref_obj|mod_ns|38:12-38:18   logic_var    logic_var    <null>       AWAY-GOLDEN
+plain  a3_fence118        work@a3_fence118|gen_scope|g2|ref_obj|f7|63:14-63:16       <null>       logic_var    <null>       TO-GOLDEN
+plain  a3_fence118        work@a3_ifc118|gen_scope|g1|ref_obj|f9|13:12-13:14         <null>       logic_var    <null>       TO-GOLDEN
+
+-- ARM TALLY --
+  AWAY-GOLDEN    1
+  SAME_AGREE     20
+  TO-GOLDEN      3

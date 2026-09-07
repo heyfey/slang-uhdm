@@ -1,0 +1,31 @@
+-- rc histogram --
+     12 0
+-- CELLS --
+VIEW   ARM                KEY                                                        GOLDEN       PRISTINE     PATCHED      VERDICT
+elab   v4_ancname         work@v4_ancname|gen_scope|g2|constant||42:14-42:19         n/a          None         None         STILL-WRONG
+elab   v4_ancname         work@v4_ancname|gen_scope|g2|ref_obj|c_par|42:14-42:19     None         logic_var    logic_var    NOGOLD_SAME
+plain  v1_castform        work@v1_castform|gen_scope|g1|ref_obj|c11|26:36-26:39      <null>       logic_var    <null>       TO-GOLDEN
+plain  v1_castform        work@v1_castform|gen_scope|g1|ref_obj|c12|27:36-27:39      <null>       logic_var    <null>       TO-GOLDEN
+plain  v1_castform        work@v1_castform|gen_scope|g1|ref_obj|c3|18:36-18:38       <null>       logic_var    <null>       TO-GOLDEN
+plain  v1_castform        work@v1_castform|gen_scope|g1|ref_obj|c4|19:36-19:38       <null>       struct_net   <null>       TO-GOLDEN
+plain  v1_castform        work@v1_castform|gen_scope|g1|ref_obj|c5|20:36-20:38       <null>       enum_var     <null>       TO-GOLDEN
+plain  v1_castform        work@v1_castform|gen_scope|g1|ref_obj|c6|21:36-21:38       <null>       logic_var    <null>       TO-GOLDEN
+plain  v1_castform        work@v1_castform|gen_scope|g1|ref_obj|c7|22:36-22:38       <null>       logic_var    <null>       TO-GOLDEN
+plain  v1_castform        work@v1_castform|gen_scope|g1|ref_obj|c8|23:36-23:38       <null>       logic_var    <null>       TO-GOLDEN
+plain  v4_ancname         work@v4_ancname|gen_scope|g2|constant||42:14-42:19         n/a          None         None         STILL-WRONG
+plain  v4_ancname         work@v4_ancname|gen_scope|g2|ref_obj|a_free|21:14-21:20    <null>       logic_var    <null>       TO-GOLDEN
+plain  v4_ancname         work@v4_ancname|gen_scope|g2|ref_obj|a_var|19:14-19:19     logic_var    logic_var    <null>       AWAY-GOLDEN
+plain  v4_ancname         work@v4_ancname|gen_scope|g2|ref_obj|b_net|33:14-33:19     logic_net    logic_var    <null>       MOVED-WRONG
+plain  v4_ancname         work@v4_ancname|gen_scope|g2|ref_obj|c_par|42:14-42:19     None         logic_var    <null>       NOGOLD_MOVED
+plain  v4_ancname         work@v4_ancname|gen_scope|g2|ref_obj|d_sib|54:14-54:19     <null>       logic_var    <null>       TO-GOLDEN
+plain  v4_ancname         work@v4_ancname|gen_scope|g2|ref_obj|e_late|62:14-62:20    logic_var    logic_var    <null>       AWAY-GOLDEN
+plain  v4_ancname         work@v4_ancname|gen_scope|g2|ref_obj|f_deep|74:14-74:20    logic_var    logic_var    <null>       AWAY-GOLDEN
+
+-- ARM TALLY --
+  AWAY-GOLDEN    3
+  MOVED-WRONG    1
+  NOGOLD_MOVED   1
+  NOGOLD_SAME    1
+  SAME_AGREE     44
+  STILL-WRONG    2
+  TO-GOLDEN      10

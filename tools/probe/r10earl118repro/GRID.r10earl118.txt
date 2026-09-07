@@ -1,0 +1,22 @@
+-- rc histogram --
+     14 0
+      4 4
+-- CELLS --
+VIEW   ARM                KEY                                                        GOLDEN       PRISTINE     PATCHED      VERDICT
+plain  a1_bind118         work@a1_bind118|gen_scope|g1|ref_obj|r11|77:12-77:15       <null>       logic_var    <null>       TO-GOLDEN
+plain  a1_bind118         work@a1_bind118|gen_scope|g1|ref_obj|r3|37:12-37:14        <null>       logic_var    <null>       TO-GOLDEN
+plain  a1_bind118         work@a1_bind118|gen_scope|g1|ref_obj|r4|42:12-42:14        <null>       logic_var    <null>       TO-GOLDEN
+plain  a1_bind118         work@a1_bind118|gen_scope|g1|ref_obj|r5|46:12-46:14        <null>       logic_var    <null>       TO-GOLDEN
+plain  a1_bind118         work@a1_bind118|gen_scope|g1|ref_obj|r6|51:12-51:14        <null>       logic_var    <null>       TO-GOLDEN
+plain  a2_bind118         work@a2_bind118|gen_scope|g1|ref_obj|s12|74:12-74:15       <null>       logic_var    <null>       TO-GOLDEN
+plain  a2_bind118         work@a2_bind118|gen_scope|g1|ref_obj|s13|78:12-78:15       <null>       logic_var    <null>       TO-GOLDEN
+plain  a2_bind118         work@a2_bind118|gen_scope|g1|ref_obj|s1|30:12-30:14        <null>       logic_var    logic_var    STILL-WRONG
+plain  a2_bind118         work@a2_bind118|gen_scope|g2|ref_obj|s8|60:14-60:16        <null>       logic_var    <null>       TO-GOLDEN
+plain  a3_fence118        work@a3_fence118|gen_scope|g1|ref_obj|f8|69:12-69:14       <null>       enum_var     <null>       TO-GOLDEN
+plain  a3_fence118        work@a3_fence118|gen_scope|g2|ref_obj|f7|63:14-63:16       <null>       logic_var    <null>       TO-GOLDEN
+plain  a3_fence118        work@a3_ifc118|gen_scope|g1|ref_obj|f9|13:12-13:14         <null>       logic_var    <null>       TO-GOLDEN
+
+-- ARM TALLY --
+  SAME_AGREE     74
+  STILL-WRONG    1
+  TO-GOLDEN      11

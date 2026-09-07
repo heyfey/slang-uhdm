@@ -1,0 +1,45 @@
+-- rc histogram --
+     86 0
+      4 4
+-- CELLS --
+VIEW   ARM                KEY                                                        GOLDEN       PRISTINE     PATCHED      VERDICT
+plain  a1_bind118         work@a1_bind118|gen_scope|g1|ref_obj|r11|77:12-77:15       <null>       logic_var    <null>       TO-GOLDEN
+plain  a1_bind118         work@a1_bind118|gen_scope|g1|ref_obj|r3|37:12-37:14        <null>       logic_var    <null>       TO-GOLDEN
+plain  a1_bind118         work@a1_bind118|gen_scope|g1|ref_obj|r4|42:12-42:14        <null>       logic_var    <null>       TO-GOLDEN
+plain  a1_bind118         work@a1_bind118|gen_scope|g1|ref_obj|r5|46:12-46:14        <null>       logic_var    <null>       TO-GOLDEN
+plain  a1_bind118         work@a1_bind118|gen_scope|g1|ref_obj|r6|51:12-51:14        <null>       logic_var    <null>       TO-GOLDEN
+plain  a2_bind118         work@a2_bind118|gen_scope|g1|ref_obj|s12|74:12-74:15       <null>       logic_var    <null>       TO-GOLDEN
+plain  a2_bind118         work@a2_bind118|gen_scope|g1|ref_obj|s13|78:12-78:15       <null>       logic_var    <null>       TO-GOLDEN
+plain  a2_bind118         work@a2_bind118|gen_scope|g1|ref_obj|s1|30:12-30:14        <null>       logic_var    logic_var    STILL-WRONG
+plain  a2_bind118         work@a2_bind118|gen_scope|g2|ref_obj|s8|60:14-60:16        <null>       logic_var    <null>       TO-GOLDEN
+plain  a3_fence118        work@a3_fence118|gen_scope|g1|ref_obj|f8|69:12-69:14       <null>       enum_var     <null>       TO-GOLDEN
+plain  a3_fence118        work@a3_fence118|gen_scope|g2|ref_obj|f7|63:14-63:16       <null>       logic_var    <null>       TO-GOLDEN
+plain  a3_fence118        work@a3_ifc118|gen_scope|g1|ref_obj|f9|13:12-13:14         <null>       logic_var    <null>       TO-GOLDEN
+plain  g1_enc105          work@g1_enc105|gen_scope|g1|ref_obj|w_bin|15:12-15:17      <null>       logic_var    <null>       TO-GOLDEN
+plain  g1_enc105          work@g1_enc105|gen_scope|g1|ref_obj|w_bit|18:12-18:17      <null>       logic_var    <null>       TO-GOLDEN
+plain  g1_enc105          work@g1_enc105|gen_scope|g1|ref_obj|w_dec|14:12-14:17      <null>       logic_var    <null>       TO-GOLDEN
+plain  g1_enc105          work@g1_enc105|gen_scope|g1|ref_obj|w_hex|16:12-16:17      <null>       logic_var    <null>       TO-GOLDEN
+plain  g1_enc105          work@g1_enc105|gen_scope|g1|ref_obj|w_repl|17:12-17:18     <null>       logic_var    <null>       TO-GOLDEN
+plain  g1_enc105          work@g1_enc105|gen_scope|g1|ref_obj|w_sgn|19:12-19:17      <null>       logic_var    <null>       TO-GOLDEN
+plain  g1_home106         work@g1_home106|gen_scope|g1|ref_obj|loc_c|44:12-44:17     <null>       logic_var    <null>       TO-GOLDEN
+plain  g2_pos105          work@g2_pos105|gen_scope|g1|ref_obj|k1|17:12-17:14         <null>       logic_var    <null>       TO-GOLDEN
+plain  g2_pos105          work@g2_pos105|gen_scope|g1|ref_obj|kb|37:12-37:14         <null>       logic_var    <null>       TO-GOLDEN
+plain  g3_home97          work@gen3h97|gen_scope|g1|ref_obj|w|38:12-38:13            <null>       logic_var    <null>       TO-GOLDEN
+plain  g5_gscope104       work@m_d4_32|gen_scope|g1|ref_obj|mux|187:12-187:15        <null>       logic_var    <null>       TO-GOLDEN
+plain  g5_gscope104       work@m_d4_4|gen_scope|g1|ref_obj|mux|74:12-74:15           <null>       logic_var    <null>       TO-GOLDEN
+plain  g5_int105          work@g5_leaf105|gen_scope|g1|ref_obj|p3|19:12-19:14        <null>       logic_var    <null>       TO-GOLDEN
+plain  h1_head105         work@h1_head105|gen_scope|g1|ref_obj|data_mux|11:12-11:20  <null>       logic_var    <null>       TO-GOLDEN
+plain  h1_head105         work@h1_head105|gen_scope|g1|ref_obj|sleep_mux|12:12-12:21 <null>       logic_var    <null>       TO-GOLDEN
+plain  h2_child105        work@h2_leaf105|gen_scope|g1|ref_obj|data_mux|11:12-11:20  <null>       logic_var    <null>       TO-GOLDEN
+plain  h2_child105        work@h2_leaf105|gen_scope|g1|ref_obj|sleep_mux|12:12-12:21 <null>       logic_var    <null>       TO-GOLDEN
+plain  pf19               work@m19|gen_scope|g1|ref_obj|fq|28:12-28:14               <null>       logic_var    <null>       TO-GOLDEN
+plain  pf19               work@m19|gen_scope|g1|ref_obj|fw|32:12-32:14               <null>       logic_var    <null>       TO-GOLDEN
+plain  v123_f_multi       work@nut_top|gen_scope|g1|ref_obj|gv|40:14-40:16           <null>       bit_var      <null>       TO-GOLDEN
+plain  v3_lhs113          work@v3_lhs113|gen_scope|g1|ref_obj|c8_cast|61:12-61:19    <null>       struct_var   <null>       TO-GOLDEN
+plain  va7_mix106         work@va7_mix106|gen_scope|g1|ref_obj|locy|33:12-33:16      <null>       logic_var    <null>       TO-GOLDEN
+plain  va7_mix106         work@va7_mix106|gen_scope|g1|ref_obj|locz|26:39-26:43      <null>       logic_var    <null>       TO-GOLDEN
+
+-- ARM TALLY --
+  SAME_AGREE     343
+  STILL-WRONG    1
+  TO-GOLDEN      34

@@ -1,0 +1,132 @@
+== design::Compare -> -1
+   HEAD LHS(golden) = <null> id:0  <null>
+        payload: <null>
+   HEAD RHS(ours)   = logic_var id:499221   157:39-157:47
+        payload: logic_var name='data_mux' size=0 ts=ref_typespec->logic_typespec  @ 157:39-157:47
+        full   : work@top_earlgrey.u_pinmux.gen_mio_periph_in[0].data_mux
+   ONE SIDE NULL.  BaseClass.h: the SINGULAR overload sets
+   m_failedRhs to THE VALUE; the VECTOR overload sets it to the
+   CONTAINER.  The printed RHS is a logic_var, so the failing field is
+   a SINGULAR relation whose value is this object.
+   -- OWNER CHAIN (ours  ) --
+     |vpiParent -> gen_scope name=''  @ 156:45-163:6
+       |vpiParent -> gen_scope_array name='gen_mio_periph_in[0]'  @ 156:45-163:6
+         |vpiParent -> module_inst name='u_pinmux' dn='work@pinmux'  @top_earlgrey.sv 623:3-653:5
+           |vpiParent -> module_inst name='work@top_earlgrey' dn='work@top_earlgrey'  @top_earlgrey.sv 5:1-1022:10
+             |vpiParent -> design name='work@prim_sync_reqack'  @ 0:0-0:0
+== OWNER SCOPE fullname: 'work@top_earlgrey.u_pinmux.gen_mio_periph_in[0]'
+   golden holds that scope: YES
+   -- GOLDEN SCOPE LISTING (gen_scope name=''  @pinmux.sv 156:45-163:6) --
+      scope::Named_events    <NULL VECTOR>
+      scope::Variables       size=1
+          logic_var name='data_mux' size=0 ts=ref_typespec->logic_typespec  @pinmux.sv 157:39-157:47
+      scope::Logic_vars      <NULL VECTOR>
+      scope::Array_vars      <NULL VECTOR>
+      scope::Parameters      size=1
+          parameter name='k' size=0 ts=ref_typespec->int_typespec  @pinmux.sv 156:0-0:0
+      scope::Param_assigns   <NULL VECTOR>
+      scope::Scopes          <NULL VECTOR>
+      scope::Typespecs       <NULL VECTOR>
+      scope::Instance_items  <NULL VECTOR>
+      gen_scope::Nets        <NULL VECTOR>
+      gen_scope::Array_nets  <NULL VECTOR>
+      gen_scope::Process     <NULL VECTOR>
+      gen_scope::Cont_assigns size=2
+          cont_assign name=''  @pinmux.sv 160:12-160:63
+          cont_assign name=''  @pinmux.sv 162:12-162:67
+      gen_scope::Modules     <NULL VECTOR>
+      gen_scope::Gen_scope_arrays <NULL VECTOR>
+   -- OURS   SCOPE LISTING (gen_scope name=''  @ 156:45-163:6) --
+      scope::Named_events    <NULL VECTOR>
+      scope::Variables       size=1
+          logic_var name='data_mux' size=0 ts=ref_typespec->logic_typespec  @ 157:39-157:47
+      scope::Logic_vars      <NULL VECTOR>
+      scope::Array_vars      <NULL VECTOR>
+      scope::Parameters      size=1
+          parameter name='k' size=0 ts=ref_typespec->int_typespec  @ 156:0-0:0
+      scope::Param_assigns   <NULL VECTOR>
+      scope::Scopes          <NULL VECTOR>
+      scope::Typespecs       <NULL VECTOR>
+      scope::Instance_items  <NULL VECTOR>
+      gen_scope::Nets        <NULL VECTOR>
+      gen_scope::Array_nets  <NULL VECTOR>
+      gen_scope::Process     <NULL VECTOR>
+      gen_scope::Cont_assigns size=2
+          cont_assign name=''  @ 160:12-160:63
+          cont_assign name=''  @ 162:12-162:67
+      gen_scope::Modules     <NULL VECTOR>
+      gen_scope::Gen_scope_arrays <NULL VECTOR>
+   -- CONTAINER BISECTION (generated scope::Compare order, fresh context each) --
+      scope::VpiName             '' vs '' -> 0
+      scope::Named_events        L=null R=null -> 0
+      scope::Variables           L=1    R=1    -> 0
+      scope::Logic_vars          L=null R=null -> 0
+      scope::Array_vars          L=null R=null -> 0
+      scope::Parameters          L=1    R=1    -> 0
+      scope::Param_assigns       L=null R=null -> 0
+      scope::Scopes              L=null R=null -> 0
+      scope::Typespecs           L=null R=null -> 0
+      scope::Instance_items      L=null R=null -> 0
+      gen_scope::Nets            L=null R=null -> 0
+      gen_scope::Array_nets      L=null R=null -> 0
+      gen_scope::Process         L=null R=null -> 0
+      gen_scope::Cont_assigns    L=2    R=2    -> -1   <== FAILS
+      gen_scope::Modules         L=null R=null -> 0
+      gen_scope::Gen_scope_arrays L=null R=null -> 0
+   -- CONT_ASSIGN DESCENT (fresh context each) --
+     [0] pinmux.sv 160:12-160:63  vs   160:12-160:63  -> -1
+         failedLhs=<null>
+         failedRhs=logic_var name='data_mux' size=0 ts=ref_typespec->logic_typespec  @ 157:39-157:47
+         GOLDEN Lhs: ref_obj name='data_mux' size=0 ts=<null> actual=<null>  @pinmux.sv 160:12-160:20
+         OURS   Lhs: ref_obj name='data_mux' size=0 ts=<null> actual=logic_var  @ 160:12-160:20
+         GOLDEN Rhs: operation name='' size=0 ts=ref_typespec->integer_typespec optype=67  @pinmux.sv 160:23-160:63
+         OURS   Rhs: operation name='' size=0 ts=ref_typespec->integer_typespec optype=67  @ 160:23-160:63
+         GOLDEN Lhs.Actual_group: <null>
+         OURS   Lhs.Actual_group: logic_var name='data_mux' size=0 ts=ref_typespec->logic_typespec  @ 157:39-157:47
+     [1] pinmux.sv 162:12-162:67  vs   162:12-162:67  -> 0
+         GOLDEN Lhs: bit_select name='mio_to_periph_o' size=0 ts=<null> actual=<null>  @pinmux.sv 162:12-162:30
+         OURS   Lhs: bit_select name='mio_to_periph_o' size=0 ts=<null> actual=<null>  @ 162:12-162:30
+         GOLDEN Rhs: bit_select name='data_mux' size=0 ts=<null> actual=<null>  @pinmux.sv 162:42-162:66
+         OURS   Rhs: bit_select name='data_mux' size=0 ts=<null> actual=<null>  @ 162:42-162:66
+         GOLDEN Lhs.Actual_group: <null>
+         OURS   Lhs.Actual_group: <null>
+   -- WHOLE-DB NAME SEARCH (GOLDEN) for 'data_mux' --
+      bit_select name='data_mux' size=0 ts=<null> actual=<null>  @pinmux.sv 162:42-162:66  parent=cont_assign  full='work@prim_sync_reqack.gen_mio_periph_in.data_mux'
+      bit_select name='data_mux' size=0 ts=<null> actual=<null>  @pinmux.sv 181:70-181:92  parent=operation  full='work@prim_sync_reqack.gen_mio_out.data_mux'
+      bit_select name='data_mux' size=0 ts=<null> actual=<null>  @pinmux.sv 162:42-162:66  parent=cont_assign  full='work@prim_sync_reqack.work@top_earlgrey.u_pinmux.gen_mio_periph_in[0].data_mux'
+      bit_select name='data_mux' size=0 ts=<null> actual=<null>  @pinmux.sv 162:42-162:66  parent=cont_assign  full='work@prim_sync_reqack.work@top_earlgrey.u_pinmux.gen_mio_periph_in[1].data_mux'
+      bit_select name='data_mux' size=0 ts=<null> actual=<null>  @pinmux.sv 162:42-162:66  parent=cont_assign  full='work@prim_sync_reqack.work@top_earlgrey.u_pinmux.gen_mio_periph_in[2].data_mux'
+      bit_select name='data_mux' size=0 ts=<null> actual=<null>  @pinmux.sv 162:42-162:66  parent=cont_assign  full='work@prim_sync_reqack.work@top_earlgrey.u_pinmux.gen_mio_periph_in[3].data_mux'
+      bit_select name='data_mux' size=0 ts=<null> actual=<null>  @pinmux.sv 162:42-162:66  parent=cont_assign  full='work@prim_sync_reqack.work@top_earlgrey.u_pinmux.gen_mio_periph_in[4].data_mux'
+      bit_select name='data_mux' size=0 ts=<null> actual=<null>  @pinmux.sv 162:42-162:66  parent=cont_assign  full='work@prim_sync_reqack.work@top_earlgrey.u_pinmux.gen_mio_periph_in[5].data_mux'
+      bit_select name='data_mux' size=0 ts=<null> actual=<null>  @pinmux.sv 162:42-162:66  parent=cont_assign  full='work@prim_sync_reqack.work@top_earlgrey.u_pinmux.gen_mio_periph_in[6].data_mux'
+      bit_select name='data_mux' size=0 ts=<null> actual=<null>  @pinmux.sv 162:42-162:66  parent=cont_assign  full='work@prim_sync_reqack.work@top_earlgrey.u_pinmux.gen_mio_periph_in[7].data_mux'
+      bit_select name='data_mux' size=0 ts=<null> actual=<null>  @pinmux.sv 162:42-162:66  parent=cont_assign  full='work@prim_sync_reqack.work@top_earlgrey.u_pinmux.gen_mio_periph_in[8].data_mux'
+      bit_select name='data_mux' size=0 ts=<null> actual=<null>  @pinmux.sv 162:42-162:66  parent=cont_assign  full='work@prim_sync_reqack.work@top_earlgrey.u_pinmux.gen_mio_periph_in[9].data_mux'
+      TOTAL objects named 'data_mux' = 264
+          33  bit_select  under cont_assign
+          33  bit_select  under operation
+           2  logic_var  under assignment
+          64  logic_var  under gen_scope
+         130  ref_obj  under cont_assign
+           2  ref_obj  under sys_func_call
+   -- WHOLE-DB NAME SEARCH (OURS  ) for 'data_mux' --
+      bit_select name='data_mux' size=0 ts=<null> actual=<null>  @ 162:42-162:66  parent=cont_assign  full='work@prim_sync_reqack.gen_mio_periph_in.data_mux'
+      bit_select name='data_mux' size=0 ts=<null> actual=<null>  @ 181:70-181:92  parent=operation  full='work@prim_sync_reqack.gen_mio_out.data_mux'
+      bit_select name='data_mux' size=0 ts=<null> actual=<null>  @ 162:42-162:66  parent=cont_assign  full='work@prim_sync_reqack.work@top_earlgrey.u_pinmux.gen_mio_periph_in[0].data_mux'
+      bit_select name='data_mux' size=0 ts=<null> actual=<null>  @ 162:42-162:66  parent=cont_assign  full='work@prim_sync_reqack.work@top_earlgrey.u_pinmux.gen_mio_periph_in[1].data_mux'
+      bit_select name='data_mux' size=0 ts=<null> actual=<null>  @ 162:42-162:66  parent=cont_assign  full='work@prim_sync_reqack.work@top_earlgrey.u_pinmux.gen_mio_periph_in[2].data_mux'
+      bit_select name='data_mux' size=0 ts=<null> actual=<null>  @ 162:42-162:66  parent=cont_assign  full='work@prim_sync_reqack.work@top_earlgrey.u_pinmux.gen_mio_periph_in[3].data_mux'
+      bit_select name='data_mux' size=0 ts=<null> actual=<null>  @ 162:42-162:66  parent=cont_assign  full='work@prim_sync_reqack.work@top_earlgrey.u_pinmux.gen_mio_periph_in[4].data_mux'
+      bit_select name='data_mux' size=0 ts=<null> actual=<null>  @ 162:42-162:66  parent=cont_assign  full='work@prim_sync_reqack.work@top_earlgrey.u_pinmux.gen_mio_periph_in[5].data_mux'
+      bit_select name='data_mux' size=0 ts=<null> actual=<null>  @ 162:42-162:66  parent=cont_assign  full='work@prim_sync_reqack.work@top_earlgrey.u_pinmux.gen_mio_periph_in[6].data_mux'
+      bit_select name='data_mux' size=0 ts=<null> actual=<null>  @ 162:42-162:66  parent=cont_assign  full='work@prim_sync_reqack.work@top_earlgrey.u_pinmux.gen_mio_periph_in[7].data_mux'
+      bit_select name='data_mux' size=0 ts=<null> actual=<null>  @ 162:42-162:66  parent=cont_assign  full='work@prim_sync_reqack.work@top_earlgrey.u_pinmux.gen_mio_periph_in[8].data_mux'
+      bit_select name='data_mux' size=0 ts=<null> actual=<null>  @ 162:42-162:66  parent=cont_assign  full='work@prim_sync_reqack.work@top_earlgrey.u_pinmux.gen_mio_periph_in[9].data_mux'
+      TOTAL objects named 'data_mux' = 200
+          33  bit_select  under cont_assign
+          33  bit_select  under operation
+           2  logic_var  under assignment
+          64  logic_var  under gen_scope
+          66  ref_obj  under cont_assign
+           2  ref_obj  under sys_func_call
