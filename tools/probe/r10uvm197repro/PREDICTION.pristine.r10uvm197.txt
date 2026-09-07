@@ -1,0 +1,90 @@
+r10uvm197 — MOVER PREDICTION from PRISTINE databases ONLY (no patched binary existed
+when this was produced).  ct197cen --pred over every database of the pristine sweep.
+Trimmed: the PREDSUM line of every row with a zero-size cell, every PRED cell, and the totals.
+
+PREDSUM default/MiniAmiq-544c7f61 cells=720 zero-size-cells=12 PREDICTED-MOVER
+PREDSUM default/SimpleUVM-1dc93a62 cells=315 zero-size-cells=12 PREDICTED-MOVER
+PREDSUM default/SeqDriver-32af76aa cells=495 zero-size-cells=12 PREDICTED-MOVER
+PREDSUM testflags/MiniAmiq-544c7f61 cells=720 zero-size-cells=12 PREDICTED-MOVER
+PREDSUM testflags/SeqDriver-32af76aa cells=495 zero-size-cells=12 PREDICTED-MOVER
+PREDSUM testflags/SimpleUVM-1dc93a62 cells=315 zero-size-cells=12 PREDICTED-MOVER
+
+PRED default/MiniAmiq-544c7f61 ZEROSIZE key=defif|interface_inst||work@svaunit_vpi_interface|25:1|uvm_mgc_copyright|svaunit_pkg|string_typespec|6|STRING:(C) 2007-2014 Mentor Graphics Corporation
+PRED default/MiniAmiq-544c7f61 ZEROSIZE key=defif|interface_inst||work@svaunit_vpi_interface|25:1|uvm_cdn_copyright|svaunit_pkg|string_typespec|6|STRING:(C) 2007-2014 Cadence Design Systems, Inc.
+PRED default/MiniAmiq-544c7f61 ZEROSIZE key=defif|interface_inst||work@svaunit_vpi_interface|25:1|uvm_snps_copyright|svaunit_pkg|string_typespec|6|STRING:(C) 2006-2014 Synopsys, Inc.
+PRED default/MiniAmiq-544c7f61 ZEROSIZE key=defif|interface_inst||work@svaunit_vpi_interface|25:1|uvm_cy_copyright|svaunit_pkg|string_typespec|6|STRING:(C) 2011-2013 Cypress Semiconductor Corp.
+PRED default/MiniAmiq-544c7f61 ZEROSIZE key=defif|interface_inst||work@svaunit_vpi_interface|25:1|uvm_nv_copyright|svaunit_pkg|string_typespec|6|STRING:(C) 2013-2014 NVIDIA Corporation
+PRED default/MiniAmiq-544c7f61 ZEROSIZE key=defif|interface_inst||work@svaunit_vpi_interface|25:1|uvm_revision|svaunit_pkg|string_typespec|6|STRING:UVM.1.2
+PRED default/MiniAmiq-544c7f61 ZEROSIZE key=defif|interface_inst||work@svaunit_vpi_interface|25:1|uvm_mgc_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2007-2014 Mentor Graphics Corporation
+PRED default/MiniAmiq-544c7f61 ZEROSIZE key=defif|interface_inst||work@svaunit_vpi_interface|25:1|uvm_cdn_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2007-2014 Cadence Design Systems, Inc.
+PRED default/MiniAmiq-544c7f61 ZEROSIZE key=defif|interface_inst||work@svaunit_vpi_interface|25:1|uvm_snps_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2006-2014 Synopsys, Inc.
+PRED default/MiniAmiq-544c7f61 ZEROSIZE key=defif|interface_inst||work@svaunit_vpi_interface|25:1|uvm_cy_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2011-2013 Cypress Semiconductor Corp.
+PRED default/MiniAmiq-544c7f61 ZEROSIZE key=defif|interface_inst||work@svaunit_vpi_interface|25:1|uvm_nv_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2013-2014 NVIDIA Corporation
+PRED default/MiniAmiq-544c7f61 ZEROSIZE key=defif|interface_inst||work@svaunit_vpi_interface|25:1|uvm_revision|uvm_pkg|string_typespec|6|STRING:UVM.1.2
+PRED default/SimpleUVM-1dc93a62 ZEROSIZE key=def|module_inst||work@top|44:1|uvm_mgc_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2007-2014 Mentor Graphics Corporation
+PRED default/SimpleUVM-1dc93a62 ZEROSIZE key=def|module_inst||work@top|44:1|uvm_cdn_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2007-2014 Cadence Design Systems, Inc.
+PRED default/SimpleUVM-1dc93a62 ZEROSIZE key=def|module_inst||work@top|44:1|uvm_snps_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2006-2014 Synopsys, Inc.
+PRED default/SimpleUVM-1dc93a62 ZEROSIZE key=def|module_inst||work@top|44:1|uvm_cy_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2011-2013 Cypress Semiconductor Corp.
+PRED default/SimpleUVM-1dc93a62 ZEROSIZE key=def|module_inst||work@top|44:1|uvm_nv_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2013-2014 NVIDIA Corporation
+PRED default/SimpleUVM-1dc93a62 ZEROSIZE key=def|module_inst||work@top|44:1|uvm_revision|uvm_pkg|string_typespec|6|STRING:UVM.1.2
+PRED default/SimpleUVM-1dc93a62 ZEROSIZE key=def|module_inst||work@top|44:1|uvm_mgc_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2007-2014 Mentor Graphics Corporation
+PRED default/SimpleUVM-1dc93a62 ZEROSIZE key=def|module_inst||work@top|44:1|uvm_cdn_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2007-2014 Cadence Design Systems, Inc.
+PRED default/SimpleUVM-1dc93a62 ZEROSIZE key=def|module_inst||work@top|44:1|uvm_snps_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2006-2014 Synopsys, Inc.
+PRED default/SimpleUVM-1dc93a62 ZEROSIZE key=def|module_inst||work@top|44:1|uvm_cy_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2011-2013 Cypress Semiconductor Corp.
+PRED default/SimpleUVM-1dc93a62 ZEROSIZE key=def|module_inst||work@top|44:1|uvm_nv_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2013-2014 NVIDIA Corporation
+PRED default/SimpleUVM-1dc93a62 ZEROSIZE key=def|module_inst||work@top|44:1|uvm_revision|uvm_pkg|string_typespec|6|STRING:UVM.1.2
+PRED default/SeqDriver-32af76aa ZEROSIZE key=def|module_inst||work@top_tb|210:1|uvm_mgc_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2007-2014 Mentor Graphics Corporation
+PRED default/SeqDriver-32af76aa ZEROSIZE key=def|module_inst||work@top_tb|210:1|uvm_cdn_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2007-2014 Cadence Design Systems, Inc.
+PRED default/SeqDriver-32af76aa ZEROSIZE key=def|module_inst||work@top_tb|210:1|uvm_snps_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2006-2014 Synopsys, Inc.
+PRED default/SeqDriver-32af76aa ZEROSIZE key=def|module_inst||work@top_tb|210:1|uvm_cy_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2011-2013 Cypress Semiconductor Corp.
+PRED default/SeqDriver-32af76aa ZEROSIZE key=def|module_inst||work@top_tb|210:1|uvm_nv_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2013-2014 NVIDIA Corporation
+PRED default/SeqDriver-32af76aa ZEROSIZE key=def|module_inst||work@top_tb|210:1|uvm_revision|uvm_pkg|string_typespec|6|STRING:UVM.1.2
+PRED default/SeqDriver-32af76aa ZEROSIZE key=def|module_inst||work@top_tb|210:1|uvm_mgc_copyright|adpcm_pkg|string_typespec|6|STRING:(C) 2007-2014 Mentor Graphics Corporation
+PRED default/SeqDriver-32af76aa ZEROSIZE key=def|module_inst||work@top_tb|210:1|uvm_cdn_copyright|adpcm_pkg|string_typespec|6|STRING:(C) 2007-2014 Cadence Design Systems, Inc.
+PRED default/SeqDriver-32af76aa ZEROSIZE key=def|module_inst||work@top_tb|210:1|uvm_snps_copyright|adpcm_pkg|string_typespec|6|STRING:(C) 2006-2014 Synopsys, Inc.
+PRED default/SeqDriver-32af76aa ZEROSIZE key=def|module_inst||work@top_tb|210:1|uvm_cy_copyright|adpcm_pkg|string_typespec|6|STRING:(C) 2011-2013 Cypress Semiconductor Corp.
+PRED default/SeqDriver-32af76aa ZEROSIZE key=def|module_inst||work@top_tb|210:1|uvm_nv_copyright|adpcm_pkg|string_typespec|6|STRING:(C) 2013-2014 NVIDIA Corporation
+PRED default/SeqDriver-32af76aa ZEROSIZE key=def|module_inst||work@top_tb|210:1|uvm_revision|adpcm_pkg|string_typespec|6|STRING:UVM.1.2
+PRED testflags/MiniAmiq-544c7f61 ZEROSIZE key=defif|interface_inst||work@svaunit_vpi_interface|25:1|uvm_mgc_copyright|svaunit_pkg|string_typespec|6|STRING:(C) 2007-2014 Mentor Graphics Corporation
+PRED testflags/MiniAmiq-544c7f61 ZEROSIZE key=defif|interface_inst||work@svaunit_vpi_interface|25:1|uvm_cdn_copyright|svaunit_pkg|string_typespec|6|STRING:(C) 2007-2014 Cadence Design Systems, Inc.
+PRED testflags/MiniAmiq-544c7f61 ZEROSIZE key=defif|interface_inst||work@svaunit_vpi_interface|25:1|uvm_snps_copyright|svaunit_pkg|string_typespec|6|STRING:(C) 2006-2014 Synopsys, Inc.
+PRED testflags/MiniAmiq-544c7f61 ZEROSIZE key=defif|interface_inst||work@svaunit_vpi_interface|25:1|uvm_cy_copyright|svaunit_pkg|string_typespec|6|STRING:(C) 2011-2013 Cypress Semiconductor Corp.
+PRED testflags/MiniAmiq-544c7f61 ZEROSIZE key=defif|interface_inst||work@svaunit_vpi_interface|25:1|uvm_nv_copyright|svaunit_pkg|string_typespec|6|STRING:(C) 2013-2014 NVIDIA Corporation
+PRED testflags/MiniAmiq-544c7f61 ZEROSIZE key=defif|interface_inst||work@svaunit_vpi_interface|25:1|uvm_revision|svaunit_pkg|string_typespec|6|STRING:UVM.1.2
+PRED testflags/MiniAmiq-544c7f61 ZEROSIZE key=defif|interface_inst||work@svaunit_vpi_interface|25:1|uvm_mgc_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2007-2014 Mentor Graphics Corporation
+PRED testflags/MiniAmiq-544c7f61 ZEROSIZE key=defif|interface_inst||work@svaunit_vpi_interface|25:1|uvm_cdn_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2007-2014 Cadence Design Systems, Inc.
+PRED testflags/MiniAmiq-544c7f61 ZEROSIZE key=defif|interface_inst||work@svaunit_vpi_interface|25:1|uvm_snps_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2006-2014 Synopsys, Inc.
+PRED testflags/MiniAmiq-544c7f61 ZEROSIZE key=defif|interface_inst||work@svaunit_vpi_interface|25:1|uvm_cy_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2011-2013 Cypress Semiconductor Corp.
+PRED testflags/MiniAmiq-544c7f61 ZEROSIZE key=defif|interface_inst||work@svaunit_vpi_interface|25:1|uvm_nv_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2013-2014 NVIDIA Corporation
+PRED testflags/MiniAmiq-544c7f61 ZEROSIZE key=defif|interface_inst||work@svaunit_vpi_interface|25:1|uvm_revision|uvm_pkg|string_typespec|6|STRING:UVM.1.2
+PRED testflags/SeqDriver-32af76aa ZEROSIZE key=def|module_inst||work@top_tb|210:1|uvm_mgc_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2007-2014 Mentor Graphics Corporation
+PRED testflags/SeqDriver-32af76aa ZEROSIZE key=def|module_inst||work@top_tb|210:1|uvm_cdn_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2007-2014 Cadence Design Systems, Inc.
+PRED testflags/SeqDriver-32af76aa ZEROSIZE key=def|module_inst||work@top_tb|210:1|uvm_snps_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2006-2014 Synopsys, Inc.
+PRED testflags/SeqDriver-32af76aa ZEROSIZE key=def|module_inst||work@top_tb|210:1|uvm_cy_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2011-2013 Cypress Semiconductor Corp.
+PRED testflags/SeqDriver-32af76aa ZEROSIZE key=def|module_inst||work@top_tb|210:1|uvm_nv_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2013-2014 NVIDIA Corporation
+PRED testflags/SeqDriver-32af76aa ZEROSIZE key=def|module_inst||work@top_tb|210:1|uvm_revision|uvm_pkg|string_typespec|6|STRING:UVM.1.2
+PRED testflags/SeqDriver-32af76aa ZEROSIZE key=def|module_inst||work@top_tb|210:1|uvm_mgc_copyright|adpcm_pkg|string_typespec|6|STRING:(C) 2007-2014 Mentor Graphics Corporation
+PRED testflags/SeqDriver-32af76aa ZEROSIZE key=def|module_inst||work@top_tb|210:1|uvm_cdn_copyright|adpcm_pkg|string_typespec|6|STRING:(C) 2007-2014 Cadence Design Systems, Inc.
+PRED testflags/SeqDriver-32af76aa ZEROSIZE key=def|module_inst||work@top_tb|210:1|uvm_snps_copyright|adpcm_pkg|string_typespec|6|STRING:(C) 2006-2014 Synopsys, Inc.
+PRED testflags/SeqDriver-32af76aa ZEROSIZE key=def|module_inst||work@top_tb|210:1|uvm_cy_copyright|adpcm_pkg|string_typespec|6|STRING:(C) 2011-2013 Cypress Semiconductor Corp.
+PRED testflags/SeqDriver-32af76aa ZEROSIZE key=def|module_inst||work@top_tb|210:1|uvm_nv_copyright|adpcm_pkg|string_typespec|6|STRING:(C) 2013-2014 NVIDIA Corporation
+PRED testflags/SeqDriver-32af76aa ZEROSIZE key=def|module_inst||work@top_tb|210:1|uvm_revision|adpcm_pkg|string_typespec|6|STRING:UVM.1.2
+PRED testflags/SimpleUVM-1dc93a62 ZEROSIZE key=def|module_inst||work@top|44:1|uvm_mgc_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2007-2014 Mentor Graphics Corporation
+PRED testflags/SimpleUVM-1dc93a62 ZEROSIZE key=def|module_inst||work@top|44:1|uvm_cdn_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2007-2014 Cadence Design Systems, Inc.
+PRED testflags/SimpleUVM-1dc93a62 ZEROSIZE key=def|module_inst||work@top|44:1|uvm_snps_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2006-2014 Synopsys, Inc.
+PRED testflags/SimpleUVM-1dc93a62 ZEROSIZE key=def|module_inst||work@top|44:1|uvm_cy_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2011-2013 Cypress Semiconductor Corp.
+PRED testflags/SimpleUVM-1dc93a62 ZEROSIZE key=def|module_inst||work@top|44:1|uvm_nv_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2013-2014 NVIDIA Corporation
+PRED testflags/SimpleUVM-1dc93a62 ZEROSIZE key=def|module_inst||work@top|44:1|uvm_revision|uvm_pkg|string_typespec|6|STRING:UVM.1.2
+PRED testflags/SimpleUVM-1dc93a62 ZEROSIZE key=def|module_inst||work@top|44:1|uvm_mgc_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2007-2014 Mentor Graphics Corporation
+PRED testflags/SimpleUVM-1dc93a62 ZEROSIZE key=def|module_inst||work@top|44:1|uvm_cdn_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2007-2014 Cadence Design Systems, Inc.
+PRED testflags/SimpleUVM-1dc93a62 ZEROSIZE key=def|module_inst||work@top|44:1|uvm_snps_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2006-2014 Synopsys, Inc.
+PRED testflags/SimpleUVM-1dc93a62 ZEROSIZE key=def|module_inst||work@top|44:1|uvm_cy_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2011-2013 Cypress Semiconductor Corp.
+PRED testflags/SimpleUVM-1dc93a62 ZEROSIZE key=def|module_inst||work@top|44:1|uvm_nv_copyright|uvm_pkg|string_typespec|6|STRING:(C) 2013-2014 NVIDIA Corporation
+PRED testflags/SimpleUVM-1dc93a62 ZEROSIZE key=def|module_inst||work@top|44:1|uvm_revision|uvm_pkg|string_typespec|6|STRING:UVM.1.2
+
+-- PROCESSED=956 LISTED=956 NOGOLDEN=0 RESTORE_FAILS=0 NONZERO_RC=0 MOVER_ROWS=6
+-- TOTALS AGREE=0 SIZE-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 PRED-CELLS=13966 PRED-ZERO=72
+
+ROBUST TOTALS (censum-style; xargs -P can interleave lines, so do not trust a ^-anchored grep):
+  surelog  rows=956 cells=13966 zero-size-cells=72
+  u2r      rows=1358 cells=190 zero-size-cells=0

@@ -1,0 +1,168 @@
+r10uvm197 — MATERIALIZED-PARAMETER CONSTANT-SIZE CENSUS, golden x ours, pristine binary, surelog corpus.
+One CELL = a param_assign whose Lhs parameter carries vpiImported and whose Rhs is a constant.
+Key = view | owner face | param | vpiImported | typespec kind | vpiConstType | value; payload = VpiSize.
+TRIMMED: the per-row CENSUM lines are kept only for rows that are UNEQUAL, plus every
+disagreeing cell, plus the robust totals (censum197.sh — an xargs -P interleave can glue a
+CENSUM onto another line, so a ^-anchored grep undercounts).
+
+CENSUM default/Earlgrey_0_1-71da2fd7 cellsG=3472 cellsO=3458 AGREE=3458 SIZE-DIFF=14 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CENSUM default/MiniAmiq-544c7f61 cellsG=720 cellsO=720 AGREE=700 SIZE-DIFF=24 ONLY-GOLDEN=8 ONLY-OURS=8 UNEQUAL
+CENSUM default/Rggen-50ccbd70 cellsG=860 cellsO=1048 AGREE=860 SIZE-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=188 UNEQUAL
+CENSUM default/SeqDriver-32af76aa cellsG=495 cellsO=495 AGREE=475 SIZE-DIFF=24 ONLY-GOLDEN=8 ONLY-OURS=8 UNEQUAL
+CENSUM default/SimpleUVM-1dc93a62 cellsG=315 cellsO=315 AGREE=295 SIZE-DIFF=24 ONLY-GOLDEN=8 ONLY-OURS=8 UNEQUAL
+CENSUM testflags/Earlgrey_0_1-71da2fd7 cellsG=4156 cellsO=4540 AGREE=4142 SIZE-DIFF=334 ONLY-GOLDEN=0 ONLY-OURS=78 UNEQUAL
+CENSUM testflags/MiniAmiq-544c7f61 cellsG=720 cellsO=720 AGREE=700 SIZE-DIFF=24 ONLY-GOLDEN=8 ONLY-OURS=8 UNEQUAL
+CENSUM testflags/SeqDriver-32af76aa cellsG=495 cellsO=495 AGREE=475 SIZE-DIFF=24 ONLY-GOLDEN=8 ONLY-OURS=8 UNEQUAL
+CENSUM testflags/SimpleUVM-1dc93a62 cellsG=315 cellsO=315 AGREE=295 SIZE-DIFF=24 ONLY-GOLDEN=8 ONLY-OURS=8 UNEQUAL
+
+      1 SIZE testflags/SimpleUVM-1dc93a62 key=def|module_inst||work@top|44:1|uvm_revision|uvm_pkg|string_typespec|6|STRING:UVM.1.2 size=56 G=2 O=0
+      1 SIZE testflags/SimpleUVM-1dc93a62 key=def|module_inst||work@top|44:1|uvm_revision|uvm_pkg|string_typespec|6|STRING:UVM.1.2 size=0 G=0 O=2
+      1 SIZE testflags/SeqDriver-32af76aa key=def|module_inst||work@top_tb|210:1|uvm_revision|uvm_pkg|string_typespec|6|STRING:UVM.1.2 size=56 G=1 O=0
+      1 SIZE testflags/SeqDriver-32af76aa key=def|module_inst||work@top_tb|210:1|uvm_revision|uvm_pkg|string_typespec|6|STRING:UVM.1.2 size=0 G=0 O=1
+      1 SIZE testflags/SeqDriver-32af76aa key=def|module_inst||work@top_tb|210:1|uvm_revision|adpcm_pkg|string_typespec|6|STRING:UVM.1.2 size=56 G=1 O=0
+      1 SIZE testflags/SeqDriver-32af76aa key=def|module_inst||work@top_tb|210:1|uvm_revision|adpcm_pkg|string_typespec|6|STRING:UVM.1.2 size=0 G=0 O=1
+      1 SIZE testflags/MiniAmiq-544c7f61 key=defif|interface_inst||work@svaunit_vpi_interface|25:1|uvm_revision|uvm_pkg|string_typespec|6|STRING:UVM.1.2 size=56 G=1 O=0
+      1 SIZE testflags/MiniAmiq-544c7f61 key=defif|interface_inst||work@svaunit_vpi_interface|25:1|uvm_revision|uvm_pkg|string_typespec|6|STRING:UVM.1.2 size=0 G=0 O=1
+      1 SIZE testflags/MiniAmiq-544c7f61 key=defif|interface_inst||work@svaunit_vpi_interface|25:1|uvm_revision|svaunit_pkg|string_typespec|6|STRING:UVM.1.2 size=56 G=1 O=0
+      1 SIZE testflags/MiniAmiq-544c7f61 key=defif|interface_inst||work@svaunit_vpi_interface|25:1|uvm_revision|svaunit_pkg|string_typespec|6|STRING:UVM.1.2 size=0 G=0 O=1
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_usbdev|work@usbdev|777:3|NEndpoints|usbdev_reg_pkg|int_typespec|9|UINT:12 size=32 G=2 O=1
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_rv_timer|work@rv_timer|574:3|N_TIMERS|rv_timer_reg_pkg|int_typespec|9|UINT:1 size=32 G=2 O=1
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_mp|work@flash_mp|323:3|NumBanks|flash_ctrl_pkg|int_typespec|9|UINT:2 size=32 G=2 O=1
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_mp|work@flash_mp|323:3|MpRegions|flash_ctrl_pkg|int_typespec|9|UINT:8 size=32 G=2 O=1
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_mp|work@flash_mp|323:3|BankW|flash_ctrl_pkg|int_typespec|9|UINT:1 size=32 G=2 O=1
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_mp|work@flash_mp|323:3|AllPagesW|flash_ctrl_pkg|int_typespec|9|UINT:9 size=32 G=2 O=1
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_erase_ctrl|work@flash_erase_ctrl|266:3|WordsPerPage|flash_ctrl_pkg|int_typespec|9|UINT:256 size=32 G=2 O=1
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_erase_ctrl|work@flash_erase_ctrl|266:3|PagesPerBank|flash_ctrl_pkg|int_typespec|9|UINT:256 size=32 G=2 O=1
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_erase_ctrl|work@flash_erase_ctrl|266:3|AddrW|flash_ctrl_pkg|int_typespec|9|UINT:17 size=32 G=2 O=1
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_sys_src|work@rstmgr_ctrl|144:3|PowerDomains|rstmgr_pkg|int_typespec|9|UINT:2 size=32 G=2 O=1
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_sys_src|work@rstmgr_ctrl|144:3|OffDomains|rstmgr_pkg|int_typespec|7|INT:1 size=32 G=2 O=1
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|WordW|flash_phy_pkg|int_typespec|9|UINT:8 size=32 G=16 O=32
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|WordsPerPage|flash_phy_pkg|int_typespec|9|UINT:256 size=32 G=16 O=32
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|WordSelW|flash_phy_pkg|int_typespec|9|UINT:1 size=32 G=16 O=32
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|WidthMultiple|flash_phy_pkg|int_typespec|7|INT:2 size=32 G=16 O=32
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|RspOrderFifoWidth|flash_phy_pkg|int_typespec|9|UINT:5 size=32 G=16 O=32
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|RspOrderDepth|flash_phy_pkg|int_typespec|9|UINT:2 size=32 G=16 O=32
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|PrimFlashAddrW|flash_phy_pkg|int_typespec|7|INT:15 size=32 G=16 O=32
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|PageW|flash_phy_pkg|int_typespec|9|UINT:8 size=32 G=16 O=32
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|PagesPerBank|flash_phy_pkg|int_typespec|9|UINT:256 size=32 G=16 O=32
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|NumBuf|flash_phy_pkg|int_typespec|9|UINT:4 size=32 G=16 O=32
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|NumBanks|flash_phy_pkg|int_typespec|9|UINT:2 size=32 G=16 O=32
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|LsbAddrBit|flash_phy_pkg|int_typespec|9|UINT:1 size=32 G=16 O=32
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|FlashWordsW|flash_phy_pkg|int_typespec|9|UINT:7 size=32 G=16 O=32
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|FlashWordsPerPage|flash_phy_pkg|int_typespec|7|INT:128 size=32 G=16 O=32
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|DataWidth|flash_phy_pkg|int_typespec|9|UINT:64 size=32 G=16 O=32
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|BytesPerWord|flash_phy_pkg|int_typespec|9|UINT:4 size=32 G=16 O=32
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|BusWidth|flash_phy_pkg|int_typespec|9|UINT:32 size=32 G=16 O=32
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|BankW|flash_phy_pkg|int_typespec|9|UINT:1 size=32 G=16 O=32
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|BankAddrW|flash_phy_pkg|int_typespec|9|UINT:16 size=32 G=16 O=32
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5|AddrBitsRemain|flash_phy_pkg|int_typespec|7|INT:0 size=32 G=16 O=32
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_lc_src|work@rstmgr_ctrl|133:3|PowerDomains|rstmgr_pkg|int_typespec|9|UINT:2 size=32 G=2 O=1
+      1 SIZE testflags/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_lc_src|work@rstmgr_ctrl|133:3|OffDomains|rstmgr_pkg|int_typespec|7|INT:1 size=32 G=2 O=1
+      1 SIZE default/SimpleUVM-1dc93a62 key=def|module_inst||work@top|44:1|uvm_revision|uvm_pkg|string_typespec|6|STRING:UVM.1.2 size=56 G=2 O=0
+      1 SIZE default/SimpleUVM-1dc93a62 key=def|module_inst||work@top|44:1|uvm_revision|uvm_pkg|string_typespec|6|STRING:UVM.1.2 size=0 G=0 O=2
+      1 SIZE default/SeqDriver-32af76aa key=def|module_inst||work@top_tb|210:1|uvm_revision|uvm_pkg|string_typespec|6|STRING:UVM.1.2 size=56 G=1 O=0
+      1 SIZE default/SeqDriver-32af76aa key=def|module_inst||work@top_tb|210:1|uvm_revision|uvm_pkg|string_typespec|6|STRING:UVM.1.2 size=0 G=0 O=1
+      1 SIZE default/SeqDriver-32af76aa key=def|module_inst||work@top_tb|210:1|uvm_revision|adpcm_pkg|string_typespec|6|STRING:UVM.1.2 size=56 G=1 O=0
+      1 SIZE default/SeqDriver-32af76aa key=def|module_inst||work@top_tb|210:1|uvm_revision|adpcm_pkg|string_typespec|6|STRING:UVM.1.2 size=0 G=0 O=1
+      1 SIZE default/MiniAmiq-544c7f61 key=defif|interface_inst||work@svaunit_vpi_interface|25:1|uvm_revision|uvm_pkg|string_typespec|6|STRING:UVM.1.2 size=56 G=1 O=0
+      1 SIZE default/MiniAmiq-544c7f61 key=defif|interface_inst||work@svaunit_vpi_interface|25:1|uvm_revision|uvm_pkg|string_typespec|6|STRING:UVM.1.2 size=0 G=0 O=1
+      1 SIZE default/MiniAmiq-544c7f61 key=defif|interface_inst||work@svaunit_vpi_interface|25:1|uvm_revision|svaunit_pkg|string_typespec|6|STRING:UVM.1.2 size=56 G=1 O=0
+      1 SIZE default/MiniAmiq-544c7f61 key=defif|interface_inst||work@svaunit_vpi_interface|25:1|uvm_revision|svaunit_pkg|string_typespec|6|STRING:UVM.1.2 size=0 G=0 O=1
+      1 SIZE default/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_usbdev|work@usbdev|777:3|NEndpoints|usbdev_reg_pkg|int_typespec|9|UINT:12 size=32 G=2 O=1
+      1 SIZE default/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_rv_timer|work@rv_timer|574:3|N_TIMERS|rv_timer_reg_pkg|int_typespec|9|UINT:1 size=32 G=2 O=1
+      1 SIZE default/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_rv_timer|work@rv_timer|574:3|N_HARTS|rv_timer_reg_pkg|int_typespec|9|UINT:1 size=32 G=2 O=1
+      1 SIZE default/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_mp|work@flash_mp|323:3|NumBanks|flash_ctrl_pkg|int_typespec|9|UINT:2 size=32 G=2 O=1
+      1 SIZE default/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_mp|work@flash_mp|323:3|MpRegions|flash_ctrl_pkg|int_typespec|9|UINT:8 size=32 G=2 O=1
+      1 SIZE default/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_mp|work@flash_mp|323:3|BankW|flash_ctrl_pkg|int_typespec|9|UINT:1 size=32 G=2 O=1
+      1 SIZE default/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_mp|work@flash_mp|323:3|AllPagesW|flash_ctrl_pkg|int_typespec|9|UINT:9 size=32 G=2 O=1
+      1 SIZE default/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_erase_ctrl|work@flash_erase_ctrl|266:3|WordsPerPage|flash_ctrl_pkg|int_typespec|9|UINT:256 size=32 G=2 O=1
+      1 SIZE default/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_erase_ctrl|work@flash_erase_ctrl|266:3|PagesPerBank|flash_ctrl_pkg|int_typespec|9|UINT:256 size=32 G=2 O=1
+      1 SIZE default/Earlgrey_0_1-71da2fd7 key=other|module_inst|u_flash_erase_ctrl|work@flash_erase_ctrl|266:3|AddrW|flash_ctrl_pkg|int_typespec|9|UINT:17 size=32 G=2 O=1
+      1 SIZE default/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_sys_src|work@rstmgr_ctrl|144:3|PowerDomains|rstmgr_pkg|int_typespec|9|UINT:2 size=32 G=2 O=1
+      1 SIZE default/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_sys_src|work@rstmgr_ctrl|144:3|OffDomains|rstmgr_pkg|int_typespec|7|INT:1 size=32 G=2 O=1
+      1 SIZE default/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_lc_src|work@rstmgr_ctrl|133:3|PowerDomains|rstmgr_pkg|int_typespec|9|UINT:2 size=32 G=2 O=1
+      1 SIZE default/Earlgrey_0_1-71da2fd7 key=other|module_inst|i_lc_src|work@rstmgr_ctrl|133:3|OffDomains|rstmgr_pkg|int_typespec|7|INT:1 size=32 G=2 O=1
+
+      2 ONLY-OURS key=def|module_inst||work@top_tb|210:1|UVM_RADIX|uvm_pkg|int_typespec|5|HEX:f000000 n=1
+      2 ONLY-OURS key=def|module_inst||work@top_tb|210:1|UVM_RADIX|adpcm_pkg|int_typespec|5|HEX:f000000 n=1
+      2 ONLY-OURS key=def|module_inst||work@top_tb|210:1|UVM_FLAGS_ON|uvm_pkg|int_typespec|3|BIN:000000101010101 n=1
+      2 ONLY-OURS key=def|module_inst||work@top_tb|210:1|UVM_FLAGS_ON|adpcm_pkg|int_typespec|3|BIN:000000101010101 n=1
+      2 ONLY-OURS key=def|module_inst||work@top_tb|210:1|UVM_DEFAULT|uvm_pkg|int_typespec|3|BIN:000010101010101 n=1
+      2 ONLY-OURS key=def|module_inst||work@top_tb|210:1|UVM_DEFAULT|adpcm_pkg|int_typespec|3|BIN:000010101010101 n=1
+      2 ONLY-OURS key=def|module_inst||work@top_tb|210:1|UVM_ALL_ON|uvm_pkg|int_typespec|3|BIN:000000101010101 n=1
+      2 ONLY-OURS key=def|module_inst||work@top_tb|210:1|UVM_ALL_ON|adpcm_pkg|int_typespec|3|BIN:000000101010101 n=1
+      2 ONLY-OURS key=def|module_inst||work@top|44:1|UVM_RADIX|uvm_pkg|int_typespec|5|HEX:f000000 n=2
+      2 ONLY-OURS key=def|module_inst||work@top|44:1|UVM_FLAGS_ON|uvm_pkg|int_typespec|3|BIN:000000101010101 n=2
+      2 ONLY-OURS key=def|module_inst||work@top|44:1|UVM_DEFAULT|uvm_pkg|int_typespec|3|BIN:000010101010101 n=2
+      2 ONLY-OURS key=def|module_inst||work@top|44:1|UVM_ALL_ON|uvm_pkg|int_typespec|3|BIN:000000101010101 n=2
+      2 ONLY-OURS key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_RADIX|uvm_pkg|int_typespec|5|HEX:f000000 n=1
+      2 ONLY-OURS key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_RADIX|svaunit_pkg|int_typespec|5|HEX:f000000 n=1
+      2 ONLY-OURS key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_FLAGS_ON|uvm_pkg|int_typespec|3|BIN:000000101010101 n=1
+      2 ONLY-OURS key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_FLAGS_ON|svaunit_pkg|int_typespec|3|BIN:000000101010101 n=1
+      2 ONLY-OURS key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_DEFAULT|uvm_pkg|int_typespec|3|BIN:000010101010101 n=1
+      2 ONLY-OURS key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_DEFAULT|svaunit_pkg|int_typespec|3|BIN:000010101010101 n=1
+      2 ONLY-OURS key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_ALL_ON|uvm_pkg|int_typespec|3|BIN:000000101010101 n=1
+      2 ONLY-OURS key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_ALL_ON|svaunit_pkg|int_typespec|3|BIN:000000101010101 n=1
+      2 ONLY-GOLDEN key=def|module_inst||work@top_tb|210:1|UVM_RADIX|uvm_pkg|-|5|HEX:f000000 n=1
+      2 ONLY-GOLDEN key=def|module_inst||work@top_tb|210:1|UVM_RADIX|adpcm_pkg|-|5|HEX:f000000 n=1
+      2 ONLY-GOLDEN key=def|module_inst||work@top_tb|210:1|UVM_FLAGS_ON|uvm_pkg|-|3|BIN:000000101010101 n=1
+      2 ONLY-GOLDEN key=def|module_inst||work@top_tb|210:1|UVM_FLAGS_ON|adpcm_pkg|-|3|BIN:000000101010101 n=1
+      2 ONLY-GOLDEN key=def|module_inst||work@top_tb|210:1|UVM_DEFAULT|uvm_pkg|-|3|BIN:000010101010101 n=1
+      2 ONLY-GOLDEN key=def|module_inst||work@top_tb|210:1|UVM_DEFAULT|adpcm_pkg|-|3|BIN:000010101010101 n=1
+      2 ONLY-GOLDEN key=def|module_inst||work@top_tb|210:1|UVM_ALL_ON|uvm_pkg|-|3|BIN:000000101010101 n=1
+      2 ONLY-GOLDEN key=def|module_inst||work@top_tb|210:1|UVM_ALL_ON|adpcm_pkg|-|3|BIN:000000101010101 n=1
+      2 ONLY-GOLDEN key=def|module_inst||work@top|44:1|UVM_RADIX|uvm_pkg|-|5|HEX:f000000 n=2
+      2 ONLY-GOLDEN key=def|module_inst||work@top|44:1|UVM_FLAGS_ON|uvm_pkg|-|3|BIN:000000101010101 n=2
+      2 ONLY-GOLDEN key=def|module_inst||work@top|44:1|UVM_DEFAULT|uvm_pkg|-|3|BIN:000010101010101 n=2
+      2 ONLY-GOLDEN key=def|module_inst||work@top|44:1|UVM_ALL_ON|uvm_pkg|-|3|BIN:000000101010101 n=2
+      2 ONLY-GOLDEN key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_RADIX|uvm_pkg|-|5|HEX:f000000 n=1
+      2 ONLY-GOLDEN key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_RADIX|svaunit_pkg|-|5|HEX:f000000 n=1
+      2 ONLY-GOLDEN key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_FLAGS_ON|uvm_pkg|-|3|BIN:000000101010101 n=1
+      2 ONLY-GOLDEN key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_FLAGS_ON|svaunit_pkg|-|3|BIN:000000101010101 n=1
+      2 ONLY-GOLDEN key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_DEFAULT|uvm_pkg|-|3|BIN:000010101010101 n=1
+      2 ONLY-GOLDEN key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_DEFAULT|svaunit_pkg|-|3|BIN:000010101010101 n=1
+      2 ONLY-GOLDEN key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_ALL_ON|uvm_pkg|-|3|BIN:000000101010101 n=1
+      2 ONLY-GOLDEN key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_ALL_ON|svaunit_pkg|-|3|BIN:000000101010101 n=1
+      1 ONLY-OURS key=other|<null>|NumRegsKey|aes_reg_pkg|int_typespec|9|UINT:8 n=3
+      1 ONLY-OURS key=other|<null>|NumRegsIv|aes_reg_pkg|int_typespec|9|UINT:4 n=3
+      1 ONLY-OURS key=other|<null>|NumRegsData|aes_reg_pkg|int_typespec|9|UINT:4 n=3
+      1 ONLY-OURS key=other|<null>|AES_TRIGGER_OFFSET|aes_reg_pkg|logic_typespec|5|HEX:54 n=3
+      1 ONLY-OURS key=other|<null>|AES_STATUS_OFFSET|aes_reg_pkg|logic_typespec|5|HEX:58 n=3
+      1 ONLY-OURS key=other|<null>|AES_KEY7_OFFSET|aes_reg_pkg|logic_typespec|5|HEX:1c n=3
+      1 ONLY-OURS key=other|<null>|AES_KEY6_OFFSET|aes_reg_pkg|logic_typespec|5|HEX:18 n=3
+      1 ONLY-OURS key=other|<null>|AES_KEY5_OFFSET|aes_reg_pkg|logic_typespec|5|HEX:14 n=3
+      1 ONLY-OURS key=other|<null>|AES_KEY4_OFFSET|aes_reg_pkg|logic_typespec|5|HEX:10 n=3
+      1 ONLY-OURS key=other|<null>|AES_KEY3_OFFSET|aes_reg_pkg|logic_typespec|5|HEX:c n=3
+      1 ONLY-OURS key=other|<null>|AES_KEY2_OFFSET|aes_reg_pkg|logic_typespec|5|HEX:8 n=3
+      1 ONLY-OURS key=other|<null>|AES_KEY1_OFFSET|aes_reg_pkg|logic_typespec|5|HEX:4 n=3
+      1 ONLY-OURS key=other|<null>|AES_KEY0_OFFSET|aes_reg_pkg|logic_typespec|5|HEX:0 n=3
+      1 ONLY-OURS key=other|<null>|AES_IV3_OFFSET|aes_reg_pkg|logic_typespec|5|HEX:2c n=3
+      1 ONLY-OURS key=other|<null>|AES_IV2_OFFSET|aes_reg_pkg|logic_typespec|5|HEX:28 n=3
+      1 ONLY-OURS key=other|<null>|AES_IV1_OFFSET|aes_reg_pkg|logic_typespec|5|HEX:24 n=3
+      1 ONLY-OURS key=other|<null>|AES_IV0_OFFSET|aes_reg_pkg|logic_typespec|5|HEX:20 n=3
+      1 ONLY-OURS key=other|<null>|AES_DATA_OUT3_OFFSET|aes_reg_pkg|logic_typespec|5|HEX:4c n=3
+      1 ONLY-OURS key=other|<null>|AES_DATA_OUT2_OFFSET|aes_reg_pkg|logic_typespec|5|HEX:48 n=3
+      1 ONLY-OURS key=other|<null>|AES_DATA_OUT1_OFFSET|aes_reg_pkg|logic_typespec|5|HEX:44 n=3
+      1 ONLY-OURS key=other|<null>|AES_DATA_OUT0_OFFSET|aes_reg_pkg|logic_typespec|5|HEX:40 n=3
+      1 ONLY-OURS key=other|<null>|AES_DATA_IN3_OFFSET|aes_reg_pkg|logic_typespec|5|HEX:3c n=3
+      1 ONLY-OURS key=other|<null>|AES_DATA_IN2_OFFSET|aes_reg_pkg|logic_typespec|5|HEX:38 n=3
+      1 ONLY-OURS key=other|<null>|AES_DATA_IN1_OFFSET|aes_reg_pkg|logic_typespec|5|HEX:34 n=3
+      1 ONLY-OURS key=other|<null>|AES_DATA_IN0_OFFSET|aes_reg_pkg|logic_typespec|5|HEX:30 n=3
+      1 ONLY-OURS key=other|<null>|AES_CTRL_OFFSET|aes_reg_pkg|logic_typespec|5|HEX:50 n=3
+      1 ONLY-OURS key=other|interface_inst|register_if|work@rggen_register_if|749:0|RGGEN_ACCESS_NON_POSTED_BIT|rggen_rtl_pkg|int_typespec|9|UINT:1 n=1
+      1 ONLY-OURS key=other|interface_inst|register_if|work@rggen_register_if|749:0|RGGEN_ACCESS_DATA_BIT|rggen_rtl_pkg|int_typespec|9|UINT:0 n=1
+      1 ONLY-OURS key=other|interface_inst|register_if|work@rggen_register_if|66:0|RGGEN_ACCESS_NON_POSTED_BIT|rggen_rtl_pkg|int_typespec|9|UINT:1 n=1
+      1 ONLY-OURS key=other|interface_inst|register_if|work@rggen_register_if|66:0|RGGEN_ACCESS_DATA_BIT|rggen_rtl_pkg|int_typespec|9|UINT:0 n=1
+      1 ONLY-OURS key=other|interface_inst|register_if|work@rggen_register_if|628:0|RGGEN_ACCESS_NON_POSTED_BIT|rggen_rtl_pkg|int_typespec|9|UINT:1 n=1
+      1 ONLY-OURS key=other|interface_inst|register_if|work@rggen_register_if|628:0|RGGEN_ACCESS_DATA_BIT|rggen_rtl_pkg|int_typespec|9|UINT:0 n=1
+      1 ONLY-OURS key=other|interface_inst|register_if|work@rggen_register_if|528:0|RGGEN_ACCESS_NON_POSTED_BIT|rggen_rtl_pkg|int_typespec|9|UINT:1 n=1
+      1 ONLY-OURS key=other|interface_inst|register_if|work@rggen_register_if|528:0|RGGEN_ACCESS_DATA_BIT|rggen_rtl_pkg|int_typespec|9|UINT:0 n=1
+      1 ONLY-OURS key=other|interface_inst|register_if|work@rggen_register_if|410:0|RGGEN_ACCESS_NON_POSTED_BIT|rggen_rtl_pkg|int_typespec|9|UINT:1 n=1
+      1 ONLY-OURS key=other|interface_inst|register_if|work@rggen_register_if|410:0|RGGEN_ACCESS_DATA_BIT|rggen_rtl_pkg|int_typespec|9|UINT:0 n=1
+      1 ONLY-OURS key=other|interface_inst|register_if|work@rggen_register_if|374:0|RGGEN_ACCESS_NON_POSTED_BIT|rggen_rtl_pkg|int_typespec|9|UINT:1 n=2
+      1 ONLY-OURS key=other|interface_inst|register_if|work@rggen_register_if|374:0|RGGEN_ACCESS_DATA_BIT|rggen_rtl_pkg|int_typespec|9|UINT:0 n=2
+      1 ONLY-OURS key=other|interface_inst|register_if|work@rggen_register_if|366:0|RGGEN_ACCESS_NON_POSTED_BIT|rggen_rtl_pkg|int_typespec|9|UINT:1 n=1
+      1 ONLY-OURS key=other|interface_inst|register_if|work@rggen_register_if|366:0|RGGEN_ACCESS_DATA_BIT|rggen_rtl_pkg|int_typespec|9|UINT:0 n=1
+
+ROBUST TOTALS:
+records=956 rows=956 cellsG=13408 cellsO=13966 AGREE=13260 SIZE-DIFF=492 ONLY-GOLDEN=48 ONLY-OURS=314 RECORDS-COMPLETE

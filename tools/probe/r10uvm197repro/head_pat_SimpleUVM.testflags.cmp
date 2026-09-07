@@ -1,0 +1,17 @@
+LHS: <null>
+RHS:
+decompile:
+ref_typespec: (work@top.UVM_RADIX), id:179072
+|vpiParent:
+\_parameter: (work@top.UVM_RADIX), id:179071, line:99:11, endln:99:20
+|vpiFullName:work@top.UVM_RADIX
+|vpiActual:
+\_int_typespec: , id:179083, line:99:1, endln:99:32
+
+decompile:
+ref_typespec: (work@top.UVM_RADIX), id:179072
+|vpiParent:
+\_parameter: (work@top.UVM_RADIX), id:179071, line:99:11, endln:99:20
+|vpiFullName:work@top.UVM_RADIX
+|vpiActual:
+\_int_typespec: , id:179083, line:99:1, endln:99:32

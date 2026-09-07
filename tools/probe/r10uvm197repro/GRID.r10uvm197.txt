@@ -1,0 +1,144 @@
+ARM g197_a_types parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+ONLY-GOLDEN PRIS:g197_a_types.parse key=def|module_inst||work@tTop|19:1|P_REAL|tPkg|real_typespec|2|REAL:1.5 n=2
+ONLY-OURS PRIS:g197_a_types.parse key=def|module_inst||work@tTop|19:1|P_REAL|tPkg|real_typespec|2|REAL:1.500000 n=2
+ONLY-OURS PRIS:g197_a_types.parse key=def|module_inst||work@tTop|19:1|P_SREAL|tPkg|real_typespec|2|REAL:2.500000 n=2
+ONLY-GOLDEN PRIS:g197_a_types.parse key=def|module_inst||work@tTop|19:1|P_SREAL|tPkg|short_real_typespec|2|REAL:2.5 n=2
+SIZE PRIS:g197_a_types.parse key=def|module_inst||work@tTop|19:1|P_STR|tPkg|string_typespec|6|STRING:hello size=0 G=0 O=2
+SIZE PRIS:g197_a_types.parse key=def|module_inst||work@tTop|19:1|P_STR|tPkg|string_typespec|6|STRING:hello size=40 G=2 O=0
+SIZE PRIS:g197_a_types.parse key=def|module_inst||work@tTop|19:1|P_TSTR|tPkg|string_typespec|6|STRING:tdef size=0 G=0 O=2
+SIZE PRIS:g197_a_types.parse key=def|module_inst||work@tTop|19:1|P_TSTR|tPkg|string_typespec|6|STRING:tdef size=32 G=2 O=0
+ONLY-OURS PRIS:g197_a_types.parse key=elab|module_inst|work@tTop|work@tTop|19:1|P_SREAL|tPkg|real_typespec|2|REAL:2.500000 n=2
+ONLY-GOLDEN PRIS:g197_a_types.parse key=elab|module_inst|work@tTop|work@tTop|19:1|P_SREAL|tPkg|short_real_typespec|2|REAL:2.500000 n=2
+ONLY-GOLDEN PRIS:g197_a_types.parse key=other|design|work@tTop||0:0|P_RANGE|tPkg|int_typespec|1|DEC:12 n=1
+ONLY-OURS PRIS:g197_a_types.parse key=other|design|work@tTop||0:0|P_RANGE|tPkg|int_typespec|7|INT:12 n=1
+ONLY-GOLDEN PRIS:g197_a_types.parse key=other|design|work@tTop||0:0|P_REAL|tPkg|real_typespec|2|REAL:1.5 n=1
+ONLY-OURS PRIS:g197_a_types.parse key=other|design|work@tTop||0:0|P_REAL|tPkg|real_typespec|2|REAL:1.500000 n=1
+ONLY-OURS PRIS:g197_a_types.parse key=other|design|work@tTop||0:0|P_SREAL|tPkg|real_typespec|2|REAL:2.500000 n=1
+ONLY-GOLDEN PRIS:g197_a_types.parse key=other|design|work@tTop||0:0|P_SREAL|tPkg|short_real_typespec|2|REAL:2.5 n=1
+CENSUM PRIS:g197_a_types.parse cellsG=65 cellsO=65 AGREE=52 SIZE-DIFF=8 ONLY-GOLDEN=9 ONLY-OURS=9 UNEQUAL
+ONLY-GOLDEN PATCHED:g197_a_types.parse key=def|module_inst||work@tTop|19:1|P_REAL|tPkg|real_typespec|2|REAL:1.5 n=2
+ONLY-OURS PATCHED:g197_a_types.parse key=def|module_inst||work@tTop|19:1|P_REAL|tPkg|real_typespec|2|REAL:1.500000 n=2
+ONLY-OURS PATCHED:g197_a_types.parse key=def|module_inst||work@tTop|19:1|P_SREAL|tPkg|real_typespec|2|REAL:2.500000 n=2
+ONLY-GOLDEN PATCHED:g197_a_types.parse key=def|module_inst||work@tTop|19:1|P_SREAL|tPkg|short_real_typespec|2|REAL:2.5 n=2
+ONLY-OURS PATCHED:g197_a_types.parse key=elab|module_inst|work@tTop|work@tTop|19:1|P_SREAL|tPkg|real_typespec|2|REAL:2.500000 n=2
+ONLY-GOLDEN PATCHED:g197_a_types.parse key=elab|module_inst|work@tTop|work@tTop|19:1|P_SREAL|tPkg|short_real_typespec|2|REAL:2.500000 n=2
+ONLY-GOLDEN PATCHED:g197_a_types.parse key=other|design|work@tTop||0:0|P_RANGE|tPkg|int_typespec|1|DEC:12 n=1
+ONLY-OURS PATCHED:g197_a_types.parse key=other|design|work@tTop||0:0|P_RANGE|tPkg|int_typespec|7|INT:12 n=1
+ONLY-GOLDEN PATCHED:g197_a_types.parse key=other|design|work@tTop||0:0|P_REAL|tPkg|real_typespec|2|REAL:1.5 n=1
+ONLY-OURS PATCHED:g197_a_types.parse key=other|design|work@tTop||0:0|P_REAL|tPkg|real_typespec|2|REAL:1.500000 n=1
+ONLY-OURS PATCHED:g197_a_types.parse key=other|design|work@tTop||0:0|P_SREAL|tPkg|real_typespec|2|REAL:2.500000 n=1
+ONLY-GOLDEN PATCHED:g197_a_types.parse key=other|design|work@tTop||0:0|P_SREAL|tPkg|short_real_typespec|2|REAL:2.5 n=1
+CENSUM PATCHED:g197_a_types.parse cellsG=65 cellsO=65 AGREE=56 SIZE-DIFF=0 ONLY-GOLDEN=9 ONLY-OURS=9 UNEQUAL
+ARM g197_a_types elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+ONLY-GOLDEN PRIS:g197_a_types.elab key=def|module_inst||work@tTop|19:1|P_REAL|tPkg|real_typespec|2|REAL:1.5 n=2
+ONLY-OURS PRIS:g197_a_types.elab key=def|module_inst||work@tTop|19:1|P_REAL|tPkg|real_typespec|2|REAL:1.500000 n=2
+ONLY-OURS PRIS:g197_a_types.elab key=def|module_inst||work@tTop|19:1|P_SREAL|tPkg|real_typespec|2|REAL:2.500000 n=2
+ONLY-GOLDEN PRIS:g197_a_types.elab key=def|module_inst||work@tTop|19:1|P_SREAL|tPkg|short_real_typespec|2|REAL:2.5 n=2
+SIZE PRIS:g197_a_types.elab key=def|module_inst||work@tTop|19:1|P_STR|tPkg|string_typespec|6|STRING:hello size=0 G=0 O=2
+SIZE PRIS:g197_a_types.elab key=def|module_inst||work@tTop|19:1|P_STR|tPkg|string_typespec|6|STRING:hello size=40 G=2 O=0
+SIZE PRIS:g197_a_types.elab key=def|module_inst||work@tTop|19:1|P_TSTR|tPkg|string_typespec|6|STRING:tdef size=0 G=0 O=2
+SIZE PRIS:g197_a_types.elab key=def|module_inst||work@tTop|19:1|P_TSTR|tPkg|string_typespec|6|STRING:tdef size=32 G=2 O=0
+ONLY-OURS PRIS:g197_a_types.elab key=elab|module_inst|work@tTop|work@tTop|19:1|P_SREAL|tPkg|real_typespec|2|REAL:2.500000 n=2
+ONLY-GOLDEN PRIS:g197_a_types.elab key=elab|module_inst|work@tTop|work@tTop|19:1|P_SREAL|tPkg|short_real_typespec|2|REAL:2.500000 n=2
+ONLY-GOLDEN PRIS:g197_a_types.elab key=other|design|work@tTop||0:0|P_RANGE|tPkg|int_typespec|1|DEC:12 n=1
+ONLY-OURS PRIS:g197_a_types.elab key=other|design|work@tTop||0:0|P_RANGE|tPkg|int_typespec|7|INT:12 n=1
+ONLY-GOLDEN PRIS:g197_a_types.elab key=other|design|work@tTop||0:0|P_REAL|tPkg|real_typespec|2|REAL:1.5 n=1
+ONLY-OURS PRIS:g197_a_types.elab key=other|design|work@tTop||0:0|P_REAL|tPkg|real_typespec|2|REAL:1.500000 n=1
+ONLY-OURS PRIS:g197_a_types.elab key=other|design|work@tTop||0:0|P_SREAL|tPkg|real_typespec|2|REAL:2.500000 n=1
+ONLY-GOLDEN PRIS:g197_a_types.elab key=other|design|work@tTop||0:0|P_SREAL|tPkg|short_real_typespec|2|REAL:2.5 n=1
+CENSUM PRIS:g197_a_types.elab cellsG=65 cellsO=65 AGREE=52 SIZE-DIFF=8 ONLY-GOLDEN=9 ONLY-OURS=9 UNEQUAL
+ONLY-GOLDEN PATCHED:g197_a_types.elab key=def|module_inst||work@tTop|19:1|P_REAL|tPkg|real_typespec|2|REAL:1.5 n=2
+ONLY-OURS PATCHED:g197_a_types.elab key=def|module_inst||work@tTop|19:1|P_REAL|tPkg|real_typespec|2|REAL:1.500000 n=2
+ONLY-OURS PATCHED:g197_a_types.elab key=def|module_inst||work@tTop|19:1|P_SREAL|tPkg|real_typespec|2|REAL:2.500000 n=2
+ONLY-GOLDEN PATCHED:g197_a_types.elab key=def|module_inst||work@tTop|19:1|P_SREAL|tPkg|short_real_typespec|2|REAL:2.5 n=2
+ONLY-OURS PATCHED:g197_a_types.elab key=elab|module_inst|work@tTop|work@tTop|19:1|P_SREAL|tPkg|real_typespec|2|REAL:2.500000 n=2
+ONLY-GOLDEN PATCHED:g197_a_types.elab key=elab|module_inst|work@tTop|work@tTop|19:1|P_SREAL|tPkg|short_real_typespec|2|REAL:2.500000 n=2
+ONLY-GOLDEN PATCHED:g197_a_types.elab key=other|design|work@tTop||0:0|P_RANGE|tPkg|int_typespec|1|DEC:12 n=1
+ONLY-OURS PATCHED:g197_a_types.elab key=other|design|work@tTop||0:0|P_RANGE|tPkg|int_typespec|7|INT:12 n=1
+ONLY-GOLDEN PATCHED:g197_a_types.elab key=other|design|work@tTop||0:0|P_REAL|tPkg|real_typespec|2|REAL:1.5 n=1
+ONLY-OURS PATCHED:g197_a_types.elab key=other|design|work@tTop||0:0|P_REAL|tPkg|real_typespec|2|REAL:1.500000 n=1
+ONLY-OURS PATCHED:g197_a_types.elab key=other|design|work@tTop||0:0|P_SREAL|tPkg|real_typespec|2|REAL:2.500000 n=1
+ONLY-GOLDEN PATCHED:g197_a_types.elab key=other|design|work@tTop||0:0|P_SREAL|tPkg|short_real_typespec|2|REAL:2.5 n=1
+CENSUM PATCHED:g197_a_types.elab cellsG=65 cellsO=65 AGREE=56 SIZE-DIFF=0 ONLY-GOLDEN=9 ONLY-OURS=9 UNEQUAL
+ARM g197_b_bodyimp parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+SIZE PRIS:g197_b_bodyimp.parse key=def|module_inst||work@bodyTop|5:1|S_MGC|strPkg|string_typespec|6|STRING:hello world size=0 G=0 O=1
+SIZE PRIS:g197_b_bodyimp.parse key=def|module_inst||work@bodyTop|5:1|S_MGC|strPkg|string_typespec|6|STRING:hello world size=88 G=1 O=0
+CENSUM PRIS:g197_b_bodyimp.parse cellsG=4 cellsO=4 AGREE=3 SIZE-DIFF=2 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CENSUM PATCHED:g197_b_bodyimp.parse cellsG=4 cellsO=4 AGREE=4 SIZE-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+ARM g197_b_bodyimp elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+SIZE PRIS:g197_b_bodyimp.elab key=def|module_inst||work@bodyTop|5:1|S_MGC|strPkg|string_typespec|6|STRING:hello world size=0 G=0 O=1
+SIZE PRIS:g197_b_bodyimp.elab key=def|module_inst||work@bodyTop|5:1|S_MGC|strPkg|string_typespec|6|STRING:hello world size=88 G=1 O=0
+CENSUM PRIS:g197_b_bodyimp.elab cellsG=4 cellsO=4 AGREE=3 SIZE-DIFF=2 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CENSUM PATCHED:g197_b_bodyimp.elab cellsG=4 cellsO=4 AGREE=4 SIZE-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+ARM g197_c_kinds parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+SIZE PRIS:g197_c_kinds.parse key=defif|interface_inst||work@cIf|10:1|C_STR|cPkg|string_typespec|6|STRING:cee size=0 G=0 O=2
+SIZE PRIS:g197_c_kinds.parse key=defif|interface_inst||work@cIf|10:1|C_STR|cPkg|string_typespec|6|STRING:cee size=24 G=2 O=0
+SIZE PRIS:g197_c_kinds.parse key=defprog|program||work@cProg|11:1|C_STR|cPkg|string_typespec|6|STRING:cee size=0 G=0 O=2
+SIZE PRIS:g197_c_kinds.parse key=defprog|program||work@cProg|11:1|C_STR|cPkg|string_typespec|6|STRING:cee size=24 G=2 O=0
+SIZE PRIS:g197_c_kinds.parse key=def|module_inst||work@cMod|9:1|C_STR|cPkg|string_typespec|6|STRING:cee size=0 G=0 O=2
+SIZE PRIS:g197_c_kinds.parse key=def|module_inst||work@cMod|9:1|C_STR|cPkg|string_typespec|6|STRING:cee size=24 G=2 O=0
+CENSUM PRIS:g197_c_kinds.parse cellsG=18 cellsO=18 AGREE=12 SIZE-DIFF=12 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CENSUM PATCHED:g197_c_kinds.parse cellsG=18 cellsO=18 AGREE=18 SIZE-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+ARM g197_c_kinds elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+SIZE PRIS:g197_c_kinds.elab key=defif|interface_inst||work@cIf|10:1|C_STR|cPkg|string_typespec|6|STRING:cee size=0 G=0 O=2
+SIZE PRIS:g197_c_kinds.elab key=defif|interface_inst||work@cIf|10:1|C_STR|cPkg|string_typespec|6|STRING:cee size=24 G=2 O=0
+SIZE PRIS:g197_c_kinds.elab key=defprog|program||work@cProg|11:1|C_STR|cPkg|string_typespec|6|STRING:cee size=0 G=0 O=2
+SIZE PRIS:g197_c_kinds.elab key=defprog|program||work@cProg|11:1|C_STR|cPkg|string_typespec|6|STRING:cee size=24 G=2 O=0
+SIZE PRIS:g197_c_kinds.elab key=def|module_inst||work@cMod|9:1|C_STR|cPkg|string_typespec|6|STRING:cee size=0 G=0 O=2
+SIZE PRIS:g197_c_kinds.elab key=def|module_inst||work@cMod|9:1|C_STR|cPkg|string_typespec|6|STRING:cee size=24 G=2 O=0
+CENSUM PRIS:g197_c_kinds.elab cellsG=18 cellsO=18 AGREE=12 SIZE-DIFF=12 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CENSUM PATCHED:g197_c_kinds.elab cellsG=18 cellsO=18 AGREE=18 SIZE-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+ARM g197_d_explicit parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+SIZE PRIS:g197_d_explicit.parse key=def|module_inst||work@dMod|9:1|D_UNUSED|dPkg|string_typespec|6|STRING:unusedstring size=0 G=0 O=1
+SIZE PRIS:g197_d_explicit.parse key=def|module_inst||work@dMod|9:1|D_UNUSED|dPkg|string_typespec|6|STRING:unusedstring size=96 G=1 O=0
+SIZE PRIS:g197_d_explicit.parse key=def|module_inst||work@dMod|9:1|D_USED|dPkg|string_typespec|6|STRING:used size=0 G=0 O=1
+SIZE PRIS:g197_d_explicit.parse key=def|module_inst||work@dMod|9:1|D_USED|dPkg|string_typespec|6|STRING:used size=32 G=1 O=0
+CENSUM PRIS:g197_d_explicit.parse cellsG=6 cellsO=6 AGREE=4 SIZE-DIFF=4 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CENSUM PATCHED:g197_d_explicit.parse cellsG=6 cellsO=6 AGREE=6 SIZE-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+ARM g197_d_explicit elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+SIZE PRIS:g197_d_explicit.elab key=def|module_inst||work@dMod|9:1|D_UNUSED|dPkg|string_typespec|6|STRING:unusedstring size=0 G=0 O=1
+SIZE PRIS:g197_d_explicit.elab key=def|module_inst||work@dMod|9:1|D_UNUSED|dPkg|string_typespec|6|STRING:unusedstring size=96 G=1 O=0
+SIZE PRIS:g197_d_explicit.elab key=def|module_inst||work@dMod|9:1|D_USED|dPkg|string_typespec|6|STRING:used size=0 G=0 O=1
+SIZE PRIS:g197_d_explicit.elab key=def|module_inst||work@dMod|9:1|D_USED|dPkg|string_typespec|6|STRING:used size=32 G=1 O=0
+CENSUM PRIS:g197_d_explicit.elab cellsG=6 cellsO=6 AGREE=4 SIZE-DIFF=4 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CENSUM PATCHED:g197_d_explicit.elab cellsG=6 cellsO=6 AGREE=6 SIZE-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+ARM g197_e_reexport parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+SIZE PRIS:g197_e_reexport.parse key=def|module_inst||work@eMod|11:1|E_IN|eOuter|string_typespec|6|STRING:innerstring size=0 G=0 O=1
+SIZE PRIS:g197_e_reexport.parse key=def|module_inst||work@eMod|11:1|E_IN|eOuter|string_typespec|6|STRING:innerstring size=88 G=1 O=0
+SIZE PRIS:g197_e_reexport.parse key=def|module_inst||work@eMod|11:1|E_OUT|eOuter|string_typespec|6|STRING:outerstring size=0 G=0 O=1
+SIZE PRIS:g197_e_reexport.parse key=def|module_inst||work@eMod|11:1|E_OUT|eOuter|string_typespec|6|STRING:outerstring size=88 G=1 O=0
+CENSUM PRIS:g197_e_reexport.parse cellsG=6 cellsO=6 AGREE=4 SIZE-DIFF=4 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CENSUM PATCHED:g197_e_reexport.parse cellsG=6 cellsO=6 AGREE=6 SIZE-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+ARM g197_e_reexport elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+SIZE PRIS:g197_e_reexport.elab key=def|module_inst||work@eMod|11:1|E_IN|eOuter|string_typespec|6|STRING:innerstring size=0 G=0 O=1
+SIZE PRIS:g197_e_reexport.elab key=def|module_inst||work@eMod|11:1|E_IN|eOuter|string_typespec|6|STRING:innerstring size=88 G=1 O=0
+SIZE PRIS:g197_e_reexport.elab key=def|module_inst||work@eMod|11:1|E_OUT|eOuter|string_typespec|6|STRING:outerstring size=0 G=0 O=1
+SIZE PRIS:g197_e_reexport.elab key=def|module_inst||work@eMod|11:1|E_OUT|eOuter|string_typespec|6|STRING:outerstring size=88 G=1 O=0
+CENSUM PRIS:g197_e_reexport.elab cellsG=6 cellsO=6 AGREE=4 SIZE-DIFF=4 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CENSUM PATCHED:g197_e_reexport.elab cellsG=6 cellsO=6 AGREE=6 SIZE-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+ARM g197_f_escapes parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+SIZE PRIS:g197_f_escapes.parse key=def|module_inst||work@fMod|11:1|F_BS|fPkg|string_typespec|6|STRING:a\\b size=0 G=0 O=2
+SIZE PRIS:g197_f_escapes.parse key=def|module_inst||work@fMod|11:1|F_BS|fPkg|string_typespec|6|STRING:a\\b size=32 G=2 O=0
+SIZE PRIS:g197_f_escapes.parse key=def|module_inst||work@fMod|11:1|F_NL|fPkg|string_typespec|6|STRING:a\nb size=0 G=0 O=2
+SIZE PRIS:g197_f_escapes.parse key=def|module_inst||work@fMod|11:1|F_NL|fPkg|string_typespec|6|STRING:a\nb size=32 G=2 O=0
+SIZE PRIS:g197_f_escapes.parse key=def|module_inst||work@fMod|11:1|F_QUOT|fPkg|string_typespec|6|STRING:a\"b size=0 G=0 O=2
+SIZE PRIS:g197_f_escapes.parse key=def|module_inst||work@fMod|11:1|F_QUOT|fPkg|string_typespec|6|STRING:a\"b size=32 G=2 O=0
+SIZE PRIS:g197_f_escapes.parse key=def|module_inst||work@fMod|11:1|F_TAB|fPkg|string_typespec|6|STRING:a\tb size=0 G=0 O=2
+SIZE PRIS:g197_f_escapes.parse key=def|module_inst||work@fMod|11:1|F_TAB|fPkg|string_typespec|6|STRING:a\tb size=32 G=2 O=0
+CENSUM PRIS:g197_f_escapes.parse cellsG=20 cellsO=20 AGREE=12 SIZE-DIFF=16 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CENSUM PATCHED:g197_f_escapes.parse cellsG=20 cellsO=20 AGREE=20 SIZE-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+ARM g197_f_escapes elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+SIZE PRIS:g197_f_escapes.elab key=def|module_inst||work@fMod|11:1|F_BS|fPkg|string_typespec|6|STRING:a\\b size=0 G=0 O=2
+SIZE PRIS:g197_f_escapes.elab key=def|module_inst||work@fMod|11:1|F_BS|fPkg|string_typespec|6|STRING:a\\b size=32 G=2 O=0
+SIZE PRIS:g197_f_escapes.elab key=def|module_inst||work@fMod|11:1|F_NL|fPkg|string_typespec|6|STRING:a\nb size=0 G=0 O=2
+SIZE PRIS:g197_f_escapes.elab key=def|module_inst||work@fMod|11:1|F_NL|fPkg|string_typespec|6|STRING:a\nb size=32 G=2 O=0
+SIZE PRIS:g197_f_escapes.elab key=def|module_inst||work@fMod|11:1|F_QUOT|fPkg|string_typespec|6|STRING:a\"b size=0 G=0 O=2
+SIZE PRIS:g197_f_escapes.elab key=def|module_inst||work@fMod|11:1|F_QUOT|fPkg|string_typespec|6|STRING:a\"b size=32 G=2 O=0
+SIZE PRIS:g197_f_escapes.elab key=def|module_inst||work@fMod|11:1|F_TAB|fPkg|string_typespec|6|STRING:a\tb size=0 G=0 O=2
+SIZE PRIS:g197_f_escapes.elab key=def|module_inst||work@fMod|11:1|F_TAB|fPkg|string_typespec|6|STRING:a\tb size=32 G=2 O=0
+CENSUM PRIS:g197_f_escapes.elab cellsG=20 cellsO=20 AGREE=12 SIZE-DIFF=16 ONLY-GOLDEN=0 ONLY-OURS=0 UNEQUAL
+CENSUM PATCHED:g197_f_escapes.elab cellsG=20 cellsO=20 AGREE=20 SIZE-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 equal
+-- CELLS BUILT: 12
+-- PRISTINE  12 cells, SIZE-DIFF total 92, ONLY-GOLDEN 18, ONLY-OURS 18, AGREE 174
+-- PATCHED   12 cells, SIZE-DIFF total 0, ONLY-GOLDEN 18, ONLY-OURS 18, AGREE 220
+-- NONZERO RCs: 0

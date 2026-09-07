@@ -1,0 +1,116 @@
+r10uvm197 — GATES, all run from this pass's OWN worktree with SLANG_UHDM exported
+explicitly to each frozen binary and EVERY cmds.txt audited BY BINARY PATH.
+
+BASE                f7a77143
+pristine binary     md5 a2733a6622a01308a82a434a9e747d5e  (chmod 555)
+                    — BYTE-IDENTICAL to the main tree's own binary at f7a77143
+patched binary      md5 509209e7d53d55dc7c8b79165aed9f56  (chmod 555)
+                    — the patch applied to a FRESH f7a77143 worktree and rebuilt
+                      there produces the BYTE-IDENTICAL binary, same md5
+
+(1) BUILD           both built -j 2 in this worktree, md5 taken separately (above).
+                    0 compiler errors.
+
+(2) GOLDENS         patched  PASS=23 FAIL=0
+                    pristine PASS=23 FAIL=0
+                    negative control (SLANG_UHDM=/bin/false) PASS=0 FAIL=23
+
+(3) BINARY-PATH AUDIT of every cmds.txt in every sweep
+    pristine surelog  1523 rows, all /tmp/r10uvm197_bin/pristine
+    patched  surelog  1523 rows, all /tmp/r10uvm197_bin/patched
+    pristine u2r      1458 rows, all /tmp/r10uvm197_bin/pristine
+    patched  u2r      1458 rows, all /tmp/r10uvm197_bin/patched
+
+(4) STATUS HISTOGRAMS (identical pristine -> patched on every mode of both corpora)
+    surelog pristine  default   {'CMP_EQUAL': 472, 'CMP_NOTEQUAL': 9, 'DEFERRED': 5, 'SLANG_REJECT': 283, 'SURELOG_FAIL': 25}
+    surelog pristine  testflags {'CMP_EQUAL': 468, 'CMP_NOTEQUAL': 7, 'DEFERRED': 5, 'NO_DATABASE': 3, 'NO_UHDM': 1, 'SLANG_REJECT': 284, 'SURELOG_FAIL': 23, 'TIMEOUT': 1, 'UNTRANSLATABLE': 2}
+    surelog patched   default   {'CMP_EQUAL': 472, 'CMP_NOTEQUAL': 9, 'DEFERRED': 5, 'SLANG_REJECT': 283, 'SURELOG_FAIL': 25}
+    surelog patched   testflags {'CMP_EQUAL': 468, 'CMP_NOTEQUAL': 7, 'DEFERRED': 5, 'NO_DATABASE': 3, 'NO_UHDM': 1, 'SLANG_REJECT': 284, 'SURELOG_FAIL': 23, 'TIMEOUT': 1, 'UNTRANSLATABLE': 2}
+    u2r     pristine tf   {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+    u2r     patched  tf   {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+    u2r     pristine def  {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+    u2r     patched  def  {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+(5) ct8rows — WHOLE-ROW diff, status AND dump column
+    surelog   own pristine        vs patched     : PASS, every row byte-identical (1588 rows)
+    surelog   results/golden_surelog.csv vs patched: 1 differing row, quoted below (*)
+    u2r tf    own pristine        vs patched     : PASS (731 rows)
+    u2r tf    results/gate_uhdm2rtlil.csv vs patched: PASS
+    u2r def   own pristine        vs patched     : PASS (731 rows)
+
+    (*) THE ONE ROW, and it is NOT this pass's:
+          < Earlgrey_0_1,testflags,CMP_EQUAL,,,differ      (committed baseline)
+          > Earlgrey_0_1,testflags,CMP_EQUAL,,,            (this pass)
+        The STATUS is CMP_EQUAL on both sides; only the informational dump column
+        moves.  This pass's OWN PRISTINE sweep produces the identical cell, so the
+        difference is between the committed CSV (written at an older HEAD) and
+        f7a77143 — not between the two binaries.  NO ROW CONVERTED in either
+        direction; results/*.csv were READ ONLY and nothing was promoted.
+        BuildUVMPkg x2 and Earlgrey_0_1/testflags all stay CMP_EQUAL, both binaries.
+
+(6) byteverify SELFCHECK=1  (patched sweep vs this pass's own pristine sweep)
+    surelog    PATH_SETS_IDENTICAL (956 paths)   MOVERS 7 / 956
+               SELFCHECK 955/956 flagged (the comparator can see)
+    u2r        PATH_SETS_IDENTICAL (1358 paths)  MOVERS 0 / 1358
+               SELFCHECK 1357/1358 flagged
+    The 7:  default+testflags SimpleUVM, SeqDriver, MiniAmiq — SIX PREDICTED BY NAME
+            from PRISTINE databases before the patched binary existed
+            (PREDICTION.pristine.r10uvm197.txt) — plus default/Scoreboard, whose
+            ORDER-BLIND sorted-dump diff is ADDED 0 / REMOVED 0: RESUME §9's ~50/50
+            COIN, not this law (ATTRIBUTION.r10uvm197.txt).
+
+(7) CANARIES
+    canaries.sh  surelog patched vs own pristine : ok=52 changed=0 absent=0
+    canaries.sh  u2r     patched vs own pristine : ok=8  changed=0 absent=0
+    canaries.sh  surelog patched vs committed    : ok=51 changed=1 — the SAME
+        Earlgrey_0_1/testflags dump-column cell as (5), and the PRISTINE binary
+        scores ok=51 changed=1 against the committed CSV too.
+    ctcan2 surelog (committed vs patched)   : PASS
+    ctcan2 u2r     (committed vs patched)   : PASS
+    ctcan2 surelog (own pristine vs patched): PASS
+    canaudit.sh canaries.sh ctcan2.sh       : audited=29 UNCOVERED=0 FENCE-BREACH=0
+
+(8) PROTECTED DATABASES (md5 prefix, this pass's pristine sweep vs its patched sweep)
+    InterfaceModPort   default   59a365f3ce2c  59a365f3ce2c  SAME
+    InterfaceModPort   testflags 59a365f3ce2c  59a365f3ce2c  SAME
+    BlackParrotComplex default   e3e354129d5a  e3e354129d5a  SAME
+    BlackParrotComplex testflags 73a10e8217e5  73a10e8217e5  SAME
+    YosysOldOr         default   d68e0796d62c  d68e0796d62c  SAME
+    YosysOldOr         testflags d68e0796d62c  d68e0796d62c  SAME
+    SVSwitch           default   4842211c4030  4842211c4030  SAME  (pinned prefix)
+    SVSwitch           testflags 4842211c4030  4842211c4030  SAME  (pinned prefix)
+    YosysVerx          default   6ccda350c24a  6ccda350c24a  SAME  (pinned prefix)
+    YosysVerx          testflags 6ccda350c24a  6ccda350c24a  SAME  (pinned prefix)
+
+(9) HEADS (tools/probe/r10uvm197repro/rowheads.sh — the OFFICIAL uhdm-cmp)
+
+    row / mode              pristine          patched           cmp log
+    SeqDriver.default       198 / 1 head      198 / 1 head      BYTE-IDENTICAL
+    SeqDriver.testflags     198 / 1 head      198 / 1 head      BYTE-IDENTICAL
+    SimpleUVM.default        62 / 1 head       17 / 1 head      CHANGED (the head)
+    SimpleUVM.testflags      62 / 1 head       17 / 1 head      CHANGED (the head)
+    Scoreboard.default       95 / 1 head       95 / 1 head      BYTE-IDENTICAL
+    MiniAmiq.default        198 / 1 head      198 / 1 head      BYTE-IDENTICAL
+    MiniAmiq.testflags      198 / 1 head      198 / 1 head      BYTE-IDENTICAL
+    BuildUVMPkg.default       0 / 0            0 / 0            BYTE-IDENTICAL
+    BuildUVMPkg.testflags     0 / 0            0 / 0            BYTE-IDENTICAL
+    Earlgrey_0_1.default     56 / 1 head       56 / 1 head      BYTE-IDENTICAL
+    Earlgrey_0_1.testflags    0 / 0            0 / 0            BYTE-IDENTICAL
+    Rggen.default             0 / 0            0 / 0            BYTE-IDENTICAL
+    (Scoreboard/testflags and Rggen/testflags print SKIP-NOFILE on both binaries —
+     those rows build no golden; the counter names them rather than dropping them.)
+
+    SeqDriver and MiniAmiq are byte MOVERS whose cmp logs are BYTE-IDENTICAL: their
+    198-line heads fire EARLIER than this law's cells, so the 12 sizes each gained
+    sit behind the head and the judge never reaches them.  Nothing regressed there.
+
+(10) BOUNDARY (bound197.sh over a COPY of the whole probe tree, both views)
+    LISTED=5227 PROCESSED=5227 PRODUCED_DBS=5042 MOVED_ARMS=36 RC_DIFFS=0
+    Every moved arm rebuilt with a REAL Surelog golden in BOTH views and scored
+    (bscore197.sh): 72 views, MISSING-ARMS 0, NODB-views 0,
+    TO-GOLDEN 172, AWAY-GOLDEN 0.
+    THE FLOOR, checked BY NAME in the moved list rather than assumed:
+      uvm192 (4 arms) uvm193 (4) uvm184 (2) uvm194 (3) uvm186 (3) uvm189 (3)
+      uvm191 (3) uvm185 (5) uvm190 (4) uvm187 (6) uvm188 (4) uvm170 (5)
+      uvm82-91 (113) buvm3-15 (119) sd8-12 (347)  — 625 arms, MOVED = 0.
+    uvm196's own POSITIVE CONTROL g196_h_self.sv DOES move (it declares
+    a `parameter string ANVIL_NAME`): TO-GOLDEN 4, AWAY 0, in both views.

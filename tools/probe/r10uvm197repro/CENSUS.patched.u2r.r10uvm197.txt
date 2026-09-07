@@ -1,0 +1,12 @@
+r10uvm197 — MATERIALIZED-PARAMETER CONSTANT-SIZE CENSUS, golden x ours, patched binary, u2r corpus.
+One CELL = a param_assign whose Lhs parameter carries vpiImported and whose Rhs is a constant.
+Key = view | owner face | param | vpiImported | typespec kind | vpiConstType | value; payload = VpiSize.
+TRIMMED: the per-row CENSUM lines are kept only for rows that are UNEQUAL, plus every
+disagreeing cell, plus the robust totals (censum197.sh — an xargs -P interleave can glue a
+CENSUM onto another line, so a ^-anchored grep undercounts).
+
+
+
+
+ROBUST TOTALS:
+records=1358 rows=1358 cellsG=190 cellsO=190 AGREE=190 SIZE-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 RECORDS-COMPLETE

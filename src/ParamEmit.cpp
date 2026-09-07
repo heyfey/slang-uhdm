@@ -13757,8 +13757,48 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // (int -> 32), exactly like the elab view — NOT the package
                 // def's raw 64-bit bare decimal (Surelog sizes the copy, not
                 // the source literal).
+                //
+                // § impCopyStringConstSize — ...but ONLY WHEN THE DECLARED TYPE
+                // HAS A WIDTH.  A `string` parameter has none, so
+                // `getBitWidth()` answers 0 and the stamp WIPED a size the emit
+                // chain had already got right, leaving `vpiSize` unset on the
+                // copy's constant.
+                //
+                // PRODUCER.  `CompileHelper::importPackage`
+                // (Surelog src/DesignCompile/CompileHelper.cpp:238-273)
+                // materializes the copy with
+                //
+                //     ElaboratorContext elaboratorContext(&s, false, true);
+                //     UHDM::param_assign* cpass =
+                //         (UHDM::param_assign*)UHDM::clone_tree(pass, &ctx);
+                //
+                // over the PACKAGE's own already-compiled `param_assign` — Rhs
+                // constant included.  There is no re-size step in that clone;
+                // the only thing Surelog ever re-sizes is an INTEGRAL target
+                // (`CompileHelper::adjustSize`, whose arms are all typespec
+                // kinds with a width), which is exactly the population the
+                // type-width stamp above models.  A STRING copy therefore keeps
+                // the package constant's own size: 8 bits per character.
+                //
+                // MEASURED, one REAL Surelog golden per arm, DEF and ELAB views
+                // (tools/probe/r10uvm197repro/grid197): a package of 13
+                // parameters wildcard-imported into a module lists, in the
+                // module's DEFINITION view,
+                //   `string`   "hello"    -> 40      (8 x 5)
+                //   a `string` TYPEDEF    -> 32      (8 x 4)
+                //   untyped `= "untyped"` -> 56      (already right: !typedParam)
+                //   int 32 / integer 32 / byte 8 / logic [7:0] 8 / nib_t 4 /
+                //   bit 1 / [5:0] 6 / time 64        (all already right)
+                // and the same sizes in the ELABORATED view, where our own
+                // emission already agreed on every row.  SimpleUVM is the
+                // corpus witness: uvm_version.svh:26 `parameter string
+                // uvm_mgc_copyright = "(C) 2007-2014 Mentor Graphics
+                // Corporation"` materialized into `work@top` — golden 328,
+                // ours unset — and the five siblings that ride the same road
+                // (`uvm_{cdn,snps,cy,nv}_copyright`, `uvm_revision`).
                 if (isImported && !topView && typedParam &&
-                    rhs->UhdmType() == UHDM::uhdmconstant)
+                    rhs->UhdmType() == UHDM::uhdmconstant &&
+                    ps.getType().getBitWidth() > 0)
                     ((UHDM::constant*)rhs)
                         ->VpiSize((int32_t)ps.getType().getBitWidth());
                 // § impCopyCastFold — a MODULE's MATERIALIZED IMPORT COPY of a

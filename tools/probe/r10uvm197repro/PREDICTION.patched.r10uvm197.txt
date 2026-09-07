@@ -1,0 +1,4 @@
+r10uvm197 — the SAME prediction re-run on the PATCHED databases: zero-size cells 72 -> 0.
+
+  surelog  rows=956 cells=13966 zero-size-cells=0
+  u2r      rows=1358 cells=190 zero-size-cells=0
