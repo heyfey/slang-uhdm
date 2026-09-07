@@ -1,0 +1,20 @@
+=== GATES.r10v199 — verifier's own battery, BASE 078597b7 ===
+binaries (built from FRESH 078597b7 worktrees, -j 2, frozen chmod 555):
+  pristine  509209e7d53d55dc7c8b79165aed9f56   (= implementer's, reproduced bit-for-bit)
+  patched   e950ec36eb6d946937966eeee18f8642   (= implementer's, reproduced bit-for-bit)
+  fixed     5750d99a4df7f0e7a7b225262f6a8763   (patch + § parenCastWidthLhsKeepsTs199v)
+
+goldens: PRIS 23 PASS / 0 FAIL   PAT 23/0   FIX 23/0   negative control (/bin/false) 0 PASS / 23 FAIL
+surelog rows  patched vs OWN pristine : PASS, every row byte-identical (1588 rows)
+u2r tf rows   patched vs OWN pristine : PASS ; u2r default : PASS ; vs committed gate : PASS
+byteverify surelog SELFCHECK=1 : MOVERS 6 / 956 (955/956 selfcheck-flagged)
+byteverify u2r     SELFCHECK=1 : MOVERS 0 / 1358 (1357/1358 selfcheck-flagged)
+canaries sl ok=52 changed=0 ; canaries u2r ok=8 changed=0
+ctcan2 sl PASS ; ctcan2 u2r PASS ; canaudit audited=29 UNCOVERED=0 FENCE-BREACH=0
+protected DBs byte-identical: InterfaceModPort BlackParrotComplex YosysOldOr ; SVSwitch 4842211c4030 ; YosysVerx 6ccda350c24a
+cmds.txt audit: 1523/1573 name the frozen binary by PATH; the other 50 are golden-cache-hit rows that never invoked it; NO cmds.txt names any other slang-uhdm binary.
+
+=== the six byte movers, by name ===
+  default/MiniAmiq  default/SeqDriver  default/SimpleUVM
+  testflags/MiniAmiq testflags/SeqDriver testflags/SimpleUVM
+  (Scoreboard/default did NOT move in this verifier's run; RESUME 9's coin.)

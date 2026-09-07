@@ -1,0 +1,12 @@
+SimpleUVM/default, whole-database object counts, golden x pristine x patched
+OBJSUM G total=188084 kinds=95
+OBJSUM P total=185005 kinds=95
+OBJSUM Q total=184965 kinds=95
+
+kind                     golden     pris  patched  pris-gld  pat-gld
+constant                  25716    24201    24185     -1515    -1531
+int_typespec               3022     3038     3030       +16       +8
+range                      1539      940      932      -599     -607
+ref_typespec              19364    18583    18575      -781     -789
+-- kinds whose count moved: only those listed.  objects removed = 40
+-- database totals: golden 188084  pristine 185005  patched 184965  delta 40

@@ -5228,10 +5228,46 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 if (up->VpiLocalParam())
                     upLhs9->VpiLocalParam(true);
                 upLhs9->VpiParent(pa);
-                prtLhs9 = s.MakeRef_typespec();
-                prtLhs9->VpiFullName(std::string(prt->VpiFullName()));
-                prtLhs9->VpiParent(upLhs9);
-                upLhs9->Typespec(prtLhs9);
+                // § impUnsizedBasedLhsNoTs199 — the Lhs clone MIRRORS the
+                // Parameters-listing twin it was cloned from.  Surelog
+                // materializes an imported parameter by `clone_tree`-ing the
+                // package's OWN `param_assign` (CompileHelper::importPackage,
+                // Surelog/src/DesignCompile/CompileHelper.cpp:238-273), so the
+                // copy carries exactly the typespec the package declaration
+                // carries — and an UNTYPED parameter whose default is an
+                // UNSIZED BASED literal ('hf000000, 'b0101…, 'o777) carries
+                // NONE at all (§ implicitUnsizedBasedNoTs102: CompileHelper.cpp
+                // :3795-3840 mints the implicit `int_typespec` only when the
+                // reduced constant's `VpiSize() != -1`, and an unsized based
+                // literal has size -1).  `up` above already declines it; this
+                // clone was attaching one regardless, so the DEF-view copy
+                // ended up with a typespec its own twin has not got.  Measured
+                // on real Surelog goldens (`grid199`): hex/octal/binary unsized
+                // untyped copies carry no typespec in the def MODULE, INTERFACE
+                // and PROGRAM listings, at one copy (body import) and at two
+                // (file-scope item) alike, while sized, plain-decimal,
+                // decimal-based, unbased-unsized, string, ranged, explicitly
+                // signed, typed and typedef'd copies all keep theirs.
+                //
+                // § parenCastWidthLhsKeepsTs199v (VERIFIER) — the mirror is
+                // read off `up`, and `up`'s own gate
+                // (§ implicitUnsizedBasedNoTs102, :4732) does not yet know
+                // about PAREN-CAST-WIDTH params.  Golden gives `parameter
+                // W = 'h8;` an `int_typespec` in EVERY listing once the
+                // package writes `(W)'(x)` (measured: `v199_l_castw` has it
+                // on all four listings, the `v199_m_ctl` control with
+                // `W + 1` instead of the cast has it on none) — so a bare
+                // mirror would carry that declaration-side over-decline into
+                // a def-view Lhs cell the pristine emitter happened to get
+                // RIGHT.  Keeping the attach for exactly that shape leaves
+                // every cell either the pristine value or the mirror value
+                // and never a third one.  The real repair belongs at :4732.
+                if (up->Typespec() || isParenCastWidthParam(ps.name)) {
+                    prtLhs9 = s.MakeRef_typespec();
+                    prtLhs9->VpiFullName(std::string(prt->VpiFullName()));
+                    prtLhs9->VpiParent(upLhs9);
+                    upLhs9->Typespec(prtLhs9);
+                }
                 pa->Lhs(upLhs9);
             }
         }

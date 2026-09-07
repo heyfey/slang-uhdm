@@ -1,0 +1,91 @@
+=== § parenCastWidthLhsKeepsTs199v — the one cell the mirror broke, and the control ===
+
+-- v199_l_castw.sv : parameter L_W = 'h8;  parameter logic [31:0] L_VAL = (L_W)'(3);
+  l_castw.def.pris TS AGREE=38 DIFF-G=10 DIFF-O=10 ONLY-G=0 ONLY-O=0
+  l_castw.def.pat TS AGREE=36 DIFF-G=12 DIFF-O=12 ONLY-G=0 ONLY-O=0
+  l_castw.def.fix TS AGREE=38 DIFF-G=10 DIFF-O=10 ONLY-G=0 ONLY-O=0
+  l_castw.elab.pris TS AGREE=38 DIFF-G=10 DIFF-O=10 ONLY-G=0 ONLY-O=0
+  l_castw.elab.pat TS AGREE=36 DIFF-G=12 DIFF-O=12 ONLY-G=0 ONLY-O=0
+  l_castw.elab.fix TS AGREE=38 DIFF-G=10 DIFF-O=10 ONLY-G=0 ONLY-O=0
+
+-- the differing keys, PRISTINE (the cell in question is ABSENT = agreeing):
+PRIS TS AGREE=38 DIFF-G=10 DIFF-O=10 ONLY-G=0 ONLY-O=0
+   DIFF def|module_inst|work@vl|Parameters|L_W {'G': {'ref->int_typespec\timp=vpl': 2}, 'O': {'NO-TS\timp=vpl': 2}}
+   DIFF defpkg|package|vpl|PA.Lhs|L_W {'G': {'ref->int_typespec\timp=': 1}, 'O': {'NO-TS\timp=': 1}}
+   DIFF defpkg|package|vpl|Parameters|L_W {'G': {'ref->int_typespec\timp=': 1}, 'O': {'NO-TS\timp=': 1}}
+   DIFF elab|module_inst|work@vl|PA.Lhs|L_W {'G': {'ref->int_typespec\timp=vpl': 2}, 'O': {'NO-TS\timp=vpl': 2}}
+   DIFF elab|module_inst|work@vl|Parameters|L_W {'G': {'ref->int_typespec\timp=vpl': 2}, 'O': {'NO-TS\timp=vpl': 2}}
+   DIFF elabpkg|package|vpl|PA.Lhs|L_W {'G': {'ref->int_typespec\timp=': 1}, 'O': {'NO-TS\timp=': 1}}
+   DIFF elabpkg|package|vpl|Parameters|L_W {'G': {'ref->int_typespec\timp=': 1}, 'O': {'NO-TS\timp=': 1}}
+PRIS RHS AGREE=22 DIFF-G=2 DIFF-O=2 ONLY-G=0 ONLY-O=0
+-- the differing keys, PATCHED (one NEW key: def ... PA.Lhs L_W):
+PAT TS AGREE=36 DIFF-G=12 DIFF-O=12 ONLY-G=0 ONLY-O=0
+   DIFF def|module_inst|work@vl|PA.Lhs|L_W {'G': {'ref->int_typespec\timp=vpl': 2}, 'O': {'NO-TS\timp=vpl': 2}}
+   DIFF def|module_inst|work@vl|Parameters|L_W {'G': {'ref->int_typespec\timp=vpl': 2}, 'O': {'NO-TS\timp=vpl': 2}}
+   DIFF defpkg|package|vpl|PA.Lhs|L_W {'G': {'ref->int_typespec\timp=': 1}, 'O': {'NO-TS\timp=': 1}}
+   DIFF defpkg|package|vpl|Parameters|L_W {'G': {'ref->int_typespec\timp=': 1}, 'O': {'NO-TS\timp=': 1}}
+   DIFF elab|module_inst|work@vl|PA.Lhs|L_W {'G': {'ref->int_typespec\timp=vpl': 2}, 'O': {'NO-TS\timp=vpl': 2}}
+   DIFF elab|module_inst|work@vl|Parameters|L_W {'G': {'ref->int_typespec\timp=vpl': 2}, 'O': {'NO-TS\timp=vpl': 2}}
+   DIFF elabpkg|package|vpl|PA.Lhs|L_W {'G': {'ref->int_typespec\timp=': 1}, 'O': {'NO-TS\timp=': 1}}
+   DIFF elabpkg|package|vpl|Parameters|L_W {'G': {'ref->int_typespec\timp=': 1}, 'O': {'NO-TS\timp=': 1}}
+PAT RHS AGREE=22 DIFF-G=2 DIFF-O=2 ONLY-G=0 ONLY-O=0
+-- the differing keys, FIXED (back to the pristine set):
+FIX TS AGREE=38 DIFF-G=10 DIFF-O=10 ONLY-G=0 ONLY-O=0
+   DIFF def|module_inst|work@vl|Parameters|L_W {'G': {'ref->int_typespec\timp=vpl': 2}, 'O': {'NO-TS\timp=vpl': 2}}
+   DIFF defpkg|package|vpl|PA.Lhs|L_W {'G': {'ref->int_typespec\timp=': 1}, 'O': {'NO-TS\timp=': 1}}
+   DIFF defpkg|package|vpl|Parameters|L_W {'G': {'ref->int_typespec\timp=': 1}, 'O': {'NO-TS\timp=': 1}}
+   DIFF elab|module_inst|work@vl|PA.Lhs|L_W {'G': {'ref->int_typespec\timp=vpl': 2}, 'O': {'NO-TS\timp=vpl': 2}}
+   DIFF elab|module_inst|work@vl|Parameters|L_W {'G': {'ref->int_typespec\timp=vpl': 2}, 'O': {'NO-TS\timp=vpl': 2}}
+   DIFF elabpkg|package|vpl|PA.Lhs|L_W {'G': {'ref->int_typespec\timp=': 1}, 'O': {'NO-TS\timp=': 1}}
+   DIFF elabpkg|package|vpl|Parameters|L_W {'G': {'ref->int_typespec\timp=': 1}, 'O': {'NO-TS\timp=': 1}}
+FIX RHS AGREE=22 DIFF-G=2 DIFF-O=2 ONLY-G=0 ONLY-O=0
+
+-- v199_m_ctl.sv : the SAME package with  M_W + 1  instead of the cast (isolates the cause)
+  m_ctl.def.pris TS AGREE=46 DIFF-G=2 DIFF-O=2 ONLY-G=0 ONLY-O=0
+  m_ctl.def.pat TS AGREE=48 DIFF-G=0 DIFF-O=0 ONLY-G=0 ONLY-O=0
+  m_ctl.def.fix TS AGREE=48 DIFF-G=0 DIFF-O=0 ONLY-G=0 ONLY-O=0
+
+-- golden's L_W, every listing (the cast puts it back on the typespec path):
+defpkg|package|vpl|PA.Lhs|0|L_W	ref->int_typespec	imp=
+defpkg|package|vpl|PA.Lhs|1|L_WDEC	ref->int_typespec	imp=
+defpkg|package|vpl|Parameters|0|L_W	ref->int_typespec	imp=
+defpkg|package|vpl|Parameters|1|L_WDEC	ref->int_typespec	imp=
+def|module_inst|work@vl|PA.Lhs|0|L_W	ref->int_typespec	imp=vpl
+def|module_inst|work@vl|PA.Lhs|1|L_WDEC	ref->int_typespec	imp=vpl
+def|module_inst|work@vl|PA.Lhs|4|L_W	ref->int_typespec	imp=vpl
+def|module_inst|work@vl|PA.Lhs|5|L_WDEC	ref->int_typespec	imp=vpl
+def|module_inst|work@vl|Parameters|2|L_W	ref->int_typespec	imp=vpl
+def|module_inst|work@vl|Parameters|3|L_WDEC	ref->int_typespec	imp=vpl
+def|module_inst|work@vl|Parameters|6|L_W	ref->int_typespec	imp=vpl
+def|module_inst|work@vl|Parameters|7|L_WDEC	ref->int_typespec	imp=vpl
+elabpkg|package|vpl|PA.Lhs|0|L_W	ref->int_typespec	imp=
+elabpkg|package|vpl|PA.Lhs|1|L_WDEC	ref->int_typespec	imp=
+elabpkg|package|vpl|Parameters|0|L_W	ref->int_typespec	imp=
+elabpkg|package|vpl|Parameters|1|L_WDEC	ref->int_typespec	imp=
+elab|module_inst|work@vl|PA.Lhs|0|L_W	ref->int_typespec	imp=vpl
+elab|module_inst|work@vl|PA.Lhs|1|L_WDEC	ref->int_typespec	imp=vpl
+elab|module_inst|work@vl|PA.Lhs|4|L_W	ref->int_typespec	imp=vpl
+elab|module_inst|work@vl|PA.Lhs|5|L_WDEC	ref->int_typespec	imp=vpl
+elab|module_inst|work@vl|Parameters|2|L_W	ref->int_typespec	imp=vpl
+elab|module_inst|work@vl|Parameters|3|L_WDEC	ref->int_typespec	imp=vpl
+elab|module_inst|work@vl|Parameters|6|L_W	ref->int_typespec	imp=vpl
+elab|module_inst|work@vl|Parameters|7|L_WDEC	ref->int_typespec	imp=vpl
+-- golden's M_W, every listing (no cast -> no typespec):
+defpkg|package|vpm|PA.Lhs|0|M_W	NO-TS	imp=
+defpkg|package|vpm|Parameters|0|M_W	NO-TS	imp=
+def|module_inst|work@vm|PA.Lhs|0|M_W	NO-TS	imp=vpm
+def|module_inst|work@vm|PA.Lhs|4|M_W	NO-TS	imp=vpm
+def|module_inst|work@vm|Parameters|2|M_W	NO-TS	imp=vpm
+def|module_inst|work@vm|Parameters|6|M_W	NO-TS	imp=vpm
+elabpkg|package|vpm|PA.Lhs|0|M_W	NO-TS	imp=
+elabpkg|package|vpm|Parameters|0|M_W	NO-TS	imp=
+elab|module_inst|work@vm|PA.Lhs|0|M_W	NO-TS	imp=vpm
+elab|module_inst|work@vm|PA.Lhs|4|M_W	NO-TS	imp=vpm
+elab|module_inst|work@vm|Parameters|2|M_W	NO-TS	imp=vpm
+elab|module_inst|work@vm|Parameters|6|M_W	NO-TS	imp=vpm
+
+-- JUDGE-UNREACHABILITY: uhdm-cmp on this arm names the SAME head object on both binaries
+   (the def PACKAGE's own L_W typespec; scope::Compare reads Parameters() before
+    Param_assigns(), design::Compare reads AllPackages() before AllModules()).
+   pris: |vpiName:work@vl
+   pat: |vpiName:work@vl

@@ -1,0 +1,112 @@
+=== ASYMMETRY — golden's Parameters[i] vs Param_assigns[i].Lhs, per (view,owner,param) ===
+This is the LAW at its strongest phrasing: in golden the two listings NEVER disagree.
+gold/v199_a_untyped.def.txt ASYM=0
+gold/v199_a_untyped.elab.txt ASYM=0
+gold/v199_b_typed.def.txt ASYM=0
+gold/v199_b_typed.elab.txt ASYM=0
+gold/v199_c_body1.def.txt ASYM=0
+gold/v199_c_body1.elab.txt ASYM=0
+gold/v199_d_ifprog.def.txt ASYM=0
+gold/v199_d_ifprog.elab.txt ASYM=0
+gold/v199_e_explicit.def.txt ASYM=0
+gold/v199_e_explicit.elab.txt ASYM=0
+gold/v199_f_multi.def.txt ASYM=0
+gold/v199_f_multi.elab.txt ASYM=0
+gold/v199_g_uvmshape.def.txt ASYM=0
+gold/v199_g_uvmshape.elab.txt ASYM=0
+g2/v199_h_edge.def.gold.txt ASYM=0
+g2/v199_h_edge.elab.gold.txt ASYM=0
+g2/v199_i_chain.def.gold.txt ASYM=4
+g2/v199_i_chain.elab.gold.txt ASYM=4
+g2/v199_j_gen.def.gold.txt ASYM=0
+g2/v199_j_gen.elab.gold.txt ASYM=0
+g2/v199_k_override.def.gold.txt ASYM=0
+g2/v199_k_override.elab.gold.txt ASYM=0
+g3/v199_l_castw.def.gold.txt ASYM=0
+g3/v199_l_castw.elab.gold.txt ASYM=0
+g3/v199_m_ctl.def.gold.txt ASYM=0
+
+=== OURS, PRISTINE — the defect (asymmetry ours alone has) ===
+ours/v199_a_untyped.pris.txt ASYM=4
+    (('def', 'work@va', 'A_UBIN'), {'NO-TS': 2}, {'ref->int_typespec': 2})
+    (('def', 'work@va', 'A_UOCT'), {'NO-TS': 2}, {'ref->int_typespec': 2})
+    (('def', 'work@va', 'A_UHEX'), {'NO-TS': 2}, {'ref->int_typespec': 2})
+    (('def', 'work@va', 'A_LHEX'), {'NO-TS': 2}, {'ref->int_typespec': 2})
+ours/v199_b_typed.pris.txt ASYM=0
+ours/v199_c_body1.pris.txt ASYM=2
+    (('def', 'work@vc', 'C_LHEX'), {'NO-TS': 1}, {'ref->int_typespec': 1})
+    (('def', 'work@vc', 'C_UHEX'), {'NO-TS': 1}, {'ref->int_typespec': 1})
+ours/v199_d_ifprog.pris.txt ASYM=6
+    (('defif', 'work@vdi', 'D_LBIN'), {'NO-TS': 2}, {'ref->int_typespec': 2})
+    (('defprog', 'work@vdp', 'D_UHEX'), {'NO-TS': 2}, {'ref->int_typespec': 2})
+    (('defprog', 'work@vdp', 'D_LBIN'), {'NO-TS': 2}, {'ref->int_typespec': 2})
+    (('def', 'work@vd', 'D_UHEX'), {'NO-TS': 2}, {'ref->int_typespec': 2})
+    (('defif', 'work@vdi', 'D_UHEX'), {'NO-TS': 2}, {'ref->int_typespec': 2})
+    (('def', 'work@vd', 'D_LBIN'), {'NO-TS': 2}, {'ref->int_typespec': 2})
+ours/v199_e_explicit.pris.txt ASYM=2
+    (('def', 'work@ve', 'E_UNUSED'), {'NO-TS': 2}, {'ref->int_typespec': 2})
+    (('def', 'work@ve', 'E_UHEX'), {'NO-TS': 2}, {'ref->int_typespec': 2})
+ours/v199_f_multi.pris.txt ASYM=1
+    (('def', 'work@vf', 'F_UHEX'), {'NO-TS': 3}, {'ref->int_typespec': 3})
+ours/v199_g_uvmshape.pris.txt ASYM=4
+    (('def', 'work@vg', 'G_DEFAULT'), {'NO-TS': 2}, {'ref->int_typespec': 2})
+    (('def', 'work@vg', 'G_RADIX'), {'NO-TS': 2}, {'ref->int_typespec': 2})
+    (('def', 'work@vg', 'G_FLAGS'), {'NO-TS': 2}, {'ref->int_typespec': 2})
+    (('def', 'work@vg', 'G_ALL_ON'), {'NO-TS': 2}, {'ref->int_typespec': 2})
+g2/v199_h_edge.pris.txt ASYM=5
+    (('def', 'work@vh', 'H_SB'), {'NO-TS': 2}, {'ref->int_typespec': 2})
+    (('def', 'work@vh', 'H_SH'), {'NO-TS': 2}, {'ref->int_typespec': 2})
+    (('def', 'work@vh', 'H_CAPS'), {'NO-TS': 2}, {'ref->int_typespec': 2})
+    (('def', 'work@vh', 'H_PLAIN'), {'NO-TS': 2}, {'ref->int_typespec': 2})
+    (('def', 'work@vh', 'H_USCORE'), {'NO-TS': 2}, {'ref->int_typespec': 2})
+g2/v199_i_chain.pris.txt ASYM=2
+    (('def', 'work@vi', 'I_UHEX'), {'NO-TS': 2}, {'ref->int_typespec': 2})
+    (('def', 'work@vi', 'O_UHEX'), {'NO-TS': 2}, {'ref->int_typespec': 2})
+g2/v199_j_gen.pris.txt ASYM=1
+    (('def', 'work@vj', 'J_UHEX'), {'NO-TS': 2}, {'ref->int_typespec': 2})
+g2/v199_k_override.pris.txt ASYM=1
+    (('def', 'work@vk', 'K_UHEX'), {'NO-TS': 2}, {'ref->int_typespec': 2})
+g3/v199_l_castw.pris.txt ASYM=1
+    (('def', 'work@vl', 'L_W'), {'NO-TS': 2}, {'ref->int_typespec': 2})
+g3/v199_m_ctl.pris.txt ASYM=1
+    (('def', 'work@vm', 'M_W'), {'NO-TS': 2}, {'ref->int_typespec': 2})
+
+=== OURS, PATCHED — 0 everywhere ===
+ours/v199_a_untyped.pat.txt ASYM=0
+ours/v199_b_typed.pat.txt ASYM=0
+ours/v199_c_body1.pat.txt ASYM=0
+ours/v199_d_ifprog.pat.txt ASYM=0
+ours/v199_e_explicit.pat.txt ASYM=0
+ours/v199_f_multi.pat.txt ASYM=0
+ours/v199_g_uvmshape.pat.txt ASYM=0
+g2/v199_h_edge.pat.txt ASYM=0
+g2/v199_i_chain.pat.txt ASYM=0
+g2/v199_j_gen.pat.txt ASYM=0
+g2/v199_k_override.pat.txt ASYM=0
+g3/v199_l_castw.pat.txt ASYM=0
+g3/v199_m_ctl.pat.txt ASYM=0
+
+=== OURS, FIXED — 0 except the one paren-cast-width cell the fix deliberately keeps ===
+ours/v199_a_untyped.fix.txt ASYM=0
+ours/v199_b_typed.fix.txt ASYM=0
+ours/v199_c_body1.fix.txt ASYM=0
+ours/v199_d_ifprog.fix.txt ASYM=0
+ours/v199_e_explicit.fix.txt ASYM=0
+ours/v199_f_multi.fix.txt ASYM=0
+ours/v199_g_uvmshape.fix.txt ASYM=0
+g2/v199_h_edge.fix.txt ASYM=0
+g2/v199_i_chain.fix.txt ASYM=0
+g2/v199_j_gen.fix.txt ASYM=0
+g2/v199_k_override.fix.txt ASYM=0
+g3/v199_l_castw.fix.txt ASYM=1
+    (('def', 'work@vl', 'L_W'), {'NO-TS': 2}, {'ref->int_typespec': 2})
+g3/v199_m_ctl.fix.txt ASYM=0
+
+NOTE on the two golden ASYM=4 readings (v199_i_chain, the re-export chain):
+they are MULTIPLICITY, not VALUE.  Golden's Parameters listing holds 2 copies
+of I_UHEX/I_UDEC and its Param_assigns listing holds 4, but the typespec VALUE
+is the same on both sides of each pair (NO-TS vs NO-TS, int_typespec vs
+int_typespec).  Comparing the VALUE SETS instead of the multisets, golden's
+Parameters and Param_assigns.Lhs listings agree in 100% of cells across all
+15 arm-views measured here.  The copy-count residue is the R2 family and is
+identical on all three binaries.

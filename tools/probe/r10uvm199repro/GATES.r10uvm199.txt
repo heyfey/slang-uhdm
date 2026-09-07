@@ -1,0 +1,81 @@
+r10uvm199 — GATES.  MEASUREMENT ONLY; uhdm-cmp and verify_golden.py are the authorities.
+
+BASE 078597b7
+pristine binary md5 509209e7d53d55dc7c8b79165aed9f56  (chmod 555 before any sweep)
+patched  binary md5 e950ec36eb6d946937966eeee18f8642  (chmod 555 before any sweep)
+
+(1) BUILD  both -j 2, md5 taken separately.  rc 0 both.
+
+(2) GOLDENS
+    patched   PASS=23 FAIL=0   (SLANG_UHDM exported to the patched frozen binary)
+    pristine  PASS=23 FAIL=0
+    /bin/false PASS=0 FAIL=23  (negative control)
+
+(3) uhdm2rtlil  731 + 731 rows, both modes
+    ct8rows results/gate_uhdm2rtlil.csv  vs patched testflags : PASS, 0 differing rows
+    ct8rows own pristine testflags       vs patched testflags : PASS, 0 differing rows
+    ct8rows own pristine default         vs patched default   : PASS, 0 differing rows
+    byteverify SELFCHECK=1: MOVERS 0 / 1358, PATH_SETS_IDENTICAL, SELFCHECK 1357/1358 flagged
+    cmds.txt audit BY PATH: 1458 of 1462 name /tmp/r10uvm199_pat.bin, 0 name any other binary
+
+(4) surelog  1588 rows, --mode both
+    ct8rows own pristine vs patched      : PASS, 0 differing ROWS (status AND dump column)
+    ct8rows committed baseline vs patched: 1 differing row —
+        < Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+        > Earlgrey_0_1,testflags,CMP_EQUAL,,,
+      NOT this pass's: the PRISTINE binary produces the same cell against the same
+      baseline (canaries pristine-vs-committed reports the identical CHANGED line).
+      The STATUS column is CMP_EQUAL on both binaries; only the informational dump
+      column moved.  NO CORPUS ROW WAS CONVERTED in either direction and
+      results/*.csv were READ ONLY.
+    cmds.txt audit BY PATH: 1573 files, 0 naming any binary but /tmp/r10uvm199_pat.bin
+
+(5) byteverify SELFCHECK=1 surelog: MOVERS 7 / 956, PATH_SETS_IDENTICAL, SELFCHECK 955/956
+    6 PREDICTED BY NAME from PRISTINE databases before the patched binary existed:
+      default/SimpleUVM  testflags/SimpleUVM  default/SeqDriver  testflags/SeqDriver
+      default/MiniAmiq   testflags/MiniAmiq
+    the 7th is default/Scoreboard — RESUME §9's ~50/50 coin: order-blind sorted-dump
+    diff ADDED=0 REMOVED=0, ts-asymmetric cells 0 -> 0, cmp log 95 lines on both binaries.
+
+CANARIES
+    canaries surelog  vs own pristine : ok=52 changed=0 absent=0
+    canaries surelog  vs committed    : ok=51 changed=1  (the Earlgrey dump cell above,
+                                        identical on the PRISTINE binary)
+    canaries u2r      vs committed    : ok=8  changed=0 absent=0
+    ctcan2 x3 PASS;  canaudit PASS, audited=29 UNCOVERED=0 FENCE-BREACH=0
+
+PROTECTED DATABASES (md5 first 12, pristine vs patched)
+    InterfaceModPort   59a365f3ce2c  SAME (both modes)
+    BlackParrotComplex e3e354129d5a / 73a10e8217e5  SAME (both modes)
+    YosysOldOr         d68e0796d62c  SAME (both modes)
+    SVSwitch           4842211c4030  SAME (both modes)   <- the pinned value
+    YosysVerx          6ccda350c24a  SAME (both modes)   <- the pinned value
+
+THE FOUR CMP_EQUAL ROW-MODES, BOTH COLUMNS, pristine -> patched
+    BuildUVMPkg,default,CMP_EQUAL,,,differ    ->  BuildUVMPkg,default,CMP_EQUAL,,,differ
+    BuildUVMPkg,testflags,CMP_EQUAL,,,differ  ->  BuildUVMPkg,testflags,CMP_EQUAL,,,differ
+    Earlgrey_0_1,testflags,CMP_EQUAL,,        ->  Earlgrey_0_1,testflags,CMP_EQUAL,,
+    Rggen,default,CMP_EQUAL,,,differ          ->  Rggen,default,CMP_EQUAL,,,differ
+  all four byte-identical between the two binaries, status AND dump column.
+
+HEADS (rowheads.sh, official uhdm-cmp; count = the head OBJECT's decompile size)
+    row / mode              pristine        patched
+    SeqDriver x2            198  1 head     198  1 head    cmp log BYTE-IDENTICAL
+    SimpleUVM x2             17  1 head      17  1 head    DIFFERENT OBJECT (see README §7)
+    Scoreboard/default       95  1 head      95  1 head    cmp log BYTE-IDENTICAL
+    MiniAmiq x2             198  1 head     198  1 head    cmp log BYTE-IDENTICAL
+    BuildUVMPkg x2            0  0 heads      0  0 heads
+    Earlgrey_0_1 default     56  1 head      56  1 head    cmp log BYTE-IDENTICAL
+    Earlgrey_0_1 testflags    0  0 heads      0  0 heads
+    Rggen/default             0  0 heads      0  0 heads
+  (Scoreboard/testflags and Rggen/testflags are SKIP-NOFILE on both binaries — expected.)
+
+BOUNDARY  LISTED=5234 PROCESSED=5234 PRODUCED_DBS=5049 MOVED_ARMS=20 RC_DIFFS=0
+  all 20 rebuilt with a REAL Surelog golden in BOTH views and scored:
+  SCORED views=40 MISSING-ARMS=0 NODB-views=0 TO-GOLDEN=172 AWAY-GOLDEN=0
+
+GRID (7 arms x 2 views, one REAL Surelog golden each)
+  CALIB (golden x golden)  AGREE 448  TS-DIFF 0  ONLY-GOLDEN 0  ONLY-OURS 0
+  PRISTINE                 AGREE 382  TS-DIFF 100  ONLY-GOLDEN 16  ONLY-OURS 16
+  PATCHED                  AGREE 432  TS-DIFF   0  ONLY-GOLDEN 16  ONLY-OURS 16
+  NONZERO RCs 0.  TO-GOLDEN 50 / AWAY-GOLDEN 0 / MOVED-WRONG 0 / MISSED 0.

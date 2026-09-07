@@ -1,0 +1,46 @@
+=== WIDE BOUNDARY — every .sv/.v/.svh under tools/probe, both binaries, byte compare ===
+LISTED=5247  PROCESSED=5247  (list read from a file, children </dev/null, scratch keyed on the RELATIVE path)
+fenced-name hits in the list: 0
+
+-- run 1: PRISTINE vs PATCHED
+     20 MOVED
+    184 NODB
+   5043 SAME
+MOVED arms, by name:
+  tools/probe/r10uvm102repro/g102.sv
+  tools/probe/r10uvm106repro/a1_bases.sv
+  tools/probe/r10uvm106repro/a3_homes.sv
+  tools/probe/r10uvm106repro/a6_edge.sv
+  tools/probe/r10uvm106repro/a7_more.sv
+  tools/probe/r10uvm199repro/grid199/g199_a_untyped.sv
+  tools/probe/r10uvm199repro/grid199/g199_b_bodyimp.sv
+  tools/probe/r10uvm199repro/grid199/g199_c_kinds.sv
+  tools/probe/r10uvm199repro/grid199/g199_d_explicit.sv
+  tools/probe/r10uvm199repro/grid199/g199_e_reexport.sv
+  tools/probe/r10uvm199repro/grid199/g199_f_uvmshape.sv
+  tools/probe/r10v106repro/b01_bases.sv
+  tools/probe/r10v106repro/b02_decl.sv
+  tools/probe/r10v106repro/b03_homes.sv
+  tools/probe/r10v106repro/b05_ctx.sv
+  tools/probe/r10v106repro/b06_import.sv
+  tools/probe/r10v106repro/b09_macro.sv
+  tools/probe/r10v106repro/b10_uvmish.sv
+  tools/probe/r10v146repro/v10_kinds.sv
+  tools/probe/r10v159repro/v159_b_faces.sv
+
+-- run 2: PATCHED vs FIXED (the verifier's own fix)
+    184 NODB
+   5063 SAME
+  => the fix is BYTE-IDENTICAL to the submitted patch on every committed probe source.
+
+-- FLOOR, by family, from the SAME list (listed / moved)
+  r10uvm196repro     listed=9 moved=0
+  r10uvm197repro     listed=6 moved=0
+  r10uvm188repro     listed=4 moved=0
+  r10uvm187repro     listed=6 moved=0
+  r10uvm185repro     listed=5 moved=0
+  r10uvm190repro     listed=4 moved=0
+  r10uvm170repro     listed=5 moved=0
+  r10uvm8*           listed=130 moved=0
+  r10buvm*           listed=192 moved=0
+  r10sd*             listed=464 moved=0

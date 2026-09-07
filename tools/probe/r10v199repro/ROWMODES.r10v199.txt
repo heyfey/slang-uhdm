@@ -1,0 +1,22 @@
+=== the four CMP_EQUAL row-modes, scored on BOTH columns ===
+-- verifier PRISTINE sweep
+BuildUVMPkg,default,CMP_EQUAL,,,differ
+BuildUVMPkg,testflags,CMP_EQUAL,,,differ
+Earlgrey_0_1,testflags,CMP_EQUAL,,,
+Rggen,default,CMP_EQUAL,,,differ
+-- verifier PATCHED sweep
+BuildUVMPkg,default,CMP_EQUAL,,,differ
+BuildUVMPkg,testflags,CMP_EQUAL,,,differ
+Earlgrey_0_1,testflags,CMP_EQUAL,,,
+Rggen,default,CMP_EQUAL,,,differ
+-- committed results/golden_surelog.csv (READ ONLY, nothing promoted)
+BuildUVMPkg,default,CMP_EQUAL,,,differ
+BuildUVMPkg,testflags,CMP_EQUAL,,,differ
+Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+Rggen,default,CMP_EQUAL,,,differ
+
+R1 CONFIRMED: the one row that differs from the committed baseline differs IDENTICALLY on
+BOTH the pristine and the patched binary, so it is not this pass's:
+  < Earlgrey_0_1,testflags,CMP_EQUAL,,,differ      (committed)
+  > Earlgrey_0_1,testflags,CMP_EQUAL,,,            (both binaries here)
+STATUS agrees; only the informational dump column.

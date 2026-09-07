@@ -1,0 +1,18 @@
+=== FIXED-BINARY GATES (md5 5750d99a4df7f0e7a7b225262f6a8763) ===
+goldens 23 PASS / 0 FAIL
+surelog rows  fix vs OWN pristine : PASS (0 differing rows / 1588)
+surelog rows  fix vs PATCHED      : PASS (0 differing rows / 1588)
+u2r tf  fix vs own pristine : PASS ; u2r default : PASS ; tf vs committed gate : PASS
+byteverify surelog fix vs PATCHED  : MOVERS 1 / 956 -- default/Scoreboard ONLY,
+   order-blind sorted-dump diff ADDED=0 REMOVED=0, cmp log 95 lines on all three binaries: THE COIN.
+byteverify surelog fix vs PRISTINE : MOVERS 7 / 956 = the six predicted rows + the coin
+byteverify u2r     fix vs pristine : MOVERS 0 / 1358
+heads: all 12 cmp logs BYTE-IDENTICAL to the patched binary's; head table unchanged
+canaries ok=52 / ok=8 changed=0 ; ctcan2 PASS x2 ; canaudit audited=29 UNCOVERED=0 FENCE-BREACH=0
+protected DBs all SAME ; SVSwitch 4842211c4030 ; YosysVerx 6ccda350c24a
+four CMP_EQUAL row-modes on the fixed binary:
+   BuildUVMPkg,default,CMP_EQUAL,,,differ
+   BuildUVMPkg,testflags,CMP_EQUAL,,,differ
+   Earlgrey_0_1,testflags,CMP_EQUAL,,,
+   Rggen,default,CMP_EQUAL,,,differ
+boundary fix vs patched: LISTED 5247 PROCESSED 5247 SAME 5063 NODB 184 MOVED 0 RCDIFF 0

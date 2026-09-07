@@ -1,0 +1,51 @@
+-- databases listed: 956  mode: --pred
+-- PROCESSED=956 LISTED=956 NOGOLDEN=0 RESTORE_FAILS=0 NONZERO_RC=0 MOVER_ROWS=6
+-- TOTALS AGREE=0 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 PRED-CELLS=13228 PRED-ASYM=48
+-- PREDICTED MOVER ROWS:
+PREDSUM default/MiniAmiq-544c7f61 cells=180 ts-asym-cells=8 PREDICTED-MOVER
+PREDSUM default/SeqDriver-32af76aa cells=270 ts-asym-cells=8 PREDICTED-MOVER
+PREDSUM default/SimpleUVM-1dc93a62 cells=180 ts-asym-cells=8 PREDICTED-MOVER
+PREDSUM testflags/MiniAmiq-544c7f61 cells=180 ts-asym-cells=8 PREDICTED-MOVER
+PREDSUM testflags/SeqDriver-32af76aa cells=270 ts-asym-cells=8 PREDICTED-MOVER
+PREDSUM testflags/SimpleUVM-1dc93a62 cells=180 ts-asym-cells=8 PREDICTED-MOVER
+-- THE CELLS:
+      1 default/MiniAmiq-544c7f61 TSASYM key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_ALL_ON|svaunit_pkg|L|ct3/sz-1
+      1 default/MiniAmiq-544c7f61 TSASYM key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_ALL_ON|uvm_pkg|L|ct3/sz-1
+      1 default/MiniAmiq-544c7f61 TSASYM key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_DEFAULT|svaunit_pkg|L|ct3/sz-1
+      1 default/MiniAmiq-544c7f61 TSASYM key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_DEFAULT|uvm_pkg|L|ct3/sz-1
+      1 default/MiniAmiq-544c7f61 TSASYM key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_FLAGS_ON|svaunit_pkg|L|ct3/sz-1
+      1 default/MiniAmiq-544c7f61 TSASYM key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_FLAGS_ON|uvm_pkg|L|ct3/sz-1
+      1 default/MiniAmiq-544c7f61 TSASYM key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_RADIX|svaunit_pkg|L|ct5/sz-1
+      1 default/MiniAmiq-544c7f61 TSASYM key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_RADIX|uvm_pkg|L|ct5/sz-1
+      1 default/SeqDriver-32af76aa TSASYM key=def|module_inst||work@top_tb|210:1|UVM_ALL_ON|adpcm_pkg|L|ct3/sz-1
+      1 default/SeqDriver-32af76aa TSASYM key=def|module_inst||work@top_tb|210:1|UVM_ALL_ON|uvm_pkg|L|ct3/sz-1
+      1 default/SeqDriver-32af76aa TSASYM key=def|module_inst||work@top_tb|210:1|UVM_DEFAULT|adpcm_pkg|L|ct3/sz-1
+      1 default/SeqDriver-32af76aa TSASYM key=def|module_inst||work@top_tb|210:1|UVM_DEFAULT|uvm_pkg|L|ct3/sz-1
+      1 default/SeqDriver-32af76aa TSASYM key=def|module_inst||work@top_tb|210:1|UVM_FLAGS_ON|adpcm_pkg|L|ct3/sz-1
+      1 default/SeqDriver-32af76aa TSASYM key=def|module_inst||work@top_tb|210:1|UVM_FLAGS_ON|uvm_pkg|L|ct3/sz-1
+      1 default/SeqDriver-32af76aa TSASYM key=def|module_inst||work@top_tb|210:1|UVM_RADIX|adpcm_pkg|L|ct5/sz-1
+      1 default/SeqDriver-32af76aa TSASYM key=def|module_inst||work@top_tb|210:1|UVM_RADIX|uvm_pkg|L|ct5/sz-1
+      2 default/SimpleUVM-1dc93a62 TSASYM key=def|module_inst||work@top|44:1|UVM_ALL_ON|uvm_pkg|L|ct3/sz-1
+      2 default/SimpleUVM-1dc93a62 TSASYM key=def|module_inst||work@top|44:1|UVM_DEFAULT|uvm_pkg|L|ct3/sz-1
+      2 default/SimpleUVM-1dc93a62 TSASYM key=def|module_inst||work@top|44:1|UVM_FLAGS_ON|uvm_pkg|L|ct3/sz-1
+      2 default/SimpleUVM-1dc93a62 TSASYM key=def|module_inst||work@top|44:1|UVM_RADIX|uvm_pkg|L|ct5/sz-1
+      1 testflags/MiniAmiq-544c7f61 TSASYM key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_ALL_ON|svaunit_pkg|L|ct3/sz-1
+      1 testflags/MiniAmiq-544c7f61 TSASYM key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_ALL_ON|uvm_pkg|L|ct3/sz-1
+      1 testflags/MiniAmiq-544c7f61 TSASYM key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_DEFAULT|svaunit_pkg|L|ct3/sz-1
+      1 testflags/MiniAmiq-544c7f61 TSASYM key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_DEFAULT|uvm_pkg|L|ct3/sz-1
+      1 testflags/MiniAmiq-544c7f61 TSASYM key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_FLAGS_ON|svaunit_pkg|L|ct3/sz-1
+      1 testflags/MiniAmiq-544c7f61 TSASYM key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_FLAGS_ON|uvm_pkg|L|ct3/sz-1
+      1 testflags/MiniAmiq-544c7f61 TSASYM key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_RADIX|svaunit_pkg|L|ct5/sz-1
+      1 testflags/MiniAmiq-544c7f61 TSASYM key=defif|interface_inst||work@svaunit_vpi_interface|25:1|UVM_RADIX|uvm_pkg|L|ct5/sz-1
+      1 testflags/SeqDriver-32af76aa TSASYM key=def|module_inst||work@top_tb|210:1|UVM_ALL_ON|adpcm_pkg|L|ct3/sz-1
+      1 testflags/SeqDriver-32af76aa TSASYM key=def|module_inst||work@top_tb|210:1|UVM_ALL_ON|uvm_pkg|L|ct3/sz-1
+      1 testflags/SeqDriver-32af76aa TSASYM key=def|module_inst||work@top_tb|210:1|UVM_DEFAULT|adpcm_pkg|L|ct3/sz-1
+      1 testflags/SeqDriver-32af76aa TSASYM key=def|module_inst||work@top_tb|210:1|UVM_DEFAULT|uvm_pkg|L|ct3/sz-1
+      1 testflags/SeqDriver-32af76aa TSASYM key=def|module_inst||work@top_tb|210:1|UVM_FLAGS_ON|adpcm_pkg|L|ct3/sz-1
+      1 testflags/SeqDriver-32af76aa TSASYM key=def|module_inst||work@top_tb|210:1|UVM_FLAGS_ON|uvm_pkg|L|ct3/sz-1
+      1 testflags/SeqDriver-32af76aa TSASYM key=def|module_inst||work@top_tb|210:1|UVM_RADIX|adpcm_pkg|L|ct5/sz-1
+      1 testflags/SeqDriver-32af76aa TSASYM key=def|module_inst||work@top_tb|210:1|UVM_RADIX|uvm_pkg|L|ct5/sz-1
+      2 testflags/SimpleUVM-1dc93a62 TSASYM key=def|module_inst||work@top|44:1|UVM_ALL_ON|uvm_pkg|L|ct3/sz-1
+      2 testflags/SimpleUVM-1dc93a62 TSASYM key=def|module_inst||work@top|44:1|UVM_DEFAULT|uvm_pkg|L|ct3/sz-1
+      2 testflags/SimpleUVM-1dc93a62 TSASYM key=def|module_inst||work@top|44:1|UVM_FLAGS_ON|uvm_pkg|L|ct3/sz-1
+      2 testflags/SimpleUVM-1dc93a62 TSASYM key=def|module_inst||work@top|44:1|UVM_RADIX|uvm_pkg|L|ct5/sz-1
