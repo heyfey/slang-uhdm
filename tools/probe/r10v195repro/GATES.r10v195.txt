@@ -1,0 +1,114 @@
+r10v195 — THE GATES, run by the VERIFIER from its own worktrees at a clean
+c3e022a3.  MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS
+ours.  slang was NOT patched.  results/*.csv were READ ONLY and NOT EDITED.
+GOLDEN_DEFER stayed unset.  The four slang-fenced tests were never dispatched
+by any driver here and are named nowhere in this directory.
+
+(1) BUILD, three binaries, -j 2, md5 taken separately, all frozen chmod 555
+    BEFORE any sweep
+      pristine     4a42bc7a0018bc97d6d57ceebe1a0a9d   (byte-identical to the
+                   implementer's AND to the main tree's build/slang-uhdm)
+      implementer  19a1a55b008635113366cdd8b93375ff   (byte-identical to the
+                   implementer's)
+      verified     1b5bf424b2c8674a6c730e16f212b3de
+      0 compiler errors on all three.
+
+(2) GOLDENS, SLANG_UHDM exported explicitly to EACH binary
+      pristine     PASS=23  FAIL=0
+      implementer  PASS=23  FAIL=0
+      verified     PASS=23  FAIL=0
+      /bin/false   PASS=0   FAIL=23      (negative control)
+
+(3) uhdm2rtlil, testflags AND default, implementer AND verified
+      ct8rows  results/gate_uhdm2rtlil.csv  vs testflags    PASS (both binaries)
+      ct8rows  verifier's PRISTINE testflags vs testflags   PASS (both binaries)
+      ct8rows  verifier's PRISTINE default   vs default     PASS (both binaries)
+      SELFCHECK=1 byteverify   MOVERS 0 / 1358   PATH_SETS_IDENTICAL (both)
+
+(4) surelog corpus, --mode both (1588 rows, 956 databases), implementer AND
+    verified
+      ct8rows  results/golden_surelog.csv  vs sweep   PASS (0 differing rows,
+               status AND dump column, over 1588 rows) — both binaries
+      ct8rows  verifier's PRISTINE sweep    vs sweep   PASS — both binaries
+      ct8rows  implementer's sweep vs verified sweep   PASS
+      NO ROW CONVERTED in either direction, on either binary.
+      BuildUVMPkg x2, Earlgrey_0_1/testflags and Rggen/default are CMP_EQUAL in
+      every sweep and STAY CMP_EQUAL (rowheads 0 lines / 0 heads).
+      binary audit, each sweep: 0 of 3035 cmds.txt files name the main-tree
+      binary; 2981 name that sweep's own frozen binary; the other 54 are the
+      rows whose slang side never runs — the SAME 54 in every sweep.
+
+(5) BYTE VERIFY, surelog, SELFCHECK=1, vs the verifier's own pristine sweep
+      PATH_SETS_IDENTICAL (956 paths), both binaries
+      MOVERS: 4 / 956, the same four on both binaries
+        ./default/MiniAmiq-544c7f61/slang.uhdm      (predicted)
+        ./testflags/MiniAmiq-544c7f61/slang.uhdm    (predicted)
+        ./default/SeqDriver-32af76aa/slang.uhdm     (predicted)
+        ./testflags/SeqDriver-32af76aa/slang.uhdm   (predicted)
+      Scoreboard/default did NOT flip its documented coin in these runs.
+      uhdm2rtlil: 0 movers on either binary.
+
+(6) ROWHEADS, verified binary
+      SeqDriver    default   198 / 1     (29 / 1 pristine)  NEW OBJECT
+      SeqDriver    testflags 198 / 1     (29 / 1 pristine)  NEW OBJECT
+      MiniAmiq     default   198 / 1     (29 / 1 pristine)  NEW OBJECT
+      MiniAmiq     testflags 198 / 1     (29 / 1 pristine)  NEW OBJECT
+      SimpleUVM    default/tf 664681 / 1                    unchanged
+      Scoreboard   default    95 / 1                        unchanged
+      BuildUVMPkg  default/tf  0 / 0     CMP_EQUAL, STAYS
+      Earlgrey_0_1 default     31 / 1    unchanged
+      Earlgrey_0_1 testflags    0 / 0    CMP_EQUAL, STAYS
+      Rggen        default      0 / 0    CMP_EQUAL, STAYS
+      Scoreboard/testflags and Rggen/testflags SKIP-NOFILE (counted, not
+      silently skipped).
+      The 198-line head log is BYTE-IDENTICAL to the implementer's
+      head_pat_SeqDriver.default.cmp — the same R0 object.
+
+(7) CANARIES, verified binary
+      canaries.sh surelog   ok=52 changed=0 absent=0
+      canaries.sh u2r       ok=8  changed=0 absent=0
+      EXPECT_UNKNOWN=1 ctcan2.sh surelog   PASS
+      EXPECT_UNKNOWN=6 ctcan2.sh u2r       PASS
+      canaudit.sh canaries.sh ctcan2.sh    audited=29 UNCOVERED=0 FENCE-BREACH=0
+      protected databases, verified vs verifier's pristine:
+        InterfaceModPort x2 SAME, BlackParrotComplex x2 SAME, YosysOldOr x2 SAME,
+        SVSwitch 4842211c4030 (pin), YosysVerx 6ccda350c24a (pin)
+
+(8) CENSUS, MOVED-WRONG reported SEPARATELY from STILL-WRONG
+      calibration golden-vs-golden on every measured row-mode:
+        AGREE = KEYS, every other column 0
+        (SeqDriver 7522, MiniAmiq 8004, SimpleUVM 5611, BuildUVMPkg 5632,
+         Scoreboard 5661)
+      pristine -> implementer  and  pristine -> verified, identical:
+        SeqDriver  x2   TO-GOLDEN 17  AWAY 0  MOVED-WRONG 0
+        MiniAmiq   x2   TO-GOLDEN 17  AWAY 0  MOVED-WRONG 0
+        SimpleUVM, BuildUVMPkg, Scoreboard/default   0 / 0 / 0
+      implementer -> verified: AGREE on EVERY key — the census is BLIND to the
+      self-cycle repair, which is why it could not have caught the defect.
+
+(9) THE GRID, 5 implementer arms + 5 verifier arms, one real Surelog golden
+    each, BOTH views, THREE binaries, every rc recorded
+      implementer arms reproduce exactly: TO-GOLDEN 8 / 4 / 8 / 0 / 1 per view
+      (42 over both views), AWAY 0, MOVED-WRONG 0; arm E 29/1 -> 0/0 CMP_EQUAL;
+      arm D byte-identical on all three binaries in both views.
+      SELF counts per arm (golden 0, pristine 0 everywhere):
+        a_homes  implementer 10  verified 0
+        b_kinds  implementer  8  verified 0
+        c_shapes implementer 16  verified 0
+        d_control implementer 0  verified 0
+        e_head   implementer  2  verified 0
+      verifier arms: see README §4.
+
+(10) WIDE BOUNDARY, every .sv/.v under a COPY of tools/probe, both views,
+     PRISTINE vs VERIFIED
+       LISTED=5185 PROCESSED=5185 PRODUCED_DBS=10032 MOVED_CELLS=12
+       RC_DIFFS=0  MOVED_ARMS=6
+       — the SAME six arms the implementer reports for pristine vs patched:
+         r10uvm195repro/grid195/g195_a_homes.sv   (the pass's own, positive control)
+         r10uvm195repro/grid195/g195_b_kinds.sv
+         r10uvm195repro/grid195/g195_c_shapes.sv
+         r10uvm195repro/grid195/g195_e_head.sv
+         r10v105repro/v105_b5.sv                  TO-GOLDEN 1 / 0 / 0 both views
+         r10v179repro/v179_f_nomod.sv             29/1 -> 0/0 CMP_EQUAL,
+                                                  TO-GOLDEN 2 / 0 / 0 both views
+       g195_d_control.sv is NOT among them.  The fix moves no additional arm.

@@ -1,0 +1,71 @@
+HEADS(OURS) matching 411:11 kind~ref_var : 4
+HEAD ref_var(phase_runner_proc)@411:11-411:28#96774 <task:run_test <class_defn:uvm_root <package:uvm_pkg
+  (its vpiParent, which no generated Compare reads: begin()@403:3-403:51#96777)
+  (golden twin of the head itself: ref_var(phase_runner_proc)@411:11-411:28#16195)
+  OWNER begin()@403:3-403:51#96777 <task:run_test <class_defn:uvm_root <package:uvm_pkg
+      edge vpiType=100 VECTOR[9/10]
+      golden vector size 10
+  OWNER ref_obj(phase_runner_proc)@502:5-502:22#197655 <task:uvm_root::run_test <package:adpcm_pkg
+      edge vpiType=700 SINGULAR   ours -> ref_var(phase_runner_proc)@411:11-411:28#96774
+      golden -> ref_var(phase_runner_proc)@411:11-411:28#16195
+  OWNER ref_obj(phase_runner_proc)@511:3-511:20#197664 <task:uvm_root::run_test <package:adpcm_pkg
+      edge vpiType=700 SINGULAR   ours -> ref_var(phase_runner_proc)@411:11-411:28#96774
+      golden -> ref_var(phase_runner_proc)@411:11-411:28#16195
+  OWNER ref_obj(phase_runner_proc)@502:5-502:22#251451 <task:uvm_root::run_test <package:adpcm_pkg
+      edge vpiType=700 SINGULAR   ours -> ref_var(phase_runner_proc)@411:11-411:28#96774
+      golden -> ref_var(phase_runner_proc)@411:11-411:28#16195
+  OWNER ref_obj(phase_runner_proc)@511:3-511:20#251460 <task:uvm_root::run_test <package:adpcm_pkg
+      edge vpiType=700 SINGULAR   ours -> ref_var(phase_runner_proc)@411:11-411:28#96774
+      golden -> ref_var(phase_runner_proc)@411:11-411:28#16195
+  OWNER ref_typespec()@0:0-0:0#96775 <task:run_test <class_defn:uvm_root <package:uvm_pkg
+      edge vpiType=81 SINGULAR   ours -> ref_var(phase_runner_proc)@411:11-411:28#96774
+      golden -> io_decl(test_name)@400:32-400:41#16142
+  OWNER ref_var(phase_runner_proc)@411:11-411:28#197462 <task:uvm_root::run_test <package:adpcm_pkg
+      edge vpiType=700 SINGULAR   ours -> ref_var(phase_runner_proc)@411:11-411:28#96774
+      golden -> <null>   <<< THE OWNER (singular edge null on GOLDEN)
+  OWNER ref_var(phase_runner_proc)@411:11-411:28#251258 <task:uvm_root::run_test <package:adpcm_pkg
+      edge vpiType=700 SINGULAR   ours -> ref_var(phase_runner_proc)@411:11-411:28#96774
+      golden -> <null>   <<< THE OWNER (singular edge null on GOLDEN)
+  OWNER task(run_test)@400:1-519:8#96737 <class_defn:uvm_root <package:uvm_pkg
+      edge vpiType=100 VECTOR[8/9]
+      golden vector size 9
+  -- owners=9  null-on-golden=2
+HEAD ref_var(phase_runner_proc)@411:11-411:28#144799 <task:uvm_root::run_test <package:uvm_pkg
+  (its vpiParent, which no generated Compare reads: begin()@403:3-403:51#144802)
+  (golden twin of the head itself: ref_var(phase_runner_proc)@411:11-411:28#75327)
+  OWNER begin()@403:3-403:51#144802 <task:uvm_root::run_test <package:uvm_pkg
+      edge vpiType=100 VECTOR[9/10]
+      golden vector size 10
+  OWNER ref_typespec()@0:0-0:0#144800 <task:uvm_root::run_test <package:uvm_pkg
+      edge vpiType=81 SINGULAR   ours -> ref_var(phase_runner_proc)@411:11-411:28#144799
+      golden -> io_decl(test_name)@400:32-400:41#75274
+  OWNER task(uvm_root::run_test)@400:1-519:8#144762 <package:uvm_pkg
+      edge vpiType=100 VECTOR[8/9]
+      golden vector size 9
+  -- owners=3  null-on-golden=0
+HEAD ref_var(phase_runner_proc)@411:11-411:28#197462 <task:uvm_root::run_test <package:adpcm_pkg
+  (its vpiParent, which no generated Compare reads: begin()@403:3-403:51#197465)
+  (golden twin of the head itself: ref_var(phase_runner_proc)@411:11-411:28#134662)
+  OWNER begin()@403:3-403:51#197465 <task:uvm_root::run_test <package:adpcm_pkg
+      edge vpiType=100 VECTOR[9/10]
+      golden vector size 10
+  OWNER ref_typespec()@0:0-0:0#197463 <task:uvm_root::run_test <package:adpcm_pkg
+      edge vpiType=81 SINGULAR   ours -> ref_var(phase_runner_proc)@411:11-411:28#197462
+      golden -> io_decl(test_name)@400:32-400:41#134626
+  OWNER task(uvm_root::run_test)@400:1-519:8#197425 <package:adpcm_pkg
+      edge vpiType=100 VECTOR[8/9]
+      golden vector size 9
+  -- owners=3  null-on-golden=0
+HEAD ref_var(phase_runner_proc)@411:11-411:28#251258 <task:uvm_root::run_test <package:adpcm_pkg
+  (its vpiParent, which no generated Compare reads: begin()@403:3-403:51#251261)
+  (golden twin of the head itself: ref_var(phase_runner_proc)@411:11-411:28#134662)
+  OWNER begin()@403:3-403:51#251261 <task:uvm_root::run_test <package:adpcm_pkg
+      edge vpiType=100 VECTOR[9/10]
+      golden vector size 10
+  OWNER ref_typespec()@0:0-0:0#251259 <task:uvm_root::run_test <package:adpcm_pkg
+      edge vpiType=81 SINGULAR   ours -> ref_var(phase_runner_proc)@411:11-411:28#251258
+      golden -> io_decl(test_name)@400:32-400:41#134626
+  OWNER task(uvm_root::run_test)@400:1-519:8#251221 <package:adpcm_pkg
+      edge vpiType=100 VECTOR[8/9]
+      golden vector size 9
+  -- owners=3  null-on-golden=0

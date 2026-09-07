@@ -1,0 +1,95 @@
+r10v195 — THE DEFECT THE VERIFICATION FOUND, and how it was proved.
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+The official ~/git-repos/UHDM/build/bin/uhdm-cmp is the sole acceptance judge.
+
+=====================================================================
+THE CLAIM
+=====================================================================
+In the implementer's binary (19a1a55b008635113366cdd8b93375ff) every clone
+BODY-block `vpiVariables` entry that § cloneTfOwnVarListingIsUnbound195 twins
+has its `vpiActual` pointing at ITSELF, where GOLDEN and the PRISTINE binary
+both point it at the ELABORATED HOME declaration.
+
+  SeqDriver/default, ref_var `phase_runner_proc` (uvm_root.svh:411), the
+  corpus head's own object, read with ct195list:
+
+    GOLDEN #134701 adpcm_pkg /begin/task:uvm_root::run_test  actual -> #16195
+                                                  (= uvm_pkg's HOME object)
+    GOLDEN #198828 adpcm_pkg /begin/task:uvm_root::run_test  actual -> #16195
+    PRIS   #197462 adpcm_pkg /begin/task:uvm_root::run_test  actual -> #96774
+                                                  (= uvm_pkg's HOME object)
+    PRIS   #251258 adpcm_pkg /begin/task:uvm_root::run_test  actual -> #96774
+    PAT    #197462 adpcm_pkg /begin/task:uvm_root::run_test  actual -> #197462  <<< ITSELF
+    PAT    #251258 adpcm_pkg /begin/task:uvm_root::run_test  actual -> #251258  <<< ITSELF
+    FIX    #197462 adpcm_pkg /begin/task:uvm_root::run_test  actual -> #96774   (home, golden's shape)
+    FIX    #251258 adpcm_pkg /begin/task:uvm_root::run_test  actual -> #96774
+
+  ct195selfall over whole databases (`ref_var` count / bound / SELF):
+
+    SeqDriver/default   GOLDEN 2980/886/0   PRIS 2944/882/0
+                        PAT    2978/882/34  FIX  2978/882/0
+    MiniAmiq/default    PRIS   3152/882/0   PAT  3186/882/34   FIX 3186/882/0
+
+  34 = exactly the 17 clone subroutines x 2 package listings this pass moves,
+  on each of the four moving row-modes.  0 in golden, 0 pristine.
+
+=====================================================================
+THE MECHANISM (read out of the shipped code, then instrumented)
+=====================================================================
+1. § pkgCloneLocalRefBind37's `bind9(o37, o37)` sweep
+   (src/UhdmExporter.cpp, the loop over `s.AllObjects()`) binds a clone body
+   `ref_var` to the CLONE'S OWN listing object — i.e. to itself.  An
+   instrumented build printed this state BEFORE § 195 touches anything:
+
+     V195DBG SLOT tf=0x..e00 i=0 v=0x..f40 id=46 name=fe_p195v cnt=2 act=0x..f40
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ v == act
+
+2. § cloneStmtHomeVarRef17 (src/TypeEmit.cpp:8285) is the pass that REPAIRS
+   that: it keys each clone's variables by DECLARATION SITE ("name@line:col")
+   and re-points every reference from the clone's own object to the ELABORATED
+   HOME's.  Its ambiguity guard is
+
+     auto ins = ow.byKey.emplace(k, (UHDM::variables*)v);
+     if (!ins.second && ins.first->second != v) ow.dup.insert(k);   // :8313-8319
+     ...
+     if (cd.count(k) || hd.count(k)) continue;                      // :8375-8376
+
+3. The implementer placed § 195 BEFORE § 17.  The twin carries the SAME name,
+   line and column as the object it replaces, so after the twin is minted the
+   subroutine's own listing and the body block's listing hold TWO DIFFERENT
+   objects under ONE key — `ow.dup` fires, § 17 SKIPS the remap, and the body
+   entry keeps the self-reference for exactly the variables § 195 touches.
+
+=====================================================================
+WHY NEITHER GUARD INSTRUMENT SAW IT
+=====================================================================
+* uhdm-cmp: `ref_var::Compare` reaches `SafeCompare(Actual_group())`, and the
+  self-cycle is short-circuited by the compare's visited set, so the pass
+  reported CMP_EQUAL.  It also MASKS whatever difference lies beyond: on the
+  verifier's arm C (a chained wildcard import) the implementer's binary reports
+  0 cmp lines while the fixed binary reports the 29-line head that was always
+  there (`RHS: <null>`; the same head shape is reachable from the pristine
+  binary once its own head clears).  A compare that stops at a cycle is not a
+  compare that passed.
+* the pass's own census (ct195cen): its payload is the actual's
+  `<kind>:<name>@<span>`.  The clone's OWN object and the HOME's share all
+  three — `ref_var:phase_runner_proc@411:11-411:28` either way — so
+  golden-vs-patched reads AGREE on every one of the 34 cells.  Running
+  score195.py with patched-as-pristine and fixed-as-patched confirms it:
+  AGREE on every key, on every arm, in both views.
+* the byte movers were the SAME four rows either way, so mover attribution
+  could not see it either.
+
+=====================================================================
+THE FIX (shipped in r10uvm195.verified.patch)
+=====================================================================
+Move the § 195 block so it runs AFTER `cloneStmtHomeVarRef17();`, carrying
+`pkgCloneBodyLocals9.clear()` with it.  No logic change; the guard
+`if (!pkgCloneBodyLocals9.empty())` is kept so the arena walk that builds
+`nlist195` still costs nothing on a design with no clones.  § 17 then sees ONE
+object per key, repairs the body entry, and § 195 copies an already-correct
+original into the twin before nulling it.
+
+Binaries: pristine 4a42bc7a0018bc97d6d57ceebe1a0a9d,
+          implementer 19a1a55b008635113366cdd8b93375ff,
+          verified    1b5bf424b2c8674a6c730e16f212b3de.

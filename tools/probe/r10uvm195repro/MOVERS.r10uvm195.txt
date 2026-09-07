@@ -1,0 +1,172 @@
+r10uvm195 — MOVERS, PREDICTED BY NAME AND ATTRIBUTED ORDER-BLIND
+
+surelog 5/956, uhdm2rtlil 0/1358.
+
+== the four PREDICTED rows (PREDICT.surelog.r10uvm195.txt, written from the
+   PRISTINE databases alone before the patched sweep was read)
+ROW MiniAmiq,default cells=34 twin=34 inplace=0
+ROW SeqDriver,default cells=34 twin=34 inplace=0
+ROW MiniAmiq,testflags cells=34 twin=34 inplace=0
+ROW SeqDriver,testflags cells=34 twin=34 inplace=0
+
+== the 17 CLONE SUBROUTINES whose own listing lost its binding (x2 package
+   listings = 34 cells per row-mode).  Every mover line in the order-blind
+   dump diff names one of these ref_vars and nothing else.
+uvm_mem::do_read | adpcm_pkg::uvm_mem::do_read::cbs@1685:20 | listed=2
+uvm_mem::do_write | adpcm_pkg::uvm_mem::do_write::cbs@1578:21 | listed=2
+uvm_process_report_message | adpcm_pkg::uvm_process_report_message::p@262:11 | listed=2
+uvm_reg::do_read | adpcm_pkg::uvm_reg::do_read::cbs@2401:21 | listed=2
+uvm_reg::do_write | adpcm_pkg::uvm_reg::do_write::cbs@2159:21 | listed=2
+uvm_reg::XatomicX | adpcm_pkg::uvm_reg::XatomicX::m_reg_process@2976:12 | listed=2
+uvm_root::run_test | adpcm_pkg::uvm_root::run_test::phase_runner_proc@411:11 | listed=2
+uvm_sequence_library::execute | adpcm_pkg::uvm_sequence_library::execute::req_item@754:7 | listed=2
+uvm_sequencer::get_next_item | adpcm_pkg::uvm_sequencer::get_next_item::req_item@207:7 | listed=2
+uvm_sequencer::item_done | adpcm_pkg::uvm_sequencer::item_done::t@278:7 | listed=2
+uvm_sequencer_param_base::analysis_write | adpcm_pkg::uvm_sequencer_param_base::analysis_write::response@351:7 | listed=2
+uvm_sequencer_param_base::send_request | adpcm_pkg::uvm_sequencer_param_base::send_request::param_t@270:7 | listed=2
+uvm_sequencer::stop_sequences | adpcm_pkg::uvm_sequencer::stop_sequences::t@164:7 | listed=2
+uvm_vreg_field::read | adpcm_pkg::uvm_vreg_field::read::cbs@707:27 | listed=2
+uvm_vreg_field::write | adpcm_pkg::uvm_vreg_field::write::cbs@571:27 | listed=2
+uvm_vreg::read | adpcm_pkg::uvm_vreg::read::cbs@1318:21 | listed=2
+uvm_vreg::write | adpcm_pkg::uvm_vreg::write::cbs@1212:21 | listed=2
+
+== SeqDriver/default order-blind attribution (uhdm-dump both sides, workdir
+   path and object ids normalised, sorted)
+   raw dump lines 1816679 -> 1816883 (+204 = 34 minted twins x 6 lines)
+   order-blind diff lines 616; every one names an adpcm_pkg (the
+   wildcard-import CLONE) subroutine's own ref_var slot, its ref_typespec
+   or the begin/function that lists it.  Distinct lines:
+< \_begin: (adpcm_pkg::uvm_mem::do_read), line:1686:4, endln:1686:30
+> \_begin: (adpcm_pkg::uvm_mem::do_read), line:1686:4, endln:1686:30
+< \_begin: (adpcm_pkg::uvm_mem::do_write), line:1579:4, endln:1579:30
+> \_begin: (adpcm_pkg::uvm_mem::do_write), line:1579:4, endln:1579:30
+< \_begin: (adpcm_pkg::uvm_process_report_message), line:261:3, endln:261:24
+> \_begin: (adpcm_pkg::uvm_process_report_message), line:261:3, endln:261:24
+< \_begin: (adpcm_pkg::uvm_reg::do_read), line:2402:4, endln:2402:30
+> \_begin: (adpcm_pkg::uvm_reg::do_read), line:2402:4, endln:2402:30
+< \_begin: (adpcm_pkg::uvm_reg::do_write), line:2160:4, endln:2160:30
+> \_begin: (adpcm_pkg::uvm_reg::do_write), line:2160:4, endln:2160:30
+< \_begin: (adpcm_pkg::uvm_reg::XatomicX), line:2977:4, endln:2977:34
+> \_begin: (adpcm_pkg::uvm_reg::XatomicX), line:2977:4, endln:2977:34
+< \_begin: (adpcm_pkg::uvm_root::run_test), line:403:3, endln:403:51
+> \_begin: (adpcm_pkg::uvm_root::run_test), line:403:3, endln:403:51
+< \_begin: (adpcm_pkg::uvm_sequence_library::execute), line:752:3, endln:752:33
+> \_begin: (adpcm_pkg::uvm_sequence_library::execute), line:752:3, endln:752:33
+< \_begin: (adpcm_pkg::uvm_sequencer::get_next_item), line:212:3, endln:214:83
+> \_begin: (adpcm_pkg::uvm_sequencer::get_next_item), line:212:3, endln:214:83
+< \_begin: (adpcm_pkg::uvm_sequencer::item_done), line:281:3, endln:281:31
+> \_begin: (adpcm_pkg::uvm_sequencer::item_done), line:281:3, endln:281:31
+< \_begin: (adpcm_pkg::uvm_sequencer_param_base::analysis_write), line:353:3, endln:355:6
+> \_begin: (adpcm_pkg::uvm_sequencer_param_base::analysis_write), line:353:3, endln:355:6
+< \_begin: (adpcm_pkg::uvm_sequencer_param_base::send_request), line:272:3, endln:274:6
+> \_begin: (adpcm_pkg::uvm_sequencer_param_base::send_request), line:272:3, endln:274:6
+< \_begin: (adpcm_pkg::uvm_sequencer::stop_sequences), line:165:3, endln:165:26
+> \_begin: (adpcm_pkg::uvm_sequencer::stop_sequences), line:165:3, endln:165:26
+< \_begin: (adpcm_pkg::uvm_vreg_field::read), line:699:4, endln:699:27
+> \_begin: (adpcm_pkg::uvm_vreg_field::read), line:699:4, endln:699:27
+< \_begin: (adpcm_pkg::uvm_vreg_field::write), line:562:4, endln:562:27
+> \_begin: (adpcm_pkg::uvm_vreg_field::write), line:562:4, endln:562:27
+< \_begin: (adpcm_pkg::uvm_vreg::read), line:1320:4, endln:1320:25
+> \_begin: (adpcm_pkg::uvm_vreg::read), line:1320:4, endln:1320:25
+< \_begin: (adpcm_pkg::uvm_vreg::write), line:1214:4, endln:1214:25
+> \_begin: (adpcm_pkg::uvm_vreg::write), line:1214:4, endln:1214:25
+> \_function: (adpcm_pkg::uvm_process_report_message), line:259:1, endln:267:12
+> \_function: (adpcm_pkg::uvm_sequencer::item_done), line:277:1, endln:298:12
+> \_function: (adpcm_pkg::uvm_sequencer_param_base::analysis_write), line:350:1, endln:357:12
+> \_function: (adpcm_pkg::uvm_sequencer_param_base::send_request), line:267:1, endln:304:12
+> \_function: (adpcm_pkg::uvm_sequencer::stop_sequences), line:163:1, endln:173:12
+> \_ref_typespec: (adpcm_pkg::uvm_mem::do_read::cbs)
+> \_ref_typespec: (adpcm_pkg::uvm_mem::do_write::cbs)
+> \_ref_typespec: (adpcm_pkg::uvm_process_report_message::p)
+> \_ref_typespec: (adpcm_pkg::uvm_reg::do_read::cbs)
+> \_ref_typespec: (adpcm_pkg::uvm_reg::do_write::cbs)
+> \_ref_typespec: (adpcm_pkg::uvm_reg::XatomicX::m_reg_process)
+> \_ref_typespec: (adpcm_pkg::uvm_root::run_test::phase_runner_proc)
+> \_ref_typespec: (adpcm_pkg::uvm_sequence_library::execute::req_item)
+> \_ref_typespec: (adpcm_pkg::uvm_sequencer::get_next_item::req_item)
+> \_ref_typespec: (adpcm_pkg::uvm_sequencer::item_done::t)
+> \_ref_typespec: (adpcm_pkg::uvm_sequencer_param_base::analysis_write::response)
+> \_ref_typespec: (adpcm_pkg::uvm_sequencer_param_base::send_request::param_t)
+> \_ref_typespec: (adpcm_pkg::uvm_sequencer::stop_sequences::t)
+> \_ref_typespec: (adpcm_pkg::uvm_vreg_field::read::cbs)
+> \_ref_typespec: (adpcm_pkg::uvm_vreg_field::write::cbs)
+> \_ref_typespec: (adpcm_pkg::uvm_vreg::read::cbs)
+> \_ref_typespec: (adpcm_pkg::uvm_vreg::write::cbs)
+> \_ref_var: (adpcm_pkg::uvm_mem::do_read::cbs), line:1685:20, endln:1685:23
+> \_ref_var: (adpcm_pkg::uvm_mem::do_write::cbs), line:1578:21, endln:1578:24
+> \_ref_var: (adpcm_pkg::uvm_process_report_message::p), line:262:11, endln:262:12
+> \_ref_var: (adpcm_pkg::uvm_reg::do_read::cbs), line:2401:21, endln:2401:24
+> \_ref_var: (adpcm_pkg::uvm_reg::do_write::cbs), line:2159:21, endln:2159:24
+> \_ref_var: (adpcm_pkg::uvm_reg::XatomicX::m_reg_process), line:2976:12, endln:2976:25
+> \_ref_var: (adpcm_pkg::uvm_root::run_test::phase_runner_proc), line:411:11, endln:411:28
+> \_ref_var: (adpcm_pkg::uvm_sequence_library::execute::req_item), line:754:7, endln:754:15
+> \_ref_var: (adpcm_pkg::uvm_sequencer::get_next_item::req_item), line:207:7, endln:207:15
+> \_ref_var: (adpcm_pkg::uvm_sequencer::item_done::t), line:278:7, endln:278:8
+> \_ref_var: (adpcm_pkg::uvm_sequencer_param_base::analysis_write::response), line:351:7, endln:351:15
+> \_ref_var: (adpcm_pkg::uvm_sequencer_param_base::send_request::param_t), line:270:7, endln:270:14
+> \_ref_var: (adpcm_pkg::uvm_sequencer::stop_sequences::t), line:164:7, endln:164:8
+> \_ref_var: (adpcm_pkg::uvm_vreg_field::read::cbs), line:707:27, endln:707:30
+> \_ref_var: (adpcm_pkg::uvm_vreg_field::write::cbs), line:571:27, endln:571:30
+> \_ref_var: (adpcm_pkg::uvm_vreg::read::cbs), line:1318:21, endln:1318:24
+> \_ref_var: (adpcm_pkg::uvm_vreg::write::cbs), line:1212:21, endln:1212:24
+< \_ref_var: (uvm_pkg::uvm_mem::do_read::cbs), line:1685:20, endln:1685:23
+< \_ref_var: (uvm_pkg::uvm_mem::do_write::cbs), line:1578:21, endln:1578:24
+< \_ref_var: (uvm_pkg::uvm_process_report_message::p), line:262:11, endln:262:12
+< \_ref_var: (uvm_pkg::uvm_reg::do_read::cbs), line:2401:21, endln:2401:24
+< \_ref_var: (uvm_pkg::uvm_reg::do_write::cbs), line:2159:21, endln:2159:24
+< \_ref_var: (uvm_pkg::uvm_reg::XatomicX::m_reg_process), line:2976:12, endln:2976:25
+< \_ref_var: (uvm_pkg::uvm_root::run_test::phase_runner_proc), line:411:11, endln:411:28
+< \_ref_var: (uvm_pkg::uvm_sequence_library::execute::req_item), line:754:7, endln:754:15
+< \_ref_var: (uvm_pkg::uvm_sequencer::get_next_item::req_item), line:207:7, endln:207:15
+< \_ref_var: (uvm_pkg::uvm_sequencer::item_done::t), line:278:7, endln:278:8
+< \_ref_var: (uvm_pkg::uvm_sequencer_param_base::analysis_write::response), line:351:7, endln:351:15
+< \_ref_var: (uvm_pkg::uvm_sequencer_param_base::send_request::param_t), line:270:7, endln:270:14
+< \_ref_var: (uvm_pkg::uvm_sequencer::stop_sequences::t), line:164:7, endln:164:8
+< \_ref_var: (uvm_pkg::uvm_vreg_field::read::cbs), line:707:27, endln:707:30
+< \_ref_var: (uvm_pkg::uvm_vreg_field::write::cbs), line:571:27, endln:571:30
+< \_ref_var: (uvm_pkg::uvm_vreg::read::cbs), line:1318:21, endln:1318:24
+< \_ref_var: (uvm_pkg::uvm_vreg::write::cbs), line:1212:21, endln:1212:24
+> \_task: (adpcm_pkg::uvm_mem::do_read), line:1683:1, endln:1780:17
+> \_task: (adpcm_pkg::uvm_mem::do_write), line:1576:1, endln:1678:18
+> \_task: (adpcm_pkg::uvm_reg::do_read), line:2399:1, endln:2599:17
+> \_task: (adpcm_pkg::uvm_reg::do_write), line:2157:1, endln:2343:18
+> \_task: (adpcm_pkg::uvm_reg::XatomicX), line:2975:1, endln:2991:18
+> \_task: (adpcm_pkg::uvm_root::run_test), line:400:1, endln:519:8
+> \_task: (adpcm_pkg::uvm_sequence_library::execute), line:749:1, endln:782:8
+> \_task: (adpcm_pkg::uvm_sequencer::get_next_item), line:206:1, endln:224:8
+> \_task: (adpcm_pkg::uvm_vreg_field::read), line:689:1, endln:785:14
+> \_task: (adpcm_pkg::uvm_vreg_field::write), line:552:1, endln:686:15
+> \_task: (adpcm_pkg::uvm_vreg::read), line:1309:1, endln:1407:14
+> \_task: (adpcm_pkg::uvm_vreg::write), line:1203:1, endln:1306:15
+< |vpiActual:
+> |vpiActual:
+> |vpiFullName:adpcm_pkg::uvm_mem::do_read::cbs
+> |vpiFullName:adpcm_pkg::uvm_mem::do_write::cbs
+> |vpiFullName:adpcm_pkg::uvm_process_report_message::p
+> |vpiFullName:adpcm_pkg::uvm_reg::do_read::cbs
+> |vpiFullName:adpcm_pkg::uvm_reg::do_write::cbs
+> |vpiFullName:adpcm_pkg::uvm_reg::XatomicX::m_reg_process
+> |vpiFullName:adpcm_pkg::uvm_root::run_test::phase_runner_proc
+> |vpiFullName:adpcm_pkg::uvm_sequence_library::execute::req_item
+> |vpiFullName:adpcm_pkg::uvm_sequencer::get_next_item::req_item
+> |vpiFullName:adpcm_pkg::uvm_sequencer::item_done::t
+> |vpiFullName:adpcm_pkg::uvm_sequencer_param_base::analysis_write::response
+> |vpiFullName:adpcm_pkg::uvm_sequencer_param_base::send_request::param_t
+> |vpiFullName:adpcm_pkg::uvm_sequencer::stop_sequences::t
+> |vpiFullName:adpcm_pkg::uvm_vreg_field::read::cbs
+> |vpiFullName:adpcm_pkg::uvm_vreg_field::write::cbs
+> |vpiFullName:adpcm_pkg::uvm_vreg::read::cbs
+> |vpiFullName:adpcm_pkg::uvm_vreg::write::cbs
+> |vpiName:cbs
+> |vpiName:m_reg_process
+> |vpiName:p
+> |vpiName:param_t
+> |vpiName:phase_runner_proc
+> |vpiName:req_item
+> |vpiName:response
+> |vpiName:t
+> |vpiParent:
+> |vpiTypespec:
+
+== Scoreboard/default — the documented ~50/50 COIN, NOT this law
+   order-blind diff lines: 0   raw lines 1100381 = 1100381

@@ -1,0 +1,46 @@
+r10uvm195 — rowheads.sh, BEFORE and AFTER, on this pass's own two sweeps.
+A cmp line count is the HEAD OBJECT'S decompile size (RESUME.md §7): it may go
+UP when the head object CHANGES, and here it does.
+
+PRISTINE (4a42bc7a…)                      PATCHED (19a1a55b…)
+TEST         MODE      CMPLINES HEADS     CMPLINES HEADS
+SeqDriver    default        29     1  ->      198     1   NEW OBJECT
+SeqDriver    testflags      29     1  ->      198     1   NEW OBJECT
+MiniAmiq     default        29     1  ->      198     1   NEW OBJECT
+MiniAmiq     testflags      29     1  ->      198     1   NEW OBJECT
+SimpleUVM    default    664681     1  ->   664681     1   byte-identical log
+SimpleUVM    testflags  664681     1  ->   664681     1   byte-identical log
+Scoreboard   default        95     1  ->       95     1   byte-identical log
+Scoreboard   testflags   SKIP-NOFILE (no golden for this mode; counted)
+BuildUVMPkg  default         0     0  ->        0     0   CMP_EQUAL, STAYS
+BuildUVMPkg  testflags       0     0  ->        0     0   CMP_EQUAL, STAYS
+Earlgrey_0_1 default        31     1  ->       31     1   byte-identical log
+Earlgrey_0_1 testflags       0     0  ->        0     0   CMP_EQUAL, STAYS
+Rggen        default         0     0  ->        0     0   CMP_EQUAL, STAYS
+Rggen        testflags   SKIP-NOFILE (counted)
+
+THE HEAD THAT CLEARED (head_pris_SeqDriver.*.cmp, head_pris_MiniAmiq.*.cmp;
+MiniAmiq's two modes byte-identical, md5 66f5a0fb77310788e388fabc82d9953a):
+
+  LHS: <null>
+  RHS: ref_var: (uvm_pkg::uvm_root::run_test::phase_runner_proc), line:411:11
+       |vpiTypespec: -> ref_typespec -> unsupported_typespec: (process)@411:3
+
+THE HEAD AFTER (head_pat_SeqDriver.*.cmp) — A DIFFERENT OBJECT, and the R0:
+
+  LHS: unsupported_typespec: (m_verbosity_setting), line:3393:5, endln:3393:24
+       |vpiParent: ref_typespec (adpcm_pkg::uvm_component::m_set_cl_verb::setting)
+       |vpiInstance: package uvm_pkg
+  RHS: struct_typespec: (m_verbosity_setting), line:1686:11, endln:1692:4
+       |vpiParent: class_defn (uvm_pkg::uvm_component)
+       |vpiTypespecMember: comp / id / offset / verbosity / phase
+
+uvm-1.2 `base/uvm_component.svh:3393` is `m_verbosity_setting setting;` — a
+subroutine-level local of the OUT-OF-BODY method `uvm_component::m_set_cl_verb`
+whose type is a typedef declared INSIDE class uvm_component (:1686).  In the
+WILDCARD-IMPORT CLONE golden degrades that reference to an
+`unsupported_typespec` NAMED for the written token and INSTANCED at the HOME
+package; we resolve it to the class's own struct_typespec.  That is
+§ classScopedTdImportCopyUnsupported36's face on a CLONE BODY LOCAL, and it is
+this pass's R0.  It was ALREADY the second head on the pristine binary — the
+order-blind mover attribution shows no typespec of any kind moved.

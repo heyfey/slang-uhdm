@@ -4913,6 +4913,84 @@ private:
     // package's identical body leaves it null.  Drained in exportDesign.
     std::map<const UHDM::task_func*, std::map<std::string, UHDM::any*>>
         pkgCloneBodyLocals9;
+    // § cloneTfOwnVarListingIsUnbound195 (r10uvm195) — THE LAW.
+    //
+    // > In a WILDCARD-IMPORT CLONE, the entry of the SUBROUTINE's OWN
+    // > `vpiVariables` listing carries NO `vpiActual`.  Only the body BLOCK's
+    // > listing entry is bound to the HOME declaration.
+    //
+    // THE DECODE, end to end, in the two producers' own source.
+    //
+    //   1. `CompileHelper::importPackage`
+    //      (Surelog src/DesignCompile/CompileHelper.cpp:318-327) clones every
+    //      imported task/function with `UHDM::clone_tree` when the importer is
+    //      a PACKAGE (`inPackage`); an importing MODULE/PROGRAM/`$unit` pushes
+    //      the HOME object itself (`sfuncs->push_back(func)`, :326) and has no
+    //      clone to unbind — arm D's explicit `import P::C` control.
+    //   2. `task::DeepClone` (UHDM build/generated/src/clone_tree.cpp:611-708)
+    //      clones `Io_decls()` and then **`Variables()` (:634-641)** BEFORE it
+    //      calls `enterTask_func(clone, …)` at **:660**.  So while the
+    //      SUBROUTINE-LEVEL declarations are being cloned the elaborator's
+    //      scope stack holds NO frame for this subroutine at all.
+    //      `ref_var::DeepCopy` (UHDM build/generated/src/ref_var.cpp:75-83) is
+    //          if (!clone->Actual_group())
+    //              clone->Actual_group(elaborator.bindAny(VpiName()));
+    //          if (!clone->Actual_group())
+    //              clone->Actual_group((any*) Actual_group());
+    //      — `bindAny` misses, and the fallback copies the SOURCE's, which is
+    //      NULL on a home DECLARATION.  The entry is UNBOUND.
+    //   3. `task_func::DeepCopy` then clones `Stmt()`
+    //      (build/generated/src/task_func.cpp:120).  `begin::DeepClone`
+    //      (build/generated/src/begin.cpp:71-81) opens with
+    //      `enterBegin(this, …)` — on the **SOURCE** begin, whose own
+    //      `Variables()` are the HOME objects (ElaboratorListener.cpp:1193-1213
+    //      builds the varMap from them).  Every body-level `ref_var` clone
+    //      therefore binds `bindAny(name)` to the HOME object.  The body
+    //      listing is BOUND — and § pkgCloneLocalRefBind37 already reproduces
+    //      exactly that half.
+    //
+    // The two listings hold the SAME object on our side, so the omission is a
+    // SLOT rewrite, not a mutation: where the entry is listed anywhere else
+    // (the body block), the subroutine's own slot takes an UNBOUND TWIN and
+    // the bound object stays where the body lists it; where it is listed
+    // nowhere else (the TF-ITEM production — a paren-less function or a task
+    // with a body io declaration builds NO body `begin` at all, § 139), the
+    // one object simply loses the binding and nothing is minted.
+    //
+    // THERE IS NO VIEW CONJUNCT, AND THAT WAS MEASURED, NOT ASSUMED.  In an
+    // `--elabuhdm` run golden holds the clone subroutine's own listing FOUR
+    // times and splits them `{ACT=-:2, BOUND:2}` — the un-elaborated copies
+    // bare, the elaborated ones bound.  A first cut gated the omission on the
+    // DEF-view clone object (`pkgDefMap[curPkgEmitSym] == pkgClassTfClone`, or
+    // `!pkgEmitTopView` for the free-subroutine half) and it was WRONG IN BOTH
+    // VIEWS: it left `{ACT=-:1, BOUND:1}` in the plain view where golden reads
+    // `{ACT=-:2}`, and `{ACT=-:1, BOUND:3}` under `--elabuhdm`.  UNGATED, both
+    // views land on golden's multiset exactly (arm A/B/C, every clone cell).
+    // The reason is § connGenScope61's, one law over: `uhdm_main.cpp` runs
+    // UHDM's OWN `ElaboratorListener` under `--elabuhdm`, exactly as Surelog
+    // does, and that listener re-binds the ELABORATED copy by name against the
+    // elaborated scope stack — so omitting here costs nothing in that view and
+    // is the whole answer in the plain one.
+    //
+    // THE ORDER IS PART OF THE LAW (r10v195, the verifier's fix).  The pass
+    // must run AFTER `cloneStmtHomeVarRef17()`, not before it.  § 17 keys a
+    // clone's variables by DECLARATION SITE ("name@line:col") and refuses an
+    // ambiguous key (`ow.dup`, TypeEmit.cpp:8313-8319, :8375-8376).  The twin
+    // carries the SAME name, line and column as the object it replaces, so a
+    // twin minted BEFORE § 17 puts two different objects under that one key
+    // (the twin in the subroutine's listing, the original in the body block's)
+    // and § 17 then SKIPS the remap for exactly the variables this law
+    // touches.  The body entry keeps the clone's OWN object — which
+    // § pkgCloneLocalRefBind37's `bind9(o37, o37)` had bound to ITSELF — where
+    // golden holds the ELABORATED HOME declaration.  Measured: 34 self-cycled
+    // `ref_var`s per moving row-mode in SeqDriver and MiniAmiq against 0 in
+    // golden and 0 in the pristine binary.  Neither instrument that guarded
+    // this pass could see it: `uhdm-cmp`'s visited set short-circuits the
+    // self-cycle, and a census whose payload is the actual's kind/name/span
+    // reads the clone's own object and the home's as the SAME string.
+    //
+    // DIRECTION: OMIT.  Nothing is re-typed or re-spanned; the only object
+    // this law can create is the unbound twin of a slot it rewrites.
     // § hierCallArgTakesBase39 — every EXPRESSION-position CLASS-METHOD call
     // written `recv.m(args)` with a ONE-NAME receiver, i.e. exactly the
     // two-element `hier_path{ref_obj recv, method_func_call m}` the

@@ -1,0 +1,13 @@
+r10uvm195 — ct195list on the PRISTINE SeqDriver/default pair (LHS golden, RHS ours)
+== GOLDEN
+id=16195 full=uvm_pkg::uvm_root::run_test::phase_runner_proc @411:11 actual=<null> chain=/begin:/task:run_test/class_defn:uvm_root/package:uvm_pkg/design:work@top_tb
+id=75327 full=uvm_pkg::uvm_root::run_test::phase_runner_proc @411:11 actual=<null> chain=/begin:/task:uvm_root::run_test/package:uvm_pkg/design:work@top_tb
+id=134662 full=adpcm_pkg::uvm_root::run_test::phase_runner_proc @411:11 actual=<null> chain=/task:uvm_root::run_test/package:adpcm_pkg/design:work@top_tb
+id=134701 full=adpcm_pkg::uvm_root::run_test::phase_runner_proc @411:11 actual=ref_var()#16195 chain=/begin:/task:uvm_root::run_test/package:adpcm_pkg/design:work@top_tb
+id=198789 full=adpcm_pkg::uvm_root::run_test::phase_runner_proc @411:11 actual=<null> chain=/task:uvm_root::run_test/package:adpcm_pkg/design:work@top_tb
+id=198828 full=adpcm_pkg::uvm_root::run_test::phase_runner_proc @411:11 actual=ref_var()#16195 chain=/begin:/task:uvm_root::run_test/package:adpcm_pkg/design:work@top_tb
+== OURS (pristine)
+id=96774 full=uvm_pkg::uvm_root::run_test::phase_runner_proc @411:11 actual=<null> chain=/begin:/task:run_test/class_defn:uvm_root/package:uvm_pkg/design:work@top_tb
+id=144799 full=uvm_pkg::uvm_root::run_test::phase_runner_proc @411:11 actual=<null> chain=/begin:/task:uvm_root::run_test/package:uvm_pkg/design:work@top_tb
+id=197462 full=adpcm_pkg::uvm_root::run_test::phase_runner_proc @411:11 actual=ref_var()#96774 chain=/begin:/task:uvm_root::run_test/package:adpcm_pkg/design:work@top_tb
+id=251258 full=adpcm_pkg::uvm_root::run_test::phase_runner_proc @411:11 actual=ref_var()#96774 chain=/begin:/task:uvm_root::run_test/package:adpcm_pkg/design:work@top_tb

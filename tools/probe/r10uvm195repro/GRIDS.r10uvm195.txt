@@ -1,0 +1,55 @@
+===== a_homes
+cmp rc=255 a def lines=96 heads=1
+cmp rc=255 b def lines=96 heads=1
+cmp rc=255 a elab lines=130 heads=1
+cmp rc=255 b elab lines=130 heads=1
+def a LISTdifflines=36 cells=132
+def b LISTdifflines=4 cells=132
+elab a LISTdifflines=53 cells=282
+elab b LISTdifflines=21 cells=282
+  score def   TO-GOLDEN 8  AWAY-GOLDEN 0  MOVED/STILL-WRONG 2  AGREE 72  KEYS 82
+  score elab  TO-GOLDEN 8  AWAY-GOLDEN 0  MOVED/STILL-WRONG 15  AGREE 89  KEYS 112
+===== b_kinds
+cmp rc=255 a def lines=24 heads=1
+cmp rc=255 b def lines=24 heads=1
+cmp rc=255 a elab lines=24 heads=1
+cmp rc=255 b elab lines=24 heads=1
+def a LISTdifflines=16 cells=178
+def b LISTdifflines=0 cells=178
+elab a LISTdifflines=18 cells=398
+elab b LISTdifflines=2 cells=398
+  score def   TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED/STILL-WRONG 0  AGREE 86  KEYS 90
+  score elab  TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED/STILL-WRONG 2  AGREE 128  KEYS 134
+===== c_shapes
+cmp rc=255 a def lines=82 heads=1
+cmp rc=255 b def lines=82 heads=1
+cmp rc=255 a elab lines=86 heads=1
+cmp rc=255 b elab lines=86 heads=1
+def a LISTdifflines=76 cells=138
+def b LISTdifflines=44 cells=138
+elab a LISTdifflines=133 cells=308
+elab b LISTdifflines=101 cells=308
+  score def   TO-GOLDEN 8  AWAY-GOLDEN 0  MOVED/STILL-WRONG 22  AGREE 52  KEYS 82
+  score elab  TO-GOLDEN 8  AWAY-GOLDEN 0  MOVED/STILL-WRONG 35  AGREE 79  KEYS 122
+===== d_control
+cmp rc=0 a def lines=0 heads=0
+cmp rc=0 b def lines=0 heads=0
+cmp rc=0 a elab lines=0 heads=0
+cmp rc=0 b elab lines=0 heads=0
+def a LISTdifflines=0 cells=24
+def b LISTdifflines=0 cells=24
+elab a LISTdifflines=2 cells=46
+elab b LISTdifflines=2 cells=46
+  score def   TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED/STILL-WRONG 0  AGREE 20  KEYS 20
+  score elab  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED/STILL-WRONG 2  AGREE 20  KEYS 22
+===== e_head
+cmp rc=255 a def lines=29 heads=1
+cmp rc=0 b def lines=0 heads=0
+cmp rc=0 a elab lines=0 heads=0
+cmp rc=0 b elab lines=0 heads=0
+def a LISTdifflines=4 cells=26
+def b LISTdifflines=0 cells=26
+elab a LISTdifflines=6 cells=56
+elab b LISTdifflines=2 cells=56
+  score def   TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED/STILL-WRONG 0  AGREE 19  KEYS 20
+  score elab  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED/STILL-WRONG 2  AGREE 23  KEYS 26

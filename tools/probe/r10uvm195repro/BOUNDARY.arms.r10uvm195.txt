@@ -1,0 +1,22 @@
+===== r10v105repro/v105_b5
+cmp rc=255 a def lines=50 heads=1
+cmp rc=255 b def lines=50 heads=1
+cmp rc=255 a elab lines=50 heads=1
+cmp rc=255 b elab lines=50 heads=1
+def a LISTdifflines=15 cells=18
+def b LISTdifflines=11 cells=18
+elab a LISTdifflines=28 cells=40
+elab b LISTdifflines=24 cells=40
+  score def   TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED/STILL-WRONG 10  AGREE 6  KEYS 17
+  score elab  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED/STILL-WRONG 15  AGREE 9  KEYS 25
+===== r10v179repro/v179_f_nomod
+cmp rc=255 a def lines=29 heads=1
+cmp rc=0 b def lines=0 heads=0
+cmp rc=0 a elab lines=0 heads=0
+cmp rc=0 b elab lines=0 heads=0
+def a LISTdifflines=8 cells=16
+def b LISTdifflines=0 cells=16
+elab a LISTdifflines=8 cells=32
+elab b LISTdifflines=0 cells=32
+  score def   TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED/STILL-WRONG 0  AGREE 10  KEYS 12
+  score elab  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED/STILL-WRONG 0  AGREE 10  KEYS 12

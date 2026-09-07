@@ -7710,7 +7710,6 @@ UHDM::design* UhdmExporter::exportDesign() {
                 bind9(o37, o37);
         }
     }
-    pkgCloneBodyLocals9.clear();
     // § cloneNewArrayHierBaseBindsOwnDecl191 — the hop map is consulted only
     // by the pass above; drop it with the registry it serves.
     newArrayCloneOwner191.clear();
@@ -7722,6 +7721,80 @@ UHDM::design* UhdmExporter::exportDesign() {
     // only inside a clone, and it necessarily binds the clone's own object —
     // so this rewrite has to see those bindings, not race them.
     cloneStmtHomeVarRef17();
+    // § cloneTfOwnVarListingIsUnbound195 runs AFTER § cloneStmtHomeVarRef17,
+    // and THE ORDER IS PART OF THE LAW (r10v195, the verifier's fix).  § 17
+    // keys a clone's variables by DECLARATION SITE ("name@line:col") and
+    // REFUSES an ambiguous key (`ow.dup`, TypeEmit.cpp:8313-8319, :8375-8376).
+    // Minting the unbound twin BEFORE § 17 runs puts two DIFFERENT objects
+    // under that one key — the twin in the subroutine's own listing, the
+    // original in the body block's — so § 17 marks the key ambiguous and SKIPS
+    // the remap for exactly the variables this law touches.  The body entry
+    // then keeps the clone's OWN object, which § pkgCloneLocalRefBind37's
+    // `bind9(o37, o37)` had made a SELF-REFERENCE, where golden (and the
+    // pristine binary) hold the ELABORATED HOME declaration — 34 self-cycled
+    // `ref_var`s per moving row-mode on SeqDriver and MiniAmiq against 0 in
+    // golden and 0 pristine.  `uhdm-cmp` cannot see that (the compare's
+    // visited set short-circuits the cycle) and a census keyed on the actual's
+    // kind/name/span cannot either (the clone's own object and the home's
+    // share all three), so the ORDER is the only thing holding the cell on
+    // golden.  Run here, § 17 sees ONE object per key, remaps the body entry
+    // to the home, and the twin is copied from an already-correct original.
+    if (!pkgCloneBodyLocals9.empty()) {
+        // § cloneTfOwnVarListingIsUnbound195 — THE OMISSION, and it runs LAST,
+        // after both bind sweeps AND after § cloneStmtHomeVarRef17's remap:
+        // the law is about what the SUBROUTINE's own listing does NOT carry,
+        // so it can only be written once every binding that law owns exists
+        // AND has been re-pointed at its final target.  The law, and the
+        // `clone_tree` /
+        // `ref_var::DeepCopy` / `begin::DeepClone` decode that reads it out of
+        // the two producers' own source, are in UhdmExporter.h.
+        //
+        // The listing-membership count is taken with the JUDGE's OWN
+        // kind-agnostic accessor (`GetByVpiType(vpiVariables)`), not a
+        // hand-written list of scope kinds: a slot listed nowhere else is the
+        // TF-ITEM production's single object and is unbound in place; a slot
+        // the body block ALSO lists takes an unbound twin so the body's entry
+        // keeps the binding golden gives it.
+        std::map<const UHDM::BaseClass*, int> nlist195;
+        for (auto& kvn195 : s.AllObjects())
+            if (auto* on195 = (const UHDM::BaseClass*)kvn195.first)
+                if (const auto* vv195 =
+                        std::get<2>(on195->GetByVpiType(vpiVariables)))
+                    for (auto* e195 : *vv195)
+                        if (e195)
+                            nlist195[e195]++;
+        for (auto& ce195 : pkgCloneBodyLocals9) {
+            auto* tf195 = (UHDM::task_func*)ce195.first;
+            auto* tvs195 = tf195->Variables();
+            if (!tvs195)
+                continue;
+            for (size_t i195 = 0; i195 < tvs195->size(); ++i195) {
+                auto* v195 = (*tvs195)[i195];
+                if (!v195 || v195->UhdmType() != UHDM::uhdmref_var)
+                    continue;
+                auto* rv195 = (UHDM::ref_var*)v195;
+                if (!rv195->Actual_group())
+                    continue;
+                auto nit195 = nlist195.find(v195);
+                if (nit195 != nlist195.end() && nit195->second > 1) {
+                    auto* tw195 = s.MakeRef_var();
+                    const uint32_t id195 = tw195->UhdmId();
+                    *tw195 = *rv195;
+                    tw195->UhdmId(id195);
+                    tw195->Actual_group(nullptr);
+                    // Golden's subroutine-listing entry is parented at the
+                    // SUBROUTINE (the body's entry at the body block).  No
+                    // generated `Compare` reads `VpiParent` (RESUME §9), so
+                    // this is transcription, not a compared field.
+                    tw195->VpiParent(tf195);
+                    (*tvs195)[i195] = tw195;
+                } else {
+                    rv195->Actual_group(nullptr);
+                }
+            }
+        }
+    }
+    pkgCloneBodyLocals9.clear();
     // § hierCallArgTakesBase39 — a CLASS-METHOD call written `recv.m(args)` in
     // EXPRESSION position, whose receiver is ONE bare name, hands EVERY DIRECT
     // reference ARGUMENT the RECEIVER's own vpiActual — not the argument's

@@ -1,0 +1,12 @@
+r10uvm195repro/grid195/g195_a_homes.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10uvm195repro/grid195/g195_b_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm195repro/grid195/g195_c_shapes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm195repro/grid195/g195_e_head.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v105repro/v105_b5.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10v179repro/v179_f_nomod.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+LISTED=5185 PROCESSED=5185 PRODUCED_DBS=5020 MOVED_ARMS=6 RC_DIFFS=0
+(the first four rows are this pass's OWN arms — the POSITIVE CONTROL;
+ g195_d_control.sv, the arm with no wildcard import, is NOT among them and
+ is byte-identical in both views on both binaries.  The other two are
+ scored against their OWN real Surelog goldens in BOUNDARY.arms.r10uvm195.txt.)

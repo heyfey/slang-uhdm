@@ -1,0 +1,156 @@
+r10uvm195 — DECODE OF RECORD
+§ cloneTfOwnVarListingIsUnbound195
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+================================================================================
+0.  THE HEAD, on this pass's OWN pristine build, before a line of code
+================================================================================
+rowheads.sh over this pass's own pristine surelog sweep:
+
+  TEST           MODE      CMPLINES  HEADS
+  SeqDriver      default         29      1
+  SeqDriver      testflags       29      1
+  MiniAmiq       default         29      1
+  MiniAmiq       testflags       29      1
+
+All four print the SAME object; MiniAmiq's two logs are byte-identical
+(md5 66f5a0fb77310788e388fabc82d9953a).
+
+  LHS: <null>
+  RHS:
+  decompile:
+  ref_var: (uvm_pkg::uvm_root::run_test::phase_runner_proc), id:96774, line:411:11, endln:411:28
+  |vpiParent:
+  \_begin: (uvm_pkg::uvm_root::run_test), id:96777, line:403:3, endln:403:51
+  |vpiTypespec:
+  \_ref_typespec: (uvm_pkg::uvm_root::run_test::phase_runner_proc), id:96775
+    |vpiActual:
+    \_unsupported_typespec: (process), id:96776, line:411:3, endln:411:10
+  |vpiName:phase_runner_proc
+
+uvm-1.2 `base/uvm_root.svh:411` is `process phase_runner_proc;` — a
+SUBROUTINE-LEVEL local of the OUT-OF-BODY class task
+`task uvm_root::run_test(string test_name="")` (:400).
+
+================================================================================
+1.  DECODING THE JUDGE — THE BRIEF'S FRAMING IS REFUTED
+================================================================================
+The brief read the head as "WE list the process-typed subroutine local as a
+begin variable and golden does NOT."  That is FALSE and the instruments say so
+three independent ways.
+
+(a) `ct195own` (the MIRROR owner-finder; `BaseClass.h:194-197` sets ONLY
+    `m_failedRhs` when the GOLDEN pointer is null, so uhdm-cmp prints
+    `LHS: <null>` above OUR object and the printed object is NOT the owner):
+
+      OWNER begin()@403:3-403:51 <task:run_test <class_defn:uvm_root <package:uvm_pkg
+          edge vpiType=100 VECTOR[9/10]      golden vector size 10
+      OWNER task(run_test)@400:1-519:8
+          edge vpiType=100 VECTOR[8/9]       golden vector size 9
+
+    Both listings hold the variable, at the same index, in BOTH databases.
+    The begin's listing is not the question.
+
+(b) The uhdm-dump of golden's `begin @403:3` lists TEN variables ending in
+    `\_ref_var: (uvm_pkg::uvm_root::run_test::phase_runner_proc)` — identical
+    to ours, entry for entry.
+
+(c) `ct195list` over both databases enumerates every `ref_var` named
+    `phase_runner_proc`:
+
+      GOLDEN                                             actual
+      #16195  uvm_pkg   /begin/task:run_test/class_defn  <null>
+      #75327  uvm_pkg   /begin/task:uvm_root::run_test   <null>
+      #134662 adpcm_pkg /task:uvm_root::run_test         <null>     <<<
+      #134701 adpcm_pkg /begin/task:uvm_root::run_test   ref_var #16195
+      #198789 adpcm_pkg /task:uvm_root::run_test         <null>     <<<
+      #198828 adpcm_pkg /begin/task:uvm_root::run_test   ref_var #16195
+
+      OURS
+      #96774  uvm_pkg   /begin/task:run_test/class_defn  <null>
+      #144799 uvm_pkg   /begin/task:uvm_root::run_test   <null>
+      #197462 adpcm_pkg /begin/task:uvm_root::run_test   ref_var #96774
+      #251258 adpcm_pkg /begin/task:uvm_root::run_test   ref_var #96774
+
+`package adpcm_pkg; import uvm_pkg::*;` (SeqDriver `testbench.sv:10-12`) is a
+WILDCARD-IMPORT CLONE.  In golden the clone holds TWO objects per view — the
+one the TASK lists (UNBOUND) and the one the body `begin` lists (BOUND to the
+home).  We hold ONE, listed in both, BOUND.  So the failing compare is
+`ref_var::Compare`'s `SafeCompare(lhs->Actual_group(), rhs->Actual_group())`
+(UHDM build/generated/src/ref_var.cpp:112) on the TASK-listed slot: golden
+null, ours the home `ref_var` — which is exactly `LHS: <null>` with OUR home
+object as the RHS value.  The head is a BINDING, not a listing.
+
+================================================================================
+2.  DECODING SURELOG + UHDM — WHY ONE SLOT BINDS AND THE OTHER DOES NOT
+================================================================================
+1. `CompileHelper::importPackage`
+   (Surelog src/DesignCompile/CompileHelper.cpp:318-327): when the importer is
+   a PACKAGE (`inPackage`), every imported task/function is
+   `UHDM::clone_tree`'d.  An importing MODULE / PROGRAM / `$unit` pushes the
+   HOME OBJECT itself (`sfuncs->push_back(func)`, :326) — no clone, nothing to
+   unbind.  That is arm D's control, and it moves zero bytes.
+2. `task::DeepClone` (UHDM build/generated/src/clone_tree.cpp:611-708) clones
+   `Io_decls()` and then **`Variables()` at :634-641** — and only calls
+   `enterTask_func(clone, …)` at **:660**.  So while the SUBROUTINE-LEVEL
+   declarations are cloned the elaborator's scope stack holds NO frame for the
+   subroutine.  `ref_var::DeepCopy`
+   (UHDM build/generated/src/ref_var.cpp:75-83) is
+       if (!clone->Actual_group())
+           clone->Actual_group(elaboratorContext->m_elaborator.bindAny(VpiName()));
+       if (!clone->Actual_group())
+           clone->Actual_group((any*) Actual_group());
+   `bindAny` (ElaboratorListener.cpp:899) walks that stack, misses, and the
+   fallback copies the SOURCE's `Actual_group` — NULL on a home declaration.
+   THE SUBROUTINE'S OWN LISTING ENTRY IS UNBOUND.
+3. `task_func::DeepCopy` (build/generated/src/task_func.cpp:120) then clones
+   `Stmt()`.  `begin::DeepClone` (build/generated/src/begin.cpp:71-81) opens
+   with `enterBegin(this, …)` — on the **SOURCE** begin, whose `Variables()`
+   are the HOME objects (ElaboratorListener.cpp:1193-1213 builds the varMap
+   from them).  Every body-level `ref_var` clone therefore binds to the HOME
+   object.  THE BODY LISTING IS BOUND — which § pkgCloneLocalRefBind37 already
+   reproduces.
+
+Why a `process` local is a `ref_var` at all is § builtinClassLocalUnsupported-
+BeforeClassPhase115's, not this law's: Surelog registers its builtin
+`process`/`semaphore`/`mailbox` classes AFTER the package pass, so a package or
+out-of-body-method body local of that type falls to `compileVariable`'s
+`ref_var` arm (CompileType.cpp:421-431) over an `unsupported_typespec` named
+for the written token.  This law is KIND-BLIND: it reaches every `ref_var` a
+clone's own listing holds, whatever minted it (arm C's § 155 statement-typedef
+local moves identically).
+
+================================================================================
+3.  DECODING SLANG — WHERE OURS BOUND IT
+================================================================================
+`UhdmExporter.cpp`'s § pkgCloneLocalRefBind37 sweep
+(`for (auto& kv37 : s.AllObjects()) if (bindable37(o37)) bind9(o37, o37);`)
+binds EVERY `ref_var` in a clone body by name, including the DECLARATION
+object, and our emitter puts that ONE object in both the subroutine's and the
+body block's `Variables()`.  Both of golden's slots are therefore served by one
+bound object, and the subroutine's slot is wrong.
+
+THE FIX IS THE OMISSION, and it runs LAST, after both bind sweeps: for every
+wildcard-import clone subroutine, a slot of its OWN `Variables()` holding a
+`ref_var` with a non-null `vpiActual` is unbound.  Where the object is listed
+somewhere else (`GetByVpiType(vpiVariables)` membership > 1 — the body block)
+the SLOT takes an unbound twin and the body keeps the bound object; where it is
+listed nowhere else (the TF-ITEM production of § 139 builds no body `begin` at
+all — arm A `tongs195`, `bellows195`) the one object simply loses the binding
+and nothing is minted.
+
+================================================================================
+4.  THE VIEW QUESTION — MEASURED, AND THE ANSWER IS "NO CONJUNCT"
+================================================================================
+Under `--elabuhdm` golden holds a clone subroutine's own listing FOUR times and
+splits it `{ACT=-:2, BOUND:2}`.  A first cut gated the omission on the DEF-view
+clone object (`pkgDefMap[curPkgEmitSym] == pkgClassTfClone`, or
+`!pkgEmitTopView` for the free-subroutine half) and was WRONG IN BOTH VIEWS:
+`{ACT=-:1, BOUND:1}` in the plain view where golden reads `{ACT=-:2}`, and
+`{ACT=-:1, BOUND:3}` under `--elabuhdm`.  UNGATED, both views land on golden's
+multiset exactly.  The reason is § connGenScope61's: `uhdm_main.cpp` runs
+UHDM's OWN `ElaboratorListener` under `--elabuhdm`, exactly as Surelog does,
+and that listener re-binds the elaborated copy by name.  The GATED intermediate
+binary (md5 b9a1e2c09a6a5f12c67b8cc998ac2edb) was built and measured, and the
+gate is recorded here as REFUTED rather than dressed up; the patched binary of
+record (19a1a55b008635113366cdd8b93375ff) carries no view test at all.

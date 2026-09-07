@@ -1,0 +1,83 @@
+r10uvm195 — THE GATES, run from this pass's OWN worktree at a clean c3e022a3.
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+slang was NOT patched.  results/*.csv were READ ONLY and NOT EDITED.
+GOLDEN_DEFER stayed unset.  The four slang-fenced tests were never dispatched
+by any driver here and are named only inside canaudit.sh's own fence list.
+
+(1) BUILD, both binaries, -j 2, md5 taken separately, both frozen chmod 555
+    BEFORE any sweep
+      pristine  4a42bc7a0018bc97d6d57ceebe1a0a9d   (/tmp/r10uvm195_pris.bin)
+      patched   19a1a55b008635113366cdd8b93375ff   (/tmp/r10uvm195_pat.bin)
+      0 compiler errors.  The pristine binary came out BYTE-IDENTICAL to the
+      main tree's build/slang-uhdm at c3e022a3.
+
+(2) GOLDENS, SLANG_UHDM exported explicitly to EACH binary
+      pristine   PASS=23  FAIL=0
+      patched    PASS=23  FAIL=0
+      /bin/false FAIL=23          (negative control: the harness can fail)
+
+(3) uhdm2rtlil, testflags AND default
+      ct8rows  results/gate_uhdm2rtlil.csv  vs patched testflags   PASS (0 differing rows)
+      ct8rows  own PRISTINE testflags       vs patched testflags   PASS
+      ct8rows  own PRISTINE default         vs patched default     PASS
+      SELFCHECK=1 byteverify   MOVERS 0 / 1358   PATH_SETS_IDENTICAL
+      binary audit: 1458 of 1462 cmds.txt name /tmp/r10uvm195_pat.bin; the
+      other 4 are the two SURELOG_FAIL rows x 2 modes, where the slang side is
+      never run (identical in the pristine sweep).  ZERO files in either sweep
+      mention the main-tree binary.
+
+(4) surelog corpus, --mode both (1588 rows, 956 databases)
+      status histogram identical to pristine, row for row:
+        940 CMP_EQUAL / 16 CMP_NOTEQUAL / 10 DEFERRED / 3 NO_DATABASE /
+        1 NO_UHDM / 567 SLANG_REJECT / 48 SURELOG_FAIL / 1 TIMEOUT /
+        2 UNTRANSLATABLE
+      ct8rows  results/golden_surelog.csv vs patched   PASS (0 differing rows,
+               status AND dump column, over 1588 rows)
+      ct8rows  own PRISTINE sweep          vs patched   PASS
+      NO ROW CONVERTED in either direction.  BuildUVMPkg x2 and
+      Earlgrey_0_1/testflags are CMP_EQUAL in BOTH sweeps and STAY CMP_EQUAL
+      (rowheads: 0 cmp lines, 0 heads, both binaries).
+      binary audit: 1523 of 1573 cmds.txt name /tmp/r10uvm195_pat.bin; the
+      other 50 are rows whose slang side never runs — the SAME 50 in the
+      pristine sweep.
+
+(5) BYTE VERIFY, surelog, SELFCHECK=1
+      PATH_SETS_IDENTICAL (956 paths)
+      MOVERS: 5 / 956
+        ./default/MiniAmiq-544c7f61/slang.uhdm     PREDICTED BY NAME
+        ./testflags/MiniAmiq-544c7f61/slang.uhdm   PREDICTED BY NAME
+        ./default/SeqDriver-32af76aa/slang.uhdm    PREDICTED BY NAME
+        ./testflags/SeqDriver-32af76aa/slang.uhdm  PREDICTED BY NAME
+        ./default/Scoreboard-59431470/slang.uhdm   the documented ~50/50 COIN
+      The prediction was written from the 956 PRISTINE databases ALONE, before
+      the patched sweep was read (PREDICT.surelog.r10uvm195.txt): exactly those
+      four rows, 34 cells each.  uhdm2rtlil: 0 predicted, 0 moved.
+      Scoreboard/default attributed ORDER-BLIND (uhdm-dump both sides,
+      workdir path and object ids normalised, sorted): 0 diff lines,
+      1100381 = 1100381 raw lines.  It is the svunit_pkg vpiTaskFunc ORDER
+      flip, not this law.
+
+(6) CANARIES
+      canaries.sh surelog   ok=52 changed=0 absent=0
+      canaries.sh u2r       ok=8  changed=0 absent=0
+      EXPECT_UNKNOWN=1 ctcan2.sh surelog   PASS
+      EXPECT_UNKNOWN=6 ctcan2.sh u2r       PASS
+      canaudit.sh canaries.sh ctcan2.sh    audited=29 UNCOVERED=0 FENCE-BREACH=0
+      protected databases, patched vs pristine md5:
+        InterfaceModPort x2 SAME, BlackParrotComplex x2 SAME, YosysOldOr x2 SAME,
+        SVSwitch 4842211c4030 (pin), YosysVerx 6ccda350c24a (pin)
+
+(7) WIDE BOUNDARY, every .sv/.v under a COPY of tools/probe, both views
+      LISTED=5185 PROCESSED=5185 PRODUCED_DBS=5020 MOVED_ARMS=6 RC_DIFFS=0
+      4 of the 6 are this pass's OWN arms (the POSITIVE CONTROL — a gate that
+      reported zero over them could not see).  g195_d_control.sv, the arm with
+      no wildcard import, is BYTE-IDENTICAL in both views on both binaries.
+      The other 2 are earlier passes' arms, rebuilt against their OWN real
+      Surelog goldens and scored in BOTH views:
+        r10v179repro/v179_f_nomod.sv  29 cmp lines / 1 head -> 0 / 0 CMP_EQUAL,
+              LIST difflines 8 -> 0 (def) and 8 -> 0 (elab);
+              TO-GOLDEN 2 / AWAY 0 / MOVED-WRONG 0 in both views
+        r10v105repro/v105_b5.sv       TO-GOLDEN 1 / AWAY 0 / MOVED-WRONG 0 in
+              both views; the moved cell is
+              `function:cprod_b5::pf<package:cons_b5|0|ref_var|prod_l`,
+              golden `{ACT=-:2}`, pristine bound, patched `{ACT=-:2}`.
