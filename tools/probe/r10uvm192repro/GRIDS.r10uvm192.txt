@@ -1,0 +1,113 @@
+# r10uvm192 — THE GRIDS (four arms, one REAL Surelog golden each, BOTH views)
+
+######## grid192/g192_a_kinds.sv
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/r10uvm192_scratch/grid_a_kinds/g_def /tmp/wt_r10uvm192/tools/probe/r10uvm192repro/grid192/g192_a_kinds.sv
+rc=0 /tmp/r10uvm192_pris.bin /tmp/wt_r10uvm192/tools/probe/r10uvm192repro/grid192/g192_a_kinds.sv -o /tmp/r10uvm192_scratch/grid_a_kinds/a_def.uhdm
+rc=0 /tmp/r10uvm192_patched.bin /tmp/wt_r10uvm192/tools/probe/r10uvm192repro/grid192/g192_a_kinds.sv -o /tmp/r10uvm192_scratch/grid_a_kinds/b_def.uhdm
+cen rc=0 g_def/slpp_all/surelog.uhdm rows=61
+cen rc=0 a_def.uhdm rows=72
+cen rc=0 b_def.uhdm rows=67
+cmp rc=255 a def lines=34 heads=1
+cmp rc=255 b def lines=34 heads=1
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/r10uvm192_scratch/grid_a_kinds/g_elab /tmp/wt_r10uvm192/tools/probe/r10uvm192repro/grid192/g192_a_kinds.sv
+rc=0 /tmp/r10uvm192_pris.bin /tmp/wt_r10uvm192/tools/probe/r10uvm192repro/grid192/g192_a_kinds.sv --elabuhdm -o /tmp/r10uvm192_scratch/grid_a_kinds/a_elab.uhdm
+rc=0 /tmp/r10uvm192_patched.bin /tmp/wt_r10uvm192/tools/probe/r10uvm192repro/grid192/g192_a_kinds.sv --elabuhdm -o /tmp/r10uvm192_scratch/grid_a_kinds/b_elab.uhdm
+cen rc=0 g_elab/slpp_all/surelog.uhdm rows=115
+cen rc=0 a_elab.uhdm rows=153
+cen rc=0 b_elab.uhdm rows=148
+cmp rc=255 a elab lines=34 heads=1
+cmp rc=255 b elab lines=34 heads=1
+==== a_kinds  PRISTINE
+def.a_kinds                        PRED TO-GOLDEN=5 WIDE-CORRECTLY-STILL=2 | JOIN agree=9 golden-only=5 ours-only=10
+elab.a_kinds                       PRED TO-GOLDEN=5 WIDE-CORRECTLY-STILL=4 | JOIN agree=22 golden-only=3 ours-only=20
+-- TOTALS TO-GOLDEN=10 WIDE-CORRECTLY-STILL=6 before-agree=31 before-golden-only=8 before-ours-only=30
+-- VERDICT: PASS  TO-GOLDEN=10 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+==== a_kinds  PATCHED
+def.a_kinds                        PRED WIDE-CORRECTLY-STILL=2 | JOIN agree=14 golden-only=0 ours-only=5
+elab.a_kinds                       PRED WIDE-CORRECTLY-STILL=4 | JOIN agree=25 golden-only=0 ours-only=17
+-- TOTALS WIDE-CORRECTLY-STILL=6 before-agree=39 before-golden-only=0 before-ours-only=22
+-- VERDICT: PASS  TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+
+######## grid192/g192_b_classes.sv
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/r10uvm192_scratch/grid_b_classes/g_def /tmp/wt_r10uvm192/tools/probe/r10uvm192repro/grid192/g192_b_classes.sv
+rc=0 /tmp/r10uvm192_pris.bin /tmp/wt_r10uvm192/tools/probe/r10uvm192repro/grid192/g192_b_classes.sv -o /tmp/r10uvm192_scratch/grid_b_classes/a_def.uhdm
+rc=0 /tmp/r10uvm192_patched.bin /tmp/wt_r10uvm192/tools/probe/r10uvm192repro/grid192/g192_b_classes.sv -o /tmp/r10uvm192_scratch/grid_b_classes/b_def.uhdm
+cen rc=0 g_def/slpp_all/surelog.uhdm rows=48
+cen rc=0 a_def.uhdm rows=58
+cen rc=0 b_def.uhdm rows=53
+cmp rc=255 a def lines=58 heads=1
+cmp rc=255 b def lines=58 heads=1
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/r10uvm192_scratch/grid_b_classes/g_elab /tmp/wt_r10uvm192/tools/probe/r10uvm192repro/grid192/g192_b_classes.sv
+rc=0 /tmp/r10uvm192_pris.bin /tmp/wt_r10uvm192/tools/probe/r10uvm192repro/grid192/g192_b_classes.sv --elabuhdm -o /tmp/r10uvm192_scratch/grid_b_classes/a_elab.uhdm
+rc=0 /tmp/r10uvm192_patched.bin /tmp/wt_r10uvm192/tools/probe/r10uvm192repro/grid192/g192_b_classes.sv --elabuhdm -o /tmp/r10uvm192_scratch/grid_b_classes/b_elab.uhdm
+cen rc=0 g_elab/slpp_all/surelog.uhdm rows=87
+cen rc=0 a_elab.uhdm rows=116
+cen rc=0 b_elab.uhdm rows=111
+cmp rc=255 a elab lines=58 heads=1
+cmp rc=255 b elab lines=58 heads=1
+==== b_classes  PRISTINE
+def.b_classes                      PRED TO-GOLDEN=5 | JOIN agree=0 golden-only=5 ours-only=10
+elab.b_classes                     PRED TO-GOLDEN=5 | JOIN agree=5 golden-only=5 ours-only=16
+-- TOTALS TO-GOLDEN=10 before-agree=5 before-golden-only=10 before-ours-only=26
+-- VERDICT: PASS  TO-GOLDEN=10 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+==== b_classes  PATCHED
+def.b_classes                      PRED  | JOIN agree=5 golden-only=0 ours-only=5
+elab.b_classes                     PRED  | JOIN agree=10 golden-only=0 ours-only=11
+-- TOTALS before-agree=15 before-golden-only=0 before-ours-only=16
+-- VERDICT: PASS  TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+
+######## grid192/g192_c_home.sv
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/r10uvm192_scratch/grid_c_home/g_def /tmp/wt_r10uvm192/tools/probe/r10uvm192repro/grid192/g192_c_home.sv
+rc=0 /tmp/r10uvm192_pris.bin /tmp/wt_r10uvm192/tools/probe/r10uvm192repro/grid192/g192_c_home.sv -o /tmp/r10uvm192_scratch/grid_c_home/a_def.uhdm
+rc=0 /tmp/r10uvm192_patched.bin /tmp/wt_r10uvm192/tools/probe/r10uvm192repro/grid192/g192_c_home.sv -o /tmp/r10uvm192_scratch/grid_c_home/b_def.uhdm
+cen rc=0 g_def/slpp_all/surelog.uhdm rows=44
+cen rc=0 a_def.uhdm rows=58
+cen rc=0 b_def.uhdm rows=55
+cmp rc=255 a def lines=34 heads=1
+cmp rc=255 b def lines=34 heads=1
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/r10uvm192_scratch/grid_c_home/g_elab /tmp/wt_r10uvm192/tools/probe/r10uvm192repro/grid192/g192_c_home.sv
+rc=0 /tmp/r10uvm192_pris.bin /tmp/wt_r10uvm192/tools/probe/r10uvm192repro/grid192/g192_c_home.sv --elabuhdm -o /tmp/r10uvm192_scratch/grid_c_home/a_elab.uhdm
+rc=0 /tmp/r10uvm192_patched.bin /tmp/wt_r10uvm192/tools/probe/r10uvm192repro/grid192/g192_c_home.sv --elabuhdm -o /tmp/r10uvm192_scratch/grid_c_home/b_elab.uhdm
+cen rc=0 g_elab/slpp_all/surelog.uhdm rows=85
+cen rc=0 a_elab.uhdm rows=111
+cen rc=0 b_elab.uhdm rows=108
+cmp rc=255 a elab lines=34 heads=1
+cmp rc=255 b elab lines=34 heads=1
+==== c_home  PRISTINE
+def.c_home                         PRED TO-GOLDEN=3 WIDE-CORRECTLY-STILL=4 | JOIN agree=0 golden-only=4 ours-only=11
+elab.c_home                        PRED TO-GOLDEN=3 WIDE-CORRECTLY-STILL=4 | JOIN agree=3 golden-only=5 ours-only=19
+-- TOTALS TO-GOLDEN=6 WIDE-CORRECTLY-STILL=8 before-agree=3 before-golden-only=9 before-ours-only=30
+-- VERDICT: PASS  TO-GOLDEN=6 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+==== c_home  PATCHED
+def.c_home                         PRED WIDE-CORRECTLY-STILL=4 | JOIN agree=3 golden-only=1 ours-only=8
+elab.c_home                        PRED WIDE-CORRECTLY-STILL=4 | JOIN agree=6 golden-only=2 ours-only=16
+-- TOTALS WIDE-CORRECTLY-STILL=8 before-agree=9 before-golden-only=3 before-ours-only=24
+-- VERDICT: PASS  TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+
+######## grid192/g192_d_order.sv
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/r10uvm192_scratch/grid_d_order/g_def /tmp/wt_r10uvm192/tools/probe/r10uvm192repro/grid192/g192_d_order.sv
+rc=0 /tmp/r10uvm192_pris.bin /tmp/wt_r10uvm192/tools/probe/r10uvm192repro/grid192/g192_d_order.sv -o /tmp/r10uvm192_scratch/grid_d_order/a_def.uhdm
+rc=0 /tmp/r10uvm192_patched.bin /tmp/wt_r10uvm192/tools/probe/r10uvm192repro/grid192/g192_d_order.sv -o /tmp/r10uvm192_scratch/grid_d_order/b_def.uhdm
+cen rc=0 g_def/slpp_all/surelog.uhdm rows=56
+cen rc=0 a_def.uhdm rows=72
+cen rc=0 b_def.uhdm rows=65
+cmp rc=255 a def lines=30 heads=1
+cmp rc=255 b def lines=30 heads=1
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/r10uvm192_scratch/grid_d_order/g_elab /tmp/wt_r10uvm192/tools/probe/r10uvm192repro/grid192/g192_d_order.sv
+rc=0 /tmp/r10uvm192_pris.bin /tmp/wt_r10uvm192/tools/probe/r10uvm192repro/grid192/g192_d_order.sv --elabuhdm -o /tmp/r10uvm192_scratch/grid_d_order/a_elab.uhdm
+rc=0 /tmp/r10uvm192_patched.bin /tmp/wt_r10uvm192/tools/probe/r10uvm192repro/grid192/g192_d_order.sv --elabuhdm -o /tmp/r10uvm192_scratch/grid_d_order/b_elab.uhdm
+cen rc=0 g_elab/slpp_all/surelog.uhdm rows=103
+cen rc=0 a_elab.uhdm rows=137
+cen rc=0 b_elab.uhdm rows=130
+cmp rc=255 a elab lines=30 heads=1
+cmp rc=255 b elab lines=30 heads=1
+==== d_order  PRISTINE
+def.d_order                        PRED TO-GOLDEN=7 | JOIN agree=2 golden-only=7 ours-only=16
+elab.d_order                       PRED TO-GOLDEN=7 | JOIN agree=11 golden-only=7 ours-only=25
+-- TOTALS TO-GOLDEN=14 before-agree=13 before-golden-only=14 before-ours-only=41
+-- VERDICT: PASS  TO-GOLDEN=14 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+==== d_order  PATCHED
+def.d_order                        PRED  | JOIN agree=9 golden-only=0 ours-only=9
+elab.d_order                       PRED  | JOIN agree=18 golden-only=0 ours-only=18
+-- TOTALS before-agree=27 before-golden-only=0 before-ours-only=27
+-- VERDICT: PASS  TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0

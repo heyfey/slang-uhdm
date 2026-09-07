@@ -1,0 +1,85 @@
+# r10uvm192 — THE DECODE.  MEASUREMENT ONLY; the official uhdm-cmp is the judge.
+# LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+## 1. THE HEAD ON THE PRISTINE BUILD (BuildUVMPkg, 300 cmp lines, ONE head, both modes)
+   see HEAD.before.r10uvm192.txt for the full 150-line decompile of each side.
+
+## 2. THE BRIEF'S FRAMING, REFUTED — ct192own STEP 2, THE TWIN TEST
+== STEP 2 — THE TWIN TEST (every task/function at the head's span) ==
+  ---- GOLDEN ----
+    function(get)@38754:1-38757:12#786  parent=<class_defn:uvm_root:38485<package:uvm_pkg:7351<design:unnamed:0  fullname=uvm_pkg::uvm_root::get
+    function(uvm_root::get)@38754:1-38757:12#60621  parent=<package:uvm_pkg:7351<design:unnamed:0  fullname=uvm_pkg::uvm_root::get
+  ---- OURS ----
+    function(get)@38754:1-38757:12#94911  parent=<class_defn:uvm_root:38485<package:uvm_pkg:7351<design:unnamed:0  fullname=uvm_pkg::uvm_root::get
+    function(uvm_root::get)@38754:1-38757:12#141102  parent=<package:uvm_pkg:7351<design:unnamed:0  fullname=uvm_pkg::uvm_root::get
+
+== STEP 3 — THE LISTING CENSUS ==
+   BOTH sides list the method TWICE, with the SAME two names.  We do not
+   'list it once'.  ct192own STEP 3 shows the two package listings agree
+   index for index (52 and 979 entries on each side; the head's own index
+   336 of the 979 listing holds function(uvm_root::get) on BOTH sides).
+
+## 3. THE FAILING EDGE, NAMED BY THE DESCENT TEST (ct192own STEP 4)
+== STEP 4 — THE DESCENT TEST (fresh CompareContext per owner pair) ==
+    PAIR golden begin()@38756:2-38756:23#78083
+         ours   begin()@38756:2-38756:23#94918
+         r=0 head LHS=<null>
+                     head RHS=<null>   
+    PAIR golden class_var()@38754:10-38754:18#78080
+         ours   class_var()@38754:10-38754:18#94912
+         r=0 head LHS=<null>
+                     head RHS=<null>   
+    PAIR golden func_call(uvm_root::get)@9855:11-9855:19#64480
+         ours   func_call(uvm_root::get)@9855:11-9855:19#2551
+         r=14 head LHS=function(uvm_root::get)@38754:1-38757:12#60621
+                     head RHS=function(get)@38754:1-38757:12#94911   <== REPRODUCES THE HEAD
+    PAIR golden func_call(uvm_root::get)@9855:11-9855:19#64480
+         ours   func_call(uvm_root::get)@9855:11-9855:19#5280
+         r=14 head LHS=function(uvm_root::get)@38754:1-38757:12#60621
+                     head RHS=function(get)@38754:1-38757:12#94911   <== REPRODUCES THE HEAD
+
+   So the head is NOT a listing vector at all: it is the SINGULAR
+   func_call::Function edge (vpiType 20) of the call at uvm_pkg.sv:9855:11,
+   'top = uvm_root::get();' in the package function uvm_init.
+
+## 4. WHICH VIEW IS WHICH (ct192view) — the measurement that corrects the
+##    intuition that TopPackages is the one with the flat qualified listing
+PKG	G	AllPackages	builtin	#194033	VpiTop=0	Task_funcs=0	qualified=0	Class_defns=0	class_methods=0
+PKG	G	AllPackages	uvm_pkg	#60163	VpiTop=0	Task_funcs=979	qualified=927	Class_defns=0	class_methods=0
+PKG	G	TopPackages	builtin	#186049	VpiTop=1	Task_funcs=0	qualified=0	Class_defns=5	class_methods=0
+PKG	G	TopPackages	uvm_pkg	#1	VpiTop=1	Task_funcs=52	qualified=0	Class_defns=327	class_methods=4226
+PKG	O	AllPackages	builtin	#177660	VpiTop=0	Task_funcs=0	qualified=0	Class_defns=0	class_methods=0
+PKG	O	AllPackages	uvm_pkg	#2	VpiTop=0	Task_funcs=979	qualified=927	Class_defns=0	class_methods=0
+PKG	O	TopPackages	builtin	#177654	VpiTop=1	Task_funcs=0	qualified=0	Class_defns=5	class_methods=0
+PKG	O	TopPackages	uvm_pkg	#2752	VpiTop=1	Task_funcs=52	qualified=0	Class_defns=327	class_methods=4226
+
+   AllPackages = the UN-ELABORATED (definition) view: 979 Task_funcs, 927
+   of them class-QUALIFIED, and NO class_defns.
+   TopPackages = the ELABORATED view: 52 free functions plus 327
+   class_defns holding 4226 bare-named methods.
+
+## 5. THE GOLDEN TABLE — every C::m-spelled call in BuildUVMPkg's uvm_pkg
+-- DEF view (the 979 listing), golden:
+      3    func_call  bound-parent=package  bound-name-qualified=N
+     12    func_call  bound-parent=package  bound-name-qualified=Y
+      1    task_call  bound-parent=package  bound-name-qualified=Y
+-- DEF view (the 979 listing), OURS (pristine):
+     12    func_call  bound-parent=class_defn  bound-name-qualified=N
+      3    func_call  bound-parent=package  bound-name-qualified=N
+      1    task_call  bound-parent=class_defn  bound-name-qualified=N
+-- the SAME 13 calls in the ELAB view (the 52 listing) AGREE on both sides,
+   bound to the class_defn's bare method.  That is the same rule reaching a
+   view whose listing carries no C::m entry.
+
+## 6. THE PREDICTED MOVER SET, from PRISTINE databases alone
+PREDICT-MOVER default/BuildUVMPkg-bf853d43 move-cells=13 wide-no-entry=1
+PREDICT-MOVER default/MiniAmiq-544c7f61 move-cells=6 wide-no-entry=0
+PREDICT-MOVER default/Scoreboard-59431470 move-cells=6 wide-no-entry=0
+PREDICT-MOVER default/SeqDriver-32af76aa move-cells=6 wide-no-entry=0
+PREDICT-MOVER default/SimpleUVM-1dc93a62 move-cells=6 wide-no-entry=0
+PREDICT-MOVER testflags/BuildUVMPkg-bf853d43 move-cells=13 wide-no-entry=1
+PREDICT-MOVER testflags/MiniAmiq-544c7f61 move-cells=6 wide-no-entry=0
+PREDICT-MOVER testflags/SeqDriver-32af76aa move-cells=6 wide-no-entry=0
+PREDICT-MOVER testflags/SimpleUVM-1dc93a62 move-cells=6 wide-no-entry=0
+-- dirs=1573 no-ours=617 PREDICTED MOVERS=9  wide-only(no move expected)=0
+u2r: -- dirs=1462 no-ours=104 PREDICTED MOVERS=0  wide-only(no move expected)=0

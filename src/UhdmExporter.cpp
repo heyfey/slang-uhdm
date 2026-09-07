@@ -7212,6 +7212,12 @@ UHDM::design* UhdmExporter::exportDesign() {
         if (pv111)
             for (auto* p111 : *pv111)
                 bindPkgVarInitClassMethodClones111(p111);
+    // § pkgTfBodyCmViewClone192 — THE SAME LAW AT THE OTHER CALL SITE: the
+    // `C::m()` calls written in the BODIES of the subroutines a package lists,
+    // rather than in a package variable's initializer.  Immediately after
+    // § 111 and for its reason — the drains above are what bind these calls to
+    // the class_defn's method, which is this pass's first fence term.
+    bindPkgTfBodyClassMethodClones192();
     // LAW S: a package SCALAR typedef is BARE at every variable-like binding.
     // Dead last — after every deferred typespec rebind above, so no later pass
     // can put a qualified object back.

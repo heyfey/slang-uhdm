@@ -7011,6 +7011,22 @@ private:
     // to the class method exactly where that view carries no such entry.
     // Applied per package VIEW, DESIGN-FINAL, right after drainScopedCallBind26.
     void bindPkgVarInitClassMethodClones111(UHDM::package* pv);
+    // § pkgTfBodyCmViewClone192 — THE SAME LAW AT THE OTHER CALL SITE.  § 111
+    // above answers the question for a package-scope VARIABLE INITIALIZER's
+    // `C::m()`; this answers it for a `C::m()` written in the BODY of a
+    // subroutine the package itself lists.  Surelog reaches both through the
+    // one `CompileHelper::getTaskFunc` scan (CompileExpression.cpp:349-382):
+    // a `C::m` spelling falls through the package-name arm (`C` is a class,
+    // `design->getPackage("C")` is null) into the linear `VpiName` scan of the
+    // CURRENT component's own `getTask_funcs()`, and the un-elaborated
+    // package's listing holds one `C::m`-named entry per out-of-body class
+    // method (UhdmWriter.cpp:1237-1274 renames and reparents that entry into
+    // the class ONLY in the view whose `dest_classes` carries the class — the
+    // ELABORATED one).  So a DEF-listing body's `C::m()` binds THAT LISTING'S
+    // OWN qualified entry; the ELABORATED view, which has no such entry, keeps
+    // the class_defn's method, and the same gate produces both.  Design-final,
+    // right after § 111's loop.  See ParamEmit.cpp for the golden tables.
+    void bindPkgTfBodyClassMethodClones192();
     // One PACKAGE-scope data declaration that is NOT a net (see the net/var
     // split documented at the call site in emitPackage): appends the matching
     // variables object to `out`, or appends nothing for a shape that is not

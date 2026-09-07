@@ -1,0 +1,36 @@
+# r10uvm192 — THE CENSUS (nine UVM databases x both modes), pristine then patched
+
+## PRISTINE (before), each row scored against ITS OWN golden
+default.BuildUVMPkg-bf853d43       PRED TO-GOLDEN=13 WIDE-CORRECTLY-STILL=1 | JOIN agree=13067 golden-only=16 ours-only=16
+default.MiniAmiq-544c7f61          PRED TO-GOLDEN=6 WIDE-CORRECTLY-STILL=12 | JOIN agree=17982 golden-only=4551 ours-only=4550
+default.Scoreboard-59431470        PRED TO-GOLDEN=6 | JOIN agree=11204 golden-only=1805 ours-only=1807
+default.SeqDriver-32af76aa         PRED TO-GOLDEN=6 WIDE-CORRECTLY-STILL=12 | JOIN agree=17192 golden-only=4427 ours-only=4425
+default.SimpleUVM-1dc93a62         PRED TO-GOLDEN=6 | JOIN agree=11154 golden-only=1805 ours-only=1807
+testflags.BuildUVMPkg-bf853d43     PRED TO-GOLDEN=13 WIDE-CORRECTLY-STILL=1 | JOIN agree=13067 golden-only=16 ours-only=16
+testflags.MiniAmiq-544c7f61        PRED TO-GOLDEN=6 WIDE-CORRECTLY-STILL=12 | JOIN agree=17982 golden-only=4551 ours-only=4550
+testflags.SeqDriver-32af76aa       PRED TO-GOLDEN=6 WIDE-CORRECTLY-STILL=12 | JOIN agree=17192 golden-only=4427 ours-only=4425
+testflags.SimpleUVM-1dc93a62       PRED TO-GOLDEN=6 | JOIN agree=11154 golden-only=1805 ours-only=1807
+-- TOTALS TO-GOLDEN=68 WIDE-CORRECTLY-STILL=50 before-agree=129994 before-golden-only=23403 before-ours-only=23403
+-- VERDICT: PASS  TO-GOLDEN=68 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+
+## PRISTINE -> PATCHED (the AFTER lines are the same golden vs the patched census)
+default.BuildUVMPkg-bf853d43       PRED TO-GOLDEN=13 WIDE-CORRECTLY-STILL=1 | JOIN agree=13067 golden-only=16 ours-only=16
+                                   AFTER agree=13080 golden-only=3 ours-only=3  (moves-left=0)
+default.MiniAmiq-544c7f61          PRED TO-GOLDEN=6 WIDE-CORRECTLY-STILL=12 | JOIN agree=17982 golden-only=4551 ours-only=4550
+                                   AFTER agree=17988 golden-only=4545 ours-only=4544  (moves-left=0)
+default.Scoreboard-59431470        PRED TO-GOLDEN=6 | JOIN agree=11204 golden-only=1805 ours-only=1807
+                                   AFTER agree=11210 golden-only=1799 ours-only=1801  (moves-left=0)
+default.SeqDriver-32af76aa         PRED TO-GOLDEN=6 WIDE-CORRECTLY-STILL=12 | JOIN agree=17192 golden-only=4427 ours-only=4425
+                                   AFTER agree=17198 golden-only=4421 ours-only=4419  (moves-left=0)
+default.SimpleUVM-1dc93a62         PRED TO-GOLDEN=6 | JOIN agree=11154 golden-only=1805 ours-only=1807
+                                   AFTER agree=11160 golden-only=1799 ours-only=1801  (moves-left=0)
+testflags.BuildUVMPkg-bf853d43     PRED TO-GOLDEN=13 WIDE-CORRECTLY-STILL=1 | JOIN agree=13067 golden-only=16 ours-only=16
+                                   AFTER agree=13080 golden-only=3 ours-only=3  (moves-left=0)
+testflags.MiniAmiq-544c7f61        PRED TO-GOLDEN=6 WIDE-CORRECTLY-STILL=12 | JOIN agree=17982 golden-only=4551 ours-only=4550
+                                   AFTER agree=17988 golden-only=4545 ours-only=4544  (moves-left=0)
+testflags.SeqDriver-32af76aa       PRED TO-GOLDEN=6 WIDE-CORRECTLY-STILL=12 | JOIN agree=17192 golden-only=4427 ours-only=4425
+                                   AFTER agree=17198 golden-only=4421 ours-only=4419  (moves-left=0)
+testflags.SimpleUVM-1dc93a62       PRED TO-GOLDEN=6 | JOIN agree=11154 golden-only=1805 ours-only=1807
+                                   AFTER agree=11160 golden-only=1799 ours-only=1801  (moves-left=0)
+-- TOTALS TO-GOLDEN=68 WIDE-CORRECTLY-STILL=50 after-agree=130062 after-golden-only=23335 after-ours-only=23335 before-agree=129994 before-golden-only=23403 before-ours-only=23403
+-- VERDICT: PASS  TO-GOLDEN=68 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0

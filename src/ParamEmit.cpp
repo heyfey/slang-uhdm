@@ -23301,6 +23301,187 @@ void UhdmExporter::bindPkgVarInitClassMethodClones111(UHDM::package* pv) {
             walk111(v->Expr());
 }
 
+// § pkgTfBodyCmViewClone192 — A `C::m()` WRITTEN IN THE BODY OF A SUBROUTINE
+// THE PACKAGE ITSELF LISTS BINDS THAT LISTING'S OWN `C::m` ENTRY.  The same
+// law as § pkgVarInitCmViewClone111 above, at the other call site: 111 walks a
+// package VARIABLE INITIALIZER's expression, this walks the package's own
+// `Task_funcs` BODIES.  Both are one `getTaskFunc` scan in Surelog.
+//
+// PRODUCER.  `CompileHelper::getTaskFunc` (Surelog
+// src/DesignCompile/CompileExpression.cpp:349-382) resolves a written call
+// name in this order: (1) if the name holds `::`, treat the head as a PACKAGE
+// name — `design->getPackage("uvm_root")` is null for a CLASS, so a `C::m`
+// spelling falls straight through; (2) walk the CURRENT component and its
+// parents, linear-scanning `comp->getTask_funcs()` for `tf->VpiName() == name`.
+// A package's own listing entry for an out-of-body class-method definition is
+// named `C::m` verbatim, so step (2) hits it, and the CALL and the ENTRY it
+// hits belong to the same package copy.  `UhdmWriter::writePackage`
+// (src/DesignCompile/UhdmWriter.cpp:1237-1274) then renames that entry to the
+// bare `m` and reparents it into the class — but ONLY where its `dest_classes`
+// holds the class, which is the ELABORATED (`TopPackages`) view.  The
+// un-elaborated (`AllPackages`) view keeps the qualified name and the package
+// parent, so ONE Surelog rule prints as two different bindings.
+//
+// THE GOLDEN TABLE — BuildUVMPkg's `uvm_pkg` (`ct192cen`, one row per CALL
+// keyed on span x kind x written name x caller scope x listing size; LHS is
+// always golden).  Every `C::m`-spelled call in the DEF listing, all 16:
+//
+//   VIEW                golden binds                    n   ours (pristine)
+//   DEF  (AllPackages)  the DEF listing's `C::m` entry  13   the class method
+//   DEF  (AllPackages)  a package sub, bare-named        3   the same (agrees)
+//   ELAB (TopPackages)  the class_defn's method `m`     16   the same (agrees)
+//
+// The three that already agree are the `uvm_pkg::m_uvm_string_queue_join`
+// calls — PACKAGE-qualified, § pkgDefCallBindsOwnListing173's population, and
+// the fence below leaves them exactly where 173 put them.  The ELAB row is the
+// same rule reaching a view whose listing carries no `C::m` entry at all
+// (measured: `ct192view` — the ELAB `uvm_pkg` has 0 qualified entries and 327
+// class_defns holding 4226 methods; the DEF one has 927 qualified entries and
+// 0 class_defns), so nothing there can move.
+//
+// THE OWN-BODY / IMPORT-CLONE SPLIT — the term the uvm-1.2 rows convict, and
+// the reason this law is NOT simply "the view's own entry" (`ct192cen`'s PRED
+// rows over the nine pristine UVM databases, scored by `score192.py` against
+// each row's OWN golden, BEFORE any patched binary existed):
+//
+//   the body the call sits in                   cells  verdict without the term
+//   OWNED by this package (`uvm_pkg` bodies)       68  TO-GOLDEN   68 / AWAY 0
+//   an IMPORT CLONE of another package's body      48  TO-GOLDEN    0 / AWAY 48
+//                    (`adpcm_pkg`, `svaunit_pkg`)
+//
+// A package that wildcard-imports another carries `clone_tree` copies of every
+// body it imports, so the un-split law fires inside those copies too — and
+// golden keeps THOSE on the class method, in both views.  Surelog makes the
+// split by construction: an OWNED body is COMPILED in its own package's
+// component, so `getTaskFunc`'s scan hits that component's own entry, while
+// the importer's copy is a `UHDM::clone_tree` of the whole task_func made by
+// `CompileHelper::importPackage` (src/DesignCompile/CompileHelper.cpp:299-330)
+// under an `ElaboratorContext`, which resolves the copy for itself.
+//
+// THE TERM IS THE **CALLER'S** HOME, NOT THE CALLEE'S.  Both readings score
+// identically on all 118 UVM cells (48 N/N, 70 Y/Y), so the corpus alone
+// cannot separate them; arm C does.  `forgePkg` wildcard-imports `hearthPkg`
+// and then writes its OWN body `Bellows::ownCaller` calling the IMPORTED
+// class's static `Anvil::weight()` — golden binds `forgePkg`'s own
+// `Anvil::weight` clone entry there, which the callee-home reading refuses (it
+// scored those two cells MISSED) and the caller-home reading gets right.
+//
+// FENCE, four terms, each of which a golden cell convicts:
+//   * the call must ALREADY be bound to a CLASS_DEFN-parented method — this is
+//     what excludes the three package-qualified calls (bound to a package sub)
+//     and every unbound call, and it is why this pass cannot fight § 173;
+//   * the call must sit in the BODY OF A SUBROUTINE THE PACKAGE LISTS
+//     DIRECTLY: walking out of the call, the first scope reached must be a
+//     `function`/`task` whose own parent is a `package`.  A body inside a
+//     class_defn (the ELAB view) is not this population, and a package
+//     VARIABLE initializer is § 111's cell, not this one;
+//   * the BODY must be one this package OWNS — if the enclosing subroutine is
+//     named `C::m`, `C` must be a class_defn of a package with this package's
+//     name; an unqualified free function counts as owned (the own-body /
+//     import-clone split above);
+//   * the target must be an entry of THAT SAME package view whose `VpiName`
+//     equals the WRITTEN call name EXACTLY and whose kind matches the call's
+//     (a `task*` in `Function()` would be a link error, § 26's guard).
+// No NAME is written here — only a link is re-pointed — so the recorded
+// "naming is context-dependent" memory is respected.
+//
+// PLACEMENT.  Design-final, immediately after § 111's loop, for § 111's own
+// measured reason: `drainScopedCallBind26`/`drainCollapseLink172` are what put
+// the class_defn's method on these calls in the first place, so the first
+// fence term cannot fire before those drains have run.
+void UhdmExporter::bindPkgTfBodyClassMethodClones192() {
+    for (auto& kv192 : s.AllObjects()) {
+        auto* n192 = (UHDM::any*)kv192.first;
+        if (!n192)
+            continue;
+        const bool isF192 = n192->UhdmType() == UHDM::uhdmfunc_call;
+        const bool isT192 = n192->UhdmType() == UHDM::uhdmtask_call;
+        if (!isF192 && !isT192)
+            continue;
+        // FENCE 1 — already bound, and bound to a CLASS_DEFN-parented method.
+        const UHDM::task_func* cur192 =
+            isF192 ? (const UHDM::task_func*)((UHDM::func_call*)n192)->Function()
+                   : (const UHDM::task_func*)((UHDM::task_call*)n192)->Task();
+        if (!cur192 || !cur192->VpiParent() ||
+            cur192->VpiParent()->UhdmType() != UHDM::uhdmclass_defn)
+            continue;
+        const std::string cn192(n192->VpiName());
+        if (cn192.find("::") == std::string::npos)
+            continue;
+        // FENCE 2 — the body of a subroutine THIS package lists directly.
+        const UHDM::BaseClass* sub192 = nullptr;
+        {
+            const UHDM::BaseClass* p192 = n192->VpiParent();
+            for (int g192 = 0; p192 && g192 < 4096;
+                 p192 = p192->VpiParent(), ++g192) {
+                const UHDM::UHDM_OBJECT_TYPE k192 = p192->UhdmType();
+                if (k192 == UHDM::uhdmfunction || k192 == UHDM::uhdmtask) {
+                    sub192 = p192;
+                    break;
+                }
+                if (k192 == UHDM::uhdmclass_defn || k192 == UHDM::uhdmpackage ||
+                    k192 == UHDM::uhdmmodule_inst ||
+                    k192 == UHDM::uhdminterface_inst ||
+                    k192 == UHDM::uhdmprogram || k192 == UHDM::uhdmdesign)
+                    break;
+            }
+        }
+        if (!sub192 || !sub192->VpiParent() ||
+            sub192->VpiParent()->UhdmType() != UHDM::uhdmpackage)
+            continue;
+        auto* pv192 = (const UHDM::package*)sub192->VpiParent();
+        if (!pv192->Task_funcs())
+            continue;
+        // FENCE 3 — THE OWN-BODY / IMPORT-CLONE SPLIT.  The body the call sits
+        // in must be one THIS package OWNS: if the enclosing subroutine is
+        // named `C::m`, the class `C` must be a class_defn of a package with
+        // this package's name (an unqualified free function counts as owned).
+        // A wildcard-IMPORTER's listing carries `clone_tree` copies of every
+        // body it imports, and golden keeps a CLONE's calls on the class
+        // method while binding this package's OWN bodies to this listing's
+        // entries — whatever class the CALLEE belongs to.
+        {
+            const std::string sn192(sub192->VpiName());
+            const size_t q192 = sn192.find("::");
+            if (q192 != std::string::npos) {
+                const std::string cls192 = sn192.substr(0, q192);
+                bool owned192 = false;
+                for (auto& kv2 : s.AllObjects()) {
+                    const UHDM::BaseClass* c2 = kv2.first;
+                    if (!c2 || c2->UhdmType() != UHDM::uhdmclass_defn)
+                        continue;
+                    if (c2->VpiName() != cls192)
+                        continue;
+                    for (const UHDM::BaseClass* p3 = c2->VpiParent(); p3;
+                         p3 = p3->VpiParent())
+                        if (p3->UhdmType() == UHDM::uhdmpackage) {
+                            if (p3->VpiName() == pv192->VpiName())
+                                owned192 = true;
+                            break;
+                        }
+                    if (owned192)
+                        break;
+                }
+                if (!owned192)
+                    continue;
+            }
+        }
+        // FENCE 4 — this view's own entry, name EXACT, kind matching.
+        for (auto* t192 : *pv192->Task_funcs()) {
+            if (!t192 || t192 == cur192 || t192->VpiName() != cn192)
+                continue;
+            if (isF192 && t192->UhdmType() == UHDM::uhdmfunction) {
+                ((UHDM::func_call*)n192)->Function((UHDM::function*)t192);
+                break;
+            }
+            if (isT192 && t192->UhdmType() == UHDM::uhdmtask) {
+                ((UHDM::task_call*)n192)->Task((UHDM::task*)t192);
+                break;
+            }
+        }
+    }
+}
+
 // See the header (§ pkgTfSeq9): the package Task_funcs listing key.
 bool UhdmExporter::pkgTfListingLess(const UHDM::BaseClass* a,
                                     const UHDM::BaseClass* b) {

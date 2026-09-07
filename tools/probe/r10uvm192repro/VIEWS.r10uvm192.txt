@@ -1,0 +1,8 @@
+PKG	G	AllPackages	builtin	#194033	VpiTop=0	Task_funcs=0	qualified=0	Class_defns=0	class_methods=0
+PKG	G	AllPackages	uvm_pkg	#60163	VpiTop=0	Task_funcs=979	qualified=927	Class_defns=0	class_methods=0
+PKG	G	TopPackages	builtin	#186049	VpiTop=1	Task_funcs=0	qualified=0	Class_defns=5	class_methods=0
+PKG	G	TopPackages	uvm_pkg	#1	VpiTop=1	Task_funcs=52	qualified=0	Class_defns=327	class_methods=4226
+PKG	O	AllPackages	builtin	#177660	VpiTop=0	Task_funcs=0	qualified=0	Class_defns=0	class_methods=0
+PKG	O	AllPackages	uvm_pkg	#2	VpiTop=0	Task_funcs=979	qualified=927	Class_defns=0	class_methods=0
+PKG	O	TopPackages	builtin	#177654	VpiTop=1	Task_funcs=0	qualified=0	Class_defns=5	class_methods=0
+PKG	O	TopPackages	uvm_pkg	#2752	VpiTop=1	Task_funcs=52	qualified=0	Class_defns=327	class_methods=4226

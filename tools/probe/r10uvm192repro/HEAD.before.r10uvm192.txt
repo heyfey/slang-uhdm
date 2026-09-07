@@ -1,0 +1,150 @@
+LHS:
+decompile:
+function: (uvm_pkg::uvm_root::get), id:60621, line:38754:1, endln:38757:12
+|vpiParent:
+\_package: uvm_pkg (uvm_pkg::), id:60163, file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:7351:1, endln:83263:11
+|vpiName:uvm_root::get
+|vpiFullName:uvm_pkg::uvm_root::get
+|vpiVariables:
+\_class_var: (uvm_pkg::uvm_root::get::cs), id:78085, line:38755:20, endln:38755:22
+  |vpiParent:
+  \_assignment: , id:78088, line:38755:20, endln:38755:49
+  |vpiTypespec:
+  \_ref_typespec: (uvm_pkg::uvm_root::get::cs), id:78087
+    |vpiParent:
+    \_class_var: (uvm_pkg::uvm_root::get::cs), id:78085, line:38755:20, endln:38755:22
+    |vpiFullName:uvm_pkg::uvm_root::get::cs
+    |vpiActual:
+    \_class_typespec: , id:78086, line:38755:2, endln:38755:19
+  |vpiName:cs
+  |vpiFullName:uvm_pkg::uvm_root::get::cs
+|vpiVisibility:1
+|vpiReturn:
+\_class_var: (uvm_pkg::uvm_root::get), id:78080, line:38754:10, endln:38754:18
+  |vpiParent:
+  \_function: (uvm_pkg::uvm_root::get), id:60621, line:38754:1, endln:38757:12
+  |vpiTypespec:
+  \_ref_typespec: (uvm_pkg::uvm_root::get), id:78082
+    |vpiParent:
+    \_class_var: (uvm_pkg::uvm_root::get), id:78080, line:38754:10, endln:38754:18
+    |vpiFullName:uvm_pkg::uvm_root::get
+    |vpiActual:
+    \_class_typespec: , id:78081, line:38754:10, endln:38754:18
+  |vpiFullName:uvm_pkg::uvm_root::get
+|vpiStmt:
+\_begin: (uvm_pkg::uvm_root::get), id:78083, line:38756:2, endln:38756:23
+  |vpiParent:
+  \_function: (uvm_pkg::uvm_root::get), id:60621, line:38754:1, endln:38757:12
+  |vpiFullName:uvm_pkg::uvm_root::get
+  |vpiVariables:
+  \_class_var: (uvm_pkg::uvm_root::get::cs), id:78085, line:38755:20, endln:38755:22
+  |vpiStmt:
+  \_assignment: , id:78088, line:38755:20, endln:38755:49
+    |vpiParent:
+    \_begin: (uvm_pkg::uvm_root::get), id:78083, line:38756:2, endln:38756:23
+    |vpiOpType:82
+    |vpiBlocking:1
+    |vpiRhs:
+    \_ref_obj: (uvm_pkg::uvm_root::get::uvm_coreservice_t::get), id:78089, line:38755:25, endln:38755:44
+      |vpiParent:
+      \_assignment: , id:78088, line:38755:20, endln:38755:49
+      |vpiName:uvm_coreservice_t::get
+      |vpiFullName:uvm_pkg::uvm_root::get::uvm_coreservice_t::get
+    |vpiLhs:
+    \_class_var: (uvm_pkg::uvm_root::get::cs), id:78085, line:38755:20, endln:38755:22
+  |vpiStmt:
+  \_return_stmt: , id:78090, line:38756:2, endln:38756:8
+    |vpiParent:
+    \_begin: (uvm_pkg::uvm_root::get), id:78083, line:38756:2, endln:38756:23
+    |vpiCondition:
+    \_hier_path: (cs.get_root), id:78091, line:38756:9, endln:38756:22
+      |vpiParent:
+      \_return_stmt: , id:78090, line:38756:2, endln:38756:8
+      |vpiActual:
+      \_ref_obj: (cs), id:78092, line:38756:9, endln:38756:11
+        |vpiParent:
+        \_hier_path: (cs.get_root), id:78091, line:38756:9, endln:38756:22
+        |vpiName:cs
+      |vpiActual:
+      \_method_func_call: (get_root), id:78093, line:38756:12, endln:38756:20
+        |vpiParent:
+        \_hier_path: (cs.get_root), id:78091, line:38756:9, endln:38756:22
+        |vpiName:get_root
+      |vpiName:cs.get_root
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:60163, file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:7351:1, endln:83263:11
+RHS:
+decompile:
+function: (uvm_pkg::uvm_root::get), id:94911, line:38754:1, endln:38757:12
+|vpiParent:
+\_class_defn: (uvm_pkg::uvm_root), id:94678, file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:38485:1, endln:38740:9
+|vpiName:get
+|vpiFullName:uvm_pkg::uvm_root::get
+|vpiVariables:
+\_class_var: (uvm_pkg::uvm_root::get::cs), id:94916, line:38755:20, endln:38755:22
+  |vpiParent:
+  \_assignment: , id:94919, line:38755:20, endln:38755:49
+  |vpiTypespec:
+  \_ref_typespec: (uvm_pkg::uvm_root::get::cs), id:94917
+    |vpiParent:
+    \_class_var: (uvm_pkg::uvm_root::get::cs), id:94916, line:38755:20, endln:38755:22
+    |vpiFullName:uvm_pkg::uvm_root::get::cs
+    |vpiActual:
+    \_class_typespec: , id:94915, line:38755:2, endln:38755:19
+  |vpiName:cs
+  |vpiFullName:uvm_pkg::uvm_root::get::cs
+|vpiVisibility:1
+|vpiReturn:
+\_class_var: (uvm_pkg::uvm_root::get), id:94912, line:38754:10, endln:38754:18
+  |vpiParent:
+  \_function: (uvm_pkg::uvm_root::get), id:94911, line:38754:1, endln:38757:12
+  |vpiTypespec:
+  \_ref_typespec: (uvm_pkg::uvm_root::get), id:94914
+    |vpiParent:
+    \_class_var: (uvm_pkg::uvm_root::get), id:94912, line:38754:10, endln:38754:18
+    |vpiFullName:uvm_pkg::uvm_root::get
+    |vpiActual:
+    \_class_typespec: , id:94913, line:38754:10, endln:38754:18
+  |vpiFullName:uvm_pkg::uvm_root::get
+|vpiStmt:
+\_begin: (uvm_pkg::uvm_root::get), id:94918, line:38756:2, endln:38756:23
+  |vpiParent:
+  \_function: (uvm_pkg::uvm_root::get), id:94911, line:38754:1, endln:38757:12
+  |vpiFullName:uvm_pkg::uvm_root::get
+  |vpiVariables:
+  \_class_var: (uvm_pkg::uvm_root::get::cs), id:94916, line:38755:20, endln:38755:22
+  |vpiStmt:
+  \_assignment: , id:94919, line:38755:20, endln:38755:49
+    |vpiParent:
+    \_begin: (uvm_pkg::uvm_root::get), id:94918, line:38756:2, endln:38756:23
+    |vpiOpType:82
+    |vpiBlocking:1
+    |vpiRhs:
+    \_ref_obj: (uvm_pkg::uvm_root::get::uvm_coreservice_t::get), id:94920, line:38755:25, endln:38755:44
+      |vpiParent:
+      \_assignment: , id:94919, line:38755:20, endln:38755:49
+      |vpiName:uvm_coreservice_t::get
+      |vpiFullName:uvm_pkg::uvm_root::get::uvm_coreservice_t::get
+    |vpiLhs:
+    \_class_var: (uvm_pkg::uvm_root::get::cs), id:94916, line:38755:20, endln:38755:22
+  |vpiStmt:
+  \_return_stmt: , id:94921, line:38756:2, endln:38756:8
+    |vpiParent:
+    \_begin: (uvm_pkg::uvm_root::get), id:94918, line:38756:2, endln:38756:23
+    |vpiCondition:
+    \_hier_path: (cs.get_root), id:94922, line:38756:9, endln:38756:22
+      |vpiParent:
+      \_return_stmt: , id:94921, line:38756:2, endln:38756:8
+      |vpiActual:
+      \_ref_obj: (cs), id:94923, line:38756:9, endln:38756:11
+        |vpiParent:
+        \_hier_path: (cs.get_root), id:94922, line:38756:9, endln:38756:22
+        |vpiName:cs
+      |vpiActual:
+      \_method_func_call: (get_root), id:94924, line:38756:12, endln:38756:20
+        |vpiParent:
+        \_hier_path: (cs.get_root), id:94922, line:38756:9, endln:38756:22
+        |vpiName:get_root
+      |vpiName:cs.get_root
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:2752, file:/home/heyfey/git-repos/Surelog/third_party/UVM/1800.2-2017-1.0/pp_output/uvm_pkg.sv, line:7351:1, endln:83263:11

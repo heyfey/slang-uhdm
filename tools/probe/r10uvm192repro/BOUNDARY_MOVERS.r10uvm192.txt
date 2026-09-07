@@ -1,0 +1,228 @@
+######## r10buvm32repro/g32a1.sv
+==== r10buvm32repro_g32a1.sv  PRISTINE
+def.r10buvm32repro_g32a1.sv        PRED TO-GOLDEN=9 WIDE-CORRECTLY-STILL=3 | JOIN agree=14 golden-only=9 ours-only=9
+elab.r10buvm32repro_g32a1.sv       PRED TO-GOLDEN=9 WIDE-CORRECTLY-STILL=6 | JOIN agree=55 golden-only=9 ours-only=9
+-- TOTALS TO-GOLDEN=18 WIDE-CORRECTLY-STILL=9 before-agree=69 before-golden-only=18 before-ours-only=18
+-- VERDICT: PASS  TO-GOLDEN=18 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+==== r10buvm32repro_g32a1.sv  PATCHED
+def.r10buvm32repro_g32a1.sv        PRED WIDE-CORRECTLY-STILL=3 | JOIN agree=23 golden-only=0 ours-only=0
+elab.r10buvm32repro_g32a1.sv       PRED WIDE-CORRECTLY-STILL=6 | JOIN agree=64 golden-only=0 ours-only=0
+-- TOTALS WIDE-CORRECTLY-STILL=9 before-agree=87 before-golden-only=0 before-ours-only=0
+-- VERDICT: PASS  TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+######## r10buvm32repro/g32a2.sv
+==== r10buvm32repro_g32a2.sv  PRISTINE
+def.r10buvm32repro_g32a2.sv        PRED TO-GOLDEN=8 WIDE-CORRECTLY-STILL=3 | JOIN agree=9 golden-only=8 ours-only=8
+elab.r10buvm32repro_g32a2.sv       PRED TO-GOLDEN=8 WIDE-CORRECTLY-STILL=6 | JOIN agree=25 golden-only=7 ours-only=9
+-- TOTALS TO-GOLDEN=16 WIDE-CORRECTLY-STILL=9 before-agree=34 before-golden-only=15 before-ours-only=17
+-- VERDICT: PASS  TO-GOLDEN=16 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+==== r10buvm32repro_g32a2.sv  PATCHED
+def.r10buvm32repro_g32a2.sv        PRED WIDE-CORRECTLY-STILL=3 | JOIN agree=17 golden-only=0 ours-only=0
+elab.r10buvm32repro_g32a2.sv       PRED WIDE-CORRECTLY-STILL=6 | JOIN agree=32 golden-only=0 ours-only=2
+-- TOTALS WIDE-CORRECTLY-STILL=9 before-agree=49 before-golden-only=0 before-ours-only=2
+-- VERDICT: PASS  TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+######## r10buvm32repro/g32a3.sv
+==== r10buvm32repro_g32a3.sv  PRISTINE
+def.r10buvm32repro_g32a3.sv        PRED TO-GOLDEN=3 | JOIN agree=11 golden-only=3 ours-only=4
+elab.r10buvm32repro_g32a3.sv       PRED TO-GOLDEN=3 | JOIN agree=28 golden-only=3 ours-only=6
+-- TOTALS TO-GOLDEN=6 before-agree=39 before-golden-only=6 before-ours-only=10
+-- VERDICT: PASS  TO-GOLDEN=6 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+==== r10buvm32repro_g32a3.sv  PATCHED
+def.r10buvm32repro_g32a3.sv        PRED  | JOIN agree=14 golden-only=0 ours-only=1
+elab.r10buvm32repro_g32a3.sv       PRED  | JOIN agree=31 golden-only=0 ours-only=3
+-- TOTALS before-agree=45 before-golden-only=0 before-ours-only=4
+-- VERDICT: PASS  TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+######## r10uvm144repro/g144_c.sv
+==== r10uvm144repro_g144_c.sv  PRISTINE
+def.r10uvm144repro_g144_c.sv       PRED TO-GOLDEN=6 WIDE-CORRECTLY-STILL=3 | JOIN agree=28 golden-only=6 ours-only=6
+elab.r10uvm144repro_g144_c.sv      PRED TO-GOLDEN=6 WIDE-CORRECTLY-STILL=6 | JOIN agree=48 golden-only=6 ours-only=20
+-- TOTALS TO-GOLDEN=12 WIDE-CORRECTLY-STILL=9 before-agree=76 before-golden-only=12 before-ours-only=26
+-- VERDICT: PASS  TO-GOLDEN=12 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+==== r10uvm144repro_g144_c.sv  PATCHED
+def.r10uvm144repro_g144_c.sv       PRED WIDE-CORRECTLY-STILL=3 | JOIN agree=34 golden-only=0 ours-only=0
+elab.r10uvm144repro_g144_c.sv      PRED WIDE-CORRECTLY-STILL=6 | JOIN agree=54 golden-only=0 ours-only=14
+-- TOTALS WIDE-CORRECTLY-STILL=9 before-agree=88 before-golden-only=0 before-ours-only=14
+-- VERDICT: PASS  TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+######## r10uvm144repro/g144_d.sv
+==== r10uvm144repro_g144_d.sv  PRISTINE
+def.r10uvm144repro_g144_d.sv       PRED TO-GOLDEN=1 | JOIN agree=25 golden-only=1 ours-only=1
+elab.r10uvm144repro_g144_d.sv      PRED TO-GOLDEN=1 | JOIN agree=28 golden-only=1 ours-only=24
+-- TOTALS TO-GOLDEN=2 before-agree=53 before-golden-only=2 before-ours-only=25
+-- VERDICT: PASS  TO-GOLDEN=2 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+==== r10uvm144repro_g144_d.sv  PATCHED
+def.r10uvm144repro_g144_d.sv       PRED  | JOIN agree=26 golden-only=0 ours-only=0
+elab.r10uvm144repro_g144_d.sv      PRED  | JOIN agree=29 golden-only=0 ours-only=23
+-- TOTALS before-agree=55 before-golden-only=0 before-ours-only=23
+-- VERDICT: PASS  TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+######## r10uvm144repro/g144_e.sv
+==== r10uvm144repro_g144_e.sv  PRISTINE
+def.r10uvm144repro_g144_e.sv       PRED TO-GOLDEN=1 | JOIN agree=10 golden-only=2 ours-only=2
+elab.r10uvm144repro_g144_e.sv      PRED TO-GOLDEN=1 | JOIN agree=20 golden-only=3 ours-only=6
+-- TOTALS TO-GOLDEN=2 before-agree=30 before-golden-only=5 before-ours-only=8
+-- VERDICT: PASS  TO-GOLDEN=2 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+==== r10uvm144repro_g144_e.sv  PATCHED
+def.r10uvm144repro_g144_e.sv       PRED  | JOIN agree=11 golden-only=1 ours-only=1
+elab.r10uvm144repro_g144_e.sv      PRED  | JOIN agree=21 golden-only=2 ours-only=5
+-- TOTALS before-agree=32 before-golden-only=3 before-ours-only=6
+-- VERDICT: PASS  TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+######## r10uvm150repro/g150_d.sv
+==== r10uvm150repro_g150_d.sv  PRISTINE
+def.r10uvm150repro_g150_d.sv       PRED TO-GOLDEN=1 | JOIN agree=20 golden-only=1 ours-only=1
+elab.r10uvm150repro_g150_d.sv      PRED TO-GOLDEN=1 | JOIN agree=42 golden-only=1 ours-only=1
+-- TOTALS TO-GOLDEN=2 before-agree=62 before-golden-only=2 before-ours-only=2
+-- VERDICT: PASS  TO-GOLDEN=2 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+==== r10uvm150repro_g150_d.sv  PATCHED
+def.r10uvm150repro_g150_d.sv       PRED  | JOIN agree=21 golden-only=0 ours-only=0
+elab.r10uvm150repro_g150_d.sv      PRED  | JOIN agree=43 golden-only=0 ours-only=0
+-- TOTALS before-agree=64 before-golden-only=0 before-ours-only=0
+-- VERDICT: PASS  TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+######## r10v127repro/arms/v127_a_callee.sv
+==== r10v127repro_arms_v127_a_callee.sv  PRISTINE
+def.r10v127repro_arms_v127_a_callee.sv PRED TO-GOLDEN=1 | JOIN agree=21 golden-only=1 ours-only=1
+elab.r10v127repro_arms_v127_a_callee.sv PRED TO-GOLDEN=1 | JOIN agree=51 golden-only=1 ours-only=2
+-- TOTALS TO-GOLDEN=2 before-agree=72 before-golden-only=2 before-ours-only=3
+-- VERDICT: PASS  TO-GOLDEN=2 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+==== r10v127repro_arms_v127_a_callee.sv  PATCHED
+def.r10v127repro_arms_v127_a_callee.sv PRED  | JOIN agree=22 golden-only=0 ours-only=0
+elab.r10v127repro_arms_v127_a_callee.sv PRED  | JOIN agree=52 golden-only=0 ours-only=1
+-- TOTALS before-agree=74 before-golden-only=0 before-ours-only=1
+-- VERDICT: PASS  TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+######## r10v144repro/v144_a_homes.sv
+==== r10v144repro_v144_a_homes.sv  PRISTINE
+def.r10v144repro_v144_a_homes.sv   PRED TO-GOLDEN=2 WIDE-CORRECTLY-STILL=1 | JOIN agree=0 golden-only=31 ours-only=30
+elab.r10v144repro_v144_a_homes.sv  PRED MISSED=2 TO-GOLDEN=2 | JOIN agree=2 golden-only=89 ours-only=106
+                                     MISSED @31:42-31:46 B144::si pkg=q144a home=SAME
+                                         from=function|si|class_defn|B144
+                                         to  =-
+                                         gold=['function|si|program|']
+                                     MISSED @31:42-31:46 B144::si pkg=q144a home=SAME
+                                         from=function|si|class_defn|B144
+                                         to  =-
+                                         gold=['function|si|program|']
+-- TOTALS MISSED=2 TO-GOLDEN=4 WIDE-CORRECTLY-STILL=1 before-agree=2 before-golden-only=120 before-ours-only=136
+-- VERDICT: PASS  TO-GOLDEN=4 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=2
+==== r10v144repro_v144_a_homes.sv  PATCHED
+def.r10v144repro_v144_a_homes.sv   PRED WIDE-CORRECTLY-STILL=1 | JOIN agree=2 golden-only=29 ours-only=28
+elab.r10v144repro_v144_a_homes.sv  PRED MISSED=2 | JOIN agree=4 golden-only=87 ours-only=104
+                                     MISSED @31:42-31:46 B144::si pkg=q144a home=SAME
+                                         from=function|si|class_defn|B144
+                                         to  =-
+                                         gold=['function|si|program|']
+                                     MISSED @31:42-31:46 B144::si pkg=q144a home=SAME
+                                         from=function|si|class_defn|B144
+                                         to  =-
+                                         gold=['function|si|program|']
+-- TOTALS MISSED=2 WIDE-CORRECTLY-STILL=1 before-agree=6 before-golden-only=116 before-ours-only=132
+-- VERDICT: PASS  TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=2
+######## r10v144repro/v144_b_ctor.sv
+==== r10v144repro_v144_b_ctor.sv  PRISTINE
+def.r10v144repro_v144_b_ctor.sv    PRED TO-GOLDEN=1 | JOIN agree=29 golden-only=2 ours-only=1
+elab.r10v144repro_v144_b_ctor.sv   PRED TO-GOLDEN=1 | JOIN agree=98 golden-only=5 ours-only=9
+-- TOTALS TO-GOLDEN=2 before-agree=127 before-golden-only=7 before-ours-only=10
+-- VERDICT: PASS  TO-GOLDEN=2 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+==== r10v144repro_v144_b_ctor.sv  PATCHED
+def.r10v144repro_v144_b_ctor.sv    PRED  | JOIN agree=30 golden-only=1 ours-only=0
+elab.r10v144repro_v144_b_ctor.sv   PRED  | JOIN agree=99 golden-only=4 ours-only=8
+-- TOTALS before-agree=129 before-golden-only=5 before-ours-only=8
+-- VERDICT: PASS  TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+######## r10v144repro/v144_c_faces.sv
+==== r10v144repro_v144_c_faces.sv  PRISTINE
+def.r10v144repro_v144_c_faces.sv   PRED TO-GOLDEN=3 WIDE-CORRECTLY-STILL=2 | JOIN agree=30 golden-only=3 ours-only=3
+elab.r10v144repro_v144_c_faces.sv  PRED TO-GOLDEN=3 WIDE-CORRECTLY-STILL=4 | JOIN agree=44 golden-only=3 ours-only=25
+-- TOTALS TO-GOLDEN=6 WIDE-CORRECTLY-STILL=6 before-agree=74 before-golden-only=6 before-ours-only=28
+-- VERDICT: PASS  TO-GOLDEN=6 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+==== r10v144repro_v144_c_faces.sv  PATCHED
+def.r10v144repro_v144_c_faces.sv   PRED WIDE-CORRECTLY-STILL=2 | JOIN agree=33 golden-only=0 ours-only=0
+elab.r10v144repro_v144_c_faces.sv  PRED WIDE-CORRECTLY-STILL=4 | JOIN agree=47 golden-only=0 ours-only=22
+-- TOTALS WIDE-CORRECTLY-STILL=6 before-agree=80 before-golden-only=0 before-ours-only=22
+-- VERDICT: PASS  TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+######## r10v144repro/v144_d_named.sv
+==== r10v144repro_v144_d_named.sv  PRISTINE
+def.r10v144repro_v144_d_named.sv   PRED TO-GOLDEN=2 WIDE-CORRECTLY-STILL=1 | JOIN agree=17 golden-only=2 ours-only=2
+elab.r10v144repro_v144_d_named.sv  PRED TO-GOLDEN=2 WIDE-CORRECTLY-STILL=2 | JOIN agree=36 golden-only=2 ours-only=20
+-- TOTALS TO-GOLDEN=4 WIDE-CORRECTLY-STILL=3 before-agree=53 before-golden-only=4 before-ours-only=22
+-- VERDICT: PASS  TO-GOLDEN=4 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+==== r10v144repro_v144_d_named.sv  PATCHED
+def.r10v144repro_v144_d_named.sv   PRED WIDE-CORRECTLY-STILL=1 | JOIN agree=19 golden-only=0 ours-only=0
+elab.r10v144repro_v144_d_named.sv  PRED WIDE-CORRECTLY-STILL=2 | JOIN agree=38 golden-only=0 ours-only=18
+-- TOTALS WIDE-CORRECTLY-STILL=3 before-agree=57 before-golden-only=0 before-ours-only=18
+-- VERDICT: PASS  TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+######## r10v150repro/v150_c.sv
+==== r10v150repro_v150_c.sv  PRISTINE
+def.r10v150repro_v150_c.sv         PRED TO-GOLDEN=1 | JOIN agree=24 golden-only=1 ours-only=1
+elab.r10v150repro_v150_c.sv        PRED TO-GOLDEN=1 | JOIN agree=50 golden-only=1 ours-only=1
+-- TOTALS TO-GOLDEN=2 before-agree=74 before-golden-only=2 before-ours-only=2
+-- VERDICT: PASS  TO-GOLDEN=2 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+==== r10v150repro_v150_c.sv  PATCHED
+def.r10v150repro_v150_c.sv         PRED  | JOIN agree=25 golden-only=0 ours-only=0
+elab.r10v150repro_v150_c.sv        PRED  | JOIN agree=51 golden-only=0 ours-only=0
+-- TOTALS before-agree=76 before-golden-only=0 before-ours-only=0
+-- VERDICT: PASS  TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+######## r10vbuvm32repro/vb32e1.sv
+==== r10vbuvm32repro_vb32e1.sv  PRISTINE
+def.r10vbuvm32repro_vb32e1.sv      PRED TO-GOLDEN=3 | JOIN agree=3 golden-only=5 ours-only=5
+elab.r10vbuvm32repro_vb32e1.sv     PRED TO-GOLDEN=3 | JOIN agree=10 golden-only=6 ours-only=6
+-- TOTALS TO-GOLDEN=6 before-agree=13 before-golden-only=11 before-ours-only=11
+-- VERDICT: PASS  TO-GOLDEN=6 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+==== r10vbuvm32repro_vb32e1.sv  PATCHED
+def.r10vbuvm32repro_vb32e1.sv      PRED  | JOIN agree=6 golden-only=2 ours-only=2
+elab.r10vbuvm32repro_vb32e1.sv     PRED  | JOIN agree=13 golden-only=3 ours-only=3
+-- TOTALS before-agree=19 before-golden-only=5 before-ours-only=5
+-- VERDICT: PASS  TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+######## r10vbuvm32repro/vb32m1.sv
+==== r10vbuvm32repro_vb32m1.sv  PRISTINE
+def.r10vbuvm32repro_vb32m1.sv      PRED MISSED=1 TO-GOLDEN=15 WIDE-CORRECTLY-STILL=1 | JOIN agree=20 golden-only=19 ours-only=20
+                                     MISSED @89:9-89:12 q32::qfree32 pkg=q32 home=SAME
+                                         from=function|qfree32|class_defn|coll32
+                                         to  =-
+                                         gold=['function|qfree32|package|q32']
+elab.r10vbuvm32repro_vb32m1.sv     PRED MISSED=2 TO-GOLDEN=15 WIDE-CORRECTLY-STILL=2 | JOIN agree=85 golden-only=24 ours-only=31
+                                     MISSED @89:9-89:12 q32::qfree32 pkg=q32 home=SAME
+                                         from=function|qfree32|class_defn|coll32
+                                         to  =-
+                                         gold=['function|qfree32|package|q32', 'function|qfree32|package|q32']
+                                     MISSED @89:9-89:12 q32::qfree32 pkg=q32 home=SAME
+                                         from=function|qfree32|class_defn|coll32
+                                         to  =-
+                                         gold=['function|qfree32|package|q32', 'function|qfree32|package|q32']
+-- TOTALS MISSED=3 TO-GOLDEN=30 WIDE-CORRECTLY-STILL=3 before-agree=105 before-golden-only=43 before-ours-only=51
+-- VERDICT: PASS  TO-GOLDEN=30 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=3
+==== r10vbuvm32repro_vb32m1.sv  PATCHED
+def.r10vbuvm32repro_vb32m1.sv      PRED MISSED=1 WIDE-CORRECTLY-STILL=1 | JOIN agree=35 golden-only=4 ours-only=5
+                                     MISSED @89:9-89:12 q32::qfree32 pkg=q32 home=SAME
+                                         from=function|qfree32|class_defn|coll32
+                                         to  =-
+                                         gold=['function|qfree32|package|q32']
+elab.r10vbuvm32repro_vb32m1.sv     PRED MISSED=2 WIDE-CORRECTLY-STILL=2 | JOIN agree=100 golden-only=9 ours-only=16
+                                     MISSED @89:9-89:12 q32::qfree32 pkg=q32 home=SAME
+                                         from=function|qfree32|class_defn|coll32
+                                         to  =-
+                                         gold=['function|qfree32|package|q32', 'function|qfree32|package|q32']
+                                     MISSED @89:9-89:12 q32::qfree32 pkg=q32 home=SAME
+                                         from=function|qfree32|class_defn|coll32
+                                         to  =-
+                                         gold=['function|qfree32|package|q32', 'function|qfree32|package|q32']
+-- TOTALS MISSED=3 WIDE-CORRECTLY-STILL=3 before-agree=135 before-golden-only=13 before-ours-only=21
+-- VERDICT: PASS  TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=3
+######## r10vbuvm32repro/vb32r3.sv
+==== r10vbuvm32repro_vb32r3.sv  PRISTINE
+def.r10vbuvm32repro_vb32r3.sv      PRED TO-GOLDEN=2 | JOIN agree=1 golden-only=4 ours-only=3
+elab.r10vbuvm32repro_vb32r3.sv     PRED TO-GOLDEN=2 | JOIN agree=3 golden-only=7 ours-only=3
+-- TOTALS TO-GOLDEN=4 before-agree=4 before-golden-only=11 before-ours-only=6
+-- VERDICT: PASS  TO-GOLDEN=4 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+==== r10vbuvm32repro_vb32r3.sv  PATCHED
+def.r10vbuvm32repro_vb32r3.sv      PRED  | JOIN agree=3 golden-only=2 ours-only=1
+elab.r10vbuvm32repro_vb32r3.sv     PRED  | JOIN agree=5 golden-only=5 ours-only=1
+-- TOTALS before-agree=8 before-golden-only=7 before-ours-only=2
+-- VERDICT: PASS  TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+######## r10vbuvm32repro/vb32s1.sv
+==== r10vbuvm32repro_vb32s1.sv  PRISTINE
+def.r10vbuvm32repro_vb32s1.sv      PRED TO-GOLDEN=2 | JOIN agree=2 golden-only=2 ours-only=2
+elab.r10vbuvm32repro_vb32s1.sv     PRED TO-GOLDEN=2 | JOIN agree=8 golden-only=2 ours-only=2
+-- TOTALS TO-GOLDEN=4 before-agree=10 before-golden-only=4 before-ours-only=4
+-- VERDICT: PASS  TO-GOLDEN=4 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+==== r10vbuvm32repro_vb32s1.sv  PATCHED
+def.r10vbuvm32repro_vb32s1.sv      PRED  | JOIN agree=4 golden-only=0 ours-only=0
+elab.r10vbuvm32repro_vb32s1.sv     PRED  | JOIN agree=10 golden-only=0 ours-only=0
+-- TOTALS before-agree=14 before-golden-only=0 before-ours-only=0
+-- VERDICT: PASS  TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=0 MISSED=0
+ALLDONE
