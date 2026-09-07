@@ -1,0 +1,107 @@
+r10uvm202 — THE GATE BATTERY, ALL FIVE, ON THIS PASS'S OWN FROZEN BINARIES.
+MEASUREMENT ONLY for the probes; the OFFICIAL uhdm-cmp and
+scripts/verify_golden.py are the authorities.  results/*.csv were READ ONLY
+and NOT EDITED; GOLDEN_DEFER stayed unset; NO ROW WAS CONVERTED in either
+direction; the four slang-fenced tests were never dispatched and are named
+only inside canaudit.sh's own FENCED= line.
+
+(1) BUILD.  Both binaries built -j 2 in this pass's own worktree at a clean
+    5fda78a4, md5'd separately, frozen chmod 555 BEFORE any sweep.
+      pristine  caca35d885582f80ccfbdb01bf59d0a4  == the main tree's own
+                build/slang-uhdm at 5fda78a4, BYTE-IDENTICAL
+      patched   02bc6ff4645cedb738c8ee1acfe67f16
+
+(2) GOLDENS, SLANG_UHDM exported explicitly per binary:
+      pristine  PASS 23  FAIL 0
+      patched   PASS 23  FAIL 0
+      SLANG_UHDM=/bin/false  FAIL 23   (the negative control)
+
+(3) uhdm2rtlil, both modes, this pass's own sweeps:
+      testflags patched:  CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+      ct8rows patched vs the committed results/gate_uhdm2rtlil.csv  -> PASS
+      ct8rows patched vs this pass's OWN pristine, testflags        -> PASS
+      ct8rows patched vs this pass's OWN pristine, default          -> PASS
+      every cmds.txt audited BY BINARY PATH: 1458 of 1462 name
+      /tmp/<this pass's frozen pristine>; the other four are SURELOG_FAIL
+      rows in which slang was never invoked at all.
+
+(4) surelog, --mode both, 1588 rows:
+      ct8rows patched vs this pass's OWN pristine: 0 differing ROWS
+        (status column AND dump column)
+      ct8rows patched vs the committed results/golden_surelog.csv:
+        exactly ONE differing row-SIDE, the dump column of
+          Earlgrey_0_1,testflags   CMP_EQUAL/differ -> CMP_EQUAL/
+        and THIS PASS'S OWN PRISTINE SWEEP READS IT THE SAME WAY — a
+        uhdm-dump TIMEOUT under sweep load, not a model change.  The STATUS
+        histograms are identical in both modes.  NO ROW WAS CONVERTED.
+      every slang invocation in the sweep used the pinned binary:
+        1523 cmds.txt lines, ONE distinct path, the frozen pristine.
+
+(5) byteverify SELFCHECK=1:
+      surelog     MOVERS 5 / 956    SELFCHECK 955/956 flagged
+      uhdm2rtlil  MOVERS 0 / 1358   SELFCHECK 1357/1358 flagged
+      every mover PREDICTED BY NAME from the pristine databases first
+      (MOVERS.r10uvm202.txt), the fifth being the documented coin.
+
+CANARIES:
+      canaries.sh  surelog     ok=51 changed=1 absent=0   <- the changed row
+                   is Earlgrey_0_1/testflags's dump column, and the PRISTINE
+                   binary reads it the SAME (ok=51 changed=1 there too)
+      canaries.sh  uhdm2rtlil  ok=8  changed=0 absent=0
+      ctcan2.sh    surelog     PASS      ctcan2.sh uhdm2rtlil  PASS
+      canaudit.sh canaries.sh ctcan2.sh: audited=29 UNCOVERED=0 FENCE-BREACH=0
+
+PROTECTED DATABASES (md5 head, pristine vs patched):
+      InterfaceModPort    59a365f3ce2c  SAME (both modes)
+      BlackParrotComplex  e3e354129d5a / 73a10e8217e5  SAME
+      YosysOldOr          d68e0796d62c  SAME (both modes)
+      SVSwitch            4842211c4030  PIN HELD (both modes)
+      YosysVerx           6ccda350c24a  PIN HELD (both modes)
+
+THE FOUR CMP_EQUAL ROW-MODES THE BRIEF PROTECTS — BOTH COLUMNS, EXPLICITLY:
+      BuildUVMPkg,default     CMP_EQUAL / dump-match   ->  UNCHANGED, rowheads 0 lines / 0 heads
+      BuildUVMPkg,testflags   CMP_EQUAL / dump-match   ->  UNCHANGED, rowheads 0 / 0
+      Earlgrey_0_1,testflags  CMP_EQUAL / (the dump-column timeout cell,
+                              identical on BOTH binaries)  ->  rowheads 0 / 0
+      Rggen,default           CMP_EQUAL / dump-match   ->  UNCHANGED, rowheads 0 / 0
+      and all four databases are BYTE-IDENTICAL between the two binaries
+      (they are not among byteverify's five movers).
+
+ROWHEADS, this pass's own sweeps (SKIP-NOFILE on Scoreboard/testflags and
+Rggen/testflags is expected — those rows have no golden):
+  TEST           MODE      CMPLINES  HEADS NOTE        | TEST           MODE      CMPLINES  HEADS NOTE
+  SeqDriver      default         50      1             | SeqDriver      default         29      1
+  SeqDriver      testflags       50      1             | SeqDriver      testflags       29      1
+  SimpleUVM      default         17      1             | SimpleUVM      default         17      1
+  SimpleUVM      testflags       17      1             | SimpleUVM      testflags       17      1
+  Scoreboard     default         95      1             | Scoreboard     default         95      1
+  Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm) | Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+  MiniAmiq       default         50      1             | MiniAmiq       default         29      1
+  MiniAmiq       testflags       50      1             | MiniAmiq       testflags       29      1
+  BuildUVMPkg    default          0      0             | BuildUVMPkg    default          0      0
+  BuildUVMPkg    testflags        0      0             | BuildUVMPkg    testflags        0      0
+  Earlgrey_0_1   default        833      1             | Earlgrey_0_1   default        833      1
+  Earlgrey_0_1   testflags        0      0             | Earlgrey_0_1   testflags        0      0
+  Rggen          default          0      0             | Rggen          default          0      0
+  Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm) | Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+  -- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0        | -- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+
+THE MUST-STAY FLOOR, SCORED EXPLICITLY:
+  uvm170's plain-package-typedef family — the four moved rows' ORDER-BLIND dump
+    diffs contain ZERO lines naming uvm_severity / uvm_action / uvm_verbosity,
+    and ZERO lines naming a struct_typespec / enum_typespec / logic_typespec /
+    int_typespec cell at all.  Not one plain package typedef moved anywhere in
+    the corpus.  uvm170's five committed arms are byte-identical under both
+    binaries in both views (the wide boundary).
+  § classScopedTdImportCopyLocalUnsupported198's arms AND
+    § clsScopedTdLocalCloneIsClassMethodOnly198v's conjunct — the conjunct is
+    REUSED verbatim as this law's gate (src/EmitHelpers.h and both call sites),
+    and r10uvm198repro's five arms are byte-identical under both binaries.
+  § impCloneDeclRangeNoBind200's arms and its fence — r10uvm200repro's five arms
+    byte-identical under both binaries.
+  § cloneTfOwnVarListingIsUnbound195's arms — r10uvm195repro's five arms
+    byte-identical under both binaries.
+  uvm82-91 (201 arms), buvm3-15 (192 arms), sd8-12 (464 arms) — byte-identical.
+  The ONLY earlier-pass arm that moved at all is r10buvm9repro/w4v_imports.sv,
+  and it moved TOWARD its own real Surelog golden (TO-GOLDEN 1 / AWAY 0 /
+  MOVED-WRONG 0, both views).

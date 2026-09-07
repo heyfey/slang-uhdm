@@ -6411,6 +6411,32 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         importCopyTsCollect->push_back(uts198);
                     vrt->Actual_typespec(uts198);
                 }
+                // § pkgClassTdImportCopyLocalUnsupported202, SITE 1 of 2 — the
+                // SUBROUTINE-BODY local.  src/EmitHelpers.h carries the law,
+                // its Surelog decode and the arm A cell behind every clause.
+                // The SAME gate as § 198's arm above (`importCopyTsInst &&
+                // pkgClassTfClone` = the imported out-of-body CLASS METHOD
+                // clone, § clsScopedTdLocalCloneIsClassMethodOnly198v), the
+                // same instance (the HOME package, re-pointed at its
+                // ELABORATED view by `importCopyTsFixups`), and the same
+                // narrow write: only the KIND, the NAME and the INSTANCE move.
+                // It sits AFTER § 198 and the two predicates are DISJOINT by
+                // construction — § 198 requires the typedef's parent scope to
+                // be a ClassType/GenericClassDef, this one requires a Package.
+                else if (std::string nm202 =
+                             (importCopyTsInst && pkgClassTfClone)
+                                 ? pkgClassTdLocalName202(fmv)
+                                 : std::string{};
+                         !nm202.empty()) {
+                    auto* uts202 = s.MakeUnsupported_typespec();
+                    uts202->VpiName(nm202);
+                    if (auto* lsyn202 = fmv.getDeclaredType()->getTypeSyntax())
+                        setLoc(uts202, lsyn202->sourceRange());
+                    uts202->Instance(importCopyTsInst);
+                    if (importCopyTsCollect)
+                        importCopyTsCollect->push_back(uts202);
+                    vrt->Actual_typespec(uts202);
+                }
                 else {
                     vrt->Actual_typespec(vts);
                     deferForeignTopTs(fmv, vrt, vts);

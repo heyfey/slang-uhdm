@@ -1,0 +1,126 @@
+r10v202 — THE VERIFIER'S OWN ARMS.  MEASUREMENT ONLY; the official uhdm-cmp
+is the sole judge.  LHS is ALWAYS golden (Surelog); a = PRISTINE caca35d8,
+b = the binary named in the column.  Scored by r10uvm202repro/score202.py over
+JUDGE-VISIBLE payload only (typespec KIND / NAME / INSTANCE / TYPEDEF-ALIAS).
+
+=== AGAINST THE IMPLEMENTER'S BINARY 02bc6ff4645cedb738c8ee1acfe67f16 ===
+v202_1_chains      def  PRIS-vs-PATCH(implementer 02bc6ff4) TO-GOLDEN 11  AWAY-GOLDEN 0  MOVED-WRONG 3  STILL-WRONG 40  AGREE 19  KEYS 73
+v202_1_chains      elab PRIS-vs-PATCH(implementer 02bc6ff4) TO-GOLDEN 11  AWAY-GOLDEN 0  MOVED-WRONG 3  STILL-WRONG 64  AGREE 14  KEYS 92
+v202_2_samename    def  PRIS-vs-PATCH(implementer 02bc6ff4) TO-GOLDEN 18  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 3  AGREE 34  KEYS 55
+v202_2_samename    elab PRIS-vs-PATCH(implementer 02bc6ff4) TO-GOLDEN 18  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 22  AGREE 33  KEYS 73
+v202_3_formals     def  PRIS-vs-PATCH(implementer 02bc6ff4) TO-GOLDEN 7  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 9  AGREE 39  KEYS 55
+v202_3_formals     elab PRIS-vs-PATCH(implementer 02bc6ff4) TO-GOLDEN 7  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 21  AGREE 40  KEYS 68
+v202_4_explicit    def  PRIS-vs-PATCH(implementer 02bc6ff4) TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 19  AGREE 29  KEYS 51
+v202_4_explicit    elab PRIS-vs-PATCH(implementer 02bc6ff4) TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 28  AGREE 38  KEYS 69
+v202_5_typeparam   def  PRIS-vs-PATCH(implementer 02bc6ff4) TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 3  STILL-WRONG 6  AGREE 19  KEYS 31
+v202_5_typeparam   elab PRIS-vs-PATCH(implementer 02bc6ff4) TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 3  STILL-WRONG 16  AGREE 15  KEYS 37
+v202_6_twotd       def  PRIS-vs-PATCH(implementer 02bc6ff4) TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 25  KEYS 31
+v202_6_twotd       elab PRIS-vs-PATCH(implementer 02bc6ff4) TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 7  AGREE 24  KEYS 37
+
+=== AGAINST THE VERIFIED BINARY a242f906ceaae103fe37bb1710ae0527 ===
+v202_1_chains      def  PRIS-vs-VERIFIED(a242f906)          TO-GOLDEN 11  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 43  AGREE 19  KEYS 73
+v202_1_chains      elab PRIS-vs-VERIFIED(a242f906)          TO-GOLDEN 11  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 67  AGREE 14  KEYS 92
+v202_2_samename    def  PRIS-vs-VERIFIED(a242f906)          TO-GOLDEN 18  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 3  AGREE 34  KEYS 55
+v202_2_samename    elab PRIS-vs-VERIFIED(a242f906)          TO-GOLDEN 18  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 22  AGREE 33  KEYS 73
+v202_3_formals     def  PRIS-vs-VERIFIED(a242f906)          TO-GOLDEN 7  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 9  AGREE 39  KEYS 55
+v202_3_formals     elab PRIS-vs-VERIFIED(a242f906)          TO-GOLDEN 7  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 21  AGREE 40  KEYS 68
+v202_4_explicit    def  PRIS-vs-VERIFIED(a242f906)          TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 19  AGREE 29  KEYS 51
+v202_4_explicit    elab PRIS-vs-VERIFIED(a242f906)          TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 28  AGREE 38  KEYS 69
+v202_5_typeparam   def  PRIS-vs-VERIFIED(a242f906)          TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 9  AGREE 19  KEYS 31
+v202_5_typeparam   elab PRIS-vs-VERIFIED(a242f906)          TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 19  AGREE 15  KEYS 37
+v202_6_twotd       def  PRIS-vs-VERIFIED(a242f906)          TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 25  KEYS 31
+v202_6_twotd       elab PRIS-vs-VERIFIED(a242f906)          TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 7  AGREE 24  KEYS 37
+
+=== r10uvm202repro's OWN FIVE GRID ARMS, RE-RUN BY THE VERIFIER ===
+g202_a_kinds       def  PRIS-vs-PATCH(implementer)          TO-GOLDEN 9  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 6  AGREE 63  KEYS 78
+g202_a_kinds       elab PRIS-vs-PATCH(implementer)          TO-GOLDEN 9  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 13  AGREE 77  KEYS 99
+g202_b_spellings   def  PRIS-vs-PATCH(implementer)          TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 34  AGREE 54  KEYS 94
+g202_b_spellings   elab PRIS-vs-PATCH(implementer)          TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 68  AGREE 47  KEYS 121
+g202_c_sites       def  PRIS-vs-PATCH(implementer)          TO-GOLDEN 10  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 1  AGREE 51  KEYS 62
+g202_c_sites       elab PRIS-vs-PATCH(implementer)          TO-GOLDEN 10  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 9  AGREE 59  KEYS 78
+g202_d_drivers     def  PRIS-vs-PATCH(implementer)          TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 24  AGREE 28  KEYS 55
+g202_d_drivers     elab PRIS-vs-PATCH(implementer)          TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 33  AGREE 42  KEYS 78
+g202_e_head        def  PRIS-vs-PATCH(implementer)          TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 22  KEYS 24
+g202_e_head        elab PRIS-vs-PATCH(implementer)          TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 8  AGREE 17  KEYS 27
+g202_a_kinds       def  PRIS-vs-VERIFIED(a242f906)          TO-GOLDEN 9  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 6  AGREE 63  KEYS 78
+g202_a_kinds       elab PRIS-vs-VERIFIED(a242f906)          TO-GOLDEN 9  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 13  AGREE 77  KEYS 99
+g202_b_spellings   def  PRIS-vs-VERIFIED(a242f906)          TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 34  AGREE 54  KEYS 94
+g202_b_spellings   elab PRIS-vs-VERIFIED(a242f906)          TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 68  AGREE 47  KEYS 121
+g202_c_sites       def  PRIS-vs-VERIFIED(a242f906)          TO-GOLDEN 10  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 1  AGREE 51  KEYS 62
+g202_c_sites       elab PRIS-vs-VERIFIED(a242f906)          TO-GOLDEN 10  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 9  AGREE 59  KEYS 78
+g202_d_drivers     def  PRIS-vs-VERIFIED(a242f906)          TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 24  AGREE 28  KEYS 55
+g202_d_drivers     elab PRIS-vs-VERIFIED(a242f906)          TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 33  AGREE 42  KEYS 78
+g202_e_head        def  PRIS-vs-VERIFIED(a242f906)          TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 22  KEYS 24
+g202_e_head        elab PRIS-vs-VERIFIED(a242f906)          TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 8  AGREE 17  KEYS 27
+
+=== OFFICIAL uhdm-cmp ON EVERY ARM (a=pristine, b=verified a242f906) ===
+      8 cmp rc=255 a elab lines=36 heads=1
+      8 cmp rc=255 a def lines=36 heads=1
+      3 cmp rc=0 b elab lines=0 heads=0
+      3 cmp rc=0 b def lines=0 heads=0
+      1 cmp rc=255 b elab lines=534 heads=1
+      1 cmp rc=255 b elab lines=48 heads=1
+      1 cmp rc=255 b elab lines=40 heads=1
+      1 cmp rc=255 b elab lines=409 heads=1
+      1 cmp rc=255 b elab lines=36 heads=1
+      1 cmp rc=255 b elab lines=26 heads=1
+      1 cmp rc=255 b elab lines=17 heads=1
+      1 cmp rc=255 b elab lines=1127 heads=1
+      1 cmp rc=255 b def lines=881 heads=1
+      1 cmp rc=255 b def lines=458 heads=1
+      1 cmp rc=255 b def lines=44 heads=1
+      1 cmp rc=255 b def lines=40 heads=1
+      1 cmp rc=255 b def lines=36 heads=1
+      1 cmp rc=255 b def lines=345 heads=1
+      1 cmp rc=255 b def lines=26 heads=1
+      1 cmp rc=255 b def lines=17 heads=1
+      1 cmp rc=255 a elab lines=40 heads=1
+      1 cmp rc=255 a elab lines=409 heads=1
+      1 cmp rc=255 a elab lines=1127 heads=1
+      1 cmp rc=255 a def lines=881 heads=1
+      1 cmp rc=255 a def lines=40 heads=1
+      1 cmp rc=255 a def lines=345 heads=1
+
+=== SURELOG ERROR COUNT PER VERIFIER ARM (a golden with errors decides nothing) ===
+v202_1_chains      [  ERROR] : 2
+v202_2_samename    [  ERROR] : 0
+v202_3_formals     [  ERROR] : 0
+v202_4_explicit    [  ERROR] : 0
+v202_5_typeparam   [  ERROR] : 0
+v202_6_twotd       [  ERROR] : 0
+
+=== THE DEFECT, CELL BY CELL — arm v202_5_typeparam, DEF view, ZERO Surelog errors
+--- against the IMPLEMENTER'S binary (02bc6ff4): MOVED-WRONG 3
+MOVED-WRONG CEN|begin:@25:5-25:25<package:sluiceV5202|1|class_var|tfTparV5
+    golden={'TS=class_typespec:PlainV5202:INST=package:quarryV5202': 2}
+    pris  ={'TS=class_typespec::INST=-': 2}
+    pat   ={'TS=unsupported_typespec:tparV5202:INST=package:quarryV5202': 2}
+--
+MOVED-WRONG CEN|begin:@26:5-31:8<package:sluiceV5202|1|class_var|blkTparV5
+    golden={'TS=class_typespec:PlainV5202:INST=package:quarryV5202': 2}
+    pris  ={'TS=class_typespec::INST=-': 2}
+    pat   ={'TS=unsupported_typespec:tparV5202:INST=package:quarryV5202': 2}
+--
+MOVED-WRONG CEN|function:AditV5202::winzeV5202@23:3-34:14<package:sluiceV5202|1|class_var|tfTparV5
+    golden={'TS=class_typespec:PlainV5202:INST=package:quarryV5202': 2}
+    pris  ={'TS=class_typespec::INST=-': 2}
+    pat   ={'TS=unsupported_typespec:tparV5202:INST=package:quarryV5202': 2}
+--
+TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 3  STILL-WRONG 6  AGREE 19  KEYS 31
+--- against the VERIFIED binary (a242f906): MOVED-WRONG 0, the typedef cell beside it still firing
+TO-GOLDEN CEN|begin:@25:5-25:25<package:sluiceV5202|0|ref_var|tfTdV5
+    golden={'TS=unsupported_typespec:clsTdV5202:INST=package:quarryV5202': 2}
+    pris  ={'TS=class_typespec:quarryV5202::clsTdV5202:INST=package:sluiceV5202': 2}
+    pat   ={'TS=unsupported_typespec:clsTdV5202:INST=package:quarryV5202': 2}
+--
+TO-GOLDEN CEN|begin:@26:5-31:8<package:sluiceV5202|0|ref_var|blkTdV5
+    golden={'TS=unsupported_typespec:clsTdV5202:INST=package:quarryV5202': 2}
+    pris  ={'TS=class_typespec:quarryV5202::clsTdV5202:INST=package:sluiceV5202': 2}
+    pat   ={'TS=unsupported_typespec:clsTdV5202:INST=package:quarryV5202': 2}
+--
+TO-GOLDEN CEN|function:AditV5202::winzeV5202@23:3-34:14<package:sluiceV5202|0|ref_var|tfTdV5
+    golden={'TS=unsupported_typespec:clsTdV5202:INST=package:quarryV5202': 2}
+    pris  ={'TS=class_typespec:quarryV5202::clsTdV5202:INST=package:sluiceV5202': 2}
+    pat   ={'TS=unsupported_typespec:clsTdV5202:INST=package:quarryV5202': 2}
+--
+TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 9  AGREE 19  KEYS 31

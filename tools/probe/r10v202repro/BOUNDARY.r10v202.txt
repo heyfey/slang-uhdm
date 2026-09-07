@@ -1,0 +1,42 @@
+r10v202 — THE WIDE BOUNDARY, RE-RUN BY THE VERIFIER.
+PRIS=caca35d885582f80ccfbdb01bf59d0a4  PATCHED=a242f906ceaae103fe37bb1710ae0527 (the VERIFIED binary)
+over a COPY of the whole tools/probe tree PLUS the six verifier arms.
+
+LISTED=5281 PROCESSED=5281 PRODUCED_DBS=5096 MOVED_ARMS=11 RC_DIFFS=0
+
+THE ELEVEN MOVED ARMS:
+r10buvm9repro/w4v_imports.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm202repro/grid202/g202_a_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm202repro/grid202/g202_b_spellings.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm202repro/grid202/g202_c_sites.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm202repro/grid202/g202_d_drivers.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm202repro/grid202/g202_e_head.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+v202verifierarms/v202_1_chains.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+v202verifierarms/v202_2_samename.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+v202verifierarms/v202_3_formals.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+v202verifierarms/v202_4_explicit.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+v202verifierarms/v202_5_typeparam.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+  FIVE are r10uvm202repro's own grid arms and FIVE are the verifier's own
+  (v202_6_twotd.sv was written after this tree was copied and is scored in
+  ARMS.r10v202.txt instead) — together the POSITIVE CONTROL that the gate sees.
+  The ELEVENTH, r10buvm9repro/w4v_imports.sv, rebuilt against its OWN real
+  Surelog golden with the VERIFIED binary, scores in BOTH views:
+    def   TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 27  AGREE 54  KEYS 82
+    elab  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 81  AGREE 36  KEYS 118
+  and its ONE moved cell is:
+    CEN|begin:@36:39-36:66<package:w4c|0|ref_var|v
+        golden={'TS=unsupported_typespec:a4_t:INST=package:w4b': 2}
+        pris  ={'TS=class_typespec:w4a::a4_t:INST=package:w4c': 2}
+        pat   ={'TS=unsupported_typespec:a4_t:INST=package:w4b': 2}
+
+RC_DIFFS=0 over the 185 arms that produce no database on either binary and over
+every arm that segfaults under --elabuhdm: each fails IDENTICALLY on both.
+
+THE FLOOR, NOT ONE ARM AMONG THE ELEVEN:
+  r10uvm198repro (§ classScopedTdImportCopyLocalUnsupported198 + its verifier conjunct)
+  r10uvm200repro (§ impCloneDeclRangeNoBind200 and its fence)
+  r10uvm195repro (§ cloneTfOwnVarListingIsUnbound195)
+  r10uvm170repro (§ dpiExportedPkgSubBareOwnTdUnsupported170, BOTH fences —
+                  the plain-package-typedef must-not-move family)
+  r10uvm164repro, uvm82-91, buvm3-15, sd8-12 — byte-identical on both binaries.

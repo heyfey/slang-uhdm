@@ -1,0 +1,52 @@
+r10v202 — THE MOVER ATTRIBUTION, re-run by the verifier.
+attrib202.sh, workdir-normalised, id-stripped, PLAIN and ORDER-BLIND.
+
+default    MiniAmiq       plain=242    order-blind=242   
+default    Scoreboard     plain=94     order-blind=2     
+default    SeqDriver      plain=242    order-blind=242   
+testflags  MiniAmiq       plain=242    order-blind=242   
+testflags  SeqDriver      plain=318    order-blind=242   
+
+Scoreboard/default is the documented ~50/50 COIN: its ORDER-BLIND diff IN FULL
+is two uhdm-dump path-banner lines and ZERO content lines.
+
+SeqDriver/default ORDER-BLIND diff by line shape (+201 / -41; the other three
+law rows have the same shape):
+     40 >   |vpiInstance:
+     40 >   \_package: uvm_pkg (uvm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-N.N/src/uvm_pkg.sv, line:N:N, endln:N:N
+     16 >   |vpiName:uvm_reg_field_cb_iter
+     16 > \_unsupported_typespec: (uvm_reg_field_cb_iter), line:N:N, endln:N:N
+     12 >   |vpiName:uvm_vreg_field_cb_iter
+     12 > \_unsupported_typespec: (uvm_vreg_field_cb_iter), line:N:N, endln:N:N
+     10 >               \_unsupported_typespec: (uvm_reg_field_cb_iter), line:N:N, endln:N:N
+     10 <               \_class_typespec: (uvm_pkg::uvm_reg_field_cb_iter), line:N:N, endln:N:N
+      8 >               \_unsupported_typespec: (uvm_vreg_field_cb_iter), line:N:N, endln:N:N
+      8 <               \_class_typespec: (uvm_pkg::uvm_vreg_field_cb_iter), line:N:N, endln:N:N
+      6 >                 \_unsupported_typespec: (uvm_reg_field_cb_iter), line:N:N, endln:N:N
+      6 <                 \_class_typespec: (uvm_pkg::uvm_reg_field_cb_iter), line:N:N, endln:N:N
+      4 >   |vpiName:uvm_vreg_cb_iter
+      4 >   |vpiName:uvm_reg_cb_iter
+      4 >   |vpiName:uvm_mem_cb_iter
+      4 >         \_unsupported_typespec: (uvm_vreg_field_cb_iter), line:N:N, endln:N:N
+      4 > \_unsupported_typespec: (uvm_vreg_cb_iter), line:N:N, endln:N:N
+      4 >         \_unsupported_typespec: (uvm_vreg_cb_iter), line:N:N, endln:N:N
+      4 > \_unsupported_typespec: (uvm_reg_cb_iter), line:N:N, endln:N:N
+      4 >         \_unsupported_typespec: (uvm_reg_cb_iter), line:N:N, endln:N:N
+      4 > \_unsupported_typespec: (uvm_mem_cb_iter), line:N:N, endln:N:N
+      4 >         \_unsupported_typespec: (uvm_mem_cb_iter), line:N:N, endln:N:N
+      4 <         \_class_typespec: (uvm_pkg::uvm_vreg_field_cb_iter), line:N:N, endln:N:N
+      4 <         \_class_typespec: (uvm_pkg::uvm_vreg_cb_iter), line:N:N, endln:N:N
+      4 <         \_class_typespec: (uvm_pkg::uvm_reg_cb_iter), line:N:N, endln:N:N
+      4 <         \_class_typespec: (uvm_pkg::uvm_mem_cb_iter), line:N:N, endln:N:N
+      1 > /default/SeqDriver-NafNaa/slang.uhdm: Restored design Pre-Elab: 
+      1 < /default/SeqDriver-NafNaa//slang.uhdm: Restored design Pre-Elab: 
+
+Lines in any law row's order-blind diff that do NOT name this law: 0.
+Lines naming uvm_severity / uvm_action / uvm_verbosity: 0.
+struct_typespec / enum_typespec / logic_typespec / int_typespec cells: 0.
+
+VERIFIED binary vs the IMPLEMENTER'S binary, whole surelog corpus:
+  MOVERS 1 / 956 — ./default/Scoreboard, the coin, order-blind 2 lines /
+  ZERO content lines.  The four law rows are BYTE-IDENTICAL between them.
+VERIFIED binary vs the IMPLEMENTER'S binary, whole uhdm2rtlil corpus:
+  MOVERS 0 / 1358.

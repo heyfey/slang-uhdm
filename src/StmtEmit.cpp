@@ -2517,6 +2517,29 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             importCopyTsCollect->push_back(uts198);
                         rt->Actual_typespec(uts198);
                     }
+                    // § pkgClassTdImportCopyLocalUnsupported202, SITE 2 of 2 —
+                    // the BLOCK-ITEM local, which is where the CORPUS head
+                    // lives: `uvm_reg_field_cb_iter cbs = new(this);` in the
+                    // `begin` of the `UVM_PREDICT_WRITE` case item of
+                    // `uvm_reg_field::do_predict`, cloned into `adpcm_pkg` /
+                    // `svaunit_pkg`.  src/EmitHelpers.h carries the law and the
+                    // grid202 cell behind each clause; SITE 1 in
+                    // src/TaskFuncEmit.cpp carries the gate's own note.
+                    else if (std::string nm202 =
+                                 (importCopyTsInst && pkgClassTfClone)
+                                     ? pkgClassTdLocalName202(bm)
+                                     : std::string{};
+                             !nm202.empty()) {
+                        auto* uts202 = s.MakeUnsupported_typespec();
+                        uts202->VpiName(nm202);
+                        if (auto* bsyn202 =
+                                bm.getDeclaredType()->getTypeSyntax())
+                            setLoc(uts202, bsyn202->sourceRange());
+                        uts202->Instance(importCopyTsInst);
+                        if (importCopyTsCollect)
+                            importCopyTsCollect->push_back(uts202);
+                        rt->Actual_typespec(uts202);
+                    }
                     else
                         rt->Actual_typespec(ts);
                     v->Typespec(rt);

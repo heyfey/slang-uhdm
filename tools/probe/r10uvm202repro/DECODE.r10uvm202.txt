@@ -1,0 +1,183 @@
+r10uvm202 — THE DECODE, IN THE ORDER THE BRIEF ASKS FOR.  MEASUREMENT ONLY;
+the official ~/git-repos/UHDM/build/bin/uhdm-cmp is the sole acceptance judge.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+=============================================================================
+(1) THE JUDGE
+=============================================================================
+
+THE HEAD, on this pass's own pristine build, SeqDriver x2 and MiniAmiq x2,
+50 cmp lines, ONE `^LHS:` each, the SAME object pair in all four row-modes
+(head_pris_*.cmp; MiniAmiq's two modes are byte-identical, SeqDriver's two
+differ only in the testbench's own path):
+
+  LHS: unsupported_typespec: (uvm_reg_field_cb_iter), line:1128:10, endln:1128:31
+       |vpiParent: \_ref_typespec: (adpcm_pkg::uvm_reg_field::do_predict::cbs)
+       |vpiName:uvm_reg_field_cb_iter
+       |vpiInstance: \_package: uvm_pkg
+  RHS: class_typespec: (uvm_pkg::uvm_reg_field_cb_iter), line:334:9, endln:334:26
+       |vpiName:uvm_pkg::uvm_reg_field_cb_iter
+       |vpiTypedefAlias: \_ref_typespec -> class_typespec (uvm_pkg::uvm_mem_cb_iter)
+       |vpiInstance: \_package: adpcm_pkg
+       |vpiClassDefn: \_class_defn: (uvm_pkg::uvm_callback_iter)
+
+THE FAILING FIELD.  Both sides are present, so `BaseClass::Compare`'s VpiType
+line fails FIRST — before VpiName (which disagrees too) and before Instance
+(which also disagrees).  The failing field is the KIND.
+
+THE OWNER, from ct202own --refs on the pristine pair.  Golden's head has
+EXACTLY ONE referrer and it is the edge the judge walked:
+
+  REF .Actual_typespec  rel1  ref_typespec#213192
+       < begin() < begin() < function(uvm_reg_field::do_predict) < package(adpcm_pkg)
+
+uvm-1.2 reg/uvm_reg_field.svh:1128 is `uvm_reg_field_cb_iter cbs = new(this);`
+— a BLOCK-ITEM local of the `begin` of the UVM_PREDICT_WRITE case item of the
+OUT-OF-BODY method `uvm_reg_field::do_predict` — read in the WILDCARD-IMPORT
+CLONE the importing package `adpcm_pkg` (SeqDriver) / `svaunit_pkg` (MiniAmiq)
+holds.  Its type is uvm-1.2 reg/uvm_reg_cbs.svh:354,
+`typedef uvm_callback_iter#(uvm_reg_field, uvm_reg_cbs) uvm_reg_field_cb_iter;`
+— a PACKAGE-SCOPE typedef.
+
+THE MINT (ct202own --mint).  GOLDEN holds SIXTEEN
+`unsupported_typespec(uvm_reg_field_cb_iter)`, ONE PER DECLARATION, refs=1
+each, every one instanced at `package uvm_pkg` (the HOME) and every one under
+`package(adpcm_pkg)` (the CLONE) — eight declarations x two views.  Golden's
+HOME (`uvm_pkg`) listings and its class_defn listings hold NONE of them.
+OURS holds ONE shared `class_typespec` with 42 referrers: ten package /
+class_defn / module_inst `Typespecs` listing slots, sixteen declaration
+bindings under `package(adpcm_pkg)` — the cells this law rewrites — and
+sixteen under `package(uvm_pkg)` and its class_defns, which MUST NOT move.
+
+THE ABLATION.  Masking the golden head alone moves the judge to
+`class_var(uvm_pkg::uvm_reg_field::do_predict::cb)@1135:27` with `RHS: <null>`
+— a DIFFERENT family (R0).  So this object was the whole head.
+
+THE CLONE-BODY LOCAL CENSUS, BOTH SIDES, KEYED BY KIND — the brief's question
+(1), answered by grid arm A on ONE real Surelog golden in BOTH views rather
+than inferred from the corpus (a corpus row cannot hold a control).  Seven
+package-scope typedefs declared side by side and used side by side in the SAME
+cloned body, at BOTH sites (tf item and block item):
+
+  KIND written              golden, in the CLONE listing        our pristine
+  ------------------------  ----------------------------------  ---------------------
+  Vein202#(int,string)      unsupported_typespec pkgSpec202     class_typespec  FIRES
+  Vein202#(string,int)      unsupported_typespec pkgSpecB202    class_typespec  FIRES
+  Plain202 (plain handle)   unsupported_typespec pkgCls202      class_typespec  FIRES
+  struct                    struct_typespec  (RESOLVED)         struct_typespec  --
+  enum                      enum_typespec    (RESOLVED)         enum_typespec    --
+  logic [7:0]               logic_typespec   (RESOLVED)         logic_typespec   --
+  int                       int_typespec     (RESOLVED)         int_typespec     --
+
+  and in EVERY OTHER LISTING of the same golden — the HOME package's own def
+  and elab, and the class_defn listings of BOTH packages — golden keeps the
+  RESOLVED `class_typespec` for all three class cells.  Only the listing
+  DIRECTLY under the IMPORTING package degrades.
+
+  ==> THE BRIEF'S "SPECIALISATION" FRAMING IS REFUTED BY `pkgCls202`: a PLAIN
+      class-handle typedef degrades exactly the same way.  The distinguisher is
+      the typedef's TARGET BEING A CLASS, not its being a specialisation.
+
+=============================================================================
+(2) SURELOG — WHY A CLASS TYPEDEF FILES A LATE BINDING AND A STRUCT DOES NOT
+=============================================================================
+
+§ classScopedTdImportCopyLocalUnsupported198's three sites, unchanged, with the
+FIRST one reached for a different reason:
+
+1. THE HOME BODY DEGRADES FIRST.  `CompileHelper::compileDatastructureTypespec`
+   walks the DataType chain (CompileType.cpp:852-861): a TypeDef contributes
+   `parent_tpd->getTypespec()` and BREAKS only if that typespec already exists.
+   A struct / enum / union / SimpleType typedef has one by then
+   (CompileType.cpp:860-897, `st->getTypespec()` / `en->getTypespec()` /
+   `sit->getTypespec()`); a typedef whose target is a CLASS does not, and the
+   walk has to reach the ClassDefinition arm (CompileType.cpp:902-905) to build
+   a `class_typespec`.  When it cannot, `result` stays null and the named-type
+   arm mints the placeholder — CompileType.cpp:1617-1626,
+   `unsupported_typespec` with `VpiName(typeName)` (the WRITTEN name) and
+   `populateCoreMembers(type, type, ref)` (the WRITTEN TYPE TOKEN's span).
+   That is golden's object, field for field: name `uvm_reg_field_cb_iter`, span
+   1128:10-1128:31.
+2. THE DECLARATION IS FILED FOR LATE REPAIR.  `compileVariable`'s final arm
+   registers it — CompileType.cpp:421-431,
+   `if (ts->UhdmType() == uhdmunsupported_typespec)
+      component->needLateTypedefBinding(ref);` — and the block-item form does
+   the same at CompileStmt.cpp:1799-1806.  That is why golden's variable is a
+   `ref_var` in the HOME as well as in the clone (arm A, every class cell).
+3. THE IMPORTER COPIES AT COLLECT TIME.
+   `CompilePackage::collectObjects_`'s `CollectType::FUNCTION` pass calls
+   `m_helper.importPackage(...)` (CompilePackage.cpp:141-151), and
+   `CompileHelper::importPackage` deep-copies each imported task_func with
+   `UHDM::clone_tree` WHEN THE IMPORTER IS A PACKAGE (CompileHelper.cpp:299-324).
+   The copy carries a COPY of the placeholder, `vpiInstance` (the HOME package)
+   included.
+4. THE REPAIR IS POINTER-KEYED AND CANNOT REACH THE COPY.
+   `ElaborationStep::bindTypedefs_` walks `comp->getLateTypedefBinding()` and
+   records `getSwapedObjects().emplace(orig_ut, tps)` keyed on the ORIGINAL
+   placeholder OBJECT (ElaborationStep.cpp:302-321), and
+   `swapTypespecPointersInUhdm` then rewrites every `expr`'s `Typespec` in the
+   serializer.  The clone's `ref_typespec` points at its own copied object,
+   which is not a key in that map: the home is repaired, the clone is not.
+
+WHICH TYPEDEF KINDS FILE LATE BINDINGS, MEASURED RATHER THAN READ OFF THE
+SOURCE (arm A, both views, both sites): specialisation YES, plain class handle
+YES, struct NO, enum NO, packed vector NO, int NO.  A class handle written
+WITHOUT a typedef (arm B `bNoTd202b` / `kNoTd202b`) is NOT degraded either —
+golden keeps an UNNAMED `class_typespec` with no instance, in the clone as in
+the home, and so do we, on both binaries.
+
+UNLIKE § 198, THE ELAB VIEW DOES NOT UNDO IT.  § impCloneDeclRangeNoBind200's
+law is inert under `-elabuhdm` because `ElaboratorListener::leaveRef_obj`
+re-binds dangling `ref_obj`s.  Nothing re-resolves a `ref_typespec`'s
+`Actual_typespec`, so this law's cells read the same in both views — arm A, C
+and E all score identically in def and elab.
+
+=============================================================================
+(3) SLANG — THE MINT, THE SHARING, AND THE GATED DEGRADE
+=============================================================================
+
+THE MINT.  `src/TypeEmit.cpp:1831-1837` mints a fresh `class_typespec` per
+DECLARATION for a class handle.  The PACKAGE-TYPEDEF listing object is a
+different producer: `src/ParamEmit.cpp:22550-22581` mints one per typedef in
+the ELABORATED package view only, links it to the GENERIC `class_defn` (never
+the specialisation), and spans it at the class NAME TOKEN.
+
+THE SHARING — AND IT IS GOLDEN'S OWN, NOT A DEFECT.  ParamEmit.cpp:22661-22702
+(§ pkgImportClassTdClone50 at :22703-22740 for the import clones) picks the
+NAME-FIRST typedef of each GENERIC-CLASS group as the base and makes every
+later one a clone that COPIES THE BASE'S SPAN and adds
+`vpiTypedefAlias -> base`.  ct202cen's CLS| rows put both sides side by side on
+the corpus row itself:
+
+  golden  111 package-qualified class_typespec rows
+  ours    111 package-qualified class_typespec rows
+  DIFF    ONE row, and it is an OWNSPAN flag on `adpcm_pkg::this_type` — a span
+          heuristic of this census, and typespec::Compare reads no span at all.
+
+  and for the head's own family, SEVEN typedefs of `uvm_callback_iter#(...)`,
+  BOTH SIDES IDENTICAL, base included:
+
+    uvm_mem_cb_iter        ALIAS=-                      span uvm_reg_cbs.svh:334:9-334:26
+    uvm_reg_bd_cb_iter     ALIAS=... uvm_mem_cb_iter    span uvm_reg_cbs.svh:334:9-334:26
+    uvm_reg_cb_iter        ALIAS=... uvm_mem_cb_iter    span uvm_reg_cbs.svh:334:9-334:26
+    uvm_reg_field_cb_iter  ALIAS=... uvm_mem_cb_iter    span uvm_reg_cbs.svh:334:9-334:26
+    uvm_report_cb_iter     ALIAS=... uvm_mem_cb_iter    span uvm_reg_cbs.svh:334:9-334:26
+    uvm_vreg_cb_iter       ALIAS=... uvm_mem_cb_iter    span uvm_reg_cbs.svh:334:9-334:26
+    uvm_vreg_field_cb_iter ALIAS=... uvm_mem_cb_iter    span uvm_reg_cbs.svh:334:9-334:26
+
+  ==> THE BRIEF'S SECOND DEFECT IS REFUTED.  "Ours is a resolved class_typespec
+      spanned at the WRONG typedef with the alias chaining to the wrong object"
+      describes SURELOG's own model, which § pkgImportClassTdClone50 already
+      reproduces: golden spans all seven at `uvm_mem_cb_iter`'s typedef line and
+      chains all six non-base aliases to it.  The span is not a judge-visible
+      field in the first place (typespec::Compare reads VpiType / VpiName /
+      Typedef_alias / Instance, never VpiFile or a span — RESUME.md §9).
+      THERE IS ONE DEFECT HERE, NOT TWO, AND IT IS THE DEGRADE.
+
+THE GATED DEGRADE.  `src/EmitHelpers.h`'s `pkgClassTdLocalName202` is the
+predicate and the NAME; `src/TaskFuncEmit.cpp` (SITE 1, the subroutine-body
+local) and `src/StmtEmit.cpp` (SITE 2, the block-item local, where the corpus
+head lives) are the two call sites, each LAST in its site's placeholder chain
+and each under the SAME gate § 198 uses, `importCopyTsInst && pkgClassTfClone`
+(§ clsScopedTdLocalCloneIsClassMethodOnly198v: the imported OUT-OF-BODY CLASS
+METHOD clone and nothing else).  Only the KIND, the NAME and the INSTANCE move.

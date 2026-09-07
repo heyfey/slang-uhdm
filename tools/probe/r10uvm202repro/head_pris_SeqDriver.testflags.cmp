@@ -1,0 +1,50 @@
+LHS:
+decompile:
+unsupported_typespec: (uvm_reg_field_cb_iter), id:213193, line:1128:10, endln:1128:31
+|vpiParent:
+\_ref_typespec: (adpcm_pkg::uvm_reg_field::do_predict::cbs), id:213192
+|vpiName:uvm_reg_field_cb_iter
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+
+decompile:
+unsupported_typespec: (uvm_reg_field_cb_iter), id:213193, line:1128:10, endln:1128:31
+|vpiParent:
+\_ref_typespec: (adpcm_pkg::uvm_reg_field::do_predict::cbs), id:213192
+|vpiName:uvm_reg_field_cb_iter
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+RHS:
+decompile:
+class_typespec: (uvm_pkg::uvm_reg_field_cb_iter), id:3703, line:334:9, endln:334:26
+|vpiParent:
+\_module_inst: work@top_tb (work@top_tb), id:293187, file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/testbench.sv, line:210:1, endln:236:18
+|vpiName:uvm_pkg::uvm_reg_field_cb_iter
+|vpiTypedefAlias:
+\_ref_typespec: (uvm_pkg::uvm_reg_field_cb_iter), id:5932
+  |vpiParent:
+  \_class_typespec: (uvm_pkg::uvm_reg_field_cb_iter), id:3703, line:334:9, endln:334:26
+  |vpiFullName:uvm_pkg::uvm_reg_field_cb_iter
+  |vpiActual:
+  \_class_typespec: (uvm_pkg::uvm_mem_cb_iter), id:3701, line:334:9, endln:334:26
+|vpiInstance:
+\_package: adpcm_pkg (adpcm_pkg::), id:3069, file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/testbench.sv, line:10:1, endln:207:22
+|vpiClassDefn:
+\_class_defn: (uvm_pkg::uvm_callback_iter), id:11726, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_callback.svh, line:1037:1, endln:1119:9
+
+decompile:
+class_typespec: (uvm_pkg::uvm_reg_field_cb_iter), id:3703, line:334:9, endln:334:26
+|vpiParent:
+\_module_inst: work@top_tb (work@top_tb), id:293187, file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/testbench.sv, line:210:1, endln:236:18
+|vpiName:uvm_pkg::uvm_reg_field_cb_iter
+|vpiTypedefAlias:
+\_ref_typespec: (uvm_pkg::uvm_reg_field_cb_iter), id:5932
+  |vpiParent:
+  \_class_typespec: (uvm_pkg::uvm_reg_field_cb_iter), id:3703, line:334:9, endln:334:26
+  |vpiFullName:uvm_pkg::uvm_reg_field_cb_iter
+  |vpiActual:
+  \_class_typespec: (uvm_pkg::uvm_mem_cb_iter), id:3701, line:334:9, endln:334:26
+|vpiInstance:
+\_package: adpcm_pkg (adpcm_pkg::), id:3069, file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/testbench.sv, line:10:1, endln:207:22
+|vpiClassDefn:
+\_class_defn: (uvm_pkg::uvm_callback_iter), id:11726, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_callback.svh, line:1037:1, endln:1119:9

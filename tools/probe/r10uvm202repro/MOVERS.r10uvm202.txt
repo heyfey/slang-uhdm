@@ -1,0 +1,59 @@
+r10uvm202 — THE MOVERS AND THEIR ATTRIBUTION.  MEASUREMENT ONLY.
+
+byteverify (SELFCHECK=1), patched vs THIS PASS'S OWN pristine sweep:
+  surelog     MOVERS 5 / 956    SELFCHECK 955/956 flagged (the gate can see)
+  uhdm2rtlil  MOVERS 0 / 1358   SELFCHECK 1357/1358 flagged
+
+  MOVER ./default/MiniAmiq       MOVER ./testflags/MiniAmiq
+  MOVER ./default/SeqDriver      MOVER ./testflags/SeqDriver
+  MOVER ./default/Scoreboard  <- the documented ~50/50 COIN (RESUME.md §9)
+
+The four law rows are exactly the four the PREDICTION named BY NAME from
+the PRISTINE databases alone, before the patched sweep was read.
+
+uhdm-dump diff per moved row (workdir path normalised, id: numbers stripped;
+PLAIN and ORDER-BLIND both reported — a coin can only be read order-blind):
+  default    MiniAmiq       plain=242    order-blind=242   
+  default    Scoreboard     plain=146    order-blind=2     
+  default    SeqDriver      plain=242    order-blind=242   
+  testflags  MiniAmiq       plain=242    order-blind=242   
+  testflags  SeqDriver      plain=318    order-blind=242   
+
+Scoreboard/default ORDER-BLIND diff IN FULL — ZERO content lines; the two
+lines are uhdm-dump's own path banner surviving the normalisation:
+    132533c132533
+    < /default/Scoreboard-59431470//slang.uhdm: Restored design Pre-Elab: 
+    ---
+    > /default/Scoreboard-59431470/slang.uhdm: Restored design Pre-Elab: 
+
+The four law rows: PLAIN == ORDER-BLIND, +201 / -41 lines each, and every
+line names this law and nothing else (SeqDriver/default shown; the other
+three have the same shape):
+       40 >   |vpiInstance:
+       40 >   \_package: uvm_pkg (uvm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-N.N/src/uvm_pkg.sv, line:N:N, endln:N:N
+       16 >   |vpiName:uvm_reg_field_cb_iter
+       16 > \_unsupported_typespec: (uvm_reg_field_cb_iter), line:N:N, endln:N:N
+       12 >   |vpiName:uvm_vreg_field_cb_iter
+       12 > \_unsupported_typespec: (uvm_vreg_field_cb_iter), line:N:N, endln:N:N
+       10 >               \_unsupported_typespec: (uvm_reg_field_cb_iter), line:N:N, endln:N:N
+       10 <               \_class_typespec: (uvm_pkg::uvm_reg_field_cb_iter), line:N:N, endln:N:N
+        8 >               \_unsupported_typespec: (uvm_vreg_field_cb_iter), line:N:N, endln:N:N
+        8 <               \_class_typespec: (uvm_pkg::uvm_vreg_field_cb_iter), line:N:N, endln:N:N
+        6 >                 \_unsupported_typespec: (uvm_reg_field_cb_iter), line:N:N, endln:N:N
+        6 <                 \_class_typespec: (uvm_pkg::uvm_reg_field_cb_iter), line:N:N, endln:N:N
+        4 >   |vpiName:uvm_vreg_cb_iter
+        4 >   |vpiName:uvm_reg_cb_iter
+        4 >   |vpiName:uvm_mem_cb_iter
+        4 >         \_unsupported_typespec: (uvm_vreg_field_cb_iter), line:N:N, endln:N:N
+        4 > \_unsupported_typespec: (uvm_vreg_cb_iter), line:N:N, endln:N:N
+        4 >         \_unsupported_typespec: (uvm_vreg_cb_iter), line:N:N, endln:N:N
+        4 > \_unsupported_typespec: (uvm_reg_cb_iter), line:N:N, endln:N:N
+        4 >         \_unsupported_typespec: (uvm_reg_cb_iter), line:N:N, endln:N:N
+        4 > \_unsupported_typespec: (uvm_mem_cb_iter), line:N:N, endln:N:N
+        4 >         \_unsupported_typespec: (uvm_mem_cb_iter), line:N:N, endln:N:N
+        4 <         \_class_typespec: (uvm_pkg::uvm_vreg_field_cb_iter), line:N:N, endln:N:N
+        4 <         \_class_typespec: (uvm_pkg::uvm_vreg_cb_iter), line:N:N, endln:N:N
+        4 <         \_class_typespec: (uvm_pkg::uvm_reg_cb_iter), line:N:N, endln:N:N
+        4 <         \_class_typespec: (uvm_pkg::uvm_mem_cb_iter), line:N:N, endln:N:N
+        1 > /default/SeqDriver-NafNaa/slang.uhdm: Restored design Pre-Elab: 
+        1 < /default/SeqDriver-NafNaa//slang.uhdm: Restored design Pre-Elab: 

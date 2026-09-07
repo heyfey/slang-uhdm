@@ -1,0 +1,54 @@
+r10uvm202 — THE GRID.  Five arms, ONE REAL SURELOG GOLDEN each, BOTH views,
+both frozen binaries.  Scored by score202.py over JUDGE-VISIBLE payload only
+(the declaration typespec's KIND, NAME, INSTANCE and TYPEDEF-ALIAS — the
+fields typespec::Compare reads; spans are on DUMP-ONLY SPAN| rows the scorer
+drops).  LHS is ALWAYS golden; a = PRISTINE, b = PATCHED.
+
+ARM            VIEW  SCORE
+a_kinds        def   TO-GOLDEN 9  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 6  AGREE 63  KEYS 78
+a_kinds        elab  TO-GOLDEN 9  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 13  AGREE 77  KEYS 99
+b_spellings    def   TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 34  AGREE 54  KEYS 94
+b_spellings    elab  TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 68  AGREE 47  KEYS 121
+c_sites        def   TO-GOLDEN 10  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 1  AGREE 51  KEYS 62
+c_sites        elab  TO-GOLDEN 10  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 9  AGREE 59  KEYS 78
+d_drivers      def   TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 24  AGREE 28  KEYS 55
+d_drivers      elab  TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 33  AGREE 42  KEYS 78
+e_head         def   TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 22  KEYS 24
+e_head         elab  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 8  AGREE 17  KEYS 27
+
+The BOUNDARY's one non-own mover, rebuilt against its OWN real Surelog golden:
+r10buvm9/w4v   def   TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 27  AGREE 54  KEYS 82
+r10buvm9/w4v   elab  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 81  AGREE 36  KEYS 118
+
+uhdm-cmp on every arm (the OFFICIAL judge; a=pristine b=patched):
+a_kinds/cmds.txt:cmp rc=255 a def lines=36 heads=1
+a_kinds/cmds.txt:cmp rc=0 b def lines=0 heads=0
+a_kinds/cmds.txt:cmp rc=255 a elab lines=36 heads=1
+a_kinds/cmds.txt:cmp rc=0 b elab lines=0 heads=0
+b_spellings/cmds.txt:cmp rc=255 a def lines=40 heads=1
+b_spellings/cmds.txt:cmp rc=255 b def lines=40 heads=1
+b_spellings/cmds.txt:cmp rc=255 a elab lines=40 heads=1
+b_spellings/cmds.txt:cmp rc=255 b elab lines=40 heads=1
+c_sites/cmds.txt:cmp rc=255 a def lines=36 heads=1
+c_sites/cmds.txt:cmp rc=255 b def lines=36 heads=1
+c_sites/cmds.txt:cmp rc=255 a elab lines=36 heads=1
+c_sites/cmds.txt:cmp rc=255 b elab lines=36 heads=1
+d_drivers/cmds.txt:cmp rc=255 a def lines=36 heads=1
+d_drivers/cmds.txt:cmp rc=255 b def lines=26 heads=1
+d_drivers/cmds.txt:cmp rc=255 a elab lines=36 heads=1
+d_drivers/cmds.txt:cmp rc=255 b elab lines=26 heads=1
+e_head/cmds.txt:cmp rc=255 a def lines=36 heads=1
+e_head/cmds.txt:cmp rc=0 b def lines=0 heads=0
+e_head/cmds.txt:cmp rc=255 a elab lines=36 heads=1
+e_head/cmds.txt:cmp rc=0 b elab lines=0 heads=0
+w4v_imports/cmds.txt:cmp rc=255 a def lines=3734 heads=1
+w4v_imports/cmds.txt:cmp rc=255 b def lines=3734 heads=1
+w4v_imports/cmds.txt:cmp rc=255 a elab lines=3816 heads=1
+w4v_imports/cmds.txt:cmp rc=255 b elab lines=3816 heads=1
+
+nonzero rcs across every arm:
+rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o <arm workdir>/w4v_imports/g_elab <worktree>/tools/probe/r10buvm9repro/w4v_imports.sv
+THE ONE NONZERO rc: r10buvm9repro/w4v_imports.sv is an EARLIER PASS's arm and
+carries deliberately undefined types; its ELAB Surelog run reports them (rc=4)
+and STILL WRITES ITS DATABASE, which is why both views score.  Every one of
+THIS pass's five own arms, and both binaries on every arm, exited 0.

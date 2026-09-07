@@ -4947,6 +4947,112 @@ inline std::string clsScopedTdLocalName198(const slang::ast::Symbol& declSym) {
     return {};
 }
 
+// § pkgClassTdImportCopyLocalUnsupported202 — THE NAME AND THE PREDICATE.
+//
+// > Inside a wildcard-import CLONE body, a LOCAL DECLARATION whose type is a
+// > PACKAGE-SCOPE typedef OF A CLASS degrades to an `unsupported_typespec`
+// > named AS WRITTEN and spanned at the written type name, instanced at the
+// > HOME package.  The typedef's TARGET decides it — a class, parameterised or
+// > plain — and the HOME's own views keep the resolved `class_typespec`.
+//
+// This is § classScopedTdImportCopyLocalUnsupported198's mechanism with the
+// OTHER half of its predicate.  That law is keyed on the DECLARING SCOPE (a
+// class-scope typedef is not in the package's data-type map when the
+// out-of-body method's body is first compiled); this one is keyed on the
+// TARGET, because a typedef whose target is a CLASS cannot be resolved at
+// first compile either — Surelog compiles package typedefs of DATA types
+// before the class definitions exist, so `compileTypespec` answers an
+// `unsupported_typespec` and `CompileType.cpp:421-431` /
+// `CompileStmt.cpp:1799-1806` file the declaration with
+// `component->needLateTypedefBinding(...)`.  From there the two laws are
+// literally the same three sites: `CompileHelper::importPackage`
+// (CompileHelper.cpp:299-324) takes the clone with `UHDM::clone_tree` at
+// COLLECT time, so the DEEP COPY of the placeholder is what the importer
+// keeps, and `ElaborationStep::bindTypedefs_`'s repair
+// (ElaborationStep.cpp:311-321, `getSwapedObjects()`) is keyed on the ORIGINAL
+// placeholder POINTER, which the clone's copy is not.
+//
+// THE GRID MEASURED THE KIND SPLIT AND IT IS THE WHOLE FENCE (arm A
+// `g202_a_kinds`, ONE real Surelog golden, BOTH views, seven package-scope
+// typedefs declared side by side and used side by side in the SAME cloned
+// body, at BOTH sites):
+//   FIRES   `pkgSpec202` = `typedef Vein202#(int,string) …` (a PARAMETERISED
+//           class SPECIALISATION), `pkgSpecB202` (a SECOND specialisation of
+//           the same generic) AND `pkgCls202` = `typedef Plain202 …` (a PLAIN
+//           class handle).  The brief's "specialisation" framing is REFUTED by
+//           `pkgCls202`: the plain handle degrades exactly the same way.
+//   NOT     `pkgSt202` (struct), `pkgEn202` (enum), `pkgVec202`
+//           (`logic [7:0]`), `pkgInt202` (int) — all four stay RESOLVED in the
+//           clone in both views.  That is uvm170's plain-package-typedef
+//           must-not-move family and § 198's own `tfPkg198` control, and it is
+//           why this predicate tests the TARGET and not merely the scope.
+//   NOT     the HOME package's own def/elab listings, nor the class_defn
+//           listings of either package (golden keeps `class_typespec` there);
+//           only the listing directly under the IMPORTING package degrades.
+//
+// The NAME is the WRITTEN one, a BARE identifier.  A scoped spelling is
+// DECLINED rather than guessed at (arm B `bScoped202`), exactly as § 198
+// declines a three-segment spelling.  The ARRAY fence is § 198's, for § 198's
+// reason: an array local's placeholder lives on the ELEMENT `ref_var`, which is
+// neither of this law's two sites.
+inline std::string pkgClassTdLocalName202(const slang::ast::Symbol& declSym) {
+    const slang::ast::DeclaredType* dt = declSym.getDeclaredType();
+    if (!dt)
+        return {};
+    const slang::ast::Type& ty = dt->getType();
+    // THE ARRAY FENCE (see above).
+    const slang::ast::Type& cty = ty.getCanonicalType();
+    if (cty.kind == slang::ast::SymbolKind::FixedSizeUnpackedArrayType ||
+        cty.kind == slang::ast::SymbolKind::QueueType ||
+        cty.kind == slang::ast::SymbolKind::DynamicArrayType ||
+        cty.kind == slang::ast::SymbolKind::AssociativeArrayType)
+        return {};
+    if (ty.kind != slang::ast::SymbolKind::TypeAlias)
+        return {};
+    // THE TARGET must be a CLASS — the measured kind split above.
+    if (cty.kind != slang::ast::SymbolKind::ClassType)
+        return {};
+    // § pkgTypeParamLocalIsNotATypedef202v (VERIFIER FIX).  A `parameter type`
+    // IS NOT A TYPEDEF and golden does not degrade it.  slang models every type
+    // parameter as a same-named `TypeAliasType` in the parameter's OWN scope
+    // (TypeParameterSymbol's ctor), so a PACKAGE-scope `parameter type T =
+    // SomeClass;` satisfies both clauses above — TypeAlias, canonical
+    // ClassType, parent scope Package — and was degraded by the first cut of
+    // this law.  § 198 is protected from the CLASS-scope twin only by
+    // § oobClassTypeParamLocalUnsupported105 sitting ahead of it in the chain;
+    // the PACKAGE-scope one has no earlier owner, so it is fenced here.
+    //
+    // MEASURED, one real Surelog golden with ZERO errors, arm
+    // `v202_5_typeparam` (`parameter type tparV5202 = PlainV5202;` declared and
+    // used beside `typedef PlainV5202 clsTdV5202;` in the SAME cloned body, at
+    // BOTH sites, in BOTH views): golden RESOLVES the type-parameter cell to a
+    // `class_typespec` named after the TARGET (`PlainV5202`) and instanced at
+    // the home package, in the clone exactly as in the home, while it degrades
+    // the typedef cell beside it.  The pristine binary already gets that cell's
+    // NAME and INSTANCE wrong (an UNNAMED `class_typespec` with no instance)
+    // but gets the KIND right, and `typespec::Compare` reads `VpiType` FIRST —
+    // so firing here moved three keys per view from a wrong-name/right-kind
+    // cell to a WRONG-KIND one (MOVED-WRONG 3 def / 3 elab).  With this fence
+    // the arm reads TO-GOLDEN 3 / AWAY-GOLDEN 0 / MOVED-WRONG 0 in both views,
+    // the typedef cells beside it still firing.  The type parameter's own
+    // name/instance residue is left where the pristine binary had it.
+    if (typeParamOfAlias(ty.as<slang::ast::TypeAliasType>()))
+        return {};
+    // THE DECLARING SCOPE must be a PACKAGE (a CLASS-scope one is § 198's).
+    const slang::ast::Scope* ps =
+        ty.as<slang::ast::TypeAliasType>().getParentScope();
+    if (!ps || ps->asSymbol().kind != slang::ast::SymbolKind::Package)
+        return {};
+    if (auto* tsyn = dt->getTypeSyntax())
+        if (tsyn->kind == syntax::SyntaxKind::NamedType)
+            if (const syntax::NameSyntax* n =
+                    tsyn->as<syntax::NamedTypeSyntax>().name;
+                n && n->kind == syntax::SyntaxKind::IdentifierName)
+                return std::string(n->as<syntax::IdentifierNameSyntax>()
+                                       .identifier.valueText());
+    return {};
+}
+
 // The TypeAlias a `A::b(::c)` spelling names, or null — with the ROOT required
 // to be a CLASS, which is the whole difference between this law and the
 // package-scoped control (`g4` `p_scoped`, unmoved).

@@ -1,0 +1,42 @@
+r10uvm202 — THE WIDE BOUNDARY.  MEASUREMENT ONLY.
+
+A COPY of the WHOLE tools/probe tree (top level AND every subdirectory),
+both views, both FROZEN binaries, every rc recorded, the file list read on
+fd 3 with every child </dev/null, PROCESSED asserted against LISTED, scratch
+keyed on the RELATIVE path.
+
+LISTED=5276 PROCESSED=5276 PRODUCED_DBS=5091 MOVED_ARMS=6 RC_DIFFS=0
+
+THE SIX MOVED ARMS:
+  r10buvm9repro/w4v_imports.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+  r10uvm202repro/grid202/g202_a_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+  r10uvm202repro/grid202/g202_b_spellings.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+  r10uvm202repro/grid202/g202_c_sites.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+  r10uvm202repro/grid202/g202_d_drivers.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+  r10uvm202repro/grid202/g202_e_head.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+  FIVE are this pass's OWN grid202 arms — the POSITIVE CONTROL that proves
+  the gate can see.  The SIXTH, r10buvm9repro/w4v_imports.sv, was REBUILT
+  against its OWN real Surelog golden in both views and scored:
+    def   TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 27  AGREE 54  KEYS 82
+    elab  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 81  AGREE 36  KEYS 118
+  and its ONE moved cell, named in full:
+    TO-GOLDEN CEN|begin:@36:39-36:66<package:w4c|0|ref_var|v
+        golden={'TS=unsupported_typespec:a4_t:INST=package:w4b': 2}
+        pris  ={'TS=class_typespec:w4a::a4_t:INST=package:w4c': 2}
+        pat   ={'TS=unsupported_typespec:a4_t:INST=package:w4b': 2}
+
+RC_DIFFS=0 covers the 185 arms that produce no database on either binary:
+they fail IDENTICALLY, so no rc=139 segfault can read as a result
+(RESUME.md §9).  Several arms DO segfault under --elabuhdm; every one does
+so on BOTH binaries, which is exactly what RC_DIFFS=0 asserts.
+
+THE FLOOR, UNTOUCHED IN FULL — not one of these arms is among the six:
+  r10uvm198repro   5 arms   (§ classScopedTdImportCopyLocalUnsupported198
+                             AND § clsScopedTdLocalCloneIsClassMethodOnly198v)
+  r10uvm200repro   5 arms   (§ impCloneDeclRangeNoBind200 and its fence)
+  r10uvm195repro   5 arms   (§ cloneTfOwnVarListingIsUnbound195)
+  r10uvm170repro   5 arms   (§ dpiExportedPkgSubBareOwnTdUnsupported170,
+                             BOTH fences — the plain-package-typedef family)
+  r10uvm164repro   4 arms
+  uvm82-91       201 arms   buvm3-15  192 arms   sd8-12  464 arms
