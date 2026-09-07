@@ -1,0 +1,74 @@
+# r10uvm187 GATES — every gate of RESUME.md S6, run in this pass's own worktree
+# with BOTH binaries frozen chmod 555 BEFORE any sweep.  LHS is ALWAYS golden.
+
+1. BUILD
+   pristine /tmp/r10uvm187_pris.bin md5 8b1777950b91feef705565e6f16e8b0a
+     -- BYTE-IDENTICAL to the main tree's build/slang-uhdm at 362dcfa0
+   patched  /tmp/r10uvm187_pat.bin  md5 b15c4f042d5928e133f3bde9806352c4
+
+2. GOLDENS (SLANG_UHDM exported explicitly to EACH binary)
+   patched  23 PASS / 0 FAIL
+   pristine 23 PASS / 0 FAIL
+   SLANG_UHDM=/bin/false  0 PASS / 23 FAIL   (negative control)
+
+3. uhdm2rtlil
+   testflags 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+   ct8rows vs committed results/gate_uhdm2rtlil.csv   PASS, 0 differing rows
+   ct8rows vs this pass's pristine sweep, testflags    PASS, 0 differing rows
+   ct8rows vs this pass's pristine sweep, default      PASS, 0 differing rows
+
+4. surelog --mode both (1588 rows)
+   default   471 CMP_EQUAL / 283 SLANG_REJECT / 25 SURELOG_FAIL / 10 CMP_NOTEQUAL / 5 DEFERRED
+   testflags 466 CMP_EQUAL / 284 SLANG_REJECT / 23 SURELOG_FAIL / 9 CMP_NOTEQUAL / 5 DEFERRED
+             / 3 NO_DATABASE / 2 UNTRANSLATABLE / 1 TIMEOUT / 1 NO_UHDM
+   ct8rows vs committed results/golden_surelog.csv     PASS, 0 differing rows
+   ct8rows vs this pass's pristine sweep               PASS, 0 differing rows
+   NO CORPUS ROW CONVERTED.  results/*.csv were READ ONLY.
+
+5. BYTEVERIFY SELFCHECK=1
+   uhdm2rtlil MOVERS 0 / 1358, selfcheck 1357/1358, PATH_SETS_IDENTICAL
+   surelog    MOVERS 3 / 956,  selfcheck 955/956,  PATH_SETS_IDENTICAL
+     BuildUVMPkg/default   bbf172cd412b -> 3e9b187f5f57   PREDICTED BY NAME
+     BuildUVMPkg/testflags bbf172cd412b -> 3e9b187f5f57   PREDICTED BY NAME
+     Scoreboard/default    6b7c9be975d8 -> 0d80f8f5d07e   THE KNOWN COIN:
+       uhdm-dump both DBs, path-normalised and SORTED -> the ONLY differing line
+       is the dump's own header naming the file path; 0 content lines.
+       (unsorted: 85 lines, the svunit_pkg vpiTaskFunc order flip's signature)
+
+HEADS (rowheads.sh, official uhdm-cmp; counts are DEPTH not distance)
+   TEST           MODE       PRISTINE   PATCHED
+   SeqDriver      default          31        31   byte-identical cmp log
+   SeqDriver      testflags        31        31   byte-identical cmp log
+   SimpleUVM      default      664681    664681   byte-identical cmp log
+   SimpleUVM      testflags    664681    664681   byte-identical cmp log
+   Scoreboard     default          95        95   byte-identical cmp log
+   Scoreboard     testflags   SKIP-NOFILE (expected)
+   MiniAmiq       default          31        31   byte-identical cmp log
+   MiniAmiq       testflags        31        31   byte-identical cmp log
+   BuildUVMPkg    default          48        36   ONE head, NEW OBJECT
+   BuildUVMPkg    testflags        48        36   ONE head, NEW OBJECT
+   Earlgrey_0_1   default          31        31   byte-identical cmp log
+   Earlgrey_0_1   testflags        17        17   byte-identical cmp log
+   Rggen          default           0         0   byte-identical cmp log
+   Rggen          testflags   SKIP-NOFILE (expected)
+   BuildUVMPkg cmp md5 pristine df87bde51760 (both modes), patched 7f92233e04ae (both modes)
+
+CANARIES / AUDIT
+   canaries.sh surelog     ok=52 changed=0 absent=0
+   canaries.sh uhdm2rtlil  ok=8  changed=0 absent=0
+   ctcan2 EXPECT_UNKNOWN=1 surelog     PASS
+   ctcan2 EXPECT_UNKNOWN=6 uhdm2rtlil  PASS
+   canaudit.sh audited=29 UNCOVERED=0 FENCE-BREACH=0
+
+PROTECTED DATABASES (md5 of slang.uhdm, pristine vs patched)
+   InterfaceModPort   default/testflags 59a365f3ce2c  SAME
+   BlackParrotComplex default e3e354129d5a / testflags 73a10e8217e5  SAME
+   YosysOldOr         default/testflags d68e0796d62c  SAME
+   SVSwitch           default/testflags 4842211c4030  SAME (the brief's pin)
+   YosysVerx          default/testflags 6ccda350c24a  SAME (the brief's pin)
+
+BOUNDARY  LISTED=5052 PROCESSED=5052 PRODUCED_DBS=4892 MOVED_ARMS=5 RC_DIFFS=0
+   (see BOUNDARY.r10uvm187.txt)
+
+GOLDEN_DEFER stayed UNSET.  slang was NOT patched.  The four slang-fenced tests
+were never dispatched and are named only inside canaudit.sh's own fence list.

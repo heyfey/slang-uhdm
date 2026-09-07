@@ -1,0 +1,200 @@
+# r10v187 VERIFIED — the adversarial verifier's own gate outputs for r10uvm187.
+# MEASUREMENT ONLY; the official uhdm-cmp and verify_golden.py are the judges.
+# LHS is ALWAYS golden (Surelog).  BASE 362dcfa0.
+
+1. BUILD (both binaries built by THIS verifier, frozen chmod 555 before any sweep)
+   pristine  8b1777950b91feef705565e6f16e8b0a  (== the main tree's build/slang-uhdm at 362dcfa0)
+   patched   b15c4f042d5928e133f3bde9806352c4
+   patch /tmp/r10uvm187.patch md5 efaf74e01648c08fe03d4583b7ddf366, git apply -3 rc=0 on a fresh 362dcfa0
+   fence check over the four slang-fenced test names (spelled only inside
+   canaudit.sh's own fence list, never here): 0/0/0/0
+   off-surface files in the patch = 0; results/ touched = 0; GOLDEN_DEFER edits = 0 (2 prose mentions)
+
+2. GOLDENS (SLANG_UHDM exported explicitly to EACH binary)
+   patched  23 PASS / 0 FAIL
+   pristine 23 PASS / 0 FAIL
+   /bin/false 0 PASS / 23 FAIL
+
+3. uhdm2rtlil
+      679    tf  patched  CMP_EQUAL
+       50    tf  patched  SLANG_REJECT
+        2    tf  patched  SURELOG_FAIL
+   ct8rows vs committed results/gate_uhdm2rtlil.csv : PASS 0 differing rows
+   ct8rows vs this verifier's pristine, testflags    : PASS 0 differing rows
+   ct8rows vs this verifier's pristine, default      : PASS 0 differing rows
+   cmds.txt audit: 1458/1462 name /tmp/v187_pat.bin, 0 name any build/slang-uhdm
+                   (the 4 are the two SURELOG_FAIL tests x 2 modes, where slang never ran)
+
+4. surelog --mode both (1588 rows)
+      471    default CMP_EQUAL
+       10    default CMP_NOTEQUAL
+        5    default DEFERRED
+      283    default SLANG_REJECT
+       25    default SURELOG_FAIL
+      466    testflags CMP_EQUAL
+        9    testflags CMP_NOTEQUAL
+        5    testflags DEFERRED
+        3    testflags NO_DATABASE
+        1    testflags NO_UHDM
+      284    testflags SLANG_REJECT
+       23    testflags SURELOG_FAIL
+        1    testflags TIMEOUT
+        2    testflags UNTRANSLATABLE
+   ct8rows vs committed results/golden_surelog.csv : PASS 0 differing rows over 1588
+   ct8rows vs this verifier's pristine sweep       : PASS 0 differing rows
+   NO CORPUS ROW CONVERTED.  results/*.csv READ ONLY.  GOLDEN_DEFER unset.
+   cmds.txt audit: 1498/1548 name /tmp/v187_pat.bin, 0 name any build/slang-uhdm
+
+5. BYTEVERIFY SELFCHECK=1
+   uhdm2rtlil MOVERS 0 / 1358, selfcheck 1357/1358, PATH_SETS_IDENTICAL
+   surelog    MOVERS 2 / 956,  selfcheck  955/956,  PATH_SETS_IDENTICAL
+     BuildUVMPkg/default   bbf172cd412b -> 3e9b187f5f57   PREDICTED BY NAME
+     BuildUVMPkg/testflags bbf172cd412b -> 3e9b187f5f57   PREDICTED BY NAME
+     Scoreboard/default    DID NOT FLIP on this run (the ~50/50 coin; the
+     implementer's third mover is thereby confirmed as the coin, not the law)
+
+PREDICTED MOVER SET, from PRISTINE databases only
+   surelog  -- SCANNED=1573 SKIP=617 PREDICTED-CELLS=6
+   surelog  -- PREDICTED-MOVER TESTS:
+   surelog  BuildUVMPkg	default
+   surelog  BuildUVMPkg	testflags
+   surelog  -- PREDICTED-MOVER TEST NAMES:
+   surelog  BuildUVMPkg 
+   uhdm2rtlil  -- SCANNED=1462 SKIP=104 PREDICTED-CELLS=0
+   the SAME scan over the PATCHED sweeps: 0 cells in BOTH corpora
+   BuildUVMPkg	default	DEFPKG|uvm_pkg::|UVM_STDERR|8463:20|PARAM
+   BuildUVMPkg	default	DEFPKG|uvm_pkg::|UVM_STDIN|8461:20|PARAM
+   BuildUVMPkg	default	DEFPKG|uvm_pkg::|UVM_STDOUT|8462:20|PARAM
+   BuildUVMPkg	testflags	DEFPKG|uvm_pkg::|UVM_STDERR|8463:20|PARAM
+   BuildUVMPkg	testflags	DEFPKG|uvm_pkg::|UVM_STDIN|8461:20|PARAM
+   BuildUVMPkg	testflags	DEFPKG|uvm_pkg::|UVM_STDOUT|8462:20|PARAM
+
+HEADS (rowheads.sh, official uhdm-cmp; counts are DEPTH not distance)
+   TEST           MODE       PRISTINE  PATCHED
+   SeqDriver      default          31       31
+   SeqDriver      testflags        31       31
+   SimpleUVM      default      664681   664681
+   SimpleUVM      testflags    664681   664681
+   Scoreboard     default          95       95
+   Scoreboard     testflags         -        -
+   MiniAmiq       default          31       31
+   MiniAmiq       testflags        31       31
+   BuildUVMPkg    default          48       36
+   BuildUVMPkg    testflags        48       36
+   Earlgrey_0_1   default          31       31
+   Earlgrey_0_1   testflags        17       17
+   Rggen          default           0        0
+   Rggen          testflags         -        -
+   the ten non-BuildUVMPkg cmp logs are BYTE-IDENTICAL between the two binaries
+   BuildUVMPkg cmp md5 pristine df87bde51760 (both modes) -> patched 7f92233e04ae (both modes)
+
+CENSUS (cen187.sh, nine UVM (test,mode) pairs)
+   TEST             MODE        CELLS P-MATCH Q-MATCH FACE-P FACE-Q
+   SeqDriver        default       770     314     314      0      0
+   SeqDriver        testflags     770     314     314      0      0
+   SimpleUVM        default       275     106     106      0      0
+   SimpleUVM        testflags     275     106     106      0      0
+   Scoreboard       default       275     106     106      0      0
+   Scoreboard       testflags       -       -       -      -      -
+   MiniAmiq         default       905     326     326      0      0
+   MiniAmiq         testflags     905     326     326      0      0
+   BuildUVMPkg      default        89      79      82      3      0
+   BuildUVMPkg      testflags      89      79      82      3      0
+   -- measured=9 SKIP-NOFILE=1
+
+RESIDUE FAMILY (resid187.sh, with the CEN fix)
+   surelog    pristine 8 cells (6 DEFPKG int_typespec + 2 DEFMOD logic_typespec) -> patched 2
+   uhdm2rtlil pristine 4 cells (4 ELABPKG logic_typespec, typedef_package)       -> patched 4
+
+CANARIES / AUDIT
+   canaries.sh surelog    ok=52 changed=0 absent=0
+   canaries.sh uhdm2rtlil ok=8  changed=0 absent=0
+   ctcan2 EXPECT_UNKNOWN=1 surelog    PASS
+   ctcan2 EXPECT_UNKNOWN=6 uhdm2rtlil PASS
+   canaudit.sh audited=29 UNCOVERED=0 FENCE-BREACH=0
+
+PROTECTED DATABASES (md5 of slang.uhdm, pristine -> patched)
+   InterfaceModPort   default/testflags 59a365f3ce2c SAME
+   BlackParrotComplex default e3e354129d5a / testflags 73a10e8217e5 SAME
+   YosysOldOr         default/testflags d68e0796d62c SAME
+   SVSwitch           default/testflags 4842211c4030 SAME (the brief's pin)
+   YosysVerx          default/testflags 6ccda350c24a SAME (the brief's pin)
+
+BOUNDARY  LISTED=5052 PROCESSED=5052 PRODUCED_DBS=4892 MOVED_ARMS=5 RC_DIFFS=0
+   r10buvm18repro/grid18.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+   r10uvm187repro/grid187/g187_a_order.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+   r10uvm187repro/grid187/g187_d_scalarkinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+   r10uvm187repro/grid187.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+   r10uvm187repro/probe0.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+   the fifth, r10buvm18repro/grid18.sv, re-measured against golden:
+     TO-GOLDEN 3 (gp::P_I, gp::P_BY, gp::P_B1, DEFPKG) / AWAY 0 / CHANGED-STILL-WRONG 0
+   MUST-STAY FLOOR (arms reached / movers):
+     r10earl111repro    arms=6    movers=0
+     r10uvm185repro     arms=5    movers=0
+     r10uvm170repro     arms=5    movers=0
+     r10uvm181repro     arms=4    movers=0
+     r10uvm182repro     arms=4    movers=0
+     r10uvm183repro     arms=6    movers=0
+     r10uvm184repro     arms=2    movers=0
+     r10uvm82repro      arms=7    movers=0
+     r10uvm91repro      arms=5    movers=0
+     r10buvm3repro      arms=4    movers=0
+     r10buvm15repro     arms=9    movers=0
+     r10sd8repro        arms=37   movers=0
+     r10sd12repro       arms=108  movers=0
+
+THIS VERIFIER'S OWN GRID (arms187/*.sv, both views, score187.py)
+   v187_a_pkgimport -- CELLS=84  MATCH-KEPT=24  TO-GOLDEN=6  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=54  ONE-SIDED-KEY=0
+   v187_b_multiassign -- CELLS=68  MATCH-KEPT=20  TO-GOLDEN=16  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=32  ONE-SIDED-KEY=0
+   v187_c_signing -- CELLS=52  MATCH-KEPT=12  TO-GOLDEN=8  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=4  WRONG-KEPT=28  ONE-SIDED-KEY=0
+   v187_d_order -- CELLS=68  MATCH-KEPT=20  TO-GOLDEN=16  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=32  ONE-SIDED-KEY=0
+   v187_e_nested -- CELLS=46  MATCH-KEPT=18  TO-GOLDEN=4  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=24  ONE-SIDED-KEY=0
+   v187_f_specparam -- CELLS=12  MATCH-KEPT=2  TO-GOLDEN=2  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=8  ONE-SIDED-KEY=0
+   v187_g_typeparam -- CELLS=36  MATCH-KEPT=6  TO-GOLDEN=2  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=28  ONE-SIDED-KEY=0
+   v187_h_uninst -- CELLS=32  MATCH-KEPT=18  TO-GOLDEN=14  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0
+   v187_i_signedonly -- CELLS=8  MATCH-KEPT=4  TO-GOLDEN=0  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=2  WRONG-KEPT=2  ONE-SIDED-KEY=0
+   v187_j_clones -- CELLS=34  MATCH-KEPT=6  TO-GOLDEN=4  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=24  ONE-SIDED-KEY=0
+   v187_k_ranged -- CELLS=52  MATCH-KEPT=22  TO-GOLDEN=6  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=24  ONE-SIDED-KEY=0
+   v187_l_dupnames -- CELLS=20  MATCH-KEPT=6  TO-GOLDEN=6  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=8  ONE-SIDED-KEY=0
+   v187_m_unit -- CELLS=12  MATCH-KEPT=4  TO-GOLDEN=2  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=6  ONE-SIDED-KEY=0
+   v187_n_consumers -- CELLS=48  MATCH-KEPT=16  TO-GOLDEN=4  AWAY-GOLDEN=2  CHANGED-STILL-WRONG=0  WRONG-KEPT=26  ONE-SIDED-KEY=0
+   v187_o_dims -- CELLS=34  MATCH-KEPT=8  TO-GOLDEN=4  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=22  ONE-SIDED-KEY=0
+   TOTAL 606 cells  TO-GOLDEN 94  AWAY-GOLDEN 2  CHANGED-STILL-WRONG 6  ONE-SIDED-KEY 0
+   -- the 2 AWAY are nsh (sharing fan-out) ONLY; the 6 CHANGED-STILL-WRONG are @span ONLY.
+
+THE SAME CELLS PROJECTED ONTO THE FIELDS A GENERATED Compare ACTUALLY READS
+(jproj187v.py: kind, VpiName, alias kind+VpiName, Ranges, VpiSigned, Instance;
+ dropped: @span, apar, nsh -- BaseClass::Compare reads VpiType/VpiName/VpiDefName only)
+   impl_grid18                      -- CELLS=222  MATCH-KEPT=132  TO-GOLDEN=6  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=84  ONE-SIDED-KEY=0
+   impl_grid187                     -- CELLS=106  MATCH-KEPT=46  TO-GOLDEN=10  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=50  ONE-SIDED-KEY=0
+   impl_grid187_g187_a_order        -- CELLS=32  MATCH-KEPT=18  TO-GOLDEN=14  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0
+   impl_grid187_g187_b_negative     -- CELLS=32  MATCH-KEPT=16  TO-GOLDEN=0  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=16  ONE-SIDED-KEY=0
+   impl_grid187_g187_c_homes        -- CELLS=10  MATCH-KEPT=0  TO-GOLDEN=0  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=10  ONE-SIDED-KEY=0
+   impl_grid187_g187_d_scalarkinds  -- CELLS=40  MATCH-KEPT=8  TO-GOLDEN=8  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=24  ONE-SIDED-KEY=0
+   impl_probe0                      -- CELLS=20  MATCH-KEPT=12  TO-GOLDEN=8  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0
+   v187_a_pkgimport                 -- CELLS=84  MATCH-KEPT=34  TO-GOLDEN=6  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=44  ONE-SIDED-KEY=0
+   v187_b_multiassign               -- CELLS=68  MATCH-KEPT=20  TO-GOLDEN=16  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=32  ONE-SIDED-KEY=0
+   v187_c_signing                   -- CELLS=52  MATCH-KEPT=16  TO-GOLDEN=12  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=24  ONE-SIDED-KEY=0
+   v187_d_order                     -- CELLS=68  MATCH-KEPT=20  TO-GOLDEN=16  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=32  ONE-SIDED-KEY=0
+   v187_e_nested                    -- CELLS=46  MATCH-KEPT=32  TO-GOLDEN=4  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=10  ONE-SIDED-KEY=0
+   v187_f_specparam                 -- CELLS=12  MATCH-KEPT=4  TO-GOLDEN=2  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=6  ONE-SIDED-KEY=0
+   v187_g_typeparam                 -- CELLS=36  MATCH-KEPT=22  TO-GOLDEN=2  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=12  ONE-SIDED-KEY=0
+   v187_h_uninst                    -- CELLS=32  MATCH-KEPT=18  TO-GOLDEN=14  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0
+   v187_i_signedonly                -- CELLS=8  MATCH-KEPT=6  TO-GOLDEN=2  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0
+   v187_j_clones                    -- CELLS=34  MATCH-KEPT=6  TO-GOLDEN=4  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=24  ONE-SIDED-KEY=0
+   v187_k_ranged                    -- CELLS=52  MATCH-KEPT=26  TO-GOLDEN=6  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=20  ONE-SIDED-KEY=0
+   v187_l_dupnames                  -- CELLS=20  MATCH-KEPT=6  TO-GOLDEN=6  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=8  ONE-SIDED-KEY=0
+   v187_m_unit                      -- CELLS=12  MATCH-KEPT=6  TO-GOLDEN=2  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=4  ONE-SIDED-KEY=0
+   v187_n_consumers                 -- CELLS=48  MATCH-KEPT=32  TO-GOLDEN=4  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=12  ONE-SIDED-KEY=0
+   v187_o_dims                      -- CELLS=34  MATCH-KEPT=8  TO-GOLDEN=4  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=22  ONE-SIDED-KEY=0
+   TOTAL over all 22 arms: 1068 cells  TO-GOLDEN 146  AWAY-GOLDEN 0
+                           CHANGED-STILL-WRONG 0  ONE-SIDED-KEY 0
+
+WHOLE-DUMP ORDER-BLIND THREE-WAY (dump3v187.sh) over 22 arms x 2 views: AWAY=0
+   the one apparent AWAY=2 on grid187.sv is a line collision with builtin.sv's
+   mailbox::try_peek int_typespec (the dump prints no file on typespec lines):
+   golden holds 2 copies of that line, pristine held 5, patched holds 2 -- exact.
+
+DETERMINISM: 3 def runs + 3 elab runs of grid187.sv on the patched binary -> 2 md5s, one per view.
+
+VERDICT: ACCEPT.

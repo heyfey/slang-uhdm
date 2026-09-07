@@ -1901,6 +1901,17 @@ private:
     // range at the declaration is the declaration's own, not the typedef's.
     const slang::ast::TypeAliasType* pkgHomedTdAlias18(
         const slang::ast::Type& t) const;
+    /// § pkgScalarTdParamDefDefer187 — true for a package parameter written
+    /// with the BARE name of a SCALAR typedef homed in that same package, whose
+    /// shared typespec is one § pkgParamBareTdNamedClone18 mints
+    /// (`bit`/`int`/`byte`).  Such a parameter must defer its typespec past
+    /// `emitTypedefs` (`pendingDefParamTs`/`drainDefParamTs`) so the DEF
+    /// listing's clone can alias this view's typedef object, exactly as the
+    /// aggregate and vector typedef'd parameters already do.  The law, its
+    /// Surelog citation and the measured grid live at the definition in
+    /// src/ParamEmit.cpp.
+    bool pkgScalarTdParamDefDefer187(
+        const slang::ast::ParameterSymbol& ps) const;
     std::map<const slang::ast::Scope*, std::set<std::string_view>>
         caFoldReadNames;
     UHDM::typespec* predefIntTypespec(const slang::ast::Type& ct,

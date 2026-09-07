@@ -1,0 +1,36 @@
+# r10uvm187 PREDICT — the MOVER SET, named from PRISTINE databases BEFORE the
+# patched sweep was built.  predict187.sh joins ct187cen over each test's GOLDEN
+# database and its PRISTINE slang.uhdm and reports every cell whose GOLDEN side
+# carries this law's shape and whose OURS side disagrees.
+# LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+== surelog corpus, pristine
+-- SCANNED=1573 SKIP=617 PREDICTED-CELLS=6
+CELL	BuildUVMPkg	default	DEFPKG|uvm_pkg::|UVM_STDERR|8463:20|PARAM
+CELL	BuildUVMPkg	default	DEFPKG|uvm_pkg::|UVM_STDIN|8461:20|PARAM
+CELL	BuildUVMPkg	default	DEFPKG|uvm_pkg::|UVM_STDOUT|8462:20|PARAM
+CELL	BuildUVMPkg	testflags	DEFPKG|uvm_pkg::|UVM_STDERR|8463:20|PARAM
+CELL	BuildUVMPkg	testflags	DEFPKG|uvm_pkg::|UVM_STDIN|8461:20|PARAM
+CELL	BuildUVMPkg	testflags	DEFPKG|uvm_pkg::|UVM_STDOUT|8462:20|PARAM
+-- PREDICTED-MOVER TEST NAMES: BuildUVMPkg   (default and testflags)
+
+== uhdm2rtlil corpus, pristine
+-- SCANNED=1462 SKIP=104 PREDICTED-CELLS=0
+
+== THE SAME SCAN OVER THE PATCHED SWEEPS (the face, closed corpus-wide)
+-- surelog:    SCANNED=1573 SKIP=617 PREDICTED-CELLS=0
+-- uhdm2rtlil: SCANNED=1462 SKIP=104 PREDICTED-CELLS=0
+
+== THE WIDER FAMILY (resid187: golden mints ANY per-declaration named
+   typespec clone of a bare typedef and we do not), whole corpus:
+   surelog   pristine 8 cells / 2 tests  ->  patched 2 cells / 1 test
+             6 = BuildUVMPkg DEFPKG int_typespec (THIS pass, closed)
+             2 = ParamSubstituteComplex DEFMOD logic_typespec (residue R2)
+   uhdm2rtlil pristine 4 cells / 1 test  ->  patched 4 (untouched)
+             4 = typedef_package ELABPKG logic_typespec (residue R2)
+
+== BYTE MOVERS ACTUALLY OBSERVED (byteverify.sh SELFCHECK=1)
+   surelog    MOVERS 3 / 956: BuildUVMPkg default + testflags (PREDICTED),
+              Scoreboard/default (the known ~50/50 COIN: 0 lines of
+              order-blind path-normalised uhdm-dump difference)
+   uhdm2rtlil MOVERS 0 / 1358

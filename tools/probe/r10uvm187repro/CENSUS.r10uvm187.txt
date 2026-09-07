@@ -1,0 +1,46 @@
+# r10uvm187 CENSUS — the NINE UVM DATABASES x BOTH MODES (cen187.sh).
+# LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.  MEASUREMENT ONLY.
+# CELLS   = parameter cells the golden and our census share
+# P/Q-MATCH = cells the pristine / patched binary gets byte-equal to golden
+# FACE-P/Q = cells carrying THIS law's golden shape that still disagree
+
+TEST             MODE        CELLS P-MATCH Q-MATCH FACE-P FACE-Q
+BuildUVMPkg      default        89      79      82      3      0
+BuildUVMPkg      testflags      89      79      82      3      0
+SeqDriver        default       770     314     314      0      0
+SeqDriver        testflags     770     314     314      0      0
+SimpleUVM        default       275     106     106      0      0
+SimpleUVM        testflags     275     106     106      0      0
+Scoreboard       default       275     106     106      0      0
+Scoreboard       testflags       -       -       -      -      -
+MiniAmiq         default       905     326     326      0      0
+MiniAmiq         testflags     905     326     326      0      0
+BuildOVMPkg      default         -       -       -      -      -
+BuildOVMPkg      testflags       -       -       -      -      -
+UVMNestedSeq     default         -       -       -      -      -
+UVMNestedSeq     testflags       -       -       -      -      -
+UVMSwitch        default         -       -       -      -      -
+UVMSwitch        testflags       -       -       -      -      -
+AmiqEth          default         -       -       -      -      -
+AmiqEth          testflags       -       -       -      -      -
+-- measured=9 SKIP-NOFILE=9
+
+Nine of the eighteen (test,mode) pairs produce a database at all; the other
+nine print SKIP-NOFILE and are COUNTED (BuildOVMPkg / UVMNestedSeq / UVMSwitch /
+AmiqEth have no golden or no slang.uhdm, Scoreboard/testflags has no golden).
+Only BuildUVMPkg carries the face -- 3 cells per mode, 3 -> 0.
+
+== THE THREE CELLS, golden vs pristine vs patched (BuildUVMPkg, both modes)
+golden  int_typespec(UVM_FILE)@8459:9-8459:12[alias->int_typespec(uvm_pkg::UVM_FILE)@8459:9-8459:12] rg=0 sgn=1 apar=parameter inst=package nsh=2
+pristine int_typespec()@<the parameter's own type token>[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+patched  == golden, for UVM_STDIN 8461:20, UVM_STDOUT 8462:20, UVM_STDERR 8463:20
+
+== WHY uvm-1.2 CARRIES NO SUCH CELL (asked, measured, answered)
+1800.2-2017-1.0/pp_output/uvm_pkg.sv:8459 'typedef int UVM_FILE;' + 8461-8463
+'parameter UVM_FILE UVM_STDIN/UVM_STDOUT/UVM_STDERR'.  uvm-1.2 declares the same
+parameter UNTYPED -- src/base/uvm_printer.svh:26 'parameter UVM_STDOUT = 1;' --
+and the SeqDriver golden's UVM_STDOUT cells are anonymous int_typespecs spanning
+the WHOLE declaration (26:1-26:25) with no name and no alias, in every listing.
+The shape is 1800.2-specific in this corpus for a SOURCE reason, not a
+Surelog-version one.  uvm-1.1d:315 and 1800.2 src/base/uvm_object_globals.svh:669
+carry the same 'typedef int UVM_FILE;' -- only the parameter's declaration differs.

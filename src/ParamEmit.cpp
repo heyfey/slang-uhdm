@@ -14571,6 +14571,14 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             // reach today.
             if (!deferAggTs && inPackage)
                 deferAggTs = namedPackedDimParamAlias(ps) != nullptr;
+            // § pkgScalarTdParamDefDefer187 — and so does a package parameter
+            // written with the BARE name of a SCALAR typedef homed in that same
+            // package: § pkgParamBareTdNamedClone18's named clone aliases
+            // `typedefTs[<typedef>]`, which the DEF listing has not filled yet
+            // when it emits its parameters.  Read the law at the predicate's
+            // definition.
+            if (!deferAggTs && inPackage)
+                deferAggTs = pkgScalarTdParamDefDefer187(ps);
         }
         // § elabCallFormal — a parameter passed by bare name to a constant
         // FUNCTION CALL that sits in an elaboration expression has its ELAB
@@ -16603,6 +16611,105 @@ const TypeAliasType* UhdmExporter::pkgHomedTdAlias18(const Type& t) const {
     if (!hsc || hsc->asSymbol().kind != SymbolKind::Package)
         return nullptr;
     return &ta;
+}
+
+// ---------------------------------------------------------------------------
+// § pkgScalarTdParamDefDefer187 — THE DEF-LISTING HALF OF
+// § pkgParamBareTdNamedClone18.
+//
+// Surelog mints the per-declaration NAMED CLONE in
+// `compileDatastructureTypespec` (`CompileType.cpp:876-897`): the DataType
+// walk records `parent_tpd` at the TypeDef and keeps descending; when it ends
+// at a **SimpleType** it clones that type's typespec and hangs a
+// `Typedef_alias` ref back onto the shared object —
+//
+//     } else if (const SimpleType* sit = datatype_cast<const SimpleType*>(dt)) {
+//       result = sit->getTypespec();
+//       if (parent_tpd && result) {
+//         ...clone_tree(result)...  new_result->Typedef_alias()
+//                                       ->Actual_typespec(result);
+//         result = new_result;
+//       }
+//
+// — and it does that in EVERY listing, because `compileParameterDeclaration`
+// (`CompileHelper.cpp:3545`) calls `compileTypespec` once per
+// `Param_assignment`, per compile.  The `Enum` / `Struct` / `Union` branches
+// above it (`CompileType.cpp:854-874`) return the SHARED object with no clone,
+// and a TypeDef that already carries a typespec of its own (a typedef OF a
+// typedef, `CompileHelper.cpp:1019-1026`) breaks out of the walk before the
+// SimpleType branch is reached — which is why those three faces share and this
+// one clones.
+//
+// § `pkgParamBareTdNamedClone18` already mints that clone (in `makeParamTs`),
+// and it is already RIGHT in the ELABORATED package listing.  It could not fire
+// in the package's own DEF listing for a SCALAR typedef, for a reason that has
+// nothing to do with the law and everything to do with EMISSION ORDER: the
+// arm aliases `typedefTs[<the typedef>]`, and **a package listing emits its
+// parameters BEFORE its typedefs** (the very ordering the `deferAggTs` comment
+// upstream already records).  Aggregate (struct/union/enum) and integral
+// PACKED-ARRAY typedef'd parameters were therefore already deferred past
+// `emitTypedefs` through `pendingDefParamTs`/`drainDefParamTs`; a SCALAR one
+// (`typedef int UVM_FILE;` -> `parameter UVM_FILE UVM_STDIN`) was not, so
+// `shared18` came back null, the kind gate declined, and the DEF listing fell
+// through to the anonymous `int_typespec` at the parameter's own type token.
+//
+// This predicate adds exactly that one deferral, and it is gated to the cells
+// § 18 can actually mint — a BARE-written typedef homed in the parameter's own
+// package whose canonical type is one of the three scalar shapes whose shared
+// typespec is a `bit_typespec` / `int_typespec` / `byte_typespec`.  Every other
+// scalar typedef kind (shortint / longint / integer / scalar logic / string /
+// real / time) is left on the direct path untouched: golden clones for those
+// too (grid187 rows P_SI / P_LI / P_IG / P_L1 / P_S / P_R / P_T, BOTH views),
+// but § 18 declines them in BOTH listings today, so deferring them would
+// change the path without changing the answer — measured and left as a residue
+// rather than moved blind.
+bool UhdmExporter::pkgScalarTdParamDefDefer187(const ParameterSymbol& ps) const {
+    auto d = ps.getDeclaredType();
+    if (!d)
+        return false;
+    const TypeAliasType* td = pkgHomedTdAlias18(d->getType());
+    if (!td)
+        return false;
+    // The parameter's own home must be the typedef's home package: a
+    // QUALIFIED reference (`gp::i_t`) shares the package object with no clone
+    // and no alias (§ 18's measured grid), and a materialized wildcard-import
+    // copy is a different law again (§ 18's `ownPkgListing18`).
+    const Scope* phs = ps.getParentScope();
+    if (!phs || phs->asSymbol().kind != SymbolKind::Package ||
+        td->getParentScope() != phs)
+        return false;
+    // WRITTEN bare: `UVM_FILE`, not `uvm_pkg::UVM_FILE`.
+    bool writtenBare = false;
+    if (auto tsyn = d->getTypeSyntax())
+        if (tsyn->kind == syntax::SyntaxKind::NamedType)
+            writtenBare = tsyn->as<syntax::NamedTypeSyntax>().name->kind ==
+                          syntax::SyntaxKind::IdentifierName;
+    if (!writtenBare)
+        return false;
+    // An ALIAS-OF-ALIAS (`typedef int i_t; typedef i_t i2_t;`) is FENCED OFF,
+    // for the reason Surelog's own walk gives: `compileTypeDef`
+    // (`CompileHelper.cpp:1019-1026`) gives a typedef-of-a-typedef its OWN
+    // typespec, so `compileDatastructureTypespec`'s walk breaks at the TypeDef
+    // branch (`CompileType.cpp:852-856`) and never reaches the SimpleType
+    // branch that clones — golden SHARES the package's `i2_t` object, with the
+    // alias hanging off THAT object rather than off a per-parameter clone
+    // (grid187 `gp187::P_I2`, both views; the vector arm in `drainDefParamTs`
+    // fences the same shape for the same reason).  Without this term the DEF
+    // cell moved from one wrong answer to another.
+    if (td->targetType.getType().kind == SymbolKind::TypeAlias)
+        return false;
+    // The three shapes § 18 mints: `int` / `byte` / scalar `bit`.  Vector
+    // (PackedArrayType) typedefs already defer on the line above this one, and
+    // aggregate ones on the lines above that.
+    auto& ct = td->getCanonicalType();
+    if (ct.kind == SymbolKind::PredefinedIntegerType) {
+        auto ik = ct.as<PredefinedIntegerType>().integerKind;
+        return ik == PredefinedIntegerType::Int ||
+               ik == PredefinedIntegerType::Byte;
+    }
+    if (ct.kind == SymbolKind::ScalarType)
+        return ct.as<ScalarType>().scalarKind == ScalarType::Bit;
+    return false;
 }
 
 // ---------------------------------------------------------------------------
@@ -19466,11 +19573,20 @@ void UhdmExporter::drainDefParamTs() {
                      ckI0 == SymbolKind::PackedUnionType ||
                      ckI0 == SymbolKind::UnpackedStructType);
             }
+            // § pkgScalarTdParamDefDefer187 — a package parameter written with
+            // the BARE name of a SCALAR typedef homed in that same package is
+            // deferred here ONLY so its clone can find this view's typedef
+            // object; it must NOT take the share shortcut, exactly like the
+            // vector-typedef case above.  Golden clones it in BOTH listings
+            // (grid187 `gp187::P_I` / `L_I` / `P_BY` / `L_BY` / `P_B1`), and
+            // sharing the listing object here put an unaliased, package-parented
+            // typespec on five cells that were already right in the ELAB view.
+            bool scalarTdClone187 = pkgScalarTdParamDefDefer187(*pd.ps);
             if (importAggCopy0) {
                 // fall through to the fresh-clone path below; the
                 // import-copy instance law then stamps the home package.
             }
-            else if (topPkgView && !vectorAlias)
+            else if (topPkgView && !vectorAlias && !scalarTdClone187)
                 if (auto tit0 = pkgTopTypedefTs.find((const void*)&dt0);
                     tit0 != pkgTopTypedefTs.end()) {
                     its = tit0->second;
@@ -19478,7 +19594,8 @@ void UhdmExporter::drainDefParamTs() {
                 }
             if (!its && !importAliasEnum0 && !importAggCopy0)
                 if (auto tit = typedefTs.find(&dt0);
-                    tit != typedefTs.end() && !vectorAlias && !bareAggPkgTd) {
+                    tit != typedefTs.end() && !vectorAlias && !bareAggPkgTd &&
+                    !scalarTdClone187) {
                     its = tit->second;
                     sharedTs = true;
                     // § pkgEnumParamTsIsTop (r10earl4).  A MODULE parameter

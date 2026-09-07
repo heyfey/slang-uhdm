@@ -1,0 +1,426 @@
+# r10uvm187 GRIDS — golden vs pristine vs patched, ct187cen + score187.py
+# LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.  MEASUREMENT ONLY.
+
+== grid187.sv (the main grid: scope x typedef kind x parameter/localparam x DEF/ELAB)
+WRONG-KEPT	DEFMOD.C|work@m187::Cm|CL_I|68:21|LOCAL
+    gold int_typespec(mi_t)@56:11-56:14[alias->int_typespec(mi_t)@56:11-56:14] rg=0 sgn=1 apar=parameter inst=- nsh=2
+    ours int_typespec()@68:16-68:20[noalias] rg=0 sgn=0 apar=NULL inst=- nsh=2
+WRONG-KEPT	DEFMOD|work@m187|ML_I|59:20|LOCAL
+    gold int_typespec(mi_t)@56:11-56:14[alias->int_typespec(mi_t)@56:11-56:14] rg=0 sgn=1 apar=parameter inst=- nsh=3
+    ours int_typespec()@59:14-59:18[noalias] rg=0 sgn=1 apar=parameter inst=- nsh=3
+WRONG-KEPT	DEFMOD|work@m187|MP_B|60:20|PARAM
+    gold bit_typespec(mb_t)@57:11-57:20[alias->bit_typespec(mb_t)@57:11-57:20] rg=1 sgn=0 apar=parameter inst=- nsh=3
+    ours int_typespec()@60:14-60:18[noalias] rg=0 sgn=0 apar=parameter inst=- nsh=3
+WRONG-KEPT	DEFMOD|work@m187|MP_I|58:20|PARAM
+    gold int_typespec(mi_t)@56:11-56:14[alias->int_typespec(mi_t)@56:11-56:14] rg=0 sgn=1 apar=parameter inst=- nsh=3
+    ours int_typespec()@58:14-58:18[noalias] rg=0 sgn=1 apar=parameter inst=- nsh=3
+WRONG-KEPT	DEFMOD|work@m187|MQQ|62:26|PARAM
+    gold int_typespec(qp187::qi_t)@47:11-47:14[noalias] rg=0 sgn=1 apar=package inst=package nsh=3
+    ours int_typespec()@62:14-62:25[noalias] rg=0 sgn=1 apar=parameter inst=- nsh=3
+WRONG-KEPT	DEFMOD|work@m187|MQ_I|61:25|PARAM
+    gold int_typespec(gp187::i_t)@6:11-6:14[noalias] rg=0 sgn=1 apar=package inst=package nsh=6
+    ours int_typespec()@61:14-61:24[noalias] rg=0 sgn=1 apar=parameter inst=- nsh=3
+TO-GOLDEN	DEFPKG|gp187::|L_BY|26:20|LOCAL
+    gold byte_typespec(by_t)@7:11-7:15[alias->byte_typespec(gp187::by_t)@7:11-7:15] rg=0 sgn=1 apar=parameter inst=package nsh=2
+    pris byte_typespec()@26:14-26:18[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+TO-GOLDEN	DEFPKG|gp187::|L_I|24:20|LOCAL
+    gold int_typespec(i_t)@6:11-6:14[alias->int_typespec(gp187::i_t)@6:11-6:14] rg=0 sgn=1 apar=parameter inst=package nsh=2
+    pris int_typespec()@24:14-24:17[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+TO-GOLDEN	DEFPKG|gp187::|P_B1|30:20|PARAM
+    gold bit_typespec(b1_t)@11:11-11:14[alias->bit_typespec(gp187::b1_t)@11:11-11:14] rg=0 sgn=0 apar=parameter inst=package nsh=2
+    pris bit_typespec()@30:14-30:18[noalias] rg=0 sgn=0 apar=parameter inst=package nsh=2
+TO-GOLDEN	DEFPKG|gp187::|P_BY|25:20|PARAM
+    gold byte_typespec(by_t)@7:11-7:15[alias->byte_typespec(gp187::by_t)@7:11-7:15] rg=0 sgn=1 apar=parameter inst=package nsh=2
+    pris byte_typespec()@25:14-25:18[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+WRONG-KEPT	DEFPKG|gp187::|P_I2|41:20|PARAM
+    gold int_typespec(gp187::i2_t)@6:11-6:14[alias->int_typespec(i_t)@6:11-6:14] rg=0 sgn=1 apar=package inst=package nsh=4
+    ours int_typespec()@41:14-41:18[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+WRONG-KEPT	DEFPKG|gp187::|P_IG|29:20|PARAM
+    gold integer_typespec(ig_t)@10:11-10:18[alias->integer_typespec(gp187::ig_t)@10:11-10:18] rg=0 sgn=1 apar=parameter inst=package nsh=2
+    ours integer_typespec()@29:14-29:18[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+TO-GOLDEN	DEFPKG|gp187::|P_I|23:20|PARAM
+    gold int_typespec(i_t)@6:11-6:14[alias->int_typespec(gp187::i_t)@6:11-6:14] rg=0 sgn=1 apar=parameter inst=package nsh=2
+    pris int_typespec()@23:14-23:17[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+WRONG-KEPT	DEFPKG|gp187::|P_L1|31:20|PARAM
+    gold logic_typespec(l1_t)@12:11-12:16[alias->logic_typespec(gp187::l1_t)@12:11-12:16] rg=0 sgn=0 apar=parameter inst=package nsh=2
+    ours logic_typespec()@31:14-31:18[noalias] rg=0 sgn=0 apar=parameter inst=package nsh=2
+WRONG-KEPT	DEFPKG|gp187::|P_LI|28:20|PARAM
+    gold long_int_typespec(li_t)@9:11-9:18[alias->long_int_typespec(gp187::li_t)@9:11-9:18] rg=0 sgn=1 apar=parameter inst=package nsh=2
+    ours long_int_typespec()@28:14-28:18[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+WRONG-KEPT	DEFPKG|gp187::|P_R|37:20|PARAM
+    gold real_typespec(r_t)@17:11-17:15[alias->real_typespec(gp187::r_t)@17:11-17:15] rg=-1 sgn=0 apar=parameter inst=package nsh=2
+    ours real_typespec()@37:14-37:17[noalias] rg=-1 sgn=0 apar=parameter inst=package nsh=2
+WRONG-KEPT	DEFPKG|gp187::|P_SI|27:20|PARAM
+    gold short_int_typespec(si_t)@8:11-8:19[alias->short_int_typespec(gp187::si_t)@8:11-8:19] rg=0 sgn=1 apar=parameter inst=package nsh=2
+    ours short_int_typespec()@27:14-27:18[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+WRONG-KEPT	DEFPKG|gp187::|P_S|36:20|PARAM
+    gold string_typespec(s_t)@16:11-16:17[alias->string_typespec(gp187::s_t)@16:11-16:17] rg=-1 sgn=0 apar=parameter inst=package nsh=2
+    ours string_typespec()@36:14-36:17[noalias] rg=-1 sgn=0 apar=parameter inst=package nsh=2
+WRONG-KEPT	DEFPKG|gp187::|P_T|38:20|PARAM
+    gold time_typespec(t_t)@18:11-18:15[alias->time_typespec(gp187::t_t)@18:11-18:15] rg=-1 sgn=0 apar=parameter inst=package nsh=2
+    ours time_typespec()@38:14-38:17[noalias] rg=-1 sgn=0 apar=parameter inst=package nsh=2
+WRONG-KEPT	ELABPKG.C|cp187::C187|CP_B|79:22|LOCAL
+    gold bit_typespec(cb_t)@74:11-74:20[alias->bit_typespec(cp187::cb_t)@74:11-74:20] rg=1 sgn=0 apar=parameter inst=package nsh=2
+    ours int_typespec()@79:5-79:35[noalias] rg=0 sgn=0 apar=NULL inst=- nsh=2
+WRONG-KEPT	ELABPKG.C|cp187::C187|CP_CI|78:22|LOCAL
+    gold int_typespec(cli_t)@76:13-76:16[alias->int_typespec(cli_t)@76:13-76:16] rg=0 sgn=1 apar=parameter inst=- nsh=2
+    ours int_typespec()@78:16-78:21[noalias] rg=0 sgn=0 apar=NULL inst=- nsh=2
+WRONG-KEPT	ELABPKG.C|cp187::C187|CP_I|77:22|LOCAL
+    gold int_typespec(ci_t)@73:11-73:14[alias->int_typespec(cp187::ci_t)@73:11-73:14] rg=0 sgn=1 apar=parameter inst=package nsh=2
+    ours int_typespec()@77:16-77:20[noalias] rg=0 sgn=0 apar=NULL inst=- nsh=2
+WRONG-KEPT	ELABPKG|gp187::|P_I2|41:20|PARAM
+    gold int_typespec(gp187::i2_t)@6:11-6:14[alias->int_typespec(i_t)@6:11-6:14] rg=0 sgn=1 apar=package inst=package nsh=4
+    ours int_typespec(i2_t)@21:11-21:14[alias->int_typespec(gp187::i2_t)@21:11-21:14] rg=0 sgn=1 apar=parameter inst=package nsh=2
+WRONG-KEPT	ELABPKG|gp187::|P_IG|29:20|PARAM
+    gold integer_typespec(ig_t)@10:11-10:18[alias->integer_typespec(gp187::ig_t)@10:11-10:18] rg=0 sgn=1 apar=parameter inst=package nsh=2
+    ours integer_typespec()@29:14-29:18[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+WRONG-KEPT	ELABPKG|gp187::|P_L1|31:20|PARAM
+    gold logic_typespec(l1_t)@12:11-12:16[alias->logic_typespec(gp187::l1_t)@12:11-12:16] rg=0 sgn=0 apar=parameter inst=package nsh=2
+    ours logic_typespec()@31:14-31:18[noalias] rg=0 sgn=0 apar=parameter inst=package nsh=2
+WRONG-KEPT	ELABPKG|gp187::|P_LI|28:20|PARAM
+    gold long_int_typespec(li_t)@9:11-9:18[alias->long_int_typespec(gp187::li_t)@9:11-9:18] rg=0 sgn=1 apar=parameter inst=package nsh=2
+    ours long_int_typespec()@28:14-28:18[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+WRONG-KEPT	ELABPKG|gp187::|P_R|37:20|PARAM
+    gold real_typespec(r_t)@17:11-17:15[alias->real_typespec(gp187::r_t)@17:11-17:15] rg=-1 sgn=0 apar=parameter inst=package nsh=2
+    ours real_typespec()@37:14-37:17[noalias] rg=-1 sgn=0 apar=parameter inst=package nsh=2
+WRONG-KEPT	ELABPKG|gp187::|P_SI|27:20|PARAM
+    gold short_int_typespec(si_t)@8:11-8:19[alias->short_int_typespec(gp187::si_t)@8:11-8:19] rg=0 sgn=1 apar=parameter inst=package nsh=2
+    ours short_int_typespec()@27:14-27:18[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+WRONG-KEPT	ELABPKG|gp187::|P_S|36:20|PARAM
+    gold string_typespec(s_t)@16:11-16:17[alias->string_typespec(gp187::s_t)@16:11-16:17] rg=-1 sgn=0 apar=parameter inst=package nsh=2
+    ours string_typespec()@36:14-36:17[noalias] rg=-1 sgn=0 apar=parameter inst=package nsh=2
+WRONG-KEPT	ELABPKG|gp187::|P_T|38:20|PARAM
+    gold time_typespec(t_t)@18:11-18:15[alias->time_typespec(gp187::t_t)@18:11-18:15] rg=-1 sgn=0 apar=parameter inst=package nsh=2
+    ours time_typespec()@38:14-38:17[noalias] rg=-1 sgn=0 apar=parameter inst=package nsh=2
+-- CELLS=53  MATCH-KEPT=23  TO-GOLDEN=5  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=25  ONE-SIDED-KEY=0
+VERDICT: PASS
+
+== probe0.sv (the head's own shape, reduced)
+TO-GOLDEN	DEFPKG|uvm_like_pkg::|LI|10:18|LOCAL
+    gold int_typespec(i_t)@8:11-8:14[alias->int_typespec(uvm_like_pkg::i_t)@8:11-8:14] rg=0 sgn=1 apar=parameter inst=package nsh=2
+    pris int_typespec()@10:14-10:17[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+TO-GOLDEN	DEFPKG|uvm_like_pkg::|PI|9:17|PARAM
+    gold int_typespec(i_t)@8:11-8:14[alias->int_typespec(uvm_like_pkg::i_t)@8:11-8:14] rg=0 sgn=1 apar=parameter inst=package nsh=2
+    pris int_typespec()@9:13-9:16[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+TO-GOLDEN	DEFPKG|uvm_like_pkg::|UVM_STDIN|4:22|PARAM
+    gold int_typespec(UVM_FILE)@3:11-3:14[alias->int_typespec(uvm_like_pkg::UVM_FILE)@3:11-3:14] rg=0 sgn=1 apar=parameter inst=package nsh=2
+    pris int_typespec()@4:13-4:21[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+TO-GOLDEN	DEFPKG|uvm_like_pkg::|UVM_STDOUT|5:22|PARAM
+    gold int_typespec(UVM_FILE)@3:11-3:14[alias->int_typespec(uvm_like_pkg::UVM_FILE)@3:11-3:14] rg=0 sgn=1 apar=parameter inst=package nsh=2
+    pris int_typespec()@5:13-5:21[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+-- CELLS=10  MATCH-KEPT=6  TO-GOLDEN=4  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0
+VERDICT: PASS
+
+== grid187/g187_a_order.sv
+TO-GOLDEN	DEFPKG|Aa_pkg::|ZZ_FIRST|8:19|PARAM
+    gold int_typespec(zz_T)@7:11-7:14[alias->int_typespec(Aa_pkg::zz_T)@7:11-7:14] rg=0 sgn=1 apar=parameter inst=package nsh=2
+    pris int_typespec()@8:14-8:18[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+TO-GOLDEN	DEFPKG|Aa_pkg::|yy_second|11:19|LOCAL
+    gold byte_typespec(YY_t)@9:11-9:15[alias->byte_typespec(Aa_pkg::YY_t)@9:11-9:15] rg=0 sgn=1 apar=parameter inst=package nsh=2
+    pris byte_typespec()@11:14-11:18[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+TO-GOLDEN	DEFPKG|Aa_pkg::|zZ_third|12:19|PARAM
+    gold int_typespec(zz_T)@7:11-7:14[alias->int_typespec(Aa_pkg::zz_T)@7:11-7:14] rg=0 sgn=1 apar=parameter inst=package nsh=1
+    pris int_typespec()@12:14-12:18[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=1
+TO-GOLDEN	DEFPKG|aB_PKG::|BB_1|16:19|PARAM
+    gold bit_typespec(bb_T)@15:11-15:14[alias->bit_typespec(aB_PKG::bb_T)@15:11-15:14] rg=0 sgn=0 apar=parameter inst=package nsh=2
+    pris bit_typespec()@16:14-16:18[noalias] rg=0 sgn=0 apar=parameter inst=package nsh=2
+TO-GOLDEN	DEFPKG|aB_PKG::|Q9_2|19:17|PARAM
+    gold int_typespec(Q9)@17:11-17:14[alias->int_typespec(aB_PKG::Q9)@17:11-17:14] rg=0 sgn=1 apar=parameter inst=package nsh=1
+    pris int_typespec()@19:14-19:16[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=1
+TO-GOLDEN	DEFPKG|aB_PKG::|Q9_3|20:17|PARAM
+    gold int_typespec(Q9)@17:11-17:14[alias->int_typespec(aB_PKG::Q9)@17:11-17:14] rg=0 sgn=1 apar=parameter inst=package nsh=1
+    pris int_typespec()@20:14-20:16[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=1
+TO-GOLDEN	DEFPKG|aB_PKG::|q9|18:17|LOCAL
+    gold int_typespec(Q9)@17:11-17:14[alias->int_typespec(aB_PKG::Q9)@17:11-17:14] rg=0 sgn=1 apar=parameter inst=package nsh=2
+    pris int_typespec()@18:14-18:16[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+-- CELLS=16  MATCH-KEPT=9  TO-GOLDEN=7  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0
+VERDICT: PASS
+
+== grid187/g187_b_negative.sv
+WRONG-KEPT	DEFMOD|work@nb_m|NM_QUAL|21:27|PARAM
+    gold int_typespec(nb_pkg::n_i_t)@6:11-6:14[noalias] rg=0 sgn=1 apar=package inst=package nsh=12
+    ours int_typespec()@21:13-21:26[noalias] rg=0 sgn=1 apar=parameter inst=- nsh=3
+WRONG-KEPT	DEFPKG|nb_pkg::|N_TDTD|10:20|PARAM
+    gold int_typespec(nb_pkg::n_i2_t)@6:11-6:14[alias->int_typespec(n_i_t)@6:11-6:14] rg=0 sgn=1 apar=package inst=package nsh=4
+    ours int_typespec()@10:13-10:19[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+WRONG-KEPT	DEFPKG|nq_pkg::|NQ_QL|18:28|LOCAL
+    gold int_typespec(nb_pkg::n_i_t)@6:11-6:14[noalias] rg=0 sgn=1 apar=package inst=package nsh=12
+    ours int_typespec()@18:14-18:27[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+WRONG-KEPT	DEFPKG|nq_pkg::|NQ_QUAL|17:27|PARAM
+    gold int_typespec(nb_pkg::n_i_t)@6:11-6:14[noalias] rg=0 sgn=1 apar=package inst=package nsh=12
+    ours int_typespec()@17:13-17:26[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+WRONG-KEPT	ELABMOD|work@nb_m|NM_QUAL|21:27|PARAM
+    gold int_typespec(nb_pkg::n_i_t)@6:11-6:14[noalias] rg=0 sgn=1 apar=ref_typespec inst=package nsh=1
+    ours int_typespec()@21:13-21:26[noalias] rg=0 sgn=1 apar=ref_typespec inst=- nsh=1
+WRONG-KEPT	ELABPKG|nb_pkg::|N_TDTD|10:20|PARAM
+    gold int_typespec(nb_pkg::n_i2_t)@6:11-6:14[alias->int_typespec(n_i_t)@6:11-6:14] rg=0 sgn=1 apar=package inst=package nsh=4
+    ours int_typespec(n_i2_t)@7:11-7:16[alias->int_typespec(nb_pkg::n_i2_t)@7:11-7:16] rg=0 sgn=1 apar=parameter inst=package nsh=2
+WRONG-KEPT	ELABPKG|nq_pkg::|NQ_QL|18:28|LOCAL
+    gold int_typespec(nb_pkg::n_i_t)@6:11-6:14[noalias] rg=0 sgn=1 apar=package inst=package nsh=12
+    ours int_typespec()@18:14-18:27[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+WRONG-KEPT	ELABPKG|nq_pkg::|NQ_QUAL|17:27|PARAM
+    gold int_typespec(nb_pkg::n_i_t)@6:11-6:14[noalias] rg=0 sgn=1 apar=package inst=package nsh=12
+    ours int_typespec()@17:13-17:26[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+-- CELLS=16  MATCH-KEPT=8  TO-GOLDEN=0  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=8  ONE-SIDED-KEY=0
+VERDICT: PASS
+
+== grid187/g187_c_homes.sv
+WRONG-KEPT	DEFMOD.C|work@hc_m::HC|HC_L|16:23|LOCAL
+    gold int_typespec(hm_i_t)@9:11-9:14[alias->int_typespec(hm_i_t)@9:11-9:14] rg=0 sgn=1 apar=parameter inst=- nsh=2
+    ours int_typespec()@16:16-16:22[noalias] rg=0 sgn=0 apar=NULL inst=- nsh=2
+WRONG-KEPT	DEFMOD|work@hc_mi|HMI_B|22:20|PARAM
+    gold bit_typespec(hc_b_t)@6:11-6:20[alias->bit_typespec(hc_pkg::hc_b_t)@6:11-6:20] rg=1 sgn=0 apar=parameter inst=package nsh=3
+    ours int_typespec()@22:13-22:19[noalias] rg=0 sgn=0 apar=parameter inst=- nsh=3
+WRONG-KEPT	DEFMOD|work@hc_mi|HMI_P|21:20|PARAM
+    gold int_typespec(hc_i_t)@5:11-5:14[alias->int_typespec(hc_pkg::hc_i_t)@5:11-5:14] rg=0 sgn=1 apar=parameter inst=package nsh=3
+    ours int_typespec()@21:13-21:19[noalias] rg=0 sgn=1 apar=parameter inst=- nsh=3
+WRONG-KEPT	DEFMOD|work@hc_m|HM_L|11:21|LOCAL
+    gold int_typespec(hm_i_t)@9:11-9:14[alias->int_typespec(hm_i_t)@9:11-9:14] rg=0 sgn=1 apar=parameter inst=- nsh=3
+    ours int_typespec()@11:14-11:20[noalias] rg=0 sgn=1 apar=parameter inst=- nsh=3
+WRONG-KEPT	DEFMOD|work@hc_m|HM_P|10:21|PARAM
+    gold int_typespec(hm_i_t)@9:11-9:14[alias->int_typespec(hm_i_t)@9:11-9:14] rg=0 sgn=1 apar=parameter inst=- nsh=3
+    ours int_typespec()@10:14-10:20[noalias] rg=0 sgn=1 apar=parameter inst=- nsh=3
+-- CELLS=5  MATCH-KEPT=0  TO-GOLDEN=0  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=5  ONE-SIDED-KEY=0
+VERDICT: PASS
+
+== grid187/g187_d_scalarkinds.sv
+TO-GOLDEN	DEFPKG|dk_pkg::|D_BIT|16:21|PARAM
+    gold bit_typespec(d_bit)@6:11-6:14[alias->bit_typespec(dk_pkg::d_bit)@6:11-6:14] rg=0 sgn=0 apar=parameter inst=package nsh=2
+    pris bit_typespec()@16:14-16:19[noalias] rg=0 sgn=0 apar=parameter inst=package nsh=2
+TO-GOLDEN	DEFPKG|dk_pkg::|D_BYTE|15:21|PARAM
+    gold byte_typespec(d_byte)@5:11-5:15[alias->byte_typespec(dk_pkg::d_byte)@5:11-5:15] rg=0 sgn=1 apar=parameter inst=package nsh=2
+    pris byte_typespec()@15:14-15:20[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+WRONG-KEPT	DEFPKG|dk_pkg::|D_IG|19:21|PARAM
+    gold integer_typespec(d_ig)@9:11-9:18[alias->integer_typespec(dk_pkg::d_ig)@9:11-9:18] rg=0 sgn=1 apar=parameter inst=package nsh=2
+    ours integer_typespec()@19:14-19:18[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+TO-GOLDEN	DEFPKG|dk_pkg::|D_INTL|14:21|LOCAL
+    gold int_typespec(d_int)@4:11-4:14[alias->int_typespec(dk_pkg::d_int)@4:11-4:14] rg=0 sgn=1 apar=parameter inst=package nsh=2
+    pris int_typespec()@14:14-14:19[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+TO-GOLDEN	DEFPKG|dk_pkg::|D_INT|13:21|PARAM
+    gold int_typespec(d_int)@4:11-4:14[alias->int_typespec(dk_pkg::d_int)@4:11-4:14] rg=0 sgn=1 apar=parameter inst=package nsh=2
+    pris int_typespec()@13:14-13:19[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+WRONG-KEPT	DEFPKG|dk_pkg::|D_LG|20:21|PARAM
+    gold logic_typespec(d_lg)@10:11-10:16[alias->logic_typespec(dk_pkg::d_lg)@10:11-10:16] rg=0 sgn=0 apar=parameter inst=package nsh=2
+    ours logic_typespec()@20:14-20:18[noalias] rg=0 sgn=0 apar=parameter inst=package nsh=2
+WRONG-KEPT	DEFPKG|dk_pkg::|D_LO|18:21|PARAM
+    gold long_int_typespec(d_lo)@8:11-8:18[alias->long_int_typespec(dk_pkg::d_lo)@8:11-8:18] rg=0 sgn=1 apar=parameter inst=package nsh=2
+    ours long_int_typespec()@18:14-18:18[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+WRONG-KEPT	DEFPKG|dk_pkg::|D_RE|21:21|PARAM
+    gold real_typespec(d_re)@11:11-11:15[alias->real_typespec(dk_pkg::d_re)@11:11-11:15] rg=-1 sgn=0 apar=parameter inst=package nsh=2
+    ours real_typespec()@21:14-21:18[noalias] rg=-1 sgn=0 apar=parameter inst=package nsh=2
+WRONG-KEPT	DEFPKG|dk_pkg::|D_SH|17:21|PARAM
+    gold short_int_typespec(d_sh)@7:11-7:19[alias->short_int_typespec(dk_pkg::d_sh)@7:11-7:19] rg=0 sgn=1 apar=parameter inst=package nsh=2
+    ours short_int_typespec()@17:14-17:18[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+WRONG-KEPT	DEFPKG|dk_pkg::|D_TI|22:21|PARAM
+    gold time_typespec(d_ti)@12:11-12:15[alias->time_typespec(dk_pkg::d_ti)@12:11-12:15] rg=-1 sgn=0 apar=parameter inst=package nsh=2
+    ours time_typespec()@22:14-22:18[noalias] rg=-1 sgn=0 apar=parameter inst=package nsh=2
+WRONG-KEPT	ELABPKG|dk_pkg::|D_IG|19:21|PARAM
+    gold integer_typespec(d_ig)@9:11-9:18[alias->integer_typespec(dk_pkg::d_ig)@9:11-9:18] rg=0 sgn=1 apar=parameter inst=package nsh=2
+    ours integer_typespec()@19:14-19:18[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+WRONG-KEPT	ELABPKG|dk_pkg::|D_LG|20:21|PARAM
+    gold logic_typespec(d_lg)@10:11-10:16[alias->logic_typespec(dk_pkg::d_lg)@10:11-10:16] rg=0 sgn=0 apar=parameter inst=package nsh=2
+    ours logic_typespec()@20:14-20:18[noalias] rg=0 sgn=0 apar=parameter inst=package nsh=2
+WRONG-KEPT	ELABPKG|dk_pkg::|D_LO|18:21|PARAM
+    gold long_int_typespec(d_lo)@8:11-8:18[alias->long_int_typespec(dk_pkg::d_lo)@8:11-8:18] rg=0 sgn=1 apar=parameter inst=package nsh=2
+    ours long_int_typespec()@18:14-18:18[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+WRONG-KEPT	ELABPKG|dk_pkg::|D_RE|21:21|PARAM
+    gold real_typespec(d_re)@11:11-11:15[alias->real_typespec(dk_pkg::d_re)@11:11-11:15] rg=-1 sgn=0 apar=parameter inst=package nsh=2
+    ours real_typespec()@21:14-21:18[noalias] rg=-1 sgn=0 apar=parameter inst=package nsh=2
+WRONG-KEPT	ELABPKG|dk_pkg::|D_SH|17:21|PARAM
+    gold short_int_typespec(d_sh)@7:11-7:19[alias->short_int_typespec(dk_pkg::d_sh)@7:11-7:19] rg=0 sgn=1 apar=parameter inst=package nsh=2
+    ours short_int_typespec()@17:14-17:18[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+WRONG-KEPT	ELABPKG|dk_pkg::|D_TI|22:21|PARAM
+    gold time_typespec(d_ti)@12:11-12:15[alias->time_typespec(dk_pkg::d_ti)@12:11-12:15] rg=-1 sgn=0 apar=parameter inst=package nsh=2
+    ours time_typespec()@22:14-22:18[noalias] rg=-1 sgn=0 apar=parameter inst=package nsh=2
+-- CELLS=20  MATCH-KEPT=4  TO-GOLDEN=4  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=12  ONE-SIDED-KEY=0
+VERDICT: PASS
+
+== r10buvm18repro/grid18.sv (an EARLIER PASS'S COMMITTED ARM, re-measured against golden)
+WRONG-KEPT	DEFMOD|work@mi|LP_SHIFT|27:23|LOCAL
+    gold bit_typespec(bflag_t)@7:11-7:25[alias->bit_typespec(bflag_t)@7:11-7:25] rg=1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours int_typespec()@27:14-27:21[noalias] rg=0 sgn=0 apar=parameter inst=- nsh=2
+WRONG-KEPT	DEFMOD|work@mi|MIU|72:22|PARAM
+    gold bit_typespec(bflag_t)@7:11-7:25[alias->bit_typespec(gp::bflag_t)@7:11-7:25] rg=1 sgn=0 apar=parameter inst=package nsh=2
+    ours int_typespec()@72:14-72:21[noalias] rg=0 sgn=0 apar=parameter inst=- nsh=2
+WRONG-KEPT	DEFMOD|work@mi|P_B1|33:23|PARAM
+    gold bit_typespec(b1_t)@13:11-13:14[alias->bit_typespec(b1_t)@13:11-13:14] rg=0 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours bit_typespec()@33:14-33:18[noalias] rg=0 sgn=0 apar=ref_typespec inst=package nsh=1
+WRONG-KEPT	DEFMOD|work@mi|P_B8|28:23|PARAM
+    gold bit_typespec(b8_t)@8:11-8:22[alias->bit_typespec(b8_t)@8:11-8:22] rg=1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours int_typespec()@28:14-28:18[noalias] rg=0 sgn=0 apar=parameter inst=- nsh=2
+WRONG-KEPT	DEFMOD|work@mi|P_BY|32:23|PARAM
+    gold byte_typespec(by_t)@12:11-12:15[alias->byte_typespec(by_t)@12:11-12:15] rg=0 sgn=1 apar=ref_typespec inst=package nsh=1
+    ours byte_typespec()@32:14-32:18[noalias] rg=0 sgn=1 apar=ref_typespec inst=package nsh=1
+WRONG-KEPT	DEFMOD|work@mi|P_CAST|25:23|PARAM
+    gold bit_typespec(bflag_t)@7:11-7:25[alias->bit_typespec(bflag_t)@7:11-7:25] rg=1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours int_typespec()@25:14-25:21[noalias] rg=0 sgn=0 apar=parameter inst=- nsh=2
+WRONG-KEPT	DEFMOD|work@mi|P_CONCAT|26:23|PARAM
+    gold bit_typespec(bflag_t)@7:11-7:25[alias->bit_typespec(bflag_t)@7:11-7:25] rg=1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours int_typespec()@26:14-26:21[noalias] rg=0 sgn=0 apar=parameter inst=- nsh=1
+WRONG-KEPT	DEFMOD|work@mi|P_EXPR|24:23|PARAM
+    gold bit_typespec(bflag_t)@7:11-7:25[alias->bit_typespec(bflag_t)@7:11-7:25] rg=1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours int_typespec()@24:14-24:21[noalias] rg=0 sgn=0 apar=parameter inst=- nsh=2
+WRONG-KEPT	DEFMOD|work@mi|P_E|35:23|PARAM
+    gold enum_typespec(gp::e_t)@15:3-15:41[noalias] rg=-1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours enum_typespec(gp::e_t)@15:3-15:41[noalias] rg=-1 sgn=0 apar=module_inst inst=package nsh=5
+WRONG-KEPT	DEFMOD|work@mi|P_I|31:23|PARAM
+    gold int_typespec(i_t)@11:11-11:14[alias->int_typespec(i_t)@11:11-11:14] rg=0 sgn=1 apar=ref_typespec inst=package nsh=1
+    ours int_typespec()@31:14-31:17[noalias] rg=0 sgn=1 apar=ref_typespec inst=package nsh=1
+WRONG-KEPT	DEFMOD|work@mi|P_L1|34:23|PARAM
+    gold logic_typespec(l1_t)@14:11-14:16[alias->logic_typespec(l1_t)@14:11-14:16] rg=0 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours logic_typespec()@34:14-34:18[noalias] rg=0 sgn=0 apar=ref_typespec inst=package nsh=1
+WRONG-KEPT	DEFMOD|work@mi|P_L8|29:23|PARAM
+    gold logic_typespec(l8_t)@9:11-9:22[alias->logic_typespec(l8_t)@9:11-9:22] rg=1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours logic_typespec(l8_t)@9:11-9:22[alias->logic_typespec(l8_t)@9:11-9:22] rg=1 sgn=0 apar=parameter inst=package nsh=2
+WRONG-KEPT	DEFMOD|work@mi|P_LFLAG|30:23|PARAM
+    gold logic_typespec(lflag_t)@10:11-10:25[alias->logic_typespec(lflag_t)@10:11-10:25] rg=1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours logic_typespec(lflag_t)@10:11-10:25[alias->logic_typespec(lflag_t)@10:11-10:25] rg=1 sgn=0 apar=parameter inst=package nsh=2
+WRONG-KEPT	DEFMOD|work@mi|P_LIT|21:23|PARAM
+    gold bit_typespec(bflag_t)@7:11-7:25[alias->bit_typespec(bflag_t)@7:11-7:25] rg=1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours int_typespec()@21:14-21:21[noalias] rg=0 sgn=0 apar=parameter inst=- nsh=2
+WRONG-KEPT	DEFMOD|work@mi|P_OTHER|23:23|PARAM
+    gold bit_typespec(bflag_t)@7:11-7:25[alias->bit_typespec(bflag_t)@7:11-7:25] rg=1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours int_typespec()@23:14-23:21[noalias] rg=0 sgn=0 apar=parameter inst=- nsh=2
+WRONG-KEPT	DEFMOD|work@mi|P_SHIFTU|19:23|PARAM
+    gold bit_typespec(bflagu_t)@6:11-6:24[alias->bit_typespec(bflagu_t)@6:11-6:24] rg=1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours int_typespec()@19:14-19:22[noalias] rg=0 sgn=0 apar=parameter inst=- nsh=2
+WRONG-KEPT	DEFMOD|work@mi|P_SHIFT|20:23|PARAM
+    gold bit_typespec(bflag_t)@7:11-7:25[alias->bit_typespec(bflag_t)@7:11-7:25] rg=1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours int_typespec()@20:14-20:21[noalias] rg=0 sgn=0 apar=parameter inst=- nsh=2
+WRONG-KEPT	DEFMOD|work@mi|P_SIZED|22:23|PARAM
+    gold bit_typespec(bflag_t)@7:11-7:25[alias->bit_typespec(bflag_t)@7:11-7:25] rg=1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours int_typespec()@22:14-22:21[noalias] rg=0 sgn=0 apar=parameter inst=- nsh=2
+WRONG-KEPT	DEFMOD|work@mi|P_S|36:23|PARAM
+    gold struct_typespec(gp::s_t)@16:11-16:54[noalias] rg=-1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours struct_typespec(gp::s_t)@16:11-16:54[noalias] rg=-1 sgn=0 apar=parameter inst=package nsh=2
+WRONG-KEPT	DEFMOD|work@mi|P_TDTD|37:23|PARAM
+    gold bit_typespec(bflag2_t)@7:11-7:25[alias->bit_typespec(bflag_t)@7:11-7:25] rg=1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours bit_typespec(gp::bflag2_t)@7:11-7:25[alias->bit_typespec(bflag_t)@7:11-7:25] rg=1 sgn=0 apar=module_inst inst=package nsh=9
+WRONG-KEPT	DEFMOD|work@m|MB|54:26|PARAM
+    gold bit_typespec(gp::bflag_t)@7:11-7:25[noalias] rg=1 sgn=0 apar=module_inst inst=package nsh=19
+    ours int_typespec()@54:14-54:25[noalias] rg=0 sgn=0 apar=parameter inst=- nsh=2
+WRONG-KEPT	DEFMOD|work@m|MLOCI|63:26|PARAM
+    gold int_typespec(loci_t)@60:11-60:14[alias->int_typespec(loci_t)@60:11-60:14] rg=0 sgn=1 apar=parameter inst=- nsh=3
+    ours int_typespec()@63:14-63:20[noalias] rg=0 sgn=1 apar=parameter inst=- nsh=3
+WRONG-KEPT	DEFMOD|work@m|MLOC|61:26|PARAM
+    gold bit_typespec(loc_t)@58:11-58:22[alias->bit_typespec(loc_t)@58:11-58:22] rg=1 sgn=0 apar=parameter inst=- nsh=3
+    ours int_typespec()@61:14-61:19[noalias] rg=0 sgn=0 apar=parameter inst=- nsh=3
+WRONG-KEPT	DEFMOD|work@m|ML|55:26|LOCAL
+    gold bit_typespec(gp::bflag_t)@7:11-7:25[noalias] rg=1 sgn=0 apar=module_inst inst=package nsh=19
+    ours int_typespec()@55:14-55:25[noalias] rg=0 sgn=0 apar=parameter inst=- nsh=2
+WRONG-KEPT	DEFMOD|work@m|MP|53:34|PARAM
+    gold bit_typespec(gp::bflag_t)@7:11-7:25[noalias] rg=1 sgn=0 apar=module_inst inst=package nsh=19
+    ours int_typespec()@53:22-53:33[noalias] rg=0 sgn=0 apar=parameter inst=- nsh=2
+WRONG-KEPT	DEFMOD|work@m|MQI|57:26|PARAM
+    gold int_typespec(gp::i_t)@11:11-11:14[noalias] rg=0 sgn=1 apar=module_inst inst=package nsh=4
+    ours int_typespec()@57:14-57:21[noalias] rg=0 sgn=1 apar=parameter inst=- nsh=3
+WRONG-KEPT	DEFMOD|work@m|MQL|56:26|PARAM
+    gold logic_typespec(gp::l8_t)@9:11-9:22[noalias] rg=1 sgn=0 apar=module_inst inst=package nsh=4
+    ours logic_typespec(l8_t)@9:11-9:22[alias->logic_typespec(gp::l8_t)@9:11-9:22] rg=1 sgn=0 apar=parameter inst=package nsh=3
+TO-GOLDEN	DEFPKG|gp::|P_B1|33:23|PARAM
+    gold bit_typespec(b1_t)@13:11-13:14[alias->bit_typespec(gp::b1_t)@13:11-13:14] rg=0 sgn=0 apar=parameter inst=package nsh=2
+    pris bit_typespec()@33:14-33:18[noalias] rg=0 sgn=0 apar=parameter inst=package nsh=2
+TO-GOLDEN	DEFPKG|gp::|P_BY|32:23|PARAM
+    gold byte_typespec(by_t)@12:11-12:15[alias->byte_typespec(gp::by_t)@12:11-12:15] rg=0 sgn=1 apar=parameter inst=package nsh=2
+    pris byte_typespec()@32:14-32:18[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+TO-GOLDEN	DEFPKG|gp::|P_I|31:23|PARAM
+    gold int_typespec(i_t)@11:11-11:14[alias->int_typespec(gp::i_t)@11:11-11:14] rg=0 sgn=1 apar=parameter inst=package nsh=2
+    pris int_typespec()@31:14-31:17[noalias] rg=0 sgn=1 apar=parameter inst=package nsh=2
+WRONG-KEPT	DEFPKG|gp::|P_L1|34:23|PARAM
+    gold logic_typespec(l1_t)@14:11-14:16[alias->logic_typespec(gp::l1_t)@14:11-14:16] rg=0 sgn=0 apar=parameter inst=package nsh=2
+    ours logic_typespec()@34:14-34:18[noalias] rg=0 sgn=0 apar=parameter inst=package nsh=2
+WRONG-KEPT	DEFPKG|gp::|P_TDTD|37:23|PARAM
+    gold bit_typespec(gp::bflag2_t)@7:11-7:25[alias->bit_typespec(bflag_t)@7:11-7:25] rg=1 sgn=0 apar=module_inst inst=package nsh=4
+    ours bit_typespec(gp::bflag2_t)@7:11-7:25[alias->bit_typespec(bflag_t)@7:11-7:25] rg=1 sgn=0 apar=module_inst inst=package nsh=9
+WRONG-KEPT	ELABMOD|work@mi|LP_SHIFT|27:23|LOCAL
+    gold bit_typespec(bflag_t)@7:11-7:25[alias->bit_typespec(bflag_t)@7:11-7:25] rg=1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours int_typespec()@27:14-27:21[noalias] rg=0 sgn=0 apar=ref_typespec inst=package nsh=2
+WRONG-KEPT	ELABMOD|work@mi|MIU|72:22|PARAM
+    gold bit_typespec(bflag_t)@7:11-7:25[alias->bit_typespec(gp::bflag_t)@7:11-7:25] rg=1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours int_typespec()@72:14-72:21[noalias] rg=0 sgn=0 apar=ref_typespec inst=- nsh=1
+WRONG-KEPT	ELABMOD|work@mi|NBU|5:13|PARAM
+    gold int_typespec()@5:3-5:21[noalias] rg=0 sgn=0 apar=ref_typespec inst=- nsh=1
+    ours int_typespec()@5:3-5:21[noalias] rg=0 sgn=0 apar=ref_typespec inst=- nsh=2
+WRONG-KEPT	ELABMOD|work@mi|NB|4:17|PARAM
+    gold int_typespec()@4:13-4:16[noalias] rg=0 sgn=1 apar=ref_typespec inst=package nsh=1
+    ours int_typespec()@4:13-4:16[noalias] rg=0 sgn=1 apar=ref_typespec inst=package nsh=2
+WRONG-KEPT	ELABMOD|work@mi|P_B1|33:23|PARAM
+    gold bit_typespec(b1_t)@13:11-13:14[alias->bit_typespec(b1_t)@13:11-13:14] rg=0 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours bit_typespec()@33:14-33:18[noalias] rg=0 sgn=0 apar=ref_typespec inst=package nsh=2
+WRONG-KEPT	ELABMOD|work@mi|P_B8|28:23|PARAM
+    gold bit_typespec(b8_t)@8:11-8:22[alias->bit_typespec(b8_t)@8:11-8:22] rg=1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours int_typespec()@28:14-28:18[noalias] rg=0 sgn=0 apar=ref_typespec inst=package nsh=2
+WRONG-KEPT	ELABMOD|work@mi|P_BUILTINL|39:26|PARAM
+    gold logic_typespec()@39:14-39:25[noalias] rg=1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours logic_typespec()@39:14-39:25[noalias] rg=1 sgn=0 apar=ref_typespec inst=package nsh=2
+WRONG-KEPT	ELABMOD|work@mi|P_BUILTIN|38:24|PARAM
+    gold bit_typespec()@38:14-38:23[noalias] rg=1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours bit_typespec()@38:14-38:23[noalias] rg=1 sgn=0 apar=ref_typespec inst=package nsh=2
+WRONG-KEPT	ELABMOD|work@mi|P_BY|32:23|PARAM
+    gold byte_typespec(by_t)@12:11-12:15[alias->byte_typespec(by_t)@12:11-12:15] rg=0 sgn=1 apar=ref_typespec inst=package nsh=1
+    ours byte_typespec()@32:14-32:18[noalias] rg=0 sgn=1 apar=ref_typespec inst=package nsh=2
+WRONG-KEPT	ELABMOD|work@mi|P_CAST|25:23|PARAM
+    gold bit_typespec(bflag_t)@7:11-7:25[alias->bit_typespec(bflag_t)@7:11-7:25] rg=1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours int_typespec()@25:14-25:21[noalias] rg=0 sgn=0 apar=ref_typespec inst=package nsh=2
+WRONG-KEPT	ELABMOD|work@mi|P_CONCAT|26:23|PARAM
+    gold bit_typespec(bflag_t)@7:11-7:25[alias->bit_typespec(bflag_t)@7:11-7:25] rg=1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours int_typespec()@26:14-26:21[noalias] rg=0 sgn=0 apar=ref_typespec inst=package nsh=1
+WRONG-KEPT	ELABMOD|work@mi|P_EXPR|24:23|PARAM
+    gold bit_typespec(bflag_t)@7:11-7:25[alias->bit_typespec(bflag_t)@7:11-7:25] rg=1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours int_typespec()@24:14-24:21[noalias] rg=0 sgn=0 apar=ref_typespec inst=package nsh=2
+WRONG-KEPT	ELABMOD|work@mi|P_E|35:23|PARAM
+    gold enum_typespec(gp::e_t)@15:3-15:41[noalias] rg=-1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours enum_typespec(gp::e_t)@15:3-15:41[noalias] rg=-1 sgn=0 apar=ref_typespec inst=package nsh=2
+WRONG-KEPT	ELABMOD|work@mi|P_INT|40:23|PARAM
+    gold int_typespec()@40:14-40:17[noalias] rg=0 sgn=1 apar=ref_typespec inst=package nsh=1
+    ours int_typespec()@40:14-40:17[noalias] rg=0 sgn=1 apar=ref_typespec inst=package nsh=2
+WRONG-KEPT	ELABMOD|work@mi|P_I|31:23|PARAM
+    gold int_typespec(i_t)@11:11-11:14[alias->int_typespec(i_t)@11:11-11:14] rg=0 sgn=1 apar=ref_typespec inst=package nsh=1
+    ours int_typespec()@31:14-31:17[noalias] rg=0 sgn=1 apar=ref_typespec inst=package nsh=2
+WRONG-KEPT	ELABMOD|work@mi|P_L1|34:23|PARAM
+    gold logic_typespec(l1_t)@14:11-14:16[alias->logic_typespec(l1_t)@14:11-14:16] rg=0 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours logic_typespec()@34:14-34:18[noalias] rg=0 sgn=0 apar=ref_typespec inst=package nsh=2
+WRONG-KEPT	ELABMOD|work@mi|P_L8|29:23|PARAM
+    gold logic_typespec(l8_t)@9:11-9:22[alias->logic_typespec(l8_t)@9:11-9:22] rg=1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours logic_typespec(l8_t)@9:11-9:22[alias->logic_typespec(l8_t)@9:11-9:22] rg=1 sgn=0 apar=ref_typespec inst=package nsh=2
+WRONG-KEPT	ELABMOD|work@mi|P_LFLAG|30:23|PARAM
+    gold logic_typespec(lflag_t)@10:11-10:25[alias->logic_typespec(lflag_t)@10:11-10:25] rg=1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours logic_typespec(lflag_t)@10:11-10:25[alias->logic_typespec(lflag_t)@10:11-10:25] rg=1 sgn=0 apar=ref_typespec inst=package nsh=2
+WRONG-KEPT	ELABMOD|work@mi|P_LIT|21:23|PARAM
+    gold bit_typespec(bflag_t)@7:11-7:25[alias->bit_typespec(bflag_t)@7:11-7:25] rg=1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours int_typespec()@21:14-21:21[noalias] rg=0 sgn=0 apar=ref_typespec inst=package nsh=2
+WRONG-KEPT	ELABMOD|work@mi|P_OTHER|23:23|PARAM
+    gold bit_typespec(bflag_t)@7:11-7:25[alias->bit_typespec(bflag_t)@7:11-7:25] rg=1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours int_typespec()@23:14-23:21[noalias] rg=0 sgn=0 apar=ref_typespec inst=package nsh=1
+WRONG-KEPT	ELABMOD|work@mi|P_SHIFTU|19:23|PARAM
+    gold bit_typespec(bflagu_t)@6:11-6:24[alias->bit_typespec(bflagu_t)@6:11-6:24] rg=1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours int_typespec()@19:14-19:22[noalias] rg=0 sgn=0 apar=ref_typespec inst=package nsh=2
+WRONG-KEPT	ELABMOD|work@mi|P_SHIFT|20:23|PARAM
+    gold bit_typespec(bflag_t)@7:11-7:25[alias->bit_typespec(bflag_t)@7:11-7:25] rg=1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours int_typespec()@20:14-20:21[noalias] rg=0 sgn=0 apar=ref_typespec inst=package nsh=2
+WRONG-KEPT	ELABMOD|work@mi|P_SIZED|22:23|PARAM
+    gold bit_typespec(bflag_t)@7:11-7:25[alias->bit_typespec(bflag_t)@7:11-7:25] rg=1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours int_typespec()@22:14-22:21[noalias] rg=0 sgn=0 apar=ref_typespec inst=package nsh=2
+WRONG-KEPT	ELABMOD|work@mi|P_S|36:23|PARAM
+    gold struct_typespec(gp::s_t)@16:11-16:54[noalias] rg=-1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours struct_typespec(gp::s_t)@16:11-16:54[noalias] rg=-1 sgn=0 apar=ref_typespec inst=package nsh=2
+WRONG-KEPT	ELABMOD|work@mi|P_TDTD|37:23|PARAM
+    gold bit_typespec(bflag2_t)@7:11-7:25[alias->bit_typespec(bflag_t)@7:11-7:25] rg=1 sgn=0 apar=ref_typespec inst=package nsh=1
+    ours bit_typespec(gp::bflag2_t)@7:11-7:25[alias->bit_typespec(bflag_t)@7:11-7:25] rg=1 sgn=0 apar=module_inst inst=package nsh=9
+WRONG-KEPT	ELABMOD|work@mi|P_UNTYPED|41:23|PARAM
+    gold int_typespec()@41:3-41:36[noalias] rg=0 sgn=0 apar=ref_typespec inst=- nsh=1
+    ours int_typespec()@41:3-41:36[noalias] rg=0 sgn=0 apar=ref_typespec inst=- nsh=2
+WRONG-KEPT	ELABPKG.C|cp::C|CLS_LP|47:21|LOCAL
+    gold bit_typespec(cb_t)@45:11-45:20[alias->bit_typespec(cp::cb_t)@45:11-45:20] rg=1 sgn=0 apar=parameter inst=package nsh=2
+    ours int_typespec()@47:5-47:34[noalias] rg=0 sgn=0 apar=NULL inst=- nsh=2
+WRONG-KEPT	ELABPKG|gp::|P_E|35:23|PARAM
+    gold enum_typespec(gp::e_t)@15:3-15:41[noalias] rg=-1 sgn=0 apar=module_inst inst=package nsh=2
+    ours enum_typespec(gp::e_t)@15:3-15:41[noalias] rg=-1 sgn=0 apar=module_inst inst=package nsh=5
+WRONG-KEPT	ELABPKG|gp::|P_L1|34:23|PARAM
+    gold logic_typespec(l1_t)@14:11-14:16[alias->logic_typespec(gp::l1_t)@14:11-14:16] rg=0 sgn=0 apar=parameter inst=package nsh=2
+    ours logic_typespec()@34:14-34:18[noalias] rg=0 sgn=0 apar=parameter inst=package nsh=2
+WRONG-KEPT	ELABPKG|gp::|P_TDTD|37:23|PARAM
+    gold bit_typespec(gp::bflag2_t)@7:11-7:25[alias->bit_typespec(bflag_t)@7:11-7:25] rg=1 sgn=0 apar=module_inst inst=package nsh=4
+    ours bit_typespec(gp::bflag2_t)@7:11-7:25[alias->bit_typespec(bflag_t)@7:11-7:25] rg=1 sgn=0 apar=module_inst inst=package nsh=9
+-- CELLS=111  MATCH-KEPT=49  TO-GOLDEN=3  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=59  ONE-SIDED-KEY=0
+VERDICT: PASS
