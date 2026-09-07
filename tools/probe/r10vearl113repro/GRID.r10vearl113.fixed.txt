@@ -1,0 +1,100 @@
+== r10vearl113 ARM GRID -- pristine vs the VERIFIED (FIXED) binary
+   PRIS=bc09e77cf8fd251285c06f6f0b54a5bc  FIXED=165964dfc796ad3bbcc54d1b5fbead7d
+
+v1_decl113_plain                               NOGOLD=4  NOGOLD_UNMOVED=3  ONESIDED=6  SAME_AGREE=13
+v1_decl113_elab                                NOGOLD_UNMOVED=1  ONESIDED=3  SAME_AGREE=15  TOGOLD=4
+v2_pat113_plain                                NOGOLD=6  NOGOLD_UNMOVED=9  ONESIDED=9  SAME_AGREE=27
+v2_pat113_elab                                 NOGOLD=1  NOGOLD_UNMOVED=7  ONESIDED=2  SAME_AGREE=28  STILLWRONG=1  TOGOLD=5
+v3_lhs113_plain                                NOGOLD=1  NOGOLD_UNMOVED=4  ONESIDED=6  SAME_AGREE=10
+v3_lhs113_elab                                 NOGOLD_UNMOVED=4  ONESIDED=7  SAME_AGREE=12  TOGOLD=1
+v4_ctx113_plain                                NOGOLD=2  ONESIDED=2  SAME_AGREE=4
+v4_ctx113_elab                                 ONESIDED=1  SAME_AGREE=4  TOGOLD=2
+v5_iface113_plain                              NOGOLD=1  NOGOLD_UNMOVED=2  ONESIDED=4  SAME_AGREE=1
+v5_iface113_elab                               NOGOLD=1  NOGOLD_UNMOVED=2  ONESIDED=4  SAME_AGREE=1
+v6_name113_plain                               NOGOLD=4  NOGOLD_UNMOVED=5  ONESIDED=8  SAME_AGREE=11
+v6_name113_elab                                NOGOLD=1  NOGOLD_UNMOVED=2  ONESIDED=5  SAME_AGREE=14  TOGOLD=3
+-- TOTAL  NOGOLD=21  NOGOLD_UNMOVED=39  ONESIDED=57  SAME_AGREE=140  STILLWRONG=1  TOGOLD=15
+   [NOGOLD] v1_decl113_plain v1_decl113_plain|PX|35:25-35:64|sc=gen_scope|gd=2|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v1_decl113_plain v1_decl113_plain|PX|61:18-61:57|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v1_decl113_plain v1_decl113_plain|PX|67:20-67:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v1_decl113_plain v1_decl113_plain|PX|75:21-75:60|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v2_pat113_plain v2_pat113_plain|PX|54:21-54:62|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=ref_obj
+       G:None
+       P:["sz=8,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v2_pat113_plain v2_pat113_plain|PX|55:21-55:68|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=8,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v2_pat113_plain v2_pat113_plain|PX|56:21-56:90|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=operation
+       G:None
+       P:["sz=4,dec='',val='',ot=75"]
+       Q:["sz=0,dec='',val='',ot=75"]
+   [NOGOLD] v2_pat113_plain v2_pat113_plain|PX|58:21-58:56|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=constant
+       G:None
+       P:["sz=8,dec='4'h3',val='HEX:3',ct=5"]
+       Q:["sz=4,dec='4'h3',val='HEX:3',ct=5"]
+   [NOGOLD] v2_pat113_plain v2_pat113_plain|PX|59:21-59:74|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=operation
+       G:None
+       P:["sz=8,dec='',val='',ot=32"]
+       Q:["sz=0,dec='',val='',ot=32"]
+   [NOGOLD] v2_pat113_plain v2_pat113_plain|PX|60:21-60:79|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=operation
+       G:None
+       P:["sz=8,dec='',val='',ot=33"]
+       Q:["sz=0,dec='',val='',ot=33"]
+   [NOGOLD] v2_pat113_elab v2_pat113_elab|PX|54:21-54:62|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=ref_obj
+       G:None
+       P:["sz=8,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v3_lhs113_plain v3_lhs113_plain|PX|57:23-57:62|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v4_ctx113_plain v4_ctx113_plain|PX|27:20-27:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v4_ctx113_plain v4_ctx113_plain|PX|27:20-27:59|sc=gen_scope|gd=2|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v5_iface113_plain v5_iface113_plain|PX|22:21-22:52|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v5_iface113_elab v5_iface113_elab|PX|22:21-22:52|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v6_name113_plain v6_name113_plain|PX|34:20-34:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v6_name113_plain v6_name113_plain|PX|48:20-48:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v6_name113_plain v6_name113_plain|PX|51:22-51:61|sc=gen_scope|gd=2|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v6_name113_plain v6_name113_plain|PX|64:20-64:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v6_name113_elab v6_name113_elab|PX|34:20-34:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]

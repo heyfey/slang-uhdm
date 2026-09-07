@@ -30837,7 +30837,85 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         continue;
                     }
                     if (auto* e = emitExpr(*setter.expr, op, prefix, netMap)) {
-                        if (operands->empty() && !nestedPat)
+                        // § genScopeCaPatNoFirstSize113 (r10earl113) — A
+                        // GENERATE-SCOPE CONTINUOUS ASSIGN'S PATTERN NEVER
+                        // SIZES ITS FIRST OPERAND, because the pass that
+                        // flattens it there is not the pass that sizes it.
+                        //
+                        // The stamp below models Surelog's
+                        // `UhdmWriter::writeCont_assign` (UhdmWriter.cpp:2178):
+                        // it flattens the pattern, and then — ONLY when the
+                        // assign's target typespec is in hand — runs
+                        // `substituteAssignedValue` -> `expandPatternAssignment`
+                        // (CompileHelper.cpp:5237-5257), whose untagged arm
+                        // calls `adjustOpSize` on operand 0 BEFORE its
+                        // `invalidValue` bail-out.  That is the committed
+                        // "a re-emitted OUTERMOST pattern sizes its FIRST
+                        // operand" law, and it is right at MODULE scope: the
+                        // Lhs `ref_obj` binds through `bindVariable`
+                        // (CompileStmt.cpp:3089) to the module instance's own
+                        // variable, the typespec is found, and golden sizes.
+                        //
+                        // A GENERATE body is unrolled by UHDM's
+                        // `cont_assign::DeepClone` (clone_tree.cpp:803-816),
+                        // which flattens the pattern ITSELF — and flattens it
+                        // ALONE:
+                        //     if (ref_obj* ro = any_cast<ref_obj*>(lhs))
+                        //       if (struct_var* stv = ro->Actual_group<struct_var>())
+                        //         if (ref_typespec* rt = stv->Typespec())
+                        //           if (typespec* ts = rt->Actual_typespec())
+                        //             eval.flattenPatternAssignments(s, ts, rhs);
+                        // no `expandPatternAssignment`, no `adjustOpSize`.  And
+                        // `bindVariable`'s scope walk has NO `gen_scope` case
+                        // (CompileStmt.cpp:3125-3147: function / task / begin /
+                        // module_inst, then recurse to the parent), so a
+                        // gen-scope-declared target is never found, the
+                        // writer's `tps` stays null, and its `if (tps)` arm —
+                        // the only one that reaches `expandPatternAssignment` —
+                        // is never taken.  The operands keep whatever size they
+                        // arrived with.
+                        //
+                        // MEASURED ON GOLDEN, elaborated view, operand 0 of a
+                        // keyed struct pattern, the SAME dotted first value in
+                        // every cell (arm `s1_scope113`):
+                        //   module body ................ SIZED (member width)
+                        //   generate-for depth 1 ....... NO SIZE
+                        //   generate-for depth 2 ....... NO SIZE
+                        //   generate-if ................ NO SIZE
+                        //   generate-case .............. NO SIZE
+                        // and by operand KIND at generate depth 1 (arm
+                        // `s2_opkind113`): hier_path, ref_obj, bit_select, a
+                        // binary operation and a concatenation ALL come out at
+                        // VpiSize 0, while their module-scope twins are sized
+                        // and already ours.
+                        //
+                        // THE ONE EXCEPTION IS AN UNSIZED CONSTANT, and it is
+                        // `flattenPatternAssignments`' own doing
+                        // (UHDM ExprEval.cpp:893-913): the flatten re-encodes a
+                        // tagged constant whose `VpiSize()` is -1 to the FIELD
+                        // width.  Measured on `s2_opkind113`'s discriminator
+                        // (an 8-bit first member): `'{w0: 4'h3, …}` keeps
+                        // golden at the LITERAL's width 4 where we stamped 8 —
+                        // the suppress FIXES that cell — while `'{w0: '1, …}`
+                        // is size 8 in golden, which is exactly the member
+                        // width this stamp writes.  Suppressing there would
+                        // move a right cell wrong, so the unsized constant
+                        // keeps the stamp.
+                        // THE FENCE: only a target declared INSIDE the generate
+                        // scope escapes `bindVariable`'s walk.  A module-body
+                        // target is found from inside a generate block, the
+                        // writer's `tps` is filled, and golden sizes operand 0
+                        // exactly as at module scope — uhdm2rtlil's
+                        // `gen_struct_access` is that cell, and the gate
+                        // without this fence converted its row in both modes.
+                        // See `genCaLhsGenLocal113` in UhdmExporter.h.
+                        const bool genCaNoFirstSize113 =
+                            inGenScopeCa67 && genCaLhsGenLocal113 &&
+                            !(((UHDM::any*)e)->UhdmType() ==
+                                  UHDM::uhdmconstant &&
+                              ((UHDM::expr*)e)->VpiSize() == -1);
+                        if (operands->empty() && !nestedPat &&
+                            !genCaNoFirstSize113)
                             ((UHDM::expr*)e)->VpiSize(
                                 (int32_t)setter.expr->type->getBitWidth());
                         // A CONCAT value that folded re-encodes BINARY at the

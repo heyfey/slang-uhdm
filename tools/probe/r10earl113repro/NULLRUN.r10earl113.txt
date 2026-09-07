@@ -1,0 +1,9 @@
+s1_scope113_elab                               NOGOLD_UNMOVED=4  ONESIDED=4  SAME_AGREE=10  STILLWRONG=4
+s1_scope113_plain                              NOGOLD_UNMOVED=7  ONESIDED=6  SAME_AGREE=10
+s2_opkind113_elab                              NOGOLD_UNMOVED=10  ONESIDED=12  SAME_AGREE=37  STILLWRONG=10
+s2_opkind113_plain                             NOGOLD_UNMOVED=21  ONESIDED=12  SAME_AGREE=35  STILLWRONG=1
+s3_carrier113_elab                             NOGOLD_UNMOVED=1  ONESIDED=4  SAME_AGREE=13  STILLWRONG=1
+s3_carrier113_plain                            NOGOLD_UNMOVED=2  ONESIDED=4  SAME_AGREE=13
+s4_fence113_elab                               NOGOLD_UNMOVED=1  ONESIDED=1  SAME_AGREE=14  STILLWRONG=2
+s4_fence113_plain                              NOGOLD_UNMOVED=2  ONESIDED=2  SAME_AGREE=14
+-- TOTAL  NOGOLD_UNMOVED=48  ONESIDED=45  SAME_AGREE=146  STILLWRONG=18

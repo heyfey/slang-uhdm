@@ -4824,6 +4824,23 @@ private:
     // HERE, and folds the same index WITHOUT a typespec in an ELAB port
     // High_conn — see the call site in ExprEmit.cpp.
     bool inGenScopeCa67 = false;
+    /// § genScopeCaPatNoFirstSize113 — true, inside `inGenScopeCa67`, when the
+    /// continuous assign's TARGET is declared in the generate scope itself (or
+    /// in a generate block enclosing it) rather than in the module body.  It
+    /// is Surelog's `bindVariable` scope walk (CompileStmt.cpp:3089-3148),
+    /// which knows function / task / begin / module_inst and recurses past a
+    /// `gen_scope`: a module-body target IS found from inside a generate block,
+    /// so `writeCont_assign`'s `tps` is filled and `expandPatternAssignment`
+    /// sizes the pattern's first operand exactly as at module scope; a
+    /// gen-local target is NOT found, and only the unrolling clone's
+    /// `flattenPatternAssignments` has touched the pattern — no operand is
+    /// sized.  Read only by the pattern's first-operand stamp in ExprEmit.cpp.
+    /// r10vearl113: that walk binds BY NAME and recurses PAST `module_inst`,
+    /// so the flag is ALSO false when the gen-local target's NAME is declared
+    /// in an enclosing module body or in an ANCESTOR INSTANCE's body — golden
+    /// binds the namesake, fills `tps` from it and sizes operand 0 (measured on
+    /// arm `v1_decl113` cells a3 and a7).
+    bool genCaLhsGenLocal113 = false;
     /// § patCaGenIdxValueRender112 — >0 while emitting an OPERAND VALUE of an
     /// assignment pattern.  `CompileHelper::compileAssignmentPattern`
     /// (Surelog CompileExpression.cpp:3686-3689) turns `Reduce` ON for every

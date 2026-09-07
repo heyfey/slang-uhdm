@@ -1,0 +1,17 @@
+LHS:
+decompile:
+ref_typespec: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].tl_h_i[0].a_valid), id:793449
+|vpiParent:
+\_hier_path: (tl_h_i[0].a_valid), id:793448, line:109:19, endln:109:36
+|vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].tl_h_i[0].a_valid
+|vpiActual:
+\_array_typespec: , id:793266
+
+decompile:
+ref_typespec: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].tl_h_i[0].a_valid), id:793449
+|vpiParent:
+\_hier_path: (tl_h_i[0].a_valid), id:793448, line:109:19, endln:109:36
+|vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].tl_h_i[0].a_valid
+|vpiActual:
+\_array_typespec: , id:793266
+RHS: <null>

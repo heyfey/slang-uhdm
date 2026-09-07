@@ -1,0 +1,169 @@
+== r10vearl113 REPRODUCTION LOG -- BASE b71d5feb, three binaries, all frozen chmod 555
+
+bc09e77cf8fd251285c06f6f0b54a5bc  /tmp/vearl113_bin/pristine
+eb7b95960d659e302e9e8986470f1dcf  /tmp/vearl113_bin/patched
+165964dfc796ad3bbcc54d1b5fbead7d  /tmp/vearl113_bin/fixed
+bc09e77cf8fd251285c06f6f0b54a5bc  /home/heyfey/git-repos/slang-uhdm/build/slang-uhdm
+
+-- GOLDENS (SLANG_UHDM exported explicitly per binary) --
+pristine                     PASS=23 FAIL=0
+patched                      PASS=23 FAIL=0
+FIXED                        PASS=23 FAIL=0
+/bin/false (negative control) PASS=0 FAIL=23
+
+-- cmds.txt AUDIT, by binary PATH (one path per workdir, no other) --
+slP     1573 cmds.txt    1523 slang: /tmp/vearl113_bin/pristine
+slX     1573 cmds.txt    1523 slang: /tmp/vearl113_bin/patched
+slF     1573 cmds.txt    1523 slang: /tmp/vearl113_bin/fixed
+u2rP    1462 cmds.txt    1458 slang: /tmp/vearl113_bin/pristine
+u2rX    1462 cmds.txt    1458 slang: /tmp/vearl113_bin/patched
+u2rF    1462 cmds.txt    1458 slang: /tmp/vearl113_bin/fixed
+
+-- STATUS HISTOGRAMS --
+[slP]
+  rows=1588 {'CMP_EQUAL': 937, 'SLANG_REJECT': 567, 'SURELOG_FAIL': 48, 'NO_DATABASE': 3, 'CMP_NOTEQUAL': 19, 'UNTRANSLATABLE': 2, 'DEFERRED': 10, 'TIMEOUT': 1, 'NO_UHDM': 1}
+[slX]
+  rows=1588 {'CMP_EQUAL': 937, 'SLANG_REJECT': 567, 'SURELOG_FAIL': 48, 'NO_DATABASE': 3, 'CMP_NOTEQUAL': 19, 'UNTRANSLATABLE': 2, 'DEFERRED': 10, 'TIMEOUT': 1, 'NO_UHDM': 1}
+[slF]
+  rows=1588 {'CMP_EQUAL': 937, 'SLANG_REJECT': 567, 'SURELOG_FAIL': 48, 'NO_DATABASE': 3, 'CMP_NOTEQUAL': 19, 'UNTRANSLATABLE': 2, 'DEFERRED': 10, 'TIMEOUT': 1, 'NO_UHDM': 1}
+[u2rP_tf]
+  rows=731 {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+[u2rX_tf]
+  rows=731 {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+[u2rF_tf]
+  rows=731 {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+[u2rP_def]
+  rows=731 {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+[u2rX_def]
+  rows=731 {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+[u2rF_def]
+  rows=731 {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+
+-- ct8rows (0 differing rows everywhere; status AND dump column) --
+golden_surelog.csv                             vs slX.csv                                  PASS: every row byte-identical to the committed baseline
+golden_surelog.csv                             vs slF.csv                                  PASS: every row byte-identical to the committed baseline
+slP.csv                                        vs slX.csv                                  PASS: every row byte-identical to the committed baseline
+slP.csv                                        vs slF.csv                                  PASS: every row byte-identical to the committed baseline
+slX.csv                                        vs slF.csv                                  PASS: every row byte-identical to the committed baseline
+gate_uhdm2rtlil.csv                            vs u2rF_tf.csv                              PASS: every row byte-identical to the committed baseline
+u2rP_tf.csv                                    vs u2rF_tf.csv                              PASS: every row byte-identical to the committed baseline
+u2rP_def.csv                                   vs u2rF_def.csv                             PASS: every row byte-identical to the committed baseline
+u2rP_tf.csv                                    vs u2rX_tf.csv                              PASS: every row byte-identical to the committed baseline
+u2rP_def.csv                                   vs u2rX_def.csv                             PASS: every row byte-identical to the committed baseline
+
+-- byteverify SELFCHECK=1 --
+[surelog  FIXED vs pristine]
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/Earlgrey_0_1-71da2fd7/slang.uhdm  patched=ce0bcd1c1f62 pristine=706635f304bb
+MOVER ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm  patched=fe73264e79bd pristine=1b68458e9d40
+MOVERS: 2 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+[surelog  patched vs pristine]
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/Earlgrey_0_1-71da2fd7/slang.uhdm  patched=ce0bcd1c1f62 pristine=706635f304bb
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=6b7c9be975d8 pristine=0d80f8f5d07e
+MOVER ./testflags/Earlgrey_0_1-71da2fd7/slang.uhdm  patched=fe73264e79bd pristine=1b68458e9d40
+MOVERS: 3 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+[surelog  FIXED vs patched -- the Scoreboard COIN, alone]
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=0d80f8f5d07e pristine=6b7c9be975d8
+MOVERS: 1 / 956
+[u2r      FIXED vs pristine]
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+[u2r      patched vs pristine]
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+
+-- rowheads (official uhdm-cmp) --
+[pristine]
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         29      1 cmp rc=255
+SeqDriver      testflags       29      1 cmp rc=255
+SimpleUVM      default     664681      1 cmp rc=255
+SimpleUVM      testflags   664681      1 cmp rc=255
+Scoreboard     default         95      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default         29      1 cmp rc=255
+MiniAmiq       testflags       29      1 cmp rc=255
+BuildUVMPkg    default         52      1 cmp rc=255
+BuildUVMPkg    testflags       52      1 cmp rc=255
+Earlgrey_0_1   default         31      1 cmp rc=255
+Earlgrey_0_1   testflags      364      1 cmp rc=255
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+[FIXED]
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         29      1 cmp rc=255
+SeqDriver      testflags       29      1 cmp rc=255
+SimpleUVM      default     664681      1 cmp rc=255
+SimpleUVM      testflags   664681      1 cmp rc=255
+Scoreboard     default         95      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default         29      1 cmp rc=255
+MiniAmiq       testflags       29      1 cmp rc=255
+BuildUVMPkg    default         52      1 cmp rc=255
+BuildUVMPkg    testflags       52      1 cmp rc=255
+Earlgrey_0_1   default         31      1 cmp rc=255
+Earlgrey_0_1   testflags       17      1 cmp rc=255
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+[FIXED cmp logs vs the IMPLEMENTER'S PATCHED cmp logs]
+  SAME BuildUVMPkg.default.cmp
+  SAME BuildUVMPkg.testflags.cmp
+  SAME Earlgrey_0_1.default.cmp
+  SAME Earlgrey_0_1.testflags.cmp
+  SAME MiniAmiq.default.cmp
+  SAME MiniAmiq.testflags.cmp
+  SAME Rggen.default.cmp
+  SAME Scoreboard.default.cmp
+  SAME SeqDriver.default.cmp
+  SAME SeqDriver.testflags.cmp
+  SAME SimpleUVM.default.cmp
+  SAME SimpleUVM.testflags.cmp
+
+-- canaries / ctcan2 / canaudit on the FIXED sweeps --
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+
+-- protected databases, by NAME, pristine vs FIXED --
+InterfaceModPort     default    slP  59a365f3ce2c
+InterfaceModPort     default    slF  59a365f3ce2c
+InterfaceModPort     testflags  slP  59a365f3ce2c
+InterfaceModPort     testflags  slF  59a365f3ce2c
+BlackParrotComplex   default    slP  e3e354129d5a
+BlackParrotComplex   default    slF  e3e354129d5a
+BlackParrotComplex   testflags  slP  73a10e8217e5
+BlackParrotComplex   testflags  slF  73a10e8217e5
+YosysOldOr           default    slP  d68e0796d62c
+YosysOldOr           default    slF  d68e0796d62c
+YosysOldOr           testflags  slP  d68e0796d62c
+YosysOldOr           testflags  slF  d68e0796d62c
+SVSwitch             default    slP  4842211c4030
+SVSwitch             default    slF  4842211c4030
+SVSwitch             testflags  slP  4842211c4030
+SVSwitch             testflags  slF  4842211c4030
+YosysVerx            default    slP  6ccda350c24a
+YosysVerx            default    slF  6ccda350c24a
+YosysVerx            testflags  slP  6ccda350c24a
+YosysVerx            testflags  slF  6ccda350c24a
+
+-- WIDE BOUNDARY, FIXED vs pristine (see BOUNDARY_WIDE.*) --
+PROCESSED=5026 identical=9630 DIFFERING=40 no_output=382
+A/0 9281
+A/139 16
+A/3 366
+A/4 389
+B/0 9281
+B/139 16
+B/3 366
+B/4 389

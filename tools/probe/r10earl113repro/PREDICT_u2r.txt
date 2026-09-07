@@ -1,0 +1,5 @@
+--- GATE-MATCHING cells: 0 ---
+--- PREDICTED MOVE cells: 0 ---
+--- PREDICTED NO-OP cells (gate matches, payload already golden): 0 ---
+--- NOGOLD cells (gate matches, golden has no operand of this kind): 0 ---
+ROWS PREDICTED TO MOVE (0):

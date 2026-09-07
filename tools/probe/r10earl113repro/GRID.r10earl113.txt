@@ -1,0 +1,1105 @@
+s1_scope113_elab                               NOGOLD=1  NOGOLD_UNMOVED=3  ONESIDED=4  SAME_AGREE=10  TOGOLD=4
+s1_scope113_plain                              NOGOLD=5  NOGOLD_UNMOVED=2  ONESIDED=6  SAME_AGREE=10
+s2_opkind113_elab                              NOGOLD_UNMOVED=10  ONESIDED=12  SAME_AGREE=37  STILLWRONG=3  TOGOLD=7
+s2_opkind113_plain                             NOGOLD=7  NOGOLD_UNMOVED=14  ONESIDED=12  SAME_AGREE=35  STILLWRONG=1
+s3_carrier113_elab                             NOGOLD_UNMOVED=1  ONESIDED=4  SAME_AGREE=13  TOGOLD=1
+s3_carrier113_plain                            NOGOLD=1  NOGOLD_UNMOVED=1  ONESIDED=4  SAME_AGREE=13
+s4_fence113_elab                               NOGOLD_UNMOVED=1  ONESIDED=1  SAME_AGREE=14  STILLWRONG=1  TOGOLD=1
+s4_fence113_plain                              NOGOLD=1  NOGOLD_UNMOVED=1  ONESIDED=2  SAME_AGREE=14
+-- TOTAL  NOGOLD=15  NOGOLD_UNMOVED=33  ONESIDED=45  SAME_AGREE=146  STILLWRONG=5  TOGOLD=13
+   [NOGOLD] s1_scope113_elab s1_scope113_elab|PX|95:21-97:39|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] s1_scope113_plain s1_scope113_plain|PX|52:23-54:41|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] s1_scope113_plain s1_scope113_plain|PX|61:25-63:43|sc=gen_scope|gd=2|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] s1_scope113_plain s1_scope113_plain|PX|70:23-72:41|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] s1_scope113_plain s1_scope113_plain|PX|79:25-81:43|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] s1_scope113_plain s1_scope113_plain|PX|95:21-97:39|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] s2_opkind113_plain s2_opkind113_plain|PX|102:21-102:48|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=constant
+       G:None
+       P:["sz=8,dec='4'h3',val='HEX:3',ct=5"]
+       Q:["sz=4,dec='4'h3',val='HEX:3',ct=5"]
+   [NOGOLD] s2_opkind113_plain s2_opkind113_plain|PX|81:21-82:38|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] s2_opkind113_plain s2_opkind113_plain|PX|83:21-84:38|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=ref_obj
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] s2_opkind113_plain s2_opkind113_plain|PX|89:21-90:38|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=operation
+       G:None
+       P:["sz=1,dec='',val='',ot=28"]
+       Q:["sz=0,dec='',val='',ot=28"]
+   [NOGOLD] s2_opkind113_plain s2_opkind113_plain|PX|91:21-92:38|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=bit_select
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] s2_opkind113_plain s2_opkind113_plain|PX|93:21-94:44|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=ref_obj
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] s2_opkind113_plain s2_opkind113_plain|PX|95:21-96:34|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=operation
+       G:None
+       P:["sz=4,dec='',val='',ot=33"]
+       Q:["sz=0,dec='',val='',ot=33"]
+   [NOGOLD] s3_carrier113_plain s3_carrier113_plain|PX|49:21-50:38|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] s4_fence113_plain s4_fence113_plain|PX|64:21-66:52|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+== /tmp/r10earl113_grid/g5/s1_scope113_elab/
+      s1_scope113_elab|PX|111:24-113:42|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=hier_path
+        G: sz=1,dec='',val='' x4
+        P: sz=1,dec='',val='' x4
+        Q: sz=1,dec='',val='' x4
+      s1_scope113_elab|PX|111:24-113:42|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  DIF s1_scope113_elab|PX|121:24-123:42|sc=gen_scope|gd=1|car=cont_assign|lhs=bit_select->NOTS/act=-/decl=-|k=hier_path
+        G: -
+        P: sz=1,dec='',val='' x6
+        Q: sz=1,dec='',val='' x6
+  DIF s1_scope113_elab|PX|121:24-123:42|sc=gen_scope|gd=1|car=cont_assign|lhs=bit_select->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x3
+        P: -
+        Q: -
+  DIF s1_scope113_elab|PX|121:24-123:42|sc=gen_scope|gd=1|car=cont_assign|lhs=bit_select->NOTS/act=array_var/decl=module_inst|k=hier_path
+        G: -
+        P: sz=1,dec='',val='' x3
+        Q: sz=1,dec='',val='' x3
+  DIF s1_scope113_elab|PX|121:24-123:42|sc=gen_scope|gd=1|car=cont_assign|lhs=bit_select->NOTS/act=array_var/decl=module_inst|k=tagged_pattern
+        G: - x3
+        P: -
+        Q: -
+      s1_scope113_elab|PX|121:24-123:42|sc=module_inst|gd=0|car=cont_assign|lhs=bit_select->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  DIF s1_scope113_elab|PX|45:19-47:37|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=hier_path
+        G: -
+        P: sz=0,dec='',val='' x1
+        Q: sz=0,dec='',val='' x1
+      s1_scope113_elab|PX|45:19-47:37|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  DIF s1_scope113_elab|PX|45:19-47:37|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=hier_path
+        G: sz=1,dec='',val='' x4
+        P: sz=1,dec='',val='' x3
+        Q: sz=1,dec='',val='' x3
+  MOV s1_scope113_elab|PX|52:23-54:41|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+        G: sz=0,dec='',val='' x6
+        P: sz=1,dec='',val='' x12
+        Q: sz=0,dec='',val='' x12
+      s1_scope113_elab|PX|52:23-54:41|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  MOV s1_scope113_elab|PX|61:25-63:43|sc=gen_scope|gd=2|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+        G: sz=0,dec='',val='' x12
+        P: sz=1,dec='',val='' x24
+        Q: sz=0,dec='',val='' x24
+  MOV s1_scope113_elab|PX|70:23-72:41|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+        G: sz=0,dec='',val='' x2
+        P: sz=1,dec='',val='' x4
+        Q: sz=0,dec='',val='' x4
+      s1_scope113_elab|PX|70:23-72:41|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+      s1_scope113_elab|PX|79:25-81:43|sc=-|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  MOV s1_scope113_elab|PX|79:25-81:43|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+        G: sz=0,dec='',val='' x2
+        P: sz=1,dec='',val='' x4
+        Q: sz=0,dec='',val='' x4
+      s1_scope113_elab|PX|85:26-87:44|sc=-|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  DIF s1_scope113_elab|PX|95:21-97:39|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x3
+        P: -
+        Q: -
+  MOV s1_scope113_elab|PX|95:21-97:39|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|k=hier_path
+        G: -
+        P: sz=1,dec='',val='' x9
+        Q: sz=0,dec='',val='' x9
+  DIF s1_scope113_elab|PX|95:21-97:39|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|k=tagged_pattern
+        G: - x3
+        P: -
+        Q: -
+      s1_scope113_elab|PX|95:21-97:39|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+== /tmp/r10earl113_grid/g5/s1_scope113_plain/
+      s1_scope113_plain|PX|111:24-113:42|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=hier_path
+        G: sz=1,dec='',val='' x2
+        P: sz=1,dec='',val='' x2
+        Q: sz=1,dec='',val='' x2
+      s1_scope113_plain|PX|111:24-113:42|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  DIF s1_scope113_plain|PX|121:24-123:42|sc=gen_scope|gd=1|car=cont_assign|lhs=bit_select->NOTS/act=-/decl=-|k=hier_path
+        G: -
+        P: sz=1,dec='',val='' x6
+        Q: sz=1,dec='',val='' x6
+  DIF s1_scope113_plain|PX|121:24-123:42|sc=gen_scope|gd=1|car=cont_assign|lhs=bit_select->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x3
+        P: -
+        Q: -
+      s1_scope113_plain|PX|121:24-123:42|sc=module_inst|gd=0|car=cont_assign|lhs=bit_select->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  DIF s1_scope113_plain|PX|45:19-47:37|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=hier_path
+        G: -
+        P: sz=0,dec='',val='' x1
+        Q: sz=0,dec='',val='' x1
+      s1_scope113_plain|PX|45:19-47:37|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  DIF s1_scope113_plain|PX|45:19-47:37|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=hier_path
+        G: sz=1,dec='',val='' x2
+        P: sz=1,dec='',val='' x1
+        Q: sz=1,dec='',val='' x1
+  MOV s1_scope113_plain|PX|52:23-54:41|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+        G: -
+        P: sz=1,dec='',val='' x6
+        Q: sz=0,dec='',val='' x6
+  DIF s1_scope113_plain|PX|52:23-54:41|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=tagged_pattern
+        G: - x3
+        P: -
+        Q: -
+      s1_scope113_plain|PX|52:23-54:41|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  MOV s1_scope113_plain|PX|61:25-63:43|sc=gen_scope|gd=2|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+        G: -
+        P: sz=1,dec='',val='' x12
+        Q: sz=0,dec='',val='' x12
+  DIF s1_scope113_plain|PX|61:25-63:43|sc=gen_scope|gd=2|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=tagged_pattern
+        G: - x6
+        P: -
+        Q: -
+  MOV s1_scope113_plain|PX|70:23-72:41|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+        G: -
+        P: sz=1,dec='',val='' x2
+        Q: sz=0,dec='',val='' x2
+  DIF s1_scope113_plain|PX|70:23-72:41|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=tagged_pattern
+        G: - x1
+        P: -
+        Q: -
+      s1_scope113_plain|PX|70:23-72:41|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+      s1_scope113_plain|PX|79:25-81:43|sc=-|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  MOV s1_scope113_plain|PX|79:25-81:43|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+        G: -
+        P: sz=1,dec='',val='' x2
+        Q: sz=0,dec='',val='' x2
+  DIF s1_scope113_plain|PX|79:25-81:43|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=tagged_pattern
+        G: - x1
+        P: -
+        Q: -
+      s1_scope113_plain|PX|85:26-87:44|sc=-|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  DIF s1_scope113_plain|PX|95:21-97:39|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x3
+        P: -
+        Q: -
+  MOV s1_scope113_plain|PX|95:21-97:39|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|k=hier_path
+        G: -
+        P: sz=1,dec='',val='' x6
+        Q: sz=0,dec='',val='' x6
+      s1_scope113_plain|PX|95:21-97:39|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+== /tmp/r10earl113_grid/g5/s2_opkind113_elab/
+  MOV s2_opkind113_elab|PX|102:21-102:48|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=constant
+        G: sz=4,dec='4'h3',val='HEX:3',ct=5 x6
+        P: sz=8,dec='4'h3',val='HEX:3',ct=5 x9
+        Q: sz=4,dec='4'h3',val='HEX:3',ct=5 x9
+  DIF s2_opkind113_elab|PX|102:21-102:48|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=tagged_pattern
+        G: - x3
+        P: -
+        Q: -
+      s2_opkind113_elab|PX|102:21-102:48|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  DIF s2_opkind113_elab|PX|103:21-103:48|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x3
+        P: -
+        Q: -
+  DIF s2_opkind113_elab|PX|103:21-103:48|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=constant
+        G: sz=8,dec='255',val='UINT:255',ct=9 x6
+        P: sz=8,dec=''1',val='BIN:1',ct=3 x9
+        Q: sz=8,dec=''1',val='BIN:1',ct=3 x9
+      s2_opkind113_elab|PX|103:21-103:48|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  DIF s2_opkind113_elab|PX|50:19-51:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=hier_path
+        G: -
+        P: sz=0,dec='',val='' x1
+        Q: sz=0,dec='',val='' x1
+      s2_opkind113_elab|PX|50:19-51:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+      s2_opkind113_elab|PX|50:19-51:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=hier_path
+        G: sz=1,dec='',val='' x2
+        P: sz=1,dec='',val='' x2
+        Q: sz=1,dec='',val='' x2
+  DIF s2_opkind113_elab|PX|52:19-53:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=ref_obj
+        G: -
+        P: sz=0,dec='',val='' x1
+        Q: sz=0,dec='',val='' x1
+      s2_opkind113_elab|PX|52:19-53:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+      s2_opkind113_elab|PX|52:19-53:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=ref_obj
+        G: sz=1,dec='',val='' x2
+        P: sz=1,dec='',val='' x2
+        Q: sz=1,dec='',val='' x2
+  DIF s2_opkind113_elab|PX|54:19-55:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=constant
+        G: -
+        P: sz=1,dec='1'b1',val='BIN:1',ct=3 x1
+        Q: sz=1,dec='1'b1',val='BIN:1',ct=3 x1
+      s2_opkind113_elab|PX|54:19-55:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+      s2_opkind113_elab|PX|54:19-55:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=constant
+        G: sz=1,dec='1'b1',val='BIN:1',ct=3 x2
+        P: sz=1,dec='1'b1',val='BIN:1',ct=3 x2
+        Q: sz=1,dec='1'b1',val='BIN:1',ct=3 x2
+  DIF s2_opkind113_elab|PX|56:19-57:35|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=constant
+        G: -
+        P: sz=-1,dec=''1',val='BIN:1',ct=3 x1
+        Q: sz=-1,dec=''1',val='BIN:1',ct=3 x1
+      s2_opkind113_elab|PX|56:19-57:35|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+      s2_opkind113_elab|PX|56:19-57:35|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=constant
+        G: sz=1,dec='1',val='UINT:1',ct=9 x2
+        P: sz=1,dec='1',val='UINT:1',ct=9 x2
+        Q: sz=1,dec='1',val='UINT:1',ct=9 x2
+  DIF s2_opkind113_elab|PX|58:19-59:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=operation
+        G: -
+        P: sz=0,dec='',val='',ot=28 x1
+        Q: sz=0,dec='',val='',ot=28 x1
+      s2_opkind113_elab|PX|58:19-59:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+      s2_opkind113_elab|PX|58:19-59:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=operation
+        G: sz=1,dec='',val='',ot=28 x2
+        P: sz=1,dec='',val='',ot=28 x2
+        Q: sz=1,dec='',val='',ot=28 x2
+  DIF s2_opkind113_elab|PX|60:19-61:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=bit_select
+        G: -
+        P: sz=0,dec='',val='' x1
+        Q: sz=0,dec='',val='' x1
+      s2_opkind113_elab|PX|60:19-61:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+      s2_opkind113_elab|PX|60:19-61:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=bit_select
+        G: sz=1,dec='',val='' x2
+        P: sz=1,dec='',val='' x2
+        Q: sz=1,dec='',val='' x2
+  DIF s2_opkind113_elab|PX|62:19-63:42|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=ref_obj
+        G: -
+        P: sz=0,dec='',val='' x1
+        Q: sz=0,dec='',val='' x1
+      s2_opkind113_elab|PX|62:19-63:42|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+      s2_opkind113_elab|PX|62:19-63:42|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=ref_obj
+        G: sz=1,dec='',val='' x2
+        P: sz=1,dec='',val='' x2
+        Q: sz=1,dec='',val='' x2
+  DIF s2_opkind113_elab|PX|64:19-65:32|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=operation
+        G: -
+        P: sz=0,dec='',val='',ot=33 x1
+        Q: sz=0,dec='',val='',ot=33 x1
+      s2_opkind113_elab|PX|64:19-65:32|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+      s2_opkind113_elab|PX|64:19-65:32|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=operation
+        G: sz=4,dec='',val='',ot=33 x2
+        P: sz=4,dec='',val='',ot=33 x2
+        Q: sz=4,dec='',val='',ot=33 x2
+  DIF s2_opkind113_elab|PX|66:19-66:56|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=hier_path
+        G: sz=0,dec='',val='' x1
+        P: sz=0,dec='',val='' x2
+        Q: sz=0,dec='',val='' x2
+      s2_opkind113_elab|PX|66:19-66:56|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=hier_path
+        G: sz=1,dec='',val='' x2
+        P: sz=1,dec='',val='' x2
+        Q: sz=1,dec='',val='' x2
+      s2_opkind113_elab|PX|67:19-67:40|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=constant
+        G: sz=-1,dec=''1',val='BIN:1',ct=3 x1
+        P: sz=-1,dec=''1',val='BIN:1',ct=3 x1
+        Q: sz=-1,dec=''1',val='BIN:1',ct=3 x1
+  DIF s2_opkind113_elab|PX|67:19-67:40|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=constant
+        G: sz=1,dec='1',val='UINT:1',ct=9 x2
+        P: -
+        Q: -
+  DIF s2_opkind113_elab|PX|72:19-72:46|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=constant
+        G: -
+        P: sz=4,dec='4'h3',val='HEX:3',ct=5 x1
+        Q: sz=4,dec='4'h3',val='HEX:3',ct=5 x1
+      s2_opkind113_elab|PX|72:19-72:46|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  DIF s2_opkind113_elab|PX|72:19-72:46|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=constant
+        G: sz=8,dec='4'h3',val='HEX:3',ct=5 x2
+        P: sz=8,dec='3',val='UINT:3',ct=9 x2
+        Q: sz=8,dec='3',val='UINT:3',ct=9 x2
+  DIF s2_opkind113_elab|PX|73:19-73:46|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=constant
+        G: -
+        P: sz=-1,dec=''1',val='BIN:1',ct=3 x1
+        Q: sz=-1,dec=''1',val='BIN:1',ct=3 x1
+      s2_opkind113_elab|PX|73:19-73:46|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+      s2_opkind113_elab|PX|73:19-73:46|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=constant
+        G: sz=8,dec='255',val='UINT:255',ct=9 x2
+        P: sz=8,dec='255',val='UINT:255',ct=9 x2
+        Q: sz=8,dec='255',val='UINT:255',ct=9 x2
+  MOV s2_opkind113_elab|PX|81:21-82:38|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+        G: sz=0,dec='',val='' x6
+        P: sz=1,dec='',val='' x9
+        Q: sz=0,dec='',val='' x9
+  DIF s2_opkind113_elab|PX|81:21-82:38|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=tagged_pattern
+        G: - x3
+        P: -
+        Q: -
+      s2_opkind113_elab|PX|81:21-82:38|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  MOV s2_opkind113_elab|PX|83:21-84:38|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=ref_obj
+        G: sz=0,dec='',val='' x6
+        P: sz=1,dec='',val='' x9
+        Q: sz=0,dec='',val='' x9
+  DIF s2_opkind113_elab|PX|83:21-84:38|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=tagged_pattern
+        G: - x3
+        P: -
+        Q: -
+      s2_opkind113_elab|PX|83:21-84:38|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  DIF s2_opkind113_elab|PX|85:21-86:38|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=constant
+        G: sz=1,dec='1'b1',val='BIN:1',ct=3 x6
+        P: sz=1,dec='1'b1',val='BIN:1',ct=3 x9
+        Q: sz=1,dec='1'b1',val='BIN:1',ct=3 x9
+  DIF s2_opkind113_elab|PX|85:21-86:38|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=tagged_pattern
+        G: - x3
+        P: -
+        Q: -
+      s2_opkind113_elab|PX|85:21-86:38|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  DIF s2_opkind113_elab|PX|87:21-88:37|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x3
+        P: -
+        Q: -
+  DIF s2_opkind113_elab|PX|87:21-88:37|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=constant
+        G: sz=1,dec='1',val='UINT:1',ct=9 x6
+        P: sz=1,dec=''1',val='BIN:1',ct=3 x9
+        Q: sz=1,dec=''1',val='BIN:1',ct=3 x9
+      s2_opkind113_elab|PX|87:21-88:37|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  MOV s2_opkind113_elab|PX|89:21-90:38|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=operation
+        G: sz=0,dec='',val='',ot=28 x6
+        P: sz=1,dec='',val='',ot=28 x9
+        Q: sz=0,dec='',val='',ot=28 x9
+  DIF s2_opkind113_elab|PX|89:21-90:38|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=tagged_pattern
+        G: - x3
+        P: -
+        Q: -
+      s2_opkind113_elab|PX|89:21-90:38|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  MOV s2_opkind113_elab|PX|91:21-92:38|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=bit_select
+        G: sz=0,dec='',val='' x6
+        P: sz=1,dec='',val='' x9
+        Q: sz=0,dec='',val='' x9
+  DIF s2_opkind113_elab|PX|91:21-92:38|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=tagged_pattern
+        G: - x3
+        P: -
+        Q: -
+      s2_opkind113_elab|PX|91:21-92:38|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  MOV s2_opkind113_elab|PX|93:21-94:44|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=ref_obj
+        G: sz=0,dec='',val='' x6
+        P: sz=1,dec='',val='' x9
+        Q: sz=0,dec='',val='' x9
+  DIF s2_opkind113_elab|PX|93:21-94:44|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=tagged_pattern
+        G: - x3
+        P: -
+        Q: -
+      s2_opkind113_elab|PX|93:21-94:44|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  MOV s2_opkind113_elab|PX|95:21-96:34|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=operation
+        G: sz=0,dec='',val='',ot=33 x6
+        P: sz=4,dec='',val='',ot=33 x9
+        Q: sz=0,dec='',val='',ot=33 x9
+  DIF s2_opkind113_elab|PX|95:21-96:34|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=tagged_pattern
+        G: - x3
+        P: -
+        Q: -
+      s2_opkind113_elab|PX|95:21-96:34|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+      s2_opkind113_elab|PX|97:21-97:58|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+        G: sz=0,dec='',val='' x6
+        P: sz=0,dec='',val='' x6
+        Q: sz=0,dec='',val='' x6
+      s2_opkind113_elab|PX|97:21-97:58|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=hier_path
+        G: sz=0,dec='',val='' x1
+        P: sz=0,dec='',val='' x1
+        Q: sz=0,dec='',val='' x1
+  DIF s2_opkind113_elab|PX|98:21-98:42|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=constant
+        G: sz=-1,dec=''1',val='BIN:1',ct=3 x3
+        P: -
+        Q: -
+  DIF s2_opkind113_elab|PX|98:21-98:42|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=constant
+        G: sz=-1,dec=''1',val='BIN:1',ct=3 x3
+        P: sz=-1,dec=''1',val='BIN:1',ct=3 x6
+        Q: sz=-1,dec=''1',val='BIN:1',ct=3 x6
+      s2_opkind113_elab|PX|98:21-98:42|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=constant
+        G: sz=-1,dec=''1',val='BIN:1',ct=3 x1
+        P: sz=-1,dec=''1',val='BIN:1',ct=3 x1
+        Q: sz=-1,dec=''1',val='BIN:1',ct=3 x1
+== /tmp/r10earl113_grid/g5/s2_opkind113_plain/
+  MOV s2_opkind113_plain|PX|102:21-102:48|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=constant
+        G: -
+        P: sz=8,dec='4'h3',val='HEX:3',ct=5 x6
+        Q: sz=4,dec='4'h3',val='HEX:3',ct=5 x6
+  DIF s2_opkind113_plain|PX|102:21-102:48|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=tagged_pattern
+        G: - x3
+        P: -
+        Q: -
+      s2_opkind113_plain|PX|102:21-102:48|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  DIF s2_opkind113_plain|PX|103:21-103:48|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x3
+        P: -
+        Q: -
+  DIF s2_opkind113_plain|PX|103:21-103:48|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=constant
+        G: -
+        P: sz=8,dec=''1',val='BIN:1',ct=3 x6
+        Q: sz=8,dec=''1',val='BIN:1',ct=3 x6
+      s2_opkind113_plain|PX|103:21-103:48|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  DIF s2_opkind113_plain|PX|50:19-51:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=hier_path
+        G: -
+        P: sz=0,dec='',val='' x1
+        Q: sz=0,dec='',val='' x1
+      s2_opkind113_plain|PX|50:19-51:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+      s2_opkind113_plain|PX|50:19-51:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=hier_path
+        G: sz=1,dec='',val='' x1
+        P: sz=1,dec='',val='' x1
+        Q: sz=1,dec='',val='' x1
+  DIF s2_opkind113_plain|PX|52:19-53:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=ref_obj
+        G: -
+        P: sz=0,dec='',val='' x1
+        Q: sz=0,dec='',val='' x1
+      s2_opkind113_plain|PX|52:19-53:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+      s2_opkind113_plain|PX|52:19-53:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=ref_obj
+        G: sz=1,dec='',val='' x1
+        P: sz=1,dec='',val='' x1
+        Q: sz=1,dec='',val='' x1
+  DIF s2_opkind113_plain|PX|54:19-55:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=constant
+        G: -
+        P: sz=1,dec='1'b1',val='BIN:1',ct=3 x1
+        Q: sz=1,dec='1'b1',val='BIN:1',ct=3 x1
+      s2_opkind113_plain|PX|54:19-55:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+      s2_opkind113_plain|PX|54:19-55:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=constant
+        G: sz=1,dec='1'b1',val='BIN:1',ct=3 x1
+        P: sz=1,dec='1'b1',val='BIN:1',ct=3 x1
+        Q: sz=1,dec='1'b1',val='BIN:1',ct=3 x1
+  DIF s2_opkind113_plain|PX|56:19-57:35|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=constant
+        G: -
+        P: sz=-1,dec=''1',val='BIN:1',ct=3 x1
+        Q: sz=-1,dec=''1',val='BIN:1',ct=3 x1
+      s2_opkind113_plain|PX|56:19-57:35|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+      s2_opkind113_plain|PX|56:19-57:35|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=constant
+        G: sz=1,dec='1',val='UINT:1',ct=9 x1
+        P: sz=1,dec='1',val='UINT:1',ct=9 x1
+        Q: sz=1,dec='1',val='UINT:1',ct=9 x1
+  DIF s2_opkind113_plain|PX|58:19-59:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=operation
+        G: -
+        P: sz=0,dec='',val='',ot=28 x1
+        Q: sz=0,dec='',val='',ot=28 x1
+      s2_opkind113_plain|PX|58:19-59:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+      s2_opkind113_plain|PX|58:19-59:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=operation
+        G: sz=1,dec='',val='',ot=28 x1
+        P: sz=1,dec='',val='',ot=28 x1
+        Q: sz=1,dec='',val='',ot=28 x1
+  DIF s2_opkind113_plain|PX|60:19-61:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=bit_select
+        G: -
+        P: sz=0,dec='',val='' x1
+        Q: sz=0,dec='',val='' x1
+      s2_opkind113_plain|PX|60:19-61:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+      s2_opkind113_plain|PX|60:19-61:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=bit_select
+        G: sz=1,dec='',val='' x1
+        P: sz=1,dec='',val='' x1
+        Q: sz=1,dec='',val='' x1
+  DIF s2_opkind113_plain|PX|62:19-63:42|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=ref_obj
+        G: -
+        P: sz=0,dec='',val='' x1
+        Q: sz=0,dec='',val='' x1
+      s2_opkind113_plain|PX|62:19-63:42|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+      s2_opkind113_plain|PX|62:19-63:42|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=ref_obj
+        G: sz=1,dec='',val='' x1
+        P: sz=1,dec='',val='' x1
+        Q: sz=1,dec='',val='' x1
+  DIF s2_opkind113_plain|PX|64:19-65:32|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=operation
+        G: -
+        P: sz=0,dec='',val='',ot=33 x1
+        Q: sz=0,dec='',val='',ot=33 x1
+      s2_opkind113_plain|PX|64:19-65:32|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+      s2_opkind113_plain|PX|64:19-65:32|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=operation
+        G: sz=4,dec='',val='',ot=33 x1
+        P: sz=4,dec='',val='',ot=33 x1
+        Q: sz=4,dec='',val='',ot=33 x1
+  DIF s2_opkind113_plain|PX|66:19-66:56|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=hier_path
+        G: sz=0,dec='',val='' x1
+        P: sz=0,dec='',val='' x2
+        Q: sz=0,dec='',val='' x2
+      s2_opkind113_plain|PX|66:19-66:56|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=hier_path
+        G: sz=1,dec='',val='' x1
+        P: sz=1,dec='',val='' x1
+        Q: sz=1,dec='',val='' x1
+      s2_opkind113_plain|PX|67:19-67:40|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=constant
+        G: sz=-1,dec=''1',val='BIN:1',ct=3 x1
+        P: sz=-1,dec=''1',val='BIN:1',ct=3 x1
+        Q: sz=-1,dec=''1',val='BIN:1',ct=3 x1
+  DIF s2_opkind113_plain|PX|67:19-67:40|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=constant
+        G: sz=1,dec='1',val='UINT:1',ct=9 x1
+        P: -
+        Q: -
+  DIF s2_opkind113_plain|PX|72:19-72:46|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=constant
+        G: -
+        P: sz=4,dec='4'h3',val='HEX:3',ct=5 x1
+        Q: sz=4,dec='4'h3',val='HEX:3',ct=5 x1
+      s2_opkind113_plain|PX|72:19-72:46|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  DIF s2_opkind113_plain|PX|72:19-72:46|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=constant
+        G: sz=8,dec='4'h3',val='HEX:3',ct=5 x1
+        P: sz=8,dec='3',val='UINT:3',ct=9 x1
+        Q: sz=8,dec='3',val='UINT:3',ct=9 x1
+  DIF s2_opkind113_plain|PX|73:19-73:46|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=constant
+        G: -
+        P: sz=-1,dec=''1',val='BIN:1',ct=3 x1
+        Q: sz=-1,dec=''1',val='BIN:1',ct=3 x1
+      s2_opkind113_plain|PX|73:19-73:46|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+      s2_opkind113_plain|PX|73:19-73:46|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=constant
+        G: sz=8,dec='255',val='UINT:255',ct=9 x1
+        P: sz=8,dec='255',val='UINT:255',ct=9 x1
+        Q: sz=8,dec='255',val='UINT:255',ct=9 x1
+  MOV s2_opkind113_plain|PX|81:21-82:38|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+        G: -
+        P: sz=1,dec='',val='' x6
+        Q: sz=0,dec='',val='' x6
+  DIF s2_opkind113_plain|PX|81:21-82:38|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=tagged_pattern
+        G: - x3
+        P: -
+        Q: -
+      s2_opkind113_plain|PX|81:21-82:38|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  MOV s2_opkind113_plain|PX|83:21-84:38|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=ref_obj
+        G: -
+        P: sz=1,dec='',val='' x6
+        Q: sz=0,dec='',val='' x6
+  DIF s2_opkind113_plain|PX|83:21-84:38|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=tagged_pattern
+        G: - x3
+        P: -
+        Q: -
+      s2_opkind113_plain|PX|83:21-84:38|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  DIF s2_opkind113_plain|PX|85:21-86:38|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=constant
+        G: -
+        P: sz=1,dec='1'b1',val='BIN:1',ct=3 x6
+        Q: sz=1,dec='1'b1',val='BIN:1',ct=3 x6
+  DIF s2_opkind113_plain|PX|85:21-86:38|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=tagged_pattern
+        G: - x3
+        P: -
+        Q: -
+      s2_opkind113_plain|PX|85:21-86:38|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  DIF s2_opkind113_plain|PX|87:21-88:37|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x3
+        P: -
+        Q: -
+  DIF s2_opkind113_plain|PX|87:21-88:37|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=constant
+        G: -
+        P: sz=1,dec=''1',val='BIN:1',ct=3 x6
+        Q: sz=1,dec=''1',val='BIN:1',ct=3 x6
+      s2_opkind113_plain|PX|87:21-88:37|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  MOV s2_opkind113_plain|PX|89:21-90:38|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=operation
+        G: -
+        P: sz=1,dec='',val='',ot=28 x6
+        Q: sz=0,dec='',val='',ot=28 x6
+  DIF s2_opkind113_plain|PX|89:21-90:38|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=tagged_pattern
+        G: - x3
+        P: -
+        Q: -
+      s2_opkind113_plain|PX|89:21-90:38|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  MOV s2_opkind113_plain|PX|91:21-92:38|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=bit_select
+        G: -
+        P: sz=1,dec='',val='' x6
+        Q: sz=0,dec='',val='' x6
+  DIF s2_opkind113_plain|PX|91:21-92:38|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=tagged_pattern
+        G: - x3
+        P: -
+        Q: -
+      s2_opkind113_plain|PX|91:21-92:38|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  MOV s2_opkind113_plain|PX|93:21-94:44|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=ref_obj
+        G: -
+        P: sz=1,dec='',val='' x6
+        Q: sz=0,dec='',val='' x6
+  DIF s2_opkind113_plain|PX|93:21-94:44|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=tagged_pattern
+        G: - x3
+        P: -
+        Q: -
+      s2_opkind113_plain|PX|93:21-94:44|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  MOV s2_opkind113_plain|PX|95:21-96:34|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=operation
+        G: -
+        P: sz=4,dec='',val='',ot=33 x6
+        Q: sz=0,dec='',val='',ot=33 x6
+  DIF s2_opkind113_plain|PX|95:21-96:34|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=tagged_pattern
+        G: - x3
+        P: -
+        Q: -
+      s2_opkind113_plain|PX|95:21-96:34|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+      s2_opkind113_plain|PX|97:21-97:58|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+        G: sz=0,dec='',val='' x3
+        P: sz=0,dec='',val='' x3
+        Q: sz=0,dec='',val='' x3
+      s2_opkind113_plain|PX|97:21-97:58|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=hier_path
+        G: sz=0,dec='',val='' x1
+        P: sz=0,dec='',val='' x1
+        Q: sz=0,dec='',val='' x1
+  DIF s2_opkind113_plain|PX|98:21-98:42|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=constant
+        G: sz=-1,dec=''1',val='BIN:1',ct=3 x3
+        P: -
+        Q: -
+  DIF s2_opkind113_plain|PX|98:21-98:42|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=constant
+        G: -
+        P: sz=-1,dec=''1',val='BIN:1',ct=3 x3
+        Q: sz=-1,dec=''1',val='BIN:1',ct=3 x3
+      s2_opkind113_plain|PX|98:21-98:42|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=constant
+        G: sz=-1,dec=''1',val='BIN:1',ct=3 x1
+        P: sz=-1,dec=''1',val='BIN:1',ct=3 x1
+        Q: sz=-1,dec=''1',val='BIN:1',ct=3 x1
+== /tmp/r10earl113_grid/g5/s3_carrier113_elab/
+  DIF s3_carrier113_elab|PX|29:19-30:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=hier_path
+        G: -
+        P: sz=0,dec='',val='' x1
+        Q: sz=0,dec='',val='' x1
+      s3_carrier113_elab|PX|29:19-30:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+      s3_carrier113_elab|PX|29:19-30:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=hier_path
+        G: sz=1,dec='',val='' x2
+        P: sz=1,dec='',val='' x2
+        Q: sz=1,dec='',val='' x2
+      s3_carrier113_elab|PX|33:24-34:41|sc=module_inst|gd=0|car=assignment|lhs=-|k=tagged_pattern
+        G: - x2
+        P: - x2
+        Q: - x2
+      s3_carrier113_elab|PX|37:20-38:39|sc=module_inst|gd=0|car=assignment|lhs=-|k=tagged_pattern
+        G: - x2
+        P: - x2
+        Q: - x2
+      s3_carrier113_elab|PX|40:24-41:43|sc=module_inst|gd=0|car=-|lhs=-|k=constant
+        G: sz=1,dec='1'b1',val='BIN:1',ct=3 x1
+        P: sz=1,dec='1'b1',val='BIN:1',ct=3 x1
+        Q: sz=1,dec='1'b1',val='BIN:1',ct=3 x1
+      s3_carrier113_elab|PX|43:35-44:54|sc=module_inst|gd=0|car=param_assign|lhs=-|k=constant
+        G: sz=1,dec='1'b1',val='BIN:1',ct=3 x1
+        P: sz=1,dec='1'b1',val='BIN:1',ct=3 x1
+        Q: sz=1,dec='1'b1',val='BIN:1',ct=3 x1
+      s3_carrier113_elab|PX|43:35-44:54|sc=module_inst|gd=0|car=param_assign|lhs=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  MOV s3_carrier113_elab|PX|49:21-50:38|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+        G: sz=0,dec='',val='' x6
+        P: sz=1,dec='',val='' x9
+        Q: sz=0,dec='',val='' x9
+  DIF s3_carrier113_elab|PX|49:21-50:38|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=tagged_pattern
+        G: - x3
+        P: -
+        Q: -
+      s3_carrier113_elab|PX|49:21-50:38|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+      s3_carrier113_elab|PX|53:26-54:43|sc=gen_scope|gd=1|car=assignment|lhs=-|k=tagged_pattern
+        G: - x6
+        P: - x6
+        Q: - x6
+      s3_carrier113_elab|PX|53:26-54:43|sc=module_inst|gd=0|car=assignment|lhs=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+      s3_carrier113_elab|PX|57:22-58:41|sc=gen_scope|gd=1|car=assignment|lhs=-|k=tagged_pattern
+        G: - x6
+        P: - x6
+        Q: - x6
+      s3_carrier113_elab|PX|57:22-58:41|sc=module_inst|gd=0|car=assignment|lhs=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  DIF s3_carrier113_elab|PX|60:26-61:45|sc=gen_scope|gd=1|car=-|lhs=-|k=constant
+        G: sz=1,dec='1'b1',val='BIN:1',ct=3 x6
+        P: -
+        Q: -
+  DIF s3_carrier113_elab|PX|60:26-61:45|sc=module_inst|gd=0|car=assignment|lhs=-|k=tagged_pattern
+        G: - x1
+        P: -
+        Q: -
+  DIF s3_carrier113_elab|PX|63:37-64:56|sc=gen_scope|gd=1|car=param_assign|lhs=-|k=constant
+        G: sz=1,dec='1'b1',val='BIN:1',ct=3 x6
+        P: -
+        Q: -
+      s3_carrier113_elab|PX|63:37-64:56|sc=module_inst|gd=0|car=param_assign|lhs=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+== /tmp/r10earl113_grid/g5/s3_carrier113_plain/
+  DIF s3_carrier113_plain|PX|29:19-30:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=hier_path
+        G: -
+        P: sz=0,dec='',val='' x1
+        Q: sz=0,dec='',val='' x1
+      s3_carrier113_plain|PX|29:19-30:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+      s3_carrier113_plain|PX|29:19-30:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=hier_path
+        G: sz=1,dec='',val='' x1
+        P: sz=1,dec='',val='' x1
+        Q: sz=1,dec='',val='' x1
+      s3_carrier113_plain|PX|33:24-34:41|sc=module_inst|gd=0|car=assignment|lhs=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+      s3_carrier113_plain|PX|37:20-38:39|sc=module_inst|gd=0|car=assignment|lhs=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+      s3_carrier113_plain|PX|40:24-41:43|sc=module_inst|gd=0|car=-|lhs=-|k=constant
+        G: sz=1,dec='1'b1',val='BIN:1',ct=3 x1
+        P: sz=1,dec='1'b1',val='BIN:1',ct=3 x1
+        Q: sz=1,dec='1'b1',val='BIN:1',ct=3 x1
+      s3_carrier113_plain|PX|43:35-44:54|sc=module_inst|gd=0|car=param_assign|lhs=-|k=constant
+        G: sz=1,dec='1'b1',val='BIN:1',ct=3 x1
+        P: sz=1,dec='1'b1',val='BIN:1',ct=3 x1
+        Q: sz=1,dec='1'b1',val='BIN:1',ct=3 x1
+      s3_carrier113_plain|PX|43:35-44:54|sc=module_inst|gd=0|car=param_assign|lhs=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  MOV s3_carrier113_plain|PX|49:21-50:38|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+        G: -
+        P: sz=1,dec='',val='' x6
+        Q: sz=0,dec='',val='' x6
+  DIF s3_carrier113_plain|PX|49:21-50:38|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=tagged_pattern
+        G: - x3
+        P: -
+        Q: -
+      s3_carrier113_plain|PX|49:21-50:38|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+      s3_carrier113_plain|PX|53:26-54:43|sc=gen_scope|gd=1|car=assignment|lhs=-|k=tagged_pattern
+        G: - x3
+        P: - x3
+        Q: - x3
+      s3_carrier113_plain|PX|53:26-54:43|sc=module_inst|gd=0|car=assignment|lhs=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+      s3_carrier113_plain|PX|57:22-58:41|sc=gen_scope|gd=1|car=assignment|lhs=-|k=tagged_pattern
+        G: - x3
+        P: - x3
+        Q: - x3
+      s3_carrier113_plain|PX|57:22-58:41|sc=module_inst|gd=0|car=assignment|lhs=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+  DIF s3_carrier113_plain|PX|60:26-61:45|sc=gen_scope|gd=1|car=-|lhs=-|k=constant
+        G: sz=1,dec='1'b1',val='BIN:1',ct=3 x3
+        P: -
+        Q: -
+  DIF s3_carrier113_plain|PX|60:26-61:45|sc=module_inst|gd=0|car=assignment|lhs=-|k=tagged_pattern
+        G: - x1
+        P: -
+        Q: -
+  DIF s3_carrier113_plain|PX|63:37-64:56|sc=gen_scope|gd=1|car=param_assign|lhs=-|k=constant
+        G: sz=1,dec='1'b1',val='BIN:1',ct=3 x3
+        P: -
+        Q: -
+      s3_carrier113_plain|PX|63:37-64:56|sc=module_inst|gd=0|car=param_assign|lhs=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+== /tmp/r10earl113_grid/g5/s4_fence113_elab/
+  DIF s4_fence113_elab|PX|39:19-40:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=hier_path
+        G: -
+        P: sz=0,dec='',val='' x1
+        Q: sz=0,dec='',val='' x1
+      s4_fence113_elab|PX|39:19-40:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+      s4_fence113_elab|PX|39:19-40:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=hier_path
+        G: sz=1,dec='',val='' x2
+        P: sz=1,dec='',val='' x2
+        Q: sz=1,dec='',val='' x2
+      s4_fence113_elab|PX|44:18-44:43|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=array_var/decl=module_inst|k=operation
+        G: sz=12,dec='',val='',ot=33 x2
+        P: sz=12,dec='',val='',ot=33 x2
+        Q: sz=12,dec='',val='',ot=33 x2
+      s4_fence113_elab|PX|44:18-44:43|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=operation
+        G: sz=0,dec='',val='',ot=33 x1
+        P: sz=0,dec='',val='',ot=33 x1
+        Q: sz=0,dec='',val='',ot=33 x1
+      s4_fence113_elab|PX|48:22-48:47|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=array_var/decl=module_inst|k=operation
+        G: sz=0,dec='',val='',ot=33 x2
+        P: sz=0,dec='',val='',ot=33 x2
+        Q: sz=0,dec='',val='',ot=33 x2
+      s4_fence113_elab|PX|48:22-48:47|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=operation
+        G: sz=0,dec='',val='',ot=33 x1
+        P: sz=0,dec='',val='',ot=33 x1
+        Q: sz=0,dec='',val='',ot=33 x1
+      s4_fence113_elab|PX|52:19-52:46|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=array_var/decl=module_inst|k=operation
+        G: sz=0,dec='',val='',ot=75 x2
+        P: sz=0,dec='',val='',ot=75 x2
+        Q: sz=0,dec='',val='',ot=75 x2
+      s4_fence113_elab|PX|52:19-52:46|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=operation
+        G: sz=0,dec='',val='',ot=75 x1
+        P: sz=0,dec='',val='',ot=75 x1
+        Q: sz=0,dec='',val='',ot=75 x1
+      s4_fence113_elab|PX|52:22-52:32|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=array_var/decl=module_inst|k=constant
+        G: sz=64,dec='1',val='UINT:1',ct=9 x2
+        P: sz=64,dec='1',val='UINT:1',ct=9 x2
+        Q: sz=64,dec='1',val='UINT:1',ct=9 x2
+      s4_fence113_elab|PX|52:22-52:32|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=constant
+        G: sz=64,dec='1',val='UINT:1',ct=9 x1
+        P: sz=64,dec='1',val='UINT:1',ct=9 x1
+        Q: sz=64,dec='1',val='UINT:1',ct=9 x1
+      s4_fence113_elab|PX|52:34-52:44|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=array_var/decl=module_inst|k=constant
+        G: sz=64,dec='4',val='UINT:4',ct=9 x2
+        P: sz=64,dec='4',val='UINT:4',ct=9 x2
+        Q: sz=64,dec='4',val='UINT:4',ct=9 x2
+      s4_fence113_elab|PX|52:34-52:44|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=constant
+        G: sz=64,dec='4',val='UINT:4',ct=9 x1
+        P: sz=64,dec='4',val='UINT:4',ct=9 x1
+        Q: sz=64,dec='4',val='UINT:4',ct=9 x1
+  DIF s4_fence113_elab|PX|55:32-55:70|sc=module_inst|gd=0|car=param_assign|lhs=-|k=constant
+        G: sz=32,dec='168',val='INT:168',ct=7 x1
+        P: sz=64,dec='168',val='INT:168',ct=7 x1
+        Q: sz=64,dec='168',val='INT:168',ct=7 x1
+      s4_fence113_elab|PX|55:32-55:70|sc=module_inst|gd=0|car=param_assign|lhs=-|k=operation
+        G: sz=0,dec='',val='',ot=12 x1
+        P: sz=0,dec='',val='',ot=12 x1
+        Q: sz=0,dec='',val='',ot=12 x1
+  MOV s4_fence113_elab|PX|64:21-66:52|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+        G: sz=0,dec='',val='' x6
+        P: sz=1,dec='',val='' x12
+        Q: sz=0,dec='',val='' x12
+  DIF s4_fence113_elab|PX|64:21-66:52|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=tagged_pattern
+        G: - x3
+        P: -
+        Q: -
+      s4_fence113_elab|PX|64:21-66:52|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+== /tmp/r10earl113_grid/g5/s4_fence113_plain/
+  DIF s4_fence113_plain|PX|39:19-40:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=hier_path
+        G: -
+        P: sz=0,dec='',val='' x1
+        Q: sz=0,dec='',val='' x1
+      s4_fence113_plain|PX|39:19-40:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1
+      s4_fence113_plain|PX|39:19-40:36|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=hier_path
+        G: sz=1,dec='',val='' x1
+        P: sz=1,dec='',val='' x1
+        Q: sz=1,dec='',val='' x1
+      s4_fence113_plain|PX|44:18-44:43|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=array_var/decl=module_inst|k=operation
+        G: sz=12,dec='',val='',ot=33 x1
+        P: sz=12,dec='',val='',ot=33 x1
+        Q: sz=12,dec='',val='',ot=33 x1
+      s4_fence113_plain|PX|44:18-44:43|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=operation
+        G: sz=0,dec='',val='',ot=33 x1
+        P: sz=0,dec='',val='',ot=33 x1
+        Q: sz=0,dec='',val='',ot=33 x1
+      s4_fence113_plain|PX|48:22-48:47|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=array_var/decl=module_inst|k=operation
+        G: sz=0,dec='',val='',ot=33 x1
+        P: sz=0,dec='',val='',ot=33 x1
+        Q: sz=0,dec='',val='',ot=33 x1
+      s4_fence113_plain|PX|48:22-48:47|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=operation
+        G: sz=0,dec='',val='',ot=33 x1
+        P: sz=0,dec='',val='',ot=33 x1
+        Q: sz=0,dec='',val='',ot=33 x1
+      s4_fence113_plain|PX|52:19-52:46|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=array_var/decl=module_inst|k=operation
+        G: sz=0,dec='',val='',ot=75 x1
+        P: sz=0,dec='',val='',ot=75 x1
+        Q: sz=0,dec='',val='',ot=75 x1
+      s4_fence113_plain|PX|52:19-52:46|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=operation
+        G: sz=0,dec='',val='',ot=75 x1
+        P: sz=0,dec='',val='',ot=75 x1
+        Q: sz=0,dec='',val='',ot=75 x1
+      s4_fence113_plain|PX|52:22-52:32|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=array_var/decl=module_inst|k=constant
+        G: sz=64,dec='1',val='UINT:1',ct=9 x1
+        P: sz=64,dec='1',val='UINT:1',ct=9 x1
+        Q: sz=64,dec='1',val='UINT:1',ct=9 x1
+      s4_fence113_plain|PX|52:22-52:32|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=constant
+        G: sz=64,dec='1',val='UINT:1',ct=9 x1
+        P: sz=64,dec='1',val='UINT:1',ct=9 x1
+        Q: sz=64,dec='1',val='UINT:1',ct=9 x1
+      s4_fence113_plain|PX|52:34-52:44|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=array_var/decl=module_inst|k=constant
+        G: sz=64,dec='4',val='UINT:4',ct=9 x1
+        P: sz=64,dec='4',val='UINT:4',ct=9 x1
+        Q: sz=64,dec='4',val='UINT:4',ct=9 x1
+      s4_fence113_plain|PX|52:34-52:44|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=logic_net/decl=module_inst|k=constant
+        G: sz=64,dec='4',val='UINT:4',ct=9 x1
+        P: sz=64,dec='4',val='UINT:4',ct=9 x1
+        Q: sz=64,dec='4',val='UINT:4',ct=9 x1
+  DIF s4_fence113_plain|PX|55:32-55:70|sc=module_inst|gd=0|car=param_assign|lhs=-|k=constant
+        G: sz=32,dec='168',val='INT:168',ct=7 x1
+        P: -
+        Q: -
+  DIF s4_fence113_plain|PX|55:32-55:70|sc=module_inst|gd=0|car=param_assign|lhs=-|k=operation
+        G: sz=0,dec='',val='',ot=12 x1
+        P: sz=0,dec='',val='',ot=12 x2
+        Q: sz=0,dec='',val='',ot=12 x2
+  MOV s4_fence113_plain|PX|64:21-66:52|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+        G: -
+        P: sz=1,dec='',val='' x6
+        Q: sz=0,dec='',val='' x6
+  DIF s4_fence113_plain|PX|64:21-66:52|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=tagged_pattern
+        G: - x3
+        P: -
+        Q: -
+      s4_fence113_plain|PX|64:21-66:52|sc=module_inst|gd=0|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=tagged_pattern
+        G: - x1
+        P: - x1
+        Q: - x1

@@ -1,0 +1,6 @@
+== ITERATION 0 : design::Compare -> 1
+   HEAD LHS(golden) = ref_typespec id:793449   0:0-0:0
+        payload: ref_typespec name='' size=0 ts=<null>  @ 0:0-0:0
+   HEAD RHS(ours)   = <null> id:0  <null>
+        payload: <null>
+   KIND MISMATCH or null side -- stop.

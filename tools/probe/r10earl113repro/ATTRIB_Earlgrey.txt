@@ -1,0 +1,44 @@
+########## testflags/Earlgrey_0_1-71da2fd7
+== RAW (order-sensitive) whole-dump diff
+  lines: 120
+== ORDER-BLIND (sorted) whole-dump diff
+  lines: 64
+== ORDER-BLIND diff BY SECTION (0 = before the first uhdmtopModules = DEF,
+   1..n = ELAB, the LAST section is the weaklyReferenced TAIL, NOT COUNTED)
+      1 < sec=0
+      1 > sec=0
+     58 < sec=10
+== CHANGED LINE SHAPES (order-blind, added side)
+      1 /WD/sl_patch/testflags/Earlgrey_N_N-HASH/slang.uhdm: Restored design Pre-Elab: 
+== CHANGED LINE SHAPES (order-blind, removed side)
+     58 |vpiSize:N
+      1 /WD/sl_pris/testflags/Earlgrey_N_N-HASH/slang.uhdm: Restored design Pre-Elab: 
+########## default/Earlgrey_0_1-71da2fd7
+== RAW (order-sensitive) whole-dump diff
+  lines: 62
+== ORDER-BLIND (sorted) whole-dump diff
+  lines: 34
+== ORDER-BLIND diff BY SECTION (0 = before the first uhdmtopModules = DEF,
+   1..n = ELAB, the LAST section is the weaklyReferenced TAIL, NOT COUNTED)
+      1 < sec=0
+      1 > sec=0
+     29 < sec=10
+== CHANGED LINE SHAPES (order-blind, added side)
+      1 /WD/sl_patch/default/Earlgrey_N_N-HASH/slang.uhdm: Restored design Pre-Elab: 
+== CHANGED LINE SHAPES (order-blind, removed side)
+     29 |vpiSize:N
+      1 /WD/sl_pris/default/Earlgrey_N_N-HASH/slang.uhdm: Restored design Pre-Elab: 
+########## default/Scoreboard-59431470
+== RAW (order-sensitive) whole-dump diff
+  lines: 98
+== ORDER-BLIND (sorted) whole-dump diff
+  lines: 4
+== ORDER-BLIND diff BY SECTION (0 = before the first uhdmtopModules = DEF,
+   1..n = ELAB, the LAST section is the weaklyReferenced TAIL, NOT COUNTED)
+      1 < sec=0
+      1 > sec=0
+== CHANGED LINE SHAPES (order-blind, added side)
+      1 /WD/sl_patch/default/Scoreboard-HASH/slang.uhdm: Restored design Pre-Elab: 
+== CHANGED LINE SHAPES (order-blind, removed side)
+      1 /WD/sl_pris/default/Scoreboard-HASH/slang.uhdm: Restored design Pre-Elab: 
+ATTRIBDONE

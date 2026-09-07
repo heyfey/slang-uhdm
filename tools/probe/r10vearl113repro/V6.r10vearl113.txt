@@ -1,0 +1,42 @@
+== v6_name113 -- ONE CELL PER bindVariable CLAUSE, elaborated view.
+   golden / pristine / FIXED, gen-scope rows of the PX census family.
+   34=g1 parameter  42=g2 net  48/51=g4 enclosing-gen  58=g5 port  64=g6 none  70=g3 declared-after
+
+-- GOLDEN (Surelog) --
+v6_name113_elab|PX|34:20-34:59|sc=gen_scope|gd=1|car=cont_assign|lhs=constant->int_typespec|k=tagged_pattern	-	4	v6_name113.sv;ctx=cont_assign<gen_scope<gen_scope_array
+v6_name113_elab|PX|42:20-42:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path	sz=1,dec='',val=''	4	v6_name113.sv;ctx=cont_assign<gen_scope<gen_scope_array
+v6_name113_elab|PX|42:20-42:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=hier_path	sz=1,dec='',val=''	4	v6_name113.sv;ctx=cont_assign<gen_scope<gen_scope_array
+v6_name113_elab|PX|48:20-48:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path	sz=0,dec='',val=''	4	v6_name113.sv;ctx=cont_assign<gen_scope<gen_scope_array
+v6_name113_elab|PX|51:22-51:61|sc=gen_scope|gd=2|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path	sz=0,dec='',val=''	4	v6_name113.sv;ctx=cont_assign<gen_scope<gen_scope_array
+v6_name113_elab|PX|58:20-58:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path	sz=1,dec='',val=''	4	v6_name113.sv;ctx=cont_assign<gen_scope<gen_scope_array
+v6_name113_elab|PX|58:20-58:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=hier_path	sz=1,dec='',val=''	4	v6_name113.sv;ctx=cont_assign<gen_scope<gen_scope_array
+v6_name113_elab|PX|64:20-64:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path	sz=0,dec='',val=''	4	v6_name113.sv;ctx=cont_assign<gen_scope<gen_scope_array
+v6_name113_elab|PX|70:20-70:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path	sz=1,dec='',val=''	4	v6_name113.sv;ctx=cont_assign<gen_scope<gen_scope_array
+v6_name113_elab|PX|70:20-70:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=module_inst|k=hier_path	sz=1,dec='',val=''	4	v6_name113.sv;ctx=cont_assign<gen_scope<gen_scope_array
+
+-- PRISTINE --
+v6_name113_elab|PX|34:20-34:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path	sz=1,dec='',val=''	8	-;ctx=cont_assign<gen_scope<gen_scope_array
+v6_name113_elab|PX|42:20-42:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path	sz=1,dec='',val=''	8	-;ctx=cont_assign<gen_scope<gen_scope_array
+v6_name113_elab|PX|48:20-48:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path	sz=1,dec='',val=''	8	-;ctx=cont_assign<gen_scope<gen_scope_array
+v6_name113_elab|PX|51:22-51:61|sc=gen_scope|gd=2|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path	sz=1,dec='',val=''	8	-;ctx=cont_assign<gen_scope<gen_scope_array
+v6_name113_elab|PX|58:20-58:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path	sz=1,dec='',val=''	8	-;ctx=cont_assign<gen_scope<gen_scope_array
+v6_name113_elab|PX|64:20-64:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path	sz=1,dec='',val=''	8	-;ctx=cont_assign<gen_scope<gen_scope_array
+v6_name113_elab|PX|70:20-70:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path	sz=1,dec='',val=''	8	-;ctx=cont_assign<gen_scope<gen_scope_array
+
+-- FIXED --
+v6_name113_elab|PX|34:20-34:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path	sz=0,dec='',val=''	8	-;ctx=cont_assign<gen_scope<gen_scope_array
+v6_name113_elab|PX|42:20-42:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path	sz=1,dec='',val=''	8	-;ctx=cont_assign<gen_scope<gen_scope_array
+v6_name113_elab|PX|48:20-48:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path	sz=0,dec='',val=''	8	-;ctx=cont_assign<gen_scope<gen_scope_array
+v6_name113_elab|PX|51:22-51:61|sc=gen_scope|gd=2|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path	sz=0,dec='',val=''	8	-;ctx=cont_assign<gen_scope<gen_scope_array
+v6_name113_elab|PX|58:20-58:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path	sz=1,dec='',val=''	8	-;ctx=cont_assign<gen_scope<gen_scope_array
+v6_name113_elab|PX|64:20-64:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path	sz=0,dec='',val=''	8	-;ctx=cont_assign<gen_scope<gen_scope_array
+v6_name113_elab|PX|70:20-70:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path	sz=1,dec='',val=''	8	-;ctx=cont_assign<gen_scope<gen_scope_array
+
+-- the same cells on the IMPLEMENTER'S UNFIXED patch (the three AWAY cells) --
+v6_name113_elab|PX|34:20-34:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path	sz=0,dec='',val=''	8	-;ctx=cont_assign<gen_scope<gen_scope_array
+v6_name113_elab|PX|42:20-42:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path	sz=0,dec='',val=''	8	-;ctx=cont_assign<gen_scope<gen_scope_array
+v6_name113_elab|PX|48:20-48:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path	sz=0,dec='',val=''	8	-;ctx=cont_assign<gen_scope<gen_scope_array
+v6_name113_elab|PX|51:22-51:61|sc=gen_scope|gd=2|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path	sz=0,dec='',val=''	8	-;ctx=cont_assign<gen_scope<gen_scope_array
+v6_name113_elab|PX|58:20-58:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path	sz=0,dec='',val=''	8	-;ctx=cont_assign<gen_scope<gen_scope_array
+v6_name113_elab|PX|64:20-64:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path	sz=0,dec='',val=''	8	-;ctx=cont_assign<gen_scope<gen_scope_array
+v6_name113_elab|PX|70:20-70:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path	sz=0,dec='',val=''	8	-;ctx=cont_assign<gen_scope<gen_scope_array

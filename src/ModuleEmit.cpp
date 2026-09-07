@@ -15178,6 +15178,108 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 explicit GenCaGuard67(bool& fl) : f(fl), saved(fl) { f = true; }
                 ~GenCaGuard67() { f = saved; }
             } genCaGuard67(inGenScopeCa67);
+            // § genScopeCaPatNoFirstSize113 (r10earl113) — THE FENCE, and it
+            // is `bindVariable`'s own scope walk.  Surelog's
+            // `UhdmWriter::writeCont_assign` (UhdmWriter.cpp:2121) opens with
+            // `bindVariable(mod, m, lhs->VpiName(), …)`, whose overload
+            // (CompileStmt.cpp:3089-3148) knows `function`, `task`, `begin` and
+            // `module_inst` and NOTHING ELSE: a `gen_scope` falls to the
+            // default and recurses to its parent.  So a target declared in the
+            // MODULE BODY is found even from inside a generate block — the
+            // writer's `tps` is filled, its `if (tps)` arm runs
+            // `expandPatternAssignment`, and golden SIZES operand 0 — while a
+            // target declared INSIDE the generate block is never found, `tps`
+            // stays null, and only the unrolling clone's flatten has touched
+            // the pattern.  uhdm2rtlil's `gen_struct_access/dut.sv` is the
+            // measured cell: `td2 inst1;` at module scope, assigned from a
+            // pattern inside `if(1) begin : GEN1` — golden sizes its first
+            // operand 64, and a gate without this fence converted that row.
+            //
+            // The walk is § genvarWholeCaRhsFold68's, mirrored onto the Lhs:
+            // start at this block and climb while the scope is a generate
+            // block, so "declared in this generate scope or in a generate
+            // block enclosing it" is TRUE and "declared in the module body"
+            // is FALSE.
+            struct GenCaLhsGuard113 {
+                bool& f;
+                bool saved;
+                GenCaLhsGuard113(bool& fl, bool v) : f(fl), saved(fl) {
+                    f = v;
+                }
+                ~GenCaLhsGuard113() { f = saved; }
+            } genCaLhsGuard113(genCaLhsGenLocal113, [&] {
+                auto& lc113 = stripImplicitConv(ae.left());
+                if (lc113.kind != ExpressionKind::NamedValue)
+                    return false;
+                const Scope* ds =
+                    lc113.as<NamedValueExpression>().symbol.getParentScope();
+                if (!ds)
+                    return false;
+                // THE KIND IS TESTED BEFORE THE IDENTITY, and that ORDER is
+                // the whole fence: a standalone `if` generate block's parent
+                // scope IS the module body, so a walk that compared identity
+                // first would reach the module body on its second step and
+                // call a MODULE-BODY target "gen-local".  Measured: with the
+                // identity test first, arm s1's x2 cell (the
+                // `gen_struct_access` shape) still lost its size.
+                bool genLocal113 = false;
+                for (const Scope* q = &blk; q;) {
+                    auto& qs = q->asSymbol();
+                    if (qs.kind != SymbolKind::GenerateBlock &&
+                        qs.kind != SymbolKind::GenerateBlockArray)
+                        break;
+                    if (q == ds) {
+                        genLocal113 = true;
+                        break;
+                    }
+                    q = qs.getParentScope();
+                }
+                if (!genLocal113)
+                    return false;
+                // AND `bindVariable` BINDS BY NAME, NOT BY SYMBOL
+                // (r10vearl113).  Its walk (CompileStmt.cpp:3089-3148) is
+                // `lhs->VpiName()` against each enclosing scope's own
+                // `Variables()`/`Nets()`, and it recurses PAST `module_inst`
+                // into `scope->VpiParent()`.  So a gen-local target whose NAME
+                // is ALSO declared in an enclosing module body -- or in an
+                // ANCESTOR INSTANCE's body -- IS found: `tps` is filled from
+                // that namesake, `expandPatternAssignment` runs, and golden
+                // SIZES operand 0 even though the assignment's real target is
+                // the gen-local one.  (Golden goes further and re-points the
+                // Lhs `ref_obj` at the namesake -- its own census column reads
+                // `decl=module_inst` on a gen-local assign.)  MEASURED on arm
+                // `v1_decl113`: cell a3 (`sh_v` declared in the module body AND
+                // gen-locally) and cell a7 (the name declared one hierarchy
+                // level UP) are both SIZED by golden, and the identity-only
+                // fence lost both.  Generate scopes are skipped here exactly as
+                // `bindVariable` skips them: a namesake in an enclosing
+                // GENERATE block is NOT found and does not lift the suppress.
+                std::string_view nm113 =
+                    lc113.as<NamedValueExpression>().symbol.name;
+                if (nm113.empty())
+                    return false;
+                for (const Scope* q = &blk; q;) {
+                    auto& qs = q->asSymbol();
+                    if (qs.kind != SymbolKind::GenerateBlock &&
+                        qs.kind != SymbolKind::GenerateBlockArray)
+                        if (const Symbol* hit113 = q->find(nm113)) {
+                            const Symbol* v113 = hit113;
+                            if (v113->kind == SymbolKind::Port)
+                                v113 = v113->as<PortSymbol>().internalSymbol;
+                            if (v113 && (v113->kind == SymbolKind::Variable ||
+                                         v113->kind == SymbolKind::Net))
+                                return false;
+                        }
+                    if (qs.kind == SymbolKind::InstanceBody) {
+                        auto* pi113 =
+                            qs.as<InstanceBodySymbol>().parentInstance;
+                        q = pi113 ? pi113->getParentScope() : nullptr;
+                    } else {
+                        q = qs.getParentScope();
+                    }
+                }
+                return true;
+            }());
             auto* ca = s.MakeCont_assign();
             ca->VpiParent(gs);
             // A comma-list continuous assign gives EVERY cont_assign the whole

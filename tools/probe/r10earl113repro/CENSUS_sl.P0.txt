@@ -1,0 +1,17 @@
+MOVEDWRONG	default/Earlgrey_0_1-71da2fd7|P0|108:26-119:6
+	G {'tagged_pattern': 30}
+	P {"hier_path,sz=1,dec='',val=''": 58, 'tagged_pattern': 1}
+	PATCHED {"hier_path,sz=0,dec='',val=''": 58, 'tagged_pattern': 1}
+SHAPE-MOVEDWRONG	default/Earlgrey_0_1-71da2fd7|P0|108:26-119:6
+	G {'tagged_pattern': 30}
+	P {"hier_path,sz=1,dec='',val=''": 58, 'tagged_pattern': 1}
+	PATCHED {"hier_path,sz=0,dec='',val=''": 58, 'tagged_pattern': 1}
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|P0|108:26-119:6
+	G {"hier_path,sz=0,dec='',val=''": 58, 'tagged_pattern': 30}
+	P {"hier_path,sz=1,dec='',val=''": 116, 'tagged_pattern': 1}
+	PATCHED {"hier_path,sz=0,dec='',val=''": 116, 'tagged_pattern': 1}
+MODE 3-file (golden / pristine / patched)
+keys golden=574 pristine=592 patched=592 joined=572
+STRICT TOGOLD 0  AWAY 0  MOVEDWRONG 2  STILLWRONG 151  SAME_AGREE 419  G-ONLY 2  O-ONLY 20
+SHAPE  TOGOLD 1  AWAY 0  MOVEDWRONG 1  STILLWRONG 26  SAME_AGREE 544  (of which COUNT-ONLY 125)
+ONE-SIDED-CHANGED 0

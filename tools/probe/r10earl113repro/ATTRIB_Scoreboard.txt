@@ -1,0 +1,13 @@
+== RAW (order-sensitive) whole-dump diff
+  lines: 98
+== ORDER-BLIND (sorted) whole-dump diff
+  lines: 4
+== ORDER-BLIND diff BY SECTION (0 = before the first uhdmtopModules = DEF,
+   1..n = ELAB, the LAST section is the weaklyReferenced TAIL, NOT COUNTED)
+      1 < sec=0
+      1 > sec=0
+== CHANGED LINE SHAPES (order-blind, added side)
+      1 /WD/sl_patch/default/Scoreboard-HASH/slang.uhdm: Restored design Pre-Elab: 
+== CHANGED LINE SHAPES (order-blind, removed side)
+      1 /WD/sl_pris/default/Scoreboard-HASH/slang.uhdm: Restored design Pre-Elab: 
+SBDONE

@@ -1,0 +1,12 @@
+MOVEDWRONG	testflags/Earlgrey_0_1-71da2fd7|PX|108:26-119:6|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+	G {"sz=0,dec='',val=''": 58}
+	P {"sz=1,dec='',val=''": 116}
+	PATCHED {"sz=0,dec='',val=''": 116}
+MODE 3-file (golden / pristine / patched)
+keys golden=1191 pristine=1197 patched=1197 joined=1154
+STRICT TOGOLD 0  AWAY 0  MOVEDWRONG 1  STILLWRONG 111  SAME_AGREE 1042  G-ONLY 37  O-ONLY 43
+SHAPE  TOGOLD 1  AWAY 0  MOVEDWRONG 0  STILLWRONG 0  SAME_AGREE 1153  (of which COUNT-ONLY 111)
+ONE-SIDED-CHANGED 1
+ONESIDED	default/Earlgrey_0_1-71da2fd7|PX|108:26-119:6|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+	P {"sz=1,dec='',val=''": 58}
+	PATCHED {"sz=0,dec='',val=''": 58}

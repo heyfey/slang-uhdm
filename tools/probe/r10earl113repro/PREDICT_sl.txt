@@ -1,0 +1,12 @@
+--- GATE-MATCHING cells: 2 ---
+--- PREDICTED MOVE cells: 1 ---
+MOVE	testflags/Earlgrey_0_1-71da2fd7	PX|108:26-119:6|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+	from ["sz=1,dec='',val=''"]
+	to   ["sz=0,dec='',val=''"]
+--- PREDICTED NO-OP cells (gate matches, payload already golden): 0 ---
+--- NOGOLD cells (gate matches, golden has no operand of this kind): 1 ---
+NOGOLD	default/Earlgrey_0_1-71da2fd7	PX|108:26-119:6|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_var/decl=gen_scope|k=hier_path
+	ours ["sz=1,dec='',val=''"]
+ROWS PREDICTED TO MOVE (2):
+  default/Earlgrey_0_1-71da2fd7
+  testflags/Earlgrey_0_1-71da2fd7

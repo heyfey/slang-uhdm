@@ -1,0 +1,12 @@
+-- calibrated arms=8  problems=0
+s1_scope113_elab                               SAME_AGREE=18
+s1_scope113_plain                              SAME_AGREE=16
+s2_opkind113_elab                              SAME_AGREE=59
+s2_opkind113_plain                             SAME_AGREE=48
+s3_carrier113_elab                             SAME_AGREE=18
+s3_carrier113_plain                            SAME_AGREE=17
+s4_fence113_elab                               SAME_AGREE=17
+s4_fence113_plain                              SAME_AGREE=16
+-- TOTAL  SAME_AGREE=209
+(the ONLY verdict allowed above is SAME_AGREE / NOGOLD_UNMOVED / ONESIDED;
+ any TOGOLD, AWAY, MOVEDWRONG or STILLWRONG is instrument instability)

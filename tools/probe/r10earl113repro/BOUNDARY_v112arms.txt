@@ -1,0 +1,133 @@
+v1_call112_elab                                NOGOLD=4  NOGOLD_UNMOVED=1  ONESIDED=10  SAME_AGREE=5
+v1_call112_plain                               NOGOLD=4  NOGOLD_UNMOVED=1  ONESIDED=5  SAME_AGREE=5
+v2_hier112_elab                                NOGOLD=3  NOGOLD_UNMOVED=4  ONESIDED=12  SAME_AGREE=5
+v2_hier112_plain                               NOGOLD=3  NOGOLD_UNMOVED=3  ONESIDED=6  SAME_AGREE=5
+v3_inst112_elab                                NOGOLD=1  ONESIDED=2  SAME_AGREE=1
+v3_inst112_plain                               NOGOLD=1  ONESIDED=1  SAME_AGREE=1
+v4_one112_elab                                 NOGOLD=1  ONESIDED=2  SAME_AGREE=1
+v4_one112_plain                                NOGOLD=1  ONESIDED=1  SAME_AGREE=1
+v5_floor112_elab                               NOGOLD=4  ONESIDED=6  SAME_AGREE=10
+v5_floor112_plain                              NOGOLD=3  ONESIDED=3  SAME_AGREE=10
+v6_call2112_elab                               NOGOLD_UNMOVED=5  ONESIDED=10  SAME_AGREE=5
+v6_call2112_plain                              NOGOLD_UNMOVED=5  ONESIDED=5  SAME_AGREE=5
+v7_iface112_elab                               NOGOLD=1  ONESIDED=2  SAME_AGREE=1
+v7_iface112_plain                              NOGOLD=1  ONESIDED=1  SAME_AGREE=1
+v8_repl112_elab                                NOGOLD=1  ONESIDED=3  SAME_AGREE=2
+v8_repl112_plain                               NOGOLD=1  ONESIDED=2  SAME_AGREE=2
+-- TOTAL  NOGOLD=29  NOGOLD_UNMOVED=19  ONESIDED=71  SAME_AGREE=60
+   [NOGOLD] v1_call112_elab v1_call112_elab|PX|32:17-34:52|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v1_call112_elab v1_call112_elab|PX|37:17-39:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v1_call112_elab v1_call112_elab|PX|42:17-44:58|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v1_call112_elab v1_call112_elab|PX|47:17-49:75|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v1_call112_plain v1_call112_plain|PX|32:17-34:52|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v1_call112_plain v1_call112_plain|PX|37:17-39:59|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v1_call112_plain v1_call112_plain|PX|42:17-44:58|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v1_call112_plain v1_call112_plain|PX|47:17-49:75|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v2_hier112_elab v2_hier112_elab|PX|43:17-45:48|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v2_hier112_elab v2_hier112_elab|PX|51:17-53:52|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v2_hier112_elab v2_hier112_elab|PX|66:19-68:50|sc=gen_scope|gd=2|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v2_hier112_plain v2_hier112_plain|PX|43:17-45:48|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v2_hier112_plain v2_hier112_plain|PX|51:17-53:52|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v2_hier112_plain v2_hier112_plain|PX|66:19-68:50|sc=gen_scope|gd=2|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v3_inst112_elab v3_inst112_elab|PX|25:16-27:47|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v3_inst112_plain v3_inst112_plain|PX|25:16-27:47|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v4_one112_elab v4_one112_elab|PX|17:16-19:47|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v4_one112_plain v4_one112_plain|PX|17:16-19:47|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v5_floor112_elab v5_floor112_elab|PX|39:17-41:48|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v5_floor112_elab v5_floor112_elab|PX|44:17-46:48|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v5_floor112_elab v5_floor112_elab|PX|70:21-72:52|sc=gen_scope|gd=2|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v5_floor112_elab v5_floor112_elab|PX|70:21-72:52|sc=gen_scope|gd=2|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v5_floor112_plain v5_floor112_plain|PX|39:17-41:48|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v5_floor112_plain v5_floor112_plain|PX|44:17-46:48|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v5_floor112_plain v5_floor112_plain|PX|70:21-72:52|sc=gen_scope|gd=2|car=cont_assign|lhs=ref_obj->NOTS/act=-/decl=-|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v7_iface112_elab v7_iface112_elab|PX|27:17-29:45|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v7_iface112_plain v7_iface112_plain|PX|27:17-29:45|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v8_repl112_elab v8_repl112_elab|PX|28:17-30:60|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
+   [NOGOLD] v8_repl112_plain v8_repl112_plain|PX|28:17-30:60|sc=gen_scope|gd=1|car=cont_assign|lhs=ref_obj->NOTS/act=struct_net/decl=gen_scope|k=hier_path
+       G:None
+       P:["sz=1,dec='',val=''"]
+       Q:["sz=0,dec='',val=''"]
