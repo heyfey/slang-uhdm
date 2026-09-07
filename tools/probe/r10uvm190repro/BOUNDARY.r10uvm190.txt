@@ -1,0 +1,59 @@
+== r10uvm190 WIDE BOUNDARY ==
+
+bound190.sh over a COPY of the whole tools/probe tree (top level AND subdirectories),
+both views, pristine vs patched, every child </dev/null, list on fd 3, PROCESSED asserted.
+
+LISTED=5100 PROCESSED=5100 PRODUCED_DBS=4936 MOVED_ARMS=13 RC_DIFFS=0
+
+POSITIVE CONTROL: this pass's own four arms are among the movers, so the gate can see.
+
+MOVED ARMS (13) and their verdicts against a REAL SURELOG GOLDEN (grid190.sh):
+
+  -- this pass's own (4)
+  r10uvm190repro/probe0.sv                  TDCE TO-GOLDEN 2  AWAY 0  STILL-WRONG 0
+  r10uvm190repro/grid190/g190_a_bounds.sv   TDCE TO-GOLDEN 8  AWAY 0  STILL-WRONG 0
+  r10uvm190repro/grid190/g190_b_homes.sv    TDCE TO-GOLDEN 1  AWAY 0  STILL-WRONG 0
+  r10uvm190repro/grid190/g190_c_order.sv    TDCE TO-GOLDEN 5  AWAY 0  STILL-WRONG 0
+
+  -- earlier passes' arms that this law REACHES; each re-measured vs its own golden
+  r10uvm114repro/g114_e_enumbase.sv   TO-GOLDEN 4  AWAY 0  STILL-WRONG 0   (36/36 cells now golden's)
+                                      cmp def 33 -> 33 lines, elab 0 -> 0
+  r10uvm114repro/g114_f_twopkg.sv     TO-GOLDEN 1  AWAY 0  STILL-WRONG 0
+                                      cmp def 33 lines -> 0 lines, rc 255 -> 0: THE ARM'S DEF VIEW IS NOW EQUAL
+  r10uvm114repro/g114_h_ops.sv        TO-GOLDEN 11 AWAY 0  STILL-WRONG 0   (37 -> 48 of 52)
+                                      cmp def 33 -> 36 lines: the head OBJECT changed (a new head's decompile size)
+  r10uvm188repro/probe0.sv            TO-GOLDEN 1  AWAY 0  STILL-WRONG 0   cmp def 33 -> 28 lines
+  r10uvm188repro/grid188/g188_a_shapes.sv  TO-GOLDEN 1  AWAY 0  STILL-WRONG 0   cmp def 33 -> 28 lines
+  r10vbuvm28repro/gv28_c_edges.sv     TO-GOLDEN 1  AWAY 0  STILL-WRONG 0   cmp 20 -> 20 lines
+
+  -- the DECODED .bss STATIC-ADDRESS FALSE MOVER (r10uvm188 README, residue R2) (3)
+  r10uvm154repro/l154_noenum.sv           cmp 17/17 both views UNCHANGED
+  r10uvm185repro/grid185/g185_e_kinds.sv  cmp 92/92 both views UNCHANGED
+  r10buvm22repro/g22.sv                   rc=4/4 on BOTH binaries (no comparable golden)
+  the moved cells are ALL the range of an ASSOCIATIVE dimension, whose bound is a
+  .bss STATIC ADDRESS carried as a UINT constant:
+      pristine  UINT:22621945   patched  UINT:22626041   (+4096 = exactly one page)
+      pristine  UINT:22621089   patched  UINT:22625185   (g22.sv, same +4096)
+  golden reads STRING:associative there.  Wrong before, wrong after, in the SAME way;
+  this pass's own population (TDCE) is ZERO rows in all three arms -- the recorded tell.
+
+MUST-STAY FLOOR, scored explicitly (arms listed / arms moved):
+  r10uvm187repro     listed=6     moved=0
+  r10uvm170repro     listed=5     moved=0
+  r10earl111repro    listed=6     moved=0
+  r10uvm185repro     listed=5     moved=1
+  r10uvm188repro     listed=4     moved=2
+  r10uvm187's § pkgScalarTdParamDefDefer187 arms: 0 moved
+  r10uvm170's arms and fences:                    0 moved
+  r10earl111's int-whitelist arms:                0 moved
+  r10uvm185's arms: 1 of 5 moved, and that one is the .bss address above -- its cmp
+    verdict is byte-identical (92 lines, 1 head, both views) and its TDCE population is 0.
+  r10uvm188's arms: 2 of 5 moved, both TO-GOLDEN 1 / AWAY 0 / STILL-WRONG 0.
+  r10uvm82repro      listed=7     moved=0
+  r10uvm91repro      listed=5     moved=0
+  r10buvm3repro      listed=4     moved=0
+  r10buvm15repro     listed=9     moved=0
+  r10sd8repro        listed=37    moved=0
+  r10sd12repro       listed=108   moved=0
+
+RC_DIFFS=0: no arm's exit status changed on either binary in either view.

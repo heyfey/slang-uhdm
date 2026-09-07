@@ -1,0 +1,47 @@
+== r10uvm190 MOVERS ==
+
+PREDICTION (predict190.sh, from PRISTINE databases ONLY, before the patched sweep):
+PREDICT-MOVER default/BuildUVMPkg-bf853d43 enumbase-bound-cells=2 any-clone-bound-cells=2
+NOT-A-MOVER   testflags/ArrayExprFuncArg-851672e7 enumbase-bound-cells=0 any-clone-bound-cells=1
+PREDICT-MOVER testflags/BuildUVMPkg-bf853d43 enumbase-bound-cells=2 any-clone-bound-cells=2
+NOT-A-MOVER   testflags/DefaultPatternModule-6ea0ce6a enumbase-bound-cells=0 any-clone-bound-cells=1
+NOT-A-MOVER   testflags/Earlgrey_0_1-71da2fd7 enumbase-bound-cells=0 any-clone-bound-cells=17
+NOT-A-MOVER   testflags/LargeValue2Struct-3de40a5e enumbase-bound-cells=0 any-clone-bound-cells=2
+NOT-A-MOVER   testflags/StructUnsizedVal-d65171ab enumbase-bound-cells=0 any-clone-bound-cells=1
+NOT-A-MOVER   testflags/UnsizedParam-5d6fd47e enumbase-bound-cells=0 any-clone-bound-cells=3
+NOT-A-MOVER   testflags/VirtualClass-4b4da5ab enumbase-bound-cells=0 any-clone-bound-cells=1
+-- dirs=1573 no-ours=617 PREDICTED MOVERS=2  wider-TDC-only(no move expected)=7
+
+ACTUAL (byteverify.sh SELFCHECK=1, patched vs pristine workdirs):
+  surelog  MOVERS 3 / 956   PATH_SETS_IDENTICAL (956 paths)  SELFCHECK 955/956 flagged
+    default/BuildUVMPkg-bf853d43    patched f3744d2da5c0  pristine b5719076f044   PREDICTED
+    testflags/BuildUVMPkg-bf853d43  patched f3744d2da5c0  pristine b5719076f044   PREDICTED
+    default/Scoreboard-59431470     patched c09f5e4b3e5b  pristine 9959704d0426   COIN
+  u2r      MOVERS 0 / 1358  PATH_SETS_IDENTICAL (1358 paths) SELFCHECK 1357/1358 flagged
+
+ATTRIBUTION
+  Scoreboard/default — the recorded ~50/50 COIN (svunit_pkg vpiTaskFunc list order).
+    uhdm-dump both sides, workdir path normalised, SORTED (order-blind):
+      1100381 lines each side, diff = 0 lines.  Not this law.
+  BuildUVMPkg (both modes byte-identical to each other) — uhdm-dump, path
+    normalised, SORTED order-blind diff pristine -> patched:
+      REMOVED 0 lines   ADDED 58 lines
+    and the 58 added lines are exactly the two new range subtrees:
+            2 \_bit_typespec: (uvm_field_flag_t), line:N:N, endln:N:N
+            4 \_constant: , line:N:N, endln:N:N
+            6 \_operation: , line:N:N, endln:N:N
+            4 \_range: , line:N:N, endln:N:N
+            2 \_ref_obj: (uvm_pkg::uvm_pkg::uvm_field_flag_t::UVM_FIELD_FLAG_RESERVED_BITS), line:N:N, endln:N:N
+            4 |UINT:N
+            4 |vpiConstType:N
+            4 |vpiDecompile:N
+            2 |vpiFullName:uvm_pkg::uvm_pkg::uvm_field_flag_t::UVM_FIELD_FLAG_RESERVED_BITS
+            2 |vpiLeftRange:
+            2 |vpiName:UVM_FIELD_FLAG_RESERVED_BITS
+            4 |vpiOperand:
+            2 |vpiOpType:N
+           10 |vpiParent:
+            2 |vpiRightRange:
+            4 |vpiSize:N
+    i.e. 2 x { range, operation, ref_obj(UVM_FIELD_FLAG_RESERVED_BITS, NO vpiActual), 2 constants }
+    one per enum-base clone (uvm_radix_enum, uvm_recursion_policy_enum).  Nothing else in the design moved.

@@ -6128,6 +6128,191 @@ static SrlgLitArith srlgEnumLitArith(
     return r;
 }
 
+// § enumBaseTdCloneDanglingRange190 — THE ENUM-BASE CLONE OF A PACKAGE TYPEDEF
+// OWNS ITS PACKED-RANGE SUBTREE, AND THE PARAMETER REFERENCE INSIDE THAT BOUND
+// NEVER BINDS.
+//
+// This is § pkgTdCloneRefNoBind18's cell at the ENUM-BASE position.  That flag
+// (`tdCloneRefNoBind18`) is honoured at the formal / return / body-local clone
+// positions, where the clone's range is RE-MINTED from syntax and the flag can
+// reach the reference.  The enum-base clone below never re-minted anything: it
+// handed the clone the LISTING object's own `Ranges` vector
+// (`n0->Ranges(o0->Ranges())`), so our clone inherited the listing's reference
+// — and the listing's reference is BOUND.
+//
+// SURELOG.  `CompileHelper::compileDatastructureTypespec`'s `SimpleType` arm
+// (`CompileType.cpp:882-896`) reaches a named type through a `TypeDef` and
+// `clone_tree`s the typedef's typespec, hanging a `Typedef_alias` on the copy:
+//
+//     result = sit->getTypespec();
+//     if (parent_tpd && result) {
+//       ElaboratorContext elaboratorContext(&s, false, true);
+//       if (typespec* new_result = any_cast<typespec*>(
+//               UHDM::clone_tree((any*)result, &elaboratorContext))) { ...
+//
+// `clone_tree` is a DEEP copy, so the clone gets its OWN `range`, `operation`
+// and `ref_obj` objects.  `ref_obj::DeepCopy` (UHDM's generated
+// `ref_obj.cpp:104-111`) fills the copy's `Actual_group` from
+// `m_elaborator.bindAny(VpiName())` and then, failing that, from the SOURCE's
+// `Actual_group` — and at the moment of the clone (definition compile) the
+// source is still bare: the typedef listing object's reference is only bound
+// later, by `UhdmWriter::lateBinding` (`UhdmWriter.cpp:3294-3297`), which walks
+// `mod->getLateBinding()` — the list of ref_objs the COMPILER minted.  The
+// clone's ref_obj was never on that list, so it dangles for ever.
+//
+// WITNESS (BuildUVMPkg, `uvm_pkg.sv`):
+//     7856  parameter UVM_FIELD_FLAG_RESERVED_BITS = 28;
+//     7859  typedef bit [UVM_FIELD_FLAG_RESERVED_BITS-1 : 0] uvm_field_flag_t;
+//     7880  typedef enum uvm_field_flag_t { ... } uvm_radix_enum;
+//     7930  typedef enum uvm_field_flag_t { ... } uvm_recursion_policy_enum;
+// golden's two enum-base clones each own a `range`/`operation`/`ref_obj` triple
+// whose `ref_obj` carries NO `vpiActual`, while the package's own listing
+// object `bit_typespec(uvm_pkg::uvm_field_flag_t)` binds its reference to the
+// parameter's `param_assign` Rhs constant.  We shared one triple across all
+// three, so the judge read `vpiActual` on the clone where golden has none —
+// `SafeCompare(nullptr, ours)`, i.e. a `LHS: <null>` head naming our constant.
+//
+// THE GATE.  Object SHARING is invisible to every generated `Compare` (no
+// Compare body reads `VpiParent`, and identity is never a compared field), so
+// re-minting a subtree that holds NO bound reference would move no cell and
+// only churn objects.  The copy is therefore made ONLY when the shared range
+// vector actually holds a BOUND reference, and only when every node in it is
+// one this copier reproduces field-for-field; anything else keeps the shared
+// vector exactly as before this pass.
+static bool cloneRangeCopyable190(const UHDM::any* n, bool& anyBound) {
+    if (!n)
+        return true;
+    switch (n->UhdmType()) {
+        case UHDM::uhdmconstant:
+            return true;
+        case UHDM::uhdmref_obj:
+            if (((const UHDM::ref_obj*)n)->Actual_group())
+                anyBound = true;
+            return true;
+        case UHDM::uhdmoperation: {
+            auto* op = (const UHDM::operation*)n;
+            if (op->Attributes())
+                return false;
+            if (auto* ops = op->Operands())
+                for (auto* o : *ops)
+                    if (!cloneRangeCopyable190(o, anyBound))
+                        return false;
+            return true;
+        }
+        default:
+            return false;
+    }
+}
+
+// True when `rv` is a range vector this pass may re-mint for a clone: every
+// node reproducible AND at least one reference actually bound.
+static bool cloneRangeVecNeedsCopy190(const UHDM::VectorOfrange* rv) {
+    if (!rv || rv->empty())
+        return false;
+    bool anyBound = false;
+    for (auto* r : *rv) {
+        if (!r)
+            return false;
+        if (!cloneRangeCopyable190(r->Left_expr(), anyBound) ||
+            !cloneRangeCopyable190(r->Right_expr(), anyBound))
+            return false;
+    }
+    return anyBound;
+}
+
+static void cloneRangeLoc190(const UHDM::any* src, UHDM::any* dst) {
+    dst->VpiFile(src->VpiFile());
+    dst->VpiLineNo(src->VpiLineNo());
+    dst->VpiColumnNo(src->VpiColumnNo());
+    dst->VpiEndLineNo(src->VpiEndLineNo());
+    dst->VpiEndColumnNo(src->VpiEndColumnNo());
+}
+
+// Copy the `expr` half of a node (the three fields `expr::Compare` reads).  The
+// typespec REF is re-minted so the copy owns its own edge; the typespec OBJECT
+// it names is shared, which is what the listing and the clone already do.
+static void cloneRangeExpr190(UHDM::Serializer& s, const UHDM::expr* src,
+                              UHDM::expr* dst) {
+    dst->VpiDecompile(src->VpiDecompile());
+    dst->VpiSize(src->VpiSize());
+    dst->VpiValue(src->VpiValue());
+    if (auto* rt0 = src->Typespec()) {
+        auto* rt = s.MakeRef_typespec();
+        rt->VpiFullName(rt0->VpiFullName());
+        rt->VpiParent(dst);
+        cloneRangeLoc190(rt0, rt);
+        rt->Actual_typespec((UHDM::typespec*)rt0->Actual_typespec());
+        dst->Typespec(rt);
+    }
+}
+
+static UHDM::any* cloneRangeNode190(UHDM::Serializer& s, const UHDM::any* n,
+                                    UHDM::any* parent) {
+    if (!n)
+        return nullptr;
+    switch (n->UhdmType()) {
+        case UHDM::uhdmconstant: {
+            auto* c0 = (const UHDM::constant*)n;
+            auto* c = s.MakeConstant();
+            c->VpiParent(parent);
+            cloneRangeLoc190(c0, c);
+            cloneRangeExpr190(s, c0, c);
+            c->VpiConstType(c0->VpiConstType());
+            return c;
+        }
+        case UHDM::uhdmref_obj: {
+            auto* r0 = (const UHDM::ref_obj*)n;
+            auto* r = s.MakeRef_obj();
+            r->VpiParent(parent);
+            cloneRangeLoc190(r0, r);
+            cloneRangeExpr190(s, r0, r);
+            r->VpiName(r0->VpiName());
+            r->VpiDefName(r0->VpiDefName());
+            r->VpiFullName(r0->VpiFullName());
+            r->VpiGeneric(r0->VpiGeneric());
+            r->VpiStructMember(r0->VpiStructMember());
+            // THE LAW: no `Actual_group`.  The clone was made before the
+            // writer's late binding ran, so its reference dangles.
+            return r;
+        }
+        case UHDM::uhdmoperation: {
+            auto* o0 = (const UHDM::operation*)n;
+            auto* o = s.MakeOperation();
+            o->VpiParent(parent);
+            cloneRangeLoc190(o0, o);
+            cloneRangeExpr190(s, o0, o);
+            o->VpiOpType(o0->VpiOpType());
+            o->VpiReordered(o0->VpiReordered());
+            o->VpiFlattened(o0->VpiFlattened());
+            o->VpiOpStrong(o0->VpiOpStrong());
+            if (auto* ops0 = o0->Operands()) {
+                auto* ops = s.MakeAnyVec();
+                for (auto* x : *ops0)
+                    ops->push_back(cloneRangeNode190(s, x, o));
+                o->Operands(ops);
+            }
+            return o;
+        }
+        default:
+            return (UHDM::any*)n;  // unreachable: the gate refused the vector
+    }
+}
+
+static UHDM::VectorOfrange* cloneRangeVecUnbound190(
+    UHDM::Serializer& s, const UHDM::VectorOfrange* src, UHDM::any* parent) {
+    auto* rv = s.MakeRangeVec();
+    for (auto* r0 : *src) {
+        auto* r = s.MakeRange();
+        r->VpiParent(parent);
+        cloneRangeLoc190(r0, r);
+        r->VpiSize(r0->VpiSize());
+        r->Left_expr((UHDM::expr*)cloneRangeNode190(s, r0->Left_expr(), r));
+        r->Right_expr((UHDM::expr*)cloneRangeNode190(s, r0->Right_expr(), r));
+        rv->push_back(r);
+    }
+    return rv;
+}
+
 // Shared enum_typespec builder: base typespec (when the syntax declares
 // one) + enum constants with Surelog value encodings.
 UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
@@ -6194,8 +6379,15 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                     auto* n0 = s.MakeBit_typespec();
                     n0->VpiSigned(o0->VpiSigned());
                     n0->VpiVector(o0->VpiVector());
+                    // § enumBaseTdCloneDanglingRange190 (see the helpers above
+                    // this function): the clone owns its range subtree, with a
+                    // DANGLING reference, whenever the shared one holds a bound
+                    // reference; otherwise it shares, exactly as before.
                     if (o0->Ranges())
-                        n0->Ranges(o0->Ranges());
+                        n0->Ranges(cloneRangeVecNeedsCopy190(o0->Ranges())
+                                       ? cloneRangeVecUnbound190(
+                                             s, o0->Ranges(), n0)
+                                       : o0->Ranges());
                     if (o0->Bit_typespec())
                         n0->Bit_typespec(o0->Bit_typespec());
                     if (o0->Typespec())
@@ -6211,8 +6403,13 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                     auto* n0 = s.MakeLogic_typespec();
                     n0->VpiSigned(o0->VpiSigned());
                     n0->VpiVector(o0->VpiVector());
+                    // § enumBaseTdCloneDanglingRange190, the logic_typespec
+                    // twin of the arm above.
                     if (o0->Ranges())
-                        n0->Ranges(o0->Ranges());
+                        n0->Ranges(cloneRangeVecNeedsCopy190(o0->Ranges())
+                                       ? cloneRangeVecUnbound190(
+                                             s, o0->Ranges(), n0)
+                                       : o0->Ranges());
                     if (o0->Elem_typespec())
                         n0->Elem_typespec(o0->Elem_typespec());
                     if (o0->Index_typespec())

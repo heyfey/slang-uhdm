@@ -1,0 +1,81 @@
+== r10uvm190 HEAD DECODE (pristine BuildUVMPkg/default, 33 cmp lines, ONE head) ==
+
+-- the pristine cmp log, read BEFORE a line of code was written
+LHS: <null>
+RHS:
+decompile:
+constant: , id:24, line:7856:42, endln:7856:44
+|vpiParent:
+\_param_assign: , id:23, line:7856:11, endln:7856:44
+|vpiDecompile:28
+|vpiSize:64
+|UINT:28
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg), id:25
+  |vpiParent:
+  \_constant: , id:24, line:7856:42, endln:7856:44
+  |vpiFullName:uvm_pkg
+  |vpiActual:
+  \_int_typespec: , id:26, line:7856:1, endln:7856:44
+|vpiConstType:9
+
+decompile:
+constant: , id:24, line:7856:42, endln:7856:44
+|vpiParent:
+\_param_assign: , id:23, line:7856:11, endln:7856:44
+|vpiDecompile:28
+|vpiSize:64
+|UINT:28
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg), id:25
+  |vpiParent:
+  \_constant: , id:24, line:7856:42, endln:7856:44
+  |vpiFullName:uvm_pkg
+  |vpiActual:
+  \_int_typespec: , id:26, line:7856:1, endln:7856:44
+|vpiConstType:9
+
+-- STEP 1: mask the whole candidate family (ct190mask family)
+BASE r=-1 LHS(golden)=<null> RHS(ours)=constant()@7856:42-7856:44#24
+family kind=param_assign line=7856 size=2
+MASK-WHOLE-FAMILY r=-1 head SAME (owner is NOT in this family)  LHS=<null> RHS=constant()@7856:42-7856:44#24
+BASE r=-1 LHS(golden)=<null> RHS(ours)=constant()@7856:42-7856:44#24
+family kind=* line=7856 size=8
+MASK-WHOLE-FAMILY r=-1 head SAME (owner is NOT in this family)  LHS=<null> RHS=constant()@7856:42-7856:44#24
+BASE r=-1 LHS(golden)=<null> RHS(ours)=constant()@7856:42-7856:44#24
+family kind=ref_obj line=7859 size=30
+MASK-WHOLE-FAMILY r=14 head CHANGED (the owner IS in this family)  LHS=function(uvm_root::get)@38754:1-38757:12#60621 RHS=function(get)@38754:1-38757:12#94901
+
+-- STEP 2: leave-one-out within the family that owns it
+BASE r=-1 LHS(golden)=<null> RHS(ours)=constant()@7856:42-7856:44#24
+family kind=ref_obj line=7859 size=30
+KEEP ref_obj(UVM_FIELD_FLAG_RESERVED_BITS)@7859:14-7859:42#61377 head changed
+KEEP ref_obj(UVM_FIELD_FLAG_RESERVED_BITS)@7859:14-7859:42#61385 head SAME  <== this object ALONE produces the head
+KEEP ref_obj(UVM_FIELD_FLAG_RESERVED_BITS)@7859:14-7859:42#61511 head SAME  <== this object ALONE produces the head
+KEEP ref_obj(UVM_FIELD_FLAG_RESERVED_BITS)@7859:14-7859:42#61576 head changed
+KEEP ref_obj(UVM_FIELD_FLAG_RESERVED_BITS)@7859:14-7859:42#61613 head changed
+KEEP ref_obj(UVM_FIELD_FLAG_RESERVED_BITS)@7859:14-7859:42#61650 head changed
+KEEP ref_obj(UVM_FIELD_FLAG_RESERVED_BITS)@7859:14-7859:42#61687 head changed
+KEEP ref_obj(UVM_FIELD_FLAG_RESERVED_BITS)@7859:14-7859:42#61724 head changed
+KEEP ref_obj(UVM_FIELD_FLAG_RESERVED_BITS)@7859:14-7859:42#61761 head changed
+KEEP ref_obj(UVM_FIELD_FLAG_RESERVED_BITS)@7859:14-7859:42#61797 head changed
+KEEP ref_obj(UVM_FIELD_FLAG_RESERVED_BITS)@7859:14-7859:42#61833 head changed
+KEEP ref_obj(UVM_FIELD_FLAG_RESERVED_BITS)@7859:14-7859:42#61869 head changed
+KEEP ref_obj(UVM_FIELD_FLAG_RESERVED_BITS)@7859:14-7859:42#61905 head changed
+KEEP ref_obj(UVM_FIELD_FLAG_RESERVED_BITS)@7859:14-7859:42#61941 head changed
+KEEP ref_obj(UVM_FIELD_FLAG_RESERVED_BITS)@7859:14-7859:42#61977 head changed
+KEEP ref_obj(UVM_FIELD_FLAG_RESERVED_BITS)@7859:14-7859:42#62013 head changed
+KEEP ref_obj(UVM_FIELD_FLAG_RESERVED_BITS)@7859:14-7859:42#62049 head changed
+KEEP ref_obj(UVM_FIELD_FLAG_RESERVED_BITS)@7859:14-7859:42#62085 head changed
+KEEP ref_obj(UVM_FIELD_FLAG_RESERVED_BITS)@7859:14-7859:42#62121 head changed
+KEEP ref_obj(UVM_FIELD_FLAG_RESERVED_BITS)@7859:14-7859:42#62157 head changed
+KEEP ref_obj(UVM_FIELD_FLAG_RESERVED_BITS)@7859:14-7859:42#62186 head changed
+KEEP ref_obj(UVM_FIELD_FLAG_RESERVED_BITS)@7859:14-7859:42#62222 head changed
+KEEP ref_obj(UVM_FIELD_FLAG_RESERVED_BITS)@7859:14-7859:42#62258 head changed
+KEEP ref_obj(UVM_FIELD_FLAG_RESERVED_BITS)@7859:14-7859:42#62294 head changed
+KEEP ref_obj(UVM_FIELD_FLAG_RESERVED_BITS)@7859:14-7859:42#62330 head changed
+KEEP ref_obj(UVM_FIELD_FLAG_RESERVED_BITS)@7859:14-7859:42#62366 head changed
+KEEP ref_obj(UVM_FIELD_FLAG_RESERVED_BITS)@7859:14-7859:42#62402 head changed
+KEEP ref_obj(UVM_FIELD_FLAG_RESERVED_BITS)@7859:14-7859:42#62438 head changed
+KEEP ref_obj(UVM_FIELD_FLAG_RESERVED_BITS)@7859:14-7859:42#62474 head changed
+KEEP ref_obj(UVM_FIELD_FLAG_RESERVED_BITS)@7859:14-7859:42#64936 head changed

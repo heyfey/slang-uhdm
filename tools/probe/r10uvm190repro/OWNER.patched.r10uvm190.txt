@@ -1,0 +1,37 @@
+design::Compare r=14
+HEAD LHS(golden) = function(uvm_root::get)@38754:1-38757:12#60621
+HEAD RHS(ours)   = function(get)@38754:1-38757:12#94911
+HEAD RHS parent chain:
+    < class_defn(uvm_root)@38485:1-38740:9#94678
+    < package(uvm_pkg)@7351:1-83263:11#2752
+    < design(unnamed)@0:0-0:0#1
+MIRROR REFERENCE SCAN — every edge of OURS that lands on the head, and golden's:
+  ours   begin()@38756:2-38756:23#94918
+      edge vpiType=81 (singular)   cast=-
+      golden begin()@38756:2-38756:23#18370 -> singular function(get)@38754:1-38757:12#786
+  ours   class_defn(uvm_root)@38485:1-38740:9#94678
+      edge vpiType=645 (vector index 33)   cast=-
+      golden class_defn(uvm_root)@38485:1-38740:9#118 -> vector present size 60, [33] = function(get)@38754:1-38757:12#786
+  ours   class_var()@38754:10-38754:18#94912
+      edge vpiType=81 (singular)   cast=-
+      golden class_var()@38754:10-38754:18#18367 -> singular function(get)@38754:1-38757:12#786
+  ours   func_call(uvm_root::get)@9855:11-9855:19#2551
+      edge vpiType=20 (singular)   cast=-
+      golden func_call(uvm_root::get)@9855:11-9855:19#4784 -> singular function(get)@38754:1-38757:12#786
+      golden func_call(uvm_root::get)@9855:11-9855:19#64480 -> singular function(uvm_root::get)@38754:1-38757:12#60621
+  ours   func_call(uvm_root::get)@9855:11-9855:19#5280
+      edge vpiType=20 (singular)   cast=-
+      golden func_call(uvm_root::get)@9855:11-9855:19#4784 -> singular function(get)@38754:1-38757:12#786
+      golden func_call(uvm_root::get)@9855:11-9855:19#64480 -> singular function(uvm_root::get)@38754:1-38757:12#60621
+  ours   func_call(uvm_root::get)@29217:10-29217:18#87256
+      edge vpiType=20 (singular)   cast=-
+      golden func_call(uvm_root::get)@29217:10-29217:18#161763 -> singular function(get)@38754:1-38757:12#786
+  ours   func_call(uvm_root::get)@29218:8-29218:16#87257
+      edge vpiType=20 (singular)   cast=-
+      golden func_call(uvm_root::get)@29218:8-29218:16#161765 -> singular function(get)@38754:1-38757:12#786
+  ours   func_call(uvm_root::get)@29526:10-29526:18#87908
+      edge vpiType=20 (singular)   cast=-
+      golden func_call(uvm_root::get)@29526:10-29526:18#162436 -> singular function(get)@38754:1-38757:12#786
+  ours   func_call(uvm_root::get)@29527:8-29527:16#87909
+      edge vpiType=20 (singular)   cast=-
+      golden func_call(uvm_root::get)@29527:8-29527:16#162438 -> singular function(get)@38754:1-38757:12#786

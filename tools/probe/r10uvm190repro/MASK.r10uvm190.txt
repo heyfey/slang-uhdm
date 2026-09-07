@@ -1,0 +1,53 @@
+BASE r=-1 LHS=<null> RHS=constant()@7856:42-7856:44#24
+golden objects: 183142
+PATH MEMBERS (masking any one of them changes the head): 18
+  design(unnamed)@0:0-0:0#191741
+      e2007 [3]
+      e2010 [2]
+  enum_typespec(uvm_pkg::uvm_radix_enum)@25526:32-25526:46#1590
+      e634  [14]
+      e703  -> ref_typespec()@0:0-0:0#1591
+      e745  -> package(uvm_pkg)@7351:1-83263:11#1
+  enum_typespec(uvm_pkg::uvm_recursion_policy_enum)@24645:46-24645:71#1711
+      e634  [4]
+      e703  -> ref_typespec()@0:0-0:0#1712
+      e745  -> package(uvm_pkg)@7351:1-83263:11#1
+  enum_var(default_radix)@19786:18-19786:31#187598
+      e102  -> ref_obj(UVM_HEX)@19786:34-19786:41#187597
+      e605  -> ref_typespec()@0:0-0:0#187599
+  io_decl(fields)@72083:55-72083:61#43634
+      e115  [1]
+      e725  -> ref_typespec()@0:0-0:0#43639
+  io_decl(regs)@78504:56-78504:60#56031
+      e115  [1]
+      e725  -> ref_typespec()@0:0-0:0#56036
+  io_decl(mems)@78535:55-78535:59#56111
+      e115  [1]
+      e725  -> ref_typespec()@0:0-0:0#56116
+  io_decl(maps)@78636:55-78636:59#56374
+      e115  [1]
+      e725  -> ref_typespec()@0:0-0:0#56379
+  package(uvm_pkg)@7351:1-83263:11#60163
+      e40   [41]
+      e41   [41]
+      e100  [26]
+      e127  [979]
+      e725  [48]
+  ref_typespec()@0:0-0:0#16465
+      e700  -> array_typespec()@34544:8-34544:31#16463
+  ref_typespec()@0:0-0:0#16567
+      e700  -> array_typespec()@34573:8-34573:29#16565
+  ref_typespec()@0:0-0:0#16746
+      e700  -> array_typespec()@34638:9-34638:32#16744
+  ref_typespec()@0:0-0:0#17949
+      e700  -> array_typespec()@35123:7-35123:26#17947
+  ref_typespec()@0:0-0:0#22882
+      e700  -> string_typespec()@41169:10-41169:16#22879
+  ref_typespec()@0:0-0:0#43639
+      e700  -> class_typespec(uvm_vreg_field)@72083:40-72083:54#43638
+  ref_typespec()@0:0-0:0#56036
+      e700  -> class_typespec(uvm_reg)@78504:48-78504:55#56035
+  ref_typespec()@0:0-0:0#56116
+      e700  -> class_typespec(uvm_mem)@78535:47-78535:54#56115
+  ref_typespec()@0:0-0:0#56379
+      e700  -> class_typespec(uvm_reg_map)@78636:43-78636:54#56378

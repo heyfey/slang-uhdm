@@ -1,0 +1,377 @@
+== r10uvm190 GRIDS — four arms, ONE REAL SURELOG GOLDEN each, BOTH views ==
+
+driver: grid190.sh (builds surelog -parse/-elabuhdm + both binaries, records EVERY rc)
+arms  : probe0.sv, grid190/g190_a_bounds.sv, grid190/g190_b_homes.sv, grid190/g190_c_order.sv
+
+########## probe0
+--- rcs / cmp (from cmds.txt)
+cen rc=0 g_def/slpp_all/surelog.uhdm rows=12
+cen rc=0 a_def.uhdm rows=10
+cen rc=0 b_def.uhdm rows=10
+cmp rc=255 a def lines=738 heads=1
+cmp rc=255 b def lines=738 heads=1
+cen rc=0 g_elab/slpp_all/surelog.uhdm rows=12
+cen rc=0 a_elab.uhdm rows=10
+cen rc=0 b_elab.uhdm rows=10
+cmp rc=255 a elab lines=738 heads=1
+cmp rc=255 b elab lines=738 heads=1
+cmp rc=255 a def lines=738 heads=1
+cmp rc=255 b def lines=738 heads=1
+cmp rc=255 a elab lines=738 heads=1
+cmp rc=255 b elab lines=738 heads=1
+--- section TDCE
+section=TDCE  golden rows=8  pristine rows=8  patched rows=8
+  golden cells      8
+  our cells         pristine 8   patched 8
+  matching golden   pristine 6   patched 8
+  changed cells     4
+  TO-GOLDEN           2
+  AWAY-GOLDEN         0
+  CHANGED-STILL-WRONG 0
+  WRONG-KEPT          0
+  RIGHT-KEPT          4
+  moved keys          1
+  KEY def | TDCE | bit_typespec | flag_t | 15:11-15:31 | bit_typespec | pk190::flag_t | 15:11-15:31 | package
+     golden   x2    RANGES=1 {L=const(27,64,INT:27,7) R=const(0,64,UINT:0,9)}
+     golden   x2    RANGES=1 {L=op(11,dec=-,sz=0,[ref(RES_BITS,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     pristine x2    RANGES=1 {L=const(27,64,INT:27,7) R=const(0,64,UINT:0,9)}
+     pristine x2    RANGES=1 {L=op(11,dec=-,sz=0,[ref(RES_BITS,BOUND:constant)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     patched  x2    RANGES=1 {L=const(27,64,INT:27,7) R=const(0,64,UINT:0,9)}
+     patched  x2    RANGES=1 {L=op(11,dec=-,sz=0,[ref(RES_BITS,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     match pristine=2 patched=4
+--- section TDC
+section=TDC  golden rows=12  pristine rows=8  patched rows=8
+  golden cells      12
+  our cells         pristine 8   patched 8
+  matching golden   pristine 6   patched 8
+  changed cells     4
+  TO-GOLDEN           2
+  AWAY-GOLDEN         0
+  CHANGED-STILL-WRONG 0
+  WRONG-KEPT          0
+  RIGHT-KEPT          4
+  moved keys          1
+  KEY def | TDC | bit_typespec | flag_t | 15:11-15:31 | bit_typespec | pk190::flag_t | 15:11-15:31 | package
+     golden   x3    RANGES=1 {L=const(27,64,INT:27,7) R=const(0,64,UINT:0,9)}
+     golden   x3    RANGES=1 {L=op(11,dec=-,sz=0,[ref(RES_BITS,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     pristine x2    RANGES=1 {L=const(27,64,INT:27,7) R=const(0,64,UINT:0,9)}
+     pristine x2    RANGES=1 {L=op(11,dec=-,sz=0,[ref(RES_BITS,BOUND:constant)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     patched  x2    RANGES=1 {L=const(27,64,INT:27,7) R=const(0,64,UINT:0,9)}
+     patched  x2    RANGES=1 {L=op(11,dec=-,sz=0,[ref(RES_BITS,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     match pristine=2 patched=4
+
+########## g190_a_bounds
+--- rcs / cmp (from cmds.txt)
+cen rc=0 g_def/slpp_all/surelog.uhdm rows=44
+cen rc=0 a_def.uhdm rows=44
+cen rc=0 b_def.uhdm rows=44
+cmp rc=255 a def lines=33 heads=1
+cmp rc=255 b def lines=50 heads=1
+cen rc=0 g_elab/slpp_all/surelog.uhdm rows=44
+cen rc=0 a_elab.uhdm rows=44
+cen rc=0 b_elab.uhdm rows=44
+cmp rc=255 a elab lines=31 heads=1
+cmp rc=255 b elab lines=50 heads=1
+cmp rc=255 a def lines=33 heads=1
+cmp rc=255 b def lines=50 heads=1
+cmp rc=255 a elab lines=31 heads=1
+cmp rc=255 b elab lines=50 heads=1
+--- section TDCE
+section=TDCE  golden rows=36  pristine rows=36  patched rows=36
+  golden cells      36
+  our cells         pristine 36   patched 36
+  matching golden   pristine 24   patched 32
+  changed cells     16
+  TO-GOLDEN           8
+  AWAY-GOLDEN         0
+  CHANGED-STILL-WRONG 0
+  WRONG-KEPT          3
+  RIGHT-KEPT          17
+  moved keys          8
+  KEY def | TDCE | bit_typespec | t_2d | 40:11-40:28 | bit_typespec | pka190::t_2d | 40:11-40:28 | package
+     golden   x1    RANGES=1 {L=const(7,64,INT:7,7) R=const(0,64,UINT:0,9)}
+     golden   x1    RANGES=1 {L=op(24,dec=-,sz=0,[op(11,dec=-,sz=0,[ref(PW,BARE)|ref(PW,BARE)])|const(7,64,UINT:7,9)]) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=const(7,64,INT:7,7) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=op(24,dec=-,sz=0,[op(11,dec=-,sz=0,[ref(PW,BOUND:constant)|ref(PW,BOUND:constant)])|const(7,64,UINT:7,9)]) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=const(7,64,INT:7,7) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=op(24,dec=-,sz=0,[op(11,dec=-,sz=0,[ref(PW,BARE)|ref(PW,BARE)])|const(7,64,UINT:7,9)]) R=const(0,64,UINT:0,9)}
+     match pristine=1 patched=2
+  KEY def | TDCE | bit_typespec | t_bare | 24:11-24:23 | bit_typespec | pka190::t_bare | 24:11-24:23 | package
+     golden   x1    RANGES=1 {L=const(28,32,UINT:28,9) R=const(0,64,UINT:0,9)}
+     golden   x1    RANGES=1 {L=ref(PW,BARE) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=const(28,64,UINT:28,9) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=ref(PW,BOUND:constant) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=const(28,64,UINT:28,9) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=ref(PW,BARE) R=const(0,64,UINT:0,9)}
+     match pristine=0 patched=1
+  KEY def | TDCE | bit_typespec | t_lp | 28:11-28:25 | bit_typespec | pka190::t_lp | 28:11-28:25 | package
+     golden   x1    RANGES=1 {L=const(19,64,INT:19,7) R=const(0,64,UINT:0,9)}
+     golden   x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(LW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=const(19,64,INT:19,7) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(LW,BOUND:constant)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=const(19,64,INT:19,7) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(LW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     match pristine=1 patched=2
+  KEY def | TDCE | bit_typespec | t_op | 20:11-20:25 | bit_typespec | pka190::t_op | 20:11-20:25 | package
+     golden   x1    RANGES=1 {L=const(27,64,INT:27,7) R=const(0,64,UINT:0,9)}
+     golden   x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(PW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=const(27,64,INT:27,7) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(PW,BOUND:constant)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=const(27,64,INT:27,7) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(PW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     match pristine=1 patched=2
+  KEY def | TDCE | bit_typespec | t_two | 36:11-36:26 | bit_typespec | pka190::t_two | 36:11-36:26 | package
+     golden   x1    RANGES=1 {L=const(8,64,INT:8,7) R=const(0,64,UINT:0,9)}
+     golden   x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(PW,BARE)|ref(LW,BARE)]) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=const(8,64,INT:8,7) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(PW,BOUND:constant)|ref(LW,BOUND:constant)]) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=const(8,64,INT:8,7) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(PW,BARE)|ref(LW,BARE)]) R=const(0,64,UINT:0,9)}
+     match pristine=1 patched=2
+  KEY def | TDCE | bit_typespec | t_xpkg | 44:11-44:33 | bit_typespec | pka190::t_xpkg | 44:11-44:33 | package
+     golden   x1    RANGES=1 {L=const(11,64,INT:11,7) R=const(0,64,UINT:0,9)}
+     golden   x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(pkx190::XW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=const(11,64,INT:11,7) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(pkx190::XW,BOUND:parameter)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=const(11,64,INT:11,7) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(pkx190::XW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     match pristine=1 patched=2
+  KEY def | TDCE | logic_typespec | t_log | 48:11-48:27 | logic_typespec | pka190::t_log | 48:11-48:27 | package
+     golden   x1    RANGES=1 {L=const(27,64,INT:27,7) R=const(0,64,UINT:0,9)}
+     golden   x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(PW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=const(27,64,INT:27,7) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(PW,BOUND:constant)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=const(27,64,INT:27,7) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(PW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     match pristine=1 patched=2
+  KEY elab | TDCE | bit_typespec | t_xpkg | 44:11-44:33 | bit_typespec | pka190::t_xpkg | 44:11-44:33 | package
+     golden   x1    RANGES=1 {L=const(11,64,INT:11,7) R=const(0,64,UINT:0,9)}
+     golden   x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(pkx190::XW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=const(11,64,INT:11,7) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(pkx190::XW,BOUND:parameter)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=const(11,64,INT:11,7) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(pkx190::XW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     match pristine=1 patched=2
+--- section TDC
+section=TDC  golden rows=36  pristine rows=36  patched rows=36
+  golden cells      36
+  our cells         pristine 36   patched 36
+  matching golden   pristine 24   patched 32
+  changed cells     16
+  TO-GOLDEN           8
+  AWAY-GOLDEN         0
+  CHANGED-STILL-WRONG 0
+  WRONG-KEPT          3
+  RIGHT-KEPT          17
+  moved keys          8
+  KEY def | TDC | bit_typespec | t_2d | 40:11-40:28 | bit_typespec | pka190::t_2d | 40:11-40:28 | package
+     golden   x1    RANGES=1 {L=const(7,64,INT:7,7) R=const(0,64,UINT:0,9)}
+     golden   x1    RANGES=1 {L=op(24,dec=-,sz=0,[op(11,dec=-,sz=0,[ref(PW,BARE)|ref(PW,BARE)])|const(7,64,UINT:7,9)]) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=const(7,64,INT:7,7) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=op(24,dec=-,sz=0,[op(11,dec=-,sz=0,[ref(PW,BOUND:constant)|ref(PW,BOUND:constant)])|const(7,64,UINT:7,9)]) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=const(7,64,INT:7,7) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=op(24,dec=-,sz=0,[op(11,dec=-,sz=0,[ref(PW,BARE)|ref(PW,BARE)])|const(7,64,UINT:7,9)]) R=const(0,64,UINT:0,9)}
+     match pristine=1 patched=2
+  KEY def | TDC | bit_typespec | t_bare | 24:11-24:23 | bit_typespec | pka190::t_bare | 24:11-24:23 | package
+     golden   x1    RANGES=1 {L=const(28,32,UINT:28,9) R=const(0,64,UINT:0,9)}
+     golden   x1    RANGES=1 {L=ref(PW,BARE) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=const(28,64,UINT:28,9) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=ref(PW,BOUND:constant) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=const(28,64,UINT:28,9) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=ref(PW,BARE) R=const(0,64,UINT:0,9)}
+     match pristine=0 patched=1
+  KEY def | TDC | bit_typespec | t_lp | 28:11-28:25 | bit_typespec | pka190::t_lp | 28:11-28:25 | package
+     golden   x1    RANGES=1 {L=const(19,64,INT:19,7) R=const(0,64,UINT:0,9)}
+     golden   x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(LW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=const(19,64,INT:19,7) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(LW,BOUND:constant)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=const(19,64,INT:19,7) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(LW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     match pristine=1 patched=2
+  KEY def | TDC | bit_typespec | t_op | 20:11-20:25 | bit_typespec | pka190::t_op | 20:11-20:25 | package
+     golden   x1    RANGES=1 {L=const(27,64,INT:27,7) R=const(0,64,UINT:0,9)}
+     golden   x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(PW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=const(27,64,INT:27,7) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(PW,BOUND:constant)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=const(27,64,INT:27,7) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(PW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     match pristine=1 patched=2
+  KEY def | TDC | bit_typespec | t_two | 36:11-36:26 | bit_typespec | pka190::t_two | 36:11-36:26 | package
+     golden   x1    RANGES=1 {L=const(8,64,INT:8,7) R=const(0,64,UINT:0,9)}
+     golden   x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(PW,BARE)|ref(LW,BARE)]) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=const(8,64,INT:8,7) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(PW,BOUND:constant)|ref(LW,BOUND:constant)]) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=const(8,64,INT:8,7) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(PW,BARE)|ref(LW,BARE)]) R=const(0,64,UINT:0,9)}
+     match pristine=1 patched=2
+  KEY def | TDC | bit_typespec | t_xpkg | 44:11-44:33 | bit_typespec | pka190::t_xpkg | 44:11-44:33 | package
+     golden   x1    RANGES=1 {L=const(11,64,INT:11,7) R=const(0,64,UINT:0,9)}
+     golden   x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(pkx190::XW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=const(11,64,INT:11,7) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(pkx190::XW,BOUND:parameter)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=const(11,64,INT:11,7) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(pkx190::XW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     match pristine=1 patched=2
+  KEY def | TDC | logic_typespec | t_log | 48:11-48:27 | logic_typespec | pka190::t_log | 48:11-48:27 | package
+     golden   x1    RANGES=1 {L=const(27,64,INT:27,7) R=const(0,64,UINT:0,9)}
+     golden   x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(PW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=const(27,64,INT:27,7) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(PW,BOUND:constant)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=const(27,64,INT:27,7) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(PW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     match pristine=1 patched=2
+  KEY elab | TDC | bit_typespec | t_xpkg | 44:11-44:33 | bit_typespec | pka190::t_xpkg | 44:11-44:33 | package
+     golden   x1    RANGES=1 {L=const(11,64,INT:11,7) R=const(0,64,UINT:0,9)}
+     golden   x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(pkx190::XW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=const(11,64,INT:11,7) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(pkx190::XW,BOUND:parameter)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=const(11,64,INT:11,7) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(pkx190::XW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     match pristine=1 patched=2
+
+########## g190_b_homes
+--- rcs / cmp (from cmds.txt)
+cen rc=0 g_def/slpp_all/surelog.uhdm rows=24
+cen rc=0 a_def.uhdm rows=19
+cen rc=0 b_def.uhdm rows=19
+cmp rc=255 a def lines=555 heads=1
+cmp rc=255 b def lines=555 heads=1
+cen rc=0 g_elab/slpp_all/surelog.uhdm rows=26
+cen rc=0 a_elab.uhdm rows=23
+cen rc=0 b_elab.uhdm rows=23
+cmp rc=255 a elab lines=577 heads=1
+cmp rc=255 b elab lines=577 heads=1
+cmp rc=255 a def lines=555 heads=1
+cmp rc=255 b def lines=555 heads=1
+cmp rc=255 a elab lines=577 heads=1
+cmp rc=255 b elab lines=577 heads=1
+--- section TDCE
+section=TDCE  golden rows=9  pristine rows=11  patched rows=11
+  golden cells      9
+  our cells         pristine 11   patched 11
+  matching golden   pristine 8   patched 9
+  changed cells     2
+  TO-GOLDEN           1
+  AWAY-GOLDEN         0
+  CHANGED-STILL-WRONG 0
+  WRONG-KEPT          2
+  RIGHT-KEPT          7
+  moved keys          1
+  KEY def | TDCE | bit_typespec | tb_t | 12:11-12:25 | bit_typespec | pkb190::tb_t | 12:11-12:25 | package
+     golden   x1    RANGES=1 {L=const(23,64,INT:23,7) R=const(0,64,UINT:0,9)}
+     golden   x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(BW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=const(23,64,INT:23,7) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(BW,BOUND:constant)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=const(23,64,INT:23,7) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(BW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     match pristine=1 patched=2
+--- section TDC
+section=TDC  golden rows=30  pristine rows=20  patched rows=20
+  golden cells      30
+  our cells         pristine 20   patched 20
+  matching golden   pristine 16   patched 17
+  changed cells     2
+  TO-GOLDEN           1
+  AWAY-GOLDEN         0
+  CHANGED-STILL-WRONG 0
+  WRONG-KEPT          3
+  RIGHT-KEPT          10
+  moved keys          1
+  KEY def | TDC | bit_typespec | tb_t | 12:11-12:25 | bit_typespec | pkb190::tb_t | 12:11-12:25 | package
+     golden   x5    RANGES=1 {L=const(23,64,INT:23,7) R=const(0,64,UINT:0,9)}
+     golden   x5    RANGES=1 {L=op(11,dec=-,sz=0,[ref(BW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     pristine x3    RANGES=1 {L=const(23,64,INT:23,7) R=const(0,64,UINT:0,9)}
+     pristine x3    RANGES=1 {L=op(11,dec=-,sz=0,[ref(BW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(BW,BOUND:constant)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     patched  x3    RANGES=1 {L=const(23,64,INT:23,7) R=const(0,64,UINT:0,9)}
+     patched  x4    RANGES=1 {L=op(11,dec=-,sz=0,[ref(BW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     match pristine=6 patched=7
+
+########## g190_c_order
+--- rcs / cmp (from cmds.txt)
+cen rc=0 g_def/slpp_all/surelog.uhdm rows=35
+cen rc=0 a_def.uhdm rows=31
+cen rc=0 b_def.uhdm rows=31
+cmp rc=255 a def lines=33 heads=1
+cmp rc=255 b def lines=78 heads=1
+cen rc=0 g_elab/slpp_all/surelog.uhdm rows=35
+cen rc=0 a_elab.uhdm rows=31
+cen rc=0 b_elab.uhdm rows=31
+cmp rc=255 a elab lines=78 heads=1
+cmp rc=255 b elab lines=78 heads=1
+cmp rc=255 a def lines=33 heads=1
+cmp rc=255 b def lines=78 heads=1
+cmp rc=255 a elab lines=78 heads=1
+cmp rc=255 b elab lines=78 heads=1
+--- section TDCE
+section=TDCE  golden rows=30  pristine rows=28  patched rows=28
+  golden cells      30
+  our cells         pristine 28   patched 28
+  matching golden   pristine 21   patched 26
+  changed cells     10
+  TO-GOLDEN           5
+  AWAY-GOLDEN         0
+  CHANGED-STILL-WRONG 0
+  WRONG-KEPT          2
+  RIGHT-KEPT          16
+  moved keys          3
+  KEY def | TDCE | bit_typespec | tc2_t | 20:11-20:25 | bit_typespec | pkc190::tc2_t | 20:11-20:25 | package
+     golden   x1    RANGES=1 {L=const(21,64,INT:21,7) R=const(0,64,UINT:0,9)}
+     golden   x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(CW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=const(21,64,INT:21,7) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(CW,BOUND:constant)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=const(21,64,INT:21,7) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(CW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     match pristine=1 patched=2
+  KEY def | TDCE | bit_typespec | tc_t | 13:11-13:25 | bit_typespec | pkc190::tc_t | 13:11-13:25 | package
+     golden   x3    RANGES=1 {L=const(21,64,INT:21,7) R=const(0,64,UINT:0,9)}
+     golden   x3    RANGES=1 {L=op(11,dec=-,sz=0,[ref(CW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     pristine x3    RANGES=1 {L=const(21,64,INT:21,7) R=const(0,64,UINT:0,9)}
+     pristine x3    RANGES=1 {L=op(11,dec=-,sz=0,[ref(CW,BOUND:constant)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     patched  x3    RANGES=1 {L=const(21,64,INT:21,7) R=const(0,64,UINT:0,9)}
+     patched  x3    RANGES=1 {L=op(11,dec=-,sz=0,[ref(CW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     match pristine=3 patched=6
+  KEY def | TDCE | bit_typespec | tlow_t | 30:11-30:25 | bit_typespec | pkc190::tlow_t | 30:11-30:25 | package
+     golden   x1    RANGES=1 {L=const(8,64,INT:8,7) R=const(0,64,UINT:0,9)}
+     golden   x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(cw,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=const(8,64,INT:8,7) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(cw,BOUND:constant)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=const(8,64,INT:8,7) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(cw,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     match pristine=1 patched=2
+--- section TDC
+section=TDC  golden rows=32  pristine rows=26  patched rows=26
+  golden cells      32
+  our cells         pristine 26   patched 26
+  matching golden   pristine 21   patched 26
+  changed cells     10
+  TO-GOLDEN           5
+  AWAY-GOLDEN         0
+  CHANGED-STILL-WRONG 0
+  WRONG-KEPT          0
+  RIGHT-KEPT          16
+  moved keys          3
+  KEY def | TDC | bit_typespec | tc2_t | 20:11-20:25 | bit_typespec | pkc190::tc2_t | 20:11-20:25 | package
+     golden   x1    RANGES=1 {L=const(21,64,INT:21,7) R=const(0,64,UINT:0,9)}
+     golden   x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(CW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=const(21,64,INT:21,7) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(CW,BOUND:constant)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=const(21,64,INT:21,7) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(CW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     match pristine=1 patched=2
+  KEY def | TDC | bit_typespec | tc_t | 13:11-13:25 | bit_typespec | pkc190::tc_t | 13:11-13:25 | package
+     golden   x4    RANGES=1 {L=const(21,64,INT:21,7) R=const(0,64,UINT:0,9)}
+     golden   x3    RANGES=1 {L=op(11,dec=-,sz=0,[ref(CW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     pristine x3    RANGES=1 {L=const(21,64,INT:21,7) R=const(0,64,UINT:0,9)}
+     pristine x3    RANGES=1 {L=op(11,dec=-,sz=0,[ref(CW,BOUND:constant)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     patched  x3    RANGES=1 {L=const(21,64,INT:21,7) R=const(0,64,UINT:0,9)}
+     patched  x3    RANGES=1 {L=op(11,dec=-,sz=0,[ref(CW,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     match pristine=3 patched=6
+  KEY def | TDC | bit_typespec | tlow_t | 30:11-30:25 | bit_typespec | pkc190::tlow_t | 30:11-30:25 | package
+     golden   x1    RANGES=1 {L=const(8,64,INT:8,7) R=const(0,64,UINT:0,9)}
+     golden   x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(cw,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=const(8,64,INT:8,7) R=const(0,64,UINT:0,9)}
+     pristine x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(cw,BOUND:constant)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=const(8,64,INT:8,7) R=const(0,64,UINT:0,9)}
+     patched  x1    RANGES=1 {L=op(11,dec=-,sz=0,[ref(cw,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     match pristine=1 patched=2

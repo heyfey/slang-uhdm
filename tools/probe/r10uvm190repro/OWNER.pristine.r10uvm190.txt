@@ -1,0 +1,19 @@
+design::Compare r=-1
+HEAD LHS(golden) = <null>
+HEAD RHS(ours)   = constant()@7856:42-7856:44#24
+HEAD RHS parent chain:
+    < param_assign()@7856:11-7856:44#23
+    < package(uvm_pkg)@7351:1-83263:11#2
+    < design(unnamed)@0:0-0:0#1
+MIRROR REFERENCE SCAN — every edge of OURS that lands on the head, and golden's:
+  ours   param_assign()@7856:11-7856:44#23
+      edge vpiType=82 (singular)   cast=-
+      golden param_assign()@7856:11-7856:44#1559 -> singular constant()@7856:42-7856:44#1563
+      golden param_assign()@7856:11-7856:44#61362 -> singular constant()@7856:42-7856:44#61366
+  ours   ref_obj(UVM_FIELD_FLAG_RESERVED_BITS)@7859:14-7859:42#267
+      edge vpiType=700 (singular)   cast=-
+      golden ref_obj(UVM_FIELD_FLAG_RESERVED_BITS)@7859:14-7859:42#61377 -> singular constant()@7856:42-7856:44#61366
+  ours   ref_typespec()@0:0-0:0#25
+      edge vpiType=81 (singular)   cast=-
+      golden ref_typespec()@0:0-0:0#1566 -> singular constant()@7856:42-7856:44#1563
+      golden ref_typespec()@0:0-0:0#61369 -> singular constant()@7856:42-7856:44#61366

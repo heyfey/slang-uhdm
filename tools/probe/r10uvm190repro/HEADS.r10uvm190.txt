@@ -1,0 +1,51 @@
+== r10uvm190 HEADS (rowheads.sh, official uhdm-cmp; LHS is ALWAYS golden) ==
+
+-- PRISTINE (binary bf7949d3f308a2554f9de94269ef7536)
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         62      1 cmp rc=255
+SeqDriver      testflags       62      1 cmp rc=255
+SimpleUVM      default     664681      1 cmp rc=255
+SimpleUVM      testflags   664681      1 cmp rc=255
+Scoreboard     default         95      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default         62      1 cmp rc=255
+MiniAmiq       testflags       62      1 cmp rc=255
+BuildUVMPkg    default         33      1 cmp rc=255
+BuildUVMPkg    testflags       33      1 cmp rc=255
+Earlgrey_0_1   default         31      1 cmp rc=255
+Earlgrey_0_1   testflags       37      1 cmp rc=255
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+
+-- PATCHED (binary 87696feb462e1f8b22a80eb29d5f0564)
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         62      1 cmp rc=255
+SeqDriver      testflags       62      1 cmp rc=255
+SimpleUVM      default     664681      1 cmp rc=255
+SimpleUVM      testflags   664681      1 cmp rc=255
+Scoreboard     default         95      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default         62      1 cmp rc=255
+MiniAmiq       testflags       62      1 cmp rc=255
+BuildUVMPkg    default        300      1 cmp rc=255
+BuildUVMPkg    testflags      300      1 cmp rc=255
+Earlgrey_0_1   default         31      1 cmp rc=255
+Earlgrey_0_1   testflags       37      1 cmp rc=255
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+
+-- the twelve head-set cmp logs, pristine vs patched md5
+BuildUVMPkg.default.cmp      pris=492bbfad6a5e pat=9e6c829fce41 CHANGED
+BuildUVMPkg.testflags.cmp    pris=492bbfad6a5e pat=9e6c829fce41 CHANGED
+Earlgrey_0_1.default.cmp     pris=950764852393 pat=950764852393 IDENTICAL
+Earlgrey_0_1.testflags.cmp   pris=4557ce62530c pat=4557ce62530c IDENTICAL
+MiniAmiq.default.cmp         pris=9e298ba0df43 pat=9e298ba0df43 IDENTICAL
+MiniAmiq.testflags.cmp       pris=9e298ba0df43 pat=9e298ba0df43 IDENTICAL
+Rggen.default.cmp            pris=d41d8cd98f00 pat=d41d8cd98f00 IDENTICAL
+Scoreboard.default.cmp       pris=86a50795e1b6 pat=86a50795e1b6 IDENTICAL
+SeqDriver.default.cmp        pris=0bb7e4b56d42 pat=0bb7e4b56d42 IDENTICAL
+SeqDriver.testflags.cmp      pris=aa3a2f18e302 pat=aa3a2f18e302 IDENTICAL
+SimpleUVM.default.cmp        pris=ed5d6193ead2 pat=ed5d6193ead2 IDENTICAL
+SimpleUVM.testflags.cmp      pris=a98ae8ec4269 pat=a98ae8ec4269 IDENTICAL

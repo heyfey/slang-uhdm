@@ -1,0 +1,81 @@
+== r10uvm190 CORPUS CENSUS (surelog corpus, both modes, 956 databases) ==
+
+instrument: ct190cen  (sections PA / TDC / TDCE)
+driver    : cen190.sh  -- dirs=1573 no-golden=50 no-ours=617
+            golden rows=279158  our rows=22516 (identical row COUNT pristine and patched)
+CALIBRATION: the golden census is BYTE-IDENTICAL between the pristine run and
+             the patched run (md5 77eb8afceef19fe8dc428a2d62b429d5 both), so any
+             movement below is OURS.
+
+---------- section TDCE ----------
+section=TDCE  golden rows=302  pristine rows=35  patched rows=35
+  golden cells      302
+  our cells         pristine 35   patched 35
+  matching golden   pristine 31   patched 35
+  changed cells     8
+  TO-GOLDEN           4
+  AWAY-GOLDEN         0
+  CHANGED-STILL-WRONG 0
+  WRONG-KEPT          0
+  RIGHT-KEPT          27
+  moved keys          2
+  KEY default/BuildUVMPkg-bf853d43 | TDCE | bit_typespec | uvm_field_flag_t | 7859:9-7859:49 | bit_typespec | uvm_pkg::uvm_field_flag_t | 7859:9-7859:49 | package
+     golden   x2    RANGES=1 {L=const(27,64,INT:27,7) R=const(0,64,UINT:0,9)}
+     golden   x2    RANGES=1 {L=op(11,dec=-,sz=0,[ref(UVM_FIELD_FLAG_RESERVED_BITS,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     pristine x2    RANGES=1 {L=const(27,64,INT:27,7) R=const(0,64,UINT:0,9)}
+     pristine x2    RANGES=1 {L=op(11,dec=-,sz=0,[ref(UVM_FIELD_FLAG_RESERVED_BITS,BOUND:constant)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     patched  x2    RANGES=1 {L=const(27,64,INT:27,7) R=const(0,64,UINT:0,9)}
+     patched  x2    RANGES=1 {L=op(11,dec=-,sz=0,[ref(UVM_FIELD_FLAG_RESERVED_BITS,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     match pristine=2 patched=4
+  KEY testflags/BuildUVMPkg-bf853d43 | TDCE | bit_typespec | uvm_field_flag_t | 7859:9-7859:49 | bit_typespec | uvm_pkg::uvm_field_flag_t | 7859:9-7859:49 | package
+     golden   x2    RANGES=1 {L=const(27,64,INT:27,7) R=const(0,64,UINT:0,9)}
+     golden   x2    RANGES=1 {L=op(11,dec=-,sz=0,[ref(UVM_FIELD_FLAG_RESERVED_BITS,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     pristine x2    RANGES=1 {L=const(27,64,INT:27,7) R=const(0,64,UINT:0,9)}
+     pristine x2    RANGES=1 {L=op(11,dec=-,sz=0,[ref(UVM_FIELD_FLAG_RESERVED_BITS,BOUND:constant)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     patched  x2    RANGES=1 {L=const(27,64,INT:27,7) R=const(0,64,UINT:0,9)}
+     patched  x2    RANGES=1 {L=op(11,dec=-,sz=0,[ref(UVM_FIELD_FLAG_RESERVED_BITS,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     match pristine=2 patched=4
+
+---------- section TDC ----------
+section=TDC  golden rows=80842  pristine rows=4085  patched rows=4085
+  golden cells      80842
+  our cells         pristine 4085   patched 4085
+  matching golden   pristine 3611   patched 3613
+  changed cells     8
+  TO-GOLDEN           2
+  AWAY-GOLDEN         0
+  CHANGED-STILL-WRONG 0
+  WRONG-KEPT          470
+  RIGHT-KEPT          3497
+  moved keys          2
+  KEY default/BuildUVMPkg-bf853d43 | TDC | bit_typespec | uvm_field_flag_t | 7859:9-7859:49 | bit_typespec | uvm_pkg::uvm_field_flag_t | 7859:9-7859:49 | package
+     golden   x32   RANGES=1 {L=const(27,64,INT:27,7) R=const(0,64,UINT:0,9)}
+     golden   x28   RANGES=1 {L=op(11,dec=-,sz=0,[ref(UVM_FIELD_FLAG_RESERVED_BITS,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     pristine x30   RANGES=1 {L=const(27,64,INT:27,7) R=const(0,64,UINT:0,9)}
+     pristine x27   RANGES=1 {L=op(11,dec=-,sz=0,[ref(UVM_FIELD_FLAG_RESERVED_BITS,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     pristine x2    RANGES=1 {L=op(11,dec=-,sz=0,[ref(UVM_FIELD_FLAG_RESERVED_BITS,BOUND:constant)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     patched  x30   RANGES=1 {L=const(27,64,INT:27,7) R=const(0,64,UINT:0,9)}
+     patched  x29   RANGES=1 {L=op(11,dec=-,sz=0,[ref(UVM_FIELD_FLAG_RESERVED_BITS,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     match pristine=57 patched=58
+  KEY testflags/BuildUVMPkg-bf853d43 | TDC | bit_typespec | uvm_field_flag_t | 7859:9-7859:49 | bit_typespec | uvm_pkg::uvm_field_flag_t | 7859:9-7859:49 | package
+     golden   x32   RANGES=1 {L=const(27,64,INT:27,7) R=const(0,64,UINT:0,9)}
+     golden   x28   RANGES=1 {L=op(11,dec=-,sz=0,[ref(UVM_FIELD_FLAG_RESERVED_BITS,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     pristine x30   RANGES=1 {L=const(27,64,INT:27,7) R=const(0,64,UINT:0,9)}
+     pristine x27   RANGES=1 {L=op(11,dec=-,sz=0,[ref(UVM_FIELD_FLAG_RESERVED_BITS,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     pristine x2    RANGES=1 {L=op(11,dec=-,sz=0,[ref(UVM_FIELD_FLAG_RESERVED_BITS,BOUND:constant)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     patched  x30   RANGES=1 {L=const(27,64,INT:27,7) R=const(0,64,UINT:0,9)}
+     patched  x29   RANGES=1 {L=op(11,dec=-,sz=0,[ref(UVM_FIELD_FLAG_RESERVED_BITS,BARE)|const(1,64,UINT:1,9)]) R=const(0,64,UINT:0,9)}
+     match pristine=57 patched=58
+
+---------- section PA ----------
+section=PA  golden rows=198014  pristine rows=18396  patched rows=18396
+  golden cells      198014
+  our cells         pristine 18396   patched 18396
+  matching golden   pristine 14847   patched 14847
+  changed cells     0
+  TO-GOLDEN           0
+  AWAY-GOLDEN         0
+  CHANGED-STILL-WRONG 0
+  WRONG-KEPT          3549
+  RIGHT-KEPT          14847
+  moved keys          0
