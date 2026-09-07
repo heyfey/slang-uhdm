@@ -1,0 +1,42 @@
+r10uvm191 — MOVER ATTRIBUTION.  MEASUREMENT ONLY; the official uhdm-cmp is
+the sole judge.  LHS is ALWAYS golden (Surelog).
+
+== SURELOG, byteverify.sh SELFCHECK=1, patched vs THIS PASS'S OWN pristine ==
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=3b159c20cfc2 pristine=035d062ecce0
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=c09f5e4b3e5b pristine=0d80f8f5d07e
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=46bb51af242f pristine=135ec350c34e
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=3b159c20cfc2 pristine=035d062ecce0
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=8585bcabf6f2 pristine=7ea31215a0f7
+MOVERS: 5 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+
+The four PREDICTED-BY-NAME movers are SeqDriver x2 and MiniAmiq x2 (see
+PREDICT.r10uvm191.txt: PREDICTED=4, cells=8 each, read from the PRISTINE
+databases alone).  The fifth, Scoreboard/default, is the documented
+svunit_pkg vpiTaskFunc COIN (RESUME §9); its ORDER-BLIND, path-normalised
+dump diff is:
+
+    uhdm-dump <db> | sed 's#<workdir>##g' | sort   on both sides
+    -> 0 content lines
+
+== UHDM2RTLIL, byteverify.sh SELFCHECK=1 ==
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+
+matching PREDICTED=0 exactly.
+
+== PROTECTED DATABASES, md5 (first 12), pristine vs patched, both modes ==
+InterfaceModPort     default   pris=59a365f3ce2c pat=59a365f3ce2c SAME
+InterfaceModPort     testflags pris=59a365f3ce2c pat=59a365f3ce2c SAME
+BlackParrotComplex   default   pris=e3e354129d5a pat=e3e354129d5a SAME
+BlackParrotComplex   testflags pris=73a10e8217e5 pat=73a10e8217e5 SAME
+YosysOldOr           default   pris=d68e0796d62c pat=d68e0796d62c SAME
+YosysOldOr           testflags pris=d68e0796d62c pat=d68e0796d62c SAME
+SVSwitch             default   pris=4842211c4030 pat=4842211c4030 SAME
+SVSwitch             testflags pris=4842211c4030 pat=4842211c4030 SAME
+YosysVerx            default   pris=6ccda350c24a pat=6ccda350c24a SAME
+YosysVerx            testflags pris=6ccda350c24a pat=6ccda350c24a SAME

@@ -1,0 +1,145 @@
+r10uvm191 — THE CENSUS.  MEASUREMENT ONLY; the official uhdm-cmp is the
+sole judge.  LHS is ALWAYS golden (Surelog); the other two columns are
+ours (PRISTINE and PATCHED).
+
+ct191hpb cenall censuses EVERY BINDABLE REFERENCE (ref_obj / ref_var /
+bit_select — exactly bindable37's set, the objects pkgCloneHierBind9 can
+write), keyed
+    LISTING | SUBROUTINE | FACE | CTX | LINE:COL | NAME
+and valued by the full compared shape (act=<face of the vpiActual>), joined
+as a MULTISET per key.  score191.py joins the three.
+
+CALIBRATED GOLDEN-vs-GOLDEN-vs-GOLDEN FIRST, every row-mode: every column
+0 but UNTOUCHED (see below).
+
+== THE NINE UVM ROW-MODES (this pass's own pristine and patched sweeps) ==
+==== SeqDriver default
+UNTOUCHED        68323
+TOWARD           8
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      1011
+ONLY-GOLDEN      4847
+ONLY-OURS        4542
+ONLY-OURS-MOVED  0
+==== SeqDriver testflags
+UNTOUCHED        68323
+TOWARD           8
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      1011
+ONLY-GOLDEN      4847
+ONLY-OURS        4542
+ONLY-OURS-MOVED  0
+==== MiniAmiq default
+UNTOUCHED        70188
+TOWARD           8
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      613
+ONLY-GOLDEN      5038
+ONLY-OURS        4720
+ONLY-OURS-MOVED  0
+==== MiniAmiq testflags
+UNTOUCHED        70188
+TOWARD           8
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      613
+ONLY-GOLDEN      5038
+ONLY-OURS        4720
+ONLY-OURS-MOVED  0
+==== SimpleUVM default
+UNTOUCHED        39518
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      515
+ONLY-GOLDEN      2399
+ONLY-OURS        2433
+ONLY-OURS-MOVED  0
+==== SimpleUVM testflags
+UNTOUCHED        39518
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      515
+ONLY-GOLDEN      2399
+ONLY-OURS        2433
+ONLY-OURS-MOVED  0
+==== Scoreboard default
+UNTOUCHED        39634
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      85
+ONLY-GOLDEN      2413
+ONLY-OURS        2451
+ONLY-OURS-MOVED  0
+SKIP-NOFILE Scoreboard testflags
+==== BuildUVMPkg default
+UNTOUCHED        42966
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      91
+ONLY-GOLDEN      1066
+ONLY-OURS        971
+ONLY-OURS-MOVED  0
+==== BuildUVMPkg testflags
+UNTOUCHED        42966
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      91
+ONLY-GOLDEN      1066
+ONLY-OURS        971
+ONLY-OURS-MOVED  0
+LISTED=10 PROCESSED=9 SKIPPED=1
+PROCESSED-ASSERT-OK
+
+== the golden-vs-golden-vs-golden calibration for the same nine ==
+SeqDriver    default   UNTOUCHED        73178 TOWARD           0 AWAY             0 MOVED-WRONG      0 STILL-WRONG      0 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0 
+SeqDriver    testflags UNTOUCHED        73178 TOWARD           0 AWAY             0 MOVED-WRONG      0 STILL-WRONG      0 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0 
+MiniAmiq     default   UNTOUCHED        75234 TOWARD           0 AWAY             0 MOVED-WRONG      0 STILL-WRONG      0 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0 
+MiniAmiq     testflags UNTOUCHED        75234 TOWARD           0 AWAY             0 MOVED-WRONG      0 STILL-WRONG      0 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0 
+SimpleUVM    default   UNTOUCHED        41917 TOWARD           0 AWAY             0 MOVED-WRONG      0 STILL-WRONG      0 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0 
+SimpleUVM    testflags UNTOUCHED        41917 TOWARD           0 AWAY             0 MOVED-WRONG      0 STILL-WRONG      0 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0 
+Scoreboard   default   UNTOUCHED        42047 TOWARD           0 AWAY             0 MOVED-WRONG      0 STILL-WRONG      0 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0 
+BuildUVMPkg  default   UNTOUCHED        44032 TOWARD           0 AWAY             0 MOVED-WRONG      0 STILL-WRONG      0 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0 
+BuildUVMPkg  testflags UNTOUCHED        44032 TOWARD           0 AWAY             0 MOVED-WRONG      0 STILL-WRONG      0 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0 
+
+== THE EIGHT MOVED CELLS, BY NAME (SeqDriver/default; the other three
+   row-modes are the same eight) ==
+TOWARD package:adpcm_pkg/DEF                      | function:uvm_phase::get_adjacent_predecessor_nodes | HPBASE  | NEWARG   | 1685:16 | predecessors
+    pris=('act=BARE',)
+    pat =('act=array_var(predecessors)@1664:8',)
+    gold=('act=array_var(predecessors)@1664:8',)
+TOWARD package:adpcm_pkg/DEF                      | function:uvm_phase::get_adjacent_successor_nodes | HPBASE  | NEWARG   | 1714:16 | successors
+    pris=('act=BARE',)
+    pat =('act=array_var(successors)@1693:8',)
+    gold=('act=array_var(successors)@1693:8',)
+TOWARD package:adpcm_pkg/DEF                      | function:uvm_reg_map::get_physical_addresses   | HPBASE  | NEWARG   | 1467:19 | local_addr
+    pris=('act=BARE',)
+    pat =('act=array_var(local_addr)@1408:20',)
+    gold=('act=array_var(local_addr)@1408:20',)
+TOWARD package:adpcm_pkg/DEF                      | function:uvm_reg_map::get_physical_addresses   | HPBASE  | NEWARG   | 1491:26 | sys_addr
+    pris=('act=BARE',)
+    pat =('act=array_var(sys_addr)@1472:23',)
+    gold=('act=array_var(sys_addr)@1472:23',)
+TOWARD package:adpcm_pkg/ELAB                     | function:uvm_phase::get_adjacent_predecessor_nodes | HPBASE  | NEWARG   | 1685:16 | predecessors
+    pris=('act=BARE',)
+    pat =('act=array_var(predecessors)@1664:8',)
+    gold=('act=array_var(predecessors)@1664:8',)
+TOWARD package:adpcm_pkg/ELAB                     | function:uvm_phase::get_adjacent_successor_nodes | HPBASE  | NEWARG   | 1714:16 | successors
+    pris=('act=BARE',)
+    pat =('act=array_var(successors)@1693:8',)
+    gold=('act=array_var(successors)@1693:8',)
+TOWARD package:adpcm_pkg/ELAB                     | function:uvm_reg_map::get_physical_addresses   | HPBASE  | NEWARG   | 1467:19 | local_addr
+    pris=('act=BARE',)
+    pat =('act=array_var(local_addr)@1408:20',)
+    gold=('act=array_var(local_addr)@1408:20',)
+TOWARD package:adpcm_pkg/ELAB                     | function:uvm_reg_map::get_physical_addresses   | HPBASE  | NEWARG   | 1491:26 | sys_addr
+    pris=('act=BARE',)
+    pat =('act=array_var(sys_addr)@1472:23',)
+    gold=('act=array_var(sys_addr)@1472:23',)

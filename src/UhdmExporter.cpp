@@ -7269,8 +7269,28 @@ UHDM::design* UhdmExporter::exportDesign() {
     // golden too, and so do we.  Runs over the arena so all ~15 hier_path
     // shapes ExprEmit builds are covered from one place.
     if (!pkgCloneBodyLocals9.empty()) {
-        auto ownerTf9 = [](const UHDM::BaseClass* o) -> const UHDM::task_func* {
-            for (int g9 = 0; o && g9 < 40; g9++, o = o->VpiParent())
+        // § cloneNewArrayHierBaseBindsOwnDecl191 — THE HOP.  The walk is
+        // unchanged except that a DEAD chain is followed one link further
+        // through `newArrayCloneOwner191`, which holds the parent Surelog's
+        // `clone_tree` gives a CLONED dynamic-array `new` call and which is
+        // populated for WILDCARD-IMPORT CLONE listings and nowhere else
+        // (ExprEmit's NewArray arm).  Without it every reference written
+        // inside a `new[...]` argument is invisible to this whole pass:
+        // § newArray11 leaves that call unparented (Surelog's own
+        // `paDynamic_array_new` shape), so `ownerTf9` returned null and
+        // `bind9` / § pkgCloneMember10 / § builtinArrayReadBindsMintedFuncCall182
+        // all declined before reading a single name.  The `vpiParent` FIELD
+        // is deliberately not written — see include/UhdmExporter.h.
+        auto up191 = [&](const UHDM::BaseClass* o) -> const UHDM::BaseClass* {
+            if (!o)
+                return nullptr;
+            if (const UHDM::BaseClass* p9 = o->VpiParent())
+                return p9;
+            auto h191 = newArrayCloneOwner191.find((const UHDM::any*)o);
+            return h191 == newArrayCloneOwner191.end() ? nullptr : h191->second;
+        };
+        auto ownerTf9 = [&](const UHDM::BaseClass* o) -> const UHDM::task_func* {
+            for (int g9 = 0; o && g9 < 40; g9++, o = up191(o))
                 if (o->UhdmType() == UHDM::uhdmfunction ||
                     o->UhdmType() == UHDM::uhdmtask)
                     return (const UHDM::task_func*)o;
@@ -7372,9 +7392,18 @@ UHDM::design* UhdmExporter::exportDesign() {
             if (bit9 == pkgCloneBodyLocals9.end())
                 return;
             std::string nm9(e9->VpiName());
+            // § cloneNewArrayHierBaseBindsOwnDecl191 — THE CLIMB TAKES THE
+            // SAME HOP.  `sys_addr` (uvm-1.2 `uvm_reg_map.svh:1472`, read at
+            // `addr = new [n + sys_addr.size()] (addr)` :1491) is declared in
+            // the `else begin … end` BLOCK, so it is found by `blockVar9` on
+            // this climb and not by the subroutine-level map below; with the
+            // hop only in `ownerTf9` the climb died at the unparented `new`
+            // and that ONE key of the four stayed bare while the other three
+            // — all function-level locals — moved.  Measured on the patched
+            // SeqDriver database, both clone views.
             for (const UHDM::BaseClass* a9 = anchor9;
                  a9 && (const UHDM::BaseClass*)a9 != (const UHDM::BaseClass*)tf9;
-                 a9 = a9->VpiParent()) {
+                 a9 = up191(a9)) {
                 if (auto* lv37 = loopVar37(a9, nm9)) {
                     if (lv37 != e9)
                         setAct37(e9, lv37);
@@ -7673,6 +7702,9 @@ UHDM::design* UhdmExporter::exportDesign() {
         }
     }
     pkgCloneBodyLocals9.clear();
+    // § cloneNewArrayHierBaseBindsOwnDecl191 — the hop map is consulted only
+    // by the pass above; drop it with the registry it serves.
+    newArrayCloneOwner191.clear();
     // § cloneStmtHomeVarRef17 — a clone body's STATEMENT reference to a body
     // LOCAL binds the ELABORATED HOME body's variable, not the clone's own
     // listing entry (its FORMAL references keep the clone's io_decls).  AFTER

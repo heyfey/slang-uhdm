@@ -1,0 +1,23 @@
+r10uvm191 — THE A-PRIORI MOVER PREDICTION, from PRISTINE BYTES ALONE.
+MEASUREMENT ONLY; the official uhdm-cmp is the sole judge.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+predict191.sh replays a COMPLETED PRISTINE sweep workdir: for every row it
+reads the row's OWN golden out of the row's cmds.txt (never guessed) and asks
+`ct191hpb pred` the law's question of the golden/pristine pair alone —
+IS THERE A hier_path BASE UNDER A DYNAMIC-ARRAY new[...] ARGUMENT THAT GOLDEN
+BINDS AND THE PRISTINE DATABASE LEAVES BARE?  A row with no such key cannot
+move.  The predicate is a SUPERSET of the shipped gate (a database cannot say
+whether a listing is a WILDCARD-import clone or an EXPLICIT-import copy, and it
+asks nothing about the symbol half), so it can OVER-name and never under-name —
+in particular it WOULD name an explicit-import copy (R1) if the corpus held one.
+
+== surelog corpus (956 databases) ==
+PREDICT default/MiniAmiq-544c7f61 cells=8
+PREDICT default/SeqDriver-32af76aa cells=8
+PREDICT testflags/MiniAmiq-544c7f61 cells=8
+PREDICT testflags/SeqDriver-32af76aa cells=8
+LISTED=956 PROCESSED=956 NOGOLDEN=0 PREDICTED=4 CELLS=32
+
+== uhdm2rtlil corpus (1358 databases) ==
+LISTED=1358 PROCESSED=1358 NOGOLDEN=0 PREDICTED=0 CELLS=0

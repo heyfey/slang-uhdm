@@ -1,0 +1,62 @@
+r10uvm191 — GATES.  MEASUREMENT ONLY except where a gate names the official
+uhdm-cmp / verify_golden.py, which are the sole authorities.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.  BASE 6873bc3f.
+
+(1) BUILD, -j 2, md5 taken SEPARATELY, both frozen chmod 555 BEFORE any sweep
+fb17fb4d8223169f2abb2b55cf560ea2      pristine
+38c6f72a288d129d4fa9ee0ec3377394      patched
+
+(2) GOLDENS, SLANG_UHDM exported explicitly to EACH binary
+    patched   PASS=23 FAIL=0
+    pristine  PASS=23 FAIL=0
+    /bin/false (negative control)  PASS=0 FAIL=23
+
+(3) UHDM2RTLIL, testflags AND default, --jobs 2
+    patched  testflags 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+    patched  default   679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+    ct8rows results/gate_uhdm2rtlil.csv (IN THIS WORKTREE) vs patched tf:
+      PASS: every row byte-identical to the committed baseline
+    ct8rows this pass's OWN pristine tf vs patched tf:
+      PASS: every row byte-identical to the committed baseline
+    ct8rows this pass's OWN pristine def vs patched def:
+      PASS: every row byte-identical to the committed baseline
+    cmds.txt audited BY BINARY PATH: 1462 files, 0 naming the pristine binary
+
+(4) SURELOG, --mode both, --jobs 2
+    pristine  937 CMP_EQUAL / 567 SLANG_REJECT / 48 SURELOG_FAIL /
+              19 CMP_NOTEQUAL / 10 DEFERRED / 3 NO_DATABASE /
+              2 UNTRANSLATABLE / 1 TIMEOUT / 1 NO_UHDM
+    patched   937 / 567 / 48 / 19 / 10 / 3 / 2 / 1 / 1  (IDENTICAL)
+    ct8rows results/golden_surelog.csv (IN THIS WORKTREE) vs patched:
+      PASS: every row byte-identical to the committed baseline
+    ct8rows this pass's OWN pristine vs patched:
+      PASS: every row byte-identical to the committed baseline
+    NO ROW CONVERTED.  results/*.csv were READ ONLY.  GOLDEN_DEFER unset.
+    cmds.txt audited BY BINARY PATH: 1573 files, 0 naming the pristine binary
+
+(5) BYTEVERIFY SELFCHECK=1 — see MOVERS.r10uvm191.txt for the attribution
+    surelog     MOVERS 5 / 956   (4 predicted by name + the Scoreboard COIN)
+    uhdm2rtlil  MOVERS 0 / 1358  (PREDICTED=0)
+
+CANARIES
+    surelog    ---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+    uhdm2rtlil ---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+    ctcan2 surelog     PASS: every supplementary canary row is byte-identical to the baseline.
+    ctcan2 uhdm2rtlil  PASS: every supplementary canary row is byte-identical to the baseline.
+    canaudit           ---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+
+PROTECTED DATABASES (md5 first 12, pristine vs patched, both modes)
+    InterfaceModPort     default   pris=59a365f3ce2c pat=59a365f3ce2c SAME
+    InterfaceModPort     testflags pris=59a365f3ce2c pat=59a365f3ce2c SAME
+    BlackParrotComplex   default   pris=e3e354129d5a pat=e3e354129d5a SAME
+    BlackParrotComplex   testflags pris=73a10e8217e5 pat=73a10e8217e5 SAME
+    YosysOldOr           default   pris=d68e0796d62c pat=d68e0796d62c SAME
+    YosysOldOr           testflags pris=d68e0796d62c pat=d68e0796d62c SAME
+    SVSwitch             default   pris=4842211c4030 pat=4842211c4030 SAME
+    SVSwitch             testflags pris=4842211c4030 pat=4842211c4030 SAME
+    YosysVerx            default   pris=6ccda350c24a pat=6ccda350c24a SAME
+    YosysVerx            testflags pris=6ccda350c24a pat=6ccda350c24a SAME
+
+WIDE BOUNDARY: see BOUNDARY.r10uvm191.txt
+    LISTED=5106 FENCED_SKIPPED=0 PROCESSED=5106 MOVED=16 NO_OUTPUT_PAIRS=392
+    PROCESSED-ASSERT-OK

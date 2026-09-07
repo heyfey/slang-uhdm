@@ -1,0 +1,75 @@
+r10uvm191 — THE WIDE BOUNDARY GATE.  MEASUREMENT ONLY; the official
+uhdm-cmp is the sole judge.  bound191.sh compiles EVERY .sv/.v under a COPY
+of tools/probe with BOTH binaries in BOTH views and diffs the uhdm dumps.
+fd-3 file list, children </dev/null, PROCESSED asserted, subdirectory arms
+included, scratch keyed on the RELATIVE path.  No arm file is named after
+any of the four slang-fenced tests, which FENCED_SKIPPED=0 asserts.
+
+MOVED 0068_r10buvm22repro_g22.sv/def 12 lines
+MOVED 0068_r10buvm22repro_g22.sv/elab 12 lines
+MOVED 2384_r10uvm154repro_l154_noenum.sv/def 8 lines
+MOVED 2384_r10uvm154repro_l154_noenum.sv/elab 8 lines
+MOVED 2535_r10uvm185repro_grid185_g185_e_kinds.sv/def 12 lines
+MOVED 2535_r10uvm185repro_grid185_g185_e_kinds.sv/elab 12 lines
+MOVED 2536_r10uvm186repro_g186_a_argdecl.sv/def 8 lines
+MOVED 2536_r10uvm186repro_g186_a_argdecl.sv/elab 4 lines
+MOVED 2552_r10uvm191repro_g191_a_face.sv/def 64 lines
+MOVED 2552_r10uvm191repro_g191_a_face.sv/elab 124 lines
+MOVED 2553_r10uvm191repro_g191_b_ctx.sv/def 4 lines
+MOVED 2553_r10uvm191repro_g191_b_ctx.sv/elab 10 lines
+MOVED 2554_r10uvm191repro_g191_c_scope.sv/def 40 lines
+MOVED 2554_r10uvm191repro_g191_c_scope.sv/elab 68 lines
+MOVED 3897_r10v186repro_v186_c_kinds.sv/def 20 lines
+MOVED 3897_r10v186repro_v186_c_kinds.sv/elab 22 lines
+LISTED=5106 FENCED_SKIPPED=0 PROCESSED=5106 MOVED=16 NO_OUTPUT_PAIRS=392
+PROCESSED-ASSERT-OK
+
+THE 16 MOVED ARM-VIEWS, IN THREE GROUPS
+
+1. THIS PASS'S OWN THREE ARMS (6 arm-views) — see GRID.r10uvm191.txt.
+     2552 r10uvm191repro/g191_a_face.sv    def 64 / elab 124
+     2553 r10uvm191repro/g191_b_ctx.sv     def  4 / elab  10
+     2554 r10uvm191repro/g191_c_scope.sv   def 40 / elab  68
+
+2. THE DECODED STATIC-ADDRESS FALSE MOVER (6 arm-views).  The ENTIRE diff
+   of each is two constants whose vpiDecompile/UINT value shifts by
+   EXACTLY 4096 — one page — because the binary grew.  Filtering those two
+   patterns leaves 0 differing lines, and ct191hpb cenall on the same
+   databases reports 0 changed reference rows.  Zero census movement is
+   the tell.
+     0068 r10buvm22repro/g22.sv                    def 12 / elab 12
+     2384 r10uvm154repro/l154_noenum.sv            def  8 / elab  8
+     2535 r10uvm185repro/grid185/g185_e_kinds.sv   def 12 / elab 12
+   non-address differing lines, per arm-view:
+     0068_r10buvm22repro_g22.sv/def: 0
+     0068_r10buvm22repro_g22.sv/elab: 0
+     2384_r10uvm154repro_l154_noenum.sv/def: 0
+     2384_r10uvm154repro_l154_noenum.sv/elab: 0
+     2535_r10uvm185repro_grid185_g185_e_kinds.sv/def: 0
+     2535_r10uvm185repro_grid185_g185_e_kinds.sv/elab: 0
+     0068_r10buvm22repro_g22.sv cenall changed rows (def): 0
+     2384_r10uvm154repro_l154_noenum.sv cenall changed rows (def): 0
+     2535_r10uvm185repro_grid185_g185_e_kinds.sv cenall changed rows (def): 0
+
+3. TWO ARMS THAT HOLD THIS LAW'S OWN CELLS (4 arm-views), each re-run
+   through grid191.sh against its OWN real Surelog golden:
+     2536 r10uvm186repro/g186_a_argdecl.sv   def 8 / elab 4
+          (new[idxbag186[loc186]]'s select base and new[fex186 + 1]'s
+           foreach index, both inside the Stanchion186 clone)
+     3897 r10v186repro/v186_c_kinds.sv       def 20 / elab 22
+
+     g186_a_argdecl.sv      def   UNTOUCHED        291 TOWARD           4 AWAY             0 MOVED-WRONG      0 STILL-WRONG      22 ONLY-GOLDEN      1 ONLY-OURS        0 ONLY-OURS-MOVED  0 
+     g186_a_argdecl.sv      elab  UNTOUCHED        374 TOWARD           2 AWAY             0 MOVED-WRONG      0 STILL-WRONG      20 ONLY-GOLDEN      1 ONLY-OURS        2 ONLY-OURS-MOVED  0 
+     v186_c_kinds.sv        def   UNTOUCHED        208 TOWARD           10 AWAY             0 MOVED-WRONG      0 STILL-WRONG      14 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0 
+     v186_c_kinds.sv        elab  UNTOUCHED        270 TOWARD           6 AWAY             0 MOVED-WRONG      0 STILL-WRONG      18 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0 
+
+   the head object is the SAME on both binaries in both views:
+     g186_a_argdecl.sv def   logic_net: (work@top186a.loc186), id:1999, line:44:18, endln:44:24
+     g186_a_argdecl.sv def   logic_net: (work@top186a.loc186), id:1999, line:44:18, endln:44:24
+
+Every OTHER arm under tools/probe is BYTE-IDENTICAL, including every
+cloneNewArrayArgBindsOwnDecl186 arm not listed above, every
+cloneBuiltinMethodArgBindsReceiver184 arm and its receiver-kind fence,
+retNameArgKeepsReturnVar184v, builtinArrayReadBindsMintedFuncCall182's
+arms, uvm189's sentinel arms, and the uvm181/183/185/187/188, uvm82-91,
+buvm3-15 and sd8-12 arms.

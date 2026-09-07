@@ -1,0 +1,55 @@
+LHS:
+decompile:
+array_var: (uvm_pkg::uvm_phase::get_adjacent_predecessor_nodes::predecessors), id:14293, line:1664:8, endln:1664:20
+|vpiParent:
+\_begin: (uvm_pkg::uvm_phase::get_adjacent_predecessor_nodes), id:14276, line:1664:4, endln:1664:32
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_phase::get_adjacent_predecessor_nodes::predecessors), id:14296
+  |vpiParent:
+  \_array_var: (uvm_pkg::uvm_phase::get_adjacent_predecessor_nodes::predecessors), id:14293, line:1664:8, endln:1664:20
+  |vpiFullName:uvm_pkg::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+  |vpiActual:
+  \_array_typespec: , id:14294, line:1664:8, endln:1664:31
+|vpiName:predecessors
+|vpiFullName:uvm_pkg::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+|vpiArrayType:3
+|vpiReg:
+\_bit_var: (uvm_pkg::uvm_phase::get_adjacent_predecessor_nodes::predecessors), id:14291, line:1664:8, endln:1664:20
+  |vpiParent:
+  \_array_var: (uvm_pkg::uvm_phase::get_adjacent_predecessor_nodes::predecessors), id:14293, line:1664:8, endln:1664:20
+  |vpiTypespec:
+  \_ref_typespec: (uvm_pkg::uvm_phase::get_adjacent_predecessor_nodes::predecessors), id:14292
+    |vpiParent:
+    \_bit_var: (uvm_pkg::uvm_phase::get_adjacent_predecessor_nodes::predecessors), id:14291, line:1664:8, endln:1664:20
+    |vpiFullName:uvm_pkg::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+    |vpiActual:
+    \_bit_typespec: , id:14290, line:1664:4, endln:1664:7
+  |vpiFullName:uvm_pkg::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+
+decompile:
+array_var: (uvm_pkg::uvm_phase::get_adjacent_predecessor_nodes::predecessors), id:14293, line:1664:8, endln:1664:20
+|vpiParent:
+\_begin: (uvm_pkg::uvm_phase::get_adjacent_predecessor_nodes), id:14276, line:1664:4, endln:1664:32
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_phase::get_adjacent_predecessor_nodes::predecessors), id:14296
+  |vpiParent:
+  \_array_var: (uvm_pkg::uvm_phase::get_adjacent_predecessor_nodes::predecessors), id:14293, line:1664:8, endln:1664:20
+  |vpiFullName:uvm_pkg::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+  |vpiActual:
+  \_array_typespec: , id:14294, line:1664:8, endln:1664:31
+|vpiName:predecessors
+|vpiFullName:uvm_pkg::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+|vpiArrayType:3
+|vpiReg:
+\_bit_var: (uvm_pkg::uvm_phase::get_adjacent_predecessor_nodes::predecessors), id:14291, line:1664:8, endln:1664:20
+  |vpiParent:
+  \_array_var: (uvm_pkg::uvm_phase::get_adjacent_predecessor_nodes::predecessors), id:14293, line:1664:8, endln:1664:20
+  |vpiTypespec:
+  \_ref_typespec: (uvm_pkg::uvm_phase::get_adjacent_predecessor_nodes::predecessors), id:14292
+    |vpiParent:
+    \_bit_var: (uvm_pkg::uvm_phase::get_adjacent_predecessor_nodes::predecessors), id:14291, line:1664:8, endln:1664:20
+    |vpiFullName:uvm_pkg::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+    |vpiActual:
+    \_bit_typespec: , id:14290, line:1664:4, endln:1664:7
+  |vpiFullName:uvm_pkg::uvm_phase::get_adjacent_predecessor_nodes::predecessors
+RHS: <null>

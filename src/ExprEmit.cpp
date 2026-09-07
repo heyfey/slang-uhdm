@@ -32621,6 +32621,18 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto* mfc = s.MakeMethod_func_call();
             mfc->VpiName("new");
             setLoc(mfc, expr.sourceRange);
+            // § cloneNewArrayHierBaseBindsOwnDecl191 — RECORD THE MISSING
+            // LINK.  The call stays UNPARENTED (that is § newArray11's whole
+            // model of Surelog's `paDynamic_array_new` arm, and golden's home
+            // listing agrees); what is recorded here, for a WILDCARD-IMPORT
+            // CLONE listing only, is the parent Surelog's own `clone_tree`
+            // gives the CLONED call — the enclosing assignment.
+            // `pkgCloneHierBind9`'s `ownerTf9` hops it when the chain is dead,
+            // so the hier_path BASE written in a `new[...]` argument reaches
+            // the same clone-body name bind every other reference in the body
+            // already reaches.  See include/UhdmExporter.h for the decode.
+            if (pkgImportCloneEmit && parent)
+                newArrayCloneOwner191[mfc] = (UHDM::any*)parent;
             auto* nargs = s.MakeAnyVec();
             // § newArrayArgNoBind16 — the window covers BOTH arguments and
             // everything nested in them (operations, nested calls, selects):

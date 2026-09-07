@@ -3347,6 +3347,93 @@ private:
     // `bindVariable` and already binds), and the EXPLICIT-import copy
     // (`importCloneEmit`), which this gate does not name.
     int newArrayArgDepth16 = 0;
+    // § cloneNewArrayHierBaseBindsOwnDecl191 (r10uvm191) — THE LAW.
+    //
+    // IN A WILDCARD-IMPORT CLONE BODY, THE **BASE** OF A `hier_path` WRITTEN
+    // INSIDE A DYNAMIC-ARRAY `new[...]` ARGUMENT BINDS THE BODY'S OWN
+    // DECLARATION, exactly like every other reference in that clone body.
+    // Corpus cell and head: `pred = new [predecessors.size()];`
+    // (uvm-1.2 `base/uvm_phase.svh:1685`), whose `ref_obj (predecessors)
+    // @1685:16` golden binds to `array_var (predecessors) @1664:8` — the
+    // subroutine's OWN local, the object the clone's other five references
+    // already bind on both sides — and which we left BARE in both clone
+    // listings.  At HOME (`package:uvm_pkg`, either view) golden leaves it
+    // bare and so do we; the elaborated module keeps what § 130 gives it.
+    //
+    // THE PRODUCER — and why this is § 184's road, not § 186's.  The binder
+    // is UHDM's GENERATED `ref_obj::DeepCopy`
+    // (`~/git-repos/UHDM/build/generated/src/ref_obj.cpp`):
+    //
+    //     elaboratorContext->m_elaborator.enterRef_obj(clone, nullptr);
+    //     basetype_t::DeepCopy(clone, parent, context);
+    //     if (!clone->Actual_group())
+    //       clone->Actual_group(elaboratorContext->m_elaborator
+    //                             .bindAny(VpiName()));
+    //     if (!clone->Actual_group())
+    //       clone->Actual_group((any*) Actual_group());
+    //
+    // `bindAny` is a pure NAME lookup over the ELABORATOR'S SCOPE STACK,
+    // which `function::DeepClone` pushed with `enterTask_func(clone, nullptr)`
+    // before it cloned the body (`UHDM/templates/clone_tree.cpp:514`); that
+    // scope is the subroutine's own `Variables()`, its `Io_decls()` and its
+    // return name (`ElaboratorListener.cpp:1051-1102`).  IT NEVER READS
+    // `VpiParent`.  `CompileHelper::importPackage` runs exactly that
+    // `clone_tree` over every imported subroutine listing
+    // (`CompileHelper.cpp:317-323`), which is why the clone binds and the
+    // home listing — never cloned — does not.  `hier_path::DeepClone`
+    // (clone_tree.cpp:895) has NO name lookup for the FIRST element at all
+    // (only `this` / `super` and the predecessor-resolved elements after it),
+    // so the base's binding cannot come from there; and
+    // `UhdmWriter::lateBinding` (UhdmWriter.cpp:3294), which DOES walk
+    // `VpiParent`, iterates `mod->getLateBinding()` — the HOME's original
+    // `ref_obj` pointers, copied into the importer BY POINTER
+    // (CompileHelper.cpp:190-193) — so it can only ever reach the home
+    // object, whose chain dies at the unparented `new` (§ 186's decode) and
+    // which golden accordingly leaves bare in BOTH home views.
+    //
+    // WHY OURS MISSED IT.  Our model of that lookup is `pkgCloneHierBind9`
+    // (UhdmExporter.cpp), and it finds the owning subroutine by walking
+    // `VpiParent` up from the `hier_path` — while § `newArray11` deliberately
+    // leaves the dynamic-array `new` `method_func_call` UNPARENTED, modelling
+    // Surelog's own `paDynamic_array_new` arm.  So the walk dies ONE LINK
+    // below the assignment, `ownerTf9` returns null, and the base is never
+    // even offered to the bind.  Every OTHER face in the same clone body —
+    // the `foreach` array reference at 1675:16, the `delete` receiver at
+    // 1677:13, the `foreach` reference at 1686:13 and the two `bit_select`
+    // bases at 1669:6 / 1679:15 — has a live chain and already binds on both
+    // sides; the `new[...]` argument is the only place in the corpus where
+    // the chain is cut.
+    //
+    // THE FIX IS THE MISSING LINK, NOT A NEW RULE: this map records, for a
+    // dynamic-array `new` call emitted INTO A WILDCARD-IMPORT CLONE LISTING
+    // (`pkgImportCloneEmit`, and nowhere else), the object that would have
+    // been its parent — the enclosing assignment, which is precisely the
+    // parent Surelog's own `clone_tree` gives the cloned call (§ 186's
+    // measured table: `vpiParent -> assignment @488:3` in both adpcm_pkg
+    // listings and NO parent in either uvm_pkg listing or the elaborated
+    // module).  `ownerTf9` hops it when, and only when, `VpiParent()` is
+    // null.  The `vpiParent` FIELD IS NOT WRITTEN — it is read by no
+    // generated `Compare` (RESUME §9) but it IS what the uhdm dump
+    // synthesises fullnames from, so writing it would move dump bytes this
+    // pass has no evidence for.
+    //
+    // WHAT THE GATE STILL REFUSES, unchanged and measured in the corpus:
+    //   * the HOME listings, both views — `pkgCloneBodyLocals9` has no entry
+    //     for a home `task_func`, so `bind9` returns before the map matters;
+    //   * a CLASS PROPERTY at the identical face — `bits = new[m_packed_size]`
+    //     (uvm-1.2 `uvm_packer.svh:475`) is golden-BARE in the clone, and
+    //     `bind9`'s own targets are the subroutine's locals/formals, a block
+    //     local (`blockVar9`) and a foreach loop variable (`loopVar37`); a
+    //     class property is in none of them;
+    //   * the EXPLICIT-import copy (`importCloneEmit`), which neither this map
+    //     nor `pkgCloneBodyLocals9` names (R1, corpus incidence zero);
+    //   * every NON-BASE element of those paths.  In the whole corpus the
+    //     element after the base is a `method_func_call` (the parens-ful
+    //     `.size()`), which `bindable37` refuses, so § pkgCloneMember10 and
+    //     § builtinArrayReadBindsMintedFuncCall182 — asked through the same
+    //     `ownerTf9` — have no cell to take here; golden leaves every one of
+    //     them BARE (measured, all 19 `new[...]` hier_paths in SeqDriver).
+    std::map<const UHDM::any*, UHDM::any*> newArrayCloneOwner191;
     // § classInBodyRecvCallArgNoBind52 — depth of RECEIVER-QUALIFIED call
     // ARGUMENT nesting, i.e. a call rendered as the two-or-more element
     // `hier_path{ref_obj recv…, method_func_call m}` shape that EXPRESSION

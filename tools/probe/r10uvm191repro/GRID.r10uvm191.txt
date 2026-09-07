@@ -1,0 +1,145 @@
+r10uvm191 — THE GOLDEN GRID.  Three arms, ONE REAL SURELOG GOLDEN each,
+BOTH views (DEF and ELAB).  MEASUREMENT ONLY; the official uhdm-cmp is the
+sole judge.  LHS is ALWAYS golden (Surelog).
+
+  arm A  g191_a_face.sv   the FACE axis (receiver kinds; base vs the
+                          element after it; the CLASS-PROPERTY fence)
+  arm B  g191_b_ctx.sv    the CONTEXT axis (the same calls written in
+                          every position that is NOT a new[...] argument)
+  arm C  g191_c_scope.sv  the DECLARATION-SCOPE axis (function local,
+                          named/unnamed/nested block local, for-body
+                          block local, formal, class property, package
+                          variable, bit_select base, foreach index)
+
+Every arm is CALIBRATED golden-vs-golden-vs-golden first (all columns 0
+but UNTOUCHED), scored twice — FACE-KEYED and FACE-BLIND.  The FACE column
+is a SHAPE fact that predates this pass: golden renders a foreach index
+inside a new[...] path as a bit_select BASE and we render it as a later
+Path_elems entry, so face-keyed those two rows do not join and a reference
+whose ACTUAL moved to exactly golden's object scores ONLY-OURS-MOVED.
+BOTH keyings are reported; AWAY and MOVED-WRONG are 0 in both.
+
+CALIB       a def   UNTOUCHED        237 TOWARD           0 AWAY             0 MOVED-WRONG      0 STILL-WRONG      0 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0 
+FACE-KEYED  a def   UNTOUCHED        209 TOWARD           28 AWAY             0 MOVED-WRONG      0 STILL-WRONG      10 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0 
+FACE-BLIND  a def   UNTOUCHED        209 TOWARD           28 AWAY             0 MOVED-WRONG      0 STILL-WRONG      10 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0 
+CALIB       a elab  UNTOUCHED        298 TOWARD           0 AWAY             0 MOVED-WRONG      0 STILL-WRONG      0 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0 
+FACE-KEYED  a elab  UNTOUCHED        290 TOWARD           8 AWAY             0 MOVED-WRONG      0 STILL-WRONG      14 ONLY-GOLDEN      0 ONLY-OURS        1 ONLY-OURS-MOVED  0 
+FACE-BLIND  a elab  UNTOUCHED        288 TOWARD           8 AWAY             0 MOVED-WRONG      0 STILL-WRONG      14 ONLY-GOLDEN      0 ONLY-OURS        1 ONLY-OURS-MOVED  0 
+CALIB       b def   UNTOUCHED        166 TOWARD           0 AWAY             0 MOVED-WRONG      0 STILL-WRONG      0 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0 
+FACE-KEYED  b def   UNTOUCHED        161 TOWARD           2 AWAY             0 MOVED-WRONG      0 STILL-WRONG      3 ONLY-GOLDEN      3 ONLY-OURS        2 ONLY-OURS-MOVED  0 
+FACE-BLIND  b def   UNTOUCHED        163 TOWARD           2 AWAY             0 MOVED-WRONG      0 STILL-WRONG      3 ONLY-GOLDEN      1 ONLY-OURS        0 ONLY-OURS-MOVED  0 
+CALIB       b elab  UNTOUCHED        212 TOWARD           0 AWAY             0 MOVED-WRONG      0 STILL-WRONG      0 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0 
+FACE-KEYED  b elab  UNTOUCHED        211 TOWARD           0 AWAY             0 MOVED-WRONG      0 STILL-WRONG      15 ONLY-GOLDEN      1 ONLY-OURS        2 ONLY-OURS-MOVED  0 
+FACE-BLIND  b elab  UNTOUCHED        209 TOWARD           0 AWAY             0 MOVED-WRONG      0 STILL-WRONG      13 ONLY-GOLDEN      1 ONLY-OURS        0 ONLY-OURS-MOVED  0 
+CALIB       c def   UNTOUCHED        184 TOWARD           0 AWAY             0 MOVED-WRONG      0 STILL-WRONG      0 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0 
+FACE-KEYED  c def   UNTOUCHED        163 TOWARD           18 AWAY             0 MOVED-WRONG      0 STILL-WRONG      6 ONLY-GOLDEN      3 ONLY-OURS        2 ONLY-OURS-MOVED  2 
+FACE-BLIND  c def   UNTOUCHED        163 TOWARD           20 AWAY             0 MOVED-WRONG      0 STILL-WRONG      6 ONLY-GOLDEN      1 ONLY-OURS        0 ONLY-OURS-MOVED  0 
+CALIB       c elab  UNTOUCHED        238 TOWARD           0 AWAY             0 MOVED-WRONG      0 STILL-WRONG      0 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0 
+FACE-KEYED  c elab  UNTOUCHED        237 TOWARD           0 AWAY             0 MOVED-WRONG      0 STILL-WRONG      16 ONLY-GOLDEN      1 ONLY-OURS        2 ONLY-OURS-MOVED  0 
+FACE-BLIND  c elab  UNTOUCHED        233 TOWARD           0 AWAY             0 MOVED-WRONG      0 STILL-WRONG      14 ONLY-GOLDEN      1 ONLY-OURS        0 ONLY-OURS-MOVED  0 
+
+== ARM A, the moved cells by name (DEF view) ==
+TOWARD           28
+TOWARD package:Balustrade191/DEF                  | function:Newel191::gird191                     | HPBASE  | NEWARG   | 60:18 | bag191
+TOWARD package:Balustrade191/DEF                  | function:Newel191::gird191                     | HPBASE  | NEWARG   | 61:18 | rope191
+TOWARD package:Balustrade191/DEF                  | function:Newel191::gird191                     | HPBASE  | NEWARG   | 62:18 | slab191
+TOWARD package:Balustrade191/DEF                  | function:Newel191::gird191                     | HPBASE  | NEWARG   | 63:18 | limb191
+TOWARD package:Balustrade191/DEF                  | function:Newel191::gird191                     | HPBASE  | NEWARG   | 66:18 | rope191
+TOWARD package:Balustrade191/DEF                  | function:Newel191::gird191                     | HPBASE  | NEWARG   | 67:18 | nook191
+TOWARD package:Balustrade191/DEF                  | function:Newel191::gird191                     | HPBASE  | NEWARG   | 68:18 | crate191
+TOWARD package:Balustrade191/DEF                  | function:Newel191::gird191                     | HPBASE  | NEWARG   | 69:18 | crate191
+TOWARD package:Balustrade191/DEF                  | function:Newel191::gird191                     | HPBASE  | NEWARG   | 72:18 | bag191
+TOWARD package:Balustrade191/DEF                  | function:Newel191::gird191                     | HPINNER | NEWARG   | 66:26 | size
+TOWARD package:Balustrade191/DEF                  | function:Newel191::gird191                     | HPINNER | NEWARG   | 67:26 | size
+TOWARD package:Balustrade191/DEF                  | function:Newel191::gird191                     | HPINNER | NEWARG   | 68:27 | size
+TOWARD package:Balustrade191/DEF                  | function:Newel191::gird191                     | HPINNER | NEWARG   | 69:27 | hasp191
+TOWARD package:Balustrade191/DEF                  | function:free191                               | HPBASE  | NEWARG   | 82:18 | mesh191
+TOWARD package:Balustrade191/ELAB                 | function:Newel191::gird191                     | HPBASE  | NEWARG   | 60:18 | bag191
+TOWARD package:Balustrade191/ELAB                 | function:Newel191::gird191                     | HPBASE  | NEWARG   | 61:18 | rope191
+TOWARD package:Balustrade191/ELAB                 | function:Newel191::gird191                     | HPBASE  | NEWARG   | 62:18 | slab191
+TOWARD package:Balustrade191/ELAB                 | function:Newel191::gird191                     | HPBASE  | NEWARG   | 63:18 | limb191
+TOWARD package:Balustrade191/ELAB                 | function:Newel191::gird191                     | HPBASE  | NEWARG   | 66:18 | rope191
+TOWARD package:Balustrade191/ELAB                 | function:Newel191::gird191                     | HPBASE  | NEWARG   | 67:18 | nook191
+TOWARD package:Balustrade191/ELAB                 | function:Newel191::gird191                     | HPBASE  | NEWARG   | 68:18 | crate191
+TOWARD package:Balustrade191/ELAB                 | function:Newel191::gird191                     | HPBASE  | NEWARG   | 69:18 | crate191
+TOWARD package:Balustrade191/ELAB                 | function:Newel191::gird191                     | HPBASE  | NEWARG   | 72:18 | bag191
+TOWARD package:Balustrade191/ELAB                 | function:Newel191::gird191                     | HPINNER | NEWARG   | 66:26 | size
+TOWARD package:Balustrade191/ELAB                 | function:Newel191::gird191                     | HPINNER | NEWARG   | 67:26 | size
+TOWARD package:Balustrade191/ELAB                 | function:Newel191::gird191                     | HPINNER | NEWARG   | 68:27 | size
+TOWARD package:Balustrade191/ELAB                 | function:Newel191::gird191                     | HPINNER | NEWARG   | 69:27 | hasp191
+TOWARD package:Balustrade191/ELAB                 | function:free191                               | HPBASE  | NEWARG   | 82:18 | mesh191
+
+== ARM A, the CLASS-PROPERTY FENCE (A5/A6, lines 64 and 65): golden BARE,
+   pristine BARE, patched BARE, in every one of the four listings ==
+-- cen.g.def.txt
+package:Balustrade191/DEF                  | function:Newel191::gird191                     | HPBASE  | NEWARG   | 64:18 | m_hoard191 || act=BARE
+package:Balustrade191/DEF                  | function:Newel191::gird191                     | HPBASE  | NEWARG   | 65:18 | m_tally191 || act=BARE
+package:Balustrade191/ELAB                 | function:Newel191::gird191                     | HPBASE  | NEWARG   | 64:18 | m_hoard191 || act=BARE
+package:Balustrade191/ELAB                 | function:Newel191::gird191                     | HPBASE  | NEWARG   | 65:18 | m_tally191 || act=BARE
+package:Trellis191/DEF                     | function:Newel191::gird191                     | HPBASE  | NEWARG   | 64:18 | m_hoard191 || act=BARE
+package:Trellis191/DEF                     | function:Newel191::gird191                     | HPBASE  | NEWARG   | 65:18 | m_tally191 || act=BARE
+package:Trellis191/ELAB                    | function:gird191                               | HPBASE  | NEWARG   | 64:18 | m_hoard191 || act=BARE
+package:Trellis191/ELAB                    | function:gird191                               | HPBASE  | NEWARG   | 65:18 | m_tally191 || act=BARE
+-- cen.a.def.txt
+package:Balustrade191/DEF                  | function:Newel191::gird191                     | HPBASE  | NEWARG   | 64:18 | m_hoard191 || act=BARE
+package:Balustrade191/DEF                  | function:Newel191::gird191                     | HPBASE  | NEWARG   | 65:18 | m_tally191 || act=BARE
+package:Balustrade191/ELAB                 | function:Newel191::gird191                     | HPBASE  | NEWARG   | 64:18 | m_hoard191 || act=BARE
+package:Balustrade191/ELAB                 | function:Newel191::gird191                     | HPBASE  | NEWARG   | 65:18 | m_tally191 || act=BARE
+package:Trellis191/DEF                     | function:Newel191::gird191                     | HPBASE  | NEWARG   | 64:18 | m_hoard191 || act=BARE
+package:Trellis191/DEF                     | function:Newel191::gird191                     | HPBASE  | NEWARG   | 65:18 | m_tally191 || act=BARE
+package:Trellis191/ELAB                    | function:gird191                               | HPBASE  | NEWARG   | 64:18 | m_hoard191 || act=BARE
+package:Trellis191/ELAB                    | function:gird191                               | HPBASE  | NEWARG   | 65:18 | m_tally191 || act=BARE
+-- cen.b.def.txt
+package:Balustrade191/DEF                  | function:Newel191::gird191                     | HPBASE  | NEWARG   | 64:18 | m_hoard191 || act=BARE
+package:Balustrade191/DEF                  | function:Newel191::gird191                     | HPBASE  | NEWARG   | 65:18 | m_tally191 || act=BARE
+package:Balustrade191/ELAB                 | function:Newel191::gird191                     | HPBASE  | NEWARG   | 64:18 | m_hoard191 || act=BARE
+package:Balustrade191/ELAB                 | function:Newel191::gird191                     | HPBASE  | NEWARG   | 65:18 | m_tally191 || act=BARE
+package:Trellis191/DEF                     | function:Newel191::gird191                     | HPBASE  | NEWARG   | 64:18 | m_hoard191 || act=BARE
+package:Trellis191/DEF                     | function:Newel191::gird191                     | HPBASE  | NEWARG   | 65:18 | m_tally191 || act=BARE
+package:Trellis191/ELAB                    | function:gird191                               | HPBASE  | NEWARG   | 64:18 | m_hoard191 || act=BARE
+package:Trellis191/ELAB                    | function:gird191                               | HPBASE  | NEWARG   | 65:18 | m_tally191 || act=BARE
+
+== ARM B, the moved cells by name (DEF view): the ONE new[...] cell ==
+TOWARD           2
+TOWARD package:Newelpost191/DEF                   | function:Corbel191::splay191                   | HPBASE  | NEWARG   | 52:18 | tally191
+TOWARD package:Newelpost191/ELAB                  | function:Corbel191::splay191                   | HPBASE  | NEWARG   | 52:18 | tally191
+
+== ARM C, the moved cells by name (DEF view, face-blind) ==
+TOWARD           20
+TOWARD package:Spandrel191/DEF                    | function:Impost191::haunch191                  | NEWARG   | 43:18 | lvl191
+TOWARD package:Spandrel191/DEF                    | function:Impost191::haunch191                  | NEWARG   | 44:18 | fml_arr
+TOWARD package:Spandrel191/DEF                    | function:Impost191::haunch191                  | NEWARG   | 51:20 | nbl191
+TOWARD package:Spandrel191/DEF                    | function:Impost191::haunch191                  | NEWARG   | 56:20 | ubl191
+TOWARD package:Spandrel191/DEF                    | function:Impost191::haunch191                  | NEWARG   | 60:22 | deep191
+TOWARD package:Spandrel191/DEF                    | function:Impost191::haunch191                  | NEWARG   | 66:20 | forl191
+TOWARD package:Spandrel191/DEF                    | function:Impost191::haunch191                  | NEWARG   | 69:20 | shelf191
+TOWARD package:Spandrel191/DEF                    | function:Impost191::haunch191                  | NEWARG   | 69:29 | ix191
+TOWARD package:Spandrel191/DEF                    | function:Impost191::haunch191                  | NEWARG   | 70:18 | shelf191
+TOWARD package:Spandrel191/DEF                    | function:gambrel191                            | NEWARG   | 79:18 | purl191
+TOWARD package:Spandrel191/ELAB                   | function:Impost191::haunch191                  | NEWARG   | 43:18 | lvl191
+TOWARD package:Spandrel191/ELAB                   | function:Impost191::haunch191                  | NEWARG   | 44:18 | fml_arr
+TOWARD package:Spandrel191/ELAB                   | function:Impost191::haunch191                  | NEWARG   | 51:20 | nbl191
+TOWARD package:Spandrel191/ELAB                   | function:Impost191::haunch191                  | NEWARG   | 56:20 | ubl191
+TOWARD package:Spandrel191/ELAB                   | function:Impost191::haunch191                  | NEWARG   | 60:22 | deep191
+TOWARD package:Spandrel191/ELAB                   | function:Impost191::haunch191                  | NEWARG   | 66:20 | forl191
+TOWARD package:Spandrel191/ELAB                   | function:Impost191::haunch191                  | NEWARG   | 69:20 | shelf191
+TOWARD package:Spandrel191/ELAB                   | function:Impost191::haunch191                  | NEWARG   | 69:29 | ix191
+TOWARD package:Spandrel191/ELAB                   | function:Impost191::haunch191                  | NEWARG   | 70:18 | shelf191
+TOWARD package:Spandrel191/ELAB                   | function:gambrel191                            | NEWARG   | 79:18 | purl191
+
+== ARM C, the FENCES (line 45 class property, line 46 package variable) ==
+-- cen.g.def.txt
+package:Spandrel191/DEF                    | function:Impost191::haunch191                  | HPBASE  | NEWARG   | 45:18 | m_wain191 || act=BARE
+package:Spandrel191/DEF                    | function:Impost191::haunch191                  | HPBASE  | NEWARG   | 46:18 | pkgcask191 || act=BARE
+package:Spandrel191/ELAB                   | function:Impost191::haunch191                  | HPBASE  | NEWARG   | 45:18 | m_wain191 || act=BARE
+package:Spandrel191/ELAB                   | function:Impost191::haunch191                  | HPBASE  | NEWARG   | 46:18 | pkgcask191 || act=BARE
+-- cen.a.def.txt
+package:Spandrel191/DEF                    | function:Impost191::haunch191                  | HPBASE  | NEWARG   | 45:18 | m_wain191 || act=BARE
+package:Spandrel191/DEF                    | function:Impost191::haunch191                  | HPBASE  | NEWARG   | 46:18 | pkgcask191 || act=BARE
+package:Spandrel191/ELAB                   | function:Impost191::haunch191                  | HPBASE  | NEWARG   | 45:18 | m_wain191 || act=BARE
+package:Spandrel191/ELAB                   | function:Impost191::haunch191                  | HPBASE  | NEWARG   | 46:18 | pkgcask191 || act=BARE
+-- cen.b.def.txt
+package:Spandrel191/DEF                    | function:Impost191::haunch191                  | HPBASE  | NEWARG   | 45:18 | m_wain191 || act=BARE
+package:Spandrel191/DEF                    | function:Impost191::haunch191                  | HPBASE  | NEWARG   | 46:18 | pkgcask191 || act=BARE
+package:Spandrel191/ELAB                   | function:Impost191::haunch191                  | HPBASE  | NEWARG   | 45:18 | m_wain191 || act=BARE
+package:Spandrel191/ELAB                   | function:Impost191::haunch191                  | HPBASE  | NEWARG   | 46:18 | pkgcask191 || act=BARE
