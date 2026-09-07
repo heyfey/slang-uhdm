@@ -1,0 +1,135 @@
+# r10v194 — ARM TRANSCRIPTS (measurement only; uhdm-cmp is the judge)
+
+## binaries
+d9d6c87f4c7163b532bbb2c719e0991a  /tmp/v194_bins/pat_d9d6.bin
+982e5776891c48fb0e30ab832c3c05d4  /tmp/v194_bins/pris_982e.bin
+
+== arm a_explicit
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/v194_wd/arm_a_explicit/g_def /tmp/wt_v194/tools/probe/r10v194repro/grid194v/v194_a_explicit.sv
+rc=0 /tmp/v194_bins/pris_982e.bin /tmp/wt_v194/tools/probe/r10v194repro/grid194v/v194_a_explicit.sv -o /tmp/v194_wd/arm_a_explicit/a_def.uhdm
+rc=0 /tmp/v194_bins/pat_d9d6.bin /tmp/wt_v194/tools/probe/r10v194repro/grid194v/v194_a_explicit.sv -o /tmp/v194_wd/arm_a_explicit/b_def.uhdm
+cmp rc=255 a def lines=31 heads=1
+cmp rc=0 b def lines=0 heads=0
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/v194_wd/arm_a_explicit/g_elab /tmp/wt_v194/tools/probe/r10v194repro/grid194v/v194_a_explicit.sv
+rc=0 /tmp/v194_bins/pris_982e.bin /tmp/wt_v194/tools/probe/r10v194repro/grid194v/v194_a_explicit.sv --elabuhdm -o /tmp/v194_wd/arm_a_explicit/a_elab.uhdm
+rc=0 /tmp/v194_bins/pat_d9d6.bin /tmp/wt_v194/tools/probe/r10v194repro/grid194v/v194_a_explicit.sv --elabuhdm -o /tmp/v194_wd/arm_a_explicit/b_elab.uhdm
+cmp rc=255 a elab lines=31 heads=1
+cmp rc=255 b elab lines=442 heads=1
+a_explicit.def                                 {'AGREE': 10, 'STILL-EXTRA': 8, 'STILL-MISSING': 8, 'TO-GOLDEN': 4}  <<<
+a_explicit.elab                                {'AGREE': 40, 'TO-GOLDEN': 8}  <<<
+TOTAL {'AGREE': 50, 'STILL-EXTRA': 8, 'STILL-MISSING': 8, 'TO-GOLDEN': 12}
+
+== arm b_faces
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/v194_wd/arm_b_faces/g_def /tmp/wt_v194/tools/probe/r10v194repro/grid194v/v194_b_faces.sv
+rc=0 /tmp/v194_bins/pris_982e.bin /tmp/wt_v194/tools/probe/r10v194repro/grid194v/v194_b_faces.sv -o /tmp/v194_wd/arm_b_faces/a_def.uhdm
+rc=0 /tmp/v194_bins/pat_d9d6.bin /tmp/wt_v194/tools/probe/r10v194repro/grid194v/v194_b_faces.sv -o /tmp/v194_wd/arm_b_faces/b_def.uhdm
+cmp rc=255 a def lines=4480 heads=1
+cmp rc=255 b def lines=4512 heads=1
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/v194_wd/arm_b_faces/g_elab /tmp/wt_v194/tools/probe/r10v194repro/grid194v/v194_b_faces.sv
+rc=0 /tmp/v194_bins/pris_982e.bin /tmp/wt_v194/tools/probe/r10v194repro/grid194v/v194_b_faces.sv --elabuhdm -o /tmp/v194_wd/arm_b_faces/a_elab.uhdm
+rc=0 /tmp/v194_bins/pat_d9d6.bin /tmp/wt_v194/tools/probe/r10v194repro/grid194v/v194_b_faces.sv --elabuhdm -o /tmp/v194_wd/arm_b_faces/b_elab.uhdm
+cmp rc=255 a elab lines=4968 heads=1
+cmp rc=255 b elab lines=5000 heads=1
+b_faces.def                                    {'AGREE': 16, 'TO-GOLDEN': 16}  <<<
+b_faces.elab                                   {'AGREE': 44, 'TO-GOLDEN': 32}  <<<
+TOTAL {'AGREE': 60, 'TO-GOLDEN': 48}
+
+== arm c_views
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/v194_wd/arm_c_views/g_def /tmp/wt_v194/tools/probe/r10v194repro/grid194v/v194_c_views.sv
+rc=0 /tmp/v194_bins/pris_982e.bin /tmp/wt_v194/tools/probe/r10v194repro/grid194v/v194_c_views.sv -o /tmp/v194_wd/arm_c_views/a_def.uhdm
+rc=0 /tmp/v194_bins/pat_d9d6.bin /tmp/wt_v194/tools/probe/r10v194repro/grid194v/v194_c_views.sv -o /tmp/v194_wd/arm_c_views/b_def.uhdm
+cmp rc=255 a def lines=31 heads=1
+cmp rc=255 b def lines=803 heads=1
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/v194_wd/arm_c_views/g_elab /tmp/wt_v194/tools/probe/r10v194repro/grid194v/v194_c_views.sv
+rc=0 /tmp/v194_bins/pris_982e.bin /tmp/wt_v194/tools/probe/r10v194repro/grid194v/v194_c_views.sv --elabuhdm -o /tmp/v194_wd/arm_c_views/a_elab.uhdm
+rc=0 /tmp/v194_bins/pat_d9d6.bin /tmp/wt_v194/tools/probe/r10v194repro/grid194v/v194_c_views.sv --elabuhdm -o /tmp/v194_wd/arm_c_views/b_elab.uhdm
+cmp rc=255 a elab lines=31 heads=1
+cmp rc=255 b elab lines=903 heads=1
+c_views.def                                    {'AGREE': 14, 'TO-GOLDEN': 8}  <<<
+c_views.elab                                   {'AGREE': 48, 'STILL-EXTRA': 42, 'TO-GOLDEN': 16}  <<<
+TOTAL {'AGREE': 62, 'STILL-EXTRA': 42, 'TO-GOLDEN': 24}
+
+== arm d_scopes
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/v194_wd/arm_d_scopes/g_def /tmp/wt_v194/tools/probe/r10v194repro/grid194v/v194_d_scopes.sv
+rc=0 /tmp/v194_bins/pris_982e.bin /tmp/wt_v194/tools/probe/r10v194repro/grid194v/v194_d_scopes.sv -o /tmp/v194_wd/arm_d_scopes/a_def.uhdm
+rc=0 /tmp/v194_bins/pat_d9d6.bin /tmp/wt_v194/tools/probe/r10v194repro/grid194v/v194_d_scopes.sv -o /tmp/v194_wd/arm_d_scopes/b_def.uhdm
+cmp rc=0 a def lines=0 heads=0
+cmp rc=0 b def lines=0 heads=0
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/v194_wd/arm_d_scopes/g_elab /tmp/wt_v194/tools/probe/r10v194repro/grid194v/v194_d_scopes.sv
+rc=0 /tmp/v194_bins/pris_982e.bin /tmp/wt_v194/tools/probe/r10v194repro/grid194v/v194_d_scopes.sv --elabuhdm -o /tmp/v194_wd/arm_d_scopes/a_elab.uhdm
+rc=0 /tmp/v194_bins/pat_d9d6.bin /tmp/wt_v194/tools/probe/r10v194repro/grid194v/v194_d_scopes.sv --elabuhdm -o /tmp/v194_wd/arm_d_scopes/b_elab.uhdm
+cmp rc=0 a elab lines=0 heads=0
+cmp rc=0 b elab lines=0 heads=0
+d_scopes.def                                   {'AGREE': 32}
+d_scopes.elab                                  {'AGREE': 80}
+TOTAL {'AGREE': 112}
+
+== arm e_expl
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/v194_wd/arm_e_expl/g_def /tmp/wt_v194/tools/probe/r10v194repro/grid194v/v194_e_explclone.sv
+rc=0 /tmp/v194_bins/pris_982e.bin /tmp/wt_v194/tools/probe/r10v194repro/grid194v/v194_e_explclone.sv -o /tmp/v194_wd/arm_e_expl/a_def.uhdm
+rc=0 /tmp/v194_bins/pat_d9d6.bin /tmp/wt_v194/tools/probe/r10v194repro/grid194v/v194_e_explclone.sv -o /tmp/v194_wd/arm_e_expl/b_def.uhdm
+cmp rc=255 a def lines=31 heads=1
+cmp rc=0 b def lines=0 heads=0
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/v194_wd/arm_e_expl/g_elab /tmp/wt_v194/tools/probe/r10v194repro/grid194v/v194_e_explclone.sv
+rc=0 /tmp/v194_bins/pris_982e.bin /tmp/wt_v194/tools/probe/r10v194repro/grid194v/v194_e_explclone.sv --elabuhdm -o /tmp/v194_wd/arm_e_expl/a_elab.uhdm
+rc=0 /tmp/v194_bins/pat_d9d6.bin /tmp/wt_v194/tools/probe/r10v194repro/grid194v/v194_e_explclone.sv --elabuhdm -o /tmp/v194_wd/arm_e_expl/b_elab.uhdm
+cmp rc=255 a elab lines=31 heads=1
+cmp rc=0 b elab lines=0 heads=0
+e_expl.def                                     {'AGREE': 8, 'TO-GOLDEN': 4}  <<<
+e_expl.elab                                    {'AGREE': 18, 'TO-GOLDEN': 8}  <<<
+TOTAL {'AGREE': 26, 'TO-GOLDEN': 12}
+
+== implementer arms re-run here
+-- a_homes
+cmp rc=255 a def lines=31 heads=1
+cmp rc=0 b def lines=0 heads=0
+cmp rc=255 a elab lines=31 heads=1
+cmp rc=0 b elab lines=0 heads=0
+a_homes.def                                    {'AGREE': 18, 'TO-GOLDEN': 4}  <<<
+a_homes.elab                                   {'AGREE': 44, 'TO-GOLDEN': 8}  <<<
+TOTAL {'AGREE': 62, 'TO-GOLDEN': 12}
+
+-- b_kinds
+cmp rc=255 a def lines=31 heads=1
+cmp rc=255 b def lines=43 heads=1
+cmp rc=255 a elab lines=31 heads=1
+cmp rc=255 b elab lines=43 heads=1
+b_kinds.def                                    {'AGREE': 14, 'STILL-EXTRA': 4, 'STILL-MISSING': 4, 'TO-GOLDEN': 8}  <<<
+b_kinds.elab                                   {'AGREE': 43, 'STILL-EXTRA': 4, 'STILL-MISSING': 4, 'TO-GOLDEN': 16}  <<<
+TOTAL {'AGREE': 57, 'STILL-EXTRA': 8, 'STILL-MISSING': 8, 'TO-GOLDEN': 24}
+
+-- c_clone
+cmp rc=255 a def lines=31 heads=1
+cmp rc=0 b def lines=0 heads=0
+cmp rc=255 a elab lines=31 heads=1
+cmp rc=0 b elab lines=0 heads=0
+c_clone.def                                    {'AGREE': 10, 'STILL-EXTRA': 4, 'STILL-MISSING': 4, 'TO-GOLDEN': 4}  <<<
+c_clone.elab                                   {'AGREE': 32, 'TO-GOLDEN': 8}  <<<
+TOTAL {'AGREE': 42, 'STILL-EXTRA': 4, 'STILL-MISSING': 4, 'TO-GOLDEN': 12}
+
+== r10uvm171 arms re-run here
+-- g171_b_homes
+cmp rc=255 a def lines=31 heads=1
+cmp rc=0 b def lines=0 heads=0
+cmp rc=255 a elab lines=31 heads=1
+cmp rc=0 b elab lines=0 heads=0
+g171_b_homes.def                               {'AGREE': 17, 'STILL-EXTRA': 2, 'STILL-MISSING': 2, 'TO-GOLDEN': 2}  <<<
+g171_b_homes.elab                              {'AGREE': 42, 'TO-GOLDEN': 4}  <<<
+TOTAL {'AGREE': 59, 'STILL-EXTRA': 2, 'STILL-MISSING': 2, 'TO-GOLDEN': 6}
+
+-- v171_c_homes
+cmp rc=255 a def lines=31 heads=1
+cmp rc=255 b def lines=48 heads=1
+cmp rc=255 a elab lines=31 heads=1
+cmp rc=255 b elab lines=48 heads=1
+v171_c_homes.def                               {'AGREE': 18, 'STILL-EXTRA': 2, 'STILL-MISSING': 2, 'TO-GOLDEN': 2}  <<<
+v171_c_homes.elab                              {'AGREE': 52, 'TO-GOLDEN': 4}  <<<
+TOTAL {'AGREE': 70, 'STILL-EXTRA': 2, 'STILL-MISSING': 2, 'TO-GOLDEN': 6}
+
+== order-blind whole-dump attribution of every arm (pristine vs patched)
+a_explicit def: 5 added / 1 removed (1 removed = the dump's own filename header)
+a_explicit elab: 9 added / 1 removed (1 removed = the dump's own filename header)
+b_faces def: 17 added / 1 removed (1 removed = the dump's own filename header)
+b_faces elab: 33 added / 1 removed (1 removed = the dump's own filename header)
+c_views def: 9 added / 1 removed (1 removed = the dump's own filename header)
+c_views elab: 17 added / 1 removed (1 removed = the dump's own filename header)

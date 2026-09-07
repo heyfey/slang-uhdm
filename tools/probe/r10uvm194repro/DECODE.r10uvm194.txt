@@ -1,0 +1,138 @@
+# r10uvm194 — DECODING THE JUDGE, SURELOG AND SLANG.  MEASUREMENT ONLY.
+# LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+## 1. THE HEAD, re-measured on THIS pass's own pristine build first
+##    (rowheads.sh on the pristine sweep at 287bbc94)
+     BuildUVMPkg default    31 cmp lines  1 head
+     BuildUVMPkg testflags  31 cmp lines  1 head   (the two .cmp files are
+                                                     byte-identical: md5 d18aa1f83dcf)
+
+     LHS:
+     decompile:
+     bit_select: (uvm_pkg::uvm_packer::unpack_string::unpack_string), id:72450, line:22952:7, endln:22952:23
+     |vpiParent:
+     \_assignment: , id:72448, line:22952:7, endln:22952:52
+     |vpiName:unpack_string
+     |vpiFullName:uvm_pkg::uvm_packer::unpack_string::unpack_string
+     |vpiIndex:
+     \_ref_obj: (uvm_pkg::uvm_packer::unpack_string::i), id:72449, line:22952:21, endln:22952:22
+       |vpiParent:
+       \_bit_select: (uvm_pkg::uvm_packer::unpack_string::unpack_string), id:72450, line:22952:7, endln:22952:23
+       |vpiName:i
+       |vpiFullName:uvm_pkg::uvm_packer::unpack_string::i
+       |vpiActual:
+       \_int_var: (uvm_pkg::uvm_packer::unpack_string::i), id:72426, line:22937:7, endln:22937:8
+     
+     RHS: <null>
+
+## 2. DECODING THE JUDGE — the BRIEF'S FRAMING IS REFUTED
+
+The brief read the head as 'the owner is the assignment'.  ct194own.cpp (the
+mirror scan, r10uvm164's ct164own form) enumerates every GOLDEN object holding
+an edge onto the head with the generated, kind-agnostic GetByVpiType, and prints
+OUR counterpart edge beside it.  The assignment's vpiLhs (vpiType 77) is PRESENT
+ON BOTH SIDES.  The failing edges are the vpiActual (relation 700) of the two
+BARE ref_obj at uvm_pkg.sv:22943 — 'unpack_string = {unpack_string," "};' — and
+only in the PACKAGE-LISTED copy of the method; the CLASS-LISTED copy of the very
+same body agrees on all four owners:
+
+     HEADS matching 22952:7 kind~bit_select : 2
+     HEAD bit_select(unpack_string)@22952:7-22952:23#12709 <function:unpack_string <class_defn:uvm_packer <package:uvm_pkg
+       (its vpiParent, which no generated Compare reads: assignment()@22952:7-22952:52#12707)
+       OWNER assignment()@22952:7-22952:52#12707 <function:unpack_string <class_defn:uvm_packer <package:uvm_pkg
+           edge vpiType=77 SINGULAR   golden -> bit_select(unpack_string)@22952:7-22952:23#12709
+           ours  -> bit_select(unpack_string)@22952:7-22952:23#43711
+       OWNER ref_obj(unpack_string)@22943:5-22943:18#12703 <function:unpack_string <class_defn:uvm_packer <package:uvm_pkg
+           edge vpiType=700 SINGULAR   golden -> bit_select(unpack_string)@22952:7-22952:23#12709
+           ours  -> bit_select(unpack_string)@22952:7-22952:23#43711
+       OWNER ref_obj(unpack_string)@22943:22-22943:35#12705 <function:unpack_string <class_defn:uvm_packer <package:uvm_pkg
+           edge vpiType=700 SINGULAR   golden -> bit_select(unpack_string)@22952:7-22952:23#12709
+           ours  -> bit_select(unpack_string)@22952:7-22952:23#43711
+       OWNER ref_obj(i)@22952:21-22952:22#12708 <function:unpack_string <class_defn:uvm_packer <package:uvm_pkg
+           edge vpiType=81 SINGULAR   golden -> bit_select(unpack_string)@22952:7-22952:23#12709
+           ours  -> bit_select(unpack_string)@22952:7-22952:23#43711
+       -- owners=4  null-on-ours=0
+     HEAD bit_select(unpack_string)@22952:7-22952:23#72450 <function:uvm_packer::unpack_string <package:uvm_pkg
+       (its vpiParent, which no generated Compare reads: assignment()@22952:7-22952:52#72448)
+       OWNER assignment()@22952:7-22952:52#72448 <function:uvm_packer::unpack_string <package:uvm_pkg
+           edge vpiType=77 SINGULAR   golden -> bit_select(unpack_string)@22952:7-22952:23#72450
+           ours  -> bit_select(unpack_string)@22952:7-22952:23#132200
+       OWNER ref_obj(unpack_string)@22943:5-22943:18#72444 <function:uvm_packer::unpack_string <package:uvm_pkg
+           edge vpiType=700 SINGULAR   golden -> bit_select(unpack_string)@22952:7-22952:23#72450
+           ours  -> <null>   <<< THE OWNER (singular edge null on ours)
+       OWNER ref_obj(unpack_string)@22943:22-22943:35#72446 <function:uvm_packer::unpack_string <package:uvm_pkg
+           edge vpiType=700 SINGULAR   golden -> bit_select(unpack_string)@22952:7-22952:23#72450
+           ours  -> <null>   <<< THE OWNER (singular edge null on ours)
+       OWNER ref_obj(i)@22952:21-22952:22#72449 <function:uvm_packer::unpack_string <package:uvm_pkg
+           edge vpiType=81 SINGULAR   golden -> bit_select(unpack_string)@22952:7-22952:23#72450
+           ours  -> bit_select(unpack_string)@22952:7-22952:23#132200
+       -- owners=4  null-on-ours=2
+     OWNDONE_0
+
+The head's own vpiParent is a TRAP: no generated Compare reads VpiParent
+(RESUME §9), so the assignment can never be the failing edge.
+
+## 3. DECODING SURELOG — WHY golden binds there and we do not
+
+`UhdmWriter::lateBinding` (src/DesignCompile/UhdmWriter.cpp:3294) walks a
+reference's PARENT CHAIN outward and stops at the first arm that answers.
+
+  * :3371-3381  the `uhdmfunction` arm — `if (parent->VpiName() == name)` clone
+                the routine's `Return()` and bind, then `break`.  An OUT-OF-BODY
+                definition's PACKAGE listing is named `Class::method`, so this
+                test FAILS there and the return variable never answers.  That is
+                exactly what § classRetNameDefViewNoBind37 models.
+  * :3550-3575  the `uhdmbegin` arm, which the walk reaches FIRST because the
+                `begin` is the reference's inner parent: it scans the block's own
+                `Stmts()` for an `assignment` whose `Lhs()->VpiName() == name`,
+                SKIPS a `ref_obj` / `ref_var` lhs (so a WHOLE write cannot
+                answer) and binds the reference to that LHS EXPRESSION — the
+                SELECT.  This arm knows nothing about return variables or
+                listings and answers in EVERY listing of the body.
+  * :3296       the walk's first line, `if (ref->Actual_group()) continue;` — an
+                import CLONE's references are already bound to the HOME package's
+                objects by then, so no arm answers for them.  That is why golden
+                leaves the clone's copies NULL, and why this pass's exemption is
+                fenced out of the clone (arm C).
+
+The DIRECT-STATEMENT requirement is the whole reason the four uvm-1.2 rows
+(SeqDriver, SimpleUVM, Scoreboard, MiniAmiq) LACK THIS FACE.  uvm-1.2's
+`uvm_packer::unpack_string` (src/base/uvm_packer.svh:1010-1029) writes
+
+    if(big_endian == 0)
+      unpack_string[i] = m_bits[count +: 8];
+    else begin ... unpack_string[i] = b; end
+
+so both selects sit under an `if` arm, NOT as direct statements of the enclosing
+`begin`, and the block arm never sees them.  The 1800.2-2017-1.0 pp_output
+BuildUVMPkg compiles has the select as a direct statement of the `begin` at
+uvm_pkg.sv:22941, which is why that row alone carries the cell.  Arm A's
+`a_out_ifsel` is that shape written on purpose: golden leaves it NULL and so do
+we, before and after.
+
+## 4. DECODING SLANG — our emission and the gated fix
+
+We ALREADY produce the binding.  `endSelTrack` (src/StmtEmit.cpp:335-390) is the
+emitter's model of the same `uhdmbegin` arm: `noteSelectObj` registers the
+block's first select of a name, the drain re-points the body's bare whole
+references to it, and for the FUNCTION RETURN NAME it records the reference in
+`funcRetSelBound` so `drainFuncRet` cannot clobber it with a freshly minted
+return variable (src/ModuleEmit.cpp:25567, :25587).  The free package function
+and the module function already agree with golden cell for cell (arm A).
+
+What removed it again was `classRetNameDefViewNoBind37`
+(src/TypeEmit.cpp), the DESIGN-FINAL unbind: `drainFuncRet` hands it the WHOLE
+`pf.refs` vector, select-bound references included, and it nulls every one of
+them in a listing it classifies as def-view or clone.  SLANG_UHDM_DBG37 on the
+minimal reproducer prints the two classifications side by side:
+
+    DBG37 p194::C194::oob_str cd=0x…  def=0 top=1 clone=0 -> 0    (class listing, kept)
+    DBG37 p194::C194::oob_str cd=(nil) def=-1 top=-1 clone=0 -> 1 (package listing, UNBOUND)
+
+SLANG_UHDM_DBG56 prints `lawA-drops=0 lawB-drops=0` on the same file, so
+§ classMethodRetNameNoBind56 / § retNameNewLhsNoBind56 are NOT involved.
+
+THE FIX is one clause in that unbind loop: skip a reference that is in
+`funcRetSelBound`, unless the listing is an import clone
+(`pkgImportCloneTfs16`).  Nothing is minted, no emission site moves, and every
+reference outside that set is nulled exactly as before.

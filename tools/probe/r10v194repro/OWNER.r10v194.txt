@@ -1,0 +1,146 @@
+# r10v194 — THE OWNER DECODE, RE-RUN ON THIS VERIFICATION'S OWN PRISTINE DATABASE
+
+ct194own <golden> <ours> 22952 7 bit_select
+golden: ~/.cache/slang-uhdm-goldens/1d1c5ee1fda0267f8ebb/golden.uhdm
+ours:   this verification's pristine BuildUVMPkg/default database
+
+HEADS matching 22952:7 kind~bit_select : 2
+HEAD bit_select(unpack_string)@22952:7-22952:23#12709 <function:unpack_string <class_defn:uvm_packer <package:uvm_pkg
+  (its vpiParent, which no generated Compare reads: assignment()@22952:7-22952:52#12707)
+  OWNER assignment()@22952:7-22952:52#12707 <function:unpack_string <class_defn:uvm_packer <package:uvm_pkg
+      edge vpiType=77 SINGULAR   golden -> bit_select(unpack_string)@22952:7-22952:23#12709
+      ours  -> bit_select(unpack_string)@22952:7-22952:23#43711
+  OWNER ref_obj(unpack_string)@22943:5-22943:18#12703 <function:unpack_string <class_defn:uvm_packer <package:uvm_pkg
+      edge vpiType=700 SINGULAR   golden -> bit_select(unpack_string)@22952:7-22952:23#12709
+      ours  -> bit_select(unpack_string)@22952:7-22952:23#43711
+  OWNER ref_obj(unpack_string)@22943:22-22943:35#12705 <function:unpack_string <class_defn:uvm_packer <package:uvm_pkg
+      edge vpiType=700 SINGULAR   golden -> bit_select(unpack_string)@22952:7-22952:23#12709
+      ours  -> bit_select(unpack_string)@22952:7-22952:23#43711
+  OWNER ref_obj(i)@22952:21-22952:22#12708 <function:unpack_string <class_defn:uvm_packer <package:uvm_pkg
+      edge vpiType=81 SINGULAR   golden -> bit_select(unpack_string)@22952:7-22952:23#12709
+      ours  -> bit_select(unpack_string)@22952:7-22952:23#43711
+  -- owners=4  null-on-ours=0
+HEAD bit_select(unpack_string)@22952:7-22952:23#72450 <function:uvm_packer::unpack_string <package:uvm_pkg
+  (its vpiParent, which no generated Compare reads: assignment()@22952:7-22952:52#72448)
+  OWNER assignment()@22952:7-22952:52#72448 <function:uvm_packer::unpack_string <package:uvm_pkg
+      edge vpiType=77 SINGULAR   golden -> bit_select(unpack_string)@22952:7-22952:23#72450
+      ours  -> bit_select(unpack_string)@22952:7-22952:23#132200
+  OWNER ref_obj(unpack_string)@22943:5-22943:18#72444 <function:uvm_packer::unpack_string <package:uvm_pkg
+      edge vpiType=700 SINGULAR   golden -> bit_select(unpack_string)@22952:7-22952:23#72450
+      ours  -> <null>   <<< THE OWNER (singular edge null on ours)
+  OWNER ref_obj(unpack_string)@22943:22-22943:35#72446 <function:uvm_packer::unpack_string <package:uvm_pkg
+      edge vpiType=700 SINGULAR   golden -> bit_select(unpack_string)@22952:7-22952:23#72450
+      ours  -> <null>   <<< THE OWNER (singular edge null on ours)
+  OWNER ref_obj(i)@22952:21-22952:22#72449 <function:uvm_packer::unpack_string <package:uvm_pkg
+      edge vpiType=81 SINGULAR   golden -> bit_select(unpack_string)@22952:7-22952:23#72450
+      ours  -> bit_select(unpack_string)@22952:7-22952:23#132200
+  -- owners=4  null-on-ours=2
+
+## the head itself (pristine, official uhdm-cmp) — byte-identical to the pass's committed head_pris_BuildUVMPkg.default.cmp
+LHS:
+decompile:
+bit_select: (uvm_pkg::uvm_packer::unpack_string::unpack_string), id:72450, line:22952:7, endln:22952:23
+|vpiParent:
+\_assignment: , id:72448, line:22952:7, endln:22952:52
+|vpiName:unpack_string
+|vpiFullName:uvm_pkg::uvm_packer::unpack_string::unpack_string
+|vpiIndex:
+\_ref_obj: (uvm_pkg::uvm_packer::unpack_string::i), id:72449, line:22952:21, endln:22952:22
+  |vpiParent:
+  \_bit_select: (uvm_pkg::uvm_packer::unpack_string::unpack_string), id:72450, line:22952:7, endln:22952:23
+  |vpiName:i
+  |vpiFullName:uvm_pkg::uvm_packer::unpack_string::i
+  |vpiActual:
+  \_int_var: (uvm_pkg::uvm_packer::unpack_string::i), id:72426, line:22937:7, endln:22937:8
+
+decompile:
+bit_select: (uvm_pkg::uvm_packer::unpack_string::unpack_string), id:72450, line:22952:7, endln:22952:23
+|vpiParent:
+\_assignment: , id:72448, line:22952:7, endln:22952:52
+|vpiName:unpack_string
+|vpiFullName:uvm_pkg::uvm_packer::unpack_string::unpack_string
+|vpiIndex:
+\_ref_obj: (uvm_pkg::uvm_packer::unpack_string::i), id:72449, line:22952:21, endln:22952:22
+  |vpiParent:
+  \_bit_select: (uvm_pkg::uvm_packer::unpack_string::unpack_string), id:72450, line:22952:7, endln:22952:23
+  |vpiName:i
+  |vpiFullName:uvm_pkg::uvm_packer::unpack_string::i
+  |vpiActual:
+  \_int_var: (uvm_pkg::uvm_packer::unpack_string::i), id:72426, line:22937:7, endln:22937:8
+RHS: <null>
+
+## the Surelog arms, verbatim (~/git-repos/Surelog/src/DesignCompile/UhdmWriter.cpp)
+void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod, scope* m) {
+  FileSystem* const fileSystem = FileSystem::getInstance();
+  for (UHDM::ref_obj* ref : mod->getLateBinding()) {
+    if (ref->Actual_group()) continue;
+  ...
+        }
+      } else if (parent->UhdmType() == uhdmfunction) {
+        function* func = (function*)parent;
+        if (parent->VpiName() == name) {
+          if (const any* ret = func->Return()) {
+            ElaboratorContext elaboratorContext(&s, false, true);
+            variables* var =
+                (variables*)UHDM::clone_tree(ret, &elaboratorContext);
+            var->VpiName(name);
+            var->VpiParent(ref);
+            ref->Actual_group(var);
+          }
+          break;
+  ...
+      } else if (parent->UhdmType() == uhdmbegin) {
+        begin* b = (begin*)parent;
+        if (auto vars = b->Variables()) {
+          for (auto decl : *vars) {
+            if (decl->VpiName() == name) {
+              if (decl->UhdmType() == uhdmref_var) continue;
+              if (decl->UhdmType() == uhdmref_obj) continue;
+              ref->Actual_group(decl);
+              break;
+            }
+          }
+        }
+        if (ref->Actual_group()) break;
+        if (auto params = b->Parameters()) {
+          for (auto decl : *params) {
+            if (decl->VpiName() == name) {
+              ref->Actual_group(decl);
+              break;
+            }
+          }
+        }
+        if (ref->Actual_group()) break;
+        VectorOfany* stmts = b->Stmts();
+        if (stmts) {
+          for (auto init : *stmts) {
+            if (init->UhdmType() == uhdmassignment) {
+              assignment* as = (assignment*)init;
+              const expr* lhs = as->Lhs();
+
+## why uvm-1.2 lacks the face — 1800.2 pp_output vs uvm-1.2 source
+--- 1800.2-2017-1.0/pp_output/uvm_pkg.sv 22941-22954 (both statements DIRECT in one begin):
+  begin
+    // silly, because cannot append byte/char to string
+    unpack_string = {unpack_string," "};
+
+
+
+
+
+
+
+
+      unpack_string[i] = m_bits[m_unpack_iter +: 8];
+    m_unpack_iter += 8;
+    ++i;
+--- uvm-1.2/src/base/uvm_packer.svh 1021-1029 (the select is under an if/else):
+    // silly, because cannot append byte/char to string
+    unpack_string = {unpack_string," "};
+    if(big_endian == 0)
+      unpack_string[i] = m_bits[count +: 8];
+    else begin
+      for(int j=0; j<8; ++j)
+        b[7-j] = m_bits[count+j];
+      unpack_string[i] = b;
+    end 

@@ -1,0 +1,72 @@
+# r10uvm194 — CENSUS (ct194cen + score194.py).  MEASUREMENT ONLY.
+# LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+## 0. CALIBRATION golden-vs-golden FIRST (RESUME §9), whole surelog corpus
+TOTAL {'AGREE': 6628}      every other column 0
+
+## 1. PRISTINE vs GOLDEN — the nine UVM row-modes (rows with any differing cell)
+BuildUVMPkg-bf853d43.default                   {'AGREE': 486, 'GOLDEN-ONLY': 2, 'OURS-ONLY': 3}  <<<
+BuildUVMPkg-bf853d43.testflags                 {'AGREE': 486, 'GOLDEN-ONLY': 2, 'OURS-ONLY': 3}  <<<
+MiniAmiq-544c7f61.default                      {'AGREE': 935, 'GOLDEN-ONLY': 12, 'OURS-ONLY': 12}  <<<
+MiniAmiq-544c7f61.testflags                    {'AGREE': 935, 'GOLDEN-ONLY': 12, 'OURS-ONLY': 12}  <<<
+Scoreboard-59431470.default                    {'AGREE': 509, 'GOLDEN-ONLY': 6, 'OURS-ONLY': 6}  <<<
+SeqDriver-32af76aa.default                     {'AGREE': 922, 'GOLDEN-ONLY': 12, 'OURS-ONLY': 12}  <<<
+SeqDriver-32af76aa.testflags                   {'AGREE': 922, 'GOLDEN-ONLY': 12, 'OURS-ONLY': 12}  <<<
+SimpleUVM-1dc93a62.default                     {'AGREE': 509, 'GOLDEN-ONLY': 6, 'OURS-ONLY': 6}  <<<
+SimpleUVM-1dc93a62.testflags                   {'AGREE': 509, 'GOLDEN-ONLY': 6, 'OURS-ONLY': 6}  <<<
+TOTAL {'AGREE': 6558, 'GOLDEN-ONLY': 70, 'OURS-ONLY': 72}
+
+## 2. PRISTINE -> PATCHED, both scored against GOLDEN (surelog, 956 rows / 617 SKIP)
+BuildUVMPkg-bf853d43.default                   {'AGREE': 486, 'STILL-EXTRA': 1, 'TO-GOLDEN': 4}  <<<
+BuildUVMPkg-bf853d43.testflags                 {'AGREE': 486, 'STILL-EXTRA': 1, 'TO-GOLDEN': 4}  <<<
+MiniAmiq-544c7f61.default                      {'AGREE': 935, 'STILL-EXTRA': 12, 'STILL-MISSING': 12}  <<<
+MiniAmiq-544c7f61.testflags                    {'AGREE': 935, 'STILL-EXTRA': 12, 'STILL-MISSING': 12}  <<<
+Scoreboard-59431470.default                    {'AGREE': 509, 'STILL-EXTRA': 6, 'STILL-MISSING': 6}  <<<
+SeqDriver-32af76aa.default                     {'AGREE': 922, 'STILL-EXTRA': 12, 'STILL-MISSING': 12}  <<<
+SeqDriver-32af76aa.testflags                   {'AGREE': 922, 'STILL-EXTRA': 12, 'STILL-MISSING': 12}  <<<
+SimpleUVM-1dc93a62.default                     {'AGREE': 509, 'STILL-EXTRA': 6, 'STILL-MISSING': 6}  <<<
+SimpleUVM-1dc93a62.testflags                   {'AGREE': 509, 'STILL-EXTRA': 6, 'STILL-MISSING': 6}  <<<
+TOTAL {'AGREE': 6558, 'STILL-EXTRA': 68, 'STILL-MISSING': 66, 'TO-GOLDEN': 8}
+
+## 3. uhdm2rtlil (1358 rows / 104 SKIP), pristine and patched
+TOTAL {'AGREE': 1974}
+
+## 4. THE TWO CELLS, verbatim (BuildUVMPkg/default; testflags is byte-identical)
+golden:
+RET|g|unpack_string|22943:22| <function:unpack_string <class_defn:uvm_packer <package:uvm_pkg|ACT=bit_select:unpack_string@22952:7
+RET|g|unpack_string|22943:5| <function:unpack_string <class_defn:uvm_packer <package:uvm_pkg|ACT=bit_select:unpack_string@22952:7
+RET|g|uvm_packer::unpack_string|22943:22| <function:uvm_packer::unpack_string <package:uvm_pkg|ACT=bit_select:unpack_string@22952:7
+RET|g|uvm_packer::unpack_string|22943:5| <function:uvm_packer::unpack_string <package:uvm_pkg|ACT=bit_select:unpack_string@22952:7
+ours, PRISTINE:
+RET|o|unpack_string|22943:22| <function:unpack_string <class_defn:uvm_packer <package:uvm_pkg|ACT=bit_select:unpack_string@22952:7
+RET|o|unpack_string|22943:5| <function:unpack_string <class_defn:uvm_packer <package:uvm_pkg|ACT=bit_select:unpack_string@22952:7
+RET|o|uvm_packer::unpack_string|22943:22| <function:uvm_packer::unpack_string <package:uvm_pkg|ACT=NONE
+RET|o|uvm_packer::unpack_string|22943:5| <function:uvm_packer::unpack_string <package:uvm_pkg|ACT=NONE
+ours, PATCHED:
+RET|o|unpack_string|22943:22| <function:unpack_string <class_defn:uvm_packer <package:uvm_pkg|ACT=bit_select:unpack_string@22952:7
+RET|o|unpack_string|22943:5| <function:unpack_string <class_defn:uvm_packer <package:uvm_pkg|ACT=bit_select:unpack_string@22952:7
+RET|o|uvm_packer::unpack_string|22943:22| <function:uvm_packer::unpack_string <package:uvm_pkg|ACT=bit_select:unpack_string@22952:7
+RET|o|uvm_packer::unpack_string|22943:5| <function:uvm_packer::unpack_string <package:uvm_pkg|ACT=bit_select:unpack_string@22952:7
+
+## 5. WHAT THE OTHER EIGHT UVM ROW-MODES' DIFFERING CELLS ARE (payload classes)
+   every one is a SPAN residue in the KEY, never a select payload:
+   -- SeqDriver-32af76aa.default
+     20       ACT=NONE
+      4       ACT=string_var:get_access@1144:10
+      1 < CAND|g|934
+      1 > CAND|o|934
+   -- MiniAmiq-544c7f61.default
+     20       ACT=NONE
+      4       ACT=string_var:get_access@1144:10
+      1 < CAND|g|947
+      1 > CAND|o|947
+   -- SimpleUVM-1dc93a62.default
+      8       ACT=NONE
+      4       ACT=string_var:get_access@1144:10
+      1 < CAND|g|515
+      1 > CAND|o|515
+   -- Scoreboard-59431470.default
+      8       ACT=NONE
+      4       ACT=string_var:get_access@1144:10
+      1 < CAND|g|515
+      1 > CAND|o|515

@@ -1,0 +1,80 @@
+# r10uvm194 — GATES (all on the FROZEN binaries, chmod 555 before any sweep)
+#   pristine  982e5776891c48fb0e30ab832c3c05d4  (built in this pass's OWN worktree
+#             at a clean 287bbc94, BYTE-IDENTICAL to the main tree's build)
+#   patched   d9d6c87f4c7163b532bbb2c719e0991a
+# SLANG_UHDM was exported explicitly to EACH binary and every cmds.txt audited
+# by BINARY PATH.
+
+## 1. goldens
+   patched                     PASS=23  FAIL=0
+   pristine                    PASS=23  FAIL=0
+   negative control /bin/false PASS=0   FAIL=23
+
+## 2. uhdm2rtlil, both modes
+### testflags vs the COMMITTED baseline results/gate_uhdm2rtlil.csv
+PASS: every row byte-identical to the committed baseline
+### testflags vs THIS PASS'S OWN pristine sweep
+PASS: every row byte-identical to the committed baseline
+### default vs THIS PASS'S OWN pristine sweep
+PASS: every row byte-identical to the committed baseline
+### byteverify
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+
+## 3. surelog corpus, both modes — THE ONE CLAIMED CONVERSION
+### vs the COMMITTED baseline results/golden_surelog.csv
+baseline: 1589 lines = 1588 ROWS (the header is not a row)
+fresh   : 1589 lines = 1588 ROWS
+---- WHOLE-ROW diff (status AND dump column): 2 differing ROWS (4 diff row-sides)
+< BuildUVMPkg,default,CMP_NOTEQUAL,decompile:,,
+< BuildUVMPkg,testflags,CMP_NOTEQUAL,decompile:,,
+> BuildUVMPkg,default,CMP_EQUAL,,,differ
+> BuildUVMPkg,testflags,CMP_EQUAL,,,differ
+ATTENTION: rows moved -- read them above, do not summarise them
+### vs THIS PASS'S OWN pristine sweep at 287bbc94 — the SAME two rows and no other
+---- WHOLE-ROW diff (status AND dump column): 2 differing ROWS (4 diff row-sides)
+< BuildUVMPkg,default,CMP_NOTEQUAL,decompile:,,
+< BuildUVMPkg,testflags,CMP_NOTEQUAL,decompile:,,
+> BuildUVMPkg,default,CMP_EQUAL,,,differ
+> BuildUVMPkg,testflags,CMP_EQUAL,,,differ
+### results/*.csv were NOT edited; the promotion is the integrator's.
+### byteverify
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm  patched=68729cf77d77 pristine=c187864f28a6
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=150505baf8e6 pristine=9455a56a1acf
+MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  patched=68729cf77d77 pristine=c187864f28a6
+MOVERS: 3 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+
+## 4. canaries
+  BuildUVMPkg                    default   CHANGED CMP_NOTEQUAL/ -> CMP_EQUAL/differ
+  BuildUVMPkg                    testflags CHANGED CMP_NOTEQUAL/ -> CMP_EQUAL/differ
+---- canary rows: ok=50 changed=2 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+PASS: every supplementary canary row is byte-identical to the baseline.
+---- ctcan2 rows: ok=1 changed=0 absent=0 unknown-patterns=6
+PASS: every supplementary canary row is byte-identical to the baseline.
+---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+
+## 5. protected databases, by NAME (md5 head, pristine vs patched)
+   InterfaceModPort     default   pris=59a365f3ce2c pat=59a365f3ce2c
+   InterfaceModPort     testflags pris=59a365f3ce2c pat=59a365f3ce2c
+   BlackParrotComplex   default   pris=e3e354129d5a pat=e3e354129d5a
+   BlackParrotComplex   testflags pris=73a10e8217e5 pat=73a10e8217e5
+   YosysOldOr           default   pris=d68e0796d62c pat=d68e0796d62c
+   YosysOldOr           testflags pris=d68e0796d62c pat=d68e0796d62c
+   SVSwitch             default   pris=4842211c4030 pat=4842211c4030
+   SVSwitch             testflags pris=4842211c4030 pat=4842211c4030
+   YosysVerx            default   pris=6ccda350c24a pat=6ccda350c24a
+   YosysVerx            testflags pris=6ccda350c24a pat=6ccda350c24a
+   SVSwitch pin 4842211c4030 HELD; YosysVerx pin 6ccda350c24a HELD.
+
+## 6. the wide boundary
+LISTED=5159 PROCESSED=5159 PRODUCED_DBS=4994 MOVED_ARMS=5 RC_DIFFS=0
+   see BOUNDARY.r10uvm194.txt for the five moved arms and their re-scores.
+
+## 7. the four slang-fenced tests were NEVER dispatched and are named only
+##    inside canaudit.sh's own fence list.

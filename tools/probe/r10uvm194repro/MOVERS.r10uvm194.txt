@@ -1,0 +1,36 @@
+# r10uvm194 — MOVERS.  MEASUREMENT ONLY; the official uhdm-cmp is the judge.
+
+## PREDICTED, from PRISTINE databases and their goldens ALONE (predict194.sh),
+## BEFORE the patched sweep ran:
+##   surelog     BuildUVMPkg default + testflags, 2 keys each
+##   uhdm2rtlil  NOTHING (TOTAL-KEYS 0 over 1358 rows)
+
+## MEASURED (byteverify.sh SELFCHECK=1, patched vs this pass's own pristine sweep)
+### surelog
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm  patched=68729cf77d77 pristine=c187864f28a6
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=150505baf8e6 pristine=9455a56a1acf
+MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  patched=68729cf77d77 pristine=c187864f28a6
+MOVERS: 3 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+### uhdm2rtlil
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+
+## ATTRIBUTION, ORDER-BLIND (attrib194.sh: dump, normalise the workdir path,
+## SORT, diff — so a pure ORDER flip scores zero lines)
+./default/BuildUVMPkg-bf853d43/slang.uhdm  ADDED=4 REMOVED=0 SORTED-DIFF-LINES=4 UNATTRIBUTED=0
+./testflags/BuildUVMPkg-bf853d43/slang.uhdm  ADDED=4 REMOVED=0 SORTED-DIFF-LINES=4 UNATTRIBUTED=0
+./default/Scoreboard-59431470/slang.uhdm  ADDED=0 REMOVED=0 SORTED-DIFF-LINES=0 UNATTRIBUTED=0
+-- TOTAL sorted-diff lines=8 UNATTRIBUTED=0
+
+## Scoreboard/default is the DOCUMENTED ~50/50 COIN (RESUME §9): 0 sorted-diff
+## lines, i.e. it did not move at all — only its object ORDER flipped.
+
+## the four added lines in BuildUVMPkg/default (testflags is byte-identical):
+\_bit_select: (uvm_pkg::uvm_packer::unpack_string::unpack_string), line:22952:7, endln:22952:23
+\_bit_select: (uvm_pkg::uvm_packer::unpack_string::unpack_string), line:22952:7, endln:22952:23
+|vpiActual:
+|vpiActual:

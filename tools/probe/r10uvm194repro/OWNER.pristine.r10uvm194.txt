@@ -1,0 +1,32 @@
+HEADS matching 22952:7 kind~bit_select : 2
+HEAD bit_select(unpack_string)@22952:7-22952:23#12709 <function:unpack_string <class_defn:uvm_packer <package:uvm_pkg
+  (its vpiParent, which no generated Compare reads: assignment()@22952:7-22952:52#12707)
+  OWNER assignment()@22952:7-22952:52#12707 <function:unpack_string <class_defn:uvm_packer <package:uvm_pkg
+      edge vpiType=77 SINGULAR   golden -> bit_select(unpack_string)@22952:7-22952:23#12709
+      ours  -> bit_select(unpack_string)@22952:7-22952:23#43711
+  OWNER ref_obj(unpack_string)@22943:5-22943:18#12703 <function:unpack_string <class_defn:uvm_packer <package:uvm_pkg
+      edge vpiType=700 SINGULAR   golden -> bit_select(unpack_string)@22952:7-22952:23#12709
+      ours  -> bit_select(unpack_string)@22952:7-22952:23#43711
+  OWNER ref_obj(unpack_string)@22943:22-22943:35#12705 <function:unpack_string <class_defn:uvm_packer <package:uvm_pkg
+      edge vpiType=700 SINGULAR   golden -> bit_select(unpack_string)@22952:7-22952:23#12709
+      ours  -> bit_select(unpack_string)@22952:7-22952:23#43711
+  OWNER ref_obj(i)@22952:21-22952:22#12708 <function:unpack_string <class_defn:uvm_packer <package:uvm_pkg
+      edge vpiType=81 SINGULAR   golden -> bit_select(unpack_string)@22952:7-22952:23#12709
+      ours  -> bit_select(unpack_string)@22952:7-22952:23#43711
+  -- owners=4  null-on-ours=0
+HEAD bit_select(unpack_string)@22952:7-22952:23#72450 <function:uvm_packer::unpack_string <package:uvm_pkg
+  (its vpiParent, which no generated Compare reads: assignment()@22952:7-22952:52#72448)
+  OWNER assignment()@22952:7-22952:52#72448 <function:uvm_packer::unpack_string <package:uvm_pkg
+      edge vpiType=77 SINGULAR   golden -> bit_select(unpack_string)@22952:7-22952:23#72450
+      ours  -> bit_select(unpack_string)@22952:7-22952:23#132200
+  OWNER ref_obj(unpack_string)@22943:5-22943:18#72444 <function:uvm_packer::unpack_string <package:uvm_pkg
+      edge vpiType=700 SINGULAR   golden -> bit_select(unpack_string)@22952:7-22952:23#72450
+      ours  -> <null>   <<< THE OWNER (singular edge null on ours)
+  OWNER ref_obj(unpack_string)@22943:22-22943:35#72446 <function:uvm_packer::unpack_string <package:uvm_pkg
+      edge vpiType=700 SINGULAR   golden -> bit_select(unpack_string)@22952:7-22952:23#72450
+      ours  -> <null>   <<< THE OWNER (singular edge null on ours)
+  OWNER ref_obj(i)@22952:21-22952:22#72449 <function:uvm_packer::unpack_string <package:uvm_pkg
+      edge vpiType=81 SINGULAR   golden -> bit_select(unpack_string)@22952:7-22952:23#72450
+      ours  -> bit_select(unpack_string)@22952:7-22952:23#132200
+  -- owners=4  null-on-ours=2
+OWNDONE_0

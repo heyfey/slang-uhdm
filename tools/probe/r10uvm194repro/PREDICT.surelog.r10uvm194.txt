@@ -1,0 +1,10 @@
+# PREDICTED MOVER CELLS — golden binds a SELECT, we bind NOTHING
+# key: <subroutine>|<ref line:col>|<named ancestor chain>
+MOVER BuildUVMPkg-bf853d43.default uvm_packer::unpack_string|22943:22| <function:uvm_packer::unpack_string <package:uvm_pkg
+MOVER BuildUVMPkg-bf853d43.default uvm_packer::unpack_string|22943:5| <function:uvm_packer::unpack_string <package:uvm_pkg
+ROW BuildUVMPkg-bf853d43.default keys=2
+MOVER BuildUVMPkg-bf853d43.testflags uvm_packer::unpack_string|22943:22| <function:uvm_packer::unpack_string <package:uvm_pkg
+MOVER BuildUVMPkg-bf853d43.testflags uvm_packer::unpack_string|22943:5| <function:uvm_packer::unpack_string <package:uvm_pkg
+ROW BuildUVMPkg-bf853d43.testflags keys=2
+TOTAL-KEYS 4
+# (keys are DEDUPED per row; one key can carry several listing copies)

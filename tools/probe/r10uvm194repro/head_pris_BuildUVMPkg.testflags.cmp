@@ -1,0 +1,31 @@
+LHS:
+decompile:
+bit_select: (uvm_pkg::uvm_packer::unpack_string::unpack_string), id:72450, line:22952:7, endln:22952:23
+|vpiParent:
+\_assignment: , id:72448, line:22952:7, endln:22952:52
+|vpiName:unpack_string
+|vpiFullName:uvm_pkg::uvm_packer::unpack_string::unpack_string
+|vpiIndex:
+\_ref_obj: (uvm_pkg::uvm_packer::unpack_string::i), id:72449, line:22952:21, endln:22952:22
+  |vpiParent:
+  \_bit_select: (uvm_pkg::uvm_packer::unpack_string::unpack_string), id:72450, line:22952:7, endln:22952:23
+  |vpiName:i
+  |vpiFullName:uvm_pkg::uvm_packer::unpack_string::i
+  |vpiActual:
+  \_int_var: (uvm_pkg::uvm_packer::unpack_string::i), id:72426, line:22937:7, endln:22937:8
+
+decompile:
+bit_select: (uvm_pkg::uvm_packer::unpack_string::unpack_string), id:72450, line:22952:7, endln:22952:23
+|vpiParent:
+\_assignment: , id:72448, line:22952:7, endln:22952:52
+|vpiName:unpack_string
+|vpiFullName:uvm_pkg::uvm_packer::unpack_string::unpack_string
+|vpiIndex:
+\_ref_obj: (uvm_pkg::uvm_packer::unpack_string::i), id:72449, line:22952:21, endln:22952:22
+  |vpiParent:
+  \_bit_select: (uvm_pkg::uvm_packer::unpack_string::unpack_string), id:72450, line:22952:7, endln:22952:23
+  |vpiName:i
+  |vpiFullName:uvm_pkg::uvm_packer::unpack_string::i
+  |vpiActual:
+  \_int_var: (uvm_pkg::uvm_packer::unpack_string::i), id:72426, line:22937:7, endln:22937:8
+RHS: <null>

@@ -1,0 +1,117 @@
+# r10uvm194 — THE WIDE BOUNDARY GATE (bound194.sh) and the RE-SCORE of every
+# earlier-pass arm that moved.  MEASUREMENT ONLY; uhdm-cmp is the judge.
+
+/tmp/wt_r10uvm194/tools/probe/r10uvm194repro/bound194.sh: line 47: 1501538 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm194/tools/probe/r10uvm194repro/bound194.sh: line 47: 1501629 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm194/tools/probe/r10uvm194repro/bound194.sh: line 47: 1505378 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm194/tools/probe/r10uvm194repro/bound194.sh: line 47: 1505470 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm194/tools/probe/r10uvm194repro/bound194.sh: line 47: 1768611 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm194/tools/probe/r10uvm194repro/bound194.sh: line 47: 1768629 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm194/tools/probe/r10uvm194repro/bound194.sh: line 47: 1771636 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm194/tools/probe/r10uvm194repro/bound194.sh: line 47: 1771654 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm194/tools/probe/r10uvm194repro/bound194.sh: line 47: 1774050 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm194/tools/probe/r10uvm194repro/bound194.sh: line 47: 1774068 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm194/tools/probe/r10uvm194repro/bound194.sh: line 47: 1833560 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm194/tools/probe/r10uvm194repro/bound194.sh: line 47: 1833578 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm194/tools/probe/r10uvm194repro/bound194.sh: line 47: 1833644 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm194/tools/probe/r10uvm194repro/bound194.sh: line 47: 1833666 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm194/tools/probe/r10uvm194repro/bound194.sh: line 47: 1874678 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm194/tools/probe/r10uvm194repro/bound194.sh: line 47: 1874696 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm194/tools/probe/r10uvm194repro/bound194.sh: line 47: 1875189 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm194/tools/probe/r10uvm194repro/bound194.sh: line 47: 1875207 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm194/tools/probe/r10uvm194repro/bound194.sh: line 47: 1879528 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm194/tools/probe/r10uvm194repro/bound194.sh: line 47: 1879546 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm194/tools/probe/r10uvm194repro/bound194.sh: line 47: 1879942 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm194/tools/probe/r10uvm194repro/bound194.sh: line 47: 1879960 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm194/tools/probe/r10uvm194repro/bound194.sh: line 47: 1882288 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm194/tools/probe/r10uvm194repro/bound194.sh: line 47: 1882306 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm194/tools/probe/r10uvm194repro/bound194.sh: line 47: 1882625 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm194/tools/probe/r10uvm194repro/bound194.sh: line 47: 1882643 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm194/tools/probe/r10uvm194repro/bound194.sh: line 47: 1936673 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm194/tools/probe/r10uvm194repro/bound194.sh: line 47: 1936691 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm194/tools/probe/r10uvm194repro/bound194.sh: line 47: 1936758 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm194/tools/probe/r10uvm194repro/bound194.sh: line 47: 1936801 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm194/tools/probe/r10uvm194repro/bound194.sh: line 47: 1936865 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm194/tools/probe/r10uvm194repro/bound194.sh: line 47: 1936883 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+LISTED=5159 PROCESSED=5159 PRODUCED_DBS=4994 MOVED_ARMS=5 RC_DIFFS=0
+BOUNDDONE
+
+## the moved arms
+r10uvm171repro/g171_b_homes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm194repro/grid194/g194_a_homes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm194repro/grid194/g194_b_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm194repro/grid194/g194_c_clone.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v171repro/v171_c_homes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+## 3 of the 5 are THIS PASS'S OWN arms — the POSITIVE CONTROL, without which
+## the gate could not be shown to see.
+
+## the OTHER TWO, rebuilt against their OWN real Surelog golden in BOTH views
+## and scored (both are r10uvm171's HOME grids, which carry the out-of-body
+## class method this law is about):
+  ### g171_b_homes   (uhdm-cmp pristine -> patched)
+      cmp rc=255 a def lines=31 heads=1
+      cmp rc=0 b def lines=0 heads=0
+      cmp rc=255 a elab lines=31 heads=1
+      cmp rc=0 b elab lines=0 heads=0
+      g171_b_homes.def                               {'AGREE': 17, 'STILL-EXTRA': 2, 'STILL-MISSING': 2, 'TO-GOLDEN': 2}  <<<
+      g171_b_homes.elab                              {'AGREE': 42, 'TO-GOLDEN': 4}  <<<
+      TOTAL {'AGREE': 59, 'STILL-EXTRA': 2, 'STILL-MISSING': 2, 'TO-GOLDEN': 6}
+      nonzero rcs:
+        rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/r10uvm194_scratch/bnd_g171_b_homes/g_elab /tmp/wt_r10uvm194/tools/probe/r10uvm171repro/g171_b_homes.sv
+  ### v171_c_homes   (uhdm-cmp pristine -> patched)
+      cmp rc=255 a def lines=31 heads=1
+      cmp rc=255 b def lines=48 heads=1
+      cmp rc=255 a elab lines=31 heads=1
+      cmp rc=255 b elab lines=48 heads=1
+      v171_c_homes.def                               {'AGREE': 18, 'STILL-EXTRA': 2, 'STILL-MISSING': 2, 'TO-GOLDEN': 2}  <<<
+      v171_c_homes.elab                              {'AGREE': 52, 'TO-GOLDEN': 4}  <<<
+      TOTAL {'AGREE': 70, 'STILL-EXTRA': 2, 'STILL-MISSING': 2, 'TO-GOLDEN': 6}
+      nonzero rcs:
+        rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/r10uvm194_scratch/bnd_v171_c_homes/g_elab /tmp/wt_r10uvm194/tools/probe/r10v171repro/v171_c_homes.sv
+
+## r10uvm171's own README recorded g171_b_homes' residual head as
+##   'a PRE-EXISTING, unrelated defect on the OUT-OF-BODY class method
+##    (bit_select (home_src_171::OutBody171::mth_out::mth_out) @34:5)'.
+## THAT IS THIS HEAD.  The arm goes 31/1 -> 0/0 CMP_EQUAL in both views.
+
+## ORDER-BLIND ATTRIBUTION of all five moved arms (armattrib194.sh):
+  bnd_g171_b_homes def sorted-diff-lines=2 UNATTRIBUTED=0
+  bnd_g171_b_homes elab sorted-diff-lines=4 UNATTRIBUTED=0
+  bnd_v171_c_homes def sorted-diff-lines=2 UNATTRIBUTED=0
+  bnd_v171_c_homes elab sorted-diff-lines=4 UNATTRIBUTED=0
+  grid_a_homes def sorted-diff-lines=4 UNATTRIBUTED=0
+  grid_a_homes elab sorted-diff-lines=8 UNATTRIBUTED=0
+  grid_b_kinds def sorted-diff-lines=8 UNATTRIBUTED=0
+  grid_b_kinds elab sorted-diff-lines=16 UNATTRIBUTED=0
+  grid_c_clone def sorted-diff-lines=4 UNATTRIBUTED=0
+  grid_c_clone elab sorted-diff-lines=8 UNATTRIBUTED=0
+  -- TOTAL sorted-diff lines=60 UNATTRIBUTED=0
+
+## THE FLOOR — every family the brief names as must-stay, verified BY NAME
+## (arms counted in bound194/LISTED, movers in bound194/MOVERS):
+
+   FAMILY                   ARMS  MOVED
+   r10uvm184repro              2      0
+   r10v184repro                7      0
+   r10uvm185repro              5      0
+   r10uvm186repro              3      0
+   r10v186repro                5      0
+   r10uvm187repro              6      0
+   r10uvm188repro              4      0
+   r10uvm189repro              3      0
+   r10uvm190repro              4      0
+   r10uvm191repro              3      0
+   r10v191repro                3      0
+   r10uvm192repro              4      0
+   uvm82-91                  113      0
+   buvm3-15                  119      0
+   sd8-12                    347      0
+
+   r10uvm171repro          3      1   <- re-scored above, TO-GOLDEN 6 / AWAY 0
+   r10v171repro            5      1   <- re-scored above, TO-GOLDEN 6 / AWAY 0
+
+   § 184's receiver-kind fence and § retNameArgKeepsReturnVar184v, § 171's
+   return-variable machinery, § 186's and § 191's clone-new arms, uvm185/187/
+   188/189/190's arms and fences: MOVED = 0 except the two 171 HOME grids,
+   which are the arms this law's own construct lives in and move TOWARD golden.

@@ -1,0 +1,4 @@
+# PREDICTED MOVER CELLS — golden binds a SELECT, we bind NOTHING
+# key: <subroutine>|<ref line:col>|<named ancestor chain>
+TOTAL-KEYS 0
+# (keys are DEDUPED per row; one key can carry several listing copies)

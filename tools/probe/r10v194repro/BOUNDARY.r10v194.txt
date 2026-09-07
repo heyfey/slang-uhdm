@@ -1,0 +1,40 @@
+# r10v194 — THE WIDE BOUNDARY GATE (bound194.sh over a COPY of the whole probe tree)
+
+PRIS=/tmp/v194_bins/pris_982e.bin  PATCHED=/tmp/v194_bins/pat_d9d6.bin
+
+LISTED=5163 PROCESSED=5163 PRODUCED_DBS=4998 MOVED_ARMS=8 RC_DIFFS=0
+
+## MOVED ARMS (8) — every one accounted for
+r10uvm171repro/g171_b_homes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm194repro/grid194/g194_a_homes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm194repro/grid194/g194_b_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm194repro/grid194/g194_c_clone.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v171repro/v171_c_homes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v194repro/grid194v/v194_a_explicit.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v194repro/grid194v/v194_b_faces.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v194repro/grid194v/v194_c_views.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+  3 = r10uvm194repro's own grid arms          (the pass's POSITIVE CONTROL)
+  3 = r10v194repro's own arms a/b/c            (this verification's POSITIVE CONTROL)
+  2 = r10uvm171repro/g171_b_homes.sv and r10v171repro/v171_c_homes.sv,
+      re-measured against their OWN real Surelog goldens in BOTH views:
+        g171_b_homes  TO-GOLDEN 6 / AWAY 0 / MOVED-WRONG 0   31/1 -> 0/0 CMP_EQUAL both views
+        v171_c_homes  TO-GOLDEN 6 / AWAY 0 / MOVED-WRONG 0   31/1 -> 48/1, head object CHANGED
+      and their order-blind whole-dump diffs are pure ADDITION of a
+      'vpiActual:' edge plus the bit_select it names, REMOVED=0 — so
+      v171_c_homes' new func_call(h_free)@47:10 head is PRE-EXISTING and merely UNMASKED.
+
+## RC_DIFFS=0
+The --elabuhdm segfaults printed by the driver occur on BOTH binaries for the
+same arms, so every rc pair is identical and none is attributable to the patch.
+(RESUME §9: an arm must record rc; this gate does, and asserts PROCESSED==LISTED.)
+
+## THE FLOOR, BY NAME — MOVED = 0
+No arm of uvm184 / v184 (§ retNameArgKeepsReturnVar184v + the receiver-kind fence),
+uvm185, uvm186 / v186, uvm187, uvm188, uvm189, uvm190, uvm191 / v191, uvm192
+(§ pkgTfBodyCmViewClone192), uvm82-91, buvm3-15 or sd8-12 appears in the mover list.
+
+## full driver log tail
+/tmp/wt_v194/tools/probe/r10uvm194repro/bound194.sh: line 47: 3823021 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_v194/tools/probe/r10uvm194repro/bound194.sh: line 47: 3823039 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+LISTED=5163 PROCESSED=5163 PRODUCED_DBS=4998 MOVED_ARMS=8 RC_DIFFS=0

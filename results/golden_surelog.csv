@@ -167,8 +167,8 @@ BlockingAssignRewrite,default,CMP_EQUAL,,,match
 BlockingAssignRewrite,testflags,CMP_EQUAL,,,match
 BuildOVMPkg,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/ovm-2.1.2/src/base/ovm_object.sv:125:5: error: identifier 'ovm_auto_options_object' used befo,,
 BuildOVMPkg,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/third_party/UVM/ovm-2.1.2/src/base/ovm_object.sv:125:5: error: identifier 'ovm_auto_options_object' used befo,,
-BuildUVMPkg,default,CMP_NOTEQUAL,decompile:,,
-BuildUVMPkg,testflags,CMP_NOTEQUAL,decompile:,,
+BuildUVMPkg,default,CMP_EQUAL,,,differ
+BuildUVMPkg,testflags,CMP_EQUAL,,,differ
 BuiltInMethod,default,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BuiltInMethod/dut.sv:4:10: error: redefinition of 'o' [-Wredefinition],,
 BuiltInMethod,testflags,SLANG_REJECT,/home/heyfey/git-repos/Surelog/tests/BuiltInMethod/dut.sv:4:10: error: redefinition of 'o' [-Wredefinition],,
 CarryAdd,default,CMP_EQUAL,,,differ

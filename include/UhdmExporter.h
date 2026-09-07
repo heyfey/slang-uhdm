@@ -8343,6 +8343,22 @@ private:
     // The function-RETURN-name refs endSelTrack already re-pointed at a select
     // object.  drainFuncRet mints a per-ref return variable for everything in
     // `pendingFuncRet`, which would clobber that binding, so it skips these.
+    //
+    // § homeRetNameSelBindSurvivesDefViewUnbind194 — THE SECOND READER, and the
+    // whole of r10uvm194's production surface.  `classRetNameDefViewNoBind37`
+    // (src/TypeEmit.cpp) nulls every return-name reference in a listing whose
+    // class_defn is DEF-only, in the home package's own DEF listing of an
+    // OUT-OF-BODY method, and in every import clone of one.  That models
+    // `UhdmWriter::lateBinding`'s `uhdmfunction` arm, which clones the routine's
+    // `Return()` only when `parent->VpiName() == name` and so cannot answer for
+    // a listing named `Class::method`.  It must NOT reach a reference this set
+    // holds: those were answered EARLIER in the same walk, by the `uhdmbegin`
+    // arm's scan of the block's own `Stmts()` for an `assignment` whose
+    // `Lhs()->VpiName() == name` (UhdmWriter.cpp:3550-3575) — a rule that knows
+    // nothing about return variables and answers in every listing of the body.
+    // FENCED out of the import clone, where golden's copies are null because
+    // the clone's references are already bound when lateBinding runs
+    // (`if (ref->Actual_group()) continue;`, UhdmWriter.cpp:3296).
     std::set<const UHDM::ref_obj*> funcRetSelBound;
     bool beginSelTrack();  // returns true if it newly activated tracking
     void endSelTrack();    // back-patches whole-refs and clears state

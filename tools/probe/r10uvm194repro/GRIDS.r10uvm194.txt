@@ -1,0 +1,131 @@
+# r10uvm194 — GRIDS (grid194.sh: ONE REAL SURELOG GOLDEN per arm, BOTH binaries,
+# BOTH views; scoregrid194.sh scores the ct194cen listings as a MULTISET join.
+# The DEF and ELAB listings are kept in SEPARATE rows and NEVER merged
+# (r10uvm166 §6 / r10v169's listcheck law).  MEASUREMENT ONLY.
+
+## the official judge on each arm (uhdm-cmp, pristine -> patched, cmp lines / heads)
+  g194_a_homes.sv
+      cmp rc=255 a def lines=31 heads=1
+      cmp rc=0 b def lines=0 heads=0
+      cmp rc=255 a elab lines=31 heads=1
+      cmp rc=0 b elab lines=0 heads=0
+  g194_b_kinds.sv
+      cmp rc=255 a def lines=31 heads=1
+      cmp rc=255 b def lines=43 heads=1
+      cmp rc=255 a elab lines=31 heads=1
+      cmp rc=255 b elab lines=43 heads=1
+  g194_c_clone.sv
+      cmp rc=255 a def lines=31 heads=1
+      cmp rc=0 b def lines=0 heads=0
+      cmp rc=255 a elab lines=31 heads=1
+      cmp rc=0 b elab lines=0 heads=0
+
+## nonzero rcs across all three arms:
+  (none)
+
+## scoregrid194.sh — golden x pristine x patched
+  ### a_homes
+    a_homes.def                                    {'AGREE': 18, 'TO-GOLDEN': 4}  <<<
+    a_homes.elab                                   {'AGREE': 44, 'TO-GOLDEN': 8}  <<<
+    TOTAL {'AGREE': 62, 'TO-GOLDEN': 12}
+  ### b_kinds
+    b_kinds.def                                    {'AGREE': 14, 'STILL-EXTRA': 4, 'STILL-MISSING': 4, 'TO-GOLDEN': 8}  <<<
+    b_kinds.elab                                   {'AGREE': 43, 'STILL-EXTRA': 4, 'STILL-MISSING': 4, 'TO-GOLDEN': 16}  <<<
+    TOTAL {'AGREE': 57, 'STILL-EXTRA': 8, 'STILL-MISSING': 8, 'TO-GOLDEN': 24}
+  ### c_clone
+    c_clone.def                                    {'AGREE': 10, 'STILL-EXTRA': 4, 'STILL-MISSING': 4, 'TO-GOLDEN': 4}  <<<
+    c_clone.elab                                   {'AGREE': 32, 'TO-GOLDEN': 8}  <<<
+    TOTAL {'AGREE': 42, 'STILL-EXTRA': 4, 'STILL-MISSING': 4, 'TO-GOLDEN': 12}
+
+## THE HOME GRID, cell for cell (arm A, DEF view, golden vs pristine)
+   20 cells; exactly 2 differ, and every negative control agrees:
+    1,21c1,21
+    < G A194::a_out_ifsel|51:20| <function:A194::a_out_ifsel <package:a194_src|ACT=NONE
+    < G A194::a_out_ifsel|51:5| <function:A194::a_out_ifsel <package:a194_src|ACT=NONE
+    < G A194::a_out_noselect|42:23| <function:A194::a_out_noselect <package:a194_src|ACT=NONE
+    < G A194::a_out_noselect|42:5| <function:A194::a_out_noselect <package:a194_src|ACT=NONE
+    < G A194::a_out|32:14| <function:A194::a_out <package:a194_src|ACT=bit_select:a_out@33:5
+    < G A194::a_out|32:5| <function:A194::a_out <package:a194_src|ACT=bit_select:a_out@33:5
+    < G a_free|12:15| <function:a_free <package:a194_src|ACT=bit_select:a_free@13:5
+    < G a_free|12:15| <function:a_free <package:a194_src|ACT=bit_select:a_free@13:5
+    < G a_free|12:5| <function:a_free <package:a194_src|ACT=bit_select:a_free@13:5
+    < G a_free|12:5| <function:a_free <package:a194_src|ACT=bit_select:a_free@13:5
+    < G a_in|21:15| <function:a_in <class_defn:A194 <package:a194_src|ACT=NONE
+    < G a_in|21:7| <function:a_in <class_defn:A194 <package:a194_src|ACT=NONE
+    < G a_mod|62:14| <function:a_mod <module_inst:|ACT=bit_select:a_mod@63:5
+    < G a_mod|62:5| <function:a_mod <module_inst:|ACT=bit_select:a_mod@63:5
+    < G a_out_ifsel|51:20| <function:a_out_ifsel <class_defn:A194 <package:a194_src|ACT=string_var:a_out_ifsel@49:12
+    < G a_out_ifsel|51:5| <function:a_out_ifsel <class_defn:A194 <package:a194_src|ACT=string_var:a_out_ifsel@49:12
+    < G a_out_noselect|42:23| <function:a_out_noselect <class_defn:A194 <package:a194_src|ACT=string_var:a_out_noselect@40:12
+    < G a_out_noselect|42:5| <function:a_out_noselect <class_defn:A194 <package:a194_src|ACT=string_var:a_out_noselect@40:12
+    < G a_out|32:14| <function:a_out <class_defn:A194 <package:a194_src|ACT=bit_select:a_out@33:5
+    < G a_out|32:5| <function:a_out <class_defn:A194 <package:a194_src|ACT=bit_select:a_out@33:5
+    < CAND|g|20
+    ---
+    > O A194::a_out_ifsel|51:20| <function:A194::a_out_ifsel <package:a194_src|ACT=NONE
+    > O A194::a_out_ifsel|51:5| <function:A194::a_out_ifsel <package:a194_src|ACT=NONE
+    > O A194::a_out_noselect|42:23| <function:A194::a_out_noselect <package:a194_src|ACT=NONE
+    > O A194::a_out_noselect|42:5| <function:A194::a_out_noselect <package:a194_src|ACT=NONE
+    > O A194::a_out|32:14| <function:A194::a_out <package:a194_src|ACT=NONE
+    > O A194::a_out|32:5| <function:A194::a_out <package:a194_src|ACT=NONE
+    > O a_free|12:15| <function:a_free <package:a194_src|ACT=bit_select:a_free@13:5
+    > O a_free|12:15| <function:a_free <package:a194_src|ACT=bit_select:a_free@13:5
+    > O a_free|12:5| <function:a_free <package:a194_src|ACT=bit_select:a_free@13:5
+    > O a_free|12:5| <function:a_free <package:a194_src|ACT=bit_select:a_free@13:5
+    > O a_in|21:15| <function:a_in <class_defn:A194 <package:a194_src|ACT=NONE
+    > O a_in|21:7| <function:a_in <class_defn:A194 <package:a194_src|ACT=NONE
+    > O a_mod|62:14| <function:a_mod <module_inst:|ACT=bit_select:a_mod@63:5
+    > O a_mod|62:5| <function:a_mod <module_inst:|ACT=bit_select:a_mod@63:5
+    > O a_out_ifsel|51:20| <function:a_out_ifsel <class_defn:A194 <package:a194_src|ACT=string_var:a_out_ifsel@49:12
+    > O a_out_ifsel|51:5| <function:a_out_ifsel <class_defn:A194 <package:a194_src|ACT=string_var:a_out_ifsel@49:12
+    > O a_out_noselect|42:23| <function:a_out_noselect <class_defn:A194 <package:a194_src|ACT=string_var:a_out_noselect@40:12
+    > O a_out_noselect|42:5| <function:a_out_noselect <class_defn:A194 <package:a194_src|ACT=string_var:a_out_noselect@40:12
+    > O a_out|32:14| <function:a_out <class_defn:A194 <package:a194_src|ACT=bit_select:a_out@33:5
+    > O a_out|32:5| <function:a_out <class_defn:A194 <package:a194_src|ACT=bit_select:a_out@33:5
+    > CAND|a|20
+
+## THE SAME ARM AFTER THE PATCH (only the CAND tag line differs):
+    1,21c1,21
+    < G A194::a_out_ifsel|51:20| <function:A194::a_out_ifsel <package:a194_src|ACT=NONE
+    < G A194::a_out_ifsel|51:5| <function:A194::a_out_ifsel <package:a194_src|ACT=NONE
+    < G A194::a_out_noselect|42:23| <function:A194::a_out_noselect <package:a194_src|ACT=NONE
+    < G A194::a_out_noselect|42:5| <function:A194::a_out_noselect <package:a194_src|ACT=NONE
+    < G A194::a_out|32:14| <function:A194::a_out <package:a194_src|ACT=bit_select:a_out@33:5
+    < G A194::a_out|32:5| <function:A194::a_out <package:a194_src|ACT=bit_select:a_out@33:5
+    < G a_free|12:15| <function:a_free <package:a194_src|ACT=bit_select:a_free@13:5
+    < G a_free|12:15| <function:a_free <package:a194_src|ACT=bit_select:a_free@13:5
+    < G a_free|12:5| <function:a_free <package:a194_src|ACT=bit_select:a_free@13:5
+    < G a_free|12:5| <function:a_free <package:a194_src|ACT=bit_select:a_free@13:5
+    < G a_in|21:15| <function:a_in <class_defn:A194 <package:a194_src|ACT=NONE
+    < G a_in|21:7| <function:a_in <class_defn:A194 <package:a194_src|ACT=NONE
+    < G a_mod|62:14| <function:a_mod <module_inst:|ACT=bit_select:a_mod@63:5
+    < G a_mod|62:5| <function:a_mod <module_inst:|ACT=bit_select:a_mod@63:5
+    < G a_out_ifsel|51:20| <function:a_out_ifsel <class_defn:A194 <package:a194_src|ACT=string_var:a_out_ifsel@49:12
+    < G a_out_ifsel|51:5| <function:a_out_ifsel <class_defn:A194 <package:a194_src|ACT=string_var:a_out_ifsel@49:12
+    < G a_out_noselect|42:23| <function:a_out_noselect <class_defn:A194 <package:a194_src|ACT=string_var:a_out_noselect@40:12
+    < G a_out_noselect|42:5| <function:a_out_noselect <class_defn:A194 <package:a194_src|ACT=string_var:a_out_noselect@40:12
+    < G a_out|32:14| <function:a_out <class_defn:A194 <package:a194_src|ACT=bit_select:a_out@33:5
+    < G a_out|32:5| <function:a_out <class_defn:A194 <package:a194_src|ACT=bit_select:a_out@33:5
+    < CAND|g|20
+    ---
+    > O A194::a_out_ifsel|51:20| <function:A194::a_out_ifsel <package:a194_src|ACT=NONE
+    > O A194::a_out_ifsel|51:5| <function:A194::a_out_ifsel <package:a194_src|ACT=NONE
+    > O A194::a_out_noselect|42:23| <function:A194::a_out_noselect <package:a194_src|ACT=NONE
+    > O A194::a_out_noselect|42:5| <function:A194::a_out_noselect <package:a194_src|ACT=NONE
+    > O A194::a_out|32:14| <function:A194::a_out <package:a194_src|ACT=bit_select:a_out@33:5
+    > O A194::a_out|32:5| <function:A194::a_out <package:a194_src|ACT=bit_select:a_out@33:5
+    > O a_free|12:15| <function:a_free <package:a194_src|ACT=bit_select:a_free@13:5
+    > O a_free|12:15| <function:a_free <package:a194_src|ACT=bit_select:a_free@13:5
+    > O a_free|12:5| <function:a_free <package:a194_src|ACT=bit_select:a_free@13:5
+    > O a_free|12:5| <function:a_free <package:a194_src|ACT=bit_select:a_free@13:5
+    > O a_in|21:15| <function:a_in <class_defn:A194 <package:a194_src|ACT=NONE
+    > O a_in|21:7| <function:a_in <class_defn:A194 <package:a194_src|ACT=NONE
+    > O a_mod|62:14| <function:a_mod <module_inst:|ACT=bit_select:a_mod@63:5
+    > O a_mod|62:5| <function:a_mod <module_inst:|ACT=bit_select:a_mod@63:5
+    > O a_out_ifsel|51:20| <function:a_out_ifsel <class_defn:A194 <package:a194_src|ACT=string_var:a_out_ifsel@49:12
+    > O a_out_ifsel|51:5| <function:a_out_ifsel <class_defn:A194 <package:a194_src|ACT=string_var:a_out_ifsel@49:12
+    > O a_out_noselect|42:23| <function:a_out_noselect <class_defn:A194 <package:a194_src|ACT=string_var:a_out_noselect@40:12
+    > O a_out_noselect|42:5| <function:a_out_noselect <class_defn:A194 <package:a194_src|ACT=string_var:a_out_noselect@40:12
+    > O a_out|32:14| <function:a_out <class_defn:A194 <package:a194_src|ACT=bit_select:a_out@33:5
+    > O a_out|32:5| <function:a_out <class_defn:A194 <package:a194_src|ACT=bit_select:a_out@33:5
+    > CAND|b|20

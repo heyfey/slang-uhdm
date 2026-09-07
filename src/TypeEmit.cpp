@@ -8516,8 +8516,42 @@ void UhdmExporter::classRetNameDefViewNoBind37(UHDM::design* d) {
                     (int)pkgImportCloneTfs16.count(tf), (int)unbind37);
         if (!unbind37)
             continue;
+        // § homeRetNameSelBindSurvivesDefViewUnbind194 — THE ONE REFERENCE THIS
+        // UNBIND MUST NOT REACH.
+        //
+        // § classRetNameDefViewNoBind37 above models the RETURN VARIABLE:
+        // `UhdmWriter::lateBinding`'s `uhdmfunction` arm clones the routine's
+        // `Return()` only when `parent->VpiName() == name`
+        // (UhdmWriter.cpp:3371-3381), and an OUT-OF-BODY definition's PACKAGE
+        // listing is named `Class::method`, so that test fails and the def
+        // listing's return-name references stay null.  But the walk starts at
+        // the reference's INNERMOST parent and reaches the enclosing `begin`
+        // FIRST (UhdmWriter.cpp:3550-3575), where the arm scans the block's own
+        // `Stmts()` for an `assignment` whose `Lhs()->VpiName() == name` and
+        // binds the reference to that LHS EXPRESSION — skipping a `ref_obj` /
+        // `ref_var` lhs, so a WHOLE write cannot answer and only a SELECT can.
+        // That arm knows nothing about return variables or listings: it answers
+        // in EVERY listing of the body, which is why golden's def-view copy of
+        // `uvm_packer::unpack_string` binds its two bare `unpack_string`
+        // references to the `bit_select` at uvm_pkg.sv:22952 while ours were
+        // null — the BuildUVMPkg x2 head.
+        //
+        // `funcRetSelBound` is exactly the set `endSelTrack` bound to such a
+        // select, and it is already the guard `drainFuncRet` uses for the same
+        // reason, so this reads a fact the emitter has, not a re-derivation.
+        //
+        // FENCED OUT OF THE IMPORT CLONE, and that fence is MEASURED, not
+        // symmetric (`grid194/g194_c_clone.sv`, both views, one real Surelog
+        // golden): the clone's copies of the out-of-body method are golden-NULL
+        // — the clone body's references are already bound to the HOME package's
+        // objects when `lateBinding` runs and its first line is
+        // `if (ref->Actual_group()) continue;` (UhdmWriter.cpp:3296), so the
+        // block arm never answers for them (the same reason
+        // § localBlockStmtSelBinds122 is fenced out of every clone).  Only the
+        // DECLARING package's own listings take the select.
+        const bool cloneTf194 = pkgImportCloneTfs16.count(tf) != 0;
         for (auto* r : refs)
-            if (r)
+            if (r && !(!cloneTf194 && funcRetSelBound.count(r)))
                 r->Actual_group(nullptr);
     }
 }
