@@ -1,0 +1,52 @@
+LHS:
+decompile:
+enum_var: (uvm_pkg::uvm_printer::object_printed), id:146491, line:19055:27, endln:19055:56
+|vpiParent:
+\_function: (uvm_pkg::uvm_printer::object_printed), id:146489, line:19055:3, endln:19055:9
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_printer::object_printed), id:146493
+  |vpiParent:
+  \_enum_var: (uvm_pkg::uvm_printer::object_printed), id:146491, line:19055:27, endln:19055:56
+  |vpiFullName:uvm_pkg::uvm_printer::object_printed
+  |vpiActual:
+  \_enum_typespec: (recursion_state_e), id:144162, line:18219:1, endln:18223:21
+|vpiFullName:uvm_pkg::uvm_printer::object_printed
+
+decompile:
+enum_var: (uvm_pkg::uvm_printer::object_printed), id:146491, line:19055:27, endln:19055:56
+|vpiParent:
+\_function: (uvm_pkg::uvm_printer::object_printed), id:146489, line:19055:3, endln:19055:9
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_printer::object_printed), id:146493
+  |vpiParent:
+  \_enum_var: (uvm_pkg::uvm_printer::object_printed), id:146491, line:19055:27, endln:19055:56
+  |vpiFullName:uvm_pkg::uvm_printer::object_printed
+  |vpiActual:
+  \_enum_typespec: (recursion_state_e), id:144162, line:18219:1, endln:18223:21
+|vpiFullName:uvm_pkg::uvm_printer::object_printed
+RHS:
+decompile:
+class_var: (uvm_pkg::uvm_printer::object_printed), id:52136, line:20364:10, endln:20364:39
+|vpiParent:
+\_function: (uvm_pkg::uvm_printer::object_printed), id:52135, line:19055:3, endln:19055:9
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_printer::object_printed), id:52137
+  |vpiParent:
+  \_class_var: (uvm_pkg::uvm_printer::object_printed), id:52136, line:20364:10, endln:20364:39
+  |vpiFullName:uvm_pkg::uvm_printer::object_printed
+  |vpiActual:
+  \_enum_typespec: (recursion_state_e), id:11299, line:18219:1, endln:18223:21
+|vpiFullName:uvm_pkg::uvm_printer::object_printed
+
+decompile:
+class_var: (uvm_pkg::uvm_printer::object_printed), id:52136, line:20364:10, endln:20364:39
+|vpiParent:
+\_function: (uvm_pkg::uvm_printer::object_printed), id:52135, line:19055:3, endln:19055:9
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_printer::object_printed), id:52137
+  |vpiParent:
+  \_class_var: (uvm_pkg::uvm_printer::object_printed), id:52136, line:20364:10, endln:20364:39
+  |vpiFullName:uvm_pkg::uvm_printer::object_printed
+  |vpiActual:
+  \_enum_typespec: (recursion_state_e), id:11299, line:18219:1, endln:18223:21
+|vpiFullName:uvm_pkg::uvm_printer::object_printed

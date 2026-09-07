@@ -1,0 +1,5 @@
+PREDICT default/MiniAmiq-544c7f61 cells=12
+PREDICT default/SeqDriver-32af76aa cells=12
+PREDICT testflags/MiniAmiq-544c7f61 cells=12
+PREDICT testflags/SeqDriver-32af76aa cells=12
+LISTED=956 PROCESSED=956 NOGOLDEN=0 PREDICTED=4

@@ -1,0 +1,60 @@
+default    MiniAmiq       plain=46     order-blind=46    
+---- default MiniAmiq ORDER-BLIND diff, by line shape:
+     10 >                         \_string_var: (uvm_pkg::uvm_default_factory::print::dash), line:N:N, endln:N:N
+     10 <                         \_int_var: (uvm_pkg::uvm_default_factory::print::maxN), line:N:N, endln:N:N
+      6 >                     \_string_var: (uvm_pkg::uvm_default_factory::m_debug_display::dash), line:N:N, endln:N:N
+      6 <                     \_int_var: (uvm_pkg::uvm_default_factory::m_debug_display::maxN), line:N:N, endln:N:N
+      2 >                         |vpiActual:
+      2 >                         \_string_var: (uvm_pkg::uvm_table_printer::emit::dash), line:N:N, endln:N:N
+      2 >               \_string_var: (uvm_pkg::uvm_instance_scope), line:N:N, endln:N:N
+      2 >                     \_io_decl: (str), line:N:N, endln:N:N
+      2 <                     \_int_var: (uvm_pkg::uvm_split_string::s), line:N:N, endln:N:N
+      2 <               \_int_var: (uvm_pkg::uvm_instance_scope::pos), line:N:N, endln:N:N
+      1 > /default/MiniAmiq-NcNfN/slang.uhdm: Restored design Pre-Elab: 
+      1 < /default/MiniAmiq-NcNfN//slang.uhdm: Restored design Pre-Elab: 
+default    Scoreboard     plain=94     order-blind=2     
+---- default Scoreboard ORDER-BLIND diff, by line shape:
+      1 > /default/Scoreboard-N/slang.uhdm: Restored design Pre-Elab: 
+      1 < /default/Scoreboard-N//slang.uhdm: Restored design Pre-Elab: 
+default    SeqDriver      plain=46     order-blind=46    
+---- default SeqDriver ORDER-BLIND diff, by line shape:
+     10 >                         \_string_var: (uvm_pkg::uvm_default_factory::print::dash), line:N:N, endln:N:N
+     10 <                         \_int_var: (uvm_pkg::uvm_default_factory::print::maxN), line:N:N, endln:N:N
+      6 >                     \_string_var: (uvm_pkg::uvm_default_factory::m_debug_display::dash), line:N:N, endln:N:N
+      6 <                     \_int_var: (uvm_pkg::uvm_default_factory::m_debug_display::maxN), line:N:N, endln:N:N
+      2 >                         |vpiActual:
+      2 >                         \_string_var: (uvm_pkg::uvm_table_printer::emit::dash), line:N:N, endln:N:N
+      2 >               \_string_var: (uvm_pkg::uvm_instance_scope), line:N:N, endln:N:N
+      2 >                     \_io_decl: (str), line:N:N, endln:N:N
+      2 <                     \_int_var: (uvm_pkg::uvm_split_string::s), line:N:N, endln:N:N
+      2 <               \_int_var: (uvm_pkg::uvm_instance_scope::pos), line:N:N, endln:N:N
+      1 > /default/SeqDriver-NafNaa/slang.uhdm: Restored design Pre-Elab: 
+      1 < /default/SeqDriver-NafNaa//slang.uhdm: Restored design Pre-Elab: 
+testflags  MiniAmiq       plain=46     order-blind=46    
+---- testflags MiniAmiq ORDER-BLIND diff, by line shape:
+     10 >                         \_string_var: (uvm_pkg::uvm_default_factory::print::dash), line:N:N, endln:N:N
+     10 <                         \_int_var: (uvm_pkg::uvm_default_factory::print::maxN), line:N:N, endln:N:N
+      6 >                     \_string_var: (uvm_pkg::uvm_default_factory::m_debug_display::dash), line:N:N, endln:N:N
+      6 <                     \_int_var: (uvm_pkg::uvm_default_factory::m_debug_display::maxN), line:N:N, endln:N:N
+      2 >                         |vpiActual:
+      2 >                         \_string_var: (uvm_pkg::uvm_table_printer::emit::dash), line:N:N, endln:N:N
+      2 >               \_string_var: (uvm_pkg::uvm_instance_scope), line:N:N, endln:N:N
+      2 >                     \_io_decl: (str), line:N:N, endln:N:N
+      2 <                     \_int_var: (uvm_pkg::uvm_split_string::s), line:N:N, endln:N:N
+      2 <               \_int_var: (uvm_pkg::uvm_instance_scope::pos), line:N:N, endln:N:N
+      1 > /testflags/MiniAmiq-NcNfN/slang.uhdm: Restored design Pre-Elab: 
+      1 < /testflags/MiniAmiq-NcNfN//slang.uhdm: Restored design Pre-Elab: 
+testflags  SeqDriver      plain=46     order-blind=46    
+---- testflags SeqDriver ORDER-BLIND diff, by line shape:
+     10 >                         \_string_var: (uvm_pkg::uvm_default_factory::print::dash), line:N:N, endln:N:N
+     10 <                         \_int_var: (uvm_pkg::uvm_default_factory::print::maxN), line:N:N, endln:N:N
+      6 >                     \_string_var: (uvm_pkg::uvm_default_factory::m_debug_display::dash), line:N:N, endln:N:N
+      6 <                     \_int_var: (uvm_pkg::uvm_default_factory::m_debug_display::maxN), line:N:N, endln:N:N
+      2 >                         |vpiActual:
+      2 >                         \_string_var: (uvm_pkg::uvm_table_printer::emit::dash), line:N:N, endln:N:N
+      2 >               \_string_var: (uvm_pkg::uvm_instance_scope), line:N:N, endln:N:N
+      2 >                     \_io_decl: (str), line:N:N, endln:N:N
+      2 <                     \_int_var: (uvm_pkg::uvm_split_string::s), line:N:N, endln:N:N
+      2 <               \_int_var: (uvm_pkg::uvm_instance_scope::pos), line:N:N, endln:N:N
+      1 > /testflags/SeqDriver-NafNaa/slang.uhdm: Restored design Pre-Elab: 
+      1 < /testflags/SeqDriver-NafNaa//slang.uhdm: Restored design Pre-Elab: 

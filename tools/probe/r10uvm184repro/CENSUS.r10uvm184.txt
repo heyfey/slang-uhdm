@@ -1,0 +1,216 @@
+==== SeqDriver default  (rows g/a/b: 11501/11501/11501)
+-- CALIBRATION golden vs golden vs golden (every column must be 0 but UNTOUCHED):
+TOWARD             0
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          8589
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched:
+TOWARD             11
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        15
+UNTOUCHED          8537
+ONLY-GOLDEN        26
+ONLY-OURS          20
+ONLY-OURS-MOVED    0
+    TOWARD ('package:adpcm_pkg', 'uvm_default_factory::m_debug_display', '1758:62', 'max1', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:adpcm_pkg', 'uvm_default_factory::m_debug_display', '1759:46', 'max2', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:adpcm_pkg', 'uvm_default_factory::m_debug_display', '1760:46', 'max3', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:adpcm_pkg', 'uvm_default_factory::print', '1577:64', 'max1', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:adpcm_pkg', 'uvm_default_factory::print', '1578:48', 'max2', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:adpcm_pkg', 'uvm_default_factory::print', '1579:48', 'max3', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:adpcm_pkg', 'uvm_default_factory::print', '1614:59', 'max1', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:adpcm_pkg', 'uvm_default_factory::print', '1615:43', 'max2', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:adpcm_pkg', 'uvm_instance_scope', '357:52', 'pos', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:adpcm_pkg', 'uvm_split_string', '490:35', 's', 'arg0') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:adpcm_pkg', 'uvm_table_printer::emit', '1080:39', 'm_max_value', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('BARE', 'BARE') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+==== SeqDriver testflags  (rows g/a/b: 11501/11501/11501)
+-- CALIBRATION golden vs golden vs golden (every column must be 0 but UNTOUCHED):
+TOWARD             0
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          8589
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched:
+TOWARD             11
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        15
+UNTOUCHED          8537
+ONLY-GOLDEN        26
+ONLY-OURS          20
+ONLY-OURS-MOVED    0
+    TOWARD ('package:adpcm_pkg', 'uvm_default_factory::m_debug_display', '1758:62', 'max1', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:adpcm_pkg', 'uvm_default_factory::m_debug_display', '1759:46', 'max2', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:adpcm_pkg', 'uvm_default_factory::m_debug_display', '1760:46', 'max3', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:adpcm_pkg', 'uvm_default_factory::print', '1577:64', 'max1', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:adpcm_pkg', 'uvm_default_factory::print', '1578:48', 'max2', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:adpcm_pkg', 'uvm_default_factory::print', '1579:48', 'max3', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:adpcm_pkg', 'uvm_default_factory::print', '1614:59', 'max1', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:adpcm_pkg', 'uvm_default_factory::print', '1615:43', 'max2', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:adpcm_pkg', 'uvm_instance_scope', '357:52', 'pos', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:adpcm_pkg', 'uvm_split_string', '490:35', 's', 'arg0') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:adpcm_pkg', 'uvm_table_printer::emit', '1080:39', 'm_max_value', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('BARE', 'BARE') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+==== MiniAmiq default  (rows g/a/b: 11792/11802/11802)
+-- CALIBRATION golden vs golden vs golden (every column must be 0 but UNTOUCHED):
+TOWARD             0
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          8856
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched:
+TOWARD             11
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        30
+UNTOUCHED          8789
+ONLY-GOLDEN        26
+ONLY-OURS          30
+ONLY-OURS-MOVED    0
+    TOWARD ('package:svaunit_pkg', 'uvm_default_factory::m_debug_display', '1758:62', 'max1', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:svaunit_pkg', 'uvm_default_factory::m_debug_display', '1759:46', 'max2', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:svaunit_pkg', 'uvm_default_factory::m_debug_display', '1760:46', 'max3', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:svaunit_pkg', 'uvm_default_factory::print', '1577:64', 'max1', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:svaunit_pkg', 'uvm_default_factory::print', '1578:48', 'max2', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:svaunit_pkg', 'uvm_default_factory::print', '1579:48', 'max3', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:svaunit_pkg', 'uvm_default_factory::print', '1614:59', 'max1', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:svaunit_pkg', 'uvm_default_factory::print', '1615:43', 'max2', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:svaunit_pkg', 'uvm_instance_scope', '357:52', 'pos', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:svaunit_pkg', 'uvm_split_string', '490:35', 's', 'arg0') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:svaunit_pkg', 'uvm_table_printer::emit', '1080:39', 'm_max_value', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('BARE', 'BARE') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+==== MiniAmiq testflags  (rows g/a/b: 11792/11802/11802)
+-- CALIBRATION golden vs golden vs golden (every column must be 0 but UNTOUCHED):
+TOWARD             0
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          8856
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched:
+TOWARD             11
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        30
+UNTOUCHED          8789
+ONLY-GOLDEN        26
+ONLY-OURS          30
+ONLY-OURS-MOVED    0
+    TOWARD ('package:svaunit_pkg', 'uvm_default_factory::m_debug_display', '1758:62', 'max1', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:svaunit_pkg', 'uvm_default_factory::m_debug_display', '1759:46', 'max2', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:svaunit_pkg', 'uvm_default_factory::m_debug_display', '1760:46', 'max3', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:svaunit_pkg', 'uvm_default_factory::print', '1577:64', 'max1', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:svaunit_pkg', 'uvm_default_factory::print', '1578:48', 'max2', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:svaunit_pkg', 'uvm_default_factory::print', '1579:48', 'max3', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:svaunit_pkg', 'uvm_default_factory::print', '1614:59', 'max1', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:svaunit_pkg', 'uvm_default_factory::print', '1615:43', 'max2', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:svaunit_pkg', 'uvm_instance_scope', '357:52', 'pos', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:svaunit_pkg', 'uvm_split_string', '490:35', 's', 'arg0') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:svaunit_pkg', 'uvm_table_printer::emit', '1080:39', 'm_max_value', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('BARE', 'BARE') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+==== SimpleUVM default  (rows g/a/b: 7470/7470/7470)
+-- CALIBRATION golden vs golden vs golden (every column must be 0 but UNTOUCHED):
+TOWARD             0
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          6595
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched:
+TOWARD             0
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          6581
+ONLY-GOLDEN        14
+ONLY-OURS          14
+ONLY-OURS-MOVED    0
+==== SimpleUVM testflags  (rows g/a/b: 7470/7470/7470)
+-- CALIBRATION golden vs golden vs golden (every column must be 0 but UNTOUCHED):
+TOWARD             0
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          6595
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched:
+TOWARD             0
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          6581
+ONLY-GOLDEN        14
+ONLY-OURS          14
+ONLY-OURS-MOVED    0
+==== Scoreboard default  (rows g/a/b: 7504/7504/7504)
+-- CALIBRATION golden vs golden vs golden (every column must be 0 but UNTOUCHED):
+TOWARD             0
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          6621
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched:
+TOWARD             0
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          6607
+ONLY-GOLDEN        14
+ONLY-OURS          14
+ONLY-OURS-MOVED    0
+SKIP-NOFILE Scoreboard testflags g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm p=/tmp/r10uvm184_wd_pris/sl/testflags/Scoreboard-59431470//slang.uhdm q=/tmp/r10uvm184_wd_pat/sl/testflags/Scoreboard-59431470/slang.uhdm
+==== BuildUVMPkg default  (rows g/a/b: 7194/7194/7194)
+-- CALIBRATION golden vs golden vs golden (every column must be 0 but UNTOUCHED):
+TOWARD             0
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          7129
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched:
+TOWARD             0
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          7129
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+==== BuildUVMPkg testflags  (rows g/a/b: 7194/7194/7194)
+-- CALIBRATION golden vs golden vs golden (every column must be 0 but UNTOUCHED):
+TOWARD             0
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          7129
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+-- SCORE golden / pristine / patched:
+TOWARD             0
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          7129
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0

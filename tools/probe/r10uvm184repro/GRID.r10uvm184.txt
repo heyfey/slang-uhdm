@@ -1,0 +1,97 @@
+r10uvm184 GRID — arm A (argument axis) and arm B (receiver-kind axis), both views.
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+G=golden  A=pristine  B=patched.  Scored by score184.py as a MULTISET on
+LISTING|SUBR|LINE:COL|NAME|ARGIDX with the verdict column as the value.
+
+==== arm a  view def
+TOWARD             12
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        7
+UNTOUCHED          19
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+    TOWARD ('package:Bevel184', 'Bollard184::plait184', '69:28', 'twist', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:Bevel184', 'Bollard184::plait184', '70:28', 'm_girth', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('BARE', 'BARE') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:Bevel184', 'Bollard184::plait184', '72:28', 'fml_c', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:Bevel184', 'Bollard184::plait184', '73:28', 'SLATE184', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('BARE', 'BARE') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:Bevel184', 'chisel184', '27:27', 'notch', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:Bevel184', 'chisel184', '28:24', 'notch', 'arg0') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:Bevel184', 'chisel184', '29:27', 'fml_a', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:Bevel184', 'chisel184', '32:27', 'notch', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:Bevel184', 'chisel184', '33:24', 'notch', 'arg0') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:Bevel184', 'chisel184', '33:31', 'rung', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:Bevel184', 'trestle184', '42:39', 'span', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:Bevel184', 'trestle184', '43:36', 'span', 'arg0') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+
+==== arm a  view elab
+TOWARD             12
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        7
+UNTOUCHED          32
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+    TOWARD ('package:Bevel184', 'Bollard184::plait184', '69:28', 'twist', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:Bevel184', 'Bollard184::plait184', '70:28', 'm_girth', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('BARE', 'BARE', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:Bevel184', 'Bollard184::plait184', '72:28', 'fml_c', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:Bevel184', 'Bollard184::plait184', '73:28', 'SLATE184', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('BARE', 'BARE', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:Bevel184', 'chisel184', '27:27', 'notch', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:Bevel184', 'chisel184', '28:24', 'notch', 'arg0') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:Bevel184', 'chisel184', '29:27', 'fml_a', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:Bevel184', 'chisel184', '32:27', 'notch', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:Bevel184', 'chisel184', '33:24', 'notch', 'arg0') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:Bevel184', 'chisel184', '33:31', 'rung', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:Bevel184', 'trestle184', '42:39', 'span', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:Bevel184', 'trestle184', '43:36', 'span', 'arg0') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+
+==== arm b  view def
+TOWARD             1
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          5
+ONLY-GOLDEN        2
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+    TOWARD ('package:Stanchion184', 'hoist184', '36:25', 'kink', 'arg0') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+
+==== arm b  view elab
+TOWARD             1
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        2
+UNTOUCHED          6
+ONLY-GOLDEN        3
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+    TOWARD ('package:Stanchion184', 'hoist184', '36:25', 'kink', 'arg0') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+
+==== the MOVED foreign boundary arm: r10uvm171repro/g171_a_pos.sv
+-- view def
+TOWARD             2
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          2
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+    TOWARD ('package:pos_clone_171', 'lc_shape', '30:29', 'kx', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:pos_clone_171', 'sc_shape', '17:35', 'kx', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+-- view elab
+TOWARD             2
+AWAY               0
+MOVED-WRONG        0
+STILL-WRONG        0
+UNTOUCHED          4
+ONLY-GOLDEN        0
+ONLY-OURS          0
+ONLY-OURS-MOVED    0
+    TOWARD ('package:pos_clone_171', 'lc_shape', '30:29', 'kx', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+    TOWARD ('package:pos_clone_171', 'sc_shape', '17:35', 'kx', 'arg1') G ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') A ('OTHER', 'OTHER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER') B ('SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER', 'SAME-AS-RECEIVER')
+
+uhdm-cmp on that arm: rc=0, 0 lines, 0 heads on BOTH binaries in BOTH views
+(the arm was and stays CMP-EQUAL to its own real Surelog golden).

@@ -25965,17 +25965,91 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // in-body class method.  Arm a2 ib_cond_builtin_formal
                         // is the same shape read on one golden, both sides.
                         RecvCallArg52 rca52B(recvCallArgDepth52);
+                        // § retNameArgKeepsReturnVar184v (r10v184, the
+                        // ADVERSARIAL VERIFIER's fix to
+                        // § cloneBuiltinMethodArgBindsReceiver184) — THE ONE
+                        // ARGUMENT THE CLONE LAW MUST NOT CLAIM.  In a
+                        // wildcard-import clone of a FREE (non-class) package
+                        // subroutine, an argument that is the subroutine's own
+                        // RETURN NAME keeps § 171's RETURN VARIABLE; only a
+                        // CLASS method's clone gives that spelling the
+                        // receiver.  Measured on three real Surelog goldens,
+                        // one row per face, both views
+                        // (`tools/probe/r10v184repro/gv184_{g,h,i}*.sv`):
+                        //
+                        //   free function, `automatic`   -> `int_var()` at the
+                        //   free function, static           return declaration
+                        //   free function, return name
+                        //     never assigned
+                        //   class method, OUT OF BODY    -> the RECEIVER
+                        //   class method, IN BODY        -> the RECEIVER
+                        //   any other argument           -> the RECEIVER
+                        //
+                        // Without this the FREE-function cells are a
+                        // pristine-RIGHT -> patched-WRONG AWAY: the design-
+                        // final drain runs after § 171's and overwrites the
+                        // binding golden wants (arm I is the minimal
+                        // reproducer, one cell, both views).  The class-method
+                        // cells are BARE in the pristine database, so keeping
+                        // them in the pool is what earns the arm-G/H TOWARDs.
+                        std::vector<UHDM::any*> retNameArgs184v;
                         for (size_t ai = 1; ai < call.arguments().size(); ai++) {
                             bool fs2 = forceConstParent;
                             if (isLiteralExpr(*call.arguments()[ai]))
                                 forceConstParent = true;
                             if (auto* a2 =
-                                    emitExpr(*call.arguments()[ai], mfc, prefix, netMap))
+                                    emitExpr(*call.arguments()[ai], mfc, prefix, netMap)) {
                                 margs->push_back(a2);
+                                const Expression& ae184 =
+                                    stripImplicitConv(*call.arguments()[ai]);
+                                if (funcRetSym && !curSubClassScope9 &&
+                                    ae184.kind == ExpressionKind::NamedValue &&
+                                    &ae184.as<NamedValueExpression>().symbol ==
+                                        funcRetSym)
+                                    retNameArgs184v.push_back(a2);
+                            }
                             forceConstParent = fs2;
                         }
                         if (!margs->empty())
                             mfc->Tf_call_args(margs);
+                        // § cloneBuiltinMethodArgBindsReceiver184 — THE ONLY
+                        // SITE.  In a WILDCARD-IMPORT CLONE body (the gate is
+                        // `funcRetSelRefs171 != nullptr`, § 171's own pointer,
+                        // which is non-null there and nowhere else), each
+                        // DIRECT name argument of a built-in STRING method
+                        // call takes the RECEIVER's binding.  The receiver is
+                        // the element written immediately before the call,
+                        // which is `elems->back()` here because the call has
+                        // not been pushed yet.  Recorded only; the copy is
+                        // made design-final, when the receiver itself is
+                        // bound.
+                        //
+                        // THE STRING FENCE, measured on arm B and convicted by
+                        // the corpus: an ARRAY receiver takes a DIFFERENT
+                        // golden answer.  `visited.exists(succ)`
+                        // (uvm_phase.svh:1907, `int visited[uvm_phase]`) binds
+                        // its argument to an `int_var` NAMED AFTER THE
+                        // ARGUMENT and spanned at the ARRAY's declaration
+                        // (`int_var (succ) @1896:9`), not to the array_var the
+                        // receiver names — and arm B reproduces exactly that
+                        // on a queue (`rope.find_index(kink)`) and on an
+                        // associative array (`tackle.exists(kink)`), while
+                        // both STRING methods there (`cable.substr(1,kink)`,
+                        // `cable.getc(kink)`) take the receiver.  That other
+                        // object is a family of its own (R2) and this law does
+                        // not touch it.
+                        if (funcRetSelRefs171 && !elems->empty() && recv &&
+                            stripImplicitConv(*recv).type &&
+                            stripImplicitConv(*recv).type->isString())
+                            for (auto* ma184 : *margs)
+                                // § retNameArgKeepsReturnVar184v — the free
+                                // subroutine's own return name is not this
+                                // law's cell; see the grid above.
+                                if (std::find(retNameArgs184v.begin(),
+                                              retNameArgs184v.end(),
+                                              ma184) == retNameArgs184v.end())
+                                    noteCloneMfcArgRecv184(ma184,
+                                                           elems->back());
                         elems->push_back(mfc);
                         hp->Path_elems(elems);
                         // § hpNameBareIdxFold69 — decompileHelper renders a select bound

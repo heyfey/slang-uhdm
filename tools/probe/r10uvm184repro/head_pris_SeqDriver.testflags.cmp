@@ -1,0 +1,29 @@
+LHS:
+decompile:
+string_var: (uvm_pkg::uvm_table_printer::emit::dash), id:8345, line:1040:17, endln:1040:21
+|vpiParent:
+\_begin: (uvm_pkg::uvm_table_printer::emit), id:8335, line:1039:3, endln:1039:22
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_table_printer::emit::dash), id:8346
+  |vpiParent:
+  \_string_var: (uvm_pkg::uvm_table_printer::emit::dash), id:8345, line:1040:17, endln:1040:21
+  |vpiFullName:uvm_pkg::uvm_table_printer::emit::dash
+  |vpiActual:
+  \_string_typespec: , id:8344, line:1040:10, endln:1040:16
+|vpiName:dash
+|vpiFullName:uvm_pkg::uvm_table_printer::emit::dash
+
+decompile:
+string_var: (uvm_pkg::uvm_table_printer::emit::dash), id:8345, line:1040:17, endln:1040:21
+|vpiParent:
+\_begin: (uvm_pkg::uvm_table_printer::emit), id:8335, line:1039:3, endln:1039:22
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_table_printer::emit::dash), id:8346
+  |vpiParent:
+  \_string_var: (uvm_pkg::uvm_table_printer::emit::dash), id:8345, line:1040:17, endln:1040:21
+  |vpiFullName:uvm_pkg::uvm_table_printer::emit::dash
+  |vpiActual:
+  \_string_typespec: , id:8344, line:1040:10, endln:1040:16
+|vpiName:dash
+|vpiFullName:uvm_pkg::uvm_table_printer::emit::dash
+RHS: <null>

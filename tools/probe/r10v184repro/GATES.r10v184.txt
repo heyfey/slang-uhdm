@@ -1,0 +1,112 @@
+r10v184 — ADVERSARIAL VERIFICATION OF r10uvm184.  GATE LOG.
+MEASUREMENT ONLY; uhdm-cmp and scripts/verify_golden.py are the authorities.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+BASE b71d5feb.  Worktrees /tmp/wt_v184 (patch + fix), /tmp/wt_v184pris (clean).
+BINARIES, all frozen chmod 555 BEFORE any sweep:
+  pristine bc09e77cf8fd251285c06f6f0b54a5bc   <- the implementer's own pristine md5, REPRODUCED
+  patched  554e02b892d0377e734bc253c20181d6   <- the implementer's own patched md5, REPRODUCED
+  fixed    b960b23e0207385ad7807aa83d9007a9   <- this verification's deliverable
+
+(1) BUILD           both -j 2, 0 errors, "Built target slang_uhdm" on each.
+(2) GOLDENS         pristine 23 PASS / 0 FAIL
+                    patched  23 PASS / 0 FAIL
+                    fixed    23 PASS / 0 FAIL
+                    SLANG_UHDM=/bin/false -> 0 PASS / 23 FAIL (negative control)
+                    SLANG_UHDM exported EXPLICITLY per binary in every run.
+
+(3) UHDM2RTLIL      pristine tf/def  679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+                    patched  tf/def  679 / 50 / 2
+                    fixed    tf/def  679 / 50 / 2
+    ct8rows  results/gate_uhdm2rtlil.csv vs patched tf ......... PASS (0 rows)
+    ct8rows  results/gate_uhdm2rtlil.csv vs fixed   tf ......... PASS (0 rows)
+    ct8rows  own pristine tf  vs patched tf ................... PASS
+    ct8rows  own pristine def vs patched def .................. PASS
+    ct8rows  own pristine tf  vs fixed   tf ................... PASS
+    ct8rows  own pristine def vs fixed   def .................. PASS
+    byteverify SELFCHECK=1 patched vs pristine ... MOVERS 0 / 1358, SELFCHECK 1357/1358
+    byteverify SELFCHECK=1 fixed   vs pristine ... MOVERS 0 / 1358, SELFCHECK 1357/1358
+    cmds.txt audit BY BINARY PATH: 1458 / 1462 name the frozen binary in EACH sweep;
+    ZERO name the main-tree build or any worktree build.
+
+(4) SURELOG (--mode both, 1588 rows / 956 databases)
+    pristine 937 CMP_EQUAL / 567 SLANG_REJECT / 48 SURELOG_FAIL / 19 CMP_NOTEQUAL /
+             10 DEFERRED / 3 NO_DATABASE / 2 UNTRANSLATABLE / 1 TIMEOUT / 1 NO_UHDM
+    patched  identical histogram
+    fixed    identical histogram
+    ct8rows  results/golden_surelog.csv vs patched ... PASS, 0 differing rows over 1588
+    ct8rows  results/golden_surelog.csv vs fixed ..... PASS, 0 differing rows over 1588
+    ct8rows  own pristine vs patched ................. PASS
+    ct8rows  own pristine vs fixed ................... PASS
+    ct8rows  patched      vs fixed ................... PASS
+    NO ROW CONVERTED.  results/*.csv NOT EDITED.
+    cmds.txt audit BY BINARY PATH: 1523 / 1573 name the frozen binary in EACH sweep;
+    ZERO name the main-tree build or any worktree build.
+
+(5) BYTE MOVERS (surelog)
+    PREDICTED A PRIORI from the PRISTINE databases and their own goldens alone
+    (predict184.sh on this verification's own pristine workdir):
+      LISTED=956 PROCESSED=956 NOGOLDEN=0 PREDICTED=4
+      default/MiniAmiq-544c7f61 cells=12   default/SeqDriver-32af76aa cells=12
+      testflags/MiniAmiq-544c7f61 cells=12 testflags/SeqDriver-32af76aa cells=12
+    MEASURED patched vs pristine: MOVERS 4 / 956, SELFCHECK 955/956 — EXACTLY the four.
+    MEASURED fixed   vs pristine: MOVERS 4 / 956 — the SAME four, the SAME md5s.
+    MEASURED fixed   vs PATCHED : MOVERS 0 / 956 — the fix is CORPUS-INVISIBLE.
+    Scoreboard/default was NOT a mover on any run here (the vpiTaskFunc coin sat out).
+    ATTRIBUTION, order-blind (sorted dumps), per mover: plain 46 / order-blind 46 /
+    44 CONTENT lines — 20 out, 24 in (two of the 24 are the head's new |vpiActual:
+    markers).  Every content line is a vpiActual target, by name.
+
+(6) HEADS (rowheads.sh, official uhdm-cmp, head on STDERR)
+    pristine  SeqDriver d/tf 29/1  MiniAmiq d/tf 29/1  SimpleUVM 664681/1
+              Scoreboard d 95/1  BuildUVMPkg 52/1  Earlgrey d/tf 31 / 364  Rggen CMP_EQUAL
+    patched   SeqDriver d/tf 31/1  MiniAmiq d/tf 31/1  ... all others unchanged
+    fixed     identical to patched
+    HEAD OBJECT CHANGED (the head CLEARED, not a partial fix):
+      before  string_var (uvm_pkg::uvm_table_printer::emit::dash) @1040:17, RHS <null>
+      after   int_var    (uvm_pkg::uvm_packer::get_bytes::sz)     @485:7,   RHS <null>   = R0
+
+(7) CANARIES / FENCES (run against the FIXED binary's sweeps)
+    canaries.sh surelog ....... ok=52 changed=0 absent=0
+    canaries.sh u2r ........... ok=8  changed=0 absent=0
+    ctcan2.sh surelog ......... PASS   ctcan2.sh u2r ......... PASS
+    canaudit.sh ............... audited=29 UNCOVERED=0 FENCE-BREACH=0
+    protected databases, fixed vs pristine md5:
+      InterfaceModPort 59a365f3ce2c SAME   BlackParrotComplex 73a10e8217e5 SAME
+      YosysOldOr       d68e0796d62c SAME   SVSwitch 4842211c4030   YosysVerx 6ccda350c24a
+    The four slang-fenced test names were NEVER dispatched; they appear only inside
+    canaudit.sh's own fence list.  GOLDEN_DEFER unset throughout.
+
+(8) WIDE BOUNDARY (a COPY of the whole tools/probe tree, both views, both binaries)
+    patched: LISTED=5022 FENCED_SKIPPED=0 PROCESSED=5022 MOVED=6  PROCESSED-ASSERT-OK
+             = g184_a_recv x2, g184_b_kinds x2, r10uvm171repro/g171_a_pos.sv x2
+    fixed:   LISTED=5026 FENCED_SKIPPED=0 PROCESSED=5026 MOVED=16 PROCESSED-ASSERT-OK
+             = the six above + this verification's gv184_{c,d,f,g,h} x2 each
+             gv184_e_listing.sv and gv184_i_minimal.sv do NOT move (byte-identical).
+    No ASYMMETRIC_OUTPUT in either run.  NO_OUTPUT_PAIRS=382, symmetric on both binaries.
+    Every § tfItemLocalAutomaticIsNotWrittenStatic139 / uvm180-183 / uvm89 /
+    buvm3-15 / sd8-12 arm is BYTE-IDENTICAL.
+
+(9) CENSUS (identity granularity, calibrated golden-vs-golden FIRST at every column 0)
+    SeqDriver/default   patched  TOWARD 11 AWAY 0 MOVED-WRONG 0 ONLY-OURS-MOVED 0
+    SeqDriver/default   fixed    TOWARD 11 AWAY 0 MOVED-WRONG 0 ONLY-OURS-MOVED 0
+    MiniAmiq/testflags  patched  TOWARD 11 AWAY 0 MOVED-WRONG 0 ONLY-OURS-MOVED 0
+    MiniAmiq/testflags  fixed    TOWARD 11 AWAY 0 MOVED-WRONG 0 ONLY-OURS-MOVED 0
+    R2 fence cells (uvm_phase::sync/unsync visited.exists(succ), 4 cells) BYTE-IDENTICAL
+    on all three binaries: golden int_var(succ)@1896:9, ours ref_var(succ)@1906:34.
+
+(10) GRID (one real Surelog golden per arm, both views, identity granularity)
+     arm                          patched            fixed
+     g184_a_recv (implementer)    12 / 0 / 0         12 / 0 / 0
+     g184_b_kinds (implementer)    1 / 0 / 0          1 / 0 / 0
+     g171_a_pos (earlier pass)     2 / 0 / 0          2 / 0 / 0   (uhdm-cmp rc=0 BOTH binaries)
+     gv184_c_argdecl              21 / 0 / 0         21 / 0 / 0
+     gv184_d_recvmeth              4 / 0 / 0          4 / 0 / 0
+     gv184_e_listing         BYTE-IDENTICAL     BYTE-IDENTICAL
+     gv184_f_stmtpos               5 / 0 / 0          5 / 0 / 0
+     gv184_g_retname               4 / 1 / 0  <-AWAY  4 / 0 / 0
+     gv184_h_retpin           3 AWAY faces            3 / 0 / 0   (rc=255 -> rc=0)
+     gv184_i_minimal               0 / 1 / 0  <-AWAY  BYTE-IDENTICAL
+     (TOWARD / AWAY / MOVED-WRONG)
+
+VERDICT: ACCEPT-WITH-FIX.  Ship /tmp/r10uvm184.verified.patch.

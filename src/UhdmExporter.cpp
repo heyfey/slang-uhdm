@@ -7983,6 +7983,11 @@ UHDM::design* UhdmExporter::exportDesign() {
                 continue;
             r146->Actual_group(it146->second);
         }
+    // § cloneBuiltinMethodArgBindsReceiver184 — DEAD LAST, after every pool
+    // that can still bind a hier_path RECEIVER element (§ 171's return-name
+    // drain, § 26's and § 172's call links, and the ref pools above): the law
+    // copies what the receiver ENDED UP with, so it must read a settled edge.
+    drainCloneMfcArgRecv184();
     return d;
 }
 
@@ -8023,6 +8028,30 @@ void UhdmExporter::drainCollapseLink172() {
         }
     }
     pendingCollapseLink172.clear();
+}
+
+// § cloneBuiltinMethodArgBindsReceiver184 — the drain.  Each recorded pair is
+// (direct argument reference, receiver reference) of ONE built-in method call
+// inside a wildcard-import CLONE body.  The argument takes whatever the
+// receiver ended up bound to; a receiver that is still BARE hands the argument
+// nothing and leaves it exactly as the ordinary binding left it, which is what
+// golden does too (the home listings, where the receiver is bare, keep the
+// argument's own declaration).
+void UhdmExporter::drainCloneMfcArgRecv184() {
+    for (auto& [a184, r184] : cloneMfcArgRecv184) {
+        UHDM::any* act = nullptr;
+        if (r184->UhdmType() == UHDM::uhdmref_obj)
+            act = (UHDM::any*)((UHDM::ref_obj*)r184)->Actual_group();
+        else if (r184->UhdmType() == UHDM::uhdmref_var)
+            act = (UHDM::any*)((UHDM::ref_var*)r184)->Actual_group();
+        if (!act)
+            continue;
+        if (a184->UhdmType() == UHDM::uhdmref_obj)
+            ((UHDM::ref_obj*)a184)->Actual_group(act);
+        else if (a184->UhdmType() == UHDM::uhdmref_var)
+            ((UHDM::ref_var*)a184)->Actual_group(act);
+    }
+    cloneMfcArgRecv184.clear();
 }
 
 void UhdmExporter::drainScopedCallBind26() {

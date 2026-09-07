@@ -1,0 +1,80 @@
+r10uvm184 — GATES, all on this pass's OWN pinned build and workdirs.
+MEASUREMENT ONLY.  `uhdm-cmp` and `scripts/verify_golden.py` are the judges.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+BASE b71d5feb.
+pristine binary md5 bc09e77cf8fd251285c06f6f0b54a5bc   (frozen chmod 555)
+patched  binary md5 554e02b892d0377e734bc253c20181d6   (frozen chmod 555)
+Both built -j 2 from this pass's own worktree; md5 taken separately; both
+frozen at immutable paths BEFORE any sweep.
+
+(1) BUILD + cmds.txt AUDIT BY BINARY PATH
+    surelog sweep : 1523 of 1573 cmds.txt name the frozen patched binary,
+                    50 name none at all (golden-cache-only cells).
+    u2r sweeps    : 1458 of 1462 name it.
+    ZERO cells name the main-tree binary or this worktree's build/slang-uhdm,
+    in either corpus, in either sweep.
+
+(2) GOLDENS, SLANG_UHDM exported explicitly to EACH binary
+    patched   23 PASS / 0 FAIL
+    pristine  23 PASS / 0 FAIL
+    negative control SLANG_UHDM=/bin/false   0 PASS / 23 FAIL
+
+(3) uhdm2rtlil, testflags AND default
+    679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL in BOTH modes
+    (status histogram read: an rc=139 segfault would surface as SLANG_REJECT).
+    ct8rows 0 differing rows vs the committed results/gate_uhdm2rtlil.csv
+    (testflags) AND vs this build's own pristine sweep in BOTH modes,
+    status AND dump column.
+    byteverify SELFCHECK=1  MOVERS 0 / 1358   (SELFCHECK 1357/1358)
+
+(4) surelog --mode both, 1588 rows
+    937 CMP_EQUAL / 567 SLANG_REJECT / 48 SURELOG_FAIL / 19 CMP_NOTEQUAL /
+    10 DEFERRED / 3 NO_DATABASE / 2 UNTRANSLATABLE / 1 TIMEOUT / 1 NO_UHDM
+    — identical to pristine.
+    ct8rows 0 differing rows over 1588 against the committed
+    results/golden_surelog.csv AND against this pass's own pristine sweep.
+    NO ROW IS CONVERTED (SeqDriver and MiniAmiq stay CMP_NOTEQUAL at a new,
+    unrelated head) and results/*.csv is untouched.
+
+(5) byteverify SELFCHECK=1 on surelog
+    MOVERS 4 / 956, SELFCHECK 955/956 — precisely the four databases
+    PREDICT.r10uvm184.txt named A PRIORI from the PRISTINE databases and their
+    goldens (MiniAmiq and SeqDriver, both modes), and no others.
+    Attributed ORDER-BLIND (MOVERS.r10uvm184.txt): 44 content dump lines each,
+    every one a vpiActual target of this law's own cells, nothing else.
+
+CANARIES
+    canaries.sh   surelog ok=52 changed=0 absent=0
+    canaries.sh   u2r     ok=8  changed=0 absent=0
+    ctcan2.sh EXPECT_UNKNOWN=1 (surelog) PASS
+    ctcan2.sh EXPECT_UNKNOWN=6 (u2r)     PASS
+    canaudit.sh canaries.sh ctcan2.sh    PASS
+
+PROTECTED DATABASES, md5 pristine vs patched, BOTH modes
+    InterfaceModPort   SAME 59a365f3ce2c
+    BlackParrotComplex SAME e3e354129d5a (default) / 73a10e8217e5 (testflags)
+    YosysOldOr         SAME d68e0796d62c
+    SVSwitch           SAME 4842211c4030   (the brief's pin)
+    YosysVerx          SAME 6ccda350c24a   (the brief's pin)
+
+ROW HEADS (rowheads.sh, this pass's own sweeps)
+    pristine  SeqDriver 29/29  MiniAmiq 29/29  Scoreboard/default 95
+              BuildUVMPkg 52/52  Earlgrey_0_1 31/364  Rggen/default CMP_EQUAL
+    patched   SeqDriver 31/31  MiniAmiq 31/31  Scoreboard/default 95
+              BuildUVMPkg 52/52  Earlgrey_0_1 31/364  Rggen/default CMP_EQUAL
+    SeqDriver's two modes are byte-identical cmp logs, and so are MiniAmiq's.
+    SimpleUVM stays at its 664681-line depth artifact in both binaries.
+
+WIDE BOUNDARY (bound184.sh, a COPY of the whole tools/probe tree)
+    LISTED=5019 FENCED_SKIPPED=0 PROCESSED=5019 MOVED=6 NO_OUTPUT_PAIRS=382
+    PROCESSED-ASSERT-OK
+    The six moved arm-views are this pass's own two arms in both views (4) and
+    r10uvm171repro/g171_a_pos.sv in both views (2).  That foreign arm was
+    rebuilt against its OWN REAL SURELOG GOLDEN and scored in both columns:
+    TOWARD 2, AWAY 0, MOVED-WRONG 0 in both views, and its uhdm-cmp is
+    rc=0 / 0 lines / 0 heads on BOTH binaries in BOTH views — it was and stays
+    CMP-EQUAL to its golden.
+    No other arm moved: every r10uvm139 / r10uvm180-183 / r10uvm89 / r10buvm3-15
+    / r10sd8-12 file is byte-identical under both binaries in both views.
+    The four slang-fenced tests are never dispatched and never spelled.
