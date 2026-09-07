@@ -1,0 +1,95 @@
+r10v193 GATES — ADVERSARIAL VERIFIER, independent reproduction of r10uvm193.
+BASE 9c358cda.  Worktrees /tmp/wt_v193 (patched) and /tmp/wt_v193pris (pristine),
+both created FRESH at 9c358cda; the patch applied with `git apply -3` (two
+production files, cleanly, 0 conflict markers, 0 stray files).  Both binaries
+built HERE with `cmake --build build -j 2`, md5 taken separately, frozen
+`chmod 555` at /tmp/v193_bin BEFORE any sweep.  SLANG_UHDM exported explicitly
+per binary.  slang NOT patched; results/*.csv READ ONLY (git diff on results/
+is empty in both worktrees); NO ROW CONVERTED; GOLDEN_DEFER unset; the four
+slang-fenced tests never dispatched and never spelled in this directory.
+
+(1) BUILD, INDEPENDENTLY
+    pristine md5 d5a59dbbef4563591865e0da88492e57   <- the pass's claim, EXACT
+    patched  md5 95ea482622bc432f0f2460e6739a6ad6   <- the pass's claim, EXACT
+
+(2) GOLDENS
+    SLANG_UHDM=<patched>   23 PASS / 0 FAIL
+    SLANG_UHDM=<pristine>  23 PASS / 0 FAIL
+    SLANG_UHDM=/bin/false   0 PASS / 23 FAIL
+
+(3) uhdm2rtlil, BOTH modes, BOTH binaries
+    679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL, testflags and default
+    ct8rows vs committed results/gate_uhdm2rtlil.csv        PASS (0 rows)
+    ct8rows patched vs OWN pristine, testflags AND default  PASS (0 rows)
+    byteverify SELFCHECK=1   MOVERS 0 / 1358   (SELFCHECK 1357/1358)
+    a-priori predictor on the OWN pristine sweep: LISTED=1358 PROCESSED=1358
+      NOGOLDEN=0 PREDICTED=0 CELLS=0 — and byteverify agrees at 0.
+
+(4) surelog --mode both, BOTH binaries
+    937 CMP_EQUAL / 567 SLANG_REJECT / 48 SURELOG_FAIL / 19 CMP_NOTEQUAL /
+     10 DEFERRED / 3 NO_DATABASE / 2 UNTRANSLATABLE / 1 TIMEOUT / 1 NO_UHDM
+    ct8rows vs committed results/golden_surelog.csv  PASS, "0 differing ROWS"
+      over 1588, STATUS histogram and DUMP-column histogram both identical
+    ct8rows patched vs OWN pristine                  PASS (0 rows)
+    NO ROW CONVERTED.
+
+(5) BYTE MOVERS, PREDICTED BY NAME FIRST
+    predictor on the OWN PRISTINE sweep, before reading any patched database:
+      PREDICT default/MiniAmiq-544c7f61   cells=10
+      PREDICT default/SeqDriver-32af76aa  cells=10
+      PREDICT testflags/MiniAmiq-544c7f61 cells=10
+      PREDICT testflags/SeqDriver-32af76aa cells=10
+      LISTED=956 PROCESSED=956 NOGOLDEN=0 PREDICTED=4 CELLS=40
+    byteverify SELFCHECK=1  MOVERS 4 / 956  (SELFCHECK 955/956), the SAME four
+    and the SAME hashes the pass reported:
+      ./default/MiniAmiq-544c7f61    patched=0f90d144a575 pristine=3b159c20cfc2
+      ./default/SeqDriver-32af76aa   patched=ec361b2b9f92 pristine=46bb51af242f
+      ./testflags/MiniAmiq-544c7f61  patched=0f90d144a575 pristine=3b159c20cfc2
+      ./testflags/SeqDriver-32af76aa patched=c7d27b71e110 pristine=8585bcabf6f2
+    attribution (order-blind, workdir normalised): 144 content lines per mover,
+      4 OUT / 140 IN, no UNEXPECTED-MOVER.  The 4 OUT lines are exactly
+      `ref_var (adpcm_pkg::uvm_phase::{sync,unsync}::succ)` x the clone's two
+      listings.  Scoreboard/default (the documented coin) did not move.
+
+(6) cmds.txt AUDIT BY BINARY PATH
+    patched  surelog 1523/1573, uhdm2rtlil 1458/1462 name /tmp/v193_bin/pat.bin
+    pristine surelog 1523/1573, uhdm2rtlil 1458/1462 name /tmp/v193_bin/pris.bin
+    rows naming the OTHER binary or any main-tree build: 0 in all four workdirs.
+
+(7) CANARIES / PROTECTED DATABASES
+    canaries.sh surelog ok=52 changed=0 absent=0; uhdm2rtlil ok=8 changed=0
+    ctcan2 EXPECT_UNKNOWN=1 PASS ; EXPECT_UNKNOWN=6 PASS
+    canaudit.sh canaries.sh ctcan2.sh -> audited=29 UNCOVERED=0 FENCE-BREACH=0
+    InterfaceModPort 59a365f3ce2c both modes SAME
+    BlackParrotComplex e3e354129d5a (def) / 73a10e8217e5 (tf) SAME
+    YosysOldOr d68e0796d62c SAME ; SVSwitch 4842211c4030 PINNED ;
+    YosysVerx 6ccda350c24a PINNED
+
+(8) WIDE BOUNDARY, this verifier's own run over its OWN worktree's tools/probe
+    LISTED=5147 FENCED_SKIPPED=0 PROCESSED=5147 MOVED=28 NO_OUTPUT_PAIRS=394
+    PROCESSED-ASSERT-OK, no ASYMMETRIC_OUTPUT.
+    MOVED = the pass's own 4 arms (8) + this verifier's 4 arms (8)
+          + the 3 DECODED static-address false movers (6)
+          + the 3 arms that hold this law's own cells (6).
+    NOTHING ELSE in 5147 arm files moved: every r10uvm139/180-183/185/186/187/
+    188/189/190/191, r10v184 (except gv184_d_recvmeth, which holds this law's
+    cells), r10v186, r10v189, r10v191, r10uvm82-91, r10buvm3-15 and r10sd8-12
+    arm is BYTE-IDENTICAL in both views.
+    (The pass's own boundary reported LISTED=5160 because its ROOT was a copy of
+    the MAIN TREE's tools/probe, two commits AHEAD of the BASE; the arm set is a
+    superset of this one and the MOVED set is the same 20.)
+
+(9) HEADS, both binaries, rowheads.sh
+    SeqDriver default/testflags and MiniAmiq default/testflags 58 -> 29 cmp
+    lines, ONE ^LHS: throughout.  SimpleUVM x2 664681, Scoreboard/default 95,
+    BuildUVMPkg x2 300, Earlgrey_0_1 31/92, Rggen/default CMP_EQUAL — all
+    unchanged.  The pristine head and the new head reproduce the pass's
+    head_*.cmp artifacts object for object, id for id (those artifacts hold the
+    FIRST of uhdm-cmp's two identical decompile blocks per side, 15 of 29 and
+    29 of 58 lines; nothing else differs).
+
+(10) DETERMINISM
+    the patched binary run THREE times on SeqDriver/default outside the sweep
+    produced ec361b2b9f92 every time, equal to the sweep's own database — the
+    new drain's `Serializer::AllObjects()` (returned BY VALUE, a snapshot) walk
+    introduces no pointer-order nondeterminism.  Wall time unchanged (3-4 s).

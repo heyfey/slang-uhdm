@@ -1,0 +1,29 @@
+LHS:
+decompile:
+int_var: (uvm_pkg::uvm_phase::sync::visited.exists::succ), id:197528, line:1896:9, endln:1896:16
+|vpiParent:
+\_method_func_call: (exists), id:15086, line:1907:22, endln:1907:28
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_phase::sync::visited.exists::succ), id:197529
+  |vpiParent:
+  \_int_var: (uvm_pkg::uvm_phase::sync::visited.exists::succ), id:197528, line:1896:9, endln:1896:16
+  |vpiFullName:uvm_pkg::uvm_phase::sync::visited.exists::succ
+  |vpiActual:
+  \_int_typespec: , id:197530, line:1896:5, endln:1896:8
+|vpiName:succ
+|vpiFullName:uvm_pkg::uvm_phase::sync::visited.exists::succ
+|vpiSigned:1
+RHS:
+decompile:
+ref_var: (adpcm_pkg::uvm_phase::sync::succ), id:196391, line:1906:34, endln:1906:38
+|vpiParent:
+\_foreach_stmt: (adpcm_pkg::uvm_phase::sync), id:196384, line:1906:7, endln:1906:14
+|vpiTypespec:
+\_ref_typespec: (adpcm_pkg::uvm_phase::sync::succ), id:196393
+  |vpiParent:
+  \_ref_var: (adpcm_pkg::uvm_phase::sync::succ), id:196391, line:1906:34, endln:1906:38
+  |vpiFullName:adpcm_pkg::uvm_phase::sync::succ
+  |vpiActual:
+  \_unsupported_typespec: (succ), id:196392, line:1906:34, endln:1906:38
+|vpiName:succ
+|vpiFullName:adpcm_pkg::uvm_phase::sync::succ

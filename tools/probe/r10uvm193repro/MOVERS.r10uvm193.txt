@@ -1,0 +1,84 @@
+== default/MiniAmiq-544c7f61/slang.uhdm  order-blind diff lines=144
+     20 |vpiParent:
+     16 |vpiActual:
+     10 |vpiTypespec:
+      6 |vpiName:this
+      6 \_method_func_call: (get_address), line:N:N, endln:N:N
+      6 \_int_var: (svaunit_pkg::uvm_phase::unsync::visited.exists::succ), line:N:N, endln:N:N
+      6 \_int_var: (svaunit_pkg::uvm_phase::sync::visited.exists::succ), line:N:N, endln:N:N
+      6 \_class_var: (svaunit_pkg::uvm_reg_map::do_print::vregs[j].get_address::this), line:N:N, endln:N:N
+      6 \_class_var: (svaunit_pkg::uvm_reg_map::do_print::regs[j].get_address::this), line:N:N, endln:N:N
+      6 \_class_var: (svaunit_pkg::uvm_reg_map::do_print::mems[j].get_address::this), line:N:N, endln:N:N
+      6 \_class_typespec: , line:N:N, endln:N:N
+      4 |vpiSigned:N
+      4 |vpiName:succ
+      4 |vpiFullName:svaunit_pkg::uvm_reg_map::do_print::vregs[j].get_address::this
+      4 |vpiFullName:svaunit_pkg::uvm_reg_map::do_print::regs[j].get_address::this
+      4 |vpiFullName:svaunit_pkg::uvm_reg_map::do_print::mems[j].get_address::this
+      4 |vpiFullName:svaunit_pkg::uvm_phase::unsync::visited.exists::succ
+      4 |vpiFullName:svaunit_pkg::uvm_phase::sync::visited.exists::succ
+      4 \_method_func_call: (exists), line:N:N, endln:N:N
+      4 \_int_typespec: , line:N:N, endln:N:N
+== default/SeqDriver-32af76aa/slang.uhdm  order-blind diff lines=144
+     20 |vpiParent:
+     16 |vpiActual:
+     10 |vpiTypespec:
+      6 |vpiName:this
+      6 \_method_func_call: (get_address), line:N:N, endln:N:N
+      6 \_int_var: (adpcm_pkg::uvm_phase::unsync::visited.exists::succ), line:N:N, endln:N:N
+      6 \_int_var: (adpcm_pkg::uvm_phase::sync::visited.exists::succ), line:N:N, endln:N:N
+      6 \_class_var: (adpcm_pkg::uvm_reg_map::do_print::vregs[j].get_address::this), line:N:N, endln:N:N
+      6 \_class_var: (adpcm_pkg::uvm_reg_map::do_print::regs[j].get_address::this), line:N:N, endln:N:N
+      6 \_class_var: (adpcm_pkg::uvm_reg_map::do_print::mems[j].get_address::this), line:N:N, endln:N:N
+      6 \_class_typespec: , line:N:N, endln:N:N
+      4 |vpiSigned:N
+      4 |vpiName:succ
+      4 |vpiFullName:adpcm_pkg::uvm_reg_map::do_print::vregs[j].get_address::this
+      4 |vpiFullName:adpcm_pkg::uvm_reg_map::do_print::regs[j].get_address::this
+      4 |vpiFullName:adpcm_pkg::uvm_reg_map::do_print::mems[j].get_address::this
+      4 |vpiFullName:adpcm_pkg::uvm_phase::unsync::visited.exists::succ
+      4 |vpiFullName:adpcm_pkg::uvm_phase::sync::visited.exists::succ
+      4 \_method_func_call: (exists), line:N:N, endln:N:N
+      4 \_int_typespec: , line:N:N, endln:N:N
+== testflags/MiniAmiq-544c7f61/slang.uhdm  order-blind diff lines=144
+     20 |vpiParent:
+     16 |vpiActual:
+     10 |vpiTypespec:
+      6 |vpiName:this
+      6 \_method_func_call: (get_address), line:N:N, endln:N:N
+      6 \_int_var: (svaunit_pkg::uvm_phase::unsync::visited.exists::succ), line:N:N, endln:N:N
+      6 \_int_var: (svaunit_pkg::uvm_phase::sync::visited.exists::succ), line:N:N, endln:N:N
+      6 \_class_var: (svaunit_pkg::uvm_reg_map::do_print::vregs[j].get_address::this), line:N:N, endln:N:N
+      6 \_class_var: (svaunit_pkg::uvm_reg_map::do_print::regs[j].get_address::this), line:N:N, endln:N:N
+      6 \_class_var: (svaunit_pkg::uvm_reg_map::do_print::mems[j].get_address::this), line:N:N, endln:N:N
+      6 \_class_typespec: , line:N:N, endln:N:N
+      4 |vpiSigned:N
+      4 |vpiName:succ
+      4 |vpiFullName:svaunit_pkg::uvm_reg_map::do_print::vregs[j].get_address::this
+      4 |vpiFullName:svaunit_pkg::uvm_reg_map::do_print::regs[j].get_address::this
+      4 |vpiFullName:svaunit_pkg::uvm_reg_map::do_print::mems[j].get_address::this
+      4 |vpiFullName:svaunit_pkg::uvm_phase::unsync::visited.exists::succ
+      4 |vpiFullName:svaunit_pkg::uvm_phase::sync::visited.exists::succ
+      4 \_method_func_call: (exists), line:N:N, endln:N:N
+      4 \_int_typespec: , line:N:N, endln:N:N
+== testflags/SeqDriver-32af76aa/slang.uhdm  order-blind diff lines=144
+     20 |vpiParent:
+     16 |vpiActual:
+     10 |vpiTypespec:
+      6 |vpiName:this
+      6 \_method_func_call: (get_address), line:N:N, endln:N:N
+      6 \_int_var: (adpcm_pkg::uvm_phase::unsync::visited.exists::succ), line:N:N, endln:N:N
+      6 \_int_var: (adpcm_pkg::uvm_phase::sync::visited.exists::succ), line:N:N, endln:N:N
+      6 \_class_var: (adpcm_pkg::uvm_reg_map::do_print::vregs[j].get_address::this), line:N:N, endln:N:N
+      6 \_class_var: (adpcm_pkg::uvm_reg_map::do_print::regs[j].get_address::this), line:N:N, endln:N:N
+      6 \_class_var: (adpcm_pkg::uvm_reg_map::do_print::mems[j].get_address::this), line:N:N, endln:N:N
+      6 \_class_typespec: , line:N:N, endln:N:N
+      4 |vpiSigned:N
+      4 |vpiName:succ
+      4 |vpiFullName:adpcm_pkg::uvm_reg_map::do_print::vregs[j].get_address::this
+      4 |vpiFullName:adpcm_pkg::uvm_reg_map::do_print::regs[j].get_address::this
+      4 |vpiFullName:adpcm_pkg::uvm_reg_map::do_print::mems[j].get_address::this
+      4 |vpiFullName:adpcm_pkg::uvm_phase::unsync::visited.exists::succ
+      4 |vpiFullName:adpcm_pkg::uvm_phase::sync::visited.exists::succ
+      4 \_method_func_call: (exists), line:N:N, endln:N:N
+      4 \_int_typespec: , line:N:N, endln:N:N

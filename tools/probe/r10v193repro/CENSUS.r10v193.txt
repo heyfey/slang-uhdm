@@ -1,0 +1,30 @@
+r10v193 CENSUS — the four moving corpus row-modes, three-way (golden / pristine / patched).
+MEASUREMENT ONLY.  LHS is ALWAYS golden.  Calibrated golden-vs-golden-vs-golden FIRST.
+
+== default/SeqDriver-32af76aa
+   CAL   UNTOUCHED        73178 TOWARD           0 AWAY             0 MOVED-WRONG      0 STILL-WRONG      0 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0
+   SCORE UNTOUCHED        68321 TOWARD           10 AWAY             0 MOVED-WRONG      0 STILL-WRONG      1001 ONLY-GOLDEN      4847 ONLY-OURS        4542 ONLY-OURS-MOVED  0
+   mints/orphans golden: -- keys=73178 cells=77424 mints=10 orphan_mints=0
+   mints/orphans pris  : -- keys=72873 cells=77393 mints=0 orphan_mints=0
+   mints/orphans pat   : -- keys=72873 cells=77393 mints=10 orphan_mints=0
+== testflags/SeqDriver-32af76aa
+   CAL   UNTOUCHED        73178 TOWARD           0 AWAY             0 MOVED-WRONG      0 STILL-WRONG      0 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0
+   SCORE UNTOUCHED        68321 TOWARD           10 AWAY             0 MOVED-WRONG      0 STILL-WRONG      1001 ONLY-GOLDEN      4847 ONLY-OURS        4542 ONLY-OURS-MOVED  0
+   mints/orphans golden: -- keys=73178 cells=77424 mints=10 orphan_mints=0
+   mints/orphans pris  : -- keys=72873 cells=77393 mints=0 orphan_mints=0
+   mints/orphans pat   : -- keys=72873 cells=77393 mints=10 orphan_mints=0
+== default/MiniAmiq-544c7f61
+   CAL   UNTOUCHED        75234 TOWARD           0 AWAY             0 MOVED-WRONG      0 STILL-WRONG      0 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0
+   SCORE UNTOUCHED        70186 TOWARD           10 AWAY             0 MOVED-WRONG      0 STILL-WRONG      603 ONLY-GOLDEN      5038 ONLY-OURS        4720 ONLY-OURS-MOVED  0
+   mints/orphans golden: -- keys=75234 cells=79651 mints=10 orphan_mints=0
+   mints/orphans pris  : -- keys=74916 cells=79619 mints=0 orphan_mints=0
+   mints/orphans pat   : -- keys=74916 cells=79619 mints=10 orphan_mints=0
+== testflags/MiniAmiq-544c7f61
+   CAL   UNTOUCHED        75234 TOWARD           0 AWAY             0 MOVED-WRONG      0 STILL-WRONG      0 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0
+   SCORE UNTOUCHED        70186 TOWARD           10 AWAY             0 MOVED-WRONG      0 STILL-WRONG      603 ONLY-GOLDEN      5038 ONLY-OURS        4720 ONLY-OURS-MOVED  0
+   mints/orphans golden: -- keys=75234 cells=79651 mints=10 orphan_mints=0
+   mints/orphans pris  : -- keys=74916 cells=79619 mints=0 orphan_mints=0
+   mints/orphans pat   : -- keys=74916 cells=79619 mints=10 orphan_mints=0
+
+The mint-free named rows (patched vs pristine, byteverify): SimpleUVM x2, Scoreboard/default,
+BuildUVMPkg x2, Earlgrey_0_1 x2, Rggen/default are all BYTE-IDENTICAL (MOVERS 4/956).

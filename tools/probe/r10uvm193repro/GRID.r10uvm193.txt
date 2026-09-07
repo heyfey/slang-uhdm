@@ -1,0 +1,287 @@
+===== ARM g193_a_recvkind =====
+cmp rc=255 a def lines=128 heads=1
+cmp rc=255 b def lines=128 heads=1
+cmp rc=255 a elab lines=128 heads=1
+cmp rc=255 b elab lines=128 heads=1
+-- CALIBRATION golden-vs-golden-vs-golden def
+UNTOUCHED        205
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      0
+ONLY-GOLDEN      0
+ONLY-OURS        0
+ONLY-OURS-MOVED  0
+-- ARM def
+UNTOUCHED        199
+TOWARD           6
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      6
+ONLY-GOLDEN      0
+ONLY-OURS        0
+ONLY-OURS-MOVED  0
+-- CALIBRATION golden-vs-golden-vs-golden elab
+UNTOUCHED        252
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      0
+ONLY-GOLDEN      0
+ONLY-OURS        0
+ONLY-OURS-MOVED  0
+-- ARM elab
+UNTOUCHED        246
+TOWARD           6
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      10
+ONLY-GOLDEN      0
+ONLY-OURS        0
+ONLY-OURS-MOVED  0
+===== ARM g193_b_method =====
+cmp rc=255 a def lines=7020 heads=1
+cmp rc=255 b def lines=7020 heads=1
+cmp rc=255 a elab lines=8856 heads=1
+cmp rc=255 b elab lines=8856 heads=1
+-- CALIBRATION golden-vs-golden-vs-golden def
+UNTOUCHED        245
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      0
+ONLY-GOLDEN      0
+ONLY-OURS        0
+ONLY-OURS-MOVED  0
+-- ARM def
+UNTOUCHED        225
+TOWARD           10
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      1
+ONLY-GOLDEN      10
+ONLY-OURS        10
+ONLY-OURS-MOVED  0
+-- CALIBRATION golden-vs-golden-vs-golden elab
+UNTOUCHED        315
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      0
+ONLY-GOLDEN      0
+ONLY-OURS        0
+ONLY-OURS-MOVED  0
+-- ARM elab
+UNTOUCHED        301
+TOWARD           10
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      29
+ONLY-GOLDEN      4
+ONLY-OURS        6
+ONLY-OURS-MOVED  0
+===== ARM g193_c_argface =====
+cmp rc=255 a def lines=58 heads=1
+cmp rc=0 b def lines=0 heads=0
+cmp rc=0 a elab lines=0 heads=0
+cmp rc=0 b elab lines=0 heads=0
+-- CALIBRATION golden-vs-golden-vs-golden def
+UNTOUCHED        374
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      0
+ONLY-GOLDEN      0
+ONLY-OURS        0
+ONLY-OURS-MOVED  0
+-- ARM def
+UNTOUCHED        345
+TOWARD           18
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      1
+ONLY-GOLDEN      11
+ONLY-OURS        10
+ONLY-OURS-MOVED  0
+-- CALIBRATION golden-vs-golden-vs-golden elab
+UNTOUCHED        476
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      0
+ONLY-GOLDEN      0
+ONLY-OURS        0
+ONLY-OURS-MOVED  0
+-- ARM elab
+UNTOUCHED        453
+TOWARD           18
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      19
+ONLY-GOLDEN      5
+ONLY-OURS        6
+ONLY-OURS-MOVED  0
+===== ARM g193_d_propfence =====
+cmp rc=0 a def lines=0 heads=0
+cmp rc=0 b def lines=0 heads=0
+cmp rc=0 a elab lines=0 heads=0
+cmp rc=0 b elab lines=0 heads=0
+-- CALIBRATION golden-vs-golden-vs-golden def
+UNTOUCHED        63
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      0
+ONLY-GOLDEN      0
+ONLY-OURS        0
+ONLY-OURS-MOVED  0
+-- ARM def
+UNTOUCHED        61
+TOWARD           2
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      0
+ONLY-GOLDEN      0
+ONLY-OURS        0
+ONLY-OURS-MOVED  0
+-- CALIBRATION golden-vs-golden-vs-golden elab
+UNTOUCHED        79
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      0
+ONLY-GOLDEN      0
+ONLY-OURS        0
+ONLY-OURS-MOVED  0
+-- ARM elab
+UNTOUCHED        77
+TOWARD           2
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      0
+ONLY-GOLDEN      0
+ONLY-OURS        0
+ONLY-OURS-MOVED  0
+===== MOVED EARLIER-PASS ARM m184b =====
+cmp rc=255 a def lines=146 heads=1
+cmp rc=255 b def lines=146 heads=1
+cmp rc=255 a elab lines=154 heads=1
+cmp rc=255 b elab lines=154 heads=1
+-- CALIBRATION def
+UNTOUCHED        167
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      0
+ONLY-GOLDEN      0
+ONLY-OURS        0
+ONLY-OURS-MOVED  0
+-- ARM def
+UNTOUCHED        152
+TOWARD           4
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      1
+ONLY-GOLDEN      11
+ONLY-OURS        10
+ONLY-OURS-MOVED  0
+-- CALIBRATION elab
+UNTOUCHED        212
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      0
+ONLY-GOLDEN      0
+ONLY-OURS        0
+ONLY-OURS-MOVED  0
+-- ARM elab
+UNTOUCHED        197
+TOWARD           4
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      7
+ONLY-GOLDEN      11
+ONLY-OURS        12
+ONLY-OURS-MOVED  0
+===== MOVED EARLIER-PASS ARM mv184d =====
+cmp rc=255 a def lines=42 heads=1
+cmp rc=255 b def lines=42 heads=1
+cmp rc=255 a elab lines=42 heads=1
+cmp rc=255 b elab lines=42 heads=1
+-- CALIBRATION def
+UNTOUCHED        217
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      0
+ONLY-GOLDEN      0
+ONLY-OURS        0
+ONLY-OURS-MOVED  0
+-- ARM def
+UNTOUCHED        207
+TOWARD           4
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      0
+ONLY-GOLDEN      6
+ONLY-OURS        8
+ONLY-OURS-MOVED  0
+-- CALIBRATION elab
+UNTOUCHED        274
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      0
+ONLY-GOLDEN      0
+ONLY-OURS        0
+ONLY-OURS-MOVED  0
+-- ARM elab
+UNTOUCHED        265
+TOWARD           4
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      10
+ONLY-GOLDEN      5
+ONLY-OURS        10
+ONLY-OURS-MOVED  0
+===== MOVED EARLIER-PASS ARM m39t55b =====
+cmp rc=255 a def lines=20 heads=1
+cmp rc=255 b def lines=20 heads=1
+cmp rc=255 a elab lines=20 heads=1
+cmp rc=255 b elab lines=20 heads=1
+-- CALIBRATION def
+UNTOUCHED        174
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      0
+ONLY-GOLDEN      0
+ONLY-OURS        0
+ONLY-OURS-MOVED  0
+-- ARM def
+UNTOUCHED        166
+TOWARD           4
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      0
+ONLY-GOLDEN      4
+ONLY-OURS        4
+ONLY-OURS-MOVED  0
+-- CALIBRATION elab
+UNTOUCHED        222
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      0
+ONLY-GOLDEN      0
+ONLY-OURS        0
+ONLY-OURS-MOVED  0
+-- ARM elab
+UNTOUCHED        216
+TOWARD           4
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      10
+ONLY-GOLDEN      2
+ONLY-OURS        3
+ONLY-OURS-MOVED  0

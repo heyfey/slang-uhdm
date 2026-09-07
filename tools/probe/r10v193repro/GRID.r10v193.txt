@@ -1,0 +1,60 @@
+r10v193 GRID — four verifier arms, one real Surelog golden each, both views.
+MEASUREMENT ONLY; the official uhdm-cmp is the sole judge.  LHS is ALWAYS golden.
+Calibrated golden-vs-golden-vs-golden FIRST on every arm/view (all columns 0 but UNTOUCHED).
+
+== gv193_a_elemkind def
+   CAL   UNTOUCHED        332 TOWARD           0 AWAY             0 MOVED-WRONG      0 STILL-WRONG      0 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0
+   SCORE UNTOUCHED        304 TOWARD           20 AWAY             0 MOVED-WRONG      0 STILL-WRONG      4 ONLY-GOLDEN      8 ONLY-OURS        8 ONLY-OURS-MOVED  0
+   CTXBL UNTOUCHED        304 TOWARD           20 AWAY             0 MOVED-WRONG      0 STILL-WRONG      4 ONLY-GOLDEN      8 ONLY-OURS        8 ONLY-OURS-MOVED  0
+   mints g/a/b + orphans: mints=20 orphan_mints=0 mints=0 orphan_mints=0 mints=20 orphan_mints=0
+cmp rc=255 a def lines=4433 heads=1
+cmp rc=255 b def lines=4433 heads=1
+== gv193_a_elemkind elab
+   CAL   UNTOUCHED        419 TOWARD           0 AWAY             0 MOVED-WRONG      0 STILL-WRONG      0 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0
+   SCORE UNTOUCHED        394 TOWARD           20 AWAY             0 MOVED-WRONG      0 STILL-WRONG      8 ONLY-GOLDEN      5 ONLY-OURS        9 ONLY-OURS-MOVED  0
+   CTXBL UNTOUCHED        394 TOWARD           20 AWAY             0 MOVED-WRONG      0 STILL-WRONG      8 ONLY-GOLDEN      5 ONLY-OURS        9 ONLY-OURS-MOVED  0
+   mints g/a/b + orphans: mints=70 orphan_mints=0 mints=50 orphan_mints=0 mints=70 orphan_mints=0
+cmp rc=255 a elab lines=5449 heads=1
+cmp rc=255 b elab lines=5449 heads=1
+== gv193_b_recvface def
+   CAL   UNTOUCHED        180 TOWARD           0 AWAY             0 MOVED-WRONG      0 STILL-WRONG      0 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0
+   SCORE UNTOUCHED        166 TOWARD           6 AWAY             0 MOVED-WRONG      0 STILL-WRONG      4 ONLY-GOLDEN      8 ONLY-OURS        8 ONLY-OURS-MOVED  0
+   CTXBL UNTOUCHED        166 TOWARD           6 AWAY             0 MOVED-WRONG      0 STILL-WRONG      4 ONLY-GOLDEN      8 ONLY-OURS        8 ONLY-OURS-MOVED  0
+   mints g/a/b + orphans: mints=8 orphan_mints=0 mints=0 orphan_mints=0 mints=6 orphan_mints=0
+cmp rc=255 a def lines=5500 heads=1
+cmp rc=255 b def lines=5500 heads=1
+== gv193_b_recvface elab
+   CAL   UNTOUCHED        235 TOWARD           0 AWAY             0 MOVED-WRONG      0 STILL-WRONG      0 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0
+   SCORE UNTOUCHED        227 TOWARD           6 AWAY             0 MOVED-WRONG      0 STILL-WRONG      18 ONLY-GOLDEN      2 ONLY-OURS        6 ONLY-OURS-MOVED  0
+   CTXBL UNTOUCHED        227 TOWARD           6 AWAY             0 MOVED-WRONG      0 STILL-WRONG      18 ONLY-GOLDEN      2 ONLY-OURS        6 ONLY-OURS-MOVED  0
+   mints g/a/b + orphans: mints=25 orphan_mints=0 mints=18 orphan_mints=2 mints=24 orphan_mints=4
+cmp rc=255 a elab lines=6588 heads=1
+cmp rc=255 b elab lines=6588 heads=1
+== gv193_c_pushface def
+   CAL   UNTOUCHED        272 TOWARD           0 AWAY             0 MOVED-WRONG      0 STILL-WRONG      0 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0
+   SCORE UNTOUCHED        238 TOWARD           18 AWAY             0 MOVED-WRONG      0 STILL-WRONG      1 ONLY-GOLDEN      16 ONLY-OURS        16 ONLY-OURS-MOVED  2
+   CTXBL UNTOUCHED        238 TOWARD           20 AWAY             0 MOVED-WRONG      0 STILL-WRONG      1 ONLY-GOLDEN      14 ONLY-OURS        14 ONLY-OURS-MOVED  0
+   mints g/a/b + orphans: mints=14 orphan_mints=0 mints=0 orphan_mints=0 mints=14 orphan_mints=0
+cmp rc=255 a def lines=17 heads=1
+cmp rc=255 b def lines=17 heads=1
+== gv193_c_pushface elab
+   CAL   UNTOUCHED        355 TOWARD           0 AWAY             0 MOVED-WRONG      0 STILL-WRONG      0 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0
+   SCORE UNTOUCHED        331 TOWARD           18 AWAY             0 MOVED-WRONG      0 STILL-WRONG      36 ONLY-GOLDEN      6 ONLY-OURS        10 ONLY-OURS-MOVED  2
+   CTXBL UNTOUCHED        327 TOWARD           20 AWAY             0 MOVED-WRONG      0 STILL-WRONG      33 ONLY-GOLDEN      6 ONLY-OURS        8 ONLY-OURS-MOVED  0
+   mints g/a/b + orphans: mints=46 orphan_mints=0 mints=35 orphan_mints=1 mints=49 orphan_mints=3
+cmp rc=255 a elab lines=44 heads=1
+cmp rc=255 b elab lines=44 heads=1
+== gv193_d_listing def
+   CAL   UNTOUCHED        146 TOWARD           0 AWAY             0 MOVED-WRONG      0 STILL-WRONG      0 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0
+   SCORE UNTOUCHED        138 TOWARD           8 AWAY             0 MOVED-WRONG      0 STILL-WRONG      6 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0
+   CTXBL UNTOUCHED        138 TOWARD           8 AWAY             0 MOVED-WRONG      0 STILL-WRONG      6 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0
+   mints g/a/b + orphans: mints=10 orphan_mints=0 mints=0 orphan_mints=0 mints=8 orphan_mints=0
+cmp rc=255 a def lines=2158 heads=1
+cmp rc=255 b def lines=2158 heads=1
+== gv193_d_listing elab
+   CAL   UNTOUCHED        165 TOWARD           0 AWAY             0 MOVED-WRONG      0 STILL-WRONG      0 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0
+   SCORE UNTOUCHED        157 TOWARD           8 AWAY             0 MOVED-WRONG      0 STILL-WRONG      2 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0
+   CTXBL UNTOUCHED        157 TOWARD           8 AWAY             0 MOVED-WRONG      0 STILL-WRONG      2 ONLY-GOLDEN      0 ONLY-OURS        0 ONLY-OURS-MOVED  0
+   mints g/a/b + orphans: mints=29 orphan_mints=0 mints=19 orphan_mints=0 mints=27 orphan_mints=0
+cmp rc=255 a elab lines=2682 heads=1
+cmp rc=255 b elab lines=2682 heads=1

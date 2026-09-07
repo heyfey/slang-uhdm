@@ -1,0 +1,15 @@
+LHS: <null>
+RHS:
+decompile:
+ref_var: (uvm_pkg::uvm_root::run_test::phase_runner_proc), id:96774, line:411:11, endln:411:28
+|vpiParent:
+\_begin: (uvm_pkg::uvm_root::run_test), id:96777, line:403:3, endln:403:51
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_root::run_test::phase_runner_proc), id:96775
+  |vpiParent:
+  \_ref_var: (uvm_pkg::uvm_root::run_test::phase_runner_proc), id:96774, line:411:11, endln:411:28
+  |vpiFullName:uvm_pkg::uvm_root::run_test::phase_runner_proc
+  |vpiActual:
+  \_unsupported_typespec: (process), id:96776, line:411:3, endln:411:10
+|vpiName:phase_runner_proc
+|vpiFullName:uvm_pkg::uvm_root::run_test::phase_runner_proc

@@ -1,0 +1,202 @@
+==== SeqDriver default CALIBRATION golden-vs-golden-vs-golden
+UNTOUCHED        73178
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      0
+ONLY-GOLDEN      0
+ONLY-OURS        0
+ONLY-OURS-MOVED  0
+==== SeqDriver default
+UNTOUCHED        68321
+TOWARD           10
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      1001
+ONLY-GOLDEN      4847
+ONLY-OURS        4542
+ONLY-OURS-MOVED  0
+---- mint counts (golden / pristine / patched)
+-- keys=73178 cells=77424 mints=10 orphan_mints=0
+-- keys=72873 cells=77393 mints=0 orphan_mints=0
+-- keys=72873 cells=77393 mints=10 orphan_mints=0
+==== SeqDriver testflags CALIBRATION golden-vs-golden-vs-golden
+UNTOUCHED        73178
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      0
+ONLY-GOLDEN      0
+ONLY-OURS        0
+ONLY-OURS-MOVED  0
+==== SeqDriver testflags
+UNTOUCHED        68321
+TOWARD           10
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      1001
+ONLY-GOLDEN      4847
+ONLY-OURS        4542
+ONLY-OURS-MOVED  0
+---- mint counts (golden / pristine / patched)
+-- keys=73178 cells=77424 mints=10 orphan_mints=0
+-- keys=72873 cells=77393 mints=0 orphan_mints=0
+-- keys=72873 cells=77393 mints=10 orphan_mints=0
+==== MiniAmiq default CALIBRATION golden-vs-golden-vs-golden
+UNTOUCHED        75234
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      0
+ONLY-GOLDEN      0
+ONLY-OURS        0
+ONLY-OURS-MOVED  0
+==== MiniAmiq default
+UNTOUCHED        70186
+TOWARD           10
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      603
+ONLY-GOLDEN      5038
+ONLY-OURS        4720
+ONLY-OURS-MOVED  0
+---- mint counts (golden / pristine / patched)
+-- keys=75234 cells=79651 mints=10 orphan_mints=0
+-- keys=74916 cells=79619 mints=0 orphan_mints=0
+-- keys=74916 cells=79619 mints=10 orphan_mints=0
+==== MiniAmiq testflags CALIBRATION golden-vs-golden-vs-golden
+UNTOUCHED        75234
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      0
+ONLY-GOLDEN      0
+ONLY-OURS        0
+ONLY-OURS-MOVED  0
+==== MiniAmiq testflags
+UNTOUCHED        70186
+TOWARD           10
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      603
+ONLY-GOLDEN      5038
+ONLY-OURS        4720
+ONLY-OURS-MOVED  0
+---- mint counts (golden / pristine / patched)
+-- keys=75234 cells=79651 mints=10 orphan_mints=0
+-- keys=74916 cells=79619 mints=0 orphan_mints=0
+-- keys=74916 cells=79619 mints=10 orphan_mints=0
+==== SimpleUVM default CALIBRATION golden-vs-golden-vs-golden
+UNTOUCHED        41917
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      0
+ONLY-GOLDEN      0
+ONLY-OURS        0
+ONLY-OURS-MOVED  0
+==== SimpleUVM default
+UNTOUCHED        39518
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      515
+ONLY-GOLDEN      2399
+ONLY-OURS        2433
+ONLY-OURS-MOVED  0
+---- mint counts (golden / pristine / patched)
+-- keys=41917 cells=45290 mints=0 orphan_mints=0
+-- keys=41951 cells=45287 mints=0 orphan_mints=0
+-- keys=41951 cells=45287 mints=0 orphan_mints=0
+==== SimpleUVM testflags CALIBRATION golden-vs-golden-vs-golden
+UNTOUCHED        41917
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      0
+ONLY-GOLDEN      0
+ONLY-OURS        0
+ONLY-OURS-MOVED  0
+==== SimpleUVM testflags
+UNTOUCHED        39518
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      515
+ONLY-GOLDEN      2399
+ONLY-OURS        2433
+ONLY-OURS-MOVED  0
+---- mint counts (golden / pristine / patched)
+-- keys=41917 cells=45290 mints=0 orphan_mints=0
+-- keys=41951 cells=45287 mints=0 orphan_mints=0
+-- keys=41951 cells=45287 mints=0 orphan_mints=0
+==== Scoreboard default CALIBRATION golden-vs-golden-vs-golden
+UNTOUCHED        42047
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      0
+ONLY-GOLDEN      0
+ONLY-OURS        0
+ONLY-OURS-MOVED  0
+==== Scoreboard default
+UNTOUCHED        39634
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      85
+ONLY-GOLDEN      2413
+ONLY-OURS        2451
+ONLY-OURS-MOVED  0
+---- mint counts (golden / pristine / patched)
+-- keys=42047 cells=45462 mints=0 orphan_mints=0
+-- keys=42085 cells=45461 mints=0 orphan_mints=0
+-- keys=42085 cells=45461 mints=0 orphan_mints=0
+SKIP-NOFILE Scoreboard testflags
+==== BuildUVMPkg default CALIBRATION golden-vs-golden-vs-golden
+UNTOUCHED        44032
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      0
+ONLY-GOLDEN      0
+ONLY-OURS        0
+ONLY-OURS-MOVED  0
+==== BuildUVMPkg default
+UNTOUCHED        42966
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      90
+ONLY-GOLDEN      1066
+ONLY-OURS        971
+ONLY-OURS-MOVED  0
+---- mint counts (golden / pristine / patched)
+-- keys=44032 cells=44160 mints=0 orphan_mints=0
+-- keys=43937 cells=44160 mints=0 orphan_mints=0
+-- keys=43937 cells=44160 mints=0 orphan_mints=0
+==== BuildUVMPkg testflags CALIBRATION golden-vs-golden-vs-golden
+UNTOUCHED        44032
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      0
+ONLY-GOLDEN      0
+ONLY-OURS        0
+ONLY-OURS-MOVED  0
+==== BuildUVMPkg testflags
+UNTOUCHED        42966
+TOWARD           0
+AWAY             0
+MOVED-WRONG      0
+STILL-WRONG      90
+ONLY-GOLDEN      1066
+ONLY-OURS        971
+ONLY-OURS-MOVED  0
+---- mint counts (golden / pristine / patched)
+-- keys=44032 cells=44160 mints=0 orphan_mints=0
+-- keys=43937 cells=44160 mints=0 orphan_mints=0
+-- keys=43937 cells=44160 mints=0 orphan_mints=0
+LISTED=10 PROCESSED=9 SKIPPED=1
+PROCESSED-ASSERT-OK
+DONE_CEN

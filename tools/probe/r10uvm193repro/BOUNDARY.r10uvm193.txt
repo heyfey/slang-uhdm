@@ -1,0 +1,55 @@
+MOVED 0068_r10buvm22repro_g22.sv/def 12 lines
+MOVED 0068_r10buvm22repro_g22.sv/elab 12 lines
+bound193.sh: line 35: 295295 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound193.sh: line 35: 295313 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound193.sh: line 35: 297371 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound193.sh: line 35: 297389 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+MOVED 2391_r10uvm154repro_l154_noenum.sv/def 8 lines
+MOVED 2391_r10uvm154repro_l154_noenum.sv/elab 8 lines
+MOVED 2537_r10uvm184repro_g184_b_kinds.sv/def 60 lines
+MOVED 2537_r10uvm184repro_g184_b_kinds.sv/elab 60 lines
+MOVED 2542_r10uvm185repro_grid185_g185_e_kinds.sv/def 12 lines
+MOVED 2542_r10uvm185repro_grid185_g185_e_kinds.sv/elab 12 lines
+MOVED 2570_r10uvm193repro_g193_a_recvkind.sv/def 62 lines
+MOVED 2570_r10uvm193repro_g193_a_recvkind.sv/elab 62 lines
+MOVED 2571_r10uvm193repro_g193_b_method.sv/def 146 lines
+MOVED 2571_r10uvm193repro_g193_b_method.sv/elab 146 lines
+MOVED 2572_r10uvm193repro_g193_c_argface.sv/def 266 lines
+MOVED 2572_r10uvm193repro_g193_c_argface.sv/elab 266 lines
+MOVED 2573_r10uvm193repro_g193_d_propfence.sv/def 30 lines
+MOVED 2573_r10uvm193repro_g193_d_propfence.sv/elab 30 lines
+MOVED 2638_r10uvm39repro_t55b_dut.sv/def 58 lines
+MOVED 2638_r10uvm39repro_t55b_dut.sv/elab 292 lines
+bound193.sh: line 35: 596227 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound193.sh: line 35: 596245 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound193.sh: line 35: 599453 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound193.sh: line 35: 599471 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound193.sh: line 35: 602025 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound193.sh: line 35: 602043 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound193.sh: line 35: 664365 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound193.sh: line 35: 664383 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound193.sh: line 35: 664449 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound193.sh: line 35: 664467 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+MOVED 3903_r10v184repro_gv184_d_recvmeth.sv/def 56 lines
+MOVED 3903_r10v184repro_gv184_d_recvmeth.sv/elab 56 lines
+bound193.sh: line 35: 708915 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound193.sh: line 35: 708933 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound193.sh: line 35: 709444 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound193.sh: line 35: 709462 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound193.sh: line 35: 714060 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound193.sh: line 35: 714078 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound193.sh: line 35: 714506 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound193.sh: line 35: 714524 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound193.sh: line 35: 717002 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound193.sh: line 35: 717020 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound193.sh: line 35: 717353 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound193.sh: line 35: 717371 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound193.sh: line 35: 775299 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound193.sh: line 35: 775317 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound193.sh: line 35: 775383 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound193.sh: line 35: 775401 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+bound193.sh: line 35: 775467 Segmentation fault      "$PRI" $fl "$leaf" -o pris_$m.uhdm > pris_$m.log 2>&1 < /dev/null
+bound193.sh: line 35: 775485 Segmentation fault      "$PAT" $fl "$leaf" -o pat_$m.uhdm > pat_$m.log 2>&1 < /dev/null
+LISTED=5160 FENCED_SKIPPED=0 PROCESSED=5160 MOVED=20 NO_OUTPUT_PAIRS=394
+PROCESSED-ASSERT-OK
+DONE_BOUND

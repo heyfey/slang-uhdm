@@ -1,0 +1,110 @@
+r10v193 MOVERS — reproduced independently; order-blind attribution.
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+== surelog
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=0f90d144a575 pristine=3b159c20cfc2
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=ec361b2b9f92 pristine=46bb51af242f
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=0f90d144a575 pristine=3b159c20cfc2
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=c7d27b71e110 pristine=8585bcabf6f2
+MOVERS: 4 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+
+== uhdm2rtlil
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+
+== attribution (order-blind, workdir normalised, id: numbers stripped)
+== default/MiniAmiq-544c7f61/slang.uhdm  order-blind diff lines=144
+     20 |vpiParent:
+     16 |vpiActual:
+     10 |vpiTypespec:
+      6 |vpiName:this
+      6 \_method_func_call: (get_address), line:N:N, endln:N:N
+      6 \_int_var: (svaunit_pkg::uvm_phase::unsync::visited.exists::succ), line:N:N, endln:N:N
+      6 \_int_var: (svaunit_pkg::uvm_phase::sync::visited.exists::succ), line:N:N, endln:N:N
+      6 \_class_var: (svaunit_pkg::uvm_reg_map::do_print::vregs[j].get_address::this), line:N:N, endln:N:N
+      6 \_class_var: (svaunit_pkg::uvm_reg_map::do_print::regs[j].get_address::this), line:N:N, endln:N:N
+      6 \_class_var: (svaunit_pkg::uvm_reg_map::do_print::mems[j].get_address::this), line:N:N, endln:N:N
+      6 \_class_typespec: , line:N:N, endln:N:N
+      4 |vpiSigned:N
+      4 |vpiName:succ
+      4 |vpiFullName:svaunit_pkg::uvm_reg_map::do_print::vregs[j].get_address::this
+      4 |vpiFullName:svaunit_pkg::uvm_reg_map::do_print::regs[j].get_address::this
+      4 |vpiFullName:svaunit_pkg::uvm_reg_map::do_print::mems[j].get_address::this
+      4 |vpiFullName:svaunit_pkg::uvm_phase::unsync::visited.exists::succ
+      4 |vpiFullName:svaunit_pkg::uvm_phase::sync::visited.exists::succ
+      4 \_method_func_call: (exists), line:N:N, endln:N:N
+      4 \_int_typespec: , line:N:N, endln:N:N
+== default/SeqDriver-32af76aa/slang.uhdm  order-blind diff lines=144
+     20 |vpiParent:
+     16 |vpiActual:
+     10 |vpiTypespec:
+      6 |vpiName:this
+      6 \_method_func_call: (get_address), line:N:N, endln:N:N
+      6 \_int_var: (adpcm_pkg::uvm_phase::unsync::visited.exists::succ), line:N:N, endln:N:N
+      6 \_int_var: (adpcm_pkg::uvm_phase::sync::visited.exists::succ), line:N:N, endln:N:N
+      6 \_class_var: (adpcm_pkg::uvm_reg_map::do_print::vregs[j].get_address::this), line:N:N, endln:N:N
+      6 \_class_var: (adpcm_pkg::uvm_reg_map::do_print::regs[j].get_address::this), line:N:N, endln:N:N
+      6 \_class_var: (adpcm_pkg::uvm_reg_map::do_print::mems[j].get_address::this), line:N:N, endln:N:N
+      6 \_class_typespec: , line:N:N, endln:N:N
+      4 |vpiSigned:N
+      4 |vpiName:succ
+      4 |vpiFullName:adpcm_pkg::uvm_reg_map::do_print::vregs[j].get_address::this
+      4 |vpiFullName:adpcm_pkg::uvm_reg_map::do_print::regs[j].get_address::this
+      4 |vpiFullName:adpcm_pkg::uvm_reg_map::do_print::mems[j].get_address::this
+      4 |vpiFullName:adpcm_pkg::uvm_phase::unsync::visited.exists::succ
+      4 |vpiFullName:adpcm_pkg::uvm_phase::sync::visited.exists::succ
+      4 \_method_func_call: (exists), line:N:N, endln:N:N
+      4 \_int_typespec: , line:N:N, endln:N:N
+== testflags/MiniAmiq-544c7f61/slang.uhdm  order-blind diff lines=144
+     20 |vpiParent:
+     16 |vpiActual:
+     10 |vpiTypespec:
+      6 |vpiName:this
+      6 \_method_func_call: (get_address), line:N:N, endln:N:N
+      6 \_int_var: (svaunit_pkg::uvm_phase::unsync::visited.exists::succ), line:N:N, endln:N:N
+      6 \_int_var: (svaunit_pkg::uvm_phase::sync::visited.exists::succ), line:N:N, endln:N:N
+      6 \_class_var: (svaunit_pkg::uvm_reg_map::do_print::vregs[j].get_address::this), line:N:N, endln:N:N
+      6 \_class_var: (svaunit_pkg::uvm_reg_map::do_print::regs[j].get_address::this), line:N:N, endln:N:N
+      6 \_class_var: (svaunit_pkg::uvm_reg_map::do_print::mems[j].get_address::this), line:N:N, endln:N:N
+      6 \_class_typespec: , line:N:N, endln:N:N
+      4 |vpiSigned:N
+      4 |vpiName:succ
+      4 |vpiFullName:svaunit_pkg::uvm_reg_map::do_print::vregs[j].get_address::this
+      4 |vpiFullName:svaunit_pkg::uvm_reg_map::do_print::regs[j].get_address::this
+      4 |vpiFullName:svaunit_pkg::uvm_reg_map::do_print::mems[j].get_address::this
+      4 |vpiFullName:svaunit_pkg::uvm_phase::unsync::visited.exists::succ
+      4 |vpiFullName:svaunit_pkg::uvm_phase::sync::visited.exists::succ
+      4 \_method_func_call: (exists), line:N:N, endln:N:N
+      4 \_int_typespec: , line:N:N, endln:N:N
+== testflags/SeqDriver-32af76aa/slang.uhdm  order-blind diff lines=144
+     20 |vpiParent:
+     16 |vpiActual:
+     10 |vpiTypespec:
+      6 |vpiName:this
+      6 \_method_func_call: (get_address), line:N:N, endln:N:N
+      6 \_int_var: (adpcm_pkg::uvm_phase::unsync::visited.exists::succ), line:N:N, endln:N:N
+      6 \_int_var: (adpcm_pkg::uvm_phase::sync::visited.exists::succ), line:N:N, endln:N:N
+      6 \_class_var: (adpcm_pkg::uvm_reg_map::do_print::vregs[j].get_address::this), line:N:N, endln:N:N
+      6 \_class_var: (adpcm_pkg::uvm_reg_map::do_print::regs[j].get_address::this), line:N:N, endln:N:N
+      6 \_class_var: (adpcm_pkg::uvm_reg_map::do_print::mems[j].get_address::this), line:N:N, endln:N:N
+      6 \_class_typespec: , line:N:N, endln:N:N
+      4 |vpiSigned:N
+      4 |vpiName:succ
+      4 |vpiFullName:adpcm_pkg::uvm_reg_map::do_print::vregs[j].get_address::this
+      4 |vpiFullName:adpcm_pkg::uvm_reg_map::do_print::regs[j].get_address::this
+      4 |vpiFullName:adpcm_pkg::uvm_reg_map::do_print::mems[j].get_address::this
+      4 |vpiFullName:adpcm_pkg::uvm_phase::unsync::visited.exists::succ
+      4 |vpiFullName:adpcm_pkg::uvm_phase::sync::visited.exists::succ
+      4 \_method_func_call: (exists), line:N:N, endln:N:N
+      4 \_int_typespec: , line:N:N, endln:N:N
+
+== the 4 OUT lines (default/SeqDriver), the two wrong bindings x the clone's two listings
+<                                   \_ref_var: (adpcm_pkg::uvm_phase::sync::succ), line:1906:34, endln:1906:38
+<                                   \_ref_var: (adpcm_pkg::uvm_phase::sync::succ), line:1906:34, endln:1906:38
+<                                   \_ref_var: (adpcm_pkg::uvm_phase::unsync::succ), line:1954:34, endln:1954:38
+<                                   \_ref_var: (adpcm_pkg::uvm_phase::unsync::succ), line:1954:34, endln:1954:38

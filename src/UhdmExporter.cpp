@@ -9,6 +9,9 @@
 #include "EmitHelpers.h"
 #include "slang/syntax/SyntaxTree.h"
 
+// § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
+#include <functional>
+
 namespace slang_uhdm {
 
 UhdmExporter::UhdmExporter(Compilation& compilation, UHDM::Serializer& serializer) :
@@ -8021,6 +8024,12 @@ UHDM::design* UhdmExporter::exportDesign() {
                 continue;
             r146->Actual_group(it146->second);
         }
+    // § cloneArrayRecvArgMintsElemVar193 — the OTHER half of the same UHDM
+    // producer, and it runs FIRST so that § 184 keeps its dead-last place and
+    // its own pool untouched: an argument § 184 has claimed is skipped here
+    // outright.  Like § 184 this reads the receiver's SETTLED binding, so it
+    // has to sit after every pool that can still bind a hier_path element.
+    drainCloneArrayRecvArgMint193();
     // § cloneBuiltinMethodArgBindsReceiver184 — DEAD LAST, after every pool
     // that can still bind a hier_path RECEIVER element (§ 171's return-name
     // drain, § 26's and § 172's call links, and the ref pools above): the law
@@ -8090,6 +8099,270 @@ void UhdmExporter::drainCloneMfcArgRecv184() {
             ((UHDM::ref_var*)a184)->Actual_group(act);
     }
     cloneMfcArgRecv184.clear();
+}
+
+// § cloneArrayRecvArgMintsElemVar193 — the MINT.  UHDM's producer writes
+// `clone_tree(arr->Variables()->front())` and then renames it, and
+// `<kind>::DeepClone` is `*clone = *this` with a fresh UhdmId followed by
+// `DeepCopy` (~/git-repos/UHDM/build/generated/src/int_var.cpp:57).  The copy
+// below is that first half verbatim — every scalar field the generated
+// `variables::Compare` reads (VpiArrayMember, VpiSigned, VpiAutomatic,
+// VpiAllocScheme, VpiConstantVariable, VpiIsRandomized, VpiRandType,
+// VpiStructUnionMember, VpiScalar, VpiVisibility, VpiVector) and every field
+// `expr::Compare` reads (VpiDecompile, VpiSize) travels with the assignment,
+// and so does the SPAN, which is the array declaration's.  The second half —
+// `DeepCopy`'s re-cloning of the typespec — is replaced by a fresh
+// `ref_typespec` of our own that SHARES the element's actual typespec: no
+// generated `Compare` reads `VpiParent` (RESUME §9), so a shared leaf and a
+// cloned leaf are the same object to the judge, and cloning it would drag a
+// whole `class_defn` behind a `class_typespec` for nothing.
+//
+// The kinds NOT covered are the ones whose copy would share an owned vector:
+// `array_var`, `packed_array_var`, `var_bit`, `ref_var`, `gen_var` and
+// `virtual_interface_var`.  Refusing them costs a STILL-WRONG at worst and can
+// never cost an AWAY; the corpus needs `int_var` and `class_var`.
+UHDM::variables* UhdmExporter::mintArrayElemVar193(const UHDM::variables* src,
+                                                   std::string_view nm,
+                                                   UHDM::any* parent) {
+    if (!src || nm.empty())
+        return nullptr;
+    UHDM::variables* v = nullptr;
+#define UHDM193_COPY(KIND, MAKER)                                    \
+    case UHDM::uhdm##KIND: {                                         \
+        auto* c193 = s.MAKER();                                      \
+        const uint32_t id193 = c193->UhdmId();                       \
+        *c193 = *(const UHDM::KIND*)src;                             \
+        c193->UhdmId(id193);                                         \
+        v = c193;                                                    \
+        break;                                                       \
+    }
+    switch (src->UhdmType()) {
+        UHDM193_COPY(int_var, MakeInt_var)
+        UHDM193_COPY(integer_var, MakeInteger_var)
+        UHDM193_COPY(long_int_var, MakeLong_int_var)
+        UHDM193_COPY(short_int_var, MakeShort_int_var)
+        UHDM193_COPY(byte_var, MakeByte_var)
+        UHDM193_COPY(time_var, MakeTime_var)
+        UHDM193_COPY(real_var, MakeReal_var)
+        UHDM193_COPY(short_real_var, MakeShort_real_var)
+        UHDM193_COPY(string_var, MakeString_var)
+        UHDM193_COPY(chandle_var, MakeChandle_var)
+        UHDM193_COPY(class_var, MakeClass_var)
+        UHDM193_COPY(enum_var, MakeEnum_var)
+        UHDM193_COPY(struct_var, MakeStruct_var)
+        UHDM193_COPY(union_var, MakeUnion_var)
+        UHDM193_COPY(bit_var, MakeBit_var)
+        UHDM193_COPY(logic_var, MakeLogic_var)
+        default:
+            return nullptr;
+    }
+#undef UHDM193_COPY
+    if (!v)
+        return nullptr;
+    // `*c = *src` copied the RANGE vector by POINTER; give the copy its own
+    // vector over the same range objects so two variables never own one.
+    if (v->UhdmType() == UHDM::uhdmbit_var) {
+        auto* b193 = (UHDM::bit_var*)v;
+        if (const auto* rs193 = ((const UHDM::bit_var*)src)->Ranges()) {
+            auto* nv193 = s.MakeRangeVec();
+            for (auto* r193 : *rs193)
+                nv193->push_back(r193);
+            b193->Ranges(nv193);
+        }
+    } else if (v->UhdmType() == UHDM::uhdmlogic_var) {
+        auto* l193 = (UHDM::logic_var*)v;
+        if (const auto* rs193 = ((const UHDM::logic_var*)src)->Ranges()) {
+            auto* nv193 = s.MakeRangeVec();
+            for (auto* r193 : *rs193)
+                nv193->push_back(r193);
+            l193->Ranges(nv193);
+        }
+    }
+    v->VpiName(nm);
+    v->VpiParent(parent);
+    // `*c = *src` copied the ELEMENT's own `VpiFullName` too, and after the
+    // rename that string is stale (`…::sync::visited` on an object now named
+    // `succ`).  Golden's mint carries NO stored fullname at all — the uhdm
+    // dump SYNTHESISES the one it prints from the parent chain (RESUME §9),
+    // which is how `uvm_pkg::uvm_phase::sync::visited.exists::succ` appears
+    // there — so clear the field and let the same synthesis run.  No
+    // generated `Compare` reads `VpiFullName`, so this is dump fidelity only;
+    // ours synthesises the CLONE listing's prefix (`adpcm_pkg::…`) because
+    // our mint is parented at the clone's own call and golden's at the home
+    // one, which is r10uvm191's R3 axis and is worth nothing to the judge.
+    v->VpiFullName("");
+    if (const UHDM::ref_typespec* rt193 = src->Typespec()) {
+        auto* nrt193 = s.MakeRef_typespec();
+        nrt193->VpiParent(v);
+        nrt193->Actual_typespec((UHDM::typespec*)rt193->Actual_typespec());
+        v->Typespec(nrt193);
+    } else {
+        v->Typespec(nullptr);
+    }
+    return v;
+}
+
+// § cloneArrayRecvArgMintsElemVar193 — the drain.  See the law in
+// include/UhdmExporter.h.  One pass over the arena's `hier_path`s; the listing
+// gate is § 16's registry of WILDCARD-import clone subroutines, which is the
+// same window § 9, § 10 and § 184 bind in and is populated for nothing else.
+void UhdmExporter::drainCloneArrayRecvArgMint193() {
+    if (pkgImportCloneTfs16.empty())
+        return;
+    // § 184's pool is still FULL here (its drain runs after this one): an
+    // argument that law claims is not this law's, so the two halves of the one
+    // UHDM producer can never both write a cell.  The two sets are disjoint in
+    // the corpus and in every arm — § 184's recorder refuses a receiver that
+    // is not exactly a `ref_obj`/`ref_var`, and this law's receiver has to be
+    // bound to an `array_var` — but the skip is written down rather than
+    // argued.
+    std::set<const UHDM::any*> claimed184;
+    for (auto& [a184, r184] : cloneMfcArgRecv184)
+        claimed184.insert((const UHDM::any*)a184);
+    for (auto& kv193 : s.AllObjects()) {
+        auto* o193 = (UHDM::BaseClass*)kv193.first;
+        if (!o193 || o193->UhdmType() != UHDM::uhdmhier_path)
+            continue;
+        auto* el193 = ((UHDM::hier_path*)o193)->Path_elems();
+        if (!el193 || el193->size() < 2)
+            continue;
+        // THE LISTING GATE: the enclosing subroutine must be a wildcard-import
+        // CLONE.  The walk stops at the first listing root so a home body can
+        // never be mistaken for a clone.
+        const UHDM::task_func* tf193 = nullptr;
+        const UHDM::BaseClass* up193 = o193->VpiParent();
+        for (int g193 = 0; up193 && g193 < 400;
+             g193++, up193 = up193->VpiParent()) {
+            const auto t193 = up193->UhdmType();
+            if (t193 == UHDM::uhdmfunction || t193 == UHDM::uhdmtask) {
+                tf193 = (const UHDM::task_func*)up193;
+                break;
+            }
+            if (t193 == UHDM::uhdmpackage || t193 == UHDM::uhdmclass_defn ||
+                t193 == UHDM::uhdmmodule_inst || t193 == UHDM::uhdmdesign)
+                break;
+        }
+        if (!tf193 || !pkgImportCloneTfs16.count(tf193))
+            continue;
+        for (size_t i193 = 1; i193 < el193->size(); i193++) {
+            auto* m193 = el193->at(i193);
+            if (!m193 || m193->UhdmType() != UHDM::uhdmmethod_func_call)
+                continue;
+            auto* args193 = ((UHDM::method_func_call*)m193)->Tf_call_args();
+            if (!args193 || args193->empty())
+                continue;
+            // THE RECEIVER is the element written immediately before the call
+            // (UHDM reads `Path_elems()->back()` before pushing the call).
+            // `bit_select` IS-A `ref_obj`, which is exactly why an ARRAY
+            // ELEMENT receiver (`regs[j].get_address(this)`) is in the
+            // producer's reach and out of § 184's recorder's.
+            auto* r193 = el193->at(i193 - 1);
+            if (!r193)
+                continue;
+            const auto rk193 = r193->UhdmType();
+            if (rk193 != UHDM::uhdmref_obj && rk193 != UHDM::uhdmref_var &&
+                rk193 != UHDM::uhdmbit_select)
+                continue;
+            const UHDM::any* act193 =
+                rk193 == UHDM::uhdmref_var
+                    ? ((const UHDM::ref_var*)r193)->Actual_group()
+                    : ((const UHDM::ref_obj*)r193)->Actual_group();
+            if (!act193 || act193->UhdmType() != UHDM::uhdmarray_var)
+                continue;
+            const auto* vars193 = ((const UHDM::array_var*)act193)->Variables();
+            if (!vars193 || vars193->empty() || !vars193->front())
+                continue;
+            // § cloneArrayRecvArgMintsElemVar193, THE `pushVar` HALF.  The
+            // producer does not merely bind the argument: it PUSHES the mint
+            // into the elaborator's scope
+            // (`elaboratorContext->m_elaborator.pushVar(varclone)`) and only
+            // pops it after the `With()` clause, so every LATER reference of
+            // that NAME anywhere under the SAME call — inside an OPERATION
+            // argument, a select, a nested call — resolves to the mint through
+            // `bindAny` instead of to its own declaration.  Arm A's
+            // `skein193[0].substr(gauge193, gauge193 + 1)` is the minimal
+            // reproducer: golden gives BOTH the direct `gauge193` and the one
+            // inside `gauge193 + 1` the same `string_var` mint.  ORDER
+            // MATTERS — `DeepClone` walks the arguments in order and the push
+            // happens on the argument that mints, so a reference written
+            // BEFORE it keeps its own declaration.  Corpus incidence of the
+            // later-reference half: ZERO (the corpus's other arguments are a
+            // constant, an operation over a different name, and a hier_path).
+            std::function<void(UHDM::BaseClass*, std::string_view,
+                               UHDM::variables*, int)> push193 =
+                [&](UHDM::BaseClass* n193, std::string_view nm193,
+                    UHDM::variables* mv193, int d193) {
+                    if (!n193 || d193 > 24)
+                        return;
+                    if (n193->UhdmType() == UHDM::uhdmref_obj ||
+                        n193->UhdmType() == UHDM::uhdmbit_select) {
+                        auto* rr193 = (UHDM::ref_obj*)n193;
+                        if (rr193->VpiName() == nm193) {
+                            const UHDM::any* h193 = rr193->Actual_group();
+                            if (!h193 || h193->VpiName() == nm193)
+                                rr193->Actual_group(mv193);
+                        }
+                    }
+                    // THE WALK IS CONTAINMENT, NOT REACHABILITY.  Descending
+                    // every edge is NOT a subtree walk: a `variables` carries
+                    // `vpiInstance` to its PACKAGE, so following the argument's
+                    // `vpiActual` to its own declaration and then that
+                    // declaration's edges escapes into the whole design.
+                    // MEASURED, as an AWAY: the first cut of this half bound
+                    // three `gauge193` references in the HOME `Quay193/ELAB`
+                    // listing of arm A — including `gauge193 = 1;` at 73:5,
+                    // which is not under any call at all.  Only an object whose
+                    // OWN `VpiParent` is the node being walked is inside it.
+                    for (int ty193 = 1; ty193 <= 2100; ty193++) {
+                        auto tup193 = n193->GetByVpiType(ty193);
+                        auto* one193 = (UHDM::BaseClass*)std::get<0>(tup193);
+                        const auto* vec193 = std::get<2>(tup193);
+                        if (one193 && one193->VpiParent() == n193)
+                            push193(one193, nm193, mv193, d193 + 1);
+                        if (vec193)
+                            for (auto* e193 : *vec193)
+                                if (e193 && e193->VpiParent() == n193)
+                                    push193((UHDM::BaseClass*)e193, nm193,
+                                            mv193, d193 + 1);
+                    }
+                };
+            for (size_t ai193 = 0; ai193 < args193->size(); ai193++) {
+                auto* a193 = args193->at(ai193);
+                // The producer's own argument gate: `any_cast<ref_obj*>`, so a
+                // `constant`, an `operation` and a `hier_path` argument are
+                // all refused — which is what leaves the sixteen `substr` /
+                // `get_access` corpus cells BARE on both sides.
+                if (!a193 || (a193->UhdmType() != UHDM::uhdmref_obj &&
+                              a193->UhdmType() != UHDM::uhdmbit_select))
+                    continue;
+                if (a193->VpiName().empty())
+                    continue;
+                if (claimed184.count((const UHDM::any*)a193))
+                    continue;
+                auto* ar193 = (UHDM::ref_obj*)a193;
+                // `override`: the producer writes only over a BARE argument or
+                // one already bound to an object of the argument's OWN name.
+                if (const UHDM::any* had193 = ar193->Actual_group())
+                    if (had193->VpiName() != a193->VpiName())
+                        continue;
+                UHDM::variables* mint193 = mintArrayElemVar193(
+                    vars193->front(), a193->VpiName(), m193);
+                if (!mint193)
+                    continue;
+                ar193->Actual_group(mint193);
+                cloneArrayArgMint193.insert((const UHDM::any*)a193);
+                // …and the push: every LATER argument's subtree, plus the
+                // `With()` clause, sees the mint under that name.
+                for (size_t aj193 = ai193 + 1; aj193 < args193->size();
+                     aj193++)
+                    push193((UHDM::BaseClass*)args193->at(aj193),
+                            a193->VpiName(), mint193, 0);
+                if (auto* w193 = ((UHDM::method_func_call*)m193)->With())
+                    push193((UHDM::BaseClass*)w193, a193->VpiName(), mint193,
+                            0);
+            }
+        }
+    }
 }
 
 void UhdmExporter::drainScopedCallBind26() {

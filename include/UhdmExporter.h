@@ -8189,6 +8189,102 @@ private:
         cloneMfcArgRecv184.push_back({argRef, recvRef});
     }
     void drainCloneMfcArgRecv184();
+
+    // § cloneArrayRecvArgMintsElemVar193 (r10uvm193) — THE LAW.
+    //
+    // *IN A WILDCARD-IMPORT **CLONE** OF A PACKAGE SUBROUTINE, A DIRECT NAME
+    // ARGUMENT (`ref_obj`) OF A METHOD CALL WRITTEN ON A RECEIVER WHOSE
+    // BINDING IS AN **`array_var`** DOES NOT TAKE THE RECEIVER: IT TAKES A
+    // FRESH COPY OF THAT ARRAY'S OWN **ELEMENT VARIABLE**, **RENAMED AFTER
+    // THE ARGUMENT** AND LEFT AT THE ARRAY DECLARATION'S SPAN, PARENTED AT
+    // THE CALL.  AT HOME (THE DECLARING PACKAGE'S OWN VIEWS) THE ARGUMENT
+    // KEEPS ITS ORDINARY BINDING.*
+    //
+    // THE HEAD.  SeqDriver ×2 AND MiniAmiq ×2, 58 cmp lines / ONE `^LHS:` at
+    // `9c358cda`, the SAME object in all four row-modes:
+    //   LHS  int_var (uvm_pkg::uvm_phase::sync::visited.exists::succ) @1896:9
+    //        -1896:16, vpiParent method_func_call (exists) @1907:22,
+    //        vpiTypespec -> ref_typespec -> int_typespec @1896:5, vpiSigned 1
+    //   RHS  ref_var (adpcm_pkg::uvm_phase::sync::succ) @1906:34, vpiParent
+    //        foreach_stmt @1906:7  — our `foreach` LOOP VARIABLE
+    // A both-sides VALUE mismatch on the `vpiActual` of `ref_obj (succ)
+    // @1907:29`, the argument of `visited.exists(succ)` (uvm-1.2
+    // uvm_phase.svh:1907 over `int visited[uvm_phase]` at :1896) in the
+    // adpcm_pkg CLONE listing.  This is r10uvm184's R2 — the family its
+    // STRING fence deliberately kept out — and r10v184's widening of it.
+    //
+    // THE PRODUCER, read rather than inferred.  UHDM's own
+    // `method_func_call::DeepClone` (~/git-repos/UHDM/templates/
+    // clone_tree.cpp:119-186) is ONE block with TWO branches, and § 184 is
+    // its other half.  While cloning a call whose `VpiParent` is a
+    // `hier_path`, it reads `phier->Path_elems()->back()` — the RECEIVER,
+    // because the call itself has not been pushed yet — and for every
+    // argument that `any_cast<ref_obj*>` accepts and whose own actual is
+    // NULL or carries the ARGUMENT'S OWN NAME (`override`):
+    //
+    //     if (actual->UhdmType() == uhdmarray_var) {
+    //       array_var* arr = (array_var*)actual;
+    //       if (arr->Variables() && !arr->Variables()->empty()) {
+    //         variables* var = arr->Variables()->front();
+    //         if (variables* varclone = (variables*)clone_tree(var, context)) {
+    //           varclone->VpiName(obj->VpiName());
+    //           varclone->VpiParent(const_cast<any*>(obj->VpiParent()));
+    //           actual = varclone;                       // <- THIS LAW
+    //           elaboratorContext->m_elaborator.pushVar(varclone);
+    //         }
+    //       }
+    //     }
+    //     refarg->Actual_group((any*)actual);            // <- § 184 otherwise
+    //
+    // So a STRING (or any non-array) receiver hands the argument the
+    // RECEIVER — § `cloneBuiltinMethodArgBindsReceiver184`, unchanged and
+    // untouched — and an ARRAY receiver hands it a renamed clone of the
+    // array's ELEMENT variable.  Every measured field of the head follows:
+    // the kind and the span are the element variable's (`int_var()
+    // @1896:9-1896:16` under `array_var (visited)`, `class_var()@2134:13`
+    // under `array_var (regs)`), the NAME is the argument's, and the parent
+    // is the ORIGINAL call, which is why the mint's chain reads `uvm_pkg`
+    // while its only referrer sits in `adpcm_pkg`.
+    //
+    // THE CORPUS POPULATION, read off the pristine databases (`ct193arg mfc`
+    // / `pred`): TEN cells per clone row-mode, five keys × the clone's two
+    // listings — `visited.exists(succ)` in `uvm_phase::sync` and `::unsync`
+    // (a BUILT-IN method on an ASSOCIATIVE array, argument 0), and
+    // `regs[j].get_address(this)` / `mems[j].get_address(0,this)` /
+    // `vregs[j].get_address(0,this)` in `uvm_reg_map::do_print`
+    // (uvm_reg_map.svh:2155/2160/2164 — a USER-DEFINED method on a QUEUE
+    // ELEMENT, argument 0 and argument 1).  The law is therefore NOT about
+    // built-in methods and NOT about associative arrays: the producer asks
+    // only what the receiver's binding IS.
+    //
+    // WHAT THE CORPUS ITSELF FENCES, with no extra rule — of the 26
+    // array-receiver calls with arguments in the two clone listings, the
+    // other 16 have arguments the producer's `any_cast<ref_obj*>` refuses
+    // (`constant`, `operation`, `hier_path`): `args[i].substr(1,len-1)`
+    // (uvm_root.svh:905/909/913/731/735, `split_val[...]` :827/:828) and
+    // `fields[i].get_access(rw.local_map)` (uvm_reg_field.svh:1496).  Golden
+    // leaves every one of them BARE and so do we, on both binaries.
+    //
+    // Applied DESIGN-FINAL over the arena, immediately BEFORE § 184's drain
+    // (which stays dead last and keeps its own pool): the receiver's own
+    // binding is itself a deferred pool, and at emission time
+    // `recv->Actual_group()` is null for every corpus cell.  Any argument
+    // § 184 has already claimed is skipped outright, so the two halves of
+    // the one producer can never both write a cell.
+    //
+    // NOT THIS LAW: the HOME package's own views (both of them — golden's
+    // uvm_pkg/DEF leaves the argument BARE and its uvm_pkg/ELAB gives it the
+    // `class_var` the foreach fixup made, and we already match both); an
+    // argument inside an OPERATION or a select, which is not a
+    // `Tf_call_args` `ref_obj` at all; a receiver whose binding is not an
+    // `array_var` (§ 184's half); and an array whose `Variables()` list is
+    // empty, which the producer itself declines.
+    std::set<const UHDM::any*> cloneArrayArgMint193;
+    UHDM::variables* mintArrayElemVar193(const UHDM::variables* src,
+                                         std::string_view nm,
+                                         UHDM::any* parent);
+    void drainCloneArrayRecvArgMint193();
+
     // In shared processes, only call-argument refs count for var typespec
     // reparenting (Surelog computes arg types; plain refs don't touch ts).
     bool inProcessEmit = false;
