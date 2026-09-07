@@ -7488,6 +7488,132 @@ UHDM::design* UhdmExporter::exportDesign() {
                 }
             return false;
         };
+        // § builtinArrayReadBindsMintedFuncCall182 — a PARENS-LESS BUILT-IN
+        // ARRAY READ in a clone body binds a MINTED `func_call`.
+        //
+        // THE PRODUCER.  UHDM's own `hier_path::DeepClone`
+        // (~/git-repos/UHDM/templates/clone_tree.cpp), which is what
+        // `CompileHelper::importPackage` runs over every imported subroutine
+        // listing (`UHDM::clone_tree((any*)func, …)`,
+        // CompileHelper.cpp:317-323), walks `Path_elems` pairwise and resolves
+        // each element against the PRECEDING one's `Actual_group`.  When that
+        // predecessor resolved to an ARRAY object — `array_var`,
+        // `packed_array_var`, `array_net`, `packed_array_net` — and the
+        // element's own name is one of EXACTLY
+        //
+        //     size   exists   find   max   min
+        //
+        // the clone does not look the name up anywhere at all: it MINTS a
+        // `func_call`, names it after the method, parents it at the CLONED
+        // hier_path, and hands it to the element as its `vpiActual`:
+        //
+        //     func_call* call = context->m_serializer->MakeFunc_call();
+        //     call->VpiName(name);
+        //     call->VpiParent(clone);
+        //     if (ref_obj* cro = any_cast<ref_obj*>(current))
+        //       cro->Actual_group(call);
+        //     found = true;  previous = (any*)call;
+        //
+        // The minted object carries NO span, NO `Function` and NO
+        // `Tf_call_args` — `func_call::Compare` reads VpiName and those two,
+        // so a bare mint is the whole of it.  `packed_array_net`'s copy of the
+        // list writes `exists` TWICE and therefore has no `find` row; that
+        // typo is Surelog/UHDM's and is MODELLED, not fixed.
+        //
+        // THE HEAD THIS CLEARS.  `qq = q.max;` @uvm_printer.svh:1054 in
+        // `uvm_table_printer::emit` — SeqDriver x2, 13 cmp lines, one head:
+        //     LHS golden  func_call(max) < hier_path(q.max)@1054:12
+        //     RHS         <null>
+        // i.e. BaseClass.h's SINGULAR `SafeCompare` (:191-193) on
+        // `ref_obj::Actual_group`.  r10uvm181's R0 framed this as a
+        // `Path_elems` CARDINALITY miss ("golden appends a trailing func_call
+        // element, our list is one short"); the owner-finder REFUTES that —
+        // both sides' `Path_elems` are `n=2` with byte-identical element faces
+        // (`ref_obj(q)`, `ref_obj(max)`), and the failing edge is the trailing
+        // element's `vpiActual`, not the vector.
+        //
+        // THE GATES, each measured on a golden rather than read off the code:
+        //  * THE ELEMENT MUST BE A `ref_obj` — the PARENS-LESS spelling.
+        //    `g182_d_parens.sv` puts `sluice.size` and `sluice.size()` in ONE
+        //    function on ONE queue: the bare read's `ref_obj` element takes the
+        //    mint, and the parens-ful read's `method_func_call` element takes
+        //    NOTHING — golden's whole database holds exactly the one minted
+        //    `func_call`, so there is not even an unreferenced orphan to model.
+        //  * A STRUCT MEMBER OF THAT NAME WINS.  `DeepClone` mints in its
+        //    FIRST switch and scans struct members in its SECOND, which
+        //    carries no `!found` guard, so the member is the LAST writer.  Arm
+        //    C cell C2 (`nook.size`, a queue of a struct that HAS a member
+        //    called `size`) binds the `typespec_member` in golden — which is
+        //    why this runs AFTER `pkgCloneMember10` and only on the null it
+        //    leaves.
+        //  * A BODY LOCAL OF THAT NAME DOES NOT.  `DeepClone` has no name
+        //    lookup for a path element at all, so arm C cell C3
+        //    (`sluice.size + size`, with an `int size;` beside the queue) binds
+        //    the MINT in golden where the pristine binary bound the
+        //    `int_var` — which is why this runs BEFORE `bind9` and returns
+        //    true to suppress it.
+        //  * THE PREDECESSOR MUST BE AN ARRAY OBJECT, not an array TYPE.  Arm
+        //    C cell C4 (`crate.hoard.size`, a queue that is a struct MEMBER)
+        //    leaves the predecessor a `typespec_member`, which reaches
+        //    `DeepClone`'s typespec_member arm — an arm with no mint — and
+        //    golden leaves it BARE.
+        //  * THE NAME LIST IS CLOSED.  Arm A reads ten method names off five
+        //    receiver kinds in one clone body: `max` / `min` / `size` are
+        //    minted on fixed, queue, dynamic, associative and queue-of-struct
+        //    receivers alike, and `sum` / `product` / `num` stay BARE beside
+        //    them, as does `len` on a `string_var` receiver.
+        //  * AND IT IS THE CLONE ONLY.  Golden's HOME listing leaves every one
+        //    of these bare in the DEF view (arm A, arm C), and a module body —
+        //    which is no clone at all — leaves even the BASE unbound (arm C
+        //    cell C5).  The ELAB view then mints in both listings because
+        //    UHDM's elaborator re-clones the whole design; that half we
+        //    already ship, since `uhdm_main.cpp` runs the same
+        //    `ElaboratorContext` — arm A's elab view had golden at exactly
+        //    TWICE our count in the imported listing and EQUAL in the home,
+        //    which is this one DEF-phase miss showing through the second clone.
+        auto arrayActual182 = [](const UHDM::any* a182) {
+            if (!a182)
+                return false;
+            auto t182 = a182->UhdmType();
+            return t182 == UHDM::uhdmarray_var ||
+                   t182 == UHDM::uhdmpacked_array_var ||
+                   t182 == UHDM::uhdmarray_net ||
+                   t182 == UHDM::uhdmpacked_array_net;
+        };
+        auto bindBuiltin182 = [&](UHDM::any* e182, const UHDM::any* prev182,
+                                  UHDM::BaseClass* hp182) -> bool {
+            if (!e182 || !prev182 || e182->UhdmType() != UHDM::uhdmref_obj)
+                return false;
+            auto* r182 = (UHDM::ref_obj*)e182;
+            if (r182->Actual_group())
+                return false;
+            const std::string nm182(r182->VpiName());
+            if (nm182 != "size" && nm182 != "exists" && nm182 != "find" &&
+                nm182 != "max" && nm182 != "min")
+                return false;
+            // Clone bodies only, and the SAME gate `pkgCloneMember10` uses —
+            // the home listing's identical text is bare in golden.
+            auto* tf182 = ownerTf9(hp182);
+            if (!tf182 || !pkgCloneBodyLocals9.count(tf182))
+                return false;
+            // `DeepClone` reads `any_cast<ref_obj*>(previous)` and nothing
+            // else: a `bit_select` predecessor (an INDEXED receiver step) takes
+            // its own arm in that walk and never reaches the mint.
+            if (prev182->UhdmType() != UHDM::uhdmref_obj)
+                return false;
+            const UHDM::any* pact182 =
+                ((const UHDM::ref_obj*)prev182)->Actual_group();
+            if (!arrayActual182(pact182))
+                return false;
+            if (pact182->UhdmType() == UHDM::uhdmpacked_array_net &&
+                nm182 == "find")
+                return false;
+            auto* fc182 = s.MakeFunc_call();
+            fc182->VpiName(nm182);
+            fc182->VpiParent(hp182);
+            r182->Actual_group(fc182);
+            return true;
+        };
         for (auto& kv9 : s.AllObjects()) {
             auto* o9 = (UHDM::BaseClass*)kv9.first;
             if (!o9)
@@ -7503,7 +7629,15 @@ UHDM::design* UhdmExporter::exportDesign() {
                 if (auto* es9 = ((UHDM::hier_path*)o9)->Path_elems()) {
                     const UHDM::any* prev10 = nullptr;
                     for (auto* e0 : *es9) {
-                        if (!prev10 || !bindMember10(e0, prev10, o9))
+                        // § builtinArrayReadBindsMintedFuncCall182 sits
+                        // BETWEEN the two: after `pkgCloneMember10` (a struct
+                        // member of the name is `DeepClone`'s last writer and
+                        // wins — arm C cell C2) and before `bind9` (a body
+                        // local of the name is not looked up at all and loses —
+                        // arm C cell C3).
+                        if (!prev10 ||
+                            (!bindMember10(e0, prev10, o9) &&
+                             !bindBuiltin182(e0, prev10, o9)))
                             bind9(e0, o9);
                         prev10 = e0;
                     }

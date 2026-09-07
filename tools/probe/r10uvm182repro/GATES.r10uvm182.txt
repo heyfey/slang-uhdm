@@ -1,0 +1,70 @@
+r10uvm182 — THE GATES, VERBATIM OUTPUT.  MEASUREMENT ONLY; the official
+uhdm-cmp and scripts/verify_golden.py are the authorities.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+== 1. BUILDS (-j 2, md5 taken separately, both frozen chmod 555 BEFORE any sweep)
+pristine  86973e02d6a070958700f9a63ffe3ffe   /tmp/r10uvm182_bin/pris.bin
+patched   f565aadff569261cfd5efc04ec223cba   /tmp/r10uvm182_bin/pat.bin
+
+== 2. GOLDENS (SLANG_UHDM exported explicitly to EACH binary)
+pristine  PASS=23 FAIL=0
+patched   PASS=23 FAIL=0
+SLANG_UHDM=/bin/false   PASS=0  FAIL=23      (negative control)
+
+== 3. uhdm2rtlil
+[testflags] 731 tests   CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2   (both binaries)
+[default]   731 tests   CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2   (both binaries)
+ct8rows results/gate_uhdm2rtlil.csv  vs patched testflags : PASS (0 differing rows)
+ct8rows my-own-pristine testflags    vs patched testflags : PASS
+ct8rows my-own-pristine default      vs patched default   : PASS
+cmds.txt binary audit, patched u2r  : 1458 lines, all /tmp/r10uvm182_bin/pat.bin
+cmds.txt binary audit, pristine both: 2981 lines, all /tmp/r10uvm182_bin/pris.bin
+
+== 4. surelog (794 tests x 2 modes = 1588 rows)
+patched  [default]   CMP_EQUAL 471  SLANG_REJECT 283  SURELOG_FAIL 25  CMP_NOTEQUAL 10  DEFERRED 5
+patched  [testflags] CMP_EQUAL 466  SLANG_REJECT 284  SURELOG_FAIL 23  CMP_NOTEQUAL 9   DEFERRED 5
+                     NO_DATABASE 3  UNTRANSLATABLE 2  TIMEOUT 1  NO_UHDM 1
+pristine: IDENTICAL histograms.
+ct8rows results/golden_surelog.csv vs patched : PASS (0 differing ROWS over 1588)
+ct8rows my-own-pristine            vs patched : PASS
+NO ROW CONVERTED.  results/*.csv never written.
+cmds.txt binary audit, patched     : 1523 lines, all /tmp/r10uvm182_bin/pat.bin
+
+== 5. BYTES (byteverify.sh, SELFCHECK=1)
+surelog     : MOVERS 4 / 956    SELFCHECK 955/956
+              MiniAmiq/default, MiniAmiq/testflags, SeqDriver/default, SeqDriver/testflags
+              — ALL FOUR PREDICTED BY NAME from PRISTINE bytes (PREDICT.r10uvm182.txt)
+uhdm2rtlil  : MOVERS 0 / 1358   SELFCHECK 1357/1358
+
+== 6. CANARIES
+canaries.sh surelog  vs results/golden_surelog.csv   : ok=52 changed=0 absent=0
+canaries.sh u2r/tf   vs results/gate_uhdm2rtlil.csv  : ok=8  changed=0 absent=0
+EXPECT_UNKNOWN=1 ctcan2.sh surelog                   : ok=58 changed=0  PASS
+EXPECT_UNKNOWN=6 ctcan2.sh u2r/tf                    : ok=1  changed=0  PASS
+canaudit.sh canaries.sh ctcan2.sh : audited=29 UNCOVERED=0 FENCE-BREACH=0  PASS
+   (all four slang-fenced names: "not dispatched by any driver (OK)")
+
+== 7. PROTECTED DATABASES BY NAME (md5 first 12, patched vs pristine)
+InterfaceModPort   default 59a365f3ce2c  testflags 59a365f3ce2c   SAME
+BlackParrotComplex default e3e354129d5a  testflags 73a10e8217e5   SAME
+YosysOldOr         default d68e0796d62c  testflags d68e0796d62c   SAME
+SVSwitch           default 4842211c4030  testflags 4842211c4030   SAME  (brief pin)
+YosysVerx          default 6ccda350c24a  testflags 6ccda350c24a   SAME  (brief pin)
+
+== 8. THE SEVEN-ROW HEAD SET (rowheads.sh; cmp lines / heads)
+                pristine        patched
+SeqDriver       13 / 1  x2      29 / 1  x2      <- the ONLY row whose cmp log moved
+SimpleUVM   664681 / 1  x2  664681 / 1  x2      cmp logs BYTE-IDENTICAL
+Scoreboard      95 / 1          95 / 1          cmp logs BYTE-IDENTICAL
+MiniAmiq        26 / 1  x2      26 / 1  x2      BYTES MOVED, cmp log BYTE-IDENTICAL
+BuildUVMPkg     52 / 1  x2      52 / 1  x2      cmp logs BYTE-IDENTICAL
+Earlgrey_0_1    31 / 1  ; 364 / 1               cmp logs BYTE-IDENTICAL
+Rggen            0 / 0           0 / 0          cmp logs BYTE-IDENTICAL
+(Scoreboard/testflags and Rggen/testflags print SKIP-NOFILE, as expected.)
+SeqDriver's two modes are byte-identical to each other on both binaries.
+
+== 9. THE WIDE BOUNDARY GATE — see BOUNDARY.r10uvm182.txt
+LISTED=4988 FENCED_SKIPPED=0 PROCESSED=4988 MOVED=8 NO_OUTPUT_PAIRS=380
+PROCESSED-ASSERT-OK.  The 8 MOVED are this pass's own four arms x two views.
+
+== 10. THE CORPUS CENSUS — see CENSUS.r10uvm182.txt (calibrated golden-vs-golden first)

@@ -1,0 +1,8 @@
+-- databases scanned=956  databases with candidates=4
+CANDIDATES 2 /tmp/r10uvm182_wdp/sl/default/MiniAmiq-544c7f61/slang.uhdm
+CANDIDATES 2 /tmp/r10uvm182_wdp/sl/default/SeqDriver-32af76aa/slang.uhdm
+CANDIDATES 2 /tmp/r10uvm182_wdp/sl/testflags/MiniAmiq-544c7f61/slang.uhdm
+CANDIDATES 2 /tmp/r10uvm182_wdp/sl/testflags/SeqDriver-32af76aa/slang.uhdm
+
+== uhdm2rtlil ==
+-- databases scanned=1358  databases with candidates=0

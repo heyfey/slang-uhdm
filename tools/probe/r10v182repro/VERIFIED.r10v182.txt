@@ -1,0 +1,129 @@
+r10v182 — ADVERSARIAL VERIFICATION OF r10uvm182, § builtinArrayReadBindsMintedFuncCall182.
+Every number below was re-measured from binaries this verifier built itself.
+
+== BINARIES (built from a fresh 6fee5084 worktree + /tmp/r10uvm182.patch) ==
+pristine 86973e02d6a070958700f9a63ffe3ffe   patched f565aadff569261cfd5efc04ec223cba
+(both md5s reproduce the implementer's exactly; frozen chmod 555 before any sweep)
+
+== GATES ==
+goldens        pristine 23 PASS / 0 FAIL ; patched 23 PASS / 0 FAIL ; SLANG_UHDM=/bin/false 23 FAIL
+u2r            679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL, both modes, both binaries
+u2r ct8rows    0 differing rows vs the committed gate AND vs my own pristine (both modes)
+surelog        1588 rows; 0 differing rows vs results/golden_surelog.csv; NO row converted
+cmds audit     surelog 1523 invocations, u2r 1458 — every one names the frozen binary; 0 main-tree leaks
+byteverify     surelog MOVERS 4 / 956  (SELFCHECK 955/956) ; u2r MOVERS 0 / 1358 (SELFCHECK 1357/1358)
+canaries       ok=52 changed=0 (surelog) ; ok=8 changed=0 (u2r) ; ctcan2 PASS both
+canaudit       audited=29 UNCOVERED=0 FENCE-BREACH=0
+pins           SVSwitch 4842211c4030 ; YosysVerx 6ccda350c24a ; InterfaceModPort/BlackParrotComplex/YosysOldOr SAME
+wide boundary  LISTED=4988 FENCED_SKIPPED=0 PROCESSED=4988 MOVED=8 NO_OUTPUT_PAIRS=380 PROCESSED-ASSERT-OK
+               the 8 are this pass's own four arms x two views; NO earlier-pass arm moved.
+               POSITIVE CONTROL: the same driver over this dir flags 6/10 cells, so the gate can see.
+
+== MOVERS, NAMED AND ATTRIBUTED (whole-dump, path-normalised) ==
+SeqDriver/default   pristine 1816399 lines -> patched 1816411 : 0 deletions, 12 insertions
+SeqDriver/testflags pristine 1816459 lines -> patched 1816471 : 0 deletions, 12 insertions
+MiniAmiq/default    pristine 1890874 lines -> patched 1890886 : 0 deletions, 12 insertions
+MiniAmiq/testflags  pristine 1890874 lines -> patched 1890886 : 0 deletions, 12 insertions
+every inserted line is the same 2-object shape: func_call(max) reached through
+vpiActual from hier_path (q.max) line:1054:12 endln:1054:17.  Nothing else moved.
+
+== HEADS (rowheads.sh, 7 named rows x 2 modes) ==
+SeqDriver default/testflags   13 cmp lines -> 29, one head, HEAD OBJECT CHANGED:
+  pristine LHS func_call: (max) id:190554 < hier_path: (q.max) 1054:12   RHS <null>
+  patched  LHS string_var: (uvm_pkg::uvm_table_printer::emit::dash) 1040:17
+                          < begin: (uvm_pkg::uvm_table_printer::emit) 1039:3   RHS <null>
+ten of the twelve measured cmp logs are BYTE-IDENTICAL between the binaries;
+only SeqDriver's two moved.  MiniAmiq's bytes moved but its 26-line cmp log did not.
+SimpleUVM's 664681-line log is byte-identical between binaries, md5-12 ed5d6193ead2,
+which is the value the committed truncated artifact names.
+
+== CENSUS (ct182cen + cenjoin182, multiset join) ==
+calibration golden-vs-golden  AGREE 27957 DISAGREE 0 MISSING 0 EXTRA 0
+SeqDriver & MiniAmiq x both modes  DISAGREE 42 -> 40, AGREE +2, MISSING/EXTRA frozen
+SimpleUVM, Scoreboard, BuildUVMPkg, Earlgrey_0_1  every class identical between binaries
+family closure: golden's minted func_call cells are 2 (SeqDriver), 2 (MiniAmiq), 0 elsewhere;
+patched matches every one, 0 unmatched keys, 0 extra, 0 orphans.
+
+
+== THE VERIFIER'S OWN ARMS (grid182.sh + score182.py, DEF and ELAB, three-way) ==
+v182_e_with.sv   the WITH-CLAUSE hunt   CONVERTED 2   OVER-FIRE 0  MOVED-STILL-WRONG 0
+v182_f_recv.sv   RECEIVER KINDS         CONVERTED 5   OVER-FIRE 0  MOVED-STILL-WRONG 0
+v182_g_names.sv  NAMES / 3 IMPORTERS    CONVERTED 27  OVER-FIRE 0  MOVED-STILL-WRONG 0
+v182_h_scope.sv  THE ORDERING BREAK     CONVERTED 0   OVER-FIRE 0  SAME 14 (nothing moved)
+v182_i_chain.sv  slang REFUSES the source (see below) - no databases built
+The implementer's own four arms re-scored here: 25 CONVERTED, 0 OVER-FIRE, 0 MOVED-STILL-WRONG.
+
+== THE FACES THAT COULD HAVE BROKEN IT, AND WHAT GOLDEN SAID ==
+* The parens-less WITH form.  The one shape that could over-fire is a name in the
+  five spelled as OUR ref_obj where golden has a method_func_call - r10uvm182's
+  own R1 divergence class.  MEASURED on v182_e_with: for "sluice.max with (item+1)",
+  "sluice.min with (item-1)" and "sluice.find with (item>2)" BOTH producers emit a
+  method_func_call element, so the ref_obj gate refuses on both sides.  R1's
+  divergence is confined to and/or/xor/unique, none of which is a mint name.
+* THE ORDERING BREAK.  pkgCloneMember10 refuses a struct type declared inside a
+  CLASS (LAW C), which would hand such an element to the mint where DeepClone's
+  second switch binds the member.  MEASURED on v182_h_scope: a class METHOD is not
+  a package clone body in either producer, so the cell never arises - golden and
+  patched agree on all 22 rows.  A packed UNION element with a member named "size"
+  (H4) binds the typespec_member on both sides too.
+* A body local named "size" beside a queue read (arm C cell C3): golden MINTS,
+  patched mints, pristine bound the int_var.  The patch is right where pristine
+  was wrong.
+* A user-defined package function named "size"; a receiver whose own name is
+  "max"/"min"/"sizes"; a void-cast statement; a $display argument; three separate
+  wildcard importers of one home package - all CONVERTED, none over-fired
+  (v182_g_names, 27 cells, each importer carrying its own mint).
+* A formal (io_decl) receiver with a same-named body local beside it: identical in
+  both binaries, so outside this law.
+
+== FINDINGS AGAINST THE PASS (none is a regression; the patch is unchanged) ==
+
+V1  ct182pred IS UNSOUND, AND ITS "provably cannot move" CLAIM IS FALSE.
+    It requires the candidate element's Actual_group to be NULL in the pristine
+    bytes.  But bindBuiltin182 runs BEFORE bind9, so an element that pristine's
+    bind9 bound to a BODY LOCAL of the same name is a mover whose pristine actual
+    is NOT null - which is arm C cell C3, one of the pass's own headline cells.
+    MEASURED: ct182pred prints "CANDIDATES 0" on the pass's own arm-C pristine
+    database, which does move.  v182pred.cpp here drops the null requirement and
+    excludes instead only the actual kinds pkgCloneMember10 produces
+    (typespec_member) and an already-minted func_call; on arm C it finds the two
+    C3 candidates (act=int_var).  Re-swept over 956 + 1358 pristine databases it
+    returns the SAME answer as the pass claimed - 4 (SeqDriver x2, MiniAmiq x2)
+    and 0 - and all 8 corpus candidates carry act=<null>, so the blind spot has
+    no corpus instance and the headline prediction stands.
+
+V2  THE bit_select COMMENT IS WRONG, AND GOLDEN MINTS WHERE WE DO NOT.
+    The patch's comment says a bit_select predecessor "takes its own arm in that
+    walk and never reaches the mint".  bit_select, part_select and
+    indexed_part_select are all declared "final : public ref_obj", so DeepClone's
+    any_cast<ref_obj*>(previous) SUCCEEDS on a bit_select and the mint IS reached
+    through it.  MEASURED on v182_f_recv: for a queue-of-queues in a clone body,
+    "mullion[0].size" binds a minted func_call(size) in GOLDEN and stays bare in
+    both our binaries.  Pristine was bare too, so this is a MISS, not a
+    regression, and the exact-uhdmref_obj gate is the conservative choice.
+    Corpus mass 0: no corpus candidate has a bit_select predecessor.
+
+V3  R3 IS STRONGER THAN STATED.  packed_array_var is not merely unreached, it is
+    UNREACHABLE from legal source: slang refuses ".size"/".max" on a packed array
+    ("invalid member access for type 'logic[3:0][7:0]'").  array_net and
+    packed_array_net cannot be a clone-body predecessor at all, because a package
+    clone body's declarations are variables and never nets.  Those three arms of
+    arrayActual182 are dead code - harmless, and correctly modelled if ever live.
+
+V4  TWO OF THE BRIEF'S FACES ARE NOT EXPRESSIBLE.
+    "chained q.max.something": slang rejects it - "parentheses are required when
+    chaining method calls" - and the parenthesised spelling makes every element a
+    method_func_call, which the law refuses.  ".max"/".min" on a struct-element
+    queue: "array method 'max' can only be called on unpacked arrays of comparable
+    values", so "size" is the only mint name a struct-element queue can reach,
+    which is exactly the cell arm C measures.
+
+V5  NOT THIS PASS.  Earlgrey_0_1/testflags carries two ORPHAN func_calls under a
+    hier_path in OUR database and none in golden (region_cfgs[8].size.q and
+    region_cfgs_i[i].size.q).  They are present IDENTICALLY in the pristine
+    binary, so they predate this patch, and an orphan is reachable only through
+    the dump tail the judge never walks.
+
+VERDICT: ACCEPT.  No legal-SystemVerilog face was found on which the pristine
+binary agreed with golden and the patched binary did not.  Production surface
+unchanged from /tmp/r10uvm182.patch.

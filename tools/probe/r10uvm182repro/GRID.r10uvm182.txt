@@ -1,0 +1,390 @@
+r10uvm182 — THE ARM GRIDS (three-way: golden / pristine / patched), scored by score182.py
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.  MEASUREMENT ONLY.
+
+### g182_a_methods.sv  view=def
+CONVERTED         35:16-35:19|cusp.max|1/2|ref_obj|max|IN=package:bard182_imp/design:work@bard182_top
+    pris {'ACT=-|-': 2}
+    gold {'ACT=func_call(max)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+CONVERTED         36:16-36:19|cusp.min|1/2|ref_obj|min|IN=package:bard182_imp/design:work@bard182_top
+    pris {'ACT=-|-': 2}
+    gold {'ACT=func_call(min)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+RESIDUE           39:11-39:15|cusp.xor|0/2|ref_obj|cusp|IN=package:bard182_home/design:work@bard182_top
+    both {'ACT=-|-': 2}
+    gold {}
+RESIDUE           39:11-39:15|cusp.xor|0/2|ref_obj|cusp|IN=package:bard182_imp/design:work@bard182_top
+    both {'ACT=array_var(cusp)@32:10|-': 2}
+    gold {}
+RESIDUE           39:11-39:15|cusp|0/2|ref_obj|cusp|IN=package:bard182_home/design:work@bard182_top
+    both {}
+    gold {'ACT=-|-': 2}
+RESIDUE           39:11-39:15|cusp|0/2|ref_obj|cusp|IN=package:bard182_imp/design:work@bard182_top
+    both {}
+    gold {'ACT=array_var(cusp)@32:10|-': 2}
+RESIDUE           39:16-39:19|cusp.xor|1/2|ref_obj|xor|IN=package:bard182_home/design:work@bard182_top
+    both {'ACT=-|-': 2}
+    gold {}
+RESIDUE           39:16-39:19|cusp.xor|1/2|ref_obj|xor|IN=package:bard182_imp/design:work@bard182_top
+    both {'ACT=-|-': 2}
+    gold {}
+RESIDUE           39:16-39:19|cusp|1/2|method_func_call|xor|IN=package:bard182_home/design:work@bard182_top
+    both {}
+    gold {'ACT=-|-': 2}
+RESIDUE           39:16-39:19|cusp|1/2|method_func_call|xor|IN=package:bard182_imp/design:work@bard182_top
+    both {}
+    gold {'ACT=-|-': 2}
+RESIDUE           40:11-40:15|cusp.unique|0/2|ref_obj|cusp|IN=package:bard182_home/design:work@bard182_top
+    both {'ACT=-|-': 2}
+    gold {}
+RESIDUE           40:11-40:15|cusp.unique|0/2|ref_obj|cusp|IN=package:bard182_imp/design:work@bard182_top
+    both {'ACT=array_var(cusp)@32:10|-': 2}
+    gold {}
+RESIDUE           40:11-40:15|cusp|0/2|ref_obj|cusp|IN=package:bard182_home/design:work@bard182_top
+    both {}
+    gold {'ACT=-|-': 2}
+RESIDUE           40:11-40:15|cusp|0/2|ref_obj|cusp|IN=package:bard182_imp/design:work@bard182_top
+    both {}
+    gold {'ACT=array_var(cusp)@32:10|-': 2}
+RESIDUE           40:16-40:22|cusp.unique|1/2|ref_obj|unique|IN=package:bard182_home/design:work@bard182_top
+    both {'ACT=-|-': 2}
+    gold {}
+RESIDUE           40:16-40:22|cusp.unique|1/2|ref_obj|unique|IN=package:bard182_imp/design:work@bard182_top
+    both {'ACT=-|-': 2}
+    gold {}
+RESIDUE           40:16-40:22|cusp|1/2|method_func_call|unique|IN=package:bard182_home/design:work@bard182_top
+    both {}
+    gold {'ACT=-|-': 2}
+RESIDUE           40:16-40:22|cusp|1/2|method_func_call|unique|IN=package:bard182_imp/design:work@bard182_top
+    both {}
+    gold {'ACT=-|-': 2}
+CONVERTED         41:22-41:26|bay.size|1/2|ref_obj|size|IN=package:bard182_imp/design:work@bard182_top
+    pris {'ACT=-|-': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+CONVERTED         49:16-49:19|lull.max|1/2|ref_obj|max|IN=package:bard182_imp/design:work@bard182_top
+    pris {'ACT=-|-': 2}
+    gold {'ACT=func_call(max)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+CONVERTED         50:16-50:19|lull.min|1/2|ref_obj|min|IN=package:bard182_imp/design:work@bard182_top
+    pris {'ACT=-|-': 2}
+    gold {'ACT=func_call(min)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+CONVERTED         51:16-51:20|lull.size|1/2|ref_obj|size|IN=package:bard182_imp/design:work@bard182_top
+    pris {'ACT=-|-': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+RESIDUE           53:11-53:15|lull.unique|0/2|ref_obj|lull|IN=package:bard182_home/design:work@bard182_top
+    both {'ACT=-|-': 2}
+    gold {}
+RESIDUE           53:11-53:15|lull.unique|0/2|ref_obj|lull|IN=package:bard182_imp/design:work@bard182_top
+    both {'ACT=array_var(lull)@46:10|-': 2}
+    gold {}
+RESIDUE           53:11-53:15|lull|0/2|ref_obj|lull|IN=package:bard182_home/design:work@bard182_top
+    both {}
+    gold {'ACT=-|-': 2}
+RESIDUE           53:11-53:15|lull|0/2|ref_obj|lull|IN=package:bard182_imp/design:work@bard182_top
+    both {}
+    gold {'ACT=array_var(lull)@46:10|-': 2}
+RESIDUE           53:16-53:22|lull.unique|1/2|ref_obj|unique|IN=package:bard182_home/design:work@bard182_top
+    both {'ACT=-|-': 2}
+    gold {}
+RESIDUE           53:16-53:22|lull.unique|1/2|ref_obj|unique|IN=package:bard182_imp/design:work@bard182_top
+    both {'ACT=-|-': 2}
+    gold {}
+RESIDUE           53:16-53:22|lull|1/2|method_func_call|unique|IN=package:bard182_home/design:work@bard182_top
+    both {}
+    gold {'ACT=-|-': 2}
+RESIDUE           53:16-53:22|lull|1/2|method_func_call|unique|IN=package:bard182_imp/design:work@bard182_top
+    both {}
+    gold {'ACT=-|-': 2}
+CONVERTED         54:22-54:26|bay.size|1/2|ref_obj|size|IN=package:bard182_imp/design:work@bard182_top
+    pris {'ACT=-|-': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+CONVERTED         62:16-62:19|mote.max|1/2|ref_obj|max|IN=package:bard182_imp/design:work@bard182_top
+    pris {'ACT=-|-': 2}
+    gold {'ACT=func_call(max)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+CONVERTED         63:16-63:20|mote.size|1/2|ref_obj|size|IN=package:bard182_imp/design:work@bard182_top
+    pris {'ACT=-|-': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+CONVERTED         65:22-65:26|bay.size|1/2|ref_obj|size|IN=package:bard182_imp/design:work@bard182_top
+    pris {'ACT=-|-': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+CONVERTED         73:17-73:20|trove.max|1/2|ref_obj|max|IN=package:bard182_imp/design:work@bard182_top
+    pris {'ACT=-|-': 2}
+    gold {'ACT=func_call(max)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+CONVERTED         74:17-74:20|trove.min|1/2|ref_obj|min|IN=package:bard182_imp/design:work@bard182_top
+    pris {'ACT=-|-': 2}
+    gold {'ACT=func_call(min)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+CONVERTED         75:17-75:21|trove.size|1/2|ref_obj|size|IN=package:bard182_imp/design:work@bard182_top
+    pris {'ACT=-|-': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+CONVERTED         77:22-77:26|bay.size|1/2|ref_obj|size|IN=package:bard182_imp/design:work@bard182_top
+    pris {'ACT=-|-': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+CONVERTED         84:16-84:20|sill.size|1/2|ref_obj|size|IN=package:bard182_imp/design:work@bard182_top
+    pris {'ACT=-|-': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+CONVERTED=15 OVER-FIRE=0 MOVED-STILL-WRONG=0 RESIDUE=24 SAME=73
+
+### g182_a_methods.sv  view=elab
+CONVERTED         35:16-35:19|cusp.max|1/2|ref_obj|max|IN=package:bard182_imp/design:work@bard182_top
+    pris {'ACT=-|-': 2, 'ACT=func_call(max)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+    gold {'ACT=func_call(max)@0:0|FN=no,ARGS=0,PARENT=hier_path': 4}
+CONVERTED         36:16-36:19|cusp.min|1/2|ref_obj|min|IN=package:bard182_imp/design:work@bard182_top
+    pris {'ACT=-|-': 2, 'ACT=func_call(min)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+    gold {'ACT=func_call(min)@0:0|FN=no,ARGS=0,PARENT=hier_path': 4}
+RESIDUE           39:11-39:15|cusp.xor|0/2|ref_obj|cusp|IN=package:bard182_home/design:work@bard182_top
+    both {'ACT=array_var(cusp)@32:10|-': 4}
+    gold {}
+RESIDUE           39:11-39:15|cusp.xor|0/2|ref_obj|cusp|IN=package:bard182_imp/design:work@bard182_top
+    both {'ACT=array_var(cusp)@32:10|-': 4}
+    gold {}
+RESIDUE           39:11-39:15|cusp|0/2|ref_obj|cusp|IN=package:bard182_home/design:work@bard182_top
+    both {}
+    gold {'ACT=array_var(cusp)@32:10|-': 4}
+RESIDUE           39:11-39:15|cusp|0/2|ref_obj|cusp|IN=package:bard182_imp/design:work@bard182_top
+    both {}
+    gold {'ACT=array_var(cusp)@32:10|-': 4}
+RESIDUE           39:16-39:19|cusp.xor|1/2|ref_obj|xor|IN=package:bard182_home/design:work@bard182_top
+    both {'ACT=-|-': 4}
+    gold {}
+RESIDUE           39:16-39:19|cusp.xor|1/2|ref_obj|xor|IN=package:bard182_imp/design:work@bard182_top
+    both {'ACT=-|-': 4}
+    gold {}
+RESIDUE           39:16-39:19|cusp|1/2|method_func_call|xor|IN=package:bard182_home/design:work@bard182_top
+    both {}
+    gold {'ACT=-|-': 4}
+RESIDUE           39:16-39:19|cusp|1/2|method_func_call|xor|IN=package:bard182_imp/design:work@bard182_top
+    both {}
+    gold {'ACT=-|-': 4}
+RESIDUE           40:11-40:15|cusp.unique|0/2|ref_obj|cusp|IN=package:bard182_home/design:work@bard182_top
+    both {'ACT=array_var(cusp)@32:10|-': 4}
+    gold {}
+RESIDUE           40:11-40:15|cusp.unique|0/2|ref_obj|cusp|IN=package:bard182_imp/design:work@bard182_top
+    both {'ACT=array_var(cusp)@32:10|-': 4}
+    gold {}
+RESIDUE           40:11-40:15|cusp|0/2|ref_obj|cusp|IN=package:bard182_home/design:work@bard182_top
+    both {}
+    gold {'ACT=array_var(cusp)@32:10|-': 4}
+RESIDUE           40:11-40:15|cusp|0/2|ref_obj|cusp|IN=package:bard182_imp/design:work@bard182_top
+    both {}
+    gold {'ACT=array_var(cusp)@32:10|-': 4}
+RESIDUE           40:16-40:22|cusp.unique|1/2|ref_obj|unique|IN=package:bard182_home/design:work@bard182_top
+    both {'ACT=-|-': 4}
+    gold {}
+RESIDUE           40:16-40:22|cusp.unique|1/2|ref_obj|unique|IN=package:bard182_imp/design:work@bard182_top
+    both {'ACT=-|-': 4}
+    gold {}
+RESIDUE           40:16-40:22|cusp|1/2|method_func_call|unique|IN=package:bard182_home/design:work@bard182_top
+    both {}
+    gold {'ACT=-|-': 4}
+RESIDUE           40:16-40:22|cusp|1/2|method_func_call|unique|IN=package:bard182_imp/design:work@bard182_top
+    both {}
+    gold {'ACT=-|-': 4}
+CONVERTED         41:22-41:26|bay.size|1/2|ref_obj|size|IN=package:bard182_imp/design:work@bard182_top
+    pris {'ACT=-|-': 2, 'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 4}
+CONVERTED         49:16-49:19|lull.max|1/2|ref_obj|max|IN=package:bard182_imp/design:work@bard182_top
+    pris {'ACT=-|-': 2, 'ACT=func_call(max)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+    gold {'ACT=func_call(max)@0:0|FN=no,ARGS=0,PARENT=hier_path': 4}
+CONVERTED         50:16-50:19|lull.min|1/2|ref_obj|min|IN=package:bard182_imp/design:work@bard182_top
+    pris {'ACT=-|-': 2, 'ACT=func_call(min)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+    gold {'ACT=func_call(min)@0:0|FN=no,ARGS=0,PARENT=hier_path': 4}
+CONVERTED         51:16-51:20|lull.size|1/2|ref_obj|size|IN=package:bard182_imp/design:work@bard182_top
+    pris {'ACT=-|-': 2, 'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 4}
+RESIDUE           53:11-53:15|lull.unique|0/2|ref_obj|lull|IN=package:bard182_home/design:work@bard182_top
+    both {'ACT=array_var(lull)@46:10|-': 4}
+    gold {}
+RESIDUE           53:11-53:15|lull.unique|0/2|ref_obj|lull|IN=package:bard182_imp/design:work@bard182_top
+    both {'ACT=array_var(lull)@46:10|-': 4}
+    gold {}
+RESIDUE           53:11-53:15|lull|0/2|ref_obj|lull|IN=package:bard182_home/design:work@bard182_top
+    both {}
+    gold {'ACT=array_var(lull)@46:10|-': 4}
+RESIDUE           53:11-53:15|lull|0/2|ref_obj|lull|IN=package:bard182_imp/design:work@bard182_top
+    both {}
+    gold {'ACT=array_var(lull)@46:10|-': 4}
+RESIDUE           53:16-53:22|lull.unique|1/2|ref_obj|unique|IN=package:bard182_home/design:work@bard182_top
+    both {'ACT=-|-': 4}
+    gold {}
+RESIDUE           53:16-53:22|lull.unique|1/2|ref_obj|unique|IN=package:bard182_imp/design:work@bard182_top
+    both {'ACT=-|-': 4}
+    gold {}
+RESIDUE           53:16-53:22|lull|1/2|method_func_call|unique|IN=package:bard182_home/design:work@bard182_top
+    both {}
+    gold {'ACT=-|-': 4}
+RESIDUE           53:16-53:22|lull|1/2|method_func_call|unique|IN=package:bard182_imp/design:work@bard182_top
+    both {}
+    gold {'ACT=-|-': 4}
+CONVERTED         54:22-54:26|bay.size|1/2|ref_obj|size|IN=package:bard182_imp/design:work@bard182_top
+    pris {'ACT=-|-': 2, 'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 4}
+CONVERTED         62:16-62:19|mote.max|1/2|ref_obj|max|IN=package:bard182_imp/design:work@bard182_top
+    pris {'ACT=-|-': 2, 'ACT=func_call(max)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+    gold {'ACT=func_call(max)@0:0|FN=no,ARGS=0,PARENT=hier_path': 4}
+CONVERTED         63:16-63:20|mote.size|1/2|ref_obj|size|IN=package:bard182_imp/design:work@bard182_top
+    pris {'ACT=-|-': 2, 'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 4}
+CONVERTED         65:22-65:26|bay.size|1/2|ref_obj|size|IN=package:bard182_imp/design:work@bard182_top
+    pris {'ACT=-|-': 2, 'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 4}
+CONVERTED         73:17-73:20|trove.max|1/2|ref_obj|max|IN=package:bard182_imp/design:work@bard182_top
+    pris {'ACT=-|-': 2, 'ACT=func_call(max)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+    gold {'ACT=func_call(max)@0:0|FN=no,ARGS=0,PARENT=hier_path': 4}
+CONVERTED         74:17-74:20|trove.min|1/2|ref_obj|min|IN=package:bard182_imp/design:work@bard182_top
+    pris {'ACT=-|-': 2, 'ACT=func_call(min)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+    gold {'ACT=func_call(min)@0:0|FN=no,ARGS=0,PARENT=hier_path': 4}
+CONVERTED         75:17-75:21|trove.size|1/2|ref_obj|size|IN=package:bard182_imp/design:work@bard182_top
+    pris {'ACT=-|-': 2, 'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 4}
+CONVERTED         77:22-77:26|bay.size|1/2|ref_obj|size|IN=package:bard182_imp/design:work@bard182_top
+    pris {'ACT=-|-': 2, 'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 4}
+CONVERTED         84:16-84:20|sill.size|1/2|ref_obj|size|IN=package:bard182_imp/design:work@bard182_top
+    pris {'ACT=-|-': 2, 'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 4}
+CONVERTED=15 OVER-FIRE=0 MOVED-STILL-WRONG=0 RESIDUE=24 SAME=73
+
+### g182_b_ctx.sv  view=def
+CONVERTED         17:18-17:22|sluice.size|1/2|ref_obj|size|IN=package:flint182_imp/design:work@flint182_top
+    pris {'ACT=-|-': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+CONVERTED         19:16-19:20|sluice.size|1/2|ref_obj|size|IN=package:flint182_imp/design:work@flint182_top
+    pris {'ACT=-|-': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+CONVERTED         21:30-21:34|sluice.size|1/2|ref_obj|size|IN=package:flint182_imp/design:work@flint182_top
+    pris {'ACT=-|-': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+CONVERTED         23:24-23:28|sluice.size|1/2|ref_obj|size|IN=package:flint182_imp/design:work@flint182_top
+    pris {'ACT=-|-': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+CONVERTED         25:18-25:22|sluice.size|1/2|ref_obj|size|IN=package:flint182_imp/design:work@flint182_top
+    pris {'ACT=-|-': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+CONVERTED         27:40-27:44|sluice.size|1/2|ref_obj|size|IN=package:flint182_imp/design:work@flint182_top
+    pris {'ACT=-|-': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+CONVERTED         29:20-29:23|sluice.max|1/2|ref_obj|max|IN=package:flint182_imp/design:work@flint182_top
+    pris {'ACT=-|-': 2}
+    gold {'ACT=func_call(max)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+CONVERTED         30:24-30:28|ridge.size|1/2|ref_obj|size|IN=package:flint182_imp/design:work@flint182_top
+    pris {'ACT=-|-': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+CONVERTED=8 OVER-FIRE=0 MOVED-STILL-WRONG=0 RESIDUE=0 SAME=24
+
+### g182_b_ctx.sv  view=elab
+CONVERTED         17:18-17:22|sluice.size|1/2|ref_obj|size|IN=package:flint182_imp/design:work@flint182_top
+    pris {'ACT=-|-': 2, 'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 4}
+CONVERTED         19:16-19:20|sluice.size|1/2|ref_obj|size|IN=package:flint182_imp/design:work@flint182_top
+    pris {'ACT=-|-': 2, 'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 4}
+CONVERTED         21:30-21:34|sluice.size|1/2|ref_obj|size|IN=package:flint182_imp/design:work@flint182_top
+    pris {'ACT=-|-': 2, 'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 4}
+CONVERTED         23:24-23:28|sluice.size|1/2|ref_obj|size|IN=package:flint182_imp/design:work@flint182_top
+    pris {'ACT=-|-': 2, 'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 4}
+CONVERTED         25:18-25:22|sluice.size|1/2|ref_obj|size|IN=package:flint182_imp/design:work@flint182_top
+    pris {'ACT=-|-': 2, 'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 4}
+CONVERTED         27:40-27:44|sluice.size|1/2|ref_obj|size|IN=package:flint182_imp/design:work@flint182_top
+    pris {'ACT=-|-': 2, 'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 4}
+CONVERTED         29:20-29:23|sluice.max|1/2|ref_obj|max|IN=package:flint182_imp/design:work@flint182_top
+    pris {'ACT=-|-': 2, 'ACT=func_call(max)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+    gold {'ACT=func_call(max)@0:0|FN=no,ARGS=0,PARENT=hier_path': 4}
+CONVERTED         30:24-30:28|ridge.size|1/2|ref_obj|size|IN=package:flint182_imp/design:work@flint182_top
+    pris {'ACT=-|-': 2, 'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 4}
+CONVERTED=8 OVER-FIRE=0 MOVED-STILL-WRONG=0 RESIDUE=0 SAME=24
+
+### g182_c_edges.sv  view=def
+CONVERTED         50:18-50:22|sluice.size|1/2|ref_obj|size|IN=package:brace182_imp/design:work@brace182_top
+    pris {'ACT=int_var(size)@47:9|-': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+CONVERTED=1 OVER-FIRE=0 MOVED-STILL-WRONG=0 RESIDUE=0 SAME=19
+
+### g182_c_edges.sv  view=elab
+CONVERTED         50:18-50:22|sluice.size|1/2|ref_obj|size|IN=package:brace182_imp/design:work@brace182_top
+    pris {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2, 'ACT=int_var(size)@47:9|-': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 4}
+CONVERTED=1 OVER-FIRE=0 MOVED-STILL-WRONG=0 RESIDUE=0 SAME=21
+
+### g182_d_parens.sv  view=def
+CONVERTED         5:18-5:22|sluice.size|1/2|ref_obj|size|IN=package:quill182_imp/design:work@quill182_top
+    pris {'ACT=-|-': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+CONVERTED=1 OVER-FIRE=0 MOVED-STILL-WRONG=0 RESIDUE=0 SAME=7
+
+### g182_d_parens.sv  view=elab
+CONVERTED         5:18-5:22|sluice.size|1/2|ref_obj|size|IN=package:quill182_imp/design:work@quill182_top
+    pris {'ACT=-|-': 2, 'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 2}
+    gold {'ACT=func_call(size)@0:0|FN=no,ARGS=0,PARENT=hier_path': 4}
+CONVERTED=1 OVER-FIRE=0 MOVED-STILL-WRONG=0 RESIDUE=0 SAME=7
+
+### the arm command lines and every rc
+-- a_methods
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/r10uvm182_armp/a_methods/g_def /tmp/wt_r10uvm182/tools/probe/r10uvm182repro/g182_a_methods.sv
+rc=0 /tmp/r10uvm182_bin/pris.bin /tmp/wt_r10uvm182/tools/probe/r10uvm182repro/g182_a_methods.sv -o /tmp/r10uvm182_armp/a_methods/a_def.uhdm
+rc=0 /tmp/r10uvm182_bin/pat.bin /tmp/wt_r10uvm182/tools/probe/r10uvm182repro/g182_a_methods.sv -o /tmp/r10uvm182_armp/a_methods/b_def.uhdm
+cen rc=0 g_def/slpp_all/surelog.uhdm
+cen rc=0 a_def.uhdm
+cen rc=0 b_def.uhdm
+cmp rc=255 a def lines=126 heads=1
+cmp rc=255 b def lines=126 heads=1
+rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/r10uvm182_armp/a_methods/g_elab /tmp/wt_r10uvm182/tools/probe/r10uvm182repro/g182_a_methods.sv
+rc=0 /tmp/r10uvm182_bin/pris.bin /tmp/wt_r10uvm182/tools/probe/r10uvm182repro/g182_a_methods.sv --elabuhdm -o /tmp/r10uvm182_armp/a_methods/a_elab.uhdm
+rc=0 /tmp/r10uvm182_bin/pat.bin /tmp/wt_r10uvm182/tools/probe/r10uvm182repro/g182_a_methods.sv --elabuhdm -o /tmp/r10uvm182_armp/a_methods/b_elab.uhdm
+cen rc=0 g_elab/slpp_all/surelog.uhdm
+cen rc=0 a_elab.uhdm
+cen rc=0 b_elab.uhdm
+cmp rc=255 a elab lines=126 heads=1
+cmp rc=255 b elab lines=126 heads=1
+-- b_ctx
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/r10uvm182_armp/b_ctx/g_def /tmp/wt_r10uvm182/tools/probe/r10uvm182repro/g182_b_ctx.sv
+rc=0 /tmp/r10uvm182_bin/pris.bin /tmp/wt_r10uvm182/tools/probe/r10uvm182repro/g182_b_ctx.sv -o /tmp/r10uvm182_armp/b_ctx/a_def.uhdm
+rc=0 /tmp/r10uvm182_bin/pat.bin /tmp/wt_r10uvm182/tools/probe/r10uvm182repro/g182_b_ctx.sv -o /tmp/r10uvm182_armp/b_ctx/b_def.uhdm
+cen rc=0 g_def/slpp_all/surelog.uhdm
+cen rc=0 a_def.uhdm
+cen rc=0 b_def.uhdm
+cmp rc=255 a def lines=2418 heads=1
+cmp rc=255 b def lines=2418 heads=1
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/r10uvm182_armp/b_ctx/g_elab /tmp/wt_r10uvm182/tools/probe/r10uvm182repro/g182_b_ctx.sv
+rc=0 /tmp/r10uvm182_bin/pris.bin /tmp/wt_r10uvm182/tools/probe/r10uvm182repro/g182_b_ctx.sv --elabuhdm -o /tmp/r10uvm182_armp/b_ctx/a_elab.uhdm
+rc=0 /tmp/r10uvm182_bin/pat.bin /tmp/wt_r10uvm182/tools/probe/r10uvm182repro/g182_b_ctx.sv --elabuhdm -o /tmp/r10uvm182_armp/b_ctx/b_elab.uhdm
+cen rc=0 g_elab/slpp_all/surelog.uhdm
+cen rc=0 a_elab.uhdm
+cen rc=0 b_elab.uhdm
+cmp rc=255 a elab lines=3034 heads=1
+cmp rc=255 b elab lines=3034 heads=1
+-- c_edges
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/r10uvm182_armp/c_edges/g_def /tmp/wt_r10uvm182/tools/probe/r10uvm182repro/g182_c_edges.sv
+rc=0 /tmp/r10uvm182_bin/pris.bin /tmp/wt_r10uvm182/tools/probe/r10uvm182repro/g182_c_edges.sv -o /tmp/r10uvm182_armp/c_edges/a_def.uhdm
+rc=0 /tmp/r10uvm182_bin/pat.bin /tmp/wt_r10uvm182/tools/probe/r10uvm182repro/g182_c_edges.sv -o /tmp/r10uvm182_armp/c_edges/b_def.uhdm
+cen rc=0 g_def/slpp_all/surelog.uhdm
+cen rc=0 a_def.uhdm
+cen rc=0 b_def.uhdm
+cmp rc=255 a def lines=2378 heads=1
+cmp rc=255 b def lines=2378 heads=1
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/r10uvm182_armp/c_edges/g_elab /tmp/wt_r10uvm182/tools/probe/r10uvm182repro/g182_c_edges.sv
+rc=0 /tmp/r10uvm182_bin/pris.bin /tmp/wt_r10uvm182/tools/probe/r10uvm182repro/g182_c_edges.sv --elabuhdm -o /tmp/r10uvm182_armp/c_edges/a_elab.uhdm
+rc=0 /tmp/r10uvm182_bin/pat.bin /tmp/wt_r10uvm182/tools/probe/r10uvm182repro/g182_c_edges.sv --elabuhdm -o /tmp/r10uvm182_armp/c_edges/b_elab.uhdm
+cen rc=0 g_elab/slpp_all/surelog.uhdm
+cen rc=0 a_elab.uhdm
+cen rc=0 b_elab.uhdm
+cmp rc=255 a elab lines=3142 heads=1
+cmp rc=255 b elab lines=3142 heads=1
+-- d_parens
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/r10uvm182_armp/d_parens/g_def /tmp/wt_r10uvm182/tools/probe/r10uvm182repro/g182_d_parens.sv
+rc=0 /tmp/r10uvm182_bin/pris.bin /tmp/wt_r10uvm182/tools/probe/r10uvm182repro/g182_d_parens.sv -o /tmp/r10uvm182_armp/d_parens/a_def.uhdm
+rc=0 /tmp/r10uvm182_bin/pat.bin /tmp/wt_r10uvm182/tools/probe/r10uvm182repro/g182_d_parens.sv -o /tmp/r10uvm182_armp/d_parens/b_def.uhdm
+cen rc=0 g_def/slpp_all/surelog.uhdm
+cen rc=0 a_def.uhdm
+cen rc=0 b_def.uhdm
+cmp rc=255 a def lines=670 heads=1
+cmp rc=255 b def lines=670 heads=1
+rc=0 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/r10uvm182_armp/d_parens/g_elab /tmp/wt_r10uvm182/tools/probe/r10uvm182repro/g182_d_parens.sv
+rc=0 /tmp/r10uvm182_bin/pris.bin /tmp/wt_r10uvm182/tools/probe/r10uvm182repro/g182_d_parens.sv --elabuhdm -o /tmp/r10uvm182_armp/d_parens/a_elab.uhdm
+rc=0 /tmp/r10uvm182_bin/pat.bin /tmp/wt_r10uvm182/tools/probe/r10uvm182repro/g182_d_parens.sv --elabuhdm -o /tmp/r10uvm182_armp/d_parens/b_elab.uhdm
+cen rc=0 g_elab/slpp_all/surelog.uhdm
+cen rc=0 a_elab.uhdm
+cen rc=0 b_elab.uhdm
+cmp rc=255 a elab lines=886 heads=1
+cmp rc=255 b elab lines=886 heads=1

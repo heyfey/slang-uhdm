@@ -1,0 +1,23 @@
+r10uvm182 — THE WIDE BOUNDARY GATE (bound182.sh, every .sv/.v under a COPY of tools/probe,
+both binaries, DEF and ELAB; fd-3 list, children </dev/null, PROCESSED asserted).
+MEASUREMENT ONLY.  PRI=pris.bin PAT=pat.bin ROOT=/tmp/r10uvm182_probecopy
+
+MOVED 2507_r10uvm182repro_g182_a_methods.sv/def 180 lines
+MOVED 2507_r10uvm182repro_g182_a_methods.sv/elab 180 lines
+MOVED 2508_r10uvm182repro_g182_b_ctx.sv/def 96 lines
+MOVED 2508_r10uvm182repro_g182_b_ctx.sv/elab 96 lines
+MOVED 2509_r10uvm182repro_g182_c_edges.sv/def 12 lines
+MOVED 2509_r10uvm182repro_g182_c_edges.sv/elab 12 lines
+MOVED 2510_r10uvm182repro_g182_d_parens.sv/def 12 lines
+MOVED 2510_r10uvm182repro_g182_d_parens.sv/elab 12 lines
+LISTED=4988 FENCED_SKIPPED=0 PROCESSED=4988 MOVED=8 NO_OUTPUT_PAIRS=380
+PROCESSED-ASSERT-OK
+
+The 8 MOVED cells are this pass's OWN four arm sources, each in both views.
+NO arm of any earlier pass moved: buvm14's a1_dims14, uvm89's a1/a2 and v81h_lvbase,
+uvm181's g181_a..d, uvm84/85's, uvm77-79's and the sd8-12 subdirectory arms are all
+byte-identical between the two binaries in both views.
+
+NO_OUTPUT_PAIRS=380 are sources BOTH binaries refuse or crash on identically
+(the driver prints ASYMMETRIC_OUTPUT and counts a MOVE if only one side produces a
+database; it printed none).

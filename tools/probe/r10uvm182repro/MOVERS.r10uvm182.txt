@@ -1,0 +1,74 @@
+r10uvm182 — MOVERS AND THEIR ATTRIBUTION
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+== byteverify.sh, surelog (patched vs pristine, SELFCHECK=1) ==
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=36bd0b405f96 pristine=b6237288ea29
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=200fb54169ac pristine=c057713ca9e8
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=36bd0b405f96 pristine=b6237288ea29
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=f41d057b82a1 pristine=c575ef3b7cea
+MOVERS: 4 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+
+== byteverify.sh, uhdm2rtlil ==
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+
+== whole-dump path-normalised attribution, SeqDriver/default ==
+deletions=0  insertions=12
+364613a364614,364615
+>               |vpiActual:
+>               \_func_call: (max)
+1403665a1403668,1403669
+>               |vpiActual:
+>               \_func_call: (max)
+1815473a1815478,1815485
+> \_func_call: (max)
+>   |vpiParent:
+>   \_hier_path: (q.max), line:1054:12, endln:1054:17
+>   |vpiName:max
+> \_func_call: (max)
+>   |vpiParent:
+>   \_hier_path: (q.max), line:1054:12, endln:1054:17
+>   |vpiName:max
+
+== the seven-row head set, pristine -> patched ==
+(cmp lines / heads; the cmp LOGS of the other ten row-modes are BYTE-IDENTICAL between the two binaries)
+-- pristine
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         13      1 cmp rc=255
+SeqDriver      testflags       13      1 cmp rc=255
+SimpleUVM      default     664681      1 cmp rc=255
+SimpleUVM      testflags   664681      1 cmp rc=255
+Scoreboard     default         95      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default         26      1 cmp rc=255
+MiniAmiq       testflags       26      1 cmp rc=255
+BuildUVMPkg    default         52      1 cmp rc=255
+BuildUVMPkg    testflags       52      1 cmp rc=255
+Earlgrey_0_1   default         31      1 cmp rc=255
+Earlgrey_0_1   testflags      364      1 cmp rc=255
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+
+-- patched
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         29      1 cmp rc=255
+SeqDriver      testflags       29      1 cmp rc=255
+SimpleUVM      default     664681      1 cmp rc=255
+SimpleUVM      testflags   664681      1 cmp rc=255
+Scoreboard     default         95      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default         26      1 cmp rc=255
+MiniAmiq       testflags       26      1 cmp rc=255
+BuildUVMPkg    default         52      1 cmp rc=255
+BuildUVMPkg    testflags       52      1 cmp rc=255
+Earlgrey_0_1   default         31      1 cmp rc=255
+Earlgrey_0_1   testflags      364      1 cmp rc=255
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0

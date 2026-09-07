@@ -1,0 +1,47 @@
+r10uvm182 — THE CORPUS CENSUS (every hier_path ELEMENT's vpiActual, golden vs ours)
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+Key = span | hier_path name | element index/arity | element kind | element name | LISTING.
+The FILE is deliberately out of the key (see cenjoin182.py's header for the measured reason).
+
+CALIBRATION FIRST, golden against golden (SeqDriver/default):
+AGREE 27957  DISAGREE 0  MISSING-OURS 0  EXTRA-OURS 0  rows-golden 27957  rows-ours 27957
+
+== PRISTINE ==
+BuildUVMPkg    default   AGREE 15018  DISAGREE 0  MISSING-OURS 656  EXTRA-OURS 401  rows-golden 15674  rows-ours 15674
+BuildUVMPkg    testflags AGREE 15018  DISAGREE 0  MISSING-OURS 656  EXTRA-OURS 401  rows-golden 15674  rows-ours 15674
+MiniAmiq       default   AGREE 25491  DISAGREE 42  MISSING-OURS 2996  EXTRA-OURS 2527  rows-golden 28529  rows-ours 28589
+MiniAmiq       testflags AGREE 25491  DISAGREE 42  MISSING-OURS 2996  EXTRA-OURS 2527  rows-golden 28529  rows-ours 28589
+Scoreboard     default   AGREE 14429  DISAGREE 0  MISSING-OURS 1676  EXTRA-OURS 1421  rows-golden 16105  rows-ours 16105
+SeqDriver      default   AGREE 24943  DISAGREE 42  MISSING-OURS 2972  EXTRA-OURS 2505  rows-golden 27957  rows-ours 28019
+SeqDriver      testflags AGREE 24943  DISAGREE 42  MISSING-OURS 2972  EXTRA-OURS 2505  rows-golden 27957  rows-ours 28019
+SimpleUVM      default   AGREE 14374  DISAGREE 0  MISSING-OURS 1671  EXTRA-OURS 1416  rows-golden 16045  rows-ours 16045
+SimpleUVM      testflags AGREE 14374  DISAGREE 0  MISSING-OURS 1671  EXTRA-OURS 1416  rows-golden 16045  rows-ours 16045
+
+== PATCHED ==
+BuildUVMPkg    default   AGREE 15018  DISAGREE 0  MISSING-OURS 656  EXTRA-OURS 401  rows-golden 15674  rows-ours 15674
+BuildUVMPkg    testflags AGREE 15018  DISAGREE 0  MISSING-OURS 656  EXTRA-OURS 401  rows-golden 15674  rows-ours 15674
+MiniAmiq       default   AGREE 25493  DISAGREE 40  MISSING-OURS 2996  EXTRA-OURS 2527  rows-golden 28529  rows-ours 28589
+MiniAmiq       testflags AGREE 25493  DISAGREE 40  MISSING-OURS 2996  EXTRA-OURS 2527  rows-golden 28529  rows-ours 28589
+Scoreboard     default   AGREE 14429  DISAGREE 0  MISSING-OURS 1676  EXTRA-OURS 1421  rows-golden 16105  rows-ours 16105
+SeqDriver      default   AGREE 24945  DISAGREE 40  MISSING-OURS 2972  EXTRA-OURS 2505  rows-golden 27957  rows-ours 28019
+SeqDriver      testflags AGREE 24945  DISAGREE 40  MISSING-OURS 2972  EXTRA-OURS 2505  rows-golden 27957  rows-ours 28019
+SimpleUVM      default   AGREE 14374  DISAGREE 0  MISSING-OURS 1671  EXTRA-OURS 1416  rows-golden 16045  rows-ours 16045
+SimpleUVM      testflags AGREE 14374  DISAGREE 0  MISSING-OURS 1671  EXTRA-OURS 1416  rows-golden 16045  rows-ours 16045
+
+== THE FAMILY DELTA, SeqDriver/default ==
+1,2c1
+< AGREE 24943  DISAGREE 42  MISSING-OURS 2972  EXTRA-OURS 2505  rows-golden 27957  rows-ours 28019
+<   ONLY-GOLDEN x2 1054:14-1054:17|q.max|1/2|ref_obj|max|IN=package:adpcm_pkg/design:work@top_tb => ACT=func_call(max)@0:0|FN=no,ARGS=0,PARENT=hier_path
+---
+> AGREE 24945  DISAGREE 40  MISSING-OURS 2972  EXTRA-OURS 2505  rows-golden 27957  rows-ours 28019
+49d47
+<   ONLY-OURS   x2 1054:14-1054:17|q.max|1/2|ref_obj|max|IN=package:adpcm_pkg/design:work@top_tb => ACT=-|-
+
+== THE FAMILY DELTA, MiniAmiq/default ==
+1,2c1
+< AGREE 25491  DISAGREE 42  MISSING-OURS 2996  EXTRA-OURS 2527  rows-golden 28529  rows-ours 28589
+<   ONLY-GOLDEN x2 1054:14-1054:17|q.max|1/2|ref_obj|max|IN=package:svaunit_pkg/design:unnamed => ACT=func_call(max)@0:0|FN=no,ARGS=0,PARENT=hier_path
+---
+> AGREE 25493  DISAGREE 40  MISSING-OURS 2996  EXTRA-OURS 2527  rows-golden 28529  rows-ours 28589
+49d47
+<   ONLY-OURS   x2 1054:14-1054:17|q.max|1/2|ref_obj|max|IN=package:svaunit_pkg/design:unnamed => ACT=-|-
