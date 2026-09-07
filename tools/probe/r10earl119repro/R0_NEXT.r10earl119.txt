@@ -1,0 +1,23 @@
+   GOLDEN  AllPackages  size=40 nulls=0
+   OURS    AllPackages  size=40 nulls=0
+   GOLDEN  TopPackages  size=40 nulls=0
+   OURS    TopPackages  size=40 nulls=0
+== design::AllPackages  golden=40 ours=40
+   'top_pkg' golden index=1 present=yes   ours index=1 present=yes
+== package::Compare -> 0
+   failedLhs = <null>
+   failedRhs = <null>
+== CONTAINER BISECTION (generated scope/instance order, fresh context each)
+      scope::Named_events          L=null  R=null  -> 0
+      scope::Variables             L=null  R=null  -> 0
+      scope::Logic_vars            L=null  R=null  -> 0
+      scope::Array_vars            L=null  R=null  -> 0
+      scope::Parameters            L=11    R=11    -> 0
+      scope::Param_assigns         L=11    R=11    -> 0
+      scope::Scopes                L=null  R=null  -> 0
+      scope::Typespecs             L=null  R=null  -> 0
+      scope::Instance_items        L=null  R=null  -> 0
+      instance::Programs           L=null  R=null  -> 0
+      instance::Nets               L=null  R=null  -> 0
+      instance::Array_nets         L=null  R=null  -> 0
+      instance::Task_funcs         L=null  R=null  -> 0

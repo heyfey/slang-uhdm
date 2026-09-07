@@ -1,0 +1,6 @@
+-- PREDICTED MOVERS (reachable cell + golden holds a folded constant) --
+  rows=0  cells=0
+-- PREDICT-AWAY (reachable but golden does NOT fold: must be empty) --
+  rows=0
+-- PREDICT-DECLINE (op67 cells this law does not reach: the R1 residue) --
+  rows=2  cells=2

@@ -1,0 +1,38 @@
+r10earl119 — THE THREE WIDE-BOUNDARY ARMS THAT MOVE IN BOTH VIEWS, CONVICTED AS
+THE STATIC-ADDRESS FALSE MOVER BY A THIRD BINARY.
+
+  r10buvm22repro/g22.sv, r10uvm154repro/l154_noenum.sv,
+  r10uvm185repro/grid185/g185_e_kinds.sv          (plain AND elab)
+
+The law cannot run under `--elabuhdm` at all (uhdm_main.cpp gates the call on
+`elabUhdm != true`), so an ELAB-view move is by construction not the law.  The
+diff is one constant per file, always the same pair of values:
+
+  pristine  |vpiDecompile:22650617   (and 22649761)
+  patched   |vpiDecompile:22654713   (and 22653857)      delta = 4096 = ONE PAGE
+
+and the cell is the RIGHT RANGE of a DYNAMIC-ARRAY dimension, e.g.
+r10buvm22repro/g22.sv:70 `typedef C22 kd_cls_t[];` — an unbounded dimension
+whose bound our emitter fills from a static address.  Neither value is golden's;
+the cell is equally wrong on both binaries.
+
+THE CONVICTION — a THIRD binary, built from THIS pass's tree with the call site
+gated behind an environment variable so the law is COMPILED IN but NEVER RUN
+(`if (elabUhdm != true && getenv("R10EARL119_NOLAW") == nullptr)`), md5
+d253665519d09ecbe26fb6f6e199efcd:
+
+  arm                    pristine        patched         gated (law never runs)
+  g22.sv                 22650617        22654713        22654713
+  l154_noenum.sv         22650617        22654713        22654713
+  g185_e_kinds.sv        22650617        22654713        22654713   (dump md5
+                                                          IDENTICAL to patched)
+
+The gated binary moves the cell exactly as the patched one does WITHOUT the law
+executing, so the mover is the binary's SIZE, not its behaviour — RESUME.md
+section 9's "static-address false mover: named arms move when the binary grows a
+page".  The tell it names is present too: the census over these arms shows ZERO
+cont_assign movement.
+
+After the measurement the call site was restored and the tree rebuilt; the
+rebuild reproduces the shipped patched binary md5 8799d09f4507aa42d3c74bfd630473b2
+byte for byte.

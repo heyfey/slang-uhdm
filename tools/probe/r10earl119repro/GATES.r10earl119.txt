@@ -1,0 +1,85 @@
+r10earl119 — THE FIVE GATES, run on the two FROZEN binaries, every command and
+every number.  The official uhdm-cmp and scripts/verify_golden.py are the
+authorities; nothing in this directory judges anything.
+
+BASE            f7a77143
+pristine binary a2733a6622a01308a82a434a9e747d5e  (built in this pass's own
+                worktree at a clean f7a77143, frozen chmod 555 BEFORE any
+                sweep — and BYTE-IDENTICAL to the main tree's build/slang-uhdm)
+patched binary  8799d09f4507aa42d3c74bfd630473b2  (frozen chmod 555)
+third binary    d253665519d09ecbe26fb6f6e199efcd  (the false-mover conviction,
+                see FALSEMOVER.r10earl119.txt; NOT shipped, and the tree was
+                restored and rebuilt to the patched md5 afterwards)
+
+(1) BUILD — both binaries built -j 2, md5 taken separately, above.
+
+(2) GOLDENS — SLANG_UHDM exported EXPLICITLY to each binary:
+      patched          PASS=23 FAIL=0
+      pristine         PASS=23 FAIL=0
+      SLANG_UHDM=/bin/false   PASS=0 FAIL=23      (negative control)
+
+(3) uhdm2rtlil, BOTH modes, --jobs 2, own --out/--workdir, cmds.txt audited by
+    binary PATH (`slang:   /tmp/r10earl119_bins/{pris,patched}.bin`):
+      pristine testflags 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+      pristine default   679 / 50 / 2
+      patched  testflags 679 / 50 / 2
+      patched  default   679 / 50 / 2
+      ct8rows  pristine-vs-patched testflags   PASS (0 differing rows)
+      ct8rows  pristine-vs-patched default     PASS
+      ct8rows  results/gate_uhdm2rtlil.csv vs patched testflags  PASS
+      byteverify SELFCHECK=1  MOVERS: 0 / 1358  (paths identical; selfcheck
+                                                 flagged 1357/1358)
+
+(4) surelog corpus, --mode both, --jobs 2:
+      1588 rows both sweeps.  ct8rows pristine-vs-patched: PASS, 0 differing
+      rows over 1588 (status AND dump column).
+      ct8rows results/golden_surelog.csv vs patched: ONE row-side differs, and
+      it differs in the PRISTINE sweep too:
+        < Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+        > Earlgrey_0_1,testflags,CMP_EQUAL,,,
+      NOT a conversion and NOT this pass's: the STATUS stays CMP_EQUAL, the
+      empty is a uhdm-dump TIMEOUT under four concurrent sweeps, and the dumps
+      prove it — the testflags database's dump sha256 is
+      7590acc9b64f844ce7a3bb8f50e66daba5293258dff5fcb244f1f15547517a5f for BOTH
+      binaries against golden's cached d6624210…, i.e. the verdict is `differ`
+      on both sides and the two databases are byte-identical to each other.
+      NO CORPUS ROW WAS CONVERTED IN EITHER DIRECTION.  BuildUVMPkg (both
+      modes), Earlgrey_0_1/testflags and Rggen/default all stay CMP_EQUAL.
+
+(5) byteverify SELFCHECK=1, surelog:
+      databases: patched=956 pristine=956, PATH_SETS_IDENTICAL
+      MOVER ./default/Earlgrey_0_1-71da2fd7/slang.uhdm
+            patched=5aad57bfa064 pristine=1e0aa59f41df
+      MOVERS: 1 / 956          <-- PREDICTED BY NAME from the PRISTINE census
+                                   alone (PREDICT_sl.txt), before this sweep
+      SELFCHECK 955/956 flagged.
+
+CANARIES / PINS
+      canaries.sh surelog        ok=51 changed=1 absent=0   (the changed row is
+                                 the Earlgrey/testflags dump-column TIMEOUT of
+                                 gate 4; against THIS pass's own pristine sweep
+                                 the same script reads ok=52 changed=0)
+      canaries.sh uhdm2rtlil     ok=8  changed=0 absent=0
+      ctcan2.sh surelog          ok=58 changed=0  PASS
+      ctcan2.sh uhdm2rtlil       ok=1  changed=0  PASS
+      canaudit.sh                audited=29 UNCOVERED=0 FENCE-BREACH=0 PASS
+      protected databases, patched vs pristine md5 (12 hex):
+        InterfaceModPort   59a365f3ce2c / 59a365f3ce2c   SAME (both modes)
+        BlackParrotComplex e3e354129d5a (default) 73a10e8217e5 (testflags) SAME
+        YosysOldOr         d68e0796d62c / d68e0796d62c   SAME (both modes)
+        SVSwitch           4842211c4030  PIN HOLDS (both modes)
+        YosysVerx          6ccda350c24a  PIN HOLDS (both modes)
+
+HEADS (rowheads.sh, official uhdm-cmp; counts are DEPTH, not distance)
+      row                    before -> after
+      SeqDriver default/tf   198/198 -> 198/198
+      SimpleUVM default/tf     62/62 ->   62/62
+      Scoreboard default          95 ->      95
+      MiniAmiq default/tf    198/198 -> 198/198
+      BuildUVMPkg default/tf     0/0 ->     0/0   (CMP_EQUAL, unmoved)
+      Earlgrey_0_1 default        56 ->     833   HEAD OBJECT GONE
+      Earlgrey_0_1 testflags       0 ->       0   (CMP_EQUAL, unmoved)
+      Rggen default                0 ->       0   (CMP_EQUAL, unmoved)
+
+THE FENCED FOUR were never dispatched; they are named only inside canaudit.sh's
+own FENCED= line, which widerun119.sh reads to filter the boundary list.

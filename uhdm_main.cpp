@@ -470,6 +470,21 @@ int main(int argc, char** argv) {
                                std::set<std::string>(bbInsts.begin(), bbInsts.end()));
     UHDM::design* design = exporter.exportDesign();
 
+    // § genCaCastFoldDefaultView119 (r10earl119) — the DEFAULT-view half of
+    // § genCaCastFoldAdjustSize106.  Surelog folds and `adjustSize`s a
+    // bound-Lhs gen-scope cast Rhs inside `UhdmWriter::writeCont_assign`, the
+    // INSTANCE-tree writer, which is not conditioned on `-elabuhdm` at all --
+    // measured on r10earl106's four arms built twice by the real Surelog:
+    // golden's default and elaborated views hold the SAME constant on every
+    // bound-Lhs cell and differ only where the bind FAILS.  Our own fold is
+    // `UHDM::UhdmAdjuster`'s, which runs only below, so without this the
+    // default view keeps the unfolded `vpiCastOp` operation (the
+    // Earlgrey_0_1/default head at padctrl.sv:39:24).  Placed HERE, and
+    // guarded so that it and `applyCaCastAdjust106` are MUTUALLY EXCLUSIVE:
+    // one law, one application, whichever view is being written.
+    if (elabUhdm != true)
+        exporter.applyCaCastFoldDef119(design);
+
     // Post-export UHDM passes, in the order Surelog's UhdmWriter runs them.
     // (Surelog also runs UhdmLint here unconditionally; it is read-only -- no
     // Erase, no Make, no setters -- so it cannot change the database and is

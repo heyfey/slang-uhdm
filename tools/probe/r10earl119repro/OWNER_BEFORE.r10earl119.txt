@@ -1,0 +1,43 @@
+== design::Compare -> -32
+   HEAD LHS(golden) = constant dec='63' size=8 ts=<null> val='UINT:63' ctype=9  @ 0:0-0:0
+   HEAD RHS(ours)   = operation dec='' size=0 ts=ref_typespec->int_typespec optype=67 operand0=constant  @ 39:24-39:38
+        ours full  : work@prim_sync_reqack.work@top_earlgrey.u_padctrl.gen_generic
+   BOTH SIDES PRESENT: yes  (a VALUE head, not a null one --
+   BaseClass.h's SINGULAR overload would have left one side unset)
+   -- OWNER CHAIN (golden) --
+   -- OWNER CHAIN (ours  ) --
+     |vpiParent -> cont_assign  @ 39:12-39:38
+       |vpiParent -> gen_scope  @ 37:38-40:6
+         |vpiParent -> gen_scope_array name='gen_generic'  @ 37:38-40:6
+           |vpiParent -> module_inst name='u_padctrl'  @top_earlgrey.sv 655:3-664:5
+             |vpiParent -> module_inst name='work@top_earlgrey'  @top_earlgrey.sv 5:1-1022:10
+               |vpiParent -> design name='work@prim_sync_reqack'  @ 0:0-0:0
+== SIBLING CAST/FOLD CELLS in gen scopes (golden 706, ours 706)
+   DIFF work@top_earlgrey.u_padctrl.gen_generic|warl_mask|39:12
+        golden constant dec='63' size=8 val='UINT:63' ctype=9
+        ours   operation dec='' size=0 optype=67 operand0=constant dec='6'h3F' size=6 val='HEX:3F' ctype=5
+   SIBLINGS same=705 diff=1 only-golden=0 only-ours=0
+== GOLDEN OWNER LOOKUP key='work@top_earlgrey.u_padctrl.gen_generic|warl_mask|39:12' -> found
+== OWNER cont_assign  golden=padctrl.sv 39:12-39:38  ours= 39:12-39:38
+   -- cont_assign::Compare FIELD ORDER (fresh context each) --
+      Rhs            golden=constant     ours=operation    -> -32   <== FAILS (compared BEFORE Lhs)
+         golden Rhs: constant dec='63' size=8 ts=<null> val='UINT:63' ctype=9  @ 0:0-0:0
+         ours   Rhs: operation dec='' size=0 ts=ref_typespec->int_typespec optype=67 operand0=constant  @ 39:24-39:38
+      Lhs            golden=ref_obj      ours=ref_obj      -> 0
+         golden Lhs: ref_obj name='warl_mask' dec='' size=0 ts=<null> actual=logic_var  @padctrl.sv 39:12-39:21
+         ours   Lhs: ref_obj name='warl_mask' dec='' size=0 ts=<null> actual=logic_var  @ 39:12-39:21
+         golden Lhs.Actual_group: logic_var name='warl_mask' dec='' size=0 ts=ref_typespec->logic_typespec  @padctrl.sv 36:22-36:31
+         ours   Lhs.Actual_group: logic_var name='warl_mask' dec='' size=0 ts=ref_typespec->logic_typespec  @ 36:22-36:31
+== LADDER (mask-and-rerun, 6 rungs max)
+   rung 0: LHS constant dec='63' size=8 ts=<null> val='UINT:63' ctype=9  @ 0:0-0:0
+           RHS operation dec='' size=0 ts=ref_typespec->int_typespec optype=67 operand0=constant  @ 39:24-39:38
+   rung 1: LHS package name='top_pkg'  @top_pkg.sv 6:1-20:11
+           RHS <null>
+   rung 2: LHS package name='top_pkg'  @top_pkg.sv 6:1-20:11
+           RHS <null>
+   rung 3: LHS package name='top_pkg'  @top_pkg.sv 6:1-20:11
+           RHS <null>
+   rung 4: LHS package name='top_pkg'  @top_pkg.sv 6:1-20:11
+           RHS <null>
+   rung 5: LHS package name='top_pkg'  @top_pkg.sv 6:1-20:11
+           RHS <null>

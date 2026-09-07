@@ -1,0 +1,7 @@
+-- PREDICTED MOVERS (reachable cell + golden holds a folded constant) --
+PREDICT-MOVE default   Earlgrey_0_1                   1 cells
+  rows=1  cells=1
+-- PREDICT-AWAY (reachable but golden does NOT fold: must be empty) --
+  rows=0
+-- PREDICT-DECLINE (op67 cells this law does not reach: the R1 residue) --
+  rows=2  cells=260

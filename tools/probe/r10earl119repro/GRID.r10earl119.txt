@@ -1,0 +1,380 @@
+  TO-GOLDEN    ELAB work@a1_def119|gen_scope|g1|ref_obj|d_a|42:12-42:37
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|63|UINT:63': 1}
+  TO-GOLDEN    ELAB work@a1_def119|gen_scope|g1|ref_obj|d_bit|102:12-102:39
+        golden={'const|9|1|1|UINT:1': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|1|1|UINT:1': 1}
+  TO-GOLDEN    ELAB work@a1_def119|gen_scope|g1|ref_obj|d_b|48:12-48:64
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|63|UINT:63': 1}
+  TO-GOLDEN    ELAB work@a1_def119|gen_scope|g1|ref_obj|d_c|48:12-48:64
+        golden={'const|9|4|15|UINT:15': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|4|15|UINT:15': 1}
+  TO-GOLDEN    ELAB work@a1_def119|gen_scope|g1|ref_obj|d_loop|77:12-77:40
+        golden={'const|9|8|63|UINT:63': 3}
+        pris  ={'op67': 3}
+        patch ={'const|9|8|63|UINT:63': 3}
+  STILL-WRONG  ELAB work@a1_def119|gen_scope|g1|ref_obj|d_ns|70:12-70:38
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'op67': 1}
+  TO-GOLDEN    ELAB work@a1_def119|gen_scope|g1|ref_obj|d_scal|107:12-107:49
+        golden={'const|9|8|0|UINT:0': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|0|UINT:0': 1}
+  STILL-WRONG  ELAB work@a1_def119|gen_scope|g1|ref_obj|d_time|92:12-92:40
+        golden={'const|9|64||UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'op67': 1}
+  TO-GOLDEN    ELAB work@a1_def119|gen_scope|g1|ref_obj|d_ub|97:12-97:35
+        golden={'const|9|8|1|UINT:1': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|1|UINT:1': 1}
+  TO-GOLDEN    ELAB work@a1_def119|gen_scope|g1|ref_obj|n_w|53:12-53:37
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|63|UINT:63': 1}
+  TO-GOLDEN    ELAB work@a1_def119|gen_scope|g3|ref_obj|d_deep|84:16-84:44
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|63|UINT:63': 1}
+  TO-GOLDEN    ELAB work@cha_119|gen_scope|g1|ref_obj|ch_v|22:12-22:38
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|63|UINT:63': 1}
+ARM a1_def119.def  {'SAME_AGREE': 7, 'TO-GOLDEN': 10, 'STILL-WRONG': 2}
+  STILL-WRONG  ELAB work@a2_fence119|gen_scope|g1|ref_obj|f_bop|31:34-31:54
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'op67': 1}
+  STILL-WRONG  ELAB work@a2_fence119|gen_scope|g1|ref_obj|f_catr|39:34-39:56
+        golden={'const|3|6||BIN:111111': 1}
+        pris  ={'op33': 1}
+        patch ={'op33': 1}
+  STILL-WRONG  ELAB work@a2_fence119|gen_scope|g1|ref_obj|f_cat|29:34-29:60
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'op67': 1}
+  STILL-WRONG  ELAB work@a2_fence119|gen_scope|g1|ref_obj|f_lit|37:34-37:49
+        golden={"const|5|8|6'h3F|HEX:3F": 1}
+        pris  ={"const|5|6|6'h3F|HEX:3F": 1}
+        patch ={"const|5|6|6'h3F|HEX:3F": 1}
+  STILL-WRONG  ELAB work@a2_fence119|gen_scope|g1|ref_obj|f_nest|34:34-34:57
+        golden={'const|9|8|15|UINT:15': 1}
+        pris  ={'op67': 1}
+        patch ={'op67': 1}
+  STILL-WRONG  ELAB work@a2_fence119|gen_scope|g1|ref_obj|f_par|38:34-38:56
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'const|9|32|63|UINT:63': 1}
+        patch ={'const|9|32|63|UINT:63': 1}
+  STILL-WRONG  ELAB work@a2_fence119|gen_scope|g1|ref_obj|f_rep|30:34-30:57
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'op67': 1}
+  STILL-WRONG  ELAB work@a2_fence119|gen_scope|g1|ref_obj|f_sysc|33:34-33:58
+        golden={'const|9|8|6|UINT:6': 1}
+        pris  ={'op67': 1}
+        patch ={'op67': 1}
+  STILL-WRONG  ELAB work@a2_fence119|gen_scope|g1|ref_obj|f_ter|32:34-32:62
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'op67': 1}
+ARM a2_fence119.def {'SAME_AGREE': 10, 'STILL-WRONG': 9}
+  TO-GOLDEN    ELAB work@ch1_106|gen_scope|g1|ref_obj|cv|18:12-18:36
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|63|UINT:63': 1}
+  TO-GOLDEN    ELAB work@g1_home106|gen_scope|g1|ref_obj|m_mod2|38:12-38:40
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|63|UINT:63': 1}
+  TO-GOLDEN    ELAB work@g1_home106|gen_scope|g1|ref_obj|m_mod3|59:12-59:40
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|63|UINT:63': 1}
+  TO-GOLDEN    ELAB work@g1_home106|gen_scope|g1|ref_obj|m_mod5|83:12-83:40
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|63|UINT:63': 1}
+  TO-GOLDEN    ELAB work@g1_home106|gen_scope|g1|ref_obj|m_nar|71:12-71:39
+        golden={'const|9|4|15|UINT:15': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|4|15|UINT:15': 1}
+  TO-GOLDEN    ELAB work@g1_home106|gen_scope|g1|ref_obj|m_wid|76:12-76:39
+        golden={'const|9|16|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|16|63|UINT:63': 1}
+  TO-GOLDEN    ELAB work@g1_home106|gen_scope|g2|ref_obj|m_mod4|65:14-65:42
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|63|UINT:63': 1}
+ARM g1_home106.def {'SAME_AGREE': 10, 'TO-GOLDEN': 7}
+  TO-GOLDEN    ELAB work@g2_form106|gen_scope|g1|ref_obj|t4a|42:35-42:51
+        golden={'const|9|4|15|UINT:15': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|4|15|UINT:15': 1}
+  TO-GOLDEN    ELAB work@g2_form106|gen_scope|g1|ref_obj|t4b|43:35-43:62
+        golden={'const|9|4|15|UINT:15': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|4|15|UINT:15': 1}
+  TO-GOLDEN    ELAB work@g2_form106|gen_scope|g1|ref_obj|t64a|45:35-45:51
+        golden={'const|9|64|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|64|63|UINT:63': 1}
+  TO-GOLDEN    ELAB work@g2_form106|gen_scope|g1|ref_obj|t64b|46:35-46:70
+        golden={'const|9|64|0|UINT:0': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|64|0|UINT:0': 1}
+  TO-GOLDEN    ELAB work@g2_form106|gen_scope|g1|ref_obj|t8b|26:35-26:62
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|63|UINT:63': 1}
+  TO-GOLDEN    ELAB work@g2_form106|gen_scope|g1|ref_obj|t8c|27:35-27:62
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|63|UINT:63': 1}
+  TO-GOLDEN    ELAB work@g2_form106|gen_scope|g1|ref_obj|t8d|28:35-28:62
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|63|UINT:63': 1}
+  TO-GOLDEN    ELAB work@g2_form106|gen_scope|g1|ref_obj|t8e|30:35-30:53
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|63|UINT:63': 1}
+  TO-GOLDEN    ELAB work@g2_form106|gen_scope|g1|ref_obj|t8f|31:35-31:53
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|63|UINT:63': 1}
+  TO-GOLDEN    ELAB work@g2_form106|gen_scope|g1|ref_obj|t8g|33:35-33:63
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|63|UINT:63': 1}
+  TO-GOLDEN    ELAB work@g2_form106|gen_scope|g1|ref_obj|t8h|35:35-35:53
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|63|UINT:63': 1}
+  TO-GOLDEN    ELAB work@g2_form106|gen_scope|g1|ref_obj|t8k|39:35-39:51
+        golden={'const|9|8|15|UINT:15': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|15|UINT:15': 1}
+  TO-GOLDEN    ELAB work@g2_form106|gen_scope|g1|ref_obj|t8l|40:35-40:62
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|63|UINT:63': 1}
+  TO-GOLDEN    ELAB work@g2_form106|gen_scope|g1|ref_obj|t8|24:35-24:51
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|63|UINT:63': 1}
+  TO-GOLDEN    ELAB work@g2_form106|gen_scope|g1|ref_obj|t96a|48:35-48:81
+        golden={'const|9|96|18446744073709551615|UINT:18446744073709551615': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|96|18446744073709551615|UINT:18446744073709551615': 1}
+  STILL-WRONG  ELAB work@g2_form106|gen_scope|g1|ref_obj|tw1|50:35-50:48
+        golden={'const|9|8|255|UINT:255': 1}
+        pris  ={'op67': 1}
+        patch ={'op67': 1}
+  STILL-WRONG  ELAB work@g2_form106|gen_scope|g1|ref_obj|tw2|51:35-51:61
+        golden={'const|7|8||INT:-3': 1}
+        pris  ={'op67': 1}
+        patch ={'op67': 1}
+  TO-GOLDEN    ELAB work@g2_form106|gen_scope|g1|ref_obj|tw3|53:35-53:58
+        golden={'const|9|8|8|UINT:8': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|8|UINT:8': 1}
+ARM g2_form106.def {'SAME_AGREE': 4, 'TO-GOLDEN': 16, 'STILL-WRONG': 2}
+  STILL-WRONG  ELAB work@g3_val106|gen_scope|g1|ref_obj|n_bop|47:34-47:48
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op24': 1}
+        patch ={'op24': 1}
+  STILL-WRONG  ELAB work@g3_val106|gen_scope|g1|ref_obj|n_cat|45:34-45:54
+        golden={'const|3|6||BIN:111111': 1}
+        pris  ={'op33': 1}
+        patch ={'op33': 1}
+  STILL-WRONG  ELAB work@g3_val106|gen_scope|g1|ref_obj|n_lit|43:34-43:47
+        golden={"const|5|8|6'h3F|HEX:3F": 1}
+        pris  ={"const|5|6|6'h3F|HEX:3F": 1}
+        patch ={"const|5|6|6'h3F|HEX:3F": 1}
+  STILL-WRONG  ELAB work@g3_val106|gen_scope|g1|ref_obj|n_par|44:34-44:54
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'const|9|32|63|UINT:63': 1}
+        patch ={'const|9|32|63|UINT:63': 1}
+  STILL-WRONG  ELAB work@g3_val106|gen_scope|g1|ref_obj|n_sys|49:34-49:52
+        golden={'const|9|8|6|UINT:6': 1}
+        pris  ={'sys_func_call': 1}
+        patch ={'sys_func_call': 1}
+  STILL-WRONG  ELAB work@g3_val106|gen_scope|g1|ref_obj|n_ter|48:34-48:58
+        golden={'const|7|8|63|INT:63': 1}
+        pris  ={'op32': 1}
+        patch ={'op32': 1}
+  TO-GOLDEN    ELAB work@g3_val106|gen_scope|g1|ref_obj|v_bin|19:34-19:55
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|63|UINT:63': 1}
+  STILL-WRONG  ELAB work@g3_val106|gen_scope|g1|ref_obj|v_bop|34:34-34:52
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'op67': 1}
+  STILL-WRONG  ELAB work@g3_val106|gen_scope|g1|ref_obj|v_catcast|38:34-38:61
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'op67': 1}
+  STILL-WRONG  ELAB work@g3_val106|gen_scope|g1|ref_obj|v_cat|32:34-32:58
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'op67': 1}
+  TO-GOLDEN    ELAB work@g3_val106|gen_scope|g1|ref_obj|v_dec|22:34-22:51
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|63|UINT:63': 1}
+  TO-GOLDEN    ELAB work@g3_val106|gen_scope|g1|ref_obj|v_hex|20:34-20:51
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|63|UINT:63': 1}
+  STILL-WRONG  ELAB work@g3_val106|gen_scope|g1|ref_obj|v_neg|23:34-23:48
+        golden={'const|9|8|253|UINT:253': 1}
+        pris  ={'op67': 1}
+        patch ={'op67': 1}
+  STILL-WRONG  ELAB work@g3_val106|gen_scope|g1|ref_obj|v_nest|37:34-37:55
+        golden={'const|9|8|15|UINT:15': 1}
+        pris  ={'op67': 1}
+        patch ={'op67': 1}
+  TO-GOLDEN    ELAB work@g3_val106|gen_scope|g1|ref_obj|v_oct|21:34-21:51
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|63|UINT:63': 1}
+  TO-GOLDEN    ELAB work@g3_val106|gen_scope|g1|ref_obj|v_par|31:34-31:58
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|63|UINT:63': 1}
+  STILL-WRONG  ELAB work@g3_val106|gen_scope|g1|ref_obj|v_rep|33:34-33:55
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'op67': 1}
+  STILL-WRONG  ELAB work@g3_val106|gen_scope|g1|ref_obj|v_sys|36:34-36:56
+        golden={'const|9|8|6|UINT:6': 1}
+        pris  ={'op67': 1}
+        patch ={'op67': 1}
+  STILL-WRONG  ELAB work@g3_val106|gen_scope|g1|ref_obj|v_ter|35:34-35:60
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'op67': 1}
+  TO-GOLDEN    ELAB work@g3_val106|gen_scope|g1|ref_obj|v_ub0|28:34-28:48
+        golden={'const|9|8|0|UINT:0': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|0|UINT:0': 1}
+  TO-GOLDEN    ELAB work@g3_val106|gen_scope|g1|ref_obj|v_ub1|27:34-27:48
+        golden={'const|9|8|255|UINT:255': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|255|UINT:255': 1}
+  TO-GOLDEN    ELAB work@g3_val106|gen_scope|g1|ref_obj|v_un|26:34-26:48
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|63|UINT:63': 1}
+  TO-GOLDEN    ELAB work@g3_val106|gen_scope|g1|ref_obj|v_w96|40:34-40:70
+        golden={'const|9|96|4294967295|UINT:4294967295': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|96|4294967295|UINT:4294967295': 1}
+  TO-GOLDEN    ELAB work@g3_val106|gen_scope|g1|ref_obj|v_wide|39:34-39:54
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|63|UINT:63': 1}
+  TO-GOLDEN    ELAB work@g3_val106|gen_scope|g1|ref_obj|v_xz|24:34-24:55
+        golden={'const|9|8|15|UINT:15': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|15|UINT:15': 1}
+ARM g3_val106.def  {'SAME_AGREE': 5, 'STILL-WRONG': 14, 'TO-GOLDEN': 11}
+  STILL-WRONG  ELAB work@g4_fence106|gen_scope|g1|ref_obj|sleep_mux|21:12-21:68
+        golden={'const|9|8|127|UINT:127': 1}
+        pris  ={'op67': 1}
+        patch ={'op67': 1}
+  TO-GOLDEN    ELAB work@g4_fence106|gen_scope|g1|ref_obj|t_cast64|51:12-51:34
+        golden={'const|9|8|0|UINT:0': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|0|UINT:0': 1}
+  STILL-WRONG  ELAB work@g4_fence106|gen_scope|g1|ref_obj|t_castcat|32:12-32:40
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'op67': 1}
+  TO-GOLDEN    ELAB work@g4_fence106|gen_scope|g1|ref_obj|t_ok|26:12-26:28
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'const|9|8|63|UINT:63': 1}
+ARM g4_fence106.def {'SAME_AGREE': 5, 'STILL-WRONG': 2, 'TO-GOLDEN': 2}
+  STILL-WRONG  ELAB work@a1_def119|gen_scope|g1|ref_obj|d_ns|70:12-70:38
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'const|9|64||UINT:63': 1}
+        patch ={'const|9|64||UINT:63': 1}
+ARM a1_def119.elab {'SAME_AGREE': 18, 'STILL-WRONG': 1}
+  STILL-WRONG  ELAB work@a2_fence119|gen_scope|g1|ref_obj|f_catr|39:34-39:56
+        golden={'const|3|6||BIN:111111': 1}
+        pris  ={'op33': 1}
+        patch ={'op33': 1}
+  STILL-WRONG  ELAB work@a2_fence119|gen_scope|g1|ref_obj|f_cat|29:34-29:60
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'op67': 1}
+  STILL-WRONG  ELAB work@a2_fence119|gen_scope|g1|ref_obj|f_lit|37:34-37:49
+        golden={"const|5|8|6'h3F|HEX:3F": 1}
+        pris  ={"const|5|6|6'h3F|HEX:3F": 1}
+        patch ={"const|5|6|6'h3F|HEX:3F": 1}
+  STILL-WRONG  ELAB work@a2_fence119|gen_scope|g1|ref_obj|f_par|38:34-38:56
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'const|9|32|63|UINT:63': 1}
+        patch ={'const|9|32|63|UINT:63': 1}
+  STILL-WRONG  ELAB work@a2_fence119|gen_scope|g1|ref_obj|f_rep|30:34-30:57
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'op67': 1}
+ARM a2_fence119.elab {'SAME_AGREE': 14, 'STILL-WRONG': 5}
+ARM g1_home106.elab {'SAME_AGREE': 17}
+ARM g2_form106.elab {'SAME_AGREE': 22}
+  STILL-WRONG  ELAB work@g3_val106|gen_scope|g1|ref_obj|n_bop|47:34-47:48
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'const|9|64|63|UINT:63': 1}
+        patch ={'const|9|64|63|UINT:63': 1}
+  STILL-WRONG  ELAB work@g3_val106|gen_scope|g1|ref_obj|n_cat|45:34-45:54
+        golden={'const|3|6||BIN:111111': 1}
+        pris  ={'op33': 1}
+        patch ={'op33': 1}
+  STILL-WRONG  ELAB work@g3_val106|gen_scope|g1|ref_obj|n_lit|43:34-43:47
+        golden={"const|5|8|6'h3F|HEX:3F": 1}
+        pris  ={"const|5|6|6'h3F|HEX:3F": 1}
+        patch ={"const|5|6|6'h3F|HEX:3F": 1}
+  STILL-WRONG  ELAB work@g3_val106|gen_scope|g1|ref_obj|n_par|44:34-44:54
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'const|9|32|63|UINT:63': 1}
+        patch ={'const|9|32|63|UINT:63': 1}
+  STILL-WRONG  ELAB work@g3_val106|gen_scope|g1|ref_obj|n_sys|49:34-49:52
+        golden={'const|9|8|6|UINT:6': 1}
+        pris  ={'sys_func_call': 1}
+        patch ={'sys_func_call': 1}
+  STILL-WRONG  ELAB work@g3_val106|gen_scope|g1|ref_obj|n_ter|48:34-48:58
+        golden={'const|7|8|63|INT:63': 1}
+        pris  ={'const|7|64|63|INT:63': 1}
+        patch ={'const|7|64|63|INT:63': 1}
+  STILL-WRONG  ELAB work@g3_val106|gen_scope|g1|ref_obj|v_catcast|38:34-38:61
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'op67': 1}
+  STILL-WRONG  ELAB work@g3_val106|gen_scope|g1|ref_obj|v_cat|32:34-32:58
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'op67': 1}
+  STILL-WRONG  ELAB work@g3_val106|gen_scope|g1|ref_obj|v_rep|33:34-33:55
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'op67': 1}
+ARM g3_val106.elab {'SAME_AGREE': 21, 'STILL-WRONG': 9}
+  STILL-WRONG  ELAB work@g4_fence106|gen_scope|g1|ref_obj|sleep_mux|21:12-21:68
+        golden={'const|9|8|127|UINT:127': 1}
+        pris  ={'op67': 1}
+        patch ={'op67': 1}
+  STILL-WRONG  ELAB work@g4_fence106|gen_scope|g1|ref_obj|t_castcat|32:12-32:40
+        golden={'const|9|8|63|UINT:63': 1}
+        pris  ={'op67': 1}
+        patch ={'op67': 1}
+ARM g4_fence106.elab {'SAME_AGREE': 7, 'STILL-WRONG': 2}

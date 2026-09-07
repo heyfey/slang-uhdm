@@ -1,0 +1,21 @@
+== design::Compare -> 1
+   HEAD LHS(golden) = package name='top_pkg'  @top_pkg.sv 6:1-20:11
+   HEAD RHS(ours)   = <null>
+        ours full  : <null>
+   BOTH SIDES PRESENT: NO  (a VALUE head, not a null one --
+   BaseClass.h's SINGULAR overload would have left one side unset)
+   -- OWNER CHAIN (golden) --
+     |vpiParent -> design name='work@prim_sync_reqack'  @ 0:0-0:0
+   -- OWNER CHAIN (ours  ) --
+== SIBLING CAST/FOLD CELLS in gen scopes (golden 706, ours 706)
+   SIBLINGS same=706 diff=0 only-golden=0 only-ours=0
+== OWNER cont_assign  golden=<none>  ours=<none>
+== LADDER (mask-and-rerun, 4 rungs max)
+   rung 0: LHS package name='top_pkg'  @top_pkg.sv 6:1-20:11
+           RHS <null>
+   rung 1: LHS package name='top_pkg'  @top_pkg.sv 6:1-20:11
+           RHS <null>
+   rung 2: LHS package name='top_pkg'  @top_pkg.sv 6:1-20:11
+           RHS <null>
+   rung 3: LHS package name='top_pkg'  @top_pkg.sv 6:1-20:11
+           RHS <null>

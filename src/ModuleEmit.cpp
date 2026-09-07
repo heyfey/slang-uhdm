@@ -15,6 +15,7 @@
 // § importedClassVarIsOwnCopyNoInstance5's cloner.  ElaboratorListener.h is what
 // defines UHDM::ElaboratorContext, the CloneContext clone_tree needs.
 #include <uhdm/ElaboratorListener.h>
+#include <uhdm/ExprEval.h>
 #include <uhdm/clone_tree.h>
 
 #include "slang/ast/EvalContext.h"
@@ -13353,6 +13354,250 @@ void UhdmExporter::applyCaCastAdjust106(UHDM::design* d) {
                                           ca->VpiEndColumnNo(), lnm));
                 if (it != want.end())
                     reencode(ca, it->second);
+            }
+        if (gsas)
+            for (auto* g : *gsas)
+                walk(g);
+        if (mods)
+            for (auto* mm : *mods)
+                walk(mm);
+        if (ifs)
+            for (auto* ii2 : *ifs)
+                walk(ii2);
+    };
+    if (d->TopModules())
+        for (auto* t : *d->TopModules())
+            walk(t);
+}
+
+// § genCaCastFoldDefaultView119 (r10earl119) — THE SAME LAW AS
+// § genCaCastFoldAdjustSize106, IN THE VIEW THAT HAS NO ADJUSTER TO BORROW.
+//
+// THE FACT, measured on the golden databases of r10earl106's own four arms,
+// each built TWICE by the real Surelog (`-parse` alone, and `-parse
+// -elabuhdm`), and read out of the ELABORATED (`uhdmtopModules`) section:
+//
+//   golden DEFAULT view  ==  golden ELAB view  on EVERY gen-scope cast
+//   cont_assign whose Lhs `bindVariable` FINDS.  The two views differ only on
+//   the cells where the bind FAILS (`g1_home106`'s gen-local `loc_c`, its
+//   bit-select and part-select targets, the interface gen scope's `iv`,
+//   `g4_fence106`'s ancestor-gen-local `anc`): there the DEFAULT view keeps
+//   the whole cast OPERATION on the golden side and the ELAB view carries the
+//   64-bit, spelling-less constant golden's own `UhdmAdjuster` folded.
+//
+// WHY, out of Surelog's source.  `UhdmWriter::writeCont_assign`
+// (src/DesignCompile/UhdmWriter.cpp:2090) is reached from `writeElabGenScope`
+// (:2367), `writeElabModule` (:4107) and `writeElabInterface` (:4258) — the
+// INSTANCE-tree writers, which run for `-parse` exactly as they do under
+// `-elabuhdm`.  Its bound-Lhs leg (:2121-2172) CLONES the assign, runs
+// `m_helper.reduceExpr` (CompileExpression.cpp:823 — `UHDM::ExprEval` wearing
+// Surelog's name lookups) and feeds the result to `CompileHelper::adjustSize`
+// (CompileHelper.cpp:3949, the `vpiUIntConst` arm at :3990-4002).  NOTHING in
+// that path is conditioned on `-elabuhdm`, which is why golden's answer is
+// mode-INDEPENDENT.  `UhdmAdjuster` only ever sees the cells writeCont_assign
+// left as operations, i.e. the bind-FAILS ones — hence the one-sided
+// difference above.
+//
+// WHY OUR TWO VIEWS DISAGREE.  We do not fold a gen-scope cast Rhs during
+// emission at all; the constant § genCaCastFoldAdjustSize106 re-encodes is the
+// one `UHDM::UhdmAdjuster::updateParentWithReducedExpression`
+// (UHDM/templates/UhdmAdjuster.cpp:331-345) makes for us — and `uhdm_main.cpp`
+// runs the elaborator and the adjuster ONLY under `--elabuhdm`.  So in the
+// DEFAULT view the recorded cells keep the unfolded `vpiCastOp` operation and
+// golden holds the folded constant.  That is the Earlgrey_0_1/default head at
+// `padctrl.sv:39:24` (`assign warl_mask = AttrDw'(6'h3F);` inside
+// `top_earlgrey.u_padctrl.gen_generic`, `warl_mask` declared `logic
+// [AttrDw-1:0]` in the MODULE body at :36): golden `vpiDecompile:63` /
+// `UINT:63` / `vpiSize:8`, ours `vpiOpType:67`.
+//
+// WHAT THIS DOES.  For the cells § genCaCastFoldAdjustSize106 ALREADY RECORDS
+// — one entry per elaborated gen-scope cont_assign with a WRITTEN cast Rhs
+// whose Lhs `caLhsAdjustBind106` binds, which is that pass's gate-verified
+// model of `bindVariable` + `adjustSize` — it runs the fold Surelog runs
+// (`UHDM::ExprEval::reduceExpr`, the very evaluator behind
+// `CompileHelper::reduceExpr`) and then the SAME `adjustSize` re-encode
+// § genCaCastFoldAdjustSize106 applies.  It is called from `uhdm_main.cpp`
+// only where `applyCaCastAdjust106` is NOT, so the two are mutually exclusive
+// and the elaborated view cannot move by a byte.
+//
+// THE FENCES, each measured on golden in the DEFAULT view:
+//  * ONLY THE RECORDED CELLS.  A bind-FAILS cell keeps the operation on the
+//    golden side in this view (`loc_c`, `m_sel[3]`, `m_sel[7:4]`, the
+//    interface's `iv`, `anc`) and keeps it here, so the pristine agreement is
+//    preserved by not being touched.
+//  * ONLY A CAST OPERATION.  `g3_val106`'s eight NON-cast rows (`n_lit`,
+//    `n_par`, `n_cat`, `n_rep`, `n_bop`, `n_ter`, `n_sys`, `n_ub`) are folded
+//    by golden too, in encodings that are NOT this arithmetic (`n_lit` keeps
+//    `6'h3F`/HEX, `n_cat` stays BINARY, `n_ter` is a `vpiIntConst`) and they
+//    belong to other laws.  The record predicate already excludes them; the
+//    op-type check here is the second lock.
+//  * ONLY A CONSTANT OPERAND, and only a cast typespec `ExprEval`'s
+//    `vpiCastOp` arm (ExprEval.cpp:4074-4204) actually has a branch for.
+//    Both conditions are checked BEFORE `reduceExpr` is called, so a cell this
+//    law cannot fold is never even offered to the evaluator: no constant is
+//    minted, no operand is resized, and the database is byte-identical to the
+//    pristine one on it.  `g2_form106`'s `byte'(…)` / `logic'(…)` rows and
+//    `g3_val106`'s `8'(6'bzzzzzz)` are exactly those cells, and golden keeps
+//    the operation on all three.
+//  * THE DEF VIEW CANNOT MOVE: the walk is `applyCaCastAdjust106`'s — TOP
+//    MODULES ONLY — and the definition listing carries no gen-scope
+//    cont_assign at all (measured on both sides, all four arms).
+void UhdmExporter::applyCaCastFoldDef119(UHDM::design* d) {
+    if (!d || caCastAdjust106.empty())
+        return;
+    // The key is § genCaCastFoldAdjustSize106's, unchanged: the gen scope's
+    // FULLNAME, the cont_assign's SPAN and the Lhs NAME (the comma-list
+    // discriminator r10v106 added).  Nothing clones the tree in this view, but
+    // keying on the pointer would make the two consumers gratuitously
+    // different for no gain.
+    auto keyOf = [](const std::string& full, uint32_t l, uint32_t c, uint32_t el,
+                    uint32_t ec, const std::string& nm) {
+        return full + "@" + std::to_string(l) + ":" + std::to_string(c) + "-" +
+               std::to_string(el) + ":" + std::to_string(ec) + "#" + nm;
+    };
+    std::map<std::string, int32_t> want;
+    for (auto& e : caCastAdjust106)
+        want.emplace(keyOf(e.scopeFull, e.line, e.col, e.endLine, e.endCol,
+                           e.lhsName),
+                     e.width);
+    // `CompileHelper::adjustSize`'s `vpiUIntConst` arm, byte for byte the same
+    // re-encode `applyCaCastAdjust106` performs — deliberately a copy, not a
+    // shared helper (the campaign defers extraction until 0 NE), and the two
+    // differ in one measured way: THERE the constant is the adjuster's, which
+    // carries the operation's location and has to be stripped; HERE it is
+    // `ExprEval`'s own mint, which never had one, exactly like Surelog's.
+    auto reencode = [&](UHDM::constant* c, int32_t w) {
+        if (c->VpiConstType() != vpiUIntConst)
+            return;
+        std::string v(c->VpiValue());
+        if (v.rfind("UINT:", 0) != 0)
+            return;
+        std::string dig = v.substr(5);
+        if (dig.empty())
+            return;
+        uint64_t raw = 0;
+        try {
+            if (dig[0] == '-')
+                raw = (uint64_t)std::stoll(dig);
+            else
+                raw = std::stoull(dig);
+        } catch (...) {
+            return;
+        }
+        uint64_t mask = w >= 64 ? ~0ULL : ((1ULL << (uint32_t)w) - 1ULL);
+        std::string dg = std::to_string(raw & mask);
+        c->VpiValue("UINT:" + dg);
+        c->VpiDecompile(dg);
+        c->VpiConstType(vpiUIntConst);
+        c->VpiSize(w);
+    };
+    // THE FOLD.  `inst` is the gen scope, which is what
+    // `UhdmAdjuster::enterGen_scope` (UhdmAdjuster.cpp:202) hands the same
+    // evaluator in the other view, and `pexpr` is the cont_assign, the parent
+    // Surelog passes as well (UhdmWriter.cpp:2146).
+    auto foldOne = [&](UHDM::cont_assign* ca, const UHDM::any* inst,
+                       int32_t w) {
+        auto* r = (UHDM::any*)ca->Rhs();
+        if (!r || r->UhdmType() != UHDM::uhdmoperation)
+            return;
+        auto* op = (UHDM::operation*)r;
+        if (op->VpiOpType() != vpiCastOp)
+            return;
+        if (!op->Operands() || op->Operands()->size() != 1)
+            return;
+        auto* o0 = op->Operands()->at(0);
+        if (!o0 || o0->UhdmType() != UHDM::uhdmconstant)
+            return;
+        const UHDM::typespec* cts = nullptr;
+        if (const UHDM::ref_typespec* rt = op->Typespec())
+            cts = rt->Actual_typespec();
+        if (!cts)
+            return;
+        switch (cts->UhdmType()) {
+            case UHDM::uhdmint_typespec:
+            case UHDM::uhdmlong_int_typespec:
+            case UHDM::uhdmbit_typespec:
+            case UHDM::uhdmshort_int_typespec:
+            case UHDM::uhdminteger_typespec:
+            case UHDM::uhdmenum_typespec:
+                break;
+            default:
+                // No `vpiCastOp` branch: `reduceExpr` returns the operation
+                // unchanged and mints nothing.  Returning here keeps that
+                // guarantee visible at the call site.
+                return;
+        }
+        {
+            // The evaluator's own first move (`get_value` on the reduced
+            // operand, ExprEval.cpp:4076) decides foldability for a constant
+            // operand.  Asking it HERE costs one non-mutating call and means
+            // an unfoldable operand (`6'bzzzzzz`) never reaches a `MakeConstant`.
+            UHDM::ExprEval probe(true);
+            bool bad = false;
+            (void)probe.get_value(bad, (const UHDM::expr*)o0);
+            if (bad)
+                return;
+        }
+        UHDM::ExprEval eval(true);
+        bool invalidValue = false;
+        UHDM::expr* folded = eval.reduceExpr(op, invalidValue, inst, ca, true);
+        if (invalidValue || !folded ||
+            folded->UhdmType() != UHDM::uhdmconstant)
+            return;
+        // Surelog leaves the substituted constant PARENTLESS here (the bound
+        // leg does a bare `assign->Rhs(rhstmp)`, UhdmWriter.cpp:2159) and the
+        // golden dump shows exactly that: no `vpiParent`, no typespec, no
+        // location on the folded constant.
+        ca->Rhs(folded);
+        reencode((UHDM::constant*)folded, w);
+    };
+    std::function<void(UHDM::any*)> walk = [&](UHDM::any* sc) {
+        if (!sc)
+            return;
+        UHDM::VectorOfcont_assign* cas = nullptr;
+        UHDM::VectorOfgen_scope_array* gsas = nullptr;
+        UHDM::VectorOfmodule_inst* mods = nullptr;
+        UHDM::VectorOfinterface_inst* ifs = nullptr;
+        std::string full;
+        bool isGenScope = false;
+        if (auto* mi = any_cast<UHDM::module_inst*>(sc)) {
+            cas = mi->Cont_assigns();
+            gsas = mi->Gen_scope_arrays();
+            mods = mi->Modules();
+            ifs = mi->Interfaces();
+        }
+        else if (auto* ii = any_cast<UHDM::interface_inst*>(sc)) {
+            cas = ii->Cont_assigns();
+            gsas = ii->Gen_scope_arrays();
+            ifs = ii->Interfaces();
+        }
+        else if (auto* gs = any_cast<UHDM::gen_scope*>(sc)) {
+            cas = gs->Cont_assigns();
+            gsas = gs->Gen_scope_arrays();
+            mods = gs->Modules();
+            ifs = gs->Interfaces();
+            full = gs->VpiFullName();
+            isGenScope = true;
+        }
+        else if (auto* ga = any_cast<UHDM::gen_scope_array*>(sc)) {
+            if (ga->Gen_scopes())
+                for (auto* g : *ga->Gen_scopes())
+                    walk(g);
+            return;
+        }
+        if (isGenScope && cas && !full.empty())
+            for (auto* ca : *cas) {
+                auto* lh = (UHDM::any*)ca->Lhs();
+                if (!lh || lh->UhdmType() != UHDM::uhdmref_obj)
+                    continue;
+                std::string lnm(((UHDM::ref_obj*)lh)->VpiName());
+                if (lnm.empty())
+                    continue;
+                auto it = want.find(keyOf(full, ca->VpiLineNo(),
+                                          ca->VpiColumnNo(), ca->VpiEndLineNo(),
+                                          ca->VpiEndColumnNo(), lnm));
+                if (it != want.end())
+                    foldOne(ca, sc, it->second);
             }
         if (gsas)
             for (auto* g : *gsas)

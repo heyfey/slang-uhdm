@@ -117,6 +117,17 @@ public:
     /// folds).  See the decode at the record site in ModuleEmit.cpp.
     void applyCaCastAdjust106(UHDM::design* d);
 
+    /// § genCaCastFoldDefaultView119 (r10earl119) — the SAME law in the view
+    /// that has no adjuster to borrow.  Surelog's `UhdmWriter::
+    /// writeCont_assign` folds and `adjustSize`s a bound-Lhs gen-scope cast
+    /// Rhs in EVERY mode (it is the instance-tree writer, not an `-elabuhdm`
+    /// pass), so golden's default-view answer is the same constant its
+    /// elaborated view carries; ours has none, because the fold we re-encode
+    /// in the other view is `UHDM::UhdmAdjuster`'s and the adjuster only runs
+    /// under `--elabuhdm`.  Called from `uhdm_main.cpp` exactly where
+    /// `applyCaCastAdjust106` is NOT.  See the decode in ModuleEmit.cpp.
+    void applyCaCastFoldDef119(UHDM::design* d);
+
     /// § patGenCaHierPathElemNoBind115 (r10earl115) — the POST-ELABORATOR half
     /// of the pattern-carried `hier_path` law.  A gen-scope continuous assign
     /// whose Rhs THIS emitter pre-flattened (`flattenPatternCaRhs`) hands

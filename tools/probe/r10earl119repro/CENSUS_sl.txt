@@ -1,0 +1,20 @@
+CALIBRATION: golden halves of the two sweeps IDENTICAL (101311 keys, 462550 cells)
+
+-- TALLY (keys / cells) --
+  FX SAME_AGREE             665 keys     11677 cells
+  FX STILL-WRONG           2561 keys     44343 cells
+  FX TO-GOLDEN                1 keys         1 cells
+  REST NOGOLD_SAME           88 keys       182 cells
+  REST SAME_AGREE         17604 keys     81787 cells
+  REST STILL-WRONG        80480 keys    324742 cells
+
+-- MOVER ROWS (a row appears only if a cell of it moved) --
+  default    Earlgrey_0_1                 {'FX TO-GOLDEN': 1}
+
+-- DETAIL (first 60) --
+  TO-GOLDEN    FX   default   Earlgrey_0_1             work@padctrl|gen_scope|g1|ref_obj|warl_mask|39:12-39:38
+        golden={'const|9|8|63|UINT:63': 1}
+        pristine={'op67': 1}
+        patched ={'const|9|8|63|UINT:63': 1}
+
+DETAIL_TOTAL 1
