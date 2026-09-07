@@ -1,0 +1,118 @@
+r10uvm196 â€” THE GOLDEN ORDER TABLES (ct196imp on ONE REAL Surelog golden).
+Parameters = NAME order within an import item; Param_assigns = DECLARATION
+order within an item; a FILE-scope item is materialized TWICE, ADJACENT; the
+file items lead the body items and both lead the scope's OWN parameters.
+
+==== arm G (two file-scope wildcard items + one body item + an own param) ====
+
+SCOPE name=(def view) defname=work@gOrder Parameters=20 Param_assigns=20
+  PARAM[ 0] parameter(QUARRY_DEPTH)@5:20 file=g196_pkg.sv imported='quarryPkg' param ts=ref->int_typespec()@5:13
+  PARAM[ 1] parameter(QUARRY_LOCAL)@7:20 file=g196_pkg.sv imported='quarryPkg' local ts=ref->int_typespec()@7:14
+  PARAM[ 2] parameter(QUARRY_NAME)@6:20 file=g196_pkg.sv imported='quarryPkg' param ts=ref->string_typespec()@6:13
+  PARAM[ 3] parameter(QUARRY_UNTYPED)@8:20 file=g196_pkg.sv imported='quarryPkg' param ts=ref->int_typespec()@8:3
+  PARAM[ 4] parameter(QUARRY_DEPTH)@5:20 file=g196_pkg.sv imported='quarryPkg' param ts=ref->int_typespec()@5:13
+  PARAM[ 5] parameter(QUARRY_LOCAL)@7:20 file=g196_pkg.sv imported='quarryPkg' local ts=ref->int_typespec()@7:14
+  PARAM[ 6] parameter(QUARRY_NAME)@6:20 file=g196_pkg.sv imported='quarryPkg' param ts=ref->string_typespec()@6:13
+  PARAM[ 7] parameter(QUARRY_UNTYPED)@8:20 file=g196_pkg.sv imported='quarryPkg' param ts=ref->int_typespec()@8:3
+  PARAM[ 8] parameter(MASON_COUNT)@17:17 file=g196_pkg.sv imported='masonPkg' param ts=ref->int_typespec()@17:13
+  PARAM[ 9] parameter(QUARRY_DEPTH)@5:20 file=g196_pkg.sv imported='masonPkg' param ts=ref->int_typespec()@5:13
+  PARAM[ 10] parameter(QUARRY_LOCAL)@7:20 file=g196_pkg.sv imported='masonPkg' local ts=ref->int_typespec()@7:14
+  PARAM[ 11] parameter(QUARRY_NAME)@6:20 file=g196_pkg.sv imported='masonPkg' param ts=ref->string_typespec()@6:13
+  PARAM[ 12] parameter(QUARRY_UNTYPED)@8:20 file=g196_pkg.sv imported='masonPkg' param ts=ref->int_typespec()@8:3
+  PARAM[ 13] parameter(MASON_COUNT)@17:17 file=g196_pkg.sv imported='masonPkg' param ts=ref->int_typespec()@17:13
+  PARAM[ 14] parameter(QUARRY_DEPTH)@5:20 file=g196_pkg.sv imported='masonPkg' param ts=ref->int_typespec()@5:13
+  PARAM[ 15] parameter(QUARRY_LOCAL)@7:20 file=g196_pkg.sv imported='masonPkg' local ts=ref->int_typespec()@7:14
+  PARAM[ 16] parameter(QUARRY_NAME)@6:20 file=g196_pkg.sv imported='masonPkg' param ts=ref->string_typespec()@6:13
+  PARAM[ 17] parameter(QUARRY_UNTYPED)@8:20 file=g196_pkg.sv imported='masonPkg' param ts=ref->int_typespec()@8:3
+  PARAM[ 18] parameter(G_LOCAL)@11:17 file=g196_g_order.sv imported='gLocalPkg' param ts=ref->int_typespec()@11:13
+  PARAM[ 19] parameter(G_OWN)@15:17 file=g196_g_order.sv imported='' param ts=ref->int_typespec()@15:13
+  PASSGN[ 0] lhs=parameter(QUARRY_DEPTH)@5:20 file=g196_pkg.sv rhs=constant()@5:37 ct=9 sz=32 val=UINT:71 dec=71
+  PASSGN[ 1] lhs=parameter(QUARRY_NAME)@6:20 file=g196_pkg.sv rhs=constant()@6:37 ct=6 sz=48 val=STRING:quarry dec="quar
+  PASSGN[ 2] lhs=parameter(QUARRY_LOCAL)@7:20 file=g196_pkg.sv rhs=constant()@7:37 ct=9 sz=32 val=UINT:12 dec=12
+  PASSGN[ 3] lhs=parameter(QUARRY_UNTYPED)@8:20 file=g196_pkg.sv rhs=constant()@8:37 ct=5 sz=8 val=HEX:A5 dec=8'hA5
+  PASSGN[ 4] lhs=parameter(QUARRY_DEPTH)@5:20 file=g196_pkg.sv rhs=constant()@5:37 ct=9 sz=32 val=UINT:71 dec=71
+  PASSGN[ 5] lhs=parameter(QUARRY_NAME)@6:20 file=g196_pkg.sv rhs=constant()@6:37 ct=6 sz=48 val=STRING:quarry dec="quar
+  PASSGN[ 6] lhs=parameter(QUARRY_LOCAL)@7:20 file=g196_pkg.sv rhs=constant()@7:37 ct=9 sz=32 val=UINT:12 dec=12
+  PASSGN[ 7] lhs=parameter(QUARRY_UNTYPED)@8:20 file=g196_pkg.sv rhs=constant()@8:37 ct=5 sz=8 val=HEX:A5 dec=8'hA5
+  PASSGN[ 8] lhs=parameter(QUARRY_DEPTH)@5:20 file=g196_pkg.sv rhs=constant()@5:37 ct=9 sz=32 val=UINT:71 dec=71
+  PASSGN[ 9] lhs=parameter(QUARRY_NAME)@6:20 file=g196_pkg.sv rhs=constant()@6:37 ct=6 sz=48 val=STRING:quarry dec="quar
+  PASSGN[ 10] lhs=parameter(QUARRY_LOCAL)@7:20 file=g196_pkg.sv rhs=constant()@7:37 ct=9 sz=32 val=UINT:12 dec=12
+  PASSGN[ 11] lhs=parameter(QUARRY_UNTYPED)@8:20 file=g196_pkg.sv rhs=constant()@8:37 ct=5 sz=8 val=HEX:A5 dec=8'hA5
+  PASSGN[ 12] lhs=parameter(MASON_COUNT)@17:17 file=g196_pkg.sv rhs=constant()@17:31 ct=9 sz=32 val=UINT:5 dec=5
+  PASSGN[ 13] lhs=parameter(QUARRY_DEPTH)@5:20 file=g196_pkg.sv rhs=constant()@5:37 ct=9 sz=32 val=UINT:71 dec=71
+  PASSGN[ 14] lhs=parameter(QUARRY_NAME)@6:20 file=g196_pkg.sv rhs=constant()@6:37 ct=6 sz=48 val=STRING:quarry dec="qua
+  PASSGN[ 15] lhs=parameter(QUARRY_LOCAL)@7:20 file=g196_pkg.sv rhs=constant()@7:37 ct=9 sz=32 val=UINT:12 dec=12
+  PASSGN[ 16] lhs=parameter(QUARRY_UNTYPED)@8:20 file=g196_pkg.sv rhs=constant()@8:37 ct=5 sz=8 val=HEX:A5 dec=8'hA5
+  PASSGN[ 17] lhs=parameter(MASON_COUNT)@17:17 file=g196_pkg.sv rhs=constant()@17:31 ct=9 sz=32 val=UINT:5 dec=5
+  PASSGN[ 18] lhs=parameter(G_LOCAL)@11:17 file=g196_g_order.sv rhs=constant()@11:27 ct=9 sz=32 val=UINT:33 dec=33
+  PASSGN[ 19] lhs=parameter(G_OWN)@15:17 file=g196_g_order.sv rhs=constant()@15:25 ct=9 sz=64 val=UINT:44 dec=44
+
+SCOPE name=work@gOrder defname=work@gOrder Parameters=20 Param_assigns=20
+  PARAM[ 0] parameter(QUARRY_DEPTH)@5:20 file=g196_pkg.sv imported='quarryPkg' param ts=ref->int_typespec()@5:13
+  PARAM[ 1] parameter(QUARRY_LOCAL)@7:20 file=g196_pkg.sv imported='quarryPkg' local ts=ref->int_typespec()@7:14
+  PARAM[ 2] parameter(QUARRY_NAME)@6:20 file=g196_pkg.sv imported='quarryPkg' param ts=ref->string_typespec()@6:13
+  PARAM[ 3] parameter(QUARRY_UNTYPED)@8:20 file=g196_pkg.sv imported='quarryPkg' param ts=ref->int_typespec()@8:3
+  PARAM[ 4] parameter(QUARRY_DEPTH)@5:20 file=g196_pkg.sv imported='quarryPkg' param ts=ref->int_typespec()@5:13
+  PARAM[ 5] parameter(QUARRY_LOCAL)@7:20 file=g196_pkg.sv imported='quarryPkg' local ts=ref->int_typespec()@7:14
+  PARAM[ 6] parameter(QUARRY_NAME)@6:20 file=g196_pkg.sv imported='quarryPkg' param ts=ref->string_typespec()@6:13
+  PARAM[ 7] parameter(QUARRY_UNTYPED)@8:20 file=g196_pkg.sv imported='quarryPkg' param ts=ref->int_typespec()@8:3
+  PARAM[ 8] parameter(MASON_COUNT)@17:17 file=g196_pkg.sv imported='masonPkg' param ts=ref->int_typespec()@17:13
+  PARAM[ 9] parameter(QUARRY_DEPTH)@5:20 file=g196_pkg.sv imported='masonPkg' param ts=ref->int_typespec()@5:13
+  PARAM[ 10] parameter(QUARRY_LOCAL)@7:20 file=g196_pkg.sv imported='masonPkg' local ts=ref->int_typespec()@7:14
+  PARAM[ 11] parameter(QUARRY_NAME)@6:20 file=g196_pkg.sv imported='masonPkg' param ts=ref->string_typespec()@6:13
+  PARAM[ 12] parameter(QUARRY_UNTYPED)@8:20 file=g196_pkg.sv imported='masonPkg' param ts=ref->int_typespec()@8:3
+  PARAM[ 13] parameter(MASON_COUNT)@17:17 file=g196_pkg.sv imported='masonPkg' param ts=ref->int_typespec()@17:13
+  PARAM[ 14] parameter(QUARRY_DEPTH)@5:20 file=g196_pkg.sv imported='masonPkg' param ts=ref->int_typespec()@5:13
+  PARAM[ 15] parameter(QUARRY_LOCAL)@7:20 file=g196_pkg.sv imported='masonPkg' local ts=ref->int_typespec()@7:14
+  PARAM[ 16] parameter(QUARRY_NAME)@6:20 file=g196_pkg.sv imported='masonPkg' param ts=ref->string_typespec()@6:13
+  PARAM[ 17] parameter(QUARRY_UNTYPED)@8:20 file=g196_pkg.sv imported='masonPkg' param ts=ref->int_typespec()@8:3
+  PARAM[ 18] parameter(G_LOCAL)@11:17 file=g196_g_order.sv imported='gLocalPkg' param ts=ref->int_typespec()@11:13
+  PARAM[ 19] parameter(G_OWN)@15:17 file=g196_g_order.sv imported='' param ts=ref->int_typespec()@15:13
+  PASSGN[ 0] lhs=parameter(QUARRY_DEPTH)@5:20 file=g196_pkg.sv rhs=constant()@5:37 ct=9 sz=32 val=UINT:71 dec=71
+  PASSGN[ 1] lhs=parameter(QUARRY_NAME)@6:20 file=g196_pkg.sv rhs=constant()@6:37 ct=6 sz=48 val=STRING:quarry dec=quarr
+  PASSGN[ 2] lhs=parameter(QUARRY_LOCAL)@7:20 file=g196_pkg.sv rhs=constant()@7:37 ct=9 sz=32 val=UINT:12 dec=12
+  PASSGN[ 3] lhs=parameter(QUARRY_UNTYPED)@8:20 file=g196_pkg.sv rhs=constant()@8:37 ct=5 sz=8 val=HEX:A5 dec=8'hA5
+  PASSGN[ 4] lhs=parameter(QUARRY_DEPTH)@5:20 file=g196_pkg.sv rhs=constant()@5:37 ct=9 sz=32 val=UINT:71 dec=71
+  PASSGN[ 5] lhs=parameter(QUARRY_NAME)@6:20 file=g196_pkg.sv rhs=constant()@6:37 ct=6 sz=48 val=STRING:quarry dec=quarr
+  PASSGN[ 6] lhs=parameter(QUARRY_LOCAL)@7:20 file=g196_pkg.sv rhs=constant()@7:37 ct=9 sz=32 val=UINT:12 dec=12
+  PASSGN[ 7] lhs=parameter(QUARRY_UNTYPED)@8:20 file=g196_pkg.sv rhs=constant()@8:37 ct=5 sz=8 val=HEX:A5 dec=8'hA5
+  PASSGN[ 8] lhs=parameter(QUARRY_DEPTH)@5:20 file=g196_pkg.sv rhs=constant()@5:37 ct=9 sz=32 val=UINT:71 dec=71
+  PASSGN[ 9] lhs=parameter(QUARRY_NAME)@6:20 file=g196_pkg.sv rhs=constant()@6:37 ct=6 sz=48 val=STRING:quarry dec=quarr
+  PASSGN[ 10] lhs=parameter(QUARRY_LOCAL)@7:20 file=g196_pkg.sv rhs=constant()@7:37 ct=9 sz=32 val=UINT:12 dec=12
+  PASSGN[ 11] lhs=parameter(QUARRY_UNTYPED)@8:20 file=g196_pkg.sv rhs=constant()@8:37 ct=5 sz=8 val=HEX:A5 dec=8'hA5
+  PASSGN[ 12] lhs=parameter(MASON_COUNT)@17:17 file=g196_pkg.sv rhs=constant()@17:31 ct=9 sz=32 val=UINT:5 dec=5
+  PASSGN[ 13] lhs=parameter(QUARRY_DEPTH)@5:20 file=g196_pkg.sv rhs=constant()@5:37 ct=9 sz=32 val=UINT:71 dec=71
+  PASSGN[ 14] lhs=parameter(QUARRY_NAME)@6:20 file=g196_pkg.sv rhs=constant()@6:37 ct=6 sz=48 val=STRING:quarry dec=quar
+  PASSGN[ 15] lhs=parameter(QUARRY_LOCAL)@7:20 file=g196_pkg.sv rhs=constant()@7:37 ct=9 sz=32 val=UINT:12 dec=12
+  PASSGN[ 16] lhs=parameter(QUARRY_UNTYPED)@8:20 file=g196_pkg.sv rhs=constant()@8:37 ct=5 sz=8 val=HEX:A5 dec=8'hA5
+  PASSGN[ 17] lhs=parameter(MASON_COUNT)@17:17 file=g196_pkg.sv rhs=constant()@17:31 ct=9 sz=32 val=UINT:5 dec=5
+  PASSGN[ 18] lhs=parameter(G_LOCAL)@11:17 file=g196_g_order.sv rhs=constant()@11:27 ct=9 sz=32 val=UINT:33 dec=33
+  PASSGN[ 19] lhs=parameter(G_OWN)@15:17 file=g196_g_order.sv rhs=constant()@15:25 ct=9 sz=32 val=UINT:44 dec=44
+
+SCOPE name=gLocalPkg defname=gLocalPkg Parameters=1 Param_assigns=1
+  PARAM[ 0] parameter(G_LOCAL)@11:17 file=g196_g_order.sv imported='' param ts=ref->int_typespec()@11:13
+  PASSGN[ 0] lhs=parameter(G_LOCAL)@11:17 file=g196_g_order.sv rhs=constant()@11:27 ct=9 sz=32 val=UINT:33 dec=33
+
+SCOPE name=gLocalPkg defname=gLocalPkg Parameters=1 Param_assigns=1
+  PARAM[ 0] parameter(G_LOCAL)@11:17 file=g196_g_order.sv imported='' param ts=ref->int_typespec()@11:13
+  PASSGN[ 0] lhs=parameter(G_LOCAL)@11:17 file=g196_g_order.sv rhs=constant()@11:27 ct=9 sz=64 val=UINT:33 dec=33
+
+==== SimpleUVM's own work@top, golden (the corpus witness: 45 x 2 = 90) ====
+G SCOPE™§„þ name='' defname='work@top' #197492  Parameters=90 Param_assigns=90
+G SCOPE™§„þ name='work@top' defname='work@top' #197854  Parameters=90 Param_assigns=90
+G   PARAM[   0] parameter(UVM_ABSTRACT)@201:11               file=uvm_object_globals.svh       imported='uvm_pkg' param ts=ref->int_typespec()@201:1
+G   PARAM[  44] parameter(uvm_snps_copyright)@28:18          file=uvm_version.svh              imported='uvm_pkg' param ts=ref->string_typespec()@28:11
+G   PARAM[  45] parameter(UVM_ABSTRACT)@201:11               file=uvm_object_globals.svh       imported='uvm_pkg' param ts=ref->int_typespec()@201:1
+G   PARAM[  89] parameter(uvm_snps_copyright)@28:18          file=uvm_version.svh              imported='uvm_pkg' param ts=ref->string_typespec()@28:11
+G   PASSGN[   0] lhs=parameter(UVM_HDL_MAX_WIDTH)@47:15           file=uvm_hdl.svh                  rhs=constant()@47:35 ct=9 sz=32 val=UINT:1024 dec=1024
+G   PASSGN[  44] lhs=parameter(UVM_LARGE_STRING)@410:11           file=uvm_globals.svh              rhs=constant()@410:30 ct=7 sz=32 val=INT:115199 dec=115199
+G   PASSGN[  45] lhs=parameter(UVM_HDL_MAX_WIDTH)@47:15           file=uvm_hdl.svh                  rhs=constant()@47:35 ct=9 sz=32 val=UINT:1024 dec=1024
+G   PASSGN[  89] lhs=parameter(UVM_LARGE_STRING)@410:11           file=uvm_globals.svh              rhs=constant()@410:30 ct=7 sz=32 val=INT:115199 dec=115199
+G   PARAM[   0] parameter(UVM_ABSTRACT)@201:11               file=uvm_object_globals.svh       imported='uvm_pkg' param ts=ref->int_typespec()@201:1
+G   PARAM[  44] parameter(uvm_snps_copyright)@28:18          file=uvm_version.svh              imported='uvm_pkg' param ts=ref->string_typespec()@28:11
+G   PARAM[  45] parameter(UVM_ABSTRACT)@201:11               file=uvm_object_globals.svh       imported='uvm_pkg' param ts=ref->int_typespec()@201:1
+G   PARAM[  89] parameter(uvm_snps_copyright)@28:18          file=uvm_version.svh              imported='uvm_pkg' param ts=ref->string_typespec()@28:11
+G   PASSGN[   0] lhs=parameter(UVM_HDL_MAX_WIDTH)@47:15           file=uvm_hdl.svh                  rhs=constant()@47:35 ct=9 sz=32 val=UINT:1024 dec=1024
+G   PASSGN[  44] lhs=parameter(UVM_LARGE_STRING)@410:11           file=uvm_globals.svh              rhs=constant()@410:30 ct=7 sz=32 val=INT:115199 dec=115199
+G   PASSGN[  45] lhs=parameter(UVM_HDL_MAX_WIDTH)@47:15           file=uvm_hdl.svh                  rhs=constant()@47:35 ct=9 sz=32 val=UINT:1024 dec=1024
+G   PASSGN[  89] lhs=parameter(UVM_LARGE_STRING)@410:11           file=uvm_globals.svh              rhs=constant()@410:30 ct=7 sz=32 val=INT:115199 dec=115199

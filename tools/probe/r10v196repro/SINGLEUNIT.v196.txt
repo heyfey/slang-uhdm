@@ -1,0 +1,31 @@
+# r10v196 â€” FENCE 3 (the same-buffer term) PROVEN LIVE UNDER --single-unit
+# grid196.sh runs our binary with NO --single-unit, and slang's DEFAULT is one
+# compilation unit PER FILE â€” so g196_d_other / v196_x6 do not exercise FENCE 3
+# on our side by default.  Re-run with --single-unit (what the UVM corpus rows use):
+
+GOLDEN (surelog, its own default = one compilation unit):
+def SCOPE Ğ«Óı? name='' defname='work@xSixLeaf' #660  Parameters=8 Param_assigns=8
+def SCOPE Ğ«Óı? name='' defname='work@xSixTop' #677  Parameters=0 Param_assigns=0
+def SCOPE Ğ«Óı? name='work@xSixTop' defname='work@xSixTop' #688  Parameters=0 Param_assigns=0
+def SCOPE Ğ«Óı? name='u0' defname='work@xSixLeaf' #689  Parameters=8 Param_assigns=8
+def SCOPE Ğ«Óı? name='builtin' defname='builtin' #565  Parameters=0 Param_assigns=0
+def SCOPE Ğ«Óı? name='builtin' defname='builtin' #659  Parameters=0 Param_assigns=0
+
+OURS, PATCHED, --single-unit:
+def SCOPE pËfş? name='' defname='work@xSixLeaf' #259  Parameters=8 Param_assigns=8
+def SCOPE pËfş? name='' defname='work@xSixTop' #260  Parameters=0 Param_assigns=0
+def SCOPE pËfş? name='work@xSixTop' defname='work@xSixTop' #461  Parameters=0 Param_assigns=0
+def SCOPE pËfş? name='u0' defname='work@xSixLeaf' #476  Parameters=8 Param_assigns=8
+def SCOPE pËfş? name='builtin' defname='builtin' #240  Parameters=0 Param_assigns=0
+def SCOPE pËfş? name='builtin' defname='builtin' #246  Parameters=0 Param_assigns=0
+
+OURS, PRISTINE, --single-unit:
+def SCOPE ê´Gı? name='' defname='work@xSixLeaf' #259  Parameters=0 Param_assigns=0
+def SCOPE ê´Gı? name='' defname='work@xSixTop' #260  Parameters=0 Param_assigns=0
+def SCOPE ê´Gı? name='work@xSixTop' defname='work@xSixTop' #363  Parameters=0 Param_assigns=0
+def SCOPE ê´Gı? name='u0' defname='work@xSixLeaf' #378  Parameters=0 Param_assigns=0
+def SCOPE ê´Gı? name='builtin' defname='builtin' #240  Parameters=0 Param_assigns=0
+def SCOPE ê´Gı? name='builtin' defname='builtin' #246  Parameters=0 Param_assigns=0
+
+xSixTop (declared in a file with NO import) takes 0 copies on BOTH sides even when
+every file shares one compilation unit; xSixLeaf and its instance take 8.

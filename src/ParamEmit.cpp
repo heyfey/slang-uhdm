@@ -2934,7 +2934,85 @@ static void collectImportedParams(
         };
     std::vector<ImpOcc9> occ;
     size_t item9 = 0;
-    for (auto& m : body.members()) {
+    // § modUnitImportParamsTwice196 — THE IMPORT ITEMS THIS SCOPE
+    // MATERIALIZES, IN SURELOG'S OWN ORDER.  Until this law the list was
+    // `body.members()` alone, which is the MODULE-BODY import items only.
+    //
+    // PRODUCER.  `CompileModule::collectModuleObjects_`
+    // (Surelog src/DesignCompile/CompileModule.cpp:568-580, the
+    // `CollectType::FUNCTION` pass; the interface mirror at :1055-1068,
+    // `CompileProgram::compile` at src/DesignCompile/CompileProgram.cpp:122-135)
+    // opens with
+    //
+    //     for (auto import : fC->getObjects(VObjectType::paPackage_import_item))
+    //         pack_imports.push_back(import);
+    //     for (auto pack_import : pack_imports)
+    //         m_helper.importPackage(m_module, m_design, pack_fC, pack_id, ...);
+    //
+    // `fC` is the module's own FileContent — a `DesignComponent` in its own
+    // right — so `getObjects` hands back the import items the FILE ($unit)
+    // registered, and every one of them is materialized INTO THE MODULE before
+    // the tree walk below reaches the module's own `paPackage_import_item`
+    // case.  A file-scope import therefore lands on every module, interface and
+    // program written in THAT FILE, and on no other.  This is the same rule
+    // § collectMaterializedPkgs already carries for the package's VARIABLES and
+    // its SUBROUTINE listing; only the PARAMETER half was missing.
+    //
+    // THE MULTIPLICITY IS 2, PER ITEM, ADJACENT — measured, not assumed
+    // (`grid196/g196_g_order.sv`, one REAL Surelog golden): a file with
+    // `import quarryPkg::*; import masonPkg::*;` and a module whose BODY
+    // imports a third package gives golden's module
+    //
+    //     [0..3]   quarryPkg   [4..7]   quarryPkg      <- file item 1, TWICE
+    //     [8..12]  masonPkg    [13..17] masonPkg       <- file item 2, TWICE
+    //     [18]     gLocalPkg                           <- the BODY item, ONCE
+    //     [19]     G_OWN                               <- the own params, last
+    //
+    // so the doubling is PER ITEM and the two copies are ADJACENT (a
+    // per-PASS doubling would have read quarry, mason, quarry, mason).  The
+    // two-explicit-item arm `g196_f_explicit.sv` says the same with
+    // `import p::QUARRY_NAME; import p::QUARRY_DEPTH;` -> NAME, NAME, DEPTH,
+    // DEPTH.  `g196_a_fileimp.sv` (file item only, 2 copies),
+    // `g196_b_bodyimp.sv` (body item only, 1 copy) and `g196_c_both.sv`
+    // (both, 3 copies) are the multiplicity grid, and SimpleUVM is the corpus
+    // witness: `import uvm_pkg::*;` at testbench.sv:1 puts uvm_pkg's 45
+    // parameters in `work@top` NINETY times, in both views and both vectors.
+    //
+    // THE SAME-BUFFER TERM.  `g196_d_other.sv` declares a module in a file
+    // with no import of its own; golden materializes NOTHING there even
+    // though `--single-unit` merges every file into one compilation unit.  The
+    // buffer compared is the DEFINITION's, which is why SimpleUVM's `dut`
+    // (an instance at testbench.sv:48 of a module DEFINED in design.sv) has
+    // no copies in golden either.
+    //
+    // PACKAGES ARE EXCLUDED, and that is a measurement too: `g196_g_order.sv`
+    // declares `package gLocalPkg` in the very file that carries the two
+    // file-scope imports, and golden's `gLocalPkg` lists its own single
+    // parameter and nothing else.  A package's own BODY import still
+    // materializes once (`masonPkg` imports `quarryPkg` and lists 4+1) — that
+    // is the `body.members()` half below, unchanged.  `emitParameters` fences
+    // this call on `!funcScope`, and the compilation-unit walk here fires only
+    // for an `InstanceBodySymbol`, so no package can reach it.
+    std::vector<const Symbol*> items9;
+    if (body.asSymbol().kind == SymbolKind::InstanceBody) {
+        auto& ib9 = body.asSymbol().as<InstanceBodySymbol>();
+        const SourceLocation modLoc9 = ib9.getDefinition().location;
+        if (auto* ps9 = ib9.getDefinition().getParentScope();
+            ps9 && ps9->asSymbol().kind == SymbolKind::CompilationUnit)
+            for (auto& m9 : ps9->members())
+                if ((m9.kind == SymbolKind::WildcardImport ||
+                     m9.kind == SymbolKind::ExplicitImport) &&
+                    m9.location.buffer() == modLoc9.buffer()) {
+                    items9.push_back(&m9);
+                    items9.push_back(&m9);
+                }
+    }
+    for (auto& m9 : body.members())
+        if (m9.kind == SymbolKind::WildcardImport ||
+            m9.kind == SymbolKind::ExplicitImport)
+            items9.push_back(&m9);
+    for (const Symbol* mp9 : items9) {
+        const Symbol& m = *mp9;
         if (m.kind == SymbolKind::WildcardImport) {
             if (auto* p = m.as<WildcardImportSymbol>().getPackage()) {
                 wildcardPkgs.insert(p);

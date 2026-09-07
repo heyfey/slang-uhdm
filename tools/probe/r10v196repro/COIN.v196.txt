@@ -1,0 +1,9 @@
+# r10v196 — THE Scoreboard/default COIN, measured (RESUME §9)
+# One command, one source tree, /tmp/v196_frozen/*.bin, -o redirected to scratch.
+# PRISTINE binary, 4 runs:  df92db26e461  df92db26e461  9455a56a1acf  df92db26e461
+# PATCHED  binary, 6 runs:  9455a56a1acf  df92db26e461  df92db26e461  7e80ee1cf561  3340affe27b5  9455a56a1acf
+# The patched binary REPRODUCES the pristine sweep's own hash (df92db26e461) and
+# four distinct hashes come out of ONE binary — the row is the documented coin.
+# Sweep hashes: patched=3340affe27b5 pristine=df92db26e461 (byteverify MOVER line).
+# Order-blind arbitration: uhdm-dump | sort, both sweep databases, 1100381 lines each,
+# diff = ONE line, the dump's own file-path banner. Zero content lines.

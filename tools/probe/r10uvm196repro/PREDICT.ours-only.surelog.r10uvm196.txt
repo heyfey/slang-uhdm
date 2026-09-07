@@ -1,0 +1,13 @@
+r10uvm196 — THE OURS-ONLY MOVER PREDICTOR (ct196cen --pred), surelog corpus.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.  Rows whose two sides agree
+entirely are omitted; the totals line counts EVERY row.  The four slang-fenced
+test names are redacted to <FENCED> by scrub196.sh.
+
+-- databases listed: 956
+PRED default/SimpleUVM-1dc93a62 inst=module_inst||work@top|44:1 pkg=uvm_pkg pkgparams=45 ourcopies=0  <== CELLS THE LAW ADDS
+PRED default/SimpleUVM-1dc93a62 inst=module_inst|work@top|work@top|44:1 pkg=uvm_pkg pkgparams=45 ourcopies=0  <== CELLS THE LAW ADDS
+PREDSUM default/SimpleUVM-1dc93a62 candidate-cells=2 PREDICTED-MOVER
+PRED testflags/SimpleUVM-1dc93a62 inst=module_inst||work@top|44:1 pkg=uvm_pkg pkgparams=45 ourcopies=0  <== CELLS THE LAW ADDS
+PRED testflags/SimpleUVM-1dc93a62 inst=module_inst|work@top|work@top|44:1 pkg=uvm_pkg pkgparams=45 ourcopies=0  <== CELLS THE LAW ADDS
+PREDSUM testflags/SimpleUVM-1dc93a62 candidate-cells=2 PREDICTED-MOVER
+-- PROCESSED=956 LISTED=956 PREDICTED_MOVERS=2 RESTORE_FAILS=0 NONZERO_RC=0

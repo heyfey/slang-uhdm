@@ -1,0 +1,47 @@
+r10uvm196 — THE ATTRIBUTION of the two byte movers (attrib196.sh).
+The dump is a poor instrument for an ADDITIVE law, so the load-bearing
+numbers are REMOVED=0 (nothing destroyed or re-typed) and the OBJECT-KIND
+deltas, each of which is then compared against GOLDEN's own population.
+
+default/SimpleUVM-1dc93a62/slang.uhdm  ORDER-BLIND ADDED=8616 REMOVED=0
+  object-kind deltas (patched - pristine), kinds that moved:
+    constant                    23941 ->    24201  (+260)
+    int_typespec                 2730 ->     3038  (+308)
+    param_assign                  230 ->      410  (+180)
+    parameter                     365 ->      635  (+270)
+    range                         900 ->      940  (+40)
+    ref_obj                     41694 ->    41698  (+4)
+    ref_typespec                18137 ->    18583  (+446)
+    string_typespec              3313 ->     3361  (+48)
+    /tmp/r10uvm196_attrib/default_SimpleUVM-1dc93a62_slang.uhdm.obj.pri:OBJTOT pri 183449
+    /tmp/r10uvm196_attrib/default_SimpleUVM-1dc93a62_slang.uhdm.obj.pat:OBJTOT pat 185005
+testflags/SimpleUVM-1dc93a62/slang.uhdm  ORDER-BLIND ADDED=8616 REMOVED=0
+  object-kind deltas (patched - pristine), kinds that moved:
+    constant                    23941 ->    24201  (+260)
+    int_typespec                 2730 ->     3038  (+308)
+    param_assign                  230 ->      410  (+180)
+    parameter                     365 ->      635  (+270)
+    range                         900 ->      940  (+40)
+    ref_obj                     41694 ->    41698  (+4)
+    ref_typespec                18137 ->    18583  (+446)
+    string_typespec              3313 ->     3361  (+48)
+    /tmp/r10uvm196_attrib/testflags_SimpleUVM-1dc93a62_slang.uhdm.obj.pri:OBJTOT pri 183461
+    /tmp/r10uvm196_attrib/testflags_SimpleUVM-1dc93a62_slang.uhdm.obj.pat:OBJTOT pat 185017
+-- TOTAL sorted-diff lines=17232 REMOVED-TOTAL=0
+
+== EVERY MOVED KIND vs GOLDEN's own count (SimpleUVM/default) ==
+  kind                    golden  pristine   patched    pris-gld   pat-gld
+  constant                 25716     23941     24201       -1775     -1515
+  int_typespec              3022      2730      3038        -292       +16
+  param_assign               410       230       410        -180        +0
+  parameter                  635       365       635        -270        +0
+  range                     1539       900       940        -639      -599
+  ref_obj                  41697     41694     41698          -3        +1
+  ref_typespec             19364     18137     18583       -1227      -781
+  string_typespec           3302      3313      3361         +11       +59
+
+== WHERE THE 270 NEW parameter OBJECTS LIVE (by vpiParent, and vs golden) ==
+  module_inst(/work@top)  imported=uvm_pkg             pristine=0     patched=90    golden=90   
+  module_inst(work@top/work@top)  imported=uvm_pkg     pristine=0     patched=90    golden=90   
+  param_assign(/)  imported=uvm_pkg                    pristine=135   patched=225   golden=225  
+  TOTAL parameter objects:  pristine=365  patched=635  golden=635

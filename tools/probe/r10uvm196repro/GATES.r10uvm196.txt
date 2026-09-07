@@ -1,0 +1,81 @@
+r10uvm196 — GATES, all run from this pass's own worktree with SLANG_UHDM exported
+explicitly to each frozen binary and every cmds.txt audited BY BINARY PATH.
+
+BASE                c3e022a3
+pristine binary     md5 4a42bc7a0018bc97d6d57ceebe1a0a9d  (chmod 555)
+patched binary      md5 b319e3a6663d2992cbafd747f74a2ffc  (chmod 555)
+
+(1) BUILD           both built -j 2, md5 taken separately (above).
+(2) GOLDENS         PASS=23 FAIL=0   negative control (SLANG_UHDM=/bin/false) PASS=0 FAIL=23
+
+(3) uhdm2rtlil      status histograms
+    pristine tf    731 rows  {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+    patched  tf    731 rows  {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+    pristine def   731 rows  {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+    patched  def   731 rows  {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+    ct8rows results/gate_uhdm2rtlil.csv  vs patched tf : PASS: every row byte-identical to the committed baseline
+    ct8rows own pristine tf              vs patched tf : PASS: every row byte-identical to the committed baseline
+    ct8rows /tmp control default         vs patched def: PASS: every row byte-identical to the committed baseline
+    ct8rows own pristine default         vs patched def: PASS: every row byte-identical to the committed baseline
+
+(4) surelog corpus  status histograms
+    pristine  1588 rows  {'CMP_EQUAL': 940, 'CMP_NOTEQUAL': 16, 'DEFERRED': 10, 'NO_DATABASE': 3, 'NO_UHDM': 1, 'SLANG_REJECT': 567, 'SURELOG_FAIL': 48, 'TIMEOUT': 1, 'UNTRANSLATABLE': 2}
+    patched   1588 rows  {'CMP_EQUAL': 940, 'CMP_NOTEQUAL': 16, 'DEFERRED': 10, 'NO_DATABASE': 3, 'NO_UHDM': 1, 'SLANG_REJECT': 567, 'SURELOG_FAIL': 48, 'TIMEOUT': 1, 'UNTRANSLATABLE': 2}
+    ct8rows results/golden_surelog.csv vs patched: PASS: every row byte-identical to the committed baseline
+    ct8rows own pristine               vs patched: PASS: every row byte-identical to the committed baseline
+    NO ROW CONVERTED in either direction.  BuildUVMPkg x2 and Earlgrey_0_1/testflags stay CMP_EQUAL.
+
+(5) byteverify SELFCHECK=1
+    surelog : PATH_SETS_IDENTICAL (956 paths) MOVERS: 2 / 956 
+    uhdm2rtlil: PATH_SETS_IDENTICAL (1358 paths) MOVERS: 0 / 1358 
+    the two surelog movers are default/SimpleUVM and testflags/SimpleUVM, both PREDICTED BY NAME.
+
+CANARIES
+    ---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+    ---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+    ctcan2 surelog   : PASS: every supplementary canary row is byte-identical to the baseline.
+    ctcan2 uhdm2rtlil: PASS: every supplementary canary row is byte-identical to the baseline.
+    canaudit         : ---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+
+PROTECTED DATABASES (md5 prefix, pristine vs patched sweep, both modes)
+    InterfaceModPort/default  59a365f3ce2c  59a365f3ce2c  SAME
+    InterfaceModPort/testflags  59a365f3ce2c  59a365f3ce2c  SAME
+    BlackParrotComplex/default  e3e354129d5a  e3e354129d5a  SAME
+    BlackParrotComplex/testflags  73a10e8217e5  73a10e8217e5  SAME
+    YosysOldOr/default  d68e0796d62c  d68e0796d62c  SAME
+    YosysOldOr/testflags  d68e0796d62c  d68e0796d62c  SAME
+    SVSwitch/default  4842211c4030  4842211c4030  SAME
+    SVSwitch/testflags  4842211c4030  4842211c4030  SAME
+    YosysVerx/default  6ccda350c24a  6ccda350c24a  SAME
+    YosysVerx/testflags  6ccda350c24a  6ccda350c24a  SAME
+
+HEADS (tools/probe/r10uvm196repro/rowheads.sh, the OFFICIAL uhdm-cmp; the cmp log of
+every row but SimpleUVM is BYTE-IDENTICAL between the two binaries)
+
+    row / mode                  pristine            patched
+    BuildUVMPkg.default                0 lines / 0 head          0 lines / 0 head   cmp-log IDENTICAL
+    BuildUVMPkg.testflags              0 lines / 0 head          0 lines / 0 head   cmp-log IDENTICAL
+    Earlgrey_0_1.default              31 lines / 1 head         31 lines / 1 head   cmp-log IDENTICAL
+    Earlgrey_0_1.testflags             0 lines / 0 head          0 lines / 0 head   cmp-log IDENTICAL
+    MiniAmiq.default                  29 lines / 1 head         29 lines / 1 head   cmp-log IDENTICAL
+    MiniAmiq.testflags                29 lines / 1 head         29 lines / 1 head   cmp-log IDENTICAL
+    Rggen.default                      0 lines / 0 head          0 lines / 0 head   cmp-log IDENTICAL
+    Scoreboard.default                95 lines / 1 head         95 lines / 1 head   cmp-log IDENTICAL
+    SeqDriver.default                 29 lines / 1 head         29 lines / 1 head   cmp-log IDENTICAL
+    SeqDriver.testflags               29 lines / 1 head         29 lines / 1 head   cmp-log IDENTICAL
+    SimpleUVM.default             664681 lines / 1 head         62 lines / 1 head   cmp-log CHANGED
+    SimpleUVM.testflags           664681 lines / 1 head         62 lines / 1 head   cmp-log CHANGED
+    (Scoreboard/testflags and Rggen/testflags are SKIP-NOFILE, as expected.)
+
+WIDE BOUNDARY (tools/probe copy, both views, every rc recorded)
+LISTED=5189 PROCESSED=5189 PRODUCED_DBS=5018 MOVED_ARMS=53 RC_DIFFS=0
+    grid196/g196_h_self.sv is this pass's POSITIVE CONTROL and IS in the moved list.
+-- SCORED views=104 MISSING-ARMS=0 TO-GOLDEN=2440 AWAY-GOLDEN=0
+-- NODB views: 0
+    (each of the other 52 arms rebuilt with a REAL Surelog golden in BOTH views)
+
+THE FLOOR — families the brief names as must-stay, checked BY NAME in the moved list
+    uvm192 4 arms / uvm193 4 / uvm184 2 (both fences) / uvm194 3 / uvm186 3 / uvm189 3
+    uvm191 3 / uvm185 5 / uvm190 4 / uvm187 6 / uvm188 4 / uvm170 5
+    uvm82-91 113 arms / buvm3-15 119 arms / sd8-12 347 arms
+    34 families, 625 arms, MOVED = 0.

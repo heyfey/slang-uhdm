@@ -1,0 +1,8 @@
+r10uvm196 — THE COMPARE-VISIBLE CENSUS, PATCHED, uhdm2rtlil corpus (1358 databases).
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.  Rows whose two sides agree
+entirely are omitted; the totals line counts EVERY row.  The four slang-fenced
+test names are redacted to <FENCED> by scrub196.sh.
+
+-- databases listed: 1358
+-- PROCESSED=1358 LISTED=1358 NOGOLDEN=0 RESTORE_FAILS=0 NONZERO_RC=0 MOVER_ROWS=0
+-- TOTALS AGREE=135112 GOLDEN-ONLY-IMPORTED=0 OURS-ONLY-IMPORTED=0 GOLDEN-ONLY-OWN=0 OURS-ONLY-OWN=0 GOLDEN-ONLY-COUNT=0 OURS-ONLY-COUNT=0

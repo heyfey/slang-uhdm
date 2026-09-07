@@ -1,0 +1,288 @@
+# r10v196 â€” SCOPE-BY-SCOPE listings for the arms whose faces the pass README did not carry
+
+===== x1_inst (elab view) â€” GOLDEN
+elab SCOPE Ğ?Jfü? name='' defname='work@xLeaf' #1110  Parameters=9 Param_assigns=9
+elab SCOPE Ğ?Jfü? name='' defname='work@xOne' #1127  Parameters=8 Param_assigns=8
+elab SCOPE Ğ?Jfü? name='' defname='work@xThree' #1144  Parameters=8 Param_assigns=8
+elab SCOPE Ğ?Jfü? name='work@xOne' defname='work@xOne' #1167  Parameters=8 Param_assigns=8
+elab SCOPE Ğ?Jfü? name='u0' defname='work@xLeaf' #1198  Parameters=9 Param_assigns=9
+elab SCOPE Ğ?Jfü? name='work@xThree' defname='work@xThree' #1239  Parameters=8 Param_assigns=8
+elab SCOPE Ğ?Jfü? name='u0' defname='work@xLeaf' #1270  Parameters=9 Param_assigns=9
+elab SCOPE Ğ?Jfü? name='u1' defname='work@xLeaf' #1310  Parameters=9 Param_assigns=9
+elab SCOPE Ğ?Jfü? name='u2' defname='work@xLeaf' #1350  Parameters=9 Param_assigns=9
+elab SCOPE Ğ?Jfü? name='quarryPkg' defname='quarryPkg' #1  Parameters=4 Param_assigns=4
+elab SCOPE Ğ?Jfü? name='masonPkg' defname='masonPkg' #2  Parameters=5 Param_assigns=5
+elab SCOPE Ğ?Jfü? name='emptyParamPkg' defname='emptyParamPkg' #3  Parameters=0 Param_assigns=0
+elab SCOPE Ğ?Jfü? name='quarryPkg' defname='quarryPkg' #71  Parameters=4 Param_assigns=4
+elab SCOPE Ğ?Jfü? name='masonPkg' defname='masonPkg' #225  Parameters=5 Param_assigns=5
+elab SCOPE Ğ?Jfü? name='emptyParamPkg' defname='emptyParamPkg' #322  Parameters=0 Param_assigns=0
+elab SCOPE Ğ?Jfü? name='builtin' defname='builtin' #767  Parameters=0 Param_assigns=0
+elab SCOPE Ğ?Jfü? name='builtin' defname='builtin' #1109  Parameters=0 Param_assigns=0
+----- x1_inst (elab view) â€” OURS (patched)
+elab SCOPE @Œ?ÿ? name='' defname='work@xLeaf' #259  Parameters=9 Param_assigns=9
+elab SCOPE @Œ?ÿ? name='' defname='work@xOne' #260  Parameters=8 Param_assigns=8
+elab SCOPE @Œ?ÿ? name='' defname='work@xThree' #261  Parameters=8 Param_assigns=8
+elab SCOPE @Œ?ÿ? name='work@xOne' defname='work@xOne' #682  Parameters=8 Param_assigns=8
+elab SCOPE @Œ?ÿ? name='u0' defname='work@xLeaf' #745  Parameters=9 Param_assigns=9
+elab SCOPE @Œ?ÿ? name='work@xThree' defname='work@xThree' #830  Parameters=8 Param_assigns=8
+elab SCOPE @Œ?ÿ? name='u0' defname='work@xLeaf' #890  Parameters=9 Param_assigns=9
+elab SCOPE @Œ?ÿ? name='u1' defname='work@xLeaf' #967  Parameters=9 Param_assigns=9
+elab SCOPE @Œ?ÿ? name='u2' defname='work@xLeaf' #1044  Parameters=9 Param_assigns=9
+elab SCOPE @Œ?ÿ? name='quarryPkg' defname='quarryPkg' #2  Parameters=4 Param_assigns=4
+elab SCOPE @Œ?ÿ? name='masonPkg' defname='masonPkg' #45  Parameters=5 Param_assigns=5
+elab SCOPE @Œ?ÿ? name='emptyParamPkg' defname='emptyParamPkg' #107  Parameters=0 Param_assigns=0
+elab SCOPE @Œ?ÿ? name='quarryPkg' defname='quarryPkg' #121  Parameters=4 Param_assigns=4
+elab SCOPE @Œ?ÿ? name='masonPkg' defname='masonPkg' #164  Parameters=5 Param_assigns=5
+elab SCOPE @Œ?ÿ? name='emptyParamPkg' defname='emptyParamPkg' #226  Parameters=0 Param_assigns=0
+elab SCOPE @Œ?ÿ? name='builtin' defname='builtin' #240  Parameters=0 Param_assigns=0
+elab SCOPE @Œ?ÿ? name='builtin' defname='builtin' #246  Parameters=0 Param_assigns=0
+----- x1_inst (elab view) â€” OURS (pristine)
+elab SCOPE pW:ƒÿ? name='' defname='work@xLeaf' #259  Parameters=1 Param_assigns=1
+elab SCOPE pW:ƒÿ? name='' defname='work@xOne' #260  Parameters=0 Param_assigns=0
+elab SCOPE pW:ƒÿ? name='' defname='work@xThree' #261  Parameters=0 Param_assigns=0
+elab SCOPE pW:ƒÿ? name='work@xOne' defname='work@xOne' #388  Parameters=0 Param_assigns=0
+elab SCOPE pW:ƒÿ? name='u0' defname='work@xLeaf' #411  Parameters=1 Param_assigns=1
+elab SCOPE pW:ƒÿ? name='work@xThree' defname='work@xThree' #456  Parameters=0 Param_assigns=0
+elab SCOPE pW:ƒÿ? name='u0' defname='work@xLeaf' #476  Parameters=1 Param_assigns=1
+elab SCOPE pW:ƒÿ? name='u1' defname='work@xLeaf' #513  Parameters=1 Param_assigns=1
+elab SCOPE pW:ƒÿ? name='u2' defname='work@xLeaf' #550  Parameters=1 Param_assigns=1
+elab SCOPE pW:ƒÿ? name='quarryPkg' defname='quarryPkg' #2  Parameters=4 Param_assigns=4
+elab SCOPE pW:ƒÿ? name='masonPkg' defname='masonPkg' #45  Parameters=5 Param_assigns=5
+elab SCOPE pW:ƒÿ? name='emptyParamPkg' defname='emptyParamPkg' #107  Parameters=0 Param_assigns=0
+elab SCOPE pW:ƒÿ? name='quarryPkg' defname='quarryPkg' #121  Parameters=4 Param_assigns=4
+elab SCOPE pW:ƒÿ? name='masonPkg' defname='masonPkg' #164  Parameters=5 Param_assigns=5
+elab SCOPE pW:ƒÿ? name='emptyParamPkg' defname='emptyParamPkg' #226  Parameters=0 Param_assigns=0
+elab SCOPE pW:ƒÿ? name='builtin' defname='builtin' #240  Parameters=0 Param_assigns=0
+elab SCOPE pW:ƒÿ? name='builtin' defname='builtin' #246  Parameters=0 Param_assigns=0
+
+===== x2_spec (elab view) â€” GOLDEN
+elab SCOPE °BÙ‘ş? name='' defname='work@xParam' #927  Parameters=9 Param_assigns=9
+elab SCOPE °BÙ‘ş? name='' defname='work@xSpecTop' #944  Parameters=8 Param_assigns=8
+elab SCOPE °BÙ‘ş? name='work@xSpecTop' defname='work@xSpecTop' #967  Parameters=8 Param_assigns=8
+elab SCOPE °BÙ‘ş? name='s1' defname='work@xParam' #998  Parameters=9 Param_assigns=9
+elab SCOPE °BÙ‘ş? name='s2' defname='work@xParam' #1050  Parameters=9 Param_assigns=9
+elab SCOPE °BÙ‘ş? name='s3' defname='work@xParam' #1101  Parameters=9 Param_assigns=9
+elab SCOPE °BÙ‘ş? name='quarryPkg' defname='quarryPkg' #1  Parameters=4 Param_assigns=4
+elab SCOPE °BÙ‘ş? name='masonPkg' defname='masonPkg' #2  Parameters=5 Param_assigns=5
+elab SCOPE °BÙ‘ş? name='emptyParamPkg' defname='emptyParamPkg' #3  Parameters=0 Param_assigns=0
+elab SCOPE °BÙ‘ş? name='quarryPkg' defname='quarryPkg' #71  Parameters=4 Param_assigns=4
+elab SCOPE °BÙ‘ş? name='masonPkg' defname='masonPkg' #225  Parameters=5 Param_assigns=5
+elab SCOPE °BÙ‘ş? name='emptyParamPkg' defname='emptyParamPkg' #322  Parameters=0 Param_assigns=0
+elab SCOPE °BÙ‘ş? name='builtin' defname='builtin' #686  Parameters=0 Param_assigns=0
+elab SCOPE °BÙ‘ş? name='builtin' defname='builtin' #926  Parameters=0 Param_assigns=0
+----- x2_spec (elab view) â€” OURS (patched)
+elab SCOPE p¼Õªÿ? name='' defname='work@xParam' #259  Parameters=9 Param_assigns=9
+elab SCOPE p¼Õªÿ? name='' defname='work@xSpecTop' #260  Parameters=8 Param_assigns=8
+elab SCOPE p¼Õªÿ? name='work@xSpecTop' defname='work@xSpecTop' #561  Parameters=8 Param_assigns=8
+elab SCOPE p¼Õªÿ? name='s1' defname='work@xParam' #629  Parameters=9 Param_assigns=9
+elab SCOPE p¼Õªÿ? name='s2' defname='work@xParam' #707  Parameters=9 Param_assigns=9
+elab SCOPE p¼Õªÿ? name='s3' defname='work@xParam' #785  Parameters=9 Param_assigns=9
+elab SCOPE p¼Õªÿ? name='' defname='' #1106  Parameters=9 Param_assigns=11
+elab SCOPE p¼Õªÿ? name='' defname='' #1190  Parameters=9 Param_assigns=11
+elab SCOPE p¼Õªÿ? name='' defname='' #1274  Parameters=9 Param_assigns=11
+elab SCOPE p¼Õªÿ? name='quarryPkg' defname='quarryPkg' #2  Parameters=4 Param_assigns=4
+elab SCOPE p¼Õªÿ? name='masonPkg' defname='masonPkg' #45  Parameters=5 Param_assigns=5
+elab SCOPE p¼Õªÿ? name='emptyParamPkg' defname='emptyParamPkg' #107  Parameters=0 Param_assigns=0
+elab SCOPE p¼Õªÿ? name='quarryPkg' defname='quarryPkg' #121  Parameters=4 Param_assigns=4
+elab SCOPE p¼Õªÿ? name='masonPkg' defname='masonPkg' #164  Parameters=5 Param_assigns=5
+elab SCOPE p¼Õªÿ? name='emptyParamPkg' defname='emptyParamPkg' #226  Parameters=0 Param_assigns=0
+elab SCOPE p¼Õªÿ? name='builtin' defname='builtin' #240  Parameters=0 Param_assigns=0
+elab SCOPE p¼Õªÿ? name='builtin' defname='builtin' #246  Parameters=0 Param_assigns=0
+----- x2_spec (elab view) â€” OURS (pristine)
+elab SCOPE pĞï—ü? name='' defname='work@xParam' #259  Parameters=1 Param_assigns=1
+elab SCOPE pĞï—ü? name='' defname='work@xSpecTop' #260  Parameters=0 Param_assigns=0
+elab SCOPE pĞï—ü? name='work@xSpecTop' defname='work@xSpecTop' #395  Parameters=0 Param_assigns=0
+elab SCOPE pĞï—ü? name='s1' defname='work@xParam' #423  Parameters=1 Param_assigns=1
+elab SCOPE pĞï—ü? name='s2' defname='work@xParam' #461  Parameters=1 Param_assigns=1
+elab SCOPE pĞï—ü? name='s3' defname='work@xParam' #499  Parameters=1 Param_assigns=1
+elab SCOPE pĞï—ü? name='' defname='' #724  Parameters=1 Param_assigns=3
+elab SCOPE pĞï—ü? name='' defname='' #740  Parameters=1 Param_assigns=3
+elab SCOPE pĞï—ü? name='' defname='' #756  Parameters=1 Param_assigns=3
+elab SCOPE pĞï—ü? name='quarryPkg' defname='quarryPkg' #2  Parameters=4 Param_assigns=4
+elab SCOPE pĞï—ü? name='masonPkg' defname='masonPkg' #45  Parameters=5 Param_assigns=5
+elab SCOPE pĞï—ü? name='emptyParamPkg' defname='emptyParamPkg' #107  Parameters=0 Param_assigns=0
+elab SCOPE pĞï—ü? name='quarryPkg' defname='quarryPkg' #121  Parameters=4 Param_assigns=4
+elab SCOPE pĞï—ü? name='masonPkg' defname='masonPkg' #164  Parameters=5 Param_assigns=5
+elab SCOPE pĞï—ü? name='emptyParamPkg' defname='emptyParamPkg' #226  Parameters=0 Param_assigns=0
+elab SCOPE pĞï—ü? name='builtin' defname='builtin' #240  Parameters=0 Param_assigns=0
+elab SCOPE pĞï—ü? name='builtin' defname='builtin' #246  Parameters=0 Param_assigns=0
+
+===== x4_after (def view) â€” GOLDEN
+def SCOPE P—xÕı? name='' defname='work@xAfter' #793  Parameters=8 Param_assigns=8
+def SCOPE P—xÕı? name='' defname='work@xAfterTwo' #810  Parameters=8 Param_assigns=8
+def SCOPE P—xÕı? name='work@xAfter' defname='work@xAfter' #827  Parameters=8 Param_assigns=8
+def SCOPE P—xÕı? name='work@xAfterTwo' defname='work@xAfterTwo' #864  Parameters=8 Param_assigns=8
+def SCOPE P—xÕı? name='quarryPkg' defname='quarryPkg' #1  Parameters=4 Param_assigns=4
+def SCOPE P—xÕı? name='masonPkg' defname='masonPkg' #2  Parameters=5 Param_assigns=5
+def SCOPE P—xÕı? name='emptyParamPkg' defname='emptyParamPkg' #3  Parameters=0 Param_assigns=0
+def SCOPE P—xÕı? name='quarryPkg' defname='quarryPkg' #71  Parameters=4 Param_assigns=4
+def SCOPE P—xÕı? name='masonPkg' defname='masonPkg' #225  Parameters=5 Param_assigns=5
+def SCOPE P—xÕı? name='emptyParamPkg' defname='emptyParamPkg' #322  Parameters=0 Param_assigns=0
+def SCOPE P—xÕı? name='builtin' defname='builtin' #668  Parameters=0 Param_assigns=0
+def SCOPE P—xÕı? name='builtin' defname='builtin' #792  Parameters=0 Param_assigns=0
+----- x4_after (def view) â€” OURS (patched)
+def SCOPE À¼¢×ÿ? name='' defname='work@xAfter' #259  Parameters=8 Param_assigns=8
+def SCOPE À¼¢×ÿ? name='' defname='work@xAfterTwo' #260  Parameters=8 Param_assigns=8
+def SCOPE À¼¢×ÿ? name='work@xAfter' defname='work@xAfter' #570  Parameters=8 Param_assigns=8
+def SCOPE À¼¢×ÿ? name='work@xAfterTwo' defname='work@xAfterTwo' #638  Parameters=8 Param_assigns=8
+def SCOPE À¼¢×ÿ? name='quarryPkg' defname='quarryPkg' #2  Parameters=4 Param_assigns=4
+def SCOPE À¼¢×ÿ? name='masonPkg' defname='masonPkg' #45  Parameters=5 Param_assigns=5
+def SCOPE À¼¢×ÿ? name='emptyParamPkg' defname='emptyParamPkg' #107  Parameters=0 Param_assigns=0
+def SCOPE À¼¢×ÿ? name='quarryPkg' defname='quarryPkg' #121  Parameters=4 Param_assigns=4
+def SCOPE À¼¢×ÿ? name='masonPkg' defname='masonPkg' #164  Parameters=5 Param_assigns=5
+def SCOPE À¼¢×ÿ? name='emptyParamPkg' defname='emptyParamPkg' #226  Parameters=0 Param_assigns=0
+def SCOPE À¼¢×ÿ? name='builtin' defname='builtin' #240  Parameters=0 Param_assigns=0
+def SCOPE À¼¢×ÿ? name='builtin' defname='builtin' #246  Parameters=0 Param_assigns=0
+----- x4_after (def view) â€” OURS (pristine)
+def SCOPE pì?íı? name='' defname='work@xAfter' #259  Parameters=0 Param_assigns=0
+def SCOPE pì?íı? name='' defname='work@xAfterTwo' #260  Parameters=0 Param_assigns=0
+def SCOPE pì?íı? name='work@xAfter' defname='work@xAfter' #374  Parameters=0 Param_assigns=0
+def SCOPE pì?íı? name='work@xAfterTwo' defname='work@xAfterTwo' #402  Parameters=0 Param_assigns=0
+def SCOPE pì?íı? name='quarryPkg' defname='quarryPkg' #2  Parameters=4 Param_assigns=4
+def SCOPE pì?íı? name='masonPkg' defname='masonPkg' #45  Parameters=5 Param_assigns=5
+def SCOPE pì?íı? name='emptyParamPkg' defname='emptyParamPkg' #107  Parameters=0 Param_assigns=0
+def SCOPE pì?íı? name='quarryPkg' defname='quarryPkg' #121  Parameters=4 Param_assigns=4
+def SCOPE pì?íı? name='masonPkg' defname='masonPkg' #164  Parameters=5 Param_assigns=5
+def SCOPE pì?íı? name='emptyParamPkg' defname='emptyParamPkg' #226  Parameters=0 Param_assigns=0
+def SCOPE pì?íı? name='builtin' defname='builtin' #240  Parameters=0 Param_assigns=0
+def SCOPE pì?íı? name='builtin' defname='builtin' #246  Parameters=0 Param_assigns=0
+
+===== x5_iface (elab view) â€” GOLDEN
+elab SCOPE ÀH?ÿ? name='' defname='work@xIf' #789  Parameters=8 Param_assigns=8
+elab SCOPE ÀH?ÿ? name='u_if' defname='work@xIf' #887  Parameters=8 Param_assigns=8
+elab SCOPE ÀH?ÿ? name='' defname='work@xIfTop' #802  Parameters=8 Param_assigns=8
+elab SCOPE ÀH?ÿ? name='work@xIfTop' defname='work@xIfTop' #819  Parameters=8 Param_assigns=8
+elab SCOPE ÀH?ÿ? name='quarryPkg' defname='quarryPkg' #1  Parameters=4 Param_assigns=4
+elab SCOPE ÀH?ÿ? name='masonPkg' defname='masonPkg' #2  Parameters=5 Param_assigns=5
+elab SCOPE ÀH?ÿ? name='emptyParamPkg' defname='emptyParamPkg' #3  Parameters=0 Param_assigns=0
+elab SCOPE ÀH?ÿ? name='quarryPkg' defname='quarryPkg' #71  Parameters=4 Param_assigns=4
+elab SCOPE ÀH?ÿ? name='masonPkg' defname='masonPkg' #225  Parameters=5 Param_assigns=5
+elab SCOPE ÀH?ÿ? name='emptyParamPkg' defname='emptyParamPkg' #322  Parameters=0 Param_assigns=0
+elab SCOPE ÀH?ÿ? name='builtin' defname='builtin' #666  Parameters=0 Param_assigns=0
+elab SCOPE ÀH?ÿ? name='builtin' defname='builtin' #788  Parameters=0 Param_assigns=0
+----- x5_iface (elab view) â€” OURS (patched)
+elab SCOPE ĞZ¡4ü? name='' defname='work@xIf' #259  Parameters=8 Param_assigns=8
+elab SCOPE ĞZ¡4ü? name='u_if' defname='work@xIf' #620  Parameters=8 Param_assigns=8
+elab SCOPE ĞZ¡4ü? name='' defname='work@xIfTop' #260  Parameters=8 Param_assigns=8
+elab SCOPE ĞZ¡4ü? name='work@xIfTop' defname='work@xIfTop' #565  Parameters=8 Param_assigns=8
+elab SCOPE ĞZ¡4ü? name='quarryPkg' defname='quarryPkg' #2  Parameters=4 Param_assigns=4
+elab SCOPE ĞZ¡4ü? name='masonPkg' defname='masonPkg' #45  Parameters=5 Param_assigns=5
+elab SCOPE ĞZ¡4ü? name='emptyParamPkg' defname='emptyParamPkg' #107  Parameters=0 Param_assigns=0
+elab SCOPE ĞZ¡4ü? name='quarryPkg' defname='quarryPkg' #121  Parameters=4 Param_assigns=4
+elab SCOPE ĞZ¡4ü? name='masonPkg' defname='masonPkg' #164  Parameters=5 Param_assigns=5
+elab SCOPE ĞZ¡4ü? name='emptyParamPkg' defname='emptyParamPkg' #226  Parameters=0 Param_assigns=0
+elab SCOPE ĞZ¡4ü? name='builtin' defname='builtin' #240  Parameters=0 Param_assigns=0
+elab SCOPE ĞZ¡4ü? name='builtin' defname='builtin' #246  Parameters=0 Param_assigns=0
+----- x5_iface (elab view) â€” OURS (pristine)
+elab SCOPE  name='' defname='work@xIf' #259  Parameters=0 Param_assigns=0
+elab SCOPE  name='u_if' defname='work@xIf' #384  Parameters=0 Param_assigns=0
+elab SCOPE  name='' defname='work@xIfTop' #260  Parameters=0 Param_assigns=0
+elab SCOPE  name='work@xIfTop' defname='work@xIfTop' #369  Parameters=0 Param_assigns=0
+elab SCOPE  name='quarryPkg' defname='quarryPkg' #2  Parameters=4 Param_assigns=4
+elab SCOPE  name='masonPkg' defname='masonPkg' #45  Parameters=5 Param_assigns=5
+elab SCOPE  name='emptyParamPkg' defname='emptyParamPkg' #107  Parameters=0 Param_assigns=0
+elab SCOPE  name='quarryPkg' defname='quarryPkg' #121  Parameters=4 Param_assigns=4
+elab SCOPE  name='masonPkg' defname='masonPkg' #164  Parameters=5 Param_assigns=5
+elab SCOPE  name='emptyParamPkg' defname='emptyParamPkg' #226  Parameters=0 Param_assigns=0
+elab SCOPE  name='builtin' defname='builtin' #240  Parameters=0 Param_assigns=0
+elab SCOPE  name='builtin' defname='builtin' #246  Parameters=0 Param_assigns=0
+
+===== x11_nested (def view) â€” GOLDEN
+def SCOPE °Ô?„ş? name='' defname='work@xOuter' #799  Parameters=8 Param_assigns=8
+def SCOPE °Ô?„ş? name='' defname='work@xOuter::xInner' #816  Parameters=8 Param_assigns=8
+def SCOPE °Ô?„ş? name='work@xOuter' defname='work@xOuter' #833  Parameters=8 Param_assigns=8
+def SCOPE °Ô?„ş? name='quarryPkg' defname='quarryPkg' #1  Parameters=4 Param_assigns=4
+def SCOPE °Ô?„ş? name='masonPkg' defname='masonPkg' #2  Parameters=5 Param_assigns=5
+def SCOPE °Ô?„ş? name='emptyParamPkg' defname='emptyParamPkg' #3  Parameters=0 Param_assigns=0
+def SCOPE °Ô?„ş? name='quarryPkg' defname='quarryPkg' #71  Parameters=4 Param_assigns=4
+def SCOPE °Ô?„ş? name='masonPkg' defname='masonPkg' #225  Parameters=5 Param_assigns=5
+def SCOPE °Ô?„ş? name='emptyParamPkg' defname='emptyParamPkg' #322  Parameters=0 Param_assigns=0
+def SCOPE °Ô?„ş? name='builtin' defname='builtin' #668  Parameters=0 Param_assigns=0
+def SCOPE °Ô?„ş? name='builtin' defname='builtin' #798  Parameters=0 Param_assigns=0
+----- x11_nested (def view) â€” OURS (patched)
+def SCOPE ğ name='' defname='work@xInner' #259  Parameters=0 Param_assigns=0
+def SCOPE ğ name='' defname='work@xOuter' #260  Parameters=8 Param_assigns=8
+def SCOPE ğ name='work@xOuter' defname='work@xOuter' #461  Parameters=8 Param_assigns=8
+def SCOPE ğ name='u0' defname='work@xInner' #524  Parameters=0 Param_assigns=0
+def SCOPE ğ name='quarryPkg' defname='quarryPkg' #2  Parameters=4 Param_assigns=4
+def SCOPE ğ name='masonPkg' defname='masonPkg' #45  Parameters=5 Param_assigns=5
+def SCOPE ğ name='emptyParamPkg' defname='emptyParamPkg' #107  Parameters=0 Param_assigns=0
+def SCOPE ğ name='quarryPkg' defname='quarryPkg' #121  Parameters=4 Param_assigns=4
+def SCOPE ğ name='masonPkg' defname='masonPkg' #164  Parameters=5 Param_assigns=5
+def SCOPE ğ name='emptyParamPkg' defname='emptyParamPkg' #226  Parameters=0 Param_assigns=0
+def SCOPE ğ name='builtin' defname='builtin' #240  Parameters=0 Param_assigns=0
+def SCOPE ğ name='builtin' defname='builtin' #246  Parameters=0 Param_assigns=0
+----- x11_nested (def view) â€” OURS (pristine)
+def SCOPE  name='' defname='work@xInner' #259  Parameters=0 Param_assigns=0
+def SCOPE  name='' defname='work@xOuter' #260  Parameters=0 Param_assigns=0
+def SCOPE  name='work@xOuter' defname='work@xOuter' #363  Parameters=0 Param_assigns=0
+def SCOPE  name='u0' defname='work@xInner' #386  Parameters=0 Param_assigns=0
+def SCOPE  name='quarryPkg' defname='quarryPkg' #2  Parameters=4 Param_assigns=4
+def SCOPE  name='masonPkg' defname='masonPkg' #45  Parameters=5 Param_assigns=5
+def SCOPE  name='emptyParamPkg' defname='emptyParamPkg' #107  Parameters=0 Param_assigns=0
+def SCOPE  name='quarryPkg' defname='quarryPkg' #121  Parameters=4 Param_assigns=4
+def SCOPE  name='masonPkg' defname='masonPkg' #164  Parameters=5 Param_assigns=5
+def SCOPE  name='emptyParamPkg' defname='emptyParamPkg' #226  Parameters=0 Param_assigns=0
+def SCOPE  name='builtin' defname='builtin' #240  Parameters=0 Param_assigns=0
+def SCOPE  name='builtin' defname='builtin' #246  Parameters=0 Param_assigns=0
+
+===== x13_genarr (elab view) â€” GOLDEN
+elab SCOPE P?‚ëş? name='' defname='work@xArrTop' #1495  Parameters=8 Param_assigns=8
+elab SCOPE P?‚ëş? name='' defname='work@xCell' #1515  Parameters=8 Param_assigns=8
+elab SCOPE P?‚ëş? name='work@xArrTop' defname='work@xArrTop' #1532  Parameters=8 Param_assigns=8
+elab SCOPE P?‚ëş? name='u' defname='work@xCell' #1599  Parameters=8 Param_assigns=8
+elab SCOPE P?‚ëş? name='u' defname='work@xCell' #1671  Parameters=8 Param_assigns=8
+elab SCOPE P?‚ëş? name='u' defname='work@xCell' #1743  Parameters=8 Param_assigns=8
+elab SCOPE P?‚ëş? name='u' defname='work@xCell' #1815  Parameters=8 Param_assigns=8
+elab SCOPE P?‚ëş? name='u' defname='work@xCell' #1973  Parameters=8 Param_assigns=8
+elab SCOPE P?‚ëş? name='u' defname='work@xCell' #2077  Parameters=8 Param_assigns=8
+elab SCOPE P?‚ëş? name='u' defname='work@xCell' #2181  Parameters=8 Param_assigns=8
+elab SCOPE P?‚ëş? name='u' defname='work@xCell' #2285  Parameters=8 Param_assigns=8
+elab SCOPE P?‚ëş? name='quarryPkg' defname='quarryPkg' #1  Parameters=4 Param_assigns=4
+elab SCOPE P?‚ëş? name='masonPkg' defname='masonPkg' #2  Parameters=5 Param_assigns=5
+elab SCOPE P?‚ëş? name='emptyParamPkg' defname='emptyParamPkg' #3  Parameters=0 Param_assigns=0
+elab SCOPE P?‚ëş? name='quarryPkg' defname='quarryPkg' #71  Parameters=4 Param_assigns=4
+elab SCOPE P?‚ëş? name='masonPkg' defname='masonPkg' #225  Parameters=5 Param_assigns=5
+elab SCOPE P?‚ëş? name='emptyParamPkg' defname='emptyParamPkg' #322  Parameters=0 Param_assigns=0
+elab SCOPE P?‚ëş? name='builtin' defname='builtin' #673  Parameters=0 Param_assigns=0
+elab SCOPE P?‚ëş? name='builtin' defname='builtin' #1494  Parameters=0 Param_assigns=0
+----- x13_genarr (elab view) â€” OURS (patched)
+elab SCOPE xæÛş? name='' defname='work@xArrTop' #259  Parameters=8 Param_assigns=8
+elab SCOPE xæÛş? name='' defname='work@xCell' #260  Parameters=8 Param_assigns=8
+elab SCOPE xæÛş? name='work@xArrTop' defname='work@xArrTop' #577  Parameters=8 Param_assigns=8
+elab SCOPE xæÛş? name='u' defname='work@xCell' #656  Parameters=8 Param_assigns=8
+elab SCOPE xæÛş? name='u' defname='work@xCell' #735  Parameters=8 Param_assigns=8
+elab SCOPE xæÛş? name='u' defname='work@xCell' #814  Parameters=8 Param_assigns=8
+elab SCOPE xæÛş? name='u' defname='work@xCell' #893  Parameters=8 Param_assigns=8
+elab SCOPE xæÛş? name='u' defname='work@xCell' #1152  Parameters=8 Param_assigns=8
+elab SCOPE xæÛş? name='u' defname='work@xCell' #1228  Parameters=8 Param_assigns=8
+elab SCOPE xæÛş? name='u' defname='work@xCell' #1304  Parameters=8 Param_assigns=8
+elab SCOPE xæÛş? name='u' defname='work@xCell' #1380  Parameters=8 Param_assigns=8
+elab SCOPE xæÛş? name='quarryPkg' defname='quarryPkg' #2  Parameters=4 Param_assigns=4
+elab SCOPE xæÛş? name='masonPkg' defname='masonPkg' #45  Parameters=5 Param_assigns=5
+elab SCOPE xæÛş? name='emptyParamPkg' defname='emptyParamPkg' #107  Parameters=0 Param_assigns=0
+elab SCOPE xæÛş? name='quarryPkg' defname='quarryPkg' #121  Parameters=4 Param_assigns=4
+elab SCOPE xæÛş? name='masonPkg' defname='masonPkg' #164  Parameters=5 Param_assigns=5
+elab SCOPE xæÛş? name='emptyParamPkg' defname='emptyParamPkg' #226  Parameters=0 Param_assigns=0
+elab SCOPE xæÛş? name='builtin' defname='builtin' #240  Parameters=0 Param_assigns=0
+elab SCOPE xæÛş? name='builtin' defname='builtin' #246  Parameters=0 Param_assigns=0
+----- x13_genarr (elab view) â€” OURS (pristine)
+elab SCOPE ?­İìş? name='' defname='work@xArrTop' #259  Parameters=0 Param_assigns=0
+elab SCOPE ?­İìş? name='' defname='work@xCell' #260  Parameters=0 Param_assigns=0
+elab SCOPE ?­İìş? name='work@xArrTop' defname='work@xArrTop' #381  Parameters=0 Param_assigns=0
+elab SCOPE ?­İìş? name='u' defname='work@xCell' #420  Parameters=0 Param_assigns=0
+elab SCOPE ?­İìş? name='u' defname='work@xCell' #459  Parameters=0 Param_assigns=0
+elab SCOPE ?­İìş? name='u' defname='work@xCell' #498  Parameters=0 Param_assigns=0
+elab SCOPE ?­İìş? name='u' defname='work@xCell' #537  Parameters=0 Param_assigns=0
+elab SCOPE ?­İìş? name='u' defname='work@xCell' #686  Parameters=0 Param_assigns=0
+elab SCOPE ?­İìş? name='u' defname='work@xCell' #738  Parameters=0 Param_assigns=0
+elab SCOPE ?­İìş? name='u' defname='work@xCell' #790  Parameters=0 Param_assigns=0
+elab SCOPE ?­İìş? name='u' defname='work@xCell' #842  Parameters=0 Param_assigns=0
+elab SCOPE ?­İìş? name='quarryPkg' defname='quarryPkg' #2  Parameters=4 Param_assigns=4
+elab SCOPE ?­İìş? name='masonPkg' defname='masonPkg' #45  Parameters=5 Param_assigns=5
+elab SCOPE ?­İìş? name='emptyParamPkg' defname='emptyParamPkg' #107  Parameters=0 Param_assigns=0
+elab SCOPE ?­İìş? name='quarryPkg' defname='quarryPkg' #121  Parameters=4 Param_assigns=4
+elab SCOPE ?­İìş? name='masonPkg' defname='masonPkg' #164  Parameters=5 Param_assigns=5
+elab SCOPE ?­İìş? name='emptyParamPkg' defname='emptyParamPkg' #226  Parameters=0 Param_assigns=0
+elab SCOPE ?­İìş? name='builtin' defname='builtin' #240  Parameters=0 Param_assigns=0
+elab SCOPE ?­İìş? name='builtin' defname='builtin' #246  Parameters=0 Param_assigns=0

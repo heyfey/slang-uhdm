@@ -1,0 +1,43 @@
+r10uvm196 — THE ARM GRIDS, one REAL Surelog golden per arm, BOTH views.
+LHS is ALWAYS golden; RHS is ALWAYS ours.  a = the PRISTINE binary, b = the PATCHED one.
+GOLDEN-ONLY-COUNT is the copies golden has that we lack; OURS-ONLY-COUNT the reverse.
+
+==== all3 ====
+CENSUM all/def/a AGREE=40 GOLDEN-ONLY=224 OURS-ONLY=0 GOLDEN-ONLY-IMPORTED=224 OURS-ONLY-IMPORTED=0 GOLDEN-ONLY-OWN=0 OURS-ONLY-OWN=0 GOLDEN-ONLY-COUNT=224 OURS-ONLY-COUNT=0 unmatched-golden-keys=0 arity-mismatches=0 PREDICTED-MOVER
+CENSUM all/def/b AGREE=264 GOLDEN-ONLY=0 OURS-ONLY=0 GOLDEN-ONLY-IMPORTED=0 OURS-ONLY-IMPORTED=0 GOLDEN-ONLY-OWN=0 OURS-ONLY-OWN=0 GOLDEN-ONLY-COUNT=0 OURS-ONLY-COUNT=0 unmatched-golden-keys=0 arity-mismatches=0 no-move
+CENSUM all/elab/a AGREE=40 GOLDEN-ONLY=224 OURS-ONLY=0 GOLDEN-ONLY-IMPORTED=224 OURS-ONLY-IMPORTED=0 GOLDEN-ONLY-OWN=0 OURS-ONLY-OWN=0 GOLDEN-ONLY-COUNT=224 OURS-ONLY-COUNT=0 unmatched-golden-keys=0 arity-mismatches=0 PREDICTED-MOVER
+CENSUM all/elab/b AGREE=264 GOLDEN-ONLY=0 OURS-ONLY=0 GOLDEN-ONLY-IMPORTED=0 OURS-ONLY-IMPORTED=0 GOLDEN-ONLY-OWN=0 OURS-ONLY-OWN=0 GOLDEN-ONLY-COUNT=0 OURS-ONLY-COUNT=0 unmatched-golden-keys=0 arity-mismatches=0 no-move
+-- nonzero rcs:
+  (none)
+-- cmp:
+cmp rc=255 a def lines=50 heads=1
+cmp rc=255 b def lines=50 heads=1
+cmp rc=255 a elab lines=50 heads=1
+cmp rc=255 b elab lines=50 heads=1
+
+==== g_order3 ====
+CENSUM g_order/def/a AGREE=8 GOLDEN-ONLY=72 OURS-ONLY=0 GOLDEN-ONLY-IMPORTED=72 OURS-ONLY-IMPORTED=0 GOLDEN-ONLY-OWN=0 OURS-ONLY-OWN=0 GOLDEN-ONLY-COUNT=72 OURS-ONLY-COUNT=0 unmatched-golden-keys=0 arity-mismatches=0 PREDICTED-MOVER
+CENSUM g_order/def/b AGREE=80 GOLDEN-ONLY=0 OURS-ONLY=0 GOLDEN-ONLY-IMPORTED=0 OURS-ONLY-IMPORTED=0 GOLDEN-ONLY-OWN=0 OURS-ONLY-OWN=0 GOLDEN-ONLY-COUNT=0 OURS-ONLY-COUNT=0 unmatched-golden-keys=0 arity-mismatches=0 no-move
+CENSUM g_order/elab/a AGREE=8 GOLDEN-ONLY=72 OURS-ONLY=0 GOLDEN-ONLY-IMPORTED=72 OURS-ONLY-IMPORTED=0 GOLDEN-ONLY-OWN=0 OURS-ONLY-OWN=0 GOLDEN-ONLY-COUNT=72 OURS-ONLY-COUNT=0 unmatched-golden-keys=0 arity-mismatches=0 PREDICTED-MOVER
+CENSUM g_order/elab/b AGREE=80 GOLDEN-ONLY=0 OURS-ONLY=0 GOLDEN-ONLY-IMPORTED=0 OURS-ONLY-IMPORTED=0 GOLDEN-ONLY-OWN=0 OURS-ONLY-OWN=0 GOLDEN-ONLY-COUNT=0 OURS-ONLY-COUNT=0 unmatched-golden-keys=0 arity-mismatches=0 no-move
+-- nonzero rcs:
+  (none)
+-- cmp:
+cmp rc=255 a def lines=50 heads=1
+cmp rc=255 b def lines=50 heads=1
+cmp rc=255 a elab lines=50 heads=1
+cmp rc=255 b elab lines=50 heads=1
+
+==== h_self ====
+CENSUM h_self/def/a AGREE=4 GOLDEN-ONLY=48 OURS-ONLY=0 GOLDEN-ONLY-IMPORTED=48 OURS-ONLY-IMPORTED=0 GOLDEN-ONLY-OWN=0 OURS-ONLY-OWN=0 GOLDEN-ONLY-COUNT=48 OURS-ONLY-COUNT=0 unmatched-golden-keys=0 arity-mismatches=0 PREDICTED-MOVER
+CENSUM h_self/def/b AGREE=52 GOLDEN-ONLY=0 OURS-ONLY=0 GOLDEN-ONLY-IMPORTED=0 OURS-ONLY-IMPORTED=0 GOLDEN-ONLY-OWN=0 OURS-ONLY-OWN=0 GOLDEN-ONLY-COUNT=0 OURS-ONLY-COUNT=0 unmatched-golden-keys=0 arity-mismatches=0 no-move
+CENSUM h_self/elab/a AGREE=4 GOLDEN-ONLY=48 OURS-ONLY=0 GOLDEN-ONLY-IMPORTED=48 OURS-ONLY-IMPORTED=0 GOLDEN-ONLY-OWN=0 OURS-ONLY-OWN=0 GOLDEN-ONLY-COUNT=48 OURS-ONLY-COUNT=0 unmatched-golden-keys=0 arity-mismatches=0 PREDICTED-MOVER
+CENSUM h_self/elab/b AGREE=52 GOLDEN-ONLY=0 OURS-ONLY=0 GOLDEN-ONLY-IMPORTED=0 OURS-ONLY-IMPORTED=0 GOLDEN-ONLY-OWN=0 OURS-ONLY-OWN=0 GOLDEN-ONLY-COUNT=0 OURS-ONLY-COUNT=0 unmatched-golden-keys=0 arity-mismatches=0 no-move
+-- nonzero rcs:
+  (none)
+-- cmp:
+cmp rc=255 a def lines=50 heads=1
+cmp rc=255 b def lines=50 heads=1
+cmp rc=255 a elab lines=50 heads=1
+cmp rc=255 b elab lines=50 heads=1
+

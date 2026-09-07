@@ -1,0 +1,39 @@
+design::Compare r=1
+HEAD LHS(golden) = module_inst()@44:1-71:10#197492
+HEAD RHS(ours)   = <null>
+HEAD LHS parent chain: <design:work@top:0
+
+== CHASE (edge by edge, through LINKS as well as containment) ==
+  [0] L=design(work@top)@0:0-0:0#194978
+      R=design(work@top)@0:0-0:0#1
+      via edge vpiType=40 index 0
+  [1] L=param_assign()@47:15-47:39#119383
+      R=param_assign()@47:15-47:39#178883
+      via edge vpiType=77 (singular)
+  [2] L=parameter(UVM_HDL_MAX_WIDTH)@47:15-47:32#119387
+      R=parameter(UVM_HDL_MAX_WIDTH)@47:15-47:32#178884
+      via edge vpiType=605 (singular)
+  [3] L=ref_typespec()@0:0-0:0#119388
+      R=ref_typespec()@0:0-0:0#3059
+      via edge vpiType=700 (singular)
+  [4] L=int_typespec()@47:11-47:14#119389
+      R=int_typespec()@47:11-47:14#3063
+      via edge vpiType=745 (singular)
+  [5] L=package(uvm_pkg)@28:1-39:11#1
+      R=package(uvm_pkg)@28:1-39:11#3057
+      via edge vpiType=40 index 0
+  [6] L=param_assign()@47:15-47:39#1326
+      R=param_assign()@47:15-47:39#3060
+      via edge vpiType=77 (singular)
+  [7] L=parameter(UVM_HDL_MAX_WIDTH)@47:15-47:32#1321
+      R=parameter(UVM_HDL_MAX_WIDTH)@47:15-47:32#3058
+      via edge vpiType=605 (singular)
+  [8] L=ref_typespec()@0:0-0:0#1325
+      R=ref_typespec()@0:0-0:0#3059
+      via edge vpiType=700 (singular)
+  [9] L=int_typespec()@47:11-47:14#1320
+      R=int_typespec()@47:11-47:14#3063
+      via edge vpiType=745 (singular)
+  [10] L=package(uvm_pkg)@28:1-39:11#1
+      R=package(uvm_pkg)@28:1-39:11#3057
+      (cycle)

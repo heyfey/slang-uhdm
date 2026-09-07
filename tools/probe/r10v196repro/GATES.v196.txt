@@ -1,0 +1,63 @@
+r10v196 — THE VERIFIER'S OWN GATE RUN.  Every number below was produced in this
+directory's own worktrees (/tmp/wt_v196 = c3e022a3 + /tmp/r10uvm196.patch,
+/tmp/wt_v196pris = clean c3e022a3), with binaries frozen chmod 555 before any
+sweep and SLANG_UHDM exported explicitly per binary.  MEASUREMENT ONLY; the
+official uhdm-cmp is the judge.  LHS is ALWAYS golden.
+
+BINARIES (built by the verifier, -j 2, gcc-toolset-14, Release)
+  pristine  4a42bc7a0018bc97d6d57ceebe1a0a9d   (implementer claimed the same)
+  patched   b319e3a6663d2992cbafd747f74a2ffc   (implementer claimed the same)
+  the patch applied to a FRESH c3e022a3 worktree with rc=0 and no fuzz;
+  patch md5 737699f6452f846e0b5f6d55d72deff9.
+  Surface: src/ParamEmit.cpp + RESUME.md §3b + tools/probe/r10uvm196repro/ only.
+  results/*.csv untouched.  The four slang-fenced test names (read out of
+  canaudit.sh, never spelled here): 0 hits in the patch outside canaudit.sh,
+  and no driver in either probe dir dispatches one — canaudit reports
+  FENCE-BREACH=0.
+  Every gate script in r10uvm196repro/ is byte-identical to its canonical copy
+  (canaudit, canaries, ctcan2, ct8rows, byteverify, rowheads) — no weakened gate.
+
+GOLDENS            PASS=23 FAIL=0;  negative control SLANG_UHDM=/bin/false: FAIL=23 PASS=0
+UHDM2RTLIL         679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL, BOTH modes, BOTH binaries
+                   ct8rows vs committed baseline: PASS (0 differing rows, status AND dump)
+                   ct8rows patched vs own pristine: PASS, both modes
+                   cmds.txt audit: 1458/1462 name the frozen binary BY PATH, the other 4 are
+                   the two SURELOG_FAIL rows x2 modes (golden-cache lines only, no slang call)
+                   byteverify SELFCHECK=1: MOVERS 0 / 1358, PATH_SETS_IDENTICAL, selfcheck 1357/1358
+SURELOG 1588 rows  CMP_EQUAL 940 / SLANG_REJECT 567 / SURELOG_FAIL 48 / CMP_NOTEQUAL 16 /
+                   DEFERRED 10 / NO_DATABASE 3 / UNTRANSLATABLE 2 / TIMEOUT 1 / NO_UHDM 1,
+                   IDENTICAL between the two binaries
+                   ct8rows vs committed baseline: PASS; patched vs own pristine: PASS;
+                   pristine vs committed baseline: PASS
+                   NO conversion in either direction.  BuildUVMPkg default+testflags CMP_EQUAL,
+                   Earlgrey_0_1/testflags CMP_EQUAL, Rggen/default CMP_EQUAL — all held.
+                   byteverify SELFCHECK=1: MOVERS 3 / 956 —
+                     default/SimpleUVM   (PREDICTED)
+                     testflags/SimpleUVM (PREDICTED)
+                     default/Scoreboard  = THE COIN, see COIN.v196.txt: the sorted dumps are
+                       identical (1100381 lines, diff = the path banner only) and the PATCHED
+                       binary reproduces the PRISTINE sweep's own hash on a re-run.
+HEADS (rowheads.sh, both sweeps)
+                   SimpleUVM default 664681 -> 62, testflags 664681 -> 62, ONE head each
+                   SeqDriver 29/29, MiniAmiq 29/29, Scoreboard/default 95, Earlgrey_0_1 31/0,
+                   BuildUVMPkg 0/0, Rggen/default 0 — every one of those cmp logs is
+                   BYTE-IDENTICAL between the two binaries.
+                   The new head is the claimed R0 verbatim: golden's constant carries
+                   |vpiSize:328 and ours carries no vpiSize line; decompile, STRING value,
+                   ref_typespec chain and vpiConstType identical.  Both modes byte-identical.
+ATTRIBUTION        SimpleUVM/default sorted-dump diff: ADDED 8616 / REMOVED 0 (the one extra
+                   line is the dump's path banner).  Object kinds, golden / pristine / patched:
+                     parameter        635 / 365 / 635    <- lands exactly on golden
+                     param_assign     410 / 230 / 410    <- lands exactly on golden
+                     constant       25716 /23941 /24201
+                     ref_typespec   19364 /18137 /18583
+                     range           1539 /  900 /  940
+                     int_typespec    3022 / 2730 / 3038  (+16 OVER golden)
+                     string_typespec 3302 / 3313 / 3361  (+59 OVER golden)
+                   TAGGED census (kind,name,vpiImported) on SimpleUVM/default vs its real golden:
+                     pristine GOLDEN-ONLY 360, patched GOLDEN-ONLY 0 / OURS-ONLY 0.
+                   Corpus-wide 720 = 2 rows x 360; only those two databases moved at all.
+CANARIES           surelog ok=52 changed=0; u2r ok=8 changed=0; ctcan2 PASS x2;
+                   canaudit PASS, audited=29 UNCOVERED=0 FENCE-BREACH=0.
+PROTECTED DBs      InterfaceModPort / BlackParrotComplex / YosysOldOr SAME in both modes;
+                   SVSwitch 4842211c4030; YosysVerx 6ccda350c24a.

@@ -1,0 +1,46 @@
+r10uvm196 — THE PRISTINE SimpleUVM/default HEAD, FIRST 40 LINES ONLY.
+The full cmp log is 664681 lines / 32M and is NOT committed: the head
+object is the whole DEF-view `module_inst work@top`, so the LINE COUNT IS ITS
+DECOMPILE SIZE, not a distance (RESUME §9).  md5 of the full log: ed5d6193ead2.
+Reproduce with rowheads.sh on a pristine sweep.
+----
+LHS:
+decompile:
+module_inst: work@top (work@top), id:197492, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+|vpiParent:
+\_design: (work@top), id:194978
+|vpiFullName:work@top
+|vpiParameter:
+\_parameter: (work@top.UVM_ABSTRACT), id:119719, line:201:11, endln:201:23
+  |vpiParent:
+  \_module_inst: work@top (work@top), id:197492, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+  |UINT:16384
+  |vpiTypespec:
+  \_ref_typespec: (work@top.UVM_ABSTRACT), id:119720
+    |vpiParent:
+    \_parameter: (work@top.UVM_ABSTRACT), id:119719, line:201:11, endln:201:23
+    |vpiFullName:work@top.UVM_ABSTRACT
+    |vpiActual:
+    \_int_typespec: , id:119721, line:201:1, endln:201:37
+  |vpiName:UVM_ABSTRACT
+  |vpiFullName:work@top.UVM_ABSTRACT
+  |vpiImported:uvm_pkg
+|vpiParameter:
+\_parameter: (work@top.UVM_ALL_ON), id:119722, line:181:11, endln:181:21
+  |vpiParent:
+  \_module_inst: work@top (work@top), id:197492, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+  |BIN:000000101010101
+  |vpiName:UVM_ALL_ON
+  |vpiFullName:work@top.UVM_ALL_ON
+  |vpiImported:uvm_pkg
+|vpiParameter:
+\_parameter: (work@top.UVM_CHECK_FIELDS), id:119723, line:209:11, endln:209:27
+  |vpiParent:
+  \_module_inst: work@top (work@top), id:197492, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+  |UINT:131075
+  |vpiTypespec:
+  \_ref_typespec: (work@top.UVM_CHECK_FIELDS), id:119724
+    |vpiParent:
+    \_parameter: (work@top.UVM_CHECK_FIELDS), id:119723, line:209:11, endln:209:27
+    |vpiFullName:work@top.UVM_CHECK_FIELDS
+    |vpiActual:

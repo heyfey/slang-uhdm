@@ -1,0 +1,70 @@
+r10uvm196 — THE COMPARE-VISIBLE CENSUS, PRISTINE, surelog corpus (956 databases).
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.  Rows whose two sides agree
+entirely are omitted; the totals line counts EVERY row.  The four slang-fenced
+test names are redacted to <FENCED> by scrub196.sh.
+
+-- databases listed: 956
+CENSUM default/Earlgrey_0_1-71da2fd7 AGREE=22750 GOLDEN-ONLY=14 OURS-ONLY=14 GOLDEN-ONLY-IMPORTED=14 OURS-ONLY-IMPORTED=0 GOLDEN-ONLY-OWN=0 OURS-ONLY-OWN=14 GOLDEN-ONLY-COUNT=0 OURS-ONLY-COUNT=0 unmatched-golden-keys=0 arity-mismatches=0 no-move
+CENSUM default/SimpleUVM-1dc93a62 AGREE=0 GOLDEN-ONLY=360 OURS-ONLY=0 GOLDEN-ONLY-IMPORTED=360 OURS-ONLY-IMPORTED=0 GOLDEN-ONLY-OWN=0 OURS-ONLY-OWN=0 GOLDEN-ONLY-COUNT=360 OURS-ONLY-COUNT=0 unmatched-golden-keys=0 arity-mismatches=0 PREDICTED-MOVER
+ARITY testflags/BlackConst-043847d0 inst=module_inst|good|work@GOOD|159:5 goldenInstances=1 oursInstances=2
+ARITY testflags/ClogCast-50aaa9ab inst=module_inst|g_cast|work@GOOD|64:6 goldenInstances=1 oursInstances=2
+ARITY testflags/ClogCast-50aaa9ab inst=module_inst|g_clog2|work@GOOD|56:6 goldenInstances=1 oursInstances=2
+ARITY testflags/CondOpPred-0be998dc inst=module_inst|good|work@GOOD|14:6 goldenInstances=1 oursInstances=2
+ARITY testflags/ConstantRange-0dce8db1 inst=module_inst|good|work@GOOD|13:14 goldenInstances=4 oursInstances=8
+ARITY testflags/ConstCapital-406508e9 inst=module_inst|good1|work@GOOD|11:9 goldenInstances=1 oursInstances=2
+ARITY testflags/ConstCapital-406508e9 inst=module_inst|good2|work@GOOD|16:9 goldenInstances=1 oursInstances=2
+ARITY testflags/DefParamIndex-d97eddd3 inst=module_inst|good0|work@GOOD|25:2 goldenInstances=2 oursInstances=8
+ARITY testflags/DefParamIndex-d97eddd3 inst=module_inst|good1|work@GOOD|28:6 goldenInstances=2 oursInstances=8
+ARITY testflags/DefParamIndex-d97eddd3 inst=module_inst|mod_b|work@hierdefparam_b|16:7 goldenInstances=4 oursInstances=8
+CENSUM testflags/DefParamIndex-d97eddd3 AGREE=10 GOLDEN-ONLY=0 OURS-ONLY=8 GOLDEN-ONLY-IMPORTED=0 OURS-ONLY-IMPORTED=0 GOLDEN-ONLY-OWN=0 OURS-ONLY-OWN=8 GOLDEN-ONLY-COUNT=0 OURS-ONLY-COUNT=8 unmatched-golden-keys=0 arity-mismatches=3 no-move
+ARITY testflags/Earlgrey_0_1-71da2fd7 inst=module_inst|aes_sbox|work@aes_sbox_lut|16:5 goldenInstances=43 oursInstances=80
+ARITY testflags/Earlgrey_0_1-71da2fd7 inst=module_inst|i_rd_buf|work@flash_phy_rd_buffers|137:5 goldenInstances=16 oursInstances=32
+ARITY testflags/Earlgrey_0_1-71da2fd7 inst=module_inst|i_slice|work@prim_fifo_sync|72:3 goldenInstances=4 oursInstances=8
+ARITY testflags/Earlgrey_0_1-71da2fd7 inst=module_inst|i_sync_n|work@prim_flop_2sync|64:5 goldenInstances=4 oursInstances=8
+ARITY testflags/Earlgrey_0_1-71da2fd7 inst=module_inst|i_sync_p|work@prim_flop_2sync|54:5 goldenInstances=4 oursInstances=8
+ARITY testflags/Earlgrey_0_1-71da2fd7 inst=module_inst|u_impl_generic|work@prim_generic_clock_mux2|28:5 goldenInstances=4 oursInstances=8
+ARITY testflags/Earlgrey_0_1-71da2fd7 inst=module_inst|u_impl_generic|work@prim_generic_flash|41:5 goldenInstances=4 oursInstances=8
+ARITY testflags/Earlgrey_0_1-71da2fd7 inst=module_inst|u_impl_generic|work@prim_generic_pad_wrapper|39:5 goldenInstances=100 oursInstances=194
+ARITY testflags/Earlgrey_0_1-71da2fd7 inst=module_inst|u_impl_generic|work@prim_generic_ram_1p|35:5 goldenInstances=6 oursInstances=18
+ARITY testflags/Earlgrey_0_1-71da2fd7 inst=module_inst|u_mem|work@prim_ram_1p|271:3 goldenInstances=4 oursInstances=8
+CENSUM testflags/Earlgrey_0_1-71da2fd7 AGREE=28480 GOLDEN-ONLY=14 OURS-ONLY=1358 GOLDEN-ONLY-IMPORTED=14 OURS-ONLY-IMPORTED=640 GOLDEN-ONLY-OWN=0 OURS-ONLY-OWN=718 GOLDEN-ONLY-COUNT=0 OURS-ONLY-COUNT=1344 unmatched-golden-keys=0 arity-mismatches=10 no-move
+ARITY testflags/EarlgreyPackParam-b795853f inst=module_inst|good|work@GOOD|36:6 goldenInstances=4 oursInstances=8
+ARITY testflags/EnumConcat-2fd3fda4 inst=module_inst|good|work@GOOD|12:5 goldenInstances=1 oursInstances=2
+ARITY testflags/EnumConstConcat-55d4a47e inst=module_inst|good|work@GOOD|25:7 goldenInstances=1 oursInstances=2
+ARITY testflags/Func128Bits-aae37dd1 inst=module_inst|good|work@GOOD|41:3 goldenInstances=1 oursInstances=2
+ARITY testflags/GenBlock-f1608298 inst=module_inst|good|work@GOOD|18:9 goldenInstances=1 oursInstances=2
+ARITY testflags/GenCase-7ef6382f inst=module_inst|u2|work@GOOD|13:7 goldenInstances=1 oursInstances=2
+ARITY testflags/GenCaseStmt-b955aa51 inst=module_inst|u2|work@GOOD|26:13 goldenInstances=1 oursInstances=2
+ARITY testflags/GenCaseStmt-b955aa51 inst=module_inst|u3|work@GOOD|14:14 goldenInstances=1 oursInstances=2
+ARITY testflags/GenCaseStmt-b955aa51 inst=module_inst|u3|work@GOOD|21:14 goldenInstances=1 oursInstances=2
+ARITY testflags/GenScopeHierPath-a2114f21 inst=module_inst|u_impl_generic|work@prim_generic_pad_attr|37:7 goldenInstances=8 oursInstances=16
+CENSUM testflags/GenScopeHierPath-a2114f21 AGREE=48 GOLDEN-ONLY=0 OURS-ONLY=16 GOLDEN-ONLY-IMPORTED=0 OURS-ONLY-IMPORTED=0 GOLDEN-ONLY-OWN=0 OURS-ONLY-OWN=16 GOLDEN-ONLY-COUNT=0 OURS-ONLY-COUNT=16 unmatched-golden-keys=0 arity-mismatches=1 no-move
+ARITY testflags/HierPathUnpacked-f0c176fe inst=module_inst|p1u|work@GOOD|27:6 goldenInstances=1 oursInstances=2
+ARITY testflags/HierPathUnpacked-f0c176fe inst=module_inst|p2u|work@GOOD|31:5 goldenInstances=1 oursInstances=2
+ARITY testflags/HighLow-57c53371 inst=module_inst|good1|work@GOOD|15:5 goldenInstances=1 oursInstances=2
+ARITY testflags/HighLow-57c53371 inst=module_inst|good2|work@GOOD|18:5 goldenInstances=1 oursInstances=2
+ARITY testflags/HighLow-57c53371 inst=module_inst|good3|work@GOOD|21:5 goldenInstances=1 oursInstances=2
+ARITY testflags/HighLow-57c53371 inst=module_inst|good4|work@GOOD|24:5 goldenInstances=1 oursInstances=2
+ARITY testflags/IfElseGen-886b6ff3 inst=module_inst|cond_module|work@GOOD1|10:3 goldenInstances=1 oursInstances=2
+ARITY testflags/IfElseGen-886b6ff3 inst=module_inst|cond_module|work@GOOD2|22:3 goldenInstances=1 oursInstances=2
+ARITY testflags/IfElseIf1-d51c3ee1 inst=module_inst|good|work@GOOD|17:14 goldenInstances=1 oursInstances=2
+ARITY testflags/IfElseIf2-a9c30966 inst=module_inst|good|work@GOOD|14:13 goldenInstances=1 oursInstances=2
+ARITY testflags/IfElseIf3-eb2fb79f inst=module_inst|good|work@GOOD|12:10 goldenInstances=1 oursInstances=2
+ARITY testflags/ImportPackage-48f0de63 inst=module_inst|good|work@GOOD|16:6 goldenInstances=1 oursInstances=2
+ARITY testflags/IndexedSelectHex-cd46669f inst=module_inst|u_impl_generic|work@prim_generic_pad_attr|37:7 goldenInstances=8 oursInstances=16
+CENSUM testflags/IndexedSelectHex-cd46669f AGREE=48 GOLDEN-ONLY=0 OURS-ONLY=16 GOLDEN-ONLY-IMPORTED=0 OURS-ONLY-IMPORTED=0 GOLDEN-ONLY-OWN=0 OURS-ONLY-OWN=16 GOLDEN-ONLY-COUNT=0 OURS-ONLY-COUNT=16 unmatched-golden-keys=0 arity-mismatches=1 no-move
+ARITY testflags/MultiConcatValueSize-8e3f2431 inst=module_inst|u_impl_generic|work@prim_generic_pad_attr|35:7 goldenInstances=2 oursInstances=4
+CENSUM testflags/MultiConcatValueSize-8e3f2431 AGREE=28 GOLDEN-ONLY=0 OURS-ONLY=4 GOLDEN-ONLY-IMPORTED=0 OURS-ONLY-IMPORTED=0 GOLDEN-ONLY-OWN=0 OURS-ONLY-OWN=4 GOLDEN-ONLY-COUNT=0 OURS-ONLY-COUNT=4 unmatched-golden-keys=0 arity-mismatches=1 no-move
+ARITY testflags/PackDataType-5c209172 inst=module_inst|ok|work@OK|20:4 goldenInstances=1 oursInstances=2
+ARITY testflags/ParamElabMulti-6f8060a1 inst=module_inst|u_impl_generic|work@prim_generic_pad_attr|35:7 goldenInstances=2 oursInstances=4
+CENSUM testflags/ParamElabMulti-6f8060a1 AGREE=28 GOLDEN-ONLY=0 OURS-ONLY=4 GOLDEN-ONLY-IMPORTED=0 OURS-ONLY-IMPORTED=0 GOLDEN-ONLY-OWN=0 OURS-ONLY-OWN=4 GOLDEN-ONLY-COUNT=0 OURS-ONLY-COUNT=4 unmatched-golden-keys=0 arity-mismatches=1 no-move
+ARITY testflags/ParamEquivOp-965a6d67 inst=module_inst|good|work@GOOD|41:3 goldenInstances=1 oursInstances=2
+ARITY testflags/ParamSubstituteComplex-a120fbcb inst=module_inst|good1|work@GOOD|46:3 goldenInstances=1 oursInstances=2
+ARITY testflags/ParamSubstituteComplex-a120fbcb inst=module_inst|good2|work@GOOD|50:3 goldenInstances=1 oursInstances=2
+ARITY testflags/RepeatStmt-dbe0b132 inst=module_inst|good|work@GOOD|20:4 goldenInstances=1 oursInstances=2
+ARITY testflags/ScalarParam-88d3cf37 inst=module_inst|good|work@GOOD|8:6 goldenInstances=1 oursInstances=2
+CENSUM testflags/SimpleUVM-1dc93a62 AGREE=0 GOLDEN-ONLY=360 OURS-ONLY=0 GOLDEN-ONLY-IMPORTED=360 OURS-ONLY-IMPORTED=0 GOLDEN-ONLY-OWN=0 OURS-ONLY-OWN=0 GOLDEN-ONLY-COUNT=360 OURS-ONLY-COUNT=0 unmatched-golden-keys=0 arity-mismatches=0 PREDICTED-MOVER
+ARITY testflags/UnsizedElabComp-bc181031 inst=module_inst|good1|work@GOOD|8:5 goldenInstances=1 oursInstances=2
+ARITY testflags/UnsizedElabComp-bc181031 inst=module_inst|good2|work@GOOD|12:5 goldenInstances=1 oursInstances=2
+-- PROCESSED=956 LISTED=956 NOGOLDEN=0 RESTORE_FAILS=0 NONZERO_RC=0 MOVER_ROWS=2
+-- TOTALS AGREE=81797 GOLDEN-ONLY-IMPORTED=748 OURS-ONLY-IMPORTED=640 GOLDEN-ONLY-OWN=0 OURS-ONLY-OWN=780 GOLDEN-ONLY-COUNT=720 OURS-ONLY-COUNT=1392
