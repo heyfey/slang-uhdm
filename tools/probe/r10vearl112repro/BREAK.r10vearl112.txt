@@ -1,0 +1,48 @@
+r10vearl112 — THE FIVE BROKEN CELLS, per-cell, both views.
+arm v1_call112 / v6_call2112, gen-scope cont_assign pattern member values.
+G = golden's payload SET, P = pristine, A = the AS-SUBMITTED patched binary.
+
+TOGOLD 32:30-32:47 | G= ["n='tl_h_i[0].a_valid'", "n='tl_h_i[1].a_valid'", "n='tl_h_i[2].a_valid'", "n='tl_h_i[i].a_valid'"] | P= ["n='tl_h_i[i].a_valid'"] | A= ["n='tl_h_i[0].a_valid'", "n='tl_h_i[1].a_valid'", "n='tl_h_i[2].a_valid'", "n='tl_h_i[i].a_valid'"]
+AWAY 34:33-34:49 | G= ["n='tl_h_i[i].a_data'"] | P= ["n='tl_h_i[i].a_data'"] | A= ["n='tl_h_i[0].a_data'", "n='tl_h_i[1].a_data'", "n='tl_h_i[2].a_data'", "n='tl_h_i[i].a_data'"]
+TOGOLD 37:30-37:47 | G= ["n='tl_h_i[0].a_valid'", "n='tl_h_i[1].a_valid'", "n='tl_h_i[2].a_valid'", "n='tl_h_i[i].a_valid'"] | P= ["n='tl_h_i[i].a_valid'"] | A= ["n='tl_h_i[0].a_valid'", "n='tl_h_i[1].a_valid'", "n='tl_h_i[2].a_valid'", "n='tl_h_i[i].a_valid'"]
+TOGOLD 39:40-39:56 | G= ["n='tl_h_i[0].a_data'", "n='tl_h_i[1].a_data'", "n='tl_h_i[2].a_data'", "n='tl_h_i[i].a_data'"] | P= ["n='tl_h_i[i].a_data'"] | A= ["n='tl_h_i[0].a_data'", "n='tl_h_i[1].a_data'", "n='tl_h_i[2].a_data'", "n='tl_h_i[i].a_data'"]
+TOGOLD 42:30-42:47 | G= ["n='tl_h_i[0].a_valid'", "n='tl_h_i[1].a_valid'", "n='tl_h_i[2].a_valid'", "n='tl_h_i[i].a_valid'"] | P= ["n='tl_h_i[i].a_valid'"] | A= ["n='tl_h_i[0].a_valid'", "n='tl_h_i[1].a_valid'", "n='tl_h_i[2].a_valid'", "n='tl_h_i[i].a_valid'"]
+STILLWRONG 44:33-44:54 | G= ["n='tl_h_i[0].a_data[3:0]'", "n='tl_h_i[1].a_data[3:0]'", "n='tl_h_i[2].a_data[3:0]'", "n='tl_h_i[i].a_data[3:0]'"] | P= ["n='tl_h_i[i].a_data[3:0]'"] | A= ["n='tl_h_i[i].a_data[3:0]'"]
+TOGOLD 47:30-47:47 | G= ["n='tl_h_i[0].a_valid'", "n='tl_h_i[1].a_valid'", "n='tl_h_i[2].a_valid'", "n='tl_h_i[i].a_valid'"] | P= ["n='tl_h_i[i].a_valid'"] | A= ["n='tl_h_i[0].a_valid'", "n='tl_h_i[1].a_valid'", "n='tl_h_i[2].a_valid'", "n='tl_h_i[i].a_valid'"]
+TOGOLD 49:30-49:47 | G= ["n='tl_h_i[0].a_valid'", "n='tl_h_i[1].a_valid'", "n='tl_h_i[2].a_valid'", "n='tl_h_i[i].a_valid'"] | P= ["n='tl_h_i[i].a_valid'"] | A= ["n='tl_h_i[0].a_valid'", "n='tl_h_i[1].a_valid'", "n='tl_h_i[2].a_valid'", "n='tl_h_i[i].a_valid'"]
+TOGOLD 49:50-49:66 | G= ["n='tl_h_i[0].a_data'", "n='tl_h_i[1].a_data'", "n='tl_h_i[2].a_data'", "n='tl_h_i[i].a_data'"] | P= ["n='tl_h_i[i].a_data'"] | A= ["n='tl_h_i[0].a_data'", "n='tl_h_i[1].a_data'", "n='tl_h_i[2].a_data'", "n='tl_h_i[i].a_data'"]
+AWAY 55:36-55:52 | G= ["n='tl_h_i[i].a_data'"] | P= ["n='tl_h_i[i].a_data'"] | A= ["n='tl_h_i[0].a_data'", "n='tl_h_i[1].a_data'", "n='tl_h_i[2].a_data'", "n='tl_h_i[i].a_data'"]
+SAME 58:21-58:37 | G= ["n='tl_h_i[i].a_data'"] | P= ["n='tl_h_i[i].a_data'"] | A= ["n='tl_h_i[i].a_data'"]
+SAME 60:28-60:44 | G= ["n='tl_h_i[i].a_data'"] | P= ["n='tl_h_i[i].a_data'"] | A= ["n='tl_h_i[i].a_data'"]
+TALLY {'TOGOLD': 7, 'AWAY': 2, 'STILLWRONG': 1, 'SAME': 2}
+
+AWAY 25:42-25:58 | G= ["n='tl_h_i[i].a_data'"] | P= ["n='tl_h_i[i].a_data'"] | A= ["n='tl_h_i[0].a_data'", "n='tl_h_i[1].a_data'", "n='tl_h_i[2].a_data'", "n='tl_h_i[i].a_data'"]
+AWAY 29:42-29:58 | G= ["n='tl_h_i[i].a_data'"] | P= ["n='tl_h_i[i].a_data'"] | A= ["n='tl_h_i[0].a_data'", "n='tl_h_i[1].a_data'", "n='tl_h_i[2].a_data'", "n='tl_h_i[i].a_data'"]
+TOGOLD 33:47-33:63 | G= ["n='tl_h_i[0].a_data'", "n='tl_h_i[1].a_data'", "n='tl_h_i[2].a_data'", "n='tl_h_i[i].a_data'"] | P= ["n='tl_h_i[i].a_data'"] | A= ["n='tl_h_i[0].a_data'", "n='tl_h_i[1].a_data'", "n='tl_h_i[2].a_data'", "n='tl_h_i[i].a_data'"]
+TOGOLD 37:32-37:48 | G= ["n='tl_h_i[0].a_data'", "n='tl_h_i[1].a_data'", "n='tl_h_i[2].a_data'", "n='tl_h_i[i].a_data'"] | P= ["n='tl_h_i[i].a_data'"] | A= ["n='tl_h_i[0].a_data'", "n='tl_h_i[1].a_data'", "n='tl_h_i[2].a_data'", "n='tl_h_i[i].a_data'"]
+AWAY 41:32-41:48 | G= ["n='tl_h_i[i].a_data'"] | P= ["n='tl_h_i[i].a_data'"] | A= ["n='tl_h_i[0].a_data'", "n='tl_h_i[1].a_data'", "n='tl_h_i[2].a_data'", "n='tl_h_i[i].a_data'"]
+SAME 44:18-44:34 | G= ["n='tl_h_i[i].a_data'"] | P= ["n='tl_h_i[i].a_data'"] | A= ["n='tl_h_i[i].a_data'"]
+TALLY {'AWAY': 3, 'TOGOLD': 2, 'SAME': 1}
+
+== the SAME cells on the FIXED binary ==
+TOGOLD 32:30-32:47 | G= ["n='tl_h_i[0].a_valid'", "n='tl_h_i[1].a_valid'", "n='tl_h_i[2].a_valid'", "n='tl_h_i[i].a_valid'"] | P= ["n='tl_h_i[i].a_valid'"] | A= ["n='tl_h_i[0].a_valid'", "n='tl_h_i[1].a_valid'", "n='tl_h_i[2].a_valid'", "n='tl_h_i[i].a_valid'"]
+SAME 34:33-34:49 | G= ["n='tl_h_i[i].a_data'"] | P= ["n='tl_h_i[i].a_data'"] | A= ["n='tl_h_i[i].a_data'"]
+TOGOLD 37:30-37:47 | G= ["n='tl_h_i[0].a_valid'", "n='tl_h_i[1].a_valid'", "n='tl_h_i[2].a_valid'", "n='tl_h_i[i].a_valid'"] | P= ["n='tl_h_i[i].a_valid'"] | A= ["n='tl_h_i[0].a_valid'", "n='tl_h_i[1].a_valid'", "n='tl_h_i[2].a_valid'", "n='tl_h_i[i].a_valid'"]
+TOGOLD 39:40-39:56 | G= ["n='tl_h_i[0].a_data'", "n='tl_h_i[1].a_data'", "n='tl_h_i[2].a_data'", "n='tl_h_i[i].a_data'"] | P= ["n='tl_h_i[i].a_data'"] | A= ["n='tl_h_i[0].a_data'", "n='tl_h_i[1].a_data'", "n='tl_h_i[2].a_data'", "n='tl_h_i[i].a_data'"]
+TOGOLD 42:30-42:47 | G= ["n='tl_h_i[0].a_valid'", "n='tl_h_i[1].a_valid'", "n='tl_h_i[2].a_valid'", "n='tl_h_i[i].a_valid'"] | P= ["n='tl_h_i[i].a_valid'"] | A= ["n='tl_h_i[0].a_valid'", "n='tl_h_i[1].a_valid'", "n='tl_h_i[2].a_valid'", "n='tl_h_i[i].a_valid'"]
+STILLWRONG 44:33-44:54 | G= ["n='tl_h_i[0].a_data[3:0]'", "n='tl_h_i[1].a_data[3:0]'", "n='tl_h_i[2].a_data[3:0]'", "n='tl_h_i[i].a_data[3:0]'"] | P= ["n='tl_h_i[i].a_data[3:0]'"] | A= ["n='tl_h_i[i].a_data[3:0]'"]
+TOGOLD 47:30-47:47 | G= ["n='tl_h_i[0].a_valid'", "n='tl_h_i[1].a_valid'", "n='tl_h_i[2].a_valid'", "n='tl_h_i[i].a_valid'"] | P= ["n='tl_h_i[i].a_valid'"] | A= ["n='tl_h_i[0].a_valid'", "n='tl_h_i[1].a_valid'", "n='tl_h_i[2].a_valid'", "n='tl_h_i[i].a_valid'"]
+TOGOLD 49:30-49:47 | G= ["n='tl_h_i[0].a_valid'", "n='tl_h_i[1].a_valid'", "n='tl_h_i[2].a_valid'", "n='tl_h_i[i].a_valid'"] | P= ["n='tl_h_i[i].a_valid'"] | A= ["n='tl_h_i[0].a_valid'", "n='tl_h_i[1].a_valid'", "n='tl_h_i[2].a_valid'", "n='tl_h_i[i].a_valid'"]
+TOGOLD 49:50-49:66 | G= ["n='tl_h_i[0].a_data'", "n='tl_h_i[1].a_data'", "n='tl_h_i[2].a_data'", "n='tl_h_i[i].a_data'"] | P= ["n='tl_h_i[i].a_data'"] | A= ["n='tl_h_i[0].a_data'", "n='tl_h_i[1].a_data'", "n='tl_h_i[2].a_data'", "n='tl_h_i[i].a_data'"]
+SAME 55:36-55:52 | G= ["n='tl_h_i[i].a_data'"] | P= ["n='tl_h_i[i].a_data'"] | A= ["n='tl_h_i[i].a_data'"]
+SAME 58:21-58:37 | G= ["n='tl_h_i[i].a_data'"] | P= ["n='tl_h_i[i].a_data'"] | A= ["n='tl_h_i[i].a_data'"]
+SAME 60:28-60:44 | G= ["n='tl_h_i[i].a_data'"] | P= ["n='tl_h_i[i].a_data'"] | A= ["n='tl_h_i[i].a_data'"]
+TALLY {'TOGOLD': 7, 'SAME': 4, 'STILLWRONG': 1}
+
+SAME 25:42-25:58 | G= ["n='tl_h_i[i].a_data'"] | P= ["n='tl_h_i[i].a_data'"] | A= ["n='tl_h_i[i].a_data'"]
+SAME 29:42-29:58 | G= ["n='tl_h_i[i].a_data'"] | P= ["n='tl_h_i[i].a_data'"] | A= ["n='tl_h_i[i].a_data'"]
+TOGOLD 33:47-33:63 | G= ["n='tl_h_i[0].a_data'", "n='tl_h_i[1].a_data'", "n='tl_h_i[2].a_data'", "n='tl_h_i[i].a_data'"] | P= ["n='tl_h_i[i].a_data'"] | A= ["n='tl_h_i[0].a_data'", "n='tl_h_i[1].a_data'", "n='tl_h_i[2].a_data'", "n='tl_h_i[i].a_data'"]
+TOGOLD 37:32-37:48 | G= ["n='tl_h_i[0].a_data'", "n='tl_h_i[1].a_data'", "n='tl_h_i[2].a_data'", "n='tl_h_i[i].a_data'"] | P= ["n='tl_h_i[i].a_data'"] | A= ["n='tl_h_i[0].a_data'", "n='tl_h_i[1].a_data'", "n='tl_h_i[2].a_data'", "n='tl_h_i[i].a_data'"]
+SAME 41:32-41:48 | G= ["n='tl_h_i[i].a_data'"] | P= ["n='tl_h_i[i].a_data'"] | A= ["n='tl_h_i[i].a_data'"]
+SAME 44:18-44:34 | G= ["n='tl_h_i[i].a_data'"] | P= ["n='tl_h_i[i].a_data'"] | A= ["n='tl_h_i[i].a_data'"]
+TALLY {'SAME': 4, 'TOGOLD': 2}

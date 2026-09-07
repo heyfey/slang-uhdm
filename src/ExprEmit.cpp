@@ -7855,6 +7855,183 @@ UHDM::hier_path* UhdmExporter::buildDottedHierPath(const Expression& expr,
     return hp;
 }
 
+// § patCaGenIdxValueRender112 — the scoped arm/disarm of the pattern-operand
+// depth.  A counter and not a bool because patterns NEST (arm g2 c4, the
+// `'{ inner: '{ … } }` cell golden folds at both levels).
+struct PatValGuard112 {
+    int& d;
+    explicit PatValGuard112(int& depth) : d(depth) { d++; }
+    ~PatValGuard112() { d--; }
+    PatValGuard112(const PatValGuard112&) = delete;
+    PatValGuard112& operator=(const PatValGuard112&) = delete;
+};
+
+// § patCaGenIdxValueRender112 — A GENERATE INDEX INSIDE AN ASSIGNMENT-PATTERN
+// MEMBER VALUE RENDERS AS ITS VALUE; THE SAME INDEX ONE STATEMENT AWAY STAYS
+// SPELLED.  The distinguisher is the pattern, and it is READ, not inferred:
+// `CompileHelper::compileAssignmentPattern` (Surelog CompileExpression.cpp
+// :3671) opens with
+//
+//     if (component && valuedcomponenti_cast<Package *>(component)) {
+//       reduce = Reduce::Yes;
+//     } else if (instance) {
+//       reduce = Reduce::Yes;                      // :3688
+//     }
+//
+// and then compiles EVERY member value with that `reduce`.  So inside a
+// pattern — and only there — an elaborated instance's generate index is
+// resolved to a `constant` BEFORE `compileSelectExpression`
+// (CompileExpression.cpp:1376-1546) composes the path's `VpiName` from the
+// OBJECTS via `decompileHelper`.  Outside a pattern the same index is still a
+// `ref_obj` when the name is composed, so it keeps its identifier — which is
+// exactly earl110's § hpSelHalfOpParamFold110 cell three lines up in the very
+// same generate body:
+//
+//   tlul_socket_m1.sv:105  assign unused_tl_h_source =
+//                            tl_h_i[i].a_source[IDW-1 -: STIDW];
+//        golden  tl_h_i[i].a_source[8 - 1-:2]      <- `i` SPELLED (earl110)
+//   tlul_socket_m1.sv:108-118  assign hreq_fifo_i = '{ a_valid:
+//                            tl_h_i[i].a_valid, ... };
+//        golden  tl_h_i[0].a_valid                 <- `i` VALUED (THE HEAD)
+//        ours    tl_h_i[i].a_valid
+//
+// MEASURED ON GOLDEN, arms g1/g2/g3/g4, ELAB view, the SAME path in each
+// carrier at generate depth 1 (`|` = golden's rendering of the index):
+//
+//   assignment-pattern member value, keyed        VALUED   (g1 c1, the head)
+//   assignment-pattern element, positional        VALUED   (g1 c2)
+//   pattern NESTED in a pattern                   VALUED   (g2 c4)
+//   pattern with a `default:` key                 VALUED   (g2 c6)
+//   pattern in an `always_comb`                   VALUED   (g2 c2)  <- R1
+//   pattern in an `initial`                       spelled  (g2 c3)
+//   plain cont_assign Rhs                         spelled  (g1 c3)
+//   binary-operation operand                      spelled  (g1 c4)
+//   ternary arm                                   spelled  (g1 c5)
+//   concatenation operand                         spelled  (g1 c6)
+//   port High_conn actual                         VALUED   (g1 c7 — ALREADY
+//                                                  ours, § genvarConnFold)
+//   pattern at generate depth 2                   VALUED   (g3 d2)
+//   pattern at depth 0 (module body)              spelled  (g3 d0)
+//
+// So the axis is the CARRIER, not the depth (earl110's law is depth-gated;
+// this one is not — g3's depth-2 cells fold), and the DEF view keeps the
+// identifier everywhere (every arm's `named_begin` row, golden and ours,
+// already byte-identical).
+//
+// THE INDEX FORMS, golden, same arms, depth 1 inside a pattern:
+//   bare genvar `i`         VALUED, `UINT:<n>` at VpiSize **64**   (g3 e1)
+//   a gen-scope localparam `LB`      VALUED, `UINT:1` at VpiSize **32** —
+//                           the PARAMETER'S OWN declaration width, NOT 64
+//                           (g3 e3).  A DIFFERENT encoding and therefore a
+//                           different law: § genvarIdxFoldRerender14 states
+//                           the same split ("a PARAMETER-only index is NOT
+//                           this law's — golden gives it the parameter's own
+//                           declaration constant, VpiSize included"), so the
+//                           gate here is `ParameterSymbol::isFromGenvar()` and
+//                           `LB` is README residue R3.  Measured, not assumed:
+//                           un-narrowed, this cell was the ONE arm key that
+//                           scored SHAPE-MOVEDWRONG (64 where golden has 32).
+//   a MODULE parameter `MP`          VALUED, `UINT:1` at VpiSize 32 — and
+//                           ALREADY ours: an earlier law folds it before this
+//                           site, so the still-a-ref_obj gate skips it (g3 e4,
+//                           byte-identical across this patch).  At depth 0 the
+//                           same `MP` is SPELLED on both sides (g3 d0).
+//   arithmetic `i+1`                 VALUED   (g3 e2)   — NOT taken here: the
+//                                    name rewrite § hpNameBareIdxFold69 only
+//                                    substitutes a BARE IDENTIFIER bracket, so
+//                                    an arithmetic index is README residue R2
+//   a literal `2`                    already a constant on both sides
+//
+// THE GATE, deliberately narrow — five conditions, each a fence:
+//   (a) `inGenScopeCa67` — an ELABORATED gen-scope continuous assign.  Every
+//       DEF listing, every procedural block, every module-scope statement and
+//       every port High_conn is outside by construction (the High_conn cell
+//       already folds through § genvarConnFold and must not be reached twice).
+//   (b) `patValDepth112 > 0` — inside an assignment-pattern operand VALUE.
+//   (c) THE BUILDER ITSELF.  `emitMixedHierPath` accepts only MemberAccess and
+//       ElementSelect components (a RangeSelect anywhere makes it return
+//       nullptr, ExprEmit.cpp:7904-7920), so every bracket group in the names
+//       it composes is a bit-select index THIS law renders.  The name is
+//       therefore golden's WHOLE name or unchanged — earl110's
+//       `tl_h_i[i].a_source[IDW-1 -: STIDW]` is a RangeSelect path built by
+//       the OTHER arm and is unreachable from here.  Arm g4 h2 measures the
+//       pattern-carried RangeSelect cell golden folds and we do not: it comes
+//       out BYTE-IDENTICAL to pristine, which is the fence's own test.
+//   (d) the index resolves to a `Parameter` (a genvar or a localparam; a plain
+//       variable index has no value and golden keeps it) with a KNOWN integer
+//       value — abstain otherwise.
+//   (e) SITE: only the component-select index of this builder.  The value the
+//       pattern member itself takes, the select BOUNDS, and every other index
+//       in the design are untouched.
+//   (f) NOT INSIDE A USER SUBROUTINE CALL'S ARGUMENT LIST
+//       (§ patCaGenIdxNeverInUserCallArg112v, added by r10vearl112 after five
+//       measured pristine-right -> patched-wrong cells) — the decode and the
+//       golden grid are at the test itself, below.
+// The NAME needs no separate rendering: § hpNameBareIdxFold69 already composes
+// it from the OBJECTS (`decompileHelper`'s constant row) at the end of this
+// builder, which is exactly Surelog's own order.
+//
+// THE ENCODING is § genvarConnFold's, unchanged and re-measured here: golden's
+// index constant is `UINT:<n>`, `VpiSize` 64, `vpiConstType` 9 (vpiUIntConst),
+// `VpiDecompile` the decimal, spanning the genvar TOKEN (109:26-109:27 in the
+// corpus head; every arm cell agrees).
+UHDM::constant* UhdmExporter::patCaGenIdxFold112(const Expression& sel) {
+    if (!inGenScopeCa67 || patValDepth112 <= 0)
+        return nullptr;
+    // § patCaGenIdxNeverInUserCallArg112v (r10vearl112) — FENCE (f), THE USER-CALL
+    // ARGUMENT.  A pattern's `Reduce::Yes` does NOT reach through a USER
+    // subroutine call's argument list: `CompileHelper::compileTfCallArguments`
+    // (Surelog CompileHelper.cpp:4340) compiles every argument with
+    // `pexpr = call`, and the identifier arm under a non-null `pexpr` binds
+    // through `bindVariable` and never reaches the `getValue` substitution
+    // that mints the constant — the same mechanism
+    // § genLpBitSelIdxOneHopFold67 and § connBitSelIdxModParamFold81 already
+    // fence on, and § genCaSysCallArgBinds22 / § genProcParamFoldQualCallArg20
+    // record for the process fold.  A SYSTEM call's argument is NOT fenced,
+    // which is why the test is the USER-call depth (`callArgDepth` minus
+    // `sysCallArgDepth22`) and never a plain `callArgDepth == 0`.
+    //
+    // MEASURED ON GOLDEN, arms v1_call112 / v6_call2112, both views, all three
+    // unrollings (`|` = golden's rendering of the index inside a gen-scope
+    // cont_assign pattern member value):
+    //
+    //   f8(tl_h_i[i].a_data)                 SPELLED  (v1 k1, :34)  <- was AWAY
+    //   f8(f8(tl_h_i[i].a_data))             SPELLED  (v1 k5, :55)  <- was AWAY
+    //   f8($unsigned(tl_h_i[i].a_data))      SPELLED  (v6 j1, :25)  <- was AWAY
+    //   $unsigned(f8(tl_h_i[i].a_data))      SPELLED  (v6 j2, :29)  <- was AWAY
+    //   f8(tl_h_i[i].a_data | 8'h1)          SPELLED  (v6 j5, :41)  <- was AWAY
+    //   $unsigned(tl_h_i[i].a_data)          VALUED   (v1 k2, :39)
+    //   $unsigned($signed(tl_h_i[i].a_data)) VALUED   (v6 j3, :33)
+    //   8'(tl_h_i[i].a_data)                 VALUED   (v6 j4, :37)
+    //   tl_h_i[i].a_valid ? … : …            VALUED   (v1 k4, :49)
+    //
+    // Without this line the five SPELLED call-argument cells were golden's on
+    // the PRISTINE binary and NOT golden's on the patched one — five
+    // pristine-right -> patched-wrong cells on legal SV, in both views.  The
+    // arithmetic gets every nesting right: user-in-user 2−0, system-in-user
+    // 2−1 and user-in-system 2−1 all abstain, system-in-system 2−2 folds.
+    if (callArgDepth - sysCallArgDepth22 != 0)
+        return nullptr;
+    const Expression& sx112 = stripImplicitConv(sel);
+    if (sx112.kind != ExpressionKind::NamedValue)
+        return nullptr;
+    auto& sym112 = sx112.as<NamedValueExpression>().symbol;
+    if (sym112.kind != SymbolKind::Parameter ||
+        !sym112.as<ParameterSymbol>().isFromGenvar())
+        return nullptr;
+    auto& cv112 = sym112.as<ParameterSymbol>().getValue();
+    if (!cv112.isInteger() || cv112.integer().hasUnknown())
+        return nullptr;
+    auto* c112 = s.MakeConstant();
+    std::string d112 = cv112.integer().toString(LiteralBase::Decimal, false);
+    c112->VpiDecompile(d112);
+    c112->VpiSize(64);
+    c112->VpiValue("UINT:" + d112);
+    c112->VpiConstType(vpiUIntConst);
+    setLoc(c112, sx112.sourceRange);
+    return c112;
+}
+
 UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                                                  UHDM::BaseClass* parent,
                                                  const std::string& prefix, NetMap& netMap) {
@@ -8293,6 +8470,18 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                     }
                     bs->VpiIndex((UHDM::expr*)ix);
                 }
+                // § patCaGenIdxValueRender112 — SITE 1 of 2 (the BASE select).
+                // Placed AFTER the index emission and gated on the result
+                // still being a `ref_obj`, exactly the way
+                // § connBitSelIdxModParamFold81 is: an index some earlier law
+                // already folds (a genvar under § genvarConnFold, a package
+                // parameter, a gen-scope localparam, an operation) arrives
+                // here as a constant and is untouched BY CONSTRUCTION, so this
+                // site cannot move a cell that was already golden's.
+                if (bs->VpiIndex() &&
+                    bs->VpiIndex()->UhdmType() == UHDM::uhdmref_obj)
+                    if (auto* f112 = patCaGenIdxFold112(*comp.sels[k].sel))
+                        bs->VpiIndex(f112);
                 suppressConstParent = savedSCP;
                 // § hpIdxClassBodyNeverLateBinds143 — a path-element index
                 // compiled inside a CLASS BODY is handed a parentless
@@ -8438,6 +8627,15 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                     setLoc((UHDM::any*)ix, sel.sel->sourceRange);
                 }
             }
+            // § patCaGenIdxValueRender112 — SITE 2 of 2 (a MEMBER select).
+            // The same post-emission, still-a-ref_obj gate as SITE 1: the six
+            // branches above differ only in the bit_select's own span and
+            // fullname, and every one of them leaves the index in `VpiIndex`,
+            // so one test after the chain covers all six without touching any.
+            if (bs->VpiIndex() &&
+                bs->VpiIndex()->UhdmType() == UHDM::uhdmref_obj)
+                if (auto* f112 = patCaGenIdxFold112(*sel.sel))
+                    bs->VpiIndex(f112);
             // § hpIdxClassBodyNeverLateBinds143 — a path-element index
             // compiled inside a CLASS BODY is handed a parentless
             // hier_path and can only reach the class's never-drained
@@ -29353,6 +29551,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             auto* operands = s.MakeAnyVec();
             bool wasInPattern = inAssignPattern;
             inAssignPattern = true;
+            // § patCaGenIdxValueRender112 — the POSITIONAL pattern's operand
+            // values (golden folds them exactly like the keyed ones: arm g1
+            // c2, `'{ tl_h_i[i].a_valid, … }` -> `tl_h_i[0].a_valid`).
+            PatValGuard112 patVal112(patValDepth112);
             for (auto el : ap.elements()) {
                 if (auto* e = emitExpr(*el, op, prefix, netMap)) {
                     // Re-emitted OUTERMOST patterns size their FIRST operand;
@@ -30522,6 +30724,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 }
             }
             auto* operands = s.MakeAnyVec();
+            // § patCaGenIdxValueRender112 — every KEYED member value, the
+            // `default:` value and the index/type setter values below are
+            // pattern operand VALUES, and Surelog compiles all of them with
+            // the one `reduce` `compileAssignmentPattern` turned on for the
+            // whole pattern (CompileExpression.cpp:3686-3689).  ONE guard for
+            // the rest of this case is therefore the faithful scope; nothing
+            // outside a component-select INDEX reads the flag.
+            PatValGuard112 patVal112(patValDepth112);
             // Tag key locations come from the pattern item syntax, matched
             // to member setters by name.
             const syntax::StructuredAssignmentPatternSyntax* psyn = nullptr;

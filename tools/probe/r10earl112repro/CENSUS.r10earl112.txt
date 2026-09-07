@@ -1,0 +1,44 @@
+r10earl112 CORPUS CENSUS — both corpora x both modes, 2314 databases
+MEASUREMENT ONLY.  LHS is ALWAYS golden.  cen112 + censweep112.sh + sweepsplit112.sh + cen112.py.
+HPN = the LAW's surface (hier_path VpiName + every component-select INDEX object)
+HPR = THE REST, compare-visible (Path_elems size, VpiDefName, VpiDecompile, VpiSize,
+      Typespec edge, Root_value, every element's kind/name/Actual_group)
+
+databases: surelog 956 (LISTED 1573, SKIPPED 617, CENFAIL 0, ACCOUNTING PASS)
+           uhdm2rtlil 1358 (LISTED 1462, SKIPPED 104, CENFAIL 0, ACCOUNTING PASS)
+the two sweeps' GOLDEN halves were asserted IDENTICAL before any scoring.
+
+sl HPN  keys golden=30660 pristine=31266 patched=31266 joined=29190 STRICT TOGOLD 9  AWAY 0  MOVEDWRONG 9  STILLWRONG 1194  SAME_AGREE 27978  G-ONLY 1470  O-ONLY 2076 SHAPE  TOGOLD 18  AWAY 0  MOVEDWRONG 0  STILLWRONG 7  SAME_AGREE 29165  (of which COUNT-ONLY 1187) ONE-SIDED-CHANGED 0 
+sl HPR  keys golden=30660 pristine=31266 patched=31266 joined=29190 STRICT TOGOLD 0  AWAY 0  MOVEDWRONG 0  STILLWRONG 1308  SAME_AGREE 27882  G-ONLY 1470  O-ONLY 2076 SHAPE  TOGOLD 0  AWAY 0  MOVEDWRONG 0  STILLWRONG 1199  SAME_AGREE 27991  (of which COUNT-ONLY 109) ONE-SIDED-CHANGED 0 
+u2r HPN  keys golden=686 pristine=690 patched=690 joined=686 STRICT TOGOLD 0  AWAY 0  MOVEDWRONG 0  STILLWRONG 24  SAME_AGREE 662  G-ONLY 0  O-ONLY 4 SHAPE  TOGOLD 0  AWAY 0  MOVEDWRONG 0  STILLWRONG 0  SAME_AGREE 686  (of which COUNT-ONLY 24) ONE-SIDED-CHANGED 0 
+u2r HPR  keys golden=686 pristine=690 patched=690 joined=686 STRICT TOGOLD 0  AWAY 0  MOVEDWRONG 0  STILLWRONG 24  SAME_AGREE 662  G-ONLY 0  O-ONLY 4 SHAPE  TOGOLD 0  AWAY 0  MOVEDWRONG 0  STILLWRONG 0  SAME_AGREE 686  (of which COUNT-ONLY 24) ONE-SIDED-CHANGED 0 
+
+THE 18 SHAPE-TO-GOLDEN CELLS (identical, by name, to the 18 PREDICT_sl.txt named
+from the PRISTINE databases before the patched sweep ran):
+  default/Earlgrey_0_1-71da2fd7|HPN|109:19-109:36
+  default/Earlgrey_0_1-71da2fd7|HPN|110:19-110:37
+  default/Earlgrey_0_1-71da2fd7|HPN|111:19-111:36
+  default/Earlgrey_0_1-71da2fd7|HPN|112:19-112:35
+  default/Earlgrey_0_1-71da2fd7|HPN|114:19-114:38
+  default/Earlgrey_0_1-71da2fd7|HPN|115:19-115:35
+  default/Earlgrey_0_1-71da2fd7|HPN|116:19-116:35
+  default/Earlgrey_0_1-71da2fd7|HPN|117:19-117:35
+  default/Earlgrey_0_1-71da2fd7|HPN|118:19-118:36
+  testflags/Earlgrey_0_1-71da2fd7|HPN|109:19-109:36
+  testflags/Earlgrey_0_1-71da2fd7|HPN|110:19-110:37
+  testflags/Earlgrey_0_1-71da2fd7|HPN|111:19-111:36
+  testflags/Earlgrey_0_1-71da2fd7|HPN|112:19-112:35
+  testflags/Earlgrey_0_1-71da2fd7|HPN|114:19-114:38
+  testflags/Earlgrey_0_1-71da2fd7|HPN|115:19-115:35
+  testflags/Earlgrey_0_1-71da2fd7|HPN|116:19-116:35
+  testflags/Earlgrey_0_1-71da2fd7|HPN|117:19-117:35
+  testflags/Earlgrey_0_1-71da2fd7|HPN|118:19-118:36
+
+THE 7 SHAPE-STILL-WRONG cells — one pre-existing UVM cell in five rows, untouched:
+  default/MiniAmiq-544c7f61|HPN|133:12-133:28
+  default/Scoreboard-59431470|HPN|133:12-133:28
+  default/SeqDriver-32af76aa|HPN|133:12-133:28
+  default/SimpleUVM-1dc93a62|HPN|133:12-133:28
+  testflags/MiniAmiq-544c7f61|HPN|133:12-133:28
+  testflags/SeqDriver-32af76aa|HPN|133:12-133:28
+  testflags/SimpleUVM-1dc93a62|HPN|133:12-133:28

@@ -4824,6 +4824,28 @@ private:
     // HERE, and folds the same index WITHOUT a typespec in an ELAB port
     // High_conn — see the call site in ExprEmit.cpp.
     bool inGenScopeCa67 = false;
+    /// § patCaGenIdxValueRender112 — >0 while emitting an OPERAND VALUE of an
+    /// assignment pattern.  `CompileHelper::compileAssignmentPattern`
+    /// (Surelog CompileExpression.cpp:3686-3689) turns `Reduce` ON for every
+    /// member value it compiles as soon as it has an `instance`
+    /// (`else if (instance) reduce = Reduce::Yes;`), so inside a pattern — and
+    /// nowhere else in the same statement — a generate index is resolved to a
+    /// `constant` BEFORE `compileSelectExpression` composes the path name from
+    /// the objects.  That is the whole distinguisher between
+    /// `tl_h_i[0].a_valid` (a pattern member, tlul_socket_m1.sv:109) and
+    /// `tl_h_i[i].a_source[…]` (a plain cont_assign, :105) three lines up.
+    /// Only `emitMixedHierPath`'s component-select INDEX reads it, and only
+    /// under `inGenScopeCa67`.
+    int patValDepth112 = 0;
+    /// § patCaGenIdxValueRender112 — the folded index a pattern-member path
+    /// component takes, or null when the cell is outside the law.  Defined in
+    /// ExprEmit.cpp beside `emitMixedHierPath`.  Fence (f),
+    /// § patCaGenIdxNeverInUserCallArg112v (r10vearl112): the pattern's
+    /// `Reduce::Yes` does not reach through a USER call's argument list, so
+    /// the helper abstains at `callArgDepth - sysCallArgDepth22 != 0` — the
+    /// same arithmetic § genLpBitSelIdxOneHopFold67 and
+    /// § connBitSelIdxModParamFold81 already carry.
+    UHDM::constant* patCaGenIdxFold112(const slang::ast::Expression& sel);
     /// § connBitSelIdxModParamFold81 — the fold Surelog SUBSTITUTES for a
     /// MODULE-SCOPE parameter / localparam read that is the INDEX of a
     /// `bit_select` inside an ELABORATED port `High_conn`, or null when the

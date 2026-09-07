@@ -1,0 +1,71 @@
+== ITERATION 0 : design::Compare -> -57
+   HEAD LHS(golden) = hier_path id:793448  tlul_socket_m1.sv 109:19-109:36
+        payload: hier_path name='tl_h_i[0].a_valid' size=0 ts=ref_typespec->array_typespec  @tlul_socket_m1.sv 109:19-109:36
+   HEAD RHS(ours)   = hier_path id:1292551   109:19-109:36
+        payload: hier_path name='tl_h_i[i].a_valid' size=1 ts=<null>  @ 109:19-109:36
+   -- FIELD BISECTION (generated Compare order) --
+      BaseClass VpiType   : 5000 vs 5000 -> 0
+      BaseClass VpiName   : 'tl_h_i[0].a_valid' vs 'tl_h_i[i].a_valid' -> -57
+      BaseClass VpiDefName: '' vs ''
+      expr VpiDecompile   : '' vs '' -> 0
+      expr VpiSize        : 0 vs 1 -> -1
+      expr Typespec       : ref_typespec vs <null>
+      hier_path Path_elems: 2 vs 2
+      hier_path Root_value: array_var vs array_var
+      NOTE: BaseClass::Compare reads VpiName BEFORE any expr field,
+            so a differing VpiName decides the head first.
+   GOLDEN Path_elems (2):
+     [0] bit_select name='tl_h_i' size=0 ts=<null> index=constant[dec=0][val=UINT:0]  @tlul_socket_m1.sv 109:19-109:25
+          |vpiIndex -> constant name='' dec='0' size=64 value='UINT:0' ts=<null> ct=9  @tlul_socket_m1.sv 109:26-109:27
+          |vpiActual -> array_var('tl_h_i')
+     [1] ref_obj name='a_valid' size=0 ts=<null>  @tlul_socket_m1.sv 109:29-109:36
+          |vpiActual -> <null>
+   OURS   Path_elems (2):
+     [0] bit_select name='tl_h_i' size=0 ts=<null> index=ref_obj('i')  @ 109:19-109:25
+          |vpiIndex -> ref_obj name='i' size=0 ts=<null>  @ 109:26-109:27
+          |vpiActual -> array_var('tl_h_i')
+     [1] ref_obj name='a_valid' size=0 ts=<null>  @ 109:29-109:36
+          |vpiActual -> typespec_member('a_valid')
+   -- OWNER CHAIN (golden) --
+     |vpiParent -> operation name='' size=0 ts=ref_typespec->struct_typespec optype=75 ops=10  @tlul_socket_m1.sv 108:26-119:6
+       |vpiParent -> cont_assign name=''  @tlul_socket_m1.sv 108:12-119:6
+         |vpiParent -> gen_scope name=''  @tlul_socket_m1.sv 89:36-139:6
+           |vpiParent -> gen_scope_array name='gen_host_fifo[0]'  @tlul_socket_m1.sv 89:36-139:6
+             |vpiParent -> module_inst name='u_sm1_17' dn='work@tlul_socket_m1'  @xbar_main.sv 532:3-545:5
+               |vpiParent -> module_inst name='u_xbar_main' dn='work@xbar_main'  @top_earlgrey.sv 888:3-927:5
+   -- OWNER CHAIN (ours) --
+     |vpiParent -> operation name='' size=0 ts=ref_typespec->struct_typespec optype=75 ops=10  @ 108:26-119:6
+       |vpiParent -> cont_assign name=''  @ 108:12-119:6
+         |vpiParent -> gen_scope name=''  @ 89:36-139:6
+           |vpiParent -> gen_scope_array name='gen_host_fifo[0]'  @ 89:36-139:6
+             |vpiParent -> module_inst name='u_sm1_17' dn='work@tlul_socket_m1'  @xbar_main.sv 532:3-545:5
+               |vpiParent -> module_inst name='u_xbar_main' dn='work@xbar_main'  @top_earlgrey.sv 888:3-927:5
+   GOLDEN siblings (10 operands of optype 75):
+      hier_path('tl_h_i[0].a_valid')
+      hier_path('tl_h_i[0].a_opcode')
+      hier_path('tl_h_i[0].a_param')
+      hier_path('tl_h_i[0].a_size')
+      ref_obj('shifted_id')
+      hier_path('tl_h_i[0].a_address')
+      hier_path('tl_h_i[0].a_mask')
+      hier_path('tl_h_i[0].a_data')
+      hier_path('tl_h_i[0].a_user')
+      hier_path('tl_h_i[0].d_ready')
+   OURS   siblings (10 operands of optype 75):
+      hier_path('tl_h_i[i].a_valid')
+      hier_path('tl_h_i[i].a_opcode')
+      hier_path('tl_h_i[i].a_param')
+      hier_path('tl_h_i[i].a_size')
+      ref_obj('shifted_id')
+      hier_path('tl_h_i[i].a_address')
+      hier_path('tl_h_i[i].a_mask')
+      hier_path('tl_h_i[i].a_data')
+      hier_path('tl_h_i[i].a_user')
+      hier_path('tl_h_i[i].d_ready')
+   MASKED golden head's VpiName/VpiSize/Typespec := ours'; re-running.
+== ITERATION 1 : design::Compare -> -601
+   HEAD LHS(golden) = constant id:793450  tlul_socket_m1.sv 109:26-109:27
+        payload: constant name='' dec='0' size=64 value='UINT:0' ts=<null> ct=9  @tlul_socket_m1.sv 109:26-109:27
+   HEAD RHS(ours)   = ref_obj id:1292553   109:26-109:27
+        payload: ref_obj name='i' size=0 ts=<null>  @ 109:26-109:27
+   NOT a hier_path/hier_path head -- family exhausted.

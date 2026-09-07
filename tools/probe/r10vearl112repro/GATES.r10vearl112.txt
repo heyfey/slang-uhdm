@@ -1,0 +1,45 @@
+r10vearl112 — GATES, all measured in this verification's own worktrees.
+
+binaries (all frozen chmod 555 before any sweep):
+  pristine 7e06ae0c        783d8623136cecc3099bdfb052a83c08
+  as submitted             39717fd1ff5..(see below)
+6d4e03f0ed5b18a66b99a0c81499bbc8  /tmp/v112_bin/fixed
+39717fd1ff3fc5377292befa29419dc4  /tmp/v112_bin/patched
+783d8623136cecc3099bdfb052a83c08  /tmp/v112_bin/pristine
+
+goldens: patched 23 PASS / 0 FAIL; pristine 23/0; fixed 23/0; SLANG_UHDM=/bin/false 0 PASS / 23 FAIL
+
+uhdm2rtlil, 731 rows, BOTH modes, EVERY binary: CMP_EQUAL 679 / SLANG_REJECT 50 / SURELOG_FAIL 2
+surelog, 1588 rows: default 471 EQUAL / 10 NOTEQUAL, testflags 466 EQUAL / 9 NOTEQUAL — identical on every binary; NO ROW CONVERTED
+
+ct8rows WHOLE-ROW (status AND dump column), 0 differing ROWS and PASS in every pairing:
+  u2r tf   vs committed baseline / vs own pristine        PASS PASS
+  u2r def  vs own pristine                                PASS
+  surelog  vs committed baseline / vs own pristine        PASS PASS   (as submitted)
+  surelog  vs committed baseline / vs own pristine        PASS PASS   (fixed)
+
+byteverify SELFCHECK=1:
+  u2r     as submitted 0/1358, fixed 0/1358   (selfcheck 1357/1358)
+  surelog as submitted 2/956,  fixed 2/956    (selfcheck 955/956)
+    the two movers are default/Earlgrey_0_1 and testflags/Earlgrey_0_1, the
+    two rows PREDICTED by the pass.  Scoreboard/default did not flip in
+    either run — RESUME section 9's documented ~50/50 coin.
+  fixed vs AS SUBMITTED: 0/956 and 0/1358 — the fix costs the corpus nothing.
+
+heads (rowheads.sh, 7 named rows, both binaries, identical):
+  Earlgrey_0_1 testflags 364 lines / 1 head; default 31 / 1
+  SeqDriver 29/1, SimpleUVM 664681/1, Scoreboard/default 95/1, MiniAmiq 26/1,
+  BuildUVMPkg 52/1, Rggen/default 0/0; SKIP-NOFILE 2 (expected), UNKNOWN-NAME 0
+  the head OBJECT: VpiName tl_h_i[i].a_valid -> tl_h_i[0].a_valid = golden's.
+  what still differs on that same object, read off the cmp log: our RHS carries
+  vpiSize:1 where golden's LHS carries none, and golden carries a ref_typespec
+  -> array_typespec we do not.  That is the pass's R0 and R1, confirmed.
+
+canaries ok=52 changed=0 (surelog) / ok=8 changed=0 (u2r); ctcan2 PASS x2;
+canaudit audited=29 UNCOVERED=0 FENCE-BREACH=0 in BOTH repro dirs.
+protected DBs, fixed vs pristine: InterfaceModPort BlackParrotComplex YosysOldOr SAME,
+  SVSwitch 4842211c4030, YosysVerx 6ccda350c24a.
+
+cmds.txt audit BY BINARY PATH, all six sweep workdirs: exactly one distinct
+  frozen path per workdir; git-repos/slang-uhdm/build/slang-uhdm appears 0 times.
+  u2r 1458/1462 invoke slang (4 are golden-cache-only rows); surelog 1523/1573.

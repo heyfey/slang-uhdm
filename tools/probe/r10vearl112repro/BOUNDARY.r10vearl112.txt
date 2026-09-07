@@ -1,0 +1,43 @@
+r10vearl112 — THE BOUNDARIES.  MEASUREMENT ONLY.  LHS is always golden.
+
+Instrument: the pass's own wide112.sh / widerun112.sh (list on fd 3, children
+</dev/null, PROCESSED asserted against LISTED, rc recorded per side,
+workdir-normalised whole-dump byte compare, fence list read from canaudit.sh).
+
+== 1. WIDE, every .sv/.v under tools/probe at any depth, FIXED vs PRISTINE ==
+LISTED=4977  FENCED_REMOVED=0   (4973 committed at 7e06ae0c + this pass's 4 arms)
+PROCESSED=4977 identical=9566 DIFFERING=8 no_output=380
+rc by side, SYMMETRIC for every bucket:
+  A/0 9185   A/3 364   A/4 389   A/139 16
+  B/0 9185   B/3 364   B/4 389   B/139 16
+DIFFERING — the ONLY eight cells, this pass's own four arms in both views:
+  plain+elab r10earl112repro/{g1_head112,g2_carrier112,g3_depth112,g4_fence112}.sv
+No arm of ANY earlier pass moves.  Those same eight cells are the POSITIVE
+CONTROL: the instrument demonstrably sees a move.
+
+== 2. THE VERIFIER'S OWN ARMS, FIXED vs PRISTINE (the law's reach) ==
+PROCESSED=8 identical=2 DIFFERING=14  (rc A/0 16 = B/0 16)
+Every arm moves in both views EXCEPT v7_iface112 (an interface-array element
+inside a pattern: golden folds, we do not, unchanged — residue R-v4).
+
+== 3. THE VERIFIER'S OWN ARMS, FIXED vs AS-SUBMITTED (the FIX's reach) ==
+PROCESSED=8 identical=12 DIFFERING=4  (rc A/0 16 = B/0 16)
+  plain+elab v1_call112.sv, v6_call2112.sv
+The fix touches EXACTLY the two user-call-argument arms and nothing else.
+
+== 4. THE CORPUS, FIXED vs AS-SUBMITTED (the FIX's corpus cost) ==
+byteverify surelog  0 / 956    byteverify uhdm2rtlil  0 / 1358
+The fence's corpus population is ZERO: the fix is a floor, not a trade.
+
+== 5. THE CORPUS, FIXED vs PRISTINE (the law's corpus reach) ==
+byteverify surelog  2 / 956  — default/Earlgrey_0_1 and testflags/Earlgrey_0_1,
+                               md5 706635f304bb and 1b68458e9d40
+byteverify uhdm2rtlil 0 / 1358
+kinds112 over Serializer::AllObjects, WHOLE DATABASE, both Earlgrey modes:
+  the ONLY kind whose count moves is `constant` +261 in BOTH modes
+  (= 9 members x 29 instances), plus `ref_obj` -522 in testflags (the dropped
+  references' arena copies).  No other kind.
+kinds112 --names, testflags: the ONLY names that move are the nine
+  `tl_h_i[i].<member>` -> `tl_h_i[0|1|2].<member>` families,
+  88 copies -> 39 + 39 + 9 + 1, where the surviving `[i]` copy is the DEF-view
+  object golden also spells.  Nothing else in the database changes name.

@@ -1,0 +1,8 @@
+r10earl112 WIDE BOUNDARY — POSITIVE CONTROL
+The SAME instrument, same two frozen binaries, run over THIS PASS'S OWN four
+arms.  A boundary that reports 0 differing over 4984 landed arms is worth
+nothing unless it can see a move; this is the proof that it can.
+
+PROCESSED=4 identical=0 DIFFERING=8 no_output=0   (4 arms x 2 views, ALL EIGHT MOVE)
+rc by side: A/0 8   B/0 8   (symmetric, no rejects, no signals)
+differing: elab+plain of g1_head112 g2_carrier112 g3_depth112 g4_fence112

@@ -1,0 +1,195 @@
+r10earl112 — THE BYTE MOVERS, ATTRIBUTED
+MEASUREMENT ONLY.  attrib112.sh: both dumps path-normalised, diffed RAW and
+ORDER-BLIND (sorted), the order-blind diff sectioned at |uhdmtopModules: into
+DEF / ELAB / the weaklyReferenced TAIL (the tail is NEVER counted).
+
+byteverify.sh over the surelog corpus: MOVERS 3 / 956
+byteverify.sh over the uhdm2rtlil corpus: MOVERS 0 / 1358
+
+================= 1. Scoreboard / default — THE COIN, NOT THE LAW ================
+  RAW (order-sensitive) whole-dump diff   : 94 lines
+  ORDER-BLIND (sorted) whole-dump diff    : 0 lines
+RESUME.md section 9: Scoreboard/default is a ~50/50 COIN per invocation
+(svunit_pkg vpiTaskFunc list ORDER flip, ~92 dump lines).  Zero order-blind
+lines is that coin and nothing else.  Independently: predict112.py names 0
+cells in Scoreboard, and the corpus census scores every Scoreboard key
+SAME_AGREE or STILL-WRONG-unchanged in BOTH families.
+
+================= 2. Earlgrey_0_1 / default — THE LAW ===========================
+===== Earlgrey/default
+== RAW (order-sensitive) whole-dump diff
+  lines: 10962
+== ORDER-BLIND (sorted) whole-dump diff
+  lines: 6383
+== ORDER-BLIND diff BY SECTION (0 = before the first uhdmtopModules = DEF,
+   1..n = ELAB, the LAST section is the weaklyReferenced TAIL, NOT COUNTED)
+   2871 < sec=10
+   3393 > sec=10
+
+EVERY DISTINCT CHANGED LINE SHAPE, order-blind, both directions (digits -> N):
+--- ADDED (patched) ---
+  \_bit_select: (tl_h_i[N]), line:N:N, endln:N:N
+  \_constant: , line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[N].a_address), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[N].a_data), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[N].a_mask), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[N].a_opcode), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[N].a_param), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[N].a_size), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[N].a_user), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[N].a_valid), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[N].d_ready), line:N:N, endln:N:N
+  |UINT:N
+  |vpiConstType:N
+  |vpiDecompile:N
+  |vpiFullName:tl_h_i[N]
+  |vpiName:tl_h_i[N].a_address
+  |vpiName:tl_h_i[N].a_data
+  |vpiName:tl_h_i[N].a_mask
+  |vpiName:tl_h_i[N].a_opcode
+  |vpiName:tl_h_i[N].a_param
+  |vpiName:tl_h_i[N].a_size
+  |vpiName:tl_h_i[N].a_user
+  |vpiName:tl_h_i[N].a_valid
+  |vpiName:tl_h_i[N].d_ready
+  |vpiSize:N
+--- REMOVED (pristine) ---
+  \_bit_select: (tl_h_i[i]), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[i].a_address), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[i].a_data), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[i].a_mask), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[i].a_opcode), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[i].a_param), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[i].a_size), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[i].a_user), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[i].a_valid), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[i].d_ready), line:N:N, endln:N:N
+  \_ref_obj: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].i), line:N:N, endln:N:N
+  |vpiFullName:tl_h_i[i]
+  |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].i
+  |vpiName:i
+  |vpiName:tl_h_i[i].a_address
+  |vpiName:tl_h_i[i].a_data
+  |vpiName:tl_h_i[i].a_mask
+  |vpiName:tl_h_i[i].a_opcode
+  |vpiName:tl_h_i[i].a_param
+  |vpiName:tl_h_i[i].a_size
+  |vpiName:tl_h_i[i].a_user
+  |vpiName:tl_h_i[i].a_valid
+  |vpiName:tl_h_i[i].d_ready
+
+There is no other shape.  Every added line is the law's folded index
+constant or a name carrying its value; every removed line is the genvar
+ref_obj or a name carrying its identifier.  The whole diff sits in ONE
+ELAB section (sec=10); the DEF section and the TAIL are untouched.
+
+================= 3. Earlgrey_0_1 / testflags — THE LAW =========================
+===== Earlgrey/testflags
+== RAW (order-sensitive) whole-dump diff
+  lines: 20880
+== ORDER-BLIND (sorted) whole-dump diff
+  lines: 12191
+== ORDER-BLIND diff BY SECTION (0 = before the first uhdmtopModules = DEF,
+   1..n = ELAB, the LAST section is the weaklyReferenced TAIL, NOT COUNTED)
+   6525 < sec=10
+   5481 > sec=10
+
+EVERY DISTINCT CHANGED LINE SHAPE, order-blind, both directions (digits -> N):
+--- ADDED (patched) ---
+  \_bit_select: (tl_h_i[N]), line:N:N, endln:N:N
+  \_constant: , line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[N].a_address), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[N].a_data), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[N].a_mask), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[N].a_opcode), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[N].a_param), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[N].a_size), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[N].a_user), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[N].a_valid), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[N].d_ready), line:N:N, endln:N:N
+  |UINT:N
+  |vpiConstType:N
+  |vpiDecompile:N
+  |vpiFullName:tl_h_i[N]
+  |vpiName:tl_h_i[N].a_address
+  |vpiName:tl_h_i[N].a_data
+  |vpiName:tl_h_i[N].a_mask
+  |vpiName:tl_h_i[N].a_opcode
+  |vpiName:tl_h_i[N].a_param
+  |vpiName:tl_h_i[N].a_size
+  |vpiName:tl_h_i[N].a_user
+  |vpiName:tl_h_i[N].a_valid
+  |vpiName:tl_h_i[N].d_ready
+  |vpiSize:N
+--- REMOVED (pristine) ---
+  \_bit_select: (tl_h_i[i]), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[i].a_address), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[i].a_data), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[i].a_mask), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[i].a_opcode), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[i].a_param), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[i].a_size), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[i].a_user), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[i].a_valid), line:N:N, endln:N:N
+  \_hier_path: (tl_h_i[i].d_ready), line:N:N, endln:N:N
+  \_parameter: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].i), line:N:N
+  \_ref_obj: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].i), line:N:N, endln:N:N
+  |vpiActual:
+  |vpiFullName:tl_h_i[i]
+  |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N].i
+  |vpiName:i
+  |vpiName:tl_h_i[i].a_address
+  |vpiName:tl_h_i[i].a_data
+  |vpiName:tl_h_i[i].a_mask
+  |vpiName:tl_h_i[i].a_opcode
+  |vpiName:tl_h_i[i].a_param
+  |vpiName:tl_h_i[i].a_size
+  |vpiName:tl_h_i[i].a_user
+  |vpiName:tl_h_i[i].a_valid
+  |vpiName:tl_h_i[i].d_ready
+  |vpiParent:
+
+Again: no other shape, and the whole diff sits in ONE ELAB section (sec=10).
+The extra removed lines relative to the default mode ( \_parameter: (...i),
+|vpiActual:, |vpiParent: ) are the header lines of the dropped index ref_obj
+and its actual back-reference -- the same object, printed with more of its
+fields in this view.
+
+================= 4. THE WHOLE-DATABASE KIND CENSUS (kinds112) ==================
+Serializer::AllObjects -- EVERY object in the database, reachable or not,
+counted by UHDM kind and by (kind, VpiName).  This is the attribution that
+cannot miss a change outside the shapes the dump diff happened to show.
+
+Earlgrey_0_1 / DEFAULT   (134265 -> 134526 constants):
+  15c15
+  < KIND	constant	134265
+  ---
+  > KIND	constant	134526
+  the ONLY kind whose count changed in the whole database is constant, +261
+  = 9 pattern members x 29 unrolled gen_host_fifo instances.  ref_obj named
+  'i' is UNCHANGED: the index ref_obj is still minted into the arena and then
+  DROPPED by the law's post-emission gate.
+
+Earlgrey_0_1 / TESTFLAGS:
+  15c15
+  < KIND	constant	183776
+  ---
+  > KIND	constant	184037
+  59c59
+  < KIND	ref_obj	381098
+  ---
+  > KIND	ref_obj	380576
+  constant +261 (the same 261 folds) and ref_obj -522: in this mode our
+  elaborated tree carries the 3x arena multiplicity (README residue R6), and
+  the two extra copies of the now-unreferenced index ref_obj are no longer
+  reproduced.  NO OTHER KIND MOVED.
+
+NAME-level, both modes, the ONLY lines that differ:
+  default < NAME	constant		134265
+  default > NAME	constant		134526
+  testflags < NAME	constant		183776
+  testflags > NAME	constant		184037
+  testflags < NAME	ref_obj	i	10265
+  testflags > NAME	ref_obj	i	9743
+  ...plus the nine hier_path name families tl_h_i[i].<member> ->
+  tl_h_i[0|1|2].<member>, which are the law.

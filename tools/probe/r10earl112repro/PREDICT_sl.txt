@@ -1,0 +1,77 @@
+--- PREDICTED MOVE cells: 18 ---
+default/Earlgrey_0_1-71da2fd7	HPN|109:19-109:36
+	G {"n='tl_h_i[0].a_valid',IX[const(n='',dec='0',val='UINT:0',sz=64,ct=9)]": 13, "n='tl_h_i[1].a_valid',IX[const(n='',dec='1',val='UINT:1',sz=64,ct=9)]": 13, "n='tl_h_i[2].a_valid',IX[const(n='',dec='2',val='UINT:2',sz=64,ct=9)]": 3, "n='tl_h_i[i].a_valid',IX[ref(n='i',dec='',val='',sz=0)]": 1}
+	O {"n='tl_h_i[i].a_valid',IX[ref(n='i',dec='',val='',sz=0)]": 30}
+	DIAG ['-;ctx=operation75<cont_assign<gen_scope;gd=1;idx=ref', '-;ctx=operation75<cont_assign<named_begin;gd=0;idx=ref']
+default/Earlgrey_0_1-71da2fd7	HPN|110:19-110:37
+	G {"n='tl_h_i[0].a_opcode',IX[const(n='',dec='0',val='UINT:0',sz=64,ct=9)]": 13, "n='tl_h_i[1].a_opcode',IX[const(n='',dec='1',val='UINT:1',sz=64,ct=9)]": 13, "n='tl_h_i[2].a_opcode',IX[const(n='',dec='2',val='UINT:2',sz=64,ct=9)]": 3, "n='tl_h_i[i].a_opcode',IX[ref(n='i',dec='',val='',sz=0)]": 1}
+	O {"n='tl_h_i[i].a_opcode',IX[ref(n='i',dec='',val='',sz=0)]": 30}
+	DIAG ['-;ctx=operation75<cont_assign<gen_scope;gd=1;idx=ref', '-;ctx=operation75<cont_assign<named_begin;gd=0;idx=ref']
+default/Earlgrey_0_1-71da2fd7	HPN|111:19-111:36
+	G {"n='tl_h_i[0].a_param',IX[const(n='',dec='0',val='UINT:0',sz=64,ct=9)]": 13, "n='tl_h_i[1].a_param',IX[const(n='',dec='1',val='UINT:1',sz=64,ct=9)]": 13, "n='tl_h_i[2].a_param',IX[const(n='',dec='2',val='UINT:2',sz=64,ct=9)]": 3, "n='tl_h_i[i].a_param',IX[ref(n='i',dec='',val='',sz=0)]": 1}
+	O {"n='tl_h_i[i].a_param',IX[ref(n='i',dec='',val='',sz=0)]": 30}
+	DIAG ['-;ctx=operation75<cont_assign<gen_scope;gd=1;idx=ref', '-;ctx=operation75<cont_assign<named_begin;gd=0;idx=ref']
+default/Earlgrey_0_1-71da2fd7	HPN|112:19-112:35
+	G {"n='tl_h_i[0].a_size',IX[const(n='',dec='0',val='UINT:0',sz=64,ct=9)]": 13, "n='tl_h_i[1].a_size',IX[const(n='',dec='1',val='UINT:1',sz=64,ct=9)]": 13, "n='tl_h_i[2].a_size',IX[const(n='',dec='2',val='UINT:2',sz=64,ct=9)]": 3, "n='tl_h_i[i].a_size',IX[ref(n='i',dec='',val='',sz=0)]": 1}
+	O {"n='tl_h_i[i].a_size',IX[ref(n='i',dec='',val='',sz=0)]": 30}
+	DIAG ['-;ctx=operation75<cont_assign<gen_scope;gd=1;idx=ref', '-;ctx=operation75<cont_assign<named_begin;gd=0;idx=ref']
+default/Earlgrey_0_1-71da2fd7	HPN|114:19-114:38
+	G {"n='tl_h_i[0].a_address',IX[const(n='',dec='0',val='UINT:0',sz=64,ct=9)]": 13, "n='tl_h_i[1].a_address',IX[const(n='',dec='1',val='UINT:1',sz=64,ct=9)]": 13, "n='tl_h_i[2].a_address',IX[const(n='',dec='2',val='UINT:2',sz=64,ct=9)]": 3, "n='tl_h_i[i].a_address',IX[ref(n='i',dec='',val='',sz=0)]": 1}
+	O {"n='tl_h_i[i].a_address',IX[ref(n='i',dec='',val='',sz=0)]": 30}
+	DIAG ['-;ctx=operation75<cont_assign<gen_scope;gd=1;idx=ref', '-;ctx=operation75<cont_assign<named_begin;gd=0;idx=ref']
+default/Earlgrey_0_1-71da2fd7	HPN|115:19-115:35
+	G {"n='tl_h_i[0].a_mask',IX[const(n='',dec='0',val='UINT:0',sz=64,ct=9)]": 13, "n='tl_h_i[1].a_mask',IX[const(n='',dec='1',val='UINT:1',sz=64,ct=9)]": 13, "n='tl_h_i[2].a_mask',IX[const(n='',dec='2',val='UINT:2',sz=64,ct=9)]": 3, "n='tl_h_i[i].a_mask',IX[ref(n='i',dec='',val='',sz=0)]": 1}
+	O {"n='tl_h_i[i].a_mask',IX[ref(n='i',dec='',val='',sz=0)]": 30}
+	DIAG ['-;ctx=operation75<cont_assign<gen_scope;gd=1;idx=ref', '-;ctx=operation75<cont_assign<named_begin;gd=0;idx=ref']
+default/Earlgrey_0_1-71da2fd7	HPN|116:19-116:35
+	G {"n='tl_h_i[0].a_data',IX[const(n='',dec='0',val='UINT:0',sz=64,ct=9)]": 13, "n='tl_h_i[1].a_data',IX[const(n='',dec='1',val='UINT:1',sz=64,ct=9)]": 13, "n='tl_h_i[2].a_data',IX[const(n='',dec='2',val='UINT:2',sz=64,ct=9)]": 3, "n='tl_h_i[i].a_data',IX[ref(n='i',dec='',val='',sz=0)]": 1}
+	O {"n='tl_h_i[i].a_data',IX[ref(n='i',dec='',val='',sz=0)]": 30}
+	DIAG ['-;ctx=operation75<cont_assign<gen_scope;gd=1;idx=ref', '-;ctx=operation75<cont_assign<named_begin;gd=0;idx=ref']
+default/Earlgrey_0_1-71da2fd7	HPN|117:19-117:35
+	G {"n='tl_h_i[0].a_user',IX[const(n='',dec='0',val='UINT:0',sz=64,ct=9)]": 13, "n='tl_h_i[1].a_user',IX[const(n='',dec='1',val='UINT:1',sz=64,ct=9)]": 13, "n='tl_h_i[2].a_user',IX[const(n='',dec='2',val='UINT:2',sz=64,ct=9)]": 3, "n='tl_h_i[i].a_user',IX[ref(n='i',dec='',val='',sz=0)]": 1}
+	O {"n='tl_h_i[i].a_user',IX[ref(n='i',dec='',val='',sz=0)]": 30}
+	DIAG ['-;ctx=operation75<cont_assign<gen_scope;gd=1;idx=ref', '-;ctx=operation75<cont_assign<named_begin;gd=0;idx=ref']
+default/Earlgrey_0_1-71da2fd7	HPN|118:19-118:36
+	G {"n='tl_h_i[0].d_ready',IX[const(n='',dec='0',val='UINT:0',sz=64,ct=9)]": 13, "n='tl_h_i[1].d_ready',IX[const(n='',dec='1',val='UINT:1',sz=64,ct=9)]": 13, "n='tl_h_i[2].d_ready',IX[const(n='',dec='2',val='UINT:2',sz=64,ct=9)]": 3, "n='tl_h_i[i].d_ready',IX[ref(n='i',dec='',val='',sz=0)]": 1}
+	O {"n='tl_h_i[i].d_ready',IX[ref(n='i',dec='',val='',sz=0)]": 30}
+	DIAG ['-;ctx=operation75<cont_assign<gen_scope;gd=1;idx=ref', '-;ctx=operation75<cont_assign<named_begin;gd=0;idx=ref']
+testflags/Earlgrey_0_1-71da2fd7	HPN|109:19-109:36
+	G {"n='tl_h_i[0].a_valid',IX[const(n='',dec='0',val='UINT:0',sz=64,ct=9)]": 13, "n='tl_h_i[1].a_valid',IX[const(n='',dec='1',val='UINT:1',sz=64,ct=9)]": 13, "n='tl_h_i[2].a_valid',IX[const(n='',dec='2',val='UINT:2',sz=64,ct=9)]": 3, "n='tl_h_i[i].a_valid',IX[ref(n='i',dec='',val='',sz=0)]": 1}
+	O {"n='tl_h_i[i].a_valid',IX[ref(n='i',dec='',val='',sz=0)]": 88}
+	DIAG ['-;ctx=operation75<cont_assign<gen_scope;gd=1;idx=ref', '-;ctx=operation75<cont_assign<named_begin;gd=0;idx=ref']
+testflags/Earlgrey_0_1-71da2fd7	HPN|110:19-110:37
+	G {"n='tl_h_i[0].a_opcode',IX[const(n='',dec='0',val='UINT:0',sz=64,ct=9)]": 13, "n='tl_h_i[1].a_opcode',IX[const(n='',dec='1',val='UINT:1',sz=64,ct=9)]": 13, "n='tl_h_i[2].a_opcode',IX[const(n='',dec='2',val='UINT:2',sz=64,ct=9)]": 3, "n='tl_h_i[i].a_opcode',IX[ref(n='i',dec='',val='',sz=0)]": 1}
+	O {"n='tl_h_i[i].a_opcode',IX[ref(n='i',dec='',val='',sz=0)]": 88}
+	DIAG ['-;ctx=operation75<cont_assign<gen_scope;gd=1;idx=ref', '-;ctx=operation75<cont_assign<named_begin;gd=0;idx=ref']
+testflags/Earlgrey_0_1-71da2fd7	HPN|111:19-111:36
+	G {"n='tl_h_i[0].a_param',IX[const(n='',dec='0',val='UINT:0',sz=64,ct=9)]": 13, "n='tl_h_i[1].a_param',IX[const(n='',dec='1',val='UINT:1',sz=64,ct=9)]": 13, "n='tl_h_i[2].a_param',IX[const(n='',dec='2',val='UINT:2',sz=64,ct=9)]": 3, "n='tl_h_i[i].a_param',IX[ref(n='i',dec='',val='',sz=0)]": 1}
+	O {"n='tl_h_i[i].a_param',IX[ref(n='i',dec='',val='',sz=0)]": 88}
+	DIAG ['-;ctx=operation75<cont_assign<gen_scope;gd=1;idx=ref', '-;ctx=operation75<cont_assign<named_begin;gd=0;idx=ref']
+testflags/Earlgrey_0_1-71da2fd7	HPN|112:19-112:35
+	G {"n='tl_h_i[0].a_size',IX[const(n='',dec='0',val='UINT:0',sz=64,ct=9)]": 13, "n='tl_h_i[1].a_size',IX[const(n='',dec='1',val='UINT:1',sz=64,ct=9)]": 13, "n='tl_h_i[2].a_size',IX[const(n='',dec='2',val='UINT:2',sz=64,ct=9)]": 3, "n='tl_h_i[i].a_size',IX[ref(n='i',dec='',val='',sz=0)]": 1}
+	O {"n='tl_h_i[i].a_size',IX[ref(n='i',dec='',val='',sz=0)]": 88}
+	DIAG ['-;ctx=operation75<cont_assign<gen_scope;gd=1;idx=ref', '-;ctx=operation75<cont_assign<named_begin;gd=0;idx=ref']
+testflags/Earlgrey_0_1-71da2fd7	HPN|114:19-114:38
+	G {"n='tl_h_i[0].a_address',IX[const(n='',dec='0',val='UINT:0',sz=64,ct=9)]": 13, "n='tl_h_i[1].a_address',IX[const(n='',dec='1',val='UINT:1',sz=64,ct=9)]": 13, "n='tl_h_i[2].a_address',IX[const(n='',dec='2',val='UINT:2',sz=64,ct=9)]": 3, "n='tl_h_i[i].a_address',IX[ref(n='i',dec='',val='',sz=0)]": 1}
+	O {"n='tl_h_i[i].a_address',IX[ref(n='i',dec='',val='',sz=0)]": 88}
+	DIAG ['-;ctx=operation75<cont_assign<gen_scope;gd=1;idx=ref', '-;ctx=operation75<cont_assign<named_begin;gd=0;idx=ref']
+testflags/Earlgrey_0_1-71da2fd7	HPN|115:19-115:35
+	G {"n='tl_h_i[0].a_mask',IX[const(n='',dec='0',val='UINT:0',sz=64,ct=9)]": 13, "n='tl_h_i[1].a_mask',IX[const(n='',dec='1',val='UINT:1',sz=64,ct=9)]": 13, "n='tl_h_i[2].a_mask',IX[const(n='',dec='2',val='UINT:2',sz=64,ct=9)]": 3, "n='tl_h_i[i].a_mask',IX[ref(n='i',dec='',val='',sz=0)]": 1}
+	O {"n='tl_h_i[i].a_mask',IX[ref(n='i',dec='',val='',sz=0)]": 88}
+	DIAG ['-;ctx=operation75<cont_assign<gen_scope;gd=1;idx=ref', '-;ctx=operation75<cont_assign<named_begin;gd=0;idx=ref']
+testflags/Earlgrey_0_1-71da2fd7	HPN|116:19-116:35
+	G {"n='tl_h_i[0].a_data',IX[const(n='',dec='0',val='UINT:0',sz=64,ct=9)]": 13, "n='tl_h_i[1].a_data',IX[const(n='',dec='1',val='UINT:1',sz=64,ct=9)]": 13, "n='tl_h_i[2].a_data',IX[const(n='',dec='2',val='UINT:2',sz=64,ct=9)]": 3, "n='tl_h_i[i].a_data',IX[ref(n='i',dec='',val='',sz=0)]": 1}
+	O {"n='tl_h_i[i].a_data',IX[ref(n='i',dec='',val='',sz=0)]": 88}
+	DIAG ['-;ctx=operation75<cont_assign<gen_scope;gd=1;idx=ref', '-;ctx=operation75<cont_assign<named_begin;gd=0;idx=ref']
+testflags/Earlgrey_0_1-71da2fd7	HPN|117:19-117:35
+	G {"n='tl_h_i[0].a_user',IX[const(n='',dec='0',val='UINT:0',sz=64,ct=9)]": 13, "n='tl_h_i[1].a_user',IX[const(n='',dec='1',val='UINT:1',sz=64,ct=9)]": 13, "n='tl_h_i[2].a_user',IX[const(n='',dec='2',val='UINT:2',sz=64,ct=9)]": 3, "n='tl_h_i[i].a_user',IX[ref(n='i',dec='',val='',sz=0)]": 1}
+	O {"n='tl_h_i[i].a_user',IX[ref(n='i',dec='',val='',sz=0)]": 88}
+	DIAG ['-;ctx=operation75<cont_assign<gen_scope;gd=1;idx=ref', '-;ctx=operation75<cont_assign<named_begin;gd=0;idx=ref']
+testflags/Earlgrey_0_1-71da2fd7	HPN|118:19-118:36
+	G {"n='tl_h_i[0].d_ready',IX[const(n='',dec='0',val='UINT:0',sz=64,ct=9)]": 13, "n='tl_h_i[1].d_ready',IX[const(n='',dec='1',val='UINT:1',sz=64,ct=9)]": 13, "n='tl_h_i[2].d_ready',IX[const(n='',dec='2',val='UINT:2',sz=64,ct=9)]": 3, "n='tl_h_i[i].d_ready',IX[ref(n='i',dec='',val='',sz=0)]": 1}
+	O {"n='tl_h_i[i].d_ready',IX[ref(n='i',dec='',val='',sz=0)]": 88}
+	DIAG ['-;ctx=operation75<cont_assign<gen_scope;gd=1;idx=ref', '-;ctx=operation75<cont_assign<named_begin;gd=0;idx=ref']
+--- RISK cells (must not move): 32718  (of which already AGREEING 29165) ---
+ROWS PREDICTED TO MOVE (2):
+  default/Earlgrey_0_1-71da2fd7
+  testflags/Earlgrey_0_1-71da2fd7

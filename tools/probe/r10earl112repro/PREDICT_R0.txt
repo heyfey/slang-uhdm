@@ -1,0 +1,130 @@
+r10earl112 — THE NEXT HEAD (R0), NAMED WITH THE ARITHMETIC PROOF
+================================================================
+MEASUREMENT ONLY.  The official uhdm-cmp is the sole acceptance judge.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+Produced by `own112` on the PATCHED databases (OWNER_AFTER.r10earl112.txt) and
+cross-checked against the pristine ladder (OWNER_BEFORE.r10earl112.txt), which
+named the same four fields BEFORE a line of production code existed.
+
+THE ROW:  Earlgrey_0_1 / testflags, 364 cmp lines, ONE head.
+THE OBJECT: the SAME `hier_path` as before, tlul_socket_m1.sv 109:19-109:36,
+            golden id 793448.  It is unchanged because this pass owns ONE of
+            the FOUR compare-visible fields it differs in.
+
+THE LADDER, in the order the generated Compares read it
+(`hier_path::Compare` -> `expr::Compare` -> `BaseClass::Compare`):
+
+  field                     golden            ours          judge result
+  ------------------------  ----------------  ------------  ---------------
+  BaseClass VpiType         5000              5000          0
+  BaseClass VpiName         tl_h_i[0].a_valid tl_h_i[0]...  0  <- WAS -57,
+                                                                 CLEARED BY
+                                                                 THIS PASS
+                                                                 ('0'-'i' =
+                                                                  48-105)
+  expr      VpiDecompile    ''                ''            0
+  expr      VpiSize         0                 1             -1  <- R0 IS HERE
+  expr      Typespec        ref_typespec ->   <null>            R1
+                            array_typespec
+  hier_path Path_elems[1]   Actual_group      Actual_group      R2
+            (ref_obj        <null>            typespec_member
+             'a_valid')                       ('a_valid')
+  hier_path Root_value      array_var         array_var     0
+
+`design::Compare` returned -57 on the pristine binary and returns **-1** on the
+patched one.  -1 is `0 - 1`, the `VpiSize` subtraction — the arithmetic name
+proof that the head has moved from `VpiName` to `VpiSize` on the same object.
+
+R0 — `expr::VpiSize` ON A GEN-SCOPE CONT-ASSIGN PATTERN'S FIRST OPERAND
+-----------------------------------------------------------------------
+Golden sizes NOTHING; we size the first operand at the member width.
+
+MEASURED, golden, ELAB view, first operand of a struct assignment pattern that
+is a cont_assign Rhs (this pass's own arms, four independent designs):
+
+  g1 36:36  gen scope, member `a_valid` (1 bit)   golden sz=0   ours sz=1
+  g2 38:32  gen scope                             golden sz=0   ours sz=1
+  g2 63:33  gen scope, `default:` key, 8-bit      golden sz=0   ours sz=8
+  g3 29:29 / 32:29 / 35:29 / 38:29  gen scope     golden sz=0   ours sz=1
+  g4 45:30 / 59:30  gen scope                     golden sz=0   ours sz=1
+  g2 73:29  MODULE scope (no generate)            golden sz=1   ours sz=1  <-
+  g3 21:29  MODULE scope (no generate)            golden sz=1   ours sz=1  <-
+
+so the axis is the GENERATE SCOPE, and the two module-scope cells are the
+negative control: the landed "re-emitted OUTERMOST patterns size their FIRST
+operand" law is RIGHT there and must not be disturbed.
+
+THE SOURCE SIDE, read: our stamp is
+`src/ExprEmit.cpp`, the `StructuredAssignmentPattern` `memberSetters` loop,
+`if (operands->empty() && !nestedPat) e->VpiSize(bitWidth)` under `reemitting`
+— and `reemitting` is turned on for a gen-scope cont_assign by
+`src/ModuleEmit.cpp`'s `patFlat9` guard ("A STRUCT-typed pattern RHS flattens
+in the elab view ... the first one sized").  Surelog's gen-scope path runs
+`UHDM::ExprEval::flattenPatternAssignments`
+(`Surelog/third_party/UHDM/templates/ExprEval.cpp:750`), which resizes ONLY a
+`constant` pattern whose `VpiSize` is -1 and NEVER touches a non-constant
+operand; the module-scope path additionally runs
+`CompileHelper::expandPatternAssignment` -> `adjustOpSize`
+(`CompileHelper.cpp:4944` / `:5251`) behind
+`substituteAssignedValue` (`CompileExpression.cpp:83`), and THAT is where the
+first-operand size comes from.  The gate to decode is which of the two
+pipelines a gen-scope cont_assign takes.
+ONE LINE of ours is implicated; the arms above are the grid.
+
+R1 — `expr::Typespec` ON THE SAME OBJECT
+----------------------------------------
+Golden hangs a `ref_typespec` -> `array_typespec` (the ROOT array's own
+typespec, id 793266) on the pattern-carried `hier_path`; we hang nothing.
+NOT reproduced by any arm in this pass: every arm's root array came out an
+`array_net` and golden leaves those BARE (`ts=-`, arm g1/g2/g3/g4, and
+arm g4 h6 was built specifically to try for an `array_var` root and still
+came out a net).  The corpus cell has an `array_var` root because
+`tl_h_i` is an unpacked-struct-array PORT of an INSTANTIATED child.  A pass
+taking R1 must build that shape first — a module instantiated as a child with
+an unpacked struct array port — or it is guessing.
+
+R2 — `Path_elems[1].Actual_group`
+---------------------------------
+Golden's trailing `ref_obj a_valid` is UNBOUND (`Actual_group <null>`); ours
+binds it to the `typespec_member a_valid`.  `own112`'s mask ladder reaches it
+in one hop after R0 and R1 are masked (OWNER_AFTER.r10earl112.txt, iteration
+1).  Note that golden's FIRST element (the `bit_select`) IS bound
+(`Actual_group -> array_var`), so this is not "golden never binds a path
+element" — it is a per-position rule and needs its own grid.
+
+R3 — A GEN-SCOPE LOCALPARAM INDEX IN THE SAME CARRIER
+-----------------------------------------------------
+Arm g3 e3: golden folds `tl_h_i[LB]` to `UINT:1` at `VpiSize` **32** — the
+`localparam int LB`'s own declaration width, not the genvar's 64.  This pass
+fences it out on `ParameterSymbol::isFromGenvar()` because the encoding is a
+different law (§ `genvarIdxFoldRerender14` states the same split).
+CORPUS POPULATION: ZERO — the 18 cells the census finds are all bare genvars.
+
+R4 — THE `always_comb` CARRIER
+-------------------------------
+Arm g2 c2: golden VALUES the genvar in a pattern inside a gen-scope
+`always_comb`, and SPELLS it in a gen-scope `initial` (g2 c3).  This pass's
+fence is `inGenScopeCa67`, so both are left on their pristine bytes; the
+`always_comb` half is a STILL-WRONG residue.
+CORPUS POPULATION: ZERO (the census's 18 cells are all cont_assign).
+
+R5 — THE ARITHMETIC INDEX
+--------------------------
+Arm g3 e2: golden folds `tl_h_i[i+1]` to `tl_h_i[1]`.  This pass takes only a
+BARE identifier, because § `hpNameBareIdxFold69`'s name rewrite substitutes
+only into a bracket group that holds a single unqualified identifier; an
+arithmetic group would need that rewrite widened (and § `genvarIdxFoldRerender14`'s
+span/const-type model, which is a different encoding again — a `*`/`-` on the
+spine gives `vpiIntConst`).
+CORPUS POPULATION: ZERO.
+
+R6 — THE ARENA COUNT RESIDUE
+-----------------------------
+In the DEFAULT mode our multiset is EXACTLY golden's (13/13/3 + 1 def view = 30
+objects at 109:19-109:36, both sides — those nine cells score STRICT TOGOLD).
+In TESTFLAGS ours holds 39/39/9 + 1 = 88 where golden holds 13/13/3 + 1 = 30:
+the SHAPE (payload SET) is identical, the multiplicity is 3x.  No
+generated `Compare` counts arena copies, which is why the census prints both a
+STRICT and a SHAPE score and the SHAPE line is the one the law is judged on
+(earl111's precedent, same reason).  Pre-existing on both binaries.

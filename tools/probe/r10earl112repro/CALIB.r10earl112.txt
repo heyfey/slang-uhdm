@@ -1,0 +1,10 @@
+g1_head112_elab  SAME 32   DIFF 0   G-ONLY 0   O-ONLY 0
+g1_head112_plain  SAME 32   DIFF 0   G-ONLY 0   O-ONLY 0
+g2_carrier112_elab  SAME 50   DIFF 0   G-ONLY 0   O-ONLY 0
+g2_carrier112_plain  SAME 50   DIFF 0   G-ONLY 0   O-ONLY 0
+g3_depth112_elab  SAME 50   DIFF 0   G-ONLY 0   O-ONLY 0
+g3_depth112_plain  SAME 50   DIFF 0   G-ONLY 0   O-ONLY 0
+g4_fence112_elab  SAME 18   DIFF 0   G-ONLY 0   O-ONLY 0
+g4_fence112_plain  SAME 18   DIFF 0   G-ONLY 0   O-ONLY 0
+CALIB-BAD=0
+CALIBRATION PASS (golden-vs-golden 0 DIFF everywhere)

@@ -1,0 +1,3 @@
+--- PREDICTED MOVE cells: 0 ---
+--- RISK cells (must not move): 690  (of which already AGREEING 686) ---
+ROWS PREDICTED TO MOVE (0):
