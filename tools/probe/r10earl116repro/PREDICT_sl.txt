@@ -1,0 +1,12 @@
+OURS census rows                          : 276
+CANDIDATE cells (upper bound)             : 58
+CANDIDATE rows                            : 2
+    ROW default/Earlgrey_0_1-71da2fd7                  cells=29
+    ROW testflags/Earlgrey_0_1-71da2fd7                cells=29
+GOLDEN-CONFIRMED cells (golden TAGGED)    : 58
+GOLDEN-CONFIRMED rows                     : 2
+    ROW default/Earlgrey_0_1-71da2fd7                  cells=29
+    ROW testflags/Earlgrey_0_1-71da2fd7                cells=29
+FENCED-KEEP cells (whole-name Lhs, stay flat): 62 in 6 rows
+    CANDIDATE shape bit_select/<null>            29
+    CANDIDATE shape bit_select/array_var         29

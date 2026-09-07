@@ -1,0 +1,42 @@
+r10earl116 GRID CALIBRATION — golden vs golden on every arm/view.
+An instrument that cannot read 0 differing cells between a database and ITSELF
+cannot be trusted to read 0 between two different ones.
+
+q1_lhs116_elab         -- FX SAME_AGREE=7 -- F0 SAME_AGREE=7 
+q1_lhs116_plain        -- FX SAME_AGREE=7 -- F0 SAME_AGREE=7 
+q2_car116_elab         -- FX SAME_AGREE=8 -- F0 SAME_AGREE=7 
+q2_car116_plain        -- FX SAME_AGREE=7 -- F0 SAME_AGREE=7 
+q3_mix116_elab         -- FX SAME_AGREE=9 -- F0 SAME_AGREE=9 
+q3_mix116_plain        -- FX SAME_AGREE=9 -- F0 SAME_AGREE=9 
+q4_head116_elab        -- FX SAME_AGREE=1 -- F0 SAME_AGREE=1 
+q4_head116_plain       -- FX SAME_AGREE=1 -- F0 SAME_AGREE=1 
+p3_fence115_elab       -- FX SAME_AGREE=7 -- F0 SAME_AGREE=6 
+p3_fence115_plain      -- FX SAME_AGREE=7 -- F0 SAME_AGREE=6 
+s1_scope113_elab       -- FX SAME_AGREE=9 -- F0 SAME_AGREE=8 
+s1_scope113_plain      -- FX SAME_AGREE=9 -- F0 SAME_AGREE=8 
+t1_root114_elab        -- FX SAME_AGREE=40 -- F0 SAME_AGREE=28 
+t1_root114_plain       -- FX SAME_AGREE=28 -- F0 SAME_AGREE=28 
+t4_fence114_elab       -- FX SAME_AGREE=10 -- F0 SAME_AGREE=8 
+t4_fence114_plain      -- FX SAME_AGREE=8 -- F0 SAME_AGREE=8 
+v2_hier112_elab        -- FX SAME_AGREE=6 -- F0 SAME_AGREE=6 
+v2_hier112_plain       -- FX SAME_AGREE=6 -- F0 SAME_AGREE=6 
+v3_lhs113_elab         -- FX SAME_AGREE=8 -- F0 SAME_AGREE=7 
+v3_lhs113_plain        -- FX SAME_AGREE=7 -- F0 SAME_AGREE=7 
+va1_lhs115_elab        -- FX SAME_AGREE=7 -- F0 SAME_AGREE=7 
+va1_lhs115_plain       -- FX SAME_AGREE=7 -- F0 SAME_AGREE=7 
+w1_memlhs_elab         -- FX SAME_AGREE=1 -- F0 SAME_AGREE=1 
+w1_memlhs_plain        -- FX SAME_AGREE=1 -- F0 SAME_AGREE=1 
+w3_genarr_elab         -- FX SAME_AGREE=2 -- F0 SAME_AGREE=2 
+w3_genarr_plain        -- FX SAME_AGREE=2 -- F0 SAME_AGREE=2 
+w4_selmem_elab         -- FX SAME_AGREE=1 -- F0 SAME_AGREE=1 
+w4_selmem_plain        -- FX SAME_AGREE=1 -- F0 SAME_AGREE=1 
+
+CORPUS calibration (golden halves of the pristine and the patched sweep):
+-- FX SAME_AGREE=57
+   ROWS WITH MOVED CELLS: 0
+-- F0 SAME_AGREE=34
+   ROWS WITH MOVED CELLS: 0
+-- FX SAME_AGREE=74
+   ROWS WITH MOVED CELLS: 0
+-- F0 SAME_AGREE=56
+   ROWS WITH MOVED CELLS: 0

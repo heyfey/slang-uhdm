@@ -1,0 +1,428 @@
+LHS:
+decompile:
+tagged_pattern: , id:210, line:28:40, endln:28:56
+|vpiParent:
+\_operation: , id:203, line:28:27, endln:30:45
+|vpiPattern:
+\_hier_path: (two_i[0].a_valid), id:204, line:28:40, endln:28:56
+  |vpiParent:
+  \_operation: , id:203, line:28:27, endln:30:45
+  |vpiTypespec:
+  \_ref_typespec: (work@w4_selmem.gen_w4[0].two_i[0].a_valid), id:205
+    |vpiParent:
+    \_hier_path: (two_i[0].a_valid), id:204, line:28:40, endln:28:56
+    |vpiFullName:work@w4_selmem.gen_w4[0].two_i[0].a_valid
+    |vpiActual:
+    \_array_typespec: , id:164
+  |vpiActual:
+  \_bit_select: (two_i[0]), id:208, line:28:40, endln:28:45
+    |vpiParent:
+    \_hier_path: (two_i[0].a_valid), id:204, line:28:40, endln:28:56
+    |vpiName:two_i
+    |vpiFullName:two_i[0]
+    |vpiActual:
+    \_array_var: (work@w4_selmem.two_i), id:162, line:22:21, endln:22:26
+    |vpiIndex:
+    \_constant: , id:206, line:28:46, endln:28:47
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiActual:
+  \_ref_obj: (work@w4_selmem.gen_w4[0].a_valid), id:209, line:28:49, endln:28:56
+    |vpiParent:
+    \_hier_path: (two_i[0].a_valid), id:204, line:28:40, endln:28:56
+    |vpiName:a_valid
+    |vpiFullName:work@w4_selmem.gen_w4[0].a_valid
+  |vpiExpr:
+  \_array_var: (work@w4_selmem.two_i), id:162, line:22:21, endln:22:26
+    |vpiParent:
+    \_module_inst: work@w4_selmem (work@w4_selmem), id:336, file:/tmp/r10earl116_scratch/bnd/w4_selmem.sv, line:20:1, endln:33:10
+    |vpiSize:1
+    |vpiTypespec:
+    \_ref_typespec: (work@w4_selmem.two_i), id:163
+      |vpiParent:
+      \_array_var: (work@w4_selmem.two_i), id:162, line:22:21, endln:22:26
+      |vpiFullName:work@w4_selmem.two_i
+      |vpiActual:
+      \_array_typespec: , id:164
+    |vpiName:two_i
+    |vpiFullName:work@w4_selmem.two_i
+    |vpiRandType:1
+    |vpiVisibility:1
+    |vpiArrayType:1
+    |vpiRange:
+    \_range: , id:153, line:22:28, endln:22:29
+      |vpiParent:
+      \_array_var: (work@w4_selmem.two_i), id:162, line:22:21, endln:22:26
+      |vpiLeftRange:
+      \_constant: , id:154
+        |vpiParent:
+        \_range: , id:153, line:22:28, endln:22:29
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_operation: , id:158, line:22:28, endln:22:29
+        |vpiParent:
+        \_range: , id:153, line:22:28, endln:22:29
+        |vpiOpType:11
+        |vpiOperand:
+        \_constant: , id:155, line:22:28, endln:22:29
+          |vpiParent:
+          \_operation: , id:158, line:22:28, endln:22:29
+          |vpiDecompile:3
+          |vpiSize:32
+          |UINT:3
+          |vpiTypespec:
+          \_ref_typespec: (work@w4_selmem.two_i), id:157
+            |vpiParent:
+            \_constant: , id:155, line:22:28, endln:22:29
+            |vpiFullName:work@w4_selmem.two_i
+            |vpiActual:
+            \_int_typespec: , id:156
+          |vpiConstType:9
+        |vpiOperand:
+        \_constant: , id:159
+          |vpiSize:64
+          |INT:1
+          |vpiConstType:7
+    |vpiReg:
+    \_struct_var: (work@w4_selmem.two_i), id:160, line:22:21, endln:22:26
+      |vpiParent:
+      \_array_var: (work@w4_selmem.two_i), id:162, line:22:21, endln:22:26
+      |vpiTypespec:
+      \_ref_typespec: (work@w4_selmem.two_i), id:161
+        |vpiParent:
+        \_struct_var: (work@w4_selmem.two_i), id:160, line:22:21, endln:22:26
+        |vpiFullName:work@w4_selmem.two_i
+        |vpiActual:
+        \_struct_typespec: (pw4::h2d_t), id:15, line:7:11, endln:11:4
+      |vpiFullName:work@w4_selmem.two_i
+  |vpiName:two_i[0].a_valid
+|vpiTypespec:
+\_ref_typespec: (work@w4_selmem.gen_w4[0]), id:212
+  |vpiParent:
+  \_tagged_pattern: , id:210, line:28:40, endln:28:56
+  |vpiFullName:work@w4_selmem.gen_w4[0]
+  |vpiActual:
+  \_string_typespec: (a_valid), id:211, line:28:30, endln:28:37
+
+decompile:
+tagged_pattern: , id:210, line:28:40, endln:28:56
+|vpiParent:
+\_operation: , id:203, line:28:27, endln:30:45
+|vpiPattern:
+\_hier_path: (two_i[0].a_valid), id:204, line:28:40, endln:28:56
+  |vpiParent:
+  \_operation: , id:203, line:28:27, endln:30:45
+  |vpiTypespec:
+  \_ref_typespec: (work@w4_selmem.gen_w4[0].two_i[0].a_valid), id:205
+    |vpiParent:
+    \_hier_path: (two_i[0].a_valid), id:204, line:28:40, endln:28:56
+    |vpiFullName:work@w4_selmem.gen_w4[0].two_i[0].a_valid
+    |vpiActual:
+    \_array_typespec: , id:164
+  |vpiActual:
+  \_bit_select: (two_i[0]), id:208, line:28:40, endln:28:45
+    |vpiParent:
+    \_hier_path: (two_i[0].a_valid), id:204, line:28:40, endln:28:56
+    |vpiName:two_i
+    |vpiFullName:two_i[0]
+    |vpiActual:
+    \_array_var: (work@w4_selmem.two_i), id:162, line:22:21, endln:22:26
+    |vpiIndex:
+    \_constant: , id:206, line:28:46, endln:28:47
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiActual:
+  \_ref_obj: (work@w4_selmem.gen_w4[0].a_valid), id:209, line:28:49, endln:28:56
+    |vpiParent:
+    \_hier_path: (two_i[0].a_valid), id:204, line:28:40, endln:28:56
+    |vpiName:a_valid
+    |vpiFullName:work@w4_selmem.gen_w4[0].a_valid
+  |vpiExpr:
+  \_array_var: (work@w4_selmem.two_i), id:162, line:22:21, endln:22:26
+    |vpiParent:
+    \_module_inst: work@w4_selmem (work@w4_selmem), id:336, file:/tmp/r10earl116_scratch/bnd/w4_selmem.sv, line:20:1, endln:33:10
+    |vpiSize:1
+    |vpiTypespec:
+    \_ref_typespec: (work@w4_selmem.two_i), id:163
+      |vpiParent:
+      \_array_var: (work@w4_selmem.two_i), id:162, line:22:21, endln:22:26
+      |vpiFullName:work@w4_selmem.two_i
+      |vpiActual:
+      \_array_typespec: , id:164
+    |vpiName:two_i
+    |vpiFullName:work@w4_selmem.two_i
+    |vpiRandType:1
+    |vpiVisibility:1
+    |vpiArrayType:1
+    |vpiRange:
+    \_range: , id:153, line:22:28, endln:22:29
+      |vpiParent:
+      \_array_var: (work@w4_selmem.two_i), id:162, line:22:21, endln:22:26
+      |vpiLeftRange:
+      \_constant: , id:154
+        |vpiParent:
+        \_range: , id:153, line:22:28, endln:22:29
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_operation: , id:158, line:22:28, endln:22:29
+        |vpiParent:
+        \_range: , id:153, line:22:28, endln:22:29
+        |vpiOpType:11
+        |vpiOperand:
+        \_constant: , id:155, line:22:28, endln:22:29
+          |vpiParent:
+          \_operation: , id:158, line:22:28, endln:22:29
+          |vpiDecompile:3
+          |vpiSize:32
+          |UINT:3
+          |vpiTypespec:
+          \_ref_typespec: (work@w4_selmem.two_i), id:157
+            |vpiParent:
+            \_constant: , id:155, line:22:28, endln:22:29
+            |vpiFullName:work@w4_selmem.two_i
+            |vpiActual:
+            \_int_typespec: , id:156
+          |vpiConstType:9
+        |vpiOperand:
+        \_constant: , id:159
+          |vpiSize:64
+          |INT:1
+          |vpiConstType:7
+    |vpiReg:
+    \_struct_var: (work@w4_selmem.two_i), id:160, line:22:21, endln:22:26
+      |vpiParent:
+      \_array_var: (work@w4_selmem.two_i), id:162, line:22:21, endln:22:26
+      |vpiTypespec:
+      \_ref_typespec: (work@w4_selmem.two_i), id:161
+        |vpiParent:
+        \_struct_var: (work@w4_selmem.two_i), id:160, line:22:21, endln:22:26
+        |vpiFullName:work@w4_selmem.two_i
+        |vpiActual:
+        \_struct_typespec: (pw4::h2d_t), id:15, line:7:11, endln:11:4
+      |vpiFullName:work@w4_selmem.two_i
+  |vpiName:two_i[0].a_valid
+|vpiTypespec:
+\_ref_typespec: (work@w4_selmem.gen_w4[0]), id:212
+  |vpiParent:
+  \_tagged_pattern: , id:210, line:28:40, endln:28:56
+  |vpiFullName:work@w4_selmem.gen_w4[0]
+  |vpiActual:
+  \_string_typespec: (a_valid), id:211, line:28:30, endln:28:37
+RHS:
+decompile:
+hier_path: (two_i[0].a_valid), id:319, line:28:40, endln:28:56
+|vpiParent:
+\_operation: , id:318, line:28:27, endln:30:45
+|vpiSize:1
+|vpiTypespec:
+\_ref_typespec: (work@w4_selmem.gen_w4[0].two_i[0].a_valid), id:322
+  |vpiParent:
+  \_hier_path: (two_i[0].a_valid), id:319, line:28:40, endln:28:56
+  |vpiFullName:work@w4_selmem.gen_w4[0].two_i[0].a_valid
+  |vpiActual:
+  \_array_typespec: , id:164
+|vpiActual:
+\_bit_select: (two_i[0]), id:320, line:28:40, endln:28:45
+  |vpiParent:
+  \_hier_path: (two_i[0].a_valid), id:319, line:28:40, endln:28:56
+  |vpiName:two_i
+  |vpiFullName:two_i[0]
+  |vpiActual:
+  \_array_var: (work@w4_selmem.two_i), id:154, line:22:21, endln:22:26
+  |vpiIndex:
+  \_constant: , id:203, line:28:46, endln:28:47
+    |vpiParent:
+    \_bit_select: (two_i[0]), id:201, line:28:40, endln:28:45
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+|vpiActual:
+\_ref_obj: (work@w4_selmem.gen_w4[0].a_valid), id:321, line:28:49, endln:28:56
+  |vpiParent:
+  \_hier_path: (two_i[0].a_valid), id:319, line:28:40, endln:28:56
+  |vpiName:a_valid
+  |vpiFullName:work@w4_selmem.gen_w4[0].a_valid
+  |vpiActual:
+  \_typespec_member: (a_valid), id:42, line:8:17, endln:8:24
+|vpiExpr:
+\_array_var: (work@w4_selmem.two_i), id:154, line:22:21, endln:22:26
+  |vpiParent:
+  \_module_inst: work@w4_selmem (work@w4_selmem), id:145, file:/tmp/r10earl116_scratch/bnd/w4_selmem.sv, line:20:1, endln:33:10
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (work@w4_selmem.two_i), id:165
+    |vpiParent:
+    \_array_var: (work@w4_selmem.two_i), id:154, line:22:21, endln:22:26
+    |vpiFullName:work@w4_selmem.two_i
+    |vpiActual:
+    \_array_typespec: , id:164
+  |vpiName:two_i
+  |vpiFullName:work@w4_selmem.two_i
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:155, line:22:28, endln:22:29
+    |vpiParent:
+    \_array_var: (work@w4_selmem.two_i), id:154, line:22:21, endln:22:26
+    |vpiLeftRange:
+    \_constant: , id:156
+      |vpiParent:
+      \_range: , id:155, line:22:28, endln:22:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_operation: , id:157, line:22:28, endln:22:29
+      |vpiParent:
+      \_range: , id:155, line:22:28, endln:22:29
+      |vpiOpType:11
+      |vpiOperand:
+      \_constant: , id:158, line:22:28, endln:22:29
+        |vpiParent:
+        \_operation: , id:157, line:22:28, endln:22:29
+        |vpiDecompile:3
+        |vpiSize:32
+        |UINT:3
+        |vpiTypespec:
+        \_ref_typespec: (work@w4_selmem.two_i), id:159
+          |vpiParent:
+          \_constant: , id:158, line:22:28, endln:22:29
+          |vpiFullName:work@w4_selmem.two_i
+          |vpiActual:
+          \_int_typespec: , id:160
+        |vpiConstType:9
+      |vpiOperand:
+      \_constant: , id:161
+        |vpiSize:64
+        |INT:1
+        |vpiConstType:7
+  |vpiReg:
+  \_struct_var: (work@w4_selmem.two_i), id:162, line:22:21, endln:22:26
+    |vpiParent:
+    \_array_var: (work@w4_selmem.two_i), id:154, line:22:21, endln:22:26
+    |vpiTypespec:
+    \_ref_typespec: (work@w4_selmem.two_i), id:163
+      |vpiParent:
+      \_struct_var: (work@w4_selmem.two_i), id:162, line:22:21, endln:22:26
+      |vpiFullName:work@w4_selmem.two_i
+      |vpiActual:
+      \_struct_typespec: (pw4::h2d_t), id:41, line:7:11, endln:11:4
+    |vpiFullName:work@w4_selmem.two_i
+|vpiName:two_i[0].a_valid
+
+decompile:
+hier_path: (two_i[0].a_valid), id:319, line:28:40, endln:28:56
+|vpiParent:
+\_operation: , id:318, line:28:27, endln:30:45
+|vpiSize:1
+|vpiTypespec:
+\_ref_typespec: (work@w4_selmem.gen_w4[0].two_i[0].a_valid), id:322
+  |vpiParent:
+  \_hier_path: (two_i[0].a_valid), id:319, line:28:40, endln:28:56
+  |vpiFullName:work@w4_selmem.gen_w4[0].two_i[0].a_valid
+  |vpiActual:
+  \_array_typespec: , id:164
+|vpiActual:
+\_bit_select: (two_i[0]), id:320, line:28:40, endln:28:45
+  |vpiParent:
+  \_hier_path: (two_i[0].a_valid), id:319, line:28:40, endln:28:56
+  |vpiName:two_i
+  |vpiFullName:two_i[0]
+  |vpiActual:
+  \_array_var: (work@w4_selmem.two_i), id:154, line:22:21, endln:22:26
+  |vpiIndex:
+  \_constant: , id:203, line:28:46, endln:28:47
+    |vpiParent:
+    \_bit_select: (two_i[0]), id:201, line:28:40, endln:28:45
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+|vpiActual:
+\_ref_obj: (work@w4_selmem.gen_w4[0].a_valid), id:321, line:28:49, endln:28:56
+  |vpiParent:
+  \_hier_path: (two_i[0].a_valid), id:319, line:28:40, endln:28:56
+  |vpiName:a_valid
+  |vpiFullName:work@w4_selmem.gen_w4[0].a_valid
+  |vpiActual:
+  \_typespec_member: (a_valid), id:42, line:8:17, endln:8:24
+|vpiExpr:
+\_array_var: (work@w4_selmem.two_i), id:154, line:22:21, endln:22:26
+  |vpiParent:
+  \_module_inst: work@w4_selmem (work@w4_selmem), id:145, file:/tmp/r10earl116_scratch/bnd/w4_selmem.sv, line:20:1, endln:33:10
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (work@w4_selmem.two_i), id:165
+    |vpiParent:
+    \_array_var: (work@w4_selmem.two_i), id:154, line:22:21, endln:22:26
+    |vpiFullName:work@w4_selmem.two_i
+    |vpiActual:
+    \_array_typespec: , id:164
+  |vpiName:two_i
+  |vpiFullName:work@w4_selmem.two_i
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:155, line:22:28, endln:22:29
+    |vpiParent:
+    \_array_var: (work@w4_selmem.two_i), id:154, line:22:21, endln:22:26
+    |vpiLeftRange:
+    \_constant: , id:156
+      |vpiParent:
+      \_range: , id:155, line:22:28, endln:22:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_operation: , id:157, line:22:28, endln:22:29
+      |vpiParent:
+      \_range: , id:155, line:22:28, endln:22:29
+      |vpiOpType:11
+      |vpiOperand:
+      \_constant: , id:158, line:22:28, endln:22:29
+        |vpiParent:
+        \_operation: , id:157, line:22:28, endln:22:29
+        |vpiDecompile:3
+        |vpiSize:32
+        |UINT:3
+        |vpiTypespec:
+        \_ref_typespec: (work@w4_selmem.two_i), id:159
+          |vpiParent:
+          \_constant: , id:158, line:22:28, endln:22:29
+          |vpiFullName:work@w4_selmem.two_i
+          |vpiActual:
+          \_int_typespec: , id:160
+        |vpiConstType:9
+      |vpiOperand:
+      \_constant: , id:161
+        |vpiSize:64
+        |INT:1
+        |vpiConstType:7
+  |vpiReg:
+  \_struct_var: (work@w4_selmem.two_i), id:162, line:22:21, endln:22:26
+    |vpiParent:
+    \_array_var: (work@w4_selmem.two_i), id:154, line:22:21, endln:22:26
+    |vpiTypespec:
+    \_ref_typespec: (work@w4_selmem.two_i), id:163
+      |vpiParent:
+      \_struct_var: (work@w4_selmem.two_i), id:162, line:22:21, endln:22:26
+      |vpiFullName:work@w4_selmem.two_i
+      |vpiActual:
+      \_struct_typespec: (pw4::h2d_t), id:41, line:7:11, endln:11:4
+    |vpiFullName:work@w4_selmem.two_i
+|vpiName:two_i[0].a_valid

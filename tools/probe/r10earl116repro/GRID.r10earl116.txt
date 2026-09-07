@@ -1,0 +1,96 @@
+r10earl116 ARM GRID — sig116 two-family SHAPE score.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+PRIS  = /tmp/r10earl116_bin/pristine  md5 4712b6510fb09e231f72919d866820c9
+PATCH = the SHIPPED cut               md5 50c2e7ca6b5d392f177d89f98e9dba64
+
+== THIS PASS'S FOUR ARMS ==
+ARM/VIEW               SCORE
+q1_lhs116_elab         -- FX GOLDENONLY=1  NOGOLD=1  SAME_AGREE=2  TOGOLD=4 -- F0 SAME_AGREE=3  TOGOLD=4 
+q1_lhs116_plain        -- FX GOLDENONLY=1  NOGOLD=1  SAME_AGREE=1  STILLWRONG=1  TOGOLD=4 -- F0 SAME_AGREE=1  STILLWRONG=2  TOGOLD=4 
+q2_car116_elab         -- FX SAME_AGREE=5  TOGOLD=3 -- F0 SAME_AGREE=4  TOGOLD=3 
+q2_car116_plain        -- FX SAME_AGREE=4  TOGOLD=3 -- F0 SAME_AGREE=4  TOGOLD=3 
+q3_mix116_elab         -- FX SAME_AGREE=6  STILLWRONG=2  TOGOLD=1 -- F0 SAME_AGREE=6  STILLWRONG=2  TOGOLD=1 
+q3_mix116_plain        -- FX GOLDENONLY=2  NOGOLD=2  SAME_AGREE=6  TOGOLD=1 -- F0 SAME_AGREE=6  STILLWRONG=2  TOGOLD=1 
+q4_head116_elab        -- FX TOGOLD=1 -- F0 TOGOLD=1 
+q4_head116_plain       -- FX TOGOLD=1 -- F0 TOGOLD=1 
+
+== THE TEN ARMS THE WIDE BOUNDARY FLAGGED ==
+p3_fence115_elab       -- FX SAME_AGREE=6  TOGOLD=1 -- F0 SAME_AGREE=5  TOGOLD=1 
+p3_fence115_plain      -- FX SAME_AGREE=5  STILLWRONG=1  TOGOLD=1 -- F0 SAME_AGREE=4  STILLWRONG=1  TOGOLD=1 
+s1_scope113_elab       -- FX SAME_AGREE=7  STILLWRONG=1  TOGOLD=1 -- F0 SAME_AGREE=6  STILLWRONG=1  TOGOLD=1 
+s1_scope113_plain      -- FX GOLDENONLY=1  NOGOLD=1  SAME_AGREE=3  STILLWRONG=4  TOGOLD=1 -- F0 SAME_AGREE=2  STILLWRONG=5  TOGOLD=1 
+t1_root114_elab        -- FX SAME_AGREE=31  STILLWRONG=5  TOGOLD=4 -- F0 SAME_AGREE=19  STILLWRONG=5  TOGOLD=4 
+t1_root114_plain       -- FX GOLDENONLY=1  NOGOLD=1  SAME_AGREE=9  STILLWRONG=14  TOGOLD=4 -- F0 SAME_AGREE=9  STILLWRONG=15  TOGOLD=4 
+t4_fence114_elab       -- FX SAME_AGREE=8  STILLWRONG=1  TOGOLD=1 -- F0 SAME_AGREE=6  STILLWRONG=1  TOGOLD=1 
+t4_fence114_plain      -- FX GOLDENONLY=1  NOGOLD=1  SAME_AGREE=3  STILLWRONG=3  TOGOLD=1 -- F0 SAME_AGREE=3  STILLWRONG=4  TOGOLD=1 
+v2_hier112_elab        -- FX STILLWRONG=5  TOGOLD=1 -- F0 STILLWRONG=5  TOGOLD=1 
+v2_hier112_plain       -- FX GOLDENONLY=5  NOGOLD=5  TOGOLD=1 -- F0 STILLWRONG=5  TOGOLD=1 
+v3_lhs113_elab         -- FX SAME_AGREE=6  TOGOLD=2 -- F0 SAME_AGREE=5  TOGOLD=2 
+v3_lhs113_plain        -- FX SAME_AGREE=4  STILLWRONG=1  TOGOLD=2 -- F0 SAME_AGREE=4  STILLWRONG=1  TOGOLD=2 
+va1_lhs115_elab        -- FX SAME_AGREE=2  TOGOLD=5 -- F0 SAME_AGREE=2  TOGOLD=5 
+va1_lhs115_plain       -- FX STILLWRONG=2  TOGOLD=5 -- F0 STILLWRONG=2  TOGOLD=5 
+w1_memlhs_elab         -- FX TOGOLD=1 -- F0 TOGOLD=1 
+w1_memlhs_plain        -- FX TOGOLD=1 -- F0 TOGOLD=1 
+w3_genarr_elab         -- FX TOGOLD=2 -- F0 TOGOLD=2 
+w3_genarr_plain        -- FX TOGOLD=2 -- F0 TOGOLD=2 
+w4_selmem_elab         -- FX TOGOLD=1 -- F0 TOGOLD=1 
+w4_selmem_plain        -- FX TOGOLD=1 -- F0 TOGOLD=1 
+
+== cmp lines / heads, pristine -> patched, official uhdm-cmp ==
+ARM/VIEW                     PRIS      PATCH
+q1_lhs116_elab              460/1      460/1
+q1_lhs116_plain             460/1      460/1
+q2_car116_elab               79/1       79/1
+q2_car116_plain              79/1       79/1
+q3_mix116_elab               58/1       58/1
+q3_mix116_plain              58/1       58/1
+q4_head116_elab              58/1       58/1
+q4_head116_plain             58/1       58/1
+p3_fence115_elab             17/1       17/1
+p3_fence115_plain            17/1       17/1
+s1_scope113_elab             58/1       58/1
+s1_scope113_plain           414/1      414/1
+t1_root114_elab            1176/1     1176/1
+t1_root114_plain           1176/1     1176/1
+t4_fence114_elab             58/1       58/1
+t4_fence114_plain            58/1       58/1
+v2_hier112_elab              30/1       30/1
+v2_hier112_plain             30/1       30/1
+v3_lhs113_elab             3314/1     3314/1
+v3_lhs113_plain            3314/1     3314/1
+va1_lhs115_elab             956/1      956/1
+va1_lhs115_plain            956/1      956/1
+w1_memlhs_elab              428/1        0/0
+w1_memlhs_plain             416/1        0/0
+w3_genarr_elab              956/1      956/1
+w3_genarr_plain             956/1      956/1
+w4_selmem_elab              428/1        0/0
+w4_selmem_plain             416/1        0/0
+
+== PER-CELL rows that MOVED or are STILLWRONG (elab views, this pass's arms) ==
+-- q1_lhs116_elab
+[FX TOGOLD] 65:22-65:85 | marr | bit_select | array_var | gen_scope | 1 | cont_assign
+     G:{'TAGGED:tagged_pattern,tagged_pattern,tagged_pattern'}  P:{'FLAT:constant,hier_path,ref_obj'}  Q:{'TAGGED:tagged_pattern,tagged_pattern,tagged_pattern'}
+[FX TOGOLD] 71:22-71:85 | garr | bit_select | array_var | gen_scope | 1 | cont_assign
+     G:{'TAGGED:tagged_pattern,tagged_pattern,tagged_pattern'}  P:{'FLAT:constant,hier_path,ref_obj'}  Q:{'TAGGED:tagged_pattern,tagged_pattern,tagged_pattern'}
+[FX TOGOLD] 77:22-77:75 | c4_t | hier_path | <null> | gen_scope | 1 | cont_assign
+     G:{'TAGGED:tagged_pattern,tagged_pattern'}  P:{'FLAT:hier_path,hier_path'}  Q:{'TAGGED:tagged_pattern,tagged_pattern'}
+[FX TOGOLD] 94:26-94:89 | marr2 | var_select | array_var | gen_scope | 1 | cont_assign
+     G:{'TAGGED:tagged_pattern,tagged_pattern,tagged_pattern'}  P:{'FLAT:constant,hier_path,ref_obj'}  Q:{'TAGGED:tagged_pattern,tagged_pattern,tagged_pattern'}
+-- q2_car116_elab
+[FX TOGOLD] 67:22-67:86 | a5 | bit_select | array_var | gen_scope | 2 | cont_assign
+     G:{'TAGGED:tagged_pattern,tagged_pattern,tagged_pattern'}  P:{'FLAT:constant,hier_path,ref_obj'}  Q:{'TAGGED:tagged_pattern,tagged_pattern,tagged_pattern'}
+[FX TOGOLD] 73:20-73:84 | a6 | bit_select | array_var | gen_scope | 1 | cont_assign
+     G:{'TAGGED:tagged_pattern,tagged_pattern,tagged_pattern'}  P:{'FLAT:constant,hier_path,ref_obj'}  Q:{'TAGGED:tagged_pattern,tagged_pattern,tagged_pattern'}
+[FX TOGOLD] 80:22-80:86 | g7 | bit_select | array_var | gen_scope | 2 | cont_assign
+     G:{'TAGGED:tagged_pattern,tagged_pattern,tagged_pattern'}  P:{'FLAT:constant,hier_path,ref_obj'}  Q:{'TAGGED:tagged_pattern,tagged_pattern,tagged_pattern'}
+-- q3_mix116_elab
+[FX TOGOLD] 102:21-102:62 | e9a | bit_select | array_net | gen_scope | 1 | cont_assign
+     G:{'TAGGED:tagged_pattern,tagged_pattern'}  P:{'FLAT:constant,hier_path'}  Q:{'TAGGED:tagged_pattern,tagged_pattern'}
+[FX STILLWRONG] 89:16-89:57 | t | ref_obj | struct_net | gen_scope | 1 | cont_assign
+     G:{'TAGGED:tagged_pattern,tagged_pattern'}  P:{'FLAT:constant,hier_path'}  Q:{'FLAT:constant,hier_path'}
+[FX STILLWRONG] 94:16-94:73 | t | ref_obj | struct_net | gen_scope | 1 | cont_assign
+     G:{'TAGGED:tagged_pattern,tagged_pattern'}  P:{'FLAT:hier_path,operation'}  Q:{'FLAT:hier_path,operation'}
+-- q4_head116_elab
+[FX TOGOLD] 48:22-50:46 | hrsp | bit_select | array_net | gen_scope | 1 | cont_assign
+     G:{'TAGGED:tagged_pattern,tagged_pattern,tagged_pattern'}  P:{'FLAT:bit_select,hier_path,hier_path'}  Q:{'TAGGED:tagged_pattern,tagged_pattern,tagged_pattern'}

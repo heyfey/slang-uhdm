@@ -1,0 +1,92 @@
+LHS:
+decompile:
+tagged_pattern: , id:797695, line:241:17, endln:241:34
+|vpiParent:
+\_operation: , id:797691, line:240:29, endln:251:6
+|vpiPattern:
+\_bit_select: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0].hfifo_rspvalid), id:797694, line:241:32, endln:241:33
+  |vpiParent:
+  \_operation: , id:797691, line:240:29, endln:251:6
+  |vpiName:hfifo_rspvalid
+  |vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0].hfifo_rspvalid
+  |vpiActual:
+  \_logic_var: (work@top_earlgrey.u_xbar_main.u_sm1_17.hfifo_rspvalid), id:793356, line:202:19, endln:202:33
+  |vpiIndex:
+  \_constant: , id:797692, line:241:32, endln:241:33
+    |vpiParent:
+    \_bit_select: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0].hfifo_rspvalid), id:797694, line:241:32, endln:241:33
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0]), id:797697
+  |vpiParent:
+  \_tagged_pattern: , id:797695, line:241:17, endln:241:34
+  |vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0]
+  |vpiActual:
+  \_string_typespec: (d_valid), id:797696, line:241:7, endln:241:14
+
+decompile:
+tagged_pattern: , id:797695, line:241:17, endln:241:34
+|vpiParent:
+\_operation: , id:797691, line:240:29, endln:251:6
+|vpiPattern:
+\_bit_select: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0].hfifo_rspvalid), id:797694, line:241:32, endln:241:33
+  |vpiParent:
+  \_operation: , id:797691, line:240:29, endln:251:6
+  |vpiName:hfifo_rspvalid
+  |vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0].hfifo_rspvalid
+  |vpiActual:
+  \_logic_var: (work@top_earlgrey.u_xbar_main.u_sm1_17.hfifo_rspvalid), id:793356, line:202:19, endln:202:33
+  |vpiIndex:
+  \_constant: , id:797692, line:241:32, endln:241:33
+    |vpiParent:
+    \_bit_select: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0].hfifo_rspvalid), id:797694, line:241:32, endln:241:33
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0]), id:797697
+  |vpiParent:
+  \_tagged_pattern: , id:797695, line:241:17, endln:241:34
+  |vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0]
+  |vpiActual:
+  \_string_typespec: (d_valid), id:797696, line:241:7, endln:241:14
+RHS:
+decompile:
+bit_select: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0].hfifo_rspvalid), id:1296178, line:241:32, endln:241:33
+|vpiParent:
+\_operation: , id:1296177, line:240:29, endln:251:6
+|vpiSize:1
+|vpiName:hfifo_rspvalid
+|vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0].hfifo_rspvalid
+|vpiActual:
+\_logic_var: (work@top_earlgrey.u_xbar_main.u_sm1_17.hfifo_rspvalid), id:631991, line:202:19, endln:202:33
+|vpiIndex:
+\_ref_obj: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0].i), id:1296179, line:241:32, endln:241:33
+  |vpiParent:
+  \_bit_select: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0].hfifo_rspvalid), id:1296178, line:241:32, endln:241:33
+  |vpiName:i
+  |vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0].i
+  |vpiActual:
+  \_parameter: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0].i), id:635272, line:233:0
+
+decompile:
+bit_select: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0].hfifo_rspvalid), id:1296178, line:241:32, endln:241:33
+|vpiParent:
+\_operation: , id:1296177, line:240:29, endln:251:6
+|vpiSize:1
+|vpiName:hfifo_rspvalid
+|vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0].hfifo_rspvalid
+|vpiActual:
+\_logic_var: (work@top_earlgrey.u_xbar_main.u_sm1_17.hfifo_rspvalid), id:631991, line:202:19, endln:202:33
+|vpiIndex:
+\_ref_obj: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0].i), id:1296179, line:241:32, endln:241:33
+  |vpiParent:
+  \_bit_select: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0].hfifo_rspvalid), id:1296178, line:241:32, endln:241:33
+  |vpiName:i
+  |vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0].i
+  |vpiActual:
+  \_parameter: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_idrouting[0].i), id:635272, line:233:0

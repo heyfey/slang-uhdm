@@ -1,0 +1,58 @@
+LHS:
+decompile:
+logic_net: (work@q4_head116.hrsp), id:432, line:44:17, endln:44:21
+|vpiParent:
+\_module_inst: work@q4_head116 (work@q4_head116), id:407, file:/tmp/wt_r10earl116/tools/probe/r10earl116repro/q4_head116.sv, line:36:1, endln:58:10
+|vpiTypespec:
+\_ref_typespec: (work@q4_head116.hrsp), id:433
+  |vpiParent:
+  \_logic_net: (work@q4_head116.hrsp), id:432, line:44:17, endln:44:21
+  |vpiFullName:work@q4_head116.hrsp
+  |vpiActual:
+  \_struct_typespec: (q4p116::d2h_t), id:2, line:11:11, endln:44:24
+|vpiName:hrsp
+|vpiFullName:work@q4_head116.hrsp
+|vpiNetType:1
+
+decompile:
+logic_net: (work@q4_head116.hrsp), id:432, line:44:17, endln:44:21
+|vpiParent:
+\_module_inst: work@q4_head116 (work@q4_head116), id:407, file:/tmp/wt_r10earl116/tools/probe/r10earl116repro/q4_head116.sv, line:36:1, endln:58:10
+|vpiTypespec:
+\_ref_typespec: (work@q4_head116.hrsp), id:433
+  |vpiParent:
+  \_logic_net: (work@q4_head116.hrsp), id:432, line:44:17, endln:44:21
+  |vpiFullName:work@q4_head116.hrsp
+  |vpiActual:
+  \_struct_typespec: (q4p116::d2h_t), id:2, line:11:11, endln:44:24
+|vpiName:hrsp
+|vpiFullName:work@q4_head116.hrsp
+|vpiNetType:1
+RHS:
+decompile:
+logic_net: (work@q4_head116.hrsp), id:49, line:44:17, endln:44:21
+|vpiParent:
+\_module_inst: work@q4_head116 (work@q4_head116), id:36, file:/tmp/wt_r10earl116/tools/probe/r10earl116repro/q4_head116.sv, line:36:1, endln:58:10
+|vpiTypespec:
+\_ref_typespec: (work@q4_head116.hrsp), id:50
+  |vpiParent:
+  \_logic_net: (work@q4_head116.hrsp), id:49, line:44:17, endln:44:21
+  |vpiFullName:work@q4_head116.hrsp
+  |vpiActual:
+  \_struct_typespec: (q4p116::d2h_t), id:20, line:11:11, endln:44:24
+|vpiName:hrsp
+|vpiFullName:work@q4_head116.hrsp
+
+decompile:
+logic_net: (work@q4_head116.hrsp), id:49, line:44:17, endln:44:21
+|vpiParent:
+\_module_inst: work@q4_head116 (work@q4_head116), id:36, file:/tmp/wt_r10earl116/tools/probe/r10earl116repro/q4_head116.sv, line:36:1, endln:58:10
+|vpiTypespec:
+\_ref_typespec: (work@q4_head116.hrsp), id:50
+  |vpiParent:
+  \_logic_net: (work@q4_head116.hrsp), id:49, line:44:17, endln:44:21
+  |vpiFullName:work@q4_head116.hrsp
+  |vpiActual:
+  \_struct_typespec: (q4p116::d2h_t), id:20, line:11:11, endln:44:24
+|vpiName:hrsp
+|vpiFullName:work@q4_head116.hrsp

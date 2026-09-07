@@ -1,0 +1,58 @@
+LHS:
+decompile:
+logic_net: (work@q3_mix116.e9a), id:1263, line:60:19, endln:60:22
+|vpiParent:
+\_module_inst: work@q3_mix116 (work@q3_mix116), id:1222, file:/tmp/wt_r10earl116/tools/probe/r10earl116repro/q3_mix116.sv, line:49:1, endln:108:10
+|vpiTypespec:
+\_ref_typespec: (work@q3_mix116.e9a), id:1264
+  |vpiParent:
+  \_logic_net: (work@q3_mix116.e9a), id:1263, line:60:19, endln:60:22
+  |vpiFullName:work@q3_mix116.e9a
+  |vpiActual:
+  \_struct_typespec: (q3p116::d2h_t), id:46, line:42:11, endln:60:25
+|vpiName:e9a
+|vpiFullName:work@q3_mix116.e9a
+|vpiNetType:1
+
+decompile:
+logic_net: (work@q3_mix116.e9a), id:1263, line:60:19, endln:60:22
+|vpiParent:
+\_module_inst: work@q3_mix116 (work@q3_mix116), id:1222, file:/tmp/wt_r10earl116/tools/probe/r10earl116repro/q3_mix116.sv, line:49:1, endln:108:10
+|vpiTypespec:
+\_ref_typespec: (work@q3_mix116.e9a), id:1264
+  |vpiParent:
+  \_logic_net: (work@q3_mix116.e9a), id:1263, line:60:19, endln:60:22
+  |vpiFullName:work@q3_mix116.e9a
+  |vpiActual:
+  \_struct_typespec: (q3p116::d2h_t), id:46, line:42:11, endln:60:25
+|vpiName:e9a
+|vpiFullName:work@q3_mix116.e9a
+|vpiNetType:1
+RHS:
+decompile:
+logic_net: (work@q3_mix116.e9a), id:129, line:60:19, endln:60:22
+|vpiParent:
+\_module_inst: work@q3_mix116 (work@q3_mix116), id:114, file:/tmp/wt_r10earl116/tools/probe/r10earl116repro/q3_mix116.sv, line:49:1, endln:108:10
+|vpiTypespec:
+\_ref_typespec: (work@q3_mix116.e9a), id:130
+  |vpiParent:
+  \_logic_net: (work@q3_mix116.e9a), id:129, line:60:19, endln:60:22
+  |vpiFullName:work@q3_mix116.e9a
+  |vpiActual:
+  \_struct_typespec: (q3p116::d2h_t), id:98, line:42:11, endln:60:25
+|vpiName:e9a
+|vpiFullName:work@q3_mix116.e9a
+
+decompile:
+logic_net: (work@q3_mix116.e9a), id:129, line:60:19, endln:60:22
+|vpiParent:
+\_module_inst: work@q3_mix116 (work@q3_mix116), id:114, file:/tmp/wt_r10earl116/tools/probe/r10earl116repro/q3_mix116.sv, line:49:1, endln:108:10
+|vpiTypespec:
+\_ref_typespec: (work@q3_mix116.e9a), id:130
+  |vpiParent:
+  \_logic_net: (work@q3_mix116.e9a), id:129, line:60:19, endln:60:22
+  |vpiFullName:work@q3_mix116.e9a
+  |vpiActual:
+  \_struct_typespec: (q3p116::d2h_t), id:98, line:42:11, endln:60:25
+|vpiName:e9a
+|vpiFullName:work@q3_mix116.e9a

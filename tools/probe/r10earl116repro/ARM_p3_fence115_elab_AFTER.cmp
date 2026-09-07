@@ -1,0 +1,17 @@
+LHS:
+decompile:
+ref_typespec: (work@p3_fence115.gen_x3[0].tl_h_i[0].a_valid), id:1286
+|vpiParent:
+\_hier_path: (tl_h_i[0].a_valid), id:1283, line:55:22, endln:55:39
+|vpiFullName:work@p3_fence115.gen_x3[0].tl_h_i[0].a_valid
+|vpiActual:
+\_array_typespec: , id:346
+
+decompile:
+ref_typespec: (work@p3_fence115.gen_x3[0].tl_h_i[0].a_valid), id:1286
+|vpiParent:
+\_hier_path: (tl_h_i[0].a_valid), id:1283, line:55:22, endln:55:39
+|vpiFullName:work@p3_fence115.gen_x3[0].tl_h_i[0].a_valid
+|vpiActual:
+\_array_typespec: , id:346
+RHS: <null>

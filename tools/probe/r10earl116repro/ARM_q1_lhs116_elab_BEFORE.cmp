@@ -1,0 +1,460 @@
+LHS:
+decompile:
+named_begin: (work@q1_lhs116.gen_c3), id:205
+|vpiParent:
+\_gen_for: , id:162
+|vpiName:gen_c3
+|vpiFullName:work@q1_lhs116.gen_c3
+|vpiStmt:
+\_assignment: , id:185, line:70:18, endln:70:25
+  |vpiParent:
+  \_named_begin: (work@q1_lhs116.gen_c3), id:205
+  |vpiOpType:82
+  |vpiBlocking:1
+  |vpiLhs:
+  \_array_var: (work@q1_lhs116.gen_c3.garr), id:181, line:70:18, endln:70:22
+    |vpiParent:
+    \_assignment: , id:185, line:70:18, endln:70:25
+    |vpiTypespec:
+    \_ref_typespec: (work@q1_lhs116.gen_c3.garr), id:184
+      |vpiParent:
+      \_array_var: (work@q1_lhs116.gen_c3.garr), id:181, line:70:18, endln:70:22
+      |vpiFullName:work@q1_lhs116.gen_c3.garr
+      |vpiActual:
+      \_array_typespec: , id:182, line:70:18, endln:70:24
+    |vpiName:garr
+    |vpiFullName:work@q1_lhs116.gen_c3.garr
+    |vpiArrayType:1
+    |vpiReg:
+    \_struct_var: (work@q1_lhs116.gen_c3.garr), id:178, line:70:18, endln:70:22
+      |vpiParent:
+      \_array_var: (work@q1_lhs116.gen_c3.garr), id:181, line:70:18, endln:70:22
+      |vpiTypespec:
+      \_ref_typespec: (work@q1_lhs116.gen_c3.garr), id:180
+        |vpiParent:
+        \_struct_var: (work@q1_lhs116.gen_c3.garr), id:178, line:70:18, endln:70:22
+        |vpiFullName:work@q1_lhs116.gen_c3.garr
+        |vpiActual:
+        \_struct_typespec: (q116p::h2d_t), id:28, line:34:11, endln:54:24
+      |vpiFullName:work@q1_lhs116.gen_c3.garr
+|vpiStmt:
+\_cont_assign: , id:188, line:71:12, endln:71:85
+  |vpiParent:
+  \_named_begin: (work@q1_lhs116.gen_c3), id:205
+  |vpiRhs:
+  \_operation: , id:189, line:71:22, endln:71:85
+    |vpiParent:
+    \_cont_assign: , id:188, line:71:12, endln:71:85
+    |vpiOpType:75
+    |vpiOperand:
+    \_tagged_pattern: , id:194, line:71:33, endln:71:49
+      |vpiParent:
+      \_operation: , id:189, line:71:22, endln:71:85
+      |vpiPattern:
+      \_hier_path: (two_i[i].a_valid), id:190, line:71:33, endln:71:49
+        |vpiParent:
+        \_operation: , id:189, line:71:22, endln:71:85
+        |vpiActual:
+        \_bit_select: (two_i[i]), id:192, line:71:33, endln:71:38
+          |vpiParent:
+          \_hier_path: (two_i[i].a_valid), id:190, line:71:33, endln:71:49
+          |vpiName:two_i
+          |vpiFullName:two_i[i]
+          |vpiIndex:
+          \_ref_obj: (work@q1_lhs116.gen_c3.i), id:191, line:71:39, endln:71:40
+            |vpiParent:
+            \_hier_path: (two_i[i].a_valid), id:190, line:71:33, endln:71:49
+            |vpiName:i
+            |vpiFullName:work@q1_lhs116.gen_c3.i
+        |vpiActual:
+        \_ref_obj: (work@q1_lhs116.gen_c3.a_valid), id:193, line:71:42, endln:71:49
+          |vpiParent:
+          \_hier_path: (two_i[i].a_valid), id:190, line:71:33, endln:71:49
+          |vpiName:a_valid
+          |vpiFullName:work@q1_lhs116.gen_c3.a_valid
+        |vpiName:two_i[i].a_valid
+      |vpiTypespec:
+      \_ref_typespec: (work@q1_lhs116.gen_c3), id:196
+        |vpiParent:
+        \_tagged_pattern: , id:194, line:71:33, endln:71:49
+        |vpiFullName:work@q1_lhs116.gen_c3
+        |vpiActual:
+        \_string_typespec: (a_valid), id:195, line:71:24, endln:71:31
+    |vpiOperand:
+    \_tagged_pattern: , id:198, line:71:61, endln:71:71
+      |vpiParent:
+      \_operation: , id:189, line:71:22, endln:71:85
+      |vpiPattern:
+      \_constant: , id:197, line:71:61, endln:71:71
+        |vpiDecompile:3'h0
+        |vpiSize:3
+        |HEX:0
+        |vpiConstType:5
+      |vpiTypespec:
+      \_ref_typespec: (work@q1_lhs116.gen_c3), id:200
+        |vpiParent:
+        \_tagged_pattern: , id:198, line:71:61, endln:71:71
+        |vpiFullName:work@q1_lhs116.gen_c3
+        |vpiActual:
+        \_string_typespec: (a_opcode), id:199, line:71:51, endln:71:59
+    |vpiOperand:
+    \_tagged_pattern: , id:202, line:71:81, endln:71:84
+      |vpiParent:
+      \_operation: , id:189, line:71:22, endln:71:85
+      |vpiPattern:
+      \_ref_obj: (work@q1_lhs116.gen_c3.d_i), id:201, line:71:81, endln:71:84
+        |vpiParent:
+        \_operation: , id:189, line:71:22, endln:71:85
+        |vpiName:d_i
+        |vpiFullName:work@q1_lhs116.gen_c3.d_i
+      |vpiTypespec:
+      \_ref_typespec: (work@q1_lhs116.gen_c3), id:204
+        |vpiParent:
+        \_tagged_pattern: , id:202, line:71:81, endln:71:84
+        |vpiFullName:work@q1_lhs116.gen_c3
+        |vpiActual:
+        \_string_typespec: (a_data), id:203, line:71:73, endln:71:79
+  |vpiLhs:
+  \_bit_select: (work@q1_lhs116.gen_c3.garr), id:187, line:71:12, endln:71:19
+    |vpiParent:
+    \_cont_assign: , id:188, line:71:12, endln:71:85
+    |vpiName:garr
+    |vpiFullName:work@q1_lhs116.gen_c3.garr
+    |vpiIndex:
+    \_constant: , id:186, line:71:17, endln:71:18
+      |vpiParent:
+      \_bit_select: (work@q1_lhs116.gen_c3.garr), id:187, line:71:12, endln:71:19
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+
+decompile:
+named_begin: (work@q1_lhs116.gen_c3), id:205
+|vpiParent:
+\_gen_for: , id:162
+|vpiName:gen_c3
+|vpiFullName:work@q1_lhs116.gen_c3
+|vpiStmt:
+\_assignment: , id:185, line:70:18, endln:70:25
+  |vpiParent:
+  \_named_begin: (work@q1_lhs116.gen_c3), id:205
+  |vpiOpType:82
+  |vpiBlocking:1
+  |vpiLhs:
+  \_array_var: (work@q1_lhs116.gen_c3.garr), id:181, line:70:18, endln:70:22
+    |vpiParent:
+    \_assignment: , id:185, line:70:18, endln:70:25
+    |vpiTypespec:
+    \_ref_typespec: (work@q1_lhs116.gen_c3.garr), id:184
+      |vpiParent:
+      \_array_var: (work@q1_lhs116.gen_c3.garr), id:181, line:70:18, endln:70:22
+      |vpiFullName:work@q1_lhs116.gen_c3.garr
+      |vpiActual:
+      \_array_typespec: , id:182, line:70:18, endln:70:24
+    |vpiName:garr
+    |vpiFullName:work@q1_lhs116.gen_c3.garr
+    |vpiArrayType:1
+    |vpiReg:
+    \_struct_var: (work@q1_lhs116.gen_c3.garr), id:178, line:70:18, endln:70:22
+      |vpiParent:
+      \_array_var: (work@q1_lhs116.gen_c3.garr), id:181, line:70:18, endln:70:22
+      |vpiTypespec:
+      \_ref_typespec: (work@q1_lhs116.gen_c3.garr), id:180
+        |vpiParent:
+        \_struct_var: (work@q1_lhs116.gen_c3.garr), id:178, line:70:18, endln:70:22
+        |vpiFullName:work@q1_lhs116.gen_c3.garr
+        |vpiActual:
+        \_struct_typespec: (q116p::h2d_t), id:28, line:34:11, endln:54:24
+      |vpiFullName:work@q1_lhs116.gen_c3.garr
+|vpiStmt:
+\_cont_assign: , id:188, line:71:12, endln:71:85
+  |vpiParent:
+  \_named_begin: (work@q1_lhs116.gen_c3), id:205
+  |vpiRhs:
+  \_operation: , id:189, line:71:22, endln:71:85
+    |vpiParent:
+    \_cont_assign: , id:188, line:71:12, endln:71:85
+    |vpiOpType:75
+    |vpiOperand:
+    \_tagged_pattern: , id:194, line:71:33, endln:71:49
+      |vpiParent:
+      \_operation: , id:189, line:71:22, endln:71:85
+      |vpiPattern:
+      \_hier_path: (two_i[i].a_valid), id:190, line:71:33, endln:71:49
+        |vpiParent:
+        \_operation: , id:189, line:71:22, endln:71:85
+        |vpiActual:
+        \_bit_select: (two_i[i]), id:192, line:71:33, endln:71:38
+          |vpiParent:
+          \_hier_path: (two_i[i].a_valid), id:190, line:71:33, endln:71:49
+          |vpiName:two_i
+          |vpiFullName:two_i[i]
+          |vpiIndex:
+          \_ref_obj: (work@q1_lhs116.gen_c3.i), id:191, line:71:39, endln:71:40
+            |vpiParent:
+            \_hier_path: (two_i[i].a_valid), id:190, line:71:33, endln:71:49
+            |vpiName:i
+            |vpiFullName:work@q1_lhs116.gen_c3.i
+        |vpiActual:
+        \_ref_obj: (work@q1_lhs116.gen_c3.a_valid), id:193, line:71:42, endln:71:49
+          |vpiParent:
+          \_hier_path: (two_i[i].a_valid), id:190, line:71:33, endln:71:49
+          |vpiName:a_valid
+          |vpiFullName:work@q1_lhs116.gen_c3.a_valid
+        |vpiName:two_i[i].a_valid
+      |vpiTypespec:
+      \_ref_typespec: (work@q1_lhs116.gen_c3), id:196
+        |vpiParent:
+        \_tagged_pattern: , id:194, line:71:33, endln:71:49
+        |vpiFullName:work@q1_lhs116.gen_c3
+        |vpiActual:
+        \_string_typespec: (a_valid), id:195, line:71:24, endln:71:31
+    |vpiOperand:
+    \_tagged_pattern: , id:198, line:71:61, endln:71:71
+      |vpiParent:
+      \_operation: , id:189, line:71:22, endln:71:85
+      |vpiPattern:
+      \_constant: , id:197, line:71:61, endln:71:71
+        |vpiDecompile:3'h0
+        |vpiSize:3
+        |HEX:0
+        |vpiConstType:5
+      |vpiTypespec:
+      \_ref_typespec: (work@q1_lhs116.gen_c3), id:200
+        |vpiParent:
+        \_tagged_pattern: , id:198, line:71:61, endln:71:71
+        |vpiFullName:work@q1_lhs116.gen_c3
+        |vpiActual:
+        \_string_typespec: (a_opcode), id:199, line:71:51, endln:71:59
+    |vpiOperand:
+    \_tagged_pattern: , id:202, line:71:81, endln:71:84
+      |vpiParent:
+      \_operation: , id:189, line:71:22, endln:71:85
+      |vpiPattern:
+      \_ref_obj: (work@q1_lhs116.gen_c3.d_i), id:201, line:71:81, endln:71:84
+        |vpiParent:
+        \_operation: , id:189, line:71:22, endln:71:85
+        |vpiName:d_i
+        |vpiFullName:work@q1_lhs116.gen_c3.d_i
+      |vpiTypespec:
+      \_ref_typespec: (work@q1_lhs116.gen_c3), id:204
+        |vpiParent:
+        \_tagged_pattern: , id:202, line:71:81, endln:71:84
+        |vpiFullName:work@q1_lhs116.gen_c3
+        |vpiActual:
+        \_string_typespec: (a_data), id:203, line:71:73, endln:71:79
+  |vpiLhs:
+  \_bit_select: (work@q1_lhs116.gen_c3.garr), id:187, line:71:12, endln:71:19
+    |vpiParent:
+    \_cont_assign: , id:188, line:71:12, endln:71:85
+    |vpiName:garr
+    |vpiFullName:work@q1_lhs116.gen_c3.garr
+    |vpiIndex:
+    \_constant: , id:186, line:71:17, endln:71:18
+      |vpiParent:
+      \_bit_select: (work@q1_lhs116.gen_c3.garr), id:187, line:71:12, endln:71:19
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+RHS:
+decompile:
+named_begin: (work@q1_lhs116.gen_c3), id:191
+|vpiParent:
+\_gen_for: , id:180
+|vpiName:gen_c3
+|vpiFullName:work@q1_lhs116.gen_c3
+|vpiStmt:
+\_cont_assign: , id:192, line:71:12, endln:71:85
+  |vpiParent:
+  \_named_begin: (work@q1_lhs116.gen_c3), id:191
+  |vpiRhs:
+  \_operation: , id:195, line:71:22, endln:71:85
+    |vpiParent:
+    \_cont_assign: , id:192, line:71:12, endln:71:85
+    |vpiOpType:75
+    |vpiOperand:
+    \_tagged_pattern: , id:196, line:71:33, endln:71:49
+      |vpiParent:
+      \_operation: , id:195, line:71:22, endln:71:85
+      |vpiPattern:
+      \_hier_path: (two_i[i].a_valid), id:197, line:71:33, endln:71:49
+        |vpiParent:
+        \_operation: , id:195, line:71:22, endln:71:85
+        |vpiActual:
+        \_bit_select: (two_i[i]), id:198, line:71:33, endln:71:38
+          |vpiParent:
+          \_hier_path: (two_i[i].a_valid), id:197, line:71:33, endln:71:49
+          |vpiName:two_i
+          |vpiFullName:two_i[i]
+          |vpiIndex:
+          \_ref_obj: (work@q1_lhs116.gen_c3.i), id:199, line:71:39, endln:71:40
+            |vpiParent:
+            \_hier_path: (two_i[i].a_valid), id:197, line:71:33, endln:71:49
+            |vpiName:i
+            |vpiFullName:work@q1_lhs116.gen_c3.i
+        |vpiActual:
+        \_ref_obj: (work@q1_lhs116.gen_c3.a_valid), id:200, line:71:42, endln:71:49
+          |vpiParent:
+          \_hier_path: (two_i[i].a_valid), id:197, line:71:33, endln:71:49
+          |vpiName:a_valid
+          |vpiFullName:work@q1_lhs116.gen_c3.a_valid
+        |vpiName:two_i[i].a_valid
+      |vpiTypespec:
+      \_ref_typespec: (work@q1_lhs116.gen_c3), id:201
+        |vpiParent:
+        \_tagged_pattern: , id:196, line:71:33, endln:71:49
+        |vpiFullName:work@q1_lhs116.gen_c3
+        |vpiActual:
+        \_string_typespec: (a_valid), id:202, line:71:24, endln:71:31
+    |vpiOperand:
+    \_tagged_pattern: , id:203, line:71:61, endln:71:71
+      |vpiParent:
+      \_operation: , id:195, line:71:22, endln:71:85
+      |vpiPattern:
+      \_constant: , id:204, line:71:61, endln:71:68
+        |vpiParent:
+        \_operation: , id:195, line:71:22, endln:71:85
+        |vpiDecompile:3'h0
+        |vpiSize:3
+        |HEX:0
+        |vpiConstType:5
+      |vpiTypespec:
+      \_ref_typespec: (work@q1_lhs116.gen_c3), id:205
+        |vpiParent:
+        \_tagged_pattern: , id:203, line:71:61, endln:71:71
+        |vpiFullName:work@q1_lhs116.gen_c3
+        |vpiActual:
+        \_string_typespec: (a_opcode), id:206, line:71:51, endln:71:59
+    |vpiOperand:
+    \_tagged_pattern: , id:207, line:71:81, endln:71:84
+      |vpiParent:
+      \_operation: , id:195, line:71:22, endln:71:85
+      |vpiPattern:
+      \_ref_obj: (work@q1_lhs116.gen_c3.d_i), id:208, line:71:81, endln:71:84
+        |vpiParent:
+        \_operation: , id:195, line:71:22, endln:71:85
+        |vpiName:d_i
+        |vpiFullName:work@q1_lhs116.gen_c3.d_i
+      |vpiTypespec:
+      \_ref_typespec: (work@q1_lhs116.gen_c3), id:209
+        |vpiParent:
+        \_tagged_pattern: , id:207, line:71:81, endln:71:84
+        |vpiFullName:work@q1_lhs116.gen_c3
+        |vpiActual:
+        \_string_typespec: (a_data), id:210, line:71:73, endln:71:79
+  |vpiLhs:
+  \_bit_select: (work@q1_lhs116.gen_c3.garr), id:193, line:71:12, endln:71:19
+    |vpiParent:
+    \_cont_assign: , id:192, line:71:12, endln:71:85
+    |vpiName:garr
+    |vpiFullName:work@q1_lhs116.gen_c3.garr
+    |vpiIndex:
+    \_constant: , id:194, line:71:17, endln:71:18
+      |vpiParent:
+      \_bit_select: (work@q1_lhs116.gen_c3.garr), id:193, line:71:12, endln:71:19
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+
+decompile:
+named_begin: (work@q1_lhs116.gen_c3), id:191
+|vpiParent:
+\_gen_for: , id:180
+|vpiName:gen_c3
+|vpiFullName:work@q1_lhs116.gen_c3
+|vpiStmt:
+\_cont_assign: , id:192, line:71:12, endln:71:85
+  |vpiParent:
+  \_named_begin: (work@q1_lhs116.gen_c3), id:191
+  |vpiRhs:
+  \_operation: , id:195, line:71:22, endln:71:85
+    |vpiParent:
+    \_cont_assign: , id:192, line:71:12, endln:71:85
+    |vpiOpType:75
+    |vpiOperand:
+    \_tagged_pattern: , id:196, line:71:33, endln:71:49
+      |vpiParent:
+      \_operation: , id:195, line:71:22, endln:71:85
+      |vpiPattern:
+      \_hier_path: (two_i[i].a_valid), id:197, line:71:33, endln:71:49
+        |vpiParent:
+        \_operation: , id:195, line:71:22, endln:71:85
+        |vpiActual:
+        \_bit_select: (two_i[i]), id:198, line:71:33, endln:71:38
+          |vpiParent:
+          \_hier_path: (two_i[i].a_valid), id:197, line:71:33, endln:71:49
+          |vpiName:two_i
+          |vpiFullName:two_i[i]
+          |vpiIndex:
+          \_ref_obj: (work@q1_lhs116.gen_c3.i), id:199, line:71:39, endln:71:40
+            |vpiParent:
+            \_hier_path: (two_i[i].a_valid), id:197, line:71:33, endln:71:49
+            |vpiName:i
+            |vpiFullName:work@q1_lhs116.gen_c3.i
+        |vpiActual:
+        \_ref_obj: (work@q1_lhs116.gen_c3.a_valid), id:200, line:71:42, endln:71:49
+          |vpiParent:
+          \_hier_path: (two_i[i].a_valid), id:197, line:71:33, endln:71:49
+          |vpiName:a_valid
+          |vpiFullName:work@q1_lhs116.gen_c3.a_valid
+        |vpiName:two_i[i].a_valid
+      |vpiTypespec:
+      \_ref_typespec: (work@q1_lhs116.gen_c3), id:201
+        |vpiParent:
+        \_tagged_pattern: , id:196, line:71:33, endln:71:49
+        |vpiFullName:work@q1_lhs116.gen_c3
+        |vpiActual:
+        \_string_typespec: (a_valid), id:202, line:71:24, endln:71:31
+    |vpiOperand:
+    \_tagged_pattern: , id:203, line:71:61, endln:71:71
+      |vpiParent:
+      \_operation: , id:195, line:71:22, endln:71:85
+      |vpiPattern:
+      \_constant: , id:204, line:71:61, endln:71:68
+        |vpiParent:
+        \_operation: , id:195, line:71:22, endln:71:85
+        |vpiDecompile:3'h0
+        |vpiSize:3
+        |HEX:0
+        |vpiConstType:5
+      |vpiTypespec:
+      \_ref_typespec: (work@q1_lhs116.gen_c3), id:205
+        |vpiParent:
+        \_tagged_pattern: , id:203, line:71:61, endln:71:71
+        |vpiFullName:work@q1_lhs116.gen_c3
+        |vpiActual:
+        \_string_typespec: (a_opcode), id:206, line:71:51, endln:71:59
+    |vpiOperand:
+    \_tagged_pattern: , id:207, line:71:81, endln:71:84
+      |vpiParent:
+      \_operation: , id:195, line:71:22, endln:71:85
+      |vpiPattern:
+      \_ref_obj: (work@q1_lhs116.gen_c3.d_i), id:208, line:71:81, endln:71:84
+        |vpiParent:
+        \_operation: , id:195, line:71:22, endln:71:85
+        |vpiName:d_i
+        |vpiFullName:work@q1_lhs116.gen_c3.d_i
+      |vpiTypespec:
+      \_ref_typespec: (work@q1_lhs116.gen_c3), id:209
+        |vpiParent:
+        \_tagged_pattern: , id:207, line:71:81, endln:71:84
+        |vpiFullName:work@q1_lhs116.gen_c3
+        |vpiActual:
+        \_string_typespec: (a_data), id:210, line:71:73, endln:71:79
+  |vpiLhs:
+  \_bit_select: (work@q1_lhs116.gen_c3.garr), id:193, line:71:12, endln:71:19
+    |vpiParent:
+    \_cont_assign: , id:192, line:71:12, endln:71:85
+    |vpiName:garr
+    |vpiFullName:work@q1_lhs116.gen_c3.garr
+    |vpiIndex:
+    \_constant: , id:194, line:71:17, endln:71:18
+      |vpiParent:
+      \_bit_select: (work@q1_lhs116.gen_c3.garr), id:193, line:71:12, endln:71:19
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9

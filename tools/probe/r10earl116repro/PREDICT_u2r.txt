@@ -1,0 +1,6 @@
+OURS census rows                          : 96
+CANDIDATE cells (upper bound)             : 0
+CANDIDATE rows                            : 0
+GOLDEN-CONFIRMED cells (golden TAGGED)    : 0
+GOLDEN-CONFIRMED rows                     : 0
+FENCED-KEEP cells (whole-name Lhs, stay flat): 2 in 2 rows

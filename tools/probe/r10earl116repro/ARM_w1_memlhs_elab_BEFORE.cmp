@@ -1,0 +1,428 @@
+LHS:
+decompile:
+tagged_pattern: , id:191, line:30:37, endln:30:53
+|vpiParent:
+\_operation: , id:184, line:30:24, endln:32:42
+|vpiPattern:
+\_hier_path: (two_i[0].a_valid), id:185, line:30:37, endln:30:53
+  |vpiParent:
+  \_operation: , id:184, line:30:24, endln:32:42
+  |vpiTypespec:
+  \_ref_typespec: (work@w1_memlhs.gen_w1.two_i[0].a_valid), id:186
+    |vpiParent:
+    \_hier_path: (two_i[0].a_valid), id:185, line:30:37, endln:30:53
+    |vpiFullName:work@w1_memlhs.gen_w1.two_i[0].a_valid
+    |vpiActual:
+    \_array_typespec: , id:155
+  |vpiActual:
+  \_bit_select: (two_i[0]), id:189, line:30:37, endln:30:42
+    |vpiParent:
+    \_hier_path: (two_i[0].a_valid), id:185, line:30:37, endln:30:53
+    |vpiName:two_i
+    |vpiFullName:two_i[0]
+    |vpiActual:
+    \_array_var: (work@w1_memlhs.two_i), id:153, line:24:21, endln:24:26
+    |vpiIndex:
+    \_constant: , id:187, line:30:43, endln:30:44
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiActual:
+  \_ref_obj: (work@w1_memlhs.gen_w1.a_valid), id:190, line:30:46, endln:30:53
+    |vpiParent:
+    \_hier_path: (two_i[0].a_valid), id:185, line:30:37, endln:30:53
+    |vpiName:a_valid
+    |vpiFullName:work@w1_memlhs.gen_w1.a_valid
+  |vpiExpr:
+  \_array_var: (work@w1_memlhs.two_i), id:153, line:24:21, endln:24:26
+    |vpiParent:
+    \_module_inst: work@w1_memlhs (work@w1_memlhs), id:241, file:/tmp/r10earl116_scratch/bnd/w1_memlhs.sv, line:22:1, endln:35:10
+    |vpiSize:1
+    |vpiTypespec:
+    \_ref_typespec: (work@w1_memlhs.two_i), id:154
+      |vpiParent:
+      \_array_var: (work@w1_memlhs.two_i), id:153, line:24:21, endln:24:26
+      |vpiFullName:work@w1_memlhs.two_i
+      |vpiActual:
+      \_array_typespec: , id:155
+    |vpiName:two_i
+    |vpiFullName:work@w1_memlhs.two_i
+    |vpiRandType:1
+    |vpiVisibility:1
+    |vpiArrayType:1
+    |vpiRange:
+    \_range: , id:144, line:24:28, endln:24:29
+      |vpiParent:
+      \_array_var: (work@w1_memlhs.two_i), id:153, line:24:21, endln:24:26
+      |vpiLeftRange:
+      \_constant: , id:145
+        |vpiParent:
+        \_range: , id:144, line:24:28, endln:24:29
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_operation: , id:149, line:24:28, endln:24:29
+        |vpiParent:
+        \_range: , id:144, line:24:28, endln:24:29
+        |vpiOpType:11
+        |vpiOperand:
+        \_constant: , id:146, line:24:28, endln:24:29
+          |vpiParent:
+          \_operation: , id:149, line:24:28, endln:24:29
+          |vpiDecompile:3
+          |vpiSize:32
+          |UINT:3
+          |vpiTypespec:
+          \_ref_typespec: (work@w1_memlhs.two_i), id:148
+            |vpiParent:
+            \_constant: , id:146, line:24:28, endln:24:29
+            |vpiFullName:work@w1_memlhs.two_i
+            |vpiActual:
+            \_int_typespec: , id:147
+          |vpiConstType:9
+        |vpiOperand:
+        \_constant: , id:150
+          |vpiSize:64
+          |INT:1
+          |vpiConstType:7
+    |vpiReg:
+    \_struct_var: (work@w1_memlhs.two_i), id:151, line:24:21, endln:24:26
+      |vpiParent:
+      \_array_var: (work@w1_memlhs.two_i), id:153, line:24:21, endln:24:26
+      |vpiTypespec:
+      \_ref_typespec: (work@w1_memlhs.two_i), id:152
+        |vpiParent:
+        \_struct_var: (work@w1_memlhs.two_i), id:151, line:24:21, endln:24:26
+        |vpiFullName:work@w1_memlhs.two_i
+        |vpiActual:
+        \_struct_typespec: (pw1::h2d_t), id:15, line:7:11, endln:11:4
+      |vpiFullName:work@w1_memlhs.two_i
+  |vpiName:two_i[0].a_valid
+|vpiTypespec:
+\_ref_typespec: (work@w1_memlhs.gen_w1), id:193
+  |vpiParent:
+  \_tagged_pattern: , id:191, line:30:37, endln:30:53
+  |vpiFullName:work@w1_memlhs.gen_w1
+  |vpiActual:
+  \_string_typespec: (a_valid), id:192, line:30:27, endln:30:34
+
+decompile:
+tagged_pattern: , id:191, line:30:37, endln:30:53
+|vpiParent:
+\_operation: , id:184, line:30:24, endln:32:42
+|vpiPattern:
+\_hier_path: (two_i[0].a_valid), id:185, line:30:37, endln:30:53
+  |vpiParent:
+  \_operation: , id:184, line:30:24, endln:32:42
+  |vpiTypespec:
+  \_ref_typespec: (work@w1_memlhs.gen_w1.two_i[0].a_valid), id:186
+    |vpiParent:
+    \_hier_path: (two_i[0].a_valid), id:185, line:30:37, endln:30:53
+    |vpiFullName:work@w1_memlhs.gen_w1.two_i[0].a_valid
+    |vpiActual:
+    \_array_typespec: , id:155
+  |vpiActual:
+  \_bit_select: (two_i[0]), id:189, line:30:37, endln:30:42
+    |vpiParent:
+    \_hier_path: (two_i[0].a_valid), id:185, line:30:37, endln:30:53
+    |vpiName:two_i
+    |vpiFullName:two_i[0]
+    |vpiActual:
+    \_array_var: (work@w1_memlhs.two_i), id:153, line:24:21, endln:24:26
+    |vpiIndex:
+    \_constant: , id:187, line:30:43, endln:30:44
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiActual:
+  \_ref_obj: (work@w1_memlhs.gen_w1.a_valid), id:190, line:30:46, endln:30:53
+    |vpiParent:
+    \_hier_path: (two_i[0].a_valid), id:185, line:30:37, endln:30:53
+    |vpiName:a_valid
+    |vpiFullName:work@w1_memlhs.gen_w1.a_valid
+  |vpiExpr:
+  \_array_var: (work@w1_memlhs.two_i), id:153, line:24:21, endln:24:26
+    |vpiParent:
+    \_module_inst: work@w1_memlhs (work@w1_memlhs), id:241, file:/tmp/r10earl116_scratch/bnd/w1_memlhs.sv, line:22:1, endln:35:10
+    |vpiSize:1
+    |vpiTypespec:
+    \_ref_typespec: (work@w1_memlhs.two_i), id:154
+      |vpiParent:
+      \_array_var: (work@w1_memlhs.two_i), id:153, line:24:21, endln:24:26
+      |vpiFullName:work@w1_memlhs.two_i
+      |vpiActual:
+      \_array_typespec: , id:155
+    |vpiName:two_i
+    |vpiFullName:work@w1_memlhs.two_i
+    |vpiRandType:1
+    |vpiVisibility:1
+    |vpiArrayType:1
+    |vpiRange:
+    \_range: , id:144, line:24:28, endln:24:29
+      |vpiParent:
+      \_array_var: (work@w1_memlhs.two_i), id:153, line:24:21, endln:24:26
+      |vpiLeftRange:
+      \_constant: , id:145
+        |vpiParent:
+        \_range: , id:144, line:24:28, endln:24:29
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_operation: , id:149, line:24:28, endln:24:29
+        |vpiParent:
+        \_range: , id:144, line:24:28, endln:24:29
+        |vpiOpType:11
+        |vpiOperand:
+        \_constant: , id:146, line:24:28, endln:24:29
+          |vpiParent:
+          \_operation: , id:149, line:24:28, endln:24:29
+          |vpiDecompile:3
+          |vpiSize:32
+          |UINT:3
+          |vpiTypespec:
+          \_ref_typespec: (work@w1_memlhs.two_i), id:148
+            |vpiParent:
+            \_constant: , id:146, line:24:28, endln:24:29
+            |vpiFullName:work@w1_memlhs.two_i
+            |vpiActual:
+            \_int_typespec: , id:147
+          |vpiConstType:9
+        |vpiOperand:
+        \_constant: , id:150
+          |vpiSize:64
+          |INT:1
+          |vpiConstType:7
+    |vpiReg:
+    \_struct_var: (work@w1_memlhs.two_i), id:151, line:24:21, endln:24:26
+      |vpiParent:
+      \_array_var: (work@w1_memlhs.two_i), id:153, line:24:21, endln:24:26
+      |vpiTypespec:
+      \_ref_typespec: (work@w1_memlhs.two_i), id:152
+        |vpiParent:
+        \_struct_var: (work@w1_memlhs.two_i), id:151, line:24:21, endln:24:26
+        |vpiFullName:work@w1_memlhs.two_i
+        |vpiActual:
+        \_struct_typespec: (pw1::h2d_t), id:15, line:7:11, endln:11:4
+      |vpiFullName:work@w1_memlhs.two_i
+  |vpiName:two_i[0].a_valid
+|vpiTypespec:
+\_ref_typespec: (work@w1_memlhs.gen_w1), id:193
+  |vpiParent:
+  \_tagged_pattern: , id:191, line:30:37, endln:30:53
+  |vpiFullName:work@w1_memlhs.gen_w1
+  |vpiActual:
+  \_string_typespec: (a_valid), id:192, line:30:27, endln:30:34
+RHS:
+decompile:
+hier_path: (two_i[0].a_valid), id:241, line:30:37, endln:30:53
+|vpiParent:
+\_operation: , id:240, line:30:24, endln:32:42
+|vpiSize:1
+|vpiTypespec:
+\_ref_typespec: (work@w1_memlhs.gen_w1.two_i[0].a_valid), id:244
+  |vpiParent:
+  \_hier_path: (two_i[0].a_valid), id:241, line:30:37, endln:30:53
+  |vpiFullName:work@w1_memlhs.gen_w1.two_i[0].a_valid
+  |vpiActual:
+  \_array_typespec: , id:155
+|vpiActual:
+\_bit_select: (two_i[0]), id:242, line:30:37, endln:30:42
+  |vpiParent:
+  \_hier_path: (two_i[0].a_valid), id:241, line:30:37, endln:30:53
+  |vpiName:two_i
+  |vpiFullName:two_i[0]
+  |vpiActual:
+  \_array_var: (work@w1_memlhs.two_i), id:145, line:24:21, endln:24:26
+  |vpiIndex:
+  \_constant: , id:182, line:30:43, endln:30:44
+    |vpiParent:
+    \_bit_select: (two_i[0]), id:181, line:30:37, endln:30:42
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+|vpiActual:
+\_ref_obj: (work@w1_memlhs.gen_w1.a_valid), id:243, line:30:46, endln:30:53
+  |vpiParent:
+  \_hier_path: (two_i[0].a_valid), id:241, line:30:37, endln:30:53
+  |vpiName:a_valid
+  |vpiFullName:work@w1_memlhs.gen_w1.a_valid
+  |vpiActual:
+  \_typespec_member: (a_valid), id:42, line:8:17, endln:8:24
+|vpiExpr:
+\_array_var: (work@w1_memlhs.two_i), id:145, line:24:21, endln:24:26
+  |vpiParent:
+  \_module_inst: work@w1_memlhs (work@w1_memlhs), id:136, file:/tmp/r10earl116_scratch/bnd/w1_memlhs.sv, line:22:1, endln:35:10
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (work@w1_memlhs.two_i), id:156
+    |vpiParent:
+    \_array_var: (work@w1_memlhs.two_i), id:145, line:24:21, endln:24:26
+    |vpiFullName:work@w1_memlhs.two_i
+    |vpiActual:
+    \_array_typespec: , id:155
+  |vpiName:two_i
+  |vpiFullName:work@w1_memlhs.two_i
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:146, line:24:28, endln:24:29
+    |vpiParent:
+    \_array_var: (work@w1_memlhs.two_i), id:145, line:24:21, endln:24:26
+    |vpiLeftRange:
+    \_constant: , id:147
+      |vpiParent:
+      \_range: , id:146, line:24:28, endln:24:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_operation: , id:148, line:24:28, endln:24:29
+      |vpiParent:
+      \_range: , id:146, line:24:28, endln:24:29
+      |vpiOpType:11
+      |vpiOperand:
+      \_constant: , id:149, line:24:28, endln:24:29
+        |vpiParent:
+        \_operation: , id:148, line:24:28, endln:24:29
+        |vpiDecompile:3
+        |vpiSize:32
+        |UINT:3
+        |vpiTypespec:
+        \_ref_typespec: (work@w1_memlhs.two_i), id:150
+          |vpiParent:
+          \_constant: , id:149, line:24:28, endln:24:29
+          |vpiFullName:work@w1_memlhs.two_i
+          |vpiActual:
+          \_int_typespec: , id:151
+        |vpiConstType:9
+      |vpiOperand:
+      \_constant: , id:152
+        |vpiSize:64
+        |INT:1
+        |vpiConstType:7
+  |vpiReg:
+  \_struct_var: (work@w1_memlhs.two_i), id:153, line:24:21, endln:24:26
+    |vpiParent:
+    \_array_var: (work@w1_memlhs.two_i), id:145, line:24:21, endln:24:26
+    |vpiTypespec:
+    \_ref_typespec: (work@w1_memlhs.two_i), id:154
+      |vpiParent:
+      \_struct_var: (work@w1_memlhs.two_i), id:153, line:24:21, endln:24:26
+      |vpiFullName:work@w1_memlhs.two_i
+      |vpiActual:
+      \_struct_typespec: (pw1::h2d_t), id:41, line:7:11, endln:11:4
+    |vpiFullName:work@w1_memlhs.two_i
+|vpiName:two_i[0].a_valid
+
+decompile:
+hier_path: (two_i[0].a_valid), id:241, line:30:37, endln:30:53
+|vpiParent:
+\_operation: , id:240, line:30:24, endln:32:42
+|vpiSize:1
+|vpiTypespec:
+\_ref_typespec: (work@w1_memlhs.gen_w1.two_i[0].a_valid), id:244
+  |vpiParent:
+  \_hier_path: (two_i[0].a_valid), id:241, line:30:37, endln:30:53
+  |vpiFullName:work@w1_memlhs.gen_w1.two_i[0].a_valid
+  |vpiActual:
+  \_array_typespec: , id:155
+|vpiActual:
+\_bit_select: (two_i[0]), id:242, line:30:37, endln:30:42
+  |vpiParent:
+  \_hier_path: (two_i[0].a_valid), id:241, line:30:37, endln:30:53
+  |vpiName:two_i
+  |vpiFullName:two_i[0]
+  |vpiActual:
+  \_array_var: (work@w1_memlhs.two_i), id:145, line:24:21, endln:24:26
+  |vpiIndex:
+  \_constant: , id:182, line:30:43, endln:30:44
+    |vpiParent:
+    \_bit_select: (two_i[0]), id:181, line:30:37, endln:30:42
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+|vpiActual:
+\_ref_obj: (work@w1_memlhs.gen_w1.a_valid), id:243, line:30:46, endln:30:53
+  |vpiParent:
+  \_hier_path: (two_i[0].a_valid), id:241, line:30:37, endln:30:53
+  |vpiName:a_valid
+  |vpiFullName:work@w1_memlhs.gen_w1.a_valid
+  |vpiActual:
+  \_typespec_member: (a_valid), id:42, line:8:17, endln:8:24
+|vpiExpr:
+\_array_var: (work@w1_memlhs.two_i), id:145, line:24:21, endln:24:26
+  |vpiParent:
+  \_module_inst: work@w1_memlhs (work@w1_memlhs), id:136, file:/tmp/r10earl116_scratch/bnd/w1_memlhs.sv, line:22:1, endln:35:10
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (work@w1_memlhs.two_i), id:156
+    |vpiParent:
+    \_array_var: (work@w1_memlhs.two_i), id:145, line:24:21, endln:24:26
+    |vpiFullName:work@w1_memlhs.two_i
+    |vpiActual:
+    \_array_typespec: , id:155
+  |vpiName:two_i
+  |vpiFullName:work@w1_memlhs.two_i
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:146, line:24:28, endln:24:29
+    |vpiParent:
+    \_array_var: (work@w1_memlhs.two_i), id:145, line:24:21, endln:24:26
+    |vpiLeftRange:
+    \_constant: , id:147
+      |vpiParent:
+      \_range: , id:146, line:24:28, endln:24:29
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_operation: , id:148, line:24:28, endln:24:29
+      |vpiParent:
+      \_range: , id:146, line:24:28, endln:24:29
+      |vpiOpType:11
+      |vpiOperand:
+      \_constant: , id:149, line:24:28, endln:24:29
+        |vpiParent:
+        \_operation: , id:148, line:24:28, endln:24:29
+        |vpiDecompile:3
+        |vpiSize:32
+        |UINT:3
+        |vpiTypespec:
+        \_ref_typespec: (work@w1_memlhs.two_i), id:150
+          |vpiParent:
+          \_constant: , id:149, line:24:28, endln:24:29
+          |vpiFullName:work@w1_memlhs.two_i
+          |vpiActual:
+          \_int_typespec: , id:151
+        |vpiConstType:9
+      |vpiOperand:
+      \_constant: , id:152
+        |vpiSize:64
+        |INT:1
+        |vpiConstType:7
+  |vpiReg:
+  \_struct_var: (work@w1_memlhs.two_i), id:153, line:24:21, endln:24:26
+    |vpiParent:
+    \_array_var: (work@w1_memlhs.two_i), id:145, line:24:21, endln:24:26
+    |vpiTypespec:
+    \_ref_typespec: (work@w1_memlhs.two_i), id:154
+      |vpiParent:
+      \_struct_var: (work@w1_memlhs.two_i), id:153, line:24:21, endln:24:26
+      |vpiFullName:work@w1_memlhs.two_i
+      |vpiActual:
+      \_struct_typespec: (pw1::h2d_t), id:41, line:7:11, endln:11:4
+    |vpiFullName:work@w1_memlhs.two_i
+|vpiName:two_i[0].a_valid

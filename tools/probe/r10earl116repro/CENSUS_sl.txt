@@ -1,0 +1,8 @@
+-- FX SAME_AGREE=54  STILLWRONG=1  TOGOLD=2
+   ROWS WITH MOVED CELLS: 2
+     default/Earlgrey_0_1-71da2fd7                  cells=1
+     testflags/Earlgrey_0_1-71da2fd7                cells=1
+-- F0 SAME_AGREE=31  STILLWRONG=1  TOGOLD=2
+   ROWS WITH MOVED CELLS: 2
+     default/Earlgrey_0_1-71da2fd7                  cells=1
+     testflags/Earlgrey_0_1-71da2fd7                cells=1

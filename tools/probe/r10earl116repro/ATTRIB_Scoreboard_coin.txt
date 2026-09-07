@@ -1,0 +1,11 @@
+r10earl116 -- the Scoreboard/default byte mover is the DOCUMENTED ~50/50
+parallel-parse COIN (RESUME.md section 9), not this law.
+
+uhdm-cmp log, pristine vs patched: BYTE-IDENTICAL (95 lines, 1 head, both)
+ORDER-BLIND whole-dump diff (both dumps sorted, workdir path normalised):
+1100014c1100014
+< /WD/pris_sl/default/Scoreboard-59431470/slang.uhdm: Restored design Pre-Elab: 
+---
+> /WD/pat_sl/default/Scoreboard-59431470/slang.uhdm: Restored design Pre-Elab: 
+-- content lines differing: 0 (both lines are the dump's own header naming
+   the workdir path)

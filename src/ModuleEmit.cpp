@@ -12053,6 +12053,17 @@ void UhdmExporter::flattenPatternCaRhs(UHDM::operation* op,
                         fix(e);
                 break;
             }
+            // § patCaFlatLhsWholeName116 — THE UN-FLATTENED CARRIER.  When the
+            // Lhs is a SELECT or a MEMBER access this emitter no longer strips
+            // the tagged wrappers (the elaborator's own flatten is refused
+            // there too, so golden keeps them), but the WORK BELOW THE WRAPPER
+            // is unchanged: Surelog writes `Root_value`, the hung
+            // `ref_typespec` and the select constants' `vpiParent` in
+            // `CompileHelper::compileSelectExpression`, at COMPILE time and
+            // independently of any flatten.  Descend through the wrapper.
+            case UHDM::uhdmtagged_pattern:
+                fix((UHDM::any*)((UHDM::tagged_pattern*)n)->Pattern());
+                break;
             default:
                 break;
         }
@@ -12064,7 +12075,10 @@ void UhdmExporter::flattenPatternCaRhs(UHDM::operation* op,
     if (ops.size() != ap.memberSetters.size())
         return;
     for (size_t i = 0; i < ops.size(); i++) {
-        if (ops[i]->UhdmType() != UHDM::uhdmhier_path)
+        UHDM::any* opi116 = ops[i];
+        if (opi116 && opi116->UhdmType() == UHDM::uhdmtagged_pattern)
+            opi116 = (UHDM::any*)((UHDM::tagged_pattern*)opi116)->Pattern();
+        if (!opi116 || opi116->UhdmType() != UHDM::uhdmhier_path)
             continue;
         const Expression* b = &stripImplicitConv(*ap.memberSetters[i].expr);
         while (true) {
@@ -12083,7 +12097,7 @@ void UhdmExporter::flattenPatternCaRhs(UHDM::operation* op,
             continue;
         if (auto nit = netMap.find(&b->as<NamedValueExpression>().symbol);
             nit != netMap.end()) {
-            auto* hp114 = (UHDM::hier_path*)ops[i];
+            auto* hp114 = (UHDM::hier_path*)opi116;
             hp114->Root_value(nit->second);
             // § patHierPathRootTs114 — THE ROOT VALUE AND THE TYPESPEC EDGE ARE
             // ONE BINDING OFF ONE OBJECT.
@@ -16352,20 +16366,94 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 // with the bare member values (first one sized) — the same
                 // re-emit shape the module-level elab CA uses.
                 bool savedReP9 = reemitting;
-                bool patFlat9 =
+                // § patCaFlatLhsWholeName116 (r10earl116) — AND THE Lhs IS A
+                // WHOLE-NAME REFERENCE.
+                //
+                // THE PRODUCER, READ IN UHDM'S OWN SOURCE, NOT INFERRED.  The
+                // flatten above is not something Surelog's WRITER does; it is
+                // what UHDM's ELABORATOR does while deep-cloning the continuous
+                // assign, and it is gated on the SHAPE OF THE Lhs —
+                // `cont_assign::DeepClone` (~/git-repos/UHDM/templates/
+                // clone_tree.cpp:803-820):
+                //
+                //     clone->Rhs(rhs);
+                //     if (ref_obj* ro = any_cast<ref_obj*>(lhs)) {
+                //       if (struct_var* stv = ro->Actual_group<struct_var>()) {
+                //         if (ref_typespec* rt = stv->Typespec()) {
+                //           if (typespec* ts = rt->Actual_typespec()) {
+                //             ExprEval eval(...);
+                //             if (expr* res = eval.flattenPatternAssignments(
+                //                     *context->m_serializer, ts, rhs)) { ... }
+                //
+                // `any_cast` is IS-A and `bit_select` / `var_select` DERIVE from
+                // `ref_obj` (~/.local/include/uhdm/bit_select.h:41,
+                // var_select.h:41), so a SELECT Lhs passes the first test and
+                // fails the second: a select's `Actual_group` is the ARRAY
+                // (`array_var`), never a `struct_var`.  A MEMBER Lhs is a
+                // `hier_path`, which is not a `ref_obj` at all, so it fails the
+                // FIRST test.  In both cases
+                // `ExprEval::flattenPatternAssignments` is NEVER CALLED and
+                // golden keeps the TAGGED-PATTERN operand list.
+                //
+                // MEASURED on the corpus head row `testflags/Earlgrey_0_1`
+                // (`tlul_socket_m1.sv`), where the two carriers sit eleven lines
+                // apart in one module and differ ONLY in the Lhs:
+                //
+                //   108  assign hreq_fifo_i   = '{...}  Lhs ref_obj/struct_var
+                //                                       golden FLAT, ours FLAT
+                //   240  assign hrsp_fifo_i[i]= '{...}  Lhs bit_select/array_var
+                //                                       golden TAGGED, ours FLAT
+                //
+                // and on arm `q1_lhs116`, whose seven cells vary nothing but the
+                // Lhs: whole-name gen-local struct var (c1), whole-name gen-local
+                // struct NET (c5 — Surelog models it as `struct_var` too) and a
+                // whole-name MODULE-scope var written from the gen scope (c6) are
+                // golden-FLAT; a `bit_select` on a module-scope array (c2), on a
+                // gen-local array (c3), a `var_select` on a 2-D array (c7) and a
+                // `hier_path` member Lhs (c4) are golden-TAGGED.
+                //
+                // THE BRIEF'S FRAMING IS REFUTED AND THIS IS THE FIRST THING
+                // MEASURED: golden's flatten did not "bail at a non-tagged
+                // operand" at 241.  Every one of its ten operands there IS a
+                // `tagged_pattern`; `flattenPatternAssignments` never ran at all.
+                // The operand-loop bail (`uhdmoperation` / `uhdmconstant` ->
+                // `return result`, ExprEval.cpp:857-861) is a real condition with
+                // an EMPTY population in golden's gen-scope pattern census.
+                //
+                // ONLY THE FLATTEN NARROWS.  The binding work below the
+                // wrapper — `Root_value`, the hung `ref_typespec`
+                // (§ patHierPathRootTs114) and the select constants'
+                // `vpiParent` — is written by
+                // `CompileHelper::compileSelectExpression` at COMPILE time,
+                // long before any elaborator runs, and golden HAS it on the
+                // un-flattened carrier too.  THE WIDE BOUNDARY CONVICTED THE
+                // FIRST CUT ON EXACTLY THIS (§6c of the README): with a single
+                // gate the `hier_path`s of r10earl115's `p3_fence115` x7 cell
+                // went from golden's `RV=array_var` to `RV=<null>` — AWAY on a
+                // field `hier_path::Compare` reads.  So the STRUCTURED-pattern
+                // gate keeps its old reach for `flattenPatternCaRhs` and only
+                // `reemitting` (the flatten) and the two things that exist
+                // ONLY BECAUSE of the flatten (the arena orphan and
+                // r10earl115's element-unbind record) take the new conjunct.
+                bool patStruct9 =
                     stripImplicitConv(ae.right()).kind ==
                         ExpressionKind::StructuredAssignmentPattern &&
                     ae.left().type &&
                     ae.left().type->getCanonicalType().kind ==
                         SymbolKind::PackedStructType;
+                bool patFlat9 =
+                    patStruct9 && stripImplicitConv(ae.left()).kind ==
+                                      ExpressionKind::NamedValue;
                 if (patFlat9)
                     reemitting = true;
                 rhs = emitExpr(ae.right(), ca, fullName, netMap);
                 reemitting = savedReP9;
-                if (patFlat9 && rhs &&
-                    rhs->UhdmType() == UHDM::uhdmoperation) {
+                if (patStruct9 && rhs &&
+                    rhs->UhdmType() == UHDM::uhdmoperation)
                     flattenPatternCaRhs((UHDM::operation*)rhs,
                                         stripImplicitConv(ae.right()), netMap);
+                if (patFlat9 && rhs &&
+                    rhs->UhdmType() == UHDM::uhdmoperation) {
                     // flattenPatternAssignments leaves its own (typed) clone
                     // behind: an arena orphan parented at the cont_assign that
                     // OWNS the flattened operands (UhdmWriter re-points

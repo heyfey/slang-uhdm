@@ -1,0 +1,106 @@
+##### default
+== RAW (order-sensitive) whole-dump diff
+  lines: 14720
+== ORDER-BLIND (sorted) whole-dump diff
+  lines: 12332
+== ORDER-BLIND diff BY SECTION (0 = before the first uhdmtopModules = DEF,
+   1..n = ELAB, the LAST section is the weaklyReferenced TAIL, NOT COUNTED)
+      1 < sec=0
+      1 > sec=0
+   4901 < sec=10
+   6583 > sec=10
+== CHANGED LINE SHAPES (order-blind, added side)
+    870 \_tagged_pattern: , line:N:N, endln:N:N
+    725 |vpiParent:
+    493 |vpiActual:
+    290 |vpiPattern:
+    290 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N]
+    290 \_ref_typespec: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N])
+    290 \_operation: , line:N:N, endln:N:N
+    203 |vpiName:drsp_fifo_o
+    203 \_ref_obj: (drsp_fifo_o), line:N:N, endln:N:N
+     87 |vpiTypespec:
+     87 \_hier_path: (drsp_fifo_o.d_user), line:N:N, endln:N:N
+     87 \_hier_path: (drsp_fifo_o.d_size), line:N:N, endln:N:N
+     87 \_hier_path: (drsp_fifo_o.d_sink), line:N:N, endln:N:N
+     87 \_hier_path: (drsp_fifo_o.d_param), line:N:N, endln:N:N
+     87 \_hier_path: (drsp_fifo_o.d_opcode), line:N:N, endln:N:N
+     87 \_hier_path: (drsp_fifo_o.d_error), line:N:N, endln:N:N
+     87 \_hier_path: (drsp_fifo_o.d_data), line:N:N, endln:N:N
+     58 |vpiName:i
+     58 |vpiName:d_user
+     58 |vpiName:d_size
+== CHANGED LINE SHAPES (order-blind, removed side)
+    435 |vpiActual:
+    290 |vpiOperand:
+    232 \_struct_typespec: (tlul_pkg::tl_dNh_t), line:N:N, endln:N:N
+    203 |vpiName:drsp_fifo_o
+    203 |vpiExpr:
+    203 \_struct_var: (work@top_earlgrey.u_xbar_main.u_smN_N.drsp_fifo_o), line:N:N, endln:N:N
+    203 \_ref_obj: (drsp_fifo_o), line:N:N, endln:N:N
+    145 \_hier_path: (drsp_fifo_o.d_user), line:N:N, endln:N:N
+    145 \_hier_path: (drsp_fifo_o.d_size), line:N:N, endln:N:N
+    145 \_hier_path: (drsp_fifo_o.d_sink), line:N:N, endln:N:N
+    145 \_hier_path: (drsp_fifo_o.d_param), line:N:N, endln:N:N
+    145 \_hier_path: (drsp_fifo_o.d_opcode), line:N:N, endln:N:N
+    145 \_hier_path: (drsp_fifo_o.d_error), line:N:N, endln:N:N
+    145 \_hier_path: (drsp_fifo_o.d_data), line:N:N, endln:N:N
+     87 |vpiParent:
+     87 \_bit_select: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N].hgrant), line:N:N, endln:N:N
+     87 \_bit_select: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N].hfifo_rspvalid), line:N:N, endln:N:N
+     58 |vpiName:i
+     58 |vpiIndex:
+     58 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N].i
+##### testflags
+== RAW (order-sensitive) whole-dump diff
+  lines: 21785
+== ORDER-BLIND (sorted) whole-dump diff
+  lines: 19593
+== ORDER-BLIND diff BY SECTION (0 = before the first uhdmtopModules = DEF,
+   1..n = ELAB, the LAST section is the weaklyReferenced TAIL, NOT COUNTED)
+      1 < sec=0
+      1 > sec=0
+   4560 < sec=10
+  13550 > sec=10
+== CHANGED LINE SHAPES (order-blind, added side)
+   1769 |vpiParent:
+   1160 \_tagged_pattern: , line:N:N, endln:N:N
+    870 |vpiActual:
+    783 \_operation: , line:N:N, endln:N:N
+    580 |vpiOperand:
+    348 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N]
+    319 |vpiName:drsp_fifo_o
+    319 \_ref_obj: (drsp_fifo_o), line:N:N, endln:N:N
+    290 |vpiPattern:
+    290 \_ref_typespec: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N])
+    290 \_cont_assign: , line:N:N, endln:N:N
+    232 |vpiName:i
+    232 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N].i
+    232 \_ref_obj: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N].i), line:N:N, endln:N:N
+    203 \_struct_var: (work@top_earlgrey.u_xbar_main.u_smN_N.drsp_fifo_o), line:N:N, endln:N:N
+    174 |vpiOpType:N
+    174 |vpiIndex:
+    174 \_hier_path: (drsp_fifo_o.d_valid), line:N:N, endln:N:N
+    174 \_hier_path: (drsp_fifo_o.d_source[N+:N]), line:N:N, endln:N:N
+    145 \_gen_scope: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N]), line:N:N, endln:N:N
+== CHANGED LINE SHAPES (order-blind, removed side)
+    493 |vpiActual:
+    406 \_struct_var: (work@top_earlgrey.u_xbar_main.u_smN_N.drsp_fifo_o), line:N:N, endln:N:N
+    203 |vpiName:drsp_fifo_o
+    203 |vpiExpr:
+    203 \_struct_typespec: (tlul_pkg::tl_dNh_t), line:N:N, endln:N:N
+    203 \_ref_obj: (drsp_fifo_o), line:N:N, endln:N:N
+    116 \_hier_path: (drsp_fifo_o.d_user), line:N:N, endln:N:N
+    116 \_hier_path: (drsp_fifo_o.d_size), line:N:N, endln:N:N
+    116 \_hier_path: (drsp_fifo_o.d_sink), line:N:N, endln:N:N
+    116 \_hier_path: (drsp_fifo_o.d_param), line:N:N, endln:N:N
+    116 \_hier_path: (drsp_fifo_o.d_opcode), line:N:N, endln:N:N
+    116 \_hier_path: (drsp_fifo_o.d_error), line:N:N, endln:N:N
+    116 \_hier_path: (drsp_fifo_o.d_data), line:N:N, endln:N:N
+     87 |vpiParent:
+     58 |vpiName:i
+     58 |vpiIndex:
+     58 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N].i
+     58 \_ref_obj: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N].i), line:N:N, endln:N:N
+     58 \_parameter: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N].i), line:N:N
+     58 \_bit_select: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_idrouting[N].hgrant), line:N:N, endln:N:N
