@@ -1,0 +1,46 @@
+r10v188 — ADVERSARIAL VERIFICATION OF r10uvm188.  MEASUREMENT ONLY.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+BASE 4bf4d571.  Worktrees /tmp/wt_v188 (patched+fix) and /tmp/wt_v188pris (pristine),
+both created fresh at 4bf4d571; both binaries built by the verifier, frozen chmod 555.
+
+BINARY MD5 — REPRODUCED BIT FOR BIT FROM THE IMPLEMENTER'S PATCH
+  pristine          b15c4f042d5928e133f3bde9806352c4   (implementer claimed b15c4f04...)
+  patched (theirs)  68c7dfe93c50cdb63be7e224a1c935f0   (implementer claimed 68c7dfe9...)
+  fixed (verifier)  5b4e62c7477a64cf89591108d4ca695c
+
+GATE 2 — GOLDENS
+  pristine  PASS=23 FAIL=0
+  patched   PASS=23 FAIL=0
+  fixed     PASS=23 FAIL=0
+  /bin/false negative control  PASS=0 FAIL=23
+
+GATE 3 — uhdm2rtlil, both modes, against the committed baseline IN THIS WORKTREE
+  results/gate_uhdm2rtlil.csv is a TESTFLAGS baseline, so the DEFAULT-mode arm is
+  gated against this verifier's OWN pristine default sweep (a baseline built in
+  this worktree, named here so the reading is not mistaken for the committed one).
+  u2rpat_tf   vs results/gate_uhdm2rtlil.csv : 0 differing ROWS   PASS
+  u2rfix_tf   vs results/gate_uhdm2rtlil.csv : 0 differing ROWS   PASS
+  u2rpat_def  vs u2rpris_def.csv             : 0 differing ROWS   PASS
+  u2rfix_def  vs u2rpris_def.csv             : 0 differing ROWS   PASS
+  u2rpat_tf   vs u2rpris_tf.csv              : 0 differing ROWS   PASS
+  patched testflags histogram: CMP_EQUAL:679SLANG_REJECT:50SURELOG_FAIL:2
+
+GATE 4 — surelog corpus, --mode both (1588 rows), against the committed baseline
+  slpat  ---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+  slfix  ---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+  NO ROW CONVERTED in either direction; results/*.csv untouched.
+
+GATE 5 — byteverify (SELFCHECK=1)
+  patched vs pristine  surelog 2/956 (BuildUVMPkg default+testflags), u2r 0/1358
+  fixed   vs pristine  surelog 3/956 (the same BuildUVMPkg x2 BYTE-IDENTICAL to the
+                        patched pair, plus Scoreboard/default whose path-normalised
+                        ORDER-BLIND dump diff is 0 lines = the documented ~50/50 coin),
+                        u2r 0/1358
+
+cmds.txt AUDIT BY BINARY PATH — 0 main-tree invocations in all six sweeps
+  slpat    files=1573     1523 /tmp/v188_bin_pat 
+  slpris   files=1573     1523 /tmp/v188_bin_pris 
+  slfix    files=1573     1523 /tmp/v188_bin_fix 
+  u2rpat   files=1462     1458 /tmp/v188_bin_pat 
+  u2rpris  files=1462     1458 /tmp/v188_bin_pris 
+  u2rfix   files=1462     1458 /tmp/v188_bin_fix 

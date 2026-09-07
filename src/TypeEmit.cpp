@@ -5887,6 +5887,247 @@ UHDM::typespec* UhdmExporter::sharedTypespec(const Symbol& declSymbol, TsCache& 
     return ts;
 }
 
+// § enumConstLitArithRender188 — SURELOG'S TWO EVALUATORS FOR AN ENUM
+// CONSTANT WHOSE INITIALISER IS ARITHMETIC OVER INTEGER LITERALS.
+//
+// `CompileHelper::compileTypeDef` (CompileHelper.cpp ~820-870) and
+// `CompileHelper::compileTypespec`'s enum arm (CompileType.cpp ~1314-1375)
+// both build an enum constant from a WRITTEN initialiser in two steps:
+//
+//   any* exp = compileExpression(..., reduce, ...);
+//   if (exp is a constant) value = fromVpiValue(c->VpiValue(), c->VpiSize());
+//   else                   value = m_exprBuilder.evalExpr(...);
+//   econst->VpiDecompile(ExprEval().prettyPrint(exp));   // CompileHelper.cpp:864
+//   econst->VpiSize(value->getSize());                   //   and CompileType.cpp:1367
+//   econst->VpiValue(value->uhdmValue());
+//
+// A LITERAL always compiles to a `constant`, so it takes the first path and
+// keeps its written spelling, encoding and width — that is the branch above
+// this one and it is NOT this law.  An OPERATION only folds to a constant
+// under `Reduce::Yes`, i.e. in the ELABORATED listing; the DEFINITION listing
+// gets the operation itself, and with it BOTH of Surelog's own renderers:
+//
+//   * `UHDM::ExprEval::prettyPrint` (UHDM ExprEval.cpp:949+) writes a binary
+//     operator with ONE SPACE ON EACH SIDE and has NO parenthesis arm at all,
+//     so `1<<16` renders `1 << 16` and `(2+3)*4` renders `2 + 3 * 4`.  The
+//     source text is never consulted; only each literal leaf's own
+//     `VpiDecompile` is.
+//   * `ExprBuilder::evalExpr` (ExprBuilder.cpp:72+) reduces through
+//     `Surelog::LValue`, whose arithmetic is NOT the language's:
+//       - `LValue::shiftLeft`  (Value.cpp:1837): size = a.size + b's VALUE,
+//         type Unsigned UNCONDITIONALLY;
+//       - `LValue::shiftRight` (Value.cpp:1849): size = a.size - b's VALUE,
+//         type Unsigned unconditionally;
+//       - `plus`/`minus`/`mult`/`div` (Value.cpp:872+): size = max(a.size,
+//         b.size), type = A's OWN TYPE (Integer -> Integer, everything else
+//         -> Unsigned);
+//       - a leaf's size comes from `evalExpr`'s `slIntConst` arm
+//         (ExprBuilder.cpp:419): a plain decimal is `set(uint64_t)` -> 64 bits
+//         UNSIGNED; a SIZED based literal is `set(v, Unsigned, writtenSize)`;
+//         an UNSIZED based literal is `set(v, Integer, 0)` — width
+//         indeterminate AND signed.
+//     So `1 << 16` is 80 bits (64 + 16), `256 >> 3` is 61, `8'h1 << 9` is 17,
+//     `'h10 << 4` is 4, and `'h3 + 40` encodes INT while `40 + 'h4` encodes
+//     UINT.  The ENUM'S BASE TYPE plays no part in any of it (measured on the
+//     same thirteen shapes under three different bases: none, a written
+//     `bit [23:0]`, and a typedef name).
+//
+// The ELABORATED listing's constant is rebuilt from the FOLDED constant, so it
+// carries the decimal digits at 64 bits; its encoding is INT when the
+// expression contains a SUBTRACTION, MULTIPLICATION or DIVISION and UINT
+// otherwise (the same signed-reduction quirk § unitArithShape already records
+// for a subtraction, measured here across seventeen more shapes).
+//
+// The one shape that does NOT fold is a shift whose LEFT operand is an UNSIZED
+// based literal (`'h1 << 12`): UHDM leaves the operation alone and the
+// elaborated listing REPEATS the definition one.
+//
+// Everything outside the modelled set — a reference, a call, a concatenation,
+// a conditional, a unary operator, an `x`/`z` digit, a signed tick, a written
+// size above 64 bits, a shift of 64 or more, a division by zero — ABSTAINS,
+// leaving the constant exactly as the branches below write it.  The final
+// guard is the strongest: the emulated value must equal slang's own folded
+// value or the whole render is discarded.
+struct SrlgLitArith {
+    bool ok = false;
+    bool leaf = true;          // a bare literal is NOT this law
+    bool unsizedBased = false; // Surelog `set(v, Integer, 0)`
+    std::string text;          // the prettyPrint rendering
+    int32_t size = 64;         // Surelog `Value::getSize()`
+    bool integerType = false;  // Value::Type::Integer -> "INT:", else "UINT:"
+    uint64_t uval = 0;
+    bool anySubMulDiv = false; // the FOLDED listing's encoding discriminator
+    bool anyShift = false;     // a `<<` or `>>` ANYWHERE in the tree
+    bool noFold = false;       // a shift over an unsized based left operand
+};
+
+static SrlgLitArith srlgEnumLitArith(
+    const Expression& e0,
+    const std::function<std::string(slang::SourceRange)>& raw, int depth) {
+    SrlgLitArith r;
+    if (depth > 24)
+        return r;
+    auto& e = stripImplicitConv(e0);
+    if (e.kind == ExpressionKind::IntegerLiteral) {
+        // `raw` is the caller's rawText ALREADY passed through `stripSep`, so
+        // a digit-group underscore is gone before this sees it — Surelog does
+        // the same (`StringUtils::replaceAll(v, "_", "")`).
+        std::string t = raw(e.sourceRange);
+        if (t.empty())
+            return r;
+        for (char c : t)
+            if (c == 'x' || c == 'X' || c == 'z' || c == 'Z' || c == '?' ||
+                std::isspace((unsigned char)c))
+                return r;
+        size_t tick = t.find('\'');
+        if (tick == std::string::npos) {
+            if (t.size() > 19)
+                return r;
+            uint64_t v = 0;
+            for (char c : t) {
+                if (c < '0' || c > '9')
+                    return r;
+                if (v > (~0ULL - 9) / 10)
+                    return r;
+                v = v * 10 + (uint64_t)(c - '0');
+            }
+            r.size = 64;
+            r.integerType = false;  // `set(uint64_t)` -> Value::Type::Unsigned
+            r.uval = v;
+        }
+        else {
+            size_t bp = tick + 1;
+            if (bp >= t.size())
+                return r;
+            if (t[bp] == 's' || t[bp] == 'S')
+                return r;  // Surelog's own s/S handling is a whole-string
+                           // `find_first_of` — not modelled, so abstain
+            char base = (char)tolower((unsigned char)t[bp]);
+            std::string dg = t.substr(bp + 1);
+            if (dg.empty())
+                return r;
+            int radix = base == 'b' ? 2 : base == 'o' ? 8 : base == 'd' ? 10
+                        : base == 'h'                                   ? 16
+                                                                        : 0;
+            if (!radix)
+                return r;
+            uint64_t v = 0;
+            for (char c : dg) {
+                int d;
+                if (c >= '0' && c <= '9')
+                    d = c - '0';
+                else if (c >= 'a' && c <= 'f')
+                    d = c - 'a' + 10;
+                else if (c >= 'A' && c <= 'F')
+                    d = c - 'A' + 10;
+                else
+                    return r;
+                if (d >= radix)
+                    return r;
+                if (v > (~0ULL - (uint64_t)d) / (uint64_t)radix)
+                    return r;
+                v = v * (uint64_t)radix + (uint64_t)d;
+            }
+            std::string szs = t.substr(0, tick);
+            if (szs.empty()) {
+                // `value->set(hex_value, Value::Type::Integer, 0)`
+                r.size = 0;
+                r.integerType = true;
+                r.unsizedBased = true;
+            }
+            else {
+                if (szs.size() > 3)
+                    return r;
+                int32_t isz = 0;
+                for (char c : szs) {
+                    if (c < '0' || c > '9')
+                        return r;
+                    isz = isz * 10 + (c - '0');
+                }
+                if (isz <= 0 || isz > 64)
+                    return r;
+                r.size = isz;
+                r.integerType = false;
+            }
+            r.uval = v;
+        }
+        r.text = t;
+        r.leaf = true;
+        r.ok = true;
+        return r;
+    }
+    if (e.kind != ExpressionKind::BinaryOp)
+        return r;
+    auto& be = e.as<BinaryExpression>();
+    const char* tok = nullptr;
+    switch (be.op) {
+        case BinaryOperator::Add: tok = "+"; break;
+        case BinaryOperator::Subtract: tok = "-"; break;
+        case BinaryOperator::Multiply: tok = "*"; break;
+        case BinaryOperator::Divide: tok = "/"; break;
+        case BinaryOperator::LogicalShiftLeft: tok = "<<"; break;
+        case BinaryOperator::LogicalShiftRight: tok = ">>"; break;
+        default: return r;
+    }
+    SrlgLitArith L = srlgEnumLitArith(be.left(), raw, depth + 1);
+    SrlgLitArith R = srlgEnumLitArith(be.right(), raw, depth + 1);
+    if (!L.ok || !R.ok)
+        return r;
+    // prettyPrint: `op0 <space> token <space> op1`, with NO parenthesis arm.
+    r.text = L.text + " " + tok + " " + R.text;
+    r.leaf = false;
+    const bool shift = be.op == BinaryOperator::LogicalShiftLeft ||
+                       be.op == BinaryOperator::LogicalShiftRight;
+    if (shift) {
+        if (R.uval >= 64)
+            return r;
+        if (be.op == BinaryOperator::LogicalShiftLeft) {
+            r.uval = L.uval << R.uval;
+            r.size = L.size + (int32_t)R.uval;
+        }
+        else {
+            r.uval = L.uval >> R.uval;
+            r.size = L.size - (int32_t)R.uval;
+        }
+        r.integerType = false;  // shiftLeft/shiftRight set Type::Unsigned
+        r.noFold = L.unsizedBased &&
+                   stripImplicitConv(be.left()).kind ==
+                       ExpressionKind::IntegerLiteral;
+    }
+    else {
+        if (be.op == BinaryOperator::Divide && R.uval == 0)
+            return r;
+        // `m_type` is taken from A's type; the VALUE follows that type.
+        r.integerType = L.integerType;
+        if (L.integerType) {
+            int64_t a = (int64_t)L.uval, b = (int64_t)R.uval, o = 0;
+            switch (be.op) {
+                case BinaryOperator::Add: o = a + b; break;
+                case BinaryOperator::Subtract: o = a - b; break;
+                case BinaryOperator::Multiply: o = a * b; break;
+                default: o = a / b; break;
+            }
+            r.uval = (uint64_t)o;
+        }
+        else {
+            switch (be.op) {
+                case BinaryOperator::Add: r.uval = L.uval + R.uval; break;
+                case BinaryOperator::Subtract: r.uval = L.uval - R.uval; break;
+                case BinaryOperator::Multiply: r.uval = L.uval * R.uval; break;
+                default: r.uval = L.uval / R.uval; break;
+            }
+        }
+        r.size = L.size > R.size ? L.size : R.size;
+    }
+    r.anySubMulDiv = L.anySubMulDiv || R.anySubMulDiv ||
+                     be.op == BinaryOperator::Subtract ||
+                     be.op == BinaryOperator::Multiply ||
+                     be.op == BinaryOperator::Divide;
+    r.anyShift = L.anyShift || R.anyShift || shift;
+    r.ok = true;
+    return r;
+}
+
 // Shared enum_typespec builder: base typespec (when the syntax declares
 // one) + enum constants with Surelog value encodings.
 UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
@@ -6737,6 +6978,85 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
             // implicit/computed values decompile to the folded digits.
             std::string digits = cv.integer().toString(LiteralBase::Decimal, false);
             auto* evInit = ev.getInitializer();
+            // § enumConstLitArithRender188 (the decode sits above `buildEnumTs`)
+            // — an ARITHMETIC initialiser over INTEGER LITERALS is rendered by
+            // Surelog's own `ExprEval::prettyPrint` and sized by its own
+            // `LValue` arithmetic, and the enum's BASE TYPE plays no part; so
+            // this gate runs BEFORE the base-width branches below.  It is
+            // fenced out of the two listings that have their own measured
+            // laws: a `$unit` enum (§ unitArith / § unitArithShape, whose ONE
+            // listing is the top one) and an IMPORT-LISTING CLONE.
+            if (evInit && !unitEnum9 && !importCloneEmit) {
+                SrlgLitArith a188 = srlgEnumLitArith(
+                    *evInit,
+                    [this](slang::SourceRange sr) {
+                        return stripSep(rawText(sr));
+                    },
+                    0);
+                // The emulator must agree with slang's OWN folded value or the
+                // whole render is discarded: a size and a spelling derived from
+                // an arithmetic we got wrong would be worse than the source
+                // text we already write.  A negative size is Surelog-reachable
+                // (`a >> b` with b past a's width) but unmeasured, so it
+                // abstains too.
+                bool agree188 = false;
+                if (a188.ok && !a188.leaf && a188.size >= 0) {
+                    auto fv188 = cv.integer().as<uint64_t>();
+                    agree188 = fv188.has_value() && *fv188 == a188.uval;
+                }
+                if (agree188) {
+                    // The DEFINITION listing (and a class / module / interface
+                    // home, which has only that one) carries the prettyPrinted
+                    // operation; the ELABORATED package listing carries the
+                    // folded digits at 64 bits — except for a shift over an
+                    // unsized based literal, which UHDM declines to fold, so
+                    // both listings repeat the definition render.
+                    if (!pkgTopEmit || a188.noFold) {
+                        ec->VpiDecompile(a188.text);
+                        ec->VpiSize(a188.size);
+                        ec->VpiValue(
+                            (a188.integerType ? "INT:" : "UINT:") + digits);
+                    }
+                    else {
+                        // The folded listing's SIZE is the FOLDED CONSTANT's,
+                        // which UHDM sizes at 64 whenever the reduction went
+                        // through a SHIFT (anywhere in the tree) or reduced
+                        // SIGNED (`- * /` anywhere — the same discriminator the
+                        // encoding below uses), and at the OPERANDS' OWN WIDTH
+                        // only for a PURE `+` tree: golden gives `3'h2 + 3'h1`
+                        // (r10earl66repro/g2_enc66.sv) a folded `3` at SIZE 3
+                        // and `4'h5 + 4'h3` a folded `8` at SIZE 4, while
+                        // `4'hF * 4'h3`, `4'hC - 4'h2`, `4'hC / 4'h2`,
+                        // `'h9 - 'h2`, `3'h1 + 3'h1 * 3'h3`, `(1 << 2) + 3'h1`
+                        // and `8'h2 << 3` ALL fold at 64 even though their
+                        // definition listings measure 4, 4, 4, 0, 3, 66 and 11
+                        // (r10v188repro/arms/v188_f_fold.sv, fourteen shapes
+                        // against one real Surelog golden; the first cut of
+                        // this rule used the OUTERMOST operator alone and was
+                        // refuted by every one of them).  An all-decimal sum
+                        // folds at 64 because 64 is what the decimal leaves
+                        // already measure.
+                        // ...and a WIDTH-INDETERMINATE pure sum (every leaf an
+                        // UNSIZED based literal, so the modelled size is 0)
+                        // publishes Surelog's unsized MARKER -1, the same one
+                        // an unsized based LITERAL takes in the branch above
+                        // (`'h1 + 'h2` folds to `3` at -1, arm c C_H/c_I;
+                        // `'h9 + 'h2` folds to `11` at -1, arm f F_ADDU —
+                        // while `'h9 - 'h2` folds at 64, not -1).
+                        ec->VpiDecompile(digits);
+                        ec->VpiSize((a188.anyShift || a188.anySubMulDiv)
+                                        ? 64
+                                    : a188.size == 0 ? -1
+                                                     : a188.size);
+                        ec->VpiValue(
+                            (a188.anySubMulDiv ? "INT:" : "UINT:") + digits);
+                    }
+                    consts->push_back(ec);
+                    if (!enumConstMap.count(&ev))
+                        enumConstMap[&ev] = ec;
+                    continue;
+                }
+            }
             // An UNBASED-UNSIZED init (`'0`) keeps Surelog's unsized encoding:
             // ONE binary digit and size -1, not the base width (Scr1SvTests
             // SCR1_IALU_CMD_NONE).

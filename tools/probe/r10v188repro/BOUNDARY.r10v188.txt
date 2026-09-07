@@ -1,0 +1,78 @@
+r10v188 — THE WIDE BOUNDARY GATE, RUN TWICE BY THE VERIFIER.  MEASUREMENT ONLY.
+A COPY of the whole tools/probe tree (including this verifier's six arms) — no path
+filter can hide an arm; children </dev/null, the file list on fd 3, PROCESSED asserted
+against LISTED, scratch keyed on the RELATIVE path.
+driver: r10uvm188repro/bound188.sh (carried verbatim)
+
+  PRIS=b15c4f04  PATCHED=68c7dfe9 (implementer)  LISTED=5077 PROCESSED=5077 PRODUCED_DBS=4917 MOVED_ARMS=18 RC_DIFFS=0
+  PRIS=b15c4f04  PATCHED=5b4e62c7 (verifier fix)  LISTED=5077 PROCESSED=5077 PRODUCED_DBS=4917 MOVED_ARMS=18 RC_DIFFS=0
+
+THE TWO MOVER SETS ARE IDENTICAL, ARM FOR ARM:
+  diff MOVERS(pat) MOVERS(fix) = EMPTY
+
+  12 of the 18 are the implementer's own reported set, reproduced arm for arm;
+  the other 6 are THIS VERIFIER'S OWN arms (r10v188repro/arms/v188_{a..f}) — the
+  POSITIVE CONTROL that the gate can see (v188_g_macro.sv was written after the
+  tree copy and is scored in GRIDS.r10v188.txt instead).
+
+r10buvm22repro/g22.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10earl66repro/g2_enc66.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm138repro/g138_b_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm154repro/l154_noenum.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm185repro/grid185/g185_e_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm188repro/grid188/g188_a_shapes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm188repro/grid188/g188_b_scopes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm188repro/grid188/g188_c_order.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm188repro/probe0.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v138repro/v4_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v154repro/v154_c_muststay.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v188repro/arms/v188_a_render.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v188repro/arms/v188_b_lits.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v188repro/arms/v188_c_bases.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v188repro/arms/v188_d_scopes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v188repro/arms/v188_e_edge.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v188repro/arms/v188_f_fold.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v66repro/v5_odd66.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+ATTRIBUTION OF THE 5 ARMS THE LAW REALLY MOVES — against a REAL Surelog golden each,
+scored on the JUDGED fields (VpiDecompile + VpiSize) as well as the full census.
+IDENTICAL for the implementer's binary and the verifier's fix:
+  r10earl66repro/g2_enc66.sv              TO-GOLDEN 2  AWAY 0  CHANGED-STILL-WRONG 0
+  r10uvm138repro/g138_b_kinds.sv          TO-GOLDEN 2  AWAY 0  CHANGED-STILL-WRONG 0
+  r10v138repro/v4_kinds.sv                TO-GOLDEN 2  AWAY 0  CHANGED-STILL-WRONG 0
+  r10v154repro/v154_c_muststay.sv         TO-GOLDEN 2  AWAY 0  CHANGED-STILL-WRONG 0
+  r10v66repro/v5_odd66.sv                 TO-GOLDEN 2  AWAY 0  CHANGED-STILL-WRONG 0
+
+THE 3 ARMS THAT MOVE ON AN ADDRESS NEITHER PATCH WROTE — R2 REPRODUCED INDEPENDENTLY.
+r10buvm22repro/g22.sv, r10uvm154repro/l154_noenum.sv, r10uvm185repro/grid185/g185_e_kinds.sv
+Their ENTIRE path-normalised dump diff is one number on an associative dimension's range:
+  - |vpiDecompile:22613753   (0x1590EF9)
+  + |vpiDecompile:22621945   (0x1592EF9)
+readelf -hW says both binaries are Type: EXEC (NON-PIE), and readelf -SW puts both
+values at the SAME offset 0x14B9 inside .bss:
+  pristine .bss 0x158fa40   22613753 - 0x158fa40 = 0x14b9
+  fixed    .bss 0x1591a40   22621945 - 0x1591a40 = 0x14b9   (.bss moved by exactly 0x2000)
+We are writing the STATIC ADDRESS of a .bss object into the database.  Pre-existing,
+zero corpus rows, and it will make EVERY boundary gate in this campaign report spurious
+movers on any patch that grows the binary by a page.
+
+THE BRIEF'S "MUST STAY" FAMILIES — A SECOND, TARGETED GATE
+Every .sv/.v under r10uvm187repro, r10v187repro (§ pkgScalarTdParamDefDefer187),
+r10uvm185repro + r10v185repro (the prototype arms and BOTH inheritance fences),
+r10uvm170repro + r10v170repro (arms + both fences), r10earl110/111/112/113repro
+(the render and size arms), r10buvm14repro (the prettyPrint SPACING arm) and
+r10uvm181/182/183/184repro, compiled in BOTH views with the pristine and the
+FIXED binary and compared BYTE FOR BYTE:
+
+  listed=78  produced_db=77  MOVED=1
+
+The one mover is r10uvm185repro/grid185/g185_e_kinds.sv — the .bss ADDRESS arm
+above, whose whole diff is that one number.  (r10v185repro/arms185v/v185_j_order.sv
+is the arm that produces NO database with either binary; a first cut of this
+gate compared two missing files and read that as a mover, which is exactly the
+trap bound188.sh's `[ -f o.uhdm ] || [ -f q.uhdm ]` guard exists to avoid.)
+
+goldens/EnumConcat and the enum family: tests/check_goldens.sh 23 PASS / 0 FAIL
+with the fixed binary (enum_simple, enum_values among them), and the EnumConcat
+canary row is byte-identical (CMP_EQUAL/differ) in the pristine and the fixed
+uhdm2rtlil sweeps.

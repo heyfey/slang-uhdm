@@ -1,0 +1,44 @@
+r10v188 — THE CORPUS-WIDE ENUM-CONSTANT CENSUS, RE-RUN BY THE VERIFIER.
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+instrument r10uvm188repro/ct188cen.cpp; driver cen188.sh; scorer score188.py.
+dirs=1573 no-golden=50 no-ours=617  golden rows=35187  our rows=8736 (all three runs)
+
+GOLDEN-VS-GOLDEN FIRST: the golden census is BYTE-IDENTICAL across all three sweeps
+  md5 415882b4eb766a6164fd7d194210237b  pristine
+  md5 415882b4eb766a6164fd7d194210237b  patched
+  md5 415882b4eb766a6164fd7d194210237b  fixed
+  -> the LHS did not move; every verdict below is about OUR side alone.
+
+PATCHED (68c7dfe9) vs pristine:
+-- CELLS=34910  MATCH-KEPT=7777  TO-GOLDEN=6  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=862  ONE-SIDED-KEY=26265
+VERDICT: PASS
+
+FIXED (5b4e62c7) vs pristine:
+-- CELLS=34910  MATCH-KEPT=7777  TO-GOLDEN=6  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=862  ONE-SIDED-KEY=26265
+VERDICT: PASS
+
+The two are IDENTICAL, which is expected: byteverify says the ONLY corpus databases the
+law touches are BuildUVMPkg default+testflags, and those two are BYTE-IDENTICAL between
+the implementer's binary and the fix (md5 b5719076f044 in both).  The fix's correction
+is to the FOLDED listing's VpiSize on a - * / or shift-bearing shape, and BuildUVMPkg's
+moved constants are all pure shifts, which both rules size at 64.
+
+THE SIX TO-GOLDEN CELLS:
+TO-GOLDEN	default/BuildUVMPkg-bf853d43|enum_typespec|uvm_pkg::uvm_recursion_policy_enum|UVM_DEEP|7932:3-7932:31
+    gold ['DEC=1 << 16|SZ=80|VAL=UINT:65536', 'DEC=65536|SZ=64|VAL=UINT:65536']
+    pris ['DEC=1<<16|SZ=64|VAL=INT:65536', 'DEC=65536|SZ=64|VAL=INT:65536']
+TO-GOLDEN	default/BuildUVMPkg-bf853d43|enum_typespec|uvm_pkg::uvm_recursion_policy_enum|UVM_REFERENCE|7934:3-7934:31
+    gold ['DEC=1 << 18|SZ=82|VAL=UINT:262144', 'DEC=262144|SZ=64|VAL=UINT:262144']
+    pris ['DEC=1<<18|SZ=64|VAL=INT:262144', 'DEC=262144|SZ=64|VAL=INT:262144']
+TO-GOLDEN	default/BuildUVMPkg-bf853d43|enum_typespec|uvm_pkg::uvm_recursion_policy_enum|UVM_SHALLOW|7933:3-7933:31
+    gold ['DEC=1 << 17|SZ=81|VAL=UINT:131072', 'DEC=131072|SZ=64|VAL=UINT:131072']
+    pris ['DEC=131072|SZ=64|VAL=INT:131072', 'DEC=1<<17|SZ=64|VAL=INT:131072']
+TO-GOLDEN	testflags/BuildUVMPkg-bf853d43|enum_typespec|uvm_pkg::uvm_recursion_policy_enum|UVM_DEEP|7932:3-7932:31
+    gold ['DEC=1 << 16|SZ=80|VAL=UINT:65536', 'DEC=65536|SZ=64|VAL=UINT:65536']
+    pris ['DEC=1<<16|SZ=64|VAL=INT:65536', 'DEC=65536|SZ=64|VAL=INT:65536']
+TO-GOLDEN	testflags/BuildUVMPkg-bf853d43|enum_typespec|uvm_pkg::uvm_recursion_policy_enum|UVM_REFERENCE|7934:3-7934:31
+    gold ['DEC=1 << 18|SZ=82|VAL=UINT:262144', 'DEC=262144|SZ=64|VAL=UINT:262144']
+    pris ['DEC=1<<18|SZ=64|VAL=INT:262144', 'DEC=262144|SZ=64|VAL=INT:262144']
+TO-GOLDEN	testflags/BuildUVMPkg-bf853d43|enum_typespec|uvm_pkg::uvm_recursion_policy_enum|UVM_SHALLOW|7933:3-7933:31
+    gold ['DEC=1 << 17|SZ=81|VAL=UINT:131072', 'DEC=131072|SZ=64|VAL=UINT:131072']
+    pris ['DEC=131072|SZ=64|VAL=INT:131072', 'DEC=1<<17|SZ=64|VAL=INT:131072']

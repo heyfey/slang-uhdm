@@ -1,0 +1,28 @@
+r10uvm188 — THE CORPUS ENUM-CONSTANT CENSUS (golden x pristine x patched).
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+1573 test directories (surelog corpus, both modes); 50 carried no golden
+database and 617 none of ours (SLANG_REJECT etc.) — both counted, neither
+silently skipped.  The GOLDEN census is BYTE-IDENTICAL between the pristine
+and the patched run (35187 rows): the LHS did not move.
+u2r is not censused here because byteverify proved 0 movers over all 1358.
+
+TO-GOLDEN	default/BuildUVMPkg-bf853d43|enum_typespec|uvm_pkg::uvm_recursion_policy_enum|UVM_DEEP|7932:3-7932:31
+    gold ['DEC=1 << 16|SZ=80|VAL=UINT:65536', 'DEC=65536|SZ=64|VAL=UINT:65536']
+    pris ['DEC=1<<16|SZ=64|VAL=INT:65536', 'DEC=65536|SZ=64|VAL=INT:65536']
+TO-GOLDEN	default/BuildUVMPkg-bf853d43|enum_typespec|uvm_pkg::uvm_recursion_policy_enum|UVM_REFERENCE|7934:3-7934:31
+    gold ['DEC=1 << 18|SZ=82|VAL=UINT:262144', 'DEC=262144|SZ=64|VAL=UINT:262144']
+    pris ['DEC=1<<18|SZ=64|VAL=INT:262144', 'DEC=262144|SZ=64|VAL=INT:262144']
+TO-GOLDEN	default/BuildUVMPkg-bf853d43|enum_typespec|uvm_pkg::uvm_recursion_policy_enum|UVM_SHALLOW|7933:3-7933:31
+    gold ['DEC=1 << 17|SZ=81|VAL=UINT:131072', 'DEC=131072|SZ=64|VAL=UINT:131072']
+    pris ['DEC=131072|SZ=64|VAL=INT:131072', 'DEC=1<<17|SZ=64|VAL=INT:131072']
+TO-GOLDEN	testflags/BuildUVMPkg-bf853d43|enum_typespec|uvm_pkg::uvm_recursion_policy_enum|UVM_DEEP|7932:3-7932:31
+    gold ['DEC=1 << 16|SZ=80|VAL=UINT:65536', 'DEC=65536|SZ=64|VAL=UINT:65536']
+    pris ['DEC=1<<16|SZ=64|VAL=INT:65536', 'DEC=65536|SZ=64|VAL=INT:65536']
+TO-GOLDEN	testflags/BuildUVMPkg-bf853d43|enum_typespec|uvm_pkg::uvm_recursion_policy_enum|UVM_REFERENCE|7934:3-7934:31
+    gold ['DEC=1 << 18|SZ=82|VAL=UINT:262144', 'DEC=262144|SZ=64|VAL=UINT:262144']
+    pris ['DEC=1<<18|SZ=64|VAL=INT:262144', 'DEC=262144|SZ=64|VAL=INT:262144']
+TO-GOLDEN	testflags/BuildUVMPkg-bf853d43|enum_typespec|uvm_pkg::uvm_recursion_policy_enum|UVM_SHALLOW|7933:3-7933:31
+    gold ['DEC=1 << 17|SZ=81|VAL=UINT:131072', 'DEC=131072|SZ=64|VAL=UINT:131072']
+    pris ['DEC=131072|SZ=64|VAL=INT:131072', 'DEC=1<<17|SZ=64|VAL=INT:131072']
+-- CELLS=34910  MATCH-KEPT=7777  TO-GOLDEN=6  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=862  ONE-SIDED-KEY=26265
+VERDICT: PASS

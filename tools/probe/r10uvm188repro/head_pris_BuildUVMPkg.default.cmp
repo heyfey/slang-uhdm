@@ -1,0 +1,36 @@
+LHS:
+decompile:
+enum_const: (UVM_DEEP), id:61526, line:7932:3, endln:7932:31
+|vpiParent:
+\_enum_typespec: (uvm_pkg::uvm_recursion_policy_enum), id:61515, line:21584:51, endln:21584:76
+|vpiName:UVM_DEEP
+|UINT:65536
+|vpiDecompile:1 << 16
+|vpiSize:80
+
+decompile:
+enum_const: (UVM_DEEP), id:61526, line:7932:3, endln:7932:31
+|vpiParent:
+\_enum_typespec: (uvm_pkg::uvm_recursion_policy_enum), id:61515, line:21584:51, endln:21584:76
+|vpiName:UVM_DEEP
+|UINT:65536
+|vpiDecompile:1 << 16
+|vpiSize:80
+RHS:
+decompile:
+enum_const: (UVM_DEEP), id:293, line:7932:3, endln:7932:31
+|vpiParent:
+\_enum_typespec: (uvm_pkg::uvm_recursion_policy_enum), id:288, line:7930:1, endln:7935:30
+|vpiName:UVM_DEEP
+|INT:65536
+|vpiDecompile:1<<16
+|vpiSize:64
+
+decompile:
+enum_const: (UVM_DEEP), id:293, line:7932:3, endln:7932:31
+|vpiParent:
+\_enum_typespec: (uvm_pkg::uvm_recursion_policy_enum), id:288, line:7930:1, endln:7935:30
+|vpiName:UVM_DEEP
+|INT:65536
+|vpiDecompile:1<<16
+|vpiSize:64

@@ -1,0 +1,15 @@
+PREDICTED MOVERS (enum constants the law renders)
+  MOVE  BuildUVMPkg  UVM_DEEP = 1<<16   x2
+  MOVE  BuildUVMPkg  UVM_REFERENCE = 1<<18   x2
+  MOVE  BuildUVMPkg  UVM_SHALLOW = 1<<17   x2
+ABSTAIN (an operator, but a shape outside the law)
+-- predicted-move rows=6  abstain rows=0
+
+-- the uhdm2rtlil corpus, the same predictor:
+PREDICTED MOVERS (enum constants the law renders)
+ABSTAIN (an operator, but a shape outside the law)
+-- predicted-move rows=0  abstain rows=0
+
+-- OBSERVED after the patched sweeps: byteverify MOVERS 2/956 surelog
+   (BuildUVMPkg default + testflags) and 0/1358 uhdm2rtlil.  The predicted
+   set and the observed set are the SAME two databases.

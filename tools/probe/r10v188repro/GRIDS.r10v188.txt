@@ -1,0 +1,79 @@
+r10v188 — THE ADVERSARIAL ARMS.  MEASUREMENT ONLY; the official uhdm-cmp is the judge.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.  One REAL Surelog golden per arm,
+built by r10uvm188repro/grid188.sh in BOTH views with every rc recorded.
+
+Two scorers are run on every arm:
+  score188.py        — DEC + SZ + VAL   (the implementer's; VAL is DUMP-ONLY)
+  scorejudged188.py  — DEC + SZ only    (the fields enum_const::Compare + expr::Compare
+                        actually read: ~/git-repos/UHDM/build/generated/src/{enum_const,expr}.cpp)
+
+===================== PATCHED (implementer, 68c7dfe9) vs pristine =====================
+a_render         full : -- CELLS=50  MATCH-KEPT=10  TO-GOLDEN=36  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=4 VERDICT: PASS 
+a_render         judged: -- JUDGED-FIELDS CELLS=50  MATCH-KEPT=26  TO-GOLDEN=20  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=4 VERDICT: PASS 
+b_lits           full : -- CELLS=46  MATCH-KEPT=14  TO-GOLDEN=20  AWAY-GOLDEN=2  CHANGED-STILL-WRONG=4  WRONG-KEPT=6  ONE-SIDED-KEY=0 VERDICT: FAIL 
+b_lits           judged: -- JUDGED-FIELDS CELLS=46  MATCH-KEPT=38  TO-GOLDEN=6  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=2  ONE-SIDED-KEY=0 VERDICT: PASS 
+c_bases          full : -- CELLS=130  MATCH-KEPT=10  TO-GOLDEN=120  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0 VERDICT: PASS 
+c_bases          judged: -- JUDGED-FIELDS CELLS=130  MATCH-KEPT=26  TO-GOLDEN=104  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0 VERDICT: PASS 
+d_scopes         full : -- CELLS=64  MATCH-KEPT=12  TO-GOLDEN=36  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=4  ONE-SIDED-KEY=12 VERDICT: PASS 
+d_scopes         judged: -- JUDGED-FIELDS CELLS=64  MATCH-KEPT=36  TO-GOLDEN=16  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=12 VERDICT: PASS 
+e_edge           full : -- CELLS=50  MATCH-KEPT=10  TO-GOLDEN=34  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=4  WRONG-KEPT=2  ONE-SIDED-KEY=0 VERDICT: FAIL 
+e_edge           judged: -- JUDGED-FIELDS CELLS=50  MATCH-KEPT=10  TO-GOLDEN=34  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=4  WRONG-KEPT=2  ONE-SIDED-KEY=0 VERDICT: FAIL 
+f_fold           full : -- CELLS=42  MATCH-KEPT=10  TO-GOLDEN=10  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=22  WRONG-KEPT=0  ONE-SIDED-KEY=0 VERDICT: FAIL 
+f_fold           judged: -- JUDGED-FIELDS CELLS=42  MATCH-KEPT=12  TO-GOLDEN=8  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=22  WRONG-KEPT=0  ONE-SIDED-KEY=0 VERDICT: FAIL 
+g188_a_shapes    full : -- CELLS=88  MATCH-KEPT=28  TO-GOLDEN=60  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0 VERDICT: PASS 
+g188_a_shapes    judged: -- JUDGED-FIELDS CELLS=88  MATCH-KEPT=44  TO-GOLDEN=44  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0 VERDICT: PASS 
+g188_b_scopes    full : -- CELLS=34  MATCH-KEPT=18  TO-GOLDEN=16  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0 VERDICT: PASS 
+g188_b_scopes    judged: -- JUDGED-FIELDS CELLS=34  MATCH-KEPT=26  TO-GOLDEN=8  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0 VERDICT: PASS 
+g188_c_order     full : -- CELLS=52  MATCH-KEPT=16  TO-GOLDEN=36  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0 VERDICT: PASS 
+g188_c_order     judged: -- JUDGED-FIELDS CELLS=52  MATCH-KEPT=26  TO-GOLDEN=26  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0 VERDICT: PASS 
+probe0           full : -- CELLS=18  MATCH-KEPT=12  TO-GOLDEN=6  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0 VERDICT: PASS 
+probe0           judged: -- JUDGED-FIELDS CELLS=18  MATCH-KEPT=12  TO-GOLDEN=6  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0 VERDICT: PASS 
+v188_g_macro     full : -- CELLS=30  MATCH-KEPT=10  TO-GOLDEN=10  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=2  WRONG-KEPT=4  ONE-SIDED-KEY=4 VERDICT: FAIL 
+v188_g_macro     judged: -- JUDGED-FIELDS CELLS=30  MATCH-KEPT=10  TO-GOLDEN=12  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=4  ONE-SIDED-KEY=4 VERDICT: PASS 
+
+===================== FIXED (verifier, 5b4e62c7) vs pristine =====================
+g188_a_shapes    full : -- CELLS=88  MATCH-KEPT=28  TO-GOLDEN=60  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0 VERDICT: PASS 
+g188_a_shapes    judged: -- JUDGED-FIELDS CELLS=88  MATCH-KEPT=44  TO-GOLDEN=44  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0 VERDICT: PASS 
+g188_b_scopes    full : -- CELLS=34  MATCH-KEPT=18  TO-GOLDEN=16  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0 VERDICT: PASS 
+g188_b_scopes    judged: -- JUDGED-FIELDS CELLS=34  MATCH-KEPT=26  TO-GOLDEN=8  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0 VERDICT: PASS 
+g188_c_order     full : -- CELLS=52  MATCH-KEPT=16  TO-GOLDEN=36  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0 VERDICT: PASS 
+g188_c_order     judged: -- JUDGED-FIELDS CELLS=52  MATCH-KEPT=26  TO-GOLDEN=26  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0 VERDICT: PASS 
+probe0           full : -- CELLS=18  MATCH-KEPT=12  TO-GOLDEN=6  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0 VERDICT: PASS 
+probe0           judged: -- JUDGED-FIELDS CELLS=18  MATCH-KEPT=12  TO-GOLDEN=6  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0 VERDICT: PASS 
+v188_a_render    full : -- CELLS=50  MATCH-KEPT=10  TO-GOLDEN=36  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=4 VERDICT: PASS 
+v188_a_render    judged: -- JUDGED-FIELDS CELLS=50  MATCH-KEPT=26  TO-GOLDEN=20  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=4 VERDICT: PASS 
+v188_b_lits      full : -- CELLS=46  MATCH-KEPT=14  TO-GOLDEN=20  AWAY-GOLDEN=2  CHANGED-STILL-WRONG=4  WRONG-KEPT=6  ONE-SIDED-KEY=0 VERDICT: FAIL 
+v188_b_lits      judged: -- JUDGED-FIELDS CELLS=46  MATCH-KEPT=38  TO-GOLDEN=6  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=2  ONE-SIDED-KEY=0 VERDICT: PASS 
+v188_c_bases     full : -- CELLS=130  MATCH-KEPT=10  TO-GOLDEN=120  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0 VERDICT: PASS 
+v188_c_bases     judged: -- JUDGED-FIELDS CELLS=130  MATCH-KEPT=26  TO-GOLDEN=104  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0 VERDICT: PASS 
+v188_d_scopes    full : -- CELLS=64  MATCH-KEPT=12  TO-GOLDEN=36  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=4  ONE-SIDED-KEY=12 VERDICT: PASS 
+v188_d_scopes    judged: -- JUDGED-FIELDS CELLS=64  MATCH-KEPT=36  TO-GOLDEN=16  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=12 VERDICT: PASS 
+v188_e_edge      full : -- CELLS=50  MATCH-KEPT=10  TO-GOLDEN=38  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=2  ONE-SIDED-KEY=0 VERDICT: PASS 
+v188_e_edge      judged: -- JUDGED-FIELDS CELLS=50  MATCH-KEPT=10  TO-GOLDEN=38  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=2  ONE-SIDED-KEY=0 VERDICT: PASS 
+v188_f_fold      full : -- CELLS=42  MATCH-KEPT=10  TO-GOLDEN=32  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0 VERDICT: PASS 
+v188_f_fold      judged: -- JUDGED-FIELDS CELLS=42  MATCH-KEPT=12  TO-GOLDEN=30  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0 VERDICT: PASS 
+v188_g_macro     full : -- CELLS=30  MATCH-KEPT=10  TO-GOLDEN=10  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=2  WRONG-KEPT=4  ONE-SIDED-KEY=4 VERDICT: FAIL 
+v188_g_macro     judged: -- JUDGED-FIELDS CELLS=30  MATCH-KEPT=10  TO-GOLDEN=12  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=4  ONE-SIDED-KEY=4 VERDICT: PASS 
+
+===================== arms/v188_h_negsize.sv — A MEASURED, UNTAKEN RESIDUE =====================
+The patch ABSTAINS when the modelled size goes below zero (`a188.size >= 0`),
+because that case was Surelog-reachable but unmeasured.  It is now measured, on
+one real Surelog golden, seven right shifts each in its own typedef (a shift past
+the left operand's width always evaluates to 0, and an enum's members must differ):
+
+  shape          golden DEF SZ   golden FOLDED SZ   ours (fix)
+  8'hFF >> 9         -1                64            abstains -> 64 / DEC empty
+  8'hF0 >> 10        -2                64            abstains -> 64 / DEC empty
+  8'hE0 >> 12        -4                64            abstains -> 64 / DEC empty
+  4'h8  >> 12        -8                64            abstains -> 64 / DEC empty
+  4'h8  >> 5         -1                64            abstains -> 64 / DEC empty
+  8'hFF >> 8          0                64            MATCHES golden exactly
+  8'hFE >> 7          1                64            MATCHES golden exactly
+
+Golden publishes the RAW negative number, not a clamp and not the unsized marker.
+Dropping the guard would take 10 more cells TO-GOLDEN with no rule change at all.
+The verifier deliberately did NOT take them: the brief's fix mandate is
+pristine-right -> patched-wrong, this is pristine-wrong -> patched-wrong, the
+corpus population is ZERO (byteverify: the only moved databases are BuildUVMPkg
+x2, whose shapes are all `1 << N`), and an unmeasured widening is exactly what
+produced the defect in § 2.  Handed forward with its numbers instead.

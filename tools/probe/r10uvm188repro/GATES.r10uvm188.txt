@@ -1,0 +1,73 @@
+r10uvm188 — THE GATE BATTERY.  MEASUREMENT ONLY where it is not the official
+judge; `uhdm-cmp` and `scripts/verify_golden.py` ARE the judges below.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+BASE                4bf4d571
+pristine binary     md5 b15c4f042d5928e133f3bde9806352c4 — built from this pass's OWN
+                    worktree at a clean 4bf4d571, BYTE-IDENTICAL to the main tree's
+                    own binary at that commit, frozen chmod 555 before any sweep
+patched binary      md5 68c7dfe93c50cdb63be7e224a1c935f0, frozen chmod 555
+GOLDEN_DEFER        unset throughout
+results/*.csv       READ ONLY; nothing promoted, NO CORPUS ROW CONVERTED
+fenced four tests   never dispatched; named only inside canaudit.sh's own fence list
+
+(1) BUILD
+    both binaries built -j 2, md5s taken separately (above)
+    DELIVERABLE CHECK: the patch applied to a FRESH worktree at 4bf4d571 and built
+    there reproduces the patched binary BYTE FOR BYTE (68c7dfe93c50cdb63be7e224a1c935f0),
+    so the deliverable is complete — nothing measured here lives outside it.
+
+(2) GOLDENS
+    SLANG_UHDM=<patched> tests/check_goldens.sh   PASS=23  FAIL=0
+    SLANG_UHDM=/bin/false tests/check_goldens.sh  FAIL=23   (negative control)
+
+(3) uhdm2rtlil, testflags AND default
+    cmds.txt audit: 1458 invocations of the frozen binary, 0 of build/slang-uhdm
+    ct8rows results/gate_uhdm2rtlil.csv  vs patched tf   PASS (0 differing rows)
+    ct8rows own pristine tf              vs patched tf   PASS
+    ct8rows own pristine default         vs patched def  PASS
+    byteverify SELFCHECK=1  MOVERS 0 / 1358, PATH_SETS_IDENTICAL, selfcheck 1357/1358
+
+(4) surelog corpus, --mode both
+    cmds.txt audit: 1523 invocations of the frozen binary, 0 of build/slang-uhdm
+    ct8rows results/golden_surelog.csv vs patched   PASS (0 differing rows over 1588)
+    ct8rows own pristine               vs patched   PASS
+    status histogram IDENTICAL to the pristine sweep, both modes, every bucket
+      default   CMP_EQUAL 471  CMP_NOTEQUAL 10  DEFERRED 5  SLANG_REJECT 283  SURELOG_FAIL 25
+      testflags CMP_EQUAL 466  CMP_NOTEQUAL  9  DEFERRED 5  SLANG_REJECT 284  SURELOG_FAIL 23
+                NO_DATABASE 3  NO_UHDM 1  TIMEOUT 1  UNTRANSLATABLE 2
+    NO ROW CONVERTED — BuildUVMPkg stays CMP_NOTEQUAL with a NEW head (§6)
+
+(5) BYTE MOVERS, surelog
+    byteverify SELFCHECK=1  MOVERS 2 / 956, PATH_SETS_IDENTICAL, selfcheck 955/956
+      MOVER ./default/BuildUVMPkg-bf853d43/slang.uhdm    3e9b187f5f57 -> b5719076f044
+      MOVER ./testflags/BuildUVMPkg-bf853d43/slang.uhdm  3e9b187f5f57 -> b5719076f044
+    BOTH were PREDICTED BY NAME from PRISTINE databases alone before the patched
+    sweep ran (predict188.sh: 6 rows, all BuildUVMPkg; u2r 0 rows) — see
+    PREDICT.r10uvm188.txt.  Nothing else moved, so no coin had to be attributed.
+
+(6) HEAD SET (rowheads.sh, seven named rows, both modes)
+    cmp log md5, pristine -> patched
+      BuildUVMPkg default    7f92233e04ae -> 492bbfad6a5e   36 -> 33 lines, 1 head
+      BuildUVMPkg testflags  7f92233e04ae -> 492bbfad6a5e   36 -> 33 lines, 1 head
+      SeqDriver def/tf, SimpleUVM def/tf, Scoreboard def, MiniAmiq def/tf,
+      Earlgrey_0_1 def/tf, Rggen def:  BYTE-IDENTICAL between the two binaries
+    (SKIP-NOFILE on Scoreboard/testflags and Rggen/testflags is expected and counted)
+
+(7) WIDE BOUNDARY
+    bound188.sh over a COPY of the whole tools/probe tree
+    LISTED=5071 PROCESSED=5071 PRODUCED_DBS=4911 MOVED_ARMS=12 RC_DIFFS=0
+    4 movers are this pass's own arms (the POSITIVE CONTROL), 5 move TO-GOLDEN 2 /
+    AWAY 0 each against a real Surelog golden, 3 move ONLY on a .bss ADDRESS this
+    pass did not write (BOUNDARY.r10uvm188.txt § attribution, residue R2).
+
+(8) CANARIES
+    canaries.sh surelog     ok=52 changed=0 absent=0
+    canaries.sh uhdm2rtlil  ok=8  changed=0 absent=0
+    EXPECT_UNKNOWN=1 ctcan2.sh surelog     PASS
+    EXPECT_UNKNOWN=6 ctcan2.sh uhdm2rtlil  PASS
+    canaudit.sh canaries.sh ctcan2.sh      audited=29 UNCOVERED=0 FENCE-BREACH=0  PASS
+    protected databases, pristine vs patched md5 (both modes):
+      InterfaceModPort 59a365f3ce2c SAME    BlackParrotComplex def e3e354129d5a / tf 73a10e8217e5 SAME
+      YosysOldOr d68e0796d62c SAME          SVSwitch 4842211c4030 (pinned)
+      YosysVerx 6ccda350c24a (pinned)

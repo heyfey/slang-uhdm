@@ -1,0 +1,40 @@
+r10uvm188 — GRIDS.  MEASUREMENT ONLY; the official uhdm-cmp is the judge.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+Each arm builds ONE REAL SURELOG GOLDEN (-parse -nocache -d coveruhdm, and
+again with -elabuhdm) plus both binaries' databases in both views; every rc
+is recorded in the arm's own cmds.txt.
+pristine b15c4f042d5928e133f3bde9806352c4 / patched 68c7dfe93c50cdb63be7e224a1c935f0
+
+=== probe0.sv — the head's own shape, different names/case/numbers
+cmp rc=255 a def lines=33 heads=1
+cmp rc=255 b def lines=33 heads=1
+cmp rc=255 a elab lines=36 heads=1
+cmp rc=255 b elab lines=28 heads=1
+-- CELLS=18  MATCH-KEPT=12  TO-GOLDEN=6  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0
+VERDICT: PASS
+
+=== grid188/g188_a_shapes.sv — 13 initialiser shapes x 3 bases
+cmp rc=255 a def lines=36 heads=1
+cmp rc=255 b def lines=33 heads=1
+cmp rc=255 a elab lines=36 heads=1
+cmp rc=255 b elab lines=28 heads=1
+-- CELLS=88  MATCH-KEPT=28  TO-GOLDEN=60  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0
+VERDICT: PASS
+
+=== grid188/g188_b_scopes.sv — 3 shapes x 5 homes
+cmp rc=255 a def lines=36 heads=1
+cmp rc=0 b def lines=0 heads=0
+cmp rc=255 a elab lines=36 heads=1
+cmp rc=0 b elab lines=0 heads=0
+-- CELLS=34  MATCH-KEPT=18  TO-GOLDEN=16  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0
+VERDICT: PASS
+
+=== grid188/g188_c_order.sv — order/case/space/parens/magnitude/unsized-based
+cmp rc=255 a def lines=36 heads=1
+cmp rc=255 b def lines=28 heads=1
+cmp rc=255 a elab lines=36 heads=1
+cmp rc=255 b elab lines=28 heads=1
+-- CELLS=52  MATCH-KEPT=16  TO-GOLDEN=36  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=0  ONE-SIDED-KEY=0
+VERDICT: PASS
+
+TOTAL over the four arms: CELLS 192  MATCH-KEPT 74  TO-GOLDEN 118  AWAY-GOLDEN 0  CHANGED-STILL-WRONG 0  WRONG-KEPT 0

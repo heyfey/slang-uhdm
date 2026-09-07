@@ -1,0 +1,85 @@
+r10uvm188 — THE WIDE BOUNDARY GATE.  MEASUREMENT ONLY.
+Run from a COPY of the whole tools/probe tree so no path filter can hide an
+arm; children get </dev/null, the file list is read on fd 3, scratch is keyed
+on the RELATIVE path, and PROCESSED is asserted against LISTED.
+pristine b15c4f042d5928e133f3bde9806352c4 / patched 68c7dfe93c50cdb63be7e224a1c935f0
+
+LISTED=5071 PROCESSED=5071 PRODUCED_DBS=4911 MOVED_ARMS=12 RC_DIFFS=0
+
+THE MOVED ARMS:
+r10buvm22repro/g22.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10earl66repro/g2_enc66.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm138repro/g138_b_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm154repro/l154_noenum.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm185repro/grid185/g185_e_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm188repro/grid188/g188_a_shapes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm188repro/grid188/g188_b_scopes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm188repro/grid188/g188_c_order.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm188repro/probe0.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v138repro/v4_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v154repro/v154_c_muststay.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v66repro/v5_odd66.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+ATTRIBUTION — every one, against a REAL Surelog golden built per arm:
+  4 arms are THIS PASS'S OWN (probe0.sv, grid188/g188_{a,b,c}_*.sv) — the
+    POSITIVE CONTROL: a gate that moved none of them could not see.
+  5 arms this law really moved, each TO-GOLDEN 2 / AWAY-GOLDEN 0 /
+    CHANGED-STILL-WRONG 0 on the enum-constant census:
+      r10earl66repro/g2_enc66.sv
+        cmp rc=255 a def lines=36 heads=1
+        cmp rc=255 b def lines=36 heads=1
+        cmp rc=255 a elab lines=36 heads=1
+        cmp rc=255 b elab lines=36 heads=1
+        -- CELLS=26  MATCH-KEPT=20  TO-GOLDEN=2  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=4  ONE-SIDED-KEY=0
+        VERDICT: PASS
+      r10uvm138repro/g138_b_kinds.sv
+        cmp rc=255 a def lines=36 heads=1
+        cmp rc=255 b def lines=36 heads=1
+        cmp rc=255 a elab lines=36 heads=1
+        cmp rc=255 b elab lines=36 heads=1
+        -- CELLS=98  MATCH-KEPT=82  TO-GOLDEN=2  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=10  ONE-SIDED-KEY=4
+        VERDICT: PASS
+      r10v138repro/v4_kinds.sv
+        cmp rc=255 a def lines=36 heads=1
+        cmp rc=255 b def lines=36 heads=1
+        cmp rc=255 a elab lines=36 heads=1
+        cmp rc=255 b elab lines=36 heads=1
+        -- CELLS=84  MATCH-KEPT=64  TO-GOLDEN=2  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=10  ONE-SIDED-KEY=8
+        VERDICT: PASS
+      r10v154repro/v154_c_muststay.sv
+        cmp rc=255 a def lines=36 heads=1
+        cmp rc=255 b def lines=36 heads=1
+        cmp rc=255 a elab lines=36 heads=1
+        cmp rc=255 b elab lines=36 heads=1
+        -- CELLS=60  MATCH-KEPT=38  TO-GOLDEN=2  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=20  ONE-SIDED-KEY=0
+        VERDICT: PASS
+      r10v66repro/v5_odd66.sv
+        cmp rc=255 a def lines=34 heads=1
+        cmp rc=255 b def lines=36 heads=1
+        cmp rc=255 a elab lines=34 heads=1
+        cmp rc=255 b elab lines=36 heads=1
+        -- CELLS=28  MATCH-KEPT=22  TO-GOLDEN=2  AWAY-GOLDEN=0  CHANGED-STILL-WRONG=0  WRONG-KEPT=4  ONE-SIDED-KEY=0
+        VERDICT: PASS
+    (g138_b_kinds's head ADVANCES BA_A -> BA_B and v5_odd66's EE -> LL, which
+     is why two cmp logs got LONGER: a cmp line count is the head object's
+     decompile size, not a distance.)
+
+  3 arms moved on an ADDRESS THIS PASS DID NOT WRITE — g22.sv, l154_noenum.sv
+    and grid185/g185_e_kinds.sv have ZERO enum-constant census movement and
+    their entire dump diff is ONE number, on the range of an ASSOCIATIVE
+    dimension (typedef C22 ka_cls_t[string];):
+        - |vpiDecompile:22613753   (0x1590EF9)
+        + |vpiDecompile:22621945   (0x1592EF9)
+    The binaries are NON-PIE (ELF ... executable, not 'pie executable'), and
+    readelf -SW puts both values at the SAME OFFSET 0x14B9 inside .bss:
+        pristine .bss 0x158FA40   0x1590EF9 - 0x158FA40 = 0x14B9
+        patched  .bss 0x1591A40   0x1592EF9 - 0x1591A40 = 0x14B9
+    .bss moved by exactly one page because .rodata/.eh_frame grew.  The value
+    is the STATIC ADDRESS of a .bss object leaking into the database — a
+    pre-existing latent defect on a construct this law cannot reach, which
+    ANY patch large enough to move a page would shift.  Residue R2.
+    (A comment-only NULL EDIT was built first and produced a BYTE-IDENTICAL
+     binary, md5 b15c4f042d5928e133f3bde9806352c4, so it could not decide the
+     question; the ELF section arithmetic did.)
+
+RC_DIFFS=0 — no arm's exit status moved on either binary, in either view.
