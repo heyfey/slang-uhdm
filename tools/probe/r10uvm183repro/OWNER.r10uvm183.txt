@@ -1,0 +1,53 @@
+design::Compare r=3371
+HEAD LHS(golden) = unsupported_typespec(arg)@uvm_misc.svh:622:11-622:14#120949
+HEAD RHS(ours)   = string_typespec()@:614:42-614:48#182950
+  golden owner chain:
+      < ref_typespec()@:0:0-0:0#120948
+      < ref_var(arg)@uvm_misc.svh:622:11-622:14#120947
+      < foreach_stmt()@uvm_misc.svh:622:3-622:10#120946
+      < begin()@uvm_misc.svh:618:3-619:14#120920
+      < function(uvm_has_wildcard)@uvm_misc.svh:614:1-626:12#120916
+      < package(svaunit_pkg)@svaunit_pkg.sv:24:1-73:11#325
+      < design(unnamed)@:0:0-0:0#339431
+  ours   owner chain:
+      < <no parent>
+golden head scope: package(svaunit_pkg)@svaunit_pkg.sv:24:1-73:11#325
+ours   head scope: <no scope>
+  GOLDEN referrers of unsupported_typespec(arg)@uvm_misc.svh:622:11-622:14#120949:
+      REF .Actual_typespec      rel1      ref_typespec()@:0:0-0:0#120948
+           owner chain:
+      < ref_var(arg)@uvm_misc.svh:622:11-622:14#120947
+      < foreach_stmt()@uvm_misc.svh:622:3-622:10#120946
+      < begin()@uvm_misc.svh:618:3-619:14#120920
+      < function(uvm_has_wildcard)@uvm_misc.svh:614:1-626:12#120916
+      < package(svaunit_pkg)@svaunit_pkg.sv:24:1-73:11#325
+      < design(unnamed)@:0:0-0:0#339431
+      REFERRERS=1
+  OURS   referrers of string_typespec()@:614:42-614:48#182950:
+      REF .Actual_typespec      rel1      ref_typespec()@:0:0-0:0#182949
+           owner chain:
+      < io_decl(arg)@:614:49-614:52#182948
+      < function(uvm_has_wildcard)@:614:1-626:12#182944
+      < package(svaunit_pkg)@svaunit_pkg.sv:24:1-73:11#181518
+      < design(unnamed)@:0:0-0:0#1
+      REF .Actual_typespec      rel1      ref_typespec()@:0:0-0:0#182979
+           owner chain:
+      < ref_var(arg)@:622:11-622:14#182978
+      < foreach_stmt()@:622:3-622:10#182977
+      < begin()@:618:3-619:14#182951
+      < function(uvm_has_wildcard)@:614:1-626:12#182944
+      < package(svaunit_pkg)@svaunit_pkg.sv:24:1-73:11#181518
+      < design(unnamed)@:0:0-0:0#1
+      REFERRERS=2
+  GOLDEN-SHARERS referrers of unsupported_typespec(arg)@uvm_misc.svh:622:11-622:14#120949:
+      REF .Actual_typespec      rel1      ref_typespec()@:0:0-0:0#120948
+      REFERRERS=1
+  OURS--SHARERS  referrers of string_typespec()@:614:42-614:48#182950:
+      REF .Actual_typespec      rel1      ref_typespec()@:0:0-0:0#182949
+      REF .Actual_typespec      rel1      ref_typespec()@:0:0-0:0#182979
+      REFERRERS=2
+ABLATION (mask the golden head only):
+  design::Compare r=1
+  NEXT LHS(golden) = func_call(max)@:0:0-0:0#126434
+  NEXT RHS(ours)   = <null>
+  VERDICT: THE HEAD MOVED (this object was the whole head)

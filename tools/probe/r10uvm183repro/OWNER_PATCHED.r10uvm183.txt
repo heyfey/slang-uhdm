@@ -1,0 +1,79 @@
+design::Compare r=1
+HEAD LHS(golden) = func_call(max)@:0:0-0:0#126434
+HEAD RHS(ours)   = <null>
+  golden owner chain:
+      < hier_path(q.max)@uvm_printer.svh:1054:12-1054:17#126431
+      < assignment()@uvm_printer.svh:1054:7-1054:17#126430
+      < begin()@uvm_printer.svh:1048:4-1060:6#126388
+      < begin()@uvm_printer.svh:1039:3-1039:22#126359
+      < function(uvm_table_printer::emit)@uvm_printer.svh:1036:1-1118:12#126340
+      < package(svaunit_pkg)@svaunit_pkg.sv:24:1-73:11#325
+      < design(unnamed)@:0:0-0:0#339431
+golden head scope: package(svaunit_pkg)@svaunit_pkg.sv:24:1-73:11#325
+ABLATION (mask the golden head only):
+  design::Compare r=1
+  NEXT LHS(golden) = func_call(max)@:0:0-0:0#126434
+  NEXT RHS(ours)   = <null>
+  VERDICT: REFUTED — the judge stopped on the same pair again
+CHAIN  0 r=1      LHS=func_call(max)@:0:0-0:0#126434
+            RHS=<null>
+CHAIN  1 r=1      LHS=func_call(max)@:0:0-0:0#126434
+            RHS=<null>
+CHAIN  2 r=1      LHS=func_call(max)@:0:0-0:0#126434
+            RHS=<null>
+CHAIN  3 r=1      LHS=func_call(max)@:0:0-0:0#126434
+            RHS=<null>
+FOREACH SITES IN SUBROUTINES MATCHING 'uvm_has_wildcard' — golden then ours:
+  ---- GOLDEN ----
+      622:3   tf=function(uvm_has_wildcard)@uvm_misc.svh:614:1-626:12#120916
+           SCOPE package(svaunit_pkg)@svaunit_pkg.sv:24:1-73:11#325
+           ARR ref_var(arg)@uvm_misc.svh:622:11-622:14#120947 TS=ref_typespec()@:0:0-0:0#120948 -> unsupported_typespec(arg)@uvm_misc.svh:622:11-622:14#120949
+           LOOPVAR ref_var(i)@uvm_misc.svh:622:15-622:16#120950 TS=ref_typespec()@:0:0-0:0#120951 -> unsupported_typespec(i)@uvm_misc.svh:622:15-622:16#120952
+      622:3   tf=function(uvm_has_wildcard)@uvm_misc.svh:614:1-626:12#185101
+           SCOPE package(svaunit_pkg)@svaunit_pkg.sv:24:1-73:11#183449
+           ARR ref_var(arg)@uvm_misc.svh:622:11-622:14#185132 TS=ref_typespec()@:0:0-0:0#185133 -> unsupported_typespec(arg)@uvm_misc.svh:622:11-622:14#185134
+           LOOPVAR ref_var(i)@uvm_misc.svh:622:15-622:16#185135 TS=ref_typespec()@:0:0-0:0#185136 -> unsupported_typespec(i)@uvm_misc.svh:622:15-622:16#185137
+      622:3   tf=function(uvm_has_wildcard)@uvm_misc.svh:614:1-626:12#463
+           SCOPE package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#1
+           ARR ref_var(arg)@uvm_misc.svh:622:11-622:14#3426 TS=ref_typespec()@:0:0-0:0#3427 -> string_typespec()@uvm_misc.svh:614:42-614:48#3396
+           LOOPVAR string_var(i)@uvm_misc.svh:622:15-622:16#339435 TS=ref_typespec()@:0:0-0:0#339436 -> string_typespec()@uvm_misc.svh:614:42-614:48#3396
+      622:3   tf=function(uvm_has_wildcard)@uvm_misc.svh:614:1-626:12#59875
+           SCOPE package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#59749
+           ARR ref_var(arg)@uvm_misc.svh:622:11-622:14#62588 TS=ref_typespec()@:0:0-0:0#62589 -> unsupported_typespec(arg)@uvm_misc.svh:622:11-622:14#62587
+           LOOPVAR ref_var(i)@uvm_misc.svh:622:15-622:16#62590 TS=ref_typespec()@:0:0-0:0#62592 -> unsupported_typespec(i)@uvm_misc.svh:622:15-622:16#62591
+  ---- OURS ----
+      622:3   tf=function(uvm_has_wildcard)@:614:1-626:12#182944
+           SCOPE package(svaunit_pkg)@svaunit_pkg.sv:24:1-73:11#181518
+           ARR ref_var(arg)@:622:11-622:14#182978 TS=ref_typespec()@:0:0-0:0#182979 -> unsupported_typespec(arg)@:622:11-622:14#182980
+           LOOPVAR ref_var(i)@:622:15-622:16#182981 TS=ref_typespec()@:0:0-0:0#182983 -> unsupported_typespec(i)@:622:15-622:16#182982
+      622:3   tf=function(uvm_has_wildcard)@:614:1-626:12#2021
+           SCOPE package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#163
+           ARR ref_var(arg)@:622:11-622:14#2055 TS=ref_typespec()@:0:0-0:0#2056 -> unsupported_typespec(arg)@:622:11-622:14#2057
+           LOOPVAR ref_var(i)@:622:15-622:16#2058 TS=ref_typespec()@:0:0-0:0#2060 -> unsupported_typespec(i)@:622:15-622:16#2059
+      622:3   tf=function(uvm_has_wildcard)@:614:1-626:12#4854
+           SCOPE package(svaunit_pkg)@svaunit_pkg.sv:24:1-73:11#3074
+           ARR ref_var(arg)@:622:11-622:14#4888 TS=ref_typespec()@:0:0-0:0#4889 -> unsupported_typespec(arg)@:622:11-622:14#4890
+           LOOPVAR ref_var(i)@:622:15-622:16#4891 TS=ref_typespec()@:0:0-0:0#4893 -> unsupported_typespec(i)@:622:15-622:16#4892
+      622:3   tf=function(uvm_has_wildcard)@:614:1-626:12#7635
+           SCOPE package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#6093
+           ARR ref_var(arg)@:622:11-622:14#7669 TS=ref_typespec()@:0:0-0:0#7670 -> string_typespec()@:614:42-614:48#7641
+           LOOPVAR string_var(i)@:622:15-622:16#7672 TS=ref_typespec()@:0:0-0:0#7673 -> string_typespec()@:614:42-614:48#7671
+IO_DECLS OF THE SAME SUBROUTINES — golden then ours:
+  ---- GOLDEN ----
+    io_decl(arg)@uvm_misc.svh:614:49-614:52#120917 TS=ref_typespec()@:0:0-0:0#120918 -> string_typespec()@uvm_misc.svh:614:42-614:48#120919
+           SCOPE package(svaunit_pkg)@svaunit_pkg.sv:24:1-73:11#325
+    io_decl(arg)@uvm_misc.svh:614:49-614:52#185102 TS=ref_typespec()@:0:0-0:0#185103 -> string_typespec()@uvm_misc.svh:614:42-614:48#185104
+           SCOPE package(svaunit_pkg)@svaunit_pkg.sv:24:1-73:11#183449
+    io_decl(arg)@uvm_misc.svh:614:49-614:52#3395 TS=ref_typespec()@:0:0-0:0#3397 -> string_typespec()@uvm_misc.svh:614:42-614:48#3396
+           SCOPE package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#1
+    io_decl(arg)@uvm_misc.svh:614:49-614:52#62557 TS=ref_typespec()@:0:0-0:0#62559 -> string_typespec()@uvm_misc.svh:614:42-614:48#62558
+           SCOPE package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#59749
+  ---- OURS ----
+    io_decl(arg)@:614:49-614:52#182948 TS=ref_typespec()@:0:0-0:0#182949 -> string_typespec()@:614:42-614:48#182950
+           SCOPE package(svaunit_pkg)@svaunit_pkg.sv:24:1-73:11#181518
+    io_decl(arg)@:614:49-614:52#2025 TS=ref_typespec()@:0:0-0:0#2026 -> string_typespec()@:614:42-614:48#2027
+           SCOPE package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#163
+    io_decl(arg)@:614:49-614:52#4858 TS=ref_typespec()@:0:0-0:0#4859 -> string_typespec()@:614:42-614:48#4860
+           SCOPE package(svaunit_pkg)@svaunit_pkg.sv:24:1-73:11#3074
+    io_decl(arg)@:614:49-614:52#7639 TS=ref_typespec()@:0:0-0:0#7640 -> string_typespec()@:614:42-614:48#7641
+           SCOPE package(uvm_pkg)@uvm_pkg.sv:28:1-39:11#6093

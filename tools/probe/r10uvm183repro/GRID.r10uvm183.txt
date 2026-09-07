@@ -1,0 +1,74 @@
+##### a_homes
+def   KIND  sites=14   TOWARD=5  agree-before-after=6  still-off=3
+def   INST  sites=14   TOWARD=6  TOWARD-PARTIAL=1  agree-before-after=7
+      TOWARD-PARTIAL 41:7 function:cnt_blk package:expl183
+          golden  {'package:hm183': 2}
+          pristine{'package:expl183': 1, '<null>': 1}
+          patched {'package:hm183': 1, '<null>': 1}
+def   CNT   count-unchanged=14
+elab  KIND  sites=20   TOWARD=5  agree-before-after=11  still-off=4
+elab  INST  sites=20   TOWARD=6  TOWARD-PARTIAL=1  agree-before-after=13
+      TOWARD-PARTIAL 41:7 function:cnt_blk package:expl183
+          golden  {'package:hm183': 4}
+          pristine{'package:expl183': 2, '<null>': 2}
+          patched {'package:hm183': 2, '<null>': 2}
+elab  CNT   count-unchanged=20
+##### b_kinds
+def   KIND  sites=16   TOWARD=8  agree-before-after=5  still-off=3
+def   INST  sites=16   TOWARD=8  agree-before-after=7  still-off=1
+def   CNT   count-unchanged=16
+elab  KIND  sites=24   TOWARD=16  agree-before-after=5  still-off=3
+elab  INST  sites=24   TOWARD=15  agree-before-after=8  still-off=1
+elab  CNT   count-unchanged=24
+##### c_window
+def   KIND  sites=8    TOWARD=4  agree-before-after=4
+def   INST  sites=8    TOWARD=4  agree-before-after=4
+def   CNT   count-unchanged=8
+elab  KIND  sites=12   TOWARD=8  agree-before-after=4
+elab  INST  sites=12   TOWARD=8  agree-before-after=4
+elab  CNT   count-unchanged=12
+##### d_noimport
+def   KIND  sites=5    agree-before-after=5
+def   INST  sites=5    agree-before-after=5
+def   CNT   count-unchanged=5
+elab  KIND  sites=6    agree-before-after=6
+elab  INST  sites=6    agree-before-after=6
+elab  CNT   count-unchanged=6
+##### e_shapes
+def   KIND  sites=9    TOWARD=1  agree-before-after=8
+def   INST  sites=9    TOWARD=2  agree-before-after=7
+def   CNT   count-unchanged=9
+elab  KIND  sites=11   TOWARD=2  agree-before-after=9
+elab  INST  sites=11   TOWARD=4  agree-before-after=7
+elab  CNT   count-unchanged=11
+##### f_param
+def   KIND  sites=8    TOWARD=1  agree-before-after=1  still-off=6
+def   INST  sites=8    TOWARD=1  TOWARD-PARTIAL=3  agree-before-after=1  still-off=3
+      TOWARD-PARTIAL 21:5 function:sum_param package:pfwild183
+          golden  {'package:pf183': 2}
+          pristine{'package:pfwild183': 1, '<null>': 1}
+          patched {'package:pf183': 1, '<null>': 1}
+      TOWARD-PARTIAL 26:5 function:sum_localparam package:pfwild183
+          golden  {'package:pf183': 2}
+          pristine{'package:pfwild183': 1, '<null>': 1}
+          patched {'package:pf183': 1, '<null>': 1}
+      TOWARD-PARTIAL 31:5 function:sum_trio package:pfwild183
+          golden  {'package:pf183': 2}
+          pristine{'package:pfwild183': 1, '<null>': 1}
+          patched {'package:pf183': 1, '<null>': 1}
+def   CNT   count-unchanged=8
+elab  KIND  sites=12   TOWARD=2  agree-before-after=1  still-off=9
+elab  INST  sites=12   TOWARD=2  TOWARD-PARTIAL=3  agree-before-after=1  still-off=6
+      TOWARD-PARTIAL 21:5 function:sum_param package:pfwild183
+          golden  {'package:pf183': 4}
+          pristine{'package:pfwild183': 2, '<null>': 2}
+          patched {'package:pf183': 2, '<null>': 2}
+      TOWARD-PARTIAL 26:5 function:sum_localparam package:pfwild183
+          golden  {'package:pf183': 4}
+          pristine{'package:pfwild183': 2, '<null>': 2}
+          patched {'package:pf183': 2, '<null>': 2}
+      TOWARD-PARTIAL 31:5 function:sum_trio package:pfwild183
+          golden  {'package:pf183': 4}
+          pristine{'package:pfwild183': 2, '<null>': 2}
+          patched {'package:pf183': 2, '<null>': 2}
+elab  CNT   count-unchanged=12

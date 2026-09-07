@@ -1,0 +1,168 @@
+##### 0053_r10buvm19repro_grid19.sv
+def   KIND  sites=65   TOWARD=5  agree-before-after=58  still-off=2
+def   INST  sites=65   TOWARD=23  agree-before-after=41  still-off=1
+def   CNT   count-unchanged=65
+elab  KIND  sites=65   TOWARD=5  agree-before-after=58  still-off=2
+elab  INST  sites=65   TOWARD=23  agree-before-after=41  still-off=1
+elab  CNT   count-unchanged=65
+##### 0068_r10buvm22repro_g22.sv
+def   KIND  sites=0    
+def   INST  sites=0    
+def   CNT   
+elab  KIND  sites=0    
+elab  INST  sites=0    
+elab  CNT   
+##### 2372_r10uvm154repro_l154_noenum.sv
+def   KIND  sites=0    
+def   INST  sites=0    
+def   CNT   
+elab  KIND  sites=0    
+elab  INST  sites=0    
+elab  CNT   
+##### 2499_r10uvm180repro_g180_b_depth.sv
+def   KIND  sites=2    TOWARD=1  agree-before-after=1
+def   INST  sites=2    TOWARD=1  agree-before-after=1
+def   CNT   count-unchanged=2
+elab  KIND  sites=3    TOWARD=1  agree-before-after=2
+elab  INST  sites=3    TOWARD=1  agree-before-after=2
+elab  CNT   count-unchanged=3
+##### 2503_r10uvm181repro_g181_a_kinds.sv
+def   KIND  sites=18   TOWARD=9  agree-before-after=7  still-off=2
+def   INST  sites=18   TOWARD=9  agree-before-after=7  still-off=2
+def   CNT   count-unchanged=18
+elab  KIND  sites=18   TOWARD=9  agree-before-after=7  still-off=2
+elab  INST  sites=18   TOWARD=9  agree-before-after=7  still-off=2
+elab  CNT   count-unchanged=18
+##### 2504_r10uvm181repro_g181_b_dims.sv
+def   KIND  sites=24   TOWARD=12  agree-before-after=12
+def   INST  sites=24   TOWARD=12  agree-before-after=12
+def   CNT   count-unchanged=24
+elab  KIND  sites=24   TOWARD=12  agree-before-after=12
+elab  INST  sites=24   TOWARD=12  agree-before-after=12
+elab  CNT   count-unchanged=24
+##### 2505_r10uvm181repro_g181_c_home.sv
+def   KIND  sites=12   TOWARD=2  agree-before-after=10
+def   INST  sites=12   TOWARD=4  agree-before-after=8
+def   CNT   count-unchanged=12
+elab  KIND  sites=13   TOWARD=2  agree-before-after=11
+elab  INST  sites=13   TOWARD=4  agree-before-after=9
+elab  CNT   count-unchanged=13
+##### 2506_r10uvm181repro_g181_d_negatives.sv
+def   KIND  sites=8    TOWARD=1  agree-before-after=6  still-off=1
+def   INST  sites=8    TOWARD=3  agree-before-after=4  still-off=1
+def   CNT   count-unchanged=8
+elab  KIND  sites=8    TOWARD=1  agree-before-after=6  still-off=1
+elab  INST  sites=8    TOWARD=3  agree-before-after=4  still-off=1
+elab  CNT   count-unchanged=8
+##### 2507_r10uvm183repro_g183_a_homes.sv
+def   KIND  sites=14   TOWARD=5  agree-before-after=6  still-off=3
+def   INST  sites=14   TOWARD=6  TOWARD-PARTIAL=1  agree-before-after=7
+def   CNT   count-unchanged=14
+elab  KIND  sites=20   TOWARD=5  agree-before-after=11  still-off=4
+elab  INST  sites=20   TOWARD=6  TOWARD-PARTIAL=1  agree-before-after=13
+elab  CNT   count-unchanged=20
+##### 2508_r10uvm183repro_g183_b_kinds.sv
+def   KIND  sites=16   TOWARD=8  agree-before-after=5  still-off=3
+def   INST  sites=16   TOWARD=8  agree-before-after=7  still-off=1
+def   CNT   count-unchanged=16
+elab  KIND  sites=24   TOWARD=16  agree-before-after=5  still-off=3
+elab  INST  sites=24   TOWARD=15  agree-before-after=8  still-off=1
+elab  CNT   count-unchanged=24
+##### 2509_r10uvm183repro_g183_c_window.sv
+def   KIND  sites=8    TOWARD=4  agree-before-after=4
+def   INST  sites=8    TOWARD=4  agree-before-after=4
+def   CNT   count-unchanged=8
+elab  KIND  sites=12   TOWARD=8  agree-before-after=4
+elab  INST  sites=12   TOWARD=8  agree-before-after=4
+elab  CNT   count-unchanged=12
+##### 2511_r10uvm183repro_g183_e_shapes.sv
+def   KIND  sites=9    TOWARD=1  agree-before-after=8
+def   INST  sites=9    TOWARD=2  agree-before-after=7
+def   CNT   count-unchanged=9
+elab  KIND  sites=11   TOWARD=2  agree-before-after=9
+elab  INST  sites=11   TOWARD=4  agree-before-after=7
+elab  CNT   count-unchanged=11
+##### 2512_r10uvm183repro_g183_f_param.sv
+def   KIND  sites=8    TOWARD=1  agree-before-after=1  still-off=6
+def   INST  sites=8    TOWARD=1  TOWARD-PARTIAL=3  agree-before-after=1  still-off=3
+def   CNT   count-unchanged=8
+elab  KIND  sites=12   TOWARD=2  agree-before-after=1  still-off=9
+elab  INST  sites=12   TOWARD=2  TOWARD-PARTIAL=3  agree-before-after=1  still-off=6
+elab  CNT   count-unchanged=12
+##### 2518_r10uvm21repro_t32d_t.sv
+def   KIND  sites=15   agree-before-after=15
+def   INST  sites=15   TOWARD=5  agree-before-after=10
+def   CNT   count-unchanged=15
+elab  KIND  sites=20   agree-before-after=20
+elab  INST  sites=20   TOWARD=5  agree-before-after=15
+elab  CNT   count-unchanged=20
+##### 2573_r10uvm37repro_t51a_dut.sv
+def   KIND  sites=3    TOWARD=1  agree-before-after=2
+def   INST  sites=3    TOWARD=1  agree-before-after=2
+def   CNT   count-unchanged=3
+elab  KIND  sites=4    TOWARD=1  agree-before-after=3
+elab  INST  sites=4    TOWARD=1  agree-before-after=3
+elab  CNT   count-unchanged=4
+##### 2574_r10uvm37repro_t51b_dut.sv
+def   KIND  sites=6    agree-before-after=6
+def   INST  sites=6    TOWARD=2  agree-before-after=4
+def   CNT   count-unchanged=6
+elab  KIND  sites=10   agree-before-after=10
+elab  INST  sites=10   TOWARD=4  agree-before-after=6
+elab  CNT   count-unchanged=10
+##### 3806_r10v178repro_v178_f_shadow.sv
+def   KIND  sites=2    still-off=2
+def   INST  sites=2    TOWARD-PARTIAL=1  still-off=1
+def   CNT   count-unchanged=2
+elab  KIND  sites=3    still-off=3
+elab  INST  sites=3    TOWARD-PARTIAL=1  still-off=2
+elab  CNT   count-unchanged=3
+##### 3823_r10v181repro_v181_a_use.sv
+def   KIND  sites=6    TOWARD=3  agree-before-after=3
+def   INST  sites=6    TOWARD=3  agree-before-after=3
+def   CNT   count-unchanged=6
+elab  KIND  sites=6    TOWARD=3  agree-before-after=3
+elab  INST  sites=6    TOWARD=3  agree-before-after=3
+elab  CNT   count-unchanged=6
+##### 3824_r10v181repro_v181_b_prefix.sv
+def   KIND  sites=8    TOWARD=1  agree-before-after=6  still-off=1
+def   INST  sites=8    TOWARD=3  agree-before-after=4  still-off=1
+def   CNT   count-unchanged=8
+elab  KIND  sites=8    TOWARD=1  agree-before-after=6  still-off=1
+elab  INST  sites=8    TOWARD=3  agree-before-after=4  still-off=1
+elab  CNT   count-unchanged=8
+##### 3825_r10v181repro_v181_c_homes.sv
+def   KIND  sites=26   TOWARD=16  agree-before-after=9  still-off=1
+def   INST  sites=26   TOWARD=16  TOWARD-PARTIAL=1  agree-before-after=9
+def   CNT   count-unchanged=26
+elab  KIND  sites=53   TOWARD=16  agree-before-after=36  still-off=1
+elab  INST  sites=53   TOWARD=16  TOWARD-PARTIAL=1  agree-before-after=36
+elab  CNT   count-unchanged=53
+##### 3826_r10v181repro_v181_e_idxbase.sv
+def   KIND  sites=3    agree-before-after=3
+def   INST  sites=3    TOWARD=1  agree-before-after=2
+def   CNT   count-unchanged=3
+elab  KIND  sites=3    agree-before-after=3
+elab  INST  sites=3    TOWARD=1  agree-before-after=2
+elab  CNT   count-unchanged=3
+##### 3827_r10v181repro_v181_f_mixed.sv
+def   KIND  sites=3    agree-before-after=3
+def   INST  sites=3    TOWARD=1  agree-before-after=2
+def   CNT   count-unchanged=3
+elab  KIND  sites=3    agree-before-after=3
+elab  INST  sites=3    TOWARD=1  agree-before-after=2
+elab  CNT   count-unchanged=3
+##### 3828_r10v181repro_v181_g_scopes.sv
+def   KIND  sites=10   TOWARD=5  agree-before-after=3  still-off=2
+def   INST  sites=10   TOWARD=5  agree-before-after=5
+def   CNT   count-unchanged=10
+elab  KIND  sites=10   TOWARD=5  agree-before-after=3  still-off=2
+elab  INST  sites=10   TOWARD=5  agree-before-after=5
+elab  CNT   count-unchanged=10
+##### 4126_r10vbuvm19repro_vg19c.sv
+def   KIND  sites=14   TOWARD=1  agree-before-after=10  still-off=3
+def   INST  sites=14   TOWARD=2  TOWARD-PARTIAL=1  agree-before-after=9  still-off=2
+def   CNT   count-unchanged=14
+elab  KIND  sites=14   TOWARD=1  agree-before-after=10  still-off=3
+elab  INST  sites=14   TOWARD=2  TOWARD-PARTIAL=1  agree-before-after=9  still-off=2
+elab  CNT   count-unchanged=14

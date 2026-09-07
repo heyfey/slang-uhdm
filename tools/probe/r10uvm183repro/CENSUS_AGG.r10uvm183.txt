@@ -1,0 +1,49 @@
+=== default.MiniAmiq : cell  |  golden | pristine | patched   (rows that differ from golden in either)
+class_defn:uvm_component|array_typespec|<null>	4	5	5
+class_defn:uvm_component|string_typespec|package:uvm_pkg	1	0	0
+interface_inst:|array_typespec|<null>	0	18	18
+interface_inst:|class_typespec|<null>	0	1	1
+interface_inst:|unsupported_typespec|<null>	19	0	0
+package:svaunit_pkg|array_typespec|<null>	0	1	0
+package:svaunit_pkg|string_typespec|package:uvm_pkg	0	1	0
+package:svaunit_pkg|unsupported_typespec|package:svaunit_pkg	0	520	0
+package:svaunit_pkg|unsupported_typespec|package:uvm_pkg	522	0	522
+=== default.SeqDriver : cell  |  golden | pristine | patched   (rows that differ from golden in either)
+class_defn:uvm_component|array_typespec|<null>	4	5	5
+class_defn:uvm_component|string_typespec|package:uvm_pkg	1	0	0
+package:adpcm_pkg|array_typespec|<null>	0	1	0
+package:adpcm_pkg|string_typespec|package:uvm_pkg	0	1	0
+package:adpcm_pkg|unsupported_typespec|package:adpcm_pkg	0	520	0
+package:adpcm_pkg|unsupported_typespec|package:uvm_pkg	522	0	522
+=== testflags.MiniAmiq : cell  |  golden | pristine | patched   (rows that differ from golden in either)
+class_defn:uvm_component|array_typespec|<null>	4	5	5
+class_defn:uvm_component|string_typespec|package:uvm_pkg	1	0	0
+interface_inst:|array_typespec|<null>	0	18	18
+interface_inst:|class_typespec|<null>	0	1	1
+interface_inst:|unsupported_typespec|<null>	19	0	0
+package:svaunit_pkg|array_typespec|<null>	0	1	0
+package:svaunit_pkg|string_typespec|package:uvm_pkg	0	1	0
+package:svaunit_pkg|unsupported_typespec|package:svaunit_pkg	0	520	0
+package:svaunit_pkg|unsupported_typespec|package:uvm_pkg	522	0	522
+=== testflags.SeqDriver : cell  |  golden | pristine | patched   (rows that differ from golden in either)
+class_defn:uvm_component|array_typespec|<null>	4	5	5
+class_defn:uvm_component|string_typespec|package:uvm_pkg	1	0	0
+package:adpcm_pkg|array_typespec|<null>	0	1	0
+package:adpcm_pkg|string_typespec|package:uvm_pkg	0	1	0
+package:adpcm_pkg|unsupported_typespec|package:adpcm_pkg	0	520	0
+package:adpcm_pkg|unsupported_typespec|package:uvm_pkg	522	0	522
+=== default.BuildUVMPkg : cell  |  golden | pristine | patched   (rows that differ from golden in either)
+class_defn:uvm_component|array_typespec|<null>	4	6	6
+class_defn:uvm_component|string_typespec|package:uvm_pkg	2	0	0
+=== default.SimpleUVM : cell  |  golden | pristine | patched   (rows that differ from golden in either)
+class_defn:uvm_component|array_typespec|<null>	4	5	5
+class_defn:uvm_component|string_typespec|package:uvm_pkg	1	0	0
+=== default.Scoreboard : cell  |  golden | pristine | patched   (rows that differ from golden in either)
+class_defn:uvm_component|array_typespec|<null>	4	5	5
+class_defn:uvm_component|string_typespec|package:uvm_pkg	1	0	0
+=== testflags.BuildUVMPkg : cell  |  golden | pristine | patched   (rows that differ from golden in either)
+class_defn:uvm_component|array_typespec|<null>	4	6	6
+class_defn:uvm_component|string_typespec|package:uvm_pkg	2	0	0
+=== testflags.SimpleUVM : cell  |  golden | pristine | patched   (rows that differ from golden in either)
+class_defn:uvm_component|array_typespec|<null>	4	5	5
+class_defn:uvm_component|string_typespec|package:uvm_pkg	1	0	0

@@ -1,0 +1,8 @@
+comparable rows=956
+OURS-SIDE predicted moving rows=4
+GOLDEN-SIDE predicted moving rows=4
+AGREE=True
+  MOVER default    MiniAmiq         clone-foreach-keys=304  golden-clone-cells=522
+  MOVER default    SeqDriver        clone-foreach-keys=304  golden-clone-cells=522
+  MOVER testflags  MiniAmiq         clone-foreach-keys=304  golden-clone-cells=522
+  MOVER testflags  SeqDriver        clone-foreach-keys=304  golden-clone-cells=522

@@ -3206,8 +3206,63 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 if (auto* apc9 = arrSym->getParentScope())
                     classPropArr9 =
                         apc9->asSymbol().kind == SymbolKind::ClassType;
-            bool foreachUnres9 =
-                classMethodNoBind || pkgDefViewBody9 || classPropArr9;
+            // § cloneForeachArrayRefUnresolved183 (r10uvm183) — A WILDCARD-
+            // IMPORT CLONE'S ITERATED-ARRAY REFERENCE IS UNRESOLVED IN BOTH
+            // PACKAGE VIEWS, exactly as its LOOP VARIABLE already is.
+            //
+            // The clone re-uses the HOME package's UN-elaborated body whichever
+            // listing it lands in, and `lateTypedefBinding` — the pass that
+            // turns Surelog's catch-all `unsupported_typespec` back into a real
+            // one — is run by `writePackage` over the HOME package's ELABORATED
+            // copy alone (UhdmWriter.cpp:1301).  Surelog's foreach arm always
+            // MINTS the placeholder first: `compileStmt`'s `paFOREACH` case
+            // hands the loop list's array identifier to `compileVariable`
+            // (CompileStmt.cpp:529), which for a bare `slStringConst` runs
+            // `compileTypespec` on the NAME (CompileType.cpp:317-330), misses
+            // every lookup, falls out of `compileDatastructureTypespec`'s tail
+            // as an `unsupported_typespec` NAMED AS WRITTEN at the identifier's
+            // own span, and registers the reference with
+            // `needLateTypedefBinding` (CompileType.cpp:421-430).  So the
+            // placeholder is what EVERY copy holds until that one pass rewrites
+            // it, and an import clone is never that copy.
+            //
+            // § cloneForeachLoopVarUnresolved37 had already measured this for
+            // the LOOP VARIABLE and named `pkgImportCloneEmit` as the listing
+            // test ("the importer's ELABORATED listing of a cloned FREE
+            // function fell through to the resolved arm"); the ARRAY REFERENCE
+            // half was left behind, so `pkgDefViewBody9` degraded only the
+            // clone's DEF listing and its ELABORATED twin still resolved.
+            // Measured on MiniAmiq and SeqDriver, both modes, with the census
+            // in this pass's README: golden holds 522 package-scope foreach
+            // array-reference placeholders in the importer's two clone views
+            // and we held 520 — the two survivors being the ELAB clone's
+            // `uvm_has_wildcard`'s FORMAL (`foreach (arg[i])`, uvm_misc.svh:622
+            // — the head this pass was dispatched on) and `uvm_string_to_action`'s
+            // SUBROUTINE LOCAL (`foreach (actions[i])`, uvm_globals.svh:288).
+            // Both faces degrade in golden, and this arm sits above both the
+            // formal (`foreachFormalArrayTs9`) and the local resolution, so one
+            // gate covers them.
+            //
+            // THE FENCE, decoded from the producer and caught by the WIDE
+            // BOUNDARY on a foreign committed arm (r10v178's `v178_f_shadow.sv`
+            // `Beta_imp_F::f_foreach` over `parameter int arr_p [0:3]`, where
+            // golden RESOLVES both clone copies): an iterated PARAMETER never
+            // reaches the placeholder tail at all.  Before
+            // `compileDatastructureTypespec` falls out at its end it scans
+            // `component->getParamAssignVec()` for a `param_assign` whose LHS
+            // parameter carries this name and returns that parameter's own
+            // `Actual_typespec` (CompileType.cpp:750-762) — and a package's
+            // parameters are collected before its subroutines are compiled at
+            // all, so the answer is the same in every listing, clone included.
+            // There are ZERO corpus cells of this shape (the nine UVM DBs'
+            // clone census is 522/522 exact without it), so the fence costs
+            // nothing and is written to keep the law from degrading a cell
+            // golden resolves on legal SystemVerilog it has not been shown.
+            const bool arrIsParam183 =
+                arrSym && arrSym->kind == SymbolKind::Parameter;
+            bool foreachUnres9 = classMethodNoBind || pkgDefViewBody9 ||
+                                 classPropArr9 ||
+                                 (pkgImportCloneEmit && !arrIsParam183);
             // § classPropUnitImport21 — the class property's array REFERENCE
             // stays unresolved (classPropArr9 above), but its LOOP VARIABLE is
             // answered by a different Surelog pass and usually DOES resolve.
@@ -3441,8 +3496,22 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         uts33->VpiColumnNo(rv->VpiColumnNo());
                         uts33->VpiEndLineNo(rv->VpiEndLineNo());
                         uts33->VpiEndColumnNo(rv->VpiEndColumnNo());
-                        if (pkgScopeInst)
-                            uts33->Instance(pkgScopeInst);
+                        // § cloneForeachArrayRefUnresolved183, the INSTANCE
+                        // half — the SECOND mint of the very same object (a
+                        // foreach ARRAY-REFERENCE placeholder), so it takes the
+                        // same import-copy home-package link as the bare-name
+                        // mint below.  Without it `uvm_sequence_library::
+                        // init_sequence_library`'s `foreach
+                        // (this_type::m_typewide_sequences[i])` was the only
+                        // package-scope cell in the two clone views left
+                        // stamped with the IMPORTING package (2 of 522 on
+                        // MiniAmiq and on SeqDriver, both modes; golden stamps
+                        // `uvm_pkg` on all 522).
+                        if (auto* ui183 = importCopyTsInst ? importCopyTsInst
+                                                           : pkgScopeInst)
+                            uts33->Instance(ui183);
+                        if (importCopyTsInst && importCopyTsCollect)
+                            importCopyTsCollect->push_back(uts33);
                         sts33 = uts33;
                     }
                     art->Actual_typespec(sts33);
@@ -3464,8 +3533,31 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     uts->VpiEndColumnNo(rv->VpiEndColumnNo());
                     // Out-of-body and package-level bodies mint it inside the
                     // home package; an IN-CLASS body's carries no instance.
-                    if (pkgScopeInst)
-                        uts->Instance(pkgScopeInst);
+                    //
+                    // § cloneForeachArrayRefUnresolved183, the INSTANCE half —
+                    // inside an IMPORT COPY the placeholder keeps the HOME
+                    // package, and reaches its ELABORATED copy.  This is the
+                    // very idiom § builtinClassLocalUnsupportedBeforeClassPhase115
+                    // already carries thirty lines up
+                    // (`importCopyTsInst ? importCopyTsInst : pkgScopeInst`
+                    // plus the `importCopyTsCollect` entry that
+                    // `importCopyTsFixups` re-points at the top-view home
+                    // package once every top view exists, UhdmExporter.cpp
+                    // ~5033) — and it is a MEASUREMENT, not a guess: over the
+                    // four clone row-modes golden stamps `package uvm_pkg`, its
+                    // ELABORATED copy, on ALL 522 of these placeholders and
+                    // `package svaunit_pkg` / `package adpcm_pkg` on NONE,
+                    // while the bare `pkgScopeInst` wrote the IMPORTING package
+                    // into every one of our 520.  The home package's own two
+                    // views are untouched by the change (there
+                    // `importCopyTsInst` is null and `pkgScopeInst` is already
+                    // the answer golden gives: its own def copy in the def
+                    // view).
+                    if (auto* ui183 = importCopyTsInst ? importCopyTsInst
+                                                       : pkgScopeInst)
+                        uts->Instance(ui183);
+                    if (importCopyTsInst && importCopyTsCollect)
+                        importCopyTsCollect->push_back(uts);
                     art->Actual_typespec(uts);
                 }
                 else {

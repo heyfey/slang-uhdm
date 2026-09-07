@@ -1,0 +1,60 @@
+default    MiniAmiq       plain=1130   order-blind=1054  
+---- default MiniAmiq ORDER-BLIND diff, by line shape:
+    522 >   \_package: uvm_pkg (uvm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-N.N/src/uvm_pkg.sv, line:N:N, endln:N:N
+    520 <   \_package: svaunit_pkg (svaunit_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_pkg.sv, line:N:N, endln:N:N
+      2 >   |vpiInstance:
+      1 >   |vpiName:arg
+      1 >   |vpiName:actions
+      1 > \_unsupported_typespec: (arg), line:N:N, endln:N:N
+      1 >             \_unsupported_typespec: (arg), line:N:N, endln:N:N
+      1 > \_unsupported_typespec: (actions), line:N:N, endln:N:N
+      1 >             \_unsupported_typespec: (actions), line:N:N, endln:N:N
+      1 <             \_string_typespec: , line:N:N, endln:N:N
+      1 > /default/MiniAmiq-NcNfN/slang.uhdm: Restored design Pre-Elab: 
+      1 < /default/MiniAmiq-NcNfN//slang.uhdm: Restored design Pre-Elab: 
+      1 <             \_array_typespec: , line:N:N, endln:N:N
+default    SeqDriver      plain=1130   order-blind=1054  
+---- default SeqDriver ORDER-BLIND diff, by line shape:
+    522 >   \_package: uvm_pkg (uvm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-N.N/src/uvm_pkg.sv, line:N:N, endln:N:N
+    520 <   \_package: adpcm_pkg (adpcm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/testbench.sv, line:N:N, endln:N:N
+      2 >   |vpiInstance:
+      1 >   |vpiName:arg
+      1 >   |vpiName:actions
+      1 > \_unsupported_typespec: (arg), line:N:N, endln:N:N
+      1 >             \_unsupported_typespec: (arg), line:N:N, endln:N:N
+      1 > \_unsupported_typespec: (actions), line:N:N, endln:N:N
+      1 >             \_unsupported_typespec: (actions), line:N:N, endln:N:N
+      1 <             \_string_typespec: , line:N:N, endln:N:N
+      1 > /default/SeqDriver-NafNaa/slang.uhdm: Restored design Pre-Elab: 
+      1 < /default/SeqDriver-NafNaa//slang.uhdm: Restored design Pre-Elab: 
+      1 <             \_array_typespec: , line:N:N, endln:N:N
+testflags  MiniAmiq       plain=1130   order-blind=1054  
+---- testflags MiniAmiq ORDER-BLIND diff, by line shape:
+    522 >   \_package: uvm_pkg (uvm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-N.N/src/uvm_pkg.sv, line:N:N, endln:N:N
+    520 <   \_package: svaunit_pkg (svaunit_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_pkg.sv, line:N:N, endln:N:N
+      2 >   |vpiInstance:
+      1 >   |vpiName:arg
+      1 >   |vpiName:actions
+      1 > \_unsupported_typespec: (arg), line:N:N, endln:N:N
+      1 >             \_unsupported_typespec: (arg), line:N:N, endln:N:N
+      1 > \_unsupported_typespec: (actions), line:N:N, endln:N:N
+      1 >             \_unsupported_typespec: (actions), line:N:N, endln:N:N
+      1 > /testflags/MiniAmiq-NcNfN/slang.uhdm: Restored design Pre-Elab: 
+      1 < /testflags/MiniAmiq-NcNfN//slang.uhdm: Restored design Pre-Elab: 
+      1 <             \_string_typespec: , line:N:N, endln:N:N
+      1 <             \_array_typespec: , line:N:N, endln:N:N
+testflags  SeqDriver      plain=1094   order-blind=1054  
+---- testflags SeqDriver ORDER-BLIND diff, by line shape:
+    522 >   \_package: uvm_pkg (uvm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-N.N/src/uvm_pkg.sv, line:N:N, endln:N:N
+    520 <   \_package: adpcm_pkg (adpcm_pkg::), file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/testbench.sv, line:N:N, endln:N:N
+      2 >   |vpiInstance:
+      1 >   |vpiName:arg
+      1 >   |vpiName:actions
+      1 > \_unsupported_typespec: (arg), line:N:N, endln:N:N
+      1 >             \_unsupported_typespec: (arg), line:N:N, endln:N:N
+      1 > \_unsupported_typespec: (actions), line:N:N, endln:N:N
+      1 >             \_unsupported_typespec: (actions), line:N:N, endln:N:N
+      1 > /testflags/SeqDriver-NafNaa/slang.uhdm: Restored design Pre-Elab: 
+      1 < /testflags/SeqDriver-NafNaa//slang.uhdm: Restored design Pre-Elab: 
+      1 <             \_string_typespec: , line:N:N, endln:N:N
+      1 <             \_array_typespec: , line:N:N, endln:N:N

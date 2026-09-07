@@ -1,0 +1,156 @@
+default    BuildUVMPkg    cells=769   untouched=769
+default    MiniAmiq       cells=846   DEGRADE-TOWARD=261  untouched=585
+    GOLDEN-DEGRADES @198:7 in function:update_sva_from_c
+        golden x1  ARR=ref_var(a_lof_sva)@198:15-198:24	ARRTS=unsupported_typespec(a_lof_sva)@198:15-198:24	INST=<null>
+        ours   x1  ARR=ref_var(a_lof_sva)@198:15-198:24	ARRTS=class_typespec(svaunit_concurrent_assertion_info)@196:45-196:78	INST=<null>
+    GOLDEN-DEGRADES @275:7 in function:get_assertion_from_path
+        golden x1  ARR=ref_var(sva_info)@275:15-275:23	ARRTS=unsupported_typespec(sva_info)@275:15-275:23	INST=<null>
+        ours   x1  ARR=ref_var(sva_info)@275:15-275:23	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @288:3 in function:uvm_string_to_action
+        golden x2  ARR=ref_var(actions)@288:11-288:18	ARRTS=unsupported_typespec(actions)@288:11-288:18	INST=package:uvm_pkg
+        ours   x1  ARR=ref_var(actions)@288:11-288:18	ARRTS=array_typespec()@284:10-284:19	INST=<null>
+        ours   x1  ARR=ref_var(actions)@288:11-288:18	ARRTS=unsupported_typespec(actions)@288:11-288:18	INST=package:svaunit_pkg
+    GOLDEN-DEGRADES @289:7 in function:get_assertion_by_name
+        golden x1  ARR=ref_var(sva_info)@289:15-289:23	ARRTS=unsupported_typespec(sva_info)@289:15-289:23	INST=<null>
+        ours   x1  ARR=ref_var(sva_info)@289:15-289:23	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @317:7 in function:reset_all_assertions
+        golden x1  ARR=ref_var(sva_info)@317:15-317:23	ARRTS=unsupported_typespec(sva_info)@317:15-317:23	INST=<null>
+        ours   x1  ARR=ref_var(sva_info)@317:15-317:23	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @343:7 in function:disable_all_assertions
+        golden x1  ARR=ref_var(sva_info)@343:15-343:23	ARRTS=unsupported_typespec(sva_info)@343:15-343:23	INST=<null>
+        ours   x1  ARR=ref_var(sva_info)@343:15-343:23	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @366:7 in function:enable_all_assertions
+        golden x1  ARR=ref_var(sva_info)@366:15-366:23	ARRTS=unsupported_typespec(sva_info)@366:15-366:23	INST=<null>
+        ours   x1  ARR=ref_var(sva_info)@366:15-366:23	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @392:7 in function:kill_all_assertions
+        golden x1  ARR=ref_var(sva_info)@392:15-392:23	ARRTS=unsupported_typespec(sva_info)@392:15-392:23	INST=<null>
+        ours   x1  ARR=ref_var(sva_info)@392:15-392:23	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @416:7 in function:disable_step_all_assertions
+        golden x1  ARR=ref_var(sva_info)@416:15-416:23	ARRTS=unsupported_typespec(sva_info)@416:15-416:23	INST=<null>
+        ours   x1  ARR=ref_var(sva_info)@416:15-416:23	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @443:7 in function:enable_step_all_assertions
+        golden x1  ARR=ref_var(sva_info)@443:15-443:23	ARRTS=unsupported_typespec(sva_info)@443:15-443:23	INST=<null>
+        ours   x1  ARR=ref_var(sva_info)@443:15-443:23	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @464:7 in function:system_on_all_assertions
+        golden x1  ARR=ref_var(sva_info)@464:15-464:23	ARRTS=unsupported_typespec(sva_info)@464:15-464:23	INST=<null>
+        ours   x1  ARR=ref_var(sva_info)@464:15-464:23	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @479:7 in function:system_off_all_assertions
+        golden x1  ARR=ref_var(sva_info)@479:15-479:23	ARRTS=unsupported_typespec(sva_info)@479:15-479:23	INST=<null>
+        ours   x1  ARR=ref_var(sva_info)@479:15-479:23	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @495:7 in function:system_end_all_assertions
+        golden x1  ARR=ref_var(sva_info)@495:15-495:23	ARRTS=unsupported_typespec(sva_info)@495:15-495:23	INST=<null>
+        ours   x1  ARR=ref_var(sva_info)@495:15-495:23	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @510:7 in function:update_coverage
+        golden x1  ARR=ref_var(cover_info)@510:15-510:25	ARRTS=unsupported_typespec(cover_info)@510:15-510:25	INST=<null>
+        ours   x1  ARR=ref_var(cover_info)@510:15-510:25	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @529:7 in function:get_nof_enabled_sva
+        golden x1  ARR=ref_var(sva_info)@529:15-529:23	ARRTS=unsupported_typespec(sva_info)@529:15-529:23	INST=<null>
+        ours   x1  ARR=ref_var(sva_info)@529:15-529:23	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @547:7 in function:get_nof_tested_sva
+        golden x1  ARR=ref_var(sva_info)@547:15-547:23	ARRTS=unsupported_typespec(sva_info)@547:15-547:23	INST=<null>
+        ours   x1  ARR=ref_var(sva_info)@547:15-547:23	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @592:7 in function:report_for_sva
+        golden x1  ARR=ref_var(sva_info)@592:15-592:23	ARRTS=unsupported_typespec(sva_info)@592:15-592:23	INST=<null>
+        ours   x1  ARR=ref_var(sva_info)@592:15-592:23	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @602:7 in function:report_for_sva
+        golden x1  ARR=ref_var(sva_info)@602:15-602:23	ARRTS=unsupported_typespec(sva_info)@602:15-602:23	INST=<null>
+        ours   x1  ARR=ref_var(sva_info)@602:15-602:23	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @613:7 in function:report_for_sva
+        golden x1  ARR=ref_var(sva_info)@613:15-613:23	ARRTS=unsupported_typespec(sva_info)@613:15-613:23	INST=<null>
+        ours   x1  ARR=ref_var(sva_info)@613:15-613:23	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @622:3 in function:uvm_has_wildcard
+        golden x2  ARR=ref_var(arg)@622:11-622:14	ARRTS=unsupported_typespec(arg)@622:11-622:14	INST=package:uvm_pkg
+        ours   x1  ARR=ref_var(arg)@622:11-622:14	ARRTS=string_typespec()@614:42-614:48	INST=package:uvm_pkg
+        ours   x1  ARR=ref_var(arg)@622:11-622:14	ARRTS=unsupported_typespec(arg)@622:11-622:14	INST=package:svaunit_pkg
+    GOLDEN-DEGRADES @624:7 in function:report_for_sva
+        golden x1  ARR=ref_var(cover_info)@624:15-624:25	ARRTS=unsupported_typespec(cover_info)@624:15-624:25	INST=<null>
+        ours   x1  ARR=ref_var(cover_info)@624:15-624:25	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+default    Scoreboard     cells=735   untouched=735
+default    SeqDriver      cells=733   DEGRADE-TOWARD=261  untouched=472
+    GOLDEN-DEGRADES @288:3 in function:uvm_string_to_action
+        golden x2  ARR=ref_var(actions)@288:11-288:18	ARRTS=unsupported_typespec(actions)@288:11-288:18	INST=package:uvm_pkg
+        ours   x1  ARR=ref_var(actions)@288:11-288:18	ARRTS=array_typespec()@284:10-284:19	INST=<null>
+        ours   x1  ARR=ref_var(actions)@288:11-288:18	ARRTS=unsupported_typespec(actions)@288:11-288:18	INST=package:adpcm_pkg
+    GOLDEN-DEGRADES @622:3 in function:uvm_has_wildcard
+        golden x2  ARR=ref_var(arg)@622:11-622:14	ARRTS=unsupported_typespec(arg)@622:11-622:14	INST=package:uvm_pkg
+        ours   x1  ARR=ref_var(arg)@622:11-622:14	ARRTS=string_typespec()@614:42-614:48	INST=package:uvm_pkg
+        ours   x1  ARR=ref_var(arg)@622:11-622:14	ARRTS=unsupported_typespec(arg)@622:11-622:14	INST=package:adpcm_pkg
+default    SimpleUVM      cells=733   untouched=733
+testflags  BuildUVMPkg    cells=769   untouched=769
+testflags  MiniAmiq       cells=846   DEGRADE-TOWARD=261  untouched=585
+    GOLDEN-DEGRADES @198:7 in function:update_sva_from_c
+        golden x1  ARR=ref_var(a_lof_sva)@198:15-198:24	ARRTS=unsupported_typespec(a_lof_sva)@198:15-198:24	INST=<null>
+        ours   x1  ARR=ref_var(a_lof_sva)@198:15-198:24	ARRTS=class_typespec(svaunit_concurrent_assertion_info)@196:45-196:78	INST=<null>
+    GOLDEN-DEGRADES @275:7 in function:get_assertion_from_path
+        golden x1  ARR=ref_var(sva_info)@275:15-275:23	ARRTS=unsupported_typespec(sva_info)@275:15-275:23	INST=<null>
+        ours   x1  ARR=ref_var(sva_info)@275:15-275:23	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @288:3 in function:uvm_string_to_action
+        golden x2  ARR=ref_var(actions)@288:11-288:18	ARRTS=unsupported_typespec(actions)@288:11-288:18	INST=package:uvm_pkg
+        ours   x1  ARR=ref_var(actions)@288:11-288:18	ARRTS=array_typespec()@284:10-284:19	INST=<null>
+        ours   x1  ARR=ref_var(actions)@288:11-288:18	ARRTS=unsupported_typespec(actions)@288:11-288:18	INST=package:svaunit_pkg
+    GOLDEN-DEGRADES @289:7 in function:get_assertion_by_name
+        golden x1  ARR=ref_var(sva_info)@289:15-289:23	ARRTS=unsupported_typespec(sva_info)@289:15-289:23	INST=<null>
+        ours   x1  ARR=ref_var(sva_info)@289:15-289:23	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @317:7 in function:reset_all_assertions
+        golden x1  ARR=ref_var(sva_info)@317:15-317:23	ARRTS=unsupported_typespec(sva_info)@317:15-317:23	INST=<null>
+        ours   x1  ARR=ref_var(sva_info)@317:15-317:23	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @343:7 in function:disable_all_assertions
+        golden x1  ARR=ref_var(sva_info)@343:15-343:23	ARRTS=unsupported_typespec(sva_info)@343:15-343:23	INST=<null>
+        ours   x1  ARR=ref_var(sva_info)@343:15-343:23	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @366:7 in function:enable_all_assertions
+        golden x1  ARR=ref_var(sva_info)@366:15-366:23	ARRTS=unsupported_typespec(sva_info)@366:15-366:23	INST=<null>
+        ours   x1  ARR=ref_var(sva_info)@366:15-366:23	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @392:7 in function:kill_all_assertions
+        golden x1  ARR=ref_var(sva_info)@392:15-392:23	ARRTS=unsupported_typespec(sva_info)@392:15-392:23	INST=<null>
+        ours   x1  ARR=ref_var(sva_info)@392:15-392:23	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @416:7 in function:disable_step_all_assertions
+        golden x1  ARR=ref_var(sva_info)@416:15-416:23	ARRTS=unsupported_typespec(sva_info)@416:15-416:23	INST=<null>
+        ours   x1  ARR=ref_var(sva_info)@416:15-416:23	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @443:7 in function:enable_step_all_assertions
+        golden x1  ARR=ref_var(sva_info)@443:15-443:23	ARRTS=unsupported_typespec(sva_info)@443:15-443:23	INST=<null>
+        ours   x1  ARR=ref_var(sva_info)@443:15-443:23	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @464:7 in function:system_on_all_assertions
+        golden x1  ARR=ref_var(sva_info)@464:15-464:23	ARRTS=unsupported_typespec(sva_info)@464:15-464:23	INST=<null>
+        ours   x1  ARR=ref_var(sva_info)@464:15-464:23	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @479:7 in function:system_off_all_assertions
+        golden x1  ARR=ref_var(sva_info)@479:15-479:23	ARRTS=unsupported_typespec(sva_info)@479:15-479:23	INST=<null>
+        ours   x1  ARR=ref_var(sva_info)@479:15-479:23	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @495:7 in function:system_end_all_assertions
+        golden x1  ARR=ref_var(sva_info)@495:15-495:23	ARRTS=unsupported_typespec(sva_info)@495:15-495:23	INST=<null>
+        ours   x1  ARR=ref_var(sva_info)@495:15-495:23	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @510:7 in function:update_coverage
+        golden x1  ARR=ref_var(cover_info)@510:15-510:25	ARRTS=unsupported_typespec(cover_info)@510:15-510:25	INST=<null>
+        ours   x1  ARR=ref_var(cover_info)@510:15-510:25	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @529:7 in function:get_nof_enabled_sva
+        golden x1  ARR=ref_var(sva_info)@529:15-529:23	ARRTS=unsupported_typespec(sva_info)@529:15-529:23	INST=<null>
+        ours   x1  ARR=ref_var(sva_info)@529:15-529:23	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @547:7 in function:get_nof_tested_sva
+        golden x1  ARR=ref_var(sva_info)@547:15-547:23	ARRTS=unsupported_typespec(sva_info)@547:15-547:23	INST=<null>
+        ours   x1  ARR=ref_var(sva_info)@547:15-547:23	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @592:7 in function:report_for_sva
+        golden x1  ARR=ref_var(sva_info)@592:15-592:23	ARRTS=unsupported_typespec(sva_info)@592:15-592:23	INST=<null>
+        ours   x1  ARR=ref_var(sva_info)@592:15-592:23	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @602:7 in function:report_for_sva
+        golden x1  ARR=ref_var(sva_info)@602:15-602:23	ARRTS=unsupported_typespec(sva_info)@602:15-602:23	INST=<null>
+        ours   x1  ARR=ref_var(sva_info)@602:15-602:23	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @613:7 in function:report_for_sva
+        golden x1  ARR=ref_var(sva_info)@613:15-613:23	ARRTS=unsupported_typespec(sva_info)@613:15-613:23	INST=<null>
+        ours   x1  ARR=ref_var(sva_info)@613:15-613:23	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+    GOLDEN-DEGRADES @622:3 in function:uvm_has_wildcard
+        golden x2  ARR=ref_var(arg)@622:11-622:14	ARRTS=unsupported_typespec(arg)@622:11-622:14	INST=package:uvm_pkg
+        ours   x1  ARR=ref_var(arg)@622:11-622:14	ARRTS=string_typespec()@614:42-614:48	INST=package:uvm_pkg
+        ours   x1  ARR=ref_var(arg)@622:11-622:14	ARRTS=unsupported_typespec(arg)@622:11-622:14	INST=package:svaunit_pkg
+    GOLDEN-DEGRADES @624:7 in function:report_for_sva
+        golden x1  ARR=ref_var(cover_info)@624:15-624:25	ARRTS=unsupported_typespec(cover_info)@624:15-624:25	INST=<null>
+        ours   x1  ARR=ref_var(cover_info)@624:15-624:25	ARRTS=array_typespec()@0:0-0:0	INST=<null>
+testflags  SeqDriver      cells=733   DEGRADE-TOWARD=261  untouched=472
+    GOLDEN-DEGRADES @288:3 in function:uvm_string_to_action
+        golden x2  ARR=ref_var(actions)@288:11-288:18	ARRTS=unsupported_typespec(actions)@288:11-288:18	INST=package:uvm_pkg
+        ours   x1  ARR=ref_var(actions)@288:11-288:18	ARRTS=array_typespec()@284:10-284:19	INST=<null>
+        ours   x1  ARR=ref_var(actions)@288:11-288:18	ARRTS=unsupported_typespec(actions)@288:11-288:18	INST=package:adpcm_pkg
+    GOLDEN-DEGRADES @622:3 in function:uvm_has_wildcard
+        golden x2  ARR=ref_var(arg)@622:11-622:14	ARRTS=unsupported_typespec(arg)@622:11-622:14	INST=package:uvm_pkg
+        ours   x1  ARR=ref_var(arg)@622:11-622:14	ARRTS=string_typespec()@614:42-614:48	INST=package:uvm_pkg
+        ours   x1  ARR=ref_var(arg)@622:11-622:14	ARRTS=unsupported_typespec(arg)@622:11-622:14	INST=package:adpcm_pkg
+testflags  SimpleUVM      cells=733   untouched=733
+TOTAL DEGRADE-TOWARD=1044  untouched=5853   degrade-cells=46

@@ -1,0 +1,117 @@
+a_homes    def   KIND  STILL-OFF 19:5 function:cnt_fml package:expl183
+      golden {'unsupported_typespec(wrds)@19:14-19:18': 2}
+      both   {'unsupported_typespec(wrds)@19:14-19:18': 1, 'string_typespec()@17:34-17:40': 1}
+a_homes    def   KIND  STILL-OFF 41:7 function:cnt_blk package:expl183
+      golden {'unsupported_typespec(inner_row)@41:16-41:25': 2}
+      both   {'unsupported_typespec(inner_row)@41:16-41:25': 1, 'array_typespec()@0:0-0:0': 1}
+a_homes    def   KIND  STILL-OFF 41:7 function:cnt_blk package:hm183
+      golden {'array_typespec()@40:12-40:23': 1, 'unsupported_typespec(inner_row)@41:16-41:25': 1}
+      both   {'unsupported_typespec(inner_row)@41:16-41:25': 1, 'array_typespec()@0:0-0:0': 1}
+a_homes    elab  KIND  STILL-OFF 19:5 function:cnt_fml package:expl183
+      golden {'unsupported_typespec(wrds)@19:14-19:18': 4}
+      both   {'unsupported_typespec(wrds)@19:14-19:18': 2, 'string_typespec()@17:34-17:40': 2}
+a_homes    elab  KIND  STILL-OFF 41:7 function:cnt_blk module_inst:work@top183
+      golden {'array_typespec()@40:12-40:23': 1}
+      both   {'array_typespec()@0:0-0:0': 1}
+a_homes    elab  KIND  STILL-OFF 41:7 function:cnt_blk package:expl183
+      golden {'unsupported_typespec(inner_row)@41:16-41:25': 4}
+      both   {'unsupported_typespec(inner_row)@41:16-41:25': 2, 'array_typespec()@0:0-0:0': 2}
+a_homes    elab  KIND  STILL-OFF 41:7 function:cnt_blk package:hm183
+      golden {'array_typespec()@40:12-40:23': 2, 'unsupported_typespec(inner_row)@41:16-41:25': 2}
+      both   {'unsupported_typespec(inner_row)@41:16-41:25': 2, 'array_typespec()@0:0-0:0': 2}
+b_kinds    def   KIND  STILL-OFF 38:5 function:k_alias package:kb183
+      golden {'array_typespec(quad_t)@9:11-9:24': 1, 'unsupported_typespec(four_up)@38:14-38:21': 1}
+      both   {'unsupported_typespec(four_up)@38:14-38:21': 1, 'array_typespec()@36:12-36:19': 1}
+b_kinds    def   KIND  STILL-OFF 45:5 function:k_assoc_s package:kb183
+      golden {'array_typespec()@42:9-42:24': 1, 'unsupported_typespec(by_word)@45:14-45:21': 1}
+      both   {'unsupported_typespec(by_word)@45:14-45:21': 1, 'array_typespec()@0:0-0:0': 1}
+b_kinds    def   KIND  STILL-OFF 52:5 function:k_assoc_i package:kb183
+      golden {'array_typespec()@49:9-49:20': 1, 'unsupported_typespec(by_num)@52:14-52:20': 1}
+      both   {'unsupported_typespec(by_num)@52:14-52:20': 1, 'array_typespec()@0:0-0:0': 1}
+b_kinds    def   INST  STILL-OFF 38:5 function:k_alias package:kb183
+      golden {'package:kb183': 2}
+      both   {'package:kb183': 1, '<null>': 1}
+b_kinds    elab  KIND  STILL-OFF 38:5 function:k_alias package:kb183
+      golden {'array_typespec(quad_t)@9:11-9:24': 2, 'unsupported_typespec(four_up)@38:14-38:21': 2}
+      both   {'unsupported_typespec(four_up)@38:14-38:21': 2, 'array_typespec()@36:12-36:19': 2}
+b_kinds    elab  KIND  STILL-OFF 45:5 function:k_assoc_s package:kb183
+      golden {'array_typespec()@42:9-42:24': 2, 'unsupported_typespec(by_word)@45:14-45:21': 2}
+      both   {'unsupported_typespec(by_word)@45:14-45:21': 2, 'array_typespec()@0:0-0:0': 2}
+b_kinds    elab  KIND  STILL-OFF 52:5 function:k_assoc_i package:kb183
+      golden {'array_typespec()@49:9-49:20': 2, 'unsupported_typespec(by_num)@52:14-52:20': 2}
+      both   {'unsupported_typespec(by_num)@52:14-52:20': 2, 'array_typespec()@0:0-0:0': 2}
+b_kinds    elab  INST  STILL-OFF 38:5 function:k_alias package:kb183
+      golden {'package:kb183': 4}
+      both   {'package:kb183': 2, '<null>': 2}
+f_param    def   KIND  STILL-OFF 21:5 function:sum_param package:pf183
+      golden {'array_typespec()@14:14-14:32': 2}
+      both   {'unsupported_typespec(P_ROWS)@21:14-21:20': 1, 'array_typespec()@0:0-0:0': 1}
+f_param    def   KIND  STILL-OFF 21:5 function:sum_param package:pfwild183
+      golden {'array_typespec()@14:14-14:32': 2}
+      both   {'unsupported_typespec(P_ROWS)@21:14-21:20': 1, 'array_typespec()@0:0-0:0': 1}
+f_param    def   KIND  STILL-OFF 26:5 function:sum_localparam package:pf183
+      golden {'array_typespec()@15:14-15:32': 2}
+      both   {'unsupported_typespec(L_COLS)@26:14-26:20': 1, 'array_typespec()@0:0-0:0': 1}
+f_param    def   KIND  STILL-OFF 26:5 function:sum_localparam package:pfwild183
+      golden {'array_typespec()@15:14-15:32': 2}
+      both   {'unsupported_typespec(L_COLS)@26:14-26:20': 1, 'array_typespec()@0:0-0:0': 1}
+f_param    def   KIND  STILL-OFF 31:5 function:sum_trio package:pf183
+      golden {'array_typespec(trio_t)@12:11-12:24': 2}
+      both   {'unsupported_typespec(P_TRIO)@31:14-31:20': 1, 'array_typespec()@0:0-0:0': 1}
+f_param    def   KIND  STILL-OFF 31:5 function:sum_trio package:pfwild183
+      golden {'array_typespec(trio_t)@12:11-12:24': 2}
+      both   {'unsupported_typespec(P_TRIO)@31:14-31:20': 1, 'array_typespec()@0:0-0:0': 1}
+f_param    def   INST  STILL-OFF 21:5 function:sum_param package:pf183
+      golden {'package:pf183': 2}
+      both   {'package:pf183': 1, '<null>': 1}
+f_param    def   INST  STILL-OFF 26:5 function:sum_localparam package:pf183
+      golden {'package:pf183': 2}
+      both   {'package:pf183': 1, '<null>': 1}
+f_param    def   INST  STILL-OFF 31:5 function:sum_trio package:pf183
+      golden {'package:pf183': 2}
+      both   {'package:pf183': 1, '<null>': 1}
+f_param    elab  KIND  STILL-OFF 21:5 function:sum_param module_inst:work@pf_top183
+      golden {'array_typespec()@14:14-14:32': 1}
+      both   {'array_typespec()@0:0-0:0': 1}
+f_param    elab  KIND  STILL-OFF 21:5 function:sum_param package:pf183
+      golden {'array_typespec()@14:14-14:32': 4}
+      both   {'unsupported_typespec(P_ROWS)@21:14-21:20': 2, 'array_typespec()@0:0-0:0': 2}
+f_param    elab  KIND  STILL-OFF 21:5 function:sum_param package:pfwild183
+      golden {'array_typespec()@14:14-14:32': 4}
+      both   {'unsupported_typespec(P_ROWS)@21:14-21:20': 2, 'array_typespec()@0:0-0:0': 2}
+f_param    elab  KIND  STILL-OFF 26:5 function:sum_localparam module_inst:work@pf_top183
+      golden {'array_typespec()@15:14-15:32': 1}
+      both   {'array_typespec()@0:0-0:0': 1}
+f_param    elab  KIND  STILL-OFF 26:5 function:sum_localparam package:pf183
+      golden {'array_typespec()@15:14-15:32': 4}
+      both   {'unsupported_typespec(L_COLS)@26:14-26:20': 2, 'array_typespec()@0:0-0:0': 2}
+f_param    elab  KIND  STILL-OFF 26:5 function:sum_localparam package:pfwild183
+      golden {'array_typespec()@15:14-15:32': 4}
+      both   {'unsupported_typespec(L_COLS)@26:14-26:20': 2, 'array_typespec()@0:0-0:0': 2}
+f_param    elab  KIND  STILL-OFF 31:5 function:sum_trio module_inst:work@pf_top183
+      golden {'array_typespec(trio_t)@12:11-12:24': 1}
+      both   {'array_typespec()@0:0-0:0': 1}
+f_param    elab  KIND  STILL-OFF 31:5 function:sum_trio package:pf183
+      golden {'array_typespec(trio_t)@12:11-12:24': 4}
+      both   {'unsupported_typespec(P_TRIO)@31:14-31:20': 2, 'array_typespec()@0:0-0:0': 2}
+f_param    elab  KIND  STILL-OFF 31:5 function:sum_trio package:pfwild183
+      golden {'array_typespec(trio_t)@12:11-12:24': 4}
+      both   {'unsupported_typespec(P_TRIO)@31:14-31:20': 2, 'array_typespec()@0:0-0:0': 2}
+f_param    elab  INST  STILL-OFF 21:5 function:sum_param module_inst:work@pf_top183
+      golden {'package:pf183': 1}
+      both   {'<null>': 1}
+f_param    elab  INST  STILL-OFF 21:5 function:sum_param package:pf183
+      golden {'package:pf183': 4}
+      both   {'package:pf183': 2, '<null>': 2}
+f_param    elab  INST  STILL-OFF 26:5 function:sum_localparam module_inst:work@pf_top183
+      golden {'package:pf183': 1}
+      both   {'<null>': 1}
+f_param    elab  INST  STILL-OFF 26:5 function:sum_localparam package:pf183
+      golden {'package:pf183': 4}
+      both   {'package:pf183': 2, '<null>': 2}
+f_param    elab  INST  STILL-OFF 31:5 function:sum_trio module_inst:work@pf_top183
+      golden {'package:pf183': 1}
+      both   {'<null>': 1}
+f_param    elab  INST  STILL-OFF 31:5 function:sum_trio package:pf183
+      golden {'package:pf183': 4}
+      both   {'package:pf183': 2, '<null>': 2}
