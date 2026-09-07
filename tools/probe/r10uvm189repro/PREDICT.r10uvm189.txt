@@ -1,0 +1,56 @@
+PREDICTED default/MiniAmiq-544c7f61/slang.uhdm cells=20 rc=0
+    CELL pred_of_succ@1758:9 in package:svaunit_pkg
+    CELL pred_of_succ@1758:9 in package:uvm_pkg
+    CELL predecessors@1664:8 in package:svaunit_pkg
+    CELL predecessors@1664:8 in package:uvm_pkg
+    CELL siblings@2131:7 in package:svaunit_pkg
+    CELL siblings@2131:7 in package:uvm_pkg
+    CELL successors@1693:8 in package:svaunit_pkg
+    CELL successors@1693:8 in package:uvm_pkg
+    CELL visited@1896:9 in package:svaunit_pkg
+    CELL visited@1896:9 in package:uvm_pkg
+    CELL visited@1946:9 in package:svaunit_pkg
+    CELL visited@1946:9 in package:uvm_pkg
+PREDICTED default/SeqDriver-32af76aa/slang.uhdm cells=20 rc=0
+    CELL pred_of_succ@1758:9 in package:adpcm_pkg
+    CELL pred_of_succ@1758:9 in package:uvm_pkg
+    CELL predecessors@1664:8 in package:adpcm_pkg
+    CELL predecessors@1664:8 in package:uvm_pkg
+    CELL siblings@2131:7 in package:adpcm_pkg
+    CELL siblings@2131:7 in package:uvm_pkg
+    CELL successors@1693:8 in package:adpcm_pkg
+    CELL successors@1693:8 in package:uvm_pkg
+    CELL visited@1896:9 in package:adpcm_pkg
+    CELL visited@1896:9 in package:uvm_pkg
+    CELL visited@1946:9 in package:adpcm_pkg
+    CELL visited@1946:9 in package:uvm_pkg
+PREDICTED testflags/MiniAmiq-544c7f61/slang.uhdm cells=20 rc=0
+    CELL pred_of_succ@1758:9 in package:svaunit_pkg
+    CELL pred_of_succ@1758:9 in package:uvm_pkg
+    CELL predecessors@1664:8 in package:svaunit_pkg
+    CELL predecessors@1664:8 in package:uvm_pkg
+    CELL siblings@2131:7 in package:svaunit_pkg
+    CELL siblings@2131:7 in package:uvm_pkg
+    CELL successors@1693:8 in package:svaunit_pkg
+    CELL successors@1693:8 in package:uvm_pkg
+    CELL visited@1896:9 in package:svaunit_pkg
+    CELL visited@1896:9 in package:uvm_pkg
+    CELL visited@1946:9 in package:svaunit_pkg
+    CELL visited@1946:9 in package:uvm_pkg
+PREDICTED testflags/SeqDriver-32af76aa/slang.uhdm cells=20 rc=0
+    CELL pred_of_succ@1758:9 in package:adpcm_pkg
+    CELL pred_of_succ@1758:9 in package:uvm_pkg
+    CELL predecessors@1664:8 in package:adpcm_pkg
+    CELL predecessors@1664:8 in package:uvm_pkg
+    CELL siblings@2131:7 in package:adpcm_pkg
+    CELL siblings@2131:7 in package:uvm_pkg
+    CELL successors@1693:8 in package:adpcm_pkg
+    CELL successors@1693:8 in package:uvm_pkg
+    CELL visited@1896:9 in package:adpcm_pkg
+    CELL visited@1896:9 in package:uvm_pkg
+    CELL visited@1946:9 in package:adpcm_pkg
+    CELL visited@1946:9 in package:uvm_pkg
+LISTED=956 PROCESSED=956 NOGOLDEN=0 PREDICTED=4
+PROCESSED-ASSERT-OK
+LISTED=1358 PROCESSED=1358 NOGOLDEN=0 PREDICTED=0
+PROCESSED-ASSERT-OK

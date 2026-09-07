@@ -1,0 +1,53 @@
+r10uvm189 — GATES.  Every number produced in THIS pass's own worktree; the
+official ~/git-repos/UHDM/build/bin/uhdm-cmp and scripts/verify_golden.py
+are the authorities.  results/*.csv were READ ONLY.  GOLDEN_DEFER unset.
+
+BASE 89631b31
+pristine binary md5 fc4c6d192b7e39bf2e48728a17a6e29f (frozen chmod 555 before any sweep)
+patched  binary md5 9ec3fd24db011affffd41387a38053d8 (frozen chmod 555)
+
+(1) BUILD both, md5s: above.
+
+(2) GOLDENS
+    pristine SLANG_UHDM=<pris>  PASS=23 FAIL=0
+    patched  SLANG_UHDM=<pat>   PASS=23 FAIL=0
+    negative SLANG_UHDM=/bin/false PASS=0 FAIL=23
+
+(3) uhdm2rtlil, testflags AND default
+    PRISTINE u2r_tf.csv 731 {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+    PRISTINE u2r_def.csv 731 {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+    PATCHED  u2r_tf.csv 731 {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+    PATCHED  u2r_def.csv 731 {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+    PRISTINE sl.csv 1588 {'CMP_EQUAL': 937, 'SLANG_REJECT': 567, 'SURELOG_FAIL': 48, 'NO_DATABASE': 3, 'CMP_NOTEQUAL': 19, 'UNTRANSLATABLE': 2, 'DEFERRED': 10, 'TIMEOUT': 1, 'NO_UHDM': 1}
+    PATCHED  sl.csv 1588 {'CMP_EQUAL': 937, 'SLANG_REJECT': 567, 'SURELOG_FAIL': 48, 'NO_DATABASE': 3, 'CMP_NOTEQUAL': 19, 'UNTRANSLATABLE': 2, 'DEFERRED': 10, 'TIMEOUT': 1, 'NO_UHDM': 1}
+
+    ct8rows (baseline FIRST, then this pass's own pristine sweep; status AND dump column)
+    PRISTINE-vs-committed : PASS: every row byte-identical to the committed baseline
+    PATCHED-vs-committed : PASS: every row byte-identical to the committed baseline
+    PATCHED-vs-own-pristine tf: PASS: every row byte-identical to the committed baseline
+    PATCHED-vs-own-pristine def: PASS: every row byte-identical to the committed baseline
+    SURELOG PRISTINE-vs-committed: PASS: every row byte-identical to the committed baseline
+    SURELOG PATCHED-vs-committed: PASS: every row byte-identical to the committed baseline
+    SURELOG PATCHED-vs-own-pristine: PASS: every row byte-identical to the committed baseline
+
+(5) BYTE MOVERS: see MOVERS.r10uvm189.txt — surelog 4/956 (the four PREDICTED by name), uhdm2rtlil 0/1358.
+
+CANARIES
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+
+PROTECTED DATABASES (md5 patched vs pristine)
+    InterfaceModPort/default pat=59a365f3ce2c pris=59a365f3ce2c
+    InterfaceModPort/testflags pat=59a365f3ce2c pris=59a365f3ce2c
+    BlackParrotComplex/default pat=e3e354129d5a pris=e3e354129d5a
+    BlackParrotComplex/testflags pat=73a10e8217e5 pris=73a10e8217e5
+    YosysOldOr/default pat=d68e0796d62c pris=d68e0796d62c
+    YosysOldOr/testflags pat=d68e0796d62c pris=d68e0796d62c
+    SVSwitch/default pat=4842211c4030 pris=4842211c4030
+    SVSwitch/testflags pat=4842211c4030 pris=4842211c4030
+    YosysVerx/default pat=6ccda350c24a pris=6ccda350c24a
+    YosysVerx/testflags pat=6ccda350c24a pris=6ccda350c24a

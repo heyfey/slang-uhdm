@@ -1,0 +1,57 @@
+r10uvm189 — HEADS (official uhdm-cmp via rowheads.sh) and the SKIP LADDER.
+
+PRISTINE sweep (this pass's own build at a clean 89631b31):
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         62      1 cmp rc=255
+SeqDriver      testflags       62      1 cmp rc=255
+SimpleUVM      default     664681      1 cmp rc=255
+SimpleUVM      testflags   664681      1 cmp rc=255
+Scoreboard     default         95      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default         62      1 cmp rc=255
+MiniAmiq       testflags       62      1 cmp rc=255
+BuildUVMPkg    default         36      1 cmp rc=255
+BuildUVMPkg    testflags       36      1 cmp rc=255
+Earlgrey_0_1   default         31      1 cmp rc=255
+Earlgrey_0_1   testflags       37      1 cmp rc=255
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+
+PATCHED sweep:
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         55      1 cmp rc=255
+SeqDriver      testflags       55      1 cmp rc=255
+SimpleUVM      default     664681      1 cmp rc=255
+SimpleUVM      testflags   664681      1 cmp rc=255
+Scoreboard     default         95      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default         55      1 cmp rc=255
+MiniAmiq       testflags       55      1 cmp rc=255
+BuildUVMPkg    default         36      1 cmp rc=255
+BuildUVMPkg    testflags       36      1 cmp rc=255
+Earlgrey_0_1   default         31      1 cmp rc=255
+Earlgrey_0_1   testflags       37      1 cmp rc=255
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+
+SKIP LADDER (r10uvm184's visited-set technique; SeqDriver/default, no edit to either database).
+PRISTINE:
+round 0: r=-32 LHS=constant()@1664:20-1664:21#196615  RHS=operation()@1664:21-1664:30#195562
+         LHS listing <range:<array_typespec:<ref_typespec:<array_var:predecessors<function:uvm_phase::get_adjacent_predecessor_nodes<package:adpcm_pkg/DEF<design:work@top_tb
+round 1: r=1 LHS=ref_typespec()@0:0-0:0#196618  RHS=<null>
+         LHS listing <array_typespec:<ref_typespec:<array_var:predecessors<function:uvm_phase::get_adjacent_predecessor_nodes<package:adpcm_pkg/DEF<design:work@top_tb
+round 2: r=1 LHS=ref_typespec()@0:0-0:0#196618  RHS=<null>
+         LHS listing <array_typespec:<ref_typespec:<array_var:predecessors<function:uvm_phase::get_adjacent_predecessor_nodes<package:adpcm_pkg/DEF<design:work@top_tb
+round 3: r=1 LHS=ref_typespec()@0:0-0:0#196618  RHS=<null>
+         LHS listing <array_typespec:<ref_typespec:<array_var:predecessors<function:uvm_phase::get_adjacent_predecessor_nodes<package:adpcm_pkg/DEF<design:work@top_tb
+PATCHED:
+round 0: r=1 LHS=array_var(predecessors)@1664:8-1664:20#14293  RHS=<null>
+         LHS listing <begin:<function:get_adjacent_predecessor_nodes<class_defn:uvm_phase<package:uvm_pkg/ELAB<design:work@top_tb
+round 1: r=1 LHS=array_typespec()@1664:8-1664:31#14294  RHS=<null>
+         LHS listing <noparent
+round 2: r=1 LHS=package(uvm_pkg)@28:1-39:11#1  RHS=<null>
+         LHS listing <design:work@top_tb
+round 3: r=1 LHS=package(uvm_pkg)@28:1-39:11#1  RHS=<null>
+         LHS listing <design:work@top_tb

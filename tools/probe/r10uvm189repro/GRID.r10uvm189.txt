@@ -1,0 +1,141 @@
+r10uvm189 — GRID (three arms x both views), scored by score189.py.
+LHS is ALWAYS golden (a real Surelog build per arm, per view); a = PRISTINE, b = PATCHED.
+
+CALIBRATION golden-vs-golden-vs-golden (arm A, def):
+KEYS=42 ONLY-GOLDEN=0 ONLY-OURS=0 ONLY-OURS-MOVED=0
+  LAW   TOGOLDEN=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=42
+  IDXTS TOGOLDEN=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=42
+
+===== ARM a view def
+cmp rc=255 a def lines=62 heads=1
+cmp rc=255 b def lines=2852 heads=1
+KEYS=42 ONLY-GOLDEN=0 ONLY-OURS=0 ONLY-OURS-MOVED=0
+  LAW TOGOLDEN   package:Mullion189/DEF oobClsA189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:Mullion189/DEF oobTdClsA189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:Mullion189/DEF oobEnumA189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:Mullion189/DEF oobTdIntA189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:Mullion189/DEF frClsA189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:Mullion189/ELAB oobClsA189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:Mullion189/ELAB oobTdClsA189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:Mullion189/ELAB oobEnumA189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:Mullion189/ELAB oobTdIntA189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW   TOGOLDEN=9 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=33
+  IDXTS STILLWRONG package:Girder189/ELAB|CDEFN oobTdClsA189  ours {'idxTs=class_typespec(Trellis189)@26:22 inner=class_typespec(Trellis189)@26:22'}  (golden {'idxTs=unsupported_typespec(tdTrellisA189)@26:22 inner=unsupported_typespec(tdTrellisA189)@26:22'})
+  IDXTS TOGOLDEN   package:Mullion189/DEF oobClsA189  {'idxTs=NONE'} -> {'idxTs=class_typespec(Trellis189)@25:20 inner=class_typespec(Trellis189)@25:20'}
+  IDXTS MOVEDWRONG package:Mullion189/DEF oobTdClsA189  {'idxTs=NONE'} -> {'idxTs=class_typespec(Trellis189)@26:22 inner=class_typespec(Trellis189)@26:22'}  (golden {'idxTs=unsupported_typespec(tdTrellisA189)@26:22 inner=unsupported_typespec(tdTrellisA189)@26:22'})
+  IDXTS TOGOLDEN   package:Mullion189/DEF oobEnumA189  {'idxTs=NONE'} -> {'idxTs=enum_typespec(Girder189::enKindA189)@12:3 inner=enum_typespec(Girder189::enKindA189)@12:3'}
+  IDXTS TOGOLDEN   package:Mullion189/DEF oobTdIntA189  {'idxTs=NONE'} -> {'idxTs=int_typespec(tdIntA189)@11:11 inner=int_typespec(tdIntA189)@11:11'}
+  IDXTS TOGOLDEN   package:Mullion189/DEF frClsA189  {'idxTs=NONE'} -> {'idxTs=class_typespec(Trellis189)@42:19 inner=class_typespec(Trellis189)@42:19'}
+  IDXTS TOGOLDEN   package:Mullion189/ELAB oobClsA189  {'idxTs=NONE'} -> {'idxTs=class_typespec(Trellis189)@25:20 inner=class_typespec(Trellis189)@25:20'}
+  IDXTS MOVEDWRONG package:Mullion189/ELAB oobTdClsA189  {'idxTs=NONE'} -> {'idxTs=class_typespec(Trellis189)@26:22 inner=class_typespec(Trellis189)@26:22'}  (golden {'idxTs=unsupported_typespec(tdTrellisA189)@26:22 inner=unsupported_typespec(tdTrellisA189)@26:22'})
+  IDXTS TOGOLDEN   package:Mullion189/ELAB oobEnumA189  {'idxTs=NONE'} -> {'idxTs=enum_typespec(Girder189::enKindA189)@12:3 inner=enum_typespec(Girder189::enKindA189)@12:3'}
+  IDXTS TOGOLDEN   package:Mullion189/ELAB oobTdIntA189  {'idxTs=NONE'} -> {'idxTs=int_typespec(tdIntA189)@11:11 inner=int_typespec(tdIntA189)@11:11'}
+  IDXTS TOGOLDEN=7 AWAY=0 MOVED-WRONG=2 STILL-WRONG=1 UNTOUCHED=32
+
+===== ARM a view elab
+cmp rc=255 a elab lines=62 heads=1
+cmp rc=255 b elab lines=4436 heads=1
+KEYS=42 ONLY-GOLDEN=0 ONLY-OURS=0 ONLY-OURS-MOVED=0
+  LAW TOGOLDEN   package:Mullion189/DEF oobClsA189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:Mullion189/DEF oobTdClsA189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:Mullion189/DEF oobEnumA189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:Mullion189/DEF oobTdIntA189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:Mullion189/DEF frClsA189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:Mullion189/ELAB oobClsA189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:Mullion189/ELAB oobTdClsA189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:Mullion189/ELAB oobEnumA189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:Mullion189/ELAB oobTdIntA189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW   TOGOLDEN=9 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=33
+  IDXTS STILLWRONG package:Girder189/ELAB|CDEFN oobTdClsA189  ours {'idxTs=class_typespec(Trellis189)@26:22 inner=class_typespec(Trellis189)@26:22'}  (golden {'idxTs=unsupported_typespec(tdTrellisA189)@26:22 inner=unsupported_typespec(tdTrellisA189)@26:22'})
+  IDXTS TOGOLDEN   package:Mullion189/DEF oobClsA189  {'idxTs=NONE'} -> {'idxTs=class_typespec(Trellis189)@25:20 inner=class_typespec(Trellis189)@25:20'}
+  IDXTS MOVEDWRONG package:Mullion189/DEF oobTdClsA189  {'idxTs=NONE'} -> {'idxTs=class_typespec(Trellis189)@26:22 inner=class_typespec(Trellis189)@26:22'}  (golden {'idxTs=unsupported_typespec(tdTrellisA189)@26:22 inner=unsupported_typespec(tdTrellisA189)@26:22'})
+  IDXTS TOGOLDEN   package:Mullion189/DEF oobEnumA189  {'idxTs=NONE'} -> {'idxTs=enum_typespec(Girder189::enKindA189)@12:3 inner=enum_typespec(Girder189::enKindA189)@12:3'}
+  IDXTS TOGOLDEN   package:Mullion189/DEF oobTdIntA189  {'idxTs=NONE'} -> {'idxTs=int_typespec(tdIntA189)@11:11 inner=int_typespec(tdIntA189)@11:11'}
+  IDXTS TOGOLDEN   package:Mullion189/DEF frClsA189  {'idxTs=NONE'} -> {'idxTs=class_typespec(Trellis189)@42:19 inner=class_typespec(Trellis189)@42:19'}
+  IDXTS TOGOLDEN   package:Mullion189/ELAB oobClsA189  {'idxTs=NONE'} -> {'idxTs=class_typespec(Trellis189)@25:20 inner=class_typespec(Trellis189)@25:20'}
+  IDXTS MOVEDWRONG package:Mullion189/ELAB oobTdClsA189  {'idxTs=NONE'} -> {'idxTs=class_typespec(Trellis189)@26:22 inner=class_typespec(Trellis189)@26:22'}  (golden {'idxTs=unsupported_typespec(tdTrellisA189)@26:22 inner=unsupported_typespec(tdTrellisA189)@26:22'})
+  IDXTS TOGOLDEN   package:Mullion189/ELAB oobEnumA189  {'idxTs=NONE'} -> {'idxTs=enum_typespec(Girder189::enKindA189)@12:3 inner=enum_typespec(Girder189::enKindA189)@12:3'}
+  IDXTS TOGOLDEN   package:Mullion189/ELAB oobTdIntA189  {'idxTs=NONE'} -> {'idxTs=int_typespec(tdIntA189)@11:11 inner=int_typespec(tdIntA189)@11:11'}
+  IDXTS TOGOLDEN=7 AWAY=0 MOVED-WRONG=2 STILL-WRONG=1 UNTOUCHED=32
+
+===== ARM b view def
+cmp rc=255 a def lines=184 heads=1
+cmp rc=255 b def lines=184 heads=1
+KEYS=18 ONLY-GOLDEN=2 ONLY-OURS=0 ONLY-OURS-MOVED=0
+  ONLY-GOLDEN ('package:Lintel189/DEF', '10:7', 'pkgVarB189', 'dim100')
+  ONLY-GOLDEN ('package:Soffit189/DEF', '10:7', 'pkgVarB189', 'dim100')
+  LAW TOGOLDEN   package:Soffit189/DEF locB189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:Soffit189/DEF taskLocB189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:Soffit189/DEF freeLocB189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:Soffit189/ELAB locB189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:Soffit189/ELAB taskLocB189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW   TOGOLDEN=5 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=11
+  IDXTS TOGOLDEN   package:Soffit189/DEF locB189  {'idxTs=NONE'} -> {'idxTs=class_typespec(Corbel189)@17:17 inner=class_typespec(Corbel189)@17:17'}
+  IDXTS TOGOLDEN   package:Soffit189/DEF taskLocB189  {'idxTs=NONE'} -> {'idxTs=class_typespec(Corbel189)@25:21 inner=class_typespec(Corbel189)@25:21'}
+  IDXTS TOGOLDEN   package:Soffit189/DEF freeLocB189  {'idxTs=NONE'} -> {'idxTs=class_typespec(Corbel189)@29:21 inner=class_typespec(Corbel189)@29:21'}
+  IDXTS TOGOLDEN   package:Soffit189/ELAB locB189  {'idxTs=NONE'} -> {'idxTs=class_typespec(Corbel189)@17:17 inner=class_typespec(Corbel189)@17:17'}
+  IDXTS TOGOLDEN   package:Soffit189/ELAB taskLocB189  {'idxTs=NONE'} -> {'idxTs=class_typespec(Corbel189)@25:21 inner=class_typespec(Corbel189)@25:21'}
+  IDXTS TOGOLDEN=5 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=11
+
+===== ARM b view elab
+cmp rc=255 a elab lines=184 heads=1
+cmp rc=255 b elab lines=184 heads=1
+KEYS=18 ONLY-GOLDEN=2 ONLY-OURS=0 ONLY-OURS-MOVED=0
+  ONLY-GOLDEN ('package:Lintel189/DEF', '10:7', 'pkgVarB189', 'dim100')
+  ONLY-GOLDEN ('package:Soffit189/DEF', '10:7', 'pkgVarB189', 'dim100')
+  LAW TOGOLDEN   package:Soffit189/DEF locB189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:Soffit189/DEF taskLocB189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:Soffit189/DEF freeLocB189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:Soffit189/ELAB locB189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:Soffit189/ELAB taskLocB189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW   TOGOLDEN=5 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=11
+  IDXTS TOGOLDEN   package:Soffit189/DEF locB189  {'idxTs=NONE'} -> {'idxTs=class_typespec(Corbel189)@17:17 inner=class_typespec(Corbel189)@17:17'}
+  IDXTS TOGOLDEN   package:Soffit189/DEF taskLocB189  {'idxTs=NONE'} -> {'idxTs=class_typespec(Corbel189)@25:21 inner=class_typespec(Corbel189)@25:21'}
+  IDXTS TOGOLDEN   package:Soffit189/DEF freeLocB189  {'idxTs=NONE'} -> {'idxTs=class_typespec(Corbel189)@29:21 inner=class_typespec(Corbel189)@29:21'}
+  IDXTS TOGOLDEN   package:Soffit189/ELAB locB189  {'idxTs=NONE'} -> {'idxTs=class_typespec(Corbel189)@17:17 inner=class_typespec(Corbel189)@17:17'}
+  IDXTS TOGOLDEN   package:Soffit189/ELAB taskLocB189  {'idxTs=NONE'} -> {'idxTs=class_typespec(Corbel189)@25:21 inner=class_typespec(Corbel189)@25:21'}
+  IDXTS TOGOLDEN=5 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=11
+
+===== ARM c view def
+cmp rc=255 a def lines=62 heads=1
+cmp rc=255 b def lines=62 heads=1
+KEYS=16 ONLY-GOLDEN=0 ONLY-OURS=0 ONLY-OURS-MOVED=0
+  LAW STILLWRONG package:Riser189/DEF freeClsC189  ours {'arrayType=1 bound=SIZE'}  (golden {'arrayType=3 bound=SENTINEL'})
+  LAW TOGOLDEN   package:Tread189/DEF turnClsC189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:Tread189/DEF freeClsC189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:Tread189/ELAB turnClsC189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW   TOGOLDEN=3 AWAY=0 MOVED-WRONG=0 STILL-WRONG=1 UNTOUCHED=12
+  IDXTS STILLWRONG package:Riser189/DEF freeClsC189  ours {'idxTs=NONE'}  (golden {'idxTs=class_typespec(Baluster189)@19:21 inner=class_typespec(Baluster189)@19:21'})
+  IDXTS TOGOLDEN   package:Tread189/DEF turnClsC189  {'idxTs=NONE'} -> {'idxTs=class_typespec(Baluster189)@13:21 inner=class_typespec(Baluster189)@13:21'}
+  IDXTS TOGOLDEN   package:Tread189/DEF freeClsC189  {'idxTs=NONE'} -> {'idxTs=class_typespec(Baluster189)@19:21 inner=class_typespec(Baluster189)@19:21'}
+  IDXTS TOGOLDEN   package:Tread189/ELAB turnClsC189  {'idxTs=NONE'} -> {'idxTs=class_typespec(Baluster189)@13:21 inner=class_typespec(Baluster189)@13:21'}
+  IDXTS TOGOLDEN=3 AWAY=0 MOVED-WRONG=0 STILL-WRONG=1 UNTOUCHED=12
+
+===== ARM c view elab
+cmp rc=255 a elab lines=62 heads=1
+cmp rc=255 b elab lines=62 heads=1
+KEYS=16 ONLY-GOLDEN=0 ONLY-OURS=0 ONLY-OURS-MOVED=0
+  LAW STILLWRONG package:Riser189/DEF freeClsC189  ours {'arrayType=1 bound=SIZE'}  (golden {'arrayType=3 bound=SENTINEL'})
+  LAW TOGOLDEN   package:Tread189/DEF turnClsC189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:Tread189/DEF freeClsC189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:Tread189/ELAB turnClsC189  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW   TOGOLDEN=3 AWAY=0 MOVED-WRONG=0 STILL-WRONG=1 UNTOUCHED=12
+  IDXTS STILLWRONG package:Riser189/DEF freeClsC189  ours {'idxTs=NONE'}  (golden {'idxTs=class_typespec(Baluster189)@19:21 inner=class_typespec(Baluster189)@19:21'})
+  IDXTS TOGOLDEN   package:Tread189/DEF turnClsC189  {'idxTs=NONE'} -> {'idxTs=class_typespec(Baluster189)@13:21 inner=class_typespec(Baluster189)@13:21'}
+  IDXTS TOGOLDEN   package:Tread189/DEF freeClsC189  {'idxTs=NONE'} -> {'idxTs=class_typespec(Baluster189)@19:21 inner=class_typespec(Baluster189)@19:21'}
+  IDXTS TOGOLDEN   package:Tread189/ELAB turnClsC189  {'idxTs=NONE'} -> {'idxTs=class_typespec(Baluster189)@13:21 inner=class_typespec(Baluster189)@13:21'}
+  IDXTS TOGOLDEN=3 AWAY=0 MOVED-WRONG=0 STILL-WRONG=1 UNTOUCHED=12
+
+===== BOUNDARY RE-MEASUREMENT — r10uvm184repro/g184_b_kinds.sv, the ONE earlier-pass arm the wide gate reports MOVED
+-- view def
+KEYS=20 ONLY-GOLDEN=0 ONLY-OURS=0 ONLY-OURS-MOVED=0
+  LAW TOGOLDEN   package:Stanchion184/DEF seen  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW   TOGOLDEN=1 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=19
+  IDXTS TOGOLDEN   package:Stanchion184/DEF seen  {'idxTs=NONE'} -> {'idxTs=class_typespec(Pallet184)@47:20 inner=class_typespec(Pallet184)@47:20'}
+  IDXTS TOGOLDEN=1 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=19
+-- view elab
+KEYS=20 ONLY-GOLDEN=0 ONLY-OURS=0 ONLY-OURS-MOVED=0
+  LAW TOGOLDEN   package:Stanchion184/DEF seen  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW   TOGOLDEN=1 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=19
+  IDXTS TOGOLDEN   package:Stanchion184/DEF seen  {'idxTs=NONE'} -> {'idxTs=class_typespec(Pallet184)@47:20 inner=class_typespec(Pallet184)@47:20'}
+  IDXTS TOGOLDEN=1 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=19

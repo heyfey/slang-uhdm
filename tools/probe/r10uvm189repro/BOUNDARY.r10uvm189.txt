@@ -1,0 +1,10 @@
+MOVED 2530_r10uvm184repro_g184_b_kinds.sv/def 48 lines
+MOVED 2530_r10uvm184repro_g184_b_kinds.sv/elab 56 lines
+MOVED 2545_r10uvm189repro_g189_a_idxkind.sv/def 408 lines
+MOVED 2545_r10uvm189repro_g189_a_idxkind.sv/elab 512 lines
+MOVED 2546_r10uvm189repro_g189_b_scope.sv/def 240 lines
+MOVED 2546_r10uvm189repro_g189_b_scope.sv/elab 296 lines
+MOVED 2547_r10uvm189repro_g189_c_listing.sv/def 144 lines
+MOVED 2547_r10uvm189repro_g189_c_listing.sv/elab 176 lines
+LISTED=5087 FENCED_SKIPPED=0 PROCESSED=5087 MOVED=8 NO_OUTPUT_PAIRS=392
+PROCESSED-ASSERT-OK

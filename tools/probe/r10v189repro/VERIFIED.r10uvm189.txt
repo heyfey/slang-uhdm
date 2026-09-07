@@ -1,0 +1,169 @@
+r10v189 — ADVERSARIAL VERIFIER of r10uvm189. MEASUREMENT ONLY; uhdm-cmp is the judge.
+binaries built by the verifier from a FRESH 89631b31: pristine fc4c6d192b7e39bf2e48728a17a6e29f, patched 9ec3fd24db011affffd41387a38053d8
+
+== four NEW arms, scored with r10uvm189repro/score189.py against a REAL Surelog golden per view ==
+--- v189_n_nested def
+KEYS=84 ONLY-GOLDEN=16 ONLY-OURS=0 ONLY-OURS-MOVED=0
+  ONLY-GOLDEN ('package:HomeN189v/DEF', '24:9', 'qgG189v', 'dim0')
+  ONLY-GOLDEN ('package:HomeN189v/DEF', '24:9', 'qgG189v', 'dim1')
+  ONLY-GOLDEN ('package:HomeN189v/DEF', '25:9', 'dgH189v', 'dim0')
+  ONLY-GOLDEN ('package:HomeN189v/DEF', '25:9', 'dgH189v', 'dim1')
+  ONLY-GOLDEN ('package:HomeN189v/ELAB|CDEFN', '24:9', 'qgG189v', 'dim0')
+  ONLY-GOLDEN ('package:HomeN189v/ELAB|CDEFN', '24:9', 'qgG189v', 'dim1')
+  ONLY-GOLDEN ('package:HomeN189v/ELAB|CDEFN', '25:9', 'dgH189v', 'dim0')
+  ONLY-GOLDEN ('package:HomeN189v/ELAB|CDEFN', '25:9', 'dgH189v', 'dim1')
+  ONLY-GOLDEN ('package:UserN189v/DEF', '24:9', 'qgG189v', 'dim0')
+  ONLY-GOLDEN ('package:UserN189v/DEF', '24:9', 'qgG189v', 'dim1')
+  ONLY-GOLDEN ('package:UserN189v/DEF', '25:9', 'dgH189v', 'dim0')
+  ONLY-GOLDEN ('package:UserN189v/DEF', '25:9', 'dgH189v', 'dim1')
+  ONLY-GOLDEN ('package:UserN189v/ELAB', '24:9', 'qgG189v', 'dim0')
+  ONLY-GOLDEN ('package:UserN189v/ELAB', '24:9', 'qgG189v', 'dim1')
+  ONLY-GOLDEN ('package:UserN189v/ELAB', '25:9', 'dgH189v', 'dim0')
+  ONLY-GOLDEN ('package:UserN189v/ELAB', '25:9', 'dgH189v', 'dim1')
+  LAW   TOGOLDEN=25 AWAY=0 MOVED-WRONG=0 STILL-WRONG=6 UNTOUCHED=37
+  IDXTS MOVEDWRONG package:UserN189v/DEF nnA189v  {'idxTs=NONE'} -> {'idxTs=class_typespec(KeyN189v)@18:17 inner=class_typespec(KeyN189v)@18:17'}  (golden {'idxTs=class_typespec(OtherN189v)@18:27 inner=class_typespec(KeyN189v)@18:17'})
+  IDXTS MOVEDWRONG package:UserN189v/DEF nnA189v  {'idxTs=NONE'} -> {'idxTs=class_typespec(KeyN189v)@18:17 inner=class_typespec(OtherN189v)@18:27'}  (golden {'idxTs=class_typespec(OtherN189v)@18:27 inner=class_typespec(OtherN189v)@18:27'})
+  IDXTS MOVEDWRONG package:UserN189v/DEF nkB189v  {'idxTs=NONE'} -> {'idxTs=class_typespec(KeyN189v)@19:17 inner=class_typespec(KeyN189v)@19:17'}  (golden {'idxTs=string_typespec()@19:27 inner=class_typespec(KeyN189v)@19:17'})
+  IDXTS MOVEDWRONG package:UserN189v/DEF nkB189v  {'idxTs=NONE inner=string_typespec()@19:27'} -> {'idxTs=class_typespec(KeyN189v)@19:17 inner=string_typespec()@19:27'}  (golden {'idxTs=string_typespec()@19:27 inner=string_typespec()@19:27'})
+  IDXTS MOVEDWRONG package:UserN189v/DEF knC189v  {'idxTs=string_typespec()@20:17'} -> {'idxTs=string_typespec()@20:17 inner=class_typespec(KeyN189v)@20:25'}  (golden {'idxTs=class_typespec(KeyN189v)@20:25 inner=class_typespec(KeyN189v)@20:25'})
+  IDXTS MOVEDWRONG package:UserN189v/DEF scD189v  {'idxTs=NONE'} -> {'idxTs=class_typespec(KeyN189v)@21:17 inner=class_typespec(KeyN189v)@21:17'}  (golden {'idxTs=class_typespec(HomeN189v::KeyN189v)@21:17 inner=class_typespec(HomeN189v::KeyN189v)@21:17'})
+  IDXTS MOVEDWRONG package:UserN189v/DEF tskL189v  {'idxTs=NONE'} -> {'idxTs=class_typespec(KeyN189v)@41:18 inner=class_typespec(KeyN189v)@41:18'}  (golden {'idxTs=unsupported_typespec(tdKeyN189v)@41:18 inner=unsupported_typespec(tdKeyN189v)@41:18'})
+  IDXTS MOVEDWRONG package:UserN189v/DEF tskM189v  {'idxTs=NONE'} -> {'idxTs=class_typespec(KeyN189v)@42:18 inner=class_typespec(KeyN189v)@42:18'}  (golden {'idxTs=class_typespec(KeyN189v)@42:28 inner=class_typespec(KeyN189v)@42:18'})
+  IDXTS MOVEDWRONG package:UserN189v/DEF tskM189v  {'idxTs=NONE'} -> {'idxTs=class_typespec(KeyN189v)@42:18 inner=class_typespec(KeyN189v)@42:28'}  (golden {'idxTs=class_typespec(KeyN189v)@42:28 inner=class_typespec(KeyN189v)@42:28'})
+  IDXTS MOVEDWRONG package:UserN189v/DEF frN189v  {'idxTs=NONE'} -> {'idxTs=class_typespec(KeyN189v)@48:17 inner=class_typespec(KeyN189v)@48:17'}  (golden {'idxTs=string_typespec()@48:27 inner=class_typespec(KeyN189v)@48:17'})
+  IDXTS MOVEDWRONG package:UserN189v/DEF frN189v  {'idxTs=NONE inner=string_typespec()@48:27'} -> {'idxTs=class_typespec(KeyN189v)@48:17 inner=string_typespec()@48:27'}  (golden {'idxTs=string_typespec()@48:27 inner=string_typespec()@48:27'})
+  IDXTS MOVEDWRONG package:UserN189v/ELAB nnA189v  {'idxTs=NONE'} -> {'idxTs=class_typespec(KeyN189v)@18:17 inner=class_typespec(KeyN189v)@18:17'}  (golden {'idxTs=class_typespec(OtherN189v)@18:27 inner=class_typespec(KeyN189v)@18:17'})
+  IDXTS MOVEDWRONG package:UserN189v/ELAB nnA189v  {'idxTs=NONE'} -> {'idxTs=class_typespec(KeyN189v)@18:17 inner=class_typespec(OtherN189v)@18:27'}  (golden {'idxTs=class_typespec(OtherN189v)@18:27 inner=class_typespec(OtherN189v)@18:27'})
+  IDXTS MOVEDWRONG package:UserN189v/ELAB nkB189v  {'idxTs=NONE'} -> {'idxTs=class_typespec(KeyN189v)@19:17 inner=class_typespec(KeyN189v)@19:17'}  (golden {'idxTs=string_typespec()@19:27 inner=class_typespec(KeyN189v)@19:17'})
+  IDXTS MOVEDWRONG package:UserN189v/ELAB nkB189v  {'idxTs=NONE inner=string_typespec()@19:27'} -> {'idxTs=class_typespec(KeyN189v)@19:17 inner=string_typespec()@19:27'}  (golden {'idxTs=string_typespec()@19:27 inner=string_typespec()@19:27'})
+  IDXTS MOVEDWRONG package:UserN189v/ELAB knC189v  {'idxTs=string_typespec()@20:17'} -> {'idxTs=string_typespec()@20:17 inner=class_typespec(KeyN189v)@20:25'}  (golden {'idxTs=class_typespec(KeyN189v)@20:25 inner=class_typespec(KeyN189v)@20:25'})
+  IDXTS MOVEDWRONG package:UserN189v/ELAB scD189v  {'idxTs=NONE'} -> {'idxTs=class_typespec(KeyN189v)@21:17 inner=class_typespec(KeyN189v)@21:17'}  (golden {'idxTs=class_typespec(HomeN189v::KeyN189v)@21:17 inner=class_typespec(HomeN189v::KeyN189v)@21:17'})
+  IDXTS MOVEDWRONG package:UserN189v/ELAB tskL189v  {'idxTs=NONE'} -> {'idxTs=class_typespec(KeyN189v)@41:18 inner=class_typespec(KeyN189v)@41:18'}  (golden {'idxTs=unsupported_typespec(tdKeyN189v)@41:18 inner=unsupported_typespec(tdKeyN189v)@41:18'})
+  IDXTS MOVEDWRONG package:UserN189v/ELAB tskM189v  {'idxTs=NONE'} -> {'idxTs=class_typespec(KeyN189v)@42:18 inner=class_typespec(KeyN189v)@42:18'}  (golden {'idxTs=class_typespec(KeyN189v)@42:28 inner=class_typespec(KeyN189v)@42:18'})
+  IDXTS MOVEDWRONG package:UserN189v/ELAB tskM189v  {'idxTs=NONE'} -> {'idxTs=class_typespec(KeyN189v)@42:18 inner=class_typespec(KeyN189v)@42:28'}  (golden {'idxTs=class_typespec(KeyN189v)@42:28 inner=class_typespec(KeyN189v)@42:28'})
+  IDXTS TOGOLDEN=5 AWAY=0 MOVED-WRONG=20 STILL-WRONG=20 UNTOUCHED=23
+--- v189_n_nested elab
+KEYS=84 ONLY-GOLDEN=16 ONLY-OURS=0 ONLY-OURS-MOVED=0
+  ONLY-GOLDEN ('package:HomeN189v/DEF', '24:9', 'qgG189v', 'dim0')
+  ONLY-GOLDEN ('package:HomeN189v/DEF', '24:9', 'qgG189v', 'dim1')
+  ONLY-GOLDEN ('package:HomeN189v/DEF', '25:9', 'dgH189v', 'dim0')
+  ONLY-GOLDEN ('package:HomeN189v/DEF', '25:9', 'dgH189v', 'dim1')
+  ONLY-GOLDEN ('package:HomeN189v/ELAB|CDEFN', '24:9', 'qgG189v', 'dim0')
+  ONLY-GOLDEN ('package:HomeN189v/ELAB|CDEFN', '24:9', 'qgG189v', 'dim1')
+  ONLY-GOLDEN ('package:HomeN189v/ELAB|CDEFN', '25:9', 'dgH189v', 'dim0')
+  ONLY-GOLDEN ('package:HomeN189v/ELAB|CDEFN', '25:9', 'dgH189v', 'dim1')
+  ONLY-GOLDEN ('package:UserN189v/DEF', '24:9', 'qgG189v', 'dim0')
+  ONLY-GOLDEN ('package:UserN189v/DEF', '24:9', 'qgG189v', 'dim1')
+  ONLY-GOLDEN ('package:UserN189v/DEF', '25:9', 'dgH189v', 'dim0')
+  ONLY-GOLDEN ('package:UserN189v/DEF', '25:9', 'dgH189v', 'dim1')
+  ONLY-GOLDEN ('package:UserN189v/ELAB', '24:9', 'qgG189v', 'dim0')
+  ONLY-GOLDEN ('package:UserN189v/ELAB', '24:9', 'qgG189v', 'dim1')
+  ONLY-GOLDEN ('package:UserN189v/ELAB', '25:9', 'dgH189v', 'dim0')
+  ONLY-GOLDEN ('package:UserN189v/ELAB', '25:9', 'dgH189v', 'dim1')
+  LAW   TOGOLDEN=25 AWAY=0 MOVED-WRONG=0 STILL-WRONG=6 UNTOUCHED=37
+  IDXTS MOVEDWRONG package:UserN189v/DEF nnA189v  {'idxTs=NONE'} -> {'idxTs=class_typespec(KeyN189v)@18:17 inner=class_typespec(KeyN189v)@18:17'}  (golden {'idxTs=class_typespec(OtherN189v)@18:27 inner=class_typespec(KeyN189v)@18:17'})
+  IDXTS MOVEDWRONG package:UserN189v/DEF nnA189v  {'idxTs=NONE'} -> {'idxTs=class_typespec(KeyN189v)@18:17 inner=class_typespec(OtherN189v)@18:27'}  (golden {'idxTs=class_typespec(OtherN189v)@18:27 inner=class_typespec(OtherN189v)@18:27'})
+  IDXTS MOVEDWRONG package:UserN189v/DEF nkB189v  {'idxTs=NONE'} -> {'idxTs=class_typespec(KeyN189v)@19:17 inner=class_typespec(KeyN189v)@19:17'}  (golden {'idxTs=string_typespec()@19:27 inner=class_typespec(KeyN189v)@19:17'})
+  IDXTS MOVEDWRONG package:UserN189v/DEF nkB189v  {'idxTs=NONE inner=string_typespec()@19:27'} -> {'idxTs=class_typespec(KeyN189v)@19:17 inner=string_typespec()@19:27'}  (golden {'idxTs=string_typespec()@19:27 inner=string_typespec()@19:27'})
+  IDXTS MOVEDWRONG package:UserN189v/DEF knC189v  {'idxTs=string_typespec()@20:17'} -> {'idxTs=string_typespec()@20:17 inner=class_typespec(KeyN189v)@20:25'}  (golden {'idxTs=class_typespec(KeyN189v)@20:25 inner=class_typespec(KeyN189v)@20:25'})
+  IDXTS MOVEDWRONG package:UserN189v/DEF scD189v  {'idxTs=NONE'} -> {'idxTs=class_typespec(KeyN189v)@21:17 inner=class_typespec(KeyN189v)@21:17'}  (golden {'idxTs=class_typespec(HomeN189v::KeyN189v)@21:17 inner=class_typespec(HomeN189v::KeyN189v)@21:17'})
+  IDXTS MOVEDWRONG package:UserN189v/DEF tskL189v  {'idxTs=NONE'} -> {'idxTs=class_typespec(KeyN189v)@41:18 inner=class_typespec(KeyN189v)@41:18'}  (golden {'idxTs=unsupported_typespec(tdKeyN189v)@41:18 inner=unsupported_typespec(tdKeyN189v)@41:18'})
+  IDXTS MOVEDWRONG package:UserN189v/DEF tskM189v  {'idxTs=NONE'} -> {'idxTs=class_typespec(KeyN189v)@42:18 inner=class_typespec(KeyN189v)@42:18'}  (golden {'idxTs=class_typespec(KeyN189v)@42:28 inner=class_typespec(KeyN189v)@42:18'})
+  IDXTS MOVEDWRONG package:UserN189v/DEF tskM189v  {'idxTs=NONE'} -> {'idxTs=class_typespec(KeyN189v)@42:18 inner=class_typespec(KeyN189v)@42:28'}  (golden {'idxTs=class_typespec(KeyN189v)@42:28 inner=class_typespec(KeyN189v)@42:28'})
+  IDXTS MOVEDWRONG package:UserN189v/DEF frN189v  {'idxTs=NONE'} -> {'idxTs=class_typespec(KeyN189v)@48:17 inner=class_typespec(KeyN189v)@48:17'}  (golden {'idxTs=string_typespec()@48:27 inner=class_typespec(KeyN189v)@48:17'})
+  IDXTS MOVEDWRONG package:UserN189v/DEF frN189v  {'idxTs=NONE inner=string_typespec()@48:27'} -> {'idxTs=class_typespec(KeyN189v)@48:17 inner=string_typespec()@48:27'}  (golden {'idxTs=string_typespec()@48:27 inner=string_typespec()@48:27'})
+  IDXTS MOVEDWRONG package:UserN189v/ELAB nnA189v  {'idxTs=NONE'} -> {'idxTs=class_typespec(KeyN189v)@18:17 inner=class_typespec(KeyN189v)@18:17'}  (golden {'idxTs=class_typespec(OtherN189v)@18:27 inner=class_typespec(KeyN189v)@18:17'})
+  IDXTS MOVEDWRONG package:UserN189v/ELAB nnA189v  {'idxTs=NONE'} -> {'idxTs=class_typespec(KeyN189v)@18:17 inner=class_typespec(OtherN189v)@18:27'}  (golden {'idxTs=class_typespec(OtherN189v)@18:27 inner=class_typespec(OtherN189v)@18:27'})
+  IDXTS MOVEDWRONG package:UserN189v/ELAB nkB189v  {'idxTs=NONE'} -> {'idxTs=class_typespec(KeyN189v)@19:17 inner=class_typespec(KeyN189v)@19:17'}  (golden {'idxTs=string_typespec()@19:27 inner=class_typespec(KeyN189v)@19:17'})
+  IDXTS MOVEDWRONG package:UserN189v/ELAB nkB189v  {'idxTs=NONE inner=string_typespec()@19:27'} -> {'idxTs=class_typespec(KeyN189v)@19:17 inner=string_typespec()@19:27'}  (golden {'idxTs=string_typespec()@19:27 inner=string_typespec()@19:27'})
+  IDXTS MOVEDWRONG package:UserN189v/ELAB knC189v  {'idxTs=string_typespec()@20:17'} -> {'idxTs=string_typespec()@20:17 inner=class_typespec(KeyN189v)@20:25'}  (golden {'idxTs=class_typespec(KeyN189v)@20:25 inner=class_typespec(KeyN189v)@20:25'})
+  IDXTS MOVEDWRONG package:UserN189v/ELAB scD189v  {'idxTs=NONE'} -> {'idxTs=class_typespec(KeyN189v)@21:17 inner=class_typespec(KeyN189v)@21:17'}  (golden {'idxTs=class_typespec(HomeN189v::KeyN189v)@21:17 inner=class_typespec(HomeN189v::KeyN189v)@21:17'})
+  IDXTS MOVEDWRONG package:UserN189v/ELAB tskL189v  {'idxTs=NONE'} -> {'idxTs=class_typespec(KeyN189v)@41:18 inner=class_typespec(KeyN189v)@41:18'}  (golden {'idxTs=unsupported_typespec(tdKeyN189v)@41:18 inner=unsupported_typespec(tdKeyN189v)@41:18'})
+  IDXTS MOVEDWRONG package:UserN189v/ELAB tskM189v  {'idxTs=NONE'} -> {'idxTs=class_typespec(KeyN189v)@42:18 inner=class_typespec(KeyN189v)@42:18'}  (golden {'idxTs=class_typespec(KeyN189v)@42:28 inner=class_typespec(KeyN189v)@42:18'})
+  IDXTS MOVEDWRONG package:UserN189v/ELAB tskM189v  {'idxTs=NONE'} -> {'idxTs=class_typespec(KeyN189v)@42:18 inner=class_typespec(KeyN189v)@42:28'}  (golden {'idxTs=class_typespec(KeyN189v)@42:28 inner=class_typespec(KeyN189v)@42:28'})
+  IDXTS TOGOLDEN=5 AWAY=0 MOVED-WRONG=20 STILL-WRONG=20 UNTOUCHED=23
+--- v189_t_transitive def
+KEYS=23 ONLY-GOLDEN=0 ONLY-OURS=0 ONLY-OURS-MOVED=0
+  LAW   TOGOLDEN=9 AWAY=0 MOVED-WRONG=0 STILL-WRONG=1 UNTOUCHED=13
+  IDXTS TOGOLDEN=9 AWAY=0 MOVED-WRONG=0 STILL-WRONG=1 UNTOUCHED=13
+--- v189_t_transitive elab
+KEYS=23 ONLY-GOLDEN=0 ONLY-OURS=0 ONLY-OURS-MOVED=0
+  LAW   TOGOLDEN=9 AWAY=0 MOVED-WRONG=0 STILL-WRONG=1 UNTOUCHED=13
+  IDXTS TOGOLDEN=9 AWAY=0 MOVED-WRONG=0 STILL-WRONG=1 UNTOUCHED=13
+--- v189_k_kinds def
+KEYS=48 ONLY-GOLDEN=0 ONLY-OURS=0 ONLY-OURS-MOVED=0
+  LAW   TOGOLDEN=15 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=33
+  IDXTS MOVEDWRONG package:ZSPAR189V/DEF td2K189Va  {'idxTs=NONE'} -> {'idxTs=class_typespec(KEEL189V)@21:19 inner=class_typespec(KEEL189V)@21:19'}  (golden {'idxTs=unsupported_typespec(td2K189V)@21:19 inner=unsupported_typespec(td2K189V)@21:19'})
+  IDXTS MOVEDWRONG package:ZSPAR189V/DEF fClsK189V  {'idxTs=NONE'} -> {'idxTs=class_typespec(KEEL189V)@44:19 inner=class_typespec(KEEL189V)@44:19'}  (golden {'idxTs=unsupported_typespec(td1K189V)@44:19 inner=unsupported_typespec(td1K189V)@44:19'})
+  IDXTS MOVEDWRONG package:ZSPAR189V/ELAB td2K189Va  {'idxTs=NONE'} -> {'idxTs=class_typespec(KEEL189V)@21:19 inner=class_typespec(KEEL189V)@21:19'}  (golden {'idxTs=unsupported_typespec(td2K189V)@21:19 inner=unsupported_typespec(td2K189V)@21:19'})
+  IDXTS TOGOLDEN=12 AWAY=0 MOVED-WRONG=3 STILL-WRONG=3 UNTOUCHED=30
+--- v189_k_kinds elab
+KEYS=48 ONLY-GOLDEN=0 ONLY-OURS=0 ONLY-OURS-MOVED=0
+  LAW   TOGOLDEN=15 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=33
+  IDXTS MOVEDWRONG package:ZSPAR189V/DEF td2K189Va  {'idxTs=NONE'} -> {'idxTs=class_typespec(KEEL189V)@21:19 inner=class_typespec(KEEL189V)@21:19'}  (golden {'idxTs=unsupported_typespec(td2K189V)@21:19 inner=unsupported_typespec(td2K189V)@21:19'})
+  IDXTS MOVEDWRONG package:ZSPAR189V/DEF fClsK189V  {'idxTs=NONE'} -> {'idxTs=class_typespec(KEEL189V)@44:19 inner=class_typespec(KEEL189V)@44:19'}  (golden {'idxTs=unsupported_typespec(td1K189V)@44:19 inner=unsupported_typespec(td1K189V)@44:19'})
+  IDXTS MOVEDWRONG package:ZSPAR189V/ELAB td2K189Va  {'idxTs=NONE'} -> {'idxTs=class_typespec(KEEL189V)@21:19 inner=class_typespec(KEEL189V)@21:19'}  (golden {'idxTs=unsupported_typespec(td2K189V)@21:19 inner=unsupported_typespec(td2K189V)@21:19'})
+  IDXTS TOGOLDEN=12 AWAY=0 MOVED-WRONG=3 STILL-WRONG=3 UNTOUCHED=30
+--- v189_w_kwonly (keyword-only CONTROL) def
+KEYS=8 ONLY-GOLDEN=0 ONLY-OURS=0 ONLY-OURS-MOVED=0
+  LAW   TOGOLDEN=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=8
+  IDXTS TOGOLDEN=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=8
+--- v189_w_kwonly (keyword-only CONTROL) elab
+KEYS=8 ONLY-GOLDEN=0 ONLY-OURS=0 ONLY-OURS-MOVED=0
+  LAW   TOGOLDEN=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=8
+  IDXTS TOGOLDEN=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=8
+
+== uvm184 g184_b_kinds re-measured against its own golden ==
+--- def
+KEYS=20 ONLY-GOLDEN=0 ONLY-OURS=0 ONLY-OURS-MOVED=0
+  LAW   TOGOLDEN=1 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=19
+  IDXTS TOGOLDEN=1 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=19
+--- elab
+KEYS=20 ONLY-GOLDEN=0 ONLY-OURS=0 ONLY-OURS-MOVED=0
+  LAW   TOGOLDEN=1 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=19
+  IDXTS TOGOLDEN=1 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=19
+
+== WIDE boundary over 5090 arms (this pass's tree + the four verifier arms) ==
+MOVED 2530_r10uvm184repro_g184_b_kinds.sv/def 48 lines
+MOVED 2530_r10uvm184repro_g184_b_kinds.sv/elab 56 lines
+MOVED 2545_r10uvm189repro_g189_a_idxkind.sv/def 408 lines
+MOVED 2545_r10uvm189repro_g189_a_idxkind.sv/elab 512 lines
+MOVED 2546_r10uvm189repro_g189_b_scope.sv/def 240 lines
+MOVED 2546_r10uvm189repro_g189_b_scope.sv/elab 296 lines
+MOVED 2547_r10uvm189repro_g189_c_listing.sv/def 144 lines
+MOVED 2547_r10uvm189repro_g189_c_listing.sv/elab 176 lines
+MOVED 5088_v189_k_kinds.sv/def 691 lines
+MOVED 5088_v189_k_kinds.sv/elab 859 lines
+MOVED 5089_v189_n_nested.sv/def 974 lines
+MOVED 5089_v189_n_nested.sv/elab 1158 lines
+MOVED 5090_v189_t_transitive.sv/def 432 lines
+MOVED 5090_v189_t_transitive.sv/elab 512 lines
+LISTED=5090 FENCED_SKIPPED=0 PROCESSED=5090 MOVED=14 NO_OUTPUT_PAIRS=392
+PROCESSED-ASSERT-OK
+
+== a-priori prediction from PRISTINE databases alone ==
+PREDICTED /tmp/v189_wd_pris/sl/default/MiniAmiq-544c7f61/slang.uhdm cells=20 rc=0
+PREDICTED /tmp/v189_wd_pris/sl/default/SeqDriver-32af76aa/slang.uhdm cells=20 rc=0
+PREDICTED /tmp/v189_wd_pris/sl/testflags/MiniAmiq-544c7f61/slang.uhdm cells=20 rc=0
+PREDICTED /tmp/v189_wd_pris/sl/testflags/SeqDriver-32af76aa/slang.uhdm cells=20 rc=0
+LISTED=956 PROCESSED=956 NOGOLDEN=0 PREDICTED=4
+LISTED=1358 PROCESSED=1358 NOGOLDEN=0 PREDICTED=0
+
+== GATES re-run by the verifier (own worktrees, own frozen binaries) ==
+goldens 23/0 pristine, 23/0 patched, 0/23 with SLANG_UHDM=/bin/false
+surelog default  471 CMP_EQUAL / 283 SLANG_REJECT / 25 SURELOG_FAIL / 10 CMP_NOTEQUAL / 5 DEFERRED
+surelog testflags 466 / 284 / 23 / 9 / 5 / 3 NO_DATABASE / 2 UNTRANSLATABLE / 1 TIMEOUT / 1 NO_UHDM
+  (= 937/567/48/19/10/3/2/1/1 combined, IDENTICAL on both binaries; sl.csv md5 equal)
+ct8rows PASS on all seven comparisons (0 rows differ, status AND dump column, no conversion)
+cmds.txt audited by BINARY PATH: 1523/1573 surelog + 1458/1462 u2r name the frozen binary,
+  the remaining 50/4 invoke no slang binary at all (golden-cache-only rows). No main-tree binary.
+byteverify surelog MOVERS 5/956 -- the 4 PREDICTED (SeqDriver x2, MiniAmiq x2, 384 order-blind
+  lines each) plus Scoreboard/default, which is raw 92 / ORDER-BLIND 0 = the documented coin.
+byteverify uhdm2rtlil MOVERS 0/1358.
+heads 62 -> 55 on SeqDriver x2 and MiniAmiq x2, ONE ^LHS: each, new object
+  (array_var(predecessors)@1664:8 with RHS: <null>); every other named row unchanged.
+census SeqDriver x2 / MiniAmiq x2 LAW TOGOLDEN 8 / AWAY 0 / MOVED-WRONG 0 / STILL-WRONG 0,
+  IDXTS TOGOLDEN 8 / MOVED-WRONG 0; SimpleUVM x2, Scoreboard/default, BuildUVMPkg x2 all zero.
+canaries ok=52 changed=0 and ok=8 changed=0; ctcan2 PASS x2; canaudit audited=29 UNCOVERED=0
+  FENCE-BREACH=0; InterfaceModPort / BlackParrotComplex / YosysOldOr byte-identical,
+  SVSwitch 4842211c4030, YosysVerx 6ccda350c24a.

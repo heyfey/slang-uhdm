@@ -5497,6 +5497,10 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 //     `pkgTopEmit` set accordingly;
                 //   * an IN-BODY class method is never promoted at all
                 //     (t57a `inb57::iAssocCls57::iacls` keeps the SIZE model).
+                // § assocIdxNamePromoteInImportClone189 adds the FOURTH
+                // listing — a WILDCARD-IMPORT CLONE, in BOTH views — to the
+                // promoted set; see include/UhdmExporter.h,
+                // `grep -n assocIdxNamePromoteInImportClone189`.
                 if (auto* aav = !blockItems9
                                     ? nullptr
                                     : makeAssocArrayVar(
@@ -5505,8 +5509,8 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                           tf,
                                           importCopyTsInst ? importCopyTsInst
                                                            : tsInst,
-                                          oob ? !cloneMode
-                                              : (pkgTopEmit && !classScope))) {
+                                          promoteAssocIdxName189(oob, cloneMode,
+                                                                 classScope))) {
                     funcMap[&fmv] = aav;
                     fvars->push_back(aav);
                     continue;

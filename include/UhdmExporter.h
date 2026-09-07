@@ -5603,6 +5603,97 @@ private:
         return pkgTopEmit || pkgImportCloneEmit ||
                (inClassBodyEmit && classBodyHomePkg75 != nullptr);
     }
+    // § assocIdxNamePromoteInImportClone189 (r10uvm189) — AN ASSOCIATIVE
+    // DIMENSION WHOSE INDEX TYPE IS WRITTEN AS A NAME IS PROMOTED TO THE
+    // SENTINEL FORM IN A WILDCARD-IMPORT CLONE, IN BOTH VIEWS.
+    //
+    // THE SURELOG DECODE, in two halves that meet at the same object.
+    //
+    //   HALF 1 — WHY A NAME IS A SIZE AT ALL, and what promotes it.
+    //   Surelog's grammar orders the dimension alternatives
+    //   `unsized | unpacked | associative | queue`
+    //   (`grammar/SV3_1aParser.g4:1212-1216`), and `unpacked_dimension` has an
+    //   `OPEN_BRACKET constant_expression CLOSE_BRACKET` alternative
+    //   (`:1195-1199`) that a bare IDENTIFIER matches — so `[uvm_phase]`
+    //   parses as `paConstant_expression` and only a type KEYWORD (`[string]`,
+    //   `[int]`, `[*]`) ever reaches `paAssociative_dimension`.  That is
+    //   § `assocIoRange9`'s decode.  `CompileHelper::compileRanges`'s
+    //   `paConstant_expression` arm then compiles the bracket text AS AN
+    //   EXPRESSION and, at `CompileExpression.cpp:4096-4133`,
+    //       if (rexp && (rexp->UhdmType() == uhdmref_obj) &&
+    //           (reduce == Reduce::Yes)) {
+    //         if (typespec *assoc_tps = compileTypespec(...)) {
+    //           associativeArray = true;  ... MakeRange();
+    //           lexpc  = UINT:0 / vpiUIntConst / VpiSize 64 / decompile "0"
+    //           rexpc  = STRING:associative / vpiStringConst(6) / VpiSize 0
+    //                    / decompile "associative", carrying the index
+    //                    typespec through a ref_typespec
+    //           ... continue;   // DISCARDING the size range it just built
+    //   — so the SENTINEL is minted for a NAME index EXACTLY WHEN
+    //   `reduce == Reduce::Yes`; otherwise `:4135-4150` builds the SIZE model,
+    //   an `operation vpiSubOp` over the `ref_obj` and an `INT:1` constant.
+    //   § `assocIdxNameHoistNet135` reads the OTHER consequence of the same
+    //   arm (the discarded `ref_obj` is already in the late-binding pool) and
+    //   is unchanged by this law.
+    //
+    //   HALF 2 — WHICH LISTINGS ARE `Reduce::Yes`, and why the clone is one
+    //   WITHOUT being compiled that way.  § `pkgRetTsListing127` above decodes
+    //   the set for its own stamp and it is the same set here:
+    //   `CompilePackage.cpp` compiles a package TWICE, elaborated with
+    //   `Reduce::Yes` (design.TopPackages) and `getUnElabPackage()` with
+    //   `Reduce::No` (design.AllPackages); an out-of-body `C::m` written at
+    //   package level is a package-level `paFunction_declaration`
+    //   (`CompilePackage.cpp:213-218`) and inherits the package's `reduce`; an
+    //   IN-BODY method is compiled by `CompileClass` and never sees
+    //   `Reduce::Yes`.  And `CompileHelper::importPackage`
+    //   (`CompileHelper.cpp:300-330`) `clone_tree`s `def->getTask_funcs()`
+    //   where `def = design->getPackage(pack_name)` (`:143`) is the
+    //   ELABORATED `Package*` — so BOTH views of an importer hold clones of
+    //   ALREADY-PROMOTED bodies.  A clone is not re-compiled; it is copied
+    //   from the Reduce::Yes side.
+    //
+    // MEASURED, SeqDriver `default`, uvm-1.2 `base/uvm_phase.svh:1664`
+    // `bit predecessors[uvm_phase];` in `uvm_phase::get_adjacent_predecessor_nodes`
+    // (LHS golden / RHS ours before this law), the four listings that carry
+    // that body — the `arrayType` is `array_var::VpiArrayType`, a COMPARED
+    // field, and the bound is the `array_typespec`'s dimension range:
+    //
+    //   listing                                   golden          ours before
+    //   class_defn uvm_phase in uvm_pkg/ELAB      3 / SENTINEL    3 / SENTINEL
+    //   package uvm_pkg/DEF  (`C::m` clone)       1 / SIZE        1 / SIZE
+    //   package adpcm_pkg/DEF  (import clone)     3 / SENTINEL    1 / SIZE  <-- head
+    //   package adpcm_pkg/ELAB (import clone)     3 / SENTINEL    1 / SIZE  <-- head
+    //
+    // The judge stops on the SENTINEL because `array_var::Compare` reaches its
+    // own `VpiArrayType` only AFTER `basetype_t::Compare` has walked
+    // `expr::Compare`'s `Typespec()` into `array_typespec::Compare`, whose
+    // `Ranges()` come before its `Index_typespec()`
+    // (`UHDM/build/generated/src/{array_var,array_typespec,range,expr,constant}.cpp`):
+    // range::Compare -> SafeCompare(Right_expr) -> BaseClass::Compare's
+    // `VpiType`, `constant` vs `operation`.  One flag fixes all four fields —
+    // the bound, the array_var's `vpiArrayType`, the array_typespec's
+    // `vpiIndexTypespec` and its end column — because `makeAssocArrayVar`
+    // derives every one of them from `assocDim0(i)`.
+    //
+    // WHAT THE LAW DOES NOT TOUCH.  `classScope && !oob` — an IN-BODY class
+    // method — stays unpromoted in every listing (§ assocLocalArrayVar40's
+    // t57a `inb57::iAssocCls57::iacls`), and so does a NESTED-`begin` local
+    // (StmtEmit's call site passes `false` unconditionally: `compileStmt`'s
+    // `paSeq_block` arm hardcodes `Reduce::No`).  A KEYWORD index (`[string]`,
+    // `[int]`, `[*]`) is `paAssociative_dimension` and is the sentinel in
+    // EVERY listing already — `promoteNamed` never reaches it.
+    static bool promoteAssocIdxName189(bool oob, bool cloneMode,
+                                       bool classScope, bool pkgTopEmit,
+                                       bool pkgImportCloneEmit) {
+        if (pkgImportCloneEmit)
+            return !(classScope && !oob);
+        return oob ? !cloneMode : (pkgTopEmit && !classScope);
+    }
+    bool promoteAssocIdxName189(bool oob, bool cloneMode,
+                                bool classScope) const {
+        return promoteAssocIdxName189(oob, cloneMode, classScope, pkgTopEmit,
+                                      pkgImportCloneEmit);
+    }
     // True only while emitting a package's typedef listing (both views). Lets
     // buildEnumTs keep a DEF-view PACKAGE enum base bound symbolic while
     // leaving module-context pkg-enum clones folded (distinguishes def-package

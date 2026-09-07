@@ -1,0 +1,156 @@
+r10uvm189 — CENSUS, nine UVM row-modes, golden vs PRISTINE vs PATCHED.
+LHS is ALWAYS golden.  Calibrated golden-vs-golden-vs-golden FIRST.
+
+CALIBRATION (SeqDriver default, golden in all three slots):
+KEYS=516 ONLY-GOLDEN=0 ONLY-OURS=0 ONLY-OURS-MOVED=0
+  LAW   TOGOLDEN=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=516
+  IDXTS TOGOLDEN=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=516
+
+==== SeqDriver default
+KEYS=518 ONLY-GOLDEN=2 ONLY-OURS=2 ONLY-OURS-MOVED=0
+  ONLY-GOLDEN ('package:uvm_pkg/ELAB|CDEFN', '338:20', '', 'dim0')
+  ONLY-GOLDEN ('package:uvm_pkg/ELAB|CDEFN', '649:19', '', 'dim0')
+  ONLY-OURS   ('package:uvm_pkg/ELAB|CDEFN', '337:11', 'queue_of_element', 'dim0')  a={'arrayType=0 bound=QUEUE'} b={'arrayType=0 bound=QUEUE'}
+  ONLY-OURS   ('package:uvm_pkg/ELAB|CDEFN', '651:13', 'types', 'dim0')  a={'arrayType=0 bound=QUEUE'} b={'arrayType=0 bound=QUEUE'}
+  LAW TOGOLDEN   package:adpcm_pkg/DEF predecessors  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:adpcm_pkg/DEF successors  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:adpcm_pkg/DEF pred_of_succ  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:adpcm_pkg/DEF siblings  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:adpcm_pkg/ELAB predecessors  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:adpcm_pkg/ELAB successors  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:adpcm_pkg/ELAB pred_of_succ  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:adpcm_pkg/ELAB siblings  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW   TOGOLDEN=8 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=506
+  IDXTS TOGOLDEN   package:adpcm_pkg/DEF predecessors  {'idxTs=NONE'} -> {'idxTs=class_typespec(uvm_phase)@1664:21 inner=class_typespec(uvm_phase)@1664:21'}
+  IDXTS TOGOLDEN   package:adpcm_pkg/DEF successors  {'idxTs=NONE'} -> {'idxTs=class_typespec(uvm_phase)@1693:19 inner=class_typespec(uvm_phase)@1693:19'}
+  IDXTS TOGOLDEN   package:adpcm_pkg/DEF pred_of_succ  {'idxTs=NONE'} -> {'idxTs=class_typespec(uvm_phase)@1758:22 inner=class_typespec(uvm_phase)@1758:22'}
+  IDXTS TOGOLDEN   package:adpcm_pkg/DEF siblings  {'idxTs=NONE'} -> {'idxTs=class_typespec(uvm_phase)@2131:16 inner=class_typespec(uvm_phase)@2131:16'}
+  IDXTS TOGOLDEN   package:adpcm_pkg/ELAB predecessors  {'idxTs=NONE'} -> {'idxTs=class_typespec(uvm_phase)@1664:21 inner=class_typespec(uvm_phase)@1664:21'}
+  IDXTS TOGOLDEN   package:adpcm_pkg/ELAB successors  {'idxTs=NONE'} -> {'idxTs=class_typespec(uvm_phase)@1693:19 inner=class_typespec(uvm_phase)@1693:19'}
+  IDXTS TOGOLDEN   package:adpcm_pkg/ELAB pred_of_succ  {'idxTs=NONE'} -> {'idxTs=class_typespec(uvm_phase)@1758:22 inner=class_typespec(uvm_phase)@1758:22'}
+  IDXTS TOGOLDEN   package:adpcm_pkg/ELAB siblings  {'idxTs=NONE'} -> {'idxTs=class_typespec(uvm_phase)@2131:16 inner=class_typespec(uvm_phase)@2131:16'}
+  IDXTS STILLWRONG package:uvm_pkg/ELAB|CDEFN tab_t  ours {'idxTs=NONE inner=string_typespec()@0:0'}  (golden {'idxTs=NONE inner=string_typespec()@30:19'})
+  IDXTS TOGOLDEN=8 AWAY=0 MOVED-WRONG=0 STILL-WRONG=1 UNTOUCHED=505
+==== SeqDriver testflags
+KEYS=518 ONLY-GOLDEN=2 ONLY-OURS=2 ONLY-OURS-MOVED=0
+  ONLY-GOLDEN ('package:uvm_pkg/ELAB|CDEFN', '338:20', '', 'dim0')
+  ONLY-GOLDEN ('package:uvm_pkg/ELAB|CDEFN', '649:19', '', 'dim0')
+  ONLY-OURS   ('package:uvm_pkg/ELAB|CDEFN', '337:11', 'queue_of_element', 'dim0')  a={'arrayType=0 bound=QUEUE'} b={'arrayType=0 bound=QUEUE'}
+  ONLY-OURS   ('package:uvm_pkg/ELAB|CDEFN', '651:13', 'types', 'dim0')  a={'arrayType=0 bound=QUEUE'} b={'arrayType=0 bound=QUEUE'}
+  LAW TOGOLDEN   package:adpcm_pkg/DEF predecessors  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:adpcm_pkg/DEF successors  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:adpcm_pkg/DEF pred_of_succ  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:adpcm_pkg/DEF siblings  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:adpcm_pkg/ELAB predecessors  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:adpcm_pkg/ELAB successors  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:adpcm_pkg/ELAB pred_of_succ  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:adpcm_pkg/ELAB siblings  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW   TOGOLDEN=8 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=506
+  IDXTS TOGOLDEN   package:adpcm_pkg/DEF predecessors  {'idxTs=NONE'} -> {'idxTs=class_typespec(uvm_phase)@1664:21 inner=class_typespec(uvm_phase)@1664:21'}
+  IDXTS TOGOLDEN   package:adpcm_pkg/DEF successors  {'idxTs=NONE'} -> {'idxTs=class_typespec(uvm_phase)@1693:19 inner=class_typespec(uvm_phase)@1693:19'}
+  IDXTS TOGOLDEN   package:adpcm_pkg/DEF pred_of_succ  {'idxTs=NONE'} -> {'idxTs=class_typespec(uvm_phase)@1758:22 inner=class_typespec(uvm_phase)@1758:22'}
+  IDXTS TOGOLDEN   package:adpcm_pkg/DEF siblings  {'idxTs=NONE'} -> {'idxTs=class_typespec(uvm_phase)@2131:16 inner=class_typespec(uvm_phase)@2131:16'}
+  IDXTS TOGOLDEN   package:adpcm_pkg/ELAB predecessors  {'idxTs=NONE'} -> {'idxTs=class_typespec(uvm_phase)@1664:21 inner=class_typespec(uvm_phase)@1664:21'}
+  IDXTS TOGOLDEN   package:adpcm_pkg/ELAB successors  {'idxTs=NONE'} -> {'idxTs=class_typespec(uvm_phase)@1693:19 inner=class_typespec(uvm_phase)@1693:19'}
+  IDXTS TOGOLDEN   package:adpcm_pkg/ELAB pred_of_succ  {'idxTs=NONE'} -> {'idxTs=class_typespec(uvm_phase)@1758:22 inner=class_typespec(uvm_phase)@1758:22'}
+  IDXTS TOGOLDEN   package:adpcm_pkg/ELAB siblings  {'idxTs=NONE'} -> {'idxTs=class_typespec(uvm_phase)@2131:16 inner=class_typespec(uvm_phase)@2131:16'}
+  IDXTS STILLWRONG package:uvm_pkg/ELAB|CDEFN tab_t  ours {'idxTs=NONE inner=string_typespec()@0:0'}  (golden {'idxTs=NONE inner=string_typespec()@30:19'})
+  IDXTS TOGOLDEN=8 AWAY=0 MOVED-WRONG=0 STILL-WRONG=1 UNTOUCHED=505
+==== MiniAmiq default
+KEYS=561 ONLY-GOLDEN=2 ONLY-OURS=2 ONLY-OURS-MOVED=0
+  ONLY-GOLDEN ('package:uvm_pkg/ELAB|CDEFN', '338:20', '', 'dim0')
+  ONLY-GOLDEN ('package:uvm_pkg/ELAB|CDEFN', '649:19', '', 'dim0')
+  ONLY-OURS   ('package:uvm_pkg/ELAB|CDEFN', '337:11', 'queue_of_element', 'dim0')  a={'arrayType=0 bound=QUEUE'} b={'arrayType=0 bound=QUEUE'}
+  ONLY-OURS   ('package:uvm_pkg/ELAB|CDEFN', '651:13', 'types', 'dim0')  a={'arrayType=0 bound=QUEUE'} b={'arrayType=0 bound=QUEUE'}
+  LAW TOGOLDEN   package:svaunit_pkg/DEF predecessors  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:svaunit_pkg/DEF successors  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:svaunit_pkg/DEF pred_of_succ  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:svaunit_pkg/DEF siblings  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:svaunit_pkg/ELAB predecessors  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:svaunit_pkg/ELAB successors  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:svaunit_pkg/ELAB pred_of_succ  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:svaunit_pkg/ELAB siblings  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW   TOGOLDEN=8 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=549
+  IDXTS TOGOLDEN   package:svaunit_pkg/DEF predecessors  {'idxTs=NONE'} -> {'idxTs=class_typespec(uvm_phase)@1664:21 inner=class_typespec(uvm_phase)@1664:21'}
+  IDXTS TOGOLDEN   package:svaunit_pkg/DEF successors  {'idxTs=NONE'} -> {'idxTs=class_typespec(uvm_phase)@1693:19 inner=class_typespec(uvm_phase)@1693:19'}
+  IDXTS TOGOLDEN   package:svaunit_pkg/DEF pred_of_succ  {'idxTs=NONE'} -> {'idxTs=class_typespec(uvm_phase)@1758:22 inner=class_typespec(uvm_phase)@1758:22'}
+  IDXTS TOGOLDEN   package:svaunit_pkg/DEF siblings  {'idxTs=NONE'} -> {'idxTs=class_typespec(uvm_phase)@2131:16 inner=class_typespec(uvm_phase)@2131:16'}
+  IDXTS TOGOLDEN   package:svaunit_pkg/ELAB predecessors  {'idxTs=NONE'} -> {'idxTs=class_typespec(uvm_phase)@1664:21 inner=class_typespec(uvm_phase)@1664:21'}
+  IDXTS TOGOLDEN   package:svaunit_pkg/ELAB successors  {'idxTs=NONE'} -> {'idxTs=class_typespec(uvm_phase)@1693:19 inner=class_typespec(uvm_phase)@1693:19'}
+  IDXTS TOGOLDEN   package:svaunit_pkg/ELAB pred_of_succ  {'idxTs=NONE'} -> {'idxTs=class_typespec(uvm_phase)@1758:22 inner=class_typespec(uvm_phase)@1758:22'}
+  IDXTS TOGOLDEN   package:svaunit_pkg/ELAB siblings  {'idxTs=NONE'} -> {'idxTs=class_typespec(uvm_phase)@2131:16 inner=class_typespec(uvm_phase)@2131:16'}
+  IDXTS STILLWRONG package:uvm_pkg/ELAB|CDEFN tab_t  ours {'idxTs=NONE inner=string_typespec()@0:0'}  (golden {'idxTs=NONE inner=string_typespec()@30:19'})
+  IDXTS TOGOLDEN=8 AWAY=0 MOVED-WRONG=0 STILL-WRONG=1 UNTOUCHED=548
+==== MiniAmiq testflags
+KEYS=561 ONLY-GOLDEN=2 ONLY-OURS=2 ONLY-OURS-MOVED=0
+  ONLY-GOLDEN ('package:uvm_pkg/ELAB|CDEFN', '338:20', '', 'dim0')
+  ONLY-GOLDEN ('package:uvm_pkg/ELAB|CDEFN', '649:19', '', 'dim0')
+  ONLY-OURS   ('package:uvm_pkg/ELAB|CDEFN', '337:11', 'queue_of_element', 'dim0')  a={'arrayType=0 bound=QUEUE'} b={'arrayType=0 bound=QUEUE'}
+  ONLY-OURS   ('package:uvm_pkg/ELAB|CDEFN', '651:13', 'types', 'dim0')  a={'arrayType=0 bound=QUEUE'} b={'arrayType=0 bound=QUEUE'}
+  LAW TOGOLDEN   package:svaunit_pkg/DEF predecessors  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:svaunit_pkg/DEF successors  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:svaunit_pkg/DEF pred_of_succ  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:svaunit_pkg/DEF siblings  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:svaunit_pkg/ELAB predecessors  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:svaunit_pkg/ELAB successors  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:svaunit_pkg/ELAB pred_of_succ  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW TOGOLDEN   package:svaunit_pkg/ELAB siblings  {'arrayType=1 bound=SIZE'} -> {'arrayType=3 bound=SENTINEL'}
+  LAW   TOGOLDEN=8 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=549
+  IDXTS TOGOLDEN   package:svaunit_pkg/DEF predecessors  {'idxTs=NONE'} -> {'idxTs=class_typespec(uvm_phase)@1664:21 inner=class_typespec(uvm_phase)@1664:21'}
+  IDXTS TOGOLDEN   package:svaunit_pkg/DEF successors  {'idxTs=NONE'} -> {'idxTs=class_typespec(uvm_phase)@1693:19 inner=class_typespec(uvm_phase)@1693:19'}
+  IDXTS TOGOLDEN   package:svaunit_pkg/DEF pred_of_succ  {'idxTs=NONE'} -> {'idxTs=class_typespec(uvm_phase)@1758:22 inner=class_typespec(uvm_phase)@1758:22'}
+  IDXTS TOGOLDEN   package:svaunit_pkg/DEF siblings  {'idxTs=NONE'} -> {'idxTs=class_typespec(uvm_phase)@2131:16 inner=class_typespec(uvm_phase)@2131:16'}
+  IDXTS TOGOLDEN   package:svaunit_pkg/ELAB predecessors  {'idxTs=NONE'} -> {'idxTs=class_typespec(uvm_phase)@1664:21 inner=class_typespec(uvm_phase)@1664:21'}
+  IDXTS TOGOLDEN   package:svaunit_pkg/ELAB successors  {'idxTs=NONE'} -> {'idxTs=class_typespec(uvm_phase)@1693:19 inner=class_typespec(uvm_phase)@1693:19'}
+  IDXTS TOGOLDEN   package:svaunit_pkg/ELAB pred_of_succ  {'idxTs=NONE'} -> {'idxTs=class_typespec(uvm_phase)@1758:22 inner=class_typespec(uvm_phase)@1758:22'}
+  IDXTS TOGOLDEN   package:svaunit_pkg/ELAB siblings  {'idxTs=NONE'} -> {'idxTs=class_typespec(uvm_phase)@2131:16 inner=class_typespec(uvm_phase)@2131:16'}
+  IDXTS STILLWRONG package:uvm_pkg/ELAB|CDEFN tab_t  ours {'idxTs=NONE inner=string_typespec()@0:0'}  (golden {'idxTs=NONE inner=string_typespec()@30:19'})
+  IDXTS TOGOLDEN=8 AWAY=0 MOVED-WRONG=0 STILL-WRONG=1 UNTOUCHED=548
+==== SimpleUVM default
+KEYS=297 ONLY-GOLDEN=2 ONLY-OURS=2 ONLY-OURS-MOVED=0
+  ONLY-GOLDEN ('package:uvm_pkg/ELAB|CDEFN', '338:20', '', 'dim0')
+  ONLY-GOLDEN ('package:uvm_pkg/ELAB|CDEFN', '649:19', '', 'dim0')
+  ONLY-OURS   ('package:uvm_pkg/ELAB|CDEFN', '337:11', 'queue_of_element', 'dim0')  a={'arrayType=0 bound=QUEUE'} b={'arrayType=0 bound=QUEUE'}
+  ONLY-OURS   ('package:uvm_pkg/ELAB|CDEFN', '651:13', 'types', 'dim0')  a={'arrayType=0 bound=QUEUE'} b={'arrayType=0 bound=QUEUE'}
+  LAW   TOGOLDEN=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=293
+  IDXTS STILLWRONG package:uvm_pkg/ELAB|CDEFN tab_t  ours {'idxTs=NONE inner=string_typespec()@0:0'}  (golden {'idxTs=NONE inner=string_typespec()@30:19'})
+  IDXTS TOGOLDEN=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=1 UNTOUCHED=292
+==== SimpleUVM testflags
+KEYS=297 ONLY-GOLDEN=2 ONLY-OURS=2 ONLY-OURS-MOVED=0
+  ONLY-GOLDEN ('package:uvm_pkg/ELAB|CDEFN', '338:20', '', 'dim0')
+  ONLY-GOLDEN ('package:uvm_pkg/ELAB|CDEFN', '649:19', '', 'dim0')
+  ONLY-OURS   ('package:uvm_pkg/ELAB|CDEFN', '337:11', 'queue_of_element', 'dim0')  a={'arrayType=0 bound=QUEUE'} b={'arrayType=0 bound=QUEUE'}
+  ONLY-OURS   ('package:uvm_pkg/ELAB|CDEFN', '651:13', 'types', 'dim0')  a={'arrayType=0 bound=QUEUE'} b={'arrayType=0 bound=QUEUE'}
+  LAW   TOGOLDEN=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=293
+  IDXTS STILLWRONG package:uvm_pkg/ELAB|CDEFN tab_t  ours {'idxTs=NONE inner=string_typespec()@0:0'}  (golden {'idxTs=NONE inner=string_typespec()@30:19'})
+  IDXTS TOGOLDEN=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=1 UNTOUCHED=292
+==== Scoreboard default
+KEYS=301 ONLY-GOLDEN=2 ONLY-OURS=2 ONLY-OURS-MOVED=0
+  ONLY-GOLDEN ('package:uvm_pkg/ELAB|CDEFN', '338:20', '', 'dim0')
+  ONLY-GOLDEN ('package:uvm_pkg/ELAB|CDEFN', '649:19', '', 'dim0')
+  ONLY-OURS   ('package:uvm_pkg/ELAB|CDEFN', '337:11', 'queue_of_element', 'dim0')  a={'arrayType=0 bound=QUEUE'} b={'arrayType=0 bound=QUEUE'}
+  ONLY-OURS   ('package:uvm_pkg/ELAB|CDEFN', '651:13', 'types', 'dim0')  a={'arrayType=0 bound=QUEUE'} b={'arrayType=0 bound=QUEUE'}
+  LAW   TOGOLDEN=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=297
+  IDXTS STILLWRONG package:uvm_pkg/ELAB|CDEFN tab_t  ours {'idxTs=NONE inner=string_typespec()@0:0'}  (golden {'idxTs=NONE inner=string_typespec()@30:19'})
+  IDXTS TOGOLDEN=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=1 UNTOUCHED=296
+==== Scoreboard testflags  SKIP-NOFILE
+==== BuildUVMPkg default
+KEYS=345 ONLY-GOLDEN=1 ONLY-OURS=1 ONLY-OURS-MOVED=0
+  ONLY-GOLDEN ('package:uvm_pkg/ELAB|CDEFN', '28181:20', '', 'dim0')
+  ONLY-OURS   ('package:uvm_pkg/ELAB|CDEFN', '28180:11', 'queue_of_element', 'dim0')  a={'arrayType=0 bound=QUEUE'} b={'arrayType=0 bound=QUEUE'}
+  LAW   TOGOLDEN=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=343
+  IDXTS STILLWRONG package:uvm_pkg/ELAB|CDEFN tab_t  ours {'idxTs=NONE inner=string_typespec()@0:0'}  (golden {'idxTs=NONE inner=string_typespec()@14899:19'})
+  IDXTS STILLWRONG package:uvm_pkg/ELAB|CDEFN m_recur_states  ours {'idxTs=class_typespec(uvm_object)@18702:37 inner=enum_typespec(uvm_pkg::uvm_recursion_policy_enum)@7930:1'}  (golden {'idxTs=class_typespec(uvm_object)@18702:37 inner=enum_typespec(uvm_pkg::uvm_recursion_policy_enum)@24645:46'})
+  IDXTS STILLWRONG package:uvm_pkg/ELAB|CDEFN m_recur_states  ours {'idxTs=class_typespec(uvm_object)@19052:48 inner=enum_typespec(uvm_pkg::uvm_recursion_policy_enum)@7930:1'}  (golden {'idxTs=class_typespec(uvm_object)@19052:48 inner=enum_typespec(uvm_pkg::uvm_recursion_policy_enum)@24645:46'})
+  IDXTS STILLWRONG package:uvm_pkg/ELAB|CDEFN m_recur_states  ours {'idxTs=class_typespec(uvm_object)@21033:31 inner=enum_typespec(uvm_pkg::uvm_recursion_policy_enum)@7930:1'}  (golden {'idxTs=class_typespec(uvm_object)@21033:31 inner=enum_typespec(uvm_pkg::uvm_recursion_policy_enum)@24645:46'})
+  IDXTS TOGOLDEN=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=4 UNTOUCHED=339
+==== BuildUVMPkg testflags
+KEYS=345 ONLY-GOLDEN=1 ONLY-OURS=1 ONLY-OURS-MOVED=0
+  ONLY-GOLDEN ('package:uvm_pkg/ELAB|CDEFN', '28181:20', '', 'dim0')
+  ONLY-OURS   ('package:uvm_pkg/ELAB|CDEFN', '28180:11', 'queue_of_element', 'dim0')  a={'arrayType=0 bound=QUEUE'} b={'arrayType=0 bound=QUEUE'}
+  LAW   TOGOLDEN=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=0 UNTOUCHED=343
+  IDXTS STILLWRONG package:uvm_pkg/ELAB|CDEFN tab_t  ours {'idxTs=NONE inner=string_typespec()@0:0'}  (golden {'idxTs=NONE inner=string_typespec()@14899:19'})
+  IDXTS STILLWRONG package:uvm_pkg/ELAB|CDEFN m_recur_states  ours {'idxTs=class_typespec(uvm_object)@18702:37 inner=enum_typespec(uvm_pkg::uvm_recursion_policy_enum)@7930:1'}  (golden {'idxTs=class_typespec(uvm_object)@18702:37 inner=enum_typespec(uvm_pkg::uvm_recursion_policy_enum)@24645:46'})
+  IDXTS STILLWRONG package:uvm_pkg/ELAB|CDEFN m_recur_states  ours {'idxTs=class_typespec(uvm_object)@19052:48 inner=enum_typespec(uvm_pkg::uvm_recursion_policy_enum)@7930:1'}  (golden {'idxTs=class_typespec(uvm_object)@19052:48 inner=enum_typespec(uvm_pkg::uvm_recursion_policy_enum)@24645:46'})
+  IDXTS STILLWRONG package:uvm_pkg/ELAB|CDEFN m_recur_states  ours {'idxTs=class_typespec(uvm_object)@21033:31 inner=enum_typespec(uvm_pkg::uvm_recursion_policy_enum)@7930:1'}  (golden {'idxTs=class_typespec(uvm_object)@21033:31 inner=enum_typespec(uvm_pkg::uvm_recursion_policy_enum)@24645:46'})
+  IDXTS TOGOLDEN=0 AWAY=0 MOVED-WRONG=0 STILL-WRONG=4 UNTOUCHED=339

@@ -1,0 +1,119 @@
+r10uvm189 — BYTE MOVERS and their ORDER-BLIND attribution.
+
+--- surelog corpus (956 databases), SELFCHECK=1
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=035d062ecce0 pristine=4aeae3d22191
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=135ec350c34e pristine=075d0686d280
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=035d062ecce0 pristine=4aeae3d22191
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=7ea31215a0f7 pristine=519b467361b2
+MOVERS: 4 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+
+--- uhdm2rtlil corpus (1358 databases), SELFCHECK=1
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+
+--- attribution (order-blind whole-dump diff, workdir path normalised)
+== default/MiniAmiq-544c7f61/slang.uhdm  order-blind diff lines=384
+     72 \_array_typespec: , line:N:N, endln:N:N
+     48 \_range: , line:N:N, endln:N:N
+     24 \_constant: 
+     24 \_class_typespec: (uvm_phase), line:N:N, endln:N:N
+     16 |vpiOperand:
+     16 |vpiName:uvm_phase
+     16 |vpiConstType:N
+     16 |vpiArrayType:N
+     16 |vpiActual:
+     16 \_ref_typespec: 
+     16 \_operation: , line:N:N, endln:N:N
+      8 |vpiTypespec:
+      8 |vpiSize:N
+      8 |vpiParent:
+      8 |vpiOpType:N
+      8 |vpiInstance:
+      8 |vpiIndexTypespec:
+      8 |vpiDecompile:associative
+      8 |vpiClassDefn:
+      8 |STRING:associative
+== default/SeqDriver-32af76aa/slang.uhdm  order-blind diff lines=384
+     72 \_array_typespec: , line:N:N, endln:N:N
+     48 \_range: , line:N:N, endln:N:N
+     24 \_constant: 
+     24 \_class_typespec: (uvm_phase), line:N:N, endln:N:N
+     16 |vpiOperand:
+     16 |vpiName:uvm_phase
+     16 |vpiConstType:N
+     16 |vpiArrayType:N
+     16 |vpiActual:
+     16 \_ref_typespec: 
+     16 \_operation: , line:N:N, endln:N:N
+      8 |vpiTypespec:
+      8 |vpiSize:N
+      8 |vpiParent:
+      8 |vpiOpType:N
+      8 |vpiInstance:
+      8 |vpiIndexTypespec:
+      8 |vpiDecompile:associative
+      8 |vpiClassDefn:
+      8 |STRING:associative
+== testflags/MiniAmiq-544c7f61/slang.uhdm  order-blind diff lines=384
+     72 \_array_typespec: , line:N:N, endln:N:N
+     48 \_range: , line:N:N, endln:N:N
+     24 \_constant: 
+     24 \_class_typespec: (uvm_phase), line:N:N, endln:N:N
+     16 |vpiOperand:
+     16 |vpiName:uvm_phase
+     16 |vpiConstType:N
+     16 |vpiArrayType:N
+     16 |vpiActual:
+     16 \_ref_typespec: 
+     16 \_operation: , line:N:N, endln:N:N
+      8 |vpiTypespec:
+      8 |vpiSize:N
+      8 |vpiParent:
+      8 |vpiOpType:N
+      8 |vpiInstance:
+      8 |vpiIndexTypespec:
+      8 |vpiDecompile:associative
+      8 |vpiClassDefn:
+      8 |STRING:associative
+== testflags/SeqDriver-32af76aa/slang.uhdm  order-blind diff lines=384
+     72 \_array_typespec: , line:N:N, endln:N:N
+     48 \_range: , line:N:N, endln:N:N
+     24 \_constant: 
+     24 \_class_typespec: (uvm_phase), line:N:N, endln:N:N
+     16 |vpiOperand:
+     16 |vpiName:uvm_phase
+     16 |vpiConstType:N
+     16 |vpiArrayType:N
+     16 |vpiActual:
+     16 \_ref_typespec: 
+     16 \_operation: , line:N:N, endln:N:N
+      8 |vpiTypespec:
+      8 |vpiSize:N
+      8 |vpiParent:
+      8 |vpiOpType:N
+      8 |vpiInstance:
+      8 |vpiIndexTypespec:
+      8 |vpiDecompile:associative
+      8 |vpiClassDefn:
+      8 |STRING:associative
+
+--- source lines the diff touches (SeqDriver/default)
+     18 line:2131:7
+     18 line:2131:16
+     18 line:1758:9
+     18 line:1758:22
+     18 line:1693:8
+     18 line:1693:19
+     18 line:1664:8
+     18 line:1664:21
+      8 line:28:1
+      8 line:134:1
+      6 line:2131:15
+      6 line:1758:21
+      6 line:1693:18
+      6 line:1664:20
