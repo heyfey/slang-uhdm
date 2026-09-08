@@ -1,0 +1,44 @@
+r10earl122 — THE THREE NON-ARM BOUNDARY CELLS, CONVICTED AS THE DOCUMENTED
+STATIC-ADDRESS FALSE MOVER (RESUME.md §9 / this pass's brief).
+
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+The wide boundary reports 8 differing cells.  Two are this pass's own arms in
+the PLAIN view (its population, rescored against golden in GRID.r10earl122.txt).
+The other six are three files in BOTH views:
+
+  r10buvm22repro/g22.sv
+  r10uvm154repro/l154_noenum.sv
+  r10uvm185repro/grid185/g185_e_kinds.sv
+
+FOUR independent instruments say the law cannot be what moved them.
+
+(1) THEY ARE NOT NONDETERMINISM.  Each file was built TWICE with the SAME
+    (pristine) binary in each view; all six pairs are byte-identical.
+
+(2) EVERY NUMERIC DELTA IS EXACTLY ONE PAGE.  The whole difference is a handful
+    of `vpiDecompile:` / `UINT:` values, and every one moves by -4096:
+
+      < |vpiDecompile:22667001      > |vpiDecompile:22662905
+      < |UINT:22667001              > |UINT:22662905
+      < |vpiDecompile:22666145      > |vpiDecompile:22662049
+
+    changed lines 12 / 4 / 6 respectively; numeric deltas = {-4096} in all six
+    cells; `all multiples of 4096: True`.
+
+(3) THE OBJECT IS AN ADDRESS-DERIVED RANGE BOUND, not anything this law writes.
+    g22.sv:70 is `typedef C22 ka_cls_t[string];` — an ASSOCIATIVE array — and
+    the `array_typespec`'s `vpiRightRange` operation folds that garbage
+    constant.  It is a PRE-EXISTING artifact of another family (the value is a
+    static address, so it follows the binary's layout and would move between
+    ANY two binaries of different size).
+
+(4) THE LAW CANNOT REACH THEM.  `pred122` on each file's PRISTINE database:
+
+      g22.sv               sites=0  predicted-cells=0
+      l154_noenum.sv       sites=0  predicted-cells=0
+      g185_e_kinds.sv      sites=0  predicted-cells=0
+
+    — not one gen-scope pattern continuous assign in any of the three.  And the
+    corpus census scores ZERO movement outside the 29 predicted Earlgrey cells,
+    which is the "zero census movement is the tell" the brief names.

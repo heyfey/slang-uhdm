@@ -1,0 +1,311 @@
+golden objs=783183   ours objs=775185
+
+== [0] THE OFFICIAL HEAD (design::Compare)
+   r=1
+     LHS: logic_var(shifted_id)@tlul_socket_m1.sv:94:21-94:31#793582
+     RHS: <null>
+   SHAPE: LHS set, RHS UNSET -> either the SINGULAR overload's rhs==nullptr branch (m_failedLhs = the POINTEE) or the VECTOR overload's rhs_vec==nullptr branch (m_failedLhs = the CONTAINER).  [1] tells them apart by KIND.
+   HEAD LHS KIND = logic_var  -> NOT a scope: this is a SINGULAR pointee (or a null vector SLOT); [4]/[5] name the owner
+
+== [1] HEAD LHS PARENT CHAIN (golden)
+        logic_var(shifted_id)@tlul_socket_m1.sv:94:21-94:31#793582
+        < gen_scope()@tlul_socket_m1.sv:89:36-139:6#1079065
+        < gen_scope_array(gen_host_fifo[0])@tlul_socket_m1.sv:89:36-139:6#1079064
+        < module_inst(u_sm1_17)@xbar_main.sv:532:3-545:5#1078832
+        < module_inst(u_xbar_main)@top_earlgrey.sv:888:3-927:5#1078111
+        < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058
+        < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   golden parent : gen_scope()@tlul_socket_m1.sv:89:36-139:6#1079065
+   OUR  parent   : gen_scope()@:89:36-139:6#632691
+   parent-pair Compare (fresh ctx): r=-32
+     LHS: constant()@top_pkg.sv:8:22-8:24#52
+     RHS: constant()@:8:22-8:24#110
+
+== [2] CONTAINER TABLE — scope::Compare order, then gen_scope::Compare order
+   (arity <null> = the vector pointer itself is null; the VECTOR overload only fails on a null side when the OTHER side is NON-EMPTY)
+   Property_decls           golden=<null>   ours=<null>   r=0   LHS=<null> RHS=<null>
+   Sequence_decls           golden=<null>   ours=<null>   r=0   LHS=<null> RHS=<null>
+   Concurrent_assertions    golden=<null>   ours=<null>   r=0   LHS=<null> RHS=<null>
+   Named_events             golden=<null>   ours=<null>   r=0   LHS=<null> RHS=<null>
+   Named_event_arrays       golden=<null>   ours=<null>   r=0   LHS=<null> RHS=<null>
+   Variables                golden=4        ours=4        r=0   LHS=<null> RHS=<null>
+   Virtual_interface_vars   golden=<null>   ours=<null>   r=0   LHS=<null> RHS=<null>
+   Logic_vars               golden=<null>   ours=<null>   r=0   LHS=<null> RHS=<null>
+   Array_vars               golden=<null>   ours=<null>   r=0   LHS=<null> RHS=<null>
+   Array_var_mems           golden=<null>   ours=<null>   r=0   LHS=<null> RHS=<null>
+   Parameters               golden=1        ours=1        r=0   LHS=<null> RHS=<null>
+   Param_assigns            golden=<null>   ours=<null>   r=0   LHS=<null> RHS=<null>
+   Scopes                   golden=<null>   ours=<null>   r=0   LHS=<null> RHS=<null>
+   Typespecs                golden=<null>   ours=<null>   r=0   LHS=<null> RHS=<null>
+   Instance_items           golden=<null>   ours=<null>   r=0   LHS=<null> RHS=<null>
+   Let_decls                golden=<null>   ours=<null>   r=0   LHS=<null> RHS=<null>
+   Attributes               golden=<null>   ours=<null>   r=0   LHS=<null> RHS=<null>
+   Nets                     golden=<null>   ours=<null>   r=0   LHS=<null> RHS=<null>
+   Array_nets               golden=<null>   ours=<null>   r=0   LHS=<null> RHS=<null>
+   Process                  golden=<null>   ours=<null>   r=0   LHS=<null> RHS=<null>
+   Cont_assigns             golden=4        ours=4        r=-32 LHS=constant()@top_pkg.sv:8:22-8:24#52 RHS=constant()@:8:22-8:24#110
+   Modules                  golden=1        ours=1        r=-1  LHS=<null> RHS=ref_typespec()@:0:0-0:0#632776
+   Module_arrays            golden=<null>   ours=<null>   r=0   LHS=<null> RHS=<null>
+   Primitives               golden=<null>   ours=<null>   r=0   LHS=<null> RHS=<null>
+   Primitive_arrays         golden=<null>   ours=<null>   r=0   LHS=<null> RHS=<null>
+   Def_params               golden=<null>   ours=<null>   r=0   LHS=<null> RHS=<null>
+   Gen_scope_arrays         golden=<null>   ours=<null>   r=0   LHS=<null> RHS=<null>
+   Programs                 golden=<null>   ours=<null>   r=0   LHS=<null> RHS=<null>
+   Program_arrays           golden=<null>   ours=<null>   r=0   LHS=<null> RHS=<null>
+   Assertions               golden=<null>   ours=<null>   r=0   LHS=<null> RHS=<null>
+   Interfaces               golden=<null>   ours=<null>   r=0   LHS=<null> RHS=<null>
+   Interface_arrays         golden=<null>   ours=<null>   r=0   LHS=<null> RHS=<null>
+   Alias_stmts              golden=<null>   ours=<null>   r=0   LHS=<null> RHS=<null>
+   Clocking_blocks          golden=<null>   ours=<null>   r=0   LHS=<null> RHS=<null>
+   Task_funcs               golden=<null>   ours=<null>   r=0   LHS=<null> RHS=<null>
+   Elab_tasks               golden=<null>   ours=<null>   r=0   LHS=<null> RHS=<null>
+
+== [3] WHOLE-DATABASE IDENTITY SEARCH for the head target on OUR side
+   target: logic_var(shifted_id)@tlul_socket_m1.sv:94:21-94:31#793582
+   fullname: work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].shifted_id
+   OURS [name] logic_var(shifted_id)@:94:21-94:31#154845
+        parent: assignment()@:94:21-94:31#154847
+   OURS [FULL] logic_var(shifted_id)@:94:21-94:31#632703
+        parent: gen_scope()@:89:36-139:6#632691
+   OURS [name] logic_var(shifted_id)@:94:21-94:31#633469
+        parent: gen_scope()@:89:36-139:6#633457
+   OURS [name] logic_var(shifted_id)@:94:21-94:31#634235
+        parent: gen_scope()@:89:36-139:6#634223
+   OURS [name] logic_var(shifted_id)@:94:21-94:31#637239
+        parent: gen_scope()@:89:36-139:6#637227
+   OURS [name] logic_var(shifted_id)@:94:21-94:31#638705
+        parent: gen_scope()@:89:36-139:6#638693
+   OURS [name] logic_var(shifted_id)@:94:21-94:31#641588
+        parent: gen_scope()@:89:36-139:6#641576
+   OURS [name] logic_var(shifted_id)@:94:21-94:31#642354
+        parent: gen_scope()@:89:36-139:6#642342
+   OURS [name] logic_var(shifted_id)@:94:21-94:31#643120
+        parent: gen_scope()@:89:36-139:6#643108
+   OURS [name] logic_var(shifted_id)@:94:21-94:31#645424
+        parent: gen_scope()@:89:36-139:6#645412
+   OURS [name] logic_var(shifted_id)@:94:21-94:31#646190
+        parent: gen_scope()@:89:36-139:6#646178
+   OURS [name] logic_var(shifted_id)@:94:21-94:31#646956
+        parent: gen_scope()@:89:36-139:6#646944
+   OURS [name] logic_var(shifted_id)@:94:21-94:31#661735
+        parent: gen_scope()@:89:36-139:6#661723
+   OURS [name] logic_var(shifted_id)@:94:21-94:31#663217
+        parent: gen_scope()@:89:36-139:6#663205
+   OURS [name] logic_var(shifted_id)@:94:21-94:31#666816
+        parent: gen_scope()@:89:36-139:6#666804
+   OURS [name] logic_var(shifted_id)@:94:21-94:31#668282
+        parent: gen_scope()@:89:36-139:6#668270
+   OURS [name] logic_var(shifted_id)@:94:21-94:31#671865
+        parent: gen_scope()@:89:36-139:6#671853
+   OURS [name] logic_var(shifted_id)@:94:21-94:31#673331
+        parent: gen_scope()@:89:36-139:6#673319
+   OURS [name] logic_var(shifted_id)@:94:21-94:31#676914
+        parent: gen_scope()@:89:36-139:6#676902
+   OURS [name] logic_var(shifted_id)@:94:21-94:31#678380
+        parent: gen_scope()@:89:36-139:6#678368
+   OURS [name] logic_var(shifted_id)@:94:21-94:31#681963
+        parent: gen_scope()@:89:36-139:6#681951
+   OURS [name] logic_var(shifted_id)@:94:21-94:31#683429
+        parent: gen_scope()@:89:36-139:6#683417
+   OURS [name] logic_var(shifted_id)@:94:21-94:31#687012
+        parent: gen_scope()@:89:36-139:6#687000
+   OURS [name] logic_var(shifted_id)@:94:21-94:31#688478
+        parent: gen_scope()@:89:36-139:6#688466
+   OURS [name] logic_var(shifted_id)@:94:21-94:31#692061
+        parent: gen_scope()@:89:36-139:6#692049
+   OURS [name] logic_var(shifted_id)@:94:21-94:31#693527
+        parent: gen_scope()@:89:36-139:6#693515
+   OURS [name] logic_var(shifted_id)@:94:21-94:31#697110
+        parent: gen_scope()@:89:36-139:6#697098
+   OURS [name] logic_var(shifted_id)@:94:21-94:31#698576
+        parent: gen_scope()@:89:36-139:6#698564
+   OURS [name] logic_var(shifted_id)@:94:21-94:31#702157
+        parent: gen_scope()@:89:36-139:6#702145
+   OURS [name] logic_var(shifted_id)@:94:21-94:31#703623
+        parent: gen_scope()@:89:36-139:6#703611
+   OURS [name] ref_obj(shifted_id)@:96:12-96:22#154889
+        parent: cont_assign()@:96:12-99:6#154888
+   OURS [name] ref_obj(shifted_id)@:113:19-113:29#154942
+        parent: operation()@:108:26-119:6#154912
+   OURS [FULL] ref_obj(shifted_id)@:96:12-96:22#633352
+        parent: cont_assign()@:96:12-99:6#633335
+   OURS [FULL] ref_obj(shifted_id)@:113:19-113:29#633403
+        parent: operation()@:108:26-119:6#633369
+   OURS [name] ref_obj(shifted_id)@:96:12-96:22#634118
+        parent: cont_assign()@:96:12-99:6#634101
+   OURS [name] ref_obj(shifted_id)@:113:19-113:29#634169
+        parent: operation()@:108:26-119:6#634135
+   OURS [name] ref_obj(shifted_id)@:96:12-96:22#634884
+        parent: cont_assign()@:96:12-99:6#634867
+   OURS [name] ref_obj(shifted_id)@:113:19-113:29#634935
+        parent: operation()@:108:26-119:6#634901
+   OURS [name] ref_obj(shifted_id)@:96:12-96:22#638588
+        parent: cont_assign()@:96:12-99:6#638571
+   OURS [name] ref_obj(shifted_id)@:113:19-113:29#638639
+        parent: operation()@:108:26-119:6#638605
+   OURS [name] ref_obj(shifted_id)@:96:12-96:22#640054
+        parent: cont_assign()@:96:12-99:6#640037
+   OURS [name] ref_obj(shifted_id)@:113:19-113:29#640105
+        parent: operation()@:108:26-119:6#640071
+   OURS [name] ref_obj(shifted_id)@:96:12-96:22#642237
+        parent: cont_assign()@:96:12-99:6#642220
+   OURS [name] ref_obj(shifted_id)@:113:19-113:29#642288
+        parent: operation()@:108:26-119:6#642254
+   OURS [name] ref_obj(shifted_id)@:96:12-96:22#643003
+        parent: cont_assign()@:96:12-99:6#642986
+   OURS [name] ref_obj(shifted_id)@:113:19-113:29#643054
+        parent: operation()@:108:26-119:6#643020
+   OURS [name] ref_obj(shifted_id)@:96:12-96:22#643769
+        parent: cont_assign()@:96:12-99:6#643752
+   OURS [name] ref_obj(shifted_id)@:113:19-113:29#643820
+        parent: operation()@:108:26-119:6#643786
+   OURS [name] ref_obj(shifted_id)@:96:12-96:22#646073
+        parent: cont_assign()@:96:12-99:6#646056
+   OURS [name] ref_obj(shifted_id)@:113:19-113:29#646124
+        parent: operation()@:108:26-119:6#646090
+   OURS [name] ref_obj(shifted_id)@:96:12-96:22#646839
+        parent: cont_assign()@:96:12-99:6#646822
+   OURS [name] ref_obj(shifted_id)@:113:19-113:29#646890
+        parent: operation()@:108:26-119:6#646856
+   OURS [name] ref_obj(shifted_id)@:96:12-96:22#647605
+        parent: cont_assign()@:96:12-99:6#647588
+   OURS [name] ref_obj(shifted_id)@:113:19-113:29#647656
+        parent: operation()@:108:26-119:6#647622
+   OURS [name] ref_obj(shifted_id)@:96:12-96:22#663100
+        parent: cont_assign()@:96:12-99:6#663083
+   OURS [name] ref_obj(shifted_id)@:113:19-113:29#663151
+        parent: operation()@:108:26-119:6#663117
+   OURS [name] ref_obj(shifted_id)@:96:12-96:22#664582
+        parent: cont_assign()@:96:12-99:6#664565
+   OURS [name] ref_obj(shifted_id)@:113:19-113:29#664633
+        parent: operation()@:108:26-119:6#664599
+   OURS [name] ref_obj(shifted_id)@:96:12-96:22#668165
+        parent: cont_assign()@:96:12-99:6#668148
+   OURS [name] ref_obj(shifted_id)@:113:19-113:29#668216
+        parent: operation()@:108:26-119:6#668182
+   OURS [name] ref_obj(shifted_id)@:96:12-96:22#669631
+        parent: cont_assign()@:96:12-99:6#669614
+   OURS [name] ref_obj(shifted_id)@:113:19-113:29#669682
+        parent: operation()@:108:26-119:6#669648
+   OURS [name] ref_obj(shifted_id)@:96:12-96:22#673214
+        parent: cont_assign()@:96:12-99:6#673197
+   OURS [name] ref_obj(shifted_id)@:113:19-113:29#673265
+        parent: operation()@:108:26-119:6#673231
+   OURS [name] ref_obj(shifted_id)@:96:12-96:22#674680
+        parent: cont_assign()@:96:12-99:6#674663
+   OURS [name] ref_obj(shifted_id)@:113:19-113:29#674731
+        parent: operation()@:108:26-119:6#674697
+   OURS [name] ref_obj(shifted_id)@:96:12-96:22#678263
+        parent: cont_assign()@:96:12-99:6#678246
+   OURS [name] ref_obj(shifted_id)@:113:19-113:29#678314
+        parent: operation()@:108:26-119:6#678280
+   OURS [name] ref_obj(shifted_id)@:96:12-96:22#679729
+        parent: cont_assign()@:96:12-99:6#679712
+   OURS [name] ref_obj(shifted_id)@:113:19-113:29#679780
+        parent: operation()@:108:26-119:6#679746
+   OURS [name] ref_obj(shifted_id)@:96:12-96:22#683312
+        parent: cont_assign()@:96:12-99:6#683295
+   OURS [name] ref_obj(shifted_id)@:113:19-113:29#683363
+        parent: operation()@:108:26-119:6#683329
+   OURS [name] ref_obj(shifted_id)@:96:12-96:22#684778
+        parent: cont_assign()@:96:12-99:6#684761
+   OURS [name] ref_obj(shifted_id)@:113:19-113:29#684829
+        parent: operation()@:108:26-119:6#684795
+   OURS [name] ref_obj(shifted_id)@:96:12-96:22#688361
+        parent: cont_assign()@:96:12-99:6#688344
+   OURS [name] ref_obj(shifted_id)@:113:19-113:29#688412
+        parent: operation()@:108:26-119:6#688378
+   OURS [name] ref_obj(shifted_id)@:96:12-96:22#689827
+        parent: cont_assign()@:96:12-99:6#689810
+   OURS [name] ref_obj(shifted_id)@:113:19-113:29#689878
+        parent: operation()@:108:26-119:6#689844
+   OURS [name] ref_obj(shifted_id)@:96:12-96:22#693410
+        parent: cont_assign()@:96:12-99:6#693393
+   OURS [name] ref_obj(shifted_id)@:113:19-113:29#693461
+        parent: operation()@:108:26-119:6#693427
+   OURS [name] ref_obj(shifted_id)@:96:12-96:22#694876
+        parent: cont_assign()@:96:12-99:6#694859
+   OURS [name] ref_obj(shifted_id)@:113:19-113:29#694927
+        parent: operation()@:108:26-119:6#694893
+   OURS [name] ref_obj(shifted_id)@:96:12-96:22#698459
+        parent: cont_assign()@:96:12-99:6#698442
+   OURS [name] ref_obj(shifted_id)@:113:19-113:29#698510
+        parent: operation()@:108:26-119:6#698476
+   OURS [name] ref_obj(shifted_id)@:96:12-96:22#699925
+        parent: cont_assign()@:96:12-99:6#699908
+   OURS [name] ref_obj(shifted_id)@:113:19-113:29#699976
+        parent: operation()@:108:26-119:6#699942
+   OURS [name] ref_obj(shifted_id)@:96:12-96:22#703506
+        parent: cont_assign()@:96:12-99:6#703489
+   OURS [name] ref_obj(shifted_id)@:113:19-113:29#703557
+        parent: operation()@:108:26-119:6#703523
+   OURS [name] ref_obj(shifted_id)@:96:12-96:22#704972
+        parent: cont_assign()@:96:12-99:6#704955
+   OURS [name] ref_obj(shifted_id)@:113:19-113:29#705023
+        parent: operation()@:108:26-119:6#704989
+   OURS [FULL] ref_typespec()@:0:0-0:0#632709
+        parent: logic_var(shifted_id)@:94:21-94:31#632703
+   OURS name-matches=90 fullname-matches=4
+   GOLD [FULL] logic_var(shifted_id)@tlul_socket_m1.sv:94:21-94:31#793582
+        parent: gen_scope()@tlul_socket_m1.sv:89:36-139:6#1079065
+   GOLD [FULL] ref_obj(shifted_id)@tlul_socket_m1.sv:96:12-96:22#793415
+        parent: cont_assign()@tlul_socket_m1.sv:96:12-99:6#793416
+   GOLD [FULL] ref_obj(shifted_id)@tlul_socket_m1.sv:113:19-113:29#793481
+        parent: operation()@tlul_socket_m1.sv:108:26-119:6#793447
+   GOLD [FULL] ref_typespec()@:0:0-0:0#793583
+        parent: logic_var(shifted_id)@tlul_socket_m1.sv:94:21-94:31#793582
+   GOLDEN fullname-matches=4
+
+== [4] SINGULAR FIELD SCAN — GOLDEN objects holding a COMPARED singular edge to the head target
+   ref_obj::Actual_group  owner=ref_obj                      2
+   POOL total = 2
+   [0] ref_obj(shifted_id)@tlul_socket_m1.sv:96:12-96:22#793415   via ref_obj::Actual_group
+        ref_obj(shifted_id)@tlul_socket_m1.sv:96:12-96:22#793415
+        < cont_assign()@tlul_socket_m1.sv:96:12-99:6#793416
+        < gen_scope()@tlul_socket_m1.sv:89:36-139:6#1079065
+        < gen_scope_array(gen_host_fifo[0])@tlul_socket_m1.sv:89:36-139:6#1079064
+        < module_inst(u_sm1_17)@xbar_main.sv:532:3-545:5#1078832
+        < module_inst(u_xbar_main)@top_earlgrey.sv:888:3-927:5#1078111
+        < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058
+        < design(work@prim_sync_reqack)@:0:0-0:0#919334
+   [1] ref_obj(shifted_id)@tlul_socket_m1.sv:113:19-113:29#793481   via ref_obj::Actual_group
+        ref_obj(shifted_id)@tlul_socket_m1.sv:113:19-113:29#793481
+        < operation()@tlul_socket_m1.sv:108:26-119:6#793447
+        < cont_assign()@tlul_socket_m1.sv:108:12-119:6#793446
+        < gen_scope()@tlul_socket_m1.sv:89:36-139:6#1079065
+        < gen_scope_array(gen_host_fifo[0])@tlul_socket_m1.sv:89:36-139:6#1079064
+        < module_inst(u_sm1_17)@xbar_main.sv:532:3-545:5#1078832
+        < module_inst(u_xbar_main)@top_earlgrey.sv:888:3-927:5#1078111
+        < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#972058
+        < design(work@prim_sync_reqack)@:0:0-0:0#919334
+
+== [4'] OUR counterpart of the head target: logic_var(shifted_id)@:94:21-94:31#632703
+   ref_obj::Actual_group  owner=ref_obj                      1
+   POOL total = 1
+   [0] ref_obj(shifted_id)@:96:12-96:22#633352   via ref_obj::Actual_group
+        ref_obj(shifted_id)@:96:12-96:22#633352
+        < cont_assign()@:96:12-99:6#633335
+        < gen_scope()@:89:36-139:6#632691
+        < gen_scope_array(gen_host_fifo[0])@:89:36-139:6#632690
+        < module_inst(u_sm1_17)@xbar_main.sv:532:3-545:5#631854
+        < module_inst(u_xbar_main)@top_earlgrey.sv:888:3-927:5#627280
+        < module_inst(work@top_earlgrey)@top_earlgrey.sv:5:1-1022:10#189339
+        < design(work@prim_sync_reqack)@:0:0-0:0#1
+
+== [4''] EDGE PAIRING — golden owner vs OUR object at the same kind+name+span
+   GOLD ref_obj(shifted_id)@tlul_socket_m1.sv:96:12-96:22#793415 -> logic_var(shifted_id)@tlul_socket_m1.sv:94:21-94:31#793582
+   OURS ref_obj(shifted_id)@:96:12-96:22#633352 -> Actual_group logic_var(shifted_id)@:94:21-94:31#632703
+        ref_obj(shifted_id)@:96:12-96:22#633352
+        < cont_assign()@:96:12-99:6#633335
+        < gen_scope()@:89:36-139:6#632691
+        < gen_scope_array(gen_host_fifo[0])@:89:36-139:6#632690
+   GOLD ref_obj(shifted_id)@tlul_socket_m1.sv:113:19-113:29#793481 -> logic_var(shifted_id)@tlul_socket_m1.sv:94:21-94:31#793582
+   OURS ref_obj(shifted_id)@:113:19-113:29#633403 -> Actual_group <null>
+        ref_obj(shifted_id)@:113:19-113:29#633403
+        < operation()@:108:26-119:6#633369
+        < cont_assign()@:108:12-119:6#633368
+        < gen_scope()@:89:36-139:6#632691
+
+== [5] VECTOR SLOT SCAN — compared scope containers holding the target
+   SLOT Variables[2/4] of gen_scope()@tlul_socket_m1.sv:89:36-139:6#1079065
+   SLOT OURS.Variables[2/4] of gen_scope()@:89:36-139:6#632691

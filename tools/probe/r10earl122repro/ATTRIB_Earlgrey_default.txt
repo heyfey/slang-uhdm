@@ -1,0 +1,6 @@
+lines pristine=4730932  patched=4730990
+RAW diff lines        : 58
+ORDER-BLIND diff lines: 58
+--- ORDER-BLIND added/removed by leading token:
+  ADDED        29 |vpiActual:
+  ADDED        29 \_logic_var:

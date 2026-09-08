@@ -173,10 +173,10 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-09-08, HEAD = the uvm205 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-09-08, HEAD = the earl122 landing — Earlgrey CLOSED both modes) — EXAMPLE ONLY
 
-Baselines (`scripts/accounting.py --md`): surelog default 471/481 comparable
-equal (10 NE), testflags 466/475 (9 NE); uhdm2rtlil 679/679 both modes. The
+Baselines (`scripts/accounting.py --md`): surelog default 473/481 comparable
+equal (8 NE), testflags 468/475 (7 NE); uhdm2rtlil 679/679 both modes. The
 19 surelog NE row-modes = 8 slang-fenced (out of scope) + 11 addressable
 row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 
@@ -187,13 +187,13 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 | SimpleUVM×2 | ~4.18M (ONE head both modes — the DESIGN's decompile depth, not a distance) | the design's own TYPESPECS vector is thirty-four short (golden 123, ours 89 on BOTH binaries) — masked until now because the module vector compares first — open (uvm203 landed: § oobCtorLocalsRideTheImport203 — a file-level wildcard import copies the package's variable registry WHOLESALE into the importing module's def-view listing (fifteen objects: out-of-block constructor locals and a package assoc array, seven with zero referrers); the residue's implicit-net framing REFUTED on the objects (the dump prints each net twice; the elaborated twin lists zero); SimpleUVM's only-golden set 46→0 with only-ours 0 — COMPLETE listing equality; a first cut convicted by its own away score and fenced (packed-struct-element containers ride the def view only); verifier ACCEPT, patch unchanged) |
 | BuildUVMPkg×2 | CMP_EQUAL (CONVERTED, uvm194 — the block's FIRST row conversion; the two baseline rows promoted in the landing commit) | CLOSED — § homeRetNameSelBindSurvivesDefViewUnbind194: a home return-name select binding survives the definition-view unbind (one gated exemption clause in the drain; the clone fence from an arm); the family's whole ladder ran uvm170→194 |
 | Scoreboard/default | 95 (depth) | the MIRROR of the landed head: our class_typespec (type_id) at uvm_object_defines.svh:483:12-483:34 under class_defn work@my_scoreboard (design.sv:7:1) — golden <null> at that edge; every vector on that parent is equal-size, so the null is a SINGULAR edge inside one of them (typespec::Compare walks the Typedef_alias first) — pre-existing, unmasked (26 occurrences absent from the landing order-blind diff); decode with the owner-finder first — open (the coin row — re-measure first) (uvm163 landed: 145→95, § classPropSpecForeignPkgHome163 — a class property typed by a parameterized specialization lists the Parameters and Param_assigns also when the generic home package differs from the declarer home; verifier ACCEPT WITH FIX, § ownTypeFormalArgPushesNothing163v: an ordered argument that names a type formal of the declaring class itself pushes nothing and the pairing index advances) |
-| Earlgrey_0_1×2 (both modes) | 31 / CMP_EQUAL (default open / testflags CONVERTED at earl117) | default: a gen-local variable DECLARED AND CONTINUOUSLY ASSIGNED under the generate scope — golden lists it under the scope's variables where we list none; PRE-EXISTING, reduced repro in the pass's arm set — open (earl121 landed: 386→31 with the head OBJECT GONE, § genCaPatKeepTagDefView121 — a gen-local whole-name pattern target keeps its tagged wrappers in the DEFAULT view (the writer's flatten sits behind a bind whose walk knows no gen scope; the clone-side flatten runs only under elaboration; the testflags row declines BY CONSTRUCTION); six lines of code; census TO-GOLDEN 290 keys / AWAY 0 in four scorings; verifier ACCEPT WITH FIX — a THIRD flatten caller gated with the same predicate; verifier residue: the elaborated half is wrong for struct_net targets — a family, filed) |
+| Earlgrey_0_1×2 (both modes) | CMP_EQUAL ×2 (default CONVERTED at earl122, testflags at earl117 — the WHOLE TEST CLOSED) | CLOSED — § genCaPatTagDeepBind122: the deep-bind walk descends a tagged wrapper to its pattern value (the wrapper earl121 had just taught the default view to keep); the listing framing refuted (the variables vector read 4/4 both sides — a BINDING law); the Earlgrey ladder ran earl104→122 |
 | Rggen/default | **CMP_EQUAL** (converted by rgg18) | Rggen's one comparable mode passes the official uhdm-cmp; its dump column stays `differ` (phase-3 residues R-N3 103 golden-only ELAB hier_paths / R-A 810 symbolic range bounds / R-D / R-N4 / R-N5 / R-E hold byte-identity, block nothing); the Rggen slot now refills on the next-largest surelog NE family (rgg18 landed: gen-scope localparam fold digits = the mathematical value, pre-truncation, own sign + the verifier's 64-bit-word and stored-value refusals) |
 
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 124 verifier fix-before-landing re-cuts (290 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 124 verifier fix-before-landing re-cuts (291 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

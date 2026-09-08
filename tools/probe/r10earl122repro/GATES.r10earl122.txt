@@ -1,0 +1,181 @@
+r10earl122 — THE GATES, every command and every number.
+MEASUREMENT ONLY for the probes; the OFFICIAL judges are ~/.local/bin/uhdm-cmp
+and scripts/verify_golden.py.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+BASE a74e2df3
+pristine binary md5 4f5f59ff040bbe46f92e4222a881637e  (BYTE-IDENTICAL to the main tree's own build/slang-uhdm at a74e2df3)
+patched  binary md5 33a1b22b5ebba79ec34825031618deb7
+both frozen chmod 555 BEFORE any sweep; GOLDEN_DEFER stayed unset; results/*.csv READ-ONLY.
+
+(1) GOLDENS
+  pristine: 23 PASS / 0 FAIL
+  patched : 23 PASS / 0 FAIL
+  SLANG_UHDM=/bin/false: 0 PASS / 23 FAIL   (negative control)
+
+(2) uhdm2rtlil ROWS
+  ct8rows committed gate vs PRISTINE testflags:
+PASS: every row byte-identical to the committed baseline
+  ct8rows committed gate vs PATCHED testflags:
+PASS: every row byte-identical to the committed baseline
+  ct8rows PRISTINE vs PATCHED testflags:
+PASS: every row byte-identical to the committed baseline
+  ct8rows PRISTINE vs PATCHED default:
+PASS: every row byte-identical to the committed baseline
+  status histogram, both modes, both binaries: 679 CMP_EQUAL / 50 SLANG_REJECT / 2 others
+    tf      679 CMP_EQUAL
+    tf       50 SLANG_REJECT
+    tf        2 SURELOG_FAIL
+    def     679 CMP_EQUAL
+    def      50 SLANG_REJECT
+    def       2 SURELOG_FAIL
+
+(3) SURELOG ROWS — 1588 rows
+  ct8rows committed baseline vs PRISTINE:
+---- WHOLE-ROW diff (status AND dump column): 1 differing ROWS (2 diff row-sides)
+< Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+> Earlgrey_0_1,testflags,CMP_EQUAL,,,
+  ct8rows committed baseline vs PATCHED:
+---- WHOLE-ROW diff (status AND dump column): 2 differing ROWS (4 diff row-sides)
+< Earlgrey_0_1,default,CMP_NOTEQUAL,decompile:,,
+< Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+> Earlgrey_0_1,default,CMP_EQUAL,,,
+> Earlgrey_0_1,testflags,CMP_EQUAL,,,
+  ct8rows PRISTINE vs PATCHED:
+---- WHOLE-ROW diff (status AND dump column): 1 differing ROWS (2 diff row-sides)
+< Earlgrey_0_1,default,CMP_NOTEQUAL,decompile:,,
+> Earlgrey_0_1,default,CMP_EQUAL,,,
+  status histogram PRISTINE -> PATCHED:
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     472 CMP_EQUAL       9 CMP_NOTEQUAL       5 DEFERRED     283 SLANG_REJECT      25 SURELOG_FAIL
+  default  fresh:     473 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED     283 SLANG_REJECT      25 SURELOG_FAIL
+  testflags  base:     468 CMP_EQUAL       7 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE
+  testflags  fresh:     468 CMP_EQUAL       7 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE
+
+  *** THE ONE ROW CONVERTED — QUOTED IN FULL, AND IT IS THE PASS'S TARGET ***
+      < Earlgrey_0_1,default,CMP_NOTEQUAL,decompile:,,   (results/golden_surelog.csv AND this pass's PRISTINE sweep)
+      > Earlgrey_0_1,default,CMP_EQUAL,,,                (this pass's PATCHED sweep)
+      default CMP_EQUAL 472 -> 473, CMP_NOTEQUAL 9 -> 8.  results/*.csv NOT EDITED.
+  The OTHER baseline row-side difference is NOT a conversion and is present on the
+  PRISTINE binary too (quoted above): Earlgrey_0_1/testflags' DUMP column empties.
+  Status is CMP_EQUAL on both sides; it is the uhdm-dump TIMEOUT under concurrent
+  sweeps that r10earl119/120/121 each recorded.
+
+(4) BYTE MOVERS
+  u2r     databases: patched=1358 pristine=1358
+  u2r     PATH_SETS_IDENTICAL (1358 paths)
+  u2r     MOVERS: 0 / 1358
+  u2r     SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+  surelog databases: patched=956 pristine=956
+  surelog PATH_SETS_IDENTICAL (956 paths)
+  surelog MOVER ./default/Earlgrey_0_1-71da2fd7/slang.uhdm  patched=8c2ba25c4d7f pristine=ed150b4d6dea
+  surelog MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=150505baf8e6 pristine=9455a56a1acf
+  surelog MOVERS: 2 / 956
+  surelog SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+  BOTH surelog movers attributed by name:
+    default/Earlgrey_0_1 — PREDICTED BY NAME (29 cells).  ORDER-BLIND whole-dump
+      diff = 58 lines, ALL ADDITIONS, 29 |vpiActual: + 29 \_logic_var:, ZERO removals.
+    default/Scoreboard   — the documented ~50/50 COIN.  RAW diff 92 lines,
+      ORDER-BLIND diff ZERO lines; and pred122 on its pristine database reports
+      sites=0 predicted-cells=0, so the law cannot reach it.
+
+(5) CANARIES / AUDIT / PINS
+  surelog   Earlgrey_0_1                   default   CHANGED CMP_NOTEQUAL/ -> CMP_EQUAL/
+  surelog   Earlgrey_0_1                   testflags CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+  surelog ---- canary rows: ok=50 changed=2 absent=0 unknown-names=7
+  u2r     ---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+    (the two CHANGED surelog canary lines are Earlgrey_0_1: the CONVERSION this pass
+     targets, and the testflags dump-column timeout that is on the PRISTINE binary too)
+  ---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+  PASS: every supplementary canary row is byte-identical to the baseline.
+  ---- ctcan2 rows: ok=1 changed=0 absent=0 unknown-patterns=6
+  PASS: every supplementary canary row is byte-identical to the baseline.
+  ---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+  PASS: every brief-protected name and family is carried by a script that RUNS here.
+  protected databases, md5 patched vs pristine, BOTH modes:
+    InterfaceModPort default 59a365f3ce2c SAME
+    InterfaceModPort testflags 59a365f3ce2c SAME
+    BlackParrotComplex default e3e354129d5a SAME
+    BlackParrotComplex testflags 73a10e8217e5 SAME
+    YosysOldOr default d68e0796d62c SAME
+    YosysOldOr testflags d68e0796d62c SAME
+    SVSwitch default 4842211c4030 SAME
+    SVSwitch testflags 4842211c4030 SAME
+    YosysVerx default 6ccda350c24a SAME
+    YosysVerx testflags 6ccda350c24a SAME
+
+(6) EVERY cmds.txt AUDITED BY BINARY PATH
+    /tmp/r10earl122_wdP/sl  pris=1523 pat=0 OTHER-BINARY=0
+    /tmp/r10earl122_wdX/sl  pris=0 pat=1523 OTHER-BINARY=0
+    /tmp/r10earl122_wdP/u2r  pris=1458 pat=0 OTHER-BINARY=0
+    /tmp/r10earl122_wdX/u2r  pris=0 pat=1458 OTHER-BINARY=0
+    (the cmds.txt files with no slang line are the SURELOG_FAIL rows: 50 surelog, 4 u2r)
+
+(7) ROWHEADS — the seven named rows, PRISTINE -> PATCHED
+  SeqDriver      default 112/112     testflags 112/112
+  SimpleUVM      default 4177864/4177864  testflags 4178104/4178104
+  Scoreboard     default 95/95       testflags SKIP-NOFILE (expected)
+  MiniAmiq       default 112/112     testflags 112/112
+  BuildUVMPkg    default 0/0         testflags 0/0        <- CMP_EQUAL, STAYS
+  Rggen          default 0/0         testflags SKIP-NOFILE (expected)
+  Earlgrey_0_1   default 31 -> 0     testflags 0/0        <- CMP_EQUAL, STAYS
+  ONE head throughout (grep -c '^LHS:' == 1 on every non-zero cell).
+  THE FOUR CMP_EQUAL ROW-MODES, SCORED ON BOTH COLUMNS:
+    BuildUVMPkg/default  0 -> 0   CMP_EQUAL -> CMP_EQUAL
+    BuildUVMPkg/testflags 0 -> 0  CMP_EQUAL -> CMP_EQUAL
+    Earlgrey_0_1/testflags 0 -> 0 CMP_EQUAL -> CMP_EQUAL  (database md5 IDENTICAL: 92bf7b7facdcf4fca15d5710960e8c64)
+    Rggen/default        0 -> 0   CMP_EQUAL -> CMP_EQUAL
+
+(8) THE WIDE BOUNDARY
+  PROCESSED=5337 identical=10232 DIFFERING=8 no_output=434
+  LISTED=5337  FENCED_REMOVED=0  PROCESSED==LISTED (5337)
+  rc by side (SYMMETRIC):
+    A/0 9841
+    A/139 16
+    A/3 418
+    A/4 399
+    B/0 9841
+    B/139 16
+    B/3 418
+    B/4 399
+  differing:
+    elab r10buvm22repro/g22.sv
+    elab r10uvm154repro/l154_noenum.sv
+    elab r10uvm185repro/grid185/g185_e_kinds.sv
+    plain r10buvm22repro/g22.sv
+    plain r10earl122repro/a1_axis122.sv
+    plain r10earl122repro/a2_fence122.sv
+    plain r10uvm154repro/l154_noenum.sv
+    plain r10uvm185repro/grid185/g185_e_kinds.sv
+  -> two are THIS PASS'S OWN ARMS in the plain view (its population, rescored
+     against golden in GRID.r10earl122.txt: TO-GOLDEN 6, AWAY-GOLDEN 0,
+     MOVED-WRONG 0, NOGOLD_MOVED 0).
+  -> the other six are three files in BOTH views, CONVICTED as the documented
+     STATIC-ADDRESS FALSE MOVER — every numeric delta is exactly -4096 and the
+     law's predictor reports 0 sites on all three (BOUNDARY_falsemovers.txt).
+  floor dirs checked=42  BREACHES=0
+  PASS: no must-stay arm moved
+
+(9) THE CENSUS
+  surelog  CALIBRATION OK: golden halves identical, 6033502 keys
+  surelog  TO-GOLDEN      29
+  surelog  AWAY-GOLDEN    0
+  surelog  MOVED-WRONG    0
+  surelog  NOGOLD_MOVED   0
+  surelog  SAME_AGREE     1018596
+  surelog  STILL-WRONG    20401
+  surelog  MOVER ROWS:
+  surelog     default        Earlgrey_0_1 {'TO-GOLDEN': 29}
+  u2r      CALIBRATION OK: golden halves identical, 139544 keys
+  u2r      TO-GOLDEN      0
+  u2r      AWAY-GOLDEN    0
+  u2r      MOVED-WRONG    0
+  u2r      NOGOLD_MOVED   0
+  u2r      SAME_AGREE     122656
+  u2r      STILL-WRONG    108
+  u2r      MOVER ROWS:
+
+(10) THE PATCH REPRODUCES
+  A FRESH worktree at a74e2df3, built untouched -> md5 4f5f59ff040bbe46f92e4222a881637e  (= the pristine binary)
+  The SAME worktree with /tmp/r10earl122.patch applied (git apply -3, rc 0, 0 conflict markers,
+  'Applied patch to src/ModuleEmit.cpp cleanly'), rebuilt -> md5 33a1b22b5ebba79ec34825031618deb7
+  (= the patched binary every number above was measured on).

@@ -1,0 +1,21 @@
+LISTED=5337  FENCED_REMOVED=0  (of 5337 found)
+PROCESSED=5337 identical=10232 DIFFERING=8 no_output=434
+-- rc by side --
+A/0 9841
+A/139 16
+A/3 418
+A/4 399
+B/0 9841
+B/139 16
+B/3 418
+B/4 399
+-- differing --
+  elab r10buvm22repro/g22.sv
+  elab r10uvm154repro/l154_noenum.sv
+  elab r10uvm185repro/grid185/g185_e_kinds.sv
+  plain r10buvm22repro/g22.sv
+  plain r10earl122repro/a1_axis122.sv
+  plain r10earl122repro/a2_fence122.sv
+  plain r10uvm154repro/l154_noenum.sv
+  plain r10uvm185repro/grid185/g185_e_kinds.sv
+PROCESSED==LISTED (5337)

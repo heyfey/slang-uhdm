@@ -1,0 +1,8 @@
+elab r10buvm22repro/g22.sv
+elab r10uvm154repro/l154_noenum.sv
+elab r10uvm185repro/grid185/g185_e_kinds.sv
+plain r10buvm22repro/g22.sv
+plain r10earl122repro/a1_axis122.sv
+plain r10earl122repro/a2_fence122.sv
+plain r10uvm154repro/l154_noenum.sv
+plain r10uvm185repro/grid185/g185_e_kinds.sv

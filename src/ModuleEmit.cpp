@@ -18016,6 +18016,53 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                                         deep20(o20);
                                 return;
                             }
+                            // § genCaPatTagDeepBind122 (r10earl122) — THE WALK
+                            // ALSO DESCENDS THROUGH A `tagged_pattern`.
+                            //
+                            // A KEYED assignment pattern's operands are not the
+                            // member VALUES: `CompileHelper::compileAssignment-
+                            // Pattern` (Surelog CompileExpression.cpp:3671-3838)
+                            // wraps every keyed item in a `tagged_pattern` whose
+                            // `Pattern()` holds the value, and
+                            // § genCaPatKeepTagDefView121 keeps those wrappers in
+                            // the DEFAULT view for exactly the Lhs shape this
+                            // walk fires on (a gen-scope-local whole-name
+                            // target).  A `tagged_pattern` is neither an
+                            // `operation` nor a `sys_func_call` nor a `ref_obj`,
+                            // so the walk stopped at the wrapper and every keyed
+                            // member value went unbound — while the POSITIONAL
+                            // spelling of the same pattern, which has no wrapper,
+                            // bound normally.
+                            //
+                            // Surelog draws no such line.  `bindVariable` is not
+                            // what binds these: they are bound at COMPILE time by
+                            // `compileExpression` walking the block's scope, and
+                            // the tag is only a wrapper the writer adds around a
+                            // value that is ALREADY bound.  Measured, golden,
+                            // arm `a1_axis122` inside a CHILD instance (the whole
+                            // family is a child-instance gap — at the top module
+                            // the unsuppressed path binds it and nothing shows):
+                            //   x1 keyed pattern, gen-local struct VAR target ->
+                            //      golden BOUND, ours UNBOUND
+                            //   x4 keyed pattern, nested member value  -> ditto
+                            //   x3 POSITIONAL pattern, same operand    -> BOUND
+                            //      on both already (the control)
+                            // and the FENCES it must not cross (`a2_fence122`,
+                            // golden, same view): gf3 a MODULE-scope target ->
+                            // golden UNBOUND (`lhsGenLocal20` is false there and
+                            // the pattern is flattened anyway), gf4 a gen-local
+                            // NET operand -> golden UNBOUND (the leaf filter
+                            // below), gf7 an Lhs name SHADOWED one module up ->
+                            // golden UNBOUND (§ genCaAncestorNetShadowUnbinds98
+                            // turns the walk off before it starts).  gf1 — an
+                            // ELEMENT-SELECT Lhs, where § genCaSelLhsDeepBind-
+                            // GenLocal23 turns the walk on — is golden BOUND, so
+                            // the descent is owed there too.
+                            if (n20->UhdmType() == UHDM::uhdmtagged_pattern) {
+                                deep20((UHDM::any*)((UHDM::tagged_pattern*)n20)
+                                           ->Pattern());
+                                return;
+                            }
                             // § genCaSysCallArgBinds22 — the walk also
                             // descends through a SYSTEM CALL's arguments.
                             // ibex_multdiv_fast.sv:147's `$signed({a,b})` is

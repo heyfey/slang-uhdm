@@ -1,0 +1,90 @@
+r10earl122 GRID — 2 arms x 2 VIEWS x golden + both frozen binaries.
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+P = pristine 4f5f59ff040bbe46f92e4222a881637e; X = patched 33a1b22b5ebba79ec34825031618deb7.
+
+== official uhdm-cmp line counts (a cmp count is the HEAD OBJECT's decompile
+   size, RESUME.md §7: DEPTH, not distance -- both arms carry pre-existing
+   whole-design differences of other families, so the CENSUS below is the
+   arm's verdict, not this column)
+CMP	a1_axis122	elab	P	20656
+CMP	a1_axis122	elab	X	20656
+CMP	a1_axis122	plain	P	20440
+CMP	a1_axis122	plain	X	20456
+CMP	a2_fence122	elab	P	21770
+CMP	a2_fence122	elab	X	21770
+CMP	a2_fence122	plain	P	21294
+CMP	a2_fence122	plain	X	21302
+
+== rc, every run
+GRC a1_axis122 plain 0
+ORC a1_axis122 plain P 0
+ORC a1_axis122 plain X 0
+GRC a1_axis122 elab 0
+ORC a1_axis122 elab P 0
+ORC a1_axis122 elab X 0
+GRC a2_fence122 plain 0
+ORC a2_fence122 plain P 0
+ORC a2_fence122 plain X 0
+GRC a2_fence122 elab 0
+ORC a2_fence122 elab P 0
+ORC a2_fence122 elab X 0
+
+== CENSUS a1_axis122 plain: TO-GOLDEN=4 AWAY-GOLDEN=0 MOVED-WRONG=0 NOGOLD_MOVED=0 SAME_AGREE=175 STILL-WRONG=10
+    TO-GOLDEN work@a1_axis122.u_kid.g1[0]|sid1|56:35-56:39|operation<cont_assign<gen_scope | ['UNBOUND'] -> ['BOUND|logic_var|54:17-54:21']
+    TO-GOLDEN work@a1_axis122.u_kid.g1[1]|sid1|56:35-56:39|operation<cont_assign<gen_scope | ['UNBOUND'] -> ['BOUND|logic_var|54:17-54:21']
+    TO-GOLDEN work@a1_axis122.u_kid.g4[0]|sid4|83:28-83:32|operation<cont_assign<gen_scope | ['UNBOUND'] -> ['BOUND|logic_var|81:17-81:21']
+    TO-GOLDEN work@a1_axis122.u_kid.g4[1]|sid4|83:28-83:32|operation<cont_assign<gen_scope | ['UNBOUND'] -> ['BOUND|logic_var|81:17-81:21']
+
+== CENSUS a1_axis122 elab: TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=0 NOGOLD_MOVED=0 SAME_AGREE=146 STILL-WRONG=49
+
+== CENSUS a2_fence122 plain: TO-GOLDEN=2 AWAY-GOLDEN=0 MOVED-WRONG=0 NOGOLD_MOVED=0 SAME_AGREE=190 STILL-WRONG=6
+    TO-GOLDEN work@a2_fence122.u_kid.gf1[0]|v1|57:40-57:42|operation<cont_assign<gen_scope | ['UNBOUND'] -> ['BOUND|logic_var|55:17-55:19']
+    TO-GOLDEN work@a2_fence122.u_kid.gf1[1]|v1|57:40-57:42|operation<cont_assign<gen_scope | ['UNBOUND'] -> ['BOUND|logic_var|55:17-55:19']
+
+== CENSUS a2_fence122 elab: TO-GOLDEN=0 AWAY-GOLDEN=0 MOVED-WRONG=0 NOGOLD_MOVED=0 SAME_AGREE=161 STILL-WRONG=39
+
+== THE FENCE TABLE, measured on GOLDEN (plain view, inside the CHILD instance)
+   cell | shape | golden | pristine | patched
+   gf1  | element-select Lhs of a gen-local array, KEYED pattern | BOUND    | UNBOUND  | BOUND
+   gf3  | MODULE-scope target, KEYED pattern                   | UNBOUND  | UNBOUND  | UNBOUND
+   gf4  | operand is a gen-local NET (wire), KEYED pattern     | UNBOUND  | UNBOUND  | UNBOUND
+   gf5  | operand in the ANCESTOR gen scope                    | UNBOUND  | UNBOUND  | UNBOUND
+   gf6  | POSITIONAL pattern                                   | BOUND    | BOUND    | BOUND
+   gf7  | Lhs name SHADOWED by a net one module up             | UNBOUND  | UNBOUND  | UNBOUND
+   gf8  | REPLICATION operand                                  | BOUND    | BOUND    | BOUND
+   gf9  | a PROCESS (always_comb), not a cont_assign           | BOUND    | BOUND    | BOUND
+
+== THE LISTING HALF — the gen_scope's own vpiVariables / vpiNets listing
+   (container, slot index, arity and KIND for every listed object).  The head's
+   first framing was a LISTING one; it is refuted here and, at corpus scale,
+   in the README's §3.
+   a1_axis122 plain: golden-vs-pristine LIST-row diffs = 4; pristine-vs-patched = 0
+   a1_axis122 elab: golden-vs-pristine LIST-row diffs = 8; pristine-vs-patched = 0
+   a2_fence122 plain: golden-vs-pristine LIST-row diffs = 0; pristine-vs-patched = 0
+   a2_fence122 elab: golden-vs-pristine LIST-row diffs = 3; pristine-vs-patched = 0
+
+== a3_forms122 — THE DECLARATION-FORM GRID for a gen scope's own LISTING
+   (golden, PLAIN view, gen scope inside a CHILD instance; container|slot/arity|kind)
+   form                                        golden                     ours (pristine)
+   d1     Variables|0/5|logic_var	Variables|0/5|logic_var
+   d2     Variables|1/5|logic_var	Variables|1/5|logic_var
+   d3     Variables|2/5|logic_var	Variables|2/5|logic_var
+   d4     Variables|3/5|int_var	Variables|3/5|int_var
+   d5     Nets|0/4|struct_net	Nets|0/4|struct_net
+   d6     Nets|1/4|struct_net	Nets|1/4|logic_net
+   d7     Nets|2/4|logic_net	Nets|2/4|logic_net
+   d8     Nets|3/4|logic_net	Nets|3/4|logic_net
+   d9     Variables|4/5|array_var	Variables|4/5|array_var
+   i      Parameters|0/1|parameter	Parameters|0/1|parameter
+   d10    (an IMPLICIT net: an undeclared continuous-assign target)
+          -> LISTED NOWHERE on either side, in either view
+   pristine-vs-patched LIST diffs: plain 0, elab 0
+   NOTE: golden's -parse -elabuhdm run on this arm exits rc=4 (the implicit
+   undeclared net) and its LIST rows come out DOUBLED; the PLAIN view is the
+   one this arm is read from.  Every rc is in rc.txt.
+   GRC a3_forms122 plain 0
+   ORC a3_forms122 plain P 0
+   ORC a3_forms122 plain X 0
+   GRC a3_forms122 elab 4
+   ORC a3_forms122 elab P 0
+   ORC a3_forms122 elab X 0

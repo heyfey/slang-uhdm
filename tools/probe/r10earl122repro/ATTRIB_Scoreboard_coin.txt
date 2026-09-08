@@ -1,0 +1,4 @@
+lines pristine=1100380  patched=1100380
+RAW diff lines        : 92
+ORDER-BLIND diff lines: 0
+--- ORDER-BLIND added/removed by leading token:

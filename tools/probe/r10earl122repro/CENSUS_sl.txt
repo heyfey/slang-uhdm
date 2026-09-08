@@ -1,0 +1,9 @@
+CALIBRATION OK: golden halves identical, 6033502 keys
+TO-GOLDEN      29
+AWAY-GOLDEN    0
+MOVED-WRONG    0
+NOGOLD_MOVED   0
+SAME_AGREE     1018596
+STILL-WRONG    20401
+MOVER ROWS:
+   default        Earlgrey_0_1 {'TO-GOLDEN': 29}
