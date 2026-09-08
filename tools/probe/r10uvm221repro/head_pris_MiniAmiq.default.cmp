@@ -1,0 +1,19 @@
+LHS: <null>
+RHS:
+decompile:
+enum_const: (SVAUNIT_START), id:301570
+|vpiParent:
+\_ref_obj: (work@svaunit_vpi_interface.get_state_from_reason.SVAUNIT_START), id:301569, line:155:20, endln:155:33
+|vpiName:SVAUNIT_START
+|UINT:606
+|vpiDecompile:606
+|vpiSize:64
+
+decompile:
+enum_const: (SVAUNIT_START), id:301570
+|vpiParent:
+\_ref_obj: (work@svaunit_vpi_interface.get_state_from_reason.SVAUNIT_START), id:301569, line:155:20, endln:155:33
+|vpiName:SVAUNIT_START
+|UINT:606
+|vpiDecompile:606
+|vpiSize:64

@@ -1,0 +1,276 @@
+== a1_ctx/parse work@if221u CALIB-NULL
+EXTRA-OURS    i                        51:23  g=['-'] o=['int_var(work@if221u.body221.i)']
+EXTRA-OURS    i                        51:30  g=['-'] o=['int_var(work@if221u.body221.i)']
+OTHER         PE_B                     53:13  g=[] o=['-']
+-- REFS golden=54 ours=55  KEYS=55  SAME=52 MISSING-OURS=0 EXTRA-OURS=2 OTHER=1
+   enum-only: -- REFS golden=54 ours=55  KEYS=0  SAME=0 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+== a1_ctx/parse work@if221i CALIB-NULL
+EXTRA-OURS    PE_B                    105:13  g=[] o=['enum_const(PE_B)']
+-- REFS golden=54 ours=55  KEYS=55  SAME=54 MISSING-OURS=0 EXTRA-OURS=1 OTHER=0
+   enum-only: -- REFS golden=54 ours=55  KEYS=22  SAME=21 MISSING-OURS=0 EXTRA-OURS=1 OTHER=0
+== a1_ctx/parse work@m221 CALIB-NULL
+-- REFS golden=54 ours=54  KEYS=54  SAME=54 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+   enum-only: -- REFS golden=54 ours=54  KEYS=21  SAME=21 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+== a1_ctx/elab work@if221u CALIB-NULL
+MISSING-OURS  a_v                      28:14  g=['io_decl(a_v)'] o=['-']
+MISSING-OURS  loc                      34:7   g=['int_var(work@if221u.body221.loc)'] o=['-']
+MISSING-OURS  loc                      35:23  g=['int_var(work@if221u.body221.loc)'] o=['-']
+MISSING-OURS  loc                      36:7   g=['int_var(work@if221u.body221.loc)'] o=['-']
+MISSING-OURS  loc                      38:7   g=['int_var(work@if221u.body221.loc)'] o=['-']
+MISSING-OURS  loc                      40:10  g=['int_var(work@if221u.body221.loc)'] o=['-']
+MISSING-OURS  loc                      43:15  g=['int_var(work@if221u.body221.loc)'] o=['-']
+MISSING-OURS  loc                      44:19  g=['int_var(work@if221u.body221.loc)'] o=['-']
+MISSING-OURS  loc                      46:7   g=['int_var(work@if221u.body221.loc)'] o=['-']
+MISSING-OURS  loc                      47:7   g=['int_var(work@if221u.body221.loc)'] o=['-']
+MISSING-OURS  loc                      49:7   g=['int_var(work@if221u.body221.loc)'] o=['-']
+MISSING-OURS  loc                      50:14  g=['int_var(work@if221u.body221.loc)'] o=['-']
+MISSING-OURS  loc                      50:26  g=['int_var(work@if221u.body221.loc)'] o=['-']
+MISSING-OURS  loc                      50:32  g=['int_var(work@if221u.body221.loc)'] o=['-']
+MISSING-OURS  loc                      51:35  g=['int_var(work@if221u.body221.loc)'] o=['-']
+MISSING-OURS  loc                      52:7   g=['int_var(work@if221u.body221.loc)'] o=['-']
+MISSING-OURS  loc                      53:7   g=['int_var(work@if221u.body221.loc)'] o=['-']
+OTHER         PE_B                     53:13  g=[] o=['-']
+MISSING-OURS  nloc                     56:10  g=['int_var(work@if221u.body221.nb221.nloc)'] o=['-']
+MISSING-OURS  loc                      57:10  g=['int_var(work@if221u.body221.loc)'] o=['-']
+MISSING-OURS  nloc                     57:16  g=['int_var(work@if221u.body221.nb221.nloc)'] o=['-']
+MISSING-OURS  eloc                     59:7   g=['enum_var(work@if221u.body221.eloc)'] o=['-']
+MISSING-OURS  loc                      61:7   g=['int_var(work@if221u.body221.loc)'] o=['-']
+MISSING-OURS  loc                      62:35  g=['int_var(work@if221u.body221.loc)'] o=['-']
+MISSING-OURS  loc                      62:41  g=['int_var(work@if221u.body221.loc)'] o=['-']
+MISSING-OURS  loc                      65:14  g=['int_var(work@if221u.body221.loc)'] o=['-']
+-- REFS golden=54 ours=55  KEYS=55  SAME=29 MISSING-OURS=25 EXTRA-OURS=0 OTHER=1
+   enum-only: -- REFS golden=54 ours=55  KEYS=0  SAME=0 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+== a1_ctx/elab work@if221i CALIB-NULL
+EXTRA-OURS    PE_B                    105:13  g=[] o=['enum_const(PE_B)']
+-- REFS golden=54 ours=55  KEYS=55  SAME=54 MISSING-OURS=0 EXTRA-OURS=1 OTHER=0
+   enum-only: -- REFS golden=54 ours=55  KEYS=22  SAME=21 MISSING-OURS=0 EXTRA-OURS=1 OTHER=0
+== a1_ctx/elab work@m221 CALIB-NULL
+-- REFS golden=54 ours=54  KEYS=54  SAME=54 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+   enum-only: -- REFS golden=54 ours=54  KEYS=21  SAME=21 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+== a2_home/parse work@ifh221u CALIB-NULL
+OTHER         None                     41:15  g=['-', '-'] o=[]
+OTHER         sloc                     41:15  g=['-'] o=[]
+OTHER         QE_B                     45:14  g=[] o=['-']
+-- REFS golden=24 ours=22  KEYS=24  SAME=21 MISSING-OURS=0 EXTRA-OURS=0 OTHER=3
+   enum-only: -- REFS golden=24 ours=22  KEYS=0  SAME=0 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+== a2_home/parse work@ifh221i CALIB-NULL
+OTHER         None                     66:15  g=['-', '-'] o=[]
+OTHER         sloc                     66:15  g=['-'] o=[]
+EXTRA-OURS    QE_B                     70:14  g=[] o=['enum_const(QE_B)']
+OTHER         SE_A                     72:14  g=['logic_net(work@toph221.u_ifh.SE_A)'] o=['enum_const(SE_A)']
+OTHER         sloc                     75:7   g=['logic_net(work@toph221.u_ifh.sloc)'] o=['enum_var(work@ifh221i.homes221.sloc)']
+OTHER         SE_B                     75:14  g=['logic_net(work@toph221.u_ifh.SE_B)'] o=['enum_const(SE_B)']
+MISSING-OURS  imem                     77:11  g=['enum_var(work@toph221.u_ifh.imem)'] o=['-']
+-- REFS golden=24 ours=22  KEYS=24  SAME=17 MISSING-OURS=1 EXTRA-OURS=1 OTHER=5
+   enum-only: -- REFS golden=24 ours=22  KEYS=8  SAME=5 MISSING-OURS=0 EXTRA-OURS=1 OTHER=2
+== a2_home/elab work@ifh221u CALIB-NULL
+OTHER         None                     41:15  g=['-', '-', '-'] o=[]
+OTHER         sloc                     41:15  g=['-'] o=[]
+MISSING-OURS  loc                      43:7   g=['int_var(work@ifh221u.homes221.loc)'] o=['-']
+MISSING-OURS  loc                      44:7   g=['int_var(work@ifh221u.homes221.loc)'] o=['-']
+MISSING-OURS  loc                      45:7   g=['int_var(work@ifh221u.homes221.loc)'] o=['-']
+OTHER         QE_B                     45:14  g=[] o=['-']
+MISSING-OURS  loc                      46:7   g=['int_var(work@ifh221u.homes221.loc)'] o=['-']
+MISSING-OURS  loc                      47:7   g=['int_var(work@ifh221u.homes221.loc)'] o=['-']
+MISSING-OURS  loc                      48:7   g=['int_var(work@ifh221u.homes221.loc)'] o=['-']
+MISSING-OURS  sloc                     50:7   g=['ref_var(work@ifh221u.homes221.sloc)'] o=['-']
+MISSING-OURS  loc                      51:7   g=['int_var(work@ifh221u.homes221.loc)'] o=['-']
+MISSING-OURS  loc                      52:25  g=['int_var(work@ifh221u.homes221.loc)'] o=['-']
+MISSING-OURS  loc                      52:31  g=['int_var(work@ifh221u.homes221.loc)'] o=['-']
+MISSING-OURS  loc                      53:14  g=['int_var(work@ifh221u.homes221.loc)'] o=['-']
+-- REFS golden=25 ours=22  KEYS=24  SAME=10 MISSING-OURS=11 EXTRA-OURS=0 OTHER=3
+   enum-only: -- REFS golden=25 ours=22  KEYS=0  SAME=0 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+== a2_home/elab work@ifh221i CALIB-NULL
+OTHER         None                     66:15  g=['-', '-', '-'] o=[]
+OTHER         sloc                     66:15  g=['-'] o=[]
+EXTRA-OURS    QE_B                     70:14  g=[] o=['enum_const(QE_B)']
+OTHER         SE_A                     72:14  g=['logic_net(work@toph221.u_ifh.SE_A)'] o=['enum_const(SE_A)']
+MISSING-OURS  ILP                      73:14  g=['constant'] o=['-']
+OTHER         sloc                     75:7   g=['ref_var(work@ifh221i.homes221.sloc)'] o=['enum_var(work@ifh221i.homes221.sloc)']
+OTHER         SE_B                     75:14  g=['logic_net(work@toph221.u_ifh.SE_B)'] o=['enum_const(SE_B)']
+MISSING-OURS  imem                     77:11  g=['enum_var(work@toph221.u_ifh.imem)'] o=['-']
+-- REFS golden=25 ours=22  KEYS=24  SAME=16 MISSING-OURS=2 EXTRA-OURS=1 OTHER=5
+   enum-only: -- REFS golden=25 ours=22  KEYS=8  SAME=5 MISSING-OURS=0 EXTRA-OURS=1 OTHER=2
+== a3_muststay/parse s221 CALIB-NULL
+OTHER         loc                      16:7   g=['int_var(s221::pkgf221::loc)'] o=['int_var(s221::pkgf221::loc)', 'int_var(s221::pkgf221::loc)']
+OTHER         SE_A                     16:13  g=['enum_const(SE_A)'] o=['enum_const(SE_A)', 'enum_const(SE_A)']
+OTHER         a_x                      17:11  g=['io_decl(a_x)'] o=['io_decl(a_x)', 'io_decl(a_x)']
+OTHER         SE_B                     17:18  g=['enum_const(SE_B)'] o=['enum_const(SE_B)', 'enum_const(SE_B)']
+OTHER         loc                      17:24  g=['int_var(s221::pkgf221::loc)'] o=['int_var(s221::pkgf221::loc)', 'int_var(s221::pkgf221::loc)']
+OTHER         loc                      17:30  g=['int_var(s221::pkgf221::loc)'] o=['int_var(s221::pkgf221::loc)', 'int_var(s221::pkgf221::loc)']
+OTHER         loc                      18:14  g=['int_var(s221::pkgf221::loc)'] o=['int_var(s221::pkgf221::loc)', 'int_var(s221::pkgf221::loc)']
+OTHER         loc                      34:7   g=['int_var(s221::k221::oob221::loc)'] o=['int_var(s221::k221::oob221::loc)', 'int_var(s221::k221::oob221::loc)']
+EXTRA-OURS    KE_A                     34:13  g=['-'] o=['-', 'logic_net(work@tops221.KE_A)']
+OTHER         loc                      35:7   g=['int_var(s221::k221::oob221::loc)'] o=['int_var(s221::k221::oob221::loc)', 'int_var(s221::k221::oob221::loc)']
+OTHER         SE_A                     35:13  g=['enum_const(SE_A)'] o=['enum_const(SE_A)', 'enum_const(SE_A)']
+OTHER         loc                      36:14  g=['int_var(s221::k221::oob221::loc)'] o=['int_var(s221::k221::oob221::loc)', 'int_var(s221::k221::oob221::loc)']
+-- REFS golden=17 ours=29  KEYS=17  SAME=5 MISSING-OURS=0 EXTRA-OURS=1 OTHER=11
+   enum-only: -- REFS golden=17 ours=29  KEYS=3  SAME=0 MISSING-OURS=0 EXTRA-OURS=0 OTHER=3
+== a3_muststay/parse work@m221un CALIB-NULL
+-- REFS golden=11 ours=11  KEYS=9  SAME=9 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+   enum-only: -- REFS golden=11 ours=11  KEYS=2  SAME=2 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+== a3_muststay/parse work@pr221un CALIB-NULL
+MISSING-OURS  loc                      16:7   g=['int_var(work@pr221un.pkgf221.loc)'] o=[]
+MISSING-OURS  SE_A                     16:13  g=['enum_const(SE_A)'] o=[]
+MISSING-OURS  a_x                      17:11  g=['io_decl(a_x)'] o=[]
+MISSING-OURS  SE_B                     17:18  g=['enum_const(SE_B)'] o=[]
+MISSING-OURS  loc                      17:24  g=['int_var(work@pr221un.pkgf221.loc)'] o=[]
+MISSING-OURS  loc                      17:30  g=['int_var(work@pr221un.pkgf221.loc)'] o=[]
+MISSING-OURS  loc                      18:14  g=['int_var(work@pr221un.pkgf221.loc)'] o=[]
+MISSING-OURS  loc                      34:7   g=['int_var(work@pr221un.oob221.loc)'] o=[]
+MISSING-OURS  KE_A                     34:13  g=['logic_net(work@m221un.KE_A)'] o=[]
+MISSING-OURS  loc                      35:7   g=['int_var(work@pr221un.oob221.loc)'] o=[]
+MISSING-OURS  SE_A                     35:13  g=['enum_const(SE_A)'] o=[]
+MISSING-OURS  loc                      36:14  g=['int_var(work@pr221un.oob221.loc)'] o=[]
+EXTRA-OURS    loc                      54:7   g=['-'] o=['int_var(work@pr221un.pf221.loc)']
+EXTRA-OURS    SE_A                     54:13  g=['-'] o=['enum_const(SE_A)']
+EXTRA-OURS    SE_B                     55:18  g=['-'] o=['enum_const(SE_B)']
+EXTRA-OURS    loc                      55:24  g=['-'] o=['int_var(work@pr221un.pf221.loc)']
+EXTRA-OURS    loc                      55:30  g=['-'] o=['int_var(work@pr221un.pf221.loc)']
+EXTRA-OURS    loc                      56:14  g=['-'] o=['int_var(work@pr221un.pf221.loc)']
+-- REFS golden=19 ours=7  KEYS=19  SAME=1 MISSING-OURS=12 EXTRA-OURS=6 OTHER=0
+   enum-only: -- REFS golden=19 ours=7  KEYS=5  SAME=0 MISSING-OURS=3 EXTRA-OURS=2 OTHER=0
+== a3_muststay/parse work@pr221in CALIB-NULL
+-- REFS golden=7 ours=7  KEYS=7  SAME=7 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+   enum-only: -- REFS golden=7 ours=7  KEYS=2  SAME=2 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+== a3_muststay/parse work@tops221 CALIB-NULL
+-- REFS golden=7 ours=7  KEYS=7  SAME=7 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+   enum-only: -- REFS golden=7 ours=7  KEYS=2  SAME=2 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+== a3_muststay/elab s221 CALIB-NULL
+OTHER         loc                      16:7   g=['int_var(s221::pkgf221::loc)', 'int_var(work@pr221un.pkgf221.loc)'] o=['int_var(s221::pkgf221::loc)', 'int_var(s221::pkgf221::loc)']
+OTHER         loc                      17:24  g=['int_var(s221::pkgf221::loc)', 'int_var(work@pr221un.pkgf221.loc)'] o=['int_var(s221::pkgf221::loc)', 'int_var(s221::pkgf221::loc)']
+OTHER         loc                      17:30  g=['int_var(s221::pkgf221::loc)', 'int_var(work@pr221un.pkgf221.loc)'] o=['int_var(s221::pkgf221::loc)', 'int_var(s221::pkgf221::loc)']
+OTHER         loc                      18:14  g=['int_var(s221::pkgf221::loc)', 'int_var(work@pr221un.pkgf221.loc)'] o=['int_var(s221::pkgf221::loc)', 'int_var(s221::pkgf221::loc)']
+MISSING-OURS  loc                      25:10  g=['int_var(s221::k221::inb221::loc)'] o=['-']
+MISSING-OURS  loc                      26:10  g=['int_var(s221::k221::inb221::loc)'] o=['-']
+MISSING-OURS  loc                      27:17  g=['int_var(s221::k221::inb221::loc)'] o=['-']
+OTHER         KE_A                     34:13  g=['-', 'logic_net(work@m221un.KE_A)'] o=['-', 'logic_net(work@tops221.KE_A)']
+-- REFS golden=29 ours=29  KEYS=17  SAME=9 MISSING-OURS=3 EXTRA-OURS=0 OTHER=5
+   enum-only: -- REFS golden=29 ours=29  KEYS=3  SAME=3 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+== a3_muststay/elab work@m221un CALIB-NULL
+MISSING-OURS  loc                      16:7   g=['int_var(work@m221un.pkgf221.loc)'] o=[]
+MISSING-OURS  SE_A                     16:13  g=['enum_const(SE_A)'] o=[]
+MISSING-OURS  a_x                      17:11  g=['io_decl(a_x)'] o=[]
+MISSING-OURS  SE_B                     17:18  g=['enum_const(SE_B)'] o=[]
+MISSING-OURS  loc                      17:24  g=['int_var(work@m221un.pkgf221.loc)'] o=[]
+MISSING-OURS  loc                      17:30  g=['int_var(work@m221un.pkgf221.loc)'] o=[]
+MISSING-OURS  loc                      18:14  g=['int_var(work@m221un.pkgf221.loc)'] o=[]
+MISSING-OURS  loc                      34:7   g=['int_var(work@m221un.oob221.loc)'] o=[]
+MISSING-OURS  KE_A                     34:13  g=['logic_net(work@m221un.KE_A)'] o=[]
+MISSING-OURS  loc                      35:7   g=['int_var(work@m221un.oob221.loc)'] o=[]
+MISSING-OURS  SE_A                     35:13  g=['enum_const(SE_A)'] o=[]
+MISSING-OURS  loc                      36:14  g=['int_var(work@m221un.oob221.loc)'] o=[]
+OTHER         loc                      44:7   g=['int_var(work@m221un.mf221.loc)', 'int_var(work@m221un.mf221.loc)'] o=['int_var(work@m221un.mf221.loc)']
+OTHER         SE_A                     44:13  g=['enum_const(SE_A)', 'enum_const(SE_A)'] o=['enum_const(SE_A)']
+OTHER         a_x                      45:11  g=['io_decl(a_x)', 'io_decl(a_x)'] o=['io_decl(a_x)']
+OTHER         SE_B                     45:18  g=['enum_const(SE_B)', 'enum_const(SE_B)'] o=['enum_const(SE_B)']
+OTHER         loc                      45:24  g=['int_var(work@m221un.mf221.loc)', 'int_var(work@m221un.mf221.loc)'] o=['int_var(work@m221un.mf221.loc)']
+OTHER         loc                      45:30  g=['int_var(work@m221un.mf221.loc)', 'int_var(work@m221un.mf221.loc)'] o=['int_var(work@m221un.mf221.loc)']
+OTHER         loc                      46:14  g=['int_var(work@m221un.mf221.loc)', 'int_var(work@m221un.mf221.loc)'] o=['int_var(work@m221un.mf221.loc)']
+-- REFS golden=30 ours=11  KEYS=21  SAME=2 MISSING-OURS=12 EXTRA-OURS=0 OTHER=7
+   enum-only: -- REFS golden=30 ours=11  KEYS=5  SAME=0 MISSING-OURS=3 EXTRA-OURS=0 OTHER=2
+== a3_muststay/elab work@pr221un CALIB-NULL
+MISSING-OURS  loc                      16:7   g=['int_var(work@pr221un.pkgf221.loc)'] o=[]
+MISSING-OURS  SE_A                     16:13  g=['enum_const(SE_A)'] o=[]
+MISSING-OURS  a_x                      17:11  g=['io_decl(a_x)'] o=[]
+MISSING-OURS  SE_B                     17:18  g=['enum_const(SE_B)'] o=[]
+MISSING-OURS  loc                      17:24  g=['int_var(work@pr221un.pkgf221.loc)'] o=[]
+MISSING-OURS  loc                      17:30  g=['int_var(work@pr221un.pkgf221.loc)'] o=[]
+MISSING-OURS  loc                      18:14  g=['int_var(work@pr221un.pkgf221.loc)'] o=[]
+MISSING-OURS  loc                      34:7   g=['int_var(work@pr221un.oob221.loc)'] o=[]
+MISSING-OURS  KE_A                     34:13  g=['logic_net(work@m221un.KE_A)'] o=[]
+MISSING-OURS  loc                      35:7   g=['int_var(work@pr221un.oob221.loc)'] o=[]
+MISSING-OURS  SE_A                     35:13  g=['enum_const(SE_A)'] o=[]
+MISSING-OURS  loc                      36:14  g=['int_var(work@pr221un.oob221.loc)'] o=[]
+EXTRA-OURS    SE_A                     54:13  g=['-'] o=['enum_const(SE_A)']
+EXTRA-OURS    SE_B                     55:18  g=['-'] o=['enum_const(SE_B)']
+-- REFS golden=19 ours=7  KEYS=19  SAME=5 MISSING-OURS=12 EXTRA-OURS=2 OTHER=0
+   enum-only: -- REFS golden=19 ours=7  KEYS=5  SAME=0 MISSING-OURS=3 EXTRA-OURS=2 OTHER=0
+== a3_muststay/elab work@pr221in CALIB-NULL
+-- REFS golden=7 ours=7  KEYS=7  SAME=7 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+   enum-only: -- REFS golden=7 ours=7  KEYS=2  SAME=2 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+== a3_muststay/elab work@tops221 CALIB-NULL
+MISSING-OURS  loc                      16:7   g=['int_var(work@tops221.pkgf221.loc)'] o=[]
+MISSING-OURS  SE_A                     16:13  g=['enum_const(SE_A)'] o=[]
+MISSING-OURS  a_x                      17:11  g=['io_decl(a_x)'] o=[]
+MISSING-OURS  SE_B                     17:18  g=['enum_const(SE_B)'] o=[]
+MISSING-OURS  loc                      17:24  g=['int_var(work@tops221.pkgf221.loc)'] o=[]
+MISSING-OURS  loc                      17:30  g=['int_var(work@tops221.pkgf221.loc)'] o=[]
+MISSING-OURS  loc                      18:14  g=['int_var(work@tops221.pkgf221.loc)'] o=[]
+MISSING-OURS  loc                      34:7   g=['int_var(work@tops221.oob221.loc)'] o=[]
+MISSING-OURS  KE_A                     34:13  g=['logic_net(work@m221un.KE_A)'] o=[]
+MISSING-OURS  loc                      35:7   g=['int_var(work@tops221.oob221.loc)'] o=[]
+MISSING-OURS  SE_A                     35:13  g=['enum_const(SE_A)'] o=[]
+MISSING-OURS  loc                      36:14  g=['int_var(work@tops221.oob221.loc)'] o=[]
+OTHER         loc                      75:7   g=['int_var(work@tops221.tf221.loc)', 'int_var(work@tops221.tf221.loc)'] o=['int_var(work@tops221.tf221.loc)']
+OTHER         SE_A                     75:13  g=['enum_const(SE_A)', 'enum_const(SE_A)'] o=['enum_const(SE_A)']
+OTHER         a_x                      76:11  g=['io_decl(a_x)', 'io_decl(a_x)'] o=['io_decl(a_x)']
+OTHER         SE_B                     76:18  g=['enum_const(SE_B)', 'enum_const(SE_B)'] o=['enum_const(SE_B)']
+OTHER         loc                      76:24  g=['int_var(work@tops221.tf221.loc)', 'int_var(work@tops221.tf221.loc)'] o=['int_var(work@tops221.tf221.loc)']
+OTHER         loc                      76:30  g=['int_var(work@tops221.tf221.loc)', 'int_var(work@tops221.tf221.loc)'] o=['int_var(work@tops221.tf221.loc)']
+OTHER         loc                      77:14  g=['int_var(work@tops221.tf221.loc)', 'int_var(work@tops221.tf221.loc)'] o=['int_var(work@tops221.tf221.loc)']
+-- REFS golden=26 ours=7  KEYS=19  SAME=0 MISSING-OURS=12 EXTRA-OURS=0 OTHER=7
+   enum-only: -- REFS golden=26 ours=7  KEYS=5  SAME=0 MISSING-OURS=3 EXTRA-OURS=0 OTHER=2
+== a4_corpus/parse work@sv221_if CALIB-NULL
+-- REFS golden=38 ours=38  KEYS=38  SAME=38 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+   enum-only: -- REFS golden=38 ours=38  KEYS=0  SAME=0 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+== a4_corpus/elab work@sv221_if CALIB-NULL
+MISSING-OURS  a_reason                 45:14  g=['io_decl(a_reason)'] o=['-']
+MISSING-OURS  a_reason                 48:19  g=['io_decl(a_reason)'] o=['-']
+MISSING-OURS  a_reason                 51:14  g=['io_decl(a_reason)'] o=['-']
+MISSING-OURS  a_reason                 54:19  g=['io_decl(a_reason)'] o=['-']
+MISSING-OURS  a_reason                 57:19  g=['io_decl(a_reason)'] o=['-']
+MISSING-OURS  a_v                      65:47  g=['io_decl(a_v)'] o=['-']
+MISSING-OURS  n                        83:7   g=['int_var(work@sv221_if.count221.n)'] o=['-']
+MISSING-OURS  n                        85:10  g=['int_var(work@sv221_if.count221.n)'] o=['-']
+MISSING-OURS  n                        85:14  g=['int_var(work@sv221_if.count221.n)'] o=['-']
+OTHER         None                     87:23  g=['-', '-'] o=['-']
+MISSING-OURS  k                        88:21  g=['ref_var(work@sv221_if.count221.k)'] o=['-']
+MISSING-OURS  n                        88:36  g=['int_var(work@sv221_if.count221.n)'] o=['-']
+MISSING-OURS  n                        88:40  g=['int_var(work@sv221_if.count221.n)'] o=['-']
+MISSING-OURS  n                        90:14  g=['int_var(work@sv221_if.count221.n)'] o=['-']
+-- REFS golden=39 ours=38  KEYS=38  SAME=24 MISSING-OURS=13 EXTRA-OURS=0 OTHER=1
+   enum-only: -- REFS golden=39 ours=38  KEYS=0  SAME=0 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+== a5_r5mix/parse work@ifr221u CALIB-NULL
+EXTRA-OURS    i                        30:23  g=['-'] o=['int_var(work@ifr221u.mix221.i)']
+EXTRA-OURS    i                        30:30  g=['-'] o=['int_var(work@ifr221u.mix221.i)']
+EXTRA-OURS    i                        31:22  g=['-'] o=['int_var(work@ifr221u.mix221.i)']
+EXTRA-OURS    i                        33:14  g=['-'] o=['int_var(work@ifr221u.mix221.i)']
+EXTRA-OURS    j                        35:26  g=['-'] o=['int_var(work@ifr221u.mix221.j)']
+EXTRA-OURS    j                        35:36  g=['-'] o=['int_var(work@ifr221u.mix221.j)']
+EXTRA-OURS    j                        36:22  g=['-'] o=['int_var(work@ifr221u.mix221.j)']
+-- REFS golden=39 ours=39  KEYS=39  SAME=32 MISSING-OURS=0 EXTRA-OURS=7 OTHER=0
+   enum-only: -- REFS golden=39 ours=39  KEYS=0  SAME=0 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+== a5_r5mix/parse work@ifr221i CALIB-NULL
+MISSING-OURS  k                        65:22  g=['enum_var(work@ifr221i.mix221.k)'] o=['-']
+MISSING-OURS  k                        66:19  g=['enum_var(work@ifr221i.mix221.k)'] o=['-']
+-- REFS golden=35 ours=35  KEYS=35  SAME=33 MISSING-OURS=2 EXTRA-OURS=0 OTHER=0
+   enum-only: -- REFS golden=35 ours=35  KEYS=6  SAME=6 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+== a5_r5mix/elab work@ifr221u CALIB-NULL
+MISSING-OURS  loc                      29:7   g=['int_var(work@ifr221u.mix221.loc)'] o=['-']
+MISSING-OURS  loc                      31:10  g=['int_var(work@ifr221u.mix221.loc)'] o=['-']
+MISSING-OURS  loc                      31:16  g=['int_var(work@ifr221u.mix221.loc)'] o=['-']
+MISSING-OURS  loc                      32:10  g=['int_var(work@ifr221u.mix221.loc)'] o=['-']
+MISSING-OURS  loc                      32:16  g=['int_var(work@ifr221u.mix221.loc)'] o=['-']
+MISSING-OURS  loc                      33:22  g=['int_var(work@ifr221u.mix221.loc)'] o=['-']
+MISSING-OURS  loc                      33:28  g=['int_var(work@ifr221u.mix221.loc)'] o=['-']
+MISSING-OURS  loc                      36:10  g=['int_var(work@ifr221u.mix221.loc)'] o=['-']
+MISSING-OURS  loc                      36:16  g=['int_var(work@ifr221u.mix221.loc)'] o=['-']
+OTHER         None                     38:21  g=['-', '-', '-'] o=['-']
+MISSING-OURS  loc                      39:10  g=['int_var(work@ifr221u.mix221.loc)'] o=['-']
+MISSING-OURS  loc                      39:16  g=['int_var(work@ifr221u.mix221.loc)'] o=['-']
+MISSING-OURS  k                        39:22  g=['ref_var(work@ifr221u.mix221.k)'] o=['-']
+MISSING-OURS  k                        40:19  g=['ref_var(work@ifr221u.mix221.k)'] o=['-']
+MISSING-OURS  loc                      40:31  g=['int_var(work@ifr221u.mix221.loc)'] o=['-']
+MISSING-OURS  loc                      40:37  g=['int_var(work@ifr221u.mix221.loc)'] o=['-']
+OTHER         None                     42:20  g=['-', '-'] o=['-']
+MISSING-OURS  loc                      43:10  g=['int_var(work@ifr221u.mix221.loc)'] o=['-']
+MISSING-OURS  m                        43:20  g=['ref_var(work@ifr221u.mix221.m)'] o=['-']
+MISSING-OURS  loc                      44:14  g=['int_var(work@ifr221u.mix221.loc)'] o=['-']
+-- REFS golden=42 ours=39  KEYS=39  SAME=19 MISSING-OURS=18 EXTRA-OURS=0 OTHER=2
+   enum-only: -- REFS golden=42 ours=39  KEYS=0  SAME=0 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+== a5_r5mix/elab work@ifr221i CALIB-NULL
+MISSING-OURS  k                        65:22  g=['enum_var(work@ifr221i.mix221.k)'] o=['-']
+MISSING-OURS  k                        66:19  g=['enum_var(work@ifr221i.mix221.k)'] o=['-']
+-- REFS golden=35 ours=35  KEYS=35  SAME=33 MISSING-OURS=2 EXTRA-OURS=0 OTHER=0
+   enum-only: -- REFS golden=35 ours=35  KEYS=6  SAME=6 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0

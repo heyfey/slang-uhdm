@@ -3126,6 +3126,36 @@ private:
     // pristine emitter left null — no object is created, removed or reshaped,
     // and no reference golden leaves unbound is touched, because every cell it
     // fires on is a cell arm a2 measured golden binding.
+    //
+    // THE THIRD LAW ON THIS FLAG — § uninstIfaceEnumConstNoActual221.
+    // `UhdmWriter::writeInterface` (UhdmWriter.cpp:1626-1794) is the only
+    // writer for an interface DEFINITION and it calls NEITHER late pass.  Pass
+    // 218 took the VARIABLE half of `lateBinding` (:3294), pass 220 took
+    // `lateTypedefBinding` (:2573), and pass 221 takes the ENUM-CONSTANT half:
+    // `lateBinding`'s last resort at :3953-3961 asks `mod->getValue(name)` and,
+    // when the name is a visible constant, MINTS a fresh loc-less `enum_const`
+    // carrying the value and parents it on the reference.  That mint is where
+    // every enum-constant `vpiActual` in a module, package or elaborated
+    // instance comes from — and an interface no instance elaborates reaches it
+    // by no road at all: :4785 is gated `if (mod && netlist)` and there is no
+    // netlist, while the compile-time road,
+    // `CompileHelper::bindVariable` (CompileStmt.cpp:3089), walks only
+    // `Variables()` and `Io_decls()` and can never answer with a constant.
+    // So in such a body an enum-constant reference is golden-BARE
+    // UNCONDITIONALLY — no window, no home and no view carves anything out,
+    // which is why the term at ExprEmit.cpp's enum-const mint is a bare
+    // `!uninstIfaceSubBody218` with no fence beside it.  Measured over 22
+    // reference contexts (condition, statement- and expression-position call
+    // argument, control body, case item, select index, operation operand,
+    // system-call argument, cast operand, while condition, for body, named
+    // block, enum_var target, immediate assert, `inside` set, RETURN) x 5 enum
+    // HOMES (the interface's own typedef, an imported package, a
+    // `::`-qualified package name, `$unit`, a subroutine-local typedef) x both
+    // golden views: golden binds ZERO of them, while the SAME BODY in an
+    // INSTANTIATED interface binds 21 of 22 and a module binds 21 of 21.
+    // REMOVE-ONLY: the term declines a mint, so no object is created, and the
+    // shared `enum_const` in `enumConstMap` is only READ at that site — never
+    // re-parented — so declining orphans nothing and moves nothing.
     bool uninstIfaceSubBody218 = false;
     // § pkgTdCloneRefNoBind18.  True while a PER-DECLARATION CLONE of a
     // package typedef is built (a formal's / return's / body local's named

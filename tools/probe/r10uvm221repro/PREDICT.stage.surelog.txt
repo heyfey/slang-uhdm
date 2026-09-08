@@ -1,0 +1,13 @@
+STAGE1 /tmp/r10uvm221_wd_pris/sl/default/AmiqSimpleTestSuite-cb67712e uninstantiated-interface-candidates: svaunit_vpi_interface
+STAGE2 /tmp/r10uvm221_wd_pris/sl/default/AmiqSimpleTestSuite-cb67712e NO-DATABASE (cannot move a byte)
+STAGE1 /tmp/r10uvm221_wd_pris/sl/default/MiniAmiq-544c7f61 uninstantiated-interface-candidates: svaunit_vpi_interface
+STAGE2 /tmp/r10uvm221_wd_pris/sl/default/MiniAmiq-544c7f61 FIRES cells=16
+STAGE1 /tmp/r10uvm221_wd_pris/sl/default/Monitor-dbd37157 uninstantiated-interface-candidates: svaunit_vpi_interface
+STAGE2 /tmp/r10uvm221_wd_pris/sl/default/Monitor-dbd37157 NO-DATABASE (cannot move a byte)
+STAGE1 /tmp/r10uvm221_wd_pris/sl/testflags/AmiqSimpleTestSuite-cb67712e uninstantiated-interface-candidates: svaunit_vpi_interface
+STAGE2 /tmp/r10uvm221_wd_pris/sl/testflags/AmiqSimpleTestSuite-cb67712e NO-DATABASE (cannot move a byte)
+STAGE1 /tmp/r10uvm221_wd_pris/sl/testflags/MiniAmiq-544c7f61 uninstantiated-interface-candidates: svaunit_vpi_interface
+STAGE2 /tmp/r10uvm221_wd_pris/sl/testflags/MiniAmiq-544c7f61 FIRES cells=16
+STAGE1 /tmp/r10uvm221_wd_pris/sl/testflags/Monitor-dbd37157 uninstantiated-interface-candidates: svaunit_vpi_interface
+STAGE2 /tmp/r10uvm221_wd_pris/sl/testflags/Monitor-dbd37157 NO-DATABASE (cannot move a byte)
+-- STAGE1: 6 of 1573 row-modes carry a candidate; STAGE2 FIRES: 2

@@ -1,0 +1,82 @@
+r10uvm221 — THE A-PRIORI PREDICTION (question 5), AND WHAT THE SWEEPS FOUND.
+
+MEASUREMENT ONLY.  Written and RUN from PRISTINE databases and PRISTINE sources
+alone, BEFORE the patched binary was let near either corpus.  (The patched
+binary already existed when `predict221.sh` ran, but it had not produced a
+single corpus database; both predictor stages read only the PRISTINE workdir.)
+
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+=============================================================================
+THE PREDICTION
+=============================================================================
+
+§ uninstIfaceEnumConstNoActual221 rides `uninstIfaceSubBody218`, which
+ModuleEmit.cpp raises at EXACTLY ONE call site: the `emitTaskFuncs` call an
+interface DEFINITION with `defAllInstCount[&def] == 0` makes.  A database that
+never compiled an interface no instance elaborates cannot move a byte; among
+those that did, only one whose body actually carries an `enum_const` actual
+inside `uhdmallInterfaces` can.
+
+  STAGE 1 (source, from each row-mode's own cmds.txt file set):
+      surelog     6 of 1573 row-modes carry an uninstantiated-interface
+                  candidate — AmiqSimpleTestSuite x2, MiniAmiq x2, Monitor x2,
+                  all naming the same interface, `svaunit_vpi_interface`.
+      uhdm2rtlil  0 of 1462.
+
+  STAGE 2 (the PRISTINE database itself):
+      AmiqSimpleTestSuite x2   NO-DATABASE (SLANG_REJECT, no slang.uhdm)
+      Monitor x2               NO-DATABASE (SLANG_REJECT, no slang.uhdm)
+      MiniAmiq/default         FIRES, cells=16
+      MiniAmiq/testflags       FIRES, cells=16
+
+  PREDICTED: EXACTLY TWO surelog byte movers — `MiniAmiq`/default and
+  `MiniAmiq`/testflags — 16 cells each, all TO-GOLDEN, AWAY 0, MOVED-WRONG 0;
+  ZERO uhdm2rtlil movers of 1358.
+
+  PREDICTED, NO CONVERSION.  The pristine reference census of the holder
+  (POPULATION.r10uvm221.txt) reads
+      SAME 277 / MISSING-OURS 1 / EXTRA-OURS 16 / OTHER 16
+  and this law closes only the 16 EXTRA-OURS.  The MISSING-OURS cell
+  (§ 218's R1, `a_sim_time` @383:56) and the 16 OTHER cells stay, so
+  `MiniAmiq` CANNOT go CMP_EQUAL and a NEW HEAD of a different family must
+  appear.  NO ROW CONVERSION IS CLAIMED IN EITHER DIRECTION, and
+  `results/*.csv` is not edited.
+
+  PREDICTED, THE BOUNDARY.  Every committed probe arm that declares an
+  uninstantiated interface whose subroutine body reads an enum constant will
+  move, and nothing else will.
+
+=============================================================================
+WHAT THE SWEEPS FOUND
+=============================================================================
+
+  surelog     MOVERS 2 / 956 — `./default/MiniAmiq-544c7f61/slang.uhdm` and
+              `./testflags/MiniAmiq-544c7f61/slang.uhdm`, the two predicted BY
+              NAME and no others.  SELFCHECK 955 / 956 (the gate can see).
+              PATH_SETS_IDENTICAL (956 paths).
+  uhdm2rtlil  MOVERS 0 / 1358, SELFCHECK 1357 / 1358.
+              PATH_SETS_IDENTICAL (1358 paths).
+
+  16 cells moved in each mode (the two databases carry the same md5), every one
+  of them a declined enum-const mint landing on golden's own bare reference:
+
+      155:20 SVAUNIT_START        158:20 SVAUNIT_SUCCESS
+      161:20 SVAUNIT_FAILURE      164:20 SVAUNIT_STEP_SUCCESS
+      167:20 SVAUNIT_STEP_FAILURE 170:20 SVAUNIT_DISABLE
+      173:20 SVAUNIT_ENABLE       176:20 SVAUNIT_RESET
+      179:20 SVAUNIT_KILL         182:17 SVAUNIT_IDLE
+      206:34 SVAUNIT_SUCCESS      206:51 SVAUNIT_FAILURE
+      206:68 SVAUNIT_DISABLE      206:85 SVAUNIT_ENABLE
+      206:101 SVAUNIT_RESET       206:116 SVAUNIT_KILL
+
+  Ten are the `return <ENUMCONST>;` values of `get_state_from_reason`
+  (svaunit_vpi_interface.sv:148-186) and six are the members of the `inside`
+  set at :206.
+
+  NO ROW CONVERTED, in either direction: surelog 476/5 default + 470/5
+  testflags on BOTH binaries, cell for cell, and ct8rows PASS against the
+  committed baseline AND against this pass's own pristine sweep.
+
+  THE HEAD: 19 lines / 1 head -> 152 lines / 1 head, a NEW OBJECT of a
+  different family (R0), exactly as predicted.

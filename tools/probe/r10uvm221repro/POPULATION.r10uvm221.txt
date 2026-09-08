@@ -1,0 +1,88 @@
+r10uvm221 — POPULATION (question 2): EVERY CELL, KEYED BY CONTEXT x VIEW.
+
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+Holder: interface_inst work@svaunit_vpi_interface, MiniAmiq, both row-modes
+(the two databases carry the same md5, so one census answers both).
+
+THE ONE VIEW.  An interface no instance elaborates appears in exactly ONE
+listing, uhdmallInterfaces; there is no second (elaborated) listing to
+disagree with.  The weaklyReferenced TAIL re-prints the same objects and is
+unreachable to the judge (RESUME §9) — cen221.py cuts the dump at it.
+
+=== PRISTINE, ENUM-CONSTANT ACTUALS ONLY ===
+EXTRA-OURS    SVAUNIT_START           155:20  g=['-'] o=['enum_const(SVAUNIT_START)']
+EXTRA-OURS    SVAUNIT_SUCCESS         158:20  g=['-'] o=['enum_const(SVAUNIT_SUCCESS)']
+EXTRA-OURS    SVAUNIT_FAILURE         161:20  g=['-'] o=['enum_const(SVAUNIT_FAILURE)']
+EXTRA-OURS    SVAUNIT_STEP_SUCCESS    164:20  g=['-'] o=['enum_const(SVAUNIT_STEP_SUCCESS)']
+EXTRA-OURS    SVAUNIT_STEP_FAILURE    167:20  g=['-'] o=['enum_const(SVAUNIT_STEP_FAILURE)']
+EXTRA-OURS    SVAUNIT_DISABLE         170:20  g=['-'] o=['enum_const(SVAUNIT_DISABLE)']
+EXTRA-OURS    SVAUNIT_ENABLE          173:20  g=['-'] o=['enum_const(SVAUNIT_ENABLE)']
+EXTRA-OURS    SVAUNIT_RESET           176:20  g=['-'] o=['enum_const(SVAUNIT_RESET)']
+EXTRA-OURS    SVAUNIT_KILL            179:20  g=['-'] o=['enum_const(SVAUNIT_KILL)']
+EXTRA-OURS    SVAUNIT_IDLE            182:17  g=['-'] o=['enum_const(SVAUNIT_IDLE)']
+EXTRA-OURS    SVAUNIT_SUCCESS         206:34  g=['-'] o=['enum_const(SVAUNIT_SUCCESS)']
+EXTRA-OURS    SVAUNIT_FAILURE         206:51  g=['-'] o=['enum_const(SVAUNIT_FAILURE)']
+EXTRA-OURS    SVAUNIT_DISABLE         206:68  g=['-'] o=['enum_const(SVAUNIT_DISABLE)']
+EXTRA-OURS    SVAUNIT_ENABLE          206:85  g=['-'] o=['enum_const(SVAUNIT_ENABLE)']
+EXTRA-OURS    SVAUNIT_RESET           206:101 g=['-'] o=['enum_const(SVAUNIT_RESET)']
+EXTRA-OURS    SVAUNIT_KILL            206:116 g=['-'] o=['enum_const(SVAUNIT_KILL)']
+-- REFS golden=303 ours=301  KEYS=16  SAME=0 MISSING-OURS=0 EXTRA-OURS=16 OTHER=0
+
+=== PATCHED, ENUM-CONSTANT ACTUALS ONLY ===
+-- REFS golden=303 ours=301  KEYS=0  SAME=0 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+
+=== PRISTINE, EVERY REFERENCE IN THE HOLDER ===
+OTHER         svaunit_header           97:7   g=['-'] o=[]
+OTHER         svaunit_header           97:50  g=['-'] o=[]
+OTHER         svaunit_header           98:7   g=['-'] o=[]
+OTHER         svaunit_header           99:10  g=['-'] o=[]
+OTHER         UVM_MEDIUM              104:50  g=['-'] o=[]
+OTHER         UVM_NONE                114:29  g=['-'] o=[]
+OTHER         UVM_INFO                114:38  g=['-'] o=[]
+OTHER         svaunit_header          115:52  g=['-'] o=[]
+OTHER         UVM_NONE                115:69  g=['-'] o=[]
+EXTRA-OURS    SVAUNIT_START           155:20  g=['-'] o=['enum_const(SVAUNIT_START)']
+EXTRA-OURS    SVAUNIT_SUCCESS         158:20  g=['-'] o=['enum_const(SVAUNIT_SUCCESS)']
+EXTRA-OURS    SVAUNIT_FAILURE         161:20  g=['-'] o=['enum_const(SVAUNIT_FAILURE)']
+EXTRA-OURS    SVAUNIT_STEP_SUCCESS    164:20  g=['-'] o=['enum_const(SVAUNIT_STEP_SUCCESS)']
+EXTRA-OURS    SVAUNIT_STEP_FAILURE    167:20  g=['-'] o=['enum_const(SVAUNIT_STEP_FAILURE)']
+EXTRA-OURS    SVAUNIT_DISABLE         170:20  g=['-'] o=['enum_const(SVAUNIT_DISABLE)']
+EXTRA-OURS    SVAUNIT_ENABLE          173:20  g=['-'] o=['enum_const(SVAUNIT_ENABLE)']
+EXTRA-OURS    SVAUNIT_RESET           176:20  g=['-'] o=['enum_const(SVAUNIT_RESET)']
+EXTRA-OURS    SVAUNIT_KILL            179:20  g=['-'] o=['enum_const(SVAUNIT_KILL)']
+EXTRA-OURS    SVAUNIT_IDLE            182:17  g=['-'] o=['enum_const(SVAUNIT_IDLE)']
+EXTRA-OURS    SVAUNIT_SUCCESS         206:34  g=['-'] o=['enum_const(SVAUNIT_SUCCESS)']
+EXTRA-OURS    SVAUNIT_FAILURE         206:51  g=['-'] o=['enum_const(SVAUNIT_FAILURE)']
+EXTRA-OURS    SVAUNIT_DISABLE         206:68  g=['-'] o=['enum_const(SVAUNIT_DISABLE)']
+EXTRA-OURS    SVAUNIT_ENABLE          206:85  g=['-'] o=['enum_const(SVAUNIT_ENABLE)']
+EXTRA-OURS    SVAUNIT_RESET           206:101 g=['-'] o=['enum_const(SVAUNIT_RESET)']
+EXTRA-OURS    SVAUNIT_KILL            206:116 g=['-'] o=['enum_const(SVAUNIT_KILL)']
+OTHER         control_assertion_dpi(a_sva  310:7   g=[] o=['-']
+OTHER         control_assertion_dpi(a_sva  334:7   g=[] o=['-']
+OTHER         control_assertion_dpi(a_sva  358:7   g=[] o=['-']
+OTHER         control_assertion_dpi(a_sva  383:7   g=[] o=['-']
+MISSING-OURS  a_sim_time              383:56  g=['io_decl(a_sim_time)'] o=['-']
+OTHER         control_assertion_dpi(a_sva  408:7   g=[] o=['-']
+OTHER         control_assertion_dpi(a_sva  434:7   g=[] o=['-']
+OTHER         get_cover_statistics_dpi(cover_info[index]  512:13  g=[] o=['-']
+-- REFS golden=303 ours=301  KEYS=310  SAME=277 MISSING-OURS=1 EXTRA-OURS=16 OTHER=16
+
+=== PATCHED, EVERY REFERENCE IN THE HOLDER ===
+OTHER         svaunit_header           97:7   g=['-'] o=[]
+OTHER         svaunit_header           97:50  g=['-'] o=[]
+OTHER         svaunit_header           98:7   g=['-'] o=[]
+OTHER         svaunit_header           99:10  g=['-'] o=[]
+OTHER         UVM_MEDIUM              104:50  g=['-'] o=[]
+OTHER         UVM_NONE                114:29  g=['-'] o=[]
+OTHER         UVM_INFO                114:38  g=['-'] o=[]
+OTHER         svaunit_header          115:52  g=['-'] o=[]
+OTHER         UVM_NONE                115:69  g=['-'] o=[]
+OTHER         control_assertion_dpi(a_sva  310:7   g=[] o=['-']
+OTHER         control_assertion_dpi(a_sva  334:7   g=[] o=['-']
+OTHER         control_assertion_dpi(a_sva  358:7   g=[] o=['-']
+OTHER         control_assertion_dpi(a_sva  383:7   g=[] o=['-']
+MISSING-OURS  a_sim_time              383:56  g=['io_decl(a_sim_time)'] o=['-']
+OTHER         control_assertion_dpi(a_sva  408:7   g=[] o=['-']
+OTHER         control_assertion_dpi(a_sva  434:7   g=[] o=['-']
+OTHER         get_cover_statistics_dpi(cover_info[index]  512:13  g=[] o=['-']
+-- REFS golden=303 ours=301  KEYS=310  SAME=293 MISSING-OURS=1 EXTRA-OURS=0 OTHER=16

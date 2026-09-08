@@ -1,0 +1,135 @@
+r10uvm221 — THE GOLDEN GRID (question 3): CONTEXTS x {INSTANTIATED,
+UNINSTANTIATED} x VIEWS.  MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog);
+RHS is ALWAYS ours.
+
+Five arms, each ONE design compiled by the REAL Surelog
+(`~/git-repos/Surelog/build/bin/surelog`, the path `scripts/verify_golden.py`
+names — earl120's R4 trap) with `-parse -d coveruhdm -nobuiltin -nocache -sv
+-mt 0 -mp 0`, and again with `-elabuhdm`.  Surelog and our binary run in the
+SAME directory (buvm8's `bndarms` trap).  EVERY ARM'S rc IS CHECKED and the
+driver refuses to print OK if any arm fails to compile — an arm whose compile
+fails teaches ERROR RECOVERY, NOT GOLDEN (uvm215's lesson):
+
+    grid221.sh, pristine binary: LISTED=5 PROCESSED=5 FAILED=0  GRID OK
+    grid221.sh, patched  binary: LISTED=5 PROCESSED=5 FAILED=0  GRID OK
+    every arm: GOLDEN rc=0 dumprc=0 in BOTH views; OURS rc=0 dumprc=0.
+    Every golden dump is byte-for-byte the same size on both runs (the goldens
+    are deterministic and the patch cannot touch them).
+
+The scorer is `cen221.py`, GOLDEN-vs-GOLDEN CALIBRATED FIRST IN EVERY CELL:
+CALIB-NULL in all 24 arm-view-holder cells, on both binaries.  The `elab`
+column varies the GOLDEN only — the arm's own database is the one our binary
+writes without `--elabuhdm`, exactly as grid218.sh and grid220.sh do it.
+
+=============================================================================
+THE HEADLINE: ONE BODY, THREE HOLDERS, ONE GOLDEN
+=============================================================================
+Arm a1_ctx compiles the SAME 22-cell subroutine body three times in one design:
+in an interface NOTHING instantiates, in an interface that IS instantiated, and
+in a module.  Enum-constant actuals only:
+
+  holder                     view    pristine              patched
+  work@if221u  UNINSTANTIATED parse   SAME 0 / EXTRA 22     ZERO KEYS EITHER SIDE
+  work@if221u  UNINSTANTIATED elab    SAME 0 / EXTRA 22     ZERO KEYS EITHER SIDE
+  work@if221i  INSTANTIATED   parse   SAME 21 / EXTRA 1     SAME 21 / EXTRA 1   (unchanged)
+  work@if221i  INSTANTIATED   elab    SAME 21 / EXTRA 1     SAME 21 / EXTRA 1   (unchanged)
+  work@m221    MODULE         parse   SAME 21 / EXTRA 0     SAME 21 / EXTRA 0   (unchanged)
+  work@m221    MODULE         elab    SAME 21 / EXTRA 0     SAME 21 / EXTRA 0   (unchanged)
+
+GOLDEN BINDS ZERO ENUM CONSTANTS IN THE UNINSTANTIATED INTERFACE AND 21 OF 22
+IN ITS INSTANTIATED TWIN.  The 22 contexts, by line, all EXTRA-OURS pristine
+and all closed patched:
+
+  35:18 w01 an `if` CONDITION (the § 218 window)   36:13 w03 a plain assignment RHS
+  37:15 w04 a call argument, STATEMENT position    38:19 w05 a call argument, EXPRESSION position
+  40:16 w06 one control body DEEPER                43:10 w07 a `case` ITEM
+  46:17 w08 a SELECT INDEX                         47:13 + 47:19 w09 OPERATION operands
+  48:23 w10 a SYSTEM-CALL argument                 49:18 w11 a CAST operand
+  50:21 w12 a `while` CONDITION                    51:41 w13 a `for` BODY
+  52:13 w14 an IMPORTED PACKAGE enum               53:13 w15 a `::`-QUALIFIED name (see R2)
+  56:17 w16 a NAMED-BLOCK local's target           59:14 w17 an enum_var TARGET
+  60:22 w18 an IMMEDIATE ASSERT condition          61:13 w19 a `$unit`-scope enum
+  62:24 + 62:29 w20 an `inside` SET                64:17 w02 a RETURN — THE CORPUS SHAPE
+
+NOT ONE OF THEM IS A WINDOW QUESTION: golden is bare inside the window
+(35:18, 37:15) and outside it (36:13, 40:16) alike.  That is the measurement
+behind the decode: the enum-constant actual is not on Surelog's compile-time
+road at all (DECODE.r10uvm221.txt §1).
+
+The two non-enum EXTRA-OURS cells in `if221u` — the for-loop iterator `i`
+at 51:23 and 51:30 — are § 218's R5 and are UNCHANGED on both binaries.
+
+=============================================================================
+ARM BY ARM (enum-constant actuals; `->` is pristine -> patched)
+=============================================================================
+arm            holder            view    pristine        patched
+a1_ctx         if221u (uninst)   parse   EXTRA 22        0 keys
+a1_ctx         if221u (uninst)   elab    EXTRA 22        0 keys
+a1_ctx         if221i (inst)     parse   SAME 21/EXTRA 1 SAME 21/EXTRA 1
+a1_ctx         if221i (inst)     elab    SAME 21/EXTRA 1 SAME 21/EXTRA 1
+a1_ctx         m221   (module)   parse   SAME 21         SAME 21
+a1_ctx         m221   (module)   elab    SAME 21         SAME 21
+a2_home        ifh221u (uninst)  parse   EXTRA 8         0 keys
+a2_home        ifh221u (uninst)  elab    EXTRA 8         0 keys
+a2_home        ifh221i (inst)    parse   SAME 5/EXTRA 1/OTHER 2   unchanged
+a2_home        ifh221i (inst)    elab    SAME 5/EXTRA 1/OTHER 2   unchanged
+a3_muststay    s221 (package)    parse   OTHER 3         OTHER 3      IDENTICAL
+a3_muststay    m221un (uninst module) parse SAME 2       SAME 2       IDENTICAL
+a3_muststay    pr221un (uninst program) parse MISSING 3/EXTRA 2      IDENTICAL
+a3_muststay    pr221in (inst program) parse SAME 2       SAME 2       IDENTICAL
+a3_muststay    tops221 (top module) parse SAME 2         SAME 2       IDENTICAL
+a3_muststay    ALL FIVE, elab              — every number IDENTICAL, cell for cell
+a4_corpus      sv221_if (uninst) parse   SAME 24/EXTRA 14  SAME 38 / EXTRA 0 /
+                                                            MISSING 0 / OTHER 0
+a4_corpus      sv221_if (uninst) elab    EXTRA 14          0 keys
+a5_r5mix       ifr221u (uninst)  parse   EXTRA 6 enum      0 keys
+a5_r5mix       ifr221u (uninst)  elab    EXTRA 6 enum      0 keys
+a5_r5mix       ifr221i (inst)    parse   SAME 6            SAME 6
+a5_r5mix       ifr221i (inst)    elab    SAME 6            SAME 6
+
+MOVED-WRONG 0 / AWAY-GOLDEN 0, MEASURED: `MISSING-OURS` does not rise in ANY
+of the 24 arm-view-holder cells, in EITHER view.  Every number that changes,
+falls; every number that must stay, stays.
+
+a4_corpus — the corpus shape rebuilt (an uninstantiated interface with
+`export "DPI-C"` items, an enum-typed function returning its own enum's
+constants in an if/else-if chain, an `inside` SET of six enum constants, and a
+`foreach` header beside them) — CLOSES COMPLETELY in the parse view:
+SAME 38 / MISSING-OURS 0 / EXTRA-OURS 0 / OTHER 0 over all 38 references.
+
+=============================================================================
+a2_home — THE ENUM-HOME MATRIX, AND THE CORROBORATION
+=============================================================================
+All five homes behave alike inside the uninstantiated interface (every one
+EXTRA-OURS pristine, every one closed patched):
+  h01 43:14 IE_A  the interface's OWN typedef enum
+  h02 44:14 QE_A  an IMPORTED package enum
+  h03 45:14 QE_B  a `::`-QUALIFIED package name   (R2)
+  h04 46:14 UU_A  a `$unit`-scope enum
+  h05 47:14 SE_A  a SUBROUTINE-LOCAL typedef enum
+  h08 49:14 IE_B  an enum_var LHS's enum-const RHS
+  h09 50:14 SE_B  a local enum_var's target
+  h11 52:19 IE_A  an enum_var compared to its own constant
+
+THE INSTANTIATED TWIN CORROBORATES THE DECODE DIRECTLY.  For the
+SUBROUTINE-LOCAL enum (h05/h09) golden's instantiated interface answers
+  g=['logic_net(work@toph221.u_ifh.SE_A)']   o=['enum_const(SE_A)']
+— an IMPLICIT LOGIC NET.  That net is `lateBinding`'s own fallback at
+UhdmWriter.cpp:3966+, reached when `mod->getValue(name)` cannot see the name.
+It is independent proof that `lateBinding` really does run for an INSTANTIATED
+interface (through the elaborated-instance writer at :4785) and that its
+absence is what makes the uninstantiated one bare.  Pre-existing and unchanged
+by this pass.
+
+=============================================================================
+a3_muststay — THE MUST-STAY CONTROL, BYTE-IDENTICAL IN BOTH VIEWS
+=============================================================================
+Every holder whose writer DOES call `lateBinding`:
+  a PACKAGE function (writePackage :1304)                     SAME, unchanged
+  an in-body and an out-of-body CLASS method                  unchanged
+  an UNINSTANTIATED MODULE WITH PORTS (writeModule :1575/:1623)  SAME 2/2
+  an INSTANTIATED PROGRAM (writeElabProgram :2072)            SAME 2/2
+  a TOP MODULE                                                SAME 2/2
+  an UNINSTANTIATED PROGRAM (writeProgram has no late pass)   unchanged (R1)
+Every cell list is IDENTICAL between the two binaries, in the parse view and in
+the elab view.  Not one number moved.

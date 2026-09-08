@@ -1,0 +1,162 @@
+1772123,1772124d1772122
+<                 |vpiActual:
+<                 \_enum_const: (SVAUNIT_START)
+1772163,1772164d1772160
+<                   |vpiActual:
+<                   \_enum_const: (SVAUNIT_SUCCESS)
+1772203,1772204d1772198
+<                     |vpiActual:
+<                     \_enum_const: (SVAUNIT_FAILURE)
+1772243,1772244d1772236
+<                 |vpiActual:
+<                 \_enum_const: (SVAUNIT_STEP_SUCCESS)
+1772283,1772284d1772274
+<                   |vpiActual:
+<                   \_enum_const: (SVAUNIT_STEP_FAILURE)
+1772323,1772324d1772312
+<                     |vpiActual:
+<                     \_enum_const: (SVAUNIT_DISABLE)
+1772363,1772364d1772350
+<                 |vpiActual:
+<                 \_enum_const: (SVAUNIT_ENABLE)
+1772403,1772404d1772388
+<                   |vpiActual:
+<                   \_enum_const: (SVAUNIT_RESET)
+1772443,1772444d1772426
+<                     |vpiActual:
+<                     \_enum_const: (SVAUNIT_KILL)
+1772460,1772461d1772441
+<             |vpiActual:
+<             \_enum_const: (SVAUNIT_IDLE)
+1772822,1772823d1772801
+<                   |vpiActual:
+<                   \_enum_const: (SVAUNIT_SUCCESS)
+1772830,1772831d1772807
+<                   |vpiActual:
+<                   \_enum_const: (SVAUNIT_FAILURE)
+1772838,1772839d1772813
+<                   |vpiActual:
+<                   \_enum_const: (SVAUNIT_DISABLE)
+1772846,1772847d1772819
+<                   |vpiActual:
+<                   \_enum_const: (SVAUNIT_ENABLE)
+1772854,1772855d1772825
+<                   |vpiActual:
+<                   \_enum_const: (SVAUNIT_RESET)
+1772862,1772863d1772831
+<                   |vpiActual:
+<                   \_enum_const: (SVAUNIT_KILL)
+1879151,1879220d1879118
+< \_enum_const: (SVAUNIT_START)
+<   |vpiParent:
+<   \_ref_obj: (work@svaunit_vpi_interface.get_state_from_reason.SVAUNIT_START), line:155:20, endln:155:33
+<   |vpiName:SVAUNIT_START
+<   |UINT:606
+<   |vpiDecompile:606
+<   |vpiSize:64
+< \_enum_const: (SVAUNIT_SUCCESS)
+<   |vpiParent:
+<   \_ref_obj: (work@svaunit_vpi_interface.get_state_from_reason.SVAUNIT_SUCCESS), line:158:20, endln:158:35
+<   |vpiName:SVAUNIT_SUCCESS
+<   |UINT:607
+<   |vpiDecompile:607
+<   |vpiSize:64
+< \_enum_const: (SVAUNIT_FAILURE)
+<   |vpiParent:
+<   \_ref_obj: (work@svaunit_vpi_interface.get_state_from_reason.SVAUNIT_FAILURE), line:161:20, endln:161:35
+<   |vpiName:SVAUNIT_FAILURE
+<   |UINT:608
+<   |vpiDecompile:608
+<   |vpiSize:64
+< \_enum_const: (SVAUNIT_STEP_SUCCESS)
+<   |vpiParent:
+<   \_ref_obj: (work@svaunit_vpi_interface.get_state_from_reason.SVAUNIT_STEP_SUCCESS), line:164:20, endln:164:40
+<   |vpiName:SVAUNIT_STEP_SUCCESS
+<   |UINT:609
+<   |vpiDecompile:609
+<   |vpiSize:64
+< \_enum_const: (SVAUNIT_STEP_FAILURE)
+<   |vpiParent:
+<   \_ref_obj: (work@svaunit_vpi_interface.get_state_from_reason.SVAUNIT_STEP_FAILURE), line:167:20, endln:167:40
+<   |vpiName:SVAUNIT_STEP_FAILURE
+<   |UINT:610
+<   |vpiDecompile:610
+<   |vpiSize:64
+< \_enum_const: (SVAUNIT_DISABLE)
+<   |vpiParent:
+<   \_ref_obj: (work@svaunit_vpi_interface.get_state_from_reason.SVAUNIT_DISABLE), line:170:20, endln:170:35
+<   |vpiName:SVAUNIT_DISABLE
+<   |UINT:611
+<   |vpiDecompile:611
+<   |vpiSize:64
+< \_enum_const: (SVAUNIT_ENABLE)
+<   |vpiParent:
+<   \_ref_obj: (work@svaunit_vpi_interface.get_state_from_reason.SVAUNIT_ENABLE), line:173:20, endln:173:34
+<   |vpiName:SVAUNIT_ENABLE
+<   |UINT:612
+<   |vpiDecompile:612
+<   |vpiSize:64
+< \_enum_const: (SVAUNIT_RESET)
+<   |vpiParent:
+<   \_ref_obj: (work@svaunit_vpi_interface.get_state_from_reason.SVAUNIT_RESET), line:176:20, endln:176:33
+<   |vpiName:SVAUNIT_RESET
+<   |UINT:613
+<   |vpiDecompile:613
+<   |vpiSize:64
+< \_enum_const: (SVAUNIT_KILL)
+<   |vpiParent:
+<   \_ref_obj: (work@svaunit_vpi_interface.get_state_from_reason.SVAUNIT_KILL), line:179:20, endln:179:32
+<   |vpiName:SVAUNIT_KILL
+<   |UINT:614
+<   |vpiDecompile:614
+<   |vpiSize:64
+< \_enum_const: (SVAUNIT_IDLE)
+<   |vpiParent:
+<   \_ref_obj: (work@svaunit_vpi_interface.get_state_from_reason.SVAUNIT_IDLE), line:182:17, endln:182:29
+<   |vpiName:SVAUNIT_IDLE
+<   |UINT:0
+<   |vpiDecompile:0
+<   |vpiSize:64
+1879239,1879280d1879136
+< \_enum_const: (SVAUNIT_SUCCESS)
+<   |vpiParent:
+<   \_ref_obj: (work@svaunit_vpi_interface.update_sva_from_c.SVAUNIT_SUCCESS), line:206:34, endln:206:49
+<   |vpiName:SVAUNIT_SUCCESS
+<   |UINT:607
+<   |vpiDecompile:607
+<   |vpiSize:64
+< \_enum_const: (SVAUNIT_FAILURE)
+<   |vpiParent:
+<   \_ref_obj: (work@svaunit_vpi_interface.update_sva_from_c.SVAUNIT_FAILURE), line:206:51, endln:206:66
+<   |vpiName:SVAUNIT_FAILURE
+<   |UINT:608
+<   |vpiDecompile:608
+<   |vpiSize:64
+< \_enum_const: (SVAUNIT_DISABLE)
+<   |vpiParent:
+<   \_ref_obj: (work@svaunit_vpi_interface.update_sva_from_c.SVAUNIT_DISABLE), line:206:68, endln:206:83
+<   |vpiName:SVAUNIT_DISABLE
+<   |UINT:611
+<   |vpiDecompile:611
+<   |vpiSize:64
+< \_enum_const: (SVAUNIT_ENABLE)
+<   |vpiParent:
+<   \_ref_obj: (work@svaunit_vpi_interface.update_sva_from_c.SVAUNIT_ENABLE), line:206:85, endln:206:99
+<   |vpiName:SVAUNIT_ENABLE
+<   |UINT:612
+<   |vpiDecompile:612
+<   |vpiSize:64
+< \_enum_const: (SVAUNIT_RESET)
+<   |vpiParent:
+<   \_ref_obj: (work@svaunit_vpi_interface.update_sva_from_c.SVAUNIT_RESET), line:206:101, endln:206:114
+<   |vpiName:SVAUNIT_RESET
+<   |UINT:613
+<   |vpiDecompile:613
+<   |vpiSize:64
+< \_enum_const: (SVAUNIT_KILL)
+<   |vpiParent:
+<   \_ref_obj: (work@svaunit_vpi_interface.update_sva_from_c.SVAUNIT_KILL), line:206:116, endln:206:128
+<   |vpiName:SVAUNIT_KILL
+<   |UINT:614
+<   |vpiDecompile:614
+<   |vpiSize:64

@@ -1,0 +1,212 @@
+r10uvm221 — EVERY GATE NUMBER, BOTH BINARIES.  MEASUREMENT ONLY; the official
+`uhdm-cmp` and `scripts/verify_golden.py` are the authorities.  LHS is ALWAYS
+golden (Surelog); RHS is ALWAYS ours.
+
+BASE f8062cfc.  `results/*.csv` READ ONLY and NOT EDITED.  Nothing promoted.
+NO CORPUS ROW CONVERTED IN EITHER DIRECTION.  `GOLDEN_DEFER` stayed unset.
+slang was NOT patched.  The four slang-fenced tests were never dispatched by
+any driver here; they are named only inside `canaudit.sh`'s own `FENCED=` list
+and its `FENCE-BREACH=0` is the check that it worked.
+
+=============================================================================
+(0) THE BINARIES
+=============================================================================
+pristine  md5 3165257bc467b3720b4558c24fa4b87b — built `-j 2` from this pass's
+          OWN worktree at a clean f8062cfc, BYTE-IDENTICAL to the main tree's
+          own build/slang-uhdm at that commit; frozen `chmod 555` at
+          /tmp/<pass>_bin/pris before any sweep.
+patched   md5 769b69341dc3d59dab592c3fa80c4983 — frozen `chmod 555` at
+          /tmp/<pass>_bin/pat before any sweep.
+
+EVERY `cmds.txt` AUDITED BY BINARY PATH (not by the string "slang-uhdm", which
+also matches `slang-uhdm-goldens/`):
+  surelog pristine  1523 / 1523 name .../pris;  0 name the main-tree binary
+  surelog patched   1523 / 1523 name .../pat;   0 name the main-tree binary
+  u2r     patched   1458 / 1458 name .../pat
+
+=============================================================================
+(1) GOLDENS
+=============================================================================
+pristine   23 PASS / 0 FAIL
+patched    23 PASS / 0 FAIL
+negative control  SLANG_UHDM=/bin/false -> 23 FAIL
+
+=============================================================================
+(2) uhdm2rtlil — 731 tests x 2 modes
+=============================================================================
+pristine   testflags 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+           default   679 / 50 / 2
+patched    testflags 679 / 50 / 2
+           default   679 / 50 / 2
+ct8rows    patched vs results/gate_uhdm2rtlil.csv        PASS (0 differing rows)
+           patched vs this pass's own pristine, tf       PASS
+           patched vs this pass's own pristine, default  PASS
+byteverify SELFCHECK=1, patched vs this pass's own pristine:
+           PATH_SETS_IDENTICAL (1358 paths)
+           MOVERS 0 / 1358
+           SELFCHECK 1357 / 1358 flagged  (the gate can see)
+
+=============================================================================
+(3) surelog — 794 tests x 2 modes = 1588 rows
+=============================================================================
+status histogram, IDENTICAL cell for cell on BOTH binaries:
+  default    CMP_EQUAL 476  CMP_NOTEQUAL 5  DEFERRED 5  SLANG_REJECT 283
+             SURELOG_FAIL 25
+  testflags  CMP_EQUAL 470  CMP_NOTEQUAL 5  DEFERRED 5  NO_DATABASE 3
+             NO_UHDM 1  SLANG_REJECT 284  SURELOG_FAIL 23  TIMEOUT 1
+             UNTRANSLATABLE 2
+  — the 476/5 + 470/5 the brief names.  NO ROW CONVERTED IN EITHER DIRECTION.
+
+ct8rows    patched vs results/golden_surelog.csv    PASS (0 differing rows
+                                                     over 1588, status column
+                                                     AND dump column)
+           patched vs this pass's own pristine      PASS
+byteverify SELFCHECK=1, patched vs this pass's own pristine:
+           PATH_SETS_IDENTICAL (956 paths)
+           MOVER ./default/MiniAmiq-544c7f61/slang.uhdm
+                    patched=4c7f73dc3f24 pristine=bfb14247f0a4
+           MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm
+                    patched=4c7f73dc3f24 pristine=bfb14247f0a4
+           MOVERS 2 / 956  — EXACTLY THE TWO PREDICTED BY NAME
+           SELFCHECK 955 / 956 flagged  (the gate can see)
+
+=============================================================================
+(4) THE NINE PROTECTED CMP_EQUAL ROW-MODES — BOTH COLUMNS SCORED EXPLICITLY
+=============================================================================
+                     committed   this pass's pristine   this pass's patched
+  SeqDriver/def      CMP_EQUAL   CMP_EQUAL              CMP_EQUAL
+  SeqDriver/tf       CMP_EQUAL   CMP_EQUAL              CMP_EQUAL
+  SimpleUVM/def      CMP_EQUAL   CMP_EQUAL              CMP_EQUAL
+  SimpleUVM/tf       CMP_EQUAL   CMP_EQUAL              CMP_EQUAL
+  Scoreboard/def     CMP_EQUAL   CMP_EQUAL              CMP_EQUAL
+  BuildUVMPkg/def    CMP_EQUAL   CMP_EQUAL              CMP_EQUAL
+  BuildUVMPkg/tf     CMP_EQUAL   CMP_EQUAL              CMP_EQUAL
+  Earlgrey_0_1/def   CMP_EQUAL   CMP_EQUAL              CMP_EQUAL
+  Earlgrey_0_1/tf    CMP_EQUAL   CMP_EQUAL              CMP_EQUAL
+  (the `dump` column reads `differ` for all nine on all three — unchanged)
+
+JUDGE rc, from `rowheads.sh` on each pass's own sweep, both binaries:
+  all nine read 0 cmp lines / 0 heads / cmp rc=0.  ALL HELD.
+  (Scoreboard/testflags and Rggen/testflags print SKIP-NOFILE, as expected.)
+
+=============================================================================
+(5) HEADS — rowheads.sh, this pass's own sweeps
+=============================================================================
+                 pristine            patched
+  SeqDriver x2   0 / 0               0 / 0
+  SimpleUVM x2   0 / 0               0 / 0
+  Scoreboard/def 0 / 0               0 / 0
+  MiniAmiq  x2   19 lines / 1 head   152 lines / 1 head   <- THE OBJECT IS GONE
+  BuildUVMPkg x2 0 / 0               0 / 0
+  Earlgrey_0_1 x2 0 / 0              0 / 0
+  Rggen/def      0 / 0               0 / 0
+  The two MiniAmiq cmp logs are BYTE-IDENTICAL to each other on each binary
+  (pristine md5 a9391799a9e117e3834140d5b8b792fe;
+   patched  md5 96154c102eff3adfe5e09c0b34272e24).
+
+=============================================================================
+(6) CANARIES AND PROTECTED DATABASES
+=============================================================================
+  canaries.sh  surelog      ok=52 changed=0 absent=0
+  canaries.sh  uhdm2rtlil   ok=8  changed=0 absent=0
+  ctcan2.sh    surelog      PASS   (EXPECT_UNKNOWN=1)
+  ctcan2.sh    uhdm2rtlil   PASS   (EXPECT_UNKNOWN=6)
+  canaudit.sh over this pass's drivers:
+               audited=29  UNCOVERED=0  FENCE-BREACH=0
+               All four slang-fenced names print
+               "not dispatched by any driver (OK)".  They are NOT spelled
+               anywhere in this pass's artifacts — only `canaudit.sh`'s own
+               `FENCED=` list carries them, which is the point of the check.
+
+  PROTECTED DATABASES BY NAME, both modes, pristine vs patched md5:
+    InterfaceModPort    59a365f3ce2c  ==  59a365f3ce2c   SAME (both modes)
+                        — AN INSTANTIATED-INTERFACE TEST, and therefore the
+                          pin that matters most for an interface law.
+    BlackParrotComplex  e3e354129d5a (def) / 73a10e8217e5 (tf)   SAME
+    YosysOldOr          d68e0796d62c  SAME (both modes)
+    SVSwitch            4842211c4030  — the pin, both binaries, both modes
+    YosysVerx           6ccda350c24a  — the pin, both binaries, both modes
+
+=============================================================================
+(7) THE WIDE BOUNDARY, AND THE AGAINST-GOLDEN RE-SCORE
+=============================================================================
+bound221.sh over a COPY of the WHOLE probe tree, subdirectories included, both
+views, both binaries, children `</dev/null`, the file list on fd 3, scratch
+keyed on the RELATIVE path:
+
+    LISTED = PROCESSED = 5525   MOVED_ARMS = 16   RC_DIFFS = 0
+
+  8 of the 16 arm-views are THIS PASS'S OWN grid arms — the POSITIVE CONTROL
+  that proves the gate can see.  The 8 FOREIGN arm-views are four arms:
+    ./r10buvm13repro/v2_reach13.sv                    def + elab
+    ./r10uvm218repro/grid218/a1_iface/dut.sv          def + elab
+    ./r10uvm218repro/grid218/a2_window/dut.sv         def + elab
+    ./r10v218repro/arms/b1_kinds/dut.sv               def + elab
+
+  NO § 220 ARM MOVED (and no § 220 fence arm).  NO § 216 ARM MOVED (and not
+  its index fence).  NO uvm82-91 ARM MOVED.  NO sd8-12 ARM MOVED.  NO § 215,
+  § 214, § 161 or § 164 ARM MOVED.  The only buvm arm that moved is buvm13's
+  `v2_reach13.sv`, and its moved cell is named below.
+
+armscore221.sh — every mover re-scored against a REAL Surelog golden built for
+that arm in BOTH views (the path `scripts/verify_golden.py` names):
+
+    LISTED = PROCESSED = 8   FAILED = 0
+    TOWARD-GOLDEN 16   AWAY-FROM-GOLDEN 0   NEITHER 0
+    BROKEN-CELLS 0     FIXED-CELLS 108
+
+  The FOUR foreign arms' moved cells, by name — ONE ENUM-CONSTANT CELL EACH,
+  in both views, and nothing else:
+    r10buvm13repro/v2_reach13.sv            IE13_B  14:43
+    r10uvm218repro/grid218/a1_iface/dut.sv  E218_A  33:28   (= § 218's R4)
+    r10uvm218repro/grid218/a2_window/dut.sv Q218_A  33:18   (= § 218's R4)
+    r10v218repro/arms/b1_kinds/dut.sv       P1V_A   52:18
+  Each is `g=['-'] o=['enum_const(...)']` pristine and gone patched: golden
+  leaves the reference BARE and now so do we.  The enum-only census of each
+  foreign arm reads EXTRA-OURS 1 -> 0 in BOTH views with MISSING-OURS and
+  OTHER unchanged.
+
+  Each foreign arm's whole-dump diff (ids normalised) is 9 REAL removed lines
+  and 0 added — one `|vpiActual:`, one `\_enum_const:` in the listing, and the
+  seven-line weaklyReferenced TAIL copy of the same object.  (`diff` also
+  reports the dump's own filename header line as changed; that is the file
+  path, not content.)
+
+  § 218's R5 IS UNTOUCHED, MEASURED: a2_window's five for-loop-iterator
+  EXTRA-OURS cells (`i218` 42:26 / 42:36 / 44:20, `j218` 48:26 / 48:38) are
+  present on BOTH binaries in the parse view and absent from both in the elab
+  view — exactly as § 218's R5 records them.  They are the only EXTRA-OURS
+  cells that arm has left.
+
+=============================================================================
+(8) THE CORPUS MOVE, PROVED REMOVE-ONLY AT THE BYTE LEVEL
+=============================================================================
+MiniAmiq whole-dump diff, ids and workdir paths normalised, 1.89M lines:
+
+    0 lines ADDED   144 lines REMOVED
+
+  and every removed line is accounted for:
+      16  |vpiActual:                    the declined links
+      32  \_enum_const:                  16 in uhdmallInterfaces + 16 in the
+                                         weaklyReferenced tail
+      16  |vpiParent:      \  the tail copy's own six fields,
+      16  \_ref_obj:        |  one set per declined mint
+      16  |vpiName:SVAUNIT* |
+      16  |UINT:            |
+      16  |vpiDecompile:    |
+      16  |vpiSize:64      /
+      0   UNCLASSIFIED
+  16 + 32 + 96 = 144.
+
+  THE SHARED ENUM OBJECTS WERE NOT TOUCHED.  The `enum_const` set inside
+  `uhdmallPackages` — the objects `enumConstMap` holds and the mint only READS
+  — is byte-identical between the two binaries (same md5 over the sorted
+  multiset).  Total `enum_const` lines 4236 -> 4204; the difference is exactly
+  the 32 lines above.  Nothing was orphaned and nothing moved.
+
+  THE HOLDER'S REFERENCE CENSUS (POPULATION.r10uvm221.txt):
+      pristine  SAME 277 / MISSING-OURS 1 / EXTRA-OURS 16 / OTHER 16
+      patched   SAME 293 / MISSING-OURS 1 / EXTRA-OURS  0 / OTHER 16
+  MISSING-OURS did not rise, the OTHER cell list is byte-identical between the
+  two binaries, and the enum-only view goes from 16 keys (all EXTRA-OURS) to
+  ZERO KEYS ON EITHER SIDE.

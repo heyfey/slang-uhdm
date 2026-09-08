@@ -17860,8 +17860,31 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                           parent->UhdmType() ==
                               UHDM::uhdmindexed_part_select ||
                           parent->UhdmType() == UHDM::uhdmvar_select));
+                    // § uninstIfaceEnumConstNoActual221 — THE ONE TERM.  THE
+                    // MINT DIRECTLY BELOW IS `UhdmWriter::lateBinding`'s
+                    // (UhdmWriter.cpp:3953-3961: `mod->getValue(name)` answers,
+                    // and Surelog builds a FRESH loc-less `enum_const` carrying
+                    // the name/value/decompile/size and parents it on the ref).
+                    // `writeInterface` (UhdmWriter.cpp:1626-1794) — the only
+                    // writer for an interface DEFINITION — CALLS `lateBinding`
+                    // NOWHERE, and an interface no instance elaborates has no
+                    // netlist so it never reaches the elaborated writer's call
+                    // at :4785 either.  The compile-time road cannot stand in:
+                    // `CompileHelper::bindVariable` (CompileStmt.cpp:3089)
+                    // walks only `Variables()` and `Io_decls()` and can never
+                    // return an enum constant.  So EVERY enum-constant
+                    // reference in such a body is golden-BARE, in every
+                    // context and in both views — see
+                    // `uninstIfaceSubBody218` in UhdmExporter.h for the flag,
+                    // and GRID.r10uvm221.txt for the 22 contexts x 2 views the
+                    // arms measure.  This is the THIRD law riding that flag:
+                    // § 218 took the variable half of `lateBinding`, § 220 took
+                    // `lateTypedefBinding`, and this one takes the enum-const
+                    // half.  REMOVE-ONLY, and the shared `enum_const` in
+                    // `enumConstMap` is only READ here, never re-parented, so
+                    // declining orphans nothing and moves nothing.
                     if (nv.symbol.kind == SymbolKind::EnumValue &&
-                        !defGenProcessEmit &&
+                        !defGenProcessEmit && !uninstIfaceSubBody218 &&
                         !(inGenScopeCaRhs &&
                           (unitEnumSym9 ||
                            !(caEnumSelPos22 || genCaLhsSelect22 ||

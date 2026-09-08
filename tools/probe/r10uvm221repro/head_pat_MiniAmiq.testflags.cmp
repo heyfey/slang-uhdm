@@ -1,0 +1,152 @@
+LHS:
+decompile:
+func_call: (control_assertion_dpi), id:249066, line:310:7, endln:310:64
+|vpiParent:
+\_begin: (work@svaunit_vpi_interface.reset_assertion), id:249056, line:309:7, endln:309:49
+|vpiArgument:
+\_hier_path: (a_sva.get_sva_path), id:249067, line:310:29, endln:310:49
+  |vpiParent:
+  \_func_call: (control_assertion_dpi), id:249066, line:310:7, endln:310:64
+  |vpiActual:
+  \_ref_obj: (a_sva), id:249068, line:310:29, endln:310:34
+    |vpiParent:
+    \_hier_path: (a_sva.get_sva_path), id:249067, line:310:29, endln:310:49
+    |vpiName:a_sva
+  |vpiActual:
+  \_method_func_call: (get_sva_path), id:249069, line:310:35, endln:310:47
+    |vpiParent:
+    \_hier_path: (a_sva.get_sva_path), id:249067, line:310:29, endln:310:49
+    |vpiName:get_sva_path
+  |vpiName:a_sva.get_sva_path
+|vpiArgument:
+\_constant: , id:249070, line:310:51, endln:310:54
+  |vpiParent:
+  \_func_call: (control_assertion_dpi), id:249066, line:310:7, endln:310:64
+  |vpiDecompile:622
+  |vpiSize:64
+  |UINT:622
+  |vpiConstType:9
+|vpiArgument:
+\_sys_func_call: ($time), id:249071, line:310:56, endln:310:61
+  |vpiParent:
+  \_func_call: (control_assertion_dpi), id:249066, line:310:7, endln:310:64
+  |vpiName:$time
+|vpiName:control_assertion_dpi
+|vpiFunction:
+\_function: (work@svaunit_vpi_interface.control_assertion_dpi), id:248520, line:40:4, endln:41:29
+
+decompile:
+func_call: (control_assertion_dpi), id:249066, line:310:7, endln:310:64
+|vpiParent:
+\_begin: (work@svaunit_vpi_interface.reset_assertion), id:249056, line:309:7, endln:309:49
+|vpiArgument:
+\_hier_path: (a_sva.get_sva_path), id:249067, line:310:29, endln:310:49
+  |vpiParent:
+  \_func_call: (control_assertion_dpi), id:249066, line:310:7, endln:310:64
+  |vpiActual:
+  \_ref_obj: (a_sva), id:249068, line:310:29, endln:310:34
+    |vpiParent:
+    \_hier_path: (a_sva.get_sva_path), id:249067, line:310:29, endln:310:49
+    |vpiName:a_sva
+  |vpiActual:
+  \_method_func_call: (get_sva_path), id:249069, line:310:35, endln:310:47
+    |vpiParent:
+    \_hier_path: (a_sva.get_sva_path), id:249067, line:310:29, endln:310:49
+    |vpiName:get_sva_path
+  |vpiName:a_sva.get_sva_path
+|vpiArgument:
+\_constant: , id:249070, line:310:51, endln:310:54
+  |vpiParent:
+  \_func_call: (control_assertion_dpi), id:249066, line:310:7, endln:310:64
+  |vpiDecompile:622
+  |vpiSize:64
+  |UINT:622
+  |vpiConstType:9
+|vpiArgument:
+\_sys_func_call: ($time), id:249071, line:310:56, endln:310:61
+  |vpiParent:
+  \_func_call: (control_assertion_dpi), id:249066, line:310:7, endln:310:64
+  |vpiName:$time
+|vpiName:control_assertion_dpi
+|vpiFunction:
+\_function: (work@svaunit_vpi_interface.control_assertion_dpi), id:248520, line:40:4, endln:41:29
+RHS:
+decompile:
+method_func_call: (control_assertion_dpi), id:301965, line:310:35, endln:310:23
+|vpiParent:
+\_begin: (work@svaunit_vpi_interface.reset_assertion), id:301958, line:309:7, endln:309:49
+|vpiArgument:
+\_hier_path: (a_sva.get_sva_path), id:301967, line:310:29, endln:310:49
+  |vpiParent:
+  \_method_func_call: (control_assertion_dpi), id:301965, line:310:35, endln:310:23
+  |vpiActual:
+  \_ref_obj: (a_sva), id:301968, line:310:29, endln:310:34
+    |vpiParent:
+    \_hier_path: (a_sva.get_sva_path), id:301967, line:310:29, endln:310:49
+    |vpiName:a_sva
+  |vpiActual:
+  \_method_func_call: (get_sva_path), id:301969, line:310:35, endln:310:47
+    |vpiParent:
+    \_hier_path: (a_sva.get_sva_path), id:301967, line:310:29, endln:310:49
+    |vpiName:get_sva_path
+  |vpiName:a_sva.get_sva_path
+|vpiArgument:
+\_constant: , id:301970, line:310:51, endln:310:54
+  |vpiParent:
+  \_method_func_call: (control_assertion_dpi), id:301965, line:310:35, endln:310:23
+  |vpiDecompile:622
+  |vpiSize:64
+  |UINT:622
+  |vpiConstType:9
+|vpiArgument:
+\_sys_func_call: ($time), id:301971, line:310:56, endln:310:63
+  |vpiParent:
+  \_method_func_call: (control_assertion_dpi), id:301965, line:310:35, endln:310:23
+  |vpiName:$time
+|vpiName:control_assertion_dpi
+|vpiPrefix:
+\_ref_obj: (work@svaunit_vpi_interface.reset_assertion.control_assertion_dpi(a_sva), id:301966, line:310:7, endln:310:34
+  |vpiParent:
+  \_method_func_call: (control_assertion_dpi), id:301965, line:310:35, endln:310:23
+  |vpiName:control_assertion_dpi(a_sva
+  |vpiFullName:work@svaunit_vpi_interface.reset_assertion.control_assertion_dpi(a_sva
+
+decompile:
+method_func_call: (control_assertion_dpi), id:301965, line:310:35, endln:310:23
+|vpiParent:
+\_begin: (work@svaunit_vpi_interface.reset_assertion), id:301958, line:309:7, endln:309:49
+|vpiArgument:
+\_hier_path: (a_sva.get_sva_path), id:301967, line:310:29, endln:310:49
+  |vpiParent:
+  \_method_func_call: (control_assertion_dpi), id:301965, line:310:35, endln:310:23
+  |vpiActual:
+  \_ref_obj: (a_sva), id:301968, line:310:29, endln:310:34
+    |vpiParent:
+    \_hier_path: (a_sva.get_sva_path), id:301967, line:310:29, endln:310:49
+    |vpiName:a_sva
+  |vpiActual:
+  \_method_func_call: (get_sva_path), id:301969, line:310:35, endln:310:47
+    |vpiParent:
+    \_hier_path: (a_sva.get_sva_path), id:301967, line:310:29, endln:310:49
+    |vpiName:get_sva_path
+  |vpiName:a_sva.get_sva_path
+|vpiArgument:
+\_constant: , id:301970, line:310:51, endln:310:54
+  |vpiParent:
+  \_method_func_call: (control_assertion_dpi), id:301965, line:310:35, endln:310:23
+  |vpiDecompile:622
+  |vpiSize:64
+  |UINT:622
+  |vpiConstType:9
+|vpiArgument:
+\_sys_func_call: ($time), id:301971, line:310:56, endln:310:63
+  |vpiParent:
+  \_method_func_call: (control_assertion_dpi), id:301965, line:310:35, endln:310:23
+  |vpiName:$time
+|vpiName:control_assertion_dpi
+|vpiPrefix:
+\_ref_obj: (work@svaunit_vpi_interface.reset_assertion.control_assertion_dpi(a_sva), id:301966, line:310:7, endln:310:34
+  |vpiParent:
+  \_method_func_call: (control_assertion_dpi), id:301965, line:310:35, endln:310:23
+  |vpiName:control_assertion_dpi(a_sva
+  |vpiFullName:work@svaunit_vpi_interface.reset_assertion.control_assertion_dpi(a_sva

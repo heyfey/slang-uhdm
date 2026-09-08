@@ -1,0 +1,173 @@
+r10uvm221 — DECODE (question 3/4): WHERE AN ENUM-CONSTANT `vpiActual` COMES
+FROM IN SURELOG, AND WHY AN UNINSTANTIATED INTERFACE'S BODY HAS NONE.
+
+MEASUREMENT-ONLY document.  Every line below was READ in
+~/git-repos/Surelog at the pin this campaign compares against.  LHS is ALWAYS
+golden (Surelog); RHS is ALWAYS ours.
+
+=============================================================================
+1.  THERE ARE ONLY TWO ROADS TO ANY `vpiActual`, AND ONLY ONE OF THEM CAN
+    ANSWER WITH AN ENUM CONSTANT
+=============================================================================
+
+ROAD 1 — the COMPILE-TIME eager bind.
+
+    src/DesignCompile/CompileStmt.cpp:3089
+      UHDM::any* CompileHelper::bindVariable(DesignComponent* component,
+                                             const UHDM::any* scope,
+                                             std::string_view name,
+                                             CompileDesign* compileDesign) {
+        if (scope == nullptr) return nullptr;
+        switch (scope->UhdmType()) {
+          case uhdmfunction:  ... lscope->Variables() ... lscope->Io_decls()
+          case uhdmtask:      ... lscope->Variables() ... lscope->Io_decls()
+          case uhdmbegin:     ... lscope->Variables()
+          case uhdmmodule_inst: ... mod->Variables() ...
+        }
+        return bindVariable(component, scope->VpiParent(), name, compileDesign);
+      }
+
+    IT WALKS `Variables()` AND `Io_decls()` AND NOTHING ELSE.  There is no
+    `Enum_consts()` arm, no `Param_assigns()` arm and no `getValue()` call in
+    it.  ROAD 1 CAN NEVER RETURN AN ENUM CONSTANT — in ANY holder, in any
+    window.  This is why § uninstIfaceBodyBindsInMethodWindow218's arm a2
+    found the enum cells over-bound INSIDE and OUTSIDE its window alike (that
+    pass's R4): the window is a ROAD 1 question and the enum constant is not
+    on Road 1 at all.
+
+ROAD 2 — the WRITE-TIME late bind.
+
+    src/DesignCompile/UhdmWriter.cpp:3294
+      void UhdmWriter::lateBinding(Serializer& s, DesignComponent* mod,
+                                   scope* m) {
+        for (UHDM::ref_obj* ref : mod->getLateBinding()) {
+          if (ref->Actual_group()) continue;
+          ...
+
+    Three of its arms can produce an `enum_const`:
+
+      (a) :3300 onwards — the `::`-QUALIFIED head, for a name containing "::".
+      (b) :3920-3934  — the enum_var-TYPESPEC walk: when the name matches a
+                        constant of an `enum_var`'s own `enum_typespec`,
+                          ref->Actual_group(c);
+      (c) :3953-3961  — THE MINT, the last resort before the implicit-net
+                        tail:
+
+                          if (!ref->Actual_group()) {
+                            Value* value = mod->getValue(name);
+                            if (value && value->isValid()) {
+                              enum_const* c = s.MakeEnum_const();
+                              c->VpiName(name);
+                              c->VpiValue(value->uhdmValue());
+                              c->VpiDecompile(value->decompiledValue());
+                              c->VpiSize(value->getSize());
+                              c->VpiParent(ref);
+                              ref->Actual_group(c);
+                            }
+                          }
+
+    (c) IS THE SHAPE OUR EMITTER ALREADY REPRODUCES at ExprEmit.cpp's
+    enum-const arm inside the `suppressRefActual` branch: a FRESH, LOC-LESS
+    `enum_const`, named for the constant, carrying value / decompile / size,
+    PARENTED ON THE REFERENCE.  Our head object is exactly that object:
+
+        enum_const: (SVAUNIT_START)
+        |vpiParent:
+        \_ref_obj: (work@svaunit_vpi_interface.get_state_from_reason.SVAUNIT_START)
+                                                              line:155:20
+        |vpiName:SVAUNIT_START  |UINT:606  |vpiDecompile:606  |vpiSize:64
+
+    (When `getValue` fails the SAME loop falls through to :3966+ and mints an
+    implicit `logic_net` instead — arm a2_home sees exactly that in the
+    INSTANTIATED interface for a SUBROUTINE-LOCAL enum, whose name the
+    component's value table cannot see:
+        g=['logic_net(work@toph221.u_ifh.SE_A)'] o=['enum_const(SE_A)']
+    which is independent evidence that `lateBinding` really is the road that
+    runs for an instantiated interface.)
+
+=============================================================================
+2.  THE COMPLETE CALLER LIST OF THE TWO LATE PASSES
+=============================================================================
+
+    $ grep -n 'lateBinding(\|lateTypedefBinding(' src/DesignCompile/UhdmWriter.cpp
+
+      1066:    // lateTypedefBinding(s, classDef, c);      <- COMMENTED OUT
+      1067:    // lateBinding(s, classDef, c);             <- COMMENTED OUT
+      1302:    lateTypedefBinding(s, pack, p);             writePackage
+      1304:  lateBinding(s, pack, p);                      writePackage
+      1575:    lateBinding(s, mod, m);                     writeModule
+      1623:  lateBinding(s, mod, m);                       writeModule
+      2071:    lateTypedefBinding(s, mod, m);              writeElabProgram
+      2072:    lateBinding(s, mod, m);                     writeElabProgram
+      2573:  void UhdmWriter::lateTypedefBinding(...)      the definition
+      3294:  void UhdmWriter::lateBinding(...)             the definition
+      4784:      lateTypedefBinding(s, mod, sc);           elaborated instance,
+      4785:      lateBinding(s, mod, sc);                    gated `if (mod && netlist)`
+      4786:      lateTypedefBinding(s, mod, sc);
+      4912:      lateTypedefBinding(s, fileIdContent.second, nullptr);   $unit
+      4991:      lateTypedefBinding(s, fileIdContent.second, nullptr);   $unit
+
+    The writer function boundaries in that same file:
+
+      1402:  void UhdmWriter::writeModule(...)
+      1626:  void UhdmWriter::writeInterface(ModuleDefinition* mod,
+                                             interface_inst* m, ...)
+      1795:  void UhdmWriter::writeProgram(...)
+      1901:  bool UhdmWriter::writeElabProgram(...)
+
+    `writeInterface` OCCUPIES 1626-1794 AND NOT ONE OF THE CALLS ABOVE IS
+    INSIDE IT.  (1623 is writeModule's tail, three lines before writeInterface
+    begins.)  `writeInterface` is the ONLY writer for an interface DEFINITION,
+    and its output is `uhdmallInterfaces` — the only listing an interface no
+    instance elaborates ever appears in.  Such an interface has no netlist, so
+    the elaborated-instance call at :4785 (`if (mod && netlist)`) never runs
+    for it either.
+
+    THEREFORE: for an interface DEFINITION THAT NO INSTANCE ELABORATES, ROAD 2
+    NEVER RUNS AT ALL, and Road 1 cannot answer with a constant.  EVERY
+    enum-constant reference in such a body is golden-BARE, unconditionally.
+
+=============================================================================
+3.  THE SAME PRODUCER FACT, THREE LAWS
+=============================================================================
+
+    § uninstIfaceBodyBindsInMethodWindow218   Road 2's VARIABLE half is gone;
+                                              only Road 1's eager binds survive
+                                              (the class-method window).
+    § uninstIfaceForeachHdrUnresolved220      `lateTypedefBinding` (:2573) is
+                                              gone, so the `paFOREACH`
+                                              placeholder survives.
+    § uninstIfaceEnumConstNoActual221         Road 2's ENUM-CONSTANT half
+                                              (:3953-3961) is gone, and Road 1
+                                              never had it — so there is NO
+                                              enum-constant actual at all.
+
+    All three ride ONE emitter flag, `uninstIfaceSubBody218`, raised at exactly
+    one call site (ModuleEmit.cpp's `emitTaskFuncs` call for an interface
+    definition with `defAllInstCount[&def] == 0`) and false everywhere else.
+
+=============================================================================
+4.  WHY THIS LAW CARRIES NO FENCE
+=============================================================================
+
+    § 218 needed a symbol test and a position test because Road 1 SURVIVES for
+    an uninstantiated interface and Road 1 has structure.  § 220 needed two
+    fences because `compileDatastructureTypespec` answers a PARAMETER and a
+    visible TYPE NAME at COMPILE time, before the placeholder tail.
+
+    Neither applies here.  The enum-constant actual has ONE producer, that
+    producer is `lateBinding`, and `lateBinding` does not run.  There is no
+    compile-time arm to carve out.  The grid measures the prediction directly:
+    over 22 reference contexts x 5 enum homes x both golden views, an
+    UNINSTANTIATED interface's body binds ZERO enum constants, while the SAME
+    BODY in an INSTANTIATED interface binds 21 of 22 and in a MODULE 21 of 21.
+    So the term is a bare `!uninstIfaceSubBody218` with nothing beside it.
+
+    ONE CELL DESERVES ITS NAME: a `::`-QUALIFIED enum reference
+    (`p221::PE_B`).  Golden FOLDS it to a `constant` and emits NO REFERENCE AT
+    ALL — in the uninstantiated interface (a1 53:13) and in the instantiated
+    one (a1 105:13) alike.  We emit a `ref_obj` there on both binaries.  That
+    is a FOLD residue of a different family, pre-existing and unchanged by this
+    pass; declining its actual moves the census cell from EXTRA-OURS to OTHER
+    without making it agree or disagree any more than it already did, because
+    golden has no reference for it to agree with.  It is recorded as R2.
