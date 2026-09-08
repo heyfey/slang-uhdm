@@ -1,0 +1,401 @@
+ARM g214_a_oob parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=9122 heads=1 (VERDICT NOT THE SCORER)
+CALIB g214_a_oob parse -- CENSUS golden=33 ours=33 AGREE=33 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g214_a_oob parse -- CENSUS golden=33 ours=37 AGREE=16 ONLY-GOLDEN=17 ONLY-OURS=21
+POPG g214_a_oob parse POP	package[ALLPKG:p214]	REFS=20	constant=7 operation=5 ref_obj=8
+POPG g214_a_oob parse POP	package[TOPPKG:p214]	REFS=13	constant=13
+POPO g214_a_oob parse POP	package[ALLPKG:p214]	REFS=20	constant=20
+POPO g214_a_oob parse POP	package[TOPPKG:p214]	REFS=17	constant=17
+CELL g214_a_oob parse ONLY-GOLDEN	1	ref|pa214|39:17	ACT=constant@14:25[package[ALLPKG:p214]]{v=UINT:5,d=5,sz=64}	package[ALLPKG:p214]<function:C214::rd_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob parse ONLY-GOLDEN	1	ref|pa214|56:9	ACT=constant@14:25[package[ALLPKG:p214]]{v=UINT:5,d=5,sz=64}	package[ALLPKG:p214]<function:C214::rd_op214<begin:<assignment:<operation:
+CELL g214_a_oob parse ONLY-GOLDEN	1	ref|pa214|68:12	ACT=constant@14:25[package[ALLPKG:p214]]{v=UINT:5,d=5,sz=64}	package[ALLPKG:p214]<function:C214::rd_cond214<begin:<return_stmt:
+CELL g214_a_oob parse ONLY-GOLDEN	1	ref|pb214|39:24	ACT=ref_obj@15:21[package[ALLPKG:p214]]{n=pa214}	package[ALLPKG:p214]<function:C214::rd_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob parse ONLY-GOLDEN	1	ref|pb214|47:9	ACT=ref_obj@15:21[package[ALLPKG:p214]]{n=pa214}	package[ALLPKG:p214]<function:C214::rd_asgn214<begin:<assignment:
+CELL g214_a_oob parse ONLY-GOLDEN	1	ref|pb214|55:9	ACT=ref_obj@15:21[package[ALLPKG:p214]]{n=pa214}	package[ALLPKG:p214]<function:C214::rd_op214<begin:<assignment:<operation:
+CELL g214_a_oob parse ONLY-GOLDEN	1	ref|pb214|62:12	ACT=ref_obj@15:21[package[ALLPKG:p214]]{n=pa214}	package[ALLPKG:p214]<function:C214::rd_ret214<return_stmt:
+CELL g214_a_oob parse ONLY-GOLDEN	1	ref|pb214|67:9	ACT=ref_obj@15:21[package[ALLPKG:p214]]{n=pa214}	package[ALLPKG:p214]<function:C214::rd_cond214<begin:<operation:
+CELL g214_a_oob parse ONLY-GOLDEN	1	ref|pb214|82:17	ACT=ref_obj@15:21[package[ALLPKG:p214]]{n=pa214}	package[ALLPKG:p214]<task:C214::tk_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob parse ONLY-GOLDEN	1	ref|pc214|40:17	ACT=operation@16:21[package[ALLPKG:p214]]{op=24}	package[ALLPKG:p214]<function:C214::rd_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob parse ONLY-GOLDEN	1	ref|pc214|48:9	ACT=operation@16:21[package[ALLPKG:p214]]{op=24}	package[ALLPKG:p214]<function:C214::rd_asgn214<begin:<assignment:
+CELL g214_a_oob parse ONLY-GOLDEN	1	ref|pc214|56:17	ACT=operation@16:21[package[ALLPKG:p214]]{op=24}	package[ALLPKG:p214]<function:C214::rd_op214<begin:<assignment:<operation:
+CELL g214_a_oob parse ONLY-GOLDEN	1	ref|pc214|67:27	ACT=operation@16:21[package[ALLPKG:p214]]{op=24}	package[ALLPKG:p214]<function:C214::rd_cond214<begin:<if_stmt:<return_stmt:
+CELL g214_a_oob parse ONLY-GOLDEN	1	ref|pc214|82:24	ACT=operation@16:21[package[ALLPKG:p214]]{op=24}	package[ALLPKG:p214]<task:C214::tk_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob parse ONLY-GOLDEN	1	ref|ps214|72:12	ACT=constant@17:28[package[ALLPKG:p214]]{v=STRING:sss,d="sss",sz=24}	package[ALLPKG:p214]<function:C214::rd_str214<return_stmt:
+CELL g214_a_oob parse ONLY-GOLDEN	1	ref|pw214|40:24	ACT=ref_obj@19:21[package[ALLPKG:p214]]{n=pv214}	package[ALLPKG:p214]<function:C214::rd_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob parse ONLY-GOLDEN	1	ref|pw214|76:12	ACT=ref_obj@19:21[package[ALLPKG:p214]]{n=pv214}	package[ALLPKG:p214]<function:C214::rd_vec214<return_stmt:
+CELL g214_a_oob parse ONLY-OURS	1	ref|pa214|39:17	ACT=constant@14:25[package[TOPPKG:p214]]{v=UINT:5,d=5,sz=32}	package[ALLPKG:p214]<function:C214::rd_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob parse ONLY-OURS	1	ref|pa214|56:9	ACT=constant@14:25[package[TOPPKG:p214]]{v=UINT:5,d=5,sz=32}	package[ALLPKG:p214]<function:C214::rd_op214<begin:<assignment:<operation:
+CELL g214_a_oob parse ONLY-OURS	1	ref|pa214|68:12	ACT=constant@14:25[package[TOPPKG:p214]]{v=UINT:5,d=5,sz=32}	package[ALLPKG:p214]<function:C214::rd_cond214<begin:<return_stmt:
+CELL g214_a_oob parse ONLY-OURS	1	ref|pa214|68:12	ACT=constant@14:25[package[TOPPKG:p214]]{v=UINT:5,d=5,sz=32}	package[TOPPKG:p214]<class_defn:C214<function:rd_cond214<begin:<return_stmt:
+CELL g214_a_oob parse ONLY-OURS	1	ref|pb214|39:24	ACT=constant@15:21[package[TOPPKG:p214]]{v=UINT:5,d=5,sz=32}	package[ALLPKG:p214]<function:C214::rd_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob parse ONLY-OURS	1	ref|pb214|47:9	ACT=constant@15:21[package[TOPPKG:p214]]{v=UINT:5,d=5,sz=32}	package[ALLPKG:p214]<function:C214::rd_asgn214<begin:<assignment:
+CELL g214_a_oob parse ONLY-OURS	1	ref|pb214|55:9	ACT=constant@15:21[package[TOPPKG:p214]]{v=UINT:5,d=5,sz=32}	package[ALLPKG:p214]<function:C214::rd_op214<begin:<assignment:<operation:
+CELL g214_a_oob parse ONLY-OURS	1	ref|pb214|62:12	ACT=constant@15:21[package[TOPPKG:p214]]{v=UINT:5,d=5,sz=32}	package[ALLPKG:p214]<function:C214::rd_ret214<return_stmt:
+CELL g214_a_oob parse ONLY-OURS	1	ref|pb214|62:12	ACT=constant@15:21[package[TOPPKG:p214]]{v=UINT:5,d=5,sz=32}	package[TOPPKG:p214]<class_defn:C214<function:rd_ret214<return_stmt:
+CELL g214_a_oob parse ONLY-OURS	1	ref|pb214|67:9	ACT=constant@15:21[package[TOPPKG:p214]]{v=UINT:5,d=5,sz=32}	package[ALLPKG:p214]<function:C214::rd_cond214<begin:<operation:
+CELL g214_a_oob parse ONLY-OURS	1	ref|pb214|82:17	ACT=constant@15:21[package[TOPPKG:p214]]{v=UINT:5,d=5,sz=32}	package[ALLPKG:p214]<task:C214::tk_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob parse ONLY-OURS	1	ref|pc214|40:17	ACT=constant@16:21[package[TOPPKG:p214]]{v=UINT:6,d=6,sz=32}	package[ALLPKG:p214]<function:C214::rd_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob parse ONLY-OURS	1	ref|pc214|48:9	ACT=constant@16:21[package[TOPPKG:p214]]{v=UINT:6,d=6,sz=32}	package[ALLPKG:p214]<function:C214::rd_asgn214<begin:<assignment:
+CELL g214_a_oob parse ONLY-OURS	1	ref|pc214|56:17	ACT=constant@16:21[package[TOPPKG:p214]]{v=UINT:6,d=6,sz=32}	package[ALLPKG:p214]<function:C214::rd_op214<begin:<assignment:<operation:
+CELL g214_a_oob parse ONLY-OURS	1	ref|pc214|67:27	ACT=constant@16:21[package[TOPPKG:p214]]{v=UINT:6,d=6,sz=32}	package[ALLPKG:p214]<function:C214::rd_cond214<begin:<if_stmt:<return_stmt:
+CELL g214_a_oob parse ONLY-OURS	1	ref|pc214|82:24	ACT=constant@16:21[package[TOPPKG:p214]]{v=UINT:6,d=6,sz=32}	package[ALLPKG:p214]<task:C214::tk_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob parse ONLY-OURS	1	ref|ps214|72:12	ACT=constant@17:28[package[TOPPKG:p214]]{v=STRING:sss,d="sss",sz=24}	package[ALLPKG:p214]<function:C214::rd_str214<return_stmt:
+CELL g214_a_oob parse ONLY-OURS	1	ref|ps214|72:12	ACT=constant@17:28[package[TOPPKG:p214]]{v=STRING:sss,d="sss",sz=24}	package[TOPPKG:p214]<class_defn:C214<function:rd_str214<return_stmt:
+CELL g214_a_oob parse ONLY-OURS	1	ref|pw214|40:24	ACT=constant@19:21[package[TOPPKG:p214]]{v=HEX:ab,d=8'hab,sz=8}	package[ALLPKG:p214]<function:C214::rd_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob parse ONLY-OURS	1	ref|pw214|76:12	ACT=constant@19:21[package[TOPPKG:p214]]{v=HEX:ab,d=8'hab,sz=8}	package[ALLPKG:p214]<function:C214::rd_vec214<return_stmt:
+CELL g214_a_oob parse ONLY-OURS	1	ref|pw214|76:12	ACT=constant@19:21[package[TOPPKG:p214]]{v=HEX:ab,d=8'hab,sz=8}	package[TOPPKG:p214]<class_defn:C214<function:rd_vec214<return_stmt:
+CELL g214_a_oob parse -- CENSUS golden=33 ours=37 AGREE=16 ONLY-GOLDEN=17 ONLY-OURS=21
+ARM g214_a_oob elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=9374 heads=1 (VERDICT NOT THE SCORER)
+CALIB g214_a_oob elab -- CENSUS golden=60 ours=60 AGREE=60 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g214_a_oob elab -- CENSUS golden=60 ours=37 AGREE=7 ONLY-GOLDEN=53 ONLY-OURS=30
+POPG g214_a_oob elab POP	package[ALLPKG:p214]	REFS=37	parameter=37
+POPG g214_a_oob elab POP	package[TOPPKG:p214]	REFS=23	constant=11 parameter=12
+POPO g214_a_oob elab POP	package[ALLPKG:p214]	REFS=20	constant=20
+POPO g214_a_oob elab POP	package[TOPPKG:p214]	REFS=17	constant=17
+CELL g214_a_oob elab ONLY-GOLDEN	1	ref|pa214|15:21	ACT=parameter@14:17[package[ALLPKG:p214]]{n=pa214}	package[ALLPKG:p214]<param_assign:
+CELL g214_a_oob elab ONLY-GOLDEN	1	ref|pa214|16:21	ACT=parameter@14:17[package[ALLPKG:p214]]{n=pa214}	package[ALLPKG:p214]<param_assign:<operation:
+CELL g214_a_oob elab ONLY-GOLDEN	2	ref|pa214|39:17	ACT=parameter@14:17[package[ALLPKG:p214]]{n=pa214}	package[ALLPKG:p214]<function:C214::rd_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob elab ONLY-GOLDEN	1	ref|pa214|39:17	ACT=parameter@14:17[package[TOPPKG:p214]]{n=pa214}	package[TOPPKG:p214]<class_defn:C214<function:rd_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob elab ONLY-GOLDEN	2	ref|pa214|56:9	ACT=parameter@14:17[package[ALLPKG:p214]]{n=pa214}	package[ALLPKG:p214]<function:C214::rd_op214<begin:<assignment:<operation:
+CELL g214_a_oob elab ONLY-GOLDEN	1	ref|pa214|56:9	ACT=parameter@14:17[package[TOPPKG:p214]]{n=pa214}	package[TOPPKG:p214]<class_defn:C214<function:rd_op214<begin:<assignment:<operation:
+CELL g214_a_oob elab ONLY-GOLDEN	2	ref|pa214|68:12	ACT=parameter@14:17[package[ALLPKG:p214]]{n=pa214}	package[ALLPKG:p214]<function:C214::rd_cond214<begin:<return_stmt:
+CELL g214_a_oob elab ONLY-GOLDEN	2	ref|pb214|39:24	ACT=parameter@15:13[package[ALLPKG:p214]]{n=pb214}	package[ALLPKG:p214]<function:C214::rd_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob elab ONLY-GOLDEN	1	ref|pb214|39:24	ACT=parameter@15:13[package[TOPPKG:p214]]{n=pb214}	package[TOPPKG:p214]<class_defn:C214<function:rd_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob elab ONLY-GOLDEN	2	ref|pb214|47:9	ACT=parameter@15:13[package[ALLPKG:p214]]{n=pb214}	package[ALLPKG:p214]<function:C214::rd_asgn214<begin:<assignment:
+CELL g214_a_oob elab ONLY-GOLDEN	1	ref|pb214|47:9	ACT=parameter@15:13[package[TOPPKG:p214]]{n=pb214}	package[TOPPKG:p214]<class_defn:C214<function:rd_asgn214<begin:<assignment:
+CELL g214_a_oob elab ONLY-GOLDEN	2	ref|pb214|55:9	ACT=parameter@15:13[package[ALLPKG:p214]]{n=pb214}	package[ALLPKG:p214]<function:C214::rd_op214<begin:<assignment:<operation:
+CELL g214_a_oob elab ONLY-GOLDEN	1	ref|pb214|55:9	ACT=parameter@15:13[package[TOPPKG:p214]]{n=pb214}	package[TOPPKG:p214]<class_defn:C214<function:rd_op214<begin:<assignment:<operation:
+CELL g214_a_oob elab ONLY-GOLDEN	2	ref|pb214|62:12	ACT=parameter@15:13[package[ALLPKG:p214]]{n=pb214}	package[ALLPKG:p214]<function:C214::rd_ret214<return_stmt:
+CELL g214_a_oob elab ONLY-GOLDEN	1	ref|pb214|67:9	ACT=parameter@15:13[package[ALLPKG:p214]]{n=pb214}	package[ALLPKG:p214]<function:C214::rd_cond214<begin:<if_stmt:<operation:
+CELL g214_a_oob elab ONLY-GOLDEN	1	ref|pb214|67:9	ACT=parameter@15:13[package[ALLPKG:p214]]{n=pb214}	package[ALLPKG:p214]<function:C214::rd_cond214<begin:<operation:
+CELL g214_a_oob elab ONLY-GOLDEN	1	ref|pb214|67:9	ACT=parameter@15:13[package[TOPPKG:p214]]{n=pb214}	package[TOPPKG:p214]<class_defn:C214<function:rd_cond214<begin:<if_stmt:<operation:
+CELL g214_a_oob elab ONLY-GOLDEN	2	ref|pb214|82:17	ACT=parameter@15:13[package[ALLPKG:p214]]{n=pb214}	package[ALLPKG:p214]<task:C214::tk_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob elab ONLY-GOLDEN	1	ref|pb214|82:17	ACT=parameter@15:13[package[TOPPKG:p214]]{n=pb214}	package[TOPPKG:p214]<class_defn:C214<task:tk_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob elab ONLY-GOLDEN	1	ref|pc214|40:17	ACT=constant@67:27[package[TOPPKG:p214]]{v=UINT:6,d=6,sz=32}	package[TOPPKG:p214]<class_defn:C214<function:rd_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob elab ONLY-GOLDEN	2	ref|pc214|40:17	ACT=parameter@16:13[package[ALLPKG:p214]]{n=pc214}	package[ALLPKG:p214]<function:C214::rd_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob elab ONLY-GOLDEN	1	ref|pc214|40:17	ACT=parameter@16:13[package[TOPPKG:p214]]{n=pc214}	package[TOPPKG:p214]<class_defn:C214<function:rd_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob elab ONLY-GOLDEN	1	ref|pc214|48:9	ACT=constant@67:27[package[TOPPKG:p214]]{v=UINT:6,d=6,sz=32}	package[TOPPKG:p214]<class_defn:C214<function:rd_asgn214<begin:<assignment:
+CELL g214_a_oob elab ONLY-GOLDEN	2	ref|pc214|48:9	ACT=parameter@16:13[package[ALLPKG:p214]]{n=pc214}	package[ALLPKG:p214]<function:C214::rd_asgn214<begin:<assignment:
+CELL g214_a_oob elab ONLY-GOLDEN	1	ref|pc214|48:9	ACT=parameter@16:13[package[TOPPKG:p214]]{n=pc214}	package[TOPPKG:p214]<class_defn:C214<function:rd_asgn214<begin:<assignment:
+CELL g214_a_oob elab ONLY-GOLDEN	1	ref|pc214|56:17	ACT=constant@67:27[package[TOPPKG:p214]]{v=UINT:6,d=6,sz=32}	package[TOPPKG:p214]<class_defn:C214<function:rd_op214<begin:<assignment:<operation:
+CELL g214_a_oob elab ONLY-GOLDEN	2	ref|pc214|56:17	ACT=parameter@16:13[package[ALLPKG:p214]]{n=pc214}	package[ALLPKG:p214]<function:C214::rd_op214<begin:<assignment:<operation:
+CELL g214_a_oob elab ONLY-GOLDEN	1	ref|pc214|56:17	ACT=parameter@16:13[package[TOPPKG:p214]]{n=pc214}	package[TOPPKG:p214]<class_defn:C214<function:rd_op214<begin:<assignment:<operation:
+CELL g214_a_oob elab ONLY-GOLDEN	1	ref|pc214|67:27	ACT=constant@67:27[package[TOPPKG:p214]]{v=UINT:6,d=6,sz=32}	package[TOPPKG:p214]<class_defn:C214<function:rd_cond214<begin:<if_stmt:<return_stmt:
+CELL g214_a_oob elab ONLY-GOLDEN	2	ref|pc214|67:27	ACT=parameter@16:13[package[ALLPKG:p214]]{n=pc214}	package[ALLPKG:p214]<function:C214::rd_cond214<begin:<if_stmt:<return_stmt:
+CELL g214_a_oob elab ONLY-GOLDEN	2	ref|pc214|82:24	ACT=parameter@16:13[package[ALLPKG:p214]]{n=pc214}	package[ALLPKG:p214]<task:C214::tk_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob elab ONLY-GOLDEN	1	ref|pc214|82:24	ACT=parameter@16:13[package[TOPPKG:p214]]{n=pc214}	package[TOPPKG:p214]<class_defn:C214<task:tk_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob elab ONLY-GOLDEN	2	ref|ps214|72:12	ACT=parameter@17:20[package[ALLPKG:p214]]{n=ps214}	package[ALLPKG:p214]<function:C214::rd_str214<return_stmt:
+CELL g214_a_oob elab ONLY-GOLDEN	1	ref|pv214|19:21	ACT=parameter@18:25[package[ALLPKG:p214]]{n=pv214}	package[ALLPKG:p214]<param_assign:
+CELL g214_a_oob elab ONLY-GOLDEN	2	ref|pw214|40:24	ACT=parameter@19:13[package[ALLPKG:p214]]{n=pw214}	package[ALLPKG:p214]<function:C214::rd_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob elab ONLY-GOLDEN	1	ref|pw214|40:24	ACT=parameter@19:13[package[TOPPKG:p214]]{n=pw214}	package[TOPPKG:p214]<class_defn:C214<function:rd_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob elab ONLY-GOLDEN	2	ref|pw214|76:12	ACT=parameter@19:13[package[ALLPKG:p214]]{n=pw214}	package[ALLPKG:p214]<function:C214::rd_vec214<return_stmt:
+CELL g214_a_oob elab ONLY-OURS	1	ref|pa214|15:21	ACT=constant@14:25[package[ALLPKG:p214]]{v=UINT:5,d=5,sz=64}	package[ALLPKG:p214]<param_assign:
+CELL g214_a_oob elab ONLY-OURS	1	ref|pa214|16:21	ACT=constant@14:25[package[ALLPKG:p214]]{v=UINT:5,d=5,sz=64}	package[ALLPKG:p214]<param_assign:<operation:
+CELL g214_a_oob elab ONLY-OURS	1	ref|pa214|39:17	ACT=constant@14:25[package[TOPPKG:p214]]{v=UINT:5,d=5,sz=32}	package[ALLPKG:p214]<function:C214::rd_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob elab ONLY-OURS	1	ref|pa214|56:9	ACT=constant@14:25[package[TOPPKG:p214]]{v=UINT:5,d=5,sz=32}	package[ALLPKG:p214]<function:C214::rd_op214<begin:<assignment:<operation:
+CELL g214_a_oob elab ONLY-OURS	1	ref|pa214|68:12	ACT=constant@14:25[package[TOPPKG:p214]]{v=UINT:5,d=5,sz=32}	package[ALLPKG:p214]<function:C214::rd_cond214<begin:<return_stmt:
+CELL g214_a_oob elab ONLY-OURS	1	ref|pa214|68:12	ACT=constant@14:25[package[TOPPKG:p214]]{v=UINT:5,d=5,sz=32}	package[TOPPKG:p214]<class_defn:C214<function:rd_cond214<begin:<return_stmt:
+CELL g214_a_oob elab ONLY-OURS	1	ref|pb214|39:24	ACT=constant@15:21[package[TOPPKG:p214]]{v=UINT:5,d=5,sz=32}	package[ALLPKG:p214]<function:C214::rd_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob elab ONLY-OURS	1	ref|pb214|47:9	ACT=constant@15:21[package[TOPPKG:p214]]{v=UINT:5,d=5,sz=32}	package[ALLPKG:p214]<function:C214::rd_asgn214<begin:<assignment:
+CELL g214_a_oob elab ONLY-OURS	1	ref|pb214|55:9	ACT=constant@15:21[package[TOPPKG:p214]]{v=UINT:5,d=5,sz=32}	package[ALLPKG:p214]<function:C214::rd_op214<begin:<assignment:<operation:
+CELL g214_a_oob elab ONLY-OURS	1	ref|pb214|62:12	ACT=constant@15:21[package[TOPPKG:p214]]{v=UINT:5,d=5,sz=32}	package[ALLPKG:p214]<function:C214::rd_ret214<return_stmt:
+CELL g214_a_oob elab ONLY-OURS	1	ref|pb214|62:12	ACT=constant@15:21[package[TOPPKG:p214]]{v=UINT:5,d=5,sz=32}	package[TOPPKG:p214]<class_defn:C214<function:rd_ret214<return_stmt:
+CELL g214_a_oob elab ONLY-OURS	1	ref|pb214|67:9	ACT=constant@15:21[package[TOPPKG:p214]]{v=UINT:5,d=5,sz=32}	package[ALLPKG:p214]<function:C214::rd_cond214<begin:<operation:
+CELL g214_a_oob elab ONLY-OURS	1	ref|pb214|82:17	ACT=constant@15:21[package[TOPPKG:p214]]{v=UINT:5,d=5,sz=32}	package[ALLPKG:p214]<task:C214::tk_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob elab ONLY-OURS	1	ref|pb214|82:17	ACT=constant@15:21[package[TOPPKG:p214]]{v=UINT:5,d=5,sz=32}	package[TOPPKG:p214]<class_defn:C214<task:tk_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob elab ONLY-OURS	1	ref|pc214|40:17	ACT=constant@16:21[package[TOPPKG:p214]]{v=UINT:6,d=6,sz=32}	package[ALLPKG:p214]<function:C214::rd_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob elab ONLY-OURS	1	ref|pc214|40:17	ACT=constant@16:21[package[TOPPKG:p214]]{v=UINT:6,d=6,sz=32}	package[TOPPKG:p214]<class_defn:C214<function:rd_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob elab ONLY-OURS	1	ref|pc214|48:9	ACT=constant@16:21[package[TOPPKG:p214]]{v=UINT:6,d=6,sz=32}	package[ALLPKG:p214]<function:C214::rd_asgn214<begin:<assignment:
+CELL g214_a_oob elab ONLY-OURS	1	ref|pc214|48:9	ACT=constant@16:21[package[TOPPKG:p214]]{v=UINT:6,d=6,sz=32}	package[TOPPKG:p214]<class_defn:C214<function:rd_asgn214<begin:<assignment:
+CELL g214_a_oob elab ONLY-OURS	1	ref|pc214|56:17	ACT=constant@16:21[package[TOPPKG:p214]]{v=UINT:6,d=6,sz=32}	package[ALLPKG:p214]<function:C214::rd_op214<begin:<assignment:<operation:
+CELL g214_a_oob elab ONLY-OURS	1	ref|pc214|56:17	ACT=constant@16:21[package[TOPPKG:p214]]{v=UINT:6,d=6,sz=32}	package[TOPPKG:p214]<class_defn:C214<function:rd_op214<begin:<assignment:<operation:
+CELL g214_a_oob elab ONLY-OURS	1	ref|pc214|67:27	ACT=constant@16:21[package[TOPPKG:p214]]{v=UINT:6,d=6,sz=32}	package[ALLPKG:p214]<function:C214::rd_cond214<begin:<if_stmt:<return_stmt:
+CELL g214_a_oob elab ONLY-OURS	1	ref|pc214|67:27	ACT=constant@16:21[package[TOPPKG:p214]]{v=UINT:6,d=6,sz=32}	package[TOPPKG:p214]<class_defn:C214<function:rd_cond214<begin:<if_stmt:<return_stmt:
+CELL g214_a_oob elab ONLY-OURS	1	ref|pc214|82:24	ACT=constant@16:21[package[TOPPKG:p214]]{v=UINT:6,d=6,sz=32}	package[ALLPKG:p214]<task:C214::tk_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob elab ONLY-OURS	1	ref|pc214|82:24	ACT=constant@16:21[package[TOPPKG:p214]]{v=UINT:6,d=6,sz=32}	package[TOPPKG:p214]<class_defn:C214<task:tk_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob elab ONLY-OURS	1	ref|ps214|72:12	ACT=constant@17:28[package[TOPPKG:p214]]{v=STRING:sss,d="sss",sz=24}	package[ALLPKG:p214]<function:C214::rd_str214<return_stmt:
+CELL g214_a_oob elab ONLY-OURS	1	ref|ps214|72:12	ACT=constant@17:28[package[TOPPKG:p214]]{v=STRING:sss,d="sss",sz=24}	package[TOPPKG:p214]<class_defn:C214<function:rd_str214<return_stmt:
+CELL g214_a_oob elab ONLY-OURS	1	ref|pv214|19:21	ACT=constant@18:33[package[ALLPKG:p214]]{v=HEX:ab,d=8'hab,sz=8}	package[ALLPKG:p214]<param_assign:
+CELL g214_a_oob elab ONLY-OURS	1	ref|pw214|40:24	ACT=constant@19:21[package[TOPPKG:p214]]{v=HEX:ab,d=8'hab,sz=8}	package[ALLPKG:p214]<function:C214::rd_arg214<begin:<assignment:<func_call:sink214
+CELL g214_a_oob elab ONLY-OURS	1	ref|pw214|76:12	ACT=constant@19:21[package[TOPPKG:p214]]{v=HEX:ab,d=8'hab,sz=8}	package[ALLPKG:p214]<function:C214::rd_vec214<return_stmt:
+CELL g214_a_oob elab ONLY-OURS	1	ref|pw214|76:12	ACT=constant@19:21[package[TOPPKG:p214]]{v=HEX:ab,d=8'hab,sz=8}	package[TOPPKG:p214]<class_defn:C214<function:rd_vec214<return_stmt:
+CELL g214_a_oob elab -- CENSUS golden=60 ours=37 AGREE=7 ONLY-GOLDEN=53 ONLY-OURS=30
+ARM g214_b_inbody parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=3526 heads=1 (VERDICT NOT THE SCORER)
+CALIB g214_b_inbody parse -- CENSUS golden=7 ours=7 AGREE=7 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g214_b_inbody parse -- CENSUS golden=7 ours=7 AGREE=7 ONLY-GOLDEN=0 ONLY-OURS=0
+POPG g214_b_inbody parse POP	package[ALLPKG:pb214p]	REFS=2	constant=2
+POPG g214_b_inbody parse POP	package[TOPPKG:pb214p]	REFS=5	<null>=5
+POPO g214_b_inbody parse POP	package[ALLPKG:pb214p]	REFS=2	constant=2
+POPO g214_b_inbody parse POP	package[TOPPKG:pb214p]	REFS=5	<null>=5
+CELL g214_b_inbody parse -- CENSUS golden=7 ours=7 AGREE=7 ONLY-GOLDEN=0 ONLY-OURS=0
+ARM g214_b_inbody elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=3608 heads=1 (VERDICT NOT THE SCORER)
+CALIB g214_b_inbody elab -- CENSUS golden=9 ours=9 AGREE=9 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g214_b_inbody elab -- CENSUS golden=9 ours=7 AGREE=5 ONLY-GOLDEN=4 ONLY-OURS=2
+POPG g214_b_inbody elab POP	package[ALLPKG:pb214p]	REFS=2	parameter=2
+POPG g214_b_inbody elab POP	package[TOPPKG:pb214p]	REFS=7	<null>=5 parameter=2
+POPO g214_b_inbody elab POP	package[ALLPKG:pb214p]	REFS=2	constant=2
+POPO g214_b_inbody elab POP	package[TOPPKG:pb214p]	REFS=5	<null>=5
+CELL g214_b_inbody elab ONLY-GOLDEN	1	ref|qa214|10:21	ACT=parameter@8:17[package[ALLPKG:pb214p]]{n=qa214}	package[ALLPKG:pb214p]<param_assign:<operation:
+CELL g214_b_inbody elab ONLY-GOLDEN	1	ref|qa214|9:21	ACT=parameter@8:17[package[ALLPKG:pb214p]]{n=qa214}	package[ALLPKG:pb214p]<param_assign:
+CELL g214_b_inbody elab ONLY-GOLDEN	1	ref|qb214|22:11	ACT=parameter@9:13[package[TOPPKG:pb214p]]{n=qb214}	package[TOPPKG:pb214p]<class_defn:QB214<function:rd_asgn214<begin:<assignment:
+CELL g214_b_inbody elab ONLY-GOLDEN	1	ref|qc214|23:11	ACT=parameter@10:13[package[TOPPKG:pb214p]]{n=qc214}	package[TOPPKG:pb214p]<class_defn:QB214<function:rd_asgn214<begin:<assignment:
+CELL g214_b_inbody elab ONLY-OURS	1	ref|qa214|10:21	ACT=constant@8:25[package[ALLPKG:pb214p]]{v=UINT:5,d=5,sz=64}	package[ALLPKG:pb214p]<param_assign:<operation:
+CELL g214_b_inbody elab ONLY-OURS	1	ref|qa214|9:21	ACT=constant@8:25[package[ALLPKG:pb214p]]{v=UINT:5,d=5,sz=64}	package[ALLPKG:pb214p]<param_assign:
+CELL g214_b_inbody elab -- CENSUS golden=9 ours=7 AGREE=5 ONLY-GOLDEN=4 ONLY-OURS=2
+ARM g214_c_freefunc parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=5316 heads=1 (VERDICT NOT THE SCORER)
+CALIB g214_c_freefunc parse -- CENSUS golden=14 ours=14 AGREE=14 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g214_c_freefunc parse -- CENSUS golden=14 ours=16 AGREE=14 ONLY-GOLDEN=0 ONLY-OURS=2
+POPG g214_c_freefunc parse POP	package[ALLPKG:pc214p]	REFS=10	constant=4 operation=2 ref_obj=4
+POPG g214_c_freefunc parse POP	package[TOPPKG:pc214p]	REFS=4	constant=4
+POPO g214_c_freefunc parse POP	package[ALLPKG:pc214p]	REFS=10	constant=4 operation=2 ref_obj=4
+POPO g214_c_freefunc parse POP	package[TOPPKG:pc214p]	REFS=6	constant=6
+CELL g214_c_freefunc parse ONLY-OURS	1	ref|ra214|18:21	ACT=constant@8:25[package[TOPPKG:pc214p]]{v=UINT:7,d=7,sz=32}	package[TOPPKG:pc214p]<function:free_arg214<return_stmt:<func_call:rsink214
+CELL g214_c_freefunc parse ONLY-OURS	1	ref|rb214|18:28	ACT=constant@9:21[package[TOPPKG:pc214p]]{v=UINT:7,d=7,sz=32}	package[TOPPKG:pc214p]<function:free_arg214<return_stmt:<func_call:rsink214
+CELL g214_c_freefunc parse -- CENSUS golden=14 ours=16 AGREE=14 ONLY-GOLDEN=0 ONLY-OURS=2
+ARM g214_c_freefunc elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=5460 heads=1 (VERDICT NOT THE SCORER)
+CALIB g214_c_freefunc elab -- CENSUS golden=26 ours=26 AGREE=26 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g214_c_freefunc elab -- CENSUS golden=26 ours=16 AGREE=0 ONLY-GOLDEN=26 ONLY-OURS=16
+POPG g214_c_freefunc elab POP	package[ALLPKG:pc214p]	REFS=18	parameter=18
+POPG g214_c_freefunc elab POP	package[TOPPKG:pc214p]	REFS=8	parameter=8
+POPO g214_c_freefunc elab POP	package[ALLPKG:pc214p]	REFS=10	constant=4 operation=2 ref_obj=4
+POPO g214_c_freefunc elab POP	package[TOPPKG:pc214p]	REFS=6	constant=6
+CELL g214_c_freefunc elab ONLY-GOLDEN	1	ref|ra214|10:21	ACT=parameter@8:17[package[ALLPKG:pc214p]]{n=ra214}	package[ALLPKG:pc214p]<param_assign:<operation:
+CELL g214_c_freefunc elab ONLY-GOLDEN	2	ref|ra214|18:21	ACT=parameter@8:17[package[ALLPKG:pc214p]]{n=ra214}	package[ALLPKG:pc214p]<function:free_arg214<return_stmt:<func_call:rsink214
+CELL g214_c_freefunc elab ONLY-GOLDEN	1	ref|ra214|9:21	ACT=parameter@8:17[package[ALLPKG:pc214p]]{n=ra214}	package[ALLPKG:pc214p]<param_assign:
+CELL g214_c_freefunc elab ONLY-GOLDEN	2	ref|rb214|18:28	ACT=parameter@9:13[package[ALLPKG:pc214p]]{n=rb214}	package[ALLPKG:pc214p]<function:free_arg214<return_stmt:<func_call:rsink214
+CELL g214_c_freefunc elab ONLY-GOLDEN	2	ref|rb214|23:9	ACT=parameter@9:13[package[ALLPKG:pc214p]]{n=rb214}	package[ALLPKG:pc214p]<function:free_asgn214<begin:<assignment:
+CELL g214_c_freefunc elab ONLY-GOLDEN	2	ref|rb214|23:9	ACT=parameter@9:13[package[TOPPKG:pc214p]]{n=rb214}	package[TOPPKG:pc214p]<function:free_asgn214<begin:<assignment:
+CELL g214_c_freefunc elab ONLY-GOLDEN	2	ref|rb214|29:12	ACT=parameter@9:13[package[ALLPKG:pc214p]]{n=rb214}	package[ALLPKG:pc214p]<function:free_ret214<return_stmt:
+CELL g214_c_freefunc elab ONLY-GOLDEN	2	ref|rb214|38:18	ACT=parameter@9:13[package[ALLPKG:pc214p]]{n=rb214}	package[ALLPKG:pc214p]<task:free_tk214<begin:<assignment:<func_call:rsink214
+CELL g214_c_freefunc elab ONLY-GOLDEN	2	ref|rb214|38:18	ACT=parameter@9:13[package[TOPPKG:pc214p]]{n=rb214}	package[TOPPKG:pc214p]<task:free_tk214<begin:<assignment:<func_call:rsink214
+CELL g214_c_freefunc elab ONLY-GOLDEN	2	ref|rc214|24:9	ACT=parameter@10:13[package[ALLPKG:pc214p]]{n=rc214}	package[ALLPKG:pc214p]<function:free_asgn214<begin:<assignment:
+CELL g214_c_freefunc elab ONLY-GOLDEN	2	ref|rc214|24:9	ACT=parameter@10:13[package[TOPPKG:pc214p]]{n=rc214}	package[TOPPKG:pc214p]<function:free_asgn214<begin:<assignment:
+CELL g214_c_freefunc elab ONLY-GOLDEN	2	ref|rc214|38:25	ACT=parameter@10:13[package[ALLPKG:pc214p]]{n=rc214}	package[ALLPKG:pc214p]<task:free_tk214<begin:<assignment:<func_call:rsink214
+CELL g214_c_freefunc elab ONLY-GOLDEN	2	ref|rc214|38:25	ACT=parameter@10:13[package[TOPPKG:pc214p]]{n=rc214}	package[TOPPKG:pc214p]<task:free_tk214<begin:<assignment:<func_call:rsink214
+CELL g214_c_freefunc elab ONLY-GOLDEN	2	ref|rs214|33:12	ACT=parameter@11:20[package[ALLPKG:pc214p]]{n=rs214}	package[ALLPKG:pc214p]<function:free_str214<return_stmt:
+CELL g214_c_freefunc elab ONLY-OURS	1	ref|ra214|10:21	ACT=constant@8:25[package[ALLPKG:pc214p]]{v=UINT:7,d=7,sz=64}	package[ALLPKG:pc214p]<param_assign:<operation:
+CELL g214_c_freefunc elab ONLY-OURS	1	ref|ra214|18:21	ACT=constant@8:25[package[ALLPKG:pc214p]]{v=UINT:7,d=7,sz=64}	package[ALLPKG:pc214p]<function:free_arg214<return_stmt:<func_call:rsink214
+CELL g214_c_freefunc elab ONLY-OURS	1	ref|ra214|18:21	ACT=constant@8:25[package[TOPPKG:pc214p]]{v=UINT:7,d=7,sz=32}	package[TOPPKG:pc214p]<function:free_arg214<return_stmt:<func_call:rsink214
+CELL g214_c_freefunc elab ONLY-OURS	1	ref|ra214|9:21	ACT=constant@8:25[package[ALLPKG:pc214p]]{v=UINT:7,d=7,sz=64}	package[ALLPKG:pc214p]<param_assign:
+CELL g214_c_freefunc elab ONLY-OURS	1	ref|rb214|18:28	ACT=constant@9:21[package[TOPPKG:pc214p]]{v=UINT:7,d=7,sz=32}	package[TOPPKG:pc214p]<function:free_arg214<return_stmt:<func_call:rsink214
+CELL g214_c_freefunc elab ONLY-OURS	1	ref|rb214|18:28	ACT=ref_obj@9:21[package[ALLPKG:pc214p]]{n=ra214}	package[ALLPKG:pc214p]<function:free_arg214<return_stmt:<func_call:rsink214
+CELL g214_c_freefunc elab ONLY-OURS	1	ref|rb214|23:9	ACT=constant@9:21[package[TOPPKG:pc214p]]{v=UINT:7,d=7,sz=32}	package[TOPPKG:pc214p]<function:free_asgn214<begin:<assignment:
+CELL g214_c_freefunc elab ONLY-OURS	1	ref|rb214|23:9	ACT=ref_obj@9:21[package[ALLPKG:pc214p]]{n=ra214}	package[ALLPKG:pc214p]<function:free_asgn214<begin:<assignment:
+CELL g214_c_freefunc elab ONLY-OURS	1	ref|rb214|29:12	ACT=ref_obj@9:21[package[ALLPKG:pc214p]]{n=ra214}	package[ALLPKG:pc214p]<function:free_ret214<return_stmt:
+CELL g214_c_freefunc elab ONLY-OURS	1	ref|rb214|38:18	ACT=constant@9:21[package[TOPPKG:pc214p]]{v=UINT:7,d=7,sz=32}	package[TOPPKG:pc214p]<task:free_tk214<begin:<assignment:<func_call:rsink214
+CELL g214_c_freefunc elab ONLY-OURS	1	ref|rb214|38:18	ACT=ref_obj@9:21[package[ALLPKG:pc214p]]{n=ra214}	package[ALLPKG:pc214p]<task:free_tk214<begin:<assignment:<func_call:rsink214
+CELL g214_c_freefunc elab ONLY-OURS	1	ref|rc214|24:9	ACT=constant@10:21[package[TOPPKG:pc214p]]{v=UINT:9,d=9,sz=32}	package[TOPPKG:pc214p]<function:free_asgn214<begin:<assignment:
+CELL g214_c_freefunc elab ONLY-OURS	1	ref|rc214|24:9	ACT=operation@10:21[package[ALLPKG:pc214p]]{op=24}	package[ALLPKG:pc214p]<function:free_asgn214<begin:<assignment:
+CELL g214_c_freefunc elab ONLY-OURS	1	ref|rc214|38:25	ACT=constant@10:21[package[TOPPKG:pc214p]]{v=UINT:9,d=9,sz=32}	package[TOPPKG:pc214p]<task:free_tk214<begin:<assignment:<func_call:rsink214
+CELL g214_c_freefunc elab ONLY-OURS	1	ref|rc214|38:25	ACT=operation@10:21[package[ALLPKG:pc214p]]{op=24}	package[ALLPKG:pc214p]<task:free_tk214<begin:<assignment:<func_call:rsink214
+CELL g214_c_freefunc elab ONLY-OURS	1	ref|rs214|33:12	ACT=constant@11:28[package[ALLPKG:pc214p]]{v=STRING:rrr,d="rrr",sz=24}	package[ALLPKG:pc214p]<function:free_str214<return_stmt:
+CELL g214_c_freefunc elab -- CENSUS golden=26 ours=16 AGREE=0 ONLY-GOLDEN=26 ONLY-OURS=16
+ARM g214_d_pkgimp parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=8370 heads=1 (VERDICT NOT THE SCORER)
+CALIB g214_d_pkgimp parse -- CENSUS golden=10 ours=10 AGREE=10 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g214_d_pkgimp parse -- CENSUS golden=10 ours=25 AGREE=5 ONLY-GOLDEN=5 ONLY-OURS=20
+POPG g214_d_pkgimp parse POP	package[ALLPKG:ph214]	REFS=7	constant=3 operation=1 ref_obj=3
+POPG g214_d_pkgimp parse POP	package[ALLPKG:pi214]	REFS=3	constant=2 ref_obj=1
+POPO g214_d_pkgimp parse POP	package[ALLPKG:ph214]	REFS=7	constant=6 ref_obj=1
+POPO g214_d_pkgimp parse POP	package[ALLPKG:pi214]	REFS=7	<null>=4 constant=3
+POPO g214_d_pkgimp parse POP	package[TOPPKG:ph214]	REFS=5	constant=5
+POPO g214_d_pkgimp parse POP	package[TOPPKG:pi214]	REFS=6	<null>=4 constant=2
+CELL g214_d_pkgimp parse ONLY-GOLDEN	1	ref|hb214|31:21	ACT=ref_obj@14:21[package[ALLPKG:ph214]]{n=ha214}	package[ALLPKG:ph214]<function:H214::h_oob214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp parse ONLY-GOLDEN	1	ref|hb214|35:12	ACT=ref_obj@14:21[package[ALLPKG:ph214]]{n=ha214}	package[ALLPKG:ph214]<function:H214::h_oob_ret214<return_stmt:
+CELL g214_d_pkgimp parse ONLY-GOLDEN	1	ref|hc214|31:28	ACT=operation@15:21[package[ALLPKG:ph214]]{op=24}	package[ALLPKG:ph214]<function:H214::h_oob214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp parse ONLY-GOLDEN	1	ref|ia214|53:12	ACT=constant@43:25[package[ALLPKG:pi214]]{v=UINT:11,d=11,sz=64}	package[ALLPKG:pi214]<function:I214::i_oob214<return_stmt:<operation:
+CELL g214_d_pkgimp parse ONLY-GOLDEN	1	ref|ib214|53:20	ACT=ref_obj@44:21[package[ALLPKG:pi214]]{n=ia214}	package[ALLPKG:pi214]<function:I214::i_oob214<return_stmt:<operation:
+CELL g214_d_pkgimp parse ONLY-OURS	1	ref|ha214|22:21	ACT=<null>	package[ALLPKG:pi214]<function:h_free214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp parse ONLY-OURS	1	ref|ha214|22:21	ACT=<null>	package[TOPPKG:pi214]<function:h_free214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp parse ONLY-OURS	1	ref|ha214|22:21	ACT=constant@13:25[package[TOPPKG:ph214]]{v=UINT:3,d=3,sz=32}	package[TOPPKG:ph214]<function:h_free214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp parse ONLY-OURS	1	ref|hb214|22:28	ACT=<null>	package[ALLPKG:pi214]<function:h_free214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp parse ONLY-OURS	1	ref|hb214|22:28	ACT=<null>	package[TOPPKG:pi214]<function:h_free214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp parse ONLY-OURS	1	ref|hb214|22:28	ACT=constant@14:21[package[TOPPKG:ph214]]{v=UINT:3,d=3,sz=32}	package[TOPPKG:ph214]<function:h_free214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp parse ONLY-OURS	1	ref|hb214|31:21	ACT=<null>	package[ALLPKG:pi214]<function:H214::h_oob214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp parse ONLY-OURS	1	ref|hb214|31:21	ACT=<null>	package[TOPPKG:pi214]<function:H214::h_oob214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp parse ONLY-OURS	1	ref|hb214|31:21	ACT=constant@14:21[package[TOPPKG:ph214]]{v=UINT:3,d=3,sz=32}	package[ALLPKG:ph214]<function:H214::h_oob214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp parse ONLY-OURS	1	ref|hb214|31:21	ACT=constant@14:21[package[TOPPKG:ph214]]{v=UINT:3,d=3,sz=32}	package[TOPPKG:ph214]<class_defn:H214<function:h_oob214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp parse ONLY-OURS	1	ref|hb214|35:12	ACT=constant@14:21[package[TOPPKG:ph214]]{v=UINT:3,d=3,sz=32}	package[ALLPKG:ph214]<function:H214::h_oob_ret214<return_stmt:
+CELL g214_d_pkgimp parse ONLY-OURS	1	ref|hb214|35:12	ACT=constant@14:21[package[TOPPKG:ph214]]{v=UINT:3,d=3,sz=32}	package[TOPPKG:ph214]<class_defn:H214<function:h_oob_ret214<return_stmt:
+CELL g214_d_pkgimp parse ONLY-OURS	1	ref|hc214|31:28	ACT=<null>	package[ALLPKG:pi214]<function:H214::h_oob214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp parse ONLY-OURS	1	ref|hc214|31:28	ACT=<null>	package[TOPPKG:pi214]<function:H214::h_oob214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp parse ONLY-OURS	1	ref|hc214|31:28	ACT=constant@15:21[package[TOPPKG:ph214]]{v=UINT:7,d=7,sz=32}	package[ALLPKG:ph214]<function:H214::h_oob214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp parse ONLY-OURS	1	ref|hc214|31:28	ACT=constant@15:21[package[TOPPKG:ph214]]{v=UINT:7,d=7,sz=32}	package[TOPPKG:ph214]<class_defn:H214<function:h_oob214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp parse ONLY-OURS	1	ref|ia214|53:12	ACT=constant@43:25[package[TOPPKG:pi214]]{v=UINT:11,d=11,sz=32}	package[ALLPKG:pi214]<function:I214::i_oob214<return_stmt:<operation:
+CELL g214_d_pkgimp parse ONLY-OURS	1	ref|ia214|53:12	ACT=constant@43:25[package[TOPPKG:pi214]]{v=UINT:11,d=11,sz=32}	package[TOPPKG:pi214]<class_defn:I214<function:i_oob214<return_stmt:<operation:
+CELL g214_d_pkgimp parse ONLY-OURS	1	ref|ib214|53:20	ACT=constant@44:21[package[TOPPKG:pi214]]{v=UINT:11,d=11,sz=32}	package[ALLPKG:pi214]<function:I214::i_oob214<return_stmt:<operation:
+CELL g214_d_pkgimp parse ONLY-OURS	1	ref|ib214|53:20	ACT=constant@44:21[package[TOPPKG:pi214]]{v=UINT:11,d=11,sz=32}	package[TOPPKG:pi214]<class_defn:I214<function:i_oob214<return_stmt:<operation:
+CELL g214_d_pkgimp parse -- CENSUS golden=10 ours=25 AGREE=5 ONLY-GOLDEN=5 ONLY-OURS=20
+ARM g214_d_pkgimp elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=8652 heads=1 (VERDICT NOT THE SCORER)
+CALIB g214_d_pkgimp elab -- CENSUS golden=17 ours=17 AGREE=17 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g214_d_pkgimp elab -- CENSUS golden=17 ours=25 AGREE=0 ONLY-GOLDEN=17 ONLY-OURS=25
+POPG g214_d_pkgimp elab POP	package[ALLPKG:ph214]	REFS=12	parameter=12
+POPG g214_d_pkgimp elab POP	package[ALLPKG:pi214]	REFS=5	parameter=5
+POPO g214_d_pkgimp elab POP	package[ALLPKG:ph214]	REFS=7	constant=6 ref_obj=1
+POPO g214_d_pkgimp elab POP	package[ALLPKG:pi214]	REFS=7	<null>=4 constant=3
+POPO g214_d_pkgimp elab POP	package[TOPPKG:ph214]	REFS=5	constant=5
+POPO g214_d_pkgimp elab POP	package[TOPPKG:pi214]	REFS=6	<null>=4 constant=2
+CELL g214_d_pkgimp elab ONLY-GOLDEN	1	ref|ha214|14:21	ACT=parameter@13:17[package[ALLPKG:ph214]]{n=ha214}	package[ALLPKG:ph214]<param_assign:
+CELL g214_d_pkgimp elab ONLY-GOLDEN	1	ref|ha214|15:21	ACT=parameter@13:17[package[ALLPKG:ph214]]{n=ha214}	package[ALLPKG:ph214]<param_assign:<operation:
+CELL g214_d_pkgimp elab ONLY-GOLDEN	2	ref|ha214|22:21	ACT=parameter@13:17[package[ALLPKG:ph214]]{n=ha214}	package[ALLPKG:ph214]<function:h_free214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp elab ONLY-GOLDEN	2	ref|hb214|22:28	ACT=parameter@14:13[package[ALLPKG:ph214]]{n=hb214}	package[ALLPKG:ph214]<function:h_free214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp elab ONLY-GOLDEN	2	ref|hb214|31:21	ACT=parameter@14:13[package[ALLPKG:ph214]]{n=hb214}	package[ALLPKG:ph214]<function:H214::h_oob214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp elab ONLY-GOLDEN	2	ref|hb214|35:12	ACT=parameter@14:13[package[ALLPKG:ph214]]{n=hb214}	package[ALLPKG:ph214]<function:H214::h_oob_ret214<return_stmt:
+CELL g214_d_pkgimp elab ONLY-GOLDEN	2	ref|hc214|31:28	ACT=parameter@15:13[package[ALLPKG:ph214]]{n=hc214}	package[ALLPKG:ph214]<function:H214::h_oob214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp elab ONLY-GOLDEN	1	ref|ia214|44:21	ACT=parameter@43:17[package[ALLPKG:pi214]]{n=ia214}	package[ALLPKG:pi214]<param_assign:
+CELL g214_d_pkgimp elab ONLY-GOLDEN	2	ref|ia214|53:12	ACT=parameter@43:17[package[ALLPKG:pi214]]{n=ia214}	package[ALLPKG:pi214]<function:I214::i_oob214<return_stmt:<operation:
+CELL g214_d_pkgimp elab ONLY-GOLDEN	2	ref|ib214|53:20	ACT=parameter@44:13[package[ALLPKG:pi214]]{n=ib214}	package[ALLPKG:pi214]<function:I214::i_oob214<return_stmt:<operation:
+CELL g214_d_pkgimp elab ONLY-OURS	1	ref|ha214|14:21	ACT=constant@13:25[package[ALLPKG:ph214]]{v=UINT:3,d=3,sz=64}	package[ALLPKG:ph214]<param_assign:
+CELL g214_d_pkgimp elab ONLY-OURS	1	ref|ha214|15:21	ACT=constant@13:25[package[ALLPKG:ph214]]{v=UINT:3,d=3,sz=64}	package[ALLPKG:ph214]<param_assign:<operation:
+CELL g214_d_pkgimp elab ONLY-OURS	1	ref|ha214|22:21	ACT=<null>	package[ALLPKG:pi214]<function:h_free214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp elab ONLY-OURS	1	ref|ha214|22:21	ACT=<null>	package[TOPPKG:pi214]<function:h_free214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp elab ONLY-OURS	1	ref|ha214|22:21	ACT=constant@13:25[package[ALLPKG:ph214]]{v=UINT:3,d=3,sz=64}	package[ALLPKG:ph214]<function:h_free214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp elab ONLY-OURS	1	ref|ha214|22:21	ACT=constant@13:25[package[TOPPKG:ph214]]{v=UINT:3,d=3,sz=32}	package[TOPPKG:ph214]<function:h_free214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp elab ONLY-OURS	1	ref|hb214|22:28	ACT=<null>	package[ALLPKG:pi214]<function:h_free214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp elab ONLY-OURS	1	ref|hb214|22:28	ACT=<null>	package[TOPPKG:pi214]<function:h_free214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp elab ONLY-OURS	1	ref|hb214|22:28	ACT=constant@14:21[package[TOPPKG:ph214]]{v=UINT:3,d=3,sz=32}	package[TOPPKG:ph214]<function:h_free214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp elab ONLY-OURS	1	ref|hb214|22:28	ACT=ref_obj@14:21[package[ALLPKG:ph214]]{n=ha214}	package[ALLPKG:ph214]<function:h_free214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp elab ONLY-OURS	1	ref|hb214|31:21	ACT=<null>	package[ALLPKG:pi214]<function:H214::h_oob214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp elab ONLY-OURS	1	ref|hb214|31:21	ACT=<null>	package[TOPPKG:pi214]<function:H214::h_oob214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp elab ONLY-OURS	1	ref|hb214|31:21	ACT=constant@14:21[package[TOPPKG:ph214]]{v=UINT:3,d=3,sz=32}	package[ALLPKG:ph214]<function:H214::h_oob214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp elab ONLY-OURS	1	ref|hb214|31:21	ACT=constant@14:21[package[TOPPKG:ph214]]{v=UINT:3,d=3,sz=32}	package[TOPPKG:ph214]<class_defn:H214<function:h_oob214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp elab ONLY-OURS	1	ref|hb214|35:12	ACT=constant@14:21[package[TOPPKG:ph214]]{v=UINT:3,d=3,sz=32}	package[ALLPKG:ph214]<function:H214::h_oob_ret214<return_stmt:
+CELL g214_d_pkgimp elab ONLY-OURS	1	ref|hb214|35:12	ACT=constant@14:21[package[TOPPKG:ph214]]{v=UINT:3,d=3,sz=32}	package[TOPPKG:ph214]<class_defn:H214<function:h_oob_ret214<return_stmt:
+CELL g214_d_pkgimp elab ONLY-OURS	1	ref|hc214|31:28	ACT=<null>	package[ALLPKG:pi214]<function:H214::h_oob214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp elab ONLY-OURS	1	ref|hc214|31:28	ACT=<null>	package[TOPPKG:pi214]<function:H214::h_oob214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp elab ONLY-OURS	1	ref|hc214|31:28	ACT=constant@15:21[package[TOPPKG:ph214]]{v=UINT:7,d=7,sz=32}	package[ALLPKG:ph214]<function:H214::h_oob214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp elab ONLY-OURS	1	ref|hc214|31:28	ACT=constant@15:21[package[TOPPKG:ph214]]{v=UINT:7,d=7,sz=32}	package[TOPPKG:ph214]<class_defn:H214<function:h_oob214<return_stmt:<func_call:hsink214
+CELL g214_d_pkgimp elab ONLY-OURS	1	ref|ia214|44:21	ACT=constant@43:25[package[ALLPKG:pi214]]{v=UINT:11,d=11,sz=64}	package[ALLPKG:pi214]<param_assign:
+CELL g214_d_pkgimp elab ONLY-OURS	1	ref|ia214|53:12	ACT=constant@43:25[package[TOPPKG:pi214]]{v=UINT:11,d=11,sz=32}	package[ALLPKG:pi214]<function:I214::i_oob214<return_stmt:<operation:
+CELL g214_d_pkgimp elab ONLY-OURS	1	ref|ia214|53:12	ACT=constant@43:25[package[TOPPKG:pi214]]{v=UINT:11,d=11,sz=32}	package[TOPPKG:pi214]<class_defn:I214<function:i_oob214<return_stmt:<operation:
+CELL g214_d_pkgimp elab ONLY-OURS	1	ref|ib214|53:20	ACT=constant@44:21[package[TOPPKG:pi214]]{v=UINT:11,d=11,sz=32}	package[ALLPKG:pi214]<function:I214::i_oob214<return_stmt:<operation:
+CELL g214_d_pkgimp elab ONLY-OURS	1	ref|ib214|53:20	ACT=constant@44:21[package[TOPPKG:pi214]]{v=UINT:11,d=11,sz=32}	package[TOPPKG:pi214]<class_defn:I214<function:i_oob214<return_stmt:<operation:
+CELL g214_d_pkgimp elab -- CENSUS golden=17 ours=25 AGREE=0 ONLY-GOLDEN=17 ONLY-OURS=25
+ARM g214_e_foreign parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=5030 heads=1 (VERDICT NOT THE SCORER)
+CALIB g214_e_foreign parse -- CENSUS golden=2 ours=2 AGREE=2 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g214_e_foreign parse -- CENSUS golden=2 ours=11 AGREE=1 ONLY-GOLDEN=1 ONLY-OURS=10
+POPG g214_e_foreign parse POP	package[ALLPKG:pf214]	REFS=1	constant=1
+POPG g214_e_foreign parse POP	package[ALLPKG:pf214src]	REFS=1	constant=1
+POPO g214_e_foreign parse POP	package[ALLPKG:pf214]	REFS=5	constant=5
+POPO g214_e_foreign parse POP	package[ALLPKG:pf214src]	REFS=1	constant=1
+POPO g214_e_foreign parse POP	package[TOPPKG:pf214]	REFS=5	constant=5
+CELL g214_e_foreign parse ONLY-GOLDEN	1	ref|ga214|41:12	ACT=constant@16:25[package[ALLPKG:pf214]]{v=UINT:2,d=2,sz=64}	package[ALLPKG:pf214]<function:F214::f_own214<return_stmt:<operation:
+CELL g214_e_foreign parse ONLY-OURS	1	ref|fa214|30:21	ACT=constant@9:25[package[TOPPKG:pf214]]{v=UINT:9,d=9,sz=32}	package[ALLPKG:pf214]<function:F214::f_qual214<return_stmt:<func_call:fsink214
+CELL g214_e_foreign parse ONLY-OURS	1	ref|fa214|30:21	ACT=constant@9:25[package[TOPPKG:pf214]]{v=UINT:9,d=9,sz=32}	package[TOPPKG:pf214]<class_defn:F214<function:f_qual214<return_stmt:<func_call:fsink214
+CELL g214_e_foreign parse ONLY-OURS	1	ref|fa214|35:21	ACT=constant@9:25[package[TOPPKG:pf214]]{v=UINT:9,d=9,sz=32}	package[ALLPKG:pf214]<function:F214::f_wild214<return_stmt:<func_call:fsink214
+CELL g214_e_foreign parse ONLY-OURS	1	ref|fa214|35:21	ACT=constant@9:25[package[TOPPKG:pf214]]{v=UINT:9,d=9,sz=32}	package[TOPPKG:pf214]<class_defn:F214<function:f_wild214<return_stmt:<func_call:fsink214
+CELL g214_e_foreign parse ONLY-OURS	1	ref|fb214|30:38	ACT=constant@10:21[package[TOPPKG:pf214]]{v=UINT:9,d=9,sz=32}	package[ALLPKG:pf214]<function:F214::f_qual214<return_stmt:<func_call:fsink214
+CELL g214_e_foreign parse ONLY-OURS	1	ref|fb214|30:38	ACT=constant@10:21[package[TOPPKG:pf214]]{v=UINT:9,d=9,sz=32}	package[TOPPKG:pf214]<class_defn:F214<function:f_qual214<return_stmt:<func_call:fsink214
+CELL g214_e_foreign parse ONLY-OURS	1	ref|fb214|35:28	ACT=constant@10:21[package[TOPPKG:pf214]]{v=UINT:9,d=9,sz=32}	package[ALLPKG:pf214]<function:F214::f_wild214<return_stmt:<func_call:fsink214
+CELL g214_e_foreign parse ONLY-OURS	1	ref|fb214|35:28	ACT=constant@10:21[package[TOPPKG:pf214]]{v=UINT:9,d=9,sz=32}	package[TOPPKG:pf214]<class_defn:F214<function:f_wild214<return_stmt:<func_call:fsink214
+CELL g214_e_foreign parse ONLY-OURS	1	ref|ga214|41:12	ACT=constant@16:25[package[TOPPKG:pf214]]{v=UINT:2,d=2,sz=32}	package[ALLPKG:pf214]<function:F214::f_own214<return_stmt:<operation:
+CELL g214_e_foreign parse ONLY-OURS	1	ref|ga214|41:12	ACT=constant@16:25[package[TOPPKG:pf214]]{v=UINT:2,d=2,sz=32}	package[TOPPKG:pf214]<class_defn:F214<function:f_own214<return_stmt:<operation:
+CELL g214_e_foreign parse -- CENSUS golden=2 ours=11 AGREE=1 ONLY-GOLDEN=1 ONLY-OURS=10
+ARM g214_e_foreign elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=5048 heads=1 (VERDICT NOT THE SCORER)
+CALIB g214_e_foreign elab -- CENSUS golden=3 ours=3 AGREE=3 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g214_e_foreign elab -- CENSUS golden=3 ours=11 AGREE=0 ONLY-GOLDEN=3 ONLY-OURS=11
+POPG g214_e_foreign elab POP	package[ALLPKG:pf214]	REFS=2	parameter=2
+POPG g214_e_foreign elab POP	package[ALLPKG:pf214src]	REFS=1	parameter=1
+POPO g214_e_foreign elab POP	package[ALLPKG:pf214]	REFS=5	constant=5
+POPO g214_e_foreign elab POP	package[ALLPKG:pf214src]	REFS=1	constant=1
+POPO g214_e_foreign elab POP	package[TOPPKG:pf214]	REFS=5	constant=5
+CELL g214_e_foreign elab ONLY-GOLDEN	1	ref|fa214|10:21	ACT=parameter@9:17[package[ALLPKG:pf214src]]{n=fa214}	package[ALLPKG:pf214src]<param_assign:
+CELL g214_e_foreign elab ONLY-GOLDEN	2	ref|ga214|41:12	ACT=parameter@16:17[package[ALLPKG:pf214]]{n=ga214}	package[ALLPKG:pf214]<function:F214::f_own214<return_stmt:<operation:
+CELL g214_e_foreign elab ONLY-OURS	1	ref|fa214|10:21	ACT=constant@9:25[package[ALLPKG:pf214src]]{v=UINT:9,d=9,sz=64}	package[ALLPKG:pf214src]<param_assign:
+CELL g214_e_foreign elab ONLY-OURS	1	ref|fa214|30:21	ACT=constant@9:25[package[TOPPKG:pf214]]{v=UINT:9,d=9,sz=32}	package[ALLPKG:pf214]<function:F214::f_qual214<return_stmt:<func_call:fsink214
+CELL g214_e_foreign elab ONLY-OURS	1	ref|fa214|30:21	ACT=constant@9:25[package[TOPPKG:pf214]]{v=UINT:9,d=9,sz=32}	package[TOPPKG:pf214]<class_defn:F214<function:f_qual214<return_stmt:<func_call:fsink214
+CELL g214_e_foreign elab ONLY-OURS	1	ref|fa214|35:21	ACT=constant@9:25[package[TOPPKG:pf214]]{v=UINT:9,d=9,sz=32}	package[ALLPKG:pf214]<function:F214::f_wild214<return_stmt:<func_call:fsink214
+CELL g214_e_foreign elab ONLY-OURS	1	ref|fa214|35:21	ACT=constant@9:25[package[TOPPKG:pf214]]{v=UINT:9,d=9,sz=32}	package[TOPPKG:pf214]<class_defn:F214<function:f_wild214<return_stmt:<func_call:fsink214
+CELL g214_e_foreign elab ONLY-OURS	1	ref|fb214|30:38	ACT=constant@10:21[package[TOPPKG:pf214]]{v=UINT:9,d=9,sz=32}	package[ALLPKG:pf214]<function:F214::f_qual214<return_stmt:<func_call:fsink214
+CELL g214_e_foreign elab ONLY-OURS	1	ref|fb214|30:38	ACT=constant@10:21[package[TOPPKG:pf214]]{v=UINT:9,d=9,sz=32}	package[TOPPKG:pf214]<class_defn:F214<function:f_qual214<return_stmt:<func_call:fsink214
+CELL g214_e_foreign elab ONLY-OURS	1	ref|fb214|35:28	ACT=constant@10:21[package[TOPPKG:pf214]]{v=UINT:9,d=9,sz=32}	package[ALLPKG:pf214]<function:F214::f_wild214<return_stmt:<func_call:fsink214
+CELL g214_e_foreign elab ONLY-OURS	1	ref|fb214|35:28	ACT=constant@10:21[package[TOPPKG:pf214]]{v=UINT:9,d=9,sz=32}	package[TOPPKG:pf214]<class_defn:F214<function:f_wild214<return_stmt:<func_call:fsink214
+CELL g214_e_foreign elab ONLY-OURS	1	ref|ga214|41:12	ACT=constant@16:25[package[TOPPKG:pf214]]{v=UINT:2,d=2,sz=32}	package[ALLPKG:pf214]<function:F214::f_own214<return_stmt:<operation:
+CELL g214_e_foreign elab ONLY-OURS	1	ref|ga214|41:12	ACT=constant@16:25[package[TOPPKG:pf214]]{v=UINT:2,d=2,sz=32}	package[TOPPKG:pf214]<class_defn:F214<function:f_own214<return_stmt:<operation:
+CELL g214_e_foreign elab -- CENSUS golden=3 ours=11 AGREE=0 ONLY-GOLDEN=3 ONLY-OURS=11
+ARM g214_f_muststay parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=5288 heads=1 (VERDICT NOT THE SCORER)
+CALIB g214_f_muststay parse -- CENSUS golden=6 ours=6 AGREE=6 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g214_f_muststay parse -- CENSUS golden=6 ours=6 AGREE=3 ONLY-GOLDEN=3 ONLY-OURS=3
+POPG g214_f_muststay parse POP	package[ALLPKG:pg214]	REFS=3	<null>=2 constant=1
+POPG g214_f_muststay parse POP	package[TOPPKG:pg214]	REFS=3	<null>=2 constant=1
+POPO g214_f_muststay parse POP	package[ALLPKG:pg214]	REFS=3	<null>=1 constant=1 parameter=1
+POPO g214_f_muststay parse POP	package[TOPPKG:pg214]	REFS=3	<null>=1 constant=1 parameter=1
+CELL g214_f_muststay parse ONLY-GOLDEN	1	ref|ka214|28:23	ACT=constant@8:25[package[ALLPKG:pg214]]{v=UINT:6,d=6,sz=64}	package[ALLPKG:pg214]<function:K214::k_mix214<begin:<assignment:<operation:
+CELL g214_f_muststay parse ONLY-GOLDEN	1	ref|kl214|24:23	ACT=<null>	package[ALLPKG:pg214]<function:K214::k_mix214<begin:<assignment:<operation:
+CELL g214_f_muststay parse ONLY-GOLDEN	1	ref|kl214|24:23	ACT=<null>	package[TOPPKG:pg214]<class_defn:K214<function:k_mix214<begin:<assignment:<operation:
+CELL g214_f_muststay parse ONLY-OURS	1	ref|ka214|28:23	ACT=constant@8:25[package[TOPPKG:pg214]]{v=UINT:6,d=6,sz=32}	package[ALLPKG:pg214]<function:K214::k_mix214<begin:<assignment:<operation:
+CELL g214_f_muststay parse ONLY-OURS	1	ref|kl214|24:23	ACT=parameter@22:20[package[ALLPKG:pg214]]{n=kl214}	package[ALLPKG:pg214]<function:K214::k_mix214<begin:<assignment:<operation:
+CELL g214_f_muststay parse ONLY-OURS	1	ref|kl214|24:23	ACT=parameter@22:20[package[TOPPKG:pg214]]{n=kl214}	package[TOPPKG:pg214]<class_defn:K214<function:k_mix214<begin:<assignment:<operation:
+CELL g214_f_muststay parse -- CENSUS golden=6 ours=6 AGREE=3 ONLY-GOLDEN=3 ONLY-OURS=3
+ARM g214_f_muststay elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=5458 heads=1 (VERDICT NOT THE SCORER)
+CALIB g214_f_muststay elab -- CENSUS golden=12 ours=12 AGREE=12 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g214_f_muststay elab -- CENSUS golden=12 ours=6 AGREE=3 ONLY-GOLDEN=9 ONLY-OURS=3
+POPG g214_f_muststay elab POP	package[ALLPKG:pg214]	REFS=6	<null>=4 parameter=2
+POPG g214_f_muststay elab POP	package[TOPPKG:pg214]	REFS=6	<null>=3 constant=1 parameter=2
+POPO g214_f_muststay elab POP	package[ALLPKG:pg214]	REFS=3	<null>=1 constant=1 parameter=1
+POPO g214_f_muststay elab POP	package[TOPPKG:pg214]	REFS=3	<null>=1 constant=1 parameter=1
+CELL g214_f_muststay elab ONLY-GOLDEN	1	ref|KP214|25:23	ACT=<null>	package[ALLPKG:pg214]<function:K214::k_mix214<begin:<assignment:<operation:
+CELL g214_f_muststay elab ONLY-GOLDEN	1	ref|KP214|25:23	ACT=parameter@16:20[package[TOPPKG:pg214]]{n=KP214}	package[TOPPKG:pg214]<class_defn:K214<function:k_mix214<begin:<assignment:<operation:
+CELL g214_f_muststay elab ONLY-GOLDEN	2	ref|ka214|28:23	ACT=parameter@8:17[package[ALLPKG:pg214]]{n=ka214}	package[ALLPKG:pg214]<function:K214::k_mix214<begin:<assignment:<operation:
+CELL g214_f_muststay elab ONLY-GOLDEN	1	ref|ka214|28:23	ACT=parameter@8:17[package[TOPPKG:pg214]]{n=ka214}	package[TOPPKG:pg214]<class_defn:K214<function:k_mix214<begin:<assignment:<operation:
+CELL g214_f_muststay elab ONLY-GOLDEN	2	ref|kl214|24:23	ACT=<null>	package[ALLPKG:pg214]<function:K214::k_mix214<begin:<assignment:<operation:
+CELL g214_f_muststay elab ONLY-GOLDEN	2	ref|kl214|24:23	ACT=<null>	package[TOPPKG:pg214]<class_defn:K214<function:k_mix214<begin:<assignment:<operation:
+CELL g214_f_muststay elab ONLY-OURS	1	ref|ka214|28:23	ACT=constant@8:25[package[TOPPKG:pg214]]{v=UINT:6,d=6,sz=32}	package[ALLPKG:pg214]<function:K214::k_mix214<begin:<assignment:<operation:
+CELL g214_f_muststay elab ONLY-OURS	1	ref|kl214|24:23	ACT=parameter@22:20[package[ALLPKG:pg214]]{n=kl214}	package[ALLPKG:pg214]<function:K214::k_mix214<begin:<assignment:<operation:
+CELL g214_f_muststay elab ONLY-OURS	1	ref|kl214|24:23	ACT=parameter@22:20[package[TOPPKG:pg214]]{n=kl214}	package[TOPPKG:pg214]<class_defn:K214<function:k_mix214<begin:<assignment:<operation:
+CELL g214_f_muststay elab -- CENSUS golden=12 ours=6 AGREE=3 ONLY-GOLDEN=9 ONLY-OURS=3
+ARM g214_g_nonpkg parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=3904 heads=1 (VERDICT NOT THE SCORER)
+CALIB g214_g_nonpkg parse -- CENSUS golden=1 ours=1 AGREE=1 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g214_g_nonpkg parse -- CENSUS golden=1 ours=5 AGREE=1 ONLY-GOLDEN=0 ONLY-OURS=4
+POPG g214_g_nonpkg parse POP	package[ALLPKG:pm214]	REFS=1	constant=1
+POPO g214_g_nonpkg parse POP	package[ALLPKG:pm214]	REFS=1	constant=1
+POPO g214_g_nonpkg parse POP	ref_obj[-:ma214]	REFS=2	<null>=2
+POPO g214_g_nonpkg parse POP	ref_obj[-:mb214]	REFS=2	<null>=2
+CELL g214_g_nonpkg parse ONLY-OURS	2	ref|ma214|0:0	ACT=<null>	<root>
+CELL g214_g_nonpkg parse ONLY-OURS	2	ref|mb214|0:0	ACT=<null>	<root>
+CELL g214_g_nonpkg parse -- CENSUS golden=1 ours=5 AGREE=1 ONLY-GOLDEN=0 ONLY-OURS=4
+ARM g214_g_nonpkg elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=4080 heads=1 (VERDICT NOT THE SCORER)
+CALIB g214_g_nonpkg elab -- CENSUS golden=1 ours=1 AGREE=1 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g214_g_nonpkg elab -- CENSUS golden=1 ours=5 AGREE=0 ONLY-GOLDEN=1 ONLY-OURS=5
+POPG g214_g_nonpkg elab POP	package[ALLPKG:pm214]	REFS=1	parameter=1
+POPO g214_g_nonpkg elab POP	package[ALLPKG:pm214]	REFS=1	constant=1
+POPO g214_g_nonpkg elab POP	ref_obj[-:ma214]	REFS=2	<null>=2
+POPO g214_g_nonpkg elab POP	ref_obj[-:mb214]	REFS=2	<null>=2
+CELL g214_g_nonpkg elab ONLY-GOLDEN	1	ref|ma214|8:21	ACT=parameter@7:17[package[ALLPKG:pm214]]{n=ma214}	package[ALLPKG:pm214]<param_assign:
+CELL g214_g_nonpkg elab ONLY-OURS	2	ref|ma214|0:0	ACT=<null>	<root>
+CELL g214_g_nonpkg elab ONLY-OURS	1	ref|ma214|8:21	ACT=constant@7:25[package[ALLPKG:pm214]]{v=UINT:13,d=13,sz=64}	package[ALLPKG:pm214]<param_assign:
+CELL g214_g_nonpkg elab ONLY-OURS	2	ref|mb214|0:0	ACT=<null>	<root>
+CELL g214_g_nonpkg elab -- CENSUS golden=1 ours=5 AGREE=0 ONLY-GOLDEN=1 ONLY-OURS=5
+ARM g214_h_unitimp parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=7210 heads=1 (VERDICT NOT THE SCORER)
+CALIB g214_h_unitimp parse -- CENSUS golden=5 ours=5 AGREE=5 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g214_h_unitimp parse -- CENSUS golden=5 ours=10 AGREE=5 ONLY-GOLDEN=0 ONLY-OURS=5
+POPG g214_h_unitimp parse POP	package[ALLPKG:ph214u]	REFS=5	parameter=5
+POPO g214_h_unitimp parse POP	package[ALLPKG:ph214u]	REFS=5	parameter=5
+POPO g214_h_unitimp parse POP	package[TOPPKG:ph214u]	REFS=3	parameter=3
+POPO g214_h_unitimp parse POP	ref_obj[-:ua214]	REFS=2	<null>=2
+CELL g214_h_unitimp parse ONLY-OURS	2	ref|ua214|0:0	ACT=<null>	<root>
+CELL g214_h_unitimp parse ONLY-OURS	1	ref|ua214|34:21	ACT=parameter@20:17[parameter[-:ua214]]{n=ua214}	package[TOPPKG:ph214u]<class_defn:U214H<function:u_arg214<return_stmt:<func_call:usink214
+CELL g214_h_unitimp parse ONLY-OURS	1	ref|ub214|34:28	ACT=parameter@21:13[parameter[-:ub214]]{n=ub214}	package[TOPPKG:ph214u]<class_defn:U214H<function:u_arg214<return_stmt:<func_call:usink214
+CELL g214_h_unitimp parse ONLY-OURS	1	ref|uc214|38:12	ACT=parameter@22:13[parameter[-:uc214]]{n=uc214}	package[TOPPKG:ph214u]<class_defn:U214H<function:u_ret214<return_stmt:
+CELL g214_h_unitimp parse -- CENSUS golden=5 ours=10 AGREE=5 ONLY-GOLDEN=0 ONLY-OURS=5
+ARM g214_h_unitimp elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=7588 heads=1 (VERDICT NOT THE SCORER)
+CALIB g214_h_unitimp elab -- CENSUS golden=8 ours=8 AGREE=8 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g214_h_unitimp elab -- CENSUS golden=8 ours=10 AGREE=0 ONLY-GOLDEN=8 ONLY-OURS=10
+POPG g214_h_unitimp elab POP	package[ALLPKG:ph214u]	REFS=8	parameter=8
+POPO g214_h_unitimp elab POP	package[ALLPKG:ph214u]	REFS=5	parameter=5
+POPO g214_h_unitimp elab POP	package[TOPPKG:ph214u]	REFS=3	parameter=3
+POPO g214_h_unitimp elab POP	ref_obj[-:ua214]	REFS=2	<null>=2
+CELL g214_h_unitimp elab ONLY-GOLDEN	1	ref|ua214|21:21	ACT=parameter@20:17[package[ALLPKG:ph214u]]{n=ua214}	package[ALLPKG:ph214u]<param_assign:
+CELL g214_h_unitimp elab ONLY-GOLDEN	1	ref|ua214|22:21	ACT=parameter@20:17[package[ALLPKG:ph214u]]{n=ua214}	package[ALLPKG:ph214u]<param_assign:<operation:
+CELL g214_h_unitimp elab ONLY-GOLDEN	2	ref|ua214|34:21	ACT=parameter@20:17[package[ALLPKG:ph214u]]{n=ua214}	package[ALLPKG:ph214u]<function:U214H::u_arg214<return_stmt:<func_call:usink214
+CELL g214_h_unitimp elab ONLY-GOLDEN	2	ref|ub214|34:28	ACT=parameter@21:13[package[ALLPKG:ph214u]]{n=ub214}	package[ALLPKG:ph214u]<function:U214H::u_arg214<return_stmt:<func_call:usink214
+CELL g214_h_unitimp elab ONLY-GOLDEN	2	ref|uc214|38:12	ACT=parameter@22:13[package[ALLPKG:ph214u]]{n=uc214}	package[ALLPKG:ph214u]<function:U214H::u_ret214<return_stmt:
+CELL g214_h_unitimp elab ONLY-OURS	2	ref|ua214|0:0	ACT=<null>	<root>
+CELL g214_h_unitimp elab ONLY-OURS	1	ref|ua214|21:21	ACT=parameter@20:17[parameter[-:ua214]]{n=ua214}	package[ALLPKG:ph214u]<param_assign:
+CELL g214_h_unitimp elab ONLY-OURS	1	ref|ua214|22:21	ACT=parameter@20:17[parameter[-:ua214]]{n=ua214}	package[ALLPKG:ph214u]<param_assign:<operation:
+CELL g214_h_unitimp elab ONLY-OURS	1	ref|ua214|34:21	ACT=parameter@20:17[parameter[-:ua214]]{n=ua214}	package[ALLPKG:ph214u]<function:U214H::u_arg214<return_stmt:<func_call:usink214
+CELL g214_h_unitimp elab ONLY-OURS	1	ref|ua214|34:21	ACT=parameter@20:17[parameter[-:ua214]]{n=ua214}	package[TOPPKG:ph214u]<class_defn:U214H<function:u_arg214<return_stmt:<func_call:usink214
+CELL g214_h_unitimp elab ONLY-OURS	1	ref|ub214|34:28	ACT=parameter@21:13[parameter[-:ub214]]{n=ub214}	package[ALLPKG:ph214u]<function:U214H::u_arg214<return_stmt:<func_call:usink214
+CELL g214_h_unitimp elab ONLY-OURS	1	ref|ub214|34:28	ACT=parameter@21:13[parameter[-:ub214]]{n=ub214}	package[TOPPKG:ph214u]<class_defn:U214H<function:u_arg214<return_stmt:<func_call:usink214
+CELL g214_h_unitimp elab ONLY-OURS	1	ref|uc214|38:12	ACT=parameter@22:13[parameter[-:uc214]]{n=uc214}	package[ALLPKG:ph214u]<function:U214H::u_ret214<return_stmt:
+CELL g214_h_unitimp elab ONLY-OURS	1	ref|uc214|38:12	ACT=parameter@22:13[parameter[-:uc214]]{n=uc214}	package[TOPPKG:ph214u]<class_defn:U214H<function:u_ret214<return_stmt:
+CELL g214_h_unitimp elab -- CENSUS golden=8 ours=10 AGREE=0 ONLY-GOLDEN=8 ONLY-OURS=10
+-- ARM-VIEWS SCORED: 16   NO-DATABASE: 0   CALIB non-null: 0

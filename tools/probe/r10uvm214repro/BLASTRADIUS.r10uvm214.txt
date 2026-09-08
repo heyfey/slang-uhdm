@@ -1,0 +1,139 @@
+r10uvm214 — QUESTION (2): THE WRONG FLAG'S BLAST RADIUS, MEASURED.
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+r10uvm213's R5 named the window and left the size of the problem open:
+  'emitPackageClassMethodClones is called from emitPackage under if (topView),
+   so pkgTopEmit/pkgEmitTopView are TRUE while the DEF listing is written.
+   Every view-conditioned decision reached from that driver is therefore reading
+   the wrong view flag ... there may be more, and the window is now named.'
+
+THIS IS THE MEASUREMENT.  A THROWAWAY instrumented binary (built from a clean
+adbec035 worktree, never part of the patch) rewrote EVERY READ of the two
+exporter-wide package view flags — pkgEmitTopView and pkgTopEmit, 59 reads over
+src/{Expr,Param,Stmt,TaskFunc,Type}Emit.cpp — into
+    (r214tap(site, pkgClassTfClone, pkgImportCloneEmit), <flag>)
+and counted, per SITE, how often the read fired and how often it fired INSIDE the
+clone driver's window (pkgClassTfClone && !pkgImportCloneEmit).  The tap is pure
+counting; it changes no decision.  Run on the head row SeqDriver (and again on
+SimpleUVM, identical counts).
+
+34 of the 59 reads fire at all on SeqDriver.  NINETEEN fire INSIDE THE WINDOW:
+
+  src/ExprEmit.cpp:12918       fired=10866    inwindow=2181
+  src/ExprEmit.cpp:13534       fired=37       inwindow=17
+  src/ExprEmit.cpp:23179       fired=7633     inwindow=1808
+  src/ExprEmit.cpp:23829       fired=22692    inwindow=5304
+  src/ExprEmit.cpp:23909       fired=22715    inwindow=5314
+  src/ExprEmit.cpp:26241       fired=2199     inwindow=385
+  src/StmtEmit.cpp:5046        fired=2376     inwindow=546
+  src/StmtEmit.cpp:5124        fired=3463     inwindow=546
+  src/TaskFuncEmit.cpp:1966    fired=15515    inwindow=2208
+  src/TaskFuncEmit.cpp:3747    fired=2760     inwindow=334
+  src/TaskFuncEmit.cpp:3769    fired=2758     inwindow=334
+  src/TaskFuncEmit.cpp:3976    fired=135      inwindow=25
+  src/TaskFuncEmit.cpp:4127    fired=65       inwindow=8
+  src/TaskFuncEmit.cpp:4696    fired=142      inwindow=15
+  src/TaskFuncEmit.cpp:5219    fired=9487     inwindow=1294
+  src/TaskFuncEmit.cpp:5311    fired=5622     inwindow=1294
+  src/TypeEmit.cpp:17672       fired=5        inwindow=1
+  src/TypeEmit.cpp:18655       fired=5        inwindow=1
+  src/TypeEmit.cpp:18718       fired=5        inwindow=1
+
+The other 15 sites fire on this row with inwindow=0:
+  src/ParamEmit.cpp:16831      fired=502      inwindow=0
+  src/ParamEmit.cpp:20561      fired=4        inwindow=0
+  src/StmtEmit.cpp:5128        fired=1236     inwindow=0
+  src/StmtEmit.cpp:5171        fired=3        inwindow=0
+  src/StmtEmit.cpp:5250        fired=3        inwindow=0
+  src/StmtEmit.cpp:5262        fired=1233     inwindow=0
+  src/TaskFuncEmit.cpp:2451    fired=22       inwindow=0
+  src/TaskFuncEmit.cpp:3378    fired=232      inwindow=0
+  src/TaskFuncEmit.cpp:4687    fired=32       inwindow=0
+  src/TaskFuncEmit.cpp:4892    fired=8        inwindow=0
+  src/TaskFuncEmit.cpp:6598    fired=232      inwindow=0
+  src/TaskFuncEmit.cpp:6733    fired=232      inwindow=0
+  src/TypeEmit.cpp:6466        fired=2        inwindow=0
+  src/TypeEmit.cpp:6620        fired=6        inwindow=0
+  src/TypeEmit.cpp:7027        fired=12       inwindow=0
+
+src/ExprEmit.cpp:13534 IS THIS PASS'S SITE, and its in-window count is 17 —
+EXACTLY the 17 divergent cells the SeqDriver binding census names, one for one.
+
+THE OTHER EIGHTEEN IN-WINDOW SITES ARE A RESIDUE, NOT A CLAIM.  Firing in the
+window is necessary, not sufficient: a site can read the flag there and still
+decide correctly, and the corpus census says every one of them does today —
+the def-listing binding population of all nine UVM row-modes is now exactly
+golden's (CENSUS.r10uvm214.txt, DEFLST rows: ONLY-GOLDEN 0 / ONLY-OURS 0).
+They are recorded here, by file:line, as the map a later pass starts from.
+
+=== RAW TAP, SeqDriver
+TAP	src/ParamEmit.cpp:20561	fired=4	inwindow=0
+TAP	src/TypeEmit.cpp:6620	fired=6	inwindow=0
+TAP	src/TypeEmit.cpp:7027	fired=12	inwindow=0
+TAP	src/TypeEmit.cpp:6466	fired=2	inwindow=0
+TAP	src/ExprEmit.cpp:26241	fired=2199	inwindow=385
+TAP	src/TaskFuncEmit.cpp:3378	fired=232	inwindow=0
+TAP	src/TaskFuncEmit.cpp:5219	fired=9487	inwindow=1294
+TAP	src/TaskFuncEmit.cpp:5311	fired=5622	inwindow=1294
+TAP	src/TaskFuncEmit.cpp:1966	fired=15515	inwindow=2208
+TAP	src/TaskFuncEmit.cpp:6598	fired=232	inwindow=0
+TAP	src/TaskFuncEmit.cpp:6733	fired=232	inwindow=0
+TAP	src/TaskFuncEmit.cpp:4892	fired=8	inwindow=0
+TAP	src/ParamEmit.cpp:16831	fired=502	inwindow=0
+TAP	src/TaskFuncEmit.cpp:4696	fired=142	inwindow=15
+TAP	src/ExprEmit.cpp:23179	fired=7633	inwindow=1808
+TAP	src/ExprEmit.cpp:23829	fired=22692	inwindow=5304
+TAP	src/ExprEmit.cpp:23909	fired=22715	inwindow=5314
+TAP	src/TaskFuncEmit.cpp:3747	fired=2760	inwindow=334
+TAP	src/TaskFuncEmit.cpp:3769	fired=2758	inwindow=334
+TAP	src/StmtEmit.cpp:5046	fired=2376	inwindow=546
+TAP	src/StmtEmit.cpp:5124	fired=3463	inwindow=546
+TAP	src/ExprEmit.cpp:13534	fired=37	inwindow=17
+TAP	src/ExprEmit.cpp:12918	fired=10866	inwindow=2181
+TAP	src/StmtEmit.cpp:5128	fired=1236	inwindow=0
+TAP	src/StmtEmit.cpp:5262	fired=1233	inwindow=0
+TAP	src/StmtEmit.cpp:5171	fired=3	inwindow=0
+TAP	src/StmtEmit.cpp:5250	fired=3	inwindow=0
+TAP	src/TaskFuncEmit.cpp:4127	fired=65	inwindow=8
+TAP	src/TaskFuncEmit.cpp:4687	fired=32	inwindow=0
+TAP	src/TaskFuncEmit.cpp:2451	fired=22	inwindow=0
+TAP	src/TaskFuncEmit.cpp:3976	fired=135	inwindow=25
+TAP	src/TypeEmit.cpp:17672	fired=5	inwindow=1
+TAP	src/TypeEmit.cpp:18655	fired=5	inwindow=1
+TAP	src/TypeEmit.cpp:18718	fired=5	inwindow=1
+
+=== RAW TAP, SimpleUVM
+TAP	src/ParamEmit.cpp:20561	fired=2	inwindow=0
+TAP	src/TypeEmit.cpp:6620	fired=5	inwindow=0
+TAP	src/TypeEmit.cpp:7027	fired=12	inwindow=0
+TAP	src/TypeEmit.cpp:6466	fired=2	inwindow=0
+TAP	src/ExprEmit.cpp:26241	fired=1366	inwindow=385
+TAP	src/TaskFuncEmit.cpp:3378	fired=116	inwindow=0
+TAP	src/TaskFuncEmit.cpp:5219	fired=6656	inwindow=1294
+TAP	src/TaskFuncEmit.cpp:5311	fired=2812	inwindow=1294
+TAP	src/TaskFuncEmit.cpp:1966	fired=10684	inwindow=2208
+TAP	src/TaskFuncEmit.cpp:6598	fired=116	inwindow=0
+TAP	src/TaskFuncEmit.cpp:6733	fired=116	inwindow=0
+TAP	src/TaskFuncEmit.cpp:4892	fired=8	inwindow=0
+TAP	src/ParamEmit.cpp:16831	fired=502	inwindow=0
+TAP	src/TaskFuncEmit.cpp:4696	fired=72	inwindow=15
+TAP	src/ExprEmit.cpp:23179	fired=3978	inwindow=1808
+TAP	src/ExprEmit.cpp:23829	fired=11996	inwindow=5304
+TAP	src/ExprEmit.cpp:23909	fired=11999	inwindow=5314
+TAP	src/TaskFuncEmit.cpp:3747	fired=2021	inwindow=334
+TAP	src/TaskFuncEmit.cpp:3769	fired=2019	inwindow=334
+TAP	src/StmtEmit.cpp:5046	fired=1188	inwindow=546
+TAP	src/StmtEmit.cpp:5124	fired=2257	inwindow=546
+TAP	src/ExprEmit.cpp:13534	fired=37	inwindow=17
+TAP	src/ExprEmit.cpp:12918	fired=6262	inwindow=2181
+TAP	src/StmtEmit.cpp:5128	fired=48	inwindow=0
+TAP	src/StmtEmit.cpp:5262	fired=47	inwindow=0
+TAP	src/StmtEmit.cpp:5171	fired=1	inwindow=0
+TAP	src/StmtEmit.cpp:5250	fired=1	inwindow=0
+TAP	src/TaskFuncEmit.cpp:4127	fired=49	inwindow=8
+TAP	src/TaskFuncEmit.cpp:4687	fired=32	inwindow=0
+TAP	src/TaskFuncEmit.cpp:2451	fired=22	inwindow=0
+TAP	src/TaskFuncEmit.cpp:3976	fired=85	inwindow=25
+TAP	src/TypeEmit.cpp:17672	fired=3	inwindow=1
+TAP	src/TypeEmit.cpp:18655	fired=3	inwindow=1
+TAP	src/TypeEmit.cpp:18718	fired=3	inwindow=1

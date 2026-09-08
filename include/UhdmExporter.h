@@ -8042,6 +8042,16 @@ private:
     // compilation unit's OWN parameter of the same name is listed first and is
     // what golden binds (§ unitImportHoistsPkgParams146v).
     std::map<std::string, UHDM::parameter*> designImportParam146;
+    // § pkgCloneBodyBindsOwnListingRhs214 — the references that law bound to
+    // the DEF listing's own `param_assign` Rhs (ExprEmit).  § 146's
+    // post-emission re-point above accepts a ref from this pool exactly as it
+    // accepts one bound to a constant or an operation, because Surelog's
+    // `lateBinding` reaches the DESIGN-LEVEL parameter through the parent-chain
+    // walk BEFORE it ever reads `m->Param_assigns()`: where a compilation-unit
+    // import hoists the name, the design parameter wins over the listing's Rhs.
+    // The pool is how the two laws meet without either testing the other's
+    // state — § 146's name set does not exist yet while packages are emitted.
+    std::set<const UHDM::ref_obj*> cloneRhsBound214;
     // Materialized-import param typespecs created during the DEF package pass:
     // their vpiInstance must reach the ELABORATED home package, which does not
     // exist yet at creation time. Re-pointed once topPackages are built.

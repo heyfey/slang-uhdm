@@ -1,0 +1,139 @@
+r10uvm214 — THE DECODE, with Surelog file:line.
+MEASUREMENT ONLY; the official ~/git-repos/UHDM/build/bin/uhdm-cmp is the sole
+acceptance judge.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+Surelog was NOT patched and is NOT patchable in this campaign; every line below
+is READ out of the tree scripts/verify_golden.py builds its goldens from,
+~/git-repos/Surelog.
+
+=== 1. THE PRODUCER: UhdmWriter::lateBinding, and its ORDER
+
+UhdmWriter.cpp:3294  void UhdmWriter::lateBinding(Serializer& s,
+                                                 DesignComponent* mod, scope* m)
+  for (UHDM::ref_obj* ref : mod->getLateBinding()) {
+    if (ref->Actual_group()) continue;                 // (0) already bound wins
+    ...
+    if (name.find("::") != npos) { ...; continue; }    // (1) qualified spelling
+    const any* parent = ref->VpiParent();
+    while (parent) {                                   // (2) THE PARENT WALK
+      if (parent->UhdmType() == uhdmdesign) {          //     UhdmWriter.cpp:3358
+        design* d = (design*)parent;
+        if (auto params = d->Parameters())
+          for (auto decl : *params)
+            if (decl->VpiName() == name) { ref->Actual_group(decl); break; }
+      } else if (... uhdmfunction / uhdmtask / uhdmfor_stmt / uhdmforeach_stmt /
+                     uhdmgen_for / uhdmbegin / uhdmnamed_begin / uhdmfork_stmt /
+                     uhdmnamed_fork ...) { ... }
+      parent = parent->VpiParent();
+    }
+    if (ref->Actual_group()) continue;
+    ... nets / interfaces / variables ...
+    if (m && m->Param_assigns()) {                     // (3) THE LISTING'S Rhs
+      for (auto p : *m->Param_assigns())
+        if (p->Lhs()->VpiName() == name) {
+          if (m->UhdmType() == uhdmpackage) ref->Actual_group(p->Rhs());
+          isParam = true; break;
+        }
+      if (isParam) continue;
+    }
+
+`m` is THE COMPONENT BEING WRITTEN.  A package is written TWICE — the
+unelaborated twin and the elaborated one (FunctorCompilePackage::operator(),
+CompilePackage.cpp:60-72, the same double compile r10uvm213 decoded) — and
+lateBinding runs once per written scope (UhdmWriter.cpp:1304 for packages), so
+step (3) hands EACH LISTING ITS OWN `param_assign` Rhs.
+
+THE LAW THIS PASS TRANSCRIBES IS STEP (3), AND ITS FENCE IS STEP (2):
+  * (3) the home package's DEF listing of an out-of-body class method binds a
+        package-parameter reference to THAT LISTING's own param_assign Rhs;
+  * (2) unless the reference's parent chain reaches a `design` that lists a
+        parameter of that name — then the DESIGN-LEVEL PARAMETER OBJECT wins,
+        because the walk runs BEFORE step (3).
+
+=== 2. WHY OUR DEF LISTING WAS WRITING THE ELABORATED Rhs
+
+`emitPackageClassMethodClones` (ParamEmit.cpp:23386-23445) is called from
+`emitPackage` inside `if (topView)` — it needs the class_defns that pass creates
+— so `pkgEmitTopView` and `pkgTopEmit` are TRUE while the DEF listing is being
+written.  That is r10uvm213's R5, and the arm at src/ExprEmit.cpp read exactly
+that flag:
+
+    auto pit2 = pkgParamDefRhs.find(&nv.symbol);
+    if (pkgEmitTopView && pit2 != pkgParamDefRhs.end())
+        ref->Actual_group(pit2->second);          // <-- the ELABORATED Rhs
+    else if (auto pit = pkgParamConst.find(&nv.symbol); ...)
+        ref->Actual_group(pit->second);
+    else if (pit2 != pkgParamDefRhs.end())
+        ref->Actual_group(pit2->second);
+
+`pkgParamDefRhs` is registered PER VIEW and the top-view pass overwrites it in
+place (ParamEmit.cpp:14075-14076), so inside the clone driver it holds the
+elaborated listing's folded constant.  `pkgParamDefRhsDefView17`
+(ParamEmit.cpp:14086-14087) is the one map the top pass never overwrites, and it
+holds the very object our own DEF `param_assign` carries — `ct214bind --parhs`
+reads them side by side.
+
+THE WINDOW is `pkgClassTfClone && !pkgImportCloneEmit` (r10uvm213's own):
+`emitImportedPkgClassMethodClones` (ParamEmit.cpp:23799-23829) sets BOTH, so the
+importer's clone listings are fenced out and keep the BARE ref
+§ pkgCloneParamRefStaysBare178 measured.  The HOME test
+(`curPkgEmitSym == &scope->asSymbol()`) is step (3)'s own `m->Param_assigns()`.
+
+=== 3. THE HEAD, ON BOTH SIDES, NAMED
+
+uvm-1.2 base/uvm_object_globals.svh:216-217
+    parameter UVM_SET     = UVM_START_FUNCS+1;
+    parameter UVM_SETINT  = UVM_SET;
+uvm-1.2 base/uvm_object.svh:933 (inside `uvm_object::set_int_local`, an
+OUT-OF-BODY method of a package class)
+    __m_uvm_field_automation(null, UVM_SETINT, field_name);
+
+uhdm-cmp, SeqDriver/default at adbec035 (`head_pris_SeqDriver.default.cmp`):
+  LHS ref_obj (uvm_pkg::UVM_SET) id=61413 @217:31, parent param_assign @217:11,
+      vpiActual = operation @216:31
+  RHS constant 131078 size 32 @217:31, parent param_assign @217:11
+
+`ct214bind --one` puts golden's object in `package[ALLPKG:uvm_pkg]` and ours in
+`package[TOPPKG:uvm_pkg]` — a DEF/ELAB CROSSING — and `ref_obj::Compare`
+(build/generated/src/ref_obj.cpp) READS `Actual_group`, so the link that carries
+the judge across is the body reference above.  That is r10uvm213's R0, confirmed
+object for object.
+
+=== 4. THE `$unit` CONJUNCT — DECODED FROM STEP (2), MEASURED ON THREE ROWS
+
+A compilation-unit `import P::*;` HOISTS P's parameters into `design->
+Parameters()` (Surelog: CompileHelper::importPackage; ours:
+§ unitImportHoistsPkgParams146, src/UhdmExporter.cpp), so step (2) answers the
+name before step (3) is reached and golden binds the DESIGN-LEVEL PARAMETER.
+
+  SimpleUVM/testbench.sv:1    import uvm_pkg::*;        <- compilation unit
+  Scoreboard/testbench.sv:2   import svunit_pkg::*;     <- compilation unit
+  SeqDriver/testbench.sv:12   import uvm_pkg::*;        <- inside package adpcm_pkg
+  SeqDriver/testbench.sv:212  import uvm_pkg::*;        <- inside module top_tb
+
+and golden, in the SAME `uvm_object::set_int_local` clone at 933:34 of the SAME
+uvm-1.2 source, with the SAME surelog flags:
+
+  SimpleUVM golden   vpiActual: parameter (UVM_SETINT), line:217:11
+  Scoreboard golden  vpiActual: parameter (UVM_SETINT), line:217:11
+  SeqDriver golden   vpiActual: ref_obj (uvm_pkg::UVM_SET), line:217:31
+
+Our own emitter already models step (2): § 146's post-emission re-point
+(src/UhdmExporter.cpp) walks every `ref_obj` whose actual is a constant or an
+operation and re-points it at the design copy.  This law therefore does not test
+the `$unit` state at all — it RECORDS its binds in `cloneRhsBound214` and § 146
+accepts a ref from that pool, which is what lets the design parameter win.
+
+TWO EARLIER CUTS ARE RECORDED AS REFUTED, both built and swept:
+  (a) NO CONJUNCT.  The census scored SimpleUVM ×2 and Scoreboard/default
+      AWAY-GOLDEN 1 each (that one cell), while SeqDriver/MiniAmiq/BuildUVMPkg
+      scored TO-GOLDEN.  9 byte movers where 6 were predicted.
+  (b) A `$unit` NAME LOOKUP AT THE SITE (`cu->lookupName(sym.name)` over
+      `comp.getCompilationUnits()`).  It suppressed the law correctly — and it
+      FORCED AST BINDING during the def phase: SimpleUVM's database still moved,
+      and the order-blind whole-dump diff pinned it to four lines that have
+      nothing to do with this law — uvm_report_message.svh:337's
+      `queue_of_element[$]` right bound going 0 -> 1475 where golden holds `$`,
+      a MOVED-WRONG cell.  RESUME §9 records exactly this Heisenbug ("do not
+      force AST binding during the DEF phase").  The lookup is gone; the pool is
+      what shipped.  With the pool, SimpleUVM's database is BYTE-IDENTICAL to
+      the pristine one.

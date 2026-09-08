@@ -1,0 +1,101 @@
+r10uvm214 — QUESTION (2), SECOND HALF: THE REFERENCE POPULATION BY REFERENT KIND x VIEW.
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+ct214bind --pop counts, per LISTING the reference sits in, the KIND of the object
+its Actual_group names.  A 'package-parameter reference' is a ref_obj whose bare
+name is the Lhs name of some param_assign in the database — the test is by NAME so
+it catches the reference on BOTH sides whatever it is bound to, <null> included.
+
+=== SeqDriver/default
+-- GOLDEN
+POP	logic_typespec[-:]	REFS=4	constant=2 operation=2
+POP	logic_typespec[-:uvm_bitstream_t]	REFS=12	<null>=12
+POP	logic_typespec[-:uvm_hdl_data_t]	REFS=2	<null>=2
+POP	package[ALLPKG:adpcm_pkg]	REFS=19	<null>=19
+POP	package[ALLPKG:uvm_pkg]	REFS=36	constant=13 operation=22 ref_obj=1
+POP	package[TOPPKG:adpcm_pkg]	REFS=19	<null>=19
+POP	package[TOPPKG:uvm_pkg]	REFS=197	<null>=178 constant=19
+-- OURS, pristine
+POP	logic_typespec[-:]	REFS=8	<null>=2 constant=4 operation=2
+POP	logic_typespec[-:uvm_bitstream_t]	REFS=11	<null>=11
+POP	logic_typespec[-:uvm_hdl_data_t]	REFS=2	<null>=2
+POP	package[ALLPKG:adpcm_pkg]	REFS=18	<null>=18
+POP	package[ALLPKG:uvm_pkg]	REFS=36	constant=25 operation=11
+POP	package[TOPPKG:adpcm_pkg]	REFS=18	<null>=18
+POP	package[TOPPKG:uvm_pkg]	REFS=197	<null>=178 constant=19
+POP	ref_obj[-:UVM_SETINT]	REFS=2	<null>=2
+POP	ref_obj[-:UVM_SETOBJ]	REFS=2	<null>=2
+POP	ref_obj[-:UVM_SETSTR]	REFS=4	<null>=4
+POP	ref_obj[-:UVM_SET]	REFS=2	<null>=2
+-- OURS, patched
+POP	logic_typespec[-:]	REFS=8	<null>=2 constant=4 operation=2
+POP	logic_typespec[-:uvm_bitstream_t]	REFS=11	<null>=11
+POP	logic_typespec[-:uvm_hdl_data_t]	REFS=2	<null>=2
+POP	package[ALLPKG:adpcm_pkg]	REFS=18	<null>=18
+POP	package[ALLPKG:uvm_pkg]	REFS=36	constant=13 operation=22 ref_obj=1
+POP	package[TOPPKG:adpcm_pkg]	REFS=18	<null>=18
+POP	package[TOPPKG:uvm_pkg]	REFS=197	<null>=178 constant=19
+POP	ref_obj[-:UVM_SETINT]	REFS=2	<null>=2
+POP	ref_obj[-:UVM_SETOBJ]	REFS=2	<null>=2
+POP	ref_obj[-:UVM_SETSTR]	REFS=4	<null>=4
+POP	ref_obj[-:UVM_SET]	REFS=2	<null>=2
+
+=== BuildUVMPkg/default
+-- GOLDEN
+POP	bit_typespec[-:uvm_field_flag_t]	REFS=3	<null>=3
+POP	logic_typespec[-:]	REFS=4	constant=2 operation=2
+POP	logic_typespec[-:uvm_bitstream_t]	REFS=6	<null>=6
+POP	logic_typespec[-:uvm_hdl_data_t]	REFS=2	<null>=2
+POP	package[ALLPKG:uvm_pkg]	REFS=50	<null>=26 constant=13 operation=11
+POP	package[TOPPKG:uvm_pkg]	REFS=66	<null>=56 constant=10
+-- OURS, pristine
+POP	bit_typespec[-:uvm_field_flag_t]	REFS=3	<null>=3
+POP	logic_typespec[-:]	REFS=4	constant=2 operation=2
+POP	logic_typespec[-:uvm_bitstream_t]	REFS=5	<null>=5
+POP	logic_typespec[-:uvm_hdl_data_t]	REFS=2	<null>=2
+POP	package[ALLPKG:uvm_pkg]	REFS=50	<null>=26 constant=17 operation=7
+POP	package[TOPPKG:uvm_pkg]	REFS=66	<null>=56 constant=10
+-- OURS, patched
+POP	bit_typespec[-:uvm_field_flag_t]	REFS=3	<null>=3
+POP	logic_typespec[-:]	REFS=4	constant=2 operation=2
+POP	logic_typespec[-:uvm_bitstream_t]	REFS=5	<null>=5
+POP	logic_typespec[-:uvm_hdl_data_t]	REFS=2	<null>=2
+POP	package[ALLPKG:uvm_pkg]	REFS=50	<null>=26 constant=13 operation=11
+POP	package[TOPPKG:uvm_pkg]	REFS=66	<null>=56 constant=10
+
+=== SimpleUVM/default
+-- GOLDEN
+POP	logic_typespec[-:]	REFS=4	constant=2 operation=2
+POP	logic_typespec[-:uvm_bitstream_t]	REFS=12	<null>=12
+POP	logic_typespec[-:uvm_hdl_data_t]	REFS=2	<null>=2
+POP	package[ALLPKG:uvm_pkg]	REFS=36	operation=1 parameter=35
+POP	package[TOPPKG:uvm_pkg]	REFS=196	<null>=177 constant=1 parameter=18
+-- OURS, pristine
+POP	logic_typespec[-:]	REFS=4	constant=2 operation=2
+POP	logic_typespec[-:uvm_bitstream_t]	REFS=11	<null>=11
+POP	logic_typespec[-:uvm_hdl_data_t]	REFS=2	<null>=2
+POP	package[ALLPKG:uvm_pkg]	REFS=36	operation=1 parameter=35
+POP	package[TOPPKG:uvm_pkg]	REFS=196	<null>=177 constant=1 parameter=18
+POP	ref_obj[-:UVM_SETSTR]	REFS=2	<null>=2
+POP	ref_obj[-:UVM_SET]	REFS=2	<null>=2
+-- OURS, patched
+POP	logic_typespec[-:]	REFS=4	constant=2 operation=2
+POP	logic_typespec[-:uvm_bitstream_t]	REFS=11	<null>=11
+POP	logic_typespec[-:uvm_hdl_data_t]	REFS=2	<null>=2
+POP	package[ALLPKG:uvm_pkg]	REFS=36	operation=1 parameter=35
+POP	package[TOPPKG:uvm_pkg]	REFS=196	<null>=177 constant=1 parameter=18
+POP	ref_obj[-:UVM_SETSTR]	REFS=2	<null>=2
+POP	ref_obj[-:UVM_SET]	REFS=2	<null>=2
+
+READING (SeqDriver, the head row):
+  package[ALLPKG:uvm_pkg] — the HOME DEF listing — holds 36 package-parameter
+  references on both sides.  GOLDEN binds 22 operations, 13 constants and 1 ref_obj;
+  we bound 11 operations and 25 constants.  Seventeen cells differ, and the census
+  splits them exactly: 14 refs under param_assign initialisers and 4 under typespec
+  ranges AGREE, 3 in FREE-function bodies AGREE (they are written in the package's
+  own def pass), and ALL 17 in OUT-OF-BODY CLASS-METHOD CLONE bodies DIVERGE.
+  package[TOPPKG:uvm_pkg] — the elaborated listing — holds 197 on both sides,
+  178 of them <null> in GOLDEN AND IN OURS: the elaborated listing binds almost
+  nothing and already agrees.  package[*:adpcm_pkg] — the two IMPORT-CLONE
+  listings — are <null> throughout on both sides (§ pkgCloneParamRefStaysBare178).
+  After the patch our ALLPKG column reads golden's exactly.

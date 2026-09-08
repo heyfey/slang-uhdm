@@ -1,0 +1,61 @@
+r10v214 — THE IMPLEMENTER'S OWN 8 GRID ARMS, RE-RUN BY THE VERIFIER WITH THE
+CORRECTED elab COLUMN.  The parse column reproduces r10uvm214repro/GRID.*
+exactly (A 16->33, D 5->10, E 1->2, F 3->4, B/C/G/H census-identical).
+The elab column now compares golden's -elabuhdm database against OUR
+--elabuhdm database, and every arm is BYTE-IDENTICAL between the two
+binaries there -- so the pass's own 'elab MOVED-WRONG' cells in
+ARMSCORE/GRID are an artifact of comparing our PARSE database to golden's
+ELABORATED one, not a property of the patch.
+
+ARM g214_a_oob       parse rc=0/0/0 bytes=MOVED calib=0 AGREE 16->33 ONLYG 17->0 ONLYOURS 21->4
+ARM g214_a_oob       elab  rc=0/0/0 bytes=SAME  calib=0 AGREE 37->37 ONLYG 7->7 ONLYOURS 18->18
+ARM g214_b_inbody    parse rc=0/0/0 bytes=SAME  calib=0 AGREE 7->7 ONLYG 0->0 ONLYOURS 0->0
+ARM g214_b_inbody    elab  rc=0/0/0 bytes=SAME  calib=0 AGREE 9->9 ONLYG 0->0 ONLYOURS 8->8
+ARM g214_c_freefunc  parse rc=0/0/0 bytes=SAME  calib=0 AGREE 14->14 ONLYG 0->0 ONLYOURS 2->2
+ARM g214_c_freefunc  elab  rc=0/0/0 bytes=SAME  calib=0 AGREE 14->14 ONLYG 0->0 ONLYOURS 7->7
+ARM g214_d_pkgimp    parse rc=0/0/0 bytes=MOVED calib=0 AGREE 5->10 ONLYG 5->0 ONLYOURS 20->15
+ARM g214_d_pkgimp    elab  rc=0/0/0 bytes=SAME  calib=0 AGREE 10->10 ONLYG 0->0 ONLYOURS 34->34
+ARM g214_e_foreign   parse rc=0/0/0 bytes=MOVED calib=0 AGREE 1->2 ONLYG 1->0 ONLYOURS 10->9
+ARM g214_e_foreign   elab  rc=0/0/0 bytes=SAME  calib=0 AGREE 2->2 ONLYG 0->0 ONLYOURS 9->9
+ARM g214_f_muststay  parse rc=0/0/0 bytes=MOVED calib=0 AGREE 3->4 ONLYG 3->2 ONLYOURS 3->2
+ARM g214_f_muststay  elab  rc=0/0/0 bytes=SAME  calib=0 AGREE 6->6 ONLYG 2->2 ONLYOURS 7->7
+ARM g214_g_nonpkg    parse rc=0/0/0 bytes=SAME  calib=0 AGREE 1->1 ONLYG 0->0 ONLYOURS 2->2
+ARM g214_g_nonpkg    elab  rc=0/0/0 bytes=SAME  calib=0 AGREE 1->1 ONLYG 0->0 ONLYOURS 2->2
+ARM g214_h_unitimp   parse rc=0/0/0 bytes=SAME  calib=0 AGREE 5->5 ONLYG 0->0 ONLYOURS 4->4
+ARM g214_h_unitimp   elab  rc=0/0/0 bytes=SAME  calib=0 AGREE 5->5 ONLYG 0->0 ONLYOURS 19->19
+ARMVIEWS=16 NOGOLDEN=0
+
+=== PER-CELL SUBSET CHECK
+CELLS g214_a_oob.elab            LOST(right->wrong)=0 GAINED(wrong->right)=0
+CELLS g214_a_oob.parse           LOST(right->wrong)=0 GAINED(wrong->right)=17
+CELLS g214_b_inbody.elab         LOST(right->wrong)=0 GAINED(wrong->right)=0
+CELLS g214_b_inbody.parse        LOST(right->wrong)=0 GAINED(wrong->right)=0
+CELLS g214_c_freefunc.elab       LOST(right->wrong)=0 GAINED(wrong->right)=0
+CELLS g214_c_freefunc.parse      LOST(right->wrong)=0 GAINED(wrong->right)=0
+CELLS g214_d_pkgimp.elab         LOST(right->wrong)=0 GAINED(wrong->right)=0
+CELLS g214_d_pkgimp.parse        LOST(right->wrong)=0 GAINED(wrong->right)=5
+CELLS g214_e_foreign.elab        LOST(right->wrong)=0 GAINED(wrong->right)=0
+CELLS g214_e_foreign.parse       LOST(right->wrong)=0 GAINED(wrong->right)=1
+CELLS g214_f_muststay.elab       LOST(right->wrong)=0 GAINED(wrong->right)=0
+CELLS g214_f_muststay.parse      LOST(right->wrong)=0 GAINED(wrong->right)=1
+CELLS g214_g_nonpkg.elab         LOST(right->wrong)=0 GAINED(wrong->right)=0
+CELLS g214_g_nonpkg.parse        LOST(right->wrong)=0 GAINED(wrong->right)=0
+CELLS g214_h_unitimp.elab        LOST(right->wrong)=0 GAINED(wrong->right)=0
+CELLS g214_h_unitimp.parse       LOST(right->wrong)=0 GAINED(wrong->right)=0
+
+=== ARM H, THE $unit CONJUNCT, CELL BY CELL (the § 146 pool's own test):
+golden binds the DESIGN-LEVEL parameter for all three, and so do BOTH
+binaries -- including ub214, whose def Rhs is a ref_obj and which only the
+UhdmExporter.cpp half of the patch (cloneRhsBound214) can hand back.
+--- golden
+KC	ref|ua214|34:21	ACT=parameter@20:17[parameter[-:ua214]]{n=ua214}	package[ALLPKG:ph214u]<function:U214H::u_arg214<return_stmt:<func_call:usink214	1
+KC	ref|ub214|34:28	ACT=parameter@21:13[parameter[-:ub214]]{n=ub214}	package[ALLPKG:ph214u]<function:U214H::u_arg214<return_stmt:<func_call:usink214	1
+KC	ref|uc214|38:12	ACT=parameter@22:13[parameter[-:uc214]]{n=uc214}	package[ALLPKG:ph214u]<function:U214H::u_ret214<return_stmt:	1
+--- pristine
+KC	ref|ua214|34:21	ACT=parameter@20:17[parameter[-:ua214]]{n=ua214}	package[ALLPKG:ph214u]<function:U214H::u_arg214<return_stmt:<func_call:usink214	1
+KC	ref|ub214|34:28	ACT=parameter@21:13[parameter[-:ub214]]{n=ub214}	package[ALLPKG:ph214u]<function:U214H::u_arg214<return_stmt:<func_call:usink214	1
+KC	ref|uc214|38:12	ACT=parameter@22:13[parameter[-:uc214]]{n=uc214}	package[ALLPKG:ph214u]<function:U214H::u_ret214<return_stmt:	1
+--- patched
+KC	ref|ua214|34:21	ACT=parameter@20:17[parameter[-:ua214]]{n=ua214}	package[ALLPKG:ph214u]<function:U214H::u_arg214<return_stmt:<func_call:usink214	1
+KC	ref|ub214|34:28	ACT=parameter@21:13[parameter[-:ub214]]{n=ub214}	package[ALLPKG:ph214u]<function:U214H::u_arg214<return_stmt:<func_call:usink214	1
+KC	ref|uc214|38:12	ACT=parameter@22:13[parameter[-:uc214]]{n=uc214}	package[ALLPKG:ph214u]<function:U214H::u_ret214<return_stmt:	1

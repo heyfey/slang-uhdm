@@ -1,0 +1,240 @@
+r10uvm214 — THE ROW CENSUS, golden / pristine / patched, cell by cell.
+MEASUREMENT ONLY; the official uhdm-cmp is the sole acceptance judge.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+=== A. cen214.sh on the PRISTINE sweep (golden-vs-golden CALIBRATED FIRST on every row)
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+ROW SeqDriver default CALIB[-- CENSUS golden=289 ours=289 AGREE=289 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW SeqDriver default ALL   -- CENSUS golden=289 ours=300 AGREE=268 ONLY-GOLDEN=21 ONLY-OURS=32
+ROW SeqDriver default DEFLST -- CENSUS golden=51 ours=51 AGREE=34 ONLY-GOLDEN=17 ONLY-OURS=17
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+ROW SeqDriver testflags CALIB[-- CENSUS golden=289 ours=289 AGREE=289 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW SeqDriver testflags ALL   -- CENSUS golden=289 ours=300 AGREE=268 ONLY-GOLDEN=21 ONLY-OURS=32
+ROW SeqDriver testflags DEFLST -- CENSUS golden=51 ours=51 AGREE=34 ONLY-GOLDEN=17 ONLY-OURS=17
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+ROW MiniAmiq default CALIB[-- CENSUS golden=289 ours=289 AGREE=289 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW MiniAmiq default ALL   -- CENSUS golden=289 ours=315 AGREE=268 ONLY-GOLDEN=21 ONLY-OURS=47
+ROW MiniAmiq default DEFLST -- CENSUS golden=51 ours=51 AGREE=34 ONLY-GOLDEN=17 ONLY-OURS=17
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+ROW MiniAmiq testflags CALIB[-- CENSUS golden=289 ours=289 AGREE=289 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW MiniAmiq testflags ALL   -- CENSUS golden=289 ours=315 AGREE=268 ONLY-GOLDEN=21 ONLY-OURS=47
+ROW MiniAmiq testflags DEFLST -- CENSUS golden=51 ours=51 AGREE=34 ONLY-GOLDEN=17 ONLY-OURS=17
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+ROW BuildUVMPkg default CALIB[-- CENSUS golden=131 ours=131 AGREE=131 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW BuildUVMPkg default ALL   -- CENSUS golden=131 ours=130 AGREE=122 ONLY-GOLDEN=9 ONLY-OURS=8
+ROW BuildUVMPkg default DEFLST -- CENSUS golden=8 ours=8 AGREE=0 ONLY-GOLDEN=8 ONLY-OURS=8
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+ROW BuildUVMPkg testflags CALIB[-- CENSUS golden=131 ours=131 AGREE=131 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW BuildUVMPkg testflags ALL   -- CENSUS golden=131 ours=130 AGREE=122 ONLY-GOLDEN=9 ONLY-OURS=8
+ROW BuildUVMPkg testflags DEFLST -- CENSUS golden=8 ours=8 AGREE=0 ONLY-GOLDEN=8 ONLY-OURS=8
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+ROW SimpleUVM default CALIB[-- CENSUS golden=250 ours=250 AGREE=250 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW SimpleUVM default ALL   -- CENSUS golden=250 ours=253 AGREE=249 ONLY-GOLDEN=1 ONLY-OURS=4
+ROW SimpleUVM default DEFLST -- CENSUS golden=17 ours=17 AGREE=17 ONLY-GOLDEN=0 ONLY-OURS=0
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+ROW SimpleUVM testflags CALIB[-- CENSUS golden=250 ours=250 AGREE=250 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW SimpleUVM testflags ALL   -- CENSUS golden=250 ours=253 AGREE=249 ONLY-GOLDEN=1 ONLY-OURS=4
+ROW SimpleUVM testflags DEFLST -- CENSUS golden=17 ours=17 AGREE=17 ONLY-GOLDEN=0 ONLY-OURS=0
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+ROW Scoreboard default CALIB[-- CENSUS golden=251 ours=251 AGREE=251 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW Scoreboard default ALL   -- CENSUS golden=251 ours=250 AGREE=250 ONLY-GOLDEN=1 ONLY-OURS=0
+ROW Scoreboard default DEFLST -- CENSUS golden=17 ours=17 AGREE=17 ONLY-GOLDEN=0 ONLY-OURS=0
+ROW Scoreboard testflags SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+ROW Earlgrey_0_1 default CALIB[-- CENSUS golden=8002 ours=8002 AGREE=8002 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW Earlgrey_0_1 default ALL   -- CENSUS golden=8002 ours=10168 AGREE=7975 ONLY-GOLDEN=27 ONLY-OURS=2193
+ROW Earlgrey_0_1 default DEFLST -- CENSUS golden=0 ours=0 AGREE=0 ONLY-GOLDEN=0 ONLY-OURS=0
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+ROW Earlgrey_0_1 testflags CALIB[-- CENSUS golden=17505 ours=17505 AGREE=17505 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW Earlgrey_0_1 testflags ALL   -- CENSUS golden=17505 ours=38529 AGREE=17426 ONLY-GOLDEN=79 ONLY-OURS=21103
+ROW Earlgrey_0_1 testflags DEFLST -- CENSUS golden=0 ours=0 AGREE=0 ONLY-GOLDEN=0 ONLY-OURS=0
+-- rows measured=11 SKIP-NOFILE=1
+
+=== B. cen214.sh on the PATCHED sweep
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+ROW SeqDriver default CALIB[-- CENSUS golden=289 ours=289 AGREE=289 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW SeqDriver default ALL   -- CENSUS golden=289 ours=300 AGREE=285 ONLY-GOLDEN=4 ONLY-OURS=15
+ROW SeqDriver default DEFLST -- CENSUS golden=51 ours=51 AGREE=51 ONLY-GOLDEN=0 ONLY-OURS=0
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+ROW SeqDriver testflags CALIB[-- CENSUS golden=289 ours=289 AGREE=289 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW SeqDriver testflags ALL   -- CENSUS golden=289 ours=300 AGREE=285 ONLY-GOLDEN=4 ONLY-OURS=15
+ROW SeqDriver testflags DEFLST -- CENSUS golden=51 ours=51 AGREE=51 ONLY-GOLDEN=0 ONLY-OURS=0
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+ROW MiniAmiq default CALIB[-- CENSUS golden=289 ours=289 AGREE=289 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW MiniAmiq default ALL   -- CENSUS golden=289 ours=315 AGREE=285 ONLY-GOLDEN=4 ONLY-OURS=30
+ROW MiniAmiq default DEFLST -- CENSUS golden=51 ours=51 AGREE=51 ONLY-GOLDEN=0 ONLY-OURS=0
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+ROW MiniAmiq testflags CALIB[-- CENSUS golden=289 ours=289 AGREE=289 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW MiniAmiq testflags ALL   -- CENSUS golden=289 ours=315 AGREE=285 ONLY-GOLDEN=4 ONLY-OURS=30
+ROW MiniAmiq testflags DEFLST -- CENSUS golden=51 ours=51 AGREE=51 ONLY-GOLDEN=0 ONLY-OURS=0
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+ROW BuildUVMPkg default CALIB[-- CENSUS golden=131 ours=131 AGREE=131 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW BuildUVMPkg default ALL   -- CENSUS golden=131 ours=130 AGREE=130 ONLY-GOLDEN=1 ONLY-OURS=0
+ROW BuildUVMPkg default DEFLST -- CENSUS golden=8 ours=8 AGREE=8 ONLY-GOLDEN=0 ONLY-OURS=0
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+ROW BuildUVMPkg testflags CALIB[-- CENSUS golden=131 ours=131 AGREE=131 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW BuildUVMPkg testflags ALL   -- CENSUS golden=131 ours=130 AGREE=130 ONLY-GOLDEN=1 ONLY-OURS=0
+ROW BuildUVMPkg testflags DEFLST -- CENSUS golden=8 ours=8 AGREE=8 ONLY-GOLDEN=0 ONLY-OURS=0
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+ROW SimpleUVM default CALIB[-- CENSUS golden=250 ours=250 AGREE=250 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW SimpleUVM default ALL   -- CENSUS golden=250 ours=253 AGREE=249 ONLY-GOLDEN=1 ONLY-OURS=4
+ROW SimpleUVM default DEFLST -- CENSUS golden=17 ours=17 AGREE=17 ONLY-GOLDEN=0 ONLY-OURS=0
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+ROW SimpleUVM testflags CALIB[-- CENSUS golden=250 ours=250 AGREE=250 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW SimpleUVM testflags ALL   -- CENSUS golden=250 ours=253 AGREE=249 ONLY-GOLDEN=1 ONLY-OURS=4
+ROW SimpleUVM testflags DEFLST -- CENSUS golden=17 ours=17 AGREE=17 ONLY-GOLDEN=0 ONLY-OURS=0
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+ROW Scoreboard default CALIB[-- CENSUS golden=251 ours=251 AGREE=251 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW Scoreboard default ALL   -- CENSUS golden=251 ours=250 AGREE=250 ONLY-GOLDEN=1 ONLY-OURS=0
+ROW Scoreboard default DEFLST -- CENSUS golden=17 ours=17 AGREE=17 ONLY-GOLDEN=0 ONLY-OURS=0
+ROW Scoreboard testflags SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+ROW Earlgrey_0_1 default CALIB[-- CENSUS golden=8002 ours=8002 AGREE=8002 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW Earlgrey_0_1 default ALL   -- CENSUS golden=8002 ours=10168 AGREE=7975 ONLY-GOLDEN=27 ONLY-OURS=2193
+ROW Earlgrey_0_1 default DEFLST -- CENSUS golden=0 ours=0 AGREE=0 ONLY-GOLDEN=0 ONLY-OURS=0
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+awk: warning: escape sequence `\[' treated as plain `['
+awk: warning: escape sequence `\]' treated as plain `]'
+ROW Earlgrey_0_1 testflags CALIB[-- CENSUS golden=17505 ours=17505 AGREE=17505 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW Earlgrey_0_1 testflags ALL   -- CENSUS golden=17505 ours=38529 AGREE=17426 ONLY-GOLDEN=79 ONLY-OURS=21103
+ROW Earlgrey_0_1 testflags DEFLST -- CENSUS golden=0 ours=0 AGREE=0 ONLY-GOLDEN=0 ONLY-OURS=0
+-- rows measured=11 SKIP-NOFILE=1
+
+=== C. score214.py — the four columns per row-mode (DEF-LISTING scope)
+-- ROW SeqDriver.default
+-- SCOPE DEF-LISTING   cells golden=34 pristine=34 patched=34
+-- VIEWSET RIGHT-BOTH 17  TO-GOLDEN 17  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- RIGHT-BOTH 17  TO-GOLDEN 17  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  APPEARED 0  VANISHED 0
+-- ROW SeqDriver.testflags
+-- SCOPE DEF-LISTING   cells golden=34 pristine=34 patched=34
+-- VIEWSET RIGHT-BOTH 17  TO-GOLDEN 17  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- RIGHT-BOTH 17  TO-GOLDEN 17  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  APPEARED 0  VANISHED 0
+-- ROW MiniAmiq.default
+-- SCOPE DEF-LISTING   cells golden=34 pristine=34 patched=34
+-- VIEWSET RIGHT-BOTH 17  TO-GOLDEN 17  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- RIGHT-BOTH 17  TO-GOLDEN 17  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  APPEARED 0  VANISHED 0
+-- ROW MiniAmiq.testflags
+-- SCOPE DEF-LISTING   cells golden=34 pristine=34 patched=34
+-- VIEWSET RIGHT-BOTH 17  TO-GOLDEN 17  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- RIGHT-BOTH 17  TO-GOLDEN 17  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  APPEARED 0  VANISHED 0
+-- ROW BuildUVMPkg.default
+-- SCOPE DEF-LISTING   cells golden=8 pristine=8 patched=8
+-- VIEWSET RIGHT-BOTH 0  TO-GOLDEN 8  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- RIGHT-BOTH 0  TO-GOLDEN 8  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  APPEARED 0  VANISHED 0
+-- ROW BuildUVMPkg.testflags
+-- SCOPE DEF-LISTING   cells golden=8 pristine=8 patched=8
+-- VIEWSET RIGHT-BOTH 0  TO-GOLDEN 8  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- RIGHT-BOTH 0  TO-GOLDEN 8  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  APPEARED 0  VANISHED 0
+-- ROW SimpleUVM.default
+-- SCOPE DEF-LISTING   cells golden=17 pristine=17 patched=17
+-- VIEWSET RIGHT-BOTH 17  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- RIGHT-BOTH 17  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  APPEARED 0  VANISHED 0
+-- ROW SimpleUVM.testflags
+-- SCOPE DEF-LISTING   cells golden=17 pristine=17 patched=17
+-- VIEWSET RIGHT-BOTH 17  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- RIGHT-BOTH 17  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  APPEARED 0  VANISHED 0
+-- ROW Scoreboard.default
+-- SCOPE DEF-LISTING   cells golden=17 pristine=17 patched=17
+-- VIEWSET RIGHT-BOTH 17  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- RIGHT-BOTH 17  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  APPEARED 0  VANISHED 0
+-- ROW Earlgrey_0_1.default
+-- SCOPE DEF-LISTING   cells golden=0 pristine=0 patched=0
+-- VIEWSET RIGHT-BOTH 0  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- RIGHT-BOTH 0  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  APPEARED 0  VANISHED 0
+-- ROW Earlgrey_0_1.testflags
+-- SCOPE DEF-LISTING   cells golden=0 pristine=0 patched=0
+-- VIEWSET RIGHT-BOTH 0  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+-- RIGHT-BOTH 0  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  APPEARED 0  VANISHED 0
+
+=== D. every moved cell, NAMED (SeqDriver/default; the other five rows are the same shape)
+TO-GOLDEN	ref|UVM_CHECK_FIELDS|3167:35	package[ALLPKG:uvm_pkg]<function:uvm_component::apply_config_settings<begin:<func_call:__m_uvm_field_automation	pristine={'ACT=constant@209:30[package[TOPPKG:uvm_pkg]]{v=UINT:131075,d=131075,sz=32}': 1}	patched={'ACT=operation@209:30[package[ALLPKG:uvm_pkg]]{op=24}': 1}	golden={'ACT=operation@209:30[package[ALLPKG:uvm_pkg]]{op=24}': 1}
+TO-GOLDEN	ref|UVM_COMPARE|1100:35	package[ALLPKG:uvm_pkg]<function:uvm_object::compare<begin:<if_stmt:<begin:<func_call:__m_uvm_field_automation	pristine={'ACT=constant@189:31[package[TOPPKG:uvm_pkg]]{v=UINT:4,d=4,sz=32}': 1}	patched={'ACT=operation@189:31[package[ALLPKG:uvm_pkg]]{op=22}': 1}	golden={'ACT=operation@189:31[package[ALLPKG:uvm_pkg]]{op=22}': 1}
+TO-GOLDEN	ref|UVM_COPY|1026:33	package[ALLPKG:uvm_pkg]<function:uvm_object::copy<begin:<func_call:__m_uvm_field_automation	pristine={'ACT=constant@187:31[package[TOPPKG:uvm_pkg]]{v=UINT:1,d=1,sz=32}': 1}	patched={'ACT=operation@187:31[package[ALLPKG:uvm_pkg]]{op=22}': 1}	golden={'ACT=operation@187:31[package[ALLPKG:uvm_pkg]]{op=22}': 1}
+TO-GOLDEN	ref|UVM_PACK|1156:34	package[ALLPKG:uvm_pkg]<function:uvm_object::m_pack<begin:<func_call:__m_uvm_field_automation	pristine={'ACT=constant@195:31[package[TOPPKG:uvm_pkg]]{v=UINT:256,d=256,sz=32}': 1}	patched={'ACT=operation@195:31[package[ALLPKG:uvm_pkg]]{op=22}': 1}	golden={'ACT=operation@195:31[package[ALLPKG:uvm_pkg]]{op=22}': 1}
+TO-GOLDEN	ref|UVM_PACK|650:44	package[ALLPKG:uvm_pkg]<function:uvm_packer::pack_object<begin:<if_else:<begin:<method_func_call:__m_uvm_field_automation	pristine={'ACT=constant@195:31[package[TOPPKG:uvm_pkg]]{v=UINT:256,d=256,sz=32}': 1}	patched={'ACT=operation@195:31[package[ALLPKG:uvm_pkg]]{op=22}': 1}	golden={'ACT=operation@195:31[package[ALLPKG:uvm_pkg]]{op=22}': 1}
+TO-GOLDEN	ref|UVM_PRINT|897:36	package[ALLPKG:uvm_pkg]<function:uvm_object::sprint<begin:<if_stmt:<begin:<func_call:__m_uvm_field_automation	pristine={'ACT=constant@191:31[package[TOPPKG:uvm_pkg]]{v=UINT:16,d=16,sz=32}': 1}	patched={'ACT=operation@191:31[package[ALLPKG:uvm_pkg]]{op=22}': 1}	golden={'ACT=operation@191:31[package[ALLPKG:uvm_pkg]]{op=22}': 1}
+TO-GOLDEN	ref|UVM_RECORD|1305:34	package[ALLPKG:uvm_pkg]<function:uvm_object::record<begin:<func_call:__m_uvm_field_automation	pristine={'ACT=constant@193:31[package[TOPPKG:uvm_pkg]]{v=UINT:64,d=64,sz=32}': 1}	patched={'ACT=operation@193:31[package[ALLPKG:uvm_pkg]]{op=22}': 1}	golden={'ACT=operation@193:31[package[ALLPKG:uvm_pkg]]{op=22}': 1}
+TO-GOLDEN	ref|UVM_SETINT|933:34	package[ALLPKG:uvm_pkg]<function:uvm_object::set_int_local<begin:<func_call:__m_uvm_field_automation	pristine={'ACT=constant@217:31[package[TOPPKG:uvm_pkg]]{v=UINT:131078,d=131078,sz=32}': 1}	patched={'ACT=ref_obj@217:31[package[ALLPKG:uvm_pkg]]{n=UVM_SET}': 1}	golden={'ACT=ref_obj@217:31[package[ALLPKG:uvm_pkg]]{n=UVM_SET}': 1}
+TO-GOLDEN	ref|UVM_SETOBJ|963:34	package[ALLPKG:uvm_pkg]<function:uvm_object::set_object_local<begin:<func_call:__m_uvm_field_automation	pristine={'ACT=constant@218:31[package[TOPPKG:uvm_pkg]]{v=UINT:131079,d=131079,sz=32}': 1}	patched={'ACT=operation@218:31[package[ALLPKG:uvm_pkg]]{op=24}': 1}	golden={'ACT=operation@218:31[package[ALLPKG:uvm_pkg]]{op=24}': 1}
+TO-GOLDEN	ref|UVM_SETSTR|985:34	package[ALLPKG:uvm_pkg]<function:uvm_object::set_string_local<begin:<func_call:__m_uvm_field_automation	pristine={'ACT=constant@219:31[package[TOPPKG:uvm_pkg]]{v=UINT:131080,d=131080,sz=32}': 1}	patched={'ACT=operation@219:31[package[ALLPKG:uvm_pkg]]{op=24}': 1}	golden={'ACT=operation@219:31[package[ALLPKG:uvm_pkg]]{op=24}': 1}
+TO-GOLDEN	ref|UVM_UNPACK|1231:34	package[ALLPKG:uvm_pkg]<function:uvm_object::m_unpack_post<begin:<func_call:__m_uvm_field_automation	pristine={'ACT=constant@208:30[package[TOPPKG:uvm_pkg]]{v=UINT:131074,d=131074,sz=32}': 1}	patched={'ACT=operation@208:30[package[ALLPKG:uvm_pkg]]{op=24}': 1}	golden={'ACT=operation@208:30[package[ALLPKG:uvm_pkg]]{op=24}': 1}
+TO-GOLDEN	ref|UVM_UNPACK|851:44	package[ALLPKG:uvm_pkg]<function:uvm_packer::unpack_object<begin:<if_else:<begin:<if_else:<begin:<method_func_call:__m_uvm_field_automation	pristine={'ACT=constant@208:30[package[TOPPKG:uvm_pkg]]{v=UINT:131074,d=131074,sz=32}': 1}	patched={'ACT=operation@208:30[package[ALLPKG:uvm_pkg]]{op=24}': 1}	golden={'ACT=operation@208:30[package[ALLPKG:uvm_pkg]]{op=24}': 1}
+TO-GOLDEN	ref|uvm_cdn_copyright|363:15	package[ALLPKG:uvm_pkg]<function:uvm_root::report_header<begin:<method_func_call:push_back<operation:	pristine={'ACT=constant@27:39[package[TOPPKG:uvm_pkg]]{v=STRING:(C) 2007-2014 Cadence Design Systems, Inc.,d="(C) 2007-2014 Cadence Design Systems, Inc.",sz=336}': 1}	patched={'ACT=constant@27:39[package[ALLPKG:uvm_pkg]]{v=STRING:(C) 2007-2014 Cadence Design Systems, Inc.,d="(C) 2007-2014 Cadence Design Systems, Inc.",sz=336}': 1}	golden={'ACT=constant@27:39[package[ALLPKG:uvm_pkg]]{v=STRING:(C) 2007-2014 Cadence Design Systems, Inc.,d="(C) 2007-2014 Cadence Design Systems, Inc.",sz=336}': 1}
+TO-GOLDEN	ref|uvm_cy_copyright|365:15	package[ALLPKG:uvm_pkg]<function:uvm_root::report_header<begin:<method_func_call:push_back<operation:	pristine={'ACT=constant@29:39[package[TOPPKG:uvm_pkg]]{v=STRING:(C) 2011-2013 Cypress Semiconductor Corp.,d="(C) 2011-2013 Cypress Semiconductor Corp.",sz=328}': 1}	patched={'ACT=constant@29:39[package[ALLPKG:uvm_pkg]]{v=STRING:(C) 2011-2013 Cypress Semiconductor Corp.,d="(C) 2011-2013 Cypress Semiconductor Corp.",sz=328}': 1}	golden={'ACT=constant@29:39[package[ALLPKG:uvm_pkg]]{v=STRING:(C) 2011-2013 Cypress Semiconductor Corp.,d="(C) 2011-2013 Cypress Semiconductor Corp.",sz=328}': 1}
+TO-GOLDEN	ref|uvm_mgc_copyright|362:15	package[ALLPKG:uvm_pkg]<function:uvm_root::report_header<begin:<method_func_call:push_back<operation:	pristine={'ACT=constant@26:39[package[TOPPKG:uvm_pkg]]{v=STRING:(C) 2007-2014 Mentor Graphics Corporation,d="(C) 2007-2014 Mentor Graphics Corporation",sz=328}': 1}	patched={'ACT=constant@26:39[package[ALLPKG:uvm_pkg]]{v=STRING:(C) 2007-2014 Mentor Graphics Corporation,d="(C) 2007-2014 Mentor Graphics Corporation",sz=328}': 1}	golden={'ACT=constant@26:39[package[ALLPKG:uvm_pkg]]{v=STRING:(C) 2007-2014 Mentor Graphics Corporation,d="(C) 2007-2014 Mentor Graphics Corporation",sz=328}': 1}
+TO-GOLDEN	ref|uvm_nv_copyright|366:15	package[ALLPKG:uvm_pkg]<function:uvm_root::report_header<begin:<method_func_call:push_back<operation:	pristine={'ACT=constant@30:39[package[TOPPKG:uvm_pkg]]{v=STRING:(C) 2013-2014 NVIDIA Corporation,d="(C) 2013-2014 NVIDIA Corporation",sz=256}': 1}	patched={'ACT=constant@30:39[package[ALLPKG:uvm_pkg]]{v=STRING:(C) 2013-2014 NVIDIA Corporation,d="(C) 2013-2014 NVIDIA Corporation",sz=256}': 1}	golden={'ACT=constant@30:39[package[ALLPKG:uvm_pkg]]{v=STRING:(C) 2013-2014 NVIDIA Corporation,d="(C) 2013-2014 NVIDIA Corporation",sz=256}': 1}
+TO-GOLDEN	ref|uvm_snps_copyright|364:15	package[ALLPKG:uvm_pkg]<function:uvm_root::report_header<begin:<method_func_call:push_back<operation:	pristine={'ACT=constant@28:39[package[TOPPKG:uvm_pkg]]{v=STRING:(C) 2006-2014 Synopsys, Inc.,d="(C) 2006-2014 Synopsys, Inc.",sz=224}': 1}	patched={'ACT=constant@28:39[package[ALLPKG:uvm_pkg]]{v=STRING:(C) 2006-2014 Synopsys, Inc.,d="(C) 2006-2014 Synopsys, Inc.",sz=224}': 1}	golden={'ACT=constant@28:39[package[ALLPKG:uvm_pkg]]{v=STRING:(C) 2006-2014 Synopsys, Inc.,d="(C) 2006-2014 Synopsys, Inc.",sz=224}': 1}
+
+=== E. BuildUVMPkg/default, all eight cells NAMED
+TO-GOLDEN	ref|UVM_FIELD_FLAG_RESERVED_BITS|39525:40	package[ALLPKG:uvm_pkg]<function:uvm_root::m_check_uvm_field_flag_size<operation:	pristine={'ACT=constant@7856:42[package[TOPPKG:uvm_pkg]]{v=UINT:28,d=28,sz=32}': 1}	patched={'ACT=constant@7856:42[package[ALLPKG:uvm_pkg]]{v=UINT:28,d=28,sz=64}': 1}	golden={'ACT=constant@7856:42[package[ALLPKG:uvm_pkg]]{v=UINT:28,d=28,sz=64}': 1}
+TO-GOLDEN	ref|UVM_FIELD_FLAG_RESERVED_BITS|39525:8	package[ALLPKG:uvm_pkg]<function:uvm_root::m_check_uvm_field_flag_size<operation:	pristine={'ACT=constant@7856:42[package[TOPPKG:uvm_pkg]]{v=UINT:28,d=28,sz=32}': 1}	patched={'ACT=constant@7856:42[package[ALLPKG:uvm_pkg]]{v=UINT:28,d=28,sz=64}': 1}	golden={'ACT=constant@7856:42[package[ALLPKG:uvm_pkg]]{v=UINT:28,d=28,sz=64}': 1}
+TO-GOLDEN	ref|UVM_FIELD_FLAG_RESERVED_BITS|39529:35	package[ALLPKG:uvm_pkg]<function:uvm_root::m_check_uvm_field_flag_size<if_stmt:<begin:<func_call:uvm_report_fatal<sys_func_call:$sformatf	pristine={'ACT=constant@7856:42[package[TOPPKG:uvm_pkg]]{v=UINT:28,d=28,sz=32}': 1}	patched={'ACT=constant@7856:42[package[ALLPKG:uvm_pkg]]{v=UINT:28,d=28,sz=64}': 1}	golden={'ACT=constant@7856:42[package[ALLPKG:uvm_pkg]]{v=UINT:28,d=28,sz=64}': 1}
+TO-GOLDEN	ref|UVM_FIELD_FLAG_RESERVED_BITS|39529:5	package[ALLPKG:uvm_pkg]<function:uvm_root::m_check_uvm_field_flag_size<if_stmt:<begin:<func_call:uvm_report_fatal<sys_func_call:$sformatf	pristine={'ACT=constant@7856:42[package[TOPPKG:uvm_pkg]]{v=UINT:28,d=28,sz=32}': 1}	patched={'ACT=constant@7856:42[package[ALLPKG:uvm_pkg]]{v=UINT:28,d=28,sz=64}': 1}	golden={'ACT=constant@7856:42[package[ALLPKG:uvm_pkg]]{v=UINT:28,d=28,sz=64}': 1}
+TO-GOLDEN	ref|UVM_PACK|22423:16	package[ALLPKG:uvm_pkg]<function:uvm_packer::pack_object<begin:<method_func_call:set	pristine={'ACT=constant@8001:48[package[TOPPKG:uvm_pkg]]{v=UINT:256,d=256,sz=28}': 1}	patched={'ACT=operation@8001:48[package[ALLPKG:uvm_pkg]]{op=22}': 1}	golden={'ACT=operation@8001:48[package[ALLPKG:uvm_pkg]]{op=22}': 1}
+TO-GOLDEN	ref|UVM_PRINT|20275:18	package[ALLPKG:uvm_pkg]<function:uvm_printer::print_object<begin:<if_else:<begin:<method_func_call:set	pristine={'ACT=constant@7997:48[package[TOPPKG:uvm_pkg]]{v=UINT:16,d=16,sz=28}': 1}	patched={'ACT=operation@7997:48[package[ALLPKG:uvm_pkg]]{op=22}': 1}	golden={'ACT=operation@7997:48[package[ALLPKG:uvm_pkg]]{op=22}': 1}
+TO-GOLDEN	ref|UVM_SET|11072:14	package[ALLPKG:uvm_pkg]<function:uvm_object::set_local<if_else:<begin:<begin:<method_func_call:set	pristine={'ACT=constant@8005:48[package[TOPPKG:uvm_pkg]]{v=UINT:2048,d=2048,sz=28}': 1}	patched={'ACT=operation@8005:48[package[ALLPKG:uvm_pkg]]{op=22}': 1}	golden={'ACT=operation@8005:48[package[ALLPKG:uvm_pkg]]{op=22}': 1}
+TO-GOLDEN	ref|UVM_UNPACK|22702:18	package[ALLPKG:uvm_pkg]<function:uvm_packer::unpack_object<begin:<if_else:<begin:<method_func_call:set	pristine={'ACT=constant@8003:48[package[TOPPKG:uvm_pkg]]{v=UINT:1024,d=1024,sz=28}': 1}	patched={'ACT=operation@8003:48[package[ALLPKG:uvm_pkg]]{op=22}': 1}	golden={'ACT=operation@8003:48[package[ALLPKG:uvm_pkg]]{op=22}': 1}

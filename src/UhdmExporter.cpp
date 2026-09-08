@@ -8256,7 +8256,21 @@ UHDM::design* UhdmExporter::exportDesign() {
             if (!act146)
                 continue;
             const auto at146 = act146->UhdmType();
-            if (at146 != UHDM::uhdmconstant && at146 != UHDM::uhdmoperation)
+            // § pkgCloneBodyBindsOwnListingRhs214 joins this pass here: a
+            // def-listing class-method clone body's package-parameter reference
+            // is bound to THAT listing's own `param_assign` Rhs, which can be a
+            // `ref_obj` (`UVM_SETINT = UVM_SET`) as well as the constant or
+            // operation this loop already accepts.  Surelog's `lateBinding`
+            // walks the reference's PARENT CHAIN — design-level parameters
+            // included — BEFORE it reads `m->Param_assigns()`, so where a
+            // compilation-unit import hoists the name the design parameter WINS,
+            // whichever of the three kinds the listing's Rhs happens to be.
+            // Measured: `SimpleUVM` ×2 and `Scoreboard`/default bind
+            // `parameter (UVM_SETINT) @217:11` in golden, `SeqDriver` and
+            // `MiniAmiq` — whose imports are not at compilation-unit scope —
+            // bind the Rhs `ref_obj (uvm_pkg::UVM_SET) @217:31`.
+            if (at146 != UHDM::uhdmconstant && at146 != UHDM::uhdmoperation &&
+                !(at146 == UHDM::uhdmref_obj && cloneRhsBound214.count(r146)))
                 continue;
             if (r146->VpiName().empty())
                 continue;

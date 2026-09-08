@@ -1,0 +1,72 @@
+r10uvm214 — THE WIDE BOUNDARY GATE.
+MEASUREMENT ONLY; the official uhdm-cmp is the sole acceptance judge.
+
+bound214.sh over a COPY of the WHOLE probe tree (top level AND subdirectories),
+both binaries, BOTH VIEWS (plain and --elabuhdm), children </dev/null, the file list
+on fd 3, scratch keyed on the RELATIVE path, PROCESSED asserted against LISTED.
+This pass's own four moving grid arms are the POSITIVE CONTROL: a gate that reported
+zero movers over them could not see.
+
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3423931 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3423949 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3426049 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3426067 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3640088 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3640106 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3681647 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3681666 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3684646 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3684664 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3687056 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3687074 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3755180 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3755198 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3755262 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3755280 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3813850 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3813869 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3814534 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3814553 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3818897 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3818915 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3819311 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3819329 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3821640 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3821658 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3821971 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3821989 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3876387 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3876405 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3876469 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3876487 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3876551 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_r10uvm214/tools/probe/r10uvm214repro/bound214.sh: line 47: 3876569 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+LISTED=5489 PROCESSED=5489 PRODUCED_DBS=5296 MOVED_ARMS=18 RC_DIFFS=0
+done
+
+=== THE MOVERS
+r10buvm30repro/g30_a_shapes.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10uvm120repro/g120_c_homes.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10uvm169repro/g169_c_homes.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10uvm174repro/g174_a_forms.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10uvm178repro/g178_e_oob.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10uvm214repro/grid214/g214_a_oob.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10uvm214repro/grid214/g214_d_pkgimp.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10uvm214repro/grid214/g214_e_foreign.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10uvm214repro/grid214/g214_f_muststay.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10uvm88repro/g88_a2_bound.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10uvm95repro/g95_a5_oob.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10v169repro/v169_l_class.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10v174repro/v174_a_faces.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10v174repro/v174_b_sysfns.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10v178repro/v178_b_subkind.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10v178repro/v178_g_diamond.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10v179repro/v179_b_arg.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10vbuvm30repro/vg30_h_macro.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+
+NOTE — every arm's --elabuhdm database is BYTE-IDENTICAL between the two binaries
+except r10v179repro/v179_b_arg.sv: under --elabuhdm our emission does not reach this
+law at all.  That matters for the corpus because scripts/verify_golden.py translates a
+test's own -elabuhdm into --elabuhdm for OUR binary too (verify_golden.py:369-370) and
+635 of the 761 corpus .sl files carry it — so the elaborated half of the corpus is
+structurally untouched, which is what the 6/956 byte-mover count independently says.

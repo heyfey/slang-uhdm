@@ -13531,7 +13531,160 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // config_pkg::check_cfg is UINT:16 at size 32 there and
                         // size 64 in the def listing).
                         auto pit2 = pkgParamDefRhs.find(&nv.symbol);
-                        if (pkgEmitTopView && pit2 != pkgParamDefRhs.end())
+                        // § pkgCloneBodyBindsOwnListingRhs214 (r10uvm214) — THE
+                        // HOME PACKAGE'S *DEF* LISTING OF AN OUT-OF-BODY CLASS
+                        // METHOD BINDS A PACKAGE-PARAMETER REFERENCE TO **THAT
+                        // LISTING'S OWN** `param_assign` Rhs, NOT to the
+                        // elaborated listing's folded constant.
+                        //
+                        // THE HEAD (SeqDriver x2 AND MiniAmiq x2, 50 cmp lines,
+                        // ONE head each, at adbec035 — the last workable head
+                        // in the corpus): golden's
+                        //   LHS ref_obj (uvm_pkg::UVM_SET) @217:31, parent
+                        //       param_assign @217:11, vpiActual = operation
+                        //       @216:31
+                        // against our
+                        //   RHS constant 131078 size 32 @217:31, parent
+                        //       param_assign @217:11.
+                        // `ct214bind --one` puts golden's object in
+                        // `package[ALLPKG:uvm_pkg]` and ours in
+                        // `package[TOPPKG:uvm_pkg]` — a DEF/ELAB CROSSING, and
+                        // `ref_obj::Compare` (generated ref_obj.cpp) READS
+                        // `Actual_group`, so the link that carries the judge
+                        // across is the body reference
+                        // `__m_uvm_field_automation(null, UVM_SETINT,
+                        // field_name)` at uvm_object.svh:933 in the DEF
+                        // listing's clone of `uvm_object::set_int_local`.
+                        //
+                        // SURELOG.  `UhdmWriter::lateBinding`
+                        // (~/git-repos/Surelog -- the tree
+                        // scripts/verify_golden.py builds its goldens from --
+                        // UhdmWriter.cpp:3812-3821) walks the component's own
+                        // late-binding list and answers a name out of THE
+                        // COMPONENT BEING WRITTEN:
+                        //     if (m && m->Param_assigns())
+                        //       for (auto p : *m->Param_assigns())
+                        //         if (p->Lhs()->VpiName() == name)
+                        //           if (m->UhdmType() == uhdmpackage)
+                        //             ref->Actual_group(p->Rhs());
+                        // and `FunctorCompilePackage::operator()`
+                        // (CompilePackage.cpp:60-72) compiles a package TWICE,
+                        // so the def component and the elaborated one each
+                        // bind their own listing's Rhs.  Our class-method clone
+                        // listing is written by `emitPackageClassMethodClones`,
+                        // which runs inside `emitPackage`'s `if (topView)`
+                        // block (it needs the class_defns that pass creates) —
+                        // r10uvm213's R5 — so `pkgEmitTopView` is TRUE while the
+                        // DEF listing is being written and the arm below bound
+                        // the ELABORATED Rhs into it.  `pkgClassTfClone &&
+                        // !pkgImportCloneEmit` is the window that names the DEF
+                        // listing; `pkgParamDefRhsDefView17` is the one map the
+                        // top-view pass never overwrites, and it holds the very
+                        // object our own def `param_assign` carries
+                        // (`ct214bind --parhs`).
+                        //
+                        // THE GATE HAS A HOME TEST, and it is Surelog's own:
+                        // `m->Param_assigns()` is the WRITTEN package's list, so
+                        // a clone body reading a FOREIGN package's parameter
+                        // cannot take that package's Rhs.  Grid arm E measures
+                        // both spellings of a foreign read (`pf214src::fa214`
+                        // and the wildcard-imported bare `fa214`) and golden
+                        // holds NO reference there at all — the read is folded —
+                        // so those cells belong to the fold family and this law
+                        // must leave them exactly where they are.
+                        //
+                        // WHAT THE GRID DECIDED, BEFORE ANY CODE (arms A-G,
+                        // both views, one REAL Surelog golden each):
+                        //  * arm A: the DEF clone listing takes the DEF Rhs for
+                        //    EVERY REFERENT KIND — a literal constant (and the
+                        //    def constant is SIZE 64 where the elaborated one is
+                        //    32, so even that cell is judge-visible), a bare
+                        //    param ref, an operation, a string, a typed vector —
+                        //    and in EVERY READ POSITION: call argument,
+                        //    assignment Rhs, operation operand, return
+                        //    expression, condition, and a task body.  No
+                        //    position conjunct, no kind conjunct.
+                        //  * arm C: a package FREE subroutine's def listing is
+                        //    already golden's (it is written in the package's
+                        //    own def pass, where `pkgEmitTopView` is false) —
+                        //    0 divergent cells, and none may move.
+                        //  * arm D: the two IMPORT-CLONE listings stay BARE
+                        //    (§ pkgCloneParamRefStaysBare178) — the window's
+                        //    `!pkgImportCloneEmit` is what keeps them there.
+                        //  * arm B (in-body methods, no clone listing at all),
+                        //    arm F (class parameter, subroutine localparam,
+                        //    formal, body local, class constant, enum member)
+                        //    and arm G (module-homed and `$unit`-homed classes)
+                        //    are census-identical on the two binaries.
+                        //
+                        // AND THE `$unit` CONJUNCT, WHICH IS SURELOG'S OWN
+                        // PRECEDENCE AND WAS MEASURED, NOT ASSUMED.
+                        // `lateBinding` walks the reference's PARENT CHAIN
+                        // FIRST (UhdmWriter.cpp:3358-3740) and its `uhdmdesign`
+                        // case binds `d->Parameters()` BY NAME — the
+                        // DESIGN-LEVEL parameter object — long before the
+                        // `m->Param_assigns()` branch this law transcribes.  A
+                        // compilation-unit `import P::*;` HOISTS P's parameters
+                        // into that design list (§ unitImportHoistsPkgParams146
+                        // builds our copy of it in `unitParamMap`), so in such a
+                        // design the SAME cell in the SAME def listing binds the
+                        // design parameter and NOT the listing's Rhs.
+                        // MEASURED on three corpus rows against their own real
+                        // goldens: `SimpleUVM` ×2 and `Scoreboard`/default put
+                        // `import uvm_pkg::*` (resp. `import svunit_pkg::*`) at
+                        // compilation-unit scope, and golden binds
+                        // `parameter (UVM_SETINT) @217:11` there, where
+                        // `SeqDriver` — whose imports sit inside `package
+                        // adpcm_pkg` and inside `module top_tb` — binds
+                        // `ref_obj (uvm_pkg::UVM_SET) @217:31`, the def
+                        // listing's own Rhs, in the very same
+                        // `uvm_object::set_int_local` clone at 933:34.  Grid arm
+                        // H is that shape, purpose-built.  A first cut WITHOUT
+                        // this conjunct was built and swept: it moved that one
+                        // cell on those three row-modes and the census scored it
+                        // AWAY-GOLDEN 1 — the whole reason the conjunct is here.
+                        //
+                        // THE CONJUNCT IS NOT TESTED HERE, IT IS YIELDED LATER,
+                        // and that is forced by two facts, both measured.
+                        // (1) § unitImportHoistsPkgParams146 materializes the
+                        //     design list — and fills `unitParamMap` and
+                        //     `designImportParam146` — in `exportDesign` AFTER
+                        //     every package is emitted, so both maps are still
+                        //     EMPTY at this point, and the name set is not
+                        //     spellable from the imports either: `Scoreboard`
+                        //     hoists `UVM_SETINT` through a CU-level
+                        //     `import svunit_pkg::*`, one package further out
+                        //     than the parameter's own home.
+                        // (2) Asking slang instead — `lookupName` on each
+                        //     compilation unit — WAS BUILT AND SWEPT, and it
+                        //     FORCED AST BINDING during the def phase: with the
+                        //     law standing down on `SimpleUVM` exactly as
+                        //     intended, that row's database still moved, and the
+                        //     order-blind whole-dump diff pinned it to four
+                        //     lines that have nothing to do with this law —
+                        //     `uvm_report_message.svh:337`'s
+                        //     `queue_of_element[$]` right bound going 0 -> 1475
+                        //     (golden holds `$`), a MOVED-WRONG cell.  RESUME §9
+                        //     records exactly this Heisenbug; the lookup is gone.
+                        // So the bind is RECORDED in `cloneRhsBound214` and
+                        // § 146's own post-emission re-point
+                        // (UhdmExporter.cpp) accepts a ref from that pool, which
+                        // reproduces Surelog's precedence — the parent-chain
+                        // walk's design-level parameter WINS over
+                        // `m->Param_assigns()` — with no second decision and no
+                        // new phase.
+                        const bool defCloneListing214 =
+                            pkgClassTfClone && !pkgImportCloneEmit &&
+                            !importCloneEmit && curPkgEmitSym &&
+                            curPkgEmitSym == &scope->asSymbol();
+                        auto dit214 = pkgParamDefRhsDefView17.find(&nv.symbol);
+                        if (defCloneListing214 &&
+                            dit214 != pkgParamDefRhsDefView17.end() &&
+                            dit214->second) {
+                            ref->Actual_group(dit214->second);
+                            cloneRhsBound214.insert(ref);
+                        }
+                        else if (pkgEmitTopView && pit2 != pkgParamDefRhs.end())
                             ref->Actual_group(pit2->second);
                         else if (auto pit = pkgParamConst.find(&nv.symbol);
                                  pit != pkgParamConst.end())

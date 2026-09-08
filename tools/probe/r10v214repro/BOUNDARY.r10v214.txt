@@ -1,0 +1,28 @@
+r10v214 — THE WIDE BOUNDARY GATE, re-run by the verifier over a COPY of the
+whole probe tree with r10uvm214repro/bound214.sh (both binaries, both views).
+LISTED=5490 PROCESSED=5490 PRODUCED_DBS=5297 MOVED_ARMS=18 RC_DIFFS=0
+BNDDONE rc=0
+
+=== THE MOVERS (identical set to r10uvm214repro/BOUNDARY.movers.r10uvm214.txt)
+r10buvm30repro/g30_a_shapes.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10uvm120repro/g120_c_homes.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10uvm169repro/g169_c_homes.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10uvm174repro/g174_a_forms.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10uvm178repro/g178_e_oob.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10uvm214repro/grid214/g214_a_oob.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10uvm214repro/grid214/g214_d_pkgimp.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10uvm214repro/grid214/g214_e_foreign.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10uvm214repro/grid214/g214_f_muststay.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10uvm88repro/g88_a2_bound.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10uvm95repro/g95_a5_oob.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10v169repro/v169_l_class.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10v174repro/v174_a_faces.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10v174repro/v174_b_sysfns.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10v178repro/v178_b_subkind.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10v178repro/v178_g_diamond.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+r10v179repro/v179_b_arg.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10vbuvm30repro/vg30_h_macro.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+
+=== PROTECTED FAMILIES: hits in the mover list
+uvm205/207/208/210/213 + v205/v208/v210 + sd8-12 : 0
+(those families contribute 402 arms to the 5490 the gate compiled)

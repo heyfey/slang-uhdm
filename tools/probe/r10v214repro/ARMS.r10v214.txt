@@ -1,0 +1,73 @@
+r10v214 — THE VERIFIER'S 15 ADVERSARIAL ARMS, 8 IMPLEMENTER GRID ARMS RE-RUN,
+AND EVERY BOUNDARY MOVER, all with the CORRECTED elab column (our binary is
+given --elabuhdm whenever golden is given -elabuhdm, which
+scripts/verify_golden.py:369-370 does and r10uvm214repro/grid214.sh +
+armscore214.sh do NOT).  MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog).
+Calibration (golden vs golden) is null in every cell below.
+
+=== A. THE VERIFIER'S OWN 15 ARMS (30 arm-views), real Surelog goldens
+ARM va10_taskstmt    parse rc=0/0/0 bytes=MOVED calib=0 AGREE 8->14 ONLYG 6->0 ONLYOURS 6->0
+ARM va10_taskstmt    elab  rc=0/0/0 bytes=SAME  calib=0 AGREE 20->20 ONLYG 0->0 ONLYOURS 2->2
+ARM va1_enumconst    parse rc=0/0/0 bytes=MOVED calib=0 AGREE 3->5 ONLYG 2->0 ONLYOURS 2->0
+ARM va1_enumconst    elab  rc=0/0/0 bytes=SAME  calib=0 AGREE 7->7 ONLYG 0->0 ONLYOURS 0->0
+ARM va2_tsrange      parse rc=0/0/0 bytes=MOVED calib=0 AGREE 2->3 ONLYG 11->10 ONLYOURS 5->4
+ARM va2_tsrange      elab  rc=0/0/0 bytes=SAME  calib=0 AGREE 8->8 ONLYG 6->6 ONLYOURS 9->9
+ARM va3_expimport    parse rc=0/0/0 bytes=MOVED calib=0 AGREE 1->5 ONLYG 4->0 ONLYOURS 12->8
+ARM va3_expimport    elab  rc=0/0/0 bytes=SAME  calib=0 AGREE 5->5 ONLYG 0->0 ONLYOURS 27->27
+ARM va4_unitclash    parse rc=0/0/0 bytes=MOVED calib=0 AGREE 2->3 ONLYG 1->0 ONLYOURS 3->2
+ARM va4_unitclash    elab  rc=0/0/0 bytes=SAME  calib=0 AGREE 3->3 ONLYG 0->0 ONLYOURS 2->2
+ARM va5_modctx       parse rc=0/0/0 bytes=MOVED calib=0 AGREE 5->7 ONLYG 4->2 ONLYOURS 10->8
+ARM va5_modctx       elab  rc=0/0/0 bytes=SAME  calib=0 AGREE 7->7 ONLYG 2->2 ONLYOURS 18->18
+ARM va6_shapes       parse rc=0/0/0 bytes=MOVED calib=0 AGREE 6->9 ONLYG 7->4 ONLYOURS 5->2
+ARM va6_shapes       elab  rc=0/0/0 bytes=SAME  calib=0 AGREE 11->11 ONLYG 4->4 ONLYOURS 3->3
+ARM va7_generic      parse rc=0/0/0 bytes=MOVED calib=0 AGREE 3->5 ONLYG 2->0 ONLYOURS 4->2
+ARM va7_generic      elab  rc=0/0/0 bytes=SAME  calib=0 AGREE 6->6 ONLYG 0->0 ONLYOURS 4->4
+ARM va8_elabtwin     parse rc=0/0/0 bytes=MOVED calib=0 AGREE 2->5 ONLYG 5->2 ONLYOURS 7->4
+ARM va8_elabtwin     elab  rc=0/0/0 bytes=SAME  calib=0 AGREE 6->6 ONLYG 1->1 ONLYOURS 12->12
+ARM va9_unitother    parse rc=0/0/0 bytes=MOVED calib=0 AGREE 1->3 ONLYG 4->2 ONLYOURS 5->3
+ARM va9_unitother    elab  rc=0/0/0 bytes=SAME  calib=0 AGREE 4->4 ONLYG 1->1 ONLYOURS 3->3
+ARMVIEWS=20 NOGOLDEN=0
+ARM va11_qualified   parse rc=0/0/0 bytes=MOVED calib=0 AGREE 2->4 ONLYG 2->0 ONLYOURS 10->8
+ARM va11_qualified   elab  rc=0/0/0 bytes=SAME  calib=0 AGREE 4->4 ONLYG 0->0 ONLYOURS 18->18
+ARM va12_nested      parse rc=0/0/0 bytes=MOVED calib=0 AGREE 1->4 ONLYG 3->0 ONLYOURS 6->3
+ARM va12_nested      elab  rc=0/0/0 bytes=SAME  calib=0 AGREE 4->4 ONLYG 0->0 ONLYOURS 11->11
+ARM va13_reexport    parse rc=0/0/0 bytes=MOVED calib=0 AGREE 1->5 ONLYG 4->0 ONLYOURS 16->12
+ARM va13_reexport    elab  rc=0/0/0 bytes=SAME  calib=0 AGREE 5->5 ONLYG 0->0 ONLYOURS 39->39
+ARM va14_paramtypes  parse rc=0/0/0 bytes=MOVED calib=0 AGREE 5->10 ONLYG 8->3 ONLYOURS 11->6
+ARM va14_paramtypes  elab  rc=0/0/0 bytes=SAME  calib=0 AGREE 11->11 ONLYG 4->4 ONLYOURS 14->14
+ARM va15_taskbody    parse rc=0/0/0 bytes=MOVED calib=0 AGREE 4->10 ONLYG 12->6 ONLYOURS 10->4
+ARM va15_taskbody    elab  rc=0/0/0 bytes=SAME  calib=0 AGREE 9->9 ONLYG 12->12 ONLYOURS 11->11
+ARMVIEWS=10 NOGOLDEN=0
+
+=== A2. PER-CELL SUBSET CHECK: did any cell that AGREED with golden in the
+pristine database stop agreeing in the patched one?  LOST is that count.
+CELLS va10_taskstmt.elab       LOST(right->wrong)=0 GAINED(wrong->right)=0
+CELLS va10_taskstmt.parse      LOST(right->wrong)=0 GAINED(wrong->right)=6
+CELLS va1_enumconst.elab       LOST(right->wrong)=0 GAINED(wrong->right)=0
+CELLS va1_enumconst.parse      LOST(right->wrong)=0 GAINED(wrong->right)=2
+CELLS va2_tsrange.elab         LOST(right->wrong)=0 GAINED(wrong->right)=0
+CELLS va2_tsrange.parse        LOST(right->wrong)=0 GAINED(wrong->right)=1
+CELLS va3_expimport.elab       LOST(right->wrong)=0 GAINED(wrong->right)=0
+CELLS va3_expimport.parse      LOST(right->wrong)=0 GAINED(wrong->right)=4
+CELLS va4_unitclash.elab       LOST(right->wrong)=0 GAINED(wrong->right)=0
+CELLS va4_unitclash.parse      LOST(right->wrong)=0 GAINED(wrong->right)=1
+CELLS va5_modctx.elab          LOST(right->wrong)=0 GAINED(wrong->right)=0
+CELLS va5_modctx.parse         LOST(right->wrong)=0 GAINED(wrong->right)=2
+CELLS va6_shapes.elab          LOST(right->wrong)=0 GAINED(wrong->right)=0
+CELLS va6_shapes.parse         LOST(right->wrong)=0 GAINED(wrong->right)=3
+CELLS va7_generic.elab         LOST(right->wrong)=0 GAINED(wrong->right)=0
+CELLS va7_generic.parse        LOST(right->wrong)=0 GAINED(wrong->right)=2
+CELLS va8_elabtwin.elab        LOST(right->wrong)=0 GAINED(wrong->right)=0
+CELLS va8_elabtwin.parse       LOST(right->wrong)=0 GAINED(wrong->right)=3
+CELLS va9_unitother.elab       LOST(right->wrong)=0 GAINED(wrong->right)=0
+CELLS va9_unitother.parse      LOST(right->wrong)=0 GAINED(wrong->right)=2
+CELLS va11_qualified.elab      LOST(right->wrong)=0 GAINED(wrong->right)=0
+CELLS va11_qualified.parse     LOST(right->wrong)=0 GAINED(wrong->right)=2
+CELLS va12_nested.elab         LOST(right->wrong)=0 GAINED(wrong->right)=0
+CELLS va12_nested.parse        LOST(right->wrong)=0 GAINED(wrong->right)=3
+CELLS va13_reexport.elab       LOST(right->wrong)=0 GAINED(wrong->right)=0
+CELLS va13_reexport.parse      LOST(right->wrong)=0 GAINED(wrong->right)=4
+CELLS va14_paramtypes.elab     LOST(right->wrong)=0 GAINED(wrong->right)=0
+CELLS va14_paramtypes.parse    LOST(right->wrong)=0 GAINED(wrong->right)=5
+CELLS va15_taskbody.elab       LOST(right->wrong)=0 GAINED(wrong->right)=0
+CELLS va15_taskbody.parse      LOST(right->wrong)=0 GAINED(wrong->right)=6

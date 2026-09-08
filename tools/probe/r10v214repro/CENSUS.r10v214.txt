@@ -1,0 +1,43 @@
+r10v214 — THE CORPUS CENSUS, RE-MEASURED BY THE VERIFIER.
+ct214bind --keycount (key x payload-with-the-bound-object's-LISTING x holder),
+joined as a MULTISET against each row's OWN golden.  LHS is always golden.
+LOST = a row that agreed with golden in the pristine database and no longer
+does (AWAY-GOLDEN / MOVED-WRONG); GAINED = TO-GOLDEN.
+
+row-mode              golden  AGREE pris->pat  ONLY-GOLDEN  ONLY-OURS   LOST GAINED
+SeqDriver default        277     256 -> 273      21 -> 4     26 -> 9      0    17
+SeqDriver testflags      277     256 -> 273      21 -> 4     26 -> 9      0    17
+MiniAmiq default         277     256 -> 273      21 -> 4     26 -> 9      0    17
+MiniAmiq testflags       277     256 -> 273      21 -> 4     26 -> 9      0    17
+BuildUVMPkg default      123     114 -> 122       9 -> 1      9 -> 1      0     8
+SimpleUVM default        238     237 -> 237       1 -> 1      3 -> 3      0     0
+SimpleUVM testflags      238     237 -> 237       1 -> 1      3 -> 3      0     0
+Scoreboard default       239     238 -> 238       1 -> 1      1 -> 1      0     0
+Earlgrey_0_1 default    7728    7701 -> 7701     27 -> 27   706 -> 706    0     0
+Rggen default           1419     971 -> 971     448 -> 448  100 -> 100    0     0
+
+=== THE POPULATION TABLE, SeqDriver/default (ct214bind --pop), by LISTING
+GOLDEN   package[ALLPKG:uvm_pkg] REFS=36  constant=13 operation=22 ref_obj=1
+PRISTINE package[ALLPKG:uvm_pkg] REFS=36  constant=25 operation=11
+PATCHED  package[ALLPKG:uvm_pkg] REFS=36  constant=13 operation=22 ref_obj=1   <- golden's column exactly
+Every OTHER listing row is identical between pristine and patched, including
+the ELABORATED one (package[TOPPKG:uvm_pkg] REFS=197, <null>=178 constant=19).
+
+=== BuildUVMPkg/default: ALL EIGHT MOVED CELLS, verified against golden
+FOUR cells (UVM_FIELD_FLAG_RESERVED_BITS @39525:8, @39525:40, @39529:5,
+@39529:35) go constant[TOPPKG]{sz=32} -> constant[ALLPKG]{sz=64} = golden's.
+FOUR cells (UVM_PACK @22423:16, UVM_PRINT @20275:18, UVM_SET @11072:14,
+UVM_UNPACK @22702:18) go constant[TOPPKG] -> operation[ALLPKG]{op=22} = golden's.
+NOTE for the record: r10uvm214repro/README.md line 288 says 'the two whose size
+goes 32->64 and the four whose kind goes constant->operation'; it is FOUR and
+four.  The committed CENSUS.r10uvm214.txt names all eight correctly.
+After the patch BuildUVMPkg's only residue is a COUNT mismatch on
+ref|UVM_STREAMBITS|7840:23 ACT=<null> under logic_typespec[-:uvm_bitstream_t]
+(golden 6, ours 5) -- pre-existing, unchanged.
+
+=== SeqDriver/default AFTER the patch: the 4 ONLY-GOLDEN and 9 ONLY-OURS rows
+ONLY-GOLDEN: three UVM_LARGE_STRING cells under ref_typespec>logic_typespec>range
+  and one UVM_STREAMBITS count (12 vs 11) -- the typespec-range family, not this law.
+ONLY-OURS: four <root>-parented UVM_SET/SETINT/SETOBJ/SETSTR refs at 0:0 (the
+  unparented/weakly-referenced pool) plus the same typespec-range shapes.
+NO def-clone-body cell remains on either side.
