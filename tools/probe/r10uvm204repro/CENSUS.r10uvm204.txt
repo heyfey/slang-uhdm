@@ -1,0 +1,72 @@
+r10uvm204 — THE CORPUS CENSUS over the UVM row-modes.
+MEASUREMENT ONLY; the official uhdm-cmp is the sole judge.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+  CEN=<ct204cen> cen204.sh <pristine workdir> <patched workdir> <outdir>
+
+Row families (ct204cen.cpp): AG| = Actual_group carriers BOUND to a for-init
+loop variable; AGALL| = EVERY Actual_group carrier, bound or not (the WIDE
+column); FI| = every for_stmt init statement's shape.  score204.py joins them as
+MULTISETS (keys collide: one clone appears twice in a UVM database).
+
+THE CALIBRATION RAN FIRST on every row-mode — golden scored against itself, every
+mover column 0 (RESUME.md §9).
+
+SeqDriver    default   GOLDEN-vs-GOLDEN TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 61030  KEYS 61030
+SeqDriver    testflags GOLDEN-vs-GOLDEN TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 61030  KEYS 61030
+SimpleUVM    default   GOLDEN-vs-GOLDEN TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 44624  KEYS 44624
+SimpleUVM    testflags GOLDEN-vs-GOLDEN TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 44624  KEYS 44624
+Scoreboard   default   GOLDEN-vs-GOLDEN TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 44795  KEYS 44795
+MiniAmiq     default   GOLDEN-vs-GOLDEN TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 63243  KEYS 63243
+MiniAmiq     testflags GOLDEN-vs-GOLDEN TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 63243  KEYS 63243
+BuildUVMPkg  default   GOLDEN-vs-GOLDEN TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 44087  KEYS 44087
+BuildUVMPkg  testflags GOLDEN-vs-GOLDEN TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 44087  KEYS 44087
+Earlgrey_0_1 default   GOLDEN-vs-GOLDEN TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 124687  KEYS 124687
+Earlgrey_0_1 testflags GOLDEN-vs-GOLDEN TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 171305  KEYS 171305
+Rggen        default   GOLDEN-vs-GOLDEN TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 5948  KEYS 5948
+
+THE SCORE (golden vs pristine vs patched), span-stripped (the judge reads no
+VpiFile/line/col and no VpiParent, so sharing-vs-copying and the target's own
+span are not scored):
+
+SeqDriver    default   rc=0/0/0 agrows=1454 TO-GOLDEN 12  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 7515  AGREE 56874  KEYS 64401
+SeqDriver    testflags rc=0/0/0 agrows=1454 TO-GOLDEN 12  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 7515  AGREE 56874  KEYS 64401
+SimpleUVM    default   rc=0/0/0 agrows=684 TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 4989  AGREE 42105  KEYS 47094
+SimpleUVM    testflags rc=0/0/0 agrows=684 TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 4989  AGREE 42105  KEYS 47094
+Scoreboard   default   rc=0/0/0 agrows=684 TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 5030  AGREE 42255  KEYS 47285
+SKIP-NOFILE Scoreboard testflags (g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm p=n q=n)
+MiniAmiq     default   rc=0/0/0 agrows=1454 TO-GOLDEN 12  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 7760  AGREE 58938  KEYS 66710
+MiniAmiq     testflags rc=0/0/0 agrows=1454 TO-GOLDEN 12  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 7760  AGREE 58938  KEYS 66710
+BuildUVMPkg  default   rc=0/0/0 agrows=470 TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 1572  AGREE 43241  KEYS 44813
+BuildUVMPkg  testflags rc=0/0/0 agrows=470 TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 1572  AGREE 43241  KEYS 44813
+Earlgrey_0_1 default   rc=0/0/0 agrows=791 TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 5109  AGREE 122781  KEYS 127890
+Earlgrey_0_1 testflags rc=0/0/0 agrows=2663 TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 54266  AGREE 120819  KEYS 175085
+Rggen        default   rc=0/0/0 agrows=102 TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 1219  AGREE 5433  KEYS 6652
+SKIP-NOFILE Rggen testflags (g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm p=n q=n)
+-- censused=12 SKIP-NOFILE=2
+DONE
+
+THE SAME SCORE WITH THE SPANS LEFT IN (strictly stronger than the judge; it
+exposes the SHADOWING re-pointings the judge cannot see):
+
+SeqDriver.default        TO-GOLDEN 76  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 7962  AGREE 56363  KEYS 64401
+SeqDriver.testflags      TO-GOLDEN 76  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 7962  AGREE 56363  KEYS 64401
+MiniAmiq.default         TO-GOLDEN 76  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 7775  AGREE 58859  KEYS 66710
+MiniAmiq.testflags       TO-GOLDEN 76  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 7775  AGREE 58859  KEYS 66710
+SimpleUVM.default        TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 5430  AGREE 41664  KEYS 47094
+SimpleUVM.testflags      TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 5430  AGREE 41664  KEYS 47094
+Scoreboard.default       TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 5038  AGREE 42247  KEYS 47285
+BuildUVMPkg.default      TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 1580  AGREE 43233  KEYS 44813
+BuildUVMPkg.testflags    TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 1580  AGREE 43233  KEYS 44813
+Earlgrey_0_1.default     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 5139  AGREE 122751  KEYS 127890
+Earlgrey_0_1.testflags   TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 54271  AGREE 120814  KEYS 175085
+Rggen.default            TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 1222  AGREE 5430  KEYS 6652
+
+THE TWO EFFECTS, SEPARATED (AGALL keys the patch changed, per moved row-mode):
+  NEW-BINDING    6 keys / 12 cells   golden BOUND, pristine <null>, patched BOUND
+                                     — the head's own family
+  RE-POINTED    32 keys / 64 cells   bound before and after; the target moves from
+                                     the name map's LAST writer to the ENCLOSING
+                                     loop's own variable (the shadowing repair)
+  EVERY ONE OF THE 38 KEYS SCORES TO-GOLDEN.  AWAY-GOLDEN 0.  MOVED-WRONG 0.
+  Identical on SeqDriver x2 and MiniAmiq x2.

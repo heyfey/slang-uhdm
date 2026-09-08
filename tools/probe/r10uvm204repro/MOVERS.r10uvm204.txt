@@ -1,0 +1,59 @@
+r10uvm204 — THE BYTE MOVERS and their ATTRIBUTION.
+MEASUREMENT ONLY; the official uhdm-cmp is the sole judge.
+
+SELFCHECK=1 byteverify.sh, patched sweep vs this pass's OWN pristine sweep:
+
+  surelog     databases: patched=956 pristine=956, PATH_SETS_IDENTICAL
+              MOVERS: 5 / 956
+              SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+  uhdm2rtlil  databases: patched=1358 pristine=1358, PATH_SETS_IDENTICAL
+              MOVERS: 0 / 1358
+              SELFCHECK: 1357 / 1358 flagged
+
+The five:
+  ./default/SeqDriver-32af76aa/slang.uhdm     PREDICTED BY NAME
+  ./testflags/SeqDriver-32af76aa/slang.uhdm   PREDICTED BY NAME
+  ./default/MiniAmiq-544c7f61/slang.uhdm      PREDICTED BY NAME
+  ./testflags/MiniAmiq-544c7f61/slang.uhdm    PREDICTED BY NAME
+  ./default/Scoreboard-59431470/slang.uhdm    the documented ~50/50 COIN
+
+The prediction (predict204.sh, from the PRISTINE databases alone, written before
+the patched sweep existed) named `strict>0` on EXACTLY those four row-modes over
+948 scanned surelog databases and on NONE of the 1358 uhdm2rtlil ones.
+
+ATTRIBUTION (attrib204.sh: uhdm-dump both sides, normalise the workdir path out,
+strip `id:` numbers, diff PLAIN and ORDER-BLIND):
+
+default    MiniAmiq       plain=154    order-blind=154   
+default    Scoreboard     plain=80     order-blind=2     
+default    SeqDriver      plain=154    order-blind=154   
+testflags  MiniAmiq       plain=154    order-blind=154   
+testflags  SeqDriver      plain=154    order-blind=154   
+
+  * Scoreboard/default: ORDER-BLIND 2 lines, and BOTH are the dump's own
+    filename header (the normalisation leaves a `//` on one side).  ZERO content
+    lines — the coin, exactly as RESUME.md §9 describes it.  Its 80 PLAIN lines
+    are the known svunit_pkg vpiTaskFunc order flip.
+  * the four law rows: PLAIN == ORDER-BLIND == 154 lines, and
+
+        `|vpiActual:` lines ADDED   12      REMOVED  0
+        `class_var`   lines added   76      removed 64
+        class_var lines NOT naming `::cb`   0
+        lines naming neither class_var nor vpiActual   2 (the filename header)
+
+    12 added bindings = the 6 sites x 2 clone copies the predictor named; the
+    76/64 class_var split is those 12 plus the 64 re-pointed shadowing cells.
+    NOTHING ELSE MOVED IN ANY OF THE FOUR DATABASES.
+
+THE SIX SITES (SeqDriver/default; MiniAmiq is the same six in svaunit_pkg):
+  uvm_reg_field.svh:1136:13   in uvm_reg_field::do_predict   (the head)
+  uvm_reg_field.svh:1174:13   in uvm_reg_field::do_predict
+  uvm_reg_field.svh:1545:9    in uvm_reg_field::do_write
+  uvm_reg_field.svh:1563:9    in uvm_reg_field::do_write
+  uvm_reg_field.svh:1652:9    in uvm_reg_field::do_read
+  uvm_reg_field.svh:1671:9    in uvm_reg_field::do_read
+All six are the SAME written shape: a `for (uvm_reg_cbs cb = cbs.first(); cb !=
+null; cb = cbs.next())` whose SINGLE BARE body statement is `cb.<method>(...)`,
+so the reference is the method call's PREFIX and its vpiParent is the `for_stmt`
+itself.  Every one of them sits in a `case`-item or `if` `begin` block, which is
+why the loop variable never reached the subroutine-level name map.

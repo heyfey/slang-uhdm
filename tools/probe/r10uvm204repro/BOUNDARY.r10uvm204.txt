@@ -1,0 +1,37 @@
+r10uvm204 — THE WIDE BOUNDARY GATE.  MEASUREMENT ONLY.
+
+  PRIS=<pristine> PATCHED=<patched> bound204.sh <COPY of tools/probe> <outdir>
+
+Every .sv/.v in a COPY of the whole probe tree (top level AND SUBDIRECTORIES),
+compiled in BOTH views with BOTH binaries; an arm is a MOVER if its rc or its
+DATABASE BYTES differ.  Byte-identity is strictly stronger than a cmp-line count.
+Children get </dev/null, the file list is read on fd 3, scratch is keyed on the
+RELATIVE path, and PROCESSED is asserted against LISTED.
+
+LISTED=5315 PROCESSED=5315 PRODUCED_DBS=5130 MOVED_ARMS=4 RC_DIFFS=0
+
+MOVED ARMS — all four are THIS PASS'S OWN grid arms, i.e. the POSITIVE CONTROL
+that proves the gate can see; the fifth grid arm, g204_d_noimport (the
+no-wildcard-import control), is BYTE-IDENTICAL and is exactly what makes the
+other four a control rather than a leak:
+
+probe/r10uvm204repro/grid204/g204_a_forms.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+probe/r10uvm204repro/grid204/g204_b_ctx.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+probe/r10uvm204repro/grid204/g204_c_shadow.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+probe/r10uvm204repro/grid204/g204_e_head.sv	def=MOVED	elab=SAME	rc=0/0,0/0
+
+RC_DIFFS = 0 over all 5315 arms.  The 185 arms that produced no database
+(5315 - 5130) produced none on EITHER binary; the rc columns above are compared
+per arm, so an rc=139 segfault cannot read as a result.
+
+EVERY STANDING BOUNDARY THE BRIEF NAMES IS INSIDE THIS TREE AND UNMOVED:
+  r10uvm202repro/grid202/*            (§ pkgClassTdImportCopyLocalUnsupported202
+                                       arms AND § pkgTypeParamLocalIsNotATypedef202v's fence)
+  r10v202repro/arms202v/*
+  r10uvm198repro/*                    (§ classScopedTdImportCopyLocalUnsupported198
+                                       arms + conjunct)
+  r10uvm200repro/*                    (§ impCloneDeclRangeNoBind200 arms + fence)
+  r10uvm195repro/grid195/*
+  r10uvm183repro/g183_*.sv
+  r10uvm82..91repro/*, r10buvm3..15repro/*, r10sd8..12repro/*
+None of them appears in MOVERS.

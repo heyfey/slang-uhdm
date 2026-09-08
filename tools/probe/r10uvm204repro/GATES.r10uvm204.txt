@@ -1,0 +1,77 @@
+r10uvm204 — THE GATE BATTERY.  Every number below was produced by a RUN.
+MEASUREMENT ONLY; the official uhdm-cmp and scripts/verify_golden.py are the
+authorities.  results/*.csv were READ ONLY and NOT EDITED.  GOLDEN_DEFER stayed
+UNSET.  slang was NOT patched.  NO CORPUS ROW WAS CONVERTED in either direction.
+
+BASE                a4b4caa8
+pristine binary     md5 c086973114a864cf56a951af381599db, built from this pass's
+                    OWN worktree at a clean a4b4caa8 and BYTE-IDENTICAL to the
+                    main tree's build/slang-uhdm at that commit; frozen chmod 555
+                    before any sweep
+patched binary      md5 ffc12515dbb721aaba8405a22c4155e2, frozen chmod 555
+production surface  src/UhdmExporter.cpp only
+
+(1) BUILD           both binaries built -j 2, md5s taken separately (above).
+
+(2) GOLDENS         SLANG_UHDM exported EXPLICITLY per binary.
+      pristine   23 PASS / 0 FAIL
+      patched    23 PASS / 0 FAIL
+      SLANG_UHDM=/bin/false   23 FAIL          (the negative control)
+
+(3) UHDM2RTLIL      679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL, BOTH modes.
+      ct8rows results/gate_uhdm2rtlil.csv vs patched testflags   0 differing ROWS
+      ct8rows own-pristine testflags       vs patched testflags   0 differing ROWS
+      ct8rows own-pristine default         vs patched default     0 differing ROWS
+
+(4) SURELOG --mode both, 1588 rows.
+      ct8rows own-pristine vs patched      0 differing ROWS (status AND dump col)
+      ct8rows committed baseline vs patched
+            1 differing ROW-SIDE, and it is a DUMP-COLUMN cell only:
+              < Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+              > Earlgrey_0_1,testflags,CMP_EQUAL,,,
+            THIS PASS'S OWN PRISTINE SWEEP READS IT THE SAME WAY (a uhdm-dump
+            TIMEOUT under sweep load, the cell r10uvm202's README already
+            documents).  The STATUS is CMP_EQUAL on both sides.  NO ROW
+            CONVERTED.  Earlgrey_0_1/testflags STAYS CMP_EQUAL with rowheads
+            0 lines / 0 heads on BOTH binaries.
+
+(5) BYTEVERIFY SELFCHECK=1   (see MOVERS.r10uvm204.txt)
+      surelog     MOVERS 5 / 956    — the FOUR predicted BY NAME + the coin
+      uhdm2rtlil  MOVERS 0 / 1358
+      every mover named and attributed; the prediction was written from the
+      PRISTINE databases alone before the patched sweep existed.
+
+ROWHEADS (tools/probe/r10uvm67repro/rowheads.sh), pristine -> patched:
+      TEST           MODE       PRISTINE        PATCHED
+      SeqDriver      default    29 / 1 head     112 / 1 head   HEAD CLEARED
+      SeqDriver      testflags  29 / 1 head     112 / 1 head   HEAD CLEARED
+      MiniAmiq       default    29 / 1 head     112 / 1 head   HEAD CLEARED
+      MiniAmiq       testflags  29 / 1 head     112 / 1 head   HEAD CLEARED
+      SimpleUVM      default    1327654 / 1     1327654 / 1    unchanged
+      SimpleUVM      testflags  1327654 / 1     1327654 / 1    unchanged
+      Scoreboard     default    95 / 1          95 / 1         unchanged
+      Scoreboard     testflags  SKIP-NOFILE     SKIP-NOFILE    (no golden)
+      BuildUVMPkg    default    0 / 0           0 / 0          CMP_EQUAL STAYS
+      BuildUVMPkg    testflags  0 / 0           0 / 0          CMP_EQUAL STAYS
+      Earlgrey_0_1   default    386 / 1         386 / 1        unchanged
+      Earlgrey_0_1   testflags  0 / 0           0 / 0          CMP_EQUAL STAYS
+      Rggen          default    0 / 0           0 / 0          CMP_EQUAL STAYS
+      Rggen          testflags  SKIP-NOFILE     SKIP-NOFILE    (no golden)
+  A cmp line count is the HEAD OBJECT'S DECOMPILE SIZE, not a distance
+  (RESUME.md §7): 29 -> 112 is a DIFFERENT object of a DIFFERENT family (R0).
+
+CANARIES
+      canaries.sh surelog     ok=51 changed=1 absent=0 unknown-names=7
+        the ONE changed row is the Earlgrey_0_1,testflags DUMP-COLUMN cell of
+        gate (4), and THIS PASS'S PRISTINE SWEEP SCORES ok=51 changed=1 TOO.
+      canaries.sh uhdm2rtlil  ok=8 changed=0 absent=0
+      EXPECT_UNKNOWN=1 ctcan2.sh surelog       PASS
+      EXPECT_UNKNOWN=6 ctcan2.sh uhdm2rtlil    PASS
+      canaudit.sh canaries.sh ctcan2.sh        PASS (0 UNCOVERED, 0 FENCE-BREACH)
+
+PROTECTED DATABASES (md5 head, patched vs this pass's own pristine)
+      InterfaceModPort    default/testflags  SAME 59a365f3ce2c
+      BlackParrotComplex  default SAME e3e354129d5a / testflags SAME 73a10e8217e5
+      YosysOldOr          default/testflags  SAME d68e0796d62c
+      SVSwitch            default/testflags  SAME 4842211c4030   PIN HELD
+      YosysVerx           default/testflags  SAME 6ccda350c24a   PIN HELD

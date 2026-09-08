@@ -1,0 +1,93 @@
+r10uvm204 — THE GRID.  5 arms x 2 views, ONE REAL SURELOG GOLDEN per arm, both
+binaries.  MEASUREMENT ONLY; the official uhdm-cmp is the sole judge.
+LHS is ALWAYS golden; RHS is ALWAYS ours.
+
+  CEN=<ct204cen> grid204.sh grid204/<arm>.sv <pristine> <patched> <workdir>
+
+================ g204_a_forms
+rc=4 /tmp/r10uvm204_pris.bin tools/probe/r10uvm204repro/grid204/g204_a_forms.sv -o a_def.uhdm
+rc=4 /tmp/r10uvm204_pat.bin tools/probe/r10uvm204repro/grid204/g204_a_forms.sv -o b_def.uhdm
+rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o g_elab tools/probe/r10uvm204repro/grid204/g204_a_forms.sv
+rc=4 /tmp/r10uvm204_pris.bin tools/probe/r10uvm204repro/grid204/g204_a_forms.sv --elabuhdm -o a_elab.uhdm
+rc=4 /tmp/r10uvm204_pat.bin tools/probe/r10uvm204repro/grid204/g204_a_forms.sv --elabuhdm -o b_elab.uhdm
+cmp rc=255 a def lines=17 heads=1
+cmp rc=255 b def lines=17 heads=1
+cmp rc=255 a elab lines=17 heads=1
+cmp rc=255 b elab lines=17 heads=1
+  def  AG+AGALL  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 14  AGREE 154  KEYS 170
+  def  FI        TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 4  AGREE 20  KEYS 24
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 163  KEYS 163
+  elab AG+AGALL  TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 47  AGREE 247  KEYS 298
+  elab FI        TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 7  AGREE 33  KEYS 40
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 285  KEYS 285
+  md5 (a_def b_def a_elab b_elab):
+    b8b7db62cfdc1c7fa8e4aabd600b7a15  a_def.uhdm
+    5a631e31544d2cc8ded4b84e7ec1e14c  b_def.uhdm
+    67f1bface0ac64da340e03865f7f9632  a_elab.uhdm
+    c7bb1c377e74923dfa4412df894dd730  b_elab.uhdm
+================ g204_b_ctx
+cmp rc=255 a def lines=29 heads=1
+cmp rc=255 b def lines=3514 heads=1
+cmp rc=255 a elab lines=3594 heads=1
+cmp rc=255 b elab lines=3594 heads=1
+  def  AG+AGALL  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 85  KEYS 87
+  def  FI        TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 11  KEYS 11
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 87  KEYS 87
+  elab AG+AGALL  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 32  AGREE 135  KEYS 167
+  elab FI        TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 1  AGREE 18  KEYS 19
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 167  KEYS 167
+  md5 (a_def b_def a_elab b_elab):
+    d76dd387604673ebb18860346a28d9d4  a_def.uhdm
+    fafbbf6e3a547574d8353569062c8ab3  b_def.uhdm
+    46a90dba0d6c688fb903a495f5a74b0e  a_elab.uhdm
+    46a90dba0d6c688fb903a495f5a74b0e  b_elab.uhdm
+================ g204_c_shadow
+rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o g_elab tools/probe/r10uvm204repro/grid204/g204_c_shadow.sv
+cmp rc=0 a def lines=0 heads=0
+cmp rc=0 b def lines=0 heads=0
+cmp rc=0 a elab lines=0 heads=0
+cmp rc=0 b elab lines=0 heads=0
+  def  AG+AGALL  TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 109  KEYS 113
+  def  FI        TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 12  KEYS 12
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 113  KEYS 113
+  elab AG+AGALL  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 22  AGREE 173  KEYS 195
+  elab FI        TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 20  KEYS 20
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 195  KEYS 195
+  md5 (a_def b_def a_elab b_elab):
+    dc0ad41e8828c42f2fa8a65761c6d84b  a_def.uhdm
+    3e5f92aae92a071f9b3b3d4dbb834ee3  b_def.uhdm
+    d19aca55500eddbf8dfbaffa91791aa8  a_elab.uhdm
+    d19aca55500eddbf8dfbaffa91791aa8  b_elab.uhdm
+================ g204_d_noimport
+cmp rc=255 a def lines=1181 heads=1
+cmp rc=255 b def lines=1181 heads=1
+cmp rc=255 a elab lines=1283 heads=1
+cmp rc=255 b elab lines=1283 heads=1
+  def  AG+AGALL  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 55  KEYS 55
+  def  FI        TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 8  KEYS 8
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 55  KEYS 55
+  elab AG+AGALL  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 8  AGREE 51  KEYS 59
+  elab FI        TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 8  KEYS 8
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 59  KEYS 59
+  md5 (a_def b_def a_elab b_elab):
+    2ed6807aec193fff17ee61d3339528e0  a_def.uhdm
+    2ed6807aec193fff17ee61d3339528e0  b_def.uhdm
+    286356838a6202699463b70c1c6688f2  a_elab.uhdm
+    286356838a6202699463b70c1c6688f2  b_elab.uhdm
+================ g204_e_head
+rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o g_elab tools/probe/r10uvm204repro/grid204/g204_e_head.sv
+cmp rc=255 a def lines=29 heads=1
+cmp rc=0 b def lines=0 heads=0
+cmp rc=0 a elab lines=0 heads=0
+cmp rc=0 b elab lines=0 heads=0
+  def  AG+AGALL  TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 67  KEYS 71
+  def  FI        TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 6  KEYS 6
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 71  KEYS 71
+  elab AG+AGALL  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 26  AGREE 99  KEYS 125
+  elab FI        TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 10  KEYS 10
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 123  KEYS 123
+  md5 (a_def b_def a_elab b_elab):
+    933bd73ad440d48ea78be3551fb31cdd  a_def.uhdm
+    d618382a721363af64297cd75e3e2e81  b_def.uhdm
+    5481fd8768aa26e3267d258d333fac9e  a_elab.uhdm
+    5481fd8768aa26e3267d258d333fac9e  b_elab.uhdm

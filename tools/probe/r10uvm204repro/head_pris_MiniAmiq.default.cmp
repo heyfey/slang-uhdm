@@ -1,0 +1,29 @@
+LHS:
+decompile:
+class_var: (uvm_pkg::uvm_reg_field::do_predict::cb), id:29559, line:1135:27, endln:1135:29
+|vpiParent:
+\_assignment: , id:29557, line:1135:15, endln:1135:43
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_reg_field::do_predict::cb), id:29561
+  |vpiParent:
+  \_class_var: (uvm_pkg::uvm_reg_field::do_predict::cb), id:29559, line:1135:27, endln:1135:29
+  |vpiFullName:uvm_pkg::uvm_reg_field::do_predict::cb
+  |vpiActual:
+  \_class_typespec: , id:29560, line:1135:15, endln:1135:26
+|vpiName:cb
+|vpiFullName:uvm_pkg::uvm_reg_field::do_predict::cb
+
+decompile:
+class_var: (uvm_pkg::uvm_reg_field::do_predict::cb), id:29559, line:1135:27, endln:1135:29
+|vpiParent:
+\_assignment: , id:29557, line:1135:15, endln:1135:43
+|vpiTypespec:
+\_ref_typespec: (uvm_pkg::uvm_reg_field::do_predict::cb), id:29561
+  |vpiParent:
+  \_class_var: (uvm_pkg::uvm_reg_field::do_predict::cb), id:29559, line:1135:27, endln:1135:29
+  |vpiFullName:uvm_pkg::uvm_reg_field::do_predict::cb
+  |vpiActual:
+  \_class_typespec: , id:29560, line:1135:15, endln:1135:26
+|vpiName:cb
+|vpiFullName:uvm_pkg::uvm_reg_field::do_predict::cb
+RHS: <null>

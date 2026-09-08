@@ -1,0 +1,155 @@
+r10uvm204 — DECODE.  Where each writer puts a for-loop's INIT-DECLARED variable,
+and where the binding of a reference to it is (and is not) written.
+
+MEASUREMENT ONLY.  The official ~/git-repos/UHDM/build/bin/uhdm-cmp is the sole
+acceptance judge.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+================================================================================
+1.  SURELOG — the WRITER
+================================================================================
+
+~/git-repos/Surelog/src/DesignCompile/CompileStmt.cpp, compileForLoop()
+(:2822-3032).  The init has exactly two grammatical forms and Surelog compiles
+them in two separate loops:
+
+  A. paFor_variable_declaration  (:2849-2884)   `for (T v = e; ...)`
+        assignment* assign_stmt = s.MakeAssignment();
+        assign_stmt->VpiParent(for_stmt);
+        fC->populateCoreMembers(For_variable_declaration,
+                                For_variable_declaration, assign_stmt);
+        variables* var = (variables*)compileVariable(
+            component, fC, Data_type, compileDesign, Reduce::Yes, assign_stmt,
+            nullptr, false);
+        if (var) {
+          assign_stmt->Lhs(var);            <-- THE ONLY PLACE THE VARIABLE GOES
+          var->VpiParent(assign_stmt);
+          var->VpiName(fC->SymName(Var));
+          fC->populateCoreMembers(Var, Var, var);
+        }
+        ...
+        stmts->push_back(assign_stmt);      <-- vpiForInitStmts, never the
+                                                singular vpiForInitStmt
+
+     * ONE `For_variable_declaration` sibling per iteration.  `for (int a = 0,
+       b = 1; ...)` is ONE declaration node with two declarators, so golden
+       emits ONE init assignment (`a`) and the second declarator (`b`) is not
+       modelled at all — its later references are left unresolved and the
+       elaborated view mints an implicit net for the name (arm A, R2 below).
+     * `compileVariable(Data_type)` compiles from the WRITTEN TYPE, so the
+       variable carries a typespec, and for a class name written directly the
+       typespec is an UNNAMED `class_typespec` spanning the written type
+       (`uvm_reg_field.svh:1135:15-1135:26` = the eleven characters
+       `uvm_reg_cbs`).  A TYPEDEF ALIAS instead gives a `ref_var`.
+     * The variable is put in NO `Variables()` listing anywhere.  Verified on
+       the corpus: all 491 for-loops of SeqDriver/default report `notlisted` on
+       BOTH sides (ct204own --forinit).
+
+  B. paList_of_variable_assignments  (:2885-2928)  `for (v = e; ...)`
+        variables* var = (variables*)compileVariable(
+            component, fC, Hierarchical_identifier, ...);
+        if (var) { assign_stmt->Lhs(var); var->VpiParent(assign_stmt); }
+     — compiled from the IDENTIFIER, not from a type, so this Lhs variable
+     carries NO typespec.  It is an artefact of the assignment, not a
+     declaration; golden binds references to the REAL declaration elsewhere in
+     the subroutine, never to it.  THIS IS THE FENCE.
+
+  C. no init at all — neither branch runs; `VpiForInitStmts` stays null.
+
+Which VIEWS bind a reference to the form-A variable, measured on
+SeqDriver/default (ct204own --acg=cb):
+
+    site                                              1135:45  1135:57  1136:13
+    uvm_pkg / class_defn uvm_reg_field (def view)     BOUND    BOUND    <null>
+    uvm_pkg / function uvm_reg_field::do_predict      BOUND    BOUND    <null>
+    adpcm_pkg clone #1 (import uvm_pkg::*)            BOUND    BOUND    BOUND
+    adpcm_pkg clone #2                                BOUND    BOUND    BOUND
+
+  1135:45 is the loop CONDITION's `cb`, 1135:57 the INCREMENT's, 1136:13 the
+  single bare body statement's method-call PREFIX (`cb.post_predict(...)`).
+
+  The header's two references are bound by the ordinary compile in every view.
+  THE BODY's reference is bound ONLY IN THE CLONE — Surelog re-resolves a
+  wildcard-import clone's body names against the importing package's symbol
+  table, which is the same rule § pkgCloneHierBind9 / § pkgCloneLocalRefBind37
+  already model for hier_path bases, method-call prefixes and ordinary refs.
+  In the clone golden binds the HOME package's object (id 29552, the class_defn
+  view's own class_var) rather than minting a clone copy; no generated
+  `Compare` reads `VpiParent` (RESUME.md §9), so sharing-vs-copying is
+  invisible to the judge.
+
+================================================================================
+2.  SLANG-UHDM — what WE write
+================================================================================
+
+src/StmtEmit.cpp, StatementKind::ForLoop (:4383-4560).
+
+  * `!fl.loopVars.empty() && fl.initializers.empty()` — the DECLARATION form.
+    slang populates `loopVars` from the implicit StatementBlockSymbol's members
+    and leaves `initializers` empty (slang
+    source/ast/statements/LoopStatements.cpp:118-133), so this arm sees every
+    written declarator, and we emit ONE init assignment PER DECLARATOR where
+    golden emits one per DECLARATION (R2).
+    § classLoopVar11 mints the variable with `makeReturnVar` (class_var for a
+    directly-written class, ref_var through a typedef alias, int_var, ...),
+    binds `makeTypespec(*lv)` to it, sets `init->Lhs(v)` and registers
+    `netMap[lv] = v`.  Identical shape to Surelog's form A.
+  * `!fl.initializers.empty() && fl.loopVars.empty()` — the PLAIN-ASSIGNMENT
+    form: a bare `ref_var` Lhs with NO typespec.  Identical shape to Surelog's
+    form B.
+  * neither — `noteUnsupported("for init form")`.  `for (; cond; step)` lands
+    here on both sides of this pass (R3).
+
+src/UhdmExporter.cpp, the clone-binding block (:7280-7712).  `bind9` is the one
+lookup every clone-body binding goes through, and it CLIMBS from the reference
+to the owning task_func, consulting at each level:
+
+    loopVar37(a9, nm9)   a `foreach_stmt`'s VpiLoopVars ref_var    (§ 37)
+    blockVar9(a9, nm9)   a begin / named_begin / fork's Variables()
+
+...and only then the subroutine-level name map `pkgCloneBodyLocals9[tf]`, built
+from `funcMap` in src/TaskFuncEmit.cpp:6788-6834.
+
+A `for_stmt` IS NEITHER.  Its declared init variable is in no `Variables()`
+listing (§ 1 above) and it is not a foreach loop var, so the climb walked
+straight past it and the reference fell through to the name map.  That produced
+the two defects this pass repairs:
+
+  (a) A loop declared inside a nested block never reaches `funcMap` at all —
+      "a body's BLOCK-local declarations never reach funcMap" is the comment on
+      `blockVar9` itself — so the reference stayed BARE.  That is the corpus
+      head: `uvm_reg_field::do_predict`'s two `case`-item `begin` blocks, and
+      the same shape in `do_write` / `do_read`.
+  (b) A loop declared at the subroutine's OWN statement level does reach the
+      map, but the map is keyed by NAME and is LAST-WRITER-WINS, so
+      `uvm_vreg::write` (uvm-1.2 uvm_vreg.svh:1250 and :1271, both declaring
+      `cb`) bound EVERY reference in BOTH loops to :1250's variable.  Golden
+      binds each loop's own.  Judge-invisible (the two objects agree in every
+      compared field) but wrong, and the same climb fixes it.
+
+================================================================================
+3.  THE JUDGE'S OWN READING OF THE HEAD
+================================================================================
+
+  LHS: class_var (uvm_pkg::uvm_reg_field::do_predict::cb) @1135:27-1135:29
+  RHS: <null>
+
+`RHS: <null>` is the SINGULAR `SafeCompare` overload's `rhs == nullptr` branch
+(~/.local/include/uhdm/BaseClass.h:187-199): it sets `m_failedLhs` to the golden
+VALUE and leaves `m_failedRhs` unset.  The FIELD is therefore whichever singular
+field points at that class_var in golden and is null in ours — NOT the
+variable's own payload, and NOT a vector (the vector overload names the OWNER).
+
+ct204own --refs on the pristine SeqDriver pair enumerates all nine golden
+referrers and ct204own --twin the three ours has, and exactly one field differs:
+
+  GOLDEN  REF .Actual_group  ref_obj(cb)@uvm_reg_field.svh:1136:13
+              < for_stmt < begin < begin < function(uvm_reg_field::do_predict)
+                < package(adpcm_pkg)                      [x2, one per clone]
+  OURS    the same ref_obj carries <null>
+
+`assignment::Lhs` is NOT the container: both sides have it, and the arm-A/E
+censuses show every one of the 491 for-loops' init Lhs agreeing.  The ABLATION
+reports "REFUTED — the judge stopped on the same pair again" because masking
+the golden head only skips its `Compare`, and the null branch fires BEFORE
+`Compare` is reached; that verdict is an artefact of a null-RHS head, not
+evidence.

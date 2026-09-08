@@ -1,0 +1,26 @@
+r10uvm204 — THE A-PRIORI PREDICTION over the SURELOG corpus, made from the
+PRISTINE databases ALONE, BEFORE the patched sweep existed.
+MEASUREMENT ONLY.  The four slang-fenced tests are never dispatched here; their
+names are read at run time out of canaudit.sh's own FENCED= line, so this file
+never spells them (FENCED=8 row-modes below).
+
+scanned=948 NODB=617 FENCED=8
+PREDICTED MOVERS (strict>0):
+PREDCELLS MiniAmiq,default                   strict=12 wide=357
+PREDCELLS MiniAmiq,testflags                 strict=12 wide=357
+PREDCELLS SeqDriver,default                  strict=12 wide=337
+PREDCELLS SeqDriver,testflags                strict=12 wide=337
+ROWS WITH A NON-EMPTY WIDE BOUND (the superset the movers must stay inside):
+PREDCELLS BuildUVMPkg,default                strict=0 wide=325
+PREDCELLS BuildUVMPkg,testflags              strict=0 wide=325
+PREDCELLS Earlgrey_0_1,default               strict=0 wide=79
+PREDCELLS MiniAmiq,default                   strict=12 wide=357
+PREDCELLS MiniAmiq,testflags                 strict=12 wide=357
+PREDCELLS Rggen,default                      strict=0 wide=5
+PREDCELLS Scoreboard,default                 strict=0 wide=320
+PREDCELLS Scr1SvTests,default                strict=0 wide=26
+PREDCELLS Scr1SvTests,testflags              strict=0 wide=26
+PREDCELLS SeqDriver,default                  strict=12 wide=337
+PREDCELLS SeqDriver,testflags                strict=12 wide=337
+PREDCELLS SimpleUVM,default                  strict=0 wide=320
+PREDCELLS SimpleUVM,testflags                strict=0 wide=320

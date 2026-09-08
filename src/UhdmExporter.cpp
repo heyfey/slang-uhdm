@@ -7351,6 +7351,86 @@ UHDM::design* UhdmExporter::exportDesign() {
                         ->Actual_group();
             return nullptr;
         };
+        // § cloneForInitVarBind204 — a `for` loop's INIT-DECLARED variable is
+        // the SECOND clone-body binding target that lives in no `Variables()`
+        // listing anywhere, and so the third probe this climb needs.  Surelog's
+        // `compileForLoop` (`CompileStmt.cpp:2856-2874`) compiles the
+        // declaration with `compileVariable(Data_type)` and hangs the result off
+        // the init `assignment`'s `Lhs` — `assign_stmt->Lhs(var)` — and lists it
+        // NOWHERE else; our own `StmtEmit.cpp` ForLoop arm builds the identical
+        // shape (`init->Lhs(v)`), which a census of all 491 for-loops in
+        // SeqDriver confirms cell for cell: `notlisted` on BOTH sides, every
+        // one.  `loopVar37` answers a `foreach_stmt` and `blockVar9` answers a
+        // block's own `Variables()`; a `for_stmt` is neither, so the climb
+        // walked straight past it and the reference stayed bare.
+        //
+        // Consulted in the SAME innermost-out climb, which is what makes
+        // shadowing come out right when a body writes two `for (T cb = ...)`
+        // loops over the same name — and that shadowing is the second half of
+        // the repair: `uvm_vreg::write` (uvm-1.2 `uvm_vreg.svh:1250` and
+        // `:1271`) declares `cb` twice at the SUBROUTINE's own statement level,
+        // where both reach the name map, so every reference in both loops fell
+        // through to the map's LAST writer and bound `:1250`'s variable.
+        // Golden binds each loop's own.
+        //
+        // THE DECLARATION FORM ONLY.  `for (i = 0; ...)` is an init too, and
+        // BOTH writers give ITS Lhs a variable with no typespec at all
+        // (Surelog compiles it from the `Hierarchical_identifier`; we mint a
+        // bare `ref_var`) — that object is an artefact of the assignment, not a
+        // declaration, and golden binds body references to the real declaration
+        // instead.  The bound-typespec test is the form, read the same way on
+        // both sides, and it is what keeps a plain-assignment init from growing
+        // a binding target.
+        //
+        // AND THE DECLARATION FORM'S OWN FENCE — a TYPEDEF ALIAS.  Written
+        // through a typedef (`typedef Leaf A; for (A c = it.first(); ...)`)
+        // BOTH writers give the loop variable a `ref_var` (§ aliasClassRefVar10)
+        // whose own `Actual_group` is null, and GOLDEN THEN BINDS NOTHING TO
+        // IT — not the condition, not the increment, not the body — in the
+        // class_defn view, in the home package listing, in the wildcard-import
+        // CLONE listing and in the elaborated module view alike.  The probe
+        // therefore still MATCHES an alias loop variable, so the climb stops at
+        // the loop that declares the name (which is what keeps the init
+        // `assignment`'s own `ref_var` Lhs off the subroutine-level name map
+        // and out of the self-cycle the pristine binary had), but it hands back
+        // NO TARGET and the reference is left bare, as golden leaves it.
+        // Measured on the verifier's arms N and T against a real Surelog
+        // golden: without this clause the alias form's three references per
+        // clone copy go from `<null>` (golden's reading, and the pristine
+        // binary's) to BOUND — AWAY-GOLDEN in both views.
+        auto forInitVar204 = [](const UHDM::BaseClass* b204,
+                                std::string_view nm204)
+            -> const UHDM::variables* {
+            if (b204->UhdmType() != UHDM::uhdmfor_stmt)
+                return nullptr;
+            auto* f204 = (const UHDM::for_stmt*)b204;
+            auto one204 = [&](const UHDM::any* st204) -> const UHDM::variables* {
+                if (!st204 || st204->UhdmType() != UHDM::uhdmassignment)
+                    return nullptr;
+                auto* l204 = ((const UHDM::assignment*)st204)->Lhs();
+                if (!l204)
+                    return nullptr;
+                // UHDM `any_cast` is an IS-A test (RESUME.md §9), which is
+                // exactly the question here: every declared loop variable is a
+                // `variables` whatever its concrete kind (class_var, int_var,
+                // ref_var through a typedef alias, string_var, ...).
+                auto* v204 = any_cast<const UHDM::variables*>(l204);
+                if (!v204 || v204->VpiName() != nm204)
+                    return nullptr;
+                auto* rt204 = v204->Typespec();
+                if (!rt204 || !rt204->Actual_typespec())
+                    return nullptr;
+                return v204;
+            };
+            if (auto* s204 = f204->VpiForInitStmt())
+                if (auto* r204 = one204(s204))
+                    return r204;
+            if (auto* v204 = f204->VpiForInitStmts())
+                for (auto* s204 : *v204)
+                    if (auto* r204 = one204(s204))
+                        return r204;
+            return nullptr;
+        };
         // Reading and writing vpiActual across the three reference kinds
         // golden binds in a clone body.  Pass 9 wrote only the ref_obj half
         // because it only ever looked at hier_path elements and method-call
@@ -7420,6 +7500,25 @@ UHDM::design* UhdmExporter::exportDesign() {
                 }
                 if (auto* bv9 = blockVar9(a9, nm9)) {
                     setAct37(e9, bv9);
+                    return;
+                }
+                // § cloneForInitVarBind204 — the third probe, in the same
+                // innermost-out climb.  The three are DISJOINT BY NODE KIND
+                // (`foreach_stmt` / `begin`-family / `for_stmt`), so their
+                // order among themselves cannot decide anything; what matters
+                // is that all three are consulted at EVERY level before the
+                // subroutine-level name map, which is the shadowing rule.
+                if (auto* fv204 = forInitVar204(a9, nm9)) {
+                    // The loop DECLARES the name, so the climb stops here
+                    // whatever happens next.  It hands back a TARGET only for
+                    // the kinds golden actually binds: a typedef-alias loop
+                    // variable is an unresolved `ref_var` on both sides and
+                    // golden binds nothing to it (the fence above), and a
+                    // reference must never be bound to itself.
+                    if (fv204->UhdmType() != UHDM::uhdmref_var &&
+                        (const UHDM::BaseClass*)fv204 !=
+                            (const UHDM::BaseClass*)e9)
+                        setAct37(e9, (UHDM::any*)fv204);
                     return;
                 }
             }

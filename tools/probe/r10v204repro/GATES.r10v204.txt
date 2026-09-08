@@ -1,0 +1,166 @@
+r10v204 — THE GATE BATTERY on the VERIFIED binary (r10uvm204's patch + this
+pass's four-line alias fence).  Every number below was produced by a RUN, by
+this verifier, from binaries it built itself.
+
+MEASUREMENT ONLY; the official uhdm-cmp and scripts/verify_golden.py are the
+authorities.  results/*.csv were READ ONLY and NOT EDITED.  GOLDEN_DEFER stayed
+UNSET.  slang was NOT patched.  NO CORPUS ROW WAS CONVERTED in either direction.
+The four slang-fenced tests were never dispatched and are named in no file here.
+
+BASE                a4b4caa8
+pristine binary     md5 c086973114a864cf56a951af381599db  (byte-identical to the
+                    implementer's pristine AND to the main tree's build at
+                    a4b4caa8), frozen chmod 555 before any sweep
+implementer patched md5 ffc12515dbb721aaba8405a22c4155e2  (byte-identical to the
+                    implementer's), frozen chmod 555
+VERIFIED binary     md5 505cad23a156a75a6da1a3fd69b64617, frozen chmod 555
+production surface  src/UhdmExporter.cpp only
+
+(1) BUILD           all three binaries built -j 2 in their own worktrees, md5s
+                    taken separately (above).
+
+(2) GOLDENS         SLANG_UHDM exported EXPLICITLY per binary.
+      pristine    23 PASS / 0 FAIL
+      patched     23 PASS / 0 FAIL
+      VERIFIED    23 PASS / 0 FAIL
+      SLANG_UHDM=/bin/false   23 FAIL         (the negative control)
+
+(3) UHDM2RTLIL      679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL, BOTH modes,
+                    on all three binaries.
+      ct8rows committed baseline vs VERIFIED testflags      0 differing ROWS
+      ct8rows own-pristine testflags vs VERIFIED testflags  0 differing ROWS
+      ct8rows own-pristine default   vs VERIFIED default    0 differing ROWS
+      cmds.txt audit: 1458 of 1462 files name the frozen binary under test, the
+      other 4 name no binary at all (the two SURELOG_FAIL rows x both modes);
+      0 files name any other binary, on every one of the three sweeps.
+
+(4) SURELOG --mode both, 1588 rows, on all three binaries.
+      tallies identical on all three: default 472 CMP_EQUAL / 9 CMP_NOTEQUAL /
+      5 DEFERRED / 283 SLANG_REJECT / 25 SURELOG_FAIL; testflags 468 / 7 / 5 /
+      284 / 23 + 3 NO_DATABASE, 1 NO_UHDM, 1 TIMEOUT, 2 UNTRANSLATABLE.
+      ct8rows own-pristine vs VERIFIED            0 differing ROWS
+      ct8rows implementer patched vs VERIFIED     0 differing ROWS
+      ct8rows committed baseline vs VERIFIED
+            1 differing ROW-SIDE, a DUMP-COLUMN cell only:
+              < Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+              > Earlgrey_0_1,testflags,CMP_EQUAL,,,
+            THIS VERIFIER'S OWN PRISTINE SWEEP PRODUCES THE IDENTICAL CELL,
+            independently of the implementer.  The STATUS is CMP_EQUAL on both
+            sides.  NO ROW CONVERTED.
+
+(5) BYTEVERIFY SELFCHECK=1
+      uhdm2rtlil  VERIFIED vs own pristine   MOVERS 0 / 1358, SELFCHECK 1357/1358
+      surelog     VERIFIED vs own pristine   MOVERS 5 / 956
+            ./default/SeqDriver-32af76aa/slang.uhdm     PREDICTED BY NAME
+            ./testflags/SeqDriver-32af76aa/slang.uhdm   PREDICTED BY NAME
+            ./default/MiniAmiq-544c7f61/slang.uhdm      PREDICTED BY NAME
+            ./testflags/MiniAmiq-544c7f61/slang.uhdm    PREDICTED BY NAME
+            ./default/Scoreboard-59431470/slang.uhdm    the ~50/50 COIN
+      surelog     VERIFIED vs implementer PATCHED   MOVERS 1 / 956
+            ./default/Scoreboard-59431470/slang.uhdm    the COIN, and NOTHING
+            else — the alias fence changes ZERO bytes anywhere in the corpus,
+            which is what makes it a fence and not a second law.
+            Its ORDER-BLIND dump diff is 2 lines, BOTH the dump's own filename
+            header: 0 content lines.
+      The four law databases carry the SAME hashes under the VERIFIED binary as
+      under the implementer's patched one (MiniAmiq 32afbc819fa1 both modes,
+      SeqDriver default aaf33e7e0ac4, SeqDriver testflags 9ed773c02f76).
+
+      THE A-PRIORI PREDICTION, re-run by this verifier on its OWN pristine sweep
+      before reading any patched database:
+            scanned=948 NODB=617 FENCED=8
+            strict>0 on EXACTLY SeqDriver x2 and MiniAmiq x2, strict=12 each
+            every `wide=` figure identical to the implementer's, line for line
+            0 of 1358 uhdm2rtlil databases predicted
+
+      THE ATTRIBUTION (attrib204.sh, order-blind, path- and id-normalised), each
+      of the four law rows, VERIFIED vs pristine:
+            PLAIN == ORDER-BLIND == 154 lines
+            |vpiActual:  12 ADDED   0 REMOVED
+            class_var    76 added  64 removed
+            class_var lines NOT naming `::cb`      0
+            lines naming neither class_var nor vpiActual   2 (filename header)
+
+ROWHEADS (tools/probe/r10uvm67repro/rowheads.sh)
+      TEST           MODE       PRISTINE        VERIFIED
+      SeqDriver      default    29 / 1 head     112 / 1 head   HEAD CLEARED
+      SeqDriver      testflags  29 / 1 head     112 / 1 head   HEAD CLEARED
+      MiniAmiq       default    29 / 1 head     112 / 1 head   HEAD CLEARED
+      MiniAmiq       testflags  29 / 1 head     112 / 1 head   HEAD CLEARED
+      SimpleUVM      default    1327654 / 1     1327654 / 1    unchanged
+      SimpleUVM      testflags  1327654 / 1     1327654 / 1    unchanged
+      Scoreboard     default    95 / 1          95 / 1         unchanged
+      Scoreboard     testflags  SKIP-NOFILE     SKIP-NOFILE
+      BuildUVMPkg    default    0 / 0           0 / 0          CMP_EQUAL STAYS
+      BuildUVMPkg    testflags  0 / 0           0 / 0          CMP_EQUAL STAYS
+      Earlgrey_0_1   default    386 / 1         386 / 1        unchanged
+      Earlgrey_0_1   testflags  0 / 0           0 / 0          CMP_EQUAL STAYS
+      Rggen          default    0 / 0           0 / 0          CMP_EQUAL STAYS
+      Rggen          testflags  SKIP-NOFILE     SKIP-NOFILE
+  All eight head files (head_pris_*.cmp, head_pat_*.cmp) reproduced BYTE-
+  IDENTICALLY by this verifier; the VERIFIED binary's four heads are byte-
+  identical to the implementer's patched ones.
+
+THE FOUR PROTECTED CMP_EQUAL ROW-MODES, both columns, quoted in full:
+                           committed baseline        pristine        VERIFIED
+  BuildUVMPkg,default      CMP_EQUAL,,,differ        (same)          (same)
+  BuildUVMPkg,testflags    CMP_EQUAL,,,differ        (same)          (same)
+  Earlgrey_0_1,testflags   CMP_EQUAL,,,differ        CMP_EQUAL,,,    CMP_EQUAL,,,
+  Rggen,default            CMP_EQUAL,,,differ        (same)          (same)
+  All four stay CMP_EQUAL with rowheads 0 lines / 0 heads; pristine, the
+  implementer's patched and the VERIFIED binary are byte-identical on every one.
+
+THE CORPUS CENSUS (cen204.sh, 12 UVM row-modes, golden-vs-golden calibrated
+FIRST on every one — every calibration mover column 0), run on the VERIFIED
+binary against this verifier's own pristine sweep: the output is BYTE-IDENTICAL
+to the implementer's committed CENSUS block, row for row.
+      SeqDriver x2, MiniAmiq x2   TO-GOLDEN 12  AWAY-GOLDEN 0  MOVED-WRONG 0
+      SimpleUVM x2, Scoreboard/default, BuildUVMPkg x2, Earlgrey_0_1 x2,
+      Rggen/default               every mover column 0
+      censused=12 SKIP-NOFILE=2 (Scoreboard/testflags, Rggen/testflags — no
+      golden; reported, never silently skipped)
+
+CANARIES
+      canaries.sh surelog, VERIFIED    ok=51 changed=1 absent=0 unknown-names=7
+      canaries.sh surelog, PRISTINE    ok=51 changed=1 absent=0 unknown-names=7
+        — the ONE changed row is the Earlgrey_0_1,testflags dump-column cell of
+          gate (4), and the PRISTINE sweep scores it identically.
+      canaries.sh uhdm2rtlil, VERIFIED ok=8 changed=0 absent=0
+      EXPECT_UNKNOWN=1 ctcan2.sh surelog       PASS
+      EXPECT_UNKNOWN=6 ctcan2.sh uhdm2rtlil    PASS
+      canaudit.sh canaries.sh ctcan2.sh        PASS (0 UNCOVERED, 0 FENCE-BREACH)
+
+PROTECTED DATABASES (md5 head, VERIFIED vs this verifier's own pristine)
+      InterfaceModPort    default/testflags  SAME 59a365f3ce2c
+      BlackParrotComplex  default SAME e3e354129d5a / testflags SAME 73a10e8217e5
+      YosysOldOr          default/testflags  SAME d68e0796d62c
+      SVSwitch            default/testflags  SAME 4842211c4030   PIN HELD
+      YosysVerx           default/testflags  SAME 6ccda350c24a   PIN HELD
+
+THE WIDE BOUNDARY (bound204.sh over a COPY of the whole probe tree, top level
+AND subdirectories, both views, pristine vs VERIFIED)
+      LISTED=5320 PROCESSED=5320 PRODUCED_DBS=5135 MOVED_ARMS=9 RC_DIFFS=0
+      All nine movers are grid arms of THIS PASS or of r10uvm204 — the positive
+      control that proves the gate can see:
+        r10uvm204repro/grid204/g204_a_forms.sv   def=MOVED elab=MOVED rc=4/4,4/4
+        r10uvm204repro/grid204/g204_b_ctx.sv     def=MOVED elab=SAME  rc=0/0,0/0
+        r10uvm204repro/grid204/g204_c_shadow.sv  def=MOVED elab=SAME  rc=0/0,0/0
+        r10uvm204repro/grid204/g204_e_head.sv    def=MOVED elab=SAME  rc=0/0,0/0
+        r10v204repro/arms204v/v204_c_clones.sv   def=MOVED elab=SAME  rc=0/0,0/0
+        r10v204repro/arms204v/v204_m_module.sv   def=MOVED elab=SAME  rc=0/0,0/0
+        r10v204repro/arms204v/v204_n_nested.sv   def=MOVED elab=SAME  rc=0/0,0/0
+        r10v204repro/arms204v/v204_s_shadow.sv   def=MOVED elab=SAME  rc=0/0,0/0
+        r10v204repro/arms204v/v204_t_alias.sv    def=MOVED elab=MOVED rc=0/0,0/0
+      r10uvm204repro/grid204/g204_d_noimport.sv — the no-wildcard-import control
+      — does NOT move, which is what makes the other nine a control and not a
+      leak.  arms204v/v204_v_extra.sv was added after the tree was copied and
+      was gated separately: LISTED=1 PROCESSED=1 PRODUCED_DBS=1 MOVED_ARMS=1
+      RC_DIFFS=0, def=MOVED elab=SAME rc=0/0,0/0.
+      EVERY STANDING BOUNDARY THE BRIEF NAMES IS INSIDE THIS TREE AND UNMOVED,
+      with its arm count asserted rather than assumed:
+        r10uvm202repro 5 arms / 0 movers   r10v202repro   6 / 0
+        r10uvm198repro 5 / 0               r10uvm200repro 5 / 0
+        r10uvm195repro 5 / 0               r10uvm183repro 6 / 0
+        r10uvm82repro  7 / 0               r10uvm91repro  5 / 0
+        r10buvm3repro  4 / 0               r10buvm15repro 9 / 0
+        r10sd8repro   37 / 0               r10sd12repro 108 / 0

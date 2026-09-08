@@ -1,0 +1,11 @@
+r10uvm204 — THE A-PRIORI PREDICTION over the UHDM2RTLIL corpus.
+ZERO predicted movers over all 1358 row-modes; the law's WIDE bound is
+non-empty on only four of them and STRICT is 0 everywhere.
+
+scanned=1358 NODB=104 FENCED=0
+PREDICTED MOVERS (strict>0):
+ROWS WITH A NON-EMPTY WIDE BOUND (the superset the movers must stay inside):
+PREDCELLS for_decl_shadow,default            strict=0 wide=8
+PREDCELLS for_decl_shadow,testflags          strict=0 wide=8
+PREDCELLS hier_path,default                  strict=0 wide=6
+PREDCELLS hier_path,testflags                strict=0 wide=6
