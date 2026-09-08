@@ -1,0 +1,166 @@
+r10uvm216 — THE GATES
+=====================
+
+MEASUREMENT ONLY on this pass's own frozen binaries.  `results/*.csv` were READ
+ONLY and NOT EDITED; nothing was promoted and NO CORPUS ROW WAS CONVERTED in
+either direction.  `GOLDEN_DEFER` stayed unset.  slang was NOT patched.  The
+four slang-fenced tests were never dispatched by any driver here; they are
+named only inside `canaudit.sh`'s `FENCED=` list, and `canaudit.sh`'s own
+FENCE-BREACH counter is the check.
+
+BINARIES (both built `-j 2`, both frozen `chmod 555` BEFORE any sweep)
+  pristine  49b83611ebc24e7155c5e62e6c8e23e2   from a clean b7eb7ff3 worktree;
+            BYTE-IDENTICAL to the main tree's own build/slang-uhdm at b7eb7ff3
+  patched   4db85bc0e24d58654a133cb7c318140b
+  two THROWAWAY control binaries, never committed and no part of the patch:
+    LAYOUT-NULL      62b92ef382e39e6c32e5bf7f9456d06e — a clean b7eb7ff3 tree
+                     carrying two UNUSED members of the law's shape, so the
+                     static layout changes and the behaviour cannot
+    ALLOCATION-ONLY  6b69e59cadbd8b02bf71e2cdba3e6003 — the full patch with
+                     `dpiExportItem216` forced to return null AFTER building
+                     the memo, so the heap traffic is the patched binary's and
+                     the law can never fire
+
+GATE 1 — BUILD.  Both binaries build clean, 0 errors.
+  REPRODUCIBILITY: the deliverable patch was applied to a FRESH `b7eb7ff3`
+  worktree (`git apply -3`, clean, 0 conflicts, 52 changed files, surface =
+  src/ + include/ + tools/probe/r10uvm216repro/ only) and built `-j 2` there.
+  It came out md5 4db85bc0e24d58654a133cb7c318140b — BYTE-IDENTICAL to the
+  patched binary every gate below was run on.
+
+GATE 2 — GOLDEN DUMP TESTS (SLANG_UHDM exported explicitly per binary)
+  patched   23 PASS / 0 FAIL
+  pristine  23 PASS / 0 FAIL
+  /bin/false negative control   0 PASS / 23 FAIL
+
+GATE 3 — uhdm2rtlil, BOTH MODES, both binaries
+  pristine  testflags 679 / 50 / 2      default 679 / 50 / 2
+  patched   testflags 679 / 50 / 2      default 679 / 50 / 2
+  ct8rows  patched vs committed results/gate_uhdm2rtlil.csv   PASS
+  ct8rows  patched vs this pass's own pristine (testflags)    PASS
+  ct8rows  patched vs this pass's own pristine (default)      PASS
+  Every cmds.txt in both u2r sweeps names the pass's own binary by PATH and
+  NONE names the main-tree binary (audited by binary path, not by the string
+  "slang-uhdm", which also matches slang-uhdm-goldens/).
+
+GATE 4 — surelog, --mode both, both binaries
+  pristine  default 475 CMP_EQUAL / 6 CMP_NOTEQUAL
+            testflags 469 CMP_EQUAL / 6 CMP_NOTEQUAL
+  patched   default 475 CMP_EQUAL / 6 CMP_NOTEQUAL
+            testflags 469 CMP_EQUAL / 6 CMP_NOTEQUAL
+  Both per-mode STATUS histograms are IDENTICAL to the committed
+  results/golden_surelog.csv, cell for cell, in both modes.
+  NO ROW CONVERTED IN EITHER DIRECTION.
+  Same cmds.txt audit as gate 3: every row names /tmp/r10uvm216_bin/pat by
+  PATH, none names the main tree.
+
+  ct8rows reports ONE differing row over 1588, and it is INFORMATIONAL, not a
+  status change:
+      < Earlgrey_0_1,default,CMP_EQUAL,,,differ
+      > Earlgrey_0_1,default,CMP_EQUAL,,,
+  The STATUS is CMP_EQUAL on both sides; only the informational uhdm-dump
+  comparison cell is blank, because this sweep ran CONCURRENTLY with the
+  5511-arm boundary gate and that row's uhdm-dump timed out (the same
+  informational TIMEOUT r10uvm214 recorded on its own pristine run).  PROVED:
+    * `Earlgrey_0_1/default` is NOT a byte mover — its database md5 is
+      8c2ba25c4d7f7d… on the pristine sweep, on the patched sweep AND on a
+      clean re-run;
+    * re-running that single row alone on the PATCHED binary
+      (`verify_golden.py --filter Earlgrey_0_1 --mode default --jobs 1`) on an
+      unloaded machine reproduces the committed row EXACTLY:
+          Earlgrey_0_1,default,CMP_EQUAL,,,differ
+    * `rowheads.sh` reads Earlgrey_0_1 default AND testflags at 0 cmp lines /
+      0 heads / judge rc = 0 on BOTH binaries, and the two head cmp logs are
+      byte-identical between the binaries.
+
+GATE 5 — BYTEVERIFY, SELFCHECK=1, patched vs this pass's own pristine
+  uhdm2rtlil   PATH_SETS_IDENTICAL (1358)   MOVERS 0 / 1358
+               SELFCHECK control 1357 / 1358 flagged
+  surelog      PATH_SETS_IDENTICAL (956)    MOVERS 6 / 956
+               SELFCHECK control  955 / 956 flagged
+
+    MiniAmiq/default     PREDICTED BY NAME — THE LAW.  9 census cells, all
+    MiniAmiq/testflags   TO-GOLDEN; the listing is now exactly golden's.
+
+    BuildUVMPkg/default  NOT PREDICTED — the memo's ALLOCATION, proved with the
+    BuildUVMPkg/testflags allocation-only control, which reproduces the patched
+    SeqDriver/default     md5 EXACTLY on all three while leaving MiniAmiq at the
+                          pristine md5.  Independently content-neutral:
+                          BuildUVMPkg's uhdm-dump output is BYTE-IDENTICAL
+                          between the binaries (raw diff 0) and its uhdm-cmp
+                          output is byte-identical at 0 lines; SeqDriver's
+                          uhdm-cmp output is byte-identical at 209 lines with
+                          the same head object, and its dump differs in 26 raw
+                          lines that are 0 once sorted and id-normalised.
+
+    Scoreboard/default   THE COIN.  RESUME §9: a ~50/50 per-invocation flip of
+                          svunit_pkg's vpiTaskFunc list order, ~92 dump lines.
+                          Measured here: raw dump diff 92 lines, ORDER-BLIND
+                          diff 0 lines, order-blind AND id-normalised 0 lines.
+                          The replay control gives pristine = patched =
+                          layout-null = 61ee9cb4f6c1 on the same command line,
+                          so the binary does not decide the face.
+                          Judge verdict unchanged: 0 cmp lines, rc = 0, head
+                          cmp log byte-identical between the binaries.
+
+HEADS (`rowheads.sh`, both binaries, this pass's own sweeps)
+                        pristine        patched
+  SeqDriver    x2       209 / 1         209 / 1     (cmp log BYTE-IDENTICAL)
+  MiniAmiq     x2       838 / 1          29 / 1     NEW OBJECT — the pass
+  SimpleUVM    x2         0 / 0           0 / 0
+  Scoreboard/default      0 / 0           0 / 0
+  BuildUVMPkg  x2         0 / 0           0 / 0
+  Earlgrey_0_1 x2         0 / 0           0 / 0
+  Rggen  /default         0 / 0           0 / 0
+  (Scoreboard/testflags and Rggen/testflags SKIP-NOFILE, expected.)
+  Every non-MiniAmiq head cmp log is BYTE-IDENTICAL between the two binaries.
+
+THE SEVEN PROTECTED CMP_EQUAL ROW-MODES — both columns scored explicitly,
+judge rc = 0 on both binaries:
+  BuildUVMPkg  default   CMP_EQUAL / dump=differ   HELD
+  BuildUVMPkg  testflags CMP_EQUAL / dump=differ   HELD
+  SimpleUVM    default   CMP_EQUAL / dump=differ   HELD
+  SimpleUVM    testflags CMP_EQUAL / dump=differ   HELD
+  Earlgrey_0_1 testflags CMP_EQUAL / dump=differ   HELD
+  Scoreboard   default   CMP_EQUAL / dump=differ   HELD
+  Earlgrey_0_1 default   CMP_EQUAL / dump=(blank)  STATUS HELD; the blank is
+                         the concurrency TIMEOUT decomposed under GATE 4, and a
+                         clean single-row re-run reproduces "differ".
+  (Scoreboard/testflags SLANG_REJECT on both binaries, unchanged.)
+
+CANARIES
+  canaries.sh  surelog     ok=51 changed=1 absent=0  — the ONE changed row is
+               `Earlgrey_0_1/default  CMP_EQUAL/differ -> CMP_EQUAL/`, the same
+               informational dump-timeout cell decomposed under GATE 4.
+  canaries.sh  uhdm2rtlil  ok=8  changed=0 absent=0
+  EXPECT_UNKNOWN=1 ctcan2.sh surelog     PASS
+  EXPECT_UNKNOWN=6 ctcan2.sh uhdm2rtlil  PASS
+  canaudit.sh canaries.sh ctcan2.sh:  audited=29 UNCOVERED=0 FENCE-BREACH=0
+    PASS: every brief-protected name and family is carried by a script that
+    RUNS here.
+
+PROTECTED DATABASES BY NAME (md5, patched vs this pass's own pristine)
+  InterfaceModPort   default/testflags  59a365f3ce2c  SAME  (an INTERFACE test)
+  BlackParrotComplex default e3e354129d5a / testflags 73a10e8217e5  SAME
+  YosysOldOr         default/testflags  d68e0796d62c  SAME
+  SVSwitch           4842211c4030  — the brief's pin, matched, both modes
+  YosysVerx          6ccda350c24a  — the brief's pin, matched, both modes
+
+WIDE BOUNDARY (`bound216.sh` over a COPY of the whole probe tree,
+subdirectories included, both views, both binaries, children </dev/null,
+file list on fd 3, scratch keyed on the RELATIVE path)
+  LISTED=5511 PROCESSED=5511 PRODUCED_DBS=5318 MOVED_ARMS=12 RC_DIFFS=0
+  SIX are this pass's own grid arms — the POSITIVE CONTROL, so the gate is
+  proved able to see a move.
+  SIX are earlier-pass arms; all 24 arm-views re-scored against REAL Surelog
+  goldens (`armscore216.sh`), calibration null in all 24:
+    TO-GOLDEN 108, AWAY-GOLDEN 0, STILL-WRONG 0, NO-DATABASE 0.
+  Of the six, only `r10v170repro/v170_p_export.sv` carries an `export "DPI-C"`
+  item, and it moves TOWARD golden (TO-GOLDEN 6 per view, AWAY 0).  The other
+  five carry NO export item and are the LAYOUT class, proved on five tells in
+  FALSEMOVER.r10uvm216.txt — including TELL 5, the order-blind + id-normalised
+  + address-normalised whole-dump diff, which reads ZERO differing lines on all
+  ten of their arm-views.
+  NONE of the must-stay families moved: no § 214 arm, no § 213 arm, no
+  § 207/208/211 arm, no uvm82-91 (113 arms), no buvm3-15 (119), no sd8-12
+  (347 arms, subdirectories included).

@@ -1,0 +1,73 @@
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 3665213 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 3665355 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 3670523 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 3670666 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 4112516 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 4112553 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47:  2768 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47:  2797 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47:  8712 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47:  8748 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 13655 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 13694 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 128586 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 128639 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 128785 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 128829 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 238740 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 238776 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 239670 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 239705 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 248413 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 248453 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 249282 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 249318 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 254002 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 254038 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 254664 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 254700 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 362276 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 362398 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 362607 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 362739 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 362969 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 363104 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 393954 Segmentation fault      "$PRIS" "$b" -o o.uhdm > o.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 393990 Segmentation fault      "$PATCHED" "$b" -o q.uhdm > q.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 394026 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+/tmp/wt_v216/tools/probe/r10uvm216repro/bound216.sh: line 47: 394063 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+LISTED=5529 PROCESSED=5529 PRODUCED_DBS=5335 MOVED_ARMS=24 RC_DIFFS=0
+rc=0
+
+-- r10v216 ATTRIBUTION OF THE 24 MOVED ARMS (pristine 49b83611 vs FIXED dd981cc3)
+   6  probe/r10uvm216repro/grid216/g216_{a..f}   the implementer's grid — POSITIVE CONTROL
+                                                 (the gate can see); every arm-view re-scored
+                                                 against a REAL Surelog golden: A-E 0/0,
+                                                 F rank-scored 2/2 -> 0/0, AWAY-GOLDEN 0
+  12  v216arms*/v216_{a,c,d,e,f,g,h,i}, v216_b5, v216_{k,l,m}
+                                                 this verification's own arms — POSITIVE CONTROL;
+                                                 all scored in README §1 and §3, AWAY-GOLDEN 0
+   1  probe/r10v170repro/v170_p_export.sv        the only EARLIER-pass arm carrying an export item.
+                                                 Scored against a real golden, both views,
+                                                 calibration null: ONLY-GOLDEN 14 -> 8,
+                                                 ONLY-OURS 10 -> 4.  TOWARD golden, nothing away.
+                                                 Patched and FIXED cells are byte-identical here
+                                                 (its below-export `epsil7` is slang-RESOLVED, so
+                                                 its stamping is pre-existing and FENCE 3 does not
+                                                 touch it; its permutation was already identity).
+   5  FALSE MOVERS, none carrying an `export "DPI-C"` item at all:
+        probe/r10uvm154repro/l154_noenum.sv      THE CAMPAIGN'S OWN LAYOUT PROOF.  The only
+                                                 differing cells are `UINT:/vpiDecompile:22744825
+                                                 -> 22765305`, +20480 = 5 x 4096 — a static
+                                                 ADDRESS, below `weaklyReferenced`.
+        probe/r10buvm22repro/g22.sv              same address constants (22744825 -> 22765305);
+                                                 rc=4 on BOTH binaries (no rc diff).
+        probe/r10uvm185repro/grid185/g185_e_kinds.sv  same address constants.
+        probe/r10uvm180repro/g180_a_kinds.sv     order/allocation only: 92 raw dump lines,
+                                                 ZERO order-blind.
+        probe/r10v123repro/v123_c_kinds.sv       order/allocation only: 80 raw, ZERO order-blind.
+
+-- PROTECTED FAMILIES: NOT ONE ARM MOVED
+   r10uvm214repro (8 arms), r10uvm213repro (9), r10uvm207repro (10), r10uvm208repro (7),
+   r10uvm211repro (9), uvm82-91 (113), buvm3-15 (119), sd8-12 (347, subdirectories included)
+   — all compiled by this gate (LISTED == PROCESSED == 5529), none in MOVERS.

@@ -7807,6 +7807,102 @@ private:
     };
     std::unordered_map<const void*, DpiExpOrder170> dpiExpOrder170;
     bool dpiExportPrecedesDef170(const slang::ast::SubroutineSymbol& sub);
+    // § dpiExportListedAtExportItem216 (r10uvm216) — AN `export "DPI-C"` ITEM
+    // CREATES THE SUBROUTINE'S LISTING ENTRY *AT THE EXPORT ITEM'S POSITION*,
+    // AND THE LATER DEFINITION FILLS THAT SAME OBJECT IN PLACE.
+    //
+    // THE DECODE (Surelog).  A module / interface / program / package item walk
+    // handles `paDpi_import_export` in its FIRST (`CollectType::FUNCTION`)
+    // pass and pushes a NAMED `UHDM::function` right there:
+    //   * `src/DesignCompile/CompileModule.cpp:1181-1186` (module AND
+    //     interface bodies) and `:787-792` (the nested-item walk),
+    //   * `src/DesignCompile/CompilePackage.cpp:288-293`,
+    //   * `src/DesignCompile/CompileProgram.cpp:346-351`,
+    //   each `m_helper.compileFunctionPrototype(...)` then `insertFunction`.
+    // `CompileHelper::compileFunctionPrototype` stamps the object from the
+    // EXPORT declaration's node — `setFuncTaskQualifiers`
+    // (`CompileStmt.cpp:1868-1896`) walks `paDpi_import_export` → `paEXPORT`
+    // → `vpiAccessType(vpiDPIExportAcc)` and the `"DPI-C"` string literal →
+    // `vpiDPICStr(vpiDPIC)` — and `populateCoreMembers` gives it the EXPORT
+    // ITEM'S SPAN.
+    // Later, the definition item runs `CompileHelper::compileFunction`, whose
+    // FIRST act (`CompileStmt.cpp:2353-2358`) is a BARE-NAME scan of
+    // `component->getTask_funcs()`:
+    //     for (auto f : *component->getTask_funcs())
+    //       if (f->VpiName() == name) { func = any_cast<function*>(f); break; }
+    //     if (func == nullptr) { ...placeholder...; task_funcs->push_back(func); }
+    // It FINDS the export's object, so it never pushes a second entry and
+    // never re-populates the core members: the listing POSITION and the SPAN
+    // stay the EXPORT declaration's while the `Io_decls` and the `Stmt` come
+    // from the definition.
+    //
+    // WHAT WE DID.  We emit one entry per `body.members()` item, i.e. at the
+    // DEFINITION's position, because an `export` item adds NO slang member.
+    // Two consequences, both measured (r10uvm216 grid arms A-F):
+    //   (1) POSITION — with the export written ahead of the definition (the
+    //       MiniAmiq `svaunit_vpi_interface` shape: exports at :72/:78,
+    //       definitions at :218/:255) our entry lands at the definition's
+    //       index and golden's at the export's.  Holder-independent: arm B
+    //       (package) and arm C (module, top AND nested) diverge the same
+    //       way; `uvm_pkg::m__uvm_report_dpi` only ever agreed because its
+    //       export and definition are ADJACENT lines (uvm_globals.svh:161/162)
+    //       so the question was never asked.
+    //   (2) FLAGS — `Compilation::getDPIExports()` is resolved once, inside
+    //       `Compilation::elaborate()` (`checkDPIMethods`, Compilation.cpp:1519),
+    //       over the scopes reachable from `getRoot()`.  slang auto-instantiates
+    //       ONLY modules and programs as tops (Compilation.cpp:340-366: "Modules
+    //       and programs"), so a never-instantiated INTERFACE definition — which
+    //       we still list, from `InstanceSymbol::createDefault`, because Surelog
+    //       lists it in `AllInterfaces` — has its body elaborated AFTER that
+    //       resolution.  Its `export "DPI-C"` directives reach
+    //       `dpiExportDirectives` and are never resolved into `dpiExports`, so
+    //       `vpiAccessType`/`vpiDPICStr` are never stamped.  That is exactly
+    //       MiniAmiq, and exactly grid arm D.
+    //
+    // The memo below reads the holder DECLARATION's own item list (the same
+    // ITEM-INDEX discipline as § 170 — never a raw `SourceLocation` compare,
+    // which is not a stable order across macro/include buffers, RESUME.md §9)
+    // and answers both questions from it.
+    struct DpiExportOrder216 {
+        // item index of every direct member of the holder declaration
+        std::unordered_map<const void*, size_t> itemIdx;
+        // exported name -> (item index, the export item) of the FIRST
+        // `export "DPI-C"` naming it
+        std::unordered_map<std::string,
+                           std::pair<size_t, const slang::syntax::SyntaxNode*>>
+            exports;
+    };
+    std::unordered_map<const void*, DpiExportOrder216> dpiExportOrder216;
+    // The memo for the holder item list that contains `sym`'s own top-level
+    // item, plus that item's index and the item node itself.  Null when `sym`
+    // has no such holder (no syntax, or a holder that cannot carry a DPI
+    // export item).
+    const DpiExportOrder216* dpiExportOrder216For(
+        const slang::ast::Symbol& sym, size_t* itemIdxOut,
+        const slang::syntax::SyntaxNode** itemOut);
+    // The `export "DPI-C"` item naming THIS subroutine in its own holder's
+    // item list, or null.  FENCED: the subroutine's top-level item must be its
+    // OWN declaration (so a class method never matches an enclosing module's
+    // export of the same bare name); the export's `function`/`task` keyword
+    // must match the subroutine kind (slang's own check,
+    // Compilation.cpp:1959-1968); and (r10v216, FENCE 3) THE EXPORT ITEM MUST
+    // PRECEDE THE DEFINITION ITEM — an export written BELOW its definition is
+    // the OTHER half of `CompileStmt.cpp:2353-2358` (golden emits TWO entries:
+    // the unstamped definition at its own slot plus an empty EXPORT prototype
+    // at the export's), a shape this law does not model, so it stays fenced
+    // out and that holder keeps the pristine listing.
+    const slang::syntax::SyntaxNode* dpiExportItem216(
+        const slang::ast::SubroutineSymbol& sub);
+    static constexpr size_t kUnknown216 = (size_t)-1;
+    // The permutation that moves every DPI-exported entry of a FINISHED
+    // LISTING to its EXPORT item's position, leaving every other entry's
+    // relative order untouched.  The EMISSION walk is never reordered —
+    // creation order is load-bearing for binding — only the listing is
+    // permuted, exactly as § pkgTfSeq9 does.  Empty means "nothing changes".
+    std::vector<size_t> dpiExportListingPerm216(
+        const std::vector<size_t>& keys, const std::vector<size_t>& expKey);
+    void applyDpiExportPerm216(std::vector<UHDM::task_func*>& v, size_t base,
+                               const std::vector<size_t>& perm);
     // § dpiExportedPkgSubBareOwnTdUnsupported170 — FENCE 2 and FENCE 3
     // (r10v170, `tools/probe/r10v170repro/v170_t_fence.sv`).  Answers "would
     // Surelog's FUNCTION-pass `component->getDataType(name)` still HIT for

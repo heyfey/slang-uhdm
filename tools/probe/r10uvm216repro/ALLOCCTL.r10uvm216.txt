@@ -1,0 +1,12 @@
+ROW default/BuildUVMPkg-bf853d43 pris rc=0 md5=3a23c6b97411
+ROW default/BuildUVMPkg-bf853d43 pat rc=0 md5=0571ae41acbe
+ROW default/BuildUVMPkg-bf853d43 null rc=0 md5=3a23c6b97411
+VERDICT default/BuildUVMPkg-bf853d43 pris=3a23c6b97411 pat=0571ae41acbe null=3a23c6b97411 LAW-CLASS (the null control does NOT move)
+ROW default/SeqDriver-32af76aa pris rc=0 md5=50fc8fc22c24
+ROW default/SeqDriver-32af76aa pat rc=0 md5=5f32844fd8c0
+ROW default/SeqDriver-32af76aa null rc=0 md5=50fc8fc22c24
+VERDICT default/SeqDriver-32af76aa pris=50fc8fc22c24 pat=5f32844fd8c0 null=50fc8fc22c24 LAW-CLASS (the null control does NOT move)
+ROW default/MiniAmiq-544c7f61 pris rc=0 md5=b956d97f6cb3
+ROW default/MiniAmiq-544c7f61 pat rc=0 md5=b956d97f6cb3
+ROW default/MiniAmiq-544c7f61 null rc=0 md5=b956d97f6cb3
+VERDICT default/MiniAmiq-544c7f61 pris=b956d97f6cb3 pat=b956d97f6cb3 null=b956d97f6cb3 PAT-SAME-AS-PRIS

@@ -1,0 +1,179 @@
+r10uvm216 — THE DECODE
+======================
+§ dpiExportListedAtExportItem216
+
+MEASUREMENT ONLY.  The official `~/git-repos/UHDM/build/bin/uhdm-cmp` and
+`scripts/verify_golden.py` are the only authorities.  LHS is ALWAYS golden
+(Surelog); RHS is ALWAYS ours.  slang was NOT patched.
+
+
+1. THE HEAD, RE-MEASURED FIRST ON THIS PASS'S OWN PRISTINE BUILD
+----------------------------------------------------------------
+Pristine binary built `-j 2` from a clean `b7eb7ff3` worktree; md5
+`49b83611ebc24e7155c5e62e6c8e23e2` — BYTE-IDENTICAL to the main tree's
+`build/slang-uhdm` at that commit.  Frozen `chmod 555` before any sweep; every
+`cmds.txt` in both pristine sweeps names it and NONE names the main-tree binary.
+
+`rowheads.sh` on this pass's own pristine sweep:
+
+  SeqDriver   x2  209/1     SimpleUVM   x2  0/0     Scoreboard/default  0/0
+  MiniAmiq    x2  838/1     BuildUVMPkg x2  0/0     Earlgrey_0_1 x2     0/0
+  Rggen  /default    0/0    (Scoreboard/tf and Rggen/tf SKIP-NOFILE, expected)
+
+MiniAmiq x2 = 838 cmp lines, ONE head — the r10uvm214 R0, confirmed.
+
+
+2. THE SHAPE — AND THE FIRST CORRECTION TO THE BRIEF
+-----------------------------------------------------
+The brief calls the head "a DPI-C IMPORT function inside an interface
+instance".  It is an **EXPORT**.  `vpiAccessType:3` is `vpiDPIExportAcc`
+(`~/.local/include/uhdm/sv_vpi_user.h:237`), and the source item is
+
+  svaunit/sv/svaunit_vpi_interface.sv:72   export "DPI-C" function pass_info_to_sv_dpi;
+
+The head is NOT a `<null>` on either side.  Both sides hold a full object, so
+it is the SINGULAR overload naming an element-wise mismatch inside a VECTOR:
+
+  LHS  function work@svaunit_vpi_interface.pass_info_to_sv_dpi @72:4-72:48
+       vpiAccessType 3 (vpiDPIExportAcc), vpiDPICStr 2 (vpiDPIC), 7 io_decls,
+       a full body, vpiParent = interface_inst work@svaunit_vpi_interface
+  RHS  function work@svaunit_vpi_interface.set_test_name @113:4-117:15
+       no vpiAccessType, no vpiDPICStr, 1 io_decl, a full body, same parent
+
+`ct216if` puts BOTH at index [900] of the SAME `interface_inst`'s `Task_funcs`,
+and BOTH vectors hold 931 entries.  The whole divergence, over the 37151-cell
+subroutine-listing census of the entire MiniAmiq database, is NINE cells:
+
+  FIELDS (2)  pass_info_to_sv_dpi and create_assertion_dpi carry
+              acc=EXPORT cstr=2 on golden and acc=- cstr=0 on ours
+  POSITION(7) golden lists them at [900]/[901] — the EXPORT items' slots —
+              and we list them at [905]/[906], the DEFINITION items' slots,
+              pushing set_test_name..update_sva_from_c down by two
+
+Note the two are in OPPOSITE ORDER on the two sides: golden has
+pass_info(:72 export) before create_assertion(:78 export); we have
+create_assertion(:218 def) before pass_info(:255 def).  Position, not just
+membership.
+
+
+3. THE LAW, DECODED FROM SURELOG
+---------------------------------
+An `export "DPI-C"` item creates the subroutine's listing entry AT THE EXPORT
+ITEM'S POSITION in its holder's item walk, and the later definition fills that
+SAME object in place.
+
+  * The item walk handles `paDpi_import_export` in its FIRST
+    (`CollectType::FUNCTION`) pass and pushes a NAMED `UHDM::function` there:
+       src/DesignCompile/CompileModule.cpp:1181-1186   (module AND interface)
+       src/DesignCompile/CompileModule.cpp:787-792     (the nested-item walk)
+       src/DesignCompile/CompilePackage.cpp:288-293
+       src/DesignCompile/CompileProgram.cpp:346-351
+    each `m_helper.compileFunctionPrototype(...)` then `insertFunction(func)`.
+
+  * `CompileHelper::setFuncTaskQualifiers` (src/DesignCompile/CompileStmt.cpp:
+    1868-1896) walks that node: `paDpi_import_export` -> `paEXPORT` ->
+    `func->VpiAccessType(vpiDPIExportAcc)`, and the `"DPI-C"` string literal ->
+    `func->VpiDPICStr(vpiDPIC)`.  `populateCoreMembers` gives the object the
+    EXPORT ITEM'S SPAN.
+
+  * The definition item then runs `CompileHelper::compileFunction`, whose FIRST
+    act (src/DesignCompile/CompileStmt.cpp:2353-2358) is a BARE-NAME scan of
+    the component's existing listing:
+
+        for (auto f : *component->getTask_funcs())
+          if (f->VpiName() == name) { func = any_cast<UHDM::function*>(f); break; }
+        if (func == nullptr) { ...placeholder...; task_funcs->push_back(func); }
+
+    It FINDS the export's object, so it never pushes a second entry and never
+    re-populates the core members.  The listing POSITION and the SPAN stay the
+    EXPORT declaration's; the `Io_decls` and the `Stmt` come from the
+    definition.
+
+That single mechanism predicts every cell measured in the grid: position,
+vpiAccessType, vpiDPICStr, span, and the fact that the io_decls/body are the
+definition's.
+
+
+4. WHY WE DIVERGED — TWO INDEPENDENT CAUSES
+--------------------------------------------
+(P) POSITION.  We emit one entry per `body.members()` item.  An `export` item
+    adds NO slang member, so our entry lands at the DEFINITION's item.  This is
+    holder-independent: grid arm B (package) and arm C (module, top AND nested)
+    diverge exactly like the interface.  `uvm_pkg::m__uvm_report_dpi` only ever
+    agreed because its export and its definition are ADJACENT items
+    (uvm-1.2 base/uvm_globals.svh:161/162 and 1800.2-2017
+    pp_output/uvm_pkg.sv:9577/9578), so the question was never asked.
+
+(F) FLAGS.  `Compilation::getDPIExports()` is resolved ONCE, inside
+    `Compilation::elaborate()` (`checkDPIMethods`,
+    ~/git-repos/slang/source/ast/Compilation.cpp:1518-1519), over the scopes
+    reachable from `getRoot()`.  slang auto-instantiates only MODULES and
+    PROGRAMS as tops (Compilation.cpp:340-366, the comment reads "Modules and
+    programs"); a never-instantiated INTERFACE definition goes to
+    `unreferencedDefs` instead.  We still LIST such an interface — Surelog puts
+    it in `AllInterfaces`, and `src/UhdmExporter.cpp:4883-4896` builds it from
+    `InstanceSymbol::createDefault` — so its body is elaborated AFTER that
+    resolution.  `Scope::elaborate` then calls
+    `Compilation::noteDPIExportDirective` (Scope.cpp:468-470) and the directive
+    lands in `dpiExportDirectives`, but nothing ever resolves it into
+    `dpiExports`.  `svaunit_vpi_interface` is portless and instantiated by no
+    module in the MiniAmiq compile — exactly that shape, and exactly grid
+    arm D.
+
+    slang is OUT OF SCOPE to patch, so the export item is read from the SYNTAX,
+    which is also where Surelog reads it.
+
+
+5. THE PATCH
+-------------
+include/UhdmExporter.h  — the law, the `DpiExportOrder216` memo (holder item
+    table + exported-name table, keyed on the holder DECLARATION SyntaxNode; an
+    ITEM-INDEX discipline, never a raw SourceLocation compare across
+    macro/include buffers, RESUME §9), and three declarations.
+
+src/TaskFuncEmit.cpp
+  * `dpiItemListHolder216` / `dpiExportOrder216For` / `dpiExportItem216` /
+    `reorderDpiExportItems216` — the memo and the reorder.
+  * ONE call after `items` is built in `emitTaskFuncs`, gated
+    `!classScope && !genScope && !designScope`.
+  * ONE fallback beside the existing `comp.getDPIExports()` scan, gated
+    `!dpiExport && !classScope`.
+  * ONE key substitution in `pkgTfOrder9` (the export item's location instead
+    of the definition's), which carries the same order into the package
+    DEF-listing re-sort and into `materializedPkgTfGroup` — the hoisted copy
+    every wildcard IMPORTER of the package carries.  Grid arm B is where that
+    is visible; no corpus listing changes order from it.
+
+The reorder is an INSERTION, not a sort.  The listing it feeds also receives
+entries that are not members of this holder at all (MiniAmiq's interface
+carries 894 subroutines hoisted from `uvm_pkg` and `svaunit_pkg` ahead of its
+own 37), and a member with no item index must never migrate.  An exported entry
+is re-inserted before the FIRST remaining entry whose item index is >= the
+export's; nothing else moves and an unknown index is never a barrier.  An
+ADJACENT export/definition pair therefore returns to the slot it already held —
+which is why 13 of the 15 surelog FIRE row-modes and all 4 uhdm2rtlil ones are
+predicted to be byte-identical.
+
+FENCE 1 (`dpiExportItem216`): the subroutine's top-level item must be its OWN
+`FunctionDeclaration`/`TaskDeclaration`.  Without it a CLASS method would match
+an enclosing module's export of the same bare name, because the item found by
+walking up from a class method is the CLASS declaration.
+FENCE 2: the export's `function`/`task` keyword must match the subroutine kind
+(slang's own check, Compilation.cpp:1959-1968).
+FENCE 3: a DPI IMPORT is never also an export (slang: `DPIExportImportedFunc`).
+
+
+6. REFUTED / NOT TAKEN
+-----------------------
+* REFUTED: "we drop the DPI export entirely."  Both sides hold 931 entries and
+  both hold both functions; nothing is missing on either side.
+* REFUTED: "the span is the distinguisher."  `Compare` never reads
+  VpiFile/line/col (RESUME §9); the span moves as a consequence of the object
+  being the export's, not as the law.
+* NOT TAKEN: golden emits an exported TASK as a `function` object but keeps the
+  DEFINITION's span for it (grid arm E, `e216_task`), unlike the function case.
+  We already match that (the existing `setLoc` arm is gated on
+  `SubroutineKind::Function`); the asymmetry is recorded, not modelled.
+* NOT TAKEN: golden stamps NO `vpiDPICIdentifier` even for
+  `export "DPI-C" cid = function f;` (arm E, `e216_cid`, `cid=-` on both
+  sides).  Already agreeing; untouched.

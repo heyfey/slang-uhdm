@@ -1,0 +1,90 @@
+r10uvm216 — THE FIVE BOUNDARY ARMS THAT MOVED WITHOUT AN EXPORT ITEM
+=====================================================================
+
+MEASUREMENT ONLY.  LHS is ALWAYS golden.
+
+`bound216.sh` reports 12 moved arms out of 5511.  SIX are this pass's own grid
+arms (the positive control) and ONE is `r10v170repro/v170_p_export.sv`, which
+carries `export "DPI-C"` items and moves TOWARD golden (TO-GOLDEN 6 per view,
+AWAY 0 — §4 below).  The remaining FIVE carry NO `export "DPI-C"` item at all,
+so § dpiExportListedAtExportItem216 cannot have fired on them.  "It cannot have
+fired" is an argument, not a measurement, so the four tells recorded at
+r10uvm208 §9 were re-run on each of them (`falsemover216.sh`), with a FIFTH
+tell added because tell 1 as written is defeated by object-id renumbering.
+
+  TELL 1  the OFFICIAL uhdm-cmp output, both binaries, both views
+  TELL 2  the whole-dump diff confined to `|UINT:` constant lines
+  TELL 3  each differing UINT delta a multiple of the 4096-byte page
+  TELL 4  each binary deterministic on its own (three runs, one md5)
+  TELL 5  (added here) the whole-dump diff ORDER-BLIND and ID-NORMALISED
+          (`sed 's/id:[0-9]*/id:N/g' | sort`)
+
+RESULTS
+
+  arm                                        T1                     T5
+  r10buvm22repro/g22.sv                      CMP-IDENTICAL 17506/26436   0
+  r10uvm154repro/l154_noenum.sv              CMP-IDENTICAL  1632/1636    0
+  r10uvm180repro/g180_a_kinds.sv             CMP-DIFFERS                 0
+  r10uvm185repro/grid185/g185_e_kinds.sv     CMP-IDENTICAL  9970/10058   0
+  r10uvm31repro/t41b/dut.sv                  CMP-DIFFERS                 0
+
+  TELL 4: DETERMINISTIC on every arm, both binaries, both views (3 runs each).
+
+  TELL 5 — the whole-dump diff taken ORDER-BLIND, with `id:` and the
+  address-bearing `UINT:`/`vpiDecompile:` values normalised — reads **ZERO
+  differing lines on all TEN arm-views**.  On `g22.sv` and
+  `g185_e_kinds.sv` the un-normalised residue is a handful of values that bake
+  a static program address and shift by an exact multiple of the 4096-byte page
+  (TELL 3 PAGE-MULTIPLE).  `l154_noenum.sv` is the campaign's own committed
+  LAYOUT PROOF source and says so in its header.
+
+  The two arms whose uhdm-cmp output DIFFERS (`g180_a_kinds.sv`,
+  `t41b/dut.sv`) differ ONLY in object ids: both cmp outputs are the same
+  LENGTH (32042 / 32042 lines for g180_a_kinds) with the same head object, and
+  sorting them and normalising `id:` makes them identical.  Their dump diffs
+  are 48 `<` and 48 `>` lines — a pure block PERMUTATION of identical content
+  inside a Typespecs listing, i.e. object-creation order.
+
+  The subroutine-listing census on all five reads TO-GOLDEN 0, AWAY 0,
+  STILL-WRONG 0 on both binaries (`armscore216.sh`).
+
+Two of the five (`r10vbuvm20repro/v1_kinds.sv`, `r10vearl96repro/v5_kinds96.sv`)
+moved under an earlier cut of this pass and do NOT move under the landed one —
+itself a tell, since a law that fires on neither cannot explain a difference
+between them, while a layout shift can.
+
+VERDICT: all five are the campaign's known LAYOUT class — object-creation
+order and baked static addresses shifting because the binary's layout changed.
+Nothing about the compared CONTENT of any of them moved.
+
+
+4. `r10v170repro/v170_p_export.sv` — THE ONE EARLIER-PASS ARM THAT REALLY MOVED
+-------------------------------------------------------------------------------
+It is § 170's own export-ordering arm and it carries five `export "DPI-C"`
+items, three of them SEPARATED from their definitions.  Package `Ordering7`,
+`-parse` view (elab identical):
+
+  golden                       pristine ours              patched ours
+  [0] drain7                   [0] drain7                 [0] drain7
+  [1] alpha7   EXPORT          [1] alpha7   EXPORT        [1] alpha7   EXPORT
+  [2] beta7    EXPORT          [2] beta7    EXPORT        [2] beta7    EXPORT
+  [3] gamma7   EXPORT          [3] filler7a               [3] gamma7   EXPORT
+  [4] filler7a                 [4] filler7b               [4] filler7a
+  [5] filler7b                 [5] gamma7   EXPORT        [5] filler7b
+  [6] delta7   EXPORT          [6] delta7   EXPORT        [6] delta7   EXPORT
+  [7] epsil7          (def)    [7] epsil7   EXPORT        [7] epsil7   EXPORT
+  [8] epsil7   EXPORT (proto)
+
+  census ONLY-GOLDEN/ONLY-OURS   14 / 10        ->        8 / 4
+  rank   RANK-GOLDEN/RANK-OURS    2 / 2         ->        0 / 0
+
+`gamma7` (export at :36, definition at :43 with two fillers between) lands on
+golden's slot.  Nothing regressed.
+
+The residue this arm exposes is recorded as R2 in the README: when the export
+is written BELOW its definition (`epsil7`, definition :55, export :58) golden
+emits TWO entries — the definition, UNSTAMPED, at its own slot, and a SECOND,
+EMPTY `vpiAccessType=EXPORT` prototype at the export's slot.  We emit ONE,
+stamped.  That is unchanged pristine to patched and no corpus row has that
+shape (every corpus export is written ABOVE or ADJACENT to its definition), so
+it is recorded, not taken.

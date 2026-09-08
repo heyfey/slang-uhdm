@@ -1,0 +1,53 @@
+r10v216 — ADVERSARIAL VERIFICATION OF r10uvm216.  MEASUREMENT ONLY except for
+the FENCE 3 fix in src/TaskFuncEmit.cpp + include/UhdmExporter.h.  The official
+~/git-repos/UHDM/build/bin/uhdm-cmp and scripts/verify_golden.py are the only
+acceptance judges.  LHS is ALWAYS golden.  results/*.csv were READ ONLY and NOT
+EDITED; no row converted; GOLDEN_DEFER unset; slang NOT patched.
+
+BASE b7eb7ff3.  Three binaries, each built -j 2 from its own fresh worktree and
+frozen chmod 555 before any sweep:
+  pris  /tmp/v216_bin/pris  md5 49b83611ebc24e7155c5e62e6c8e23e2   (= implementer's)
+  pat   /tmp/v216_bin/pat   md5 4db85bc0e24d58654a133cb7c318140b   (= implementer's,
+        rebuilt from /tmp/r10uvm216.patch md5 0ce3b5e5528efc5ce924e1780ebb4807
+        applied to a FRESH b7eb7ff3 worktree — byte-identical)
+  fix   /tmp/v216_bin/fix   md5 dd981cc3f7dae732a1f6a9298baa49fd   (pat + FENCE 3)
+
+REPRODUCED BIT-FOR-BIT FROM THE IMPLEMENTER'S REPORT
+  goldens                23 PASS / 0 FAIL on pris, pat and fix; SLANG_UHDM=/bin/false 23 FAIL
+  uhdm2rtlil             679 / 50 / 2 in BOTH modes on all three binaries
+                         ct8rows PASS vs committed and vs pristine; byteverify 0 / 1358
+  surelog                475 CMP_EQUAL + 6 CMP_NOTEQUAL default, 469 + 6 testflags,
+                         identical on all three binaries; NO ROW CONVERTED
+  ct8rows surelog        pris vs pat 0 differing rows / 1588; committed vs FIX 0 / 1588
+  byteverify surelog     6 / 956 movers, the same six, the same md5s:
+                           MiniAmiq default+testflags   b956d97f6cb3 -> 23ef37eb979a  (THE LAW)
+                           BuildUVMPkg default+testflags 3a23c6b97411 -> 0571ae41acbe (allocation)
+                           SeqDriver default            50fc8fc22c24 -> 5f32844fd8c0  (allocation)
+                           Scoreboard default           89c1b4e51d8e -> 61ee9cb4f6c1  (THE COIN)
+  byteverify fix vs pat  0 / 956 and 0 / 1358 — THE FENCE CHANGES NO CORPUS DATABASE
+  heads                  MiniAmiq x2 838/1 -> 29/1; SeqDriver x2 209/1 unchanged;
+                         SimpleUVM x2, Scoreboard/default, BuildUVMPkg x2,
+                         Earlgrey_0_1 x2, Rggen/default all 0 lines rc=0
+  head log               /tmp/v216_heads_pat/MiniAmiq.default.cmp is BYTE-IDENTICAL to the
+                         committed head_pat_MiniAmiq.default.cmp
+  MiniAmiq census        37151 cells, golden-vs-golden calibration null;
+                         golden vs pris 9/9, golden vs pat 0/0
+  MiniAmiq listing       interface_inst work@svaunit_vpi_interface size=931 on BOTH sides;
+                         golden [900] pass_info_to_sv_dpi EXPORT @72:4-72:48,
+                                [901] create_assertion_dpi  EXPORT @78:4-78:49;
+                         pristine had them unstamped at [906]/[905];
+                         patched reproduces golden's index, flags and span exactly.
+                         DPI IMPORT/EXPORT/plain: golden 21/3/907, pris 21/1/909, pat 21/3/907
+  canaries               fix: ok=52 changed=0 (surelog), ok=8 changed=0 (u2r); ctcan2 PASS x2
+  canaudit               audited=29 UNCOVERED=0 FENCE-BREACH=0
+  protected DBs (fix)    InterfaceModPort 59a365f3ce2c SAME (both modes), BlackParrotComplex SAME,
+                         YosysOldOr SAME, SVSwitch 4842211c4030, YosysVerx 6ccda350c24a
+
+THE Earlgrey_0_1 INFORMATIONAL CELL — ATTRIBUTED, NOT ARGUED
+  The implementer reported Earlgrey_0_1/default's uhdm-dump column going blank and
+  blamed a concurrent load.  This verification reproduces the CLASS and not the row:
+  running the pris and pat sweeps CONCURRENTLY blanked Earlgrey_0_1/TESTFLAGS on BOTH
+  binaries (status CMP_EQUAL both), and running the fix sweep ALONE reproduced the
+  committed row exactly — ct8rows committed-vs-fix = 0 differing rows over 1588, and
+  canaries on the fix sweep read ok=52 changed=0.  It is a load-induced uhdm-dump
+  timeout in the harness's informational column, not an effect of any binary.

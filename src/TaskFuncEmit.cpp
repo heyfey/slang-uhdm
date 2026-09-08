@@ -120,6 +120,225 @@ bool UhdmExporter::dpiExportPrecedesDef170(const SubroutineSymbol& sub) {
     return ei != it->second.exportIdx.end() && ei->second < mi->second;
 }
 
+// § dpiExportListedAtExportItem216 — the ONE declaration node that can hold an
+// `export "DPI-C"` item list.  A module, an interface, a program and a package
+// all parse to `ModuleDeclarationSyntax`; nothing else has a `members` list an
+// export item can sit in (a class body cannot legally carry one — slang
+// rejects it at Compilation.cpp:1971 with `DPIExportDifferentScope`).
+static bool dpiItemListHolder216(const slang::syntax::SyntaxNode* n) {
+    switch (n->kind) {
+        case syntax::SyntaxKind::ModuleDeclaration:
+        case syntax::SyntaxKind::InterfaceDeclaration:
+        case syntax::SyntaxKind::ProgramDeclaration:
+        case syntax::SyntaxKind::PackageDeclaration:
+            return true;
+        default:
+            return false;
+    }
+}
+
+// § dpiExportListedAtExportItem216 — see the law on `DpiExportOrder216` in
+// UhdmExporter.h.  Walks UP from `sym`'s syntax to the top-level item of the
+// holder declaration that contains it, and memoises that holder's item table.
+const UhdmExporter::DpiExportOrder216* UhdmExporter::dpiExportOrder216For(
+    const Symbol& sym, size_t* itemIdxOut,
+    const slang::syntax::SyntaxNode** itemOut) {
+    const syntax::SyntaxNode* syn = sym.getSyntax();
+    if (!syn)
+        return nullptr;
+    // The top-level ITEM is the ancestor whose parent IS the holder.  A member
+    // nested in a generate region or a class body therefore maps to the index
+    // of the item that CONTAINS it, which is what an item walk sees.
+    const syntax::SyntaxNode* item = syn;
+    const syntax::SyntaxNode* holder = nullptr;
+    for (int g = 0; g < 32 && item && item->parent; ++g) {
+        if (dpiItemListHolder216(item->parent)) {
+            holder = item->parent;
+            break;
+        }
+        item = item->parent;
+    }
+    if (!holder)
+        return nullptr;
+    auto it = dpiExportOrder216.find((const void*)holder);
+    if (it == dpiExportOrder216.end()) {
+        DpiExportOrder216 ord;
+        size_t i = 0;
+        for (auto* mem : holder->as<syntax::ModuleDeclarationSyntax>().members) {
+            ord.itemIdx[(const void*)mem] = i;
+            if (mem->kind == syntax::SyntaxKind::DPIExport) {
+                std::string nm(
+                    mem->as<syntax::DPIExportSyntax>().name.valueText());
+                // FIRST export wins: Surelog's prototype is pushed by the
+                // first `paDpi_import_export` item of that name and every
+                // later one finds the object already listed.
+                if (!nm.empty())
+                    ord.exports.emplace(nm, std::make_pair(i, mem));
+            }
+            ++i;
+        }
+        it = dpiExportOrder216.emplace((const void*)holder, std::move(ord))
+                 .first;
+    }
+    auto mi = it->second.itemIdx.find((const void*)item);
+    if (mi == it->second.itemIdx.end())
+        return nullptr;
+    if (itemIdxOut)
+        *itemIdxOut = mi->second;
+    if (itemOut)
+        *itemOut = item;
+    return &it->second;
+}
+
+// § dpiExportListedAtExportItem216 — the `export "DPI-C"` item naming THIS
+// subroutine in its own holder's item list.  Both fences are stated on the
+// declaration in UhdmExporter.h.
+const slang::syntax::SyntaxNode* UhdmExporter::dpiExportItem216(
+    const SubroutineSymbol& sub) {
+    // A DPI IMPORT is never also an export (slang: `DPIExportImportedFunc`).
+    if ((sub.flags & MethodFlags::DPIImport) != MethodFlags::None)
+        return nullptr;
+    size_t idx = 0;
+    const syntax::SyntaxNode* item = nullptr;
+    const DpiExportOrder216* ord = dpiExportOrder216For(sub, &idx, &item);
+    if (!ord || ord->exports.empty() || !item)
+        return nullptr;
+    // FENCE 1 — the subroutine's top-level item must be its OWN declaration.
+    // Without this a class method would match an enclosing module's export of
+    // the same bare name (the class declaration is the item we would find).
+    if (item->kind != syntax::SyntaxKind::FunctionDeclaration &&
+        item->kind != syntax::SyntaxKind::TaskDeclaration)
+        return nullptr;
+    auto e = ord->exports.find(std::string(sub.name));
+    if (e == ord->exports.end())
+        return nullptr;
+    // FENCE 2 — the export's `function`/`task` keyword must match the
+    // subroutine kind (slang's own check, Compilation.cpp:1959-1968).
+    auto& de = e->second.second->as<syntax::DPIExportSyntax>();
+    if (sub.subroutineKind == SubroutineKind::Function &&
+        de.functionOrTask.kind == parsing::TokenKind::TaskKeyword)
+        return nullptr;
+    if (sub.subroutineKind == SubroutineKind::Task &&
+        de.functionOrTask.kind == parsing::TokenKind::FunctionKeyword)
+        return nullptr;
+    // FENCE 3 (r10v216) — THE EXPORT ITEM MUST PRECEDE THE DEFINITION ITEM.
+    // An export written BELOW its definition is a DIFFERENT Surelog shape and
+    // this law does not describe it: the FUNCTION pass reaches the DEFINITION
+    // first, `compileFunction`'s bare-name scan finds nothing, and it pushes an
+    // UNSTAMPED entry at the definition's own slot; the later export item then
+    // runs `compileFunctionPrototype` + `insertFunction`, which does NOT
+    // re-scan, so golden ends up with TWO entries — the unstamped definition
+    // where it stands, plus a SECOND, EMPTY `vpiAccessType=EXPORT` prototype at
+    // the export's slot (measured: `v216_b1`/`b2`/`b3`/`b4`, every holder kind,
+    // both views; the r10uvm216 README records the same shape as its R2 from
+    // `r10v170repro/v170_p_export.sv`).  We emit ONE entry, so the best cell we
+    // can hold is golden's UNSTAMPED DEFINITION at its own slot — which is
+    // exactly what we already held.  Firing here instead moved that entry to
+    // the export's slot AND stamped it, losing a cell we had:
+    //   b1 (interface, separated)  ONLY-GOLDEN 3 -> 6, ONLY-OURS 1 -> 4
+    //   b2 (module, separated)                 10 -> 12,           6 -> 8
+    //   b3 (package, separated)                14 -> 18,          10 -> 14
+    //   b4 (interface, ADJACENT below)          3 -> 5,            1 -> 3
+    // so the below shape is FENCED OUT until R2 models the second entry.
+    if (e->second.first > idx)
+        return nullptr;
+    return e->second.second;
+}
+
+// § dpiExportListedAtExportItem216 — move every DPI-exported entry of a
+// FINISHED LISTING to the position its `export "DPI-C"` item occupies in the
+// holder's item list, and leave every other entry's relative order EXACTLY as
+// it was.
+//
+// THE LISTING, NOT THE EMISSION.  An earlier cut of this pass reordered
+// `emitTaskFuncs`'s `items` walk instead, which is wrong twice over: CREATION
+// ORDER IS LOAD-BEARING FOR BINDING (the package listing's own re-sort says so
+// in `ParamEmit.cpp`, and the r10uvm216 measurement agrees — reordering the
+// walk moved `BuildUVMPkg` x2 and `SeqDriver`/default by bytes with a
+// BYTE-IDENTICAL `uhdm-dump`, i.e. it perturbed object creation order and
+// nothing else), and a package with classes re-sorts its DEF listing
+// afterwards anyway, undoing the walk's order. So the walk is left alone and
+// only the LISTING is permuted, exactly as § pkgTfSeq9 already does.
+//
+// It is deliberately an INSERTION, not a sort by effective item index: this
+// listing also receives entries that are not members of this holder at all (an
+// interface that wildcard-imports a package carries that package's subroutines
+// ahead of its own — 894 of MiniAmiq's 931), and an entry with no item index
+// of its own must never migrate.  An exported entry is re-inserted before the
+// FIRST remaining entry whose item index is >= the export's, so nothing else
+// moves and an entry of unknown index is never a barrier.  An ADJACENT
+// export/definition pair therefore returns to the slot it already held.
+//
+// `keys[i]` is entry i's item index (`kUnknown216` when it has none) and
+// `expKey[i]` is its EXPORT item's index, or `kUnknown216` when it is not
+// DPI-exported.
+std::vector<size_t> UhdmExporter::dpiExportListingPerm216(
+    const std::vector<size_t>& keys, const std::vector<size_t>& expKey) {
+    std::vector<size_t> perm;
+    if (keys.size() != expKey.size() || keys.size() < 2)
+        return perm;
+    std::vector<size_t> order;
+    for (size_t i = 0; i < expKey.size(); ++i)
+        if (expKey[i] != kUnknown216)
+            order.push_back(i);
+    if (order.empty())
+        return perm;
+    // ASCENDING export-item order — the order Surelog's FUNCTION pass pushes
+    // the prototypes in.
+    std::stable_sort(order.begin(), order.end(), [&](size_t a, size_t b) {
+        return expKey[a] < expKey[b];
+    });
+    std::vector<size_t> outIdx;
+    perm.reserve(keys.size());
+    outIdx.reserve(keys.size());
+    for (size_t i = 0; i < expKey.size(); ++i) {
+        if (expKey[i] != kUnknown216)
+            continue;
+        perm.push_back(i);
+        outIdx.push_back(keys[i]);
+    }
+    for (size_t i : order) {
+        size_t x = expKey[i];
+        size_t pos = perm.size();
+        for (size_t j = 0; j < perm.size(); ++j)
+            if (outIdx[j] != kUnknown216 && outIdx[j] >= x) {
+                pos = j;
+                break;
+            }
+        perm.insert(perm.begin() + (ptrdiff_t)pos, i);
+        outIdx.insert(outIdx.begin() + (ptrdiff_t)pos, x);
+    }
+    // An IDENTITY permutation (every adjacent export/definition pair) is
+    // reported as "nothing to do" so no caller ever rewrites a listing that
+    // does not change.
+    bool identity = true;
+    for (size_t i = 0; i < perm.size(); ++i)
+        if (perm[i] != i) {
+            identity = false;
+            break;
+        }
+    if (identity)
+        perm.clear();
+    return perm;
+}
+
+// Apply a permutation produced by `dpiExportListingPerm216` to the TAIL of a
+// listing (the entries this `emitTaskFuncs` call contributed, which start at
+// `base`).  `info->taskFuncs` can already hold entries from an earlier call
+// against the same DefInfo, and those must not move.
+void UhdmExporter::applyDpiExportPerm216(std::vector<UHDM::task_func*>& v,
+                                         size_t base,
+                                         const std::vector<size_t>& perm) {
+    if (perm.empty() || v.size() != base + perm.size())
+        return;
+    std::vector<UHDM::task_func*> tail;
+    tail.reserve(perm.size());
+    for (size_t i : perm)
+        tail.push_back(v[base + i]);
+    for (size_t i = 0; i < tail.size(); ++i)
+        v[base + i] = tail[i];
+}
+
 // § dpiExportedPkgSubBareOwnTdUnsupported170 — FENCE 2 (an import provides the
 // name) and FENCE 3 (a forward typedef).  See the law on
 // `dpiHomeStillResolves170` in UhdmExporter.h for both decodes; the arm is
@@ -1990,6 +2209,12 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
     std::vector<const Symbol*> items;
     if (!cloneMode)
         items = memberList;
+    // § dpiExportListedAtExportItem216 — the LISTING keys, recorded 1:1 with
+    // `tfs` as it is filled and applied once the walk is over.  The walk
+    // itself is NEVER reordered (creation order is load-bearing for binding).
+    std::vector<size_t> tfItemKey216, tfExpKey216;
+    bool anyDpiExport216 = false;
+    const size_t infoBase216 = info ? info->taskFuncs.size() : 0;
     std::vector<const Symbol*> oobDefs;
     if (classScope) {
         for (auto& member : body.members()) {
@@ -3405,6 +3630,24 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 dpiExportSyn = ex.syntax;
                 break;
             }
+        // § dpiExportListedAtExportItem216 — `getDPIExports()` is resolved ONCE,
+        // inside `Compilation::elaborate()`, over the scopes reachable from
+        // `getRoot()`; slang auto-instantiates only modules and programs as
+        // tops, so a never-instantiated INTERFACE definition (which we still
+        // list, because Surelog lists it in `AllInterfaces`) has its body
+        // elaborated after that resolution and its export directives are never
+        // resolved.  Surelog reads the export item straight out of the item
+        // walk, so read it from the syntax too.  Both fences are on
+        // `dpiExportItem216`.
+        // (r10v216) Computed ONCE for the whole iteration: the fallback below,
+        // the `pkgTfOrder9` key and the listing key all mean the same thing —
+        // "this subroutine's own `export "DPI-C"` item, written ABOVE it".
+        const syntax::SyntaxNode* dpiExportAbove216 =
+            classScope ? nullptr : dpiExportItem216(sub);
+        if (!dpiExport && dpiExportAbove216) {
+            dpiExport = true;
+            dpiExportSyn = dpiExportAbove216;
+        }
         if (dpiExport)
             isFunc = true;
         std::string fullName = prefix.empty() ? std::string(sub.name)
@@ -7009,9 +7252,54 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         // Package listing order key (see pkgTfOrder9): the clone pass and the
         // package's own free-subroutine pass feed the SAME vector, so both
         // record here.
+        //
+        // § dpiExportListedAtExportItem216 — for a DPI-EXPORTED free
+        // subroutine the key is the EXPORT ITEM'S location, not the
+        // definition's.  `pkgTfOrder9` drives the package DEF-listing re-sort
+        // (`emitPackageClassMethodClones`) AND `materializedPkgTfGroup`, the
+        // hoisted copy every wildcard IMPORTER of the package carries — and
+        // golden's hoisted copy mirrors the package's own listing, so both
+        // must read the same order.  In the corpus this key never changes an
+        // order (`uvm_globals.svh:161/162` and `uvm_pkg.sv:9577/9578` are
+        // adjacent items, and nothing else is declared between them); grid
+        // arm B is where it is visible.
+        // (r10v216) The key is the export item's ONLY when the export is written
+        // ABOVE the definition — `dpiExportAbove216`, not `dpiExportSyn`, which
+        // slang also sets for a BELOW export (FENCE 3 on `dpiExportItem216`).
         if (cloneMode || (pkgScope && !classScope))
-            pkgTfOrder9[tf] = {sub.name == "new" ? 1 : 0, member.location};
+            pkgTfOrder9[tf] = {sub.name == "new" ? 1 : 0,
+                               dpiExportAbove216
+                                   ? dpiExportAbove216->sourceRange().start()
+                                   : member.location};
+        // § dpiExportListedAtExportItem216 — this entry's LISTING keys: its own
+        // top-level item index, and its `export "DPI-C"` item's index when it
+        // has one.  Recorded 1:1 with `tfs`; the permutation is applied once
+        // the walk is over, so the walk's own (creation) order is untouched.
+        {
+            size_t itemKey216 = kUnknown216, expKey216 = kUnknown216;
+            if (!classScope && !genScope && !designScope && !cloneMode)
+                if (const DpiExportOrder216* ord216 =
+                        dpiExportOrder216For(sub, &itemKey216, nullptr))
+                    if (dpiExportAbove216) {
+                        auto e216 = ord216->exports.find(std::string(sub.name));
+                        if (e216 != ord216->exports.end()) {
+                            expKey216 = e216->second.first;
+                            anyDpiExport216 = true;
+                        }
+                    }
+            tfItemKey216.push_back(itemKey216);
+            tfExpKey216.push_back(expKey216);
+        }
         tfs->push_back(tf);
+    }
+    // § dpiExportListedAtExportItem216 — permute the finished listing, and the
+    // DefInfo copy a module/interface view is rebuilt from, which carries the
+    // same entries in the same order.
+    if (anyDpiExport216) {
+        auto perm216 = dpiExportListingPerm216(tfItemKey216, tfExpKey216);
+        applyDpiExportPerm216(*tfs, 0, perm216);
+        if (info)
+            applyDpiExportPerm216(info->taskFuncs, infoBase216, perm216);
     }
     inClassBodyEmit = false;
     inBodyClassMethod88 = false;

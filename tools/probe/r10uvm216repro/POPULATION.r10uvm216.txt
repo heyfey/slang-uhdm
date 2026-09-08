@@ -1,0 +1,55 @@
+r10uvm216 — QUESTION (2): EVERY INTERFACE-SCOPED SUBROUTINE, BOTH SIDES,
+KEYED BY DPI-NESS x VIEW x HOLDER
+=========================================================================
+
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+Instrument: `ct216if` (the per-holder ordered listing) and `ct216cen`
+(the census).  Row: MiniAmiq, default (testflags is identical cell for cell).
+
+THE HOLDER
+-----------
+`interface_inst work@svaunit_vpi_interface`
+  golden id 341784, ours id 300482 — ONE object per side, reached through the
+  design's `AllInterfaces`.  Both sides' `Task_funcs` hold 931 entries; the
+  vector is neither NULL nor size-mismatched on either side.  Surelog lists a
+  never-instantiated interface in `AllInterfaces` and we match that
+  (src/UhdmExporter.cpp:4883-4896, `InstanceSymbol::createDefault`); there is
+  no second, instance-view copy on either side, so VIEW is not a distinguisher
+  for this holder.
+
+THE 931 ENTRIES BY DPI-NESS (pristine)
+---------------------------------------
+                                       golden   ours(pristine)  ours(patched)
+  vpiAccessType = IMPORT (vpiDPIImportAcc)  21        21              21
+  vpiAccessType = EXPORT (vpiDPIExportAcc)   3         1               3
+  no vpiAccessType                         907       909             907
+                                          ----      ----            ----
+                                           931       931             931
+
+  The 21 IMPORTs: 15 hoisted from `uvm_pkg` (uvm_hdl_*, uvm_dpi_*,
+  uvm_re_match, uvm_dump_re_cache, uvm_glob_to_re) and the interface's own six
+  (svaunit_vpi_interface.sv:33, :40, :48, :54, :59, :62).  Every field on
+  every one of them — vpiDPICStr, vpiDPIContext, vpiDPIPure, #io_decls,
+  has-body — agrees on both binaries.  The IMPORT half was never wrong.
+
+  The 3 EXPORTs: `uvm_pkg::m__uvm_report_dpi` hoisted at index [354], and the
+  interface's own `pass_info_to_sv_dpi` (:72) and `create_assertion_dpi` (:78).
+  We already carried the hoisted one correctly — because its export and its
+  definition are ADJACENT items (uvm_globals.svh:161/162) so neither the
+  position nor the flags question was ever asked of it.  The interface's own
+  two were the head.
+
+BY HOLDER, ACROSS THE WHOLE DATABASE (`ct216cen`, 37151 census cells)
+----------------------------------------------------------------------
+Every holder with a `Task_funcs` listing was censused — module_inst,
+interface_inst, package and class_defn alike.  On the PRISTINE binary exactly
+NINE cells differ from golden and all nine sit in this one interface_inst
+holder; on the PATCHED binary the count is ZERO.  No package, no module, no
+class listing of the MiniAmiq database differed before or after.
+
+THE SEPARATION IS TOTAL
+------------------------
+Of the interface's own 37 subroutine entries, the TWO that diverged are exactly
+the two whose `export "DPI-C"` item is separated from its definition, and the
+35 that agreed are exactly the ones with no export item or with an adjacent
+one.  That is the window `dpiExportItem216` names, and nothing else.

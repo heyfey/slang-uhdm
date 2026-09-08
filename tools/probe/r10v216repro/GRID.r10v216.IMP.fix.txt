@@ -1,0 +1,283 @@
+ARM g216_a_iface_export parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=1819 heads=1 (VERDICT NOT THE SCORER)
+CALIB g216_a_iface_export parse -- RIGHT-BOTH=30 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g216_a_iface_export parse -- RIGHT-BOTH=30 ONLY-GOLDEN=0 ONLY-OURS=0
+LISTG g216_a_iface_export parse HOLDER interface_inst:work@a216_if  n=7
+LISTG g216_a_iface_export parse    idx=00000|function|a216_imp|acc=IMPORT|cstr=2|ctx=1|pure=0|cid=-|io=1|body=0
+LISTG g216_a_iface_export parse    idx=00001|function|a216_second|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_a_iface_export parse    idx=00002|function|a216_first|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=2|body=1
+LISTG g216_a_iface_export parse    idx=00003|function|a216_plain1|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_a_iface_export parse    idx=00004|function|a216_plain2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_a_iface_export parse    idx=00005|task|a216_plain3|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_a_iface_export parse    idx=00006|function|a216_plain4|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+LISTO g216_a_iface_export parse HOLDER interface_inst:work@a216_if  n=7
+LISTO g216_a_iface_export parse    idx=00000|function|a216_imp|acc=IMPORT|cstr=2|ctx=1|pure=0|cid=-|io=1|body=0
+LISTO g216_a_iface_export parse    idx=00001|function|a216_second|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_a_iface_export parse    idx=00002|function|a216_first|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=2|body=1
+LISTO g216_a_iface_export parse    idx=00003|function|a216_plain1|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_a_iface_export parse    idx=00004|function|a216_plain2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_a_iface_export parse    idx=00005|task|a216_plain3|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_a_iface_export parse    idx=00006|function|a216_plain4|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+ARM g216_a_iface_export elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=2676 heads=1 (VERDICT NOT THE SCORER)
+CALIB g216_a_iface_export elab -- RIGHT-BOTH=30 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g216_a_iface_export elab -- RIGHT-BOTH=30 ONLY-GOLDEN=0 ONLY-OURS=0
+LISTG g216_a_iface_export elab HOLDER interface_inst:work@a216_if  n=7
+LISTG g216_a_iface_export elab    idx=00000|function|a216_imp|acc=IMPORT|cstr=2|ctx=1|pure=0|cid=-|io=1|body=0
+LISTG g216_a_iface_export elab    idx=00001|function|a216_second|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_a_iface_export elab    idx=00002|function|a216_first|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=2|body=1
+LISTG g216_a_iface_export elab    idx=00003|function|a216_plain1|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_a_iface_export elab    idx=00004|function|a216_plain2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_a_iface_export elab    idx=00005|task|a216_plain3|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_a_iface_export elab    idx=00006|function|a216_plain4|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+LISTO g216_a_iface_export elab HOLDER interface_inst:work@a216_if  n=7
+LISTO g216_a_iface_export elab    idx=00000|function|a216_imp|acc=IMPORT|cstr=2|ctx=1|pure=0|cid=-|io=1|body=0
+LISTO g216_a_iface_export elab    idx=00001|function|a216_second|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_a_iface_export elab    idx=00002|function|a216_first|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=2|body=1
+LISTO g216_a_iface_export elab    idx=00003|function|a216_plain1|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_a_iface_export elab    idx=00004|function|a216_plain2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_a_iface_export elab    idx=00005|task|a216_plain3|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_a_iface_export elab    idx=00006|function|a216_plain4|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+ARM g216_b_pkg_export parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=3898 heads=1 (VERDICT NOT THE SCORER)
+CALIB g216_b_pkg_export parse -- RIGHT-BOTH=48 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g216_b_pkg_export parse -- RIGHT-BOTH=48 ONLY-GOLDEN=0 ONLY-OURS=0
+LISTG g216_b_pkg_export parse HOLDER module_inst:work@b216_top  n=6
+LISTG g216_b_pkg_export parse    idx=00000|function|b216_imp|acc=IMPORT|cstr=2|ctx=1|pure=0|cid=-|io=1|body=0
+LISTG g216_b_pkg_export parse    idx=00001|function|b216_second|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_b_pkg_export parse    idx=00002|function|b216_first|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=2|body=1
+LISTG g216_b_pkg_export parse    idx=00003|function|b216_plain1|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_b_pkg_export parse    idx=00004|function|b216_plain2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_b_pkg_export parse    idx=00005|function|b216_plain4|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+LISTG g216_b_pkg_export parse HOLDER package:b216_pkg  n=6
+LISTG g216_b_pkg_export parse    idx=00000|function|b216_imp|acc=IMPORT|cstr=2|ctx=1|pure=0|cid=-|io=1|body=0
+LISTG g216_b_pkg_export parse    idx=00001|function|b216_second|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_b_pkg_export parse    idx=00002|function|b216_first|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=2|body=1
+LISTG g216_b_pkg_export parse    idx=00003|function|b216_plain1|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_b_pkg_export parse    idx=00004|function|b216_plain2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_b_pkg_export parse    idx=00005|function|b216_plain4|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+LISTO g216_b_pkg_export parse HOLDER module_inst:work@b216_top  n=6
+LISTO g216_b_pkg_export parse    idx=00000|function|b216_imp|acc=IMPORT|cstr=2|ctx=1|pure=0|cid=-|io=1|body=0
+LISTO g216_b_pkg_export parse    idx=00001|function|b216_second|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_b_pkg_export parse    idx=00002|function|b216_first|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=2|body=1
+LISTO g216_b_pkg_export parse    idx=00003|function|b216_plain1|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_b_pkg_export parse    idx=00004|function|b216_plain2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_b_pkg_export parse    idx=00005|function|b216_plain4|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+LISTO g216_b_pkg_export parse HOLDER package:b216_pkg  n=6
+LISTO g216_b_pkg_export parse    idx=00000|function|b216_imp|acc=IMPORT|cstr=2|ctx=1|pure=0|cid=-|io=1|body=0
+LISTO g216_b_pkg_export parse    idx=00001|function|b216_second|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_b_pkg_export parse    idx=00002|function|b216_first|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=2|body=1
+LISTO g216_b_pkg_export parse    idx=00003|function|b216_plain1|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_b_pkg_export parse    idx=00004|function|b216_plain2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_b_pkg_export parse    idx=00005|function|b216_plain4|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+ARM g216_b_pkg_export elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=4938 heads=1 (VERDICT NOT THE SCORER)
+CALIB g216_b_pkg_export elab -- RIGHT-BOTH=48 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g216_b_pkg_export elab -- RIGHT-BOTH=48 ONLY-GOLDEN=0 ONLY-OURS=0
+LISTG g216_b_pkg_export elab HOLDER module_inst:work@b216_top  n=6
+LISTG g216_b_pkg_export elab    idx=00000|function|b216_imp|acc=IMPORT|cstr=2|ctx=1|pure=0|cid=-|io=1|body=0
+LISTG g216_b_pkg_export elab    idx=00001|function|b216_second|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_b_pkg_export elab    idx=00002|function|b216_first|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=2|body=1
+LISTG g216_b_pkg_export elab    idx=00003|function|b216_plain1|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_b_pkg_export elab    idx=00004|function|b216_plain2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_b_pkg_export elab    idx=00005|function|b216_plain4|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+LISTG g216_b_pkg_export elab HOLDER package:b216_pkg  n=6
+LISTG g216_b_pkg_export elab    idx=00000|function|b216_imp|acc=IMPORT|cstr=2|ctx=1|pure=0|cid=-|io=1|body=0
+LISTG g216_b_pkg_export elab    idx=00001|function|b216_second|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_b_pkg_export elab    idx=00002|function|b216_first|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=2|body=1
+LISTG g216_b_pkg_export elab    idx=00003|function|b216_plain1|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_b_pkg_export elab    idx=00004|function|b216_plain2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_b_pkg_export elab    idx=00005|function|b216_plain4|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+LISTO g216_b_pkg_export elab HOLDER module_inst:work@b216_top  n=6
+LISTO g216_b_pkg_export elab    idx=00000|function|b216_imp|acc=IMPORT|cstr=2|ctx=1|pure=0|cid=-|io=1|body=0
+LISTO g216_b_pkg_export elab    idx=00001|function|b216_second|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_b_pkg_export elab    idx=00002|function|b216_first|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=2|body=1
+LISTO g216_b_pkg_export elab    idx=00003|function|b216_plain1|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_b_pkg_export elab    idx=00004|function|b216_plain2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_b_pkg_export elab    idx=00005|function|b216_plain4|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+LISTO g216_b_pkg_export elab HOLDER package:b216_pkg  n=6
+LISTO g216_b_pkg_export elab    idx=00000|function|b216_imp|acc=IMPORT|cstr=2|ctx=1|pure=0|cid=-|io=1|body=0
+LISTO g216_b_pkg_export elab    idx=00001|function|b216_second|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_b_pkg_export elab    idx=00002|function|b216_first|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=2|body=1
+LISTO g216_b_pkg_export elab    idx=00003|function|b216_plain1|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_b_pkg_export elab    idx=00004|function|b216_plain2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_b_pkg_export elab    idx=00005|function|b216_plain4|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+ARM g216_c_module_export parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=2103 heads=1 (VERDICT NOT THE SCORER)
+CALIB g216_c_module_export parse -- RIGHT-BOTH=36 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g216_c_module_export parse -- RIGHT-BOTH=36 ONLY-GOLDEN=0 ONLY-OURS=0
+LISTG g216_c_module_export parse HOLDER module_inst:work@c216_sub  n=6
+LISTG g216_c_module_export parse    idx=00000|function|c216_imp|acc=IMPORT|cstr=2|ctx=1|pure=0|cid=-|io=1|body=0
+LISTG g216_c_module_export parse    idx=00001|function|c216_second|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_c_module_export parse    idx=00002|function|c216_first|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=2|body=1
+LISTG g216_c_module_export parse    idx=00003|function|c216_plain1|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_c_module_export parse    idx=00004|function|c216_plain2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_c_module_export parse    idx=00005|function|c216_plain4|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+LISTG g216_c_module_export parse HOLDER module_inst:work@c216_top  n=3
+LISTG g216_c_module_export parse    idx=00000|function|c216_top_second|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_c_module_export parse    idx=00001|function|c216_top_first|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_c_module_export parse    idx=00002|function|c216_top_plain1|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_c_module_export parse HOLDER module_inst:work@c216_sub  n=6
+LISTO g216_c_module_export parse    idx=00000|function|c216_imp|acc=IMPORT|cstr=2|ctx=1|pure=0|cid=-|io=1|body=0
+LISTO g216_c_module_export parse    idx=00001|function|c216_second|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_c_module_export parse    idx=00002|function|c216_first|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=2|body=1
+LISTO g216_c_module_export parse    idx=00003|function|c216_plain1|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_c_module_export parse    idx=00004|function|c216_plain2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_c_module_export parse    idx=00005|function|c216_plain4|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+LISTO g216_c_module_export parse HOLDER module_inst:work@c216_top  n=3
+LISTO g216_c_module_export parse    idx=00000|function|c216_top_second|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_c_module_export parse    idx=00001|function|c216_top_first|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_c_module_export parse    idx=00002|function|c216_top_plain1|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+ARM g216_c_module_export elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=4020 heads=1 (VERDICT NOT THE SCORER)
+CALIB g216_c_module_export elab -- RIGHT-BOTH=36 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g216_c_module_export elab -- RIGHT-BOTH=36 ONLY-GOLDEN=0 ONLY-OURS=0
+LISTG g216_c_module_export elab HOLDER module_inst:work@c216_sub  n=6
+LISTG g216_c_module_export elab    idx=00000|function|c216_imp|acc=IMPORT|cstr=2|ctx=1|pure=0|cid=-|io=1|body=0
+LISTG g216_c_module_export elab    idx=00001|function|c216_second|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_c_module_export elab    idx=00002|function|c216_first|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=2|body=1
+LISTG g216_c_module_export elab    idx=00003|function|c216_plain1|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_c_module_export elab    idx=00004|function|c216_plain2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_c_module_export elab    idx=00005|function|c216_plain4|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+LISTG g216_c_module_export elab HOLDER module_inst:work@c216_top  n=3
+LISTG g216_c_module_export elab    idx=00000|function|c216_top_second|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_c_module_export elab    idx=00001|function|c216_top_first|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_c_module_export elab    idx=00002|function|c216_top_plain1|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_c_module_export elab HOLDER module_inst:work@c216_sub  n=6
+LISTO g216_c_module_export elab    idx=00000|function|c216_imp|acc=IMPORT|cstr=2|ctx=1|pure=0|cid=-|io=1|body=0
+LISTO g216_c_module_export elab    idx=00001|function|c216_second|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_c_module_export elab    idx=00002|function|c216_first|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=2|body=1
+LISTO g216_c_module_export elab    idx=00003|function|c216_plain1|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_c_module_export elab    idx=00004|function|c216_plain2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_c_module_export elab    idx=00005|function|c216_plain4|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+LISTO g216_c_module_export elab HOLDER module_inst:work@c216_top  n=3
+LISTO g216_c_module_export elab    idx=00000|function|c216_top_second|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_c_module_export elab    idx=00001|function|c216_top_first|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_c_module_export elab    idx=00002|function|c216_top_plain1|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+ARM g216_d_iface_top parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=1575 heads=1 (VERDICT NOT THE SCORER)
+CALIB g216_d_iface_top parse -- RIGHT-BOTH=12 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g216_d_iface_top parse -- RIGHT-BOTH=12 ONLY-GOLDEN=0 ONLY-OURS=0
+LISTG g216_d_iface_top parse HOLDER interface_inst:work@d216_if  n=6
+LISTG g216_d_iface_top parse    idx=00000|function|d216_imp|acc=IMPORT|cstr=2|ctx=1|pure=0|cid=-|io=1|body=0
+LISTG g216_d_iface_top parse    idx=00001|function|d216_second|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_d_iface_top parse    idx=00002|function|d216_first|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=2|body=1
+LISTG g216_d_iface_top parse    idx=00003|function|d216_plain1|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_d_iface_top parse    idx=00004|function|d216_plain2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_d_iface_top parse    idx=00005|function|d216_plain4|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+LISTO g216_d_iface_top parse HOLDER interface_inst:work@d216_if  n=6
+LISTO g216_d_iface_top parse    idx=00000|function|d216_imp|acc=IMPORT|cstr=2|ctx=1|pure=0|cid=-|io=1|body=0
+LISTO g216_d_iface_top parse    idx=00001|function|d216_second|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_d_iface_top parse    idx=00002|function|d216_first|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=2|body=1
+LISTO g216_d_iface_top parse    idx=00003|function|d216_plain1|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_d_iface_top parse    idx=00004|function|d216_plain2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_d_iface_top parse    idx=00005|function|d216_plain4|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+ARM g216_d_iface_top elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=2204 heads=1 (VERDICT NOT THE SCORER)
+CALIB g216_d_iface_top elab -- RIGHT-BOTH=12 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g216_d_iface_top elab -- RIGHT-BOTH=12 ONLY-GOLDEN=0 ONLY-OURS=0
+LISTG g216_d_iface_top elab HOLDER interface_inst:work@d216_if  n=6
+LISTG g216_d_iface_top elab    idx=00000|function|d216_imp|acc=IMPORT|cstr=2|ctx=1|pure=0|cid=-|io=1|body=0
+LISTG g216_d_iface_top elab    idx=00001|function|d216_second|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_d_iface_top elab    idx=00002|function|d216_first|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=2|body=1
+LISTG g216_d_iface_top elab    idx=00003|function|d216_plain1|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_d_iface_top elab    idx=00004|function|d216_plain2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_d_iface_top elab    idx=00005|function|d216_plain4|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+LISTO g216_d_iface_top elab HOLDER interface_inst:work@d216_if  n=6
+LISTO g216_d_iface_top elab    idx=00000|function|d216_imp|acc=IMPORT|cstr=2|ctx=1|pure=0|cid=-|io=1|body=0
+LISTO g216_d_iface_top elab    idx=00001|function|d216_second|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_d_iface_top elab    idx=00002|function|d216_first|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=2|body=1
+LISTO g216_d_iface_top elab    idx=00003|function|d216_plain1|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_d_iface_top elab    idx=00004|function|d216_plain2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_d_iface_top elab    idx=00005|function|d216_plain4|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+ARM g216_e_iface_variants parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=1469 heads=1 (VERDICT NOT THE SCORER)
+CALIB g216_e_iface_variants parse -- RIGHT-BOTH=18 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g216_e_iface_variants parse -- RIGHT-BOTH=18 ONLY-GOLDEN=0 ONLY-OURS=0
+LISTG g216_e_iface_variants parse HOLDER interface_inst:work@e216_if  n=4
+LISTG g216_e_iface_variants parse    idx=00000|function|e216_adjacent|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=0
+LISTG g216_e_iface_variants parse    idx=00001|function|e216_cid|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_e_iface_variants parse    idx=00002|function|e216_task|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_e_iface_variants parse    idx=00003|function|e216_plain1|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_e_iface_variants parse HOLDER interface_inst:work@e216_if  n=4
+LISTO g216_e_iface_variants parse    idx=00000|function|e216_adjacent|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=0
+LISTO g216_e_iface_variants parse    idx=00001|function|e216_cid|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_e_iface_variants parse    idx=00002|function|e216_task|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_e_iface_variants parse    idx=00003|function|e216_plain1|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+ARM g216_e_iface_variants elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=1948 heads=1 (VERDICT NOT THE SCORER)
+CALIB g216_e_iface_variants elab -- RIGHT-BOTH=18 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g216_e_iface_variants elab -- RIGHT-BOTH=18 ONLY-GOLDEN=0 ONLY-OURS=0
+LISTG g216_e_iface_variants elab HOLDER interface_inst:work@e216_if  n=4
+LISTG g216_e_iface_variants elab    idx=00000|function|e216_adjacent|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=0
+LISTG g216_e_iface_variants elab    idx=00001|function|e216_cid|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_e_iface_variants elab    idx=00002|function|e216_task|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_e_iface_variants elab    idx=00003|function|e216_plain1|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_e_iface_variants elab HOLDER interface_inst:work@e216_if  n=4
+LISTO g216_e_iface_variants elab    idx=00000|function|e216_adjacent|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=0
+LISTO g216_e_iface_variants elab    idx=00001|function|e216_cid|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_e_iface_variants elab    idx=00002|function|e216_task|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_e_iface_variants elab    idx=00003|function|e216_plain1|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+ARM g216_f_muststay parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=1781 heads=1 (VERDICT NOT THE SCORER)
+CALIB g216_f_muststay parse -- RIGHT-BOTH=42 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g216_f_muststay parse -- RIGHT-BOTH=26 ONLY-GOLDEN=16 ONLY-OURS=8
+CELL g216_f_muststay parse ONLY-GOLDEN	1	MEM|class_defn:work@f216_cls|function|get|acc=EXTERN|cstr=0|ctx=0|pure=0|cid=-|io=0|body=0
+CELL g216_f_muststay parse ONLY-GOLDEN	1	MEM|class_defn:work@f216_cls|function|set|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL g216_f_muststay parse ONLY-GOLDEN	2	MEM|interface_inst:work@f216_if|function|f216_cls::get|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+CELL g216_f_muststay parse ONLY-OURS	2	MEM|interface_inst:work@f216_if|function|f216_imp_pure|acc=IMPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=0
+CELL g216_f_muststay parse ONLY-GOLDEN	2	MEM|interface_inst:work@f216_if|function|f216_imp_pure|acc=IMPORT|cstr=2|ctx=0|pure=1|cid=-|io=1|body=0
+CELL g216_f_muststay parse ONLY-GOLDEN	1	POS|class_defn:work@f216_cls|idx=00000|function|set|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL g216_f_muststay parse ONLY-GOLDEN	1	POS|class_defn:work@f216_cls|idx=00001|function|get|acc=EXTERN|cstr=0|ctx=0|pure=0|cid=-|io=0|body=0
+CELL g216_f_muststay parse ONLY-OURS	2	POS|interface_inst:work@f216_if|idx=00002|function|f216_imp_pure|acc=IMPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=0
+CELL g216_f_muststay parse ONLY-GOLDEN	2	POS|interface_inst:work@f216_if|idx=00002|function|f216_imp_pure|acc=IMPORT|cstr=2|ctx=0|pure=1|cid=-|io=1|body=0
+CELL g216_f_muststay parse ONLY-GOLDEN	2	POS|interface_inst:work@f216_if|idx=00006|function|f216_cls::get|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+CELL g216_f_muststay parse ONLY-OURS	2	POS|interface_inst:work@f216_if|idx=00006|function|f216_positive|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+CELL g216_f_muststay parse ONLY-OURS	2	POS|interface_inst:work@f216_if|idx=00007|function|f216_other|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+CELL g216_f_muststay parse ONLY-GOLDEN	2	POS|interface_inst:work@f216_if|idx=00007|function|f216_positive|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+CELL g216_f_muststay parse ONLY-GOLDEN	2	POS|interface_inst:work@f216_if|idx=00008|function|f216_other|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+LISTG g216_f_muststay parse HOLDER interface_inst:work@f216_if  n=9
+LISTG g216_f_muststay parse    idx=00000|function|f216_imp_ctx|acc=IMPORT|cstr=2|ctx=1|pure=0|cid=-|io=1|body=0
+LISTG g216_f_muststay parse    idx=00001|function|f216_imp_plain|acc=IMPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+LISTG g216_f_muststay parse    idx=00002|function|f216_imp_pure|acc=IMPORT|cstr=2|ctx=0|pure=1|cid=-|io=1|body=0
+LISTG g216_f_muststay parse    idx=00003|function|f216_plain1|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_f_muststay parse    idx=00004|function|f216_plain2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_f_muststay parse    idx=00005|task|f216_plain3|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_f_muststay parse    idx=00006|function|f216_cls::get|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+LISTG g216_f_muststay parse    idx=00007|function|f216_positive|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_f_muststay parse    idx=00008|function|f216_other|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+LISTO g216_f_muststay parse HOLDER interface_inst:work@f216_if  n=8
+LISTO g216_f_muststay parse    idx=00000|function|f216_imp_ctx|acc=IMPORT|cstr=2|ctx=1|pure=0|cid=-|io=1|body=0
+LISTO g216_f_muststay parse    idx=00001|function|f216_imp_plain|acc=IMPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+LISTO g216_f_muststay parse    idx=00002|function|f216_imp_pure|acc=IMPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=0
+LISTO g216_f_muststay parse    idx=00003|function|f216_plain1|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_f_muststay parse    idx=00004|function|f216_plain2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_f_muststay parse    idx=00005|task|f216_plain3|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_f_muststay parse    idx=00006|function|f216_positive|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_f_muststay parse    idx=00007|function|f216_other|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+ARM g216_f_muststay elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=2832 heads=1 (VERDICT NOT THE SCORER)
+CALIB g216_f_muststay elab -- RIGHT-BOTH=42 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g216_f_muststay elab -- RIGHT-BOTH=26 ONLY-GOLDEN=16 ONLY-OURS=8
+CELL g216_f_muststay elab ONLY-GOLDEN	1	MEM|class_defn:work@f216_cls|function|get|acc=EXTERN|cstr=0|ctx=0|pure=0|cid=-|io=0|body=0
+CELL g216_f_muststay elab ONLY-GOLDEN	1	MEM|class_defn:work@f216_cls|function|set|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL g216_f_muststay elab ONLY-GOLDEN	2	MEM|interface_inst:work@f216_if|function|f216_cls::get|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+CELL g216_f_muststay elab ONLY-OURS	2	MEM|interface_inst:work@f216_if|function|f216_imp_pure|acc=IMPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=0
+CELL g216_f_muststay elab ONLY-GOLDEN	2	MEM|interface_inst:work@f216_if|function|f216_imp_pure|acc=IMPORT|cstr=2|ctx=0|pure=1|cid=-|io=1|body=0
+CELL g216_f_muststay elab ONLY-GOLDEN	1	POS|class_defn:work@f216_cls|idx=00000|function|set|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL g216_f_muststay elab ONLY-GOLDEN	1	POS|class_defn:work@f216_cls|idx=00001|function|get|acc=EXTERN|cstr=0|ctx=0|pure=0|cid=-|io=0|body=0
+CELL g216_f_muststay elab ONLY-OURS	2	POS|interface_inst:work@f216_if|idx=00002|function|f216_imp_pure|acc=IMPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=0
+CELL g216_f_muststay elab ONLY-GOLDEN	2	POS|interface_inst:work@f216_if|idx=00002|function|f216_imp_pure|acc=IMPORT|cstr=2|ctx=0|pure=1|cid=-|io=1|body=0
+CELL g216_f_muststay elab ONLY-GOLDEN	2	POS|interface_inst:work@f216_if|idx=00006|function|f216_cls::get|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+CELL g216_f_muststay elab ONLY-OURS	2	POS|interface_inst:work@f216_if|idx=00006|function|f216_positive|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+CELL g216_f_muststay elab ONLY-OURS	2	POS|interface_inst:work@f216_if|idx=00007|function|f216_other|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+CELL g216_f_muststay elab ONLY-GOLDEN	2	POS|interface_inst:work@f216_if|idx=00007|function|f216_positive|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+CELL g216_f_muststay elab ONLY-GOLDEN	2	POS|interface_inst:work@f216_if|idx=00008|function|f216_other|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+LISTG g216_f_muststay elab HOLDER interface_inst:work@f216_if  n=9
+LISTG g216_f_muststay elab    idx=00000|function|f216_imp_ctx|acc=IMPORT|cstr=2|ctx=1|pure=0|cid=-|io=1|body=0
+LISTG g216_f_muststay elab    idx=00001|function|f216_imp_plain|acc=IMPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+LISTG g216_f_muststay elab    idx=00002|function|f216_imp_pure|acc=IMPORT|cstr=2|ctx=0|pure=1|cid=-|io=1|body=0
+LISTG g216_f_muststay elab    idx=00003|function|f216_plain1|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_f_muststay elab    idx=00004|function|f216_plain2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_f_muststay elab    idx=00005|task|f216_plain3|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_f_muststay elab    idx=00006|function|f216_cls::get|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+LISTG g216_f_muststay elab    idx=00007|function|f216_positive|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG g216_f_muststay elab    idx=00008|function|f216_other|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+LISTO g216_f_muststay elab HOLDER interface_inst:work@f216_if  n=8
+LISTO g216_f_muststay elab    idx=00000|function|f216_imp_ctx|acc=IMPORT|cstr=2|ctx=1|pure=0|cid=-|io=1|body=0
+LISTO g216_f_muststay elab    idx=00001|function|f216_imp_plain|acc=IMPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+LISTO g216_f_muststay elab    idx=00002|function|f216_imp_pure|acc=IMPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=0
+LISTO g216_f_muststay elab    idx=00003|function|f216_plain1|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_f_muststay elab    idx=00004|function|f216_plain2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_f_muststay elab    idx=00005|task|f216_plain3|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_f_muststay elab    idx=00006|function|f216_positive|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO g216_f_muststay elab    idx=00007|function|f216_other|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=0|body=1
+-- ARM-VIEWS SCORED: 12   NO-DATABASE: 0   CALIB non-null: 0

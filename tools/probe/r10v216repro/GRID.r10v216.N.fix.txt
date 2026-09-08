@@ -1,0 +1,67 @@
+ARM v216_n1_inst parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=1563 heads=1 (VERDICT NOT THE SCORER)
+CALIB v216_n1_inst parse -- RIGHT-BOTH=14 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS v216_n1_inst parse -- RIGHT-BOTH=14 ONLY-GOLDEN=0 ONLY-OURS=0
+LISTG v216_n1_inst parse HOLDER interface_inst:work@v216_ifn  n=3
+LISTG v216_n1_inst parse    idx=00000|function|en_two|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_n1_inst parse    idx=00001|function|en_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_n1_inst parse    idx=00002|function|plain_n|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_n1_inst parse HOLDER interface_inst:work@v216_ifn  n=3
+LISTO v216_n1_inst parse    idx=00000|function|en_two|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_n1_inst parse    idx=00001|function|en_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_n1_inst parse    idx=00002|function|plain_n|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+ARM v216_n1_inst elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=2256 heads=1 (VERDICT NOT THE SCORER)
+CALIB v216_n1_inst elab -- RIGHT-BOTH=14 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS v216_n1_inst elab -- RIGHT-BOTH=14 ONLY-GOLDEN=0 ONLY-OURS=0
+LISTG v216_n1_inst elab HOLDER interface_inst:work@v216_ifn  n=3
+LISTG v216_n1_inst elab    idx=00000|function|en_two|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_n1_inst elab    idx=00001|function|en_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_n1_inst elab    idx=00002|function|plain_n|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_n1_inst elab HOLDER interface_inst:work@v216_ifn  n=3
+LISTO v216_n1_inst elab    idx=00000|function|en_two|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_n1_inst elab    idx=00001|function|en_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_n1_inst elab    idx=00002|function|plain_n|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+ARM v216_n2_inst parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=1613 heads=1 (VERDICT NOT THE SCORER)
+CALIB v216_n2_inst parse -- RIGHT-BOTH=20 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS v216_n2_inst parse -- RIGHT-BOTH=20 ONLY-GOLDEN=0 ONLY-OURS=0
+LISTG v216_n2_inst parse HOLDER interface_inst:work@v216_ifn  n=3
+LISTG v216_n2_inst parse    idx=00000|function|en_two|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_n2_inst parse    idx=00001|function|en_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_n2_inst parse    idx=00002|function|plain_n|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_n2_inst parse HOLDER interface_inst:work@v216_ifn  n=3
+LISTO v216_n2_inst parse    idx=00000|function|en_two|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_n2_inst parse    idx=00001|function|en_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_n2_inst parse    idx=00002|function|plain_n|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+ARM v216_n2_inst elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=2356 heads=1 (VERDICT NOT THE SCORER)
+CALIB v216_n2_inst elab -- RIGHT-BOTH=20 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS v216_n2_inst elab -- RIGHT-BOTH=20 ONLY-GOLDEN=0 ONLY-OURS=0
+LISTG v216_n2_inst elab HOLDER interface_inst:work@v216_ifn  n=3
+LISTG v216_n2_inst elab    idx=00000|function|en_two|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_n2_inst elab    idx=00001|function|en_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_n2_inst elab    idx=00002|function|plain_n|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_n2_inst elab HOLDER interface_inst:work@v216_ifn  n=3
+LISTO v216_n2_inst elab    idx=00000|function|en_two|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_n2_inst elab    idx=00001|function|en_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_n2_inst elab    idx=00002|function|plain_n|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+ARM v216_n3_inst parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=1663 heads=1 (VERDICT NOT THE SCORER)
+CALIB v216_n3_inst parse -- RIGHT-BOTH=26 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS v216_n3_inst parse -- RIGHT-BOTH=26 ONLY-GOLDEN=0 ONLY-OURS=0
+LISTG v216_n3_inst parse HOLDER interface_inst:work@v216_ifn  n=3
+LISTG v216_n3_inst parse    idx=00000|function|en_two|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_n3_inst parse    idx=00001|function|en_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_n3_inst parse    idx=00002|function|plain_n|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_n3_inst parse HOLDER interface_inst:work@v216_ifn  n=3
+LISTO v216_n3_inst parse    idx=00000|function|en_two|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_n3_inst parse    idx=00001|function|en_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_n3_inst parse    idx=00002|function|plain_n|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+ARM v216_n3_inst elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=2456 heads=1 (VERDICT NOT THE SCORER)
+CALIB v216_n3_inst elab -- RIGHT-BOTH=26 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS v216_n3_inst elab -- RIGHT-BOTH=26 ONLY-GOLDEN=0 ONLY-OURS=0
+LISTG v216_n3_inst elab HOLDER interface_inst:work@v216_ifn  n=3
+LISTG v216_n3_inst elab    idx=00000|function|en_two|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_n3_inst elab    idx=00001|function|en_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_n3_inst elab    idx=00002|function|plain_n|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_n3_inst elab HOLDER interface_inst:work@v216_ifn  n=3
+LISTO v216_n3_inst elab    idx=00000|function|en_two|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_n3_inst elab    idx=00001|function|en_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_n3_inst elab    idx=00002|function|plain_n|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+-- ARM-VIEWS SCORED: 6   NO-DATABASE: 0   CALIB non-null: 0

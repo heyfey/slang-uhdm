@@ -1,0 +1,29 @@
+LHS:
+decompile:
+io_decl: (a_sva_type), id:248683, line:255:103, endln:255:113
+|vpiParent:
+\_function: (work@svaunit_vpi_interface.pass_info_to_sv_dpi), id:248552, line:72:4, endln:72:48
+|vpiDirection:1
+|vpiName:a_sva_type
+|vpiTypedef:
+\_ref_typespec: (work@svaunit_vpi_interface.pass_info_to_sv_dpi.a_sva_type), id:248685
+  |vpiParent:
+  \_io_decl: (a_sva_type), id:248683, line:255:103, endln:255:113
+  |vpiFullName:work@svaunit_vpi_interface.pass_info_to_sv_dpi.a_sva_type
+  |vpiActual:
+  \_string_typespec: , id:248684, line:255:96, endln:255:102
+
+decompile:
+io_decl: (a_sva_type), id:248683, line:255:103, endln:255:113
+|vpiParent:
+\_function: (work@svaunit_vpi_interface.pass_info_to_sv_dpi), id:248552, line:72:4, endln:72:48
+|vpiDirection:1
+|vpiName:a_sva_type
+|vpiTypedef:
+\_ref_typespec: (work@svaunit_vpi_interface.pass_info_to_sv_dpi.a_sva_type), id:248685
+  |vpiParent:
+  \_io_decl: (a_sva_type), id:248683, line:255:103, endln:255:113
+  |vpiFullName:work@svaunit_vpi_interface.pass_info_to_sv_dpi.a_sva_type
+  |vpiActual:
+  \_string_typespec: , id:248684, line:255:96, endln:255:102
+RHS: <null>

@@ -1,0 +1,102 @@
+r10uvm216 — THE A-PRIORI BYTE-MOVER PREDICTION
+==============================================
+
+Written from PRISTINE databases and PRISTINE sources ALONE, BEFORE the patched
+binary was built and long before any patched sweep existed.  LHS is ALWAYS
+golden (Surelog); RHS is ALWAYS ours.  MEASUREMENT ONLY: the official
+`uhdm-cmp` and `scripts/verify_golden.py` are the sole authorities.
+
+THE LAW
+-------
+§ dpiExportListedAtExportItem216 — an `export "DPI-C"` item creates the
+subroutine's listing entry AT THE EXPORT ITEM'S POSITION and stamps it
+(`vpiAccessType = vpiDPIExportAcc`, `vpiDPICStr = vpiDPIC`, the EXPORT's span);
+the later definition fills that same object in place.
+
+Two consequences, so two ways a row can move:
+  (P) POSITION — only when the export item and the definition item are NOT
+      adjacent in the holder's item list.
+  (F) FLAGS — only in a holder whose body slang never elaborated during
+      `Compilation::elaborate()`, i.e. a never-instantiated INTERFACE
+      definition (slang auto-instantiates only modules and programs as tops).
+
+THE FIRE SET (`predict216.sh`, from the databases' own `VpiFile` sets)
+---------------------------------------------------------------------
+A database can only be touched if it actually COMPILED a file carrying an
+`export "DPI-C"` item.  `cmds.txt` does not list `include`d files, so the file
+set is taken from the arena.
+
+  surelog     956 databases, 2 unreadable  ->  15 row-modes carry an export item
+  uhdm2rtlil 1358 databases, 0 unreadable  ->   4 row-modes carry an export item
+
+  ROW BuildUVMPkg      x2   EXPORTFILES=1  EXPMARK=1
+  ROW DpiFunc          x2   EXPORTFILES=1  EXPMARK=1
+  ROW DpiTask          x2   EXPORTFILES=1  EXPMARK=1
+  ROW TaskProtoDef     x2   EXPORTFILES=1  EXPMARK=1
+  ROW MiniAmiq         x2   EXPORTFILES=2  EXPMARK=15
+  ROW Scoreboard  /default  EXPORTFILES=1  EXPMARK=2
+  ROW SeqDriver        x2   EXPORTFILES=1  EXPMARK=8
+  ROW SimpleUVM        x2   EXPORTFILES=1  EXPMARK=3
+  ROW FunctionExportDPI x2  EXPORTFILES=1  EXPMARK=1   (uhdm2rtlil)
+  ROW TaskExportDPI     x2  EXPORTFILES=1  EXPMARK=1   (uhdm2rtlil)
+
+THE ADJACENCY TEST, ITEM BY ITEM (the sources, read pristine)
+-------------------------------------------------------------
+  uvm-1.2      base/uvm_globals.svh:161  export "DPI-C" function m__uvm_report_dpi;
+                                    :162  function void m__uvm_report_dpi(...)
+  1800.2-2017  pp_output/uvm_pkg.sv:9577  export "DPI-C" function m__uvm_report_dpi;
+                                    :9578  function void m__uvm_report_dpi(...)
+  Surelog/tests/DpiFunc/dut.sv:2/:3       adjacent
+  Surelog/tests/DpiTask/dut.sv:3/:4       adjacent
+  Surelog/tests/TaskProtoDef/dut.sv:2/:3  adjacent
+  uhdm2rtlil/test/FunctionExportDPI/dut.sv:2/:3   adjacent
+  uhdm2rtlil/test/TaskExportDPI/dut.sv:2/:3       adjacent
+
+  svaunit/sv/svaunit_vpi_interface.sv:72   export "DPI-C" function pass_info_to_sv_dpi;
+                                     :78   export "DPI-C" function create_assertion_dpi;
+                                    :218   function void create_assertion_dpi(...)
+                                    :255   function void pass_info_to_sv_dpi(...)
+                       -- SEPARATED, and the two are in OPPOSITE ORDER --
+  and `svaunit_vpi_interface` is a portless interface that NO module
+  instantiates, so it is exactly the (F) shape as well.
+
+An adjacent export/definition pair cannot move: the insertion re-inserts the
+entry before the first remaining member whose item index is >= the export's,
+and for an adjacent pair that is the member that already followed it.
+
+THE PREDICTION
+--------------
+BYTE MOVERS, surelog:  EXACTLY TWO of 956 — `MiniAmiq` default and
+                       `MiniAmiq` testflags.
+BYTE MOVERS, uhdm2rtlil: ZERO of 1358.
+
+Every other row-mode in the FIRE set is FIRE-BUT-NO-MOVE and must come out
+BYTE-IDENTICAL: BuildUVMPkg x2, DpiFunc x2, DpiTask x2, TaskProtoDef x2,
+SeqDriver x2, SimpleUVM x2, Scoreboard/default, FunctionExportDPI x2,
+TaskExportDPI x2.
+
+THE CELLS THAT MOVE, NAMED (pristine census, `cen216.sh`, calibration null in
+all 15 surelog + 4 uhdm2rtlil cells; only MiniAmiq x2 differ, 9 ONLY-GOLDEN and
+9 ONLY-OURS each, out of 37151 census cells)
+------------------------------------------------------------------------------
+holder `interface_inst:work@svaunit_vpi_interface`
+
+  FIELDS (2 cells)
+    MEM ... pass_info_to_sv_dpi   acc=-      cstr=0  -> acc=EXPORT cstr=2
+    MEM ... create_assertion_dpi  acc=-      cstr=0  -> acc=EXPORT cstr=2
+
+  POSITION (7 cells) — the two exports rotate up to [900]/[901] and the five
+  plain functions between them shift down by two:
+    idx 00900  set_test_name          -> pass_info_to_sv_dpi   (acc=EXPORT)
+    idx 00901  get_info_from_c        -> create_assertion_dpi  (acc=EXPORT)
+    idx 00902  sva_exists             -> set_test_name
+    idx 00903  get_state_from_reason  -> get_info_from_c
+    idx 00904  update_sva_from_c      -> sva_exists
+    idx 00905  create_assertion_dpi   -> get_state_from_reason
+    idx 00906  pass_info_to_sv_dpi    -> update_sva_from_c
+
+  Both sides hold 931 entries before and after; index 00907 onward already
+  agreed and must not move.
+
+PREDICTED SCORE: TO-GOLDEN 18 (9 cells x 2 row-modes), AWAY-GOLDEN 0,
+MOVED-WRONG 0, UNSEEN 0.

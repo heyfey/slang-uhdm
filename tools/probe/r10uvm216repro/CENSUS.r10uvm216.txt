@@ -1,0 +1,93 @@
+r10uvm216 — THE CORPUS CENSUS, BOTH CORPORA x BOTH MODES
+=========================================================
+
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.  The
+scorer is `ct216cen` + `cen216.py` (the subroutine-listing census, keyed
+holder x INDEX x payload and, order-blind, holder x payload).  Every cell is
+CALIBRATED golden-vs-golden FIRST; the calibration is null in all 19 cells on
+both binaries.
+
+
+1. THE FIRE SET AND ITS SCORES
+-------------------------------
+`predict216.sh` names 15 surelog + 4 uhdm2rtlil row-modes whose databases
+compile a file carrying an `export "DPI-C"` item; every other row is
+untouchable by construction.  All 19 scored on both binaries:
+
+  surelog       ROWS-SCORED=15 NO-GOLDEN=0 CALIB-NONNULL=0
+                  pristine ROWS-DIFFERING=2      patched ROWS-DIFFERING=0
+  uhdm2rtlil    ROWS-SCORED=4  NO-GOLDEN=0 CALIB-NONNULL=0
+                  pristine ROWS-DIFFERING=0      patched ROWS-DIFFERING=0
+
+  ROW                          pristine                       patched
+  MiniAmiq   default   RIGHT-BOTH 37142  OG 9  OO 9   ->  37151  OG 0  OO 0
+  MiniAmiq   testflags RIGHT-BOTH 37142  OG 9  OO 9   ->  37151  OG 0  OO 0
+  SeqDriver     x2     RIGHT-BOTH 25799  OG 0  OO 0   ->  25799  OG 0  OO 0
+  SimpleUVM     x2     RIGHT-BOTH 15012  OG 0  OO 0   ->  15012  OG 0  OO 0
+  Scoreboard /default  RIGHT-BOTH 11682  OG 0  OO 0   ->  11682  OG 0  OO 0
+  BuildUVMPkg   x2     RIGHT-BOTH 10575  OG 0  OO 0   ->  10575  OG 0  OO 0
+  DpiFunc       x2     RIGHT-BOTH    47  OG 0  OO 0   ->     47  OG 0  OO 0
+  DpiTask       x2     RIGHT-BOTH    47  OG 0  OO 0   ->     47  OG 0  OO 0
+  TaskProtoDef  x2     RIGHT-BOTH 47/4   OG 0  OO 0   ->  47/4   OG 0  OO 0
+  FunctionExportDPI x2 RIGHT-BOTH 51/8   OG 0  OO 0   ->  51/8   OG 0  OO 0
+  TaskExportDPI     x2 RIGHT-BOTH 51/8   OG 0  OO 0   ->  51/8   OG 0  OO 0
+
+SCORE: TO-GOLDEN 18 cells (9 x 2 row-modes), AWAY-GOLDEN 0, MOVED-WRONG 0,
+STILL-WRONG 0, UNSEEN 0 — exactly the a-priori prediction in
+`PREDICT.r10uvm216.txt`, cell for cell.
+
+
+2. THE EIGHTEEN CELLS, NAMED
+-----------------------------
+holder `interface_inst:work@svaunit_vpi_interface`, both MiniAmiq row-modes:
+
+  FIELDS
+    pass_info_to_sv_dpi   acc=-/cstr=0  ->  acc=EXPORT/cstr=2
+    create_assertion_dpi  acc=-/cstr=0  ->  acc=EXPORT/cstr=2
+  POSITION
+    idx 00900  set_test_name          ->  pass_info_to_sv_dpi
+    idx 00901  get_info_from_c        ->  create_assertion_dpi
+    idx 00902  sva_exists             ->  set_test_name
+    idx 00903  get_state_from_reason  ->  get_info_from_c
+    idx 00904  update_sva_from_c      ->  sva_exists
+    idx 00905  create_assertion_dpi   ->  get_state_from_reason
+    idx 00906  pass_info_to_sv_dpi    ->  update_sva_from_c
+
+All 931 entries now match golden's, position for position, in both MiniAmiq
+row-modes.  The order-blind rank scorer (`rank216.py`) reads
+RANK-BOTH 17635, RANK-GOLDEN 0, RANK-OURS 0 on the whole database.
+
+
+3. BYTE MOVERS
+---------------
+  uhdm2rtlil   0 / 1358      (SELFCHECK control 1357/1358)
+  surelog      6 / 956       (SELFCHECK control  955/956)
+
+     MiniAmiq/default    PREDICTED — the law, 9 cells, all TO-GOLDEN
+     MiniAmiq/testflags  PREDICTED — the law, 9 cells, all TO-GOLDEN
+     BuildUVMPkg/default    NOT predicted — the memo's ALLOCATION
+     BuildUVMPkg/testflags  NOT predicted — the memo's ALLOCATION
+     SeqDriver/default      NOT predicted — the memo's ALLOCATION
+     Scoreboard/default     THE COIN
+
+The three unpredicted movers are attributed by an ALLOCATION-ONLY control
+binary (`ALLOCCTL.r10uvm216.txt`): the full patch with `dpiExportItem216`
+forced to return null AFTER the memo is built, so the heap traffic is the
+patched binary's and the law can never fire.  It reproduces
+BuildUVMPkg/default and SeqDriver/default at EXACTLY the patched md5s and
+leaves MiniAmiq/default at EXACTLY the pristine md5.  Independently: their
+listing census is UNCHANGED and already exactly golden's on both binaries;
+their `uhdm-cmp` output is BYTE-IDENTICAL between the two binaries
+(BuildUVMPkg x2 0 lines, SeqDriver/default 209 lines and the same head
+object); and their `uhdm-dump` output is byte-identical (BuildUVMPkg, raw diff
+0 lines) or differs only in object ids and in the position of ONE
+`logic_typespec (uvm_hdl_data_t)` block inside a Typespecs listing
+(SeqDriver/default: 26 raw dump lines, 0 order-blind id-normalised lines).
+
+Scoreboard/default is THE COIN, not a mover: RESUME §9 records it as a ~50/50
+per-invocation flip of svunit_pkg's `vpiTaskFunc` list order worth ~92 dump
+lines, and that is exactly what it reads — raw dump diff 92 lines, ORDER-BLIND
+diff 0, order-blind AND id-normalised 0.  Replaying the row's own command line
+with the pristine, the patched and the layout-null binaries gives ONE md5
+(`61ee9cb4f6c1`) for all three, so the binary does not decide the face.  Its
+judge verdict is unchanged: 0 cmp lines, rc 0, head cmp log byte-identical.

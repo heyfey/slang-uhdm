@@ -1,0 +1,237 @@
+ARM v216_b1_iface_below_sep parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=1343 heads=1 (VERDICT NOT THE SCORER)
+CALIB v216_b1_iface_below_sep parse -- RIGHT-BOTH=8 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS v216_b1_iface_below_sep parse -- RIGHT-BOTH=2 ONLY-GOLDEN=6 ONLY-OURS=4
+CELL v216_b1_iface_below_sep parse ONLY-GOLDEN	1	MEM|interface_inst:work@v216_ifb1|function|eb_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b1_iface_below_sep parse ONLY-GOLDEN	1	MEM|interface_inst:work@v216_ifb1|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+CELL v216_b1_iface_below_sep parse ONLY-OURS	1	MEM|interface_inst:work@v216_ifb1|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b1_iface_below_sep parse ONLY-GOLDEN	1	POS|interface_inst:work@v216_ifb1|idx=00000|function|eb_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b1_iface_below_sep parse ONLY-OURS	1	POS|interface_inst:work@v216_ifb1|idx=00000|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b1_iface_below_sep parse ONLY-OURS	1	POS|interface_inst:work@v216_ifb1|idx=00001|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b1_iface_below_sep parse ONLY-GOLDEN	1	POS|interface_inst:work@v216_ifb1|idx=00001|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b1_iface_below_sep parse ONLY-GOLDEN	1	POS|interface_inst:work@v216_ifb1|idx=00002|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+CELL v216_b1_iface_below_sep parse ONLY-OURS	1	POS|interface_inst:work@v216_ifb1|idx=00002|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b1_iface_below_sep parse ONLY-GOLDEN	1	POS|interface_inst:work@v216_ifb1|idx=00003|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_b1_iface_below_sep parse HOLDER interface_inst:work@v216_ifb1  n=4
+LISTG v216_b1_iface_below_sep parse    idx=00000|function|eb_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_b1_iface_below_sep parse    idx=00001|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_b1_iface_below_sep parse    idx=00002|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+LISTG v216_b1_iface_below_sep parse    idx=00003|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b1_iface_below_sep parse HOLDER interface_inst:work@v216_ifb1  n=3
+LISTO v216_b1_iface_below_sep parse    idx=00000|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b1_iface_below_sep parse    idx=00001|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b1_iface_below_sep parse    idx=00002|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+ARM v216_b1_iface_below_sep elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=1752 heads=1 (VERDICT NOT THE SCORER)
+CALIB v216_b1_iface_below_sep elab -- RIGHT-BOTH=8 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS v216_b1_iface_below_sep elab -- RIGHT-BOTH=2 ONLY-GOLDEN=6 ONLY-OURS=4
+CELL v216_b1_iface_below_sep elab ONLY-GOLDEN	1	MEM|interface_inst:work@v216_ifb1|function|eb_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b1_iface_below_sep elab ONLY-GOLDEN	1	MEM|interface_inst:work@v216_ifb1|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+CELL v216_b1_iface_below_sep elab ONLY-OURS	1	MEM|interface_inst:work@v216_ifb1|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b1_iface_below_sep elab ONLY-GOLDEN	1	POS|interface_inst:work@v216_ifb1|idx=00000|function|eb_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b1_iface_below_sep elab ONLY-OURS	1	POS|interface_inst:work@v216_ifb1|idx=00000|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b1_iface_below_sep elab ONLY-OURS	1	POS|interface_inst:work@v216_ifb1|idx=00001|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b1_iface_below_sep elab ONLY-GOLDEN	1	POS|interface_inst:work@v216_ifb1|idx=00001|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b1_iface_below_sep elab ONLY-GOLDEN	1	POS|interface_inst:work@v216_ifb1|idx=00002|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+CELL v216_b1_iface_below_sep elab ONLY-OURS	1	POS|interface_inst:work@v216_ifb1|idx=00002|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b1_iface_below_sep elab ONLY-GOLDEN	1	POS|interface_inst:work@v216_ifb1|idx=00003|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_b1_iface_below_sep elab HOLDER interface_inst:work@v216_ifb1  n=4
+LISTG v216_b1_iface_below_sep elab    idx=00000|function|eb_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_b1_iface_below_sep elab    idx=00001|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_b1_iface_below_sep elab    idx=00002|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+LISTG v216_b1_iface_below_sep elab    idx=00003|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b1_iface_below_sep elab HOLDER interface_inst:work@v216_ifb1  n=3
+LISTO v216_b1_iface_below_sep elab    idx=00000|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b1_iface_below_sep elab    idx=00001|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b1_iface_below_sep elab    idx=00002|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+ARM v216_b2_mod_below_sep parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=1383 heads=1 (VERDICT NOT THE SCORER)
+CALIB v216_b2_mod_below_sep parse -- RIGHT-BOTH=16 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS v216_b2_mod_below_sep parse -- RIGHT-BOTH=4 ONLY-GOLDEN=12 ONLY-OURS=8
+CELL v216_b2_mod_below_sep parse ONLY-GOLDEN	2	MEM|module_inst:work@v216_modb2|function|eb_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b2_mod_below_sep parse ONLY-GOLDEN	2	MEM|module_inst:work@v216_modb2|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+CELL v216_b2_mod_below_sep parse ONLY-OURS	2	MEM|module_inst:work@v216_modb2|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b2_mod_below_sep parse ONLY-GOLDEN	2	POS|module_inst:work@v216_modb2|idx=00000|function|eb_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b2_mod_below_sep parse ONLY-OURS	2	POS|module_inst:work@v216_modb2|idx=00000|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b2_mod_below_sep parse ONLY-OURS	2	POS|module_inst:work@v216_modb2|idx=00001|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b2_mod_below_sep parse ONLY-GOLDEN	2	POS|module_inst:work@v216_modb2|idx=00001|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b2_mod_below_sep parse ONLY-GOLDEN	2	POS|module_inst:work@v216_modb2|idx=00002|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+CELL v216_b2_mod_below_sep parse ONLY-OURS	2	POS|module_inst:work@v216_modb2|idx=00002|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b2_mod_below_sep parse ONLY-GOLDEN	2	POS|module_inst:work@v216_modb2|idx=00003|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_b2_mod_below_sep parse HOLDER module_inst:work@v216_modb2  n=4
+LISTG v216_b2_mod_below_sep parse    idx=00000|function|eb_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_b2_mod_below_sep parse    idx=00001|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_b2_mod_below_sep parse    idx=00002|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+LISTG v216_b2_mod_below_sep parse    idx=00003|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b2_mod_below_sep parse HOLDER module_inst:work@v216_modb2  n=3
+LISTO v216_b2_mod_below_sep parse    idx=00000|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b2_mod_below_sep parse    idx=00001|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b2_mod_below_sep parse    idx=00002|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+ARM v216_b2_mod_below_sep elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=2094 heads=1 (VERDICT NOT THE SCORER)
+CALIB v216_b2_mod_below_sep elab -- RIGHT-BOTH=16 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS v216_b2_mod_below_sep elab -- RIGHT-BOTH=4 ONLY-GOLDEN=12 ONLY-OURS=8
+CELL v216_b2_mod_below_sep elab ONLY-GOLDEN	2	MEM|module_inst:work@v216_modb2|function|eb_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b2_mod_below_sep elab ONLY-GOLDEN	2	MEM|module_inst:work@v216_modb2|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+CELL v216_b2_mod_below_sep elab ONLY-OURS	2	MEM|module_inst:work@v216_modb2|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b2_mod_below_sep elab ONLY-GOLDEN	2	POS|module_inst:work@v216_modb2|idx=00000|function|eb_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b2_mod_below_sep elab ONLY-OURS	2	POS|module_inst:work@v216_modb2|idx=00000|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b2_mod_below_sep elab ONLY-OURS	2	POS|module_inst:work@v216_modb2|idx=00001|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b2_mod_below_sep elab ONLY-GOLDEN	2	POS|module_inst:work@v216_modb2|idx=00001|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b2_mod_below_sep elab ONLY-GOLDEN	2	POS|module_inst:work@v216_modb2|idx=00002|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+CELL v216_b2_mod_below_sep elab ONLY-OURS	2	POS|module_inst:work@v216_modb2|idx=00002|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b2_mod_below_sep elab ONLY-GOLDEN	2	POS|module_inst:work@v216_modb2|idx=00003|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_b2_mod_below_sep elab HOLDER module_inst:work@v216_modb2  n=4
+LISTG v216_b2_mod_below_sep elab    idx=00000|function|eb_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_b2_mod_below_sep elab    idx=00001|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_b2_mod_below_sep elab    idx=00002|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+LISTG v216_b2_mod_below_sep elab    idx=00003|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b2_mod_below_sep elab HOLDER module_inst:work@v216_modb2  n=3
+LISTO v216_b2_mod_below_sep elab    idx=00000|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b2_mod_below_sep elab    idx=00001|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b2_mod_below_sep elab    idx=00002|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+ARM v216_b3_pkg_below_sep parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=2898 heads=1 (VERDICT NOT THE SCORER)
+CALIB v216_b3_pkg_below_sep parse -- RIGHT-BOTH=28 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS v216_b3_pkg_below_sep parse -- RIGHT-BOTH=10 ONLY-GOLDEN=18 ONLY-OURS=14
+CELL v216_b3_pkg_below_sep parse ONLY-GOLDEN	2	MEM|module_inst:work@v216_topb3|function|eb_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b3_pkg_below_sep parse ONLY-OURS	2	MEM|module_inst:work@v216_topb3|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b3_pkg_below_sep parse ONLY-GOLDEN	2	MEM|package:v216_pkgb3|function|eb_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b3_pkg_below_sep parse ONLY-GOLDEN	2	MEM|package:v216_pkgb3|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+CELL v216_b3_pkg_below_sep parse ONLY-OURS	2	MEM|package:v216_pkgb3|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b3_pkg_below_sep parse ONLY-GOLDEN	2	POS|module_inst:work@v216_topb3|idx=00000|function|eb_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b3_pkg_below_sep parse ONLY-OURS	2	POS|module_inst:work@v216_topb3|idx=00000|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b3_pkg_below_sep parse ONLY-OURS	2	POS|module_inst:work@v216_topb3|idx=00001|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b3_pkg_below_sep parse ONLY-GOLDEN	2	POS|module_inst:work@v216_topb3|idx=00001|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b3_pkg_below_sep parse ONLY-GOLDEN	2	POS|package:v216_pkgb3|idx=00000|function|eb_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b3_pkg_below_sep parse ONLY-OURS	2	POS|package:v216_pkgb3|idx=00000|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b3_pkg_below_sep parse ONLY-OURS	2	POS|package:v216_pkgb3|idx=00001|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b3_pkg_below_sep parse ONLY-GOLDEN	2	POS|package:v216_pkgb3|idx=00001|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b3_pkg_below_sep parse ONLY-GOLDEN	2	POS|package:v216_pkgb3|idx=00002|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+CELL v216_b3_pkg_below_sep parse ONLY-OURS	2	POS|package:v216_pkgb3|idx=00002|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b3_pkg_below_sep parse ONLY-GOLDEN	2	POS|package:v216_pkgb3|idx=00003|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_b3_pkg_below_sep parse HOLDER package:v216_pkgb3  n=4
+LISTG v216_b3_pkg_below_sep parse    idx=00000|function|eb_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_b3_pkg_below_sep parse    idx=00001|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_b3_pkg_below_sep parse    idx=00002|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+LISTG v216_b3_pkg_below_sep parse    idx=00003|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b3_pkg_below_sep parse HOLDER module_inst:work@v216_topb3  n=3
+LISTO v216_b3_pkg_below_sep parse    idx=00000|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b3_pkg_below_sep parse    idx=00001|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b3_pkg_below_sep parse    idx=00002|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b3_pkg_below_sep parse HOLDER package:v216_pkgb3  n=3
+LISTO v216_b3_pkg_below_sep parse    idx=00000|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b3_pkg_below_sep parse    idx=00001|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b3_pkg_below_sep parse    idx=00002|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+ARM v216_b3_pkg_below_sep elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=3486 heads=1 (VERDICT NOT THE SCORER)
+CALIB v216_b3_pkg_below_sep elab -- RIGHT-BOTH=28 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS v216_b3_pkg_below_sep elab -- RIGHT-BOTH=10 ONLY-GOLDEN=18 ONLY-OURS=14
+CELL v216_b3_pkg_below_sep elab ONLY-GOLDEN	2	MEM|module_inst:work@v216_topb3|function|eb_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b3_pkg_below_sep elab ONLY-OURS	2	MEM|module_inst:work@v216_topb3|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b3_pkg_below_sep elab ONLY-GOLDEN	2	MEM|package:v216_pkgb3|function|eb_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b3_pkg_below_sep elab ONLY-GOLDEN	2	MEM|package:v216_pkgb3|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+CELL v216_b3_pkg_below_sep elab ONLY-OURS	2	MEM|package:v216_pkgb3|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b3_pkg_below_sep elab ONLY-GOLDEN	2	POS|module_inst:work@v216_topb3|idx=00000|function|eb_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b3_pkg_below_sep elab ONLY-OURS	2	POS|module_inst:work@v216_topb3|idx=00000|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b3_pkg_below_sep elab ONLY-OURS	2	POS|module_inst:work@v216_topb3|idx=00001|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b3_pkg_below_sep elab ONLY-GOLDEN	2	POS|module_inst:work@v216_topb3|idx=00001|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b3_pkg_below_sep elab ONLY-GOLDEN	2	POS|package:v216_pkgb3|idx=00000|function|eb_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b3_pkg_below_sep elab ONLY-OURS	2	POS|package:v216_pkgb3|idx=00000|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b3_pkg_below_sep elab ONLY-OURS	2	POS|package:v216_pkgb3|idx=00001|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b3_pkg_below_sep elab ONLY-GOLDEN	2	POS|package:v216_pkgb3|idx=00001|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b3_pkg_below_sep elab ONLY-GOLDEN	2	POS|package:v216_pkgb3|idx=00002|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+CELL v216_b3_pkg_below_sep elab ONLY-OURS	2	POS|package:v216_pkgb3|idx=00002|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b3_pkg_below_sep elab ONLY-GOLDEN	2	POS|package:v216_pkgb3|idx=00003|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_b3_pkg_below_sep elab HOLDER package:v216_pkgb3  n=4
+LISTG v216_b3_pkg_below_sep elab    idx=00000|function|eb_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_b3_pkg_below_sep elab    idx=00001|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_b3_pkg_below_sep elab    idx=00002|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+LISTG v216_b3_pkg_below_sep elab    idx=00003|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b3_pkg_below_sep elab HOLDER module_inst:work@v216_topb3  n=3
+LISTO v216_b3_pkg_below_sep elab    idx=00000|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b3_pkg_below_sep elab    idx=00001|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b3_pkg_below_sep elab    idx=00002|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b3_pkg_below_sep elab HOLDER package:v216_pkgb3  n=3
+LISTO v216_b3_pkg_below_sep elab    idx=00000|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b3_pkg_below_sep elab    idx=00001|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b3_pkg_below_sep elab    idx=00002|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+ARM v216_b4_iface_below_adj parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=1343 heads=1 (VERDICT NOT THE SCORER)
+CALIB v216_b4_iface_below_adj parse -- RIGHT-BOTH=8 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS v216_b4_iface_below_adj parse -- RIGHT-BOTH=3 ONLY-GOLDEN=5 ONLY-OURS=3
+CELL v216_b4_iface_below_adj parse ONLY-GOLDEN	1	MEM|interface_inst:work@v216_ifb4|function|eb_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b4_iface_below_adj parse ONLY-GOLDEN	1	MEM|interface_inst:work@v216_ifb4|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+CELL v216_b4_iface_below_adj parse ONLY-OURS	1	MEM|interface_inst:work@v216_ifb4|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b4_iface_below_adj parse ONLY-GOLDEN	1	POS|interface_inst:work@v216_ifb4|idx=00001|function|eb_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b4_iface_below_adj parse ONLY-OURS	1	POS|interface_inst:work@v216_ifb4|idx=00001|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b4_iface_below_adj parse ONLY-GOLDEN	1	POS|interface_inst:work@v216_ifb4|idx=00002|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+CELL v216_b4_iface_below_adj parse ONLY-OURS	1	POS|interface_inst:work@v216_ifb4|idx=00002|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b4_iface_below_adj parse ONLY-GOLDEN	1	POS|interface_inst:work@v216_ifb4|idx=00003|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_b4_iface_below_adj parse HOLDER interface_inst:work@v216_ifb4  n=4
+LISTG v216_b4_iface_below_adj parse    idx=00000|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_b4_iface_below_adj parse    idx=00001|function|eb_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_b4_iface_below_adj parse    idx=00002|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+LISTG v216_b4_iface_below_adj parse    idx=00003|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b4_iface_below_adj parse HOLDER interface_inst:work@v216_ifb4  n=3
+LISTO v216_b4_iface_below_adj parse    idx=00000|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b4_iface_below_adj parse    idx=00001|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b4_iface_below_adj parse    idx=00002|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+ARM v216_b4_iface_below_adj elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=1752 heads=1 (VERDICT NOT THE SCORER)
+CALIB v216_b4_iface_below_adj elab -- RIGHT-BOTH=8 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS v216_b4_iface_below_adj elab -- RIGHT-BOTH=3 ONLY-GOLDEN=5 ONLY-OURS=3
+CELL v216_b4_iface_below_adj elab ONLY-GOLDEN	1	MEM|interface_inst:work@v216_ifb4|function|eb_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b4_iface_below_adj elab ONLY-GOLDEN	1	MEM|interface_inst:work@v216_ifb4|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+CELL v216_b4_iface_below_adj elab ONLY-OURS	1	MEM|interface_inst:work@v216_ifb4|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b4_iface_below_adj elab ONLY-GOLDEN	1	POS|interface_inst:work@v216_ifb4|idx=00001|function|eb_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b4_iface_below_adj elab ONLY-OURS	1	POS|interface_inst:work@v216_ifb4|idx=00001|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b4_iface_below_adj elab ONLY-GOLDEN	1	POS|interface_inst:work@v216_ifb4|idx=00002|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+CELL v216_b4_iface_below_adj elab ONLY-OURS	1	POS|interface_inst:work@v216_ifb4|idx=00002|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b4_iface_below_adj elab ONLY-GOLDEN	1	POS|interface_inst:work@v216_ifb4|idx=00003|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_b4_iface_below_adj elab HOLDER interface_inst:work@v216_ifb4  n=4
+LISTG v216_b4_iface_below_adj elab    idx=00000|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_b4_iface_below_adj elab    idx=00001|function|eb_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_b4_iface_below_adj elab    idx=00002|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+LISTG v216_b4_iface_below_adj elab    idx=00003|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b4_iface_below_adj elab HOLDER interface_inst:work@v216_ifb4  n=3
+LISTO v216_b4_iface_below_adj elab    idx=00000|function|plain_b|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b4_iface_below_adj elab    idx=00001|function|eb_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b4_iface_below_adj elab    idx=00002|function|plain_b2|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+ARM v216_b5_mixed parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=1463 heads=1 (VERDICT NOT THE SCORER)
+CALIB v216_b5_mixed parse -- RIGHT-BOTH=10 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS v216_b5_mixed parse -- RIGHT-BOTH=5 ONLY-GOLDEN=5 ONLY-OURS=3
+CELL v216_b5_mixed parse ONLY-GOLDEN	1	MEM|interface_inst:work@v216_ifb5|function|down_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b5_mixed parse ONLY-GOLDEN	1	MEM|interface_inst:work@v216_ifb5|function|down_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+CELL v216_b5_mixed parse ONLY-OURS	1	MEM|interface_inst:work@v216_ifb5|function|down_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b5_mixed parse ONLY-GOLDEN	1	POS|interface_inst:work@v216_ifb5|idx=00002|function|down_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b5_mixed parse ONLY-OURS	1	POS|interface_inst:work@v216_ifb5|idx=00002|function|plain_q|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b5_mixed parse ONLY-OURS	1	POS|interface_inst:work@v216_ifb5|idx=00003|function|down_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b5_mixed parse ONLY-GOLDEN	1	POS|interface_inst:work@v216_ifb5|idx=00003|function|plain_q|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b5_mixed parse ONLY-GOLDEN	1	POS|interface_inst:work@v216_ifb5|idx=00004|function|down_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+LISTG v216_b5_mixed parse HOLDER interface_inst:work@v216_ifb5  n=5
+LISTG v216_b5_mixed parse    idx=00000|function|up_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_b5_mixed parse    idx=00001|function|plain_p|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_b5_mixed parse    idx=00002|function|down_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_b5_mixed parse    idx=00003|function|plain_q|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_b5_mixed parse    idx=00004|function|down_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+LISTO v216_b5_mixed parse HOLDER interface_inst:work@v216_ifb5  n=4
+LISTO v216_b5_mixed parse    idx=00000|function|up_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b5_mixed parse    idx=00001|function|plain_p|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b5_mixed parse    idx=00002|function|plain_q|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b5_mixed parse    idx=00003|function|down_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+ARM v216_b5_mixed elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=1998 heads=1 (VERDICT NOT THE SCORER)
+CALIB v216_b5_mixed elab -- RIGHT-BOTH=10 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS v216_b5_mixed elab -- RIGHT-BOTH=5 ONLY-GOLDEN=5 ONLY-OURS=3
+CELL v216_b5_mixed elab ONLY-GOLDEN	1	MEM|interface_inst:work@v216_ifb5|function|down_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b5_mixed elab ONLY-GOLDEN	1	MEM|interface_inst:work@v216_ifb5|function|down_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+CELL v216_b5_mixed elab ONLY-OURS	1	MEM|interface_inst:work@v216_ifb5|function|down_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b5_mixed elab ONLY-GOLDEN	1	POS|interface_inst:work@v216_ifb5|idx=00002|function|down_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b5_mixed elab ONLY-OURS	1	POS|interface_inst:work@v216_ifb5|idx=00002|function|plain_q|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b5_mixed elab ONLY-OURS	1	POS|interface_inst:work@v216_ifb5|idx=00003|function|down_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b5_mixed elab ONLY-GOLDEN	1	POS|interface_inst:work@v216_ifb5|idx=00003|function|plain_q|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+CELL v216_b5_mixed elab ONLY-GOLDEN	1	POS|interface_inst:work@v216_ifb5|idx=00004|function|down_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+LISTG v216_b5_mixed elab HOLDER interface_inst:work@v216_ifb5  n=5
+LISTG v216_b5_mixed elab    idx=00000|function|up_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_b5_mixed elab    idx=00001|function|plain_p|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_b5_mixed elab    idx=00002|function|down_one|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_b5_mixed elab    idx=00003|function|plain_q|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTG v216_b5_mixed elab    idx=00004|function|down_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=0|body=0
+LISTO v216_b5_mixed elab HOLDER interface_inst:work@v216_ifb5  n=4
+LISTO v216_b5_mixed elab    idx=00000|function|up_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b5_mixed elab    idx=00001|function|plain_p|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b5_mixed elab    idx=00002|function|plain_q|acc=-|cstr=0|ctx=0|pure=0|cid=-|io=1|body=1
+LISTO v216_b5_mixed elab    idx=00003|function|down_one|acc=EXPORT|cstr=2|ctx=0|pure=0|cid=-|io=1|body=1
+-- ARM-VIEWS SCORED: 10   NO-DATABASE: 0   CALIB non-null: 0

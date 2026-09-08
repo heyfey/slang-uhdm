@@ -173,7 +173,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-09-08, HEAD = the uvm215 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-09-08, HEAD = the uvm216 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 473/481 comparable
 equal (8 NE), testflags 468/475 (7 NE); uhdm2rtlil 679/679 both modes. The
@@ -183,7 +183,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 | row-mode(s) | head (official cmp lines = head-object DEPTH, not distance) | family / next law |
 |---|---|---|
 | SeqDriver×2 | ~1.33M (ONE head both modes — the top-tb MODULE's decompile depth, not a distance) | the top module's NET vector arity: golden 224 nets, ours 191 — the module hoist does not follow a TRANSITIVE wildcard import (uvm203's R1 and uvm209's R2, now the head; the missing thirty-three are the importing package's clone of the package listing) — open (uvm215 landed: 209→depth-count with the modport head CLEARED, § modportNeedsSimplePort215 — a modport object is minted by its SIMPLE port items and nothing else (clocking and import items go to different maps; empty branches mint nothing); the connected-modport filter and the declared-port fallback measured as separate conjuncts; verifier ACCEPT WITH FIX § modportNeedsSimplePortNoGenericFallback215v — the teaching arm ran at nonzero rc (error-recovery databases) and the generic-port road moved AWAY on legal SV; one defaulted flag restricts the fallback; arm-hygiene lesson recorded) |
-| MiniAmiq×2 | 838 (ONE head both modes — the INTERFACE family) | a DPI import function inside an interface instance; the committed head logs carry the pair — open |
+| MiniAmiq×2 | 29 (ONE head both modes) | a formal-argument reference inside the DPI-exported function's BODY: golden's reference carries the io-declaration as its actual where ours carries none — the recorded buvm shape one scope over — open (uvm216 landed: 838→29, § dpiExportListedAtExportItem216 — a DPI export lists at its EXPORT ITEM with the flags and span stamped there (the brief's import word was wrong; only the two separated items diverged); three allocation-class byte movers convicted with an allocation-only control binary; verifier ACCEPT WITH FIX — export-BELOW-definition is a two-entry golden shape and the unrestricted patch moved five arms wrong; the index fence declines it) |
 | SimpleUVM×2 | CMP_EQUAL ×2 (CONVERTED at uvm209 — the WHOLE TEST CLOSED) | CLOSED — § hoistedLocalKeepsItsLifetime209: the automatic flag follows the source declaration's lifetime (Surelog's package collector does not stop at a class CONSTRUCTOR declaration — the hoist's mechanism; golden's module copy is the package listing value for value); the SimpleUVM ladder ran the depth artifact, the materialized-parameter family, the implicit-nets family, the design listing and the lifetime bit |
 | BuildUVMPkg×2 | CMP_EQUAL (CONVERTED, uvm194 — the block's FIRST row conversion; the two baseline rows promoted in the landing commit) | CLOSED — § homeRetNameSelBindSurvivesDefViewUnbind194: a home return-name select binding survives the definition-view unbind (one gated exemption clause in the drain; the clone fence from an arm); the family's whole ladder ran uvm170→194 |
 | Scoreboard/default | CMP_EQUAL (CONVERTED at uvm212 — the comparable half of the test CLOSED; testflags is a slang reject outside the comparable set) | CLOSED — § classTdCloneTakesTheBasesEmptyListing212: a clone class typedef takes the base's EMPTY specialization listing (the vector verdict wore a singular face; library and macros decide nothing — clone-hood and the base's listing are the only variables; golden has zero clone-vs-base mismatches everywhere, ours had exactly one corpus-wide) |
@@ -193,7 +193,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 126 verifier fix-before-landing re-cuts (301 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 127 verifier fix-before-landing re-cuts (302 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 
