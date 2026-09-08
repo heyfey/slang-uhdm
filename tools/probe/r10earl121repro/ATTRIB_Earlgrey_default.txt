@@ -1,0 +1,70 @@
+r10earl121 — ATTRIBUTION of the ONE predicted byte mover: Earlgrey_0_1/default.
+attrib121.sh: both dumps path-normalised, diffed RAW and ORDER-BLIND, then
+SECTIONED at |uhdmtopModules: so the weaklyReferenced tail is never counted.
+
+RAW (order-sensitive) whole-dump diff        22771 lines
+ORDER-BLIND (sorted) whole-dump diff         19502 lines
+ORDER-BLIND diff BY SECTION
+     1 < sec=0 / 1 > sec=0   (the dump's own header line: the two workdirs)
+  7656 < sec=10   11136 > sec=10   (the ELAB listing -- the only content section)
+
+== ADDED, order-blind, by shape (the tag wrappers and the re-nested subtrees)
+   1044 |vpiParent:
+    870 \_tagged_pattern: , line:N:N, endln:N:N
+    812 |vpiActual:
+    522 \_bit_select: (tl_h_i[N]), line:N:N, endln:N:N
+    290 |vpiTypespec:
+    290 |vpiPattern:
+    290 |vpiFullName:work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N]
+    290 \_ref_typespec: (work@top_earlgrey.u_xbar_main.u_smN_N.gen_host_fifo[N])
+    290 \_operation: , line:N:N, endln:N:N
+    261 |vpiSize:N
+    261 |vpiName:tl_h_i
+    261 |vpiIndex:
+    261 |vpiFullName:tl_h_i[N]
+    261 |vpiExpr:
+    261 |vpiDecompile:N
+    261 |vpiConstType:N
+    261 |UINT:N
+    261 \_constant: , line:N:N, endln:N:N
+    261 \_array_var: (work@top_earlgrey.u_xbar_main.u_smN_N.tl_h_i), line:N:N, endln:N:N
+    261 \_array_typespec: 
+    116 \_hier_path: (tl_h_i[N].d_ready), line:N:N, endln:N:N
+    116 \_hier_path: (tl_h_i[N].a_valid), line:N:N, endln:N:N
+    116 \_hier_path: (tl_h_i[N].a_user), line:N:N, endln:N:N
+    116 \_hier_path: (tl_h_i[N].a_size), line:N:N, endln:N:N
+
+== REMOVED, order-blind, by shape
+    580 |vpiActual:
+    522 \_bit_select: (tl_h_i[N]), line:N:N, endln:N:N
+    290 |vpiOperand:
+    261 |vpiSize:N
+    261 |vpiName:tl_h_i
+    261 |vpiIndex:
+    261 |vpiFullName:tl_h_i[N]
+    261 |vpiExpr:
+    261 |vpiDecompile:N
+    261 |vpiConstType:N
+    261 |UINT:N
+    261 \_constant: , line:N:N, endln:N:N
+    261 \_array_var: (work@top_earlgrey.u_xbar_main.u_smN_N.tl_h_i), line:N:N, endln:N:N
+    261 \_array_typespec: 
+
+== the KEY, member by member: every string_typespec tag is an ADDITION
+   added string_typespec lines: 580
+   removed string_typespec lines: 0
+     58 string_typespec: (a_address)
+     58 string_typespec: (a_data)
+     58 string_typespec: (a_mask)
+     58 string_typespec: (a_opcode)
+     58 string_typespec: (a_param)
+     58 string_typespec: (a_size)
+     58 string_typespec: (a_source)
+     58 string_typespec: (a_user)
+     58 string_typespec: (a_valid)
+     58 string_typespec: (d_ready)
+   added tagged_pattern lines: 870
+   removed tagged_pattern lines: 0
+
+29 gen_host_fifo sites x 10 keyed members = 290 tagged_patterns; each tag's
+string_typespec appears TWICE in the dump (58 = 29 x 2 per member name).

@@ -1,0 +1,119 @@
+r10earl121 — THE GATES.  BASE c7a9d46c.  MEASUREMENT-ONLY probes; uhdm-cmp is the judge.
+pristine binary md5 56588c9fb921b2f7454ec8d10bfe1f7e (frozen chmod 555)
+patched  binary md5 5bbe3900b4c2d433fb0b42a4a035706d (frozen chmod 555)
+REPRODUCED: /tmp patch applied to a FRESH c7a9d46c worktree + rebuilt there ->
+            5bbe3900b4c2d433fb0b42a4a035706d  (SAME md5)
+
+(1) GOLDENS  (SLANG_UHDM exported explicitly per binary)
+    patched  : PASS 23  FAIL 0
+    pristine : PASS 23  FAIL 0
+    /bin/false (negative control): PASS 0  FAIL 23
+
+(2) BINARY-PATH AUDIT of every cmds.txt (not the string 'slang-uhdm', which
+    also matches slang-uhdm-goldens/) -- the harness silently defaults
+    SLANG_UHDM to the MAIN-TREE binary (RESUME.md section 9)
+    surelog   patched sweep : 1523 / 1573 cmds.txt name this pass's patched binary
+    surelog   pristine sweep: 1523 / 1573
+    uhdm2rtlil patched sweep: 1458 / 1462
+    uhdm2rtlil pristine sweep: 1458 / 1462
+    THE SHORTFALL, CLASSIFIED (a cmds.txt with no slang line is a row slang was
+    never asked to run): surelog 50 = 48 SURELOG_FAIL + 1 NO_UHDM + 1 TIMEOUT;
+    uhdm2rtlil 4 = the 2 SURELOG_FAIL rows x 2 modes.
+
+(3) uhdm2rtlil — 731 tests x 2 modes
+    patched  testflags: CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+    patched  default  : CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+    pristine testflags: CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+    pristine default  : CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+    ct8rows results/gate_uhdm2rtlil.csv  vs patched tf : PASS (0 differing rows)
+    ct8rows MY pristine tf               vs patched tf : PASS (0 differing rows)
+    ct8rows MY pristine def              vs patched def: PASS (0 differing rows)
+    byteverify SELFCHECK=1  patched vs pristine        : MOVERS 0 / 1358
+                                                          PATH_SETS_IDENTICAL
+                                                          SELFCHECK 1357/1358 flagged
+
+(4) surelog — 794 tests x 2 modes = 1588 rows
+    patched  default  : CMP_EQUAL 472 SLANG_REJECT 283 SURELOG_FAIL 25 CMP_NOTEQUAL 9 DEFERRED 5
+    patched  testflags: CMP_EQUAL 468 SLANG_REJECT 284 SURELOG_FAIL 23 CMP_NOTEQUAL 7 DEFERRED 5 NO_DATABASE 3 UNTRANSLATABLE 2 TIMEOUT 1 NO_UHDM 1
+    pristine default  : CMP_EQUAL 472 SLANG_REJECT 283 SURELOG_FAIL 25 CMP_NOTEQUAL 9 DEFERRED 5
+    pristine testflags: CMP_EQUAL 468 SLANG_REJECT 284 SURELOG_FAIL 23 CMP_NOTEQUAL 7 DEFERRED 5 NO_DATABASE 3 UNTRANSLATABLE 2 TIMEOUT 1 NO_UHDM 1
+    ct8rows MY pristine vs patched : PASS — 0 differing rows over 1588 (status AND dump)
+    ct8rows committed baseline vs patched  : 1 differing ROW, quoted below,
+    ct8rows committed baseline vs PRISTINE : THE SAME 1 differing ROW
+        < Earlgrey_0_1,testflags,CMP_EQUAL,,,differ   (results/golden_surelog.csv)
+        > Earlgrey_0_1,testflags,CMP_EQUAL,,,          (BOTH of this pass's sweeps)
+      STATUS is CMP_EQUAL on both sides; only the dump DIAGNOSTIC column empties,
+      and it empties for the PRISTINE binary too.  It is a uhdm-dump TIMEOUT under
+      concurrent sweeps (the identical observation r10earl119 and r10earl120
+      recorded).  NOT A CONVERSION.  results/*.csv was NOT edited, nothing promoted.
+    byteverify SELFCHECK=1  patched vs pristine : MOVERS 2 / 956, PATH_SETS_IDENTICAL
+        ./default/Earlgrey_0_1-71da2fd7/slang.uhdm  <- PREDICTED BY NAME (29 sites)
+        ./default/Scoreboard-59431470/slang.uhdm    <- the documented COIN;
+           order-blind (sorted, path-normalised) dump diff = 0 lines,
+           raw diff = 81 lines.  ATTRIB_Scoreboard_coin.txt
+
+(5) CANARIES / PINS
+    canaries.sh  patched sl.csv  vs results/golden_surelog.csv   : ok=51 changed=1 absent=0
+    canaries.sh  PRISTINE sl.csv vs results/golden_surelog.csv   : ok=51 changed=1 absent=0
+      the ONE changed line is the same Earlgrey_0_1/testflags dump-column row above,
+      on BOTH binaries -> not this pass's.
+    canaries.sh  patched u2r_tf.csv vs results/gate_uhdm2rtlil.csv : ok=8 changed=0
+    ctcan2 EXPECT_UNKNOWN=1  golden_surelog vs patched sl        : PASS (ok=58 changed=0)
+    ctcan2 EXPECT_UNKNOWN=6  gate_uhdm2rtlil vs patched u2r_tf   : PASS (ok=1 changed=0)
+    canaudit.sh canaries.sh ctcan2.sh : audited=29 UNCOVERED=0 FENCE-BREACH=0  PASS
+    protected databases, md5 patched vs pristine (both modes):
+      InterfaceModPort   59a365f3ce2c / 59a365f3ce2c   SAME
+      BlackParrotComplex e3e354129d5a (default) 73a10e8217e5 (testflags)  SAME
+      YosysOldOr         d68e0796d62c   SAME
+      SVSwitch           4842211c4030   PIN HOLDS (both modes, both binaries)
+      YosysVerx          6ccda350c24a   PIN HOLDS (both modes, both binaries)
+
+(6) ROW HEADS (rowheads.sh, the seven named rows) pristine -> patched
+    SeqDriver     default 50 -> 50   testflags 50 -> 50
+    SimpleUVM     default 17 -> 17   testflags 17 -> 17
+    Scoreboard    default 95 -> 95   testflags SKIP-NOFILE (expected)
+    MiniAmiq      default 50 -> 50   testflags 50 -> 50
+    BuildUVMPkg   default  0 ->  0   testflags  0 ->  0    <- CMP_EQUAL, BOTH columns
+    Rggen         default  0 ->  0   testflags SKIP-NOFILE (expected)
+    Earlgrey_0_1  default 386 -> 31  testflags  0 ->  0    <- CMP_EQUAL, BOTH columns
+    ONE head throughout.  The four CMP_EQUAL row-modes all stay CMP_EQUAL with 0
+    cmp lines; none of BuildUVMPkg / Rggen / Earlgrey-testflags can be reached by
+    this law (0 gen-scope pattern cont_assign rows in the first two; -elabuhdm in
+    the third).
+
+(7) WIDE BOUNDARY (widerun121.sh over a COPY of tools/probe, both views)
+    LISTED=5276  FENCED_REMOVED=0  PROCESSED=5276  PROCESSED==LISTED
+    identical=10065  DIFFERING=53  no_output=434
+    rc by side  A/0 9721  A/139 16  A/3 418  A/4 397
+                B/0 9721  B/139 16  B/3 418  B/4 397   <- SYMMETRIC
+    the 32 rc=139 SIGNAL lines are 16 per side, all in the elab view, SYMMETRIC
+    all 53 differing cells are in the PLAIN view; ZERO in elab (the law is
+    default-view-only by construction).
+    RE-SCORED against GOLDEN, cell by cell, four ways (BOUNDARY_MOVERS.txt):
+      SLOT x WRAP       TO-GOLDEN 1477  AWAY 0  MOVED-WRONG 0  NOGOLD_MOVED 0  CLEAN
+      SLOT x CELL       TO-GOLDEN 1471  AWAY 0  MOVED-WRONG 6  NOGOLD_MOVED 0
+      POSITIONAL x WRAP TO-GOLDEN 1477  AWAY 0  MOVED-WRONG 0  NOGOLD_MOVED 28
+      POSITIONAL x CELL TO-GOLDEN 1471  AWAY 0  MOVED-WRONG 6  NOGOLD_MOVED 28
+    AWAY-GOLDEN is 0 in ALL FOUR.  The 6 and the 28 are named in the README
+    (a pre-existing VALUE fold in t1_root114, and the vacated positional keys of
+    28 cells whose bare operand span was narrower than golden's own).
+    NO DIFFERING ARM GOT WORSE BY THE JUDGE: of the 53, 15 have a LOWER official
+    uhdm-cmp line count on the patched binary (nine of them reach 0 = CMP_EQUAL)
+    and 38 are unchanged.  Zero go up.
+
+    THE MUST-STAY FLOOR, checked by name against the differing list:
+      r10earl120's arms (a1_axis120 a2_fence120)        NOT in the list
+      r10earl119's arms + its all-fences arm            NOT in the list
+      section-106's arms / fences                       NOT in the list
+      r10earl118's arms + fence                         NOT in the list
+      r10earl110, r10earl111, r10earl117 arms           NOT in the list
+      uvm82-91, buvm3-15, sd8-12                        NOT in the list
+    WHAT DID MOVE, and it is this law's own cell in every case: the gen-scope
+    assignment-pattern family r10earl112-116 and their verifiers built --
+    r10earl112 (4 arms), r10earl113 (4), r10earl114 (4), r10earl115 (3),
+    r10earl116 (2), r10earl61 (2), r10vearl112 (8), r10vearl113 (6),
+    r10vearl115 (14), r10vearl116 (3), r10vearl117 (1: va3_scope117), and this
+    pass's own a1/a3.  Every one is re-scored against GOLDEN above:
+    TO-GOLDEN 1477 cells, AWAY-GOLDEN 0, MOVED-WRONG 0 on the field this law
+    owns.  These arms ARE the law's population; a law that moved none of them
+    would not be the law.

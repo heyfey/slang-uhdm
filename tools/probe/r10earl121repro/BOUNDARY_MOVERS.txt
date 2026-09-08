@@ -1,0 +1,323 @@
+
+=========== KEYING SLOT       x PROJECTION WRAP ===========
+VIEW   ARM                                            CELL SCORE vs GOLDEN
+plain  r10earl112repro/g1_head112.sv                  {'TO-GOLDEN': 9}
+plain  r10earl112repro/g2_carrier112.sv               {'TO-GOLDEN': 30, 'STILL-WRONG': 2}
+plain  r10earl112repro/g3_depth112.sv                 {'TO-GOLDEN': 48}
+plain  r10earl112repro/g4_fence112.sv                 {'TO-GOLDEN': 18}
+plain  r10earl113repro/s1_scope113.sv                 {'TO-GOLDEN': 42}
+plain  r10earl113repro/s2_opkind113.sv                {'TO-GOLDEN': 84, 'STILL-WRONG': 5}
+plain  r10earl113repro/s3_carrier113.sv               {'TO-GOLDEN': 9}
+plain  r10earl113repro/s4_fence113.sv                 {'TO-GOLDEN': 9, 'STILL-WRONG': 5}
+plain  r10earl114repro/t1_root114.sv                  {'TO-GOLDEN': 117, 'STILL-WRONG': 6}
+plain  r10earl114repro/t2_carrier114.sv               {'TO-GOLDEN': 9}
+plain  r10earl114repro/t3_member114.sv                {'TO-GOLDEN': 93}
+plain  r10earl114repro/t4_fence114.sv                 {'TO-GOLDEN': 30}
+plain  r10earl115repro/p1_pos115.sv                   {'TO-GOLDEN': 45}
+plain  r10earl115repro/p2_root115.sv                  {'TO-GOLDEN': 57}
+plain  r10earl115repro/p3_fence115.sv                 {'TO-GOLDEN': 9}
+plain  r10earl116repro/q1_lhs116.sv                   {'TO-GOLDEN': 18}
+plain  r10earl116repro/q3_mix116.sv                   {'TO-GOLDEN': 18, 'STILL-WRONG': 1}
+plain  r10earl121repro/a1_axis121.sv                  {'TO-GOLDEN': 128}
+plain  r10earl121repro/a3_net121.sv                   {'TO-GOLDEN': 6}
+plain  r10earl61repro/v4_v61.sv                       {'STILL-WRONG': 6, 'TO-GOLDEN': 3}
+plain  r10earl61repro/v5_v61.sv                       {'TO-GOLDEN': 2}
+plain  r10vearl112repro/v1_call112.sv                 {'TO-GOLDEN': 45}
+plain  r10vearl112repro/v2_hier112.sv                 {'TO-GOLDEN': 48}
+plain  r10vearl112repro/v3_inst112.sv                 {'TO-GOLDEN': 27}
+plain  r10vearl112repro/v4_one112.sv                  {'TO-GOLDEN': 9}
+plain  r10vearl112repro/v5_floor112.sv                {'TO-GOLDEN': 24}
+plain  r10vearl112repro/v6_call2112.sv                {'TO-GOLDEN': 45}
+plain  r10vearl112repro/v7_iface112.sv                {'TO-GOLDEN': 9}
+plain  r10vearl112repro/v8_repl112.sv                 {'TO-GOLDEN': 9}
+plain  r10vearl113repro/v1_decl113.sv                 {'TO-GOLDEN': 21}
+plain  r10vearl113repro/v2_pat113.sv                  {'TO-GOLDEN': 46}
+plain  r10vearl113repro/v3_lhs113.sv                  {'NOGOLD_SAME': 6, 'TO-GOLDEN': 6}
+plain  r10vearl113repro/v4_ctx113.sv                  {'TO-GOLDEN': 21}
+plain  r10vearl113repro/v5_iface113.sv                {'STILL-WRONG': 3, 'TO-GOLDEN': 6}
+plain  r10vearl113repro/v6_name113.sv                 {'TO-GOLDEN': 24}
+plain  r10vearl115repro/cells/w10_nsblk.sv            {'TO-GOLDEN': 9}
+plain  r10vearl115repro/cells/w11_nssib.sv            {'TO-GOLDEN': 9}
+plain  r10vearl115repro/cells/w12_deep2.sv            {'TO-GOLDEN': 18}
+plain  r10vearl115repro/cells/w13_concat.sv           {'TO-GOLDEN': 9}
+plain  r10vearl115repro/cells/w2_outergen.sv          {'TO-GOLDEN': 9}
+plain  r10vearl115repro/cells/w5_nestinst.sv          {'TO-GOLDEN': 27}
+plain  r10vearl115repro/cells/w6_iface.sv             {'TO-GOLDEN': 9}
+plain  r10vearl115repro/cells/w7_nestpat.sv           {'TO-GOLDEN': 15}
+plain  r10vearl115repro/cells/w8_nsparam.sv           {'TO-GOLDEN': 9}
+plain  r10vearl115repro/cells/w9_nsinst.sv            {'TO-GOLDEN': 9}
+plain  r10vearl115repro/va1_lhs115.sv                 {'TO-GOLDEN': 18}
+plain  r10vearl115repro/va2_ctx115.sv                 {'TO-GOLDEN': 72}
+plain  r10vearl115repro/va3_rhs115.sv                 {'TO-GOLDEN': 63}
+plain  r10vearl115repro/va4_name115.sv                {'TO-GOLDEN': 45}
+plain  r10vearl116repro/va1_hier116.sv                {'TO-GOLDEN': 6}
+plain  r10vearl116repro/va2_rep116.sv                 {'TO-GOLDEN': 9}
+plain  r10vearl116repro/va3_ord116.sv                 {'TO-GOLDEN': 9}
+plain  r10vearl117repro/va3_scope117.sv               {'TO-GOLDEN': 8}
+
+SAME_AGREE     1548 cells
+TO-GOLDEN      1477 cells
+AWAY-GOLDEN    0 cells
+MOVED-WRONG    0 cells
+STILL-WRONG    28 cells
+NOGOLD_SAME    6 cells
+NOGOLD_MOVED   0 cells
+GOLD_ONLY      87 cells
+
+BOUNDARY VERDICT (SLOT x WRAP) CLEAN  (AWAY-GOLDEN 0 + MOVED-WRONG 0 + NOGOLD_MOVED 0)
+
+=========== KEYING SLOT       x PROJECTION CELL ===========
+VIEW   ARM                                            CELL SCORE vs GOLDEN
+plain  r10earl112repro/g1_head112.sv                  {'TO-GOLDEN': 9}
+plain  r10earl112repro/g2_carrier112.sv               {'TO-GOLDEN': 30, 'STILL-WRONG': 2}
+plain  r10earl112repro/g3_depth112.sv                 {'TO-GOLDEN': 48}
+plain  r10earl112repro/g4_fence112.sv                 {'TO-GOLDEN': 18}
+plain  r10earl113repro/s1_scope113.sv                 {'TO-GOLDEN': 42}
+plain  r10earl113repro/s2_opkind113.sv                {'TO-GOLDEN': 84, 'STILL-WRONG': 5}
+plain  r10earl113repro/s3_carrier113.sv               {'TO-GOLDEN': 9}
+plain  r10earl113repro/s4_fence113.sv                 {'TO-GOLDEN': 9, 'STILL-WRONG': 5}
+plain  r10earl114repro/t1_root114.sv                  {'TO-GOLDEN': 111, 'STILL-WRONG': 6, 'MOVED-WRONG': 6}
+plain  r10earl114repro/t2_carrier114.sv               {'TO-GOLDEN': 9}
+plain  r10earl114repro/t3_member114.sv                {'TO-GOLDEN': 93}
+plain  r10earl114repro/t4_fence114.sv                 {'TO-GOLDEN': 30}
+plain  r10earl115repro/p1_pos115.sv                   {'TO-GOLDEN': 45}
+plain  r10earl115repro/p2_root115.sv                  {'TO-GOLDEN': 57}
+plain  r10earl115repro/p3_fence115.sv                 {'TO-GOLDEN': 9}
+plain  r10earl116repro/q1_lhs116.sv                   {'TO-GOLDEN': 18}
+plain  r10earl116repro/q3_mix116.sv                   {'TO-GOLDEN': 18, 'STILL-WRONG': 1}
+plain  r10earl121repro/a1_axis121.sv                  {'TO-GOLDEN': 128}
+plain  r10earl121repro/a3_net121.sv                   {'TO-GOLDEN': 6}
+plain  r10earl61repro/v4_v61.sv                       {'STILL-WRONG': 6, 'TO-GOLDEN': 3}
+plain  r10earl61repro/v5_v61.sv                       {'TO-GOLDEN': 2}
+plain  r10vearl112repro/v1_call112.sv                 {'TO-GOLDEN': 45}
+plain  r10vearl112repro/v2_hier112.sv                 {'TO-GOLDEN': 48}
+plain  r10vearl112repro/v3_inst112.sv                 {'TO-GOLDEN': 27}
+plain  r10vearl112repro/v4_one112.sv                  {'TO-GOLDEN': 9}
+plain  r10vearl112repro/v5_floor112.sv                {'TO-GOLDEN': 24}
+plain  r10vearl112repro/v6_call2112.sv                {'TO-GOLDEN': 45}
+plain  r10vearl112repro/v7_iface112.sv                {'TO-GOLDEN': 9}
+plain  r10vearl112repro/v8_repl112.sv                 {'TO-GOLDEN': 9}
+plain  r10vearl113repro/v1_decl113.sv                 {'TO-GOLDEN': 21}
+plain  r10vearl113repro/v2_pat113.sv                  {'TO-GOLDEN': 46}
+plain  r10vearl113repro/v3_lhs113.sv                  {'NOGOLD_SAME': 6, 'TO-GOLDEN': 6}
+plain  r10vearl113repro/v4_ctx113.sv                  {'TO-GOLDEN': 21}
+plain  r10vearl113repro/v5_iface113.sv                {'STILL-WRONG': 3, 'TO-GOLDEN': 6}
+plain  r10vearl113repro/v6_name113.sv                 {'TO-GOLDEN': 24}
+plain  r10vearl115repro/cells/w10_nsblk.sv            {'TO-GOLDEN': 9}
+plain  r10vearl115repro/cells/w11_nssib.sv            {'TO-GOLDEN': 9}
+plain  r10vearl115repro/cells/w12_deep2.sv            {'TO-GOLDEN': 18}
+plain  r10vearl115repro/cells/w13_concat.sv           {'TO-GOLDEN': 9}
+plain  r10vearl115repro/cells/w2_outergen.sv          {'TO-GOLDEN': 9}
+plain  r10vearl115repro/cells/w5_nestinst.sv          {'TO-GOLDEN': 27}
+plain  r10vearl115repro/cells/w6_iface.sv             {'TO-GOLDEN': 9}
+plain  r10vearl115repro/cells/w7_nestpat.sv           {'TO-GOLDEN': 15}
+plain  r10vearl115repro/cells/w8_nsparam.sv           {'TO-GOLDEN': 9}
+plain  r10vearl115repro/cells/w9_nsinst.sv            {'TO-GOLDEN': 9}
+plain  r10vearl115repro/va1_lhs115.sv                 {'TO-GOLDEN': 18}
+plain  r10vearl115repro/va2_ctx115.sv                 {'TO-GOLDEN': 72}
+plain  r10vearl115repro/va3_rhs115.sv                 {'TO-GOLDEN': 63}
+plain  r10vearl115repro/va4_name115.sv                {'TO-GOLDEN': 45}
+plain  r10vearl116repro/va1_hier116.sv                {'TO-GOLDEN': 6}
+plain  r10vearl116repro/va2_rep116.sv                 {'TO-GOLDEN': 9}
+plain  r10vearl116repro/va3_ord116.sv                 {'TO-GOLDEN': 9}
+plain  r10vearl117repro/va3_scope117.sv               {'TO-GOLDEN': 8}
+
+SAME_AGREE     1548 cells
+TO-GOLDEN      1471 cells
+AWAY-GOLDEN    0 cells
+MOVED-WRONG    6 cells
+STILL-WRONG    28 cells
+NOGOLD_SAME    6 cells
+NOGOLD_MOVED   0 cells
+GOLD_ONLY      87 cells
+
+BOUNDARY VERDICT (SLOT x CELL) DIRTY  (AWAY-GOLDEN 0 + MOVED-WRONG 6 + NOGOLD_MOVED 0)
+
+=========== KEYING POSITIONAL x PROJECTION WRAP ===========
+VIEW   ARM                                            CELL SCORE vs GOLDEN
+plain  r10earl112repro/g1_head112.sv                  {'TO-GOLDEN': 9}
+plain  r10earl112repro/g2_carrier112.sv               {'TO-GOLDEN': 30, 'STILL-WRONG': 2}
+plain  r10earl112repro/g3_depth112.sv                 {'TO-GOLDEN': 48}
+plain  r10earl112repro/g4_fence112.sv                 {'TO-GOLDEN': 18}
+plain  r10earl113repro/s1_scope113.sv                 {'TO-GOLDEN': 42}
+plain  r10earl113repro/s2_opkind113.sv                {'TO-GOLDEN': 84, 'STILL-WRONG': 3, 'NOGOLD_MOVED': 3, 'NOGOLD_SAME': 2}
+plain  r10earl113repro/s3_carrier113.sv               {'TO-GOLDEN': 9}
+plain  r10earl113repro/s4_fence113.sv                 {'TO-GOLDEN': 9, 'STILL-WRONG': 5}
+plain  r10earl114repro/t1_root114.sv                  {'TO-GOLDEN': 117, 'STILL-WRONG': 6}
+plain  r10earl114repro/t2_carrier114.sv               {'TO-GOLDEN': 9}
+plain  r10earl114repro/t3_member114.sv                {'TO-GOLDEN': 93}
+plain  r10earl114repro/t4_fence114.sv                 {'TO-GOLDEN': 30}
+plain  r10earl115repro/p1_pos115.sv                   {'TO-GOLDEN': 45}
+plain  r10earl115repro/p2_root115.sv                  {'TO-GOLDEN': 57}
+plain  r10earl115repro/p3_fence115.sv                 {'TO-GOLDEN': 9}
+plain  r10earl116repro/q1_lhs116.sv                   {'TO-GOLDEN': 18}
+plain  r10earl116repro/q3_mix116.sv                   {'TO-GOLDEN': 18, 'NOGOLD_SAME': 1}
+plain  r10earl121repro/a1_axis121.sv                  {'NOGOLD_MOVED': 16, 'TO-GOLDEN': 128}
+plain  r10earl121repro/a3_net121.sv                   {'TO-GOLDEN': 6}
+plain  r10earl61repro/v4_v61.sv                       {'STILL-WRONG': 6, 'TO-GOLDEN': 3}
+plain  r10earl61repro/v5_v61.sv                       {'TO-GOLDEN': 2}
+plain  r10vearl112repro/v1_call112.sv                 {'TO-GOLDEN': 45, 'NOGOLD_MOVED': 3}
+plain  r10vearl112repro/v2_hier112.sv                 {'TO-GOLDEN': 48}
+plain  r10vearl112repro/v3_inst112.sv                 {'TO-GOLDEN': 27}
+plain  r10vearl112repro/v4_one112.sv                  {'TO-GOLDEN': 9}
+plain  r10vearl112repro/v5_floor112.sv                {'TO-GOLDEN': 24}
+plain  r10vearl112repro/v6_call2112.sv                {'TO-GOLDEN': 45, 'NOGOLD_MOVED': 6}
+plain  r10vearl112repro/v7_iface112.sv                {'TO-GOLDEN': 9}
+plain  r10vearl112repro/v8_repl112.sv                 {'TO-GOLDEN': 9}
+plain  r10vearl113repro/v1_decl113.sv                 {'TO-GOLDEN': 21}
+plain  r10vearl113repro/v2_pat113.sv                  {'TO-GOLDEN': 46}
+plain  r10vearl113repro/v3_lhs113.sv                  {'NOGOLD_SAME': 6, 'TO-GOLDEN': 6}
+plain  r10vearl113repro/v4_ctx113.sv                  {'TO-GOLDEN': 21}
+plain  r10vearl113repro/v5_iface113.sv                {'TO-GOLDEN': 6, 'STILL-WRONG': 3}
+plain  r10vearl113repro/v6_name113.sv                 {'TO-GOLDEN': 24}
+plain  r10vearl115repro/cells/w10_nsblk.sv            {'TO-GOLDEN': 9}
+plain  r10vearl115repro/cells/w11_nssib.sv            {'TO-GOLDEN': 9}
+plain  r10vearl115repro/cells/w12_deep2.sv            {'TO-GOLDEN': 18}
+plain  r10vearl115repro/cells/w13_concat.sv           {'TO-GOLDEN': 9}
+plain  r10vearl115repro/cells/w2_outergen.sv          {'TO-GOLDEN': 9}
+plain  r10vearl115repro/cells/w5_nestinst.sv          {'TO-GOLDEN': 27}
+plain  r10vearl115repro/cells/w6_iface.sv             {'TO-GOLDEN': 9}
+plain  r10vearl115repro/cells/w7_nestpat.sv           {'TO-GOLDEN': 15}
+plain  r10vearl115repro/cells/w8_nsparam.sv           {'TO-GOLDEN': 9}
+plain  r10vearl115repro/cells/w9_nsinst.sv            {'TO-GOLDEN': 9}
+plain  r10vearl115repro/va1_lhs115.sv                 {'TO-GOLDEN': 18}
+plain  r10vearl115repro/va2_ctx115.sv                 {'TO-GOLDEN': 72}
+plain  r10vearl115repro/va3_rhs115.sv                 {'TO-GOLDEN': 63}
+plain  r10vearl115repro/va4_name115.sv                {'TO-GOLDEN': 45}
+plain  r10vearl116repro/va1_hier116.sv                {'TO-GOLDEN': 6}
+plain  r10vearl116repro/va2_rep116.sv                 {'TO-GOLDEN': 9}
+plain  r10vearl116repro/va3_ord116.sv                 {'TO-GOLDEN': 9}
+plain  r10vearl117repro/va3_scope117.sv               {'TO-GOLDEN': 8}
+
+SAME_AGREE     1551 cells
+TO-GOLDEN      1477 cells
+AWAY-GOLDEN    0 cells
+MOVED-WRONG    0 cells
+STILL-WRONG    25 cells
+NOGOLD_SAME    9 cells
+NOGOLD_MOVED   28 cells
+GOLD_ONLY      95 cells
+
+BOUNDARY VERDICT (POSITIONAL x WRAP) DIRTY  (AWAY-GOLDEN 0 + MOVED-WRONG 0 + NOGOLD_MOVED 28)
+
+=========== KEYING POSITIONAL x PROJECTION CELL ===========
+VIEW   ARM                                            CELL SCORE vs GOLDEN
+plain  r10earl112repro/g1_head112.sv                  {'TO-GOLDEN': 9}
+plain  r10earl112repro/g2_carrier112.sv               {'TO-GOLDEN': 30, 'STILL-WRONG': 2}
+plain  r10earl112repro/g3_depth112.sv                 {'TO-GOLDEN': 48}
+plain  r10earl112repro/g4_fence112.sv                 {'TO-GOLDEN': 18}
+plain  r10earl113repro/s1_scope113.sv                 {'TO-GOLDEN': 42}
+plain  r10earl113repro/s2_opkind113.sv                {'TO-GOLDEN': 84, 'STILL-WRONG': 3, 'NOGOLD_MOVED': 3, 'NOGOLD_SAME': 2}
+plain  r10earl113repro/s3_carrier113.sv               {'TO-GOLDEN': 9}
+plain  r10earl113repro/s4_fence113.sv                 {'TO-GOLDEN': 9, 'STILL-WRONG': 5}
+plain  r10earl114repro/t1_root114.sv                  {'TO-GOLDEN': 111, 'MOVED-WRONG': 6, 'STILL-WRONG': 6}
+plain  r10earl114repro/t2_carrier114.sv               {'TO-GOLDEN': 9}
+plain  r10earl114repro/t3_member114.sv                {'TO-GOLDEN': 93}
+plain  r10earl114repro/t4_fence114.sv                 {'TO-GOLDEN': 30}
+plain  r10earl115repro/p1_pos115.sv                   {'TO-GOLDEN': 45}
+plain  r10earl115repro/p2_root115.sv                  {'TO-GOLDEN': 57}
+plain  r10earl115repro/p3_fence115.sv                 {'TO-GOLDEN': 9}
+plain  r10earl116repro/q1_lhs116.sv                   {'TO-GOLDEN': 18}
+plain  r10earl116repro/q3_mix116.sv                   {'TO-GOLDEN': 18, 'NOGOLD_SAME': 1}
+plain  r10earl121repro/a1_axis121.sv                  {'NOGOLD_MOVED': 16, 'TO-GOLDEN': 128}
+plain  r10earl121repro/a3_net121.sv                   {'TO-GOLDEN': 6}
+plain  r10earl61repro/v4_v61.sv                       {'STILL-WRONG': 6, 'TO-GOLDEN': 3}
+plain  r10earl61repro/v5_v61.sv                       {'TO-GOLDEN': 2}
+plain  r10vearl112repro/v1_call112.sv                 {'TO-GOLDEN': 45, 'NOGOLD_MOVED': 3}
+plain  r10vearl112repro/v2_hier112.sv                 {'TO-GOLDEN': 48}
+plain  r10vearl112repro/v3_inst112.sv                 {'TO-GOLDEN': 27}
+plain  r10vearl112repro/v4_one112.sv                  {'TO-GOLDEN': 9}
+plain  r10vearl112repro/v5_floor112.sv                {'TO-GOLDEN': 24}
+plain  r10vearl112repro/v6_call2112.sv                {'TO-GOLDEN': 45, 'NOGOLD_MOVED': 6}
+plain  r10vearl112repro/v7_iface112.sv                {'TO-GOLDEN': 9}
+plain  r10vearl112repro/v8_repl112.sv                 {'TO-GOLDEN': 9}
+plain  r10vearl113repro/v1_decl113.sv                 {'TO-GOLDEN': 21}
+plain  r10vearl113repro/v2_pat113.sv                  {'TO-GOLDEN': 46}
+plain  r10vearl113repro/v3_lhs113.sv                  {'NOGOLD_SAME': 6, 'TO-GOLDEN': 6}
+plain  r10vearl113repro/v4_ctx113.sv                  {'TO-GOLDEN': 21}
+plain  r10vearl113repro/v5_iface113.sv                {'TO-GOLDEN': 6, 'STILL-WRONG': 3}
+plain  r10vearl113repro/v6_name113.sv                 {'TO-GOLDEN': 24}
+plain  r10vearl115repro/cells/w10_nsblk.sv            {'TO-GOLDEN': 9}
+plain  r10vearl115repro/cells/w11_nssib.sv            {'TO-GOLDEN': 9}
+plain  r10vearl115repro/cells/w12_deep2.sv            {'TO-GOLDEN': 18}
+plain  r10vearl115repro/cells/w13_concat.sv           {'TO-GOLDEN': 9}
+plain  r10vearl115repro/cells/w2_outergen.sv          {'TO-GOLDEN': 9}
+plain  r10vearl115repro/cells/w5_nestinst.sv          {'TO-GOLDEN': 27}
+plain  r10vearl115repro/cells/w6_iface.sv             {'TO-GOLDEN': 9}
+plain  r10vearl115repro/cells/w7_nestpat.sv           {'TO-GOLDEN': 15}
+plain  r10vearl115repro/cells/w8_nsparam.sv           {'TO-GOLDEN': 9}
+plain  r10vearl115repro/cells/w9_nsinst.sv            {'TO-GOLDEN': 9}
+plain  r10vearl115repro/va1_lhs115.sv                 {'TO-GOLDEN': 18}
+plain  r10vearl115repro/va2_ctx115.sv                 {'TO-GOLDEN': 72}
+plain  r10vearl115repro/va3_rhs115.sv                 {'TO-GOLDEN': 63}
+plain  r10vearl115repro/va4_name115.sv                {'TO-GOLDEN': 45}
+plain  r10vearl116repro/va1_hier116.sv                {'TO-GOLDEN': 6}
+plain  r10vearl116repro/va2_rep116.sv                 {'TO-GOLDEN': 9}
+plain  r10vearl116repro/va3_ord116.sv                 {'TO-GOLDEN': 9}
+plain  r10vearl117repro/va3_scope117.sv               {'TO-GOLDEN': 8}
+
+SAME_AGREE     1551 cells
+TO-GOLDEN      1471 cells
+AWAY-GOLDEN    0 cells
+MOVED-WRONG    6 cells
+STILL-WRONG    25 cells
+NOGOLD_SAME    9 cells
+NOGOLD_MOVED   28 cells
+GOLD_ONLY      95 cells
+
+BOUNDARY VERDICT (POSITIONAL x CELL) DIRTY  (AWAY-GOLDEN 0 + MOVED-WRONG 6 + NOGOLD_MOVED 28)
+
+OFFICIAL uhdm-cmp LINE COUNT per differing arm (pristine -> patched):
+  plain  r10earl112repro/g1_head112.sv                      30 ->     30 
+  plain  r10earl112repro/g2_carrier112.sv                   30 ->     30 
+  plain  r10earl112repro/g3_depth112.sv                     30 ->     30 
+  plain  r10earl112repro/g4_fence112.sv                     30 ->     30 
+  plain  r10earl113repro/s1_scope113.sv                    414 ->     58 BETTER
+  plain  r10earl113repro/s2_opkind113.sv                   414 ->     31 BETTER
+  plain  r10earl113repro/s3_carrier113.sv                  115 ->    115 
+  plain  r10earl113repro/s4_fence113.sv                    476 ->    476 
+  plain  r10earl114repro/t1_root114.sv                    1176 ->   1176 
+  plain  r10earl114repro/t2_carrier114.sv                  744 ->    744 
+  plain  r10earl114repro/t3_member114.sv                   414 ->     29 BETTER
+  plain  r10earl114repro/t4_fence114.sv                     58 ->     58 
+  plain  r10earl115repro/p1_pos115.sv                      414 ->      0 BETTER
+  plain  r10earl115repro/p2_root115.sv                      58 ->     58 
+  plain  r10earl115repro/p3_fence115.sv                     17 ->     17 
+  plain  r10earl116repro/q1_lhs116.sv                      460 ->    460 
+  plain  r10earl116repro/q3_mix116.sv                       58 ->     58 
+  plain  r10earl121repro/a1_axis121.sv                      50 ->      0 BETTER
+  plain  r10earl121repro/a3_net121.sv                       30 ->     30 
+  plain  r10earl61repro/v4_v61.sv                           29 ->     29 
+  plain  r10earl61repro/v5_v61.sv                           17 ->     17 
+  plain  r10vearl112repro/v1_call112.sv                     30 ->     30 
+  plain  r10vearl112repro/v2_hier112.sv                     30 ->     30 
+  plain  r10vearl112repro/v3_inst112.sv                     30 ->     30 
+  plain  r10vearl112repro/v4_one112.sv                      30 ->     30 
+  plain  r10vearl112repro/v5_floor112.sv                    30 ->     30 
+  plain  r10vearl112repro/v6_call2112.sv                    30 ->     30 
+  plain  r10vearl112repro/v7_iface112.sv                    32 ->     32 
+  plain  r10vearl112repro/v8_repl112.sv                     30 ->     30 
+  plain  r10vearl113repro/v1_decl113.sv                    414 ->      0 BETTER
+  plain  r10vearl113repro/v2_pat113.sv                      47 ->     47 
+  plain  r10vearl113repro/v3_lhs113.sv                    3314 ->   3314 
+  plain  r10vearl113repro/v4_ctx113.sv                     386 ->      0 BETTER
+  plain  r10vearl113repro/v5_iface113.sv                    58 ->     58 
+  plain  r10vearl113repro/v6_name113.sv                     58 ->     58 
+  plain  r10vearl115repro/cells/w10_nsblk.sv               386 ->      0 BETTER
+  plain  r10vearl115repro/cells/w11_nssib.sv               386 ->      0 BETTER
+  plain  r10vearl115repro/cells/w12_deep2.sv               414 ->      0 BETTER
+  plain  r10vearl115repro/cells/w13_concat.sv              414 ->     17 BETTER
+  plain  r10vearl115repro/cells/w2_outergen.sv             414 ->      0 BETTER
+  plain  r10vearl115repro/cells/w5_nestinst.sv             386 ->      0 BETTER
+  plain  r10vearl115repro/cells/w6_iface.sv                 58 ->     58 
+  plain  r10vearl115repro/cells/w7_nestpat.sv              492 ->     17 BETTER
+  plain  r10vearl115repro/cells/w8_nsparam.sv              384 ->     50 BETTER
+  plain  r10vearl115repro/cells/w9_nsinst.sv                17 ->     17 
+  plain  r10vearl115repro/va1_lhs115.sv                    956 ->    956 
+  plain  r10vearl115repro/va2_ctx115.sv                     58 ->     58 
+  plain  r10vearl115repro/va3_rhs115.sv                     32 ->     32 
+  plain  r10vearl115repro/va4_name115.sv                    17 ->     17 
+  plain  r10vearl116repro/va1_hier116.sv                    58 ->     58 
+  plain  r10vearl116repro/va2_rep116.sv                     58 ->     58 
+  plain  r10vearl116repro/va3_ord116.sv                     30 ->     30 
+  plain  r10vearl117repro/va3_scope117.sv                   30 ->     30 

@@ -16689,6 +16689,105 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 bool patFlat9 =
                     patStruct9 && stripImplicitConv(ae.left()).kind ==
                                       ExpressionKind::NamedValue;
+                // § genCaPatKeepTagDefView121 (r10earl121) — ...AND THE
+                // `-elabuhdm` VIEW, WHENEVER THE ONLY FLATTEN THAT COULD REACH
+                // THIS SITE IS THE ELABORATOR'S.
+                //
+                // There are TWO flattens, they are performed by DIFFERENT
+                // TOOLS, and only one of them is conditioned on `-elabuhdm`:
+                //
+                //   (a) `UhdmWriter::writeCont_assign` (Surelog
+                //       UhdmWriter.cpp:2177-2219) runs
+                //       `ExprEval::flattenPatternAssignments` itself.  It is
+                //       the INSTANCE-TREE WRITER and runs in EVERY mode — but
+                //       ONLY inside `if (tps)`, and `tps` comes from
+                //       `bindVariable` (CompileStmt.cpp:3089-3148), whose scope
+                //       walk has NO `gen_scope` case.  That is exactly
+                //       § genScopeCaPatNoFirstSize113's fence, already
+                //       committed and already computed here as
+                //       `genCaLhsGenLocal113`: FALSE means the writer found the
+                //       target and flattened, in both views.
+                //   (b) `cont_assign::DeepClone` (UHDM
+                //       templates/clone_tree.cpp:803-820) runs the same flatten
+                //       when the Lhs is a `ref_obj` bound to a `struct_var` —
+                //       § patCaFlatLhsWholeName116's decode above.  But that
+                //       code is UHDM's `ElaboratorListener`, which
+                //       `uhdm_main.cpp` (like `UhdmWriter.cpp:5195-5199`) runs
+                //       ONLY under `--elabuhdm`.
+                //
+                // So a GEN-LOCAL whole-name struct target is flattened in the
+                // ELABORATED view and NOT in the default one, and there the
+                // `tagged_pattern` wrappers
+                // `CompileHelper::compileAssignmentPattern` minted
+                // (CompileExpression.cpp:3782-3833) survive into the instance
+                // tree.  `ExprEval::recursiveFlattening`
+                // (UHDM/build/generated/src/ExprEval.cpp:652-745) is what
+                // strips them — a `string_typespec` tag, which is what a bare
+                // member-name key produces, is ALWAYS unwrapped there — so
+                // "the flatten did not run" is the ONLY way a keyed member can
+                // stay wrapped.
+                //
+                // MEASURED on r10earl116's own arm `q1_lhs116`, built twice by
+                // the harness Surelog (`-parse` vs `-parse -elabuhdm`), cell by
+                // cell, tags counted per pattern operation:
+                //   c1 whole-name gen-local struct VAR ... def TAGGED / elab FLAT
+                //   c5 whole-name gen-local struct NET ... def TAGGED / elab FLAT
+                //   c6 whole-name MODULE-scope target  ... def FLAT   / elab FLAT
+                //   c2 c3 c7 select Lhs, c4 member Lhs . def TAGGED / elab TAGGED
+                // c6 is the fence and it is `genCaLhsGenLocal113`: the writer
+                // binds a module-body target from inside a generate block, so
+                // that cell must keep flattening in BOTH views.
+                //
+                // And it is the corpus head: `Earlgrey_0_1/default`'s ONE head
+                // is golden's `tagged_pattern` at `tlul_socket_m1.sv:109:19`
+                // against our bare `hier_path` — the `assign hreq_fifo_i =
+                // '{a_valid: tl_h_i[i].a_valid, …}` at :108 inside
+                // `gen_host_fifo`, whose target is declared at :90 in that same
+                // generate block.  Its sibling at :240 (`hrsp_fifo_i[i]`, a
+                // SELECT Lhs) is already tagged on both sides and stays
+                // untouched.
+                // ... AND IT DECLINES ON A TYPE-QUALIFIED PATTERN (r10vearl121,
+                // the adversarial verifier's break).  `T'{a: …}` is a THIRD way
+                // into the writer's flatten and the decode above misses it:
+                // `UhdmWriter::writeCont_assign`'s `if (tps)` arm is not the
+                // only one — its `else if` at UhdmWriter.cpp:2219-2243 reads the
+                // RHS OPERATION's OWN `Typespec()` and runs
+                // `ExprEval::flattenPatternAssignments` from there, with no
+                // `bindVariable` involved at all.  A type qualifier is exactly
+                // what fills that typespec, so a gen-local whole-name target
+                // written with `T'{…}` IS flattened by the writer, in EVERY
+                // view, and golden holds NO `tagged_pattern` at that site.
+                //
+                // MEASURED on `v6_cast2` (three cells that differ only in the
+                // qualifier), golden `-parse`, harness Surelog spelled in full:
+                //   n1 module-local typedef  `s_t'{…}`  golden Rhs op 67 (cast),
+                //                                       ONE operand, ntag=0
+                //   n2 gen-local  typedef    `g_t'{…}`  golden Rhs op 67, ntag=0
+                //   n3 plain                 `'{…}`     golden Rhs op 75, ntag=3
+                // and on `v2_fence121` cell f3 (`s_t'{…}` beside twelve plain
+                // cells): golden ntag=0, pristine ntag=0, and the law WITHOUT
+                // this conjunct made it ntag=3 — the one AWAY-GOLDEN cell in
+                // every shape the verifier could build.  (The judge does not see
+                // it today — `operation::Compare`
+                // (UHDM/build/generated/src/operation.cpp:98-128) reads
+                // `VpiOpType` BEFORE `Operands`, and golden's 67 against our 75
+                // stops the walk above the wrappers — but the law must not claim
+                // a site whose golden shape it does not model.)  Zero corpus
+                // exposure either way: no gen-scope pattern cont_assign in
+                // either corpus carries a type qualifier, which is why the byte
+                // movers, the head and every gate below are the SAME with and
+                // without this conjunct.
+                auto& rc121 = stripImplicitConv(ae.right());
+                bool patTyped121 =
+                    rc121.syntax &&
+                    rc121.syntax->kind ==
+                        syntax::SyntaxKind::AssignmentPatternExpression &&
+                    rc121.syntax
+                            ->as<syntax::AssignmentPatternExpressionSyntax>()
+                            .type != nullptr;
+                if (patFlat9 && genCaLhsGenLocal113 && !elabUhdmView121 &&
+                    !patTyped121)
+                    patFlat9 = false;
                 if (patFlat9)
                     reemitting = true;
                 rhs = emitExpr(ae.right(), ca, fullName, netMap);

@@ -1,0 +1,84 @@
+############ score121.py --slot --wrap
+PROJECTION WRAP  (the WRAPPER only -- the field this law owns)
+KEYING     SLOT (site + operand index; the operand span is in the payload)
+CALIB  golden keys: pristine-sweep 241887   patched-sweep 241887
+CALIB  OK: the two sweeps' golden halves are IDENTICAL
+CENRC  pristine non-zero: 0   patched non-zero: 0
+
+SAME_AGREE     51358 keys
+TO-GOLDEN      290 keys
+AWAY-GOLDEN    0 keys
+MOVED-WRONG    0 keys
+STILL-WRONG    8754 keys
+NOGOLD_SAME    36 keys
+NOGOLD_MOVED   0 keys
+GOLD_ONLY      181485 keys
+
+MOVER ROWS (any key that is not SAME_AGREE/STILL-WRONG/NOGOLD_SAME/GOLD_ONLY):
+   default    Earlgrey_0_1                 {'TO-GOLDEN': 290}
+
+VERDICT CLEAN  (AWAY-GOLDEN 0 + MOVED-WRONG 0 + NOGOLD_MOVED 0)
+
+############ score121.py --slot
+PROJECTION CELL  (whole payload: the wrapper AND the value it wraps)
+KEYING     SLOT (site + operand index; the operand span is in the payload)
+CALIB  golden keys: pristine-sweep 241887   patched-sweep 241887
+CALIB  OK: the two sweeps' golden halves are IDENTICAL
+CENRC  pristine non-zero: 0   patched non-zero: 0
+
+SAME_AGREE     51358 keys
+TO-GOLDEN      290 keys
+AWAY-GOLDEN    0 keys
+MOVED-WRONG    0 keys
+STILL-WRONG    8754 keys
+NOGOLD_SAME    36 keys
+NOGOLD_MOVED   0 keys
+GOLD_ONLY      181485 keys
+
+MOVER ROWS (any key that is not SAME_AGREE/STILL-WRONG/NOGOLD_SAME/GOLD_ONLY):
+   default    Earlgrey_0_1                 {'TO-GOLDEN': 290}
+
+VERDICT CLEAN  (AWAY-GOLDEN 0 + MOVED-WRONG 0 + NOGOLD_MOVED 0)
+
+############ score121.py --wrap
+PROJECTION WRAP  (the WRAPPER only -- the field this law owns)
+KEYING     POSITIONAL (the operand span is in the KEY)
+CALIB  golden keys: pristine-sweep 246789   patched-sweep 246789
+CALIB  OK: the two sweeps' golden halves are IDENTICAL
+CENRC  pristine non-zero: 0   patched non-zero: 0
+
+SAME_AGREE     55094 keys
+TO-GOLDEN      290 keys
+AWAY-GOLDEN    0 keys
+MOVED-WRONG    0 keys
+STILL-WRONG    1450 keys
+NOGOLD_SAME    7342 keys
+NOGOLD_MOVED   0 keys
+GOLD_ONLY      189955 keys
+
+MOVER ROWS (any key that is not SAME_AGREE/STILL-WRONG/NOGOLD_SAME/GOLD_ONLY):
+   default    Earlgrey_0_1                 {'TO-GOLDEN': 290}
+
+VERDICT CLEAN  (AWAY-GOLDEN 0 + MOVED-WRONG 0 + NOGOLD_MOVED 0)
+
+############ score121.py 
+PROJECTION CELL  (whole payload: the wrapper AND the value it wraps)
+KEYING     POSITIONAL (the operand span is in the KEY)
+CALIB  golden keys: pristine-sweep 246789   patched-sweep 246789
+CALIB  OK: the two sweeps' golden halves are IDENTICAL
+CENRC  pristine non-zero: 0   patched non-zero: 0
+
+SAME_AGREE     55094 keys
+TO-GOLDEN      290 keys
+AWAY-GOLDEN    0 keys
+MOVED-WRONG    0 keys
+STILL-WRONG    1450 keys
+NOGOLD_SAME    7342 keys
+NOGOLD_MOVED   0 keys
+GOLD_ONLY      189955 keys
+
+MOVER ROWS (any key that is not SAME_AGREE/STILL-WRONG/NOGOLD_SAME/GOLD_ONLY):
+   default    Earlgrey_0_1                 {'TO-GOLDEN': 290}
+
+VERDICT CLEAN  (AWAY-GOLDEN 0 + MOVED-WRONG 0 + NOGOLD_MOVED 0)
+

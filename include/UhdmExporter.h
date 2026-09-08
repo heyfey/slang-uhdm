@@ -186,6 +186,18 @@ public:
     /// at the head of `emitExpr` is against an empty map.
     void setNoLetSubst() { noLetSubst = true; }
 
+    /// § `genCaPatKeepTagDefView121` (r10earl121) — the emitter is writing the
+    /// `--elabuhdm` view.  `uhdm_main.cpp` calls this from the SAME
+    /// `elabUhdm == true` test that later runs `UHDM::ElaboratorContext`, so
+    /// the flag means exactly "UHDM's own `ElaboratorListener` will run over
+    /// this database".  Read by the ONE law whose producer lives INSIDE that
+    /// listener rather than inside Surelog's writer: the tagged-pattern
+    /// flatten `cont_assign::DeepClone` performs (see
+    /// `patCaFlatLhsWholeName116`'s decode at its emission site in
+    /// `emitBlock`).  Not calling it is the DEFAULT view, which is also what
+    /// every existing caller of the emitter gets.
+    void setElabUhdmView121() { elabUhdmView121 = true; }
+
     /// Surelog `-P<name>=<value>` / `-pvalue+<name>=<value>` (slang spells it
     /// `-G`): a command-line parameter override applied to TOP-LEVEL instances
     /// only. @a raw maps the parameter name to the value string EXACTLY as
@@ -5114,6 +5126,16 @@ private:
     /// binds the namesake, fills `tps` from it and sizes operand 0 (measured on
     /// arm `v1_decl113` cells a3 and a7).
     bool genCaLhsGenLocal113 = false;
+    /// § genCaPatKeepTagDefView121 (r10earl121) — set by `setElabUhdmView121()`
+    /// when `uhdm_main.cpp` is going to run `UHDM::ElaboratorContext` over this
+    /// database (`--elabuhdm`).  ONE law reads it, at the gen-scope
+    /// continuous-assign pattern site in `emitBlock`, and the reason is a fact
+    /// about WHICH tool performs the flatten: Surelog's `writeCont_assign`
+    /// flattens in EVERY mode but only where `bindVariable` finds the Lhs
+    /// typespec (`!genCaLhsGenLocal113`), while `cont_assign::DeepClone`'s own
+    /// flatten — the one a gen-LOCAL whole-name target depends on — lives in
+    /// UHDM's `ElaboratorListener` and therefore runs under `-elabuhdm` alone.
+    bool elabUhdmView121 = false;
     /// § patCaGenIdxValueRender112 — >0 while emitting an OPERAND VALUE of an
     /// assignment pattern.  `CompileHelper::compileAssignmentPattern`
     /// (Surelog CompileExpression.cpp:3686-3689) turns `Reduce` ON for every

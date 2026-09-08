@@ -1,0 +1,31 @@
+LHS:
+decompile:
+logic_var: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].shifted_id), id:793582, line:94:21, endln:94:31
+|vpiParent:
+\_gen_scope: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0]), id:1079065, line:89:36, endln:139:6
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].shifted_id), id:793583
+  |vpiParent:
+  \_logic_var: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].shifted_id), id:793582, line:94:21, endln:94:31
+  |vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].shifted_id
+  |vpiActual:
+  \_logic_typespec: , id:793573, line:94:5, endln:94:20
+|vpiName:shifted_id
+|vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].shifted_id
+|vpiVisibility:1
+
+decompile:
+logic_var: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].shifted_id), id:793582, line:94:21, endln:94:31
+|vpiParent:
+\_gen_scope: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0]), id:1079065, line:89:36, endln:139:6
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].shifted_id), id:793583
+  |vpiParent:
+  \_logic_var: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].shifted_id), id:793582, line:94:21, endln:94:31
+  |vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].shifted_id
+  |vpiActual:
+  \_logic_typespec: , id:793573, line:94:5, endln:94:20
+|vpiName:shifted_id
+|vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].shifted_id
+|vpiVisibility:1
+RHS: <null>

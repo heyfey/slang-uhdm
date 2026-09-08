@@ -1,0 +1,5 @@
+PREDICT-MOVE  rows=0 sites=0
+PREDICT-DECLINE rows=2 sites=2
+   target-not-gen-local     2 sites
+   (decline) default    gen_struct_access            1 sites
+   (decline) testflags  gen_struct_access            1 sites

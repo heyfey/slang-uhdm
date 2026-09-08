@@ -1,0 +1,193 @@
+LHS:
+decompile:
+tagged_pattern: , id:793454, line:109:19, endln:109:36
+|vpiParent:
+\_operation: , id:793447, line:108:26, endln:119:6
+|vpiPattern:
+\_hier_path: (tl_h_i[0].a_valid), id:793448, line:109:19, endln:109:36
+  |vpiParent:
+  \_operation: , id:793447, line:108:26, endln:119:6
+  |vpiTypespec:
+  \_ref_typespec: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].tl_h_i[0].a_valid), id:793449
+    |vpiParent:
+    \_hier_path: (tl_h_i[0].a_valid), id:793448, line:109:19, endln:109:36
+    |vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].tl_h_i[0].a_valid
+    |vpiActual:
+    \_array_typespec: , id:793266
+  |vpiActual:
+  \_bit_select: (tl_h_i[0]), id:793452, line:109:19, endln:109:25
+    |vpiParent:
+    \_hier_path: (tl_h_i[0].a_valid), id:793448, line:109:19, endln:109:36
+    |vpiName:tl_h_i
+    |vpiFullName:tl_h_i[0]
+    |vpiIndex:
+    \_constant: , id:793450, line:109:26, endln:109:27
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+  |vpiActual:
+  \_ref_obj: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].a_valid), id:793453, line:109:29, endln:109:36
+    |vpiParent:
+    \_hier_path: (tl_h_i[0].a_valid), id:793448, line:109:19, endln:109:36
+    |vpiName:a_valid
+    |vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].a_valid
+  |vpiExpr:
+  \_array_var: (work@top_earlgrey.u_xbar_main.u_sm1_17.tl_h_i), id:793264, line:39:29, endln:39:35
+    |vpiParent:
+    \_module_inst: work@tlul_socket_m1 (work@top_earlgrey.u_xbar_main.u_sm1_17), id:1078832, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_top_earlgrey_xbar_main_0.1/xbar_main.sv, line:532:3, endln:545:5
+    |vpiSize:1
+    |vpiTypespec:
+    \_ref_typespec: (work@top_earlgrey.u_xbar_main.u_sm1_17.tl_h_i), id:793265
+      |vpiParent:
+      \_array_var: (work@top_earlgrey.u_xbar_main.u_sm1_17.tl_h_i), id:793264, line:39:29, endln:39:35
+      |vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.tl_h_i
+      |vpiActual:
+      \_array_typespec: , id:793266
+    |vpiName:tl_h_i
+    |vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.tl_h_i
+    |vpiRandType:1
+    |vpiVisibility:1
+    |vpiArrayType:1
+    |vpiRange:
+    \_range: , id:793257, line:39:37, endln:39:38
+      |vpiParent:
+      \_array_var: (work@top_earlgrey.u_xbar_main.u_sm1_17.tl_h_i), id:793264, line:39:29, endln:39:35
+      |vpiLeftRange:
+      \_constant: , id:793258
+        |vpiParent:
+        \_range: , id:793257, line:39:37, endln:39:38
+        |vpiDecompile:0
+        |vpiSize:64
+        |UINT:0
+        |vpiConstType:9
+      |vpiRightRange:
+      \_operation: , id:793260, line:39:37, endln:39:38
+        |vpiParent:
+        \_range: , id:793257, line:39:37, endln:39:38
+        |vpiOpType:11
+        |vpiOperand:
+        \_constant: , id:793259, line:39:37, endln:39:38
+          |vpiParent:
+          \_operation: , id:793260, line:39:37, endln:39:38
+          |vpiDecompile:3
+          |vpiSize:64
+          |UINT:3
+          |vpiConstType:9
+        |vpiOperand:
+        \_constant: , id:793261
+          |vpiSize:64
+          |INT:1
+          |vpiConstType:7
+    |vpiReg:
+    \_struct_var: (work@top_earlgrey.u_xbar_main.u_sm1_17.tl_h_i), id:793262, line:39:29, endln:39:35
+      |vpiParent:
+      \_array_var: (work@top_earlgrey.u_xbar_main.u_sm1_17.tl_h_i), id:793264, line:39:29, endln:39:35
+      |vpiTypespec:
+      \_ref_typespec: (work@top_earlgrey.u_xbar_main.u_sm1_17.tl_h_i), id:793263
+        |vpiParent:
+        \_struct_var: (work@top_earlgrey.u_xbar_main.u_sm1_17.tl_h_i), id:793262, line:39:29, endln:39:35
+        |vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.tl_h_i
+        |vpiActual:
+        \_struct_typespec: (tlul_pkg::tl_h2d_t), id:6578, line:32:11, endln:61:31
+      |vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.tl_h_i
+  |vpiName:tl_h_i[0].a_valid
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0]), id:793456
+  |vpiParent:
+  \_tagged_pattern: , id:793454, line:109:19, endln:109:36
+  |vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0]
+  |vpiActual:
+  \_string_typespec: (a_valid), id:793455, line:109:7, endln:109:14
+RHS:
+decompile:
+hier_path: (tl_h_i[0].a_valid), id:633370, line:109:19, endln:109:36
+|vpiParent:
+\_operation: , id:744433, line:108:26, endln:119:6
+|vpiTypespec:
+\_ref_typespec: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].tl_h_i[0].a_valid), id:633416
+  |vpiParent:
+  \_hier_path: (tl_h_i[0].a_valid), id:633370, line:109:19, endln:109:36
+  |vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].tl_h_i[0].a_valid
+  |vpiActual:
+  \_array_typespec: , id:631926
+|vpiActual:
+\_bit_select: (tl_h_i[0]), id:633371, line:109:19, endln:109:25
+  |vpiParent:
+  \_hier_path: (tl_h_i[0].a_valid), id:633370, line:109:19, endln:109:36
+  |vpiName:tl_h_i
+  |vpiFullName:tl_h_i[0]
+  |vpiIndex:
+  \_constant: , id:633373, line:109:26, endln:109:27
+    |vpiParent:
+    \_bit_select: (tl_h_i[0]), id:633371, line:109:19, endln:109:25
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+|vpiActual:
+\_ref_obj: (work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].a_valid), id:633374, line:109:29, endln:109:36
+  |vpiParent:
+  \_hier_path: (tl_h_i[0].a_valid), id:633370, line:109:19, endln:109:36
+  |vpiName:a_valid
+  |vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.gen_host_fifo[0].a_valid
+|vpiExpr:
+\_array_var: (work@top_earlgrey.u_xbar_main.u_sm1_17.tl_h_i), id:631918, line:39:29, endln:39:35
+  |vpiParent:
+  \_module_inst: work@tlul_socket_m1 (work@top_earlgrey.u_xbar_main.u_sm1_17), id:631854, file:/home/heyfey/git-repos/Surelog/third_party/tests/Earlgrey_0_1/src/lowrisc_top_earlgrey_xbar_main_0.1/xbar_main.sv, line:532:3, endln:545:5
+  |vpiSize:1
+  |vpiTypespec:
+  \_ref_typespec: (work@top_earlgrey.u_xbar_main.u_sm1_17.tl_h_i), id:631927
+    |vpiParent:
+    \_array_var: (work@top_earlgrey.u_xbar_main.u_sm1_17.tl_h_i), id:631918, line:39:29, endln:39:35
+    |vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.tl_h_i
+    |vpiActual:
+    \_array_typespec: , id:631926
+  |vpiName:tl_h_i
+  |vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.tl_h_i
+  |vpiRandType:1
+  |vpiVisibility:1
+  |vpiArrayType:1
+  |vpiRange:
+  \_range: , id:631919, line:39:37, endln:39:38
+    |vpiParent:
+    \_array_var: (work@top_earlgrey.u_xbar_main.u_sm1_17.tl_h_i), id:631918, line:39:29, endln:39:35
+    |vpiLeftRange:
+    \_constant: , id:631920
+      |vpiParent:
+      \_range: , id:631919, line:39:37, endln:39:38
+      |vpiDecompile:0
+      |vpiSize:64
+      |UINT:0
+      |vpiConstType:9
+    |vpiRightRange:
+    \_operation: , id:631921, line:39:37, endln:39:38
+      |vpiParent:
+      \_range: , id:631919, line:39:37, endln:39:38
+      |vpiOpType:11
+      |vpiOperand:
+      \_constant: , id:631922, line:39:37, endln:39:38
+        |vpiParent:
+        \_operation: , id:631921, line:39:37, endln:39:38
+        |vpiDecompile:3
+        |vpiSize:64
+        |UINT:3
+        |vpiConstType:9
+      |vpiOperand:
+      \_constant: , id:631923
+        |vpiSize:64
+        |INT:1
+        |vpiConstType:7
+  |vpiReg:
+  \_struct_var: (work@top_earlgrey.u_xbar_main.u_sm1_17.tl_h_i), id:631924, line:39:29, endln:39:35
+    |vpiParent:
+    \_array_var: (work@top_earlgrey.u_xbar_main.u_sm1_17.tl_h_i), id:631918, line:39:29, endln:39:35
+    |vpiTypespec:
+    \_ref_typespec: (work@top_earlgrey.u_xbar_main.u_sm1_17.tl_h_i), id:631925
+      |vpiParent:
+      \_struct_var: (work@top_earlgrey.u_xbar_main.u_sm1_17.tl_h_i), id:631924, line:39:29, endln:39:35
+      |vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.tl_h_i
+      |vpiActual:
+      \_struct_typespec: (tlul_pkg::tl_h2d_t), id:18992, line:32:11, endln:61:31
+    |vpiFullName:work@top_earlgrey.u_xbar_main.u_sm1_17.tl_h_i
+|vpiName:tl_h_i[0].a_valid

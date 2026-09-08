@@ -1,0 +1,15 @@
+r10earl121 — ATTRIBUTION of the SECOND byte mover: Scoreboard/default.
+
+RESUME.md section 9: Scoreboard/default is a documented ~50/50 COIN per
+invocation (svunit_pkg vpiTaskFunc list ORDER flip under slang's parallel
+parse).  MOVER RULE: attribute ONLY order-blind.
+
+Both dumps path-normalised INCLUDING the per-side workdir letter, then:
+  RAW (order-sensitive) diff lines : 81
+  ORDER-BLIND (sorted) diff lines  : 0
+
+ZERO order-blind lines: not one dump line differs in CONTENT, only in ORDER.
+This pass's law cannot reach it either -- Scoreboard has no gen-scope
+assignment-pattern continuous assign at all (cen121 CA rows: none), and its
+census score is SAME_AGREE throughout (CENSUS_sl.txt names ONE mover row,
+default Earlgrey_0_1, and Scoreboard is not it).

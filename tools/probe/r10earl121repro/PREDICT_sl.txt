@@ -1,0 +1,12 @@
+PREDICT-MOVE  rows=1 sites=29
+   default    Earlgrey_0_1                 29 sites
+PREDICT-DECLINE rows=6 sites=151
+   elabuhdm-mode            58 sites
+   lhs-not-whole-name       87 sites
+   target-not-gen-local     6 sites
+   (decline) default    Earlgrey_0_1                 29 sites
+   (decline) default    FuncAlias                    1 sites
+   (decline) default    GenStructAccess              1 sites
+   (decline) testflags  Earlgrey_0_1                 116 sites
+   (decline) testflags  FuncAlias                    2 sites
+   (decline) testflags  GenStructAccess              2 sites

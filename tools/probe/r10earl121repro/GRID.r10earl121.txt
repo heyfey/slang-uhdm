@@ -1,0 +1,46 @@
+r10earl121 — THE ARM GRID.  MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog).
+Golden built with ~/git-repos/Surelog/build/bin/surelog (the HARNESS Surelog,
+spelled in full — r10earl120 residue R4), -parse [-elabuhdm]; ours with the two
+frozen binaries, [--elabuhdm].  ntag = tagged_pattern operands of the pattern
+operation the gen-scope cont_assign OWNS (cen121's CA row, live+bound only).
+
+ARM           VIEW  SITE                                     GOLDEN    PRISTINE  PATCHED  
+a1_axis121    def   gen_x1                                    G=ntag=6 G=ntag=6 G=ntag=6 P=ntag=0 P=ntag=0 P=ntag=0 X=ntag=6 X=ntag=6 X=ntag=6
+a1_axis121    def   gen_x2                                    G=ntag=6 G=ntag=6 G=ntag=6 P=ntag=0 P=ntag=0 P=ntag=0 X=ntag=6 X=ntag=6 X=ntag=6
+a1_axis121    def   gen_x3o.gen_x3i                           G=ntag=6 G=ntag=6 G=ntag=6 G=ntag=6 G=ntag=6 G=ntag=6 P=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 X=ntag=6 X=ntag=6 X=ntag=6 X=ntag=6 X=ntag=6 X=ntag=6
+a1_axis121    def   gen_x4o.gen_x4i                           G=ntag=6 G=ntag=6 G=ntag=6 P=ntag=0 P=ntag=0 P=ntag=0 X=ntag=6 X=ntag=6 X=ntag=6
+a1_axis121    def   gen_x5                                    G=ntag=6 P=ntag=0 X=ntag=6
+a1_axis121    elab  gen_x1                                    G=ntag=0 G=ntag=0 G=ntag=0 G=ntag=6 P=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0
+a1_axis121    elab  gen_x2                                    G=ntag=0 G=ntag=0 G=ntag=0 G=ntag=6 P=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0
+a1_axis121    elab  gen_x3o.gen_x3i                           G=ntag=0 G=ntag=0 G=ntag=0 G=ntag=0 G=ntag=0 G=ntag=0 G=ntag=6 G=ntag=6 P=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0
+a1_axis121    elab  gen_x4o.gen_x4i                           G=ntag=0 G=ntag=0 G=ntag=0 G=ntag=6 P=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0
+a1_axis121    elab  gen_x5                                    G=ntag=0 G=ntag=6 P=ntag=0 P=ntag=0 X=ntag=0 X=ntag=0
+a2_fence121   def   gen_y10                                   G=ntag=0 G=ntag=0 G=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0
+a2_fence121   def   gen_y1                                    G=ntag=0 P=ntag=0 X=ntag=0
+a2_fence121   def   gen_y2                                    G=ntag=0 G=ntag=0 G=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0
+a2_fence121   def   gen_y3                                    G=ntag=2 G=ntag=2 G=ntag=2 P=ntag=2 P=ntag=2 P=ntag=2 X=ntag=2 X=ntag=2 X=ntag=2
+a2_fence121   def   gen_y4                                    G=ntag=2 G=ntag=2 G=ntag=2 P=ntag=2 P=ntag=2 P=ntag=2 X=ntag=2 X=ntag=2 X=ntag=2
+a2_fence121   def   gen_y5                                    G=ntag=2 G=ntag=2 G=ntag=2 P=ntag=2 P=ntag=2 P=ntag=2 X=ntag=2 X=ntag=2 X=ntag=2
+a2_fence121   def   gen_y6                                    G=ntag=0 G=ntag=0 G=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0
+a2_fence121   elab  gen_y10                                   G=ntag=0 G=ntag=0 G=ntag=0 G=ntag=0 G=ntag=0 G=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0
+a2_fence121   elab  gen_y1                                    G=ntag=0 G=ntag=0 P=ntag=0 P=ntag=0 X=ntag=0 X=ntag=0
+a2_fence121   elab  gen_y2                                    G=ntag=0 G=ntag=0 G=ntag=0 G=ntag=0 G=ntag=0 G=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0
+a2_fence121   elab  gen_y3                                    G=ntag=2 G=ntag=2 G=ntag=2 G=ntag=2 G=ntag=2 G=ntag=2 P=ntag=2 P=ntag=2 P=ntag=2 P=ntag=2 P=ntag=2 P=ntag=2 X=ntag=2 X=ntag=2 X=ntag=2 X=ntag=2 X=ntag=2 X=ntag=2
+a2_fence121   elab  gen_y4                                    G=ntag=2 G=ntag=2 G=ntag=2 G=ntag=2 G=ntag=2 G=ntag=2 P=ntag=2 P=ntag=2 P=ntag=2 P=ntag=2 P=ntag=2 P=ntag=2 X=ntag=2 X=ntag=2 X=ntag=2 X=ntag=2 X=ntag=2 X=ntag=2
+a2_fence121   elab  gen_y5                                    G=ntag=2 G=ntag=2 G=ntag=2 G=ntag=2 G=ntag=2 G=ntag=2 P=ntag=2 P=ntag=2 P=ntag=2 P=ntag=2 P=ntag=2 P=ntag=2 X=ntag=2 X=ntag=2 X=ntag=2 X=ntag=2 X=ntag=2 X=ntag=2
+a2_fence121   elab  gen_y6                                    G=ntag=0 G=ntag=0 G=ntag=0 G=ntag=0 G=ntag=0 G=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0
+a3_net121     def   gen_n1                                    G=ntag=2 G=ntag=2 G=ntag=2 P=ntag=0 P=ntag=0 P=ntag=0 X=ntag=2 X=ntag=2 X=ntag=2
+a3_net121     elab  gen_n1                                    G=ntag=2 G=ntag=2 G=ntag=2 G=ntag=2 G=ntag=2 G=ntag=2 P=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 P=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0 X=ntag=0
+
+
+OFFICIAL uhdm-cmp LINE COUNT and WHOLE-DUMP md5 per arm x view.
+The dump EMBEDS the workdir (RESUME.md section 9), so both sides are normalised
+(the per-side directory name -> SIDE, and the dump's own header line dropped)
+before hashing -- an unnormalised md5 differs for a PATH reason and proves nothing.
+ARM           VIEW  CMP_PRIS  CMP_PATCH MD5_PRISTINE                       MD5_PATCHED
+a1_axis121    def   50        0         9ea0cec189e487b6ecadf53d0d442201   b5a9138affe544d9d4799e9809313b41
+a1_axis121    elab  58        58        efbaafbad28a5f75110c45a0ea56cb2e   efbaafbad28a5f75110c45a0ea56cb2e
+a2_fence121   def   30        30        38cde55c3b76578795f80896e298e5bc   38cde55c3b76578795f80896e298e5bc
+a2_fence121   elab  30        30        0765d1dd41a78d7417db00876d2105d2   0765d1dd41a78d7417db00876d2105d2
+a3_net121     def   30        30        b7c6e5a2255804e0466f6b2d911c4102   03d82ac6593b99366c6585d460fb8738
+a3_net121     elab  30        30        3d68872f147fff70cb2b91f8f84216c8   3d68872f147fff70cb2b91f8f84216c8

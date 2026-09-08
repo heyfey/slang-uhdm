@@ -468,6 +468,14 @@ int main(int argc, char** argv) {
     if (!bbMods.empty() || !bbInsts.empty())
         exporter.setBlackBoxes(std::set<std::string>(bbMods.begin(), bbMods.end()),
                                std::set<std::string>(bbInsts.begin(), bbInsts.end()));
+    // § genCaPatKeepTagDefView121 (r10earl121) — the emitter has to know which
+    // of the two views it is writing, because ONE of the flattens it models is
+    // performed by `UHDM::ElaboratorListener` (`cont_assign::DeepClone`) and
+    // not by Surelog's writer.  The test is the SAME `elabUhdm == true` that
+    // gates the `ElaboratorContext` run below, so the flag can never disagree
+    // with whether that listener actually runs.
+    if (elabUhdm == true)
+        exporter.setElabUhdmView121();
     UHDM::design* design = exporter.exportDesign();
 
     // § genCaCastFoldDefaultView119 (r10earl119) — the DEFAULT-view half of
