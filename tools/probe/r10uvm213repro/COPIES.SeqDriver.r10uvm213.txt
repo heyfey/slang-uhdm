@@ -1,0 +1,423 @@
+r10uvm213 — QUESTION (1) and (2): THE SIXTEEN KEYS, EVERY COPY, BY VIEW x
+INSTANCE-VIEW x HOLDER, AND THE SHARING BY IDENTITY.  MEASUREMENT ONLY.
+LHS is ALWAYS golden (Surelog).  SeqDriver/default; testflags is identical
+modulo object ids (checked, § GATES).
+
+NREFS is the number of ref_typespecs whose Actual_typespec IS that object —
+the SHARING, by identity.  It is 1 on every copy on every side: no copy of
+any of the sixteen keys is shared by two declarations in either database,
+so the repair is a STAMP and never a split.
+
+===== GOLDEN (Surelog)
+TS unsupported_typespec|REQ|270:3 id=26283 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer_param_base<function:send_request<begin:<ref_var:param_t
+TS unsupported_typespec|RSP|310:55 id=26378 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer_param_base<function:put_response<io_decl:t
+TS unsupported_typespec|RSP|351:3 id=26449 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer_param_base<function:analysis_write<begin:<ref_var:response
+TS unsupported_typespec|REQ|407:63 id=26517 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer_param_base<function:m_last_req_push_front<io_decl:item
+TS unsupported_typespec|RSP|449:63 id=26575 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer_param_base<function:m_last_rsp_push_front<io_decl:item
+TS unsupported_typespec|REQ|164:3 id=26595 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer<function:stop_sequences<begin:<ref_var:t
+TS unsupported_typespec|REQ|206:42 id=26662 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer<task:get_next_item<io_decl:t
+TS unsupported_typespec|REQ|207:3 id=26665 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer<task:get_next_item<begin:<ref_var:req_item
+TS unsupported_typespec|REQ|230:42 id=26691 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer<task:try_next_item<io_decl:t
+TS unsupported_typespec|RSP|277:40 id=26771 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer<function:item_done<io_decl:item
+TS unsupported_typespec|REQ|278:3 id=26774 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer<function:item_done<begin:<ref_var:t
+TS unsupported_typespec|RSP|304:26 id=26818 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer<task:put<io_decl:t
+TS unsupported_typespec|REQ|312:32 id=26823 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer<task:get<io_decl:t
+TS unsupported_typespec|REQ|325:33 id=26840 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer<task:peek<io_decl:t
+TS unsupported_typespec|RSP|341:48 id=26856 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer<function:item_done_trigger<io_decl:item
+TS unsupported_typespec|REQ|754:3 id=27751 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequence_library<task:execute<begin:<ref_var:req_item
+TS unsupported_typespec|REQ|270:3 id=85361 INST=ALLPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<function:uvm_sequencer_param_base::send_request<begin:<ref_var:param_t
+TS unsupported_typespec|RSP|310:55 id=85456 INST=ALLPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<function:uvm_sequencer_param_base::put_response<io_decl:t
+TS unsupported_typespec|RSP|351:3 id=85527 INST=ALLPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<function:uvm_sequencer_param_base::analysis_write<begin:<ref_var:response
+TS unsupported_typespec|REQ|407:63 id=85595 INST=ALLPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<function:uvm_sequencer_param_base::m_last_req_push_front<io_decl:item
+TS unsupported_typespec|RSP|449:63 id=85653 INST=ALLPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<function:uvm_sequencer_param_base::m_last_rsp_push_front<io_decl:item
+TS unsupported_typespec|REQ|164:3 id=85672 INST=ALLPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<function:uvm_sequencer::stop_sequences<begin:<ref_var:t
+TS unsupported_typespec|REQ|206:42 id=85739 INST=ALLPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<task:uvm_sequencer::get_next_item<io_decl:t
+TS unsupported_typespec|REQ|207:3 id=85742 INST=ALLPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<task:uvm_sequencer::get_next_item<begin:<ref_var:req_item
+TS unsupported_typespec|REQ|230:42 id=85768 INST=ALLPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<task:uvm_sequencer::try_next_item<io_decl:t
+TS unsupported_typespec|RSP|277:40 id=85848 INST=ALLPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<function:uvm_sequencer::item_done<io_decl:item
+TS unsupported_typespec|REQ|278:3 id=85851 INST=ALLPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<function:uvm_sequencer::item_done<begin:<ref_var:t
+TS unsupported_typespec|RSP|304:26 id=85895 INST=ALLPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<task:uvm_sequencer::put<io_decl:t
+TS unsupported_typespec|REQ|312:32 id=85900 INST=ALLPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<task:uvm_sequencer::get<io_decl:t
+TS unsupported_typespec|REQ|325:33 id=85917 INST=ALLPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<task:uvm_sequencer::peek<io_decl:t
+TS unsupported_typespec|RSP|341:48 id=85933 INST=ALLPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<function:uvm_sequencer::item_done_trigger<io_decl:item
+TS unsupported_typespec|REQ|754:3 id=86828 INST=ALLPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<task:uvm_sequence_library::execute<begin:<ref_var:req_item
+TS unsupported_typespec|REQ|270:3 id=145859 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<function:uvm_sequencer_param_base::send_request<ref_var:param_t
+TS unsupported_typespec|REQ|270:3 id=145863 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<function:uvm_sequencer_param_base::send_request<begin:<ref_var:param_t
+TS unsupported_typespec|RSP|310:55 id=145960 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<function:uvm_sequencer_param_base::put_response<io_decl:t
+TS unsupported_typespec|RSP|351:3 id=146035 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<function:uvm_sequencer_param_base::analysis_write<ref_var:response
+TS unsupported_typespec|RSP|351:3 id=146039 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<function:uvm_sequencer_param_base::analysis_write<begin:<ref_var:response
+TS unsupported_typespec|REQ|407:63 id=146102 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<function:uvm_sequencer_param_base::m_last_req_push_front<io_decl:item
+TS unsupported_typespec|RSP|449:63 id=146163 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<function:uvm_sequencer_param_base::m_last_rsp_push_front<io_decl:item
+TS unsupported_typespec|REQ|164:3 id=146185 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<function:uvm_sequencer::stop_sequences<ref_var:t
+TS unsupported_typespec|REQ|164:3 id=146189 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<function:uvm_sequencer::stop_sequences<begin:<ref_var:t
+TS unsupported_typespec|REQ|206:42 id=146272 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<task:uvm_sequencer::get_next_item<io_decl:t
+TS unsupported_typespec|REQ|207:3 id=146275 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<task:uvm_sequencer::get_next_item<ref_var:req_item
+TS unsupported_typespec|REQ|207:3 id=146279 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<task:uvm_sequencer::get_next_item<begin:<ref_var:req_item
+TS unsupported_typespec|REQ|230:42 id=146305 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<task:uvm_sequencer::try_next_item<io_decl:t
+TS unsupported_typespec|RSP|277:40 id=146392 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<function:uvm_sequencer::item_done<io_decl:item
+TS unsupported_typespec|REQ|278:3 id=146395 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<function:uvm_sequencer::item_done<ref_var:t
+TS unsupported_typespec|REQ|278:3 id=146399 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<function:uvm_sequencer::item_done<begin:<ref_var:t
+TS unsupported_typespec|RSP|304:26 id=146443 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<task:uvm_sequencer::put<io_decl:t
+TS unsupported_typespec|REQ|312:32 id=146449 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<task:uvm_sequencer::get<io_decl:t
+TS unsupported_typespec|REQ|325:33 id=146468 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<task:uvm_sequencer::peek<io_decl:t
+TS unsupported_typespec|RSP|341:48 id=146486 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<function:uvm_sequencer::item_done_trigger<io_decl:item
+TS unsupported_typespec|REQ|754:3 id=147418 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<task:uvm_sequence_library::execute<ref_var:req_item
+TS unsupported_typespec|REQ|754:3 id=147437 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<task:uvm_sequence_library::execute<begin:<ref_var:req_item
+TS unsupported_typespec|REQ|270:3 id=209986 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<function:uvm_sequencer_param_base::send_request<ref_var:param_t
+TS unsupported_typespec|REQ|270:3 id=209990 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<function:uvm_sequencer_param_base::send_request<begin:<ref_var:param_t
+TS unsupported_typespec|RSP|310:55 id=210087 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<function:uvm_sequencer_param_base::put_response<io_decl:t
+TS unsupported_typespec|RSP|351:3 id=210162 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<function:uvm_sequencer_param_base::analysis_write<ref_var:response
+TS unsupported_typespec|RSP|351:3 id=210166 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<function:uvm_sequencer_param_base::analysis_write<begin:<ref_var:response
+TS unsupported_typespec|REQ|407:63 id=210229 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<function:uvm_sequencer_param_base::m_last_req_push_front<io_decl:item
+TS unsupported_typespec|RSP|449:63 id=210290 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<function:uvm_sequencer_param_base::m_last_rsp_push_front<io_decl:item
+TS unsupported_typespec|REQ|164:3 id=210312 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<function:uvm_sequencer::stop_sequences<ref_var:t
+TS unsupported_typespec|REQ|164:3 id=210316 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<function:uvm_sequencer::stop_sequences<begin:<ref_var:t
+TS unsupported_typespec|REQ|206:42 id=210399 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<task:uvm_sequencer::get_next_item<io_decl:t
+TS unsupported_typespec|REQ|207:3 id=210402 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<task:uvm_sequencer::get_next_item<ref_var:req_item
+TS unsupported_typespec|REQ|207:3 id=210406 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<task:uvm_sequencer::get_next_item<begin:<ref_var:req_item
+TS unsupported_typespec|REQ|230:42 id=210432 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<task:uvm_sequencer::try_next_item<io_decl:t
+TS unsupported_typespec|RSP|277:40 id=210519 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<function:uvm_sequencer::item_done<io_decl:item
+TS unsupported_typespec|REQ|278:3 id=210522 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<function:uvm_sequencer::item_done<ref_var:t
+TS unsupported_typespec|REQ|278:3 id=210526 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<function:uvm_sequencer::item_done<begin:<ref_var:t
+TS unsupported_typespec|RSP|304:26 id=210570 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<task:uvm_sequencer::put<io_decl:t
+TS unsupported_typespec|REQ|312:32 id=210576 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<task:uvm_sequencer::get<io_decl:t
+TS unsupported_typespec|REQ|325:33 id=210595 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<task:uvm_sequencer::peek<io_decl:t
+TS unsupported_typespec|RSP|341:48 id=210613 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<function:uvm_sequencer::item_done_trigger<io_decl:item
+TS unsupported_typespec|REQ|754:3 id=211545 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<task:uvm_sequence_library::execute<ref_var:req_item
+TS unsupported_typespec|REQ|754:3 id=211564 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<task:uvm_sequence_library::execute<begin:<ref_var:req_item
+
+===== OURS, PRISTINE 049fa251
+TS unsupported_typespec|REQ|754:3 id=103045 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequence_library<task:execute<begin:<ref_var:req_item
+TS unsupported_typespec|REQ|164:3 id=103616 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer<function:stop_sequences<begin:<ref_var:t
+TS unsupported_typespec|REQ|206:42 id=103681 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer<task:get_next_item<io_decl:t
+TS unsupported_typespec|REQ|207:3 id=103685 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer<task:get_next_item<begin:<ref_var:req_item
+TS unsupported_typespec|REQ|230:42 id=103711 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer<task:try_next_item<io_decl:t
+TS unsupported_typespec|RSP|277:40 id=103788 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer<function:item_done<io_decl:item
+TS unsupported_typespec|REQ|278:3 id=103792 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer<function:item_done<begin:<ref_var:t
+TS unsupported_typespec|RSP|304:26 id=103836 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer<task:put<io_decl:t
+TS unsupported_typespec|REQ|312:32 id=103842 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer<task:get<io_decl:t
+TS unsupported_typespec|REQ|325:33 id=103860 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer<task:peek<io_decl:t
+TS unsupported_typespec|RSP|341:48 id=103877 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer<function:item_done_trigger<io_decl:item
+TS unsupported_typespec|REQ|270:3 id=107572 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer_param_base<function:send_request<begin:<ref_var:param_t
+TS unsupported_typespec|RSP|310:55 id=107667 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer_param_base<function:put_response<io_decl:t
+TS unsupported_typespec|RSP|351:3 id=107738 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer_param_base<function:analysis_write<begin:<ref_var:response
+TS unsupported_typespec|REQ|407:63 id=107810 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer_param_base<function:m_last_req_push_front<io_decl:item
+TS unsupported_typespec|RSP|449:63 id=107871 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer_param_base<function:m_last_rsp_push_front<io_decl:item
+TS unsupported_typespec|REQ|270:3 id=149666 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<function:uvm_sequencer_param_base::send_request<begin:<ref_var:param_t
+TS unsupported_typespec|RSP|310:55 id=149761 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<function:uvm_sequencer_param_base::put_response<io_decl:t
+TS unsupported_typespec|RSP|351:3 id=149832 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<function:uvm_sequencer_param_base::analysis_write<begin:<ref_var:response
+TS unsupported_typespec|REQ|407:63 id=149904 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<function:uvm_sequencer_param_base::m_last_req_push_front<io_decl:item
+TS unsupported_typespec|RSP|449:63 id=149965 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<function:uvm_sequencer_param_base::m_last_rsp_push_front<io_decl:item
+TS unsupported_typespec|REQ|164:3 id=149986 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<function:uvm_sequencer::stop_sequences<begin:<ref_var:t
+TS unsupported_typespec|REQ|206:42 id=150051 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<task:uvm_sequencer::get_next_item<io_decl:t
+TS unsupported_typespec|REQ|207:3 id=150055 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<task:uvm_sequencer::get_next_item<begin:<ref_var:req_item
+TS unsupported_typespec|REQ|230:42 id=150081 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<task:uvm_sequencer::try_next_item<io_decl:t
+TS unsupported_typespec|RSP|277:40 id=150158 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<function:uvm_sequencer::item_done<io_decl:item
+TS unsupported_typespec|REQ|278:3 id=150162 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<function:uvm_sequencer::item_done<begin:<ref_var:t
+TS unsupported_typespec|RSP|304:26 id=150206 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<task:uvm_sequencer::put<io_decl:t
+TS unsupported_typespec|REQ|312:32 id=150212 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<task:uvm_sequencer::get<io_decl:t
+TS unsupported_typespec|REQ|325:33 id=150230 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<task:uvm_sequencer::peek<io_decl:t
+TS unsupported_typespec|RSP|341:48 id=150247 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<function:uvm_sequencer::item_done_trigger<io_decl:item
+TS unsupported_typespec|REQ|754:3 id=151128 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<task:uvm_sequence_library::execute<begin:<ref_var:req_item
+TS unsupported_typespec|REQ|270:3 id=206547 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<function:uvm_sequencer_param_base::send_request<begin:<ref_var:param_t
+TS unsupported_typespec|RSP|310:55 id=206642 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<function:uvm_sequencer_param_base::put_response<io_decl:t
+TS unsupported_typespec|RSP|351:3 id=206713 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<function:uvm_sequencer_param_base::analysis_write<begin:<ref_var:response
+TS unsupported_typespec|REQ|407:63 id=206785 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<function:uvm_sequencer_param_base::m_last_req_push_front<io_decl:item
+TS unsupported_typespec|RSP|449:63 id=206846 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<function:uvm_sequencer_param_base::m_last_rsp_push_front<io_decl:item
+TS unsupported_typespec|REQ|164:3 id=206867 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<function:uvm_sequencer::stop_sequences<begin:<ref_var:t
+TS unsupported_typespec|REQ|206:42 id=206932 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<task:uvm_sequencer::get_next_item<io_decl:t
+TS unsupported_typespec|REQ|207:3 id=206936 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<task:uvm_sequencer::get_next_item<begin:<ref_var:req_item
+TS unsupported_typespec|REQ|230:42 id=206962 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<task:uvm_sequencer::try_next_item<io_decl:t
+TS unsupported_typespec|RSP|277:40 id=207039 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<function:uvm_sequencer::item_done<io_decl:item
+TS unsupported_typespec|REQ|278:3 id=207043 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<function:uvm_sequencer::item_done<begin:<ref_var:t
+TS unsupported_typespec|RSP|304:26 id=207087 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<task:uvm_sequencer::put<io_decl:t
+TS unsupported_typespec|REQ|312:32 id=207093 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<task:uvm_sequencer::get<io_decl:t
+TS unsupported_typespec|REQ|325:33 id=207111 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<task:uvm_sequencer::peek<io_decl:t
+TS unsupported_typespec|RSP|341:48 id=207128 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<function:uvm_sequencer::item_done_trigger<io_decl:item
+TS unsupported_typespec|REQ|754:3 id=208034 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<task:uvm_sequence_library::execute<begin:<ref_var:req_item
+TS unsupported_typespec|REQ|270:3 id=260225 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<function:uvm_sequencer_param_base::send_request<begin:<ref_var:param_t
+TS unsupported_typespec|RSP|310:55 id=260320 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<function:uvm_sequencer_param_base::put_response<io_decl:t
+TS unsupported_typespec|RSP|351:3 id=260391 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<function:uvm_sequencer_param_base::analysis_write<begin:<ref_var:response
+TS unsupported_typespec|REQ|407:63 id=260463 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<function:uvm_sequencer_param_base::m_last_req_push_front<io_decl:item
+TS unsupported_typespec|RSP|449:63 id=260524 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<function:uvm_sequencer_param_base::m_last_rsp_push_front<io_decl:item
+TS unsupported_typespec|REQ|164:3 id=260545 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<function:uvm_sequencer::stop_sequences<begin:<ref_var:t
+TS unsupported_typespec|REQ|206:42 id=260610 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<task:uvm_sequencer::get_next_item<io_decl:t
+TS unsupported_typespec|REQ|207:3 id=260614 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<task:uvm_sequencer::get_next_item<begin:<ref_var:req_item
+TS unsupported_typespec|REQ|230:42 id=260640 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<task:uvm_sequencer::try_next_item<io_decl:t
+TS unsupported_typespec|RSP|277:40 id=260717 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<function:uvm_sequencer::item_done<io_decl:item
+TS unsupported_typespec|REQ|278:3 id=260721 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<function:uvm_sequencer::item_done<begin:<ref_var:t
+TS unsupported_typespec|RSP|304:26 id=260765 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<task:uvm_sequencer::put<io_decl:t
+TS unsupported_typespec|REQ|312:32 id=260771 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<task:uvm_sequencer::get<io_decl:t
+TS unsupported_typespec|REQ|325:33 id=260789 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<task:uvm_sequencer::peek<io_decl:t
+TS unsupported_typespec|RSP|341:48 id=260806 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<function:uvm_sequencer::item_done_trigger<io_decl:item
+TS unsupported_typespec|REQ|754:3 id=261688 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<task:uvm_sequence_library::execute<begin:<ref_var:req_item
+
+===== OURS, PATCHED 14e1af66
+TS unsupported_typespec|REQ|754:3 id=103045 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequence_library<task:execute<begin:<ref_var:req_item
+TS unsupported_typespec|REQ|164:3 id=103616 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer<function:stop_sequences<begin:<ref_var:t
+TS unsupported_typespec|REQ|206:42 id=103681 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer<task:get_next_item<io_decl:t
+TS unsupported_typespec|REQ|207:3 id=103685 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer<task:get_next_item<begin:<ref_var:req_item
+TS unsupported_typespec|REQ|230:42 id=103711 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer<task:try_next_item<io_decl:t
+TS unsupported_typespec|RSP|277:40 id=103788 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer<function:item_done<io_decl:item
+TS unsupported_typespec|REQ|278:3 id=103792 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer<function:item_done<begin:<ref_var:t
+TS unsupported_typespec|RSP|304:26 id=103836 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer<task:put<io_decl:t
+TS unsupported_typespec|REQ|312:32 id=103842 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer<task:get<io_decl:t
+TS unsupported_typespec|REQ|325:33 id=103860 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer<task:peek<io_decl:t
+TS unsupported_typespec|RSP|341:48 id=103877 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer<function:item_done_trigger<io_decl:item
+TS unsupported_typespec|REQ|270:3 id=107572 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer_param_base<function:send_request<begin:<ref_var:param_t
+TS unsupported_typespec|RSP|310:55 id=107667 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer_param_base<function:put_response<io_decl:t
+TS unsupported_typespec|RSP|351:3 id=107738 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer_param_base<function:analysis_write<begin:<ref_var:response
+TS unsupported_typespec|REQ|407:63 id=107810 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer_param_base<function:m_last_req_push_front<io_decl:item
+TS unsupported_typespec|RSP|449:63 id=107871 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:uvm_pkg]<class_defn:uvm_sequencer_param_base<function:m_last_rsp_push_front<io_decl:item
+TS unsupported_typespec|REQ|270:3 id=149666 INST=ALLPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<function:uvm_sequencer_param_base::send_request<begin:<ref_var:param_t
+TS unsupported_typespec|RSP|310:55 id=149761 INST=ALLPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<function:uvm_sequencer_param_base::put_response<io_decl:t
+TS unsupported_typespec|RSP|351:3 id=149832 INST=ALLPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<function:uvm_sequencer_param_base::analysis_write<begin:<ref_var:response
+TS unsupported_typespec|REQ|407:63 id=149904 INST=ALLPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<function:uvm_sequencer_param_base::m_last_req_push_front<io_decl:item
+TS unsupported_typespec|RSP|449:63 id=149965 INST=ALLPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<function:uvm_sequencer_param_base::m_last_rsp_push_front<io_decl:item
+TS unsupported_typespec|REQ|164:3 id=149986 INST=ALLPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<function:uvm_sequencer::stop_sequences<begin:<ref_var:t
+TS unsupported_typespec|REQ|206:42 id=150051 INST=ALLPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<task:uvm_sequencer::get_next_item<io_decl:t
+TS unsupported_typespec|REQ|207:3 id=150055 INST=ALLPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<task:uvm_sequencer::get_next_item<begin:<ref_var:req_item
+TS unsupported_typespec|REQ|230:42 id=150081 INST=ALLPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<task:uvm_sequencer::try_next_item<io_decl:t
+TS unsupported_typespec|RSP|277:40 id=150158 INST=ALLPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<function:uvm_sequencer::item_done<io_decl:item
+TS unsupported_typespec|REQ|278:3 id=150162 INST=ALLPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<function:uvm_sequencer::item_done<begin:<ref_var:t
+TS unsupported_typespec|RSP|304:26 id=150206 INST=ALLPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<task:uvm_sequencer::put<io_decl:t
+TS unsupported_typespec|REQ|312:32 id=150212 INST=ALLPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<task:uvm_sequencer::get<io_decl:t
+TS unsupported_typespec|REQ|325:33 id=150230 INST=ALLPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<task:uvm_sequencer::peek<io_decl:t
+TS unsupported_typespec|RSP|341:48 id=150247 INST=ALLPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<function:uvm_sequencer::item_done_trigger<io_decl:item
+TS unsupported_typespec|REQ|754:3 id=151128 INST=ALLPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:uvm_pkg]<task:uvm_sequence_library::execute<begin:<ref_var:req_item
+TS unsupported_typespec|REQ|270:3 id=206547 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<function:uvm_sequencer_param_base::send_request<begin:<ref_var:param_t
+TS unsupported_typespec|RSP|310:55 id=206642 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<function:uvm_sequencer_param_base::put_response<io_decl:t
+TS unsupported_typespec|RSP|351:3 id=206713 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<function:uvm_sequencer_param_base::analysis_write<begin:<ref_var:response
+TS unsupported_typespec|REQ|407:63 id=206785 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<function:uvm_sequencer_param_base::m_last_req_push_front<io_decl:item
+TS unsupported_typespec|RSP|449:63 id=206846 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<function:uvm_sequencer_param_base::m_last_rsp_push_front<io_decl:item
+TS unsupported_typespec|REQ|164:3 id=206867 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<function:uvm_sequencer::stop_sequences<begin:<ref_var:t
+TS unsupported_typespec|REQ|206:42 id=206932 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<task:uvm_sequencer::get_next_item<io_decl:t
+TS unsupported_typespec|REQ|207:3 id=206936 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<task:uvm_sequencer::get_next_item<begin:<ref_var:req_item
+TS unsupported_typespec|REQ|230:42 id=206962 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<task:uvm_sequencer::try_next_item<io_decl:t
+TS unsupported_typespec|RSP|277:40 id=207039 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<function:uvm_sequencer::item_done<io_decl:item
+TS unsupported_typespec|REQ|278:3 id=207043 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<function:uvm_sequencer::item_done<begin:<ref_var:t
+TS unsupported_typespec|RSP|304:26 id=207087 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<task:uvm_sequencer::put<io_decl:t
+TS unsupported_typespec|REQ|312:32 id=207093 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<task:uvm_sequencer::get<io_decl:t
+TS unsupported_typespec|REQ|325:33 id=207111 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<task:uvm_sequencer::peek<io_decl:t
+TS unsupported_typespec|RSP|341:48 id=207128 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<function:uvm_sequencer::item_done_trigger<io_decl:item
+TS unsupported_typespec|REQ|754:3 id=208034 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[ALLPKG:adpcm_pkg]<task:uvm_sequence_library::execute<begin:<ref_var:req_item
+TS unsupported_typespec|REQ|270:3 id=260225 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<function:uvm_sequencer_param_base::send_request<begin:<ref_var:param_t
+TS unsupported_typespec|RSP|310:55 id=260320 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<function:uvm_sequencer_param_base::put_response<io_decl:t
+TS unsupported_typespec|RSP|351:3 id=260391 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<function:uvm_sequencer_param_base::analysis_write<begin:<ref_var:response
+TS unsupported_typespec|REQ|407:63 id=260463 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<function:uvm_sequencer_param_base::m_last_req_push_front<io_decl:item
+TS unsupported_typespec|RSP|449:63 id=260524 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<function:uvm_sequencer_param_base::m_last_rsp_push_front<io_decl:item
+TS unsupported_typespec|REQ|164:3 id=260545 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<function:uvm_sequencer::stop_sequences<begin:<ref_var:t
+TS unsupported_typespec|REQ|206:42 id=260610 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<task:uvm_sequencer::get_next_item<io_decl:t
+TS unsupported_typespec|REQ|207:3 id=260614 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<task:uvm_sequencer::get_next_item<begin:<ref_var:req_item
+TS unsupported_typespec|REQ|230:42 id=260640 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<task:uvm_sequencer::try_next_item<io_decl:t
+TS unsupported_typespec|RSP|277:40 id=260717 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<function:uvm_sequencer::item_done<io_decl:item
+TS unsupported_typespec|REQ|278:3 id=260721 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<function:uvm_sequencer::item_done<begin:<ref_var:t
+TS unsupported_typespec|RSP|304:26 id=260765 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<task:uvm_sequencer::put<io_decl:t
+TS unsupported_typespec|REQ|312:32 id=260771 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<task:uvm_sequencer::get<io_decl:t
+TS unsupported_typespec|REQ|325:33 id=260789 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<task:uvm_sequencer::peek<io_decl:t
+TS unsupported_typespec|RSP|341:48 id=260806 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<function:uvm_sequencer::item_done_trigger<io_decl:item
+TS unsupported_typespec|REQ|754:3 id=261688 INST=TOPPKG:uvm_pkg NREFS=1
+  REF package[TOPPKG:adpcm_pkg]<task:uvm_sequence_library::execute<begin:<ref_var:req_item

@@ -1,0 +1,136 @@
+r10uvm213 — WHAT THE JUDGE READS, WHAT SURELOG WRITES, AND WHERE WE WROTE IT
+WRONG.  MEASUREMENT ONLY; the official ~/git-repos/UHDM/build/bin/uhdm-cmp is
+the sole acceptance judge.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+=== 1. WHAT THE JUDGE READS
+
+~/git-repos/UHDM/build/generated/src/typespec.cpp:80-95
+
+    int32_t typespec::Compare(const BaseClass *other, CompareContext* context) const {
+      ...
+      if ((r = lhs->VpiName().compare(rhs->VpiName())) != 0) { ...; return r; }
+      if ((r = SafeCompare(lhs->Typedef_alias(), rhs->Typedef_alias(), context)) != 0) return r;
+      if ((r = SafeCompare(lhs->Instance(),      rhs->Instance(),      context)) != 0) return r;
+      return r;
+    }
+
+`Instance()` is a typespec's back-pointer at the scope it belongs to, and
+SafeCompare on two non-null pointers is a FULL compare of the pointees.  So a
+placeholder whose back-pointer names the WRONG VIEW of a package hands the
+judge that whole package: golden's DEF listing against our ELABORATED one, two
+listings that legitimately differ.  Nothing in the cmp log says this happened —
+it prints the failed pair and no route (r10uvm210 §3, which named the crossing
+and left the repair as its R0; this pass is that repair).
+
+No generated Compare reads VpiParent, so the SHARING of a placeholder is
+invisible to the judge — but its arity is not, because each holder reaches its
+own copy.
+
+=== 2. WHAT SURELOG WRITES — PER-VIEW COMPILE, PER-VIEW INSTANCE
+
+(a) A PACKAGE IS COMPILED TWICE, AS TWO DesignComponents.
+    ~/git-repos/Surelog/src/DesignCompile/CompilePackage.cpp:60-72
+
+        int32_t FunctorCompilePackage::operator()() const {
+          CompilePackage* instance = new CompilePackage(..., m_package, ...);
+          instance->compile(Reduce::Yes);
+          delete instance;
+          instance = new CompilePackage(..., m_package->getUnElabPackage(), ...);
+          instance->compile(Reduce::No);
+          delete instance;
+          return 0;
+        }
+
+(b) AN OUT-OF-BODY CLASS METHOD IS PACKAGE TEXT, SO BOTH COMPILES WALK IT.
+    CompilePackage.cpp:213-218 — `paFunction_declaration` (and :205-211,
+    `paTask_declaration`) is a package-level collect arm, and
+    `function void C::m(); ... endfunction` written at package level parses to
+    exactly that.  Each compile hands `compileFunction` its OWN component.
+
+(c) THE PLACEHOLDER TAKES ITS COMPILE'S OWN COMPONENT.
+    ~/git-repos/Surelog/src/DesignCompile/CompileType.cpp:2135-2136, the last
+    statement of `compileTypespec`'s catch-all:
+
+        if (result && component && !result->Instance()) {
+          result->Instance(component->getUhdmInstance());
+        }
+
+    A type-parameter name (`REQ`) reaches that catch-all — the class's data-type
+    table cannot answer it while the package is being compiled — and is minted
+    as an `unsupported_typespec` NAMED AS WRITTEN at the written span.
+
+(d) AND THAT COMPONENT'S UHDM OBJECT IS THE `AllPackages` ENTRY.
+    ~/git-repos/Surelog/src/DesignCompile/UhdmWriter.cpp:4958-4979
+
+        VectorOfpackage* v3 = s.MakePackageVec();
+        d->AllPackages(v3);
+        for (Package* pack : packages) {
+          ...
+          package* p = any_cast<package*>(pack->getUnElabPackage()->getUhdmInstance());
+          ...
+          v3->push_back(p);
+          writePackage(pack->getUnElabPackage(), p, s, false);
+
+    while `d->TopPackages(v2)` (:4954) holds the elaborated twin.  So the
+    Reduce::No compile's placeholder points at the AllPackages entry and the
+    Reduce::Yes compile's at the TopPackages entry.  PER-VIEW MINTING WITH A
+    PER-VIEW STAMP, out of two independent compiles — not a split of one object.
+
+(e) THE IMPORT CLONE IS THE THIRD CASE AND IT IS DIFFERENT.
+    `CompileHelper::importPackage` (CompileHelper.cpp:319-325) `clone_tree`s
+    `def->getTask_funcs()` of the imported package, and `def` is the ELABORATED
+    `Package*` found by name in the Design, whatever view of the IMPORTER is
+    being compiled.  So an importer's DEF listing is a clone of objects that
+    were minted in the ELABORATED home compile, and BOTH importer views carry
+    the ELABORATED home package.  Measured, both sides, on the corpus and on
+    grid arm C.
+
+=== 3. WHERE WE WROTE IT WRONG
+
+Our package CLASSES ride the ELABORATED view only (`emitPackageClasses`,
+src/UhdmExporter.cpp:2841-2861, called from `emitPackage` under `if (topView)`,
+src/ParamEmit.cpp:23286-23289).  The DEF listing is then built by
+`emitPackageClassMethodClones` (src/ParamEmit.cpp:23386-23444), which re-runs
+`emitTaskFuncs` over the SAME class_defn with `pkgClassTfClone` set to the DEF
+package.
+
+`oobDeclPkg31` — the pointer § oobParamClassTypeParamFormalUnsupported31 (the
+FORMAL site, src/TaskFuncEmit.cpp ~4841) and
+§ oobClassTypeParamLocalUnsupported105 (the BODY-LOCAL site, ~6267) stamp their
+placeholders with — was read off the class_defn:
+
+        if (auto* hp31 = ((UHDM::class_defn*)m)->VpiParent();
+            hp31 && hp31->UhdmType() == UHDM::uhdmpackage)
+            oobDeclPkg31 = (UHDM::instance*)hp31;
+
+and a class_defn's VpiParent is the TOP package in every listing, because there
+is only one class_defn.  So both views got the ELABORATED twin.
+
+Everything ELSE in that same def listing was already view-correct: the
+`tsInst` / `pkgScopeInst` pointer the other placeholder laws use (§ 11, § 34,
+§ 105's siblings, § 115, § 155) is the listing's own package, which r10uvm183
+recorded ("the home package's own two views are untouched ... `pkgScopeInst` is
+already the answer golden gives: its own def copy in the def view").  The
+corpus reading confirms it: 1180 of our def-listing typespec copies already
+carry `ALLPKG:uvm_pkg` on SeqDriver, against golden's 1172.
+
+=== 4. THE FIX, AND WHY EACH CONJUNCT
+
+    if (pkgClassTfClone && !pkgImportCloneEmit &&
+        (UHDM::BaseClass*)pkgClassTfClone != hp31 &&
+        pkgClassTfClone->VpiName() == hp31->VpiName())
+        oobDeclPkg31 = (UHDM::instance*)pkgClassTfClone;
+
+  * `pkgClassTfClone` is non-null in exactly two drivers (grep: it is assigned
+    at src/ParamEmit.cpp:23403 and :23805 and nowhere else).
+  * `!pkgImportCloneEmit` picks the first of them —
+    `emitPackageClassMethodClones`, the HOME package's own DEF listing.  The
+    second, `emitImportedPkgClassMethodClones`, sets `pkgImportCloneEmit` and
+    must keep the ELABORATED home (§ 2(e)).
+  * `!= hp31` makes the stamp a NO-OP on the elaborated listing, where
+    `pkgClassTfClone` is null anyway — belt and braces, and it documents that
+    the two views take two different pointers.
+  * the NAME test refuses any future driver that points `pkgClassTfClone` at a
+    package that is not this class's own home.
+
+Nothing is minted, nothing is removed, no name is written, one pointer moves.

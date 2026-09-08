@@ -1,0 +1,99 @@
+r10uvm213 — WHERE THE SeqDriver HEAD ACTUALLY COMES FROM.
+MEASUREMENT ONLY; the official uhdm-cmp is the sole acceptance judge.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+r10uvm210 named the head a DEF/ELAB VIEW CROSSING and attributed the crossing
+link to a def-view class-body `unsupported_typespec` whose `Instance` names the
+elaborated package (its R0, and this pass's brief).  The CROSSING is real and
+the placeholder divergence is real — this pass measured it, decoded it and
+closed it corpus-wide.  **THE ATTRIBUTION OF THE HEAD TO IT IS REFUTED.**  The
+head survives the repair byte for byte, and the link that produces it is a
+different one, named below with the object on both sides.
+
+=== A. THE HEAD, ON BOTH BINARIES
+
+  pristine 049fa251  SeqDriver default 50 cmp lines / 1 head
+  patched  14e1af66  SeqDriver default 50 cmp lines / 1 head
+  `diff` of the two cmp logs: EMPTY — byte-identical, both modes.
+
+  LHS: ref_obj (uvm_pkg::UVM_SET) id=61413 @217:31, vpiActual = operation @216:31
+  RHS: constant id=6275 @217:31, vpiDecompile 131078
+
+=== B. THE PLACEHOLDER REPAIR LANDED, AND THE CROSSING SHAPE IT OWNS IS GONE
+
+  ct213ts --arity, key `unsupported_typespec|REQ|164:3`:
+    GOLDEN            COPIES=6  ALLPKG:uvm_pkg=1 TOPPKG:uvm_pkg=5
+    OURS pristine     COPIES=4  TOPPKG:uvm_pkg=4
+    OURS patched      COPIES=4  ALLPKG:uvm_pkg=1 TOPPKG:uvm_pkg=3
+  and over the WHOLE database, the cells whose golden Instance is `ALLPKG:X`
+  while ours is `TOPPKG:X` for the same X and the same holder:
+    OURS pristine 16      OURS patched 0.
+  So no typespec back-pointer of ours crosses views any more, and the head is
+  unchanged.  That alone refutes the attribution.
+
+=== C. THE ROUTE, FOUND BY MASK-AND-RERUN AND BY ISOLATED SUB-COMPARES
+
+`CompareContext::m_visited` is keyed on the **LHS** (`if
+(!context->m_visited.insert(this).second) return r;` at the head of every
+generated Compare), so a golden object reached twice is silently equal the
+second time and the log cannot show a route.  `ct213route` runs the SAME
+generated `design::Compare` with objects pre-seeded into `m_visited`.
+
+  ct213route --vec        AllPackages[1] 'uvm_pkg' r=601, the head pair
+                          (so the head is produced INSIDE golden's DEF uvm_pkg)
+  ct213route --mask 59742 (golden's DEF uvm_pkg pre-seeded) -> the head moves to
+                          a bit_typespec in adpcm_pkg: the whole def-package
+                          subtree is what carries it.
+  ct210sub … allpkg:uvm_pkg cells, ONLY=PARAM_ASSIGNS
+                          PARAM_ASSIGNS DIFFERING 7 / 45 on BOTH binaries —
+                          unchanged by the repair.
+  ct213route --pair 61409 349   (golden's DEF PA[35] vs OUR DEF PA[35])
+                          r=0.  The two def-listing cells the log names are
+                          EQUAL object for object.  The head is NOT that cell.
+
+=== D. THE LINK — A CLASS-METHOD BODY REFERENCE TO A PACKAGE PARAMETER
+
+`uhdm-dump` of both databases, THE SAME LISTING (the DEF `uvm_pkg`'s clone of
+`uvm_object::set_int_local`, uvm_object.svh:933), golden line 13161, ours line
+13151:
+
+  GOLDEN
+    \_ref_obj: (uvm_pkg::uvm_object::set_int_local::UVM_SETINT), line:933:34
+      |vpiActual:
+      \_ref_obj: (uvm_pkg::UVM_SET), line:217:31, endln:217:38     <-- id 61413
+
+  OURS
+    \_ref_obj: (uvm_pkg::uvm_object::set_int_local::UVM_SETINT), line:933:34
+      |vpiActual:
+      \_constant: , line:217:31, endln:217:38                       <-- id 6275
+
+`ref_obj::Compare` READS `Actual_group` (generated ref_obj.cpp), so this one
+link pairs golden's DEF-listing `param_assign` Rhs against our ELABORATED
+listing's folded constant — and that IS the printed head pair, both objects
+named.
+
+Golden binds the body reference to **the param_assign Rhs OF THE LISTING BEING
+WRITTEN**: the DEF listing's own `ref_obj` (which our DEF listing also has —
+`ct213route --pa o 146 35` reads `rhs=ref_obj rhsid=350`, the exact analogue of
+golden's 61413).  We bind every listing to ONE shared folded `constant`
+(r10uvm210's R3 recorded the sharing: golden's six `UVM_SETINT` Rhs constants
+are six objects, ours is one object in six listings — `ct210inst --rhsof`).
+
+So the head is a BINDING law about `ref_obj::Actual_group` in a package's DEF
+listing, not a `typespec::Instance` law, and the repair for it is to bind the
+def-view clone body's package-parameter reference to that listing's own
+param_assign Rhs.  That is this pass's R0, with the object named on both sides
+and the site already located.
+
+=== E. WHY THE TWO WERE CONFUSED
+
+Both divergences live in the SAME listing (the DEF `uvm_pkg`'s out-of-body
+class-method clones), both are def/elab confusions, and the placeholder one is
+visible to `ct210inst --tsinst` while the binding one is not (nothing in
+`--tsinst` reads `Actual_group`).  r10uvm210 found the placeholder, saw that
+following it would land the judge on golden's DEF `Param_assigns` against our
+elaborated ones, and stopped there — a sound mechanism that happens not to be
+the one that fires, because `m_visited` is LHS-keyed and golden's DEF package is
+already visited by the time any back-pointer of ours could reach it.  The
+lesson, recorded: **a link that WOULD produce a crossing is not the link that
+DID; prove it by masking, or by repairing it and re-reading the head.**

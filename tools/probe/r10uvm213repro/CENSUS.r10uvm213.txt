@@ -1,0 +1,104 @@
+r10uvm213 — QUESTION (5)/(6): THE CENSUS OVER THE NINE UVM ROW-MODES,
+GOLDEN-vs-GOLDEN CALIBRATED FIRST ON EVERY ROW.  MEASUREMENT ONLY.
+LHS is ALWAYS golden.  score213.py's header defines the population, the cell
+and the four columns.
+
+=== CALIBRATION: the pristine database scored against ITSELF
+SeqDriver.default        -- RIGHT-BOTH 2108  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 330  APPEARED 600  VANISHED 1123
+SeqDriver.testflags      -- RIGHT-BOTH 2108  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 330  APPEARED 600  VANISHED 1123
+SimpleUVM.default        -- RIGHT-BOTH 1223  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 16  APPEARED 278  VANISHED 258
+SimpleUVM.testflags      -- RIGHT-BOTH 1223  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 16  APPEARED 278  VANISHED 258
+Scoreboard.default       -- RIGHT-BOTH 1228  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 16  APPEARED 278  VANISHED 258
+MiniAmiq.default         -- RIGHT-BOTH 2108  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 330  APPEARED 600  VANISHED 1123
+MiniAmiq.testflags       -- RIGHT-BOTH 2108  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 330  APPEARED 600  VANISHED 1123
+BuildUVMPkg.default      -- RIGHT-BOTH 1269  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 16  APPEARED 294  VANISHED 274
+BuildUVMPkg.testflags    -- RIGHT-BOTH 1269  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 16  APPEARED 294  VANISHED 274
+
+=== THE SCORE: golden / pristine / patched, def-listing population
+SeqDriver.default        -- RIGHT-BOTH 2108  TO-GOLDEN 16  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 314  APPEARED 600  VANISHED 1123
+SeqDriver.testflags      -- RIGHT-BOTH 2108  TO-GOLDEN 16  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 314  APPEARED 600  VANISHED 1123
+SimpleUVM.default        -- RIGHT-BOTH 1223  TO-GOLDEN 16  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  APPEARED 278  VANISHED 258
+SimpleUVM.testflags      -- RIGHT-BOTH 1223  TO-GOLDEN 16  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  APPEARED 278  VANISHED 258
+Scoreboard.default       -- RIGHT-BOTH 1228  TO-GOLDEN 16  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  APPEARED 278  VANISHED 258
+MiniAmiq.default         -- RIGHT-BOTH 2108  TO-GOLDEN 16  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 314  APPEARED 600  VANISHED 1123
+MiniAmiq.testflags       -- RIGHT-BOTH 2108  TO-GOLDEN 16  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 314  APPEARED 600  VANISHED 1123
+BuildUVMPkg.default      -- RIGHT-BOTH 1269  TO-GOLDEN 16  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  APPEARED 294  VANISHED 274
+BuildUVMPkg.testflags    -- RIGHT-BOTH 1269  TO-GOLDEN 16  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  APPEARED 294  VANISHED 274
+
+=== THE SIXTEEN MOVED CELLS, NAMED (SeqDriver/default; the other eight
+    row-modes name the same sixteen keys, at their own spans)
+TO-GOLDEN	unsupported_typespec|REQ|164:3	package[ALLPKG:uvm_pkg]<function:uvm_sequencer::stop_sequences<begin:<ref_var:t	pristine={'TOPPKG:uvm_pkg': 1}	patched={'ALLPKG:uvm_pkg': 1}	golden={'ALLPKG:uvm_pkg': 1}
+TO-GOLDEN	unsupported_typespec|REQ|206:42	package[ALLPKG:uvm_pkg]<task:uvm_sequencer::get_next_item<io_decl:t	pristine={'TOPPKG:uvm_pkg': 1}	patched={'ALLPKG:uvm_pkg': 1}	golden={'ALLPKG:uvm_pkg': 1}
+TO-GOLDEN	unsupported_typespec|REQ|207:3	package[ALLPKG:uvm_pkg]<task:uvm_sequencer::get_next_item<begin:<ref_var:req_item	pristine={'TOPPKG:uvm_pkg': 1}	patched={'ALLPKG:uvm_pkg': 1}	golden={'ALLPKG:uvm_pkg': 1}
+TO-GOLDEN	unsupported_typespec|REQ|230:42	package[ALLPKG:uvm_pkg]<task:uvm_sequencer::try_next_item<io_decl:t	pristine={'TOPPKG:uvm_pkg': 1}	patched={'ALLPKG:uvm_pkg': 1}	golden={'ALLPKG:uvm_pkg': 1}
+TO-GOLDEN	unsupported_typespec|REQ|270:3	package[ALLPKG:uvm_pkg]<function:uvm_sequencer_param_base::send_request<begin:<ref_var:param_t	pristine={'TOPPKG:uvm_pkg': 1}	patched={'ALLPKG:uvm_pkg': 1}	golden={'ALLPKG:uvm_pkg': 1}
+TO-GOLDEN	unsupported_typespec|REQ|278:3	package[ALLPKG:uvm_pkg]<function:uvm_sequencer::item_done<begin:<ref_var:t	pristine={'TOPPKG:uvm_pkg': 1}	patched={'ALLPKG:uvm_pkg': 1}	golden={'ALLPKG:uvm_pkg': 1}
+TO-GOLDEN	unsupported_typespec|REQ|312:32	package[ALLPKG:uvm_pkg]<task:uvm_sequencer::get<io_decl:t	pristine={'TOPPKG:uvm_pkg': 1}	patched={'ALLPKG:uvm_pkg': 1}	golden={'ALLPKG:uvm_pkg': 1}
+TO-GOLDEN	unsupported_typespec|REQ|325:33	package[ALLPKG:uvm_pkg]<task:uvm_sequencer::peek<io_decl:t	pristine={'TOPPKG:uvm_pkg': 1}	patched={'ALLPKG:uvm_pkg': 1}	golden={'ALLPKG:uvm_pkg': 1}
+TO-GOLDEN	unsupported_typespec|REQ|407:63	package[ALLPKG:uvm_pkg]<function:uvm_sequencer_param_base::m_last_req_push_front<io_decl:item	pristine={'TOPPKG:uvm_pkg': 1}	patched={'ALLPKG:uvm_pkg': 1}	golden={'ALLPKG:uvm_pkg': 1}
+TO-GOLDEN	unsupported_typespec|REQ|754:3	package[ALLPKG:uvm_pkg]<task:uvm_sequence_library::execute<begin:<ref_var:req_item	pristine={'TOPPKG:uvm_pkg': 1}	patched={'ALLPKG:uvm_pkg': 1}	golden={'ALLPKG:uvm_pkg': 1}
+TO-GOLDEN	unsupported_typespec|RSP|277:40	package[ALLPKG:uvm_pkg]<function:uvm_sequencer::item_done<io_decl:item	pristine={'TOPPKG:uvm_pkg': 1}	patched={'ALLPKG:uvm_pkg': 1}	golden={'ALLPKG:uvm_pkg': 1}
+TO-GOLDEN	unsupported_typespec|RSP|304:26	package[ALLPKG:uvm_pkg]<task:uvm_sequencer::put<io_decl:t	pristine={'TOPPKG:uvm_pkg': 1}	patched={'ALLPKG:uvm_pkg': 1}	golden={'ALLPKG:uvm_pkg': 1}
+TO-GOLDEN	unsupported_typespec|RSP|310:55	package[ALLPKG:uvm_pkg]<function:uvm_sequencer_param_base::put_response<io_decl:t	pristine={'TOPPKG:uvm_pkg': 1}	patched={'ALLPKG:uvm_pkg': 1}	golden={'ALLPKG:uvm_pkg': 1}
+TO-GOLDEN	unsupported_typespec|RSP|341:48	package[ALLPKG:uvm_pkg]<function:uvm_sequencer::item_done_trigger<io_decl:item	pristine={'TOPPKG:uvm_pkg': 1}	patched={'ALLPKG:uvm_pkg': 1}	golden={'ALLPKG:uvm_pkg': 1}
+TO-GOLDEN	unsupported_typespec|RSP|351:3	package[ALLPKG:uvm_pkg]<function:uvm_sequencer_param_base::analysis_write<begin:<ref_var:response	pristine={'TOPPKG:uvm_pkg': 1}	patched={'ALLPKG:uvm_pkg': 1}	golden={'ALLPKG:uvm_pkg': 1}
+TO-GOLDEN	unsupported_typespec|RSP|449:63	package[ALLPKG:uvm_pkg]<function:uvm_sequencer_param_base::m_last_rsp_push_front<io_decl:item	pristine={'TOPPKG:uvm_pkg': 1}	patched={'ALLPKG:uvm_pkg': 1}	golden={'ALLPKG:uvm_pkg': 1}
+
+=== the ROW driver's own output, pristine then patched
+ROW SeqDriver default CALIB[-- CENSUS golden=12715 ours=12715 AGREE=12715 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW SeqDriver default ALL   -- CENSUS golden=12715 ours=11067 AGREE=7746 ONLY-GOLDEN=4969 ONLY-OURS=3321
+ROW SeqDriver default DEFLST -- CENSUS golden=5668 ours=4948 AGREE=3602 ONLY-GOLDEN=2066 ONLY-OURS=1346
+ROW SeqDriver testflags CALIB[-- CENSUS golden=12715 ours=12715 AGREE=12715 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW SeqDriver testflags ALL   -- CENSUS golden=12715 ours=11067 AGREE=7746 ONLY-GOLDEN=4969 ONLY-OURS=3321
+ROW SeqDriver testflags DEFLST -- CENSUS golden=5668 ours=4948 AGREE=3602 ONLY-GOLDEN=2066 ONLY-OURS=1346
+ROW SimpleUVM default CALIB[-- CENSUS golden=7727 ours=7727 AGREE=7727 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW SimpleUVM default ALL   -- CENSUS golden=7727 ours=7056 AGREE=5059 ONLY-GOLDEN=2668 ONLY-OURS=1997
+ROW SimpleUVM default DEFLST -- CENSUS golden=1502 ours=1549 AGREE=1228 ONLY-GOLDEN=274 ONLY-OURS=321
+ROW SimpleUVM testflags CALIB[-- CENSUS golden=7727 ours=7727 AGREE=7727 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW SimpleUVM testflags ALL   -- CENSUS golden=7727 ours=7056 AGREE=5059 ONLY-GOLDEN=2668 ONLY-OURS=1997
+ROW SimpleUVM testflags DEFLST -- CENSUS golden=1502 ours=1549 AGREE=1228 ONLY-GOLDEN=274 ONLY-OURS=321
+ROW Scoreboard default CALIB[-- CENSUS golden=7672 ours=7672 AGREE=7672 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW Scoreboard default ALL   -- CENSUS golden=7672 ours=7003 AGREE=5000 ONLY-GOLDEN=2672 ONLY-OURS=2003
+ROW Scoreboard default DEFLST -- CENSUS golden=1507 ours=1554 AGREE=1233 ONLY-GOLDEN=274 ONLY-OURS=321
+ROW Scoreboard testflags SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+ROW MiniAmiq default CALIB[-- CENSUS golden=13231 ours=13231 AGREE=13231 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW MiniAmiq default ALL   -- CENSUS golden=13231 ours=11548 AGREE=8189 ONLY-GOLDEN=5042 ONLY-OURS=3359
+ROW MiniAmiq default DEFLST -- CENSUS golden=5668 ours=4948 AGREE=3602 ONLY-GOLDEN=2066 ONLY-OURS=1346
+ROW MiniAmiq testflags CALIB[-- CENSUS golden=13231 ours=13231 AGREE=13231 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW MiniAmiq testflags ALL   -- CENSUS golden=13231 ours=11548 AGREE=8189 ONLY-GOLDEN=5042 ONLY-OURS=3359
+ROW MiniAmiq testflags DEFLST -- CENSUS golden=5668 ours=4948 AGREE=3602 ONLY-GOLDEN=2066 ONLY-OURS=1346
+ROW BuildUVMPkg default CALIB[-- CENSUS golden=8088 ours=8088 AGREE=8088 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW BuildUVMPkg default ALL   -- CENSUS golden=8088 ours=7394 AGREE=5247 ONLY-GOLDEN=2841 ONLY-OURS=2147
+ROW BuildUVMPkg default DEFLST -- CENSUS golden=1565 ours=1612 AGREE=1275 ONLY-GOLDEN=290 ONLY-OURS=337
+ROW BuildUVMPkg testflags CALIB[-- CENSUS golden=8088 ours=8088 AGREE=8088 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW BuildUVMPkg testflags ALL   -- CENSUS golden=8088 ours=7394 AGREE=5247 ONLY-GOLDEN=2841 ONLY-OURS=2147
+ROW BuildUVMPkg testflags DEFLST -- CENSUS golden=1565 ours=1612 AGREE=1275 ONLY-GOLDEN=290 ONLY-OURS=337
+--- patched
+ROW SeqDriver default CALIB[-- CENSUS golden=12715 ours=12715 AGREE=12715 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW SeqDriver default ALL   -- CENSUS golden=12715 ours=11067 AGREE=7762 ONLY-GOLDEN=4953 ONLY-OURS=3305
+ROW SeqDriver default DEFLST -- CENSUS golden=5668 ours=4948 AGREE=3618 ONLY-GOLDEN=2050 ONLY-OURS=1330
+ROW SeqDriver testflags CALIB[-- CENSUS golden=12715 ours=12715 AGREE=12715 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW SeqDriver testflags ALL   -- CENSUS golden=12715 ours=11067 AGREE=7762 ONLY-GOLDEN=4953 ONLY-OURS=3305
+ROW SeqDriver testflags DEFLST -- CENSUS golden=5668 ours=4948 AGREE=3618 ONLY-GOLDEN=2050 ONLY-OURS=1330
+ROW SimpleUVM default CALIB[-- CENSUS golden=7727 ours=7727 AGREE=7727 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW SimpleUVM default ALL   -- CENSUS golden=7727 ours=7056 AGREE=5075 ONLY-GOLDEN=2652 ONLY-OURS=1981
+ROW SimpleUVM default DEFLST -- CENSUS golden=1502 ours=1549 AGREE=1244 ONLY-GOLDEN=258 ONLY-OURS=305
+ROW SimpleUVM testflags CALIB[-- CENSUS golden=7727 ours=7727 AGREE=7727 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW SimpleUVM testflags ALL   -- CENSUS golden=7727 ours=7056 AGREE=5075 ONLY-GOLDEN=2652 ONLY-OURS=1981
+ROW SimpleUVM testflags DEFLST -- CENSUS golden=1502 ours=1549 AGREE=1244 ONLY-GOLDEN=258 ONLY-OURS=305
+ROW Scoreboard default CALIB[-- CENSUS golden=7672 ours=7672 AGREE=7672 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW Scoreboard default ALL   -- CENSUS golden=7672 ours=7003 AGREE=5016 ONLY-GOLDEN=2656 ONLY-OURS=1987
+ROW Scoreboard default DEFLST -- CENSUS golden=1507 ours=1554 AGREE=1249 ONLY-GOLDEN=258 ONLY-OURS=305
+ROW Scoreboard testflags SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+ROW MiniAmiq default CALIB[-- CENSUS golden=13231 ours=13231 AGREE=13231 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW MiniAmiq default ALL   -- CENSUS golden=13231 ours=11548 AGREE=8205 ONLY-GOLDEN=5026 ONLY-OURS=3343
+ROW MiniAmiq default DEFLST -- CENSUS golden=5668 ours=4948 AGREE=3618 ONLY-GOLDEN=2050 ONLY-OURS=1330
+ROW MiniAmiq testflags CALIB[-- CENSUS golden=13231 ours=13231 AGREE=13231 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW MiniAmiq testflags ALL   -- CENSUS golden=13231 ours=11548 AGREE=8205 ONLY-GOLDEN=5026 ONLY-OURS=3343
+ROW MiniAmiq testflags DEFLST -- CENSUS golden=5668 ours=4948 AGREE=3618 ONLY-GOLDEN=2050 ONLY-OURS=1330
+ROW BuildUVMPkg default CALIB[-- CENSUS golden=8088 ours=8088 AGREE=8088 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW BuildUVMPkg default ALL   -- CENSUS golden=8088 ours=7394 AGREE=5263 ONLY-GOLDEN=2825 ONLY-OURS=2131
+ROW BuildUVMPkg default DEFLST -- CENSUS golden=1565 ours=1612 AGREE=1291 ONLY-GOLDEN=274 ONLY-OURS=321
+ROW BuildUVMPkg testflags CALIB[-- CENSUS golden=8088 ours=8088 AGREE=8088 ONLY-GOLDEN=0 ONLY-OURS=0]
+ROW BuildUVMPkg testflags ALL   -- CENSUS golden=8088 ours=7394 AGREE=5263 ONLY-GOLDEN=2825 ONLY-OURS=2131
+ROW BuildUVMPkg testflags DEFLST -- CENSUS golden=1565 ours=1612 AGREE=1291 ONLY-GOLDEN=274 ONLY-OURS=321

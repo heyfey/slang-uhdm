@@ -173,7 +173,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-09-08, HEAD = the uvm212 landing — Scoreboard CLOSED; ONE workable head remains) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-09-08, HEAD = the uvm213 landing — ONE workable head, four row-modes) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 473/481 comparable
 equal (8 NE), testflags 468/475 (7 NE); uhdm2rtlil 679/679 both modes. The
@@ -182,8 +182,8 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 
 | row-mode(s) | head (official cmp lines = head-object DEPTH, not distance) | family / next law |
 |---|---|---|
-| SeqDriver×2 | 50 (ONE head both modes — the head MODEL REWRITTEN at uvm210) | a DEF-VIEW class-body typespec's INSTANCE names the ELABORATED package: golden mints a per-view placeholder for a type-parameter-typed local in a package class method and stamps the def-view copy with the DEF package; we mint fewer and every one names the elaborated view, so the judge crosses views and scores def-vs-elab assign listings against each other; the four-line reproducer and route file committed; per-view minting decided on a golden grid before code; surface = the typespec emission — open (uvm210 landed EVIDENCE ONLY: the enum-fold framing REFUTED by the official compare on the named cell — both sides hold the same reference with the same actual, comparing to zero; the briefed population EMPTY on every actionable row; the form table + the library's two seeding asymmetries + the compile-time qualified fold decoded; verifier ACCEPT) |
-| MiniAmiq×2 | 50 (ONE head both modes — the SAME view-crossing object as SeqDriver: FOUR row-modes behind ONE head) | the def-view class-body typespec instance (see the SeqDriver row) — open (uvm211 landed: 112→50, § cloneSharedArrayStructSplitMint211 — a clone declaration's array-of-struct chain shared with a home foreach variable splits into its own copy (arity named by identity: our one array served both, the clone's own ref was unshared); the seven-law clone-import declaration-chain family CLOSED at differ zero; verifier ACCEPT CONFIRMED, patch as-is) |
+| SeqDriver×2 | 50 (ONE head both modes, SHARED with MiniAmiq — the head RELOCATED at uvm213) | a def-view clone body's package-parameter reference ACTUAL: golden binds the definition listing's own assign reference where we bind the SHARED FOLDED CONSTANT; the site is located to the line (the def-listing write runs inside the top-view block so the view-conditioned chain reads the wrong flag — the family's root, named); decide def-vs-elab binding on a golden grid first; the population is every package-parameter reference in every def-view clone body — open (uvm213 landed: § oobClassTypeParamPlaceholderPerView213 — the out-of-body clone's declaring-package pointer binds PER VIEW (Surelog compiles a package twice; per-view mint, per-view stamp); one pointer moved; NINE predicted byte movers incl. four equal rows landing on golden's own values; the dump BLIND to the law by mechanism; verifier ACCEPT, patch unchanged) |
+| MiniAmiq×2 | 50 (ONE head both modes, SHARED with SeqDriver) | the same relocated head object as the SeqDriver row (see that row) — one family, FOUR row-modes, one law closes the workable corpus — open |
 | SimpleUVM×2 | CMP_EQUAL ×2 (CONVERTED at uvm209 — the WHOLE TEST CLOSED) | CLOSED — § hoistedLocalKeepsItsLifetime209: the automatic flag follows the source declaration's lifetime (Surelog's package collector does not stop at a class CONSTRUCTOR declaration — the hoist's mechanism; golden's module copy is the package listing value for value); the SimpleUVM ladder ran the depth artifact, the materialized-parameter family, the implicit-nets family, the design listing and the lifetime bit |
 | BuildUVMPkg×2 | CMP_EQUAL (CONVERTED, uvm194 — the block's FIRST row conversion; the two baseline rows promoted in the landing commit) | CLOSED — § homeRetNameSelBindSurvivesDefViewUnbind194: a home return-name select binding survives the definition-view unbind (one gated exemption clause in the drain; the clone fence from an arm); the family's whole ladder ran uvm170→194 |
 | Scoreboard/default | CMP_EQUAL (CONVERTED at uvm212 — the comparable half of the test CLOSED; testflags is a slang reject outside the comparable set) | CLOSED — § classTdCloneTakesTheBasesEmptyListing212: a clone class typedef takes the base's EMPTY specialization listing (the vector verdict wore a singular face; library and macros decide nothing — clone-hood and the base's listing are the only variables; golden has zero clone-vs-base mismatches everywhere, ours had exactly one corpus-wide) |
@@ -193,7 +193,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 125 verifier fix-before-landing re-cuts (298 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 125 verifier fix-before-landing re-cuts (299 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

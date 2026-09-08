@@ -1,0 +1,446 @@
+r10uvm213 — QUESTION (3): THE GOLDEN GRID, SCORED WITH THE INSTRUMENT.
+MEASUREMENT ONLY.  LHS is ALWAYS golden.  9 arms x 2 views = 18 arm-views,
+one REAL Surelog golden each (~/git-repos/Surelog/build/bin/surelog, the one
+scripts/verify_golden.py names), golden-vs-golden CALIBRATION run FIRST in
+every cell.  The per-arm uhdm-cmp VERDICT is RECORDED and is NOT the scorer:
+r10uvm210's recorded caution — -nobuiltin makes golden's design->AllPackages()
+one entry shorter than ours, so every arm's head is that vector-size mismatch.
+The scorer is the placeholder-copy census (ct213ts --keycount + cen213.py).
+
+The PARSE column is the one the corpus is built in (SeqDriver's .sl carries no
+-elabuhdm, so verify_golden.py builds a -parse golden).
+
+===================== PRISTINE 049fa251
+ARM g213_a_oob parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=3002 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_a_oob parse -- CENSUS golden=14 ours=14 AGREE=14 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_a_oob parse -- CENSUS golden=14 ours=13 AGREE=7 ONLY-GOLDEN=7 ONLY-OURS=6
+CELL g213_a_oob parse ONLY-GOLDEN	1	unsupported_typespec|T213|12:30	ALLPKG:p213a	package[ALLPKG:p213a]<function:c213a::fa213<io_decl:x213
+CELL g213_a_oob parse ONLY-GOLDEN	1	unsupported_typespec|T213|13:5	ALLPKG:p213a	package[ALLPKG:p213a]<function:c213a::fa213<begin:<ref_var:loca213
+CELL g213_a_oob parse ONLY-GOLDEN	1	unsupported_typespec|T213|21:5	ALLPKG:p213a	package[ALLPKG:p213a]<function:c213a::la213<begin:<ref_var:lav213
+CELL g213_a_oob parse ONLY-GOLDEN	1	unsupported_typespec|U213|16:28	ALLPKG:p213a	package[ALLPKG:p213a]<task:c213a::ta213<io_decl:y213
+CELL g213_a_oob parse ONLY-GOLDEN	1	unsupported_typespec|U213|17:5	ALLPKG:p213a	package[ALLPKG:p213a]<task:c213a::ta213<begin:<ref_var:loct213
+CELL g213_a_oob parse ONLY-GOLDEN	1	unsupported_typespec|U213|23:7	ALLPKG:p213a	package[ALLPKG:p213a]<function:c213a::la213<begin:<named_begin:blk213<ref_var:law213
+CELL g213_a_oob parse ONLY-GOLDEN	1	unsupported_typespec|U213|23:7	TOPPKG:p213a	package[TOPPKG:p213a]<class_defn:c213a<function:la213<begin:<named_begin:blk213<ref_var:law213
+CELL g213_a_oob parse ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_a_oob parse ONLY-OURS	1	unsupported_typespec|T213|12:30	TOPPKG:p213a	package[ALLPKG:p213a]<function:c213a::fa213<io_decl:x213
+CELL g213_a_oob parse ONLY-OURS	1	unsupported_typespec|T213|13:5	TOPPKG:p213a	package[ALLPKG:p213a]<function:c213a::fa213<begin:<ref_var:loca213
+CELL g213_a_oob parse ONLY-OURS	1	unsupported_typespec|T213|21:5	TOPPKG:p213a	package[ALLPKG:p213a]<function:c213a::la213<begin:<ref_var:lav213
+CELL g213_a_oob parse ONLY-OURS	1	unsupported_typespec|U213|16:28	TOPPKG:p213a	package[ALLPKG:p213a]<task:c213a::ta213<io_decl:y213
+CELL g213_a_oob parse ONLY-OURS	1	unsupported_typespec|U213|17:5	TOPPKG:p213a	package[ALLPKG:p213a]<task:c213a::ta213<begin:<ref_var:loct213
+CELL g213_a_oob parse -- CENSUS golden=14 ours=13 AGREE=7 ONLY-GOLDEN=7 ONLY-OURS=6
+ARM g213_a_oob elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=3226 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_a_oob elab -- CENSUS golden=32 ours=32 AGREE=32 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_a_oob elab -- CENSUS golden=32 ours=13 AGREE=7 ONLY-GOLDEN=25 ONLY-OURS=6
+CELL g213_a_oob elab ONLY-GOLDEN	2	unsupported_typespec|T213|12:30	ALLPKG:p213a	package[ALLPKG:p213a]<function:c213a::fa213<io_decl:x213
+CELL g213_a_oob elab ONLY-GOLDEN	1	unsupported_typespec|T213|12:30	TOPPKG:p213a	package[TOPPKG:p213a]<class_defn:c213a<function:fa213<io_decl:x213
+CELL g213_a_oob elab ONLY-GOLDEN	2	unsupported_typespec|T213|13:5	ALLPKG:p213a	package[ALLPKG:p213a]<function:c213a::fa213<begin:<ref_var:loca213
+CELL g213_a_oob elab ONLY-GOLDEN	1	unsupported_typespec|T213|13:5	ALLPKG:p213a	package[ALLPKG:p213a]<function:c213a::fa213<ref_var:loca213
+CELL g213_a_oob elab ONLY-GOLDEN	1	unsupported_typespec|T213|13:5	TOPPKG:p213a	package[TOPPKG:p213a]<class_defn:c213a<function:fa213<begin:<ref_var:loca213
+CELL g213_a_oob elab ONLY-GOLDEN	1	unsupported_typespec|T213|13:5	TOPPKG:p213a	package[TOPPKG:p213a]<class_defn:c213a<function:fa213<ref_var:loca213
+CELL g213_a_oob elab ONLY-GOLDEN	2	unsupported_typespec|T213|21:5	ALLPKG:p213a	package[ALLPKG:p213a]<function:c213a::la213<begin:<ref_var:lav213
+CELL g213_a_oob elab ONLY-GOLDEN	1	unsupported_typespec|T213|21:5	ALLPKG:p213a	package[ALLPKG:p213a]<function:c213a::la213<ref_var:lav213
+CELL g213_a_oob elab ONLY-GOLDEN	1	unsupported_typespec|T213|21:5	TOPPKG:p213a	package[TOPPKG:p213a]<class_defn:c213a<function:la213<begin:<ref_var:lav213
+CELL g213_a_oob elab ONLY-GOLDEN	1	unsupported_typespec|T213|21:5	TOPPKG:p213a	package[TOPPKG:p213a]<class_defn:c213a<function:la213<ref_var:lav213
+CELL g213_a_oob elab ONLY-GOLDEN	2	unsupported_typespec|U213|16:28	ALLPKG:p213a	package[ALLPKG:p213a]<task:c213a::ta213<io_decl:y213
+CELL g213_a_oob elab ONLY-GOLDEN	1	unsupported_typespec|U213|16:28	TOPPKG:p213a	package[TOPPKG:p213a]<class_defn:c213a<task:ta213<io_decl:y213
+CELL g213_a_oob elab ONLY-GOLDEN	2	unsupported_typespec|U213|17:5	ALLPKG:p213a	package[ALLPKG:p213a]<task:c213a::ta213<begin:<ref_var:loct213
+CELL g213_a_oob elab ONLY-GOLDEN	1	unsupported_typespec|U213|17:5	ALLPKG:p213a	package[ALLPKG:p213a]<task:c213a::ta213<ref_var:loct213
+CELL g213_a_oob elab ONLY-GOLDEN	1	unsupported_typespec|U213|17:5	TOPPKG:p213a	package[TOPPKG:p213a]<class_defn:c213a<task:ta213<begin:<ref_var:loct213
+CELL g213_a_oob elab ONLY-GOLDEN	1	unsupported_typespec|U213|17:5	TOPPKG:p213a	package[TOPPKG:p213a]<class_defn:c213a<task:ta213<ref_var:loct213
+CELL g213_a_oob elab ONLY-GOLDEN	2	unsupported_typespec|U213|23:7	ALLPKG:p213a	package[ALLPKG:p213a]<function:c213a::la213<begin:<named_begin:blk213<ref_var:law213
+CELL g213_a_oob elab ONLY-GOLDEN	2	unsupported_typespec|U213|23:7	TOPPKG:p213a	package[TOPPKG:p213a]<class_defn:c213a<function:la213<begin:<named_begin:blk213<ref_var:law213
+CELL g213_a_oob elab ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_a_oob elab ONLY-OURS	1	unsupported_typespec|T213|12:30	TOPPKG:p213a	package[ALLPKG:p213a]<function:c213a::fa213<io_decl:x213
+CELL g213_a_oob elab ONLY-OURS	1	unsupported_typespec|T213|13:5	TOPPKG:p213a	package[ALLPKG:p213a]<function:c213a::fa213<begin:<ref_var:loca213
+CELL g213_a_oob elab ONLY-OURS	1	unsupported_typespec|T213|21:5	TOPPKG:p213a	package[ALLPKG:p213a]<function:c213a::la213<begin:<ref_var:lav213
+CELL g213_a_oob elab ONLY-OURS	1	unsupported_typespec|U213|16:28	TOPPKG:p213a	package[ALLPKG:p213a]<task:c213a::ta213<io_decl:y213
+CELL g213_a_oob elab ONLY-OURS	1	unsupported_typespec|U213|17:5	TOPPKG:p213a	package[ALLPKG:p213a]<task:c213a::ta213<begin:<ref_var:loct213
+CELL g213_a_oob elab -- CENSUS golden=32 ours=13 AGREE=7 ONLY-GOLDEN=25 ONLY-OURS=6
+ARM g213_b_inbody parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=1742 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_b_inbody parse -- CENSUS golden=2 ours=2 AGREE=2 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_b_inbody parse -- CENSUS golden=2 ours=3 AGREE=2 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL g213_b_inbody parse ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_b_inbody parse -- CENSUS golden=2 ours=3 AGREE=2 ONLY-GOLDEN=0 ONLY-OURS=1
+ARM g213_b_inbody elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=1826 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_b_inbody elab -- CENSUS golden=2 ours=2 AGREE=2 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_b_inbody elab -- CENSUS golden=2 ours=3 AGREE=2 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL g213_b_inbody elab ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_b_inbody elab -- CENSUS golden=2 ours=3 AGREE=2 ONLY-GOLDEN=0 ONLY-OURS=1
+ARM g213_c_pkgimp parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=2802 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_c_pkgimp parse -- CENSUS golden=15 ours=15 AGREE=15 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_c_pkgimp parse -- CENSUS golden=15 ours=16 AGREE=11 ONLY-GOLDEN=4 ONLY-OURS=5
+CELL g213_c_pkgimp parse ONLY-GOLDEN	1	unsupported_typespec|T213|11:30	ALLPKG:p213c	package[ALLPKG:p213c]<function:c213c::fc213<io_decl:x213
+CELL g213_c_pkgimp parse ONLY-GOLDEN	1	unsupported_typespec|T213|12:5	ALLPKG:p213c	package[ALLPKG:p213c]<function:c213c::fc213<begin:<ref_var:locc213
+CELL g213_c_pkgimp parse ONLY-GOLDEN	1	unsupported_typespec|T213|12:5	TOPPKG:p213c	package[ALLPKG:q213c]<function:c213c::fc213<ref_var:locc213
+CELL g213_c_pkgimp parse ONLY-GOLDEN	1	unsupported_typespec|T213|12:5	TOPPKG:p213c	package[TOPPKG:q213c]<function:c213c::fc213<ref_var:locc213
+CELL g213_c_pkgimp parse ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_c_pkgimp parse ONLY-OURS	1	import_typespec|p213c|21:10	NONE	<unreferenced>
+CELL g213_c_pkgimp parse ONLY-OURS	1	import_typespec|q213c|22:10	NONE	<unreferenced>
+CELL g213_c_pkgimp parse ONLY-OURS	1	unsupported_typespec|T213|11:30	TOPPKG:p213c	package[ALLPKG:p213c]<function:c213c::fc213<io_decl:x213
+CELL g213_c_pkgimp parse ONLY-OURS	1	unsupported_typespec|T213|12:5	TOPPKG:p213c	package[ALLPKG:p213c]<function:c213c::fc213<begin:<ref_var:locc213
+CELL g213_c_pkgimp parse -- CENSUS golden=15 ours=16 AGREE=11 ONLY-GOLDEN=4 ONLY-OURS=5
+ARM g213_c_pkgimp elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=3164 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_c_pkgimp elab -- CENSUS golden=30 ours=30 AGREE=30 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_c_pkgimp elab -- CENSUS golden=30 ours=16 AGREE=11 ONLY-GOLDEN=19 ONLY-OURS=5
+CELL g213_c_pkgimp elab ONLY-GOLDEN	2	unsupported_typespec|T213|11:30	ALLPKG:p213c	package[ALLPKG:p213c]<function:c213c::fc213<io_decl:x213
+CELL g213_c_pkgimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|11:30	TOPPKG:p213c	module_inst[TOPMOD:work@top213c]<function:fc213<io_decl:x213
+CELL g213_c_pkgimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|11:30	TOPPKG:p213c	package[ALLPKG:q213c]<function:c213c::fc213<io_decl:x213
+CELL g213_c_pkgimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|11:30	TOPPKG:p213c	package[TOPPKG:p213c]<class_defn:c213c<function:fc213<io_decl:x213
+CELL g213_c_pkgimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|11:30	TOPPKG:p213c	package[TOPPKG:q213c]<function:c213c::fc213<io_decl:x213
+CELL g213_c_pkgimp elab ONLY-GOLDEN	2	unsupported_typespec|T213|12:5	ALLPKG:p213c	package[ALLPKG:p213c]<function:c213c::fc213<begin:<ref_var:locc213
+CELL g213_c_pkgimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|12:5	ALLPKG:p213c	package[ALLPKG:p213c]<function:c213c::fc213<ref_var:locc213
+CELL g213_c_pkgimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|12:5	TOPPKG:p213c	module_inst[TOPMOD:work@top213c]<function:fc213<begin:<ref_var:locc213
+CELL g213_c_pkgimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|12:5	TOPPKG:p213c	module_inst[TOPMOD:work@top213c]<function:fc213<ref_var:locc213
+CELL g213_c_pkgimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|12:5	TOPPKG:p213c	package[ALLPKG:q213c]<function:c213c::fc213<begin:<ref_var:locc213
+CELL g213_c_pkgimp elab ONLY-GOLDEN	2	unsupported_typespec|T213|12:5	TOPPKG:p213c	package[ALLPKG:q213c]<function:c213c::fc213<ref_var:locc213
+CELL g213_c_pkgimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|12:5	TOPPKG:p213c	package[TOPPKG:p213c]<class_defn:c213c<function:fc213<begin:<ref_var:locc213
+CELL g213_c_pkgimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|12:5	TOPPKG:p213c	package[TOPPKG:p213c]<class_defn:c213c<function:fc213<ref_var:locc213
+CELL g213_c_pkgimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|12:5	TOPPKG:p213c	package[TOPPKG:q213c]<function:c213c::fc213<begin:<ref_var:locc213
+CELL g213_c_pkgimp elab ONLY-GOLDEN	2	unsupported_typespec|T213|12:5	TOPPKG:p213c	package[TOPPKG:q213c]<function:c213c::fc213<ref_var:locc213
+CELL g213_c_pkgimp elab ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_c_pkgimp elab ONLY-OURS	1	import_typespec|p213c|21:10	NONE	<unreferenced>
+CELL g213_c_pkgimp elab ONLY-OURS	1	import_typespec|q213c|22:10	NONE	<unreferenced>
+CELL g213_c_pkgimp elab ONLY-OURS	1	unsupported_typespec|T213|11:30	TOPPKG:p213c	package[ALLPKG:p213c]<function:c213c::fc213<io_decl:x213
+CELL g213_c_pkgimp elab ONLY-OURS	1	unsupported_typespec|T213|12:5	TOPPKG:p213c	package[ALLPKG:p213c]<function:c213c::fc213<begin:<ref_var:locc213
+CELL g213_c_pkgimp elab -- CENSUS golden=30 ours=16 AGREE=11 ONLY-GOLDEN=19 ONLY-OURS=5
+ARM g213_d_modimp parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=1870 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_d_modimp parse -- CENSUS golden=6 ours=6 AGREE=6 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_d_modimp parse -- CENSUS golden=6 ours=8 AGREE=4 ONLY-GOLDEN=2 ONLY-OURS=4
+CELL g213_d_modimp parse ONLY-GOLDEN	1	unsupported_typespec|T213|8:30	ALLPKG:p213d	package[ALLPKG:p213d]<function:c213d::fd213<io_decl:x213
+CELL g213_d_modimp parse ONLY-GOLDEN	1	unsupported_typespec|T213|9:5	ALLPKG:p213d	package[ALLPKG:p213d]<function:c213d::fd213<begin:<ref_var:locd213
+CELL g213_d_modimp parse ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_d_modimp parse ONLY-OURS	1	import_typespec|p213d|14:10	NONE	<unreferenced>
+CELL g213_d_modimp parse ONLY-OURS	1	unsupported_typespec|T213|8:30	TOPPKG:p213d	package[ALLPKG:p213d]<function:c213d::fd213<io_decl:x213
+CELL g213_d_modimp parse ONLY-OURS	1	unsupported_typespec|T213|9:5	TOPPKG:p213d	package[ALLPKG:p213d]<function:c213d::fd213<begin:<ref_var:locd213
+CELL g213_d_modimp parse -- CENSUS golden=6 ours=8 AGREE=4 ONLY-GOLDEN=2 ONLY-OURS=4
+ARM g213_d_modimp elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=2224 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_d_modimp elab -- CENSUS golden=15 ours=15 AGREE=15 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_d_modimp elab -- CENSUS golden=15 ours=8 AGREE=4 ONLY-GOLDEN=11 ONLY-OURS=4
+CELL g213_d_modimp elab ONLY-GOLDEN	2	unsupported_typespec|T213|8:30	ALLPKG:p213d	package[ALLPKG:p213d]<function:c213d::fd213<io_decl:x213
+CELL g213_d_modimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|8:30	TOPPKG:p213d	module_inst[TOPMOD:work@top213d]<function:fd213<io_decl:x213
+CELL g213_d_modimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|8:30	TOPPKG:p213d	package[TOPPKG:p213d]<class_defn:c213d<function:fd213<io_decl:x213
+CELL g213_d_modimp elab ONLY-GOLDEN	2	unsupported_typespec|T213|9:5	ALLPKG:p213d	package[ALLPKG:p213d]<function:c213d::fd213<begin:<ref_var:locd213
+CELL g213_d_modimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|9:5	ALLPKG:p213d	package[ALLPKG:p213d]<function:c213d::fd213<ref_var:locd213
+CELL g213_d_modimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|9:5	TOPPKG:p213d	module_inst[TOPMOD:work@top213d]<function:fd213<begin:<ref_var:locd213
+CELL g213_d_modimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|9:5	TOPPKG:p213d	module_inst[TOPMOD:work@top213d]<function:fd213<ref_var:locd213
+CELL g213_d_modimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|9:5	TOPPKG:p213d	package[TOPPKG:p213d]<class_defn:c213d<function:fd213<begin:<ref_var:locd213
+CELL g213_d_modimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|9:5	TOPPKG:p213d	package[TOPPKG:p213d]<class_defn:c213d<function:fd213<ref_var:locd213
+CELL g213_d_modimp elab ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_d_modimp elab ONLY-OURS	1	import_typespec|p213d|14:10	NONE	<unreferenced>
+CELL g213_d_modimp elab ONLY-OURS	1	unsupported_typespec|T213|8:30	TOPPKG:p213d	package[ALLPKG:p213d]<function:c213d::fd213<io_decl:x213
+CELL g213_d_modimp elab ONLY-OURS	1	unsupported_typespec|T213|9:5	TOPPKG:p213d	package[ALLPKG:p213d]<function:c213d::fd213<begin:<ref_var:locd213
+CELL g213_d_modimp elab -- CENSUS golden=15 ours=8 AGREE=4 ONLY-GOLDEN=11 ONLY-OURS=4
+ARM g213_e_modclass parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=1025 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_e_modclass parse -- CENSUS golden=3 ours=3 AGREE=3 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_e_modclass parse -- CENSUS golden=3 ours=1 AGREE=0 ONLY-GOLDEN=3 ONLY-OURS=1
+CELL g213_e_modclass parse ONLY-GOLDEN	1	type_parameter|T213|5:22	NONE	<unreferenced>
+CELL g213_e_modclass parse ONLY-GOLDEN	1	unsupported_typespec|T213|8:30	NONE	module_inst[ALLMOD:]<function:c213e::fe213<io_decl:x213
+CELL g213_e_modclass parse ONLY-GOLDEN	1	unsupported_typespec|T213|9:5	NONE	module_inst[ALLMOD:]<function:c213e::fe213<begin:<ref_var:loce213
+CELL g213_e_modclass parse ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_e_modclass parse -- CENSUS golden=3 ours=1 AGREE=0 ONLY-GOLDEN=3 ONLY-OURS=1
+ARM g213_e_modclass elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=1540 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_e_modclass elab -- CENSUS golden=6 ours=6 AGREE=6 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_e_modclass elab -- CENSUS golden=6 ours=1 AGREE=0 ONLY-GOLDEN=6 ONLY-OURS=1
+CELL g213_e_modclass elab ONLY-GOLDEN	1	type_parameter|T213|5:22	NONE	<unreferenced>
+CELL g213_e_modclass elab ONLY-GOLDEN	1	unsupported_typespec|T213|8:30	NONE	module_inst[ALLMOD:]<function:c213e::fe213<io_decl:x213
+CELL g213_e_modclass elab ONLY-GOLDEN	1	unsupported_typespec|T213|8:30	NONE	module_inst[TOPMOD:work@top213e]<function:c213e::fe213<io_decl:x213
+CELL g213_e_modclass elab ONLY-GOLDEN	1	unsupported_typespec|T213|9:5	NONE	module_inst[ALLMOD:]<function:c213e::fe213<begin:<ref_var:loce213
+CELL g213_e_modclass elab ONLY-GOLDEN	1	unsupported_typespec|T213|9:5	NONE	module_inst[TOPMOD:work@top213e]<function:c213e::fe213<begin:<ref_var:loce213
+CELL g213_e_modclass elab ONLY-GOLDEN	1	unsupported_typespec|T213|9:5	NONE	module_inst[TOPMOD:work@top213e]<function:c213e::fe213<ref_var:loce213
+CELL g213_e_modclass elab ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_e_modclass elab -- CENSUS golden=6 ours=1 AGREE=0 ONLY-GOLDEN=6 ONLY-OURS=1
+ARM g213_f_unitclass parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=1225 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_f_unitclass parse -- CENSUS golden=3 ours=3 AGREE=3 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_f_unitclass parse -- CENSUS golden=3 ours=4 AGREE=1 ONLY-GOLDEN=2 ONLY-OURS=3
+CELL g213_f_unitclass parse ONLY-GOLDEN	1	unsupported_typespec|T213|5:28	NONE	function[-:c213f::ff213]<io_decl:x213
+CELL g213_f_unitclass parse ONLY-GOLDEN	1	unsupported_typespec|T213|6:3	NONE	function[-:c213f::ff213]<begin:<ref_var:locf213
+CELL g213_f_unitclass parse ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_f_unitclass parse ONLY-OURS	1	unsupported_typespec|T213|5:28	NONE	class_defn[-:work@c213f]<function:ff213<io_decl:x213
+CELL g213_f_unitclass parse ONLY-OURS	1	unsupported_typespec|T213|6:3	NONE	class_defn[-:work@c213f]<function:ff213<begin:<ref_var:locf213
+CELL g213_f_unitclass parse -- CENSUS golden=3 ours=4 AGREE=1 ONLY-GOLDEN=2 ONLY-OURS=3
+ARM g213_f_unitclass elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=1502 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_f_unitclass elab -- CENSUS golden=3 ours=3 AGREE=3 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_f_unitclass elab -- CENSUS golden=3 ours=4 AGREE=1 ONLY-GOLDEN=2 ONLY-OURS=3
+CELL g213_f_unitclass elab ONLY-GOLDEN	1	unsupported_typespec|T213|5:28	NONE	function[-:c213f::ff213]<io_decl:x213
+CELL g213_f_unitclass elab ONLY-GOLDEN	1	unsupported_typespec|T213|6:3	NONE	function[-:c213f::ff213]<begin:<ref_var:locf213
+CELL g213_f_unitclass elab ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_f_unitclass elab ONLY-OURS	1	unsupported_typespec|T213|5:28	NONE	class_defn[-:work@c213f]<function:ff213<io_decl:x213
+CELL g213_f_unitclass elab ONLY-OURS	1	unsupported_typespec|T213|6:3	NONE	class_defn[-:work@c213f]<function:ff213<begin:<ref_var:locf213
+CELL g213_f_unitclass elab -- CENSUS golden=3 ours=4 AGREE=1 ONLY-GOLDEN=2 ONLY-OURS=3
+ARM g213_g_freefunc parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=2370 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_g_freefunc parse -- CENSUS golden=6 ours=6 AGREE=6 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_g_freefunc parse -- CENSUS golden=6 ours=7 AGREE=6 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL g213_g_freefunc parse ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_g_freefunc parse -- CENSUS golden=6 ours=7 AGREE=6 ONLY-GOLDEN=0 ONLY-OURS=1
+ARM g213_g_freefunc elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=2490 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_g_freefunc elab -- CENSUS golden=16 ours=16 AGREE=16 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_g_freefunc elab -- CENSUS golden=16 ours=7 AGREE=6 ONLY-GOLDEN=10 ONLY-OURS=1
+CELL g213_g_freefunc elab ONLY-GOLDEN	1	struct_typespec|p213g::s213_t|7:33	ALLPKG:p213g	package[ALLPKG:p213g]<function:c213g::gg213<begin:<struct_var:locgg213
+CELL g213_g_freefunc elab ONLY-GOLDEN	1	struct_typespec|p213g::s213_t|7:33	ALLPKG:p213g	package[ALLPKG:p213g]<function:c213g::gg213<struct_var:locgg213
+CELL g213_g_freefunc elab ONLY-GOLDEN	1	struct_typespec|p213g::s213_t|7:33	ALLPKG:p213g	package[ALLPKG:p213g]<function:fg213<begin:<struct_var:locg213
+CELL g213_g_freefunc elab ONLY-GOLDEN	1	struct_typespec|p213g::s213_t|7:33	ALLPKG:p213g	package[ALLPKG:p213g]<function:fg213<io_decl:x213
+CELL g213_g_freefunc elab ONLY-GOLDEN	1	struct_typespec|p213g::s213_t|7:33	ALLPKG:p213g	package[ALLPKG:p213g]<function:fg213<struct_var:locg213
+CELL g213_g_freefunc elab ONLY-GOLDEN	1	struct_typespec|p213g::s213_t|7:33	TOPPKG:p213g	package[TOPPKG:p213g]<class_defn:c213g<function:gg213<begin:<struct_var:locgg213
+CELL g213_g_freefunc elab ONLY-GOLDEN	1	struct_typespec|p213g::s213_t|7:33	TOPPKG:p213g	package[TOPPKG:p213g]<class_defn:c213g<function:gg213<struct_var:locgg213
+CELL g213_g_freefunc elab ONLY-GOLDEN	1	struct_typespec|p213g::s213_t|7:33	TOPPKG:p213g	package[TOPPKG:p213g]<function:fg213<begin:<struct_var:locg213
+CELL g213_g_freefunc elab ONLY-GOLDEN	1	struct_typespec|p213g::s213_t|7:33	TOPPKG:p213g	package[TOPPKG:p213g]<function:fg213<io_decl:x213
+CELL g213_g_freefunc elab ONLY-GOLDEN	1	struct_typespec|p213g::s213_t|7:33	TOPPKG:p213g	package[TOPPKG:p213g]<function:fg213<struct_var:locg213
+CELL g213_g_freefunc elab ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_g_freefunc elab -- CENSUS golden=16 ours=7 AGREE=6 ONLY-GOLDEN=10 ONLY-OURS=1
+ARM g213_h_muststay parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=3138 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_h_muststay parse -- CENSUS golden=16 ours=16 AGREE=16 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_h_muststay parse -- CENSUS golden=16 ours=14 AGREE=10 ONLY-GOLDEN=6 ONLY-OURS=4
+CELL g213_h_muststay parse ONLY-GOLDEN	1	bit_typespec|b213_t|11:30	ALLPKG:p213h	package[ALLPKG:p213h]<function:c213h::fh213<io_decl:x213
+CELL g213_h_muststay parse ONLY-GOLDEN	1	bit_typespec|b213_t|11:30	TOPPKG:p213h	package[TOPPKG:p213h]<class_defn:c213h<function:fh213<io_decl:x213
+CELL g213_h_muststay parse ONLY-GOLDEN	1	bit_typespec|b213_t|8:32	TOPPKG:p213h	package[TOPPKG:p213h]<class_defn:c213h<function:fh213<io_decl:x213
+CELL g213_h_muststay parse ONLY-GOLDEN	1	bit_typespec|p213h::b213_t|6:11	ALLPKG:p213h	bit_typespec[-:b213_t]
+CELL g213_h_muststay parse ONLY-GOLDEN	2	bit_typespec|p213h::b213_t|6:11	TOPPKG:p213h	bit_typespec[-:b213_t]
+CELL g213_h_muststay parse ONLY-OURS	1	bit_typespec|b213_t|6:11	ALLPKG:p213h	package[ALLPKG:p213h]<function:c213h::fh213<io_decl:x213
+CELL g213_h_muststay parse ONLY-OURS	2	bit_typespec|b213_t|6:11	TOPPKG:p213h	package[TOPPKG:p213h]<class_defn:c213h<function:fh213<io_decl:x213
+CELL g213_h_muststay parse ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_h_muststay parse -- CENSUS golden=16 ours=14 AGREE=10 ONLY-GOLDEN=6 ONLY-OURS=4
+ARM g213_h_muststay elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=3390 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_h_muststay elab -- CENSUS golden=26 ours=26 AGREE=26 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_h_muststay elab -- CENSUS golden=26 ours=14 AGREE=10 ONLY-GOLDEN=16 ONLY-OURS=4
+CELL g213_h_muststay elab ONLY-GOLDEN	2	bit_typespec|b213_t|11:30	ALLPKG:p213h	package[ALLPKG:p213h]<function:c213h::fh213<io_decl:x213
+CELL g213_h_muststay elab ONLY-GOLDEN	1	bit_typespec|b213_t|11:30	TOPPKG:p213h	package[TOPPKG:p213h]<class_defn:c213h<function:fh213<io_decl:x213
+CELL g213_h_muststay elab ONLY-GOLDEN	1	bit_typespec|b213_t|6:11	ALLPKG:p213h	package[ALLPKG:p213h]<function:c213h::fh213<begin:<bit_var:loch213
+CELL g213_h_muststay elab ONLY-GOLDEN	1	bit_typespec|b213_t|6:11	ALLPKG:p213h	package[ALLPKG:p213h]<function:c213h::fh213<bit_var:loch213
+CELL g213_h_muststay elab ONLY-GOLDEN	1	bit_typespec|b213_t|6:11	ALLPKG:p213h	package[ALLPKG:p213h]<function:c213h::gh213<array_var:q213<bit_var:
+CELL g213_h_muststay elab ONLY-GOLDEN	1	bit_typespec|b213_t|6:11	ALLPKG:p213h	package[ALLPKG:p213h]<function:c213h::gh213<begin:<array_var:q213<bit_var:
+CELL g213_h_muststay elab ONLY-GOLDEN	1	bit_typespec|b213_t|6:11	ALLPKG:p213h	package[ALLPKG:p213h]<function:c213h::gh213<begin:<bit_var:
+CELL g213_h_muststay elab ONLY-GOLDEN	1	bit_typespec|b213_t|6:11	TOPPKG:p213h	package[TOPPKG:p213h]<class_defn:c213h<function:fh213<bit_var:loch213
+CELL g213_h_muststay elab ONLY-GOLDEN	1	bit_typespec|b213_t|6:11	TOPPKG:p213h	package[TOPPKG:p213h]<class_defn:c213h<function:gh213<array_var:q213<bit_var:
+CELL g213_h_muststay elab ONLY-GOLDEN	1	bit_typespec|b213_t|6:11	TOPPKG:p213h	package[TOPPKG:p213h]<class_defn:c213h<function:gh213<begin:<array_var:q213<bit_var:
+CELL g213_h_muststay elab ONLY-GOLDEN	1	bit_typespec|b213_t|6:11	TOPPKG:p213h	package[TOPPKG:p213h]<class_defn:c213h<function:gh213<begin:<bit_var:
+CELL g213_h_muststay elab ONLY-GOLDEN	1	bit_typespec|b213_t|8:32	TOPPKG:p213h	package[TOPPKG:p213h]<class_defn:c213h<function:fh213<io_decl:x213
+CELL g213_h_muststay elab ONLY-GOLDEN	1	bit_typespec|p213h::b213_t|6:11	ALLPKG:p213h	bit_typespec[-:b213_t]
+CELL g213_h_muststay elab ONLY-GOLDEN	2	bit_typespec|p213h::b213_t|6:11	TOPPKG:p213h	bit_typespec[-:b213_t]
+CELL g213_h_muststay elab ONLY-OURS	1	bit_typespec|b213_t|6:11	ALLPKG:p213h	package[ALLPKG:p213h]<function:c213h::fh213<io_decl:x213
+CELL g213_h_muststay elab ONLY-OURS	2	bit_typespec|b213_t|6:11	TOPPKG:p213h	package[TOPPKG:p213h]<class_defn:c213h<function:fh213<io_decl:x213
+CELL g213_h_muststay elab ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_h_muststay elab -- CENSUS golden=26 ours=14 AGREE=10 ONLY-GOLDEN=16 ONLY-OURS=4
+ARM g213_i_scopedtd parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=2486 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_i_scopedtd parse -- CENSUS golden=9 ours=9 AGREE=9 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_i_scopedtd parse -- CENSUS golden=9 ours=10 AGREE=9 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL g213_i_scopedtd parse ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_i_scopedtd parse -- CENSUS golden=9 ours=10 AGREE=9 ONLY-GOLDEN=0 ONLY-OURS=1
+ARM g213_i_scopedtd elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=2610 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_i_scopedtd elab -- CENSUS golden=18 ours=18 AGREE=18 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_i_scopedtd elab -- CENSUS golden=18 ours=10 AGREE=9 ONLY-GOLDEN=9 ONLY-OURS=1
+CELL g213_i_scopedtd elab ONLY-GOLDEN	1	bit_typespec|td213_t|9:13	NONE	<unreferenced>
+CELL g213_i_scopedtd elab ONLY-GOLDEN	1	bit_typespec|td213_t|9:13	NONE	package[ALLPKG:p213i]<function:c213i::fi213<begin:<class_var:loci213
+CELL g213_i_scopedtd elab ONLY-GOLDEN	1	bit_typespec|td213_t|9:13	NONE	package[ALLPKG:p213i]<function:c213i::fi213<class_var:loci213
+CELL g213_i_scopedtd elab ONLY-GOLDEN	1	bit_typespec|td213_t|9:13	NONE	package[ALLPKG:p213i]<function:c213i::fi213<io_decl:x213
+CELL g213_i_scopedtd elab ONLY-GOLDEN	1	bit_typespec|td213_t|9:13	NONE	package[TOPPKG:p213i]<class_defn:c213i<function:fi213<class_var:loci213
+CELL g213_i_scopedtd elab ONLY-GOLDEN	1	unsupported_typespec|stmt213_t|21:5	ALLPKG:p213i	package[ALLPKG:p213i]<function:c213i::gi213<begin:<ref_var:locsi213
+CELL g213_i_scopedtd elab ONLY-GOLDEN	1	unsupported_typespec|stmt213_t|21:5	ALLPKG:p213i	package[ALLPKG:p213i]<function:c213i::gi213<ref_var:locsi213
+CELL g213_i_scopedtd elab ONLY-GOLDEN	1	unsupported_typespec|stmt213_t|21:5	TOPPKG:p213i	package[TOPPKG:p213i]<class_defn:c213i<function:gi213<begin:<ref_var:locsi213
+CELL g213_i_scopedtd elab ONLY-GOLDEN	1	unsupported_typespec|stmt213_t|21:5	TOPPKG:p213i	package[TOPPKG:p213i]<class_defn:c213i<function:gi213<ref_var:locsi213
+CELL g213_i_scopedtd elab ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_i_scopedtd elab -- CENSUS golden=18 ours=10 AGREE=9 ONLY-GOLDEN=9 ONLY-OURS=1
+-- ARM-VIEWS SCORED: 18   NO-DATABASE: 0   CALIB non-null: 0
+
+===================== PATCHED 14e1af66
+ARM g213_a_oob parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=3002 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_a_oob parse -- CENSUS golden=14 ours=14 AGREE=14 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_a_oob parse -- CENSUS golden=14 ours=13 AGREE=12 ONLY-GOLDEN=2 ONLY-OURS=1
+CELL g213_a_oob parse ONLY-GOLDEN	1	unsupported_typespec|U213|23:7	ALLPKG:p213a	package[ALLPKG:p213a]<function:c213a::la213<begin:<named_begin:blk213<ref_var:law213
+CELL g213_a_oob parse ONLY-GOLDEN	1	unsupported_typespec|U213|23:7	TOPPKG:p213a	package[TOPPKG:p213a]<class_defn:c213a<function:la213<begin:<named_begin:blk213<ref_var:law213
+CELL g213_a_oob parse ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_a_oob parse -- CENSUS golden=14 ours=13 AGREE=12 ONLY-GOLDEN=2 ONLY-OURS=1
+ARM g213_a_oob elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=3226 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_a_oob elab -- CENSUS golden=32 ours=32 AGREE=32 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_a_oob elab -- CENSUS golden=32 ours=13 AGREE=12 ONLY-GOLDEN=20 ONLY-OURS=1
+CELL g213_a_oob elab ONLY-GOLDEN	1	unsupported_typespec|T213|12:30	ALLPKG:p213a	package[ALLPKG:p213a]<function:c213a::fa213<io_decl:x213
+CELL g213_a_oob elab ONLY-GOLDEN	1	unsupported_typespec|T213|12:30	TOPPKG:p213a	package[TOPPKG:p213a]<class_defn:c213a<function:fa213<io_decl:x213
+CELL g213_a_oob elab ONLY-GOLDEN	1	unsupported_typespec|T213|13:5	ALLPKG:p213a	package[ALLPKG:p213a]<function:c213a::fa213<begin:<ref_var:loca213
+CELL g213_a_oob elab ONLY-GOLDEN	1	unsupported_typespec|T213|13:5	ALLPKG:p213a	package[ALLPKG:p213a]<function:c213a::fa213<ref_var:loca213
+CELL g213_a_oob elab ONLY-GOLDEN	1	unsupported_typespec|T213|13:5	TOPPKG:p213a	package[TOPPKG:p213a]<class_defn:c213a<function:fa213<begin:<ref_var:loca213
+CELL g213_a_oob elab ONLY-GOLDEN	1	unsupported_typespec|T213|13:5	TOPPKG:p213a	package[TOPPKG:p213a]<class_defn:c213a<function:fa213<ref_var:loca213
+CELL g213_a_oob elab ONLY-GOLDEN	1	unsupported_typespec|T213|21:5	ALLPKG:p213a	package[ALLPKG:p213a]<function:c213a::la213<begin:<ref_var:lav213
+CELL g213_a_oob elab ONLY-GOLDEN	1	unsupported_typespec|T213|21:5	ALLPKG:p213a	package[ALLPKG:p213a]<function:c213a::la213<ref_var:lav213
+CELL g213_a_oob elab ONLY-GOLDEN	1	unsupported_typespec|T213|21:5	TOPPKG:p213a	package[TOPPKG:p213a]<class_defn:c213a<function:la213<begin:<ref_var:lav213
+CELL g213_a_oob elab ONLY-GOLDEN	1	unsupported_typespec|T213|21:5	TOPPKG:p213a	package[TOPPKG:p213a]<class_defn:c213a<function:la213<ref_var:lav213
+CELL g213_a_oob elab ONLY-GOLDEN	1	unsupported_typespec|U213|16:28	ALLPKG:p213a	package[ALLPKG:p213a]<task:c213a::ta213<io_decl:y213
+CELL g213_a_oob elab ONLY-GOLDEN	1	unsupported_typespec|U213|16:28	TOPPKG:p213a	package[TOPPKG:p213a]<class_defn:c213a<task:ta213<io_decl:y213
+CELL g213_a_oob elab ONLY-GOLDEN	1	unsupported_typespec|U213|17:5	ALLPKG:p213a	package[ALLPKG:p213a]<task:c213a::ta213<begin:<ref_var:loct213
+CELL g213_a_oob elab ONLY-GOLDEN	1	unsupported_typespec|U213|17:5	ALLPKG:p213a	package[ALLPKG:p213a]<task:c213a::ta213<ref_var:loct213
+CELL g213_a_oob elab ONLY-GOLDEN	1	unsupported_typespec|U213|17:5	TOPPKG:p213a	package[TOPPKG:p213a]<class_defn:c213a<task:ta213<begin:<ref_var:loct213
+CELL g213_a_oob elab ONLY-GOLDEN	1	unsupported_typespec|U213|17:5	TOPPKG:p213a	package[TOPPKG:p213a]<class_defn:c213a<task:ta213<ref_var:loct213
+CELL g213_a_oob elab ONLY-GOLDEN	2	unsupported_typespec|U213|23:7	ALLPKG:p213a	package[ALLPKG:p213a]<function:c213a::la213<begin:<named_begin:blk213<ref_var:law213
+CELL g213_a_oob elab ONLY-GOLDEN	2	unsupported_typespec|U213|23:7	TOPPKG:p213a	package[TOPPKG:p213a]<class_defn:c213a<function:la213<begin:<named_begin:blk213<ref_var:law213
+CELL g213_a_oob elab ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_a_oob elab -- CENSUS golden=32 ours=13 AGREE=12 ONLY-GOLDEN=20 ONLY-OURS=1
+ARM g213_b_inbody parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=1742 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_b_inbody parse -- CENSUS golden=2 ours=2 AGREE=2 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_b_inbody parse -- CENSUS golden=2 ours=3 AGREE=2 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL g213_b_inbody parse ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_b_inbody parse -- CENSUS golden=2 ours=3 AGREE=2 ONLY-GOLDEN=0 ONLY-OURS=1
+ARM g213_b_inbody elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=1826 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_b_inbody elab -- CENSUS golden=2 ours=2 AGREE=2 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_b_inbody elab -- CENSUS golden=2 ours=3 AGREE=2 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL g213_b_inbody elab ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_b_inbody elab -- CENSUS golden=2 ours=3 AGREE=2 ONLY-GOLDEN=0 ONLY-OURS=1
+ARM g213_c_pkgimp parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=2802 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_c_pkgimp parse -- CENSUS golden=15 ours=15 AGREE=15 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_c_pkgimp parse -- CENSUS golden=15 ours=16 AGREE=13 ONLY-GOLDEN=2 ONLY-OURS=3
+CELL g213_c_pkgimp parse ONLY-GOLDEN	1	unsupported_typespec|T213|12:5	TOPPKG:p213c	package[ALLPKG:q213c]<function:c213c::fc213<ref_var:locc213
+CELL g213_c_pkgimp parse ONLY-GOLDEN	1	unsupported_typespec|T213|12:5	TOPPKG:p213c	package[TOPPKG:q213c]<function:c213c::fc213<ref_var:locc213
+CELL g213_c_pkgimp parse ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_c_pkgimp parse ONLY-OURS	1	import_typespec|p213c|21:10	NONE	<unreferenced>
+CELL g213_c_pkgimp parse ONLY-OURS	1	import_typespec|q213c|22:10	NONE	<unreferenced>
+CELL g213_c_pkgimp parse -- CENSUS golden=15 ours=16 AGREE=13 ONLY-GOLDEN=2 ONLY-OURS=3
+ARM g213_c_pkgimp elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=3164 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_c_pkgimp elab -- CENSUS golden=30 ours=30 AGREE=30 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_c_pkgimp elab -- CENSUS golden=30 ours=16 AGREE=13 ONLY-GOLDEN=17 ONLY-OURS=3
+CELL g213_c_pkgimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|11:30	ALLPKG:p213c	package[ALLPKG:p213c]<function:c213c::fc213<io_decl:x213
+CELL g213_c_pkgimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|11:30	TOPPKG:p213c	module_inst[TOPMOD:work@top213c]<function:fc213<io_decl:x213
+CELL g213_c_pkgimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|11:30	TOPPKG:p213c	package[ALLPKG:q213c]<function:c213c::fc213<io_decl:x213
+CELL g213_c_pkgimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|11:30	TOPPKG:p213c	package[TOPPKG:p213c]<class_defn:c213c<function:fc213<io_decl:x213
+CELL g213_c_pkgimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|11:30	TOPPKG:p213c	package[TOPPKG:q213c]<function:c213c::fc213<io_decl:x213
+CELL g213_c_pkgimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|12:5	ALLPKG:p213c	package[ALLPKG:p213c]<function:c213c::fc213<begin:<ref_var:locc213
+CELL g213_c_pkgimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|12:5	ALLPKG:p213c	package[ALLPKG:p213c]<function:c213c::fc213<ref_var:locc213
+CELL g213_c_pkgimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|12:5	TOPPKG:p213c	module_inst[TOPMOD:work@top213c]<function:fc213<begin:<ref_var:locc213
+CELL g213_c_pkgimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|12:5	TOPPKG:p213c	module_inst[TOPMOD:work@top213c]<function:fc213<ref_var:locc213
+CELL g213_c_pkgimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|12:5	TOPPKG:p213c	package[ALLPKG:q213c]<function:c213c::fc213<begin:<ref_var:locc213
+CELL g213_c_pkgimp elab ONLY-GOLDEN	2	unsupported_typespec|T213|12:5	TOPPKG:p213c	package[ALLPKG:q213c]<function:c213c::fc213<ref_var:locc213
+CELL g213_c_pkgimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|12:5	TOPPKG:p213c	package[TOPPKG:p213c]<class_defn:c213c<function:fc213<begin:<ref_var:locc213
+CELL g213_c_pkgimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|12:5	TOPPKG:p213c	package[TOPPKG:p213c]<class_defn:c213c<function:fc213<ref_var:locc213
+CELL g213_c_pkgimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|12:5	TOPPKG:p213c	package[TOPPKG:q213c]<function:c213c::fc213<begin:<ref_var:locc213
+CELL g213_c_pkgimp elab ONLY-GOLDEN	2	unsupported_typespec|T213|12:5	TOPPKG:p213c	package[TOPPKG:q213c]<function:c213c::fc213<ref_var:locc213
+CELL g213_c_pkgimp elab ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_c_pkgimp elab ONLY-OURS	1	import_typespec|p213c|21:10	NONE	<unreferenced>
+CELL g213_c_pkgimp elab ONLY-OURS	1	import_typespec|q213c|22:10	NONE	<unreferenced>
+CELL g213_c_pkgimp elab -- CENSUS golden=30 ours=16 AGREE=13 ONLY-GOLDEN=17 ONLY-OURS=3
+ARM g213_d_modimp parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=1870 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_d_modimp parse -- CENSUS golden=6 ours=6 AGREE=6 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_d_modimp parse -- CENSUS golden=6 ours=8 AGREE=6 ONLY-GOLDEN=0 ONLY-OURS=2
+CELL g213_d_modimp parse ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_d_modimp parse ONLY-OURS	1	import_typespec|p213d|14:10	NONE	<unreferenced>
+CELL g213_d_modimp parse -- CENSUS golden=6 ours=8 AGREE=6 ONLY-GOLDEN=0 ONLY-OURS=2
+ARM g213_d_modimp elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=2224 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_d_modimp elab -- CENSUS golden=15 ours=15 AGREE=15 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_d_modimp elab -- CENSUS golden=15 ours=8 AGREE=6 ONLY-GOLDEN=9 ONLY-OURS=2
+CELL g213_d_modimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|8:30	ALLPKG:p213d	package[ALLPKG:p213d]<function:c213d::fd213<io_decl:x213
+CELL g213_d_modimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|8:30	TOPPKG:p213d	module_inst[TOPMOD:work@top213d]<function:fd213<io_decl:x213
+CELL g213_d_modimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|8:30	TOPPKG:p213d	package[TOPPKG:p213d]<class_defn:c213d<function:fd213<io_decl:x213
+CELL g213_d_modimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|9:5	ALLPKG:p213d	package[ALLPKG:p213d]<function:c213d::fd213<begin:<ref_var:locd213
+CELL g213_d_modimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|9:5	ALLPKG:p213d	package[ALLPKG:p213d]<function:c213d::fd213<ref_var:locd213
+CELL g213_d_modimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|9:5	TOPPKG:p213d	module_inst[TOPMOD:work@top213d]<function:fd213<begin:<ref_var:locd213
+CELL g213_d_modimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|9:5	TOPPKG:p213d	module_inst[TOPMOD:work@top213d]<function:fd213<ref_var:locd213
+CELL g213_d_modimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|9:5	TOPPKG:p213d	package[TOPPKG:p213d]<class_defn:c213d<function:fd213<begin:<ref_var:locd213
+CELL g213_d_modimp elab ONLY-GOLDEN	1	unsupported_typespec|T213|9:5	TOPPKG:p213d	package[TOPPKG:p213d]<class_defn:c213d<function:fd213<ref_var:locd213
+CELL g213_d_modimp elab ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_d_modimp elab ONLY-OURS	1	import_typespec|p213d|14:10	NONE	<unreferenced>
+CELL g213_d_modimp elab -- CENSUS golden=15 ours=8 AGREE=6 ONLY-GOLDEN=9 ONLY-OURS=2
+ARM g213_e_modclass parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=1025 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_e_modclass parse -- CENSUS golden=3 ours=3 AGREE=3 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_e_modclass parse -- CENSUS golden=3 ours=1 AGREE=0 ONLY-GOLDEN=3 ONLY-OURS=1
+CELL g213_e_modclass parse ONLY-GOLDEN	1	type_parameter|T213|5:22	NONE	<unreferenced>
+CELL g213_e_modclass parse ONLY-GOLDEN	1	unsupported_typespec|T213|8:30	NONE	module_inst[ALLMOD:]<function:c213e::fe213<io_decl:x213
+CELL g213_e_modclass parse ONLY-GOLDEN	1	unsupported_typespec|T213|9:5	NONE	module_inst[ALLMOD:]<function:c213e::fe213<begin:<ref_var:loce213
+CELL g213_e_modclass parse ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_e_modclass parse -- CENSUS golden=3 ours=1 AGREE=0 ONLY-GOLDEN=3 ONLY-OURS=1
+ARM g213_e_modclass elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=1540 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_e_modclass elab -- CENSUS golden=6 ours=6 AGREE=6 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_e_modclass elab -- CENSUS golden=6 ours=1 AGREE=0 ONLY-GOLDEN=6 ONLY-OURS=1
+CELL g213_e_modclass elab ONLY-GOLDEN	1	type_parameter|T213|5:22	NONE	<unreferenced>
+CELL g213_e_modclass elab ONLY-GOLDEN	1	unsupported_typespec|T213|8:30	NONE	module_inst[ALLMOD:]<function:c213e::fe213<io_decl:x213
+CELL g213_e_modclass elab ONLY-GOLDEN	1	unsupported_typespec|T213|8:30	NONE	module_inst[TOPMOD:work@top213e]<function:c213e::fe213<io_decl:x213
+CELL g213_e_modclass elab ONLY-GOLDEN	1	unsupported_typespec|T213|9:5	NONE	module_inst[ALLMOD:]<function:c213e::fe213<begin:<ref_var:loce213
+CELL g213_e_modclass elab ONLY-GOLDEN	1	unsupported_typespec|T213|9:5	NONE	module_inst[TOPMOD:work@top213e]<function:c213e::fe213<begin:<ref_var:loce213
+CELL g213_e_modclass elab ONLY-GOLDEN	1	unsupported_typespec|T213|9:5	NONE	module_inst[TOPMOD:work@top213e]<function:c213e::fe213<ref_var:loce213
+CELL g213_e_modclass elab ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_e_modclass elab -- CENSUS golden=6 ours=1 AGREE=0 ONLY-GOLDEN=6 ONLY-OURS=1
+ARM g213_f_unitclass parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=1225 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_f_unitclass parse -- CENSUS golden=3 ours=3 AGREE=3 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_f_unitclass parse -- CENSUS golden=3 ours=4 AGREE=1 ONLY-GOLDEN=2 ONLY-OURS=3
+CELL g213_f_unitclass parse ONLY-GOLDEN	1	unsupported_typespec|T213|5:28	NONE	function[-:c213f::ff213]<io_decl:x213
+CELL g213_f_unitclass parse ONLY-GOLDEN	1	unsupported_typespec|T213|6:3	NONE	function[-:c213f::ff213]<begin:<ref_var:locf213
+CELL g213_f_unitclass parse ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_f_unitclass parse ONLY-OURS	1	unsupported_typespec|T213|5:28	NONE	class_defn[-:work@c213f]<function:ff213<io_decl:x213
+CELL g213_f_unitclass parse ONLY-OURS	1	unsupported_typespec|T213|6:3	NONE	class_defn[-:work@c213f]<function:ff213<begin:<ref_var:locf213
+CELL g213_f_unitclass parse -- CENSUS golden=3 ours=4 AGREE=1 ONLY-GOLDEN=2 ONLY-OURS=3
+ARM g213_f_unitclass elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=1502 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_f_unitclass elab -- CENSUS golden=3 ours=3 AGREE=3 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_f_unitclass elab -- CENSUS golden=3 ours=4 AGREE=1 ONLY-GOLDEN=2 ONLY-OURS=3
+CELL g213_f_unitclass elab ONLY-GOLDEN	1	unsupported_typespec|T213|5:28	NONE	function[-:c213f::ff213]<io_decl:x213
+CELL g213_f_unitclass elab ONLY-GOLDEN	1	unsupported_typespec|T213|6:3	NONE	function[-:c213f::ff213]<begin:<ref_var:locf213
+CELL g213_f_unitclass elab ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_f_unitclass elab ONLY-OURS	1	unsupported_typespec|T213|5:28	NONE	class_defn[-:work@c213f]<function:ff213<io_decl:x213
+CELL g213_f_unitclass elab ONLY-OURS	1	unsupported_typespec|T213|6:3	NONE	class_defn[-:work@c213f]<function:ff213<begin:<ref_var:locf213
+CELL g213_f_unitclass elab -- CENSUS golden=3 ours=4 AGREE=1 ONLY-GOLDEN=2 ONLY-OURS=3
+ARM g213_g_freefunc parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=2370 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_g_freefunc parse -- CENSUS golden=6 ours=6 AGREE=6 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_g_freefunc parse -- CENSUS golden=6 ours=7 AGREE=6 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL g213_g_freefunc parse ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_g_freefunc parse -- CENSUS golden=6 ours=7 AGREE=6 ONLY-GOLDEN=0 ONLY-OURS=1
+ARM g213_g_freefunc elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=2490 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_g_freefunc elab -- CENSUS golden=16 ours=16 AGREE=16 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_g_freefunc elab -- CENSUS golden=16 ours=7 AGREE=6 ONLY-GOLDEN=10 ONLY-OURS=1
+CELL g213_g_freefunc elab ONLY-GOLDEN	1	struct_typespec|p213g::s213_t|7:33	ALLPKG:p213g	package[ALLPKG:p213g]<function:c213g::gg213<begin:<struct_var:locgg213
+CELL g213_g_freefunc elab ONLY-GOLDEN	1	struct_typespec|p213g::s213_t|7:33	ALLPKG:p213g	package[ALLPKG:p213g]<function:c213g::gg213<struct_var:locgg213
+CELL g213_g_freefunc elab ONLY-GOLDEN	1	struct_typespec|p213g::s213_t|7:33	ALLPKG:p213g	package[ALLPKG:p213g]<function:fg213<begin:<struct_var:locg213
+CELL g213_g_freefunc elab ONLY-GOLDEN	1	struct_typespec|p213g::s213_t|7:33	ALLPKG:p213g	package[ALLPKG:p213g]<function:fg213<io_decl:x213
+CELL g213_g_freefunc elab ONLY-GOLDEN	1	struct_typespec|p213g::s213_t|7:33	ALLPKG:p213g	package[ALLPKG:p213g]<function:fg213<struct_var:locg213
+CELL g213_g_freefunc elab ONLY-GOLDEN	1	struct_typespec|p213g::s213_t|7:33	TOPPKG:p213g	package[TOPPKG:p213g]<class_defn:c213g<function:gg213<begin:<struct_var:locgg213
+CELL g213_g_freefunc elab ONLY-GOLDEN	1	struct_typespec|p213g::s213_t|7:33	TOPPKG:p213g	package[TOPPKG:p213g]<class_defn:c213g<function:gg213<struct_var:locgg213
+CELL g213_g_freefunc elab ONLY-GOLDEN	1	struct_typespec|p213g::s213_t|7:33	TOPPKG:p213g	package[TOPPKG:p213g]<function:fg213<begin:<struct_var:locg213
+CELL g213_g_freefunc elab ONLY-GOLDEN	1	struct_typespec|p213g::s213_t|7:33	TOPPKG:p213g	package[TOPPKG:p213g]<function:fg213<io_decl:x213
+CELL g213_g_freefunc elab ONLY-GOLDEN	1	struct_typespec|p213g::s213_t|7:33	TOPPKG:p213g	package[TOPPKG:p213g]<function:fg213<struct_var:locg213
+CELL g213_g_freefunc elab ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_g_freefunc elab -- CENSUS golden=16 ours=7 AGREE=6 ONLY-GOLDEN=10 ONLY-OURS=1
+ARM g213_h_muststay parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=3138 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_h_muststay parse -- CENSUS golden=16 ours=16 AGREE=16 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_h_muststay parse -- CENSUS golden=16 ours=14 AGREE=10 ONLY-GOLDEN=6 ONLY-OURS=4
+CELL g213_h_muststay parse ONLY-GOLDEN	1	bit_typespec|b213_t|11:30	ALLPKG:p213h	package[ALLPKG:p213h]<function:c213h::fh213<io_decl:x213
+CELL g213_h_muststay parse ONLY-GOLDEN	1	bit_typespec|b213_t|11:30	TOPPKG:p213h	package[TOPPKG:p213h]<class_defn:c213h<function:fh213<io_decl:x213
+CELL g213_h_muststay parse ONLY-GOLDEN	1	bit_typespec|b213_t|8:32	TOPPKG:p213h	package[TOPPKG:p213h]<class_defn:c213h<function:fh213<io_decl:x213
+CELL g213_h_muststay parse ONLY-GOLDEN	1	bit_typespec|p213h::b213_t|6:11	ALLPKG:p213h	bit_typespec[-:b213_t]
+CELL g213_h_muststay parse ONLY-GOLDEN	2	bit_typespec|p213h::b213_t|6:11	TOPPKG:p213h	bit_typespec[-:b213_t]
+CELL g213_h_muststay parse ONLY-OURS	1	bit_typespec|b213_t|6:11	ALLPKG:p213h	package[ALLPKG:p213h]<function:c213h::fh213<io_decl:x213
+CELL g213_h_muststay parse ONLY-OURS	2	bit_typespec|b213_t|6:11	TOPPKG:p213h	package[TOPPKG:p213h]<class_defn:c213h<function:fh213<io_decl:x213
+CELL g213_h_muststay parse ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_h_muststay parse -- CENSUS golden=16 ours=14 AGREE=10 ONLY-GOLDEN=6 ONLY-OURS=4
+ARM g213_h_muststay elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=3390 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_h_muststay elab -- CENSUS golden=26 ours=26 AGREE=26 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_h_muststay elab -- CENSUS golden=26 ours=14 AGREE=10 ONLY-GOLDEN=16 ONLY-OURS=4
+CELL g213_h_muststay elab ONLY-GOLDEN	2	bit_typespec|b213_t|11:30	ALLPKG:p213h	package[ALLPKG:p213h]<function:c213h::fh213<io_decl:x213
+CELL g213_h_muststay elab ONLY-GOLDEN	1	bit_typespec|b213_t|11:30	TOPPKG:p213h	package[TOPPKG:p213h]<class_defn:c213h<function:fh213<io_decl:x213
+CELL g213_h_muststay elab ONLY-GOLDEN	1	bit_typespec|b213_t|6:11	ALLPKG:p213h	package[ALLPKG:p213h]<function:c213h::fh213<begin:<bit_var:loch213
+CELL g213_h_muststay elab ONLY-GOLDEN	1	bit_typespec|b213_t|6:11	ALLPKG:p213h	package[ALLPKG:p213h]<function:c213h::fh213<bit_var:loch213
+CELL g213_h_muststay elab ONLY-GOLDEN	1	bit_typespec|b213_t|6:11	ALLPKG:p213h	package[ALLPKG:p213h]<function:c213h::gh213<array_var:q213<bit_var:
+CELL g213_h_muststay elab ONLY-GOLDEN	1	bit_typespec|b213_t|6:11	ALLPKG:p213h	package[ALLPKG:p213h]<function:c213h::gh213<begin:<array_var:q213<bit_var:
+CELL g213_h_muststay elab ONLY-GOLDEN	1	bit_typespec|b213_t|6:11	ALLPKG:p213h	package[ALLPKG:p213h]<function:c213h::gh213<begin:<bit_var:
+CELL g213_h_muststay elab ONLY-GOLDEN	1	bit_typespec|b213_t|6:11	TOPPKG:p213h	package[TOPPKG:p213h]<class_defn:c213h<function:fh213<bit_var:loch213
+CELL g213_h_muststay elab ONLY-GOLDEN	1	bit_typespec|b213_t|6:11	TOPPKG:p213h	package[TOPPKG:p213h]<class_defn:c213h<function:gh213<array_var:q213<bit_var:
+CELL g213_h_muststay elab ONLY-GOLDEN	1	bit_typespec|b213_t|6:11	TOPPKG:p213h	package[TOPPKG:p213h]<class_defn:c213h<function:gh213<begin:<array_var:q213<bit_var:
+CELL g213_h_muststay elab ONLY-GOLDEN	1	bit_typespec|b213_t|6:11	TOPPKG:p213h	package[TOPPKG:p213h]<class_defn:c213h<function:gh213<begin:<bit_var:
+CELL g213_h_muststay elab ONLY-GOLDEN	1	bit_typespec|b213_t|8:32	TOPPKG:p213h	package[TOPPKG:p213h]<class_defn:c213h<function:fh213<io_decl:x213
+CELL g213_h_muststay elab ONLY-GOLDEN	1	bit_typespec|p213h::b213_t|6:11	ALLPKG:p213h	bit_typespec[-:b213_t]
+CELL g213_h_muststay elab ONLY-GOLDEN	2	bit_typespec|p213h::b213_t|6:11	TOPPKG:p213h	bit_typespec[-:b213_t]
+CELL g213_h_muststay elab ONLY-OURS	1	bit_typespec|b213_t|6:11	ALLPKG:p213h	package[ALLPKG:p213h]<function:c213h::fh213<io_decl:x213
+CELL g213_h_muststay elab ONLY-OURS	2	bit_typespec|b213_t|6:11	TOPPKG:p213h	package[TOPPKG:p213h]<class_defn:c213h<function:fh213<io_decl:x213
+CELL g213_h_muststay elab ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_h_muststay elab -- CENSUS golden=26 ours=14 AGREE=10 ONLY-GOLDEN=16 ONLY-OURS=4
+ARM g213_i_scopedtd parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=2486 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_i_scopedtd parse -- CENSUS golden=9 ours=9 AGREE=9 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_i_scopedtd parse -- CENSUS golden=9 ours=10 AGREE=9 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL g213_i_scopedtd parse ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_i_scopedtd parse -- CENSUS golden=9 ours=10 AGREE=9 ONLY-GOLDEN=0 ONLY-OURS=1
+ARM g213_i_scopedtd elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=2610 heads=1 (VERDICT NOT THE SCORER)
+CALIB g213_i_scopedtd elab -- CENSUS golden=18 ours=18 AGREE=18 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS g213_i_scopedtd elab -- CENSUS golden=18 ours=10 AGREE=9 ONLY-GOLDEN=9 ONLY-OURS=1
+CELL g213_i_scopedtd elab ONLY-GOLDEN	1	bit_typespec|td213_t|9:13	NONE	<unreferenced>
+CELL g213_i_scopedtd elab ONLY-GOLDEN	1	bit_typespec|td213_t|9:13	NONE	package[ALLPKG:p213i]<function:c213i::fi213<begin:<class_var:loci213
+CELL g213_i_scopedtd elab ONLY-GOLDEN	1	bit_typespec|td213_t|9:13	NONE	package[ALLPKG:p213i]<function:c213i::fi213<class_var:loci213
+CELL g213_i_scopedtd elab ONLY-GOLDEN	1	bit_typespec|td213_t|9:13	NONE	package[ALLPKG:p213i]<function:c213i::fi213<io_decl:x213
+CELL g213_i_scopedtd elab ONLY-GOLDEN	1	bit_typespec|td213_t|9:13	NONE	package[TOPPKG:p213i]<class_defn:c213i<function:fi213<class_var:loci213
+CELL g213_i_scopedtd elab ONLY-GOLDEN	1	unsupported_typespec|stmt213_t|21:5	ALLPKG:p213i	package[ALLPKG:p213i]<function:c213i::gi213<begin:<ref_var:locsi213
+CELL g213_i_scopedtd elab ONLY-GOLDEN	1	unsupported_typespec|stmt213_t|21:5	ALLPKG:p213i	package[ALLPKG:p213i]<function:c213i::gi213<ref_var:locsi213
+CELL g213_i_scopedtd elab ONLY-GOLDEN	1	unsupported_typespec|stmt213_t|21:5	TOPPKG:p213i	package[TOPPKG:p213i]<class_defn:c213i<function:gi213<begin:<ref_var:locsi213
+CELL g213_i_scopedtd elab ONLY-GOLDEN	1	unsupported_typespec|stmt213_t|21:5	TOPPKG:p213i	package[TOPPKG:p213i]<class_defn:c213i<function:gi213<ref_var:locsi213
+CELL g213_i_scopedtd elab ONLY-OURS	1	enum_typespec|state|32:5	NONE	class_defn[-:work@process]<function:status<enum_var:
+CELL g213_i_scopedtd elab -- CENSUS golden=18 ours=10 AGREE=9 ONLY-GOLDEN=9 ONLY-OURS=1
+-- ARM-VIEWS SCORED: 18   NO-DATABASE: 0   CALIB non-null: 0

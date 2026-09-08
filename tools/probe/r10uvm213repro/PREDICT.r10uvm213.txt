@@ -1,0 +1,19 @@
+r10uvm213 — QUESTION (5): THE A-PRIORI PREDICTION, FROM PRISTINE DATABASES
+ALONE, WRITTEN BEFORE THE PATCHED SWEEP EXISTED.  MEASUREMENT ONLY.
+LHS is ALWAYS golden.  The fire set and the kind conjunct are decoded in
+predict213.py's header; predictall213.sh walks a whole sweep workdir.
+
+surelog corpus, 956 databases:
+FIRE BuildUVMPkg default -- PREDICT FIRE=16  TO-GOLDEN=16  AWAY=0  UNSEEN=0
+FIRE MiniAmiq default -- PREDICT FIRE=16  TO-GOLDEN=16  AWAY=0  UNSEEN=0
+FIRE Scoreboard default -- PREDICT FIRE=16  TO-GOLDEN=16  AWAY=0  UNSEEN=0
+FIRE SeqDriver default -- PREDICT FIRE=16  TO-GOLDEN=16  AWAY=0  UNSEEN=0
+FIRE SimpleUVM default -- PREDICT FIRE=16  TO-GOLDEN=16  AWAY=0  UNSEEN=0
+FIRE BuildUVMPkg testflags -- PREDICT FIRE=16  TO-GOLDEN=16  AWAY=0  UNSEEN=0
+FIRE MiniAmiq testflags -- PREDICT FIRE=16  TO-GOLDEN=16  AWAY=0  UNSEEN=0
+FIRE SeqDriver testflags -- PREDICT FIRE=16  TO-GOLDEN=16  AWAY=0  UNSEEN=0
+FIRE SimpleUVM testflags -- PREDICT FIRE=16  TO-GOLDEN=16  AWAY=0  UNSEEN=0
+-- rows scanned=956  rows with FIRE>0 =9  golden missing=0
+
+uhdm2rtlil corpus, 1358 databases:
+-- rows scanned=1358  rows with FIRE>0 =0  golden missing=0

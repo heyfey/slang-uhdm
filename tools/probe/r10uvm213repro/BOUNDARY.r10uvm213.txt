@@ -1,0 +1,649 @@
+r10uvm213 — QUESTION (6): THE WIDE BOUNDARY GATE, AND EVERY MOVED ARM
+RE-SCORED AGAINST A REAL SURELOG GOLDEN.  MEASUREMENT ONLY.
+LHS is ALWAYS golden.  bound213.sh compiles EVERY .sv/.v in a COPY of the
+whole probe tree (top level AND subdirectories) in BOTH views on BOTH
+binaries; armscore213.sh then builds one REAL golden per MOVED arm in both
+views and scores it with the same census the corpus rows get.
+
+=== THE GATE
+LISTED=5443 PROCESSED=5443 PRODUCED_DBS=5258 MOVED_ARMS=44 RC_DIFFS=0
+
+  This pass's own grid213/g213_{a,c,d}*.sv are the POSITIVE CONTROL: a gate
+  reporting zero movers over them could not see.  They are in the list.
+
+=== THE 44 MOVED ARMS
+probe/r10uvm105repro/g105_a1.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+probe/r10uvm105repro/g105_a2.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+probe/r10uvm105repro/g105_a3.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+probe/r10uvm107repro/g107_a1.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm107repro/g107_a2.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm107repro/g107_a3.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm160repro/g160_d_home.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm162repro/g162_f_home.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm179repro/g179_a_face.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm179repro/g179_b_recv.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm179repro/g179_c_arg.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm179repro/g179_d_home.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm185repro/grid185/g185_b_notmove.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm213repro/grid213/g213_a_oob.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm213repro/grid213/g213_c_pkgimp.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm213repro/grid213/g213_d_modimp.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm31repro/t41b/dut.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm58repro/a6_extern.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm87repro/g87_a1_order.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm87repro/v87_a3_oob.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10uvm91repro/v91_a3_order.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v105repro/v105_b1.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+probe/r10v105repro/v105_b2.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+probe/r10v105repro/v105_b3.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v105repro/v105_b4.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+probe/r10v105repro/v105_b5.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+probe/r10v105repro/v105_b6.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+probe/r10v107repro/v107_b10.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+probe/r10v107repro/v107_b12.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v107repro/v107_b1.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v107repro/v107_b2.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v107repro/v107_b3.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v107repro/v107_b4.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v107repro/v107_b5.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v107repro/v107_b6.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v107repro/v107_b7.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v107repro/v107_b8.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v107repro/v107_b9.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v165repro/v165_c_homes.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v179repro/v179_a_recv.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v179repro/v179_b_arg.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v179repro/v179_c_home.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v179repro/v179_d_fifo.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+probe/r10v179repro/v179_f_nomod.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+=== RE-SCORED, 88 ARM-VIEWS, 0 NOT-SCORED, CALIBRATION NULL IN ALL 88
+
+  parse view  VIEWSET TO-GOLDEN 196  AWAY-GOLDEN 0  MOVED-WRONG 0
+  elab  view  VIEWSET TO-GOLDEN 202  AWAY-GOLDEN 0  MOVED-WRONG 0
+
+  The strict MULTISET scoring reads 184 MOVED-WRONG cells, ALL of them in the
+  ELAB view, and EVERY ONE has the patched VIEW SET exactly equal to
+  golden's (checked cell by cell): under -elabuhdm golden mints such a cell
+  TWO or THREE times where we mint it ONCE, so the MULTIPLICITY differs
+  before and after.  That multiplicity is a pre-existing arity residue of the
+  elaborated view which this law does not touch (the pristine binary has the
+  same counts, with the wrong view); the VIEW is what the law owns and it is
+  golden's on every one.  In the PARSE view — the view every corpus golden in
+  this family is built in — BOTH scorings read MOVED-WRONG 0.
+
+ARM probe/r10uvm105repro/g105_a1.sv parse rc=0/4/4 CALIB[-- CENSUS golden=83 ours=83 AGREE=83 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm105repro/g105_a1.sv parse -- VIEWSET RIGHT-BOTH 24  TO-GOLDEN 10  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2 -- RIGHT-BOTH 19  TO-GOLDEN 10  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 7  APPEARED 38  VANISHED 40 
+CELL probe/r10uvm105repro/g105_a1.sv parse TO-GOLDEN	unsupported_typespec|T|55:37	package[ALLPKG:p105]<function:c105::oob_all<io_decl:fa	pristine={'TOPPKG:p105': 1}	patched={'ALLPKG:p105': 1}	golden={'ALLPKG:p105': 1}
+CELL probe/r10uvm105repro/g105_a1.sv parse TO-GOLDEN	unsupported_typespec|T|69:40	package[ALLPKG:p105]<function:c105::oob_ret<io_decl:fa	pristine={'TOPPKG:p105': 1}	patched={'ALLPKG:p105': 1}	golden={'ALLPKG:p105': 1}
+CELL probe/r10uvm105repro/g105_a1.sv parse TO-GOLDEN	unsupported_typespec|T|70:5	package[ALLPKG:p105]<function:c105::oob_ret<begin:<ref_var:yo_t	pristine={'TOPPKG:p105': 1}	patched={'ALLPKG:p105': 1}	golden={'ALLPKG:p105': 1}
+CELL probe/r10uvm105repro/g105_a1.sv parse TO-GOLDEN	unsupported_typespec|T|75:5	package[ALLPKG:p105]<function:c105::oob_loc<ref_var:zo_t	pristine={'TOPPKG:p105': 1}	patched={'ALLPKG:p105': 1}	golden={'ALLPKG:p105': 1}
+CELL probe/r10uvm105repro/g105_a1.sv parse TO-GOLDEN	unsupported_typespec|T|78:29	package[ALLPKG:p105]<task:c105::oob_task<io_decl:fa	pristine={'TOPPKG:p105': 1}	patched={'ALLPKG:p105': 1}	golden={'ALLPKG:p105': 1}
+CELL probe/r10uvm105repro/g105_a1.sv parse TO-GOLDEN	unsupported_typespec|T|79:5	package[ALLPKG:p105]<task:c105::oob_task<ref_var:to_t	pristine={'TOPPKG:p105': 1}	patched={'ALLPKG:p105': 1}	golden={'ALLPKG:p105': 1}
+CELL probe/r10uvm105repro/g105_a1.sv parse TO-GOLDEN	unsupported_typespec|T|82:38	package[ALLPKG:p105]<function:c105::oob_stat<io_decl:fa	pristine={'TOPPKG:p105': 1}	patched={'ALLPKG:p105': 1}	golden={'ALLPKG:p105': 1}
+CELL probe/r10uvm105repro/g105_a1.sv parse TO-GOLDEN	unsupported_typespec|T|83:5	package[ALLPKG:p105]<function:c105::oob_stat<ref_var:so_t	pristine={'TOPPKG:p105': 1}	patched={'ALLPKG:p105': 1}	golden={'ALLPKG:p105': 1}
+CELL probe/r10uvm105repro/g105_a1.sv parse TO-GOLDEN	unsupported_typespec|U|55:49	package[ALLPKG:p105]<function:c105::oob_all<io_decl:fb	pristine={'TOPPKG:p105': 1}	patched={'ALLPKG:p105': 1}	golden={'ALLPKG:p105': 1}
+CELL probe/r10uvm105repro/g105_a1.sv parse TO-GOLDEN	unsupported_typespec|W|55:61	package[ALLPKG:p105]<function:c105::oob_all<io_decl:fc	pristine={'TOPPKG:p105': 1}	patched={'ALLPKG:p105': 1}	golden={'ALLPKG:p105': 1}
+ARM probe/r10uvm105repro/g105_a1.sv elab rc=0/4/4 CALIB[-- CENSUS golden=185 ours=185 AGREE=185 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm105repro/g105_a1.sv elab -- VIEWSET RIGHT-BOTH 29  TO-GOLDEN 13  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2 -- RIGHT-BOTH 9  TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 10  STILL-WRONG 22  APPEARED 30  VANISHED 74 
+CELL probe/r10uvm105repro/g105_a1.sv elab TO-GOLDEN	unsupported_typespec|T|58:5	package[ALLPKG:p105]<function:c105::oob_all<ref_var:xo_t	pristine={'TOPPKG:p105': 1}	patched={'ALLPKG:p105': 1}	golden={'ALLPKG:p105': 1}
+CELL probe/r10uvm105repro/g105_a1.sv elab TO-GOLDEN	unsupported_typespec|U|59:5	package[ALLPKG:p105]<function:c105::oob_all<ref_var:xo_u	pristine={'TOPPKG:p105': 1}	patched={'ALLPKG:p105': 1}	golden={'ALLPKG:p105': 1}
+CELL probe/r10uvm105repro/g105_a1.sv elab TO-GOLDEN	unsupported_typespec|W|60:5	package[ALLPKG:p105]<function:c105::oob_all<ref_var:xo_w	pristine={'TOPPKG:p105': 1}	patched={'ALLPKG:p105': 1}	golden={'ALLPKG:p105': 1}
+CELL probe/r10uvm105repro/g105_a1.sv elab MOVED-WRONG	unsupported_typespec|T|55:37	package[ALLPKG:p105]<function:c105::oob_all<io_decl:fa	pristine={'TOPPKG:p105': 1}	patched={'ALLPKG:p105': 1}	golden={'ALLPKG:p105': 2}
+CELL probe/r10uvm105repro/g105_a1.sv elab MOVED-WRONG	unsupported_typespec|T|69:40	package[ALLPKG:p105]<function:c105::oob_ret<io_decl:fa	pristine={'TOPPKG:p105': 1}	patched={'ALLPKG:p105': 1}	golden={'ALLPKG:p105': 2}
+CELL probe/r10uvm105repro/g105_a1.sv elab MOVED-WRONG	unsupported_typespec|T|70:5	package[ALLPKG:p105]<function:c105::oob_ret<begin:<ref_var:yo_t	pristine={'TOPPKG:p105': 1}	patched={'ALLPKG:p105': 1}	golden={'ALLPKG:p105': 2}
+CELL probe/r10uvm105repro/g105_a1.sv elab MOVED-WRONG	unsupported_typespec|T|75:5	package[ALLPKG:p105]<function:c105::oob_loc<ref_var:zo_t	pristine={'TOPPKG:p105': 1}	patched={'ALLPKG:p105': 1}	golden={'ALLPKG:p105': 3}
+CELL probe/r10uvm105repro/g105_a1.sv elab MOVED-WRONG	unsupported_typespec|T|78:29	package[ALLPKG:p105]<task:c105::oob_task<io_decl:fa	pristine={'TOPPKG:p105': 1}	patched={'ALLPKG:p105': 1}	golden={'ALLPKG:p105': 2}
+CELL probe/r10uvm105repro/g105_a1.sv elab MOVED-WRONG	unsupported_typespec|T|79:5	package[ALLPKG:p105]<task:c105::oob_task<ref_var:to_t	pristine={'TOPPKG:p105': 1}	patched={'ALLPKG:p105': 1}	golden={'ALLPKG:p105': 3}
+CELL probe/r10uvm105repro/g105_a1.sv elab MOVED-WRONG	unsupported_typespec|T|82:38	package[ALLPKG:p105]<function:c105::oob_stat<io_decl:fa	pristine={'TOPPKG:p105': 1}	patched={'ALLPKG:p105': 1}	golden={'ALLPKG:p105': 2}
+CELL probe/r10uvm105repro/g105_a1.sv elab MOVED-WRONG	unsupported_typespec|T|83:5	package[ALLPKG:p105]<function:c105::oob_stat<ref_var:so_t	pristine={'TOPPKG:p105': 1}	patched={'ALLPKG:p105': 1}	golden={'ALLPKG:p105': 3}
+CELL probe/r10uvm105repro/g105_a1.sv elab MOVED-WRONG	unsupported_typespec|U|55:49	package[ALLPKG:p105]<function:c105::oob_all<io_decl:fb	pristine={'TOPPKG:p105': 1}	patched={'ALLPKG:p105': 1}	golden={'ALLPKG:p105': 2}
+CELL probe/r10uvm105repro/g105_a1.sv elab MOVED-WRONG	unsupported_typespec|W|55:61	package[ALLPKG:p105]<function:c105::oob_all<io_decl:fc	pristine={'TOPPKG:p105': 1}	patched={'ALLPKG:p105': 1}	golden={'ALLPKG:p105': 2}
+ARM probe/r10uvm105repro/g105_a2.sv parse rc=4/4/4 CALIB[-- CENSUS golden=27 ours=27 AGREE=27 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm105repro/g105_a2.sv parse -- VIEWSET RIGHT-BOTH 16  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 14  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  APPEARED 8  VANISHED 9 
+CELL probe/r10uvm105repro/g105_a2.sv parse TO-GOLDEN	unsupported_typespec|BT|32:5	package[ALLPKG:q105]<function:base105::bmeth<ref_var:bo_t	pristine={'TOPPKG:q105': 1}	patched={'ALLPKG:q105': 1}	golden={'ALLPKG:q105': 1}
+CELL probe/r10uvm105repro/g105_a2.sv parse TO-GOLDEN	unsupported_typespec|BT|40:5	package[ALLPKG:q105]<function:deri105::dmeth<ref_var:do_t	pristine={'TOPPKG:q105': 1}	patched={'ALLPKG:q105': 1}	golden={'ALLPKG:q105': 1}
+ARM probe/r10uvm105repro/g105_a2.sv elab rc=4/4/4 CALIB[-- CENSUS golden=60 ours=60 AGREE=60 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm105repro/g105_a2.sv elab -- VIEWSET RIGHT-BOTH 16  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 12  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 2  STILL-WRONG 4  APPEARED 8  VANISHED 21 
+CELL probe/r10uvm105repro/g105_a2.sv elab MOVED-WRONG	unsupported_typespec|BT|32:5	package[ALLPKG:q105]<function:base105::bmeth<ref_var:bo_t	pristine={'TOPPKG:q105': 1}	patched={'ALLPKG:q105': 1}	golden={'ALLPKG:q105': 3}
+CELL probe/r10uvm105repro/g105_a2.sv elab MOVED-WRONG	unsupported_typespec|BT|40:5	package[ALLPKG:q105]<function:deri105::dmeth<ref_var:do_t	pristine={'TOPPKG:q105': 1}	patched={'ALLPKG:q105': 1}	golden={'ALLPKG:q105': 3}
+ARM probe/r10uvm105repro/g105_a3.sv parse rc=0/4/4 CALIB[-- CENSUS golden=59 ours=59 AGREE=59 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm105repro/g105_a3.sv parse -- VIEWSET RIGHT-BOTH 32  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 1 -- RIGHT-BOTH 26  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 7  APPEARED 8  VANISHED 20 
+CELL probe/r10uvm105repro/g105_a3.sv parse TO-GOLDEN	unsupported_typespec|WT|80:5	package[ALLPKG:w105]<function:cw105::wf1<ref_var:wo_1	pristine={'TOPPKG:w105': 1}	patched={'ALLPKG:w105': 1}	golden={'ALLPKG:w105': 1}
+CELL probe/r10uvm105repro/g105_a3.sv parse TO-GOLDEN	unsupported_typespec|WT|83:5	package[ALLPKG:w105]<function:cw105::wf2<ref_var:wo_2	pristine={'TOPPKG:w105': 1}	patched={'ALLPKG:w105': 1}	golden={'ALLPKG:w105': 1}
+ARM probe/r10uvm105repro/g105_a3.sv elab rc=0/4/4 CALIB[-- CENSUS golden=125 ours=125 AGREE=125 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm105repro/g105_a3.sv elab -- VIEWSET RIGHT-BOTH 33  TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 1 -- RIGHT-BOTH 24  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 3  STILL-WRONG 10  APPEARED 6  VANISHED 46 
+CELL probe/r10uvm105repro/g105_a3.sv elab MOVED-WRONG	unsupported_typespec|WT|80:5	package[ALLPKG:w105]<function:cw105::wf1<ref_var:wo_1	pristine={'TOPPKG:w105': 1}	patched={'ALLPKG:w105': 1}	golden={'ALLPKG:w105': 3}
+CELL probe/r10uvm105repro/g105_a3.sv elab MOVED-WRONG	unsupported_typespec|WT|83:5	package[ALLPKG:w105]<function:cw105::wf2<ref_var:wo_2	pristine={'TOPPKG:w105': 1}	patched={'ALLPKG:w105': 1}	golden={'ALLPKG:w105': 3}
+CELL probe/r10uvm105repro/g105_a3.sv elab MOVED-WRONG	unsupported_typespec|XT|93:5	package[ALLPKG:x105]<function:cx105::xf<ref_var:xo_init	pristine={'TOPPKG:x105': 1}	patched={'ALLPKG:x105': 1}	golden={'ALLPKG:x105': 2}
+ARM probe/r10uvm107repro/g107_a1.sv parse rc=0/0/0 CALIB[-- CENSUS golden=36 ours=36 AGREE=36 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm107repro/g107_a1.sv parse -- VIEWSET RIGHT-BOTH 22  TO-GOLDEN 10  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 20  TO-GOLDEN 10  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  APPEARED 5  VANISHED 4 
+CELL probe/r10uvm107repro/g107_a1.sv parse TO-GOLDEN	unsupported_typespec|T|103:5	package[ALLPKG:p107]<function:c107::oob_ret<begin:<ref_var:v	pristine={'TOPPKG:p107': 1}	patched={'ALLPKG:p107': 1}	golden={'ALLPKG:p107': 1}
+CELL probe/r10uvm107repro/g107_a1.sv parse TO-GOLDEN	unsupported_typespec|T|46:5	package[ALLPKG:p107]<function:c107::oob_userarg<begin:<ref_var:v	pristine={'TOPPKG:p107': 1}	patched={'ALLPKG:p107': 1}	golden={'ALLPKG:p107': 1}
+CELL probe/r10uvm107repro/g107_a1.sv parse TO-GOLDEN	unsupported_typespec|T|51:5	package[ALLPKG:p107]<function:c107::oob_recvarg<begin:<ref_var:v	pristine={'TOPPKG:p107': 1}	patched={'ALLPKG:p107': 1}	golden={'ALLPKG:p107': 1}
+CELL probe/r10uvm107repro/g107_a1.sv parse TO-GOLDEN	unsupported_typespec|T|56:5	package[ALLPKG:p107]<function:c107::oob_recvexpr<begin:<ref_var:v	pristine={'TOPPKG:p107': 1}	patched={'ALLPKG:p107': 1}	golden={'ALLPKG:p107': 1}
+CELL probe/r10uvm107repro/g107_a1.sv parse TO-GOLDEN	unsupported_typespec|T|65:5	package[ALLPKG:p107]<function:c107::oob_builtinarg<begin:<ref_var:v	pristine={'TOPPKG:p107': 1}	patched={'ALLPKG:p107': 1}	golden={'ALLPKG:p107': 1}
+CELL probe/r10uvm107repro/g107_a1.sv parse TO-GOLDEN	unsupported_typespec|T|70:5	package[ALLPKG:p107]<function:c107::oob_sysarg<begin:<ref_var:v	pristine={'TOPPKG:p107': 1}	patched={'ALLPKG:p107': 1}	golden={'ALLPKG:p107': 1}
+CELL probe/r10uvm107repro/g107_a1.sv parse TO-GOLDEN	unsupported_typespec|T|78:5	package[ALLPKG:p107]<function:c107::oob_deep<begin:<ref_var:v	pristine={'TOPPKG:p107': 1}	patched={'ALLPKG:p107': 1}	golden={'ALLPKG:p107': 1}
+CELL probe/r10uvm107repro/g107_a1.sv parse TO-GOLDEN	unsupported_typespec|T|86:5	package[ALLPKG:p107]<function:c107::oob_asg<begin:<ref_var:v	pristine={'TOPPKG:p107': 1}	patched={'ALLPKG:p107': 1}	golden={'ALLPKG:p107': 1}
+CELL probe/r10uvm107repro/g107_a1.sv parse TO-GOLDEN	unsupported_typespec|T|92:5	package[ALLPKG:p107]<function:c107::oob_cond<begin:<ref_var:v	pristine={'TOPPKG:p107': 1}	patched={'ALLPKG:p107': 1}	golden={'ALLPKG:p107': 1}
+CELL probe/r10uvm107repro/g107_a1.sv parse TO-GOLDEN	unsupported_typespec|T|98:5	package[ALLPKG:p107]<function:c107::oob_recvcall<begin:<ref_var:v	pristine={'TOPPKG:p107': 1}	patched={'ALLPKG:p107': 1}	golden={'ALLPKG:p107': 1}
+ARM probe/r10uvm107repro/g107_a1.sv elab rc=0/0/0 CALIB[-- CENSUS golden=108 ours=108 AGREE=108 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm107repro/g107_a1.sv elab -- VIEWSET RIGHT-BOTH 22  TO-GOLDEN 10  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 3  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 10  STILL-WRONG 19  APPEARED 5  VANISHED 46 
+CELL probe/r10uvm107repro/g107_a1.sv elab MOVED-WRONG	unsupported_typespec|T|103:5	package[ALLPKG:p107]<function:c107::oob_ret<begin:<ref_var:v	pristine={'TOPPKG:p107': 1}	patched={'ALLPKG:p107': 1}	golden={'ALLPKG:p107': 2}
+CELL probe/r10uvm107repro/g107_a1.sv elab MOVED-WRONG	unsupported_typespec|T|46:5	package[ALLPKG:p107]<function:c107::oob_userarg<begin:<ref_var:v	pristine={'TOPPKG:p107': 1}	patched={'ALLPKG:p107': 1}	golden={'ALLPKG:p107': 2}
+CELL probe/r10uvm107repro/g107_a1.sv elab MOVED-WRONG	unsupported_typespec|T|51:5	package[ALLPKG:p107]<function:c107::oob_recvarg<begin:<ref_var:v	pristine={'TOPPKG:p107': 1}	patched={'ALLPKG:p107': 1}	golden={'ALLPKG:p107': 2}
+CELL probe/r10uvm107repro/g107_a1.sv elab MOVED-WRONG	unsupported_typespec|T|56:5	package[ALLPKG:p107]<function:c107::oob_recvexpr<begin:<ref_var:v	pristine={'TOPPKG:p107': 1}	patched={'ALLPKG:p107': 1}	golden={'ALLPKG:p107': 2}
+CELL probe/r10uvm107repro/g107_a1.sv elab MOVED-WRONG	unsupported_typespec|T|65:5	package[ALLPKG:p107]<function:c107::oob_builtinarg<begin:<ref_var:v	pristine={'TOPPKG:p107': 1}	patched={'ALLPKG:p107': 1}	golden={'ALLPKG:p107': 2}
+CELL probe/r10uvm107repro/g107_a1.sv elab MOVED-WRONG	unsupported_typespec|T|70:5	package[ALLPKG:p107]<function:c107::oob_sysarg<begin:<ref_var:v	pristine={'TOPPKG:p107': 1}	patched={'ALLPKG:p107': 1}	golden={'ALLPKG:p107': 2}
+CELL probe/r10uvm107repro/g107_a1.sv elab MOVED-WRONG	unsupported_typespec|T|78:5	package[ALLPKG:p107]<function:c107::oob_deep<begin:<ref_var:v	pristine={'TOPPKG:p107': 1}	patched={'ALLPKG:p107': 1}	golden={'ALLPKG:p107': 2}
+CELL probe/r10uvm107repro/g107_a1.sv elab MOVED-WRONG	unsupported_typespec|T|86:5	package[ALLPKG:p107]<function:c107::oob_asg<begin:<ref_var:v	pristine={'TOPPKG:p107': 1}	patched={'ALLPKG:p107': 1}	golden={'ALLPKG:p107': 2}
+CELL probe/r10uvm107repro/g107_a1.sv elab MOVED-WRONG	unsupported_typespec|T|92:5	package[ALLPKG:p107]<function:c107::oob_cond<begin:<ref_var:v	pristine={'TOPPKG:p107': 1}	patched={'ALLPKG:p107': 1}	golden={'ALLPKG:p107': 2}
+CELL probe/r10uvm107repro/g107_a1.sv elab MOVED-WRONG	unsupported_typespec|T|98:5	package[ALLPKG:p107]<function:c107::oob_recvcall<begin:<ref_var:v	pristine={'TOPPKG:p107': 1}	patched={'ALLPKG:p107': 1}	golden={'ALLPKG:p107': 2}
+ARM probe/r10uvm107repro/g107_a2.sv parse rc=0/0/0 CALIB[-- CENSUS golden=16 ours=16 AGREE=16 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm107repro/g107_a2.sv parse -- VIEWSET RIGHT-BOTH 12  TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 10  TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  APPEARED 3  VANISHED 1 
+CELL probe/r10uvm107repro/g107_a2.sv parse TO-GOLDEN	unsupported_typespec|ET|19:5	package[ALLPKG:q107b]<function:carrier107::oob_two<begin:<ref_var:e1	pristine={'TOPPKG:q107b': 1}	patched={'ALLPKG:q107b': 1}	golden={'ALLPKG:q107b': 1}
+CELL probe/r10uvm107repro/g107_a2.sv parse TO-GOLDEN	unsupported_typespec|ET|20:5	package[ALLPKG:q107b]<function:carrier107::oob_two<begin:<ref_var:e2	pristine={'TOPPKG:q107b': 1}	patched={'ALLPKG:q107b': 1}	golden={'ALLPKG:q107b': 1}
+CELL probe/r10uvm107repro/g107_a2.sv parse TO-GOLDEN	unsupported_typespec|ET|26:5	package[ALLPKG:q107b]<task:carrier107::oob_task<begin:<ref_var:tv	pristine={'TOPPKG:q107b': 1}	patched={'ALLPKG:q107b': 1}	golden={'ALLPKG:q107b': 1}
+ARM probe/r10uvm107repro/g107_a2.sv elab rc=0/0/0 CALIB[-- CENSUS golden=66 ours=66 AGREE=66 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm107repro/g107_a2.sv elab -- VIEWSET RIGHT-BOTH 12  TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 4  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 3  STILL-WRONG 8  APPEARED 3  VANISHED 36 
+CELL probe/r10uvm107repro/g107_a2.sv elab MOVED-WRONG	unsupported_typespec|ET|19:5	package[ALLPKG:q107b]<function:carrier107::oob_two<begin:<ref_var:e1	pristine={'TOPPKG:q107b': 1}	patched={'ALLPKG:q107b': 1}	golden={'ALLPKG:q107b': 2}
+CELL probe/r10uvm107repro/g107_a2.sv elab MOVED-WRONG	unsupported_typespec|ET|20:5	package[ALLPKG:q107b]<function:carrier107::oob_two<begin:<ref_var:e2	pristine={'TOPPKG:q107b': 1}	patched={'ALLPKG:q107b': 1}	golden={'ALLPKG:q107b': 2}
+CELL probe/r10uvm107repro/g107_a2.sv elab MOVED-WRONG	unsupported_typespec|ET|26:5	package[ALLPKG:q107b]<task:carrier107::oob_task<begin:<ref_var:tv	pristine={'TOPPKG:q107b': 1}	patched={'ALLPKG:q107b': 1}	golden={'ALLPKG:q107b': 2}
+ARM probe/r10uvm107repro/g107_a3.sv parse rc=0/0/0 CALIB[-- CENSUS golden=18 ours=18 AGREE=18 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm107repro/g107_a3.sv parse -- VIEWSET RIGHT-BOTH 15  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 11  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 4  APPEARED 3  VANISHED 1 
+CELL probe/r10uvm107repro/g107_a3.sv parse TO-GOLDEN	unsupported_typespec|ET|17:5	package[ALLPKG:r107]<function:holder107::deep107<begin:<ref_var:e1	pristine={'TOPPKG:r107': 1}	patched={'ALLPKG:r107': 1}	golden={'ALLPKG:r107': 1}
+CELL probe/r10uvm107repro/g107_a3.sv parse TO-GOLDEN	unsupported_typespec|ET|24:5	package[ALLPKG:r107]<task:holder107::deeptask107<begin:<ref_var:t1	pristine={'TOPPKG:r107': 1}	patched={'ALLPKG:r107': 1}	golden={'ALLPKG:r107': 1}
+ARM probe/r10uvm107repro/g107_a3.sv elab rc=0/0/0 CALIB[-- CENSUS golden=44 ours=44 AGREE=44 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm107repro/g107_a3.sv elab -- VIEWSET RIGHT-BOTH 15  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 6  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 2  STILL-WRONG 9  APPEARED 3  VANISHED 20 
+CELL probe/r10uvm107repro/g107_a3.sv elab MOVED-WRONG	unsupported_typespec|ET|17:5	package[ALLPKG:r107]<function:holder107::deep107<begin:<ref_var:e1	pristine={'TOPPKG:r107': 1}	patched={'ALLPKG:r107': 1}	golden={'ALLPKG:r107': 2}
+CELL probe/r10uvm107repro/g107_a3.sv elab MOVED-WRONG	unsupported_typespec|ET|24:5	package[ALLPKG:r107]<task:holder107::deeptask107<begin:<ref_var:t1	pristine={'TOPPKG:r107': 1}	patched={'ALLPKG:r107': 1}	golden={'ALLPKG:r107': 2}
+ARM probe/r10uvm160repro/g160_d_home.sv parse rc=0/0/0 CALIB[-- CENSUS golden=20 ours=20 AGREE=20 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm160repro/g160_d_home.sv parse -- VIEWSET RIGHT-BOTH 17  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 17  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  APPEARED 2  VANISHED 2 
+CELL probe/r10uvm160repro/g160_d_home.sv parse TO-GOLDEN	unsupported_typespec|T|23:30	package[ALLPKG:pd160]<function:d2_160::m<begin:<ref_var:t	pristine={'TOPPKG:pd160': 1}	patched={'ALLPKG:pd160': 1}	golden={'ALLPKG:pd160': 1}
+ARM probe/r10uvm160repro/g160_d_home.sv elab rc=0/0/0 CALIB[-- CENSUS golden=26 ours=26 AGREE=26 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm160repro/g160_d_home.sv elab -- VIEWSET RIGHT-BOTH 17  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 16  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 1  STILL-WRONG 1  APPEARED 2  VANISHED 5 
+CELL probe/r10uvm160repro/g160_d_home.sv elab MOVED-WRONG	unsupported_typespec|T|23:30	package[ALLPKG:pd160]<function:d2_160::m<begin:<ref_var:t	pristine={'TOPPKG:pd160': 1}	patched={'ALLPKG:pd160': 1}	golden={'ALLPKG:pd160': 2}
+ARM probe/r10uvm162repro/g162_f_home.sv parse rc=0/0/0 CALIB[-- CENSUS golden=35 ours=35 AGREE=35 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm162repro/g162_f_home.sv parse -- VIEWSET RIGHT-BOTH 24  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 19  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 5  APPEARED 6  VANISHED 6 
+CELL probe/r10uvm162repro/g162_f_home.sv parse TO-GOLDEN	unsupported_typespec|T|48:37	package[ALLPKG:pf162]<function:holdf162::f2_oob<begin:<ref_var:t	pristine={'TOPPKG:pf162': 1}	patched={'ALLPKG:pf162': 1}	golden={'ALLPKG:pf162': 1}
+ARM probe/r10uvm162repro/g162_f_home.sv elab rc=0/0/0 CALIB[-- CENSUS golden=51 ours=51 AGREE=51 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm162repro/g162_f_home.sv elab -- VIEWSET RIGHT-BOTH 24  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 14  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 1  STILL-WRONG 10  APPEARED 6  VANISHED 11 
+CELL probe/r10uvm162repro/g162_f_home.sv elab MOVED-WRONG	unsupported_typespec|T|48:37	package[ALLPKG:pf162]<function:holdf162::f2_oob<begin:<ref_var:t	pristine={'TOPPKG:pf162': 1}	patched={'ALLPKG:pf162': 1}	golden={'ALLPKG:pf162': 2}
+ARM probe/r10uvm179repro/g179_a_face.sv parse rc=0/0/0 CALIB[-- CENSUS golden=46 ours=46 AGREE=46 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm179repro/g179_a_face.sv parse -- VIEWSET RIGHT-BOTH 29  TO-GOLDEN 14  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 27  TO-GOLDEN 14  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  APPEARED 4  VANISHED 3 
+CELL probe/r10uvm179repro/g179_a_face.sv parse TO-GOLDEN	unsupported_typespec|T|101:5	package[ALLPKG:pa179]<function:c179::f_ret<begin:<ref_var:v	pristine={'TOPPKG:pa179': 1}	patched={'ALLPKG:pa179': 1}	golden={'ALLPKG:pa179': 1}
+CELL probe/r10uvm179repro/g179_a_face.sv parse TO-GOLDEN	unsupported_typespec|T|106:5	package[ALLPKG:pa179]<function:c179::n_bare<begin:<ref_var:v	pristine={'TOPPKG:pa179': 1}	patched={'ALLPKG:pa179': 1}	golden={'ALLPKG:pa179': 1}
+CELL probe/r10uvm179repro/g179_a_face.sv parse TO-GOLDEN	unsupported_typespec|T|111:5	package[ALLPKG:pa179]<function:c179::n_builtin<begin:<ref_var:v	pristine={'TOPPKG:pa179': 1}	patched={'ALLPKG:pa179': 1}	golden={'ALLPKG:pa179': 1}
+CELL probe/r10uvm179repro/g179_a_face.sv parse TO-GOLDEN	unsupported_typespec|T|116:5	package[ALLPKG:pa179]<function:c179::n_sys<begin:<ref_var:v	pristine={'TOPPKG:pa179': 1}	patched={'ALLPKG:pa179': 1}	golden={'ALLPKG:pa179': 1}
+CELL probe/r10uvm179repro/g179_a_face.sv parse TO-GOLDEN	unsupported_typespec|T|121:5	package[ALLPKG:pa179]<function:c179::n_plainref<begin:<ref_var:v	pristine={'TOPPKG:pa179': 1}	patched={'ALLPKG:pa179': 1}	golden={'ALLPKG:pa179': 1}
+CELL probe/r10uvm179repro/g179_a_face.sv parse TO-GOLDEN	unsupported_typespec|T|126:5	package[ALLPKG:pa179]<function:c179::n_stmt_bare<begin:<ref_var:v	pristine={'TOPPKG:pa179': 1}	patched={'ALLPKG:pa179': 1}	golden={'ALLPKG:pa179': 1}
+CELL probe/r10uvm179repro/g179_a_face.sv parse TO-GOLDEN	unsupported_typespec|T|131:5	package[ALLPKG:pa179]<function:c179::n_bi_stmt<begin:<ref_var:v	pristine={'TOPPKG:pa179': 1}	patched={'ALLPKG:pa179': 1}	golden={'ALLPKG:pa179': 1}
+CELL probe/r10uvm179repro/g179_a_face.sv parse TO-GOLDEN	unsupported_typespec|T|136:5	package[ALLPKG:pa179]<function:c179::n_bi_cond<begin:<ref_var:v	pristine={'TOPPKG:pa179': 1}	patched={'ALLPKG:pa179': 1}	golden={'ALLPKG:pa179': 1}
+CELL probe/r10uvm179repro/g179_a_face.sv parse TO-GOLDEN	unsupported_typespec|T|68:5	package[ALLPKG:pa179]<function:c179::f_cond<begin:<ref_var:v	pristine={'TOPPKG:pa179': 1}	patched={'ALLPKG:pa179': 1}	golden={'ALLPKG:pa179': 1}
+CELL probe/r10uvm179repro/g179_a_face.sv parse TO-GOLDEN	unsupported_typespec|T|73:5	package[ALLPKG:pa179]<function:c179::f_stmt<begin:<ref_var:v	pristine={'TOPPKG:pa179': 1}	patched={'ALLPKG:pa179': 1}	golden={'ALLPKG:pa179': 1}
+CELL probe/r10uvm179repro/g179_a_face.sv parse TO-GOLDEN	unsupported_typespec|T|78:5	package[ALLPKG:pa179]<function:c179::f_asg<begin:<ref_var:v	pristine={'TOPPKG:pa179': 1}	patched={'ALLPKG:pa179': 1}	golden={'ALLPKG:pa179': 1}
+CELL probe/r10uvm179repro/g179_a_face.sv parse TO-GOLDEN	unsupported_typespec|T|83:5	package[ALLPKG:pa179]<function:c179::f_case<begin:<ref_var:v	pristine={'TOPPKG:pa179': 1}	patched={'ALLPKG:pa179': 1}	golden={'ALLPKG:pa179': 1}
+CELL probe/r10uvm179repro/g179_a_face.sv parse TO-GOLDEN	unsupported_typespec|T|91:5	package[ALLPKG:pa179]<function:c179::f_assert<begin:<ref_var:v	pristine={'TOPPKG:pa179': 1}	patched={'ALLPKG:pa179': 1}	golden={'ALLPKG:pa179': 1}
+CELL probe/r10uvm179repro/g179_a_face.sv parse TO-GOLDEN	unsupported_typespec|T|96:5	package[ALLPKG:pa179]<function:c179::f_while<begin:<ref_var:v	pristine={'TOPPKG:pa179': 1}	patched={'ALLPKG:pa179': 1}	golden={'ALLPKG:pa179': 1}
+ARM probe/r10uvm179repro/g179_a_face.sv elab rc=0/0/0 CALIB[-- CENSUS golden=146 ours=146 AGREE=146 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm179repro/g179_a_face.sv elab -- VIEWSET RIGHT-BOTH 29  TO-GOLDEN 14  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 4  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 14  STILL-WRONG 25  APPEARED 4  VANISHED 64 
+CELL probe/r10uvm179repro/g179_a_face.sv elab MOVED-WRONG	unsupported_typespec|T|101:5	package[ALLPKG:pa179]<function:c179::f_ret<begin:<ref_var:v	pristine={'TOPPKG:pa179': 1}	patched={'ALLPKG:pa179': 1}	golden={'ALLPKG:pa179': 2}
+CELL probe/r10uvm179repro/g179_a_face.sv elab MOVED-WRONG	unsupported_typespec|T|106:5	package[ALLPKG:pa179]<function:c179::n_bare<begin:<ref_var:v	pristine={'TOPPKG:pa179': 1}	patched={'ALLPKG:pa179': 1}	golden={'ALLPKG:pa179': 2}
+CELL probe/r10uvm179repro/g179_a_face.sv elab MOVED-WRONG	unsupported_typespec|T|111:5	package[ALLPKG:pa179]<function:c179::n_builtin<begin:<ref_var:v	pristine={'TOPPKG:pa179': 1}	patched={'ALLPKG:pa179': 1}	golden={'ALLPKG:pa179': 2}
+CELL probe/r10uvm179repro/g179_a_face.sv elab MOVED-WRONG	unsupported_typespec|T|116:5	package[ALLPKG:pa179]<function:c179::n_sys<begin:<ref_var:v	pristine={'TOPPKG:pa179': 1}	patched={'ALLPKG:pa179': 1}	golden={'ALLPKG:pa179': 2}
+CELL probe/r10uvm179repro/g179_a_face.sv elab MOVED-WRONG	unsupported_typespec|T|121:5	package[ALLPKG:pa179]<function:c179::n_plainref<begin:<ref_var:v	pristine={'TOPPKG:pa179': 1}	patched={'ALLPKG:pa179': 1}	golden={'ALLPKG:pa179': 2}
+CELL probe/r10uvm179repro/g179_a_face.sv elab MOVED-WRONG	unsupported_typespec|T|126:5	package[ALLPKG:pa179]<function:c179::n_stmt_bare<begin:<ref_var:v	pristine={'TOPPKG:pa179': 1}	patched={'ALLPKG:pa179': 1}	golden={'ALLPKG:pa179': 2}
+CELL probe/r10uvm179repro/g179_a_face.sv elab MOVED-WRONG	unsupported_typespec|T|131:5	package[ALLPKG:pa179]<function:c179::n_bi_stmt<begin:<ref_var:v	pristine={'TOPPKG:pa179': 1}	patched={'ALLPKG:pa179': 1}	golden={'ALLPKG:pa179': 2}
+CELL probe/r10uvm179repro/g179_a_face.sv elab MOVED-WRONG	unsupported_typespec|T|136:5	package[ALLPKG:pa179]<function:c179::n_bi_cond<begin:<ref_var:v	pristine={'TOPPKG:pa179': 1}	patched={'ALLPKG:pa179': 1}	golden={'ALLPKG:pa179': 2}
+CELL probe/r10uvm179repro/g179_a_face.sv elab MOVED-WRONG	unsupported_typespec|T|68:5	package[ALLPKG:pa179]<function:c179::f_cond<begin:<ref_var:v	pristine={'TOPPKG:pa179': 1}	patched={'ALLPKG:pa179': 1}	golden={'ALLPKG:pa179': 2}
+CELL probe/r10uvm179repro/g179_a_face.sv elab MOVED-WRONG	unsupported_typespec|T|73:5	package[ALLPKG:pa179]<function:c179::f_stmt<begin:<ref_var:v	pristine={'TOPPKG:pa179': 1}	patched={'ALLPKG:pa179': 1}	golden={'ALLPKG:pa179': 2}
+CELL probe/r10uvm179repro/g179_a_face.sv elab MOVED-WRONG	unsupported_typespec|T|78:5	package[ALLPKG:pa179]<function:c179::f_asg<begin:<ref_var:v	pristine={'TOPPKG:pa179': 1}	patched={'ALLPKG:pa179': 1}	golden={'ALLPKG:pa179': 2}
+CELL probe/r10uvm179repro/g179_a_face.sv elab MOVED-WRONG	unsupported_typespec|T|83:5	package[ALLPKG:pa179]<function:c179::f_case<begin:<ref_var:v	pristine={'TOPPKG:pa179': 1}	patched={'ALLPKG:pa179': 1}	golden={'ALLPKG:pa179': 2}
+CELL probe/r10uvm179repro/g179_a_face.sv elab MOVED-WRONG	unsupported_typespec|T|91:5	package[ALLPKG:pa179]<function:c179::f_assert<begin:<ref_var:v	pristine={'TOPPKG:pa179': 1}	patched={'ALLPKG:pa179': 1}	golden={'ALLPKG:pa179': 2}
+CELL probe/r10uvm179repro/g179_a_face.sv elab MOVED-WRONG	unsupported_typespec|T|96:5	package[ALLPKG:pa179]<function:c179::f_while<begin:<ref_var:v	pristine={'TOPPKG:pa179': 1}	patched={'ALLPKG:pa179': 1}	golden={'ALLPKG:pa179': 2}
+ARM probe/r10uvm179repro/g179_b_recv.sv parse rc=0/0/0 CALIB[-- CENSUS golden=39 ours=39 AGREE=39 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm179repro/g179_b_recv.sv parse -- VIEWSET RIGHT-BOTH 27  TO-GOLDEN 10  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 24  TO-GOLDEN 10  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 3  APPEARED 4  VANISHED 2 
+CELL probe/r10uvm179repro/g179_b_recv.sv parse TO-GOLDEN	unsupported_typespec|T|49:5	package[ALLPKG:pb179]<function:c179b::r_prop<begin:<ref_var:v	pristine={'TOPPKG:pb179': 1}	patched={'ALLPKG:pb179': 1}	golden={'ALLPKG:pb179': 1}
+CELL probe/r10uvm179repro/g179_b_recv.sv parse TO-GOLDEN	unsupported_typespec|T|54:5	package[ALLPKG:pb179]<function:c179b::r_local<begin:<ref_var:v	pristine={'TOPPKG:pb179': 1}	patched={'ALLPKG:pb179': 1}	golden={'ALLPKG:pb179': 1}
+CELL probe/r10uvm179repro/g179_b_recv.sv parse TO-GOLDEN	unsupported_typespec|T|60:5	package[ALLPKG:pb179]<function:c179b::r_formal<begin:<ref_var:v	pristine={'TOPPKG:pb179': 1}	patched={'ALLPKG:pb179': 1}	golden={'ALLPKG:pb179': 1}
+CELL probe/r10uvm179repro/g179_b_recv.sv parse TO-GOLDEN	unsupported_typespec|T|65:5	package[ALLPKG:pb179]<function:c179b::r_chain<begin:<ref_var:v	pristine={'TOPPKG:pb179': 1}	patched={'ALLPKG:pb179': 1}	golden={'ALLPKG:pb179': 1}
+CELL probe/r10uvm179repro/g179_b_recv.sv parse TO-GOLDEN	unsupported_typespec|T|70:5	package[ALLPKG:pb179]<function:c179b::r_index<begin:<ref_var:v	pristine={'TOPPKG:pb179': 1}	patched={'ALLPKG:pb179': 1}	golden={'ALLPKG:pb179': 1}
+CELL probe/r10uvm179repro/g179_b_recv.sv parse TO-GOLDEN	unsupported_typespec|T|75:5	package[ALLPKG:pb179]<function:c179b::r_this<begin:<ref_var:v	pristine={'TOPPKG:pb179': 1}	patched={'ALLPKG:pb179': 1}	golden={'ALLPKG:pb179': 1}
+CELL probe/r10uvm179repro/g179_b_recv.sv parse TO-GOLDEN	unsupported_typespec|T|80:5	package[ALLPKG:pb179]<function:c179b::r_none<begin:<ref_var:v	pristine={'TOPPKG:pb179': 1}	patched={'ALLPKG:pb179': 1}	golden={'ALLPKG:pb179': 1}
+CELL probe/r10uvm179repro/g179_b_recv.sv parse TO-GOLDEN	unsupported_typespec|T|85:5	package[ALLPKG:pb179]<function:c179b::r_prop_stmt<begin:<ref_var:v	pristine={'TOPPKG:pb179': 1}	patched={'ALLPKG:pb179': 1}	golden={'ALLPKG:pb179': 1}
+CELL probe/r10uvm179repro/g179_b_recv.sv parse TO-GOLDEN	unsupported_typespec|T|90:5	package[ALLPKG:pb179]<function:c179b::r_chain_stmt<begin:<ref_var:v	pristine={'TOPPKG:pb179': 1}	patched={'ALLPKG:pb179': 1}	golden={'ALLPKG:pb179': 1}
+CELL probe/r10uvm179repro/g179_b_recv.sv parse TO-GOLDEN	unsupported_typespec|T|95:5	package[ALLPKG:pb179]<function:c179b::r_index_stmt<begin:<ref_var:v	pristine={'TOPPKG:pb179': 1}	patched={'ALLPKG:pb179': 1}	golden={'ALLPKG:pb179': 1}
+ARM probe/r10uvm179repro/g179_b_recv.sv elab rc=0/0/0 CALIB[-- CENSUS golden=118 ours=118 AGREE=118 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm179repro/g179_b_recv.sv elab -- VIEWSET RIGHT-BOTH 27  TO-GOLDEN 10  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 4  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 10  STILL-WRONG 23  APPEARED 4  VANISHED 49 
+CELL probe/r10uvm179repro/g179_b_recv.sv elab MOVED-WRONG	unsupported_typespec|T|49:5	package[ALLPKG:pb179]<function:c179b::r_prop<begin:<ref_var:v	pristine={'TOPPKG:pb179': 1}	patched={'ALLPKG:pb179': 1}	golden={'ALLPKG:pb179': 2}
+CELL probe/r10uvm179repro/g179_b_recv.sv elab MOVED-WRONG	unsupported_typespec|T|54:5	package[ALLPKG:pb179]<function:c179b::r_local<begin:<ref_var:v	pristine={'TOPPKG:pb179': 1}	patched={'ALLPKG:pb179': 1}	golden={'ALLPKG:pb179': 2}
+CELL probe/r10uvm179repro/g179_b_recv.sv elab MOVED-WRONG	unsupported_typespec|T|60:5	package[ALLPKG:pb179]<function:c179b::r_formal<begin:<ref_var:v	pristine={'TOPPKG:pb179': 1}	patched={'ALLPKG:pb179': 1}	golden={'ALLPKG:pb179': 2}
+CELL probe/r10uvm179repro/g179_b_recv.sv elab MOVED-WRONG	unsupported_typespec|T|65:5	package[ALLPKG:pb179]<function:c179b::r_chain<begin:<ref_var:v	pristine={'TOPPKG:pb179': 1}	patched={'ALLPKG:pb179': 1}	golden={'ALLPKG:pb179': 2}
+CELL probe/r10uvm179repro/g179_b_recv.sv elab MOVED-WRONG	unsupported_typespec|T|70:5	package[ALLPKG:pb179]<function:c179b::r_index<begin:<ref_var:v	pristine={'TOPPKG:pb179': 1}	patched={'ALLPKG:pb179': 1}	golden={'ALLPKG:pb179': 2}
+CELL probe/r10uvm179repro/g179_b_recv.sv elab MOVED-WRONG	unsupported_typespec|T|75:5	package[ALLPKG:pb179]<function:c179b::r_this<begin:<ref_var:v	pristine={'TOPPKG:pb179': 1}	patched={'ALLPKG:pb179': 1}	golden={'ALLPKG:pb179': 2}
+CELL probe/r10uvm179repro/g179_b_recv.sv elab MOVED-WRONG	unsupported_typespec|T|80:5	package[ALLPKG:pb179]<function:c179b::r_none<begin:<ref_var:v	pristine={'TOPPKG:pb179': 1}	patched={'ALLPKG:pb179': 1}	golden={'ALLPKG:pb179': 2}
+CELL probe/r10uvm179repro/g179_b_recv.sv elab MOVED-WRONG	unsupported_typespec|T|85:5	package[ALLPKG:pb179]<function:c179b::r_prop_stmt<begin:<ref_var:v	pristine={'TOPPKG:pb179': 1}	patched={'ALLPKG:pb179': 1}	golden={'ALLPKG:pb179': 2}
+CELL probe/r10uvm179repro/g179_b_recv.sv elab MOVED-WRONG	unsupported_typespec|T|90:5	package[ALLPKG:pb179]<function:c179b::r_chain_stmt<begin:<ref_var:v	pristine={'TOPPKG:pb179': 1}	patched={'ALLPKG:pb179': 1}	golden={'ALLPKG:pb179': 2}
+CELL probe/r10uvm179repro/g179_b_recv.sv elab MOVED-WRONG	unsupported_typespec|T|95:5	package[ALLPKG:pb179]<function:c179b::r_index_stmt<begin:<ref_var:v	pristine={'TOPPKG:pb179': 1}	patched={'ALLPKG:pb179': 1}	golden={'ALLPKG:pb179': 2}
+ARM probe/r10uvm179repro/g179_c_arg.sv parse rc=0/0/0 CALIB[-- CENSUS golden=25 ours=25 AGREE=25 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm179repro/g179_c_arg.sv parse -- VIEWSET RIGHT-BOTH 14  TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 12  TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  APPEARED 5  VANISHED 5 
+CELL probe/r10uvm179repro/g179_c_arg.sv parse TO-GOLDEN	unsupported_typespec|T|41:32	package[ALLPKG:pc179]<function:c179c::k_local<io_decl:f	pristine={'TOPPKG:pc179': 1}	patched={'ALLPKG:pc179': 1}	golden={'ALLPKG:pc179': 1}
+CELL probe/r10uvm179repro/g179_c_arg.sv parse TO-GOLDEN	unsupported_typespec|T|42:5	package[ALLPKG:pc179]<function:c179c::k_local<begin:<ref_var:v	pristine={'TOPPKG:pc179': 1}	patched={'ALLPKG:pc179': 1}	golden={'ALLPKG:pc179': 1}
+CELL probe/r10uvm179repro/g179_c_arg.sv parse TO-GOLDEN	unsupported_typespec|T|52:33	package[ALLPKG:pc179]<function:c179c::k_formal<io_decl:f	pristine={'TOPPKG:pc179': 1}	patched={'ALLPKG:pc179': 1}	golden={'ALLPKG:pc179': 1}
+CELL probe/r10uvm179repro/g179_c_arg.sv parse TO-GOLDEN	unsupported_typespec|T|76:5	package[ALLPKG:pc179]<function:c179c::k_oper<begin:<ref_var:v	pristine={'TOPPKG:pc179': 1}	patched={'ALLPKG:pc179': 1}	golden={'ALLPKG:pc179': 1}
+CELL probe/r10uvm179repro/g179_c_arg.sv parse TO-GOLDEN	unsupported_typespec|T|81:5	package[ALLPKG:pc179]<function:c179c::k_nested<begin:<ref_var:v	pristine={'TOPPKG:pc179': 1}	patched={'ALLPKG:pc179': 1}	golden={'ALLPKG:pc179': 1}
+CELL probe/r10uvm179repro/g179_c_arg.sv parse TO-GOLDEN	unsupported_typespec|T|86:5	package[ALLPKG:pc179]<function:c179c::k_two<begin:<ref_var:v	pristine={'TOPPKG:pc179': 1}	patched={'ALLPKG:pc179': 1}	golden={'ALLPKG:pc179': 1}
+ARM probe/r10uvm179repro/g179_c_arg.sv elab rc=0/0/0 CALIB[-- CENSUS golden=62 ours=62 AGREE=62 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm179repro/g179_c_arg.sv elab -- VIEWSET RIGHT-BOTH 14  TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 2  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 6  STILL-WRONG 12  APPEARED 5  VANISHED 24 
+CELL probe/r10uvm179repro/g179_c_arg.sv elab MOVED-WRONG	unsupported_typespec|T|41:32	package[ALLPKG:pc179]<function:c179c::k_local<io_decl:f	pristine={'TOPPKG:pc179': 1}	patched={'ALLPKG:pc179': 1}	golden={'ALLPKG:pc179': 2}
+CELL probe/r10uvm179repro/g179_c_arg.sv elab MOVED-WRONG	unsupported_typespec|T|42:5	package[ALLPKG:pc179]<function:c179c::k_local<begin:<ref_var:v	pristine={'TOPPKG:pc179': 1}	patched={'ALLPKG:pc179': 1}	golden={'ALLPKG:pc179': 2}
+CELL probe/r10uvm179repro/g179_c_arg.sv elab MOVED-WRONG	unsupported_typespec|T|52:33	package[ALLPKG:pc179]<function:c179c::k_formal<io_decl:f	pristine={'TOPPKG:pc179': 1}	patched={'ALLPKG:pc179': 1}	golden={'ALLPKG:pc179': 2}
+CELL probe/r10uvm179repro/g179_c_arg.sv elab MOVED-WRONG	unsupported_typespec|T|76:5	package[ALLPKG:pc179]<function:c179c::k_oper<begin:<ref_var:v	pristine={'TOPPKG:pc179': 1}	patched={'ALLPKG:pc179': 1}	golden={'ALLPKG:pc179': 2}
+CELL probe/r10uvm179repro/g179_c_arg.sv elab MOVED-WRONG	unsupported_typespec|T|81:5	package[ALLPKG:pc179]<function:c179c::k_nested<begin:<ref_var:v	pristine={'TOPPKG:pc179': 1}	patched={'ALLPKG:pc179': 1}	golden={'ALLPKG:pc179': 2}
+CELL probe/r10uvm179repro/g179_c_arg.sv elab MOVED-WRONG	unsupported_typespec|T|86:5	package[ALLPKG:pc179]<function:c179c::k_two<begin:<ref_var:v	pristine={'TOPPKG:pc179': 1}	patched={'ALLPKG:pc179': 1}	golden={'ALLPKG:pc179': 2}
+ARM probe/r10uvm179repro/g179_d_home.sv parse rc=0/0/0 CALIB[-- CENSUS golden=30 ours=30 AGREE=30 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm179repro/g179_d_home.sv parse -- VIEWSET RIGHT-BOTH 24  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 21  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 3  APPEARED 7  VANISHED 4 
+CELL probe/r10uvm179repro/g179_d_home.sv parse TO-GOLDEN	unsupported_typespec|T|36:5	package[ALLPKG:pd179]<function:c179d::h_pkg_oob<begin:<ref_var:v	pristine={'TOPPKG:pd179': 1}	patched={'ALLPKG:pd179': 1}	golden={'ALLPKG:pd179': 1}
+CELL probe/r10uvm179repro/g179_d_home.sv parse TO-GOLDEN	unsupported_typespec|T|41:5	package[ALLPKG:pd179]<task:c179d::h_pkg_oobtask<begin:<ref_var:v	pristine={'TOPPKG:pd179': 1}	patched={'ALLPKG:pd179': 1}	golden={'ALLPKG:pd179': 1}
+ARM probe/r10uvm179repro/g179_d_home.sv elab rc=0/0/0 CALIB[-- CENSUS golden=50 ours=50 AGREE=50 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm179repro/g179_d_home.sv elab -- VIEWSET RIGHT-BOTH 24  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 15  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 2  STILL-WRONG 9  APPEARED 7  VANISHED 15 
+CELL probe/r10uvm179repro/g179_d_home.sv elab MOVED-WRONG	unsupported_typespec|T|36:5	package[ALLPKG:pd179]<function:c179d::h_pkg_oob<begin:<ref_var:v	pristine={'TOPPKG:pd179': 1}	patched={'ALLPKG:pd179': 1}	golden={'ALLPKG:pd179': 2}
+CELL probe/r10uvm179repro/g179_d_home.sv elab MOVED-WRONG	unsupported_typespec|T|41:5	package[ALLPKG:pd179]<task:c179d::h_pkg_oobtask<begin:<ref_var:v	pristine={'TOPPKG:pd179': 1}	patched={'ALLPKG:pd179': 1}	golden={'ALLPKG:pd179': 2}
+ARM probe/r10uvm185repro/grid185/g185_b_notmove.sv parse rc=0/0/0 CALIB[-- CENSUS golden=41 ours=41 AGREE=41 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm185repro/grid185/g185_b_notmove.sv parse -- VIEWSET RIGHT-BOTH 10  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 7 -- RIGHT-BOTH 8  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 9  APPEARED 9  VANISHED 20 
+CELL probe/r10uvm185repro/grid185/g185_b_notmove.sv parse TO-GOLDEN	unsupported_typespec|T|86:49	package[ALLPKG:pb185]<function:parmb185::b_typeparam_arg<io_decl:a	pristine={'TOPPKG:pb185': 1}	patched={'ALLPKG:pb185': 1}	golden={'ALLPKG:pb185': 1}
+ARM probe/r10uvm185repro/grid185/g185_b_notmove.sv elab rc=0/0/0 CALIB[-- CENSUS golden=41 ours=41 AGREE=41 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm185repro/grid185/g185_b_notmove.sv elab -- VIEWSET RIGHT-BOTH 10  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 7 -- RIGHT-BOTH 8  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 9  APPEARED 9  VANISHED 20 
+CELL probe/r10uvm185repro/grid185/g185_b_notmove.sv elab TO-GOLDEN	unsupported_typespec|T|86:49	package[ALLPKG:pb185]<function:parmb185::b_typeparam_arg<io_decl:a	pristine={'TOPPKG:pb185': 1}	patched={'ALLPKG:pb185': 1}	golden={'ALLPKG:pb185': 1}
+ARM probe/r10uvm213repro/grid213/g213_a_oob.sv parse rc=0/0/0 CALIB[-- CENSUS golden=14 ours=14 AGREE=14 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm213repro/grid213/g213_a_oob.sv parse -- VIEWSET RIGHT-BOTH 7  TO-GOLDEN 5  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 7  TO-GOLDEN 5  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  APPEARED 1  VANISHED 2 
+CELL probe/r10uvm213repro/grid213/g213_a_oob.sv parse TO-GOLDEN	unsupported_typespec|T213|12:30	package[ALLPKG:p213a]<function:c213a::fa213<io_decl:x213	pristine={'TOPPKG:p213a': 1}	patched={'ALLPKG:p213a': 1}	golden={'ALLPKG:p213a': 1}
+CELL probe/r10uvm213repro/grid213/g213_a_oob.sv parse TO-GOLDEN	unsupported_typespec|T213|13:5	package[ALLPKG:p213a]<function:c213a::fa213<begin:<ref_var:loca213	pristine={'TOPPKG:p213a': 1}	patched={'ALLPKG:p213a': 1}	golden={'ALLPKG:p213a': 1}
+CELL probe/r10uvm213repro/grid213/g213_a_oob.sv parse TO-GOLDEN	unsupported_typespec|T213|21:5	package[ALLPKG:p213a]<function:c213a::la213<begin:<ref_var:lav213	pristine={'TOPPKG:p213a': 1}	patched={'ALLPKG:p213a': 1}	golden={'ALLPKG:p213a': 1}
+CELL probe/r10uvm213repro/grid213/g213_a_oob.sv parse TO-GOLDEN	unsupported_typespec|U213|16:28	package[ALLPKG:p213a]<task:c213a::ta213<io_decl:y213	pristine={'TOPPKG:p213a': 1}	patched={'ALLPKG:p213a': 1}	golden={'ALLPKG:p213a': 1}
+CELL probe/r10uvm213repro/grid213/g213_a_oob.sv parse TO-GOLDEN	unsupported_typespec|U213|17:5	package[ALLPKG:p213a]<task:c213a::ta213<begin:<ref_var:loct213	pristine={'TOPPKG:p213a': 1}	patched={'ALLPKG:p213a': 1}	golden={'ALLPKG:p213a': 1}
+ARM probe/r10uvm213repro/grid213/g213_a_oob.sv elab rc=0/0/0 CALIB[-- CENSUS golden=32 ours=32 AGREE=32 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm213repro/grid213/g213_a_oob.sv elab -- VIEWSET RIGHT-BOTH 7  TO-GOLDEN 5  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 2  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 5  STILL-WRONG 5  APPEARED 1  VANISHED 8 
+CELL probe/r10uvm213repro/grid213/g213_a_oob.sv elab MOVED-WRONG	unsupported_typespec|T213|12:30	package[ALLPKG:p213a]<function:c213a::fa213<io_decl:x213	pristine={'TOPPKG:p213a': 1}	patched={'ALLPKG:p213a': 1}	golden={'ALLPKG:p213a': 2}
+CELL probe/r10uvm213repro/grid213/g213_a_oob.sv elab MOVED-WRONG	unsupported_typespec|T213|13:5	package[ALLPKG:p213a]<function:c213a::fa213<begin:<ref_var:loca213	pristine={'TOPPKG:p213a': 1}	patched={'ALLPKG:p213a': 1}	golden={'ALLPKG:p213a': 2}
+CELL probe/r10uvm213repro/grid213/g213_a_oob.sv elab MOVED-WRONG	unsupported_typespec|T213|21:5	package[ALLPKG:p213a]<function:c213a::la213<begin:<ref_var:lav213	pristine={'TOPPKG:p213a': 1}	patched={'ALLPKG:p213a': 1}	golden={'ALLPKG:p213a': 2}
+CELL probe/r10uvm213repro/grid213/g213_a_oob.sv elab MOVED-WRONG	unsupported_typespec|U213|16:28	package[ALLPKG:p213a]<task:c213a::ta213<io_decl:y213	pristine={'TOPPKG:p213a': 1}	patched={'ALLPKG:p213a': 1}	golden={'ALLPKG:p213a': 2}
+CELL probe/r10uvm213repro/grid213/g213_a_oob.sv elab MOVED-WRONG	unsupported_typespec|U213|17:5	package[ALLPKG:p213a]<task:c213a::ta213<begin:<ref_var:loct213	pristine={'TOPPKG:p213a': 1}	patched={'ALLPKG:p213a': 1}	golden={'ALLPKG:p213a': 2}
+ARM probe/r10uvm213repro/grid213/g213_c_pkgimp.sv parse rc=0/0/0 CALIB[-- CENSUS golden=15 ours=15 AGREE=15 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm213repro/grid213/g213_c_pkgimp.sv parse -- VIEWSET RIGHT-BOTH 10  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 8  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  APPEARED 1  VANISHED 2 
+CELL probe/r10uvm213repro/grid213/g213_c_pkgimp.sv parse TO-GOLDEN	unsupported_typespec|T213|11:30	package[ALLPKG:p213c]<function:c213c::fc213<io_decl:x213	pristine={'TOPPKG:p213c': 1}	patched={'ALLPKG:p213c': 1}	golden={'ALLPKG:p213c': 1}
+CELL probe/r10uvm213repro/grid213/g213_c_pkgimp.sv parse TO-GOLDEN	unsupported_typespec|T213|12:5	package[ALLPKG:p213c]<function:c213c::fc213<begin:<ref_var:locc213	pristine={'TOPPKG:p213c': 1}	patched={'ALLPKG:p213c': 1}	golden={'ALLPKG:p213c': 1}
+ARM probe/r10uvm213repro/grid213/g213_c_pkgimp.sv elab rc=0/0/0 CALIB[-- CENSUS golden=30 ours=30 AGREE=30 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm213repro/grid213/g213_c_pkgimp.sv elab -- VIEWSET RIGHT-BOTH 10  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 2  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 2  STILL-WRONG 8  APPEARED 1  VANISHED 7 
+CELL probe/r10uvm213repro/grid213/g213_c_pkgimp.sv elab MOVED-WRONG	unsupported_typespec|T213|11:30	package[ALLPKG:p213c]<function:c213c::fc213<io_decl:x213	pristine={'TOPPKG:p213c': 1}	patched={'ALLPKG:p213c': 1}	golden={'ALLPKG:p213c': 2}
+CELL probe/r10uvm213repro/grid213/g213_c_pkgimp.sv elab MOVED-WRONG	unsupported_typespec|T213|12:5	package[ALLPKG:p213c]<function:c213c::fc213<begin:<ref_var:locc213	pristine={'TOPPKG:p213c': 1}	patched={'ALLPKG:p213c': 1}	golden={'ALLPKG:p213c': 2}
+ARM probe/r10uvm213repro/grid213/g213_d_modimp.sv parse rc=0/0/0 CALIB[-- CENSUS golden=6 ours=6 AGREE=6 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm213repro/grid213/g213_d_modimp.sv parse -- VIEWSET RIGHT-BOTH 4  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 3  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 1  APPEARED 1  VANISHED 0 
+CELL probe/r10uvm213repro/grid213/g213_d_modimp.sv parse TO-GOLDEN	unsupported_typespec|T213|8:30	package[ALLPKG:p213d]<function:c213d::fd213<io_decl:x213	pristine={'TOPPKG:p213d': 1}	patched={'ALLPKG:p213d': 1}	golden={'ALLPKG:p213d': 1}
+CELL probe/r10uvm213repro/grid213/g213_d_modimp.sv parse TO-GOLDEN	unsupported_typespec|T213|9:5	package[ALLPKG:p213d]<function:c213d::fd213<begin:<ref_var:locd213	pristine={'TOPPKG:p213d': 1}	patched={'ALLPKG:p213d': 1}	golden={'ALLPKG:p213d': 1}
+ARM probe/r10uvm213repro/grid213/g213_d_modimp.sv elab rc=0/0/0 CALIB[-- CENSUS golden=15 ours=15 AGREE=15 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm213repro/grid213/g213_d_modimp.sv elab -- VIEWSET RIGHT-BOTH 4  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 2  STILL-WRONG 3  APPEARED 1  VANISHED 5 
+CELL probe/r10uvm213repro/grid213/g213_d_modimp.sv elab MOVED-WRONG	unsupported_typespec|T213|8:30	package[ALLPKG:p213d]<function:c213d::fd213<io_decl:x213	pristine={'TOPPKG:p213d': 1}	patched={'ALLPKG:p213d': 1}	golden={'ALLPKG:p213d': 2}
+CELL probe/r10uvm213repro/grid213/g213_d_modimp.sv elab MOVED-WRONG	unsupported_typespec|T213|9:5	package[ALLPKG:p213d]<function:c213d::fd213<begin:<ref_var:locd213	pristine={'TOPPKG:p213d': 1}	patched={'ALLPKG:p213d': 1}	golden={'ALLPKG:p213d': 2}
+ARM probe/r10uvm31repro/t41b/dut.sv parse rc=0/0/0 CALIB[-- CENSUS golden=254 ours=254 AGREE=254 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm31repro/t41b/dut.sv parse -- VIEWSET RIGHT-BOTH 101  TO-GOLDEN 5  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 84  TO-GOLDEN 5  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 17  APPEARED 95  VANISHED 115 
+CELL probe/r10uvm31repro/t41b/dut.sv parse TO-GOLDEN	unsupported_typespec|REQ|65:36	package[ALLPKG:p31v]<function:seq31::e_req<io_decl:t	pristine={'TOPPKG:p31v': 1}	patched={'ALLPKG:p31v': 1}	golden={'ALLPKG:p31v': 1}
+CELL probe/r10uvm31repro/t41b/dut.sv parse TO-GOLDEN	unsupported_typespec|REQ|73:38	package[ALLPKG:p31v]<function:seqc31::e_creq<io_decl:t	pristine={'TOPPKG:p31v': 1}	patched={'ALLPKG:p31v': 1}	golden={'ALLPKG:p31v': 1}
+CELL probe/r10uvm31repro/t41b/dut.sv parse TO-GOLDEN	unsupported_typespec|REQ|88:57	package[ALLPKG:p31v]<function:seqx31::e_mixed<io_decl:t	pristine={'TOPPKG:p31v': 1}	patched={'ALLPKG:p31v': 1}	golden={'ALLPKG:p31v': 1}
+CELL probe/r10uvm31repro/t41b/dut.sv parse TO-GOLDEN	unsupported_typespec|REQ|90:42	package[ALLPKG:p31v]<function:seqx31::e_deflt<io_decl:t	pristine={'TOPPKG:p31v': 1}	patched={'ALLPKG:p31v': 1}	golden={'ALLPKG:p31v': 1}
+CELL probe/r10uvm31repro/t41b/dut.sv parse TO-GOLDEN	unsupported_typespec|RSP|66:36	package[ALLPKG:p31v]<function:seq31::e_rsp<io_decl:t	pristine={'TOPPKG:p31v': 1}	patched={'ALLPKG:p31v': 1}	golden={'ALLPKG:p31v': 1}
+ARM probe/r10uvm31repro/t41b/dut.sv elab rc=0/0/0 CALIB[-- CENSUS golden=364 ours=364 AGREE=364 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm31repro/t41b/dut.sv elab -- VIEWSET RIGHT-BOTH 101  TO-GOLDEN 5  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 40  TO-GOLDEN 5  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 61  APPEARED 95  VANISHED 141 
+CELL probe/r10uvm31repro/t41b/dut.sv elab TO-GOLDEN	unsupported_typespec|REQ|65:36	package[ALLPKG:p31v]<function:seq31::e_req<io_decl:t	pristine={'TOPPKG:p31v': 1}	patched={'ALLPKG:p31v': 1}	golden={'ALLPKG:p31v': 1}
+CELL probe/r10uvm31repro/t41b/dut.sv elab TO-GOLDEN	unsupported_typespec|REQ|73:38	package[ALLPKG:p31v]<function:seqc31::e_creq<io_decl:t	pristine={'TOPPKG:p31v': 1}	patched={'ALLPKG:p31v': 1}	golden={'ALLPKG:p31v': 1}
+CELL probe/r10uvm31repro/t41b/dut.sv elab TO-GOLDEN	unsupported_typespec|REQ|88:57	package[ALLPKG:p31v]<function:seqx31::e_mixed<io_decl:t	pristine={'TOPPKG:p31v': 1}	patched={'ALLPKG:p31v': 1}	golden={'ALLPKG:p31v': 1}
+CELL probe/r10uvm31repro/t41b/dut.sv elab TO-GOLDEN	unsupported_typespec|REQ|90:42	package[ALLPKG:p31v]<function:seqx31::e_deflt<io_decl:t	pristine={'TOPPKG:p31v': 1}	patched={'ALLPKG:p31v': 1}	golden={'ALLPKG:p31v': 1}
+CELL probe/r10uvm31repro/t41b/dut.sv elab TO-GOLDEN	unsupported_typespec|RSP|66:36	package[ALLPKG:p31v]<function:seq31::e_rsp<io_decl:t	pristine={'TOPPKG:p31v': 1}	patched={'ALLPKG:p31v': 1}	golden={'ALLPKG:p31v': 1}
+ARM probe/r10uvm58repro/a6_extern.sv parse rc=0/0/0 CALIB[-- CENSUS golden=5 ours=5 AGREE=5 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm58repro/a6_extern.sv parse -- VIEWSET RIGHT-BOTH 2  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 2  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  APPEARED 1  VANISHED 2 
+CELL probe/r10uvm58repro/a6_extern.sv parse TO-GOLDEN	unsupported_typespec|T|11:7	package[ALLPKG:p58a6]<function:c_ext::get<begin:<ref_var:r	pristine={'TOPPKG:p58a6': 1}	patched={'ALLPKG:p58a6': 1}	golden={'ALLPKG:p58a6': 1}
+ARM probe/r10uvm58repro/a6_extern.sv elab rc=0/0/0 CALIB[-- CENSUS golden=9 ours=9 AGREE=9 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm58repro/a6_extern.sv elab -- VIEWSET RIGHT-BOTH 2  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 1  STILL-WRONG 1  APPEARED 1  VANISHED 4 
+CELL probe/r10uvm58repro/a6_extern.sv elab MOVED-WRONG	unsupported_typespec|T|11:7	package[ALLPKG:p58a6]<function:c_ext::get<begin:<ref_var:r	pristine={'TOPPKG:p58a6': 1}	patched={'ALLPKG:p58a6': 1}	golden={'ALLPKG:p58a6': 2}
+ARM probe/r10uvm87repro/g87_a1_order.sv parse rc=0/0/0 CALIB[-- CENSUS golden=57 ours=57 AGREE=57 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm87repro/g87_a1_order.sv parse -- VIEWSET RIGHT-BOTH 20  TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 8  TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 12  APPEARED 53  VANISHED 31 
+CELL probe/r10uvm87repro/g87_a1_order.sv parse TO-GOLDEN	unsupported_typespec|REQ|17:30	package[ALLPKG:p87a]<function:c_uvm::f_ext<io_decl:item	pristine={'TOPPKG:p87a': 1}	patched={'ALLPKG:p87a': 1}	golden={'ALLPKG:p87a': 1}
+CELL probe/r10uvm87repro/g87_a1_order.sv parse TO-GOLDEN	unsupported_typespec|REQ|25:31	package[ALLPKG:p87a]<function:c_swap::f_ext<io_decl:item	pristine={'TOPPKG:p87a': 1}	patched={'ALLPKG:p87a': 1}	golden={'ALLPKG:p87a': 1}
+CELL probe/r10uvm87repro/g87_a1_order.sv parse TO-GOLDEN	unsupported_typespec|REQ|32:30	package[ALLPKG:p87a]<function:c_one::f_ext<io_decl:item	pristine={'TOPPKG:p87a': 1}	patched={'ALLPKG:p87a': 1}	golden={'ALLPKG:p87a': 1}
+CELL probe/r10uvm87repro/g87_a1_order.sv parse TO-GOLDEN	unsupported_typespec|REQ|38:31	package[ALLPKG:p87a]<function:c_none::f_ext<io_decl:item	pristine={'TOPPKG:p87a': 1}	patched={'ALLPKG:p87a': 1}	golden={'ALLPKG:p87a': 1}
+CELL probe/r10uvm87repro/g87_a1_order.sv parse TO-GOLDEN	unsupported_typespec|REQ|54:30	package[ALLPKG:p87a]<function:c_two::f_ext<io_decl:item	pristine={'TOPPKG:p87a': 1}	patched={'ALLPKG:p87a': 1}	golden={'ALLPKG:p87a': 1}
+CELL probe/r10uvm87repro/g87_a1_order.sv parse TO-GOLDEN	unsupported_typespec|RSP|46:30	package[ALLPKG:p87a]<function:c_rsp::f_ext<io_decl:item	pristine={'TOPPKG:p87a': 1}	patched={'ALLPKG:p87a': 1}	golden={'ALLPKG:p87a': 1}
+ARM probe/r10uvm87repro/g87_a1_order.sv elab rc=0/0/0 CALIB[-- CENSUS golden=63 ours=63 AGREE=63 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm87repro/g87_a1_order.sv elab -- VIEWSET RIGHT-BOTH 20  TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 8  TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 12  APPEARED 53  VANISHED 37 
+CELL probe/r10uvm87repro/g87_a1_order.sv elab TO-GOLDEN	unsupported_typespec|REQ|17:30	package[ALLPKG:p87a]<function:c_uvm::f_ext<io_decl:item	pristine={'TOPPKG:p87a': 1}	patched={'ALLPKG:p87a': 1}	golden={'ALLPKG:p87a': 1}
+CELL probe/r10uvm87repro/g87_a1_order.sv elab TO-GOLDEN	unsupported_typespec|REQ|25:31	package[ALLPKG:p87a]<function:c_swap::f_ext<io_decl:item	pristine={'TOPPKG:p87a': 1}	patched={'ALLPKG:p87a': 1}	golden={'ALLPKG:p87a': 1}
+CELL probe/r10uvm87repro/g87_a1_order.sv elab TO-GOLDEN	unsupported_typespec|REQ|32:30	package[ALLPKG:p87a]<function:c_one::f_ext<io_decl:item	pristine={'TOPPKG:p87a': 1}	patched={'ALLPKG:p87a': 1}	golden={'ALLPKG:p87a': 1}
+CELL probe/r10uvm87repro/g87_a1_order.sv elab TO-GOLDEN	unsupported_typespec|REQ|38:31	package[ALLPKG:p87a]<function:c_none::f_ext<io_decl:item	pristine={'TOPPKG:p87a': 1}	patched={'ALLPKG:p87a': 1}	golden={'ALLPKG:p87a': 1}
+CELL probe/r10uvm87repro/g87_a1_order.sv elab TO-GOLDEN	unsupported_typespec|REQ|54:30	package[ALLPKG:p87a]<function:c_two::f_ext<io_decl:item	pristine={'TOPPKG:p87a': 1}	patched={'ALLPKG:p87a': 1}	golden={'ALLPKG:p87a': 1}
+CELL probe/r10uvm87repro/g87_a1_order.sv elab TO-GOLDEN	unsupported_typespec|RSP|46:30	package[ALLPKG:p87a]<function:c_rsp::f_ext<io_decl:item	pristine={'TOPPKG:p87a': 1}	patched={'ALLPKG:p87a': 1}	golden={'ALLPKG:p87a': 1}
+ARM probe/r10uvm87repro/v87_a3_oob.sv parse rc=0/0/0 CALIB[-- CENSUS golden=34 ours=34 AGREE=34 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm87repro/v87_a3_oob.sv parse -- VIEWSET RIGHT-BOTH 14  TO-GOLDEN 7  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 11  TO-GOLDEN 7  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 3  APPEARED 15  VANISHED 13 
+CELL probe/r10uvm87repro/v87_a3_oob.sv parse TO-GOLDEN	unsupported_typespec|REQ|15:25	package[ALLPKG:p87x]<function:o87::mf<io_decl:a	pristine={'TOPPKG:p87x': 1}	patched={'ALLPKG:p87x': 1}	golden={'ALLPKG:p87x': 1}
+CELL probe/r10uvm87repro/v87_a3_oob.sv parse TO-GOLDEN	unsupported_typespec|REQ|16:5	package[ALLPKG:p87x]<function:o87::mf<begin:<ref_var:l_oob	pristine={'TOPPKG:p87x': 1}	patched={'ALLPKG:p87x': 1}	golden={'ALLPKG:p87x': 1}
+CELL probe/r10uvm87repro/v87_a3_oob.sv parse TO-GOLDEN	unsupported_typespec|REQ|19:16	package[ALLPKG:p87x]<task:o87::mt<io_decl:a	pristine={'TOPPKG:p87x': 1}	patched={'ALLPKG:p87x': 1}	golden={'ALLPKG:p87x': 1}
+CELL probe/r10uvm87repro/v87_a3_oob.sv parse TO-GOLDEN	unsupported_typespec|REQ|20:5	package[ALLPKG:p87x]<task:o87::mt<begin:<ref_var:l_oobt	pristine={'TOPPKG:p87x': 1}	patched={'ALLPKG:p87x': 1}	golden={'ALLPKG:p87x': 1}
+CELL probe/r10uvm87repro/v87_a3_oob.sv parse TO-GOLDEN	unsupported_typespec|REQ|24:5	package[ALLPKG:p87x]<function:o87::mr<begin:<ref_var:l_r	pristine={'TOPPKG:p87x': 1}	patched={'ALLPKG:p87x': 1}	golden={'ALLPKG:p87x': 1}
+CELL probe/r10uvm87repro/v87_a3_oob.sv parse TO-GOLDEN	unsupported_typespec|REQ|27:21	package[ALLPKG:p87x]<function:o87::new<io_decl:a	pristine={'TOPPKG:p87x': 1}	patched={'ALLPKG:p87x': 1}	golden={'ALLPKG:p87x': 1}
+CELL probe/r10uvm87repro/v87_a3_oob.sv parse TO-GOLDEN	unsupported_typespec|REQ|28:5	package[ALLPKG:p87x]<function:o87::new<begin:<assignment:<ref_var:l_ctor	pristine={'TOPPKG:p87x': 1}	patched={'ALLPKG:p87x': 1}	golden={'ALLPKG:p87x': 1}
+ARM probe/r10uvm87repro/v87_a3_oob.sv elab rc=0/0/0 CALIB[-- CENSUS golden=73 ours=73 AGREE=73 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm87repro/v87_a3_oob.sv elab -- VIEWSET RIGHT-BOTH 14  TO-GOLDEN 7  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 4  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 7  STILL-WRONG 10  APPEARED 15  VANISHED 35 
+CELL probe/r10uvm87repro/v87_a3_oob.sv elab MOVED-WRONG	unsupported_typespec|REQ|15:25	package[ALLPKG:p87x]<function:o87::mf<io_decl:a	pristine={'TOPPKG:p87x': 1}	patched={'ALLPKG:p87x': 1}	golden={'ALLPKG:p87x': 2}
+CELL probe/r10uvm87repro/v87_a3_oob.sv elab MOVED-WRONG	unsupported_typespec|REQ|16:5	package[ALLPKG:p87x]<function:o87::mf<begin:<ref_var:l_oob	pristine={'TOPPKG:p87x': 1}	patched={'ALLPKG:p87x': 1}	golden={'ALLPKG:p87x': 2}
+CELL probe/r10uvm87repro/v87_a3_oob.sv elab MOVED-WRONG	unsupported_typespec|REQ|19:16	package[ALLPKG:p87x]<task:o87::mt<io_decl:a	pristine={'TOPPKG:p87x': 1}	patched={'ALLPKG:p87x': 1}	golden={'ALLPKG:p87x': 2}
+CELL probe/r10uvm87repro/v87_a3_oob.sv elab MOVED-WRONG	unsupported_typespec|REQ|20:5	package[ALLPKG:p87x]<task:o87::mt<begin:<ref_var:l_oobt	pristine={'TOPPKG:p87x': 1}	patched={'ALLPKG:p87x': 1}	golden={'ALLPKG:p87x': 2}
+CELL probe/r10uvm87repro/v87_a3_oob.sv elab MOVED-WRONG	unsupported_typespec|REQ|24:5	package[ALLPKG:p87x]<function:o87::mr<begin:<ref_var:l_r	pristine={'TOPPKG:p87x': 1}	patched={'ALLPKG:p87x': 1}	golden={'ALLPKG:p87x': 2}
+CELL probe/r10uvm87repro/v87_a3_oob.sv elab MOVED-WRONG	unsupported_typespec|REQ|27:21	package[ALLPKG:p87x]<function:o87::new<io_decl:a	pristine={'TOPPKG:p87x': 1}	patched={'ALLPKG:p87x': 1}	golden={'ALLPKG:p87x': 2}
+CELL probe/r10uvm87repro/v87_a3_oob.sv elab MOVED-WRONG	unsupported_typespec|REQ|28:5	package[ALLPKG:p87x]<function:o87::new<begin:<assignment:<ref_var:l_ctor	pristine={'TOPPKG:p87x': 1}	patched={'ALLPKG:p87x': 1}	golden={'ALLPKG:p87x': 2}
+ARM probe/r10uvm91repro/v91_a3_order.sv parse rc=0/0/0 CALIB[-- CENSUS golden=160 ours=160 AGREE=160 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm91repro/v91_a3_order.sv parse -- VIEWSET RIGHT-BOTH 115  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 114  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 1  APPEARED 15  VANISHED 44 
+CELL probe/r10uvm91repro/v91_a3_order.sv parse TO-GOLDEN	unsupported_typespec|A|52:34	package[ALLPKG:pv3]<function:c_allsites::e_fn<io_decl:x	pristine={'TOPPKG:pv3': 1}	patched={'ALLPKG:pv3': 1}	golden={'ALLPKG:pv3': 1}
+ARM probe/r10uvm91repro/v91_a3_order.sv elab rc=0/0/0 CALIB[-- CENSUS golden=186 ours=186 AGREE=186 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10uvm91repro/v91_a3_order.sv elab -- VIEWSET RIGHT-BOTH 115  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 113  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  APPEARED 15  VANISHED 64 
+CELL probe/r10uvm91repro/v91_a3_order.sv elab TO-GOLDEN	unsupported_typespec|A|52:34	package[ALLPKG:pv3]<function:c_allsites::e_fn<io_decl:x	pristine={'TOPPKG:pv3': 1}	patched={'ALLPKG:pv3': 1}	golden={'ALLPKG:pv3': 1}
+ARM probe/r10v105repro/v105_b1.sv parse rc=0/4/4 CALIB[-- CENSUS golden=54 ours=54 AGREE=54 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v105repro/v105_b1.sv parse -- VIEWSET RIGHT-BOTH 39  TO-GOLDEN 7  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 37  TO-GOLDEN 7  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  APPEARED 10  VANISHED 8 
+CELL probe/r10v105repro/v105_b1.sv parse TO-GOLDEN	unsupported_typespec|ET|26:5	package[ALLPKG:pb1]<function:ce_b1::em<ref_var:xo_e	pristine={'TOPPKG:pb1': 1}	patched={'ALLPKG:pb1': 1}	golden={'ALLPKG:pb1': 1}
+CELL probe/r10v105repro/v105_b1.sv parse TO-GOLDEN	unsupported_typespec|QT|71:5	package[ALLPKG:pb1]<function:c3_b1::qm<ref_var:xo_q	pristine={'TOPPKG:pb1': 1}	patched={'ALLPKG:pb1': 1}	golden={'ALLPKG:pb1': 1}
+CELL probe/r10v105repro/v105_b1.sv parse TO-GOLDEN	unsupported_typespec|ST|18:5	package[ALLPKG:pb1]<function:cs_b1::sm<ref_var:xo_s	pristine={'TOPPKG:pb1': 1}	patched={'ALLPKG:pb1': 1}	golden={'ALLPKG:pb1': 1}
+CELL probe/r10v105repro/v105_b1.sv parse TO-GOLDEN	unsupported_typespec|TT|34:5	package[ALLPKG:pb1]<task:ct_b1::tm<ref_var:xo_tt	pristine={'TOPPKG:pb1': 1}	patched={'ALLPKG:pb1': 1}	golden={'ALLPKG:pb1': 1}
+CELL probe/r10v105repro/v105_b1.sv parse TO-GOLDEN	unsupported_typespec|VT|44:5	package[ALLPKG:pb1]<function:cv_b1::vm<ref_var:xo_v	pristine={'TOPPKG:pb1': 1}	patched={'ALLPKG:pb1': 1}	golden={'ALLPKG:pb1': 1}
+CELL probe/r10v105repro/v105_b1.sv parse TO-GOLDEN	unsupported_typespec|VT|47:5	package[ALLPKG:pb1]<function:cv_b1::pm<ref_var:xo_p	pristine={'TOPPKG:pb1': 1}	patched={'ALLPKG:pb1': 1}	golden={'ALLPKG:pb1': 1}
+CELL probe/r10v105repro/v105_b1.sv parse TO-GOLDEN	unsupported_typespec|VT|50:5	package[ALLPKG:pb1]<function:cv_b1::lm<ref_var:xo_l	pristine={'TOPPKG:pb1': 1}	patched={'ALLPKG:pb1': 1}	golden={'ALLPKG:pb1': 1}
+ARM probe/r10v105repro/v105_b1.sv elab rc=0/4/4 CALIB[-- CENSUS golden=110 ours=110 AGREE=110 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v105repro/v105_b1.sv elab -- VIEWSET RIGHT-BOTH 40  TO-GOLDEN 8  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2 -- RIGHT-BOTH 31  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 7  STILL-WRONG 11  APPEARED 6  VANISHED 20 
+CELL probe/r10v105repro/v105_b1.sv elab TO-GOLDEN	unsupported_typespec|WT|63:5	package[ALLPKG:pb1]<function:cw_b1::wm<ref_var:xo_w	pristine={'TOPPKG:pb1': 1}	patched={'ALLPKG:pb1': 1}	golden={'ALLPKG:pb1': 1}
+CELL probe/r10v105repro/v105_b1.sv elab MOVED-WRONG	unsupported_typespec|ET|26:5	package[ALLPKG:pb1]<function:ce_b1::em<ref_var:xo_e	pristine={'TOPPKG:pb1': 1}	patched={'ALLPKG:pb1': 1}	golden={'ALLPKG:pb1': 3}
+CELL probe/r10v105repro/v105_b1.sv elab MOVED-WRONG	unsupported_typespec|QT|71:5	package[ALLPKG:pb1]<function:c3_b1::qm<ref_var:xo_q	pristine={'TOPPKG:pb1': 1}	patched={'ALLPKG:pb1': 1}	golden={'ALLPKG:pb1': 3}
+CELL probe/r10v105repro/v105_b1.sv elab MOVED-WRONG	unsupported_typespec|ST|18:5	package[ALLPKG:pb1]<function:cs_b1::sm<ref_var:xo_s	pristine={'TOPPKG:pb1': 1}	patched={'ALLPKG:pb1': 1}	golden={'ALLPKG:pb1': 3}
+CELL probe/r10v105repro/v105_b1.sv elab MOVED-WRONG	unsupported_typespec|TT|34:5	package[ALLPKG:pb1]<task:ct_b1::tm<ref_var:xo_tt	pristine={'TOPPKG:pb1': 1}	patched={'ALLPKG:pb1': 1}	golden={'ALLPKG:pb1': 3}
+CELL probe/r10v105repro/v105_b1.sv elab MOVED-WRONG	unsupported_typespec|VT|44:5	package[ALLPKG:pb1]<function:cv_b1::vm<ref_var:xo_v	pristine={'TOPPKG:pb1': 1}	patched={'ALLPKG:pb1': 1}	golden={'ALLPKG:pb1': 3}
+CELL probe/r10v105repro/v105_b1.sv elab MOVED-WRONG	unsupported_typespec|VT|47:5	package[ALLPKG:pb1]<function:cv_b1::pm<ref_var:xo_p	pristine={'TOPPKG:pb1': 1}	patched={'ALLPKG:pb1': 1}	golden={'ALLPKG:pb1': 3}
+CELL probe/r10v105repro/v105_b1.sv elab MOVED-WRONG	unsupported_typespec|VT|50:5	package[ALLPKG:pb1]<function:cv_b1::lm<ref_var:xo_l	pristine={'TOPPKG:pb1': 1}	patched={'ALLPKG:pb1': 1}	golden={'ALLPKG:pb1': 3}
+ARM probe/r10v105repro/v105_b2.sv parse rc=0/4/4 CALIB[-- CENSUS golden=23 ours=23 AGREE=23 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v105repro/v105_b2.sv parse -- VIEWSET RIGHT-BOTH 17  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 14  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 3  APPEARED 10  VANISHED 6 
+ARM probe/r10v105repro/v105_b2.sv elab rc=0/4/4 CALIB[-- CENSUS golden=42 ours=42 AGREE=42 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v105repro/v105_b2.sv elab -- VIEWSET RIGHT-BOTH 18  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 15  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 3  APPEARED 9  VANISHED 9 
+ARM probe/r10v105repro/v105_b3.sv parse rc=0/0/0 CALIB[-- CENSUS golden=27 ours=27 AGREE=27 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v105repro/v105_b3.sv parse -- VIEWSET RIGHT-BOTH 10  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 9  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 1  APPEARED 3  VANISHED 16 
+CELL probe/r10v105repro/v105_b3.sv parse TO-GOLDEN	unsupported_typespec|BT|27:5	package[ALLPKG:pn_b3]<function:cb_b3::bm<begin:<ref_var:top_b	pristine={'TOPPKG:pn_b3': 1}	patched={'ALLPKG:pn_b3': 1}	golden={'ALLPKG:pn_b3': 1}
+ARM probe/r10v105repro/v105_b3.sv elab rc=0/0/0 CALIB[-- CENSUS golden=51 ours=51 AGREE=51 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v105repro/v105_b3.sv elab -- VIEWSET RIGHT-BOTH 11  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 9  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 1  STILL-WRONG 2  APPEARED 1  VANISHED 28 
+CELL probe/r10v105repro/v105_b3.sv elab TO-GOLDEN	unsupported_typespec|OT|18:5	package[ALLPKG:pn_b3]<function:outer_b3::om<ref_var:xo_o	pristine={'TOPPKG:pn_b3': 1}	patched={'ALLPKG:pn_b3': 1}	golden={'ALLPKG:pn_b3': 1}
+CELL probe/r10v105repro/v105_b3.sv elab MOVED-WRONG	unsupported_typespec|BT|27:5	package[ALLPKG:pn_b3]<function:cb_b3::bm<begin:<ref_var:top_b	pristine={'TOPPKG:pn_b3': 1}	patched={'ALLPKG:pn_b3': 1}	golden={'ALLPKG:pn_b3': 2}
+ARM probe/r10v105repro/v105_b4.sv parse rc=0/4/4 CALIB[-- CENSUS golden=25 ours=25 AGREE=25 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v105repro/v105_b4.sv parse -- VIEWSET RIGHT-BOTH 12  TO-GOLDEN 5  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 10  TO-GOLDEN 5  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  APPEARED 6  VANISHED 8 
+CELL probe/r10v105repro/v105_b4.sv parse TO-GOLDEN	unsupported_typespec|UT|29:5	package[ALLPKG:pu_b4]<function:cu_b4::um<begin:<ref_var:xo_u	pristine={'TOPPKG:pu_b4': 1}	patched={'ALLPKG:pu_b4': 1}	golden={'ALLPKG:pu_b4': 1}
+CELL probe/r10v105repro/v105_b4.sv parse TO-GOLDEN	unsupported_typespec|UT|38:5	package[ALLPKG:pu_b4]<function:cu_b4::sm<ref_var:xo_st	pristine={'TOPPKG:pu_b4': 1}	patched={'ALLPKG:pu_b4': 1}	golden={'ALLPKG:pu_b4': 1}
+CELL probe/r10v105repro/v105_b4.sv parse TO-GOLDEN	unsupported_typespec|UT|42:5	package[ALLPKG:pu_b4]<function:cu_b4::retm<begin:<ref_var:xo_r	pristine={'TOPPKG:pu_b4': 1}	patched={'ALLPKG:pu_b4': 1}	golden={'ALLPKG:pu_b4': 1}
+CELL probe/r10v105repro/v105_b4.sv parse TO-GOLDEN	unsupported_typespec|UT|47:35	package[ALLPKG:pu_b4]<function:cu_b4::argm<io_decl:a	pristine={'TOPPKG:pu_b4': 1}	patched={'ALLPKG:pu_b4': 1}	golden={'ALLPKG:pu_b4': 1}
+CELL probe/r10v105repro/v105_b4.sv parse TO-GOLDEN	unsupported_typespec|UT|48:5	package[ALLPKG:pu_b4]<function:cu_b4::argm<begin:<ref_var:xo_a	pristine={'TOPPKG:pu_b4': 1}	patched={'ALLPKG:pu_b4': 1}	golden={'ALLPKG:pu_b4': 1}
+ARM probe/r10v105repro/v105_b4.sv elab rc=0/4/4 CALIB[-- CENSUS golden=58 ours=58 AGREE=58 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v105repro/v105_b4.sv elab -- VIEWSET RIGHT-BOTH 12  TO-GOLDEN 5  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 5  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 5  STILL-WRONG 7  APPEARED 6  VANISHED 26 
+CELL probe/r10v105repro/v105_b4.sv elab MOVED-WRONG	unsupported_typespec|UT|29:5	package[ALLPKG:pu_b4]<function:cu_b4::um<begin:<ref_var:xo_u	pristine={'TOPPKG:pu_b4': 1}	patched={'ALLPKG:pu_b4': 1}	golden={'ALLPKG:pu_b4': 2}
+CELL probe/r10v105repro/v105_b4.sv elab MOVED-WRONG	unsupported_typespec|UT|38:5	package[ALLPKG:pu_b4]<function:cu_b4::sm<ref_var:xo_st	pristine={'TOPPKG:pu_b4': 1}	patched={'ALLPKG:pu_b4': 1}	golden={'ALLPKG:pu_b4': 3}
+CELL probe/r10v105repro/v105_b4.sv elab MOVED-WRONG	unsupported_typespec|UT|42:5	package[ALLPKG:pu_b4]<function:cu_b4::retm<begin:<ref_var:xo_r	pristine={'TOPPKG:pu_b4': 1}	patched={'ALLPKG:pu_b4': 1}	golden={'ALLPKG:pu_b4': 2}
+CELL probe/r10v105repro/v105_b4.sv elab MOVED-WRONG	unsupported_typespec|UT|47:35	package[ALLPKG:pu_b4]<function:cu_b4::argm<io_decl:a	pristine={'TOPPKG:pu_b4': 1}	patched={'ALLPKG:pu_b4': 1}	golden={'ALLPKG:pu_b4': 2}
+CELL probe/r10v105repro/v105_b4.sv elab MOVED-WRONG	unsupported_typespec|UT|48:5	package[ALLPKG:pu_b4]<function:cu_b4::argm<begin:<ref_var:xo_a	pristine={'TOPPKG:pu_b4': 1}	patched={'ALLPKG:pu_b4': 1}	golden={'ALLPKG:pu_b4': 2}
+ARM probe/r10v105repro/v105_b5.sv parse rc=0/4/4 CALIB[-- CENSUS golden=41 ours=41 AGREE=41 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v105repro/v105_b5.sv parse -- VIEWSET RIGHT-BOTH 29  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 1 -- RIGHT-BOTH 23  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 7  APPEARED 9  VANISHED 4 
+CELL probe/r10v105repro/v105_b5.sv parse TO-GOLDEN	unsupported_typespec|CT|34:5	package[ALLPKG:ctor_b5]<function:cctor_b5::m<ref_var:meth_l	pristine={'TOPPKG:ctor_b5': 1}	patched={'ALLPKG:ctor_b5': 1}	golden={'ALLPKG:ctor_b5': 1}
+CELL probe/r10v105repro/v105_b5.sv parse TO-GOLDEN	unsupported_typespec|PT|55:5	package[ALLPKG:prod_b5]<function:cprod_b5::pf<ref_var:prod_l	pristine={'TOPPKG:prod_b5': 1}	patched={'ALLPKG:prod_b5': 1}	golden={'ALLPKG:prod_b5': 1}
+ARM probe/r10v105repro/v105_b5.sv elab rc=0/4/4 CALIB[-- CENSUS golden=65 ours=65 AGREE=65 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v105repro/v105_b5.sv elab -- VIEWSET RIGHT-BOTH 29  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 1 -- RIGHT-BOTH 20  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 2  STILL-WRONG 10  APPEARED 9  VANISHED 8 
+CELL probe/r10v105repro/v105_b5.sv elab MOVED-WRONG	unsupported_typespec|CT|34:5	package[ALLPKG:ctor_b5]<function:cctor_b5::m<ref_var:meth_l	pristine={'TOPPKG:ctor_b5': 1}	patched={'ALLPKG:ctor_b5': 1}	golden={'ALLPKG:ctor_b5': 3}
+CELL probe/r10v105repro/v105_b5.sv elab MOVED-WRONG	unsupported_typespec|PT|55:5	package[ALLPKG:prod_b5]<function:cprod_b5::pf<ref_var:prod_l	pristine={'TOPPKG:prod_b5': 1}	patched={'ALLPKG:prod_b5': 1}	golden={'ALLPKG:prod_b5': 3}
+ARM probe/r10v105repro/v105_b6.sv parse rc=0/4/4 CALIB[-- CENSUS golden=33 ours=33 AGREE=33 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v105repro/v105_b6.sv parse -- VIEWSET RIGHT-BOTH 23  TO-GOLDEN 5  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 22  TO-GOLDEN 5  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 1  APPEARED 4  VANISHED 4 
+CELL probe/r10v105repro/v105_b6.sv parse TO-GOLDEN	unsupported_typespec|A|36:5	package[ALLPKG:pv_b6]<task:t3_b6::t3<begin:<ref_var:a_l	pristine={'TOPPKG:pv_b6': 1}	patched={'ALLPKG:pv_b6': 1}	golden={'ALLPKG:pv_b6': 1}
+CELL probe/r10v105repro/v105_b6.sv parse TO-GOLDEN	unsupported_typespec|B|36:12	package[ALLPKG:pv_b6]<task:t3_b6::t3<begin:<ref_var:b_l	pristine={'TOPPKG:pv_b6': 1}	patched={'ALLPKG:pv_b6': 1}	golden={'ALLPKG:pv_b6': 1}
+CELL probe/r10v105repro/v105_b6.sv parse TO-GOLDEN	unsupported_typespec|C|36:19	package[ALLPKG:pv_b6]<task:t3_b6::t3<begin:<ref_var:c_l	pristine={'TOPPKG:pv_b6': 1}	patched={'ALLPKG:pv_b6': 1}	golden={'ALLPKG:pv_b6': 1}
+CELL probe/r10v105repro/v105_b6.sv parse TO-GOLDEN	unsupported_typespec|SHT|28:5	package[ALLPKG:pv_b6]<function:sh_b6::sm2<ref_var:sh_l2	pristine={'TOPPKG:pv_b6': 1}	patched={'ALLPKG:pv_b6': 1}	golden={'ALLPKG:pv_b6': 1}
+CELL probe/r10v105repro/v105_b6.sv parse TO-GOLDEN	unsupported_typespec|VT|12:5	package[ALLPKG:pv_b6]<function:vc_b6::vm<ref_var:vo_v	pristine={'TOPPKG:pv_b6': 1}	patched={'ALLPKG:pv_b6': 1}	golden={'ALLPKG:pv_b6': 1}
+ARM probe/r10v105repro/v105_b6.sv elab rc=0/4/4 CALIB[-- CENSUS golden=71 ours=71 AGREE=71 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v105repro/v105_b6.sv elab -- VIEWSET RIGHT-BOTH 23  TO-GOLDEN 5  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 15  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 5  STILL-WRONG 8  APPEARED 4  VANISHED 22 
+CELL probe/r10v105repro/v105_b6.sv elab MOVED-WRONG	unsupported_typespec|A|36:5	package[ALLPKG:pv_b6]<task:t3_b6::t3<begin:<ref_var:a_l	pristine={'TOPPKG:pv_b6': 1}	patched={'ALLPKG:pv_b6': 1}	golden={'ALLPKG:pv_b6': 2}
+CELL probe/r10v105repro/v105_b6.sv elab MOVED-WRONG	unsupported_typespec|B|36:12	package[ALLPKG:pv_b6]<task:t3_b6::t3<begin:<ref_var:b_l	pristine={'TOPPKG:pv_b6': 1}	patched={'ALLPKG:pv_b6': 1}	golden={'ALLPKG:pv_b6': 2}
+CELL probe/r10v105repro/v105_b6.sv elab MOVED-WRONG	unsupported_typespec|C|36:19	package[ALLPKG:pv_b6]<task:t3_b6::t3<begin:<ref_var:c_l	pristine={'TOPPKG:pv_b6': 1}	patched={'ALLPKG:pv_b6': 1}	golden={'ALLPKG:pv_b6': 2}
+CELL probe/r10v105repro/v105_b6.sv elab MOVED-WRONG	unsupported_typespec|SHT|28:5	package[ALLPKG:pv_b6]<function:sh_b6::sm2<ref_var:sh_l2	pristine={'TOPPKG:pv_b6': 1}	patched={'ALLPKG:pv_b6': 1}	golden={'ALLPKG:pv_b6': 3}
+CELL probe/r10v105repro/v105_b6.sv elab MOVED-WRONG	unsupported_typespec|VT|12:5	package[ALLPKG:pv_b6]<function:vc_b6::vm<ref_var:vo_v	pristine={'TOPPKG:pv_b6': 1}	patched={'ALLPKG:pv_b6': 1}	golden={'ALLPKG:pv_b6': 3}
+ARM probe/r10v107repro/v107_b10.sv parse rc=0/4/4 CALIB[-- CENSUS golden=33 ours=33 AGREE=33 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v107repro/v107_b10.sv parse -- VIEWSET RIGHT-BOTH 19  TO-GOLDEN 10  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 17  TO-GOLDEN 10  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  APPEARED 3  VANISHED 2 
+CELL probe/r10v107repro/v107_b10.sv parse TO-GOLDEN	unsupported_typespec|T|34:36	package[ALLPKG:pb10]<function:c10::n_plain<begin:<ref_var:uq10	pristine={'TOPPKG:pb10': 1}	patched={'ALLPKG:pb10': 1}	golden={'ALLPKG:pb10': 1}
+CELL probe/r10v107repro/v107_b10.sv parse TO-GOLDEN	unsupported_typespec|T|35:36	package[ALLPKG:pb10]<function:c10::n_td_pkg<begin:<ref_var:td_pkg10	pristine={'TOPPKG:pb10': 1}	patched={'ALLPKG:pb10': 1}	golden={'ALLPKG:pb10': 1}
+CELL probe/r10v107repro/v107_b10.sv parse TO-GOLDEN	unsupported_typespec|T|36:36	package[ALLPKG:pb10]<function:c10::n_td_unit<begin:<ref_var:td_unit10	pristine={'TOPPKG:pb10': 1}	patched={'ALLPKG:pb10': 1}	golden={'ALLPKG:pb10': 1}
+CELL probe/r10v107repro/v107_b10.sv parse TO-GOLDEN	unsupported_typespec|T|37:36	package[ALLPKG:pb10]<function:c10::n_td_other<begin:<ref_var:td_other10	pristine={'TOPPKG:pb10': 1}	patched={'ALLPKG:pb10': 1}	golden={'ALLPKG:pb10': 1}
+CELL probe/r10v107repro/v107_b10.sv parse TO-GOLDEN	unsupported_typespec|T|38:36	package[ALLPKG:pb10]<function:c10::n_td_mod<begin:<ref_var:td_mod10	pristine={'TOPPKG:pb10': 1}	patched={'ALLPKG:pb10': 1}	golden={'ALLPKG:pb10': 1}
+CELL probe/r10v107repro/v107_b10.sv parse TO-GOLDEN	unsupported_typespec|T|39:36	package[ALLPKG:pb10]<function:c10::n_pm_pkg<begin:<ref_var:pm_pkg10	pristine={'TOPPKG:pb10': 1}	patched={'ALLPKG:pb10': 1}	golden={'ALLPKG:pb10': 1}
+CELL probe/r10v107repro/v107_b10.sv parse TO-GOLDEN	unsupported_typespec|T|40:36	package[ALLPKG:pb10]<function:c10::n_pm_unit<begin:<ref_var:pm_unit10	pristine={'TOPPKG:pb10': 1}	patched={'ALLPKG:pb10': 1}	golden={'ALLPKG:pb10': 1}
+CELL probe/r10v107repro/v107_b10.sv parse TO-GOLDEN	unsupported_typespec|T|41:36	package[ALLPKG:pb10]<function:c10::n_pm_other<begin:<ref_var:pm_other10	pristine={'TOPPKG:pb10': 1}	patched={'ALLPKG:pb10': 1}	golden={'ALLPKG:pb10': 1}
+CELL probe/r10v107repro/v107_b10.sv parse TO-GOLDEN	unsupported_typespec|T|42:36	package[ALLPKG:pb10]<function:c10::n_pm_mod<begin:<ref_var:pm_mod10	pristine={'TOPPKG:pb10': 1}	patched={'ALLPKG:pb10': 1}	golden={'ALLPKG:pb10': 1}
+CELL probe/r10v107repro/v107_b10.sv parse TO-GOLDEN	unsupported_typespec|T|43:36	package[ALLPKG:pb10]<function:c10::n_td_iface<begin:<ref_var:td_iface10	pristine={'TOPPKG:pb10': 1}	patched={'ALLPKG:pb10': 1}	golden={'ALLPKG:pb10': 1}
+ARM probe/r10v107repro/v107_b10.sv elab rc=0/4/4 CALIB[-- CENSUS golden=95 ours=95 AGREE=95 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v107repro/v107_b10.sv elab -- VIEWSET RIGHT-BOTH 19  TO-GOLDEN 10  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 5  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 10  STILL-WRONG 14  APPEARED 3  VANISHED 42 
+CELL probe/r10v107repro/v107_b10.sv elab MOVED-WRONG	unsupported_typespec|T|34:36	package[ALLPKG:pb10]<function:c10::n_plain<begin:<ref_var:uq10	pristine={'TOPPKG:pb10': 1}	patched={'ALLPKG:pb10': 1}	golden={'ALLPKG:pb10': 2}
+CELL probe/r10v107repro/v107_b10.sv elab MOVED-WRONG	unsupported_typespec|T|35:36	package[ALLPKG:pb10]<function:c10::n_td_pkg<begin:<ref_var:td_pkg10	pristine={'TOPPKG:pb10': 1}	patched={'ALLPKG:pb10': 1}	golden={'ALLPKG:pb10': 2}
+CELL probe/r10v107repro/v107_b10.sv elab MOVED-WRONG	unsupported_typespec|T|36:36	package[ALLPKG:pb10]<function:c10::n_td_unit<begin:<ref_var:td_unit10	pristine={'TOPPKG:pb10': 1}	patched={'ALLPKG:pb10': 1}	golden={'ALLPKG:pb10': 2}
+CELL probe/r10v107repro/v107_b10.sv elab MOVED-WRONG	unsupported_typespec|T|37:36	package[ALLPKG:pb10]<function:c10::n_td_other<begin:<ref_var:td_other10	pristine={'TOPPKG:pb10': 1}	patched={'ALLPKG:pb10': 1}	golden={'ALLPKG:pb10': 2}
+CELL probe/r10v107repro/v107_b10.sv elab MOVED-WRONG	unsupported_typespec|T|38:36	package[ALLPKG:pb10]<function:c10::n_td_mod<begin:<ref_var:td_mod10	pristine={'TOPPKG:pb10': 1}	patched={'ALLPKG:pb10': 1}	golden={'ALLPKG:pb10': 2}
+CELL probe/r10v107repro/v107_b10.sv elab MOVED-WRONG	unsupported_typespec|T|39:36	package[ALLPKG:pb10]<function:c10::n_pm_pkg<begin:<ref_var:pm_pkg10	pristine={'TOPPKG:pb10': 1}	patched={'ALLPKG:pb10': 1}	golden={'ALLPKG:pb10': 2}
+CELL probe/r10v107repro/v107_b10.sv elab MOVED-WRONG	unsupported_typespec|T|40:36	package[ALLPKG:pb10]<function:c10::n_pm_unit<begin:<ref_var:pm_unit10	pristine={'TOPPKG:pb10': 1}	patched={'ALLPKG:pb10': 1}	golden={'ALLPKG:pb10': 2}
+CELL probe/r10v107repro/v107_b10.sv elab MOVED-WRONG	unsupported_typespec|T|41:36	package[ALLPKG:pb10]<function:c10::n_pm_other<begin:<ref_var:pm_other10	pristine={'TOPPKG:pb10': 1}	patched={'ALLPKG:pb10': 1}	golden={'ALLPKG:pb10': 2}
+CELL probe/r10v107repro/v107_b10.sv elab MOVED-WRONG	unsupported_typespec|T|42:36	package[ALLPKG:pb10]<function:c10::n_pm_mod<begin:<ref_var:pm_mod10	pristine={'TOPPKG:pb10': 1}	patched={'ALLPKG:pb10': 1}	golden={'ALLPKG:pb10': 2}
+CELL probe/r10v107repro/v107_b10.sv elab MOVED-WRONG	unsupported_typespec|T|43:36	package[ALLPKG:pb10]<function:c10::n_td_iface<begin:<ref_var:td_iface10	pristine={'TOPPKG:pb10': 1}	patched={'ALLPKG:pb10': 1}	golden={'ALLPKG:pb10': 2}
+ARM probe/r10v107repro/v107_b12.sv parse rc=0/0/0 CALIB[-- CENSUS golden=9 ours=9 AGREE=9 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v107repro/v107_b12.sv parse -- VIEWSET RIGHT-BOTH 7  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 7  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  APPEARED 1  VANISHED 0 
+CELL probe/r10v107repro/v107_b12.sv parse TO-GOLDEN	unsupported_typespec|T|15:5	package[ALLPKG:pb12]<function:c12::oob_recvexpr<begin:<ref_var:v12	pristine={'TOPPKG:pb12': 1}	patched={'ALLPKG:pb12': 1}	golden={'ALLPKG:pb12': 1}
+CELL probe/r10v107repro/v107_b12.sv parse TO-GOLDEN	unsupported_typespec|T|20:5	package[ALLPKG:pb12]<function:c12::oob_asg<begin:<ref_var:w12	pristine={'TOPPKG:pb12': 1}	patched={'ALLPKG:pb12': 1}	golden={'ALLPKG:pb12': 1}
+ARM probe/r10v107repro/v107_b12.sv elab rc=0/0/0 CALIB[-- CENSUS golden=20 ours=20 AGREE=20 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v107repro/v107_b12.sv elab -- VIEWSET RIGHT-BOTH 7  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 2  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 2  STILL-WRONG 5  APPEARED 1  VANISHED 4 
+CELL probe/r10v107repro/v107_b12.sv elab MOVED-WRONG	unsupported_typespec|T|15:5	package[ALLPKG:pb12]<function:c12::oob_recvexpr<begin:<ref_var:v12	pristine={'TOPPKG:pb12': 1}	patched={'ALLPKG:pb12': 1}	golden={'ALLPKG:pb12': 2}
+CELL probe/r10v107repro/v107_b12.sv elab MOVED-WRONG	unsupported_typespec|T|20:5	package[ALLPKG:pb12]<function:c12::oob_asg<begin:<ref_var:w12	pristine={'TOPPKG:pb12': 1}	patched={'ALLPKG:pb12': 1}	golden={'ALLPKG:pb12': 2}
+ARM probe/r10v107repro/v107_b1.sv parse rc=0/0/0 CALIB[-- CENSUS golden=27 ours=27 AGREE=27 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v107repro/v107_b1.sv parse -- VIEWSET RIGHT-BOTH 19  TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 17  TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  APPEARED 4  VANISHED 2 
+CELL probe/r10v107repro/v107_b1.sv parse TO-GOLDEN	unsupported_typespec|T|35:5	package[ALLPKG:pb1]<function:c1::nest_usercall<begin:<ref_var:v	pristine={'TOPPKG:pb1': 1}	patched={'ALLPKG:pb1': 1}	golden={'ALLPKG:pb1': 1}
+CELL probe/r10v107repro/v107_b1.sv parse TO-GOLDEN	unsupported_typespec|T|41:5	package[ALLPKG:pb1]<function:c1::nest_recvcall<begin:<ref_var:v	pristine={'TOPPKG:pb1': 1}	patched={'ALLPKG:pb1': 1}	golden={'ALLPKG:pb1': 1}
+CELL probe/r10v107repro/v107_b1.sv parse TO-GOLDEN	unsupported_typespec|T|60:5	package[ALLPKG:pb1]<function:c1::nest_builtin<begin:<ref_var:v	pristine={'TOPPKG:pb1': 1}	patched={'ALLPKG:pb1': 1}	golden={'ALLPKG:pb1': 1}
+CELL probe/r10v107repro/v107_b1.sv parse TO-GOLDEN	unsupported_typespec|T|66:5	package[ALLPKG:pb1]<function:c1::nest_ternary<begin:<ref_var:v	pristine={'TOPPKG:pb1': 1}	patched={'ALLPKG:pb1': 1}	golden={'ALLPKG:pb1': 1}
+CELL probe/r10v107repro/v107_b1.sv parse TO-GOLDEN	unsupported_typespec|T|67:5	package[ALLPKG:pb1]<function:c1::nest_ternary<begin:<ref_var:w	pristine={'TOPPKG:pb1': 1}	patched={'ALLPKG:pb1': 1}	golden={'ALLPKG:pb1': 1}
+CELL probe/r10v107repro/v107_b1.sv parse TO-GOLDEN	unsupported_typespec|T|73:5	package[ALLPKG:pb1]<function:c1::ctrl_direct<begin:<ref_var:v	pristine={'TOPPKG:pb1': 1}	patched={'ALLPKG:pb1': 1}	golden={'ALLPKG:pb1': 1}
+ARM probe/r10v107repro/v107_b1.sv elab rc=0/0/0 CALIB[-- CENSUS golden=73 ours=73 AGREE=73 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v107repro/v107_b1.sv elab -- VIEWSET RIGHT-BOTH 19  TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 3  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 6  STILL-WRONG 16  APPEARED 4  VANISHED 27 
+CELL probe/r10v107repro/v107_b1.sv elab MOVED-WRONG	unsupported_typespec|T|35:5	package[ALLPKG:pb1]<function:c1::nest_usercall<begin:<ref_var:v	pristine={'TOPPKG:pb1': 1}	patched={'ALLPKG:pb1': 1}	golden={'ALLPKG:pb1': 2}
+CELL probe/r10v107repro/v107_b1.sv elab MOVED-WRONG	unsupported_typespec|T|41:5	package[ALLPKG:pb1]<function:c1::nest_recvcall<begin:<ref_var:v	pristine={'TOPPKG:pb1': 1}	patched={'ALLPKG:pb1': 1}	golden={'ALLPKG:pb1': 2}
+CELL probe/r10v107repro/v107_b1.sv elab MOVED-WRONG	unsupported_typespec|T|60:5	package[ALLPKG:pb1]<function:c1::nest_builtin<begin:<ref_var:v	pristine={'TOPPKG:pb1': 1}	patched={'ALLPKG:pb1': 1}	golden={'ALLPKG:pb1': 2}
+CELL probe/r10v107repro/v107_b1.sv elab MOVED-WRONG	unsupported_typespec|T|66:5	package[ALLPKG:pb1]<function:c1::nest_ternary<begin:<ref_var:v	pristine={'TOPPKG:pb1': 1}	patched={'ALLPKG:pb1': 1}	golden={'ALLPKG:pb1': 2}
+CELL probe/r10v107repro/v107_b1.sv elab MOVED-WRONG	unsupported_typespec|T|67:5	package[ALLPKG:pb1]<function:c1::nest_ternary<begin:<ref_var:w	pristine={'TOPPKG:pb1': 1}	patched={'ALLPKG:pb1': 1}	golden={'ALLPKG:pb1': 2}
+CELL probe/r10v107repro/v107_b1.sv elab MOVED-WRONG	unsupported_typespec|T|73:5	package[ALLPKG:pb1]<function:c1::ctrl_direct<begin:<ref_var:v	pristine={'TOPPKG:pb1': 1}	patched={'ALLPKG:pb1': 1}	golden={'ALLPKG:pb1': 2}
+ARM probe/r10v107repro/v107_b2.sv parse rc=0/0/0 CALIB[-- CENSUS golden=18 ours=18 AGREE=18 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v107repro/v107_b2.sv parse -- VIEWSET RIGHT-BOTH 12  TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 10  TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  APPEARED 4  VANISHED 2 
+CELL probe/r10v107repro/v107_b2.sv parse TO-GOLDEN	unsupported_typespec|T|30:5	package[ALLPKG:pb2]<function:c2::newlhs_plain<begin:<ref_var:v	pristine={'TOPPKG:pb2': 1}	patched={'ALLPKG:pb2': 1}	golden={'ALLPKG:pb2': 1}
+CELL probe/r10v107repro/v107_b2.sv parse TO-GOLDEN	unsupported_typespec|T|41:5	package[ALLPKG:pb2]<function:c2::newrhs_ctorarg<begin:<ref_var:v	pristine={'TOPPKG:pb2': 1}	patched={'ALLPKG:pb2': 1}	golden={'ALLPKG:pb2': 1}
+CELL probe/r10v107repro/v107_b2.sv parse TO-GOLDEN	unsupported_typespec|T|52:5	package[ALLPKG:pb2]<function:c2::newlhs_field<begin:<ref_var:v	pristine={'TOPPKG:pb2': 1}	patched={'ALLPKG:pb2': 1}	golden={'ALLPKG:pb2': 1}
+CELL probe/r10v107repro/v107_b2.sv parse TO-GOLDEN	unsupported_typespec|T|58:5	package[ALLPKG:pb2]<function:c2::ordinary_asg<begin:<ref_var:v	pristine={'TOPPKG:pb2': 1}	patched={'ALLPKG:pb2': 1}	golden={'ALLPKG:pb2': 1}
+ARM probe/r10v107repro/v107_b2.sv elab rc=0/0/0 CALIB[-- CENSUS golden=47 ours=47 AGREE=47 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v107repro/v107_b2.sv elab -- VIEWSET RIGHT-BOTH 12  TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 2  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 4  STILL-WRONG 10  APPEARED 4  VANISHED 18 
+CELL probe/r10v107repro/v107_b2.sv elab MOVED-WRONG	unsupported_typespec|T|30:5	package[ALLPKG:pb2]<function:c2::newlhs_plain<begin:<ref_var:v	pristine={'TOPPKG:pb2': 1}	patched={'ALLPKG:pb2': 1}	golden={'ALLPKG:pb2': 2}
+CELL probe/r10v107repro/v107_b2.sv elab MOVED-WRONG	unsupported_typespec|T|41:5	package[ALLPKG:pb2]<function:c2::newrhs_ctorarg<begin:<ref_var:v	pristine={'TOPPKG:pb2': 1}	patched={'ALLPKG:pb2': 1}	golden={'ALLPKG:pb2': 2}
+CELL probe/r10v107repro/v107_b2.sv elab MOVED-WRONG	unsupported_typespec|T|52:5	package[ALLPKG:pb2]<function:c2::newlhs_field<begin:<ref_var:v	pristine={'TOPPKG:pb2': 1}	patched={'ALLPKG:pb2': 1}	golden={'ALLPKG:pb2': 2}
+CELL probe/r10v107repro/v107_b2.sv elab MOVED-WRONG	unsupported_typespec|T|58:5	package[ALLPKG:pb2]<function:c2::ordinary_asg<begin:<ref_var:v	pristine={'TOPPKG:pb2': 1}	patched={'ALLPKG:pb2': 1}	golden={'ALLPKG:pb2': 2}
+ARM probe/r10v107repro/v107_b3.sv parse rc=0/0/0 CALIB[-- CENSUS golden=14 ours=14 AGREE=14 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v107repro/v107_b3.sv parse -- VIEWSET RIGHT-BOTH 9  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 7  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  APPEARED 5  VANISHED 4 
+CELL probe/r10v107repro/v107_b3.sv parse TO-GOLDEN	unsupported_typespec|T|29:5	package[ALLPKG:pb3]<function:c3::oob_recvexpr<begin:<ref_var:v	pristine={'TOPPKG:pb3': 1}	patched={'ALLPKG:pb3': 1}	golden={'ALLPKG:pb3': 1}
+ARM probe/r10v107repro/v107_b3.sv elab rc=4/0/0 CALIB[-- CENSUS golden=28 ours=28 AGREE=28 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v107repro/v107_b3.sv elab -- VIEWSET RIGHT-BOTH 11  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 5  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 1  STILL-WRONG 6  APPEARED 3  VANISHED 10 
+CELL probe/r10v107repro/v107_b3.sv elab MOVED-WRONG	unsupported_typespec|T|29:5	package[ALLPKG:pb3]<function:c3::oob_recvexpr<begin:<ref_var:v	pristine={'TOPPKG:pb3': 1}	patched={'ALLPKG:pb3': 1}	golden={'ALLPKG:pb3': 2}
+ARM probe/r10v107repro/v107_b4.sv parse rc=0/0/0 CALIB[-- CENSUS golden=14 ours=14 AGREE=14 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v107repro/v107_b4.sv parse -- VIEWSET RIGHT-BOTH 12  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 8  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 4  APPEARED 3  VANISHED 1 
+CELL probe/r10v107repro/v107_b4.sv parse TO-GOLDEN	unsupported_typespec|T|19:5	package[ALLPKG:pb4]<function:c4::oob_recvexpr<begin:<ref_var:vb4	pristine={'TOPPKG:pb4': 1}	patched={'ALLPKG:pb4': 1}	golden={'ALLPKG:pb4': 1}
+ARM probe/r10v107repro/v107_b4.sv elab rc=0/0/0 CALIB[-- CENSUS golden=27 ours=27 AGREE=27 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v107repro/v107_b4.sv elab -- VIEWSET RIGHT-BOTH 12  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 4  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 1  STILL-WRONG 8  APPEARED 3  VANISHED 9 
+CELL probe/r10v107repro/v107_b4.sv elab MOVED-WRONG	unsupported_typespec|T|19:5	package[ALLPKG:pb4]<function:c4::oob_recvexpr<begin:<ref_var:vb4	pristine={'TOPPKG:pb4': 1}	patched={'ALLPKG:pb4': 1}	golden={'ALLPKG:pb4': 2}
+ARM probe/r10v107repro/v107_b5.sv parse rc=0/0/0 CALIB[-- CENSUS golden=26 ours=26 AGREE=26 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v107repro/v107_b5.sv parse -- VIEWSET RIGHT-BOTH 18  TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 1 -- RIGHT-BOTH 16  TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 3  APPEARED 3  VANISHED 2 
+CELL probe/r10v107repro/v107_b5.sv parse TO-GOLDEN	unsupported_typespec|T|41:5	package[ALLPKG:pb5]<function:c5::recv_this<begin:<ref_var:v	pristine={'TOPPKG:pb5': 1}	patched={'ALLPKG:pb5': 1}	golden={'ALLPKG:pb5': 1}
+CELL probe/r10v107repro/v107_b5.sv parse TO-GOLDEN	unsupported_typespec|T|47:5	package[ALLPKG:pb5]<function:c5::recv_super<begin:<ref_var:v	pristine={'TOPPKG:pb5': 1}	patched={'ALLPKG:pb5': 1}	golden={'ALLPKG:pb5': 1}
+CELL probe/r10v107repro/v107_b5.sv parse TO-GOLDEN	unsupported_typespec|T|53:5	package[ALLPKG:pb5]<function:c5::recv_chain<begin:<ref_var:v	pristine={'TOPPKG:pb5': 1}	patched={'ALLPKG:pb5': 1}	golden={'ALLPKG:pb5': 1}
+CELL probe/r10v107repro/v107_b5.sv parse TO-GOLDEN	unsupported_typespec|T|59:5	package[ALLPKG:pb5]<function:c5::nm_shadow<begin:<ref_var:shadow5	pristine={'TOPPKG:pb5': 1}	patched={'ALLPKG:pb5': 1}	golden={'ALLPKG:pb5': 1}
+ARM probe/r10v107repro/v107_b5.sv elab rc=0/0/0 CALIB[-- CENSUS golden=66 ours=66 AGREE=66 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v107repro/v107_b5.sv elab -- VIEWSET RIGHT-BOTH 18  TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 1 -- RIGHT-BOTH 4  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 4  STILL-WRONG 15  APPEARED 3  VANISHED 19 
+CELL probe/r10v107repro/v107_b5.sv elab MOVED-WRONG	unsupported_typespec|T|41:5	package[ALLPKG:pb5]<function:c5::recv_this<begin:<ref_var:v	pristine={'TOPPKG:pb5': 1}	patched={'ALLPKG:pb5': 1}	golden={'ALLPKG:pb5': 2}
+CELL probe/r10v107repro/v107_b5.sv elab MOVED-WRONG	unsupported_typespec|T|47:5	package[ALLPKG:pb5]<function:c5::recv_super<begin:<ref_var:v	pristine={'TOPPKG:pb5': 1}	patched={'ALLPKG:pb5': 1}	golden={'ALLPKG:pb5': 2}
+CELL probe/r10v107repro/v107_b5.sv elab MOVED-WRONG	unsupported_typespec|T|53:5	package[ALLPKG:pb5]<function:c5::recv_chain<begin:<ref_var:v	pristine={'TOPPKG:pb5': 1}	patched={'ALLPKG:pb5': 1}	golden={'ALLPKG:pb5': 2}
+CELL probe/r10v107repro/v107_b5.sv elab MOVED-WRONG	unsupported_typespec|T|59:5	package[ALLPKG:pb5]<function:c5::nm_shadow<begin:<ref_var:shadow5	pristine={'TOPPKG:pb5': 1}	patched={'ALLPKG:pb5': 1}	golden={'ALLPKG:pb5': 2}
+ARM probe/r10v107repro/v107_b6.sv parse rc=0/0/0 CALIB[-- CENSUS golden=19 ours=19 AGREE=19 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v107repro/v107_b6.sv parse -- VIEWSET RIGHT-BOTH 11  TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 9  TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  APPEARED 3  VANISHED 4 
+CELL probe/r10v107repro/v107_b6.sv parse TO-GOLDEN	unsupported_typespec|T|31:5	package[ALLPKG:pb6]<function:c6::ret_bare<begin:<ref_var:v	pristine={'TOPPKG:pb6': 1}	patched={'ALLPKG:pb6': 1}	golden={'ALLPKG:pb6': 1}
+CELL probe/r10v107repro/v107_b6.sv parse TO-GOLDEN	unsupported_typespec|T|52:5	package[ALLPKG:pb6]<function:c6::lhs_write<begin:<ref_var:v	pristine={'TOPPKG:pb6': 1}	patched={'ALLPKG:pb6': 1}	golden={'ALLPKG:pb6': 1}
+CELL probe/r10v107repro/v107_b6.sv parse TO-GOLDEN	unsupported_typespec|T|57:5	package[ALLPKG:pb6]<function:c6::cond_read<begin:<ref_var:v	pristine={'TOPPKG:pb6': 1}	patched={'ALLPKG:pb6': 1}	golden={'ALLPKG:pb6': 1}
+CELL probe/r10v107repro/v107_b6.sv parse TO-GOLDEN	unsupported_typespec|T|63:5	package[ALLPKG:pb6]<function:c6::deep_block<begin:<ref_var:v	pristine={'TOPPKG:pb6': 1}	patched={'ALLPKG:pb6': 1}	golden={'ALLPKG:pb6': 1}
+ARM probe/r10v107repro/v107_b6.sv elab rc=0/0/0 CALIB[-- CENSUS golden=46 ours=46 AGREE=46 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v107repro/v107_b6.sv elab -- VIEWSET RIGHT-BOTH 11  TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 2  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 4  STILL-WRONG 9  APPEARED 3  VANISHED 20 
+CELL probe/r10v107repro/v107_b6.sv elab MOVED-WRONG	unsupported_typespec|T|31:5	package[ALLPKG:pb6]<function:c6::ret_bare<begin:<ref_var:v	pristine={'TOPPKG:pb6': 1}	patched={'ALLPKG:pb6': 1}	golden={'ALLPKG:pb6': 2}
+CELL probe/r10v107repro/v107_b6.sv elab MOVED-WRONG	unsupported_typespec|T|52:5	package[ALLPKG:pb6]<function:c6::lhs_write<begin:<ref_var:v	pristine={'TOPPKG:pb6': 1}	patched={'ALLPKG:pb6': 1}	golden={'ALLPKG:pb6': 2}
+CELL probe/r10v107repro/v107_b6.sv elab MOVED-WRONG	unsupported_typespec|T|57:5	package[ALLPKG:pb6]<function:c6::cond_read<begin:<ref_var:v	pristine={'TOPPKG:pb6': 1}	patched={'ALLPKG:pb6': 1}	golden={'ALLPKG:pb6': 2}
+CELL probe/r10v107repro/v107_b6.sv elab MOVED-WRONG	unsupported_typespec|T|63:5	package[ALLPKG:pb6]<function:c6::deep_block<begin:<ref_var:v	pristine={'TOPPKG:pb6': 1}	patched={'ALLPKG:pb6': 1}	golden={'ALLPKG:pb6': 2}
+ARM probe/r10v107repro/v107_b7.sv parse rc=0/0/0 CALIB[-- CENSUS golden=14 ours=14 AGREE=14 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v107repro/v107_b7.sv parse -- VIEWSET RIGHT-BOTH 10  TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 8  TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  APPEARED 3  VANISHED 1 
+CELL probe/r10v107repro/v107_b7.sv parse TO-GOLDEN	unsupported_typespec|T|25:5	package[ALLPKG:pb7]<function:c7::meth_a7<begin:<ref_var:collide7	pristine={'TOPPKG:pb7': 1}	patched={'ALLPKG:pb7': 1}	golden={'ALLPKG:pb7': 1}
+CELL probe/r10v107repro/v107_b7.sv parse TO-GOLDEN	unsupported_typespec|T|31:5	package[ALLPKG:pb7]<function:c7::meth_b7<begin:<ref_var:collide7	pristine={'TOPPKG:pb7': 1}	patched={'ALLPKG:pb7': 1}	golden={'ALLPKG:pb7': 1}
+CELL probe/r10v107repro/v107_b7.sv parse TO-GOLDEN	unsupported_typespec|T|37:5	package[ALLPKG:pb7]<function:c7::meth_c7<begin:<ref_var:collide7	pristine={'TOPPKG:pb7': 1}	patched={'ALLPKG:pb7': 1}	golden={'ALLPKG:pb7': 1}
+ARM probe/r10v107repro/v107_b7.sv elab rc=0/0/0 CALIB[-- CENSUS golden=35 ours=35 AGREE=35 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v107repro/v107_b7.sv elab -- VIEWSET RIGHT-BOTH 10  TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 2  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 3  STILL-WRONG 8  APPEARED 3  VANISHED 13 
+CELL probe/r10v107repro/v107_b7.sv elab MOVED-WRONG	unsupported_typespec|T|25:5	package[ALLPKG:pb7]<function:c7::meth_a7<begin:<ref_var:collide7	pristine={'TOPPKG:pb7': 1}	patched={'ALLPKG:pb7': 1}	golden={'ALLPKG:pb7': 2}
+CELL probe/r10v107repro/v107_b7.sv elab MOVED-WRONG	unsupported_typespec|T|31:5	package[ALLPKG:pb7]<function:c7::meth_b7<begin:<ref_var:collide7	pristine={'TOPPKG:pb7': 1}	patched={'ALLPKG:pb7': 1}	golden={'ALLPKG:pb7': 2}
+CELL probe/r10v107repro/v107_b7.sv elab MOVED-WRONG	unsupported_typespec|T|37:5	package[ALLPKG:pb7]<function:c7::meth_c7<begin:<ref_var:collide7	pristine={'TOPPKG:pb7': 1}	patched={'ALLPKG:pb7': 1}	golden={'ALLPKG:pb7': 2}
+ARM probe/r10v107repro/v107_b8.sv parse rc=0/0/0 CALIB[-- CENSUS golden=21 ours=21 AGREE=21 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v107repro/v107_b8.sv parse -- VIEWSET RIGHT-BOTH 15  TO-GOLDEN 5  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 13  TO-GOLDEN 5  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  APPEARED 3  VANISHED 1 
+CELL probe/r10v107repro/v107_b8.sv parse TO-GOLDEN	unsupported_typespec|T|29:5	package[ALLPKG:pb8]<function:c8::named_blk<begin:<ref_var:v	pristine={'TOPPKG:pb8': 1}	patched={'ALLPKG:pb8': 1}	golden={'ALLPKG:pb8': 1}
+CELL probe/r10v107repro/v107_b8.sv parse TO-GOLDEN	unsupported_typespec|T|37:5	package[ALLPKG:pb8]<function:c8::fork_blk<begin:<ref_var:v	pristine={'TOPPKG:pb8': 1}	patched={'ALLPKG:pb8': 1}	golden={'ALLPKG:pb8': 1}
+CELL probe/r10v107repro/v107_b8.sv parse TO-GOLDEN	unsupported_typespec|T|45:5	package[ALLPKG:pb8]<function:c8::foreach_blk<begin:<ref_var:v	pristine={'TOPPKG:pb8': 1}	patched={'ALLPKG:pb8': 1}	golden={'ALLPKG:pb8': 1}
+CELL probe/r10v107repro/v107_b8.sv parse TO-GOLDEN	unsupported_typespec|T|53:5	package[ALLPKG:pb8]<function:c8::case_sel<begin:<ref_var:cs8	pristine={'TOPPKG:pb8': 1}	patched={'ALLPKG:pb8': 1}	golden={'ALLPKG:pb8': 1}
+CELL probe/r10v107repro/v107_b8.sv parse TO-GOLDEN	unsupported_typespec|T|61:5	package[ALLPKG:pb8]<function:c8::while_blk<begin:<ref_var:v	pristine={'TOPPKG:pb8': 1}	patched={'ALLPKG:pb8': 1}	golden={'ALLPKG:pb8': 1}
+ARM probe/r10v107repro/v107_b8.sv elab rc=0/0/0 CALIB[-- CENSUS golden=58 ours=58 AGREE=58 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v107repro/v107_b8.sv elab -- VIEWSET RIGHT-BOTH 15  TO-GOLDEN 5  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 2  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 5  STILL-WRONG 13  APPEARED 3  VANISHED 22 
+CELL probe/r10v107repro/v107_b8.sv elab MOVED-WRONG	unsupported_typespec|T|29:5	package[ALLPKG:pb8]<function:c8::named_blk<begin:<ref_var:v	pristine={'TOPPKG:pb8': 1}	patched={'ALLPKG:pb8': 1}	golden={'ALLPKG:pb8': 2}
+CELL probe/r10v107repro/v107_b8.sv elab MOVED-WRONG	unsupported_typespec|T|37:5	package[ALLPKG:pb8]<function:c8::fork_blk<begin:<ref_var:v	pristine={'TOPPKG:pb8': 1}	patched={'ALLPKG:pb8': 1}	golden={'ALLPKG:pb8': 2}
+CELL probe/r10v107repro/v107_b8.sv elab MOVED-WRONG	unsupported_typespec|T|45:5	package[ALLPKG:pb8]<function:c8::foreach_blk<begin:<ref_var:v	pristine={'TOPPKG:pb8': 1}	patched={'ALLPKG:pb8': 1}	golden={'ALLPKG:pb8': 2}
+CELL probe/r10v107repro/v107_b8.sv elab MOVED-WRONG	unsupported_typespec|T|53:5	package[ALLPKG:pb8]<function:c8::case_sel<begin:<ref_var:cs8	pristine={'TOPPKG:pb8': 1}	patched={'ALLPKG:pb8': 1}	golden={'ALLPKG:pb8': 2}
+CELL probe/r10v107repro/v107_b8.sv elab MOVED-WRONG	unsupported_typespec|T|61:5	package[ALLPKG:pb8]<function:c8::while_blk<begin:<ref_var:v	pristine={'TOPPKG:pb8': 1}	patched={'ALLPKG:pb8': 1}	golden={'ALLPKG:pb8': 2}
+ARM probe/r10v107repro/v107_b9.sv parse rc=0/0/0 CALIB[-- CENSUS golden=33 ours=33 AGREE=33 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v107repro/v107_b9.sv parse -- VIEWSET RIGHT-BOTH 19  TO-GOLDEN 10  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 17  TO-GOLDEN 10  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  APPEARED 3  VANISHED 1 
+CELL probe/r10v107repro/v107_b9.sv parse TO-GOLDEN	unsupported_typespec|T|42:35	package[ALLPKG:pb9]<function:c9::n_plain<begin:<ref_var:uniq9	pristine={'TOPPKG:pb9': 1}	patched={'ALLPKG:pb9': 1}	golden={'ALLPKG:pb9': 1}
+CELL probe/r10v107repro/v107_b9.sv parse TO-GOLDEN	unsupported_typespec|T|43:35	package[ALLPKG:pb9]<function:c9::n_typedef<begin:<ref_var:td_pkg9	pristine={'TOPPKG:pb9': 1}	patched={'ALLPKG:pb9': 1}	golden={'ALLPKG:pb9': 1}
+CELL probe/r10v107repro/v107_b9.sv parse TO-GOLDEN	unsupported_typespec|T|44:35	package[ALLPKG:pb9]<function:c9::n_struct<begin:<ref_var:ts_pkg9	pristine={'TOPPKG:pb9': 1}	patched={'ALLPKG:pb9': 1}	golden={'ALLPKG:pb9': 1}
+CELL probe/r10v107repro/v107_b9.sv parse TO-GOLDEN	unsupported_typespec|T|45:35	package[ALLPKG:pb9]<function:c9::n_param<begin:<ref_var:pm_pkg9	pristine={'TOPPKG:pb9': 1}	patched={'ALLPKG:pb9': 1}	golden={'ALLPKG:pb9': 1}
+CELL probe/r10v107repro/v107_b9.sv parse TO-GOLDEN	unsupported_typespec|T|46:35	package[ALLPKG:pb9]<function:c9::n_enumtd<begin:<ref_var:en_pkg9	pristine={'TOPPKG:pb9': 1}	patched={'ALLPKG:pb9': 1}	golden={'ALLPKG:pb9': 1}
+CELL probe/r10v107repro/v107_b9.sv parse TO-GOLDEN	unsupported_typespec|T|47:35	package[ALLPKG:pb9]<function:c9::n_class<begin:<ref_var:cls_nm9	pristine={'TOPPKG:pb9': 1}	patched={'ALLPKG:pb9': 1}	golden={'ALLPKG:pb9': 1}
+CELL probe/r10v107repro/v107_b9.sv parse TO-GOLDEN	unsupported_typespec|T|48:35	package[ALLPKG:pb9]<function:c9::n_func<begin:<ref_var:fn_pkg9	pristine={'TOPPKG:pb9': 1}	patched={'ALLPKG:pb9': 1}	golden={'ALLPKG:pb9': 1}
+CELL probe/r10v107repro/v107_b9.sv parse TO-GOLDEN	unsupported_typespec|T|49:35	package[ALLPKG:pb9]<function:c9::n_prop<begin:<ref_var:prop9	pristine={'TOPPKG:pb9': 1}	patched={'ALLPKG:pb9': 1}	golden={'ALLPKG:pb9': 1}
+CELL probe/r10v107repro/v107_b9.sv parse TO-GOLDEN	unsupported_typespec|T|50:35	package[ALLPKG:pb9]<function:c9::n_modnet<begin:<ref_var:mnet9	pristine={'TOPPKG:pb9': 1}	patched={'ALLPKG:pb9': 1}	golden={'ALLPKG:pb9': 1}
+CELL probe/r10v107repro/v107_b9.sv parse TO-GOLDEN	unsupported_typespec|T|51:35	package[ALLPKG:pb9]<function:c9::n_modvar<begin:<ref_var:mvar9	pristine={'TOPPKG:pb9': 1}	patched={'ALLPKG:pb9': 1}	golden={'ALLPKG:pb9': 1}
+ARM probe/r10v107repro/v107_b9.sv elab rc=0/0/0 CALIB[-- CENSUS golden=95 ours=95 AGREE=95 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v107repro/v107_b9.sv elab -- VIEWSET RIGHT-BOTH 19  TO-GOLDEN 10  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 5  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 10  STILL-WRONG 14  APPEARED 3  VANISHED 41 
+CELL probe/r10v107repro/v107_b9.sv elab MOVED-WRONG	unsupported_typespec|T|42:35	package[ALLPKG:pb9]<function:c9::n_plain<begin:<ref_var:uniq9	pristine={'TOPPKG:pb9': 1}	patched={'ALLPKG:pb9': 1}	golden={'ALLPKG:pb9': 2}
+CELL probe/r10v107repro/v107_b9.sv elab MOVED-WRONG	unsupported_typespec|T|43:35	package[ALLPKG:pb9]<function:c9::n_typedef<begin:<ref_var:td_pkg9	pristine={'TOPPKG:pb9': 1}	patched={'ALLPKG:pb9': 1}	golden={'ALLPKG:pb9': 2}
+CELL probe/r10v107repro/v107_b9.sv elab MOVED-WRONG	unsupported_typespec|T|44:35	package[ALLPKG:pb9]<function:c9::n_struct<begin:<ref_var:ts_pkg9	pristine={'TOPPKG:pb9': 1}	patched={'ALLPKG:pb9': 1}	golden={'ALLPKG:pb9': 2}
+CELL probe/r10v107repro/v107_b9.sv elab MOVED-WRONG	unsupported_typespec|T|45:35	package[ALLPKG:pb9]<function:c9::n_param<begin:<ref_var:pm_pkg9	pristine={'TOPPKG:pb9': 1}	patched={'ALLPKG:pb9': 1}	golden={'ALLPKG:pb9': 2}
+CELL probe/r10v107repro/v107_b9.sv elab MOVED-WRONG	unsupported_typespec|T|46:35	package[ALLPKG:pb9]<function:c9::n_enumtd<begin:<ref_var:en_pkg9	pristine={'TOPPKG:pb9': 1}	patched={'ALLPKG:pb9': 1}	golden={'ALLPKG:pb9': 2}
+CELL probe/r10v107repro/v107_b9.sv elab MOVED-WRONG	unsupported_typespec|T|47:35	package[ALLPKG:pb9]<function:c9::n_class<begin:<ref_var:cls_nm9	pristine={'TOPPKG:pb9': 1}	patched={'ALLPKG:pb9': 1}	golden={'ALLPKG:pb9': 2}
+CELL probe/r10v107repro/v107_b9.sv elab MOVED-WRONG	unsupported_typespec|T|48:35	package[ALLPKG:pb9]<function:c9::n_func<begin:<ref_var:fn_pkg9	pristine={'TOPPKG:pb9': 1}	patched={'ALLPKG:pb9': 1}	golden={'ALLPKG:pb9': 2}
+CELL probe/r10v107repro/v107_b9.sv elab MOVED-WRONG	unsupported_typespec|T|49:35	package[ALLPKG:pb9]<function:c9::n_prop<begin:<ref_var:prop9	pristine={'TOPPKG:pb9': 1}	patched={'ALLPKG:pb9': 1}	golden={'ALLPKG:pb9': 2}
+CELL probe/r10v107repro/v107_b9.sv elab MOVED-WRONG	unsupported_typespec|T|50:35	package[ALLPKG:pb9]<function:c9::n_modnet<begin:<ref_var:mnet9	pristine={'TOPPKG:pb9': 1}	patched={'ALLPKG:pb9': 1}	golden={'ALLPKG:pb9': 2}
+CELL probe/r10v107repro/v107_b9.sv elab MOVED-WRONG	unsupported_typespec|T|51:35	package[ALLPKG:pb9]<function:c9::n_modvar<begin:<ref_var:mvar9	pristine={'TOPPKG:pb9': 1}	patched={'ALLPKG:pb9': 1}	golden={'ALLPKG:pb9': 2}
+ARM probe/r10v165repro/v165_c_homes.sv parse rc=0/0/0 CALIB[-- CENSUS golden=9 ours=9 AGREE=9 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v165repro/v165_c_homes.sv parse -- VIEWSET RIGHT-BOTH 7  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 6  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 1  APPEARED 1  VANISHED 1 
+CELL probe/r10v165repro/v165_c_homes.sv parse TO-GOLDEN	unsupported_typespec|Tsink|65:7	package[ALLPKG:vpk_c]<function:Oob::sdeep<begin:<ref_var:loc_sink	pristine={'TOPPKG:vpk_c': 1}	patched={'ALLPKG:vpk_c': 1}	golden={'ALLPKG:vpk_c': 1}
+ARM probe/r10v165repro/v165_c_homes.sv elab rc=0/0/0 CALIB[-- CENSUS golden=21 ours=21 AGREE=21 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v165repro/v165_c_homes.sv elab -- VIEWSET RIGHT-BOTH 7  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 3  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 1  STILL-WRONG 4  APPEARED 1  VANISHED 9 
+CELL probe/r10v165repro/v165_c_homes.sv elab MOVED-WRONG	unsupported_typespec|Tsink|65:7	package[ALLPKG:vpk_c]<function:Oob::sdeep<begin:<ref_var:loc_sink	pristine={'TOPPKG:vpk_c': 1}	patched={'ALLPKG:vpk_c': 1}	golden={'ALLPKG:vpk_c': 2}
+ARM probe/r10v179repro/v179_a_recv.sv parse rc=0/0/0 CALIB[-- CENSUS golden=42 ours=42 AGREE=42 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v179repro/v179_a_recv.sv parse -- VIEWSET RIGHT-BOTH 25  TO-GOLDEN 13  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 23  TO-GOLDEN 13  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  APPEARED 6  VANISHED 4 
+CELL probe/r10v179repro/v179_a_recv.sv parse TO-GOLDEN	unsupported_typespec|ELEM|108:5	package[ALLPKG:pkg_zulu]<function:Holder::r_prop_stmt<begin:<ref_var:loc	pristine={'TOPPKG:pkg_zulu': 1}	patched={'ALLPKG:pkg_zulu': 1}	golden={'ALLPKG:pkg_zulu': 1}
+CELL probe/r10v179repro/v179_a_recv.sv parse TO-GOLDEN	unsupported_typespec|ELEM|113:5	package[ALLPKG:pkg_zulu]<function:Holder::r_chain_stmt<begin:<ref_var:loc	pristine={'TOPPKG:pkg_zulu': 1}	patched={'ALLPKG:pkg_zulu': 1}	golden={'ALLPKG:pkg_zulu': 1}
+CELL probe/r10v179repro/v179_a_recv.sv parse TO-GOLDEN	unsupported_typespec|ELEM|118:5	package[ALLPKG:pkg_zulu]<function:Holder::r_index_stmt<begin:<ref_var:loc	pristine={'TOPPKG:pkg_zulu': 1}	patched={'ALLPKG:pkg_zulu': 1}	golden={'ALLPKG:pkg_zulu': 1}
+CELL probe/r10v179repro/v179_a_recv.sv parse TO-GOLDEN	unsupported_typespec|ELEM|123:5	package[ALLPKG:pkg_zulu]<task:Holder::r_prop_task<begin:<ref_var:loc	pristine={'TOPPKG:pkg_zulu': 1}	patched={'ALLPKG:pkg_zulu': 1}	golden={'ALLPKG:pkg_zulu': 1}
+CELL probe/r10v179repro/v179_a_recv.sv parse TO-GOLDEN	unsupported_typespec|ELEM|128:5	package[ALLPKG:pkg_zulu]<task:Holder::r_task_recv<begin:<ref_var:loc	pristine={'TOPPKG:pkg_zulu': 1}	patched={'ALLPKG:pkg_zulu': 1}	golden={'ALLPKG:pkg_zulu': 1}
+CELL probe/r10v179repro/v179_a_recv.sv parse TO-GOLDEN	unsupported_typespec|ELEM|57:5	package[ALLPKG:pkg_zulu]<function:Holder::r_prop<begin:<ref_var:loc	pristine={'TOPPKG:pkg_zulu': 1}	patched={'ALLPKG:pkg_zulu': 1}	golden={'ALLPKG:pkg_zulu': 1}
+CELL probe/r10v179repro/v179_a_recv.sv parse TO-GOLDEN	unsupported_typespec|ELEM|62:5	package[ALLPKG:pkg_zulu]<function:Holder::r_local<begin:<ref_var:loc	pristine={'TOPPKG:pkg_zulu': 1}	patched={'ALLPKG:pkg_zulu': 1}	golden={'ALLPKG:pkg_zulu': 1}
+CELL probe/r10v179repro/v179_a_recv.sv parse TO-GOLDEN	unsupported_typespec|ELEM|68:5	package[ALLPKG:pkg_zulu]<function:Holder::r_chain<begin:<ref_var:loc	pristine={'TOPPKG:pkg_zulu': 1}	patched={'ALLPKG:pkg_zulu': 1}	golden={'ALLPKG:pkg_zulu': 1}
+CELL probe/r10v179repro/v179_a_recv.sv parse TO-GOLDEN	unsupported_typespec|ELEM|73:5	package[ALLPKG:pkg_zulu]<function:Holder::r_index<begin:<ref_var:loc	pristine={'TOPPKG:pkg_zulu': 1}	patched={'ALLPKG:pkg_zulu': 1}	golden={'ALLPKG:pkg_zulu': 1}
+CELL probe/r10v179repro/v179_a_recv.sv parse TO-GOLDEN	unsupported_typespec|ELEM|78:5	package[ALLPKG:pkg_zulu]<function:Holder::r_assoc<begin:<ref_var:loc	pristine={'TOPPKG:pkg_zulu': 1}	patched={'ALLPKG:pkg_zulu': 1}	golden={'ALLPKG:pkg_zulu': 1}
+CELL probe/r10v179repro/v179_a_recv.sv parse TO-GOLDEN	unsupported_typespec|ELEM|83:5	package[ALLPKG:pkg_zulu]<function:Holder::r_queue<begin:<ref_var:loc	pristine={'TOPPKG:pkg_zulu': 1}	patched={'ALLPKG:pkg_zulu': 1}	golden={'ALLPKG:pkg_zulu': 1}
+CELL probe/r10v179repro/v179_a_recv.sv parse TO-GOLDEN	unsupported_typespec|ELEM|88:5	package[ALLPKG:pkg_zulu]<function:Holder::r_this<begin:<ref_var:loc	pristine={'TOPPKG:pkg_zulu': 1}	patched={'ALLPKG:pkg_zulu': 1}	golden={'ALLPKG:pkg_zulu': 1}
+CELL probe/r10v179repro/v179_a_recv.sv parse TO-GOLDEN	unsupported_typespec|ELEM|93:5	package[ALLPKG:pkg_zulu]<function:Holder::r_none<begin:<ref_var:loc	pristine={'TOPPKG:pkg_zulu': 1}	patched={'ALLPKG:pkg_zulu': 1}	golden={'ALLPKG:pkg_zulu': 1}
+ARM probe/r10v179repro/v179_a_recv.sv elab rc=0/0/0 CALIB[-- CENSUS golden=138 ours=138 AGREE=138 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v179repro/v179_a_recv.sv elab -- VIEWSET RIGHT-BOTH 25  TO-GOLDEN 13  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 4  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 13  STILL-WRONG 21  APPEARED 6  VANISHED 62 
+CELL probe/r10v179repro/v179_a_recv.sv elab MOVED-WRONG	unsupported_typespec|ELEM|108:5	package[ALLPKG:pkg_zulu]<function:Holder::r_prop_stmt<begin:<ref_var:loc	pristine={'TOPPKG:pkg_zulu': 1}	patched={'ALLPKG:pkg_zulu': 1}	golden={'ALLPKG:pkg_zulu': 2}
+CELL probe/r10v179repro/v179_a_recv.sv elab MOVED-WRONG	unsupported_typespec|ELEM|113:5	package[ALLPKG:pkg_zulu]<function:Holder::r_chain_stmt<begin:<ref_var:loc	pristine={'TOPPKG:pkg_zulu': 1}	patched={'ALLPKG:pkg_zulu': 1}	golden={'ALLPKG:pkg_zulu': 2}
+CELL probe/r10v179repro/v179_a_recv.sv elab MOVED-WRONG	unsupported_typespec|ELEM|118:5	package[ALLPKG:pkg_zulu]<function:Holder::r_index_stmt<begin:<ref_var:loc	pristine={'TOPPKG:pkg_zulu': 1}	patched={'ALLPKG:pkg_zulu': 1}	golden={'ALLPKG:pkg_zulu': 2}
+CELL probe/r10v179repro/v179_a_recv.sv elab MOVED-WRONG	unsupported_typespec|ELEM|123:5	package[ALLPKG:pkg_zulu]<task:Holder::r_prop_task<begin:<ref_var:loc	pristine={'TOPPKG:pkg_zulu': 1}	patched={'ALLPKG:pkg_zulu': 1}	golden={'ALLPKG:pkg_zulu': 2}
+CELL probe/r10v179repro/v179_a_recv.sv elab MOVED-WRONG	unsupported_typespec|ELEM|128:5	package[ALLPKG:pkg_zulu]<task:Holder::r_task_recv<begin:<ref_var:loc	pristine={'TOPPKG:pkg_zulu': 1}	patched={'ALLPKG:pkg_zulu': 1}	golden={'ALLPKG:pkg_zulu': 2}
+CELL probe/r10v179repro/v179_a_recv.sv elab MOVED-WRONG	unsupported_typespec|ELEM|57:5	package[ALLPKG:pkg_zulu]<function:Holder::r_prop<begin:<ref_var:loc	pristine={'TOPPKG:pkg_zulu': 1}	patched={'ALLPKG:pkg_zulu': 1}	golden={'ALLPKG:pkg_zulu': 2}
+CELL probe/r10v179repro/v179_a_recv.sv elab MOVED-WRONG	unsupported_typespec|ELEM|62:5	package[ALLPKG:pkg_zulu]<function:Holder::r_local<begin:<ref_var:loc	pristine={'TOPPKG:pkg_zulu': 1}	patched={'ALLPKG:pkg_zulu': 1}	golden={'ALLPKG:pkg_zulu': 2}
+CELL probe/r10v179repro/v179_a_recv.sv elab MOVED-WRONG	unsupported_typespec|ELEM|68:5	package[ALLPKG:pkg_zulu]<function:Holder::r_chain<begin:<ref_var:loc	pristine={'TOPPKG:pkg_zulu': 1}	patched={'ALLPKG:pkg_zulu': 1}	golden={'ALLPKG:pkg_zulu': 2}
+CELL probe/r10v179repro/v179_a_recv.sv elab MOVED-WRONG	unsupported_typespec|ELEM|73:5	package[ALLPKG:pkg_zulu]<function:Holder::r_index<begin:<ref_var:loc	pristine={'TOPPKG:pkg_zulu': 1}	patched={'ALLPKG:pkg_zulu': 1}	golden={'ALLPKG:pkg_zulu': 2}
+CELL probe/r10v179repro/v179_a_recv.sv elab MOVED-WRONG	unsupported_typespec|ELEM|78:5	package[ALLPKG:pkg_zulu]<function:Holder::r_assoc<begin:<ref_var:loc	pristine={'TOPPKG:pkg_zulu': 1}	patched={'ALLPKG:pkg_zulu': 1}	golden={'ALLPKG:pkg_zulu': 2}
+CELL probe/r10v179repro/v179_a_recv.sv elab MOVED-WRONG	unsupported_typespec|ELEM|83:5	package[ALLPKG:pkg_zulu]<function:Holder::r_queue<begin:<ref_var:loc	pristine={'TOPPKG:pkg_zulu': 1}	patched={'ALLPKG:pkg_zulu': 1}	golden={'ALLPKG:pkg_zulu': 2}
+CELL probe/r10v179repro/v179_a_recv.sv elab MOVED-WRONG	unsupported_typespec|ELEM|88:5	package[ALLPKG:pkg_zulu]<function:Holder::r_this<begin:<ref_var:loc	pristine={'TOPPKG:pkg_zulu': 1}	patched={'ALLPKG:pkg_zulu': 1}	golden={'ALLPKG:pkg_zulu': 2}
+CELL probe/r10v179repro/v179_a_recv.sv elab MOVED-WRONG	unsupported_typespec|ELEM|93:5	package[ALLPKG:pkg_zulu]<function:Holder::r_none<begin:<ref_var:loc	pristine={'TOPPKG:pkg_zulu': 1}	patched={'ALLPKG:pkg_zulu': 1}	golden={'ALLPKG:pkg_zulu': 2}
+ARM probe/r10v179repro/v179_b_arg.sv parse rc=0/0/0 CALIB[-- CENSUS golden=40 ours=40 AGREE=40 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v179repro/v179_b_arg.sv parse -- VIEWSET RIGHT-BOTH 26  TO-GOLDEN 10  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 24  TO-GOLDEN 10  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  APPEARED 4  VANISHED 4 
+CELL probe/r10v179repro/v179_b_arg.sv parse TO-GOLDEN	unsupported_typespec|PART|106:5	package[ALLPKG:pkg_yank]<function:Frame::y_shadow_v<begin:<ref_var:dup_name	pristine={'TOPPKG:pkg_yank': 1}	patched={'ALLPKG:pkg_yank': 1}	golden={'ALLPKG:pkg_yank': 1}
+CELL probe/r10v179repro/v179_b_arg.sv parse TO-GOLDEN	unsupported_typespec|PART|112:5	package[ALLPKG:pkg_yank]<function:Frame::y_shadow_p<begin:<ref_var:SHARED_P	pristine={'TOPPKG:pkg_yank': 1}	patched={'ALLPKG:pkg_yank': 1}	golden={'ALLPKG:pkg_yank': 1}
+CELL probe/r10v179repro/v179_b_arg.sv parse TO-GOLDEN	unsupported_typespec|PART|117:5	package[ALLPKG:pkg_yank]<function:Frame::y_nested_free<begin:<ref_var:loc	pristine={'TOPPKG:pkg_yank': 1}	patched={'ALLPKG:pkg_yank': 1}	golden={'ALLPKG:pkg_yank': 1}
+CELL probe/r10v179repro/v179_b_arg.sv parse TO-GOLDEN	unsupported_typespec|PART|122:5	package[ALLPKG:pkg_yank]<function:Frame::y_two<begin:<ref_var:one	pristine={'TOPPKG:pkg_yank': 1}	patched={'ALLPKG:pkg_yank': 1}	golden={'ALLPKG:pkg_yank': 1}
+CELL probe/r10v179repro/v179_b_arg.sv parse TO-GOLDEN	unsupported_typespec|PART|123:5	package[ALLPKG:pkg_yank]<function:Frame::y_two<begin:<ref_var:two	pristine={'TOPPKG:pkg_yank': 1}	patched={'ALLPKG:pkg_yank': 1}	golden={'ALLPKG:pkg_yank': 1}
+CELL probe/r10v179repro/v179_b_arg.sv parse TO-GOLDEN	unsupported_typespec|PART|47:5	package[ALLPKG:pkg_yank]<function:Frame::y00<begin:<ref_var:loc	pristine={'TOPPKG:pkg_yank': 1}	patched={'ALLPKG:pkg_yank': 1}	golden={'ALLPKG:pkg_yank': 1}
+CELL probe/r10v179repro/v179_b_arg.sv parse TO-GOLDEN	unsupported_typespec|PART|52:5	package[ALLPKG:pkg_yank]<function:Frame::y01<begin:<ref_var:loc	pristine={'TOPPKG:pkg_yank': 1}	patched={'ALLPKG:pkg_yank': 1}	golden={'ALLPKG:pkg_yank': 1}
+CELL probe/r10v179repro/v179_b_arg.sv parse TO-GOLDEN	unsupported_typespec|PART|59:5	package[ALLPKG:pkg_yank]<function:Frame::y03<begin:<ref_var:loc	pristine={'TOPPKG:pkg_yank': 1}	patched={'ALLPKG:pkg_yank': 1}	golden={'ALLPKG:pkg_yank': 1}
+CELL probe/r10v179repro/v179_b_arg.sv parse TO-GOLDEN	unsupported_typespec|PART|73:5	package[ALLPKG:pkg_yank]<function:Frame::y_pair<begin:<ref_var:twin	pristine={'TOPPKG:pkg_yank': 1}	patched={'ALLPKG:pkg_yank': 1}	golden={'ALLPKG:pkg_yank': 1}
+CELL probe/r10v179repro/v179_b_arg.sv parse TO-GOLDEN	unsupported_typespec|PART|82:33	package[ALLPKG:pkg_yank]<function:Frame::y_formal<io_decl:fm	pristine={'TOPPKG:pkg_yank': 1}	patched={'ALLPKG:pkg_yank': 1}	golden={'ALLPKG:pkg_yank': 1}
+ARM probe/r10v179repro/v179_b_arg.sv elab rc=0/0/0 CALIB[-- CENSUS golden=108 ours=108 AGREE=108 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v179repro/v179_b_arg.sv elab -- VIEWSET RIGHT-BOTH 26  TO-GOLDEN 10  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 7  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 10  STILL-WRONG 19  APPEARED 4  VANISHED 43 
+CELL probe/r10v179repro/v179_b_arg.sv elab MOVED-WRONG	unsupported_typespec|PART|106:5	package[ALLPKG:pkg_yank]<function:Frame::y_shadow_v<begin:<ref_var:dup_name	pristine={'TOPPKG:pkg_yank': 1}	patched={'ALLPKG:pkg_yank': 1}	golden={'ALLPKG:pkg_yank': 2}
+CELL probe/r10v179repro/v179_b_arg.sv elab MOVED-WRONG	unsupported_typespec|PART|112:5	package[ALLPKG:pkg_yank]<function:Frame::y_shadow_p<begin:<ref_var:SHARED_P	pristine={'TOPPKG:pkg_yank': 1}	patched={'ALLPKG:pkg_yank': 1}	golden={'ALLPKG:pkg_yank': 2}
+CELL probe/r10v179repro/v179_b_arg.sv elab MOVED-WRONG	unsupported_typespec|PART|117:5	package[ALLPKG:pkg_yank]<function:Frame::y_nested_free<begin:<ref_var:loc	pristine={'TOPPKG:pkg_yank': 1}	patched={'ALLPKG:pkg_yank': 1}	golden={'ALLPKG:pkg_yank': 2}
+CELL probe/r10v179repro/v179_b_arg.sv elab MOVED-WRONG	unsupported_typespec|PART|122:5	package[ALLPKG:pkg_yank]<function:Frame::y_two<begin:<ref_var:one	pristine={'TOPPKG:pkg_yank': 1}	patched={'ALLPKG:pkg_yank': 1}	golden={'ALLPKG:pkg_yank': 2}
+CELL probe/r10v179repro/v179_b_arg.sv elab MOVED-WRONG	unsupported_typespec|PART|123:5	package[ALLPKG:pkg_yank]<function:Frame::y_two<begin:<ref_var:two	pristine={'TOPPKG:pkg_yank': 1}	patched={'ALLPKG:pkg_yank': 1}	golden={'ALLPKG:pkg_yank': 2}
+CELL probe/r10v179repro/v179_b_arg.sv elab MOVED-WRONG	unsupported_typespec|PART|47:5	package[ALLPKG:pkg_yank]<function:Frame::y00<begin:<ref_var:loc	pristine={'TOPPKG:pkg_yank': 1}	patched={'ALLPKG:pkg_yank': 1}	golden={'ALLPKG:pkg_yank': 2}
+CELL probe/r10v179repro/v179_b_arg.sv elab MOVED-WRONG	unsupported_typespec|PART|52:5	package[ALLPKG:pkg_yank]<function:Frame::y01<begin:<ref_var:loc	pristine={'TOPPKG:pkg_yank': 1}	patched={'ALLPKG:pkg_yank': 1}	golden={'ALLPKG:pkg_yank': 2}
+CELL probe/r10v179repro/v179_b_arg.sv elab MOVED-WRONG	unsupported_typespec|PART|59:5	package[ALLPKG:pkg_yank]<function:Frame::y03<begin:<ref_var:loc	pristine={'TOPPKG:pkg_yank': 1}	patched={'ALLPKG:pkg_yank': 1}	golden={'ALLPKG:pkg_yank': 2}
+CELL probe/r10v179repro/v179_b_arg.sv elab MOVED-WRONG	unsupported_typespec|PART|73:5	package[ALLPKG:pkg_yank]<function:Frame::y_pair<begin:<ref_var:twin	pristine={'TOPPKG:pkg_yank': 1}	patched={'ALLPKG:pkg_yank': 1}	golden={'ALLPKG:pkg_yank': 2}
+CELL probe/r10v179repro/v179_b_arg.sv elab MOVED-WRONG	unsupported_typespec|PART|82:33	package[ALLPKG:pkg_yank]<function:Frame::y_formal<io_decl:fm	pristine={'TOPPKG:pkg_yank': 1}	patched={'ALLPKG:pkg_yank': 1}	golden={'ALLPKG:pkg_yank': 2}
+ARM probe/r10v179repro/v179_c_home.sv parse rc=0/0/0 CALIB[-- CENSUS golden=33 ours=33 AGREE=33 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v179repro/v179_c_home.sv parse -- VIEWSET RIGHT-BOTH 27  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 25  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  APPEARED 4  VANISHED 4 
+CELL probe/r10v179repro/v179_c_home.sv parse TO-GOLDEN	unsupported_typespec|SLOT|46:5	package[ALLPKG:pkg_xray]<function:Cabinet::oob_func_face<begin:<ref_var:here	pristine={'TOPPKG:pkg_xray': 1}	patched={'ALLPKG:pkg_xray': 1}	golden={'ALLPKG:pkg_xray': 1}
+CELL probe/r10v179repro/v179_c_home.sv parse TO-GOLDEN	unsupported_typespec|SLOT|51:5	package[ALLPKG:pkg_xray]<task:Cabinet::oob_task_face<begin:<ref_var:here	pristine={'TOPPKG:pkg_xray': 1}	patched={'ALLPKG:pkg_xray': 1}	golden={'ALLPKG:pkg_xray': 1}
+ARM probe/r10v179repro/v179_c_home.sv elab rc=0/0/0 CALIB[-- CENSUS golden=61 ours=61 AGREE=61 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v179repro/v179_c_home.sv elab -- VIEWSET RIGHT-BOTH 27  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 16  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 2  STILL-WRONG 11  APPEARED 4  VANISHED 20 
+CELL probe/r10v179repro/v179_c_home.sv elab MOVED-WRONG	unsupported_typespec|SLOT|46:5	package[ALLPKG:pkg_xray]<function:Cabinet::oob_func_face<begin:<ref_var:here	pristine={'TOPPKG:pkg_xray': 1}	patched={'ALLPKG:pkg_xray': 1}	golden={'ALLPKG:pkg_xray': 2}
+CELL probe/r10v179repro/v179_c_home.sv elab MOVED-WRONG	unsupported_typespec|SLOT|51:5	package[ALLPKG:pkg_xray]<task:Cabinet::oob_task_face<begin:<ref_var:here	pristine={'TOPPKG:pkg_xray': 1}	patched={'ALLPKG:pkg_xray': 1}	golden={'ALLPKG:pkg_xray': 2}
+ARM probe/r10v179repro/v179_d_fifo.sv parse rc=0/0/0 CALIB[-- CENSUS golden=35 ours=35 AGREE=35 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v179repro/v179_d_fifo.sv parse -- VIEWSET RIGHT-BOTH 24  TO-GOLDEN 5  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 20  TO-GOLDEN 5  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 4  APPEARED 8  VANISHED 6 
+CELL probe/r10v179repro/v179_d_fifo.sv parse TO-GOLDEN	unsupported_typespec|REQ|42:5	package[ALLPKG:pkg_whisky]<function:SeqBase::send_request<begin:<ref_var:param_t	pristine={'TOPPKG:pkg_whisky': 1}	patched={'ALLPKG:pkg_whisky': 1}	golden={'ALLPKG:pkg_whisky': 1}
+CELL probe/r10v179repro/v179_d_fifo.sv parse TO-GOLDEN	unsupported_typespec|REQ|47:5	package[ALLPKG:pkg_whisky]<function:SeqBase::item_done<begin:<ref_var:t	pristine={'TOPPKG:pkg_whisky': 1}	patched={'ALLPKG:pkg_whisky': 1}	golden={'ALLPKG:pkg_whisky': 1}
+CELL probe/r10v179repro/v179_d_fifo.sv parse TO-GOLDEN	unsupported_typespec|REQ|52:5	package[ALLPKG:pkg_whisky]<function:SeqBase::peek_here<begin:<ref_var:pk	pristine={'TOPPKG:pkg_whisky': 1}	patched={'ALLPKG:pkg_whisky': 1}	golden={'ALLPKG:pkg_whisky': 1}
+CELL probe/r10v179repro/v179_d_fifo.sv parse TO-GOLDEN	unsupported_typespec|REQ|57:5	package[ALLPKG:pkg_whisky]<task:SeqBase::push_here<begin:<ref_var:blk	pristine={'TOPPKG:pkg_whisky': 1}	patched={'ALLPKG:pkg_whisky': 1}	golden={'ALLPKG:pkg_whisky': 1}
+CELL probe/r10v179repro/v179_d_fifo.sv parse TO-GOLDEN	unsupported_typespec|REQ|62:5	package[ALLPKG:pkg_whisky]<function:SeqBase::put_stmt<begin:<ref_var:st	pristine={'TOPPKG:pkg_whisky': 1}	patched={'ALLPKG:pkg_whisky': 1}	golden={'ALLPKG:pkg_whisky': 1}
+ARM probe/r10v179repro/v179_d_fifo.sv elab rc=0/0/0 CALIB[-- CENSUS golden=90 ours=90 AGREE=90 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v179repro/v179_d_fifo.sv elab -- VIEWSET RIGHT-BOTH 24  TO-GOLDEN 5  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 14  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 5  STILL-WRONG 10  APPEARED 8  VANISHED 46 
+CELL probe/r10v179repro/v179_d_fifo.sv elab MOVED-WRONG	unsupported_typespec|REQ|42:5	package[ALLPKG:pkg_whisky]<function:SeqBase::send_request<begin:<ref_var:param_t	pristine={'TOPPKG:pkg_whisky': 1}	patched={'ALLPKG:pkg_whisky': 1}	golden={'ALLPKG:pkg_whisky': 2}
+CELL probe/r10v179repro/v179_d_fifo.sv elab MOVED-WRONG	unsupported_typespec|REQ|47:5	package[ALLPKG:pkg_whisky]<function:SeqBase::item_done<begin:<ref_var:t	pristine={'TOPPKG:pkg_whisky': 1}	patched={'ALLPKG:pkg_whisky': 1}	golden={'ALLPKG:pkg_whisky': 2}
+CELL probe/r10v179repro/v179_d_fifo.sv elab MOVED-WRONG	unsupported_typespec|REQ|52:5	package[ALLPKG:pkg_whisky]<function:SeqBase::peek_here<begin:<ref_var:pk	pristine={'TOPPKG:pkg_whisky': 1}	patched={'ALLPKG:pkg_whisky': 1}	golden={'ALLPKG:pkg_whisky': 2}
+CELL probe/r10v179repro/v179_d_fifo.sv elab MOVED-WRONG	unsupported_typespec|REQ|57:5	package[ALLPKG:pkg_whisky]<task:SeqBase::push_here<begin:<ref_var:blk	pristine={'TOPPKG:pkg_whisky': 1}	patched={'ALLPKG:pkg_whisky': 1}	golden={'ALLPKG:pkg_whisky': 2}
+CELL probe/r10v179repro/v179_d_fifo.sv elab MOVED-WRONG	unsupported_typespec|REQ|62:5	package[ALLPKG:pkg_whisky]<function:SeqBase::put_stmt<begin:<ref_var:st	pristine={'TOPPKG:pkg_whisky': 1}	patched={'ALLPKG:pkg_whisky': 1}	golden={'ALLPKG:pkg_whisky': 2}
+ARM probe/r10v179repro/v179_f_nomod.sv parse rc=0/0/0 CALIB[-- CENSUS golden=19 ours=19 AGREE=19 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v179repro/v179_f_nomod.sv parse -- VIEWSET RIGHT-BOTH 12  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 12  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  APPEARED 2  VANISHED 4 
+CELL probe/r10v179repro/v179_f_nomod.sv parse TO-GOLDEN	unsupported_typespec|CELL|26:5	package[ALLPKG:pkg_uniform]<function:Panel::f_face<begin:<ref_var:slotv	pristine={'TOPPKG:pkg_uniform': 1}	patched={'ALLPKG:pkg_uniform': 1}	golden={'ALLPKG:pkg_uniform': 1}
+CELL probe/r10v179repro/v179_f_nomod.sv parse TO-GOLDEN	unsupported_typespec|CELL|31:5	package[ALLPKG:pkg_uniform]<function:Panel::f_stmt<begin:<ref_var:slotv	pristine={'TOPPKG:pkg_uniform': 1}	patched={'ALLPKG:pkg_uniform': 1}	golden={'ALLPKG:pkg_uniform': 1}
+ARM probe/r10v179repro/v179_f_nomod.sv elab rc=4/0/0 CALIB[-- CENSUS golden=38 ours=38 AGREE=38 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM probe/r10v179repro/v179_f_nomod.sv elab -- VIEWSET RIGHT-BOTH 12  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0 -- RIGHT-BOTH 3  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 2  STILL-WRONG 9  APPEARED 2  VANISHED 8 
+CELL probe/r10v179repro/v179_f_nomod.sv elab MOVED-WRONG	unsupported_typespec|CELL|26:5	package[ALLPKG:pkg_uniform]<function:Panel::f_face<begin:<ref_var:slotv	pristine={'TOPPKG:pkg_uniform': 1}	patched={'ALLPKG:pkg_uniform': 1}	golden={'ALLPKG:pkg_uniform': 2}
+CELL probe/r10v179repro/v179_f_nomod.sv elab MOVED-WRONG	unsupported_typespec|CELL|31:5	package[ALLPKG:pkg_uniform]<function:Panel::f_stmt<begin:<ref_var:slotv	pristine={'TOPPKG:pkg_uniform': 1}	patched={'ALLPKG:pkg_uniform': 1}	golden={'ALLPKG:pkg_uniform': 2}
+-- ARM-VIEWS SCORED: 88  NOT-SCORED: 0
