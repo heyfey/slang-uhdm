@@ -1,0 +1,140 @@
+r10uvm210 — THE DECODE.  MEASUREMENT ONLY; the official uhdm-cmp is the judge.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.  BASE 18d0800c.
+
+
+1. WHAT THE JUDGE READS ON THIS FAMILY
+--------------------------------------
+generated `ref_obj::Compare` (~/git-repos/UHDM/build/generated/src/ref_obj.cpp),
+in order:  VpiType, VpiName, VpiDefName, VpiGeneric, **Actual_group**,
+VpiStructMember.  So a `param_assign` Rhs that is a `ref_obj` is not scored by
+its name alone — the object its `vpiActual` names is part of the cell.  Any law
+that mints one has to mint the ACTUAL too.
+
+generated `param_assign::Compare`: VpiConnByName, VpiOverriden, **Rhs**, Lhs,
+Attributes.  Rhs BEFORE Lhs.
+
+generated `expr::Compare`: VpiDecompile, VpiSize, **Typespec**.  A constant
+identical in decompile, value, size and const type still stops the walk on its
+typespec (that is r10uvm201's § impFoldRhsMirrorsLhsTs201).
+
+generated `typespec::Compare`: VpiName, Typedef_alias, **Instance**.  This is
+the edge that matters below: a typespec points BACK at the scope it belongs to,
+so a cell whose Rhs constant carries an instanced typespec drags the judge into
+that scope and compares the WHOLE scope there.
+
+`BaseClass.h` `CompareContext::m_visited` is keyed on the **LHS** object
+(`if (!context->m_visited.insert(this).second) return r;`).  A shared LHS that
+has already been compared against one RHS returns 0 against every later RHS.
+That is why a whole-object compare hides cells, and why every per-cell number in
+this pass was taken with a FRESH CompareContext per cell (`ct210sub … cells`).
+
+
+2. HOW SURELOG BUILDS A PACKAGE param_assign Rhs — MEASURED FORM TABLE
+---------------------------------------------------------------------
+From eight purpose-built arms with a REAL Surelog golden in both views
+(`grid210/`, scored in `GRID.r10uvm210.txt`).  In the DECLARING package's DEF
+listing (`design->AllPackages()`):
+
+    written default            def-view Rhs FORM      vpiActual
+    ------------------------   --------------------   -----------------------
+    literal (5, "s", 4'hA)     constant (size 64)     -
+    typed literal              constant               -
+    expression (A+1, 1<<A)     operation, UNREDUCED   -
+    BARE reference to a param  ref_obj                that param's own def-view
+                                                      param_assign Rhs OBJECT
+    BARE reference to an       ref_obj                the enum_const
+      enum member
+    qualified pkg::MEMBER      ref_obj NAMED WITH     <null> (unbound)
+                                 THE QUALIFIED NAME
+
+In the ELABORATED package listing (`TopPackages`) and in every MATERIALIZED
+IMPORT COPY (an importing package's listing, an importing module's listing, a
+class body's listing) every one of those folds to a `constant`, with the one
+exception recorded as R2 below.
+
+The `ref_obj` ACTUAL has ONE measured distinguisher: with a COMPILATION-UNIT
+scope wildcard import of the package (`import p::*;` outside any module),
+Surelog's def-view `ref_obj` ends up bound to the referenced **`parameter`**
+instead of to that parameter's Rhs object.  Arm E is that arm and OUR EMITTER
+REPRODUCES BOTH FORMS: arm E scores 0 one-sided cells in both views, arms B/C/D
+score 0 in the parse view.
+
+The producer of the `parameter` form is UHDM's own elaborator:
+`ElaboratorListener::enterPackage` (templates/ElaboratorListener.cpp:491-497)
+builds its `paramMap` from `Parameters()` — name -> the `parameter` object —
+and `leaveRef_obj` (:1498-1509) re-points every `ref_obj`'s `Actual_group`
+through `bindAny` (:899-936).  Note the CONTRAST with
+`enterModule_inst` (:246-253) and `enterInterface_inst` (:740-747), which seed
+the same map from `Param_assigns` as name -> `passign->Rhs()`; `emplace` does
+not overwrite, so in those two scopes the Rhs OBJECT wins.  The baseline
+(no-$unit-import) def-view binding comes from Surelog's own late binder
+(`CompileHelper::compileExpression` … `component->needLateBinding(ref)`,
+src/DesignCompile/CompileExpression.cpp:2982-3000) and lands on the referent's
+`param_assign` Rhs object.
+
+The QUALIFIED form's fold is `CompileHelper::compileExpression`
+(src/DesignCompile/CompileExpression.cpp:884-919): a `pkg::NAME` primary is
+tokenised, resolved through `Design::getPackage(pkg)`, and when the package
+holds a `Value` for NAME — which an enum member does — a `constant` is minted
+from `sval->uhdmValue()` / `decompiledValue()` / `vpiValType()` / `getSize()`.
+A BARE name never takes that branch.  That is the whole of R2.
+
+
+3. WHAT THE BRIEFED LAW WOULD HAVE BEEN, AND WHY IT NEEDS NO CODE
+----------------------------------------------------------------
+The brief: "golden keeps the reference to the enum constant with the defining
+operation as its actual where we fold to the number."
+
+The head's LHS is exactly that shape — `ref_obj (uvm_pkg::UVM_SET)` whose
+`vpiActual` is the `operation` at 216:31-216:48, i.e. `UVM_SET`'s own def-view
+Rhs (uvm-1.2 `base/uvm_object_globals.svh:216-217`, `parameter UVM_SET =
+UVM_START_FUNCS+1; parameter UVM_SETINT = UVM_SET;`; `UVM_SET` is a plain
+parameter, not an enum constant).
+
+WE ALREADY EMIT IT.  `EDGE.r10uvm210.txt` lists every listing in both databases
+that holds a `param_assign` named `UVM_SETINT`: golden's DEF-view `uvm_pkg`
+carries `ref_obj UVM_SET  ACTUAL=operation@216:31-216:48`, and so does ours, in
+both modes; every other listing on both sides carries the folded constant.
+`ROUTE.r10uvm210.txt` runs the OFFICIAL `param_assign::Compare` on that cell
+with a fresh context in all four package listings and in both modes: it is
+EQUAL every time.  The corpus census agrees at scale — 590 of 590 cells AGREE
+on SeqDriver in both modes with ONLY-GOLDEN 0 and ONLY-OURS 0.
+
+
+4. WHAT THE HEAD ACTUALLY IS
+----------------------------
+`ct210sub … cells` on each of the four package listings, both modes:
+PARAM_ASSIGNS DIFFERING **7 / 45** every time, and index 35 — the cell the cmp
+log names — is never among them.  The 7 are EXACTLY the cells whose Rhs
+`constant` carries a `ref_typespec -> <atom>_typespec` with a NON-NULL
+`Instance`: `ct210inst --pa-inst` counts WITH-INSTANCE=7 on golden's def package
+and 7 on ours.  They fail on the RECURSION, not on their own fields.
+
+Following that recursion: `typespec::Compare` reads `Instance`, so the walk
+enters a package; it needs one object on our side whose def-view counterpart
+names the ELABORATED package where golden's names the DEF package, and then
+golden's DEF listing is compared cell-for-cell against our ELABORATED listing —
+at which point golden's `Param_assigns[35]` Rhs (the def-view `ref_obj`) meets
+our `Param_assigns[35]` Rhs (the elaborated `constant`).  That is the pair the
+cmp log prints, and `ct210inst --rhsof` shows it precisely: golden's `ref_obj`
+id 61413 lives in exactly ONE listing (def `uvm_pkg`), while our `constant`
+id 6275 is SHARED by SIX (elab `uvm_pkg` and five `adpcm_*` class bodies).
+
+The crossing objects are named in `ROUTE.r10uvm210.txt` §E.  For the type
+parameter `REQ` at `uvm_sequencer.svh:164:3`, golden carries SIX
+`unsupported_typespec` copies of which ONE has `Instance` = the DEF `uvm_pkg`
+(id 85672, referenced from `uvm_pkg::uvm_sequencer::stop_sequences::t`, a
+`ref_var` in that method's DEF-view body); we carry FOUR and EVERY ONE of them
+has `Instance` = the ELABORATED `uvm_pkg`.  Sixteen `REQ`/`RSP` typespec keys
+show that shape.
+
+
+5. REFUTED, IN PLAIN TERMS
+--------------------------
+"A package parameter's Rhs that golden keeps symbolic and we fold" does not
+exist in SeqDriver, and does not exist anywhere in either corpus:
+`CENSUS.surelog.r10uvm210.txt` (956 databases) and
+`CENSUS.u2r.r10uvm210.txt` (1358 databases) report NOT ONE `REF`-form cell that
+golden carries and we do not.  The law the brief asked for is already law-
+complete; the head is a VIEW CROSSING and belongs to the def-view class-body
+family, not to ParamEmit.

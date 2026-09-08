@@ -1,0 +1,154 @@
+r10uvm210 — THE EDGE, FIELD BY FIELD, on the SeqDriver head pair.
+MEASUREMENT ONLY; uhdm-cmp is the judge.  LHS is ALWAYS golden.
+BASE 18d0800c; binary md5 1644b8e244f1b5caca4f876ebc99d1e9 (byte-identical
+to the main tree's build/slang-uhdm at that commit).
+
+=== 1. rowheads on this pass's OWN pristine sweep
+
+=== 2. EVERY LISTING that holds a param_assign named UVM_SETINT — GOLDEN (default)
+SLOT other    class_defn(adpcm_seq_item/)@18:1               PA[35]/45 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(adpcm_pkg::adpcm_seq_item::UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(adpcm_pkg::adpcm_seq_item)->int_typespec@217:1-217:38
+SLOT other    class_defn(adpcm_driver/)@77:1                 PA[35]/45 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(adpcm_pkg::adpcm_driver::UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(adpcm_pkg::adpcm_driver)->int_typespec@217:1-217:38
+SLOT other    class_defn(adpcm_sequencer/)@122:1             PA[35]/45 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(adpcm_pkg::adpcm_sequencer::UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(adpcm_pkg::adpcm_sequencer)->int_typespec@217:1-217:38
+SLOT other    class_defn(adpcm_tx_seq/)@137:1                PA[35]/45 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(adpcm_pkg::adpcm_tx_seq::UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(adpcm_pkg::adpcm_tx_seq)->int_typespec@217:1-217:38
+SLOT other    class_defn(adpcm_test/)@172:1                  PA[35]/45 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(adpcm_pkg::adpcm_test::UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(adpcm_pkg::adpcm_test)->int_typespec@217:1-217:38
+SLOT def      module_inst(/work@top_tb)@210:1                Parameters[30]/90 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref(work@top_tb.UVM_SETINT)->int_typespec@217:1-217:38
+SLOT def      module_inst(/work@top_tb)@210:1                Parameters[75]/90 @217:11-217:21 imported=adpcm_pkg      PARAM-TS=ref(work@top_tb.UVM_SETINT)->int_typespec@217:1-217:38
+SLOT def      module_inst(/work@top_tb)@210:1                PA[35]/90 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(work@top_tb.UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(work@top_tb)->int_typespec@217:1-217:38
+SLOT def      module_inst(/work@top_tb)@210:1                PA[80]/90 @217:11-217:21 imported=adpcm_pkg  PARAM-TS=ref(work@top_tb.UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(work@top_tb)->int_typespec@217:1-217:38
+SLOT elab     module_inst(work@top_tb/work@top_tb)@210:1     Parameters[30]/90 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref(work@top_tb.UVM_SETINT)->int_typespec@217:1-217:38
+SLOT elab     module_inst(work@top_tb/work@top_tb)@210:1     Parameters[75]/90 @217:11-217:21 imported=adpcm_pkg      PARAM-TS=ref(work@top_tb.UVM_SETINT)->int_typespec@217:1-217:38
+SLOT elab     module_inst(work@top_tb/work@top_tb)@210:1     PA[35]/90 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(work@top_tb.UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(work@top_tb)->int_typespec@217:1-217:38
+SLOT elab     module_inst(work@top_tb/work@top_tb)@210:1     PA[80]/90 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(work@top_tb.UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(work@top_tb)->int_typespec@217:1-217:38
+SLOT elabpkg  package(uvm_pkg/uvm_pkg)@28:1                  Parameters[35]/45 @217:11-217:21 imported=-              PARAM-TS=ref(uvm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+SLOT elabpkg  package(uvm_pkg/uvm_pkg)@28:1                  PA[35]/45 @217:11-217:21 imported=-          PARAM-TS=ref(uvm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(uvm_pkg)->int_typespec@217:1-217:38
+SLOT elabpkg  package(adpcm_pkg/adpcm_pkg)@10:1              Parameters[30]/45 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref(adpcm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+SLOT elabpkg  package(adpcm_pkg/adpcm_pkg)@10:1              PA[35]/45 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(adpcm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(adpcm_pkg)->int_typespec@217:1-217:38
+SLOT defpkg   package(uvm_pkg/uvm_pkg)@28:1                  Parameters[35]/45 @217:11-217:21 imported=-              PARAM-TS=NO-TYPESPEC
+SLOT defpkg   package(uvm_pkg/uvm_pkg)@28:1                  PA[35]/45 @217:11-217:21 imported=-          PARAM-TS=NO-TYPESPEC
+     RHS=ref_obj@217:31-217:38 name=UVM_SET full=uvm_pkg::UVM_SET ACTUAL=operation@216:31-216:48
+SLOT defpkg   package(adpcm_pkg/adpcm_pkg)@10:1              Parameters[30]/45 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref(adpcm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+SLOT defpkg   package(adpcm_pkg/adpcm_pkg)@10:1              PA[35]/45 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(adpcm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(adpcm_pkg)->int_typespec@217:1-217:38
+-- SLOTS UVM_SETINT /home/heyfey/.cache/slang-uhdm-goldens/b5b4389e30f948a6a29f/golden.uhdm n=21
+
+=== 3. the same — OURS (default)
+SLOT other    class_defn(adpcm_driver/)@77:1                 PA[35]/45 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(uvm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(uvm_pkg)->int_typespec@217:1-217:38
+SLOT other    class_defn(adpcm_seq_item/)@18:1               PA[35]/45 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(uvm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(uvm_pkg)->int_typespec@217:1-217:38
+SLOT other    class_defn(adpcm_sequencer/)@122:1             PA[35]/45 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(uvm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(uvm_pkg)->int_typespec@217:1-217:38
+SLOT other    class_defn(adpcm_test/)@172:1                  PA[35]/45 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(uvm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(uvm_pkg)->int_typespec@217:1-217:38
+SLOT other    class_defn(adpcm_tx_seq/)@137:1                PA[35]/45 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(uvm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(uvm_pkg)->int_typespec@217:1-217:38
+SLOT def      module_inst(/work@top_tb)@210:1                Parameters[30]/90 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref(work@top_tb.UVM_SETINT)->int_typespec@217:1-217:38
+SLOT def      module_inst(/work@top_tb)@210:1                Parameters[75]/90 @217:11-217:21 imported=adpcm_pkg      PARAM-TS=ref(work@top_tb.UVM_SETINT)->int_typespec@217:1-217:38
+SLOT def      module_inst(/work@top_tb)@210:1                PA[35]/90 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(work@top_tb.UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(work@top_tb)->int_typespec@217:1-217:38
+SLOT def      module_inst(/work@top_tb)@210:1                PA[80]/90 @217:11-217:21 imported=adpcm_pkg  PARAM-TS=ref(work@top_tb.UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(work@top_tb)->int_typespec@217:1-217:38
+SLOT elab     module_inst(work@top_tb/work@top_tb)@210:1     Parameters[30]/90 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref(work@top_tb.UVM_SETINT)->int_typespec@217:1-217:38
+SLOT elab     module_inst(work@top_tb/work@top_tb)@210:1     Parameters[75]/90 @217:11-217:21 imported=adpcm_pkg      PARAM-TS=ref(work@top_tb.UVM_SETINT)->int_typespec@217:1-217:38
+SLOT elab     module_inst(work@top_tb/work@top_tb)@210:1     PA[35]/90 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(work@top_tb.UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(work@top_tb)->int_typespec@217:1-217:38
+SLOT elab     module_inst(work@top_tb/work@top_tb)@210:1     PA[80]/90 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(work@top_tb.UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(work@top_tb)->int_typespec@217:1-217:38
+SLOT defpkg   package(uvm_pkg/uvm_pkg)@28:1                  Parameters[35]/45 @217:11-217:21 imported=-              PARAM-TS=NO-TYPESPEC
+SLOT defpkg   package(uvm_pkg/uvm_pkg)@28:1                  PA[35]/45 @217:11-217:21 imported=-          PARAM-TS=NO-TYPESPEC
+     RHS=ref_obj@217:31-217:38 name=UVM_SET full=uvm_pkg::UVM_SET ACTUAL=operation@216:31-216:48
+SLOT defpkg   package(adpcm_pkg/adpcm_pkg)@10:1              Parameters[30]/45 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref(adpcm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+SLOT defpkg   package(adpcm_pkg/adpcm_pkg)@10:1              PA[35]/45 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(adpcm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(adpcm_pkg)->int_typespec@217:1-217:38
+SLOT elabpkg  package(uvm_pkg/uvm_pkg)@28:1                  Parameters[35]/45 @217:11-217:21 imported=-              PARAM-TS=ref(uvm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+SLOT elabpkg  package(uvm_pkg/uvm_pkg)@28:1                  PA[35]/45 @217:11-217:21 imported=-          PARAM-TS=ref(uvm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(uvm_pkg)->int_typespec@217:1-217:38
+SLOT elabpkg  package(adpcm_pkg/adpcm_pkg)@10:1              Parameters[30]/45 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref(adpcm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+SLOT elabpkg  package(adpcm_pkg/adpcm_pkg)@10:1              PA[35]/45 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(adpcm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(adpcm_pkg)->int_typespec@217:1-217:38
+-- SLOTS UVM_SETINT /tmp/r10uvm210_wd_pris/sl/default/SeqDriver-32af76aa/slang.uhdm n=21
+
+=== 4. the same — GOLDEN (testflags)
+SLOT other    class_defn(adpcm_seq_item/)@18:1               PA[35]/45 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(adpcm_pkg::adpcm_seq_item::UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(adpcm_pkg::adpcm_seq_item)->int_typespec@217:1-217:38
+SLOT other    class_defn(adpcm_driver/)@77:1                 PA[35]/45 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(adpcm_pkg::adpcm_driver::UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(adpcm_pkg::adpcm_driver)->int_typespec@217:1-217:38
+SLOT other    class_defn(adpcm_sequencer/)@122:1             PA[35]/45 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(adpcm_pkg::adpcm_sequencer::UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(adpcm_pkg::adpcm_sequencer)->int_typespec@217:1-217:38
+SLOT other    class_defn(adpcm_tx_seq/)@137:1                PA[35]/45 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(adpcm_pkg::adpcm_tx_seq::UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(adpcm_pkg::adpcm_tx_seq)->int_typespec@217:1-217:38
+SLOT other    class_defn(adpcm_test/)@172:1                  PA[35]/45 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(adpcm_pkg::adpcm_test::UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(adpcm_pkg::adpcm_test)->int_typespec@217:1-217:38
+SLOT def      module_inst(/work@top_tb)@210:1                Parameters[30]/90 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref(work@top_tb.UVM_SETINT)->int_typespec@217:1-217:38
+SLOT def      module_inst(/work@top_tb)@210:1                Parameters[75]/90 @217:11-217:21 imported=adpcm_pkg      PARAM-TS=ref(work@top_tb.UVM_SETINT)->int_typespec@217:1-217:38
+SLOT def      module_inst(/work@top_tb)@210:1                PA[35]/90 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(work@top_tb.UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(work@top_tb)->int_typespec@217:1-217:38
+SLOT def      module_inst(/work@top_tb)@210:1                PA[80]/90 @217:11-217:21 imported=adpcm_pkg  PARAM-TS=ref(work@top_tb.UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(work@top_tb)->int_typespec@217:1-217:38
+SLOT elab     module_inst(work@top_tb/work@top_tb)@210:1     Parameters[30]/90 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref(work@top_tb.UVM_SETINT)->int_typespec@217:1-217:38
+SLOT elab     module_inst(work@top_tb/work@top_tb)@210:1     Parameters[75]/90 @217:11-217:21 imported=adpcm_pkg      PARAM-TS=ref(work@top_tb.UVM_SETINT)->int_typespec@217:1-217:38
+SLOT elab     module_inst(work@top_tb/work@top_tb)@210:1     PA[35]/90 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(work@top_tb.UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(work@top_tb)->int_typespec@217:1-217:38
+SLOT elab     module_inst(work@top_tb/work@top_tb)@210:1     PA[80]/90 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(work@top_tb.UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(work@top_tb)->int_typespec@217:1-217:38
+SLOT elabpkg  package(uvm_pkg/uvm_pkg)@28:1                  Parameters[35]/45 @217:11-217:21 imported=-              PARAM-TS=ref(uvm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+SLOT elabpkg  package(uvm_pkg/uvm_pkg)@28:1                  PA[35]/45 @217:11-217:21 imported=-          PARAM-TS=ref(uvm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(uvm_pkg)->int_typespec@217:1-217:38
+SLOT elabpkg  package(adpcm_pkg/adpcm_pkg)@10:1              Parameters[30]/45 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref(adpcm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+SLOT elabpkg  package(adpcm_pkg/adpcm_pkg)@10:1              PA[35]/45 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(adpcm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(adpcm_pkg)->int_typespec@217:1-217:38
+SLOT defpkg   package(uvm_pkg/uvm_pkg)@28:1                  Parameters[35]/45 @217:11-217:21 imported=-              PARAM-TS=NO-TYPESPEC
+SLOT defpkg   package(uvm_pkg/uvm_pkg)@28:1                  PA[35]/45 @217:11-217:21 imported=-          PARAM-TS=NO-TYPESPEC
+     RHS=ref_obj@217:31-217:38 name=UVM_SET full=uvm_pkg::UVM_SET ACTUAL=operation@216:31-216:48
+SLOT defpkg   package(adpcm_pkg/adpcm_pkg)@10:1              Parameters[30]/45 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref(adpcm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+SLOT defpkg   package(adpcm_pkg/adpcm_pkg)@10:1              PA[35]/45 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(adpcm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(adpcm_pkg)->int_typespec@217:1-217:38
+-- SLOTS UVM_SETINT /home/heyfey/.cache/slang-uhdm-goldens/dae43e130380ebfeaa07/golden.uhdm n=21
+
+=== 5. the same — OURS (testflags)
+SLOT other    class_defn(adpcm_driver/)@77:1                 PA[35]/45 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(uvm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(uvm_pkg)->int_typespec@217:1-217:38
+SLOT other    class_defn(adpcm_seq_item/)@18:1               PA[35]/45 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(uvm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(uvm_pkg)->int_typespec@217:1-217:38
+SLOT other    class_defn(adpcm_sequencer/)@122:1             PA[35]/45 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(uvm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(uvm_pkg)->int_typespec@217:1-217:38
+SLOT other    class_defn(adpcm_test/)@172:1                  PA[35]/45 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(uvm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(uvm_pkg)->int_typespec@217:1-217:38
+SLOT other    class_defn(adpcm_tx_seq/)@137:1                PA[35]/45 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(uvm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(uvm_pkg)->int_typespec@217:1-217:38
+SLOT def      module_inst(/work@top_tb)@210:1                Parameters[30]/90 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref(work@top_tb.UVM_SETINT)->int_typespec@217:1-217:38
+SLOT def      module_inst(/work@top_tb)@210:1                Parameters[75]/90 @217:11-217:21 imported=adpcm_pkg      PARAM-TS=ref(work@top_tb.UVM_SETINT)->int_typespec@217:1-217:38
+SLOT def      module_inst(/work@top_tb)@210:1                PA[35]/90 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(work@top_tb.UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(work@top_tb)->int_typespec@217:1-217:38
+SLOT def      module_inst(/work@top_tb)@210:1                PA[80]/90 @217:11-217:21 imported=adpcm_pkg  PARAM-TS=ref(work@top_tb.UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(work@top_tb)->int_typespec@217:1-217:38
+SLOT elab     module_inst(work@top_tb/work@top_tb)@210:1     Parameters[30]/90 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref(work@top_tb.UVM_SETINT)->int_typespec@217:1-217:38
+SLOT elab     module_inst(work@top_tb/work@top_tb)@210:1     Parameters[75]/90 @217:11-217:21 imported=adpcm_pkg      PARAM-TS=ref(work@top_tb.UVM_SETINT)->int_typespec@217:1-217:38
+SLOT elab     module_inst(work@top_tb/work@top_tb)@210:1     PA[35]/90 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(work@top_tb.UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(work@top_tb)->int_typespec@217:1-217:38
+SLOT elab     module_inst(work@top_tb/work@top_tb)@210:1     PA[80]/90 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(work@top_tb.UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(work@top_tb)->int_typespec@217:1-217:38
+SLOT defpkg   package(uvm_pkg/uvm_pkg)@28:1                  Parameters[35]/45 @217:11-217:21 imported=-              PARAM-TS=NO-TYPESPEC
+SLOT defpkg   package(uvm_pkg/uvm_pkg)@28:1                  PA[35]/45 @217:11-217:21 imported=-          PARAM-TS=NO-TYPESPEC
+     RHS=ref_obj@217:31-217:38 name=UVM_SET full=uvm_pkg::UVM_SET ACTUAL=operation@216:31-216:48
+SLOT defpkg   package(adpcm_pkg/adpcm_pkg)@10:1              Parameters[30]/45 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref(adpcm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+SLOT defpkg   package(adpcm_pkg/adpcm_pkg)@10:1              PA[35]/45 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(adpcm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(adpcm_pkg)->int_typespec@217:1-217:38
+SLOT elabpkg  package(uvm_pkg/uvm_pkg)@28:1                  Parameters[35]/45 @217:11-217:21 imported=-              PARAM-TS=ref(uvm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+SLOT elabpkg  package(uvm_pkg/uvm_pkg)@28:1                  PA[35]/45 @217:11-217:21 imported=-          PARAM-TS=ref(uvm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(uvm_pkg)->int_typespec@217:1-217:38
+SLOT elabpkg  package(adpcm_pkg/adpcm_pkg)@10:1              Parameters[30]/45 @217:11-217:21 imported=uvm_pkg        PARAM-TS=ref(adpcm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+SLOT elabpkg  package(adpcm_pkg/adpcm_pkg)@10:1              PA[35]/45 @217:11-217:21 imported=uvm_pkg    PARAM-TS=ref(adpcm_pkg::UVM_SETINT)->int_typespec@217:1-217:38
+     RHS=constant@217:31-217:38 ct=9 sz=32 val=UINT:131078 ts=ref(adpcm_pkg)->int_typespec@217:1-217:38
+-- SLOTS UVM_SETINT /tmp/r10uvm210_wd_pris/sl/testflags/SeqDriver-32af76aa/slang.uhdm n=21

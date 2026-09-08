@@ -1,0 +1,111 @@
+ARM g210_a_forms parse rc_surelog=0 rc_ours=0 rc_cmp=255 VERDICT=CMP_NOTEQUAL cmplines=4332 heads=1
+KEYCEN g210_a_forms parse CALIB=0 AGREE=23 ONLY-GOLDEN=1 ONLY-OURS=1
+  ONLY-GOLDEN g210_a_forms.parse -- FORMS G /tmp/r10uvm210_scr/grid/g210_a_forms.parse/slpp_all/surelog.uhdm n=24
+  ONLY-GOLDEN g210_a_forms.parse K package|p210a|elabpkg|A_ENUM|18:20|CONST|-
+  ONLY-OURS   g210_a_forms.parse -- FORMS O /tmp/r10uvm210_scr/grid/g210_a_forms.parse/ours.uhdm n=24
+  ONLY-OURS   g210_a_forms.parse K package|p210a|elabpkg|A_ENUM|18:20|REF|NULL
+ARM g210_a_forms elab rc_surelog=0 rc_ours=0 rc_cmp=255 VERDICT=CMP_NOTEQUAL cmplines=4334 heads=1
+KEYCEN g210_a_forms elab CALIB=0 AGREE=18 ONLY-GOLDEN=6 ONLY-OURS=6
+  ONLY-GOLDEN g210_a_forms.elab -- FORMS G /tmp/r10uvm210_scr/grid/g210_a_forms.elab/slpp_all/surelog.uhdm n=24
+  ONLY-GOLDEN g210_a_forms.elab K package|p210a|defpkg|A_PAREN|20:20|REF|parameter
+  ONLY-GOLDEN g210_a_forms.elab K package|p210a|defpkg|A_REF|13:20|REF|parameter
+  ONLY-GOLDEN g210_a_forms.elab K package|p210a|defpkg|A_REFEXPR|16:20|REF|parameter
+  ONLY-GOLDEN g210_a_forms.elab K package|p210a|defpkg|A_REFREF|15:20|REF|parameter
+  ONLY-GOLDEN g210_a_forms.elab K package|p210a|defpkg|A_TREF|14:20|REF|parameter
+  ONLY-GOLDEN g210_a_forms.elab K package|p210a|elabpkg|A_ENUM|18:20|CONST|-
+  ONLY-OURS   g210_a_forms.elab -- FORMS O /tmp/r10uvm210_scr/grid/g210_a_forms.elab/ours.uhdm n=24
+  ONLY-OURS   g210_a_forms.elab K package|p210a|defpkg|A_PAREN|20:20|REF|constant
+  ONLY-OURS   g210_a_forms.elab K package|p210a|defpkg|A_REF|13:20|REF|constant
+  ONLY-OURS   g210_a_forms.elab K package|p210a|defpkg|A_REFEXPR|16:20|REF|operation
+  ONLY-OURS   g210_a_forms.elab K package|p210a|defpkg|A_REFREF|15:20|REF|other
+  ONLY-OURS   g210_a_forms.elab K package|p210a|defpkg|A_TREF|14:20|REF|constant
+  ONLY-OURS   g210_a_forms.elab K package|p210a|elabpkg|A_ENUM|18:20|REF|NULL
+ARM g210_b_chain parse rc_surelog=0 rc_ours=0 rc_cmp=255 VERDICT=CMP_NOTEQUAL cmplines=3678 heads=1
+KEYCEN g210_b_chain parse CALIB=0 AGREE=20 ONLY-GOLDEN=0 ONLY-OURS=0
+  ONLY-GOLDEN g210_b_chain.parse -- FORMS G /tmp/r10uvm210_scr/grid/g210_b_chain.parse/slpp_all/surelog.uhdm n=20
+  ONLY-OURS   g210_b_chain.parse -- FORMS O /tmp/r10uvm210_scr/grid/g210_b_chain.parse/ours.uhdm n=20
+ARM g210_b_chain elab rc_surelog=0 rc_ours=0 rc_cmp=255 VERDICT=CMP_NOTEQUAL cmplines=3680 heads=1
+KEYCEN g210_b_chain elab CALIB=0 AGREE=17 ONLY-GOLDEN=3 ONLY-OURS=3
+  ONLY-GOLDEN g210_b_chain.elab -- FORMS G /tmp/r10uvm210_scr/grid/g210_b_chain.elab/slpp_all/surelog.uhdm n=20
+  ONLY-GOLDEN g210_b_chain.elab K package|p210b|defpkg|B_END_FUNCS|13:13|REF|parameter
+  ONLY-GOLDEN g210_b_chain.elab K package|p210b|defpkg|B_REFLIT|15:13|REF|parameter
+  ONLY-GOLDEN g210_b_chain.elab K package|p210b|defpkg|B_SETINT|11:13|REF|parameter
+  ONLY-OURS   g210_b_chain.elab -- FORMS O /tmp/r10uvm210_scr/grid/g210_b_chain.elab/ours.uhdm n=20
+  ONLY-OURS   g210_b_chain.elab K package|p210b|defpkg|B_END_FUNCS|13:13|REF|operation
+  ONLY-OURS   g210_b_chain.elab K package|p210b|defpkg|B_REFLIT|15:13|REF|constant
+  ONLY-OURS   g210_b_chain.elab K package|p210b|defpkg|B_SETINT|11:13|REF|operation
+ARM g210_c_pkgimp parse rc_surelog=0 rc_ours=0 rc_cmp=255 VERDICT=CMP_NOTEQUAL cmplines=10138 heads=1
+KEYCEN g210_c_pkgimp parse CALIB=0 AGREE=56 ONLY-GOLDEN=0 ONLY-OURS=0
+  ONLY-GOLDEN g210_c_pkgimp.parse -- FORMS G /tmp/r10uvm210_scr/grid/g210_c_pkgimp.parse/slpp_all/surelog.uhdm n=56
+  ONLY-OURS   g210_c_pkgimp.parse -- FORMS O /tmp/r10uvm210_scr/grid/g210_c_pkgimp.parse/ours.uhdm n=56
+ARM g210_c_pkgimp elab rc_surelog=0 rc_ours=0 rc_cmp=255 VERDICT=CMP_NOTEQUAL cmplines=10140 heads=1
+KEYCEN g210_c_pkgimp elab CALIB=0 AGREE=54 ONLY-GOLDEN=2 ONLY-OURS=2
+  ONLY-GOLDEN g210_c_pkgimp.elab -- FORMS G /tmp/r10uvm210_scr/grid/g210_c_pkgimp.elab/slpp_all/surelog.uhdm n=56
+  ONLY-GOLDEN g210_c_pkgimp.elab K package|p210c|defpkg|C_REFLIT|13:13|REF|parameter
+  ONLY-GOLDEN g210_c_pkgimp.elab K package|p210c|defpkg|C_SETINT|11:13|REF|parameter
+  ONLY-OURS   g210_c_pkgimp.elab -- FORMS O /tmp/r10uvm210_scr/grid/g210_c_pkgimp.elab/ours.uhdm n=56
+  ONLY-OURS   g210_c_pkgimp.elab K package|p210c|defpkg|C_REFLIT|13:13|REF|constant
+  ONLY-OURS   g210_c_pkgimp.elab K package|p210c|defpkg|C_SETINT|11:13|REF|operation
+ARM g210_d_modimp parse rc_surelog=0 rc_ours=0 rc_cmp=255 VERDICT=CMP_NOTEQUAL cmplines=3462 heads=1
+KEYCEN g210_d_modimp parse CALIB=0 AGREE=16 ONLY-GOLDEN=0 ONLY-OURS=0
+  ONLY-GOLDEN g210_d_modimp.parse -- FORMS G /tmp/r10uvm210_scr/grid/g210_d_modimp.parse/slpp_all/surelog.uhdm n=16
+  ONLY-OURS   g210_d_modimp.parse -- FORMS O /tmp/r10uvm210_scr/grid/g210_d_modimp.parse/ours.uhdm n=16
+ARM g210_d_modimp elab rc_surelog=0 rc_ours=0 rc_cmp=255 VERDICT=CMP_NOTEQUAL cmplines=3464 heads=1
+KEYCEN g210_d_modimp elab CALIB=0 AGREE=14 ONLY-GOLDEN=2 ONLY-OURS=2
+  ONLY-GOLDEN g210_d_modimp.elab -- FORMS G /tmp/r10uvm210_scr/grid/g210_d_modimp.elab/slpp_all/surelog.uhdm n=16
+  ONLY-GOLDEN g210_d_modimp.elab K package|p210d|defpkg|D_REF|6:13|REF|parameter
+  ONLY-GOLDEN g210_d_modimp.elab K package|p210d|defpkg|D_REFLIT|7:13|REF|parameter
+  ONLY-OURS   g210_d_modimp.elab -- FORMS O /tmp/r10uvm210_scr/grid/g210_d_modimp.elab/ours.uhdm n=16
+  ONLY-OURS   g210_d_modimp.elab K package|p210d|defpkg|D_REF|6:13|REF|operation
+  ONLY-OURS   g210_d_modimp.elab K package|p210d|defpkg|D_REFLIT|7:13|REF|constant
+ARM g210_e_unitimp parse rc_surelog=0 rc_ours=0 rc_cmp=255 VERDICT=CMP_NOTEQUAL cmplines=5362 heads=1
+KEYCEN g210_e_unitimp parse CALIB=0 AGREE=24 ONLY-GOLDEN=0 ONLY-OURS=0
+  ONLY-GOLDEN g210_e_unitimp.parse -- FORMS G /tmp/r10uvm210_scr/grid/g210_e_unitimp.parse/slpp_all/surelog.uhdm n=24
+  ONLY-OURS   g210_e_unitimp.parse -- FORMS O /tmp/r10uvm210_scr/grid/g210_e_unitimp.parse/ours.uhdm n=24
+ARM g210_e_unitimp elab rc_surelog=0 rc_ours=0 rc_cmp=255 VERDICT=CMP_NOTEQUAL cmplines=5364 heads=1
+KEYCEN g210_e_unitimp elab CALIB=0 AGREE=24 ONLY-GOLDEN=0 ONLY-OURS=0
+  ONLY-GOLDEN g210_e_unitimp.elab -- FORMS G /tmp/r10uvm210_scr/grid/g210_e_unitimp.elab/slpp_all/surelog.uhdm n=24
+  ONLY-OURS   g210_e_unitimp.elab -- FORMS O /tmp/r10uvm210_scr/grid/g210_e_unitimp.elab/ours.uhdm n=24
+ARM g210_f_enum parse rc_surelog=0 rc_ours=0 rc_cmp=255 VERDICT=CMP_NOTEQUAL cmplines=4952 heads=1
+KEYCEN g210_f_enum parse CALIB=0 AGREE=23 ONLY-GOLDEN=3 ONLY-OURS=3
+  ONLY-GOLDEN g210_f_enum.parse -- FORMS G /tmp/r10uvm210_scr/grid/g210_f_enum.parse/slpp_all/surelog.uhdm n=26
+  ONLY-GOLDEN g210_f_enum.parse K package|p210f|defpkg|F_QUAL|8:20|REF|NULL
+  ONLY-GOLDEN g210_f_enum.parse K package|p210f_imp|defpkg|F_QUAL|8:20|CONST|-
+  ONLY-GOLDEN g210_f_enum.parse K package|p210f_imp|elabpkg|F_QUAL|8:20|CONST|-
+  ONLY-OURS   g210_f_enum.parse -- FORMS O /tmp/r10uvm210_scr/grid/g210_f_enum.parse/ours.uhdm n=26
+  ONLY-OURS   g210_f_enum.parse K package|p210f|defpkg|F_QUAL|8:20|REF|enum_const
+  ONLY-OURS   g210_f_enum.parse K package|p210f_imp|defpkg|F_QUAL|8:20|REF|NULL
+  ONLY-OURS   g210_f_enum.parse K package|p210f_imp|elabpkg|F_QUAL|8:20|REF|NULL
+ARM g210_f_enum elab rc_surelog=0 rc_ours=0 rc_cmp=255 VERDICT=CMP_NOTEQUAL cmplines=4954 heads=1
+KEYCEN g210_f_enum elab CALIB=0 AGREE=23 ONLY-GOLDEN=3 ONLY-OURS=3
+  ONLY-GOLDEN g210_f_enum.elab -- FORMS G /tmp/r10uvm210_scr/grid/g210_f_enum.elab/slpp_all/surelog.uhdm n=26
+  ONLY-GOLDEN g210_f_enum.elab K package|p210f|defpkg|F_QUAL|8:20|REF|NULL
+  ONLY-GOLDEN g210_f_enum.elab K package|p210f_imp|defpkg|F_QUAL|8:20|CONST|-
+  ONLY-GOLDEN g210_f_enum.elab K package|p210f_imp|elabpkg|F_QUAL|8:20|CONST|-
+  ONLY-OURS   g210_f_enum.elab -- FORMS O /tmp/r10uvm210_scr/grid/g210_f_enum.elab/ours.uhdm n=26
+  ONLY-OURS   g210_f_enum.elab K package|p210f|defpkg|F_QUAL|8:20|REF|enum_const
+  ONLY-OURS   g210_f_enum.elab K package|p210f_imp|defpkg|F_QUAL|8:20|REF|NULL
+  ONLY-OURS   g210_f_enum.elab K package|p210f_imp|elabpkg|F_QUAL|8:20|REF|NULL
+ARM g210_g_clsty parse rc_surelog=0 rc_ours=0 rc_cmp=255 VERDICT=CMP_NOTEQUAL cmplines=2554 heads=1
+KEYCEN g210_g_clsty parse CALIB=0 AGREE=8 ONLY-GOLDEN=0 ONLY-OURS=0
+  ONLY-GOLDEN g210_g_clsty.parse -- FORMS G /tmp/r10uvm210_scr/grid/g210_g_clsty.parse/slpp_all/surelog.uhdm n=8
+  ONLY-OURS   g210_g_clsty.parse -- FORMS O /tmp/r10uvm210_scr/grid/g210_g_clsty.parse/ours.uhdm n=8
+ARM g210_g_clsty elab rc_surelog=0 rc_ours=0 rc_cmp=255 VERDICT=CMP_NOTEQUAL cmplines=2590 heads=1
+KEYCEN g210_g_clsty elab CALIB=0 AGREE=7 ONLY-GOLDEN=1 ONLY-OURS=1
+  ONLY-GOLDEN g210_g_clsty.elab -- FORMS G /tmp/r10uvm210_scr/grid/g210_g_clsty.elab/slpp_all/surelog.uhdm n=8
+  ONLY-GOLDEN g210_g_clsty.elab K package|p210g|defpkg|G_REF|8:13|REF|parameter
+  ONLY-OURS   g210_g_clsty.elab -- FORMS O /tmp/r10uvm210_scr/grid/g210_g_clsty.elab/ours.uhdm n=8
+  ONLY-OURS   g210_g_clsty.elab K package|p210g|defpkg|G_REF|8:13|REF|constant
+ARM g210_h_expr parse rc_surelog=0 rc_ours=0 rc_cmp=255 VERDICT=CMP_NOTEQUAL cmplines=3276 heads=1
+KEYCEN g210_h_expr parse CALIB=0 AGREE=16 ONLY-GOLDEN=0 ONLY-OURS=0
+  ONLY-GOLDEN g210_h_expr.parse -- FORMS G /tmp/r10uvm210_scr/grid/g210_h_expr.parse/slpp_all/surelog.uhdm n=16
+  ONLY-OURS   g210_h_expr.parse -- FORMS O /tmp/r10uvm210_scr/grid/g210_h_expr.parse/ours.uhdm n=16
+ARM g210_h_expr elab rc_surelog=0 rc_ours=0 rc_cmp=255 VERDICT=CMP_NOTEQUAL cmplines=3278 heads=1
+KEYCEN g210_h_expr elab CALIB=0 AGREE=16 ONLY-GOLDEN=0 ONLY-OURS=0
+  ONLY-GOLDEN g210_h_expr.elab -- FORMS G /tmp/r10uvm210_scr/grid/g210_h_expr.elab/slpp_all/surelog.uhdm n=16
+  ONLY-OURS   g210_h_expr.elab -- FORMS O /tmp/r10uvm210_scr/grid/g210_h_expr.elab/ours.uhdm n=16
+-- ARM-VIEWS SCORED: 16   CMP_EQUAL=0  CMP_NOTEQUAL=16  NO-DATABASE=0
+-- NONZERO RCs: 0
+-- TOTAL ONLY-GOLDEN cells: 21
+-- TOTAL ONLY-OURS   cells: 21
+-- TOTAL CALIB non-null: 0

@@ -1,0 +1,18 @@
+r10uvm210 — THE FORM CENSUS on the head's own row, both modes.
+MEASUREMENT ONLY.  LHS is ALWAYS golden.  Key =
+  <owner kind>|<owner name>|<view>|<Lhs name>|<Lhs line:col>|<Rhs FORM>|<ref ACTUAL kind>
+Rhs FORM is REF / CONST / OP / OTHER; the ACTUAL column is
+ref_obj::Actual_group's kind, which ref_obj::Compare READS.
+
+== SeqDriver/default  golden=590  ours=590  AGREE=590  ONLY-GOLDEN=0  ONLY-OURS=0
+-- ONLY-GOLDEN cells:
+-- ONLY-OURS cells:
+-- the REF-form cells both sides carry, in full (the briefed population):
+K package|uvm_pkg|defpkg|UVM_END_FUNCS|220:11|REF|operation
+K package|uvm_pkg|defpkg|UVM_SETINT|217:11|REF|operation
+== SeqDriver/testflags  golden=590  ours=590  AGREE=590  ONLY-GOLDEN=0  ONLY-OURS=0
+-- ONLY-GOLDEN cells:
+-- ONLY-OURS cells:
+-- the REF-form cells both sides carry, in full (the briefed population):
+K package|uvm_pkg|defpkg|UVM_END_FUNCS|220:11|REF|operation
+K package|uvm_pkg|defpkg|UVM_SETINT|217:11|REF|operation

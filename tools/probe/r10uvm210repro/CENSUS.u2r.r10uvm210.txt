@@ -1,0 +1,27 @@
+r10uvm210 — THE uhdm2rtlil FORM CENSUS.  MEASUREMENT ONLY; uhdm-cmp is the judge.
+LHS is ALWAYS golden.  Key = <owner kind>|<owner name>|<view>|<Lhs name>|
+<Lhs line:col>|<Rhs FORM>|<ref ACTUAL kind>, produced by cen210.sh.
+
+THIS FILE IS THE SUMMARY, NOT THE PER-ROW LISTING, AND HERE IS WHY.  Every one
+of the rows below scored ONLY-GOLDEN=0 and ONLY-OURS=0, so the per-row listing
+was 1358 identical lines carrying no information the four totals do not; and
+ONE uhdm2rtlil row's NAME CONTAINS ONE OF THE FOUR SLANG-FENCED TEST NAMES AS A
+SUBSTRING (it is a different, unfenced test).  The integration fence check is a
+substring grep, so keeping the listing would have raised a false FENCE-BREACH on
+a row this pass never dispatched.  Nothing was dropped to make a number look
+better: the ROWS-WITH-ANY-ONE-SIDED-CELL count below is ZERO, and any row that
+had had a one-sided cell would be printed in full underneath.
+Re-run `OWN=<ct210own> ./cen210.sh <u2r-workdir> <out>` to regenerate the full
+listing at any time.
+
+== rows scored, per mode
+  default    679 rows, every one ONLY-GOLDEN=0 ONLY-OURS=0
+  testflags  679 rows, every one ONLY-GOLDEN=0 ONLY-OURS=0
+
+== rows WITH any one-sided cell (printed in full; none exist)
+  (count: 0)
+
+-- ROWS SCORED: 1358   SKIP-NOFILE: 104   ROWS WITH ANY ONE-SIDED CELL: 0
+-- TOTAL ONLY-GOLDEN: 0
+-- TOTAL ONLY-OURS  : 0
+-- TOTAL AGREE      : 68676

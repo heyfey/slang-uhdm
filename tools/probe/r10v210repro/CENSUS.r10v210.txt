@@ -1,0 +1,62 @@
+r10v210 — INDEPENDENT REPRODUCTION of r10uvm210's corpus FORM census.
+MEASUREMENT ONLY; uhdm-cmp is the judge.  LHS is ALWAYS golden.
+Run with the verifier's OWN sweep workdirs and the pass's own cen210.sh + ct210own.
+Fenced names redacted by the pass's scrub210.sh (the list is read out of
+canaudit.sh; this file never spells one).
+
+== surelog corpus (verifier's own patched-binary sweep)
+-- ROWS SCORED: 956   SKIP-NOFILE: 617   ROWS WITH ANY ONE-SIDED CELL: 27
+-- TOTAL ONLY-GOLDEN: 37
+-- TOTAL ONLY-OURS  : 3123
+-- TOTAL AGREE      : 52724
+-- ONLY-GOLDEN cells by Rhs FORM:
+        29 CONST
+         2 NONE
+         4 OP
+         2 REF
+-- the only two REF-form ONLY-GOLDEN cells in either corpus, with their rows:
+     G-ONLY <FENCED-TEST>.default K module_inst|test_i|other|param|13:15|REF|parameter
+     G-ONLY <FENCED-TEST>.testflags K module_inst|test_i|other|param|13:15|REF|parameter
+-- rows with ANY one-sided cell:
+   ROW BlackConst default AGREE=14 ONLY-GOLDEN=2 ONLY-OURS=2
+   ROW BlackParrotComplex default AGREE=21 ONLY-GOLDEN=1 ONLY-OURS=1
+   ROW Earlgrey_0_1 default AGREE=13778 ONLY-GOLDEN=13 ONLY-OURS=13
+   ROW <FENCED-TEST> default AGREE=2 ONLY-GOLDEN=2 ONLY-OURS=0
+   ROW BitSelectPartSelectInFunction testflags AGREE=0 ONLY-GOLDEN=0 ONLY-OURS=2
+   ROW BlackConst testflags AGREE=14 ONLY-GOLDEN=2 ONLY-OURS=2
+   ROW BlackParrotComplex testflags AGREE=21 ONLY-GOLDEN=1 ONLY-OURS=1
+   ROW DefParamIndex testflags AGREE=5 ONLY-GOLDEN=0 ONLY-OURS=4
+   ROW Earlgrey_0_1 testflags AGREE=17808 ONLY-GOLDEN=13 ONLY-OURS=3022
+   ROW ElabCParam testflags AGREE=38 ONLY-GOLDEN=0 ONLY-OURS=4
+   ROW EvalFunc testflags AGREE=10 ONLY-GOLDEN=0 ONLY-OURS=7
+   ROW <FENCED-TEST> testflags AGREE=1 ONLY-GOLDEN=1 ONLY-OURS=1
+   ROW FuncInModule testflags AGREE=10 ONLY-GOLDEN=0 ONLY-OURS=8
+   ROW GenForIfaceLocalparamBound testflags AGREE=4 ONLY-GOLDEN=0 ONLY-OURS=2
+   ROW GenForIfaceLocalparamNestedGen testflags AGREE=10 ONLY-GOLDEN=0 ONLY-OURS=2
+   ROW GenIfIfaceParamStructField testflags AGREE=6 ONLY-GOLDEN=0 ONLY-OURS=1
+   ROW GenScopeHierPath testflags AGREE=28 ONLY-GOLDEN=0 ONLY-OURS=8
+   ROW IncompFunc testflags AGREE=0 ONLY-GOLDEN=0 ONLY-OURS=1
+   ROW IndexedSelectHex testflags AGREE=28 ONLY-GOLDEN=0 ONLY-OURS=8
+   ROW InterfaceElab testflags AGREE=3 ONLY-GOLDEN=0 ONLY-OURS=1
+   ROW InterfType testflags AGREE=2 ONLY-GOLDEN=0 ONLY-OURS=1
+   ROW MultiConcatValueSize testflags AGREE=18 ONLY-GOLDEN=0 ONLY-OURS=2
+   ROW OneNetRange testflags AGREE=12 ONLY-GOLDEN=0 ONLY-OURS=1
+   ROW ParamElabMulti testflags AGREE=18 ONLY-GOLDEN=0 ONLY-OURS=2
+   ROW StringRange testflags AGREE=13 ONLY-GOLDEN=0 ONLY-OURS=24
+   ROW <FENCED-TEST> testflags AGREE=2 ONLY-GOLDEN=2 ONLY-OURS=0
+   ROW UnsizedFunc testflags AGREE=2 ONLY-GOLDEN=0 ONLY-OURS=3
+
+== uhdm2rtlil corpus (verifier's own patched-binary sweep)
+-- ROWS SCORED: 1358   SKIP-NOFILE: 104   ROWS WITH ANY ONE-SIDED CELL: 0
+-- TOTAL ONLY-GOLDEN: 0
+-- TOTAL ONLY-OURS  : 0
+-- TOTAL AGREE      : 68676
+
+== the head row, cell for cell
+   SeqDriver/default  golden=590 ours=590  AGREE=590  ONLY-GOLDEN=0  ONLY-OURS=0
+   the entire design holds exactly two REF-form cells and both agree on BOTH sides:
+     K package|uvm_pkg|defpkg|UVM_END_FUNCS|220:11|REF|operation
+     K package|uvm_pkg|defpkg|UVM_SETINT|217:11|REF|operation
+
+VERDICT ON THE CENSUS: every headline number of the pass reproduces EXACTLY
+(37 = 29 CONST + 4 OP + 2 NONE + 2 REF; 3123; 52724; 27/956; 0/0/68676/1358).

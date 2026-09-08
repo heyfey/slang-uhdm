@@ -1,0 +1,75 @@
+ARM r0_a parse rc_surelog=0 rc_ours=0 AGREE=0 ONLY-GOLDEN=0 ONLY-OURS=0  TSI-KEYS=0 TSI-ONLY-GOLDEN=0 TSI-ONLY-OURS=0
+ARM r0_a elab rc_surelog=0 rc_ours=0 AGREE=0 ONLY-GOLDEN=1 ONLY-OURS=0  TSI-KEYS=0 TSI-ONLY-GOLDEN=0 TSI-ONLY-OURS=0
+  G-ONLY r0_a.elab K class_defn|seqr_c|other|REQ|8:23|OTHER|-
+ARM r0_b parse rc_surelog=0 rc_ours=0 AGREE=0 ONLY-GOLDEN=0 ONLY-OURS=0  TSI-KEYS=0 TSI-ONLY-GOLDEN=0 TSI-ONLY-OURS=0
+ARM r0_b elab rc_surelog=0 rc_ours=0 AGREE=0 ONLY-GOLDEN=0 ONLY-OURS=0  TSI-KEYS=0 TSI-ONLY-GOLDEN=0 TSI-ONLY-OURS=0
+ARM v210_1_localparam parse rc_surelog=0 rc_ours=0 AGREE=28 ONLY-GOLDEN=0 ONLY-OURS=0  TSI-KEYS=2 TSI-ONLY-GOLDEN=0 TSI-ONLY-OURS=0
+ARM v210_1_localparam elab rc_surelog=0 rc_ours=0 AGREE=24 ONLY-GOLDEN=4 ONLY-OURS=4  TSI-KEYS=2 TSI-ONLY-GOLDEN=0 TSI-ONLY-OURS=0
+  G-ONLY v210_1_localparam.elab K package|v1pkg|defpkg|L_PFROML|8:20|REF|parameter
+  G-ONLY v210_1_localparam.elab K package|v1pkg|defpkg|L_PFROMLE|9:20|REF|parameter
+  G-ONLY v210_1_localparam.elab K package|v1pkg|defpkg|L_REF|7:20|REF|parameter
+  G-ONLY v210_1_localparam.elab K package|v1pkg|defpkg|L_REFREF|10:20|REF|parameter
+  O-ONLY v210_1_localparam.elab K package|v1pkg|defpkg|L_PFROML|8:20|REF|constant
+  O-ONLY v210_1_localparam.elab K package|v1pkg|defpkg|L_PFROMLE|9:20|REF|operation
+  O-ONLY v210_1_localparam.elab K package|v1pkg|defpkg|L_REF|7:20|REF|constant
+  O-ONLY v210_1_localparam.elab K package|v1pkg|defpkg|L_REFREF|10:20|REF|other
+ARM v210_2_iface parse rc_surelog=0 rc_ours=0 AGREE=8 ONLY-GOLDEN=0 ONLY-OURS=0  TSI-KEYS=0 TSI-ONLY-GOLDEN=0 TSI-ONLY-OURS=0
+ARM v210_2_iface elab rc_surelog=0 rc_ours=0 AGREE=8 ONLY-GOLDEN=0 ONLY-OURS=0  TSI-KEYS=0 TSI-ONLY-GOLDEN=0 TSI-ONLY-OURS=0
+ARM v210_3_modchain parse rc_surelog=0 rc_ours=0 AGREE=10 ONLY-GOLDEN=0 ONLY-OURS=0  TSI-KEYS=0 TSI-ONLY-GOLDEN=0 TSI-ONLY-OURS=0
+ARM v210_3_modchain elab rc_surelog=0 rc_ours=0 AGREE=10 ONLY-GOLDEN=0 ONLY-OURS=0  TSI-KEYS=0 TSI-ONLY-GOLDEN=0 TSI-ONLY-OURS=0
+ARM v210_4_clsparam parse rc_surelog=0 rc_ours=0 AGREE=7 ONLY-GOLDEN=1 ONLY-OURS=1  TSI-KEYS=0 TSI-ONLY-GOLDEN=0 TSI-ONLY-OURS=0
+  G-ONLY v210_4_clsparam.parse K class_defn|v4cls|other|C_PKGREF|8:15|REF|NULL
+  O-ONLY v210_4_clsparam.parse K class_defn|v4cls|other|C_PKGREF|8:15|REF|constant
+ARM v210_4_clsparam elab rc_surelog=0 rc_ours=0 AGREE=5 ONLY-GOLDEN=3 ONLY-OURS=3  TSI-KEYS=0 TSI-ONLY-GOLDEN=0 TSI-ONLY-OURS=0
+  G-ONLY v210_4_clsparam.elab K class_defn|v4cls|other|C_LOC|9:16|REF|parameter
+  G-ONLY v210_4_clsparam.elab K class_defn|v4cls|other|C_PKGREF|8:15|REF|parameter
+  G-ONLY v210_4_clsparam.elab K class_defn|v4cls|other|C_REF|7:15|REF|parameter
+  O-ONLY v210_4_clsparam.elab K class_defn|v4cls|other|C_LOC|9:16|REF|NULL
+  O-ONLY v210_4_clsparam.elab K class_defn|v4cls|other|C_PKGREF|8:15|REF|constant
+  O-ONLY v210_4_clsparam.elab K class_defn|v4cls|other|C_REF|7:15|REF|NULL
+ARM v210_5_crosspkg parse rc_surelog=0 rc_ours=0 AGREE=20 ONLY-GOLDEN=2 ONLY-OURS=2  TSI-KEYS=5 TSI-ONLY-GOLDEN=0 TSI-ONLY-OURS=0
+  G-ONLY v210_5_crosspkg.parse K package|v5b|defpkg|B_BAREPARM|10:13|CONST|-
+  G-ONLY v210_5_crosspkg.parse K package|v5b|elabpkg|B_QUALENUM|12:13|CONST|-
+  O-ONLY v210_5_crosspkg.parse K package|v5b|defpkg|B_BAREPARM|10:13|REF|parameter
+  O-ONLY v210_5_crosspkg.parse K package|v5b|elabpkg|B_QUALENUM|12:13|REF|NULL
+ARM v210_5_crosspkg elab rc_surelog=0 rc_ours=0 AGREE=20 ONLY-GOLDEN=2 ONLY-OURS=2  TSI-KEYS=5 TSI-ONLY-GOLDEN=0 TSI-ONLY-OURS=0
+  G-ONLY v210_5_crosspkg.elab K package|v5b|defpkg|B_BAREPARM|10:13|CONST|-
+  G-ONLY v210_5_crosspkg.elab K package|v5b|elabpkg|B_QUALENUM|12:13|CONST|-
+  O-ONLY v210_5_crosspkg.elab K package|v5b|defpkg|B_BAREPARM|10:13|REF|parameter
+  O-ONLY v210_5_crosspkg.elab K package|v5b|elabpkg|B_QUALENUM|12:13|REF|NULL
+ARM v210_7_muststay parse rc_surelog=0 rc_ours=0 AGREE=35 ONLY-GOLDEN=5 ONLY-OURS=5  TSI-KEYS=6 TSI-ONLY-GOLDEN=4 TSI-ONLY-OURS=1
+  G-ONLY v210_7_muststay.parse K module_inst||def|S_CAST|9:20|OP|-
+  G-ONLY v210_7_muststay.parse K module_inst||def|S_SGN|7:20|CONST|-
+  G-ONLY v210_7_muststay.parse K module_inst|work@v7mod|elab|S_CAST|9:20|OP|-
+  G-ONLY v210_7_muststay.parse K package|v7pkg|elabpkg|S_CAST|9:20|OP|-
+  G-ONLY v210_7_muststay.parse K package|v7pkg|elabpkg|S_REPL|5:20|OP|-
+  O-ONLY v210_7_muststay.parse K module_inst||def|S_CAST|9:20|CONST|-
+  O-ONLY v210_7_muststay.parse K module_inst||def|S_SGN|7:20|OP|-
+  O-ONLY v210_7_muststay.parse K module_inst|work@v7mod|elab|S_CAST|9:20|CONST|-
+  O-ONLY v210_7_muststay.parse K package|v7pkg|elabpkg|S_CAST|9:20|CONST|-
+  O-ONLY v210_7_muststay.parse K package|v7pkg|elabpkg|S_REPL|5:20|CONST|-
+  TSI-G-ONLY v210_7_muststay.parse TSI      1  int_typespec||7:13 -> DEFPKG:v7pkg
+  TSI-G-ONLY v210_7_muststay.parse TSI      2  int_typespec||9:30 -> ELABPKG:v7pkg
+  TSI-G-ONLY v210_7_muststay.parse TSI      5  int_typespec||11:13 -> ELABPKG:v7pkg
+  TSI-G-ONLY v210_7_muststay.parse TSI      5  int_typespec||7:13 -> ELABPKG:v7pkg
+  TSI-O-ONLY v210_7_muststay.parse TSI      4  int_typespec||11:13 -> ELABPKG:v7pkg
+ARM v210_7_muststay elab rc_surelog=0 rc_ours=0 AGREE=35 ONLY-GOLDEN=5 ONLY-OURS=5  TSI-KEYS=6 TSI-ONLY-GOLDEN=4 TSI-ONLY-OURS=1
+  G-ONLY v210_7_muststay.elab K module_inst||def|S_CAST|9:20|OP|-
+  G-ONLY v210_7_muststay.elab K module_inst||def|S_SGN|7:20|CONST|-
+  G-ONLY v210_7_muststay.elab K module_inst|work@v7mod|elab|S_CAST|9:20|OP|-
+  G-ONLY v210_7_muststay.elab K package|v7pkg|elabpkg|S_CAST|9:20|OP|-
+  G-ONLY v210_7_muststay.elab K package|v7pkg|elabpkg|S_REPL|5:20|OP|-
+  O-ONLY v210_7_muststay.elab K module_inst||def|S_CAST|9:20|CONST|-
+  O-ONLY v210_7_muststay.elab K module_inst||def|S_SGN|7:20|OP|-
+  O-ONLY v210_7_muststay.elab K module_inst|work@v7mod|elab|S_CAST|9:20|CONST|-
+  O-ONLY v210_7_muststay.elab K package|v7pkg|elabpkg|S_CAST|9:20|CONST|-
+  O-ONLY v210_7_muststay.elab K package|v7pkg|elabpkg|S_REPL|5:20|CONST|-
+  TSI-G-ONLY v210_7_muststay.elab TSI      1  int_typespec||7:13 -> DEFPKG:v7pkg
+  TSI-G-ONLY v210_7_muststay.elab TSI      2  int_typespec||9:30 -> ELABPKG:v7pkg
+  TSI-G-ONLY v210_7_muststay.elab TSI      5  int_typespec||11:13 -> ELABPKG:v7pkg
+  TSI-G-ONLY v210_7_muststay.elab TSI      5  int_typespec||7:13 -> ELABPKG:v7pkg
+  TSI-O-ONLY v210_7_muststay.elab TSI      4  int_typespec||11:13 -> ELABPKG:v7pkg
+-- ARM-VIEWS SCORED: 16   NO-DATABASE: 0
+-- NONZERO RCs: 0
+-- TOTAL ONLY-GOLDEN cells: 23
+-- TOTAL ONLY-OURS   cells: 22

@@ -1,0 +1,149 @@
+r10v210 — VERIFIER GATES for r10uvm210.  BASE 18d0800c.  MEASUREMENT ONLY;
+the official uhdm-cmp is the judge.  LHS is ALWAYS golden.  slang NOT patched;
+results/*.csv READ ONLY; no row promoted or converted; GOLDEN_DEFER unset.
+
+== binaries, both built by the VERIFIER at -j 2 from its OWN worktrees at 18d0800c
+pristine  /tmp/wt_v210pris (clean 18d0800c) -> frozen chmod 555
+1644b8e244f1b5caca4f876ebc99d1e9  /tmp/v210_bin/pris.bin
+patched   /tmp/wt_v210 (18d0800c + /tmp/r10uvm210.patch) -> frozen chmod 555
+1644b8e244f1b5caca4f876ebc99d1e9  /tmp/v210_bin/pat.bin
+IDENTICAL: the pass's production surface is empty, so the two builds agree byte
+for byte.  The implementer's claimed md5 1644b8e244f1b5caca4f876ebc99d1e9 is
+reproduced exactly by an independent build.
+
+== goldens (SLANG_UHDM exported explicitly per binary)
+patched : PASS=23 FAIL=0
+pristine: PASS=23 FAIL=0
+negative control SLANG_UHDM=/bin/false: FAIL=23 PASS=0
+
+== cmds.txt audit BY BINARY PATH (all four sweep workdirs)
+u2r  patched  : 1462 files, slang: lines ->
+       1458 slang:   /tmp/v210_bin/pat.bin
+  (the 4 files with no slang: line are the 2 SURELOG_FAIL tests x 2 modes)
+sl   patched  : 1573 files ->
+       1523 slang:   /tmp/v210_bin/pat.bin
+sl   pristine : 1573 files ->
+       1523 slang:   /tmp/v210_bin/pris.bin
+u2r  pristine : 1462 files ->
+       1458 slang:   /tmp/v210_bin/pris.bin
+  NO cmds.txt anywhere names the main-tree build/slang-uhdm.
+
+== uhdm2rtlil, both modes, patched binary
+  tf:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+  def:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+== uhdm2rtlil, both modes, pristine binary
+  tf:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+  def:     679 CMP_EQUAL      50 SLANG_REJECT       2 SURELOG_FAIL 
+
+== ct8rows, u2r testflags vs the committed baseline
+PASS: every row byte-identical to the committed baseline
+
+== surelog corpus, --mode both, patched binary, vs results/golden_surelog.csv at BASE
+baseline: 1589 lines = 1588 ROWS (the header is not a row)
+fresh   : 1589 lines = 1588 ROWS
+---- WHOLE-ROW diff (status AND dump column): 2 differing ROWS (4 diff row-sides)
+< Earlgrey_0_1,default,CMP_EQUAL,,,differ
+< Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+> Earlgrey_0_1,default,CMP_EQUAL,,,
+> Earlgrey_0_1,testflags,CMP_EQUAL,,,
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     473 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED     283 SLANG_REJECT      25 SURELOG_FAIL 
+  default  fresh:     473 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED     283 SLANG_REJECT      25 SURELOG_FAIL 
+  testflags  base:     468 CMP_EQUAL       7 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  testflags  fresh:     468 CMP_EQUAL       7 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     321      247 differ     226 match 
+  default  fresh:     322      246 differ     226 match 
+  testflags  base:     326      302 differ     166 match 
+  testflags  fresh:     327      301 differ     166 match 
+ATTENTION: rows moved -- read them above, do not summarise them
+  NO ROW CONVERTED.  The two moved row-SIDES are the informational uhdm-dump
+  column only, on Earlgrey_0_1 both modes (the recorded dump TIMEOUT under sweep
+  load); STATUS is CMP_EQUAL before and after.  The PRISTINE sweep reads them the
+  same way, so this is not attributable to the patch (which changes no code).
+
+== surelog corpus, pristine binary, same comparison
+  testflags  base:     468 CMP_EQUAL       7 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  testflags  fresh:     468 CMP_EQUAL       7 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     321      247 differ     226 match 
+  default  fresh:     322      246 differ     226 match 
+  testflags  base:     326      302 differ     166 match 
+  testflags  fresh:     327      301 differ     166 match 
+ATTENTION: rows moved -- read them above, do not summarise them
+
+== byteverify, SELFCHECK=1 — a REAL two-workdir comparison
+(both binaries built independently and byte-identical, so a mover here can only
+ be emitter nondeterminism; this is stronger than the pass's self-comparison)
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=a4c612d6e894 pristine=b6dcce23309d
+MOVERS: 1 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+  the one mover is Scoreboard/default, the documented ~50/50 COIN: uhdm-dump both
+  databases, normalise the workdir path, SORT for order-blindness -> 1100449 lines
+  each and 0 differing lines.  ORDER-BLIND DIFF LINES: 0.
+
+== rowheads (verifier's own patched-binary sweep)
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         50      1 cmp rc=255
+SeqDriver      testflags       50      1 cmp rc=255
+SimpleUVM      default         86      1 cmp rc=255
+SimpleUVM      testflags       86      1 cmp rc=255
+Scoreboard     default         95      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default        112      1 cmp rc=255
+MiniAmiq       testflags      112      1 cmp rc=255
+BuildUVMPkg    default          0      0 cmp rc=0
+BuildUVMPkg    testflags        0      0 cmp rc=0
+Earlgrey_0_1   default          0      0 cmp rc=0
+Earlgrey_0_1   testflags        0      0 cmp rc=0
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+
+== canaries / ctcan2 / canaudit
+  Earlgrey_0_1                   default   CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+  Earlgrey_0_1                   testflags CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+---- canary rows: ok=50 changed=2 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+
+== protected databases, md5 prefix, verifier's own sweep
+  InterfaceModPort default 59a365f3ce2c
+  InterfaceModPort testflags 59a365f3ce2c
+  BlackParrotComplex default e3e354129d5a
+  BlackParrotComplex testflags 73a10e8217e5
+  YosysOldOr default d68e0796d62c
+  YosysOldOr testflags d68e0796d62c
+  SVSwitch default 4842211c4030
+  SVSwitch testflags 4842211c4030
+  YosysVerx default 6ccda350c24a
+  YosysVerx testflags 6ccda350c24a
+  (SVSwitch must be 4842211c4030; YosysVerx must be 6ccda350c24a)
+
+== BOUNDARY
+The two binaries are byte-identical (md5 above), built independently from two
+worktrees, and the patch touches no file the build reads (surface is
+tools/probe/r10uvm210repro/ only; CMakeLists.txt does not reference tools/probe).
+No committed arm of any earlier pass can move: not sampled, proven.
+  impFoldRhsMirrorsLhsTs201, impUnsizedBasedLhsNoTs199 + paren-cast,
+  impCopyStringConstSize, modUnitImportParamsTwice196,
+  cloneStructMemberBareTdAlias207, uvm82-91, buvm3-15, sd8-12: all untouched.
+
+== the four protected CMP_EQUAL row-modes, both columns
+  patched  BuildUVMPkg,default,CMP_EQUAL,,,differ
+  patched  BuildUVMPkg,testflags,CMP_EQUAL,,,differ
+  patched  Earlgrey_0_1,default,CMP_EQUAL,,,
+  patched  Earlgrey_0_1,testflags,CMP_EQUAL,,,
+  pristine BuildUVMPkg,default,CMP_EQUAL,,,differ
+  pristine BuildUVMPkg,testflags,CMP_EQUAL,,,differ
+  pristine Earlgrey_0_1,default,CMP_EQUAL,,,
+  pristine Earlgrey_0_1,testflags,CMP_EQUAL,,,
+  rowheads: 0 cmp lines / 0 heads / cmp rc=0 on all four (see rowheads above).

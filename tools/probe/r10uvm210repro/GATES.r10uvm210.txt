@@ -1,0 +1,98 @@
+r10uvm210 — GATES.  BASE 18d0800c.  PRODUCTION SURFACE IS EMPTY, so the
+'patched' binary IS the pristine binary (same md5): every gate below was run
+on the one binary this pass built, and a two-binary sweep would be a
+tautology, not a measurement.  That is stated, not hidden.
+
+== binary
+pristine build, -j 2, from a clean 18d0800c worktree, frozen chmod 555:
+1644b8e244f1b5caca4f876ebc99d1e9  /tmp/r10uvm210_bin/pris.bin
+the main tree's own build/slang-uhdm at 18d0800c:
+6fcb25434647c0559ba55ab2f1414bad  /home/heyfey/git-repos/slang-uhdm/build/slang-uhdm
+
+== goldens (SLANG_UHDM exported explicitly to the frozen binary)
+PASS=23 FAIL=0
+negative control SLANG_UHDM=/bin/false: FAIL=23
+
+== cmds.txt audit BY BINARY PATH (both sweep workdirs)
+/tmp/r10uvm210_bin/pris.bin
+
+== uhdm2rtlil, both modes
+testflags: SLANG_REJECT=50 SURELOG_FAIL=2 CMP_EQUAL=679
+default  : SLANG_REJECT=50 SURELOG_FAIL=2 CMP_EQUAL=679
+ct8rows results/gate_uhdm2rtlil.csv vs this pass's testflags sweep:
+PASS: every row byte-identical to the committed baseline
+(results/ carries no DEFAULT-mode uhdm2rtlil baseline — every committed row
+ in that file is mode=testflags — so the default arm is scored by its own
+ status histogram above and by byteverify below.)
+
+== surelog corpus, --mode both
+baseline: 1589 lines = 1588 ROWS (the header is not a row)
+fresh   : 1589 lines = 1588 ROWS
+---- WHOLE-ROW diff (status AND dump column): 2 differing ROWS (4 diff row-sides)
+< Earlgrey_0_1,default,CMP_EQUAL,,,differ
+< Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+> Earlgrey_0_1,default,CMP_EQUAL,,,
+> Earlgrey_0_1,testflags,CMP_EQUAL,,,
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     473 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED     283 SLANG_REJECT      25 SURELOG_FAIL
+  default  fresh:     473 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED     283 SLANG_REJECT      25 SURELOG_FAIL
+  testflags  base:     468 CMP_EQUAL       7 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE
+  testflags  fresh:     468 CMP_EQUAL       7 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     321      247 differ     226 match
+  default  fresh:     322      246 differ     226 match
+  testflags  base:     326      302 differ     166 match
+  testflags  fresh:     327      301 differ     166 match
+ATTENTION: rows moved -- read them above, do not summarise them
+
+== byteverify, SELFCHECK=1
+(one workdir compared against ITSELF: with an empty production surface there
+ is no second binary to sweep.  The SELFCHECK line is what proves the
+ comparator can still see a mover.)
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVERS: 0 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+
+== rowheads (this pass's own pristine sweep)
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         50      1 cmp rc=255
+SeqDriver      testflags       50      1 cmp rc=255
+SimpleUVM      default         86      1 cmp rc=255
+SimpleUVM      testflags       86      1 cmp rc=255
+Scoreboard     default         95      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default        112      1 cmp rc=255
+MiniAmiq       testflags      112      1 cmp rc=255
+BuildUVMPkg    default          0      0 cmp rc=0
+BuildUVMPkg    testflags        0      0 cmp rc=0
+Earlgrey_0_1   default          0      0 cmp rc=0
+Earlgrey_0_1   testflags        0      0 cmp rc=0
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+
+== canaries
+  Earlgrey_0_1                   default   CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+  Earlgrey_0_1                   testflags CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+---- canary rows: ok=50 changed=2 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+
+== protected databases, md5 prefix, this pass's own sweep
+  InterfaceModPort default 59a365f3ce2c
+  InterfaceModPort testflags 59a365f3ce2c
+  BlackParrotComplex default e3e354129d5a
+  BlackParrotComplex testflags 73a10e8217e5
+  YosysOldOr default d68e0796d62c
+  YosysOldOr testflags d68e0796d62c
+  SVSwitch default 4842211c4030
+  SVSwitch testflags 4842211c4030
+  YosysVerx default 6ccda350c24a
+  YosysVerx testflags 6ccda350c24a
+  (SVSwitch must be 4842211c4030; YosysVerx must be 6ccda350c24a)

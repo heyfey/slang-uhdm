@@ -1,0 +1,54 @@
+r10v210 — WHERE THE CROSSING ACTUALLY IS.  MEASUREMENT ONLY; uhdm-cmp is the
+judge.  LHS is ALWAYS golden.  SeqDriver/default, verifier's own sweep.
+
+r10uvm210 ROUTE §C reports only the SUMMARY line 'WITH-INSTANCE=7' and then names
+the REQ unsupported_typespec as 'the crossing object'.  The per-cell Instance was
+never printed.  Here it is: BOTH SIDES point their seven recursing cells at their
+OWN DEF package, so the crossing is NOT at the Rhs constant's typespec.
+
+=== A. GOLDEN def uvm_pkg, the cells that carry an Instance
+== listing DEFPKG id=59742 cells=45
+  PA[0] lhs=UVM_HDL_MAX_WIDTH      rhs=constant tsid=60737 ts=int_typespec INSTANCE=DEFPKG:uvm_pkg(id=59742)
+  PA[1] lhs=uvm_mgc_copyright      rhs=constant tsid=60820 ts=string_typespec INSTANCE=DEFPKG:uvm_pkg(id=59742)
+  PA[2] lhs=uvm_cdn_copyright      rhs=constant tsid=60833 ts=string_typespec INSTANCE=DEFPKG:uvm_pkg(id=59742)
+  PA[3] lhs=uvm_snps_copyright     rhs=constant tsid=60846 ts=string_typespec INSTANCE=DEFPKG:uvm_pkg(id=59742)
+  PA[4] lhs=uvm_cy_copyright       rhs=constant tsid=60859 ts=string_typespec INSTANCE=DEFPKG:uvm_pkg(id=59742)
+  PA[5] lhs=uvm_nv_copyright       rhs=constant tsid=60872 ts=string_typespec INSTANCE=DEFPKG:uvm_pkg(id=59742)
+  PA[6] lhs=uvm_revision           rhs=constant tsid=60885 ts=string_typespec INSTANCE=DEFPKG:uvm_pkg(id=59742)
+=== B. OURS def uvm_pkg, the same
+== listing DEFPKG id=146 cells=45
+  PA[0] lhs=UVM_HDL_MAX_WIDTH      rhs=constant tsid=152 ts=int_typespec INSTANCE=DEFPKG:uvm_pkg(id=146)
+  PA[1] lhs=uvm_mgc_copyright      rhs=constant tsid=158 ts=string_typespec INSTANCE=DEFPKG:uvm_pkg(id=146)
+  PA[2] lhs=uvm_cdn_copyright      rhs=constant tsid=164 ts=string_typespec INSTANCE=DEFPKG:uvm_pkg(id=146)
+  PA[3] lhs=uvm_snps_copyright     rhs=constant tsid=170 ts=string_typespec INSTANCE=DEFPKG:uvm_pkg(id=146)
+  PA[4] lhs=uvm_cy_copyright       rhs=constant tsid=176 ts=string_typespec INSTANCE=DEFPKG:uvm_pkg(id=146)
+  PA[5] lhs=uvm_nv_copyright       rhs=constant tsid=182 ts=string_typespec INSTANCE=DEFPKG:uvm_pkg(id=146)
+  PA[6] lhs=uvm_revision           rhs=constant tsid=188 ts=string_typespec INSTANCE=DEFPKG:uvm_pkg(id=146)
+
+=== C. so the crossing is DEEPER inside package-vs-package.  Residency proves a
+       DEF/ELAB crossing regardless of which back-pointer causes it: golden's
+       ref_obj 61413 lives ONLY in golden's DEF uvm_pkg, our constant 6275 lives
+       ONLY in our ELAB uvm_pkg and five adpcm_* class bodies (ct210inst --rhsof).
+
+=== D. EVERY typespec key where golden names the DEF package and we NEVER do,
+       joined on <kind>|<name>|<line:col> over the whole database, both sides
+       present.  This is the R0 population, measured rather than asserted.
+BOTH-SIDES keys where GOLDEN names DEFPKG:uvm_pkg and OURS never does: 17
+  HOT logic_typespec|uvm_pkg::uvm_integral_t|59:9    G={'DEFPKG:adpcm_pkg': 1, 'DEFPKG:uvm_pkg': 1, 'ELABPKG:uvm_pkg': 1}  O={'DEFPKG:adpcm_pkg': 3}
+  HOT unsupported_typespec|REQ|164:3                 G={'DEFPKG:uvm_pkg': 1, 'ELABPKG:uvm_pkg': 5}  O={'ELABPKG:uvm_pkg': 4}
+  HOT unsupported_typespec|REQ|206:42                G={'DEFPKG:uvm_pkg': 1, 'ELABPKG:uvm_pkg': 3}  O={'ELABPKG:uvm_pkg': 4}
+  HOT unsupported_typespec|REQ|207:3                 G={'DEFPKG:uvm_pkg': 1, 'ELABPKG:uvm_pkg': 5}  O={'ELABPKG:uvm_pkg': 4}
+  HOT unsupported_typespec|REQ|230:42                G={'DEFPKG:uvm_pkg': 1, 'ELABPKG:uvm_pkg': 3}  O={'ELABPKG:uvm_pkg': 4}
+  HOT unsupported_typespec|REQ|270:3                 G={'DEFPKG:uvm_pkg': 1, 'ELABPKG:uvm_pkg': 5}  O={'ELABPKG:uvm_pkg': 4}
+  HOT unsupported_typespec|REQ|278:3                 G={'DEFPKG:uvm_pkg': 1, 'ELABPKG:uvm_pkg': 5}  O={'ELABPKG:uvm_pkg': 4}
+  HOT unsupported_typespec|REQ|312:32                G={'DEFPKG:uvm_pkg': 1, 'ELABPKG:uvm_pkg': 3}  O={'ELABPKG:uvm_pkg': 4}
+  HOT unsupported_typespec|REQ|325:33                G={'DEFPKG:uvm_pkg': 1, 'ELABPKG:uvm_pkg': 3}  O={'ELABPKG:uvm_pkg': 4}
+  HOT unsupported_typespec|REQ|407:63                G={'DEFPKG:uvm_pkg': 1, 'ELABPKG:uvm_pkg': 3}  O={'ELABPKG:uvm_pkg': 4}
+  HOT unsupported_typespec|REQ|754:3                 G={'DEFPKG:uvm_pkg': 1, 'ELABPKG:uvm_pkg': 5}  O={'ELABPKG:uvm_pkg': 4}
+  HOT unsupported_typespec|RSP|277:40                G={'DEFPKG:uvm_pkg': 1, 'ELABPKG:uvm_pkg': 3}  O={'ELABPKG:uvm_pkg': 4}
+  HOT unsupported_typespec|RSP|304:26                G={'DEFPKG:uvm_pkg': 1, 'ELABPKG:uvm_pkg': 3}  O={'ELABPKG:uvm_pkg': 4}
+  HOT unsupported_typespec|RSP|310:55                G={'DEFPKG:uvm_pkg': 1, 'ELABPKG:uvm_pkg': 3}  O={'ELABPKG:uvm_pkg': 4}
+  HOT unsupported_typespec|RSP|341:48                G={'DEFPKG:uvm_pkg': 1, 'ELABPKG:uvm_pkg': 3}  O={'ELABPKG:uvm_pkg': 4}
+  HOT unsupported_typespec|RSP|351:3                 G={'DEFPKG:uvm_pkg': 1, 'ELABPKG:uvm_pkg': 5}  O={'ELABPKG:uvm_pkg': 4}
+  HOT unsupported_typespec|RSP|449:63                G={'DEFPKG:uvm_pkg': 1, 'ELABPKG:uvm_pkg': 3}  O={'ELABPKG:uvm_pkg': 4}
+-- of these, unsupported_typespec REQ/RSP: 16

@@ -1,0 +1,108 @@
+r10uvm210 — WHERE THE JUDGE ACTUALLY STOPS.  MEASUREMENT ONLY.
+LHS is ALWAYS golden.  The cmp log names the PAIR and never the ROUTE;
+these runs supply the route.
+
+=== A. the cell census: the OFFICIAL param_assign::Compare run on each
+       index of each package listing with a FRESH CompareContext.
+--- default  allpkg:uvm_pkg
+-- PARAM_ASSIGNS sizes L=45 R=45
+  PARAM_ASSIGNS[0] r=601  L type=2258 id=60743 @47:15-47:39  R type=2258 id=149 @47:15-47:39  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6275 @217:31-217:38
+  PARAM_ASSIGNS[1] r=601  L type=2258 id=60825 @26:18-26:82  R type=2258 id=155 @26:18-26:82  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6275 @217:31-217:38
+  PARAM_ASSIGNS[2] r=601  L type=2258 id=60838 @27:18-27:83  R type=2258 id=161 @27:18-27:83  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6275 @217:31-217:38
+  PARAM_ASSIGNS[3] r=601  L type=2258 id=60851 @28:18-28:69  R type=2258 id=167 @28:18-28:69  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6275 @217:31-217:38
+  PARAM_ASSIGNS[4] r=601  L type=2258 id=60864 @29:18-29:82  R type=2258 id=173 @29:18-29:82  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6275 @217:31-217:38
+  PARAM_ASSIGNS[5] r=601  L type=2258 id=60877 @30:18-30:73  R type=2258 id=179 @30:18-30:73  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6275 @217:31-217:38
+  PARAM_ASSIGNS[6] r=601  L type=2258 id=60890 @31:18-31:42  R type=2258 id=185 @31:18-31:42  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6275 @217:31-217:38
+-- PARAM_ASSIGNS DIFFERING 7 / 45
+--- default  toppkg:uvm_pkg
+-- PARAM_ASSIGNS sizes L=45 R=45
+  PARAM_ASSIGNS[0] r=601  L type=2258 id=1331 @47:15-47:39  R type=2258 id=6052 @47:15-47:39  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6275 @217:31-217:38
+  PARAM_ASSIGNS[1] r=601  L type=2258 id=1440 @26:18-26:82  R type=2258 id=6058 @26:18-26:82  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6275 @217:31-217:38
+  PARAM_ASSIGNS[2] r=601  L type=2258 id=1453 @27:18-27:83  R type=2258 id=6064 @27:18-27:83  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6275 @217:31-217:38
+  PARAM_ASSIGNS[3] r=601  L type=2258 id=1466 @28:18-28:69  R type=2258 id=6070 @28:18-28:69  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6275 @217:31-217:38
+  PARAM_ASSIGNS[4] r=601  L type=2258 id=1479 @29:18-29:82  R type=2258 id=6076 @29:18-29:82  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6275 @217:31-217:38
+  PARAM_ASSIGNS[5] r=601  L type=2258 id=1492 @30:18-30:73  R type=2258 id=6082 @30:18-30:73  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6275 @217:31-217:38
+  PARAM_ASSIGNS[6] r=601  L type=2258 id=1505 @31:18-31:42  R type=2258 id=6088 @31:18-31:42  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6275 @217:31-217:38
+-- PARAM_ASSIGNS DIFFERING 7 / 45
+--- default  allpkg:adpcm_pkg
+-- PARAM_ASSIGNS sizes L=45 R=45
+  PARAM_ASSIGNS[0] r=14  L type=2258 id=183515 @47:15-47:39  R type=2258 id=3060 @47:15-47:39  FAILL type=2146 id=60048 @324:1-327:12  FAILR type=2146 id=96588 @324:1-327:12
+  PARAM_ASSIGNS[1] r=14  L type=2258 id=183522 @26:18-26:82  R type=2258 id=3066 @26:18-26:82  FAILL type=2146 id=60048 @324:1-327:12  FAILR type=2146 id=96588 @324:1-327:12
+  PARAM_ASSIGNS[2] r=14  L type=2258 id=183529 @27:18-27:83  R type=2258 id=3072 @27:18-27:83  FAILL type=2146 id=60048 @324:1-327:12  FAILR type=2146 id=96588 @324:1-327:12
+  PARAM_ASSIGNS[3] r=14  L type=2258 id=183536 @28:18-28:69  R type=2258 id=3078 @28:18-28:69  FAILL type=2146 id=60048 @324:1-327:12  FAILR type=2146 id=96588 @324:1-327:12
+  PARAM_ASSIGNS[4] r=14  L type=2258 id=183543 @29:18-29:82  R type=2258 id=3084 @29:18-29:82  FAILL type=2146 id=60048 @324:1-327:12  FAILR type=2146 id=96588 @324:1-327:12
+  PARAM_ASSIGNS[5] r=14  L type=2258 id=183550 @30:18-30:73  R type=2258 id=3090 @30:18-30:73  FAILL type=2146 id=60048 @324:1-327:12  FAILR type=2146 id=96588 @324:1-327:12
+  PARAM_ASSIGNS[6] r=14  L type=2258 id=183557 @31:18-31:42  R type=2258 id=3096 @31:18-31:42  FAILL type=2146 id=60048 @324:1-327:12  FAILR type=2146 id=96588 @324:1-327:12
+-- PARAM_ASSIGNS DIFFERING 7 / 45
+--- default  toppkg:adpcm_pkg
+-- PARAM_ASSIGNS sizes L=45 R=45
+  PARAM_ASSIGNS[0] r=601  L type=2258 id=119388 @47:15-47:39  R type=2258 id=181477 @47:15-47:39  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6275 @217:31-217:38
+  PARAM_ASSIGNS[1] r=601  L type=2258 id=119395 @26:18-26:82  R type=2258 id=181483 @26:18-26:82  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6275 @217:31-217:38
+  PARAM_ASSIGNS[2] r=601  L type=2258 id=119402 @27:18-27:83  R type=2258 id=181489 @27:18-27:83  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6275 @217:31-217:38
+  PARAM_ASSIGNS[3] r=601  L type=2258 id=119409 @28:18-28:69  R type=2258 id=181495 @28:18-28:69  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6275 @217:31-217:38
+  PARAM_ASSIGNS[4] r=601  L type=2258 id=119416 @29:18-29:82  R type=2258 id=181501 @29:18-29:82  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6275 @217:31-217:38
+  PARAM_ASSIGNS[5] r=601  L type=2258 id=119423 @30:18-30:73  R type=2258 id=181507 @30:18-30:73  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6275 @217:31-217:38
+  PARAM_ASSIGNS[6] r=601  L type=2258 id=119430 @31:18-31:42  R type=2258 id=181513 @31:18-31:42  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6275 @217:31-217:38
+-- PARAM_ASSIGNS DIFFERING 7 / 45
+
+=== B. the same on testflags
+--- testflags allpkg:uvm_pkg
+-- PARAM_ASSIGNS sizes L=45 R=45
+  PARAM_ASSIGNS[0] r=601  L type=2258 id=60743 @47:15-47:39  R type=2258 id=161 @47:15-47:39  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6287 @217:31-217:38
+  PARAM_ASSIGNS[1] r=601  L type=2258 id=60825 @26:18-26:82  R type=2258 id=167 @26:18-26:82  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6287 @217:31-217:38
+  PARAM_ASSIGNS[2] r=601  L type=2258 id=60838 @27:18-27:83  R type=2258 id=173 @27:18-27:83  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6287 @217:31-217:38
+  PARAM_ASSIGNS[3] r=601  L type=2258 id=60851 @28:18-28:69  R type=2258 id=179 @28:18-28:69  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6287 @217:31-217:38
+  PARAM_ASSIGNS[4] r=601  L type=2258 id=60864 @29:18-29:82  R type=2258 id=185 @29:18-29:82  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6287 @217:31-217:38
+  PARAM_ASSIGNS[5] r=601  L type=2258 id=60877 @30:18-30:73  R type=2258 id=191 @30:18-30:73  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6287 @217:31-217:38
+  PARAM_ASSIGNS[6] r=601  L type=2258 id=60890 @31:18-31:42  R type=2258 id=197 @31:18-31:42  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6287 @217:31-217:38
+-- PARAM_ASSIGNS DIFFERING 7 / 45
+--- testflags toppkg:uvm_pkg
+-- PARAM_ASSIGNS sizes L=45 R=45
+  PARAM_ASSIGNS[0] r=601  L type=2258 id=1331 @47:15-47:39  R type=2258 id=6064 @47:15-47:39  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6287 @217:31-217:38
+  PARAM_ASSIGNS[1] r=601  L type=2258 id=1440 @26:18-26:82  R type=2258 id=6070 @26:18-26:82  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6287 @217:31-217:38
+  PARAM_ASSIGNS[2] r=601  L type=2258 id=1453 @27:18-27:83  R type=2258 id=6076 @27:18-27:83  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6287 @217:31-217:38
+  PARAM_ASSIGNS[3] r=601  L type=2258 id=1466 @28:18-28:69  R type=2258 id=6082 @28:18-28:69  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6287 @217:31-217:38
+  PARAM_ASSIGNS[4] r=601  L type=2258 id=1479 @29:18-29:82  R type=2258 id=6088 @29:18-29:82  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6287 @217:31-217:38
+  PARAM_ASSIGNS[5] r=601  L type=2258 id=1492 @30:18-30:73  R type=2258 id=6094 @30:18-30:73  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6287 @217:31-217:38
+  PARAM_ASSIGNS[6] r=601  L type=2258 id=1505 @31:18-31:42  R type=2258 id=6100 @31:18-31:42  FAILL type=2302 id=61413 @217:31-217:38  FAILR type=2071 id=6287 @217:31-217:38
+-- PARAM_ASSIGNS DIFFERING 7 / 45
+
+=== C. WHY those 7 and no others: they are EXACTLY the cells whose Rhs
+       constant carries a ref_typespec -> <atom>_typespec with a non-null
+       Instance, i.e. the cells that RECURSE back into the package.
+--- GOLDEN def uvm_pkg
+-- PA-INST scope=package 'uvm_pkg' id=59742 @28:1 cells=45 WITH-INSTANCE=7
+--- OURS   def uvm_pkg
+-- PA-INST scope=package 'uvm_pkg' id=146 @28:1 cells=45 WITH-INSTANCE=7
+
+=== D. the head pair's own listings.  GOLDEN's ref_obj lives in ONE listing;
+       OUR constant is SHARED by SIX.
+--- GOLDEN rhsof 61413
+HIT owner=package 'uvm_pkg' id=59742 @28:1 view=ALLPKG:uvm_pkg PA[35]/45 paid=61409 lhs='UVM_SETINT' rhs=ref_obj rhsid=61413
+--- OURS   rhsof 6275
+HIT owner=class_defn 'adpcm_driver' id=184076 @77:1 view=-:adpcm_driver PA[35]/45 paid=298774 lhs='UVM_SETINT' rhs=constant rhsid=6275
+HIT owner=class_defn 'adpcm_seq_item' id=184222 @18:1 view=-:adpcm_seq_item PA[35]/45 paid=298517 lhs='UVM_SETINT' rhs=constant rhsid=6275
+HIT owner=class_defn 'adpcm_sequencer' id=184509 @122:1 view=-:adpcm_sequencer PA[35]/45 paid=299031 lhs='UVM_SETINT' rhs=constant rhsid=6275
+HIT owner=class_defn 'adpcm_test' id=184550 @172:1 view=-:adpcm_test PA[35]/45 paid=299545 lhs='UVM_SETINT' rhs=constant rhsid=6275
+HIT owner=class_defn 'adpcm_tx_seq' id=184652 @137:1 view=-:adpcm_tx_seq PA[35]/45 paid=299288 lhs='UVM_SETINT' rhs=constant rhsid=6275
+HIT owner=package 'uvm_pkg' id=6049 @28:1 view=TOPPKG:uvm_pkg PA[35]/45 paid=6274 lhs='UVM_SETINT' rhs=constant rhsid=6275
+
+=== E. the crossing object.  GOLDEN carries a DEF-view unsupported_typespec
+       whose Instance is the DEF package; every one of ours names the
+       ELABORATED package.
+--- GOLDEN unsupported_typespec REQ@164:3
+TSI unsupported_typespec|REQ|164:3 -> TOPPKG:uvm_pkg
+TSI unsupported_typespec|REQ|164:3 -> ALLPKG:uvm_pkg
+TSI unsupported_typespec|REQ|164:3 -> TOPPKG:uvm_pkg
+TSI unsupported_typespec|REQ|164:3 -> TOPPKG:uvm_pkg
+TSI unsupported_typespec|REQ|164:3 -> TOPPKG:uvm_pkg
+TSI unsupported_typespec|REQ|164:3 -> TOPPKG:uvm_pkg
+--- OURS   unsupported_typespec REQ@164:3
+TSI unsupported_typespec|REQ|164:3 -> TOPPKG:uvm_pkg
+TSI unsupported_typespec|REQ|164:3 -> TOPPKG:uvm_pkg
+TSI unsupported_typespec|REQ|164:3 -> TOPPKG:uvm_pkg
+TSI unsupported_typespec|REQ|164:3 -> TOPPKG:uvm_pkg
+--- who references GOLDEN's def-view copy
+REFTS id=85674 full='uvm_pkg::uvm_sequencer::stop_sequences::t'
+   parent ref_var 't' id=85673 @164:7
+   grandp begin '' id=85671 @165:3
