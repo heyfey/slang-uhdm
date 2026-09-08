@@ -1,0 +1,26 @@
+r10v223 — FOREIGN MOVED BOUNDARY ARMS, re-scored against golden
+verdict column NEWLY-MISSING = a golden cell the PRISTINE run matched and the new run does not
+
+ARM                                            PRIS m/e     PAT m/e      CURED    NEWMISS
+r10buvm34repro/g34a3.sv                        3/10         2/10         1        0
+r10uvm217repro/grid217/g217_d_importer.sv      6/0          3/0          3        0
+r10uvm88repro/v88_b3_scopes.sv                 6/0          0/0          6        0
+r10v144repro/v144_b_ctor.sv                    3/0          0/0          3        0
+r10v209repro/arms/v209_p_ifprog.sv             10/0         5/0          5        0
+r10v214repro/arms214/va5_modctx.sv             3/1          2/1          1        0
+r10vbuvm19repro/vg19k.sv                       9/0          6/0          3        0
+r10vbuvm27repro/v27_a_homes.sv                 10/0         8/0          2        0
+r10vbuvm33repro/v33c.sv                        5/4          4/4          1        0
+r10vearl100repro/v3_gen100.sv                  7/5          6/5          1        0
+
+-- surelog rc per foreign arm (rc 4 = no usable golden, printed loudly)
+ARM r10buvm34repro/g34a3.sv surelog_rc=4 slang_pris_rc=0 slang_pat_rc=0 golden=2752
+ARM r10uvm217repro/grid217/g217_d_importer.sv surelog_rc=0 slang_pris_rc=0 slang_pat_rc=0 golden=817
+ARM r10uvm88repro/v88_b3_scopes.sv surelog_rc=0 slang_pris_rc=0 slang_pat_rc=0 golden=2576
+ARM r10v144repro/v144_b_ctor.sv surelog_rc=4 slang_pris_rc=4 slang_pat_rc=4 golden=6882
+ARM r10v209repro/arms/v209_p_ifprog.sv surelog_rc=0 slang_pris_rc=0 slang_pat_rc=0 golden=1165
+ARM r10v214repro/arms214/va5_modctx.sv surelog_rc=0 slang_pris_rc=0 slang_pat_rc=0 golden=1707
+ARM r10vbuvm19repro/vg19k.sv surelog_rc=0 slang_pris_rc=0 slang_pat_rc=0 golden=2821
+ARM r10vbuvm27repro/v27_a_homes.sv surelog_rc=4 slang_pris_rc=0 slang_pat_rc=0 golden=4420
+ARM r10vbuvm33repro/v33c.sv surelog_rc=0 slang_pris_rc=0 slang_pat_rc=0 golden=2044
+ARM r10vearl100repro/v3_gen100.sv surelog_rc=0 slang_pris_rc=0 slang_pat_rc=0 golden=2739

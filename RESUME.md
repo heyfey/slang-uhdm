@@ -173,7 +173,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-09-08, HEAD = the uvm222 landing — MiniAmiq 1388494, the last workable row) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-09-08, HEAD = the uvm223 landing — MiniAmiq 17, the last workable row) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 473/481 comparable
 equal (8 NE), testflags 468/475 (7 NE); uhdm2rtlil 679/679 both modes. The
@@ -183,7 +183,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 | row-mode(s) | head (official cmp lines = head-object DEPTH, not distance) | family / next law |
 |---|---|---|
 | SeqDriver×2 | CMP_EQUAL ×2 (CONVERTED at uvm219 — the WHOLE TEST CLOSED) | CLOSED — § hoistedThisRidesTheForwardedBlock219: the implicit this wire is a FORWARDED late-binding mint and lands span-sorted inside the forwarded block, never after the module's own wires (the import splices the package's late-binding list during the item pass); the SeqDriver ladder ran the clone-import chain, the view crossings, the interface family and the order law; R0 recorded: the implicit block is still golden's multiset in a different order, masked by the visited-set short circuit — the family's next face should the mask ever lift |
-| MiniAmiq×2 | 1388494 (ONE head both modes — the interface instance itself, a deeper object) | the NET LIST of the uninstantiated interface: golden holds 71 nets + 5 array nets + 1 process minted by Surelog's lateBinding implicit-net fallback for wildcard-imported names (the producer family uvm221's R3 named from the other side); ours holds the 5 declared variables only; Array_nets() then Process() are next in Compare order — open (uvm222 landed: 152→1388494, § ifaceOwnCallCalleeFormRoutes222 — a call's kind keys on the CALLEE's own form, never its arguments': the arm's last-dot scan now cuts at the argument-list paren; seven sites re-kinded, uvm218's R1 closed; verifier ACCEPT WITH FIX — the first-paren cut swallowed a subscripted receiver's dot, a latent pristine-right→patched-wrong on legal SV, fixed in the same arm) |
+| MiniAmiq×2 | 17 (ONE head both modes — PRE-EXISTING on both binaries, unmasked) | three of our interface nets (sva_info/cover_info/property_info, all dynamic arrays) carry a ref_typespec golden's do not — tied to the Array_nets successor (golden lists 5 array nets + 1 process for the interface definition where we list zero; Surelog's writer arm fires for ANY unpacked dimension on the interface road only, wider than the imported story: uvm223's R1, needs its own grid + a-priori census) — open (uvm223 landed: 1388494→17, § wildcardImportCopiesPkgVarsToDefNets223 — the package import copies the imported signals into the importing scope without asking the holder's kind, so an interface definition lists the materialized imported data exactly as a module does, one copy per import, never de-duplicated; the module road's hoist moved verbatim into a shared helper; the lateBinding attribution REFUTED from source; verifier ACCEPT WITH FIX — the interface road must LIST but never BIND: the shared registration bound one reference judge-visibly, fixed by keying bindRefs on the road) |
 | SimpleUVM×2 | CMP_EQUAL ×2 (CONVERTED at uvm209 — the WHOLE TEST CLOSED) | CLOSED — § hoistedLocalKeepsItsLifetime209: the automatic flag follows the source declaration's lifetime (Surelog's package collector does not stop at a class CONSTRUCTOR declaration — the hoist's mechanism; golden's module copy is the package listing value for value); the SimpleUVM ladder ran the depth artifact, the materialized-parameter family, the implicit-nets family, the design listing and the lifetime bit |
 | BuildUVMPkg×2 | CMP_EQUAL (CONVERTED, uvm194 — the block's FIRST row conversion; the two baseline rows promoted in the landing commit) | CLOSED — § homeRetNameSelBindSurvivesDefViewUnbind194: a home return-name select binding survives the definition-view unbind (one gated exemption clause in the drain; the clone fence from an arm); the family's whole ladder ran uvm170→194 |
 | Scoreboard/default | CMP_EQUAL (CONVERTED at uvm212 — the comparable half of the test CLOSED; testflags is a slang reject outside the comparable set) | CLOSED — § classTdCloneTakesTheBasesEmptyListing212: a clone class typedef takes the base's EMPTY specialization listing (the vector verdict wore a singular face; library and macros decide nothing — clone-hood and the base's listing are the only variables; golden has zero clone-vs-base mismatches everywhere, ours had exactly one corpus-wide) |
@@ -193,7 +193,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 129 verifier fix-before-landing re-cuts (308 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 130 verifier fix-before-landing re-cuts (309 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

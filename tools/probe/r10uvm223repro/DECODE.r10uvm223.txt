@@ -1,0 +1,170 @@
+§ wildcardImportCopiesPkgVarsToDefNets223 — THE DECODE
+======================================================
+
+1. THE HEAD, RE-MEASURED ON THIS PASS'S OWN PRISTINE BUILD FIRST
+---------------------------------------------------------------
+
+pristine binary md5 127920b3fce552846e1e8f8ac595c0b8, byte-identical to the
+main-tree build at 8eebf86e.
+
+    rowheads.sh:  MiniAmiq default    1388494 cmp lines / 1 head
+                  MiniAmiq testflags  1388494 cmp lines / 1 head
+    the two logs byte-identical.
+
+That is uvm222's R0 reproduced exactly.  Head object:
+
+    LHS:
+    interface_inst: work@svaunit_vpi_interface (work@svaunit_vpi_interface),
+      file:.../svaunit/sv/svaunit_vpi_interface.sv, line:25:1, endln:647:13
+
+`instance::Compare` (~/git-repos/UHDM/build/generated/src/instance.cpp:335-337)
+reads Task_funcs() and then Nets(); the whole Task_funcs vector returns 0 and
+the walk stops on a Nets() VECTOR SIZE mismatch, which names the OWNER
+(BaseClass.h's VECTOR overload).  The 1 388 494 lines are that owner's
+decompile, not a distance.
+
+2. THE CELL CENSUS, BOTH SIDES (the head's own three vectors)
+------------------------------------------------------------
+
+           golden   ours
+ vpiNet       71      5
+ vpiArrayNet   5      0
+ vpiProcess    1      0
+
+OURS' FIVE are the interface's own declared variables, and they match golden's
+LAST FIVE by name AND span exactly:
+
+  test_name 81:11-81:20 | eots_flag 84:8-84:17 | sva_info 87:38-87:46
+  cover_info 90:38-90:48 | property_info 93:38-93:51
+
+GOLDEN'S EXTRA SIXTY-SIX are THIRTY-THREE entries listed TWICE, ahead of the
+interface's own five, each carrying a uvm-1.2 source location:
+
+  uvm_start_uvm_declarations 26:5 | uvm_aa_string_key 223:8 |
+  uvm_default_table_printer 610:19 | uvm_default_tree_printer 618:18 |
+  uvm_default_line_printer 626:18 | uvm_default_printer 637:13 |
+  uvm_default_packer 645:12 | uvm_default_comparer 654:14 |
+  uvm_global_random_seed 313:14 | uvm_random_seed_table_lookup 328:14 |
+  uvm_resources 1694:25 | clp 801:27 | val 802:12 | build_ph 46:11 |
+  connect_ph 47:11 | end_of_elaboration_ph 48:11 |
+  start_of_simulation_ph 49:11 | run_ph 50:11 | extract_ph 51:11 |
+  check_ph 52:11 | report_ph 53:11 | uvm_top 315:16 | error_str 1729:10 |
+  top 1730:12 | cs 1731:21 | bld 1746:15 | common 1747:16 |
+  uvm_test_done 56:31 | uvm_cmdline_proc 458:29 |
+  UVM_UNBOUNDED_CONNECTIONS 22:11 | s_connection_error_id 23:14 |
+  s_connection_warning_id 24:14 | s_spaces 25:14
+
+That is `uvm_pkg`'s OWN VARIABLE LISTING — the same 33 entries the module road
+already hoists — and it is listed twice because `svaunit_vpi_interface.sv:26-27`
+writes
+
+    import svaunit_pkg::*;
+    import uvm_pkg::*;
+
+and `svaunit_pkg` itself wildcard-imports `uvm_pkg`, so its signal vector
+ALREADY holds those 33 by the time the interface imports it.
+
+THE CELL IS NOT A LATE-BOUND IMPLICIT NET.  uvm222's R0 guessed
+`lateBinding`'s implicit-net fallback; the measurement refutes it.  Every one
+of the 66 carries the DECLARATION's own span in the uvm-1.2 source (a
+`bit_typespec` at 26:1-26:35 for `uvm_start_uvm_declarations`, a
+`string_typespec` at 223:1-223:7 for `uvm_aa_string_key`, …), and
+`UhdmWriter::writeInterface` NEVER CALLS `lateBinding` at all (see §3).
+
+3. THE PRODUCER, DECODED FROM SURELOG SOURCE
+--------------------------------------------
+
+`CompileHelper::importPackage`, src/DesignCompile/CompileHelper.cpp:127-197.
+Its Nets arm, :183-190:
+
+    auto& netSet = def->getSignals();
+    for (auto& net : netSet) {
+      if (!object_name.empty()) { if (net->getName() != object_name) continue; }
+      scope->getSignals().push_back(net);
+    }
+
+  * `scope` is the IMPORTING `DesignComponent`.  The function asks NOTHING
+    about the holder's kind.
+  * `object_name` is empty for a WILDCARD import and is the named symbol for an
+    EXPLICIT `import p::name` — which is why an explicit import materialises
+    exactly one entry (grid arm a2).
+  * it PUSHES INTO A VECTOR, so the entries ACCUMULATE and are never
+    de-duplicated: a package that imports a package carries the inner
+    package's entries onward (arm a6), and importing both ends of the chain
+    lists the inner one TWICE (arm a5) — which is exactly the corpus shape.
+
+WHO CALLS IT FOR AN INTERFACE.  An interface is a `ModuleDefinition` in
+Surelog and goes through `CompileModule`.  `collectModuleObjects_` runs the
+`paPackage_import_item` arm at src/DesignCompile/CompileModule.cpp:600-604
+(and again at :1086-1090 for the second collection road), and BEFORE the walk
+it runs the FILE-scope pre-pass at :570-580 / :1060-1070, which imports every
+`paPackage_import_item` the FileContent carries.  That second road is the
+compilation-unit import, and it is why a file-level `import p::*` materialises
+the listing TWICE while a body-level one materialises it once (arm a8; the
+multiplicities are § collectMaterializedPkgs' own measured rule).
+
+WHO WRITES IT OUT.  `UhdmWriter::writeInterface`
+(src/DesignCompile/UhdmWriter.cpp:1626-1790):
+
+    std::vector<Signal*> orig_nets = mod->getSignals();          // :1679
+    writeNets(mod, orig_nets, m, dest_nets, s, signalBaseMap,
+              netMap, portMap, instance);
+    m->Nets(dest_nets);
+
+`writeModule` does the same at :1457-1461 with the same `writeNets`.  ONE
+producer, one writer, two holders.
+
+THE TRILOGY'S FACT CONFIRMED IN THE SOURCE: `writeInterface` never calls
+`lateBinding` — the only two calls in a module's writer are `writeModule`'s own
+(:1572 and :1622), and `writeInterface`'s body contains none.  So the interface
+DEFINITION's net list is settled entirely at COMPILE time, by the import copy.
+
+4. THE NON-MINTS (what the same producer does NOT do)
+-----------------------------------------------------
+
+ * An interface that imports NOTHING gets NOTHING (arm a12 — golden's
+   `work@if223o` lists only its own two signals; the holder golden leaves
+   empty must stay empty).
+ * A CLASS-scope import copies into a `ClassDefinition`, not into any net list
+   — and slang refuses the construct outright (arm a7b, rc 3, no database),
+   so it cannot reach this emitter on any input.
+ * `writeNets`' array_net arm (UhdmWriter.cpp:894-940) is gated
+   `instance == nullptr && parent->UhdmType() == uhdminterface_inst` and fires
+   for a signal with an UNPACKED DIMENSION — which is why golden gives an
+   interface definition array_nets for its unpacked signals (own AND imported)
+   and gives a MODULE definition none (arm a9: `work@if223l` 4 array_nets,
+   `work@m223l` zero).  That is a SEPARATE law and this pass does not touch it
+   (residue R1).
+
+5. WHERE OUR INTERFACE-DEFINITION NET LIST IS EMITTED, AND THE GATED MINT
+------------------------------------------------------------------------
+
+`UhdmExporter::emitInterfaceDef` (src/ModuleEmit.cpp), the ONE site called from
+`exportDesign`'s def loop (src/UhdmExporter.cpp:6470).  Its net list was built
+from `collectNetOrder(body)` alone — the interface's own members — while
+`emitModuleDef` (src/ModuleEmit.cpp) opened its net list with the MATERIALIZED
+imported-package hoist, § collectImportedPkgVars / § collectMaterializedPkgs
+(src/EmitHelpers.h:2204 and :2346), the listing decoded and measured by passes
+r10apb2/apb3, r10uvm203 and r10uvm217.  A `program` def takes the module road
+and already had it (arm a7_prog, pristine EXACT).
+
+THE PRODUCTION CHANGE, one conjunct: the module road's hoist loop is moved
+verbatim into `UhdmExporter::emitImportedPkgVarNets` and `emitInterfaceDef`
+calls it, first, on the fresh `nets` vector.  No new listing, no new order
+rule, no new flag — the interface asks the module road's own question.
+
+    emitImportedPkgVarNets(body, iface, prefix, info, nets);
+
+6. WHY THE GROUP GOES FIRST
+---------------------------
+
+Measured, not assumed.  Golden's `work@if223m` (arm a10, an interface with
+ports AND a wildcard import) reads
+
+    mv_p223, mv_q223,        <- imported
+    clk223, rdy223,          <- ports
+    w223, own223m            <- body
+
+so the imported group precedes even the PORT nets, which is what placing the
+call ahead of `collectNetOrder` produces.  The patched arm reproduces that
+sequence exactly.

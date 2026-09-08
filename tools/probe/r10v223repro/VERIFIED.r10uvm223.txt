@@ -1,0 +1,123 @@
+r10v223 — ADVERSARIAL VERIFICATION OF r10uvm223, EVERY GATE RE-RUN
+==================================================================
+base 8eebf86e; worktrees /tmp/wt_v223 (patched+fix), /tmp/wt_v223pris (pristine)
+
+0. BINARIES (built here, -j 2, md5 separately)
+   pristine  127920b3fce552846e1e8f8ac595c0b8   == main-tree build/slang-uhdm at 8eebf86e
+   patched   042d957f9f100891fc1ac25c6b3a3d5f   == the implementer's md5
+   fixed     3a8d774326e1c5523f420e7d50fc41cc   == patched + § interfaceDefViewNeverLateBinds223v
+   patch md5 572b94f05e6d3ed81a177fb2f1f3de0d (applies clean on a fresh 8eebf86e)
+   fence check on the patch: each of the four slang-fenced names (the FENCED= list
+     that canaudit.sh carries) appears in ZERO diff hunks -> 0 0 0 0
+
+1. GOLDENS
+   patched  23 PASS / 0 FAIL      negative control (SLANG_UHDM=/bin/false)  0 PASS / 23 FAIL
+   fixed    23 PASS / 0 FAIL      negative control                          0 PASS / 23 FAIL
+
+2. CMDS.TXT AUDIT BY BINARY PATH (every file, both corpora, all sweeps)
+   pu2r 1462 cmds files, 1458 slang lines, 100% /tmp/v223_bin/pris.bin
+   tu2r 1462 / 1458  100% /tmp/v223_bin/pat.bin
+   fu2r 1462 / 1458  100% /tmp/v223_bin/fix.bin
+   psl  1573 / 1523  100% /tmp/v223_bin/pris.bin
+   tsl  1573 / 1523  100% /tmp/v223_bin/pat.bin
+   ZERO references to the main-tree binary in any sweep.
+
+3. uhdm2rtlil (both modes)
+   pristine 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL   (both modes)
+   patched  679 / 50 / 2   fixed 679 / 50 / 2                  (both modes)
+   ct8rows patched vs committed results/gate_uhdm2rtlil.csv      PASS (0 differing rows)
+   ct8rows patched vs own pristine, testflags and default        PASS / PASS
+   ct8rows fixed   vs committed baseline                          PASS (0 differing rows)
+   ct8rows fixed   vs own pristine, testflags and default         PASS / PASS
+   SELFCHECK=1 byteverify patched vs pristine   MOVERS 0 / 1358, selfcheck 1357/1358
+   SELFCHECK=1 byteverify fixed   vs pristine   MOVERS 0 / 1358, selfcheck 1357/1358
+
+4. surelog (both modes)
+   pristine default 476 CMP_EQUAL + 5 CMP_NOTEQUAL; testflags 470 + 5
+   patched  default 476 + 5;  testflags 470 + 5
+   ct8rows patched vs own pristine   PASS (0 differing rows)
+   SELFCHECK=1 byteverify patched vs pristine  MOVERS 3 / 956, selfcheck 955/956
+     MOVER default/MiniAmiq    <- PREDICTED (the law)
+     MOVER testflags/MiniAmiq  <- PREDICTED (the law)
+     MOVER default/Scoreboard  <- THE COIN: same line count (1100422), path-normalised
+                                  ORDER-BLIND diff = 0 lines (RESUME 9's vpiTaskFunc flip)
+   MiniAmiq attribution, order-blind whole-dump pristine vs patched: +1070 / -0
+   MiniAmiq census vs golden: MISSING 260520 -> 259524 (-996); EXTRA 96647 -> 96721 (+74)
+     no EXTRA line disappeared; the 74 are typespec identity/span headers, 4 |vpiName:
+     and 2 class_defn back-references (no generated Compare reads a span)
+
+5. HEADS (rowheads.sh, official uhdm-cmp, one head asserted by grep -c '^LHS:')
+   row              pristine              patched
+   MiniAmiq/def     1388494 / 1 head      17 / 1 head
+   MiniAmiq/tf      1388494 / 1 head      17 / 1 head
+   SeqDriver x2, SimpleUVM x2, Scoreboard/def, BuildUVMPkg x2, Earlgrey x2, Rggen/def:
+                    0 / rc 0              0 / rc 0
+   (Scoreboard/tf and Rggen/tf SKIP-NOFILE, expected)
+   THE TEN PROTECTED CMP_EQUAL ROW-MODES: rc 0 on BOTH binaries, both columns.
+   Head object measured directly on the three dumps:
+     work@svaunit_vpi_interface DEF view   vpiNet / vpiArrayNet / vpiProcess
+       GOLDEN 71 / 5 / 1     PRISTINE 5 / 0 / 0     PATCHED 71 / 0 / 0
+     the 71 nets are ORDERED-EQUAL to golden's, 71 of 71 (kind+name+span).
+   The new head is PRE-EXISTING: pristine and patched both carry the identical five
+   work@svaunit_vpi_interface.sva_info ref_typespec lines; golden's sva_info has none.
+   MiniAmiq |vpiActual: count 94019 -> 94085 = +66 = one ref_typespec actual per new
+   net; NO ref_obj acquired an actual in that database.
+
+6. PINS AND CANARIES
+   InterfaceModPort   59a365f3ce2c both modes, all binaries  (INSTANTIATED-INTERFACE
+                      test; its two interfaces contain no `import` at all -- measured)
+   BlackParrotComplex 73a10e8217e5 (tf) / e3e354129d5a (def)  unchanged
+   YosysOldOr         d68e0796d62c unchanged
+   SVSwitch           4842211c4030  PIN HELD
+   YosysVerx          6ccda350c24a  PIN HELD
+   canaries.sh u2r      ok=8  changed=0
+   canaries.sh surelog  ok=51 changed=1  -> Earlgrey_0_1/testflags CMP_EQUAL/differ ->
+                        CMP_EQUAL/  : the dump column only, and it REPRODUCES ON THE
+                        PRISTINE BINARY ALONE (--filter Earlgrey_0_1 --jobs 1, idle
+                        machine).  verify_golden.py records '' when uhdm-dump exceeds
+                        its 180 s timeout and uhdm-dump on that 95 MB database takes
+                        250 s wall here.  NOT the patch.  results/*.csv NOT touched.
+   EXPECT_UNKNOWN=1 ctcan2 surelog PASS;  EXPECT_UNKNOWN=6 ctcan2 u2r PASS
+   canaudit.sh canaries.sh ctcan2.sh (in r10uvm223repro) audited=29 UNCOVERED=0
+                        FENCE-BREACH=0; the four fenced names appear in no driver, and
+                        in no file of r10v223repro either.
+
+7. NO CONVERSION.  MiniAmiq stays CMP_NOTEQUAL in both modes (17 lines on a new head).
+   The ladder has NOT bottomed out.  results/*.csv untouched.
+
+8. THE FIXED BINARY — EVERY GATE RE-RUN (§ interfaceDefViewNeverLateBinds223v)
+   goldens 23/0, negative control 0/23
+   uhdm2rtlil 679/50/2 both modes; ct8rows vs committed baseline PASS; vs own
+     pristine PASS (testflags) / PASS (default); byteverify 0 / 1358 (selfcheck 1357)
+   surelog default 476+5, testflags 470+5
+     byteverify fixed vs pristine: MOVERS 3 / 956 — the SAME three, with the SAME
+       md5s as the patched sweep (MiniAmiq 934c80ba2466 x2, Scoreboard 89c1b4e51d8e):
+       the fixed and patched MiniAmiq databases are BYTE-IDENTICAL, so the fix
+       changes nothing in either corpus.
+     ct8rows fixed vs own pristine: 1 row, Earlgrey_0_1/DEFAULT this time —
+       CMP_EQUAL/differ -> CMP_EQUAL/ — and byteverify proves the Earlgrey databases
+       are BYTE-IDENTICAL between the two sweeps, so identical databases cannot dump
+       differently: it is the 180 s uhdm-dump timeout again (the row it lands on
+       varies with machine load; the pristine sweep hit testflags, the fixed sweep
+       default).  Not the patch, not the fix.
+   heads fixed: MiniAmiq 17 / ONE head both modes, the log BYTE-IDENTICAL to the
+     patched binary's; every other protected row 0 / rc 0.
+   canaries u2r ok=8 changed=0; surelog ok=50 changed=2 = the two Earlgrey dump-column
+     cells above; ctcan2 PASS x2.
+   wide boundary pristine vs fixed: LISTED = PROCESSED = 5578, RC_DIFFS = 0,
+     MOVED_ARMS = 76 (38 files) — the patched set plus this verifier's five later
+     arms, and NOTHING that moved under the patch stopped moving.
+   patched vs fixed, measured IN PLACE on identical paths for all ten FOREIGN moved
+     arms: every dump IDENTICAL apart from uhdm-dump's own banner line.  The fix's
+     entire footprint over 5578 probe files and 2314 corpus row-databases is the two
+     lines of over-binding in this verifier's own v15 / v18 / v19 / v20 arms.
+
+9. THE FINDING, IN ONE TABLE (arms/v19_uninst_refactual, one real Surelog golden)
+   cell: the cont-assign reference to the wildcard-imported name `lv19`
+     holder                     golden            pristine   patched          fixed
+     module    work@m_v19       bound (own net)   bound      bound            bound
+     interface work@if_v19      NO vpiActual      none  OK   BOUND  WRONG     none  OK
+   ref_obj::Compare reads Actual_group, so the cell is judge-visible.
+   Decode: UhdmWriter::writeModule calls lateBinding at :1575 and :1623;
+   UhdmWriter::writeInterface (:1626-1794) never calls it.  The LISTING rides on
+   both roads (the pass's law, correct); the BINDING rides only on the module's.

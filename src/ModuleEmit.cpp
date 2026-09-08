@@ -638,6 +638,134 @@ bool UhdmExporter::isLibraryCell(const DefinitionSymbol& def) {
     return def.syntaxTree && def.syntaxTree->isLibraryUnit;
 }
 
+// § wildcardImportCopiesPkgVarsToDefNets223 — THE MATERIALIZED IMPORTED-PACKAGE
+// DATA HOIST, one producer for every DEFINITION-view holder.
+//
+// THE SURELOG DECODE.  `CompileHelper::importPackage`
+// (src/DesignCompile/CompileHelper.cpp:127) copies the imported package's own
+// registries into the IMPORTING SCOPE's registries, and its Nets arm
+// (:183-190) is
+//
+//     auto& netSet = def->getSignals();
+//     for (auto& net : netSet) scope->getSignals().push_back(net);
+//
+// `scope` is the importing `DesignComponent`.  An INTERFACE is a
+// `ModuleDefinition` in Surelog exactly as a module is, and
+// `CompileModule::collectModuleObjects_` runs the same
+// `paPackage_import_item` arm (src/DesignCompile/CompileModule.cpp:600-604,
+// plus the FILE-scope pre-pass at :570-580) for both.  So by the time the
+// writers run, an interface's signal vector holds the imported entries ahead
+// of its own, and `writeInterface`'s `mod->getSignals()`
+// (src/DesignCompile/UhdmWriter.cpp:1679) hands `writeNets` exactly the list
+// `writeModule`'s `mod->getSignals()` (:1457) hands it — the SAME function,
+// the same shape.  Neither late pass is involved: `writeInterface` never
+// calls `lateBinding` (the trilogy's fact; `writeModule` calls it twice,
+// :1572 and :1622).
+//
+// This is `emitModuleDef`'s own hoist loop, moved out verbatim so the
+// interface definition writer can run it too.  It stays the module road's
+// only producer — the extraction changes no module byte.
+void UhdmExporter::emitImportedPkgVarNets(const InstanceBodySymbol& body,
+                                          UHDM::instance* m,
+                                          const std::string& prefix,
+                                          DefInfo& info,
+                                          UHDM::VectorOfnet* nets,
+                                          bool bindRefs) {
+    // MATERIALIZED imported package DATA declarations: the def view lists each
+    // as a WIRE logic_net under this module's name, typed by the home
+    // package's DEF typedef object (PackageNet work@test.v). The elab view
+    // turns the same declaration into the package variable's own kind
+    // (emitInstance). The whole group comes FIRST — ahead of the module's own
+    // declarations — and repeats once per import copy (ApbSlave's file-level
+    // `import svunit_pkg::*` lists svunit_version/current_tc twice each).
+    for (auto* iv9 : collectImportedPkgVars(body, *sm)) {
+        auto* n9 = s.MakeLogic_net();
+        n9->VpiName(iv9->name);
+        n9->VpiFullName(prefix + "." + std::string(iv9->name));
+        n9->VpiParent(m);
+        setLoc(n9, nameSpan(iv9->location, iv9->name));
+        const DeclaredType* dt9 = iv9->getDeclaredType();
+        // ...and only a FOUR-STATE integral declaration is stamped a net
+        // kind: `logic lv` and a `typedef logic [3:0]`-typed one carry
+        // vpiNetType 36, while `int`, `string` and class-handle declarations
+        // are listed as bare logic_nets with none (r10apb3 repro 11; ApbSlave
+        // svunit_version/current_tc).
+        if (dt9 && dt9->getType().getCanonicalType().isIntegral() &&
+            dt9->getType().getCanonicalType().isFourState())
+            n9->VpiNetType(vpiNet);
+        bool typed9 = false;
+        if (dt9 && dt9->getType().kind == SymbolKind::TypeAlias)
+            if (auto ti9 = typedefTs.find(&dt9->getType());
+                ti9 != typedefTs.end()) {
+                auto* rt9 = s.MakeRef_typespec();
+                rt9->VpiFullName(prefix + "." + std::string(iv9->name));
+                rt9->VpiParent(n9);
+                // Same SELF-ALIAS clone the package view's own net binds:
+                // a fresh same-named logic_typespec whose Typedef_alias
+                // points back at the package's listed typedef object.
+                UHDM::typespec* bind9 = ti9->second;
+                if (bind9->UhdmType() == UHDM::uhdmlogic_typespec) {
+                    auto& ta8 = dt9->getType().as<TypeAliasType>();
+                    const syntax::SyntaxNode* tSyn8 = nullptr;
+                    if (auto asyn8 = ta8.getSyntax())
+                        if (asyn8->kind == syntax::SyntaxKind::TypedefDeclaration)
+                            tSyn8 =
+                                asyn8->as<syntax::TypedefDeclarationSyntax>().type;
+                    bool savedBTS8 = bypassTypedefShare;
+                    bypassTypedefShare = true;
+                    auto* cl8 = makeTypespec(ta8, tSyn8);
+                    bypassTypedefShare = savedBTS8;
+                    if (cl8 && cl8->UhdmType() == UHDM::uhdmlogic_typespec) {
+                        cl8->VpiName(ti9->second->VpiName());
+                        auto* art8 = s.MakeRef_typespec();
+                        art8->VpiFullName(std::string(ti9->second->VpiName()));
+                        art8->VpiParent(cl8);
+                        art8->Actual_typespec(ti9->second);
+                        ((UHDM::logic_typespec*)cl8)->Typedef_alias(art8);
+                        if (ti9->second->Instance())
+                            cl8->Instance(ti9->second->Instance());
+                        bind9 = cl8;
+                    }
+                }
+                rt9->Actual_typespec(bind9);
+                n9->Typespec(rt9);
+                typed9 = true;
+            }
+        // A non-typedef'd package declaration (`const string`, a class
+        // handle) re-creates its typespec at the module, UNINSTANCED — the
+        // copy is not resolved in the package's scope (ApbSlave).
+        if (!typed9) {
+            // § oobCtorLocalsRideTheImport203 — this typespec is BUILT AT THE
+            // MODULE, so the class-handle naming arm must read the module as
+            // the declaration's home component (flag declaration in
+            // UhdmExporter.h).
+            bool savedIPV203 = importedPkgVarTs203;
+            importedPkgVarTs203 = true;
+            auto* ts9 = makeTypespec(*iv9);
+            importedPkgVarTs203 = savedIPV203;
+            if (ts9) {
+                auto* rt9 = s.MakeRef_typespec();
+                rt9->VpiFullName(prefix + "." + std::string(iv9->name));
+                rt9->VpiParent(n9);
+                rt9->Actual_typespec(ts9);
+                n9->Typespec(rt9);
+            }
+        }
+        // Only the FIRST copy is the name's binding target — and ONLY on the
+        // MODULE road.  § interfaceDefViewNeverLateBinds223v: `writeModule`
+        // runs `lateBinding` (UhdmWriter.cpp:1575/:1623) and `writeInterface`
+        // (:1626-1794) never does, so golden's module def-view reference to an
+        // imported name carries `vpiActual -> <the module's own hoisted net>`
+        // and golden's interface def-view reference to the same name carries
+        // NO actual at all (arm v19_uninst_refactual, one real Surelog
+        // golden).  The LISTING is identical on both roads; only this
+        // registration is holder-keyed.
+        if (bindRefs && !info.nets.count(iv9))
+            info.nets[iv9] = n9;
+        nets->push_back(n9);
+    }
+}
+
 UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool topDef) {
     auto& body = inst.body;
     auto& def = inst.getDefinition();
@@ -761,91 +889,17 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
     auto explicitPortSyms = explicitPortInternals(body);
     std::set<std::string> defBoundNames;
     collectDefBoundNames(body.getSyntax(), false, defBoundNames);
-    // MATERIALIZED imported package DATA declarations: the def view lists each
-    // as a WIRE logic_net under this module's name, typed by the home
-    // package's DEF typedef object (PackageNet work@test.v). The elab view
-    // turns the same declaration into the package variable's own kind
-    // (emitInstance). The whole group comes FIRST — ahead of the module's own
-    // declarations — and repeats once per import copy (ApbSlave's file-level
-    // `import svunit_pkg::*` lists svunit_version/current_tc twice each).
-    for (auto* iv9 : collectImportedPkgVars(body, *sm)) {
-        auto* n9 = s.MakeLogic_net();
-        n9->VpiName(iv9->name);
-        n9->VpiFullName(prefix + "." + std::string(iv9->name));
-        n9->VpiParent(m);
-        setLoc(n9, nameSpan(iv9->location, iv9->name));
-        const DeclaredType* dt9 = iv9->getDeclaredType();
-        // ...and only a FOUR-STATE integral declaration is stamped a net
-        // kind: `logic lv` and a `typedef logic [3:0]`-typed one carry
-        // vpiNetType 36, while `int`, `string` and class-handle declarations
-        // are listed as bare logic_nets with none (r10apb3 repro 11; ApbSlave
-        // svunit_version/current_tc).
-        if (dt9 && dt9->getType().getCanonicalType().isIntegral() &&
-            dt9->getType().getCanonicalType().isFourState())
-            n9->VpiNetType(vpiNet);
-        bool typed9 = false;
-        if (dt9 && dt9->getType().kind == SymbolKind::TypeAlias)
-            if (auto ti9 = typedefTs.find(&dt9->getType());
-                ti9 != typedefTs.end()) {
-                auto* rt9 = s.MakeRef_typespec();
-                rt9->VpiFullName(prefix + "." + std::string(iv9->name));
-                rt9->VpiParent(n9);
-                // Same SELF-ALIAS clone the package view's own net binds:
-                // a fresh same-named logic_typespec whose Typedef_alias
-                // points back at the package's listed typedef object.
-                UHDM::typespec* bind9 = ti9->second;
-                if (bind9->UhdmType() == UHDM::uhdmlogic_typespec) {
-                    auto& ta8 = dt9->getType().as<TypeAliasType>();
-                    const syntax::SyntaxNode* tSyn8 = nullptr;
-                    if (auto asyn8 = ta8.getSyntax())
-                        if (asyn8->kind == syntax::SyntaxKind::TypedefDeclaration)
-                            tSyn8 =
-                                asyn8->as<syntax::TypedefDeclarationSyntax>().type;
-                    bool savedBTS8 = bypassTypedefShare;
-                    bypassTypedefShare = true;
-                    auto* cl8 = makeTypespec(ta8, tSyn8);
-                    bypassTypedefShare = savedBTS8;
-                    if (cl8 && cl8->UhdmType() == UHDM::uhdmlogic_typespec) {
-                        cl8->VpiName(ti9->second->VpiName());
-                        auto* art8 = s.MakeRef_typespec();
-                        art8->VpiFullName(std::string(ti9->second->VpiName()));
-                        art8->VpiParent(cl8);
-                        art8->Actual_typespec(ti9->second);
-                        ((UHDM::logic_typespec*)cl8)->Typedef_alias(art8);
-                        if (ti9->second->Instance())
-                            cl8->Instance(ti9->second->Instance());
-                        bind9 = cl8;
-                    }
-                }
-                rt9->Actual_typespec(bind9);
-                n9->Typespec(rt9);
-                typed9 = true;
-            }
-        // A non-typedef'd package declaration (`const string`, a class
-        // handle) re-creates its typespec at the module, UNINSTANCED — the
-        // copy is not resolved in the package's scope (ApbSlave).
-        if (!typed9) {
-            // § oobCtorLocalsRideTheImport203 — this typespec is BUILT AT THE
-            // MODULE, so the class-handle naming arm must read the module as
-            // the declaration's home component (flag declaration in
-            // UhdmExporter.h).
-            bool savedIPV203 = importedPkgVarTs203;
-            importedPkgVarTs203 = true;
-            auto* ts9 = makeTypespec(*iv9);
-            importedPkgVarTs203 = savedIPV203;
-            if (ts9) {
-                auto* rt9 = s.MakeRef_typespec();
-                rt9->VpiFullName(prefix + "." + std::string(iv9->name));
-                rt9->VpiParent(n9);
-                rt9->Actual_typespec(ts9);
-                n9->Typespec(rt9);
-            }
-        }
-        // Only the FIRST copy is the name's binding target.
-        if (!info.nets.count(iv9))
-            info.nets[iv9] = n9;
-        nets->push_back(n9);
-    }
+    // § wildcardImportCopiesPkgVarsToDefNets223 — the MATERIALIZED
+    // imported-package data hoist, shared verbatim with the INTERFACE
+    // definition writer (emitInterfaceDef).  Surelog runs ONE producer for
+    // both holders: `CompileHelper::importPackage` pushes the imported
+    // package's whole signal vector into the importing DesignComponent
+    // (`scope->getSignals().push_back(net)`,
+    // src/DesignCompile/CompileHelper.cpp:183-190) and a ModuleDefinition
+    // IS the interface's component, so `writeInterface`'s
+    // `mod->getSignals()` (UhdmWriter.cpp:1679) carries exactly what
+    // `writeModule`'s does (UhdmWriter.cpp:1457).
+    emitImportedPkgVarNets(body, m, prefix, info, nets, /*bindRefs=*/true);
     // A GENERIC interface port (`module m (interface intf);`) is an ORDINARY
     // port to Surelog -- it never recognises the form as an interface port --
     // so its net is minted during PORT compilation, ahead of every body
@@ -28718,6 +28772,21 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
     }
 
     auto* nets = s.MakeNetVec();
+    // § wildcardImportCopiesPkgVarsToDefNets223 — THE INTERFACE DEFINITION'S
+    // NET LIST OPENS WITH THE MATERIALIZED IMPORTED-PACKAGE DATA, exactly as a
+    // module's and a program's do.  `CompileHelper::importPackage` copies the
+    // imported package's whole signal vector into the importing
+    // `DesignComponent` (CompileHelper.cpp:183-190) and asks nothing about the
+    // holder; an interface IS a `ModuleDefinition`, `CompileModule` runs the
+    // same `paPackage_import_item` arm for it (CompileModule.cpp:600-604), and
+    // `writeInterface` hands that vector to the same `writeNets` a module's
+    // does (UhdmWriter.cpp:1679 vs :1457).  Measured on real Surelog goldens
+    // (grid223 a1/a2/a5/a6/a8): the imported group comes FIRST, ahead of the
+    // interface's ports and its own declarations, once per import copy, and an
+    // EXPLICIT `import p::name` materialises that one name.
+    // § interfaceDefViewNeverLateBinds223v — the LISTING rides, the
+    // BINDING does not: `writeInterface` never calls `lateBinding`.
+    emitImportedPkgVarNets(body, iface, prefix, info, nets, /*bindRefs=*/false);
     UHDM::VectorOfarray_net* ifaceArrayNets9 = nullptr;
     // An unpacked-array-of-STRUCT signal: its base/inner nets carry the shared
     // struct ELEMENT typespec (the array dim lives on the array_net), just like

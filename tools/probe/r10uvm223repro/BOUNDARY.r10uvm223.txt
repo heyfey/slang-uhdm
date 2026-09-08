@@ -1,0 +1,175 @@
+§ wildcardImportCopiesPkgVarsToDefNets223 — THE WIDE BOUNDARY
+=============================================================
+
+bound223.sh over a COPY of the whole probe tree, BOTH binaries, BOTH views,
+SUBDIRECTORIES INCLUDED, every rc recorded and compared.
+
+    LISTED = PROCESSED = 5559     RC_DIFFS = 0     MOVED_ARMS = 40
+
+Twenty of the forty moved views are THIS PASS'S OWN grid arms
+(r10uvm223repro/grid223/a1,a2,a4,a5,a6,a7,a8,a9,a10,a11 × def+elab);
+a3_module_wild, a12_noimport and a13_ifaceproc did NOT move (the module road
+and the two must-stay-empty fences).
+
+THE MUST-STAY FLOOR HELD.  Zero moved arms in r10uvm216repro, r10uvm218repro,
+r10uvm220repro, r10uvm221repro, r10uvm222repro (or their verifier dirs), and
+zero in the uvm82-91 / buvm3-15 / sd8-12 families.
+
+MOVED ./r10buvm34repro/g34a3.sv def a=f8fb61c825a5 b=7f0030d8e23a rc=0
+MOVED ./r10buvm34repro/g34a3.sv elab a=0036786ee0fd b=f6eb0c18cb19 rc=0
+MOVED ./r10uvm217repro/grid217/g217_d_importer.sv def a=b438cf890a51 b=5f8a26c4f704 rc=0
+MOVED ./r10uvm217repro/grid217/g217_d_importer.sv elab a=2cf57ca94c3a b=406b8df95025 rc=0
+MOVED ./r10uvm223repro/grid223/a10_ports/dut.sv def a=d2f0bdc2f5fd b=b2c00f1072c6 rc=0
+MOVED ./r10uvm223repro/grid223/a10_ports/dut.sv elab a=54a3059e626f b=cd2bd5192457 rc=0
+MOVED ./r10uvm223repro/grid223/a11_modport/dut.sv def a=c0e4e390d8f6 b=885de6b9686b rc=0
+MOVED ./r10uvm223repro/grid223/a11_modport/dut.sv elab a=dc5cbeb03504 b=fc928437955b rc=0
+MOVED ./r10uvm223repro/grid223/a1_iface_wild/dut.sv def a=62d167ef3d53 b=05dddd4dbd5c rc=0
+MOVED ./r10uvm223repro/grid223/a1_iface_wild/dut.sv elab a=4e49894e2d74 b=2c40067467f1 rc=0
+MOVED ./r10uvm223repro/grid223/a2_iface_expl/dut.sv def a=14eade3b680d b=3d4dd5788e4c rc=0
+MOVED ./r10uvm223repro/grid223/a2_iface_expl/dut.sv elab a=1cfcd87b8fc2 b=95b438e2fe15 rc=0
+MOVED ./r10uvm223repro/grid223/a4_inst_iface/dut.sv def a=c355210dc099 b=949ce96fd819 rc=0
+MOVED ./r10uvm223repro/grid223/a4_inst_iface/dut.sv elab a=2883ac814959 b=8b94b1d64844 rc=0
+MOVED ./r10uvm223repro/grid223/a5_chain/dut.sv def a=acf42fc41d50 b=a732392798cc rc=0
+MOVED ./r10uvm223repro/grid223/a5_chain/dut.sv elab a=01435dd72cb5 b=ee0537edbd34 rc=0
+MOVED ./r10uvm223repro/grid223/a6_pkg_import/dut.sv def a=5b1e2caa0b85 b=0092333c6302 rc=0
+MOVED ./r10uvm223repro/grid223/a6_pkg_import/dut.sv elab a=38d31374f9c8 b=1fcf9ac3ad04 rc=0
+MOVED ./r10uvm223repro/grid223/a7_prog/dut.sv def a=849369b768fe b=a39d2e79f7c6 rc=0
+MOVED ./r10uvm223repro/grid223/a7_prog/dut.sv elab a=d451fbf7e7b3 b=39468d1f5615 rc=0
+MOVED ./r10uvm223repro/grid223/a8_unit/dut.sv def a=015e0d759143 b=126903b8539b rc=0
+MOVED ./r10uvm223repro/grid223/a8_unit/dut.sv elab a=54dbb2ac6d39 b=0a1cdd2ef90d rc=0
+MOVED ./r10uvm223repro/grid223/a9_assoc/dut.sv def a=2cbb0dfe7aeb b=37ac9b243163 rc=0
+MOVED ./r10uvm223repro/grid223/a9_assoc/dut.sv elab a=252749e2bbf5 b=6f3c727060a4 rc=0
+MOVED ./r10uvm88repro/v88_b3_scopes.sv def a=7582e959e23d b=9be019f3efbc rc=0
+MOVED ./r10uvm88repro/v88_b3_scopes.sv elab a=af466bf953bc b=58e3f8ff7676 rc=0
+MOVED ./r10v144repro/v144_b_ctor.sv def a=12ca617250fd b=4c641db4cea0 rc=4
+MOVED ./r10v144repro/v144_b_ctor.sv elab a=91777bc4b4c6 b=f54923bf2fea rc=4
+MOVED ./r10v209repro/arms/v209_p_ifprog.sv def a=d8e5b9b8db2b b=99340d280fb0 rc=0
+MOVED ./r10v209repro/arms/v209_p_ifprog.sv elab a=bb3d66de5949 b=dde2158bd9cb rc=0
+MOVED ./r10v214repro/arms214/va5_modctx.sv def a=5eb087a4dda5 b=84ea9d352d08 rc=0
+MOVED ./r10v214repro/arms214/va5_modctx.sv elab a=c34769ef27b9 b=bd7f2c196620 rc=0
+MOVED ./r10vbuvm19repro/vg19k.sv def a=39d64c094d57 b=cbcb7c1abc9c rc=0
+MOVED ./r10vbuvm19repro/vg19k.sv elab a=5680ee772545 b=9cfb6d5b69f6 rc=0
+MOVED ./r10vbuvm27repro/v27_a_homes.sv def a=e047c2a1dc7c b=c91a42a7125c rc=0
+MOVED ./r10vbuvm27repro/v27_a_homes.sv elab a=990c5571a63e b=de05bf813fba rc=0
+MOVED ./r10vbuvm33repro/v33c.sv def a=5b7a3a4849e7 b=1506444c576a rc=0
+MOVED ./r10vbuvm33repro/v33c.sv elab a=00c51edcb058 b=a0119779b527 rc=0
+MOVED ./r10vearl100repro/v3_gen100.sv def a=d8d78ad91c8a b=549a060f4f85 rc=0
+MOVED ./r10vearl100repro/v3_gen100.sv elab a=cee311dbb7bc b=d586906d8f8b rc=0
+-- LISTED=5559 PROCESSED=5559 MOVED_ARMS=40 RC_DIFFS=0
+
+THE TEN FOREIGN MOVED ARMS, RE-SCORED AGAINST REAL SURELOG GOLDEN
+------------------------------------------------------------------
+Every one of them is an INTERFACE THAT WILDCARD-IMPORTS A PACKAGE — the law's
+own shape, found in ten unrelated passes' arm sets.
+
+bscore223.sh (the official judge, golden vs each binary; the line count is the
+head OBJECT's decompile size, not a distance — RESUME §9):
+
+ARM                                            VIEW  PRIS_LINES  HEADS PAT_LINES  HEADS  VERDICT
+./r10buvm34repro/g34a3.sv                      -             -      -         -      -  SURELOG rc=4 — ERROR-RECOVERY ARM, no golden
+./r10uvm217repro/grid217/g217_d_importer.sv    def        3474      1      3552      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+./r10uvm217repro/grid217/g217_d_importer.sv    elab       3476      1      3554      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+./r10uvm88repro/v88_b3_scopes.sv               def        9734      1      9890      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+./r10uvm88repro/v88_b3_scopes.sv               elab      11628      1     11784      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+./r10v144repro/v144_b_ctor.sv                  -             -      -         -      -  SURELOG rc=4 — ERROR-RECOVERY ARM, no golden
+./r10v209repro/arms/v209_p_ifprog.sv           def        4566      1      4696      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+./r10v209repro/arms/v209_p_ifprog.sv           elab       5144      1      5274      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+./r10v214repro/arms214/va5_modctx.sv           def        6734      1      6760      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+./r10v214repro/arms214/va5_modctx.sv           elab       6916      1      6942      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+./r10vbuvm19repro/vg19k.sv                     def        9896      1      9974      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+./r10vbuvm19repro/vg19k.sv                     elab      12210      1     12288      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+./r10vbuvm27repro/v27_a_homes.sv               -             -      -         -      -  SURELOG rc=4 — ERROR-RECOVERY ARM, no golden
+./r10vbuvm33repro/v33c.sv                      def        8046      1      8072      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+./r10vbuvm33repro/v33c.sv                      elab      10264      1     10290      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+./r10vearl100repro/v3_gen100.sv                def        9358      1      9386      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+./r10vearl100repro/v3_gen100.sv                elab       9580      1      9608      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+
+bcells223.sh (order-blind whole-dump MISSING/EXTRA multisets):
+
+ARM                                          VIEW    P_MISS  P_EXTRA     Q_MISS  Q_EXTRA   VERDICT
+r10buvm34repro__g34a3                        def          -        -          -        -   NO DATABASE
+r10buvm34repro__g34a3                        elab         -        -          -        -   NO DATABASE
+r10uvm217repro__grid217__g217_d_importer     def        116      482         80      490   AWAY-GOLDEN
+r10uvm217repro__grid217__g217_d_importer     elab       103      656         70      667   AWAY-GOLDEN
+r10uvm88repro__v88_b3_scopes                 def        263      499        203      526   AWAY-GOLDEN
+r10uvm88repro__v88_b3_scopes                 elab       208     2227        150     2256   AWAY-GOLDEN
+r10v144repro__v144_b_ctor                    def          -        -          -        -   NO DATABASE
+r10v144repro__v144_b_ctor                    elab         -        -          -        -   NO DATABASE
+r10v209repro__arms__v209_p_ifprog            def        188      496        122      511   AWAY-GOLDEN
+r10v209repro__arms__v209_p_ifprog            elab       171     1098        108     1116   AWAY-GOLDEN
+r10v214repro__arms214__va5_modctx            def        101      564         91      569   AWAY-GOLDEN
+r10v214repro__arms214__va5_modctx            elab       114      948        105      954   AWAY-GOLDEN
+r10vbuvm19repro__vg19k                       def        370      557        340      572   AWAY-GOLDEN
+r10vbuvm19repro__vg19k                       elab       311     2332        287     2353   AWAY-GOLDEN
+r10vbuvm27repro__v27_a_homes                 def          -        -          -        -   NO DATABASE
+r10vbuvm27repro__v27_a_homes                 elab         -        -          -        -   NO DATABASE
+r10vbuvm33repro__v33c                        def        218      499        207      503   AWAY-GOLDEN
+r10vbuvm33repro__v33c                        elab       153     2169        144     2175   AWAY-GOLDEN
+r10vearl100repro__v3_gen100                  def         96      524         68      531   AWAY-GOLDEN
+r10vearl100repro__v3_gen100                  elab        97      929         72      939   AWAY-GOLDEN
+
+armdelta223.sh — THE VERDICT.  bcells223's "AWAY-GOLDEN" fires on ANY rise in
+EXTRA, which a MINT law necessarily causes; the question that decides AWAY is
+whether a golden line we USED to match stopped being matched.
+
+ARM                                          VIEW   NEWLY-MISSING    NEWLY-EXTRA   VERDICT
+r10buvm34repro__g34a3                        def                -              -   NO DATABASE (rc-checked)
+r10buvm34repro__g34a3                        elab               -              -   NO DATABASE (rc-checked)
+r10uvm217repro__grid217__g217_d_importer     def                0              8   TO-GOLDEN (cured 36)
+r10uvm217repro__grid217__g217_d_importer     elab               0             11   TO-GOLDEN (cured 33)
+r10uvm88repro__v88_b3_scopes                 def                0             27   TO-GOLDEN (cured 60)
+r10uvm88repro__v88_b3_scopes                 elab               0             29   TO-GOLDEN (cured 58)
+r10v144repro__v144_b_ctor                    def                -              -   NO DATABASE (rc-checked)
+r10v144repro__v144_b_ctor                    elab               -              -   NO DATABASE (rc-checked)
+r10v209repro__arms__v209_p_ifprog            def                0             15   TO-GOLDEN (cured 66)
+r10v209repro__arms__v209_p_ifprog            elab               0             18   TO-GOLDEN (cured 63)
+r10v214repro__arms214__va5_modctx            def                0              5   TO-GOLDEN (cured 10)
+r10v214repro__arms214__va5_modctx            elab               0              6   TO-GOLDEN (cured 9)
+r10vbuvm19repro__vg19k                       def                0             15   TO-GOLDEN (cured 30)
+r10vbuvm19repro__vg19k                       elab               0             21   TO-GOLDEN (cured 24)
+r10vbuvm27repro__v27_a_homes                 def                -              -   NO DATABASE (rc-checked)
+r10vbuvm27repro__v27_a_homes                 elab               -              -   NO DATABASE (rc-checked)
+r10vbuvm33repro__v33c                        def                0              4   TO-GOLDEN (cured 11)
+r10vbuvm33repro__v33c                        elab               0              6   TO-GOLDEN (cured 9)
+r10vearl100repro__v3_gen100                  def                0              7   TO-GOLDEN (cured 28)
+r10vearl100repro__v3_gen100                  elab               0             10   TO-GOLDEN (cured 25)
+
+    TO-GOLDEN 14 / 14 scorable arm-views.  NEWLY-MISSING 0 everywhere.
+    Cured golden lines per arm-view: 9 to 66.
+
+The 182 newly-appearing EXTRA lines over all fourteen views are structural
+filler and span-only typespec headers, nothing else:
+
+     86  |vpiParent:          the new nets' and ref_typespecs' field slots
+     28  \_int_typespec: , line:N:N, endln:N:N      (span differs from golden's)
+     24  |vpiSigned:N
+     14  |vpiActual:
+     12  \_string_typespec: , line:N:N, endln:N:N
+      6  |vpiClassDefn:
+      5  |vpiTypespec:
+      4  |vpiSize:N
+      3  |vpiNet:            the multiset shadow of a PRE-EXISTING duplicate-
+                             `i`-net residue in r10vbuvm33repro/v33c's module
+                             and top (golden 13 vpiNet, pristine ours 14,
+                             patched 15) — that arm's INTERFACE net list
+                             became EXACT: golden [lint33, iq33],
+                             pristine ours [iq33], patched ours [lint33, iq33].
+
+No generated `Compare` reads VpiFile/VpiLineNo/VpiColumnNo (RESUME §9), so the
+span headers are dump fidelity only.
+
+THREE ARMS ARE UNSCORABLE, AND THAT IS PRINTED LOUDLY, NOT FOLDED IN
+---------------------------------------------------------------------
+  ./r10buvm34repro/g34a3.sv        SURELOG rc=4 — no golden
+  ./r10v144repro/v144_b_ctor.sv    SURELOG rc=4 — no golden; slang rc=4 on BOTH
+  ./r10vbuvm27repro/v27_a_homes.sv SURELOG rc=4 — no golden
+
+An arm whose compile fails teaches ERROR RECOVERY, not golden (uvm215's
+lesson).  All three are nevertheless the law's exact shape — an interface with
+a package wildcard import (g34a3.sv:57-58 `interface if34; import r34::*;`,
+v144_b_ctor.sv:92-93 `interface i144b; import q144b::*;`,
+v27_a_homes.sv:52-53 `interface ifA; import pA::*;`) — and slang's rc is
+IDENTICAL on both binaries for all three (bound223's RC_DIFFS = 0).
+
+THE FENCED FOUR ARE NEVER DISPATCHED.  canaudit.sh: each of the four
+slang-fenced names reads "not dispatched by any driver (OK)", FENCE-BREACH 0.

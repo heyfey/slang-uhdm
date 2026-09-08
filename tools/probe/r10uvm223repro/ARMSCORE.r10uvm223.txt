@@ -1,0 +1,18 @@
+ARM                                            VIEW  PRIS_LINES  HEADS PAT_LINES  HEADS  VERDICT
+./r10buvm34repro/g34a3.sv                      -             -      -         -      -  SURELOG rc=4 — ERROR-RECOVERY ARM, no golden
+./r10uvm217repro/grid217/g217_d_importer.sv    def        3474      1      3552      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+./r10uvm217repro/grid217/g217_d_importer.sv    elab       3476      1      3554      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+./r10uvm88repro/v88_b3_scopes.sv               def        9734      1      9890      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+./r10uvm88repro/v88_b3_scopes.sv               elab      11628      1     11784      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+./r10v144repro/v144_b_ctor.sv                  -             -      -         -      -  SURELOG rc=4 — ERROR-RECOVERY ARM, no golden
+./r10v209repro/arms/v209_p_ifprog.sv           def        4566      1      4696      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+./r10v209repro/arms/v209_p_ifprog.sv           elab       5144      1      5274      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+./r10v214repro/arms214/va5_modctx.sv           def        6734      1      6760      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+./r10v214repro/arms214/va5_modctx.sv           elab       6916      1      6942      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+./r10vbuvm19repro/vg19k.sv                     def        9896      1      9974      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+./r10vbuvm19repro/vg19k.sv                     elab      12210      1     12288      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+./r10vbuvm27repro/v27_a_homes.sv               -             -      -         -      -  SURELOG rc=4 — ERROR-RECOVERY ARM, no golden
+./r10vbuvm33repro/v33c.sv                      def        8046      1      8072      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+./r10vbuvm33repro/v33c.sv                      elab      10264      1     10290      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+./r10vearl100repro/v3_gen100.sv                def        9358      1      9386      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+./r10vearl100repro/v3_gen100.sv                elab       9580      1      9608      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255

@@ -1,0 +1,87 @@
+§ wildcardImportCopiesPkgVarsToDefNets223 — THE MOVER, ATTRIBUTED
+=================================================================
+
+Whole-dump ORDER-BLIND census of MiniAmiq/default, ids and workdir paths
+normalised away, both dumps SORTED (RESUME §9's order-blind rule).
+
+  golden   2 055 422 lines
+  pristine 1 891 549 lines
+  patched  1 892 619 lines
+
+A. PRISTINE -> PATCHED
+----------------------
+
+    ADDED   1070
+    REMOVED    0        <-- nothing left the database
+
+The 1070 added lines are the 66 new nets and nothing else:
+
+     66  |vpiNet:                     the 66 field slots
+     66  \_interface_inst: work@svaunit_vpi_interface …   (each net's vpiParent)
+    132  |vpiParent:                  net + its ref_typespec
+     66  |vpiTypespec:
+     66  |vpiActual:
+     66  \_logic_net: (work@svaunit_vpi_interface.<name>) …  (the net headers)
+     66  |vpiName:<name>   +  132 |vpiFullName:…            (net + ref_typespec)
+     …    the re-created actual typespecs (class_typespec/int_typespec/
+          string_typespec/bit_typespec) and the vpiClassDefn back-references
+          the class-handle ones carry.
+
+B. AGAINST GOLDEN, ORDER-BLIND MULTISET
+---------------------------------------
+
+                 MISSING (golden-only)   EXTRA (ours-only)
+    pristine           260 521                96 648
+    patched            259 525                96 722
+                        -996                    +74
+
+MISSING falls by 996.  The 74 newly-appearing EXTRA lines are all TYPESPEC
+IDENTITY lines of the 66 new nets — 68 of them are `\_<kind>_typespec: ,
+line:L:C, endln:L:C` headers whose SPAN differs from golden's, 4 are
+`|vpiName:uvm_phase` and 2 a `class_defn` back-reference:
+
+    ours    \_class_typespec: (uvm_root), line:315:7, endln:315:15
+    golden  \_class_typespec: (uvm_root), line:315:7, endln:315:41
+
+i.e. golden's re-created typespec spans the WHOLE declaration and ours spans
+the type name.  ZERO existing EXTRA lines disappeared and ZERO new EXTRA lines
+carry an object golden does not have.
+
+AND THE JUDGE ITSELF PROVES THOSE 74 ARE INVISIBLE TO IT.  No generated
+`Compare` reads VpiFile/VpiLineNo/VpiColumnNo (RESUME §9).  The patched head
+sits INSIDE net #69 (`sva_info`) — so `instance::Compare` walked nets #1..#68,
+the 66 new ones included, comparing each net, its `ref_typespec` and that
+ref's `Actual_typespec`, and returned EQUAL on every one.  The span residue is
+dump fidelity only.
+
+C. THE HEAD, BEFORE AND AFTER
+-----------------------------
+
+  BEFORE  1 388 494 lines / 1 head, both modes, logs byte-identical
+          LHS interface_inst work@svaunit_vpi_interface — Nets() size 71 vs 5
+
+  AFTER          17 lines / 1 head, both modes, logs byte-identical
+          LHS: <null>
+          RHS: ref_typespec (work@svaunit_vpi_interface.sva_info)
+                 |vpiParent: logic_net (…​.sva_info) 87:38-87:46
+                 |vpiActual: class_typespec (svaunit_concurrent_assertion_info)
+                             87:4-87:37
+
+BaseClass.h's SINGULAR SafeCompare with `lhs == nullptr` names OURS
+(RESUME §9's mirror): golden's `sva_info` net carries NO `vpiTypespec` at all
+and ours does.
+
+THAT EXTRA TYPESPEC IS PRE-EXISTING, NOT MINTED BY THIS LAW.  The PRISTINE
+ours dump already carries it verbatim —
+
+  /tmp dump of the pristine database, `sva_info` net:
+      \_logic_net: (work@svaunit_vpi_interface.sva_info), line:87:38, endln:87:46
+        |vpiTypespec:
+        \_ref_typespec: (work@svaunit_vpi_interface.sva_info)
+          |vpiActual:
+          \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+
+— and golden's never did (its `sva_info` net has vpiParent, vpiName,
+vpiFullName and nothing else).  The law only made the judge REACH it: the
+size mismatch that used to stop the walk at the vector is gone.  A cascade
+mask lifted, not a regression (RESUME §9's ladder rule).

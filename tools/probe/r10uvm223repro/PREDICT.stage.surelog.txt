@@ -1,0 +1,5 @@
+HIT default MiniAmiq-544c7f61 ifaces=1 hoisted=66
+  CELL default MiniAmiq-544c7f61 work@svaunit_vpi_interface 66
+HIT testflags MiniAmiq-544c7f61 ifaces=1 hoisted=66
+  CELL testflags MiniAmiq-544c7f61 work@svaunit_vpi_interface 66
+predict223: rows=1523  db-identical=956  DB-DIFFERING=0  HIT-ROWS=2

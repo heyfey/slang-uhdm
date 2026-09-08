@@ -1,0 +1,21 @@
+ARM                                          VIEW    P_MISS  P_EXTRA     Q_MISS  Q_EXTRA   VERDICT
+r10buvm34repro__g34a3                        def          -        -          -        -   NO DATABASE
+r10buvm34repro__g34a3                        elab         -        -          -        -   NO DATABASE
+r10uvm217repro__grid217__g217_d_importer     def        116      482         80      490   AWAY-GOLDEN
+r10uvm217repro__grid217__g217_d_importer     elab       103      656         70      667   AWAY-GOLDEN
+r10uvm88repro__v88_b3_scopes                 def        263      499        203      526   AWAY-GOLDEN
+r10uvm88repro__v88_b3_scopes                 elab       208     2227        150     2256   AWAY-GOLDEN
+r10v144repro__v144_b_ctor                    def          -        -          -        -   NO DATABASE
+r10v144repro__v144_b_ctor                    elab         -        -          -        -   NO DATABASE
+r10v209repro__arms__v209_p_ifprog            def        188      496        122      511   AWAY-GOLDEN
+r10v209repro__arms__v209_p_ifprog            elab       171     1098        108     1116   AWAY-GOLDEN
+r10v214repro__arms214__va5_modctx            def        101      564         91      569   AWAY-GOLDEN
+r10v214repro__arms214__va5_modctx            elab       114      948        105      954   AWAY-GOLDEN
+r10vbuvm19repro__vg19k                       def        370      557        340      572   AWAY-GOLDEN
+r10vbuvm19repro__vg19k                       elab       311     2332        287     2353   AWAY-GOLDEN
+r10vbuvm27repro__v27_a_homes                 def          -        -          -        -   NO DATABASE
+r10vbuvm27repro__v27_a_homes                 elab         -        -          -        -   NO DATABASE
+r10vbuvm33repro__v33c                        def        218      499        207      503   AWAY-GOLDEN
+r10vbuvm33repro__v33c                        elab       153     2169        144     2175   AWAY-GOLDEN
+r10vearl100repro__v3_gen100                  def         96      524         68      531   AWAY-GOLDEN
+r10vearl100repro__v3_gen100                  elab        97      929         72      939   AWAY-GOLDEN

@@ -1,0 +1,33 @@
+§ wildcardImportCopiesPkgVarsToDefNets223 — THE HEAD OBJECT'S FIELD COUNTS
+==========================================================================
+
+`interface_inst work@svaunit_vpi_interface`, the AllInterfaces (DEFINITION)
+listing entry, MiniAmiq/default.  Direct-child field counts, read off the
+uhdm-dump of each database.
+
+                         GOLDEN   PRISTINE-OURS   PATCHED-OURS
+  vpiParent                  1          1              1
+  vpiFullName                1          1              1
+  vpiParameter              90         90             90
+  vpiParamAssign            90         90             90
+  vpiTypedef               128        128            128
+  vpiDefName                 1          1              1
+  vpiTaskFunc              931        931            931
+  vpiNet                    71          5             71     <-- THE LAW
+  vpiArrayNet                5          0              0     <-- R1
+  vpiProcess                 1          0              0     <-- R2
+
+THE NET LIST IS EXACT, SLOT BY SLOT.  Comparing golden's 71 net headers with
+the patched database's 71 as ORDERED SEQUENCES (kind + name + span, ids
+stripped):
+
+    golden 71  patched 71   ORDERED-IDENTICAL slots: 71 of 71
+
+Not a multiset match — a slot-for-slot match, which is what
+`instance::Compare` walks.  The 66 imported entries land in golden's own
+order (svaunit_pkg's copy of uvm_pkg's 33, then uvm_pkg's own 33) ahead of the
+interface's five declared variables.
+
+`instance::Compare` (generated/src/instance.cpp:335-337) reads Task_funcs()
+then Nets(); with Nets() now equal it advances INTO net #69's fields, which is
+where the new head sits (R0).

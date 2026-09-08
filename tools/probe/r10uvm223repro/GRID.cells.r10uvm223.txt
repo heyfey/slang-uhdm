@@ -1,0 +1,469 @@
+# § wildcardImportCopiesPkgVarsToDefNets223 — THE GOLDEN GRID, EVERY CELL.
+#
+# cells223.py's depth-keyed listing of every instance's direct vpiNet /
+# vpiArrayNet / vpiVariables / vpiProcess children, golden vs ours, on the
+# PRISTINE binary and then on the PATCHED one.  LHS is always golden.
+
+===================== PRISTINE 127920b3fce5 =====================
+##### a10_ports
+## /tmp/r10uvm223_grid_pris/a10_ports/golden.dump
+  work@if223m (work@if223m)                vpiNet         logic_net    (work@if223m.mv_p223)                          line:2:11, endln:2:18
+  work@if223m (work@if223m)                vpiNet         logic_net    (work@if223m.mv_q223)                          line:3:11, endln:3:18
+  work@if223m (work@if223m)                vpiNet         logic_net    (work@if223m.clk223)                           line:6:30, endln:6:36
+  work@if223m (work@if223m)                vpiNet         logic_net    (work@if223m.rdy223)                           line:6:51, endln:6:57
+  work@if223m (work@if223m)                vpiNet         logic_net    (work@if223m.w223)                             line:8:10, endln:8:14
+  work@if223m (work@if223m)                vpiNet         logic_net    (work@if223m.own223m)                          line:9:10, endln:9:17
+  work@top223m (work@top223m)              vpiNet         logic_net    (work@top223m.c223)                            line:13:10, endln:13:14
+  work@top223m (work@top223m)              vpiNet         logic_net    (work@top223m.r223)                            line:13:16, endln:13:20
+  work@top223m (work@top223m)              vpiVariables   logic_var    (work@top223m.c223)                            line:13:10, endln:13:14
+  work@top223m (work@top223m)              vpiVariables   logic_var    (work@top223m.r223)                            line:13:16, endln:13:20
+  work@if223m (work@top223m.u_m223)        vpiVariables   int_var      (work@top223m.u_m223.mv_p223)                  line:2:11, endln:2:18
+  work@if223m (work@top223m.u_m223)        vpiVariables   string_var   (work@top223m.u_m223.mv_q223)                  line:3:11, endln:3:18
+  work@if223m (work@top223m.u_m223)        vpiVariables   logic_var    (work@top223m.u_m223.w223)                     line:8:10, endln:8:14
+  work@if223m (work@top223m.u_m223)        vpiVariables   int_var      (work@top223m.u_m223.own223m)                  line:9:10, endln:9:17
+  work@if223m (work@top223m.u_m223)        vpiNet         logic_net    (work@top223m.u_m223.clk223)                   line:6:30, endln:6:36
+  work@if223m (work@top223m.u_m223)        vpiNet         logic_net    (work@top223m.u_m223.rdy223)                   line:6:51, endln:6:57
+## /tmp/r10uvm223_grid_pris/a10_ports/ours.dump
+  work@if223m (work@if223m)                vpiNet         logic_net    (work@if223m.clk223)                           line:6:30, endln:6:36
+  work@if223m (work@if223m)                vpiNet         logic_net    (work@if223m.rdy223)                           line:6:51, endln:6:57
+  work@if223m (work@if223m)                vpiNet         logic_net    (work@if223m.w223)                             line:8:10, endln:8:14
+  work@if223m (work@if223m)                vpiNet         logic_net    (work@if223m.own223m)                          line:9:10, endln:9:17
+  work@top223m (work@top223m)              vpiNet         logic_net    (work@top223m.c223)                            line:13:10, endln:13:14
+  work@top223m (work@top223m)              vpiNet         logic_net    (work@top223m.r223)                            line:13:16, endln:13:20
+  work@top223m (work@top223m)              vpiVariables   logic_var    (work@top223m.c223)                            line:13:10, endln:13:14
+  work@top223m (work@top223m)              vpiVariables   logic_var    (work@top223m.r223)                            line:13:16, endln:13:20
+  work@if223m (work@top223m.u_m223)        vpiVariables   logic_var    (work@top223m.u_m223.rdy223)                   line:6:51, endln:6:57
+  work@if223m (work@top223m.u_m223)        vpiVariables   logic_var    (work@top223m.u_m223.w223)                     line:8:10, endln:8:14
+  work@if223m (work@top223m.u_m223)        vpiVariables   int_var      (work@top223m.u_m223.own223m)                  line:9:10, endln:9:17
+  work@if223m (work@top223m.u_m223)        vpiNet         logic_net    (work@top223m.u_m223.clk223)                   line:6:30, endln:6:36
+##### a11_modport
+## /tmp/r10uvm223_grid_pris/a11_modport/golden.dump
+  work@if223n (work@if223n)                vpiNet         logic_net    (work@if223n.nv_one223)                        line:2:11, endln:2:20
+  work@if223n (work@if223n)                vpiNet         logic_net    (work@if223n.sig223)                           line:7:10, endln:7:16
+  work@sub223n (work@sub223n)              vpiNet         logic_net    (work@sub223n.p)                               line:11:29, endln:11:30
+  work@if223n (work@top223n.u_n223)        vpiVariables   int_var      (work@top223n.u_n223.nv_one223)                line:2:11, endln:2:20
+  work@if223n (work@top223n.u_n223)        vpiVariables   logic_var    (work@top223n.u_n223.sig223)                   line:7:10, endln:7:16
+  work@if223n (work@top223n.u_s223.p)      vpiVariables   int_var      (work@top223n.u_s223.p.nv_one223)              line:2:11, endln:2:20
+  work@if223n (work@top223n.u_s223.p)      vpiVariables   logic_var    (work@top223n.u_s223.p.sig223)                 line:7:10, endln:7:16
+## /tmp/r10uvm223_grid_pris/a11_modport/ours.dump
+  work@if223n (work@if223n)                vpiNet         logic_net    (work@if223n.sig223)                           line:7:10, endln:7:16
+  work@sub223n (work@sub223n)              vpiNet         logic_net    (work@sub223n.p)                               line:11:29, endln:11:30
+  work@if223n (work@top223n.u_n223)        vpiVariables   logic_var    (work@top223n.u_n223.sig223)                   line:7:10, endln:7:16
+  work@if223n (work@top223n.u_s223.p)      vpiVariables   logic_var    (work@top223n.u_s223.p.sig223)                 line:7:10, endln:7:16
+##### a12_noimport
+## /tmp/r10uvm223_grid_pris/a12_noimport/golden.dump
+  work@if223o (work@if223o)                vpiNet         logic_net    (work@if223o.sig223o)                          line:6:10, endln:6:17
+  work@if223o (work@if223o)                vpiNet         logic_net    (work@if223o.own223o)                          line:7:10, endln:7:17
+  work@m223o (work@m223o)                  vpiNet         logic_net    (work@m223o.w223o)                             line:11:10, endln:11:15
+  work@m223o (work@m223o)                  vpiVariables   logic_var    (work@m223o.w223o)                             line:11:10, endln:11:15
+## /tmp/r10uvm223_grid_pris/a12_noimport/ours.dump
+  work@if223o (work@if223o)                vpiNet         logic_net    (work@if223o.sig223o)                          line:6:10, endln:6:17
+  work@if223o (work@if223o)                vpiNet         logic_net    (work@if223o.own223o)                          line:7:10, endln:7:17
+  work@m223o (work@m223o)                  vpiNet         logic_net    (work@m223o.w223o)                             line:11:10, endln:11:15
+  work@m223o (work@m223o)                  vpiVariables   logic_var    (work@m223o.w223o)                             line:11:10, endln:11:15
+##### a13_ifaceproc
+## /tmp/r10uvm223_grid_pris/a13_ifaceproc/golden.dump
+  work@if223p (work@if223p)                vpiNet         logic_net    (work@if223p.sig223p)                          line:2:10, endln:2:17
+  work@if223p (work@if223p)                vpiProcess     initial                                                     line:3:4, endln:3:24
+  work@if223p (work@if223p)                vpiProcess     always                                                      line:4:4, endln:4:25
+  work@if223q (work@if223q)                vpiNet         logic_net    (work@if223q.sig223q)                          line:8:10, endln:8:17
+  work@if223q (work@if223q)                vpiProcess     initial                                                     line:9:4, endln:9:24
+  work@if223q (work@top223p.u_q223)        vpiVariables   logic_var    (work@top223p.u_q223.sig223q)                  line:8:10, endln:8:17
+  work@if223q (work@top223p.u_q223)        vpiProcess     initial                                                     line:9:4, endln:9:24
+## /tmp/r10uvm223_grid_pris/a13_ifaceproc/ours.dump
+  work@if223p (work@if223p)                vpiNet         logic_net    (work@if223p.sig223p)                          line:2:10, endln:2:17
+  work@if223q (work@if223q)                vpiNet         logic_net    (work@if223q.sig223q)                          line:8:10, endln:8:17
+  work@if223q (work@if223q)                vpiProcess     initial                                                     line:9:4, endln:9:24
+  work@if223q (work@top223p.u_q223)        vpiVariables   logic_var    (work@top223p.u_q223.sig223q)                  line:8:10, endln:8:17
+  work@if223q (work@top223p.u_q223)        vpiProcess     initial                                                     line:9:4, endln:9:24
+##### a1_iface_wild
+## /tmp/r10uvm223_grid_pris/a1_iface_wild/golden.dump
+  work@if223a (work@if223a)                vpiNet         logic_net    (work@if223a.pv_int223)                        line:2:17, endln:2:26
+  work@if223a (work@if223a)                vpiNet         logic_net    (work@if223a.pv_str223)                        line:3:17, endln:3:26
+  work@if223a (work@if223a)                vpiNet         logic_net    (work@if223a.pv_vec223)                        line:4:17, endln:4:26
+  work@if223a (work@if223a)                vpiNet         logic_net    (work@if223a.pv_arr223)                        line:5:17, endln:5:26
+  work@if223a (work@if223a)                vpiNet         logic_net    (work@if223a.pv_assoc223)                      line:6:17, endln:6:28
+  work@if223a (work@if223a)                vpiNet         logic_net    (work@if223a.own223)                           line:14:8, endln:14:14
+  work@if223a (work@if223a)                vpiArrayNet    array_net    (work@if223a.pv_arr223)                        line:5:17, endln:5:26
+  work@if223a (work@if223a)                vpiArrayNet    array_net    (work@if223a.pv_assoc223)                      line:6:17, endln:6:28
+  work@if223a (work@if223a)                vpiProcess     initial                                                     line:15:4, endln:17:7
+## /tmp/r10uvm223_grid_pris/a1_iface_wild/ours.dump
+  work@if223a (work@if223a)                vpiNet         logic_net    (work@if223a.own223)                           line:14:8, endln:14:14
+##### a2_iface_expl
+## /tmp/r10uvm223_grid_pris/a2_iface_expl/golden.dump
+  work@if223b (work@if223b)                vpiNet         logic_net    (work@if223b.pv_one223)                        line:2:11, endln:2:20
+  work@if223b (work@if223b)                vpiNet         logic_net    (work@if223b.own223b)                          line:8:8, endln:8:15
+  work@if223c (work@if223c)                vpiNet         logic_net    (work@if223c.pv_two223)                        line:3:11, endln:3:20
+  work@if223c (work@if223c)                vpiNet         logic_net    (work@if223c.pv_one223)                        line:2:11, endln:2:20
+  work@if223c (work@if223c)                vpiNet         logic_net    (work@if223c.pv_two223)                        line:3:11, endln:3:20
+  work@if223c (work@if223c)                vpiNet         logic_net    (work@if223c.own223c)                          line:14:8, endln:14:15
+## /tmp/r10uvm223_grid_pris/a2_iface_expl/ours.dump
+  work@if223b (work@if223b)                vpiNet         logic_net    (work@if223b.own223b)                          line:8:8, endln:8:15
+  work@if223c (work@if223c)                vpiNet         logic_net    (work@if223c.own223c)                          line:14:8, endln:14:15
+##### a3_module_wild
+## /tmp/r10uvm223_grid_pris/a3_module_wild/golden.dump
+  work@m223a (work@m223a)                  vpiNet         logic_net    (work@m223a.mv_one223)                         line:2:11, endln:2:20
+  work@m223a (work@m223a)                  vpiNet         logic_net    (work@m223a.mv_two223)                         line:3:11, endln:3:20
+  work@m223a (work@m223a)                  vpiNet         logic_net    (work@m223a.mv_arr223)                         line:4:11, endln:4:20
+  work@m223a (work@m223a)                  vpiNet         logic_net    (work@m223a.ownm223)                           line:9:8, endln:9:15
+  work@m223b (work@m223b)                  vpiNet         logic_net    (work@m223b.mv_one223)                         line:2:11, endln:2:20
+  work@m223b (work@m223b)                  vpiNet         logic_net    (work@m223b.mv_two223)                         line:3:11, endln:3:20
+  work@m223b (work@m223b)                  vpiNet         logic_net    (work@m223b.mv_arr223)                         line:4:11, endln:4:20
+  work@m223b (work@m223b)                  vpiNet         logic_net    (work@m223b.ownm223b)                          line:14:8, endln:14:16
+  work@m223a (work@m223a)                  vpiVariables   int_var      (work@m223a.mv_one223)                         line:2:11, endln:2:20
+  work@m223a (work@m223a)                  vpiVariables   string_var   (work@m223a.mv_two223)                         line:3:11, endln:3:20
+  work@m223a (work@m223a)                  vpiVariables   array_var    (work@m223a.mv_arr223)                         line:4:11, endln:4:20
+  work@m223a (work@m223a)                  vpiVariables   int_var      (work@m223a.ownm223)                           line:9:8, endln:9:15
+  work@m223b (work@top223c.u223b)          vpiVariables   int_var      (work@top223c.u223b.mv_one223)                 line:2:11, endln:2:20
+  work@m223b (work@top223c.u223b)          vpiVariables   string_var   (work@top223c.u223b.mv_two223)                 line:3:11, endln:3:20
+  work@m223b (work@top223c.u223b)          vpiVariables   array_var    (work@top223c.u223b.mv_arr223)                 line:4:11, endln:4:20
+  work@m223b (work@top223c.u223b)          vpiVariables   int_var      (work@top223c.u223b.ownm223b)                  line:14:8, endln:14:16
+## /tmp/r10uvm223_grid_pris/a3_module_wild/ours.dump
+  work@m223a (work@m223a)                  vpiNet         logic_net    (work@m223a.mv_one223)                         line:2:11, endln:2:20
+  work@m223a (work@m223a)                  vpiNet         logic_net    (work@m223a.mv_two223)                         line:3:11, endln:3:20
+  work@m223a (work@m223a)                  vpiNet         logic_net    (work@m223a.ownm223)                           line:9:8, endln:9:15
+  work@m223b (work@m223b)                  vpiNet         logic_net    (work@m223b.mv_one223)                         line:2:11, endln:2:20
+  work@m223b (work@m223b)                  vpiNet         logic_net    (work@m223b.mv_two223)                         line:3:11, endln:3:20
+  work@m223b (work@m223b)                  vpiNet         logic_net    (work@m223b.ownm223b)                          line:14:8, endln:14:16
+  work@m223a (work@m223a)                  vpiVariables   int_var      (work@m223a.mv_one223)                         line:2:11, endln:2:20
+  work@m223a (work@m223a)                  vpiVariables   string_var   (work@m223a.mv_two223)                         line:3:11, endln:3:20
+  work@m223a (work@m223a)                  vpiVariables   int_var      (work@m223a.ownm223)                           line:9:8, endln:9:15
+  work@m223b (work@top223c.u223b)          vpiVariables   int_var      (work@top223c.u223b.mv_one223)                 line:2:11, endln:2:20
+  work@m223b (work@top223c.u223b)          vpiVariables   string_var   (work@top223c.u223b.mv_two223)                 line:3:11, endln:3:20
+  work@m223b (work@top223c.u223b)          vpiVariables   int_var      (work@top223c.u223b.ownm223b)                  line:14:8, endln:14:16
+##### a4_inst_iface
+## /tmp/r10uvm223_grid_pris/a4_inst_iface/golden.dump
+  work@if223d (work@if223d)                vpiNet         logic_net    (work@if223d.iv_one223)                        line:2:11, endln:2:20
+  work@if223d (work@if223d)                vpiNet         logic_net    (work@if223d.iv_two223)                        line:3:11, endln:3:20
+  work@if223d (work@if223d)                vpiNet         logic_net    (work@if223d.owni223)                          line:8:8, endln:8:15
+  work@if223d (work@top223d.u_if223)       vpiVariables   int_var      (work@top223d.u_if223.iv_one223)               line:2:11, endln:2:20
+  work@if223d (work@top223d.u_if223)       vpiVariables   string_var   (work@top223d.u_if223.iv_two223)               line:3:11, endln:3:20
+  work@if223d (work@top223d.u_if223)       vpiVariables   int_var      (work@top223d.u_if223.owni223)                 line:8:8, endln:8:15
+## /tmp/r10uvm223_grid_pris/a4_inst_iface/ours.dump
+  work@if223d (work@if223d)                vpiNet         logic_net    (work@if223d.owni223)                          line:8:8, endln:8:15
+  work@if223d (work@top223d.u_if223)       vpiVariables   int_var      (work@top223d.u_if223.owni223)                 line:8:8, endln:8:15
+##### a5_chain
+## /tmp/r10uvm223_grid_pris/a5_chain/golden.dump
+  work@if223e (work@if223e)                vpiNet         logic_net    (work@if223e.ev_one223)                        line:2:11, endln:2:20
+  work@if223e (work@if223e)                vpiNet         logic_net    (work@if223e.fv_one223)                        line:7:11, endln:7:20
+  work@if223e (work@if223e)                vpiNet         logic_net    (work@if223e.ev_one223)                        line:2:11, endln:2:20
+  work@if223e (work@if223e)                vpiNet         logic_net    (work@if223e.owne223)                          line:13:8, endln:13:15
+## /tmp/r10uvm223_grid_pris/a5_chain/ours.dump
+  work@if223e (work@if223e)                vpiNet         logic_net    (work@if223e.owne223)                          line:13:8, endln:13:15
+##### a6_pkg_import
+## /tmp/r10uvm223_grid_pris/a6_pkg_import/golden.dump
+  work@if223g (work@if223g)                vpiNet         logic_net    (work@if223g.gv_one223)                        line:2:11, endln:2:20
+  work@if223g (work@if223g)                vpiNet         logic_net    (work@if223g.hv_one223)                        line:7:11, endln:7:20
+  work@if223g (work@if223g)                vpiNet         logic_net    (work@if223g.owng223)                          line:12:8, endln:12:15
+## /tmp/r10uvm223_grid_pris/a6_pkg_import/ours.dump
+  work@if223g (work@if223g)                vpiNet         logic_net    (work@if223g.owng223)                          line:12:8, endln:12:15
+##### a7b_class_reject
+## /tmp/r10uvm223_grid_pris/a7b_class_reject/golden.dump
+## /tmp/r10uvm223_grid_pris/a7b_class_reject/ours.dump
+  (no database — see GRID.rc)
+##### a7_prog
+## /tmp/r10uvm223_grid_pris/a7_prog/golden.dump
+  work@if223i (work@if223i)                vpiNet         logic_net    (work@if223i.iiv_one223)                       line:2:11, endln:2:21
+  work@if223i (work@if223i)                vpiNet         logic_net    (work@if223i.owni223i)                         line:13:8, endln:13:16
+  work@pr223a (work@pr223a)                vpiNet         logic_net    (work@pr223a.iiv_one223)                       line:2:11, endln:2:21
+  work@pr223a (work@pr223a)                vpiNet         logic_net    (work@pr223a.ownp223)                          line:7:8, endln:7:15
+  work@pr223a (work@pr223a)                vpiProcess     initial                                                     line:8:4, endln:8:24
+## /tmp/r10uvm223_grid_pris/a7_prog/ours.dump
+  work@if223i (work@if223i)                vpiNet         logic_net    (work@if223i.owni223i)                         line:13:8, endln:13:16
+  work@pr223a (work@pr223a)                vpiNet         logic_net    (work@pr223a.iiv_one223)                       line:2:11, endln:2:21
+  work@pr223a (work@pr223a)                vpiNet         logic_net    (work@pr223a.ownp223)                          line:7:8, endln:7:15
+  work@pr223a (work@pr223a)                vpiProcess     initial                                                     line:8:4, endln:8:24
+##### a8_unit
+## /tmp/r10uvm223_grid_pris/a8_unit/golden.dump
+  work@if223j (work@if223j)                vpiNet         logic_net    (work@if223j.jv_one223)                        line:2:11, endln:2:20
+  work@if223j (work@if223j)                vpiNet         logic_net    (work@if223j.jv_one223)                        line:2:11, endln:2:20
+  work@if223j (work@if223j)                vpiNet         logic_net    (work@if223j.ownj223)                          line:8:8, endln:8:15
+  work@m223j (work@m223j)                  vpiNet         logic_net    (work@m223j.jv_one223)                         line:2:11, endln:2:20
+  work@m223j (work@m223j)                  vpiNet         logic_net    (work@m223j.jv_one223)                         line:2:11, endln:2:20
+  work@m223j (work@m223j)                  vpiNet         logic_net    (work@m223j.ownmj223)                          line:12:8, endln:12:16
+  work@m223j (work@m223j)                  vpiVariables   int_var      (work@m223j.jv_one223)                         line:2:11, endln:2:20
+  work@m223j (work@m223j)                  vpiVariables   int_var      (work@m223j.jv_one223)                         line:2:11, endln:2:20
+  work@m223j (work@m223j)                  vpiVariables   int_var      (work@m223j.ownmj223)                          line:12:8, endln:12:16
+## /tmp/r10uvm223_grid_pris/a8_unit/ours.dump
+  work@if223j (work@if223j)                vpiNet         logic_net    (work@if223j.ownj223)                          line:8:8, endln:8:15
+  work@m223j (work@m223j)                  vpiNet         logic_net    (work@m223j.jv_one223)                         line:2:11, endln:2:20
+  work@m223j (work@m223j)                  vpiNet         logic_net    (work@m223j.jv_one223)                         line:2:11, endln:2:20
+  work@m223j (work@m223j)                  vpiNet         logic_net    (work@m223j.ownmj223)                          line:12:8, endln:12:16
+  work@m223j (work@m223j)                  vpiVariables   int_var      (work@m223j.jv_one223)                         line:2:11, endln:2:20
+  work@m223j (work@m223j)                  vpiVariables   int_var      (work@m223j.jv_one223)                         line:2:11, endln:2:20
+  work@m223j (work@m223j)                  vpiVariables   int_var      (work@m223j.ownmj223)                          line:12:8, endln:12:16
+##### a9_assoc
+## /tmp/r10uvm223_grid_pris/a9_assoc/golden.dump
+  work@if223l (work@if223l)                vpiNet         logic_net    (work@if223l.lv_assoc223)                      line:2:11, endln:2:22
+  work@if223l (work@if223l)                vpiNet         logic_net    (work@if223l.lv_dyn223)                        line:3:11, endln:3:20
+  work@if223l (work@if223l)                vpiNet         logic_net    (work@if223l.lv_queue223)                      line:4:11, endln:4:22
+  work@if223l (work@if223l)                vpiNet         logic_net    (work@if223l.lv_fixed223)                      line:5:11, endln:5:22
+  work@if223l (work@if223l)                vpiNet         logic_net    (work@if223l.ownil223)                         line:15:8, endln:15:16
+  work@if223l (work@if223l)                vpiArrayNet    array_net    (work@if223l.lv_assoc223)                      line:2:11, endln:2:22
+  work@if223l (work@if223l)                vpiArrayNet    array_net    (work@if223l.lv_dyn223)                        line:3:11, endln:3:20
+  work@if223l (work@if223l)                vpiArrayNet    array_net    (work@if223l.lv_queue223)                      line:4:11, endln:4:22
+  work@if223l (work@if223l)                vpiArrayNet    array_net    (work@if223l.lv_fixed223)                      line:5:11, endln:5:22
+  work@m223l (work@m223l)                  vpiNet         logic_net    (work@m223l.lv_assoc223)                       line:2:11, endln:2:22
+  work@m223l (work@m223l)                  vpiNet         logic_net    (work@m223l.lv_dyn223)                         line:3:11, endln:3:20
+  work@m223l (work@m223l)                  vpiNet         logic_net    (work@m223l.lv_queue223)                       line:4:11, endln:4:22
+  work@m223l (work@m223l)                  vpiNet         logic_net    (work@m223l.lv_fixed223)                       line:5:11, endln:5:22
+  work@m223l (work@m223l)                  vpiNet         logic_net    (work@m223l.ownml223)                          line:10:8, endln:10:16
+  work@m223l (work@m223l)                  vpiVariables   array_var    (work@m223l.lv_assoc223)                       line:2:11, endln:2:22
+  work@m223l (work@m223l)                  vpiVariables   array_var    (work@m223l.lv_dyn223)                         line:3:11, endln:3:20
+  work@m223l (work@m223l)                  vpiVariables   array_var    (work@m223l.lv_queue223)                       line:4:11, endln:4:22
+  work@m223l (work@m223l)                  vpiVariables   array_var    (work@m223l.lv_fixed223)                       line:5:11, endln:5:22
+  work@m223l (work@m223l)                  vpiVariables   int_var      (work@m223l.ownml223)                          line:10:8, endln:10:16
+## /tmp/r10uvm223_grid_pris/a9_assoc/ours.dump
+  work@if223l (work@if223l)                vpiNet         logic_net    (work@if223l.ownil223)                         line:15:8, endln:15:16
+  work@m223l (work@m223l)                  vpiNet         logic_net    (work@m223l.lv_assoc223)                       line:2:11, endln:2:22
+  work@m223l (work@m223l)                  vpiNet         logic_net    (work@m223l.lv_dyn223)                         line:3:11, endln:3:20
+  work@m223l (work@m223l)                  vpiNet         logic_net    (work@m223l.lv_queue223)                       line:4:11, endln:4:22
+  work@m223l (work@m223l)                  vpiNet         logic_net    (work@m223l.ownml223)                          line:10:8, endln:10:16
+  work@m223l (work@m223l)                  vpiVariables   array_var    (work@m223l.lv_assoc223)                       line:2:11, endln:2:22
+  work@m223l (work@m223l)                  vpiVariables   array_var    (work@m223l.lv_dyn223)                         line:3:11, endln:3:20
+  work@m223l (work@m223l)                  vpiVariables   array_var    (work@m223l.lv_queue223)                       line:4:11, endln:4:22
+  work@m223l (work@m223l)                  vpiVariables   int_var      (work@m223l.ownml223)                          line:10:8, endln:10:16
+
+===================== PATCHED 042d957f9f10 =====================
+##### a10_ports
+## /tmp/r10uvm223_grid_pat/a10_ports/golden.dump
+  work@if223m (work@if223m)                vpiNet         logic_net    (work@if223m.mv_p223)                          line:2:11, endln:2:18
+  work@if223m (work@if223m)                vpiNet         logic_net    (work@if223m.mv_q223)                          line:3:11, endln:3:18
+  work@if223m (work@if223m)                vpiNet         logic_net    (work@if223m.clk223)                           line:6:30, endln:6:36
+  work@if223m (work@if223m)                vpiNet         logic_net    (work@if223m.rdy223)                           line:6:51, endln:6:57
+  work@if223m (work@if223m)                vpiNet         logic_net    (work@if223m.w223)                             line:8:10, endln:8:14
+  work@if223m (work@if223m)                vpiNet         logic_net    (work@if223m.own223m)                          line:9:10, endln:9:17
+  work@top223m (work@top223m)              vpiNet         logic_net    (work@top223m.c223)                            line:13:10, endln:13:14
+  work@top223m (work@top223m)              vpiNet         logic_net    (work@top223m.r223)                            line:13:16, endln:13:20
+  work@top223m (work@top223m)              vpiVariables   logic_var    (work@top223m.c223)                            line:13:10, endln:13:14
+  work@top223m (work@top223m)              vpiVariables   logic_var    (work@top223m.r223)                            line:13:16, endln:13:20
+  work@if223m (work@top223m.u_m223)        vpiVariables   int_var      (work@top223m.u_m223.mv_p223)                  line:2:11, endln:2:18
+  work@if223m (work@top223m.u_m223)        vpiVariables   string_var   (work@top223m.u_m223.mv_q223)                  line:3:11, endln:3:18
+  work@if223m (work@top223m.u_m223)        vpiVariables   logic_var    (work@top223m.u_m223.w223)                     line:8:10, endln:8:14
+  work@if223m (work@top223m.u_m223)        vpiVariables   int_var      (work@top223m.u_m223.own223m)                  line:9:10, endln:9:17
+  work@if223m (work@top223m.u_m223)        vpiNet         logic_net    (work@top223m.u_m223.clk223)                   line:6:30, endln:6:36
+  work@if223m (work@top223m.u_m223)        vpiNet         logic_net    (work@top223m.u_m223.rdy223)                   line:6:51, endln:6:57
+## /tmp/r10uvm223_grid_pat/a10_ports/ours.dump
+  work@if223m (work@if223m)                vpiNet         logic_net    (work@if223m.mv_p223)                          line:2:11, endln:2:18
+  work@if223m (work@if223m)                vpiNet         logic_net    (work@if223m.mv_q223)                          line:3:11, endln:3:18
+  work@if223m (work@if223m)                vpiNet         logic_net    (work@if223m.clk223)                           line:6:30, endln:6:36
+  work@if223m (work@if223m)                vpiNet         logic_net    (work@if223m.rdy223)                           line:6:51, endln:6:57
+  work@if223m (work@if223m)                vpiNet         logic_net    (work@if223m.w223)                             line:8:10, endln:8:14
+  work@if223m (work@if223m)                vpiNet         logic_net    (work@if223m.own223m)                          line:9:10, endln:9:17
+  work@top223m (work@top223m)              vpiNet         logic_net    (work@top223m.c223)                            line:13:10, endln:13:14
+  work@top223m (work@top223m)              vpiNet         logic_net    (work@top223m.r223)                            line:13:16, endln:13:20
+  work@top223m (work@top223m)              vpiVariables   logic_var    (work@top223m.c223)                            line:13:10, endln:13:14
+  work@top223m (work@top223m)              vpiVariables   logic_var    (work@top223m.r223)                            line:13:16, endln:13:20
+  work@if223m (work@top223m.u_m223)        vpiVariables   logic_var    (work@top223m.u_m223.rdy223)                   line:6:51, endln:6:57
+  work@if223m (work@top223m.u_m223)        vpiVariables   logic_var    (work@top223m.u_m223.w223)                     line:8:10, endln:8:14
+  work@if223m (work@top223m.u_m223)        vpiVariables   int_var      (work@top223m.u_m223.own223m)                  line:9:10, endln:9:17
+  work@if223m (work@top223m.u_m223)        vpiNet         logic_net    (work@top223m.u_m223.clk223)                   line:6:30, endln:6:36
+##### a11_modport
+## /tmp/r10uvm223_grid_pat/a11_modport/golden.dump
+  work@if223n (work@if223n)                vpiNet         logic_net    (work@if223n.nv_one223)                        line:2:11, endln:2:20
+  work@if223n (work@if223n)                vpiNet         logic_net    (work@if223n.sig223)                           line:7:10, endln:7:16
+  work@sub223n (work@sub223n)              vpiNet         logic_net    (work@sub223n.p)                               line:11:29, endln:11:30
+  work@if223n (work@top223n.u_n223)        vpiVariables   int_var      (work@top223n.u_n223.nv_one223)                line:2:11, endln:2:20
+  work@if223n (work@top223n.u_n223)        vpiVariables   logic_var    (work@top223n.u_n223.sig223)                   line:7:10, endln:7:16
+  work@if223n (work@top223n.u_s223.p)      vpiVariables   int_var      (work@top223n.u_s223.p.nv_one223)              line:2:11, endln:2:20
+  work@if223n (work@top223n.u_s223.p)      vpiVariables   logic_var    (work@top223n.u_s223.p.sig223)                 line:7:10, endln:7:16
+## /tmp/r10uvm223_grid_pat/a11_modport/ours.dump
+  work@if223n (work@if223n)                vpiNet         logic_net    (work@if223n.nv_one223)                        line:2:11, endln:2:20
+  work@if223n (work@if223n)                vpiNet         logic_net    (work@if223n.sig223)                           line:7:10, endln:7:16
+  work@sub223n (work@sub223n)              vpiNet         logic_net    (work@sub223n.p)                               line:11:29, endln:11:30
+  work@if223n (work@top223n.u_n223)        vpiVariables   logic_var    (work@top223n.u_n223.sig223)                   line:7:10, endln:7:16
+  work@if223n (work@top223n.u_s223.p)      vpiVariables   logic_var    (work@top223n.u_s223.p.sig223)                 line:7:10, endln:7:16
+##### a12_noimport
+## /tmp/r10uvm223_grid_pat/a12_noimport/golden.dump
+  work@if223o (work@if223o)                vpiNet         logic_net    (work@if223o.sig223o)                          line:6:10, endln:6:17
+  work@if223o (work@if223o)                vpiNet         logic_net    (work@if223o.own223o)                          line:7:10, endln:7:17
+  work@m223o (work@m223o)                  vpiNet         logic_net    (work@m223o.w223o)                             line:11:10, endln:11:15
+  work@m223o (work@m223o)                  vpiVariables   logic_var    (work@m223o.w223o)                             line:11:10, endln:11:15
+## /tmp/r10uvm223_grid_pat/a12_noimport/ours.dump
+  work@if223o (work@if223o)                vpiNet         logic_net    (work@if223o.sig223o)                          line:6:10, endln:6:17
+  work@if223o (work@if223o)                vpiNet         logic_net    (work@if223o.own223o)                          line:7:10, endln:7:17
+  work@m223o (work@m223o)                  vpiNet         logic_net    (work@m223o.w223o)                             line:11:10, endln:11:15
+  work@m223o (work@m223o)                  vpiVariables   logic_var    (work@m223o.w223o)                             line:11:10, endln:11:15
+##### a13_ifaceproc
+## /tmp/r10uvm223_grid_pat/a13_ifaceproc/golden.dump
+  work@if223p (work@if223p)                vpiNet         logic_net    (work@if223p.sig223p)                          line:2:10, endln:2:17
+  work@if223p (work@if223p)                vpiProcess     initial                                                     line:3:4, endln:3:24
+  work@if223p (work@if223p)                vpiProcess     always                                                      line:4:4, endln:4:25
+  work@if223q (work@if223q)                vpiNet         logic_net    (work@if223q.sig223q)                          line:8:10, endln:8:17
+  work@if223q (work@if223q)                vpiProcess     initial                                                     line:9:4, endln:9:24
+  work@if223q (work@top223p.u_q223)        vpiVariables   logic_var    (work@top223p.u_q223.sig223q)                  line:8:10, endln:8:17
+  work@if223q (work@top223p.u_q223)        vpiProcess     initial                                                     line:9:4, endln:9:24
+## /tmp/r10uvm223_grid_pat/a13_ifaceproc/ours.dump
+  work@if223p (work@if223p)                vpiNet         logic_net    (work@if223p.sig223p)                          line:2:10, endln:2:17
+  work@if223q (work@if223q)                vpiNet         logic_net    (work@if223q.sig223q)                          line:8:10, endln:8:17
+  work@if223q (work@if223q)                vpiProcess     initial                                                     line:9:4, endln:9:24
+  work@if223q (work@top223p.u_q223)        vpiVariables   logic_var    (work@top223p.u_q223.sig223q)                  line:8:10, endln:8:17
+  work@if223q (work@top223p.u_q223)        vpiProcess     initial                                                     line:9:4, endln:9:24
+##### a1_iface_wild
+## /tmp/r10uvm223_grid_pat/a1_iface_wild/golden.dump
+  work@if223a (work@if223a)                vpiNet         logic_net    (work@if223a.pv_int223)                        line:2:17, endln:2:26
+  work@if223a (work@if223a)                vpiNet         logic_net    (work@if223a.pv_str223)                        line:3:17, endln:3:26
+  work@if223a (work@if223a)                vpiNet         logic_net    (work@if223a.pv_vec223)                        line:4:17, endln:4:26
+  work@if223a (work@if223a)                vpiNet         logic_net    (work@if223a.pv_arr223)                        line:5:17, endln:5:26
+  work@if223a (work@if223a)                vpiNet         logic_net    (work@if223a.pv_assoc223)                      line:6:17, endln:6:28
+  work@if223a (work@if223a)                vpiNet         logic_net    (work@if223a.own223)                           line:14:8, endln:14:14
+  work@if223a (work@if223a)                vpiArrayNet    array_net    (work@if223a.pv_arr223)                        line:5:17, endln:5:26
+  work@if223a (work@if223a)                vpiArrayNet    array_net    (work@if223a.pv_assoc223)                      line:6:17, endln:6:28
+  work@if223a (work@if223a)                vpiProcess     initial                                                     line:15:4, endln:17:7
+## /tmp/r10uvm223_grid_pat/a1_iface_wild/ours.dump
+  work@if223a (work@if223a)                vpiNet         logic_net    (work@if223a.pv_int223)                        line:2:17, endln:2:26
+  work@if223a (work@if223a)                vpiNet         logic_net    (work@if223a.pv_str223)                        line:3:17, endln:3:26
+  work@if223a (work@if223a)                vpiNet         logic_net    (work@if223a.pv_vec223)                        line:4:17, endln:4:26
+  work@if223a (work@if223a)                vpiNet         logic_net    (work@if223a.pv_assoc223)                      line:6:17, endln:6:28
+  work@if223a (work@if223a)                vpiNet         logic_net    (work@if223a.own223)                           line:14:8, endln:14:14
+##### a2_iface_expl
+## /tmp/r10uvm223_grid_pat/a2_iface_expl/golden.dump
+  work@if223b (work@if223b)                vpiNet         logic_net    (work@if223b.pv_one223)                        line:2:11, endln:2:20
+  work@if223b (work@if223b)                vpiNet         logic_net    (work@if223b.own223b)                          line:8:8, endln:8:15
+  work@if223c (work@if223c)                vpiNet         logic_net    (work@if223c.pv_two223)                        line:3:11, endln:3:20
+  work@if223c (work@if223c)                vpiNet         logic_net    (work@if223c.pv_one223)                        line:2:11, endln:2:20
+  work@if223c (work@if223c)                vpiNet         logic_net    (work@if223c.pv_two223)                        line:3:11, endln:3:20
+  work@if223c (work@if223c)                vpiNet         logic_net    (work@if223c.own223c)                          line:14:8, endln:14:15
+## /tmp/r10uvm223_grid_pat/a2_iface_expl/ours.dump
+  work@if223b (work@if223b)                vpiNet         logic_net    (work@if223b.pv_one223)                        line:2:11, endln:2:20
+  work@if223b (work@if223b)                vpiNet         logic_net    (work@if223b.own223b)                          line:8:8, endln:8:15
+  work@if223c (work@if223c)                vpiNet         logic_net    (work@if223c.pv_one223)                        line:2:11, endln:2:20
+  work@if223c (work@if223c)                vpiNet         logic_net    (work@if223c.pv_two223)                        line:3:11, endln:3:20
+  work@if223c (work@if223c)                vpiNet         logic_net    (work@if223c.pv_two223)                        line:3:11, endln:3:20
+  work@if223c (work@if223c)                vpiNet         logic_net    (work@if223c.own223c)                          line:14:8, endln:14:15
+##### a3_module_wild
+## /tmp/r10uvm223_grid_pat/a3_module_wild/golden.dump
+  work@m223a (work@m223a)                  vpiNet         logic_net    (work@m223a.mv_one223)                         line:2:11, endln:2:20
+  work@m223a (work@m223a)                  vpiNet         logic_net    (work@m223a.mv_two223)                         line:3:11, endln:3:20
+  work@m223a (work@m223a)                  vpiNet         logic_net    (work@m223a.mv_arr223)                         line:4:11, endln:4:20
+  work@m223a (work@m223a)                  vpiNet         logic_net    (work@m223a.ownm223)                           line:9:8, endln:9:15
+  work@m223b (work@m223b)                  vpiNet         logic_net    (work@m223b.mv_one223)                         line:2:11, endln:2:20
+  work@m223b (work@m223b)                  vpiNet         logic_net    (work@m223b.mv_two223)                         line:3:11, endln:3:20
+  work@m223b (work@m223b)                  vpiNet         logic_net    (work@m223b.mv_arr223)                         line:4:11, endln:4:20
+  work@m223b (work@m223b)                  vpiNet         logic_net    (work@m223b.ownm223b)                          line:14:8, endln:14:16
+  work@m223a (work@m223a)                  vpiVariables   int_var      (work@m223a.mv_one223)                         line:2:11, endln:2:20
+  work@m223a (work@m223a)                  vpiVariables   string_var   (work@m223a.mv_two223)                         line:3:11, endln:3:20
+  work@m223a (work@m223a)                  vpiVariables   array_var    (work@m223a.mv_arr223)                         line:4:11, endln:4:20
+  work@m223a (work@m223a)                  vpiVariables   int_var      (work@m223a.ownm223)                           line:9:8, endln:9:15
+  work@m223b (work@top223c.u223b)          vpiVariables   int_var      (work@top223c.u223b.mv_one223)                 line:2:11, endln:2:20
+  work@m223b (work@top223c.u223b)          vpiVariables   string_var   (work@top223c.u223b.mv_two223)                 line:3:11, endln:3:20
+  work@m223b (work@top223c.u223b)          vpiVariables   array_var    (work@top223c.u223b.mv_arr223)                 line:4:11, endln:4:20
+  work@m223b (work@top223c.u223b)          vpiVariables   int_var      (work@top223c.u223b.ownm223b)                  line:14:8, endln:14:16
+## /tmp/r10uvm223_grid_pat/a3_module_wild/ours.dump
+  work@m223a (work@m223a)                  vpiNet         logic_net    (work@m223a.mv_one223)                         line:2:11, endln:2:20
+  work@m223a (work@m223a)                  vpiNet         logic_net    (work@m223a.mv_two223)                         line:3:11, endln:3:20
+  work@m223a (work@m223a)                  vpiNet         logic_net    (work@m223a.ownm223)                           line:9:8, endln:9:15
+  work@m223b (work@m223b)                  vpiNet         logic_net    (work@m223b.mv_one223)                         line:2:11, endln:2:20
+  work@m223b (work@m223b)                  vpiNet         logic_net    (work@m223b.mv_two223)                         line:3:11, endln:3:20
+  work@m223b (work@m223b)                  vpiNet         logic_net    (work@m223b.ownm223b)                          line:14:8, endln:14:16
+  work@m223a (work@m223a)                  vpiVariables   int_var      (work@m223a.mv_one223)                         line:2:11, endln:2:20
+  work@m223a (work@m223a)                  vpiVariables   string_var   (work@m223a.mv_two223)                         line:3:11, endln:3:20
+  work@m223a (work@m223a)                  vpiVariables   int_var      (work@m223a.ownm223)                           line:9:8, endln:9:15
+  work@m223b (work@top223c.u223b)          vpiVariables   int_var      (work@top223c.u223b.mv_one223)                 line:2:11, endln:2:20
+  work@m223b (work@top223c.u223b)          vpiVariables   string_var   (work@top223c.u223b.mv_two223)                 line:3:11, endln:3:20
+  work@m223b (work@top223c.u223b)          vpiVariables   int_var      (work@top223c.u223b.ownm223b)                  line:14:8, endln:14:16
+##### a4_inst_iface
+## /tmp/r10uvm223_grid_pat/a4_inst_iface/golden.dump
+  work@if223d (work@if223d)                vpiNet         logic_net    (work@if223d.iv_one223)                        line:2:11, endln:2:20
+  work@if223d (work@if223d)                vpiNet         logic_net    (work@if223d.iv_two223)                        line:3:11, endln:3:20
+  work@if223d (work@if223d)                vpiNet         logic_net    (work@if223d.owni223)                          line:8:8, endln:8:15
+  work@if223d (work@top223d.u_if223)       vpiVariables   int_var      (work@top223d.u_if223.iv_one223)               line:2:11, endln:2:20
+  work@if223d (work@top223d.u_if223)       vpiVariables   string_var   (work@top223d.u_if223.iv_two223)               line:3:11, endln:3:20
+  work@if223d (work@top223d.u_if223)       vpiVariables   int_var      (work@top223d.u_if223.owni223)                 line:8:8, endln:8:15
+## /tmp/r10uvm223_grid_pat/a4_inst_iface/ours.dump
+  work@if223d (work@if223d)                vpiNet         logic_net    (work@if223d.iv_one223)                        line:2:11, endln:2:20
+  work@if223d (work@if223d)                vpiNet         logic_net    (work@if223d.iv_two223)                        line:3:11, endln:3:20
+  work@if223d (work@if223d)                vpiNet         logic_net    (work@if223d.owni223)                          line:8:8, endln:8:15
+  work@if223d (work@top223d.u_if223)       vpiVariables   int_var      (work@top223d.u_if223.owni223)                 line:8:8, endln:8:15
+##### a5_chain
+## /tmp/r10uvm223_grid_pat/a5_chain/golden.dump
+  work@if223e (work@if223e)                vpiNet         logic_net    (work@if223e.ev_one223)                        line:2:11, endln:2:20
+  work@if223e (work@if223e)                vpiNet         logic_net    (work@if223e.fv_one223)                        line:7:11, endln:7:20
+  work@if223e (work@if223e)                vpiNet         logic_net    (work@if223e.ev_one223)                        line:2:11, endln:2:20
+  work@if223e (work@if223e)                vpiNet         logic_net    (work@if223e.owne223)                          line:13:8, endln:13:15
+## /tmp/r10uvm223_grid_pat/a5_chain/ours.dump
+  work@if223e (work@if223e)                vpiNet         logic_net    (work@if223e.ev_one223)                        line:2:11, endln:2:20
+  work@if223e (work@if223e)                vpiNet         logic_net    (work@if223e.fv_one223)                        line:7:11, endln:7:20
+  work@if223e (work@if223e)                vpiNet         logic_net    (work@if223e.ev_one223)                        line:2:11, endln:2:20
+  work@if223e (work@if223e)                vpiNet         logic_net    (work@if223e.owne223)                          line:13:8, endln:13:15
+##### a6_pkg_import
+## /tmp/r10uvm223_grid_pat/a6_pkg_import/golden.dump
+  work@if223g (work@if223g)                vpiNet         logic_net    (work@if223g.gv_one223)                        line:2:11, endln:2:20
+  work@if223g (work@if223g)                vpiNet         logic_net    (work@if223g.hv_one223)                        line:7:11, endln:7:20
+  work@if223g (work@if223g)                vpiNet         logic_net    (work@if223g.owng223)                          line:12:8, endln:12:15
+## /tmp/r10uvm223_grid_pat/a6_pkg_import/ours.dump
+  work@if223g (work@if223g)                vpiNet         logic_net    (work@if223g.gv_one223)                        line:2:11, endln:2:20
+  work@if223g (work@if223g)                vpiNet         logic_net    (work@if223g.hv_one223)                        line:7:11, endln:7:20
+  work@if223g (work@if223g)                vpiNet         logic_net    (work@if223g.owng223)                          line:12:8, endln:12:15
+##### a7b_class_reject
+## /tmp/r10uvm223_grid_pat/a7b_class_reject/golden.dump
+## /tmp/r10uvm223_grid_pat/a7b_class_reject/ours.dump
+  (no database — see GRID.rc)
+##### a7_prog
+## /tmp/r10uvm223_grid_pat/a7_prog/golden.dump
+  work@if223i (work@if223i)                vpiNet         logic_net    (work@if223i.iiv_one223)                       line:2:11, endln:2:21
+  work@if223i (work@if223i)                vpiNet         logic_net    (work@if223i.owni223i)                         line:13:8, endln:13:16
+  work@pr223a (work@pr223a)                vpiNet         logic_net    (work@pr223a.iiv_one223)                       line:2:11, endln:2:21
+  work@pr223a (work@pr223a)                vpiNet         logic_net    (work@pr223a.ownp223)                          line:7:8, endln:7:15
+  work@pr223a (work@pr223a)                vpiProcess     initial                                                     line:8:4, endln:8:24
+## /tmp/r10uvm223_grid_pat/a7_prog/ours.dump
+  work@if223i (work@if223i)                vpiNet         logic_net    (work@if223i.iiv_one223)                       line:2:11, endln:2:21
+  work@if223i (work@if223i)                vpiNet         logic_net    (work@if223i.owni223i)                         line:13:8, endln:13:16
+  work@pr223a (work@pr223a)                vpiNet         logic_net    (work@pr223a.iiv_one223)                       line:2:11, endln:2:21
+  work@pr223a (work@pr223a)                vpiNet         logic_net    (work@pr223a.ownp223)                          line:7:8, endln:7:15
+  work@pr223a (work@pr223a)                vpiProcess     initial                                                     line:8:4, endln:8:24
+##### a8_unit
+## /tmp/r10uvm223_grid_pat/a8_unit/golden.dump
+  work@if223j (work@if223j)                vpiNet         logic_net    (work@if223j.jv_one223)                        line:2:11, endln:2:20
+  work@if223j (work@if223j)                vpiNet         logic_net    (work@if223j.jv_one223)                        line:2:11, endln:2:20
+  work@if223j (work@if223j)                vpiNet         logic_net    (work@if223j.ownj223)                          line:8:8, endln:8:15
+  work@m223j (work@m223j)                  vpiNet         logic_net    (work@m223j.jv_one223)                         line:2:11, endln:2:20
+  work@m223j (work@m223j)                  vpiNet         logic_net    (work@m223j.jv_one223)                         line:2:11, endln:2:20
+  work@m223j (work@m223j)                  vpiNet         logic_net    (work@m223j.ownmj223)                          line:12:8, endln:12:16
+  work@m223j (work@m223j)                  vpiVariables   int_var      (work@m223j.jv_one223)                         line:2:11, endln:2:20
+  work@m223j (work@m223j)                  vpiVariables   int_var      (work@m223j.jv_one223)                         line:2:11, endln:2:20
+  work@m223j (work@m223j)                  vpiVariables   int_var      (work@m223j.ownmj223)                          line:12:8, endln:12:16
+## /tmp/r10uvm223_grid_pat/a8_unit/ours.dump
+  work@if223j (work@if223j)                vpiNet         logic_net    (work@if223j.jv_one223)                        line:2:11, endln:2:20
+  work@if223j (work@if223j)                vpiNet         logic_net    (work@if223j.jv_one223)                        line:2:11, endln:2:20
+  work@if223j (work@if223j)                vpiNet         logic_net    (work@if223j.ownj223)                          line:8:8, endln:8:15
+  work@m223j (work@m223j)                  vpiNet         logic_net    (work@m223j.jv_one223)                         line:2:11, endln:2:20
+  work@m223j (work@m223j)                  vpiNet         logic_net    (work@m223j.jv_one223)                         line:2:11, endln:2:20
+  work@m223j (work@m223j)                  vpiNet         logic_net    (work@m223j.ownmj223)                          line:12:8, endln:12:16
+  work@m223j (work@m223j)                  vpiVariables   int_var      (work@m223j.jv_one223)                         line:2:11, endln:2:20
+  work@m223j (work@m223j)                  vpiVariables   int_var      (work@m223j.jv_one223)                         line:2:11, endln:2:20
+  work@m223j (work@m223j)                  vpiVariables   int_var      (work@m223j.ownmj223)                          line:12:8, endln:12:16
+##### a9_assoc
+## /tmp/r10uvm223_grid_pat/a9_assoc/golden.dump
+  work@if223l (work@if223l)                vpiNet         logic_net    (work@if223l.lv_assoc223)                      line:2:11, endln:2:22
+  work@if223l (work@if223l)                vpiNet         logic_net    (work@if223l.lv_dyn223)                        line:3:11, endln:3:20
+  work@if223l (work@if223l)                vpiNet         logic_net    (work@if223l.lv_queue223)                      line:4:11, endln:4:22
+  work@if223l (work@if223l)                vpiNet         logic_net    (work@if223l.lv_fixed223)                      line:5:11, endln:5:22
+  work@if223l (work@if223l)                vpiNet         logic_net    (work@if223l.ownil223)                         line:15:8, endln:15:16
+  work@if223l (work@if223l)                vpiArrayNet    array_net    (work@if223l.lv_assoc223)                      line:2:11, endln:2:22
+  work@if223l (work@if223l)                vpiArrayNet    array_net    (work@if223l.lv_dyn223)                        line:3:11, endln:3:20
+  work@if223l (work@if223l)                vpiArrayNet    array_net    (work@if223l.lv_queue223)                      line:4:11, endln:4:22
+  work@if223l (work@if223l)                vpiArrayNet    array_net    (work@if223l.lv_fixed223)                      line:5:11, endln:5:22
+  work@m223l (work@m223l)                  vpiNet         logic_net    (work@m223l.lv_assoc223)                       line:2:11, endln:2:22
+  work@m223l (work@m223l)                  vpiNet         logic_net    (work@m223l.lv_dyn223)                         line:3:11, endln:3:20
+  work@m223l (work@m223l)                  vpiNet         logic_net    (work@m223l.lv_queue223)                       line:4:11, endln:4:22
+  work@m223l (work@m223l)                  vpiNet         logic_net    (work@m223l.lv_fixed223)                       line:5:11, endln:5:22
+  work@m223l (work@m223l)                  vpiNet         logic_net    (work@m223l.ownml223)                          line:10:8, endln:10:16
+  work@m223l (work@m223l)                  vpiVariables   array_var    (work@m223l.lv_assoc223)                       line:2:11, endln:2:22
+  work@m223l (work@m223l)                  vpiVariables   array_var    (work@m223l.lv_dyn223)                         line:3:11, endln:3:20
+  work@m223l (work@m223l)                  vpiVariables   array_var    (work@m223l.lv_queue223)                       line:4:11, endln:4:22
+  work@m223l (work@m223l)                  vpiVariables   array_var    (work@m223l.lv_fixed223)                       line:5:11, endln:5:22
+  work@m223l (work@m223l)                  vpiVariables   int_var      (work@m223l.ownml223)                          line:10:8, endln:10:16
+## /tmp/r10uvm223_grid_pat/a9_assoc/ours.dump
+  work@if223l (work@if223l)                vpiNet         logic_net    (work@if223l.lv_assoc223)                      line:2:11, endln:2:22
+  work@if223l (work@if223l)                vpiNet         logic_net    (work@if223l.lv_dyn223)                        line:3:11, endln:3:20
+  work@if223l (work@if223l)                vpiNet         logic_net    (work@if223l.lv_queue223)                      line:4:11, endln:4:22
+  work@if223l (work@if223l)                vpiNet         logic_net    (work@if223l.ownil223)                         line:15:8, endln:15:16
+  work@m223l (work@m223l)                  vpiNet         logic_net    (work@m223l.lv_assoc223)                       line:2:11, endln:2:22
+  work@m223l (work@m223l)                  vpiNet         logic_net    (work@m223l.lv_dyn223)                         line:3:11, endln:3:20
+  work@m223l (work@m223l)                  vpiNet         logic_net    (work@m223l.lv_queue223)                       line:4:11, endln:4:22
+  work@m223l (work@m223l)                  vpiNet         logic_net    (work@m223l.ownml223)                          line:10:8, endln:10:16
+  work@m223l (work@m223l)                  vpiVariables   array_var    (work@m223l.lv_assoc223)                       line:2:11, endln:2:22
+  work@m223l (work@m223l)                  vpiVariables   array_var    (work@m223l.lv_dyn223)                         line:3:11, endln:3:20
+  work@m223l (work@m223l)                  vpiVariables   array_var    (work@m223l.lv_queue223)                       line:4:11, endln:4:22
+  work@m223l (work@m223l)                  vpiVariables   int_var      (work@m223l.ownml223)                          line:10:8, endln:10:16

@@ -876,6 +876,37 @@ private:
     };
 
     UHDM::instance* emitModuleDef(const slang::ast::InstanceSymbol& inst, bool topDef);
+    // § wildcardImportCopiesPkgVarsToDefNets223 — the MATERIALIZED
+    // imported-package data hoist (§ collectImportedPkgVars /
+    // § collectMaterializedPkgs), run by EVERY definition-view holder whose
+    // Surelog component is a `ModuleDefinition`: `emitModuleDef` (module and
+    // `program`) and `emitInterfaceDef`.  Surelog's importer copies the
+    // package's signal vector into the importing component
+    // (`CompileHelper::importPackage`, CompileHelper.cpp:183-190) with no
+    // holder test at all, and both writers hand that one vector to the one
+    // `writeNets` (UhdmWriter.cpp:1457 / :1679).  Definition views only: the
+    // ELABORATED view lists the same declarations as the package variable's
+    // own kind and is emitted elsewhere.
+    //
+    // § interfaceDefViewNeverLateBinds223v (r10uvm223 VERIFIER) — THE HOISTED
+    // NET IS A BINDING TARGET ON THE MODULE ROAD AND NOT ON THE INTERFACE
+    // ROAD, and the distinguisher is one Surelog call.  `writeModule` runs
+    // `lateBinding` over the module's bare references twice
+    // (UhdmWriter.cpp:1575, :1623), which is what resolves a module def view's
+    // bare `lv` to the module's own hoisted copy; `writeInterface`
+    // (UhdmWriter.cpp:1626-1794) never calls it at all, so an interface
+    // definition's references to an imported name STAY BARE.  Measured on a
+    // real Surelog golden (r10v223repro/arms/v19_uninst_refactual): golden's
+    // `work@m_v19` cont-assign ref carries `vpiActual -> logic_net
+    // work@m_v19.lv19` and golden's `work@if_v19` ref carries NO actual at
+    // all.  `bindRefs` therefore keys the `info.nets` registration — the
+    // def-view name-binding map — on the holder, and NOTHING ELSE about the
+    // listing changes: the same nets, in the same order, with the same
+    // typespecs, are pushed on both roads.
+    void emitImportedPkgVarNets(const slang::ast::InstanceBodySymbol& body,
+                                UHDM::instance* m, const std::string& prefix,
+                                DefInfo& info, UHDM::VectorOfnet* nets,
+                                bool bindRefs);
     UHDM::instance* emitModuleDefPorts(const slang::ast::InstanceSymbol& inst);
     UHDM::instance* emitInstance(const slang::ast::InstanceSymbol& inst,
                                  const std::string& path, UHDM::instance* parentM,

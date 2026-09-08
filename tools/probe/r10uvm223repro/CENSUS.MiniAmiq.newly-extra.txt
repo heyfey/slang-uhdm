@@ -1,0 +1,19 @@
+      4 |vpiName:uvm_phase
+      4 \_string_typespec: , line:25:7, endln:25:13
+      4 \_string_typespec: , line:24:7, endln:24:13
+      4 \_string_typespec: , line:23:7, endln:23:13
+      4 \_int_typespec: , line:313:1, endln:313:13
+      4 \_int_typespec: , line:22:7, endln:22:10
+      4 \_class_typespec: (uvm_tree_printer), line:618:1, endln:618:17
+      4 \_class_typespec: (uvm_test_done_objection), line:56:7, endln:56:30
+      4 \_class_typespec: (uvm_table_printer), line:610:1, endln:610:18
+      4 \_class_typespec: (uvm_seed_map), line:328:1, endln:328:13
+      4 \_class_typespec: (uvm_root), line:315:7, endln:315:15
+      4 \_class_typespec: (uvm_resource_pool), line:1694:7, endln:1694:24
+      4 \_class_typespec: (uvm_packer), line:645:1, endln:645:11
+      4 \_class_typespec: (uvm_line_printer), line:626:1, endln:626:17
+      4 \_class_typespec: (uvm_comparer), line:654:1, endln:654:13
+      4 \_class_typespec: (uvm_cmdline_processor), line:801:5, endln:801:26
+      4 \_class_typespec: (uvm_cmdline_processor), line:458:7, endln:458:28
+      4 \_bit_typespec: , line:26:1, endln:26:4
+      2 \_class_defn: (uvm_pkg::uvm_domain), file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/base/uvm_domain.svh, line:65:1, endln:218:9

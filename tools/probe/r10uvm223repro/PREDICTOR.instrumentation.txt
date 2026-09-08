@@ -1,0 +1,61 @@
+§ wildcardImportCopiesPkgVarsToDefNets223 — THE PREDICTOR BINARY
+================================================================
+
+The pass's hardest gate asks for the mover set PREDICTED BY NAME, a priori,
+before the patched sweep, and for the uhdm2rtlil ZERO to be PROVEN rather than
+argued.  A database-side signature cannot do it here: the law's trigger is the
+FILE-SCOPE import road as well as the body one, and a file-scope import leaves
+NO object in either database (measured — grid arm a8 carries no
+`import_typespec` on golden's side or ours).
+
+So the prediction was computed by a THIRD binary whose OBSERVABLE BEHAVIOUR IS
+PRISTINE.  It is the patched tree with the new call site wrapped as below; with
+`SLANG223_PRED=1` in the environment it DECLINES the mint and only reports, so
+the databases it writes are byte-identical to the pristine build's — asserted
+per row by `predict223.sh`, which compares each one against the pristine
+sweep's own file (surelog 956/956 identical, uhdm2rtlil 1358/1358 identical,
+DB-DIFFERING 0 on both).
+
+    predictor binary md5 b5a0b6e29f45eef6e551cc126cf5cf57
+    pristine  binary md5 127920b3fce552846e1e8f8ac595c0b8
+    patched   binary md5 042d957f9f100891fc1ac25c6b3a3d5f
+
+THE INSTRUMENTATION (src/ModuleEmit.cpp, `UhdmExporter::emitInterfaceDef`,
+in place of the landed one-line call).  IT IS NOT PART OF THE LANDED PATCH —
+it was reverted before the patched binary was built, and `git diff` against
+8eebf86e carries no trace of it:
+
+    if (const char* pr223 = getenv("SLANG223_PRED")) {
+        // r10uvm223 PREDICTOR MODE (temporary instrumentation, NOT part of the
+        // landed patch): report the hoist's size and DECLINE to mint, so this
+        // binary's databases are byte-identical to the pristine build's while
+        // naming, a priori, every design the law can reach.
+        (void)pr223;
+        fprintf(stderr, "PRED223 %s %zu\n", prefix.c_str(),
+                collectImportedPkgVars(body, *sm).size());
+    }
+    else
+        emitImportedPkgVarNets(body, iface, prefix, info, nets);
+
+THE RESULT (PREDICT.stage.surelog.txt / PREDICT.stage.uhdm2rtlil.txt):
+
+    surelog     rows=1523  db-identical=956   DB-DIFFERING=0  HIT-ROWS=2
+                  HIT default   MiniAmiq  ifaces=1 hoisted=66
+                  HIT testflags MiniAmiq  ifaces=1 hoisted=66
+    uhdm2rtlil  rows=1458  db-identical=1358  DB-DIFFERING=0  HIT-ROWS=0
+
+Two row-modes, one interface each, 66 hoisted cells each — the head's own 66.
+NO uhdm2rtlil design has an interface definition that materialises even one
+imported package variable, so no u2r database CAN change.
+
+The patched sweep then measured `byteverify` MOVERS 2/956 (those two names)
+and 0/1358 — the predicted values exactly.
+
+ONE OPS NOTE, PAID FOR HERE.  The first run of `predict223.sh` looked the
+mapping up by TEST NAME alone.  The two corpora SHARE TWELVE NAMES (BitSelect,
+BitSelectPartSelectInFunction, CaseInside, ConcatWidth, Disable, DpiChandle,
+EnumConcat, OneImport, SignedWire, TypedefAlias, UnitForLoop, VarSelect), so
+seven surelog rows were compiled from the uhdm2rtlil directory's sources and
+read as movers.  The lookup is keyed on the CORPUS TAG now, and the seven
+phantoms are gone.  An arm — or a predictor — that compiles the wrong sources
+is not measuring the law.

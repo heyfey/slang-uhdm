@@ -1,0 +1,17 @@
+LHS: <null>
+RHS:
+decompile:
+ref_typespec: (work@svaunit_vpi_interface.sva_info), id:302795
+|vpiParent:
+\_logic_net: (work@svaunit_vpi_interface.sva_info), id:302794, line:87:38, endln:87:46
+|vpiFullName:work@svaunit_vpi_interface.sva_info
+|vpiActual:
+\_class_typespec: (svaunit_concurrent_assertion_info), id:303830, line:87:4, endln:87:37
+
+decompile:
+ref_typespec: (work@svaunit_vpi_interface.sva_info), id:302795
+|vpiParent:
+\_logic_net: (work@svaunit_vpi_interface.sva_info), id:302794, line:87:38, endln:87:46
+|vpiFullName:work@svaunit_vpi_interface.sva_info
+|vpiActual:
+\_class_typespec: (svaunit_concurrent_assertion_info), id:303830, line:87:4, endln:87:37

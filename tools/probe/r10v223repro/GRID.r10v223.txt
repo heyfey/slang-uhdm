@@ -1,0 +1,93 @@
+r10v223 — ADVERSARIAL GRID, cell scores (order-blind MISSING/EXTRA + ordered equality)
+
+== golden-side surelog: $HOME/git-repos/Surelog/build/bin/surelog (the one scripts/verify_golden.py names)
+== binaries: pris=127920b3fce5  pat=042d957f9f10  fix=3a8d774326e1
+
+-- PRISTINE vs PATCHED
+ARM                    PRISTINE miss/extra    PATCHED miss/extra     ORDERED-EQUAL pris/pat
+v10_paramiface         6/0                    4/0                    False/False
+v11_nested_iface       NO-DATABASE (rc-checked arm; see GRID.rc)
+v12_virtual_iface      2/0                    1/0                    False/False
+v13_gen_iface          6/0                    4/0                    False/False
+v14_pkg_chain_diamond  7/0                    0/0                    False/True
+v15_uses_noimport      3/0                    1/0                    False/False
+v16_oobctor            5/0                    0/0                    False/True
+v17_dpi_export_iface   4/2                    2/2                    False/False
+v18_refactual          4/0                    2/0                    False/False
+v19_uninst_refactual   1/0                    0/0                    False/True
+v1_pkg_nodata          0/0                    0/0                    True/True
+v20_refsites           7/0                    3/0                    False/False
+v2_expl_nonvar         1/0                    0/0                    False/True
+v3_collide             4/0                    0/0                    False/True
+v4_shadow              2/0                    0/0                    False/True
+v5_escaped             3/1                    1/1                    False/False
+v6_export              5/0                    0/0                    False/True
+v7_filescope_noimport_iface 10/0                   0/0                    False/True
+v8_inst_uninst         9/0                    3/0                    False/False
+v9_dyncontainers       17/0                   13/0                   False/False
+
+-- PRISTINE vs FIXED
+ARM                    PRISTINE miss/extra    PATCHED miss/extra     ORDERED-EQUAL pris/pat
+v10_paramiface         6/0                    4/0                    False/False
+v11_nested_iface       NO-DATABASE (rc-checked arm; see GRID.rc)
+v12_virtual_iface      2/0                    1/0                    False/False
+v13_gen_iface          6/0                    4/0                    False/False
+v14_pkg_chain_diamond  7/0                    0/0                    False/True
+v15_uses_noimport      3/0                    1/0                    False/False
+v16_oobctor            5/0                    0/0                    False/True
+v17_dpi_export_iface   4/2                    2/2                    False/False
+v18_refactual          4/0                    2/0                    False/False
+v19_uninst_refactual   1/0                    0/0                    False/True
+v1_pkg_nodata          0/0                    0/0                    True/True
+v20_refsites           7/0                    3/0                    False/False
+v2_expl_nonvar         1/0                    0/0                    False/True
+v3_collide             4/0                    0/0                    False/True
+v4_shadow              2/0                    0/0                    False/True
+v5_escaped             3/1                    1/1                    False/False
+v6_export              5/0                    0/0                    False/True
+v7_filescope_noimport_iface 10/0                   0/0                    False/True
+v8_inst_uninst         9/0                    3/0                    False/False
+v9_dyncontainers       17/0                   13/0                   False/False
+
+-- ARM RC (patched run)
+v223grid: surelog=/home/heyfey/git-repos/Surelog/build/bin/surelog
+v223grid: slang  =/tmp/v223_bin/pat.bin  md5=042d957f9f10
+ARM v10_paramiface  surelog_rc=0 golden_lines=786   slang_rc=0 ours_lines=1176
+ARM v11_nested_iface  surelog_rc=3 golden_lines=0   slang_rc=0 ours_lines=752
+  !! NONZERO RC — this arm teaches ERROR RECOVERY, not golden
+ARM v12_virtual_iface  surelog_rc=0 golden_lines=215   slang_rc=0 ours_lines=675
+ARM v13_gen_iface  surelog_rc=0 golden_lines=692   slang_rc=0 ours_lines=1082
+ARM v14_pkg_chain_diamond  surelog_rc=0 golden_lines=1175   slang_rc=0 ours_lines=1621
+ARM v1_pkg_nodata  surelog_rc=0 golden_lines=971   slang_rc=0 ours_lines=1481
+ARM v2_expl_nonvar  surelog_rc=0 golden_lines=507   slang_rc=0 ours_lines=1013
+ARM v3_collide  surelog_rc=0 golden_lines=585   slang_rc=0 ours_lines=1071
+ARM v4_shadow  surelog_rc=0 golden_lines=429   slang_rc=0 ours_lines=913
+ARM v5_escaped  surelog_rc=0 golden_lines=248   slang_rc=0 ours_lines=750
+ARM v6_export  surelog_rc=0 golden_lines=838   slang_rc=0 ours_lines=1257
+ARM v7_filescope_noimport_iface  surelog_rc=0 golden_lines=529   slang_rc=0 ours_lines=1022
+ARM v8_inst_uninst  surelog_rc=0 golden_lines=533   slang_rc=0 ours_lines=935
+ARM v9_dyncontainers  surelog_rc=0 golden_lines=1755   slang_rc=0 ours_lines=1486
+
+-- ARM RC (fixed run)
+v223grid: surelog=/home/heyfey/git-repos/Surelog/build/bin/surelog
+v223grid: slang  =/tmp/v223_bin/fix.bin  md5=3a8d774326e1
+ARM v10_paramiface  surelog_rc=0 golden_lines=786   slang_rc=0 ours_lines=1176
+ARM v11_nested_iface  surelog_rc=3 golden_lines=0   slang_rc=0 ours_lines=752
+  !! NONZERO RC — this arm teaches ERROR RECOVERY, not golden
+ARM v12_virtual_iface  surelog_rc=0 golden_lines=215   slang_rc=0 ours_lines=675
+ARM v13_gen_iface  surelog_rc=0 golden_lines=692   slang_rc=0 ours_lines=1082
+ARM v14_pkg_chain_diamond  surelog_rc=0 golden_lines=1175   slang_rc=0 ours_lines=1621
+ARM v15_uses_noimport  surelog_rc=0 golden_lines=520   slang_rc=0 ours_lines=990
+ARM v16_oobctor  surelog_rc=0 golden_lines=1003   slang_rc=0 ours_lines=1483
+ARM v17_dpi_export_iface  surelog_rc=0 golden_lines=682   slang_rc=0 ours_lines=1131
+ARM v18_refactual  surelog_rc=0 golden_lines=388   slang_rc=0 ours_lines=830
+ARM v19_uninst_refactual  surelog_rc=0 golden_lines=376   slang_rc=0 ours_lines=882
+ARM v1_pkg_nodata  surelog_rc=0 golden_lines=971   slang_rc=0 ours_lines=1481
+ARM v2_expl_nonvar  surelog_rc=0 golden_lines=507   slang_rc=0 ours_lines=1013
+ARM v3_collide  surelog_rc=0 golden_lines=585   slang_rc=0 ours_lines=1071
+ARM v4_shadow  surelog_rc=0 golden_lines=429   slang_rc=0 ours_lines=913
+ARM v5_escaped  surelog_rc=0 golden_lines=248   slang_rc=0 ours_lines=750
+ARM v6_export  surelog_rc=0 golden_lines=838   slang_rc=0 ours_lines=1257
+ARM v7_filescope_noimport_iface  surelog_rc=0 golden_lines=529   slang_rc=0 ours_lines=1022
+ARM v8_inst_uninst  surelog_rc=0 golden_lines=533   slang_rc=0 ours_lines=935
+ARM v9_dyncontainers  surelog_rc=0 golden_lines=1755   slang_rc=0 ours_lines=1486

@@ -1,0 +1,44 @@
+# § wildcardImportCopiesPkgVarsToDefNets223 — THE GOLDEN GRID, EVERY ARM'S rc.
+#
+# Every arm compiled with the CANONICAL golden-side Surelog — the one
+# scripts/verify_golden.py names, $HOME/git-repos/Surelog/build/bin/surelog —
+# and with BOTH slang-uhdm binaries.  An arm whose compile FAILS teaches ERROR
+# RECOVERY, not golden (uvm215's lesson), so its rc is part of the record.
+
+== PRISTINE 127920b3fce5 ==
+grid223: surelog=/home/heyfey/git-repos/Surelog/build/bin/surelog
+grid223: slang  =/tmp/r10uvm223_bin/pris.bin  md5=127920b3fce5
+ARM a10_ports  surelog_rc=0 golden_lines=468   slang_rc=0 ours_lines=935
+ARM a11_modport  surelog_rc=0 golden_lines=378   slang_rc=0 ours_lines=829
+ARM a12_noimport  surelog_rc=0 golden_lines=145   slang_rc=0 ours_lines=651
+ARM a13_ifaceproc  surelog_rc=0 golden_lines=154   slang_rc=0 ours_lines=632
+ARM a1_iface_wild  surelog_rc=0 golden_lines=877   slang_rc=0 ours_lines=1018
+ARM a2_iface_expl  surelog_rc=0 golden_lines=213   slang_rc=0 ours_lines=655
+ARM a3_module_wild  surelog_rc=0 golden_lines=664   slang_rc=0 ours_lines=860
+ARM a4_inst_iface  surelog_rc=0 golden_lines=247   slang_rc=0 ours_lines=682
+ARM a5_chain  surelog_rc=0 golden_lines=240   slang_rc=0 ours_lines=693
+ARM a6_pkg_import  surelog_rc=0 golden_lines=223   slang_rc=0 ours_lines=691
+ARM a7b_class_reject  surelog_rc=0 golden_lines=108   slang_rc=3 ours_lines=0
+  !! NONZERO RC — this arm teaches ERROR RECOVERY, not golden
+ARM a7_prog  surelog_rc=0 golden_lines=161   slang_rc=0 ours_lines=654
+ARM a8_unit  surelog_rc=0 golden_lines=228   slang_rc=0 ours_lines=704
+ARM a9_assoc  surelog_rc=0 golden_lines=953   slang_rc=0 ours_lines=986
+
+== PATCHED 042d957f9f10 ==
+grid223: surelog=/home/heyfey/git-repos/Surelog/build/bin/surelog
+grid223: slang  =/tmp/r10uvm223_bin/pat.bin  md5=042d957f9f10
+ARM a10_ports  surelog_rc=0 golden_lines=468   slang_rc=0 ours_lines=964
+ARM a11_modport  surelog_rc=0 golden_lines=378   slang_rc=0 ours_lines=844
+ARM a12_noimport  surelog_rc=0 golden_lines=145   slang_rc=0 ours_lines=651
+ARM a13_ifaceproc  surelog_rc=0 golden_lines=154   slang_rc=0 ours_lines=632
+ARM a1_iface_wild  surelog_rc=0 golden_lines=877   slang_rc=0 ours_lines=1096
+ARM a2_iface_expl  surelog_rc=0 golden_lines=213   slang_rc=0 ours_lines=715
+ARM a3_module_wild  surelog_rc=0 golden_lines=664   slang_rc=0 ours_lines=860
+ARM a4_inst_iface  surelog_rc=0 golden_lines=247   slang_rc=0 ours_lines=711
+ARM a5_chain  surelog_rc=0 golden_lines=240   slang_rc=0 ours_lines=738
+ARM a6_pkg_import  surelog_rc=0 golden_lines=223   slang_rc=0 ours_lines=721
+ARM a7b_class_reject  surelog_rc=0 golden_lines=108   slang_rc=3 ours_lines=0
+  !! NONZERO RC — this arm teaches ERROR RECOVERY, not golden
+ARM a7_prog  surelog_rc=0 golden_lines=161   slang_rc=0 ours_lines=669
+ARM a8_unit  surelog_rc=0 golden_lines=228   slang_rc=0 ours_lines=734
+ARM a9_assoc  surelog_rc=0 golden_lines=953   slang_rc=0 ours_lines=1031

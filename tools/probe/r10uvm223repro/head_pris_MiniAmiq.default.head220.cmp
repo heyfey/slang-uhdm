@@ -1,0 +1,220 @@
+LHS:
+decompile:
+interface_inst: work@svaunit_vpi_interface (work@svaunit_vpi_interface), id:341784, file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_vpi_interface.sv, line:25:1, endln:647:13
+|vpiParent:
+\_design: (unnamed), id:339431
+|vpiFullName:work@svaunit_vpi_interface
+|vpiParameter:
+\_parameter: (work@svaunit_vpi_interface.UVM_ABSTRACT), id:247634, line:201:11, endln:201:23
+  |vpiParent:
+  \_interface_inst: work@svaunit_vpi_interface (work@svaunit_vpi_interface), id:341784, file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_vpi_interface.sv, line:25:1, endln:647:13
+  |UINT:16384
+  |vpiTypespec:
+  \_ref_typespec: (work@svaunit_vpi_interface.UVM_ABSTRACT), id:247635
+    |vpiParent:
+    \_parameter: (work@svaunit_vpi_interface.UVM_ABSTRACT), id:247634, line:201:11, endln:201:23
+    |vpiFullName:work@svaunit_vpi_interface.UVM_ABSTRACT
+    |vpiActual:
+    \_int_typespec: , id:247636, line:201:1, endln:201:37
+  |vpiName:UVM_ABSTRACT
+  |vpiFullName:work@svaunit_vpi_interface.UVM_ABSTRACT
+  |vpiImported:svaunit_pkg
+|vpiParameter:
+\_parameter: (work@svaunit_vpi_interface.UVM_ALL_ON), id:247637, line:181:11, endln:181:21
+  |vpiParent:
+  \_interface_inst: work@svaunit_vpi_interface (work@svaunit_vpi_interface), id:341784, file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_vpi_interface.sv, line:25:1, endln:647:13
+  |BIN:000000101010101
+  |vpiName:UVM_ALL_ON
+  |vpiFullName:work@svaunit_vpi_interface.UVM_ALL_ON
+  |vpiImported:svaunit_pkg
+|vpiParameter:
+\_parameter: (work@svaunit_vpi_interface.UVM_CHECK_FIELDS), id:247638, line:209:11, endln:209:27
+  |vpiParent:
+  \_interface_inst: work@svaunit_vpi_interface (work@svaunit_vpi_interface), id:341784, file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_vpi_interface.sv, line:25:1, endln:647:13
+  |UINT:131075
+  |vpiTypespec:
+  \_ref_typespec: (work@svaunit_vpi_interface.UVM_CHECK_FIELDS), id:247639
+    |vpiParent:
+    \_parameter: (work@svaunit_vpi_interface.UVM_CHECK_FIELDS), id:247638, line:209:11, endln:209:27
+    |vpiFullName:work@svaunit_vpi_interface.UVM_CHECK_FIELDS
+    |vpiActual:
+    \_int_typespec: , id:247640, line:209:1, endln:209:48
+  |vpiName:UVM_CHECK_FIELDS
+  |vpiFullName:work@svaunit_vpi_interface.UVM_CHECK_FIELDS
+  |vpiImported:svaunit_pkg
+|vpiParameter:
+\_parameter: (work@svaunit_vpi_interface.UVM_COMPARE), id:247641, line:189:11, endln:189:22
+  |vpiParent:
+  \_interface_inst: work@svaunit_vpi_interface (work@svaunit_vpi_interface), id:341784, file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_vpi_interface.sv, line:25:1, endln:647:13
+  |UINT:4
+  |vpiTypespec:
+  \_ref_typespec: (work@svaunit_vpi_interface.UVM_COMPARE), id:247642
+    |vpiParent:
+    \_parameter: (work@svaunit_vpi_interface.UVM_COMPARE), id:247641, line:189:11, endln:189:22
+    |vpiFullName:work@svaunit_vpi_interface.UVM_COMPARE
+    |vpiActual:
+    \_int_typespec: , id:247643, line:189:1, endln:189:36
+  |vpiName:UVM_COMPARE
+  |vpiFullName:work@svaunit_vpi_interface.UVM_COMPARE
+  |vpiImported:svaunit_pkg
+|vpiParameter:
+\_parameter: (work@svaunit_vpi_interface.UVM_COPY), id:247644, line:187:11, endln:187:19
+  |vpiParent:
+  \_interface_inst: work@svaunit_vpi_interface (work@svaunit_vpi_interface), id:341784, file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_vpi_interface.sv, line:25:1, endln:647:13
+  |UINT:1
+  |vpiTypespec:
+  \_ref_typespec: (work@svaunit_vpi_interface.UVM_COPY), id:247645
+    |vpiParent:
+    \_parameter: (work@svaunit_vpi_interface.UVM_COPY), id:247644, line:187:11, endln:187:19
+    |vpiFullName:work@svaunit_vpi_interface.UVM_COPY
+    |vpiActual:
+    \_int_typespec: , id:247646, line:187:1, endln:187:36
+  |vpiName:UVM_COPY
+  |vpiFullName:work@svaunit_vpi_interface.UVM_COPY
+  |vpiImported:svaunit_pkg
+|vpiParameter:
+\_parameter: (work@svaunit_vpi_interface.UVM_DEFAULT), id:247647, line:180:11, endln:180:22
+  |vpiParent:
+  \_interface_inst: work@svaunit_vpi_interface (work@svaunit_vpi_interface), id:341784, file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_vpi_interface.sv, line:25:1, endln:647:13
+  |BIN:000010101010101
+  |vpiName:UVM_DEFAULT
+  |vpiFullName:work@svaunit_vpi_interface.UVM_DEFAULT
+  |vpiImported:svaunit_pkg
+|vpiParameter:
+\_parameter: (work@svaunit_vpi_interface.UVM_END_DATA_EXTRA), id:247648, line:210:11, endln:210:29
+  |vpiParent:
+  \_interface_inst: work@svaunit_vpi_interface (work@svaunit_vpi_interface), id:341784, file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_vpi_interface.sv, line:25:1, endln:647:13
+  |UINT:131076
+  |vpiTypespec:
+  \_ref_typespec: (work@svaunit_vpi_interface.UVM_END_DATA_EXTRA), id:247649
+    |vpiParent:
+    \_parameter: (work@svaunit_vpi_interface.UVM_END_DATA_EXTRA), id:247648, line:210:11, endln:210:29
+    |vpiFullName:work@svaunit_vpi_interface.UVM_END_DATA_EXTRA
+    |vpiActual:
+    \_int_typespec: , id:247650, line:210:1, endln:210:50
+  |vpiName:UVM_END_DATA_EXTRA
+  |vpiFullName:work@svaunit_vpi_interface.UVM_END_DATA_EXTRA
+  |vpiImported:svaunit_pkg
+|vpiParameter:
+\_parameter: (work@svaunit_vpi_interface.UVM_END_FUNCS), id:247651, line:220:11, endln:220:24
+  |vpiParent:
+  \_interface_inst: work@svaunit_vpi_interface (work@svaunit_vpi_interface), id:341784, file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_vpi_interface.sv, line:25:1, endln:647:13
+  |UINT:131080
+  |vpiTypespec:
+  \_ref_typespec: (work@svaunit_vpi_interface.UVM_END_FUNCS), id:247652
+    |vpiParent:
+    \_parameter: (work@svaunit_vpi_interface.UVM_END_FUNCS), id:247651, line:220:11, endln:220:24
+    |vpiFullName:work@svaunit_vpi_interface.UVM_END_FUNCS
+    |vpiActual:
+    \_int_typespec: , id:247653, line:220:1, endln:220:41
+  |vpiName:UVM_END_FUNCS
+  |vpiFullName:work@svaunit_vpi_interface.UVM_END_FUNCS
+  |vpiImported:svaunit_pkg
+|vpiParameter:
+\_parameter: (work@svaunit_vpi_interface.UVM_FLAGS), id:247654, line:207:11, endln:207:20
+  |vpiParent:
+  \_interface_inst: work@svaunit_vpi_interface (work@svaunit_vpi_interface), id:341784, file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_vpi_interface.sv, line:25:1, endln:647:13
+  |UINT:131073
+  |vpiTypespec:
+  \_ref_typespec: (work@svaunit_vpi_interface.UVM_FLAGS), id:247655
+    |vpiParent:
+    \_parameter: (work@svaunit_vpi_interface.UVM_FLAGS), id:247654, line:207:11, endln:207:20
+    |vpiFullName:work@svaunit_vpi_interface.UVM_FLAGS
+    |vpiActual:
+    \_int_typespec: , id:247656, line:207:1, endln:207:48
+  |vpiName:UVM_FLAGS
+  |vpiFullName:work@svaunit_vpi_interface.UVM_FLAGS
+  |vpiImported:svaunit_pkg
+|vpiParameter:
+\_parameter: (work@svaunit_vpi_interface.UVM_FLAGS_OFF), id:247657, line:183:11, endln:183:24
+  |vpiParent:
+  \_interface_inst: work@svaunit_vpi_interface (work@svaunit_vpi_interface), id:341784, file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_vpi_interface.sv, line:25:1, endln:647:13
+  |UINT:0
+  |vpiTypespec:
+  \_ref_typespec: (work@svaunit_vpi_interface.UVM_FLAGS_OFF), id:247658
+    |vpiParent:
+    \_parameter: (work@svaunit_vpi_interface.UVM_FLAGS_OFF), id:247657, line:183:11, endln:183:24
+    |vpiFullName:work@svaunit_vpi_interface.UVM_FLAGS_OFF
+    |vpiActual:
+    \_int_typespec: , id:247659, line:183:1, endln:183:30
+  |vpiName:UVM_FLAGS_OFF
+  |vpiFullName:work@svaunit_vpi_interface.UVM_FLAGS_OFF
+  |vpiImported:svaunit_pkg
+|vpiParameter:
+\_parameter: (work@svaunit_vpi_interface.UVM_FLAGS_ON), id:247660, line:182:11, endln:182:23
+  |vpiParent:
+  \_interface_inst: work@svaunit_vpi_interface (work@svaunit_vpi_interface), id:341784, file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_vpi_interface.sv, line:25:1, endln:647:13
+  |BIN:000000101010101
+  |vpiName:UVM_FLAGS_ON
+  |vpiFullName:work@svaunit_vpi_interface.UVM_FLAGS_ON
+  |vpiImported:svaunit_pkg
+|vpiParameter:
+\_parameter: (work@svaunit_vpi_interface.UVM_HDL_MAX_WIDTH), id:247661, line:47:15, endln:47:32
+  |vpiParent:
+  \_interface_inst: work@svaunit_vpi_interface (work@svaunit_vpi_interface), id:341784, file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_vpi_interface.sv, line:25:1, endln:647:13
+  |UINT:1024
+  |vpiTypespec:
+  \_ref_typespec: (work@svaunit_vpi_interface.UVM_HDL_MAX_WIDTH), id:247662
+    |vpiParent:
+    \_parameter: (work@svaunit_vpi_interface.UVM_HDL_MAX_WIDTH), id:247661, line:47:15, endln:47:32
+    |vpiFullName:work@svaunit_vpi_interface.UVM_HDL_MAX_WIDTH
+    |vpiActual:
+    \_int_typespec: , id:247663, line:47:11, endln:47:14
+  |vpiSigned:1
+  |vpiName:UVM_HDL_MAX_WIDTH
+  |vpiFullName:work@svaunit_vpi_interface.UVM_HDL_MAX_WIDTH
+  |vpiImported:svaunit_pkg
+|vpiParameter:
+\_parameter: (work@svaunit_vpi_interface.UVM_LARGE_STRING), id:247664, line:410:11, endln:410:27
+  |vpiParent:
+  \_interface_inst: work@svaunit_vpi_interface (work@svaunit_vpi_interface), id:341784, file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_vpi_interface.sv, line:25:1, endln:647:13
+  |INT:115199
+  |vpiTypespec:
+  \_ref_typespec: (work@svaunit_vpi_interface.UVM_LARGE_STRING), id:247665
+    |vpiParent:
+    \_parameter: (work@svaunit_vpi_interface.UVM_LARGE_STRING), id:247664, line:410:11, endln:410:27
+    |vpiFullName:work@svaunit_vpi_interface.UVM_LARGE_STRING
+    |vpiActual:
+    \_int_typespec: , id:247666, line:410:1, endln:410:62
+  |vpiName:UVM_LARGE_STRING
+  |vpiFullName:work@svaunit_vpi_interface.UVM_LARGE_STRING
+  |vpiImported:svaunit_pkg
+|vpiParameter:
+\_parameter: (work@svaunit_vpi_interface.UVM_LINE_WIDTH), id:247667, line:407:11, endln:407:25
+  |vpiParent:
+  \_interface_inst: work@svaunit_vpi_interface (work@svaunit_vpi_interface), id:341784, file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_vpi_interface.sv, line:25:1, endln:647:13
+  |UINT:120
+  |vpiTypespec:
+  \_ref_typespec: (work@svaunit_vpi_interface.UVM_LINE_WIDTH), id:247668
+    |vpiParent:
+    \_parameter: (work@svaunit_vpi_interface.UVM_LINE_WIDTH), id:247667, line:407:11, endln:407:25
+    |vpiFullName:work@svaunit_vpi_interface.UVM_LINE_WIDTH
+    |vpiActual:
+    \_int_typespec: , id:247669, line:407:1, endln:407:31
+  |vpiName:UVM_LINE_WIDTH
+  |vpiFullName:work@svaunit_vpi_interface.UVM_LINE_WIDTH
+  |vpiImported:svaunit_pkg
+|vpiParameter:
+\_parameter: (work@svaunit_vpi_interface.UVM_MACRO_EXTRAS), id:247670, line:206:11, endln:206:27
+  |vpiParent:
+  \_interface_inst: work@svaunit_vpi_interface (work@svaunit_vpi_interface), id:341784, file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_vpi_interface.sv, line:25:1, endln:647:13
+  |UINT:131072
+  |vpiTypespec:
+  \_ref_typespec: (work@svaunit_vpi_interface.UVM_MACRO_EXTRAS), id:247671
+    |vpiParent:
+    \_parameter: (work@svaunit_vpi_interface.UVM_MACRO_EXTRAS), id:247670, line:206:11, endln:206:27
+    |vpiFullName:work@svaunit_vpi_interface.UVM_MACRO_EXTRAS
+    |vpiActual:
+    \_int_typespec: , id:247672, line:206:1, endln:206:54
+  |vpiName:UVM_MACRO_EXTRAS
+  |vpiFullName:work@svaunit_vpi_interface.UVM_MACRO_EXTRAS
+  |vpiImported:svaunit_pkg
+|vpiParameter:
+\_parameter: (work@svaunit_vpi_interface.UVM_MACRO_NUMFLAGS), id:247673, line:175:11, endln:175:29
+  |vpiParent:
+  \_interface_inst: work@svaunit_vpi_interface (work@svaunit_vpi_interface), id:341784, file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_vpi_interface.sv, line:25:1, endln:647:13
+  |UINT:17
+  |vpiTypespec:
+  \_ref_typespec: (work@svaunit_vpi_interface.UVM_MACRO_NUMFLAGS), id:247674
+    |vpiParent:
+    \_parameter: (work@svaunit_vpi_interface.UVM_MACRO_NUMFLAGS), id:247673, line:175:11, endln:175:29

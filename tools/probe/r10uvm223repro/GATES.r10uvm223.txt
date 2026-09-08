@@ -1,0 +1,152 @@
+§ wildcardImportCopiesPkgVarsToDefNets223 — EVERY GATE, BOTH BINARIES
+=====================================================================
+
+BASE COMMIT 8eebf86e.  Worktree /tmp/wt_r10uvm223.  Builds -j 2.
+
+0. BINARIES (frozen at immutable paths, chmod 555, BEFORE any sweep)
+--------------------------------------------------------------------
+  pristine   127920b3fce552846e1e8f8ac595c0b8   /tmp/r10uvm223_bin/pris.bin
+             — BYTE-IDENTICAL to the main-tree build at 8eebf86e
+  predictor  b5a0b6e29f45eef6e551cc126cf5cf57   /tmp/r10uvm223_bin/pred.bin
+             — pristine BEHAVIOUR (see PREDICTOR.instrumentation.txt)
+  patched    042d957f9f100891fc1ac25c6b3a3d5f   /tmp/r10uvm223_bin/pat.bin
+
+  Every sweep's cmds.txt audited BY BINARY PATH:
+    pristine sweeps  -> the only `slang:` value is /tmp/r10uvm223_bin/pris.bin
+    patched  sweeps  -> the only `slang:` value is /tmp/r10uvm223_bin/pat.bin
+    (grep for `pris.bin` in the patched workdir's cmds.txt: 0 files;
+     grep for the main-tree build path: 0 files, both workdirs.)
+
+1. GOLDENS
+----------
+  patched   PASS=23  FAIL=0
+  pristine  PASS=23  FAIL=0
+  negative control SLANG_UHDM=/bin/false   FAIL=23  PASS=0
+
+2. uhdm2rtlil (679/50/2 both modes, unchanged)
+----------------------------------------------
+                       CMP_EQUAL  SLANG_REJECT  SURELOG_FAIL
+  pristine testflags       679         50            2
+  pristine default         679         50            2
+  patched  testflags       679         50            2
+  patched  default         679         50            2
+
+  ct8rows patched-tf vs results/gate_uhdm2rtlil.csv   PASS (0 differing rows)
+  ct8rows patched-tf vs this pass's own pristine tf   PASS (0 differing rows)
+  ct8rows patched-def vs this pass's own pristine def PASS (0 differing rows)
+
+  SELFCHECK=1 byteverify  patched=1358 pristine=1358
+    PATH_SETS_IDENTICAL (1358 paths)
+    MOVERS: 0 / 1358              <-- the a-priori predicted value
+    SELFCHECK 1357/1358 flagged   <-- the tool can see
+
+3. surelog corpus (476/5 + 470/5, unchanged)
+--------------------------------------------
+  pristine default    CMP_EQUAL 476  SLANG_REJECT 283  SURELOG_FAIL 25
+                      DEFERRED 5     CMP_NOTEQUAL 5
+  pristine testflags  CMP_EQUAL 470  SLANG_REJECT 284  SURELOG_FAIL 23
+                      DEFERRED 5     CMP_NOTEQUAL 5  NO_DATABASE 3
+                      UNTRANSLATABLE 2  TIMEOUT 1  NO_UHDM 1
+  patched  default    CMP_EQUAL 476  SLANG_REJECT 283  SURELOG_FAIL 25
+                      DEFERRED 5     CMP_NOTEQUAL 5
+  patched  testflags  CMP_EQUAL 470  SLANG_REJECT 284  SURELOG_FAIL 23
+                      DEFERRED 5     CMP_NOTEQUAL 5  NO_DATABASE 3
+                      UNTRANSLATABLE 2  TIMEOUT 1  NO_UHDM 1
+
+  ct8rows patched vs results/golden_surelog.csv       PASS (0 differing rows)
+  ct8rows patched vs this pass's own pristine         PASS (0 differing rows)
+
+  SELFCHECK=1 byteverify  patched=956 pristine=956
+    PATH_SETS_IDENTICAL (956 paths)
+    MOVER ./default/MiniAmiq-544c7f61/slang.uhdm    934c80ba2466 / f4fdf6830862
+    MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  934c80ba2466 / f4fdf6830862
+    MOVERS: 2 / 956               <-- EXACTLY the two row-modes named a priori
+    SELFCHECK 955/956 flagged
+
+  NO CONVERSION.  MiniAmiq stays CMP_NOTEQUAL in both modes — the ladder has
+  NOT bottomed out (17 cmp lines remain, see the head below).  results/*.csv
+  untouched.
+
+4. THE A-PRIORI PREDICTION (the pass's hardest gate)
+----------------------------------------------------
+  surelog     rows=1523  db-identical=956   DB-DIFFERING=0  HIT-ROWS=2
+                HIT default   MiniAmiq  ifaces=1  hoisted=66
+                HIT testflags MiniAmiq  ifaces=1  hoisted=66
+  uhdm2rtlil  rows=1458  db-identical=1358  DB-DIFFERING=0  HIT-ROWS=0
+
+  Named BEFORE the patched sweep, from a binary whose databases are
+  byte-identical to the pristine build's, per row.  See
+  PREDICTOR.instrumentation.txt.
+
+5. HEADS (rowheads.sh, both binaries, this pass's own workdirs)
+---------------------------------------------------------------
+  TEST          MODE       PRISTINE          PATCHED
+  SeqDriver     default    0 / rc=0          0 / rc=0
+  SeqDriver     testflags  0 / rc=0          0 / rc=0
+  SimpleUVM     default    0 / rc=0          0 / rc=0
+  SimpleUVM     testflags  0 / rc=0          0 / rc=0
+  Scoreboard    default    0 / rc=0          0 / rc=0
+  Scoreboard    testflags  SKIP-NOFILE       SKIP-NOFILE   (expected)
+  MiniAmiq      default    1388494 / 1 head  17 / 1 head
+  MiniAmiq      testflags  1388494 / 1 head  17 / 1 head
+  BuildUVMPkg   default    0 / rc=0          0 / rc=0
+  BuildUVMPkg   testflags  0 / rc=0          0 / rc=0
+  Earlgrey_0_1  default    0 / rc=0          0 / rc=0
+  Earlgrey_0_1  testflags  0 / rc=0          0 / rc=0
+  Rggen         default    0 / rc=0          0 / rc=0
+  Rggen         testflags  SKIP-NOFILE       SKIP-NOFILE   (expected)
+
+  Both MiniAmiq logs byte-identical to each other on both binaries.
+
+6. THE PROTECTED CMP_EQUAL ROW-MODES, BOTH COLUMNS SCORED EXPLICITLY
+---------------------------------------------------------------------
+  BuildUVMPkg/default    pris=CMP_EQUAL  pat=CMP_EQUAL  judge rc=0
+  BuildUVMPkg/testflags  pris=CMP_EQUAL  pat=CMP_EQUAL  judge rc=0
+  Earlgrey_0_1/default   pris=CMP_EQUAL  pat=CMP_EQUAL  judge rc=0
+  Earlgrey_0_1/testflags pris=CMP_EQUAL  pat=CMP_EQUAL  judge rc=0
+  Rggen/default          pris=CMP_EQUAL  pat=CMP_EQUAL  judge rc=0
+  Scoreboard/default     pris=CMP_EQUAL  pat=CMP_EQUAL  judge rc=0
+  SeqDriver/default      pris=CMP_EQUAL  pat=CMP_EQUAL  judge rc=0
+  SeqDriver/testflags    pris=CMP_EQUAL  pat=CMP_EQUAL  judge rc=0
+  SimpleUVM/default      pris=CMP_EQUAL  pat=CMP_EQUAL  judge rc=0
+  SimpleUVM/testflags    pris=CMP_EQUAL  pat=CMP_EQUAL  judge rc=0
+
+7. CANARIES AND PINS
+--------------------
+  canaries.sh  surelog     ok=52  changed=0  absent=0
+  canaries.sh  uhdm2rtlil  ok=8   changed=0  absent=0
+  EXPECT_UNKNOWN=1 ctcan2  surelog     PASS
+  EXPECT_UNKNOWN=6 ctcan2  uhdm2rtlil  PASS
+  canaudit.sh canaries.sh ctcan2.sh    audited=29  UNCOVERED=0  FENCE-BREACH=0
+    (the four slang-fenced names: each "not dispatched by any driver (OK)")
+
+  protected databases, pristine md5 vs patched md5:
+    InterfaceModPort/default    59a365f3ce2c  59a365f3ce2c  SAME
+    InterfaceModPort/testflags  59a365f3ce2c  59a365f3ce2c  SAME
+    BlackParrotComplex/default  e3e354129d5a  e3e354129d5a  SAME
+    BlackParrotComplex/testflags 73a10e8217e5 73a10e8217e5  SAME
+    YosysOldOr/default          d68e0796d62c  d68e0796d62c  SAME
+    YosysOldOr/testflags        d68e0796d62c  d68e0796d62c  SAME
+    SVSwitch  ×2                4842211c4030  4842211c4030  the PINNED value
+    YosysVerx ×2                6ccda350c24a  6ccda350c24a  the PINNED value
+
+  InterfaceModPort is an INSTANTIATED-INTERFACE test and it did NOT move: its
+  interfaces (`mem_interface`, `mem_if`) import no package at all, so the
+  hoist is empty there — the must-stay-empty fence, measured.
+
+8. THE WIDE BOUNDARY
+--------------------
+  bound223.sh over a COPY of the whole probe tree, both binaries, both views,
+  subdirectories included:
+
+    LISTED = PROCESSED = 5559   RC_DIFFS = 0   MOVED_ARMS = 40
+
+  20 of the 40 are this pass's own grid arms; a3_module_wild, a12_noimport
+  and a13_ifaceproc did NOT move.  The ten foreign arms are all INTERFACES
+  THAT WILDCARD-IMPORT A PACKAGE.  Re-scored against real Surelog golden:
+  TO-GOLDEN 14/14 scorable arm-views, NEWLY-MISSING 0, AWAY 0, BROKEN 0;
+  three arms Surelog itself rejects (rc=4) are unscorable and printed loudly.
+  MUST-STAY FLOOR: zero moved arms in r10uvm216/218/220/221/222repro (and
+  their verifier dirs) and zero in uvm82-91 / buvm3-15 / sd8-12.
+
+  see BOUNDARY.r10uvm223.txt, ARMSCORE/ARMCELLS/ARMDELTA.r10uvm223.txt.

@@ -1,0 +1,52 @@
+r10v223 — THE WIDE BOUNDARY (bound223.sh over a COPY of the whole probe tree,
+subdirectories included, both views, every rc recorded)
+
+RUN 1  pristine vs PATCHED
+-- LISTED=5573 PROCESSED=5573 MOVED_ARMS=66 RC_DIFFS=0
+  moved files: 33  (13 this verifier's arms, 10 the pass's, 10 FOREIGN)
+
+RUN 2  pristine vs FIXED
+-- LISTED=5578 PROCESSED=5578 MOVED_ARMS=76 RC_DIFFS=0
+  moved files: 38
+  moved under FIX but not under PATCH: only this verifier's later arms:
+    r10v223repro/arms/v15_uses_noimport/dut.sv
+    r10v223repro/arms/v16_oobctor/dut.sv
+    r10v223repro/arms/v17_dpi_export_iface/dut.sv
+    r10v223repro/arms/v18_refactual/dut.sv
+    r10v223repro/arms/v19_uninst_refactual/dut.sv
+  moved under PATCH but not under FIX: (none)
+
+NOTE: the two runs use DIFFERENT scratch roots and a database embeds its file
+path, so md5s are NOT comparable across runs (all 66 PRISTINE-side md5s differ
+across the two runs too).  Patched-vs-fixed was therefore measured IN PLACE, on
+identical paths, for every foreign arm: all ten dumps are IDENTICAL apart from
+uhdm-dump's own first-line banner naming the file.
+
+MOVED ARMS BY DIRECTORY (run 1)
+       13 r10v223repro
+       10 r10uvm223repro
+        1 r10vearl100repro
+        1 r10vbuvm33repro
+        1 r10vbuvm27repro
+        1 r10vbuvm19repro
+        1 r10v214repro
+        1 r10v209repro
+        1 r10v144repro
+        1 r10uvm88repro
+        1 r10uvm217repro
+        1 r10buvm34repro
+
+MUST-STAY FLOOR
+  r10uvm216repro: 0 moved
+  r10uvm218repro: 0 moved
+  r10uvm220repro: 0 moved
+  r10uvm221repro: 0 moved
+  r10uvm222repro: 0 moved
+  r10v216repro: 0 moved
+  r10v218repro: 0 moved
+  r10v220repro: 0 moved
+  r10v221repro: 0 moved
+  r10v222repro: 0 moved
+  r10uvm88repro: 1 moved  <-- re-scored against golden: 6/0 -> 0/0, NEWLY-MISSING 0, only the law's cells
+  buvm3-15: 0 moved
+  sd8-12:   0 moved
