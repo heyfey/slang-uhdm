@@ -1,0 +1,1574 @@
+PREDCELLS 1364_2005,default strict=0 wide=0 cells=0 structs=[]
+NODB 3SigsSensList,default
+NODB AaFirstTest,default
+PREDCELLS AllBinding,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS AllPackageSignal,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS AlwaysNoElab,default strict=0 wide=0 cells=0 structs=[]
+NODB AmiqEth,default
+NODB AmiqSimpleTestSuite,default
+PREDCELLS ApbSlave,default strict=0 wide=0 cells=0 structs=[]
+NODB Ariane2024,default
+NODB Ariane,default
+NODB ArianeElab2,default
+NODB ArianeElab,default
+PREDCELLS ArrayExprFuncArg,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ArrayInst,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ArrayMethodIterator,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ArrayNet,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ArrayTypespec,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ArrayVarName,default strict=0 wide=0 cells=0 structs=[]
+NODB Assert,default
+PREDCELLS AssertDelayError,default strict=0 wide=0 cells=0 structs=[]
+NODB Assertions,default
+PREDCELLS AssertTempError,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS AssignmentPatternInAssignmentPattern,default strict=0 wide=0 cells=0 structs=[]
+NODB Assignments,default
+NODB AssignPatternArray,default
+NODB AssignPattern,default
+NODB AssignPlus,default
+PREDCELLS AssignRhsFlat,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS AssignSubs,default strict=0 wide=0 cells=0 structs=[]
+NODB AssociativeArray,default
+NODB AssumeProp,default
+PREDCELLS Attributes2,default strict=0 wide=0 cells=0 structs=[]
+NODB Attributes,default
+NODB AttributesNets,default
+NODB AVLMM,default
+NODB AxiInterconnect,default
+NODB AzadiRTL,default
+NODB BadLabel,default
+NODB BadScope,default
+PREDCELLS BasicOh,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BeginKeywords,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BiasValue,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BinarySize,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BindHierPath,default strict=0 wide=0 cells=0 structs=[]
+NODB BindingPort,default
+NODB Bindings,default
+NODB BindMethod,default
+NODB BindStmt2,default
+NODB BindStmt,default
+PREDCELLS BindVarsAndEnum,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BitComplex,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BitPartSelect,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BitRanges,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BitsArray,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BitSelect,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BitSelectExpr,default strict=0 wide=0 cells=0 structs=[]
+NODB BitSelectHier,default
+PREDCELLS BitSelectPartSelectInFunction,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BitSelectSelect,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BitsHierPath,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BitsInGenBlock,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BitsLogic,default strict=0 wide=0 cells=0 structs=[]
+NODB BitsOp,default
+NODB BitsStructMember,default
+PREDCELLS BlackBePipeInt,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BlackBox,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BlackBoxInst,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BlackBoxInstTop,default strict=0 wide=0 cells=0 structs=[]
+NODB BlackboxMissingDef,default
+PREDCELLS BlackBoxMod,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BlackBoxSubMod,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BlackConst,default strict=0 wide=0 cells=0 structs=[]
+NODB BlackParrot,default
+PREDCELLS BlackParrotComplex,default strict=0 wide=0 cells=0 structs=[]
+NODB BlackParrotConf,default
+NODB BlackParrotMuteErrors,default
+NODB BlackParrotParam,default
+PREDCELLS BlackParrotSkipParam,default strict=0 wide=0 cells=0 structs=[]
+NODB BlackParrotStructParam,default
+NODB BlackUcode,default
+NODB BlackUnicore,default
+PREDCELLS BlockingAssignRewrite,default strict=0 wide=0 cells=0 structs=[]
+NODB BuildOVMPkg,default
+PREDCELLS BuildUVMPkg,default strict=0 wide=0 cells=0 structs=[]
+NODB BuiltInMethod,default
+PREDCELLS CarryAdd,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS CarryTrans,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS CaseDefault,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS CaseExpression,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS CaseFullElab,default strict=0 wide=0 cells=0 structs=[]
+NODB CaseInside,default
+NODB CastEnum,default
+NODB CastPartSelect,default
+NODB CastShift,default
+NODB CastStructMember,default
+PREDCELLS CastToParam,default strict=0 wide=0 cells=0 structs=[]
+NODB CastTypespec,default
+NODB CastUnsigned,default
+PREDCELLS CastUnsized,default strict=0 wide=0 cells=0 structs=[]
+NODB Cell,default
+PREDCELLS Chandle,default strict=0 wide=0 cells=0 structs=[]
+NODB Checker,default
+PREDCELLS CheckerInst,default strict=0 wide=0 cells=0 structs=[]
+NODB ClassCons,default
+NODB ClassExtendParam,default
+PREDCELLS ClassExtends,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ClassFsm,default strict=0 wide=0 cells=0 structs=[]
+NODB ClassFuncProto,default
+NODB ClassFuncTask,default
+NODB ClassMemberFunc,default
+NODB ClassMemberRef,default
+NODB ClassMethodCall,default
+PREDCELLS ClassMini,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ClassParam,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ClassParamAsParam,default strict=0 wide=0 cells=0 structs=[]
+NODB ClassScope,default
+PREDCELLS ClassTypeParam,default strict=0 wide=0 cells=0 structs=[]
+NODB ClassTypeParamAlias,default
+PREDCELLS ClassVar,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ClassVirtual,default strict=0 wide=0 cells=0 structs=[]
+NODB ClockingBlock,default
+NODB ClockingDrive,default
+NODB ClockingSntx,default
+PREDCELLS ClogCast,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ClogParam,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS CmdLineOverride,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS Compl1001,default strict=0 wide=0 cells=0 structs=[]
+NODB ComplexBitSelect,default
+NODB ComplexEscaped,default
+PREDCELLS ComplexExprSize,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ComplexHierPath,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ComplexParamOverload2,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ComplexParamOverload,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ComplexVarSelect,default strict=0 wide=0 cells=0 structs=[]
+NODB ConcatOrder,default
+NODB ConcatRadix,default
+NODB ConcatVal,default
+PREDCELLS ConcatWidth,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ConditionalOp,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS CondOpLazyEval,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS CondOpPattern,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS CondOpPred,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS Connection,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ConstantBits,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ConstantNoElabUhdm,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ConstantRange,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ConstantWithElabUhdm,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ConstCapital,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ConstExpand,default strict=0 wide=0 cells=0 structs=[]
+NODB ConstHighConn,default
+PREDCELLS ConstPort,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ContAssignConst,default strict=0 wide=0 cells=0 structs=[]
+NODB ContAssign,default
+PREDCELLS Context,default strict=0 wide=0 cells=0 structs=[]
+NODB CoresSweRV,default
+NODB CoresSweRVMP,default
+NODB Covergroup,default
+PREDCELLS CovMacro,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS CrossFunc,default strict=0 wide=0 cells=0 structs=[]
+NODB CrossItem,default
+PREDCELLS DashYTest,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS DataAttrib,default strict=0 wide=0 cells=0 structs=[]
+NODB DecimalSize,default
+PREDCELLS DecValue,default strict=0 wide=0 cells=0 structs=[]
+NODB DefaultAssign,default
+NODB DefaultNetType,default
+PREDCELLS DefaultPatternAssign,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS DefaultPatternInt,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS DefaultPatternModule,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS DefaultTag,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS DeferAssert,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS DefParamFromParam,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS DefParamIndex,default strict=0 wide=0 cells=0 structs=[]
+NODB Delay2Param,default
+PREDCELLS DelayAssign,default strict=0 wide=0 cells=0 structs=[]
+NODB DiffSimpleIncludeAndMacros,default
+PREDCELLS Disable,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS DollarBits,default strict=0 wide=0 cells=0 structs=[]
+NODB DollarBitsUnary,default
+NODB DollarRoot,default
+PREDCELLS DoubleLoop,default strict=0 wide=0 cells=0 structs=[]
+NODB DoublePres,default
+NODB DoWhile,default
+PREDCELLS DpiChandle,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS DpiFunc,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS DpiTask,default strict=0 wide=0 cells=0 structs=[]
+NODB Driver,default
+PREDCELLS DynArrayKind,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS Earlgrey_0_1,default strict=0 wide=0 cells=0 structs=[]
+NODB Earlgrey,default
+PREDCELLS EarlgreyPackParam,default strict=0 wide=0 cells=0 structs=[]
+NODB Earlgrey_Verilator_0_1,default
+PREDCELLS ElabCParam,default strict=0 wide=0 cells=0 structs=[]
+NODB ElabIf,default
+PREDCELLS ElabParam,default strict=0 wide=0 cells=0 structs=[]
+NODB ElabSysCall,default
+PREDCELLS EmptyAssign,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS EnumConcat,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS EnumConst,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS EnumConstConcat,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS EnumConstElab,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS EnumImplicitVal,default strict=0 wide=0 cells=0 structs=[]
+NODB EnumParenType,default
+PREDCELLS EnumVal,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS EnumVar,default strict=0 wide=0 cells=0 structs=[]
+NODB EnumVarNoTypedef,default
+NODB Escape,default
+PREDCELLS EvalFunc,default strict=0 wide=0 cells=0 structs=[]
+NODB EvalFuncArray,default
+PREDCELLS EvalFuncCont,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS EvalFuncNamed,default strict=0 wide=0 cells=0 structs=[]
+NODB EvalFuncPack,default
+PREDCELLS Event,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ExpectStmt,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ExplicitPort,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ExplictiPorts,default strict=0 wide=0 cells=0 structs=[]
+NODB ExponTimeIfElseGen,default
+PREDCELLS ExprEvalBits,default strict=0 wide=0 cells=0 structs=[]
+NODB ExprEvalPartial,default
+PREDCELLS ExprReductionBits,default strict=0 wide=0 cells=0 structs=[]
+NODB ExtendClassMember,default
+PREDCELLS FileList,default strict=0 wide=0 cells=0 structs=[]
+NODB FileListWithCompressed,default
+FENCED default
+NODB FilePackageImport,default
+NODB FilePackUnion,default
+PREDCELLS FileParam,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FileResolutionFunction,default strict=0 wide=0 cells=0 structs=[]
+NODB FileTypespec,default
+PREDCELLS ForeachArray,default strict=0 wide=0 cells=0 structs=[]
+NODB ForeachClass,default
+NODB ForeachClassParent,default
+NODB ForeachForeach,default
+PREDCELLS ForeachFunction,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ForeachSquare,default strict=0 wide=0 cells=0 structs=[]
+NODB ForElab,default
+PREDCELLS ForLoop,default strict=0 wide=0 cells=0 structs=[]
+NODB ForLoopBind,default
+PREDCELLS FSM2Always,default strict=0 wide=0 cells=0 structs=[]
+NODB FSMBsp13,default
+PREDCELLS FSMFunction,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FSMSingleAlways,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS Func128Bits,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncAlias,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncArgDirection,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncArgs,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncArgsByName,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncAttrib,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncBindGen,default strict=0 wide=0 cells=0 structs=[]
+NODB FuncBinding2,default
+NODB FuncBinding,default
+PREDCELLS FuncCase,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncDeclScope,default strict=0 wide=0 cells=0 structs=[]
+NODB FuncDef2,default
+NODB FuncDef,default
+NODB FuncDefaultVal,default
+PREDCELLS FuncInModule,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncIoTypespec,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncNoArgs,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncParam2,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncParam,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncRetArray,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncReturnRange,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncSideEffect,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncStatic,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncStruct,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncStructVal,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncStructValSimple,default strict=0 wide=0 cells=0 structs=[]
+NODB FuncWidthScope,default
+NODB FuncWidthScopeOverride,default
+NODB GateLevel,default
+PREDCELLS Gates,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS GenBlock,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS GenBlockVar,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS GenCase,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS GenCaseStmt,default strict=0 wide=0 cells=0 structs=[]
+NODB GenerateAssigns,default
+PREDCELLS GenerateBlock2,default strict=0 wide=0 cells=0 structs=[]
+NODB GenerateBlock,default
+NODB GenerateInterface,default
+NODB GenerateModule,default
+NODB GenerateRegion,default
+PREDCELLS GenerateUnnamed,default strict=0 wide=0 cells=0 structs=[]
+NODB GenFor,default
+NODB GenForDec,default
+PREDCELLS GenForIfaceLocalparamBound,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS GenForIfaceLocalparamNestedGen,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS GenForStructParamBound,default strict=0 wide=0 cells=0 structs=[]
+NODB GenIf,default
+NODB GenIfElse,default
+PREDCELLS GenIfIfaceParamStructField,default strict=0 wide=0 cells=0 structs=[]
+NODB GenIfNamed,default
+NODB GenModHierPath,default
+PREDCELLS GenNet,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS GenScopeFullName,default strict=0 wide=0 cells=0 structs=[]
+NODB GenScopeFunc,default
+PREDCELLS GenScopeHierPath2,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS GenScopeHierPath3,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS GenScopeHierPath,default strict=0 wide=0 cells=0 structs=[]
+NODB GenScopeShadow,default
+PREDCELLS GenStructAccess,default strict=0 wide=0 cells=0 structs=[]
+NODB GenVarRef,default
+NODB Google,default
+PREDCELLS Guards,default strict=0 wide=0 cells=0 structs=[]
+NODB HierBitSelect,default
+NODB HierBitSlice,default
+NODB HierMultiSelect,default
+PREDCELLS HierPathBeginBlock,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS HierPathBind,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS HierPathCont,default strict=0 wide=0 cells=0 structs=[]
+FENCED default
+PREDCELLS HierPathInterfBlock,default strict=0 wide=0 cells=0 structs=[]
+NODB HierPathLhs,default
+NODB HierPathModule,default
+PREDCELLS HierPathOverride,default strict=0 wide=0 cells=0 structs=[]
+NODB HierPathPackedArrayNet,default
+PREDCELLS HierPathPackedStruct,default strict=0 wide=0 cells=0 structs=[]
+NODB HierPathPackedVar,default
+PREDCELLS HierPathSelect,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS HierPathStruct,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS HierPathStructTypespec,default strict=0 wide=0 cells=0 structs=[]
+NODB HierPathTfArg,default
+PREDCELLS HierPathTypespec,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS HierPathUnpacked,default strict=0 wide=0 cells=0 structs=[]
+NODB HierPathUnpackedInPacked,default
+PREDCELLS HierPathVarArray,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS HighConnPart,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS HighLow,default strict=0 wide=0 cells=0 structs=[]
+NODB Ibex,default
+NODB IbexGoogle,default
+NODB Icarus,default
+PREDCELLS IfElseGen,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS IfElseIf1,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS IfElseIf2,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS IfElseIf3,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS Iff,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS IfGen1,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS IfGen2,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS IfGen3,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS IfGenTypeBinding,default strict=0 wide=0 cells=0 structs=[]
+NODB IllegalZeroValue,default
+PREDCELLS ImplFuncArg,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS Implicit,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ImplicitArg,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ImplicitFunc,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ImplicitFuncArgAndReturn,default strict=0 wide=0 cells=0 structs=[]
+NODB ImplicitGenBlock,default
+PREDCELLS ImplicitPackedStructNet,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ImplicitParam,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ImplicitPort,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ImplicitPorts2,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ImplicitVarType,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ImportBinding,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ImportedTypespec,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ImportPackage,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS IncompFunc,default strict=0 wide=0 cells=0 structs=[]
+NODB IncompTitan,default
+PREDCELLS IndexAssign,default strict=0 wide=0 cells=0 structs=[]
+NODB IndexedSelect,default
+PREDCELLS IndexedSelectHex,default strict=0 wide=0 cells=0 structs=[]
+NODB IndexPartSelectBind,default
+PREDCELLS IndexPartSel,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS InsideOp,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS InstArray,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS IntegerConcat,default strict=0 wide=0 cells=0 structs=[]
+NODB Interconnect,default
+PREDCELLS InterfaceBinding,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS InterfaceElab,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS InterfaceFuncCall,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS InterfaceModExp,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS InterfaceModPort,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS InterfaceParamOverrideProp,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS InterfaceProcess,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS InterfaceStructMemberPort,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS InterfaceUnpackedStructArrayDim,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS InterfAlways,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS InterfArrayBind,default strict=0 wide=0 cells=0 structs=[]
+NODB InterfBinding,default
+PREDCELLS InterfHierPath,default strict=0 wide=0 cells=0 structs=[]
+NODB InterfImport,default
+PREDCELLS InterfInst,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS InterfType,default strict=0 wide=0 cells=0 structs=[]
+NODB InterfTypeBad,default
+PREDCELLS InterpElab1,default strict=0 wide=0 cells=0 structs=[]
+NODB InvalidTypeParam,default
+PREDCELLS Inverter,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS IOClassStruct,default strict=0 wide=0 cells=0 structs=[]
+NODB IODataTypes,default
+PREDCELLS JKFlipflop,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS Kmac,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS LargeConst,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS LargeHexCast,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS LargeHex,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS LargeHexString,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS LargeValue2Struct,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS LateBindingFuncArg,default strict=0 wide=0 cells=0 structs=[]
+NODB LeftPadding,default
+NODB LegalPastFunc,default
+NODB LetExpr,default
+NODB LetInlined,default
+PREDCELLS LhsHierPath,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS LhsOp,default strict=0 wide=0 cells=0 structs=[]
+NODB LibraryIntercon,default
+PREDCELLS LocalParam,default strict=0 wide=0 cells=0 structs=[]
+NODB LocalScopeAssign,default
+PREDCELLS LocalScopeHierPath,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS LocalVarTypespec,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS LogicArrayParam,default strict=0 wide=0 cells=0 structs=[]
+NODB LogicCast,default
+PREDCELLS LogicSize,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS LogicTypedef,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS LogicTypespec,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS LongHex,default strict=0 wide=0 cells=0 structs=[]
+NODB Loop,default
+NODB LoopParam,default
+NODB LoopParamOver,default
+PREDCELLS LoopVar,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS LowMemLib,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS LowMemPkg,default strict=0 wide=0 cells=0 structs=[]
+NODB Lpddr,default
+PREDCELLS MacroArgDefaultSpaces,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS MacroArgMismatch,default strict=0 wide=0 cells=0 structs=[]
+NODB MaskNeg,default
+PREDCELLS MBadder,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS MiniAmiq,default strict=18 wide=20 cells=50 structs=[uvm_pkg::uvm_reg_bus_op,uvm_pkg::uvm_reg_map_addr_range]
+PREDCELLS MinTypMax,default strict=0 wide=0 cells=0 structs=[]
+NODB ModPortArrayBind,default
+NODB ModPortHighConn,default
+NODB ModPortParam,default
+NODB ModPortRange,default
+NODB ModPortTest,default
+NODB Monitor,default
+PREDCELLS Moves,default strict=0 wide=0 cells=0 structs=[]
+NODB MultContAssign,default
+NODB MultiConcat,default
+PREDCELLS MultiConcatValueSize,default strict=0 wide=0 cells=0 structs=[]
+NODB MultiIndexBind,default
+PREDCELLS MultiPartSelect,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS MultiPort,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS MultiSelect,default strict=0 wide=0 cells=0 structs=[]
+NODB NameCollisionBind,default
+NODB NamedEventHierPath,default
+PREDCELLS NegInt,default strict=0 wide=0 cells=0 structs=[]
+NODB NegParam,default
+NODB NetLValue,default
+NODB NetType,default
+PREDCELLS NonAnsiPort,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS NonSynthError,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS NonSynthUnusedMod,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS NoParamSubs,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS NoReducTypespec,default strict=0 wide=0 cells=0 structs=[]
+NODB NyuziProcessor,default
+NODB OldLibrary,default
+PREDCELLS OneAnd,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS OneClock,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS OneDivider,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS OneFF,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS OneImport,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS OneNet,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS OneNetInterf,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS OneNetModPort,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS OneNetModPortGeneric,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS OneNetNonAnsi,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS OneNetRange,default strict=0 wide=0 cells=0 structs=[]
+NODB Opentitan,default
+NODB OpTypespec,default
+NODB OrderedPortUnkownModule,default
+NODB OVMSwitch,default
+PREDCELLS PackageBind,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackageConst,default strict=0 wide=0 cells=0 structs=[]
+NODB PackageDpi,default
+PREDCELLS PackageEval,default strict=0 wide=0 cells=0 structs=[]
+NODB PackageFuncCall,default
+NODB PackageHierRef,default
+PREDCELLS PackageMemberTypespec,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackageNet,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackageOrder,default strict=0 wide=0 cells=0 structs=[]
+NODB PackageParam,default
+PREDCELLS PackageParamConst,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackageType,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackageTypeParam,default strict=0 wide=0 cells=0 structs=[]
+NODB PackageValue,default
+NODB PackageVar,default
+PREDCELLS PackDataType,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackedArrayAssign,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackedArrayBind,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackedArrayEnum,default strict=0 wide=0 cells=0 structs=[]
+NODB PackedArrayHierPath,default
+PREDCELLS PackedArrayHighConn,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackedArrayStruct,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackedArrayTypespec,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackedEnum,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackedEnumPort,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackedEnumVar,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackedUnpackedIo,default strict=0 wide=0 cells=0 structs=[]
+NODB PackEnumVal,default
+PREDCELLS PackFunc,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackFuncParent,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackImport,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackStructField,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackStructVar,default strict=0 wide=0 cells=0 structs=[]
+NODB ParamArray,default
+NODB ParamArraySelect,default
+PREDCELLS ParamArrayUnsizedPattern,default strict=0 wide=0 cells=0 structs=[]
+NODB ParamBitSelect,default
+PREDCELLS ParamByValue,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamCast,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamComplex,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamComplexVerilator,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamConcat,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamConst,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamConstPush,default strict=0 wide=0 cells=0 structs=[]
+NODB ParamElab,default
+PREDCELLS ParamElabMulti,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamEquivOp,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamFile,default strict=0 wide=0 cells=0 structs=[]
+NODB ParamFileMacro,default
+PREDCELLS ParamFileNoTop,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamFileOverr,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamFromPackage,default strict=0 wide=0 cells=0 structs=[]
+NODB ParamIndex,default
+NODB ParamInFunc,default
+NODB ParamLine,default
+PREDCELLS ParamList,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamMultiConcat,default strict=0 wide=0 cells=0 structs=[]
+NODB ParamNoDefault,default
+PREDCELLS ParamNoImport,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamNoSubst,default strict=0 wide=0 cells=0 structs=[]
+NODB ParamOverload1,default
+PREDCELLS ParamOverload2,default strict=0 wide=0 cells=0 structs=[]
+NODB ParamOverload3,default
+PREDCELLS ParamOverload4,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamOverloading,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamOverloadProp,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamRef,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamScope,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamSubstituteComplex,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamTypespec2,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamTypespec,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PartSelect3,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PartSelect4,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PartSelectElab,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PartSelectHier,default strict=0 wide=0 cells=0 structs=[]
+NODB PartSelectHierPath,default
+PREDCELLS PartSelectNoParent,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PartSelectParent,default strict=0 wide=0 cells=0 structs=[]
+NODB PartSelectRange,default
+PREDCELLS PAssignType,default strict=0 wide=0 cells=0 structs=[]
+NODB PatAssignOp,default
+PREDCELLS PatternAssignInteger,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PatternAssignLogic,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PatternAssignment,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PatternOrder,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PkgImportFunc,default strict=0 wide=0 cells=0 structs=[]
+NODB PkgImportPkg,default
+PREDCELLS PortByName,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PortComplex,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PortDefaultValue,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PortExpr,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PortInitVal2,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PortInitVal,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PortInterface,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PortMultiDim,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PortPackage,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PortRanges,default strict=0 wide=0 cells=0 structs=[]
+NODB PortWildcard,default
+NODB PoundDelay,default
+PREDCELLS PoundDelayTask,default strict=0 wide=0 cells=0 structs=[]
+NODB PoundParam,default
+NODB PPComment,default
+NODB PpLppdr,default
+PREDCELLS PPMacro,default strict=0 wide=0 cells=0 structs=[]
+NODB PragmaProtect,default
+PREDCELLS PreProcDefine,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PreprocFunc,default strict=0 wide=0 cells=0 structs=[]
+NODB PreprocLine,default
+NODB PreProcMacro,default
+NODB PreProcMacroFunc,default
+NODB PreprocString,default
+PREDCELLS PreprocTest,default strict=0 wide=0 cells=0 structs=[]
+NODB PreprocUhdmCov,default
+PREDCELLS PrimTermExpr,default strict=0 wide=0 cells=0 structs=[]
+NODB ProcForLoop,default
+PREDCELLS PropBinding,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS RangeInf,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS RangeSelect,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ReorderPatt,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS RepeatStmt,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ReturnVal,default strict=0 wide=0 cells=0 structs=[]
+NODB RewriteNonConstForLoopCond,default
+PREDCELLS Rggen,default strict=0 wide=0 cells=0 structs=[]
+NODB RiscV,default
+NODB Rom,default
+NODB rp32,default
+PREDCELLS ScalarParam,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS Scoreboard,default strict=0 wide=0 cells=0 structs=[]
+NODB Scr1,default
+PREDCELLS Scr1SvTests,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS SelectHierPath,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS Selects,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS SelectSelect,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS SeqDriver,default strict=18 wide=20 cells=50 structs=[uvm_pkg::uvm_reg_bus_op,uvm_pkg::uvm_reg_map_addr_range]
+PREDCELLS SequenceInst,default strict=0 wide=0 cells=0 structs=[]
+NODB SeqUseNonTemp,default
+PREDCELLS ShiftX,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS SignedBin,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS SignedBinConst,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS SignedParam,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS SignedPort2,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS SignedPort,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS SignedVsUnsignedPort,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS SignedWire,default strict=0 wide=0 cells=0 structs=[]
+NODB SimpleClass1,default
+NODB SimpleClass2,default
+NODB SimpleClass,default
+NODB SimpleCmdLineTest,default
+PREDCELLS SimpleConstraint,default strict=0 wide=0 cells=0 structs=[]
+NODB SimpleIncludeAndMacros,default
+NODB SimpleInterface,default
+NODB SimpleOVM,default
+NODB SimpleParserTest,default
+NODB SimpleParserTestCache,default
+NODB SimpleTask,default
+PREDCELLS SimpleUVM,default strict=0 wide=0 cells=0 structs=[]
+NODB SimpleVMM,default
+PREDCELLS SimplifyHierPath,default strict=0 wide=0 cells=0 structs=[]
+NODB Sky130Cell,default
+NODB Sky130Udp,default
+NODB SplitFile,default
+PREDCELLS StandardBlock,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS StandardNetVar,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS StaticTask,default strict=0 wide=0 cells=0 structs=[]
+NODB StreamingOp,default
+PREDCELLS StringConcat,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS StringMethod,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS StringParameter,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS StringPort,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS StringRange,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS StructAccess,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS StructArrayNet,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS StructNetUnionTypespec,default strict=0 wide=0 cells=0 structs=[]
+NODB StructStructHierPath,default
+PREDCELLS StructTypedef,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS StructUnsizedVal,default strict=0 wide=0 cells=0 structs=[]
+NODB StructVar,default
+NODB StructVarImp,default
+PREDCELLS SurelogMacro,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS SVSwitch,default strict=0 wide=0 cells=0 structs=[]
+NODB SynthFilterDollarError,default
+PREDCELLS SynthForeach,default strict=0 wide=0 cells=0 structs=[]
+NODB SystemCall,default
+PREDCELLS SystemCallSize,default strict=0 wide=0 cells=0 structs=[]
+NODB TaggedParam,default
+PREDCELLS TaggedPattern,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS TaggedPatternLogic,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS TaskBind,default strict=0 wide=0 cells=0 structs=[]
+NODB TaskDeclNoOrder,default
+PREDCELLS TaskDecls,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS TaskDeclTypes,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS TaskProto,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS TaskProtoDef,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS Ternary,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS TernaryAssoc,default strict=0 wide=0 cells=0 structs=[]
+NODB TestBasic,default
+NODB TestBatchMode,default
+NODB TestFileSplit,default
+NODB TestMacros,default
+NODB TestNoHash,default
+NODB TestSepCompBadPath,default
+NODB TestSepComp,default
+NODB TestSepCompNoHash,default
+PREDCELLS TfCalls,default strict=0 wide=0 cells=0 structs=[]
+NODB ThisHier,default
+NODB TimeUnit,default
+NODB TNocBadType,default
+NODB Tnoc,default
+PREDCELLS TopFunc,default strict=0 wide=0 cells=0 structs=[]
+FENCED default
+NODB TranslateOff,default
+PREDCELLS TypedefAlias,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS TypeDefGenScope,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS TypedefPack,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS TypedefRange,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS TypedefRangedFunctionReturn,default strict=0 wide=0 cells=0 structs=[]
+NODB TypeDefScope,default
+PREDCELLS TypedefUnpacked,default strict=0 wide=0 cells=0 structs=[]
+NODB Typename,default
+NODB TypeParam2,default
+PREDCELLS TypeParam,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS TypeParamElab,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS TypeParamOverride,default strict=0 wide=0 cells=0 structs=[]
+NODB TypespecBits,default
+PREDCELLS TypespecExpr,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS TypespecMask,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS Udp,default strict=0 wide=0 cells=0 structs=[]
+NODB UhdmCoverage,default
+PREDCELLS UnaryPlus,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS UnboundForLoop,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS UndersVal,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS UnelabPack,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS UnionCast,default strict=0 wide=0 cells=0 structs=[]
+NODB Unisim,default
+NODB UnitAmiqEth,default
+NODB UnitClass,default
+NODB UnitConcat,default
+NODB UnitDefParam,default
+NODB UnitElab,default
+PREDCELLS UnitElabBlock,default strict=0 wide=0 cells=0 structs=[]
+NODB UnitElabExternNested,default
+NODB UnitEnum,default
+NODB UnitForeach,default
+NODB UnitForLoop,default
+NODB UnitLibrary,default
+NODB UnitPackage,default
+NODB UnitPartSelect,default
+NODB UnitPython,default
+NODB UnitQueue,default
+NODB UnitSimpleIncludeAndMacros,default
+NODB UnitSVA,default
+NODB UnitTest,default
+NODB UnitThisNew,default
+PREDCELLS UnpackedTypespec,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS UnpackPort,default strict=0 wide=0 cells=0 structs=[]
+FENCED default
+PREDCELLS UnsizeConstExpr,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS Unsized,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS UnsizedArray,default strict=0 wide=0 cells=0 structs=[]
+NODB UnsizedConstInst,default
+PREDCELLS UnsizedElabComp,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS UnsizedFunc,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS UnsizedLiteral1,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS UnsizedLiteral2,default strict=0 wide=0 cells=0 structs=[]
+NODB UnsizedPacked,default
+PREDCELLS UnsizedParam,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS UnsupportedTypespecRange,default strict=0 wide=0 cells=0 structs=[]
+NODB UtdSV,default
+NODB UVMNestedSeq,default
+NODB UVMSwitch,default
+PREDCELLS Value4States,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS Values,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ValueSize,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS VarDecl2,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS VarDecl,default strict=0 wide=0 cells=0 structs=[]
+NODB VarInFunc,default
+PREDCELLS VarRangeTypedef,default strict=0 wide=0 cells=0 structs=[]
+NODB VarSelect,default
+PREDCELLS VarSelectGenStmt,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS VarType,default strict=0 wide=0 cells=0 structs=[]
+NODB Verilator,default
+PREDCELLS VirtualClass,default strict=0 wide=0 cells=0 structs=[]
+NODB VoidFuncReturn,default
+PREDCELLS Wand,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS WildConn,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS WireLogicSize,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS WireType,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS WireUnpacked,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS XValue,default strict=0 wide=0 cells=0 structs=[]
+NODB Yosys,default
+PREDCELLS YosysBigSimAes,default strict=0 wide=0 cells=0 structs=[]
+NODB YosysBigSimAmber23,default
+PREDCELLS YosysBigSimEllip,default strict=0 wide=0 cells=0 structs=[]
+NODB YosysBigSimLm32,default
+NODB YosysBigSimOpenMsp,default
+NODB YosysBigSimPong,default
+PREDCELLS YosysBigSimReed,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS YosysBigSimSoft,default strict=0 wide=0 cells=0 structs=[]
+NODB YosysCam,default
+NODB YosysDsp,default
+NODB YosysEth,default
+NODB YosysIce40,default
+PREDCELLS YosysMarlann,default strict=0 wide=0 cells=0 structs=[]
+NODB YosysOldAes,default
+PREDCELLS YosysOldI2c,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS YosysOldOpen,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS YosysOldOr,default strict=0 wide=0 cells=0 structs=[]
+NODB YosysOldSasc,default
+PREDCELLS YosysOldSimpleSpi,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS YosysOldSpi,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS YosysOldSsPcm,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS YosysOldSystem,default strict=0 wide=0 cells=0 structs=[]
+PREDCELLS YosysOldUsb,default strict=0 wide=0 cells=0 structs=[]
+NODB YosysOpenSparc,default
+PREDCELLS YosysRiscv,default strict=0 wide=0 cells=0 structs=[]
+NODB YosysSmall,default
+NODB YosysTests,default
+NODB YosysTestSuite,default
+PREDCELLS YosysVerx,default strict=0 wide=0 cells=0 structs=[]
+NODB Zachjs,default
+PREDCELLS 1364_2005,testflags strict=0 wide=0 cells=0 structs=[]
+NODB 3SigsSensList,testflags
+NODB AaFirstTest,testflags
+PREDCELLS AllBinding,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS AllPackageSignal,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS AlwaysNoElab,testflags strict=0 wide=0 cells=0 structs=[]
+NODB AmiqEth,testflags
+NODB AmiqSimpleTestSuite,testflags
+PREDCELLS ApbSlave,testflags strict=0 wide=0 cells=0 structs=[]
+NODB Ariane,testflags
+NODB ArianeElab2,testflags
+NODB ArianeElab,testflags
+PREDCELLS ArrayExprFuncArg,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ArrayInst,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ArrayMethodIterator,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ArrayNet,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ArrayTypespec,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ArrayVarName,testflags strict=0 wide=0 cells=0 structs=[]
+NODB Assert,testflags
+PREDCELLS AssertDelayError,testflags strict=0 wide=0 cells=0 structs=[]
+NODB Assertions,testflags
+PREDCELLS AssertTempError,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS AssignmentPatternInAssignmentPattern,testflags strict=0 wide=0 cells=0 structs=[]
+NODB Assignments,testflags
+NODB AssignPatternArray,testflags
+NODB AssignPattern,testflags
+NODB AssignPlus,testflags
+PREDCELLS AssignRhsFlat,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS AssignSubs,testflags strict=0 wide=0 cells=0 structs=[]
+NODB AssociativeArray,testflags
+NODB AssumeProp,testflags
+PREDCELLS Attributes2,testflags strict=0 wide=0 cells=0 structs=[]
+NODB Attributes,testflags
+NODB AttributesNets,testflags
+NODB AVLMM,testflags
+NODB AxiInterconnect,testflags
+NODB AzadiRTL,testflags
+NODB BadLabel,testflags
+NODB BadScope,testflags
+PREDCELLS BasicOh,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BeginKeywords,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BiasValue,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BinarySize,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BindHierPath,testflags strict=0 wide=0 cells=0 structs=[]
+NODB BindingPort,testflags
+NODB Bindings,testflags
+NODB BindMethod,testflags
+NODB BindStmt2,testflags
+NODB BindStmt,testflags
+PREDCELLS BindVarsAndEnum,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BitComplex,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BitPartSelect,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BitRanges,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BitsArray,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BitSelect,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BitSelectExpr,testflags strict=0 wide=0 cells=0 structs=[]
+NODB BitSelectHier,testflags
+PREDCELLS BitSelectPartSelectInFunction,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BitSelectSelect,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BitsHierPath,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BitsInGenBlock,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BitsLogic,testflags strict=0 wide=0 cells=0 structs=[]
+NODB BitsOp,testflags
+NODB BitsStructMember,testflags
+PREDCELLS BlackBePipeInt,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BlackBox,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BlackBoxInst,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BlackBoxInstTop,testflags strict=0 wide=0 cells=0 structs=[]
+NODB BlackboxMissingDef,testflags
+PREDCELLS BlackBoxMod,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BlackBoxSubMod,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS BlackConst,testflags strict=0 wide=0 cells=0 structs=[]
+NODB BlackParrot,testflags
+PREDCELLS BlackParrotComplex,testflags strict=0 wide=0 cells=0 structs=[]
+NODB BlackParrotConf,testflags
+NODB BlackParrotMuteErrors,testflags
+NODB BlackParrotParam,testflags
+PREDCELLS BlackParrotSkipParam,testflags strict=0 wide=0 cells=0 structs=[]
+NODB BlackParrotStructParam,testflags
+NODB BlackUcode,testflags
+NODB BlackUnicore,testflags
+PREDCELLS BlockingAssignRewrite,testflags strict=0 wide=0 cells=0 structs=[]
+NODB BuildOVMPkg,testflags
+PREDCELLS BuildUVMPkg,testflags strict=0 wide=0 cells=0 structs=[]
+NODB BuiltInMethod,testflags
+PREDCELLS CarryAdd,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS CarryTrans,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS CaseDefault,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS CaseExpression,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS CaseFullElab,testflags strict=0 wide=0 cells=0 structs=[]
+NODB CaseInside,testflags
+NODB CastEnum,testflags
+NODB CastPartSelect,testflags
+NODB CastShift,testflags
+NODB CastStructMember,testflags
+PREDCELLS CastToParam,testflags strict=0 wide=0 cells=0 structs=[]
+NODB CastTypespec,testflags
+NODB CastUnsigned,testflags
+PREDCELLS CastUnsized,testflags strict=0 wide=0 cells=0 structs=[]
+NODB Cell,testflags
+PREDCELLS Chandle,testflags strict=0 wide=0 cells=0 structs=[]
+NODB Checker,testflags
+PREDCELLS CheckerInst,testflags strict=0 wide=0 cells=0 structs=[]
+NODB ClassCons,testflags
+NODB ClassExtendParam,testflags
+PREDCELLS ClassExtends,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ClassFsm,testflags strict=0 wide=0 cells=0 structs=[]
+NODB ClassFuncProto,testflags
+NODB ClassFuncTask,testflags
+NODB ClassMemberFunc,testflags
+NODB ClassMemberRef,testflags
+NODB ClassMethodCall,testflags
+PREDCELLS ClassMini,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ClassParam,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ClassParamAsParam,testflags strict=0 wide=0 cells=0 structs=[]
+NODB ClassScope,testflags
+PREDCELLS ClassTypeParam,testflags strict=0 wide=0 cells=0 structs=[]
+NODB ClassTypeParamAlias,testflags
+PREDCELLS ClassVar,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ClassVirtual,testflags strict=0 wide=0 cells=0 structs=[]
+NODB ClockingBlock,testflags
+NODB ClockingDrive,testflags
+NODB ClockingSntx,testflags
+PREDCELLS ClogCast,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ClogParam,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS CmdLineOverride,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS Compl1001,testflags strict=0 wide=0 cells=0 structs=[]
+NODB ComplexBitSelect,testflags
+NODB ComplexEscaped,testflags
+PREDCELLS ComplexExprSize,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ComplexHierPath,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ComplexParamOverload2,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ComplexParamOverload,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ComplexVarSelect,testflags strict=0 wide=0 cells=0 structs=[]
+NODB ConcatOrder,testflags
+NODB ConcatRadix,testflags
+NODB ConcatVal,testflags
+PREDCELLS ConcatWidth,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ConditionalOp,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS CondOpLazyEval,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS CondOpPattern,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS CondOpPred,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS Connection,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ConstantBits,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ConstantNoElabUhdm,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ConstantRange,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ConstantWithElabUhdm,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ConstCapital,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ConstExpand,testflags strict=0 wide=0 cells=0 structs=[]
+NODB ConstHighConn,testflags
+PREDCELLS ConstPort,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ContAssignConst,testflags strict=0 wide=0 cells=0 structs=[]
+NODB ContAssign,testflags
+PREDCELLS Context,testflags strict=0 wide=0 cells=0 structs=[]
+NODB CoresSweRV,testflags
+NODB CoresSweRVMP,testflags
+NODB Covergroup,testflags
+PREDCELLS CovMacro,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS CrossFunc,testflags strict=0 wide=0 cells=0 structs=[]
+NODB CrossItem,testflags
+PREDCELLS DashYTest,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS DataAttrib,testflags strict=0 wide=0 cells=0 structs=[]
+NODB DecimalSize,testflags
+PREDCELLS DecValue,testflags strict=0 wide=0 cells=0 structs=[]
+NODB DefaultAssign,testflags
+NODB DefaultNetType,testflags
+PREDCELLS DefaultPatternAssign,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS DefaultPatternInt,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS DefaultPatternModule,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS DefaultTag,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS DeferAssert,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS DefParamFromParam,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS DefParamIndex,testflags strict=0 wide=0 cells=0 structs=[]
+NODB Delay2Param,testflags
+PREDCELLS DelayAssign,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS Disable,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS DollarBits,testflags strict=0 wide=0 cells=0 structs=[]
+NODB DollarBitsUnary,testflags
+NODB DollarRoot,testflags
+PREDCELLS DoubleLoop,testflags strict=0 wide=0 cells=0 structs=[]
+NODB DoublePres,testflags
+NODB DoWhile,testflags
+PREDCELLS DpiChandle,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS DpiFunc,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS DpiTask,testflags strict=0 wide=0 cells=0 structs=[]
+NODB Driver,testflags
+PREDCELLS DynArrayKind,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS Earlgrey_0_1,testflags strict=0 wide=0 cells=0 structs=[]
+NODB Earlgrey,testflags
+PREDCELLS EarlgreyPackParam,testflags strict=0 wide=0 cells=0 structs=[]
+NODB Earlgrey_Verilator_0_1,testflags
+PREDCELLS ElabCParam,testflags strict=0 wide=0 cells=0 structs=[]
+NODB ElabIf,testflags
+PREDCELLS ElabParam,testflags strict=0 wide=0 cells=0 structs=[]
+NODB ElabSysCall,testflags
+PREDCELLS EmptyAssign,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS EnumConcat,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS EnumConst,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS EnumConstConcat,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS EnumConstElab,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS EnumImplicitVal,testflags strict=0 wide=0 cells=0 structs=[]
+NODB EnumParenType,testflags
+PREDCELLS EnumVal,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS EnumVar,testflags strict=0 wide=0 cells=0 structs=[]
+NODB EnumVarNoTypedef,testflags
+NODB Escape,testflags
+PREDCELLS EvalFunc,testflags strict=0 wide=0 cells=0 structs=[]
+NODB EvalFuncArray,testflags
+PREDCELLS EvalFuncCont,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS EvalFuncNamed,testflags strict=0 wide=0 cells=0 structs=[]
+NODB EvalFuncPack,testflags
+PREDCELLS Event,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ExpectStmt,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ExplicitPort,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ExplictiPorts,testflags strict=0 wide=0 cells=0 structs=[]
+NODB ExponTimeIfElseGen,testflags
+PREDCELLS ExprEvalBits,testflags strict=0 wide=0 cells=0 structs=[]
+NODB ExprEvalPartial,testflags
+PREDCELLS ExprReductionBits,testflags strict=0 wide=0 cells=0 structs=[]
+NODB ExtendClassMember,testflags
+PREDCELLS FileList,testflags strict=0 wide=0 cells=0 structs=[]
+NODB FileListWithCompressed,testflags
+FENCED testflags
+NODB FilePackageImport,testflags
+NODB FilePackUnion,testflags
+PREDCELLS FileParam,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FileResolutionFunction,testflags strict=0 wide=0 cells=0 structs=[]
+NODB FileTypespec,testflags
+PREDCELLS ForeachArray,testflags strict=0 wide=0 cells=0 structs=[]
+NODB ForeachClass,testflags
+NODB ForeachClassParent,testflags
+NODB ForeachForeach,testflags
+PREDCELLS ForeachFunction,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ForeachSquare,testflags strict=0 wide=0 cells=0 structs=[]
+NODB ForElab,testflags
+PREDCELLS ForLoop,testflags strict=0 wide=0 cells=0 structs=[]
+NODB ForLoopBind,testflags
+PREDCELLS FSM2Always,testflags strict=0 wide=0 cells=0 structs=[]
+NODB FSMBsp13,testflags
+PREDCELLS FSMFunction,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FSMSingleAlways,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS Func128Bits,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncAlias,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncArgDirection,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncArgs,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncArgsByName,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncAttrib,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncBindGen,testflags strict=0 wide=0 cells=0 structs=[]
+NODB FuncBinding2,testflags
+NODB FuncBinding,testflags
+PREDCELLS FuncCase,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncDeclScope,testflags strict=0 wide=0 cells=0 structs=[]
+NODB FuncDef2,testflags
+NODB FuncDef,testflags
+NODB FuncDefaultVal,testflags
+PREDCELLS FuncInModule,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncIoTypespec,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncNoArgs,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncParam2,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncParam,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncRetArray,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncReturnRange,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncSideEffect,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncStatic,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncStruct,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncStructVal,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS FuncStructValSimple,testflags strict=0 wide=0 cells=0 structs=[]
+NODB FuncWidthScope,testflags
+NODB FuncWidthScopeOverride,testflags
+NODB GateLevel,testflags
+PREDCELLS Gates,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS GenBlock,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS GenBlockVar,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS GenCase,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS GenCaseStmt,testflags strict=0 wide=0 cells=0 structs=[]
+NODB GenerateAssigns,testflags
+PREDCELLS GenerateBlock2,testflags strict=0 wide=0 cells=0 structs=[]
+NODB GenerateBlock,testflags
+NODB GenerateInterface,testflags
+NODB GenerateModule,testflags
+NODB GenerateRegion,testflags
+PREDCELLS GenerateUnnamed,testflags strict=0 wide=0 cells=0 structs=[]
+NODB GenFor,testflags
+NODB GenForDec,testflags
+PREDCELLS GenForIfaceLocalparamBound,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS GenForIfaceLocalparamNestedGen,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS GenForStructParamBound,testflags strict=0 wide=0 cells=0 structs=[]
+NODB GenIf,testflags
+NODB GenIfElse,testflags
+PREDCELLS GenIfIfaceParamStructField,testflags strict=0 wide=0 cells=0 structs=[]
+NODB GenIfNamed,testflags
+NODB GenModHierPath,testflags
+PREDCELLS GenNet,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS GenScopeFullName,testflags strict=0 wide=0 cells=0 structs=[]
+NODB GenScopeFunc,testflags
+PREDCELLS GenScopeHierPath2,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS GenScopeHierPath3,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS GenScopeHierPath,testflags strict=0 wide=0 cells=0 structs=[]
+NODB GenScopeShadow,testflags
+PREDCELLS GenStructAccess,testflags strict=0 wide=0 cells=0 structs=[]
+NODB GenVarRef,testflags
+NODB Google,testflags
+PREDCELLS Guards,testflags strict=0 wide=0 cells=0 structs=[]
+NODB HierBitSelect,testflags
+NODB HierBitSlice,testflags
+NODB HierMultiSelect,testflags
+PREDCELLS HierPathBeginBlock,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS HierPathBind,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS HierPathCont,testflags strict=0 wide=0 cells=0 structs=[]
+FENCED testflags
+PREDCELLS HierPathInterfBlock,testflags strict=0 wide=0 cells=0 structs=[]
+NODB HierPathLhs,testflags
+NODB HierPathModule,testflags
+PREDCELLS HierPathOverride,testflags strict=0 wide=0 cells=0 structs=[]
+NODB HierPathPackedArrayNet,testflags
+PREDCELLS HierPathPackedStruct,testflags strict=0 wide=0 cells=0 structs=[]
+NODB HierPathPackedVar,testflags
+PREDCELLS HierPathSelect,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS HierPathStruct,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS HierPathStructTypespec,testflags strict=0 wide=0 cells=0 structs=[]
+NODB HierPathTfArg,testflags
+PREDCELLS HierPathTypespec,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS HierPathUnpacked,testflags strict=0 wide=0 cells=0 structs=[]
+NODB HierPathUnpackedInPacked,testflags
+PREDCELLS HierPathVarArray,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS HighConnPart,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS HighLow,testflags strict=0 wide=0 cells=0 structs=[]
+NODB Ibex,testflags
+NODB IbexGoogle,testflags
+NODB Icarus,testflags
+PREDCELLS IfElseGen,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS IfElseIf1,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS IfElseIf2,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS IfElseIf3,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS Iff,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS IfGen1,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS IfGen2,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS IfGen3,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS IfGenTypeBinding,testflags strict=0 wide=0 cells=0 structs=[]
+NODB IllegalZeroValue,testflags
+PREDCELLS ImplFuncArg,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS Implicit,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ImplicitArg,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ImplicitFunc,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ImplicitFuncArgAndReturn,testflags strict=0 wide=0 cells=0 structs=[]
+NODB ImplicitGenBlock,testflags
+PREDCELLS ImplicitPackedStructNet,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ImplicitParam,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ImplicitPort,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ImplicitPorts2,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ImplicitVarType,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ImportBinding,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ImportedTypespec,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ImportPackage,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS IncompFunc,testflags strict=0 wide=0 cells=0 structs=[]
+NODB IncompTitan,testflags
+PREDCELLS IndexAssign,testflags strict=0 wide=0 cells=0 structs=[]
+NODB IndexedSelect,testflags
+PREDCELLS IndexedSelectHex,testflags strict=0 wide=0 cells=0 structs=[]
+NODB IndexPartSelectBind,testflags
+PREDCELLS IndexPartSel,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS InsideOp,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS InstArray,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS IntegerConcat,testflags strict=0 wide=0 cells=0 structs=[]
+NODB Interconnect,testflags
+PREDCELLS InterfaceBinding,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS InterfaceElab,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS InterfaceFuncCall,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS InterfaceModExp,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS InterfaceModPort,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS InterfaceParamOverrideProp,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS InterfaceProcess,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS InterfaceStructMemberPort,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS InterfaceUnpackedStructArrayDim,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS InterfAlways,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS InterfArrayBind,testflags strict=0 wide=0 cells=0 structs=[]
+NODB InterfBinding,testflags
+PREDCELLS InterfHierPath,testflags strict=0 wide=0 cells=0 structs=[]
+NODB InterfImport,testflags
+PREDCELLS InterfInst,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS InterfType,testflags strict=0 wide=0 cells=0 structs=[]
+NODB InterfTypeBad,testflags
+PREDCELLS InterpElab1,testflags strict=0 wide=0 cells=0 structs=[]
+NODB InvalidTypeParam,testflags
+PREDCELLS Inverter,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS IOClassStruct,testflags strict=0 wide=0 cells=0 structs=[]
+NODB IODataTypes,testflags
+PREDCELLS JKFlipflop,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS Kmac,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS LargeConst,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS LargeHexCast,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS LargeHex,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS LargeHexString,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS LargeValue2Struct,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS LateBindingFuncArg,testflags strict=0 wide=0 cells=0 structs=[]
+NODB LeftPadding,testflags
+NODB LegalPastFunc,testflags
+NODB LetExpr,testflags
+NODB LetInlined,testflags
+PREDCELLS LhsHierPath,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS LhsOp,testflags strict=0 wide=0 cells=0 structs=[]
+NODB LibraryIntercon,testflags
+PREDCELLS LocalParam,testflags strict=0 wide=0 cells=0 structs=[]
+NODB LocalScopeAssign,testflags
+PREDCELLS LocalScopeHierPath,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS LocalVarTypespec,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS LogicArrayParam,testflags strict=0 wide=0 cells=0 structs=[]
+NODB LogicCast,testflags
+PREDCELLS LogicSize,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS LogicTypedef,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS LogicTypespec,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS LongHex,testflags strict=0 wide=0 cells=0 structs=[]
+NODB Loop,testflags
+NODB LoopParam,testflags
+NODB LoopParamOver,testflags
+PREDCELLS LoopVar,testflags strict=0 wide=0 cells=0 structs=[]
+NODB LowMemLib,testflags
+NODB LowMemPkg,testflags
+NODB Lpddr,testflags
+PREDCELLS MacroArgDefaultSpaces,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS MacroArgMismatch,testflags strict=0 wide=0 cells=0 structs=[]
+NODB MaskNeg,testflags
+PREDCELLS MBadder,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS MiniAmiq,testflags strict=18 wide=20 cells=50 structs=[uvm_pkg::uvm_reg_bus_op,uvm_pkg::uvm_reg_map_addr_range]
+PREDCELLS MinTypMax,testflags strict=0 wide=0 cells=0 structs=[]
+NODB ModPortArrayBind,testflags
+NODB ModPortHighConn,testflags
+NODB ModPortParam,testflags
+NODB ModPortRange,testflags
+NODB ModPortTest,testflags
+NODB Monitor,testflags
+PREDCELLS Moves,testflags strict=0 wide=0 cells=0 structs=[]
+NODB MultContAssign,testflags
+NODB MultiConcat,testflags
+PREDCELLS MultiConcatValueSize,testflags strict=0 wide=0 cells=0 structs=[]
+NODB MultiIndexBind,testflags
+PREDCELLS MultiPartSelect,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS MultiPort,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS MultiSelect,testflags strict=0 wide=0 cells=0 structs=[]
+NODB NameCollisionBind,testflags
+NODB NamedEventHierPath,testflags
+PREDCELLS NegInt,testflags strict=0 wide=0 cells=0 structs=[]
+NODB NegParam,testflags
+NODB NetLValue,testflags
+NODB NetType,testflags
+PREDCELLS NonAnsiPort,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS NonSynthError,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS NonSynthUnusedMod,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS NoParamSubs,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS NoReducTypespec,testflags strict=0 wide=0 cells=0 structs=[]
+NODB NyuziProcessor,testflags
+NODB OldLibrary,testflags
+PREDCELLS OneAnd,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS OneClock,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS OneDivider,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS OneFF,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS OneImport,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS OneNet,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS OneNetInterf,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS OneNetModPort,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS OneNetModPortGeneric,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS OneNetNonAnsi,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS OneNetRange,testflags strict=0 wide=0 cells=0 structs=[]
+NODB Opentitan,testflags
+NODB OpTypespec,testflags
+NODB OrderedPortUnkownModule,testflags
+NODB OVMSwitch,testflags
+PREDCELLS PackageBind,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackageConst,testflags strict=0 wide=0 cells=0 structs=[]
+NODB PackageDpi,testflags
+PREDCELLS PackageEval,testflags strict=0 wide=0 cells=0 structs=[]
+NODB PackageFuncCall,testflags
+NODB PackageHierRef,testflags
+PREDCELLS PackageMemberTypespec,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackageNet,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackageOrder,testflags strict=0 wide=0 cells=0 structs=[]
+NODB PackageParam,testflags
+PREDCELLS PackageParamConst,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackageType,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackageTypeParam,testflags strict=0 wide=0 cells=0 structs=[]
+NODB PackageValue,testflags
+NODB PackageVar,testflags
+PREDCELLS PackDataType,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackedArrayAssign,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackedArrayBind,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackedArrayEnum,testflags strict=0 wide=0 cells=0 structs=[]
+NODB PackedArrayHierPath,testflags
+PREDCELLS PackedArrayHighConn,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackedArrayStruct,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackedArrayTypespec,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackedEnum,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackedEnumPort,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackedEnumVar,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackedUnpackedIo,testflags strict=0 wide=0 cells=0 structs=[]
+NODB PackEnumVal,testflags
+PREDCELLS PackFunc,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackFuncParent,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackImport,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackStructField,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PackStructVar,testflags strict=0 wide=0 cells=0 structs=[]
+NODB ParamArray,testflags
+NODB ParamArraySelect,testflags
+PREDCELLS ParamArrayUnsizedPattern,testflags strict=0 wide=0 cells=0 structs=[]
+NODB ParamBitSelect,testflags
+PREDCELLS ParamByValue,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamCast,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamComplex,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamComplexVerilator,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamConcat,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamConst,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamConstPush,testflags strict=0 wide=0 cells=0 structs=[]
+NODB ParamElab,testflags
+PREDCELLS ParamElabMulti,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamEquivOp,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamFile,testflags strict=0 wide=0 cells=0 structs=[]
+NODB ParamFileMacro,testflags
+NODB ParamFileNoTop,testflags
+PREDCELLS ParamFileOverr,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamFromPackage,testflags strict=0 wide=0 cells=0 structs=[]
+NODB ParamIndex,testflags
+NODB ParamInFunc,testflags
+NODB ParamLine,testflags
+PREDCELLS ParamList,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamMultiConcat,testflags strict=0 wide=0 cells=0 structs=[]
+NODB ParamNoDefault,testflags
+PREDCELLS ParamNoImport,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamNoSubst,testflags strict=0 wide=0 cells=0 structs=[]
+NODB ParamOverload1,testflags
+PREDCELLS ParamOverload2,testflags strict=0 wide=0 cells=0 structs=[]
+NODB ParamOverload3,testflags
+PREDCELLS ParamOverload4,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamOverloading,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamOverloadProp,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamRef,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamScope,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamSubstituteComplex,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamTypespec2,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ParamTypespec,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PartSelect3,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PartSelect4,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PartSelectElab,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PartSelectHier,testflags strict=0 wide=0 cells=0 structs=[]
+NODB PartSelectHierPath,testflags
+PREDCELLS PartSelectNoParent,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PartSelectParent,testflags strict=0 wide=0 cells=0 structs=[]
+NODB PartSelectRange,testflags
+PREDCELLS PAssignType,testflags strict=0 wide=0 cells=0 structs=[]
+NODB PatAssignOp,testflags
+PREDCELLS PatternAssignInteger,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PatternAssignLogic,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PatternAssignment,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PatternOrder,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PkgImportFunc,testflags strict=0 wide=0 cells=0 structs=[]
+NODB PkgImportPkg,testflags
+PREDCELLS PortByName,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PortComplex,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PortDefaultValue,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PortExpr,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PortInitVal2,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PortInitVal,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PortInterface,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PortMultiDim,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PortPackage,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PortRanges,testflags strict=0 wide=0 cells=0 structs=[]
+NODB PortWildcard,testflags
+NODB PoundDelay,testflags
+PREDCELLS PoundDelayTask,testflags strict=0 wide=0 cells=0 structs=[]
+NODB PoundParam,testflags
+NODB PPComment,testflags
+NODB PpLppdr,testflags
+PREDCELLS PPMacro,testflags strict=0 wide=0 cells=0 structs=[]
+NODB PragmaProtect,testflags
+PREDCELLS PreProcDefine,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS PreprocFunc,testflags strict=0 wide=0 cells=0 structs=[]
+NODB PreprocLine,testflags
+NODB PreProcMacro,testflags
+NODB PreProcMacroFunc,testflags
+NODB PreprocString,testflags
+PREDCELLS PreprocTest,testflags strict=0 wide=0 cells=0 structs=[]
+NODB PreprocUhdmCov,testflags
+PREDCELLS PrimTermExpr,testflags strict=0 wide=0 cells=0 structs=[]
+NODB ProcForLoop,testflags
+PREDCELLS PropBinding,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS RangeInf,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS RangeSelect,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ReorderPatt,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS RepeatStmt,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ReturnVal,testflags strict=0 wide=0 cells=0 structs=[]
+NODB RewriteNonConstForLoopCond,testflags
+NODB Rggen,testflags
+NODB RiscV,testflags
+NODB Rom,testflags
+NODB rp32,testflags
+PREDCELLS ScalarParam,testflags strict=0 wide=0 cells=0 structs=[]
+NODB Scoreboard,testflags
+NODB Scr1,testflags
+PREDCELLS Scr1SvTests,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS SelectHierPath,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS Selects,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS SelectSelect,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS SeqDriver,testflags strict=18 wide=20 cells=50 structs=[uvm_pkg::uvm_reg_bus_op,uvm_pkg::uvm_reg_map_addr_range]
+PREDCELLS SequenceInst,testflags strict=0 wide=0 cells=0 structs=[]
+NODB SeqUseNonTemp,testflags
+PREDCELLS ShiftX,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS SignedBin,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS SignedBinConst,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS SignedParam,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS SignedPort2,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS SignedPort,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS SignedVsUnsignedPort,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS SignedWire,testflags strict=0 wide=0 cells=0 structs=[]
+NODB SimpleClass1,testflags
+NODB SimpleClass2,testflags
+NODB SimpleClass,testflags
+NODB SimpleCmdLineTest,testflags
+PREDCELLS SimpleConstraint,testflags strict=0 wide=0 cells=0 structs=[]
+NODB SimpleIncludeAndMacros,testflags
+NODB SimpleInterface,testflags
+NODB SimpleOVM,testflags
+NODB SimpleParserTest,testflags
+NODB SimpleParserTestCache,testflags
+NODB SimpleTask,testflags
+PREDCELLS SimpleUVM,testflags strict=0 wide=0 cells=0 structs=[]
+NODB SimpleVMM,testflags
+PREDCELLS SimplifyHierPath,testflags strict=0 wide=0 cells=0 structs=[]
+NODB Sky130Cell,testflags
+NODB Sky130Udp,testflags
+NODB SplitFile,testflags
+PREDCELLS StandardBlock,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS StandardNetVar,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS StaticTask,testflags strict=0 wide=0 cells=0 structs=[]
+NODB StreamingOp,testflags
+PREDCELLS StringConcat,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS StringMethod,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS StringParameter,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS StringPort,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS StringRange,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS StructAccess,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS StructArrayNet,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS StructNetUnionTypespec,testflags strict=0 wide=0 cells=0 structs=[]
+NODB StructStructHierPath,testflags
+PREDCELLS StructTypedef,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS StructUnsizedVal,testflags strict=0 wide=0 cells=0 structs=[]
+NODB StructVar,testflags
+NODB StructVarImp,testflags
+PREDCELLS SurelogMacro,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS SVSwitch,testflags strict=0 wide=0 cells=0 structs=[]
+NODB SynthFilterDollarError,testflags
+PREDCELLS SynthForeach,testflags strict=0 wide=0 cells=0 structs=[]
+NODB SystemCall,testflags
+PREDCELLS SystemCallSize,testflags strict=0 wide=0 cells=0 structs=[]
+NODB TaggedParam,testflags
+PREDCELLS TaggedPattern,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS TaggedPatternLogic,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS TaskBind,testflags strict=0 wide=0 cells=0 structs=[]
+NODB TaskDeclNoOrder,testflags
+PREDCELLS TaskDecls,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS TaskDeclTypes,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS TaskProto,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS TaskProtoDef,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS Ternary,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS TernaryAssoc,testflags strict=0 wide=0 cells=0 structs=[]
+NODB TestBasic,testflags
+NODB TestBatchMode,testflags
+NODB TestFileSplit,testflags
+NODB TestMacros,testflags
+NODB TestNoHash,testflags
+NODB TestSepCompBadPath,testflags
+NODB TestSepComp,testflags
+NODB TestSepCompNoHash,testflags
+PREDCELLS TfCalls,testflags strict=0 wide=0 cells=0 structs=[]
+NODB ThisHier,testflags
+NODB TimeUnit,testflags
+NODB TNocBadType,testflags
+NODB Tnoc,testflags
+PREDCELLS TopFunc,testflags strict=0 wide=0 cells=0 structs=[]
+FENCED testflags
+NODB TranslateOff,testflags
+PREDCELLS TypedefAlias,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS TypeDefGenScope,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS TypedefPack,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS TypedefRange,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS TypedefRangedFunctionReturn,testflags strict=0 wide=0 cells=0 structs=[]
+NODB TypeDefScope,testflags
+PREDCELLS TypedefUnpacked,testflags strict=0 wide=0 cells=0 structs=[]
+NODB Typename,testflags
+NODB TypeParam2,testflags
+PREDCELLS TypeParam,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS TypeParamElab,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS TypeParamOverride,testflags strict=0 wide=0 cells=0 structs=[]
+NODB TypespecBits,testflags
+PREDCELLS TypespecExpr,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS TypespecMask,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS Udp,testflags strict=0 wide=0 cells=0 structs=[]
+NODB UhdmCoverage,testflags
+PREDCELLS UnaryPlus,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS UnboundForLoop,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS UndersVal,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS UnelabPack,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS UnionCast,testflags strict=0 wide=0 cells=0 structs=[]
+NODB Unisim,testflags
+NODB UnitAmiqEth,testflags
+NODB UnitClass,testflags
+NODB UnitConcat,testflags
+NODB UnitDefParam,testflags
+NODB UnitElab,testflags
+PREDCELLS UnitElabBlock,testflags strict=0 wide=0 cells=0 structs=[]
+NODB UnitElabExternNested,testflags
+NODB UnitEnum,testflags
+NODB UnitForeach,testflags
+NODB UnitForLoop,testflags
+NODB UnitLibrary,testflags
+NODB UnitPackage,testflags
+NODB UnitPartSelect,testflags
+NODB UnitQueue,testflags
+NODB UnitSimpleIncludeAndMacros,testflags
+NODB UnitSVA,testflags
+NODB UnitTest,testflags
+NODB UnitThisNew,testflags
+PREDCELLS UnpackedTypespec,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS UnpackPort,testflags strict=0 wide=0 cells=0 structs=[]
+FENCED testflags
+PREDCELLS UnsizeConstExpr,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS Unsized,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS UnsizedArray,testflags strict=0 wide=0 cells=0 structs=[]
+NODB UnsizedConstInst,testflags
+PREDCELLS UnsizedElabComp,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS UnsizedFunc,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS UnsizedLiteral1,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS UnsizedLiteral2,testflags strict=0 wide=0 cells=0 structs=[]
+NODB UnsizedPacked,testflags
+PREDCELLS UnsizedParam,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS UnsupportedTypespecRange,testflags strict=0 wide=0 cells=0 structs=[]
+NODB UtdSV,testflags
+NODB UVMNestedSeq,testflags
+NODB UVMSwitch,testflags
+PREDCELLS Value4States,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS Values,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS ValueSize,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS VarDecl2,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS VarDecl,testflags strict=0 wide=0 cells=0 structs=[]
+NODB VarInFunc,testflags
+PREDCELLS VarRangeTypedef,testflags strict=0 wide=0 cells=0 structs=[]
+NODB VarSelect,testflags
+PREDCELLS VarSelectGenStmt,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS VarType,testflags strict=0 wide=0 cells=0 structs=[]
+NODB Verilator,testflags
+PREDCELLS VirtualClass,testflags strict=0 wide=0 cells=0 structs=[]
+NODB VoidFuncReturn,testflags
+PREDCELLS Wand,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS WildConn,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS WireLogicSize,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS WireType,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS WireUnpacked,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS XValue,testflags strict=0 wide=0 cells=0 structs=[]
+NODB Yosys,testflags
+PREDCELLS YosysBigSimAes,testflags strict=0 wide=0 cells=0 structs=[]
+NODB YosysBigSimAmber23,testflags
+NODB YosysBigSimLm32,testflags
+NODB YosysBigSimOpenMsp,testflags
+NODB YosysBigSimPong,testflags
+PREDCELLS YosysBigSimReed,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS YosysBigSimSoft,testflags strict=0 wide=0 cells=0 structs=[]
+NODB YosysCam,testflags
+NODB YosysDsp,testflags
+NODB YosysEth,testflags
+NODB YosysIce40,testflags
+PREDCELLS YosysMarlann,testflags strict=0 wide=0 cells=0 structs=[]
+NODB YosysOldAes,testflags
+PREDCELLS YosysOldI2c,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS YosysOldOpen,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS YosysOldOr,testflags strict=0 wide=0 cells=0 structs=[]
+NODB YosysOldSasc,testflags
+PREDCELLS YosysOldSimpleSpi,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS YosysOldSpi,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS YosysOldSsPcm,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS YosysOldSystem,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS YosysOldUsb,testflags strict=0 wide=0 cells=0 structs=[]
+PREDCELLS YosysRiscv,testflags strict=0 wide=0 cells=0 structs=[]
+NODB YosysSmall,testflags
+NODB YosysTests,testflags
+NODB YosysTestSuite,testflags
+PREDCELLS YosysVerx,testflags strict=0 wide=0 cells=0 structs=[]
+NODB Zachjs,testflags
+-- scanned=948 NODB=617 FENCED=8

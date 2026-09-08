@@ -1,0 +1,51 @@
+r10uvm207 — THE MOVERS, NAMED.
+
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+== byteverify, surelog corpus (patched vs this pass's own pristine sweep)
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/MiniAmiq-544c7f61/slang.uhdm  patched=8787b6cec98f pristine=f1a5df6e291c
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=9455a56a1acf pristine=df92db26e461
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=70d074f2ff6e pristine=4d5ada8e1a99
+MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=8787b6cec98f pristine=f1a5df6e291c
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=f0cdfe36ad6d pristine=d63439e99644
+MOVERS: 5 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+
+== byteverify, uhdm2rtlil corpus
+MOVERS: 0 / 1358 (PATH_SETS_IDENTICAL 1358 paths, SELFCHECK 1357/1358 flagged)
+
+== the FOUR law rows were PREDICTED BY NAME from PRISTINE databases ALONE,
+   before the patched sweep existed (PREDICT.surelog.r10uvm207.txt):
+PREDCELLS MiniAmiq,default strict=18 wide=20 cells=50 structs=[uvm_pkg::uvm_reg_bus_op,uvm_pkg::uvm_reg_map_addr_range]
+PREDCELLS SeqDriver,default strict=18 wide=20 cells=50 structs=[uvm_pkg::uvm_reg_bus_op,uvm_pkg::uvm_reg_map_addr_range]
+PREDCELLS MiniAmiq,testflags strict=18 wide=20 cells=50 structs=[uvm_pkg::uvm_reg_bus_op,uvm_pkg::uvm_reg_map_addr_range]
+PREDCELLS SeqDriver,testflags strict=18 wide=20 cells=50 structs=[uvm_pkg::uvm_reg_bus_op,uvm_pkg::uvm_reg_map_addr_range]
+   and on NONE of the 1358 uhdm2rtlil databases (PREDICT.u2r.r10uvm207.txt):
+   rows scanned with a PREDCELLS line: 1358
+   rows with strict>0: 0
+
+== the FIFTH byte mover is the recorded COIN, not a law mover
+   Scoreboard,default: census TO-GOLDEN 0 / AWAY 0 / MOVED-WRONG 0 / STILL-WRONG 0,
+   uhdm-cmp log BYTE-IDENTICAL between the two binaries (95 lines, same head),
+   prediction strict=0, and the path-normalised ORDER-BLIND whole-dump diff reads
+   0 content lines.  RESUME.md §9's ~50/50 svunit_pkg vpiTaskFunc order coin.
+
+== THE RESIDUE, NAMED (STILL-WRONG 12 per moved row-mode)
+   SIX are r10uvm205's R1 shared ELEMENT refs — THEY MUST NOT MOVE AND DID NOT:
+     STILL-WRONG  TOP[2] adpcm_pkg | - | uvm_reg_map::Xinit_address_mapX | d4 | var | addrs@1603:23 | .elem
+     STILL-WRONG  TOP[2] adpcm_pkg | - | uvm_reg_map::do_bus_read | d1 | var | addrs@1983:18 | .elem
+     STILL-WRONG  TOP[2] adpcm_pkg | - | uvm_reg_map::do_bus_write | d1 | var | addrs@1839:22 | .elem
+     STILL-WRONG  TOP[2] adpcm_pkg | - | uvm_reg_map::get_physical_addresses | d1 | var | local_addr@1408:20 | .elem
+     STILL-WRONG  TOP[2] adpcm_pkg | - | uvm_reg_map::get_physical_addresses | d2 | var | sys_addr@1472:23 | .elem
+     STILL-WRONG  TOP[2] adpcm_pkg | - | uvm_reg_map::m_set_reg_offset | d2 | var | addrs@758:24 | .elem
+   SIX are THIS pass's own new residue (R1'): the ARRAY typespec holding the
+   struct is itself shared with a home declaration, so its Elem_typespec ref
+   cannot be re-pointed either — the same shape one link further:
+     STILL-WRONG  TOP[2] adpcm_pkg | - | uvm_reg_map::do_bus_read | d1 | var | accesses@1993:18 | .elem.mem:addr
+     STILL-WRONG  TOP[2] adpcm_pkg | - | uvm_reg_map::do_bus_read | d1 | var | accesses@1993:18 | .elem.mem:byte_en
+     STILL-WRONG  TOP[2] adpcm_pkg | - | uvm_reg_map::do_bus_read | d1 | var | accesses@1993:18 | .elem.mem:data
+     STILL-WRONG  TOP[2] adpcm_pkg | - | uvm_reg_map::do_bus_write | d1 | var | accesses@1850:21 | .elem.mem:addr
+     STILL-WRONG  TOP[2] adpcm_pkg | - | uvm_reg_map::do_bus_write | d1 | var | accesses@1850:21 | .elem.mem:byte_en
+     STILL-WRONG  TOP[2] adpcm_pkg | - | uvm_reg_map::do_bus_write | d1 | var | accesses@1850:21 | .elem.mem:data

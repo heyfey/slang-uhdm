@@ -1,0 +1,179 @@
+r10uvm207 — THE FULL GATE BATTERY, every number as it was read.
+MEASUREMENT ONLY.  The official ~/git-repos/UHDM/build/bin/uhdm-cmp and
+scripts/verify_golden.py are the authorities.  LHS is ALWAYS golden (Surelog);
+RHS is ALWAYS ours.  slang was NOT patched.  results/*.csv were READ ONLY and
+NOT EDITED.  Nothing was promoted; NO CORPUS ROW WAS CONVERTED in either
+direction.  GOLDEN_DEFER stayed unset.
+
+BASE                 3e4de175 (a clean worktree of it)
+pristine binary      md5 78ed14157d37767daeabd4bd038e56f7, built -j 2 from this
+                     pass's OWN worktree at a clean 3e4de175, frozen chmod 555
+                     BEFORE any sweep — and BYTE-IDENTICAL to the main tree's
+                     own build/slang-uhdm at that commit
+patched binary       md5 56cb758a707445bf15f6ad408caf2f5d, frozen chmod 555
+production surface   src/TypeEmit.cpp ONLY — one new block at the end of the
+                     existing § importCloneBareTdAlias16, after § 205's.
+                     +244 / -0 lines, one file, no header change, no new
+                     exporter state, no new flag, no new member function.
+probe surface        tools/probe/r10uvm207repro/ only
+
+================================================================================
+1.  GOLDENS  (both binaries) + the negative control
+================================================================================
+  pristine   23 PASS / 0 FAIL
+  patched    23 PASS / 0 FAIL
+  SLANG_UHDM=/bin/false   23 FAIL   (the negative control: the harness can fail)
+
+================================================================================
+2.  EVERY cmds.txt AUDITED BY BINARY PATH  (not by the string "slang-uhdm",
+    which also matches slang-uhdm-goldens/)
+================================================================================
+  pristine surelog workdir      1523 invocations, all /tmp/r10uvm207_pris.bin
+  patched  surelog workdir      1523 invocations, all /tmp/r10uvm207_pat.bin
+  pristine uhdm2rtlil workdir   1458 invocations, all /tmp/r10uvm207_pris.bin
+  patched  uhdm2rtlil workdir   1458 invocations, all /tmp/r10uvm207_pat.bin
+  cmds.txt files naming the MAIN-TREE binary, any workdir: 0
+
+================================================================================
+3.  uhdm2rtlil, BOTH MODES
+================================================================================
+  patched testflags   CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2   (731)
+  patched default     CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2   (731)
+  ct8rows vs results/gate_uhdm2rtlil.csv          PASS: every row byte-identical
+  ct8rows vs this pass's own pristine testflags   PASS: every row byte-identical
+  ct8rows vs this pass's own pristine default     PASS: every row byte-identical
+  byteverify SELFCHECK=1                          MOVERS 0 / 1358
+                                                  PATH_SETS_IDENTICAL (1358)
+                                                  SELFCHECK 1357/1358 flagged
+
+================================================================================
+4.  surelog, BOTH MODES
+================================================================================
+  patched default    CMP_EQUAL 472  CMP_NOTEQUAL 9  DEFERRED 5
+                     SLANG_REJECT 283  SURELOG_FAIL 25
+  patched testflags  CMP_EQUAL 468  CMP_NOTEQUAL 7  DEFERRED 5  NO_DATABASE 3
+                     NO_UHDM 1  SLANG_REJECT 284  SURELOG_FAIL 23  TIMEOUT 1
+                     UNTRANSLATABLE 2
+
+  ct8rows patched vs THIS PASS'S OWN PRISTINE SWEEP
+      1588 rows both sides
+      ---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS
+      (this is the gate that decides the pass: the patch changes NO row at all)
+
+  ct8rows patched vs results/golden_surelog.csv (the committed baseline)
+      ---- WHOLE-ROW diff: 1 differing ROW (2 diff row-sides)
+      < Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+      > Earlgrey_0_1,testflags,CMP_EQUAL,,,
+      THIS PASS'S OWN PRISTINE SWEEP READS IT THE SAME WAY (the identical
+      one-row diff against the same baseline), so it is the recorded uhdm-dump
+      TIMEOUT under sweep load, in the direction r10uvm202 recorded and
+      r10uvm205 recorded back — a DUMP-COLUMN cell, with the STATUS CMP_EQUAL
+      throughout and rowheads 0 lines / 0 heads on BOTH binaries.
+      NO ROW WAS CONVERTED.  results/*.csv WERE NOT EDITED.
+
+  byteverify SELFCHECK=1, surelog corpus (patched vs own pristine)
+      databases: patched=956 pristine=956
+      PATH_SETS_IDENTICAL (956 paths)
+      MOVER ./default/MiniAmiq-544c7f61/slang.uhdm
+      MOVER ./default/Scoreboard-59431470/slang.uhdm
+      MOVER ./default/SeqDriver-32af76aa/slang.uhdm
+      MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm
+      MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm
+      MOVERS: 5 / 956
+      SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+      FOUR of the five were PREDICTED BY NAME from the PRISTINE databases
+      alone, before the patched sweep existed; the fifth is Scoreboard/default,
+      the recorded ~50/50 COIN, whose ORDER-BLIND whole-dump diff reads 0
+      content lines and whose uhdm-cmp log is byte-identical.  MOVERS.r10uvm207.txt.
+
+================================================================================
+5.  THE FOUR PROTECTED CMP_EQUAL ROW-MODES, BOTH COLUMNS, SCORED EXPLICITLY
+================================================================================
+                          committed baseline        pristine            patched
+  BuildUVMPkg,default     CMP_EQUAL,,,differ        (same)              (same)
+  BuildUVMPkg,testflags   CMP_EQUAL,,,differ        (same)              (same)
+  Earlgrey_0_1,testflags  CMP_EQUAL,,,differ        CMP_EQUAL,,,        CMP_EQUAL,,,
+  Rggen,default           CMP_EQUAL,,,differ        (same)              (same)
+
+  All four are CMP_EQUAL on both binaries; rowheads reads 0 cmp lines / 0 heads
+  on all four on both binaries; every census mover column is 0 on all four; and
+  the patched value equals THIS PASS'S PRISTINE value on all eight cells.
+
+================================================================================
+6.  ROWHEADS  (the official cmp on the named rows, both binaries)
+================================================================================
+  TEST           MODE      pristine        patched
+  SeqDriver      default   112 / 1 head    50 / 1 head     <-- THE HEAD CLEARED
+  SeqDriver      testflags 112 / 1 head    50 / 1 head     <-- THE HEAD CLEARED
+  SimpleUVM      default   4177864 / 1     4177864 / 1     cmp log BYTE-IDENTICAL
+  SimpleUVM      testflags 4178104 / 1     4178104 / 1     cmp log BYTE-IDENTICAL
+  Scoreboard     default   95 / 1          95 / 1          cmp log BYTE-IDENTICAL
+  Scoreboard     testflags SKIP-NOFILE     SKIP-NOFILE     (no golden; COUNTED)
+  MiniAmiq       default   112 / 1         112 / 1         cmp log BYTE-IDENTICAL
+  MiniAmiq       testflags 112 / 1         112 / 1         cmp log BYTE-IDENTICAL
+  BuildUVMPkg    default   0 / 0           0 / 0           cmp rc=0
+  BuildUVMPkg    testflags 0 / 0           0 / 0           cmp rc=0
+  Earlgrey_0_1   default   31 / 1          31 / 1          cmp log BYTE-IDENTICAL
+  Earlgrey_0_1   testflags 0 / 0           0 / 0           cmp rc=0
+  Rggen          default   0 / 0           0 / 0           cmp rc=0
+  Rggen          testflags SKIP-NOFILE     SKIP-NOFILE     (no golden; COUNTED)
+
+  MiniAmiq's cmp log is byte-identical on purpose: its head is one of
+  r10uvm205's SIX SHARED ELEMENT REFS (R1), which this law does not touch and
+  must not (§ 205's owner-exclusivity guard and this law's own both refuse it).
+  Its DATABASE moved — 50 census cells TO-GOLDEN — but its HEAD did not, and
+  that is the predicted and required outcome.
+
+================================================================================
+7.  CANARIES / ctcan2 / canaudit
+================================================================================
+  canaries surelog    patched vs committed baseline:  ok=51 changed=1 absent=0
+                        the ONE change is Earlgrey_0_1,testflags
+                        CMP_EQUAL/differ -> CMP_EQUAL/ , the §4 dump flake
+                      patched vs THIS PASS'S PRISTINE: ok=52 changed=0 absent=0
+  canaries uhdm2rtlil patched vs committed baseline:  ok=8  changed=0 absent=0
+  ctcan2 surelog      EXPECT_UNKNOWN=1  PASS: every supplementary canary row is
+                                        byte-identical to the baseline
+  ctcan2 uhdm2rtlil   EXPECT_UNKNOWN=6  PASS
+  canaudit            audited=29  UNCOVERED=0  FENCE-BREACH=0  PASS
+
+================================================================================
+8.  THE PROTECTED DATABASES, BY NAME AND BY md5 (first 12 hex)
+================================================================================
+                              pristine       patched
+  InterfaceModPort default    59a365f3ce2c   59a365f3ce2c   SAME
+  InterfaceModPort testflags  59a365f3ce2c   59a365f3ce2c   SAME
+  BlackParrotComplex default  e3e354129d5a   e3e354129d5a   SAME
+  BlackParrotComplex testflag 73a10e8217e5   73a10e8217e5   SAME
+  YosysOldOr default          d68e0796d62c   d68e0796d62c   SAME
+  YosysOldOr testflags        d68e0796d62c   d68e0796d62c   SAME
+  SVSwitch default            4842211c4030   4842211c4030   PIN HELD
+  SVSwitch testflags          4842211c4030   4842211c4030   PIN HELD
+  YosysVerx default           6ccda350c24a   6ccda350c24a   PIN HELD
+  YosysVerx testflags         6ccda350c24a   6ccda350c24a   PIN HELD
+  All 12 pins SAME.
+
+================================================================================
+9.  THE FENCE
+================================================================================
+  The four slang-fenced tests were never dispatched by any driver in this
+  directory.  predict207.sh reads the list AT RUN TIME out of canaudit.sh's own
+  FENCED= line — the one file the audit lets name them — and skipped 8 rows
+  (4 tests x 2 modes) accordingly; no artifact in this directory spells them.
+  canaudit FENCE-BREACH=0.
+
+================================================================================
+10.  DETERMINISM — MINT ORDER IS CONTENT ORDER, NOT ARENA ORDER
+================================================================================
+  The patched binary run THREE times on SeqDriver/default's own command line
+  (read out of the sweep's cmds.txt) produces a BYTE-IDENTICAL database each
+  time, and it is the same md5 the sweep recorded:
+
+      run1 rc=0 70d074f2ff6e9b1c
+      run2 rc=0 70d074f2ff6e9b1c
+      run3 rc=0 70d074f2ff6e9b1c
+      sweep     70d074f2ff6e...
+
+  The struct copies are minted from a vector sorted on
+  (name, kind, file, line:col, instance name), so the object ids they take
+  cannot depend on allocation addresses.

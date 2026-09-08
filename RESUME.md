@@ -173,7 +173,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-09-08, HEAD = the uvm206 landing) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-09-08, HEAD = the uvm207 landing) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 473/481 comparable
 equal (8 NE), testflags 468/475 (7 NE); uhdm2rtlil 679/679 both modes. The
@@ -182,7 +182,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 
 | row-mode(s) | head (official cmp lines = head-object DEPTH, not distance) | family / next law |
 |---|---|---|
-| SeqDriver×2 | 112 (ONE head both modes, head OBJECT changed at uvm205) | the refused CLASS MEMBER kind: a class typespec sits between the reference and the clone subroutine and the committed listeners refuse it deliberately; twenty-two refs of the repair shape in the clone package against one in the home; decide FIRST on a golden grid whether golden bares clone-reached class members in general — the naming dead end applies — open (uvm205 landed: § cloneArrayElemBareTdAlias205 — a clone dynamic-array ELEMENT typespec's typedef-alias TARGET re-points to the clone's bare copy (the element's own name already agreed; the judge stops one link down); NOT a widened listener — six shared refs would flip home cells on a traversal lottery; owner-exclusivity guard; INSTRUMENT FACT: the dump omits the alias field, the chain census is the instrument; verifier ACCEPT, production byte-identical) |
+| SeqDriver×2 | 50 (ONE head both modes) | a PARAM-ASSIGN RIGHT-SIDE FOLD: golden keeps the reference to the enum constant with its defining operation as the actual where we fold to the numeric constant — a different family from every clone-import law; decide on a golden grid over enum-constant parameter defaults in a package, both views, before code — open (uvm207 landed: 112→50, § cloneStructMemberBareTdAlias207 — a clone struct member's typedef alias re-points through a clone COPY of the struct (the brief's class framing REFUTED — the holder is a packed struct, and a class-typed clone local is already CMP_EQUAL); every holder MIXED so the split-mint in every cell, never a re-point; the decisive golden-grid arm: a third-package member bares too, so the law is the clone body in general; verifier ACCEPT, comment-only correction binary-identical) |
 | MiniAmiq×2 | 112 (ONE head both modes, head OBJECT changed at uvm205) | one of the six SHARED element references this law refused (also reached from a home declaration golden keeps qualified) — needs a SPLIT-MINT, not a re-point — open |
 | SimpleUVM×2 | 86 (ONE head both modes) | a MATERIALIZED-IMPORT class variable is AUTOMATIC in golden: one bit on the hoisted out-of-block constructor local (golden vpiAutomatic:1, ours absent); at least eight distinct objects in the family; the ladder proves 99.5 percent of golden's design equal — open (uvm206 landed: § importedClassTsRideTheFileUnit206 — a file unit's wildcard imports publish the packages' classes to the design listing (positional compare settled first; the 34 by identity, all class-specialization typedef typespecs; all objects pre-existing, only published); plus the index-typespec instance stamp; verifier ACCEPT WITH FIX — the publisher orphaned an object on a CONTESTED class key (two same-bare-named classes in two imported packages, order-dependent); the ambiguous-key fence is a pure restriction) |
 | BuildUVMPkg×2 | CMP_EQUAL (CONVERTED, uvm194 — the block's FIRST row conversion; the two baseline rows promoted in the landing commit) | CLOSED — § homeRetNameSelBindSurvivesDefViewUnbind194: a home return-name select binding survives the definition-view unbind (one gated exemption clause in the drain; the clone fence from an arm); the family's whole ladder ran uvm170→194 |
@@ -193,7 +193,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 125 verifier fix-before-landing re-cuts (292 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 125 verifier fix-before-landing re-cuts (293 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

@@ -1,0 +1,215 @@
+r10uvm207 — DECODE OF RECORD, with the source quoted.
+MEASUREMENT ONLY.  The official ~/git-repos/UHDM/build/bin/uhdm-cmp is the sole
+judge.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+================================================================================
+0.  WHAT THE BRIEF SAID AND WHAT THE DATABASE SAYS
+================================================================================
+
+r10uvm205's R0 handed this pass:
+
+    "SeqDriver's pair is the refused CLASS MEMBER kind (a class typespec
+     between the reference and the subroutine — decide on a golden grid
+     whether golden bares clone-reached class members in general before any
+     code)"
+
+The head object is right; the object BETWEEN the reference and the subroutine
+is not a class typespec.  Read off the pristine database with
+`ct207own --chain=range --sub=m_set_mem_offset --members`:
+
+    GOLD DECL struct_var range@963:38  owner=adpcm_pkg|-|uvm_reg_map::m_set_mem_offset
+      GOLD   ref -> struct_typespec[uvm_pkg::uvm_reg_map_addr_range -> <noalias>] inst=uvm_pkg
+      GOLD   struct_typespec parents: < ref_typespec: < struct_var:range < ...
+      GOLD     member min@409:18  ts=bit_typespec[uvm_reg_addr_t -> uvm_reg_addr_t]      inst=uvm_pkg
+      GOLD     member max@410:18  ts=bit_typespec[uvm_reg_addr_t -> uvm_reg_addr_t]      inst=uvm_pkg
+      GOLD     member stride@411:16 ts=int_typespec[ -> <noalias>]                       inst=uvm_pkg
+
+    OURS DECL struct_var range@963:38  owner=adpcm_pkg|-|uvm_reg_map::m_set_mem_offset
+      OURS   ref -> struct_typespec[uvm_pkg::uvm_reg_map_addr_range -> <noalias>] inst=adpcm_pkg
+      OURS   struct_typespec parents: < module_inst:work@top_tb < design:work@top_tb
+      OURS     member min@409:18  ts=bit_typespec[uvm_reg_addr_t -> uvm_pkg::uvm_reg_addr_t] inst=uvm_pkg
+      OURS     member max@410:18  ts=bit_typespec[uvm_reg_addr_t -> uvm_pkg::uvm_reg_addr_t] inst=uvm_pkg
+      OURS     member stride@411:16 ts=int_typespec[ -> <noalias>]                           inst=uvm_pkg
+
+`uvm_reg_map_addr_range` is a package-scope STRUCT typedef, not a class:
+
+    ~/git-repos/Surelog/third_party/UVM/uvm-1.2/src/reg/uvm_reg_model.svh:408-412
+        typedef struct packed {
+          uvm_reg_addr_t min;
+          uvm_reg_addr_t max;
+          int unsigned stride;
+          } uvm_reg_map_addr_range;
+
+    ~/git-repos/Surelog/third_party/UVM/uvm-1.2/src/reg/uvm_reg_map.svh:963
+              uvm_reg_map_addr_range range = '{ min, max, stride };
+
+and the second struct of the family is
+
+    ~/git-repos/Surelog/third_party/UVM/uvm-1.2/src/reg/uvm_reg_item.svh:257-313
+        typedef struct {
+          ...
+          uvm_reg_addr_t     addr;
+          uvm_reg_data_t     data;
+          int                n_bits;
+          uvm_reg_byte_en_t  byte_en;
+          ...
+        } uvm_reg_bus_op;
+
+so the head's link is a `typespec_member`, and the pair the judge stops on is
+that member typespec's `Typedef_alias` TARGET — § cloneBodyBareTdAlias180's
+exact repair shape, one STRUCT-MEMBER link down:
+
+        gold  bit_typespec[uvm_reg_addr_t -> uvm_reg_addr_t]
+        ours  bit_typespec[uvm_reg_addr_t -> uvm_pkg::uvm_reg_addr_t]
+
+(`typespec::Compare` reads VpiName, then Typedef_alias, then Instance —
+~/git-repos/UHDM/build/generated/src/typespec.cpp; `struct_typespec::Compare`
+calls it first, then VpiPacked, then Members —
+~/git-repos/UHDM/build/generated/src/struct_typespec.cpp:87-102.)
+
+The class-typespec reading of R0 is not merely a mislabel, it is REFUTED by its
+own arm: `g207_g_class` — a clone body local of CLASS type whose property is a
+package scalar typedef — is CMP_EQUAL on BOTH binaries in BOTH views and
+BYTE-IDENTICAL between them.  There is nothing there to fix.
+
+================================================================================
+1.  SURELOG — WHY A CLONE BODY'S STRUCT MEMBER IS BARE
+================================================================================
+
+~/git-repos/Surelog/src/DesignCompile/UhdmWriter.cpp:775-796
+
+    void UhdmWriter::writeDataTypes(const DesignComponent::DataTypeMap& datatypeMap,
+                                    BaseClass* parent,
+                                    VectorOftypespec* dest_typespecs, Serializer& s,
+                                    bool setParent) {
+      std::set<uint64_t> ids;
+      for (const auto& entry : datatypeMap) {
+        ...
+        typespec* tps = dtype->getTypespec();
+        tps = replace(tps, m_compileDesign->getSwapedObjects());
+        if (parent->UhdmType() == uhdmpackage) {
+          if (tps && (tps->VpiName().find("::") == std::string::npos)) {
+            const std::string newName =
+                StrCat(parent->VpiName(), "::", tps->VpiName());
+            tps->VpiName(newName);            // <-- THE PREFIX, APPLIED IN PLACE
+          }
+        }
+
+The walk is over the COMPONENT'S OWN `datatypeMap`; its call sites each hand a
+component its own map (`:994` a class, `:1189` a package, `:1447` / `:1670` /
+`:1807` / `:1933` / `:2336` / `:4039` / `:4187` a module).
+
+~/git-repos/Surelog/src/DesignCompile/CompileHelper.cpp:299-330
+
+          for (auto& func : *funcs) {
+            if (!object_name.empty()) {
+              if (func->VpiName() != object_name) continue;   // EXPLICIT import
+            }
+            ...
+            if (inPackage) {
+              ElaboratorContext elaboratorContext(&s, false, /*mute errors*/ true);
+              task_func* clone =
+                  (task_func*)UHDM::clone_tree((any*)func, &elaboratorContext);
+              sfuncs->push_back(clone);       // <-- THE CLONE, AT COMPILE TIME
+            }
+
+`importPackage` `clone_tree`s the imported subroutine into the IMPORTER long
+before `writeDataTypes` runs, so nothing inside a clone body is ever the object
+that got prefixed — AT ANY DEPTH AND IN ANY ROLE.  r10uvm016 measured that for
+a declaration's own typespec, r10uvm180 for a block local and an expression's,
+r10uvm205 for an array's ELEMENT; this pass measures it for a STRUCT MEMBER,
+and for a member of a struct that comes from a package the importer never
+imported at all (arm H).
+
+The `object_name` filter at :303-305 is why an EXPLICIT `import p::f;` clones
+too, and arm D measures that golden bares that clone's members as well.  Our
+registry `pkgImportCloneTfs16` is WILDCARD-ONLY — § 194's committed fence — so
+arm D stays BYTE-IDENTICAL between the two binaries on purpose, and the residue
+is recorded rather than taken.
+
+================================================================================
+2.  SLANG-UHDM — WHERE THE MEMBER EMISSION RUNS AND WHY EVERY EXISTING WALK
+    MISSES IT, AND WHY THIS ONE CANNOT BE A RE-POINT
+================================================================================
+
+`src/TypeEmit.cpp` § importCloneBareTdAlias16 reaches a clone body's typespec
+refs by four routes today:
+
+  * the clone `task_func`'s own `Io_decls()` vector;
+  * its own `Variables()` vector;
+  * § cloneBodyBareTdAlias180's `UhdmListener`, for a block-local and for an
+    expression's typespec — its climb returns the moment
+    `any_cast<const UHDM::typespec*>(cs[i])` succeeds, so a `struct_typespec`
+    stops it exactly as an `array_typespec` did;
+  * § cloneArrayElemBareTdAlias205's declaration walk, which descends
+    `array_typespec` / `packed_array_typespec` `Elem_typespec` and
+    `Index_typespec` links only.
+
+A struct member sits one link below none of those.  But the reason this pass is
+not "§ 205 with `.mem` added to the walk" is the SHARING, and it is measured:
+
+  `ct207cen --decide`, SeqDriver/default, pristine
+      DECIDE SUMMARY hot-holders=8 PURE(all reaches differ)=0 MIXED(some reach agrees)=8
+
+  i.e. EVERY holder object carrying a differing member cell is also reached by
+  home-package declarations whose member cells AGREE with golden.  Two of the
+  eight are the struct typespecs of this family; six are the `array_typespec`
+  holders of r10uvm205's R1.
+
+  `ct207ref`, the same database, from the other side
+      MEMBER REFS BY VERDICT:          MOVE=0  REFUSE-SHARED=5  HOME=5
+      STRUCT-BINDING REFS BY VERDICT:  MOVE=22 REFUSE-SHARED=2  HOME=28
+
+  A member's `ref_typespec` therefore can NEVER be re-pointed: one ref cannot
+  carry two names and golden keeps the home cell QUALIFIED.  The object that
+  CAN move is the ref that BINDS THE STRUCT — a declaration's own `Typespec()`
+  or an array's `Elem_typespec` — re-pointed onto a CLONE COPY of the struct.
+
+  Our shared object, named:
+      SHARE[OURS] SHARED-STRUCT-TS bound by 11 declarations:
+        adpcm_pkg|-|uvm_reg_map::Xinit_address_mapX@1696:33   (clone)
+        adpcm_pkg|-|uvm_reg_map::m_set_mem_offset@963:38      (clone)
+        uvm_pkg|uvm_reg_map_info|-@29:27                      (home, must stay)
+        uvm_pkg|uvm_reg_map|Xinit_address_mapX@1639:44        (home, must stay)
+        uvm_pkg|uvm_reg_map|Xinit_address_mapX@1683:42        (home, must stay)
+        uvm_pkg|uvm_reg_map|Xinit_address_mapX@1696:33        (home, must stay)
+        uvm_pkg|uvm_reg_map|get_mem_by_offset@1569:30         (home, must stay)
+        uvm_pkg|uvm_reg_map|m_set_mem_offset@911:46           (home, must stay)
+        uvm_pkg|uvm_reg_map|m_set_mem_offset@948:47           (home, must stay)
+        uvm_pkg|uvm_reg_map|m_set_mem_offset@963:38           (home, must stay)
+        uvm_pkg|uvm_reg_map|m_set_reg_offset@825:50           (home, must stay)
+
+  Golden's model, for the same typedef: the nine home declarations share ONE
+  struct_typespec (parented at the module, member aliases QUALIFIED) and each
+  clone declaration gets its OWN copy (parented at its ref_typespec, member
+  aliases BARE).  That is the SPLIT this law performs — memoised once per
+  struct rather than once per declaration, which is invisible to the judge
+  because no generated `Compare` reads `VpiParent` (r10uvm205 R4).
+
+================================================================================
+3.  THE GOLDEN GRID — WHAT IT DECIDED
+================================================================================
+
+Ten arms, one REAL Surelog golden each, both views, golden-vs-golden calibrated
+first at zero in every one (GRIDS.r10uvm207.txt carries the numbers):
+
+  A  every LAW-S kind as a struct member, packed and unpacked ......... BARED
+  B  every declaration role: formal, subroutine local, block local,
+     for-body local, class-METHOD local, and `.elem.mem` ............... BARED
+  C  the SHARING control (home body and clone body, one typedef) ...... SPLIT
+  D  an EXPLICIT `import p::f;` clone ................ BARED BY GOLDEN, we do
+                                                       not move it (§ 194)
+  E  the minimised corpus head ....................................... BARED
+  F  the home-only control .................. nothing differs at all, ever
+  G  a clone body local of CLASS type with a scalar-td PROPERTY ... ALREADY
+                                                    EQUAL — R0's framing refuted
+  H  a struct from a THIRD package the importer NEVER imports ........ BARED
+  I  a struct-typed function RETURN variable ... our emitter SEGFAULTS in the
+                                                elab view at BASE 3e4de175
+  J  a NESTED struct and a struct inside an array inside a struct .... BARED
+
+Arm H is the one that fixes the law's SHAPE: golden bares
+`p207c_x::sx207`'s members inside p207a_x's clone even though p207b_x imports
+only p207a_x.  The rule is about the CLONE BODY, not about whether the member's
+type is itself imported.  A law gated on "the member's struct is imported"
+would have left arm H wrong.

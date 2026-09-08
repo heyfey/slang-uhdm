@@ -1,0 +1,288 @@
+################ ARM g207_a_struct
+--- nonzero rcs:
+--- cen/cmp:
+cen rc=0 g def rows=128
+cen rc=0 a def rows=110
+cen rc=0 b def rows=110
+cmp rc=255 a def lines=931 heads=1
+cmp rc=255 b def lines=931 heads=1
+cen rc=0 g elab rows=168
+cen rc=0 a elab rows=170
+cen rc=0 b elab rows=170
+cmp rc=255 a elab lines=1021 heads=1
+cmp rc=255 b elab lines=1021 heads=1
+--- BYTE-IDENTICAL between the two binaries?
+  def DIFFERS
+  elab DIFFERS
+--- SCORE (golden vs pristine vs patched), DEF and ELAB kept SEPARATE:
+  def  ALL       TO-GOLDEN 18  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 26  (one-sided: only-golden 20 only-ours 2)
+  def  .mem      TO-GOLDEN 18  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 22  (one-sided: only-golden 20 only-ours 2)
+  def  .prop     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 20 only-ours 2)
+  def  .elem     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 20 only-ours 2)
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 64  (one-sided: only-golden 0 only-ours 0)
+  elab ALL       TO-GOLDEN 36  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 48  (one-sided: only-golden 0 only-ours 2)
+  elab .mem      TO-GOLDEN 36  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 44  (one-sided: only-golden 0 only-ours 2)
+  elab .prop     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 0 only-ours 2)
+  elab .elem     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 0 only-ours 2)
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 84  (one-sided: only-golden 0 only-ours 0)
+
+################ ARM g207_b_ctx
+--- nonzero rcs:
+rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/r10uvm207_g1_g207_b_ctx/g_elab /tmp/wt_r10uvm207/tools/probe/r10uvm207repro/grid207/g207_b_ctx.sv
+--- cen/cmp:
+cen rc=0 g def rows=304
+cen rc=0 a def rows=278
+cen rc=0 b def rows=278
+cmp rc=255 a def lines=3234 heads=1
+cmp rc=255 b def lines=37 heads=1
+cen rc=0 g elab rows=368
+cen rc=0 a elab rows=368
+cen rc=0 b elab rows=368
+cmp rc=255 a elab lines=3634 heads=1
+cmp rc=255 b elab lines=112 heads=1
+--- BYTE-IDENTICAL between the two binaries?
+  def DIFFERS
+  elab DIFFERS
+--- SCORE (golden vs pristine vs patched), DEF and ELAB kept SEPARATE:
+  def  ALL       TO-GOLDEN 30  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  AGREE 90  (one-sided: only-golden 30 only-ours 4)
+  def  .mem      TO-GOLDEN 30  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  AGREE 76  (one-sided: only-golden 30 only-ours 4)
+  def  .prop     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 30 only-ours 4)
+  def  .elem     TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  AGREE 14  (one-sided: only-golden 30 only-ours 4)
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 152  (one-sided: only-golden 0 only-ours 0)
+  elab ALL       TO-GOLDEN 44  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 4  AGREE 132  (one-sided: only-golden 4 only-ours 4)
+  elab .mem      TO-GOLDEN 44  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 4  AGREE 114  (one-sided: only-golden 4 only-ours 4)
+  elab .prop     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 4 only-ours 4)
+  elab .elem     TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 4  AGREE 22  (one-sided: only-golden 4 only-ours 4)
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 184  (one-sided: only-golden 0 only-ours 0)
+
+################ ARM g207_c_share
+--- nonzero rcs:
+--- cen/cmp:
+cen rc=0 g def rows=84
+cen rc=0 a def rows=76
+cen rc=0 b def rows=76
+cmp rc=255 a def lines=112 heads=1
+cmp rc=0 b def lines=0 heads=0
+cen rc=0 g elab rows=108
+cen rc=0 a elab rows=112
+cen rc=0 b elab rows=112
+cmp rc=255 a elab lines=112 heads=1
+cmp rc=0 b elab lines=0 heads=0
+--- BYTE-IDENTICAL between the two binaries?
+  def DIFFERS
+  elab DIFFERS
+--- SCORE (golden vs pristine vs patched), DEF and ELAB kept SEPARATE:
+  def  ALL       TO-GOLDEN 8  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 22  (one-sided: only-golden 12 only-ours 4)
+  def  .mem      TO-GOLDEN 8  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 16  (one-sided: only-golden 12 only-ours 4)
+  def  .prop     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 12 only-ours 4)
+  def  .elem     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 12 only-ours 4)
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 42  (one-sided: only-golden 0 only-ours 0)
+  elab ALL       TO-GOLDEN 16  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 38  (one-sided: only-golden 0 only-ours 4)
+  elab .mem      TO-GOLDEN 16  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 32  (one-sided: only-golden 0 only-ours 4)
+  elab .prop     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 0 only-ours 4)
+  elab .elem     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 0 only-ours 4)
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 54  (one-sided: only-golden 0 only-ours 0)
+
+################ ARM g207_d_noimport
+--- nonzero rcs:
+--- cen/cmp:
+cen rc=0 g def rows=44
+cen rc=0 a def rows=40
+cen rc=0 b def rows=40
+cmp rc=255 a def lines=618 heads=1
+cmp rc=255 b def lines=618 heads=1
+cen rc=0 g elab rows=56
+cen rc=0 a elab rows=58
+cen rc=0 b elab rows=58
+cmp rc=255 a elab lines=648 heads=1
+cmp rc=255 b elab lines=648 heads=1
+--- BYTE-IDENTICAL between the two binaries?
+  def IDENTICAL
+  elab IDENTICAL
+--- SCORE (golden vs pristine vs patched), DEF and ELAB kept SEPARATE:
+  def  ALL       TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 4  AGREE 12  (one-sided: only-golden 6 only-ours 2)
+  def  .mem      TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 4  AGREE 8  (one-sided: only-golden 6 only-ours 2)
+  def  .prop     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 6 only-ours 2)
+  def  .elem     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 6 only-ours 2)
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 22  (one-sided: only-golden 0 only-ours 0)
+  elab ALL       TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 8  AGREE 20  (one-sided: only-golden 0 only-ours 2)
+  elab .mem      TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 8  AGREE 16  (one-sided: only-golden 0 only-ours 2)
+  elab .prop     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 0 only-ours 2)
+  elab .elem     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 0 only-ours 2)
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 28  (one-sided: only-golden 0 only-ours 0)
+
+################ ARM g207_e_head
+--- nonzero rcs:
+--- cen/cmp:
+cen rc=0 g def rows=46
+cen rc=0 a def rows=41
+cen rc=0 b def rows=41
+cmp rc=255 a def lines=1036 heads=1
+cmp rc=0 b def lines=0 heads=0
+cen rc=0 g elab rows=58
+cen rc=0 a elab rows=59
+cen rc=0 b elab rows=59
+cmp rc=255 a elab lines=1130 heads=1
+cmp rc=0 b elab lines=0 heads=0
+--- BYTE-IDENTICAL between the two binaries?
+  def DIFFERS
+  elab DIFFERS
+--- SCORE (golden vs pristine vs patched), DEF and ELAB kept SEPARATE:
+  def  ALL       TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 12  (one-sided: only-golden 7 only-ours 2)
+  def  .mem      TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 8  (one-sided: only-golden 7 only-ours 2)
+  def  .prop     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 7 only-ours 2)
+  def  .elem     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 7 only-ours 2)
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 23  (one-sided: only-golden 0 only-ours 0)
+  elab ALL       TO-GOLDEN 8  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 20  (one-sided: only-golden 1 only-ours 2)
+  elab .mem      TO-GOLDEN 8  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 16  (one-sided: only-golden 1 only-ours 2)
+  elab .prop     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 1 only-ours 2)
+  elab .elem     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 1 only-ours 2)
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 29  (one-sided: only-golden 0 only-ours 0)
+
+################ ARM g207_f_home
+--- nonzero rcs:
+--- cen/cmp:
+cen rc=0 g def rows=40
+cen rc=0 a def rows=40
+cen rc=0 b def rows=40
+cmp rc=0 a def lines=0 heads=0
+cmp rc=0 b def lines=0 heads=0
+cen rc=0 g elab rows=76
+cen rc=0 a elab rows=76
+cen rc=0 b elab rows=76
+cmp rc=0 a elab lines=0 heads=0
+cmp rc=0 b elab lines=0 heads=0
+--- BYTE-IDENTICAL between the two binaries?
+  def IDENTICAL
+  elab IDENTICAL
+--- SCORE (golden vs pristine vs patched), DEF and ELAB kept SEPARATE:
+  def  ALL       TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 20  (one-sided: only-golden 0 only-ours 0)
+  def  .mem      TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 18  (one-sided: only-golden 0 only-ours 0)
+  def  .prop     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 0 only-ours 0)
+  def  .elem     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 6  (one-sided: only-golden 0 only-ours 0)
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 20  (one-sided: only-golden 0 only-ours 0)
+  elab ALL       TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 38  (one-sided: only-golden 0 only-ours 0)
+  elab .mem      TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 36  (one-sided: only-golden 0 only-ours 0)
+  elab .prop     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 0 only-ours 0)
+  elab .elem     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 12  (one-sided: only-golden 0 only-ours 0)
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 38  (one-sided: only-golden 0 only-ours 0)
+
+################ ARM g207_g_class
+--- nonzero rcs:
+--- cen/cmp:
+cen rc=0 g def rows=8
+cen rc=0 a def rows=10
+cen rc=0 b def rows=10
+cmp rc=0 a def lines=0 heads=0
+cmp rc=0 b def lines=0 heads=0
+cen rc=0 g elab rows=8
+cen rc=0 a elab rows=10
+cen rc=0 b elab rows=10
+cmp rc=0 a elab lines=0 heads=0
+cmp rc=0 b elab lines=0 heads=0
+--- BYTE-IDENTICAL between the two binaries?
+  def IDENTICAL
+  elab IDENTICAL
+--- SCORE (golden vs pristine vs patched), DEF and ELAB kept SEPARATE:
+  def  ALL       TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 4  (one-sided: only-golden 0 only-ours 2)
+  def  .mem      TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 0 only-ours 2)
+  def  .prop     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 0 only-ours 2)
+  def  .elem     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 0 only-ours 2)
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 4  (one-sided: only-golden 0 only-ours 0)
+  elab ALL       TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 4  (one-sided: only-golden 0 only-ours 2)
+  elab .mem      TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 0 only-ours 2)
+  elab .prop     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 0 only-ours 2)
+  elab .elem     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 0 only-ours 2)
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 4  (one-sided: only-golden 0 only-ours 0)
+
+################ ARM g207_h_foreign
+--- nonzero rcs:
+--- cen/cmp:
+cen rc=0 g def rows=68
+cen rc=0 a def rows=60
+cen rc=0 b def rows=60
+cmp rc=255 a def lines=112 heads=1
+cmp rc=0 b def lines=0 heads=0
+cen rc=0 g elab rows=88
+cen rc=0 a elab rows=90
+cen rc=0 b elab rows=90
+cmp rc=255 a elab lines=112 heads=1
+cmp rc=0 b elab lines=0 heads=0
+--- BYTE-IDENTICAL between the two binaries?
+  def DIFFERS
+  elab DIFFERS
+--- SCORE (golden vs pristine vs patched), DEF and ELAB kept SEPARATE:
+  def  ALL       TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 18  (one-sided: only-golden 10 only-ours 2)
+  def  .mem      TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 14  (one-sided: only-golden 10 only-ours 2)
+  def  .prop     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 10 only-ours 2)
+  def  .elem     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 10 only-ours 2)
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 34  (one-sided: only-golden 0 only-ours 0)
+  elab ALL       TO-GOLDEN 12  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 32  (one-sided: only-golden 0 only-ours 2)
+  elab .mem      TO-GOLDEN 12  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 28  (one-sided: only-golden 0 only-ours 2)
+  elab .prop     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 0 only-ours 2)
+  elab .elem     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 0 only-ours 2)
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 44  (one-sided: only-golden 0 only-ours 0)
+
+################ ARM g207_i_retseg
+grid207.sh: line 20: 2150758 Segmentation fault      "$@" > /dev/null 2>&1
+grid207.sh: line 20: 2150775 Segmentation fault      "$@" > /dev/null 2>&1
+--- nonzero rcs:
+rc=4 /tmp/r10uvm207_pris.bin /tmp/wt_r10uvm207/tools/probe/r10uvm207repro/grid207/g207_i_retseg.sv -o /tmp/r10uvm207_g1_g207_i_retseg/a_def.uhdm
+rc=4 /tmp/r10uvm207_pat.bin /tmp/wt_r10uvm207/tools/probe/r10uvm207repro/grid207/g207_i_retseg.sv -o /tmp/r10uvm207_g1_g207_i_retseg/b_def.uhdm
+rc=139 /tmp/r10uvm207_pris.bin /tmp/wt_r10uvm207/tools/probe/r10uvm207repro/grid207/g207_i_retseg.sv --elabuhdm -o /tmp/r10uvm207_g1_g207_i_retseg/a_elab.uhdm
+rc=139 /tmp/r10uvm207_pat.bin /tmp/wt_r10uvm207/tools/probe/r10uvm207repro/grid207/g207_i_retseg.sv --elabuhdm -o /tmp/r10uvm207_g1_g207_i_retseg/b_elab.uhdm
+--- cen/cmp:
+cen rc=0 g def rows=100
+cen rc=0 a def rows=100
+cen rc=0 b def rows=100
+cmp rc=255 a def lines=112 heads=1
+cmp rc=255 b def lines=27 heads=1
+cen rc=0 g elab rows=112
+cen MISSING a elab (G=ok O=NO)
+cen MISSING b elab (G=ok O=NO)
+cmp MISSING a elab
+cmp MISSING b elab
+--- BYTE-IDENTICAL between the two binaries?
+  def DIFFERS
+  elab MISSING
+--- SCORE (golden vs pristine vs patched), DEF and ELAB kept SEPARATE:
+  def  ALL       TO-GOLDEN 8  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 36  (one-sided: only-golden 6 only-ours 6)
+  def  .mem      TO-GOLDEN 8  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 34  (one-sided: only-golden 6 only-ours 6)
+  def  .prop     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 6 only-ours 6)
+  def  .elem     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 6 only-ours 6)
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 50  (one-sided: only-golden 0 only-ours 0)
+  elab ALL       TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 0 only-ours 0)
+  elab .mem      TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 0 only-ours 0)
+  elab .prop     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 0 only-ours 0)
+  elab .elem     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 0 only-ours 0)
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 56  (one-sided: only-golden 0 only-ours 0)
+
+################ ARM g207_j_nest
+--- nonzero rcs:
+rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -o /tmp/r10uvm207_g1_g207_j_nest/g_def /tmp/wt_r10uvm207/tools/probe/r10uvm207repro/grid207/g207_j_nest.sv
+rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/r10uvm207_g1_g207_j_nest/g_elab /tmp/wt_r10uvm207/tools/probe/r10uvm207repro/grid207/g207_j_nest.sv
+--- cen/cmp:
+cen rc=0 g def rows=80
+cen rc=0 a def rows=70
+cen rc=0 b def rows=70
+cmp rc=255 a def lines=9 heads=1
+cmp rc=255 b def lines=9 heads=1
+cen rc=0 g elab rows=104
+cen rc=0 a elab rows=106
+cen rc=0 b elab rows=106
+cmp rc=255 a elab lines=9 heads=1
+cmp rc=255 b elab lines=9 heads=1
+--- BYTE-IDENTICAL between the two binaries?
+  def DIFFERS
+  elab DIFFERS
+--- SCORE (golden vs pristine vs patched), DEF and ELAB kept SEPARATE:
+  def  ALL       TO-GOLDEN 8  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 20  (one-sided: only-golden 12 only-ours 2)
+  def  .mem      TO-GOLDEN 8  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 16  (one-sided: only-golden 12 only-ours 2)
+  def  .prop     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 12 only-ours 2)
+  def  .elem     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 12 only-ours 2)
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 40  (one-sided: only-golden 0 only-ours 0)
+  elab ALL       TO-GOLDEN 16  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 36  (one-sided: only-golden 0 only-ours 2)
+  elab .mem      TO-GOLDEN 16  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 32  (one-sided: only-golden 0 only-ours 2)
+  elab .prop     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 0 only-ours 2)
+  elab .elem     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 0  (one-sided: only-golden 0 only-ours 2)
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 52  (one-sided: only-golden 0 only-ours 0)

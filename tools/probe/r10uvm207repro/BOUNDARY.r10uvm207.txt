@@ -1,0 +1,67 @@
+r10uvm207 — THE WIDE BOUNDARY GATE.
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+Run from a COPY of the whole tools/probe tree (bound207.sh), so no path filter
+can hide an arm: EVERY .sv/.v at top level AND IN SUBDIRECTORIES, in BOTH views,
+with the pristine and the patched binary, children </dev/null, the file list on
+fd 3, scratch keyed on the RELATIVE path, PROCESSED asserted against LISTED.
+
+LISTED=5358 PROCESSED=5358 PRODUCED_DBS=5173 MOVED_ARMS=10 RC_DIFFS=0
+
+MOVED_ARMS, in full:
+  r10buvm22repro/g22.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+  r10uvm154repro/l154_noenum.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+  r10uvm185repro/grid185/g185_e_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+  r10uvm207repro/grid207/g207_a_struct.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+  r10uvm207repro/grid207/g207_b_ctx.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+  r10uvm207repro/grid207/g207_c_share.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+  r10uvm207repro/grid207/g207_e_head.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+  r10uvm207repro/grid207/g207_h_foreign.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+  r10uvm207repro/grid207/g207_i_retseg.sv	def=MOVED	elab=SAME	rc=4/4,139/139
+  r10uvm207repro/grid207/g207_j_nest.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+SEVEN of the ten are THIS PASS'S OWN grid arms — the POSITIVE CONTROL: a gate
+that reported zero movers over them could not see.  (g207_d_noimport,
+g207_f_home and g207_g_class are this pass's own arms that must NOT move, and
+they do not appear.)  g207_i_retseg's elab column reads SAME because BOTH
+binaries exit 139 there — the recorded PRE-EXISTING segfault, RC_DIFFS 0.
+
+THE THREE EARLIER-PASS ARMS, RE-MEASURED AGAINST A REAL SURELOG GOLDEN IN BOTH
+VIEWS (grid207.sh; golden-vs-golden calibrated first at zero in every one):
+
+  ARM              VIEW  SCORE (golden vs pristine vs patched) / cmp lines
+  g22              def   def  ALL       TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 14  AGREE 29  (one-sided: only-golden 16 only-ours 16)
+                         pristine lines=3438 heads=1 | patched lines=3438 heads=1 | cmp log BYTE-IDENTICAL
+  g22              elab  elab ALL       TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 12  AGREE 18  (one-sided: only-golden 16 only-ours 29)
+                         pristine lines=3438 heads=1 | patched lines=3438 heads=1 | cmp log BYTE-IDENTICAL
+  l154_noenum      def   def  ALL       TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 1  (one-sided: only-golden 0 only-ours 0)
+                         pristine lines=17 heads=1 | patched lines=17 heads=1 | cmp log BYTE-IDENTICAL
+  l154_noenum      elab  elab ALL       TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 1  (one-sided: only-golden 0 only-ours 0)
+                         pristine lines=17 heads=1 | patched lines=17 heads=1 | cmp log BYTE-IDENTICAL
+  g185_e_kinds     def   def  ALL       TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 10  AGREE 10  (one-sided: only-golden 34 only-ours 18)
+                         pristine lines=92 heads=1 | patched lines=92 heads=1 | cmp log BYTE-IDENTICAL
+  g185_e_kinds     elab  elab ALL       TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 10  AGREE 10  (one-sided: only-golden 34 only-ours 18)
+                         pristine lines=92 heads=1 | patched lines=92 heads=1 | cmp log BYTE-IDENTICAL
+
+AWAY-GOLDEN 0 and MOVED-WRONG 0 in all six cells; every cmp LINE COUNT and every
+HEAD OBJECT identical between the two binaries (the whole uhdm-cmp log is
+byte-identical in all six).
+
+WHAT ACTUALLY MOVED IN THEM — the recorded STATIC-ADDRESS FALSE MOVER.
+The path-normalised ORDER-BLIND whole-dump diff on each is 10-14 lines and every
+one is the SAME kind of cell: an ASSOCIATIVE-ARRAY index typespec's range
+operand constant, e.g. l154_noenum.sv:11-12 'typedef C22 ka_cls_t[string];'
+
+    <  |UINT:22675193      >  |UINT:22687481
+    <  |vpiDecompile:22675193   >  |vpiDecompile:22687481
+
+22687481 - 22675193 = 12288 = 3 x 4096: the value is POINTER-DERIVED and shifts
+when the binary's static layout grows a page.  RESUME.md's recorded tell applies
+exactly: 'named arms move when the binary grows a page, ZERO CENSUS MOVEMENT is
+the tell' — and the census reads 0 in every mover column on all three arms, in
+both views, against a real golden.
+
+EVERY PROTECTED FAMILY HAS 0 MOVERS: § 205 (its arms AND its owner-exclusivity
+guard), § 204 + its fence, § 202 + its type-param fence, § 198, § 194, § 180,
+§ 169, § 16, uvm82-91, buvm3-15, sd8-12.  MiniAmiq's six shared cells are
+unmoved in the corpus census as well (MOVERS.r10uvm207.txt).

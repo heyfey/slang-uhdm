@@ -1,0 +1,22 @@
+=== PRISTINE: kind x chain x shape rows that DIFFER
+DIFFER BY KIND x CHAIN x SHAPE:
+  bit_typespec chain=.elem g=BARE/BARE/uvm_pkg o=BARE/QUAL/uvm_pkg                                                            6
+  bit_typespec chain=.elem.mem:addr g=BARE/BARE/uvm_pkg o=BARE/QUAL/uvm_pkg                                                   4
+  bit_typespec chain=.elem.mem:byte_en g=BARE/BARE/uvm_pkg o=BARE/QUAL/uvm_pkg                                                4
+  bit_typespec chain=.elem.mem:data g=BARE/BARE/uvm_pkg o=BARE/QUAL/uvm_pkg                                                   4
+  bit_typespec chain=.mem:addr g=BARE/BARE/uvm_pkg o=BARE/QUAL/uvm_pkg                                                       12
+  bit_typespec chain=.mem:byte_en g=BARE/BARE/uvm_pkg o=BARE/QUAL/uvm_pkg                                                    12
+  bit_typespec chain=.mem:data g=BARE/BARE/uvm_pkg o=BARE/QUAL/uvm_pkg                                                       12
+  bit_typespec chain=.mem:max g=BARE/BARE/uvm_pkg o=BARE/QUAL/uvm_pkg                                                         4
+  bit_typespec chain=.mem:min g=BARE/BARE/uvm_pkg o=BARE/QUAL/uvm_pkg                                                         4
+
+TOTAL agree=5517 differ=62 only-golden=1062 only-ours=472
+
+=== PATCHED: kind x chain x shape rows that DIFFER
+DIFFER BY KIND x CHAIN x SHAPE:
+  bit_typespec chain=.elem g=BARE/BARE/uvm_pkg o=BARE/QUAL/uvm_pkg                                                            6
+  bit_typespec chain=.elem.mem:addr g=BARE/BARE/uvm_pkg o=BARE/QUAL/uvm_pkg                                                   2
+  bit_typespec chain=.elem.mem:byte_en g=BARE/BARE/uvm_pkg o=BARE/QUAL/uvm_pkg                                                2
+  bit_typespec chain=.elem.mem:data g=BARE/BARE/uvm_pkg o=BARE/QUAL/uvm_pkg                                                   2
+
+TOTAL agree=5567 differ=12 only-golden=1062 only-ours=472
