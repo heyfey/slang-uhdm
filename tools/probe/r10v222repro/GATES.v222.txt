@@ -1,0 +1,179 @@
+r10v222 — THE VERIFIER'S OWN GATE BATTERY, RE-MEASURED FROM SCRATCH
+===================================================================
+Worktrees /tmp/wt_v222 (patch + verifier fix) and /tmp/wt_v222pris (pristine),
+both at db069bdf, each with its OWN pinned build.  Every binary frozen
+(chmod 555) BEFORE any sweep; every cmds.txt audited BY PATH.
+
+BINARIES — the implementer's headline reproduced BIT-FOR-BIT
+  pristine  769b69341dc3d59dab592c3fa80c4983
+            byte-identical to the main-tree build at db069bdf
+  patched   aef5fdd9b78211185175dd251e9378f2   (implementer's, rebuilt here
+            from /tmp/r10uvm222.patch on a fresh db069bdf worktree)
+  fix       127920b3fce552846e1e8f8ac595c0b8   (this file's candidate:
+            the same patch with the callee-cut NARROWED — see README §3)
+  cmds.txt audit, per FILE not per occurrence: surelog 1523 files carry a
+  `slang:` line and ALL 1523 name the sweep's own frozen binary, 0 name any
+  other (50 cmds.txt carry no slang line at all — SURELOG_FAIL / reject rows);
+  u2r 1458 files, same result, both sweeps.
+
+(1) BUILD — both green, 0 errors, `Built target slang_uhdm`, md5s above.
+
+(2) GOLDENS (fix binary, SLANG_UHDM exported explicitly)
+    23 PASS / 0 FAIL;  negative control SLANG_UHDM=/bin/false: 0 PASS / 23 FAIL
+
+(3) uhdm2rtlil — 731 tests, fix binary
+    testflags  CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+    default    CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+    ct8rows vs results/gate_uhdm2rtlil.csv          PASS
+    ct8rows vs this verifier's own pristine, both modes PASS
+    raw CSV diff pristine vs fix: 0 lines, BOTH modes
+    byteverify SELFCHECK=1: MOVERS 0 / 1358, PATH_SETS_IDENTICAL,
+      SELFCHECK 1357/1358 flagged (the comparator can see)
+    A PRIORI, from the PRISTINE databases (predict222.sh, the implementer's
+      own signature — a ref_obj whose name contains '('): 1358 databases
+      scanned, row-modes HIT 0, cells 0.  THE u2r ZERO IS PROVEN BEFORE THE
+      FACT, INDEPENDENTLY.
+
+(4) surelog — 794 tests, 1588 row-modes, fix binary
+    default    CMP_EQUAL 476  CMP_NOTEQUAL 5  DEFERRED 5  SLANG_REJECT 283
+               SURELOG_FAIL 25
+    testflags  CMP_EQUAL 470  CMP_NOTEQUAL 5  DEFERRED 5  NO_DATABASE 3
+               NO_UHDM 1  SLANG_REJECT 284  SURELOG_FAIL 23  TIMEOUT 1
+               UNTRANSLATABLE 2
+    NO CONVERSION.  MiniAmiq stays CMP_NOTEQUAL both modes.  results/*.csv
+    untouched by this verifier.
+    raw CSV diff pristine vs fix: 0 lines — the two sweeps' CSVs are
+      BYTE-IDENTICAL to each other.
+    ct8rows vs this verifier's own pristine: PASS (every row byte-identical).
+    ct8rows vs results/golden_surelog.csv: ONE differing row, ON BOTH
+      BINARIES INCLUDING PRISTINE —
+        < Earlgrey_0_1,default,CMP_EQUAL,,,differ
+        > Earlgrey_0_1,default,CMP_EQUAL,,,
+      THE STATUS COLUMN DID NOT MOVE.  The blank dump column is what
+      verify_golden.py:633-635 writes on a uhdm-dump TimeoutExpired.  MEASURED
+      HERE: that database is 50.9 MB and uhdm-dump takes 50 s on it ON AN IDLE
+      MACHINE against a 180 s harness timeout (--timeout default), and these
+      sweeps ran two-at-a-time beside the wide boundary gate.  Re-measured
+      ALONE with the FIX binary (`--filter Earlgrey_0_1 --jobs 1`):
+        Earlgrey_0_1,default,CMP_EQUAL,,,differ
+        Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+      — the baseline values, both modes.  THE IMPLEMENTER SAW THE SAME
+      ARTEFACT ON THE OTHER MODE; that it lands on default here, on the
+      PRISTINE binary as well, settles that it is machine load and not code.
+    byteverify SELFCHECK=1: MOVERS 2 / 956 —
+      ./default/MiniAmiq-544c7f61/slang.uhdm    fix f4fdf6830862 / pris 4c7f73dc3f24
+      ./testflags/MiniAmiq-544c7f61/slang.uhdm  fix f4fdf6830862 / pris 4c7f73dc3f24
+      EXACTLY the two row-modes predicted A PRIORI here (predict222.sh over
+      the 956 PRISTINE databases: row-modes HIT 2, cells 7 each, named
+      MiniAmiq/default and MiniAmiq/testflags).  f4fdf6830862 is the SAME
+      database hash the implementer's patched binary produced — the verifier's
+      narrowing changes NOTHING on the corpus.  The coin (Scoreboard/default)
+      sat out.
+
+(5) THE NINE PROTECTED CMP_EQUAL ROW-MODES — judged by the official uhdm-cmp
+    rowheads.sh on the FIX binary's own sweep, LHS always golden:
+      SeqDriver/def, SeqDriver/tf, SimpleUVM/def, SimpleUVM/tf,
+      Scoreboard/def, BuildUVMPkg/def, BuildUVMPkg/tf,
+      Earlgrey_0_1/def, Earlgrey_0_1/tf
+    ALL NINE: 0 cmp lines / 0 heads / cmp rc=0.  Identical on the pristine
+    sweep.  (Scoreboard/tf and Rggen/tf are SKIP-NOFILE on both, as always;
+    Rggen/default reads 0/0 rc=0 on both.)
+
+HEADS (rowheads.sh, LHS always golden)
+                    pristine            fix
+  SeqDriver x2       0/0 rc=0            0/0 rc=0
+  SimpleUVM x2       0/0 rc=0            0/0 rc=0
+  Scoreboard/def     0/0 rc=0            0/0 rc=0
+  MiniAmiq/def     152/1 rc=255    1388494/1 rc=255
+  MiniAmiq/tf      152/1 rc=255    1388494/1 rc=255
+  BuildUVMPkg x2     0/0 rc=0            0/0 rc=0
+  Earlgrey_0_1 x2    0/0 rc=0            0/0 rc=0
+  Rggen/default      0/0 rc=0            0/0 rc=0
+  The two pristine MiniAmiq head logs are BYTE-IDENTICAL to each other, to
+  the implementer's recorded head_pris_MiniAmiq.{default,testflags}.cmp AND to
+  r10uvm221repro/head_pat_MiniAmiq.default.cmp — uvm221's R0 reproduced.
+  The fix binary's head logs' first 220 lines are byte-identical to the
+  implementer's head_pat_MiniAmiq.*.head220.cmp: same NEW head object,
+  `interface_inst: work@svaunit_vpi_interface`.
+
+MiniAmiq CENSUS (whole dump, ids stripped, paths normalised, SORTED)
+  pristine 1 891 575 lines, fix 1 891 549; order-blind: 44 ADDED, 70 REMOVED.
+  Against golden as MULTISETS:
+    pristine MISSING 260 558  EXTRA 96 711
+    fix      MISSING 260 521  EXTRA 96 648      (-37 / -63, both down)
+  NEWLY-APPEARING MISSING lines: 7, every one the structural filler
+  `|vpiParent:` (6 at one indentation, 1 at another) — no object, no field
+  value.  NEWLY-APPEARING EXTRA lines: 0.  AWAY 0.
+  The 114 moved lines classify exactly: OUT 7 method_func_call + 7 prefix
+  ref_obj (every one named `control_assertion_dpi(a_sva` /
+  `get_cover_statistics_dpi(cover_info[index]`) + their |vpiPrefix|/|vpiName|/
+  |vpiFullName| lines; IN 7 func_call at 310:7 / 334:7 / 358:7 / 383:7 /
+  408:7 / 434:7 / 512:13 with 7 |vpiFunction: links, PLUS the single
+  `\_io_decl: (a_sim_time), line:378:99` vpiActual — § 218's R1, closed.
+
+CANARIES / PINS (fix binary)
+  canaries.sh surelog:  ok=51 changed=1 absent=0  — the ONE changed row is
+    `Earlgrey_0_1 default CHANGED CMP_EQUAL/differ -> CMP_EQUAL/`, i.e. the
+    dump-timeout artefact above, and it reads IDENTICALLY on the PRISTINE
+    CSV (measured: same line, same counts).  Status unmoved.
+  canaries.sh u2r testflags: ok=8 changed=0 absent=0
+  ctcan2 EXPECT_UNKNOWN=1 surelog: PASS;  EXPECT_UNKNOWN=6 u2r: PASS
+  canaudit.sh canaries.sh ctcan2.sh: audited=29 UNCOVERED=0 FENCE-BREACH=0
+  protected databases, fix vs this verifier's pristine, BY NAME:
+    InterfaceModPort   59a365f3ce2c  SAME both modes — MUST NOT MOVE: HELD
+    BlackParrotComplex e3e354129d5a / 73a10e8217e5  SAME
+    YosysOldOr         d68e0796d62c  SAME both modes
+    SVSwitch           4842211c4030  SAME — the pinned value
+    YosysVerx          6ccda350c24a  SAME — the pinned value
+
+WIDE BOUNDARY (boundp222.sh — bound222.sh's contract, dispatched in parallel)
+  Run 1, tree as the implementer left it, pristine vs FIX:
+    LISTED = PROCESSED = 5541, RC_DIFFS = 0, MOVED_ARMS = 24 (12 arms x 2
+    views) — THE SAME TWENTY-FOUR the implementer's own boundary named, arm
+    for arm and view for view.
+  Run 2, tree with this verifier's four arms added: see BOUNDARY.v222.txt.
+  The seven foreign/older moved arms re-compiled against the canonical
+  golden-side Surelog and re-judged, pristine vs FIX:
+    official uhdm-cmp line counts identical to the implementer's table, and
+    the ORDER-BLIND multiset join reads TOWARD-GOLDEN 14 / 14 arm-views,
+    AWAY 0, BROKEN 0 (ARMSCORE.v222.txt).
+  MUST-STAY FLOOR: r10uvm216repro 0 of 6 arms moved, r10uvm220repro 0 of 6,
+  r10uvm221repro 0 of 5, r10uvm218repro 1 of 5 — only grid218/a5_sibling,
+  § 218's own R1 arm; a2_window did NOT move.
+
+FENCED
+  The four slang-fenced tests are never dispatched: canaudit reports each of
+  the four names "not dispatched by any driver (OK)", FENCE-BREACH=0.  This
+  verifier's own arms name none of them.
+
+DELIVERABLE RE-BUILT FROM THE PATCH ON A FRESH BASE
+  /tmp/r10uvm222.verified.patch applies to a FRESH db069bdf worktree with no
+  conflict (50 files; 0 conflict markers; src/ExprEmit.cpp md5-identical to the
+  tree the gated binary was built from), and rebuilt from that worktree the
+  binary is BYTE-IDENTICAL to the gated one:
+    127920b3fce552846e1e8f8ac595c0b8
+  Patch surface: src/ExprEmit.cpp, RESUME.md, tools/probe/r10uvm222repro/,
+  tools/probe/r10v222repro/ — nothing else.  results/*.csv untouched.  The four
+  slang-fenced names appear in no file of the patch outside canaudit's own list.
+
+FINAL WIDE BOUNDARY (this verifier's arms installed)
+  LISTED = PROCESSED = 5545  RC_DIFFS = 0  MOVED_ARMS = 30
+    = the implementer's 24 (arm for arm, view for view)
+    + r10v222repro/arms/{v222_paren,v222_escparen,v222_kinds}.sv x 2 views,
+      every one of which is this verification's own instrument and is scored
+      in GRID.v222.txt (TOWARD-GOLDEN or kind-preserving in both views).
+  arms/v222_parenrecv.sv does NOT move: rc 3 on both binaries, no database.
+
+THE § 218 R1 RESIDUE, MEASURED
+  `\_io_decl: (a_sim_time), line:378:99` — golden 3 copies, pristine 2, fix 3.
+  Total `io_decl: (a_sim_time)` cells: golden 10, pristine 9, fix 10.
+  CLOSED, exactly to golden's count.
+
+KIND CENSUS ON THE IMPLEMENTER'S GRID (ours vs golden, method / plain calls)
+  a1_home    golden 8/36   pristine 44/8   fix 8/36
+  a2_qual    golden 31/0   pristine 31/0   fix 31/0
+  a3_holder  golden 38/0   pristine 38/0   fix 38/0
+  a4_dpi     golden 2/12   pristine 12/4   fix 2/12
+  a5_edge    golden 9/0    pristine 9/0    fix 9/0
+  Every arm matches golden's split exactly, and every call golden renders as a
+  METHOD call is still one.

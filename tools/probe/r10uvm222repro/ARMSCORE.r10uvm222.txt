@@ -1,0 +1,38 @@
+# r10uvm222 — THE MOVED BOUNDARY ARMS, RE-SCORED AGAINST GOLDEN.
+# 24 moved arm-views = 12 arms x 2 views: SIX are this pass's own grid arms,
+# SIX are foreign.  Every foreign one is re-compiled with the canonical
+# golden-side Surelog and judged both ways below.
+
+== official uhdm-cmp, golden as LHS ==
+ARM                                            VIEW  PRIS_LINES  HEADS PAT_LINES  HEADS  VERDICT
+./r10uvm218repro/grid218/a5_sibling/dut.sv     def        1699      1      1691      1  TOWARD-GOLDEN rc=255/255
+./r10uvm218repro/grid218/a5_sibling/dut.sv     elab       2442      1      2434      1  TOWARD-GOLDEN rc=255/255
+./r10v103repro/arms/v103_b4.sv                 def        5222      1      5222      1  SAME LENGTH, DIFFERENT HEAD — READ IT rc=255/255
+./r10v103repro/arms/v103_b4.sv                 elab       5556      1      5564      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+./r10v103repro/arms/v103_c4_vifprefix.sv       def        2758      1      2758      1  SAME LENGTH, DIFFERENT HEAD — READ IT rc=255/255
+./r10v103repro/arms/v103_c4_vifprefix.sv       elab       2808      1      2816      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+./r10v167repro/vG_nocls.sv                     def        6797      1      6773      1  TOWARD-GOLDEN rc=255/255
+./r10v167repro/vG_nocls.sv                     elab      13708      1     13684      1  TOWARD-GOLDEN rc=255/255
+./r10v176repro/v176_q_argtext.sv               def        6482      1      6494      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+./r10v176repro/v176_q_argtext.sv               elab       7112      1      7128      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+./r10v176repro/v176_s_exprpos.sv               def        3469      1      3469      1  SAME LENGTH, DIFFERENT HEAD — READ IT rc=255/255
+./r10v176repro/v176_s_exprpos.sv               elab       6718      1      6726      1  LONGER — READ THE HEAD (a NEW head object is not a regression) rc=255/255
+./r10v218repro/arms/b1_kinds/dut.sv            def        8450      1      8442      1  TOWARD-GOLDEN rc=255/255
+./r10v218repro/arms/b1_kinds/dut.sv            elab       8514      1      8506      1  TOWARD-GOLDEN rc=255/255
+
+== ORDER-BLIND whole-dump multiset join against the same golden ==
+ARM                                          VIEW    P_MISS  P_EXTRA     Q_MISS  Q_EXTRA   VERDICT
+r10uvm218repro__grid218__a5_sibling__dut     def         15      529          1      511   TOWARD-GOLDEN
+r10uvm218repro__grid218__a5_sibling__dut     elab        15      740          1      722   TOWARD-GOLDEN
+r10v103repro__arms__v103_b4                  def         79      739         64      724   TOWARD-GOLDEN
+r10v103repro__arms__v103_b4                  elab        78     1288         63     1277   TOWARD-GOLDEN
+r10v103repro__arms__v103_c4_vifprefix        def         21      535          5      519   TOWARD-GOLDEN
+r10v103repro__arms__v103_c4_vifprefix        elab        21      813          5      801   TOWARD-GOLDEN
+r10v167repro__vG_nocls                       def         38      548         38      536   TOWARD-GOLDEN
+r10v167repro__vG_nocls                       elab        38     1780         38     1768   TOWARD-GOLDEN
+r10v176repro__v176_q_argtext                 def        100      580         70      556   TOWARD-GOLDEN
+r10v176repro__v176_q_argtext                 elab        91     1183         64     1164   TOWARD-GOLDEN
+r10v176repro__v176_s_exprpos                 def        142      586        130      574   TOWARD-GOLDEN
+r10v176repro__v176_s_exprpos                 elab       128     1464        117     1457   TOWARD-GOLDEN
+r10v218repro__arms__b1_kinds__dut            def          6      520          2      512   TOWARD-GOLDEN
+r10v218repro__arms__b1_kinds__dut            elab         6      770          2      762   TOWARD-GOLDEN

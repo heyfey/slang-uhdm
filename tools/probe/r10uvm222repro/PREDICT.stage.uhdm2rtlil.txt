@@ -1,0 +1,9 @@
+# r10uvm222 POPULATION CENSUS / A-PRIORI PREDICTION — uhdm2rtlil CORPUS
+# read from PRISTINE databases only, before the patched binary touched the corpus
+-- databases scanned: 1358
+-- databases MISSING: 104
+-- row-modes HIT    : 0
+-- cells (distinct) : 0
+
+# ZERO hits: the u2r zero is PROVEN a priori — no database in the corpus
+# holds a reference name containing '(', so no call can change kind there.

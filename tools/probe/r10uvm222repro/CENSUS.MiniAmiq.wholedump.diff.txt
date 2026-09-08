@@ -1,0 +1,144 @@
+243828a243829,243852
+>           \_func_call: (control_assertion_dpi), line:310:7, endln:310:64
+>           \_func_call: (control_assertion_dpi), line:310:7, endln:310:64
+>           \_func_call: (control_assertion_dpi), line:310:7, endln:310:64
+>       \_func_call: (control_assertion_dpi), line:310:7, endln:310:64
+>           \_func_call: (control_assertion_dpi), line:334:7, endln:334:64
+>           \_func_call: (control_assertion_dpi), line:334:7, endln:334:64
+>           \_func_call: (control_assertion_dpi), line:334:7, endln:334:64
+>       \_func_call: (control_assertion_dpi), line:334:7, endln:334:64
+>           \_func_call: (control_assertion_dpi), line:358:7, endln:358:64
+>           \_func_call: (control_assertion_dpi), line:358:7, endln:358:64
+>           \_func_call: (control_assertion_dpi), line:358:7, endln:358:64
+>       \_func_call: (control_assertion_dpi), line:358:7, endln:358:64
+>           \_func_call: (control_assertion_dpi), line:383:7, endln:383:67
+>           \_func_call: (control_assertion_dpi), line:383:7, endln:383:67
+>           \_func_call: (control_assertion_dpi), line:383:7, endln:383:67
+>       \_func_call: (control_assertion_dpi), line:383:7, endln:383:67
+>           \_func_call: (control_assertion_dpi), line:408:7, endln:408:64
+>           \_func_call: (control_assertion_dpi), line:408:7, endln:408:64
+>           \_func_call: (control_assertion_dpi), line:408:7, endln:408:64
+>       \_func_call: (control_assertion_dpi), line:408:7, endln:408:64
+>           \_func_call: (control_assertion_dpi), line:434:7, endln:434:64
+>           \_func_call: (control_assertion_dpi), line:434:7, endln:434:64
+>           \_func_call: (control_assertion_dpi), line:434:7, endln:434:64
+>       \_func_call: (control_assertion_dpi), line:434:7, endln:434:64
+245358a245383,245386
+>                   \_func_call: (get_cover_statistics_dpi), line:512:13, endln:513:48
+>                   \_func_call: (get_cover_statistics_dpi), line:512:13, endln:513:48
+>                   \_func_call: (get_cover_statistics_dpi), line:512:13, endln:513:48
+>               \_func_call: (get_cover_statistics_dpi), line:512:13, endln:513:48
+314648a314677,314682
+>         \_function: (work@svaunit_vpi_interface.control_assertion_dpi), line:40:4, endln:41:29
+>         \_function: (work@svaunit_vpi_interface.control_assertion_dpi), line:40:4, endln:41:29
+>         \_function: (work@svaunit_vpi_interface.control_assertion_dpi), line:40:4, endln:41:29
+>         \_function: (work@svaunit_vpi_interface.control_assertion_dpi), line:40:4, endln:41:29
+>         \_function: (work@svaunit_vpi_interface.control_assertion_dpi), line:40:4, endln:41:29
+>         \_function: (work@svaunit_vpi_interface.control_assertion_dpi), line:40:4, endln:41:29
+314702a314737
+>                 \_function: (work@svaunit_vpi_interface.get_cover_statistics_dpi), line:48:4, endln:49:105
+398747a398783
+>           \_io_decl: (a_sim_time), line:378:99, endln:378:109
+435432,435461d435467
+<           \_method_func_call: (control_assertion_dpi), line:310:35, endln:310:23
+<           \_method_func_call: (control_assertion_dpi), line:310:35, endln:310:23
+<           \_method_func_call: (control_assertion_dpi), line:310:35, endln:310:23
+<           \_method_func_call: (control_assertion_dpi), line:310:35, endln:310:23
+<       \_method_func_call: (control_assertion_dpi), line:310:35, endln:310:23
+<           \_method_func_call: (control_assertion_dpi), line:334:35, endln:334:21
+<           \_method_func_call: (control_assertion_dpi), line:334:35, endln:334:21
+<           \_method_func_call: (control_assertion_dpi), line:334:35, endln:334:21
+<           \_method_func_call: (control_assertion_dpi), line:334:35, endln:334:21
+<       \_method_func_call: (control_assertion_dpi), line:334:35, endln:334:21
+<           \_method_func_call: (control_assertion_dpi), line:358:35, endln:358:22
+<           \_method_func_call: (control_assertion_dpi), line:358:35, endln:358:22
+<           \_method_func_call: (control_assertion_dpi), line:358:35, endln:358:22
+<           \_method_func_call: (control_assertion_dpi), line:358:35, endln:358:22
+<       \_method_func_call: (control_assertion_dpi), line:358:35, endln:358:22
+<           \_method_func_call: (control_assertion_dpi), line:383:35, endln:383:24
+<           \_method_func_call: (control_assertion_dpi), line:383:35, endln:383:24
+<           \_method_func_call: (control_assertion_dpi), line:383:35, endln:383:24
+<           \_method_func_call: (control_assertion_dpi), line:383:35, endln:383:24
+<       \_method_func_call: (control_assertion_dpi), line:383:35, endln:383:24
+<           \_method_func_call: (control_assertion_dpi), line:408:35, endln:408:16
+<           \_method_func_call: (control_assertion_dpi), line:408:35, endln:408:16
+<           \_method_func_call: (control_assertion_dpi), line:408:35, endln:408:16
+<           \_method_func_call: (control_assertion_dpi), line:408:35, endln:408:16
+<       \_method_func_call: (control_assertion_dpi), line:408:35, endln:408:16
+<           \_method_func_call: (control_assertion_dpi), line:434:35, endln:434:17
+<           \_method_func_call: (control_assertion_dpi), line:434:35, endln:434:17
+<           \_method_func_call: (control_assertion_dpi), line:434:35, endln:434:17
+<           \_method_func_call: (control_assertion_dpi), line:434:35, endln:434:17
+<       \_method_func_call: (control_assertion_dpi), line:434:35, endln:434:17
+439422,439426d439427
+<                   \_method_func_call: (get_cover_statistics_dpi), line:512:56, endln:512:80
+<                   \_method_func_call: (get_cover_statistics_dpi), line:512:56, endln:512:80
+<                   \_method_func_call: (get_cover_statistics_dpi), line:512:56, endln:512:80
+<                   \_method_func_call: (get_cover_statistics_dpi), line:512:56, endln:512:80
+<               \_method_func_call: (get_cover_statistics_dpi), line:512:56, endln:512:80
+610211d610211
+<         \_ref_obj: (work@svaunit_vpi_interface.disable_assertion.control_assertion_dpi(a_sva), line:334:7, endln:334:34
+610217d610216
+<         \_ref_obj: (work@svaunit_vpi_interface.disable_step_assertion.control_assertion_dpi(a_sva), line:408:7, endln:408:34
+610223d610221
+<         \_ref_obj: (work@svaunit_vpi_interface.enable_assertion.control_assertion_dpi(a_sva), line:358:7, endln:358:34
+610229d610226
+<         \_ref_obj: (work@svaunit_vpi_interface.enable_step_assertion.control_assertion_dpi(a_sva), line:434:7, endln:434:34
+610274d610270
+<         \_ref_obj: (work@svaunit_vpi_interface.kill_assertion.control_assertion_dpi(a_sva), line:383:7, endln:383:34
+610350d610345
+<         \_ref_obj: (work@svaunit_vpi_interface.reset_assertion.control_assertion_dpi(a_sva), line:310:7, endln:310:34
+610371d610365
+<                 \_ref_obj: (work@svaunit_vpi_interface.update_coverage.get_cover_statistics_dpi(cover_info[index]), line:512:13, endln:512:55
+822648a822643
+>           |vpiActual:
+1146180d1146174
+<           |vpiFullName:work@svaunit_vpi_interface.disable_assertion.control_assertion_dpi(a_sva
+1146201d1146194
+<           |vpiFullName:work@svaunit_vpi_interface.disable_step_assertion.control_assertion_dpi(a_sva
+1146225d1146217
+<           |vpiFullName:work@svaunit_vpi_interface.enable_assertion.control_assertion_dpi(a_sva
+1146246d1146237
+<           |vpiFullName:work@svaunit_vpi_interface.enable_step_assertion.control_assertion_dpi(a_sva
+1146388d1146378
+<           |vpiFullName:work@svaunit_vpi_interface.kill_assertion.control_assertion_dpi(a_sva
+1146536d1146525
+<           |vpiFullName:work@svaunit_vpi_interface.reset_assertion.control_assertion_dpi(a_sva
+1146626d1146614
+<                   |vpiFullName:work@svaunit_vpi_interface.update_coverage.get_cover_statistics_dpi(cover_info[index]
+1150936a1150925
+>                 |vpiFunction:
+1152362a1152352,1152357
+>         |vpiFunction:
+>         |vpiFunction:
+>         |vpiFunction:
+>         |vpiFunction:
+>         |vpiFunction:
+>         |vpiFunction:
+1232115,1232120d1232109
+<           |vpiName:control_assertion_dpi(a_sva
+<           |vpiName:control_assertion_dpi(a_sva
+<           |vpiName:control_assertion_dpi(a_sva
+<           |vpiName:control_assertion_dpi(a_sva
+<           |vpiName:control_assertion_dpi(a_sva
+<           |vpiName:control_assertion_dpi(a_sva
+1245041d1245029
+<                   |vpiName:get_cover_statistics_dpi(cover_info[index]
+1545998d1545985
+<                   |vpiParent:
+1660993,1660998d1660979
+<           |vpiParent:
+<           |vpiParent:
+<           |vpiParent:
+<           |vpiParent:
+<           |vpiParent:
+<           |vpiParent:
+1716178d1716158
+<                 |vpiPrefix:
+1718058,1718063d1718037
+<         |vpiPrefix:
+<         |vpiPrefix:
+<         |vpiPrefix:
+<         |vpiPrefix:
+<         |vpiPrefix:
+<         |vpiPrefix:

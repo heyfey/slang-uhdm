@@ -1,0 +1,59 @@
+# r10uvm222 — CENSUS: MiniAmiq against GOLDEN, order-blind whole-dump multiset.
+# ids and absolute paths normalised away; both dumps SORTED.
+
+BINARY   MISSING(golden-only)   EXTRA(ours-only)
+pristine               260558              96711
+patched                260521              96648
+                   -37               -63   BOTH DOWN, NEITHER UP
+
+== the MISSING lines the law CURED ==
+      7 |vpiFunction:
+      6 \_function: (work@svaunit_vpi_interface.control_assertion_dpi), line:40:4, endln:41:29
+      4 \_func_call: (get_cover_statistics_dpi), line:512:13, endln:513:48
+      4 \_func_call: (control_assertion_dpi), line:434:7, endln:434:64
+      4 \_func_call: (control_assertion_dpi), line:408:7, endln:408:64
+      4 \_func_call: (control_assertion_dpi), line:383:7, endln:383:67
+      4 \_func_call: (control_assertion_dpi), line:358:7, endln:358:64
+      4 \_func_call: (control_assertion_dpi), line:334:7, endln:334:64
+      4 \_func_call: (control_assertion_dpi), line:310:7, endln:310:64
+      1 |vpiActual:
+      1 \_io_decl: (a_sim_time), line:378:99, endln:378:109
+      1 \_function: (work@svaunit_vpi_interface.get_cover_statistics_dpi), line:48:4, endln:49:105
+
+== the MISSING lines that newly appear ==
+      1                   |vpiParent:$
+      6           |vpiParent:$
+   NOT an AWAY cell: the ONLY string is the structural filler `|vpiParent:`
+   at one indentation, where we were ALREADY 591 lines short of golden
+   (golden 27148 / pristine 26557 / patched 26556).  It carries no object and
+   no field VALUE — it is the count artifact of the seven prefix ref_objs
+   this law stops minting.
+
+== the EXTRA lines the law CURED ==
+      7 |vpiPrefix:
+      6 |vpiName:control_assertion_dpi(a_sva
+      5 \_method_func_call: (get_cover_statistics_dpi), line:512:56, endln:512:80
+      5 \_method_func_call: (control_assertion_dpi), line:434:35, endln:434:17
+      5 \_method_func_call: (control_assertion_dpi), line:408:35, endln:408:16
+      5 \_method_func_call: (control_assertion_dpi), line:383:35, endln:383:24
+      5 \_method_func_call: (control_assertion_dpi), line:358:35, endln:358:22
+      5 \_method_func_call: (control_assertion_dpi), line:334:35, endln:334:21
+      5 \_method_func_call: (control_assertion_dpi), line:310:35, endln:310:23
+      1 |vpiName:get_cover_statistics_dpi(cover_info[index]
+      1 |vpiFullName:work@svaunit_vpi_interface.update_coverage.get_cover_statistics_dpi(cover_info[index]
+      1 |vpiFullName:work@svaunit_vpi_interface.reset_assertion.control_assertion_dpi(a_sva
+      1 |vpiFullName:work@svaunit_vpi_interface.kill_assertion.control_assertion_dpi(a_sva
+      1 |vpiFullName:work@svaunit_vpi_interface.enable_step_assertion.control_assertion_dpi(a_sva
+      1 |vpiFullName:work@svaunit_vpi_interface.enable_assertion.control_assertion_dpi(a_sva
+      1 |vpiFullName:work@svaunit_vpi_interface.disable_step_assertion.control_assertion_dpi(a_sva
+      1 |vpiFullName:work@svaunit_vpi_interface.disable_assertion.control_assertion_dpi(a_sva
+      1 \_ref_obj: (work@svaunit_vpi_interface.update_coverage.get_cover_statistics_dpi(cover_info[index]), line:512:13, endln:512:55
+      1 \_ref_obj: (work@svaunit_vpi_interface.reset_assertion.control_assertion_dpi(a_sva), line:310:7, endln:310:34
+      1 \_ref_obj: (work@svaunit_vpi_interface.kill_assertion.control_assertion_dpi(a_sva), line:383:7, endln:383:34
+      1 \_ref_obj: (work@svaunit_vpi_interface.enable_step_assertion.control_assertion_dpi(a_sva), line:434:7, endln:434:34
+      1 \_ref_obj: (work@svaunit_vpi_interface.enable_assertion.control_assertion_dpi(a_sva), line:358:7, endln:358:34
+      1 \_ref_obj: (work@svaunit_vpi_interface.disable_step_assertion.control_assertion_dpi(a_sva), line:408:7, endln:408:34
+      1 \_ref_obj: (work@svaunit_vpi_interface.disable_assertion.control_assertion_dpi(a_sva), line:334:7, endln:334:34
+
+== the EXTRA lines that newly appear ==
+   (none — the count is 0)

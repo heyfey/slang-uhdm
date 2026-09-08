@@ -1,0 +1,95 @@
+# r10v222 — THE BREAK, CELL BY CELL.  LHS is ALWAYS golden.
+# arm arms/v222_paren.sv — a '(' that belongs to the RECEIVER, not the argument list.
+# surelog rc=0, slang rc=0 on all three binaries.
+
+== GOLDEN ==
+v222_paren golden CALL method_func_call   30:22          poke22p
+v222_paren golden CALL method_func_call   35:28          poke22p
+v222_paren golden CALL method_func_call   40:26          poke22p
+v222_paren golden CALL method_func_call   45:22          poke22p
+v222_paren golden CALL method_func_call   45:35          path22p
+v222_paren golden CALL method_func_call   50:20          poke22p
+v222_paren golden CALL method_func_call   55:14          poke22p
+v222_paren golden   PREFIX 30:7           work@holder22p::p01_parenidx::bank22p
+v222_paren golden   PREFIX 35:7           work@holder22p::p02_callidx::bank22p
+v222_paren golden   PREFIX 40:7           work@holder22p::p03_castidx::bank22p
+v222_paren golden   PREFIX 45:7           work@holder22p::p04_parenidxarg::bank22p
+v222_paren golden   PREFIX 50:7           work@holder22p::p05_plainidx::bank22p
+v222_paren golden   PREFIX 55:7           work@holder22p::p06_plain::vif22p
+
+== PRISTINE (769b69341dc3) — RIGHT in KIND and POSITION ==
+v222_paren ours CALL method_func_call   30:22          poke22p
+v222_paren ours CALL method_func_call   35:28          poke22p
+v222_paren ours CALL method_func_call   40:26          poke22p
+v222_paren ours CALL method_func_call   45:35          path22p
+v222_paren ours CALL method_func_call   45:35          poke22p
+v222_paren ours CALL method_func_call   50:20          poke22p
+v222_paren ours CALL method_func_call   55:14          poke22p
+v222_paren ours   PREFIX 30:7           work@holder22p::p01_parenidx::bank22p[(a_i
+v222_paren ours   PREFIX 35:7           work@holder22p::p02_callidx::bank22p[idx22p(a_i
+v222_paren ours   PREFIX 40:7           work@holder22p::p03_castidx::bank22p[int'(a_i
+v222_paren ours   PREFIX 45:7           work@holder22p::p04_parenidxarg::bank22p[(a_i
+v222_paren ours   PREFIX 50:7           work@holder22p::p05_plainidx::bank22p[a_i]
+v222_paren ours   PREFIX 55:7           work@holder22p::p06_plain::vif22p
+
+== IMPLEMENTER'S PATCH (aef5fdd9b782) — WRONG: func_call at the statement column ==
+v222_paren ours CALL func_call          30:7           poke22p
+v222_paren ours CALL func_call          35:7           poke22p
+v222_paren ours CALL func_call          40:7           poke22p
+v222_paren ours CALL func_call          45:7           poke22p
+v222_paren ours CALL method_func_call   45:35          path22p
+v222_paren ours CALL method_func_call   50:20          poke22p
+v222_paren ours CALL method_func_call   55:14          poke22p
+v222_paren ours   PREFIX 50:7           work@holder22p::p05_plainidx::bank22p[a_i]
+v222_paren ours   PREFIX 55:7           work@holder22p::p06_plain::vif22p
+
+== VERIFIER FIX (127920b3fce5) — golden's KIND kept AND p04's position corrected ==
+v222_paren ours CALL method_func_call   30:22          poke22p
+v222_paren ours CALL method_func_call   35:28          poke22p
+v222_paren ours CALL method_func_call   40:26          poke22p
+v222_paren ours CALL method_func_call   45:22          poke22p
+v222_paren ours CALL method_func_call   45:35          path22p
+v222_paren ours CALL method_func_call   50:20          poke22p
+v222_paren ours CALL method_func_call   55:14          poke22p
+v222_paren ours   PREFIX 30:7           work@holder22p::p01_parenidx::bank22p[(a_i
+v222_paren ours   PREFIX 35:7           work@holder22p::p02_callidx::bank22p[idx22p(a_i
+v222_paren ours   PREFIX 40:7           work@holder22p::p03_castidx::bank22p[int'(a_i
+v222_paren ours   PREFIX 45:7           work@holder22p::p04_parenidxarg::bank22p[(a_i
+v222_paren ours   PREFIX 50:7           work@holder22p::p05_plainidx::bank22p[a_i]
+v222_paren ours   PREFIX 55:7           work@holder22p::p06_plain::vif22p
+
+# arm arms/v222_escparen.sv — an ESCAPED identifier holding a '('.
+
+== GOLDEN ==
+v222_escparen golden CALL method_func_call   24:24          poke22e
+v222_escparen golden CALL method_func_call   29:24          poke22e
+v222_escparen golden CALL method_func_call   29:37          path22e
+v222_escparen golden CALL method_func_call   34:14          poke22e
+v222_escparen golden   PREFIX 24:7           work@hold22e::e11_escparen::vif(par22e
+v222_escparen golden   PREFIX 29:7           work@hold22e::e12_escparenarg::vif(par22e
+v222_escparen golden   PREFIX 34:7           work@hold22e::e13_plain::vif22e
+
+== PRISTINE ==
+v222_escparen ours CALL method_func_call   24:20          poke22e
+v222_escparen ours CALL method_func_call   29:33          path22e
+v222_escparen ours CALL method_func_call   29:33          poke22e
+v222_escparen ours CALL method_func_call   34:14          poke22e
+v222_escparen ours   PREFIX 24:7           work@hold22e::e11_escparen::\vif(par22e 
+v222_escparen ours   PREFIX 29:7           work@hold22e::e12_escparenarg::\vif(par22e .poke22e(o22e
+v222_escparen ours   PREFIX 34:7           work@hold22e::e13_plain::vif22e
+
+== IMPLEMENTER'S PATCH — the two method calls become func_calls ==
+v222_escparen ours CALL func_call          24:7           poke22e
+v222_escparen ours CALL func_call          29:7           poke22e
+v222_escparen ours CALL method_func_call   29:33          path22e
+v222_escparen ours CALL method_func_call   34:14          poke22e
+v222_escparen ours   PREFIX 34:7           work@hold22e::e13_plain::vif22e
+
+== VERIFIER FIX ==
+v222_escparen ours CALL method_func_call   24:20          poke22e
+v222_escparen ours CALL method_func_call   29:20          poke22e
+v222_escparen ours CALL method_func_call   29:33          path22e
+v222_escparen ours CALL method_func_call   34:14          poke22e
+v222_escparen ours   PREFIX 24:7           work@hold22e::e11_escparen::\vif(par22e 
+v222_escparen ours   PREFIX 29:7           work@hold22e::e12_escparenarg::\vif(par22e 
+v222_escparen ours   PREFIX 34:7           work@hold22e::e13_plain::vif22e

@@ -1,0 +1,45 @@
+# r10uvm222 — the NEW MiniAmiq head's field counts, LHS(golden) vs RHS(ours)
+# the head is interface_inst work@svaunit_vpi_interface; instance::Compare
+# reads Task_funcs() and then Nets() (generated/src/instance.cpp:335-337),
+# so the whole Task_funcs vector — every one of the seven statements — now
+# returns 0 and the walk advances ONE LINE to the net list.
+
+LHS (golden):
+      1 vpiParent:
+      1 vpiFullName:work@svaunit_vpi_interface
+     90 vpiParameter:
+     90 vpiParamAssign:
+    128 vpiTypedef:
+      1 vpiDefName:work@svaunit_vpi_interface
+    931 vpiTaskFunc:
+     71 vpiNet:
+      5 vpiArrayNet:
+      1 vpiProcess:
+      1 vpiParent:
+      1 vpiFullName:work@svaunit_vpi_interface
+     90 vpiParameter:
+     90 vpiParamAssign:
+    128 vpiTypedef:
+      1 vpiDefName:work@svaunit_vpi_interface
+    931 vpiTaskFunc:
+     71 vpiNet:
+      5 vpiArrayNet:
+      1 vpiProcess:
+
+RHS (ours):
+      1 vpiParent:
+      1 vpiFullName:work@svaunit_vpi_interface
+     90 vpiParameter:
+     90 vpiParamAssign:
+    128 vpiTypedef:
+      1 vpiDefName:work@svaunit_vpi_interface
+    931 vpiTaskFunc:
+      5 vpiNet:
+      1 vpiParent:
+      1 vpiFullName:work@svaunit_vpi_interface
+     90 vpiParameter:
+     90 vpiParamAssign:
+    128 vpiTypedef:
+      1 vpiDefName:work@svaunit_vpi_interface
+    931 vpiTaskFunc:
+      5 vpiNet:

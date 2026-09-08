@@ -1,0 +1,41 @@
+# r10v222 — THE ADVERSARIAL GRID (arms/, DEF and ELAB, every rc recorded)
+# LHS is ALWAYS golden (canonical golden-side Surelog:
+#   $HOME/git-repos/Surelog/build/bin/surelog, the one scripts/verify_golden.py names).
+# binaries: pris 769b69341dc3  pat(implementer) aef5fdd9b782  fix(verifier) 127920b3fce5
+
+== rc, DEF ==
+pris ARM v222_escparen  surelog_rc=0 golden_lines=334   slang_rc=0 ours_lines=844
+pris ARM v222_kinds  surelog_rc=0 golden_lines=1539   slang_rc=0 ours_lines=1990
+pris ARM v222_paren  surelog_rc=0 golden_lines=650   slang_rc=0 ours_lines=1160
+pat  ARM v222_escparen  surelog_rc=0 golden_lines=334   slang_rc=0 ours_lines=836
+pat  ARM v222_kinds  surelog_rc=0 golden_lines=1539   slang_rc=0 ours_lines=1970
+pat  ARM v222_paren  surelog_rc=0 golden_lines=650   slang_rc=0 ours_lines=1144
+fix  ARM v222_escparen  surelog_rc=0 golden_lines=334   slang_rc=0 ours_lines=844
+fix  ARM v222_kinds  surelog_rc=0 golden_lines=1539   slang_rc=0 ours_lines=1970
+fix  ARM v222_paren  surelog_rc=0 golden_lines=650   slang_rc=0 ours_lines=1160
+
+== rc, ELAB (all arms rc=0 on all three binaries; v222_parenrecv is rc=3 on BOTH tools) ==
+
+== CELL MULTISET vs golden, DEF: pristine -> implementer's patched ==
+ARM            PRIS_MISSING   PRIS_EXTRA      PAT_MISSING    PAT_EXTRA   VERDICT
+v222_escparen             11           11               11            7   TOWARD-GOLDEN
+v222_kinds               23           33                0            0   TOWARD-GOLDEN
+v222_paren                9            9               21           13   AWAY-GOLDEN
+
+== CELL MULTISET vs golden, DEF: pristine -> VERIFIER FIX ==
+ARM            PRIS_MISSING   PRIS_EXTRA      PAT_MISSING    PAT_EXTRA   VERDICT
+v222_escparen             11           11               11           11   UNCHANGED
+v222_kinds               23           33                0            0   TOWARD-GOLDEN
+v222_paren                9            9                5            5   TOWARD-GOLDEN
+
+== CELL MULTISET vs golden, ELAB: pristine -> implementer's patched ==
+ARM            PRIS_MISSING   PRIS_EXTRA      PAT_MISSING    PAT_EXTRA   VERDICT
+v222_escparen             11           27               11           19   TOWARD-GOLDEN
+v222_kinds               23           53                0           20   TOWARD-GOLDEN
+v222_paren                9           40               21           36   AWAY-GOLDEN
+
+== CELL MULTISET vs golden, ELAB: pristine -> VERIFIER FIX ==
+ARM            PRIS_MISSING   PRIS_EXTRA      PAT_MISSING    PAT_EXTRA   VERDICT
+v222_escparen             11           27               11           27   UNCHANGED
+v222_kinds               23           53                0           20   TOWARD-GOLDEN
+v222_paren                9           40                5           36   TOWARD-GOLDEN

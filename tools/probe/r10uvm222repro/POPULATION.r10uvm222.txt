@@ -1,0 +1,77 @@
+r10uvm222 — THE POPULATION, BOTH CORPORA x BOTH MODES
+======================================================
+by callee form x argument form x holder x view.
+
+THE SIGNATURE, AND WHY IT IS EXACT
+----------------------------------
+The arm this pass narrows is the ONLY producer in this emitter of a
+`method_func_call` whose `vpiPrefix` ref_obj is named from a RAW TEXT SLICE.
+The pristine arm cuts that slice at the statement's LAST '.', so the two
+readings — "last dot of the statement" and "last dot of the callee" —
+disagree EXACTLY when a '(' precedes the last dot, and in that case the slice
+necessarily CONTAINS that '('.  Therefore
+
+    a `ref_obj` whose name contains '('   <=>   this arm mis-routed a call
+
+and the census key is database-side, complete, and cheap.  Calibration:
+golden holds ZERO such references, in every grid arm and in every golden
+database read here.
+
+THE CENSUS (predict222.sh over the PRISTINE databases, before the patched
+binary was built into any sweep)
+
+  uhdm2rtlil : 1358 databases scanned, 104 row-modes with no database.
+               ROW-MODES HIT: 0.   CELLS: 0.
+               => the u2r zero is PROVEN A PRIORI, not observed after the fact.
+
+  surelog    : 956 databases scanned, 617 row-modes with no database.
+               ROW-MODES HIT: 2.   CELLS: 7 per row-mode.
+                 default/MiniAmiq-544c7f61     7 cells
+                 testflags/MiniAmiq-544c7f61   7 cells
+               and nothing else in either corpus.
+
+  The seven cells are the same seven in both modes:
+    310:7  334:7  358:7  383:7  408:7  434:7   control_assertion_dpi(a_sva…
+    512:13                                     get_cover_statistics_dpi(cover_info[index]…
+
+THE FORM TABLE (measured; the corpus column is the census above, the grid
+column is GRID.cells.r10uvm222.txt)
+
+CALLEE FORM      ARGUMENT FORM              HOLDER              VIEW  PRISTINE      GOLDEN
+---------------------------------------------------------------------------------------------
+bare name        literal only               interface's own fn  both  func_call     func_call   (a1 c01, a4 d01; corpus 453/462/477/493)
+bare name        recv-qualified CALL, 1st   interface's own fn  both  method+prefix func_call   (a1 c02, a4 d02; CORPUS 310/334/358/383/408/434)
+bare name        plain DOTTED NAME          interface's own fn  both  method+prefix func_call   (a1 c03)
+bare name        indexed-recv CALL          interface's own fn  both  method+prefix func_call   (a1 c04, a4 d03; CORPUS 512)
+bare name        recv-qualified, 2nd arg    interface's own fn  both  method+prefix func_call   (a1 c05)
+bare name        recv-qualified, last arg   interface's own fn  both  method+prefix func_call   (a1 c06)
+bare name        two recv-qualified args    interface's own fn  both  method+prefix func_call   (a1 c07)
+bare name        recv-qualified, EXPRESSION interface's own fn  both  method+prefix func_call   (a1 c08)
+bare name        recv-qualified, depth 1    interface's own fn  both  method+prefix func_call   (a1 c09)
+bare name        $system call argument      interface's own fn  both  func_call     func_call   (a1 c10)
+qualified `v.m`  plain                      module w/ iface port both method+prefix method+prefix (a2 q01)
+qualified `v.m`  recv-qualified CALL        module w/ iface port both method+prefix method+prefix (a2 q02) — prefix NAME was wrong
+qualified `v.m`  plain DOTTED NAME          module w/ iface port both method+prefix method+prefix (a2 q03) — prefix NAME was wrong
+qualified `v . m`plain (SPACED dot)         module w/ iface port both method+prefix method+prefix (a2 q04) — pre-existing column residue
+qualified `v . m`recv-qualified (SPACED)    module w/ iface port both method+prefix method+prefix (a2 q05)
+qualified `v.m`  any, EXPRESSION position   module w/ iface port both hier_path     hier_path   (a2 q06/q07 — the sibling H-arm takes these; this arm is never reached)
+qualified `v.m`  plain                      class IN-BODY method both method+prefix method+prefix (a3 h01)
+qualified `v.m`  recv-qualified CALL        class IN-BODY method both method+prefix method+prefix (a3 h02) — prefix NAME was wrong
+qualified `b[i].m` plain                    class IN-BODY method both method+prefix method+prefix (a3 h03) — § 176 R2 subscript residue
+qualified `b[i].m` recv-qualified CALL      class IN-BODY method both method+prefix method+prefix (a3 h04)
+qualified `v.m`  recv-qualified, depth 1    class IN-BODY method both method+prefix method+prefix (a3 h05)
+qualified `v.m`  recv-qualified CALL        class OUT-OF-BODY   both method+prefix method+prefix (a3 h06)
+qualified `u.m`  recv-qualified CALL        module initial      both method+prefix method+prefix (a3 h07)
+qualified `u.m`  recv-qualified CALL        module function     both method+prefix method+prefix (a3 h08)
+escaped `\a.b .m` plain                     module function     both method+prefix method+prefix (a5 e02)
+escaped `\a.b .m` recv-qualified CALL       module function     both method+prefix method+prefix (a5 e04)
+CALL receiver `f().m`  any                  class method        —    slang REFUSES (rc 3) — unreachable (a6)
+
+READ IT THIS WAY: the KIND column splits on the CALLEE ALONE in golden.  In the
+pristine emitter it split on "is there a dot anywhere in the statement", which
+is why ten different argument forms under a BARE callee all produced the wrong
+kind and four sibling calls three lines away produced the right one.
+
+VIEWS: every grid arm was compiled in BOTH views (`--elabuhdm` and not) by the
+wide boundary gate and both moved together; the score tables above are read off
+the definition dumps and the elaborated ones agree cell for cell.

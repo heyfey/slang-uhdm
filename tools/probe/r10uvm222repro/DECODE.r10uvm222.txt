@@ -1,0 +1,129 @@
+r10uvm222 — THE DECODE
+======================
+§ ifaceOwnCallCalleeFormRoutes222 — A CALL'S KIND IS DECIDED BY THE CALLEE'S
+OWN FORM, NEVER BY WHAT ITS ARGUMENTS SPELL.
+
+1. THE HEAD, RE-MEASURED ON THIS PASS'S OWN PRISTINE BUILD
+----------------------------------------------------------
+MiniAmiq x2, 152 cmp lines, ONE head each, the two logs byte-identical and
+byte-identical to r10uvm221repro/head_pat_MiniAmiq.default.cmp.
+
+  LHS golden : func_call: (control_assertion_dpi) @310:7-310:64
+               |vpiFunction: function (work@svaunit_vpi_interface.control_assertion_dpi)
+  RHS ours   : method_func_call: (control_assertion_dpi) @310:35-310:23
+               |vpiPrefix: ref_obj vpiName "control_assertion_dpi(a_sva" @310:7-310:34
+
+The prefix's NAME is the tell, and it names the bug outright: it is the source
+TEXT of the statement from its first column to the dot at column 34 — the
+callee's own name, its opening paren and the first actual's receiver, taken
+together as a "receiver".
+
+2. THE SEVEN SITES, BOTH SIDES
+------------------------------
+`svaunit_vpi_interface.sv`, an INTERFACE with two DPI-C imports declared inside
+it (`control_assertion_dpi` :40, `get_cover_statistics_dpi` :48).
+
+  310:7  reset_assertion            ctrl(a_sva.get_sva_path(), <macro>, $time())
+  334:7  disable_assertion          "
+  358:7  enable_assertion           "
+  383:7  kill_assertion             ctrl(a_sva.get_sva_path(), <macro>, a_sim_time)
+  408:7  disable_step_assertion     "
+  434:7  enable_step_assertion      "
+  512:13 update_coverage            stat(cover_info[index].get_sva_name(), f, s)
+
+golden: `func_call` at the callee token, linked to the interface's own
+`vpiFunction`, three ordinary `vpiArgument` children.
+ours (pristine): `method_func_call` at the FIRST NAME AFTER THE DOT, no
+function link, a `vpiPrefix` ref_obj named after the text slice.
+
+The FOUR SIBLING CALLS AT 453/462/477/493 write `control_assertion_dpi("",
+<macro>, $time())` — no dot anywhere — and were already `func_call` on both
+sides.  The population split is exactly "is there a dot in the text", which no
+model of a CALL should ever ask.
+
+3. THE SIBLING-ARGUMENT RESIDUE (§ 218's R1), RE-MEASURED AS PART OF THE HEAD
+-----------------------------------------------------------------------------
+§ 218's R1 is `a_sim_time` @383:56 — golden binds it to the `kill_assertion`
+io_decl, we left it bare.  It sits INSIDE the 383:7 statement, one of the seven.
+It is NOT a separate family: it was a consequence of the mis-routing.  With the
+call routed by its callee's own form the whole statement is re-emitted through
+the ordinary user-call road and the binding falls out — the whole-dump census
+records `|vpiActual: \_io_decl: (a_sim_time), line:378:99` as an ADDED line and
+the same line as a CURED "MISSING" cell against golden.  § 218's R1 IS CLOSED.
+
+4. SLANG DECODED — THE ROUTING PREDICATE
+-----------------------------------------
+src/ExprEmit.cpp, the `ExpressionKind::Call` case, `!call.isSystemCall()`
+branch, the arm commented "INTERFACE method calls through a port
+(ha_intf.summ2(a,b))":
+
+    if (auto psc1 = sub.getParentScope();
+        psc1 && psc1->asSymbol().kind == SymbolKind::InstanceBody &&
+        psc1->asSymbol().as<InstanceBodySymbol>()
+             .getDefinition().definitionKind == DefinitionKind::Interface) {
+        std::string raw1 = rawText(expr.sourceRange);
+        auto dot1 = raw1.find_last_of('.');           <-- THE WHOLE STATEMENT
+        if (dot1 != std::string::npos) { ... mint a method_func_call ... }
+
+The gate is on WHERE THE CALLEE IS DECLARED (an interface's InstanceBody) — it
+is NOT on how the call is WRITTEN.  A call an interface's own subroutine makes
+to a sibling subroutine of the same interface, written BARE, reaches this arm
+just as `vif.poke(x)` does; the only thing that then decides the object's KIND
+is whether `find_last_of('.')` finds a dot ANYWHERE in the statement, arguments
+included.  Nothing about this is specific to the corpus: it is reached in
+EXPRESSION position too (grid cell c08 `return fn222(a_o.num222())`), at any
+control depth (c09), from a second or last argument (c05/c06), and from a plain
+dotted NAME that is not a call at all (c03).
+
+WHAT SURELOG READS.  `CompileHelper::compileTfCall`'s user-call arm
+(src/DesignCompile/CompileHelper.cpp:4211-4241) takes `name = SymName(tfNameNode)`
+off the NAME node and tests the NAME node's `paConstant_bit_select` SIBLING to
+decide between a `func_call` and a `method_func_call` with a `vpiPrefix`.  The
+argument list is not even fetched until :4318
+(`argListNode = fC->Sibling(tfNameNode)`), long after the shape is chosen.  The
+argument text CANNOT reach the decision in the reference tool.
+
+5. THE FIX, KEYED ON THE CALLEE'S OWN FORM
+-------------------------------------------
+    std::string callee222 = raw1.substr(0, raw1.find('('));
+    auto dot1 = callee222.find_last_of('.');
+
+Cut the text at the argument list's opening paren FIRST, then take the last '.'
+of what remains.  This is not a new idea in this file: the EXPRESSION-position
+sibling arm ~100 lines above already reads the same text exactly this way
+(`std::string calleeH = rawH.substr(0, rawH.find('('));`), and this pass makes
+the two arms ask the same question of the same string.  ONE conjunct; no new
+flag, no new counter, no new window.
+
+WHERE THE TWO READINGS AGREE — everywhere the callee really is
+receiver-qualified, because then the dot is before the paren.  Every arm cell
+§ ifaceRecvCallArgTakesTheOrdinaryWindow176 decoded this arm on (s_plain,
+s_local, s_formal, s_index, s_spaced) is byte-unchanged where its argument
+carries no dot.
+
+WHERE THEY COULD DISAGREE BESIDES THE TARGET — a receiver that is ITSELF A CALL
+(`get_vif().poke(x)`), whose last dot also follows a '('.  Grid arm a6 writes
+it: SURELOG COMPILES IT (rc 0) and SLANG REFUSES IT ("invalid member access for
+type 'virtual interface if22f'", rc 3, no database).  The construct cannot
+reach this emitter on any input, so the disagreement is unreachable.  THE RC IS
+THE MEASUREMENT — a6 is recorded as an error-recovery arm, never as a golden
+one.
+An ESCAPED receiver identifier that CONTAINS a dot (`\u.esc .poke(...)`, arm
+a5) keeps its pristine answer under both readings: the dot is still before the
+paren.
+
+6. WHAT THE ARMS SAY (GRID.cells.r10uvm222.txt)
+------------------------------------------------
+  a1_home  (interface's own function, ten argument forms)  28/44 -> 0/0
+  a4_dpi   (DPI-C callee, the exact corpus kind)            8/12 -> 0/0
+  a2_qual  (callee receiver-qualified, must stay)          20/20 -> 10/10
+  a3_holder(class in-body/oob, vif array, module)          31/31 ->  3/3
+  a5_edge  (escaped receiver)                              11/11 -> 11/11
+  a6_reject(paren receiver)                        slang rc=3, no database
+a1 and a4 reach EXACT AGREEMENT with golden on every call record.  a2's and
+a3's remainders are PRE-EXISTING residues of other laws that this pass does not
+touch and does not make worse: the SPACED-dot column and trailing space in the
+prefix name (a2 q04, unchanged from pristine, now shared by q05), the SUBSCRIPT
+kept in the prefix name (a3 h03, § 176's own R2, unchanged from pristine, now
+shared by h04), and an out-of-body fullname spelling (a3 h06 — a VpiFullName,
+which no generated Compare reads).

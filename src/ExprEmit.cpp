@@ -22465,7 +22465,110 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             .getDefinition()
                             .definitionKind == DefinitionKind::Interface) {
                     std::string raw1 = rawText(expr.sourceRange);
-                    auto dot1 = raw1.find_last_of('.');
+                    // ===== § ifaceOwnCallCalleeFormRoutes222 (r10uvm222) =====
+                    // A CALL'S KIND IS DECIDED BY THE CALLEE'S OWN FORM, NEVER
+                    // BY WHAT ITS ARGUMENTS SPELL.
+                    //
+                    // This arm is reached for EVERY call whose callee is
+                    // declared in an interface — a call THROUGH a port
+                    // (`vif.poke(x)`, its decoded home) and equally a call an
+                    // interface's own subroutine makes to a SIBLING subroutine
+                    // of the same interface, BARE (`ctrl(x)`).  The pristine
+                    // line read the whole statement's LAST '.', so a bare
+                    // callee whose ARGUMENT LIST happened to contain a dot was
+                    // split at that dot: everything to its left — callee name,
+                    // opening paren, earlier actuals, commas, string literals
+                    // and all — became the "receiver", and a `func_call`
+                    // turned into a `method_func_call` with a prefix named
+                    // `ctrl(x, o`.  Surelog reads the CALLEE ALONE
+                    // (`CompileHelper::compileTfCall`, CompileHelper.cpp
+                    // :4211-4241: `name = SymName(tfNameNode)` and the
+                    // `paConstant_bit_select` SIBLING test are both taken off
+                    // the NAME node, and `argListNode = fC->Sibling(tfNameNode)`
+                    // — the argument list — is not looked at until :4318,
+                    // after the shape is already chosen), so the argument text
+                    // can never reach the decision.
+                    //
+                    // The read is the one the EXPRESSION-position sibling arm
+                    // ~100 lines above already performs on the very same text
+                    // (`calleeH = rawH.substr(0, rawH.find('('))`): cut at the
+                    // argument list's opening paren FIRST, then take the last
+                    // '.' of what remains.  Where the callee really is
+                    // receiver-qualified the two readings are the same string,
+                    // which is why every arm cell § 176 measured this arm on —
+                    // s_plain, s_local, s_formal, s_index, s_spaced — is
+                    // byte-unchanged: their dots all sit before the paren.
+                    //
+                    // THE ONE SPELLING THAT COULD SEPARATE THEM OTHERWISE is a
+                    // receiver that is ITSELF A CALL (`get_vif().poke(x)`): its
+                    // last dot follows a '(' too.  slang REFUSES to compile it
+                    // ("invalid member access for type 'virtual interface …'",
+                    // rc 3 — grid arm a6, whose rc is the measurement), so the
+                    // construct cannot reach this emitter on any input.  So is
+                    // a PARENTHESIZED receiver (`(vif).poke(x)`): Surelog and
+                    // slang both refuse it (rc 3 / rc 3, verifier arm
+                    // `v222_parenrecv`).
+                    //
+                    // ===== VERIFIER NARROWING (r10v222) =====
+                    // NOT the FIRST '(' — the one that OPENS THE ARGUMENT
+                    // LIST.  A receiver may legally carry a '(' of its own,
+                    // and cutting there hides the callee's own dot and routes
+                    // a METHOD call as a plain call.  Two spellings do it, and
+                    // both compile rc 0 on BOTH tools with golden rendering a
+                    // `method_func_call{vpiPrefix}`:
+                    //   * a SELECT holding a paren — `bank[(i)].poke(s)`,
+                    //     `bank[f(i)].poke(s)`, `bank[int'(i)].poke(s)`
+                    //     (verifier arm `v222_paren`, cells p01-p04: golden
+                    //     `method_func_call` @30:22 prefix `bank22p`, which the
+                    //     pristine emitter matched in KIND and POSITION);
+                    //   * an ESCAPED identifier holding a paren —
+                    //     `\vif(par .poke(s)`, which runs to the next
+                    //     whitespace (verifier arm `v222_escparen`, cells
+                    //     e11/e12; § 222's own a5 measured an escaped name
+                    //     holding a DOT, this is its paren twin).
+                    // Both regressed to `func_call` at the statement column
+                    // under a first-'(' cut.  So skip selects and escaped
+                    // identifiers (and quoted text, which can hold either
+                    // bracket) while scanning for the argument list's paren.
+                    // Where the receiver holds no paren — every corpus cell
+                    // and every § 176 / § 222 grid cell — this reads exactly
+                    // what `raw1.find('(')` reads.
+                    size_t cut222 = raw1.size();
+                    int sel222 = 0;
+                    for (size_t i222 = 0; i222 < raw1.size(); i222++) {
+                        char c222 = raw1[i222];
+                        if (c222 == '\\') { // escaped id: to the next space
+                            while (i222 < raw1.size() && raw1[i222] != ' ' &&
+                                   raw1[i222] != '\t' && raw1[i222] != '\n' &&
+                                   raw1[i222] != '\r')
+                                i222++;
+                            continue;
+                        }
+                        if (c222 == '"') { // string literal
+                            i222++;
+                            while (i222 < raw1.size() && raw1[i222] != '"') {
+                                if (raw1[i222] == '\\')
+                                    i222++;
+                                i222++;
+                            }
+                            continue;
+                        }
+                        if (c222 == '[') {
+                            sel222++;
+                            continue;
+                        }
+                        if (c222 == ']') {
+                            if (sel222 > 0)
+                                sel222--;
+                            continue;
+                        }
+                        if (c222 == '(' && sel222 == 0) {
+                            cut222 = i222;
+                            break;
+                        }
+                    }
+                    std::string callee222 = raw1.substr(0, cut222);
+                    auto dot1 = callee222.find_last_of('.');
                     if (dot1 != std::string::npos) {
                         std::string recv1 = raw1.substr(0, dot1);
                         auto* mfc = s.MakeMethod_func_call();
@@ -22556,8 +22659,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // (`this.`/`super.`) and a `paClass_scope` (`c::s.`)
                         // are handed to `compileComplexFuncCall` instead
                         // (:4194-4211), which builds a different object
-                        // entirely.  Our arm finds the receiver by
-                        // `raw.find_last_of('.')`, which happily accepts those
+                        // entirely.  Our arm finds the receiver by the last
+                        // '.' of the CALLEE text (§ ifaceOwnCallCalleeFormRoutes222
+                        // narrowed this from the last '.' of the whole
+                        // statement; the two agree on every cell below), which
+                        // happily accepts those
                         // spellings and a MULTI-NAME receiver too, so the
                         // window asks the question Surelog's dispatch asks:
                         // is the receiver text ONE name?  Measured, arm C, DEF

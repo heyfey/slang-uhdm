@@ -1,0 +1,25 @@
+# r10uvm222 — THE GOLDEN GRID, both binaries, EVERY ARM'S rc RECORDED.
+# surelog = the canonical golden-side binary scripts/verify_golden.py names:
+#   $HOME/git-repos/Surelog/build/bin/surelog
+
+== PRISTINE run ==
+grid222: surelog=/home/heyfey/git-repos/Surelog/build/bin/surelog
+grid222: slang  =/tmp/r10uvm222_bin/pris.bin  md5=769b69341dc3
+ARM a1_home  surelog_rc=0 golden_lines=1153   slang_rc=0 ours_lines=1698
+ARM a2_qual  surelog_rc=0 golden_lines=813   slang_rc=0 ours_lines=1323
+ARM a3_holder  surelog_rc=0 golden_lines=840   slang_rc=0 ours_lines=1350
+ARM a4_dpi  surelog_rc=0 golden_lines=635   slang_rc=0 ours_lines=1154
+ARM a5_edge  surelog_rc=0 golden_lines=255   slang_rc=0 ours_lines=765
+ARM a6_reject  surelog_rc=0 golden_lines=234   slang_rc=3 ours_lines=0
+  !! NONZERO RC — this arm teaches ERROR RECOVERY, not golden
+
+== PATCHED run ==
+grid222: surelog=/home/heyfey/git-repos/Surelog/build/bin/surelog
+grid222: slang  =/tmp/r10uvm222_bin/pat.bin  md5=aef5fdd9b782
+ARM a1_home  surelog_rc=0 golden_lines=1153   slang_rc=0 ours_lines=1666
+ARM a2_qual  surelog_rc=0 golden_lines=813   slang_rc=0 ours_lines=1323
+ARM a3_holder  surelog_rc=0 golden_lines=840   slang_rc=0 ours_lines=1350
+ARM a4_dpi  surelog_rc=0 golden_lines=635   slang_rc=0 ours_lines=1146
+ARM a5_edge  surelog_rc=0 golden_lines=255   slang_rc=0 ours_lines=765
+ARM a6_reject  surelog_rc=0 golden_lines=234   slang_rc=3 ours_lines=0
+  !! NONZERO RC — this arm teaches ERROR RECOVERY, not golden

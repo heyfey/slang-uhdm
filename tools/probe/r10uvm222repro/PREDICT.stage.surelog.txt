@@ -1,0 +1,25 @@
+# r10uvm222 POPULATION CENSUS / A-PRIORI PREDICTION — SURELOG CORPUS
+# read from PRISTINE databases only, before the patched binary touched the corpus
+-- databases scanned: 956
+-- databases MISSING: 617
+-- row-modes HIT    : 2
+-- cells (distinct) : 14
+   PREDICTED MOVER: /tmp/r10uvm222_wd_pris/sl/default/MiniAmiq-544c7f61  cells=7
+   PREDICTED MOVER: /tmp/r10uvm222_wd_pris/sl/testflags/MiniAmiq-544c7f61  cells=7
+
+CELL /tmp/r10uvm222_wd_pris/sl/default/MiniAmiq-544c7f61 \_ref_obj: (work@svaunit_vpi_interface.disable_assertion.control_assertion_dpi(a_sva), line:334:7, endln:334:34
+CELL /tmp/r10uvm222_wd_pris/sl/default/MiniAmiq-544c7f61 \_ref_obj: (work@svaunit_vpi_interface.disable_step_assertion.control_assertion_dpi(a_sva), line:408:7, endln:408:34
+CELL /tmp/r10uvm222_wd_pris/sl/default/MiniAmiq-544c7f61 \_ref_obj: (work@svaunit_vpi_interface.enable_assertion.control_assertion_dpi(a_sva), line:358:7, endln:358:34
+CELL /tmp/r10uvm222_wd_pris/sl/default/MiniAmiq-544c7f61 \_ref_obj: (work@svaunit_vpi_interface.enable_step_assertion.control_assertion_dpi(a_sva), line:434:7, endln:434:34
+CELL /tmp/r10uvm222_wd_pris/sl/default/MiniAmiq-544c7f61 \_ref_obj: (work@svaunit_vpi_interface.kill_assertion.control_assertion_dpi(a_sva), line:383:7, endln:383:34
+CELL /tmp/r10uvm222_wd_pris/sl/default/MiniAmiq-544c7f61 \_ref_obj: (work@svaunit_vpi_interface.reset_assertion.control_assertion_dpi(a_sva), line:310:7, endln:310:34
+CELL /tmp/r10uvm222_wd_pris/sl/default/MiniAmiq-544c7f61 \_ref_obj: (work@svaunit_vpi_interface.update_coverage.get_cover_statistics_dpi(cover_info[index]), line:512:13, endln:512:55
+CELL /tmp/r10uvm222_wd_pris/sl/testflags/MiniAmiq-544c7f61 \_ref_obj: (work@svaunit_vpi_interface.disable_assertion.control_assertion_dpi(a_sva), line:334:7, endln:334:34
+CELL /tmp/r10uvm222_wd_pris/sl/testflags/MiniAmiq-544c7f61 \_ref_obj: (work@svaunit_vpi_interface.disable_step_assertion.control_assertion_dpi(a_sva), line:408:7, endln:408:34
+CELL /tmp/r10uvm222_wd_pris/sl/testflags/MiniAmiq-544c7f61 \_ref_obj: (work@svaunit_vpi_interface.enable_assertion.control_assertion_dpi(a_sva), line:358:7, endln:358:34
+CELL /tmp/r10uvm222_wd_pris/sl/testflags/MiniAmiq-544c7f61 \_ref_obj: (work@svaunit_vpi_interface.enable_step_assertion.control_assertion_dpi(a_sva), line:434:7, endln:434:34
+CELL /tmp/r10uvm222_wd_pris/sl/testflags/MiniAmiq-544c7f61 \_ref_obj: (work@svaunit_vpi_interface.kill_assertion.control_assertion_dpi(a_sva), line:383:7, endln:383:34
+CELL /tmp/r10uvm222_wd_pris/sl/testflags/MiniAmiq-544c7f61 \_ref_obj: (work@svaunit_vpi_interface.reset_assertion.control_assertion_dpi(a_sva), line:310:7, endln:310:34
+CELL /tmp/r10uvm222_wd_pris/sl/testflags/MiniAmiq-544c7f61 \_ref_obj: (work@svaunit_vpi_interface.update_coverage.get_cover_statistics_dpi(cover_info[index]), line:512:13, endln:512:55
+HIT 7 /tmp/r10uvm222_wd_pris/sl/default/MiniAmiq-544c7f61
+HIT 7 /tmp/r10uvm222_wd_pris/sl/testflags/MiniAmiq-544c7f61

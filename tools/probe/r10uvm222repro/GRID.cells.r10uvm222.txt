@@ -1,0 +1,228 @@
+# r10uvm222 — THE GOLDEN GRID, CELL BY CELL.
+# score222.sh prints one record per CALL object and per vpiPrefix; the list is
+# sorted -u from field 3 on, so a record that appears ONCE is one BOTH SIDES
+# agree on and a record that appears twice (once 'golden', once 'ours') is a
+# DISAGREEMENT.  LHS is always golden.
+
+############ pris ############
+=== a1_home ===
+a1_home golden CALL func_call          28:7           ctrl222
+a1_home golden CALL func_call          34:7           ctrl222
+a1_home golden CALL func_call          39:7           ctrl222
+a1_home golden CALL func_call          45:7           ctrl222
+a1_home golden CALL func_call          50:7           two222
+a1_home golden CALL func_call          55:7           ctrl222
+a1_home golden CALL func_call          60:7           two222
+a1_home golden CALL func_call          65:14          fn222
+a1_home golden CALL func_call          75:10          ctrl222
+a1_home golden CALL func_call          81:7           ctrl222
+a1_home ours CALL method_func_call   34:19          ctrl222
+a1_home golden CALL method_func_call   34:19          path222
+a1_home ours CALL method_func_call   39:19          ctrl222
+a1_home ours CALL method_func_call   45:28          ctrl222
+a1_home golden CALL method_func_call   45:28          path222
+a1_home golden CALL method_func_call   50:23          num222
+a1_home ours CALL method_func_call   50:23          two222
+a1_home ours CALL method_func_call   55:26          ctrl222
+a1_home golden CALL method_func_call   55:26          num222
+a1_home golden CALL method_func_call   60:18          num222
+a1_home golden CALL method_func_call   60:32          num222
+a1_home ours CALL method_func_call   60:32          two222
+a1_home ours CALL method_func_call   65:24          fn222
+a1_home golden CALL method_func_call   65:24          num222
+a1_home ours CALL method_func_call   75:22          ctrl222
+a1_home golden CALL method_func_call   75:22          path222
+a1_home ours   PREFIX 34:7           work@if222.c02_recvcall.ctrl222(a_o
+a1_home ours   PREFIX 39:7           work@if222.c03_dotname.ctrl222(a_o
+a1_home ours   PREFIX 45:7           work@if222.c04_idxrecv.ctrl222(pool222[a_i]
+a1_home ours   PREFIX 50:7           work@if222.c05_second.two222(a_t, a_o
+a1_home ours   PREFIX 55:7           work@if222.c06_last.ctrl222("", 6, a_o
+a1_home ours   PREFIX 60:7           work@if222.c07_two.two222(a_o.num222(
+a1_home ours   PREFIX 65:14          work@if222.c08_expr.fn222(a_o
+a1_home ours   PREFIX 75:10          work@if222.c09_body.ctrl222(a_o
+=== a2_qual ===
+a2_qual golden CALL method_func_call   31:14          poke22b
+a2_qual golden CALL method_func_call   38:14          poke22b
+a2_qual golden CALL method_func_call   38:27          path22b
+a2_qual ours CALL method_func_call   38:27          poke22b
+a2_qual golden CALL method_func_call   43:14          poke22b
+a2_qual ours CALL method_func_call   43:27          poke22b
+a2_qual ours CALL method_func_call   48:15          poke22b
+a2_qual golden CALL method_func_call   48:16          poke22b
+a2_qual golden CALL method_func_call   53:16          poke22b
+a2_qual golden CALL method_func_call   53:29          path22b
+a2_qual ours CALL method_func_call   53:29          poke22b
+a2_qual golden CALL method_func_call   58:21          weigh22b
+a2_qual golden CALL method_func_call   63:21          weigh22b
+a2_qual golden CALL method_func_call   63:35          num22b
+a2_qual golden CALL method_func_call   68:14          poke22b
+a2_qual golden   PREFIX 31:7           work@mid22b.q01_plain.vif22b
+a2_qual golden   PREFIX 38:7           work@mid22b.q02_recvarg.vif22b
+a2_qual ours   PREFIX 38:7           work@mid22b.q02_recvarg.vif22b.poke22b(o22b
+a2_qual golden   PREFIX 43:7           work@mid22b.q03_dotarg.vif22b
+a2_qual ours   PREFIX 43:7           work@mid22b.q03_dotarg.vif22b.poke22b(o22b
+a2_qual golden   PREFIX 48:7           work@mid22b.q04_spaced.vif22b
+a2_qual ours   PREFIX 48:7           work@mid22b.q04_spaced.vif22b 
+a2_qual golden   PREFIX 53:7           work@mid22b.q05_spacedarg.vif22b
+a2_qual ours   PREFIX 53:7           work@mid22b.q05_spacedarg.vif22b . poke22b(o22b
+a2_qual golden   PREFIX 68:7           work@mid22b.q08_noargs.vif22b
+=== a3_holder ===
+a3_holder golden CALL method_func_call   31:14          poke22c
+a3_holder golden CALL method_func_call   36:14          poke22c
+a3_holder golden CALL method_func_call   36:27          path22c
+a3_holder ours CALL method_func_call   36:27          poke22c
+a3_holder golden CALL method_func_call   41:20          poke22c
+a3_holder golden CALL method_func_call   46:20          poke22c
+a3_holder golden CALL method_func_call   46:33          path22c
+a3_holder ours CALL method_func_call   46:33          poke22c
+a3_holder golden CALL method_func_call   52:17          poke22c
+a3_holder golden CALL method_func_call   52:30          path22c
+a3_holder ours CALL method_func_call   52:30          poke22c
+a3_holder golden CALL method_func_call   61:11          poke22c
+a3_holder golden CALL method_func_call   61:24          path22c
+a3_holder ours CALL method_func_call   61:24          poke22c
+a3_holder golden CALL method_func_call   71:15          poke22c
+a3_holder golden CALL method_func_call   71:29          path22c
+a3_holder ours CALL method_func_call   71:29          poke22c
+a3_holder golden CALL method_func_call   76:15          poke22c
+a3_holder golden CALL method_func_call   76:29          path22c
+a3_holder ours CALL method_func_call   76:29          poke22c
+a3_holder golden   PREFIX 31:7           work@holder22c::h01_plain::vif22c
+a3_holder golden   PREFIX 36:7           work@holder22c::h02_recvarg::vif22c
+a3_holder ours   PREFIX 36:7           work@holder22c::h02_recvarg::vif22c.poke22c(o22c
+a3_holder golden   PREFIX 41:7           work@holder22c::h03_idx::bank22c
+a3_holder ours   PREFIX 41:7           work@holder22c::h03_idx::bank22c[a_i]
+a3_holder golden   PREFIX 46:7           work@holder22c::h04_idxarg::bank22c
+a3_holder ours   PREFIX 46:7           work@holder22c::h04_idxarg::bank22c[a_i].poke22c(o22c
+a3_holder golden   PREFIX 52:10          work@holder22c::h05_body::vif22c
+a3_holder ours   PREFIX 52:10          work@holder22c::h05_body::vif22c.poke22c(o22c
+a3_holder golden   PREFIX 61:4           holder22c::h06_oob.vif22c
+a3_holder ours   PREFIX 61:4           work@holder22c::h06_oob::vif22c.poke22c(o22c
+a3_holder golden   PREFIX 71:7           work@mod22c.u_if22c
+a3_holder ours   PREFIX 71:7           work@mod22c.u_if22c.poke22c(oo22c
+a3_holder golden   PREFIX 76:7           work@mod22c.h08_modfn.u_if22c
+a3_holder ours   PREFIX 76:7           work@mod22c.h08_modfn.u_if22c.poke22c(oo22c
+=== a4_dpi ===
+a4_dpi golden CALL func_call          26:7           ctrl22d
+a4_dpi golden CALL func_call          32:7           ctrl22d
+a4_dpi golden CALL func_call          41:10          stat22d
+a4_dpi ours CALL method_func_call   32:19          ctrl22d
+a4_dpi golden CALL method_func_call   32:19          path22d
+a4_dpi golden CALL method_func_call   41:32          path22d
+a4_dpi ours CALL method_func_call   41:32          stat22d
+a4_dpi ours   PREFIX 32:7           work@if22d.d02_recvarg.ctrl22d(a_o
+a4_dpi ours   PREFIX 41:10          work@if22d.d03_stat.stat22d(pool22d[k22d]
+=== a5_edge ===
+a5_edge ours CALL method_func_call   27:18          poke22e
+a5_edge golden CALL method_func_call   27:22          poke22e
+a5_edge golden CALL method_func_call   33:22          poke22e
+a5_edge ours CALL method_func_call   33:31          path22e
+a5_edge ours CALL method_func_call   33:31          poke22e
+a5_edge golden CALL method_func_call   33:35          path22e
+a5_edge ours   PREFIX 27:7           work@mod22e.e02_escrecv.\u.esc22e 
+a5_edge golden   PREFIX 27:7           work@mod22e.e02_escrecv.u.esc22e
+a5_edge golden   PREFIX 33:7           work@mod22e.e04_escarg.u.esc22e
+a5_edge ours   PREFIX 33:7           work@mod22e.e04_escarg.\u.esc22e .poke22e(o22e
+=== a6_reject ===
+a6_reject golden CALL func_call          31:7           get22f
+a6_reject golden CALL func_call          36:7           get22f
+a6_reject ours MISSING-DUMP
+
+############ pat ############
+=== a1_home ===
+a1_home golden CALL func_call          28:7           ctrl222
+a1_home golden CALL func_call          34:7           ctrl222
+a1_home golden CALL func_call          39:7           ctrl222
+a1_home golden CALL func_call          45:7           ctrl222
+a1_home golden CALL func_call          50:7           two222
+a1_home golden CALL func_call          55:7           ctrl222
+a1_home golden CALL func_call          60:7           two222
+a1_home golden CALL func_call          65:14          fn222
+a1_home golden CALL func_call          75:10          ctrl222
+a1_home golden CALL func_call          81:7           ctrl222
+a1_home golden CALL method_func_call   34:19          path222
+a1_home golden CALL method_func_call   45:28          path222
+a1_home golden CALL method_func_call   50:23          num222
+a1_home golden CALL method_func_call   55:26          num222
+a1_home golden CALL method_func_call   60:18          num222
+a1_home golden CALL method_func_call   60:32          num222
+a1_home golden CALL method_func_call   65:24          num222
+a1_home golden CALL method_func_call   75:22          path222
+=== a2_qual ===
+a2_qual golden CALL method_func_call   31:14          poke22b
+a2_qual golden CALL method_func_call   38:14          poke22b
+a2_qual golden CALL method_func_call   38:27          path22b
+a2_qual golden CALL method_func_call   43:14          poke22b
+a2_qual ours CALL method_func_call   48:15          poke22b
+a2_qual golden CALL method_func_call   48:16          poke22b
+a2_qual ours CALL method_func_call   53:15          poke22b
+a2_qual golden CALL method_func_call   53:16          poke22b
+a2_qual golden CALL method_func_call   53:29          path22b
+a2_qual golden CALL method_func_call   58:21          weigh22b
+a2_qual golden CALL method_func_call   63:21          weigh22b
+a2_qual golden CALL method_func_call   63:35          num22b
+a2_qual golden CALL method_func_call   68:14          poke22b
+a2_qual golden   PREFIX 31:7           work@mid22b.q01_plain.vif22b
+a2_qual golden   PREFIX 38:7           work@mid22b.q02_recvarg.vif22b
+a2_qual golden   PREFIX 43:7           work@mid22b.q03_dotarg.vif22b
+a2_qual golden   PREFIX 48:7           work@mid22b.q04_spaced.vif22b
+a2_qual ours   PREFIX 48:7           work@mid22b.q04_spaced.vif22b 
+a2_qual golden   PREFIX 53:7           work@mid22b.q05_spacedarg.vif22b
+a2_qual ours   PREFIX 53:7           work@mid22b.q05_spacedarg.vif22b 
+a2_qual golden   PREFIX 68:7           work@mid22b.q08_noargs.vif22b
+=== a3_holder ===
+a3_holder golden CALL method_func_call   31:14          poke22c
+a3_holder golden CALL method_func_call   36:14          poke22c
+a3_holder golden CALL method_func_call   36:27          path22c
+a3_holder golden CALL method_func_call   41:20          poke22c
+a3_holder golden CALL method_func_call   46:20          poke22c
+a3_holder golden CALL method_func_call   46:33          path22c
+a3_holder golden CALL method_func_call   52:17          poke22c
+a3_holder golden CALL method_func_call   52:30          path22c
+a3_holder golden CALL method_func_call   61:11          poke22c
+a3_holder golden CALL method_func_call   61:24          path22c
+a3_holder golden CALL method_func_call   71:15          poke22c
+a3_holder golden CALL method_func_call   71:29          path22c
+a3_holder golden CALL method_func_call   76:15          poke22c
+a3_holder golden CALL method_func_call   76:29          path22c
+a3_holder golden   PREFIX 31:7           work@holder22c::h01_plain::vif22c
+a3_holder golden   PREFIX 36:7           work@holder22c::h02_recvarg::vif22c
+a3_holder golden   PREFIX 41:7           work@holder22c::h03_idx::bank22c
+a3_holder ours   PREFIX 41:7           work@holder22c::h03_idx::bank22c[a_i]
+a3_holder golden   PREFIX 46:7           work@holder22c::h04_idxarg::bank22c
+a3_holder ours   PREFIX 46:7           work@holder22c::h04_idxarg::bank22c[a_i]
+a3_holder golden   PREFIX 52:10          work@holder22c::h05_body::vif22c
+a3_holder golden   PREFIX 61:4           holder22c::h06_oob.vif22c
+a3_holder ours   PREFIX 61:4           work@holder22c::h06_oob::vif22c
+a3_holder golden   PREFIX 71:7           work@mod22c.u_if22c
+a3_holder golden   PREFIX 76:7           work@mod22c.h08_modfn.u_if22c
+=== a4_dpi ===
+a4_dpi golden CALL func_call          26:7           ctrl22d
+a4_dpi golden CALL func_call          32:7           ctrl22d
+a4_dpi golden CALL func_call          41:10          stat22d
+a4_dpi golden CALL method_func_call   32:19          path22d
+a4_dpi golden CALL method_func_call   41:32          path22d
+=== a5_edge ===
+a5_edge ours CALL method_func_call   27:18          poke22e
+a5_edge golden CALL method_func_call   27:22          poke22e
+a5_edge ours CALL method_func_call   33:18          poke22e
+a5_edge golden CALL method_func_call   33:22          poke22e
+a5_edge ours CALL method_func_call   33:31          path22e
+a5_edge golden CALL method_func_call   33:35          path22e
+a5_edge ours   PREFIX 27:7           work@mod22e.e02_escrecv.\u.esc22e 
+a5_edge golden   PREFIX 27:7           work@mod22e.e02_escrecv.u.esc22e
+a5_edge ours   PREFIX 33:7           work@mod22e.e04_escarg.\u.esc22e 
+a5_edge golden   PREFIX 33:7           work@mod22e.e04_escarg.u.esc22e
+=== a6_reject ===
+a6_reject golden CALL func_call          31:7           get22f
+a6_reject golden CALL func_call          36:7           get22f
+a6_reject ours MISSING-DUMP
+
+############ THE ARMS' VERDICT (multiset join golden vs ours) ############
+ARM            PRIS_MISSING   PRIS_EXTRA      PAT_MISSING    PAT_EXTRA   VERDICT
+a1_home                  28           44                0            0   TOWARD-GOLDEN
+a2_qual                  20           20               10           10   TOWARD-GOLDEN
+a3_holder                31           31                3            3   TOWARD-GOLDEN
+a4_dpi                    8           12                0            0   TOWARD-GOLDEN
+a5_edge                  11           11               11           11   UNCHANGED
+a6_reject                 2            1                2            1   UNCHANGED
