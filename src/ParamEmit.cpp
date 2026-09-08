@@ -24022,10 +24022,39 @@ void UhdmExporter::emitPackageVar(const Symbol& vs, UHDM::instance* up,
         case SymbolKind::DynamicArrayType:
         case SymbolKind::AssociativeArrayType:
         case SymbolKind::QueueType:
-            // ...in the PACKAGE's own listing only; the copy an importing
-            // MODULE materialises is unmeasured, so it keeps dropping.
-            if (stampTsInstance)
-                emitPkgArrayVar(vs, up, prefix, out);
+            // § oobCtorLocalsRideTheImport203 — the copy an importing MODULE
+            // materialises is measured NOW and takes the same shape: golden's
+            // elaborated `work@top` lists `uvm_random_seed_table_lookup` as an
+            // `array_var` with an `array_typespec`, cell for cell the entry
+            // `uvm_pkg`'s own listing holds (SimpleUVM, both views).  The only
+            // difference is the vpiInstance stamp the caller already governs.
+            //
+            // ONE MEASURED EXCEPTION, and it is the module copy's alone: a
+            // container whose ELEMENT is a PACKED STRUCT is listed by the
+            // module's DEF view (as a net typed by the struct) and by the
+            // package's own listing, but NOT by the module's ELABORATED one.
+            // MEASURED on a real Surelog golden, `tools/probe/r10buvm25repro/
+            // g25.sv`, package `p25` -> module `top25`: golden's elaborated
+            // `work@top25` lists `pq_un` (a packed UNION typedef's queue),
+            // `pq_ai` (an int typedef's) and `pq_ac` (a class typedef's) and
+            // does NOT list `pq_st` (`S25 pq_st[$]`, `S25` a packed struct),
+            // while its DEF view carries all four and its package listing
+            // carries all four as NETS.  Without this the module copy invents
+            // an object golden does not have — the boundary gate's only two
+            // AWAY-GOLDEN cells, and the reason it exists.
+            if (!stampTsInstance) {
+                const Type* el203 = nullptr;
+                if (ct.kind == SymbolKind::QueueType)
+                    el203 = &ct.as<QueueType>().elementType;
+                else if (ct.kind == SymbolKind::DynamicArrayType)
+                    el203 = &ct.as<DynamicArrayType>().elementType;
+                else
+                    el203 = &ct.as<AssociativeArrayType>().elementType;
+                if (el203 && el203->getCanonicalType().kind ==
+                                 SymbolKind::PackedStructType)
+                    return;
+            }
+            emitPkgArrayVar(vs, up, prefix, out, stampTsInstance);
             return;
         case SymbolKind::FixedSizeUnpackedArrayType:
         case SymbolKind::UnpackedStructType:
@@ -24222,7 +24251,8 @@ void UhdmExporter::emitPackageVar(const Symbol& vs, UHDM::instance* up,
 // token inside the brackets.
 bool UhdmExporter::emitPkgArrayVar(const Symbol& vs, UHDM::instance* up,
                                    const std::string& prefix,
-                                   UHDM::VectorOfvariables* out) {
+                                   UHDM::VectorOfvariables* out,
+                                   bool stampTsInstance) {
     auto* dt = vs.getDeclaredType();
     if (!dt)
         return false;
@@ -24275,7 +24305,10 @@ bool UhdmExporter::emitPkgArrayVar(const Symbol& vs, UHDM::instance* up,
     // typespec (a class_typespec for both of BuildUVMPkg's), spanning the
     // written type tokens and resolved in the package's scope.
     UHDM::typespec* elemTs = makeTypespec(vs);
-    if (elemTs && !elemTs->Instance())
+    // § oobCtorLocalsRideTheImport203 — the MODULE copy re-creates its
+    // typespec outside the package's scope and carries NO vpiInstance, the
+    // same rule emitPackageVar's scalar arm already takes from the caller.
+    if (stampTsInstance && elemTs && !elemTs->Instance())
         elemTs->Instance(up);
     auto* reg = makeReturnVar(s, *elem);
     if (reg) {
@@ -24439,84 +24472,16 @@ bool UhdmExporter::emitPkgArrayVar(const Symbol& vs, UHDM::instance* up,
 // from the package listing).  Locals of every nesting depth are collected,
 // in source order; the caller interleaves them with the package's own
 // declarations by location.
+// § oobCtorLocalsRideTheImport203 — the walk itself now lives in
+// EmitHelpers.h as `collectOobCtorLocalsIn`, because the MODULE hoist
+// (collectImportedPkgVars) has to build the SAME listing this one does.  The
+// law and its measured distinguisher stay in the comment ABOVE, with the
+// member.  Nothing about the walk changed.
 void UhdmExporter::collectOobCtorLocals(const PackageSymbol& pkg,
                                         std::vector<const Symbol*>& out) {
-    std::function<void(const Scope&)> walk = [&](const Scope& sc) {
-        for (auto& m : sc.members()) {
-            if (m.kind == SymbolKind::Variable) {
-                // slang materialises an implicit `this` handle in every class
-                // method scope; it is not a written local and Surelog has no
-                // object for it.
-                if (m.as<VariableSymbol>().flags.has(
-                        VariableFlags::CompilerGenerated))
-                    continue;
-                // § ctorForInitIsNotAPkgDataDecl153v (r10uvm153 verifier) —
-                // a `for (int i = 0; ...)` CONTROL VARIABLE is NOT collected.
-                // `CompilePackage::collectObjects_` (CompilePackage.cpp:123)
-                // walks the package's SYNTAX and hands only `paData_declaration`
-                // block items to `compileDataDeclaration(m_package, ...)`
-                // (:261); a for-loop initialiser is a
-                // `paFor_variable_declaration`, a different node, and never
-                // reaches that call.  slang builds the loop variable with
-                // `VariableSymbol::fromSyntax(..., ForVariableDeclarationSyntax,
-                // ...)` -> `setFromDeclarator(*syntax.declarator)`, so the
-                // symbol's syntax is the DECLARATOR and its PARENT is the
-                // `ForVariableDeclaration` node -- that parent is the test.
-                // MEASURED (tools/probe/r10v153repro/arms/v153_f_faces.sv, one
-                // Surelog golden, both views): golden's `pvf153` listing holds
-                // 23 entries and NO `f_forv`, while ours held it at slot 5.
-                // A `foreach` loop variable is `SymbolKind::Iterator` and was
-                // already outside this walk.  Without this the class property
-                // `Rvf153::f_forv` binds a listing entry golden does not have
-                // and golden leaves BARE (the pass's only RIGHT->WRONG cell).
-                if (auto* fsx153 = m.getSyntax();
-                    fsx153 && fsx153->parent &&
-                    fsx153->parent->kind ==
-                        slang::syntax::SyntaxKind::ForVariableDeclaration)
-                    continue;
-                out.push_back(&m);
-            }
-            else if (m.kind == SymbolKind::StatementBlock)
-                walk(m.as<StatementBlockSymbol>());
-        }
-    };
-    auto scanClass = [&](const ClassType& c) {
-        std::vector<const Symbol*> memberList;
-        for (auto& m : c.members())
-            memberList.push_back(&m);
-        for (auto& m : c.members()) {
-            if (m.kind != SymbolKind::MethodPrototype)
-                continue;
-            auto& mp = m.as<MethodPrototypeSymbol>();
-            if (mp.flags.has(MethodFlags::Pure) || mp.name != "new")
-                continue;
-            auto* impl = mp.getSubroutine();
-            if (!impl || !impl->getSyntax())
-                continue;
-            // Out-of-body == the subroutine members() never yields (the same
-            // membership test emitTaskFuncs uses).
-            if (std::find(memberList.begin(), memberList.end(),
-                          (const Symbol*)impl) != memberList.end())
-                continue;
-            impl->getBody();
-            walk(*impl);
-        }
-    };
-    for (auto& mem : pkg.members()) {
-        if (mem.kind == SymbolKind::ClassType)
-            scanClass(mem.as<ClassType>());
-        else if (mem.kind == SymbolKind::GenericClassDef) {
-            if (auto* dsp =
-                    mem.as<GenericClassDefSymbol>().getDefaultSpecialization(pkg);
-                dsp && dsp->kind == SymbolKind::ClassType)
-                scanClass(dsp->as<ClassType>());
-        }
-    }
-    std::stable_sort(out.begin(), out.end(),
-                     [](const Symbol* a, const Symbol* b) {
-                         return a->location < b->location;
-                     });
+    collectOobCtorLocalsIn(pkg, out);
 }
+
 
 // After ALL def-view packages exist: insert the home def objects into the
 // importing packages' Typespecs slots, stamp Instance = the importing pkg,

@@ -1,0 +1,627 @@
+ARM g203_a_oob parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g203_a_oob.parse AGREE=110 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 GCELLS=110 OCELLS=110
+CENSUM PRIS:g203_a_oob.parse AGREE=68 TS-DIFF=2 ONLY-GOLDEN=40 ONLY-OURS=4 GCELLS=110 OCELLS=74
+CELL PRIS:g203_a_oob.parse AGREE=68 TS-DIFF=2 ONLY-GOLDEN=40 ONLY-OURS=4 GCELLS=110 OCELLS=74
+CELL PRIS:g203_a_oob.parse DIFF	ARITY	work@ga203	def	NETS			G={'26': 1}	O={'11': 1}
+CELL PRIS:g203_a_oob.parse DIFF	ARITY	work@ga203	elab	VARS			G={'25': 1}	O={'10': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	NAMEMULT	work@ga203	def	NETS	oob_blk_cls		x1	{'3': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	NAMEMULT	work@ga203	def	NETS	oob_blk_int		x1	{'3': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	NAMEMULT	work@ga203	def	NETS	oob_fn_cls		x1	{'3': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	NAMEMULT	work@ga203	def	NETS	oob_fn_int		x1	{'3': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	NAMEMULT	work@ga203	def	NETS	oob_fn_str		x1	{'3': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	NAMEMULT	work@ga203	elab	VARS	oob_blk_cls		x1	{'3': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	NAMEMULT	work@ga203	elab	VARS	oob_blk_int		x1	{'3': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	NAMEMULT	work@ga203	elab	VARS	oob_fn_cls		x1	{'3': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	NAMEMULT	work@ga203	elab	VARS	oob_fn_int		x1	{'3': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	NAMEMULT	work@ga203	elab	VARS	oob_fn_str		x1	{'3': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	NET	work@ga203	def	oob_blk_cls	0		x1	{'logic_net|nt=0|ts=class_typespec:Ca203': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	NET	work@ga203	def	oob_blk_cls	1		x1	{'logic_net|nt=0|ts=class_typespec:Ca203': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	NET	work@ga203	def	oob_blk_cls	2		x1	{'logic_net|nt=0|ts=class_typespec:Ca203': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	NET	work@ga203	def	oob_blk_int	0		x1	{'logic_net|nt=0|ts=int_typespec:': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	NET	work@ga203	def	oob_blk_int	1		x1	{'logic_net|nt=0|ts=int_typespec:': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	NET	work@ga203	def	oob_blk_int	2		x1	{'logic_net|nt=0|ts=int_typespec:': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	NET	work@ga203	def	oob_fn_cls	0		x1	{'logic_net|nt=0|ts=class_typespec:Ca203': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	NET	work@ga203	def	oob_fn_cls	1		x1	{'logic_net|nt=0|ts=class_typespec:Ca203': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	NET	work@ga203	def	oob_fn_cls	2		x1	{'logic_net|nt=0|ts=class_typespec:Ca203': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	NET	work@ga203	def	oob_fn_int	0		x1	{'logic_net|nt=0|ts=int_typespec:': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	NET	work@ga203	def	oob_fn_int	1		x1	{'logic_net|nt=0|ts=int_typespec:': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	NET	work@ga203	def	oob_fn_int	2		x1	{'logic_net|nt=0|ts=int_typespec:': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	NET	work@ga203	def	oob_fn_str	0		x1	{'logic_net|nt=0|ts=string_typespec:': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	NET	work@ga203	def	oob_fn_str	1		x1	{'logic_net|nt=0|ts=string_typespec:': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	NET	work@ga203	def	oob_fn_str	2		x1	{'logic_net|nt=0|ts=string_typespec:': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	VAR	work@ga203	elab	oob_blk_cls	0		x1	{'class_var|ts=class_typespec:Ca203': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	VAR	work@ga203	elab	oob_blk_cls	1		x1	{'class_var|ts=class_typespec:Ca203': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	VAR	work@ga203	elab	oob_blk_cls	2		x1	{'class_var|ts=class_typespec:Ca203': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	VAR	work@ga203	elab	oob_blk_int	0		x1	{'int_var|ts=int_typespec:': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	VAR	work@ga203	elab	oob_blk_int	1		x1	{'int_var|ts=int_typespec:': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	VAR	work@ga203	elab	oob_blk_int	2		x1	{'int_var|ts=int_typespec:': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	VAR	work@ga203	elab	oob_fn_cls	0		x1	{'class_var|ts=class_typespec:Ca203': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	VAR	work@ga203	elab	oob_fn_cls	1		x1	{'class_var|ts=class_typespec:Ca203': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	VAR	work@ga203	elab	oob_fn_cls	2		x1	{'class_var|ts=class_typespec:Ca203': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	VAR	work@ga203	elab	oob_fn_int	0		x1	{'int_var|ts=int_typespec:': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	VAR	work@ga203	elab	oob_fn_int	1		x1	{'int_var|ts=int_typespec:': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	VAR	work@ga203	elab	oob_fn_int	2		x1	{'int_var|ts=int_typespec:': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	VAR	work@ga203	elab	oob_fn_str	0		x1	{'string_var|ts=string_typespec:': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	VAR	work@ga203	elab	oob_fn_str	1		x1	{'string_var|ts=string_typespec:': 1}
+CELL PRIS:g203_a_oob.parse ONLY-GOLDEN	VAR	work@ga203	elab	oob_fn_str	2		x1	{'string_var|ts=string_typespec:': 1}
+CELL PRIS:g203_a_oob.parse ONLY-OURS	ARITY	builtin	defpkg	NETS			x1	{'0': 1}
+CELL PRIS:g203_a_oob.parse ONLY-OURS	ARITY	builtin	defpkg	VARS			x1	{'0': 1}
+CELL PRIS:g203_a_oob.parse ONLY-OURS	ARITY	builtin	elabpkg	NETS			x1	{'0': 1}
+CELL PRIS:g203_a_oob.parse ONLY-OURS	ARITY	builtin	elabpkg	VARS			x1	{'0': 1}
+CENSUM PATCHED:g203_a_oob.parse AGREE=110 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=4 GCELLS=110 OCELLS=114
+CELL PATCHED:g203_a_oob.parse AGREE=110 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=4 GCELLS=110 OCELLS=114
+CELL PATCHED:g203_a_oob.parse ONLY-OURS	ARITY	builtin	defpkg	NETS			x1	{'0': 1}
+CELL PATCHED:g203_a_oob.parse ONLY-OURS	ARITY	builtin	defpkg	VARS			x1	{'0': 1}
+CELL PATCHED:g203_a_oob.parse ONLY-OURS	ARITY	builtin	elabpkg	NETS			x1	{'0': 1}
+CELL PATCHED:g203_a_oob.parse ONLY-OURS	ARITY	builtin	elabpkg	VARS			x1	{'0': 1}
+ARM g203_a_oob elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g203_a_oob.elab AGREE=110 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 GCELLS=110 OCELLS=110
+CENSUM PRIS:g203_a_oob.elab AGREE=68 TS-DIFF=2 ONLY-GOLDEN=40 ONLY-OURS=4 GCELLS=110 OCELLS=74
+CELL PRIS:g203_a_oob.elab AGREE=68 TS-DIFF=2 ONLY-GOLDEN=40 ONLY-OURS=4 GCELLS=110 OCELLS=74
+CELL PRIS:g203_a_oob.elab DIFF	ARITY	work@ga203	def	NETS			G={'26': 1}	O={'11': 1}
+CELL PRIS:g203_a_oob.elab DIFF	ARITY	work@ga203	elab	VARS			G={'25': 1}	O={'10': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	NAMEMULT	work@ga203	def	NETS	oob_blk_cls		x1	{'3': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	NAMEMULT	work@ga203	def	NETS	oob_blk_int		x1	{'3': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	NAMEMULT	work@ga203	def	NETS	oob_fn_cls		x1	{'3': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	NAMEMULT	work@ga203	def	NETS	oob_fn_int		x1	{'3': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	NAMEMULT	work@ga203	def	NETS	oob_fn_str		x1	{'3': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	NAMEMULT	work@ga203	elab	VARS	oob_blk_cls		x1	{'3': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	NAMEMULT	work@ga203	elab	VARS	oob_blk_int		x1	{'3': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	NAMEMULT	work@ga203	elab	VARS	oob_fn_cls		x1	{'3': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	NAMEMULT	work@ga203	elab	VARS	oob_fn_int		x1	{'3': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	NAMEMULT	work@ga203	elab	VARS	oob_fn_str		x1	{'3': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	NET	work@ga203	def	oob_blk_cls	0		x1	{'logic_net|nt=0|ts=class_typespec:Ca203': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	NET	work@ga203	def	oob_blk_cls	1		x1	{'logic_net|nt=0|ts=class_typespec:Ca203': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	NET	work@ga203	def	oob_blk_cls	2		x1	{'logic_net|nt=0|ts=class_typespec:Ca203': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	NET	work@ga203	def	oob_blk_int	0		x1	{'logic_net|nt=0|ts=int_typespec:': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	NET	work@ga203	def	oob_blk_int	1		x1	{'logic_net|nt=0|ts=int_typespec:': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	NET	work@ga203	def	oob_blk_int	2		x1	{'logic_net|nt=0|ts=int_typespec:': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	NET	work@ga203	def	oob_fn_cls	0		x1	{'logic_net|nt=0|ts=class_typespec:Ca203': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	NET	work@ga203	def	oob_fn_cls	1		x1	{'logic_net|nt=0|ts=class_typespec:Ca203': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	NET	work@ga203	def	oob_fn_cls	2		x1	{'logic_net|nt=0|ts=class_typespec:Ca203': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	NET	work@ga203	def	oob_fn_int	0		x1	{'logic_net|nt=0|ts=int_typespec:': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	NET	work@ga203	def	oob_fn_int	1		x1	{'logic_net|nt=0|ts=int_typespec:': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	NET	work@ga203	def	oob_fn_int	2		x1	{'logic_net|nt=0|ts=int_typespec:': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	NET	work@ga203	def	oob_fn_str	0		x1	{'logic_net|nt=0|ts=string_typespec:': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	NET	work@ga203	def	oob_fn_str	1		x1	{'logic_net|nt=0|ts=string_typespec:': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	NET	work@ga203	def	oob_fn_str	2		x1	{'logic_net|nt=0|ts=string_typespec:': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	VAR	work@ga203	elab	oob_blk_cls	0		x1	{'class_var|ts=class_typespec:Ca203': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	VAR	work@ga203	elab	oob_blk_cls	1		x1	{'class_var|ts=class_typespec:Ca203': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	VAR	work@ga203	elab	oob_blk_cls	2		x1	{'class_var|ts=class_typespec:Ca203': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	VAR	work@ga203	elab	oob_blk_int	0		x1	{'int_var|ts=int_typespec:': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	VAR	work@ga203	elab	oob_blk_int	1		x1	{'int_var|ts=int_typespec:': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	VAR	work@ga203	elab	oob_blk_int	2		x1	{'int_var|ts=int_typespec:': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	VAR	work@ga203	elab	oob_fn_cls	0		x1	{'class_var|ts=class_typespec:Ca203': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	VAR	work@ga203	elab	oob_fn_cls	1		x1	{'class_var|ts=class_typespec:Ca203': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	VAR	work@ga203	elab	oob_fn_cls	2		x1	{'class_var|ts=class_typespec:Ca203': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	VAR	work@ga203	elab	oob_fn_int	0		x1	{'int_var|ts=int_typespec:': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	VAR	work@ga203	elab	oob_fn_int	1		x1	{'int_var|ts=int_typespec:': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	VAR	work@ga203	elab	oob_fn_int	2		x1	{'int_var|ts=int_typespec:': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	VAR	work@ga203	elab	oob_fn_str	0		x1	{'string_var|ts=string_typespec:': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	VAR	work@ga203	elab	oob_fn_str	1		x1	{'string_var|ts=string_typespec:': 1}
+CELL PRIS:g203_a_oob.elab ONLY-GOLDEN	VAR	work@ga203	elab	oob_fn_str	2		x1	{'string_var|ts=string_typespec:': 1}
+CELL PRIS:g203_a_oob.elab ONLY-OURS	ARITY	builtin	defpkg	NETS			x1	{'0': 1}
+CELL PRIS:g203_a_oob.elab ONLY-OURS	ARITY	builtin	defpkg	VARS			x1	{'0': 1}
+CELL PRIS:g203_a_oob.elab ONLY-OURS	ARITY	builtin	elabpkg	NETS			x1	{'0': 1}
+CELL PRIS:g203_a_oob.elab ONLY-OURS	ARITY	builtin	elabpkg	VARS			x1	{'0': 1}
+CENSUM PATCHED:g203_a_oob.elab AGREE=110 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=4 GCELLS=110 OCELLS=114
+CELL PATCHED:g203_a_oob.elab AGREE=110 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=4 GCELLS=110 OCELLS=114
+CELL PATCHED:g203_a_oob.elab ONLY-OURS	ARITY	builtin	defpkg	NETS			x1	{'0': 1}
+CELL PATCHED:g203_a_oob.elab ONLY-OURS	ARITY	builtin	defpkg	VARS			x1	{'0': 1}
+CELL PATCHED:g203_a_oob.elab ONLY-OURS	ARITY	builtin	elabpkg	NETS			x1	{'0': 1}
+CELL PATCHED:g203_a_oob.elab ONLY-OURS	ARITY	builtin	elabpkg	VARS			x1	{'0': 1}
+ARM g203_b_cont parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g203_b_cont.parse AGREE=82 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 GCELLS=82 OCELLS=82
+CENSUM PRIS:g203_b_cont.parse AGREE=40 TS-DIFF=4 ONLY-GOLDEN=38 ONLY-OURS=4 GCELLS=82 OCELLS=48
+CELL PRIS:g203_b_cont.parse AGREE=40 TS-DIFF=4 ONLY-GOLDEN=38 ONLY-OURS=4 GCELLS=82 OCELLS=48
+CELL PRIS:g203_b_cont.parse DIFF	ARITY	work@gb203	def	NETS			G={'15': 1}	O={'5': 1}
+CELL PRIS:g203_b_cont.parse DIFF	ARITY	work@gb203	elab	VARS			G={'15': 1}	O={'5': 1}
+CELL PRIS:g203_b_cont.parse DIFF	ARITY	pb203	defpkg	VARS			G={'7': 1}	O={'5': 1}
+CELL PRIS:g203_b_cont.parse DIFF	ARITY	pb203	elabpkg	VARS			G={'7': 1}	O={'5': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	NAMEMULT	pb203	defpkg	VARS	b_fixed		x1	{'1': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	NAMEMULT	pb203	defpkg	VARS	b_ustruct		x1	{'1': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	NAMEMULT	pb203	elabpkg	VARS	b_fixed		x1	{'1': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	NAMEMULT	pb203	elabpkg	VARS	b_ustruct		x1	{'1': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	NAMEMULT	work@gb203	def	NETS	b_assoc		x1	{'2': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	NAMEMULT	work@gb203	def	NETS	b_dyn		x1	{'2': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	NAMEMULT	work@gb203	def	NETS	b_fixed		x1	{'2': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	NAMEMULT	work@gb203	def	NETS	b_que		x1	{'2': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	NAMEMULT	work@gb203	def	NETS	b_ustruct		x1	{'2': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	NAMEMULT	work@gb203	elab	VARS	b_assoc		x1	{'2': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	NAMEMULT	work@gb203	elab	VARS	b_dyn		x1	{'2': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	NAMEMULT	work@gb203	elab	VARS	b_fixed		x1	{'2': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	NAMEMULT	work@gb203	elab	VARS	b_que		x1	{'2': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	NAMEMULT	work@gb203	elab	VARS	b_ustruct		x1	{'2': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	NET	work@gb203	def	b_assoc	0		x1	{'logic_net|nt=0|ts=class_typespec:Cb203': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	NET	work@gb203	def	b_assoc	1		x1	{'logic_net|nt=0|ts=class_typespec:Cb203': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	NET	work@gb203	def	b_dyn	0		x1	{'logic_net|nt=0|ts=class_typespec:Cb203': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	NET	work@gb203	def	b_dyn	1		x1	{'logic_net|nt=0|ts=class_typespec:Cb203': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	NET	work@gb203	def	b_fixed	0		x1	{'logic_net|nt=0|ts=int_typespec:': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	NET	work@gb203	def	b_fixed	1		x1	{'logic_net|nt=0|ts=int_typespec:': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	NET	work@gb203	def	b_que	0		x1	{'logic_net|nt=0|ts=class_typespec:Cb203': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	NET	work@gb203	def	b_que	1		x1	{'logic_net|nt=0|ts=class_typespec:Cb203': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	NET	work@gb203	def	b_ustruct	0		x1	{'logic_net|nt=0|ts=struct_typespec:pb203::ub203_t': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	NET	work@gb203	def	b_ustruct	1		x1	{'logic_net|nt=0|ts=struct_typespec:pb203::ub203_t': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	VAR	pb203	defpkg	b_fixed	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	VAR	pb203	defpkg	b_ustruct	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	VAR	pb203	elabpkg	b_fixed	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	VAR	pb203	elabpkg	b_ustruct	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	VAR	work@gb203	elab	b_assoc	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	VAR	work@gb203	elab	b_assoc	1		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	VAR	work@gb203	elab	b_dyn	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	VAR	work@gb203	elab	b_dyn	1		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	VAR	work@gb203	elab	b_fixed	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	VAR	work@gb203	elab	b_fixed	1		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	VAR	work@gb203	elab	b_que	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	VAR	work@gb203	elab	b_que	1		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	VAR	work@gb203	elab	b_ustruct	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_b_cont.parse ONLY-GOLDEN	VAR	work@gb203	elab	b_ustruct	1		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_b_cont.parse ONLY-OURS	ARITY	builtin	defpkg	NETS			x1	{'0': 1}
+CELL PRIS:g203_b_cont.parse ONLY-OURS	ARITY	builtin	defpkg	VARS			x1	{'0': 1}
+CELL PRIS:g203_b_cont.parse ONLY-OURS	ARITY	builtin	elabpkg	NETS			x1	{'0': 1}
+CELL PRIS:g203_b_cont.parse ONLY-OURS	ARITY	builtin	elabpkg	VARS			x1	{'0': 1}
+CENSUM PATCHED:g203_b_cont.parse AGREE=58 TS-DIFF=4 ONLY-GOLDEN=20 ONLY-OURS=4 GCELLS=82 OCELLS=66
+CELL PATCHED:g203_b_cont.parse AGREE=58 TS-DIFF=4 ONLY-GOLDEN=20 ONLY-OURS=4 GCELLS=82 OCELLS=66
+CELL PATCHED:g203_b_cont.parse DIFF	ARITY	work@gb203	def	NETS			G={'15': 1}	O={'11': 1}
+CELL PATCHED:g203_b_cont.parse DIFF	ARITY	work@gb203	elab	VARS			G={'15': 1}	O={'11': 1}
+CELL PATCHED:g203_b_cont.parse DIFF	ARITY	pb203	defpkg	VARS			G={'7': 1}	O={'5': 1}
+CELL PATCHED:g203_b_cont.parse DIFF	ARITY	pb203	elabpkg	VARS			G={'7': 1}	O={'5': 1}
+CELL PATCHED:g203_b_cont.parse ONLY-GOLDEN	NAMEMULT	pb203	defpkg	VARS	b_fixed		x1	{'1': 1}
+CELL PATCHED:g203_b_cont.parse ONLY-GOLDEN	NAMEMULT	pb203	defpkg	VARS	b_ustruct		x1	{'1': 1}
+CELL PATCHED:g203_b_cont.parse ONLY-GOLDEN	NAMEMULT	pb203	elabpkg	VARS	b_fixed		x1	{'1': 1}
+CELL PATCHED:g203_b_cont.parse ONLY-GOLDEN	NAMEMULT	pb203	elabpkg	VARS	b_ustruct		x1	{'1': 1}
+CELL PATCHED:g203_b_cont.parse ONLY-GOLDEN	NAMEMULT	work@gb203	def	NETS	b_fixed		x1	{'2': 1}
+CELL PATCHED:g203_b_cont.parse ONLY-GOLDEN	NAMEMULT	work@gb203	def	NETS	b_ustruct		x1	{'2': 1}
+CELL PATCHED:g203_b_cont.parse ONLY-GOLDEN	NAMEMULT	work@gb203	elab	VARS	b_fixed		x1	{'2': 1}
+CELL PATCHED:g203_b_cont.parse ONLY-GOLDEN	NAMEMULT	work@gb203	elab	VARS	b_ustruct		x1	{'2': 1}
+CELL PATCHED:g203_b_cont.parse ONLY-GOLDEN	NET	work@gb203	def	b_fixed	0		x1	{'logic_net|nt=0|ts=int_typespec:': 1}
+CELL PATCHED:g203_b_cont.parse ONLY-GOLDEN	NET	work@gb203	def	b_fixed	1		x1	{'logic_net|nt=0|ts=int_typespec:': 1}
+CELL PATCHED:g203_b_cont.parse ONLY-GOLDEN	NET	work@gb203	def	b_ustruct	0		x1	{'logic_net|nt=0|ts=struct_typespec:pb203::ub203_t': 1}
+CELL PATCHED:g203_b_cont.parse ONLY-GOLDEN	NET	work@gb203	def	b_ustruct	1		x1	{'logic_net|nt=0|ts=struct_typespec:pb203::ub203_t': 1}
+CELL PATCHED:g203_b_cont.parse ONLY-GOLDEN	VAR	pb203	defpkg	b_fixed	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PATCHED:g203_b_cont.parse ONLY-GOLDEN	VAR	pb203	defpkg	b_ustruct	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PATCHED:g203_b_cont.parse ONLY-GOLDEN	VAR	pb203	elabpkg	b_fixed	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PATCHED:g203_b_cont.parse ONLY-GOLDEN	VAR	pb203	elabpkg	b_ustruct	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PATCHED:g203_b_cont.parse ONLY-GOLDEN	VAR	work@gb203	elab	b_fixed	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PATCHED:g203_b_cont.parse ONLY-GOLDEN	VAR	work@gb203	elab	b_fixed	1		x1	{'array_var|ts=array_typespec:': 1}
+CELL PATCHED:g203_b_cont.parse ONLY-GOLDEN	VAR	work@gb203	elab	b_ustruct	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PATCHED:g203_b_cont.parse ONLY-GOLDEN	VAR	work@gb203	elab	b_ustruct	1		x1	{'array_var|ts=array_typespec:': 1}
+CELL PATCHED:g203_b_cont.parse ONLY-OURS	ARITY	builtin	defpkg	NETS			x1	{'0': 1}
+CELL PATCHED:g203_b_cont.parse ONLY-OURS	ARITY	builtin	defpkg	VARS			x1	{'0': 1}
+CELL PATCHED:g203_b_cont.parse ONLY-OURS	ARITY	builtin	elabpkg	NETS			x1	{'0': 1}
+CELL PATCHED:g203_b_cont.parse ONLY-OURS	ARITY	builtin	elabpkg	VARS			x1	{'0': 1}
+ARM g203_b_cont elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g203_b_cont.elab AGREE=82 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 GCELLS=82 OCELLS=82
+CENSUM PRIS:g203_b_cont.elab AGREE=40 TS-DIFF=4 ONLY-GOLDEN=38 ONLY-OURS=4 GCELLS=82 OCELLS=48
+CELL PRIS:g203_b_cont.elab AGREE=40 TS-DIFF=4 ONLY-GOLDEN=38 ONLY-OURS=4 GCELLS=82 OCELLS=48
+CELL PRIS:g203_b_cont.elab DIFF	ARITY	work@gb203	def	NETS			G={'15': 1}	O={'5': 1}
+CELL PRIS:g203_b_cont.elab DIFF	ARITY	work@gb203	elab	VARS			G={'15': 1}	O={'5': 1}
+CELL PRIS:g203_b_cont.elab DIFF	ARITY	pb203	defpkg	VARS			G={'7': 1}	O={'5': 1}
+CELL PRIS:g203_b_cont.elab DIFF	ARITY	pb203	elabpkg	VARS			G={'7': 1}	O={'5': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	NAMEMULT	pb203	defpkg	VARS	b_fixed		x1	{'1': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	NAMEMULT	pb203	defpkg	VARS	b_ustruct		x1	{'1': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	NAMEMULT	pb203	elabpkg	VARS	b_fixed		x1	{'1': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	NAMEMULT	pb203	elabpkg	VARS	b_ustruct		x1	{'1': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	NAMEMULT	work@gb203	def	NETS	b_assoc		x1	{'2': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	NAMEMULT	work@gb203	def	NETS	b_dyn		x1	{'2': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	NAMEMULT	work@gb203	def	NETS	b_fixed		x1	{'2': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	NAMEMULT	work@gb203	def	NETS	b_que		x1	{'2': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	NAMEMULT	work@gb203	def	NETS	b_ustruct		x1	{'2': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	NAMEMULT	work@gb203	elab	VARS	b_assoc		x1	{'2': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	NAMEMULT	work@gb203	elab	VARS	b_dyn		x1	{'2': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	NAMEMULT	work@gb203	elab	VARS	b_fixed		x1	{'2': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	NAMEMULT	work@gb203	elab	VARS	b_que		x1	{'2': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	NAMEMULT	work@gb203	elab	VARS	b_ustruct		x1	{'2': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	NET	work@gb203	def	b_assoc	0		x1	{'logic_net|nt=0|ts=class_typespec:Cb203': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	NET	work@gb203	def	b_assoc	1		x1	{'logic_net|nt=0|ts=class_typespec:Cb203': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	NET	work@gb203	def	b_dyn	0		x1	{'logic_net|nt=0|ts=class_typespec:Cb203': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	NET	work@gb203	def	b_dyn	1		x1	{'logic_net|nt=0|ts=class_typespec:Cb203': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	NET	work@gb203	def	b_fixed	0		x1	{'logic_net|nt=0|ts=int_typespec:': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	NET	work@gb203	def	b_fixed	1		x1	{'logic_net|nt=0|ts=int_typespec:': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	NET	work@gb203	def	b_que	0		x1	{'logic_net|nt=0|ts=class_typespec:Cb203': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	NET	work@gb203	def	b_que	1		x1	{'logic_net|nt=0|ts=class_typespec:Cb203': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	NET	work@gb203	def	b_ustruct	0		x1	{'logic_net|nt=0|ts=struct_typespec:pb203::ub203_t': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	NET	work@gb203	def	b_ustruct	1		x1	{'logic_net|nt=0|ts=struct_typespec:pb203::ub203_t': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	VAR	pb203	defpkg	b_fixed	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	VAR	pb203	defpkg	b_ustruct	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	VAR	pb203	elabpkg	b_fixed	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	VAR	pb203	elabpkg	b_ustruct	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	VAR	work@gb203	elab	b_assoc	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	VAR	work@gb203	elab	b_assoc	1		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	VAR	work@gb203	elab	b_dyn	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	VAR	work@gb203	elab	b_dyn	1		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	VAR	work@gb203	elab	b_fixed	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	VAR	work@gb203	elab	b_fixed	1		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	VAR	work@gb203	elab	b_que	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	VAR	work@gb203	elab	b_que	1		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	VAR	work@gb203	elab	b_ustruct	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_b_cont.elab ONLY-GOLDEN	VAR	work@gb203	elab	b_ustruct	1		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_b_cont.elab ONLY-OURS	ARITY	builtin	defpkg	NETS			x1	{'0': 1}
+CELL PRIS:g203_b_cont.elab ONLY-OURS	ARITY	builtin	defpkg	VARS			x1	{'0': 1}
+CELL PRIS:g203_b_cont.elab ONLY-OURS	ARITY	builtin	elabpkg	NETS			x1	{'0': 1}
+CELL PRIS:g203_b_cont.elab ONLY-OURS	ARITY	builtin	elabpkg	VARS			x1	{'0': 1}
+CENSUM PATCHED:g203_b_cont.elab AGREE=58 TS-DIFF=4 ONLY-GOLDEN=20 ONLY-OURS=4 GCELLS=82 OCELLS=66
+CELL PATCHED:g203_b_cont.elab AGREE=58 TS-DIFF=4 ONLY-GOLDEN=20 ONLY-OURS=4 GCELLS=82 OCELLS=66
+CELL PATCHED:g203_b_cont.elab DIFF	ARITY	work@gb203	def	NETS			G={'15': 1}	O={'11': 1}
+CELL PATCHED:g203_b_cont.elab DIFF	ARITY	work@gb203	elab	VARS			G={'15': 1}	O={'11': 1}
+CELL PATCHED:g203_b_cont.elab DIFF	ARITY	pb203	defpkg	VARS			G={'7': 1}	O={'5': 1}
+CELL PATCHED:g203_b_cont.elab DIFF	ARITY	pb203	elabpkg	VARS			G={'7': 1}	O={'5': 1}
+CELL PATCHED:g203_b_cont.elab ONLY-GOLDEN	NAMEMULT	pb203	defpkg	VARS	b_fixed		x1	{'1': 1}
+CELL PATCHED:g203_b_cont.elab ONLY-GOLDEN	NAMEMULT	pb203	defpkg	VARS	b_ustruct		x1	{'1': 1}
+CELL PATCHED:g203_b_cont.elab ONLY-GOLDEN	NAMEMULT	pb203	elabpkg	VARS	b_fixed		x1	{'1': 1}
+CELL PATCHED:g203_b_cont.elab ONLY-GOLDEN	NAMEMULT	pb203	elabpkg	VARS	b_ustruct		x1	{'1': 1}
+CELL PATCHED:g203_b_cont.elab ONLY-GOLDEN	NAMEMULT	work@gb203	def	NETS	b_fixed		x1	{'2': 1}
+CELL PATCHED:g203_b_cont.elab ONLY-GOLDEN	NAMEMULT	work@gb203	def	NETS	b_ustruct		x1	{'2': 1}
+CELL PATCHED:g203_b_cont.elab ONLY-GOLDEN	NAMEMULT	work@gb203	elab	VARS	b_fixed		x1	{'2': 1}
+CELL PATCHED:g203_b_cont.elab ONLY-GOLDEN	NAMEMULT	work@gb203	elab	VARS	b_ustruct		x1	{'2': 1}
+CELL PATCHED:g203_b_cont.elab ONLY-GOLDEN	NET	work@gb203	def	b_fixed	0		x1	{'logic_net|nt=0|ts=int_typespec:': 1}
+CELL PATCHED:g203_b_cont.elab ONLY-GOLDEN	NET	work@gb203	def	b_fixed	1		x1	{'logic_net|nt=0|ts=int_typespec:': 1}
+CELL PATCHED:g203_b_cont.elab ONLY-GOLDEN	NET	work@gb203	def	b_ustruct	0		x1	{'logic_net|nt=0|ts=struct_typespec:pb203::ub203_t': 1}
+CELL PATCHED:g203_b_cont.elab ONLY-GOLDEN	NET	work@gb203	def	b_ustruct	1		x1	{'logic_net|nt=0|ts=struct_typespec:pb203::ub203_t': 1}
+CELL PATCHED:g203_b_cont.elab ONLY-GOLDEN	VAR	pb203	defpkg	b_fixed	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PATCHED:g203_b_cont.elab ONLY-GOLDEN	VAR	pb203	defpkg	b_ustruct	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PATCHED:g203_b_cont.elab ONLY-GOLDEN	VAR	pb203	elabpkg	b_fixed	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PATCHED:g203_b_cont.elab ONLY-GOLDEN	VAR	pb203	elabpkg	b_ustruct	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PATCHED:g203_b_cont.elab ONLY-GOLDEN	VAR	work@gb203	elab	b_fixed	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PATCHED:g203_b_cont.elab ONLY-GOLDEN	VAR	work@gb203	elab	b_fixed	1		x1	{'array_var|ts=array_typespec:': 1}
+CELL PATCHED:g203_b_cont.elab ONLY-GOLDEN	VAR	work@gb203	elab	b_ustruct	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PATCHED:g203_b_cont.elab ONLY-GOLDEN	VAR	work@gb203	elab	b_ustruct	1		x1	{'array_var|ts=array_typespec:': 1}
+CELL PATCHED:g203_b_cont.elab ONLY-OURS	ARITY	builtin	defpkg	NETS			x1	{'0': 1}
+CELL PATCHED:g203_b_cont.elab ONLY-OURS	ARITY	builtin	defpkg	VARS			x1	{'0': 1}
+CELL PATCHED:g203_b_cont.elab ONLY-OURS	ARITY	builtin	elabpkg	NETS			x1	{'0': 1}
+CELL PATCHED:g203_b_cont.elab ONLY-OURS	ARITY	builtin	elabpkg	VARS			x1	{'0': 1}
+ARM g203_c_mult parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g203_c_mult.parse AGREE=44 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 GCELLS=44 OCELLS=44
+CENSUM PRIS:g203_c_mult.parse AGREE=30 TS-DIFF=2 ONLY-GOLDEN=12 ONLY-OURS=4 GCELLS=44 OCELLS=36
+CELL PRIS:g203_c_mult.parse AGREE=30 TS-DIFF=2 ONLY-GOLDEN=12 ONLY-OURS=4 GCELLS=44 OCELLS=36
+CELL PRIS:g203_c_mult.parse DIFF	ARITY	work@gc203	def	NETS			G={'5': 1}	O={'2': 1}
+CELL PRIS:g203_c_mult.parse DIFF	ARITY	work@gc203	elab	VARS			G={'5': 1}	O={'2': 1}
+CELL PRIS:g203_c_mult.parse ONLY-GOLDEN	NAMEMULT	work@gc203	def	NETS	c_blk_str		x1	{'1': 1}
+CELL PRIS:g203_c_mult.parse ONLY-GOLDEN	NAMEMULT	work@gc203	def	NETS	c_fn_cls		x1	{'1': 1}
+CELL PRIS:g203_c_mult.parse ONLY-GOLDEN	NAMEMULT	work@gc203	def	NETS	c_fn_int		x1	{'1': 1}
+CELL PRIS:g203_c_mult.parse ONLY-GOLDEN	NAMEMULT	work@gc203	elab	VARS	c_blk_str		x1	{'1': 1}
+CELL PRIS:g203_c_mult.parse ONLY-GOLDEN	NAMEMULT	work@gc203	elab	VARS	c_fn_cls		x1	{'1': 1}
+CELL PRIS:g203_c_mult.parse ONLY-GOLDEN	NAMEMULT	work@gc203	elab	VARS	c_fn_int		x1	{'1': 1}
+CELL PRIS:g203_c_mult.parse ONLY-GOLDEN	NET	work@gc203	def	c_blk_str	0		x1	{'logic_net|nt=0|ts=string_typespec:': 1}
+CELL PRIS:g203_c_mult.parse ONLY-GOLDEN	NET	work@gc203	def	c_fn_cls	0		x1	{'logic_net|nt=0|ts=class_typespec:Cc203': 1}
+CELL PRIS:g203_c_mult.parse ONLY-GOLDEN	NET	work@gc203	def	c_fn_int	0		x1	{'logic_net|nt=0|ts=int_typespec:': 1}
+CELL PRIS:g203_c_mult.parse ONLY-GOLDEN	VAR	work@gc203	elab	c_blk_str	0		x1	{'string_var|ts=string_typespec:': 1}
+CELL PRIS:g203_c_mult.parse ONLY-GOLDEN	VAR	work@gc203	elab	c_fn_cls	0		x1	{'class_var|ts=class_typespec:Cc203': 1}
+CELL PRIS:g203_c_mult.parse ONLY-GOLDEN	VAR	work@gc203	elab	c_fn_int	0		x1	{'int_var|ts=int_typespec:': 1}
+CELL PRIS:g203_c_mult.parse ONLY-OURS	ARITY	builtin	defpkg	NETS			x1	{'0': 1}
+CELL PRIS:g203_c_mult.parse ONLY-OURS	ARITY	builtin	defpkg	VARS			x1	{'0': 1}
+CELL PRIS:g203_c_mult.parse ONLY-OURS	ARITY	builtin	elabpkg	NETS			x1	{'0': 1}
+CELL PRIS:g203_c_mult.parse ONLY-OURS	ARITY	builtin	elabpkg	VARS			x1	{'0': 1}
+CENSUM PATCHED:g203_c_mult.parse AGREE=44 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=4 GCELLS=44 OCELLS=48
+CELL PATCHED:g203_c_mult.parse AGREE=44 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=4 GCELLS=44 OCELLS=48
+CELL PATCHED:g203_c_mult.parse ONLY-OURS	ARITY	builtin	defpkg	NETS			x1	{'0': 1}
+CELL PATCHED:g203_c_mult.parse ONLY-OURS	ARITY	builtin	defpkg	VARS			x1	{'0': 1}
+CELL PATCHED:g203_c_mult.parse ONLY-OURS	ARITY	builtin	elabpkg	NETS			x1	{'0': 1}
+CELL PATCHED:g203_c_mult.parse ONLY-OURS	ARITY	builtin	elabpkg	VARS			x1	{'0': 1}
+ARM g203_c_mult elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g203_c_mult.elab AGREE=44 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 GCELLS=44 OCELLS=44
+CENSUM PRIS:g203_c_mult.elab AGREE=30 TS-DIFF=2 ONLY-GOLDEN=12 ONLY-OURS=4 GCELLS=44 OCELLS=36
+CELL PRIS:g203_c_mult.elab AGREE=30 TS-DIFF=2 ONLY-GOLDEN=12 ONLY-OURS=4 GCELLS=44 OCELLS=36
+CELL PRIS:g203_c_mult.elab DIFF	ARITY	work@gc203	def	NETS			G={'5': 1}	O={'2': 1}
+CELL PRIS:g203_c_mult.elab DIFF	ARITY	work@gc203	elab	VARS			G={'5': 1}	O={'2': 1}
+CELL PRIS:g203_c_mult.elab ONLY-GOLDEN	NAMEMULT	work@gc203	def	NETS	c_blk_str		x1	{'1': 1}
+CELL PRIS:g203_c_mult.elab ONLY-GOLDEN	NAMEMULT	work@gc203	def	NETS	c_fn_cls		x1	{'1': 1}
+CELL PRIS:g203_c_mult.elab ONLY-GOLDEN	NAMEMULT	work@gc203	def	NETS	c_fn_int		x1	{'1': 1}
+CELL PRIS:g203_c_mult.elab ONLY-GOLDEN	NAMEMULT	work@gc203	elab	VARS	c_blk_str		x1	{'1': 1}
+CELL PRIS:g203_c_mult.elab ONLY-GOLDEN	NAMEMULT	work@gc203	elab	VARS	c_fn_cls		x1	{'1': 1}
+CELL PRIS:g203_c_mult.elab ONLY-GOLDEN	NAMEMULT	work@gc203	elab	VARS	c_fn_int		x1	{'1': 1}
+CELL PRIS:g203_c_mult.elab ONLY-GOLDEN	NET	work@gc203	def	c_blk_str	0		x1	{'logic_net|nt=0|ts=string_typespec:': 1}
+CELL PRIS:g203_c_mult.elab ONLY-GOLDEN	NET	work@gc203	def	c_fn_cls	0		x1	{'logic_net|nt=0|ts=class_typespec:Cc203': 1}
+CELL PRIS:g203_c_mult.elab ONLY-GOLDEN	NET	work@gc203	def	c_fn_int	0		x1	{'logic_net|nt=0|ts=int_typespec:': 1}
+CELL PRIS:g203_c_mult.elab ONLY-GOLDEN	VAR	work@gc203	elab	c_blk_str	0		x1	{'string_var|ts=string_typespec:': 1}
+CELL PRIS:g203_c_mult.elab ONLY-GOLDEN	VAR	work@gc203	elab	c_fn_cls	0		x1	{'class_var|ts=class_typespec:Cc203': 1}
+CELL PRIS:g203_c_mult.elab ONLY-GOLDEN	VAR	work@gc203	elab	c_fn_int	0		x1	{'int_var|ts=int_typespec:': 1}
+CELL PRIS:g203_c_mult.elab ONLY-OURS	ARITY	builtin	defpkg	NETS			x1	{'0': 1}
+CELL PRIS:g203_c_mult.elab ONLY-OURS	ARITY	builtin	defpkg	VARS			x1	{'0': 1}
+CELL PRIS:g203_c_mult.elab ONLY-OURS	ARITY	builtin	elabpkg	NETS			x1	{'0': 1}
+CELL PRIS:g203_c_mult.elab ONLY-OURS	ARITY	builtin	elabpkg	VARS			x1	{'0': 1}
+CENSUM PATCHED:g203_c_mult.elab AGREE=44 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=4 GCELLS=44 OCELLS=48
+CELL PATCHED:g203_c_mult.elab AGREE=44 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=4 GCELLS=44 OCELLS=48
+CELL PATCHED:g203_c_mult.elab ONLY-OURS	ARITY	builtin	defpkg	NETS			x1	{'0': 1}
+CELL PATCHED:g203_c_mult.elab ONLY-OURS	ARITY	builtin	defpkg	VARS			x1	{'0': 1}
+CELL PATCHED:g203_c_mult.elab ONLY-OURS	ARITY	builtin	elabpkg	NETS			x1	{'0': 1}
+CELL PATCHED:g203_c_mult.elab ONLY-OURS	ARITY	builtin	elabpkg	VARS			x1	{'0': 1}
+ARM g203_d_dump parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g203_d_dump.parse AGREE=31 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 GCELLS=31 OCELLS=31
+CENSUM PRIS:g203_d_dump.parse AGREE=19 TS-DIFF=5 ONLY-GOLDEN=7 ONLY-OURS=4 GCELLS=31 OCELLS=28
+CELL PRIS:g203_d_dump.parse AGREE=19 TS-DIFF=5 ONLY-GOLDEN=7 ONLY-OURS=4 GCELLS=31 OCELLS=28
+CELL PRIS:g203_d_dump.parse DIFF	ARITY	work@gd203	def	NETS			G={'4': 1}	O={'3': 1}
+CELL PRIS:g203_d_dump.parse DIFF	NET	work@gd203	def	gd203	0		G={'logic_net|nt=0|ts=class_typespec:Cd203': 1}	O={'logic_net|nt=1|ts=-': 1}
+CELL PRIS:g203_d_dump.parse DIFF	NAMEMULT	work@gd203	def	NETS	gd203		G={'2': 1}	O={'1': 1}
+CELL PRIS:g203_d_dump.parse DIFF	ARITY	work@gd203x	def	NETS			G={'3': 1}	O={'1': 1}
+CELL PRIS:g203_d_dump.parse DIFF	ARITY	work@gd203	elab	VARS			G={'3': 1}	O={'1': 1}
+CELL PRIS:g203_d_dump.parse ONLY-GOLDEN	NAMEMULT	work@gd203	elab	VARS	gd203		x1	{'2': 1}
+CELL PRIS:g203_d_dump.parse ONLY-GOLDEN	NAMEMULT	work@gd203x	def	NETS	gd203		x1	{'2': 1}
+CELL PRIS:g203_d_dump.parse ONLY-GOLDEN	NET	work@gd203	def	gd203	1		x1	{'logic_net|nt=0|ts=class_typespec:Cd203': 1}
+CELL PRIS:g203_d_dump.parse ONLY-GOLDEN	NET	work@gd203x	def	gd203	0		x1	{'logic_net|nt=0|ts=class_typespec:Cd203': 1}
+CELL PRIS:g203_d_dump.parse ONLY-GOLDEN	NET	work@gd203x	def	gd203	1		x1	{'logic_net|nt=0|ts=class_typespec:Cd203': 1}
+CELL PRIS:g203_d_dump.parse ONLY-GOLDEN	VAR	work@gd203	elab	gd203	0		x1	{'class_var|ts=class_typespec:Cd203': 1}
+CELL PRIS:g203_d_dump.parse ONLY-GOLDEN	VAR	work@gd203	elab	gd203	1		x1	{'class_var|ts=class_typespec:Cd203': 1}
+CELL PRIS:g203_d_dump.parse ONLY-OURS	ARITY	builtin	defpkg	NETS			x1	{'0': 1}
+CELL PRIS:g203_d_dump.parse ONLY-OURS	ARITY	builtin	defpkg	VARS			x1	{'0': 1}
+CELL PRIS:g203_d_dump.parse ONLY-OURS	ARITY	builtin	elabpkg	NETS			x1	{'0': 1}
+CELL PRIS:g203_d_dump.parse ONLY-OURS	ARITY	builtin	elabpkg	VARS			x1	{'0': 1}
+CENSUM PATCHED:g203_d_dump.parse AGREE=31 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=4 GCELLS=31 OCELLS=35
+CELL PATCHED:g203_d_dump.parse AGREE=31 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=4 GCELLS=31 OCELLS=35
+CELL PATCHED:g203_d_dump.parse ONLY-OURS	ARITY	builtin	defpkg	NETS			x1	{'0': 1}
+CELL PATCHED:g203_d_dump.parse ONLY-OURS	ARITY	builtin	defpkg	VARS			x1	{'0': 1}
+CELL PATCHED:g203_d_dump.parse ONLY-OURS	ARITY	builtin	elabpkg	NETS			x1	{'0': 1}
+CELL PATCHED:g203_d_dump.parse ONLY-OURS	ARITY	builtin	elabpkg	VARS			x1	{'0': 1}
+ARM g203_d_dump elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g203_d_dump.elab AGREE=31 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 GCELLS=31 OCELLS=31
+CENSUM PRIS:g203_d_dump.elab AGREE=19 TS-DIFF=5 ONLY-GOLDEN=7 ONLY-OURS=4 GCELLS=31 OCELLS=28
+CELL PRIS:g203_d_dump.elab AGREE=19 TS-DIFF=5 ONLY-GOLDEN=7 ONLY-OURS=4 GCELLS=31 OCELLS=28
+CELL PRIS:g203_d_dump.elab DIFF	ARITY	work@gd203	def	NETS			G={'4': 1}	O={'3': 1}
+CELL PRIS:g203_d_dump.elab DIFF	NET	work@gd203	def	gd203	0		G={'logic_net|nt=0|ts=class_typespec:Cd203': 1}	O={'logic_net|nt=1|ts=-': 1}
+CELL PRIS:g203_d_dump.elab DIFF	NAMEMULT	work@gd203	def	NETS	gd203		G={'2': 1}	O={'1': 1}
+CELL PRIS:g203_d_dump.elab DIFF	ARITY	work@gd203x	def	NETS			G={'3': 1}	O={'1': 1}
+CELL PRIS:g203_d_dump.elab DIFF	ARITY	work@gd203	elab	VARS			G={'3': 1}	O={'1': 1}
+CELL PRIS:g203_d_dump.elab ONLY-GOLDEN	NAMEMULT	work@gd203	elab	VARS	gd203		x1	{'2': 1}
+CELL PRIS:g203_d_dump.elab ONLY-GOLDEN	NAMEMULT	work@gd203x	def	NETS	gd203		x1	{'2': 1}
+CELL PRIS:g203_d_dump.elab ONLY-GOLDEN	NET	work@gd203	def	gd203	1		x1	{'logic_net|nt=0|ts=class_typespec:Cd203': 1}
+CELL PRIS:g203_d_dump.elab ONLY-GOLDEN	NET	work@gd203x	def	gd203	0		x1	{'logic_net|nt=0|ts=class_typespec:Cd203': 1}
+CELL PRIS:g203_d_dump.elab ONLY-GOLDEN	NET	work@gd203x	def	gd203	1		x1	{'logic_net|nt=0|ts=class_typespec:Cd203': 1}
+CELL PRIS:g203_d_dump.elab ONLY-GOLDEN	VAR	work@gd203	elab	gd203	0		x1	{'class_var|ts=class_typespec:Cd203': 1}
+CELL PRIS:g203_d_dump.elab ONLY-GOLDEN	VAR	work@gd203	elab	gd203	1		x1	{'class_var|ts=class_typespec:Cd203': 1}
+CELL PRIS:g203_d_dump.elab ONLY-OURS	ARITY	builtin	defpkg	NETS			x1	{'0': 1}
+CELL PRIS:g203_d_dump.elab ONLY-OURS	ARITY	builtin	defpkg	VARS			x1	{'0': 1}
+CELL PRIS:g203_d_dump.elab ONLY-OURS	ARITY	builtin	elabpkg	NETS			x1	{'0': 1}
+CELL PRIS:g203_d_dump.elab ONLY-OURS	ARITY	builtin	elabpkg	VARS			x1	{'0': 1}
+CENSUM PATCHED:g203_d_dump.elab AGREE=31 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=4 GCELLS=31 OCELLS=35
+CELL PATCHED:g203_d_dump.elab AGREE=31 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=4 GCELLS=31 OCELLS=35
+CELL PATCHED:g203_d_dump.elab ONLY-OURS	ARITY	builtin	defpkg	NETS			x1	{'0': 1}
+CELL PATCHED:g203_d_dump.elab ONLY-OURS	ARITY	builtin	defpkg	VARS			x1	{'0': 1}
+CELL PATCHED:g203_d_dump.elab ONLY-OURS	ARITY	builtin	elabpkg	NETS			x1	{'0': 1}
+CELL PATCHED:g203_d_dump.elab ONLY-OURS	ARITY	builtin	elabpkg	VARS			x1	{'0': 1}
+ARM g203_e_ctl parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g203_e_ctl.parse AGREE=42 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 GCELLS=42 OCELLS=42
+CENSUM PRIS:g203_e_ctl.parse AGREE=42 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=4 GCELLS=42 OCELLS=46
+CELL PRIS:g203_e_ctl.parse AGREE=42 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=4 GCELLS=42 OCELLS=46
+CELL PRIS:g203_e_ctl.parse ONLY-OURS	ARITY	builtin	defpkg	NETS			x1	{'0': 1}
+CELL PRIS:g203_e_ctl.parse ONLY-OURS	ARITY	builtin	defpkg	VARS			x1	{'0': 1}
+CELL PRIS:g203_e_ctl.parse ONLY-OURS	ARITY	builtin	elabpkg	NETS			x1	{'0': 1}
+CELL PRIS:g203_e_ctl.parse ONLY-OURS	ARITY	builtin	elabpkg	VARS			x1	{'0': 1}
+CENSUM PATCHED:g203_e_ctl.parse AGREE=42 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=4 GCELLS=42 OCELLS=46
+CELL PATCHED:g203_e_ctl.parse AGREE=42 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=4 GCELLS=42 OCELLS=46
+CELL PATCHED:g203_e_ctl.parse ONLY-OURS	ARITY	builtin	defpkg	NETS			x1	{'0': 1}
+CELL PATCHED:g203_e_ctl.parse ONLY-OURS	ARITY	builtin	defpkg	VARS			x1	{'0': 1}
+CELL PATCHED:g203_e_ctl.parse ONLY-OURS	ARITY	builtin	elabpkg	NETS			x1	{'0': 1}
+CELL PATCHED:g203_e_ctl.parse ONLY-OURS	ARITY	builtin	elabpkg	VARS			x1	{'0': 1}
+ARM g203_e_ctl elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g203_e_ctl.elab AGREE=42 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 GCELLS=42 OCELLS=42
+CENSUM PRIS:g203_e_ctl.elab AGREE=42 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=4 GCELLS=42 OCELLS=46
+CELL PRIS:g203_e_ctl.elab AGREE=42 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=4 GCELLS=42 OCELLS=46
+CELL PRIS:g203_e_ctl.elab ONLY-OURS	ARITY	builtin	defpkg	NETS			x1	{'0': 1}
+CELL PRIS:g203_e_ctl.elab ONLY-OURS	ARITY	builtin	defpkg	VARS			x1	{'0': 1}
+CELL PRIS:g203_e_ctl.elab ONLY-OURS	ARITY	builtin	elabpkg	NETS			x1	{'0': 1}
+CELL PRIS:g203_e_ctl.elab ONLY-OURS	ARITY	builtin	elabpkg	VARS			x1	{'0': 1}
+CENSUM PATCHED:g203_e_ctl.elab AGREE=42 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=4 GCELLS=42 OCELLS=46
+CELL PATCHED:g203_e_ctl.elab AGREE=42 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=4 GCELLS=42 OCELLS=46
+CELL PATCHED:g203_e_ctl.elab ONLY-OURS	ARITY	builtin	defpkg	NETS			x1	{'0': 1}
+CELL PATCHED:g203_e_ctl.elab ONLY-OURS	ARITY	builtin	defpkg	VARS			x1	{'0': 1}
+CELL PATCHED:g203_e_ctl.elab ONLY-OURS	ARITY	builtin	elabpkg	NETS			x1	{'0': 1}
+CELL PATCHED:g203_e_ctl.elab ONLY-OURS	ARITY	builtin	elabpkg	VARS			x1	{'0': 1}
+ARM g203_f_pkstruct parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g203_f_pkstruct.parse AGREE=69 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 GCELLS=69 OCELLS=69
+CENSUM PRIS:g203_f_pkstruct.parse AGREE=22 TS-DIFF=6 ONLY-GOLDEN=41 ONLY-OURS=18 GCELLS=69 OCELLS=46
+CELL PRIS:g203_f_pkstruct.parse AGREE=22 TS-DIFF=6 ONLY-GOLDEN=41 ONLY-OURS=18 GCELLS=69 OCELLS=46
+CELL PRIS:g203_f_pkstruct.parse DIFF	ARITY	work@gf203	def	NETS			G={'13': 1}	O={'3': 1}
+CELL PRIS:g203_f_pkstruct.parse DIFF	ARITY	work@gf203	elab	VARS			G={'11': 1}	O={'3': 1}
+CELL PRIS:g203_f_pkstruct.parse DIFF	ARITY	pf203	defpkg	NETS			G={'4': 1}	O={'0': 1}
+CELL PRIS:g203_f_pkstruct.parse DIFF	ARITY	pf203	defpkg	VARS			G={'2': 1}	O={'6': 1}
+CELL PRIS:g203_f_pkstruct.parse DIFF	ARITY	pf203	elabpkg	NETS			G={'3': 1}	O={'0': 1}
+CELL PRIS:g203_f_pkstruct.parse DIFF	ARITY	pf203	elabpkg	VARS			G={'3': 1}	O={'6': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NAMEMULT	pf203	defpkg	NETS	f_q_class		x1	{'1': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NAMEMULT	pf203	defpkg	NETS	f_q_int		x1	{'1': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NAMEMULT	pf203	defpkg	NETS	f_q_struct		x1	{'1': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NAMEMULT	pf203	defpkg	NETS	f_q_union		x1	{'1': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NAMEMULT	pf203	elabpkg	NETS	f_q_int		x1	{'1': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NAMEMULT	pf203	elabpkg	NETS	f_q_struct		x1	{'1': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NAMEMULT	pf203	elabpkg	NETS	f_q_union		x1	{'1': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NAMEMULT	work@gf203	def	NETS	f_q_class		x1	{'2': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NAMEMULT	work@gf203	def	NETS	f_q_int		x1	{'2': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NAMEMULT	work@gf203	def	NETS	f_q_plain		x1	{'2': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NAMEMULT	work@gf203	def	NETS	f_q_struct		x1	{'2': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NAMEMULT	work@gf203	def	NETS	f_q_union		x1	{'2': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NAMEMULT	work@gf203	elab	VARS	f_q_class		x1	{'2': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NAMEMULT	work@gf203	elab	VARS	f_q_int		x1	{'2': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NAMEMULT	work@gf203	elab	VARS	f_q_plain		x1	{'2': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NAMEMULT	work@gf203	elab	VARS	f_q_union		x1	{'2': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NET	pf203	defpkg	f_q_class	0		x1	{'logic_net|nt=0|ts=unsupported_typespec:Kf203': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NET	pf203	defpkg	f_q_int	0		x1	{'logic_net|nt=0|ts=int_typespec:pf203::If203': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NET	pf203	defpkg	f_q_struct	0		x1	{'logic_net|nt=0|ts=struct_typespec:pf203::Sf203': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NET	pf203	defpkg	f_q_union	0		x1	{'logic_net|nt=0|ts=union_typespec:pf203::Uf203': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NET	pf203	elabpkg	f_q_int	0		x1	{'logic_net|nt=0|ts=int_typespec:pf203::If203': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NET	pf203	elabpkg	f_q_struct	0		x1	{'logic_net|nt=0|ts=struct_typespec:pf203::Sf203': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NET	pf203	elabpkg	f_q_union	0		x1	{'logic_net|nt=0|ts=union_typespec:pf203::Uf203': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NET	work@gf203	def	f_q_class	0		x1	{'logic_net|nt=0|ts=class_typespec:pf203::Kf203': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NET	work@gf203	def	f_q_class	1		x1	{'logic_net|nt=0|ts=class_typespec:pf203::Kf203': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NET	work@gf203	def	f_q_int	0		x1	{'logic_net|nt=0|ts=int_typespec:pf203::If203': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NET	work@gf203	def	f_q_int	1		x1	{'logic_net|nt=0|ts=int_typespec:pf203::If203': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NET	work@gf203	def	f_q_plain	0		x1	{'logic_net|nt=0|ts=class_typespec:Cf203': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NET	work@gf203	def	f_q_plain	1		x1	{'logic_net|nt=0|ts=class_typespec:Cf203': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NET	work@gf203	def	f_q_struct	0		x1	{'logic_net|nt=0|ts=struct_typespec:pf203::Sf203': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NET	work@gf203	def	f_q_struct	1		x1	{'logic_net|nt=0|ts=struct_typespec:pf203::Sf203': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NET	work@gf203	def	f_q_union	0		x1	{'logic_net|nt=0|ts=union_typespec:pf203::Uf203': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	NET	work@gf203	def	f_q_union	1		x1	{'logic_net|nt=0|ts=union_typespec:pf203::Uf203': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	VAR	work@gf203	elab	f_q_class	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	VAR	work@gf203	elab	f_q_class	1		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	VAR	work@gf203	elab	f_q_int	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	VAR	work@gf203	elab	f_q_int	1		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	VAR	work@gf203	elab	f_q_plain	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	VAR	work@gf203	elab	f_q_plain	1		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	VAR	work@gf203	elab	f_q_union	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-GOLDEN	VAR	work@gf203	elab	f_q_union	1		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-OURS	ARITY	builtin	defpkg	NETS			x1	{'0': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-OURS	ARITY	builtin	defpkg	VARS			x1	{'0': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-OURS	ARITY	builtin	elabpkg	NETS			x1	{'0': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-OURS	ARITY	builtin	elabpkg	VARS			x1	{'0': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-OURS	NAMEMULT	pf203	defpkg	VARS	f_q_class		x1	{'1': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-OURS	NAMEMULT	pf203	defpkg	VARS	f_q_int		x1	{'1': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-OURS	NAMEMULT	pf203	defpkg	VARS	f_q_struct		x1	{'1': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-OURS	NAMEMULT	pf203	defpkg	VARS	f_q_union		x1	{'1': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-OURS	NAMEMULT	pf203	elabpkg	VARS	f_q_int		x1	{'1': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-OURS	NAMEMULT	pf203	elabpkg	VARS	f_q_struct		x1	{'1': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-OURS	NAMEMULT	pf203	elabpkg	VARS	f_q_union		x1	{'1': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-OURS	VAR	pf203	defpkg	f_q_class	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-OURS	VAR	pf203	defpkg	f_q_int	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-OURS	VAR	pf203	defpkg	f_q_struct	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-OURS	VAR	pf203	defpkg	f_q_union	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-OURS	VAR	pf203	elabpkg	f_q_int	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-OURS	VAR	pf203	elabpkg	f_q_struct	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_f_pkstruct.parse ONLY-OURS	VAR	pf203	elabpkg	f_q_union	0		x1	{'array_var|ts=array_typespec:': 1}
+CENSUM PATCHED:g203_f_pkstruct.parse AGREE=51 TS-DIFF=4 ONLY-GOLDEN=14 ONLY-OURS=18 GCELLS=69 OCELLS=73
+CELL PATCHED:g203_f_pkstruct.parse AGREE=51 TS-DIFF=4 ONLY-GOLDEN=14 ONLY-OURS=18 GCELLS=69 OCELLS=73
+CELL PATCHED:g203_f_pkstruct.parse DIFF	ARITY	pf203	defpkg	NETS			G={'4': 1}	O={'0': 1}
+CELL PATCHED:g203_f_pkstruct.parse DIFF	ARITY	pf203	defpkg	VARS			G={'2': 1}	O={'6': 1}
+CELL PATCHED:g203_f_pkstruct.parse DIFF	ARITY	pf203	elabpkg	NETS			G={'3': 1}	O={'0': 1}
+CELL PATCHED:g203_f_pkstruct.parse DIFF	ARITY	pf203	elabpkg	VARS			G={'3': 1}	O={'6': 1}
+CELL PATCHED:g203_f_pkstruct.parse ONLY-GOLDEN	NAMEMULT	pf203	defpkg	NETS	f_q_class		x1	{'1': 1}
+CELL PATCHED:g203_f_pkstruct.parse ONLY-GOLDEN	NAMEMULT	pf203	defpkg	NETS	f_q_int		x1	{'1': 1}
+CELL PATCHED:g203_f_pkstruct.parse ONLY-GOLDEN	NAMEMULT	pf203	defpkg	NETS	f_q_struct		x1	{'1': 1}
+CELL PATCHED:g203_f_pkstruct.parse ONLY-GOLDEN	NAMEMULT	pf203	defpkg	NETS	f_q_union		x1	{'1': 1}
+CELL PATCHED:g203_f_pkstruct.parse ONLY-GOLDEN	NAMEMULT	pf203	elabpkg	NETS	f_q_int		x1	{'1': 1}
+CELL PATCHED:g203_f_pkstruct.parse ONLY-GOLDEN	NAMEMULT	pf203	elabpkg	NETS	f_q_struct		x1	{'1': 1}
+CELL PATCHED:g203_f_pkstruct.parse ONLY-GOLDEN	NAMEMULT	pf203	elabpkg	NETS	f_q_union		x1	{'1': 1}
+CELL PATCHED:g203_f_pkstruct.parse ONLY-GOLDEN	NET	pf203	defpkg	f_q_class	0		x1	{'logic_net|nt=0|ts=unsupported_typespec:Kf203': 1}
+CELL PATCHED:g203_f_pkstruct.parse ONLY-GOLDEN	NET	pf203	defpkg	f_q_int	0		x1	{'logic_net|nt=0|ts=int_typespec:pf203::If203': 1}
+CELL PATCHED:g203_f_pkstruct.parse ONLY-GOLDEN	NET	pf203	defpkg	f_q_struct	0		x1	{'logic_net|nt=0|ts=struct_typespec:pf203::Sf203': 1}
+CELL PATCHED:g203_f_pkstruct.parse ONLY-GOLDEN	NET	pf203	defpkg	f_q_union	0		x1	{'logic_net|nt=0|ts=union_typespec:pf203::Uf203': 1}
+CELL PATCHED:g203_f_pkstruct.parse ONLY-GOLDEN	NET	pf203	elabpkg	f_q_int	0		x1	{'logic_net|nt=0|ts=int_typespec:pf203::If203': 1}
+CELL PATCHED:g203_f_pkstruct.parse ONLY-GOLDEN	NET	pf203	elabpkg	f_q_struct	0		x1	{'logic_net|nt=0|ts=struct_typespec:pf203::Sf203': 1}
+CELL PATCHED:g203_f_pkstruct.parse ONLY-GOLDEN	NET	pf203	elabpkg	f_q_union	0		x1	{'logic_net|nt=0|ts=union_typespec:pf203::Uf203': 1}
+CELL PATCHED:g203_f_pkstruct.parse ONLY-OURS	ARITY	builtin	defpkg	NETS			x1	{'0': 1}
+CELL PATCHED:g203_f_pkstruct.parse ONLY-OURS	ARITY	builtin	defpkg	VARS			x1	{'0': 1}
+CELL PATCHED:g203_f_pkstruct.parse ONLY-OURS	ARITY	builtin	elabpkg	NETS			x1	{'0': 1}
+CELL PATCHED:g203_f_pkstruct.parse ONLY-OURS	ARITY	builtin	elabpkg	VARS			x1	{'0': 1}
+CELL PATCHED:g203_f_pkstruct.parse ONLY-OURS	NAMEMULT	pf203	defpkg	VARS	f_q_class		x1	{'1': 1}
+CELL PATCHED:g203_f_pkstruct.parse ONLY-OURS	NAMEMULT	pf203	defpkg	VARS	f_q_int		x1	{'1': 1}
+CELL PATCHED:g203_f_pkstruct.parse ONLY-OURS	NAMEMULT	pf203	defpkg	VARS	f_q_struct		x1	{'1': 1}
+CELL PATCHED:g203_f_pkstruct.parse ONLY-OURS	NAMEMULT	pf203	defpkg	VARS	f_q_union		x1	{'1': 1}
+CELL PATCHED:g203_f_pkstruct.parse ONLY-OURS	NAMEMULT	pf203	elabpkg	VARS	f_q_int		x1	{'1': 1}
+CELL PATCHED:g203_f_pkstruct.parse ONLY-OURS	NAMEMULT	pf203	elabpkg	VARS	f_q_struct		x1	{'1': 1}
+CELL PATCHED:g203_f_pkstruct.parse ONLY-OURS	NAMEMULT	pf203	elabpkg	VARS	f_q_union		x1	{'1': 1}
+CELL PATCHED:g203_f_pkstruct.parse ONLY-OURS	VAR	pf203	defpkg	f_q_class	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PATCHED:g203_f_pkstruct.parse ONLY-OURS	VAR	pf203	defpkg	f_q_int	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PATCHED:g203_f_pkstruct.parse ONLY-OURS	VAR	pf203	defpkg	f_q_struct	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PATCHED:g203_f_pkstruct.parse ONLY-OURS	VAR	pf203	defpkg	f_q_union	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PATCHED:g203_f_pkstruct.parse ONLY-OURS	VAR	pf203	elabpkg	f_q_int	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PATCHED:g203_f_pkstruct.parse ONLY-OURS	VAR	pf203	elabpkg	f_q_struct	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PATCHED:g203_f_pkstruct.parse ONLY-OURS	VAR	pf203	elabpkg	f_q_union	0		x1	{'array_var|ts=array_typespec:': 1}
+ARM g203_f_pkstruct elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g203_f_pkstruct.elab AGREE=69 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0 GCELLS=69 OCELLS=69
+CENSUM PRIS:g203_f_pkstruct.elab AGREE=22 TS-DIFF=6 ONLY-GOLDEN=41 ONLY-OURS=18 GCELLS=69 OCELLS=46
+CELL PRIS:g203_f_pkstruct.elab AGREE=22 TS-DIFF=6 ONLY-GOLDEN=41 ONLY-OURS=18 GCELLS=69 OCELLS=46
+CELL PRIS:g203_f_pkstruct.elab DIFF	ARITY	work@gf203	def	NETS			G={'13': 1}	O={'3': 1}
+CELL PRIS:g203_f_pkstruct.elab DIFF	ARITY	work@gf203	elab	VARS			G={'11': 1}	O={'3': 1}
+CELL PRIS:g203_f_pkstruct.elab DIFF	ARITY	pf203	defpkg	NETS			G={'4': 1}	O={'0': 1}
+CELL PRIS:g203_f_pkstruct.elab DIFF	ARITY	pf203	defpkg	VARS			G={'2': 1}	O={'6': 1}
+CELL PRIS:g203_f_pkstruct.elab DIFF	ARITY	pf203	elabpkg	NETS			G={'3': 1}	O={'0': 1}
+CELL PRIS:g203_f_pkstruct.elab DIFF	ARITY	pf203	elabpkg	VARS			G={'3': 1}	O={'6': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NAMEMULT	pf203	defpkg	NETS	f_q_class		x1	{'1': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NAMEMULT	pf203	defpkg	NETS	f_q_int		x1	{'1': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NAMEMULT	pf203	defpkg	NETS	f_q_struct		x1	{'1': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NAMEMULT	pf203	defpkg	NETS	f_q_union		x1	{'1': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NAMEMULT	pf203	elabpkg	NETS	f_q_int		x1	{'1': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NAMEMULT	pf203	elabpkg	NETS	f_q_struct		x1	{'1': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NAMEMULT	pf203	elabpkg	NETS	f_q_union		x1	{'1': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NAMEMULT	work@gf203	def	NETS	f_q_class		x1	{'2': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NAMEMULT	work@gf203	def	NETS	f_q_int		x1	{'2': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NAMEMULT	work@gf203	def	NETS	f_q_plain		x1	{'2': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NAMEMULT	work@gf203	def	NETS	f_q_struct		x1	{'2': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NAMEMULT	work@gf203	def	NETS	f_q_union		x1	{'2': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NAMEMULT	work@gf203	elab	VARS	f_q_class		x1	{'2': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NAMEMULT	work@gf203	elab	VARS	f_q_int		x1	{'2': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NAMEMULT	work@gf203	elab	VARS	f_q_plain		x1	{'2': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NAMEMULT	work@gf203	elab	VARS	f_q_union		x1	{'2': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NET	pf203	defpkg	f_q_class	0		x1	{'logic_net|nt=0|ts=unsupported_typespec:Kf203': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NET	pf203	defpkg	f_q_int	0		x1	{'logic_net|nt=0|ts=int_typespec:pf203::If203': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NET	pf203	defpkg	f_q_struct	0		x1	{'logic_net|nt=0|ts=struct_typespec:pf203::Sf203': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NET	pf203	defpkg	f_q_union	0		x1	{'logic_net|nt=0|ts=union_typespec:pf203::Uf203': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NET	pf203	elabpkg	f_q_int	0		x1	{'logic_net|nt=0|ts=int_typespec:pf203::If203': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NET	pf203	elabpkg	f_q_struct	0		x1	{'logic_net|nt=0|ts=struct_typespec:pf203::Sf203': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NET	pf203	elabpkg	f_q_union	0		x1	{'logic_net|nt=0|ts=union_typespec:pf203::Uf203': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NET	work@gf203	def	f_q_class	0		x1	{'logic_net|nt=0|ts=class_typespec:pf203::Kf203': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NET	work@gf203	def	f_q_class	1		x1	{'logic_net|nt=0|ts=class_typespec:pf203::Kf203': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NET	work@gf203	def	f_q_int	0		x1	{'logic_net|nt=0|ts=int_typespec:pf203::If203': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NET	work@gf203	def	f_q_int	1		x1	{'logic_net|nt=0|ts=int_typespec:pf203::If203': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NET	work@gf203	def	f_q_plain	0		x1	{'logic_net|nt=0|ts=class_typespec:Cf203': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NET	work@gf203	def	f_q_plain	1		x1	{'logic_net|nt=0|ts=class_typespec:Cf203': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NET	work@gf203	def	f_q_struct	0		x1	{'logic_net|nt=0|ts=struct_typespec:pf203::Sf203': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NET	work@gf203	def	f_q_struct	1		x1	{'logic_net|nt=0|ts=struct_typespec:pf203::Sf203': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NET	work@gf203	def	f_q_union	0		x1	{'logic_net|nt=0|ts=union_typespec:pf203::Uf203': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	NET	work@gf203	def	f_q_union	1		x1	{'logic_net|nt=0|ts=union_typespec:pf203::Uf203': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	VAR	work@gf203	elab	f_q_class	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	VAR	work@gf203	elab	f_q_class	1		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	VAR	work@gf203	elab	f_q_int	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	VAR	work@gf203	elab	f_q_int	1		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	VAR	work@gf203	elab	f_q_plain	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	VAR	work@gf203	elab	f_q_plain	1		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	VAR	work@gf203	elab	f_q_union	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-GOLDEN	VAR	work@gf203	elab	f_q_union	1		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-OURS	ARITY	builtin	defpkg	NETS			x1	{'0': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-OURS	ARITY	builtin	defpkg	VARS			x1	{'0': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-OURS	ARITY	builtin	elabpkg	NETS			x1	{'0': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-OURS	ARITY	builtin	elabpkg	VARS			x1	{'0': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-OURS	NAMEMULT	pf203	defpkg	VARS	f_q_class		x1	{'1': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-OURS	NAMEMULT	pf203	defpkg	VARS	f_q_int		x1	{'1': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-OURS	NAMEMULT	pf203	defpkg	VARS	f_q_struct		x1	{'1': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-OURS	NAMEMULT	pf203	defpkg	VARS	f_q_union		x1	{'1': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-OURS	NAMEMULT	pf203	elabpkg	VARS	f_q_int		x1	{'1': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-OURS	NAMEMULT	pf203	elabpkg	VARS	f_q_struct		x1	{'1': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-OURS	NAMEMULT	pf203	elabpkg	VARS	f_q_union		x1	{'1': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-OURS	VAR	pf203	defpkg	f_q_class	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-OURS	VAR	pf203	defpkg	f_q_int	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-OURS	VAR	pf203	defpkg	f_q_struct	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-OURS	VAR	pf203	defpkg	f_q_union	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-OURS	VAR	pf203	elabpkg	f_q_int	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-OURS	VAR	pf203	elabpkg	f_q_struct	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PRIS:g203_f_pkstruct.elab ONLY-OURS	VAR	pf203	elabpkg	f_q_union	0		x1	{'array_var|ts=array_typespec:': 1}
+CENSUM PATCHED:g203_f_pkstruct.elab AGREE=51 TS-DIFF=4 ONLY-GOLDEN=14 ONLY-OURS=18 GCELLS=69 OCELLS=73
+CELL PATCHED:g203_f_pkstruct.elab AGREE=51 TS-DIFF=4 ONLY-GOLDEN=14 ONLY-OURS=18 GCELLS=69 OCELLS=73
+CELL PATCHED:g203_f_pkstruct.elab DIFF	ARITY	pf203	defpkg	NETS			G={'4': 1}	O={'0': 1}
+CELL PATCHED:g203_f_pkstruct.elab DIFF	ARITY	pf203	defpkg	VARS			G={'2': 1}	O={'6': 1}
+CELL PATCHED:g203_f_pkstruct.elab DIFF	ARITY	pf203	elabpkg	NETS			G={'3': 1}	O={'0': 1}
+CELL PATCHED:g203_f_pkstruct.elab DIFF	ARITY	pf203	elabpkg	VARS			G={'3': 1}	O={'6': 1}
+CELL PATCHED:g203_f_pkstruct.elab ONLY-GOLDEN	NAMEMULT	pf203	defpkg	NETS	f_q_class		x1	{'1': 1}
+CELL PATCHED:g203_f_pkstruct.elab ONLY-GOLDEN	NAMEMULT	pf203	defpkg	NETS	f_q_int		x1	{'1': 1}
+CELL PATCHED:g203_f_pkstruct.elab ONLY-GOLDEN	NAMEMULT	pf203	defpkg	NETS	f_q_struct		x1	{'1': 1}
+CELL PATCHED:g203_f_pkstruct.elab ONLY-GOLDEN	NAMEMULT	pf203	defpkg	NETS	f_q_union		x1	{'1': 1}
+CELL PATCHED:g203_f_pkstruct.elab ONLY-GOLDEN	NAMEMULT	pf203	elabpkg	NETS	f_q_int		x1	{'1': 1}
+CELL PATCHED:g203_f_pkstruct.elab ONLY-GOLDEN	NAMEMULT	pf203	elabpkg	NETS	f_q_struct		x1	{'1': 1}
+CELL PATCHED:g203_f_pkstruct.elab ONLY-GOLDEN	NAMEMULT	pf203	elabpkg	NETS	f_q_union		x1	{'1': 1}
+CELL PATCHED:g203_f_pkstruct.elab ONLY-GOLDEN	NET	pf203	defpkg	f_q_class	0		x1	{'logic_net|nt=0|ts=unsupported_typespec:Kf203': 1}
+CELL PATCHED:g203_f_pkstruct.elab ONLY-GOLDEN	NET	pf203	defpkg	f_q_int	0		x1	{'logic_net|nt=0|ts=int_typespec:pf203::If203': 1}
+CELL PATCHED:g203_f_pkstruct.elab ONLY-GOLDEN	NET	pf203	defpkg	f_q_struct	0		x1	{'logic_net|nt=0|ts=struct_typespec:pf203::Sf203': 1}
+CELL PATCHED:g203_f_pkstruct.elab ONLY-GOLDEN	NET	pf203	defpkg	f_q_union	0		x1	{'logic_net|nt=0|ts=union_typespec:pf203::Uf203': 1}
+CELL PATCHED:g203_f_pkstruct.elab ONLY-GOLDEN	NET	pf203	elabpkg	f_q_int	0		x1	{'logic_net|nt=0|ts=int_typespec:pf203::If203': 1}
+CELL PATCHED:g203_f_pkstruct.elab ONLY-GOLDEN	NET	pf203	elabpkg	f_q_struct	0		x1	{'logic_net|nt=0|ts=struct_typespec:pf203::Sf203': 1}
+CELL PATCHED:g203_f_pkstruct.elab ONLY-GOLDEN	NET	pf203	elabpkg	f_q_union	0		x1	{'logic_net|nt=0|ts=union_typespec:pf203::Uf203': 1}
+CELL PATCHED:g203_f_pkstruct.elab ONLY-OURS	ARITY	builtin	defpkg	NETS			x1	{'0': 1}
+CELL PATCHED:g203_f_pkstruct.elab ONLY-OURS	ARITY	builtin	defpkg	VARS			x1	{'0': 1}
+CELL PATCHED:g203_f_pkstruct.elab ONLY-OURS	ARITY	builtin	elabpkg	NETS			x1	{'0': 1}
+CELL PATCHED:g203_f_pkstruct.elab ONLY-OURS	ARITY	builtin	elabpkg	VARS			x1	{'0': 1}
+CELL PATCHED:g203_f_pkstruct.elab ONLY-OURS	NAMEMULT	pf203	defpkg	VARS	f_q_class		x1	{'1': 1}
+CELL PATCHED:g203_f_pkstruct.elab ONLY-OURS	NAMEMULT	pf203	defpkg	VARS	f_q_int		x1	{'1': 1}
+CELL PATCHED:g203_f_pkstruct.elab ONLY-OURS	NAMEMULT	pf203	defpkg	VARS	f_q_struct		x1	{'1': 1}
+CELL PATCHED:g203_f_pkstruct.elab ONLY-OURS	NAMEMULT	pf203	defpkg	VARS	f_q_union		x1	{'1': 1}
+CELL PATCHED:g203_f_pkstruct.elab ONLY-OURS	NAMEMULT	pf203	elabpkg	VARS	f_q_int		x1	{'1': 1}
+CELL PATCHED:g203_f_pkstruct.elab ONLY-OURS	NAMEMULT	pf203	elabpkg	VARS	f_q_struct		x1	{'1': 1}
+CELL PATCHED:g203_f_pkstruct.elab ONLY-OURS	NAMEMULT	pf203	elabpkg	VARS	f_q_union		x1	{'1': 1}
+CELL PATCHED:g203_f_pkstruct.elab ONLY-OURS	VAR	pf203	defpkg	f_q_class	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PATCHED:g203_f_pkstruct.elab ONLY-OURS	VAR	pf203	defpkg	f_q_int	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PATCHED:g203_f_pkstruct.elab ONLY-OURS	VAR	pf203	defpkg	f_q_struct	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PATCHED:g203_f_pkstruct.elab ONLY-OURS	VAR	pf203	defpkg	f_q_union	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PATCHED:g203_f_pkstruct.elab ONLY-OURS	VAR	pf203	elabpkg	f_q_int	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PATCHED:g203_f_pkstruct.elab ONLY-OURS	VAR	pf203	elabpkg	f_q_struct	0		x1	{'array_var|ts=array_typespec:': 1}
+CELL PATCHED:g203_f_pkstruct.elab ONLY-OURS	VAR	pf203	elabpkg	f_q_union	0		x1	{'array_var|ts=array_typespec:': 1}
+-- ARM-VIEWS BUILT: 12
+-- CALIB  12 arm-views, AGREE 756, TS-DIFF 0, ONLY-GOLDEN 0, ONLY-OURS 0
+-- PRIS  12 arm-views, AGREE 442, TS-DIFF 38, ONLY-GOLDEN 276, ONLY-OURS 76
+-- PATCHED  12 arm-views, AGREE 672, TS-DIFF 16, ONLY-GOLDEN 68, ONLY-OURS 76
+-- NONZERO RCs: 0

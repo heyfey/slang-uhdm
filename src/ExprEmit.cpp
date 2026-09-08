@@ -32696,6 +32696,23 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     (parent->UhdmType() == UHDM::uhdmsys_func_call ||
                      parent->UhdmType() == UHDM::uhdmsys_task_call)) {
                     auto& inet = implicitNetMap[&sy9];
+                    // § oobCtorLocalsRideTheImport203 — the mint is a LAST
+                    // resort, exactly as it is in Surelog: `UhdmWriter::
+                    // lateBinding` only reaches the implicit-wire mint
+                    // (:3982-4004) after the name has failed to resolve, and a
+                    // net the module ALREADY lists resolves it.  SimpleUVM's
+                    // `$dumpvars(0, top)` is that case — golden binds it to the
+                    // materialized-import net `top` (uvm_component::new's
+                    // hoisted local, first of the two copies) and mints
+                    // NOTHING, which is one of the fifteen nets the head
+                    // counted.  Same by-name reuse `emitPropFormalRef` makes.
+                    if (!inet && implicitNetModule->Nets())
+                        for (auto* n203 : *implicitNetModule->Nets())
+                            if (n203->VpiName() == dotted &&
+                                n203->UhdmType() == UHDM::uhdmlogic_net) {
+                                inet = (UHDM::logic_net*)n203;
+                                break;
+                            }
                     if (!inet) {
                         inet = s.MakeLogic_net();
                         inet->VpiName(dotted);

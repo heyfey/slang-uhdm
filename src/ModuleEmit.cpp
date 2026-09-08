@@ -712,7 +712,7 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
     // (emitInstance). The whole group comes FIRST — ahead of the module's own
     // declarations — and repeats once per import copy (ApbSlave's file-level
     // `import svunit_pkg::*` lists svunit_version/current_tc twice each).
-    for (auto* iv9 : collectImportedPkgVars(body)) {
+    for (auto* iv9 : collectImportedPkgVars(body, *sm)) {
         auto* n9 = s.MakeLogic_net();
         n9->VpiName(iv9->name);
         n9->VpiFullName(prefix + "." + std::string(iv9->name));
@@ -768,14 +768,23 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
         // A non-typedef'd package declaration (`const string`, a class
         // handle) re-creates its typespec at the module, UNINSTANCED — the
         // copy is not resolved in the package's scope (ApbSlave).
-        if (!typed9)
-            if (auto* ts9 = makeTypespec(*iv9)) {
+        if (!typed9) {
+            // § oobCtorLocalsRideTheImport203 — this typespec is BUILT AT THE
+            // MODULE, so the class-handle naming arm must read the module as
+            // the declaration's home component (flag declaration in
+            // UhdmExporter.h).
+            bool savedIPV203 = importedPkgVarTs203;
+            importedPkgVarTs203 = true;
+            auto* ts9 = makeTypespec(*iv9);
+            importedPkgVarTs203 = savedIPV203;
+            if (ts9) {
                 auto* rt9 = s.MakeRef_typespec();
                 rt9->VpiFullName(prefix + "." + std::string(iv9->name));
                 rt9->VpiParent(n9);
                 rt9->Actual_typespec(ts9);
                 n9->Typespec(rt9);
             }
+        }
         // Only the FIRST copy is the name's binding target.
         if (!info.nets.count(iv9))
             info.nets[iv9] = n9;
@@ -8764,7 +8773,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
     // vpiInstance. The whole group leads the module's own variables.
     {
         auto* mvars9 = s.MakeVariablesVec();
-        for (auto* iv9 : collectImportedPkgVars(body)) {
+        for (auto* iv9 : collectImportedPkgVars(body, *sm)) {
             const DeclaredType* dt9 = iv9->getDeclaredType();
             bool intTypedef9 = dt9 &&
                                dt9->getType().kind == SymbolKind::TypeAlias &&

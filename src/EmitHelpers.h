@@ -2227,30 +2227,133 @@ inline std::vector<std::pair<const PackageSymbol*, int>> collectMaterializedPkgs
     return out;
 }
 
-// PACKAGE-SCOPE DATA declarations an import MATERIALIZES into this module.
-// Surelog copies them exactly as it copies imported parameters (see
-// collectImportedParams): the def view lists a wire logic_net named
-// work@<mod>.<v>, the elab view the package variable's own kind
-// (string_var/class_var/logic_var...).
-//
+// The include-expanded source-order key and its comparator, defined further
+// down this header (§ includeExpandedKey); declared here because
+// collectImportedPkgVars has to sort in the SAME order the package's own
+// listing does.
+inline std::vector<std::pair<uint32_t, uint64_t>> includeExpandedKey(
+    const slang::SourceManager& sm, slang::SourceLocation loc);
+inline bool includeExpandedLess(const std::vector<std::pair<uint32_t, uint64_t>>& a,
+                                const std::vector<std::pair<uint32_t, uint64_t>>& b);
+
+// § oobCtorLocalsRideTheImport203 — THE BODY LOCALS OF A PACKAGE'S OUT-OF-BODY
+// CONSTRUCTORS, which Surelog leaves behind in the package's own variable
+// listing.  This is `UhdmExporter::collectOobCtorLocals`'s body, moved here
+// unchanged so the MODULE hoist can build the same listing the package one
+// builds; the member forwards to it (ParamEmit.cpp).  The law and the measured
+// distinguisher (the constructor — a non-`new` out-of-body body hoists
+// nothing) are documented at the member's declaration.
+inline void collectOobCtorLocalsIn(const slang::ast::PackageSymbol& pkg,
+                                   std::vector<const Symbol*>& out) {
+    std::function<void(const Scope&)> walk = [&](const Scope& sc) {
+        for (auto& m : sc.members()) {
+            if (m.kind == SymbolKind::Variable) {
+                // slang materialises an implicit `this` handle in every class
+                // method scope; it is not a written local and Surelog has no
+                // object for it.
+                if (m.as<VariableSymbol>().flags.has(
+                        VariableFlags::CompilerGenerated))
+                    continue;
+                // § ctorForInitIsNotAPkgDataDecl153v (r10uvm153 verifier) —
+                // a `for (int i = 0; ...)` CONTROL VARIABLE is NOT collected.
+                // `CompilePackage::collectObjects_` (CompilePackage.cpp:123)
+                // walks the package's SYNTAX and hands only `paData_declaration`
+                // block items to `compileDataDeclaration(m_package, ...)`
+                // (:261); a for-loop initialiser is a
+                // `paFor_variable_declaration`, a different node, and never
+                // reaches that call.  A `foreach` loop variable is
+                // `SymbolKind::Iterator` and was already outside this walk.
+                if (auto* fsx153 = m.getSyntax();
+                    fsx153 && fsx153->parent &&
+                    fsx153->parent->kind ==
+                        slang::syntax::SyntaxKind::ForVariableDeclaration)
+                    continue;
+                out.push_back(&m);
+            }
+            else if (m.kind == SymbolKind::StatementBlock)
+                walk(m.as<StatementBlockSymbol>());
+        }
+    };
+    auto scanClass = [&](const ClassType& c) {
+        std::vector<const Symbol*> memberList;
+        for (auto& m : c.members())
+            memberList.push_back(&m);
+        for (auto& m : c.members()) {
+            if (m.kind != SymbolKind::MethodPrototype)
+                continue;
+            auto& mp = m.as<MethodPrototypeSymbol>();
+            if (mp.flags.has(MethodFlags::Pure) || mp.name != "new")
+                continue;
+            auto* impl = mp.getSubroutine();
+            if (!impl || !impl->getSyntax())
+                continue;
+            if (std::find(memberList.begin(), memberList.end(),
+                          (const Symbol*)impl) != memberList.end())
+                continue;
+            impl->getBody();
+            walk(*impl);
+        }
+    };
+    for (auto& mem : pkg.members()) {
+        if (mem.kind == SymbolKind::ClassType)
+            scanClass(mem.as<ClassType>());
+        else if (mem.kind == SymbolKind::GenericClassDef) {
+            if (auto* dsp =
+                    mem.as<GenericClassDefSymbol>().getDefaultSpecialization(pkg);
+                dsp && dsp->kind == SymbolKind::ClassType)
+                scanClass(dsp->as<ClassType>());
+        }
+    }
+    std::stable_sort(out.begin(), out.end(),
+                     [](const Symbol* a, const Symbol* b) {
+                         return a->location < b->location;
+                     });
+}
+
 // The whole package list rides, in PACKAGE DECLARATION order and whether or
 // not the module reads any of them (Surelog-measured, r10apb2 repro 1: an
 // unread `const string`/`int` pair both materialize) — repeated once per
 // copy (see collectMaterializedPkgs). An EXPLICIT import names one symbol and
 // materializes only that one. The shapes emitPackageVar declines to model
-// (unpacked aggregates, dynamic containers) are dropped here too.
+// (unpacked aggregates) are dropped here too.
+//
+// § oobCtorLocalsRideTheImport203 — WHAT RIDES IS THE HOME PACKAGE'S OWN
+// VARIABLE LISTING, NOT A RE-WALK OF ITS MEMBERS.
+//
+// THE SURELOG DECODE.  `CompileHelper::importPackage`
+// (src/DesignCompile/CompileHelper.cpp:127) copies the PACKAGE COMPONENT's own
+// registries into the importing scope wholesale — its Variables arm (:171-181)
+// reads `def->getVariables()` and calls `scope->addVariable(var.second)` for
+// every entry, and its next arm (:192-197) forwards `def->getLateBinding()`,
+// which is § pkgFreeSubRefVarHoistNet117's own citation.  Both halves of a
+// package's state ride the same import.  And that variable registry is NOT
+// `members()`: it also carries the DUPLICATE Surelog leaves behind for every
+// local of an OUT-OF-BODY CONSTRUCTOR body (collectOobCtorLocalsIn), which is
+// why the package's own listing already merges them in (emitPackage).
+//
+// The ORDER is not that registry's — `DesignComponent::VariableMap` is a
+// `std::map<std::string, …>` (include/Surelog/Design/DesignComponent.h:97), so
+// it is alphabetical, while golden's listing is FLATTENED-SOURCE order; the
+// Signal/elaboration pass is what orders it.  The order is therefore taken
+// from the measurement, not from that map: golden's def-view `work@ga203` net
+// block (grid arm A, one real Surelog golden) reads `pa_own0`, `pa_own1`, the
+// five constructor locals, `pa_own2` — source order, three times over for a
+// file-level import plus a module-level one — and NOT alphabetically.
+// MEASURED on the SimpleUVM golden too: `uvm_pkg`'s listing is 33 entries in
+// both producers, and golden's def-view `work@top` net block is those same 33
+// in the same order, twice — while a members()-only walk yields 25, which was
+// the 15-net head.
 inline std::vector<const slang::ast::VariableSymbol*> collectImportedPkgVars(
-    const InstanceBodySymbol& body) {
+    const InstanceBodySymbol& body, const slang::SourceManager& sm) {
     std::vector<const slang::ast::VariableSymbol*> out;
     auto modelled = [](const Symbol& v) {
         const slang::ast::DeclaredType* dt = v.getDeclaredType();
         if (!dt)
             return false;
         switch (dt->getType().getCanonicalType().kind) {
+            // The three DYNAMIC containers are modelled (emitPkgArrayVar);
+            // the unpacked aggregates still are not.
             case SymbolKind::FixedSizeUnpackedArrayType:
-            case SymbolKind::DynamicArrayType:
-            case SymbolKind::AssociativeArrayType:
-            case SymbolKind::QueueType:
             case SymbolKind::UnpackedStructType:
             case SymbolKind::UnpackedUnionType:
                 return false;
@@ -2258,11 +2361,36 @@ inline std::vector<const slang::ast::VariableSymbol*> collectImportedPkgVars(
                 return true;
         }
     };
-    for (auto& [pkg, copies] : collectMaterializedPkgs(body))
+    for (auto& [pkg, copies] : collectMaterializedPkgs(body)) {
+        // ONE copy of the home package's listing, built the way emitPackage
+        // builds it: members() in order, with each hoisted out-of-body
+        // constructor local flushed as soon as the walk passes its
+        // include-expanded position.
+        std::vector<const slang::ast::VariableSymbol*> one203;
+        std::vector<const Symbol*> hoist203;
+        collectOobCtorLocalsIn(*pkg, hoist203);
+        size_t hIdx203 = 0;
+        auto flush203 = [&](slang::SourceLocation upto, bool all) {
+            while (hIdx203 < hoist203.size() &&
+                   (all || includeExpandedLess(
+                               includeExpandedKey(sm,
+                                                  hoist203[hIdx203]->location),
+                               includeExpandedKey(sm, upto)))) {
+                const Symbol* h203 = hoist203[hIdx203++];
+                if (modelled(*h203))
+                    one203.push_back(&h203->as<slang::ast::VariableSymbol>());
+            }
+        };
+        for (auto& pm : pkg->members())
+            if (pm.kind == SymbolKind::Variable) {
+                flush203(pm.location, false);
+                if (modelled(pm))
+                    one203.push_back(&pm.as<slang::ast::VariableSymbol>());
+            }
+        flush203(slang::SourceLocation(), true);
         for (int i = 0; i < copies; i++)
-            for (auto& pm : pkg->members())
-                if (pm.kind == SymbolKind::Variable && modelled(pm))
-                    out.push_back(&pm.as<slang::ast::VariableSymbol>());
+            out.insert(out.end(), one203.begin(), one203.end());
+    }
     for (auto& m : body.members()) {
         if (m.kind != SymbolKind::ExplicitImport)
             continue;

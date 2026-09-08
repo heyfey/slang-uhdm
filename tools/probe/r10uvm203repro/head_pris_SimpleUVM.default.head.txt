@@ -1,0 +1,46 @@
+LHS:
+decompile:
+module_inst: work@top (work@top), id:197492, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+|vpiParent:
+\_design: (work@top), id:194978
+|vpiFullName:work@top
+|vpiParameter:
+\_parameter: (work@top.UVM_ABSTRACT), id:119719, line:201:11, endln:201:23
+  |vpiParent:
+  \_module_inst: work@top (work@top), id:197492, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+  |UINT:16384
+  |vpiTypespec:
+  \_ref_typespec: (work@top.UVM_ABSTRACT), id:119720
+    |vpiParent:
+    \_parameter: (work@top.UVM_ABSTRACT), id:119719, line:201:11, endln:201:23
+    |vpiFullName:work@top.UVM_ABSTRACT
+    |vpiActual:
+    \_int_typespec: , id:119721, line:201:1, endln:201:37
+  |vpiName:UVM_ABSTRACT
+  |vpiFullName:work@top.UVM_ABSTRACT
+  |vpiImported:uvm_pkg
+|vpiParameter:
+\_parameter: (work@top.UVM_ALL_ON), id:119722, line:181:11, endln:181:21
+  |vpiParent:
+  \_module_inst: work@top (work@top), id:197492, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+  |BIN:000000101010101
+  |vpiName:UVM_ALL_ON
+  |vpiFullName:work@top.UVM_ALL_ON
+  |vpiImported:uvm_pkg
+|vpiParameter:
+
+-- and the head AFTER, on the patched binary (the FIRST 12 lines of each
+   side; the object is the design and its decompile is 4177864 lines):
+LHS:
+decompile:
+design: (work@top), id:194978
+|vpiName:work@top
+|vpiIncludeFileInfo:
+\_include_file_info: , id:120630, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:26:10, endln:26:26
+   ...
+RHS:
+decompile:
+design: (work@top), id:1
+|vpiName:work@top
+|vpiIncludeFileInfo:
+\_include_file_info: , id:2, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:26:10, endln:26:26

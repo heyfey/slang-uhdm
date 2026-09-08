@@ -4427,6 +4427,21 @@ private:
     /// cells 24:7 / 25:7, WRONG->RIGHT under the flag test and RIGHT->WRONG
     /// under a name test).
     bool tfItemLocalClassTs142 = false;
+    /// § oobCtorLocalsRideTheImport203 — TRUE only while the DEF-view net of a
+    /// MATERIALIZED IMPORTED PACKAGE DECLARATION builds its typespec.  That
+    /// copy is not the package's declaration: Surelog re-compiles the written
+    /// type IN THE IMPORTING MODULE (which is why the copy's typespec carries
+    /// no vpiInstance — see emitPackageVar's `stampTsInstance`), so the
+    /// declaration's HOME DESIGN COMPONENT at this site is the MODULE, not the
+    /// package the symbol was written in.  § localClassTsUnnamed15's
+    /// same-component suppression therefore cannot fire here, and golden's
+    /// SimpleUVM `work@top` proves it: the hoisted out-of-body constructor
+    /// locals `clp` / `top` / `cs` / `bld` / `common` are UNNAMED
+    /// class_typespecs at their own package-scope declarations and NAMED
+    /// (`uvm_cmdline_processor` / `uvm_root` / `uvm_coreservice_t` /
+    /// `uvm_phase` / `uvm_domain`) on the module's copies.  The flag is read in
+    /// exactly one place, makeTypespec's class-handle arm.
+    bool importedPkgVarTs203 = false;
     // § constructorBodyElementShift27 / § ctorDeclIsRhslessAssignment27 — a
     // CLASS CONSTRUCTOR body is compiled by a function of its own
     // (CompileHelper::compileClassConstructorDeclaration, CompileStmt.cpp:2165)
@@ -7235,7 +7250,8 @@ private:
     // three container kinds.
     bool emitPkgArrayVar(const slang::ast::Symbol& vs, UHDM::instance* up,
                          const std::string& prefix,
-                         UHDM::VectorOfvariables* out);
+                         UHDM::VectorOfvariables* out,
+                         bool stampTsInstance = true);
     // The body locals of the package's OUT-OF-BODY CONSTRUCTOR definitions,
     // in source order, nested `begin` blocks included: Surelog lists a
     // DUPLICATE of each as a package variable (see the call site).

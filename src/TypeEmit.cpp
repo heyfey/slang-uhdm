@@ -1937,8 +1937,12 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             // r10oth7 re-measured every one of those cells (arm c3_bounds d4 /
             // d9 / d12) and they all still read as this comment says.
             const Scope* declHome0 = homeComp0(declSymbol.getParentScope());
+            // § oobCtorLocalsRideTheImport203 — the MATERIALIZED IMPORT COPY's
+            // home component is the IMPORTING MODULE, never the package the
+            // symbol was written in, so the same-component suppression cannot
+            // fire on it.  See the flag's declaration for golden's five cells.
             bool localSameComp0 =
-                nested0 && declHome0 &&
+                nested0 && declHome0 && !importedPkgVarTs203 &&
                 compKey0(declHome0) == compKey0(homeComp0(ct0.getParentScope()));
             // NOTE § builtinClassTsLinksBuiltinFileDefn7, the NAMING half —
             // and it is a SUPPRESSION, in the opposite direction to the edge.

@@ -1,0 +1,49 @@
+r10uvm203 — THE HEAD OBJECT'S VECTORS, SimpleUVM, both binaries against golden.
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog).  The pristine head is
+`module_inst work@top` id:197492 (design->AllModules[1], the DEF view); the
+only vector that differs is vpiNet.  uhdm-dump prints each vpiNet entry TWICE,
+which is why r10uvm201's read of the same log said 450/420: the OBJECT counts
+are 225/210.
+
+== def-view work@top net-listing arity ==
+golden 225   pristine 210   patched 225
+
+== elab-view work@top variable-listing arity ==
+golden  68   pristine  52   patched  68
+
+== the fifteen missing nets, by name (golden multiplicity - ours) ==
+bld                           2 - 0
+clp                           2 - 0
+common                        2 - 0
+cs                            2 - 0
+error_str                     2 - 0
+uvm_random_seed_table_lookup  2 - 0
+val                           2 - 0
+top                           2 - 1   (ours was the $dumpvars implicit wire, netType 1, no typespec)
+
+== design-level vectors, golden / pristine / patched ==
+AllPackages         2    2    2
+AllClasses          4    4    4
+AllInterfaces       1    1    1
+AllUdps             0    0    0
+AllPrograms         0    0    0
+AllModules          2    2    2
+TopPackages         2    2    2
+TopModules          1    1    1
+Let_decls           0    0    0
+Task_funcs          894  894  894
+Parameters          45   45   45
+Param_assigns       45   45   45
+Typespecs           123  89   89
+Include_file_infos  144  144  144
+
+design->Typespecs is 89 on BOTH our binaries and 123 in golden: the head
+that follows was MASKED, not created (R0).  design::Compare reads AllModules
+at design.cpp:302 and Typespecs at :303.
+
+== the def-view net listing, slot for slot, golden vs patched ==
+slots 1..68 (the materialized block x2 + clk + environment):
+  IDENTICAL
+slots 69..225 (the 157 netType-1 implicit wires): SAME MULTISET, different
+  order -- judge-INVISIBLE (no ancestor of logic_net compares VpiName), R4.
+  multiset identical: yes

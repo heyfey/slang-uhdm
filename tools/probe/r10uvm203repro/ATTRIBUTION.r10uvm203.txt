@@ -1,0 +1,42 @@
+r10uvm203 — THE ATTRIBUTION OF EVERY BYTE MOVER.  MEASUREMENT ONLY.
+LHS is ALWAYS golden.  Order-blind (both dumps path-normalised and SORTED), so
+a pure ORDER flip scores zero lines — RESUME §9's Scoreboard coin.
+
+byteverify, surelog corpus, patched vs this pass's own pristine:
+   MOVERS 4 / 956   (SELFCHECK 955/956 flagged: the gate can see)
+     ./default/SeqDriver-32af76aa/slang.uhdm        PREDICTED
+     ./default/SimpleUVM-1dc93a62/slang.uhdm        PREDICTED
+     ./testflags/SeqDriver-32af76aa/slang.uhdm      PREDICTED
+     ./testflags/SimpleUVM-1dc93a62/slang.uhdm      PREDICTED
+   -- the PREDICTED set and the MOVED set are EQUAL.  `Scoreboard/default`,
+      RESUME §9's ~50/50 coin, did not flip on this run; on an earlier run of
+      the same two binaries it did, and its order-blind diff then was
+      ADDED 0 / REMOVED 0 (it is not this law's, and ct203pred reads FIRES=0
+      on its pristine database).
+byteverify, uhdm2rtlil corpus, both modes:
+   MOVERS 0 / 1358  (SELFCHECK 1357/1358 flagged)
+
+== default/SimpleUVM-1dc93a62/slang.uhdm  ADDED=600 REMOVED=3
+---- REMOVED lines:
+          \_logic_net: (work@top.top), line:67:18, endln:67:21
+  \_logic_net: (work@top.top), line:67:18, endln:67:21
+    |vpiNetType:1
+== testflags/SimpleUVM-1dc93a62/slang.uhdm  ADDED=600 REMOVED=3
+---- REMOVED lines:
+          \_logic_net: (work@top.top), line:67:18, endln:67:21
+  \_logic_net: (work@top.top), line:67:18, endln:67:21
+    |vpiNetType:1
+-- TOTAL ADDED=1200 REMOVED=6
+== default/SeqDriver-32af76aa/slang.uhdm  ADDED=302 REMOVED=0
+== testflags/SeqDriver-32af76aa/slang.uhdm  ADDED=302 REMOVED=0
+-- TOTAL ADDED=604 REMOVED=0
+
+The six REMOVED lines are the ONE implicit netType-1 wire per SimpleUVM mode
+that the `$dumpvars(0, top)` scope-name arm no longer mints, because the module
+now lists a real net of that name -- golden binds the reference to that net and
+mints nothing.  Nothing else was removed, in any database, on either corpus.
+
+The 1804 ADDED lines are the materialized-import entries the law adds (16 nets
+in the def view and 16 variables in the elab view per SimpleUVM database, 8 + 8
+per SeqDriver one) together with their typespecs and the class NAME those
+typespecs gain at the module copy.

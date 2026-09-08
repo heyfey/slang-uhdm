@@ -1,0 +1,136 @@
+r10uvm203 — THE GATE BATTERY.  Every number below was produced by the scripts
+this directory carries or by the campaign's committed gate scripts, on this
+pass's OWN pristine and patched binaries, both frozen chmod 555 before any
+sweep.  MEASUREMENT ONLY; the official uhdm-cmp and scripts/verify_golden.py
+are the authorities.  LHS is ALWAYS golden.
+
+THE EXCEPTION, MEASURED ON ITS OWN GOLDEN (grid arm F, g203_f_pkstruct.sv,
+one real Surelog run, `surelog -parse -d coveruhdm -nobuiltin -nocache`):
+
+  golden work@gf203 DEF   NETS = 13 : f_q_struct f_q_union f_q_int f_q_class
+                                      f_q_plain f_plain  (each TWICE, the
+                                      file-level import's multiplicity) + clk
+  golden work@gf203 ELAB  VARS = 11 :            f_q_union f_q_int f_q_class
+                                      f_q_plain f_plain  (each TWICE) + clk
+                                      -- f_q_struct is ABSENT
+
+So a dynamic container whose ELEMENT is a PACKED STRUCT is listed by the
+module's DEF view and NOT by its ELABORATED one, while a packed UNION element,
+an int-typedef element, a class-typedef element and a bare class element are
+all listed by both.  That is the only exception the law carries, and it is why
+`emitPackageVar`'s container arm tests the element kind when
+`stampTsInstance` is false.
+
+==========================================================================
+THE BATTERY, verbatim (canaudit re-run after scrub203.sh -- see below)
+==========================================================================
+== binaries
+c2343ac3c6d0eb267e7e9724d1766e74  /tmp/r10uvm203_bin/pris
+b801e95a2dd8fc85be5d8f28e21a090c  /tmp/r10uvm203_bin/pat
+== goldens (SLANG_UHDM exported per binary)
+  patched  PASS=23 FAIL=0
+  pristine PASS=23 FAIL=0
+  negative PASS=0 FAIL=23
+== cmds.txt binary audit (must be exactly one path per sweep)
+  pristine sl : /tmp/r10uvm203_bin/pris 
+  pristine u2r: /tmp/r10uvm203_bin/pris 
+  patched  sl : /tmp/r10uvm203_bin/pat 
+  patched  u2r: /tmp/r10uvm203_bin/pat 
+== ct8rows: surelog, patched vs COMMITTED baseline
+baseline: 1589 lines = 1588 ROWS (the header is not a row)
+fresh   : 1589 lines = 1588 ROWS
+---- WHOLE-ROW diff (status AND dump column): 1 differing ROWS (2 diff row-sides)
+< Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+> Earlgrey_0_1,testflags,CMP_EQUAL,,,
+---- per-mode STATUS histogram (baseline -> fresh)
+---- per-mode DUMP-column histogram (baseline -> fresh)
+ATTENTION: rows moved -- read them above, do not summarise them
+== ct8rows: surelog, patched vs THIS PASS'S PRISTINE
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+---- per-mode STATUS histogram (baseline -> fresh)
+---- per-mode DUMP-column histogram (baseline -> fresh)
+PASS: every row byte-identical to the committed baseline
+== ct8rows: u2r testflags, vs committed baseline / vs pristine
+PASS: every row byte-identical to the committed baseline
+PASS: every row byte-identical to the committed baseline
+== ct8rows: u2r default, vs pristine
+PASS: every row byte-identical to the committed baseline
+== byteverify SELFCHECK=1
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=549e5df5a90b pristine=6bc679046b20
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=da0e89b9d527 pristine=0b0319c29a76
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=2c3396671e2f pristine=31ae5b0e5eed
+MOVER ./testflags/SimpleUVM-1dc93a62/slang.uhdm  patched=c04a47b8aa03 pristine=2e57bd0d3582
+MOVERS: 4 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+== canaries
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+  Earlgrey_0_1                   testflags CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+---- canary rows: ok=51 changed=1 absent=0 unknown-names=7
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+== ctcan2
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+== canaudit  -- THIS IS THE PRE-SCRUB RUN.  The two PREDICTION artifacts name
+   every row of the sweep workdir the predictor walked, the fenced tests
+   included; scrub203.sh (which reads the fence list OUT of canaudit.sh and
+   never spells it) redacted them, and the POST-SCRUB run at the bottom of
+   this file reads FENCE-BREACH=0.
+  <FENCED>               FENCE-BREACH in: /tmp/wt_r10uvm203/tools/probe/r10uvm203repro/PREDICTION.pristine.surelog.r10uvm203.txt 
+---- audited=29  UNCOVERED=0  FENCE-BREACH=4
+== protected databases (patched vs pristine)
+  InterfaceModPort/default patched=59a365f3ce2c pristine=59a365f3ce2c SAME
+  InterfaceModPort/testflags patched=59a365f3ce2c pristine=59a365f3ce2c SAME
+  BlackParrotComplex/default patched=e3e354129d5a pristine=e3e354129d5a SAME
+  BlackParrotComplex/testflags patched=73a10e8217e5 pristine=73a10e8217e5 SAME
+  YosysOldOr/default patched=d68e0796d62c pristine=d68e0796d62c SAME
+  YosysOldOr/testflags patched=d68e0796d62c pristine=d68e0796d62c SAME
+  SVSwitch/default patched=4842211c4030 pristine=4842211c4030 SAME
+  SVSwitch/testflags patched=4842211c4030 pristine=4842211c4030 SAME
+  YosysVerx/default patched=6ccda350c24a pristine=6ccda350c24a SAME
+  YosysVerx/testflags patched=6ccda350c24a pristine=6ccda350c24a SAME
+== rowheads, pristine then patched
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         50      1 cmp rc=255
+SeqDriver      testflags       50      1 cmp rc=255
+SimpleUVM      default    1327654      1 cmp rc=255
+SimpleUVM      testflags  1327654      1 cmp rc=255
+Scoreboard     default         95      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default         50      1 cmp rc=255
+MiniAmiq       testflags       50      1 cmp rc=255
+BuildUVMPkg    default          0      0 cmp rc=0
+BuildUVMPkg    testflags        0      0 cmp rc=0
+Earlgrey_0_1   default        386      1 cmp rc=255
+Earlgrey_0_1   testflags        0      0 cmp rc=0
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         50      1 cmp rc=255
+SeqDriver      testflags       50      1 cmp rc=255
+SimpleUVM      default    4177864      1 cmp rc=255
+SimpleUVM      testflags  4178104      1 cmp rc=255
+Scoreboard     default         95      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default         50      1 cmp rc=255
+MiniAmiq       testflags       50      1 cmp rc=255
+BuildUVMPkg    default          0      0 cmp rc=0
+BuildUVMPkg    testflags        0      0 cmp rc=0
+Earlgrey_0_1   default        386      1 cmp rc=255
+Earlgrey_0_1   testflags        0      0 cmp rc=0
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+
+== canaudit, after scrub203.sh redacted the fenced names out of the
+   PREDICTION artifacts (the predictor walks a whole sweep workdir, so its
+   raw output names every row):
+---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+PASS: every brief-protected name and family is carried by a script that RUNS here.
