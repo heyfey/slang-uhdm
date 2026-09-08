@@ -8921,6 +8921,24 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             lv9->VpiParent(m);
             setLoc(lv9, nameSpan(iv9->location, iv9->name));
             lv9->VpiVisibility(1);
+            // § hoistedLocalKeepsItsLifetime209 — THE ONE COPY THIS LISTING
+            // MINTS ITSELF.  Every other entry above goes through
+            // `emitPackageVar`, which is the law's single decision point; the
+            // integral-typedef arm builds its `logic_var` here, so it has to
+            // carry the source variable's lifetime here too, by the same rule
+            // and with the same gate.  A package MEMBER's copy keeps the
+            // net_declaration shape and stays UNMARKED — golden reads
+            // `vg209_t pg_vec` (a package item) as vpiAutomatic 0 in the
+            // module's listing — while a HOISTED constructor local of the very
+            // same written type is a block_item_declaration and reads 1: grid
+            // arm G's `vg209_t lg_vec`, both module copies, both views, on a
+            // real Surelog golden.  Without this the head simply moved one kind
+            // sideways.
+            bool ownPkgMember209 =
+                iv9->getParentScope() &&
+                iv9->getParentScope()->asSymbol().kind == SymbolKind::Package;
+            if (!ownPkgMember209 && iv9->lifetime != VariableLifetime::Static)
+                lv9->VpiAutomatic(true);
             auto& ta9 = dt9->getType().as<TypeAliasType>();
             const syntax::SyntaxNode* tSyn9 = nullptr;
             if (auto asyn9 = ta9.getSyntax())

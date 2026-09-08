@@ -1,0 +1,120 @@
+== r10uvm209 GATES, verbatim ==
+
+-- binaries
+ca22259d3130f2ff5b7e6a696f562ef3  pris.bin
+526cbd7fa52f03f17ad969c2f1ddcfef  patched.bin
+
+-- goldens (SLANG_UHDM exported explicitly per binary)
+PRISTINE  PASS=23  FAIL=0
+PATCHED   PASS=23  FAIL=0
+NEG-CTL   PASS=0  FAIL=23
+
+-- cmds.txt binary audit (BY PATH), one distinct path per sweep
+  pris_sl: /tmp/r10uvm209_bin/pris.bin 
+  pat_sl: /tmp/r10uvm209_bin/patched.bin 
+  pris_u2r: /tmp/r10uvm209_bin/pris.bin 
+  pat_u2r: /tmp/r10uvm209_bin/patched.bin 
+
+-- ct8rows: u2r testflags vs committed gate
+PASS: every row byte-identical to the committed baseline
+-- ct8rows: u2r testflags vs own pristine
+PASS: every row byte-identical to the committed baseline
+-- ct8rows: u2r default vs own pristine
+PASS: every row byte-identical to the committed baseline
+
+-- ct8rows: surelog vs own pristine (THE CONVERSION, quoted)
+baseline: 1589 lines = 1588 ROWS (the header is not a row)
+fresh   : 1589 lines = 1588 ROWS
+---- WHOLE-ROW diff (status AND dump column): 2 differing ROWS (4 diff row-sides)
+< SimpleUVM,default,CMP_NOTEQUAL,decompile:,,
+< SimpleUVM,testflags,CMP_NOTEQUAL,decompile:,,
+> SimpleUVM,default,CMP_EQUAL,,,differ
+> SimpleUVM,testflags,CMP_EQUAL,,,differ
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     473 CMP_EQUAL       8 CMP_NOTEQUAL       5 DEFERRED     283 SLANG_REJECT      25 SURELOG_FAIL 
+  default  fresh:     474 CMP_EQUAL       7 CMP_NOTEQUAL       5 DEFERRED     283 SLANG_REJECT      25 SURELOG_FAIL 
+  testflags  base:     468 CMP_EQUAL       7 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  testflags  fresh:     469 CMP_EQUAL       6 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     322      246 differ     226 match 
+  default  fresh:     321      247 differ     226 match 
+  testflags  base:     327      301 differ     166 match 
+  testflags  fresh:     326      302 differ     166 match 
+ATTENTION: rows moved -- read them above, do not summarise them
+
+-- byteverify surelog (SELFCHECK=1)
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=3ea18376d485 pristine=23263a1d0f27
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=4884a0cf6ed5 pristine=1c5bddb1e34a
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=9e56666e4ca5 pristine=8e12e5b7f765
+MOVER ./testflags/SimpleUVM-1dc93a62/slang.uhdm  patched=2aa5b5ba737f pristine=c300f76986b5
+MOVERS: 4 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+
+-- byteverify uhdm2rtlil (SELFCHECK=1)
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+
+-- prediction (PRISTINE databases only, run before the patched sweeps)
+-- VISITED=956 FIRING=4
+-- VISITED=1358 FIRING=0
+
+-- canaries
+  surelog vs own pristine:  ---- canary rows: ok=50 changed=2 absent=0 unknown-names=7
+  SimpleUVM                      default   CHANGED CMP_NOTEQUAL/ -> CMP_EQUAL/differ
+  SimpleUVM                      testflags CHANGED CMP_NOTEQUAL/ -> CMP_EQUAL/differ
+  u2r vs committed gate:    ---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+
+-- ctcan2
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+
+-- canaudit
+---- audited=29  UNCOVERED=0  FENCE-BREACH=0
+PASS: every brief-protected name and family is carried by a script that RUNS here.
+
+-- protected databases (12-hex md5 prefix, patched vs pristine)
+  InterfaceModPort     default   patched=59a365f3ce2c pristine=59a365f3ce2c SAME
+  InterfaceModPort     testflags patched=59a365f3ce2c pristine=59a365f3ce2c SAME
+  BlackParrotComplex   default   patched=e3e354129d5a pristine=e3e354129d5a SAME
+  BlackParrotComplex   testflags patched=73a10e8217e5 pristine=73a10e8217e5 SAME
+  YosysOldOr           default   patched=d68e0796d62c pristine=d68e0796d62c SAME
+  YosysOldOr           testflags patched=d68e0796d62c pristine=d68e0796d62c SAME
+  SVSwitch             default   patched=4842211c4030 pristine=4842211c4030 SAME
+  SVSwitch             testflags patched=4842211c4030 pristine=4842211c4030 SAME
+  YosysVerx            default   patched=6ccda350c24a pristine=6ccda350c24a SAME
+  YosysVerx            testflags patched=6ccda350c24a pristine=6ccda350c24a SAME
+  YosysBigSimReed      default   patched=1275131a6918 pristine=1275131a6918 SAME
+  YosysBigSimReed      testflags patched=158ed16c2931 pristine=158ed16c2931 SAME
+  YosysOldOpen         default   patched=6d0e7ba67451 pristine=6d0e7ba67451 SAME
+  YosysOldOpen         testflags patched=6d0e7ba67451 pristine=6d0e7ba67451 SAME
+  ApbSlave             default   patched=1c5d153894cf pristine=1c5d153894cf SAME
+  ApbSlave             testflags patched=1c5d153894cf pristine=1c5d153894cf SAME
+  ClassExtends         default   patched=e9e8df985eaa pristine=e9e8df985eaa SAME
+  ClassExtends         testflags patched=340f6d208265 pristine=340f6d208265 SAME
+  Earlgrey_0_1         default   patched=8c2ba25c4d7f pristine=8c2ba25c4d7f SAME
+  Earlgrey_0_1         testflags patched=92bf7b7facdc pristine=92bf7b7facdc SAME
+
+-- grid (7 arms x 2 views)
+-- CALIB  14 arm-views, AGREE 662, WRONG 0, ONLY-GOLDEN 0, ONLY-OURS 0
+-- CALIB  MSET-MISSING 0, MSET-EXTRA 0
+-- PRIS  14 arm-views, AGREE 572, WRONG 70, ONLY-GOLDEN 20, ONLY-OURS 0
+-- PRIS  MSET-MISSING 433, MSET-EXTRA 226
+-- PATCHED  14 arm-views, AGREE 622, WRONG 20, ONLY-GOLDEN 20, ONLY-OURS 0
+-- PATCHED  MSET-MISSING 383, MSET-EXTRA 176
+-- NONZERO RCs: 0
+
+-- wide boundary
+LISTED=5381 PROCESSED=5381 PRODUCED_DBS=5196 MOVED_ARMS=22 RC_DIFFS=0
+-- SCORED views=44 MISSING-ARMS=0 NODB-views=0 TO-GOLDEN=216 AWAY-GOLDEN=0
+   (last scored line, for shape)
+r10v152repro/arms/v152_i_iface.sv	elab	AGREE 10->13	WRONG 9->6	ONLY-G 0->0	ONLY-O 0->0	TO-GOLDEN 3	AWAY 0	rc=0/0/0
+
+-- census (nine names x both modes)
+-- ROWS=16 SKIP-NOFILE=2 UNKNOWN-NAME=0
+-- PATCHED  MOVED-WRONG 0  AWAY 0  WRONG->RIGHT 30
+-- LISTING WRONG  pris 30  ->  patched 0

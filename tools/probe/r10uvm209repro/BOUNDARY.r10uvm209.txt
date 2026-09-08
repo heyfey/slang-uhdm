@@ -1,0 +1,34 @@
+./bound209.sh: line 47: 776875 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+./bound209.sh: line 47: 776969 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+./bound209.sh: line 47: 780941 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+./bound209.sh: line 47: 781024 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+./bound209.sh: line 47: 1295050 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+./bound209.sh: line 47: 1295096 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+./bound209.sh: line 47: 1301896 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+./bound209.sh: line 47: 1301932 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+./bound209.sh: line 47: 1306679 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+./bound209.sh: line 47: 1306716 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+./bound209.sh: line 47: 1421303 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+./bound209.sh: line 47: 1421324 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+./bound209.sh: line 47: 1421388 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+./bound209.sh: line 47: 1421406 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+./bound209.sh: line 47: 1471235 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+./bound209.sh: line 47: 1471253 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+./bound209.sh: line 47: 1471732 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+./bound209.sh: line 47: 1471750 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+./bound209.sh: line 47: 1476055 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+./bound209.sh: line 47: 1476073 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+./bound209.sh: line 47: 1476469 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+./bound209.sh: line 47: 1476487 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+./bound209.sh: line 47: 1478798 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+./bound209.sh: line 47: 1478816 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+./bound209.sh: line 47: 1479129 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+./bound209.sh: line 47: 1479147 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+./bound209.sh: line 47: 1533132 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+./bound209.sh: line 47: 1533150 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+./bound209.sh: line 47: 1533214 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+./bound209.sh: line 47: 1533232 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+./bound209.sh: line 47: 1533296 Segmentation fault      "$PRIS" "$b" --elabuhdm -o oe.uhdm > oe.log 2>&1 < /dev/null
+./bound209.sh: line 47: 1533317 Segmentation fault      "$PATCHED" "$b" --elabuhdm -o qe.uhdm > qe.log 2>&1 < /dev/null
+LISTED=5381 PROCESSED=5381 PRODUCED_DBS=5196 MOVED_ARMS=22 RC_DIFFS=0
+BDONE

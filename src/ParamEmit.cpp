@@ -22916,15 +22916,20 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                    (all || includeExpandedLess(
                                includeExpandedKey(*sm, hoist9[hIdx9]->location),
                                includeExpandedKey(*sm, upto)))) {
-                size_t before9 = pvars->size();
-                emitPackageVar(*hoist9[hIdx9++], up, prefix, pvars);
-                // A hoisted SUBROUTINE local keeps its AUTOMATIC lifetime
-                // even in kinds that carry none at package scope: golden's
-                // hoisted class_vars (clp/top/cs/bld/common/rh) are all
+                // § hoistedLocalKeepsItsLifetime209 — the unconditional
+                // `VpiAutomatic(true)` that used to stand here is GONE.  A
+                // hoisted SUBROUTINE local does keep an automatic lifetime in
+                // kinds that carry none at package scope — golden's hoisted
+                // class_vars (clp/top/cs/bld/common/rh) are all
                 // vpiAutomatic:1 while the package's own class_vars
-                // (build_ph, uvm_cmdline_proc) are not.
-                for (size_t i9 = before9; i9 < pvars->size(); i9++)
-                    (*pvars)[i9]->VpiAutomatic(true);
+                // (build_ph, uvm_cmdline_proc) are not — but that is because
+                // it carries ITS OWN lifetime, and one written `static`
+                // carries a STATIC one: grid arm B's `static cb209b
+                // lb_static` and `static int lb_int_static` are vpiAutomatic 0
+                // in golden's package listing, which the blanket stamp got
+                // wrong.  `emitPackageVar` decides it now — once, for this
+                // listing and for every module's copy of it alike.
+                emitPackageVar(*hoist9[hIdx9++], up, prefix, pvars);
             }
         };
         // A package that WILDCARD-imports another materializes a CLONE of
@@ -23043,10 +23048,10 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                                         includeExpandedKey(*sm,
                                                            qh9[qi9]->location),
                                         includeExpandedKey(*sm, upto9)))) {
-                        size_t b9 = pvars->size();
+                        // § hoistedLocalKeepsItsLifetime209 — the transitive
+                        // clone carries the home listing's value too, and that
+                        // value is `emitPackageVar`'s (grid arm F).
                         emitPackageVar(*qh9[qi9++], up, prefix, pvars);
-                        for (size_t k9 = b9; k9 < pvars->size(); k9++)
-                            (*pvars)[k9]->VpiAutomatic(true);
                     }
                 };
                 for (auto& qm9 : q9.members()) {
@@ -24153,7 +24158,61 @@ void UhdmExporter::emitPackageVar(const Symbol& vs, UHDM::instance* up,
                              !qual26 && !newInit26;
             }
         }
-        if ((!netShape26 && !staticKw26) || autoKw26)
+        // § hoistedLocalKeepsItsLifetime209 — THE NET/DATA-DECLARATION
+        // AMBIGUITY § 26 DECODES IS A PACKAGE-ITEM ONE.  It exists because a
+        // package item written `<type-identifier> <name>;` matches
+        // net_declaration as well as data_declaration and Surelog's parser
+        // takes the net one (`compileNetDeclaration` -> `sig->setStatic()`
+        // unconditionally, :2186/:2199).  Inside a SUBROUTINE BODY there is no
+        // such alternative: a block_item_declaration is a data_declaration and
+        // nothing else, so the whole test is inapplicable to a HOISTED
+        // out-of-body constructor local — and applying it anyway is what left
+        // every hoisted CLASS HANDLE unmarked.
+        //
+        // THE SURELOG PATH, end to end.  `CompilePackage::collectObjects_`
+        // (src/DesignCompile/CompilePackage.cpp:124) stops its walk at
+        // `paClass_declaration`, `paFunction_body_declaration`,
+        // `paTask_body_declaration` and `paInterface_class_declaration` — and
+        // NOT at `paClass_constructor_declaration`, which is why an
+        // out-of-body constructor's body is walked as package text at all
+        // (§ collectOobCtorLocals's measured distinguisher, now with its
+        // mechanism).  Every `paData_declaration` it meets there goes to
+        // `compileDataDeclaration(m_package, …)` (:263), whose
+        // `is_static = (component is ModuleDefinition || Program)`
+        // (CompileHelper.cpp:2294) is FALSE for a package and is overridden
+        // only by a written `paLifetime_Static` / `paLifetime_Automatic`
+        // qualifier; `ElaborationStep::makeVar_`'s tail (:2350) then writes
+        // `VpiAutomatic(!sig->isStatic())`.  So the hoisted local's flag is
+        // ITS OWN LIFETIME, and the module's materialised copy is that Signal
+        // re-read by `NetlistElaboration::elab_ports_nets_`
+        // (NetlistElaboration.cpp:2609) through the same `makeVar_` — which is
+        // why golden's module copy equals the package's listing VALUE FOR
+        // VALUE, all 33 entries, twice over (MEASURED on SimpleUVM: the two
+        // 33-cell runs of `work@top`'s elaborated `vpiVariables` are byte-equal
+        // to `uvm_pkg`'s own listing on the qualifier fields).
+        //
+        // CARRIED, NOT INFERRED.  The value is the SOURCE VARIABLE's lifetime,
+        // which is exactly what grid arm B separates: golden reads
+        // `static cb209b lb_static` as vpiAutomatic 0 and the plain and
+        // `automatic` twins as 1, in the package's listing AND in both module
+        // copies.  A rule that stamped every hoisted local automatic — the one
+        // § 203 left at the package call site — cannot tell those apart.
+        // Reading slang's `lifetime` rather than re-deriving from the written
+        // qualifier is safe here for a reason grid arm G records: NEITHER
+        // `function static <cls>::new()` NOR `function automatic <cls>::new()`
+        // is accepted by either producer (slang: "class methods cannot have
+        // static lifetime"; Surelog: a syntax error on both), so a hoisted
+        // constructor local has no enclosing lifetime keyword to inherit and
+        // the two readings cannot diverge.
+        bool ownPkgMember209 =
+            vs.getParentScope() &&
+            vs.getParentScope()->asSymbol().kind == SymbolKind::Package;
+        if (!ownPkgMember209) {
+            if (vs.kind == SymbolKind::Variable &&
+                vs.as<VariableSymbol>().lifetime != VariableLifetime::Static)
+                v->VpiAutomatic(true);
+        }
+        else if ((!netShape26 && !staticKw26) || autoKw26)
             v->VpiAutomatic(true);
         // The SAME parse rule decides the object's SPAN.  A data_declaration
         // variable spans the whole DECLARATOR — name token through initializer
@@ -24289,10 +24348,29 @@ bool UhdmExporter::emitPkgArrayVar(const Symbol& vs, UHDM::instance* up,
     // package array_var while the scalar package variables carry none, and
     // uhdm-cmp DOES compare vpiRandType (vpiRand=2 first-failed here).
     av->VpiRandType(vpiNotRand);
-    // ...and vpiAutomatic only on the ASSOCIATIVE one (measured: the queue
-    // has none).  Neither field is compared by uhdm-cmp; both are recorded
-    // for byte identity.
-    if (aType == vpiAssocArray)
+    // ...and vpiAutomatic only on the ASSOCIATIVE one at PACKAGE scope
+    // (measured: the queue has none there).  `variables::Compare`
+    // (~/git-repos/UHDM/build/generated/src/variables.cpp:255) DOES read the
+    // field and `array_var::Compare` reaches it through `basetype_t::Compare`,
+    // so this is a judged cell, not a byte-identity one.
+    //
+    // § hoistedLocalKeepsItsLifetime209 — a HOISTED out-of-body constructor
+    // local is not a package item, so the package-scope split above does not
+    // apply to it: it carries ITS OWN LIFETIME, container kind and all.
+    // MEASURED on real Surelog goldens: grid arm A's `int lo_assoc[string]`
+    // and grid arm G's `int lg_q[$]`, both declared in a constructor body,
+    // are vpiAutomatic 1 in the package's listing and in every module copy —
+    // the QUEUE included, where a package-scope one written the same way is
+    // the residue R1 records.
+    bool ownPkgMember209 =
+        vs.getParentScope() &&
+        vs.getParentScope()->asSymbol().kind == SymbolKind::Package;
+    if (!ownPkgMember209) {
+        if (vs.kind == SymbolKind::Variable &&
+            vs.as<VariableSymbol>().lifetime != VariableLifetime::Static)
+            av->VpiAutomatic(true);
+    }
+    else if (aType == vpiAssocArray)
         av->VpiAutomatic(true);
     setLoc(av, nameSpan(vs.location, vs.name));
     auto* ats = s.MakeArray_typespec();

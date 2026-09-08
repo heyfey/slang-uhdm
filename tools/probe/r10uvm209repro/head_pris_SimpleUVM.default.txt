@@ -1,0 +1,86 @@
+LHS:
+decompile:
+class_var: (work@top.clp), id:188924, line:801:27, endln:801:66
+|vpiParent:
+\_module_inst: work@top (work@top), id:197854, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+|vpiTypespec:
+\_ref_typespec: (work@top.clp), id:188925
+  |vpiParent:
+  \_class_var: (work@top.clp), id:188924, line:801:27, endln:801:66
+  |vpiFullName:work@top.clp
+  |vpiActual:
+  \_class_typespec: (uvm_cmdline_processor), id:188922, line:801:5, endln:801:26
+|vpiName:clp
+|vpiFullName:work@top.clp
+|vpiAutomatic:1
+|vpiVisibility:1
+|vpiExpr:
+\_ref_obj: (work@top.clp.uvm_cmdline_processor::get_inst), id:188923, line:801:33, endln:801:56
+  |vpiParent:
+  \_class_var: (work@top.clp), id:188924, line:801:27, endln:801:66
+  |vpiName:uvm_cmdline_processor::get_inst
+  |vpiFullName:work@top.clp.uvm_cmdline_processor::get_inst
+
+decompile:
+class_var: (work@top.clp), id:188924, line:801:27, endln:801:66
+|vpiParent:
+\_module_inst: work@top (work@top), id:197854, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+|vpiTypespec:
+\_ref_typespec: (work@top.clp), id:188925
+  |vpiParent:
+  \_class_var: (work@top.clp), id:188924, line:801:27, endln:801:66
+  |vpiFullName:work@top.clp
+  |vpiActual:
+  \_class_typespec: (uvm_cmdline_processor), id:188922, line:801:5, endln:801:26
+|vpiName:clp
+|vpiFullName:work@top.clp
+|vpiAutomatic:1
+|vpiVisibility:1
+|vpiExpr:
+\_ref_obj: (work@top.clp.uvm_cmdline_processor::get_inst), id:188923, line:801:33, endln:801:56
+  |vpiParent:
+  \_class_var: (work@top.clp), id:188924, line:801:27, endln:801:66
+  |vpiName:uvm_cmdline_processor::get_inst
+  |vpiFullName:work@top.clp.uvm_cmdline_processor::get_inst
+RHS:
+decompile:
+class_var: (work@top.clp), id:181093, line:801:27, endln:801:66
+|vpiParent:
+\_module_inst: work@top (work@top), id:180589, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+|vpiTypespec:
+\_ref_typespec: (work@top.clp), id:181095
+  |vpiParent:
+  \_class_var: (work@top.clp), id:181093, line:801:27, endln:801:66
+  |vpiFullName:work@top.clp
+  |vpiActual:
+  \_class_typespec: (uvm_cmdline_processor), id:181094, line:801:5, endln:801:26
+|vpiName:clp
+|vpiFullName:work@top.clp
+|vpiVisibility:1
+|vpiExpr:
+\_ref_obj: (work@top.clp.uvm_cmdline_processor::get_inst), id:181096, line:801:33, endln:801:56
+  |vpiParent:
+  \_class_var: (work@top.clp), id:181093, line:801:27, endln:801:66
+  |vpiName:uvm_cmdline_processor::get_inst
+  |vpiFullName:work@top.clp.uvm_cmdline_processor::get_inst
+
+decompile:
+class_var: (work@top.clp), id:181093, line:801:27, endln:801:66
+|vpiParent:
+\_module_inst: work@top (work@top), id:180589, file:/home/heyfey/git-repos/Surelog/third_party/tests/SimpleUVM/testbench.sv, line:44:1, endln:71:10
+|vpiTypespec:
+\_ref_typespec: (work@top.clp), id:181095
+  |vpiParent:
+  \_class_var: (work@top.clp), id:181093, line:801:27, endln:801:66
+  |vpiFullName:work@top.clp
+  |vpiActual:
+  \_class_typespec: (uvm_cmdline_processor), id:181094, line:801:5, endln:801:26
+|vpiName:clp
+|vpiFullName:work@top.clp
+|vpiVisibility:1
+|vpiExpr:
+\_ref_obj: (work@top.clp.uvm_cmdline_processor::get_inst), id:181096, line:801:33, endln:801:56
+  |vpiParent:
+  \_class_var: (work@top.clp), id:181093, line:801:27, endln:801:66
+  |vpiName:uvm_cmdline_processor::get_inst
+  |vpiFullName:work@top.clp.uvm_cmdline_processor::get_inst

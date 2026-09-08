@@ -1,0 +1,698 @@
+ARM g209_a_cross parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g209_a_cross.parse AGREE=84 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=0 MSET-EXTRA=0
+CENSUM PRIS:g209_a_cross.parse AGREE=80 WRONG=4 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=4 MSET-EXTRA=15
+CELL PRIS:g209_a_cross.parse AGREE=80 WRONG=4 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=4 MSET-EXTRA=15
+CELL PRIS:g209_a_cross.parse WRONG M:top:work@ga209:work@ga209#15 G=class_var|lo_cls|A1|V1|C0 O=class_var|lo_cls|A0|V1|C0 scope=function:new
+CELL PRIS:g209_a_cross.parse WRONG M:top:work@ga209:work@ga209#19 G=class_var|lo_nest|A1|V1|C0 O=class_var|lo_nest|A0|V1|C0 scope=begin:
+CELL PRIS:g209_a_cross.parse WRONG M:top:work@ga209:work@ga209#5 G=class_var|lo_cls|A1|V1|C0 O=class_var|lo_cls|A0|V1|C0 scope=function:new
+CELL PRIS:g209_a_cross.parse WRONG M:top:work@ga209:work@ga209#9 G=class_var|lo_nest|A1|V1|C0 O=class_var|lo_nest|A0|V1|C0 scope=begin:
+CELL PRIS:g209_a_cross.parse MSET-MISSING class_var|lo_cls|A1|V1|C0|23:12-23:18 x2
+CELL PRIS:g209_a_cross.parse MSET-MISSING class_var|lo_nest|A1|V1|C0|28:13-28:20 x2
+CELL PRIS:g209_a_cross.parse MSET-EXTRA class_var|lo_cls|A0|V0|C0|23:12-23:18 x2
+CELL PRIS:g209_a_cross.parse MSET-EXTRA class_var|lo_cls|A0|V1|C0|23:12-23:18 x2
+CELL PRIS:g209_a_cross.parse MSET-EXTRA class_var|lo_nest|A0|V1|C0|28:13-28:20 x2
+CELL PRIS:g209_a_cross.parse MSET-EXTRA class_var||A0|V0|C0|34:21-34:28 x1
+CELL PRIS:g209_a_cross.parse MSET-EXTRA class_var||A0|V0|C0|3:23-3:28 x1
+CELL PRIS:g209_a_cross.parse MSET-EXTRA class_var||A0|V0|C0|57:22-57:30 x1
+CELL PRIS:g209_a_cross.parse MSET-EXTRA enum_var||A0|V0|C0|37:14-37:19 x1
+CELL PRIS:g209_a_cross.parse MSET-EXTRA int_var||A0|V0|C0|18:14-18:17 x1
+CELL PRIS:g209_a_cross.parse MSET-EXTRA int_var||A0|V0|C0|24:14-24:17 x1
+CELL PRIS:g209_a_cross.parse MSET-EXTRA int_var||A0|V0|C0|66:14-66:17 x1
+CELL PRIS:g209_a_cross.parse MSET-EXTRA int_var||A0|V0|C0|6:14-6:17 x1
+CELL PRIS:g209_a_cross.parse MSET-EXTRA logic_var||A0|V0|C0|0:0-0:0 x1
+CENSUM PATCHED:g209_a_cross.parse AGREE=84 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=0 MSET-EXTRA=11
+CELL PATCHED:g209_a_cross.parse AGREE=84 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=0 MSET-EXTRA=11
+CELL PATCHED:g209_a_cross.parse MSET-EXTRA class_var|lo_cls|A0|V0|C0|23:12-23:18 x2
+CELL PATCHED:g209_a_cross.parse MSET-EXTRA class_var||A0|V0|C0|34:21-34:28 x1
+CELL PATCHED:g209_a_cross.parse MSET-EXTRA class_var||A0|V0|C0|3:23-3:28 x1
+CELL PATCHED:g209_a_cross.parse MSET-EXTRA class_var||A0|V0|C0|57:22-57:30 x1
+CELL PATCHED:g209_a_cross.parse MSET-EXTRA enum_var||A0|V0|C0|37:14-37:19 x1
+CELL PATCHED:g209_a_cross.parse MSET-EXTRA int_var||A0|V0|C0|18:14-18:17 x1
+CELL PATCHED:g209_a_cross.parse MSET-EXTRA int_var||A0|V0|C0|24:14-24:17 x1
+CELL PATCHED:g209_a_cross.parse MSET-EXTRA int_var||A0|V0|C0|66:14-66:17 x1
+CELL PATCHED:g209_a_cross.parse MSET-EXTRA int_var||A0|V0|C0|6:14-6:17 x1
+CELL PATCHED:g209_a_cross.parse MSET-EXTRA logic_var||A0|V0|C0|0:0-0:0 x1
+ARM g209_a_cross elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g209_a_cross.elab AGREE=84 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=0 MSET-EXTRA=0
+CENSUM PRIS:g209_a_cross.elab AGREE=80 WRONG=4 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=88 MSET-EXTRA=15
+CELL PRIS:g209_a_cross.elab AGREE=80 WRONG=4 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=88 MSET-EXTRA=15
+CELL PRIS:g209_a_cross.elab WRONG M:top:work@ga209:work@ga209#15 G=class_var|lo_cls|A1|V1|C0 O=class_var|lo_cls|A0|V1|C0 scope=function:new
+CELL PRIS:g209_a_cross.elab WRONG M:top:work@ga209:work@ga209#19 G=class_var|lo_nest|A1|V1|C0 O=class_var|lo_nest|A0|V1|C0 scope=begin:
+CELL PRIS:g209_a_cross.elab WRONG M:top:work@ga209:work@ga209#5 G=class_var|lo_cls|A1|V1|C0 O=class_var|lo_cls|A0|V1|C0 scope=function:new
+CELL PRIS:g209_a_cross.elab WRONG M:top:work@ga209:work@ga209#9 G=class_var|lo_nest|A1|V1|C0 O=class_var|lo_nest|A0|V1|C0 scope=begin:
+CELL PRIS:g209_a_cross.elab MSET-MISSING array_var|lo_assoc|A0|V0|C0|26:12-26:20 x10
+CELL PRIS:g209_a_cross.elab MSET-MISSING array_var|lo_assoc|A1|V1|C0|26:12-26:20 x4
+CELL PRIS:g209_a_cross.elab MSET-MISSING array_var|pa_assoc|A1|V1|C0|16:10-16:18 x4
+CELL PRIS:g209_a_cross.elab MSET-MISSING class_var|lo_cls|A1|V1|C0|23:12-23:18 x2
+CELL PRIS:g209_a_cross.elab MSET-MISSING class_var|lo_nest|A0|V0|C0|28:13-28:20 x5
+CELL PRIS:g209_a_cross.elab MSET-MISSING class_var|lo_nest|A1|V1|C0|28:13-28:20 x2
+CELL PRIS:g209_a_cross.elab MSET-MISSING int_var|lo_int|A0|V0|C0|24:12-24:18 x10
+CELL PRIS:g209_a_cross.elab MSET-MISSING int_var|lo_int|A1|V1|C0|24:12-24:18 x4
+CELL PRIS:g209_a_cross.elab MSET-MISSING int_var|n|A1|V1|C0|9:9-9:10 x1
+CELL PRIS:g209_a_cross.elab MSET-MISSING int_var|pa_int|A1|V1|C0|14:10-14:16 x4
+CELL PRIS:g209_a_cross.elab MSET-MISSING int_var|q|A1|V1|C0|19:9-19:10 x1
+CELL PRIS:g209_a_cross.elab MSET-MISSING int_var||A0|V0|C0|16:10-16:18 x4
+CELL PRIS:g209_a_cross.elab MSET-MISSING int_var||A0|V0|C0|26:12-26:20 x19
+CELL PRIS:g209_a_cross.elab MSET-MISSING string_var|lo_str|A0|V0|C0|25:12-25:18 x10
+CELL PRIS:g209_a_cross.elab MSET-MISSING string_var|lo_str|A1|V1|C0|25:12-25:18 x4
+CELL PRIS:g209_a_cross.elab MSET-MISSING string_var|pa_str|A1|V1|C0|15:10-15:16 x4
+CELL PRIS:g209_a_cross.elab MSET-EXTRA class_var|lo_cls|A0|V0|C0|23:12-23:18 x2
+CELL PRIS:g209_a_cross.elab MSET-EXTRA class_var|lo_cls|A0|V1|C0|23:12-23:18 x2
+CELL PRIS:g209_a_cross.elab MSET-EXTRA class_var|lo_nest|A0|V1|C0|28:13-28:20 x2
+CELL PRIS:g209_a_cross.elab MSET-EXTRA class_var||A0|V0|C0|34:21-34:28 x1
+CELL PRIS:g209_a_cross.elab MSET-EXTRA class_var||A0|V0|C0|3:23-3:28 x1
+CELL PRIS:g209_a_cross.elab MSET-EXTRA class_var||A0|V0|C0|57:22-57:30 x1
+CELL PRIS:g209_a_cross.elab MSET-EXTRA enum_var||A0|V0|C0|37:14-37:19 x1
+CELL PRIS:g209_a_cross.elab MSET-EXTRA int_var||A0|V0|C0|18:14-18:17 x1
+CELL PRIS:g209_a_cross.elab MSET-EXTRA int_var||A0|V0|C0|24:14-24:17 x1
+CELL PRIS:g209_a_cross.elab MSET-EXTRA int_var||A0|V0|C0|66:14-66:17 x1
+CELL PRIS:g209_a_cross.elab MSET-EXTRA int_var||A0|V0|C0|6:14-6:17 x1
+CELL PRIS:g209_a_cross.elab MSET-EXTRA logic_var||A0|V0|C0|0:0-0:0 x1
+CENSUM PATCHED:g209_a_cross.elab AGREE=84 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=84 MSET-EXTRA=11
+CELL PATCHED:g209_a_cross.elab AGREE=84 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=84 MSET-EXTRA=11
+CELL PATCHED:g209_a_cross.elab MSET-MISSING array_var|lo_assoc|A0|V0|C0|26:12-26:20 x10
+CELL PATCHED:g209_a_cross.elab MSET-MISSING array_var|lo_assoc|A1|V1|C0|26:12-26:20 x4
+CELL PATCHED:g209_a_cross.elab MSET-MISSING array_var|pa_assoc|A1|V1|C0|16:10-16:18 x4
+CELL PATCHED:g209_a_cross.elab MSET-MISSING class_var|lo_nest|A0|V0|C0|28:13-28:20 x5
+CELL PATCHED:g209_a_cross.elab MSET-MISSING int_var|lo_int|A0|V0|C0|24:12-24:18 x10
+CELL PATCHED:g209_a_cross.elab MSET-MISSING int_var|lo_int|A1|V1|C0|24:12-24:18 x4
+CELL PATCHED:g209_a_cross.elab MSET-MISSING int_var|n|A1|V1|C0|9:9-9:10 x1
+CELL PATCHED:g209_a_cross.elab MSET-MISSING int_var|pa_int|A1|V1|C0|14:10-14:16 x4
+CELL PATCHED:g209_a_cross.elab MSET-MISSING int_var|q|A1|V1|C0|19:9-19:10 x1
+CELL PATCHED:g209_a_cross.elab MSET-MISSING int_var||A0|V0|C0|16:10-16:18 x4
+CELL PATCHED:g209_a_cross.elab MSET-MISSING int_var||A0|V0|C0|26:12-26:20 x19
+CELL PATCHED:g209_a_cross.elab MSET-MISSING string_var|lo_str|A0|V0|C0|25:12-25:18 x10
+CELL PATCHED:g209_a_cross.elab MSET-MISSING string_var|lo_str|A1|V1|C0|25:12-25:18 x4
+CELL PATCHED:g209_a_cross.elab MSET-MISSING string_var|pa_str|A1|V1|C0|15:10-15:16 x4
+CELL PATCHED:g209_a_cross.elab MSET-EXTRA class_var|lo_cls|A0|V0|C0|23:12-23:18 x2
+CELL PATCHED:g209_a_cross.elab MSET-EXTRA class_var||A0|V0|C0|34:21-34:28 x1
+CELL PATCHED:g209_a_cross.elab MSET-EXTRA class_var||A0|V0|C0|3:23-3:28 x1
+CELL PATCHED:g209_a_cross.elab MSET-EXTRA class_var||A0|V0|C0|57:22-57:30 x1
+CELL PATCHED:g209_a_cross.elab MSET-EXTRA enum_var||A0|V0|C0|37:14-37:19 x1
+CELL PATCHED:g209_a_cross.elab MSET-EXTRA int_var||A0|V0|C0|18:14-18:17 x1
+CELL PATCHED:g209_a_cross.elab MSET-EXTRA int_var||A0|V0|C0|24:14-24:17 x1
+CELL PATCHED:g209_a_cross.elab MSET-EXTRA int_var||A0|V0|C0|66:14-66:17 x1
+CELL PATCHED:g209_a_cross.elab MSET-EXTRA int_var||A0|V0|C0|6:14-6:17 x1
+CELL PATCHED:g209_a_cross.elab MSET-EXTRA logic_var||A0|V0|C0|0:0-0:0 x1
+ARM g209_b_lifetime parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g209_b_lifetime.parse AGREE=42 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=0 MSET-EXTRA=0
+CENSUM PRIS:g209_b_lifetime.parse AGREE=28 WRONG=14 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=14 MSET-EXTRA=25
+CELL PRIS:g209_b_lifetime.parse AGREE=28 WRONG=14 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=14 MSET-EXTRA=25
+CELL PRIS:g209_b_lifetime.parse WRONG C:P:top:pb209::cb209b#1 G=class_var|lb_static|A0|V1|C0 O=class_var|lb_static|A1|V1|C0 scope=function:new
+CELL PRIS:g209_b_lifetime.parse WRONG C:P:top:pb209::cb209b#3 G=int_var|lb_int_static|A0|V1|C0 O=int_var|lb_int_static|A1|V1|C0 scope=function:new
+CELL PRIS:g209_b_lifetime.parse WRONG C:P:top:pb209::cb209b#6 G=class_var|lb_static|A0|V1|C0 O=class_var|lb_static|A1|V1|C0 scope=function:new
+CELL PRIS:g209_b_lifetime.parse WRONG C:P:top:pb209::cb209b#8 G=int_var|lb_int_static|A0|V1|C0 O=int_var|lb_int_static|A1|V1|C0 scope=function:new
+CELL PRIS:g209_b_lifetime.parse WRONG C:P:top:pb209::cd209#1 G=class_var|lb_static|A0|V1|C0 O=class_var|lb_static|A1|V1|C0 scope=function:new
+CELL PRIS:g209_b_lifetime.parse WRONG C:P:top:pb209::cd209#3 G=int_var|lb_int_static|A0|V1|C0 O=int_var|lb_int_static|A1|V1|C0 scope=function:new
+CELL PRIS:g209_b_lifetime.parse WRONG C:P:top:pb209::cd209#6 G=class_var|lb_static|A0|V1|C0 O=class_var|lb_static|A1|V1|C0 scope=function:new
+CELL PRIS:g209_b_lifetime.parse WRONG C:P:top:pb209::cd209#8 G=int_var|lb_int_static|A0|V1|C0 O=int_var|lb_int_static|A1|V1|C0 scope=function:new
+CELL PRIS:g209_b_lifetime.parse WRONG M:top:work@gb209:work@gb209#0 G=class_var|lb_plain|A1|V1|C0 O=class_var|lb_plain|A0|V1|C0 scope=function:new
+CELL PRIS:g209_b_lifetime.parse WRONG M:top:work@gb209:work@gb209#5 G=class_var|lb_plain|A1|V1|C0 O=class_var|lb_plain|A0|V1|C0 scope=function:new
+CELL PRIS:g209_b_lifetime.parse WRONG P:all:pb209#1 G=class_var|lb_static|A0|V1|C0 O=class_var|lb_static|A1|V1|C0 scope=function:new
+CELL PRIS:g209_b_lifetime.parse WRONG P:all:pb209#3 G=int_var|lb_int_static|A0|V1|C0 O=int_var|lb_int_static|A1|V1|C0 scope=function:new
+CELL PRIS:g209_b_lifetime.parse WRONG P:top:pb209#1 G=class_var|lb_static|A0|V1|C0 O=class_var|lb_static|A1|V1|C0 scope=function:new
+CELL PRIS:g209_b_lifetime.parse WRONG P:top:pb209#3 G=int_var|lb_int_static|A0|V1|C0 O=int_var|lb_int_static|A1|V1|C0 scope=function:new
+CELL PRIS:g209_b_lifetime.parse MSET-MISSING class_var|lb_plain|A1|V1|C0|15:19-15:27 x2
+CELL PRIS:g209_b_lifetime.parse MSET-MISSING class_var|lb_static|A0|V1|C0|16:19-16:28 x6
+CELL PRIS:g209_b_lifetime.parse MSET-MISSING int_var|lb_int_static|A0|V1|C0|18:19-18:32 x6
+CELL PRIS:g209_b_lifetime.parse MSET-EXTRA class_var|lb_plain|A0|V0|C0|15:19-15:27 x2
+CELL PRIS:g209_b_lifetime.parse MSET-EXTRA class_var|lb_plain|A0|V1|C0|15:19-15:27 x2
+CELL PRIS:g209_b_lifetime.parse MSET-EXTRA class_var|lb_static|A1|V1|C0|16:19-16:28 x6
+CELL PRIS:g209_b_lifetime.parse MSET-EXTRA class_var||A0|V0|C0|34:21-34:28 x1
+CELL PRIS:g209_b_lifetime.parse MSET-EXTRA class_var||A0|V0|C0|3:23-3:28 x1
+CELL PRIS:g209_b_lifetime.parse MSET-EXTRA class_var||A0|V0|C0|57:22-57:30 x1
+CELL PRIS:g209_b_lifetime.parse MSET-EXTRA enum_var||A0|V0|C0|37:14-37:19 x1
+CELL PRIS:g209_b_lifetime.parse MSET-EXTRA int_var|lb_int_static|A1|V1|C0|18:19-18:32 x6
+CELL PRIS:g209_b_lifetime.parse MSET-EXTRA int_var||A0|V0|C0|18:14-18:17 x1
+CELL PRIS:g209_b_lifetime.parse MSET-EXTRA int_var||A0|V0|C0|24:14-24:17 x1
+CELL PRIS:g209_b_lifetime.parse MSET-EXTRA int_var||A0|V0|C0|66:14-66:17 x1
+CELL PRIS:g209_b_lifetime.parse MSET-EXTRA int_var||A0|V0|C0|6:14-6:17 x1
+CELL PRIS:g209_b_lifetime.parse MSET-EXTRA logic_var||A0|V0|C0|0:0-0:0 x1
+CENSUM PATCHED:g209_b_lifetime.parse AGREE=42 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=0 MSET-EXTRA=11
+CELL PATCHED:g209_b_lifetime.parse AGREE=42 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=0 MSET-EXTRA=11
+CELL PATCHED:g209_b_lifetime.parse MSET-EXTRA class_var|lb_plain|A0|V0|C0|15:19-15:27 x2
+CELL PATCHED:g209_b_lifetime.parse MSET-EXTRA class_var||A0|V0|C0|34:21-34:28 x1
+CELL PATCHED:g209_b_lifetime.parse MSET-EXTRA class_var||A0|V0|C0|3:23-3:28 x1
+CELL PATCHED:g209_b_lifetime.parse MSET-EXTRA class_var||A0|V0|C0|57:22-57:30 x1
+CELL PATCHED:g209_b_lifetime.parse MSET-EXTRA enum_var||A0|V0|C0|37:14-37:19 x1
+CELL PATCHED:g209_b_lifetime.parse MSET-EXTRA int_var||A0|V0|C0|18:14-18:17 x1
+CELL PATCHED:g209_b_lifetime.parse MSET-EXTRA int_var||A0|V0|C0|24:14-24:17 x1
+CELL PATCHED:g209_b_lifetime.parse MSET-EXTRA int_var||A0|V0|C0|66:14-66:17 x1
+CELL PATCHED:g209_b_lifetime.parse MSET-EXTRA int_var||A0|V0|C0|6:14-6:17 x1
+CELL PATCHED:g209_b_lifetime.parse MSET-EXTRA logic_var||A0|V0|C0|0:0-0:0 x1
+ARM g209_b_lifetime elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g209_b_lifetime.elab AGREE=42 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=0 MSET-EXTRA=0
+CENSUM PRIS:g209_b_lifetime.elab AGREE=28 WRONG=14 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=64 MSET-EXTRA=25
+CELL PRIS:g209_b_lifetime.elab AGREE=28 WRONG=14 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=64 MSET-EXTRA=25
+CELL PRIS:g209_b_lifetime.elab WRONG C:P:top:pb209::cb209b#1 G=class_var|lb_static|A0|V1|C0 O=class_var|lb_static|A1|V1|C0 scope=function:new
+CELL PRIS:g209_b_lifetime.elab WRONG C:P:top:pb209::cb209b#3 G=int_var|lb_int_static|A0|V1|C0 O=int_var|lb_int_static|A1|V1|C0 scope=function:new
+CELL PRIS:g209_b_lifetime.elab WRONG C:P:top:pb209::cb209b#6 G=class_var|lb_static|A0|V1|C0 O=class_var|lb_static|A1|V1|C0 scope=function:new
+CELL PRIS:g209_b_lifetime.elab WRONG C:P:top:pb209::cb209b#8 G=int_var|lb_int_static|A0|V1|C0 O=int_var|lb_int_static|A1|V1|C0 scope=function:new
+CELL PRIS:g209_b_lifetime.elab WRONG C:P:top:pb209::cd209#1 G=class_var|lb_static|A0|V1|C0 O=class_var|lb_static|A1|V1|C0 scope=function:new
+CELL PRIS:g209_b_lifetime.elab WRONG C:P:top:pb209::cd209#3 G=int_var|lb_int_static|A0|V1|C0 O=int_var|lb_int_static|A1|V1|C0 scope=function:new
+CELL PRIS:g209_b_lifetime.elab WRONG C:P:top:pb209::cd209#6 G=class_var|lb_static|A0|V1|C0 O=class_var|lb_static|A1|V1|C0 scope=function:new
+CELL PRIS:g209_b_lifetime.elab WRONG C:P:top:pb209::cd209#8 G=int_var|lb_int_static|A0|V1|C0 O=int_var|lb_int_static|A1|V1|C0 scope=function:new
+CELL PRIS:g209_b_lifetime.elab WRONG M:top:work@gb209:work@gb209#0 G=class_var|lb_plain|A1|V1|C0 O=class_var|lb_plain|A0|V1|C0 scope=function:new
+CELL PRIS:g209_b_lifetime.elab WRONG M:top:work@gb209:work@gb209#5 G=class_var|lb_plain|A1|V1|C0 O=class_var|lb_plain|A0|V1|C0 scope=function:new
+CELL PRIS:g209_b_lifetime.elab WRONG P:all:pb209#1 G=class_var|lb_static|A0|V1|C0 O=class_var|lb_static|A1|V1|C0 scope=function:new
+CELL PRIS:g209_b_lifetime.elab WRONG P:all:pb209#3 G=int_var|lb_int_static|A0|V1|C0 O=int_var|lb_int_static|A1|V1|C0 scope=function:new
+CELL PRIS:g209_b_lifetime.elab WRONG P:top:pb209#1 G=class_var|lb_static|A0|V1|C0 O=class_var|lb_static|A1|V1|C0 scope=function:new
+CELL PRIS:g209_b_lifetime.elab WRONG P:top:pb209#3 G=int_var|lb_int_static|A0|V1|C0 O=int_var|lb_int_static|A1|V1|C0 scope=function:new
+CELL PRIS:g209_b_lifetime.elab MSET-MISSING class_var|lb_auto|A1|V0|C0|17:22-17:29 x10
+CELL PRIS:g209_b_lifetime.elab MSET-MISSING class_var|lb_plain|A1|V1|C0|15:19-15:27 x2
+CELL PRIS:g209_b_lifetime.elab MSET-MISSING class_var|lb_static|A0|V0|C0|16:19-16:28 x10
+CELL PRIS:g209_b_lifetime.elab MSET-MISSING class_var|lb_static|A0|V1|C0|16:19-16:28 x6
+CELL PRIS:g209_b_lifetime.elab MSET-MISSING int_var|lb_int_auto|A1|V0|C0|19:19-19:30 x10
+CELL PRIS:g209_b_lifetime.elab MSET-MISSING int_var|lb_int_auto|A1|V1|C0|19:19-19:30 x4
+CELL PRIS:g209_b_lifetime.elab MSET-MISSING int_var|lb_int_static|A0|V0|C0|18:19-18:32 x10
+CELL PRIS:g209_b_lifetime.elab MSET-MISSING int_var|lb_int_static|A0|V1|C0|18:19-18:32 x10
+CELL PRIS:g209_b_lifetime.elab MSET-MISSING int_var|n|A1|V1|C0|8:9-8:10 x1
+CELL PRIS:g209_b_lifetime.elab MSET-MISSING int_var|q|A1|V1|C0|11:9-11:10 x1
+CELL PRIS:g209_b_lifetime.elab MSET-EXTRA class_var|lb_plain|A0|V0|C0|15:19-15:27 x2
+CELL PRIS:g209_b_lifetime.elab MSET-EXTRA class_var|lb_plain|A0|V1|C0|15:19-15:27 x2
+CELL PRIS:g209_b_lifetime.elab MSET-EXTRA class_var|lb_static|A1|V1|C0|16:19-16:28 x6
+CELL PRIS:g209_b_lifetime.elab MSET-EXTRA class_var||A0|V0|C0|34:21-34:28 x1
+CELL PRIS:g209_b_lifetime.elab MSET-EXTRA class_var||A0|V0|C0|3:23-3:28 x1
+CELL PRIS:g209_b_lifetime.elab MSET-EXTRA class_var||A0|V0|C0|57:22-57:30 x1
+CELL PRIS:g209_b_lifetime.elab MSET-EXTRA enum_var||A0|V0|C0|37:14-37:19 x1
+CELL PRIS:g209_b_lifetime.elab MSET-EXTRA int_var|lb_int_static|A1|V1|C0|18:19-18:32 x6
+CELL PRIS:g209_b_lifetime.elab MSET-EXTRA int_var||A0|V0|C0|18:14-18:17 x1
+CELL PRIS:g209_b_lifetime.elab MSET-EXTRA int_var||A0|V0|C0|24:14-24:17 x1
+CELL PRIS:g209_b_lifetime.elab MSET-EXTRA int_var||A0|V0|C0|66:14-66:17 x1
+CELL PRIS:g209_b_lifetime.elab MSET-EXTRA int_var||A0|V0|C0|6:14-6:17 x1
+CELL PRIS:g209_b_lifetime.elab MSET-EXTRA logic_var||A0|V0|C0|0:0-0:0 x1
+CENSUM PATCHED:g209_b_lifetime.elab AGREE=42 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=50 MSET-EXTRA=11
+CELL PATCHED:g209_b_lifetime.elab AGREE=42 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=50 MSET-EXTRA=11
+CELL PATCHED:g209_b_lifetime.elab MSET-MISSING class_var|lb_auto|A1|V0|C0|17:22-17:29 x10
+CELL PATCHED:g209_b_lifetime.elab MSET-MISSING class_var|lb_static|A0|V0|C0|16:19-16:28 x10
+CELL PATCHED:g209_b_lifetime.elab MSET-MISSING int_var|lb_int_auto|A1|V0|C0|19:19-19:30 x10
+CELL PATCHED:g209_b_lifetime.elab MSET-MISSING int_var|lb_int_auto|A1|V1|C0|19:19-19:30 x4
+CELL PATCHED:g209_b_lifetime.elab MSET-MISSING int_var|lb_int_static|A0|V0|C0|18:19-18:32 x10
+CELL PATCHED:g209_b_lifetime.elab MSET-MISSING int_var|lb_int_static|A0|V1|C0|18:19-18:32 x4
+CELL PATCHED:g209_b_lifetime.elab MSET-MISSING int_var|n|A1|V1|C0|8:9-8:10 x1
+CELL PATCHED:g209_b_lifetime.elab MSET-MISSING int_var|q|A1|V1|C0|11:9-11:10 x1
+CELL PATCHED:g209_b_lifetime.elab MSET-EXTRA class_var|lb_plain|A0|V0|C0|15:19-15:27 x2
+CELL PATCHED:g209_b_lifetime.elab MSET-EXTRA class_var||A0|V0|C0|34:21-34:28 x1
+CELL PATCHED:g209_b_lifetime.elab MSET-EXTRA class_var||A0|V0|C0|3:23-3:28 x1
+CELL PATCHED:g209_b_lifetime.elab MSET-EXTRA class_var||A0|V0|C0|57:22-57:30 x1
+CELL PATCHED:g209_b_lifetime.elab MSET-EXTRA enum_var||A0|V0|C0|37:14-37:19 x1
+CELL PATCHED:g209_b_lifetime.elab MSET-EXTRA int_var||A0|V0|C0|18:14-18:17 x1
+CELL PATCHED:g209_b_lifetime.elab MSET-EXTRA int_var||A0|V0|C0|24:14-24:17 x1
+CELL PATCHED:g209_b_lifetime.elab MSET-EXTRA int_var||A0|V0|C0|66:14-66:17 x1
+CELL PATCHED:g209_b_lifetime.elab MSET-EXTRA int_var||A0|V0|C0|6:14-6:17 x1
+CELL PATCHED:g209_b_lifetime.elab MSET-EXTRA logic_var||A0|V0|C0|0:0-0:0 x1
+ARM g209_c_scopes parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g209_c_scopes.parse AGREE=10 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=0 MSET-EXTRA=0
+CENSUM PRIS:g209_c_scopes.parse AGREE=10 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=1 MSET-EXTRA=11
+CELL PRIS:g209_c_scopes.parse AGREE=10 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=1 MSET-EXTRA=11
+CELL PRIS:g209_c_scopes.parse MSET-MISSING int_var||A0|V0|C0|18:21-18:24 x1
+CELL PRIS:g209_c_scopes.parse MSET-EXTRA class_var|ib_cls|A0|V0|C0|12:13-12:19 x1
+CELL PRIS:g209_c_scopes.parse MSET-EXTRA class_var||A0|V0|C0|34:21-34:28 x1
+CELL PRIS:g209_c_scopes.parse MSET-EXTRA class_var||A0|V0|C0|3:23-3:28 x1
+CELL PRIS:g209_c_scopes.parse MSET-EXTRA class_var||A0|V0|C0|57:22-57:30 x1
+CELL PRIS:g209_c_scopes.parse MSET-EXTRA enum_var||A0|V0|C0|37:14-37:19 x1
+CELL PRIS:g209_c_scopes.parse MSET-EXTRA int_var||A0|V0|C0|18:14-18:17 x1
+CELL PRIS:g209_c_scopes.parse MSET-EXTRA int_var||A0|V0|C0|21:12-21:15 x1
+CELL PRIS:g209_c_scopes.parse MSET-EXTRA int_var||A0|V0|C0|24:14-24:17 x1
+CELL PRIS:g209_c_scopes.parse MSET-EXTRA int_var||A0|V0|C0|66:14-66:17 x1
+CELL PRIS:g209_c_scopes.parse MSET-EXTRA int_var||A0|V0|C0|6:14-6:17 x1
+CELL PRIS:g209_c_scopes.parse MSET-EXTRA logic_var||A0|V0|C0|0:0-0:0 x1
+CENSUM PATCHED:g209_c_scopes.parse AGREE=10 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=1 MSET-EXTRA=11
+CELL PATCHED:g209_c_scopes.parse AGREE=10 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=1 MSET-EXTRA=11
+CELL PATCHED:g209_c_scopes.parse MSET-MISSING int_var||A0|V0|C0|18:21-18:24 x1
+CELL PATCHED:g209_c_scopes.parse MSET-EXTRA class_var|ib_cls|A0|V0|C0|12:13-12:19 x1
+CELL PATCHED:g209_c_scopes.parse MSET-EXTRA class_var||A0|V0|C0|34:21-34:28 x1
+CELL PATCHED:g209_c_scopes.parse MSET-EXTRA class_var||A0|V0|C0|3:23-3:28 x1
+CELL PATCHED:g209_c_scopes.parse MSET-EXTRA class_var||A0|V0|C0|57:22-57:30 x1
+CELL PATCHED:g209_c_scopes.parse MSET-EXTRA enum_var||A0|V0|C0|37:14-37:19 x1
+CELL PATCHED:g209_c_scopes.parse MSET-EXTRA int_var||A0|V0|C0|18:14-18:17 x1
+CELL PATCHED:g209_c_scopes.parse MSET-EXTRA int_var||A0|V0|C0|21:12-21:15 x1
+CELL PATCHED:g209_c_scopes.parse MSET-EXTRA int_var||A0|V0|C0|24:14-24:17 x1
+CELL PATCHED:g209_c_scopes.parse MSET-EXTRA int_var||A0|V0|C0|66:14-66:17 x1
+CELL PATCHED:g209_c_scopes.parse MSET-EXTRA int_var||A0|V0|C0|6:14-6:17 x1
+CELL PATCHED:g209_c_scopes.parse MSET-EXTRA logic_var||A0|V0|C0|0:0-0:0 x1
+ARM g209_c_scopes elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g209_c_scopes.elab AGREE=10 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=0 MSET-EXTRA=0
+CENSUM PRIS:g209_c_scopes.elab AGREE=10 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=42 MSET-EXTRA=11
+CELL PRIS:g209_c_scopes.elab AGREE=10 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=42 MSET-EXTRA=11
+CELL PRIS:g209_c_scopes.elab MSET-MISSING class_var|fn_cls|A0|V0|C0|22:11-22:17 x8
+CELL PRIS:g209_c_scopes.elab MSET-MISSING class_var|mt_cls|A0|V0|C0|44:11-44:17 x2
+CELL PRIS:g209_c_scopes.elab MSET-MISSING class_var|tk_cls|A0|V0|C0|29:11-29:17 x8
+CELL PRIS:g209_c_scopes.elab MSET-MISSING int_var|fn_int|A0|V0|C0|23:11-23:17 x8
+CELL PRIS:g209_c_scopes.elab MSET-MISSING int_var|ib_int|A0|V0|C0|13:13-13:19 x2
+CELL PRIS:g209_c_scopes.elab MSET-MISSING int_var|mt_int|A0|V0|C0|45:11-45:17 x2
+CELL PRIS:g209_c_scopes.elab MSET-MISSING int_var|n|A1|V1|C0|10:9-10:10 x1
+CELL PRIS:g209_c_scopes.elab MSET-MISSING int_var|pc_int|A1|V1|C0|34:7-34:13 x2
+CELL PRIS:g209_c_scopes.elab MSET-MISSING int_var|tk_int|A0|V0|C0|30:11-30:17 x8
+CELL PRIS:g209_c_scopes.elab MSET-MISSING int_var||A0|V0|C0|18:21-18:24 x1
+CELL PRIS:g209_c_scopes.elab MSET-EXTRA class_var|ib_cls|A0|V0|C0|12:13-12:19 x1
+CELL PRIS:g209_c_scopes.elab MSET-EXTRA class_var||A0|V0|C0|34:21-34:28 x1
+CELL PRIS:g209_c_scopes.elab MSET-EXTRA class_var||A0|V0|C0|3:23-3:28 x1
+CELL PRIS:g209_c_scopes.elab MSET-EXTRA class_var||A0|V0|C0|57:22-57:30 x1
+CELL PRIS:g209_c_scopes.elab MSET-EXTRA enum_var||A0|V0|C0|37:14-37:19 x1
+CELL PRIS:g209_c_scopes.elab MSET-EXTRA int_var||A0|V0|C0|18:14-18:17 x1
+CELL PRIS:g209_c_scopes.elab MSET-EXTRA int_var||A0|V0|C0|21:12-21:15 x1
+CELL PRIS:g209_c_scopes.elab MSET-EXTRA int_var||A0|V0|C0|24:14-24:17 x1
+CELL PRIS:g209_c_scopes.elab MSET-EXTRA int_var||A0|V0|C0|66:14-66:17 x1
+CELL PRIS:g209_c_scopes.elab MSET-EXTRA int_var||A0|V0|C0|6:14-6:17 x1
+CELL PRIS:g209_c_scopes.elab MSET-EXTRA logic_var||A0|V0|C0|0:0-0:0 x1
+CENSUM PATCHED:g209_c_scopes.elab AGREE=10 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=42 MSET-EXTRA=11
+CELL PATCHED:g209_c_scopes.elab AGREE=10 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=42 MSET-EXTRA=11
+CELL PATCHED:g209_c_scopes.elab MSET-MISSING class_var|fn_cls|A0|V0|C0|22:11-22:17 x8
+CELL PATCHED:g209_c_scopes.elab MSET-MISSING class_var|mt_cls|A0|V0|C0|44:11-44:17 x2
+CELL PATCHED:g209_c_scopes.elab MSET-MISSING class_var|tk_cls|A0|V0|C0|29:11-29:17 x8
+CELL PATCHED:g209_c_scopes.elab MSET-MISSING int_var|fn_int|A0|V0|C0|23:11-23:17 x8
+CELL PATCHED:g209_c_scopes.elab MSET-MISSING int_var|ib_int|A0|V0|C0|13:13-13:19 x2
+CELL PATCHED:g209_c_scopes.elab MSET-MISSING int_var|mt_int|A0|V0|C0|45:11-45:17 x2
+CELL PATCHED:g209_c_scopes.elab MSET-MISSING int_var|n|A1|V1|C0|10:9-10:10 x1
+CELL PATCHED:g209_c_scopes.elab MSET-MISSING int_var|pc_int|A1|V1|C0|34:7-34:13 x2
+CELL PATCHED:g209_c_scopes.elab MSET-MISSING int_var|tk_int|A0|V0|C0|30:11-30:17 x8
+CELL PATCHED:g209_c_scopes.elab MSET-MISSING int_var||A0|V0|C0|18:21-18:24 x1
+CELL PATCHED:g209_c_scopes.elab MSET-EXTRA class_var|ib_cls|A0|V0|C0|12:13-12:19 x1
+CELL PATCHED:g209_c_scopes.elab MSET-EXTRA class_var||A0|V0|C0|34:21-34:28 x1
+CELL PATCHED:g209_c_scopes.elab MSET-EXTRA class_var||A0|V0|C0|3:23-3:28 x1
+CELL PATCHED:g209_c_scopes.elab MSET-EXTRA class_var||A0|V0|C0|57:22-57:30 x1
+CELL PATCHED:g209_c_scopes.elab MSET-EXTRA enum_var||A0|V0|C0|37:14-37:19 x1
+CELL PATCHED:g209_c_scopes.elab MSET-EXTRA int_var||A0|V0|C0|18:14-18:17 x1
+CELL PATCHED:g209_c_scopes.elab MSET-EXTRA int_var||A0|V0|C0|21:12-21:15 x1
+CELL PATCHED:g209_c_scopes.elab MSET-EXTRA int_var||A0|V0|C0|24:14-24:17 x1
+CELL PATCHED:g209_c_scopes.elab MSET-EXTRA int_var||A0|V0|C0|66:14-66:17 x1
+CELL PATCHED:g209_c_scopes.elab MSET-EXTRA int_var||A0|V0|C0|6:14-6:17 x1
+CELL PATCHED:g209_c_scopes.elab MSET-EXTRA logic_var||A0|V0|C0|0:0-0:0 x1
+ARM g209_d_modimport parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g209_d_modimport.parse AGREE=14 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=0 MSET-EXTRA=0
+CENSUM PRIS:g209_d_modimport.parse AGREE=13 WRONG=1 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=1 MSET-EXTRA=12
+CELL PRIS:g209_d_modimport.parse AGREE=13 WRONG=1 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=1 MSET-EXTRA=12
+CELL PRIS:g209_d_modimport.parse WRONG M:top:work@gd209:work@gd209#0 G=class_var|ld_cls|A1|V1|C0 O=class_var|ld_cls|A0|V1|C0 scope=function:new
+CELL PRIS:g209_d_modimport.parse MSET-MISSING class_var|ld_cls|A1|V1|C0|15:12-15:18 x1
+CELL PRIS:g209_d_modimport.parse MSET-EXTRA class_var|ld_cls|A0|V0|C0|15:12-15:18 x2
+CELL PRIS:g209_d_modimport.parse MSET-EXTRA class_var|ld_cls|A0|V1|C0|15:12-15:18 x1
+CELL PRIS:g209_d_modimport.parse MSET-EXTRA class_var||A0|V0|C0|34:21-34:28 x1
+CELL PRIS:g209_d_modimport.parse MSET-EXTRA class_var||A0|V0|C0|3:23-3:28 x1
+CELL PRIS:g209_d_modimport.parse MSET-EXTRA class_var||A0|V0|C0|57:22-57:30 x1
+CELL PRIS:g209_d_modimport.parse MSET-EXTRA enum_var||A0|V0|C0|37:14-37:19 x1
+CELL PRIS:g209_d_modimport.parse MSET-EXTRA int_var||A0|V0|C0|18:14-18:17 x1
+CELL PRIS:g209_d_modimport.parse MSET-EXTRA int_var||A0|V0|C0|24:14-24:17 x1
+CELL PRIS:g209_d_modimport.parse MSET-EXTRA int_var||A0|V0|C0|66:14-66:17 x1
+CELL PRIS:g209_d_modimport.parse MSET-EXTRA int_var||A0|V0|C0|6:14-6:17 x1
+CELL PRIS:g209_d_modimport.parse MSET-EXTRA logic_var||A0|V0|C0|0:0-0:0 x1
+CENSUM PATCHED:g209_d_modimport.parse AGREE=14 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=0 MSET-EXTRA=11
+CELL PATCHED:g209_d_modimport.parse AGREE=14 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=0 MSET-EXTRA=11
+CELL PATCHED:g209_d_modimport.parse MSET-EXTRA class_var|ld_cls|A0|V0|C0|15:12-15:18 x2
+CELL PATCHED:g209_d_modimport.parse MSET-EXTRA class_var||A0|V0|C0|34:21-34:28 x1
+CELL PATCHED:g209_d_modimport.parse MSET-EXTRA class_var||A0|V0|C0|3:23-3:28 x1
+CELL PATCHED:g209_d_modimport.parse MSET-EXTRA class_var||A0|V0|C0|57:22-57:30 x1
+CELL PATCHED:g209_d_modimport.parse MSET-EXTRA enum_var||A0|V0|C0|37:14-37:19 x1
+CELL PATCHED:g209_d_modimport.parse MSET-EXTRA int_var||A0|V0|C0|18:14-18:17 x1
+CELL PATCHED:g209_d_modimport.parse MSET-EXTRA int_var||A0|V0|C0|24:14-24:17 x1
+CELL PATCHED:g209_d_modimport.parse MSET-EXTRA int_var||A0|V0|C0|66:14-66:17 x1
+CELL PATCHED:g209_d_modimport.parse MSET-EXTRA int_var||A0|V0|C0|6:14-6:17 x1
+CELL PATCHED:g209_d_modimport.parse MSET-EXTRA logic_var||A0|V0|C0|0:0-0:0 x1
+ARM g209_d_modimport elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g209_d_modimport.elab AGREE=14 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=0 MSET-EXTRA=0
+CENSUM PRIS:g209_d_modimport.elab AGREE=13 WRONG=1 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=9 MSET-EXTRA=12
+CELL PRIS:g209_d_modimport.elab AGREE=13 WRONG=1 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=9 MSET-EXTRA=12
+CELL PRIS:g209_d_modimport.elab WRONG M:top:work@gd209:work@gd209#0 G=class_var|ld_cls|A1|V1|C0 O=class_var|ld_cls|A0|V1|C0 scope=function:new
+CELL PRIS:g209_d_modimport.elab MSET-MISSING class_var|ld_cls|A1|V1|C0|15:12-15:18 x1
+CELL PRIS:g209_d_modimport.elab MSET-MISSING int_var|n|A1|V1|C0|8:9-8:10 x1
+CELL PRIS:g209_d_modimport.elab MSET-MISSING int_var|q|A1|V1|C0|11:9-11:10 x1
+CELL PRIS:g209_d_modimport.elab MSET-MISSING string_var|ld_str|A0|V0|C0|16:12-16:18 x6
+CELL PRIS:g209_d_modimport.elab MSET-EXTRA class_var|ld_cls|A0|V0|C0|15:12-15:18 x2
+CELL PRIS:g209_d_modimport.elab MSET-EXTRA class_var|ld_cls|A0|V1|C0|15:12-15:18 x1
+CELL PRIS:g209_d_modimport.elab MSET-EXTRA class_var||A0|V0|C0|34:21-34:28 x1
+CELL PRIS:g209_d_modimport.elab MSET-EXTRA class_var||A0|V0|C0|3:23-3:28 x1
+CELL PRIS:g209_d_modimport.elab MSET-EXTRA class_var||A0|V0|C0|57:22-57:30 x1
+CELL PRIS:g209_d_modimport.elab MSET-EXTRA enum_var||A0|V0|C0|37:14-37:19 x1
+CELL PRIS:g209_d_modimport.elab MSET-EXTRA int_var||A0|V0|C0|18:14-18:17 x1
+CELL PRIS:g209_d_modimport.elab MSET-EXTRA int_var||A0|V0|C0|24:14-24:17 x1
+CELL PRIS:g209_d_modimport.elab MSET-EXTRA int_var||A0|V0|C0|66:14-66:17 x1
+CELL PRIS:g209_d_modimport.elab MSET-EXTRA int_var||A0|V0|C0|6:14-6:17 x1
+CELL PRIS:g209_d_modimport.elab MSET-EXTRA logic_var||A0|V0|C0|0:0-0:0 x1
+CENSUM PATCHED:g209_d_modimport.elab AGREE=14 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=8 MSET-EXTRA=11
+CELL PATCHED:g209_d_modimport.elab AGREE=14 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=8 MSET-EXTRA=11
+CELL PATCHED:g209_d_modimport.elab MSET-MISSING int_var|n|A1|V1|C0|8:9-8:10 x1
+CELL PATCHED:g209_d_modimport.elab MSET-MISSING int_var|q|A1|V1|C0|11:9-11:10 x1
+CELL PATCHED:g209_d_modimport.elab MSET-MISSING string_var|ld_str|A0|V0|C0|16:12-16:18 x6
+CELL PATCHED:g209_d_modimport.elab MSET-EXTRA class_var|ld_cls|A0|V0|C0|15:12-15:18 x2
+CELL PATCHED:g209_d_modimport.elab MSET-EXTRA class_var||A0|V0|C0|34:21-34:28 x1
+CELL PATCHED:g209_d_modimport.elab MSET-EXTRA class_var||A0|V0|C0|3:23-3:28 x1
+CELL PATCHED:g209_d_modimport.elab MSET-EXTRA class_var||A0|V0|C0|57:22-57:30 x1
+CELL PATCHED:g209_d_modimport.elab MSET-EXTRA enum_var||A0|V0|C0|37:14-37:19 x1
+CELL PATCHED:g209_d_modimport.elab MSET-EXTRA int_var||A0|V0|C0|18:14-18:17 x1
+CELL PATCHED:g209_d_modimport.elab MSET-EXTRA int_var||A0|V0|C0|24:14-24:17 x1
+CELL PATCHED:g209_d_modimport.elab MSET-EXTRA int_var||A0|V0|C0|66:14-66:17 x1
+CELL PATCHED:g209_d_modimport.elab MSET-EXTRA int_var||A0|V0|C0|6:14-6:17 x1
+CELL PATCHED:g209_d_modimport.elab MSET-EXTRA logic_var||A0|V0|C0|0:0-0:0 x1
+ARM g209_e_ctl parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g209_e_ctl.parse AGREE=31 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=0 MSET-EXTRA=0
+CENSUM PRIS:g209_e_ctl.parse AGREE=31 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=0 MSET-EXTRA=10
+CELL PRIS:g209_e_ctl.parse AGREE=31 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=0 MSET-EXTRA=10
+CELL PRIS:g209_e_ctl.parse MSET-EXTRA class_var|ie_cls|A0|V0|C0|10:13-10:19 x1
+CELL PRIS:g209_e_ctl.parse MSET-EXTRA class_var||A0|V0|C0|34:21-34:28 x1
+CELL PRIS:g209_e_ctl.parse MSET-EXTRA class_var||A0|V0|C0|3:23-3:28 x1
+CELL PRIS:g209_e_ctl.parse MSET-EXTRA class_var||A0|V0|C0|57:22-57:30 x1
+CELL PRIS:g209_e_ctl.parse MSET-EXTRA enum_var||A0|V0|C0|37:14-37:19 x1
+CELL PRIS:g209_e_ctl.parse MSET-EXTRA int_var||A0|V0|C0|18:14-18:17 x1
+CELL PRIS:g209_e_ctl.parse MSET-EXTRA int_var||A0|V0|C0|24:14-24:17 x1
+CELL PRIS:g209_e_ctl.parse MSET-EXTRA int_var||A0|V0|C0|66:14-66:17 x1
+CELL PRIS:g209_e_ctl.parse MSET-EXTRA int_var||A0|V0|C0|6:14-6:17 x1
+CELL PRIS:g209_e_ctl.parse MSET-EXTRA logic_var||A0|V0|C0|0:0-0:0 x1
+CENSUM PATCHED:g209_e_ctl.parse AGREE=31 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=0 MSET-EXTRA=10
+CELL PATCHED:g209_e_ctl.parse AGREE=31 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=0 MSET-EXTRA=10
+CELL PATCHED:g209_e_ctl.parse MSET-EXTRA class_var|ie_cls|A0|V0|C0|10:13-10:19 x1
+CELL PATCHED:g209_e_ctl.parse MSET-EXTRA class_var||A0|V0|C0|34:21-34:28 x1
+CELL PATCHED:g209_e_ctl.parse MSET-EXTRA class_var||A0|V0|C0|3:23-3:28 x1
+CELL PATCHED:g209_e_ctl.parse MSET-EXTRA class_var||A0|V0|C0|57:22-57:30 x1
+CELL PATCHED:g209_e_ctl.parse MSET-EXTRA enum_var||A0|V0|C0|37:14-37:19 x1
+CELL PATCHED:g209_e_ctl.parse MSET-EXTRA int_var||A0|V0|C0|18:14-18:17 x1
+CELL PATCHED:g209_e_ctl.parse MSET-EXTRA int_var||A0|V0|C0|24:14-24:17 x1
+CELL PATCHED:g209_e_ctl.parse MSET-EXTRA int_var||A0|V0|C0|66:14-66:17 x1
+CELL PATCHED:g209_e_ctl.parse MSET-EXTRA int_var||A0|V0|C0|6:14-6:17 x1
+CELL PATCHED:g209_e_ctl.parse MSET-EXTRA logic_var||A0|V0|C0|0:0-0:0 x1
+ARM g209_e_ctl elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g209_e_ctl.elab AGREE=31 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=0 MSET-EXTRA=0
+CENSUM PRIS:g209_e_ctl.elab AGREE=31 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=9 MSET-EXTRA=10
+CELL PRIS:g209_e_ctl.elab AGREE=31 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=9 MSET-EXTRA=10
+CELL PRIS:g209_e_ctl.elab MSET-MISSING array_var|pe_assoc|A1|V1|C0|19:10-19:18 x2
+CELL PRIS:g209_e_ctl.elab MSET-MISSING int_var|n|A1|V1|C0|8:9-8:10 x1
+CELL PRIS:g209_e_ctl.elab MSET-MISSING int_var|pe_int|A1|V1|C0|17:10-17:16 x2
+CELL PRIS:g209_e_ctl.elab MSET-MISSING int_var||A0|V0|C0|19:10-19:18 x2
+CELL PRIS:g209_e_ctl.elab MSET-MISSING string_var|pe_str|A1|V1|C0|18:10-18:16 x2
+CELL PRIS:g209_e_ctl.elab MSET-EXTRA class_var|ie_cls|A0|V0|C0|10:13-10:19 x1
+CELL PRIS:g209_e_ctl.elab MSET-EXTRA class_var||A0|V0|C0|34:21-34:28 x1
+CELL PRIS:g209_e_ctl.elab MSET-EXTRA class_var||A0|V0|C0|3:23-3:28 x1
+CELL PRIS:g209_e_ctl.elab MSET-EXTRA class_var||A0|V0|C0|57:22-57:30 x1
+CELL PRIS:g209_e_ctl.elab MSET-EXTRA enum_var||A0|V0|C0|37:14-37:19 x1
+CELL PRIS:g209_e_ctl.elab MSET-EXTRA int_var||A0|V0|C0|18:14-18:17 x1
+CELL PRIS:g209_e_ctl.elab MSET-EXTRA int_var||A0|V0|C0|24:14-24:17 x1
+CELL PRIS:g209_e_ctl.elab MSET-EXTRA int_var||A0|V0|C0|66:14-66:17 x1
+CELL PRIS:g209_e_ctl.elab MSET-EXTRA int_var||A0|V0|C0|6:14-6:17 x1
+CELL PRIS:g209_e_ctl.elab MSET-EXTRA logic_var||A0|V0|C0|0:0-0:0 x1
+CENSUM PATCHED:g209_e_ctl.elab AGREE=31 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=9 MSET-EXTRA=10
+CELL PATCHED:g209_e_ctl.elab AGREE=31 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=9 MSET-EXTRA=10
+CELL PATCHED:g209_e_ctl.elab MSET-MISSING array_var|pe_assoc|A1|V1|C0|19:10-19:18 x2
+CELL PATCHED:g209_e_ctl.elab MSET-MISSING int_var|n|A1|V1|C0|8:9-8:10 x1
+CELL PATCHED:g209_e_ctl.elab MSET-MISSING int_var|pe_int|A1|V1|C0|17:10-17:16 x2
+CELL PATCHED:g209_e_ctl.elab MSET-MISSING int_var||A0|V0|C0|19:10-19:18 x2
+CELL PATCHED:g209_e_ctl.elab MSET-MISSING string_var|pe_str|A1|V1|C0|18:10-18:16 x2
+CELL PATCHED:g209_e_ctl.elab MSET-EXTRA class_var|ie_cls|A0|V0|C0|10:13-10:19 x1
+CELL PATCHED:g209_e_ctl.elab MSET-EXTRA class_var||A0|V0|C0|34:21-34:28 x1
+CELL PATCHED:g209_e_ctl.elab MSET-EXTRA class_var||A0|V0|C0|3:23-3:28 x1
+CELL PATCHED:g209_e_ctl.elab MSET-EXTRA class_var||A0|V0|C0|57:22-57:30 x1
+CELL PATCHED:g209_e_ctl.elab MSET-EXTRA enum_var||A0|V0|C0|37:14-37:19 x1
+CELL PATCHED:g209_e_ctl.elab MSET-EXTRA int_var||A0|V0|C0|18:14-18:17 x1
+CELL PATCHED:g209_e_ctl.elab MSET-EXTRA int_var||A0|V0|C0|24:14-24:17 x1
+CELL PATCHED:g209_e_ctl.elab MSET-EXTRA int_var||A0|V0|C0|66:14-66:17 x1
+CELL PATCHED:g209_e_ctl.elab MSET-EXTRA int_var||A0|V0|C0|6:14-6:17 x1
+CELL PATCHED:g209_e_ctl.elab MSET-EXTRA logic_var||A0|V0|C0|0:0-0:0 x1
+ARM g209_f_pkgpkg parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g209_f_pkgpkg.parse AGREE=60 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=0 MSET-EXTRA=0
+CENSUM PRIS:g209_f_pkgpkg.parse AGREE=48 WRONG=2 ONLY-GOLDEN=10 ONLY-OURS=0 MSET-MISSING=14 MSET-EXTRA=15
+CELL PRIS:g209_f_pkgpkg.parse AGREE=48 WRONG=2 ONLY-GOLDEN=10 ONLY-OURS=0 MSET-MISSING=14 MSET-EXTRA=15
+CELL PRIS:g209_f_pkgpkg.parse WRONG M:top:work@gf209:work@gf209#0 G=class_var|lf_cls|A1|V1|C0 O=int_var|pg_own|A1|V1|C0 scope=function:new
+CELL PRIS:g209_f_pkgpkg.parse WRONG M:top:work@gf209:work@gf209#1 G=int_var|lf_int|A1|V1|C0 O=int_var|pg_own|A1|V1|C0 scope=function:new
+CELL PRIS:g209_f_pkgpkg.parse ONLY-GOLDEN M:top:work@gf209:work@gf209#10 G=int_var|pf_int|A1|V1|C0 scope=package:pf209
+CELL PRIS:g209_f_pkgpkg.parse ONLY-GOLDEN M:top:work@gf209:work@gf209#11 G=int_var|pg_own|A1|V1|C0 scope=package:pg209
+CELL PRIS:g209_f_pkgpkg.parse ONLY-GOLDEN M:top:work@gf209:work@gf209#2 G=string_var|lf_str|A1|V1|C0 scope=function:new
+CELL PRIS:g209_f_pkgpkg.parse ONLY-GOLDEN M:top:work@gf209:work@gf209#3 G=class_var|pf_cls|A0|V1|C0 scope=package:pf209
+CELL PRIS:g209_f_pkgpkg.parse ONLY-GOLDEN M:top:work@gf209:work@gf209#4 G=int_var|pf_int|A1|V1|C0 scope=package:pf209
+CELL PRIS:g209_f_pkgpkg.parse ONLY-GOLDEN M:top:work@gf209:work@gf209#5 G=int_var|pg_own|A1|V1|C0 scope=package:pg209
+CELL PRIS:g209_f_pkgpkg.parse ONLY-GOLDEN M:top:work@gf209:work@gf209#6 G=class_var|lf_cls|A1|V1|C0 scope=function:new
+CELL PRIS:g209_f_pkgpkg.parse ONLY-GOLDEN M:top:work@gf209:work@gf209#7 G=int_var|lf_int|A1|V1|C0 scope=function:new
+CELL PRIS:g209_f_pkgpkg.parse ONLY-GOLDEN M:top:work@gf209:work@gf209#8 G=string_var|lf_str|A1|V1|C0 scope=function:new
+CELL PRIS:g209_f_pkgpkg.parse ONLY-GOLDEN M:top:work@gf209:work@gf209#9 G=class_var|pf_cls|A0|V1|C0 scope=package:pf209
+CELL PRIS:g209_f_pkgpkg.parse MSET-MISSING class_var|lf_cls|A1|V1|C0|15:12-15:18 x2
+CELL PRIS:g209_f_pkgpkg.parse MSET-MISSING class_var|pf_cls|A0|V1|C0|21:9-21:15 x2
+CELL PRIS:g209_f_pkgpkg.parse MSET-MISSING int_var|lf_int|A0|V0|C0|16:12-16:18 x2
+CELL PRIS:g209_f_pkgpkg.parse MSET-MISSING int_var|lf_int|A1|V1|C0|16:12-16:18 x2
+CELL PRIS:g209_f_pkgpkg.parse MSET-MISSING int_var|pf_int|A1|V1|C0|22:9-22:20 x2
+CELL PRIS:g209_f_pkgpkg.parse MSET-MISSING string_var|lf_str|A0|V0|C0|17:12-17:18 x2
+CELL PRIS:g209_f_pkgpkg.parse MSET-MISSING string_var|lf_str|A1|V1|C0|17:12-17:18 x2
+CELL PRIS:g209_f_pkgpkg.parse MSET-EXTRA class_var|lf_cls|A0|V0|C0|15:12-15:18 x4
+CELL PRIS:g209_f_pkgpkg.parse MSET-EXTRA class_var||A0|V0|C0|0:0-0:0 x2
+CELL PRIS:g209_f_pkgpkg.parse MSET-EXTRA class_var||A0|V0|C0|34:21-34:28 x1
+CELL PRIS:g209_f_pkgpkg.parse MSET-EXTRA class_var||A0|V0|C0|3:23-3:28 x1
+CELL PRIS:g209_f_pkgpkg.parse MSET-EXTRA class_var||A0|V0|C0|57:22-57:30 x1
+CELL PRIS:g209_f_pkgpkg.parse MSET-EXTRA enum_var||A0|V0|C0|37:14-37:19 x1
+CELL PRIS:g209_f_pkgpkg.parse MSET-EXTRA int_var||A0|V0|C0|18:14-18:17 x1
+CELL PRIS:g209_f_pkgpkg.parse MSET-EXTRA int_var||A0|V0|C0|24:14-24:17 x1
+CELL PRIS:g209_f_pkgpkg.parse MSET-EXTRA int_var||A0|V0|C0|66:14-66:17 x1
+CELL PRIS:g209_f_pkgpkg.parse MSET-EXTRA int_var||A0|V0|C0|6:14-6:17 x1
+CELL PRIS:g209_f_pkgpkg.parse MSET-EXTRA logic_var||A0|V0|C0|0:0-0:0 x1
+CENSUM PATCHED:g209_f_pkgpkg.parse AGREE=48 WRONG=2 ONLY-GOLDEN=10 ONLY-OURS=0 MSET-MISSING=14 MSET-EXTRA=15
+CELL PATCHED:g209_f_pkgpkg.parse AGREE=48 WRONG=2 ONLY-GOLDEN=10 ONLY-OURS=0 MSET-MISSING=14 MSET-EXTRA=15
+CELL PATCHED:g209_f_pkgpkg.parse WRONG M:top:work@gf209:work@gf209#0 G=class_var|lf_cls|A1|V1|C0 O=int_var|pg_own|A1|V1|C0 scope=function:new
+CELL PATCHED:g209_f_pkgpkg.parse WRONG M:top:work@gf209:work@gf209#1 G=int_var|lf_int|A1|V1|C0 O=int_var|pg_own|A1|V1|C0 scope=function:new
+CELL PATCHED:g209_f_pkgpkg.parse ONLY-GOLDEN M:top:work@gf209:work@gf209#10 G=int_var|pf_int|A1|V1|C0 scope=package:pf209
+CELL PATCHED:g209_f_pkgpkg.parse ONLY-GOLDEN M:top:work@gf209:work@gf209#11 G=int_var|pg_own|A1|V1|C0 scope=package:pg209
+CELL PATCHED:g209_f_pkgpkg.parse ONLY-GOLDEN M:top:work@gf209:work@gf209#2 G=string_var|lf_str|A1|V1|C0 scope=function:new
+CELL PATCHED:g209_f_pkgpkg.parse ONLY-GOLDEN M:top:work@gf209:work@gf209#3 G=class_var|pf_cls|A0|V1|C0 scope=package:pf209
+CELL PATCHED:g209_f_pkgpkg.parse ONLY-GOLDEN M:top:work@gf209:work@gf209#4 G=int_var|pf_int|A1|V1|C0 scope=package:pf209
+CELL PATCHED:g209_f_pkgpkg.parse ONLY-GOLDEN M:top:work@gf209:work@gf209#5 G=int_var|pg_own|A1|V1|C0 scope=package:pg209
+CELL PATCHED:g209_f_pkgpkg.parse ONLY-GOLDEN M:top:work@gf209:work@gf209#6 G=class_var|lf_cls|A1|V1|C0 scope=function:new
+CELL PATCHED:g209_f_pkgpkg.parse ONLY-GOLDEN M:top:work@gf209:work@gf209#7 G=int_var|lf_int|A1|V1|C0 scope=function:new
+CELL PATCHED:g209_f_pkgpkg.parse ONLY-GOLDEN M:top:work@gf209:work@gf209#8 G=string_var|lf_str|A1|V1|C0 scope=function:new
+CELL PATCHED:g209_f_pkgpkg.parse ONLY-GOLDEN M:top:work@gf209:work@gf209#9 G=class_var|pf_cls|A0|V1|C0 scope=package:pf209
+CELL PATCHED:g209_f_pkgpkg.parse MSET-MISSING class_var|lf_cls|A1|V1|C0|15:12-15:18 x2
+CELL PATCHED:g209_f_pkgpkg.parse MSET-MISSING class_var|pf_cls|A0|V1|C0|21:9-21:15 x2
+CELL PATCHED:g209_f_pkgpkg.parse MSET-MISSING int_var|lf_int|A0|V0|C0|16:12-16:18 x2
+CELL PATCHED:g209_f_pkgpkg.parse MSET-MISSING int_var|lf_int|A1|V1|C0|16:12-16:18 x2
+CELL PATCHED:g209_f_pkgpkg.parse MSET-MISSING int_var|pf_int|A1|V1|C0|22:9-22:20 x2
+CELL PATCHED:g209_f_pkgpkg.parse MSET-MISSING string_var|lf_str|A0|V0|C0|17:12-17:18 x2
+CELL PATCHED:g209_f_pkgpkg.parse MSET-MISSING string_var|lf_str|A1|V1|C0|17:12-17:18 x2
+CELL PATCHED:g209_f_pkgpkg.parse MSET-EXTRA class_var|lf_cls|A0|V0|C0|15:12-15:18 x4
+CELL PATCHED:g209_f_pkgpkg.parse MSET-EXTRA class_var||A0|V0|C0|0:0-0:0 x2
+CELL PATCHED:g209_f_pkgpkg.parse MSET-EXTRA class_var||A0|V0|C0|34:21-34:28 x1
+CELL PATCHED:g209_f_pkgpkg.parse MSET-EXTRA class_var||A0|V0|C0|3:23-3:28 x1
+CELL PATCHED:g209_f_pkgpkg.parse MSET-EXTRA class_var||A0|V0|C0|57:22-57:30 x1
+CELL PATCHED:g209_f_pkgpkg.parse MSET-EXTRA enum_var||A0|V0|C0|37:14-37:19 x1
+CELL PATCHED:g209_f_pkgpkg.parse MSET-EXTRA int_var||A0|V0|C0|18:14-18:17 x1
+CELL PATCHED:g209_f_pkgpkg.parse MSET-EXTRA int_var||A0|V0|C0|24:14-24:17 x1
+CELL PATCHED:g209_f_pkgpkg.parse MSET-EXTRA int_var||A0|V0|C0|66:14-66:17 x1
+CELL PATCHED:g209_f_pkgpkg.parse MSET-EXTRA int_var||A0|V0|C0|6:14-6:17 x1
+CELL PATCHED:g209_f_pkgpkg.parse MSET-EXTRA logic_var||A0|V0|C0|0:0-0:0 x1
+ARM g209_f_pkgpkg elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g209_f_pkgpkg.elab AGREE=60 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=0 MSET-EXTRA=0
+CENSUM PRIS:g209_f_pkgpkg.elab AGREE=48 WRONG=2 ONLY-GOLDEN=10 ONLY-OURS=0 MSET-MISSING=60 MSET-EXTRA=15
+CELL PRIS:g209_f_pkgpkg.elab AGREE=48 WRONG=2 ONLY-GOLDEN=10 ONLY-OURS=0 MSET-MISSING=60 MSET-EXTRA=15
+CELL PRIS:g209_f_pkgpkg.elab WRONG M:top:work@gf209:work@gf209#0 G=class_var|lf_cls|A1|V1|C0 O=int_var|pg_own|A1|V1|C0 scope=function:new
+CELL PRIS:g209_f_pkgpkg.elab WRONG M:top:work@gf209:work@gf209#1 G=int_var|lf_int|A1|V1|C0 O=int_var|pg_own|A1|V1|C0 scope=function:new
+CELL PRIS:g209_f_pkgpkg.elab ONLY-GOLDEN M:top:work@gf209:work@gf209#10 G=int_var|pf_int|A1|V1|C0 scope=package:pf209
+CELL PRIS:g209_f_pkgpkg.elab ONLY-GOLDEN M:top:work@gf209:work@gf209#11 G=int_var|pg_own|A1|V1|C0 scope=package:pg209
+CELL PRIS:g209_f_pkgpkg.elab ONLY-GOLDEN M:top:work@gf209:work@gf209#2 G=string_var|lf_str|A1|V1|C0 scope=function:new
+CELL PRIS:g209_f_pkgpkg.elab ONLY-GOLDEN M:top:work@gf209:work@gf209#3 G=class_var|pf_cls|A0|V1|C0 scope=package:pf209
+CELL PRIS:g209_f_pkgpkg.elab ONLY-GOLDEN M:top:work@gf209:work@gf209#4 G=int_var|pf_int|A1|V1|C0 scope=package:pf209
+CELL PRIS:g209_f_pkgpkg.elab ONLY-GOLDEN M:top:work@gf209:work@gf209#5 G=int_var|pg_own|A1|V1|C0 scope=package:pg209
+CELL PRIS:g209_f_pkgpkg.elab ONLY-GOLDEN M:top:work@gf209:work@gf209#6 G=class_var|lf_cls|A1|V1|C0 scope=function:new
+CELL PRIS:g209_f_pkgpkg.elab ONLY-GOLDEN M:top:work@gf209:work@gf209#7 G=int_var|lf_int|A1|V1|C0 scope=function:new
+CELL PRIS:g209_f_pkgpkg.elab ONLY-GOLDEN M:top:work@gf209:work@gf209#8 G=string_var|lf_str|A1|V1|C0 scope=function:new
+CELL PRIS:g209_f_pkgpkg.elab ONLY-GOLDEN M:top:work@gf209:work@gf209#9 G=class_var|pf_cls|A0|V1|C0 scope=package:pf209
+CELL PRIS:g209_f_pkgpkg.elab MSET-MISSING class_var|lf_cls|A1|V1|C0|15:12-15:18 x2
+CELL PRIS:g209_f_pkgpkg.elab MSET-MISSING class_var|pf_cls|A0|V1|C0|21:9-21:15 x2
+CELL PRIS:g209_f_pkgpkg.elab MSET-MISSING int_var|lf_int|A0|V0|C0|16:12-16:18 x16
+CELL PRIS:g209_f_pkgpkg.elab MSET-MISSING int_var|lf_int|A1|V1|C0|16:12-16:18 x6
+CELL PRIS:g209_f_pkgpkg.elab MSET-MISSING int_var|n|A1|V1|C0|8:9-8:10 x1
+CELL PRIS:g209_f_pkgpkg.elab MSET-MISSING int_var|pf_int|A1|V1|C0|22:9-22:15 x4
+CELL PRIS:g209_f_pkgpkg.elab MSET-MISSING int_var|pf_int|A1|V1|C0|22:9-22:20 x2
+CELL PRIS:g209_f_pkgpkg.elab MSET-MISSING int_var|pg_own|A1|V1|C0|27:7-27:13 x4
+CELL PRIS:g209_f_pkgpkg.elab MSET-MISSING int_var|q|A1|V1|C0|11:9-11:10 x1
+CELL PRIS:g209_f_pkgpkg.elab MSET-MISSING string_var|lf_str|A0|V0|C0|17:12-17:18 x16
+CELL PRIS:g209_f_pkgpkg.elab MSET-MISSING string_var|lf_str|A1|V1|C0|17:12-17:18 x6
+CELL PRIS:g209_f_pkgpkg.elab MSET-EXTRA class_var|lf_cls|A0|V0|C0|15:12-15:18 x4
+CELL PRIS:g209_f_pkgpkg.elab MSET-EXTRA class_var||A0|V0|C0|0:0-0:0 x2
+CELL PRIS:g209_f_pkgpkg.elab MSET-EXTRA class_var||A0|V0|C0|34:21-34:28 x1
+CELL PRIS:g209_f_pkgpkg.elab MSET-EXTRA class_var||A0|V0|C0|3:23-3:28 x1
+CELL PRIS:g209_f_pkgpkg.elab MSET-EXTRA class_var||A0|V0|C0|57:22-57:30 x1
+CELL PRIS:g209_f_pkgpkg.elab MSET-EXTRA enum_var||A0|V0|C0|37:14-37:19 x1
+CELL PRIS:g209_f_pkgpkg.elab MSET-EXTRA int_var||A0|V0|C0|18:14-18:17 x1
+CELL PRIS:g209_f_pkgpkg.elab MSET-EXTRA int_var||A0|V0|C0|24:14-24:17 x1
+CELL PRIS:g209_f_pkgpkg.elab MSET-EXTRA int_var||A0|V0|C0|66:14-66:17 x1
+CELL PRIS:g209_f_pkgpkg.elab MSET-EXTRA int_var||A0|V0|C0|6:14-6:17 x1
+CELL PRIS:g209_f_pkgpkg.elab MSET-EXTRA logic_var||A0|V0|C0|0:0-0:0 x1
+CENSUM PATCHED:g209_f_pkgpkg.elab AGREE=48 WRONG=2 ONLY-GOLDEN=10 ONLY-OURS=0 MSET-MISSING=60 MSET-EXTRA=15
+CELL PATCHED:g209_f_pkgpkg.elab AGREE=48 WRONG=2 ONLY-GOLDEN=10 ONLY-OURS=0 MSET-MISSING=60 MSET-EXTRA=15
+CELL PATCHED:g209_f_pkgpkg.elab WRONG M:top:work@gf209:work@gf209#0 G=class_var|lf_cls|A1|V1|C0 O=int_var|pg_own|A1|V1|C0 scope=function:new
+CELL PATCHED:g209_f_pkgpkg.elab WRONG M:top:work@gf209:work@gf209#1 G=int_var|lf_int|A1|V1|C0 O=int_var|pg_own|A1|V1|C0 scope=function:new
+CELL PATCHED:g209_f_pkgpkg.elab ONLY-GOLDEN M:top:work@gf209:work@gf209#10 G=int_var|pf_int|A1|V1|C0 scope=package:pf209
+CELL PATCHED:g209_f_pkgpkg.elab ONLY-GOLDEN M:top:work@gf209:work@gf209#11 G=int_var|pg_own|A1|V1|C0 scope=package:pg209
+CELL PATCHED:g209_f_pkgpkg.elab ONLY-GOLDEN M:top:work@gf209:work@gf209#2 G=string_var|lf_str|A1|V1|C0 scope=function:new
+CELL PATCHED:g209_f_pkgpkg.elab ONLY-GOLDEN M:top:work@gf209:work@gf209#3 G=class_var|pf_cls|A0|V1|C0 scope=package:pf209
+CELL PATCHED:g209_f_pkgpkg.elab ONLY-GOLDEN M:top:work@gf209:work@gf209#4 G=int_var|pf_int|A1|V1|C0 scope=package:pf209
+CELL PATCHED:g209_f_pkgpkg.elab ONLY-GOLDEN M:top:work@gf209:work@gf209#5 G=int_var|pg_own|A1|V1|C0 scope=package:pg209
+CELL PATCHED:g209_f_pkgpkg.elab ONLY-GOLDEN M:top:work@gf209:work@gf209#6 G=class_var|lf_cls|A1|V1|C0 scope=function:new
+CELL PATCHED:g209_f_pkgpkg.elab ONLY-GOLDEN M:top:work@gf209:work@gf209#7 G=int_var|lf_int|A1|V1|C0 scope=function:new
+CELL PATCHED:g209_f_pkgpkg.elab ONLY-GOLDEN M:top:work@gf209:work@gf209#8 G=string_var|lf_str|A1|V1|C0 scope=function:new
+CELL PATCHED:g209_f_pkgpkg.elab ONLY-GOLDEN M:top:work@gf209:work@gf209#9 G=class_var|pf_cls|A0|V1|C0 scope=package:pf209
+CELL PATCHED:g209_f_pkgpkg.elab MSET-MISSING class_var|lf_cls|A1|V1|C0|15:12-15:18 x2
+CELL PATCHED:g209_f_pkgpkg.elab MSET-MISSING class_var|pf_cls|A0|V1|C0|21:9-21:15 x2
+CELL PATCHED:g209_f_pkgpkg.elab MSET-MISSING int_var|lf_int|A0|V0|C0|16:12-16:18 x16
+CELL PATCHED:g209_f_pkgpkg.elab MSET-MISSING int_var|lf_int|A1|V1|C0|16:12-16:18 x6
+CELL PATCHED:g209_f_pkgpkg.elab MSET-MISSING int_var|n|A1|V1|C0|8:9-8:10 x1
+CELL PATCHED:g209_f_pkgpkg.elab MSET-MISSING int_var|pf_int|A1|V1|C0|22:9-22:15 x4
+CELL PATCHED:g209_f_pkgpkg.elab MSET-MISSING int_var|pf_int|A1|V1|C0|22:9-22:20 x2
+CELL PATCHED:g209_f_pkgpkg.elab MSET-MISSING int_var|pg_own|A1|V1|C0|27:7-27:13 x4
+CELL PATCHED:g209_f_pkgpkg.elab MSET-MISSING int_var|q|A1|V1|C0|11:9-11:10 x1
+CELL PATCHED:g209_f_pkgpkg.elab MSET-MISSING string_var|lf_str|A0|V0|C0|17:12-17:18 x16
+CELL PATCHED:g209_f_pkgpkg.elab MSET-MISSING string_var|lf_str|A1|V1|C0|17:12-17:18 x6
+CELL PATCHED:g209_f_pkgpkg.elab MSET-EXTRA class_var|lf_cls|A0|V0|C0|15:12-15:18 x4
+CELL PATCHED:g209_f_pkgpkg.elab MSET-EXTRA class_var||A0|V0|C0|0:0-0:0 x2
+CELL PATCHED:g209_f_pkgpkg.elab MSET-EXTRA class_var||A0|V0|C0|34:21-34:28 x1
+CELL PATCHED:g209_f_pkgpkg.elab MSET-EXTRA class_var||A0|V0|C0|3:23-3:28 x1
+CELL PATCHED:g209_f_pkgpkg.elab MSET-EXTRA class_var||A0|V0|C0|57:22-57:30 x1
+CELL PATCHED:g209_f_pkgpkg.elab MSET-EXTRA enum_var||A0|V0|C0|37:14-37:19 x1
+CELL PATCHED:g209_f_pkgpkg.elab MSET-EXTRA int_var||A0|V0|C0|18:14-18:17 x1
+CELL PATCHED:g209_f_pkgpkg.elab MSET-EXTRA int_var||A0|V0|C0|24:14-24:17 x1
+CELL PATCHED:g209_f_pkgpkg.elab MSET-EXTRA int_var||A0|V0|C0|66:14-66:17 x1
+CELL PATCHED:g209_f_pkgpkg.elab MSET-EXTRA int_var||A0|V0|C0|6:14-6:17 x1
+CELL PATCHED:g209_f_pkgpkg.elab MSET-EXTRA logic_var||A0|V0|C0|0:0-0:0 x1
+ARM g209_g_kinds parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g209_g_kinds.parse AGREE=90 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=0 MSET-EXTRA=0
+CENSUM PRIS:g209_g_kinds.parse AGREE=76 WRONG=14 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=14 MSET-EXTRA=25
+CELL PRIS:g209_g_kinds.parse AGREE=76 WRONG=14 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=14 MSET-EXTRA=25
+CELL PRIS:g209_g_kinds.parse WRONG C:P:top:pg209::cm209#15 G=array_var|pg_q|A1|V1|C0 O=array_var|pg_q|A0|V1|C0 scope=package:pg209
+CELL PRIS:g209_g_kinds.parse WRONG C:P:top:pg209::cm209#4 G=array_var|pg_q|A1|V1|C0 O=array_var|pg_q|A0|V1|C0 scope=package:pg209
+CELL PRIS:g209_g_kinds.parse WRONG C:P:top:pg209::cn209#15 G=array_var|pg_q|A1|V1|C0 O=array_var|pg_q|A0|V1|C0 scope=package:pg209
+CELL PRIS:g209_g_kinds.parse WRONG C:P:top:pg209::cn209#4 G=array_var|pg_q|A1|V1|C0 O=array_var|pg_q|A0|V1|C0 scope=package:pg209
+CELL PRIS:g209_g_kinds.parse WRONG M:top:work@gg209:work@gg209#10 G=array_var|lg_q|A1|V1|C0 O=array_var|lg_q|A0|V1|C0 scope=function:new
+CELL PRIS:g209_g_kinds.parse WRONG M:top:work@gg209:work@gg209#15 G=array_var|pg_q|A1|V1|C0 O=array_var|pg_q|A0|V1|C0 scope=package:pg209
+CELL PRIS:g209_g_kinds.parse WRONG M:top:work@gg209:work@gg209#16 G=enum_var|lg_enum|A1|V1|C0 O=enum_var|lg_enum|A0|V1|C0 scope=function:new
+CELL PRIS:g209_g_kinds.parse WRONG M:top:work@gg209:work@gg209#17 G=logic_var|lg_vec|A1|V1|C0 O=logic_var|lg_vec|A0|V1|C0 scope=function:new
+CELL PRIS:g209_g_kinds.parse WRONG M:top:work@gg209:work@gg209#21 G=array_var|lg_q|A1|V1|C0 O=array_var|lg_q|A0|V1|C0 scope=function:new
+CELL PRIS:g209_g_kinds.parse WRONG M:top:work@gg209:work@gg209#4 G=array_var|pg_q|A1|V1|C0 O=array_var|pg_q|A0|V1|C0 scope=package:pg209
+CELL PRIS:g209_g_kinds.parse WRONG M:top:work@gg209:work@gg209#5 G=enum_var|lg_enum|A1|V1|C0 O=enum_var|lg_enum|A0|V1|C0 scope=function:new
+CELL PRIS:g209_g_kinds.parse WRONG M:top:work@gg209:work@gg209#6 G=logic_var|lg_vec|A1|V1|C0 O=logic_var|lg_vec|A0|V1|C0 scope=function:new
+CELL PRIS:g209_g_kinds.parse WRONG P:all:pg209#4 G=array_var|pg_q|A1|V1|C0 O=array_var|pg_q|A0|V1|C0 scope=package:pg209
+CELL PRIS:g209_g_kinds.parse WRONG P:top:pg209#4 G=array_var|pg_q|A1|V1|C0 O=array_var|pg_q|A0|V1|C0 scope=package:pg209
+CELL PRIS:g209_g_kinds.parse MSET-MISSING array_var|lg_q|A1|V1|C0|42:14-42:18 x2
+CELL PRIS:g209_g_kinds.parse MSET-MISSING array_var|pg_q|A1|V1|C0|31:12-31:16 x8
+CELL PRIS:g209_g_kinds.parse MSET-MISSING enum_var|lg_enum|A1|V1|C0|37:14-37:21 x2
+CELL PRIS:g209_g_kinds.parse MSET-MISSING logic_var|lg_vec|A1|V1|C0|38:14-38:20 x2
+CELL PRIS:g209_g_kinds.parse MSET-EXTRA array_var|lg_q|A0|V1|C0|42:14-42:18 x2
+CELL PRIS:g209_g_kinds.parse MSET-EXTRA array_var|pg_q|A0|V1|C0|31:12-31:16 x8
+CELL PRIS:g209_g_kinds.parse MSET-EXTRA class_var||A0|V0|C0|34:21-34:28 x1
+CELL PRIS:g209_g_kinds.parse MSET-EXTRA class_var||A0|V0|C0|3:23-3:28 x1
+CELL PRIS:g209_g_kinds.parse MSET-EXTRA class_var||A0|V0|C0|57:22-57:30 x1
+CELL PRIS:g209_g_kinds.parse MSET-EXTRA enum_var|lg_enum|A0|V0|C0|37:14-37:21 x2
+CELL PRIS:g209_g_kinds.parse MSET-EXTRA enum_var|lg_enum|A0|V1|C0|37:14-37:21 x2
+CELL PRIS:g209_g_kinds.parse MSET-EXTRA enum_var||A0|V0|C0|37:14-37:19 x1
+CELL PRIS:g209_g_kinds.parse MSET-EXTRA int_var||A0|V0|C0|18:14-18:17 x1
+CELL PRIS:g209_g_kinds.parse MSET-EXTRA int_var||A0|V0|C0|24:14-24:17 x1
+CELL PRIS:g209_g_kinds.parse MSET-EXTRA int_var||A0|V0|C0|66:14-66:17 x1
+CELL PRIS:g209_g_kinds.parse MSET-EXTRA int_var||A0|V0|C0|6:14-6:17 x1
+CELL PRIS:g209_g_kinds.parse MSET-EXTRA logic_var|lg_vec|A0|V1|C0|38:14-38:20 x2
+CELL PRIS:g209_g_kinds.parse MSET-EXTRA logic_var||A0|V0|C0|0:0-0:0 x1
+CENSUM PATCHED:g209_g_kinds.parse AGREE=82 WRONG=8 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=8 MSET-EXTRA=19
+CELL PATCHED:g209_g_kinds.parse AGREE=82 WRONG=8 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=8 MSET-EXTRA=19
+CELL PATCHED:g209_g_kinds.parse WRONG C:P:top:pg209::cm209#15 G=array_var|pg_q|A1|V1|C0 O=array_var|pg_q|A0|V1|C0 scope=package:pg209
+CELL PATCHED:g209_g_kinds.parse WRONG C:P:top:pg209::cm209#4 G=array_var|pg_q|A1|V1|C0 O=array_var|pg_q|A0|V1|C0 scope=package:pg209
+CELL PATCHED:g209_g_kinds.parse WRONG C:P:top:pg209::cn209#15 G=array_var|pg_q|A1|V1|C0 O=array_var|pg_q|A0|V1|C0 scope=package:pg209
+CELL PATCHED:g209_g_kinds.parse WRONG C:P:top:pg209::cn209#4 G=array_var|pg_q|A1|V1|C0 O=array_var|pg_q|A0|V1|C0 scope=package:pg209
+CELL PATCHED:g209_g_kinds.parse WRONG M:top:work@gg209:work@gg209#15 G=array_var|pg_q|A1|V1|C0 O=array_var|pg_q|A0|V1|C0 scope=package:pg209
+CELL PATCHED:g209_g_kinds.parse WRONG M:top:work@gg209:work@gg209#4 G=array_var|pg_q|A1|V1|C0 O=array_var|pg_q|A0|V1|C0 scope=package:pg209
+CELL PATCHED:g209_g_kinds.parse WRONG P:all:pg209#4 G=array_var|pg_q|A1|V1|C0 O=array_var|pg_q|A0|V1|C0 scope=package:pg209
+CELL PATCHED:g209_g_kinds.parse WRONG P:top:pg209#4 G=array_var|pg_q|A1|V1|C0 O=array_var|pg_q|A0|V1|C0 scope=package:pg209
+CELL PATCHED:g209_g_kinds.parse MSET-MISSING array_var|pg_q|A1|V1|C0|31:12-31:16 x8
+CELL PATCHED:g209_g_kinds.parse MSET-EXTRA array_var|pg_q|A0|V1|C0|31:12-31:16 x8
+CELL PATCHED:g209_g_kinds.parse MSET-EXTRA class_var||A0|V0|C0|34:21-34:28 x1
+CELL PATCHED:g209_g_kinds.parse MSET-EXTRA class_var||A0|V0|C0|3:23-3:28 x1
+CELL PATCHED:g209_g_kinds.parse MSET-EXTRA class_var||A0|V0|C0|57:22-57:30 x1
+CELL PATCHED:g209_g_kinds.parse MSET-EXTRA enum_var|lg_enum|A0|V0|C0|37:14-37:21 x2
+CELL PATCHED:g209_g_kinds.parse MSET-EXTRA enum_var||A0|V0|C0|37:14-37:19 x1
+CELL PATCHED:g209_g_kinds.parse MSET-EXTRA int_var||A0|V0|C0|18:14-18:17 x1
+CELL PATCHED:g209_g_kinds.parse MSET-EXTRA int_var||A0|V0|C0|24:14-24:17 x1
+CELL PATCHED:g209_g_kinds.parse MSET-EXTRA int_var||A0|V0|C0|66:14-66:17 x1
+CELL PATCHED:g209_g_kinds.parse MSET-EXTRA int_var||A0|V0|C0|6:14-6:17 x1
+CELL PATCHED:g209_g_kinds.parse MSET-EXTRA logic_var||A0|V0|C0|0:0-0:0 x1
+ARM g209_g_kinds elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g209_g_kinds.elab AGREE=90 WRONG=0 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=0 MSET-EXTRA=0
+CENSUM PRIS:g209_g_kinds.elab AGREE=76 WRONG=14 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=113 MSET-EXTRA=25
+CELL PRIS:g209_g_kinds.elab AGREE=76 WRONG=14 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=113 MSET-EXTRA=25
+CELL PRIS:g209_g_kinds.elab WRONG C:P:top:pg209::cm209#15 G=array_var|pg_q|A1|V1|C0 O=array_var|pg_q|A0|V1|C0 scope=package:pg209
+CELL PRIS:g209_g_kinds.elab WRONG C:P:top:pg209::cm209#4 G=array_var|pg_q|A1|V1|C0 O=array_var|pg_q|A0|V1|C0 scope=package:pg209
+CELL PRIS:g209_g_kinds.elab WRONG C:P:top:pg209::cn209#15 G=array_var|pg_q|A1|V1|C0 O=array_var|pg_q|A0|V1|C0 scope=package:pg209
+CELL PRIS:g209_g_kinds.elab WRONG C:P:top:pg209::cn209#4 G=array_var|pg_q|A1|V1|C0 O=array_var|pg_q|A0|V1|C0 scope=package:pg209
+CELL PRIS:g209_g_kinds.elab WRONG M:top:work@gg209:work@gg209#10 G=array_var|lg_q|A1|V1|C0 O=array_var|lg_q|A0|V1|C0 scope=function:new
+CELL PRIS:g209_g_kinds.elab WRONG M:top:work@gg209:work@gg209#15 G=array_var|pg_q|A1|V1|C0 O=array_var|pg_q|A0|V1|C0 scope=package:pg209
+CELL PRIS:g209_g_kinds.elab WRONG M:top:work@gg209:work@gg209#16 G=enum_var|lg_enum|A1|V1|C0 O=enum_var|lg_enum|A0|V1|C0 scope=function:new
+CELL PRIS:g209_g_kinds.elab WRONG M:top:work@gg209:work@gg209#17 G=logic_var|lg_vec|A1|V1|C0 O=logic_var|lg_vec|A0|V1|C0 scope=function:new
+CELL PRIS:g209_g_kinds.elab WRONG M:top:work@gg209:work@gg209#21 G=array_var|lg_q|A1|V1|C0 O=array_var|lg_q|A0|V1|C0 scope=function:new
+CELL PRIS:g209_g_kinds.elab WRONG M:top:work@gg209:work@gg209#4 G=array_var|pg_q|A1|V1|C0 O=array_var|pg_q|A0|V1|C0 scope=package:pg209
+CELL PRIS:g209_g_kinds.elab WRONG M:top:work@gg209:work@gg209#5 G=enum_var|lg_enum|A1|V1|C0 O=enum_var|lg_enum|A0|V1|C0 scope=function:new
+CELL PRIS:g209_g_kinds.elab WRONG M:top:work@gg209:work@gg209#6 G=logic_var|lg_vec|A1|V1|C0 O=logic_var|lg_vec|A0|V1|C0 scope=function:new
+CELL PRIS:g209_g_kinds.elab WRONG P:all:pg209#4 G=array_var|pg_q|A1|V1|C0 O=array_var|pg_q|A0|V1|C0 scope=package:pg209
+CELL PRIS:g209_g_kinds.elab WRONG P:top:pg209#4 G=array_var|pg_q|A1|V1|C0 O=array_var|pg_q|A0|V1|C0 scope=package:pg209
+CELL PRIS:g209_g_kinds.elab MSET-MISSING array_var|lg_q|A0|V0|C0|42:14-42:18 x10
+CELL PRIS:g209_g_kinds.elab MSET-MISSING array_var|lg_q|A1|V1|C0|42:14-42:18 x6
+CELL PRIS:g209_g_kinds.elab MSET-MISSING array_var|pg_q|A1|V1|C0|31:12-31:16 x12
+CELL PRIS:g209_g_kinds.elab MSET-MISSING bit_var|lg_bit|A0|V0|C0|40:14-40:20 x10
+CELL PRIS:g209_g_kinds.elab MSET-MISSING bit_var|lg_bit|A1|V1|C0|40:14-40:20 x4
+CELL PRIS:g209_g_kinds.elab MSET-MISSING bit_var|pg_bit|A1|V1|C0|29:12-29:18 x4
+CELL PRIS:g209_g_kinds.elab MSET-MISSING chandle_var|lg_ch|A0|V0|C0|41:14-41:19 x10
+CELL PRIS:g209_g_kinds.elab MSET-MISSING enum_var|lg_enum|A1|V1|C0|37:14-37:21 x2
+CELL PRIS:g209_g_kinds.elab MSET-MISSING int_var|n|A1|V1|C0|25:9-25:10 x1
+CELL PRIS:g209_g_kinds.elab MSET-MISSING int_var|q|A1|V1|C0|33:9-33:10 x1
+CELL PRIS:g209_g_kinds.elab MSET-MISSING int_var||A0|V0|C0|31:12-31:16 x4
+CELL PRIS:g209_g_kinds.elab MSET-MISSING int_var||A0|V0|C0|42:14-42:18 x19
+CELL PRIS:g209_g_kinds.elab MSET-MISSING logic_var|lg_vec|A0|V0|C0|38:14-38:20 x10
+CELL PRIS:g209_g_kinds.elab MSET-MISSING logic_var|lg_vec|A1|V1|C0|38:14-38:20 x2
+CELL PRIS:g209_g_kinds.elab MSET-MISSING real_var|lg_real|A0|V0|C0|39:14-39:21 x10
+CELL PRIS:g209_g_kinds.elab MSET-MISSING real_var|lg_real|A1|V1|C0|39:14-39:21 x4
+CELL PRIS:g209_g_kinds.elab MSET-MISSING real_var|pg_real|A1|V1|C0|28:12-28:19 x4
+CELL PRIS:g209_g_kinds.elab MSET-EXTRA array_var|lg_q|A0|V1|C0|42:14-42:18 x2
+CELL PRIS:g209_g_kinds.elab MSET-EXTRA array_var|pg_q|A0|V1|C0|31:12-31:16 x8
+CELL PRIS:g209_g_kinds.elab MSET-EXTRA class_var||A0|V0|C0|34:21-34:28 x1
+CELL PRIS:g209_g_kinds.elab MSET-EXTRA class_var||A0|V0|C0|3:23-3:28 x1
+CELL PRIS:g209_g_kinds.elab MSET-EXTRA class_var||A0|V0|C0|57:22-57:30 x1
+CELL PRIS:g209_g_kinds.elab MSET-EXTRA enum_var|lg_enum|A0|V0|C0|37:14-37:21 x2
+CELL PRIS:g209_g_kinds.elab MSET-EXTRA enum_var|lg_enum|A0|V1|C0|37:14-37:21 x2
+CELL PRIS:g209_g_kinds.elab MSET-EXTRA enum_var||A0|V0|C0|37:14-37:19 x1
+CELL PRIS:g209_g_kinds.elab MSET-EXTRA int_var||A0|V0|C0|18:14-18:17 x1
+CELL PRIS:g209_g_kinds.elab MSET-EXTRA int_var||A0|V0|C0|24:14-24:17 x1
+CELL PRIS:g209_g_kinds.elab MSET-EXTRA int_var||A0|V0|C0|66:14-66:17 x1
+CELL PRIS:g209_g_kinds.elab MSET-EXTRA int_var||A0|V0|C0|6:14-6:17 x1
+CELL PRIS:g209_g_kinds.elab MSET-EXTRA logic_var|lg_vec|A0|V1|C0|38:14-38:20 x2
+CELL PRIS:g209_g_kinds.elab MSET-EXTRA logic_var||A0|V0|C0|0:0-0:0 x1
+CENSUM PATCHED:g209_g_kinds.elab AGREE=82 WRONG=8 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=107 MSET-EXTRA=19
+CELL PATCHED:g209_g_kinds.elab AGREE=82 WRONG=8 ONLY-GOLDEN=0 ONLY-OURS=0 MSET-MISSING=107 MSET-EXTRA=19
+CELL PATCHED:g209_g_kinds.elab WRONG C:P:top:pg209::cm209#15 G=array_var|pg_q|A1|V1|C0 O=array_var|pg_q|A0|V1|C0 scope=package:pg209
+CELL PATCHED:g209_g_kinds.elab WRONG C:P:top:pg209::cm209#4 G=array_var|pg_q|A1|V1|C0 O=array_var|pg_q|A0|V1|C0 scope=package:pg209
+CELL PATCHED:g209_g_kinds.elab WRONG C:P:top:pg209::cn209#15 G=array_var|pg_q|A1|V1|C0 O=array_var|pg_q|A0|V1|C0 scope=package:pg209
+CELL PATCHED:g209_g_kinds.elab WRONG C:P:top:pg209::cn209#4 G=array_var|pg_q|A1|V1|C0 O=array_var|pg_q|A0|V1|C0 scope=package:pg209
+CELL PATCHED:g209_g_kinds.elab WRONG M:top:work@gg209:work@gg209#15 G=array_var|pg_q|A1|V1|C0 O=array_var|pg_q|A0|V1|C0 scope=package:pg209
+CELL PATCHED:g209_g_kinds.elab WRONG M:top:work@gg209:work@gg209#4 G=array_var|pg_q|A1|V1|C0 O=array_var|pg_q|A0|V1|C0 scope=package:pg209
+CELL PATCHED:g209_g_kinds.elab WRONG P:all:pg209#4 G=array_var|pg_q|A1|V1|C0 O=array_var|pg_q|A0|V1|C0 scope=package:pg209
+CELL PATCHED:g209_g_kinds.elab WRONG P:top:pg209#4 G=array_var|pg_q|A1|V1|C0 O=array_var|pg_q|A0|V1|C0 scope=package:pg209
+CELL PATCHED:g209_g_kinds.elab MSET-MISSING array_var|lg_q|A0|V0|C0|42:14-42:18 x10
+CELL PATCHED:g209_g_kinds.elab MSET-MISSING array_var|lg_q|A1|V1|C0|42:14-42:18 x4
+CELL PATCHED:g209_g_kinds.elab MSET-MISSING array_var|pg_q|A1|V1|C0|31:12-31:16 x12
+CELL PATCHED:g209_g_kinds.elab MSET-MISSING bit_var|lg_bit|A0|V0|C0|40:14-40:20 x10
+CELL PATCHED:g209_g_kinds.elab MSET-MISSING bit_var|lg_bit|A1|V1|C0|40:14-40:20 x4
+CELL PATCHED:g209_g_kinds.elab MSET-MISSING bit_var|pg_bit|A1|V1|C0|29:12-29:18 x4
+CELL PATCHED:g209_g_kinds.elab MSET-MISSING chandle_var|lg_ch|A0|V0|C0|41:14-41:19 x10
+CELL PATCHED:g209_g_kinds.elab MSET-MISSING int_var|n|A1|V1|C0|25:9-25:10 x1
+CELL PATCHED:g209_g_kinds.elab MSET-MISSING int_var|q|A1|V1|C0|33:9-33:10 x1
+CELL PATCHED:g209_g_kinds.elab MSET-MISSING int_var||A0|V0|C0|31:12-31:16 x4
+CELL PATCHED:g209_g_kinds.elab MSET-MISSING int_var||A0|V0|C0|42:14-42:18 x19
+CELL PATCHED:g209_g_kinds.elab MSET-MISSING logic_var|lg_vec|A0|V0|C0|38:14-38:20 x10
+CELL PATCHED:g209_g_kinds.elab MSET-MISSING real_var|lg_real|A0|V0|C0|39:14-39:21 x10
+CELL PATCHED:g209_g_kinds.elab MSET-MISSING real_var|lg_real|A1|V1|C0|39:14-39:21 x4
+CELL PATCHED:g209_g_kinds.elab MSET-MISSING real_var|pg_real|A1|V1|C0|28:12-28:19 x4
+CELL PATCHED:g209_g_kinds.elab MSET-EXTRA array_var|pg_q|A0|V1|C0|31:12-31:16 x8
+CELL PATCHED:g209_g_kinds.elab MSET-EXTRA class_var||A0|V0|C0|34:21-34:28 x1
+CELL PATCHED:g209_g_kinds.elab MSET-EXTRA class_var||A0|V0|C0|3:23-3:28 x1
+CELL PATCHED:g209_g_kinds.elab MSET-EXTRA class_var||A0|V0|C0|57:22-57:30 x1
+CELL PATCHED:g209_g_kinds.elab MSET-EXTRA enum_var|lg_enum|A0|V0|C0|37:14-37:21 x2
+CELL PATCHED:g209_g_kinds.elab MSET-EXTRA enum_var||A0|V0|C0|37:14-37:19 x1
+CELL PATCHED:g209_g_kinds.elab MSET-EXTRA int_var||A0|V0|C0|18:14-18:17 x1
+CELL PATCHED:g209_g_kinds.elab MSET-EXTRA int_var||A0|V0|C0|24:14-24:17 x1
+CELL PATCHED:g209_g_kinds.elab MSET-EXTRA int_var||A0|V0|C0|66:14-66:17 x1
+CELL PATCHED:g209_g_kinds.elab MSET-EXTRA int_var||A0|V0|C0|6:14-6:17 x1
+CELL PATCHED:g209_g_kinds.elab MSET-EXTRA logic_var||A0|V0|C0|0:0-0:0 x1
+-- ARM-VIEWS BUILT: 14
+-- CALIB  14 arm-views, AGREE 662, WRONG 0, ONLY-GOLDEN 0, ONLY-OURS 0
+-- CALIB  MSET-MISSING 0, MSET-EXTRA 0
+-- PRIS  14 arm-views, AGREE 572, WRONG 70, ONLY-GOLDEN 20, ONLY-OURS 0
+-- PRIS  MSET-MISSING 433, MSET-EXTRA 226
+-- PATCHED  14 arm-views, AGREE 622, WRONG 20, ONLY-GOLDEN 20, ONLY-OURS 0
+-- PATCHED  MSET-MISSING 383, MSET-EXTRA 176
+-- NONZERO RCs: 0
