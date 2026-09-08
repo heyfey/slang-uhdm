@@ -1,0 +1,112 @@
+LHS:
+decompile:
+bit_typespec: (uvm_reg_addr_t), id:236486, line:73:10, endln:73:31
+|vpiParent:
+\_ref_typespec: (adpcm_pkg::uvm_reg_map::m_set_mem_offset::range::uvm_pkg::uvm_reg_map_addr_range::min::uvm_reg_addr_t), id:236485
+|vpiName:uvm_reg_addr_t
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+|vpiRange:
+\_range: , id:236487, line:73:23, endln:73:31
+  |vpiParent:
+  \_bit_typespec: (uvm_reg_addr_t), id:236486, line:73:10, endln:73:31
+  |vpiLeftRange:
+  \_constant: , id:236488, line:73:24, endln:73:26
+    |vpiParent:
+    \_range: , id:236487, line:73:23, endln:73:31
+    |vpiDecompile:63
+    |vpiSize:64
+    |INT:63
+    |vpiConstType:7
+  |vpiRightRange:
+  \_constant: , id:236489, line:73:29, endln:73:30
+    |vpiParent:
+    \_range: , id:236487, line:73:23, endln:73:31
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+
+decompile:
+bit_typespec: (uvm_reg_addr_t), id:236486, line:73:10, endln:73:31
+|vpiParent:
+\_ref_typespec: (adpcm_pkg::uvm_reg_map::m_set_mem_offset::range::uvm_pkg::uvm_reg_map_addr_range::min::uvm_reg_addr_t), id:236485
+|vpiName:uvm_reg_addr_t
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+|vpiRange:
+\_range: , id:236487, line:73:23, endln:73:31
+  |vpiParent:
+  \_bit_typespec: (uvm_reg_addr_t), id:236486, line:73:10, endln:73:31
+  |vpiLeftRange:
+  \_constant: , id:236488, line:73:24, endln:73:26
+    |vpiParent:
+    \_range: , id:236487, line:73:23, endln:73:31
+    |vpiDecompile:63
+    |vpiSize:64
+    |INT:63
+    |vpiConstType:7
+  |vpiRightRange:
+  \_constant: , id:236489, line:73:29, endln:73:30
+    |vpiParent:
+    \_range: , id:236487, line:73:23, endln:73:31
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+RHS:
+decompile:
+bit_typespec: (uvm_pkg::uvm_reg_addr_t), id:3667, line:73:10, endln:73:31
+|vpiParent:
+\_module_inst: work@top_tb (work@top_tb), id:293223, file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/testbench.sv, line:210:1, endln:236:18
+|vpiName:uvm_pkg::uvm_reg_addr_t
+|vpiInstance:
+\_package: adpcm_pkg (adpcm_pkg::), id:3057, file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/testbench.sv, line:10:1, endln:207:22
+|vpiRange:
+\_range: , id:3668, line:73:23, endln:73:31
+  |vpiParent:
+  \_bit_typespec: (uvm_pkg::uvm_reg_addr_t), id:3667, line:73:10, endln:73:31
+  |vpiLeftRange:
+  \_constant: , id:3669, line:73:24, endln:73:26
+    |vpiParent:
+    \_range: , id:3668, line:73:23, endln:73:31
+    |vpiDecompile:63
+    |vpiSize:64
+    |INT:63
+    |vpiConstType:7
+  |vpiRightRange:
+  \_constant: , id:3670, line:73:29, endln:73:30
+    |vpiParent:
+    \_range: , id:3668, line:73:23, endln:73:31
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+
+decompile:
+bit_typespec: (uvm_pkg::uvm_reg_addr_t), id:3667, line:73:10, endln:73:31
+|vpiParent:
+\_module_inst: work@top_tb (work@top_tb), id:293223, file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/testbench.sv, line:210:1, endln:236:18
+|vpiName:uvm_pkg::uvm_reg_addr_t
+|vpiInstance:
+\_package: adpcm_pkg (adpcm_pkg::), id:3057, file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/testbench.sv, line:10:1, endln:207:22
+|vpiRange:
+\_range: , id:3668, line:73:23, endln:73:31
+  |vpiParent:
+  \_bit_typespec: (uvm_pkg::uvm_reg_addr_t), id:3667, line:73:10, endln:73:31
+  |vpiLeftRange:
+  \_constant: , id:3669, line:73:24, endln:73:26
+    |vpiParent:
+    \_range: , id:3668, line:73:23, endln:73:31
+    |vpiDecompile:63
+    |vpiSize:64
+    |INT:63
+    |vpiConstType:7
+  |vpiRightRange:
+  \_constant: , id:3670, line:73:29, endln:73:30
+    |vpiParent:
+    \_range: , id:3668, line:73:23, endln:73:31
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9

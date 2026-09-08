@@ -1,0 +1,87 @@
+r10uvm205 — THE WIDE BOUNDARY.  MEASUREMENT ONLY.
+
+bound205.sh over a COPY of the whole probe tree — every .sv/.v at top level
+AND in every subdirectory, BOTH views, BOTH binaries, children </dev/null,
+the file list on fd 3, scratch keyed on the RELATIVE path, PROCESSED
+asserted against LISTED, every rc recorded.
+
+  LISTED=5327 PROCESSED=5327 PRODUCED_DBS=5142 MOVED_ARMS=9 RC_DIFFS=0
+
+MOVED ARMS:
+  r10buvm22repro/g22.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+  r10uvm154repro/l154_noenum.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+  r10uvm185repro/grid185/g185_e_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+  r10uvm189repro/g189_a_idxkind.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+  r10uvm205repro/grid205/g205_a_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+  r10uvm205repro/grid205/g205_b_ctx.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+  r10uvm205repro/grid205/g205_c_share.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+  r10uvm205repro/grid205/g205_e_head.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+  r10v189repro/v189_k_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+FOUR of the nine are THIS pass's own grid arms — the POSITIVE CONTROL: a
+gate that reported zero movers over them could not see.  Arm D
+(g205_d_noimport, the explicit-import control) and arm F (g205_f_home, the
+home-only control) do NOT move, which is what makes the four that do a
+control rather than a leak.
+
+THE FIVE EARLIER-PASS ARMS, each re-measured against a REAL Surelog golden
+in BOTH views (grid205.sh):
+
+  ARM                      VIEW   SCORE (golden vs pristine vs patched)
+  g22                      def    TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 14  AGREE 20  (one-sided: only-golden 13 only-ours 15)
+  g22                      elab   TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 12  AGREE 12  (one-sided: only-golden 13 only-ours 25)
+  l154_noenum              def    TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 1  (one-sided: only-golden 0 only-ours 0)
+  l154_noenum              elab   TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 1  (one-sided: only-golden 0 only-ours 0)
+  g185_e_kinds             def    TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 10  AGREE 0  (one-sided: only-golden 29 only-ours 18)
+  g185_e_kinds             elab   TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 10  AGREE 0  (one-sided: only-golden 29 only-ours 18)
+  g189_a_idxkind           def    TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 93  (one-sided: only-golden 46 only-ours 0)
+  g189_a_idxkind           elab   TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 186  (one-sided: only-golden 0 only-ours 0)
+  v189_k_kinds             def    TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 111  (one-sided: only-golden 57 only-ours 4)
+  v189_k_kinds             elab   TO-GOLDEN 12  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 216  (one-sided: only-golden 1 only-ours 4)
+
+AWAY-GOLDEN 0 and MOVED-WRONG 0 in every arm in every view; two arms move
+TOWARD golden and three do not move a single compared cell.
+
+uhdm-cmp on those five arms, both binaries, both views: IDENTICAL cmp line
+counts and IDENTICAL head objects.  The only textual difference in any cmp
+output is a producer-private id (g189_a_idxkind/elab and v189_k_kinds/elab).
+
+ct205cen --arena (the order-blind, ALIAS-VISIBLE whole-database multiset —
+the sorted uhdm-dump cannot see a Typedef_alias re-point at all):
+  g22 def/elab            0 lines
+  l154_noenum def/elab    0 lines
+  g185_e_kinds def/elab   0 lines
+  g189_a_idxkind def       5 lines  (tdIntA189: Girder189::tdIntA189 -> tdIntA189)
+  g189_a_idxkind elab      5 lines
+  v189_k_kinds def        15 lines  (vecK189V:  ZKEEL189V::vecK189V  -> vecK189V)
+  v189_k_kinds elab       15 lines
+The three arms with a 0-line arena diff moved BYTES only: a clone-exclusive
+element ref was re-pointed onto a freshly minted copy of the same content,
+which adds an object to the arena and changes nothing the judge reads.
+
+PROTECTED FAMILIES — movers in each, all ZERO:
+  r10uvm204repro       0
+  r10v204repro         0
+  r10uvm202repro       0
+  r10v202repro         0
+  r10uvm198repro       0
+  r10v198repro         0
+  r10uvm16repro        0
+  r10uvm180repro       0
+  r10uvm194repro       0
+  r10uvm169repro       0
+  r10v169repro         0
+  r10uvm82repro        0
+  r10uvm83repro        0
+  r10uvm84repro        0
+  r10uvm85repro        0
+  r10uvm86repro        0
+  r10uvm87repro        0
+  r10uvm88repro        0
+  r10uvm89repro        0
+  r10uvm90repro        0
+  r10uvm91repro        0
+  r10buvm3repro        0
+  r10buvm15repro       0
+  r10sd8repro          0
+  r10sd12repro         0

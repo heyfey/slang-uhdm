@@ -1,0 +1,369 @@
+r10uvm205 — THE MOVER ATTRIBUTION.  MEASUREMENT ONLY.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+byteverify SELFCHECK=1, this pass's OWN pristine workdir vs its OWN patched
+workdir:
+  surelog     MOVERS 5 / 956   PATH_SETS_IDENTICAL
+  uhdm2rtlil  MOVERS 0 / 1358  PATH_SETS_IDENTICAL
+
+  MOVER ./default/MiniAmiq-544c7f61/slang.uhdm
+  MOVER ./default/Scoreboard-59431470/slang.uhdm
+  MOVER ./default/SeqDriver-32af76aa/slang.uhdm
+  MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm
+  MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm
+
+The FOUR law rows are the four the a-priori prediction named BY NAME from the
+PRISTINE databases alone (PREDICT.surelog.r10uvm205.txt), before the patched
+sweep existed.  Scoreboard/default is the ~50/50 COIN (RESUME.md §9).
+
+==========================================================================
+WHY NOT A WHOLE-DUMP DIFF
+==========================================================================
+uhdm-dump DOES NOT PRINT vpiTypedefAlias.  On grid arm E the sorted,
+path-normalised whole-dump diff between the pristine and the patched
+database reads TWO lines — both the dump's own filename header — across a
+change uhdm-cmp scores from 112 cmp lines to 1192.  The campaign's usual
+order-blind dump attribution is BLIND to this whole family.  The census
+(ct205cen, which reads Typedef_alias explicitly) is the attribution
+instrument here, and ct205cen --arena is its order-blind whole-database
+form.
+
+==========================================================================
+THE FOUR LAW ROWS — every cell whose payload changed
+==========================================================================
+---- SeqDriver.default : 20 cells changed, 0 keys appeared, 0 keys vanished
+  ALL[2] adpcm_pkg | - | uvm_mem::get_address | d1 | var | addr@1339:20 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] adpcm_pkg | - | uvm_reg::get_address | d1 | var | addr@1768:20 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] adpcm_pkg | - | uvm_reg_map::Xinit_address_mapX | d4 | var | addrs@1603:23 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] adpcm_pkg | - | uvm_reg_map::Xinit_address_mapX | d4 | var | addrs@1659:23 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] adpcm_pkg | - | uvm_reg_map::Xinit_address_mapX | d4 | var | addrs_max@1659:31 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] adpcm_pkg | - | uvm_reg_map::do_bus_read | d1 | var | addrs@1983:18 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] adpcm_pkg | - | uvm_reg_map::do_bus_write | d1 | var | addrs@1839:22 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] adpcm_pkg | - | uvm_reg_map::get_physical_addresses | d1 | var | local_addr@1408:20 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] adpcm_pkg | - | uvm_reg_map::get_physical_addresses | d2 | var | sys_addr@1472:23 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] adpcm_pkg | - | uvm_reg_map::m_set_mem_offset | d2 | var | addrs@904:24 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] adpcm_pkg | - | uvm_reg_map::m_set_mem_offset | d4 | var | addrs@919:28 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] adpcm_pkg | - | uvm_reg_map::m_set_mem_offset | d4 | var | addrs_max@919:36 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] adpcm_pkg | - | uvm_reg_map::m_set_reg_offset | d2 | var | addrs@758:24 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  TOP[2] adpcm_pkg | - | uvm_mem::get_address | d1 | var | addr@1339:20 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  TOP[2] adpcm_pkg | - | uvm_reg::get_address | d1 | var | addr@1768:20 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  TOP[2] adpcm_pkg | - | uvm_reg_map::Xinit_address_mapX | d4 | var | addrs@1659:23 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  TOP[2] adpcm_pkg | - | uvm_reg_map::Xinit_address_mapX | d4 | var | addrs_max@1659:31 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  TOP[2] adpcm_pkg | - | uvm_reg_map::m_set_mem_offset | d2 | var | addrs@904:24 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  TOP[2] adpcm_pkg | - | uvm_reg_map::m_set_mem_offset | d4 | var | addrs@919:28 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  TOP[2] adpcm_pkg | - | uvm_reg_map::m_set_mem_offset | d4 | var | addrs_max@919:36 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+---- SeqDriver.testflags : 20 cells changed, 0 keys appeared, 0 keys vanished
+  ALL[2] adpcm_pkg | - | uvm_mem::get_address | d1 | var | addr@1339:20 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] adpcm_pkg | - | uvm_reg::get_address | d1 | var | addr@1768:20 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] adpcm_pkg | - | uvm_reg_map::Xinit_address_mapX | d4 | var | addrs@1603:23 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] adpcm_pkg | - | uvm_reg_map::Xinit_address_mapX | d4 | var | addrs@1659:23 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] adpcm_pkg | - | uvm_reg_map::Xinit_address_mapX | d4 | var | addrs_max@1659:31 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] adpcm_pkg | - | uvm_reg_map::do_bus_read | d1 | var | addrs@1983:18 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] adpcm_pkg | - | uvm_reg_map::do_bus_write | d1 | var | addrs@1839:22 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] adpcm_pkg | - | uvm_reg_map::get_physical_addresses | d1 | var | local_addr@1408:20 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] adpcm_pkg | - | uvm_reg_map::get_physical_addresses | d2 | var | sys_addr@1472:23 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] adpcm_pkg | - | uvm_reg_map::m_set_mem_offset | d2 | var | addrs@904:24 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] adpcm_pkg | - | uvm_reg_map::m_set_mem_offset | d4 | var | addrs@919:28 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] adpcm_pkg | - | uvm_reg_map::m_set_mem_offset | d4 | var | addrs_max@919:36 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] adpcm_pkg | - | uvm_reg_map::m_set_reg_offset | d2 | var | addrs@758:24 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  TOP[2] adpcm_pkg | - | uvm_mem::get_address | d1 | var | addr@1339:20 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  TOP[2] adpcm_pkg | - | uvm_reg::get_address | d1 | var | addr@1768:20 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  TOP[2] adpcm_pkg | - | uvm_reg_map::Xinit_address_mapX | d4 | var | addrs@1659:23 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  TOP[2] adpcm_pkg | - | uvm_reg_map::Xinit_address_mapX | d4 | var | addrs_max@1659:31 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  TOP[2] adpcm_pkg | - | uvm_reg_map::m_set_mem_offset | d2 | var | addrs@904:24 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  TOP[2] adpcm_pkg | - | uvm_reg_map::m_set_mem_offset | d4 | var | addrs@919:28 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  TOP[2] adpcm_pkg | - | uvm_reg_map::m_set_mem_offset | d4 | var | addrs_max@919:36 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+---- MiniAmiq.default : 20 cells changed, 0 keys appeared, 0 keys vanished
+  ALL[2] svaunit_pkg | - | uvm_mem::get_address | d1 | var | addr@1339:20 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] svaunit_pkg | - | uvm_reg::get_address | d1 | var | addr@1768:20 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] svaunit_pkg | - | uvm_reg_map::Xinit_address_mapX | d4 | var | addrs@1603:23 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] svaunit_pkg | - | uvm_reg_map::Xinit_address_mapX | d4 | var | addrs@1659:23 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] svaunit_pkg | - | uvm_reg_map::Xinit_address_mapX | d4 | var | addrs_max@1659:31 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] svaunit_pkg | - | uvm_reg_map::do_bus_read | d1 | var | addrs@1983:18 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] svaunit_pkg | - | uvm_reg_map::do_bus_write | d1 | var | addrs@1839:22 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] svaunit_pkg | - | uvm_reg_map::get_physical_addresses | d1 | var | local_addr@1408:20 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] svaunit_pkg | - | uvm_reg_map::get_physical_addresses | d2 | var | sys_addr@1472:23 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] svaunit_pkg | - | uvm_reg_map::m_set_mem_offset | d2 | var | addrs@904:24 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] svaunit_pkg | - | uvm_reg_map::m_set_mem_offset | d4 | var | addrs@919:28 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] svaunit_pkg | - | uvm_reg_map::m_set_mem_offset | d4 | var | addrs_max@919:36 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] svaunit_pkg | - | uvm_reg_map::m_set_reg_offset | d2 | var | addrs@758:24 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  TOP[2] svaunit_pkg | - | uvm_mem::get_address | d1 | var | addr@1339:20 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  TOP[2] svaunit_pkg | - | uvm_reg::get_address | d1 | var | addr@1768:20 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  TOP[2] svaunit_pkg | - | uvm_reg_map::Xinit_address_mapX | d4 | var | addrs@1659:23 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  TOP[2] svaunit_pkg | - | uvm_reg_map::Xinit_address_mapX | d4 | var | addrs_max@1659:31 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  TOP[2] svaunit_pkg | - | uvm_reg_map::m_set_mem_offset | d2 | var | addrs@904:24 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  TOP[2] svaunit_pkg | - | uvm_reg_map::m_set_mem_offset | d4 | var | addrs@919:28 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  TOP[2] svaunit_pkg | - | uvm_reg_map::m_set_mem_offset | d4 | var | addrs_max@919:36 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+---- MiniAmiq.testflags : 20 cells changed, 0 keys appeared, 0 keys vanished
+  ALL[2] svaunit_pkg | - | uvm_mem::get_address | d1 | var | addr@1339:20 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] svaunit_pkg | - | uvm_reg::get_address | d1 | var | addr@1768:20 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] svaunit_pkg | - | uvm_reg_map::Xinit_address_mapX | d4 | var | addrs@1603:23 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] svaunit_pkg | - | uvm_reg_map::Xinit_address_mapX | d4 | var | addrs@1659:23 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] svaunit_pkg | - | uvm_reg_map::Xinit_address_mapX | d4 | var | addrs_max@1659:31 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] svaunit_pkg | - | uvm_reg_map::do_bus_read | d1 | var | addrs@1983:18 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] svaunit_pkg | - | uvm_reg_map::do_bus_write | d1 | var | addrs@1839:22 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] svaunit_pkg | - | uvm_reg_map::get_physical_addresses | d1 | var | local_addr@1408:20 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] svaunit_pkg | - | uvm_reg_map::get_physical_addresses | d2 | var | sys_addr@1472:23 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] svaunit_pkg | - | uvm_reg_map::m_set_mem_offset | d2 | var | addrs@904:24 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] svaunit_pkg | - | uvm_reg_map::m_set_mem_offset | d4 | var | addrs@919:28 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] svaunit_pkg | - | uvm_reg_map::m_set_mem_offset | d4 | var | addrs_max@919:36 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  ALL[2] svaunit_pkg | - | uvm_reg_map::m_set_reg_offset | d2 | var | addrs@758:24 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  TOP[2] svaunit_pkg | - | uvm_mem::get_address | d1 | var | addr@1339:20 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  TOP[2] svaunit_pkg | - | uvm_reg::get_address | d1 | var | addr@1768:20 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  TOP[2] svaunit_pkg | - | uvm_reg_map::Xinit_address_mapX | d4 | var | addrs@1659:23 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  TOP[2] svaunit_pkg | - | uvm_reg_map::Xinit_address_mapX | d4 | var | addrs_max@1659:31 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  TOP[2] svaunit_pkg | - | uvm_reg_map::m_set_mem_offset | d2 | var | addrs@904:24 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  TOP[2] svaunit_pkg | - | uvm_reg_map::m_set_mem_offset | d4 | var | addrs@919:28 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+  TOP[2] svaunit_pkg | - | uvm_reg_map::m_set_mem_offset | d4 | var | addrs_max@919:36 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')   TO-GOLDEN
+
+==========================================================================
+SCOREBOARD/DEFAULT — THE COIN
+==========================================================================
+  uhdm-dump, path-normalised:  PLAIN diff 78 lines / ORDER-BLIND diff 0
+  content lines  ->  a pure ORDER flip (svunit_pkg vpiTaskFunc list order,
+  RESUME.md §9).
+  ct205cen census, golden vs pristine and golden vs patched:
+    TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 3804
+    cells whose OUR payload changed: 0
+  The census reads the alias link the dump cannot, so the two together
+  convict the coin and exonerate the law.

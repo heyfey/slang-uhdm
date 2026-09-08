@@ -8252,6 +8252,143 @@ void UhdmExporter::importCloneBareTdAlias16(UHDM::design* d) {
         l180.rebind = &rb180;
         l180.listenDesign(d);
     }
+    // § cloneArrayElemBareTdAlias205 — THE SAME CLONE, THROUGH THE ARRAY.
+    //
+    // The two loops above reach a clone body's OWN `Io_decls` and `Variables`
+    // listings; § cloneBodyBareTdAlias180's listener reaches a block-local and
+    // an expression's typespec.  All three stop at the FIRST typespec above the
+    // ref: `CloneBodyTdRebind180`'s climb returns the moment
+    // `any_cast<const typespec*>(cs[i])` succeeds.  A declaration written as an
+    // ARRAY of a package scalar typedef —
+    //
+    //     function uvm_reg_addr_t uvm_reg::get_address(uvm_reg_map map = null);
+    //        uvm_reg_addr_t  addr[];            // uvm-1.2 uvm_reg.svh:1768
+    //
+    // — binds its element type one link BELOW an `array_typespec`, so the ref
+    // that carries the typedef sits under a typespec and every one of the three
+    // walks refuses it.  Surelog's rule does not change at that link:
+    // `writeDataTypes` (UhdmWriter.cpp:775-796) prefixes `p::t` IN PLACE while
+    // the HOME package's `datatypeMap` walk runs, and `importPackage`
+    // (CompileHelper.cpp:299-330) `clone_tree`s the imported subroutine into the
+    // importer BEFORE that walk — so nothing inside a clone body is ever the
+    // object that got prefixed, at any depth and in any ROLE, element type
+    // included.
+    //
+    // MEASURED, SeqDriver/default, `ct205cen` (every declaration in every
+    // package subroutine body, at any block depth, in a class method or a free
+    // subroutine, keyed listing|class|function|depth|role|name@line:col plus
+    // the CHAIN PATH walked below it): 5255 cells agree and **26 differ, every
+    // one of them at `.elem`, every one in the clone `adpcm_pkg`**, and all 26
+    // read `gold=[t -> t]` against `ours=[t -> uvm_pkg::t]` — § 180's exact
+    // repair shape, one array link down.  The HOME package's 94 `.elem` cells
+    // of the same typedefs are `[t -> uvm_pkg::t]` on BOTH sides and MUST NOT
+    // MOVE.
+    //
+    // WHY A DECLARATION WALK AND NOT A WIDER LISTENER.  `UhdmListener`'s
+    // `visited` set hands a callback whichever containment path reached the
+    // object FIRST, so it sees ONE owner per ref and cannot tell that a ref has
+    // another.  Ours does: of the 26 clone `.elem` refs on SeqDriver, **6 are
+    // reached from a HOME body's declaration as well** (`do_bus_read`'s
+    // `addrs[$]` shares its element ref with the same body's `foreach (addrs[i])`
+    // reference variable in the home ELABORATED listing), and golden keeps every
+    // one of those home cells QUALIFIED.  A ref cannot carry two names, so the
+    // law REFUSES a ref that any non-clone declaration also reaches — 20 move,
+    // 6 stay (R1) — and the refusal is what keeps AWAY-GOLDEN at 0.  Variables
+    // and io_decls ARE parented on both sides, so this walk is a plain
+    // `VpiParent` climb with no callstack ambiguity at all.
+    if (!pkgImportCloneTfs16.empty()) {
+        // § 16's own fence, restated as a climb: the innermost enclosing
+        // subroutine of a DECLARATION, refusing a class PROPERTY (the climb
+        // stops at `class_defn`, exactly as `CloneBodyTdRebind180` does).
+        auto declTf205 =
+            [](const UHDM::BaseClass* o) -> const UHDM::task_func* {
+            for (const UHDM::BaseClass* p = o->VpiParent(); p;
+                 p = p->VpiParent()) {
+                const auto k = p->UhdmType();
+                if (k == UHDM::uhdmfunction || k == UHDM::uhdmtask)
+                    return (const UHDM::task_func*)p;
+                if (k == UHDM::uhdmclass_defn || k == UHDM::uhdmpackage ||
+                    k == UHDM::uhdmmodule_inst || k == UHDM::uhdmdesign)
+                    return nullptr;
+            }
+            return nullptr;
+        };
+        // Every ref BELOW an array-shaped typespec, with the OWNER MASK:
+        // bit 1 = some wildcard-import clone body's declaration reaches it,
+        // bit 2 = some other declaration does.  Only mask == 1 may move.
+        std::map<UHDM::ref_typespec*, int> owner205;
+        std::function<void(UHDM::ref_typespec*, int, int, bool)> walk205 =
+            [&](UHDM::ref_typespec* rt, int bit, int budget, bool below) {
+                if (!rt || budget <= 0)
+                    return;
+                if (below)
+                    owner205[rt] |= bit;
+                auto* at = rt->Actual_typespec();
+                if (!at)
+                    return;
+                if (at->UhdmType() == UHDM::uhdmarray_typespec) {
+                    auto* a = (UHDM::array_typespec*)at;
+                    walk205(a->Elem_typespec(), bit, budget - 1, true);
+                    walk205(a->Index_typespec(), bit, budget - 1, true);
+                } else if (at->UhdmType() == UHDM::uhdmpacked_array_typespec) {
+                    auto* a = (UHDM::packed_array_typespec*)at;
+                    walk205(a->Elem_typespec(), bit, budget - 1, true);
+                }
+            };
+        for (auto& kv205 : s.AllObjects()) {
+            auto* o205 = (UHDM::BaseClass*)kv205.first;
+            if (!o205)
+                continue;
+            UHDM::ref_typespec* rt205 = nullptr;
+            if (auto* v205 = any_cast<UHDM::variables*>(o205))
+                rt205 = v205->Typespec();
+            else if (auto* io205 = any_cast<UHDM::io_decl*>(o205))
+                rt205 = io205->Typespec();
+            if (!rt205)
+                continue;
+            const UHDM::task_func* tf205 = declTf205(o205);
+            if (!tf205)
+                continue;
+            bool clone205 = pkgImportCloneTfs16.count(tf205) != 0;
+            // § 16's RETURN-VARIABLE EXCEPTION, verbatim: a clone function's
+            // return variable keeps the HOME's QUALIFIED target (r10uvm169's
+            // `g169_a_import`, r10v169's `v169_i_multi`), because Surelog mints
+            // it from the declared return type at WRITE time, after
+            // `writeDataTypes` prefixed the home listing object in place.  It
+            // counts as a NON-clone owner so a ref it shares can never move.
+            if (clone205 && tf205->UhdmType() == UHDM::uhdmfunction &&
+                (const UHDM::BaseClass*)((const UHDM::function*)tf205)
+                        ->Return() == o205)
+                clone205 = false;
+            walk205(rt205, clone205 ? 1 : 2, 8, false);
+        }
+        // Mint the copies in a CONTENT order, never in arena order, so the
+        // object ids the copies take do not depend on allocation addresses.
+        std::vector<std::pair<std::string, const UHDM::typespec*>> mint205;
+        for (auto& [rt205, m205] : owner205) {
+            if (m205 != 1)
+                continue;
+            const UHDM::typespec* src205 = listingOf(rt205->Actual_typespec());
+            if (!src205 || cloneBareScalarTdCopy16.count(src205))
+                continue;
+            char k205[512];
+            const UHDM::any* in205 = ((UHDM::typespec*)src205)->Instance();
+            snprintf(k205, sizeof k205, "%s|%d|%s|%u:%u|%s",
+                     std::string(src205->VpiName()).c_str(),
+                     (int)src205->UhdmType(),
+                     std::string(src205->VpiFile()).c_str(),
+                     src205->VpiLineNo(), (unsigned)src205->VpiColumnNo(),
+                     in205 ? std::string(in205->VpiName()).c_str() : "-");
+            mint205.emplace_back(std::string(k205), src205);
+        }
+        std::sort(mint205.begin(), mint205.end(),
+                  [](const auto& a, const auto& b) { return a.first < b.first; });
+        for (auto& [k205, src205] : mint205)
+            cloneCopyOf(src205);
+        for (auto& [rt205, m205] : owner205)
+            if (m205 == 1)
+                rebind(rt205);
+    }
     // § importElemBareTdAlias — the same clone-flavoured copy at the
     // Elem_typespec of a MODULE's materialized wildcard-import copy of a
     // scalar-typedef unpacked-array package parameter (te.sv; 4 Earlgrey

@@ -1,0 +1,140 @@
+################ g205_a_kinds
+--- nonzero rcs:
+rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/r10uvm205_w_g205_a_kinds/g_elab /tmp/wt_r10uvm205/tools/probe/r10uvm205repro/grid205/g205_a_kinds.sv
+--- cen/cmp:
+cen rc=0 g def rows=328
+cen rc=0 a def rows=282
+cen rc=0 b def rows=282
+cmp rc=255 a def lines=116 heads=1
+cmp rc=255 b def lines=116 heads=1
+cen rc=0 g elab rows=432
+cen rc=0 a elab rows=434
+cen rc=0 b elab rows=434
+cmp rc=255 a elab lines=116 heads=1
+cmp rc=255 b elab lines=116 heads=1
+--- BYTE-IDENTICAL between the two binaries?
+  def DIFFERS
+  elab DIFFERS
+--- SCORE (golden vs pristine vs patched), DEF and ELAB kept SEPARATE:
+  def  ALL       TO-GOLDEN 22  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 8  AGREE 84  (one-sided: only-golden 50 only-ours 4)
+  def  .elem     TO-GOLDEN 22  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 4  AGREE 24  (one-sided: only-golden 50 only-ours 4)
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 164  (one-sided: only-golden 0 only-ours 0)
+  elab ALL       TO-GOLDEN 44  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 16  AGREE 154  (one-sided: only-golden 2 only-ours 4)
+  elab .elem     TO-GOLDEN 44  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 8  AGREE 48  (one-sided: only-golden 2 only-ours 4)
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 216  (one-sided: only-golden 0 only-ours 0)
+################ g205_b_ctx
+--- nonzero rcs:
+rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/r10uvm205_w_g205_b_ctx/g_elab /tmp/wt_r10uvm205/tools/probe/r10uvm205repro/grid205/g205_b_ctx.sv
+--- cen/cmp:
+cen rc=0 g def rows=210
+cen rc=0 a def rows=201
+cen rc=0 b def rows=201
+cmp rc=255 a def lines=82 heads=1
+cmp rc=255 b def lines=82 heads=1
+cen rc=0 g elab rows=246
+cen rc=0 a elab rows=255
+cen rc=0 b elab rows=255
+cmp rc=255 a elab lines=86 heads=1
+cmp rc=255 b elab lines=86 heads=1
+--- BYTE-IDENTICAL between the two binaries?
+  def DIFFERS
+  elab DIFFERS
+--- SCORE (golden vs pristine vs patched), DEF and ELAB kept SEPARATE:
+  def  ALL       TO-GOLDEN 12  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 4  AGREE 68  (one-sided: only-golden 21 only-ours 12)
+  def  .elem     TO-GOLDEN 12  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 4  AGREE 14  (one-sided: only-golden 21 only-ours 12)
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 105  (one-sided: only-golden 0 only-ours 0)
+  elab ALL       TO-GOLDEN 16  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 8  AGREE 92  (one-sided: only-golden 7 only-ours 16)
+  elab .elem     TO-GOLDEN 16  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 8  AGREE 20  (one-sided: only-golden 7 only-ours 16)
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 123  (one-sided: only-golden 0 only-ours 0)
+################ g205_c_share
+--- nonzero rcs:
+--- cen/cmp:
+cen rc=0 g def rows=56
+cen rc=0 a def rows=52
+cen rc=0 b def rows=52
+cmp rc=255 a def lines=112 heads=1
+cmp rc=255 b def lines=1002 heads=1
+cen rc=0 g elab rows=68
+cen rc=0 a elab rows=70
+cen rc=0 b elab rows=70
+cmp rc=255 a elab lines=112 heads=1
+cmp rc=255 b elab lines=1266 heads=1
+--- BYTE-IDENTICAL between the two binaries?
+  def DIFFERS
+  elab DIFFERS
+--- SCORE (golden vs pristine vs patched), DEF and ELAB kept SEPARATE:
+  def  ALL       TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 1  AGREE 20  (one-sided: only-golden 6 only-ours 2)
+  def  .elem     TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 1  AGREE 4  (one-sided: only-golden 6 only-ours 2)
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 28  (one-sided: only-golden 0 only-ours 0)
+  elab ALL       TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  AGREE 30  (one-sided: only-golden 0 only-ours 2)
+  elab .elem     TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  AGREE 6  (one-sided: only-golden 0 only-ours 2)
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 34  (one-sided: only-golden 0 only-ours 0)
+################ g205_d_noimport
+--- nonzero rcs:
+--- cen/cmp:
+cen rc=0 g def rows=48
+cen rc=0 a def rows=46
+cen rc=0 b def rows=46
+cmp rc=255 a def lines=112 heads=1
+cmp rc=255 b def lines=112 heads=1
+cen rc=0 g elab rows=64
+cen rc=0 a elab rows=66
+cen rc=0 b elab rows=66
+cmp rc=255 a elab lines=112 heads=1
+cmp rc=255 b elab lines=112 heads=1
+--- BYTE-IDENTICAL between the two binaries?
+  def IDENTICAL
+  elab IDENTICAL
+--- SCORE (golden vs pristine vs patched), DEF and ELAB kept SEPARATE:
+  def  ALL       TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 6  AGREE 14  (one-sided: only-golden 4 only-ours 2)
+  def  .elem     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  AGREE 4  (one-sided: only-golden 4 only-ours 2)
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 24  (one-sided: only-golden 0 only-ours 0)
+  elab ALL       TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 10  AGREE 22  (one-sided: only-golden 0 only-ours 2)
+  elab .elem     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 4  AGREE 8  (one-sided: only-golden 0 only-ours 2)
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 32  (one-sided: only-golden 0 only-ours 0)
+################ g205_e_head
+--- nonzero rcs:
+--- cen/cmp:
+cen rc=0 g def rows=50
+cen rc=0 a def rows=47
+cen rc=0 b def rows=47
+cmp rc=255 a def lines=112 heads=1
+cmp rc=255 b def lines=1192 heads=1
+cen rc=0 g elab rows=58
+cen rc=0 a elab rows=59
+cen rc=0 b elab rows=59
+cmp rc=255 a elab lines=112 heads=1
+cmp rc=255 b elab lines=1378 heads=1
+--- BYTE-IDENTICAL between the two binaries?
+  def DIFFERS
+  elab DIFFERS
+--- SCORE (golden vs pristine vs patched), DEF and ELAB kept SEPARATE:
+  def  ALL       TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 16  (one-sided: only-golden 7 only-ours 4)
+  def  .elem     TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 2  (one-sided: only-golden 7 only-ours 4)
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 25  (one-sided: only-golden 0 only-ours 0)
+  elab ALL       TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 22  (one-sided: only-golden 3 only-ours 4)
+  elab .elem     TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 4  (one-sided: only-golden 3 only-ours 4)
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 29  (one-sided: only-golden 0 only-ours 0)
+################ g205_f_home
+--- nonzero rcs:
+--- cen/cmp:
+cen rc=0 g def rows=32
+cen rc=0 a def rows=32
+cen rc=0 b def rows=32
+cmp rc=255 a def lines=17 heads=1
+cmp rc=255 b def lines=17 heads=1
+cen rc=0 g elab rows=48
+cen rc=0 a elab rows=48
+cen rc=0 b elab rows=48
+cmp rc=255 a elab lines=17 heads=1
+cmp rc=255 b elab lines=17 heads=1
+--- BYTE-IDENTICAL between the two binaries?
+  def IDENTICAL
+  elab IDENTICAL
+--- SCORE (golden vs pristine vs patched), DEF and ELAB kept SEPARATE:
+  def  ALL       TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 16  (one-sided: only-golden 0 only-ours 0)
+  def  .elem     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 6  (one-sided: only-golden 0 only-ours 0)
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 16  (one-sided: only-golden 0 only-ours 0)
+  elab ALL       TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 24  (one-sided: only-golden 0 only-ours 0)
+  elab .elem     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 10  (one-sided: only-golden 0 only-ours 0)
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 24  (one-sided: only-golden 0 only-ours 0)

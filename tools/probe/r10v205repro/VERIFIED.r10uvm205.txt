@@ -1,0 +1,271 @@
+r10v205 — MEASURED RESULTS (adversarial verification of r10uvm205)
+MEASUREMENT ONLY; the official uhdm-cmp is the sole judge.  LHS is ALWAYS golden.
+
+== 1. BUILD REPRODUCTION (my own worktrees at 450b7a24, -j 2) ==
+  pristine /tmp/wt_v205pris  md5 505cad23a156a75a6da1a3fd69b64617
+  patched  /tmp/wt_v205      md5 2bd808c3610a262f520fde0d2af277d4
+  both md5s IDENTICAL to the implementer's claim; patch md5 1ab58e754d790a07ea7f8a5d00812bf1
+  git apply -3 on a FRESH 450b7a24: rc=0, 'Applied patch to src/TypeEmit.cpp cleanly', 39 files, +7296/-0
+
+== 2. THE DECODE, re-measured on MY OWN databases (SeqDriver/default) ==
+  ct205cen --kinds: agree=5255 differ=26 only-golden=1011 only-ours=468
+  the DIFFER table has EXACTLY ONE ROW:
+    bit_typespec chain=.elem  g=BARE/BARE/uvm_pkg  o=BARE/QUAL/uvm_pkg    26
+  (5255+20+6 = 5281 scored cells, matching the pass's count)
+  Surelog citations verified in the tree:
+    UhdmWriter.cpp:775 writeDataTypes; :787-793 prefixes p::t IN PLACE, guarded on
+      'no :: already', ONLY when parent->UhdmType()==uhdmpackage
+    CompileHelper.cpp:127 importPackage; :321-325 clone_tree of the imported task_func,
+      and it clones ONLY when inPackage is true -- a MODULE import pushes the HOME object
+      itself, which is exactly why arm F (module imports the declaring package directly)
+      has no clone and must not move.  Confirmed byte-identical.
+    typespec.cpp:93-94 (generated) Compare walks Typedef_alias THEN Instance.
+
+== 3. A-PRIORI PREDICTION, from MY OWN PRISTINE databases only ==
+  PREDCELLS MiniAmiq,default strict=20 wide=26 typedefs=[uvm_pkg::uvm_reg_addr_t]
+  PREDCELLS SeqDriver,default strict=20 wide=26 typedefs=[uvm_pkg::uvm_reg_addr_t]
+  PREDCELLS MiniAmiq,testflags strict=20 wide=26 typedefs=[uvm_pkg::uvm_reg_addr_t]
+  PREDCELLS SeqDriver,testflags strict=20 wide=26 typedefs=[uvm_pkg::uvm_reg_addr_t]
+  -> exactly 4 row-modes over 948 surelog databases; 0 of 1358 uhdm2rtlil
+
+== 4. GATES ==
+  goldens: pristine PASS=23 FAIL=0 | patched PASS=23 FAIL=0 | SLANG_UHDM=/bin/false FAIL=23 PASS=0
+  cmds.txt binary audit (by PATH, not by the string 'slang-uhdm'):
+    u2r  pris 1458/1458 -> /tmp/v205_bin/pris.bin   pat 1458/1458 -> /tmp/v205_bin/pat.bin   MAIN-TREE 0
+    sl   pris 1523/1523 -> /tmp/v205_bin/pris.bin   pat 1523/1523 -> /tmp/v205_bin/pat.bin   MAIN-TREE 0
+  u2r status: 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL in BOTH modes on the patched binary
+  ct8rows (WHOLE ROW, dump column included):
+    u2r_tf   committed gate vs patched   PASS (0 differing rows)
+    u2r_tf   committed gate vs pristine  PASS
+    u2r_tf   my pristine vs my patched   PASS
+    u2r_def  my pristine vs my patched   PASS
+    surelog  my pristine vs my patched   PASS (0 differing rows over 1588)
+    surelog  committed baseline vs EITHER binary: 1 differing row, IDENTICAL on both:
+      < Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+      > Earlgrey_0_1,testflags,CMP_EQUAL,,,
+      STATUS is CMP_EQUAL throughout; NO ROW CONVERTED; results/*.csv READ ONLY.
+      ATTRIBUTED, not assumed: (a) it reads the same on the PRISTINE binary, which
+      carries none of this code; (b) Earlgrey_0_1/testflags is NOT among the 5 byte
+      movers, i.e. the two binaries' slang.uhdm are BYTE-IDENTICAL there; (c)
+      scripts/verify_golden.py:521-537 + :622-635 return '' for the dump column on a
+      uhdm-dump TimeoutExpired or nonzero rc, so an empty cell means the dump run did
+      not complete -- a harness timing artifact under two concurrent sweeps, not a
+      database change.  The implementer saw the same cell flake in the OTHER direction.
+  byteverify SELFCHECK=1:
+    u2r      MOVERS 0/1358    SELFCHECK 1357/1358
+    surelog  MOVERS 5/956     SELFCHECK 955/956
+      ./default/SeqDriver   ./testflags/SeqDriver   ./default/MiniAmiq   ./testflags/MiniAmiq
+        -- the four PREDICTED a priori
+      ./default/Scoreboard  -- the COIN, proven directly rather than inferred:
+        pristine binary, three consecutive runs: 7e80ee1cf561 150505baf8e6 150505baf8e6
+        patched  binary, three consecutive runs: 150505baf8e6 150505baf8e6 9455a56a1acf
+        the patched binary reproduces the hash byteverify attributed to PRISTINE.
+  rowheads, BOTH binaries, IDENTICAL tables (measured=12 SKIP-NOFILE=2 UNKNOWN-NAME=0):
+    BuildUVMPkg/default 0 lines rc=0 | BuildUVMPkg/testflags 0 rc=0
+    Earlgrey_0_1/testflags 0 rc=0 | Rggen/default 0 rc=0     <- the four protected rows
+    Earlgrey_0_1/default 386/1 | SimpleUVM x2 1327654/1 | Scoreboard/default 95/1  (unchanged)
+  canaries  sl  my pristine vs patched  ok=52 changed=0 ; u2r ok=8 changed=0
+            sl  committed baseline vs patched ok=51 changed=1 -- the Earlgrey dump cell above
+  ctcan2 sl PASS (ok=58 changed=0) ; ctcan2 u2r PASS (ok=1 changed=0)
+  canaudit PASS  audited=29 UNCOVERED=0 FENCE-BREACH=0
+  protected DBs pristine-vs-patched: InterfaceModPort, BlackParrotComplex, YosysOldOr
+    BYTE-IDENTICAL in both modes; SVSwitch pin 4842211c4030 held; YosysVerx pin 6ccda350c24a held
+
+== 5. HEADS -- the head OBJECT changed on all four moved rows ==
+  SeqDriver/default + /testflags   112 lines / 1 head BEFORE and AFTER
+    pristine LHS  adpcm_pkg::uvm_reg::get_address::addr::uvm_reg_addr_t
+    patched  LHS  adpcm_pkg::uvm_reg_map::m_set_mem_offset::range::uvm_pkg::uvm_reg_map_addr_range::min::uvm_reg_addr_t
+  MiniAmiq/default + /testflags     112 lines / 1 head BEFORE and AFTER
+    pristine LHS  svaunit_pkg::uvm_reg::get_address::addr::uvm_reg_addr_t
+    patched  LHS  svaunit_pkg::uvm_reg_map::m_set_reg_offset::addrs::uvm_reg_addr_t
+  -- both new heads are exactly what R0 names: the class-member shape, and one of the six R1 cells.
+
+== 6. CORPUS CENSUS, 12 row-modes, golden-vs-golden CALIBRATED FIRST (0 on all 12) ==
+  Scored TWICE: with the pass's score205.py (payload = kind, VpiName, alias VpiName)
+  and with v205score.py (payload = + vpiInstance NAME + alias's vpiInstance NAME),
+  because the generated typespec::Compare reads Instance right after Typedef_alias
+  (typespec.cpp:93-94) and the pass's scorer left it out of the payload.
+  BuildUVMPkg.default      3col TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 3595  (one-sided: only-golden 604 only-ours 38)
+  BuildUVMPkg.default      5col cols=5 TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 454  AGREE 3141  (one-sided: only-golden 604 only-ours 38)
+  BuildUVMPkg.testflags    3col TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 3595  (one-sided: only-golden 604 only-ours 38)
+  BuildUVMPkg.testflags    5col cols=5 TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 454  AGREE 3141  (one-sided: only-golden 604 only-ours 38)
+  Earlgrey_0_1.default     3col TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 446  (one-sided: only-golden 0 only-ours 0)
+  Earlgrey_0_1.default     5col cols=5 TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 446  (one-sided: only-golden 0 only-ours 0)
+  Earlgrey_0_1.testflags   3col TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 532  (one-sided: only-golden 0 only-ours 8)
+  Earlgrey_0_1.testflags   5col cols=5 TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 532  (one-sided: only-golden 0 only-ours 8)
+  MiniAmiq.default         3col TO-GOLDEN 20  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 6  AGREE 5425  (one-sided: only-golden 1011 only-ours 468)
+  MiniAmiq.default         5col cols=5 TO-GOLDEN 20  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 718  AGREE 4713  (one-sided: only-golden 1011 only-ours 468)
+  MiniAmiq.testflags       3col TO-GOLDEN 20  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 6  AGREE 5425  (one-sided: only-golden 1011 only-ours 468)
+  MiniAmiq.testflags       5col cols=5 TO-GOLDEN 20  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 718  AGREE 4713  (one-sided: only-golden 1011 only-ours 468)
+  Rggen.default            3col TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 4  (one-sided: only-golden 0 only-ours 0)
+  Rggen.default            5col cols=5 TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 4  (one-sided: only-golden 0 only-ours 0)
+  Scoreboard.default       3col TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 3804  (one-sided: only-golden 570 only-ours 34)
+  Scoreboard.default       5col cols=5 TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 415  AGREE 3389  (one-sided: only-golden 570 only-ours 34)
+  SeqDriver.default        3col TO-GOLDEN 20  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 6  AGREE 5255  (one-sided: only-golden 1011 only-ours 468)
+  SeqDriver.default        5col cols=5 TO-GOLDEN 20  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 718  AGREE 4543  (one-sided: only-golden 1011 only-ours 468)
+  SeqDriver.testflags      3col TO-GOLDEN 20  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 6  AGREE 5255  (one-sided: only-golden 1011 only-ours 468)
+  SeqDriver.testflags      5col cols=5 TO-GOLDEN 20  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 718  AGREE 4543  (one-sided: only-golden 1011 only-ours 468)
+  SimpleUVM.default        3col TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 3789  (one-sided: only-golden 565 only-ours 34)
+  SimpleUVM.default        5col cols=5 TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 410  AGREE 3379  (one-sided: only-golden 565 only-ours 34)
+  SimpleUVM.testflags      3col TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 3789  (one-sided: only-golden 565 only-ours 34)
+  SimpleUVM.testflags      5col cols=5 TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 410  AGREE 3379  (one-sided: only-golden 565 only-ours 34)
+
+  AWAY-GOLDEN 0 and MOVED-WRONG 0 on EVERY row-mode under BOTH payloads.
+  On the four moved rows all 20 cells reach golden on ALL FIVE compared fields, not
+  just three -- the 5-column reading is stronger than the pass claimed, not weaker.
+  The 5-column STILL-WRONG counts (410-718) are a PRE-EXISTING vpiInstance residue:
+  identical on both binaries, present on rows this law does not touch at all.
+  0 keys appeared and 0 vanished (only-golden/only-ours identical before and after).
+
+== 7. THE GRID -- the pass's six arms, re-run from MY binaries against MY OWN
+      Surelog goldens, both views, golden-vs-golden calibrated first ==
+  arm             view  3col                                            5col
+  a_kinds         def   TO-GOLDEN 22  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 8  AGREE 84|TO-GOLDEN 9  AWAY-GOLDEN 0  MOVED-WRONG 13  STILL-WRONG 51  AGREE 41
+  a_kinds         elab  TO-GOLDEN 44  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 16  AGREE 154|TO-GOLDEN 18  AWAY-GOLDEN 0  MOVED-WRONG 26  STILL-WRONG 98  AGREE 72
+  b_ctx           def   TO-GOLDEN 12  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 4  AGREE 68|TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 10  STILL-WRONG 37  AGREE 35
+  b_ctx           elab  TO-GOLDEN 16  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 8  AGREE 92|TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 13  STILL-WRONG 52  AGREE 48
+  c_share         def   TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 1  AGREE 20|TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 6  AGREE 15
+  c_share         elab  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  AGREE 30|TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 10  AGREE 22
+  d_noimport      def   TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 6  AGREE 14|TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 12  AGREE 8
+  d_noimport      elab  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 10  AGREE 22|TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 22  AGREE 10
+  e_head          def   TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 16|TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 2  STILL-WRONG 9  AGREE 7
+  e_head          elab  TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 22|TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 4  STILL-WRONG 13  AGREE 9
+  f_home          def   TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 16|TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 16
+  f_home          elab  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 24|TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 24
+  Arms D (explicit import) and F (module imports the declaring package directly) are
+  BYTE-IDENTICAL on both binaries in both views; F agrees with golden on every cell.
+
+== 8. MY OWN SEVEN ADVERSARIAL ARMS (r10v205repro/grid), one real Surelog golden
+      each, both views, both scorers, plus a whole-arena order-blind diff ==
+  arm             view  3col                                            5col
+  g_index         def   TO-GOLDEN 10  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 36|TO-GOLDEN 5  AWAY-GOLDEN 0  MOVED-WRONG 5  STILL-WRONG 16  AGREE 20
+  g_index         elab  TO-GOLDEN 20  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 64|TO-GOLDEN 10  AWAY-GOLDEN 0  MOVED-WRONG 10  STILL-WRONG 31  AGREE 33
+  h_propshare     def   TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 21|TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 1  STILL-WRONG 10  AGREE 11
+  h_propshare     elab  TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 33|TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 2  STILL-WRONG 19  AGREE 14
+  i_nested        def   TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 8  AGREE 30|TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 3  STILL-WRONG 22  AGREE 16
+  i_nested        elab  TO-GOLDEN 12  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 16  AGREE 52|TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 6  STILL-WRONG 43  AGREE 25
+  j_chain         def   TO-GOLDEN 8  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 44|TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 4  STILL-WRONG 24  AGREE 20
+  j_chain         elab  TO-GOLDEN 16  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 72|TO-GOLDEN 8  AWAY-GOLDEN 0  MOVED-WRONG 8  STILL-WRONG 44  AGREE 28
+  k_modctx        def   TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 24|TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 2  STILL-WRONG 11  AGREE 13
+  k_modctx        elab  TO-GOLDEN 8  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 40|TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 4  STILL-WRONG 21  AGREE 19
+  l_reuse         def   TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  AGREE 58|TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 27  AGREE 33
+  l_reuse         elab  TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 4  AGREE 88|TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 43  AGREE 49
+  m_foreach       def   TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 10|TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 10
+  m_foreach       elab  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 16|TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 16
+
+  WHAT EACH ARM ATTACKS, and what it found:
+    G index      an ASSOCIATIVE ARRAY whose INDEX type is a package typedef.  `walk205`
+                 descends `Index_typespec` as well as `Elem_typespec`, and the pass
+                 measured ZERO differing `.index` cells on the corpus -- the branch
+                 shipped UNTESTED.  Against a real golden it is RIGHT: golden bares
+                 `it205` at `.index` in a clone body exactly as at `.elem`.
+                 10 def / 20 elab TO-GOLDEN, AWAY 0.
+    H propshare  the OWNER-MASK HOLE, constructed: a class property, a static class
+                 property, a package-level variable and a module-level variable of the
+                 SAME array type as a clone body local.  Nothing shared; the whole-arena
+                 diff moves exactly 2 typespec objects per view and no other.
+    I nested     DEPTH: array-of-array, fixed 2-D, unpacked-array-of-packed-typedef, and
+                 an array of a typedef'd ARRAY type.  Nothing on the corpus goes deeper
+                 than one link.  6 def / 12 elab TO-GOLDEN, AWAY 0; the typedef'd-array
+                 element is refused (R2/R1) rather than moved wrongly.
+    J chain      a TWO-HOP wildcard import (a -> b -> c) with a mixed home/importer
+                 typedef pair.  8 def / 16 elab TO-GOLDEN, AWAY 0.
+    K modctx     a MODULE and an INTERFACE that wildcard-import the DECLARING package
+                 directly, and a second module that imports one name EXPLICITLY, all in
+                 one design with a clone package.  Every module/interface home cell keeps
+                 its QUALIFIED alias target.  4 def / 8 elab TO-GOLDEN, AWAY 0.
+    L reuse      the SHARING MAXIMISER: the `do_bus_read` queue+foreach shape in a clone
+                 body and a home body at once, plus `ref` and `const ref` formals.
+                 Reproduces R1 exactly -- STILL-WRONG 2/4, MOVED-WRONG 0 under BOTH
+                 payloads: the shared ref is refused, which is what keeps AWAY at 0.
+    M foreach    the owner-mask hole DRIVEN: a clone body that `foreach`-walks a class
+                 property and a package-level variable.  BYTE-IDENTICAL on both binaries,
+                 whole-arena diff 0 lines.
+
+  WHOLE-ARENA, ORDER-BLIND (`ct205cen --arena | sort`, pristine vs patched, my arms):
+    every single changed line is `[t -> pkg::t]` -> `[t -> t]`.
+    Lines on the PATCHED side containing "::" that were not there before: 0.
+    No name is written; only a link is re-pointed.  The recorded naming dead end
+    (RESUME.md Sec 9) forbids ADDING `pkg::` prefixes; this law only ever removes one
+    link's qualification, and the arena diff proves it design-wide.
+
+== 9. THE OWNER-MASK AUDIT (v205own.cpp) -- the pass's blind spot, MEASURED ==
+  `declTf205` marks "some OTHER declaration reaches this ref" only from a
+  `variables`/`io_decl` whose VpiParent climb reaches a function/task BEFORE a
+  `class_defn`, `package`, `module_inst` or `design`.  Three populations therefore
+  escape the guard and can never set bit 2: a CLASS PROPERTY, a PACKAGE- or
+  MODULE-level variable, and an UNPARENTED declaration.  The pass's own census shares
+  the blind spot exactly -- its `subrOf` climb `continue`s on the same three -- so
+  "AWAY-GOLDEN 0" could not by itself rule the hole out.  Measured on the PRISTINE
+  databases, per row-mode: declarations / in-subroutine / escaped, then refs below an
+  array / subr-only / escaped-only / ESCAPED_SHARED:
+
+    SeqDriver    x2   24880 / 23373 / 1507 (class_defn 1342, module_inst 29, package 136)
+                      688 / 593 / 95 / ESCAPED_SHARED 0
+    MiniAmiq     x2   26080 / 24304 / 1776 (class_defn 1640, package 136)
+                      743 / 641 / 102 / ESCAPED_SHARED 0
+    SimpleUVM    x2   16450 / 15102 / 1348      447 / 357 / 90 / ESCAPED_SHARED 0
+    Scoreboard  def   16524 / 15205 / 1319      451 / 361 / 90 / ESCAPED_SHARED 0
+    BuildUVMPkg  x2   16503 / 15426 / 1077      435 / 346 / 89 / ESCAPED_SHARED 0
+    Earlgrey/def      15062 /   623 / 14439      20 /   0 / 20 / ESCAPED_SHARED 0
+    Earlgrey/tf       29375 /  6351 / 23024 (incl. 111 UNPARENTED)
+                       20 /   0 /  20 / ESCAPED_SHARED 0
+
+  The escaped population is real and large (89-102 element refs per UVM row, 1077-1776
+  escaped declarations), and its intersection with the refs the law can move is EMPTY
+  on every row-mode.  Arms H and M drive the hole deliberately and cannot reach it
+  either.  The hole is a LATENT fragility, not a live defect -- ranked as R-V1 below.
+
+== 10. THE WIDE BOUNDARY ==
+  LISTED=5334 PROCESSED=5334 PRODUCED_DBS=5149 MOVED_ARMS=15 RC_DIFFS=0
+  (5334 = the pass's 5327 + my 7 new arms.)  15 = the pass's 9 + 6 of mine
+  (arm M is byte-identical, consistent with its census reading).
+  ZERO movers in every other arm directory, each of which LISTED and RAN:
+    r10uvm204repro 5 arms / 0 movers   r10uvm202repro 5 / 0   r10uvm198repro 5 / 0
+    r10uvm16repro  1 / 0               r10uvm180repro 5 / 0   r10uvm194repro 3 / 0
+    r10uvm169repro 4 / 0               r10uvm82repro  7 / 0   r10uvm91repro  5 / 0
+    r10buvm3repro  4 / 0               r10buvm15repro 9 / 0   r10sd8repro   37 / 0
+    r10sd12repro 108 / 0
+  Sec 204's arms and its ref-var fence, Sec 202's arms and type-param fence, Sec 198's
+  arms and conjunct, Sec 16's own arms, Sec 180's, Sec 194's, Sec 169's: all unmoved.
+  The four moved grid205 arms are the POSITIVE CONTROL that proves the gate can see.
+
+  THE FIVE EARLIER-PASS MOVERS, each re-measured against a REAL Surelog golden,
+  both views, both payloads -- and, additionally, with the HEAD OBJECT compared:
+    g22             cmp 3438/3438 both views   head SAME (package p22)      AWAY 0 both payloads
+    l154_noenum     cmp   17/17   both views   head SAME (ref_typespec)     AWAY 0 both payloads
+    g185_e_kinds    cmp   92/92   both views   head SAME (union_typespec)   AWAY 0 both payloads
+    g189_a_idxkind  cmp 2852/2852 def, 4436/4436 elab   head SAME (package Girder189)
+                    3col TO-GOLDEN 2 def / 4 elab, AWAY 0; 5col AWAY 0, MOVED-WRONG 2/4
+                    (the alias name reaches golden, vpiInstance keeps the importing
+                     package -- a PRE-EXISTING residue, wrong on the pristine side too)
+    v189_k_kinds    cmp 3636/3636 def, 5354/5354 elab   head SAME (package ZKEEL189V)
+                    3col TO-GOLDEN 6 def / 12 elab, AWAY 0; 5col AWAY 0, MOVED-WRONG 5/10
+  No arm's head object or cmp line count moved.  Every moved cell moves toward golden.
+
+== 11. DETERMINISM AND COST ==
+  The law mints its copies in a CONTENT-sorted order (`std::sort` over a key of
+  name|kind|file|line:col|instance-name) rather than arena order.  Measured:
+    SeqDriver/default, three consecutive runs of EACH binary --
+      patched  a3d1f1970e35  a3d1f1970e35  a3d1f1970e35
+      pristine aaf33e7e0ac4  aaf33e7e0ac4  aaf33e7e0ac4
+    both byte-stable, and both equal to the hash the sweep recorded.
+    MiniAmiq default and testflags produce the same hash as each other on each binary.
+  Cost: SeqDriver, two runs each, 7 s pristine and 7 s patched -- no measurable
+  regression from the extra `Serializer::AllObjects()` pass.
+
+== 12. PATCH COLLATERAL AUDIT ==
+  39 files; surface is `src/TypeEmit.cpp` (+137/-0) and `tools/probe/r10uvm205repro/`
+  ONLY.  No `results/*.csv` edit, no stray file outside the probe dir, no `rm -rf` in
+  any driver, no other pass's `/tmp` path hard-coded in any driver.
+  The RESUME Sec 6 fence grep reports `UnsignedParam -> 2`.  Both are FALSE POSITIVES
+  of a substring grep, and neither is a breach:
+    * `canaudit.sh:37  FENCED="..."` -- the one file the brief lets name them;
+    * `PREDICT.u2r.r10uvm205.txt:598,1329` -- the string is inside
+      `SizeOfUnsignedParameter`, a DIFFERENT uhdm2rtlil test (1 row in the corpus;
+      the fenced name itself has 0 uhdm2rtlil rows).
+  canaudit's own check is the authoritative one: FENCE-BREACH=0, and no driver in
+  either probe dir dispatches a fenced test.
+  `RefPkgParamInEnum` carries no row in either committed baseline and no entry in
+  `tests/golden/`; the 23 goldens plus ct8rows are its standing substitute and both
+  are green on both binaries.

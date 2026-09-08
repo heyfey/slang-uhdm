@@ -1,0 +1,191 @@
+r10uvm205 — DECODE OF RECORD.  MEASUREMENT ONLY; uhdm-cmp is the sole judge.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+==========================================================================
+1. SURELOG — WHY A CLONE BODY'S CHAIN IS BARE ALL THE WAY DOWN, ELEMENT
+   TYPESPEC INCLUDED.
+==========================================================================
+
+~/git-repos/Surelog/src/DesignCompile/UhdmWriter.cpp:775 writeDataTypes(),
+the p::t prefix applied IN PLACE at :787-793 while the package's OWN
+datatypeMap walk runs:
+
+    void UhdmWriter::writeDataTypes(const DesignComponent::DataTypeMap& datatypeMap,
+                                    BaseClass* parent,
+                                    VectorOftypespec* dest_typespecs, Serializer& s,
+                                    bool setParent) {
+      std::set<uint64_t> ids;
+      for (const auto& entry : datatypeMap) {
+        const DataType* dtype = entry.second;
+        if (dtype->getCategory() == DataType::Category::REF) {
+          dtype = dtype->getDefinition();
+        }
+        if (dtype->getCategory() == DataType::Category::TYPEDEF) {
+          if (dtype->getTypespec() == nullptr) dtype = dtype->getDefinition();
+        }
+        typespec* tps = dtype->getTypespec();
+        tps = replace(tps, m_compileDesign->getSwapedObjects());
+        if (parent->UhdmType() == uhdmpackage) {
+          if (tps && (tps->VpiName().find("::") == std::string::npos)) {
+            const std::string newName =
+                StrCat(parent->VpiName(), "::", tps->VpiName());
+            tps->VpiName(newName);
+          }
+        }
+
+and its three call sites — a class, a package, a module — each hand it that
+component's OWN map:
+    775:void UhdmWriter::writeDataTypes(const DesignComponent::DataTypeMap& datatypeMap,
+    994:    writeDataTypes(classDef->getDataTypeMap(), c, typespecs, s, true);
+    1189:  writeDataTypes(pack->getDataTypeMap(), p, typespecs, s, true);
+    1447:  writeDataTypes(mod->getDataTypeMap(), m, typespecs, s, true);
+    1670:  writeDataTypes(mod->getDataTypeMap(), m, typespecs, s, true);
+    1807:  writeDataTypes(mod->getDataTypeMap(), m, typespecs, s, true);
+    1933:    writeDataTypes(mod->getDataTypeMap(), m, typespecs, s, false);
+    2336:    writeDataTypes(mod->getDataTypeMap(), m, typespecs, s, true);
+    4039:    writeDataTypes(mod->getDataTypeMap(), m, typespecs, s, false);
+    4187:    writeDataTypes(mod->getDataTypeMap(), m, typespecs, s, false);
+    4871:      writeDataTypes(fileIdContent.second->getDataTypeMap(), d, typespecs, s,
+
+~/git-repos/Surelog/src/DesignCompile/CompileHelper.cpp:127 importPackage(),
+the clone_tree of the imported subroutine into the IMPORTER at COMPILE time
+(:302-330) — before writeDataTypes ever runs:
+
+        if (funcs) {
+          VectorOftask_func* sfuncs = scope->getTask_funcs();
+          if (sfuncs == nullptr) {
+            sfuncs = s.MakeTask_funcVec();
+          }
+          for (auto& func : *funcs) {
+            if (!object_name.empty()) {
+              if (func->VpiName() != object_name) continue;
+            }
+            bool duplicate = false;
+            for (auto& f : *sfuncs) {
+              if (f->VpiName() == func->VpiName()) {
+                duplicate = true;
+                break;
+              }
+            }
+            if (!duplicate) {
+              if (inPackage) {
+                ElaboratorContext elaboratorContext(&s, false,
+                                                    /*mute errors */ true);
+                task_func* clone =
+                    (task_func*)UHDM::clone_tree((any*)func, &elaboratorContext);
+                sfuncs->push_back(clone);
+              } else {
+                sfuncs->push_back(func);
+              }
+            }
+          }
+          scope->setTask_funcs(sfuncs);
+        }
+
+So nothing inside a clone body is ever the object that got prefixed, at any
+DEPTH and in any ROLE.  An array element typespec is one link deeper than
+the declaration's own typespec and the rule does not change there.
+
+NOTE THE object_name FILTER at :306-308 and :312-314: an EXPLICIT
+'import p::f;' clones too.  Golden bares that clone's chain as well (arm D
+measures it).  Our registry pkgImportCloneTfs16 is WILDCARD-ONLY — the
+committed fence of § 194 — so arm D stays BYTE-IDENTICAL here on purpose.
+Residue R3.
+
+==========================================================================
+2. SLANG-UHDM — WHERE THE THREE EXISTING WALKS STOP
+==========================================================================
+
+src/TypeEmit.cpp, § importCloneBareTdAlias16.  Three walks reach a clone
+body's typespec refs:
+   (a) the tf's own Io_decls vector
+   (b) the tf's own Variables vector
+   (c) § cloneBodyBareTdAlias180's UhdmListener, for block-locals and
+       expression typespecs
+
+(c)'s climb, verbatim from the committed source:
+
+            void enterRef_typespec(
+                const UHDM::ref_typespec* const o) override {
+                const auto& cs = getCallstack();
+                // `enterRef_typespec` is called with the ref itself already pushed,
+                // so the search starts one below it.
+                for (int i = (int)cs.size() - 2; i >= 0; --i) {
+                    const UHDM::UHDM_OBJECT_TYPE k = cs[i]->UhdmType();
+                    if (k == UHDM::uhdmfunction || k == UHDM::uhdmtask) {
+                        auto* tf = (const UHDM::task_func*)cs[i];
+                        // THE ONE EXCEPTION, and it is MEASURED, not reasoned:
+                        // a clone function's RETURN VARIABLE keeps the HOME's
+                        // QUALIFIED target.  Golden, on r10uvm169's `g169_a_import`
+                        // and r10v169's `v169_i_multi` (both already committed
+                        // arms), gives `p169i`'s clone of `f_typ169` a return
+                        // `bit_var` whose typespec still aliases `p169h::v169_t`,
+                        // while every io_decl and every body local of the same
+                        // clone is bare.  Surelog's reason is that the return
+                        // variable is minted from the subroutine's declared return
+                        // type at WRITE time, after `writeDataTypes` has already
+                        // prefixed the home listing object in place, so it is the
+                        // one part of a clone whose chain was never re-minted.
+                        // Without this line those two arms score AWAY=1 each.
+                        if (i + 1 < (int)cs.size() &&
+                            cs[i + 1] == (const UHDM::any*)tf->Return())
+                            return;
+                        if (clones->count(tf))
+                            (*rebind)((UHDM::ref_typespec*)o);
+                        return;
+                    }
+                    if (k == UHDM::uhdmclass_defn ||
+                        any_cast<const UHDM::typespec*>(cs[i]))
+                        return;
+                }
+            }
+        };
+        for (auto* tf : pkgImportCloneTfs16) {
+            auto* m = (UHDM::task_func*)tf;
+            if (m->Io_decls())
+                for (auto* io : *m->Io_decls())
+                    rebind(io->Typespec());
+
+The line 'if (k == uhdmclass_defn || any_cast<const typespec*>(cs[i])) return;'
+is the fence.  A declaration written as an ARRAY of a package scalar typedef
+binds its element type BELOW an array_typespec, so (a) and (b) reach the
+array (whose listingOf() is null) and (c) refuses at the array.
+
+ct205ref re-implements that climb and counts what each branch decides, on
+our own PRISTINE SeqDriver/default database:
+
+    ALL SCALAR-TD REFS BY VERDICT:
+      BAIL-ARRAYTS   wide=BAIL-CLASS     ts=BARE alias=QUAL                         3
+      BAIL-ARRAYTS   wide=BAIL-CLASS     ts=NONAME alias=NOALIAS                    5
+      BAIL-ARRAYTS   wide=TF             ts=BARE alias=QUAL                        53
+      BAIL-ARRAYTS   wide=TF             ts=NONAME alias=NOALIAS                   85
+      BAIL-ARRAYTS   wide=TF-RETURNVAR   ts=QUAL alias=NOALIAS                      1
+      BAIL-CLASS     wide=BAIL-CLASS     ts=BARE alias=NOALIAS                     12
+      BAIL-CLASS     wide=BAIL-CLASS     ts=BARE alias=QUAL                        23
+      BAIL-CLASS     wide=BAIL-CLASS     ts=NONAME alias=NOALIAS                  914
+      BAIL-TS        wide=BAIL-TS        ts=BARE alias=BARE                         1
+      BAIL-TS        wide=BAIL-TS        ts=BARE alias=NOALIAS                     32
+      BAIL-TS        wide=BAIL-TS        ts=BARE alias=QUAL                        18
+      BAIL-TS        wide=BAIL-TS        ts=NONAME alias=NOALIAS                  735
+      BAIL-TS        wide=BAIL-TS        ts=QUAL alias=NOALIAS                    279
+      NO-OWNER       wide=NO-OWNER       ts=NONAME alias=NOALIAS                   14
+      TF             wide=TF             ts=BARE alias=BARE                       440
+      TF             wide=TF             ts=BARE alias=NOALIAS                     20
+      TF             wide=TF             ts=BARE alias=QUAL                       751
+      TF             wide=TF             ts=NONAME alias=NOALIAS                 3868
+      TF             wide=TF             ts=QUAL alias=NOALIAS                      8
+      TF-RETURNVAR   wide=TF-RETURNVAR   ts=BARE alias=QUAL                       135
+      TF-RETURNVAR   wide=TF-RETURNVAR   ts=NONAME alias=NOALIAS                 1121
+    
+    THE [BARE -> QUAL] SHAPE (§ 180's repair target) BY VERDICT:
+      BAIL-ARRAYTS   wide=BAIL-CLASS     pkg=adpcm_pkg                              3
+      BAIL-ARRAYTS   wide=TF             pkg=adpcm_pkg                             40
+      BAIL-ARRAYTS   wide=TF             pkg=uvm_pkg                               13
+      BAIL-CLASS     wide=BAIL-CLASS     pkg=adpcm_pkg                             22
+      BAIL-CLASS     wide=BAIL-CLASS     pkg=uvm_pkg                                1
+      BAIL-TS        wide=BAIL-TS        pkg=adpcm_pkg                             13
+      BAIL-TS        wide=BAIL-TS        pkg=uvm_pkg                                5
+      TF             wide=TF             pkg=adpcm_pkg                            529
+      TF             wide=TF             pkg=uvm_pkg                              222
+      TF-RETURNVAR   wide=TF-RETURNVAR   pkg=adpcm_pkg                            107
+      TF-RETURNVAR   wide=TF-RETURNVAR   pkg=uvm_pkg                               28

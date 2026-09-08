@@ -1,0 +1,87 @@
+r10uvm205 — THE GATE BATTERY.  MEASUREMENT ONLY; uhdm-cmp is the sole judge.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+BASE 450b7a24.  Both binaries were built -j 2 from THIS pass's own worktree
+and frozen chmod 555 BEFORE any sweep.
+  pristine md5 505cad23a156a75a6da1a3fd69b64617
+  patched  md5 2bd808c3610a262f520fde0d2af277d4
+
+== (1) GOLDEN DUMP TESTS, SLANG_UHDM exported explicitly per binary
+  pristine  PASS 23  FAIL 0
+  patched   PASS 23  FAIL 0
+  SLANG_UHDM=/bin/false  FAIL 23   (the negative control)
+
+== (2) BINARY-PATH AUDIT of every cmds.txt in every sweep
+  pristine surelog     1523 invocations, all /tmp/r10uvm205_pris.bin, 0 main-tree
+  pristine uhdm2rtlil  1458 invocations, all /tmp/r10uvm205_pris.bin, 0 main-tree
+  patched  surelog     1523 invocations, all /tmp/r10uvm205_pat.bin,  0 main-tree
+  patched  uhdm2rtlil  1458 invocations, all /tmp/r10uvm205_pat.bin,  0 main-tree
+
+== (3) uhdm2rtlil, BOTH modes, ct8rows (status AND dump column)
+  patched testflags vs results/gate_uhdm2rtlil.csv         PASS, 0 differing rows
+  patched testflags vs this pass's OWN pristine sweep       PASS, 0 differing rows
+  patched default   vs this pass's OWN pristine sweep       PASS, 0 differing rows
+  (679/50/2 both modes, 731 rows each)
+
+== (4) surelog, --mode both, ct8rows over all 1588 rows
+  patched vs results/golden_surelog.csv   PASS, 0 differing rows
+  patched vs this pass's OWN pristine     1 differing ROW-SIDE, quoted here:
+      pristine: Earlgrey_0_1,testflags,CMP_EQUAL,,,
+      patched : Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+  This is the DUMP COLUMN only; the STATUS is CMP_EQUAL in the committed
+  baseline, in the pristine sweep and in the patched sweep alike, and the
+  PATCHED value is the one the committed baseline carries.  It is the
+  uhdm-dump TIMEOUT under sweep load that r10uvm204 recorded in the other
+  direction.  NO ROW WAS CONVERTED, in either direction, on either corpus.
+  results/*.csv were READ ONLY and NOT EDITED.
+
+== (5) byteverify SELFCHECK=1, this pass's OWN pristine vs OWN patched
+  surelog     MOVERS 5 / 956    PATH_SETS_IDENTICAL   SELFCHECK 955/956 flagged
+  uhdm2rtlil  MOVERS 0 / 1358   PATH_SETS_IDENTICAL   SELFCHECK 1357/1358 flagged
+  every mover named and attributed in MOVERS.r10uvm205.txt; the four law
+  rows were PREDICTED BY NAME from the pristine databases before the patched
+  sweep existed (PREDICT.surelog.r10uvm205.txt).
+
+== (6) CANARIES
+  canaries.sh surelog     ok=52 changed=0 absent=0
+  canaries.sh uhdm2rtlil  ok=8  changed=0 absent=0
+  ctcan2.sh   surelog     PASS   (EXPECT_UNKNOWN=1)
+  ctcan2.sh   uhdm2rtlil  PASS   (EXPECT_UNKNOWN=6)
+  canaudit.sh canaries.sh ctcan2.sh   PASS  audited=29 UNCOVERED=0 FENCE-BREACH=0
+
+== (7) PROTECTED DATABASES, md5 pristine vs patched
+  InterfaceModPort   default/testflags  59a365f3ce2c  SAME
+  BlackParrotComplex default e3e354129d5a / testflags 73a10e8217e5  SAME
+  YosysOldOr         default/testflags  d68e0796d62c  SAME
+  SVSwitch           default/testflags  4842211c4030  PIN HELD
+  YosysVerx          default/testflags  6ccda350c24a  PIN HELD
+
+== (8) THE FOUR PROTECTED CMP_EQUAL ROW-MODES, BOTH COLUMNS, SCORED
+                           committed baseline      pristine            patched
+  BuildUVMPkg,default      CMP_EQUAL,,,differ      (same)              (same)
+  BuildUVMPkg,testflags    CMP_EQUAL,,,differ      (same)              (same)
+  Earlgrey_0_1,testflags   CMP_EQUAL,,,differ      CMP_EQUAL,,,        CMP_EQUAL,,,differ
+  Rggen,default            CMP_EQUAL,,,differ      (same)              (same)
+  All four stay CMP_EQUAL.  rowheads on all four: 0 cmp lines / 0 heads on
+  BOTH binaries.  Their censuses score every mover column 0 (CENSUS file).
+
+== (9) THE WIDE BOUNDARY
+  LISTED=5327 PROCESSED=5327 PRODUCED_DBS=5142 MOVED_ARMS=9 RC_DIFFS=0
+  see BOUNDARY.r10uvm205.txt — 4 of the 9 are this pass's own grid arms.
+
+== (10) HEADS, rowheads.sh, this pass's own sweeps
+  TEST           MODE      PRISTINE      PATCHED
+  SeqDriver      default   112 / 1       112 / 1   (DIFFERENT object, § 8)
+  SeqDriver      testflags 112 / 1       112 / 1   (DIFFERENT object)
+  SimpleUVM      default   1327654 / 1   1327654 / 1
+  SimpleUVM      testflags 1327654 / 1   1327654 / 1
+  Scoreboard     default   95 / 1        95 / 1
+  Scoreboard     testflags SKIP-NOFILE   SKIP-NOFILE
+  MiniAmiq       default   112 / 1       112 / 1   (DIFFERENT object)
+  MiniAmiq       testflags 112 / 1       112 / 1   (DIFFERENT object)
+  BuildUVMPkg    default   0 / 0         0 / 0
+  BuildUVMPkg    testflags 0 / 0         0 / 0
+  Earlgrey_0_1   default   386 / 1       386 / 1
+  Earlgrey_0_1   testflags 0 / 0         0 / 0
+  Rggen          default   0 / 0         0 / 0
+  Rggen          testflags SKIP-NOFILE   SKIP-NOFILE
