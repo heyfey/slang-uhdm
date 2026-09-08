@@ -1,0 +1,3 @@
+FIRE SeqDriver default emptyModports=2 TO-GOLDEN=2 AWAY=0
+FIRE SeqDriver testflags emptyModports=2 TO-GOLDEN=2 AWAY=0
+-- rows scanned=956  PREDICTED MOVERS=2  golden missing=0  rows with AWAY>0 =0

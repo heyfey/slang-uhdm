@@ -1196,7 +1196,8 @@ private:
                                                 const slang::ast::InstanceSymbol* portView = nullptr,
                                                 const std::string& connModport = "",
                                                 bool forceTailDup = false,
-                                                bool nestedIfaceView = false);
+                                                bool nestedIfaceView = false,
+                                                bool connModportFromConn = false);
     void emitTopPorts(TopPending& tp);
     void emitGenScopes(const slang::ast::InstanceBodySymbol& body, UHDM::instance* m,
                        const std::string& prefix, NetMap& netMap);

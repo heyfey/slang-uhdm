@@ -1,0 +1,77 @@
+ARM a_kinds parse rc_surelog=0 rc_pris=0 rc_pat=0 bytes=MOVED cmp_pris=3375/1 cmp_pat=3255/1 rc_cmp=255/255 (VERDICT NOT THE SCORER)
+CALIB a_kinds parse AGREE=16 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS_PRIS a_kinds parse AGREE=6 ONLY-GOLDEN=10 ONLY-OURS=10
+CENSUS_PAT  a_kinds parse AGREE=16 ONLY-GOLDEN=0 ONLY-OURS=0
+CELL a_kinds parse AGREE=16 ONLY-GOLDEN=0 ONLY-OURS=0
+DUMP a_kinds parse TOTALS onlyG_pris=0 onlyG_pat=0 onlyO_pris=570 onlyO_pat=510 AWAY=0 TOWARD=60
+ARM a_kinds elab rc_surelog=0 rc_pris=0 rc_pat=0 bytes=MOVED cmp_pris=3401/1 cmp_pat=3281/1 rc_cmp=255/255 (VERDICT NOT THE SCORER)
+CALIB a_kinds elab AGREE=16 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS_PRIS a_kinds elab AGREE=6 ONLY-GOLDEN=10 ONLY-OURS=10
+CENSUS_PAT  a_kinds elab AGREE=16 ONLY-GOLDEN=0 ONLY-OURS=0
+CELL a_kinds elab AGREE=16 ONLY-GOLDEN=0 ONLY-OURS=0
+DUMP a_kinds elab TOTALS onlyG_pris=0 onlyG_pat=0 onlyO_pris=756 onlyO_pat=696 AWAY=0 TOWARD=60
+ARM b_views parse rc_surelog=0 rc_pris=0 rc_pat=0 bytes=MOVED cmp_pris=2717/1 cmp_pat=2621/1 rc_cmp=255/255 (VERDICT NOT THE SCORER)
+CALIB b_views parse AGREE=10 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS_PRIS b_views parse AGREE=7 ONLY-GOLDEN=3 ONLY-OURS=9
+CENSUS_PAT  b_views parse AGREE=7 ONLY-GOLDEN=3 ONLY-OURS=1
+CELL b_views parse ONLY-GOLDEN MP|work@b4_if|inner|interface_inst|mps| d:dir1
+CELL b_views parse ONLY-GOLDEN MP|work@b4_outer_if|u4|module_inst|mpc2| clk:dir1
+CELL b_views parse ONLY-GOLDEN MP|work@b4_outer_if||design|mpc2| clk:dir1
+CELL b_views parse ONLY-OURS   MP|work@b4_if|inner|module_inst|mps| d:dir1
+CELL b_views parse AGREE=7 ONLY-GOLDEN=3 ONLY-OURS=1
+DUMP b_views parse TOTALS onlyG_pris=23 onlyG_pat=26 onlyO_pris=567 onlyO_pat=522 AWAY=0 TOWARD=42
+ARM b_views elab rc_surelog=0 rc_pris=0 rc_pat=0 bytes=MOVED cmp_pris=2731/1 cmp_pat=2635/1 rc_cmp=255/255 (VERDICT NOT THE SCORER)
+CALIB b_views elab AGREE=10 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS_PRIS b_views elab AGREE=7 ONLY-GOLDEN=3 ONLY-OURS=9
+CENSUS_PAT  b_views elab AGREE=7 ONLY-GOLDEN=3 ONLY-OURS=1
+CELL b_views elab ONLY-GOLDEN MP|work@b4_if|inner|interface_inst|mps| d:dir1
+CELL b_views elab ONLY-GOLDEN MP|work@b4_outer_if|u4|module_inst|mpc2| clk:dir1
+CELL b_views elab ONLY-GOLDEN MP|work@b4_outer_if||design|mpc2| clk:dir1
+CELL b_views elab ONLY-OURS   MP|work@b4_if|inner|module_inst|mps| d:dir1
+CELL b_views elab AGREE=7 ONLY-GOLDEN=3 ONLY-OURS=1
+DUMP b_views elab TOTALS onlyG_pris=23 onlyG_pat=26 onlyO_pris=753 onlyO_pat=708 AWAY=0 TOWARD=42
+ARM c_topology parse rc_surelog=4 rc_pris=0 rc_pat=0 bytes=MOVED cmp_pris=5373/1 cmp_pat=5317/1 rc_cmp=255/255 (VERDICT NOT THE SCORER)
+CALIB c_topology parse AGREE=32 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS_PRIS c_topology parse AGREE=25 ONLY-GOLDEN=7 ONLY-OURS=15
+CENSUS_PAT  c_topology parse AGREE=32 ONLY-GOLDEN=0 ONLY-OURS=0
+CELL c_topology parse AGREE=32 ONLY-GOLDEN=0 ONLY-OURS=0
+DUMP c_topology parse TOTALS onlyG_pris=54 onlyG_pat=21 onlyO_pris=638 onlyO_pat=549 AWAY=5 TOWARD=127
+ARM c_topology elab rc_surelog=4 rc_pris=0 rc_pat=0 bytes=MOVED cmp_pris=5665/1 cmp_pat=5609/1 rc_cmp=255/255 (VERDICT NOT THE SCORER)
+CALIB c_topology elab AGREE=24 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS_PRIS c_topology elab AGREE=18 ONLY-GOLDEN=6 ONLY-OURS=22
+CENSUS_PAT  c_topology elab AGREE=24 ONLY-GOLDEN=0 ONLY-OURS=8
+CELL c_topology elab ONLY-OURS   MPNULL|work@c1_if|i1|module_inst
+CELL c_topology elab ONLY-OURS   MP|work@c2_if|i2|module_inst|mps| clk:dir1{logic_var} d:dir2{logic_var}
+CELL c_topology elab ONLY-OURS   MP|work@c3_if|i3|module_inst|mps| clk:dir1{logic_var} d:dir2{logic_var}
+CELL c_topology elab ONLY-OURS   MP|work@c4_if|i4|module_inst|mps1| clk:dir1{logic_var}
+CELL c_topology elab ONLY-OURS   MP|work@c4_if|i4|module_inst|mps2| d:dir2{logic_var}
+CELL c_topology elab ONLY-OURS   MP|work@c5_if|i5|module_inst|mps| clk:dir1{logic_var} d:dir2{logic_var}
+CELL c_topology elab ONLY-OURS   MP|work@c6_if|i6|module_inst|mpa| clk:dir1{logic_var}
+CELL c_topology elab ONLY-OURS   MP|work@c6_if|i6|module_inst|mpb| d:dir2{logic_var}
+CELL c_topology elab AGREE=24 ONLY-GOLDEN=0 ONLY-OURS=8
+DUMP c_topology elab TOTALS onlyG_pris=63 onlyG_pat=24 onlyO_pris=799 onlyO_pat=732 AWAY=0 TOWARD=106
+ARM d_muststay parse rc_surelog=0 rc_pris=0 rc_pat=0 bytes=SAME cmp_pris=2637/1 cmp_pat=2637/1 rc_cmp=255/255 (VERDICT NOT THE SCORER)
+CALIB d_muststay parse AGREE=10 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS_PRIS d_muststay parse AGREE=10 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS_PAT  d_muststay parse AGREE=10 ONLY-GOLDEN=0 ONLY-OURS=0
+CELL d_muststay parse AGREE=10 ONLY-GOLDEN=0 ONLY-OURS=0
+DUMP d_muststay parse TOTALS onlyG_pris=2 onlyG_pat=2 onlyO_pris=544 onlyO_pat=544 AWAY=0 TOWARD=0
+ARM d_muststay elab rc_surelog=0 rc_pris=0 rc_pat=0 bytes=SAME cmp_pris=2643/1 cmp_pat=2643/1 rc_cmp=255/255 (VERDICT NOT THE SCORER)
+CALIB d_muststay elab AGREE=10 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS_PRIS d_muststay elab AGREE=10 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS_PAT  d_muststay elab AGREE=10 ONLY-GOLDEN=0 ONLY-OURS=0
+CELL d_muststay elab AGREE=10 ONLY-GOLDEN=0 ONLY-OURS=0
+DUMP d_muststay elab TOTALS onlyG_pris=2 onlyG_pat=2 onlyO_pris=730 onlyO_pat=730 AWAY=0 TOWARD=0
+ARM e_virtual parse rc_surelog=0 rc_pris=0 rc_pat=0 bytes=MOVED cmp_pris=2273/1 cmp_pat=2225/1 rc_cmp=255/255 (VERDICT NOT THE SCORER)
+CALIB e_virtual parse AGREE=4 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS_PRIS e_virtual parse AGREE=2 ONLY-GOLDEN=2 ONLY-OURS=4
+CENSUS_PAT  e_virtual parse AGREE=4 ONLY-GOLDEN=0 ONLY-OURS=0
+CELL e_virtual parse AGREE=4 ONLY-GOLDEN=0 ONLY-OURS=0
+DUMP e_virtual parse TOTALS onlyG_pris=0 onlyG_pat=0 onlyO_pris=534 onlyO_pat=510 AWAY=0 TOWARD=24
+ARM e_virtual elab rc_surelog=4 rc_pris=0 rc_pat=0 bytes=MOVED cmp_pris=2451/1 cmp_pat=2399/1 rc_cmp=255/255 (VERDICT NOT THE SCORER)
+CALIB e_virtual elab AGREE=4 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS_PRIS e_virtual elab AGREE=2 ONLY-GOLDEN=2 ONLY-OURS=4
+CENSUS_PAT  e_virtual elab AGREE=4 ONLY-GOLDEN=0 ONLY-OURS=0
+CELL e_virtual elab AGREE=4 ONLY-GOLDEN=0 ONLY-OURS=0
+DUMP e_virtual elab TOTALS onlyG_pris=0 onlyG_pat=0 onlyO_pris=722 onlyO_pat=696 AWAY=0 TOWARD=26
+-- ARM-VIEWS SCORED: 10   NO-DATABASE: 0   CALIB non-null: 0   ARM-VIEWS WITH REGRESS-OR-NEWJUNK: 10

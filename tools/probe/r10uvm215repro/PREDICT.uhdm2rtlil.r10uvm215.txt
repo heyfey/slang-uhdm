@@ -1,0 +1,1 @@
+-- rows scanned=1358  PREDICTED MOVERS=0  golden missing=0  rows with AWAY>0 =0

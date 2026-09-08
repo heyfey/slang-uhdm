@@ -1,0 +1,26 @@
+== r10uvm215 POPULATION — every interface_inst on both sides, SeqDriver/default
+
+-- GOLDEN
+G|IFACE interface_inst()@1:1-16:23                     defname=work@adpcm_if            parent=design:work@top_tb           nets=size4    modports=NULLVEC  cb=size1    vars=NULLVEC  tf=NULLVEC  ports=NULLVEC  ca=NULLVEC  proc=NULLVEC  ifacetf=NULLVEC
+G|IFACE interface_inst(ADPCM)@215:1-215:18             defname=work@adpcm_if            parent=module_inst:work@top_tb      nets=NULLVEC  modports=NULLVEC  cb=size1    vars=size4    tf=NULLVEC  ports=NULLVEC  ca=NULLVEC  proc=NULLVEC  ifacetf=NULLVEC
+G|TOTAL interface_inst=2 withModports=0 nullModports=2
+
+-- OURS, PRISTINE
+O|IFACE interface_inst()@1:1-16:23                     defname=work@adpcm_if            parent=design:work@top_tb           nets=size4    modports=size1    cb=size1    vars=NULLVEC  tf=NULLVEC  ports=NULLVEC  ca=NULLVEC  proc=NULLVEC  ifacetf=NULLVEC
+O|   MODPORT modport(mon_mp)@14:11-14:17          iodecls=NULLVEC
+O|IFACE interface_inst(ADPCM)@215:1-215:18             defname=work@adpcm_if            parent=module_inst:work@top_tb      nets=NULLVEC  modports=size1    cb=size1    vars=size4    tf=NULLVEC  ports=NULLVEC  ca=NULLVEC  proc=NULLVEC  ifacetf=NULLVEC
+O|   MODPORT modport(mon_mp)@14:11-14:17          iodecls=NULLVEC
+O|TOTAL interface_inst=2 withModports=2 nullModports=0
+
+-- OURS, PATCHED
+Q|IFACE interface_inst()@1:1-16:23                     defname=work@adpcm_if            parent=design:work@top_tb           nets=size4    modports=NULLVEC  cb=size1    vars=NULLVEC  tf=NULLVEC  ports=NULLVEC  ca=NULLVEC  proc=NULLVEC  ifacetf=NULLVEC
+Q|IFACE interface_inst(ADPCM)@215:1-215:18             defname=work@adpcm_if            parent=module_inst:work@top_tb      nets=NULLVEC  modports=NULLVEC  cb=size1    vars=size4    tf=NULLVEC  ports=NULLVEC  ca=NULLVEC  proc=NULLVEC  ifacetf=NULLVEC
+Q|TOTAL interface_inst=2 withModports=0 nullModports=2
+
+-- modport census (ct215mpcen), golden / pristine / patched
+G  MPNULL|work@adpcm_if|ADPCM|module_inst
+G  MPNULL|work@adpcm_if||design
+O  MP|work@adpcm_if|ADPCM|module_inst|mon_mp|<null>
+O  MP|work@adpcm_if||design|mon_mp|<null>
+Q  MPNULL|work@adpcm_if|ADPCM|module_inst
+Q  MPNULL|work@adpcm_if||design

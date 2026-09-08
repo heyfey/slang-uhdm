@@ -1,0 +1,141 @@
+ARM v1_generic parse rc_surelog=0 rc_pris=0 rc_pat=0 bytes=MOVED cmp_pris=2471/1 cmp_pat=2475/1 rc_cmp=255/255 (VERDICT NOT THE SCORER)
+CALIB v1_generic parse AGREE=9 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS_PRIS v1_generic parse AGREE=9 ONLY-GOLDEN=0 ONLY-OURS=5
+CENSUS_PAT  v1_generic parse AGREE=9 ONLY-GOLDEN=0 ONLY-OURS=2
+CELL v1_generic parse ONLY-OURS   MP|work@v1_if|p|module_inst|mpa| clk:dir1{logic_var}
+CELL v1_generic parse ONLY-OURS   MP|work@v1_if|p|module_inst|mpb| d:dir2{logic_var}
+CELL v1_generic parse AGREE=9 ONLY-GOLDEN=0 ONLY-OURS=2
+DUMP v1_generic parse TOTALS onlyG_pris=37 onlyG_pat=39 onlyO_pris=637 onlyO_pat=634 REGRESS=2 NEWJUNK=22 FIXES=0 DROPJUNK=25
+DUMPCELL v1_generic parse REGRESS 2 \_interface_inst: work@v1_if (work@top.i1), file:/D/v1_generic.sv, line:25:3, endln:25:14
+DUMPCELL v1_generic parse NEWJUNK 1 \_logic_var: (work@top.s_c.p.clk), line:10:9, endln:10:12
+DUMPCELL v1_generic parse NEWJUNK 1 \_logic_var: (work@top.s_c.p.d), line:12:9, endln:12:10
+DUMPCELL v1_generic parse NEWJUNK 1 \_modport: (mpa), line:17:11, endln:17:14
+DUMPCELL v1_generic parse NEWJUNK 1 \_modport: (mpb), line:18:11, endln:18:14
+DUMPCELL v1_generic parse NEWJUNK 1 |vpiDirection:1
+DUMPCELL v1_generic parse NEWJUNK 1 |vpiDirection:2
+DUMPCELL v1_generic parse NEWJUNK 2 |vpiExpr:
+DUMPCELL v1_generic parse NEWJUNK 1 |vpiName:clk
+DUMPCELL v1_generic parse NEWJUNK 1 |vpiName:d
+DUMPCELL v1_generic parse NEWJUNK 2 |vpiParent:
+DUMPCELL v1_generic parse NEWJUNK 2 \_interface_inst: work@v1_if (work@top.s_c.p), file:/D/v1_generic.sv, line:21:0
+DUMPCELL v1_generic parse NEWJUNK 1 \_io_decl: (clk), line:17:22, endln:17:25
+DUMPCELL v1_generic parse NEWJUNK 1 \_io_decl: (d), line:18:23, endln:18:24
+DUMPCELL v1_generic parse NEWJUNK 2 |vpiIODecl:
+DUMPCELL v1_generic parse NEWJUNK 1 |vpiName:mpa
+DUMPCELL v1_generic parse NEWJUNK 1 |vpiName:mpb
+DUMPCELL v1_generic parse NEWJUNK 1 \_modport: (mpa), line:17:11, endln:17:14
+DUMPCELL v1_generic parse NEWJUNK 1 \_modport: (mpb), line:18:11, endln:18:14
+ARM v1_generic elab rc_surelog=4 rc_pris=0 rc_pat=0 bytes=MOVED cmp_pris=2505/1 cmp_pat=2505/1 rc_cmp=255/255 (VERDICT NOT THE SCORER)
+CALIB v1_generic elab AGREE=7 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS_PRIS v1_generic elab AGREE=7 ONLY-GOLDEN=0 ONLY-OURS=7
+CENSUS_PAT  v1_generic elab AGREE=7 ONLY-GOLDEN=0 ONLY-OURS=4
+CELL v1_generic elab ONLY-OURS   MP|work@v1_if|i1|module_inst|mpa| clk:dir1{logic_var}
+CELL v1_generic elab ONLY-OURS   MP|work@v1_if|i1|module_inst|mpb| d:dir2{logic_var}
+CELL v1_generic elab ONLY-OURS   MP|work@v1_if|p|module_inst|mpa| clk:dir1{logic_var}
+CELL v1_generic elab ONLY-OURS   MP|work@v1_if|p|module_inst|mpb| d:dir2{logic_var}
+CELL v1_generic elab AGREE=7 ONLY-GOLDEN=0 ONLY-OURS=4
+DUMP v1_generic elab TOTALS onlyG_pris=37 onlyG_pat=39 onlyO_pris=818 onlyO_pat=820 REGRESS=2 NEWJUNK=22 FIXES=0 DROPJUNK=20
+DUMPCELL v1_generic elab REGRESS 2 \_interface_inst: work@v1_if (work@top.i1), file:/D/v1_generic.sv, line:25:3, endln:25:14
+DUMPCELL v1_generic elab NEWJUNK 1 \_logic_var: (work@top.s_c.p.clk), line:10:9, endln:10:12
+DUMPCELL v1_generic elab NEWJUNK 1 \_logic_var: (work@top.s_c.p.d), line:12:9, endln:12:10
+DUMPCELL v1_generic elab NEWJUNK 1 \_modport: (mpa), line:17:11, endln:17:14
+DUMPCELL v1_generic elab NEWJUNK 1 \_modport: (mpb), line:18:11, endln:18:14
+DUMPCELL v1_generic elab NEWJUNK 1 |vpiDirection:1
+DUMPCELL v1_generic elab NEWJUNK 1 |vpiDirection:2
+DUMPCELL v1_generic elab NEWJUNK 2 |vpiExpr:
+DUMPCELL v1_generic elab NEWJUNK 1 |vpiName:clk
+DUMPCELL v1_generic elab NEWJUNK 1 |vpiName:d
+DUMPCELL v1_generic elab NEWJUNK 2 |vpiParent:
+DUMPCELL v1_generic elab NEWJUNK 2 \_interface_inst: work@v1_if (work@top.s_c.p), file:/D/v1_generic.sv, line:21:0
+DUMPCELL v1_generic elab NEWJUNK 1 \_io_decl: (clk), line:17:22, endln:17:25
+DUMPCELL v1_generic elab NEWJUNK 1 \_io_decl: (d), line:18:23, endln:18:24
+DUMPCELL v1_generic elab NEWJUNK 2 |vpiIODecl:
+DUMPCELL v1_generic elab NEWJUNK 1 |vpiName:mpa
+DUMPCELL v1_generic elab NEWJUNK 1 |vpiName:mpb
+DUMPCELL v1_generic elab NEWJUNK 1 \_modport: (mpa), line:17:11, endln:17:14
+DUMPCELL v1_generic elab NEWJUNK 1 \_modport: (mpb), line:18:11, endln:18:14
+ARM v2_onealt parse rc_surelog=4 rc_pris=0 rc_pat=0 bytes=MOVED cmp_pris=2387/1 cmp_pat=2373/1 rc_cmp=255/255 (VERDICT NOT THE SCORER)
+CALIB v2_onealt parse AGREE=7 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS_PRIS v2_onealt parse AGREE=6 ONLY-GOLDEN=1 ONLY-OURS=6
+CENSUS_PAT  v2_onealt parse AGREE=7 ONLY-GOLDEN=0 ONLY-OURS=0
+CELL v2_onealt parse AGREE=7 ONLY-GOLDEN=0 ONLY-OURS=0
+DUMP v2_onealt parse TOTALS onlyG_pris=23 onlyG_pat=7 onlyO_pris=560 onlyO_pat=523 REGRESS=2 NEWJUNK=0 FIXES=18 DROPJUNK=37
+DUMPCELL v2_onealt parse REGRESS 1 |vpiActual:
+DUMPCELL v2_onealt parse REGRESS 1 |vpiInterface:
+ARM v2_onealt elab rc_surelog=4 rc_pris=0 rc_pat=0 bytes=MOVED cmp_pris=2483/1 cmp_pat=2469/1 rc_cmp=255/255 (VERDICT NOT THE SCORER)
+CALIB v2_onealt elab AGREE=5 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS_PRIS v2_onealt elab AGREE=4 ONLY-GOLDEN=1 ONLY-OURS=8
+CENSUS_PAT  v2_onealt elab AGREE=5 ONLY-GOLDEN=0 ONLY-OURS=2
+CELL v2_onealt elab ONLY-OURS   MP|work@v2_if|i1|module_inst|mps| clk:dir1{logic_var} d:dir2{logic_var}
+CELL v2_onealt elab ONLY-OURS   MP|work@v2_if|i2|module_inst|mps| clk:dir1{logic_var} d:dir2{logic_var}
+CELL v2_onealt elab AGREE=5 ONLY-GOLDEN=0 ONLY-OURS=2
+DUMP v2_onealt elab TOTALS onlyG_pris=26 onlyG_pat=8 onlyO_pris=733 onlyO_pat=708 REGRESS=0 NEWJUNK=0 FIXES=18 DROPJUNK=25
+ARM v3_tfport parse rc_surelog=4 rc_pris=0 rc_pat=0 bytes=MOVED cmp_pris=2181/1 cmp_pat=2167/1 rc_cmp=255/255 (VERDICT NOT THE SCORER)
+CALIB v3_tfport parse AGREE=7 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS_PRIS v3_tfport parse AGREE=6 ONLY-GOLDEN=1 ONLY-OURS=6
+CENSUS_PAT  v3_tfport parse AGREE=7 ONLY-GOLDEN=0 ONLY-OURS=0
+CELL v3_tfport parse AGREE=7 ONLY-GOLDEN=0 ONLY-OURS=0
+DUMP v3_tfport parse TOTALS onlyG_pris=23 onlyG_pat=7 onlyO_pris=560 onlyO_pat=523 REGRESS=2 NEWJUNK=0 FIXES=18 DROPJUNK=37
+DUMPCELL v3_tfport parse REGRESS 1 |vpiActual:
+DUMPCELL v3_tfport parse REGRESS 1 |vpiInterface:
+ARM v3_tfport elab rc_surelog=4 rc_pris=0 rc_pat=0 bytes=MOVED cmp_pris=2307/1 cmp_pat=2293/1 rc_cmp=255/255 (VERDICT NOT THE SCORER)
+CALIB v3_tfport elab AGREE=5 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS_PRIS v3_tfport elab AGREE=4 ONLY-GOLDEN=1 ONLY-OURS=8
+CENSUS_PAT  v3_tfport elab AGREE=5 ONLY-GOLDEN=0 ONLY-OURS=2
+CELL v3_tfport elab ONLY-OURS   MP|work@v3_if|i1|module_inst|mps| clk:dir1{logic_var} d:dir2{logic_var}
+CELL v3_tfport elab ONLY-OURS   MP|work@v3_if|i2|module_inst|mps| clk:dir1{logic_var} d:dir2{logic_var}
+CELL v3_tfport elab AGREE=5 ONLY-GOLDEN=0 ONLY-OURS=2
+DUMP v3_tfport elab TOTALS onlyG_pris=28 onlyG_pat=10 onlyO_pris=735 onlyO_pat=710 REGRESS=0 NEWJUNK=0 FIXES=18 DROPJUNK=25
+ARM v4_array parse rc_surelog=4 rc_pris=0 rc_pat=0 bytes=MOVED cmp_pris=3573/1 cmp_pat=3591/1 rc_cmp=255/255 (VERDICT NOT THE SCORER)
+CALIB v4_array parse AGREE=9 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS_PRIS v4_array parse AGREE=7 ONLY-GOLDEN=2 ONLY-OURS=9
+CENSUS_PAT  v4_array parse AGREE=8 ONLY-GOLDEN=1 ONLY-OURS=2
+CELL v4_array parse ONLY-GOLDEN MP|work@v4_if|p|module_inst|mps| clk:dir1{logic_var} d:dir2{logic_var}
+CELL v4_array parse ONLY-OURS   MP|work@v4_if|p[0]|module_inst|mps| clk:dir1{logic_var} d:dir2{logic_var}
+CELL v4_array parse ONLY-OURS   MP|work@v4_if|p[1]|module_inst|mps| clk:dir1{logic_var} d:dir2{logic_var}
+CELL v4_array parse AGREE=8 ONLY-GOLDEN=1 ONLY-OURS=2
+DUMP v4_array parse TOTALS onlyG_pris=82 onlyG_pat=54 onlyO_pris=695 onlyO_pat=669 REGRESS=2 NEWJUNK=24 FIXES=30 DROPJUNK=50
+DUMPCELL v4_array parse REGRESS 2 |vpiActual:
+DUMPCELL v4_array parse NEWJUNK 1 \_logic_var: (work@top.aw.p[0].clk), line:7:9, endln:7:12
+DUMPCELL v4_array parse NEWJUNK 1 \_logic_var: (work@top.aw.p[0].d), line:9:9, endln:9:10
+DUMPCELL v4_array parse NEWJUNK 1 \_logic_var: (work@top.aw.p[1].clk), line:7:9, endln:7:12
+DUMPCELL v4_array parse NEWJUNK 1 \_logic_var: (work@top.aw.p[1].d), line:9:9, endln:9:10
+DUMPCELL v4_array parse NEWJUNK 2 \_modport: (mps), line:14:11, endln:14:14
+DUMPCELL v4_array parse NEWJUNK 1 |vpiDirection:1
+DUMPCELL v4_array parse NEWJUNK 1 |vpiDirection:2
+DUMPCELL v4_array parse NEWJUNK 2 |vpiExpr:
+DUMPCELL v4_array parse NEWJUNK 1 |vpiName:clk
+DUMPCELL v4_array parse NEWJUNK 1 |vpiName:d
+DUMPCELL v4_array parse NEWJUNK 6 |vpiParent:
+DUMPCELL v4_array parse NEWJUNK 1 \_io_decl: (clk), line:14:22, endln:14:25
+DUMPCELL v4_array parse NEWJUNK 1 \_io_decl: (d), line:14:34, endln:14:35
+DUMPCELL v4_array parse NEWJUNK 2 |vpiIODecl:
+DUMPCELL v4_array parse NEWJUNK 1 |vpiName:mps
+DUMPCELL v4_array parse NEWJUNK 1 \_modport: (mps), line:14:11, endln:14:14
+ARM v4_array elab rc_surelog=4 rc_pris=0 rc_pat=0 bytes=MOVED cmp_pris=3681/1 cmp_pat=3699/1 rc_cmp=255/255 (VERDICT NOT THE SCORER)
+CALIB v4_array elab AGREE=9 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUS_PRIS v4_array elab AGREE=7 ONLY-GOLDEN=2 ONLY-OURS=9
+CENSUS_PAT  v4_array elab AGREE=8 ONLY-GOLDEN=1 ONLY-OURS=2
+CELL v4_array elab ONLY-GOLDEN MP|work@v4_if|p|module_inst|mps| clk:dir1{logic_var} d:dir2{logic_var}
+CELL v4_array elab ONLY-OURS   MP|work@v4_if|p[0]|module_inst|mps| clk:dir1{logic_var} d:dir2{logic_var}
+CELL v4_array elab ONLY-OURS   MP|work@v4_if|p[1]|module_inst|mps| clk:dir1{logic_var} d:dir2{logic_var}
+CELL v4_array elab AGREE=8 ONLY-GOLDEN=1 ONLY-OURS=2
+DUMP v4_array elab TOTALS onlyG_pris=86 onlyG_pat=57 onlyO_pris=883 onlyO_pat=854 REGRESS=1 NEWJUNK=24 FIXES=30 DROPJUNK=53
+DUMPCELL v4_array elab REGRESS 1 |vpiActual:
+DUMPCELL v4_array elab NEWJUNK 1 \_logic_var: (work@top.aw.p[0].clk), line:7:9, endln:7:12
+DUMPCELL v4_array elab NEWJUNK 1 \_logic_var: (work@top.aw.p[0].d), line:9:9, endln:9:10
+DUMPCELL v4_array elab NEWJUNK 1 \_logic_var: (work@top.aw.p[1].clk), line:7:9, endln:7:12
+DUMPCELL v4_array elab NEWJUNK 1 \_logic_var: (work@top.aw.p[1].d), line:9:9, endln:9:10
+DUMPCELL v4_array elab NEWJUNK 2 \_modport: (mps), line:14:11, endln:14:14
+DUMPCELL v4_array elab NEWJUNK 1 |vpiDirection:1
+DUMPCELL v4_array elab NEWJUNK 1 |vpiDirection:2
+DUMPCELL v4_array elab NEWJUNK 2 |vpiExpr:
+DUMPCELL v4_array elab NEWJUNK 1 |vpiName:clk
+DUMPCELL v4_array elab NEWJUNK 1 |vpiName:d
+DUMPCELL v4_array elab NEWJUNK 6 |vpiParent:
+DUMPCELL v4_array elab NEWJUNK 1 \_io_decl: (clk), line:14:22, endln:14:25
+DUMPCELL v4_array elab NEWJUNK 1 \_io_decl: (d), line:14:34, endln:14:35
+DUMPCELL v4_array elab NEWJUNK 2 |vpiIODecl:
+DUMPCELL v4_array elab NEWJUNK 1 |vpiName:mps
+DUMPCELL v4_array elab NEWJUNK 1 \_modport: (mps), line:14:11, endln:14:14
+-- ARM-VIEWS SCORED: 8   NO-DATABASE: 0   CALIB non-null: 0   ARM-VIEWS WITH REGRESS-OR-NEWJUNK: 6

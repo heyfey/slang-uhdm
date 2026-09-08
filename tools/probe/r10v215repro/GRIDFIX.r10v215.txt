@@ -1,0 +1,181 @@
+ARM v1_generic parse rc_surelog=0 ([  ERROR] : 0) rc_pris=0 rc_pat=0 rc_fix=0 pat_vs_fix_bytes=MOVED
+CALIB v1_generic parse AGREE=9 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_PRIS v1_generic parse AGREE=9 ONLY-GOLDEN=0 ONLY-OURS=5
+CEN_PAT  v1_generic parse AGREE=9 ONLY-GOLDEN=0 ONLY-OURS=2
+CEN_FIX  v1_generic parse AGREE=9 ONLY-GOLDEN=0 ONLY-OURS=1
+DUMP_PAT v1_generic parse TOTALS onlyG_pris=37 onlyG_pat=39 onlyO_pris=637 onlyO_pat=634 AWAY=24 TOWARD=25
+DUMP_FIX v1_generic parse TOTALS onlyG_pris=37 onlyG_pat=39 onlyO_pris=637 onlyO_pat=604 AWAY=2 TOWARD=33
+AWAYCELL_PAT v1_generic parse AWAY 1 \_logic_var: (work@top.s_c.p.clk), line:10:9, endln:10:12
+AWAYCELL_PAT v1_generic parse AWAY 1 \_logic_var: (work@top.s_c.p.d), line:12:9, endln:12:10
+AWAYCELL_PAT v1_generic parse AWAY 1 \_modport: (mpa), line:17:11, endln:17:14
+AWAYCELL_PAT v1_generic parse AWAY 1 \_modport: (mpb), line:18:11, endln:18:14
+AWAYCELL_PAT v1_generic parse AWAY 1 |vpiDirection:1
+AWAYCELL_PAT v1_generic parse AWAY 1 |vpiDirection:2
+AWAYCELL_PAT v1_generic parse AWAY 2 |vpiExpr:
+AWAYCELL_PAT v1_generic parse AWAY 1 |vpiName:clk
+AWAYCELL_PAT v1_generic parse AWAY 1 |vpiName:d
+AWAYCELL_PAT v1_generic parse AWAY 2 |vpiParent:
+AWAYCELL_PAT v1_generic parse AWAY 2 \_interface_inst: work@v1_if (work@top.s_c.p), file:/D/v1_generic.sv, line:21:0
+AWAYCELL_PAT v1_generic parse AWAY 1 \_io_decl: (clk), line:17:22, endln:17:25
+AWAYCELL_PAT v1_generic parse AWAY 1 \_io_decl: (d), line:18:23, endln:18:24
+AWAYCELL_PAT v1_generic parse AWAY 2 |vpiIODecl:
+AWAYCELL_PAT v1_generic parse AWAY 1 |vpiName:mpa
+AWAYCELL_PAT v1_generic parse AWAY 1 |vpiName:mpb
+AWAYCELL_PAT v1_generic parse AWAY 2 \_interface_inst: work@v1_if (work@top.i1), file:/D/v1_generic.sv, line:25:3, endln:25:14
+AWAYCELL_PAT v1_generic parse AWAY 1 \_modport: (mpa), line:17:11, endln:17:14
+AWAYCELL_PAT v1_generic parse AWAY 1 \_modport: (mpb), line:18:11, endln:18:14
+AWAYCELL_FIX v1_generic parse AWAY 2 \_interface_inst: work@v1_if (work@top.i1), file:/D/v1_generic.sv, line:25:3, endln:25:14
+ARM v1_generic elab rc_surelog=4 ([  ERROR] : 1) rc_pris=0 rc_pat=0 rc_fix=0 pat_vs_fix_bytes=MOVED
+CALIB v1_generic elab AGREE=7 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_PRIS v1_generic elab AGREE=7 ONLY-GOLDEN=0 ONLY-OURS=7
+CEN_PAT  v1_generic elab AGREE=7 ONLY-GOLDEN=0 ONLY-OURS=4
+CEN_FIX  v1_generic elab AGREE=7 ONLY-GOLDEN=0 ONLY-OURS=3
+DUMP_PAT v1_generic elab TOTALS onlyG_pris=37 onlyG_pat=39 onlyO_pris=818 onlyO_pat=820 AWAY=24 TOWARD=20
+DUMP_FIX v1_generic elab TOTALS onlyG_pris=37 onlyG_pat=39 onlyO_pris=818 onlyO_pat=790 AWAY=2 TOWARD=28
+AWAYCELL_PAT v1_generic elab AWAY 1 \_logic_var: (work@top.s_c.p.clk), line:10:9, endln:10:12
+AWAYCELL_PAT v1_generic elab AWAY 1 \_logic_var: (work@top.s_c.p.d), line:12:9, endln:12:10
+AWAYCELL_PAT v1_generic elab AWAY 1 \_modport: (mpa), line:17:11, endln:17:14
+AWAYCELL_PAT v1_generic elab AWAY 1 \_modport: (mpb), line:18:11, endln:18:14
+AWAYCELL_PAT v1_generic elab AWAY 1 |vpiDirection:1
+AWAYCELL_PAT v1_generic elab AWAY 1 |vpiDirection:2
+AWAYCELL_PAT v1_generic elab AWAY 2 |vpiExpr:
+AWAYCELL_PAT v1_generic elab AWAY 1 |vpiName:clk
+AWAYCELL_PAT v1_generic elab AWAY 1 |vpiName:d
+AWAYCELL_PAT v1_generic elab AWAY 2 |vpiParent:
+AWAYCELL_PAT v1_generic elab AWAY 2 \_interface_inst: work@v1_if (work@top.s_c.p), file:/D/v1_generic.sv, line:21:0
+AWAYCELL_PAT v1_generic elab AWAY 1 \_io_decl: (clk), line:17:22, endln:17:25
+AWAYCELL_PAT v1_generic elab AWAY 1 \_io_decl: (d), line:18:23, endln:18:24
+AWAYCELL_PAT v1_generic elab AWAY 2 |vpiIODecl:
+AWAYCELL_PAT v1_generic elab AWAY 1 |vpiName:mpa
+AWAYCELL_PAT v1_generic elab AWAY 1 |vpiName:mpb
+AWAYCELL_PAT v1_generic elab AWAY 2 \_interface_inst: work@v1_if (work@top.i1), file:/D/v1_generic.sv, line:25:3, endln:25:14
+AWAYCELL_PAT v1_generic elab AWAY 1 \_modport: (mpa), line:17:11, endln:17:14
+AWAYCELL_PAT v1_generic elab AWAY 1 \_modport: (mpb), line:18:11, endln:18:14
+AWAYCELL_FIX v1_generic elab AWAY 2 \_interface_inst: work@v1_if (work@top.i1), file:/D/v1_generic.sv, line:25:3, endln:25:14
+ARM v2_onealt parse rc_surelog=4 ([  ERROR] : 1) rc_pris=0 rc_pat=0 rc_fix=0 pat_vs_fix_bytes=SAME
+CALIB v2_onealt parse AGREE=7 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_PRIS v2_onealt parse AGREE=6 ONLY-GOLDEN=1 ONLY-OURS=6
+CEN_PAT  v2_onealt parse AGREE=7 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_FIX  v2_onealt parse AGREE=7 ONLY-GOLDEN=0 ONLY-OURS=0
+DUMP_PAT v2_onealt parse TOTALS onlyG_pris=23 onlyG_pat=7 onlyO_pris=560 onlyO_pat=523 AWAY=1 TOWARD=54
+DUMP_FIX v2_onealt parse TOTALS onlyG_pris=23 onlyG_pat=7 onlyO_pris=560 onlyO_pat=523 AWAY=1 TOWARD=54
+AWAYCELL_PAT v2_onealt parse AWAY 1 |vpiActual:
+AWAYCELL_FIX v2_onealt parse AWAY 1 |vpiActual:
+ARM v2_onealt elab rc_surelog=4 ([  ERROR] : 1) rc_pris=0 rc_pat=0 rc_fix=0 pat_vs_fix_bytes=SAME
+CALIB v2_onealt elab AGREE=5 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_PRIS v2_onealt elab AGREE=4 ONLY-GOLDEN=1 ONLY-OURS=8
+CEN_PAT  v2_onealt elab AGREE=5 ONLY-GOLDEN=0 ONLY-OURS=2
+CEN_FIX  v2_onealt elab AGREE=5 ONLY-GOLDEN=0 ONLY-OURS=2
+DUMP_PAT v2_onealt elab TOTALS onlyG_pris=26 onlyG_pat=8 onlyO_pris=733 onlyO_pat=708 AWAY=0 TOWARD=43
+DUMP_FIX v2_onealt elab TOTALS onlyG_pris=26 onlyG_pat=8 onlyO_pris=733 onlyO_pat=708 AWAY=0 TOWARD=43
+ARM v3_tfport parse rc_surelog=4 ([  ERROR] : 1) rc_pris=0 rc_pat=0 rc_fix=0 pat_vs_fix_bytes=SAME
+CALIB v3_tfport parse AGREE=7 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_PRIS v3_tfport parse AGREE=6 ONLY-GOLDEN=1 ONLY-OURS=6
+CEN_PAT  v3_tfport parse AGREE=7 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_FIX  v3_tfport parse AGREE=7 ONLY-GOLDEN=0 ONLY-OURS=0
+DUMP_PAT v3_tfport parse TOTALS onlyG_pris=23 onlyG_pat=7 onlyO_pris=560 onlyO_pat=523 AWAY=1 TOWARD=54
+DUMP_FIX v3_tfport parse TOTALS onlyG_pris=23 onlyG_pat=7 onlyO_pris=560 onlyO_pat=523 AWAY=1 TOWARD=54
+AWAYCELL_PAT v3_tfport parse AWAY 1 |vpiActual:
+AWAYCELL_FIX v3_tfport parse AWAY 1 |vpiActual:
+ARM v3_tfport elab rc_surelog=4 ([  ERROR] : 1) rc_pris=0 rc_pat=0 rc_fix=0 pat_vs_fix_bytes=SAME
+CALIB v3_tfport elab AGREE=5 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_PRIS v3_tfport elab AGREE=4 ONLY-GOLDEN=1 ONLY-OURS=8
+CEN_PAT  v3_tfport elab AGREE=5 ONLY-GOLDEN=0 ONLY-OURS=2
+CEN_FIX  v3_tfport elab AGREE=5 ONLY-GOLDEN=0 ONLY-OURS=2
+DUMP_PAT v3_tfport elab TOTALS onlyG_pris=28 onlyG_pat=10 onlyO_pris=735 onlyO_pat=710 AWAY=0 TOWARD=43
+DUMP_FIX v3_tfport elab TOTALS onlyG_pris=28 onlyG_pat=10 onlyO_pris=735 onlyO_pat=710 AWAY=0 TOWARD=43
+ARM v4_array parse rc_surelog=4 ([  ERROR] : 2) rc_pris=0 rc_pat=0 rc_fix=0 pat_vs_fix_bytes=SAME
+CALIB v4_array parse AGREE=9 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_PRIS v4_array parse AGREE=7 ONLY-GOLDEN=2 ONLY-OURS=9
+CEN_PAT  v4_array parse AGREE=8 ONLY-GOLDEN=1 ONLY-OURS=2
+CEN_FIX  v4_array parse AGREE=8 ONLY-GOLDEN=1 ONLY-OURS=2
+DUMP_PAT v4_array parse TOTALS onlyG_pris=82 onlyG_pat=54 onlyO_pris=695 onlyO_pat=669 AWAY=12 TOWARD=66
+DUMP_FIX v4_array parse TOTALS onlyG_pris=82 onlyG_pat=54 onlyO_pris=695 onlyO_pat=669 AWAY=12 TOWARD=66
+AWAYCELL_PAT v4_array parse AWAY 1 \_logic_var: (work@top.aw.p[0].clk), line:7:9, endln:7:12
+AWAYCELL_PAT v4_array parse AWAY 1 \_logic_var: (work@top.aw.p[0].d), line:9:9, endln:9:10
+AWAYCELL_PAT v4_array parse AWAY 1 \_logic_var: (work@top.aw.p[1].clk), line:7:9, endln:7:12
+AWAYCELL_PAT v4_array parse AWAY 1 \_logic_var: (work@top.aw.p[1].d), line:9:9, endln:9:10
+AWAYCELL_PAT v4_array parse AWAY 6 |vpiParent:
+AWAYCELL_PAT v4_array parse AWAY 2 |vpiActual:
+AWAYCELL_FIX v4_array parse AWAY 1 \_logic_var: (work@top.aw.p[0].clk), line:7:9, endln:7:12
+AWAYCELL_FIX v4_array parse AWAY 1 \_logic_var: (work@top.aw.p[0].d), line:9:9, endln:9:10
+AWAYCELL_FIX v4_array parse AWAY 1 \_logic_var: (work@top.aw.p[1].clk), line:7:9, endln:7:12
+AWAYCELL_FIX v4_array parse AWAY 1 \_logic_var: (work@top.aw.p[1].d), line:9:9, endln:9:10
+AWAYCELL_FIX v4_array parse AWAY 6 |vpiParent:
+AWAYCELL_FIX v4_array parse AWAY 2 |vpiActual:
+ARM v4_array elab rc_surelog=4 ([  ERROR] : 2) rc_pris=0 rc_pat=0 rc_fix=0 pat_vs_fix_bytes=SAME
+CALIB v4_array elab AGREE=9 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_PRIS v4_array elab AGREE=7 ONLY-GOLDEN=2 ONLY-OURS=9
+CEN_PAT  v4_array elab AGREE=8 ONLY-GOLDEN=1 ONLY-OURS=2
+CEN_FIX  v4_array elab AGREE=8 ONLY-GOLDEN=1 ONLY-OURS=2
+DUMP_PAT v4_array elab TOTALS onlyG_pris=86 onlyG_pat=57 onlyO_pris=883 onlyO_pat=854 AWAY=11 TOWARD=69
+DUMP_FIX v4_array elab TOTALS onlyG_pris=86 onlyG_pat=57 onlyO_pris=883 onlyO_pat=854 AWAY=11 TOWARD=69
+AWAYCELL_PAT v4_array elab AWAY 1 \_logic_var: (work@top.aw.p[0].clk), line:7:9, endln:7:12
+AWAYCELL_PAT v4_array elab AWAY 1 \_logic_var: (work@top.aw.p[0].d), line:9:9, endln:9:10
+AWAYCELL_PAT v4_array elab AWAY 1 \_logic_var: (work@top.aw.p[1].clk), line:7:9, endln:7:12
+AWAYCELL_PAT v4_array elab AWAY 1 \_logic_var: (work@top.aw.p[1].d), line:9:9, endln:9:10
+AWAYCELL_PAT v4_array elab AWAY 6 |vpiParent:
+AWAYCELL_PAT v4_array elab AWAY 1 |vpiActual:
+AWAYCELL_FIX v4_array elab AWAY 1 \_logic_var: (work@top.aw.p[0].clk), line:7:9, endln:7:12
+AWAYCELL_FIX v4_array elab AWAY 1 \_logic_var: (work@top.aw.p[0].d), line:9:9, endln:9:10
+AWAYCELL_FIX v4_array elab AWAY 1 \_logic_var: (work@top.aw.p[1].clk), line:7:9, endln:7:12
+AWAYCELL_FIX v4_array elab AWAY 1 \_logic_var: (work@top.aw.p[1].d), line:9:9, endln:9:10
+AWAYCELL_FIX v4_array elab AWAY 6 |vpiParent:
+AWAYCELL_FIX v4_array elab AWAY 1 |vpiActual:
+ARM v5_nested parse rc_surelog=0 ([  ERROR] : 0) rc_pris=0 rc_pat=0 rc_fix=0 pat_vs_fix_bytes=SAME
+CALIB v5_nested parse AGREE=11 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_PRIS v5_nested parse AGREE=7 ONLY-GOLDEN=4 ONLY-OURS=8
+CEN_PAT  v5_nested parse AGREE=8 ONLY-GOLDEN=3 ONLY-OURS=1
+CEN_FIX  v5_nested parse AGREE=8 ONLY-GOLDEN=3 ONLY-OURS=1
+DUMP_PAT v5_nested parse TOTALS onlyG_pris=74 onlyG_pat=77 onlyO_pris=559 onlyO_pat=517 AWAY=0 TOWARD=39
+DUMP_FIX v5_nested parse TOTALS onlyG_pris=74 onlyG_pat=77 onlyO_pris=559 onlyO_pat=517 AWAY=0 TOWARD=39
+ARM v5_nested elab rc_surelog=0 ([  ERROR] : 0) rc_pris=0 rc_pat=0 rc_fix=0 pat_vs_fix_bytes=SAME
+CALIB v5_nested elab AGREE=9 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_PRIS v5_nested elab AGREE=5 ONLY-GOLDEN=4 ONLY-OURS=10
+CEN_PAT  v5_nested elab AGREE=6 ONLY-GOLDEN=3 ONLY-OURS=3
+CEN_FIX  v5_nested elab AGREE=6 ONLY-GOLDEN=3 ONLY-OURS=3
+DUMP_PAT v5_nested elab TOTALS onlyG_pris=80 onlyG_pat=83 onlyO_pris=735 onlyO_pat=707 AWAY=0 TOWARD=25
+DUMP_FIX v5_nested elab TOTALS onlyG_pris=80 onlyG_pat=83 onlyO_pris=735 onlyO_pat=707 AWAY=0 TOWARD=25
+ARM v6_hier parse rc_surelog=0 ([  ERROR] : 0) rc_pris=0 rc_pat=0 rc_fix=0 pat_vs_fix_bytes=SAME
+CALIB v6_hier parse AGREE=4 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_PRIS v6_hier parse AGREE=4 ONLY-GOLDEN=0 ONLY-OURS=3
+CEN_PAT  v6_hier parse AGREE=4 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_FIX  v6_hier parse AGREE=4 ONLY-GOLDEN=0 ONLY-OURS=0
+DUMP_PAT v6_hier parse TOTALS onlyG_pris=0 onlyG_pat=0 onlyO_pris=529 onlyO_pat=510 AWAY=0 TOWARD=19
+DUMP_FIX v6_hier parse TOTALS onlyG_pris=0 onlyG_pat=0 onlyO_pris=529 onlyO_pat=510 AWAY=0 TOWARD=19
+ARM v6_hier elab rc_surelog=4 ([  ERROR] : 3) rc_pris=0 rc_pat=0 rc_fix=0 pat_vs_fix_bytes=SAME
+CALIB v6_hier elab AGREE=3 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_PRIS v6_hier elab AGREE=3 ONLY-GOLDEN=0 ONLY-OURS=4
+CEN_PAT  v6_hier elab AGREE=3 ONLY-GOLDEN=0 ONLY-OURS=1
+CEN_FIX  v6_hier elab AGREE=3 ONLY-GOLDEN=0 ONLY-OURS=1
+DUMP_PAT v6_hier elab TOTALS onlyG_pris=2 onlyG_pat=2 onlyO_pris=712 onlyO_pat=698 AWAY=0 TOWARD=14
+DUMP_FIX v6_hier elab TOTALS onlyG_pris=2 onlyG_pat=2 onlyO_pris=712 onlyO_pat=698 AWAY=0 TOWARD=14
+ARM v7_mult parse rc_surelog=0 ([  ERROR] : 0) rc_pris=0 rc_pat=0 rc_fix=0 pat_vs_fix_bytes=SAME
+CALIB v7_mult parse AGREE=13 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_PRIS v7_mult parse AGREE=4 ONLY-GOLDEN=9 ONLY-OURS=9
+CEN_PAT  v7_mult parse AGREE=13 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_FIX  v7_mult parse AGREE=13 ONLY-GOLDEN=0 ONLY-OURS=0
+DUMP_PAT v7_mult parse TOTALS onlyG_pris=0 onlyG_pat=0 onlyO_pris=567 onlyO_pat=510 AWAY=0 TOWARD=57
+DUMP_FIX v7_mult parse TOTALS onlyG_pris=0 onlyG_pat=0 onlyO_pris=567 onlyO_pat=510 AWAY=0 TOWARD=57
+ARM v7_mult elab rc_surelog=0 ([  ERROR] : 0) rc_pris=0 rc_pat=0 rc_fix=0 pat_vs_fix_bytes=SAME
+CALIB v7_mult elab AGREE=13 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_PRIS v7_mult elab AGREE=4 ONLY-GOLDEN=9 ONLY-OURS=9
+CEN_PAT  v7_mult elab AGREE=13 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_FIX  v7_mult elab AGREE=13 ONLY-GOLDEN=0 ONLY-OURS=0
+DUMP_PAT v7_mult elab TOTALS onlyG_pris=0 onlyG_pat=0 onlyO_pris=753 onlyO_pat=696 AWAY=0 TOWARD=57
+DUMP_FIX v7_mult elab TOTALS onlyG_pris=0 onlyG_pat=0 onlyO_pris=753 onlyO_pat=696 AWAY=0 TOWARD=57
+ARM v8_mixed parse rc_surelog=0 ([  ERROR] : 0) rc_pris=0 rc_pat=0 rc_fix=0 pat_vs_fix_bytes=SAME
+CALIB v8_mixed parse AGREE=16 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_PRIS v8_mixed parse AGREE=16 ONLY-GOLDEN=0 ONLY-OURS=3
+CEN_PAT  v8_mixed parse AGREE=16 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_FIX  v8_mixed parse AGREE=16 ONLY-GOLDEN=0 ONLY-OURS=0
+DUMP_PAT v8_mixed parse TOTALS onlyG_pris=0 onlyG_pat=0 onlyO_pris=529 onlyO_pat=510 AWAY=0 TOWARD=19
+DUMP_FIX v8_mixed parse TOTALS onlyG_pris=0 onlyG_pat=0 onlyO_pris=529 onlyO_pat=510 AWAY=0 TOWARD=19
+ARM v8_mixed elab rc_surelog=0 ([  ERROR] : 0) rc_pris=0 rc_pat=0 rc_fix=0 pat_vs_fix_bytes=SAME
+CALIB v8_mixed elab AGREE=11 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_PRIS v8_mixed elab AGREE=11 ONLY-GOLDEN=0 ONLY-OURS=8
+CEN_PAT  v8_mixed elab AGREE=11 ONLY-GOLDEN=0 ONLY-OURS=5
+CEN_FIX  v8_mixed elab AGREE=11 ONLY-GOLDEN=0 ONLY-OURS=5
+DUMP_PAT v8_mixed elab TOTALS onlyG_pris=0 onlyG_pat=0 onlyO_pris=708 onlyO_pat=696 AWAY=0 TOWARD=12
+DUMP_FIX v8_mixed elab TOTALS onlyG_pris=0 onlyG_pat=0 onlyO_pris=708 onlyO_pat=696 AWAY=0 TOWARD=12
+-- ARM-VIEWS SCORED: 16   NO-DATABASE: 0   CALIB non-null: 0   ARM-VIEWS WITH AWAY>0: patched=6 fixed=6

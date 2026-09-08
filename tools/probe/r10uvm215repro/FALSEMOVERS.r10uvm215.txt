@@ -1,0 +1,106 @@
+== r10uvm215 — the THREE static-address false movers, in full.
+Each binary is byte-DETERMINISTIC over three runs; only the two binaries differ.
+
+-- r10buvm22repro_g22.sv
+   0ed5abf944b6edb00521f2aa4eb914b1  p1.uhdm
+   0ed5abf944b6edb00521f2aa4eb914b1  p2.uhdm
+   0ed5abf944b6edb00521f2aa4eb914b1  p3.uhdm
+   23bcd2674eb3cbdf2925326433db4fb9  q1.uhdm
+   23bcd2674eb3cbdf2925326433db4fb9  q2.uhdm
+   23bcd2674eb3cbdf2925326433db4fb9  q3.uhdm
+   weaklyReferenced marker at dump line 4357; every differing line is BELOW it:
+   1c1
+   < p1.uhdm: Restored design Pre-Elab: 
+   ---
+   > q1.uhdm: Restored design Pre-Elab: 
+   5119c5119
+   <         |vpiDecompile:22744825
+   ---
+   >         |vpiDecompile:22740729
+   5121c5121
+   <         |UINT:22744825
+   ---
+   >         |UINT:22740729
+   5167c5167
+   <         |vpiDecompile:22744825
+   ---
+   >         |vpiDecompile:22740729
+   5169c5169
+   <         |UINT:22744825
+   ---
+   >         |UINT:22740729
+   5215c5215
+   <         |vpiDecompile:22743969
+   ---
+   >         |vpiDecompile:22739873
+   5217c5217
+   <         |UINT:22743969
+   ---
+   >         |UINT:22739873
+
+-- r10uvm154repro_l154_noenum.sv
+   eaae4bcfd61a798ec17d90bca337c26a  p1.uhdm
+   eaae4bcfd61a798ec17d90bca337c26a  p2.uhdm
+   eaae4bcfd61a798ec17d90bca337c26a  p3.uhdm
+   976a02a5294146481bc68d06f32af2ae  q1.uhdm
+   976a02a5294146481bc68d06f32af2ae  q2.uhdm
+   976a02a5294146481bc68d06f32af2ae  q3.uhdm
+   weaklyReferenced marker at dump line 646; every differing line is BELOW it:
+   1c1
+   < p1.uhdm: Restored design Pre-Elab: 
+   ---
+   > q1.uhdm: Restored design Pre-Elab: 
+   679c679
+   <         |vpiDecompile:22744825
+   ---
+   >         |vpiDecompile:22740729
+   681c681
+   <         |UINT:22744825
+   ---
+   >         |UINT:22740729
+   720c720
+   <         |vpiDecompile:22744825
+   ---
+   >         |vpiDecompile:22740729
+   722c722
+   <         |UINT:22744825
+   ---
+   >         |UINT:22740729
+
+-- r10uvm185repro_grid185_g185_e_kinds.sv
+   c9e790993ae3e02a39eba1e5bc11df31  p1.uhdm
+   c9e790993ae3e02a39eba1e5bc11df31  p2.uhdm
+   c9e790993ae3e02a39eba1e5bc11df31  p3.uhdm
+   3c258263f75dc9b78e749e5ba0a3ae6b  q1.uhdm
+   3c258263f75dc9b78e749e5ba0a3ae6b  q2.uhdm
+   3c258263f75dc9b78e749e5ba0a3ae6b  q3.uhdm
+   weaklyReferenced marker at dump line 2690; every differing line is BELOW it:
+   1c1
+   < p1.uhdm: Restored design Pre-Elab: 
+   ---
+   > q1.uhdm: Restored design Pre-Elab: 
+   2931c2931
+   <         |vpiDecompile:22744825
+   ---
+   >         |vpiDecompile:22740729
+   2933c2933
+   <         |UINT:22744825
+   ---
+   >         |UINT:22740729
+   3157c3157
+   <         |vpiDecompile:22744825
+   ---
+   >         |vpiDecompile:22740729
+   3159c3159
+   <         |UINT:22744825
+   ---
+   >         |UINT:22740729
+   3379c3379
+   <         |vpiDecompile:22744825
+   ---
+   >         |vpiDecompile:22740729
+   3381c3381
+   <         |UINT:22744825
+   ---
+   >         |UINT:22740729
+

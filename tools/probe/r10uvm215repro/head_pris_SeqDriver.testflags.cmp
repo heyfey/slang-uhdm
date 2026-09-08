@@ -1,0 +1,209 @@
+LHS: <null>
+RHS:
+decompile:
+interface_inst: work@adpcm_if (work@adpcm_if), id:291923, file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/design.sv, line:1:1, endln:16:23
+|vpiParent:
+\_design: (work@top_tb), id:1
+|vpiFullName:work@adpcm_if
+|vpiDefName:work@adpcm_if
+|vpiNet:
+\_logic_net: (work@adpcm_if.clk), id:292879, line:3:7, endln:3:10
+  |vpiParent:
+  \_interface_inst: work@adpcm_if (work@adpcm_if), id:291923, file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/design.sv, line:1:1, endln:16:23
+  |vpiTypespec:
+  \_ref_typespec: (work@adpcm_if.clk), id:292880
+    |vpiParent:
+    \_logic_net: (work@adpcm_if.clk), id:292879, line:3:7, endln:3:10
+    |vpiFullName:work@adpcm_if.clk
+    |vpiActual:
+    \_logic_typespec: , id:294775, line:3:1, endln:3:6
+  |vpiName:clk
+  |vpiFullName:work@adpcm_if.clk
+  |vpiNetType:36
+|vpiNet:
+\_logic_net: (work@adpcm_if.frame), id:292881, line:4:7, endln:4:12
+  |vpiParent:
+  \_interface_inst: work@adpcm_if (work@adpcm_if), id:291923, file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/design.sv, line:1:1, endln:16:23
+  |vpiTypespec:
+  \_ref_typespec: (work@adpcm_if.frame), id:292882
+    |vpiParent:
+    \_logic_net: (work@adpcm_if.frame), id:292881, line:4:7, endln:4:12
+    |vpiFullName:work@adpcm_if.frame
+    |vpiActual:
+    \_logic_typespec: , id:294776, line:4:1, endln:4:6
+  |vpiName:frame
+  |vpiFullName:work@adpcm_if.frame
+  |vpiNetType:36
+|vpiNet:
+\_logic_net: (work@adpcm_if.data), id:292883, line:5:12, endln:5:16
+  |vpiParent:
+  \_interface_inst: work@adpcm_if (work@adpcm_if), id:291923, file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/design.sv, line:1:1, endln:16:23
+  |vpiTypespec:
+  \_ref_typespec: (work@adpcm_if.data), id:292884
+    |vpiParent:
+    \_logic_net: (work@adpcm_if.data), id:292883, line:5:12, endln:5:16
+    |vpiFullName:work@adpcm_if.data
+    |vpiActual:
+    \_logic_typespec: , id:294777, line:5:1, endln:5:11
+  |vpiName:data
+  |vpiFullName:work@adpcm_if.data
+  |vpiNetType:36
+|vpiNet:
+\_logic_net: (work@adpcm_if.bozo), id:292885, line:6:7, endln:6:11
+  |vpiParent:
+  \_interface_inst: work@adpcm_if (work@adpcm_if), id:291923, file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/design.sv, line:1:1, endln:16:23
+  |vpiTypespec:
+  \_ref_typespec: (work@adpcm_if.bozo), id:292886
+    |vpiParent:
+    \_logic_net: (work@adpcm_if.bozo), id:292885, line:6:7, endln:6:11
+    |vpiFullName:work@adpcm_if.bozo
+    |vpiActual:
+    \_logic_typespec: , id:294781, line:6:1, endln:6:6
+  |vpiName:bozo
+  |vpiFullName:work@adpcm_if.bozo
+  |vpiNetType:36
+|vpiModport:
+\_modport: (mon_mp), id:292887, line:14:11, endln:14:17
+  |vpiParent:
+  \_interface_inst: work@adpcm_if (work@adpcm_if), id:291923, file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/design.sv, line:1:1, endln:16:23
+  |vpiName:mon_mp
+|vpiClockingBlock:
+\_clocking_block: (work@adpcm_if.cb), id:292888, line:8:3, endln:12:14
+  |vpiParent:
+  \_interface_inst: work@adpcm_if (work@adpcm_if), id:291923, file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/design.sv, line:1:1, endln:16:23
+  |vpiName:cb
+  |vpiFullName:work@adpcm_if.cb
+  |vpiClockingEvent:
+  \_event_control: , id:292889, line:8:15, endln:8:29
+    |vpiParent:
+    \_clocking_block: (work@adpcm_if.cb), id:292888, line:8:3, endln:12:14
+    |vpiCondition:
+    \_operation: , id:292890, line:8:17, endln:8:28
+      |vpiParent:
+      \_event_control: , id:292889, line:8:15, endln:8:29
+      |vpiOpType:39
+      |vpiOperand:
+      \_ref_obj: (work@adpcm_if.cb.clk), id:292891, line:8:25, endln:8:28
+        |vpiParent:
+        \_operation: , id:292890, line:8:17, endln:8:28
+        |vpiName:clk
+        |vpiFullName:work@adpcm_if.cb.clk
+        |vpiActual:
+        \_logic_var: (work@top_tb.ADPCM.clk), id:293833, line:3:7, endln:3:10
+  |vpiClockingIODecl:
+  \_clocking_io_decl: (frame), id:292892, line:9:11, endln:9:16
+    |vpiParent:
+    \_clocking_block: (work@adpcm_if.cb), id:292888, line:8:3, endln:12:14
+    |vpiDirection:3
+    |vpiName:frame
+  |vpiClockingIODecl:
+  \_clocking_io_decl: (data), id:292893, line:11:11, endln:11:15
+    |vpiParent:
+    \_clocking_block: (work@adpcm_if.cb), id:292888, line:8:3, endln:12:14
+    |vpiDirection:3
+    |vpiName:data
+|vpiEndLabel:adpcm_if
+
+decompile:
+interface_inst: work@adpcm_if (work@adpcm_if), id:291923, file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/design.sv, line:1:1, endln:16:23
+|vpiParent:
+\_design: (work@top_tb), id:1
+|vpiFullName:work@adpcm_if
+|vpiDefName:work@adpcm_if
+|vpiNet:
+\_logic_net: (work@adpcm_if.clk), id:292879, line:3:7, endln:3:10
+  |vpiParent:
+  \_interface_inst: work@adpcm_if (work@adpcm_if), id:291923, file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/design.sv, line:1:1, endln:16:23
+  |vpiTypespec:
+  \_ref_typespec: (work@adpcm_if.clk), id:292880
+    |vpiParent:
+    \_logic_net: (work@adpcm_if.clk), id:292879, line:3:7, endln:3:10
+    |vpiFullName:work@adpcm_if.clk
+    |vpiActual:
+    \_logic_typespec: , id:294775, line:3:1, endln:3:6
+  |vpiName:clk
+  |vpiFullName:work@adpcm_if.clk
+  |vpiNetType:36
+|vpiNet:
+\_logic_net: (work@adpcm_if.frame), id:292881, line:4:7, endln:4:12
+  |vpiParent:
+  \_interface_inst: work@adpcm_if (work@adpcm_if), id:291923, file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/design.sv, line:1:1, endln:16:23
+  |vpiTypespec:
+  \_ref_typespec: (work@adpcm_if.frame), id:292882
+    |vpiParent:
+    \_logic_net: (work@adpcm_if.frame), id:292881, line:4:7, endln:4:12
+    |vpiFullName:work@adpcm_if.frame
+    |vpiActual:
+    \_logic_typespec: , id:294776, line:4:1, endln:4:6
+  |vpiName:frame
+  |vpiFullName:work@adpcm_if.frame
+  |vpiNetType:36
+|vpiNet:
+\_logic_net: (work@adpcm_if.data), id:292883, line:5:12, endln:5:16
+  |vpiParent:
+  \_interface_inst: work@adpcm_if (work@adpcm_if), id:291923, file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/design.sv, line:1:1, endln:16:23
+  |vpiTypespec:
+  \_ref_typespec: (work@adpcm_if.data), id:292884
+    |vpiParent:
+    \_logic_net: (work@adpcm_if.data), id:292883, line:5:12, endln:5:16
+    |vpiFullName:work@adpcm_if.data
+    |vpiActual:
+    \_logic_typespec: , id:294777, line:5:1, endln:5:11
+  |vpiName:data
+  |vpiFullName:work@adpcm_if.data
+  |vpiNetType:36
+|vpiNet:
+\_logic_net: (work@adpcm_if.bozo), id:292885, line:6:7, endln:6:11
+  |vpiParent:
+  \_interface_inst: work@adpcm_if (work@adpcm_if), id:291923, file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/design.sv, line:1:1, endln:16:23
+  |vpiTypespec:
+  \_ref_typespec: (work@adpcm_if.bozo), id:292886
+    |vpiParent:
+    \_logic_net: (work@adpcm_if.bozo), id:292885, line:6:7, endln:6:11
+    |vpiFullName:work@adpcm_if.bozo
+    |vpiActual:
+    \_logic_typespec: , id:294781, line:6:1, endln:6:6
+  |vpiName:bozo
+  |vpiFullName:work@adpcm_if.bozo
+  |vpiNetType:36
+|vpiModport:
+\_modport: (mon_mp), id:292887, line:14:11, endln:14:17
+  |vpiParent:
+  \_interface_inst: work@adpcm_if (work@adpcm_if), id:291923, file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/design.sv, line:1:1, endln:16:23
+  |vpiName:mon_mp
+|vpiClockingBlock:
+\_clocking_block: (work@adpcm_if.cb), id:292888, line:8:3, endln:12:14
+  |vpiParent:
+  \_interface_inst: work@adpcm_if (work@adpcm_if), id:291923, file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/design.sv, line:1:1, endln:16:23
+  |vpiName:cb
+  |vpiFullName:work@adpcm_if.cb
+  |vpiClockingEvent:
+  \_event_control: , id:292889, line:8:15, endln:8:29
+    |vpiParent:
+    \_clocking_block: (work@adpcm_if.cb), id:292888, line:8:3, endln:12:14
+    |vpiCondition:
+    \_operation: , id:292890, line:8:17, endln:8:28
+      |vpiParent:
+      \_event_control: , id:292889, line:8:15, endln:8:29
+      |vpiOpType:39
+      |vpiOperand:
+      \_ref_obj: (work@adpcm_if.cb.clk), id:292891, line:8:25, endln:8:28
+        |vpiParent:
+        \_operation: , id:292890, line:8:17, endln:8:28
+        |vpiName:clk
+        |vpiFullName:work@adpcm_if.cb.clk
+        |vpiActual:
+        \_logic_var: (work@top_tb.ADPCM.clk), id:293833, line:3:7, endln:3:10
+  |vpiClockingIODecl:
+  \_clocking_io_decl: (frame), id:292892, line:9:11, endln:9:16
+    |vpiParent:
+    \_clocking_block: (work@adpcm_if.cb), id:292888, line:8:3, endln:12:14
+    |vpiDirection:3
+    |vpiName:frame
+  |vpiClockingIODecl:
+  \_clocking_io_decl: (data), id:292893, line:11:11, endln:11:15
+    |vpiParent:
+    \_clocking_block: (work@adpcm_if.cb), id:292888, line:8:3, endln:12:14
+    |vpiDirection:3
+    |vpiName:data
+|vpiEndLabel:adpcm_if

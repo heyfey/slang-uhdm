@@ -1,0 +1,40 @@
+== r10uvm215 DECODE — the head's SHAPE, on SeqDriver/default (LHS is ALWAYS golden)
+
+-- ct215fields: PRISTINE ours vs golden (the head and its field table)
+HANDLES golden=1 ours=1
+DESIGN OBJECTS golden=1 ours=1
+HANDLE DESIGN golden=design(work@top_tb)@0:0-0:0#325863 ours=design(work@top_tb)@0:0-0:0#1
+SCAN   DESIGN golden=design(work@top_tb)@0:0-0:0#325863 ours=design(work@top_tb)@0:0-0:0#1
+design::Compare r=-1
+HEAD LHS(golden) = <null>
+HEAD RHS(ours)   = interface_inst()@1:1-16:23#291911
+COUNTERPART CANDIDATES on the golden side: 1
+    interface_inst()@1:1-16:23#328216
+---- FIELD TABLE (head is OURS, counterpart #328216)
+     golden = interface_inst()@1:1-16:23#328216
+     ours   = interface_inst()@1:1-16:23#291911
+  >>> vpiType=36    golden: VEC size 4 [0]=logic_net(clk)@3:7-3:10#328217                    ours: VEC size 4 [0]=logic_net(clk)@3:7-3:10#292867
+  >>> vpiType=81    golden: SING design(work@top_tb)@0:0-0:0#325863                          ours: SING design(work@top_tb)@0:0-0:0#1
+  >>> vpiType=606   golden: -                                                                ours: VEC size 1 [0]=modport(mon_mp)@14:11-14:17#292875
+  >>> vpiType=650   golden: VEC size 1 [0]=clocking_block(cb)@8:3-12:14#247511               ours: VEC size 1 [0]=clocking_block(cb)@8:3-12:14#292876
+
+-- ct215fields: PATCHED ours vs golden (the head OBJECT has changed)
+HANDLES golden=1 ours=1
+DESIGN OBJECTS golden=1 ours=1
+HANDLE DESIGN golden=design(work@top_tb)@0:0-0:0#325863 ours=design(work@top_tb)@0:0-0:0#1
+SCAN   DESIGN golden=design(work@top_tb)@0:0-0:0#325863 ours=design(work@top_tb)@0:0-0:0#1
+design::Compare r=1
+HEAD LHS(golden) = module_inst()@210:1-236:18#328232
+HEAD RHS(ours)   = module_inst()@210:1-236:18#291912
+COUNTERPART CANDIDATES on the golden side: 1
+    module_inst()@210:1-236:18#328232
+---- FIELD TABLE (head is OURS, counterpart #328232)
+     golden = module_inst()@210:1-236:18#328232
+     ours   = module_inst()@210:1-236:18#291912
+  >>> vpiType=36    golden: VEC size 224 [0]=logic_net(uvm_start_uvm_declarations)@26:5-26:31#328233 ours: VEC size 191 [0]=logic_net(uvm_start_uvm_declarations)@26:5-26:31#292881
+  >>> vpiType=40    golden: VEC size 90 [0]=param_assign()@47:15-47:39#247647                ours: VEC size 90 [0]=param_assign()@47:15-47:39#291915
+  >>> vpiType=41    golden: VEC size 90 [0]=parameter(UVM_ABSTRACT)@201:11-201:23#247517     ours: VEC size 90 [0]=parameter(UVM_ABSTRACT)@201:11-201:23#292179
+  >>> vpiType=81    golden: SING design(work@top_tb)@0:0-0:0#325863                          ours: SING design(work@top_tb)@0:0-0:0#1
+  >>> vpiType=99    golden: VEC size 3 [0]=initial()@218:1-224:6#248400                      ours: VEC size 3 [0]=initial()@218:1-224:6#293136
+  >>> vpiType=127   golden: VEC size 894 [0]=function(uvm_hdl_check_path)@59:3-59:71#331     ours: VEC size 894 [0]=function(uvm_hdl_check_path)@59:3-59:71#6457
+  >>> vpiType=725   golden: VEC size 125 [0]=int_typespec(uvm_pkg::UVM_FILE)@313:9-313:12#2298 ours: VEC size 125 [0]=int_typespec(uvm_pkg::UVM_FILE)@313:9-313:12#3627

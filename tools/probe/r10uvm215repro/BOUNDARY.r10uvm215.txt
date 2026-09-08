@@ -1,0 +1,50 @@
+== r10uvm215 WIDE BOUNDARY — every .sv/.v in a COPY of tools/probe/, both views, both binaries.
+
+LISTED=5510 PROCESSED=5510 PRODUCED_DBS=5317 MOVED_ARMS=8 RC_DIFFS=0
+
+-- MOVED ARMS (8):
+r10buvm22repro/g22.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10uvm154repro/l154_noenum.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm185repro/grid185/g185_e_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm215repro/grid215/a_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm215repro/grid215/b_views.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm215repro/grid215/c_topology.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm215repro/grid215/e_virtual.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v125repro/arms/v7_recv.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+-- RE-SCORED AGAINST REAL SURELOG GOLDENS (armscore215.sh, both views, calibration first):
+ARM r10buvm22repro/g22.sv parse rc=0/4/4 CALIB[AGREE=0 ONLY-GOLDEN=0 ONLY-OURS=0] PRISTINE[AGREE=0 ONLY-GOLDEN=0 ONLY-OURS=0] PATCHED[AGREE=0 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM r10buvm22repro/g22.sv elab rc=0/4/4 CALIB[AGREE=0 ONLY-GOLDEN=0 ONLY-OURS=0] PRISTINE[AGREE=0 ONLY-GOLDEN=0 ONLY-OURS=0] PATCHED[AGREE=0 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM r10uvm154repro/l154_noenum.sv parse rc=0/0/0 CALIB[AGREE=0 ONLY-GOLDEN=0 ONLY-OURS=0] PRISTINE[AGREE=0 ONLY-GOLDEN=0 ONLY-OURS=0] PATCHED[AGREE=0 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM r10uvm154repro/l154_noenum.sv elab rc=0/0/0 CALIB[AGREE=0 ONLY-GOLDEN=0 ONLY-OURS=0] PRISTINE[AGREE=0 ONLY-GOLDEN=0 ONLY-OURS=0] PATCHED[AGREE=0 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM r10uvm185repro/grid185/g185_e_kinds.sv parse rc=0/0/0 CALIB[AGREE=0 ONLY-GOLDEN=0 ONLY-OURS=0] PRISTINE[AGREE=0 ONLY-GOLDEN=0 ONLY-OURS=0] PATCHED[AGREE=0 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM r10uvm185repro/grid185/g185_e_kinds.sv elab rc=0/0/0 CALIB[AGREE=0 ONLY-GOLDEN=0 ONLY-OURS=0] PRISTINE[AGREE=0 ONLY-GOLDEN=0 ONLY-OURS=0] PATCHED[AGREE=0 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM r10uvm215repro/grid215/a_kinds.sv parse rc=0/0/0 CALIB[AGREE=16 ONLY-GOLDEN=0 ONLY-OURS=0] PRISTINE[AGREE=6 ONLY-GOLDEN=10 ONLY-OURS=10] PATCHED[AGREE=16 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM r10uvm215repro/grid215/a_kinds.sv elab rc=0/0/0 CALIB[AGREE=16 ONLY-GOLDEN=0 ONLY-OURS=0] PRISTINE[AGREE=6 ONLY-GOLDEN=10 ONLY-OURS=10] PATCHED[AGREE=16 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM r10uvm215repro/grid215/b_views.sv parse rc=0/0/0 CALIB[AGREE=10 ONLY-GOLDEN=0 ONLY-OURS=0] PRISTINE[AGREE=7 ONLY-GOLDEN=3 ONLY-OURS=9] PATCHED[AGREE=7 ONLY-GOLDEN=3 ONLY-OURS=1]
+ARM r10uvm215repro/grid215/b_views.sv elab rc=0/0/0 CALIB[AGREE=10 ONLY-GOLDEN=0 ONLY-OURS=0] PRISTINE[AGREE=7 ONLY-GOLDEN=3 ONLY-OURS=9] PATCHED[AGREE=7 ONLY-GOLDEN=3 ONLY-OURS=1]
+ARM r10uvm215repro/grid215/c_topology.sv parse rc=4/0/0 CALIB[AGREE=32 ONLY-GOLDEN=0 ONLY-OURS=0] PRISTINE[AGREE=25 ONLY-GOLDEN=7 ONLY-OURS=15] PATCHED[AGREE=32 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM r10uvm215repro/grid215/c_topology.sv elab rc=4/0/0 CALIB[AGREE=24 ONLY-GOLDEN=0 ONLY-OURS=0] PRISTINE[AGREE=18 ONLY-GOLDEN=6 ONLY-OURS=22] PATCHED[AGREE=24 ONLY-GOLDEN=0 ONLY-OURS=8]
+ARM r10uvm215repro/grid215/e_virtual.sv parse rc=0/0/0 CALIB[AGREE=4 ONLY-GOLDEN=0 ONLY-OURS=0] PRISTINE[AGREE=2 ONLY-GOLDEN=2 ONLY-OURS=4] PATCHED[AGREE=4 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM r10uvm215repro/grid215/e_virtual.sv elab rc=4/0/0 CALIB[AGREE=4 ONLY-GOLDEN=0 ONLY-OURS=0] PRISTINE[AGREE=2 ONLY-GOLDEN=2 ONLY-OURS=4] PATCHED[AGREE=4 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM r10v125repro/arms/v7_recv.sv parse rc=4/0/0 CALIB[AGREE=3 ONLY-GOLDEN=0 ONLY-OURS=0] PRISTINE[AGREE=0 ONLY-GOLDEN=3 ONLY-OURS=3] PATCHED[AGREE=3 ONLY-GOLDEN=0 ONLY-OURS=0]
+ARM r10v125repro/arms/v7_recv.sv elab rc=4/0/0 CALIB[AGREE=3 ONLY-GOLDEN=0 ONLY-OURS=0] PRISTINE[AGREE=0 ONLY-GOLDEN=3 ONLY-OURS=3] PATCHED[AGREE=3 ONLY-GOLDEN=0 ONLY-OURS=0]
+
+-- ATTRIBUTION
+   * grid215/{a_kinds,b_views,c_topology,e_virtual}.sv — THIS PASS'S OWN ARMS, the POSITIVE CONTROL.
+     A gate reporting zero movers over them could not see.  All four move TOWARD golden; grid215/d_muststay.sv,
+     the must-stay control, did NOT move.
+   * r10v125repro/arms/v7_recv.sv — an EARLIER pass's committed arm that the law FIXES: it declares
+     'modport mp (import fetch);', golden holds MPNULL on all three of its interface views, we held the
+     object on all three, and the census goes 3 ONLY-GOLDEN / 3 ONLY-OURS -> 0 / 0 in BOTH views.
+   * r10buvm22repro/g22.sv, r10uvm154repro/l154_noenum.sv, r10uvm185repro/grid185/g185_e_kinds.sv —
+     THE STATIC-ADDRESS FALSE MOVER (RESUME §9).  None of the three contains the word 'interface' or
+     'modport' at all, and the modport census reads 0/0/0 on both binaries.  Each binary is byte-DETERMINISTIC
+     over three runs; the whole-dump difference is 4-6 lines in EVERY case and is the SAME single 64-bit UINT
+     constant, 22744825 (pristine) vs 22740729 (patched) — EXACTLY 4096 apart, the one page by which the
+     patched binary SHRANK (22589768 -> 22585672 bytes).  Every differing line sits BELOW the dump's
+     '\_weaklyReferenced:' marker, which the judge cannot reach.  r10uvm154repro/l154_noenum.sv is that
+     pass's own LAYOUT PROOF source, written to demonstrate this exact artefact.
+
+-- RC_DIFFS 0.  LISTED == PROCESSED.  The --elabuhdm segfaults logged by the driver occur on the SAME arms
+   with BOTH binaries (identical rc), which is why RC_DIFFS is 0; they are pre-existing and out of scope.

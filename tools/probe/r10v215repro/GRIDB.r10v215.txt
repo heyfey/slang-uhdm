@@ -1,0 +1,29 @@
+ARM v10_dropall parse rc_surelog=0 ([  ERROR] : 0) rc_pris=0 rc_pat=0 rc_fix=0 pat_vs_fix_bytes=SAME
+CALIB v10_dropall parse AGREE=7 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_PRIS v10_dropall parse AGREE=0 ONLY-GOLDEN=7 ONLY-OURS=21
+CEN_PAT  v10_dropall parse AGREE=7 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_FIX  v10_dropall parse AGREE=7 ONLY-GOLDEN=0 ONLY-OURS=0
+DUMP_PAT v10_dropall parse TOTALS onlyG_pris=0 onlyG_pat=0 onlyO_pris=651 onlyO_pat=510 AWAY=0 TOWARD=141
+DUMP_FIX v10_dropall parse TOTALS onlyG_pris=0 onlyG_pat=0 onlyO_pris=651 onlyO_pat=510 AWAY=0 TOWARD=141
+ARM v10_dropall elab rc_surelog=0 ([  ERROR] : 0) rc_pris=0 rc_pat=0 rc_fix=0 pat_vs_fix_bytes=SAME
+CALIB v10_dropall elab AGREE=5 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_PRIS v10_dropall elab AGREE=0 ONLY-GOLDEN=5 ONLY-OURS=21
+CEN_PAT  v10_dropall elab AGREE=5 ONLY-GOLDEN=0 ONLY-OURS=2
+CEN_FIX  v10_dropall elab AGREE=5 ONLY-GOLDEN=0 ONLY-OURS=2
+DUMP_PAT v10_dropall elab TOTALS onlyG_pris=4 onlyG_pat=4 onlyO_pris=799 onlyO_pat=700 AWAY=0 TOWARD=99
+DUMP_FIX v10_dropall elab TOTALS onlyG_pris=4 onlyG_pat=4 onlyO_pris=799 onlyO_pat=700 AWAY=0 TOWARD=99
+ARM v9_bind parse rc_surelog=0 ([  ERROR] : 0) rc_pris=0 rc_pat=0 rc_fix=0 pat_vs_fix_bytes=SAME
+CALIB v9_bind parse AGREE=5 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_PRIS v9_bind parse AGREE=3 ONLY-GOLDEN=2 ONLY-OURS=7
+CEN_PAT  v9_bind parse AGREE=3 ONLY-GOLDEN=2 ONLY-OURS=2
+CEN_FIX  v9_bind parse AGREE=3 ONLY-GOLDEN=2 ONLY-OURS=2
+DUMP_PAT v9_bind parse TOTALS onlyG_pris=44 onlyG_pat=44 onlyO_pris=535 onlyO_pat=512 AWAY=0 TOWARD=23
+DUMP_FIX v9_bind parse TOTALS onlyG_pris=44 onlyG_pat=44 onlyO_pris=535 onlyO_pat=512 AWAY=0 TOWARD=23
+ARM v9_bind elab rc_surelog=0 ([  ERROR] : 0) rc_pris=0 rc_pat=0 rc_fix=0 pat_vs_fix_bytes=SAME
+CALIB v9_bind elab AGREE=5 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_PRIS v9_bind elab AGREE=3 ONLY-GOLDEN=2 ONLY-OURS=7
+CEN_PAT  v9_bind elab AGREE=3 ONLY-GOLDEN=2 ONLY-OURS=2
+CEN_FIX  v9_bind elab AGREE=3 ONLY-GOLDEN=2 ONLY-OURS=2
+DUMP_PAT v9_bind elab TOTALS onlyG_pris=44 onlyG_pat=44 onlyO_pris=721 onlyO_pat=698 AWAY=0 TOWARD=23
+DUMP_FIX v9_bind elab TOTALS onlyG_pris=44 onlyG_pat=44 onlyO_pris=721 onlyO_pat=698 AWAY=0 TOWARD=23
+-- ARM-VIEWS SCORED: 4   NO-DATABASE: 0   CALIB non-null: 0   ARM-VIEWS WITH AWAY>0: patched=0 fixed=0

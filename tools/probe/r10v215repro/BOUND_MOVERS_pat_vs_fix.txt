@@ -1,0 +1,4 @@
+r10buvm22repro/g22.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10uvm154repro/l154_noenum.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm185repro/grid185/g185_e_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v215repro/armsv215/v1_generic.sv	def=MOVED	elab=MOVED	rc=0/0,0/0

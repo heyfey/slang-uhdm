@@ -1,0 +1,75 @@
+ARM a_kinds parse rc_surelog=0 ([  ERROR] : 0) rc_pris=0 rc_pat=0 rc_fix=0 pat_vs_fix_bytes=SAME
+CALIB a_kinds parse AGREE=16 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_PRIS a_kinds parse AGREE=6 ONLY-GOLDEN=10 ONLY-OURS=10
+CEN_PAT  a_kinds parse AGREE=16 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_FIX  a_kinds parse AGREE=16 ONLY-GOLDEN=0 ONLY-OURS=0
+DUMP_PAT a_kinds parse TOTALS onlyG_pris=0 onlyG_pat=0 onlyO_pris=570 onlyO_pat=510 AWAY=0 TOWARD=60
+DUMP_FIX a_kinds parse TOTALS onlyG_pris=0 onlyG_pat=0 onlyO_pris=570 onlyO_pat=510 AWAY=0 TOWARD=60
+ARM a_kinds elab rc_surelog=0 ([  ERROR] : 0) rc_pris=0 rc_pat=0 rc_fix=0 pat_vs_fix_bytes=SAME
+CALIB a_kinds elab AGREE=16 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_PRIS a_kinds elab AGREE=6 ONLY-GOLDEN=10 ONLY-OURS=10
+CEN_PAT  a_kinds elab AGREE=16 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_FIX  a_kinds elab AGREE=16 ONLY-GOLDEN=0 ONLY-OURS=0
+DUMP_PAT a_kinds elab TOTALS onlyG_pris=0 onlyG_pat=0 onlyO_pris=756 onlyO_pat=696 AWAY=0 TOWARD=60
+DUMP_FIX a_kinds elab TOTALS onlyG_pris=0 onlyG_pat=0 onlyO_pris=756 onlyO_pat=696 AWAY=0 TOWARD=60
+ARM b_views parse rc_surelog=0 ([  ERROR] : 0) rc_pris=0 rc_pat=0 rc_fix=0 pat_vs_fix_bytes=SAME
+CALIB b_views parse AGREE=10 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_PRIS b_views parse AGREE=7 ONLY-GOLDEN=3 ONLY-OURS=9
+CEN_PAT  b_views parse AGREE=7 ONLY-GOLDEN=3 ONLY-OURS=1
+CEN_FIX  b_views parse AGREE=7 ONLY-GOLDEN=3 ONLY-OURS=1
+DUMP_PAT b_views parse TOTALS onlyG_pris=23 onlyG_pat=26 onlyO_pris=567 onlyO_pat=522 AWAY=0 TOWARD=42
+DUMP_FIX b_views parse TOTALS onlyG_pris=23 onlyG_pat=26 onlyO_pris=567 onlyO_pat=522 AWAY=0 TOWARD=42
+ARM b_views elab rc_surelog=0 ([  ERROR] : 0) rc_pris=0 rc_pat=0 rc_fix=0 pat_vs_fix_bytes=SAME
+CALIB b_views elab AGREE=10 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_PRIS b_views elab AGREE=7 ONLY-GOLDEN=3 ONLY-OURS=9
+CEN_PAT  b_views elab AGREE=7 ONLY-GOLDEN=3 ONLY-OURS=1
+CEN_FIX  b_views elab AGREE=7 ONLY-GOLDEN=3 ONLY-OURS=1
+DUMP_PAT b_views elab TOTALS onlyG_pris=23 onlyG_pat=26 onlyO_pris=753 onlyO_pat=708 AWAY=0 TOWARD=42
+DUMP_FIX b_views elab TOTALS onlyG_pris=23 onlyG_pat=26 onlyO_pris=753 onlyO_pat=708 AWAY=0 TOWARD=42
+ARM c_topology parse rc_surelog=4 ([  ERROR] : 3) rc_pris=0 rc_pat=0 rc_fix=0 pat_vs_fix_bytes=SAME
+CALIB c_topology parse AGREE=32 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_PRIS c_topology parse AGREE=25 ONLY-GOLDEN=7 ONLY-OURS=15
+CEN_PAT  c_topology parse AGREE=32 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_FIX  c_topology parse AGREE=32 ONLY-GOLDEN=0 ONLY-OURS=0
+DUMP_PAT c_topology parse TOTALS onlyG_pris=54 onlyG_pat=21 onlyO_pris=638 onlyO_pat=549 AWAY=5 TOWARD=127
+DUMP_FIX c_topology parse TOTALS onlyG_pris=54 onlyG_pat=21 onlyO_pris=638 onlyO_pat=549 AWAY=5 TOWARD=127
+AWAYCELL_PAT c_topology parse AWAY 3 |vpiActual:
+AWAYCELL_PAT c_topology parse AWAY 2 |vpiInterface:
+AWAYCELL_FIX c_topology parse AWAY 3 |vpiActual:
+AWAYCELL_FIX c_topology parse AWAY 2 |vpiInterface:
+ARM c_topology elab rc_surelog=4 ([  ERROR] : 3) rc_pris=0 rc_pat=0 rc_fix=0 pat_vs_fix_bytes=SAME
+CALIB c_topology elab AGREE=24 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_PRIS c_topology elab AGREE=18 ONLY-GOLDEN=6 ONLY-OURS=22
+CEN_PAT  c_topology elab AGREE=24 ONLY-GOLDEN=0 ONLY-OURS=8
+CEN_FIX  c_topology elab AGREE=24 ONLY-GOLDEN=0 ONLY-OURS=8
+DUMP_PAT c_topology elab TOTALS onlyG_pris=63 onlyG_pat=24 onlyO_pris=799 onlyO_pat=732 AWAY=0 TOWARD=106
+DUMP_FIX c_topology elab TOTALS onlyG_pris=63 onlyG_pat=24 onlyO_pris=799 onlyO_pat=732 AWAY=0 TOWARD=106
+ARM d_muststay parse rc_surelog=0 ([  ERROR] : 0) rc_pris=0 rc_pat=0 rc_fix=0 pat_vs_fix_bytes=SAME
+CALIB d_muststay parse AGREE=10 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_PRIS d_muststay parse AGREE=10 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_PAT  d_muststay parse AGREE=10 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_FIX  d_muststay parse AGREE=10 ONLY-GOLDEN=0 ONLY-OURS=0
+DUMP_PAT d_muststay parse TOTALS onlyG_pris=2 onlyG_pat=2 onlyO_pris=544 onlyO_pat=544 AWAY=0 TOWARD=0
+DUMP_FIX d_muststay parse TOTALS onlyG_pris=2 onlyG_pat=2 onlyO_pris=544 onlyO_pat=544 AWAY=0 TOWARD=0
+ARM d_muststay elab rc_surelog=0 ([  ERROR] : 0) rc_pris=0 rc_pat=0 rc_fix=0 pat_vs_fix_bytes=SAME
+CALIB d_muststay elab AGREE=10 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_PRIS d_muststay elab AGREE=10 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_PAT  d_muststay elab AGREE=10 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_FIX  d_muststay elab AGREE=10 ONLY-GOLDEN=0 ONLY-OURS=0
+DUMP_PAT d_muststay elab TOTALS onlyG_pris=2 onlyG_pat=2 onlyO_pris=730 onlyO_pat=730 AWAY=0 TOWARD=0
+DUMP_FIX d_muststay elab TOTALS onlyG_pris=2 onlyG_pat=2 onlyO_pris=730 onlyO_pat=730 AWAY=0 TOWARD=0
+ARM e_virtual parse rc_surelog=0 ([  ERROR] : 0) rc_pris=0 rc_pat=0 rc_fix=0 pat_vs_fix_bytes=SAME
+CALIB e_virtual parse AGREE=4 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_PRIS e_virtual parse AGREE=2 ONLY-GOLDEN=2 ONLY-OURS=4
+CEN_PAT  e_virtual parse AGREE=4 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_FIX  e_virtual parse AGREE=4 ONLY-GOLDEN=0 ONLY-OURS=0
+DUMP_PAT e_virtual parse TOTALS onlyG_pris=0 onlyG_pat=0 onlyO_pris=534 onlyO_pat=510 AWAY=0 TOWARD=24
+DUMP_FIX e_virtual parse TOTALS onlyG_pris=0 onlyG_pat=0 onlyO_pris=534 onlyO_pat=510 AWAY=0 TOWARD=24
+ARM e_virtual elab rc_surelog=4 ([  ERROR] : 1) rc_pris=0 rc_pat=0 rc_fix=0 pat_vs_fix_bytes=SAME
+CALIB e_virtual elab AGREE=4 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_PRIS e_virtual elab AGREE=2 ONLY-GOLDEN=2 ONLY-OURS=4
+CEN_PAT  e_virtual elab AGREE=4 ONLY-GOLDEN=0 ONLY-OURS=0
+CEN_FIX  e_virtual elab AGREE=4 ONLY-GOLDEN=0 ONLY-OURS=0
+DUMP_PAT e_virtual elab TOTALS onlyG_pris=0 onlyG_pat=0 onlyO_pris=722 onlyO_pat=696 AWAY=0 TOWARD=26
+DUMP_FIX e_virtual elab TOTALS onlyG_pris=0 onlyG_pat=0 onlyO_pris=722 onlyO_pat=696 AWAY=0 TOWARD=26
+-- ARM-VIEWS SCORED: 10   NO-DATABASE: 0   CALIB non-null: 0   ARM-VIEWS WITH AWAY>0: patched=1 fixed=1

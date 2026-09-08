@@ -1,0 +1,78 @@
+r10v215 — GATE TRANSCRIPT (verifier).  MEASUREMENT ONLY; the official uhdm-cmp
+and scripts/verify_golden.py are the authorities.  LHS is ALWAYS golden.
+Binaries built by this verifier from its OWN worktrees at b7eb7ff3, frozen 555:
+  pristine /tmp/v215_bin/pris.bin  md5 49b83611ebc24e7155c5e62e6c8e23e2  22589768 bytes
+  patched  /tmp/v215_bin/pat.bin   md5 5c5c3503c01fc9a957f4099deb0ba401  22585672 bytes
+  fixed    /tmp/v215_bin/fix.bin   md5 967765e2f329aadd3dc15abdb9543676  22589784 bytes
+The pristine md5 equals the main tree's build/slang-uhdm at b7eb7ff3 and the
+implementer's pristine; the patched md5 equals the implementer's patched.
+
+GATE 1 — BUILDS.  Both the implementer's binaries rebuilt from scratch (-j 2)
+in this verifier's own worktrees; md5s above.  The fixed binary likewise.
+
+GATE 2 — GOLDENS (SLANG_UHDM exported explicitly per binary).
+  pristine 23 PASS / 0 FAIL      patched 23 PASS / 0 FAIL      fixed 23 PASS / 0 FAIL
+  negative control SLANG_UHDM=/bin/false: 0 PASS / 23 FAIL
+
+GATE 3 — uhdm2rtlil, BOTH modes, all three binaries: 679 CMP_EQUAL / 50
+SLANG_REJECT / 2 SURELOG_FAIL.  ct8rows PASS against the committed
+results/gate_uhdm2rtlil.csv and pairwise between binaries, both modes.
+byteverify patched-vs-pristine 0/1358, fixed-vs-pristine 0/1358 (SELFCHECK
+1357/1358 both).  cmds.txt audited BY BINARY PATH: 1458 per u2r workdir, the
+only `slang:` path in each is that workdir's own frozen binary.
+
+GATE 4 — surelog, --mode both, all three binaries:
+  default   475 CMP_EQUAL / 6 CMP_NOTEQUAL / 283 SLANG_REJECT / 25 SURELOG_FAIL / 5 DEFERRED
+  testflags 469 CMP_EQUAL / 6 CMP_NOTEQUAL / 284 SLANG_REJECT / 23 SURELOG_FAIL / 5 DEFERRED
+  NO ROW CONVERTED in either direction, on any binary.  ct8rows
+  patched-vs-pristine 0 differing rows over 1588.  Against the COMMITTED
+  results/golden_surelog.csv exactly one row-side moves on pristine and on
+  patched — Earlgrey_0_1,testflags — and two on the fixed run (both Earlgrey
+  modes): status CMP_EQUAL on every side, only the informational uhdm-dump
+  column flipping `differ` -> empty.  It is NOT a database change: the
+  protected-database md5 pin has Earlgrey_0_1 BYTE-IDENTICAL in both modes on
+  all three binaries, and byteverify never flags it.  It is the Earlgrey dump
+  comparison timing out under machine load (a concurrent pass was sweeping);
+  it moves on the PRISTINE binary too.  cmds.txt audited: 1523 per surelog
+  workdir, one binary path each.
+
+GATE 5 — BYTE MOVERS, surelog (SELFCHECK 955/956 on every run).
+  patched vs pristine: 2 / 956 — SeqDriver default and testflags, the two
+    PREDICTED BY NAME.  Order-blind attribution (sorted, path-normalised
+    dumps): 12 differing lines each, EVERY ONE a pristine-only `<` line, all
+    twelve belonging to the two `mon_mp` modport objects.  Nothing added.
+  fixed vs pristine: 3 / 956 — the same two SeqDriver rows with the SAME md5s
+    as the patched binary's, plus Scoreboard/default.
+  fixed vs patched: 1 / 956 — Scoreboard/default ALONE, and it is THE COIN:
+    0 differing lines over 1 100 422 sorted dump lines, on a database holding
+    ZERO interfaces and ZERO modports.
+
+GATE 6 — HEADS (rowheads.sh).
+  pristine  SeqDriver x2 209/1 (LHS: <null>, RHS interface_inst work@adpcm_if
+            id:291911) ; MiniAmiq x2 838/1 ; every other row 0/0 rc=0
+  patched   SeqDriver x2 1327330/1, head object module_inst work@top_tb
+            (testbench.sv:210), `mon_mp` absent from the log, top-level
+            |vpiNet: 448 golden / 382 ours = 2 x 224 / 2 x 191 -> R0 confirmed
+  fixed     identical to patched on every row.
+
+GATE 7 — THE SEVEN PROTECTED CMP_EQUAL ROW-MODES (SimpleUVM x2, BuildUVMPkg x2,
+Earlgrey_0_1 x2, Scoreboard/default): 0 cmp lines, 0 heads, judge rc = 0 on ALL
+THREE binaries, and none is a byte mover.
+
+GATE 8 — CANARIES.  surelog ok=51 changed=1 (the Earlgrey dump column above) on
+pristine AND patched, ok=50 changed=2 on fixed — every CHANGED row is
+Earlgrey_0_1 status CMP_EQUAL, dump column only, database byte-identical.
+u2r ok=8 changed=0 on all three.  ctcan2 PASS on all.  canaudit audited=29
+UNCOVERED=0 FENCE-BREACH=0.  PROTECTED DATABASES 20/20 SAME on patched-vs-
+pristine AND fixed-vs-pristine, including InterfaceModPort (byte-identical,
+both modes), SVSwitch 4842211c4030, YosysVerx 6ccda350c24a.
+
+GATE 9 — WIDE BOUNDARY: see BOUNDARY.r10v215.txt.  LISTED 5514 = PROCESSED
+5514, RC_DIFFS 0 on both runs.  pristine-vs-patched MOVED_ARMS=12 (the
+implementer's 8, reproduced exactly, plus this verifier's four new arms);
+patched-vs-fixed MOVED_ARMS=4 (this verifier's v1_generic plus the three
+static-address false movers).  The 17 arms in the tree that segfault under
+--elabuhdm do so on ALL THREE binaries; pre-existing at BASE.
+
+GATE 10 — the r10imex_repro generic-interface-port law arms (t1,t2,t3,t4,t5,t7)
+are BYTE-IDENTICAL across all three binaries in both views.

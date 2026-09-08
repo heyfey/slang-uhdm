@@ -1,0 +1,41 @@
+r10v215 WIDE BOUNDARY — pristine vs the implementer's patched binary
+(bound215.sh, copied probe tree, both views, every rc recorded)
+LISTED=5514 PROCESSED=5514 PRODUCED_DBS=5321 MOVED_ARMS=12 RC_DIFFS=0
+
+MOVED ARMS:
+r10buvm22repro/g22.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10uvm154repro/l154_noenum.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm185repro/grid185/g185_e_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm215repro/grid215/a_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm215repro/grid215/b_views.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm215repro/grid215/c_topology.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm215repro/grid215/e_virtual.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v125repro/arms/v7_recv.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v215repro/armsv215/v1_generic.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v215repro/armsv215/v2_onealt.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v215repro/armsv215/v3_tfport.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v215repro/armsv215/v4_array.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+SEGFAULTS: 17 under --elabuhdm on the PRISTINE binary and 17 on the PATCHED one,
+symmetric, RC_DIFFS=0 — pre-existing at BASE, not this patch.
+
+== WIDE BOUNDARY, the implementer's PATCHED binary vs the VERIFIER-FIXED one
+   (bound215.sh, a second copy of the probe tree, both views, every rc recorded)
+LISTED=5514 PROCESSED=5514 PRODUCED_DBS=5321 MOVED_ARMS=4 RC_DIFFS=0
+MOVED ARMS:
+r10buvm22repro/g22.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10uvm154repro/l154_noenum.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm185repro/grid185/g185_e_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10v215repro/armsv215/v1_generic.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+   v1_generic.sv is THIS VERIFIER'S OWN ARM — the positive control and the
+   only SEMANTIC mover of the fix over 5514 arms.  The other three are the
+   STATIC-ADDRESS FALSE MOVER, convicted here independently: l154_noenum.sv
+   contains the words interface/modport ZERO times and its whole-dump
+   difference is ONE constant, 22744825 (pristine) vs 22740729 (patched) vs
+   22744825 (fixed) — exactly 4096 apart, at dump line 679, BELOW the
+   \_weaklyReferenced: marker at line 646 which the judge cannot reach.
+   d_muststay.sv did NOT move against either binary.
+
+SEGFAULTS: 17 arms segfault under --elabuhdm on EVERY binary (pristine,
+patched, fixed), symmetric, RC_DIFFS=0 — pre-existing at BASE.

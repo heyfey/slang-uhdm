@@ -195,14 +195,70 @@ static bool genLocalVarClass(UHDM::Serializer& s, const Type& ct,
     return true;
 }
 
+// § modportNeedsSimplePort215 — A MODPORT OBJECT IS MINTED BY ITS *SIMPLE PORT*
+// ITEMS AND BY NOTHING ELSE: a modport whose items are only `clocking cb`,
+// `import`/`export` subroutines, or any mixture of the two, HAS NO `modport`
+// OBJECT IN GOLDEN AT ALL — in the def listing, in every elaborated instance,
+// and in every modport-qualified port view alike.
+//
+// THE SURELOG MECHANISM, decoded.  `CompileModule.cpp:1264-1352` walks a
+// `Modport_item`'s port declarations and routes each kind to a DIFFERENT place:
+//   * a `Modport_simple_ports_declaration` item calls
+//     `ModuleDefinition::insertModPort(name, Signal, nodeId)`
+//     (`CompileModule.cpp:1321`), and `ModuleDefinition.cpp:76-86` is the ONLY
+//     writer of `m_modportSignalMap`;
+//   * a CLOCKING item calls the OTHER overload,
+//     `insertModPort(name, ClockingBlock&)` (`CompileModule.cpp:1346`), and
+//     `ModuleDefinition.cpp:112-123` writes a SEPARATE map,
+//     `m_modportClockingBlockMap`;
+//   * the hierarchical-ports and tf-ports branches (`CompileModule.cpp:1325-
+//     1329`) have EMPTY bodies — they record nothing anywhere.
+// Both UHDM writers — `UhdmWriter.cpp:1684-1719` for the def listing and
+// `:4267-4301` for an elaborated instance — iterate `getModPortSignalMap()` and
+// nothing else, so a modport that never entered THAT map never becomes an
+// object.  Surelog then calls `m->Modports(dest_modports)` unconditionally, but
+// an EMPTY vector is not serialised, so golden's `interface_inst::Modports()`
+// comes back a NULL POINTER — which is exactly the head this pass opened on:
+// BaseClass.h's VECTOR `SafeCompare` (`:220-222`) with golden's pointer null and
+// ours a one-element vector sets `m_failedRhs` to the OWNER and leaves
+// `m_failedLhs` unset, so `uhdm-cmp` printed `LHS: <null>` against OUR
+// def-listing `interface_inst work@adpcm_if` (SeqDriver `design.sv:1`, whose
+// only modport is `modport mon_mp (clocking cb);`).
+//
+// THE GRID (arm `a_kinds`, 8 interfaces x 2 views, one real Surelog golden per
+// arm-view, golden-vs-golden calibration null): golden MINTS the object for
+// `input clk, output d` (a1), for `clocking cb, input d` (a5) and for the
+// explicit expression port `.P(r[3:0])` (a7) — and MINTS NOTHING for
+// `clocking cb` (a2), `import t3` (a3), `export f4` (a4), two clocking items
+// (a6) or `import t8, clocking cb` (a8).  The separation is total in both
+// views, and in every surviving cell golden's io_decl list is exactly the one
+// we already build.  So OUR OWN io_decl list is the discriminator: slang gives
+// a `ModportPortSymbol` for the simple form and only for it
+// (`MemberSymbols.cpp:346-370` — subroutine items become `MethodPrototypeSymbol`
+// and a clocking item a `ModportClockingSymbol`), which is Surelog's
+// `Modport_simple_port` one for one.
+static bool modportHasSimplePort215(const ModportSymbol& mp) {
+    for (auto& pm : mp.members())
+        if (pm.kind == SymbolKind::ModportPort)
+            return true;
+    return false;
+}
+
 // Surelog stores an interface's modports in a name-keyed std::map, so it
 // emits them SORTED ALPHABETICALLY BY NAME (not in source-declaration order).
 // Collect the body's modports in that same order.
+//
+// § modportNeedsSimplePort215 is gated HERE, at the one collector all three
+// modport emission sites share (the def listing, the col-0 reference dup and
+// the elaborated view), so no site can mint an object another one drops — and
+// the object is never CREATED for a dropped modport rather than created and
+// left unreferenced (`Serializer::Make*` mints into `AllObjects`).
 static std::vector<const ModportSymbol*>
 sortedModports(const InstanceBodySymbol& body) {
     std::vector<const ModportSymbol*> mps;
     for (auto& member : body.members())
-        if (member.kind == SymbolKind::Modport)
+        if (member.kind == SymbolKind::Modport &&
+            modportHasSimplePort215(member.as<ModportSymbol>()))
             mps.push_back(&member.as<ModportSymbol>());
     std::stable_sort(mps.begin(), mps.end(),
                      [](const ModportSymbol* a, const ModportSymbol* b) {
@@ -9407,13 +9463,31 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 // keeps every modport (r10imex_repro/t4 work@top.u_np.I lists
                 // all of them though `u_np (inst.A)` names one).
                 std::string connMp9 = std::string(ip.modport);
+                // § modportNeedsSimplePortNoGenericFallback215v — the port-view
+                // FALLBACK (list every minted modport when the connected one
+                // was never minted) belongs to the DECLARED modport-qualified
+                // port ALONE.  On the GENERIC road golden does the opposite:
+                // `v1_sub s_c (.p(i1.mpc))` with `modport mpc (clocking cb);`
+                // gives golden's `s_c.p` a bare `logic_net` and NO
+                // `interface_inst` at all, so golden's whole design holds
+                // `\_modport: (mpa)` exactly 11 times and `(mpb)` exactly 8 —
+                // the counts the PRISTINE binary already matched and the
+                // fallback pushes to 13 and 10.  Measured on a Surelog run with
+                // ZERO errors (r10v215repro/armsv215/v1_generic.sv), unlike the
+                // declared-port cells that decoded the fallback, every one of
+                // which Surelog compiled at rc=4 (`Undefined type "if.mpc"`).
+                bool connMpFromConn9 = false;
                 if (connMp9.empty() && conn.second &&
-                    isUnboundGenericIfacePort(ip))
+                    isUnboundGenericIfacePort(ip)) {
                     connMp9 = std::string(conn.second->name);
+                    connMpFromConn9 = true;
+                }
                 auto* ii = emitInterfaceInstance(
                     conn.first->as<InstanceSymbol>(),
                     prefix + "." + std::string(portBase->name), m, &topNets, &instRefs,
-                    /*portView=*/&inst, /*connModport=*/connMp9);
+                    /*portView=*/&inst, /*connModport=*/connMp9,
+                    /*forceTailDup=*/false, /*nestedIfaceView=*/false,
+                    /*connModportFromConn=*/connMpFromConn9);
                 // A port view is named by the PORT, not the connected instance.
                 ii->VpiName(std::string(portBase->name));
                 portIfaces->push_back(ii);
@@ -29179,7 +29253,8 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                                                           const InstanceSymbol* portView,
                                                           const std::string& connModport,
                                                           bool forceTailDup,
-                                                          bool nestedIfaceView) {
+                                                          bool nestedIfaceView,
+                                                          bool connModportFromConn) {
     auto& body = inst.body;
     auto& def = inst.getDefinition();
     std::string prefix = path;
@@ -30248,11 +30323,33 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     // view's variable); the declaration-style home view does not.
     {
         auto* mports = s.MakeModportVec();
+        // § modportNeedsSimplePort215, THE PORT-VIEW CONJUNCT.  The
+        // connected-modport filter below can only match a modport that EXISTS;
+        // when the port is qualified by a name § modportNeedsSimplePort215
+        // never minted (`sub (i.mpc p)` with `modport mpc (clocking cb);`),
+        // golden's port view falls back to listing EVERY minted modport.
+        // Measured, not assumed, on grid arm `c_topology`: cell c4 (two simple
+        // modports, port qualified by `mps1`) has golden listing `mps1` ALONE —
+        // the filter is real — while cell c6 (`mpc` clocking-only plus `mpa`
+        // and `mpb`, port qualified by `mpc`) has golden listing BOTH `mpa` and
+        // `mpb`, and cell c3's `a` view the same way.  Reading it off the
+        // ALREADY-FILTERED collector is what makes the two conjuncts one rule.
+        //
+        // § modportNeedsSimplePortNoGenericFallback215v — and the fallback is
+        // the DECLARED port's alone: `connModportFromConn` marks the GENERIC
+        // road, where the name came from the CONNECTION (`.p(i1.mpc)`) and
+        // where golden mints no view for the port at all, so listing every
+        // OTHER modport moves 24 dump lines AWAY from golden on a Surelog run
+        // with zero errors (r10v215repro).
+        bool connMinted215 = connModport.empty() || connModportFromConn;
+        for (auto* mpPtr : sortedModports(body))
+            if (mpPtr->name == connModport)
+                connMinted215 = true;
         for (auto* mpPtr : sortedModports(body)) {
             auto& mp = *mpPtr;
             // A MODPORT-qualified port view (myif.man b) carries ONLY the
             // connected modport, not every modport the interface declares.
-            if (!connModport.empty() && mp.name != connModport)
+            if (connMinted215 && !connModport.empty() && mp.name != connModport)
                 continue;
             auto* umod = s.MakeModport();
             umod->VpiName(mp.name);
