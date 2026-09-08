@@ -1,0 +1,11 @@
+FIRE MiniAmiq-544c7f61 default enlarged=package:uvm_pkg:uvm_pkg<-package:svaunit_pkg:svaunit_pkg+33;package:svaunit_pkg:svaunit_pkg<-package:uvm_pkg:uvm_pkg+33 cells-TO-GOLDEN=1 cells-AWAY=0
+   defif|interface_inst:work@svaunit_vpi_interface:|nets G=71 O=5 gap=+66 FITS-CLONE
+FIRE SeqDriver-32af76aa default enlarged=package:uvm_pkg:uvm_pkg<-package:adpcm_pkg:adpcm_pkg+33;package:adpcm_pkg:adpcm_pkg<-package:uvm_pkg:uvm_pkg+33 cells-TO-GOLDEN=2 cells-AWAY=0
+   def|module_inst:work@top_tb:|nets G=224 O=191 gap=+33 FITS-CLONE
+   elab|module_inst:work@top_tb:work@top_tb|vars G=66 O=33 gap=+33 FITS-CLONE
+FIRE MiniAmiq-544c7f61 testflags enlarged=package:uvm_pkg:uvm_pkg<-package:svaunit_pkg:svaunit_pkg+33;package:svaunit_pkg:svaunit_pkg<-package:uvm_pkg:uvm_pkg+33 cells-TO-GOLDEN=1 cells-AWAY=0
+   defif|interface_inst:work@svaunit_vpi_interface:|nets G=71 O=5 gap=+66 FITS-CLONE
+FIRE SeqDriver-32af76aa testflags enlarged=package:uvm_pkg:uvm_pkg<-package:adpcm_pkg:adpcm_pkg+33;package:adpcm_pkg:adpcm_pkg<-package:uvm_pkg:uvm_pkg+33 cells-TO-GOLDEN=2 cells-AWAY=0
+   def|module_inst:work@top_tb:|nets G=224 O=191 gap=+33 FITS-CLONE
+   elab|module_inst:work@top_tb:work@top_tb|vars G=66 O=33 gap=+33 FITS-CLONE
+-- rows scanned=956  CANDIDATES (upper bound)=4  no-golden=0  rows with an OURS-LONGER cell=0

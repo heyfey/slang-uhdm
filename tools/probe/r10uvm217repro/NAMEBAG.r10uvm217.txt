@@ -1,0 +1,11 @@
+r10uvm217 — THE ONE-SIDED NAME GATE (namebag217.py)
+
+== over the GRID's 12 arm-views
+arm-views with a golden census: 12
+NAME-ONLY one-sided-OURS total:  pristine=4  patched=4
+-- ARM-VIEWS THAT GAINED A NAME: 0
+
+== over the WIDE BOUNDARY's 78 re-scored mover arm-views
+arm-views with a golden census: 78
+NAME-ONLY one-sided-OURS total:  pristine=6  patched=6
+-- ARM-VIEWS THAT GAINED A NAME: 0

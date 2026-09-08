@@ -1,0 +1,83 @@
+r10uvm217 — DECODE: the SHAPE of the head, and the ORDER question, settled FIRST
+
+== BaseClass::SafeCompare, the VECTOR overload (~/.local/include/uhdm/BaseClass.h:200-224)
+
+  template <typename T>
+  static int32_t SafeCompare(const BaseClass* lhs_obj,
+                             const std::vector<T*>* lhs,
+                             const BaseClass* rhs_obj,
+                             const std::vector<T*>* rhs,
+                             CompareContext* context) {
+    if ((lhs != nullptr) && (rhs != nullptr)) {
+      int32_t r = 0;
+      if ((r = static_cast<int32_t>(lhs->size() - rhs->size())) != 0) {
+        context->m_failedLhs = lhs_obj;
+        context->m_failedRhs = rhs_obj;
+        return 1;
+      }
+      for (size_t i = 0, n = lhs->size(); i < n; ++i) {
+        if ((r = SafeCompare(lhs->at(i), rhs->at(i), context)) != 0) return r;
+      }
+    } else if ((lhs != nullptr) && !lhs->empty() && (rhs == nullptr)) {
+      context->m_failedLhs = lhs_obj;
+      return 1;
+    } else if ((lhs == nullptr) && (rhs != nullptr) && !rhs->empty()) {
+      context->m_failedRhs = rhs_obj;
+      return -1;
+    }
+    return 0;
+  }
+
+== BaseClass::Compare (~/git-repos/UHDM/build/generated/src/BaseClass.cpp) — IT READS VpiName
+int32_t BaseClass::Compare(const BaseClass* const other,
+                           CompareContext* context) const {
+  int32_t r = 0;
+
+  const thistype_t* const lhs = this;
+  const thistype_t* const rhs = other;
+
+  if ((r = VpiType() - rhs->VpiType()) != 0) {
+    context->m_failedLhs = lhs;
+    context->m_failedRhs = rhs;
+    return r;
+  }
+  if ((r = VpiName().compare(rhs->VpiName())) != 0) {
+    context->m_failedLhs = lhs;
+    context->m_failedRhs = rhs;
+    return r;
+  }
+  if ((r = VpiDefName().compare(rhs->VpiDefName())) != 0) {
+    context->m_failedLhs = lhs;
+    context->m_failedRhs = rhs;
+    return r;
+  }
+
+  return r;
+}
+
+== nets::Compare (~/git-repos/UHDM/build/generated/src/nets.cpp) — IT READS VpiName AND VpiNetType
+42:std::string_view nets::VpiName() const {
+46:bool nets::VpiName(std::string_view data) {
+66:const BaseClass* nets::GetByVpiName(std::string_view name) const {
+69:      if (ref->VpiName().compare(name) == 0) return ref;
+74:      if (ref->VpiName().compare(name) == 0) return ref;
+79:      if (ref->VpiName().compare(name) == 0) return ref;
+84:      if (ref->VpiName().compare(name) == 0) return ref;
+89:      if (ref->VpiName().compare(name) == 0) return ref;
+94:      if (ref->VpiName().compare(name) == 0) return ref;
+99:      if (ref->VpiName().compare(name) == 0) return ref;
+
+== logic_net::Compare — the m_visited SHORT CIRCUIT is the FIRST line
+int32_t logic_net::Compare(const BaseClass *other, CompareContext* context) const {
+  int32_t r = 0;
+  if (!context->m_visited.insert(this).second) return r;
+  if ((r = basetype_t::Compare(other, context)) != 0) return r;
+
+  const thistype_t *const lhs = this;
+  const thistype_t *const rhs = (const thistype_t *)other;
+
+  if ((r = SafeCompare(lhs->Left_expr(), rhs->Left_expr(), context)) != 0) return r;
+  if ((r = SafeCompare(lhs->Right_expr(), rhs->Right_expr(), context)) != 0) return r;
+  if ((r = SafeCompare(lhs, lhs->Ranges(), rhs, rhs->Ranges(), context)) != 0) return r;
+  return r;
+}

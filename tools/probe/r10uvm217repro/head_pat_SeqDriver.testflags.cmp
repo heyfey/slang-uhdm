@@ -1,0 +1,32 @@
+LHS:
+decompile:
+logic_net: (work@top_tb.top_tb), id:328600, line:234:24, endln:234:30
+|vpiParent:
+\_module_inst: work@top_tb (work@top_tb), id:328244, file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/testbench.sv, line:210:1, endln:236:18
+|vpiName:top_tb
+|vpiFullName:work@top_tb.top_tb
+|vpiNetType:1
+
+decompile:
+logic_net: (work@top_tb.top_tb), id:328600, line:234:24, endln:234:30
+|vpiParent:
+\_module_inst: work@top_tb (work@top_tb), id:328244, file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/testbench.sv, line:210:1, endln:236:18
+|vpiName:top_tb
+|vpiFullName:work@top_tb.top_tb
+|vpiNetType:1
+RHS:
+decompile:
+logic_net: (work@top_tb.this), id:299812, line:152:45, endln:152:49
+|vpiParent:
+\_module_inst: work@top_tb (work@top_tb), id:291924, file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/testbench.sv, line:210:1, endln:236:18
+|vpiName:this
+|vpiFullName:work@top_tb.this
+|vpiNetType:1
+
+decompile:
+logic_net: (work@top_tb.this), id:299812, line:152:45, endln:152:49
+|vpiParent:
+\_module_inst: work@top_tb (work@top_tb), id:291924, file:/home/heyfey/git-repos/Surelog/third_party/tests/SeqDriver/testbench.sv, line:210:1, endln:236:18
+|vpiName:this
+|vpiFullName:work@top_tb.this
+|vpiNetType:1

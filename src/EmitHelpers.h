@@ -2361,33 +2361,172 @@ inline std::vector<const slang::ast::VariableSymbol*> collectImportedPkgVars(
                 return true;
         }
     };
-    for (auto& [pkg, copies] : collectMaterializedPkgs(body)) {
-        // ONE copy of the home package's listing, built the way emitPackage
-        // builds it: members() in order, with each hoisted out-of-body
-        // constructor local flushed as soon as the walk passes its
-        // include-expanded position.
-        std::vector<const slang::ast::VariableSymbol*> one203;
-        std::vector<const Symbol*> hoist203;
-        collectOobCtorLocalsIn(*pkg, hoist203);
-        size_t hIdx203 = 0;
-        auto flush203 = [&](slang::SourceLocation upto, bool all) {
-            while (hIdx203 < hoist203.size() &&
-                   (all || includeExpandedLess(
-                               includeExpandedKey(sm,
-                                                  hoist203[hIdx203]->location),
-                               includeExpandedKey(sm, upto)))) {
-                const Symbol* h203 = hoist203[hIdx203++];
-                if (modelled(*h203))
-                    one203.push_back(&h203->as<slang::ast::VariableSymbol>());
+    // § transitiveImportRidesTheHoist217 — ONE copy of the home package's
+    // listing, built the way `emitPackage` builds THAT PACKAGE'S OWN listing:
+    // `members()` in order, each hoisted out-of-body constructor local flushed
+    // as soon as the walk passes its include-expanded position, AND — the term
+    // this function was missing — the CLONE of every package the home package
+    // itself WILDCARD-IMPORTS, spliced in at the import item's own source slot.
+    //
+    // THE SURELOG DECODE, and why the transitive hop is automatic there.
+    // `CompileHelper::importPackage` (src/DesignCompile/CompileHelper.cpp:127)
+    // copies the imported package's registries into the IMPORTING SCOPE'S OWN
+    // registries, and it does that for a package scope exactly as it does for a
+    // module scope (`CompilePackage::collectObjects_`,
+    // src/DesignCompile/CompilePackage.cpp:150/165, calls it with
+    // `scope = m_package` while walking the package's items IN ORDER).  Its
+    // Nets arm — `CompileHelper.cpp:183-190` —
+    //
+    //     auto& netSet = def->getSignals();
+    //     for (auto& net : netSet) scope->getSignals().push_back(net);
+    //
+    // pushes into a std::vector, so the entries ACCUMULATE (the Variables arm's
+    // `scope->addVariable` writes a name-keyed std::map and de-duplicates; the
+    // listings the judge sees are built from the SIGNAL VECTOR — the def-view
+    // module net list is `writeNets(mod, mod->getSignals(), …)`,
+    // `UhdmWriter.cpp:1402-1461`, and the elaborated view's `Variables()` is
+    // `netlist->variables()`, which `NetlistElaboration::elab_signals_`
+    // (NetlistElaboration.cpp:2667) builds from that same `comp->getSignals()`).
+    // So by the time a MODULE imports package P, P's own signal vector has
+    // ALREADY been enlarged with package Q's entries, and the module's copy
+    // carries them without the module ever naming Q.  The chain composes: a
+    // three-package chain R -> Q -> P leaves P's vector holding R's entries too,
+    // and a module importing P materialises all of them, once per import copy.
+    //
+    // MEASURED on the SeqDriver golden: `adpcm_pkg` (testbench.sv:10) declares
+    // no package-scope data of its own and wildcard-imports `uvm_pkg`; golden's
+    // `package adpcm_pkg` lists uvm_pkg's 33 entries, and golden's def-view
+    // `module_inst work@top_tb` lists those 33 TWICE — once for
+    // `import uvm_pkg::*` and once for `import adpcm_pkg::*` — before its
+    // implicit-wire block.  A members()-only walk of `adpcm_pkg` yields ZERO,
+    // which was the 33-net head.
+    //
+    // § transitiveImportRidesTheHoist217v (r10uvm217 VERIFIER) — THE CYCLE
+    // EDGE, and WHY A `seen` SET IS NOT WHAT SURELOG DOES.
+    //
+    // Surelog does not de-duplicate at all.  `CompileHelper::importPackage`
+    // appends the imported package's WHOLE signal vector AS IT STANDS AT THAT
+    // MOMENT, and the packages are compiled in DECLARATION ORDER, so the model
+    // that reproduces every golden measured here is one pass:
+    //
+    //     for each package P in declaration order:
+    //        vec[P] = concat(vec[Q] for each `import Q::*` item) ++ P's own items
+    //
+    // Two consequences this function must respect, both measured on real
+    // Surelog goldens (tools/probe/r10v217repro/):
+    //
+    //  (1) A DIAMOND IS NOT DE-DUPLICATED.  `package pd3` importing `pd1` and
+    //      `pd2`, both importing `pd0`, lists pd0's entries TWICE, and golden's
+    //      `module vd_root` (which imports only pd3) lists them twice too:
+    //      golden's def-view net vector is [d0_v d0_s d1_v d0_v d0_s d2_v d3_v
+    //      vd_root_clk], 8 entries.  `emitPackage`'s `impVars9` already gets
+    //      this right because it builds a FRESH `seen9{&pkg}` for EVERY
+    //      root-level import item (ParamEmit.cpp ~23079) — so the `seen` set
+    //      only ever suppresses a repeat WITHIN one import item's subtree.
+    //      This function must be built the same way, or a module's copy of P
+    //      disagrees with `emitPackage`'s own listing of P (measured: golden 7
+    //      / emitPackage 7 / this function 5 for `pd3`).
+    //
+    //  (2) A CYCLE EDGE HOISTS NOTHING IN THE FIRST-DECLARED DIRECTION.
+    //      Mutual package imports are legal SV and BOTH producers accept them
+    //      (`package pz1; import pz2::*;` / `package pz2; import pz1::*;` —
+    //      slang rc=0, Surelog 0 errors).  Golden's `pz1` lists ONLY `z1_v`,
+    //      because when Surelog compiled pz1 the pz2 component's vector was
+    //      still empty; golden's `pz2` lists [z1_v, z2_v].  A `seen`-guarded
+    //      recursion instead walks pz1 -> pz2 and hoists `z2_v` into every
+    //      module that imports pz1 — a NAME GOLDEN DOES NOT HOIST.  Since the
+    //      declaration order Surelog used is not recoverable here, the
+    //      CONSERVATIVE rule is taken: an import edge p -> q whose target `q`
+    //      wildcard-imports its way BACK to `p` contributes nothing.  That is
+    //      exactly golden in the first-declared direction, and in the other
+    //      direction it under-lists the way the pre-217 code already did, so
+    //      it can never invent a name.  On an ACYCLIC import graph — every arm
+    //      in this tree and every database in both corpora — the predicate is
+    //      false everywhere and the rule is a no-op.
+    auto reachesBack217v = [](const PackageSymbol& from,
+                              const PackageSymbol& target) {
+        std::set<const PackageSymbol*> walked217v;
+        std::function<bool(const PackageSymbol&)> walk217v =
+            [&](const PackageSymbol& p) {
+                if (&p == &target)
+                    return true;
+                if (!walked217v.insert(&p).second)
+                    return false;
+                for (auto& m : p.members()) {
+                    if (m.kind != SymbolKind::WildcardImport)
+                        continue;
+                    if (auto* q = m.as<WildcardImportSymbol>().getPackage())
+                        if (walk217v(*q))
+                            return true;
+                }
+                return false;
+            };
+        return walk217v(from);
+    };
+    std::function<void(const PackageSymbol&, std::set<const PackageSymbol*>&,
+                       bool, std::vector<const slang::ast::VariableSymbol*>&)>
+        listing217 = [&](const PackageSymbol& p,
+                         std::set<const PackageSymbol*>& seen217, bool root217,
+                         std::vector<const slang::ast::VariableSymbol*>& one203) {
+            std::vector<const Symbol*> hoist203;
+            collectOobCtorLocalsIn(p, hoist203);
+            size_t hIdx203 = 0;
+            auto flush203 = [&](slang::SourceLocation upto, bool all) {
+                while (hIdx203 < hoist203.size() &&
+                       (all ||
+                        includeExpandedLess(
+                            includeExpandedKey(sm, hoist203[hIdx203]->location),
+                            includeExpandedKey(sm, upto)))) {
+                    const Symbol* h203 = hoist203[hIdx203++];
+                    if (modelled(*h203))
+                        one203.push_back(
+                            &h203->as<slang::ast::VariableSymbol>());
+                }
+            };
+            for (auto& pm : p.members()) {
+                if (pm.kind == SymbolKind::Variable) {
+                    flush203(pm.location, false);
+                    if (modelled(pm))
+                        one203.push_back(&pm.as<slang::ast::VariableSymbol>());
+                    continue;
+                }
+                if (pm.kind != SymbolKind::WildcardImport)
+                    continue;
+                auto* q217 = pm.as<WildcardImportSymbol>().getPackage();
+                if (!q217)
+                    continue;
+                // Term for term the shape `emitPackage` already emits for the
+                // package's OWN listing (ParamEmit.cpp, `impVars9`): the
+                // outermost hop flushes the hoisted locals that precede the
+                // import ITEM's own source slot before splicing the clone in,
+                // and the deeper hops do not.  The two listings MUST agree: a
+                // module's copy of P is P's listing — which is why the `seen`
+                // set below is FRESH FOR EVERY ROOT-LEVEL IMPORT ITEM, term for
+                // term with `impVars9`'s `std::set<const PackageSymbol*>
+                // seen9{&pkg}` (§ 217v (1): a diamond is not de-duplicated).
+                if (root217) {
+                    slang::SourceLocation impAt217 = pm.location;
+                    if (auto* isyn217 = pm.getSyntax())
+                        impAt217 = isyn217->sourceRange().start();
+                    flush203(impAt217, false);
+                }
+                // § 217v (2): an edge on a cycle hoists nothing.
+                if (reachesBack217v(*q217, p))
+                    continue;
+                if (root217) {
+                    std::set<const PackageSymbol*> item217v{&p};
+                    if (item217v.insert(q217).second)
+                        listing217(*q217, item217v, false, one203);
+                }
+                else if (seen217.insert(q217).second)
+                    listing217(*q217, seen217, false, one203);
             }
+            flush203(slang::SourceLocation(), true);
         };
-        for (auto& pm : pkg->members())
-            if (pm.kind == SymbolKind::Variable) {
-                flush203(pm.location, false);
-                if (modelled(pm))
-                    one203.push_back(&pm.as<slang::ast::VariableSymbol>());
-            }
-        flush203(slang::SourceLocation(), true);
+    for (auto& [pkg, copies] : collectMaterializedPkgs(body)) {
+        std::vector<const slang::ast::VariableSymbol*> one203;
+        std::set<const PackageSymbol*> seen217{pkg};
+        listing217(*pkg, seen217, /*root217=*/true, one203);
         for (int i = 0; i < copies; i++)
             out.insert(out.end(), one203.begin(), one203.end());
     }

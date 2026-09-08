@@ -1,0 +1,149 @@
+r10uvm217 — THE GATE BATTERY, VERBATIM.  BASE 48199935.
+pristine md5 967765e2f329aadd3dc15abdb9543676   patched md5 f70773944aedb3a96fbb0bc1120c4939
+main-tree build/slang-uhdm at 48199935: 967765e2f329aadd3dc15abdb9543676  (== pristine)
+
+== (1) GOLDENS, SLANG_UHDM exported explicitly per binary
+-- /tmp/r10uvm217_pris.bin  PASS=23 FAIL=0
+-- /tmp/r10uvm217_pat.bin  PASS=23 FAIL=0
+-- /bin/false negative control  PASS=0 FAIL=23
+
+== (2) uhdm2rtlil, both modes, both binaries
+/tmp/r10uvm217_wd_pris/u2r_tf.csv : {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+/tmp/r10uvm217_wd_pris/u2r_def.csv : {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+/tmp/r10uvm217_wd_pat/u2r_tf.csv : {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+/tmp/r10uvm217_wd_pat/u2r_def.csv : {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+-- cmds.txt audited BY BINARY PATH
+   /tmp/r10uvm217_wd_pris/u2r: 1462 cmds.txt, distinct slang binaries: /tmp/r10uvm217_pris.bin 
+   /tmp/r10uvm217_wd_pat/u2r: 1462 cmds.txt, distinct slang binaries: /tmp/r10uvm217_pat.bin 
+-- ct8rows u2r testflags vs committed baseline
+PASS: every row byte-identical to the committed baseline
+-- ct8rows u2r testflags vs THIS pass's pristine
+PASS: every row byte-identical to the committed baseline
+-- ct8rows u2r default  vs THIS pass's pristine
+PASS: every row byte-identical to the committed baseline
+-- byteverify u2r (SELFCHECK=1)
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+
+== (3) SURELOG corpus, both binaries
+/tmp/r10uvm217_wd_pris/sl.csv : default/CMP_EQUAL=475 default/CMP_NOTEQUAL=6 default/DEFERRED=5 default/SLANG_REJECT=283 default/SURELOG_FAIL=25 testflags/CMP_EQUAL=469 testflags/CMP_NOTEQUAL=6 testflags/DEFERRED=5 testflags/NO_DATABASE=3 testflags/NO_UHDM=1 testflags/SLANG_REJECT=284 testflags/SURELOG_FAIL=23 testflags/TIMEOUT=1 testflags/UNTRANSLATABLE=2
+/tmp/r10uvm217_wd_pat/sl.csv : default/CMP_EQUAL=475 default/CMP_NOTEQUAL=6 default/DEFERRED=5 default/SLANG_REJECT=283 default/SURELOG_FAIL=25 testflags/CMP_EQUAL=469 testflags/CMP_NOTEQUAL=6 testflags/DEFERRED=5 testflags/NO_DATABASE=3 testflags/NO_UHDM=1 testflags/SLANG_REJECT=284 testflags/SURELOG_FAIL=23 testflags/TIMEOUT=1 testflags/UNTRANSLATABLE=2
+-- cmds.txt audited BY BINARY PATH
+   /tmp/r10uvm217_wd_pris/sl: 1573 cmds.txt, distinct slang binaries: /tmp/r10uvm217_pris.bin 
+   /tmp/r10uvm217_wd_pat/sl: 1573 cmds.txt, distinct slang binaries: /tmp/r10uvm217_pat.bin 
+-- ct8rows surelog: committed baseline vs PATCHED
+---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+---- per-mode STATUS histogram (baseline -> fresh)
+  default  base:     475 CMP_EQUAL       6 CMP_NOTEQUAL       5 DEFERRED     283 SLANG_REJECT      25 SURELOG_FAIL 
+  default  fresh:     475 CMP_EQUAL       6 CMP_NOTEQUAL       5 DEFERRED     283 SLANG_REJECT      25 SURELOG_FAIL 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     319      249 differ     226 match 
+  default  fresh:     319      249 differ     226 match 
+  testflags  base:     325      303 differ     166 match 
+-- ct8rows surelog: THIS pass's PRISTINE vs PATCHED (the authoritative one)
+---- WHOLE-ROW diff (status AND dump column): 1 differing ROWS (2 diff row-sides)
+< Earlgrey_0_1,testflags,CMP_EQUAL,,,
+> Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+---- per-mode STATUS histogram (baseline -> fresh)
+  testflags  base:     469 CMP_EQUAL       6 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+  testflags  fresh:     469 CMP_EQUAL       6 CMP_NOTEQUAL       5 DEFERRED       3 NO_DATABASE       1 NO_UHDM     284 SLANG_REJECT      23 SURELOG_FAIL       1 TIMEOUT       2 UNTRANSLATABLE 
+---- per-mode DUMP-column histogram (baseline -> fresh)
+  default  base:     319      249 differ     226 match 
+   NO ROW CONVERTED in either direction; the ONE differing row-SIDE is Earlgrey_0_1/testflags,
+   status CMP_EQUAL on BOTH sides, only the informational uhdm-dump column, and its two
+   databases are BYTE-IDENTICAL (protdb217.sh below) -- the recorded uhdm-dump timeout flake.
+-- byteverify surelog (SELFCHECK=1)
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=7196f3aefbf2 pristine=827c3d435483
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=f7967113b592 pristine=d5265ab09698
+MOVERS: 2 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+
+== (4) HEADS (rowheads.sh, each row against ITS OWN mode's golden)
+-- PRISTINE
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default    1327330      1 cmp rc=255
+SeqDriver      testflags  1327330      1 cmp rc=255
+SimpleUVM      default          0      0 cmp rc=0
+SimpleUVM      testflags        0      0 cmp rc=0
+Scoreboard     default          0      0 cmp rc=0
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default        838      1 cmp rc=255
+MiniAmiq       testflags      838      1 cmp rc=255
+BuildUVMPkg    default          0      0 cmp rc=0
+BuildUVMPkg    testflags        0      0 cmp rc=0
+Earlgrey_0_1   default          0      0 cmp rc=0
+Earlgrey_0_1   testflags        0      0 cmp rc=0
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+-- PATCHED
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default         32      1 cmp rc=255
+SeqDriver      testflags       32      1 cmp rc=255
+SimpleUVM      default          0      0 cmp rc=0
+SimpleUVM      testflags        0      0 cmp rc=0
+Scoreboard     default          0      0 cmp rc=0
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default        838      1 cmp rc=255
+MiniAmiq       testflags      838      1 cmp rc=255
+BuildUVMPkg    default          0      0 cmp rc=0
+BuildUVMPkg    testflags        0      0 cmp rc=0
+Earlgrey_0_1   default          0      0 cmp rc=0
+Earlgrey_0_1   testflags        0      0 cmp rc=0
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+
+== (5) THE SEVEN PROTECTED CMP_EQUAL ROW-MODES — BOTH COLUMNS, BOTH BINARIES, JUDGE rc
+  BuildUVMPkg   default   pristine=CMP_EQUAL/'differ'  patched=CMP_EQUAL/'differ'  SAME-ROW
+  BuildUVMPkg   testflags pristine=CMP_EQUAL/'differ'  patched=CMP_EQUAL/'differ'  SAME-ROW
+  SimpleUVM     default   pristine=CMP_EQUAL/'differ'  patched=CMP_EQUAL/'differ'  SAME-ROW
+  SimpleUVM     testflags pristine=CMP_EQUAL/'differ'  patched=CMP_EQUAL/'differ'  SAME-ROW
+  Earlgrey_0_1  default   pristine=CMP_EQUAL/'differ'  patched=CMP_EQUAL/'differ'  SAME-ROW
+  Earlgrey_0_1  testflags pristine=CMP_EQUAL/''  patched=CMP_EQUAL/'differ'  DUMP-COLUMN-ONLY
+  Scoreboard    default   pristine=CMP_EQUAL/'differ'  patched=CMP_EQUAL/'differ'  SAME-ROW
+  Rggen         default   pristine=CMP_EQUAL/'differ'  patched=CMP_EQUAL/'differ'  SAME-ROW
+  (judge rc: rowheads.sh above records cmp rc=0 and 0 heads for every one of them on BOTH binaries)
+
+== (6) CANARIES / ctcan2 / canaudit / protected databases
+-- canaries surelog, PATCHED vs the COMMITTED baseline
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+-- canaries surelog, PATCHED vs THIS pass's PRISTINE
+  Earlgrey_0_1                   testflags CHANGED CMP_EQUAL/ -> CMP_EQUAL/differ
+---- canary rows: ok=51 changed=1 absent=0 unknown-names=7
+-- canaries uhdm2rtlil
+---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+-- ctcan2
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.
+-- protected databases (md5, patched vs pristine)
+  InterfaceModPort     default   patched=59a365f3ce2c pristine=59a365f3ce2c SAME
+  InterfaceModPort     testflags patched=59a365f3ce2c pristine=59a365f3ce2c SAME
+  BlackParrotComplex   default   patched=e3e354129d5a pristine=e3e354129d5a SAME
+  BlackParrotComplex   testflags patched=73a10e8217e5 pristine=73a10e8217e5 SAME
+  YosysOldOr           default   patched=d68e0796d62c pristine=d68e0796d62c SAME
+  YosysOldOr           testflags patched=d68e0796d62c pristine=d68e0796d62c SAME
+  SVSwitch             default   patched=4842211c4030 pristine=4842211c4030 SAME
+  SVSwitch             testflags patched=4842211c4030 pristine=4842211c4030 SAME
+  YosysVerx            default   patched=6ccda350c24a pristine=6ccda350c24a SAME
+  YosysVerx            testflags patched=6ccda350c24a pristine=6ccda350c24a SAME
+  YosysBigSimReed      default   patched=1275131a6918 pristine=1275131a6918 SAME
+  YosysBigSimReed      testflags patched=158ed16c2931 pristine=158ed16c2931 SAME
+  YosysOldOpen         default   patched=6d0e7ba67451 pristine=6d0e7ba67451 SAME
+  YosysOldOpen         testflags patched=6d0e7ba67451 pristine=6d0e7ba67451 SAME
+  ApbSlave             default   patched=1c5d153894cf pristine=1c5d153894cf SAME
+  ApbSlave             testflags patched=1c5d153894cf pristine=1c5d153894cf SAME
+  ClassExtends         default   patched=e9e8df985eaa pristine=e9e8df985eaa SAME
+  ClassExtends         testflags patched=340f6d208265 pristine=340f6d208265 SAME
+  Earlgrey_0_1         default   patched=8c2ba25c4d7f pristine=8c2ba25c4d7f SAME
+  Earlgrey_0_1         testflags patched=92bf7b7facdc pristine=92bf7b7facdc SAME
+-- compared=20 NOFILE=0 MOVED=0
+
+== (7) THE WIDE BOUNDARY
+LISTED=5526 PROCESSED=5526 PRODUCED_DBS=5333 MOVED_ARMS=39 RC_DIFFS=0
+   armscore217.sh re-scored EVERY mover against a REAL Surelog golden in BOTH views:
+-- ARM-VIEWS SCORED: 78  NOT-SCORED: 0

@@ -1,0 +1,89 @@
+r10uvm217 — THE THREE STATIC-ADDRESS FALSE MOVERS, CONVICTED NOT ASSUMED
+
+Binary sizes: pristine 22589784  patched 22588304
+
+== r10buvm22repro/g22.sv
+   occurrences of the word 'import' in the source: 1
+   occurrences of the word 'package' in the source: 7
+   listing census (armscore217.sh): IDENTICAL on both binaries, both views
+   uhdm-dump line number of the '\_weaklyReferenced:' marker: 4357
+   differing dump lines (file-name line excluded) and their line numbers:
+     5118c5118
+     <         |vpiDecompile:22744825
+     ---
+     >         |vpiDecompile:22740729
+     5120c5120
+     <         |UINT:22744825
+     ---
+     >         |UINT:22740729
+     5166c5166
+     <         |vpiDecompile:22744825
+     ---
+     >         |vpiDecompile:22740729
+     5168c5168
+     <         |UINT:22744825
+     ---
+     >         |UINT:22740729
+     5214c5214
+     <         |vpiDecompile:22743969
+     ---
+     >         |vpiDecompile:22739873
+     5216c5216
+     <         |UINT:22743969
+     ---
+     >         |UINT:22739873
+
+== r10uvm154repro/l154_noenum.sv
+   occurrences of the word 'import' in the source: 0
+   occurrences of the word 'package' in the source: 2
+   listing census (armscore217.sh): IDENTICAL on both binaries, both views
+   uhdm-dump line number of the '\_weaklyReferenced:' marker: 646
+   differing dump lines (file-name line excluded) and their line numbers:
+     678c678
+     <         |vpiDecompile:22744825
+     ---
+     >         |vpiDecompile:22740729
+     680c680
+     <         |UINT:22744825
+     ---
+     >         |UINT:22740729
+     719c719
+     <         |vpiDecompile:22744825
+     ---
+     >         |vpiDecompile:22740729
+     721c721
+     <         |UINT:22744825
+     ---
+     >         |UINT:22740729
+
+== r10uvm185repro/grid185/g185_e_kinds.sv
+   occurrences of the word 'import' in the source: 0
+   occurrences of the word 'package' in the source: 2
+   listing census (armscore217.sh): IDENTICAL on both binaries, both views
+   uhdm-dump line number of the '\_weaklyReferenced:' marker: 2690
+   differing dump lines (file-name line excluded) and their line numbers:
+     2930c2930
+     <         |vpiDecompile:22744825
+     ---
+     >         |vpiDecompile:22740729
+     2932c2932
+     <         |UINT:22744825
+     ---
+     >         |UINT:22740729
+     3156c3156
+     <         |vpiDecompile:22744825
+     ---
+     >         |vpiDecompile:22740729
+     3158c3158
+     <         |UINT:22744825
+     ---
+     >         |UINT:22740729
+     3378c3378
+     <         |vpiDecompile:22744825
+     ---
+     >         |vpiDecompile:22740729
+     3380c3380
+     <         |UINT:22744825
+     ---
+     >         |UINT:22740729
+

@@ -1,0 +1,76 @@
+=== r10v217 — THE CYCLE REGRESSION, measured on ONE REAL Surelog golden ===
+arm: arms/v217_g_cycle.sv   golden: surelog -parse -d coveruhdm -nobuiltin -nocache
+LHS is ALWAYS golden.  slang rc=0 on all three binaries; Surelog reports 0 errors.
+
+-- GOLDEN
+ARITY|def|module_inst:work@mz:|nets|2|vec
+NET|def|module_inst:work@mz:|0|logic_net|z1_v|nt=0|rnt=0|impl=0|sgn=0|ts=int_typespec()
+NET|def|module_inst:work@mz:|1|logic_net|mz_clk|nt=36|rnt=0|impl=0|sgn=0|ts=logic_typespec()
+ARITY|def|module_inst:work@mz:|vars|0|NULLVEC
+ARITY|pkg|package:pz1:pz1|nets|0|NULLVEC
+ARITY|pkg|package:pz1:pz1|vars|1|vec
+VAR|pkg|package:pz1:pz1|0|int_var|z1_v|auto=1|vis=1|ts=int_typespec()
+ARITY|pkg|package:pz2:pz2|nets|0|NULLVEC
+ARITY|pkg|package:pz2:pz2|vars|2|vec
+VAR|pkg|package:pz2:pz2|0|int_var|z1_v|auto=1|vis=1|ts=int_typespec()
+VAR|pkg|package:pz2:pz2|1|int_var|z2_v|auto=1|vis=1|ts=int_typespec()
+ARITY|elab|module_inst:work@mz:work@mz|nets|0|NULLVEC
+ARITY|elab|module_inst:work@mz:work@mz|vars|2|vec
+VAR|elab|module_inst:work@mz:work@mz|0|int_var|z1_v|auto=1|vis=1|ts=int_typespec()
+VAR|elab|module_inst:work@mz:work@mz|1|logic_var|mz_clk|auto=0|vis=1|ts=logic_typespec()
+
+-- PRISTINE 48199935 (md5 967765e2f329aadd3dc15abdb9543676)
+ARITY|def|module_inst:work@mz:|nets|2|vec
+NET|def|module_inst:work@mz:|0|logic_net|z1_v|nt=0|rnt=0|impl=0|sgn=0|ts=int_typespec()
+NET|def|module_inst:work@mz:|1|logic_net|mz_clk|nt=36|rnt=0|impl=0|sgn=0|ts=logic_typespec()
+ARITY|def|module_inst:work@mz:|vars|0|NULLVEC
+ARITY|pkg|package:pz1:pz1|nets|0|NULLVEC
+ARITY|pkg|package:pz1:pz1|vars|2|vec
+VAR|pkg|package:pz1:pz1|0|int_var|z2_v|auto=1|vis=1|ts=int_typespec()
+VAR|pkg|package:pz1:pz1|1|int_var|z1_v|auto=1|vis=1|ts=int_typespec()
+ARITY|pkg|package:pz2:pz2|nets|0|NULLVEC
+ARITY|pkg|package:pz2:pz2|vars|2|vec
+VAR|pkg|package:pz2:pz2|0|int_var|z1_v|auto=1|vis=1|ts=int_typespec()
+VAR|pkg|package:pz2:pz2|1|int_var|z2_v|auto=1|vis=1|ts=int_typespec()
+ARITY|elab|module_inst:work@mz:work@mz|nets|0|NULLVEC
+ARITY|elab|module_inst:work@mz:work@mz|vars|2|vec
+VAR|elab|module_inst:work@mz:work@mz|0|int_var|z1_v|auto=1|vis=1|ts=int_typespec()
+VAR|elab|module_inst:work@mz:work@mz|1|logic_var|mz_clk|auto=0|vis=1|ts=logic_typespec()
+
+-- r10uvm217.patch AS SUBMITTED (md5 f70773944aedb3a96fbb0bc1120c4939)
+ARITY|def|module_inst:work@mz:|nets|3|vec
+NET|def|module_inst:work@mz:|0|logic_net|z2_v|nt=0|rnt=0|impl=0|sgn=0|ts=int_typespec()
+NET|def|module_inst:work@mz:|1|logic_net|z1_v|nt=0|rnt=0|impl=0|sgn=0|ts=int_typespec()
+NET|def|module_inst:work@mz:|2|logic_net|mz_clk|nt=36|rnt=0|impl=0|sgn=0|ts=logic_typespec()
+ARITY|def|module_inst:work@mz:|vars|0|NULLVEC
+ARITY|pkg|package:pz1:pz1|nets|0|NULLVEC
+ARITY|pkg|package:pz1:pz1|vars|2|vec
+VAR|pkg|package:pz1:pz1|0|int_var|z2_v|auto=1|vis=1|ts=int_typespec()
+VAR|pkg|package:pz1:pz1|1|int_var|z1_v|auto=1|vis=1|ts=int_typespec()
+ARITY|pkg|package:pz2:pz2|nets|0|NULLVEC
+ARITY|pkg|package:pz2:pz2|vars|2|vec
+VAR|pkg|package:pz2:pz2|0|int_var|z1_v|auto=1|vis=1|ts=int_typespec()
+VAR|pkg|package:pz2:pz2|1|int_var|z2_v|auto=1|vis=1|ts=int_typespec()
+ARITY|elab|module_inst:work@mz:work@mz|nets|0|NULLVEC
+ARITY|elab|module_inst:work@mz:work@mz|vars|3|vec
+VAR|elab|module_inst:work@mz:work@mz|0|int_var|z2_v|auto=1|vis=1|ts=int_typespec()
+VAR|elab|module_inst:work@mz:work@mz|1|int_var|z1_v|auto=1|vis=1|ts=int_typespec()
+VAR|elab|module_inst:work@mz:work@mz|2|logic_var|mz_clk|auto=0|vis=1|ts=logic_typespec()
+
+-- r10uvm217.verified.patch (md5 88939f849650eef73a9126345d4a2373)
+ARITY|def|module_inst:work@mz:|nets|2|vec
+NET|def|module_inst:work@mz:|0|logic_net|z1_v|nt=0|rnt=0|impl=0|sgn=0|ts=int_typespec()
+NET|def|module_inst:work@mz:|1|logic_net|mz_clk|nt=36|rnt=0|impl=0|sgn=0|ts=logic_typespec()
+ARITY|def|module_inst:work@mz:|vars|0|NULLVEC
+ARITY|pkg|package:pz1:pz1|nets|0|NULLVEC
+ARITY|pkg|package:pz1:pz1|vars|2|vec
+VAR|pkg|package:pz1:pz1|0|int_var|z2_v|auto=1|vis=1|ts=int_typespec()
+VAR|pkg|package:pz1:pz1|1|int_var|z1_v|auto=1|vis=1|ts=int_typespec()
+ARITY|pkg|package:pz2:pz2|nets|0|NULLVEC
+ARITY|pkg|package:pz2:pz2|vars|2|vec
+VAR|pkg|package:pz2:pz2|0|int_var|z1_v|auto=1|vis=1|ts=int_typespec()
+VAR|pkg|package:pz2:pz2|1|int_var|z2_v|auto=1|vis=1|ts=int_typespec()
+ARITY|elab|module_inst:work@mz:work@mz|nets|0|NULLVEC
+ARITY|elab|module_inst:work@mz:work@mz|vars|2|vec
+VAR|elab|module_inst:work@mz:work@mz|0|int_var|z1_v|auto=1|vis=1|ts=int_typespec()
+VAR|elab|module_inst:work@mz:work@mz|1|logic_var|mz_clk|auto=0|vis=1|ts=logic_typespec()

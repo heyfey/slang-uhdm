@@ -1,0 +1,1 @@
+-- rows scanned=1358  CANDIDATES (upper bound)=0  no-golden=0  rows with an OURS-LONGER cell=0

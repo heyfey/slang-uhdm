@@ -1,0 +1,23 @@
+=== r10v217 — THE WIDE BOUNDARY (bound217.sh over a COPY of the whole probe tree)
+
+-- r10uvm217.patch vs PRISTINE 48199935
+LISTED=5526 PROCESSED=5526 PRODUCED_DBS=5333 MOVED_ARMS=39 RC_DIFFS=0
+   MOVED_ARMS listed in BOUNDARY.movers.pat_vs_pris.txt; scored in ARMSCORE.pat_vs_pris.txt
+   ARM-VIEWS SCORED 78, NOT-SCORED 0, CALIB non-null 0, TO-GOLDEN 72 / unchanged 6 / AWAY 0
+   AGREE 686 -> 1460   ONLY-GOLDEN 684 -> 232   ONLY-OURS 4 -> 4
+   NAMEBAG over the 78: name-only one-sided-OURS 6 -> 6, ARM-VIEWS THAT GAINED A NAME: 0
+   g217_f_muststay.sv correctly ABSENT from the moved list.
+
+-- r10uvm217.verified.patch vs r10uvm217.patch
+LISTED=5526 PROCESSED=5526 PRODUCED_DBS=5333 MOVED_ARMS=7 RC_DIFFS=0
+   MOVED_ARMS listed in BOUNDARY.movers.fix_vs_pat.txt; scored in ARMSCORE.fix_vs_pat.txt
+   ARM-VIEWS SCORED 14, NOT-SCORED 0, CALIB non-null 0, TO-GOLDEN 8 / unchanged 6 / AWAY 0
+   NAMEBAG over the 14: name-only one-sided-OURS 0 -> 0, ARM-VIEWS THAT GAINED A NAME: 0
+   The 6 'unchanged' are the byte-only FALSE MOVERS (g22.sv rc=4 on both binaries,
+   l154_noenum.sv, g185_e_kinds.sv): listing census cell-for-cell identical, whole
+   difference is the 64-bit constants 22744825 / 22740729 plus the dump header, and
+   every changed line sits BELOW the dump's \_weaklyReferenced: marker (646 -> 679/681;
+   2690 -> 2931/2933) — the tail the judge cannot reach.
+   NOTE the rcs: r10v124repro/v124_5_import.sv is rc=4 on SURELOG TOO ([ERROR] : 1 from
+   its 'export Origin::*'), so it is recorded, not leaned on — even though its Cell
+   listing becomes golden's exactly under the fix.

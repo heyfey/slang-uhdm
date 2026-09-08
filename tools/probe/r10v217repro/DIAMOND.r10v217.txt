@@ -1,0 +1,98 @@
+=== r10v217 — THE DIAMOND, measured on ONE REAL Surelog golden ===
+arm: arms/v217_a_diamond.sv (+ the pass's own grid217/g217_e_shapes.sv)
+LHS is ALWAYS golden.  Every rc 0.  CALIB (golden vs golden) null in every cell.
+
+-- module_inst work@vd_root def-view net vector   GOLDEN | r10uvm217 AS SUBMITTED
+0|d0_v	0|d0_v
+1|d0_s	1|d0_s
+2|d1_v	2|d1_v
+3|d0_v	3|d2_v
+4|d0_s	4|d3_v
+5|d2_v	5|vd_root_clk
+6|d3_v	
+7|vd_root_clk	
+
+-- module_inst work@vd_mid def-view net vector   GOLDEN | r10uvm217 AS SUBMITTED
+0|d0b_v	0|d0b_v
+1|d4_v	1|d4_v
+2|d0b_v	2|d5_v
+3|d5_v	3|d6_v
+4|d6_v	4|vd_mid_clk
+5|vd_mid_clk	
+
+-- module_inst work@vd_deep def-view net vector   GOLDEN | r10uvm217 AS SUBMITTED
+0|d0b_v	0|d0b_v
+1|d4_v	1|d4_v
+2|d0b_v	2|d5_v
+3|d5_v	3|d6_v
+4|d6_v	4|d7_v
+5|d7_v	5|vd_deep_clk
+6|vd_deep_clk	
+
+-- package pd3 own listing   GOLDEN | r10uvm217 AS SUBMITTED | PRISTINE
+0|d0_v	0|d0_v	0|d0_v
+1|d0_s	1|d0_s	1|d0_s
+2|d1_v	2|d1_v	2|d1_v
+3|d0_v	3|d0_v	3|d0_v
+4|d0_s	4|d0_s	4|d0_s
+5|d2_v	5|d2_v	5|d2_v
+6|d3_v	6|d3_v	6|d3_v
+
+-- package pd6 own listing   GOLDEN | r10uvm217 AS SUBMITTED | PRISTINE
+0|d0b_v	0|d0b_v	0|d0b_v
+1|d4_v	1|d4_v	1|d4_v
+2|d0b_v	2|d0b_v	2|d0b_v
+3|d5_v	3|d5_v	3|d5_v
+4|d6_v	4|d6_v	4|d6_v
+
+-- package pd7 own listing   GOLDEN | r10uvm217 AS SUBMITTED | PRISTINE
+0|d0b_v	0|d0b_v	0|d0b_v
+1|d4_v	1|d4_v	1|d4_v
+2|d0b_v	2|d5_v	2|d5_v
+3|d5_v	3|d6_v	3|d6_v
+4|d6_v	4|d7_v	4|d7_v
+5|d7_v		
+
+
+=== UNDER r10uvm217.verified.patch (same goldens, same run) ===
+-- work@vd_root   GOLDEN | verified
+0|d0_v	0|d0_v
+1|d0_s	1|d0_s
+2|d1_v	2|d1_v
+3|d0_v	3|d0_v
+4|d0_s	4|d0_s
+5|d2_v	5|d2_v
+6|d3_v	6|d3_v
+7|vd_root_clk	7|vd_root_clk
+
+-- work@vd_mid   GOLDEN | verified
+0|d0b_v	0|d0b_v
+1|d4_v	1|d4_v
+2|d0b_v	2|d0b_v
+3|d5_v	3|d5_v
+4|d6_v	4|d6_v
+5|vd_mid_clk	5|vd_mid_clk
+
+-- work@vd_deep   GOLDEN | verified
+0|d0b_v	0|d0b_v
+1|d4_v	1|d4_v
+2|d0b_v	2|d5_v
+3|d5_v	3|d6_v
+4|d6_v	4|d7_v
+5|d7_v	5|vd_deep_clk
+6|vd_deep_clk	
+
+-- work@ge_diamond (the pass's OWN grid arm)   GOLDEN | r10uvm217 | verified
+0|e0_v	0|e0_v	0|e0_v
+1|e0_s	1|e0_s	1|e0_s
+2|e1_v	2|e1_v	2|e1_v
+3|e0_v	3|e2_v	3|e0_v
+4|e0_s	4|e3_v	4|e0_s
+5|e2_v	5|ge_diamond_clk	5|e2_v
+6|e3_v		6|e3_v
+7|ge_diamond_clk		7|ge_diamond_clk
+
+vd_root, vd_mid and ge_diamond are GOLDEN EXACTLY under the fix.  vd_deep stays
+one short because emitPackage's own package pd7 listing is one short on ALL THREE
+binaries (README R2) — and that is the point: the module's copy now EQUALS the
+package listing, which is what the law says it is.

@@ -1,0 +1,187 @@
+=== r10v217 — GATES
+
+-- binaries (all built by this verifier from a FRESH 48199935 worktree, cmake -j 2)
+967765e2f329aadd3dc15abdb9543676  /tmp/v217_pris.bin
+f70773944aedb3a96fbb0bc1120c4939  /tmp/v217_pat.bin
+88939f849650eef73a9126345d4a2373  /tmp/v217_fix.bin
+22593896 /tmp/v217_fix.bin
+22588304 /tmp/v217_pat.bin
+22589784 /tmp/v217_pris.bin
+
+-- goldens (SLANG_UHDM exported explicitly per binary)
+  pris: PASS=23 FAIL=0
+  pat: PASS=23 FAIL=0
+  fix: PASS=23 FAIL=0
+  /bin/false: PASS=0 FAIL=23
+
+-- corpus status counts
+  pris  surelog     default   {'CMP_EQUAL': 475, 'SLANG_REJECT': 283, 'SURELOG_FAIL': 25, 'DEFERRED': 5, 'CMP_NOTEQUAL': 6}
+  pris  surelog     testflags {'CMP_EQUAL': 469, 'SLANG_REJECT': 284, 'SURELOG_FAIL': 23, 'NO_DATABASE': 3, 'UNTRANSLATABLE': 2, 'DEFERRED': 5, 'CMP_NOTEQUAL': 6, 'TIMEOUT': 1, 'NO_UHDM': 1}
+  pris  uhdm2rtlil  testflags {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+  pris  uhdm2rtlil  default   {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+  pat   surelog     default   {'CMP_EQUAL': 475, 'SLANG_REJECT': 283, 'SURELOG_FAIL': 25, 'DEFERRED': 5, 'CMP_NOTEQUAL': 6}
+  pat   surelog     testflags {'CMP_EQUAL': 469, 'SLANG_REJECT': 284, 'SURELOG_FAIL': 23, 'NO_DATABASE': 3, 'UNTRANSLATABLE': 2, 'DEFERRED': 5, 'CMP_NOTEQUAL': 6, 'TIMEOUT': 1, 'NO_UHDM': 1}
+  pat   uhdm2rtlil  testflags {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+  pat   uhdm2rtlil  default   {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+  fix   surelog     default   {'CMP_EQUAL': 475, 'SLANG_REJECT': 283, 'SURELOG_FAIL': 25, 'DEFERRED': 5, 'CMP_NOTEQUAL': 6}
+  fix   surelog     testflags {'CMP_EQUAL': 469, 'SLANG_REJECT': 284, 'SURELOG_FAIL': 23, 'NO_DATABASE': 3, 'UNTRANSLATABLE': 2, 'DEFERRED': 5, 'CMP_NOTEQUAL': 6, 'TIMEOUT': 1, 'NO_UHDM': 1}
+  fix   uhdm2rtlil  testflags {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+  fix   uhdm2rtlil  default   {'CMP_EQUAL': 679, 'SLANG_REJECT': 50, 'SURELOG_FAIL': 2}
+
+-- cmds.txt audit, by binary PATH
+  /tmp/v217_wd_pris/sl: 1573 cmds.txt ->    1523 /tmp/v217_pris.bin 
+  /tmp/v217_wd_pat/sl: 1573 cmds.txt ->    1523 /tmp/v217_pat.bin 
+  /tmp/v217_wd_fix/sl: 1573 cmds.txt ->    1523 /tmp/v217_fix.bin 
+  /tmp/v217_wd_pris/u2r: 1462 cmds.txt ->    1458 /tmp/v217_pris.bin 
+  /tmp/v217_wd_pat/u2r: 1462 cmds.txt ->    1458 /tmp/v217_pat.bin 
+  /tmp/v217_wd_fix/u2r: 1462 cmds.txt ->    1458 /tmp/v217_fix.bin 
+
+-- ct8rows (status AND dump column), 1588 surelog rows / 731 u2r rows
+  results/golden_surelog.csv /tmp/v217_wd_pris/sl.csv
+    ---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+  results/golden_surelog.csv /tmp/v217_wd_pat/sl.csv
+    ---- WHOLE-ROW diff (status AND dump column): 1 differing ROWS (2 diff row-sides)
+    < Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+    > Earlgrey_0_1,testflags,CMP_EQUAL,,,
+  results/golden_surelog.csv /tmp/v217_wd_fix/sl.csv
+    ---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+  results/gate_uhdm2rtlil.csv /tmp/v217_wd_pris/u2r_tf.csv
+    ---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+  results/gate_uhdm2rtlil.csv /tmp/v217_wd_pat/u2r_tf.csv
+    ---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+  results/gate_uhdm2rtlil.csv /tmp/v217_wd_fix/u2r_tf.csv
+    ---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+  /tmp/v217_wd_pat/u2r_def.csv /tmp/v217_wd_fix/u2r_def.csv
+    ---- WHOLE-ROW diff (status AND dump column): 0 differing ROWS (0 diff row-sides)
+
+-- byteverify (SELFCHECK=1)
+  surelog  pat vs pris:
+    PATH_SETS_IDENTICAL (956 paths)
+    MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=89c1b4e51d8e pristine=61ee9cb4f6c1
+    MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=7196f3aefbf2 pristine=827c3d435483
+    MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=f7967113b592 pristine=d5265ab09698
+    MOVERS: 3 / 956
+    SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+  surelog  fix vs pat:
+    PATH_SETS_IDENTICAL (956 paths)
+    MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=2d2760c40920 pristine=89c1b4e51d8e
+    MOVERS: 1 / 956
+    SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+  u2r      pat vs pris:
+    PATH_SETS_IDENTICAL (1358 paths)
+    MOVERS: 0 / 1358
+    SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+  u2r      fix vs pat:
+    PATH_SETS_IDENTICAL (1358 paths)
+    MOVERS: 0 / 1358
+    SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+
+-- Scoreboard/default is THE COIN: order-blind dump diff
+    pat vs pris: raw 92 lines, ORDER-BLIND 0 lines
+    fix vs pat : raw 170 lines, ORDER-BLIND 0 lines
+
+-- SeqDriver: the fix is byte-invisible
+    default: fix and r10uvm217 databases BYTE-IDENTICAL
+    testflags: fix and r10uvm217 databases BYTE-IDENTICAL
+
+-- protected DBs (md5 12-hex prefix)
+  pat-vs-pris   InterfaceModPort     default   patched=59a365f3ce2c pristine=59a365f3ce2c SAME
+  pat-vs-pris   InterfaceModPort     testflags patched=59a365f3ce2c pristine=59a365f3ce2c SAME
+  pat-vs-pris   BlackParrotComplex   default   patched=e3e354129d5a pristine=e3e354129d5a SAME
+  pat-vs-pris   BlackParrotComplex   testflags patched=73a10e8217e5 pristine=73a10e8217e5 SAME
+  pat-vs-pris   YosysOldOr           default   patched=d68e0796d62c pristine=d68e0796d62c SAME
+  pat-vs-pris   YosysOldOr           testflags patched=d68e0796d62c pristine=d68e0796d62c SAME
+  pat-vs-pris   SVSwitch             default   patched=4842211c4030 pristine=4842211c4030 SAME
+  pat-vs-pris   SVSwitch             testflags patched=4842211c4030 pristine=4842211c4030 SAME
+  pat-vs-pris   YosysVerx            default   patched=6ccda350c24a pristine=6ccda350c24a SAME
+  pat-vs-pris   YosysVerx            testflags patched=6ccda350c24a pristine=6ccda350c24a SAME
+  pat-vs-pris   YosysBigSimReed      default   patched=1275131a6918 pristine=1275131a6918 SAME
+  pat-vs-pris   YosysBigSimReed      testflags patched=158ed16c2931 pristine=158ed16c2931 SAME
+  pat-vs-pris   YosysOldOpen         default   patched=6d0e7ba67451 pristine=6d0e7ba67451 SAME
+  pat-vs-pris   YosysOldOpen         testflags patched=6d0e7ba67451 pristine=6d0e7ba67451 SAME
+  pat-vs-pris   ApbSlave             default   patched=1c5d153894cf pristine=1c5d153894cf SAME
+  pat-vs-pris   ApbSlave             testflags patched=1c5d153894cf pristine=1c5d153894cf SAME
+  pat-vs-pris   ClassExtends         default   patched=e9e8df985eaa pristine=e9e8df985eaa SAME
+  pat-vs-pris   ClassExtends         testflags patched=340f6d208265 pristine=340f6d208265 SAME
+  pat-vs-pris   Earlgrey_0_1         default   patched=8c2ba25c4d7f pristine=8c2ba25c4d7f SAME
+  pat-vs-pris   Earlgrey_0_1         testflags patched=92bf7b7facdc pristine=92bf7b7facdc SAME
+  pat-vs-pris -- compared=20 NOFILE=0 MOVED=0
+  fix-vs-pris   InterfaceModPort     default   patched=59a365f3ce2c pristine=59a365f3ce2c SAME
+  fix-vs-pris   InterfaceModPort     testflags patched=59a365f3ce2c pristine=59a365f3ce2c SAME
+  fix-vs-pris   BlackParrotComplex   default   patched=e3e354129d5a pristine=e3e354129d5a SAME
+  fix-vs-pris   BlackParrotComplex   testflags patched=73a10e8217e5 pristine=73a10e8217e5 SAME
+  fix-vs-pris   YosysOldOr           default   patched=d68e0796d62c pristine=d68e0796d62c SAME
+  fix-vs-pris   YosysOldOr           testflags patched=d68e0796d62c pristine=d68e0796d62c SAME
+  fix-vs-pris   SVSwitch             default   patched=4842211c4030 pristine=4842211c4030 SAME
+  fix-vs-pris   SVSwitch             testflags patched=4842211c4030 pristine=4842211c4030 SAME
+  fix-vs-pris   YosysVerx            default   patched=6ccda350c24a pristine=6ccda350c24a SAME
+  fix-vs-pris   YosysVerx            testflags patched=6ccda350c24a pristine=6ccda350c24a SAME
+  fix-vs-pris   YosysBigSimReed      default   patched=1275131a6918 pristine=1275131a6918 SAME
+  fix-vs-pris   YosysBigSimReed      testflags patched=158ed16c2931 pristine=158ed16c2931 SAME
+  fix-vs-pris   YosysOldOpen         default   patched=6d0e7ba67451 pristine=6d0e7ba67451 SAME
+  fix-vs-pris   YosysOldOpen         testflags patched=6d0e7ba67451 pristine=6d0e7ba67451 SAME
+  fix-vs-pris   ApbSlave             default   patched=1c5d153894cf pristine=1c5d153894cf SAME
+  fix-vs-pris   ApbSlave             testflags patched=1c5d153894cf pristine=1c5d153894cf SAME
+  fix-vs-pris   ClassExtends         default   patched=e9e8df985eaa pristine=e9e8df985eaa SAME
+  fix-vs-pris   ClassExtends         testflags patched=340f6d208265 pristine=340f6d208265 SAME
+  fix-vs-pris   Earlgrey_0_1         default   patched=8c2ba25c4d7f pristine=8c2ba25c4d7f SAME
+  fix-vs-pris   Earlgrey_0_1         testflags patched=92bf7b7facdc pristine=92bf7b7facdc SAME
+  fix-vs-pris -- compared=20 NOFILE=0 MOVED=0
+
+-- canaries
+  pris surelog: ---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+  pris u2r    : ---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+  pat surelog: ---- canary rows: ok=51 changed=1 absent=0 unknown-names=7
+  pat u2r    : ---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+  fix surelog: ---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+  fix u2r    : ---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+
+-- heads (rowheads.sh, official uhdm-cmp)
+  == pris
+    SeqDriver      default    1327330      1 cmp rc=255
+    SeqDriver      testflags  1327330      1 cmp rc=255
+    SimpleUVM      default          0      0 cmp rc=0
+    SimpleUVM      testflags        0      0 cmp rc=0
+    Scoreboard     default          0      0 cmp rc=0
+    Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+    MiniAmiq       default        838      1 cmp rc=255
+    MiniAmiq       testflags      838      1 cmp rc=255
+    BuildUVMPkg    default          0      0 cmp rc=0
+    BuildUVMPkg    testflags        0      0 cmp rc=0
+    Earlgrey_0_1   default          0      0 cmp rc=0
+    Earlgrey_0_1   testflags        0      0 cmp rc=0
+    Rggen          default          0      0 cmp rc=0
+    Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+    -- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+  == pat
+    SeqDriver      default         32      1 cmp rc=255
+    SeqDriver      testflags       32      1 cmp rc=255
+    SimpleUVM      default          0      0 cmp rc=0
+    SimpleUVM      testflags        0      0 cmp rc=0
+    Scoreboard     default          0      0 cmp rc=0
+    Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+    MiniAmiq       default        838      1 cmp rc=255
+    MiniAmiq       testflags      838      1 cmp rc=255
+    BuildUVMPkg    default          0      0 cmp rc=0
+    BuildUVMPkg    testflags        0      0 cmp rc=0
+    Earlgrey_0_1   default          0      0 cmp rc=0
+    Earlgrey_0_1   testflags        0      0 cmp rc=0
+    Rggen          default          0      0 cmp rc=0
+    Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+    -- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+  == fix
+    SeqDriver      default         32      1 cmp rc=255
+    SeqDriver      testflags       32      1 cmp rc=255
+    SimpleUVM      default          0      0 cmp rc=0
+    SimpleUVM      testflags        0      0 cmp rc=0
+    Scoreboard     default          0      0 cmp rc=0
+    Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+    MiniAmiq       default        838      1 cmp rc=255
+    MiniAmiq       testflags      838      1 cmp rc=255
+    BuildUVMPkg    default          0      0 cmp rc=0
+    BuildUVMPkg    testflags        0      0 cmp rc=0
+    Earlgrey_0_1   default          0      0 cmp rc=0
+    Earlgrey_0_1   testflags        0      0 cmp rc=0
+    Rggen          default          0      0 cmp rc=0
+    Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+    -- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0

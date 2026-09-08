@@ -1,0 +1,67 @@
+=== r10v217 — arm H, a THREE-PACKAGE CYCLE (qa -> qc -> qb -> qa), def-view net vectors
+Surelog rc=0, [ERROR] : 0.  pris/pat/fix rc = 0/0/0.
+
+-- GOLDEN
+   module_inst:work@m3a:|0|qa_v
+   module_inst:work@m3a:|1|m3a_clk
+   module_inst:work@m3b:|0|qa_v
+   module_inst:work@m3b:|1|qb_v
+   module_inst:work@m3b:|2|m3b_clk
+   module_inst:work@m3c:|0|qa_v
+   module_inst:work@m3c:|1|qb_v
+   module_inst:work@m3c:|2|qc_v
+   module_inst:work@m3c:|3|m3c_clk
+   module_inst:work@mboth:|0|qa_v
+   module_inst:work@mboth:|1|qa_v
+   module_inst:work@mboth:|2|qb_v
+   module_inst:work@mboth:|3|mboth_clk
+
+-- PRISTINE 48199935
+   module_inst:work@m3a:|0|qa_v
+   module_inst:work@m3a:|1|m3a_clk
+   module_inst:work@m3b:|0|qb_v
+   module_inst:work@m3b:|1|m3b_clk
+   module_inst:work@m3c:|0|qc_v
+   module_inst:work@m3c:|1|m3c_clk
+   module_inst:work@mboth:|0|qa_v
+   module_inst:work@mboth:|1|qb_v
+   module_inst:work@mboth:|2|mboth_clk
+
+-- r10uvm217.patch
+   module_inst:work@m3a:|0|qb_v
+   module_inst:work@m3a:|1|qc_v
+   module_inst:work@m3a:|2|qa_v
+   module_inst:work@m3a:|3|m3a_clk
+   module_inst:work@m3b:|0|qc_v
+   module_inst:work@m3b:|1|qa_v
+   module_inst:work@m3b:|2|qb_v
+   module_inst:work@m3b:|3|m3b_clk
+   module_inst:work@m3c:|0|qa_v
+   module_inst:work@m3c:|1|qb_v
+   module_inst:work@m3c:|2|qc_v
+   module_inst:work@m3c:|3|m3c_clk
+   module_inst:work@mboth:|0|qb_v
+   module_inst:work@mboth:|1|qc_v
+   module_inst:work@mboth:|2|qa_v
+   module_inst:work@mboth:|3|qc_v
+   module_inst:work@mboth:|4|qa_v
+   module_inst:work@mboth:|5|qb_v
+   module_inst:work@mboth:|6|mboth_clk
+
+-- r10uvm217.verified.patch
+   module_inst:work@m3a:|0|qa_v
+   module_inst:work@m3a:|1|m3a_clk
+   module_inst:work@m3b:|0|qb_v
+   module_inst:work@m3b:|1|m3b_clk
+   module_inst:work@m3c:|0|qc_v
+   module_inst:work@m3c:|1|m3c_clk
+   module_inst:work@mboth:|0|qa_v
+   module_inst:work@mboth:|1|qb_v
+   module_inst:work@mboth:|2|mboth_clk
+
+READING: r10uvm217 INVENTS qb_v and qc_v in m3a (golden lists neither) and three
+more names in mboth.  The verified patch returns m3a to GOLDEN EXACTLY and never
+invents a name anywhere; it under-lists m3b/m3c/mboth exactly the way the pristine
+48199935 binary already did.  That trade is deliberate: the conservative cycle rule
+can only ever omit, never invent.  Closing the omission needs the declaration-order
+model of README R1/R2, which is a ParamEmit.cpp change and outside this surface.

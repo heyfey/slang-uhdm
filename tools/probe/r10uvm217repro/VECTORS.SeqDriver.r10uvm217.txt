@@ -1,0 +1,84 @@
+=== r10uvm217 — THE 33, BY IDENTITY, and the ORDER measurement (SeqDriver/default)
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+-- golden def-view module_inst work@top_tb net listing, positions 0..65:
+   (positions 0..32 = the copy of uvm_pkg's listing for 'import uvm_pkg::*';
+    positions 33..65 = adpcm_pkg's listing, which IS its clone of uvm_pkg's 33)
+NET|def|module_inst:work@top_tb:|0|logic_net|uvm_start_uvm_declarations|nt=0|rnt=0|impl=0|sgn=0|ts=bit_typespec()
+NET|def|module_inst:work@top_tb:|1|logic_net|uvm_aa_string_key|nt=0|rnt=0|impl=0|sgn=0|ts=string_typespec()
+NET|def|module_inst:work@top_tb:|2|logic_net|uvm_default_table_printer|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_table_printer)
+NET|def|module_inst:work@top_tb:|3|logic_net|uvm_default_tree_printer|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_tree_printer)
+NET|def|module_inst:work@top_tb:|4|logic_net|uvm_default_line_printer|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_line_printer)
+NET|def|module_inst:work@top_tb:|5|logic_net|uvm_default_printer|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_printer)
+NET|def|module_inst:work@top_tb:|6|logic_net|uvm_default_packer|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_packer)
+NET|def|module_inst:work@top_tb:|7|logic_net|uvm_default_comparer|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_comparer)
+NET|def|module_inst:work@top_tb:|8|logic_net|uvm_global_random_seed|nt=0|rnt=0|impl=0|sgn=0|ts=int_typespec()
+NET|def|module_inst:work@top_tb:|9|logic_net|uvm_random_seed_table_lookup|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_seed_map)
+NET|def|module_inst:work@top_tb:|10|logic_net|uvm_resources|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_resource_pool)
+NET|def|module_inst:work@top_tb:|11|logic_net|clp|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_cmdline_processor)
+NET|def|module_inst:work@top_tb:|12|logic_net|val|nt=0|rnt=0|impl=0|sgn=0|ts=string_typespec()
+NET|def|module_inst:work@top_tb:|13|logic_net|build_ph|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_phase)
+NET|def|module_inst:work@top_tb:|14|logic_net|connect_ph|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_phase)
+NET|def|module_inst:work@top_tb:|15|logic_net|end_of_elaboration_ph|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_phase)
+NET|def|module_inst:work@top_tb:|16|logic_net|start_of_simulation_ph|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_phase)
+NET|def|module_inst:work@top_tb:|17|logic_net|run_ph|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_phase)
+NET|def|module_inst:work@top_tb:|18|logic_net|extract_ph|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_phase)
+NET|def|module_inst:work@top_tb:|19|logic_net|check_ph|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_phase)
+NET|def|module_inst:work@top_tb:|20|logic_net|report_ph|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_phase)
+NET|def|module_inst:work@top_tb:|21|logic_net|uvm_top|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_root)
+NET|def|module_inst:work@top_tb:|22|logic_net|error_str|nt=0|rnt=0|impl=0|sgn=0|ts=string_typespec()
+NET|def|module_inst:work@top_tb:|23|logic_net|top|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_root)
+NET|def|module_inst:work@top_tb:|24|logic_net|cs|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_coreservice_t)
+NET|def|module_inst:work@top_tb:|25|logic_net|bld|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_phase)
+NET|def|module_inst:work@top_tb:|26|logic_net|common|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_domain)
+NET|def|module_inst:work@top_tb:|27|logic_net|uvm_test_done|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_test_done_objection)
+NET|def|module_inst:work@top_tb:|28|logic_net|uvm_cmdline_proc|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_cmdline_processor)
+NET|def|module_inst:work@top_tb:|29|logic_net|UVM_UNBOUNDED_CONNECTIONS|nt=0|rnt=0|impl=0|sgn=0|ts=int_typespec()
+NET|def|module_inst:work@top_tb:|30|logic_net|s_connection_error_id|nt=0|rnt=0|impl=0|sgn=0|ts=string_typespec()
+NET|def|module_inst:work@top_tb:|31|logic_net|s_connection_warning_id|nt=0|rnt=0|impl=0|sgn=0|ts=string_typespec()
+NET|def|module_inst:work@top_tb:|32|logic_net|s_spaces|nt=0|rnt=0|impl=0|sgn=0|ts=string_typespec()
+NET|def|module_inst:work@top_tb:|33|logic_net|uvm_start_uvm_declarations|nt=0|rnt=0|impl=0|sgn=0|ts=bit_typespec()
+NET|def|module_inst:work@top_tb:|34|logic_net|uvm_aa_string_key|nt=0|rnt=0|impl=0|sgn=0|ts=string_typespec()
+NET|def|module_inst:work@top_tb:|35|logic_net|uvm_default_table_printer|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_table_printer)
+NET|def|module_inst:work@top_tb:|36|logic_net|uvm_default_tree_printer|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_tree_printer)
+NET|def|module_inst:work@top_tb:|37|logic_net|uvm_default_line_printer|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_line_printer)
+NET|def|module_inst:work@top_tb:|38|logic_net|uvm_default_printer|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_printer)
+NET|def|module_inst:work@top_tb:|39|logic_net|uvm_default_packer|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_packer)
+NET|def|module_inst:work@top_tb:|40|logic_net|uvm_default_comparer|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_comparer)
+NET|def|module_inst:work@top_tb:|41|logic_net|uvm_global_random_seed|nt=0|rnt=0|impl=0|sgn=0|ts=int_typespec()
+NET|def|module_inst:work@top_tb:|42|logic_net|uvm_random_seed_table_lookup|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_seed_map)
+NET|def|module_inst:work@top_tb:|43|logic_net|uvm_resources|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_resource_pool)
+NET|def|module_inst:work@top_tb:|44|logic_net|clp|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_cmdline_processor)
+NET|def|module_inst:work@top_tb:|45|logic_net|val|nt=0|rnt=0|impl=0|sgn=0|ts=string_typespec()
+NET|def|module_inst:work@top_tb:|46|logic_net|build_ph|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_phase)
+NET|def|module_inst:work@top_tb:|47|logic_net|connect_ph|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_phase)
+NET|def|module_inst:work@top_tb:|48|logic_net|end_of_elaboration_ph|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_phase)
+NET|def|module_inst:work@top_tb:|49|logic_net|start_of_simulation_ph|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_phase)
+NET|def|module_inst:work@top_tb:|50|logic_net|run_ph|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_phase)
+NET|def|module_inst:work@top_tb:|51|logic_net|extract_ph|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_phase)
+NET|def|module_inst:work@top_tb:|52|logic_net|check_ph|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_phase)
+NET|def|module_inst:work@top_tb:|53|logic_net|report_ph|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_phase)
+NET|def|module_inst:work@top_tb:|54|logic_net|uvm_top|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_root)
+NET|def|module_inst:work@top_tb:|55|logic_net|error_str|nt=0|rnt=0|impl=0|sgn=0|ts=string_typespec()
+NET|def|module_inst:work@top_tb:|56|logic_net|top|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_root)
+NET|def|module_inst:work@top_tb:|57|logic_net|cs|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_coreservice_t)
+NET|def|module_inst:work@top_tb:|58|logic_net|bld|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_phase)
+NET|def|module_inst:work@top_tb:|59|logic_net|common|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_domain)
+NET|def|module_inst:work@top_tb:|60|logic_net|uvm_test_done|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_test_done_objection)
+NET|def|module_inst:work@top_tb:|61|logic_net|uvm_cmdline_proc|nt=0|rnt=0|impl=0|sgn=0|ts=class_typespec(uvm_cmdline_processor)
+NET|def|module_inst:work@top_tb:|62|logic_net|UVM_UNBOUNDED_CONNECTIONS|nt=0|rnt=0|impl=0|sgn=0|ts=int_typespec()
+NET|def|module_inst:work@top_tb:|63|logic_net|s_connection_error_id|nt=0|rnt=0|impl=0|sgn=0|ts=string_typespec()
+NET|def|module_inst:work@top_tb:|64|logic_net|s_connection_warning_id|nt=0|rnt=0|impl=0|sgn=0|ts=string_typespec()
+NET|def|module_inst:work@top_tb:|65|logic_net|s_spaces|nt=0|rnt=0|impl=0|sgn=0|ts=string_typespec()
+
+-- the two blocks are the SAME 33 faces:
+   golden[0:33] == golden[33:66] : True
+   golden len=224  pristine len=191  patched len=224
+   OURS(pristine) == golden[0:33] + golden[66:] : False
+   OURS(patched)[0:66] == golden[0:66] : True
+   implicit block (golden[66:] vs patched[66:]) SAME MULTISET : True
+   implicit block POSITIONS equal : False
+   implicit block first differing position : 66   count of differing positions : 158
+   golden[66]=use_uvm_seeding
+   ours  [66]=m_name
+   golden LAST = top_tb   ours LAST = this
