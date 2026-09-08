@@ -24450,7 +24450,17 @@ bool UhdmExporter::emitPkgArrayVar(const Symbol& vs, UHDM::instance* up,
                 auto dr = adim->sourceRange();
                 setLoc(its, SourceRange(dr.start() + 1, dr.end() - 1));
             }
-            if (fresh44)
+            // § oobCtorLocalsRideTheImport203, THE INDEX HALF — the caller's
+            // `stampTsInstance` governs this stamp for the same reason it
+            // governs the ELEMENT's above: a MODULE's materialized copy of an
+            // imported package's associative array re-creates its typespecs
+            // outside the package's scope and golden gives them NO
+            // vpiInstance.  Pass 203 threaded the flag through the element arm
+            // and left this one unmeasured; measured now on SimpleUVM, where
+            // `uvm_random_seed_table_lookup`'s TWO import copies were the only
+            // two `string_typespec`s in the database carrying
+            // `vpiInstance -> module_inst work@top` against golden's null.
+            if (fresh44 && stampTsInstance)
                 its->Instance(up);
             auto* irt = s.MakeRef_typespec();
             irt->VpiParent(ats);

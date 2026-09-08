@@ -6250,8 +6250,22 @@ UHDM::design* UhdmExporter::exportDesign() {
                     if (byName.emplace(std::string(pm.name), tit->second).second)
                         declLoc9[std::string(pm.name)] = mem.location;
                 }
+                // § importedClassTsRideTheFileUnit206 — the same import also
+                // carries the package's CLASS keys into this unit's map.  The
+                // class listings are not finished here (the DESIGN-FINAL
+                // listing passes still rewrite them), so only the import is
+                // RECORDED; `fileUnitPublishesPackageClasses206` merges the
+                // keys into the vector this block publishes.
+                if (mem.kind == SymbolKind::WildcardImport)
+                    fileUnitImports206.emplace_back(std::string(ipkg->name),
+                                                    mem.location);
             }
-        if (!byName.empty()) {
+        // § importedClassTsRideTheFileUnit206 — the guard is on the PUBLISH,
+        // not on the bookkeeping: a unit whose import brings ONLY class keys
+        // (a package with classes and no top-level typedef) has an EMPTY
+        // `byName` here and golden still gives the design a listing, so the
+        // ordering data has to be recorded either way.
+        {
             // Surelog builds the design's Typespecs by walking the
             // FileContents in COMMAND-LINE order and appending each one's
             // (name-sorted) DataTypeMap, so the vector is a sequence of
@@ -6294,10 +6308,26 @@ UHDM::design* UhdmExporter::exportDesign() {
                                      return false;
                                  return srcOrderLess(la, lb);
                              });
-            auto* tds = s.MakeTypespecVec();
-            for (auto& [nm, ts] : ordered9)
-                tds->push_back(ts);
-            d->Typespecs(tds);
+            if (!ordered9.empty()) {
+                auto* tds = s.MakeTypespecVec();
+                for (auto& [nm, ts] : ordered9)
+                    tds->push_back(ts);
+                d->Typespecs(tds);
+            }
+            // § importedClassTsRideTheFileUnit206 — hand the DESIGN-FINAL pass
+            // this listing's own keys and their ROOT-FILE locations, so the
+            // class keys merge into THIS stable sort rather than a
+            // reconstructed one (the entries' VpiNames are not their keys: a
+            // package listing requalifies them to `pkg::name`).
+            designTsOrdered206 = ordered9;
+            for (auto& [nm, ts] : ordered9) {
+                (void)ts;
+                designTsRootLoc206[nm] = declLoc9.count(nm)
+                                             ? rootLoc9(declLoc9[nm])
+                                             : SourceLocation::NoLocation;
+            }
+            for (auto& [pn206, loc206] : fileUnitImports206)
+                loc206 = rootLoc9(loc206);
         }
 
         // $unit (compilation-unit) functions live on the design object.
@@ -8096,6 +8126,13 @@ UHDM::design* UhdmExporter::exportDesign() {
     // listings and a class's own, never a module's, and running last makes that
     // independence structural instead of argued.
     modulePublishesPackageClasses45();
+    // § importedClassTsRideTheFileUnit206 — the FILE-UNIT arm, AFTER all three
+    // listing passes above and BEFORE § 38.  After them because the class keys
+    // it merges are read out of `classRep25`, which § 24 builds from the
+    // FINISHED package and class listings; before § 38 because § 38 is pinned
+    // dead last and this pass writes only `design->Typespecs()`, a vector no
+    // other tail pass reads or writes.
+    fileUnitPublishesPackageClasses206();
     // § thisImplicitNetBoth38 — DEAD LAST: its predicate is which package
     // views list the routine, so every listing rewrite above (the two import
     // passes included) has to have run.  It only ever fills a null

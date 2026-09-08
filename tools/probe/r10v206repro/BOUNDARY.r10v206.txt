@@ -1,0 +1,25 @@
+# r10v206 -- THE WIDE BOUNDARY GATE (bound206.sh), verifier run.  MEASUREMENT ONLY.
+# A COPY of the whole probe tree plus this verifier's 17 arms; every .sv/.v at top
+# level AND in subdirectories, both views, PRISTINE vs the IMPLEMENTER'S PATCHED binary (the widest
+# mover set, since this verifier's fix only ever RESTRICTS what the pass publishes);
+# every mover was then scored PRISTINE vs VERIFIED.  The file
+# list read on fd 3, children </dev/null, scratch keyed on the RELATIVE path,
+# PROCESSED asserted against LISTED.
+
+LISTED=5358 PROCESSED=5358 PRODUCED_DBS=5173 MOVED_ARMS=54 RC_DIFFS=0
+
+# 5341 committed arms + 17 of this verifier's.  Of the 54 movers, 48 are committed
+# arms -- exactly the implementer's 48 -- and 6 are this verifier's own.
+# POSITIVE CONTROL: grid206/g206_{a,b,c,e,f}.sv all move; g206_d_modimport.sv
+# (the module-scope import) is correctly ABSENT.  See BOUNDARY_MOVERS.r10v206.txt.
+
+# 12 identical-on-both-binaries segfaults were reported by the shell during the run
+# (--elabuhdm on known arms); RC_DIFFS=0 records that they are identical, and the
+# scorer names the one view they cost: r10vbuvm31repro/gv31a5.sv elab, where
+# Surelog itself fails grc=4 and BOTH binaries exit 139.
+
+# THE SAME GATE RE-RUN PRISTINE vs VERIFIED (the fixed binary):
+#   LISTED=5358 PROCESSED=5358 PRODUCED_DBS=5173 MOVED_ARMS=53 RC_DIFFS=0
+# and the mover sets differ by EXACTLY ONE line -- `y206_a_twopkgsamebare.sv`, which
+# no longer moves because the fence returns it to pristine's (= golden's) answer.
+# Over 5358 arms x 2 views the fix changes nothing else.

@@ -1,0 +1,16 @@
+# r10v206 -- SimpleUVM/default census, re-measured by the verifier.  MEASUREMENT ONLY.
+# LHS is ALWAYS golden.  ct206cen + join206.py (multiset join on LISTING POSITION).
+
+design typespec listing SIZE:  golden 123   pristine 89   patched 123   verified 123
+
+DESIGN LISTING ONLY
+  golden x pristine  AGREE=7 TS-DIFF=82 ONLY-GOLDEN=34 ONLY-OURS=0
+  golden x patched   AGREE=123 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+  golden x verified  AGREE=123 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+
+WIDE CENSUS (every typespec listing in the database + every array_var index/elem instance)
+  golden x pristine  AGREE=1146 TS-DIFF=89 ONLY-GOLDEN=34 ONLY-OURS=0
+  golden x patched   AGREE=1264 TS-DIFF=5 ONLY-GOLDEN=0 ONLY-OURS=0
+  golden x verified  AGREE=1264 TS-DIFF=5 ONLY-GOLDEN=0 ONLY-OURS=0
+
+ONLY-OURS is 0 BEFORE and AFTER: this law adds no one-sided cell on the head row.

@@ -1,0 +1,39 @@
+# r10uvm206 — the 34 one-sided entries, BY IDENTITY, with the source line
+# that minted each.  MEASUREMENT ONLY.  LHS is ALWAYS golden.
+#
+# <uvm-1.2 source file>  <the entry's VpiName>  <the typedef at the entry's span>
+
+comps/uvm_algorithmic_comparator.svh                 this_type       typedef uvm_algorithmic_comparator #( BEFORE , 
+base/uvm_resource_specializations.svh                this_subtype    typedef uvm_bit_rsrc#(N) this_subtype;
+comps/uvm_pair.svh                                   this_type       typedef uvm_built_in_pair #(T1,T2) this_type;
+base/uvm_resource_specializations.svh                this_subtype    typedef uvm_byte_rsrc#(N) this_subtype;
+base/uvm_callback.svh                                this_type       typedef uvm_callbacks_base this_type;
+comps/uvm_pair.svh                                   this_type       typedef uvm_class_pair #(T1, T2 ) this_type;
+macros/uvm_object_defines.svh                        type_id          typedef uvm_component_registry #(T) type_id; \
+base/uvm_callback.svh                                this_type       typedef uvm_derived_callbacks#(T,ST,CB) this_type;
+dap/uvm_get_to_lock_dap.svh                          this_type        typedef uvm_get_to_lock_dap#(T) this_type;
+comps/uvm_in_order_comparator.svh                    this_type       typedef uvm_in_order_built_in_comparator #(T) this_type;
+comps/uvm_in_order_comparator.svh                    this_type       typedef uvm_in_order_class_comparator #(T) this_type;
+comps/uvm_in_order_comparator.svh                    this_type       typedef uvm_in_order_comparator #(T,comp_type,convert,pair_type) this_type;
+base/uvm_resource_specializations.svh                this_subtype    typedef uvm_int_rsrc this_subtype;
+base/uvm_resource_specializations.svh                this_subtype    typedef uvm_obj_rsrc this_subtype;
+macros/uvm_object_defines.svh                        type_id          typedef uvm_object_registry #(T) type_id; \
+base/uvm_port_base.svh                               this_type       typedef uvm_port_base #(IF) this_type;
+seq/uvm_push_sequencer.svh                           this_type       typedef uvm_push_sequencer #( REQ , RSP) this_type;
+base/uvm_queue.svh                                   this_type       typedef uvm_queue #(T) this_type;
+comps/uvm_random_stimulus.svh                        this_type       typedef uvm_random_stimulus #(T) this_type;
+base/uvm_report_message.svh                          this_type        typedef uvm_report_message_int_element this_type;
+base/uvm_report_message.svh                          this_type        typedef uvm_report_message_object_element this_type;
+base/uvm_report_message.svh                          this_type        typedef uvm_report_message_string_element this_type;
+base/uvm_resource.svh                                this_type       typedef uvm_resource#(T) this_type;
+seq/uvm_sequence_library.svh                         this_type        typedef uvm_sequence_library #(REQ,RSP) this_type;
+dap/uvm_set_before_get_dap.svh                       this_type        typedef uvm_set_before_get_dap#(T) this_type;
+dap/uvm_set_get_dap_base.svh                         this_type        typedef uvm_set_get_dap_base#(T) this_type;
+dap/uvm_simple_lock_dap.svh                          this_type        typedef uvm_simple_lock_dap#(T) this_type;
+base/uvm_resource_specializations.svh                this_subtype    typedef uvm_string_rsrc this_subtype;
+comps/uvm_subscriber.svh                             this_type       typedef uvm_subscriber #(T) this_type;
+tlm2/uvm_tlm2_generic_payload.svh                    this_type        typedef uvm_tlm_extension#(T) this_type;
+tlm1/uvm_tlm_fifo_base.svh                           this_type       typedef uvm_tlm_fifo_base #(T) this_type;
+tlm1/uvm_tlm_req_rsp.svh                             this_type       typedef uvm_tlm_req_rsp_channel #(REQ, RSP) this_type;
+tlm1/uvm_tlm_req_rsp.svh                             this_type       typedef uvm_tlm_transport_channel #(REQ, RSP) this_type;
+base/uvm_callback.svh                                super_type      typedef uvm_typed_callbacks#(T) super_type;

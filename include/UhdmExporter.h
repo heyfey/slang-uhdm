@@ -5696,6 +5696,44 @@ private:
     /// class, scanning @a pv's own Typespecs listing and then its class
     /// listings in order (§ importPublishesPackageClasses24).
     std::map<std::string, UHDM::typespec*> pkgClassKeys24(UHDM::package* pv);
+    /// § `importedClassTsRideTheFileUnit206` — THE FILE-UNIT ARM of
+    /// § importPublishesPackageClasses24, on the DESIGN's own `vpiTypespec`
+    /// listing.
+    ///
+    /// > A FILE-SCOPE `import pkg::*` puts the package's CLASS DEFINITIONS
+    /// > into that compilation unit's DataTypeMap beside its typedefs, keyed
+    /// > by the CLASS's own bare name — and the design's typespec listing is
+    /// > the union of every unit's map.  What a class key contributes is the
+    /// > class_typespec of the FIRST typedef that named that class, so the
+    /// > entry keeps THAT TYPEDEF's name while sorting under the CLASS's.
+    /// > The union is de-duplicated BY OBJECT, so when one typespec is
+    /// > reachable under both its own typedef key and a class key, the
+    /// > ALPHABETICALLY FIRST of the two keys is the one that holds it.
+    ///
+    /// Surelog: `CompileHelper::importPackage`
+    /// (`src/DesignCompile/CompileHelper.cpp:150-161`) inserts the package's
+    /// classes into the importing scope's DataTypeMap — and
+    /// `CompileFileContent.cpp:84` is the call that makes a FILE-scope import
+    /// use the FileContent as that scope; `UhdmWriter.cpp:4866-4872` unions
+    /// every FileContent's map into `design->Typespecs()` through
+    /// `writeDataTypes` (`:775-810`), whose `std::set<uint64_t> ids` is the
+    /// by-object dedup and whose `if (!tps->Instance()) tps->Instance(parent)`
+    /// is why such an entry carries the DESIGN as its `vpiInstance`.  The
+    /// "first typedef that named the class" is
+    /// `ElaborationStep.cpp:259-263`'s `dt->setTypespec(ts)` back-fill,
+    /// first-writer-wins — the same stamp `classRep25` already models.
+    void fileUnitPublishesPackageClasses206();
+    /// The design typespec listing as § 206 needs it: the ordered
+    /// (map key -> typespec) pairs the design block published, plus each key's
+    /// ROOT-FILE location, so the class keys can be merged into the very same
+    /// stable sort instead of a reconstructed one.  Empty when the design has
+    /// no typespec listing.
+    std::vector<std::pair<std::string, UHDM::typespec*>> designTsOrdered206;
+    std::map<std::string, slang::SourceLocation> designTsRootLoc206;
+    /// Every FILE-SCOPE (`$unit`) WILDCARD import, as (package name, the
+    /// import's own root-file location) — the group the imported package's
+    /// class keys join.
+    std::vector<std::pair<std::string, slang::SourceLocation>> fileUnitImports206;
     /// § classPropUnitImport21 — is @a pkgSym imported at COMPILATION-UNIT
     /// (`$unit`) scope by ANY file of this design, wildcard or explicit?  That
     /// one fact decides, design-wide, whether an ELABORATED class body's

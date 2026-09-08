@@ -1,0 +1,137 @@
+# r10v206 -- GATES, MEASURED BY THE VERIFIER.
+# MEASUREMENT-ONLY probes; the official uhdm-cmp is the sole judge.
+# LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+BASE a74e2df3
+binary pristine            md5 4f5f59ff040bbe46f92e4222a881637e
+binary implementer-patched md5 ed8d69ac8043b84d7036b4e6c21224e0
+binary verified (fixed)    md5 3e435c88eae83eb569693da95d99e8f8
+
+goldens pristine     PASS=23 FAIL=0
+goldens patched      PASS=23 FAIL=0
+goldens verified     PASS=23 FAIL=0
+goldens /bin/false   PASS=0 FAIL=23
+
+cmds.txt audit BY BINARY PATH  (files-with-that-binary, files-with-any-OTHER-slang-uhdm)
+  surelog pristine   1523 0
+  surelog patched    1523 0
+  surelog verified   1523 0
+  u2r pristine       1458 0
+  u2r patched        1458 0
+  u2r verified       1458 0
+
+--------------------------------------------------------------------
+SWEEP HISTOGRAMS (verify_golden.py --jobs 2, this verifier's OWN workdirs)
+  surelog --mode both, 956 comparable rows / 1588 row-modes
+    pristine  940 CMP_EQUAL  16 CMP_NOTEQUAL  10 DEFERRED  3 NO_DATABASE
+              1 NO_UHDM  567 SLANG_REJECT  48 SURELOG_FAIL  1 TIMEOUT  2 UNTRANSLATABLE
+    patched   IDENTICAL
+    verified  IDENTICAL
+  uhdm2rtlil testflags AND default
+    pristine / patched / verified  679 CMP_EQUAL  50 SLANG_REJECT  2 SURELOG_FAIL  (each mode)
+
+ct8rows (whole row: status AND dump column)
+  surelog  committed baseline -> PRISTINE   1 differing row  (quoted below)
+  surelog  committed baseline -> PATCHED    the SAME 1 row
+  surelog  committed baseline -> VERIFIED   the SAME 1 row
+  surelog  PRISTINE -> PATCHED              PASS, every row byte-identical
+  surelog  PRISTINE -> VERIFIED             PASS, every row byte-identical
+  surelog  PATCHED  -> VERIFIED             PASS, every row byte-identical
+  u2r tf   committed baseline -> PRISTINE / PATCHED / VERIFIED   PASS each
+  u2r tf   PRISTINE -> PATCHED / -> VERIFIED                     PASS each
+  u2r def  PRISTINE -> PATCHED / -> VERIFIED                     PASS each
+
+THE ONE MOVED ROW, QUOTED, AND IT MOVES ON THE PRISTINE BINARY TOO -- NOT A CONVERSION:
+  < Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+  > Earlgrey_0_1,testflags,CMP_EQUAL,,,
+  STATUS is CMP_EQUAL on both sides.  The row's database is BYTE-IDENTICAL across all
+  three binaries (md5 92bf7b7facdc...), byteverify does not list it, and rowheads reads
+  it as 0 cmp lines / 0 heads / rc=0.  This is R5 (r10uvm197/199/201/203).
+  results/*.csv were READ ONLY; nothing was promoted.
+
+byteverify (SELFCHECK=1)
+  surelog  PATCHED  vs PRISTINE   PATH_SETS_IDENTICAL (956)  MOVERS 5/956  selfcheck 955/956
+  surelog  VERIFIED vs PRISTINE   PATH_SETS_IDENTICAL (956)  MOVERS 5/956  selfcheck 955/956
+     the five, both times: default/{Scoreboard,SeqDriver,SimpleUVM}, testflags/{SeqDriver,SimpleUVM}
+  surelog  VERIFIED vs PATCHED    MOVERS 1/956 -- default/Scoreboard ONLY, and its
+     path-normalised SORTED uhdm-dump diff is ZERO lines: the ~50/50 COIN, not a change.
+  u2r      PATCHED  vs PRISTINE   PATH_SETS_IDENTICAL (1358)  MOVERS 0/1358
+  u2r      VERIFIED vs PRISTINE   MOVERS 0/1358
+  u2r      VERIFIED vs PATCHED    MOVERS 0/1358
+
+MOVER ATTRIBUTION, ORDER-BLIND (sorted, path-normalised uhdm-dump), PRISTINE -> VERIFIED
+  default/Scoreboard     68 lines ADDED, 0 removed -- all class_typespec
+                         (this_type / this_subtype / super_type / type_id)
+  default/SimpleUVM      68 added, 4 removed; the 4 are TWO `vpiInstance ->
+                         module_inst work@top` stamps (the gate correction)
+  testflags/SimpleUVM    identical shape
+  default/SeqDriver      0 added, 2 removed -- ONE `vpiInstance -> module_inst
+                         work@top_tb` stamp (the gate correction)
+  testflags/SeqDriver    identical shape
+
+HEADS (rowheads.sh, official uhdm-cmp; cmp lines are the head object's decompile size)
+  TEST         MODE       PRISTINE   PATCHED   VERIFIED
+  SeqDriver    default         112       112        112
+  SeqDriver    testflags       112       112        112
+  SimpleUVM    default     4177864        86         86
+  SimpleUVM    testflags   4178104        86         86
+  Scoreboard   default          95        95         95
+  MiniAmiq     default/tf      112       112        112
+  Earlgrey_0_1 default          31        31         31
+  Earlgrey_0_1 testflags    0 (rc=0)  0 (rc=0)   0 (rc=0)
+  BuildUVMPkg  default/tf   0 (rc=0)  0 (rc=0)   0 (rc=0)
+  Rggen        default      0 (rc=0)  0 (rc=0)   0 (rc=0)
+  (Scoreboard/testflags and Rggen/testflags are SKIP-NOFILE on every binary.)
+  ALL FOUR PROTECTED CMP_EQUAL ROW-MODES RE-RUN AT rc=0 ON ALL THREE BINARIES.
+
+CANARIES / FENCE
+  surelog canaries  VERIFIED vs THIS VERIFIER'S OWN PRISTINE   ok=52 changed=0
+  surelog canaries  VERIFIED vs the COMMITTED baseline         ok=51 changed=1
+      the one "changed" cell is R5's Earlgrey_0_1/testflags dump column, and the
+      PRISTINE binary scores ok=51 changed=1 against the same baseline.
+  u2r canaries      ok=8 changed=0
+  ctcan2            PASS on both corpora
+  protected databases byte-identical PRISTINE vs VERIFIED:
+      SVSwitch 4842211c4030, YosysVerx 6ccda350c24a, InterfaceModPort 59a365f3ce2c,
+      BlackParrotComplex e3e354129d5a / 73a10e8217e5, YosysOldOr d68e0796d62c,
+      Earlgrey_0_1 ed150b4d6dea / 92bf7b7facdc
+  canaudit.sh canaries.sh ctcan2.sh -> audited=29 UNCOVERED=0 FENCE-BREACH=0
+  The four slang-fenced tests were never dispatched.  The only occurrences of any
+  fenced STRING in the patch are four `SizeOfUnsignedParameter` rows in the
+  implementer's PREDICTION files -- the allowed superstring.
+
+BOUNDARY (wide, every .sv/.v in a COPY of the probe tree, both views, both binaries)
+  LISTED=5358 PROCESSED=5358 PRODUCED_DBS=5173 MOVED_ARMS=54 RC_DIFFS=0
+  (5341 committed arms + this verifier's 17; 48 of the movers are committed arms --
+   exactly the implementer's 48 -- and 6 are this verifier's own.)
+  POSITIVE CONTROL: grid206/g206_{a,b,c,e,f}.sv all move; g206_d_modimport.sv
+  (the module-scope import) is correctly ABSENT.
+  SCORED views=107 MISSING-ARMS=0 NODB-views=1 TO-GOLDEN=190 AWAY-GOLDEN=0
+  the one NODB view is r10vbuvm31repro/gv31a5.sv elab, where Surelog fails grc=4 and
+  BOTH our binaries segfault IDENTICALLY (arc=139 brc=139) -- recorded, not hidden.
+
+THE FLOOR, BY NAME, against BOUNDARY_MOVERS.r10v206.txt
+  pkgClassTdImportCopyLocalUnsupported202 + its type-param fence   0 arms
+  impFoldRhsMirrorsLhsTs201                                        0
+  impUnsizedBasedLhsNoTs199 + the paren-cast arm                   0
+  impCopyStringConstSize197                                        0
+  modUnitImportParamsTwice196                                      0
+  buvm3-15                                                         0
+  uvm82-91                                                         0
+  oobCtorLocalsRideTheImport203 + its packed-struct fence          2, BOTH TO-GOLDEN:
+      grid203/g203_b_cont.sv     AGREE 11->13  TS-DIFF 2->0  AWAY 0  (both views)
+      grid203/g203_f_pkstruct.sv AGREE 22->24  TS-DIFF 2->0  ONLY-GOLDEN 0->0  AWAY 0
+      -- the packed-struct fence's own one-sided sets do not move.
+  sd8-12                                                           6, ALL TO-GOLDEN:
+      sd9/10/11/12 grid9/g3_pkgvar_module.sv        AGREE 9->10  TS-DIFF 1->0  AWAY 0
+      sd11/12 vgrid11/v1_nonsubroutine_sites.sv     AGREE 11->12 TS-DIFF 5->4  AWAY 0
+
+THE VERIFIED PATCH
+  /tmp/r10uvm206.verified.patch, git diff vs a74e2df3, applies clean on a FRESH
+  a74e2df3 worktree; rebuilt there it gives the BYTE-IDENTICAL binary, md5
+  3e435c88eae83eb569693da95d99e8f8.
+  surface = src/{UhdmExporter,ModuleEmit,ParamEmit}.cpp + include/UhdmExporter.h
+          + tools/probe/r10uvm206repro/ + tools/probe/r10v206repro/  and NOTHING else.
+  results/ files in the patch: 0.
+  boundary re-run PRISTINE vs VERIFIED: LISTED=5358 PROCESSED=5358 PRODUCED_DBS=5173
+  MOVED_ARMS=53 RC_DIFFS=0 -- the mover set differs from the implementer's by
+  EXACTLY ONE arm, y206_a_twopkgsamebare.sv, which stops moving.

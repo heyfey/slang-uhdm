@@ -1,0 +1,743 @@
+ARM g206_a_selftd parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g206_a_selftd.parse AGREE=30 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:g206_a_selftd.parse AGREE=26 TS-DIFF=1 ONLY-GOLDEN=3 ONLY-OURS=1
+CELL PRIS:g206_a_selftd.parse G D#2	class_typespec|this_type|design:work@ga206|<null>
+CELL PRIS:g206_a_selftd.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:g206_a_selftd.parse G D#0	class_typespec|other_type|design:work@ga206|<null>
+CELL PRIS:g206_a_selftd.parse O D#0	int_typespec|pa206::ta206_plain|package:pa206|<null>
+CELL PRIS:g206_a_selftd.parse G D#1	class_typespec|this_type|design:work@ga206|<null>
+CELL PRIS:g206_a_selftd.parse G D#3	int_typespec|pa206::ta206_plain|package:pa206|<null>
+CENSUM PATCHED:g206_a_selftd.parse AGREE=30 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PATCHED:g206_a_selftd.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+ARM g206_a_selftd elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g206_a_selftd.elab AGREE=30 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:g206_a_selftd.elab AGREE=26 TS-DIFF=1 ONLY-GOLDEN=3 ONLY-OURS=1
+CELL PRIS:g206_a_selftd.elab G D#2	class_typespec|this_type|design:work@ga206|<null>
+CELL PRIS:g206_a_selftd.elab G D#1	class_typespec|this_type|design:work@ga206|<null>
+CELL PRIS:g206_a_selftd.elab G D#3	int_typespec|pa206::ta206_plain|package:pa206|<null>
+CELL PRIS:g206_a_selftd.elab G D#0	class_typespec|other_type|design:work@ga206|<null>
+CELL PRIS:g206_a_selftd.elab O D#0	int_typespec|pa206::ta206_plain|package:pa206|<null>
+CELL PRIS:g206_a_selftd.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CENSUM PATCHED:g206_a_selftd.elab AGREE=30 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PATCHED:g206_a_selftd.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+ARM g206_b_dedup parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g206_b_dedup.parse AGREE=28 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:g206_b_dedup.parse AGREE=25 TS-DIFF=3 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PRIS:g206_b_dedup.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:g206_b_dedup.parse G D#2	class_typespec|pb206::m206_first|package:pb206|<null>
+CELL PRIS:g206_b_dedup.parse O D#2	class_typespec|pb206::n206_second|package:pb206|ref_typespec
+CELL PRIS:g206_b_dedup.parse G D#3	class_typespec|pb206::n206_second|package:pb206|ref_typespec
+CELL PRIS:g206_b_dedup.parse O D#3	class_typespec|pb206::zz206_late|package:pb206|<null>
+CELL PRIS:g206_b_dedup.parse G D#1	class_typespec|pb206::zz206_late|package:pb206|<null>
+CELL PRIS:g206_b_dedup.parse O D#1	class_typespec|pb206::m206_first|package:pb206|<null>
+CENSUM PATCHED:g206_b_dedup.parse AGREE=28 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PATCHED:g206_b_dedup.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+ARM g206_b_dedup elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g206_b_dedup.elab AGREE=28 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:g206_b_dedup.elab AGREE=25 TS-DIFF=3 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PRIS:g206_b_dedup.elab G D#2	class_typespec|pb206::m206_first|package:pb206|<null>
+CELL PRIS:g206_b_dedup.elab O D#2	class_typespec|pb206::n206_second|package:pb206|ref_typespec
+CELL PRIS:g206_b_dedup.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:g206_b_dedup.elab G D#3	class_typespec|pb206::n206_second|package:pb206|ref_typespec
+CELL PRIS:g206_b_dedup.elab O D#3	class_typespec|pb206::zz206_late|package:pb206|<null>
+CELL PRIS:g206_b_dedup.elab G D#1	class_typespec|pb206::zz206_late|package:pb206|<null>
+CELL PRIS:g206_b_dedup.elab O D#1	class_typespec|pb206::m206_first|package:pb206|<null>
+CENSUM PATCHED:g206_b_dedup.elab AGREE=28 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PATCHED:g206_b_dedup.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+ARM g206_c_tparam parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g206_c_tparam.parse AGREE=8 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:g206_c_tparam.parse AGREE=5 TS-DIFF=0 ONLY-GOLDEN=3 ONLY-OURS=1
+CELL PRIS:g206_c_tparam.parse G D#0	class_typespec|named_type|design:work@gc206|<null>
+CELL PRIS:g206_c_tparam.parse G M:all:work@gc206:#0	class_typespec|named_type|design:work@gc206|<null>
+CELL PRIS:g206_c_tparam.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:g206_c_tparam.parse G M:top:work@gc206:work@gc206#0	class_typespec|named_type|design:work@gc206|<null>
+CENSUM PATCHED:g206_c_tparam.parse AGREE=6 TS-DIFF=0 ONLY-GOLDEN=2 ONLY-OURS=1
+CELL PATCHED:g206_c_tparam.parse G M:top:work@gc206:work@gc206#0	class_typespec|named_type|design:work@gc206|<null>
+CELL PATCHED:g206_c_tparam.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PATCHED:g206_c_tparam.parse G M:all:work@gc206:#0	class_typespec|named_type|design:work@gc206|<null>
+ARM g206_c_tparam elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g206_c_tparam.elab AGREE=8 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:g206_c_tparam.elab AGREE=5 TS-DIFF=0 ONLY-GOLDEN=3 ONLY-OURS=1
+CELL PRIS:g206_c_tparam.elab G D#0	class_typespec|named_type|design:work@gc206|<null>
+CELL PRIS:g206_c_tparam.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:g206_c_tparam.elab G M:all:work@gc206:#0	class_typespec|named_type|design:work@gc206|<null>
+CELL PRIS:g206_c_tparam.elab G M:top:work@gc206:work@gc206#0	class_typespec|named_type|design:work@gc206|<null>
+CENSUM PATCHED:g206_c_tparam.elab AGREE=6 TS-DIFF=0 ONLY-GOLDEN=2 ONLY-OURS=1
+CELL PATCHED:g206_c_tparam.elab G M:all:work@gc206:#0	class_typespec|named_type|design:work@gc206|<null>
+CELL PATCHED:g206_c_tparam.elab G M:top:work@gc206:work@gc206#0	class_typespec|named_type|design:work@gc206|<null>
+CELL PATCHED:g206_c_tparam.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+ARM g206_d_modimport parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g206_d_modimport.parse AGREE=9 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:g206_d_modimport.parse AGREE=6 TS-DIFF=3 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PRIS:g206_d_modimport.parse G M:all:work@gd206:#0	class_typespec|this_type|module_inst:|<null>
+CELL PRIS:g206_d_modimport.parse O M:all:work@gd206:#0	class_typespec|this_type|<noinst>|<null>
+CELL PRIS:g206_d_modimport.parse G C:pd206::cd206_self#0	class_typespec|this_type|module_inst:|<null>
+CELL PRIS:g206_d_modimport.parse O C:pd206::cd206_self#0	class_typespec|this_type|<noinst>|<null>
+CELL PRIS:g206_d_modimport.parse G M:top:work@gd206:work@gd206#0	class_typespec|this_type|module_inst:|<null>
+CELL PRIS:g206_d_modimport.parse O M:top:work@gd206:work@gd206#0	class_typespec|this_type|<noinst>|<null>
+CELL PRIS:g206_d_modimport.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CENSUM PATCHED:g206_d_modimport.parse AGREE=6 TS-DIFF=3 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PATCHED:g206_d_modimport.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PATCHED:g206_d_modimport.parse G M:all:work@gd206:#0	class_typespec|this_type|module_inst:|<null>
+CELL PATCHED:g206_d_modimport.parse O M:all:work@gd206:#0	class_typespec|this_type|<noinst>|<null>
+CELL PATCHED:g206_d_modimport.parse G M:top:work@gd206:work@gd206#0	class_typespec|this_type|module_inst:|<null>
+CELL PATCHED:g206_d_modimport.parse O M:top:work@gd206:work@gd206#0	class_typespec|this_type|<noinst>|<null>
+CELL PATCHED:g206_d_modimport.parse G C:pd206::cd206_self#0	class_typespec|this_type|module_inst:|<null>
+CELL PATCHED:g206_d_modimport.parse O C:pd206::cd206_self#0	class_typespec|this_type|<noinst>|<null>
+ARM g206_d_modimport elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g206_d_modimport.elab AGREE=9 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:g206_d_modimport.elab AGREE=6 TS-DIFF=3 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PRIS:g206_d_modimport.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:g206_d_modimport.elab G C:pd206::cd206_self#0	class_typespec|this_type|module_inst:|<null>
+CELL PRIS:g206_d_modimport.elab O C:pd206::cd206_self#0	class_typespec|this_type|<noinst>|<null>
+CELL PRIS:g206_d_modimport.elab G M:all:work@gd206:#0	class_typespec|this_type|module_inst:|<null>
+CELL PRIS:g206_d_modimport.elab O M:all:work@gd206:#0	class_typespec|this_type|<noinst>|<null>
+CELL PRIS:g206_d_modimport.elab G M:top:work@gd206:work@gd206#0	class_typespec|this_type|module_inst:|<null>
+CELL PRIS:g206_d_modimport.elab O M:top:work@gd206:work@gd206#0	class_typespec|this_type|<noinst>|<null>
+CENSUM PATCHED:g206_d_modimport.elab AGREE=6 TS-DIFF=3 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PATCHED:g206_d_modimport.elab G M:top:work@gd206:work@gd206#0	class_typespec|this_type|module_inst:|<null>
+CELL PATCHED:g206_d_modimport.elab O M:top:work@gd206:work@gd206#0	class_typespec|this_type|<noinst>|<null>
+CELL PATCHED:g206_d_modimport.elab G M:all:work@gd206:#0	class_typespec|this_type|module_inst:|<null>
+CELL PATCHED:g206_d_modimport.elab O M:all:work@gd206:#0	class_typespec|this_type|<noinst>|<null>
+CELL PATCHED:g206_d_modimport.elab G C:pd206::cd206_self#0	class_typespec|this_type|module_inst:|<null>
+CELL PATCHED:g206_d_modimport.elab O C:pd206::cd206_self#0	class_typespec|this_type|<noinst>|<null>
+CELL PATCHED:g206_d_modimport.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+ARM g206_e_two parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g206_e_two.parse AGREE=24 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:g206_e_two.parse AGREE=20 TS-DIFF=2 ONLY-GOLDEN=2 ONLY-OURS=1
+CELL PRIS:g206_e_two.parse G D#0	class_typespec|this_type|design:work@ge206|<null>
+CELL PRIS:g206_e_two.parse O D#0	int_typespec|pe206_a::te206_a|package:pe206_a|<null>
+CELL PRIS:g206_e_two.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:g206_e_two.parse G D#1	class_typespec|this_type|design:work@ge206|<null>
+CELL PRIS:g206_e_two.parse O D#1	byte_typespec|pe206_b::te206_b|package:pe206_b|<null>
+CELL PRIS:g206_e_two.parse G D#2	int_typespec|pe206_a::te206_a|package:pe206_a|<null>
+CELL PRIS:g206_e_two.parse G D#3	byte_typespec|pe206_b::te206_b|package:pe206_b|<null>
+CENSUM PATCHED:g206_e_two.parse AGREE=24 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PATCHED:g206_e_two.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+ARM g206_e_two elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g206_e_two.elab AGREE=24 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:g206_e_two.elab AGREE=20 TS-DIFF=2 ONLY-GOLDEN=2 ONLY-OURS=1
+CELL PRIS:g206_e_two.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:g206_e_two.elab G D#1	class_typespec|this_type|design:work@ge206|<null>
+CELL PRIS:g206_e_two.elab O D#1	byte_typespec|pe206_b::te206_b|package:pe206_b|<null>
+CELL PRIS:g206_e_two.elab G D#3	byte_typespec|pe206_b::te206_b|package:pe206_b|<null>
+CELL PRIS:g206_e_two.elab G D#2	int_typespec|pe206_a::te206_a|package:pe206_a|<null>
+CELL PRIS:g206_e_two.elab G D#0	class_typespec|this_type|design:work@ge206|<null>
+CELL PRIS:g206_e_two.elab O D#0	int_typespec|pe206_a::te206_a|package:pe206_a|<null>
+CENSUM PATCHED:g206_e_two.elab AGREE=24 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PATCHED:g206_e_two.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+ARM g206_f_mixed parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g206_f_mixed.parse AGREE=14 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:g206_f_mixed.parse AGREE=8 TS-DIFF=5 ONLY-GOLDEN=1 ONLY-OURS=1
+CELL PRIS:g206_f_mixed.parse G D#5	real_typespec|xf206_net|design:work@gf206|<null>
+CELL PRIS:g206_f_mixed.parse G D#4	logic_typespec|wf206_byte|design:work@gf206|<null>
+CELL PRIS:g206_f_mixed.parse O D#4	real_typespec|xf206_net|design:work@gf206|<null>
+CELL PRIS:g206_f_mixed.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:g206_f_mixed.parse G D#2	enum_typespec|uf206_enum|design:work@gf206|<null>
+CELL PRIS:g206_f_mixed.parse O D#2	struct_typespec|vf206_struct|design:work@gf206|<null>
+CELL PRIS:g206_f_mixed.parse G D#0	class_typespec|this_type|design:work@gf206|<null>
+CELL PRIS:g206_f_mixed.parse O D#0	logic_typespec|pf206::tf206_nib|package:pf206|<null>
+CELL PRIS:g206_f_mixed.parse G D#1	logic_typespec|pf206::tf206_nib|package:pf206|<null>
+CELL PRIS:g206_f_mixed.parse O D#1	enum_typespec|uf206_enum|design:work@gf206|<null>
+CELL PRIS:g206_f_mixed.parse G D#3	struct_typespec|vf206_struct|design:work@gf206|<null>
+CELL PRIS:g206_f_mixed.parse O D#3	logic_typespec|wf206_byte|design:work@gf206|<null>
+CENSUM PATCHED:g206_f_mixed.parse AGREE=14 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PATCHED:g206_f_mixed.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+ARM g206_f_mixed elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:g206_f_mixed.elab AGREE=14 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:g206_f_mixed.elab AGREE=8 TS-DIFF=5 ONLY-GOLDEN=1 ONLY-OURS=1
+CELL PRIS:g206_f_mixed.elab G D#4	logic_typespec|wf206_byte|design:work@gf206|<null>
+CELL PRIS:g206_f_mixed.elab O D#4	real_typespec|xf206_net|design:work@gf206|<null>
+CELL PRIS:g206_f_mixed.elab G D#5	real_typespec|xf206_net|design:work@gf206|<null>
+CELL PRIS:g206_f_mixed.elab G D#0	class_typespec|this_type|design:work@gf206|<null>
+CELL PRIS:g206_f_mixed.elab O D#0	logic_typespec|pf206::tf206_nib|package:pf206|<null>
+CELL PRIS:g206_f_mixed.elab G D#2	enum_typespec|uf206_enum|design:work@gf206|<null>
+CELL PRIS:g206_f_mixed.elab O D#2	struct_typespec|vf206_struct|design:work@gf206|<null>
+CELL PRIS:g206_f_mixed.elab G D#1	logic_typespec|pf206::tf206_nib|package:pf206|<null>
+CELL PRIS:g206_f_mixed.elab O D#1	enum_typespec|uf206_enum|design:work@gf206|<null>
+CELL PRIS:g206_f_mixed.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:g206_f_mixed.elab G D#3	struct_typespec|vf206_struct|design:work@gf206|<null>
+CELL PRIS:g206_f_mixed.elab O D#3	logic_typespec|wf206_byte|design:work@gf206|<null>
+CENSUM PATCHED:g206_f_mixed.elab AGREE=14 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PATCHED:g206_f_mixed.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+ARM v206_a_collide parse rc_surelog=0 rc_pristine=4 rc_patched=4 golden=yes
+CENSUM CALIB:v206_a_collide.parse AGREE=6 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:v206_a_collide.parse AGREE=0 TS-DIFF=5 ONLY-GOLDEN=1 ONLY-OURS=1
+CELL PRIS:v206_a_collide.parse G M:top:work@ta206:work@ta206#0	int_typespec|pa206::zz206|package:pa206|ref_typespec
+CELL PRIS:v206_a_collide.parse O M:top:work@ta206:work@ta206#0	class_typespec|pa206::zz206|package:pa206|<null>
+CELL PRIS:v206_a_collide.parse G M:all:work@ta206:#0	int_typespec|pa206::zz206|package:pa206|ref_typespec
+CELL PRIS:v206_a_collide.parse O M:all:work@ta206:#0	class_typespec|pa206::zz206|package:pa206|<null>
+CELL PRIS:v206_a_collide.parse G D#1	int_typespec|pa206::zz206|package:pa206|ref_typespec
+CELL PRIS:v206_a_collide.parse G P:top:pa206#0	int_typespec|pa206::zz206|package:pa206|ref_typespec
+CELL PRIS:v206_a_collide.parse O P:top:pa206#0	class_typespec|pa206::zz206|package:pa206|<null>
+CELL PRIS:v206_a_collide.parse G D#0	int_typespec|cc206|design:work@ta206|<null>
+CELL PRIS:v206_a_collide.parse O D#0	class_typespec|pa206::zz206|package:pa206|<null>
+CELL PRIS:v206_a_collide.parse G C:pa206::cc206#0	int_typespec|pa206::zz206|package:pa206|ref_typespec
+CELL PRIS:v206_a_collide.parse O C:pa206::cc206#0	class_typespec|pa206::zz206|package:pa206|<null>
+CELL PRIS:v206_a_collide.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CENSUM PATCHED:v206_a_collide.parse AGREE=0 TS-DIFF=5 ONLY-GOLDEN=1 ONLY-OURS=1
+CELL PATCHED:v206_a_collide.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PATCHED:v206_a_collide.parse G D#0	int_typespec|cc206|design:work@ta206|<null>
+CELL PATCHED:v206_a_collide.parse O D#0	class_typespec|pa206::zz206|package:pa206|<null>
+CELL PATCHED:v206_a_collide.parse G P:top:pa206#0	int_typespec|pa206::zz206|package:pa206|ref_typespec
+CELL PATCHED:v206_a_collide.parse O P:top:pa206#0	class_typespec|pa206::zz206|package:pa206|<null>
+CELL PATCHED:v206_a_collide.parse G M:all:work@ta206:#0	int_typespec|pa206::zz206|package:pa206|ref_typespec
+CELL PATCHED:v206_a_collide.parse O M:all:work@ta206:#0	class_typespec|pa206::zz206|package:pa206|<null>
+CELL PATCHED:v206_a_collide.parse G M:top:work@ta206:work@ta206#0	int_typespec|pa206::zz206|package:pa206|ref_typespec
+CELL PATCHED:v206_a_collide.parse O M:top:work@ta206:work@ta206#0	class_typespec|pa206::zz206|package:pa206|<null>
+CELL PATCHED:v206_a_collide.parse G D#1	int_typespec|pa206::zz206|package:pa206|ref_typespec
+CELL PATCHED:v206_a_collide.parse G C:pa206::cc206#0	int_typespec|pa206::zz206|package:pa206|ref_typespec
+CELL PATCHED:v206_a_collide.parse O C:pa206::cc206#0	class_typespec|pa206::zz206|package:pa206|<null>
+ARM v206_a_collide elab rc_surelog=0 rc_pristine=4 rc_patched=4 golden=yes
+CENSUM CALIB:v206_a_collide.elab AGREE=6 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:v206_a_collide.elab AGREE=0 TS-DIFF=5 ONLY-GOLDEN=1 ONLY-OURS=1
+CELL PRIS:v206_a_collide.elab G D#1	int_typespec|pa206::zz206|package:pa206|ref_typespec
+CELL PRIS:v206_a_collide.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:v206_a_collide.elab G C:pa206::cc206#0	int_typespec|pa206::zz206|package:pa206|ref_typespec
+CELL PRIS:v206_a_collide.elab O C:pa206::cc206#0	class_typespec|pa206::zz206|package:pa206|<null>
+CELL PRIS:v206_a_collide.elab G P:top:pa206#0	int_typespec|pa206::zz206|package:pa206|ref_typespec
+CELL PRIS:v206_a_collide.elab O P:top:pa206#0	class_typespec|pa206::zz206|package:pa206|<null>
+CELL PRIS:v206_a_collide.elab G M:top:work@ta206:work@ta206#0	int_typespec|pa206::zz206|package:pa206|ref_typespec
+CELL PRIS:v206_a_collide.elab O M:top:work@ta206:work@ta206#0	class_typespec|pa206::zz206|package:pa206|<null>
+CELL PRIS:v206_a_collide.elab G D#0	int_typespec|cc206|design:work@ta206|<null>
+CELL PRIS:v206_a_collide.elab O D#0	class_typespec|pa206::zz206|package:pa206|<null>
+CELL PRIS:v206_a_collide.elab G M:all:work@ta206:#0	int_typespec|pa206::zz206|package:pa206|ref_typespec
+CELL PRIS:v206_a_collide.elab O M:all:work@ta206:#0	class_typespec|pa206::zz206|package:pa206|<null>
+CENSUM PATCHED:v206_a_collide.elab AGREE=0 TS-DIFF=5 ONLY-GOLDEN=1 ONLY-OURS=1
+CELL PATCHED:v206_a_collide.elab G D#0	int_typespec|cc206|design:work@ta206|<null>
+CELL PATCHED:v206_a_collide.elab O D#0	class_typespec|pa206::zz206|package:pa206|<null>
+CELL PATCHED:v206_a_collide.elab G M:all:work@ta206:#0	int_typespec|pa206::zz206|package:pa206|ref_typespec
+CELL PATCHED:v206_a_collide.elab O M:all:work@ta206:#0	class_typespec|pa206::zz206|package:pa206|<null>
+CELL PATCHED:v206_a_collide.elab G C:pa206::cc206#0	int_typespec|pa206::zz206|package:pa206|ref_typespec
+CELL PATCHED:v206_a_collide.elab O C:pa206::cc206#0	class_typespec|pa206::zz206|package:pa206|<null>
+CELL PATCHED:v206_a_collide.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PATCHED:v206_a_collide.elab G P:top:pa206#0	int_typespec|pa206::zz206|package:pa206|ref_typespec
+CELL PATCHED:v206_a_collide.elab O P:top:pa206#0	class_typespec|pa206::zz206|package:pa206|<null>
+CELL PATCHED:v206_a_collide.elab G M:top:work@ta206:work@ta206#0	int_typespec|pa206::zz206|package:pa206|ref_typespec
+CELL PATCHED:v206_a_collide.elab O M:top:work@ta206:work@ta206#0	class_typespec|pa206::zz206|package:pa206|<null>
+CELL PATCHED:v206_a_collide.elab G D#1	int_typespec|pa206::zz206|package:pa206|ref_typespec
+ARM v206_b_explicit parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:v206_b_explicit.parse AGREE=5 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:v206_b_explicit.parse AGREE=2 TS-DIFF=0 ONLY-GOLDEN=3 ONLY-OURS=1
+CELL PRIS:v206_b_explicit.parse G D#0	class_typespec|pb206::yy206|package:pb206|<null>
+CELL PRIS:v206_b_explicit.parse G M:all:work@tb206:#0	class_typespec|pb206::yy206|package:pb206|<null>
+CELL PRIS:v206_b_explicit.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:v206_b_explicit.parse G M:top:work@tb206:work@tb206#0	class_typespec|pb206::yy206|package:pb206|<null>
+CENSUM PATCHED:v206_b_explicit.parse AGREE=2 TS-DIFF=0 ONLY-GOLDEN=3 ONLY-OURS=1
+CELL PATCHED:v206_b_explicit.parse G M:top:work@tb206:work@tb206#0	class_typespec|pb206::yy206|package:pb206|<null>
+CELL PATCHED:v206_b_explicit.parse G M:all:work@tb206:#0	class_typespec|pb206::yy206|package:pb206|<null>
+CELL PATCHED:v206_b_explicit.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PATCHED:v206_b_explicit.parse G D#0	class_typespec|pb206::yy206|package:pb206|<null>
+ARM v206_b_explicit elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:v206_b_explicit.elab AGREE=5 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:v206_b_explicit.elab AGREE=2 TS-DIFF=0 ONLY-GOLDEN=3 ONLY-OURS=1
+CELL PRIS:v206_b_explicit.elab G M:top:work@tb206:work@tb206#0	class_typespec|pb206::yy206|package:pb206|<null>
+CELL PRIS:v206_b_explicit.elab G M:all:work@tb206:#0	class_typespec|pb206::yy206|package:pb206|<null>
+CELL PRIS:v206_b_explicit.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:v206_b_explicit.elab G D#0	class_typespec|pb206::yy206|package:pb206|<null>
+CENSUM PATCHED:v206_b_explicit.elab AGREE=2 TS-DIFF=0 ONLY-GOLDEN=3 ONLY-OURS=1
+CELL PATCHED:v206_b_explicit.elab G M:top:work@tb206:work@tb206#0	class_typespec|pb206::yy206|package:pb206|<null>
+CELL PATCHED:v206_b_explicit.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PATCHED:v206_b_explicit.elab G M:all:work@tb206:#0	class_typespec|pb206::yy206|package:pb206|<null>
+CELL PATCHED:v206_b_explicit.elab G D#0	class_typespec|pb206::yy206|package:pb206|<null>
+ARM v206_c_transitive parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:v206_c_transitive.parse AGREE=16 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:v206_c_transitive.parse AGREE=10 TS-DIFF=3 ONLY-GOLDEN=3 ONLY-OURS=1
+CELL PRIS:v206_c_transitive.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:v206_c_transitive.parse G D#1	class_typespec|pc206::hh206_t|package:pc206|<null>
+CELL PRIS:v206_c_transitive.parse G D#0	class_typespec|pd206::ff206_t|package:pc206|<null>
+CELL PRIS:v206_c_transitive.parse O D#0	class_typespec|pc206::hh206_t|package:pc206|<null>
+CELL PRIS:v206_c_transitive.parse G M:top:work@tc206:work@tc206#0	class_typespec|pd206::ff206_t|package:pc206|<null>
+CELL PRIS:v206_c_transitive.parse O M:top:work@tc206:work@tc206#0	class_typespec|pc206::hh206_t|package:pc206|<null>
+CELL PRIS:v206_c_transitive.parse G M:all:work@tc206:#0	class_typespec|pd206::ff206_t|package:pc206|<null>
+CELL PRIS:v206_c_transitive.parse O M:all:work@tc206:#0	class_typespec|pc206::hh206_t|package:pc206|<null>
+CELL PRIS:v206_c_transitive.parse G M:all:work@tc206:#1	class_typespec|pc206::hh206_t|package:pc206|<null>
+CELL PRIS:v206_c_transitive.parse G M:top:work@tc206:work@tc206#1	class_typespec|pc206::hh206_t|package:pc206|<null>
+CENSUM PATCHED:v206_c_transitive.parse AGREE=10 TS-DIFF=3 ONLY-GOLDEN=3 ONLY-OURS=1
+CELL PATCHED:v206_c_transitive.parse G M:top:work@tc206:work@tc206#1	class_typespec|pc206::hh206_t|package:pc206|<null>
+CELL PATCHED:v206_c_transitive.parse G M:all:work@tc206:#0	class_typespec|pd206::ff206_t|package:pc206|<null>
+CELL PATCHED:v206_c_transitive.parse O M:all:work@tc206:#0	class_typespec|pc206::hh206_t|package:pc206|<null>
+CELL PATCHED:v206_c_transitive.parse G M:top:work@tc206:work@tc206#0	class_typespec|pd206::ff206_t|package:pc206|<null>
+CELL PATCHED:v206_c_transitive.parse O M:top:work@tc206:work@tc206#0	class_typespec|pc206::hh206_t|package:pc206|<null>
+CELL PATCHED:v206_c_transitive.parse G D#0	class_typespec|pd206::ff206_t|package:pc206|<null>
+CELL PATCHED:v206_c_transitive.parse O D#0	class_typespec|pc206::hh206_t|package:pc206|<null>
+CELL PATCHED:v206_c_transitive.parse G M:all:work@tc206:#1	class_typespec|pc206::hh206_t|package:pc206|<null>
+CELL PATCHED:v206_c_transitive.parse G D#1	class_typespec|pc206::hh206_t|package:pc206|<null>
+CELL PATCHED:v206_c_transitive.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+ARM v206_c_transitive elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:v206_c_transitive.elab AGREE=16 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:v206_c_transitive.elab AGREE=10 TS-DIFF=3 ONLY-GOLDEN=3 ONLY-OURS=1
+CELL PRIS:v206_c_transitive.elab G M:all:work@tc206:#1	class_typespec|pc206::hh206_t|package:pc206|<null>
+CELL PRIS:v206_c_transitive.elab G M:all:work@tc206:#0	class_typespec|pd206::ff206_t|package:pc206|<null>
+CELL PRIS:v206_c_transitive.elab O M:all:work@tc206:#0	class_typespec|pc206::hh206_t|package:pc206|<null>
+CELL PRIS:v206_c_transitive.elab G M:top:work@tc206:work@tc206#0	class_typespec|pd206::ff206_t|package:pc206|<null>
+CELL PRIS:v206_c_transitive.elab O M:top:work@tc206:work@tc206#0	class_typespec|pc206::hh206_t|package:pc206|<null>
+CELL PRIS:v206_c_transitive.elab G M:top:work@tc206:work@tc206#1	class_typespec|pc206::hh206_t|package:pc206|<null>
+CELL PRIS:v206_c_transitive.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:v206_c_transitive.elab G D#1	class_typespec|pc206::hh206_t|package:pc206|<null>
+CELL PRIS:v206_c_transitive.elab G D#0	class_typespec|pd206::ff206_t|package:pc206|<null>
+CELL PRIS:v206_c_transitive.elab O D#0	class_typespec|pc206::hh206_t|package:pc206|<null>
+CENSUM PATCHED:v206_c_transitive.elab AGREE=10 TS-DIFF=3 ONLY-GOLDEN=3 ONLY-OURS=1
+CELL PATCHED:v206_c_transitive.elab G D#1	class_typespec|pc206::hh206_t|package:pc206|<null>
+CELL PATCHED:v206_c_transitive.elab G D#0	class_typespec|pd206::ff206_t|package:pc206|<null>
+CELL PATCHED:v206_c_transitive.elab O D#0	class_typespec|pc206::hh206_t|package:pc206|<null>
+CELL PATCHED:v206_c_transitive.elab G M:all:work@tc206:#0	class_typespec|pd206::ff206_t|package:pc206|<null>
+CELL PATCHED:v206_c_transitive.elab O M:all:work@tc206:#0	class_typespec|pc206::hh206_t|package:pc206|<null>
+CELL PATCHED:v206_c_transitive.elab G M:top:work@tc206:work@tc206#1	class_typespec|pc206::hh206_t|package:pc206|<null>
+CELL PATCHED:v206_c_transitive.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PATCHED:v206_c_transitive.elab G M:all:work@tc206:#1	class_typespec|pc206::hh206_t|package:pc206|<null>
+CELL PATCHED:v206_c_transitive.elab G M:top:work@tc206:work@tc206#0	class_typespec|pd206::ff206_t|package:pc206|<null>
+CELL PATCHED:v206_c_transitive.elab O M:top:work@tc206:work@tc206#0	class_typespec|pc206::hh206_t|package:pc206|<null>
+ARM v206_d_selfname parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:v206_d_selfname.parse AGREE=10 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:v206_d_selfname.parse AGREE=10 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PRIS:v206_d_selfname.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CENSUM PATCHED:v206_d_selfname.parse AGREE=10 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PATCHED:v206_d_selfname.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+ARM v206_d_selfname elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:v206_d_selfname.elab AGREE=10 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:v206_d_selfname.elab AGREE=10 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PRIS:v206_d_selfname.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CENSUM PATCHED:v206_d_selfname.elab AGREE=10 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PATCHED:v206_d_selfname.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+ARM v206_e_samebare parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:v206_e_samebare.parse AGREE=12 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:v206_e_samebare.parse AGREE=6 TS-DIFF=6 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PRIS:v206_e_samebare.parse G D#1	class_typespec|pg206::g206_t|package:pg206|ref_typespec
+CELL PRIS:v206_e_samebare.parse O D#1	class_typespec|pg206::g206_t|package:pg206|<null>
+CELL PRIS:v206_e_samebare.parse G M:all:work@te206:#1	class_typespec|pg206::g206_t|package:pg206|ref_typespec
+CELL PRIS:v206_e_samebare.parse O M:all:work@te206:#1	class_typespec|pg206::g206_t|package:pg206|<null>
+CELL PRIS:v206_e_samebare.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:v206_e_samebare.parse G M:top:work@te206:work@te206#1	class_typespec|pg206::g206_t|package:pg206|ref_typespec
+CELL PRIS:v206_e_samebare.parse O M:top:work@te206:work@te206#1	class_typespec|pg206::g206_t|package:pg206|<null>
+CELL PRIS:v206_e_samebare.parse G C:pg206::gg206#1	class_typespec|pg206::g206_t|package:pg206|ref_typespec
+CELL PRIS:v206_e_samebare.parse O C:pg206::gg206#1	class_typespec|pg206::g206_t|package:pg206|<null>
+CELL PRIS:v206_e_samebare.parse G C:pf206::gg206#1	class_typespec|pg206::g206_t|package:pg206|ref_typespec
+CELL PRIS:v206_e_samebare.parse O C:pf206::gg206#1	class_typespec|pg206::g206_t|package:pg206|<null>
+CELL PRIS:v206_e_samebare.parse G P:top:pg206#0	class_typespec|pg206::g206_t|package:pg206|ref_typespec
+CELL PRIS:v206_e_samebare.parse O P:top:pg206#0	class_typespec|pg206::g206_t|package:pg206|<null>
+CENSUM PATCHED:v206_e_samebare.parse AGREE=6 TS-DIFF=6 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PATCHED:v206_e_samebare.parse G C:pf206::gg206#1	class_typespec|pg206::g206_t|package:pg206|ref_typespec
+CELL PATCHED:v206_e_samebare.parse O C:pf206::gg206#1	class_typespec|pg206::g206_t|package:pg206|<null>
+CELL PATCHED:v206_e_samebare.parse G P:top:pg206#0	class_typespec|pg206::g206_t|package:pg206|ref_typespec
+CELL PATCHED:v206_e_samebare.parse O P:top:pg206#0	class_typespec|pg206::g206_t|package:pg206|<null>
+CELL PATCHED:v206_e_samebare.parse G C:pg206::gg206#1	class_typespec|pg206::g206_t|package:pg206|ref_typespec
+CELL PATCHED:v206_e_samebare.parse O C:pg206::gg206#1	class_typespec|pg206::g206_t|package:pg206|<null>
+CELL PATCHED:v206_e_samebare.parse G D#1	class_typespec|pg206::g206_t|package:pg206|ref_typespec
+CELL PATCHED:v206_e_samebare.parse O D#1	class_typespec|pg206::g206_t|package:pg206|<null>
+CELL PATCHED:v206_e_samebare.parse G M:all:work@te206:#1	class_typespec|pg206::g206_t|package:pg206|ref_typespec
+CELL PATCHED:v206_e_samebare.parse O M:all:work@te206:#1	class_typespec|pg206::g206_t|package:pg206|<null>
+CELL PATCHED:v206_e_samebare.parse G M:top:work@te206:work@te206#1	class_typespec|pg206::g206_t|package:pg206|ref_typespec
+CELL PATCHED:v206_e_samebare.parse O M:top:work@te206:work@te206#1	class_typespec|pg206::g206_t|package:pg206|<null>
+CELL PATCHED:v206_e_samebare.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+ARM v206_e_samebare elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:v206_e_samebare.elab AGREE=12 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:v206_e_samebare.elab AGREE=6 TS-DIFF=6 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PRIS:v206_e_samebare.elab G M:top:work@te206:work@te206#1	class_typespec|pg206::g206_t|package:pg206|ref_typespec
+CELL PRIS:v206_e_samebare.elab O M:top:work@te206:work@te206#1	class_typespec|pg206::g206_t|package:pg206|<null>
+CELL PRIS:v206_e_samebare.elab G P:top:pg206#0	class_typespec|pg206::g206_t|package:pg206|ref_typespec
+CELL PRIS:v206_e_samebare.elab O P:top:pg206#0	class_typespec|pg206::g206_t|package:pg206|<null>
+CELL PRIS:v206_e_samebare.elab G C:pf206::gg206#1	class_typespec|pg206::g206_t|package:pg206|ref_typespec
+CELL PRIS:v206_e_samebare.elab O C:pf206::gg206#1	class_typespec|pg206::g206_t|package:pg206|<null>
+CELL PRIS:v206_e_samebare.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:v206_e_samebare.elab G C:pg206::gg206#1	class_typespec|pg206::g206_t|package:pg206|ref_typespec
+CELL PRIS:v206_e_samebare.elab O C:pg206::gg206#1	class_typespec|pg206::g206_t|package:pg206|<null>
+CELL PRIS:v206_e_samebare.elab G D#1	class_typespec|pg206::g206_t|package:pg206|ref_typespec
+CELL PRIS:v206_e_samebare.elab O D#1	class_typespec|pg206::g206_t|package:pg206|<null>
+CELL PRIS:v206_e_samebare.elab G M:all:work@te206:#1	class_typespec|pg206::g206_t|package:pg206|ref_typespec
+CELL PRIS:v206_e_samebare.elab O M:all:work@te206:#1	class_typespec|pg206::g206_t|package:pg206|<null>
+CENSUM PATCHED:v206_e_samebare.elab AGREE=6 TS-DIFF=6 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PATCHED:v206_e_samebare.elab G P:top:pg206#0	class_typespec|pg206::g206_t|package:pg206|ref_typespec
+CELL PATCHED:v206_e_samebare.elab O P:top:pg206#0	class_typespec|pg206::g206_t|package:pg206|<null>
+CELL PATCHED:v206_e_samebare.elab G M:top:work@te206:work@te206#1	class_typespec|pg206::g206_t|package:pg206|ref_typespec
+CELL PATCHED:v206_e_samebare.elab O M:top:work@te206:work@te206#1	class_typespec|pg206::g206_t|package:pg206|<null>
+CELL PATCHED:v206_e_samebare.elab G C:pf206::gg206#1	class_typespec|pg206::g206_t|package:pg206|ref_typespec
+CELL PATCHED:v206_e_samebare.elab O C:pf206::gg206#1	class_typespec|pg206::g206_t|package:pg206|<null>
+CELL PATCHED:v206_e_samebare.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PATCHED:v206_e_samebare.elab G M:all:work@te206:#1	class_typespec|pg206::g206_t|package:pg206|ref_typespec
+CELL PATCHED:v206_e_samebare.elab O M:all:work@te206:#1	class_typespec|pg206::g206_t|package:pg206|<null>
+CELL PATCHED:v206_e_samebare.elab G D#1	class_typespec|pg206::g206_t|package:pg206|ref_typespec
+CELL PATCHED:v206_e_samebare.elab O D#1	class_typespec|pg206::g206_t|package:pg206|<null>
+CELL PATCHED:v206_e_samebare.elab G C:pg206::gg206#1	class_typespec|pg206::g206_t|package:pg206|ref_typespec
+CELL PATCHED:v206_e_samebare.elab O C:pg206::gg206#1	class_typespec|pg206::g206_t|package:pg206|<null>
+ARM v206_f_noimport parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:v206_f_noimport.parse AGREE=1 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:v206_f_noimport.parse AGREE=1 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PRIS:v206_f_noimport.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CENSUM PATCHED:v206_f_noimport.parse AGREE=1 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PATCHED:v206_f_noimport.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+ARM v206_f_noimport elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:v206_f_noimport.elab AGREE=1 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:v206_f_noimport.elab AGREE=1 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PRIS:v206_f_noimport.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CENSUM PATCHED:v206_f_noimport.elab AGREE=1 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PATCHED:v206_f_noimport.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+ARM v206_g_noclass parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:v206_g_noclass.parse AGREE=15 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:v206_g_noclass.parse AGREE=15 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PRIS:v206_g_noclass.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CENSUM PATCHED:v206_g_noclass.parse AGREE=15 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PATCHED:v206_g_noclass.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+ARM v206_g_noclass elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:v206_g_noclass.elab AGREE=15 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:v206_g_noclass.elab AGREE=15 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PRIS:v206_g_noclass.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CENSUM PATCHED:v206_g_noclass.elab AGREE=15 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PATCHED:v206_g_noclass.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+ARM w206_a_unitcollide parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:w206_a_unitcollide.parse AGREE=11 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:w206_a_unitcollide.parse AGREE=8 TS-DIFF=2 ONLY-GOLDEN=1 ONLY-OURS=1
+CELL PRIS:w206_a_unitcollide.parse G D#1	logic_typespec|ka206_t|design:work@wa206|<null>
+CELL PRIS:w206_a_unitcollide.parse O D#1	logic_typespec|pa206::ta206_plain|package:pa206|<null>
+CELL PRIS:w206_a_unitcollide.parse G D#2	logic_typespec|pa206::ta206_plain|package:pa206|<null>
+CELL PRIS:w206_a_unitcollide.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:w206_a_unitcollide.parse G D#0	class_typespec|this_type|design:work@wa206|<null>
+CELL PRIS:w206_a_unitcollide.parse O D#0	logic_typespec|ka206_t|design:work@wa206|<null>
+CENSUM PATCHED:w206_a_unitcollide.parse AGREE=11 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PATCHED:w206_a_unitcollide.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+ARM w206_a_unitcollide elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:w206_a_unitcollide.elab AGREE=11 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:w206_a_unitcollide.elab AGREE=8 TS-DIFF=2 ONLY-GOLDEN=1 ONLY-OURS=1
+CELL PRIS:w206_a_unitcollide.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:w206_a_unitcollide.elab G D#1	logic_typespec|ka206_t|design:work@wa206|<null>
+CELL PRIS:w206_a_unitcollide.elab O D#1	logic_typespec|pa206::ta206_plain|package:pa206|<null>
+CELL PRIS:w206_a_unitcollide.elab G D#2	logic_typespec|pa206::ta206_plain|package:pa206|<null>
+CELL PRIS:w206_a_unitcollide.elab G D#0	class_typespec|this_type|design:work@wa206|<null>
+CELL PRIS:w206_a_unitcollide.elab O D#0	logic_typespec|ka206_t|design:work@wa206|<null>
+CENSUM PATCHED:w206_a_unitcollide.elab AGREE=11 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PATCHED:w206_a_unitcollide.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+ARM w206_b_dropcollide parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:w206_b_dropcollide.parse AGREE=7 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:w206_b_dropcollide.parse AGREE=6 TS-DIFF=1 ONLY-GOLDEN=0 ONLY-OURS=2
+CELL PRIS:w206_b_dropcollide.parse O D#1	class_typespec|pb206::zb206|package:pb206|<null>
+CELL PRIS:w206_b_dropcollide.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:w206_b_dropcollide.parse G D#0	class_typespec|pb206::zb206|package:pb206|<null>
+CELL PRIS:w206_b_dropcollide.parse O D#0	logic_typespec|pc206::cb206|package:pc206|<null>
+CENSUM PATCHED:w206_b_dropcollide.parse AGREE=6 TS-DIFF=1 ONLY-GOLDEN=0 ONLY-OURS=2
+CELL PATCHED:w206_b_dropcollide.parse O D#1	class_typespec|pb206::zb206|package:pb206|<null>
+CELL PATCHED:w206_b_dropcollide.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PATCHED:w206_b_dropcollide.parse G D#0	class_typespec|pb206::zb206|package:pb206|<null>
+CELL PATCHED:w206_b_dropcollide.parse O D#0	logic_typespec|pc206::cb206|package:pc206|<null>
+ARM w206_b_dropcollide elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:w206_b_dropcollide.elab AGREE=7 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:w206_b_dropcollide.elab AGREE=6 TS-DIFF=1 ONLY-GOLDEN=0 ONLY-OURS=2
+CELL PRIS:w206_b_dropcollide.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:w206_b_dropcollide.elab G D#0	class_typespec|pb206::zb206|package:pb206|<null>
+CELL PRIS:w206_b_dropcollide.elab O D#0	logic_typespec|pc206::cb206|package:pc206|<null>
+CELL PRIS:w206_b_dropcollide.elab O D#1	class_typespec|pb206::zb206|package:pb206|<null>
+CENSUM PATCHED:w206_b_dropcollide.elab AGREE=6 TS-DIFF=1 ONLY-GOLDEN=0 ONLY-OURS=2
+CELL PATCHED:w206_b_dropcollide.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PATCHED:w206_b_dropcollide.elab O D#1	class_typespec|pb206::zb206|package:pb206|<null>
+CELL PATCHED:w206_b_dropcollide.elab G D#0	class_typespec|pb206::zb206|package:pb206|<null>
+CELL PATCHED:w206_b_dropcollide.elab O D#0	logic_typespec|pc206::cb206|package:pc206|<null>
+ARM w206_c_dropcollide2 parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:w206_c_dropcollide2.parse AGREE=6 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:w206_c_dropcollide2.parse AGREE=1 TS-DIFF=5 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PRIS:w206_c_dropcollide2.parse G M:all:work@wc206:#0	real_typespec|pd206::zd206|package:pd206|ref_typespec
+CELL PRIS:w206_c_dropcollide2.parse O M:all:work@wc206:#0	class_typespec|pd206::zd206|package:pd206|<null>
+CELL PRIS:w206_c_dropcollide2.parse G P:top:pd206#0	real_typespec|pd206::zd206|package:pd206|ref_typespec
+CELL PRIS:w206_c_dropcollide2.parse O P:top:pd206#0	class_typespec|pd206::zd206|package:pd206|<null>
+CELL PRIS:w206_c_dropcollide2.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:w206_c_dropcollide2.parse G M:top:work@wc206:work@wc206#0	real_typespec|pd206::zd206|package:pd206|ref_typespec
+CELL PRIS:w206_c_dropcollide2.parse O M:top:work@wc206:work@wc206#0	class_typespec|pd206::zd206|package:pd206|<null>
+CELL PRIS:w206_c_dropcollide2.parse G C:pd206::cd206#0	real_typespec|pd206::zd206|package:pd206|ref_typespec
+CELL PRIS:w206_c_dropcollide2.parse O C:pd206::cd206#0	class_typespec|pd206::zd206|package:pd206|<null>
+CELL PRIS:w206_c_dropcollide2.parse G D#1	real_typespec|pd206::zd206|package:pd206|ref_typespec
+CELL PRIS:w206_c_dropcollide2.parse O D#1	class_typespec|pd206::zd206|package:pd206|<null>
+CENSUM PATCHED:w206_c_dropcollide2.parse AGREE=1 TS-DIFF=5 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PATCHED:w206_c_dropcollide2.parse G M:top:work@wc206:work@wc206#0	real_typespec|pd206::zd206|package:pd206|ref_typespec
+CELL PATCHED:w206_c_dropcollide2.parse O M:top:work@wc206:work@wc206#0	class_typespec|pd206::zd206|package:pd206|<null>
+CELL PATCHED:w206_c_dropcollide2.parse G C:pd206::cd206#0	real_typespec|pd206::zd206|package:pd206|ref_typespec
+CELL PATCHED:w206_c_dropcollide2.parse O C:pd206::cd206#0	class_typespec|pd206::zd206|package:pd206|<null>
+CELL PATCHED:w206_c_dropcollide2.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PATCHED:w206_c_dropcollide2.parse G M:all:work@wc206:#0	real_typespec|pd206::zd206|package:pd206|ref_typespec
+CELL PATCHED:w206_c_dropcollide2.parse O M:all:work@wc206:#0	class_typespec|pd206::zd206|package:pd206|<null>
+CELL PATCHED:w206_c_dropcollide2.parse G P:top:pd206#0	real_typespec|pd206::zd206|package:pd206|ref_typespec
+CELL PATCHED:w206_c_dropcollide2.parse O P:top:pd206#0	class_typespec|pd206::zd206|package:pd206|<null>
+CELL PATCHED:w206_c_dropcollide2.parse G D#1	real_typespec|pd206::zd206|package:pd206|ref_typespec
+CELL PATCHED:w206_c_dropcollide2.parse O D#1	class_typespec|pd206::zd206|package:pd206|<null>
+ARM w206_c_dropcollide2 elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:w206_c_dropcollide2.elab AGREE=6 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:w206_c_dropcollide2.elab AGREE=1 TS-DIFF=5 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PRIS:w206_c_dropcollide2.elab G M:top:work@wc206:work@wc206#0	real_typespec|pd206::zd206|package:pd206|ref_typespec
+CELL PRIS:w206_c_dropcollide2.elab O M:top:work@wc206:work@wc206#0	class_typespec|pd206::zd206|package:pd206|<null>
+CELL PRIS:w206_c_dropcollide2.elab G D#1	real_typespec|pd206::zd206|package:pd206|ref_typespec
+CELL PRIS:w206_c_dropcollide2.elab O D#1	class_typespec|pd206::zd206|package:pd206|<null>
+CELL PRIS:w206_c_dropcollide2.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:w206_c_dropcollide2.elab G M:all:work@wc206:#0	real_typespec|pd206::zd206|package:pd206|ref_typespec
+CELL PRIS:w206_c_dropcollide2.elab O M:all:work@wc206:#0	class_typespec|pd206::zd206|package:pd206|<null>
+CELL PRIS:w206_c_dropcollide2.elab G C:pd206::cd206#0	real_typespec|pd206::zd206|package:pd206|ref_typespec
+CELL PRIS:w206_c_dropcollide2.elab O C:pd206::cd206#0	class_typespec|pd206::zd206|package:pd206|<null>
+CELL PRIS:w206_c_dropcollide2.elab G P:top:pd206#0	real_typespec|pd206::zd206|package:pd206|ref_typespec
+CELL PRIS:w206_c_dropcollide2.elab O P:top:pd206#0	class_typespec|pd206::zd206|package:pd206|<null>
+CENSUM PATCHED:w206_c_dropcollide2.elab AGREE=1 TS-DIFF=5 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PATCHED:w206_c_dropcollide2.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PATCHED:w206_c_dropcollide2.elab G D#1	real_typespec|pd206::zd206|package:pd206|ref_typespec
+CELL PATCHED:w206_c_dropcollide2.elab O D#1	class_typespec|pd206::zd206|package:pd206|<null>
+CELL PATCHED:w206_c_dropcollide2.elab G M:all:work@wc206:#0	real_typespec|pd206::zd206|package:pd206|ref_typespec
+CELL PATCHED:w206_c_dropcollide2.elab O M:all:work@wc206:#0	class_typespec|pd206::zd206|package:pd206|<null>
+CELL PATCHED:w206_c_dropcollide2.elab G C:pd206::cd206#0	real_typespec|pd206::zd206|package:pd206|ref_typespec
+CELL PATCHED:w206_c_dropcollide2.elab O C:pd206::cd206#0	class_typespec|pd206::zd206|package:pd206|<null>
+CELL PATCHED:w206_c_dropcollide2.elab G P:top:pd206#0	real_typespec|pd206::zd206|package:pd206|ref_typespec
+CELL PATCHED:w206_c_dropcollide2.elab O P:top:pd206#0	class_typespec|pd206::zd206|package:pd206|<null>
+CELL PATCHED:w206_c_dropcollide2.elab G M:top:work@wc206:work@wc206#0	real_typespec|pd206::zd206|package:pd206|ref_typespec
+CELL PATCHED:w206_c_dropcollide2.elab O M:top:work@wc206:work@wc206#0	class_typespec|pd206::zd206|package:pd206|<null>
+ARM w206_d_twoclasskeys parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:w206_d_twoclasskeys.parse AGREE=10 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:w206_d_twoclasskeys.parse AGREE=4 TS-DIFF=0 ONLY-GOLDEN=6 ONLY-OURS=1
+CELL PRIS:w206_d_twoclasskeys.parse G M:top:work@wd206:work@wd206#1	class_typespec|this_type|design:work@wd206|<null>
+CELL PRIS:w206_d_twoclasskeys.parse G M:all:work@wd206:#1	class_typespec|this_type|design:work@wd206|<null>
+CELL PRIS:w206_d_twoclasskeys.parse G D#1	class_typespec|this_type|design:work@wd206|<null>
+CELL PRIS:w206_d_twoclasskeys.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:w206_d_twoclasskeys.parse G D#0	class_typespec|this_type|design:work@wd206|<null>
+CELL PRIS:w206_d_twoclasskeys.parse G M:top:work@wd206:work@wd206#0	class_typespec|this_type|design:work@wd206|<null>
+CELL PRIS:w206_d_twoclasskeys.parse G M:all:work@wd206:#0	class_typespec|this_type|design:work@wd206|<null>
+CENSUM PATCHED:w206_d_twoclasskeys.parse AGREE=6 TS-DIFF=0 ONLY-GOLDEN=4 ONLY-OURS=1
+CELL PATCHED:w206_d_twoclasskeys.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PATCHED:w206_d_twoclasskeys.parse G M:top:work@wd206:work@wd206#1	class_typespec|this_type|design:work@wd206|<null>
+CELL PATCHED:w206_d_twoclasskeys.parse G M:top:work@wd206:work@wd206#0	class_typespec|this_type|design:work@wd206|<null>
+CELL PATCHED:w206_d_twoclasskeys.parse G M:all:work@wd206:#1	class_typespec|this_type|design:work@wd206|<null>
+CELL PATCHED:w206_d_twoclasskeys.parse G M:all:work@wd206:#0	class_typespec|this_type|design:work@wd206|<null>
+ARM w206_d_twoclasskeys elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:w206_d_twoclasskeys.elab AGREE=10 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:w206_d_twoclasskeys.elab AGREE=4 TS-DIFF=0 ONLY-GOLDEN=6 ONLY-OURS=1
+CELL PRIS:w206_d_twoclasskeys.elab G D#1	class_typespec|this_type|design:work@wd206|<null>
+CELL PRIS:w206_d_twoclasskeys.elab G M:all:work@wd206:#0	class_typespec|this_type|design:work@wd206|<null>
+CELL PRIS:w206_d_twoclasskeys.elab G M:all:work@wd206:#1	class_typespec|this_type|design:work@wd206|<null>
+CELL PRIS:w206_d_twoclasskeys.elab G M:top:work@wd206:work@wd206#0	class_typespec|this_type|design:work@wd206|<null>
+CELL PRIS:w206_d_twoclasskeys.elab G M:top:work@wd206:work@wd206#1	class_typespec|this_type|design:work@wd206|<null>
+CELL PRIS:w206_d_twoclasskeys.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:w206_d_twoclasskeys.elab G D#0	class_typespec|this_type|design:work@wd206|<null>
+CENSUM PATCHED:w206_d_twoclasskeys.elab AGREE=6 TS-DIFF=0 ONLY-GOLDEN=4 ONLY-OURS=1
+CELL PATCHED:w206_d_twoclasskeys.elab G M:top:work@wd206:work@wd206#1	class_typespec|this_type|design:work@wd206|<null>
+CELL PATCHED:w206_d_twoclasskeys.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PATCHED:w206_d_twoclasskeys.elab G M:all:work@wd206:#1	class_typespec|this_type|design:work@wd206|<null>
+CELL PATCHED:w206_d_twoclasskeys.elab G M:all:work@wd206:#0	class_typespec|this_type|design:work@wd206|<null>
+CELL PATCHED:w206_d_twoclasskeys.elab G M:top:work@wd206:work@wd206#0	class_typespec|this_type|design:work@wd206|<null>
+ARM w206_e_explicit parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:w206_e_explicit.parse AGREE=4 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:w206_e_explicit.parse AGREE=1 TS-DIFF=0 ONLY-GOLDEN=3 ONLY-OURS=1
+CELL PRIS:w206_e_explicit.parse G M:top:work@we206:work@we206#0	class_typespec|this_type|design:work@we206|<null>
+CELL PRIS:w206_e_explicit.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:w206_e_explicit.parse G M:all:work@we206:#0	class_typespec|this_type|design:work@we206|<null>
+CELL PRIS:w206_e_explicit.parse G D#0	class_typespec|this_type|design:work@we206|<null>
+CENSUM PATCHED:w206_e_explicit.parse AGREE=1 TS-DIFF=0 ONLY-GOLDEN=3 ONLY-OURS=1
+CELL PATCHED:w206_e_explicit.parse G M:top:work@we206:work@we206#0	class_typespec|this_type|design:work@we206|<null>
+CELL PATCHED:w206_e_explicit.parse G M:all:work@we206:#0	class_typespec|this_type|design:work@we206|<null>
+CELL PATCHED:w206_e_explicit.parse G D#0	class_typespec|this_type|design:work@we206|<null>
+CELL PATCHED:w206_e_explicit.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+ARM w206_e_explicit elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:w206_e_explicit.elab AGREE=4 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:w206_e_explicit.elab AGREE=1 TS-DIFF=0 ONLY-GOLDEN=3 ONLY-OURS=1
+CELL PRIS:w206_e_explicit.elab G M:top:work@we206:work@we206#0	class_typespec|this_type|design:work@we206|<null>
+CELL PRIS:w206_e_explicit.elab G D#0	class_typespec|this_type|design:work@we206|<null>
+CELL PRIS:w206_e_explicit.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:w206_e_explicit.elab G M:all:work@we206:#0	class_typespec|this_type|design:work@we206|<null>
+CENSUM PATCHED:w206_e_explicit.elab AGREE=1 TS-DIFF=0 ONLY-GOLDEN=3 ONLY-OURS=1
+CELL PATCHED:w206_e_explicit.elab G M:top:work@we206:work@we206#0	class_typespec|this_type|design:work@we206|<null>
+CELL PATCHED:w206_e_explicit.elab G D#0	class_typespec|this_type|design:work@we206|<null>
+CELL PATCHED:w206_e_explicit.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PATCHED:w206_e_explicit.elab G M:all:work@we206:#0	class_typespec|this_type|design:work@we206|<null>
+ARM x206_a_dropwithmove parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:x206_a_dropwithmove.parse AGREE=13 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:x206_a_dropwithmove.parse AGREE=11 TS-DIFF=2 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PRIS:x206_a_dropwithmove.parse G D#1	class_typespec|this_type|design:work@xa206|<null>
+CELL PRIS:x206_a_dropwithmove.parse O D#1	class_typespec|pb206::zb206|package:pb206|<null>
+CELL PRIS:x206_a_dropwithmove.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:x206_a_dropwithmove.parse G D#0	class_typespec|pb206::zb206|package:pb206|<null>
+CELL PRIS:x206_a_dropwithmove.parse O D#0	logic_typespec|pc206::cb206|package:pc206|<null>
+CENSUM PATCHED:x206_a_dropwithmove.parse AGREE=12 TS-DIFF=1 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PATCHED:x206_a_dropwithmove.parse G D#0	class_typespec|pb206::zb206|package:pb206|<null>
+CELL PATCHED:x206_a_dropwithmove.parse O D#0	logic_typespec|pc206::cb206|package:pc206|<null>
+CELL PATCHED:x206_a_dropwithmove.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+ARM x206_a_dropwithmove elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:x206_a_dropwithmove.elab AGREE=13 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:x206_a_dropwithmove.elab AGREE=11 TS-DIFF=2 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PRIS:x206_a_dropwithmove.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:x206_a_dropwithmove.elab G D#0	class_typespec|pb206::zb206|package:pb206|<null>
+CELL PRIS:x206_a_dropwithmove.elab O D#0	logic_typespec|pc206::cb206|package:pc206|<null>
+CELL PRIS:x206_a_dropwithmove.elab G D#1	class_typespec|this_type|design:work@xa206|<null>
+CELL PRIS:x206_a_dropwithmove.elab O D#1	class_typespec|pb206::zb206|package:pb206|<null>
+CENSUM PATCHED:x206_a_dropwithmove.elab AGREE=12 TS-DIFF=1 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PATCHED:x206_a_dropwithmove.elab G D#0	class_typespec|pb206::zb206|package:pb206|<null>
+CELL PATCHED:x206_a_dropwithmove.elab O D#0	logic_typespec|pc206::cb206|package:pc206|<null>
+CELL PATCHED:x206_a_dropwithmove.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+ARM x206_b_dropwithmove_unit parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:x206_b_dropwithmove_unit.parse AGREE=12 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:x206_b_dropwithmove_unit.parse AGREE=9 TS-DIFF=2 ONLY-GOLDEN=1 ONLY-OURS=1
+CELL PRIS:x206_b_dropwithmove_unit.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:x206_b_dropwithmove_unit.parse G D#2	class_typespec|this_type|design:work@xb206|<null>
+CELL PRIS:x206_b_dropwithmove_unit.parse G D#1	logic_typespec|cd206_hold|design:work@xb206|<null>
+CELL PRIS:x206_b_dropwithmove_unit.parse O D#1	class_typespec|pd206::zd206|package:pd206|<null>
+CELL PRIS:x206_b_dropwithmove_unit.parse G D#0	class_typespec|pd206::zd206|package:pd206|<null>
+CELL PRIS:x206_b_dropwithmove_unit.parse O D#0	logic_typespec|cd206_hold|design:work@xb206|<null>
+CENSUM PATCHED:x206_b_dropwithmove_unit.parse AGREE=12 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PATCHED:x206_b_dropwithmove_unit.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+ARM x206_b_dropwithmove_unit elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:x206_b_dropwithmove_unit.elab AGREE=12 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:x206_b_dropwithmove_unit.elab AGREE=9 TS-DIFF=2 ONLY-GOLDEN=1 ONLY-OURS=1
+CELL PRIS:x206_b_dropwithmove_unit.elab G D#1	logic_typespec|cd206_hold|design:work@xb206|<null>
+CELL PRIS:x206_b_dropwithmove_unit.elab O D#1	class_typespec|pd206::zd206|package:pd206|<null>
+CELL PRIS:x206_b_dropwithmove_unit.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:x206_b_dropwithmove_unit.elab G D#2	class_typespec|this_type|design:work@xb206|<null>
+CELL PRIS:x206_b_dropwithmove_unit.elab G D#0	class_typespec|pd206::zd206|package:pd206|<null>
+CELL PRIS:x206_b_dropwithmove_unit.elab O D#0	logic_typespec|cd206_hold|design:work@xb206|<null>
+CENSUM PATCHED:x206_b_dropwithmove_unit.elab AGREE=12 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PATCHED:x206_b_dropwithmove_unit.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+ARM y206_a_twopkgsamebare parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:y206_a_twopkgsamebare.parse AGREE=7 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:y206_a_twopkgsamebare.parse AGREE=2 TS-DIFF=5 ONLY-GOLDEN=0 ONLY-OURS=4
+CELL PRIS:y206_a_twopkgsamebare.parse G C:pg206::gg206#0	class_typespec|pg206::zg206|package:pg206|<null>
+CELL PRIS:y206_a_twopkgsamebare.parse O C:pg206::gg206#0	class_typespec|this_type|design:work@ya206|<null>
+CELL PRIS:y206_a_twopkgsamebare.parse O M:all:work@ya206:#1	class_typespec|pg206::zg206|package:pg206|<null>
+CELL PRIS:y206_a_twopkgsamebare.parse G M:top:work@ya206:work@ya206#0	class_typespec|pg206::zg206|package:pg206|<null>
+CELL PRIS:y206_a_twopkgsamebare.parse O M:top:work@ya206:work@ya206#0	class_typespec|this_type|design:work@ya206|<null>
+CELL PRIS:y206_a_twopkgsamebare.parse G M:all:work@ya206:#0	class_typespec|pg206::zg206|package:pg206|<null>
+CELL PRIS:y206_a_twopkgsamebare.parse O M:all:work@ya206:#0	class_typespec|this_type|design:work@ya206|<null>
+CELL PRIS:y206_a_twopkgsamebare.parse G C:pf206::gg206#1	class_typespec|this_type|package:pg206|ref_typespec
+CELL PRIS:y206_a_twopkgsamebare.parse O C:pf206::gg206#1	class_typespec|pg206::zg206|package:pg206|<null>
+CELL PRIS:y206_a_twopkgsamebare.parse O M:top:work@ya206:work@ya206#1	class_typespec|pg206::zg206|package:pg206|<null>
+CELL PRIS:y206_a_twopkgsamebare.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:y206_a_twopkgsamebare.parse O C:pg206::gg206#1	class_typespec|pg206::zg206|package:pg206|<null>
+CELL PRIS:y206_a_twopkgsamebare.parse G C:pf206::gg206#0	class_typespec|pg206::zg206|package:pg206|<null>
+CELL PRIS:y206_a_twopkgsamebare.parse O C:pf206::gg206#0	class_typespec|this_type|design:work@ya206|<null>
+CENSUM PATCHED:y206_a_twopkgsamebare.parse AGREE=2 TS-DIFF=5 ONLY-GOLDEN=0 ONLY-OURS=4
+CELL PATCHED:y206_a_twopkgsamebare.parse O C:pg206::gg206#1	class_typespec|pg206::zg206|package:pg206|<null>
+CELL PATCHED:y206_a_twopkgsamebare.parse G C:pf206::gg206#0	class_typespec|pg206::zg206|package:pg206|<null>
+CELL PATCHED:y206_a_twopkgsamebare.parse O C:pf206::gg206#0	class_typespec|this_type|design:work@ya206|<null>
+CELL PATCHED:y206_a_twopkgsamebare.parse G C:pf206::gg206#1	class_typespec|this_type|package:pg206|ref_typespec
+CELL PATCHED:y206_a_twopkgsamebare.parse O C:pf206::gg206#1	class_typespec|pg206::zg206|package:pg206|<null>
+CELL PATCHED:y206_a_twopkgsamebare.parse G C:pg206::gg206#0	class_typespec|pg206::zg206|package:pg206|<null>
+CELL PATCHED:y206_a_twopkgsamebare.parse O C:pg206::gg206#0	class_typespec|this_type|design:work@ya206|<null>
+CELL PATCHED:y206_a_twopkgsamebare.parse O M:top:work@ya206:work@ya206#1	class_typespec|pg206::zg206|package:pg206|<null>
+CELL PATCHED:y206_a_twopkgsamebare.parse G M:all:work@ya206:#0	class_typespec|pg206::zg206|package:pg206|<null>
+CELL PATCHED:y206_a_twopkgsamebare.parse O M:all:work@ya206:#0	class_typespec|this_type|design:work@ya206|<null>
+CELL PATCHED:y206_a_twopkgsamebare.parse G M:top:work@ya206:work@ya206#0	class_typespec|pg206::zg206|package:pg206|<null>
+CELL PATCHED:y206_a_twopkgsamebare.parse O M:top:work@ya206:work@ya206#0	class_typespec|this_type|design:work@ya206|<null>
+CELL PATCHED:y206_a_twopkgsamebare.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PATCHED:y206_a_twopkgsamebare.parse O M:all:work@ya206:#1	class_typespec|pg206::zg206|package:pg206|<null>
+ARM y206_a_twopkgsamebare elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:y206_a_twopkgsamebare.elab AGREE=7 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:y206_a_twopkgsamebare.elab AGREE=2 TS-DIFF=5 ONLY-GOLDEN=0 ONLY-OURS=4
+CELL PRIS:y206_a_twopkgsamebare.elab G C:pf206::gg206#1	class_typespec|this_type|package:pg206|ref_typespec
+CELL PRIS:y206_a_twopkgsamebare.elab O C:pf206::gg206#1	class_typespec|pg206::zg206|package:pg206|<null>
+CELL PRIS:y206_a_twopkgsamebare.elab G C:pf206::gg206#0	class_typespec|pg206::zg206|package:pg206|<null>
+CELL PRIS:y206_a_twopkgsamebare.elab O C:pf206::gg206#0	class_typespec|this_type|design:work@ya206|<null>
+CELL PRIS:y206_a_twopkgsamebare.elab O M:top:work@ya206:work@ya206#1	class_typespec|pg206::zg206|package:pg206|<null>
+CELL PRIS:y206_a_twopkgsamebare.elab G C:pg206::gg206#0	class_typespec|pg206::zg206|package:pg206|<null>
+CELL PRIS:y206_a_twopkgsamebare.elab O C:pg206::gg206#0	class_typespec|this_type|design:work@ya206|<null>
+CELL PRIS:y206_a_twopkgsamebare.elab G M:all:work@ya206:#0	class_typespec|pg206::zg206|package:pg206|<null>
+CELL PRIS:y206_a_twopkgsamebare.elab O M:all:work@ya206:#0	class_typespec|this_type|design:work@ya206|<null>
+CELL PRIS:y206_a_twopkgsamebare.elab O C:pg206::gg206#1	class_typespec|pg206::zg206|package:pg206|<null>
+CELL PRIS:y206_a_twopkgsamebare.elab O M:all:work@ya206:#1	class_typespec|pg206::zg206|package:pg206|<null>
+CELL PRIS:y206_a_twopkgsamebare.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:y206_a_twopkgsamebare.elab G M:top:work@ya206:work@ya206#0	class_typespec|pg206::zg206|package:pg206|<null>
+CELL PRIS:y206_a_twopkgsamebare.elab O M:top:work@ya206:work@ya206#0	class_typespec|this_type|design:work@ya206|<null>
+CENSUM PATCHED:y206_a_twopkgsamebare.elab AGREE=2 TS-DIFF=5 ONLY-GOLDEN=0 ONLY-OURS=4
+CELL PATCHED:y206_a_twopkgsamebare.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PATCHED:y206_a_twopkgsamebare.elab G M:top:work@ya206:work@ya206#0	class_typespec|pg206::zg206|package:pg206|<null>
+CELL PATCHED:y206_a_twopkgsamebare.elab O M:top:work@ya206:work@ya206#0	class_typespec|this_type|design:work@ya206|<null>
+CELL PATCHED:y206_a_twopkgsamebare.elab O M:all:work@ya206:#1	class_typespec|pg206::zg206|package:pg206|<null>
+CELL PATCHED:y206_a_twopkgsamebare.elab G C:pf206::gg206#1	class_typespec|this_type|package:pg206|ref_typespec
+CELL PATCHED:y206_a_twopkgsamebare.elab O C:pf206::gg206#1	class_typespec|pg206::zg206|package:pg206|<null>
+CELL PATCHED:y206_a_twopkgsamebare.elab G M:all:work@ya206:#0	class_typespec|pg206::zg206|package:pg206|<null>
+CELL PATCHED:y206_a_twopkgsamebare.elab O M:all:work@ya206:#0	class_typespec|this_type|design:work@ya206|<null>
+CELL PATCHED:y206_a_twopkgsamebare.elab G C:pg206::gg206#0	class_typespec|pg206::zg206|package:pg206|<null>
+CELL PATCHED:y206_a_twopkgsamebare.elab O C:pg206::gg206#0	class_typespec|this_type|design:work@ya206|<null>
+CELL PATCHED:y206_a_twopkgsamebare.elab G C:pf206::gg206#0	class_typespec|pg206::zg206|package:pg206|<null>
+CELL PATCHED:y206_a_twopkgsamebare.elab O C:pf206::gg206#0	class_typespec|this_type|design:work@ya206|<null>
+CELL PATCHED:y206_a_twopkgsamebare.elab O M:top:work@ya206:work@ya206#1	class_typespec|pg206::zg206|package:pg206|<null>
+CELL PATCHED:y206_a_twopkgsamebare.elab O C:pg206::gg206#1	class_typespec|pg206::zg206|package:pg206|<null>
+ARM y206_b_twopkgsamebare_rev parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:y206_b_twopkgsamebare_rev.parse AGREE=7 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:y206_b_twopkgsamebare_rev.parse AGREE=6 TS-DIFF=1 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PRIS:y206_b_twopkgsamebare_rev.parse G C:pf206::gg206#1	class_typespec|this_type|package:pg206|ref_typespec
+CELL PRIS:y206_b_twopkgsamebare_rev.parse O C:pf206::gg206#1	class_typespec|this_type|design:work@yb206|<null>
+CELL PRIS:y206_b_twopkgsamebare_rev.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CENSUM PATCHED:y206_b_twopkgsamebare_rev.parse AGREE=6 TS-DIFF=1 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PATCHED:y206_b_twopkgsamebare_rev.parse G C:pf206::gg206#1	class_typespec|this_type|package:pg206|ref_typespec
+CELL PATCHED:y206_b_twopkgsamebare_rev.parse O C:pf206::gg206#1	class_typespec|this_type|design:work@yb206|<null>
+CELL PATCHED:y206_b_twopkgsamebare_rev.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+ARM y206_b_twopkgsamebare_rev elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:y206_b_twopkgsamebare_rev.elab AGREE=7 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:y206_b_twopkgsamebare_rev.elab AGREE=6 TS-DIFF=1 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PRIS:y206_b_twopkgsamebare_rev.elab G C:pf206::gg206#1	class_typespec|this_type|package:pg206|ref_typespec
+CELL PRIS:y206_b_twopkgsamebare_rev.elab O C:pf206::gg206#1	class_typespec|this_type|design:work@yb206|<null>
+CELL PRIS:y206_b_twopkgsamebare_rev.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CENSUM PATCHED:y206_b_twopkgsamebare_rev.elab AGREE=6 TS-DIFF=1 ONLY-GOLDEN=0 ONLY-OURS=1
+CELL PATCHED:y206_b_twopkgsamebare_rev.elab G C:pf206::gg206#1	class_typespec|this_type|package:pg206|ref_typespec
+CELL PATCHED:y206_b_twopkgsamebare_rev.elab O C:pf206::gg206#1	class_typespec|this_type|design:work@yb206|<null>
+CELL PATCHED:y206_b_twopkgsamebare_rev.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+ARM z206_a_droprev parse rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:z206_a_droprev.parse AGREE=18 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:z206_a_droprev.parse AGREE=9 TS-DIFF=6 ONLY-GOLDEN=3 ONLY-OURS=1
+CELL PRIS:z206_a_droprev.parse G M:top:work@za206:work@za206#0	logic_typespec|pc206::cb206|package:pc206|<null>
+CELL PRIS:z206_a_droprev.parse O M:top:work@za206:work@za206#0	class_typespec|pb206::zb206|package:pb206|<null>
+CELL PRIS:z206_a_droprev.parse G D#2	logic_typespec|pb206::zb206|package:pb206|ref_typespec
+CELL PRIS:z206_a_droprev.parse G M:all:work@za206:#2	logic_typespec|pb206::zb206|package:pb206|ref_typespec
+CELL PRIS:z206_a_droprev.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:z206_a_droprev.parse G C:pb206::kb206#2	logic_typespec|pb206::zb206|package:pb206|ref_typespec
+CELL PRIS:z206_a_droprev.parse O C:pb206::kb206#2	class_typespec|pb206::zb206|package:pb206|<null>
+CELL PRIS:z206_a_droprev.parse G M:top:work@za206:work@za206#2	logic_typespec|pb206::zb206|package:pb206|ref_typespec
+CELL PRIS:z206_a_droprev.parse G D#1	class_typespec|this_type|design:work@za206|<null>
+CELL PRIS:z206_a_droprev.parse O D#1	class_typespec|pb206::zb206|package:pb206|<null>
+CELL PRIS:z206_a_droprev.parse G P:top:pb206#0	logic_typespec|pb206::zb206|package:pb206|ref_typespec
+CELL PRIS:z206_a_droprev.parse O P:top:pb206#0	class_typespec|pb206::zb206|package:pb206|<null>
+CELL PRIS:z206_a_droprev.parse G M:all:work@za206:#0	logic_typespec|pc206::cb206|package:pc206|<null>
+CELL PRIS:z206_a_droprev.parse O M:all:work@za206:#0	class_typespec|pb206::zb206|package:pb206|<null>
+CELL PRIS:z206_a_droprev.parse G C:pb206::cb206#2	logic_typespec|pb206::zb206|package:pb206|ref_typespec
+CELL PRIS:z206_a_droprev.parse O C:pb206::cb206#2	class_typespec|pb206::zb206|package:pb206|<null>
+CENSUM PATCHED:z206_a_droprev.parse AGREE=10 TS-DIFF=5 ONLY-GOLDEN=3 ONLY-OURS=1
+CELL PATCHED:z206_a_droprev.parse G D#2	logic_typespec|pb206::zb206|package:pb206|ref_typespec
+CELL PATCHED:z206_a_droprev.parse G M:all:work@za206:#0	logic_typespec|pc206::cb206|package:pc206|<null>
+CELL PATCHED:z206_a_droprev.parse O M:all:work@za206:#0	class_typespec|pb206::zb206|package:pb206|<null>
+CELL PATCHED:z206_a_droprev.parse G C:pb206::cb206#2	logic_typespec|pb206::zb206|package:pb206|ref_typespec
+CELL PATCHED:z206_a_droprev.parse O C:pb206::cb206#2	class_typespec|pb206::zb206|package:pb206|<null>
+CELL PATCHED:z206_a_droprev.parse O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PATCHED:z206_a_droprev.parse G M:all:work@za206:#2	logic_typespec|pb206::zb206|package:pb206|ref_typespec
+CELL PATCHED:z206_a_droprev.parse G P:top:pb206#0	logic_typespec|pb206::zb206|package:pb206|ref_typespec
+CELL PATCHED:z206_a_droprev.parse O P:top:pb206#0	class_typespec|pb206::zb206|package:pb206|<null>
+CELL PATCHED:z206_a_droprev.parse G M:top:work@za206:work@za206#0	logic_typespec|pc206::cb206|package:pc206|<null>
+CELL PATCHED:z206_a_droprev.parse O M:top:work@za206:work@za206#0	class_typespec|pb206::zb206|package:pb206|<null>
+CELL PATCHED:z206_a_droprev.parse G C:pb206::kb206#2	logic_typespec|pb206::zb206|package:pb206|ref_typespec
+CELL PATCHED:z206_a_droprev.parse O C:pb206::kb206#2	class_typespec|pb206::zb206|package:pb206|<null>
+CELL PATCHED:z206_a_droprev.parse G M:top:work@za206:work@za206#2	logic_typespec|pb206::zb206|package:pb206|ref_typespec
+ARM z206_a_droprev elab rc_surelog=0 rc_pristine=0 rc_patched=0 golden=yes
+CENSUM CALIB:z206_a_droprev.elab AGREE=18 TS-DIFF=0 ONLY-GOLDEN=0 ONLY-OURS=0
+CENSUM PRIS:z206_a_droprev.elab AGREE=9 TS-DIFF=6 ONLY-GOLDEN=3 ONLY-OURS=1
+CELL PRIS:z206_a_droprev.elab G C:pb206::cb206#2	logic_typespec|pb206::zb206|package:pb206|ref_typespec
+CELL PRIS:z206_a_droprev.elab O C:pb206::cb206#2	class_typespec|pb206::zb206|package:pb206|<null>
+CELL PRIS:z206_a_droprev.elab G M:top:work@za206:work@za206#0	logic_typespec|pc206::cb206|package:pc206|<null>
+CELL PRIS:z206_a_droprev.elab O M:top:work@za206:work@za206#0	class_typespec|pb206::zb206|package:pb206|<null>
+CELL PRIS:z206_a_droprev.elab G M:top:work@za206:work@za206#2	logic_typespec|pb206::zb206|package:pb206|ref_typespec
+CELL PRIS:z206_a_droprev.elab G M:all:work@za206:#2	logic_typespec|pb206::zb206|package:pb206|ref_typespec
+CELL PRIS:z206_a_droprev.elab G D#1	class_typespec|this_type|design:work@za206|<null>
+CELL PRIS:z206_a_droprev.elab O D#1	class_typespec|pb206::zb206|package:pb206|<null>
+CELL PRIS:z206_a_droprev.elab G M:all:work@za206:#0	logic_typespec|pc206::cb206|package:pc206|<null>
+CELL PRIS:z206_a_droprev.elab O M:all:work@za206:#0	class_typespec|pb206::zb206|package:pb206|<null>
+CELL PRIS:z206_a_droprev.elab G C:pb206::kb206#2	logic_typespec|pb206::zb206|package:pb206|ref_typespec
+CELL PRIS:z206_a_droprev.elab O C:pb206::kb206#2	class_typespec|pb206::zb206|package:pb206|<null>
+CELL PRIS:z206_a_droprev.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PRIS:z206_a_droprev.elab G D#2	logic_typespec|pb206::zb206|package:pb206|ref_typespec
+CELL PRIS:z206_a_droprev.elab G P:top:pb206#0	logic_typespec|pb206::zb206|package:pb206|ref_typespec
+CELL PRIS:z206_a_droprev.elab O P:top:pb206#0	class_typespec|pb206::zb206|package:pb206|<null>
+CENSUM PATCHED:z206_a_droprev.elab AGREE=10 TS-DIFF=5 ONLY-GOLDEN=3 ONLY-OURS=1
+CELL PATCHED:z206_a_droprev.elab G D#2	logic_typespec|pb206::zb206|package:pb206|ref_typespec
+CELL PATCHED:z206_a_droprev.elab G M:top:work@za206:work@za206#2	logic_typespec|pb206::zb206|package:pb206|ref_typespec
+CELL PATCHED:z206_a_droprev.elab G M:all:work@za206:#2	logic_typespec|pb206::zb206|package:pb206|ref_typespec
+CELL PATCHED:z206_a_droprev.elab G M:all:work@za206:#0	logic_typespec|pc206::cb206|package:pc206|<null>
+CELL PATCHED:z206_a_droprev.elab O M:all:work@za206:#0	class_typespec|pb206::zb206|package:pb206|<null>
+CELL PATCHED:z206_a_droprev.elab G P:top:pb206#0	logic_typespec|pb206::zb206|package:pb206|ref_typespec
+CELL PATCHED:z206_a_droprev.elab O P:top:pb206#0	class_typespec|pb206::zb206|package:pb206|<null>
+CELL PATCHED:z206_a_droprev.elab G C:pb206::cb206#2	logic_typespec|pb206::zb206|package:pb206|ref_typespec
+CELL PATCHED:z206_a_droprev.elab O C:pb206::cb206#2	class_typespec|pb206::zb206|package:pb206|<null>
+CELL PATCHED:z206_a_droprev.elab G M:top:work@za206:work@za206#0	logic_typespec|pc206::cb206|package:pc206|<null>
+CELL PATCHED:z206_a_droprev.elab O M:top:work@za206:work@za206#0	class_typespec|pb206::zb206|package:pb206|<null>
+CELL PATCHED:z206_a_droprev.elab O C:design::work@process#0	enum_typespec|state|<noinst>|<null>
+CELL PATCHED:z206_a_droprev.elab G C:pb206::kb206#2	logic_typespec|pb206::zb206|package:pb206|ref_typespec
+CELL PATCHED:z206_a_droprev.elab O C:pb206::kb206#2	class_typespec|pb206::zb206|package:pb206|<null>
+-- ARM-VIEWS BUILT: 46
+-- CALIB  46 arm-views, AGREE 546, TS-DIFF 0, ONLY-GOLDEN 0, ONLY-OURS 0
+-- PRIS  46 arm-views, AGREE 382, TS-DIFF 104, ONLY-GOLDEN 60, ONLY-OURS 54
+-- PATCHED  46 arm-views, AGREE 438, TS-DIFF 70, ONLY-GOLDEN 38, ONLY-OURS 54
+-- NONZERO RCs: 4

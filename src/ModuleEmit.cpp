@@ -3651,6 +3651,132 @@ std::map<std::string, UHDM::typespec*> UhdmExporter::pkgClassKeys24(
     return out;
 }
 
+// § importedClassTsRideTheFileUnit206 — the FILE-UNIT arm of § 24, on the
+// DESIGN's own typespec listing.  See the law in include/UhdmExporter.h
+// (`fileUnitPublishesPackageClasses206`).
+//
+// The whole change is a MERGE INTO THE KEY SET the design block already built:
+// each `import pkg::*` written at file scope adds pkg's CLASS keys, and the
+// union is de-duplicated BY OBJECT so a typespec reachable under both its own
+// typedef key and a class key ends up at the alphabetically FIRST of the two.
+// That second half is not decoration: it is what moves uvm_pkg's
+// `uvm_heartbeat_cbs_t` / `uvm_mem_cb_iter` / `uvm_table_printer_knobs` from
+// their own names to `uvm_callbacks` / `uvm_callback_iter` /
+// `uvm_printer_knobs`, and what keeps `uvm_barrier_pool` (which sorts BEFORE
+// `uvm_object_string_pool`) exactly where it already was.
+void UhdmExporter::fileUnitPublishesPackageClasses206() {
+    // NOTE the listing may be EMPTY here and still gain one: a package with
+    // classes and no top-level typedef contributes only class keys.
+    if (!d || fileUnitImports206.empty())
+        return;
+    // Every package view that carries class listings, by name (the elaborated
+    // one; our AllPackages views hold no Class_defns — see § 24's note).
+    std::map<std::string, UHDM::package*> pv206;
+    auto claim206 = [&](UHDM::VectorOfpackage* pkgs) {
+        if (!pkgs)
+            return;
+        for (auto* p : *pkgs)
+            if (p && p->Class_defns() && !p->Class_defns()->empty())
+                pv206.emplace(std::string(p->VpiName()), p);
+    };
+    claim206(d->TopPackages());
+    claim206(d->AllPackages());
+
+    // key -> typespec, and the by-OBJECT index of what the listing holds.
+    std::map<std::string, UHDM::typespec*> byKey206;
+    for (auto& [k206, t206] : designTsOrdered206)
+        byKey206.emplace(k206, t206);
+    std::map<const UHDM::typespec*, std::string> heldBy206;
+    for (auto& [k206, t206] : designTsOrdered206)
+        heldBy206.emplace(t206, k206);
+
+    // § importedClassTsRideTheFileUnit206, THE AMBIGUOUS-CLASS-KEY FENCE
+    // (r10v206).  Two file-scope-imported packages may each declare a class
+    // with the SAME bare name, and then ONE key has TWO candidate objects.
+    // `DesignComponent::insertDataType` is
+    // `m_dataTypes.emplace(...)` (Surelog `src/Design/DesignComponent.cpp:103`)
+    // — first-writer-wins — and Surelog resolves both same-named classes to a
+    // SINGLE ClassDefinition, so golden publishes at most the ONE entry that
+    // the surviving class's own typedef key already carries.  Measured on
+    // `v206repro/y206_a_twopkgsamebare.sv` and its import-order mirror
+    // `y206_b_twopkgsamebare_rev.sv`: golden's design listing is ONE entry,
+    // `class_typespec 'pg206::zg206'`, in BOTH orders, and the file-unit
+    // typedef half already publishes exactly that.  Without this fence the
+    // merge published the OTHER package's object at the contested key and
+    // ORPHANED the right one (it had already erased its old key when the
+    // contested emplace failed), turning a listing pristine got EXACTLY RIGHT
+    // into a wrong one — both views.  A key with more than one candidate is
+    // therefore left to the typedef half; this can only ever publish LESS, so
+    // it cannot introduce a cell.
+    std::map<std::string, std::set<const UHDM::typespec*>> cand206;
+    for (auto& [pn206, loc206] : fileUnitImports206) {
+        (void)loc206;
+        auto pit206 = pv206.find(pn206);
+        if (pit206 == pv206.end())
+            continue;
+        for (auto& [ck206, cts206] : pkgClassKeys24(pit206->second))
+            if (cts206)
+                cand206[ck206].insert(cts206);
+    }
+
+    bool moved206 = false;
+    for (auto& [pn206, loc206] : fileUnitImports206) {
+        auto pit206 = pv206.find(pn206);
+        if (pit206 == pv206.end())
+            continue;
+        for (auto& [ck206, cts206] : pkgClassKeys24(pit206->second)) {
+            if (!cts206)
+                continue;
+            if (auto ca206 = cand206.find(ck206);
+                ca206 != cand206.end() && ca206->second.size() > 1)
+                continue;
+            auto h206 = heldBy206.find(cts206);
+            if (h206 != heldBy206.end()) {
+                // Already in the union under another key: the FIRST key wins.
+                if (ck206 >= h206->second)
+                    continue;
+                byKey206.erase(h206->second);
+                designTsRootLoc206.erase(h206->second);
+                h206->second = ck206;
+            }
+            if (!byKey206.emplace(ck206, cts206).second)
+                continue;
+            heldBy206.emplace(cts206, ck206);
+            designTsRootLoc206[ck206] = loc206;
+            // `writeDataTypes`' `if (!tps->Instance())` arm: an entry that
+            // reaches the union with no home instance is stamped with the
+            // DESIGN.  A class-scope typespec has none, which is exactly why
+            // golden's class-key entries read `vpiInstance -> design`.
+            if (!cts206->Instance())
+                cts206->Instance((UHDM::instance*)(UHDM::BaseClass*)d);
+            moved206 = true;
+        }
+    }
+    if (!moved206)
+        return;
+
+    std::vector<std::pair<std::string, UHDM::typespec*>> ord206(byKey206.begin(),
+                                                                byKey206.end());
+    std::stable_sort(ord206.begin(), ord206.end(), [&](auto& a, auto& b) {
+        auto la = designTsRootLoc206.count(a.first)
+                      ? designTsRootLoc206[a.first]
+                      : slang::SourceLocation::NoLocation;
+        auto lb = designTsRootLoc206.count(b.first)
+                      ? designTsRootLoc206[b.first]
+                      : slang::SourceLocation::NoLocation;
+        if (la == slang::SourceLocation::NoLocation ||
+            lb == slang::SourceLocation::NoLocation ||
+            la.buffer() == lb.buffer())
+            return false;
+        return srcOrderLess(la, lb);
+    });
+    auto* tds206 = s.MakeTypespecVec();
+    for (auto& [k206, t206] : ord206)
+        tds206->push_back(t206);
+    d->Typespecs(tds206);
+    designTsOrdered206 = ord206;
+}
+
 // The PACKAGE arm of § importPublishesPackageClasses24: a package that imports
 // another package lists the imported package's class keys in its own
 // vpiTypedef, merged name-sorted into the entries it already carries and

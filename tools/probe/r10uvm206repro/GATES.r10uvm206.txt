@@ -1,0 +1,173 @@
+# r10uvm206 — GATES.r10uvm206.txt — every gate, verbatim.  MEASUREMENT ONLY.
+# LHS is ALWAYS golden.  The official uhdm-cmp and scripts/verify_golden.py are the judges.
+
+== (1) BINARIES (frozen chmod 555 BEFORE any sweep)
+4f5f59ff040bbe46f92e4222a881637e  /tmp/r10uvm206_pris.bin
+ed8d69ac8043b84d7036b4e6c21224e0  /tmp/r10uvm206_patched.bin
+main tree's binary WHEN THIS PASS'S PRISTINE WAS FROZEN (main tree at a74e2df3):
+4f5f59ff040bbe46f92e4222a881637e  -- IDENTICAL to this pass's pristine.
+(The main tree has since moved on to another landing and rebuilt; the frozen
+ copies above are what every number in this directory was measured on.)
+
+== cmds.txt audited BY BINARY PATH
+surelog pristine: 1523
+surelog patched : 1523
+u2r     pristine: 1458
+u2r     patched : 1458
+
+== (2) GOLDENS (SLANG_UHDM exported explicitly per binary)
+patched PASS=23
+patched FAIL=0
+/bin/false FAIL=23
+/bin/false PASS=0
+
+== (3) uhdm2rtlil, BOTH MODES
+-- status histogram, patched:
+   testflags SLANG_REJECT 50
+   testflags SURELOG_FAIL 2
+   testflags CMP_EQUAL 679
+   default   SLANG_REJECT 50
+   default   SURELOG_FAIL 2
+   default   CMP_EQUAL 679
+-- ct8rows testflags vs COMMITTED results/gate_uhdm2rtlil.csv:
+PASS: every row byte-identical to the committed baseline
+-- ct8rows testflags vs THIS PASS'S PRISTINE CONTROL:
+PASS: every row byte-identical to the committed baseline
+-- ct8rows default vs THIS PASS'S PRISTINE CONTROL:
+PASS: every row byte-identical to the committed baseline
+-- byteverify (SELFCHECK=1):
+databases: patched=1358 pristine=1358
+PATH_SETS_IDENTICAL (1358 paths)
+MOVERS: 0 / 1358
+SELFCHECK (every file vs one fixed file): 1357 / 1358 flagged
+
+== (4) SURELOG, --mode both, 1588 rows
+-- status histogram, patched:
+    NO_UHDM 1
+    SLANG_REJECT 567
+    DEFERRED 10
+    SURELOG_FAIL 48
+    CMP_NOTEQUAL 16
+    CMP_EQUAL 940
+    NO_DATABASE 3
+    UNTRANSLATABLE 2
+    TIMEOUT 1
+-- ct8rows vs COMMITTED results/golden_surelog.csv:
+baseline: 1589 lines = 1588 ROWS (the header is not a row)
+fresh   : 1589 lines = 1588 ROWS
+---- WHOLE-ROW diff (status AND dump column): 1 differing ROWS (2 diff row-sides)
+< Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+> Earlgrey_0_1,testflags,CMP_EQUAL,,,
+---- per-mode STATUS histogram (baseline -> fresh)
+---- per-mode DUMP-column histogram (baseline -> fresh)
+ATTENTION: rows moved -- read them above, do not summarise them
+-- ct8rows vs THIS PASS'S PRISTINE CONTROL:
+baseline: 1589 lines = 1588 ROWS (the header is not a row)
+fresh   : 1589 lines = 1588 ROWS
+---- WHOLE-ROW diff (status AND dump column): 1 differing ROWS (2 diff row-sides)
+< Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+> Earlgrey_0_1,testflags,CMP_EQUAL,,,
+---- per-mode STATUS histogram (baseline -> fresh)
+---- per-mode DUMP-column histogram (baseline -> fresh)
+ATTENTION: rows moved -- read them above, do not summarise them
+
+   THE ONE DIFFERING ROW IS AN INFORMATIONAL-COLUMN FLAKE, NOT A CONVERSION:
+   the STATUS is CMP_EQUAL on both sides, and the two binaries' Earlgrey_0_1/testflags
+   DATABASES ARE BYTE-IDENTICAL:
+   92bf7b7facdcf4fca15d5710960e8c64  /tmp/r10uvm206_W/slp/testflags/Earlgrey_0_1-71da2fd7/slang.uhdm
+   92bf7b7facdcf4fca15d5710960e8c64  /tmp/r10uvm206_W/slq/testflags/Earlgrey_0_1-71da2fd7/slang.uhdm
+   and an ISOLATED single-row run gives the SAME empty cell on the PRISTINE binary:
+   /tmp/r10uvm206_pris.bin : Earlgrey_0_1,testflags,CMP_EQUAL,,,
+   /tmp/r10uvm206_patched.bin : Earlgrey_0_1,testflags,CMP_EQUAL,,,
+   /tmp/r10uvm206_pris.bin : Earlgrey_0_1,testflags,CMP_EQUAL,,,
+   /tmp/r10uvm206_patched.bin : Earlgrey_0_1,testflags,CMP_EQUAL,,,
+   DONE
+   uhdm-cmp itself reads Earlgrey_0_1/testflags as 0 cmp lines / 0 heads on the patched DB.
+-- byteverify (SELFCHECK=1):
+databases: patched=956 pristine=956
+PATH_SETS_IDENTICAL (956 paths)
+MOVER ./default/Scoreboard-59431470/slang.uhdm  patched=b6dcce23309d pristine=7e80ee1cf561
+MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=a1069e330731 pristine=1faa9b453d2e
+MOVER ./default/SimpleUVM-1dc93a62/slang.uhdm  patched=1c5bddb1e34a pristine=da0e89b9d527
+MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm  patched=5e2f30b29430 pristine=c061d0d83901
+MOVER ./testflags/SimpleUVM-1dc93a62/slang.uhdm  patched=c300f76986b5 pristine=c04a47b8aa03
+MOVERS: 5 / 956
+SELFCHECK (every file vs one fixed file): 955 / 956 flagged
+
+   MOVERS: 5/956, EXACTLY THE PREDICTED SET (PREDICTION*.txt, made on PRISTINE
+   databases BEFORE the patched sweep): SimpleUVM x2 and Scoreboard/default from
+   the class-key law, SeqDriver x2 from the gate correction.  Nothing else moved.
+   Scoreboard/default is the ~50/50 COIN row (RESUME §9): its attribution here is
+   ORDER-BLIND -- an identity join against golden, not a byte diff.
+
+   WIDE CENSUS on all five movers (ct206cen: every typespec listing in the database
+   plus every array_var index/element vpiInstance; join206.py, LHS golden):
+   default/SimpleUVM      PRIS    AGREE=1146 TS-DIFF=89 ONLY-GOLDEN=34 ONLY-OURS=0
+   default/SimpleUVM      PATCHED AGREE=1264 TS-DIFF=5 ONLY-GOLDEN=0 ONLY-OURS=0
+   testflags/SimpleUVM    PRIS    AGREE=1146 TS-DIFF=89 ONLY-GOLDEN=34 ONLY-OURS=0
+   testflags/SimpleUVM    PATCHED AGREE=1264 TS-DIFF=5 ONLY-GOLDEN=0 ONLY-OURS=0
+   default/Scoreboard     PRIS    AGREE=913 TS-DIFF=89 ONLY-GOLDEN=34 ONLY-OURS=0
+   default/Scoreboard     PATCHED AGREE=1031 TS-DIFF=5 ONLY-GOLDEN=0 ONLY-OURS=0
+   default/SeqDriver      PRIS    AGREE=2074 TS-DIFF=59 ONLY-GOLDEN=137 ONLY-OURS=0
+   default/SeqDriver      PATCHED AGREE=2075 TS-DIFF=58 ONLY-GOLDEN=137 ONLY-OURS=0
+   testflags/SeqDriver    PRIS    AGREE=2074 TS-DIFF=59 ONLY-GOLDEN=137 ONLY-OURS=0
+   testflags/SeqDriver    PATCHED AGREE=2075 TS-DIFF=58 ONLY-GOLDEN=137 ONLY-OURS=0
+
+== (5) CANARIES, PROTECTED DATABASES, FENCE
+canaries surelog : ---- canary rows: ok=51 changed=1 absent=0 unknown-names=7
+   the ONE changed canary row is the Earlgrey_0_1/testflags INFORMATIONAL dump cell above:
+     Earlgrey_0_1                   testflags CHANGED CMP_EQUAL/differ -> CMP_EQUAL/
+canaries u2r     : ---- canary rows: ok=8 changed=0 absent=0 unknown-names=25
+ctcan2 surelog   : PASS: every supplementary canary row is byte-identical to the baseline.
+ctcan2 u2r       : PASS: every supplementary canary row is byte-identical to the baseline.
+protected databases (md5 pristine vs patched):
+   InterfaceModPort     default   pris=59a365f3ce2c pat=59a365f3ce2c
+   InterfaceModPort     testflags pris=59a365f3ce2c pat=59a365f3ce2c
+   BlackParrotComplex   default   pris=e3e354129d5a pat=e3e354129d5a
+   BlackParrotComplex   testflags pris=73a10e8217e5 pat=73a10e8217e5
+   YosysOldOr           default   pris=d68e0796d62c pat=d68e0796d62c
+   YosysOldOr           testflags pris=d68e0796d62c pat=d68e0796d62c
+   SVSwitch             default   pris=4842211c4030 pat=4842211c4030
+   SVSwitch             testflags pris=4842211c4030 pat=4842211c4030
+   YosysVerx            default   pris=6ccda350c24a pat=6ccda350c24a
+   YosysVerx            testflags pris=6ccda350c24a pat=6ccda350c24a
+fence            : audited=29  UNCOVERED=0  FENCE-BREACH=0
+   (the per-row PREDICTION listings walk a whole sweep workdir, so their raw output
+    NAMES every row; scrub206.sh redacts the fenced four -- which no driver here
+    ever dispatches -- and canaudit's own FENCE-BREACH counter is the check.)
+
+== (6) THE HEADS (rowheads.sh, over the FULL sweep workdirs)
+-- PRISTINE
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default        112      1 cmp rc=255
+SeqDriver      testflags      112      1 cmp rc=255
+SimpleUVM      default    4177864      1 cmp rc=255
+SimpleUVM      testflags  4178104      1 cmp rc=255
+Scoreboard     default         95      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default        112      1 cmp rc=255
+MiniAmiq       testflags      112      1 cmp rc=255
+BuildUVMPkg    default          0      0 cmp rc=0
+BuildUVMPkg    testflags        0      0 cmp rc=0
+Earlgrey_0_1   default         31      1 cmp rc=255
+Earlgrey_0_1   testflags        0      0 cmp rc=0
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0
+-- PATCHED
+TEST           MODE      CMPLINES  HEADS NOTE
+SeqDriver      default        112      1 cmp rc=255
+SeqDriver      testflags      112      1 cmp rc=255
+SimpleUVM      default         86      1 cmp rc=255
+SimpleUVM      testflags       86      1 cmp rc=255
+Scoreboard     default         95      1 cmp rc=255
+Scoreboard     testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default        112      1 cmp rc=255
+MiniAmiq       testflags      112      1 cmp rc=255
+BuildUVMPkg    default          0      0 cmp rc=0
+BuildUVMPkg    testflags        0      0 cmp rc=0
+Earlgrey_0_1   default         31      1 cmp rc=255
+Earlgrey_0_1   testflags        0      0 cmp rc=0
+Rggen          default          0      0 cmp rc=0
+Rggen          testflags        -      - SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+-- measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0

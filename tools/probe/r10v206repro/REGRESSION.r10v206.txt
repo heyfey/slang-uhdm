@@ -1,0 +1,36 @@
+# r10v206 -- THE ONE PRISTINE-RIGHT -> PATCHED-WRONG CELL, AND THE FIX.
+# MEASUREMENT ONLY.  LHS is ALWAYS golden (a REAL Surelog golden built by the
+# canonical binary scripts/verify_golden.py names).  ct206cen prints one cell per
+# LISTING POSITION as <kind>|<VpiName>|<vpiInstance kind:name>|<Typedef_alias kind>.
+
+## v206arms/y206_a_twopkgsamebare.sv -- the design's OWN typespec listing, -parse view
+-- GOLDEN
+D#0	class_typespec|pg206::zg206|package:pg206|<null>
+-- PRISTINE
+D#0	class_typespec|pg206::zg206|package:pg206|<null>
+-- IMPLEMENTER-PATCHED
+D#0	class_typespec|this_type|design:work@ya206|<null>
+-- VERIFIED (fixed)
+D#0	class_typespec|pg206::zg206|package:pg206|<null>
+
+## the same arm, -elabuhdm view
+-- GOLDEN
+D#0	class_typespec|pg206::zg206|package:pg206|<null>
+-- PRISTINE
+D#0	class_typespec|pg206::zg206|package:pg206|<null>
+-- IMPLEMENTER-PATCHED
+D#0	class_typespec|this_type|design:work@ya206|<null>
+-- VERIFIED (fixed)
+D#0	class_typespec|pg206::zg206|package:pg206|<null>
+
+## v206arms/y206_b_twopkgsamebare_rev.sv -- the SAME source with the two imports
+## written in the OTHER order.  Golden is the SAME single entry; the implementer's
+## patch happens to be right here, which is what makes the defect ORDER-DEPENDENT.
+-- GOLDEN
+D#0	class_typespec|pg206::zg206|package:pg206|<null>
+-- PRISTINE
+D#0	class_typespec|pg206::zg206|package:pg206|<null>
+-- IMPLEMENTER-PATCHED
+D#0	class_typespec|pg206::zg206|package:pg206|<null>
+-- VERIFIED (fixed)
+D#0	class_typespec|pg206::zg206|package:pg206|<null>
