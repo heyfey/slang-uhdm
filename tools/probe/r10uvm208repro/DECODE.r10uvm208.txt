@@ -1,0 +1,191 @@
+r10uvm208 — THE DECODE OF RECORD.  MEASUREMENT ONLY; the official
+`~/git-repos/UHDM/build/bin/uhdm-cmp` is the sole judge.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+==========================================================================
+1.  THE QUESTION § 205 LEFT OPEN
+==========================================================================
+§ cloneArrayElemBareTdAlias205 bares a wildcard-import clone body's ARRAY
+element typespec alias by RE-POINTING the element `ref_typespec`.  It REFUSES
+a ref whose owner mask reads 3 — one a clone declaration reaches AND some
+other declaration reaches — because one `ref_typespec` cannot carry two names
+and golden keeps the HOME cell QUALIFIED.  Six cells per moved row-mode were
+refused (§ 205's R1), and after § 205 landed those six ARE the whole remaining
+disagreement of this census on MiniAmiq:
+
+    TOTAL agree=5445 differ=6 only-golden=1011 only-ours=468
+    DIFFER BY KIND x CHAIN x SHAPE:
+      bit_typespec chain=.elem g=BARE/BARE/uvm_pkg o=BARE/QUAL/uvm_pkg   6
+
+Refusing is right for a RE-POINT.  It is not the end, because GOLDEN'S ARITY
+IS DIFFERENT FROM OURS on exactly those cells, and golden's arity is the spec.
+
+==========================================================================
+2.  THE EDGE — GOLDEN'S IDENTITY SHAPE ON ALL SIX (ct208cen --prof)
+==========================================================================
+`ct208cen --prof` counts, for every declaration chain cell, how many DISTINCT
+DECLARATIONS reach each object on it: the declaration's own `ref_typespec`
+(`outer`), the `array_typespec` it binds (`arr`), the element `ref_typespec`
+(`elemref`) and the element `typespec` (`elemts`).  On MiniAmiq/default, the
+six refused cells, golden on the left of each pair:
+
+  GOLD  ...Xinit_address_mapX      | d4 | addrs@1603:23      outer=1 arr=1 elemref=1 elemts=1  [uvm_reg_addr_t -> uvm_reg_addr_t]
+  GOLD  ...do_bus_read             | d1 | addrs@1983:18      outer=1 arr=1 elemref=1 elemts=1  [uvm_reg_addr_t -> uvm_reg_addr_t]
+  GOLD  ...do_bus_write            | d1 | addrs@1839:22      outer=1 arr=1 elemref=1 elemts=1  [uvm_reg_addr_t -> uvm_reg_addr_t]
+  GOLD  ...get_physical_addresses  | d1 | local_addr@1408:20 outer=1 arr=1 elemref=1 elemts=1  [uvm_reg_addr_t -> uvm_reg_addr_t]
+  GOLD  ...get_physical_addresses  | d2 | sys_addr@1472:23   outer=1 arr=1 elemref=1 elemts=1  [uvm_reg_addr_t -> uvm_reg_addr_t]
+  GOLD  ...m_set_reg_offset        | d2 | addrs@758:24       outer=1 arr=1 elemref=1 elemts=1  [uvm_reg_addr_t -> uvm_reg_addr_t]
+
+  OURS  ...Xinit_address_mapX      | d4 | addrs@1603:23      outer=1 arr=2 elemref=2 elemts=4
+  OURS  ...do_bus_read             | d1 | addrs@1983:18      outer=1 arr=4 elemref=4 elemts=8
+  OURS  ...do_bus_write            | d1 | addrs@1839:22      outer=1 arr=4 elemref=4 elemts=8
+  OURS  ...get_physical_addresses  | d1 | local_addr@1408:20 outer=1 arr=6 elemref=6 elemts=12
+  OURS  ...get_physical_addresses  | d2 | sys_addr@1472:23   outer=1 arr=2 elemref=2 elemts=4
+  OURS  ...m_set_reg_offset        | d2 | addrs@758:24       outer=1 arr=2 elemref=2 elemts=4
+
+GOLDEN'S ARITY IS ONE CHAIN PER CLONE DECLARATION — `arr=1 elemref=1`, alias
+BARE — on every one of the six.  OURS IS ONE CHAIN SHARED BY TWO TO SIX
+DECLARATIONS, alias QUALIFIED.  So the pair is TWO OBJECTS on golden's side
+against ONE on ours: golden has a clone-own chain and a separate home chain;
+we have a single object doing both jobs, and it can only carry one name.
+
+The co-owners of the widest one, printed by `--prof`'s `own=` column
+(producer-neutral declaration keys, no pointer ever printed):
+
+  TOP[1] uvm_pkg | uvm_reg_map | get_physical_addresses | d3 | var | local_addr@1483:16
+  TOP[1] uvm_pkg | uvm_reg_map | get_physical_addresses | d4 | var | local_addr@1433:22
+  TOP[1] uvm_pkg | uvm_reg_map | get_physical_addresses | d4 | var | local_addr@1438:22
+  TOP[1] uvm_pkg | uvm_reg_map | get_physical_addresses | d4 | var | local_addr@1444:22
+  TOP[1] uvm_pkg | uvm_reg_map | get_physical_addresses | d4 | var | local_addr@1449:22
+  TOP[2] svaunit_pkg | - | uvm_reg_map::get_physical_addresses | d1 | var | local_addr@1408:20
+
+FIVE HOME declarations in `uvm_pkg` and ONE clone declaration in `svaunit_pkg`,
+one object between them.  The five home cells read QUALIFIED on BOTH sides and
+are the must-stay floor; the clone cell is the one that has to go bare.
+
+AND THE ONE COLUMN THAT MAKES THE SPLIT POSSIBLE: `outer=1` on ALL SIX.  The
+CLONE DECLARATION'S OWN `ref_typespec` is unshared.  So the clone can be handed
+a different chain without touching any home declaration's binding.
+
+==========================================================================
+3.  DECODE — SURELOG, WHY GOLDEN'S ARITY IS ONE PER DECLARATION
+==========================================================================
+`~/git-repos/Surelog/src/DesignCompile/CompileHelper.cpp:127` `importPackage()`
+clones each imported subroutine into the IMPORTER at COMPILE time:
+
+    CompileHelper.cpp:320-325
+        if (inPackage) {
+          ElaboratorContext elaboratorContext(&s, false, /*mute errors*/ true);
+          task_func* clone =
+              (task_func*)UHDM::clone_tree((any*)func, &elaboratorContext);
+          sfuncs->push_back(clone);
+        } else {
+          sfuncs->push_back(func);
+        }
+
+`clone_tree` is UHDM's generated DEEP clone.  For the object at the head of
+this family:
+
+    ~/git-repos/UHDM/build/generated/src/array_typespec.cpp:100-106
+        array_typespec* array_typespec::DeepClone(BaseClass* parent,
+                                                  CloneContext* context) const {
+          array_typespec* const clone = context->m_serializer->MakeArray_typespec();
+          ...
+          DeepCopy(clone, parent, context);
+          return clone;
+        }
+    ~/git-repos/UHDM/build/generated/src/array_typespec.cpp:94-95
+        if (auto obj = Index_typespec()) clone->Index_typespec(obj->DeepClone(clone, context));
+        if (auto obj = Elem_typespec()) clone->Elem_typespec(obj->DeepClone(clone, context));
+
+A FRESH `array_typespec` and a FRESH `Elem_typespec` ref per cloned body.  That
+is why golden reads `arr=1 elemref=1` in every clone listing: the clone's chain
+is a deep copy that shares NO object with the home's.
+
+And the naming rule is § 205's, unchanged: `UhdmWriter::writeDataTypes`
+(`~/git-repos/Surelog/src/DesignCompile/UhdmWriter.cpp:775`, applying the `p::t`
+prefix IN PLACE at :787-793 while it walks the component's OWN `datatypeMap`,
+called from :994 a class, :1189 a package, :1447/:1670 a module) never sees a
+clone body's objects, because `importPackage` cloned them long before.  So the
+clone's deep copy keeps a BARE alias target, at any depth and in any role, and
+the home's listing object is the one that gets prefixed.
+
+TWO PRODUCERS, ONE PICTURE: golden's clone chain is a deep copy (bare); ours is
+a memo shared with the home (qualified).  The repair is not a re-point, it is a
+SPLIT — give the clone declaration its own copy, exactly as `clone_tree` does.
+
+==========================================================================
+4.  DECODE — SLANG-UHDM, WHERE THE SHARED OBJECT ARISES AND WHERE THE
+    SPLIT HOOKS IN
+==========================================================================
+Our emitter memoises the element chain per element TYPE, not per declaration —
+which is why on MiniAmiq ONE `array_typespec` serves five `local_addr`
+declarations at four different source lines in `uvm_pkg` AND the clone body's
+`local_addr` in `svaunit_pkg`.  The sharing is in the ELABORATED listings; in
+the DEF listings the clone's chain is already clone-exclusive (owner mask 1),
+which is why § 205's re-point already carries the DEF view and § 208 changes
+nothing there.  Measured: § 205's own arm C (`g205_c_share`), the arm it built
+to reproduce R1, scores STILL-WRONG 1 def / 2 elab on the base commit and
+STILL-WRONG 0 in both views under this law.
+
+The hook is the END of § 205's own block in `src/TypeEmit.cpp`, inside the same
+`if (!pkgImportCloneTfs16.empty())` guard, so every fence is literally the same
+code:
+
+  * `declTf205` — the climb from a declaration to its innermost enclosing
+    subroutine, stopping at `class_defn` / `package` / `module_inst` / `design`.
+    THE CLASS FENCE, unchanged: a class PROPERTY is refused.
+  * the `Return()` test — § 16's measured RETURN-VARIABLE EXCEPTION
+    (r10uvm169's `g169_a_import`, r10v169's `v169_i_multi`): a clone function's
+    return variable keeps the HOME's QUALIFIED target, so it counts as a
+    NON-clone owner and a chain it shares can never be split.
+  * `pkgImportCloneTfs16` — § 194's committed WILDCARD-ONLY gate.  An EXPLICIT
+    `import p::f;` clone is left alone on purpose (§ 205's R3; arm F).
+  * `owner205` — § 205's own mask, read to find the refs it refused (mask 3).
+
+and the split adds ONE guard of its own, the same exclusivity rule ONE LINK UP:
+
+  * `outer208` — the owner mask on the DECLARATION'S OWN `ref_typespec`.  Only
+    mask 1 (clone-exclusive) may be re-pointed.  `--prof` measures `outer=1` on
+    all six corpus cells, so the guard admits them and would refuse a shape
+    where a home declaration and a clone declaration shared even that.
+
+WHAT IS COPIED — every field the generated `Compare` reads, and nothing else
+changes but the element link:
+  `typespec::Compare`              VpiName, Typedef_alias, Instance
+  `array_typespec::Compare`        + VpiArrayType, Ranges, Left_expr,
+                                     Right_expr, Index_typespec, Elem_typespec,
+                                     Resolution_func
+  `packed_array_typespec::Compare` + VpiVector, Ranges, Left_expr, Right_expr,
+                                     Elem_typespec, Typespec, Resolution_func
+  `ref_typespec::Compare`            VpiName, VpiDefName, Actual_typespec
+NO NAME IS WRITTEN.  The element link is re-pointed onto the copy
+`cloneCopyOf` ALREADY mints for § 205's own re-points — the object accounting
+below shows ZERO new `bit_typespec` on every moved row, only the six array
+shells and the six element refs.
+
+MINT ORDER IS CONTENT ORDER: the candidates are sorted on
+(package, class, subroutine, block depth, role, name@line:col, kind) before a
+single object is made, and a candidate whose content key REPEATS is refused
+outright rather than ordered by arena position.  Three independent runs of the
+patched binary on MiniAmiq/default into the same output path produce a
+BYTE-IDENTICAL database (`a0cb3060f486d00fda574822bca45781` x3).
+
+==========================================================================
+5.  WHY NOT THE OTHER TWO SHAPES OF FIX (both refuted, on measurement)
+==========================================================================
+(a) RE-POINT THE SHARED REF ANYWAY.  That is what § 205 refused, and the
+    reason is in the `own=` column above: five HOME cells hang off the same
+    object and golden keeps every one of them QUALIFIED.  A re-point moves
+    them AWAY from golden.  This is not a hypothesis — arm D (`g208_d_home`,
+    home only, no clone anywhere) is BYTE-IDENTICAL on both binaries in both
+    views precisely because nothing in the home world is touched.
+
+(b) STOP MEMOISING — mint one chain per declaration everywhere, as golden
+    does.  Refuted as OUT OF SCOPE for this pass by measurement, not by
+    taste: it would re-mint the HOME chains too, changing thousands of objects
+    across every corpus row for a difference NO generated Compare reads (no
+    Compare reads VpiParent, and the shells agree in every compared field).
+    § 205's R4 recorded the same asymmetry and left it standing.  The split
+    changes exactly the six chains the judge scores and no others: +6
+    `array_typespec` and +6 `ref_typespec` per moved row-mode, measured.

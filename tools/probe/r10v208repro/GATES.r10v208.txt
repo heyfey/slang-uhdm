@@ -1,0 +1,120 @@
+r10v208 — THE VERIFIER'S GATE BATTERY, run on its OWN binaries and OWN sweeps.
+MEASUREMENT ONLY except where the OFFICIAL harness is named.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+BASE f3a3fcf0.  patch /tmp/r10uvm208.patch md5 cbf7a253648ab3b4012a1ec243680f4c,
+applied with 'git apply -3' rc 0 on a FRESH f3a3fcf0 worktree.
+pristine 61d817dba1aa2bbe6cdd2be4e165b818  (22497384 bytes)
+patched  0cd3924b8afdc086884ece90b4d3d82a  (22513960 bytes, +16576)
+both built -j 2 from the verifier's own worktrees, frozen chmod 555 before any sweep.
+src/TypeEmit.cpp after apply: md5 4a7df5ae1b2658234f16933ff73b7514 == the implementer's worktree.
+surface: src/TypeEmit.cpp +272/-0 and tools/probe/r10uvm208repro/ only; results/*.csv untouched.
+
+(2) GOLDENS
+  pristine 23 PASS / 0 FAIL ; patched 23 PASS / 0 FAIL ; SLANG_UHDM=/bin/false 23 FAIL
+
+(3) uhdm2rtlil, both modes, both binaries
+  pris_u2r_tf    CMP_EQUAL 679 SLANG_REJECT 50 SURELOG_FAIL 2
+  pris_u2r_def   CMP_EQUAL 679 SLANG_REJECT 50 SURELOG_FAIL 2
+  pat_u2r_tf     CMP_EQUAL 679 SLANG_REJECT 50 SURELOG_FAIL 2
+  pat_u2r_def    CMP_EQUAL 679 SLANG_REJECT 50 SURELOG_FAIL 2
+
+(4) SURELOG --mode both, both binaries
+  pris_sl     default    CMP_EQUAL 473 CMP_NOTEQUAL 8 DEFERRED 5 SLANG_REJECT 283 SURELOG_FAIL 25
+   testflags  CMP_EQUAL 468 CMP_NOTEQUAL 7 DEFERRED 5 NO_DATABASE 3 NO_UHDM 1 SLANG_REJECT 284 SURELOG_FAIL 23 TIMEOUT 1 UNTRANSLATABLE 2
+  pat_sl      default    CMP_EQUAL 473 CMP_NOTEQUAL 8 DEFERRED 5 SLANG_REJECT 283 SURELOG_FAIL 25
+   testflags  CMP_EQUAL 468 CMP_NOTEQUAL 7 DEFERRED 5 NO_DATABASE 3 NO_UHDM 1 SLANG_REJECT 284 SURELOG_FAIL 23 TIMEOUT 1 UNTRANSLATABLE 2
+
+(5) cmds.txt AUDIT BY BINARY PATH
+  wd_pris_sl    1523 slang: /tmp/v208_scratch/pris_61d817db.bin;
+  wd_pat_sl     1523 slang: /tmp/v208_scratch/pat_0cd3924b.bin;
+  wd_pris_u2r   1458 slang: /tmp/v208_scratch/pris_61d817db.bin;
+  wd_pat_u2r    1458 slang: /tmp/v208_scratch/pat_0cd3924b.bin;
+
+(6) THE FIVE PROTECTED CMP_EQUAL ROW-MODES, both columns
+  ROW                        BASELINE                 PRISTINE                 PATCHED
+  BuildUVMPkg,default        CMP_EQUAL,,,differ       CMP_EQUAL,,,differ       CMP_EQUAL,,,differ
+  BuildUVMPkg,testflags      CMP_EQUAL,,,differ       CMP_EQUAL,,,differ       CMP_EQUAL,,,differ
+  Earlgrey_0_1,default       CMP_EQUAL,,,             CMP_EQUAL,,,             CMP_EQUAL,,,
+  Earlgrey_0_1,testflags     CMP_EQUAL,,,differ       CMP_EQUAL,,,             CMP_EQUAL,,,
+  Rggen,default              CMP_EQUAL,,,differ       CMP_EQUAL,,,differ       CMP_EQUAL,,,differ
+  ALL FIVE CMP_EQUAL on both binaries.  NO ROW CONVERTED IN EITHER DIRECTION.
+
+  BASELINE above is the one committed AT f3a3fcf0 (the worktree's own
+  results/golden_surelog.csv), which is what every ct8rows call here used.
+  For the record the MAIN TREE at HEAD b14d8969 already carries
+  `Earlgrey_0_1,default,CMP_EQUAL,,,differ` where f3a3fcf0 carries
+  `CMP_EQUAL,,,` — a later landing has ALREADY promoted that dump-column cell
+  once.  That is independent evidence that this cell is churn, not signal.
+
+(7) ct8rows, WHOLE ROW (status AND dump column), over all 1588 surelog rows
+  results/golden_surelog.csv (f3a3fcf0)  vs  verifier PRISTINE : 1 ROW
+        < Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+        > Earlgrey_0_1,testflags,CMP_EQUAL,,,
+  results/golden_surelog.csv (f3a3fcf0)  vs  verifier PATCHED  : the SAME 1 ROW
+  verifier PRISTINE                      vs  verifier PATCHED  : *** 0 DIFFERING ROWS ***
+  -> the movement is baseline-vs-this-machine, NOT pristine-vs-patched.
+     STATUS is CMP_EQUAL on every Earlgrey cell on both binaries; rowheads
+     reads 0 lines / 0 heads (judge rc=0) for both Earlgrey modes on both
+     binaries; neither Earlgrey database is one of the four byte movers.
+
+  ct8rows uhdm2rtlil: results/gate_uhdm2rtlil.csv vs patched tf   PASS (0 rows)
+                      verifier pristine tf  vs verifier patched tf  PASS (0 rows)
+                      verifier pristine def vs verifier patched def PASS (0 rows)
+
+(8) BYTE MOVERS
+  byteverify SELFCHECK=1 surelog     MOVERS 4 / 956   PATH_SETS_IDENTICAL
+    ./default/MiniAmiq-544c7f61/slang.uhdm    patched=d53dd9ae065f pristine=f1a5df6e291c
+    ./default/SeqDriver-32af76aa/slang.uhdm   patched=9b2c335d43b2 pristine=4d5ada8e1a99
+    ./testflags/MiniAmiq-544c7f61/slang.uhdm  patched=d53dd9ae065f pristine=f1a5df6e291c
+    ./testflags/SeqDriver-32af76aa/slang.uhdm patched=5efc0415cb6d pristine=d63439e99644
+  byteverify SELFCHECK=1 uhdm2rtlil  MOVERS 0 / 1358  PATH_SETS_IDENTICAL
+  EXACTLY the four the a-priori prediction named from the PRISTINE databases
+  alone (predict208.sh over the verifier's own pristine workdir: scanned=948
+  NODB=617 FENCED=8; shared=6 splits=6 on those four row-modes and NO OTHER;
+  0 of 1358 on uhdm2rtlil).  The Scoreboard/default COIN sat out.
+
+(9) OBJECT HALF (ct208obj), verifier's own movers
+  MiniAmiq  default    total 310179 -> 310191   array_typespec 903->909  ref_typespec 28725->28731
+  MiniAmiq  testflags  total 310179 -> 310191   array_typespec 903->909  ref_typespec 28725->28731
+  SeqDriver default    total 299565 -> 299577   array_typespec 817->823  ref_typespec 27636->27642
+  SeqDriver testflags  total 299577 -> 299589   array_typespec 817->823  ref_typespec 27636->27642
+  NO OTHER KIND MOVED ON ANY ROW; zero new bit_typespec.
+
+(10) DETERMINISM ON THE CORPUS LAW ROW
+  patched  x3 on MiniAmiq/default's own command line from the test's own dir: d53dd9ae065f x3
+  pristine x3 on the same:                                                    f1a5df6e291c x3
+
+(11) CANARIES / AUDITS
+  canaries surelog  pristine ok=51 changed=1 ; patched ok=51 changed=1
+     the ONE changed cell is Earlgrey_0_1,testflags DUMP COLUMN, the same on
+     both binaries (see (7)).  STATUS CMP_EQUAL.
+  canaries uhdm2rtlil  ok=8 changed=0
+  ctcan2 surelog PASS (ok=58 changed=0) ; ctcan2 uhdm2rtlil PASS (ok=1 changed=0)
+  canaudit  audited=29  UNCOVERED=0  FENCE-BREACH=0  PASS
+  protected DB md5s (both modes, pristine vs patched):
+    SVSwitch           4842211c4030 / 4842211c4030   PIN HELD
+    YosysVerx          6ccda350c24a / 6ccda350c24a   PIN HELD
+    InterfaceModPort   59a365f3ce2c  SAME
+    BlackParrotComplex e3e354129d5a (def) 73a10e8217e5 (tf)  SAME
+    YosysOldOr         d68e0796d62c  SAME
+
+(12) HEADS (rowheads.sh, verifier's own sweeps, both binaries)
+  every row-mode's CMPLINES/HEADS identical between the binaries:
+    SeqDriver 112/1 x2, SimpleUVM 4177864/1 + 4178104/1, Scoreboard/default 95/1,
+    MiniAmiq 112/1 x2, BuildUVMPkg 0/0 x2, Earlgrey_0_1 0/0 x2, Rggen/default 0/0
+    (SKIP-NOFILE on Scoreboard/testflags and Rggen/testflags, as expected)
+  MiniAmiq's head OBJECT changes (both modes):
+    PRIS  ref_typespec: (svaunit_pkg::uvm_reg_map::m_set_reg_offset::addrs::uvm_reg_addr_t)
+    PAT   ref_typespec: (svaunit_pkg::uvm_reg_map::m_set_mem_offset::range::
+                         uvm_pkg::uvm_reg_map_addr_range::min::uvm_reg_addr_t)
+  SeqDriver's head object is UNCHANGED; SimpleUVM x2 and Scoreboard/default cmp
+  output is byte-identical between the binaries.
+
+(13) WIDE BOUNDARY (bound208.sh over a COPY of the whole probe tree)
+  LISTED=5368 PROCESSED=5368 PRODUCED_DBS=5183 MOVED_ARMS=18 RC_DIFFS=0
+  the 18 = 10 the implementer named (5 of its own arms, g205_c_share,
+  v205_l_reuse, and the 3 static-address false movers) + the 8 of the
+  verifier's own 10 arms that move.  ZERO movers in section 204, 202, 198,
+  194, 193, 190, 180, 169, 16, earl122 (3 arms), earl121, uvm82-91 (113
+  arms), buvm3-15 (119 arms), sd8-12 (347 arms, subdirectories included).

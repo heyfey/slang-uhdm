@@ -1,0 +1,104 @@
+r10uvm208 — THE WIDE BOUNDARY GATE.  MEASUREMENT ONLY.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+  PRIS=<pristine> PATCHED=<patched> bound208.sh <COPY of tools/probe> <outdir>
+
+Run from a COPY of the whole probe tree so no path filter can hide an arm; it
+compiles EVERY .sv/.v at the top level AND IN SUBDIRECTORIES (RESUME.md §9:
+sd8-12 keep arms in subdirs and a top-level glob once ran nothing while
+printing green), in BOTH views, with both frozen binaries; every child gets
+</dev/null; the file list is read on fd 3; PROCESSED is asserted against
+LISTED; scratch is keyed on the RELATIVE path (three arms in this tree are all
+named dut.sv); every rc is recorded.
+
+  LISTED=5358  PROCESSED=5358  PRODUCED_DBS=5173  MOVED_ARMS=10  RC_DIFFS=0
+
+==========================================================================
+THE TEN MOVED ARMS, EVERY ONE ACCOUNTED
+==========================================================================
+---- FIVE are THIS PASS'S OWN grid arms — THE POSITIVE CONTROL.  A gate that
+     reported zero movers over them could not see:
+  r10uvm208repro/grid208/g208_a_faces.sv      def=MOVED elab=MOVED rc=0/0,0/0
+  r10uvm208repro/grid208/g208_b_twoclone.sv   def=MOVED elab=MOVED rc=0/0,0/0
+  r10uvm208repro/grid208/g208_c_three.sv      def=MOVED elab=MOVED rc=0/0,0/0
+  r10uvm208repro/grid208/g208_e_head.sv       def=MOVED elab=MOVED rc=0/0,0/0
+  r10uvm208repro/grid208/g208_g_fences.sv     def=MOVED elab=MOVED rc=0/0,0/0
+  (arms D and F — the home-only control and the explicit-import control — are
+   BYTE-IDENTICAL and correctly do NOT appear.)
+
+---- TWO are EARLIER-PASS arms that move because they are the very shapes this
+     law closes.  Both re-measured against a REAL Surelog golden in BOTH views,
+     golden-vs-golden calibrated first:
+
+  r10uvm205repro/grid205/g205_c_share.sv   — § 205's OWN reproduction of the
+      residue it named R1.
+      def  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+      elab TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+      (§ 205 measured STILL-WRONG 1 def / 2 elab on this arm and recorded it as
+       "R1 reproduced exactly"; § 208 takes it to 0.)
+      cmp lines 1002 def / 1266 elab on BOTH binaries, SAME head object.
+      objects +1 array_typespec +1 ref_typespec per view = ONE split.
+
+  r10v205repro/grid/v205_l_reuse.sv        — the § 205 VERIFIER's reuse arm.
+      def  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+      elab TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+      cmp lines 2610 def / 3186 elab on BOTH binaries, SAME head object.
+      objects +2 array_typespec +2 ref_typespec per view = TWO splits.
+
+---- THREE are the campaign's KNOWN STATIC-ADDRESS FALSE MOVERS, and this pass
+     re-proves that identification rather than asserting it:
+
+  r10buvm22repro/g22.sv
+  r10uvm154repro/l154_noenum.sv
+  r10uvm185repro/grid185/g185_e_kinds.sv
+
+  On all three, in BOTH views:
+    * the OFFICIAL uhdm-cmp OUTPUT IS BYTE-IDENTICAL between the two binaries
+      (g22 3438/3438 lines, l154 17/17, g185 92/92 — same head object, same
+      every line);
+    * ct208obj reports NO OBJECT-COUNT CHANGE OF ANY KIND — the law did not
+      fire on them at all;
+    * the census reads TO-GOLDEN 0, AWAY-GOLDEN 0, MOVED-WRONG 0 and an
+      UNCHANGED STILL-WRONG count;
+    * each binary is deterministic on its own (three runs each, one md5).
+  The ONE differing thing in the databases is a single constant's value:
+      pristine |UINT:22671097 / |vpiDecompile:22671097
+      patched  |UINT:22683385 / |vpiDecompile:22683385
+      delta 12288 = EXACTLY THREE 4096-BYTE PAGES
+  and `l154_noenum.sv` is the campaign's own committed LAYOUT PROOF source,
+  whose header says so in as many words: "the two binaries nevertheless
+  disagree on the value our emitter mints for the class-scoped
+  `typedef <T> name[string]` typedefs below … exactly 4096 apart … and that
+  constant sits BELOW `\_weaklyReferenced:`, where RESUME.md §9 says the judge
+  cannot reach."  The patched binary is 16576 bytes larger than the pristine
+  one; the constant tracks it at page granularity.  MEMORY's tell — "named arms
+  move when the binary grows a page, ZERO CENSUS MOVEMENT is the tell" — is
+  satisfied on all four counts here.
+
+==========================================================================
+EVERY PROTECTED FAMILY, ARMS SCANNED vs ARMS MOVED
+==========================================================================
+  r10uvm205repro   arms=6    movers=1   (g205_c_share, TOWARD golden, above)
+  r10uvm204repro   arms=5    movers=0
+  r10uvm202repro   arms=5    movers=0
+  r10uvm198repro   arms=5    movers=0
+  r10uvm194repro   arms=3    movers=0
+  r10uvm193repro   arms=4    movers=0
+  r10uvm190repro   arms=4    movers=0
+  r10uvm185repro   arms=5    movers=1   (the layout-proof false mover, above)
+  r10uvm180repro   arms=5    movers=0
+  r10uvm169repro   arms=4    movers=0
+  r10earl122repro  arms=3    movers=0   (earl122's FRESH CONVERSION untouched)
+  r10earl121repro  arms=3    movers=0
+  r10uvm16repro    arms=1    movers=0
+  r10uvm8*         arms=133  movers=0   (uvm82-91)
+  r10uvm9*         arms=68   movers=0
+  r10buvm*         arms=192  movers=1   (g22, the layout-proof false mover)
+  r10sd*           arms=464  movers=0   (sd8-12, subdirectories included)
+
+  § cloneArrayElemBareTdAlias205's arms AND the guard's other cells STAY.
+  § genCaPatTagDeepBind122's arms (the fresh conversion) STAY.
+  § 16 / § 180 / § 194's arms STAY.  uvm202's arms + fence STAY.
+  uvm204's arms + fence STAY.  uvm82-91, buvm3-15, sd8-12 STAY.
+  RC_DIFFS 0 over all 5358 arms: no arm's rc changed, so no arm started or
+  stopped segfaulting (an rc=139 must never read as a result).

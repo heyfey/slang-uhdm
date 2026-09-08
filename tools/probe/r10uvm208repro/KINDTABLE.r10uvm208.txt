@@ -1,0 +1,98 @@
+r10uvm208 — THE KIND TABLE.  MEASUREMENT ONLY.  MiniAmiq/default.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+ct208cen --kinds: every cell of every declaration chain in every package
+subroutine body, keyed KIND x CHAIN x (gold name/alias/inst) x (our ...).
+
+############ PRISTINE (base commit f3a3fcf0)
+ALL CELLS BY KIND x CHAIN x SHAPE:
+  bit_typespec chain=. g=BARE/BARE/uvm_pkg o=BARE/BARE/uvm_pkg                                                              378
+  bit_typespec chain=. g=BARE/NOALIAS/- o=BARE/NOALIAS/-                                                                      2
+  bit_typespec chain=. g=BARE/QUAL/uvm_pkg o=BARE/QUAL/uvm_pkg                                                              521
+  bit_typespec chain=. g=NONAME/NOALIAS/- o=NONAME/NOALIAS/-                                                                399
+  bit_typespec chain=. g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/-                                                          148
+  bit_typespec chain=. g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/svaunit_pkg                                                  6
+  bit_typespec chain=. g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/uvm_pkg                                                    511
+  bit_typespec chain=.elem g=BARE/BARE/uvm_pkg o=BARE/BARE/uvm_pkg                                                           20
+  bit_typespec chain=.elem g=BARE/BARE/uvm_pkg o=BARE/QUAL/uvm_pkg                                                            6
+  bit_typespec chain=.elem g=BARE/QUAL/uvm_pkg o=BARE/QUAL/uvm_pkg                                                           55
+  bit_typespec chain=.elem g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/uvm_pkg                                                 16
+  byte_typespec chain=. g=NONAME/NOALIAS/- o=NONAME/NOALIAS/-                                                                 9
+  byte_typespec chain=. g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/-                                                          17
+  byte_typespec chain=. g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/svaunit_pkg                                                 4
+  byte_typespec chain=. g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/uvm_pkg                                                    89
+  int_typespec chain=. g=BARE/BARE/uvm_pkg o=BARE/BARE/uvm_pkg                                                               20
+  int_typespec chain=. g=BARE/NOALIAS/- o=BARE/NOALIAS/-                                                                     18
+  int_typespec chain=. g=BARE/QUAL/uvm_pkg o=BARE/QUAL/uvm_pkg                                                               71
+  int_typespec chain=. g=NONAME/NOALIAS/- o=NONAME/NOALIAS/-                                                               1000
+  int_typespec chain=. g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/-                                                          210
+  int_typespec chain=. g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/svaunit_pkg                                                242
+  int_typespec chain=. g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/uvm_pkg                                                   1321
+  int_typespec chain=.elem g=NONAME/NOALIAS/- o=NONAME/NOALIAS/-                                                             22
+  int_typespec chain=.elem g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/svaunit_pkg                                             20
+  int_typespec chain=.elem g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/uvm_pkg                                                 24
+  int_typespec chain=.index g=NONAME/NOALIAS/- o=NONAME/NOALIAS/-                                                             1
+  integer_typespec chain=. g=NONAME/NOALIAS/- o=NONAME/NOALIAS/-                                                             38
+  integer_typespec chain=. g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/-                                                       20
+  integer_typespec chain=. g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/uvm_pkg                                                 63
+  integer_typespec chain=.elem g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/uvm_pkg                                              8
+  logic_typespec chain=. g=BARE/BARE/uvm_pkg o=BARE/BARE/svaunit_pkg                                                          2
+  logic_typespec chain=. g=BARE/BARE/uvm_pkg o=BARE/BARE/uvm_pkg                                                             34
+  logic_typespec chain=. g=BARE/QUAL/uvm_pkg o=BARE/QUAL/svaunit_pkg                                                          3
+  logic_typespec chain=. g=BARE/QUAL/uvm_pkg o=BARE/QUAL/uvm_pkg                                                             58
+  logic_typespec chain=. g=NONAME/NOALIAS/- o=NONAME/NOALIAS/-                                                                5
+  logic_typespec chain=. g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/uvm_pkg                                                    8
+  logic_typespec chain=. g=QUAL/NOALIAS/svaunit_pkg o=QUAL/NOALIAS/svaunit_pkg                                                8
+  long_int_typespec chain=. g=NONAME/NOALIAS/- o=NONAME/NOALIAS/-                                                            16
+  long_int_typespec chain=. g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/-                                                      15
+  long_int_typespec chain=. g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/uvm_pkg                                                43
+
+DIFFER BY KIND x CHAIN x SHAPE:
+  bit_typespec chain=.elem g=BARE/BARE/uvm_pkg o=BARE/QUAL/uvm_pkg                                                            6
+
+TOTAL agree=5445 differ=6 only-golden=1011 only-ours=468
+
+############ PATCHED
+ALL CELLS BY KIND x CHAIN x SHAPE:
+  bit_typespec chain=. g=BARE/BARE/uvm_pkg o=BARE/BARE/uvm_pkg                                                              378
+  bit_typespec chain=. g=BARE/NOALIAS/- o=BARE/NOALIAS/-                                                                      2
+  bit_typespec chain=. g=BARE/QUAL/uvm_pkg o=BARE/QUAL/uvm_pkg                                                              521
+  bit_typespec chain=. g=NONAME/NOALIAS/- o=NONAME/NOALIAS/-                                                                399
+  bit_typespec chain=. g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/-                                                          148
+  bit_typespec chain=. g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/svaunit_pkg                                                  6
+  bit_typespec chain=. g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/uvm_pkg                                                    511
+  bit_typespec chain=.elem g=BARE/BARE/uvm_pkg o=BARE/BARE/uvm_pkg                                                           26
+  bit_typespec chain=.elem g=BARE/QUAL/uvm_pkg o=BARE/QUAL/uvm_pkg                                                           55
+  bit_typespec chain=.elem g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/uvm_pkg                                                 16
+  byte_typespec chain=. g=NONAME/NOALIAS/- o=NONAME/NOALIAS/-                                                                 9
+  byte_typespec chain=. g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/-                                                          17
+  byte_typespec chain=. g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/svaunit_pkg                                                 4
+  byte_typespec chain=. g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/uvm_pkg                                                    89
+  int_typespec chain=. g=BARE/BARE/uvm_pkg o=BARE/BARE/uvm_pkg                                                               20
+  int_typespec chain=. g=BARE/NOALIAS/- o=BARE/NOALIAS/-                                                                     18
+  int_typespec chain=. g=BARE/QUAL/uvm_pkg o=BARE/QUAL/uvm_pkg                                                               71
+  int_typespec chain=. g=NONAME/NOALIAS/- o=NONAME/NOALIAS/-                                                               1000
+  int_typespec chain=. g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/-                                                          210
+  int_typespec chain=. g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/svaunit_pkg                                                242
+  int_typespec chain=. g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/uvm_pkg                                                   1321
+  int_typespec chain=.elem g=NONAME/NOALIAS/- o=NONAME/NOALIAS/-                                                             22
+  int_typespec chain=.elem g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/svaunit_pkg                                             20
+  int_typespec chain=.elem g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/uvm_pkg                                                 24
+  int_typespec chain=.index g=NONAME/NOALIAS/- o=NONAME/NOALIAS/-                                                             1
+  integer_typespec chain=. g=NONAME/NOALIAS/- o=NONAME/NOALIAS/-                                                             38
+  integer_typespec chain=. g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/-                                                       20
+  integer_typespec chain=. g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/uvm_pkg                                                 63
+  integer_typespec chain=.elem g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/uvm_pkg                                              8
+  logic_typespec chain=. g=BARE/BARE/uvm_pkg o=BARE/BARE/svaunit_pkg                                                          2
+  logic_typespec chain=. g=BARE/BARE/uvm_pkg o=BARE/BARE/uvm_pkg                                                             34
+  logic_typespec chain=. g=BARE/QUAL/uvm_pkg o=BARE/QUAL/svaunit_pkg                                                          3
+  logic_typespec chain=. g=BARE/QUAL/uvm_pkg o=BARE/QUAL/uvm_pkg                                                             58
+  logic_typespec chain=. g=NONAME/NOALIAS/- o=NONAME/NOALIAS/-                                                                5
+  logic_typespec chain=. g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/uvm_pkg                                                    8
+  logic_typespec chain=. g=QUAL/NOALIAS/svaunit_pkg o=QUAL/NOALIAS/svaunit_pkg                                                8
+  long_int_typespec chain=. g=NONAME/NOALIAS/- o=NONAME/NOALIAS/-                                                            16
+  long_int_typespec chain=. g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/-                                                      15
+  long_int_typespec chain=. g=NONAME/NOALIAS/uvm_pkg o=NONAME/NOALIAS/uvm_pkg                                                43
+
+DIFFER BY KIND x CHAIN x SHAPE:
+
+TOTAL agree=5451 differ=0 only-golden=1011 only-ours=468

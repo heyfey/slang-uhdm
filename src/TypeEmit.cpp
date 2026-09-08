@@ -8388,6 +8388,278 @@ void UhdmExporter::importCloneBareTdAlias16(UHDM::design* d) {
         for (auto& [rt205, m205] : owner205)
             if (m205 == 1)
                 rebind(rt205);
+
+        // § cloneSharedArrayElemSplitMint208 — THE SPLIT-MINT.
+        //
+        // § 205 REFUSED the refs its owner mask reads as 3 (a wildcard-import
+        // clone body's declaration reaches them AND some other declaration
+        // does), because one `ref_typespec` cannot carry two names and golden
+        // keeps the HOME cell QUALIFIED.  Refusing is right for a RE-POINT.
+        // It is not the end of the story, because GOLDEN'S ARITY IS DIFFERENT
+        // FROM OURS THERE, and golden's arity is the spec.
+        //
+        // MEASURED against a REAL Surelog golden on the sharing arm (`ct208cen
+        // --prof`, which counts how many DECLARATIONS reach each object of a
+        // declaration's typespec chain), ELABORATED view, a package declaring
+        // `typedef bit [7:0] bt` and a body with `bt addrs[$]` walked by
+        // `foreach`, wildcard-imported by a second package:
+        //
+        //   GOLD  home listing   .elem  arr=4 elemref=4   [bt -> p::bt]
+        //   GOLD  clone listing  .elem  arr=1 elemref=1   [bt -> bt]      x2
+        //   OURS  home listing   .elem  arr=3 elemref=3   [bt -> p::bt]
+        //   OURS  home foreach reference var + BOTH clone declarations
+        //                        .elem  arr=3 elemref=3   [bt -> p::bt]
+        //
+        // Golden gives the CLONE DECLARATION ITS OWN array typespec and its
+        // own element ref — one object per declaration, alias BARE — while the
+        // home's cells share a different object whose alias stays QUALIFIED.
+        // We hand ONE object to both worlds.  So the repair § 205 could not
+        // make with a re-point is a SPLIT: mint the clone declaration a fresh
+        // chain and leave the shared object, with its qualified target, to the
+        // home owner that also holds it.
+        //
+        // WHAT IS COPIED.  Every field the generated `Compare` reads:
+        // `array_typespec` — VpiArrayType, Ranges, Left_expr, Right_expr,
+        // Index_typespec, Elem_typespec, Resolution_func, plus `typespec`'s
+        // VpiName / Typedef_alias / Instance; `packed_array_typespec` —
+        // VpiVector, Ranges, Left_expr, Right_expr, Elem_typespec, Typespec,
+        // Resolution_func and the same three; `ref_typespec` — VpiName,
+        // VpiDefName, Actual_typespec.  ONLY THE ELEMENT LINK CHANGES, and it
+        // changes onto the copy `cloneCopyOf` already mints for § 205's own
+        // re-points, so no NAME is written here either.
+        //
+        // THE GUARDS, all three of them § 205's own, restated:
+        //   * the DECLARATION'S OWN ref must be clone-EXCLUSIVE.  It carries
+        //     its own owner mask (`outer208`) and only mask 1 may be
+        //     re-pointed — the same exclusivity rule one link up, and the
+        //     reason the home's cells cannot follow the clone's.
+        //   * the class fence and the return-variable exception are
+        //     `declTf205` and the `Return()` test, reused verbatim.
+        //   * the wildcard gate is the enclosing `pkgImportCloneTfs16` test.
+        // And one of its own: a candidate whose CONTENT KEY is not unique is
+        // REFUSED, so the mint order can never fall back on arena order.
+        //
+        // MINT ORDER IS CONTENT ORDER.  The candidates are sorted on
+        // (package, class, subroutine, block depth, role, name@line:col, kind)
+        // before a single object is made, so the ids the fresh objects take
+        // cannot depend on allocation addresses.
+        auto depth208 = [](const UHDM::BaseClass* o) {
+            int d = 0;
+            for (const UHDM::BaseClass* p = o->VpiParent(); p;
+                 p = p->VpiParent()) {
+                const auto k = p->UhdmType();
+                if (k == UHDM::uhdmfunction || k == UHDM::uhdmtask)
+                    break;
+                if (k == UHDM::uhdmbegin || k == UHDM::uhdmnamed_begin ||
+                    k == UHDM::uhdmfork_stmt || k == UHDM::uhdmnamed_fork ||
+                    k == UHDM::uhdmfor_stmt || k == UHDM::uhdmforeach_stmt)
+                    ++d;
+            }
+            return d;
+        };
+        auto ancName208 = [](const UHDM::BaseClass* o,
+                             UHDM::UHDM_OBJECT_TYPE want,
+                             bool outermost) -> std::string {
+            const UHDM::BaseClass* hit = nullptr;
+            for (const UHDM::BaseClass* p = o; p; p = p->VpiParent()) {
+                if (p->UhdmType() != want)
+                    continue;
+                hit = p;
+                if (!outermost)
+                    break;
+            }
+            return hit ? std::string(hit->VpiName()) : std::string("-");
+        };
+        // Pass 1 — the owner mask on each DECLARATION'S OWN ref.
+        std::map<UHDM::ref_typespec*, int> outer208;
+        std::map<UHDM::ref_typespec*, std::string> key208;
+        for (auto& kv208 : s.AllObjects()) {
+            auto* o208 = (UHDM::BaseClass*)kv208.first;
+            if (!o208)
+                continue;
+            UHDM::ref_typespec* rt208 = nullptr;
+            const char* role208 = nullptr;
+            if (auto* v208 = any_cast<UHDM::variables*>(o208)) {
+                rt208 = v208->Typespec();
+                role208 = "var";
+            } else if (auto* io208 = any_cast<UHDM::io_decl*>(o208)) {
+                rt208 = io208->Typespec();
+                role208 = "io";
+            }
+            if (!rt208 || !role208)
+                continue;
+            const UHDM::task_func* tf208 = declTf205(o208);
+            if (!tf208)
+                continue;
+            bool clone208 = pkgImportCloneTfs16.count(tf208) != 0;
+            if (clone208 && tf208->UhdmType() == UHDM::uhdmfunction &&
+                (const UHDM::BaseClass*)((const UHDM::function*)tf208)
+                        ->Return() == o208) {
+                clone208 = false;
+                role208 = "ret";
+            }
+            outer208[rt208] |= clone208 ? 1 : 2;
+            if (!clone208)
+                continue;
+            char kb208[640];
+            snprintf(kb208, sizeof kb208, "%s|%s|%s|d%d|%s|%s@%s:%u:%u|%d",
+                     ancName208(o208, UHDM::uhdmpackage, true).c_str(),
+                     ancName208(o208, UHDM::uhdmclass_defn, false).c_str(),
+                     std::string(tf208->VpiName()).c_str(), depth208(o208),
+                     role208, std::string(o208->VpiName()).c_str(),
+                     std::string(o208->VpiFile()).c_str(), o208->VpiLineNo(),
+                     (unsigned)o208->VpiColumnNo(), (int)o208->UhdmType());
+            auto e208 = key208.find(rt208);
+            if (e208 == key208.end())
+                key208[rt208] = kb208;
+            else if (e208->second != kb208)
+                e208->second = "<ambiguous>";
+        }
+        // A ref § 205 refused (mask 3) whose bound object still stands for a
+        // qualified LAW-S listing object: the cell the split has to give the
+        // clone a copy of.
+        auto wouldMove208 = [&](UHDM::ref_typespec* rt) -> bool {
+            if (!rt)
+                return false;
+            auto o = owner205.find(rt);
+            if (o == owner205.end() || o->second != 3)
+                return false;
+            auto* at = rt->Actual_typespec();
+            const UHDM::typespec* src = listingOf(at);
+            if (!src)
+                return false;
+            auto c = cloneBareScalarTdCopy16.find(src);
+            return !(c != cloneBareScalarTdCopy16.end() && c->second == at);
+        };
+        // The PURE predicate: does anything below this typespec need a split?
+        // It mints nothing, so it can run before the content sort.
+        std::function<bool(const UHDM::typespec*, int)> needs208;
+        auto linkNeeds208 = [&](UHDM::ref_typespec* rt, int budget) -> bool {
+            return rt && (wouldMove208(rt) ||
+                          needs208(rt->Actual_typespec(), budget - 1));
+        };
+        needs208 = [&](const UHDM::typespec* at, int budget) -> bool {
+            if (!at || budget <= 0)
+                return false;
+            if (at->UhdmType() == UHDM::uhdmarray_typespec) {
+                auto* a = (UHDM::array_typespec*)at;
+                return linkNeeds208(a->Elem_typespec(), budget) ||
+                       linkNeeds208(a->Index_typespec(), budget);
+            }
+            if (at->UhdmType() == UHDM::uhdmpacked_array_typespec) {
+                auto* a = (UHDM::packed_array_typespec*)at;
+                return linkNeeds208(a->Elem_typespec(), budget);
+            }
+            return false;
+        };
+        // The MINT.  `splitTs208` returns a FRESH array-shaped typespec whose
+        // element link is the clone's own copy, or null when nothing below it
+        // moves; `splitLink208` returns the fresh ref to hang there.
+        std::function<UHDM::typespec*(UHDM::typespec*, int)> splitTs208;
+        auto splitLink208 = [&](UHDM::ref_typespec* rt,
+                                int budget) -> UHDM::ref_typespec* {
+            if (!rt)
+                return nullptr;
+            UHDM::typespec* nts = nullptr;
+            if (wouldMove208(rt))
+                nts = cloneCopyOf(listingOf(rt->Actual_typespec()));
+            else
+                nts = splitTs208(rt->Actual_typespec(), budget - 1);
+            if (!nts)
+                return nullptr;
+            auto* nr = s.MakeRef_typespec();
+            nr->VpiName(rt->VpiName());
+            nr->VpiDefName(rt->VpiDefName());
+            nr->VpiFullName(rt->VpiFullName());
+            nr->VpiParent(rt->VpiParent());
+            nr->VpiFile(rt->VpiFile());
+            nr->VpiLineNo(rt->VpiLineNo());
+            nr->VpiColumnNo(rt->VpiColumnNo());
+            nr->VpiEndLineNo(rt->VpiEndLineNo());
+            nr->VpiEndColumnNo(rt->VpiEndColumnNo());
+            nr->Actual_typespec(nts);
+            return nr;
+        };
+        auto copyTsShell208 = [](UHDM::typespec* dst, UHDM::typespec* src) {
+            dst->VpiName(src->VpiName());
+            dst->VpiParent(src->VpiParent());
+            dst->VpiFile(src->VpiFile());
+            dst->VpiLineNo(src->VpiLineNo());
+            dst->VpiColumnNo(src->VpiColumnNo());
+            dst->VpiEndLineNo(src->VpiEndLineNo());
+            dst->VpiEndColumnNo(src->VpiEndColumnNo());
+            dst->Typedef_alias(src->Typedef_alias());
+            dst->Instance(src->Instance());
+        };
+        splitTs208 = [&](UHDM::typespec* at, int budget) -> UHDM::typespec* {
+            if (!at || budget <= 0)
+                return nullptr;
+            if (at->UhdmType() == UHDM::uhdmarray_typespec) {
+                auto* a = (UHDM::array_typespec*)at;
+                auto* ne = splitLink208(a->Elem_typespec(), budget);
+                auto* ni = splitLink208(a->Index_typespec(), budget);
+                if (!ne && !ni)
+                    return nullptr;
+                auto* na = s.MakeArray_typespec();
+                copyTsShell208(na, a);
+                na->VpiArrayType(a->VpiArrayType());
+                na->Ranges(a->Ranges());
+                na->Left_expr(a->Left_expr());
+                na->Right_expr(a->Right_expr());
+                na->Resolution_func(a->Resolution_func());
+                na->Elem_typespec(ne ? ne : a->Elem_typespec());
+                na->Index_typespec(ni ? ni : a->Index_typespec());
+                if (ne)
+                    ne->VpiParent(na);
+                if (ni)
+                    ni->VpiParent(na);
+                return na;
+            }
+            if (at->UhdmType() == UHDM::uhdmpacked_array_typespec) {
+                auto* a = (UHDM::packed_array_typespec*)at;
+                auto* ne = splitLink208(a->Elem_typespec(), budget);
+                if (!ne)
+                    return nullptr;
+                auto* na = s.MakePacked_array_typespec();
+                copyTsShell208(na, a);
+                na->VpiVector(a->VpiVector());
+                na->Ranges(a->Ranges());
+                na->Left_expr(a->Left_expr());
+                na->Right_expr(a->Right_expr());
+                na->Resolution_func(a->Resolution_func());
+                na->Typespec(a->Typespec());
+                na->Elem_typespec(ne);
+                ne->VpiParent(na);
+                return na;
+            }
+            return nullptr;
+        };
+        std::vector<std::pair<std::string, UHDM::ref_typespec*>> split208;
+        for (auto& [rt208, m208] : outer208) {
+            if (m208 != 1)
+                continue;
+            auto k = key208.find(rt208);
+            if (k == key208.end() || k->second == "<ambiguous>")
+                continue;
+            if (!needs208(rt208->Actual_typespec(), 8))
+                continue;
+            split208.emplace_back(k->second, rt208);
+        }
+        std::sort(split208.begin(), split208.end(),
+                  [](const auto& a, const auto& b) { return a.first < b.first; });
+        // A key that repeats cannot be ordered by CONTENT, so the whole
+        // colliding group is refused rather than minted in arena order.
+        for (size_t i208 = 0; i208 < split208.size();) {
+            size_t j208 = i208;
+            while (j208 < split208.size() &&
+                   split208[j208].first == split208[i208].first)
+                ++j208;
+            if (j208 - i208 == 1)
+                if (auto* na208 =
+                        splitTs208(split208[i208].second->Actual_typespec(), 8))
+                    split208[i208].second->Actual_typespec(na208);
+            i208 = j208;
+        }
     }
     // § cloneStructMemberBareTdAlias207 — THE SAME CLONE, THROUGH THE STRUCT
     // MEMBER, AND IT IS A SPLIT, NOT A RE-POINT.

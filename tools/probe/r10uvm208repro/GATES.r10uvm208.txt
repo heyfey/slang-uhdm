@@ -1,0 +1,169 @@
+r10uvm208 — THE GATE BATTERY.  MEASUREMENT ONLY except where the OFFICIAL
+harness is named; the judge is ~/git-repos/UHDM/build/bin/uhdm-cmp and
+scripts/verify_golden.py.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+BASE COMMIT      f3a3fcf0
+pristine binary  md5 61d817dba1aa2bbe6cdd2be4e165b818, built -j 2 from this
+                 pass's OWN worktree at a clean f3a3fcf0, frozen chmod 555
+                 BEFORE any sweep
+patched binary   md5 0cd3924b8afdc086884ece90b4d3d82a, frozen chmod 555
+production       src/TypeEmit.cpp ONLY, one new block at the end of
+                 § cloneArrayElemBareTdAlias205, inside its own
+                 `if (!pkgImportCloneTfs16.empty())` guard.  No header change,
+                 no new exporter state, no new flag, no new member function.
+probe surface    tools/probe/r10uvm208repro/ only
+results/*.csv    READ ONLY, NOT EDITED.  NOTHING PROMOTED.  NO ROW CONVERTED.
+GOLDEN_DEFER     unset throughout.
+the fenced four  never dispatched by any driver here; named ONLY inside
+                 canaudit.sh's own FENCED= line, which predict208.sh reads at
+                 run time so this pass's artifacts never spell them.
+
+==========================================================================
+(1) BUILD
+==========================================================================
+  both binaries built -j 2, md5s above, both frozen chmod 555 before any sweep.
+
+==========================================================================
+(2) GOLDENS
+==========================================================================
+  SLANG_UHDM=<pristine>  check_goldens.sh   23 PASS / 0 FAIL
+  SLANG_UHDM=<patched>   check_goldens.sh   23 PASS / 0 FAIL
+  SLANG_UHDM=/bin/false  check_goldens.sh   23 FAIL   (the negative control)
+
+==========================================================================
+(3) uhdm2rtlil, BOTH MODES
+==========================================================================
+  pristine  testflags CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+  pristine  default   CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+  patched   testflags CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+  patched   default   CMP_EQUAL 679  SLANG_REJECT 50  SURELOG_FAIL 2
+
+  ct8rows results/gate_uhdm2rtlil.csv  vs patched testflags   PASS (0 rows)
+  ct8rows this pass's pristine tf      vs patched testflags   PASS (0 rows)
+  ct8rows this pass's pristine default vs patched default     PASS (0 rows)
+  byteverify SELFCHECK=1  MOVERS 0 / 1358  PATH_SETS_IDENTICAL
+
+==========================================================================
+(4) SURELOG, --mode both
+==========================================================================
+  pristine  default   CMP_EQUAL 473  SLANG_REJECT 283 SURELOG_FAIL 25
+                      CMP_NOTEQUAL 8  DEFERRED 5
+  pristine  testflags CMP_EQUAL 468  SLANG_REJECT 284 SURELOG_FAIL 23
+                      CMP_NOTEQUAL 7  DEFERRED 5  NO_DATABASE 3
+                      UNTRANSLATABLE 2  TIMEOUT 1  NO_UHDM 1
+  patched            IDENTICAL to the pristine line for line: 473/8 + 468/7.
+
+  ct8rows results/golden_surelog.csv vs PATCHED, over all 1588 rows:
+    2 differing ROWS, 4 diff row-sides, ALL OF THEM THE DUMP COLUMN ONLY:
+      < Earlgrey_0_1,default,CMP_EQUAL,,,
+      < Earlgrey_0_1,testflags,CMP_EQUAL,,,differ
+      > Earlgrey_0_1,default,CMP_EQUAL,,,differ
+      > Earlgrey_0_1,testflags,CMP_EQUAL,,,
+  ct8rows this pass's PRISTINE vs PATCHED, over all 1588 rows:
+      1 differing ROW, the Earlgrey_0_1,default DUMP COLUMN only.
+  ct8rows results/golden_surelog.csv vs this pass's PRISTINE:
+      1 differing ROW, the Earlgrey_0_1,testflags DUMP COLUMN only.
+
+  READ THAT CAREFULLY.  The STATUS is CMP_EQUAL on every one of the eight
+  cells, on both binaries.  This is the `uhdm-dump` TIMEOUT UNDER SWEEP LOAD
+  that r10uvm204 and r10uvm205 both recorded, and it lands in a different
+  direction on each run — this pass's own PRISTINE sweep flipped
+  Earlgrey_0_1,testflags one way and its PATCHED sweep flipped
+  Earlgrey_0_1,default the other.  NO ROW WAS CONVERTED IN EITHER DIRECTION.
+  Independently: byteverify names 4 movers out of 956 and NEITHER Earlgrey
+  database is one of them, and rowheads reads 0 cmp lines / 0 heads (judge
+  rc=0) for Earlgrey_0_1 in BOTH modes on BOTH binaries.
+
+==========================================================================
+(5) BYTE MOVERS AND THEIR ATTRIBUTION
+==========================================================================
+  byteverify SELFCHECK=1 surelog  MOVERS 4 / 956  PATH_SETS_IDENTICAL
+    the FOUR the a-priori prediction named BY NAME from the PRISTINE
+    databases alone: MiniAmiq and SeqDriver, both modes.  The coin
+    (Scoreboard/default) sat out.  Full attribution, object half AND alias
+    half, in MOVERS.r10uvm208.txt.
+
+==========================================================================
+(6) THE PROTECTED CMP_EQUAL ROW-MODES — BOTH COLUMNS, SCORED EXPLICITLY
+==========================================================================
+                          committed baseline    pristine              patched
+  BuildUVMPkg,default     CMP_EQUAL,,,differ    CMP_EQUAL,,,differ    CMP_EQUAL,,,differ
+  BuildUVMPkg,testflags   CMP_EQUAL,,,differ    CMP_EQUAL,,,differ    CMP_EQUAL,,,differ
+  Earlgrey_0_1,default    CMP_EQUAL,,,          CMP_EQUAL,,,          CMP_EQUAL,,,differ
+  Earlgrey_0_1,testflags  CMP_EQUAL,,,differ    CMP_EQUAL,,,          CMP_EQUAL,,,differ
+  Rggen,default           CMP_EQUAL,,,differ    CMP_EQUAL,,,differ    CMP_EQUAL,,,differ
+  ALL FIVE STAY CMP_EQUAL on both binaries; the only movement anywhere in
+  those ten cells is the Earlgrey DUMP COLUMN flake described in (4).
+  rowheads: all five read 0 cmp lines / 0 heads, judge rc=0, on BOTH binaries.
+
+==========================================================================
+(7) HEADS (rowheads.sh, this pass's own sweeps)
+==========================================================================
+  TEST           MODE       PRISTINE            PATCHED
+  SeqDriver      default    112 / 1 head        112 / 1 head   (SAME head object)
+  SeqDriver      testflags  112 / 1 head        112 / 1 head   (SAME head object)
+  MiniAmiq       default    112 / 1 head        112 / 1 head   (head OBJECT CHANGED)
+  MiniAmiq       testflags  112 / 1 head        112 / 1 head   (head OBJECT CHANGED)
+  SimpleUVM      default    4177864 / 1         4177864 / 1
+  SimpleUVM      testflags  4178104 / 1         4178104 / 1
+  Scoreboard     default    95 / 1              95 / 1
+  Scoreboard     testflags  SKIP-NOFILE         SKIP-NOFILE
+  BuildUVMPkg    default    0 / 0  rc=0         0 / 0  rc=0
+  BuildUVMPkg    testflags  0 / 0  rc=0         0 / 0  rc=0
+  Earlgrey_0_1   default    0 / 0  rc=0         0 / 0  rc=0
+  Earlgrey_0_1   testflags  0 / 0  rc=0         0 / 0  rc=0
+  Rggen          default    0 / 0  rc=0         0 / 0  rc=0
+  Rggen          testflags  SKIP-NOFILE         SKIP-NOFILE
+  measured=12  SKIP-NOFILE=2  UNKNOWN-NAME=0 on both binaries.
+
+  MiniAmiq's head object BEFORE (head_pris_MiniAmiq.*.cmp):
+    ref_typespec: (svaunit_pkg::uvm_reg_map::m_set_reg_offset::addrs::uvm_reg_addr_t)
+  MiniAmiq's head object AFTER (head_pat_MiniAmiq.*.cmp):
+    ref_typespec: (svaunit_pkg::uvm_reg_map::m_set_mem_offset::range::
+                   uvm_pkg::uvm_reg_map_addr_range::min::uvm_reg_addr_t)
+  — the CLASS-MEMBER kind, i.e. the same head family SeqDriver already sits on.
+  SeqDriver's head object is UNCHANGED by this law, before and after.
+  The line count stays 112 because a cmp line count is the HEAD OBJECT'S
+  DECOMPILE SIZE (RESUME.md §7) and the successor is another use of the same
+  64-bit bit_typespec; the OBJECT is what moved, and both are quoted in full
+  in the committed head_pris_* / head_pat_* files.
+
+==========================================================================
+(8) CANARIES, SUPPLEMENTARY CANARIES, AUDIT, PINS
+==========================================================================
+  canaries.sh surelog     ok=50 changed=2 absent=0 unknown-names=7
+      the two CHANGED are the Earlgrey_0_1 DUMP-COLUMN cells of (4):
+        Earlgrey_0_1 default   CMP_EQUAL/  -> CMP_EQUAL/differ
+        Earlgrey_0_1 testflags CMP_EQUAL/differ -> CMP_EQUAL/
+      STATUS CMP_EQUAL on both sides of both; neither database is a byte mover.
+  canaries.sh uhdm2rtlil  ok=8  changed=0 absent=0
+  ctcan2 EXPECT_UNKNOWN=1 surelog     PASS (every supplementary canary row
+                                            byte-identical to the baseline)
+  ctcan2 EXPECT_UNKNOWN=6 uhdm2rtlil  PASS
+  canaudit.sh canaries.sh ctcan2.sh   audited=29 UNCOVERED=0 FENCE-BREACH=0
+
+  PROTECTED DATABASES BY NAME, pristine vs patched md5 (both modes each):
+    InterfaceModPort    59a365f3ce2c / 59a365f3ce2c   SAME (both modes)
+    BlackParrotComplex  e3e354129d5a / e3e354129d5a   SAME (default)
+                        73a10e8217e5 / 73a10e8217e5   SAME (testflags)
+    YosysOldOr          d68e0796d62c / d68e0796d62c   SAME (both modes)
+    SVSwitch            4842211c4030 / 4842211c4030   PIN HELD (both modes)
+    YosysVerx           6ccda350c24a / 6ccda350c24a   PIN HELD (both modes)
+
+==========================================================================
+(9) BINARY-PATH AUDIT OF EVERY cmds.txt (RESUME.md §9's harness trap)
+==========================================================================
+  Both harness scripts SILENTLY default SLANG_UHDM to the MAIN-TREE binary, so
+  SLANG_UHDM was exported explicitly per binary and EVERY cmds.txt was audited
+  by BINARY PATH (not by the string "slang-uhdm", which also matches
+  slang-uhdm-goldens/):
+    surelog  pristine sweep  1573 cmds.txt, 1523 name /tmp/r10uvm208_pris.bin,
+                             0 name any other binary (the 50 without a slang
+                             line are the SURELOG_FAIL rows, 0 invocations)
+    surelog  patched  sweep  1573 cmds.txt, 1523 name /tmp/r10uvm208_pat.bin, 0 other
+    u2r      pristine+patched 1462 cmds.txt each, 1458 name the right frozen
+                             binary, 0 name the main tree or the other binary
+    grid arms                 28 invocations of each frozen binary, 0 of any other
+  Every arm records its rc: an rc=139 SEGFAULT must never read as a result
+  (verify_golden.py records one as SLANG_REJECT wearing the last stderr
+  warning).  No nonzero rc in any grid arm of this pass.

@@ -1,0 +1,139 @@
+r10v208 — VERIFIER GRID RESULTS.  MEASUREMENT ONLY; uhdm-cmp is the judge.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+pristine 61d817dba1aa2bbe6cdd2be4e165b818   patched 0cd3924b8afdc086884ece90b4d3d82a
+
+=== THE TEN NEW ARMS (grid208.sh, one REAL Surelog golden each, both views)
+-- v208_a_alias
+   def  cmp pris=150/1 pat=150/1  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 40  (one-sided: only-golden 12 only-ours 4)
+   def  GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 54  (one-sided: only-golden 0 only-ours 0)
+   elab cmp pris=150/1 pat=150/1  TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 62  (one-sided: only-golden 0 only-ours 4)
+   elab GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 66  (one-sided: only-golden 0 only-ours 0)
+-- v208_b_assoc
+   def  cmp pris=112/1 pat=112/1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 24  (one-sided: only-golden 10 only-ours 2)
+   def  GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 34  (one-sided: only-golden 0 only-ours 0)
+   def BYTE-IDENTICAL between the two binaries
+   elab cmp pris=112/1 pat=112/1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 39  (one-sided: only-golden 2 only-ours 2)
+   elab GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 41  (one-sided: only-golden 0 only-ours 0)
+   elab BYTE-IDENTICAL between the two binaries
+-- v208_c_packed
+   def  cmp pris=116/1 pat=116/1  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 10  AGREE 21  (one-sided: only-golden 10 only-ours 2)
+   def  GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 42  (one-sided: only-golden 0 only-ours 0)
+   elab cmp pris=116/1 pat=116/1  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 18  AGREE 32  (one-sided: only-golden 0 only-ours 2)
+   elab GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 52  (one-sided: only-golden 0 only-ours 0)
+-- v208_d_chain
+   def  cmp pris=926/1 pat=926/1  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 31  (one-sided: only-golden 12 only-ours 6)
+   def  GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 44  (one-sided: only-golden 0 only-ours 0)
+   elab cmp pris=1182/1 pat=1182/1  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 48  (one-sided: only-golden 0 only-ours 6)
+   elab GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 50  (one-sided: only-golden 0 only-ours 0)
+-- v208_e_spec
+   def  cmp pris=1404/1 pat=1404/1  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 36  (one-sided: only-golden 12 only-ours 4)
+   def  GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 49  (one-sided: only-golden 0 only-ours 0)
+   elab cmp pris=1808/1 pat=1808/1  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 56  (one-sided: only-golden 0 only-ours 4)
+   elab GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 58  (one-sided: only-golden 0 only-ours 0)
+-- v208_f_io
+   def  cmp pris=112/1 pat=0/0  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 41  (one-sided: only-golden 8 only-ours 4)
+   def  GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 50  (one-sided: only-golden 0 only-ours 0)
+   elab cmp pris=112/1 pat=0/0  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 60  (one-sided: only-golden 0 only-ours 4)
+   elab GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 62  (one-sided: only-golden 0 only-ours 0)
+-- v208_g_twohome
+   def  cmp pris=3402/1 pat=3402/1  TO-GOLDEN 5  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 77  (one-sided: only-golden 26 only-ours 6)
+   def  GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 108  (one-sided: only-golden 0 only-ours 0)
+   elab cmp pris=4490/1 pat=4490/1  TO-GOLDEN 10  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 124  (one-sided: only-golden 0 only-ours 6)
+   elab GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 134  (one-sided: only-golden 0 only-ours 0)
+-- v208_h_deep
+   def  cmp pris=1638/1 pat=1638/1  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 34  (one-sided: only-golden 6 only-ours 2)
+   def  GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 42  (one-sided: only-golden 0 only-ours 0)
+   elab cmp pris=1958/1 pat=1958/1  TO-GOLDEN 3  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 45  (one-sided: only-golden 0 only-ours 2)
+   elab GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 48  (one-sided: only-golden 0 only-ours 0)
+-- v208_i_struct
+   def  cmp pris=9/1 pat=9/1  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 32  (one-sided: only-golden 8 only-ours 4)
+   def  GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 41  (one-sided: only-golden 0 only-ours 0)
+   elab cmp pris=9/1 pat=9/1  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 47  (one-sided: only-golden 0 only-ours 4)
+   elab GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 49  (one-sided: only-golden 0 only-ours 0)
+-- v208_j_modimp
+   def  cmp pris=17/1 pat=17/1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 12  (one-sided: only-golden 0 only-ours 0)
+   def  GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 12  (one-sided: only-golden 0 only-ours 0)
+   def BYTE-IDENTICAL between the two binaries
+   elab cmp pris=17/1 pat=17/1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 18  (one-sided: only-golden 0 only-ours 0)
+   elab GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 18  (one-sided: only-golden 0 only-ours 0)
+   elab BYTE-IDENTICAL between the two binaries
+
+=== SECTION 205's OWN SIX ARMS, re-run
+-- g205_a_kinds
+   def  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 8  AGREE 106  (one-sided: only-golden 50 only-ours 4)
+        def BYTE-IDENTICAL
+   elab TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 16  AGREE 198  (one-sided: only-golden 2 only-ours 4)
+        elab BYTE-IDENTICAL
+-- g205_b_ctx
+   def  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 4  AGREE 80  (one-sided: only-golden 21 only-ours 12)
+        def BYTE-IDENTICAL
+   elab TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 8  AGREE 108  (one-sided: only-golden 7 only-ours 16)
+        elab BYTE-IDENTICAL
+-- g205_c_share
+   def  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 21  (one-sided: only-golden 6 only-ours 2)
+   elab TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 32  (one-sided: only-golden 0 only-ours 2)
+-- g205_d_noimport
+   def  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 6  AGREE 14  (one-sided: only-golden 4 only-ours 2)
+        def BYTE-IDENTICAL
+   elab TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 10  AGREE 22  (one-sided: only-golden 0 only-ours 2)
+        elab BYTE-IDENTICAL
+-- g205_e_head
+   def  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 18  (one-sided: only-golden 7 only-ours 4)
+        def BYTE-IDENTICAL
+   elab TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 26  (one-sided: only-golden 3 only-ours 4)
+        elab BYTE-IDENTICAL
+-- g205_f_home
+   def  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 16  (one-sided: only-golden 0 only-ours 0)
+        def BYTE-IDENTICAL
+   elab TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 24  (one-sided: only-golden 0 only-ours 0)
+        elab BYTE-IDENTICAL
+
+=== SECTION 208's OWN ARMS, re-run by the verifier
+-- g208_a_faces
+   def  TO-GOLDEN 7  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 87  (one-sided: only-golden 16 only-ours 4)
+   elab TO-GOLDEN 10  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 116  (one-sided: only-golden 0 only-ours 4)
+-- g208_b_twoclone
+   def  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 51  (one-sided: only-golden 20 only-ours 8)
+   elab TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 80  (one-sided: only-golden 0 only-ours 8)
+-- g208_c_three
+   def  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 41  (one-sided: only-golden 18 only-ours 6)
+   elab TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 64  (one-sided: only-golden 0 only-ours 6)
+-- g208_d_home
+   def  cmp pris=17/1 pat=17/1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 26  (one-sided: only-golden 0 only-ours 0)
+        def BYTE-IDENTICAL
+   elab cmp pris=17/1 pat=17/1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 40  (one-sided: only-golden 0 only-ours 0)
+        elab BYTE-IDENTICAL
+-- g208_e_head
+   def  cmp pris=112/1 pat=0/0  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 21  (one-sided: only-golden 4 only-ours 2)
+   elab cmp pris=112/1 pat=0/0  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 25  (one-sided: only-golden 2 only-ours 2)
+-- g208_f_explicit
+   def  cmp pris=112/1 pat=112/1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 8  AGREE 16  (one-sided: only-golden 4 only-ours 2)
+        def BYTE-IDENTICAL
+   elab cmp pris=112/1 pat=112/1  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 12  AGREE 20  (one-sided: only-golden 0 only-ours 2)
+        elab BYTE-IDENTICAL
+-- g208_g_fences
+   def  cmp pris=78/1 pat=78/1  TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  AGREE 35  (one-sided: only-golden 14 only-ours 10)
+   elab cmp pris=78/1 pat=78/1  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 4  AGREE 55  (one-sided: only-golden 2 only-ours 12)
+-- v205_l_reuse
+   def  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 60  (one-sided: only-golden 12 only-ours 4)
+   elab TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 92  (one-sided: only-golden 0 only-ours 4)
+
+=== THE THREE STATIC-ADDRESS FALSE MOVERS, four tells
+-- l154_noenum
+   def uhdm-cmp output BYTE-IDENTICAL (17 lines)
+   def  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 1  (one-sided: only-golden 0 only-ours 0)
+   elab uhdm-cmp output BYTE-IDENTICAL (17 lines)
+   elab TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 1  (one-sided: only-golden 0 only-ours 0)
+   object-count diff lines: 0
+-- g22
+   def uhdm-cmp output BYTE-IDENTICAL (3438 lines)
+   def  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 14  AGREE 20  (one-sided: only-golden 13 only-ours 15)
+   elab uhdm-cmp output BYTE-IDENTICAL (3438 lines)
+   elab TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 12  AGREE 12  (one-sided: only-golden 13 only-ours 25)
+   object-count diff lines: 0
+-- g185_e_kinds
+   def uhdm-cmp output BYTE-IDENTICAL (92 lines)
+   def  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 10  AGREE 0  (one-sided: only-golden 29 only-ours 18)
+   elab uhdm-cmp output BYTE-IDENTICAL (92 lines)
+   elab TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 10  AGREE 0  (one-sided: only-golden 29 only-ours 18)
+   object-count diff lines: 0

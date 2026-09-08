@@ -1,0 +1,151 @@
+r10uvm208 — THE CENSUS OF RECORD.  MEASUREMENT ONLY.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+cen208.sh over 12 tests x 2 modes, golden-vs-golden CALIBRATED FIRST on every
+scored row-mode (the 'calib' line must read 0 in every column before the
+'SCORE' line beside it is believed).  A row-mode with no golden in the cache
+is reported SKIP-NOFILE, never silently skipped.
+
+SeqDriver      default   calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 6292  (one-sided: only-golden 0 only-ours 0)
+SeqDriver      default   SCORE  TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 5275  (one-sided: only-golden 1011 only-ours 468)
+SeqDriver      testflags calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 6292  (one-sided: only-golden 0 only-ours 0)
+SeqDriver      testflags SCORE  TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 5275  (one-sided: only-golden 1011 only-ours 468)
+SimpleUVM      default   calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 4354  (one-sided: only-golden 0 only-ours 0)
+SimpleUVM      default   SCORE  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 3789  (one-sided: only-golden 565 only-ours 34)
+SimpleUVM      testflags calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 4354  (one-sided: only-golden 0 only-ours 0)
+SimpleUVM      testflags SCORE  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 3789  (one-sided: only-golden 565 only-ours 34)
+Scoreboard     default   calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 4374  (one-sided: only-golden 0 only-ours 0)
+Scoreboard     default   SCORE  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 3804  (one-sided: only-golden 570 only-ours 34)
+Scoreboard,testflags SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/38bec1a9ed42a1c26209/golden.uhdm)
+MiniAmiq       default   calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 6462  (one-sided: only-golden 0 only-ours 0)
+MiniAmiq       default   SCORE  TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 5445  (one-sided: only-golden 1011 only-ours 468)
+MiniAmiq       testflags calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 6462  (one-sided: only-golden 0 only-ours 0)
+MiniAmiq       testflags SCORE  TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 5445  (one-sided: only-golden 1011 only-ours 468)
+BuildUVMPkg    default   calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 4199  (one-sided: only-golden 0 only-ours 0)
+BuildUVMPkg    default   SCORE  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 3595  (one-sided: only-golden 604 only-ours 38)
+BuildUVMPkg    testflags calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 4199  (one-sided: only-golden 0 only-ours 0)
+BuildUVMPkg    testflags SCORE  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 3595  (one-sided: only-golden 604 only-ours 38)
+AmiqEth,default SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/6e7bed4623ed95ec57cd/golden.uhdm)
+AmiqEth,testflags SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/5bebe32ec619c1b35ae1/golden.uhdm)
+AmiqSimpleTestSuite,default SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/785200d0c17c3ee6534b/golden.uhdm)
+AmiqSimpleTestSuite,testflags SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/ab2b0899831b41065535/golden.uhdm)
+UnitAmiqEth,default SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/a4d46b4c9bc2c1a06faf/golden.uhdm)
+UnitAmiqEth,testflags SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/796c8f2583c963248e9c/golden.uhdm)
+UVMNestedSeq,default SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/69558a312d29c9f3bd39/golden.uhdm)
+UVMNestedSeq,testflags SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/a7c17d507e9f7599a24c/golden.uhdm)
+UVMSwitch,default SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/feb877679c926af13d89/golden.uhdm)
+UVMSwitch,testflags SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/284e271ed47834c4d497/golden.uhdm)
+Earlgrey_0_1   default   calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 446  (one-sided: only-golden 0 only-ours 0)
+Earlgrey_0_1   default   SCORE  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 446  (one-sided: only-golden 0 only-ours 0)
+Earlgrey_0_1   testflags calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 532  (one-sided: only-golden 0 only-ours 0)
+Earlgrey_0_1   testflags SCORE  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 532  (one-sided: only-golden 0 only-ours 8)
+Rggen          default   calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 4  (one-sided: only-golden 0 only-ours 0)
+Rggen          default   SCORE  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 4  (one-sided: only-golden 0 only-ours 0)
+Rggen,testflags SKIP-NOFILE(g=/home/heyfey/.cache/slang-uhdm-goldens/b4e12db525a931d04482/golden.uhdm)
+
+==========================================================================
+THE 24 MOVED CELLS, NAMED (6 per row-mode x 4 row-modes)
+==========================================================================
+---- MiniAmiq.default
+TO-GOLDEN    TOP[2] svaunit_pkg | - | uvm_reg_map::Xinit_address_mapX | d4 | var | addrs@1603:23 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+TO-GOLDEN    TOP[2] svaunit_pkg | - | uvm_reg_map::do_bus_read | d1 | var | addrs@1983:18 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+TO-GOLDEN    TOP[2] svaunit_pkg | - | uvm_reg_map::do_bus_write | d1 | var | addrs@1839:22 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+TO-GOLDEN    TOP[2] svaunit_pkg | - | uvm_reg_map::get_physical_addresses | d1 | var | local_addr@1408:20 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+TO-GOLDEN    TOP[2] svaunit_pkg | - | uvm_reg_map::get_physical_addresses | d2 | var | sys_addr@1472:23 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+TO-GOLDEN    TOP[2] svaunit_pkg | - | uvm_reg_map::m_set_reg_offset | d2 | var | addrs@758:24 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 5445  (one-sided: only-golden 1011 only-ours 468)
+---- MiniAmiq.testflags
+TO-GOLDEN    TOP[2] svaunit_pkg | - | uvm_reg_map::Xinit_address_mapX | d4 | var | addrs@1603:23 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+TO-GOLDEN    TOP[2] svaunit_pkg | - | uvm_reg_map::do_bus_read | d1 | var | addrs@1983:18 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+TO-GOLDEN    TOP[2] svaunit_pkg | - | uvm_reg_map::do_bus_write | d1 | var | addrs@1839:22 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+TO-GOLDEN    TOP[2] svaunit_pkg | - | uvm_reg_map::get_physical_addresses | d1 | var | local_addr@1408:20 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+TO-GOLDEN    TOP[2] svaunit_pkg | - | uvm_reg_map::get_physical_addresses | d2 | var | sys_addr@1472:23 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+TO-GOLDEN    TOP[2] svaunit_pkg | - | uvm_reg_map::m_set_reg_offset | d2 | var | addrs@758:24 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 5445  (one-sided: only-golden 1011 only-ours 468)
+---- SeqDriver.default
+TO-GOLDEN    TOP[2] adpcm_pkg | - | uvm_reg_map::Xinit_address_mapX | d4 | var | addrs@1603:23 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+TO-GOLDEN    TOP[2] adpcm_pkg | - | uvm_reg_map::do_bus_read | d1 | var | addrs@1983:18 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+TO-GOLDEN    TOP[2] adpcm_pkg | - | uvm_reg_map::do_bus_write | d1 | var | addrs@1839:22 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+TO-GOLDEN    TOP[2] adpcm_pkg | - | uvm_reg_map::get_physical_addresses | d1 | var | local_addr@1408:20 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+TO-GOLDEN    TOP[2] adpcm_pkg | - | uvm_reg_map::get_physical_addresses | d2 | var | sys_addr@1472:23 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+TO-GOLDEN    TOP[2] adpcm_pkg | - | uvm_reg_map::m_set_reg_offset | d2 | var | addrs@758:24 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 5275  (one-sided: only-golden 1011 only-ours 468)
+---- SeqDriver.testflags
+TO-GOLDEN    TOP[2] adpcm_pkg | - | uvm_reg_map::Xinit_address_mapX | d4 | var | addrs@1603:23 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+TO-GOLDEN    TOP[2] adpcm_pkg | - | uvm_reg_map::do_bus_read | d1 | var | addrs@1983:18 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+TO-GOLDEN    TOP[2] adpcm_pkg | - | uvm_reg_map::do_bus_write | d1 | var | addrs@1839:22 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+TO-GOLDEN    TOP[2] adpcm_pkg | - | uvm_reg_map::get_physical_addresses | d1 | var | local_addr@1408:20 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+TO-GOLDEN    TOP[2] adpcm_pkg | - | uvm_reg_map::get_physical_addresses | d2 | var | sys_addr@1472:23 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+TO-GOLDEN    TOP[2] adpcm_pkg | - | uvm_reg_map::m_set_reg_offset | d2 | var | addrs@758:24 | .elem
+     gold=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+     pris=('bit_typespec', 'uvm_reg_addr_t', 'uvm_pkg::uvm_reg_addr_t')
+     patd=('bit_typespec', 'uvm_reg_addr_t', 'uvm_reg_addr_t')
+TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 5275  (one-sided: only-golden 1011 only-ours 468)

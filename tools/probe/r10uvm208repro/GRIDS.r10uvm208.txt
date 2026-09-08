@@ -1,0 +1,269 @@
+r10uvm208 — THE GRID OF RECORD.  MEASUREMENT ONLY; uhdm-cmp is the sole judge.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.  ONE REAL SURELOG GOLDEN
+per arm, BOTH binaries, BOTH views, every command AND ITS BINARY PATH echoed
+into <workdir>/cmds.txt, every rc recorded (an rc=139 SEGFAULT must never read
+as a result), a missing database NAMED.  Golden-vs-golden calibration first in
+every arm in every view.
+
+############################################################ g208_a_faces
+--- nonzero rcs:
+--- cen/cmp:
+cen rc=0 g def rows=220
+cen rc=0 a def rows=208
+cen rc=0 b def rows=208
+cmp rc=255 a def lines=4146 heads=1
+cmp rc=255 b def lines=4146 heads=1
+cen rc=0 g elab rows=252
+cen rc=0 a elab rows=256
+cen rc=0 b elab rows=256
+cmp rc=255 a elab lines=5086 heads=1
+cmp rc=255 b elab lines=5086 heads=1
+--- byte-identical between the two binaries?
+  def DIFFERS
+  elab DIFFERS
+--- SCORE:
+  def  ALL       TO-GOLDEN 7  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 87  (one-sided: only-golden 16 only-ours 4)
+  def  .elem     TO-GOLDEN 7  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 37  (one-sided: only-golden 16 only-ours 4)
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 110  (one-sided: only-golden 0 only-ours 0)
+  elab ALL       TO-GOLDEN 10  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 116  (one-sided: only-golden 0 only-ours 4)
+  elab .elem     TO-GOLDEN 10  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 46  (one-sided: only-golden 0 only-ours 4)
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 126  (one-sided: only-golden 0 only-ours 0)
+
+############################################################ g208_b_twoclone
+--- nonzero rcs:
+--- cen/cmp:
+cen rc=0 g def rows=144
+cen rc=0 a def rows=132
+cen rc=0 b def rows=132
+cmp rc=255 a def lines=1338 heads=1
+cmp rc=255 b def lines=1338 heads=1
+cen rc=0 g elab rows=164
+cen rc=0 a elab rows=172
+cen rc=0 b elab rows=172
+cmp rc=255 a elab lines=1738 heads=1
+cmp rc=255 b elab lines=1738 heads=1
+--- byte-identical between the two binaries?
+  def DIFFERS
+  elab DIFFERS
+--- SCORE:
+  def  ALL       TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 51  (one-sided: only-golden 20 only-ours 8)
+  def  .elem     TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 13  (one-sided: only-golden 20 only-ours 8)
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 72  (one-sided: only-golden 0 only-ours 0)
+  elab ALL       TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 80  (one-sided: only-golden 0 only-ours 8)
+  elab .elem     TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 24  (one-sided: only-golden 0 only-ours 8)
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 82  (one-sided: only-golden 0 only-ours 0)
+
+############################################################ g208_c_three
+--- nonzero rcs:
+--- cen/cmp:
+cen rc=0 g def rows=120
+cen rc=0 a def rows=108
+cen rc=0 b def rows=108
+cmp rc=255 a def lines=1002 heads=1
+cmp rc=255 b def lines=1002 heads=1
+cen rc=0 g elab rows=132
+cen rc=0 a elab rows=138
+cen rc=0 b elab rows=138
+cmp rc=255 a elab lines=1266 heads=1
+cmp rc=255 b elab lines=1266 heads=1
+--- byte-identical between the two binaries?
+  def DIFFERS
+  elab DIFFERS
+--- SCORE:
+  def  ALL       TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 41  (one-sided: only-golden 18 only-ours 6)
+  def  .elem     TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 9  (one-sided: only-golden 18 only-ours 6)
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 60  (one-sided: only-golden 0 only-ours 0)
+  elab ALL       TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 64  (one-sided: only-golden 0 only-ours 6)
+  elab .elem     TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 16  (one-sided: only-golden 0 only-ours 6)
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 66  (one-sided: only-golden 0 only-ours 0)
+
+############################################################ g208_d_home
+--- nonzero rcs:
+--- cen/cmp:
+cen rc=0 g def rows=52
+cen rc=0 a def rows=52
+cen rc=0 b def rows=52
+cmp rc=255 a def lines=17 heads=1
+cmp rc=255 b def lines=17 heads=1
+cen rc=0 g elab rows=80
+cen rc=0 a elab rows=80
+cen rc=0 b elab rows=80
+cmp rc=255 a elab lines=17 heads=1
+cmp rc=255 b elab lines=17 heads=1
+--- byte-identical between the two binaries?
+  def IDENTICAL
+  elab IDENTICAL
+--- SCORE:
+  def  ALL       TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 26  (one-sided: only-golden 0 only-ours 0)
+  def  .elem     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 8  (one-sided: only-golden 0 only-ours 0)
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 26  (one-sided: only-golden 0 only-ours 0)
+  elab ALL       TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 40  (one-sided: only-golden 0 only-ours 0)
+  elab .elem     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 14  (one-sided: only-golden 0 only-ours 0)
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 40  (one-sided: only-golden 0 only-ours 0)
+
+############################################################ g208_e_head
+--- nonzero rcs:
+--- cen/cmp:
+cen rc=0 g def rows=52
+cen rc=0 a def rows=50
+cen rc=0 b def rows=50
+cmp rc=255 a def lines=112 heads=1
+cmp rc=0 b def lines=0 heads=0
+cen rc=0 g elab rows=56
+cen rc=0 a elab rows=56
+cen rc=0 b elab rows=56
+cmp rc=255 a elab lines=112 heads=1
+cmp rc=0 b elab lines=0 heads=0
+--- byte-identical between the two binaries?
+  def DIFFERS
+  elab DIFFERS
+--- SCORE:
+  def  ALL       TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 21  (one-sided: only-golden 4 only-ours 2)
+  def  .elem     TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 5  (one-sided: only-golden 4 only-ours 2)
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 26  (one-sided: only-golden 0 only-ours 0)
+  elab ALL       TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 25  (one-sided: only-golden 2 only-ours 2)
+  elab .elem     TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 5  (one-sided: only-golden 2 only-ours 2)
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 28  (one-sided: only-golden 0 only-ours 0)
+
+############################################################ g208_f_explicit
+--- nonzero rcs:
+--- cen/cmp:
+cen rc=0 g def rows=56
+cen rc=0 a def rows=54
+cen rc=0 b def rows=54
+cmp rc=255 a def lines=112 heads=1
+cmp rc=255 b def lines=112 heads=1
+cen rc=0 g elab rows=64
+cen rc=0 a elab rows=66
+cen rc=0 b elab rows=66
+cmp rc=255 a elab lines=112 heads=1
+cmp rc=255 b elab lines=112 heads=1
+--- byte-identical between the two binaries?
+  def IDENTICAL
+  elab IDENTICAL
+--- SCORE:
+  def  ALL       TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 8  AGREE 16  (one-sided: only-golden 4 only-ours 2)
+  def  .elem     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 4  AGREE 4  (one-sided: only-golden 4 only-ours 2)
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 28  (one-sided: only-golden 0 only-ours 0)
+  elab ALL       TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 12  AGREE 20  (one-sided: only-golden 0 only-ours 2)
+  elab .elem     TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 6  AGREE 6  (one-sided: only-golden 0 only-ours 2)
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 32  (one-sided: only-golden 0 only-ours 0)
+
+############################################################ g208_g_fences
+--- nonzero rcs:
+--- cen/cmp:
+cen rc=0 g def rows=104
+cen rc=0 a def rows=100
+cen rc=0 b def rows=100
+cmp rc=255 a def lines=78 heads=1
+cmp rc=255 b def lines=78 heads=1
+cen rc=0 g elab rows=126
+cen rc=0 a elab rows=136
+cen rc=0 b elab rows=136
+cmp rc=255 a elab lines=78 heads=1
+cmp rc=255 b elab lines=78 heads=1
+--- byte-identical between the two binaries?
+  def DIFFERS
+  elab DIFFERS
+--- SCORE:
+  def  ALL       TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  AGREE 35  (one-sided: only-golden 14 only-ours 10)
+  def  .elem     TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 2  AGREE 9  (one-sided: only-golden 14 only-ours 10)
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 52  (one-sided: only-golden 0 only-ours 0)
+  elab ALL       TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 4  AGREE 55  (one-sided: only-golden 2 only-ours 12)
+  elab .elem     TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 4  AGREE 16  (one-sided: only-golden 2 only-ours 12)
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 63  (one-sided: only-golden 0 only-ours 0)
+
+
+############################################################
+THE BOUNDARY FLOOR — r10uvm205's SIX COMMITTED ARMS, re-run under this law
+############################################################
+(sources: tools/probe/r10uvm205repro/grid205/g205_*.sv, run VERBATIM by this
+pass's grid208.sh with this pass's two binaries.  Five must be BYTE-IDENTICAL;
+arm C is § 205's own reproduction of the residue this pass closes, so it is
+the one earlier-pass arm that MOVES, and it moves TOWARD golden.)
+
+#### g205_a_kinds
+--- nonzero rcs:
+rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/r10uvm208_scratch/w205_g205_a_kinds/g_elab /home/heyfey/git-repos/slang-uhdm/tools/probe/r10uvm205repro/grid205/g205_a_kinds.sv
+--- cmp:
+cmp rc=255 a def lines=116 heads=1
+cmp rc=255 b def lines=116 heads=1
+cmp rc=255 a elab lines=116 heads=1
+cmp rc=255 b elab lines=116 heads=1
+  def IDENTICAL
+  elab IDENTICAL
+  def  ALL       TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 8  AGREE 106  (one-sided: only-golden 50 only-ours 4)
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 164  (one-sided: only-golden 0 only-ours 0)
+  elab ALL       TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 16  AGREE 198  (one-sided: only-golden 2 only-ours 4)
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 216  (one-sided: only-golden 0 only-ours 0)
+
+#### g205_b_ctx
+--- nonzero rcs:
+rc=4 /home/heyfey/git-repos/Surelog/build/bin/surelog -parse -nocache -nowritecache -noprecompiledcache -d coveruhdm -elabuhdm -o /tmp/r10uvm208_scratch/w205_g205_b_ctx/g_elab /home/heyfey/git-repos/slang-uhdm/tools/probe/r10uvm205repro/grid205/g205_b_ctx.sv
+--- cmp:
+cmp rc=255 a def lines=82 heads=1
+cmp rc=255 b def lines=82 heads=1
+cmp rc=255 a elab lines=86 heads=1
+cmp rc=255 b elab lines=86 heads=1
+  def IDENTICAL
+  elab IDENTICAL
+  def  ALL       TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 4  AGREE 80  (one-sided: only-golden 21 only-ours 12)
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 105  (one-sided: only-golden 0 only-ours 0)
+  elab ALL       TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 8  AGREE 108  (one-sided: only-golden 7 only-ours 16)
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 123  (one-sided: only-golden 0 only-ours 0)
+
+#### g205_c_share
+--- nonzero rcs:
+--- cmp:
+cmp rc=255 a def lines=1002 heads=1
+cmp rc=255 b def lines=1002 heads=1
+cmp rc=255 a elab lines=1266 heads=1
+cmp rc=255 b elab lines=1266 heads=1
+  def DIFFERS
+  elab DIFFERS
+  def  ALL       TO-GOLDEN 1  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 21  (one-sided: only-golden 6 only-ours 2)
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 28  (one-sided: only-golden 0 only-ours 0)
+  elab ALL       TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 32  (one-sided: only-golden 0 only-ours 2)
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 34  (one-sided: only-golden 0 only-ours 0)
+
+#### g205_d_noimport
+--- nonzero rcs:
+--- cmp:
+cmp rc=255 a def lines=112 heads=1
+cmp rc=255 b def lines=112 heads=1
+cmp rc=255 a elab lines=112 heads=1
+cmp rc=255 b elab lines=112 heads=1
+  def IDENTICAL
+  elab IDENTICAL
+  def  ALL       TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 6  AGREE 14  (one-sided: only-golden 4 only-ours 2)
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 24  (one-sided: only-golden 0 only-ours 0)
+  elab ALL       TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 10  AGREE 22  (one-sided: only-golden 0 only-ours 2)
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 32  (one-sided: only-golden 0 only-ours 0)
+
+#### g205_e_head
+--- nonzero rcs:
+--- cmp:
+cmp rc=255 a def lines=1192 heads=1
+cmp rc=255 b def lines=1192 heads=1
+cmp rc=255 a elab lines=1378 heads=1
+cmp rc=255 b elab lines=1378 heads=1
+  def IDENTICAL
+  elab IDENTICAL
+  def  ALL       TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 18  (one-sided: only-golden 7 only-ours 4)
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 25  (one-sided: only-golden 0 only-ours 0)
+  elab ALL       TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 26  (one-sided: only-golden 3 only-ours 4)
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 29  (one-sided: only-golden 0 only-ours 0)
+
+#### g205_f_home
+--- nonzero rcs:
+--- cmp:
+cmp rc=255 a def lines=17 heads=1
+cmp rc=255 b def lines=17 heads=1
+cmp rc=255 a elab lines=17 heads=1
+cmp rc=255 b elab lines=17 heads=1
+  def IDENTICAL
+  elab IDENTICAL
+  def  ALL       TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 16  (one-sided: only-golden 0 only-ours 0)
+  def  GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 16  (one-sided: only-golden 0 only-ours 0)
+  elab ALL       TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 24  (one-sided: only-golden 0 only-ours 0)
+  elab GvG-calib TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 24  (one-sided: only-golden 0 only-ours 0)

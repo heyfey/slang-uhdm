@@ -1,0 +1,108 @@
+r10uvm208 — THE MOVER ATTRIBUTION.  MEASUREMENT ONLY.
+LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+==========================================================================
+THE A-PRIORI PREDICTION (written from the PRISTINE databases ALONE, before
+the patched sweep existed — PREDICT.surelog.r10uvm208.txt / .u2r.)
+==========================================================================
+  surelog     scanned=948  NODB=617  FENCED=8
+    PREDCELLS MiniAmiq,default   shared=6 splits=6 strict=0 wide=6 shared-typedefs=[uvm_pkg::uvm_reg_addr_t]
+    PREDCELLS MiniAmiq,testflags shared=6 splits=6 strict=0 wide=6 shared-typedefs=[uvm_pkg::uvm_reg_addr_t]
+    PREDCELLS SeqDriver,default  shared=6 splits=6 strict=0 wide=6 shared-typedefs=[uvm_pkg::uvm_reg_addr_t]
+    PREDCELLS SeqDriver,testflags shared=6 splits=6 strict=0 wide=6 shared-typedefs=[uvm_pkg::uvm_reg_addr_t]
+    — and NO OTHER ROW of the 948.
+  uhdm2rtlil  scanned=1358 NODB=104 FENCED=0 — shared>0 on NONE of the 1358.
+  `strict=0` on every row is the CALIBRATION: § 205's own population is
+  already moved in the base commit's databases, so the only cells left for a
+  predictor of this family to find are the six § 205 refused.
+
+==========================================================================
+THE MEASURED MOVERS (byteverify SELFCHECK=1, this pass's OWN pristine
+workdir vs its OWN patched workdir)
+==========================================================================
+  surelog     MOVERS 4 / 956    PATH_SETS_IDENTICAL (956 paths)
+  uhdm2rtlil  MOVERS 0 / 1358   PATH_SETS_IDENTICAL (1358 paths)
+
+  MOVER ./default/MiniAmiq-544c7f61/slang.uhdm   patched=d53dd9ae065f pristine=f1a5df6e291c
+  MOVER ./default/SeqDriver-32af76aa/slang.uhdm  patched=9b2c335d43b2 pristine=4d5ada8e1a99
+  MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm patched=d53dd9ae065f pristine=f1a5df6e291c
+  MOVER ./testflags/SeqDriver-32af76aa/slang.uhdm patched=5efc0415cb6d pristine=d63439e99644
+
+EXACTLY the four row-modes the prediction named BY NAME, and no others.
+Scoreboard/default — the ~50/50 COIN of RESUME.md §9 — sat out this run;
+it is not a law row and its census reads 0 in every mover column.
+Earlgrey_0_1 is NOT a byte mover in either mode (see the CSV note in
+GATES.r10uvm208.txt: its two DUMP-COLUMN cells are the recorded uhdm-dump
+timeout flake, with STATUS CMP_EQUAL throughout).
+
+==========================================================================
+THE ATTRIBUTION, BOTH HALVES — THE OBJECT SIDE AND THE ALIAS SIDE
+==========================================================================
+r10uvm205 recorded the instrument fact that `uhdm-dump` DOES NOT PRINT
+`vpiTypedefAlias`, so the campaign's order-blind whole-dump attribution is
+BLIND to the alias re-points of this family.  § 208 is the first law in the
+family that ALSO MINTS OBJECTS, and a minted object IS dump-visible.  Both
+halves are therefore accounted separately, and they agree on the same number.
+
+---- THE OBJECT HALF (dump-visible) — ct208obj, per-kind object population
+     of the pristine vs the patched database of each moved row:
+
+  MiniAmiq  default    <TOTAL> 310179 -> 310191  (+12)
+                       array_typespec   903 ->  909  (+6)
+                       ref_typespec   28725 -> 28731  (+6)
+  MiniAmiq  testflags  <TOTAL> 310179 -> 310191  (+12)
+                       array_typespec   903 ->  909  (+6)
+                       ref_typespec   28725 -> 28731  (+6)
+  SeqDriver default    <TOTAL> 299565 -> 299577  (+12)
+                       array_typespec   817 ->  823  (+6)
+                       ref_typespec   27636 -> 27642  (+6)
+  SeqDriver testflags  <TOTAL> 299577 -> 299589  (+12)
+                       array_typespec   817 ->  823  (+6)
+                       ref_typespec   27636 -> 27642  (+6)
+
+  NO OTHER KIND MOVED ON ANY ROW.  +6 array_typespec and +6 ref_typespec is
+  EXACTLY six splits x (one fresh array shell + one fresh element ref), which
+  is the `splits=6` the prediction named.  ZERO new `bit_typespec`: the
+  element link is re-pointed onto the copy `cloneCopyOf` already minted for
+  § 205's own re-points, so no name is written and no scalar copy is added.
+
+---- and the SORTED, PATH-NORMALISED WHOLE-DUMP DIFF of the same pair
+     (MiniAmiq/default, 1891462 -> 1891516 lines):
+
+    diff lines = 72, of which ADDED 54 and REMOVED 0
+      12  \_array_typespec:          (6 objects x 2 print positions)
+       6  \_ref_typespec:
+       6  \_bit_typespec: (uvm_reg_addr_t)   (re-prints of the existing copy)
+       6  \_range:                           (re-prints of its range)
+       6  |vpiElemTypespec:   6  |vpiActual:   6  |vpiRange:   6  |vpiParent:
+
+  Every added line is a minted object or a field header of one; NOTHING was
+  removed.  And NOT ONE LINE of the six alias re-points appears — the
+  expected signature of § 205's recorded instrument fact, not an anomaly.
+
+---- THE ALIAS HALF (dump-blind, census-visible) — ct208cen, six cells per
+     row-mode, all TO-GOLDEN, named in full in CENSUS.r10uvm208.txt:
+
+    uvm_reg_map::Xinit_address_mapX     d4 addrs@1603:23
+    uvm_reg_map::do_bus_read            d1 addrs@1983:18
+    uvm_reg_map::do_bus_write           d1 addrs@1839:22
+    uvm_reg_map::get_physical_addresses d1 local_addr@1408:20
+    uvm_reg_map::get_physical_addresses d2 sys_addr@1472:23
+    uvm_reg_map::m_set_reg_offset       d2 addrs@758:24
+
+  each going ('bit_typespec','uvm_reg_addr_t','uvm_pkg::uvm_reg_addr_t')
+       ->    ('bit_typespec','uvm_reg_addr_t','uvm_reg_addr_t') = golden's
+  value, in the ELABORATED listing of the importing package (svaunit_pkg on
+  MiniAmiq, adpcm_pkg on SeqDriver).  These are EXACTLY the six § 205 named
+  as its R1 residue.
+
+==========================================================================
+DETERMINISM — THE MINT ORDER IS CONTENT ORDER, NEVER ARENA ORDER
+==========================================================================
+Three independent invocations of the patched binary on MiniAmiq/default's own
+command line, into the same output path, produce a BYTE-IDENTICAL database:
+  a0cb3060f486d00fda574822bca45781  run 1
+  a0cb3060f486d00fda574822bca45781  run 2
+  a0cb3060f486d00fda574822bca45781  run 3
+(The sweep's own file has a different md5 because the OUTPUT PATH is embedded
+in the database — RESUME.md §9's "dump paths embed the workdir".)
