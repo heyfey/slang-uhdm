@@ -1,0 +1,127 @@
+r10uvm211 — THE GATES
+=====================
+
+Both binaries were built -j 2 from THIS PASS'S OWN worktree at a clean
+cd783019 and FROZEN (`chmod 555`) at immutable paths BEFORE any sweep ran.
+`results/*.csv` were READ ONLY and NOT EDITED; nothing was promoted; NO CORPUS
+ROW WAS CONVERTED in either direction.  `GOLDEN_DEFER` stayed unset.  The four
+slang-fenced tests were never dispatched by any driver here.
+
+(1) BUILD
+    pristine md5 6fcb25434647c0559ba55ab2f1414bad   22565296 bytes
+    patched  md5 9d12c48370243a1e55e81940230713ae   22586136 bytes
+    Production surface: src/TypeEmit.cpp ONLY, one new block at the END of the
+    existing § cloneStructMemberBareTdAlias207, INSIDE its own
+    `if (!pkgImportCloneTfs16.empty())` guard.  No header change, no new
+    exporter state, no new flag, no new member function.
+
+(2) GOLDENS
+    pristine  23 PASS / 0 FAIL      (SLANG_UHDM exported explicitly)
+    patched   23 PASS / 0 FAIL
+    negative control SLANG_UHDM=/bin/false   23 FAIL / 0 PASS
+
+(3) uhdm2rtlil, BOTH modes
+    testflags 679 CMP_EQUAL / 50 SLANG_REJECT / 2 SURELOG_FAIL
+    ct8rows vs the COMMITTED baseline               PASS (0 differing rows)
+    ct8rows patched vs THIS PASS'S OWN pristine, tf PASS (0 differing rows)
+    ct8rows patched vs THIS PASS'S OWN pristine, def PASS (0 differing rows)
+    byteverify SELFCHECK=1                          MOVERS 0 / 1358
+                                                    SELFCHECK 1357/1358 flagged
+
+(4) surelog, --mode both, 1588 rows
+    default   473 CMP_EQUAL   8 CMP_NOTEQUAL   5 DEFERRED  283 SLANG_REJECT   25 SURELOG_FAIL
+    testflags 468 CMP_EQUAL   7 CMP_NOTEQUAL   5 DEFERRED    3 NO_DATABASE
+              1 NO_UHDM  284 SLANG_REJECT  23 SURELOG_FAIL  1 TIMEOUT  2 UNTRANSLATABLE
+    — identical on BOTH binaries and identical to the committed baseline.
+    ct8rows patched vs THIS PASS'S OWN pristine     0 differing ROWS
+    ct8rows patched vs the COMMITTED baseline       2 differing ROWS, and they
+      are the Earlgrey_0_1 DUMP COLUMN in both modes:
+        < Earlgrey_0_1,default,CMP_EQUAL,,,differ   > Earlgrey_0_1,default,CMP_EQUAL,,,
+        < Earlgrey_0_1,testflags,CMP_EQUAL,,,differ > Earlgrey_0_1,testflags,CMP_EQUAL,,,
+      The STATUS is CMP_EQUAL on both cells on BOTH binaries at judge rc=0; the
+      cell appears IDENTICALLY in this pass's own PRISTINE sweep, so it is the
+      `uhdm-dump` timeout under sweep load that r10uvm204, r10uvm205 and
+      r10uvm208 all recorded — informational only.  NO ROW WAS CONVERTED.
+
+(5) BYTEVERIFY, surelog, SELFCHECK=1
+    databases 956 / 956, PATH_SETS_IDENTICAL
+    MOVERS 5 / 956, SELFCHECK 955/956 flagged
+      ./default/MiniAmiq-544c7f61     PREDICTED BY NAME
+      ./testflags/MiniAmiq-544c7f61   PREDICTED BY NAME
+      ./default/SeqDriver-32af76aa    PREDICTED BY NAME
+      ./testflags/SeqDriver-32af76aa  PREDICTED BY NAME
+      ./default/Scoreboard-59431470   THE ~50/50 COIN, attributed ORDER-BLIND:
+          the path-normalised SORTED uhdm-dump of the two databases differs by
+          exactly ZERO content lines (the only diff line is the file-name header
+          uhdm-dump prints).  Scoreboard/default reads 95 cmp lines / 1 head on
+          BOTH binaries and its census scores 0 in every mover column.
+
+    THE PREDICTION WAS WRITTEN FIRST, from the PRISTINE databases alone, before
+    any patched database existed (PREDICT.surelog.r10uvm211.txt,
+    PREDICT.u2r.r10uvm211.txt, MOVERS.r10uvm211.txt):
+      948 surelog databases scanned, 8 FENCED, and exactly FOUR row-modes carry
+      a non-empty split set — MiniAmiq and SeqDriver in both modes, shared=2
+      splits=2 cells=6 each — and NONE of the 1358 uhdm2rtlil ones.
+      The split set is named per row:
+        <importer>|uvm_reg_map::do_bus_read |accesses@1993:18
+        <importer>|uvm_reg_map::do_bus_write|accesses@1850:21
+
+(6) ROWHEADS (rowheads.sh, this pass's own sweeps)
+    TEST           MODE       PRISTINE     PATCHED
+    SeqDriver      default      50 / 1      50 / 1     unchanged
+    SeqDriver      testflags    50 / 1      50 / 1     unchanged
+    SimpleUVM      default      86 / 1      86 / 1     unchanged
+    SimpleUVM      testflags    86 / 1      86 / 1     unchanged
+    Scoreboard     default      95 / 1      95 / 1     unchanged
+    MiniAmiq       default     112 / 1      50 / 1     THE HEAD CLEARED
+    MiniAmiq       testflags   112 / 1      50 / 1     THE HEAD CLEARED
+    BuildUVMPkg    default       0 / 0       0 / 0     judge rc=0
+    BuildUVMPkg    testflags     0 / 0       0 / 0     judge rc=0
+    Earlgrey_0_1   default       0 / 0       0 / 0     judge rc=0
+    Earlgrey_0_1   testflags     0 / 0       0 / 0     judge rc=0
+    Rggen          default       0 / 0       0 / 0     judge rc=0
+    (SKIP-NOFILE on Scoreboard/testflags and Rggen/testflags is expected.)
+
+(7) THE FIVE PROTECTED CMP_EQUAL ROW-MODES, BOTH COLUMNS SCORED EXPLICITLY
+    The rows, quoted VERBATIM from both of this pass's own sweeps — the cells
+    are CHARACTER-FOR-CHARACTER the same on the pristine and the patched one:
+      BuildUVMPkg,default,CMP_EQUAL,,,differ
+      BuildUVMPkg,testflags,CMP_EQUAL,,,differ
+      Earlgrey_0_1,default,CMP_EQUAL,,,
+      Earlgrey_0_1,testflags,CMP_EQUAL,,,
+      Rggen,default,CMP_EQUAL,,,differ
+    (`differ` in the DUMP column is the committed baseline's own value for
+    BuildUVMPkg and Rggen; the STATUS column, which is what the judge decides,
+    is CMP_EQUAL on all five on both binaries.)
+    All five read 0 cmp lines / 0 heads at judge rc=0 on BOTH binaries, and
+    every census mover column is 0 on all five.  Neither Earlgrey database is
+    a byte mover.
+
+(8) CANARIES
+    canaries.sh  patched surelog vs the COMMITTED baseline : ok=50 changed=2
+        the two CHANGED rows are Earlgrey_0_1 default and testflags, both
+        CMP_EQUAL -> CMP_EQUAL, dump column only (§ 4).
+    canaries.sh  patched surelog vs THIS PASS'S OWN pristine : ok=52 changed=0
+    canaries.sh  patched u2r vs the committed baseline       : ok=8  changed=0
+    ctcan2.sh EXPECT_UNKNOWN=1 surelog : PASS (every supplementary canary row
+        byte-identical to the baseline)
+    ctcan2.sh EXPECT_UNKNOWN=6 u2r     : PASS
+    canaudit.sh canaries.sh ctcan2.sh  : audited=29 UNCOVERED=0 FENCE-BREACH=0
+
+(9) THE PROTECTED DATABASES BY NAME
+    InterfaceModPort, BlackParrotComplex, YosysOldOr (both modes)  BYTE-SAME
+    SVSwitch  both modes  md5 4842211c4030   — the committed pin
+    YosysVerx both modes  md5 6ccda350c24a   — the committed pin
+    10 / 10 pinned databases byte-identical between the two binaries.
+
+(10) HARNESS AUDIT — every cmds.txt read BY BINARY PATH
+    pris_sl   1573 cmds.txt   0 main-tree   1523 pristine invocations
+    pat_sl    1573 cmds.txt   0 main-tree   1523 patched  invocations
+    pris_u2r  1462 cmds.txt   0 main-tree   1458 pristine invocations
+    pat_u2r   1462 cmds.txt   0 main-tree   1458 patched  invocations
+    rc=139 SEGFAULTS: 0 in all four sweeps (verify_golden.py records such an
+    exit as SLANG_REJECT wearing the last stderr warning, so it is scanned for
+    explicitly).
+
+(11) THE WIDE BOUNDARY — see BOUNDARY.r10uvm211.txt
+    LISTED=5427 PROCESSED=5427 PRODUCED_DBS=5242 MOVED_ARMS=8 RC_DIFFS=0

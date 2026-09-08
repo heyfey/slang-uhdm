@@ -8905,6 +8905,294 @@ void UhdmExporter::importCloneBareTdAlias16(UHDM::design* d) {
                                                    it207->second)
                 rt207->Actual_typespec(it207->second);
         }
+
+        // § cloneSharedArrayStructSplitMint211 — THE SPLIT-MINT, THROUGH THE
+        // ARRAY, FOR THE STRUCT.
+        //
+        // § 207 re-points the ref that BINDS a repairable struct onto the
+        // clone's copy, and REFUSES the refs its owner mask reads as 3 (a
+        // wildcard-import clone body's declaration reaches them AND some other
+        // declaration does), because one `ref_typespec` cannot carry two names
+        // and golden keeps the HOME cell QUALIFIED.  Refusing is right for a
+        // RE-POINT.  It is not the end of the story, because GOLDEN'S ARITY IS
+        // DIFFERENT FROM OURS THERE, and golden's arity is the spec — the same
+        // thing § 208 found one link over, for the SCALAR element.
+        //
+        // MEASURED on MiniAmiq/default at this pass's base, `ct211own --prof`
+        // (how many DECLARATIONS reach each object of a declaration's typespec
+        // chain), on `uvm_reg_bus_op accesses[$]` of the clone body
+        // `svaunit_pkg`'s copy of `uvm_reg_map::do_bus_write`
+        // (uvm-1.2 `reg/uvm_reg_map.svh:1850`), ELABORATED clone listing:
+        //
+        //   GOLD clone   .      ownref=1 arr=1  .elem ref=1  struct=1
+        //                .elem.mem:addr    [uvm_reg_addr_t -> uvm_reg_addr_t]
+        //   GOLD home    .      ownref=1 arr=3  .elem ref=3  struct=18
+        //                .elem.mem:addr    [uvm_reg_addr_t -> uvm_pkg::…]
+        //   OURS clone   .      ownref=1 arr=2  .elem ref=2  struct=20
+        //                .elem.mem:addr    [uvm_reg_addr_t -> uvm_pkg::…]
+        //   OURS home    .      ownref=1 arr=2  .elem ref=2  struct=20
+        //
+        // Golden gives the CLONE DECLARATION ITS OWN array typespec, its own
+        // element ref and its own struct copy — one object per declaration,
+        // members BARE — while the home's cells share a different object whose
+        // members stay QUALIFIED.  We hand ONE array to both worlds, so § 207's
+        // exclusivity guard refuses the element ref and the clone keeps the
+        // home's struct.  The repair § 207 could not make with a re-point is a
+        // SPLIT: mint the clone declaration a fresh array chain whose element
+        // link is the copy `cloneStructCopyOf` already makes, and leave the
+        // shared array, with its qualified members, to the home owner that also
+        // holds it.
+        //
+        // Surelog's reason has not changed at this link either: `writeDataTypes`
+        // (UhdmWriter.cpp:775-796) applies the `p::t` prefix IN PLACE while the
+        // HOME package's `datatypeMap` walk runs, and `CompileHelper::
+        // importPackage` (CompileHelper.cpp:299-330) `clone_tree`s the imported
+        // subroutine listing into the importer at COMPILE time — before that
+        // walk — so nothing inside a clone body is ever the object that got
+        // prefixed, at any depth and in any role, and the deep copy is what
+        // gives every clone declaration its own chain.
+        //
+        // WHAT IS COPIED.  Every field the generated `Compare` reads:
+        // `array_typespec` — VpiArrayType, Ranges, Left_expr, Right_expr,
+        // Index_typespec, Elem_typespec, Resolution_func, plus `typespec`'s
+        // VpiName / Typedef_alias / Instance; `packed_array_typespec` —
+        // VpiVector, Ranges, Left_expr, Right_expr, Elem_typespec, Typespec,
+        // Resolution_func and the same three; `ref_typespec` — VpiName,
+        // VpiDefName, Actual_typespec.  ONLY THE ELEMENT LINK CHANGES, and it
+        // changes onto the struct copy § 207 already minted, so NO NAME is
+        // written here either.
+        //
+        // THE GUARDS, all of them § 207's own, restated:
+        //   * the DECLARATION'S OWN ref must be clone-EXCLUSIVE (`own207`
+        //     mask 1) — the same exclusivity rule one link up, and the reason
+        //     the home's cells cannot follow the clone's;
+        //   * the class fence and the return-variable exception are
+        //     `declTf207` and the `Return()` test, reused verbatim;
+        //   * the wildcard gate is the enclosing `pkgImportCloneTfs16` test;
+        //   * only a link § 207 ITSELF refused may move: mask exactly 3 and
+        //     `sref207` (a repairable struct), so a link § 207 already
+        //     re-pointed is never touched and the law is idempotent.
+        // And one of its own: a candidate whose CONTENT KEY is not unique is
+        // REFUSED, so the mint order can never fall back on arena order.
+        auto depth211 = [](const UHDM::BaseClass* o) {
+            int d = 0;
+            for (const UHDM::BaseClass* p = o->VpiParent(); p;
+                 p = p->VpiParent()) {
+                const auto k = p->UhdmType();
+                if (k == UHDM::uhdmfunction || k == UHDM::uhdmtask)
+                    break;
+                if (k == UHDM::uhdmbegin || k == UHDM::uhdmnamed_begin ||
+                    k == UHDM::uhdmfork_stmt || k == UHDM::uhdmnamed_fork ||
+                    k == UHDM::uhdmfor_stmt || k == UHDM::uhdmforeach_stmt)
+                    ++d;
+            }
+            return d;
+        };
+        auto ancName211 = [](const UHDM::BaseClass* o,
+                             UHDM::UHDM_OBJECT_TYPE want,
+                             bool outermost) -> std::string {
+            const UHDM::BaseClass* hit = nullptr;
+            for (const UHDM::BaseClass* p = o; p; p = p->VpiParent()) {
+                if (p->UhdmType() != want)
+                    continue;
+                hit = p;
+                if (!outermost)
+                    break;
+            }
+            return hit ? std::string(hit->VpiName()) : std::string("-");
+        };
+        // Pass 1 — the CONTENT KEY of every clone body declaration.  The owner
+        // mask itself is `own207`, already computed over every declaration
+        // chain above; this loop adds only the key, and only for the
+        // declaration ROOTS, so nothing deeper in a chain can be a candidate.
+        std::map<UHDM::ref_typespec*, std::string> key211;
+        for (auto& kv211 : s.AllObjects()) {
+            auto* o211 = (UHDM::BaseClass*)kv211.first;
+            if (!o211)
+                continue;
+            UHDM::ref_typespec* rt211 = nullptr;
+            const char* role211 = nullptr;
+            if (auto* v211 = any_cast<UHDM::variables*>(o211)) {
+                rt211 = v211->Typespec();
+                role211 = "var";
+            } else if (auto* io211 = any_cast<UHDM::io_decl*>(o211)) {
+                rt211 = io211->Typespec();
+                role211 = "io";
+            }
+            if (!rt211 || !role211)
+                continue;
+            const UHDM::task_func* tf211 = declTf207(o211);
+            if (!tf211)
+                continue;
+            bool clone211 = pkgImportCloneTfs16.count(tf211) != 0;
+            if (clone211 && tf211->UhdmType() == UHDM::uhdmfunction &&
+                (const UHDM::BaseClass*)((const UHDM::function*)tf211)
+                        ->Return() == o211)
+                clone211 = false;
+            if (!clone211)
+                continue;
+            char kb211[640];
+            snprintf(kb211, sizeof kb211, "%s|%s|%s|d%d|%s|%s@%s:%u:%u|%d",
+                     ancName211(o211, UHDM::uhdmpackage, true).c_str(),
+                     ancName211(o211, UHDM::uhdmclass_defn, false).c_str(),
+                     std::string(tf211->VpiName()).c_str(), depth211(o211),
+                     role211, std::string(o211->VpiName()).c_str(),
+                     std::string(o211->VpiFile()).c_str(), o211->VpiLineNo(),
+                     (unsigned)o211->VpiColumnNo(), (int)o211->UhdmType());
+            auto e211 = key211.find(rt211);
+            if (e211 == key211.end())
+                key211[rt211] = kb211;
+            else if (e211->second != kb211)
+                e211->second = "<ambiguous>";
+        }
+        // A ref § 207 REFUSED (mask 3) that binds a repairable struct: the cell
+        // the split has to give the clone its own copy of.
+        auto wouldMove211 = [&](UHDM::ref_typespec* rt) -> bool {
+            if (!rt)
+                return false;
+            auto m211 = own207.find(rt);
+            if (m211 == own207.end() || m211->second != 3)
+                return false;
+            auto it211 = sref207.find(rt);
+            return it211 != sref207.end() && it211->second != nullptr;
+        };
+        // The PURE predicate: does anything below this typespec need a split?
+        // It mints nothing, so it can run before the content sort.  It descends
+        // ARRAY links only — the struct's own members are `cloneStructCopyOf`'s
+        // business, not this walk's.
+        std::function<bool(const UHDM::typespec*, int)> needs211;
+        auto linkNeeds211 = [&](UHDM::ref_typespec* rt, int budget) -> bool {
+            return rt && (wouldMove211(rt) ||
+                          needs211(rt->Actual_typespec(), budget - 1));
+        };
+        needs211 = [&](const UHDM::typespec* at, int budget) -> bool {
+            if (!at || budget <= 0)
+                return false;
+            if (at->UhdmType() == UHDM::uhdmarray_typespec) {
+                auto* a = (UHDM::array_typespec*)at;
+                return linkNeeds211(a->Elem_typespec(), budget) ||
+                       linkNeeds211(a->Index_typespec(), budget);
+            }
+            if (at->UhdmType() == UHDM::uhdmpacked_array_typespec) {
+                auto* a = (UHDM::packed_array_typespec*)at;
+                return linkNeeds211(a->Elem_typespec(), budget);
+            }
+            return false;
+        };
+        // The MINT.  `splitTs211` returns a FRESH array-shaped typespec whose
+        // element link is the clone's own struct copy, or null when nothing
+        // below it moves; `splitLink211` returns the fresh ref to hang there.
+        std::function<UHDM::typespec*(UHDM::typespec*, int)> splitTs211;
+        auto splitLink211 = [&](UHDM::ref_typespec* rt,
+                                int budget) -> UHDM::ref_typespec* {
+            if (!rt)
+                return nullptr;
+            UHDM::typespec* nts = nullptr;
+            if (wouldMove211(rt)) {
+                auto it211 = sref207.find(rt);
+                nts = cloneStructCopyOf(it211->second, 6);
+            } else {
+                nts = splitTs211(rt->Actual_typespec(), budget - 1);
+            }
+            if (!nts)
+                return nullptr;
+            auto* nr = s.MakeRef_typespec();
+            nr->VpiName(rt->VpiName());
+            nr->VpiDefName(rt->VpiDefName());
+            nr->VpiFullName(rt->VpiFullName());
+            nr->VpiParent(rt->VpiParent());
+            nr->VpiFile(rt->VpiFile());
+            nr->VpiLineNo(rt->VpiLineNo());
+            nr->VpiColumnNo(rt->VpiColumnNo());
+            nr->VpiEndLineNo(rt->VpiEndLineNo());
+            nr->VpiEndColumnNo(rt->VpiEndColumnNo());
+            nr->Actual_typespec(nts);
+            return nr;
+        };
+        auto copyTsShell211 = [](UHDM::typespec* dst, UHDM::typespec* src) {
+            dst->VpiName(src->VpiName());
+            dst->VpiParent(src->VpiParent());
+            dst->VpiFile(src->VpiFile());
+            dst->VpiLineNo(src->VpiLineNo());
+            dst->VpiColumnNo(src->VpiColumnNo());
+            dst->VpiEndLineNo(src->VpiEndLineNo());
+            dst->VpiEndColumnNo(src->VpiEndColumnNo());
+            dst->Typedef_alias(src->Typedef_alias());
+            dst->Instance(src->Instance());
+        };
+        splitTs211 = [&](UHDM::typespec* at, int budget) -> UHDM::typespec* {
+            if (!at || budget <= 0)
+                return nullptr;
+            if (at->UhdmType() == UHDM::uhdmarray_typespec) {
+                auto* a = (UHDM::array_typespec*)at;
+                auto* ne = splitLink211(a->Elem_typespec(), budget);
+                auto* ni = splitLink211(a->Index_typespec(), budget);
+                if (!ne && !ni)
+                    return nullptr;
+                auto* na = s.MakeArray_typespec();
+                copyTsShell211(na, a);
+                na->VpiArrayType(a->VpiArrayType());
+                na->Ranges(a->Ranges());
+                na->Left_expr(a->Left_expr());
+                na->Right_expr(a->Right_expr());
+                na->Resolution_func(a->Resolution_func());
+                na->Elem_typespec(ne ? ne : a->Elem_typespec());
+                na->Index_typespec(ni ? ni : a->Index_typespec());
+                if (ne)
+                    ne->VpiParent(na);
+                if (ni)
+                    ni->VpiParent(na);
+                return na;
+            }
+            if (at->UhdmType() == UHDM::uhdmpacked_array_typespec) {
+                auto* a = (UHDM::packed_array_typespec*)at;
+                auto* ne = splitLink211(a->Elem_typespec(), budget);
+                if (!ne)
+                    return nullptr;
+                auto* na = s.MakePacked_array_typespec();
+                copyTsShell211(na, a);
+                na->VpiVector(a->VpiVector());
+                na->Ranges(a->Ranges());
+                na->Left_expr(a->Left_expr());
+                na->Right_expr(a->Right_expr());
+                na->Resolution_func(a->Resolution_func());
+                na->Typespec(a->Typespec());
+                na->Elem_typespec(ne);
+                ne->VpiParent(na);
+                return na;
+            }
+            return nullptr;
+        };
+        // MINT ORDER IS CONTENT ORDER.  The candidates are sorted on
+        // (package, class, subroutine, block depth, role, name@line:col, kind)
+        // before a single object is made, so the ids the fresh objects take
+        // cannot depend on allocation addresses.
+        std::vector<std::pair<std::string, UHDM::ref_typespec*>> split211;
+        for (auto& [rt211, k211] : key211) {
+            if (k211 == "<ambiguous>")
+                continue;
+            auto m211 = own207.find(rt211);
+            if (m211 == own207.end() || m211->second != 1)
+                continue;
+            if (!needs211(rt211->Actual_typespec(), 8))
+                continue;
+            split211.emplace_back(k211, rt211);
+        }
+        std::sort(split211.begin(), split211.end(),
+                  [](const auto& a, const auto& b) { return a.first < b.first; });
+        // A key that repeats cannot be ordered by CONTENT, so the whole
+        // colliding group is refused rather than minted in arena order.
+        for (size_t i211 = 0; i211 < split211.size();) {
+            size_t j211 = i211;
+            while (j211 < split211.size() &&
+                   split211[j211].first == split211[i211].first)
+                ++j211;
+            if (j211 - i211 == 1)
+                if (auto* na211 =
+                        splitTs211(split211[i211].second->Actual_typespec(), 8))
+                    split211[i211].second->Actual_typespec(na211);
+            i211 = j211;
+        }
     }
     // § importElemBareTdAlias — the same clone-flavoured copy at the
     // Elem_typespec of a MODULE's materialized wildcard-import copy of a

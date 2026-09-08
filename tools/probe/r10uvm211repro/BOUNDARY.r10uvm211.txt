@@ -1,0 +1,65 @@
+r10uvm211 — THE WIDE BOUNDARY GATE (bound211.sh over a COPY of the whole probe
+tree, top level AND subdirectories, BOTH views, BOTH binaries).
+
+LISTED=5427 PROCESSED=5427 PRODUCED_DBS=5242 MOVED_ARMS=8 RC_DIFFS=0
+
+PROCESSED == LISTED, so the gate reached every arm; PRODUCED_DBS counts the
+arms that actually made a database, which is what convicts a green-on-nothing
+run.  The eight movers, each ATTRIBUTED:
+
+r10buvm22repro/g22.sv	def=MOVED	elab=MOVED	rc=4/4,4/4
+r10uvm154repro/l154_noenum.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm185repro/grid185/g185_e_kinds.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm207repro/grid207/g207_b_ctx.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm211repro/grid211/g211_a_head.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm211repro/grid211/g211_b_roles.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm211repro/grid211/g211_c_share.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+r10uvm211repro/grid211/g211_h_foreign.sv	def=MOVED	elab=MOVED	rc=0/0,0/0
+
+FOUR are THIS PASS'S OWN GRID ARMS — the POSITIVE CONTROL.  A gate that reports
+zero movers over them cannot see.  They are exactly the four arms the grid
+itself reports as byte-DIFFERING (A, B, C, H); arms D, E, F, G and I are
+byte-IDENTICAL in both views on both binaries and the boundary agrees.
+
+ONE is an EARLIER-PASS ARM THAT MOVES TOWARD GOLDEN.
+  r10uvm207repro/grid207/g207_b_ctx.sv — § 207's own context arm already
+  contained "an ARRAY OF the struct" walked by `foreach`, which is exactly the
+  shape § 207 recorded as its residue R1'.  Re-measured with a REAL Surelog
+  golden in both views:
+      elab cmp 112 lines / 1 head  ->  37 lines / 1 head   (the head CONVERTS)
+      def  cmp  37 lines / 1 head  ->  37 lines / 1 head
+      census elab TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+      census def  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0
+      golden-vs-golden calibration 0 in both views
+  and every one of the four moved cells is named:
+      TOP[2] p207b_c | fctx207 | d0/d1 | larr207@29:11 | .elem.mem:c_min207
+      TOP[2] p207b_c | fctx207 | d0/d1 | larr207@29:11 | .elem.mem:c_max207
+      pris = [bt207c -> p207a_c::bt207c]   patd = [bt207c -> bt207c] = gold
+  All four are `.elem.mem` cells of a CLONE listing: cells this law NAMES.
+
+THREE are the campaign's KNOWN STATIC-ADDRESS FALSE MOVERS
+(r10buvm22repro/g22.sv, r10uvm154repro/l154_noenum.sv — the campaign's own
+committed LAYOUT PROOF source — and r10uvm185repro/grid185/g185_e_kinds.sv).
+This pass RE-PROVES that identification on four independent tells rather than
+asserting it:
+
+  1. the OFFICIAL uhdm-cmp output is BYTE-IDENTICAL between the two binaries in
+     both views: g22 3438/3438 lines 1 head, l154_noenum 17/17, g185_e_kinds
+     92/92 — same head object, same every line;
+  2. ct211obj reports NO OBJECT-COUNT CHANGE OF ANY KIND on g22 in either view
+     (objdiff 0), so the law never fired on it;
+  3. the census reads TO-GOLDEN 0 / AWAY-GOLDEN 0 / MOVED-WRONG 0 with an
+     UNCHANGED STILL-WRONG (g22: 14 def / 12 elab; g185_e_kinds: 10 / 10;
+     l154_noenum: 0 / 0), and the golden-vs-golden calibration is 0;
+  4. each binary is DETERMINISTIC on its own — three runs each of g22 in the
+     elaborated view give ONE md5 per binary.
+
+  The one differing thing in g22's dump is a single constant,
+  |UINT:22724345 -> |UINT:22740729 (and its |vpiDecompile twin), delta 16384 =
+  EXACTLY FOUR 4096-byte pages, while the patched binary is 20840 bytes larger
+  than the pristine one.
+
+EVERY PROTECTED FAMILY READS 0 MOVERS: § 208's arms and its mask, § 207's other
+arms, § 205's arms and its guard, § 204, § 202 and its fence, § 198, § 194,
+§ 193, § 190, § 180, § 169, § 16, earl122, earl121, uvm82-91, buvm3-15, sd8-12
+(subdirectories included).

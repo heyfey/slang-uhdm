@@ -1,0 +1,15 @@
+r10uvm211 — THE KIND TABLE, MiniAmiq/default, ct211cen --kinds.
+The census's whole remaining disagreement at BASE is this face's six cells.
+
+== PRISTINE (this pass's own build at cd783019):
+DIFFER BY KIND x CHAIN x SHAPE:
+  bit_typespec chain=.elem.mem:addr g=BARE/BARE/uvm_pkg o=BARE/QUAL/uvm_pkg                                                   2
+  bit_typespec chain=.elem.mem:byte_en g=BARE/BARE/uvm_pkg o=BARE/QUAL/uvm_pkg                                                2
+  bit_typespec chain=.elem.mem:data g=BARE/BARE/uvm_pkg o=BARE/QUAL/uvm_pkg                                                   2
+
+TOTAL agree=5743 differ=6 only-golden=1062 only-ours=472
+
+== PATCHED:
+DIFFER BY KIND x CHAIN x SHAPE:
+
+TOTAL agree=5749 differ=0 only-golden=1062 only-ours=472

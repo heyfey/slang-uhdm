@@ -1,0 +1,112 @@
+LHS:
+decompile:
+bit_typespec: (uvm_reg_addr_t), id:175821, line:73:10, endln:73:31
+|vpiParent:
+\_ref_typespec: (svaunit_pkg::uvm_reg_map::do_bus_write::accesses::uvm_pkg::uvm_reg_bus_op::addr::uvm_reg_addr_t), id:175820
+|vpiName:uvm_reg_addr_t
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+|vpiRange:
+\_range: , id:175822, line:73:23, endln:73:31
+  |vpiParent:
+  \_bit_typespec: (uvm_reg_addr_t), id:175821, line:73:10, endln:73:31
+  |vpiLeftRange:
+  \_constant: , id:175823, line:73:24, endln:73:26
+    |vpiParent:
+    \_range: , id:175822, line:73:23, endln:73:31
+    |vpiDecompile:63
+    |vpiSize:64
+    |INT:63
+    |vpiConstType:7
+  |vpiRightRange:
+  \_constant: , id:175824, line:73:29, endln:73:30
+    |vpiParent:
+    \_range: , id:175822, line:73:23, endln:73:31
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+
+decompile:
+bit_typespec: (uvm_reg_addr_t), id:175821, line:73:10, endln:73:31
+|vpiParent:
+\_ref_typespec: (svaunit_pkg::uvm_reg_map::do_bus_write::accesses::uvm_pkg::uvm_reg_bus_op::addr::uvm_reg_addr_t), id:175820
+|vpiName:uvm_reg_addr_t
+|vpiInstance:
+\_package: uvm_pkg (uvm_pkg::), id:1, file:/home/heyfey/git-repos/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv, line:28:1, endln:39:11
+|vpiRange:
+\_range: , id:175822, line:73:23, endln:73:31
+  |vpiParent:
+  \_bit_typespec: (uvm_reg_addr_t), id:175821, line:73:10, endln:73:31
+  |vpiLeftRange:
+  \_constant: , id:175823, line:73:24, endln:73:26
+    |vpiParent:
+    \_range: , id:175822, line:73:23, endln:73:31
+    |vpiDecompile:63
+    |vpiSize:64
+    |INT:63
+    |vpiConstType:7
+  |vpiRightRange:
+  \_constant: , id:175824, line:73:29, endln:73:30
+    |vpiParent:
+    \_range: , id:175822, line:73:23, endln:73:31
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+RHS:
+decompile:
+bit_typespec: (uvm_pkg::uvm_reg_addr_t), id:3684, line:73:10, endln:73:31
+|vpiParent:
+\_interface_inst: work@svaunit_vpi_interface (work@svaunit_vpi_interface), id:300482, file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_vpi_interface.sv, line:25:1, endln:647:13
+|vpiName:uvm_pkg::uvm_reg_addr_t
+|vpiInstance:
+\_package: svaunit_pkg (svaunit_pkg::), id:3074, file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_pkg.sv, line:24:1, endln:73:11
+|vpiRange:
+\_range: , id:3685, line:73:23, endln:73:31
+  |vpiParent:
+  \_bit_typespec: (uvm_pkg::uvm_reg_addr_t), id:3684, line:73:10, endln:73:31
+  |vpiLeftRange:
+  \_constant: , id:3686, line:73:24, endln:73:26
+    |vpiParent:
+    \_range: , id:3685, line:73:23, endln:73:31
+    |vpiDecompile:63
+    |vpiSize:64
+    |INT:63
+    |vpiConstType:7
+  |vpiRightRange:
+  \_constant: , id:3687, line:73:29, endln:73:30
+    |vpiParent:
+    \_range: , id:3685, line:73:23, endln:73:31
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9
+
+decompile:
+bit_typespec: (uvm_pkg::uvm_reg_addr_t), id:3684, line:73:10, endln:73:31
+|vpiParent:
+\_interface_inst: work@svaunit_vpi_interface (work@svaunit_vpi_interface), id:300482, file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_vpi_interface.sv, line:25:1, endln:647:13
+|vpiName:uvm_pkg::uvm_reg_addr_t
+|vpiInstance:
+\_package: svaunit_pkg (svaunit_pkg::), id:3074, file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_pkg.sv, line:24:1, endln:73:11
+|vpiRange:
+\_range: , id:3685, line:73:23, endln:73:31
+  |vpiParent:
+  \_bit_typespec: (uvm_pkg::uvm_reg_addr_t), id:3684, line:73:10, endln:73:31
+  |vpiLeftRange:
+  \_constant: , id:3686, line:73:24, endln:73:26
+    |vpiParent:
+    \_range: , id:3685, line:73:23, endln:73:31
+    |vpiDecompile:63
+    |vpiSize:64
+    |INT:63
+    |vpiConstType:7
+  |vpiRightRange:
+  \_constant: , id:3687, line:73:29, endln:73:30
+    |vpiParent:
+    \_range: , id:3685, line:73:23, endln:73:31
+    |vpiDecompile:0
+    |vpiSize:64
+    |UINT:0
+    |vpiConstType:9

@@ -1,0 +1,97 @@
+r10uvm211 — THE GOLDEN GRID.  Nine arms, ONE REAL SURELOG GOLDEN each, BOTH
+views (def and elab) kept SEPARATE, golden-vs-golden CALIBRATED FIRST in
+every arm and every view.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS
+ours.  A = the PRISTINE binary, B = the PATCHED one.  The judge of every
+cmp line count is the official uhdm-cmp; the census is ct211cen.cpp and the
+scorer score211.py.  Every command and its BINARY PATH is recorded in each
+arm's cmds.txt with its rc; no compile exited nonzero in any arm.
+
+ARM  WHAT IT TESTS                                        FILE                          
+A    THE MINIMISED CORPUS HEAD (foreach-shared)           grid211/g211_a_head.sv        
+B    EVERY DECLARATION ROLE, each foreach-shared          grid211/g211_b_roles.sv       
+C    HOME + CLONE side by side (the must-stay control)    grid211/g211_c_share.sv       
+D    NO IMPORT AT ALL (the gate never opens)              grid211/g211_d_noimport.sv    
+E    EXPLICIT (named) import — the 194 wildcard fence     grid211/g211_e_named.sv       
+F    ARRAY of a NON-REPAIRABLE struct                     grid211/g211_f_nonrep.sv      
+G    PACKED array of a PACKED struct                      grid211/g211_g_packed.sv      
+H    struct from a THIRD package the importer never imports grid211/g211_h_foreign.sv     
+I    CLONE-TO-CLONE sharing (mask 1 — 207 still owns it)  grid211/g211_i_cloneshare.sv  
+
+ARM      def A     def B    elab A    elab B  BYTES A/B 
+A        37/1h     37/1h    112/1h     37/1h  def:DIFF elab:DIFF
+B        37/1h     37/1h    112/1h     37/1h  def:DIFF elab:DIFF
+C      1746/1h   1746/1h   2178/1h   2178/1h  def:DIFF elab:DIFF
+D         0/0h      0/0h      0/0h      0/0h  def:= elab:=
+E       614/1h    614/1h    758/1h    758/1h  def:= elab:=
+F       506/1h    506/1h    650/1h    650/1h  def:= elab:=
+G        38/1h     38/1h     38/1h     38/1h  def:= elab:=
+H      1210/1h   1210/1h   1306/1h   1306/1h  def:DIFF elab:DIFF
+I       922/1h    922/1h   1210/1h   1210/1h  def:= elab:=
+
+SCORES (score211.py: golden vs PRISTINE vs PATCHED; the '.elem.mem' filter is
+this face's chain path).  MOVED-WRONG and AWAY-GOLDEN are 0 in EVERY arm in
+EVERY view; the golden-vs-golden calibration is 0 in every arm in every view.
+
+ARM A
+  def  ALL        TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 48  (one-sided: only-golden 21 only-ours 2)
+  def  .elem.mem  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 16  (one-sided: only-golden 21 only-ours 2)
+  def  GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 71  (one-sided: only-golden 0 only-ours 0)
+  elab ALL        TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 86  (one-sided: only-golden 1 only-ours 2)
+  elab .elem.mem  TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 26  (one-sided: only-golden 1 only-ours 2)
+  elab GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 91  (one-sided: only-golden 0 only-ours 0)
+ARM B
+  def  ALL        TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 120  (one-sided: only-golden 23 only-ours 6)
+  def  .elem.mem  TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 48  (one-sided: only-golden 23 only-ours 6)
+  def  GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 147  (one-sided: only-golden 0 only-ours 0)
+  elab ALL        TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 170  (one-sided: only-golden 1 only-ours 6)
+  elab .elem.mem  TO-GOLDEN 6  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 66  (one-sided: only-golden 1 only-ours 6)
+  elab GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 177  (one-sided: only-golden 0 only-ours 0)
+ARM C
+  def  ALL        TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 50  (one-sided: only-golden 20 only-ours 4)
+  def  .elem.mem  TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 20  (one-sided: only-golden 20 only-ours 4)
+  def  GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 74  (one-sided: only-golden 0 only-ours 0)
+  elab ALL        TO-GOLDEN 8  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 86  (one-sided: only-golden 0 only-ours 4)
+  elab .elem.mem  TO-GOLDEN 8  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 32  (one-sided: only-golden 0 only-ours 4)
+  elab GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 94  (one-sided: only-golden 0 only-ours 0)
+ARM D
+  def  ALL        TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 10  (one-sided: only-golden 0 only-ours 0)
+  def  .elem.mem  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 4  (one-sided: only-golden 0 only-ours 0)
+  def  GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 10  (one-sided: only-golden 0 only-ours 0)
+  elab ALL        TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 18  (one-sided: only-golden 0 only-ours 0)
+  elab .elem.mem  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 8  (one-sided: only-golden 0 only-ours 0)
+  elab GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 18  (one-sided: only-golden 0 only-ours 0)
+ARM E
+  def  ALL        TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 8  AGREE 12  (one-sided: only-golden 8 only-ours 2)
+  def  .elem.mem  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 4  AGREE 4  (one-sided: only-golden 8 only-ours 2)
+  def  GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 28  (one-sided: only-golden 0 only-ours 0)
+  elab ALL        TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 16  AGREE 20  (one-sided: only-golden 0 only-ours 2)
+  elab .elem.mem  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 8  AGREE 8  (one-sided: only-golden 0 only-ours 2)
+  elab GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 36  (one-sided: only-golden 0 only-ours 0)
+ARM F
+  def  ALL        TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 20  (one-sided: only-golden 8 only-ours 2)
+  def  .elem.mem  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 8  (one-sided: only-golden 8 only-ours 2)
+  def  GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 28  (one-sided: only-golden 0 only-ours 0)
+  elab ALL        TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 36  (one-sided: only-golden 0 only-ours 2)
+  elab .elem.mem  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 16  (one-sided: only-golden 0 only-ours 2)
+  elab GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 36  (one-sided: only-golden 0 only-ours 0)
+ARM G
+  def  ALL        TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 16  (one-sided: only-golden 20 only-ours 3)
+  def  .elem.mem  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 8  (one-sided: only-golden 20 only-ours 3)
+  def  GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 36  (one-sided: only-golden 0 only-ours 0)
+  elab ALL        TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 28  (one-sided: only-golden 18 only-ours 3)
+  elab .elem.mem  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 16  (one-sided: only-golden 18 only-ours 3)
+  elab GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 46  (one-sided: only-golden 0 only-ours 0)
+ARM H
+  def  ALL        TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 26  (one-sided: only-golden 10 only-ours 2)
+  def  .elem.mem  TO-GOLDEN 2  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 10  (one-sided: only-golden 10 only-ours 2)
+  def  GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 38  (one-sided: only-golden 0 only-ours 0)
+  elab ALL        TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 44  (one-sided: only-golden 0 only-ours 2)
+  elab .elem.mem  TO-GOLDEN 4  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 16  (one-sided: only-golden 0 only-ours 2)
+  elab GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 48  (one-sided: only-golden 0 only-ours 0)
+ARM I
+  def  ALL        TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 38  (one-sided: only-golden 16 only-ours 4)
+  def  .elem.mem  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 16  (one-sided: only-golden 16 only-ours 4)
+  def  GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 54  (one-sided: only-golden 0 only-ours 0)
+  elab ALL        TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 70  (one-sided: only-golden 0 only-ours 4)
+  elab .elem.mem  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 32  (one-sided: only-golden 0 only-ours 4)
+  elab GvG-calib  TO-GOLDEN 0  AWAY-GOLDEN 0  MOVED-WRONG 0  STILL-WRONG 0  AGREE 70  (one-sided: only-golden 0 only-ours 0)

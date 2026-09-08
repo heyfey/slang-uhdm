@@ -1,0 +1,12 @@
+PREDCELLS MiniAmiq,default shared=2 splits=2 cells=6
+PREDSPLIT MiniAmiq,default svaunit_pkg|uvm_reg_map::do_bus_read|accesses@1993:18
+PREDSPLIT MiniAmiq,default svaunit_pkg|uvm_reg_map::do_bus_write|accesses@1850:21
+PREDCELLS SeqDriver,default shared=2 splits=2 cells=6
+PREDSPLIT SeqDriver,default adpcm_pkg|uvm_reg_map::do_bus_read|accesses@1993:18
+PREDSPLIT SeqDriver,default adpcm_pkg|uvm_reg_map::do_bus_write|accesses@1850:21
+PREDCELLS MiniAmiq,testflags shared=2 splits=2 cells=6
+PREDSPLIT MiniAmiq,testflags svaunit_pkg|uvm_reg_map::do_bus_read|accesses@1993:18
+PREDSPLIT MiniAmiq,testflags svaunit_pkg|uvm_reg_map::do_bus_write|accesses@1850:21
+PREDCELLS SeqDriver,testflags shared=2 splits=2 cells=6
+PREDSPLIT SeqDriver,testflags adpcm_pkg|uvm_reg_map::do_bus_read|accesses@1993:18
+PREDSPLIT SeqDriver,testflags adpcm_pkg|uvm_reg_map::do_bus_write|accesses@1850:21
