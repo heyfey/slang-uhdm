@@ -1,0 +1,189 @@
+SCORE r10buvm17repro/a2_homes17.sv parse TOWARD-GOLDEN  pristine[SAME=18 MISSING-OURS=6 EXTRA-OURS=4]  patched[SAME=20 MISSING-OURS=4 EXTRA-OURS=2]
+  FIXED   r10buvm17repro/a2_homes17.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if17.iffn17.i     30:19      byte_var|byte_typespec||28:38
+  FIXED   r10buvm17repro/a2_homes17.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@if17.iffn17.ib17  30:14      ref_var|byte_typespec||28:38
+  FIXED   r10buvm17repro/a2_homes17.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if17.iffn17.i     30:19      ref_var|unsupported_typespec|i|30:19
+  FIXED   r10buvm17repro/a2_homes17.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@if17.iffn17.ib17  30:14      ref_var|unsupported_typespec|ib17|30:14
+SCORE r10buvm17repro/a2_homes17.sv elab TOWARD-GOLDEN  pristine[SAME=30 MISSING-OURS=20 EXTRA-OURS=16]  patched[SAME=32 MISSING-OURS=18 EXTRA-OURS=14]
+  FIXED   r10buvm17repro/a2_homes17.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if17.iffn17.i     30:19      byte_var|byte_typespec||28:38
+  FIXED   r10buvm17repro/a2_homes17.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@if17.iffn17.ib17  30:14      ref_var|byte_typespec||28:38
+  FIXED   r10buvm17repro/a2_homes17.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if17.iffn17.i     30:19      ref_var|unsupported_typespec|i|30:19
+  FIXED   r10buvm17repro/a2_homes17.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@if17.iffn17.ib17  30:14      ref_var|unsupported_typespec|ib17|30:14
+SCORE r10buvm34repro/g34a3.sv parse TOWARD-GOLDEN  pristine[SAME=46 MISSING-OURS=16 EXTRA-OURS=16]  patched[SAME=49 MISSING-OURS=13 EXTRA-OURS=13] [GOLDEN-RECOVERED-ERRORS grc=4: 3 errors]
+  FIXED   r10buvm34repro/g34a3.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if34.ifun34.i     63:26      int_var|int_typespec||None:None
+  FIXED   r10buvm34repro/g34a3.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if34.ifun34.i     64:19      string_var|string_typespec||59:3
+  FIXED   r10buvm34repro/g34a3.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@if34.ifun34.iv34  64:14      ref_var|array_typespec||None:None
+  FIXED   r10buvm34repro/g34a3.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if34.ifun34.i     63:26      ref_var|unsupported_typespec|i|63:26
+  FIXED   r10buvm34repro/g34a3.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if34.ifun34.i     64:19      ref_var|unsupported_typespec|i|64:19
+  FIXED   r10buvm34repro/g34a3.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@if34.ifun34.iv34  64:14      ref_var|unsupported_typespec|iv34|64:14
+SCORE r10buvm34repro/g34a3.sv elab TOWARD-GOLDEN  pristine[SAME=95 MISSING-OURS=28 EXTRA-OURS=28]  patched[SAME=98 MISSING-OURS=25 EXTRA-OURS=25] [GOLDEN-RECOVERED-ERRORS grc=4: 3 errors]
+  FIXED   r10buvm34repro/g34a3.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if34.ifun34.i     63:26      int_var|int_typespec||None:None
+  FIXED   r10buvm34repro/g34a3.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if34.ifun34.i     64:19      string_var|string_typespec||59:3
+  FIXED   r10buvm34repro/g34a3.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@if34.ifun34.iv34  64:14      ref_var|array_typespec||None:None
+  FIXED   r10buvm34repro/g34a3.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if34.ifun34.i     63:26      ref_var|unsupported_typespec|i|63:26
+  FIXED   r10buvm34repro/g34a3.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if34.ifun34.i     64:19      ref_var|unsupported_typespec|i|64:19
+  FIXED   r10buvm34repro/g34a3.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@if34.ifun34.iv34  64:14      ref_var|unsupported_typespec|iv34|64:14
+SCORE r10uvm134repro/g134_b_homes.sv parse TOWARD-GOLDEN  pristine[SAME=36 MISSING-OURS=8 EXTRA-OURS=8]  patched[SAME=40 MISSING-OURS=4 EXTRA-OURS=4] [GOLDEN-RECOVERED-ERRORS grc=4: 2 errors]
+  FIXED   r10uvm134repro/g134_b_homes.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@ib134.iffn.hd     49:18      class_var|class_typespec|qb134::Nut|47:3
+  FIXED   r10uvm134repro/g134_b_homes.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@ib134.iffn.he     49:43      class_var|class_typespec|qb134::Nut|47:3
+  FIXED   r10uvm134repro/g134_b_homes.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@ib134.iffn.ifs    49:14      ref_var|array_typespec||None:None
+  FIXED   r10uvm134repro/g134_b_homes.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@ib134.iffn.ifs    49:32      ref_var|array_typespec||None:None
+  FIXED   r10uvm134repro/g134_b_homes.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@ib134.iffn.hd     49:18      ref_var|unsupported_typespec|hd|49:18
+  FIXED   r10uvm134repro/g134_b_homes.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@ib134.iffn.he     49:43      ref_var|unsupported_typespec|he|49:43
+  FIXED   r10uvm134repro/g134_b_homes.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@ib134.iffn.ifs    49:14      ref_var|unsupported_typespec|ifs|49:14
+  FIXED   r10uvm134repro/g134_b_homes.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@ib134.iffn.ifs    49:32      ref_var|unsupported_typespec|ifs|49:32
+SCORE r10uvm134repro/g134_b_homes.sv elab TOWARD-GOLDEN  pristine[SAME=68 MISSING-OURS=8 EXTRA-OURS=8]  patched[SAME=72 MISSING-OURS=4 EXTRA-OURS=4] [GOLDEN-RECOVERED-ERRORS grc=4: 2 errors]
+  FIXED   r10uvm134repro/g134_b_homes.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@ib134.iffn.hd     49:18      class_var|class_typespec|qb134::Nut|47:3
+  FIXED   r10uvm134repro/g134_b_homes.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@ib134.iffn.he     49:43      class_var|class_typespec|qb134::Nut|47:3
+  FIXED   r10uvm134repro/g134_b_homes.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@ib134.iffn.ifs    49:14      ref_var|array_typespec||None:None
+  FIXED   r10uvm134repro/g134_b_homes.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@ib134.iffn.ifs    49:32      ref_var|array_typespec||None:None
+  FIXED   r10uvm134repro/g134_b_homes.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@ib134.iffn.hd     49:18      ref_var|unsupported_typespec|hd|49:18
+  FIXED   r10uvm134repro/g134_b_homes.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@ib134.iffn.he     49:43      ref_var|unsupported_typespec|he|49:43
+  FIXED   r10uvm134repro/g134_b_homes.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@ib134.iffn.ifs    49:14      ref_var|unsupported_typespec|ifs|49:14
+  FIXED   r10uvm134repro/g134_b_homes.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@ib134.iffn.ifs    49:32      ref_var|unsupported_typespec|ifs|49:32
+SCORE r10v134repro/v134_2homes.sv parse TOWARD-GOLDEN  pristine[SAME=36 MISSING-OURS=20 EXTRA-OURS=20]  patched[SAME=40 MISSING-OURS=16 EXTRA-OURS=16] [GOLDEN-RECOVERED-ERRORS grc=4: 2 errors]
+  FIXED   r10v134repro/v134_2homes.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@iface2.itask2.pj  56:21      class_var|class_typespec|Twig2|54:3
+  FIXED   r10v134repro/v134_2homes.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@iface2.itask2.pk  56:49      class_var|class_typespec|Twig2|54:3
+  FIXED   r10v134repro/v134_2homes.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@iface2.itask2.itwigs 56:14      ref_var|array_typespec||None:None
+  FIXED   r10v134repro/v134_2homes.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@iface2.itask2.itwigs 56:35      ref_var|array_typespec||None:None
+  FIXED   r10v134repro/v134_2homes.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@iface2.itask2.pj  56:21      ref_var|unsupported_typespec|pj|56:21
+  FIXED   r10v134repro/v134_2homes.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@iface2.itask2.pk  56:49      ref_var|unsupported_typespec|pk|56:49
+  FIXED   r10v134repro/v134_2homes.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@iface2.itask2.itwigs 56:14      ref_var|unsupported_typespec|itwigs|56:14
+  FIXED   r10v134repro/v134_2homes.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@iface2.itask2.itwigs 56:35      ref_var|unsupported_typespec|itwigs|56:35
+SCORE r10v134repro/v134_2homes.sv elab TOWARD-GOLDEN  pristine[SAME=82 MISSING-OURS=32 EXTRA-OURS=32]  patched[SAME=86 MISSING-OURS=28 EXTRA-OURS=28] [GOLDEN-RECOVERED-ERRORS grc=4: 2 errors]
+  FIXED   r10v134repro/v134_2homes.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@iface2.itask2.pj  56:21      class_var|class_typespec|Twig2|54:3
+  FIXED   r10v134repro/v134_2homes.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@iface2.itask2.pk  56:49      class_var|class_typespec|Twig2|54:3
+  FIXED   r10v134repro/v134_2homes.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@iface2.itask2.itwigs 56:14      ref_var|array_typespec||None:None
+  FIXED   r10v134repro/v134_2homes.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@iface2.itask2.itwigs 56:35      ref_var|array_typespec||None:None
+  FIXED   r10v134repro/v134_2homes.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@iface2.itask2.pj  56:21      ref_var|unsupported_typespec|pj|56:21
+  FIXED   r10v134repro/v134_2homes.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@iface2.itask2.pk  56:49      ref_var|unsupported_typespec|pk|56:49
+  FIXED   r10v134repro/v134_2homes.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@iface2.itask2.itwigs 56:14      ref_var|unsupported_typespec|itwigs|56:14
+  FIXED   r10v134repro/v134_2homes.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@iface2.itask2.itwigs 56:35      ref_var|unsupported_typespec|itwigs|56:35
+SCORE r10v218repro/arms/b1_kinds/dut.sv parse TOWARD-GOLDEN  pristine[SAME=0 MISSING-OURS=2 EXTRA-OURS=2]  patched[SAME=2 MISSING-OURS=0 EXTRA-OURS=0]
+  FIXED   r10v218repro/arms/b1_kinds/dut.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if1v.f1v.i1v      71:22      array_var|array_typespec||45:11
+  FIXED   r10v218repro/arms/b1_kinds/dut.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@if1v.f1v.arr1v    71:16      ref_var|array_typespec||45:11
+  FIXED   r10v218repro/arms/b1_kinds/dut.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if1v.f1v.i1v      71:22      ref_var|unsupported_typespec|i1v|71:22
+  FIXED   r10v218repro/arms/b1_kinds/dut.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@if1v.f1v.arr1v    71:16      ref_var|unsupported_typespec|arr1v|71:16
+SCORE r10v218repro/arms/b1_kinds/dut.sv elab TOWARD-GOLDEN  pristine[SAME=0 MISSING-OURS=2 EXTRA-OURS=2]  patched[SAME=2 MISSING-OURS=0 EXTRA-OURS=0]
+  FIXED   r10v218repro/arms/b1_kinds/dut.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if1v.f1v.i1v      71:22      array_var|array_typespec||45:11
+  FIXED   r10v218repro/arms/b1_kinds/dut.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@if1v.f1v.arr1v    71:16      ref_var|array_typespec||45:11
+  FIXED   r10v218repro/arms/b1_kinds/dut.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if1v.f1v.i1v      71:22      ref_var|unsupported_typespec|i1v|71:22
+  FIXED   r10v218repro/arms/b1_kinds/dut.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@if1v.f1v.arr1v    71:16      ref_var|unsupported_typespec|arr1v|71:16
+SCORE r10vbuvm25repro/vg25.sv parse TOWARD-GOLDEN  pristine[SAME=62 MISSING-OURS=20 EXTRA-OURS=22]  patched[SAME=64 MISSING-OURS=18 EXTRA-OURS=20]
+  FIXED   r10vbuvm25repro/vg25.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@interface_home25.interface_function25.ix_interface 98:30      class_var|class_typespec|Alpha25|96:3
+  FIXED   r10vbuvm25repro/vg25.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@interface_home25.interface_function25.interface_queue 98:14      ref_var|array_typespec||None:None
+  FIXED   r10vbuvm25repro/vg25.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@interface_home25.interface_function25.ix_interface 98:30      ref_var|unsupported_typespec|ix_interface|98:30
+  FIXED   r10vbuvm25repro/vg25.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@interface_home25.interface_function25.interface_queue 98:14      ref_var|unsupported_typespec|interface_queue|98:14
+SCORE r10vbuvm25repro/vg25.sv elab TOWARD-GOLDEN  pristine[SAME=122 MISSING-OURS=61 EXTRA-OURS=66]  patched[SAME=124 MISSING-OURS=59 EXTRA-OURS=64]
+  FIXED   r10vbuvm25repro/vg25.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@interface_home25.interface_function25.ix_interface 98:30      class_var|class_typespec|Alpha25|96:3
+  FIXED   r10vbuvm25repro/vg25.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@interface_home25.interface_function25.interface_queue 98:14      ref_var|array_typespec||None:None
+  FIXED   r10vbuvm25repro/vg25.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@interface_home25.interface_function25.ix_interface 98:30      ref_var|unsupported_typespec|ix_interface|98:30
+  FIXED   r10vbuvm25repro/vg25.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@interface_home25.interface_function25.interface_queue 98:14      ref_var|unsupported_typespec|interface_queue|98:14
+SCORE r10vbuvm34repro/v34g.sv parse TOWARD-GOLDEN  pristine[SAME=9 MISSING-OURS=7 EXTRA-OURS=7]  patched[SAME=12 MISSING-OURS=4 EXTRA-OURS=4]
+  FIXED   r10vbuvm34repro/v34g.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@ifU34.f34.i       29:25      int_var|int_typespec||None:None
+  FIXED   r10vbuvm34repro/v34g.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@ifU34.f34.i       30:21      string_var|string_typespec||26:3
+  FIXED   r10vbuvm34repro/v34g.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@ifU34.f34.uarr34  30:14      ref_var|array_typespec||None:None
+  FIXED   r10vbuvm34repro/v34g.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@ifU34.f34.i       29:25      ref_var|unsupported_typespec|i|29:25
+  FIXED   r10vbuvm34repro/v34g.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@ifU34.f34.i       30:21      ref_var|unsupported_typespec|i|30:21
+  FIXED   r10vbuvm34repro/v34g.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@ifU34.f34.uarr34  30:14      ref_var|unsupported_typespec|uarr34|30:14
+SCORE r10vbuvm34repro/v34g.sv elab TOWARD-GOLDEN  pristine[SAME=9 MISSING-OURS=7 EXTRA-OURS=7]  patched[SAME=12 MISSING-OURS=4 EXTRA-OURS=4]
+  FIXED   r10vbuvm34repro/v34g.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@ifU34.f34.i       29:25      int_var|int_typespec||None:None
+  FIXED   r10vbuvm34repro/v34g.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@ifU34.f34.i       30:21      string_var|string_typespec||26:3
+  FIXED   r10vbuvm34repro/v34g.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@ifU34.f34.uarr34  30:14      ref_var|array_typespec||None:None
+  FIXED   r10vbuvm34repro/v34g.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@ifU34.f34.i       29:25      ref_var|unsupported_typespec|i|29:25
+  FIXED   r10vbuvm34repro/v34g.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@ifU34.f34.i       30:21      ref_var|unsupported_typespec|i|30:21
+  FIXED   r10vbuvm34repro/v34g.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@ifU34.f34.uarr34  30:14      ref_var|unsupported_typespec|uarr34|30:14
+SCORE r10uvm220repro/grid220/a1_uninst_if/dut.sv parse TOWARD-GOLDEN  pristine[SAME=0 MISSING-OURS=16 EXTRA-OURS=14]  patched[SAME=13 MISSING-OURS=3 EXTRA-OURS=1]
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if220u.f220.i0    17:25      class_var|class_typespec|K220|15:23
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if220u.f220.i1    19:25      int_var|int_typespec||15:46
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if220u.f220.i2    21:23      string_var|string_typespec||15:69
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if220u.f220.i3    23:23      array_var|array_typespec||16:11
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if220u.f220.i4    25:24      int_var|int_typespec||12:4
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if220u.f220.i5    27:23      int_var|int_typespec||13:14
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if220u.t220.j0    32:25      class_var|class_typespec|K220|31:14
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@if220u.f220.a_dyn220 17:16      ref_var|class_typespec|K220|15:23
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@if220u.f220.a_fix220 19:16      ref_var|int_typespec||15:46
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@if220u.f220.a_q220 21:16      ref_var|string_typespec||15:69
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@if220u.f220.loc220 23:16      ref_var|array_typespec||16:11
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@if220u.f220.mvar220 25:16      ref_var|array_typespec||None:None
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@if220u.t220.b_dyn220 32:16      ref_var|class_typespec|K220|31:14
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if220u.f220.i0    17:25      ref_var|unsupported_typespec|i0|17:25
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if220u.f220.i1    19:25      ref_var|unsupported_typespec|i1|19:25
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if220u.f220.i2    21:23      ref_var|unsupported_typespec|i2|21:23
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if220u.f220.i3    23:23      ref_var|unsupported_typespec|i3|23:23
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if220u.f220.i4    25:24      ref_var|unsupported_typespec|i4|25:24
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if220u.f220.i5    27:23      ref_var|unsupported_typespec|i5|27:23
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if220u.t220.j0    32:25      ref_var|unsupported_typespec|j0|32:25
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@if220u.f220.a_dyn220 17:16      ref_var|unsupported_typespec|a_dyn220|17:16
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@if220u.f220.a_fix220 19:16      ref_var|unsupported_typespec|a_fix220|19:16
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@if220u.f220.a_q220 21:16      ref_var|unsupported_typespec|a_q220|21:16
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@if220u.f220.loc220 23:16      ref_var|unsupported_typespec|loc220|23:16
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@if220u.f220.mvar220 25:16      ref_var|unsupported_typespec|mvar220|25:16
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@if220u.t220.b_dyn220 32:16      ref_var|unsupported_typespec|b_dyn220|32:16
+SCORE r10uvm220repro/grid220/a1_uninst_if/dut.sv elab TOWARD-GOLDEN  pristine[SAME=0 MISSING-OURS=16 EXTRA-OURS=14]  patched[SAME=13 MISSING-OURS=3 EXTRA-OURS=1]
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if220u.f220.i0    17:25      class_var|class_typespec|K220|15:23
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if220u.f220.i1    19:25      int_var|int_typespec||15:46
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if220u.f220.i2    21:23      string_var|string_typespec||15:69
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if220u.f220.i3    23:23      array_var|array_typespec||16:11
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if220u.f220.i4    25:24      int_var|int_typespec||12:4
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if220u.f220.i5    27:23      int_var|int_typespec||13:14
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if220u.t220.j0    32:25      class_var|class_typespec|K220|31:14
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@if220u.f220.a_dyn220 17:16      ref_var|class_typespec|K220|15:23
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@if220u.f220.a_fix220 19:16      ref_var|int_typespec||15:46
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@if220u.f220.a_q220 21:16      ref_var|string_typespec||15:69
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@if220u.f220.loc220 23:16      ref_var|array_typespec||16:11
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@if220u.f220.mvar220 25:16      ref_var|array_typespec||None:None
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@if220u.t220.b_dyn220 32:16      ref_var|class_typespec|K220|31:14
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if220u.f220.i0    17:25      ref_var|unsupported_typespec|i0|17:25
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if220u.f220.i1    19:25      ref_var|unsupported_typespec|i1|19:25
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if220u.f220.i2    21:23      ref_var|unsupported_typespec|i2|21:23
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if220u.f220.i3    23:23      ref_var|unsupported_typespec|i3|23:23
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if220u.f220.i4    25:24      ref_var|unsupported_typespec|i4|25:24
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if220u.f220.i5    27:23      ref_var|unsupported_typespec|i5|27:23
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if220u.t220.j0    32:25      ref_var|unsupported_typespec|j0|32:25
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@if220u.f220.a_dyn220 17:16      ref_var|unsupported_typespec|a_dyn220|17:16
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@if220u.f220.a_fix220 19:16      ref_var|unsupported_typespec|a_fix220|19:16
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@if220u.f220.a_q220 21:16      ref_var|unsupported_typespec|a_q220|21:16
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@if220u.f220.loc220 23:16      ref_var|unsupported_typespec|loc220|23:16
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@if220u.f220.mvar220 25:16      ref_var|unsupported_typespec|mvar220|25:16
+  FIXED   r10uvm220repro/grid220/a1_uninst_if/dut.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@if220u.t220.b_dyn220 32:16      ref_var|unsupported_typespec|b_dyn220|32:16
+SCORE r10uvm220repro/grid220/a6_kinds/dut.sv parse TOWARD-GOLDEN  pristine[SAME=1 MISSING-OURS=11 EXTRA-OURS=11]  patched[SAME=10 MISSING-OURS=2 EXTRA-OURS=2]
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if220f.f220.i0    32:25      class_var|class_typespec|K220|31:23
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if220f.f220.i1    34:25      class_var|class_typespec|K220|31:23
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if220f.f220.i2    36:24      int_var|int_typespec||28:12
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if220f.f220.i3    38:26      array_var|array_typespec||None:None
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if220f.f220.i4    40:28      int_var|int_typespec||None:None
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if220f.g220.i5    45:21      int_var|int_typespec||44:29
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@if220f.f220.a_dyn220 32:16      ref_var|class_typespec|K220|31:23
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@if220f.f220.a_dyn220 34:16      ref_var|class_typespec|K220|31:23
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv parse EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@if220f.f220.a_td220 36:16      ref_var|array_typespec|t220|28:12
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if220f.f220.i0    32:25      ref_var|unsupported_typespec|i0|32:25
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if220f.f220.i1    34:25      ref_var|unsupported_typespec|i1|34:25
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if220f.f220.i2    36:24      ref_var|unsupported_typespec|i2|36:24
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if220f.f220.i3    38:26      ref_var|unsupported_typespec|i3|38:26
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if220f.f220.i4    40:28      ref_var|unsupported_typespec|i4|40:28
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if220f.g220.i5    45:21      ref_var|unsupported_typespec|i5|45:21
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@if220f.f220.a_dyn220 32:16      ref_var|unsupported_typespec|a_dyn220|32:16
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@if220f.f220.a_dyn220 34:16      ref_var|unsupported_typespec|a_dyn220|34:16
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv parse MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@if220f.f220.a_td220 36:16      ref_var|unsupported_typespec|a_td220|36:16
+SCORE r10uvm220repro/grid220/a6_kinds/dut.sv elab TOWARD-GOLDEN  pristine[SAME=1 MISSING-OURS=11 EXTRA-OURS=11]  patched[SAME=10 MISSING-OURS=2 EXTRA-OURS=2]
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if220f.f220.i0    32:25      class_var|class_typespec|K220|31:23
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if220f.f220.i1    34:25      class_var|class_typespec|K220|31:23
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if220f.f220.i2    36:24      int_var|int_typespec||28:12
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if220f.f220.i3    38:26      array_var|array_typespec||None:None
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if220f.f220.i4    40:28      int_var|int_typespec||None:None
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiLoopVars    work@if220f.g220.i5    45:21      int_var|int_typespec||44:29
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@if220f.f220.a_dyn220 32:16      ref_var|class_typespec|K220|31:23
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@if220f.f220.a_dyn220 34:16      ref_var|class_typespec|K220|31:23
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv elab EXTRA-OURS   x1  uhdmallInterfaces      vpiVariables   work@if220f.f220.a_td220 36:16      ref_var|array_typespec|t220|28:12
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if220f.f220.i0    32:25      ref_var|unsupported_typespec|i0|32:25
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if220f.f220.i1    34:25      ref_var|unsupported_typespec|i1|34:25
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if220f.f220.i2    36:24      ref_var|unsupported_typespec|i2|36:24
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if220f.f220.i3    38:26      ref_var|unsupported_typespec|i3|38:26
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if220f.f220.i4    40:28      ref_var|unsupported_typespec|i4|40:28
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiLoopVars    work@if220f.g220.i5    45:21      ref_var|unsupported_typespec|i5|45:21
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@if220f.f220.a_dyn220 32:16      ref_var|unsupported_typespec|a_dyn220|32:16
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@if220f.f220.a_dyn220 34:16      ref_var|unsupported_typespec|a_dyn220|34:16
+  FIXED   r10uvm220repro/grid220/a6_kinds/dut.sv elab MISSING-OURS x1  uhdmallInterfaces      vpiVariables   work@if220f.f220.a_td220 36:16      ref_var|unsupported_typespec|a_td220|36:16
+-- LISTED=9 PROCESSED=9 FAILED=0
+-- TOWARD=18 AWAY=0 NEITHER=0
+-- BROKEN-CELLS=0 FIXED-CELLS=168

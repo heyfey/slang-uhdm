@@ -3316,8 +3316,89 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // golden resolves on legal SystemVerilog it has not been shown.
             const bool arrIsParam183 =
                 arrSym && arrSym->kind == SymbolKind::Parameter;
+            // § uninstIfaceForeachHdrUnresolved220 (r10uvm220) — A `foreach`
+            // HEADER INSIDE AN UNINSTANTIATED INTERFACE'S SUBROUTINE KEEPS
+            // SURELOG'S PLACEHOLDER, ARRAY REFERENCE AND LOOP VARIABLE ALIKE.
+            //
+            // DECODED FROM THE PRODUCER.  Surelog's `paFOREACH` arm always
+            // MINTS the placeholder first and defers the answer:
+            // `compileStmt` (CompileStmt.cpp:527-599) hands the loop list's
+            // array identifier to `compileVariable`, which for a bare
+            // `slStringConst` runs `compileTypespec` ON THE NAME
+            // (CompileType.cpp:317-330), misses every type lookup, falls out
+            // of `compileDatastructureTypespec`'s tail as an
+            // `unsupported_typespec` NAMED AS WRITTEN at the identifier's own
+            // span (CompileType.cpp:1617-1626), wraps it in a `ref_var` and
+            // registers that reference with `needLateTypedefBinding`
+            // (CompileType.cpp:421-431); and every LOOP VARIABLE is minted the
+            // same way, unconditionally, in the `paFOREACH` arm itself
+            // (CompileStmt.cpp:549-557).  What later replaces both is
+            // `UhdmWriter::lateTypedefBinding` (:2573) — which reads the
+            // io_decl / local / member / parameter the name denotes (:2637-
+            // 2692) and, for the loop variable, `swapForSpecifiedVar` (:2490).
+            //
+            // AND `UhdmWriter::writeInterface` (UhdmWriter.cpp:1626-1794) NEVER
+            // CALLS IT.  The only callers are `writePackage` (:1302),
+            // `writeElabProgram` (:2071), `writeInstance` (:4784, :4786) and
+            // the two `$unit` FileContent passes (:4912, :4991).  An interface
+            // no instance elaborates therefore reaches NONE of them and the
+            // placeholders survive into `uhdmallInterfaces`, its only view.
+            // This is the same producer fact § uninstIfaceBodyBindsInMethod-
+            // Window218 decoded for `lateBinding`, one pass over.
+            //
+            // THE GOLDEN GRID (grid220, every arm's rc checked, both views):
+            //   a1 `if220u` UNINSTANTIATED — all six array references are the
+            //     placeholder NAMED AS WRITTEN at the identifier's own span
+            //     (formal: unsized dynamic of a class handle / fixed-size int /
+            //     queue of string; subroutine LOCAL; INTERFACE MEMBER; a TASK's
+            //     formal), and ALL SEVEN loop variables are `ref_var` over a
+            //     placeholder named for the INDEX.  PARSE and ELAB views agree
+            //     cell for cell, which is why the law is view-independent.
+            //   a2 `if220i` — THE SAME BODY, INSTANTIATED: every one of the
+            //     seven RESOLVES (class_typespec / int_typespec /
+            //     string_typespec / array_typespec), in both views, and our
+            //     pristine answer already matches golden there.  So the
+            //     distinguisher is the INSTANCE, not the interface.
+            //   a3 `m220sub` a MODULE — resolves in the def view too, because
+            //     `writeInstance` mutates the shared definition objects; a
+            //     module with no instantiator is a TOP, hence always
+            //     elaborated, so there is no uninstantiated module to test.
+            //   a5 the PACKAGE / CLASS-METHOD holders — unchanged, the FENCE
+            //     calibration for § pkgDefViewBody9 / § classMethodNoBind.
+            //
+            // THE PARAMETER FENCE, which is § cloneForeachArrayRefUnresolved-
+            // 183's fence for the same reason: an iterated PARAMETER never
+            // reaches the placeholder tail at all, because
+            // `compileDatastructureTypespec` scans `getParamAssignVec()` for a
+            // parameter of this name and returns its own `Actual_typespec`
+            // first (CompileType.cpp:750-762) — at COMPILE time, before any
+            // late pass exists.  Arm a1's `PAR220` measures it: golden's array
+            // reference there is the real `array_typespec` while its LOOP
+            // VARIABLE `i5` is still the placeholder, so the fence belongs to
+            // the ARRAY half alone.
+            //
+            // THE TYPE-NAME FENCE, read off arm a6's `g220`: when the iterated
+            // identifier's name is ALSO a visible TYPE name, `compileVariable`'s
+            // FIRST lookup succeeds (`component->getDataType(typeName)`,
+            // CompileType.cpp:339-355) and golden answers
+            // `array_var` over that typedef's own `array_typespec` — no
+            // placeholder is ever minted.  There are ZERO corpus cells of this
+            // shape, so like uvm183's parameter fence it costs nothing and is
+            // written to keep the law from degrading a cell golden RESOLVES on
+            // legal SystemVerilog it has not been shown.
+            bool arrNameIsType220 = false;
+            if (uninstIfaceSubBody218 && arrSym)
+                for (const Scope* ts220 = arrSym->getParentScope(); ts220;
+                     ts220 = ts220->asSymbol().getParentScope())
+                    if (auto* hit220 = ts220->find(arrSym->name);
+                        hit220 && hit220->isType()) {
+                        arrNameIsType220 = true;
+                        break;
+                    }
+            const bool uninstIfaceArrUnres220 =
+                uninstIfaceSubBody218 && !arrIsParam183 && !arrNameIsType220;
             bool foreachUnres9 = classMethodNoBind || pkgDefViewBody9 ||
-                                 classPropArr9 ||
+                                 classPropArr9 || uninstIfaceArrUnres220 ||
                                  (pkgImportCloneEmit && !arrIsParam183);
             // § classPropUnitImport21 — the class property's array REFERENCE
             // stays unresolved (classPropArr9 above), but its LOOP VARIABLE is
@@ -3695,7 +3776,19 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // local or a module variable alike — and builds a fresh one
                 // per foreach, so a nested loop naming the same formal gets a
                 // second object (probe r10c4_p7 g3).
-                if (lvScope9 && !classMethodNoBind && !pkgDefViewBody9)
+                // § uninstIfaceForeachHdrUnresolved220 — and it declares
+                // nothing in an UNINSTANTIATED interface either: `paFOREACH`
+                // mints the placeholder for EVERY loop variable before any
+                // resolution is attempted, and the pass that would swap it
+                // (`swapForSpecifiedVar`, reached only from
+                // `lateTypedefBinding`) is never run for that holder.  Arm a6
+                // measures all six of the shapes that escape elsewhere — a
+                // DOTTED loop list, a `::`-scoped one, a name that shadows a
+                // typedef, the array's own second `foreach` — and golden
+                // answers `ref_var` over the placeholder for every one, so the
+                // loop-variable half has NO carve-out at all.
+                if (lvScope9 && !classMethodNoBind && !pkgDefViewBody9 &&
+                    !uninstIfaceSubBody218)
                     if (auto* sh9 = Lookup::unqualified(*lvScope9, lvn))
                         if (auto sit9 = netMap.find(sh9); sit9 != netMap.end())
                             if (auto* srcRt9 = lvActualTs9(sit9->second)) {
@@ -3735,8 +3828,15 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // resolved arm and listed an array_var where golden lists a
                 // ref_var (t51a, `ELABPKG imp51::f51`): the clone re-uses the
                 // home's UN-elaborated body whichever listing it lands in.
+                // § uninstIfaceForeachHdrUnresolved220 — and an UNINSTANTIATED
+                // interface's subroutine is the fourth holder that reaches
+                // here, for the producer reason spelled out at
+                // `uninstIfaceArrUnres220` above: `writeInterface` runs no
+                // `lateTypedefBinding`, so `paFOREACH`'s mint is final.  This
+                // arm carries NO parameter fence — arm a1's `PAR220` resolves
+                // its ARRAY reference and still lists `i5` as the placeholder.
                 if (classMethodNoBind || pkgDefViewBody9 ||
-                    pkgImportCloneEmit) {
+                    pkgImportCloneEmit || uninstIfaceSubBody218) {
                     auto* lv0 = s.MakeRef_var();
                     lv0->VpiName(name);
                     lv0->VpiFullName(joinRef(prefix, lvn));

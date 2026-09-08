@@ -1,0 +1,112 @@
+r10uvm220 — EVERY GATE, BOTH BINARIES
+=====================================
+BASE dad0ad27.  Worktree built with the main tree's own toolchain settings
+(Release, gcc-toolset-14).  Both binaries FROZEN read-only at immutable paths
+BEFORE any sweep, and every one of the 2981 + 2981 `cmds.txt` files audited BY
+BINARY PATH — 2981/2981 name the frozen pristine on the pristine sweeps and
+2981/2981 name the frozen patched on the patched sweeps.  `SLANG_UHDM` was
+exported explicitly for every run (the harness silently defaults to the
+MAIN-TREE binary).
+
+(1) BUILD
+    pristine  md5 8e59aaf78786bf60eac5f9449798bfc3  (byte-identical to the
+              campaign's own pristine control binary for dad0ad27 — an
+              independent check that this worktree is really at BASE)
+    patched   md5 35469d5e197062edbd3045db4b2329b2
+    both -j 2, rc 0, no new warnings attributable to the change.
+
+(2) GOLDEN DUMP TESTS
+    patched   PASS=23 FAIL=0        (SLANG_UHDM exported to the patched binary)
+    negative  SLANG_UHDM=/bin/false -> FAIL=23   (the gate can see)
+
+(3) uhdm2rtlil, BOTH MODES
+    ct8rows results/gate_uhdm2rtlil.csv  vs patched testflags  -> PASS, 0 differing rows
+    ct8rows my pristine testflags        vs patched testflags  -> PASS, 0 differing rows
+    ct8rows my pristine default          vs patched default    -> PASS, 0 differing rows
+    row totals 731 per mode; CMP_EQUAL 679 pristine and 679 patched in BOTH
+    modes (the 679/50/2 baseline, held exactly).
+
+(4) surelog, BOTH MODES
+    ct8rows results/golden_surelog.csv vs patched -> PASS, 0 differing rows of 1588
+    ct8rows my pristine                vs patched -> PASS, 0 differing rows of 1588
+    NO ROW IS CONVERTED BY THIS PASS.  Nothing in results/*.csv is edited.
+    Status AND dump column compared for all 1588 rows: 0 differ.
+
+    THE SEVEN CMP_EQUAL ROW-MODES, SCORED EXPLICITLY, BOTH COLUMNS:
+      SimpleUVM     default    baseline/pristine/patched = (CMP_EQUAL, differ)  HELD
+      SimpleUVM     testflags  baseline/pristine/patched = (CMP_EQUAL, differ)  HELD
+      Scoreboard    default    baseline/pristine/patched = (CMP_EQUAL, differ)  HELD
+      BuildUVMPkg   default    baseline/pristine/patched = (CMP_EQUAL, differ)  HELD
+      BuildUVMPkg   testflags  baseline/pristine/patched = (CMP_EQUAL, differ)  HELD
+      Earlgrey_0_1  default    baseline/pristine/patched = (CMP_EQUAL, differ)  HELD
+      Earlgrey_0_1  testflags  baseline/pristine/patched = (CMP_EQUAL, differ)  HELD
+      held=7 regressed=0, and all seven read uhdm-cmp rc=0 / 0 heads in
+      rowheads on the patched sweep.
+
+(5) BYTEVERIFY, SELFCHECK=1
+    uhdm2rtlil  PATH_SETS_IDENTICAL (1358)  MOVERS 0 / 1358
+                SELFCHECK 1357 / 1358 flagged  (the instrument can see)
+    surelog     PATH_SETS_IDENTICAL (956)   MOVERS 2 / 956
+                  MOVER ./default/MiniAmiq-544c7f61/slang.uhdm
+                  MOVER ./testflags/MiniAmiq-544c7f61/slang.uhdm
+                SELFCHECK 955 / 956 flagged
+    BOTH MOVERS WERE PREDICTED BY NAME BEFORE THE PATCHED SWEEP RAN
+    (PREDICT.r10uvm220.txt), together with the 38 cells they carry.
+
+(6) HEADS (rowheads.sh, the seven named rows, both modes)
+                    pristine            patched
+      SeqDriver     32 lines / 1 head   32 / 1     (unchanged; uvm219's head)
+      SimpleUVM      0 / 0               0 / 0
+      Scoreboard     0 / 0               0 / 0     (testflags SKIP-NOFILE, expected)
+      MiniAmiq      20 / 1              19 / 1     <- THE HEAD MOVED
+      BuildUVMPkg    0 / 0               0 / 0
+      Earlgrey_0_1   0 / 0               0 / 0
+      Rggen          0 / 0               0 / 0     (testflags SKIP-NOFILE, expected)
+      measured=12 SKIP-NOFILE=2 UNKNOWN-NAME=0 on both binaries.
+      MiniAmiq's two modes are BYTE-IDENTICAL cmp logs on both binaries.
+
+(7) CANARIES
+    canaries.sh  surelog     ok=52 changed=0 absent=0
+    canaries.sh  uhdm2rtlil  ok=8  changed=0 absent=0
+    ctcan2.sh    EXPECT_UNKNOWN=1 surelog     PASS
+    ctcan2.sh    EXPECT_UNKNOWN=6 uhdm2rtlil  PASS
+    canaudit.sh  audited=29 UNCOVERED=0 FENCE-BREACH=0 PASS
+    PROTECTED DATABASES, md5 pristine vs patched:
+      InterfaceModPort   default 59a365f3ce2c / testflags 59a365f3ce2c   SAME
+        (an INTERFACE test, and it does not move: its interface is instantiated)
+      BlackParrotComplex default e3e354129d5a / testflags 73a10e8217e5   SAME
+      YosysOldOr         default d68e0796d62c / testflags d68e0796d62c   SAME
+      SVSwitch           4842211c4030  (the brief's pin)                 SAME
+      YosysVerx          6ccda350c24a  (the brief's pin)                 SAME
+
+(8) THE WIDE BOUNDARY (bound220.sh, the WHOLE probe tree, subdirectories
+    included, both views, both binaries)
+      LISTED=5513 PROCESSED=5513 MOVED_ARMS=18 RC_DIFFS=0
+    18 = 9 files x 2 views.  Two are this pass's own grid arms.  The other
+    SEVEN were re-scored AGAINST GOLDEN (armscore220.sh):
+      LISTED=9 PROCESSED=9 FAILED=0
+      TOWARD-GOLDEN=18  AWAY-FROM-GOLDEN=0  NEITHER=0
+      BROKEN-CELLS=0    FIXED-CELLS=168
+    Three of the seven are adversarial arms on which GOLDEN ITSELF recovers
+    from semantic errors (rc=4 with a database written); they are LABELLED
+    `[GOLDEN-RECOVERED-ERRORS]` in ARMSCORE.r10uvm220.txt and never counted as
+    clean SystemVerilog.  Every one still scores TOWARD-GOLDEN with 0 broken
+    cells.
+    THE MUST-STAY FLOOR: r10v218repro/arms/b1_kinds/dut.sv (§ 218's own
+    verifier arm) moves ONLY its `foreach` header — 0 -> 2 cells toward
+    golden, and the changed-object census over its whole dump contains no
+    `ref_obj` and no `vpiActual` line at all, so § 218's binding law is
+    untouched.  r10vbuvm34repro/v34g.sv is the adversarial pair: only
+    `work@ifU34` (UNINSTANTIATED) moves and `work@ifI34` (the SAME body,
+    INSTANTIATED) does not move by a single line.  No arm of §§ 198/202
+    (the type-param fence included), 183, 216, 82-91, buvm3-15 or sd8-12
+    moves at all.
+
+(9) MOVED-WRONG / AWAY
+    grid       a1 0 -> 13 SAME of 16, a6 1 -> 10 of 12; a2 / a3 / a4 / a5 are
+               BYTE-IDENTICAL pristine to patched (0 changed dump lines).
+    corpus     MiniAmiq census 2600 -> 2638 SAME, 316 -> 278 MISSING-OURS,
+               316 -> 278 EXTRA-OURS; ZERO cells remain in the holder
+               `work@svaunit_vpi_interface`.
+    boundary   0 AWAY, 0 BROKEN cells over 18 moved arm-views.
+    MOVED-WRONG = 0.  AWAY = 0.

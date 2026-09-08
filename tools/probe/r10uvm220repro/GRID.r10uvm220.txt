@@ -1,0 +1,44 @@
+r10uvm220 — QUESTION (3): THE GOLDEN GRID
+=========================================
+grid220.sh, six arms, TWO GOLDEN VIEWS each (-parse and -parse -elabuhdm) plus
+our binary; every arm's rc CHECKED and the run refuses to print OK if any arm
+failed to compile (an arm whose compile fails teaches error recovery, not
+golden).  Scored by cen220.py, keyed as a MULTISET on (view, role, name, span).
+
+LISTED=6 PROCESSED=6 FAILED=0 on both binaries.
+
+THE ARMS
+  a1_uninst_if  interface if220u, NOTHING instantiates it — MiniAmiq's shape.
+  a2_inst_if    THE SAME BODY, instantiated by top220i.
+  a3_mod        the same body in a module (a module with no instantiator is a
+                TOP, hence always elaborated: there is no uninstantiated one).
+  a4_prog       the same body in an UNINSTANTIATED and an INSTANTIATED program.
+  a5_pkg        package free function + in-body class method — the FENCE
+                calibration for the laws already in force.
+  a6_kinds      inside an uninstantiated interface: the same formal iterated
+                TWICE, a typedef'd array formal, a DOTTED reference, a
+                ::-scoped package parameter, and a formal SHADOWING a typedef.
+
+THE SCORES — cells agreeing with the PARSE-view golden (SAME / MISSING / EXTRA)
+  arm            pristine            patched
+  a1_uninst_if   SAME=0 MISSING-OURS=16 EXTRA-OURS=14 SAME=13 MISSING-OURS=3 EXTRA-OURS=1
+  a2_inst_if     SAME=12 MISSING-OURS=2 EXTRA-OURS=2 SAME=12 MISSING-OURS=2 EXTRA-OURS=2
+  a3_mod         SAME=10 MISSING-OURS=2 EXTRA-OURS=2 SAME=10 MISSING-OURS=2 EXTRA-OURS=2
+  a4_prog        SAME=5 MISSING-OURS=7 EXTRA-OURS=7 SAME=5 MISSING-OURS=7 EXTRA-OURS=7
+  a5_pkg         SAME=21 MISSING-OURS=1 EXTRA-OURS=1 SAME=21 MISSING-OURS=1 EXTRA-OURS=1
+  a6_kinds       SAME=1 MISSING-OURS=11 EXTRA-OURS=11 SAME=10 MISSING-OURS=2 EXTRA-OURS=2
+
+THE ELAB VIEW — identical, cell for cell, on every arm.  This law is
+VIEW-INDEPENDENT because an uninstantiated interface HAS no second view:
+  a1_uninst_if   parse-vs-elab golden census differences = 0 (the only diff line is the file-name header)
+  a2_inst_if     parse-vs-elab golden census differences = 0 (the only diff line is the file-name header)
+  a4_prog        parse-vs-elab golden census differences = 0 (the only diff line is the file-name header)
+  a6_kinds       parse-vs-elab golden census differences = 0 (the only diff line is the file-name header)
+
+THE ARM-BY-ARM MOVEMENT (uhdm-dump, workdir-normalised, pristine vs patched)
+  a1_uninst_if   changed dump lines = 110
+  a2_inst_if     changed dump lines = 0
+  a3_mod         changed dump lines = 0
+  a4_prog        changed dump lines = 0
+  a5_pkg         changed dump lines = 0
+  a6_kinds       changed dump lines = 84

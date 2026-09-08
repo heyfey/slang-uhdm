@@ -1,0 +1,49 @@
+r10uvm220 — QUESTION (5): THE A-PRIORI PREDICTION
+================================================
+WRITTEN AND RUN FROM PRISTINE DATABASES AND PRISTINE SOURCES ALONE, BEFORE THE
+PATCHED BINARY WAS RUN ON EITHER CORPUS.  (The patched binary existed and had
+been scored on the golden grid, whose arms are hand-written and contain no
+corpus row at all; no corpus sweep had been run with it when this was written.)
+
+THE LAW'S REACH BY CONSTRUCTION
+-------------------------------
+The law rides `uninstIfaceSubBody218`, raised at EXACTLY ONE call site —
+ModuleEmit.cpp's `emitTaskFuncs` for an interface definition with
+`defAllInstCount[&def] == 0` — and needs a `foreach` inside such a body.
+A database that never compiled an uninstantiated interface declaring a
+subroutine containing a foreach cannot reach the site.
+
+== surelog corpus (predict220.sh over the PRISTINE workdir) ==
+STAGE1 /tmp/r10uvm220_wdp/sl/default/AmiqSimpleTestSuite-cb67712e uninstantiated-interface-with-foreach: svaunit_vpi_interface
+STAGE1 /tmp/r10uvm220_wdp/sl/default/MiniAmiq-544c7f61 uninstantiated-interface-with-foreach: svaunit_vpi_interface
+STAGE1 /tmp/r10uvm220_wdp/sl/default/Monitor-dbd37157 uninstantiated-interface-with-foreach: svaunit_vpi_interface
+STAGE1 /tmp/r10uvm220_wdp/sl/testflags/AmiqSimpleTestSuite-cb67712e uninstantiated-interface-with-foreach: svaunit_vpi_interface
+STAGE1 /tmp/r10uvm220_wdp/sl/testflags/MiniAmiq-544c7f61 uninstantiated-interface-with-foreach: svaunit_vpi_interface
+STAGE1 /tmp/r10uvm220_wdp/sl/testflags/Monitor-dbd37157 uninstantiated-interface-with-foreach: svaunit_vpi_interface
+-- STAGE1: 6 of 1573 row-modes carry a candidate
+STAGE2 /tmp/r10uvm220_wdp/sl/default/AmiqSimpleTestSuite-cb67712e NO-DATABASE (SLANG_REJECT / no slang.uhdm) — untouchable
+STAGE2 /tmp/r10uvm220_wdp/sl/default/MiniAmiq-544c7f61 foreach_stmt-under-uhdmallInterfaces=380
+STAGE2 /tmp/r10uvm220_wdp/sl/default/Monitor-dbd37157 NO-DATABASE (SLANG_REJECT / no slang.uhdm) — untouchable
+STAGE2 /tmp/r10uvm220_wdp/sl/testflags/AmiqSimpleTestSuite-cb67712e NO-DATABASE (SLANG_REJECT / no slang.uhdm) — untouchable
+STAGE2 /tmp/r10uvm220_wdp/sl/testflags/MiniAmiq-544c7f61 foreach_stmt-under-uhdmallInterfaces=380
+STAGE2 /tmp/r10uvm220_wdp/sl/testflags/Monitor-dbd37157 NO-DATABASE (SLANG_REJECT / no slang.uhdm) — untouchable
+-- STAGE2: 2 row-modes PREDICTED TO MOVE
+
+== uhdm2rtlil corpus ==
+-- STAGE1: 0 of 1462 row-modes carry a candidate
+-- STAGE2: 0 row-modes PREDICTED TO MOVE
+
+THE PREDICTION
+--------------
+  surelog byte movers    EXACTLY TWO: MiniAmiq/default and MiniAmiq/testflags.
+  uhdm2rtlil byte movers ZERO of 1358, both modes.
+  cells                  38 per mode — the 19 iterated-array references and
+                         19 loop variables inside work@svaunit_vpi_interface
+                         listed by name and span in POPULATION.r10uvm220.txt.
+  status                 MiniAmiq is CMP_NOTEQUAL in both modes pristine and
+                         stays CMP_NOTEQUAL: 38 cells is not the whole
+                         remaining distance.  NO row-status conversion is
+                         claimed anywhere, in either corpus.
+  AmiqSimpleTestSuite and Monitor carry the same interface but are
+  SLANG_REJECT in both modes with NO slang.uhdm — untouchable, and they must
+  STAY SLANG_REJECT (an arm whose compile fails teaches error recovery).

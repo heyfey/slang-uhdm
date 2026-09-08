@@ -1,0 +1,549 @@
+1c1
+< /tmp/r10uvm220_wdp/sl/default/MiniAmiq-544c7f61/slang.uhdm: Restored design Pre-Elab: 
+---
+> /tmp/r10uvm220_wda/sl/default/MiniAmiq-544c7f61/slang.uhdm: Restored design Pre-Elab: 
+1772596c1772596
+<           \_class_typespec: (svaunit_concurrent_assertion_info), line:196:45, endln:196:78
+---
+>           \_unsupported_typespec: (a_lof_sva), line:198:15, endln:198:24
+1772600c1772600
+<       \_class_var: (work@svaunit_vpi_interface.update_sva_from_c.index), line:198:25, endln:198:30
+---
+>       \_ref_var: (work@svaunit_vpi_interface.update_sva_from_c.index), line:198:25, endln:198:30
+1772606c1772606
+<           \_class_var: (work@svaunit_vpi_interface.update_sva_from_c.index), line:198:25, endln:198:30
+---
+>           \_ref_var: (work@svaunit_vpi_interface.update_sva_from_c.index), line:198:25, endln:198:30
+1772609c1772609
+<           \_class_typespec: (svaunit_concurrent_assertion_info), line:196:45, endln:196:78
+---
+>           \_unsupported_typespec: (index), line:198:25, endln:198:30
+1772952c1772952
+<             \_array_typespec: 
+---
+>             \_unsupported_typespec: (sva_info), line:275:15, endln:275:23
+1772956c1772956
+<         \_class_var: (work@svaunit_vpi_interface.get_assertion_from_path.index), line:275:24, endln:275:29
+---
+>         \_ref_var: (work@svaunit_vpi_interface.get_assertion_from_path.index), line:275:24, endln:275:29
+1772962c1772962
+<             \_class_var: (work@svaunit_vpi_interface.get_assertion_from_path.index), line:275:24, endln:275:29
+---
+>             \_ref_var: (work@svaunit_vpi_interface.get_assertion_from_path.index), line:275:24, endln:275:29
+1772965c1772965
+<             \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+---
+>             \_unsupported_typespec: (index), line:275:24, endln:275:29
+1773095c1773095
+<             \_array_typespec: 
+---
+>             \_unsupported_typespec: (sva_info), line:289:15, endln:289:23
+1773099c1773099
+<         \_class_var: (work@svaunit_vpi_interface.get_assertion_by_name.index), line:289:24, endln:289:29
+---
+>         \_ref_var: (work@svaunit_vpi_interface.get_assertion_by_name.index), line:289:24, endln:289:29
+1773105c1773105
+<             \_class_var: (work@svaunit_vpi_interface.get_assertion_by_name.index), line:289:24, endln:289:29
+---
+>             \_ref_var: (work@svaunit_vpi_interface.get_assertion_by_name.index), line:289:24, endln:289:29
+1773108c1773108
+<             \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+---
+>             \_unsupported_typespec: (index), line:289:24, endln:289:29
+1773357c1773357
+<           \_array_typespec: 
+---
+>           \_unsupported_typespec: (sva_info), line:317:15, endln:317:23
+1773361c1773361
+<       \_class_var: (work@svaunit_vpi_interface.reset_all_assertions.index), line:317:24, endln:317:29
+---
+>       \_ref_var: (work@svaunit_vpi_interface.reset_all_assertions.index), line:317:24, endln:317:29
+1773367c1773367
+<           \_class_var: (work@svaunit_vpi_interface.reset_all_assertions.index), line:317:24, endln:317:29
+---
+>           \_ref_var: (work@svaunit_vpi_interface.reset_all_assertions.index), line:317:24, endln:317:29
+1773370c1773370
+<           \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+---
+>           \_unsupported_typespec: (index), line:317:24, endln:317:29
+1773576c1773576
+<           \_array_typespec: 
+---
+>           \_unsupported_typespec: (sva_info), line:343:15, endln:343:23
+1773580c1773580
+<       \_class_var: (work@svaunit_vpi_interface.disable_all_assertions.index), line:343:24, endln:343:29
+---
+>       \_ref_var: (work@svaunit_vpi_interface.disable_all_assertions.index), line:343:24, endln:343:29
+1773586c1773586
+<           \_class_var: (work@svaunit_vpi_interface.disable_all_assertions.index), line:343:24, endln:343:29
+---
+>           \_ref_var: (work@svaunit_vpi_interface.disable_all_assertions.index), line:343:24, endln:343:29
+1773589c1773589
+<           \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+---
+>           \_unsupported_typespec: (index), line:343:24, endln:343:29
+1773795c1773795
+<           \_array_typespec: 
+---
+>           \_unsupported_typespec: (sva_info), line:366:15, endln:366:23
+1773799c1773799
+<       \_class_var: (work@svaunit_vpi_interface.enable_all_assertions.index), line:366:24, endln:366:29
+---
+>       \_ref_var: (work@svaunit_vpi_interface.enable_all_assertions.index), line:366:24, endln:366:29
+1773805c1773805
+<           \_class_var: (work@svaunit_vpi_interface.enable_all_assertions.index), line:366:24, endln:366:29
+---
+>           \_ref_var: (work@svaunit_vpi_interface.enable_all_assertions.index), line:366:24, endln:366:29
+1773808c1773808
+<           \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+---
+>           \_unsupported_typespec: (index), line:366:24, endln:366:29
+1774041c1774041
+<           \_array_typespec: 
+---
+>           \_unsupported_typespec: (sva_info), line:392:15, endln:392:23
+1774045c1774045
+<       \_class_var: (work@svaunit_vpi_interface.kill_all_assertions.index), line:392:24, endln:392:29
+---
+>       \_ref_var: (work@svaunit_vpi_interface.kill_all_assertions.index), line:392:24, endln:392:29
+1774051c1774051
+<           \_class_var: (work@svaunit_vpi_interface.kill_all_assertions.index), line:392:24, endln:392:29
+---
+>           \_ref_var: (work@svaunit_vpi_interface.kill_all_assertions.index), line:392:24, endln:392:29
+1774054c1774054
+<           \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+---
+>           \_unsupported_typespec: (index), line:392:24, endln:392:29
+1774266c1774266
+<           \_array_typespec: 
+---
+>           \_unsupported_typespec: (sva_info), line:416:15, endln:416:23
+1774270c1774270
+<       \_class_var: (work@svaunit_vpi_interface.disable_step_all_assertions.index), line:416:24, endln:416:29
+---
+>       \_ref_var: (work@svaunit_vpi_interface.disable_step_all_assertions.index), line:416:24, endln:416:29
+1774276c1774276
+<           \_class_var: (work@svaunit_vpi_interface.disable_step_all_assertions.index), line:416:24, endln:416:29
+---
+>           \_ref_var: (work@svaunit_vpi_interface.disable_step_all_assertions.index), line:416:24, endln:416:29
+1774279c1774279
+<           \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+---
+>           \_unsupported_typespec: (index), line:416:24, endln:416:29
+1774485c1774485
+<           \_array_typespec: 
+---
+>           \_unsupported_typespec: (sva_info), line:443:15, endln:443:23
+1774489c1774489
+<       \_class_var: (work@svaunit_vpi_interface.enable_step_all_assertions.index), line:443:24, endln:443:29
+---
+>       \_ref_var: (work@svaunit_vpi_interface.enable_step_all_assertions.index), line:443:24, endln:443:29
+1774495c1774495
+<           \_class_var: (work@svaunit_vpi_interface.enable_step_all_assertions.index), line:443:24, endln:443:29
+---
+>           \_ref_var: (work@svaunit_vpi_interface.enable_step_all_assertions.index), line:443:24, endln:443:29
+1774498c1774498
+<           \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+---
+>           \_unsupported_typespec: (index), line:443:24, endln:443:29
+1774636c1774636
+<             \_array_typespec: 
+---
+>             \_unsupported_typespec: (sva_info), line:464:15, endln:464:23
+1774640c1774640
+<         \_class_var: (work@svaunit_vpi_interface.system_on_all_assertions.index), line:464:24, endln:464:29
+---
+>         \_ref_var: (work@svaunit_vpi_interface.system_on_all_assertions.index), line:464:24, endln:464:29
+1774646c1774646
+<             \_class_var: (work@svaunit_vpi_interface.system_on_all_assertions.index), line:464:24, endln:464:29
+---
+>             \_ref_var: (work@svaunit_vpi_interface.system_on_all_assertions.index), line:464:24, endln:464:29
+1774649c1774649
+<             \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+---
+>             \_unsupported_typespec: (index), line:464:24, endln:464:29
+1774779c1774779
+<             \_array_typespec: 
+---
+>             \_unsupported_typespec: (sva_info), line:479:15, endln:479:23
+1774783c1774783
+<         \_class_var: (work@svaunit_vpi_interface.system_off_all_assertions.index), line:479:24, endln:479:29
+---
+>         \_ref_var: (work@svaunit_vpi_interface.system_off_all_assertions.index), line:479:24, endln:479:29
+1774789c1774789
+<             \_class_var: (work@svaunit_vpi_interface.system_off_all_assertions.index), line:479:24, endln:479:29
+---
+>             \_ref_var: (work@svaunit_vpi_interface.system_off_all_assertions.index), line:479:24, endln:479:29
+1774792c1774792
+<             \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+---
+>             \_unsupported_typespec: (index), line:479:24, endln:479:29
+1774922c1774922
+<             \_array_typespec: 
+---
+>             \_unsupported_typespec: (sva_info), line:495:15, endln:495:23
+1774926c1774926
+<         \_class_var: (work@svaunit_vpi_interface.system_end_all_assertions.index), line:495:24, endln:495:29
+---
+>         \_ref_var: (work@svaunit_vpi_interface.system_end_all_assertions.index), line:495:24, endln:495:29
+1774932c1774932
+<             \_class_var: (work@svaunit_vpi_interface.system_end_all_assertions.index), line:495:24, endln:495:29
+---
+>             \_ref_var: (work@svaunit_vpi_interface.system_end_all_assertions.index), line:495:24, endln:495:29
+1774935c1774935
+<             \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+---
+>             \_unsupported_typespec: (index), line:495:24, endln:495:29
+1775072c1775072
+<             \_array_typespec: 
+---
+>             \_unsupported_typespec: (cover_info), line:510:15, endln:510:25
+1775076c1775076
+<         \_class_var: (work@svaunit_vpi_interface.update_coverage.index), line:510:26, endln:510:31
+---
+>         \_ref_var: (work@svaunit_vpi_interface.update_coverage.index), line:510:26, endln:510:31
+1775082c1775082
+<             \_class_var: (work@svaunit_vpi_interface.update_coverage.index), line:510:26, endln:510:31
+---
+>             \_ref_var: (work@svaunit_vpi_interface.update_coverage.index), line:510:26, endln:510:31
+1775085c1775085
+<             \_class_typespec: (svaunit_concurrent_assertion_info), line:90:4, endln:90:37
+---
+>             \_unsupported_typespec: (index), line:510:26, endln:510:31
+1775293c1775293
+<             \_array_typespec: 
+---
+>             \_unsupported_typespec: (sva_info), line:529:15, endln:529:23
+1775297c1775297
+<         \_class_var: (work@svaunit_vpi_interface.get_nof_enabled_sva.index), line:529:24, endln:529:29
+---
+>         \_ref_var: (work@svaunit_vpi_interface.get_nof_enabled_sva.index), line:529:24, endln:529:29
+1775303c1775303
+<             \_class_var: (work@svaunit_vpi_interface.get_nof_enabled_sva.index), line:529:24, endln:529:29
+---
+>             \_ref_var: (work@svaunit_vpi_interface.get_nof_enabled_sva.index), line:529:24, endln:529:29
+1775306c1775306
+<             \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+---
+>             \_unsupported_typespec: (index), line:529:24, endln:529:29
+1775476c1775476
+<             \_array_typespec: 
+---
+>             \_unsupported_typespec: (sva_info), line:547:15, endln:547:23
+1775480c1775480
+<         \_class_var: (work@svaunit_vpi_interface.get_nof_tested_sva.index), line:547:24, endln:547:29
+---
+>         \_ref_var: (work@svaunit_vpi_interface.get_nof_tested_sva.index), line:547:24, endln:547:29
+1775486c1775486
+<             \_class_var: (work@svaunit_vpi_interface.get_nof_tested_sva.index), line:547:24, endln:547:29
+---
+>             \_ref_var: (work@svaunit_vpi_interface.get_nof_tested_sva.index), line:547:24, endln:547:29
+1775489c1775489
+<             \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+---
+>             \_unsupported_typespec: (index), line:547:24, endln:547:29
+1775899c1775899
+<             \_array_typespec: 
+---
+>             \_unsupported_typespec: (sva_info), line:592:15, endln:592:23
+1775903c1775903
+<         \_class_var: (work@svaunit_vpi_interface.report_for_sva.index), line:592:24, endln:592:29
+---
+>         \_ref_var: (work@svaunit_vpi_interface.report_for_sva.index), line:592:24, endln:592:29
+1775909c1775909
+<             \_class_var: (work@svaunit_vpi_interface.report_for_sva.index), line:592:24, endln:592:29
+---
+>             \_ref_var: (work@svaunit_vpi_interface.report_for_sva.index), line:592:24, endln:592:29
+1775912c1775912
+<             \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+---
+>             \_unsupported_typespec: (index), line:592:24, endln:592:29
+1776077c1776077
+<             \_array_typespec: 
+---
+>             \_unsupported_typespec: (sva_info), line:602:15, endln:602:23
+1776081c1776081
+<         \_class_var: (work@svaunit_vpi_interface.report_for_sva.index), line:602:24, endln:602:29
+---
+>         \_ref_var: (work@svaunit_vpi_interface.report_for_sva.index), line:602:24, endln:602:29
+1776087c1776087
+<             \_class_var: (work@svaunit_vpi_interface.report_for_sva.index), line:602:24, endln:602:29
+---
+>             \_ref_var: (work@svaunit_vpi_interface.report_for_sva.index), line:602:24, endln:602:29
+1776090c1776090
+<             \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+---
+>             \_unsupported_typespec: (index), line:602:24, endln:602:29
+1776275c1776275
+<             \_array_typespec: 
+---
+>             \_unsupported_typespec: (sva_info), line:613:15, endln:613:23
+1776279c1776279
+<         \_class_var: (work@svaunit_vpi_interface.report_for_sva.index), line:613:24, endln:613:29
+---
+>         \_ref_var: (work@svaunit_vpi_interface.report_for_sva.index), line:613:24, endln:613:29
+1776285c1776285
+<             \_class_var: (work@svaunit_vpi_interface.report_for_sva.index), line:613:24, endln:613:29
+---
+>             \_ref_var: (work@svaunit_vpi_interface.report_for_sva.index), line:613:24, endln:613:29
+1776288c1776288
+<             \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+---
+>             \_unsupported_typespec: (index), line:613:24, endln:613:29
+1776449c1776449
+<             \_array_typespec: 
+---
+>             \_unsupported_typespec: (cover_info), line:624:15, endln:624:25
+1776453c1776453
+<         \_class_var: (work@svaunit_vpi_interface.report_for_sva.index), line:624:26, endln:624:31
+---
+>         \_ref_var: (work@svaunit_vpi_interface.report_for_sva.index), line:624:26, endln:624:31
+1776459c1776459
+<             \_class_var: (work@svaunit_vpi_interface.report_for_sva.index), line:624:26, endln:624:31
+---
+>             \_ref_var: (work@svaunit_vpi_interface.report_for_sva.index), line:624:26, endln:624:31
+1776462c1776462
+<             \_class_typespec: (svaunit_concurrent_assertion_info), line:90:4, endln:90:37
+---
+>             \_unsupported_typespec: (index), line:624:26, endln:624:31
+1879233,1879236c1879233,1879238
+< \_class_typespec: (svaunit_concurrent_assertion_info), line:196:45, endln:196:78
+<   |vpiName:svaunit_concurrent_assertion_info
+<   |vpiClassDefn:
+<   \_class_defn: (svaunit_pkg::svaunit_concurrent_assertion_info), file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_concurrent_assertion_info.svh, line:29:1, endln:375:9
+---
+> \_unsupported_typespec: (a_lof_sva), line:198:15, endln:198:24
+>   |vpiName:a_lof_sva
+> \_unsupported_typespec: (index), line:198:25, endln:198:30
+>   |vpiParent:
+>   \_ref_var: (work@svaunit_vpi_interface.update_sva_from_c.index), line:198:25, endln:198:30
+>   |vpiName:index
+1879297,1879300c1879299,1879304
+< \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+<   |vpiName:svaunit_concurrent_assertion_info
+<   |vpiClassDefn:
+<   \_class_defn: (svaunit_pkg::svaunit_concurrent_assertion_info), file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_concurrent_assertion_info.svh, line:29:1, endln:375:9
+---
+> \_unsupported_typespec: (sva_info), line:275:15, endln:275:23
+>   |vpiName:sva_info
+> \_unsupported_typespec: (index), line:275:24, endln:275:29
+>   |vpiParent:
+>   \_ref_var: (work@svaunit_vpi_interface.get_assertion_from_path.index), line:275:24, endln:275:29
+>   |vpiName:index
+1879306,1879309c1879310,1879315
+< \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+<   |vpiName:svaunit_concurrent_assertion_info
+<   |vpiClassDefn:
+<   \_class_defn: (svaunit_pkg::svaunit_concurrent_assertion_info), file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_concurrent_assertion_info.svh, line:29:1, endln:375:9
+---
+> \_unsupported_typespec: (sva_info), line:289:15, endln:289:23
+>   |vpiName:sva_info
+> \_unsupported_typespec: (index), line:289:24, endln:289:29
+>   |vpiParent:
+>   \_ref_var: (work@svaunit_vpi_interface.get_assertion_by_name.index), line:289:24, endln:289:29
+>   |vpiName:index
+1879317,1879320c1879323,1879328
+< \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+<   |vpiName:svaunit_concurrent_assertion_info
+<   |vpiClassDefn:
+<   \_class_defn: (svaunit_pkg::svaunit_concurrent_assertion_info), file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_concurrent_assertion_info.svh, line:29:1, endln:375:9
+---
+> \_unsupported_typespec: (sva_info), line:317:15, endln:317:23
+>   |vpiName:sva_info
+> \_unsupported_typespec: (index), line:317:24, endln:317:29
+>   |vpiParent:
+>   \_ref_var: (work@svaunit_vpi_interface.reset_all_assertions.index), line:317:24, endln:317:29
+>   |vpiName:index
+1879328,1879331c1879336,1879341
+< \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+<   |vpiName:svaunit_concurrent_assertion_info
+<   |vpiClassDefn:
+<   \_class_defn: (svaunit_pkg::svaunit_concurrent_assertion_info), file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_concurrent_assertion_info.svh, line:29:1, endln:375:9
+---
+> \_unsupported_typespec: (sva_info), line:343:15, endln:343:23
+>   |vpiName:sva_info
+> \_unsupported_typespec: (index), line:343:24, endln:343:29
+>   |vpiParent:
+>   \_ref_var: (work@svaunit_vpi_interface.disable_all_assertions.index), line:343:24, endln:343:29
+>   |vpiName:index
+1879339,1879342c1879349,1879354
+< \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+<   |vpiName:svaunit_concurrent_assertion_info
+<   |vpiClassDefn:
+<   \_class_defn: (svaunit_pkg::svaunit_concurrent_assertion_info), file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_concurrent_assertion_info.svh, line:29:1, endln:375:9
+---
+> \_unsupported_typespec: (sva_info), line:366:15, endln:366:23
+>   |vpiName:sva_info
+> \_unsupported_typespec: (index), line:366:24, endln:366:29
+>   |vpiParent:
+>   \_ref_var: (work@svaunit_vpi_interface.enable_all_assertions.index), line:366:24, endln:366:29
+>   |vpiName:index
+1879352,1879355c1879364,1879369
+< \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+<   |vpiName:svaunit_concurrent_assertion_info
+<   |vpiClassDefn:
+<   \_class_defn: (svaunit_pkg::svaunit_concurrent_assertion_info), file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_concurrent_assertion_info.svh, line:29:1, endln:375:9
+---
+> \_unsupported_typespec: (sva_info), line:392:15, endln:392:23
+>   |vpiName:sva_info
+> \_unsupported_typespec: (index), line:392:24, endln:392:29
+>   |vpiParent:
+>   \_ref_var: (work@svaunit_vpi_interface.kill_all_assertions.index), line:392:24, endln:392:29
+>   |vpiName:index
+1879363,1879366c1879377,1879382
+< \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+<   |vpiName:svaunit_concurrent_assertion_info
+<   |vpiClassDefn:
+<   \_class_defn: (svaunit_pkg::svaunit_concurrent_assertion_info), file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_concurrent_assertion_info.svh, line:29:1, endln:375:9
+---
+> \_unsupported_typespec: (sva_info), line:416:15, endln:416:23
+>   |vpiName:sva_info
+> \_unsupported_typespec: (index), line:416:24, endln:416:29
+>   |vpiParent:
+>   \_ref_var: (work@svaunit_vpi_interface.disable_step_all_assertions.index), line:416:24, endln:416:29
+>   |vpiName:index
+1879374,1879377c1879390,1879395
+< \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+<   |vpiName:svaunit_concurrent_assertion_info
+<   |vpiClassDefn:
+<   \_class_defn: (svaunit_pkg::svaunit_concurrent_assertion_info), file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_concurrent_assertion_info.svh, line:29:1, endln:375:9
+---
+> \_unsupported_typespec: (sva_info), line:443:15, endln:443:23
+>   |vpiName:sva_info
+> \_unsupported_typespec: (index), line:443:24, endln:443:29
+>   |vpiParent:
+>   \_ref_var: (work@svaunit_vpi_interface.enable_step_all_assertions.index), line:443:24, endln:443:29
+>   |vpiName:index
+1879379,1879382c1879397,1879402
+< \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+<   |vpiName:svaunit_concurrent_assertion_info
+<   |vpiClassDefn:
+<   \_class_defn: (svaunit_pkg::svaunit_concurrent_assertion_info), file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_concurrent_assertion_info.svh, line:29:1, endln:375:9
+---
+> \_unsupported_typespec: (sva_info), line:464:15, endln:464:23
+>   |vpiName:sva_info
+> \_unsupported_typespec: (index), line:464:24, endln:464:29
+>   |vpiParent:
+>   \_ref_var: (work@svaunit_vpi_interface.system_on_all_assertions.index), line:464:24, endln:464:29
+>   |vpiName:index
+1879385,1879388c1879405,1879410
+< \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+<   |vpiName:svaunit_concurrent_assertion_info
+<   |vpiClassDefn:
+<   \_class_defn: (svaunit_pkg::svaunit_concurrent_assertion_info), file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_concurrent_assertion_info.svh, line:29:1, endln:375:9
+---
+> \_unsupported_typespec: (sva_info), line:479:15, endln:479:23
+>   |vpiName:sva_info
+> \_unsupported_typespec: (index), line:479:24, endln:479:29
+>   |vpiParent:
+>   \_ref_var: (work@svaunit_vpi_interface.system_off_all_assertions.index), line:479:24, endln:479:29
+>   |vpiName:index
+1879391,1879394c1879413,1879418
+< \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+<   |vpiName:svaunit_concurrent_assertion_info
+<   |vpiClassDefn:
+<   \_class_defn: (svaunit_pkg::svaunit_concurrent_assertion_info), file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_concurrent_assertion_info.svh, line:29:1, endln:375:9
+---
+> \_unsupported_typespec: (sva_info), line:495:15, endln:495:23
+>   |vpiName:sva_info
+> \_unsupported_typespec: (index), line:495:24, endln:495:29
+>   |vpiParent:
+>   \_ref_var: (work@svaunit_vpi_interface.system_end_all_assertions.index), line:495:24, endln:495:29
+>   |vpiName:index
+1879401,1879404c1879425,1879430
+< \_class_typespec: (svaunit_concurrent_assertion_info), line:90:4, endln:90:37
+<   |vpiName:svaunit_concurrent_assertion_info
+<   |vpiClassDefn:
+<   \_class_defn: (svaunit_pkg::svaunit_concurrent_assertion_info), file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_concurrent_assertion_info.svh, line:29:1, endln:375:9
+---
+> \_unsupported_typespec: (cover_info), line:510:15, endln:510:25
+>   |vpiName:cover_info
+> \_unsupported_typespec: (index), line:510:26, endln:510:31
+>   |vpiParent:
+>   \_ref_var: (work@svaunit_vpi_interface.update_coverage.index), line:510:26, endln:510:31
+>   |vpiName:index
+1879408,1879411c1879434,1879439
+< \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+<   |vpiName:svaunit_concurrent_assertion_info
+<   |vpiClassDefn:
+<   \_class_defn: (svaunit_pkg::svaunit_concurrent_assertion_info), file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_concurrent_assertion_info.svh, line:29:1, endln:375:9
+---
+> \_unsupported_typespec: (sva_info), line:529:15, endln:529:23
+>   |vpiName:sva_info
+> \_unsupported_typespec: (index), line:529:24, endln:529:29
+>   |vpiParent:
+>   \_ref_var: (work@svaunit_vpi_interface.get_nof_enabled_sva.index), line:529:24, endln:529:29
+>   |vpiName:index
+1879415,1879418c1879443,1879448
+< \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+<   |vpiName:svaunit_concurrent_assertion_info
+<   |vpiClassDefn:
+<   \_class_defn: (svaunit_pkg::svaunit_concurrent_assertion_info), file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_concurrent_assertion_info.svh, line:29:1, endln:375:9
+---
+> \_unsupported_typespec: (sva_info), line:547:15, endln:547:23
+>   |vpiName:sva_info
+> \_unsupported_typespec: (index), line:547:24, endln:547:29
+>   |vpiParent:
+>   \_ref_var: (work@svaunit_vpi_interface.get_nof_tested_sva.index), line:547:24, endln:547:29
+>   |vpiName:index
+1879427,1879442c1879457,1879480
+< \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+<   |vpiName:svaunit_concurrent_assertion_info
+<   |vpiClassDefn:
+<   \_class_defn: (svaunit_pkg::svaunit_concurrent_assertion_info), file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_concurrent_assertion_info.svh, line:29:1, endln:375:9
+< \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+<   |vpiName:svaunit_concurrent_assertion_info
+<   |vpiClassDefn:
+<   \_class_defn: (svaunit_pkg::svaunit_concurrent_assertion_info), file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_concurrent_assertion_info.svh, line:29:1, endln:375:9
+< \_class_typespec: (svaunit_concurrent_assertion_info), line:87:4, endln:87:37
+<   |vpiName:svaunit_concurrent_assertion_info
+<   |vpiClassDefn:
+<   \_class_defn: (svaunit_pkg::svaunit_concurrent_assertion_info), file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_concurrent_assertion_info.svh, line:29:1, endln:375:9
+< \_class_typespec: (svaunit_concurrent_assertion_info), line:90:4, endln:90:37
+<   |vpiName:svaunit_concurrent_assertion_info
+<   |vpiClassDefn:
+<   \_class_defn: (svaunit_pkg::svaunit_concurrent_assertion_info), file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_concurrent_assertion_info.svh, line:29:1, endln:375:9
+---
+> \_unsupported_typespec: (sva_info), line:592:15, endln:592:23
+>   |vpiName:sva_info
+> \_unsupported_typespec: (index), line:592:24, endln:592:29
+>   |vpiParent:
+>   \_ref_var: (work@svaunit_vpi_interface.report_for_sva.index), line:592:24, endln:592:29
+>   |vpiName:index
+> \_unsupported_typespec: (sva_info), line:602:15, endln:602:23
+>   |vpiName:sva_info
+> \_unsupported_typespec: (index), line:602:24, endln:602:29
+>   |vpiParent:
+>   \_ref_var: (work@svaunit_vpi_interface.report_for_sva.index), line:602:24, endln:602:29
+>   |vpiName:index
+> \_unsupported_typespec: (sva_info), line:613:15, endln:613:23
+>   |vpiName:sva_info
+> \_unsupported_typespec: (index), line:613:24, endln:613:29
+>   |vpiParent:
+>   \_ref_var: (work@svaunit_vpi_interface.report_for_sva.index), line:613:24, endln:613:29
+>   |vpiName:index
+> \_unsupported_typespec: (cover_info), line:624:15, endln:624:25
+>   |vpiName:cover_info
+> \_unsupported_typespec: (index), line:624:26, endln:624:31
+>   |vpiParent:
+>   \_ref_var: (work@svaunit_vpi_interface.report_for_sva.index), line:624:26, endln:624:31
+>   |vpiName:index
+1883581,1883598d1883618
+< \_array_typespec: 
+< \_array_typespec: 
+< \_array_typespec: 
+< \_array_typespec: 
+< \_array_typespec: 
+< \_array_typespec: 
+< \_array_typespec: 
+< \_array_typespec: 
+< \_array_typespec: 
+< \_array_typespec: 
+< \_array_typespec: 
+< \_array_typespec: 
+< \_array_typespec: 
+< \_array_typespec: 
+< \_array_typespec: 
+< \_array_typespec: 
+< \_array_typespec: 
+< \_array_typespec: 

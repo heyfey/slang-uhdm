@@ -173,7 +173,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-09-08, HEAD = the uvm219 landing — SeqDriver CLOSED both modes; ONE workable head remains: MiniAmiq 20) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-09-08, HEAD = the uvm220 landing — MiniAmiq 19, the last workable head) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 473/481 comparable
 equal (8 NE), testflags 468/475 (7 NE); uhdm2rtlil 679/679 both modes. The
@@ -183,7 +183,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 | row-mode(s) | head (official cmp lines = head-object DEPTH, not distance) | family / next law |
 |---|---|---|
 | SeqDriver×2 | CMP_EQUAL ×2 (CONVERTED at uvm219 — the WHOLE TEST CLOSED) | CLOSED — § hoistedThisRidesTheForwardedBlock219: the implicit this wire is a FORWARDED late-binding mint and lands span-sorted inside the forwarded block, never after the module's own wires (the import splices the package's late-binding list during the item pass); the SeqDriver ladder ran the clone-import chain, the view crossings, the interface family and the order law; R0 recorded: the implicit block is still golden's multiset in a different order, masked by the visited-set short circuit — the family's next face should the mask ever lift |
-| MiniAmiq×2 | 20 (ONE head both modes) | a FOREACH header's array typespec: golden an unsupported placeholder at the typedef's line, ours a resolved class typespec one line up — the degrade family's face on a foreach header — open (uvm218 landed: 29→20, § uninstIfaceBodyBindsInMethodWindow218 — an uninstantiated interface body binds ONLY in the in-body method's binding window (the interface definition writer has NO late-binding call; only the compile-time eager bind survives, and that set IS the window); the whole-subroutine silencer was half right; ADD-ONLY byte-proved; the uninstantiated module-with-ports vs program sibling split predicted and confirmed; verifier ACCEPT, patch as-is) |
+| MiniAmiq×2 | 19 (ONE head both modes — THE LAST WORKABLE HEAD in the whole corpus) | the ENUM-CONSTANT ACTUAL: we bind an enum constant as a reference's actual where the uninstantiated interface's golden has none — the binding law's recorded residue, sixteen cells in this holder — open (uvm220 landed: 20→19, § uninstIfaceForeachHdrUnresolved220 — an uninstantiated interface's foreach header keeps Surelog's placeholder (the header always mints it; the late typedef binding replaces it; the interface writer never calls it); two decoded fences (the parameter's array half, the type-name lookup); per-site minting measured; verifier ACCEPT, patch unchanged) |
 | SimpleUVM×2 | CMP_EQUAL ×2 (CONVERTED at uvm209 — the WHOLE TEST CLOSED) | CLOSED — § hoistedLocalKeepsItsLifetime209: the automatic flag follows the source declaration's lifetime (Surelog's package collector does not stop at a class CONSTRUCTOR declaration — the hoist's mechanism; golden's module copy is the package listing value for value); the SimpleUVM ladder ran the depth artifact, the materialized-parameter family, the implicit-nets family, the design listing and the lifetime bit |
 | BuildUVMPkg×2 | CMP_EQUAL (CONVERTED, uvm194 — the block's FIRST row conversion; the two baseline rows promoted in the landing commit) | CLOSED — § homeRetNameSelBindSurvivesDefViewUnbind194: a home return-name select binding survives the definition-view unbind (one gated exemption clause in the drain; the clone fence from an arm); the family's whole ladder ran uvm170→194 |
 | Scoreboard/default | CMP_EQUAL (CONVERTED at uvm212 — the comparable half of the test CLOSED; testflags is a slang reject outside the comparable set) | CLOSED — § classTdCloneTakesTheBasesEmptyListing212: a clone class typedef takes the base's EMPTY specialization listing (the vector verdict wore a singular face; library and macros decide nothing — clone-hood and the base's listing are the only variables; golden has zero clone-vs-base mismatches everywhere, ours had exactly one corpus-wide) |
@@ -193,7 +193,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 128 verifier fix-before-landing re-cuts (305 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 128 verifier fix-before-landing re-cuts (306 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

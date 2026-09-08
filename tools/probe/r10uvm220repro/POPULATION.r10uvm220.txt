@@ -1,0 +1,78 @@
+r10uvm220 — QUESTION (2): THE POPULATION, BY ITERATED-TYPE KIND × HOLDER × VIEW,
+                          AND THE SHARING BY IDENTITY
+================================================================================
+Scored with cen220.py over the PRISTINE MiniAmiq databases (golden vs ours),
+keyed (view, role, name, ref line:col) as a MULTISET.  `role` is the foreach's
+own slot: `vpiVariables` is the ITERATED-ARRAY reference, `vpiLoopVars` the
+loop variable.
+
+THE HOLDER — one, and one view
+------------------------------
+Every cell this law touches lives in
+    interface_inst work@svaunit_vpi_interface      (svaunit_vpi_interface.sv)
+      -> function|task <17 of them>
+        -> foreach_stmt
+in section `uhdmallInterfaces`, which is that interface's ONLY section: nothing
+in MiniAmiq instantiates it (it is written only inside the `SVAUNIT_TESTBENCH`
+macro of svaunit_defines.svh, which MiniAmiq never expands), so there is no
+elaborated copy and no `uhdmtopModules` twin.
+
+THE EDGE (question 1), both spans' objects, both sides
+-------------------------------------------------------
+  foreach_stmt (work@svaunit_vpi_interface.update_sva_from_c) 198:7-198:14
+    |vpiVariables
+    \_ ref_var  (….update_sva_from_c.a_lof_sva)  198:15-198:24   [BOTH SIDES]
+         |vpiTypespec -> ref_typespec                            [BOTH SIDES]
+              |vpiActual
+   golden ->     unsupported_typespec (a_lof_sva)   198:15-198:24
+   ours   ->     class_typespec (svaunit_concurrent_assertion_info) 196:45-196:78
+    |vpiLoopVars
+   golden ->  ref_var   (….index) 198:25 over unsupported_typespec (index) 198:25
+   ours   ->  class_var (….index) 198:25 over the SAME class_typespec 196:45
+
+196:45 is the FORMAL's declaration — `svaunit_concurrent_assertion_info
+a_lof_sva[]`, the io_decl's own typespec, which our § foreachFormalArrayTs9 arm
+hands the reference.  That is precisely what `lateTypedefBinding` would have
+written (`func->Io_decls()` name match, UhdmWriter.cpp:2637-2660) — and this
+holder never runs it.
+
+THE POPULATION — 38 cells, all one-sided both ways
+---------------------------------------------------
+  role           iterated-symbol kind                     cells   golden       ours (pristine)
+  vpiVariables   FORMAL, unsized dynamic of a class handle    1   unsupported_typespec 'a_lof_sva' @the ref
+  vpiVariables   INTERFACE MEMBER, unsized dynamic array     18   unsupported_typespec 'sva_info'/'cover_info' @the ref
+  vpiLoopVars    (index of the above)                        19   ref_var + unsupported_typespec 'index' @the ref
+                                                          -----
+                                                             38
+  ours, pristine: the 1 formal cell -> class_typespec @196:45; the 18 member
+  cells -> a bare `array_typespec` with no span; all 19 loop variables ->
+  `class_var` over the element `class_typespec` @87:4 / @90:4.
+
+  the 19 sites (svaunit_vpi_interface.sv):
+    198:15 275:15 289:15 317:15 343:15 366:15 392:15 416:15 443:15 464:15
+    479:15 495:15 510:15 529:15 547:15 592:15 602:15 613:15 624:15
+  and their loop variables at the matching 198:25 … 624:26.
+
+  KINDS PRESENT IN THE CORPUS HOLDER BUT NOT IN THIS POPULATION: none.  There
+  is no iterated PARAMETER, no `::`-scoped reference and no DOTTED reference in
+  `svaunit_vpi_interface`, which is why the two fences are corpus-INERT and had
+  to be measured on the golden grid instead (arm a1 `PAR220`, arm a6 `g220`).
+
+THE SHARING, BY IDENTITY
+------------------------
+Golden mints ONE placeholder PER FORECH SITE, never shared:
+  * `report_for_sva` iterates `sva_info` THREE times (592:15, 602:15, 613:15)
+    and golden carries THREE distinct `unsupported_typespec (sva_info)`
+    objects, each spanned at its own `foreach`;
+  * grid arm a6 pins the same fact on one golden with the same formal iterated
+    twice (`a_dyn220` at 32:16 and 34:16 -> two placeholders, two spans);
+  * so does the loop-variable half — `index` is re-minted at every site.
+This is `populateCoreMembers(type, type, ref)` on the identifier NODE
+(CompileType.cpp:1621) and `populateCoreMembers(loopVarId, loopVarId, tps)` on
+the index node (CompileStmt.cpp:553): both are per-occurrence.
+Our emitter's arms are per-site mints too, so the identity structure matches by
+construction; nothing is deduplicated and no `pendingForeachArrayTs` entry is
+created for a cell the law takes.
+By contrast OURS, pristine, SHARES: the one `class_typespec` at 196:45 is the
+io_decl's object, and the 18 member cells share the element class_typespec at
+87:4 / 90:4 — which is why the pristine cell values repeat.

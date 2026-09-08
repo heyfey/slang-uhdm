@@ -1,0 +1,20 @@
+LHS:
+decompile:
+unsupported_typespec: (a_lof_sva), id:248940, line:198:15, endln:198:24
+|vpiName:a_lof_sva
+
+decompile:
+unsupported_typespec: (a_lof_sva), id:248940, line:198:15, endln:198:24
+|vpiName:a_lof_sva
+RHS:
+decompile:
+class_typespec: (svaunit_concurrent_assertion_info), id:301660, line:196:45, endln:196:78
+|vpiName:svaunit_concurrent_assertion_info
+|vpiClassDefn:
+\_class_defn: (svaunit_pkg::svaunit_concurrent_assertion_info), id:185820, file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_concurrent_assertion_info.svh, line:29:1, endln:375:9
+
+decompile:
+class_typespec: (svaunit_concurrent_assertion_info), id:301660, line:196:45, endln:196:78
+|vpiName:svaunit_concurrent_assertion_info
+|vpiClassDefn:
+\_class_defn: (svaunit_pkg::svaunit_concurrent_assertion_info), id:185820, file:/home/heyfey/git-repos/Surelog/third_party/UVM/svaunit/sv/svaunit_concurrent_assertion_info.svh, line:29:1, endln:375:9

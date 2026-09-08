@@ -1,0 +1,101 @@
+r10uvm220 — QUESTION (4): DECODE SLANG… er, DECODE SURELOG
+==========================================================
+Every claim below is a `file:line` in ~/git-repos/Surelog, read, not guessed.
+
+THE MINT — a `foreach` header ALWAYS starts as a placeholder
+-------------------------------------------------------------
+CompileStmt.cpp:526-599  `case VObjectType::paFOREACH`
+  :529  the loop list's ARRAY IDENTIFIER goes to `compileVariable(component,
+        fC, fC->Child(Ps_or_hierarchical_array_identifier), …)` — the child is
+        the bare `slStringConst`, so `declarationId` IS the identifier node.
+  :549-557 EVERY LOOP VARIABLE is minted unconditionally as
+            ref_var  + unsupported_typespec named for the INDEX,
+            both `populateCoreMembers`d at the index's own node, the typespec
+            parented to the ref_var, and the ref registered with
+            `component->needLateTypedefBinding(ref)`.
+        There is NO lookup here at all: the loop variable is a placeholder in
+        every design, always, until a later pass replaces it.
+
+CompileType.cpp:250-435  `CompileHelper::compileVariable`
+  :317-330 `decl_type` is `slStringConst`, neither
+        `paPs_or_hierarchical_identifier` nor `paImplicit_class_handle`, so
+        `ts = compileTypespec(component, fC, declarationId, …)` — Surelog
+        compiles the ARRAY'S NAME AS IF IT WERE A TYPE NAME.
+  :339-355 FIRST LOOKUP: `component->getDataType(typeName)` -> if the name IS a
+        visible type, `getSimpleVarFromTypespec` answers an `array_var` /
+        `class_var` over that type's own typespec and NO placeholder is ever
+        minted.  ** THE TYPE-NAME FENCE.  Arm a6 `g220`. **
+  :356-383 then `design->getClassDefinition(typeName)`, then the
+        `uhdmclass_typespec` arm, then `paChandle_type` / implicitInt.
+  :420-432 THE TAIL: `ref_var` over the typespec compileTypespec returned, and
+        `if (ts->UhdmType() == uhdmunsupported_typespec)
+             component->needLateTypedefBinding(ref);`
+
+CompileType.cpp:1617-1626  the placeholder itself
+        `unsupported_typespec` with `VpiName(typeName)`, `VpiPacked(isPacked)`
+        and `populateCoreMembers(type, type, ref)` — NAMED AS WRITTEN, AT THE
+        IDENTIFIER'S OWN SPAN, no parent, no instance, no ranges (the foreach
+        identifier has no sibling dimension node).
+
+CompileType.cpp:750-762  ** THE PARAMETER FENCE **
+        before `compileDatastructureTypespec` can fall out at :1617 it scans
+        `component->getParamAssignVec()` for a `param_assign` whose LHS
+        parameter carries this name and returns that parameter's own
+        `Actual_typespec`.  A package's / interface's parameters are collected
+        before its subroutines are compiled, so an iterated PARAMETER never
+        reaches the placeholder tail — in ANY holder, elaborated or not.
+        (This is § cloneForeachArrayRefUnresolved183's fence, same line range.)
+
+THE SWAP — what normally replaces both placeholders
+----------------------------------------------------
+UhdmWriter.cpp:2573-2790  `UhdmWriter::lateTypedefBinding(s, mod, m)`
+        walks `mod->getLateTypedefBinding()`; for each entry whose
+        `Actual_typespec()` is an `unsupported_typespec` it looks the NAME up
+        in the enclosing `function` / `task`:
+          :2637-2660  `func->Io_decls()`   -> a FORMAL's own typespec
+          :2661-2674  `func->Variables()`  -> a subroutine LOCAL's
+          :2675-2692  `func->Parameters()` -> a parameter's
+          :2693-2720  `func->Instance()`   -> a package variable's
+        and, for the LOOP VARIABLE, `swapForSpecifiedVar` (:2490-2569) replaces
+        the whole `ref_var` with `getSimpleVarFromTypespec` of whatever
+        `decodeHierPath` answered (or the bare `int_var` at :2550).
+
+** AND `writeInterface` NEVER CALLS IT. **
+UhdmWriter.cpp:1626-1794  `UhdmWriter::writeInterface` — the complete function.
+        It contains NEITHER `lateTypedefBinding` NOR `lateBinding`.
+The complete caller list of `lateTypedefBinding` in UhdmWriter.cpp is:
+          :1302  writePackage        (the package's ELABORATED copy)
+          :2071  writeElabProgram    (an ELABORATED program)
+          :4784  writeInstance       (an ELABORATED module / interface instance)
+          :4786  writeInstance       (again, after lateBinding)
+          :4912  write()             ($unit FileContent pass)
+          :4991  write()             ($unit FileContent pass, after packages)
+        (:1066-1067 shows the `writeClass` pair COMMENTED OUT — which is why
+        § classMethodNoBind exists at all.)
+An interface that no instance elaborates reaches NONE of them.  Its
+`uhdmallInterfaces` listing — its ONLY listing — therefore keeps `paFOREACH`'s
+mints exactly as compiled.
+
+WHY writeInstance ALSO fixes the DEF view (arm a3, arm a2)
+-----------------------------------------------------------
+`lateTypedefBinding` MUTATES the objects on `mod->getLateTypedefBinding()`,
+which are the DEFINITION-phase objects.  So one instance is enough to resolve
+the definition listing too — which is exactly what arm a2 (`if220i`, the same
+body instantiated) and arm a3 (`m220sub`, a module) measure: every cell
+resolves in BOTH views.  And a module with no instantiator is a TOP, hence
+always elaborated, so there is no uninstantiated MODULE to test — the holder
+this law needs can only be an interface or an uninstantiated program.
+
+OUR SIDE
+--------
+`uninstIfaceSubBody218` (include/UhdmExporter.h, r10uvm218) is true for exactly
+the `emitTaskFuncs` call ModuleEmit.cpp:28627-28652 makes for an interface
+definition with `defAllInstCount[&def] == 0`, and false everywhere else.  It is
+therefore the emitter's spelling of "the holder `writeInterface` will write and
+no `writeInstance` will ever revisit", and this law rides it:
+  StmtEmit.cpp  `uninstIfaceArrUnres220`  -> the ARRAY half, with the PARAMETER
+                                             and TYPE-NAME fences;
+  StmtEmit.cpp  the two loop-variable gates -> the LOOP-VARIABLE half, with NO
+                                             fence, because `paFOREACH`'s
+                                             loop-variable mint has no lookup
+                                             to escape through.
