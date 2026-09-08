@@ -1,0 +1,60 @@
+1770711a1770712,1770713
+>           |vpiActual:
+>           \_io_decl: (a_sva_type), line:255:103, endln:255:113
+1771016a1771019,1771020
+>           |vpiActual:
+>           \_io_decl: (a_sva_type), line:218:84, endln:218:94
+1771685a1771690,1771691
+>         |vpiActual:
+>         \_io_decl: (a_test_name), line:122:41, endln:122:52
+1771999a1772006,1772007
+>           |vpiActual:
+>           \_io_decl: (a_reason), line:148:79, endln:148:87
+1772805a1772814,1772815
+>                   |vpiActual:
+>                   \_enum_var: (work@svaunit_vpi_interface.update_sva_from_c.crt_state), line:202:60, endln:202:69
+1773253a1773264,1773265
+>           |vpiActual:
+>           \_io_decl: (a_test_name), line:306:41, endln:306:52
+1773259a1773272,1773273
+>           |vpiActual:
+>           \_bit_var: (work@svaunit_vpi_interface.reset_assertion.enable_sva), line:307:21, endln:307:31
+1773468a1773483,1773484
+>           |vpiActual:
+>           \_io_decl: (a_test_name), line:329:43, endln:329:54
+1773474a1773491,1773492
+>           |vpiActual:
+>           \_bit_var: (work@svaunit_vpi_interface.disable_assertion.disable_sva), line:331:21, endln:331:32
+1773683a1773702,1773703
+>           |vpiActual:
+>           \_io_decl: (a_test_name), line:354:42, endln:354:53
+1773689a1773710,1773711
+>           |vpiActual:
+>           \_bit_var: (work@svaunit_vpi_interface.enable_assertion.enable_sva), line:355:21, endln:355:31
+1773911a1773934,1773935
+>           |vpiActual:
+>           \_io_decl: (a_test_name), line:378:40, endln:378:51
+1773917a1773942,1773943
+>           |vpiActual:
+>           \_bit_var: (work@svaunit_vpi_interface.kill_assertion.enable_sva), line:380:21, endln:380:31
+1774146a1774173,1774174
+>           |vpiActual:
+>           \_io_decl: (a_test_name), line:403:48, endln:403:59
+1774152a1774181,1774182
+>           |vpiActual:
+>           \_bit_var: (work@svaunit_vpi_interface.disable_step_assertion.enable_sva), line:405:21, endln:405:31
+1774361a1774392,1774393
+>           |vpiActual:
+>           \_io_decl: (a_test_name), line:429:47, endln:429:58
+1774367a1774400,1774401
+>           |vpiActual:
+>           \_bit_var: (work@svaunit_vpi_interface.enable_step_assertion.enable_sva), line:431:21, endln:431:31
+1774666a1774701,1774702
+>               |vpiActual:
+>               \_bit_var: (work@svaunit_vpi_interface.system_on_all_assertions.enable_sva), line:465:24, endln:465:34
+1774807a1774844,1774845
+>               |vpiActual:
+>               \_bit_var: (work@svaunit_vpi_interface.system_off_all_assertions.disable_sva), line:480:24, endln:480:35
+1774948a1774987,1774988
+>               |vpiActual:
+>               \_bit_var: (work@svaunit_vpi_interface.system_end_all_assertions.disable_sva), line:496:24, endln:496:35

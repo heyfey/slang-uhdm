@@ -1,0 +1,41 @@
+ARM b5_odd parse rc_sl=0 rc_a=0 rc_b=0
+CALIB b5_odd parse -- REFS golden=14 ours=14  KEYS=14  SAME=14 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+CENSUS-PRIS b5_odd parse -- REFS golden=14 ours=14  KEYS=15  SAME=5 MISSING-OURS=8 EXTRA-OURS=0 OTHER=2
+CENSUS-PAT  b5_odd parse -- REFS golden=14 ours=14  KEYS=15  SAME=13 MISSING-OURS=0 EXTRA-OURS=1 OTHER=1
+CELLPRIS b5_odd parse MISSING-OURS  a_i                      16:11  g=['io_decl(a_i)@14:29'] o=['-']
+CELLPRIS b5_odd parse MISSING-OURS  li5v                     17:11  g=['int_var(work@if5v.fimp5v.li5v)@15:11'] o=['-']
+CELLPRIS b5_odd parse MISSING-OURS  a_i                      18:11  g=['io_decl(a_i)@14:29'] o=['-']
+CELLPRIS b5_odd parse MISSING-OURS  li5v                     19:11  g=['int_var(work@if5v.fimp5v.li5v)@15:11'] o=['-']
+CELLPRIS b5_odd parse MISSING-OURS  a_o                      24:17  g=['io_decl(a_o)@22:29'] o=['-']
+CELLPRIS b5_odd parse OTHER         h5v                      25:7   g=['-'] o=[]
+CELLPRIS b5_odd parse OTHER         a_o                      25:23  g=[] o=['-']
+CELLPRIS b5_odd parse MISSING-OURS  a_o                      26:15  g=['io_decl(a_o)@22:29'] o=['-']
+CELLPRIS b5_odd parse MISSING-OURS  lo5v                     26:22  g=['int_var(work@if5v.fodd5v.lo5v)@23:11'] o=['-']
+CELLPRIS b5_odd parse MISSING-OURS  a_o                      28:11  g=['io_decl(a_o)@22:29'] o=['-']
+CELLPRIS b5_odd parse -- REFS golden=14 ours=14  KEYS=15  SAME=5 MISSING-OURS=8 EXTRA-OURS=0 OTHER=2
+CELLPAT  b5_odd parse OTHER         h5v                      25:7   g=['-'] o=[]
+CELLPAT  b5_odd parse EXTRA-OURS    a_o                      25:23  g=[] o=['io_decl(a_o)@22:29']
+CELLPAT  b5_odd parse -- REFS golden=14 ours=14  KEYS=15  SAME=13 MISSING-OURS=0 EXTRA-OURS=1 OTHER=1
+ARM b5_odd elab rc_sl=0 rc_a=0 rc_b=0
+CALIB b5_odd elab -- REFS golden=15 ours=15  KEYS=14  SAME=14 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+CENSUS-PRIS b5_odd elab -- REFS golden=15 ours=14  KEYS=15  SAME=3 MISSING-OURS=9 EXTRA-OURS=0 OTHER=3
+CENSUS-PAT  b5_odd elab -- REFS golden=15 ours=14  KEYS=15  SAME=11 MISSING-OURS=1 EXTRA-OURS=1 OTHER=2
+CELLPRIS b5_odd elab OTHER         this                      6:33  g=['-', '-'] o=['-']
+CELLPRIS b5_odd elab MISSING-OURS  a_i                      16:11  g=['io_decl(a_i)@14:29'] o=['-']
+CELLPRIS b5_odd elab MISSING-OURS  li5v                     17:11  g=['int_var(work@if5v.fimp5v.li5v)@15:11'] o=['-']
+CELLPRIS b5_odd elab MISSING-OURS  a_i                      18:11  g=['io_decl(a_i)@14:29'] o=['-']
+CELLPRIS b5_odd elab MISSING-OURS  li5v                     19:11  g=['int_var(work@if5v.fimp5v.li5v)@15:11'] o=['-']
+CELLPRIS b5_odd elab MISSING-OURS  a_o                      24:17  g=['io_decl(a_o)@22:29'] o=['-']
+CELLPRIS b5_odd elab OTHER         h5v                      25:7   g=['-'] o=[]
+CELLPRIS b5_odd elab OTHER         a_o                      25:23  g=[] o=['-']
+CELLPRIS b5_odd elab MISSING-OURS  a_o                      26:15  g=['io_decl(a_o)@22:29'] o=['-']
+CELLPRIS b5_odd elab MISSING-OURS  lo5v                     26:22  g=['int_var(work@if5v.fodd5v.lo5v)@23:11'] o=['-']
+CELLPRIS b5_odd elab MISSING-OURS  a_o                      28:11  g=['io_decl(a_o)@22:29'] o=['-']
+CELLPRIS b5_odd elab MISSING-OURS  z                        32:37  g=['io_decl(z)@32:26'] o=['-']
+CELLPRIS b5_odd elab -- REFS golden=15 ours=14  KEYS=15  SAME=3 MISSING-OURS=9 EXTRA-OURS=0 OTHER=3
+CELLPAT  b5_odd elab OTHER         this                      6:33  g=['-', '-'] o=['-']
+CELLPAT  b5_odd elab OTHER         h5v                      25:7   g=['-'] o=[]
+CELLPAT  b5_odd elab EXTRA-OURS    a_o                      25:23  g=[] o=['io_decl(a_o)@22:29']
+CELLPAT  b5_odd elab MISSING-OURS  z                        32:37  g=['io_decl(z)@32:26'] o=['-']
+CELLPAT  b5_odd elab -- REFS golden=15 ours=14  KEYS=15  SAME=11 MISSING-OURS=1 EXTRA-OURS=1 OTHER=2
+-- ARM-VIEWS SCORED: 2   NO-DATABASE: 0   CALIB non-null: 0

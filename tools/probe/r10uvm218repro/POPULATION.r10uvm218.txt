@@ -1,0 +1,97 @@
+r10uvm218 — QUESTION (2): THE POPULATION, KEYED BY REFERENT KIND x SUBROUTINE
+KIND x VIEW, AND BOTH ONE-SIDED SETS
+==============================================================================
+MEASUREMENT ONLY.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+Scorer: `cen218.py` (the reference-actual census), keyed on
+(vpiName, line, col) as a MULTISET — the same source position is emitted once
+per copy of the enclosing listing and a last-writer dict would drop rows
+(RESUME §9's census trap).  The golden-vs-golden CALIBRATION is NULL:
+`SAME=303 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0`.
+
+THE HOLDER
+----------
+`work@svaunit_vpi_interface`, MiniAmiq, `-parse` view (BOTH corpus modes; the
+test carries no `-elabuhdm`).  322 golden references, 279 ours, 326 keys.
+
+                                      pristine        patched
+  SAME                                   219             239
+  MISSING-OURS (golden binds, we do not)   21               1
+  EXTRA-OURS   (we bind, golden does not)  16              16
+  OTHER        (a key one side only, or a
+                shape/naming residue)      70              70
+
+BOTH ONE-SIDED SETS, UNCHANGED BY THE PATCH
+--------------------------------------------
+  ONLY-GOLDEN keys   47 pristine   47 patched
+  ONLY-OURS   keys   23 pristine   23 patched
+No key is added to, or removed from, either side.  The EXTRA-OURS and OTHER
+CELL LISTS are BYTE-IDENTICAL between the two binaries (only the summary line
+differs), so AWAY-GOLDEN and MOVED-WRONG are 0 cell for cell, not merely by
+count.  ONLY-GOLDEN is dominated by golden's hier_path spelling of a
+receiver-qualified call (`sva_info[index].set_enable(...)`), ONLY-OURS by the
+sixteen enum-const actuals we mint where golden leaves the const bare — both
+PRE-EXISTING families of other passes, untouched here.
+
+THE 20 CELLS THAT MOVED, EVERY ONE ONTO GOLDEN'S OWN VALUE
+------------------------------------------------------------
+BY REFERENT KIND                     BY SUBROUTINE KIND
+  io_decl  (a FORMAL)          10      DPI-EXPORTED function      2
+  bit_var  (a block LOCAL)      9      plain interface function  18
+  enum_var (a block LOCAL)      1      task                       0 (this
+                                        interface declares none)
+  ---------------------------- --      ------------------------- --
+  total                        20      total                     20
+
+  line:col   name          golden       subroutine (kind)
+  123:25  a_test_name   io_decl     get_info_from_c        (plain)
+  149:11  a_reason      io_decl     get_state_from_reason  (plain)
+  206:16  crt_state     enum_var    update_sva_from_c      (plain)
+  219:10  a_sva_type    io_decl     create_assertion_dpi   (DPI-EXPORT, :78)
+  258:10  a_sva_type    io_decl     pass_info_to_sv_dpi    (DPI-EXPORT, :72)
+  309:24  a_test_name   io_decl     reset_assertion        (plain)
+  309:37  enable_sva    bit_var     reset_assertion        (plain)
+  333:24  a_test_name   io_decl     disable_assertion      (plain)
+  333:37  disable_sva   bit_var     disable_assertion      (plain)
+  357:24  a_test_name   io_decl     enable_assertion       (plain)
+  357:37  enable_sva    bit_var     enable_assertion       (plain)
+  382:24  a_test_name   io_decl     kill_assertion         (plain)
+  382:37  enable_sva    bit_var     kill_assertion         (plain)
+  407:24  a_test_name   io_decl     disable_step_assertion (plain)
+  407:37  enable_sva    bit_var     disable_step_assertion (plain)
+  433:24  a_test_name   io_decl     enable_step_assertion  (plain)
+  433:37  enable_sva    bit_var     enable_step_assertion  (plain)
+  467:50  enable_sva    bit_var     system_on_all_assertions   (plain)
+  482:50  disable_sva   bit_var     system_off_all_assertions  (plain)
+  498:50  disable_sva   bit_var     system_end_all_assertions  (plain)
+
+THE VIEW AXIS IS NOT A DISTINGUISHER FOR THE CORPUS ROW, AND IS ONE ON THE GRID
+-------------------------------------------------------------------------------
+MiniAmiq's two modes read the SAME cmp log byte for byte on both binaries and
+their two databases carry the same md5, so `default` and `testflags` are one
+population here.  The grid measures the OTHER view directly: with `-elabuhdm`
+Surelog elaborates the definition and golden binds every formal and local
+everywhere, so the law's cells are a strict SUBSET of golden's set in that view
+too (arm a2: MISSING-OURS 30 -> 18, EXTRA-OURS 1 -> 1, OTHER 1 -> 1).
+
+THE ONE CELL THE LAW DOES NOT TAKE — R1, ISOLATED ON ARM a5
+------------------------------------------------------------
+  383:56  a_sim_time   io_decl   kill_assertion  — STILL BARE
+
+`control_assertion_dpi(a_sva.get_sva_path(), `SVAUNIT_VPI_CONTROL_KILL_ASSERTION,
+a_sim_time);` is a call STATEMENT whose FIRST argument is a RECEIVER-QUALIFIED
+method call.  Our emitter renders such a statement through the hier_path arm
+that raises § classInBodyRecvCallArgNoBind52's counter, and fence (5) of the
+predicate — which is exactly right for the class-method twin — then silences
+the SIBLING arguments too.  Arm `grid218/a5_sibling` separates the features on
+ONE golden and names the boundary:
+
+  s01 16:15/16:20  sink518(a_p, a_q)                two bare formals    CLOSED
+  s02 17:31        sink518(hh518.get518(), a_q)     RECEIVER call first STILL
+  s03 19:28        sink518(loc518518(), a_q)        BARE call first     CLOSED
+  s04 20:15        sink518(a_p, hh518.get518())     RECEIVER call second STILL
+  s05 21:29        if (hh518.get518() == a_q)       RECEIVER call in a
+                                                     CONDITION          CLOSED
+
+so it is the RECEIVER, not "a call as a sibling", and a later pass can lift it
+by scoping fence (5) to the receiver call's OWN argument list.  It is a MISSING
+residue in both directions: never AWAY.

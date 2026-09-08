@@ -1,0 +1,150 @@
+ARM ./r10buvm9repro/w3v_homes.sv def rc_sl=0 rc_a=0 rc_b=0 CALIB[-- REFS golden=14 ours=14  KEYS=13  SAME=13 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0]
+  PRIS -- REFS golden=14 ours=23  KEYS=23  SAME=7 MISSING-OURS=4 EXTRA-OURS=2 OTHER=10
+  PAT  -- REFS golden=14 ours=23  KEYS=23  SAME=8 MISSING-OURS=3 EXTRA-OURS=2 OTHER=10
+  SCORE TO-GOLDEN=1 AWAY-GOLDEN=0 STILL-WRONG=3
+  CELLDIFF ./r10buvm9repro/w3v_homes.sv def 16,17c16
+  CELLDIFF ./r10buvm9repro/w3v_homes.sv def < MISSING-OURS  k                        49:33  g=['io_decl'] o=['-']
+  CELLDIFF ./r10buvm9repro/w3v_homes.sv def < -- REFS golden=14 ours=23  KEYS=23  SAME=7 MISSING-OURS=4 EXTRA-OURS=2 OTHER=10
+  CELLDIFF ./r10buvm9repro/w3v_homes.sv def ---
+  CELLDIFF ./r10buvm9repro/w3v_homes.sv def > -- REFS golden=14 ours=23  KEYS=23  SAME=8 MISSING-OURS=3 EXTRA-OURS=2 OTHER=10
+ARM ./r10buvm9repro/w7v_pkgclsts2.sv def rc_sl=4 rc_a=0 rc_b=0 CALIB[-- REFS golden=6 ours=6  KEYS=6  SAME=6 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0]
+  PRIS -- REFS golden=6 ours=12  KEYS=12  SAME=4 MISSING-OURS=2 EXTRA-OURS=0 OTHER=6
+  PAT  -- REFS golden=6 ours=12  KEYS=12  SAME=5 MISSING-OURS=1 EXTRA-OURS=0 OTHER=6
+  SCORE TO-GOLDEN=1 AWAY-GOLDEN=0 STILL-WRONG=1
+  CELLDIFF ./r10buvm9repro/w7v_pkgclsts2.sv def 1d0
+  CELLDIFF ./r10buvm9repro/w7v_pkgclsts2.sv def < MISSING-OURS  k                        40:33  g=['io_decl'] o=['-']
+  CELLDIFF ./r10buvm9repro/w7v_pkgclsts2.sv def 9c8
+  CELLDIFF ./r10buvm9repro/w7v_pkgclsts2.sv def < -- REFS golden=6 ours=12  KEYS=12  SAME=4 MISSING-OURS=2 EXTRA-OURS=0 OTHER=6
+  CELLDIFF ./r10buvm9repro/w7v_pkgclsts2.sv def ---
+  CELLDIFF ./r10buvm9repro/w7v_pkgclsts2.sv def > -- REFS golden=6 ours=12  KEYS=12  SAME=5 MISSING-OURS=1 EXTRA-OURS=0 OTHER=6
+ARM ./r10uvm122repro/g122_e_home.sv def rc_sl=0 rc_a=0 rc_b=0 CALIB[-- REFS golden=20 ours=20  KEYS=20  SAME=20 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0]
+  PRIS -- REFS golden=20 ours=20  KEYS=20  SAME=18 MISSING-OURS=1 EXTRA-OURS=0 OTHER=1
+  PAT  -- REFS golden=20 ours=20  KEYS=20  SAME=19 MISSING-OURS=0 EXTRA-OURS=0 OTHER=1
+  SCORE TO-GOLDEN=1 AWAY-GOLDEN=0 STILL-WRONG=0
+  CELLDIFF ./r10uvm122repro/g122_e_home.sv def 2,3c2
+  CELLDIFF ./r10uvm122repro/g122_e_home.sv def < MISSING-OURS  s                       122:9   g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm122repro/g122_e_home.sv def < -- REFS golden=20 ours=20  KEYS=20  SAME=18 MISSING-OURS=1 EXTRA-OURS=0 OTHER=1
+  CELLDIFF ./r10uvm122repro/g122_e_home.sv def ---
+  CELLDIFF ./r10uvm122repro/g122_e_home.sv def > -- REFS golden=20 ours=20  KEYS=20  SAME=19 MISSING-OURS=0 EXTRA-OURS=0 OTHER=1
+ARM ./r10uvm216repro/grid216/g216_d_iface_top.sv def rc_sl=0 rc_a=0 rc_b=0 CALIB[-- REFS golden=9 ours=9  KEYS=9  SAME=9 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0]
+  PRIS -- REFS golden=9 ours=9  KEYS=9  SAME=8 MISSING-OURS=1 EXTRA-OURS=0 OTHER=0
+  PAT  -- REFS golden=9 ours=9  KEYS=9  SAME=9 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+  SCORE TO-GOLDEN=1 AWAY-GOLDEN=0 STILL-WRONG=0
+  CELLDIFF ./r10uvm216repro/grid216/g216_d_iface_top.sv def 1,2c1
+  CELLDIFF ./r10uvm216repro/grid216/g216_d_iface_top.sv def < MISSING-OURS  a                        25:16  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm216repro/grid216/g216_d_iface_top.sv def < -- REFS golden=9 ours=9  KEYS=9  SAME=8 MISSING-OURS=1 EXTRA-OURS=0 OTHER=0
+  CELLDIFF ./r10uvm216repro/grid216/g216_d_iface_top.sv def ---
+  CELLDIFF ./r10uvm216repro/grid216/g216_d_iface_top.sv def > -- REFS golden=9 ours=9  KEYS=9  SAME=9 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+ARM ./r10uvm218repro/grid218/a1_iface/dut.sv def rc_sl=0 rc_a=0 rc_b=0 CALIB[-- REFS golden=51 ours=51  KEYS=51  SAME=51 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0]
+  PRIS -- REFS golden=51 ours=52  KEYS=52  SAME=37 MISSING-OURS=13 EXTRA-OURS=1 OTHER=1
+  PAT  -- REFS golden=51 ours=52  KEYS=52  SAME=48 MISSING-OURS=2 EXTRA-OURS=1 OTHER=1
+  SCORE TO-GOLDEN=11 AWAY-GOLDEN=0 STILL-WRONG=2
+  CELLDIFF ./r10uvm218repro/grid218/a1_iface/dut.sv def 1,4d0
+  CELLDIFF ./r10uvm218repro/grid218/a1_iface/dut.sv def < MISSING-OURS  a_nm                     24:11  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a1_iface/dut.sv def < MISSING-OURS  lvar218                  27:11  g=['bit_var'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a1_iface/dut.sv def < MISSING-OURS  a_rs                     30:11  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a1_iface/dut.sv def < MISSING-OURS  lenum218                 33:11  g=['enum_var'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a1_iface/dut.sv def 7,13d2
+  CELLDIFF ./r10uvm218repro/grid218/a1_iface/dut.sv def < MISSING-OURS  a_rs                     36:13  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a1_iface/dut.sv def < MISSING-OURS  a_nm                     40:17  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a1_iface/dut.sv def < MISSING-OURS  lvar218                  41:18  g=['bit_var'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a1_iface/dut.sv def < MISSING-OURS  a_nm                     42:19  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a1_iface/dut.sv def < MISSING-OURS  a_en                     42:25  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a1_iface/dut.sv def < MISSING-OURS  a_nm                     51:17  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a1_iface/dut.sv def < MISSING-OURS  a_nm                     52:11  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a1_iface/dut.sv def 16c5
+  CELLDIFF ./r10uvm218repro/grid218/a1_iface/dut.sv def < -- REFS golden=51 ours=52  KEYS=52  SAME=37 MISSING-OURS=13 EXTRA-OURS=1 OTHER=1
+  CELLDIFF ./r10uvm218repro/grid218/a1_iface/dut.sv def ---
+  CELLDIFF ./r10uvm218repro/grid218/a1_iface/dut.sv def > -- REFS golden=51 ours=52  KEYS=52  SAME=48 MISSING-OURS=2 EXTRA-OURS=1 OTHER=1
+ARM ./r10uvm218repro/grid218/a1_iface/dut.sv elab rc_sl=0 rc_a=0 rc_b=0 CALIB[-- REFS golden=63 ours=63  KEYS=51  SAME=51 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0]
+  PRIS -- REFS golden=63 ours=64  KEYS=52  SAME=48 MISSING-OURS=2 EXTRA-OURS=1 OTHER=1
+  PAT  -- REFS golden=63 ours=64  KEYS=52  SAME=50 MISSING-OURS=0 EXTRA-OURS=1 OTHER=1
+  SCORE TO-GOLDEN=2 AWAY-GOLDEN=0 STILL-WRONG=0
+  CELLDIFF ./r10uvm218repro/grid218/a1_iface/dut.sv elab 3,5c3
+  CELLDIFF ./r10uvm218repro/grid218/a1_iface/dut.sv elab < MISSING-OURS  a_nm                     42:19  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a1_iface/dut.sv elab < MISSING-OURS  a_en                     42:25  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a1_iface/dut.sv elab < -- REFS golden=63 ours=64  KEYS=52  SAME=48 MISSING-OURS=2 EXTRA-OURS=1 OTHER=1
+  CELLDIFF ./r10uvm218repro/grid218/a1_iface/dut.sv elab ---
+  CELLDIFF ./r10uvm218repro/grid218/a1_iface/dut.sv elab > -- REFS golden=63 ours=64  KEYS=52  SAME=50 MISSING-OURS=0 EXTRA-OURS=1 OTHER=1
+ARM ./r10uvm218repro/grid218/a2_window/dut.sv def rc_sl=0 rc_a=0 rc_b=0 CALIB[-- REFS golden=59 ours=59  KEYS=59  SAME=59 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0]
+  PRIS -- REFS golden=59 ours=60  KEYS=60  SAME=41 MISSING-OURS=12 EXTRA-OURS=6 OTHER=1
+  PAT  -- REFS golden=59 ours=60  KEYS=60  SAME=53 MISSING-OURS=0 EXTRA-OURS=6 OTHER=1
+  SCORE TO-GOLDEN=12 AWAY-GOLDEN=0 STILL-WRONG=0
+  CELLDIFF ./r10uvm218repro/grid218/a2_window/dut.sv def 1,3d0
+  CELLDIFF ./r10uvm218repro/grid218/a2_window/dut.sv def < MISSING-OURS  a_x                      27:11  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a2_window/dut.sv def < MISSING-OURS  loc218                   28:11  g=['int_var'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a2_window/dut.sv def < MISSING-OURS  a_x                      33:11  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a2_window/dut.sv def 6,7d2
+  CELLDIFF ./r10uvm218repro/grid218/a2_window/dut.sv def < MISSING-OURS  a_x                      35:18  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a2_window/dut.sv def < MISSING-OURS  a_x                      37:11  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a2_window/dut.sv def 13,20c8
+  CELLDIFF ./r10uvm218repro/grid218/a2_window/dut.sv def < MISSING-OURS  a_x                      50:17  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a2_window/dut.sv def < MISSING-OURS  loc218                   51:17  g=['int_var'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a2_window/dut.sv def < MISSING-OURS  a_x                      55:17  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a2_window/dut.sv def < MISSING-OURS  a_y                      55:23  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a2_window/dut.sv def < MISSING-OURS  a_x                      57:23  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a2_window/dut.sv def < MISSING-OURS  a_x                      59:17  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a2_window/dut.sv def < MISSING-OURS  uloc218                  72:14  g=['int_var'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a2_window/dut.sv def < -- REFS golden=59 ours=60  KEYS=60  SAME=41 MISSING-OURS=12 EXTRA-OURS=6 OTHER=1
+  CELLDIFF ./r10uvm218repro/grid218/a2_window/dut.sv def ---
+  CELLDIFF ./r10uvm218repro/grid218/a2_window/dut.sv def > -- REFS golden=59 ours=60  KEYS=60  SAME=53 MISSING-OURS=0 EXTRA-OURS=6 OTHER=1
+ARM ./r10uvm218repro/grid218/a2_window/dut.sv elab rc_sl=0 rc_a=0 rc_b=0 CALIB[-- REFS golden=60 ours=60  KEYS=59  SAME=59 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0]
+  PRIS -- REFS golden=60 ours=61  KEYS=60  SAME=57 MISSING-OURS=1 EXTRA-OURS=1 OTHER=1
+  PAT  -- REFS golden=60 ours=61  KEYS=60  SAME=58 MISSING-OURS=0 EXTRA-OURS=1 OTHER=1
+  SCORE TO-GOLDEN=1 AWAY-GOLDEN=0 STILL-WRONG=0
+  CELLDIFF ./r10uvm218repro/grid218/a2_window/dut.sv elab 3,4c3
+  CELLDIFF ./r10uvm218repro/grid218/a2_window/dut.sv elab < MISSING-OURS  a_x                      59:17  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a2_window/dut.sv elab < -- REFS golden=60 ours=61  KEYS=60  SAME=57 MISSING-OURS=1 EXTRA-OURS=1 OTHER=1
+  CELLDIFF ./r10uvm218repro/grid218/a2_window/dut.sv elab ---
+  CELLDIFF ./r10uvm218repro/grid218/a2_window/dut.sv elab > -- REFS golden=60 ours=61  KEYS=60  SAME=58 MISSING-OURS=0 EXTRA-OURS=1 OTHER=1
+ARM ./r10uvm218repro/grid218/a4_dpi/dut.sv def rc_sl=0 rc_a=0 rc_b=0 CALIB[-- REFS golden=23 ours=23  KEYS=23  SAME=23 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0]
+  PRIS -- REFS golden=23 ours=23  KEYS=23  SAME=15 MISSING-OURS=8 EXTRA-OURS=0 OTHER=0
+  PAT  -- REFS golden=23 ours=23  KEYS=23  SAME=23 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+  SCORE TO-GOLDEN=8 AWAY-GOLDEN=0 STILL-WRONG=0
+  CELLDIFF ./r10uvm218repro/grid218/a4_dpi/dut.sv def 1,9c1
+  CELLDIFF ./r10uvm218repro/grid218/a4_dpi/dut.sv def < MISSING-OURS  a_ty                     14:11  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a4_dpi/dut.sv def < MISSING-OURS  a_rs                     17:17  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a4_dpi/dut.sv def < MISSING-OURS  a_q                      24:11  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a4_dpi/dut.sv def < MISSING-OURS  a_q                      25:17  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a4_dpi/dut.sv def < MISSING-OURS  a_p                      31:11  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a4_dpi/dut.sv def < MISSING-OURS  a_p                      32:17  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a4_dpi/dut.sv def < MISSING-OURS  a_p                      43:11  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a4_dpi/dut.sv def < MISSING-OURS  a_p                      44:18  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a4_dpi/dut.sv def < -- REFS golden=23 ours=23  KEYS=23  SAME=15 MISSING-OURS=8 EXTRA-OURS=0 OTHER=0
+  CELLDIFF ./r10uvm218repro/grid218/a4_dpi/dut.sv def ---
+  CELLDIFF ./r10uvm218repro/grid218/a4_dpi/dut.sv def > -- REFS golden=23 ours=23  KEYS=23  SAME=23 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+ARM ./r10uvm218repro/grid218/a5_sibling/dut.sv def rc_sl=0 rc_a=0 rc_b=0 CALIB[-- REFS golden=7 ours=7  KEYS=7  SAME=7 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0]
+  PRIS -- REFS golden=7 ours=9  KEYS=9  SAME=1 MISSING-OURS=6 EXTRA-OURS=0 OTHER=2
+  PAT  -- REFS golden=7 ours=9  KEYS=9  SAME=5 MISSING-OURS=2 EXTRA-OURS=0 OTHER=2
+  SCORE TO-GOLDEN=4 AWAY-GOLDEN=0 STILL-WRONG=2
+  CELLDIFF ./r10uvm218repro/grid218/a5_sibling/dut.sv def 1,2d0
+  CELLDIFF ./r10uvm218repro/grid218/a5_sibling/dut.sv def < MISSING-OURS  a_p                      16:15  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a5_sibling/dut.sv def < MISSING-OURS  a_q                      16:20  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a5_sibling/dut.sv def 5d2
+  CELLDIFF ./r10uvm218repro/grid218/a5_sibling/dut.sv def < MISSING-OURS  a_q                      19:28  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a5_sibling/dut.sv def 8,9c5
+  CELLDIFF ./r10uvm218repro/grid218/a5_sibling/dut.sv def < MISSING-OURS  a_q                      21:29  g=['io_decl'] o=['-']
+  CELLDIFF ./r10uvm218repro/grid218/a5_sibling/dut.sv def < -- REFS golden=7 ours=9  KEYS=9  SAME=1 MISSING-OURS=6 EXTRA-OURS=0 OTHER=2
+  CELLDIFF ./r10uvm218repro/grid218/a5_sibling/dut.sv def ---
+  CELLDIFF ./r10uvm218repro/grid218/a5_sibling/dut.sv def > -- REFS golden=7 ours=9  KEYS=9  SAME=5 MISSING-OURS=2 EXTRA-OURS=0 OTHER=2
+ARM ./r10v122repro/q8scopes2.sv def rc_sl=0 rc_a=0 rc_b=0 CALIB[-- REFS golden=38 ours=38  KEYS=28  SAME=28 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0]
+  PRIS -- REFS golden=38 ours=35  KEYS=28  SAME=16 MISSING-OURS=4 EXTRA-OURS=5 OTHER=3
+  PAT  -- REFS golden=38 ours=35  KEYS=28  SAME=17 MISSING-OURS=3 EXTRA-OURS=5 OTHER=3
+  SCORE TO-GOLDEN=1 AWAY-GOLDEN=0 STILL-WRONG=3
+  CELLDIFF ./r10v122repro/q8scopes2.sv def 1d0
+  CELLDIFF ./r10v122repro/q8scopes2.sv def < MISSING-OURS  t0                       19:9   g=['io_decl'] o=['-']
+  CELLDIFF ./r10v122repro/q8scopes2.sv def 13c12
+  CELLDIFF ./r10v122repro/q8scopes2.sv def < -- REFS golden=38 ours=35  KEYS=28  SAME=16 MISSING-OURS=4 EXTRA-OURS=5 OTHER=3
+  CELLDIFF ./r10v122repro/q8scopes2.sv def ---
+  CELLDIFF ./r10v122repro/q8scopes2.sv def > -- REFS golden=38 ours=35  KEYS=28  SAME=17 MISSING-OURS=3 EXTRA-OURS=5 OTHER=3
+ARM ./r10v144repro/v144_a_homes.sv def rc_sl=4 rc_a=0 rc_b=0 CALIB[-- REFS golden=18 ours=18  KEYS=18  SAME=18 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0]
+  PRIS -- REFS golden=18 ours=12  KEYS=18  SAME=10 MISSING-OURS=6 EXTRA-OURS=1 OTHER=1
+  PAT  -- REFS golden=18 ours=12  KEYS=18  SAME=11 MISSING-OURS=5 EXTRA-OURS=1 OTHER=1
+  SCORE TO-GOLDEN=1 AWAY-GOLDEN=0 STILL-WRONG=5
+  CELLDIFF ./r10v144repro/v144_a_homes.sv def 5d4
+  CELLDIFF ./r10v144repro/v144_a_homes.sv def < MISSING-OURS  x                        81:52  g=['int_var'] o=['-']
+  CELLDIFF ./r10v144repro/v144_a_homes.sv def 9c8
+  CELLDIFF ./r10v144repro/v144_a_homes.sv def < -- REFS golden=18 ours=12  KEYS=18  SAME=10 MISSING-OURS=6 EXTRA-OURS=1 OTHER=1
+  CELLDIFF ./r10v144repro/v144_a_homes.sv def ---
+  CELLDIFF ./r10v144repro/v144_a_homes.sv def > -- REFS golden=18 ours=12  KEYS=18  SAME=11 MISSING-OURS=5 EXTRA-OURS=1 OTHER=1
+-- ARM-VIEWS=12 NO-DATABASE=0 CALIB non-null=0 TO-GOLDEN=44 AWAY-GOLDEN=0 STILL-WRONG=16

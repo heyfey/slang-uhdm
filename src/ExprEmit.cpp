@@ -631,6 +631,66 @@ bool UhdmExporter::blkLocalSameCtrlDepth57(const slang::ast::Symbol& sym) const 
     return false;
 }
 
+// § uninstIfaceBodyBindsInMethodWindow218 — the predicate.  See
+// UhdmExporter.h's `uninstIfaceSubBody218` for the law, its Surelog decode and
+// every measured arm cell.  TRUE means BIND (the reverse polarity of
+// § refVarLocalNoBind5 just below: this law only ever ADDS).
+//
+// Five conditions, each one a cell of arm a2 that fails without it:
+//   (1) we are inside the ONE emission this law owns — an UNINSTANTIATED
+//       interface's subroutine body — and inside a subroutine at all
+//       (`currentSubSym`).  Everything else in the exporter is untouched.
+//   (2) THE POSITION IS A WINDOW: a user call's ARGUMENT LIST
+//       (`classArgBindDepth12`, which the two `ClassArgBindIf38` sites now
+//       restrict to STATEMENT position for this body exactly as
+//       § classInBodyBareCallArgStmtOnly53 restricts it for an in-body class
+//       method — w27 61:22 is the cell) or one of the six condition columns
+//       § refVarLocalWindowBinds5 counts (`condBindDepth5`; w15 47:14 and
+//       w16 48:33 are the while/for cells it deliberately does not count).
+//   (3) THE SYMBOL IS ONE THE WINDOW ADMITS: a FORMAL or a plain subroutine
+//       LOCAL read at `ctrlBodyDepth28 == 0`, or a variable declared in an
+//       UNNAMED statement block open at its own entry depth (§ 57).  The
+//       interface's own member variable, member net and localparam are
+//       golden-BARE in every window (w03/w04/w05, w19/w20/w21) and a
+//       NAMED-block local is golden-bare too (w29/w30, § 57's own exclusion).
+//       The FUNCTION RETURN NAME is excluded outright — it is a Variable whose
+//       parent scope is the subroutine, so it would otherwise pass, and its
+//       binding is § makeReturnVar's business.
+//   (4) NOT UNDER A CAST OPERAND (§ castOperandNeverBindsInWindow161v): w08
+//       34:16 and w25 58:22 are golden-bare and Surelog's `paCast` arm says
+//       why — it compiles the operand with `pexpr == nullptr`.
+//   (5) NOT INSIDE A RECEIVER-QUALIFIED EXPRESSION-POSITION call's argument
+//       list (§ classInBodyRecvCallArgNoBind52's counter, which our emitter
+//       raises only on the three `!callStmtCtx0` hier_path arms): w28 62:26 is
+//       golden-bare while its statement-position twin w26 59:17 binds.
+bool UhdmExporter::uninstIfaceWindowBind218(
+    const slang::ast::Symbol& sym) const {
+    if (!uninstIfaceSubBody218 || !currentSubSym)
+        return false;
+    if (!(classArgBindDepth12 > 0 || condBindDepth5 > 0))
+        return false;
+    if (castOperandDepth161v > 0 || recvCallArgDepth52 > 0)
+        return false;
+    if (funcRetSym && &sym == funcRetSym)
+        return false;
+    auto* declScope = sym.getParentScope();
+    if (!declScope)
+        return false;
+    switch (declScope->asSymbol().kind) {
+        case SymbolKind::Subroutine:
+            // A FormalArgument's parent scope is the subroutine too, so this
+            // arm carries both w01/w17 (formals) and w02/w18 (body locals).
+            if (sym.kind != SymbolKind::FormalArgument &&
+                sym.kind != SymbolKind::Variable)
+                return false;
+            return ctrlBodyDepth28 == 0;
+        case SymbolKind::StatementBlock:
+            return blkLocalSameCtrlDepth57(sym);
+        default:
+            return false;
+    }
+}
+
 // § refVarLocalWindowBinds5 — the predicate.  See UhdmExporter.h for the law,
 // its twenty measured arm cells and residue R1.  TRUE means SUPPRESS the
 // vpiActual this reference would otherwise carry.
@@ -17587,6 +17647,21 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                 }
                 else if (suppressRefActual) {
+                    // § uninstIfaceBodyBindsInMethodWindow218 — THE ONE SITE.
+                    // Reaching this arm from an uninstantiated interface's
+                    // subroutine body means the blanket `suppressRefActual` that
+                    // ModuleEmit.cpp raises for that emission is about to leave
+                    // the reference bare.  Golden leaves it bare too — unless it
+                    // stands in the class-method BINDING WINDOW, which is the
+                    // one thing Surelog still resolves for a definition it never
+                    // elaborates.  ADD-ONLY: nothing below can un-set what this
+                    // sets, and the predicate fires only where arm a2 measured
+                    // golden binding.
+                    if (uninstIfaceWindowBind218(nv.symbol)) {
+                        if (auto it218 = netMap.find(&nv.symbol);
+                            it218 != netMap.end() && it218->second)
+                            ref->Actual_group(it218->second);
+                    }
                     // § genCaSysCallArgBinds22 (r10earl22) — a ref NESTED
                     // INSIDE a SYSTEM FUNCTION CALL's argument (i.e. the
                     // argument is an expression, not the ref itself) in an ELAB
@@ -22900,9 +22975,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // (callee above) are the positive controls.
                         // `callStmtCtx0`, NOT the member `callStmtContext`,
                         // which is cleared at the top of this `case`.
+                        // § uninstIfaceBodyBindsInMethodWindow218 — the SAME
+                        // STATEMENT-POSITION restriction, on the SAME term, for
+                        // the one other body whose window this campaign has now
+                        // measured: an UNINSTANTIATED interface's subroutine.
+                        // Arm a2 w27 (`loc218 = fn218(a_x);`, EXPRESSION
+                        // position) is golden-BARE while w17 (`callee218(a_x);`,
+                        // STATEMENT position) binds, exactly as § 53's ib53
+                        // cells read for an in-body class method.  Inert
+                        // everywhere else — `uninstIfaceSubBody218` is false.
                         ClassArgBindIf38 cab12(
                             classArgBindDepth12,
-                            callStmtCtx0 || !(curSubClassScope9 && !curSubOob9));
+                            callStmtCtx0 || !((curSubClassScope9 &&
+                                               !curSubOob9) ||
+                                              uninstIfaceSubBody218));
                         // § writtenCallArgs16 — only the actuals WRITTEN at
                         // the call site; a defaulted formal is slang's, not
                         // Surelog's.
@@ -23432,9 +23518,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // second condition carve-out.
                 // The OUT-OF-BODY twins (a4 ob53, all seven) and the PACKAGE
                 // twins (a4 pk_all) are golden io_decl and keep the window.
+                // § uninstIfaceBodyBindsInMethodWindow218 — SITE 2 of 2 of the
+                // statement-position restriction; see SITE 1 above.
                 ClassArgBindIf38 cab12(
                     classArgBindDepth12,
-                    callStmtCtx0 || !(curSubClassScope9 && !curSubOob9));
+                    callStmtCtx0 || !((curSubClassScope9 && !curSubOob9) ||
+                                      uninstIfaceSubBody218));
                 // NOTE § namedTfArgsFormalSlots4 (emit half — the ONLY arm it
                 // fires in).  GATE, both halves required:
                 //   (1) `linked4` — this call gets a vpiFunction / vpiTask.

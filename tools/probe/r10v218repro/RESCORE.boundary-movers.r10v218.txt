@@ -1,0 +1,64 @@
+ARM ./r10buvm9repro/w3v_homes.sv def rc_sl=0 rc_a=0 rc_b=0 GOLDEN-RC-OK
+CALIB ./r10buvm9repro/w3v_homes.sv def -- REFS golden=14 ours=14  KEYS=13  SAME=13 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+CEN-PRIS ./r10buvm9repro/w3v_homes.sv def -- REFS golden=14 ours=23  KEYS=23  SAME=7 MISSING-OURS=4 EXTRA-OURS=2 OTHER=10
+CEN-PAT  ./r10buvm9repro/w3v_homes.sv def -- REFS golden=14 ours=23  KEYS=23  SAME=8 MISSING-OURS=3 EXTRA-OURS=2 OTHER=10
+DIFF ./r10buvm9repro/w3v_homes.sv def 16,17c16
+DIFF ./r10buvm9repro/w3v_homes.sv def < MISSING-OURS  k                        49:33  g=['io_decl(k)@49:25'] o=['-']
+DIFF ./r10buvm9repro/w3v_homes.sv def < -- REFS golden=14 ours=23  KEYS=23  SAME=7 MISSING-OURS=4 EXTRA-OURS=2 OTHER=10
+DIFF ./r10buvm9repro/w3v_homes.sv def ---
+DIFF ./r10buvm9repro/w3v_homes.sv def > -- REFS golden=14 ours=23  KEYS=23  SAME=8 MISSING-OURS=3 EXTRA-OURS=2 OTHER=10
+DUMPDELTA ./r10buvm9repro/w3v_homes.sv def added=3 removed=1
+ARM ./r10buvm9repro/w7v_pkgclsts2.sv def rc_sl=4 rc_a=0 rc_b=0 GOLDEN-COMPILE-FAILED-rc=4
+CALIB ./r10buvm9repro/w7v_pkgclsts2.sv def -- REFS golden=6 ours=6  KEYS=6  SAME=6 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+CEN-PRIS ./r10buvm9repro/w7v_pkgclsts2.sv def -- REFS golden=6 ours=12  KEYS=12  SAME=4 MISSING-OURS=2 EXTRA-OURS=0 OTHER=6
+CEN-PAT  ./r10buvm9repro/w7v_pkgclsts2.sv def -- REFS golden=6 ours=12  KEYS=12  SAME=5 MISSING-OURS=1 EXTRA-OURS=0 OTHER=6
+DIFF ./r10buvm9repro/w7v_pkgclsts2.sv def 1d0
+DIFF ./r10buvm9repro/w7v_pkgclsts2.sv def < MISSING-OURS  k                        40:33  g=['io_decl(k)@40:25'] o=['-']
+DIFF ./r10buvm9repro/w7v_pkgclsts2.sv def 9c8
+DIFF ./r10buvm9repro/w7v_pkgclsts2.sv def < -- REFS golden=6 ours=12  KEYS=12  SAME=4 MISSING-OURS=2 EXTRA-OURS=0 OTHER=6
+DIFF ./r10buvm9repro/w7v_pkgclsts2.sv def ---
+DIFF ./r10buvm9repro/w7v_pkgclsts2.sv def > -- REFS golden=6 ours=12  KEYS=12  SAME=5 MISSING-OURS=1 EXTRA-OURS=0 OTHER=6
+DUMPDELTA ./r10buvm9repro/w7v_pkgclsts2.sv def added=3 removed=1
+ARM ./r10uvm122repro/g122_e_home.sv def rc_sl=0 rc_a=0 rc_b=0 GOLDEN-RC-OK
+CALIB ./r10uvm122repro/g122_e_home.sv def -- REFS golden=20 ours=20  KEYS=20  SAME=20 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+CEN-PRIS ./r10uvm122repro/g122_e_home.sv def -- REFS golden=20 ours=20  KEYS=20  SAME=18 MISSING-OURS=1 EXTRA-OURS=0 OTHER=1
+CEN-PAT  ./r10uvm122repro/g122_e_home.sv def -- REFS golden=20 ours=20  KEYS=20  SAME=19 MISSING-OURS=0 EXTRA-OURS=0 OTHER=1
+DIFF ./r10uvm122repro/g122_e_home.sv def 2,3c2
+DIFF ./r10uvm122repro/g122_e_home.sv def < MISSING-OURS  s                       122:9   g=['io_decl(s)@119:33'] o=['-']
+DIFF ./r10uvm122repro/g122_e_home.sv def < -- REFS golden=20 ours=20  KEYS=20  SAME=18 MISSING-OURS=1 EXTRA-OURS=0 OTHER=1
+DIFF ./r10uvm122repro/g122_e_home.sv def ---
+DIFF ./r10uvm122repro/g122_e_home.sv def > -- REFS golden=20 ours=20  KEYS=20  SAME=19 MISSING-OURS=0 EXTRA-OURS=0 OTHER=1
+DUMPDELTA ./r10uvm122repro/g122_e_home.sv def added=3 removed=1
+ARM ./r10uvm216repro/grid216/g216_d_iface_top.sv def rc_sl=0 rc_a=0 rc_b=0 GOLDEN-RC-OK
+CALIB ./r10uvm216repro/grid216/g216_d_iface_top.sv def -- REFS golden=9 ours=9  KEYS=9  SAME=9 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+CEN-PRIS ./r10uvm216repro/grid216/g216_d_iface_top.sv def -- REFS golden=9 ours=9  KEYS=9  SAME=8 MISSING-OURS=1 EXTRA-OURS=0 OTHER=0
+CEN-PAT  ./r10uvm216repro/grid216/g216_d_iface_top.sv def -- REFS golden=9 ours=9  KEYS=9  SAME=9 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+DIFF ./r10uvm216repro/grid216/g216_d_iface_top.sv def 1,2c1
+DIFF ./r10uvm216repro/grid216/g216_d_iface_top.sv def < MISSING-OURS  a                        25:16  g=['io_decl(a)@23:39'] o=['-']
+DIFF ./r10uvm216repro/grid216/g216_d_iface_top.sv def < -- REFS golden=9 ours=9  KEYS=9  SAME=8 MISSING-OURS=1 EXTRA-OURS=0 OTHER=0
+DIFF ./r10uvm216repro/grid216/g216_d_iface_top.sv def ---
+DIFF ./r10uvm216repro/grid216/g216_d_iface_top.sv def > -- REFS golden=9 ours=9  KEYS=9  SAME=9 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+DUMPDELTA ./r10uvm216repro/grid216/g216_d_iface_top.sv def added=3 removed=1
+ARM ./r10v122repro/q8scopes2.sv def rc_sl=0 rc_a=0 rc_b=0 GOLDEN-RC-OK
+CALIB ./r10v122repro/q8scopes2.sv def -- REFS golden=38 ours=38  KEYS=28  SAME=28 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+CEN-PRIS ./r10v122repro/q8scopes2.sv def -- REFS golden=38 ours=35  KEYS=28  SAME=16 MISSING-OURS=4 EXTRA-OURS=5 OTHER=3
+CEN-PAT  ./r10v122repro/q8scopes2.sv def -- REFS golden=38 ours=35  KEYS=28  SAME=17 MISSING-OURS=3 EXTRA-OURS=5 OTHER=3
+DIFF ./r10v122repro/q8scopes2.sv def 1d0
+DIFF ./r10v122repro/q8scopes2.sv def < MISSING-OURS  t0                       19:9   g=['io_decl(t0)@16:35'] o=['-']
+DIFF ./r10v122repro/q8scopes2.sv def 13c12
+DIFF ./r10v122repro/q8scopes2.sv def < -- REFS golden=38 ours=35  KEYS=28  SAME=16 MISSING-OURS=4 EXTRA-OURS=5 OTHER=3
+DIFF ./r10v122repro/q8scopes2.sv def ---
+DIFF ./r10v122repro/q8scopes2.sv def > -- REFS golden=38 ours=35  KEYS=28  SAME=17 MISSING-OURS=3 EXTRA-OURS=5 OTHER=3
+DUMPDELTA ./r10v122repro/q8scopes2.sv def added=3 removed=1
+ARM ./r10v144repro/v144_a_homes.sv def rc_sl=4 rc_a=0 rc_b=0 GOLDEN-COMPILE-FAILED-rc=4
+CALIB ./r10v144repro/v144_a_homes.sv def -- REFS golden=18 ours=18  KEYS=18  SAME=18 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+CEN-PRIS ./r10v144repro/v144_a_homes.sv def -- REFS golden=18 ours=12  KEYS=18  SAME=10 MISSING-OURS=6 EXTRA-OURS=1 OTHER=1
+CEN-PAT  ./r10v144repro/v144_a_homes.sv def -- REFS golden=18 ours=12  KEYS=18  SAME=11 MISSING-OURS=5 EXTRA-OURS=1 OTHER=1
+DIFF ./r10v144repro/v144_a_homes.sv def 5d4
+DIFF ./r10v144repro/v144_a_homes.sv def < MISSING-OURS  x                        81:52  g=['int_var(work@i144a.iff23.x)@81:40'] o=['-']
+DIFF ./r10v144repro/v144_a_homes.sv def 9c8
+DIFF ./r10v144repro/v144_a_homes.sv def < -- REFS golden=18 ours=12  KEYS=18  SAME=10 MISSING-OURS=6 EXTRA-OURS=1 OTHER=1
+DIFF ./r10v144repro/v144_a_homes.sv def ---
+DIFF ./r10v144repro/v144_a_homes.sv def > -- REFS golden=18 ours=12  KEYS=18  SAME=11 MISSING-OURS=5 EXTRA-OURS=1 OTHER=1
+DUMPDELTA ./r10v144repro/v144_a_homes.sv def added=3 removed=1
+-- ARM-VIEWS=6 NO-DATABASE=0

@@ -173,7 +173,7 @@ Then decide, in this order:
 
 Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 
-### 3b. Snapshot at the last doc update (2026-09-08, HEAD = the uvm217 landing — SeqDriver 32, MiniAmiq 29) — EXAMPLE ONLY
+### 3b. Snapshot at the last doc update (2026-09-08, HEAD = the uvm218 landing — SeqDriver 32, MiniAmiq 20) — EXAMPLE ONLY
 
 Baselines (`scripts/accounting.py --md`): surelog default 473/481 comparable
 equal (8 NE), testflags 468/475 (7 NE); uhdm2rtlil 679/679 both modes. The
@@ -183,7 +183,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 | row-mode(s) | head (official cmp lines = head-object DEPTH, not distance) | family / next law |
 |---|---|---|
 | SeqDriver×2 | 32 (ONE head both modes — COLLAPSED from the module-depth count at uvm217: the arity gap closed and the depth artifact resolved with it) | RE-MEASURE FIRST — the predicted successor was the implicit-wire order permutation; the collapse to 32 says the head is now a small object: rowheads + the judge pair + the owner-finder on the next pass's own pristine — open (uvm217 landed: § transitiveImportRidesTheHoist217 — a transitive wildcard import rides the module hoist as the importer's own enlarged listing (no closure walk in Surelog: vectors append AS COMPILED, no dedup); the 33 confirmed by identity; the order-visibility claim CORRECTED with all four compare bodies quoted; verifier ACCEPT WITH FIX — a two-package import CYCLE convicted the seen-guarded recursion and the fix REPLAYS the append-as-compiled mechanism; cycle, three-cycle and diamond arms read golden exactly) |
-| MiniAmiq×2 | 29 (ONE head both modes) | a formal-argument reference inside the DPI-exported function's BODY: golden's reference carries the io-declaration as its actual where ours carries none — the recorded buvm shape one scope over — open (uvm216 landed: 838→29, § dpiExportListedAtExportItem216 — a DPI export lists at its EXPORT ITEM with the flags and span stamped there (the brief's import word was wrong; only the two separated items diverged); three allocation-class byte movers convicted with an allocation-only control binary; verifier ACCEPT WITH FIX — export-BELOW-definition is a two-entry golden shape and the unrestricted patch moved five arms wrong; the index fence declines it) |
+| MiniAmiq×2 | 20 (ONE head both modes) | a FOREACH header's array typespec: golden an unsupported placeholder at the typedef's line, ours a resolved class typespec one line up — the degrade family's face on a foreach header — open (uvm218 landed: 29→20, § uninstIfaceBodyBindsInMethodWindow218 — an uninstantiated interface body binds ONLY in the in-body method's binding window (the interface definition writer has NO late-binding call; only the compile-time eager bind survives, and that set IS the window); the whole-subroutine silencer was half right; ADD-ONLY byte-proved; the uninstantiated module-with-ports vs program sibling split predicted and confirmed; verifier ACCEPT, patch as-is) |
 | SimpleUVM×2 | CMP_EQUAL ×2 (CONVERTED at uvm209 — the WHOLE TEST CLOSED) | CLOSED — § hoistedLocalKeepsItsLifetime209: the automatic flag follows the source declaration's lifetime (Surelog's package collector does not stop at a class CONSTRUCTOR declaration — the hoist's mechanism; golden's module copy is the package listing value for value); the SimpleUVM ladder ran the depth artifact, the materialized-parameter family, the implicit-nets family, the design listing and the lifetime bit |
 | BuildUVMPkg×2 | CMP_EQUAL (CONVERTED, uvm194 — the block's FIRST row conversion; the two baseline rows promoted in the landing commit) | CLOSED — § homeRetNameSelBindSurvivesDefViewUnbind194: a home return-name select binding survives the definition-view unbind (one gated exemption clause in the drain; the clone fence from an arm); the family's whole ladder ran uvm170→194 |
 | Scoreboard/default | CMP_EQUAL (CONVERTED at uvm212 — the comparable half of the test CLOSED; testflags is a slang reject outside the comparable set) | CLOSED — § classTdCloneTakesTheBasesEmptyListing212: a clone class typedef takes the base's EMPTY specialization listing (the vector verdict wore a singular face; library and macros decide nothing — clone-hood and the base's listing are the only variables; golden has zero clone-vs-base mismatches everywhere, ours had exactly one corpus-wide) |
@@ -193,7 +193,7 @@ row-modes over 6 tests (Rggen/default CONVERTED by rgg18):
 Byte pins that must never move: SVSwitch `4842211c4030`, YosysVerx
 `6ccda350c24a` (both modes); InterfaceModPort/BlackParrotComplex/YosysOldOr
 byte-identical to the control. Rate: ~44 landings in the last 24 h, 0
-regressions, 128 verifier fix-before-landing re-cuts (303 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
+regressions, 128 verifier fix-before-landing re-cuts (304 landings total; several were SEGFAULTS on legal SV). Ladder lower bounds
 (§10): ≥170 families remain; realistic closure 1–3 weeks of continuous
 operation (Rggen → BuildUVMPkg → UVM five → Earlgrey).
 

@@ -1,0 +1,179 @@
+r10uvm218 — QUESTION (6): THE GATES
+====================================
+MEASUREMENT ONLY here except where a gate IS the official judge.  The
+authorities are `~/git-repos/UHDM/build/bin/uhdm-cmp` and
+`scripts/verify_golden.py`.  slang was NOT patched; `results/*.csv` were READ
+ONLY and NOT EDITED; nothing was promoted; NO CORPUS ROW WAS CONVERTED in
+either direction; `GOLDEN_DEFER` stayed unset; the four slang-fenced tests were
+never dispatched by any driver here and are named only inside `canaudit.sh`'s
+own `FENCED=` list, whose `FENCE-BREACH=0` is the check that it worked.
+
+BINARIES
+--------
+  BASE                5c4eb804
+  pristine            md5 9ba51a177d67154a84ed9a462f38448d — built `-j 2` from
+                      this pass's OWN worktree at a clean 5c4eb804 and frozen
+                      `chmod 555` before any sweep.  BYTE-IDENTICAL to the main
+                      tree's own build/slang-uhdm at that commit.
+  patched             md5 5ec486e65d0ed6c8f7f6ed6a29b1b81c, frozen `chmod 555`.
+                      THE DELIVERABLE PATCH APPLIED TO A FRESH 5c4eb804 WORKTREE
+                      AND BUILT THERE (`-j 2`, 0 errors) COMES OUT BYTE-IDENTICAL
+                      TO IT, so every gate here was run on the binary the patch
+                      reproduces.
+  Every `cmds.txt` in every sweep was audited BY BINARY PATH (not by the string
+  `slang-uhdm`, which also matches `slang-uhdm-goldens/`):
+     pristine surelog + u2r  -> /tmp/<this pass>/pris  ONLY
+     patched  surelog (1573) -> /tmp/<this pass>/pat   ONLY
+     patched  u2r     (1462) -> /tmp/<this pass>/pat   ONLY
+  NONE names the main-tree binary.
+
+GATE 1 — BUILD
+--------------
+  Both binaries built `-j 2`, md5 taken separately, 0 compile errors.
+
+GATE 2 — GOLDENS
+----------------
+  SLANG_UHDM=<pristine>  check_goldens.sh   23 PASS / 0 FAIL
+  SLANG_UHDM=<patched>   check_goldens.sh   23 PASS / 0 FAIL
+  SLANG_UHDM=/bin/false  check_goldens.sh    0 PASS / 23 FAIL   (negative control)
+
+GATE 3 — uhdm2rtlil, BOTH MODES, BOTH BINARIES
+-----------------------------------------------
+  pristine  testflags 679 / 50 / 2      default 679 / 50 / 2
+  patched   testflags 679 / 50 / 2      default 679 / 50 / 2
+  ct8rows  patched-tf vs results/gate_uhdm2rtlil.csv        PASS (0 rows differ)
+  ct8rows  patched-tf vs this pass's own pristine tf        PASS (0 rows differ)
+  ct8rows  patched-def vs this pass's own pristine default  PASS (0 rows differ)
+  byteverify SELFCHECK=1 patched vs pristine:
+     PATH_SETS_IDENTICAL (1358 paths)   MOVERS: 0 / 1358
+     SELFCHECK 1357 / 1358 flagged  (the comparator can see)
+
+GATE 4 — surelog, BOTH MODES, BOTH BINARIES
+--------------------------------------------
+  pristine  default 475 CMP_EQUAL / 6 CMP_NOTEQUAL
+            testflags 469 CMP_EQUAL / 6 CMP_NOTEQUAL
+  patched   default 475 CMP_EQUAL / 6 CMP_NOTEQUAL
+            testflags 469 CMP_EQUAL / 6 CMP_NOTEQUAL
+  THE STATUS HISTOGRAM IS UNCHANGED CELL FOR CELL.  NO ROW CONVERTED IN EITHER
+  DIRECTION — this pass claims NO conversion and `results/*.csv` was not edited.
+  ct8rows  patched vs results/golden_surelog.csv       PASS — every row of 1588
+           byte-identical to the committed baseline (status column AND dump
+           column)
+  ct8rows  patched vs this pass's own pristine sweep   PASS — 0 differing rows
+
+GATE 5 — byteverify, surelog, SELFCHECK=1
+------------------------------------------
+  PATH_SETS_IDENTICAL (956 paths)
+  MOVER ./default/MiniAmiq-.../slang.uhdm    patched=06495f546fc6 pristine=23ef37eb979a
+  MOVER ./testflags/MiniAmiq-.../slang.uhdm  patched=06495f546fc6 pristine=23ef37eb979a
+  MOVERS: 2 / 956
+  SELFCHECK 955 / 956 flagged  (the comparator can see)
+  EXACTLY THE TWO NAMED IN `PREDICT.r10uvm218.txt`, WHICH WAS WRITTEN FROM
+  PRISTINE ARTIFACTS BEFORE ANY PATCHED SWEEP RAN.  Both MiniAmiq databases
+  carry the SAME md5 on each binary, so the two modes are one object.
+
+  THE MOVE IS ADD-ONLY, PROVED AT THE BYTE LEVEL.  The whole-dump diff of the
+  MiniAmiq database, pristine vs patched, with object ids normalised, is
+  40 ADDED LINES AND 0 REMOVED — twenty `|vpiActual` markers and the twenty
+  objects they name (`CENSUS.MiniAmiq.wholedump.diff.txt`), each landing on
+  GOLDEN'S OWN VALUE (`CENSUS.moved-cells.r10uvm218.txt`).
+
+THE SEVEN PROTECTED CMP_EQUAL ROW-MODES — BOTH COLUMNS SCORED EXPLICITLY
+-------------------------------------------------------------------------
+  row-mode                 PRISTINE status,dump   PATCHED status,dump
+  BuildUVMPkg  default     CMP_EQUAL,differ       CMP_EQUAL,differ
+  BuildUVMPkg  testflags   CMP_EQUAL,differ       CMP_EQUAL,differ
+  SimpleUVM    default     CMP_EQUAL,differ       CMP_EQUAL,differ
+  SimpleUVM    testflags   CMP_EQUAL,differ       CMP_EQUAL,differ
+  Earlgrey_0_1 default     CMP_EQUAL,differ       CMP_EQUAL,differ
+  Earlgrey_0_1 testflags   CMP_EQUAL,differ       CMP_EQUAL,differ
+  Scoreboard   default     CMP_EQUAL,differ       CMP_EQUAL,differ
+  ALL SEVEN HELD, judge rc = 0 on both binaries (`rowheads.sh` reads each at
+  0 cmp lines / 0 heads / cmp rc=0 on both), and none of them is even in the
+  law's fire set.
+
+THE SEVEN-ROW HEAD SET, BOTH BINARIES
+--------------------------------------
+  TEST          MODE       pristine        patched
+  SeqDriver     default    1327330 / 1     1327330 / 1   cmp log BYTE-IDENTICAL
+  SeqDriver     testflags  1327330 / 1     1327330 / 1   cmp log BYTE-IDENTICAL
+  SimpleUVM     x2               0 / 0           0 / 0   IDENTICAL
+  Scoreboard    default          0 / 0           0 / 0   IDENTICAL
+  MiniAmiq      default         29 / 1          20 / 1   <-- THE HEAD, MOVED
+  MiniAmiq      testflags       29 / 1          20 / 1   <-- and identical to
+                                                             the default log
+  BuildUVMPkg   x2               0 / 0           0 / 0   IDENTICAL
+  Earlgrey_0_1  x2               0 / 0           0 / 0   IDENTICAL
+  Rggen         default          0 / 0           0 / 0   IDENTICAL
+  (Scoreboard/testflags and Rggen/testflags are the expected SKIP-NOFILE pair.)
+  TEN of the twelve measured cmp logs are BYTE-IDENTICAL between the two
+  binaries; the two that differ are MiniAmiq's, and they are the law.
+  SeqDriver is the SISTER PASS r10uvm217's head and this pass does not touch it:
+  same line count, same head count, byte-identical log.
+
+CANARIES AND PINS
+-----------------
+  canaries.sh  surelog     ok=52 changed=0 absent=0
+  canaries.sh  u2r         ok=8  changed=0 absent=0
+  ctcan2.sh    surelog     PASS (EXPECT_UNKNOWN=1)
+  ctcan2.sh    u2r         PASS (EXPECT_UNKNOWN=6)
+  canaudit.sh over this pass's drivers:
+               audited=29  UNCOVERED=0  FENCE-BREACH=0
+  PROTECTED DATABASES BY NAME, md5 patched vs pristine, BOTH MODES:
+    InterfaceModPort   59a365f3ce2c   SAME   <-- AN INTERFACE TEST.  This pass's
+                                              law is an interface law, so this
+                                              is the pin that matters most, and
+                                              it does not move in either mode.
+    BlackParrotComplex e3e354129d5a (default) / 73a10e8217e5 (testflags)  SAME
+    YosysOldOr         d68e0796d62c   SAME
+    SVSwitch           4842211c4030   PINNED VALUE, SAME
+    YosysVerx          6ccda350c24a   PINNED VALUE, SAME
+
+THE WIDE BOUNDARY GATE
+-----------------------
+`bound218.sh` over a COPY of the WHOLE probe tree (this pass's own arms
+included), SUBDIRECTORIES INCLUDED, BOTH views, BOTH binaries, children
+`</dev/null`, the file list on FD 3, scratch keyed on the RELATIVE path:
+
+    LISTED = PROCESSED = 5501   MOVED_ARMS = 12   RC_DIFFS = 0
+
+SIX of the twelve are THIS PASS'S OWN grid arms — the POSITIVE CONTROL that
+proves the gate can see.  All twelve were re-scored against REAL Surelog
+goldens by `armscore218.sh` (calibration NULL in every arm-view, 0 NO-DATABASE):
+
+    TO-GOLDEN 44   AWAY-GOLDEN 0   STILL-WRONG 16
+
+and in EVERY one of the six FOREIGN arms the whole-dump diff between the two
+binaries, with object ids normalised, is exactly TWO ADDED LINES — one
+`|vpiActual:` and the object it names — and NOTHING removed:
+
+  r10buvm9repro/w3v_homes.sv       def  `w3i.ifn`  formal `k` @49:33  -> io_decl
+  r10buvm9repro/w7v_pkgclsts2.sv   def  `w7i.ifn`  formal `k` @40:33  -> io_decl
+  r10uvm122repro/g122_e_home.sv    def  formal `s` @122:9             -> io_decl
+  r10uvm216repro/grid216/
+        g216_d_iface_top.sv        def  formal `a` @25:16             -> io_decl
+  r10v122repro/q8scopes2.sv        def  formal `t0` @19:9             -> io_decl
+  r10v144repro/v144_a_homes.sv     def  local  `x` @81:52             -> int_var
+
+Every one of them is `function ... (int k); if (k) ...` inside an
+UNINSTANTIATED INTERFACE — a FORMAL or a LOCAL in a CONDITION at control depth
+0, i.e. EXACTLY THE CELL THIS LAW NAMES, and each one CLOSES a `MISSING-OURS`
+cell against a real golden.  `w7v_pkgclsts2.sv` and `v144_a_homes.sv` are arms
+whose goldens carry PRE-EXISTING Surelog compile ERRORS (surelog rc=4); OUR
+binary compiled both at rc=0 on both sides, so the uvm215 lesson — "an arm whose
+compile fails teaches error-recovery, not golden" — does not apply to them, and
+their censuses calibrate null.
+
+THE MUST-STAY BOUNDARIES, EACH CHECKED BY NAME
+------------------------------------------------
+NO § dpiExportListedAtExportItem216 arm other than `g216_d_iface_top` moved,
+and on THAT arm § 216's OWN scorer (`ct216cen` + `cen216.py`, the
+subroutine-listing census) reads IDENTICAL on both binaries and null against
+golden:  CALIB / PRISTINE / PATCHED all `RIGHT-BOTH=12 ONLY-GOLDEN=0
+ONLY-OURS=0`.  Only the reference-actual half of that arm moved, toward golden.
+
+NO § modportNeedsSimplePort215 arm moved.  NO § pkgCloneBodyBindsOwnListingRhs214
+arm moved.  NO r10buvm13 or r10buvm15 arm moved (the formal-binding family this
+law extends).  NO uvm82-91 arm moved.  NO sd8-12 arm moved (subdirectories
+included).  Of buvm3-15, exactly the two r10buvm9 arms above moved, each on the
+one cell this law names, each TO-GOLDEN.

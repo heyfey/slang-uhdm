@@ -1,0 +1,126 @@
+r10uvm218 — QUESTION (4): DECODE SLANG(surelog), THE BODY-REFERENCE BINDER FOR
+INTERFACE SUBROUTINES, AND THE GATED EXTENSION OF THE buvm WINDOW
+==============================================================================
+MEASUREMENT ONLY.  Every file:line below was READ in ~/git-repos/Surelog, not
+recalled.  LHS is ALWAYS golden (Surelog); RHS is ALWAYS ours.
+
+THE QUESTION
+------------
+The MiniAmiq head is a SINGULAR `SafeCompare` naming golden's value with
+`RHS: <null>` (RESUME §9, the buvm13/15 shape): golden's
+`ref_obj (work@svaunit_vpi_interface.pass_info_to_sv_dpi.a_sva_type)` at
+svaunit_vpi_interface.sv:258:10 carries `vpiActual -> io_decl (a_sva_type)`
+(:255:103) and ours carries none.  Line 258 is
+`if(a_sva_type == "vpiCover") begin` — an `if` CONDITION inside the body of a
+DPI-EXPORTED function, in an interface NO MODULE INSTANTIATES.
+
+SURELOG HAS TWO ROADS TO A `vpiActual`, AND ONE OF THEM DOES NOT EXIST HERE
+---------------------------------------------------------------------------
+ROAD 1 — THE COMPILE-TIME EAGER BIND.
+  `CompileHelper::bindVariable`
+  (src/DesignCompile/CompileStmt.cpp:3089) opens
+
+      UHDM::any* CompileHelper::bindVariable(DesignComponent* component,
+                                             const UHDM::any* scope, ...) {
+        if (scope == nullptr) return nullptr;              // :3093
+
+  and then walks `uhdmfunction`/`uhdmtask` scopes for `Variables()` and
+  `Io_decls()`.  The walk therefore runs exactly where `compileExpression` was
+  handed a NON-NULL `pexpr`: a user call's ARGUMENT LIST and the CONDITION
+  columns § refVarLocalWindowBinds5 already counts.  It does NOT run where the
+  producer passes `nullptr` — the CAST arm is the clearest case,
+  src/DesignCompile/CompileExpression.cpp:2637-2645:
+
+      case VObjectType::paCast: {
+        NodeId Casting_type = fC->Child(child);
+        ...
+          NodeId Expression = fC->Sibling(Casting_type);
+          operand = compileExpression(component, fC, Expression, compileDesign,
+                                      reduce, nullptr, instance, muteErrors);
+                                             // ^^^^^^^ the pexpr argument
+
+ROAD 2 — THE WRITE-TIME LATE BIND.
+  `UhdmWriter::lateBinding` (src/DesignCompile/UhdmWriter.cpp:3294) resolves
+  the component's whole `getLateBinding()` list by walking each ref's
+  `VpiParent` chain.  ITS CALL SITES ARE THE WHOLE STORY:
+
+      UhdmWriter.cpp:1304   writePackage        -> lateBinding
+      UhdmWriter.cpp:1575   writeModule         -> lateBinding
+      UhdmWriter.cpp:1623   writeModule (tail)  -> lateBinding
+      UhdmWriter.cpp:2072   writeElabProgram    -> lateBinding
+      UhdmWriter.cpp:4785   the ELABORATED-instance writer, gated
+                            `if (mod && netlist)`  -> lateBinding
+      UhdmWriter.cpp:1067   writeClass          -> COMMENTED OUT
+
+  `UhdmWriter::writeInterface` (1626-1794) — THE ONLY WRITER FOR AN INTERFACE
+  DEFINITION — CONTAINS NO `lateBinding` CALL AT ALL (verified: zero matches in
+  its body).  `UhdmWriter::writeProgram` (1795-1900) contains none either.  An
+  interface that no instance elaborates never reaches 4785 (no netlist), so for
+  its subroutine bodies ROAD 2 NEVER RUNS AND ONLY ROAD 1'S EAGER BINDS
+  SURVIVE.
+
+THE MODEL, AND WHY IT IS THE CLASS-METHOD WINDOW
+------------------------------------------------
+That is the SAME state § classMethodNoBind describes for a method written
+inside a class and § unitSubNoBind9 for a `$unit`-scope subroutine: the body is
+compiled before any symbol table exists and is never revisited.  So the set
+that still binds is ROAD 1's set, and ROAD 1's set IS the class-method binding
+window — which is why this law is a GATED EXTENSION of the buvm window rather
+than a new rule.  Arm a2 (`grid218/a2_window`) measures all thirty-one cells of
+it on ONE golden and every carve-out the campaign already decoded holds
+verbatim:
+
+  § classArgBind12                    a user call's argument list is a window
+  § classInBodyBareCallArgStmtOnly53  ...in STATEMENT position only  (w27)
+  § classInBodyRecvCallArgNoBind52    ...never a RECEIVER-qualified expression-
+                                      position call's arguments        (w28)
+  § refVarLocalWindowBinds5           the six CONDITION positions are windows,
+                                      while/for conditions are NOT   (w15/w16)
+  § controlBodyNoBind28               the window is TOP-LEVEL ONLY
+                                                          (38:14, 39:20, 43:14)
+  § blockLocalSameCtrlDepthArgBinds57 ...except an UNNAMED statement-block local
+                                      read at the block's own entry depth (w31)
+  § namedBlkLocalNoBind144v           a NAMED-block local never binds (w29/w30)
+  § castOperandNeverBindsInWindow161v a cast's operand never binds  (w08/w25)
+  § classArgBind12's concat carve-out a CONCAT operand never binds      (w23)
+
+AND THE HALF THAT IS NOT THE CLASS WINDOW: THE SYMBOL
+------------------------------------------------------
+An in-body class method's window is a POSITION test.  Here the SYMBOL matters
+too, and arm a2 is what said so: the interface's OWN member variable (w03
+29:11), member net (w04 30:11) and localparam (w05 31:11) are golden-BARE
+inside a condition, and the same three as call-statement arguments (w19 52:22,
+w20 53:22, w21 54:17) are golden-bare as well, while a FORMAL and a subroutine
+LOCAL in those very positions bind.  Road 1 explains it exactly: `bindVariable`
+walks the enclosing `uhdmfunction`/`uhdmtask` scope's own `Variables()` and
+`Io_decls()` and STOPS — it never reaches the interface's members.  That is why
+the law is NOT simply `classMethodNoBind = true`, and why the predicate carries
+an explicit declaring-scope test.
+
+THE DECODE PREDICTS THE OTHER HOMES, AND ARM a3 CONFIRMS EACH
+--------------------------------------------------------------
+  home                                writer late-binds?  golden body refs
+  ---------------------------------   ------------------  --------------------
+  package                             writePackage YES    BIND   (a3 p01-p03)
+  module definition, uninstantiated,  writeModule  YES    BIND   (a3 u01-u03,
+    WITH PORTS (buvm13's m13_unused2)                            all SAME)
+  top module                          writeModule  YES    BIND   (a3 t01-t03)
+  instantiated interface              4785 (netlist) YES  BIND   (a3 i01-i03)
+  in-body / out-of-body class method  1067 COMMENTED OUT  the class window
+  INTERFACE DEFINITION, uninstantiated writeInterface NO  THE WINDOW ONLY
+  PROGRAM  DEFINITION, uninstantiated writeProgram   NO   THE WINDOW ONLY
+                                                          (a3 60:21, 62:7,
+                                                           62:16 golden BARE)
+
+The PROGRAM row is R2: golden is bare there and our emitter binds — a
+PRE-EXISTING over-fire of the same shape, unchanged by this pass (the law's
+flag is raised at the interface call site only) and recorded, not taken.
+
+THE VIEW
+--------
+With `-elabuhdm` Surelog DOES elaborate the definition, the arm reaches 4785,
+and golden binds every formal and local everywhere (arm a1/a2/a4 elab).  The
+law's cells are a SUBSET of golden's set in BOTH views, so the patch is written
+view-independent and can only move toward golden in either.  The corpus row
+that carries the head, `MiniAmiq`, is `-parse` in both of its modes
+(third_party/tests/MiniAmiq/MiniAmiq.sl carries no `-elabuhdm`).

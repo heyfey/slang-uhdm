@@ -1,0 +1,7 @@
+STAGE1 /tmp/r10uvm218_wd/slp/default/AmiqSimpleTestSuite-cb67712e uninstantiated-interface-candidates: svaunit_vpi_interface
+STAGE1 /tmp/r10uvm218_wd/slp/default/MiniAmiq-544c7f61 uninstantiated-interface-candidates: svaunit_vpi_interface
+STAGE1 /tmp/r10uvm218_wd/slp/default/Monitor-dbd37157 uninstantiated-interface-candidates: svaunit_vpi_interface
+STAGE1 /tmp/r10uvm218_wd/slp/testflags/AmiqSimpleTestSuite-cb67712e uninstantiated-interface-candidates: svaunit_vpi_interface
+STAGE1 /tmp/r10uvm218_wd/slp/testflags/MiniAmiq-544c7f61 uninstantiated-interface-candidates: svaunit_vpi_interface
+STAGE1 /tmp/r10uvm218_wd/slp/testflags/Monitor-dbd37157 uninstantiated-interface-candidates: svaunit_vpi_interface
+-- STAGE1: 6 of 1573 row-modes carry a candidate

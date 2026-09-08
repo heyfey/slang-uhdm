@@ -3053,6 +3053,80 @@ private:
     // True while emitting an elaborated generate-scope process: refs to outer
     // (module) signals are left unbound (no Actual_group), as Surelog does.
     bool suppressRefActual = false;
+    // ===== § uninstIfaceBodyBindsInMethodWindow218 (r10uvm218) =============
+    //
+    //   THE BODY OF A SUBROUTINE DECLARED IN AN INTERFACE THAT NO INSTANCE
+    //   ELABORATES BINDS ITS REFERENCES IN EXACTLY THE IN-BODY CLASS METHOD'S
+    //   BINDING WINDOW — AND NOWHERE ELSE.
+    //
+    // True for the whole `emitTaskFuncs` call ModuleEmit.cpp makes for an
+    // UNINSTANTIATED interface definition (`defAllInstCount[&def] == 0`), the
+    // one place `suppressRefActual` is raised for a subroutine body.  It is
+    // false everywhere else in the exporter, so every term that reads it is
+    // INERT outside that one call.
+    //
+    // WHAT WAS THERE BEFORE.  ModuleEmit.cpp raised `suppressRefActual` for
+    // that call with the comment "An UNINSTANTIATED interface's function body
+    // keeps every ref bare — formals included".  The first half is right and
+    // the second half is too strong: golden keeps every ref bare EXCEPT in the
+    // window, and the window is not empty.
+    //
+    // DECODED FROM THE PRODUCER, not guessed.  Surelog compiles the interface
+    // DEFINITION and, with no instance, never elaborates it, so the definition
+    // never acquires the symbol table `UhdmWriter::lateBinding` needs — the
+    // same state § classMethodNoBind describes for a method written inside a
+    // class and § unitSubNoBind9 for a `$unit`-scope subroutine.  What still
+    // binds is what `CompileHelper::bindVariable` reaches EAGERLY at compile
+    // time, i.e. every position Surelog compiles with a NON-NULL `pexpr`: a
+    // user call's ARGUMENT LIST and the six CONDITION columns
+    // § refVarLocalWindowBinds5 counts.  That is the class-method window
+    // exactly, carve-out for carve-out, and arm a2 measures all thirty-one of
+    // its cells on ONE golden (`grid218/a2_window`, PARSE view):
+    //
+    //   BINDS   w01 27:11 `if (a_x == 1)`            formal, d0
+    //           w02 28:11 `if (loc218 == 1)`         subroutine local, d0
+    //           w07 33:11 formal in a cond with an enum const beside it
+    //           w09 35:18 `if (arr218[a_x] == 1)`    a SELECT INDEX in a cond
+    //           w10 37:11 formal in the OUTER cond of a nest
+    //           w17 50:17 `callee218(a_x);`          call-STATEMENT arg
+    //           w18 51:17 `callee218(loc218);`       call-STATEMENT arg, local
+    //           w22 55:17/23 `callee218(a_x + a_y);` under an OPERATION
+    //           w24 57:23 `callee218($bits(a_x));`   under a SYSTEM call
+    //           w26 59:17 `h218.take(a_x);`          RECEIVER-qualified, STMT
+    //           w31 72:14 UNNAMED-block local in a cond, same ctrl depth
+    //   BARE    w03 29:11 the interface's own MEMBER VARIABLE, in a cond
+    //           w04 30:11 the interface's own MEMBER NET, in a cond
+    //           w05 31:11 the interface's own LOCALPARAM, in a cond
+    //           w19/w20/w21 52:22 53:22 54:17 the same three as call args
+    //           w08 34:16 `if (int'(a_y) == 1)`      a CAST OPERAND
+    //           w25 58:22 `callee218(int'(a_x));`    a CAST OPERAND
+    //           w23 56:18/23 `callee218({a_x,a_y}==0)` CONCAT operands
+    //           w15 47:14 a WHILE condition          (never a window)
+    //           w16 48:33 a FOR condition            (never a window)
+    //           w27 61:22 `loc218 = fn218(a_x);`     EXPRESSION-position call
+    //           w28 62:26 `loc218 = h218.give(a_x);` EXPRESSION-position, recv
+    //           w29/w30 66:14 67:20 a NAMED-block local, cond and call arg
+    //           38:14 39:20 43:14 the SAME shapes one control body DEEPER
+    //           40:10/19 61:7 62:7 an ASSIGNMENT's lvalue and rvalue, d0
+    //
+    // So the law needs the SYMBOL half as well as the position half: only a
+    // FORMAL, a subroutine LOCAL (at `ctrlBodyDepth28 == 0`) or an UNNAMED
+    // statement-block local open at its own entry depth (§ 57) may bind.  An
+    // interface member is nobody's local and stays bare in every window, which
+    // is why this is NOT simply `classMethodNoBind = true`.
+    //
+    // THE VIEW.  In the `-elabuhdm` view Surelog DOES elaborate the definition
+    // and golden binds every formal and local everywhere (arm a1/a2 elab).  The
+    // law is therefore written VIEW-INDEPENDENT on purpose: the cells it binds
+    // are a SUBSET of golden's set in BOTH views, so it can only move toward
+    // golden in either.  The corpus row that carries it, `MiniAmiq`, is
+    // `-parse` in both of its modes.
+    //
+    // ADD-ONLY.  The predicate only ever SETS an `Actual_group` that the
+    // pristine emitter left null — no object is created, removed or reshaped,
+    // and no reference golden leaves unbound is touched, because every cell it
+    // fires on is a cell arm a2 measured golden binding.
+    bool uninstIfaceSubBody218 = false;
     // § pkgTdCloneRefNoBind18.  True while a PER-DECLARATION CLONE of a
     // package typedef is built (a formal's / return's / body local's named
     // twin).  Surelog re-mints the typedef's own range expression into the
@@ -6064,6 +6138,13 @@ private:
     // currently open AND was entered at exactly the ctrlBodyDepth28 the
     // caller sees now.
     bool blkLocalSameCtrlDepth57(const slang::ast::Symbol& sym) const;
+    // § uninstIfaceBodyBindsInMethodWindow218 — THE PREDICATE.  See the
+    // `uninstIfaceSubBody218` member above for the law, its Surelog decode and
+    // all thirty-one measured arm cells.  TRUE means: this reference, inside an
+    // UNINSTANTIATED interface's subroutine body, stands in the class-method
+    // BINDING WINDOW and names a symbol that window admits, so it takes the
+    // vpiActual the pristine emitter left null.
+    bool uninstIfaceWindowBind218(const slang::ast::Symbol& sym) const;
     // § refVarLocalWindowBinds5 (r10buvm5) — THE LAW.
     //
     //   A reference to a SUBROUTINE-LOCAL variable whose emitted DECLARATION IS

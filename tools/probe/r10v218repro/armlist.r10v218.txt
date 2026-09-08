@@ -1,0 +1,6 @@
+./r10buvm9repro/w3v_homes.sv def
+./r10buvm9repro/w7v_pkgclsts2.sv def
+./r10uvm122repro/g122_e_home.sv def
+./r10uvm216repro/grid216/g216_d_iface_top.sv def
+./r10v122repro/q8scopes2.sv def
+./r10v144repro/v144_a_homes.sv def

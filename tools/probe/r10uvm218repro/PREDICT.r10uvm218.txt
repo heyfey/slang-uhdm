@@ -1,0 +1,51 @@
+r10uvm218 — THE A-PRIORI PREDICTION (question 5)
+================================================
+WRITTEN AND RUN FROM PRISTINE DATABASES AND PRISTINE SOURCES ALONE, BEFORE THE
+PATCHED BINARY WAS RUN ON EITHER CORPUS.  The patched binary existed (it had
+been scored on the golden grid, which uses its OWN hand-written arms and no
+corpus row at all); no corpus sweep had been run with it when this was written.
+
+THE LAW'S REACH BY CONSTRUCTION
+-------------------------------
+§ uninstIfaceBodyBindsInMethodWindow218 is raised at EXACTLY ONE call site —
+ModuleEmit.cpp's `emitTaskFuncs` for an interface definition with
+`defAllInstCount[&def] == 0`.  A database that never compiled a file declaring
+an INTERFACE THAT NOTHING INSTANTIATES cannot reach that site.
+
+STAGE 1 — the source filter (predict218.sh, over the PRISTINE sweep workdirs)
+----------------------------------------------------------------------------
+surelog     6 of 1573 row-modes carry a candidate, and all six name the SAME
+            interface, `svaunit_vpi_interface`:
+              default/AmiqSimpleTestSuite   testflags/AmiqSimpleTestSuite
+              default/MiniAmiq              testflags/MiniAmiq
+              default/Monitor               testflags/Monitor
+uhdm2rtlil  0 of 1462 row-modes carry a candidate.  ZERO MOVERS PREDICTED.
+
+STAGE 2 — the database filter (the PRISTINE sweep's own artifacts)
+------------------------------------------------------------------
+AmiqSimpleTestSuite  default SLANG_REJECT / testflags SLANG_REJECT — NO
+                     slang.uhdm exists in either mode.  Untouchable.
+Monitor              default SLANG_REJECT / testflags SLANG_REJECT — NO
+                     slang.uhdm exists in either mode.  Untouchable.
+MiniAmiq             default CMP_NOTEQUAL / testflags CMP_NOTEQUAL, database
+                     present in both modes.  THE ONLY SURVIVOR.
+
+THE PREDICTION
+--------------
+  surelog byte movers    EXACTLY TWO: MiniAmiq/default and MiniAmiq/testflags.
+  uhdm2rtlil byte movers ZERO of 1358.
+  cells                  21 per mode — the 21 MISSING-OURS cells the pristine
+                         corpus census found inside `work@svaunit_vpi_interface`
+                         (svaunit_vpi_interface.sv 123:25, 149:11, 206:16,
+                         219:10, 258:10, 309:24, 309:37, 333:24, 333:37,
+                         357:24, 357:37, 382:24, 382:37, 383:56, 407:24,
+                         407:37, 433:24, 433:37, 467:50, 482:50, 498:50),
+                         every one of them a FORMAL or a SUBROUTINE / UNNAMED-
+                         STATEMENT-BLOCK LOCAL standing in a call-STATEMENT
+                         argument list or an `if` condition at its own control
+                         depth.
+  direction              TO-GOLDEN 42, AWAY-GOLDEN 0, MOVED-WRONG 0, UNSEEN 0.
+  status column          NO ROW CONVERTED in either direction: MiniAmiq stays
+                         CMP_NOTEQUAL (the head clears, deeper objects remain),
+                         and the SEVEN protected CMP_EQUAL row-modes are not in
+                         the fire set at all.

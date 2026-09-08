@@ -1,0 +1,140 @@
+ARM a1_iface parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=6862 heads=1 (VERDICT NOT THE SCORER)
+CALIB a1_iface parse -- REFS golden=51 ours=51  KEYS=51  SAME=51 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+CENSUS a1_iface parse -- REFS golden=51 ours=52  KEYS=52  SAME=48 MISSING-OURS=2 EXTRA-OURS=1 OTHER=1
+CELL a1_iface parse EXTRA-OURS    E218_A                   33:28  g=['-'] o=['enum_const']
+CELL a1_iface parse OTHER         None                     33:28  g=[] o=['-']
+CELL a1_iface parse MISSING-OURS  gvar218i                 63:24  g=['bit_var'] o=['-']
+CELL a1_iface parse MISSING-OURS  gvar218i                 64:31  g=['bit_var'] o=['-']
+CELL a1_iface parse -- REFS golden=51 ours=52  KEYS=52  SAME=48 MISSING-OURS=2 EXTRA-OURS=1 OTHER=1
+ARM a1_iface elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=7406 heads=1 (VERDICT NOT THE SCORER)
+CALIB a1_iface elab -- REFS golden=63 ours=63  KEYS=51  SAME=51 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+CENSUS a1_iface elab -- REFS golden=63 ours=52  KEYS=52  SAME=30 MISSING-OURS=9 EXTRA-OURS=1 OTHER=12
+CELL a1_iface elab MISSING-OURS  lvar218                  22:7   g=['bit_var'] o=['-']
+CELL a1_iface elab MISSING-OURS  a_en                     22:17  g=['io_decl'] o=['-']
+CELL a1_iface elab MISSING-OURS  lvar218                  23:17  g=['bit_var'] o=['-']
+CELL a1_iface elab EXTRA-OURS    E218_A                   33:28  g=['-'] o=['enum_const']
+CELL a1_iface elab OTHER         None                     33:28  g=[] o=['-']
+CELL a1_iface elab MISSING-OURS  a_en                     43:23  g=['io_decl'] o=['-']
+CELL a1_iface elab MISSING-OURS  b                        48:39  g=['io_decl'] o=['-']
+CELL a1_iface elab MISSING-OURS  gvar218i                 63:24  g=['bit_var'] o=['-']
+CELL a1_iface elab MISSING-OURS  gvar218i                 64:31  g=['bit_var'] o=['-']
+CELL a1_iface elab MISSING-OURS  h218i                    66:7   g=['class_var'] o=['-']
+CELL a1_iface elab OTHER         lvar218m                 76:7   g=['bit_var', 'bit_var'] o=['bit_var']
+CELL a1_iface elab OTHER         a_en                     76:18  g=['io_decl', 'io_decl'] o=['io_decl']
+CELL a1_iface elab OTHER         gvar218m                 77:7   g=['bit_var', 'logic_net'] o=['logic_net']
+CELL a1_iface elab OTHER         lvar218m                 77:18  g=['bit_var', 'bit_var'] o=['bit_var']
+CELL a1_iface elab OTHER         a_nm                     78:11  g=['io_decl', 'io_decl'] o=['io_decl']
+CELL a1_iface elab OTHER         gvar218m                 78:24  g=['bit_var', 'logic_net'] o=['logic_net']
+CELL a1_iface elab OTHER         a_rs                     79:11  g=['io_decl', 'io_decl'] o=['io_decl']
+CELL a1_iface elab OTHER         gvar218m                 79:31  g=['bit_var', 'logic_net'] o=['logic_net']
+CELL a1_iface elab OTHER         a_nm                     80:18  g=['io_decl', 'io_decl'] o=['io_decl']
+CELL a1_iface elab MISSING-OURS  h218m                    81:7   g=['-', 'class_var'] o=['-']
+CELL a1_iface elab OTHER         a_nm                     81:20  g=['io_decl', 'io_decl'] o=['io_decl']
+CELL a1_iface elab OTHER         a_en                     81:26  g=['io_decl', 'io_decl'] o=['io_decl']
+CELL a1_iface elab -- REFS golden=63 ours=52  KEYS=52  SAME=30 MISSING-OURS=9 EXTRA-OURS=1 OTHER=12
+ARM a2_window parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=7630 heads=1 (VERDICT NOT THE SCORER)
+CALIB a2_window parse -- REFS golden=59 ours=59  KEYS=59  SAME=59 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+CENSUS a2_window parse -- REFS golden=59 ours=60  KEYS=60  SAME=53 MISSING-OURS=0 EXTRA-OURS=6 OTHER=1
+CELL a2_window parse OTHER         None                     33:18  g=[] o=['-']
+CELL a2_window parse EXTRA-OURS    Q218_A                   33:18  g=['-'] o=['enum_const']
+CELL a2_window parse EXTRA-OURS    i218                     42:26  g=['-'] o=['int_var']
+CELL a2_window parse EXTRA-OURS    i218                     42:36  g=['-'] o=['int_var']
+CELL a2_window parse EXTRA-OURS    i218                     44:20  g=['-'] o=['int_var']
+CELL a2_window parse EXTRA-OURS    j218                     48:26  g=['-'] o=['int_var']
+CELL a2_window parse EXTRA-OURS    j218                     48:38  g=['-'] o=['int_var']
+CELL a2_window parse -- REFS golden=59 ours=60  KEYS=60  SAME=53 MISSING-OURS=0 EXTRA-OURS=6 OTHER=1
+ARM a2_window elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=7742 heads=1 (VERDICT NOT THE SCORER)
+CALIB a2_window elab -- REFS golden=60 ours=60  KEYS=59  SAME=59 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+CENSUS a2_window elab -- REFS golden=60 ours=60  KEYS=60  SAME=40 MISSING-OURS=18 EXTRA-OURS=1 OTHER=1
+CELL a2_window elab MISSING-OURS  x                        13:38  g=['-', 'io_decl'] o=['-']
+CELL a2_window elab OTHER         None                     33:18  g=[] o=['-']
+CELL a2_window elab EXTRA-OURS    Q218_A                   33:18  g=['-'] o=['enum_const']
+CELL a2_window elab MISSING-OURS  a_y                      34:16  g=['io_decl'] o=['-']
+CELL a2_window elab MISSING-OURS  a_y                      38:14  g=['io_decl'] o=['-']
+CELL a2_window elab MISSING-OURS  a_y                      39:20  g=['io_decl'] o=['-']
+CELL a2_window elab MISSING-OURS  loc218                   40:10  g=['int_var'] o=['-']
+CELL a2_window elab MISSING-OURS  a_x                      40:19  g=['io_decl'] o=['-']
+CELL a2_window elab MISSING-OURS  a_x                      43:14  g=['io_decl'] o=['-']
+CELL a2_window elab MISSING-OURS  a_x                      47:14  g=['io_decl'] o=['-']
+CELL a2_window elab MISSING-OURS  a_y                      48:33  g=['io_decl'] o=['-']
+CELL a2_window elab MISSING-OURS  a_x                      56:18  g=['io_decl'] o=['-']
+CELL a2_window elab MISSING-OURS  a_y                      56:23  g=['io_decl'] o=['-']
+CELL a2_window elab MISSING-OURS  a_x                      58:22  g=['io_decl'] o=['-']
+CELL a2_window elab MISSING-OURS  loc218                   61:7   g=['int_var'] o=['-']
+CELL a2_window elab MISSING-OURS  a_x                      61:22  g=['io_decl'] o=['-']
+CELL a2_window elab MISSING-OURS  loc218                   62:7   g=['int_var'] o=['-']
+CELL a2_window elab MISSING-OURS  nloc218                  66:14  g=['int_var'] o=['-']
+CELL a2_window elab MISSING-OURS  nloc218                  67:20  g=['int_var'] o=['-']
+CELL a2_window elab MISSING-OURS  z                        77:39  g=['io_decl'] o=['-']
+CELL a2_window elab -- REFS golden=60 ours=60  KEYS=60  SAME=40 MISSING-OURS=18 EXTRA-OURS=1 OTHER=1
+ARM a3_muststay parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=6420 heads=1 (VERDICT NOT THE SCORER)
+CALIB a3_muststay parse -- REFS golden=27 ours=27  KEYS=26  SAME=26 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+CENSUS a3_muststay parse -- REFS golden=27 ours=32  KEYS=31  SAME=23 MISSING-OURS=0 EXTRA-OURS=8 OTHER=0
+CELL a3_muststay parse EXTRA-OURS    a_x                      30:8   g=[] o=['io_decl']
+CELL a3_muststay parse EXTRA-OURS    loc318                   30:18  g=[] o=['int_var']
+CELL a3_muststay parse EXTRA-OURS    a_x                      31:15  g=[] o=['io_decl']
+CELL a3_muststay parse EXTRA-OURS    loc318                   32:4   g=[] o=['int_var']
+CELL a3_muststay parse EXTRA-OURS    a_x                      32:13  g=[] o=['io_decl']
+CELL a3_muststay parse EXTRA-OURS    loc318                   60:21  g=['-'] o=['int_var']
+CELL a3_muststay parse EXTRA-OURS    loc318                   62:7   g=['-'] o=['int_var']
+CELL a3_muststay parse EXTRA-OURS    a_x                      62:16  g=['-'] o=['io_decl']
+CELL a3_muststay parse -- REFS golden=27 ours=32  KEYS=31  SAME=23 MISSING-OURS=0 EXTRA-OURS=8 OTHER=0
+ARM a3_muststay elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=7114 heads=1 (VERDICT NOT THE SCORER)
+CALIB a3_muststay elab -- REFS golden=42 ours=42  KEYS=26  SAME=26 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+CENSUS a3_muststay elab -- REFS golden=42 ours=32  KEYS=31  SAME=11 MISSING-OURS=3 EXTRA-OURS=5 OTHER=12
+CELL a3_muststay elab OTHER         a_x                      21:11  g=['io_decl', 'io_decl'] o=['io_decl']
+CELL a3_muststay elab MISSING-OURS  loc318                   21:21  g=['-', 'int_var'] o=['-']
+CELL a3_muststay elab OTHER         a_x                      22:18  g=['io_decl', 'io_decl'] o=['io_decl']
+CELL a3_muststay elab MISSING-OURS  loc318                   23:7   g=['-', 'int_var'] o=['-']
+CELL a3_muststay elab MISSING-OURS  a_x                      23:16  g=['-', 'io_decl'] o=['-']
+CELL a3_muststay elab EXTRA-OURS    a_x                      30:8   g=[] o=['io_decl']
+CELL a3_muststay elab EXTRA-OURS    loc318                   30:18  g=[] o=['int_var']
+CELL a3_muststay elab EXTRA-OURS    a_x                      31:15  g=[] o=['io_decl']
+CELL a3_muststay elab EXTRA-OURS    loc318                   32:4   g=[] o=['int_var']
+CELL a3_muststay elab EXTRA-OURS    a_x                      32:13  g=[] o=['io_decl']
+CELL a3_muststay elab OTHER         a_x                      50:11  g=['io_decl', 'io_decl'] o=['io_decl']
+CELL a3_muststay elab OTHER         loc318                   50:21  g=['int_var', 'int_var'] o=['int_var']
+CELL a3_muststay elab OTHER         a_x                      51:18  g=['io_decl', 'io_decl'] o=['io_decl']
+CELL a3_muststay elab OTHER         loc318                   52:7   g=['int_var', 'int_var'] o=['int_var']
+CELL a3_muststay elab OTHER         a_x                      52:16  g=['io_decl', 'io_decl'] o=['io_decl']
+CELL a3_muststay elab OTHER         a_x                      71:11  g=['io_decl', 'io_decl'] o=['io_decl']
+CELL a3_muststay elab OTHER         loc318                   71:21  g=['int_var', 'int_var'] o=['int_var']
+CELL a3_muststay elab OTHER         a_x                      72:18  g=['io_decl', 'io_decl'] o=['io_decl']
+CELL a3_muststay elab OTHER         loc318                   73:7   g=['int_var', 'int_var'] o=['int_var']
+CELL a3_muststay elab OTHER         a_x                      73:16  g=['io_decl', 'io_decl'] o=['io_decl']
+CELL a3_muststay elab -- REFS golden=42 ours=32  KEYS=31  SAME=11 MISSING-OURS=3 EXTRA-OURS=5 OTHER=12
+ARM a4_dpi parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=2331 heads=1 (VERDICT NOT THE SCORER)
+CALIB a4_dpi parse -- REFS golden=23 ours=23  KEYS=23  SAME=23 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+CENSUS a4_dpi parse -- REFS golden=23 ours=23  KEYS=23  SAME=23 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+CELL a4_dpi parse -- REFS golden=23 ours=23  KEYS=23  SAME=23 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+ARM a4_dpi elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=3738 heads=1 (VERDICT NOT THE SCORER)
+CALIB a4_dpi elab -- REFS golden=23 ours=23  KEYS=23  SAME=23 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+CENSUS a4_dpi elab -- REFS golden=23 ours=23  KEYS=23  SAME=14 MISSING-OURS=9 EXTRA-OURS=0 OTHER=0
+CELL a4_dpi elab MISSING-OURS  loc418                   18:7   g=['int_var'] o=['-']
+CELL a4_dpi elab MISSING-OURS  a_rs                     18:16  g=['io_decl'] o=['-']
+CELL a4_dpi elab MISSING-OURS  loc418                   19:18  g=['int_var'] o=['-']
+CELL a4_dpi elab MISSING-OURS  loc418                   26:7   g=['int_var'] o=['-']
+CELL a4_dpi elab MISSING-OURS  a_q                      26:16  g=['io_decl'] o=['-']
+CELL a4_dpi elab MISSING-OURS  loc418                   33:7   g=['int_var'] o=['-']
+CELL a4_dpi elab MISSING-OURS  a_p                      33:16  g=['io_decl'] o=['-']
+CELL a4_dpi elab MISSING-OURS  loc418                   45:7   g=['int_var'] o=['-']
+CELL a4_dpi elab MISSING-OURS  a_p                      45:16  g=['io_decl'] o=['-']
+CELL a4_dpi elab -- REFS golden=23 ours=23  KEYS=23  SAME=14 MISSING-OURS=9 EXTRA-OURS=0 OTHER=0
+ARM a5_sibling parse rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=1699 heads=1 (VERDICT NOT THE SCORER)
+CALIB a5_sibling parse -- REFS golden=7 ours=7  KEYS=7  SAME=7 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+CENSUS a5_sibling parse -- REFS golden=7 ours=9  KEYS=9  SAME=5 MISSING-OURS=2 EXTRA-OURS=0 OTHER=2
+CELL a5_sibling parse OTHER         sink518(hh518            17:7   g=[] o=['-']
+CELL a5_sibling parse MISSING-OURS  a_q                      17:31  g=['io_decl'] o=['-']
+CELL a5_sibling parse OTHER         sink518(a_p, hh518       20:7   g=[] o=['-']
+CELL a5_sibling parse MISSING-OURS  a_p                      20:15  g=['io_decl'] o=['-']
+CELL a5_sibling parse -- REFS golden=7 ours=9  KEYS=9  SAME=5 MISSING-OURS=2 EXTRA-OURS=0 OTHER=2
+ARM a5_sibling elab rc_surelog=0 rc_ours=0 rc_cmp=255 cmplines=2442 heads=1 (VERDICT NOT THE SCORER)
+CALIB a5_sibling elab -- REFS golden=7 ours=7  KEYS=7  SAME=7 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+CENSUS a5_sibling elab -- REFS golden=7 ours=9  KEYS=9  SAME=4 MISSING-OURS=3 EXTRA-OURS=0 OTHER=2
+CELL a5_sibling elab OTHER         sink518(hh518            17:7   g=[] o=['-']
+CELL a5_sibling elab MISSING-OURS  a_q                      17:31  g=['io_decl'] o=['-']
+CELL a5_sibling elab OTHER         sink518(a_p, hh518       20:7   g=[] o=['-']
+CELL a5_sibling elab MISSING-OURS  a_p                      20:15  g=['io_decl'] o=['-']
+CELL a5_sibling elab MISSING-OURS  loc518                   21:34  g=['int_var'] o=['-']
+CELL a5_sibling elab -- REFS golden=7 ours=9  KEYS=9  SAME=4 MISSING-OURS=3 EXTRA-OURS=0 OTHER=2
+-- ARM-VIEWS SCORED: 10   NO-DATABASE: 0   CALIB non-null: 0

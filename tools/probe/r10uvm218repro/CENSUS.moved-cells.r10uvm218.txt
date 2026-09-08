@@ -1,0 +1,24 @@
+ONLY-GOLDEN keys (pristine): 47  ONLY-OURS keys (pristine): 23
+ONLY-GOLDEN keys (patched):  47  ONLY-OURS keys (patched):  23
+CELLS THAT MOVED pristine->patched: 20
+  MOVED a_test_name   123:25  golden=['io_decl'] pris=['-'] pat=['io_decl']
+  MOVED a_reason      149:11  golden=['io_decl'] pris=['-'] pat=['io_decl']
+  MOVED crt_state     206:16  golden=['enum_var'] pris=['-'] pat=['enum_var']
+  MOVED a_sva_type    219:10  golden=['io_decl'] pris=['-'] pat=['io_decl']
+  MOVED a_sva_type    258:10  golden=['io_decl'] pris=['-'] pat=['io_decl']
+  MOVED a_test_name   309:24  golden=['io_decl'] pris=['-'] pat=['io_decl']
+  MOVED enable_sva    309:37  golden=['bit_var'] pris=['-'] pat=['bit_var']
+  MOVED a_test_name   333:24  golden=['io_decl'] pris=['-'] pat=['io_decl']
+  MOVED disable_sva   333:37  golden=['bit_var'] pris=['-'] pat=['bit_var']
+  MOVED a_test_name   357:24  golden=['io_decl'] pris=['-'] pat=['io_decl']
+  MOVED enable_sva    357:37  golden=['bit_var'] pris=['-'] pat=['bit_var']
+  MOVED a_test_name   382:24  golden=['io_decl'] pris=['-'] pat=['io_decl']
+  MOVED enable_sva    382:37  golden=['bit_var'] pris=['-'] pat=['bit_var']
+  MOVED a_test_name   407:24  golden=['io_decl'] pris=['-'] pat=['io_decl']
+  MOVED enable_sva    407:37  golden=['bit_var'] pris=['-'] pat=['bit_var']
+  MOVED a_test_name   433:24  golden=['io_decl'] pris=['-'] pat=['io_decl']
+  MOVED enable_sva    433:37  golden=['bit_var'] pris=['-'] pat=['bit_var']
+  MOVED enable_sva    467:50  golden=['bit_var'] pris=['-'] pat=['bit_var']
+  MOVED disable_sva   482:50  golden=['bit_var'] pris=['-'] pat=['bit_var']
+  MOVED disable_sva   498:50  golden=['bit_var'] pris=['-'] pat=['bit_var']
+referent-kind histogram of the moved cells: {('io_decl',): 10, ('enum_var',): 1, ('bit_var',): 9}

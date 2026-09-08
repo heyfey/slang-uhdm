@@ -28634,10 +28634,22 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
         if (hasSubs9) {
             bool uninst9 = defAllInstCount[&def] == 0;
             bool savedSRA9 = suppressRefActual;
-            if (uninst9)
+            // § uninstIfaceBodyBindsInMethodWindow218 — "keeps every ref bare"
+            // is HALF right.  Golden keeps every ref bare EXCEPT in the
+            // class-method BINDING WINDOW, which Surelog still resolves eagerly
+            // for a definition it never elaborates.  `suppressRefActual` stays
+            // exactly as it was — it also governs TypeEmit's typespec actuals,
+            // which are NOT this law's business — and the new flag re-opens the
+            // window, and only the window, for the expression half.  See
+            // UhdmExporter.h for the law and its thirty-one measured cells.
+            bool savedUIS218 = uninstIfaceSubBody218;
+            if (uninst9) {
                 suppressRefActual = true;
+                uninstIfaceSubBody218 = true;
+            }
             emitTaskFuncs(body, iface, prefix, &info);
             suppressRefActual = savedSRA9;
+            uninstIfaceSubBody218 = savedUIS218;
             if (!uninst9 && iface->Task_funcs()) {
                 // Collect UNBOUND signal refs for the elab-var fixup.
                 std::function<void(const UHDM::any*)> walk9 =

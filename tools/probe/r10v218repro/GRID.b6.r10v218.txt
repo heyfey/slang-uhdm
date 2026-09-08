@@ -1,0 +1,33 @@
+ARM b6_reach parse rc_sl=0 rc_a=0 rc_b=0
+CALIB b6_reach parse -- REFS golden=17 ours=17  KEYS=17  SAME=17 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+CENSUS-PRIS b6_reach parse -- REFS golden=17 ours=17  KEYS=17  SAME=10 MISSING-OURS=6 EXTRA-OURS=1 OTHER=0
+CENSUS-PAT  b6_reach parse -- REFS golden=17 ours=17  KEYS=17  SAME=14 MISSING-OURS=2 EXTRA-OURS=1 OTHER=0
+CELLPRIS b6_reach parse MISSING-OURS  iv6v                      8:21  g=['bit_var(work@mod6v_never.u6v.iv6v)@5:8'] o=['-']
+CELLPRIS b6_reach parse MISSING-OURS  iv6v                      9:21  g=['bit_var(work@mod6v_never.u6v.iv6v)@5:8'] o=['-']
+CELLPRIS b6_reach parse EXTRA-OURS    hv6v                     25:21  g=['-'] o=['logic_net(work@if6v_host.hv6v)@21:8']
+CELLPRIS b6_reach parse MISSING-OURS  a_d                      35:11  g=['io_decl(a_d)@33:27'] o=['-']
+CELLPRIS b6_reach parse MISSING-OURS  ld6v                     36:12  g=['int_var(work@if6v_deep.fd6v.ld6v)@34:11'] o=['-']
+CELLPRIS b6_reach parse MISSING-OURS  a_t                      59:11  g=['io_decl(a_t)@57:27'] o=['-']
+CELLPRIS b6_reach parse MISSING-OURS  lt6v                     60:12  g=['int_var(work@if6v_gen.ft6v.lt6v)@58:11'] o=['-']
+CELLPRIS b6_reach parse -- REFS golden=17 ours=17  KEYS=17  SAME=10 MISSING-OURS=6 EXTRA-OURS=1 OTHER=0
+CELLPAT  b6_reach parse MISSING-OURS  iv6v                      8:21  g=['bit_var(work@mod6v_never.u6v.iv6v)@5:8'] o=['-']
+CELLPAT  b6_reach parse MISSING-OURS  iv6v                      9:21  g=['bit_var(work@mod6v_never.u6v.iv6v)@5:8'] o=['-']
+CELLPAT  b6_reach parse EXTRA-OURS    hv6v                     25:21  g=['-'] o=['logic_net(work@if6v_host.hv6v)@21:8']
+CELLPAT  b6_reach parse -- REFS golden=17 ours=17  KEYS=17  SAME=14 MISSING-OURS=2 EXTRA-OURS=1 OTHER=0
+ARM b6_reach elab rc_sl=0 rc_a=0 rc_b=0
+CALIB b6_reach elab -- REFS golden=17 ours=17  KEYS=17  SAME=17 MISSING-OURS=0 EXTRA-OURS=0 OTHER=0
+CENSUS-PRIS b6_reach elab -- REFS golden=17 ours=17  KEYS=17  SAME=10 MISSING-OURS=6 EXTRA-OURS=1 OTHER=0
+CENSUS-PAT  b6_reach elab -- REFS golden=17 ours=17  KEYS=17  SAME=14 MISSING-OURS=2 EXTRA-OURS=1 OTHER=0
+CELLPRIS b6_reach elab MISSING-OURS  iv6v                      8:21  g=['bit_var(work@mod6v_never.u6v.iv6v)@5:8'] o=['-']
+CELLPRIS b6_reach elab MISSING-OURS  iv6v                      9:21  g=['bit_var(work@mod6v_never.u6v.iv6v)@5:8'] o=['-']
+CELLPRIS b6_reach elab EXTRA-OURS    hv6v                     25:21  g=['-'] o=['logic_net(work@if6v_host.hv6v)@21:8']
+CELLPRIS b6_reach elab MISSING-OURS  a_d                      35:11  g=['io_decl(a_d)@33:27'] o=['-']
+CELLPRIS b6_reach elab MISSING-OURS  ld6v                     36:12  g=['int_var(work@if6v_deep.fd6v.ld6v)@34:11'] o=['-']
+CELLPRIS b6_reach elab MISSING-OURS  a_t                      59:11  g=['io_decl(a_t)@57:27'] o=['-']
+CELLPRIS b6_reach elab MISSING-OURS  lt6v                     60:12  g=['int_var(work@if6v_gen.ft6v.lt6v)@58:11'] o=['-']
+CELLPRIS b6_reach elab -- REFS golden=17 ours=17  KEYS=17  SAME=10 MISSING-OURS=6 EXTRA-OURS=1 OTHER=0
+CELLPAT  b6_reach elab MISSING-OURS  iv6v                      8:21  g=['bit_var(work@mod6v_never.u6v.iv6v)@5:8'] o=['-']
+CELLPAT  b6_reach elab MISSING-OURS  iv6v                      9:21  g=['bit_var(work@mod6v_never.u6v.iv6v)@5:8'] o=['-']
+CELLPAT  b6_reach elab EXTRA-OURS    hv6v                     25:21  g=['-'] o=['logic_net(work@if6v_host.hv6v)@21:8']
+CELLPAT  b6_reach elab -- REFS golden=17 ours=17  KEYS=17  SAME=14 MISSING-OURS=2 EXTRA-OURS=1 OTHER=0
+-- ARM-VIEWS SCORED: 2   NO-DATABASE: 0   CALIB non-null: 0
